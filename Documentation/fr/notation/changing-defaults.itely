@@ -9,7 +9,7 @@
 
 @c \version "2.12.0"
 
-@c Translators: Valentin Villenave
+@c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
 
 
@@ -25,15 +25,15 @@ l'inventaire exhaustif.  Le propos est plutôt ici de mettre en évidence
 les différents groupes auxquels s'apparentent ces contrôles, et d'expliquer
 comment trouver le bon levier pour obtenir tel ou tel effet en particulier.
 
-@cindex Référence du programme
+@cindex Référence des propriétés internes
 
 Les moyens de contrôle des différents réglages sont décrits dans un document
 séparé, la
 @iftex
-référence du programme
+référence des propriétés internes
 @end iftex
 @ifnottex
-@ref{Top,Référence du programme,,lilypond-internals}.
+@ref{Top,Référence des propriétés internes,,lilypond-internals}.
 @end ifnottex
 Ce guide répertorie toutes les variables, fonctions et autres options que
 LilyPond met à votre disposition.  Il est consultable
@@ -42,24 +42,28 @@ LilyPond met à votre disposition.  Il est consultable
 au format HTML, mais est également inclus dans la documentation
 fournie avec le logiciel.
 
-Il est quatre domaines dans lesquels on peut modifier les réglages par défaut :
+Il est quatre domaines dans lesquels on peut modifier les réglages par
+défaut :
 
 @itemize @bullet
 @item
-La notation automatique, ce qui revient à modifier la manière dont les éléments
-de notation sont automatiquement créés -- par exemple, les règles de ligatures.
+La notation automatique, ce qui revient à modifier la manière dont les
+éléments de notation sont automatiquement créés -- par exemple, les
+règles de ligature. 
 
 @item
-L'apparence, qui se rapporte aux objets pris individuellement -- ainsi de la direction
-des hampes, du placement des indications textuelles.
+L'apparence, qui se rapporte aux objets pris individuellement -- ainsi
+de la direction des hampes, du placement des indications textuelles.
 
 @item
-Les contextes, qui recouvrent la manière dont les évènements musicaux sont représentés sous forme de
-notation -- par exemple, le fait d'attribuer un chiffre de mesure distinct à chaque portée.
+Les contextes, qui recouvrent la manière dont les évènements musicaux
+sont représentés sous forme de notation -- par exemple, le fait
+d'attribuer un chiffre de mesure distinct à chaque portée. 
 
 @item
-La mise en page, autrement dit les marges, l'espacement, la taille du papier ; tous ces facteurs
-font l'objet des chapitres @ref{Généralités en matière d'entrée et sortie} et @ref{Gestion de l'espace}.
+La mise en page, autrement dit les marges, l'espacement, la taille du
+papier ; tous ces facteurs font l'objet des chapitres 
+@ref{Généralités en matière d'entrée et sortie} et @ref{Gestion de l'espace}.
 @end itemize
 
 En sous-main, LilyPond se sert du langage Scheme (un dérivé du LISP) comme
@@ -67,8 +71,9 @@ infrastructure.  Modifier les choix de mise en page revient à pénétrer dans
 les entrailles du programme, et de ce fait requiert l'emploi du Scheme.
 Les fragments de Scheme, dans un fichier @code{.ly}, sont introduits par le
 caractère @q{hash}, (@code{#}, improprement surnommé @q{dièse}).@footnote{Le
-@rlearning{Tutoriel Scheme} fournit quelques notions de base pour saisir des nombres,
-des listes, des chaînes de caractères ou des symboles, en Scheme.}
+@rlearning{Tutoriel Scheme} fournit quelques notions de base pour saisir
+des nombres, des listes, des chaînes de caractères ou des symboles, en
+Scheme.} 
 
 
 @menu
@@ -88,12 +93,29 @@ Cette section traite des contextes.
 @menu
 * Tout savoir sur les contextes::
 * Création d'un contexte::
+* Conservation d'un contexte::
 * Modification des greffons de contexte::
-* Retouches de mise en forme au sein des contextes::
 * Modification des réglages par défaut d'un contexte::
 * Définition de nouveaux contextes::
 * Alignement des contextes::
 @end menu
+
+
+@seealso
+Manuel d'initiation :
+@rlearning{Contextes et graveurs}.
+
+Fichiers d'initialisation :
+@file{ly/@/engraver@/-init@/.ly},
+@file{ly/@/performer@/-init@/.ly}.
+
+Morceaux choisis :
+@rlsr{Contexts and engravers}.
+
+Référence des propriétés internes :
+@rinternals{Contexts},
+@rinternals{Engravers and Performers}.
+
 
 @node Tout savoir sur les contextes
 @subsection Tout savoir sur les contextes
@@ -126,35 +148,35 @@ further explanation and with links to the IR.
 
 
 @menu
-* Score - le père de tous les contextes::
-* Contextes de haut niveau - les systèmes::
-* Contextes de niveau intermédiaire - les portées::
-* Contextes de bas niveau - les voix::
+* Score -- le père de tous les contextes::
+* Contextes de haut niveau -- les systèmes::
+* Contextes de niveau intermédiaire -- les portées::
+* Contextes de bas niveau -- les voix::
 @end menu
 
-@node Score - le père de tous les contextes
-@unnumberedsubsubsec Score - le père de tous les contextes
+@node Score -- le père de tous les contextes
+@unnumberedsubsubsec Score -- le père de tous les contextes
 @translationof Score - the master of all contexts @c external
 
 @untranslated
 
 
-@node Contextes de haut niveau - les systèmes
-@unnumberedsubsubsec Contextes de haut niveau - les systèmes
+@node Contextes de haut niveau -- les systèmes
+@unnumberedsubsubsec Contextes de haut niveau -- les systèmes
 @translationof Top-level contexts - staff containers @c external
 
 @untranslated
 
 
-@node Contextes de niveau intermédiaire - les portées
-@unnumberedsubsubsec Contextes de niveau intermédiaire - les portées
+@node Contextes de niveau intermédiaire -- les portées
+@unnumberedsubsubsec Contextes de niveau intermédiaire -- les portées
 @translationof Intermediate-level contexts - staves @c external
 
 @untranslated
 
 
-@node Contextes de bas niveau - les voix
-@unnumberedsubsubsec Contextes de bas niveau - les voix
+@node Contextes de bas niveau -- les voix
+@unnumberedsubsubsec Contextes de bas niveau -- les voix
 @translationof Bottom-level contexts - voices @c external
 
 @untranslated
@@ -167,6 +189,13 @@ further explanation and with links to the IR.
 @untranslated
 
 
+@node Conservation d'un contexte
+@subsection Conservation d'un contexte
+@translationof Keeping contexts alive @c external
+
+@untranslated
+
+
 @node Modification des greffons de contexte
 @subsection Modification des greffons de contexte
 @translationof Modifying context plug-ins
@@ -175,8 +204,10 @@ Les contextes, tels que @code{Score} ou @code{Staff}, ne contiennent
 pas que des propriétés ; ils mettent également en œuvre certains
 sous-programmes (@q{plug-ins}, pour employer le terme consacré) nommés
 @q{graveurs} (@q{engravers}, pour reprendre le terme anglais).
-Ces sous-programmes sont chargés de créer les différents éléments de notation :
-On trouve ainsi dans le contexte @code{Voice}, un graveur @code{Note_head_engraver},
+Ces sous-programmes sont chargés de créer les différents éléments de
+notation : 
+On trouve ainsi dans le contexte @code{Voice}, un graveur
+@code{Note_head_engraver}, 
 chargé des têtes de notes, et dans le contexte @code{Staff}, un graveur
 @code{Key_signature_engraver}, chargé de l'armure.
 
@@ -241,11 +272,12 @@ et la clé (graveur @code{Clef_engraver}).
 >>
 @end lilypond
 
-La clé et le chiffre de mesure ont disparu de la deuxième portée.  C'est une méthode
-quelque peu radicale, puisqu'elle affectera toute la portée jusqu'à la fin de la
-partition.  L'espacement s'en trouve également affecté, ce qui peut être ou non
-l'effet recherché.  Une méthode plus sophistiquée aurait été de rendre ces objets
-transparents (voir @rlearning{Visibilité et couleur des objets}).
+La clé et le chiffre de mesure ont disparu de la deuxième portée.  C'est
+une méthode quelque peu radicale, puisqu'elle affectera toute la portée
+jusqu'à la fin de la partition.  L'espacement s'en trouve également
+affecté, ce qui peut être ou non l'effet recherché.  Une méthode plus
+sophistiquée aurait été de rendre ces objets transparents (voir
+@rlearning{Visibilité et couleur des objets}). 
 
 Dans l'exemple suivant, voici une mise en pratique plus utile.  En temps
 normal, les barres de mesure et la métrique sont synchronisées verticalement
@@ -281,9 +313,10 @@ En les enlevant du contexte @code{Score} pour les attribuer au contexte
 
 
 @c deprecated node: delete. --fv
-@node Retouches de mise en forme au sein des contextes
-@subsection Retouches de mise en forme au sein des contextes
-@translationof Layout tunings within contexts
+@ignore
+@n ode Retouches de mise en forme au sein des contextes
+@s ubsection Retouches de mise en forme au sein des contextes
+@t ranslationof Layout tunings within contexts
 
 Chaque contexte est chargé de créer plusieurs types d'objets graphiques.
 Il contient également les réglages nécessaires pour chacun de ces objets.
@@ -391,7 +424,7 @@ Référence du programme : @rinternals{OverrideProperty}, @rinternals{RevertProp
 La sous-couche Scheme ne vérifie pas la saisie des propriétés de façon
 très stricte.  Des références cycliques dans des valeurs Scheme peuvent
 de ce fait interrompre, ou faire planter le programme -- ou bien les deux.
-
+@end ignore
 
 @node Modification des réglages par défaut d'un contexte
 @subsection Modification des réglages par défaut d'un contexte
@@ -657,8 +690,8 @@ ossia = { f4 f f f }
 @end lilypond
 
 
-@node En quoi consiste la référence du programme
-@section En quoi consiste la référence du programme
+@node En quoi consiste la référence des propriétés internes
+@section En quoi consiste la référence des propriétés internes
 @translationof Explaining the Internals Reference
 
 
