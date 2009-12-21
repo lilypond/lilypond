@@ -2335,7 +2335,6 @@
    note-head::brew-ez-stencil
    print-circled-text-callback
    lyric-text::print
-   ly:arpeggio::brew-chord-bracket
    ly:bar-line::print
    ly:mensural-ligature::brew-ligature-primitive
    ly:note-head::print
@@ -2350,6 +2349,7 @@
 (define pure-print-to-height-conversions
   `(
     (,ly:arpeggio::print . ,ly:arpeggio::pure-height)
+    (,ly:arpeggio::brew-chord-bracket . ,ly:arpeggio::pure-height)
     (,ly:hairpin::print . ,ly:hairpin::pure-height)
     (,ly:volta-bracket-interface::print . ,volta-bracket-interface::pure-height)))
 
