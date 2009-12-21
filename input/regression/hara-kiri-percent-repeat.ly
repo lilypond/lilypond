@@ -1,16 +1,22 @@
+\version "2.13.10"
+
 \header {
-  texidoc = "Staves with percent repeats are not killed."
+  texidoc = "Staves, RhythmicStaves, TabStaves and DrumStaves
+  with percent repeats are not suppressed."
 }
 
-\version "2.12.0"
-
 <<
- \new Staff { c''1 c'' \break c'' c'' }
- \new Staff \repeat percent 4 { c'1 }
+  \new Staff { c''1 c'' \break c'' c'' }
+  \new Staff \repeat percent 4 { c'1 }
+  \new TabStaff \repeat  percent 4 { c1 }
+  \new DrumStaff \drummode { \repeat percent 4 { hh1 } }
+  \new RhythmicStaff \repeat percent 4 { c'1 }
 >>                          
 
 \layout {
- \context {
-   \RemoveEmptyStaffContext
- }
-}
+  \context { \RemoveEmptyStaffContext }
+  \context { \RemoveEmptyRhythmicStaffContext }
+  \context { \RemoveEmptyDrumStaffContext }
+  \context { \RemoveEmptyTabStaffContext }
+  }
+

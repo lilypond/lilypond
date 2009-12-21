@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.12.0"
+\version "2.13.10"
 
 \context {
   \name "Global"
@@ -451,7 +451,7 @@ printing of a single line of lyrics."
 }
 
 
-RemoveEmptyStaffContext= \context {
+RemoveEmptyStaffContext = \context {
   \Staff
   \remove "Axis_group_engraver"
   \consists "Hara_kiri_engraver"
@@ -994,10 +994,24 @@ accommodated for typesetting a piece in mensural style."
   printKeyCancellation = ##f
 }
 
+RemoveEmptyDrumStaffContext = \context {
+  \DrumStaff
+  \remove "Axis_group_engraver"
+  \override VerticalAxisGroup #'remove-empty = ##t
+  \consists "Hara_kiri_engraver"
+}
 
-RemoveEmptyRhythmicStaffContext= \context {
+RemoveEmptyRhythmicStaffContext = \context {
   \RhythmicStaff
   \remove "Axis_group_engraver"
   \override VerticalAxisGroup #'remove-empty = ##t
   \consists "Hara_kiri_engraver"
 }
+
+RemoveEmptyTabStaffContext = \context {
+  \TabStaff
+  \remove "Axis_group_engraver"
+  \override VerticalAxisGroup #'remove-empty = ##t
+  \consists "Hara_kiri_engraver"
+}
+
