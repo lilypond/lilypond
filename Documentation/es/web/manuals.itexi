@@ -1,0 +1,839 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: ae7ca5c10109a1fc1b23db493d73931abbb8794e
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Manuales
+@unnumbered Manuales
+
+@divClass{heading-center}
+@heading Documentation for LilyPond @version
+
+@divEnd
+
+@c TODO: do we want these links to be in larger text / bold ?   CSS.
+
+@c if you change this page, also change All.
+@divClass{column-center-top}
+@subheading Introduction
+
+@itemize
+
+@item @ref{Text input}:
+LilyPond is a @strong{text-based} music engraver.  If you are not
+familiar with this concept, please read this now!
+
+@item @ref{Learning}:
+a @qq{must-read} gentle introduction to LilyPond.
+
+@item @ref{Glossary}:
+@emph{(optional reading)}
+explains musical terms and gives translations for users unfamiliar
+with English musical terms.
+
+@item @ref{Essay}:
+@emph{(optional reading)}
+background information about the engraving process and the
+aesthetics of 19th century music engraving.
+
+
+@end itemize
+
+@divEnd
+
+@divClass{column-left-top}
+@subheading Regular use
+
+@itemize
+
+@item @ref{Notation}:
+the main portion of the documentation; provides detailed
+information about creating notation.
+
+@item @ref{Usage}:
+discusses the actual programs and operating system-specific
+issues.
+
+@item @ref{Snippets}:
+short tricks, tips, and examples.
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Infrequent Use
+
+@itemize
+
+@item @ref{Web}:
+this document.
+
+@item @ref{FAQ}:
+links to the answers of Frequently Asked Questions.
+
+@item @ref{Changes}:
+updates since the last major version.
+
+@item @ref{Extend}:
+programming fancy tweaks in LilyPond.
+
+@item @ref{Internals}:
+information about LilyPond's internal structures, which is
+required for constructing tweaks.
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Other material
+
+@itemize
+
+@item @ref{Translated}:
+translation status for non-English readers.
+
+@item @ref{All}:
+quick links, downloadable manuals, and old manuals.
+
+@item @ref{Development}:
+manuals for the unstable version.
+
+@item @ref{FDL}:
+these manuals are published under the GNU Free Documentation
+License.
+
+@end itemize
+
+@divEnd
+
+
+@divClass{hide}
+@menu
+* Learning::             Learning.
+* Glossary::              Glossary.
+* Essay::                       Essay.
+* Notation::          Reference.
+* Usage::           Usage.
+* Snippets::                Snippets.
+* Web::                      Web.
+* FAQ::                         FAQ.
+* Changes::                     NEWS.
+* Extend::         Programming.
+* Internals::         Internals.
+* Translated::          Translation.
+* All::                 All manuals.
+* FDL::                     Licence.
+@end menu
+
+@divEnd
+
+
+@c TRANSLATORS: most of the text in this file came from
+@c LM 1.1 About the documentation  (before this section was
+@c removed in July 2009).
+
+@node Learning
+@unnumberedsec Learning
+
+@divClass{column-left-top}
+@subheading Learning manual
+
+This book explains how to begin learning LilyPond, as well as
+explaining some key concepts in easy terms.  You should read these
+chapters in a linear fashion.
+
+There is a paragraph @strong{See also} at the end of each section,
+which contains cross-references to other sections: you should not
+follow these cross-references at first reading.  When you have
+read all of the manual, you may want to read some sections again
+and follow those cross-references for more information.
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Read it
+
+@itemize
+
+@item @rlearningnamed{Top,Learning}:
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../learning/index.html, Learning (split HTML)}:
+the manual is split between many HTML pages.
+@*@ @ @emph{(small download for each page)}
+
+@item @uref{../learning-big-page.html, Learning (big HTML)}:
+read this manual as one huge HTML page.
+@*@ @ @emph{(large single download, 1.5 Mb)}
+
+@item @uref{../learning.pdf, learning.pdf}:
+download as a PDF file.
+@*@ @ @emph{(large single download, 3 Mb)}
+
+@c TODO: should make links to info?
+@c @item @uref{../TODO, learning.info}:
+@c GNU info format for documentation.  link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+@node Glossary
+@unnumberedsec Glossary
+
+@divClass{column-left-top}
+@subheading Glossary
+
+This explains musical terms, and includes translations to various
+languages.  If you are not familiar with music notation or music
+terminology (especially if you are a non-native English speaker),
+it is highly advisable to consult the glossary.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Read it
+
+@itemize
+
+@item @rglosnamed{Top,Music glossary}:
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../music-glossary/index.html, Glossary (split HTML)}:
+the manual is split between many HTML pages.
+@*@ @ @emph{(small download for each page)}
+
+@item @uref{../music-glossary-big-page.html, Glossay (big HTML)}:
+read this manual as one huge HTML page.
+@*@ @ @emph{(large single download, 1 mb)}
+
+@item @uref{../music-glossary.pdf, glossary.pdf}:
+download as a PDF file.
+@*@ @ @emph{(large single download, 1.5 Mb)}
+
+@c @item @uref{../TODO, glossary.info}:
+@c GNU info format for documentation.  TODO, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+@node Essay
+@unnumberedsec Essay
+
+@divClass{column-left-top}
+@subheading Essay
+
+This book gives a brief history of music typography, followed by
+an examination of LilyPond's engraving techniques.  A comparison
+between LilyPond and other music engraving systems is given.
+
+@warning{The detailed typographical examples are easier to analyze
+in the PDF version due to its higher resolution.}
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Read it
+
+@itemize
+
+@item @ressaynamed{Top,Essay}:
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../essay/index.html, Essay (split HTML)}:
+the manual is split between many HTML pages.
+@*@ @ @emph{(small download for each page)}
+
+@item @uref{../essay-big-page.html, Essay (big HTML)}:
+read this manual as one huge HTML page.
+@*@ @ @emph{(large single download, 2 Mb)}
+
+@item @uref{../essay.pdf, essay.pdf}:
+download as a PDF file.
+@*@ @ @emph{(large single download, 2.5 Mb)}
+
+@c @item @uref{../TODO, essay.info}:
+@c GNU info format for documentation.  TODO, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+@node Notation
+@unnumberedsec Notation
+
+@divClass{column-left-top}
+@subheading Notation reference
+
+This book explains all the LilyPond commands which produce
+notation.
+
+@warning{The Notation reference assumes that the reader knows
+basic material covered in the Learning manual and is familiar with
+the English musical terms presented in the Musical Glossary.}
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Read it
+
+@itemize
+
+@item @rusernamed{Top,Notation}:
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../notation/index.html, Notation (split HTML)}:
+the manual is split between many HTML pages.
+@*@ @ @emph{(small download for each page)}
+
+@item @uref{../notation-big-page.html, Notation (big HTML)}:
+read this manual as one huge HTML page.
+@*@ @ @emph{(large single download, 7 Mb)}
+
+@item @uref{../notation.pdf, notation.pdf}:
+download as a PDF file.
+@*@ @ @emph{(large single download, 18 Mb)}
+
+@c @item @uref{../TODO, notation.info}:
+@c GNU info format for documentation.  TODO, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+@node Usage
+@unnumberedsec Usage
+
+@divClass{column-left-top}
+@subheading Usage manual
+
+This book explains how to execute the programs, how to integrate
+LilyPond notation with other programs, and suggests @qq{best
+practices} for efficient use.  It is recommended reading before
+attempting any large projects.
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Read it
+
+@itemize
+
+@item @rprogramnamed{Top,Usage}:
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../usage/index.html, Usage (split HTML)}:
+the manual is split between many HTML pages.
+@*@ @ @emph{(small download for each page)}
+
+@item @uref{../usage-big-page.html, Usage (big HTML)}:
+read this manual as one huge HTML page.
+@*@ @ @emph{(large single download, 300 kb)}
+
+@item @uref{../usage.pdf, usage.pdf}:
+download as a PDF file.
+@*@ @ @emph{(large single download, 400 kb)}
+
+@c @item @uref{../TODO, lilypond-usage.info}:
+@c GNU info format for documentation.  TODO, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+@node Snippets
+@unnumberedsec Snippets
+
+@divClass{column-left-top}
+@subheading Snippets
+
+This shows a selected set of LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR).  All the snippets are in the public domain.
+
+Please note that this document is not an exact subset of LSR.  LSR
+is running a stable LilyPond version, so any snippet which
+demonstrates new features of a development version must be added
+separately.  These are stored in @file{input/new/} in the LilyPond
+source tree.
+
+The list of snippets for each subsection of the Notation are also
+linked from the @strong{See also} portion.
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Read it
+
+@itemize
+
+@item @rlsrnamed{Top,Snippets}:
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../snippets/index.html, Snippets (split HTML)}:
+the manual is split between many HTML pages.
+@*@ @ @emph{(small download for each page)}
+
+@item @uref{../snippets-big-page.html, Snippets (big HTML)}:
+read this manual as one huge HTML page.
+@*@ @ @emph{(large single download, 2.5 Mb)}
+
+@item @uref{../snippets.pdf, snippets.pdf}:
+download as a PDF file.
+@*@ @ @emph{(large single download, 8 Mb)}
+
+@c @item @uref{../TODO, snippets.info}:
+@c GNU info format for documentation.  TODO, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+@node Web
+@unnumberedsec Web
+
+@divClass{column-left-top}
+@subheading Web
+
+This manual supplies general information about LilyPond.  It also
+contains information about various community forums, bug
+reporting, and development.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Read it
+
+@itemize
+
+@item @rweb{Top,Web}:
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../web/index.html, Web (split HTML)}:
+the manual is split between many HTML pages.
+@*@ @ @emph{(small download for each page)}
+
+@item @uref{../web-big-page.html, Web (big HTML)}:
+read this manual as one huge HTML page.
+@*@ @ @emph{(large single download, 1 Mb)}
+
+@item @uref{../web.pdf, web.pdf}:
+download as a PDF file.
+@*@ @ @emph{(large single download, 2 Mb)}
+
+@c @item @uref{../TODO, web.info}:
+@c GNU info format for documentation.  TODO, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+
+@node FAQ
+@unnumberedsec FAQ
+
+@divClass{column-center-top}
+@subheading Introductory questions
+
+@subsubheading Where are the graphical canvas, menus, and toolbars?
+
+LilyPond requires you to write music as text.  Please read about
+our @ref{Text input}.
+
+
+@subsubheading There's a lot of documentation!  Do I need to read it?
+
+You need to read the @ref{Learning, Learning manual}.  As for the
+rest of documentation, you only need to read the sections which
+discuss the notation that you wish to create.
+
+
+@subsubheading That's still a lot of reading!  Is it worth it?
+
+Please decide for yourself; the reasons why you might want to use
+LilyPond are given in the @ref{Introduction}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Usage questions
+
+@subsubheading Something isn't working!  How do I fix it?
+
+This is explained in @rprogram{Troubleshooting}.
+
+
+@subsubheading Why do you change the syntax?
+
+This is explained in @rprogram{Why does the syntax change?}.
+
+@divEnd
+
+
+@node Changes
+@unnumberedsec Changes
+
+@divClass{column-left-top}
+@subheading Changes
+
+This is a summary of important changes and new features in
+LilyPond since the previous stable version.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Read it
+
+@itemize
+
+@item @rchangesnamed{Top,Changes}:
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../changes/index.html, Changes (split HTML)}:
+the manual is split between many HTML pages.
+@*@ @ @emph{(small download for each page)}
+
+@item @uref{../changes-big-page.html, Changes (big HTML)}:
+read this manual as one huge HTML page.
+@*@ @ @emph{(large single download, 6 kb)}
+
+@item @uref{../changes.pdf, changes.pdf}:
+download as a PDF file.
+@*@ @ @emph{(small single download, 200 kb)}
+
+@c @item @uref{../TODO, changes.info}:
+@c GNU info format for documentation.  TODO, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+@node Extend
+@unnumberedsec Extend
+
+@divClass{column-left-top}
+@subheading Extend LilyPond
+
+This manual explains how to write extensions to LilyPond.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Read it
+
+@itemize
+
+@item @rextendnamed{Top,Extend}:
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../extending/index.html, Extend (split HTML)}:
+the manual is split between many HTML pages.
+@*@ @ @emph{(small download for each page)}
+
+@item @uref{../extending-big-page.html, Extend (big HTML)}:
+read this manual as one huge HTML page.
+@*@ @ @emph{(large single download, 200 kb)}
+
+@item @uref{../extending.pdf, extending.pdf}:
+download as a PDF file.
+@*@ @ @emph{(large single download, 400 kb)}
+
+@c @item @uref{../TODO, extending.info}:
+@c GNU info format for documentation.  TODO, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+@node Internals
+@unnumberedsec Internals
+
+@divClass{column-left-top}
+@subheading Internals reference
+
+This is a set of heavily cross linked HTML pages which document
+the nitty-gritty details of each and every LilyPond class, object,
+and function.  It is produced directly from the formatting
+definitions in the source code.
+
+Almost all formatting functionality that is used internally is
+available directly to the user.  For example, most variables that
+control thickness values, distances, etc., can be changed in input
+files.  There are a huge number of formatting options, and all of
+them are described in this document.  Each section of the Notation
+Reference has a @b{See also} subsection, which refers to the
+generated documentation.  In the HTML document, these subsections
+have clickable links.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Read it
+
+@itemize
+
+ @rinternalsnamed{Top,Internals}:
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../internals/index.html, Internals (split HTML)}:
+the manual is split between many HTML pages.
+@*@ @ @emph{(small download for each page)}
+
+@item @uref{../internals-big-page.html, Internals (big HTML)}:
+read this manual as one huge HTML page.
+@*@ @ @emph{(large single download, 2.5 Mb)}
+
+@item @uref{../internals.pdf, internals.pdf}:
+download as a PDF file.
+@*@ @ @emph{(large single download, 2.8 Mb)}
+
+@c @item @uref{../TODO, internals.info}:
+@c GNU info format for documentation.  TODO, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+
+@node Translated
+@unnumberedsec Translated
+
+@divClass{column-center-bottom}
+@subheading Translation status
+
+TODO: clean up / prettify
+
+@uref{../translations.html}.
+
+@divEnd
+
+
+@node All
+@unnumberedsec All
+
+@divClass{heading-center}
+@heading Documentation quick links
+
+Links to other formats of these manuals can be found in
+@ref{Manuales}.
+
+@divEnd
+
+@c this should match the (main) manual page.
+@divClass{column-center-top}
+@subheading Introduction
+
+@itemize
+
+@item @rlearningnamed{Top,Learning}:
+a @qq{must-read} gentle introduction to LilyPond.
+
+@item @rglosnamed{Top,Glossary}:
+@emph{(optional reading)}
+explains musical terms and gives translations for users unfamiliar
+with English musical terms.
+
+@item @ressaynamed{Top,Essay}:
+@emph{(optional reading)}
+background information about the engraving process and the
+aesthetics of 19th century music engraving.
+
+@end itemize
+
+@divEnd
+
+@divClass{column-left-top}
+@subheading Regular use
+
+@itemize
+
+@item @rusernamed{Top,Notation}:
+the main portion of the documentation; provides detailed
+information about creating notation.
+
+@item @rprogramnamed{Top,Usage}:
+discusses the actual programs and operation system-specific
+issues.
+
+@item @rlsrnamed{Top,Snippets}:
+short tricks, tips, and examples.
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Infrequent Use
+
+@itemize
+
+@item @ref{FAQ}:
+links to answers of Frequently Asked Questions.
+
+@item @rchangesnamed{Top,Changes}:
+updates since the last major version.
+
+@item @rextendnamed{Top,Extend}:
+programming fancy tweaks in LilyPond.
+
+@item @rinternalsnamed{Top,Internals}:
+information about LilyPond's internal structures, which is
+required for constructing tweaks.
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Downloadable versions
+
+@help{compare tarball vs. zip size, ask about windows users
+dealing with tarballs (both gz and bz2), etc.}
+
+@help{on second thought, wait until the new doc build.  write an
+apology here for no tarballs}
+
+@divClass{keep-bullets}
+@itemize
+
+@item html-split zip
+
+@item html-big zip
+
+@item pdf zip
+
+@item info zip maybe?!?!
+
+@end itemize
+
+@divEnd
+
+@subheading Previous stable versions
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+LilyPond 2.12 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+LilyPond 2.10 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+LilyPond 2.8 Documentation}
+
+@help anybody want to write this stuff?
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@node FDL
+@unnumberedsec FDL
+
+@divClass{column-center-top}
+@subheading Documentation license
+
+The documentation for GNU LilyPond is published under the GNU Free
+Documentation License.  An introduction to this license, and our
+reasons for choosing it, is given in @ref{Freedom}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading GNU Free Documentation License 1.1
+
+@include fdl.itexi
+
+@divEnd
+
+
