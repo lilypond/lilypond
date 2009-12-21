@@ -289,8 +289,8 @@ A special type of list is an @emph{association list} or @emph{alist}.
 An alist is used to store data for easy retrieval.
 
 Alists are lists whose elements are pairs.  The @code{car} of each
-element is called the @code{key}, and the @code{cdr} of each element
-is called the @code{value}.  The Scheme procedure @code{assoc} is
+element is called the @emph{key}, and the @code{cdr} of each element
+is called the @emph{value}.  The Scheme procedure @code{assoc} is
 used to retrieve an entry from the alist, and @code{cdr} is used to
 retrieve the value:
 
@@ -356,6 +356,7 @@ guile>
 @node Calculations in Scheme
 @subsection Calculations in Scheme
 
+@ignore
 We have been using lists all along.  A calculation, like @code{(+ 1 2)}
 is also a list (containing the symbol @code{+} and the numbers 1
 and@tie{}2).  Normally lists are interpreted as calculations, and the
@@ -372,29 +373,67 @@ respectively,
 #'(staff clef key-signature)
 #'((1) (2))
 @end example
+@end ignore
 
 Scheme can be used to do calculations.  It uses @emph{prefix}
 syntax.  Adding 1 and@tie{}2 is written as @code{(+ 1 2)} rather than the
 traditional @math{1+2}.
 
 @lisp
-(+ 1 2)
-  @result{} 3
+guile> (+ 1 2)
+3
 @end lisp
 
-The arrow @result{} shows that the result of evaluating @code{(+ 1 2)}
-is@tie{}@code{3}.  Calculations may be nested; the result of a function may
+Calculations may be nested; the result of a function may
 be used for another calculation.
 
 @lisp
-(+ 1 (* 3 4))
-  @result{} (+ 1 12)
-  @result{} 13
+guile> (+ 1 (* 3 4))
+13
+guile> (+ 1 (* 3 4))
 @end lisp
 
 These calculations are examples of evaluations; an expression like
 @code{(* 3 4)} is replaced by its value @code{12}.
 
+When the scheme parser encounters an expression that is a list, the
+first element of the list is treated as a procedure to be evaluated
+with the arguments of the remainder of the list.  Therefore, all operators
+in Scheme are prefix operators.
+
+If the first element of a Scheme expression that is a list passed to the parser
+is @emph{not} an operator or procedure, an error will occur:
+
+@lisp
+guile> (1 2 3)
+
+Backtrace:
+In current input:
+  52: 0* [1 2 3]
+
+<unnamed port>:52:1: In expression (1 2 3):
+<unnamed port>:52:1: Wrong type to apply: 1
+ABORT: (misc-error)
+guile>
+@end lisp
+
+Here you can see that the interpreter was trying to treat 1 as an operator
+or procedure, and it couldn't.  Hence the error is "Wrong type to apply: 1".
+
+To create a list, then , we need to use the list operator, or we need to
+quote the list so that the interpreter will not try to evaluate it.
+
+@lisp
+guile> (list 1 2 3)
+(1 2 3)
+guile> '(1 2 3)
+(1 2 3)
+guile>
+@end lisp
+
+This is an error that can appear as you are working with Scheme in LilyPond.
+
+@ignore
 The same assignment can be done in completely in Scheme as well,
 
 @example
@@ -416,6 +455,8 @@ number or a string.  It is entered as
 The quote mark @code{'} prevents the Scheme interpreter from substituting
 @code{24} for the @code{twentyFour}.  Instead, we get the name
 @code{twentyFour}.
+@end ignore
+
 
 @node Scheme procedures
 @subsection Scheme procedures
