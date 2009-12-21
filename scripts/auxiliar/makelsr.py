@@ -73,7 +73,7 @@ def doctitle_sub (title_match):
     # Comma forbidden in Texinfo node name
     title = title_match.group (2).replace (',', '')
     title = texinfo_q_re.sub (r"`\1'", title)
-    title = texinfo_qq_re.sub (r'"\1"', title)
+    title = texinfo_qq_re.sub (r'\"\1\"', title)
     return title_match.group (1) + title + '"'
 
 def mark_verbatim_section (ly_code):
