@@ -18,7 +18,7 @@ Version Control System (VCS) called git, previously discussed in
 * Texinfo introduction and usage policy::
 * Documentation policy::
 * Tips for writing docs::
-* Updating docs with convert-ly::
+* Scripts to ease doc work::
 * Docstrings in scheme::
 * Translating the documentation::
 @end menu
@@ -249,18 +249,8 @@ Nodes must be included inside a
 @end example
 
 @noindent
-construct.  These are easily constructed with the emacs
-@code{M-x texinfo-all-menus-update} construct, or by this
-command-line script:
-
-@example
-#!/bin/sh
-emacs $1 -batch -f texinfo-all-menus-update -f save-buffer
-@end example
-
-@noindent
-(save the above as something like @command{texinfo-menus.sh}, make
-it executable, then run @command{texinfo-menus.sh foo.itely})
+construct.  These are easily constructed with automatic tools; see
+@ref{Scripts to ease doc work}.
 
 
 @node LilyPond formatting
@@ -902,6 +892,15 @@ Note that you have to find yourself the source files to fix
 cross-references in the generated documentation such as the
 Internals Reference; e.g. you can grep scm/ and lily/.
 
+@c temporary?  how long will kainhofer be used?  -gp
+Also of interest may be the linkdoc checks on kainhofer.com.  Be
+warned that these docs are not completely rebuilt every day, so it
+might not accurately reflect the current state of the docs.
+
+@example
+@uref{http://kainhofer.com/~lilypond/linkdoc/}
+@end example
+
 
 @node General writing
 @subsection General writing
@@ -1095,8 +1094,39 @@ the difficulty.
 @ref{Adding and editing snippets}.
 
 
-@node Updating docs with convert-ly
-@section Updating doc with @command{convert-ly}
+@node Scripts to ease doc work
+@section Scripts to ease doc work
+
+@subheading Stripping whitespace
+
+@c TODO: should this be documented elsewhere?  It's useful for
+@c more than just docs.
+To remove extra whitespace from the ends of lines, run
+
+@example
+scripts/auxiliar/strip-whitespace.py Documentation/FILENAME
+@end example
+
+
+@subheading Sectioning commands
+
+@warning{These commands add whitespace.}
+
+The emacs @code{M-x texinfo-all-menus-update} command will
+regenerate @@menu blocks.  This can also be run with this
+command-line script:
+
+@example
+#!/bin/sh
+emacs $1 -batch -f texinfo-all-menus-update -f save-buffer
+@end example
+
+@noindent
+(save the above as something like @command{texinfo-menus.sh}, make
+it executable, then run @command{texinfo-menus.sh foo.itely})
+
+
+@subheading Updating doc with @command{convert-ly}
 
 cd into @file{Documentation/} and run
 
