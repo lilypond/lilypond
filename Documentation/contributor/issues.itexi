@@ -33,24 +33,28 @@ a feature request.
 @node Issue classification
 @section Issue classification
 
-Status values:
+
+@subheading Status
+
+Open issues:
 
 @itemize
 
 @item
-New: the item was added by a non-member.  Should be reviewed by
-the Bug Meister.
+New: the item was added by a non-member, despite numerous warnings
+not to do this.  Should be reviewed by the Bug Meister.
 
 @item
 Accepted: the Bug Meister added it, or reviewed the item.
 
 @item
-Started: a programmer is working on a bugfix.  (used infrequently,
-but should be used more often)
+Started: a contributor is working on a fix.  Owner should change
+to be this contributor.
 
 @end itemize
 
-Closed status values:
+
+Closed issues:
 
 @itemize
 
@@ -61,52 +65,80 @@ Invalid: issue should not have been added in the current state.
 Duplicate: issue already exists in the tracker.
 
 @item
-Fixed: programmer claims to have fixed the bug.  The Bug Meister
-should check the input code in an official binary release.
+Fixed: a contributor claims to have fixed the bug.  The Bug
+Meister should check the fix with the next official binary release
+(not by compiling the source from git).  Owner should be set to
+that contributor.
 
 @item
 Verified: Bug Meister has confirmed that the issue is closed.
 
 @end itemize
 
-Type labels:
+
+@subheading Owner
+
+Newly-added issues should have @emph{no owner}.  When a
+contributor indicates that he has Started or Fixed an item, he
+should become the owner.
+
+
+
+@subheading Type
+
+The issue's Type should be the first relevant item in this list.
 
 @itemize
 
 @item
-Type-Defect: a problem that requires no (or very little) new code
-to fix.
+Type-Collision: overlapping notation.
 
 @item
-Type-Enhancement: a problem (or new feature) that requries a
-significant amount of new code.
+Type-Defect: a problem in the core program.  (the @code{lilypond}
+binary, scm files, fonts, etc).
 
 @item
-Type-Collision: overlapping notation.  (this label takes
-precedence over -Defect and -Enhancement)
+Type-Documentation: inaccurate, missing, confusing, or desired
+additional info.  Must be fixable by editing a texinfo, ly, or scm
+file.
 
 @item
-Type-Task: not used, I think.  TODO: start using it or delete it.
+Type-Build: problem or desired features in the build system.  This
+includes the makefiles, stepmake, python scripts, and GUB.
 
 @item
-Type-Other: anything else.  TODO: start using it or delete it.
+Type-Scripts: problem or desired feature in the non-build-system
+scripts.  Mostly used for convert-ly, lilypond-book, etc.
+
+@item
+Type-Enhancement: a feature request for the core program.  The
+distinction between enhancement and defect isn't extremely clear;
+when in doubt, mark it as enhancement.
+
+@item
+Type-Other: anything else.
 
 @end itemize
 
-Priority labels:
+
+@subheading Priority
+
+Currently, only Critical items will block a stable release.
 
 @itemize
 
 @item
-Priority-High: lilypond segfaults.
+Priority-Critical: lilypond segfaults, or a regression occurred
+within the last two stable versions.  (i.e. when developing 2.13,
+any regression against 2.12 or 2.10 counts)
 
 @item
-Priority-Regression: it used to work.
+Priority-High: highly embarrassing items, and any regression
+against a version earlier than two stable versions.  (i.e. when
+developing 2.13, any regression against 2.8 or earlier)
 
 @item
-Priority-Medium: normal priority; this is the highest priority a
-non-crashing, non-regression bug report can receive.
-(regardless of the perceived importance)
+Priority-Medium: normal priority.
 
 @item
 Priority-Low: less important than normal.
@@ -117,11 +149,24 @@ like Ancient notation, which nobody wants to touch.
 
 @end itemize
 
-Opsys labels: pretty self-explanatory.
+
+@subheading Opsys
+
+Issues that only affect specific operating systems.
+
+
+@subheading Other items
 
 Other labels:
 
 @itemize
+
+@item
+Regression: it used to @strong{deliberately} work in an earlier
+stable release.  If the earlier output was accidental (i.e. we
+didn't try to stop a collision, but it just so happened that two
+grobs didn't collide), then breaking it does not count as a
+regression.
 
 @item
 Patch: a patch to fix an issue is attached.
@@ -132,16 +177,6 @@ Frog: the fix is believed to be suitable for a new contributor
 issue should also have an estimated time in a comment.
 
 @item
-Security: not used.  TODO: delete, unless anybody is serious about
-this.
-
-@item
-Performance: not used.  TODO: delete.
-
-@item
-Usability: not used.  TODO: delete.
-
-@item
 Maintainability: hinders developent of LilyPond.  For example,
 improvements to the build system, or @qq{helper} python scripts.
 
@@ -149,13 +184,17 @@ improvements to the build system, or @qq{helper} python scripts.
 Bounty: somebody is willing to pay for the fix.
 
 @item
-Engraving-nitpick: output is not beautiful, but not strictly
-speaking @qq{wrong}.  For example, a slur shape which does not
-collide with any notation, but looks ugly.
+Warning: graphical output is fine, but lilypond prints a
+false/misleading warning message.  Alternately, a warning should
+be printed (such as a bar line error), but was not.  Also applies
+to warnings when compiling the source code or generating
+documentation.
 
 @item
-Warning-nitpick: graphical output is fine, but lilypond prints a
-false/misleading warning message.
+Security: might potentially be used.
+
+@item
+Performance: might potentially be used.
 
 @end itemize
 
@@ -163,11 +202,9 @@ false/misleading warning message.
 @node Adding issues to the tracker
 @section Adding issues to the tracker
 
-TODO: prettify.
-
-only done by Bug Meister, unless you're really certain you know
-what you're doing.
-
+This should only be done by the Bug Meister(s), or experienced
+developers.  Normal users should not do this; instead, they should
+follow the guidelines for @rweb{Bug reports}.
 
 
 @node Checking and verifying issues
