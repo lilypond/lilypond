@@ -745,7 +745,7 @@ ello a un ritmo mucho más progresivo.}
 Las notas se codifican mediante letras y números.  Las instrucciones
 especiales se introducen mediante barras invertidas.
 
-@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-annotate-es,png,center}
 @imageFloat{text-input-1-output,png,center}
 
 Las alteraciones se hacen con nombres distintos: añada @code{-is} para
@@ -753,7 +753,7 @@ obtener un sostenido, y @code{-es} para un bemol (son los nombres de
 las notas en holandés, pero están disponibles otros idiomas).
 LilyPond averigua dónde hay que imprimir las alteraciones.
 
-@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-annotate-es,png,center}
 @imageFloat{text-input-2-output,png,center}
 
 
@@ -761,7 +761,7 @@ LilyPond averigua dónde hay que imprimir las alteraciones.
 
 Junte acordes y letra para obtener una hoja guía de acordes:
 
-@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-annotate-es,png,center}
 @imageFloat{text-input-pop-output,png,center}
 
 
@@ -774,20 +774,20 @@ entrada.  Así, un cambio en una nota siempre afecta tanto a las
 particellas como a la partitura general.  Para poder compartir las
 notas, asignamos la música a una variable:
 
-@imageFloat{text-input-parts-both-annotate,png,center}
+@imageFloat{text-input-parts-both-annotate-es,png,center}
 
 
 Esta variable se usa entonces en una sola parte instrumental (aquí
 transportada, con los silencios agrupados):
 
-@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-annotate-es,png,center}
 @imageFloat{text-input-parts-single-output,png,center}
 
 
 La misma variable se utiliza en la partitura general (aquí en tono de
 concierto):
 
-@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-annotate-es,png,center}
 @imageFloat{text-input-score-output,png,center}
 
 
