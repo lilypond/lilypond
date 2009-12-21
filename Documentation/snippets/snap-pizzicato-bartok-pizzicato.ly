@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.4
-\version "2.13.4"
+\version "2.13.10"
 
 \header {
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -38,7 +38,7 @@ rebounds off the fingerboard of the instrument} (Wikipedia).  It is
 denoted by a circle with a vertical line going from the center upwards
 outside the circle.
 "
-  doctitle = "Snap-pizzicato (`Bartok pizzicato')"
+  doctitle = "Snap-pizzicato (\"Bartok pizzicato\")"
 } % begin verbatim
 
 

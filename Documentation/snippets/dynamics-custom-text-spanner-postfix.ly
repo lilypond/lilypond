@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.4
-\version "2.13.4"
+\version "2.13.10"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
