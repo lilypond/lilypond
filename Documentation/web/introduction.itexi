@@ -698,7 +698,7 @@ Read about our @ref{Text input}.
 @node Text input
 @unnumberedsec Text input
 
-@c TRANSLATORS: so far it's mostly from
+@c TRANSLATORS, so far it's mostly from
 @c http://lilypond.org/web/switch/howto
 
 @subheading @qq{Compiling} Music

@@ -78,7 +78,7 @@ traduite.  Si vous voulez vraiment compiler LilyPond, reportez-vous à
 la @uref{Compiling-from-source.html,documentation en anglais}.
 @end ifhtml
 
-@c TRANSLATORS:
+@c TRANSLATORS,
 @c   Please **do not** translate anything below this line.  Users
 @c   should not be compiling LilyPond themselves; if they really
 @c   want to do so, they should be able to read the English docs,

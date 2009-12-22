@@ -86,7 +86,7 @@ Python スクリプトを使用したいのなら、@c
 @end ifhtml
 を参照してください。
 
-@c TRANSLATORS:
+@c TRANSLATORS,
 @c   Please **do not** translate anything below this line.  Users
 @c   should not be compiling LilyPond themselves; if they really
 @c   want to do so, they should be able to read the English docs,
