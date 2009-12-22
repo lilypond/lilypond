@@ -24,9 +24,10 @@
 @omfdescription General info about the LilyPond music engraving system
 @omftype program usage
 @omfcategory Applications|Publishing
-@omflanguage English
+@omflanguage Spanish
 @end ignore
 
+@c Translators: Francisco Vila
 
 @copying
 Copyright @copyright{} 2009 por los autores.
