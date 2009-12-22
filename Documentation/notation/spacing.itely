@@ -1522,26 +1522,6 @@ a number (@code{#f}, for example) will cause that line to be treated
 like a staff.  Conversely, setting @var{staff-affinity} for a staff will
 cause it to be treated like a non-staff.
 
-@c FIXME: is it possible to have @example inside @warning?
-@c @warning{ Adjacent non-staff lines should have non-increasing
-@c @var{staff-affinity} from top-to-bottom.  For example, the behavior of
-@c @example
-@c <<
-@c   \new Staff c
-@c   \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #DOWN @}
-@c   \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #UP @}
-@c   \new Staff c
-@c >>
-@c @end example
-@c is undefined.
-@c }
-
-@warning{A non-staff line at the bottom of a system should have
-@var{staff-affinity} set to @code{UP}.  Similarly, a non-staff
-line at the top of a system should have @var{staff-affinity} set
-to @code{DOWN}.
-}
-
 Non-staff lines admit three properties to control their spacing.  Each
 of the these properties is an alist of the same format as
 @var{next-staff-spacing}, above.
@@ -1598,6 +1578,23 @@ Internals Reference:
 @rinternals{VerticalAlignment},
 @rinternals{Axis_group_engraver}.
 
+@knownissues
+Adjacent non-staff lines should have non-increasing
+@var{staff-affinity} from top-to-bottom.  For example, the behavior of
+@example
+<<
+  \new Staff c
+  \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #DOWN @}
+  \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #UP @}
+  \new Staff c
+>>
+@end example
+is undefined.
+
+A non-staff line at the bottom of a system should have
+@var{staff-affinity} set to @code{UP}.  Similarly, a non-staff
+line at the top of a system should have @var{staff-affinity} set
+to @code{DOWN}.
 
 @node Vertical spacing between systems
 @subsection Vertical spacing between systems
