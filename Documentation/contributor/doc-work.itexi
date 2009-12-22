@@ -624,6 +624,9 @@ B ... @@end itemize - for bulleted lists.
 @@var - Use for variables.
 
 @item
+@@version@{@} - Return the current LilyPond version string
+
+@item
 @@warning@{@} - produces a "Note: " box. Use for important messages.
 
 @end itemize
