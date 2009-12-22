@@ -29,9 +29,7 @@ endif
 
 TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
 
-DOC_TEXI2HTML_SPLIT = --prefix=index --split=section
-WEB_TEXI2HTML_SPLIT = --prefix=index --split=node --node-files
-TEXI2HTML_SPLIT = $(DOC_TEXI2HTML_SPLIT)
+TEXI2HTML_SPLIT = --prefix=index --split=section
 
 TEXI2HTML_INCLUDES += --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
 TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_INIT) $(TEXI2HTML_LANG)

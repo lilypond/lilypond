@@ -96,8 +96,8 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
 ### Web site idiosyncrases
 
-$(outdir)/web/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
-$(XREF_MAPS_DIR)/web.xref-map: XREF_MAP_FLAGS += --split=node
+# now all handled by the init file.
+
 
 ### bad hack for badly-integrated roadmap.
 $(outdir)/ROADMAP:
