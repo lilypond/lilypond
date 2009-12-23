@@ -124,7 +124,7 @@ msgid ""
 "version taken from the \\version command, to the current LilyPond version."
 msgstr ""
 "Actualiseer LilyPond invoer naar nieuwere versie.  Standaard, actualiseer\n"
-"vanaf versie uit de \\versie uitdrukking, naar de huidige LilyPond versie."
+"vanaf versie uit het \\version commando, naar de huidige LilyPond versie."
 
 #: convert-ly.py:34 lilypond-book.py:59
 msgid "Examples:"
@@ -223,8 +223,7 @@ msgid "show warranty and copyright"
 msgstr "toon garantie en auteursrechten"
 
 #: lilypond-book.py:57
-msgid ""
-"Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
+msgid "Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
 msgstr ""
 "Verwerk LilyPond snippers in hybride HTML, LaTeX, texinfo of DocBook "
 "document."
@@ -252,8 +251,7 @@ msgid "pipe snippets through FILTER [convert-ly -n -]"
 msgstr "pijp snippers door FILTER [convert-ly -n -]"
 
 #: lilypond-book.py:120
-msgid ""
-"use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
+msgid "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
 msgstr ""
 "gebruik uitvoerformat FORMAT (texi [standaard], texi-html, latex, html, "
 "docbook)"
@@ -340,7 +338,7 @@ msgstr "`%s' gefaald (%d)"
 
 #: lilypond-book.py:1400
 msgid "The error log is as follows:"
-msgstr "De foutlog is als volgend:"
+msgstr "De foutlog is als volgt:"
 
 #: lilypond-book.py:1472
 msgid "cannot find \\begin{document} in LaTeX document"
@@ -478,7 +476,7 @@ msgstr "sta tuplet lengtes DUUR*NOEM/TEL toe"
 
 #: midi2ly.py:891
 msgid "treat every text as a lyric"
-msgstr "behandel elke tekst als liedtekts"
+msgstr "behandel elke tekst als liedtekst"
 
 #: midi2ly.py:894
 msgid "Examples"
@@ -568,8 +566,7 @@ msgstr "herstellingsteken vorm niet gevonden"
 
 #: align-interface.cc:322
 msgid "tried to get a translation for something that is no child of mine"
-msgstr ""
-"probeerde een verplaatsing te verkrijgen voor iets wat geen kind van mij is"
+msgstr "probeerde een verplaatsing te verkrijgen voor iets wat geen kind van mij is"
 
 #: all-font-metrics.cc:143
 #, c-format
@@ -644,7 +641,7 @@ msgstr "verwijderen van waardestreep zonder stokken"
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 "geen werkbare initiële configuratie gevonden: kan wellicht geen goede "
-"waardestreephelling kunnen vinden"
+"waardestreephelling vinden"
 
 #: break-alignment-interface.cc:195
 #, c-format
@@ -749,7 +746,7 @@ msgstr "custode `%s' niet gevonden"
 
 #: dispatcher.cc:71
 msgid "Event class should be a symbol"
-msgstr "Gebeurtenis klasse zou hoort een symbool te zijn"
+msgstr "Gebeurtenis klasse hoort een symbool te zijn"
 
 #: dispatcher.cc:78
 #, c-format
@@ -818,7 +815,7 @@ msgstr "Oneindig of nan gevonden in uitvoer.  Vervangen door 0.0"
 
 #: glissando-engraver.cc:94
 msgid "unterminated glissando"
-msgstr "onbeëindigde glissando"
+msgstr "onbeëindigd glissando"
 
 #: global-context-scheme.cc:87 global-context-scheme.cc:105
 msgid "no music found in score"
@@ -1256,7 +1253,7 @@ msgstr "kan groep id niet veranderen in: %d: %s"
 #: main.cc:342
 #, c-format
 msgid "cannot change user id to: %d: %s"
-msgstr "kan kan gebruiker id niet veranderen in: %d: %s"
+msgstr "kan gebruiker id niet veranderen in: %d: %s"
 
 #: main.cc:348
 #, c-format
@@ -1295,7 +1292,7 @@ msgstr "prieminterval binnen ligatuur -> overslaan"
 
 #: mensural-ligature-engraver.cc:150
 msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
-msgstr "mensural ligature: lengte geen van Mx, L, S -> overslaan"
+msgstr "mensurale ligatuur: lengte geen van Mx, L, S -> overslaan"
 
 #: mensural-ligature-engraver.cc:198
 msgid "semibrevis must be followed by another one -> skipping"
@@ -1364,11 +1361,11 @@ msgstr "transponering met %s maakt voorteken groter dan dubbel"
 
 #: new-fingering-engraver.cc:96
 msgid "cannot add text scripts to individual note heads"
-msgstr "can tekstscripts niet toevoegen aan individuele notenbolletjes"
+msgstr "kan tekstscripts niet toevoegen aan individuele notenbolletjes"
 
 #: new-fingering-engraver.cc:239
 msgid "no placement found for fingerings"
-msgstr "geen plaatsing gevonden voor vingers"
+msgstr "geen plaatsing gevonden voor vingerzetting"
 
 #: new-fingering-engraver.cc:240
 msgid "placing below"
@@ -1394,7 +1391,7 @@ msgstr "NootGebeurtenis zonder toonhoogte"
 #: open-type-font.cc:33
 #, c-format
 msgid "cannot allocate %lu bytes"
-msgstr "kan geen %lu bytes alloceren"
+msgstr "kan geen %lu bytes toewijzen"
 
 #: open-type-font.cc:37
 #, c-format
@@ -1646,7 +1643,7 @@ msgstr "Onbekend verhuizingscommando %s"
 
 #: rest-collision.cc:145
 msgid "cannot resolve rest collision: rest direction not set"
-msgstr "kan rust bosting niet oplossen: richting van de rust is niet gezet"
+msgstr "kan rust botsing niet oplossen: richting van de rust is niet gezet"
 
 #: rest-collision.cc:159 rest-collision.cc:204
 msgid "too many colliding rests"
@@ -1849,8 +1846,7 @@ msgstr ""
 #: vaticana-ligature-engraver.cc:714
 #, c-format
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
-msgstr ""
-"Vaticana_ligature_engraver: instelling `spacing-increment = %f': ptr=%ul"
+msgstr "Vaticana_ligature_engraver: instelling `spacing-increment = %f': ptr=%ul"
 
 #: vaticana-ligature.cc:84
 msgid "flexa-height undefined; assuming 0"
@@ -2263,9 +2259,7 @@ msgstr "Ongeldig argument in positie ~A.  Verwacht: ~A, gevonden: ~S."
 
 #: music-functions.scm:228
 msgid "More alternatives than repeats.  Junking excess alternatives"
-msgstr ""
-"Meer alternatieven dan herhalingen.  Verschroten van overtollige "
-"alternatieven"
+msgstr "Meer alternatieven dan herhalingen.  Verschroten van overtollige alternatieven"
 
 #: music-functions.scm:250
 #, scheme-format
@@ -2295,7 +2289,7 @@ msgstr "onbekende toevallig teken stijl: ~S"
 
 #: output-ps.scm:276
 msgid "utf-8-string encountered in PS backend"
-msgstr "utf-8-string tegengekomen in in PS achtereinde"
+msgstr "utf-8-string tegengekomen in in PS backend"
 
 #: output-svg.scm:42
 #, scheme-format
