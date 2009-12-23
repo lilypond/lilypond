@@ -64,7 +64,7 @@ simple.  Cette forme de notation est abordée dans
 @rlearning{Écriture de chants simples}.
 
 @item
-La musisque vocale nécessite souvent de recourir au mode @code{markup},
+La musique vocale nécessite souvent de recourir au mode @code{markup},
 aussi bien pour des paroles que pour d'autres éléments textuels comme le
 nom des personnages.  Cette syntaxe est expliquée dans
 @ref{Introduction au formatage de texte}.
