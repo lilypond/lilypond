@@ -52,6 +52,9 @@ ifneq ($(ISOLANG),)
 TEXI2HTML_LANG = --lang=$(ISOLANG)
 endif
 
+$(XREF_MAPS_DIR)/web.$(ISOLANG).xref-map:\
+	XREF_MAP_FLAGS += --split=node
+
 TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
 
 TEXI2HTML_SPLIT = --prefix=index --split=section

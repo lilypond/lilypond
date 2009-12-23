@@ -95,8 +95,7 @@ include $(depth)/make/stepmake.make
 OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
 ### Web site idiosyncrases
-
-# now all handled by the init file.
+$(XREF_MAPS_DIR)/web.xref-map: XREF_MAP_FLAGS += --split=node
 
 
 ### bad hack for badly-integrated roadmap.
