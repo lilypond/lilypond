@@ -242,10 +242,8 @@ grand-replace:
 
 ################################################################
 # website (without the rest of the docs)
-web-version:
-	touch $(top-src-dir)/Documentation/web.texi
-	cd $(top-build-dir)/Documentation && make out=www WEB_VERSION=yes out-www/web/index.html
-
+website:
+	$(MAKE) out=www -C Documentation website
 
 ################################################################
 # testing
