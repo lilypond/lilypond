@@ -2956,11 +2956,26 @@ you must now specify the distances between staves rather than the offset of stav
 @rule ((2, 13, 10),
        _ ("Remove obsolete engravers/translators: Note_swallow_translator,\n\
 Rest_swallow_translator, Skip_event_swallow_translator, Swallow_engraver,\n\
-Swallow_performer and String_number_engraver."))
+Swallow_performer and String_number_engraver.\n\
+New vertical spacing variables."))
 def conv(str):
     str = re.sub (r'\\(consists|remove)\s+"*(Swallow_(engraver|performer)|'
                   '(Note|Rest|Skip_event)_swallow_translator|String_number_engraver)"*',
                   '', str)
+
+    str = re.sub (r"page-top-space\s*=\s*#([0-9.]+)",
+                  r"top-system-spacing #'space = #\1",
+                  str)
+    str = re.sub (r"between-system-space\s*=\s*#([0-9.]+)",
+                  r"between-system-spacing #'space = #\1\nbetween-scores-system-spacing #'space = #\1",
+                  str)
+    str = re.sub (r"between-system-padding\s*=\s*#([0-9.]+)",
+                  r"between-system-spacing #'padding = #\1\nbetween-scores-system-spacing #'padding = #\1",
+                  str)
+    str = re.sub (r"(after|between|before)-title-space\s*=\s*#([0-9.]+)",
+                  r"\1-title-spacing #'space = #\2",
+                  str)
+
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
