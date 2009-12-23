@@ -155,6 +155,15 @@ Grob::get_print_stencil () const
 	  retval = Stencil (retval.extent_box (), expr);
 	}
 
+      /* process whiteout */
+      if (to_boolean (get_property ("whiteout")))
+        {
+          /* Call the scheme procedure stencil-whiteout in scm/stencils.scm */
+          /* to add a round-filled-box stencil to the stencil list */
+          retval
+            = *unsmob_stencil (scm_call_1 (ly_lily_module_constant ("stencil-whiteout"),
+                                           retval.smobbed_copy()));
+        }
     }
 
   return retval;
@@ -662,6 +671,7 @@ ADD_INTERFACE (Grob,
 	       "staff-symbol "
 	       "stencil "
 	       "transparent "
+	       "whiteout "
 	       );
 
 /****************************************************************

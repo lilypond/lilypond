@@ -5,13 +5,15 @@ import sys
 import os
 import glob
 
-## these links are relative from /~graham/web/
-#WEB_DOCLINK_STABLE = "../../doc/v2.12/Documentation/user/lilypond-"
-#WEB_DOCLINK_DEVEL = "../../doc/v2.13/Documentation/"
-
+### just like depth in our GNUmakefiles
+# these links are relative from /~graham/web/
+depth = "../../"
 # these links are relative from the v2.13 docs
-WEB_DOCLINK_STABLE = "../../../v2.12/Documentation/user/lilypond-"
-WEB_DOCLINK_DEVEL = "../../../v2.13/Documentation/"
+#depth = "../../../../"
+
+# FIXME: remove the user/lilypond-  when 2.14 becomes stable
+WEB_DOCLINK_STABLE = depth + "doc/v2.12/Documentation/user/lilypond-"
+WEB_DOCLINK_DEVEL  = depth + "doc/v2.13/Documentation/"
 
 
 

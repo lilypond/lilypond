@@ -241,6 +241,9 @@ at this point.")
      (forceClef ,boolean? "Show clef symbol, even if it has not
 changed.  Only active for the first clef after the property is set, not
 for the full staff.")
+     (fretLabels ,list? "A list of strings or Scheme-formatted markups
+containing, in the correct order, the labels to be used for lettered
+frets in tablature.")
 
 
      (gridInterval ,ly:moment? "Interval for which to generate

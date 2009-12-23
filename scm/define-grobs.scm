@@ -1888,6 +1888,7 @@
 	(font-size . -2)
 	(stem-attachment . (0.0 . 1.35))
 	(stencil . ,ly:text-interface::print)
+	(whiteout . #t)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)

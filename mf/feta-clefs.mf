@@ -51,7 +51,7 @@ def draw_c_clef (expr reduction) =
 	% stem
 	draw_block ((0, -d + feta_shift),
 		    (3/4 norm + 1/2 hair, h));
- 	draw_block ((3/4 norm + 1/2 hair + hround (3/2 hair), -d + feta_shift),
+	draw_block ((3/4 norm + 1/2 hair + hround (3/2 hair), -d + feta_shift),
 		    (3/4 norm + 1/2 hair + 2 hround (3/2 hair), h));
 
 	% assure symmetry
@@ -381,7 +381,7 @@ def draw_gclef (expr reduction) =
 	z11 = center + whatever * downstroke_dir + (-0.05 reduced_ss, 0);
 
 	penpos11 (thinnib, start_angle + 90);
- 	penpos12 (thinnib, bot_angle + 90);
+	penpos12 (thinnib, bot_angle + 90);
 	penpos13 (thinnib + 0.14 staff_space, 180);
 
 	% this auxiliary point ensures good contour overlapping
@@ -389,7 +389,7 @@ def draw_gclef (expr reduction) =
 
 	z20 = z9l - (0, .25 blot_diameter);
 	penpos20 (blot_diameter, 0);
-	
+
 	pat := z10{down}
 	       .. z6
 	       ..tension 1.1.. z11{dir (start_angle)};
@@ -548,7 +548,7 @@ begingroup;
 endgroup;
 enddef;
 
-	
+
 def draw_tab_A (expr pos, siz, slant) =
 begingroup;
 	save vx, vy, pat;

@@ -1452,7 +1452,7 @@ fet_endchar;
 
 
 % Hmm
-input feta-slag;
+input feta-trills;
 
 
 %
@@ -1539,7 +1539,7 @@ fet_beginchar ("Straight caesura", "caesura.straight");
 	y3 = y4 = h;
 
 	ne = unitvector (z4 - z1);
-	
+
 	z1a = z1 + blot_diameter * ne;
 	z1b = z1 + blot_diameter * right;
 	z2a = z2 + blot_diameter * ne;

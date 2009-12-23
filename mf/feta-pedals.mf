@@ -191,7 +191,7 @@ begingroup;
 	horz_corr = 1/5 [x12, x16] - x2l;
 	x2 := x2 + horz_corr;
 	x2l := x2l + horz_corr;
-	x2r := x2r + horz_corr; 
+	x2r := x2r + horz_corr;
 
 	penstroke z1'e
 		  ..tension 2.5.. z2e

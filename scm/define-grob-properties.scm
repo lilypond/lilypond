@@ -845,6 +845,8 @@ one below this grob.")
 ;;
      (when ,ly:moment? "Global time step associated with this column
 happen?")
+     (whiteout ,boolean? "If true, the grob is printed over a white
+background to white-out underlying material.  Usually #f by default.")
      (width ,ly:dimension? "The width of a grob measured in staff
 space.")
      (word-space ,ly:dimension? "Space to insert between words in

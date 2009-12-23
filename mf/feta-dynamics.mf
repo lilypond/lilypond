@@ -748,7 +748,7 @@ fet_beginchar ("dynamic r", "r");
 
 %	pickup pencircle scaled 1;
 
-%	draw 
+%	draw
 	fill z1r{down}
 	     .. z10r{left}
 	     -- z10l{left}

@@ -81,7 +81,7 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp, brace_number) =
 		define_pixels (height, width, slt);
 		thin = 2 slt;
 		thick = .5 width;
-	
+
 		z2 = .5 [z1, z3];
 		y3l = y1 + height / 2;
 		x3 = x1 + width;
@@ -95,7 +95,7 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp, brace_number) =
 		penpos3 (thin, penangle);
 		penpos2 (thick, angle (z3 - z1) - 90);
 		penpos1 (2/3 thin, penangle);
-	
+
 		penlabels (1, 2, 3);
 		labels (0);
 

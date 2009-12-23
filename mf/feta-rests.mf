@@ -392,7 +392,7 @@ fet_beginchar ("16th rest", "4");
 	y2 = h - vround lower_brush;
 	x2r = w;
 	z2 = z1 + whatever * dir (74);
-       	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
 	y9 := vround y9;
 
 	x1l := hround x1l;
@@ -442,7 +442,7 @@ fet_beginchar ("32th rest", "5");
 	y2 = h - vround lower_brush;
 	x2r = w;
 	z2 = z1 + whatever * dir (76);
-       	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
 	y9 := vround y9;
 
 	x1l := hround x1l;
@@ -496,7 +496,7 @@ fet_beginchar ("64th rest", "6");
 	y2 = h - vround lower_brush;
 	x2r = w;
 	z2 = z1 + whatever * dir (78);
-       	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
 	y9 := vround y9;
 
 	x1l := hround x1l;
@@ -554,7 +554,7 @@ fet_beginchar ("128th rest", "7");
 	y2 = h - vround lower_brush;
 	x2r = w;
 	z2 = z1 + whatever * dir (80);
-       	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1)- 10);
+	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1)- 10);
 	y9 := vround y9;
 
 	x1l := hround x1l;
