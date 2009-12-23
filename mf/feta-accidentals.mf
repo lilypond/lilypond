@@ -46,7 +46,7 @@ enddef;
 %
 %   SHARPBASE[.SLASHES.STEMS]
 %   FLATBASE[.MODIFIER]
-%  
+%
 % Examples:
 %
 %   sharp.slashslash.stem
@@ -371,7 +371,7 @@ fet_beginchar ("Sharp (3 beams)", "sharp.slashslashslash.stemstem");
 	bot y7 = -top y6 + feta_space_shift;
 	top y8 = h;
 
-	labels (5, 6, 7, 8);	
+	labels (5, 6, 7, 8);
 
 	draw_gridline (z5, z6, stemwidth);
 	draw_gridline (z7, z8, stemwidth);
@@ -982,7 +982,7 @@ fet_endchar;
 
 
 fet_beginchar ("Flatflat (mirrored)", "mirroredflat.flat");
-	set_char_box (0, 1.6 staff_space#, 
+	set_char_box (0, 1.6 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
 
 	% This is a modified version of `draw_meta_flat'.

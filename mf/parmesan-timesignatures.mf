@@ -4,7 +4,7 @@
 % Copyright (C) 1998--2009 Mats Bengtsson <matsb@s3.kth.se>,
 %		 Christian Mondrup <scancm@biobase.dk>
 % Copyright (C) 2002--2009 Juergen Reuter <reuter@ipd.uka.de>
-% 
+%
 %
 % LilyPond is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -217,7 +217,7 @@ mensural_timesig ("Mensural 6/8 meter", "mensural68",
 mensural_timesig ("Mensural 9/8 meter", "mensural98",
 		  true, false, true, true);
 
-	
+
 %% tempus imperfectum cum prolatione imperfecta diminutio simplex
 mensural_timesig ("Mensural 4/8 meter", "mensural48",
 		  false, true, false, false);
@@ -387,7 +387,7 @@ neomensural_timesig ("Mensural 6/8 meter", "neomensural68",
 neomensural_timesig ("Mensural 9/8 meter", "neomensural98",
 		     true, false, true, true);
 
-	
+
 %% tempus imperfectum cum prolatione imperfecta diminutio simplex
 neomensural_timesig ("Mensural 4/8 meter", "neomensural48",
 		     false, true, false, false);

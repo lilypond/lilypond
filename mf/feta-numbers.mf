@@ -270,8 +270,8 @@ fet_beginchar ("Plus", "plus");
 	centerx := hround (w / 2);
 	centery := vround ((h - d) / 2);
 
-	z1 = (centerx - hthick / 2, -d); 
-	z2 = (centerx + hthick / 2, h); 
+	z1 = (centerx - hthick / 2, -d);
+	z2 = (centerx + hthick / 2, h);
 
 	labels (1, 2);
 
@@ -295,7 +295,7 @@ fet_beginchar ("Numeral comma", "comma");
 	       .. (dot_diam / 2, dot_diam)
 	       .. (0, dot_diam / 2)
 	       .. cycle;
-	
+
 	pos = ypart (((w / 3, 0) -- (w / 3, dot_diam / 2))
 		     intersectiontimes pat);
 	z0 = point pos of pat;

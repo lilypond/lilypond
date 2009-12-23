@@ -423,7 +423,7 @@ fi;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-vardef penposx@# (expr d) = 
+vardef penposx@# (expr d) =
 begingroup;
 	save pat;
 	path pat;
@@ -777,7 +777,7 @@ def draw_cross (expr thick) =
 	z4 - z3 = whatever * (ne) + (ne rotated -90) * thickness;
 
 
- 	x1 = charwd / 2 - .5 pen_thick#;
+	x1 = charwd / 2 - .5 pen_thick#;
 	z1 = whatever * ne
 	     + thick / 2 * stafflinethickness# * (ne rotated -90);
 
@@ -1054,7 +1054,7 @@ def draw_do_head (expr width_factor, dir) =
 		 -- (z1 + left_dist){z1 - z3}
 		 .. lft z1{down}
 		 .. {right}cycle;
-		 
+
 
 	labels (1, 2, 3);
 
