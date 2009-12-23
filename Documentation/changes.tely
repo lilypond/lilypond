@@ -71,6 +71,38 @@ single-line markup due to enhanced integration with Pango.
 LilyPond is now licensed under the GNU GPL v3+.
 
 @item
+In tablature, frets can be indicated with labels other than numbers:
+
+@lilypond[verbatim,quote,relative=1]
+\new TabStaff
+\with {
+  stringTunings = #'(17 14 9 5 2 -3)
+  tablatureFormat = #fret-letter-tablature-format
+}
+\new TabVoice {
+  \set fretLabels = #`(,(markup #:with-color red "a")
+                       "b"
+                       ,(markup #:italic #:smaller "c"))
+  <f d>4. <bes>8 <g e>4
+}
+@end lilypond
+
+@item
+Layout objects can be printed over a white background, which whites-out objects
+in lower layers which lie beneath:
+
+@lilypond[verbatim,quote,relative=1]
+\time 3/4
+\override Staff.StaffSymbol #'layer = #4
+\once \override Tie #'layer = #2
+b'2.~
+\once \override Staff.TimeSignature #'whiteout = ##t
+\once \override Staff.TimeSignature #'layer = #3
+\time 5/4
+b4
+@end lilypond
+
+@item
 Chords can be repeated using the @code{q} shortcut:
 
 @lilypond[verbatim,quote,relative=2]

@@ -169,12 +169,13 @@ ADD_TRANSLATOR (Tab_note_heads_engraver,
 		"TabNoteHead ",
 
 		/* read */
-		"middleCPosition "
-		"stringTunings "
-		"minimumFret "
-		"tablatureFormat "
+		"fretLabels "
 		"highStringOne "
-		"stringOneTopmost ",
+		"middleCPosition "
+		"minimumFret "
+		"stringOneTopmost "
+		"stringTunings "
+		"tablatureFormat ",
 
 		/* write */ ""
 		);
