@@ -270,12 +270,6 @@ baseline of the last top-level markup) to the bottom of the
 printable area (ie. the top of the bottom margin).
 See @var{after-title-spacing}.
 
-@item foot-separation
-@funindex foot-separation
-
-Distance between the bottom-most music system and the page
-footer.  Default: @code{4\mm}.
-
 @item top-title-spacing
 @funindex top-title-spacing
 
@@ -1599,54 +1593,28 @@ to @code{DOWN}.
 @node Vertical spacing between systems
 @subsection Vertical spacing between systems
 
-Space between systems are controlled by four @code{\paper} variables,
+The mechanisms that control spacing between systems are similar to those
+that control spacing between staves within a system (see
+@ref{Vertical spacing inside a system}).  The main difference is that
+the variables to control spacing between systems are set in the
+@code{\paper} block, rather than as grob properties.  These paper block
+variables are @var{between-system-spacing},
+@var{between-scores-system-spacing}, @var{after-title-spacing},
+@var{before-title-spacing}, @var{between-title-spacing},
+@var{top-system-spacing}, @var{top-system-spacing},
+@var{top-title-spacing} and @var{bottom-system-spacing}.  Note that
+these variables ignore non-staff lines.  For example,
+@var{between-system-spacing} controls the spacing from the middle staff
+line of the bottom staff from one system to the middle staff line of the
+top staff of the next system, whether or not there are lyrics below the
+upper system.  See @ref{Vertical dimensions} for a description of each
+of these variables.
 
-@example
-\paper @{
-  between-system-space = 1.5\cm
-  between-system-padding = #1
-  ragged-bottom=##f
-  ragged-last-bottom=##f
-@}
-@end example
-
-When only a couple of flat systems are placed on a page, the resulting
-vertical spacing may be non-elegant: one system at the top of the page,
-and the other at the bottom, with a huge gap between them.  To avoid this
-situation, the space added between the systems can be limited.  This
-feature is activated by setting to @code{#t} the
-@code{page-limit-inter-system-space} variable in the @code{\paper}
-block.  The paper variable @code{page-limit-inter-system-space-factor}
-determines how much the space can be increased: for instance, the value
-@code{1.3} means that the space can be 30% larger than what it would be
-on a ragged-bottom page.
-
-In the following example, if the inter system space were not limited,
-the second system of page 1 would be placed at the page bottom.  By
-activating the space limitation, the second system is placed closer to
-the first one.  By setting @code{page-limit-inter-system-space-factor} to
-@code{1}, the spacing would the same as on a ragged-bottom page, like
-the last one.
-
-@lilypond[verbatim]
-#(set-default-paper-size "a6")
-\book {
-  \paper {
-    page-limit-inter-system-space = ##t
-    page-limit-inter-system-space-factor = 1.3
-
-    oddFooterMarkup = \markup "page bottom"
-    evenFooterMarkup = \markup "page bottom"
-    oddHeaderMarkup = \markup \fill-line {
-      "page top" \fromproperty #'page:page-number-string }
-    evenHeaderMarkup = \markup \fill-line {
-      "page top" \fromproperty #'page:page-number-string }
-  }
-  \new Staff << \repeat unfold 4 { g'4 g' g' g' \break }
-                { s1*2 \pageBreak } >>
-}
-@end lilypond
-
+There are two more @code{\paper} block variables that affect vertical
+spacing: if @var{ragged-bottom} is set to @code{##t} then no pages will
+be stretched (which means that neither the space between systems nor the
+space within systems will be stretched). If @var{ragged-last-bottom}
+is set to @code{##t} then the last page will not be stretched.
 
 @seealso
 Snippets:
@@ -1668,14 +1636,12 @@ It is possible to approach vertical spacing in a different way using
 vertical positions on the page.
 
 @code{NonMusicalPaperColumn #'line-break-system-details} accepts an associative
-list of five different settings:
+list of three different settings:
 
 @itemize
 @item @code{X-offset}
 @item @code{Y-offset}
-@item @code{alignment-offsets}
-@item @code{alignment-extra-space}
-@item @code{fixed-alignment-extra-space}
+@item @code{alignment-distances}
 @end itemize
 
 Grob overrides, including the overrides for @code{NonMusicalPaperColumn}
@@ -1706,11 +1672,11 @@ example @code{NonMusicalPaperColumn} overrides with the special
   #'line-break-system-details #'((X-offset . 20) (Y-offset . 40))
 
 \overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((alignment-offsets . (0 -15)))
+  #'line-break-system-details #'((alignment-distances . (15)))
 
 \overrideProperty NonMusicalPaperColumn
   #'line-break-system-details #'((X-offset . 20) (Y-offset . 40)
-                                 (alignment-offsets . (0 -15)))
+                                 (alignment-distances . (15)))
 @end example
 
 To understand how each of these different settings work, we begin
@@ -1786,8 +1752,8 @@ too, that the @code{Y-offset} property here determines the exact vertical
 position on the page at which each new system will render.
 
 Now that we have set the vertical startpoint of each system
-explicitly, we can also set the vertical startpoint of each staff
-within each system manually.  We do this using the @code{alignment-offsets}
+explicitly, we can also set the vertical distances between staves
+within each system manually.  We do this using the @code{alignment-distances}
 subproperty of @code{line-break-system-details}.
 
 @lilypond[quote]
@@ -1800,15 +1766,15 @@ subproperty of @code{line-break-system-details}.
         \new Voice {
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 20)
-                                           (alignment-offsets . (0 -15)))
+                                           (alignment-distances . (15)))
           s1*5 \break
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 60)
-                                           (alignment-offsets . (0 -15)))
+                                           (alignment-distances . (15)))
           s1*5 \break
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 100)
-                                           (alignment-offsets . (0 -15)))
+                                           (alignment-distances . (15)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -1827,8 +1793,8 @@ Note that here we assign two different values to the
 @code{line-break-system-details} attribute alist accepts many
 additional spacing parameters (including, for example, a corresponding
 @code{X-offset} pair), we need only set the @code{Y-offset} and
-@code{alignment-offsets} pairs to control the vertical startpoint of
-every system and every staff.  Finally, note that @code{alignment-offsets}
+@code{alignment-distances} pairs to control the vertical startpoint of
+every system and every staff.  Finally, note that @code{alignment-distances}
 specifies the vertical positioning of staves but not of staff groups.
 
 @lilypond[quote]
@@ -1841,15 +1807,15 @@ specifies the vertical positioning of staves but not of staff groups.
         \new Voice {
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 0)
-                                           (alignment-offsets . (0 -30 -40)))
+                                           (alignment-distances . (30 10)))
           s1*5 \break
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 60)
-                                           (alignment-offsets . (0 -10 -20)))
+                                           (alignment-distances . (10 10)))
           s1*5 \break
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 100)
-                                           (alignment-offsets . (0 -10 -40)))
+                                           (alignment-distances . (10 30)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -1866,10 +1832,11 @@ specifies the vertical positioning of staves but not of staff groups.
 Some points to consider:
 
 @itemize
-@item When using @code{alignment-offsets}, lyrics count as a staff.
+@item When using @code{alignment-distances}, lyrics and other non-staff lines
+do not count as a staff.
 
 @item The units of the numbers passed to @code{X-offset},
-@code{Y-offset} and @code{alignment-offsets} are interpreted as multiples
+@code{Y-offset} and @code{alignment-distances} are interpreted as multiples
 of the distance between adjacent staff lines.  Positive values move staves
 and lyrics up, negative values move staves and lyrics down.
 

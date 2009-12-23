@@ -330,10 +330,7 @@ ADD_INTERFACE (Align_interface,
 	       " or bottom to top.  For vertical alignments of staves, the"
 	       " @code{break-system-details} of the left"
 	       " @rinternals{NonMusicalPaperColumn} may be set to tune"
-	       " vertical spacing.  Set @code{alignment-extra-space} to add"
-	       " extra space for staves.  Set"
-	       " @code{fixed-alignment-extra-space} to force staves in"
-	       " @code{PianoStaff}s further apart.",
+	       " vertical spacing.",
 	       
 	       /* properties */
 	       "align-dir "

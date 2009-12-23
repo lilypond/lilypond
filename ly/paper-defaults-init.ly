@@ -80,12 +80,6 @@
   blank-after-score-page-force = 2
   blank-page-force = 5
 
-  %%
-  %% To limit space between systems on a page with a lot of space left
-  %%
-  page-limit-inter-system-space = ##f
-  page-limit-inter-system-space-factor = 1.4
-
   #(define font-defaults
     '((font-family . feta) (font-encoding . fetaMusic)))
 
