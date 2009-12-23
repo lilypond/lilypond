@@ -23,6 +23,7 @@
 #include <sstream>
 using namespace std;
 
+#include "context.hh"  // for nested_property_alist
 #include "international.hh"
 #include "interval.hh"
 #include "keyword.hh"
@@ -270,11 +271,17 @@ Lily_lexer::new_input (string str, Sources *ss)
 }
 
 void
-Lily_lexer::set_identifier (SCM name, SCM s)
+Lily_lexer::set_identifier (SCM path, SCM s)
 {
-  SCM sym = name;
-  if (scm_is_string (name))
-    sym = scm_string_to_symbol (name);
+  SCM sym = path;
+  SCM val = s;
+  if (scm_is_string (path))
+    sym = scm_string_to_symbol (path);
+  else if (scm_is_pair (path))
+    {
+      sym = scm_car (path);
+      path = scm_cdr (path);
+    }
 
   if (scm_is_symbol (sym))
     {
@@ -286,7 +293,13 @@ Lily_lexer::set_identifier (SCM name, SCM s)
 
       SCM mod = scm_car (scopes_);
 
-      scm_module_define (mod, sym, s);
+      if (scm_is_pair (path))
+	{
+	  SCM prev = scm_module_lookup (mod, sym);
+	  if (prev != SCM_UNDEFINED)
+	    val = nested_property_alist (prev, path, s);
+	}
+      scm_module_define (mod, sym, val);
     }
   else
     programming_error ("identifier is not a symbol");

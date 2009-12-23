@@ -564,7 +564,11 @@ assignment_id:
 assignment:
 	assignment_id '=' identifier_init  {
 	        PARSER->lexer_->set_identifier ($1, $3);
-
+	}
+	| assignment_id property_path '=' identifier_init {
+		SCM path = scm_cons (scm_string_to_symbol ($1), $2);
+		PARSER->lexer_->set_identifier (path, $4);
+	;
 /*
  TODO: devise standard for protection in parser.
 
