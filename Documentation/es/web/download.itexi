@@ -309,7 +309,7 @@ preparación de guiones @qq{de apoyo} hechos por usted mismo.
 @enumerate
 
 @item
-Cree un directorio apra guardar estos guiones,
+Cree un directorio para guardar estos guiones,
 
 @example
 mkdir -p ~/bin
@@ -331,7 +331,7 @@ exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
 
 @item
 Cree archivos similares @command{lilypond-book}, @command{convert-ly},
-y cualesquiera otros que vara a utilizar, sustituyendo la parte
+y cualesquiera otros que vaya a utilizar, sustituyendo la parte
 @command{bin/lilypond} con @command{bin/convert-ly} (u otro nombre de
 programa).
 
@@ -541,7 +541,7 @@ descarga}.
 
 GNU LilyPond está publicado bajo la Licencia General Pública de GNU.
 Se ofrece una introducción a esta licencia y a nuestros motivos para
-haberla elegido, en @ref{Freedom}.
+haberla elegido, en @ref{Libertad}.
 
 @divEnd
 
