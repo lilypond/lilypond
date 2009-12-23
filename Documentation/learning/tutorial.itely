@@ -315,7 +315,7 @@ lilypond test.ly
 You will see something resembling:
 
 @example
-GNU LilyPond  @version{}
+GNU LilyPond @version{}
 Processing `test.ly'
 Parsing...
 Interpreting music...
