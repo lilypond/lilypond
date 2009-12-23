@@ -8,6 +8,7 @@
 
 @node Descarga
 @unnumbered Descarga
+@translationof Download
 
 @divClass{heading-center}
 @heading Descargas para LilyPond @versionStable
@@ -115,6 +116,7 @@ e imágenes de productos.
 
 @node Unix
 @unnumberedsec Unix
+@translationof Unix
 
 @divClass{column-center-top}
 @subheading ¿Paquetes genéricos, o paquetes específicos de la distribución?
@@ -235,6 +237,7 @@ todos los logotipos e imágenes de producto.
 
 @node MacOS X
 @unnumberedsec MacOS X
+@translationof MacOS X
 
 @divClass{column-left-top}
 @subheading Paquetes
@@ -390,6 +393,7 @@ e imágenes de productos.
 
 @node Windows
 @unnumberedsec Windows
+@translationof Windows
 
 @divClass{column-left-top}
 @subheading Paquetes
@@ -486,6 +490,7 @@ e imágenes de productos.
 
 @node Código fuente
 @unnumberedsec Código fuente
+@translationof Source
 
 @warning{@strong{No} recomendamos que intente compilar LilyPond por sí
 mismo; casi todas las necesidades del usuario se satisfacen mejor con
@@ -514,6 +519,7 @@ Las instrucciones se encuentran desarrolladas dentro de
 
 @node Descargas antiguas
 @unnumberedsec Descargas antiguas
+@translationof Old downloads
 
 @divClass{column-center-top}
 @subheading Todas las versiones
@@ -528,6 +534,7 @@ descarga}.
 
 @node GPL
 @unnumberedsec GPL
+@translationof GPL
 
 @divClass{column-center-top}
 @subheading Licencia del Software

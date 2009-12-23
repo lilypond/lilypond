@@ -8,6 +8,7 @@
 
 @node Introducción
 @unnumbered Introducción
+@translationof Introduction
 
 @divClass{column-center-top}
 @subheading Nuestras metas
@@ -93,6 +94,7 @@ espaciado, cambiar símbolos de sitio, o dando forma a las ligaduras.
 
 @node Posibilidades
 @unnumberedsec Posibilidades
+@translationof Features
 
 (En construcción)
 
@@ -199,6 +201,7 @@ infórmese de nuestra @ref{Entrada de texto}.
 
 @node Ejemplos
 @unnumberedsec Ejemplos
+@translationof Examples
 
 LilyPond es una herramienta potente y flexible para tareas de grabado
 musical de todo tipo.  Explore libremente nuestra galería de ejemplos
@@ -353,6 +356,7 @@ LilyPond, lea en primer lugar lo que tenemos que decirle sobre la
 
 @node Libertad
 @unnumberedsec Libertad
+@translationof Freedom
 
 @divClass{column-center-top}
 @subheading Software libre
@@ -468,6 +472,7 @@ probar LilyPond, en primer lugar lea lo que hemos escrito sobre la
 
 @node Trasfondo
 @unnumberedsec Trasfondo
+@translationof Background
 
 @divClass{column-center-top}
 @subheading Ensayo sobre el trasfondo
@@ -492,6 +497,7 @@ de texto}.
 
 @node Producciones
 @unnumberedsec Producciones
+@translationof Productions
 
 @divClass{column-left-top}
 @subheading Conciertos
@@ -564,6 +570,7 @@ lugar infórmese sobre nuestra @ref{Entrada de texto}.
 
 @node Testimonios
 @unnumberedsec Testimonios
+@translationof Testimonials
 
 @divClass{testimonial-item}
 @imageFloat{carter-brey,jpg, right}
@@ -708,8 +715,9 @@ Lea lo que tenemos que decirle sobre nuestra @ref{Entrada de texto}.
 
 @node Entrada de texto
 @unnumberedsec Entrada de texto
+@translationof Text input
 
-@c TRANSLATORS: so far it's mostly from
+@c TRANSLATORS, so far it's mostly from
 @c http://lilypond.org/web/switch/howto
 
 @subheading @qq{Compilar} la música
@@ -833,6 +841,7 @@ entornos de edición en @ref{Entornos mejorados}.
 
 @node Entornos mejorados
 @unnumberedsec Entornos mejorados
+@translationof Alternate input
 
 @divClass{column-center-top}
 @subheading Entorno gráfico: Denemo
