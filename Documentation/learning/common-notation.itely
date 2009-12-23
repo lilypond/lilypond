@@ -1127,7 +1127,6 @@ introduction to the rest of the manual.
 
 @menu
 * Organizing pieces with variables::
-* Version number::
 * Adding titles::
 * Absolute note names::
 * After the tutorial::
@@ -1225,38 +1224,6 @@ places.  The following example uses the above variables:
   c4^\name
 @}
 @end example
-
-
-@node Version number
-@subsection Version number
-
-@cindex versioning
-@cindex version
-@cindex version number
-@cindex upgrades
-@cindex future upgrades
-@cindex updating files
-@cindex files, updating
-
-@funindex \version
-@funindex version
-@funindex convert-ly
-
-The @code{\version} statement records the version of LilyPond that
-was used to write the file:
-
-@example
-\version @w{"@version{}"}
-@end example
-
-@noindent
-By convention, this is placed at the top of your LilyPond file.
-
-These annotations make future upgrades of LilyPond go more
-smoothly.  Changes in the syntax are handled with a special
-program, @command{convert-ly}, and it uses @code{\version} to
-determine what rules to apply.  For details, see
-@rprogram{Updating files with convert-ly}.
 
 
 @node Adding titles

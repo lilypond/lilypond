@@ -49,6 +49,7 @@ PNG (for online use).  LilyPond input files are simple text files.
 This example shows a simple input file:
 
 @example
+\version "@w{@version{}}"
 @{
   c' e' g' e'
 @}
@@ -80,16 +81,9 @@ produce an error message.
 
 @subheading Producing output
 
-@c TODO: move index entries
 @cindex PDF file
 @cindex viewing music
 @cindex text editors
-@cindex running LilyPond under MacOS X
-@cindex MacOS X, running LilyPond
-@cindex running LilyPond under Windows
-@cindex Windows, running LilyPond
-@cindex running LilyPond under Unix
-@cindex Unix, running LilyPond
 
 The method of producing output depends on your operating system
 and the program(s) you use.
@@ -122,6 +116,8 @@ support for LilyPond.  For more information, see
 minute or two because all of the system fonts have to be analyzed
 first.  After this, LilyPond will be much faster!}
 
+@cindex running LilyPond under MacOS X
+@cindex MacOS X, running LilyPond
 
 @node MacOS X
 @subsection MacOS X
@@ -191,6 +187,8 @@ with the Mac Operating system and you have the PDF file generated
 from a previous compilation open, then any further compilations
 may fail to generate an update PDF until you close the original.
 
+@cindex running LilyPond under Windows
+@cindex Windows, running LilyPond
 
 @node Windows
 @subsection Windows
@@ -280,6 +278,8 @@ If you are viewing your file in a PDF viewer, then you must close the
 PDF if you wish to make a new compilation as it may fail to create
 the new PDF while it is still being viewed.
 
+@cindex running LilyPond under Unix
+@cindex Unix, running LilyPond
 
 @node Command-line
 @subsection Command-line
@@ -296,6 +296,7 @@ compiling a file.}
 Create a text file called @file{test.ly} and enter:
 
 @example
+\version "@w{@version{}}"
 @{
   c' e' g' e'
 @}
@@ -304,7 +305,7 @@ Create a text file called @file{test.ly} and enter:
 
 @subsubheading Step 2. Compile (with command-line)
 
-To process @file{test.ly}, proceed as follows:
+To process @file{test.ly}, type the following at the command prompt:
 
 @example
 lilypond test.ly
@@ -314,17 +315,15 @@ lilypond test.ly
 You will see something resembling:
 
 @example
-lilypond test.ly
-GNU LilyPond @version{}
+GNU LilyPond  @version{}
 Processing `test.ly'
 Parsing...
 Interpreting music...
 Preprocessing graphical objects...
-Finding the ideal number of pages...
-Fitting music on 1 page...
+Solving 1 page-breaking chunks...[1: 1 pages]
 Drawing systems...
 Layout output to `test.ps'...
-Converting to `test.pdf'...
+Converting to `./test.pdf'...
 @end example
 
 @subsubheading Step 3. View output
@@ -622,13 +621,18 @@ Notation Reference: @ruser{Writing pitches},
 @cindex case sensitive
 @cindex whitespace insensitive
 @cindex expressions
+@cindex versioning
+@cindex version
+@cindex version number
 
+@funindex \version
 @funindex { ... }
 @funindex %
 @funindex %@{ ... %@}
 
 LilyPond input files are similar to source files in many common
-programming languages.  They are case sensitive, and white-space
+programming languages.  They contain a version statement,
+are case sensitive, and white-space
 is generally ignored.  Expressions are formed with curly braces
 @{ @}, and comments are denoted with @code{%} or
 @w{@code{%@{ ... %@}}}.
@@ -637,6 +641,27 @@ If the previous sentences sound like nonsense, don't worry!  We'll
 explain what all these terms mean:
 
 @itemize
+
+@item
+@strong{Version statement}:
+Every LilyPond file should contain a version statement.  A version
+statement is a line that describes the version of LilyPond for which
+the file was written, as in the following example:
+
+@example
+\version "@w{@version{}}"
+@end example
+
+By convention, the version statement is placed at the top of the
+LilyPond file.
+
+The version statement is important for at least two reasons.  First,
+it allows automatic updating of the input file as LilyPond syntax
+changes.  Second, it describes the version of LilyPond needed to
+compile the file.
+
+If the version statement is omitted from an input file, LilyPond will print
+a warning during the compilation of the file.
 
 @item
 @strong{Case sensitive}:
@@ -735,15 +760,15 @@ also introduces some useful interactive features available in the
 online version.
 
 @menu
-* Omitting braces::
+* Omitted material::
 * Clickable examples::
 * Keyboard navigation::
 * Overview of manuals::
 @end menu
 
 
-@node Omitting braces
-@subsection Omitting braces
+@node Omitted material
+@subsection Omitted material
 
 
 @cindex how to read the manual
@@ -779,6 +804,10 @@ documentation example and paste it inside a longer piece of your
 own.  Most people want to add material to an existing piece, so we
 format the manual this way.
 
+Also, remember that every LilyPond file should have a @code{@bs{}version}
+statement.  Because the examples in the manuals are snippets, not files,
+the @code{@bs{}version} statement is omitted.  But you should make a
+practice of including them in your files.
 
 @node Clickable examples
 @subsection Clickable examples
