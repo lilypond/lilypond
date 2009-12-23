@@ -145,7 +145,7 @@ Questo documento è stato posto nel pubblico dominio.
 
 @vskip 0pt plus 1filll
 
-@insertcopying{}
+@insertcopying
 
 Per la versione di LilyPond @version{}
 @end titlepage

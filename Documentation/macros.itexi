@@ -127,7 +127,7 @@ This document has been placed in the public domain.
 
 @vskip 0pt plus 1filll
 
-@insertcopying{}
+@insertcopying
 
 For LilyPond version @version{}
 @end titlepage

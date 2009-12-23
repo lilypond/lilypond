@@ -63,7 +63,7 @@ Free Documentation License''.
 @vskip 0pt plus 1filll
 @c @vskip 20pt
 
-@insertcopying{}
+@insertcopying
 
 For LilyPond version @version{}
 @end titlepage

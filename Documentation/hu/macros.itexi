@@ -124,7 +124,7 @@ Ez a dokumentum közkincs.
 
 @vskip 0pt plus 1filll
 
-@insertcopying{}
+@insertcopying
 
 A LilyPond @version{} verziójához
 @end titlepage
