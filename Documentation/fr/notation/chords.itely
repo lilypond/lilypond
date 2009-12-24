@@ -14,7 +14,7 @@
 
 @node Notation des accords
 @section Notation des accords
-@translationof Chord notation @c external
+@translationof Chord notation
 
 @untranslated
 
@@ -26,7 +26,7 @@
 
 @node Mode accords
 @subsection Mode accords
-@translationof Chord mode @c external
+@translationof Chord mode
 
 @untranslated
 
@@ -215,13 +215,13 @@ car elle est indiquée en dernier :
 
 @node Extensions et altération d'accords
 @unnumberedsubsubsec Extensions et altération d'accords
-@translationof Extended and altered chords @c external
+@translationof Extended and altered chords
 
 @untranslated
 
 @node Gravure des accords
 @subsection Gravure des accords
-@translationof Displaying chords @c external
+@translationof Displaying chords
 
 @untranslated
 
@@ -421,13 +421,13 @@ chiffrages étranges.
 
 @node Personnalisation des noms d'accord
 @unnumberedsubsubsec Personnalisation des noms d'accord
-@translationof Customizing chord names @c external
+@translationof Customizing chord names
 
 @untranslated
 
 @node Basse chiffrée
 @subsection Basse chiffrée
-@translationof Figured bass @c external
+@translationof Figured bass
 
 @untranslated
 
@@ -646,12 +646,12 @@ Référence du programme : les objets @rinternals{BassFigure},
 
 @node Saisie de la basse chiffrée
 @unnumberedsubsubsec Saisie de la basse chiffrée
-@translationof Entering figured bass @c external
+@translationof Entering figured bass
 
 @untranslated
 
 @node Gravure de la basse chiffrée
 @unnumberedsubsubsec Gravure de la basse chiffrée
-@translationof Displaying figured bass @c external
+@translationof Displaying figured bass
 
 @untranslated

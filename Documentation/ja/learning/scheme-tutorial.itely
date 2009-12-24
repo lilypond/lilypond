@@ -10,7 +10,7 @@
 
 @node Scheme チュートリアル
 @appendix Scheme チュートリアル
-@translationof Scheme tutorial @c external
+@translationof Scheme tutorial
 
 @untranslated
 
@@ -21,7 +21,7 @@
 
 @node Tweaking with Scheme
 @appendixsec Tweaking with Scheme
-@translationof Tweaking with Scheme @c external
+@translationof Tweaking with Scheme
 
 @untranslated
 

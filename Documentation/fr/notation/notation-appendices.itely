@@ -53,19 +53,19 @@ and just before
 
 @node Table des noms d'accord
 @appendixsec Table des noms d'accord
-@translationof Chord name chart @c external
+@translationof Chord name chart
 
 @untranslated
 
 @node Modificateurs d'accord usuels
 @appendixsec Modificateurs d'accord usuels
-@translationof Common chord modifiers @c external
+@translationof Common chord modifiers
 
 @untranslated
 
 @node Tablatures prédéfinies
 @appendixsec Tablatures prédéfinies
-@translationof Predefined fretboard diagrams @c external
+@translationof Predefined fretboard diagrams
 
 @untranslated
 
@@ -125,7 +125,7 @@ cello                     lead 6 (voice)
 
 @node Liste des couleurs
 @appendixsec Liste des couleurs
-@translationof List of colors @c external
+@translationof List of colors
 
 @untranslated
 
@@ -137,7 +137,7 @@ cello                     lead 6 (voice)
 
 @node La fonte Feta
 @appendixsec La fonte Feta
-@translationof The Feta font @c external
+@translationof The Feta font
 
 @untranslated
 
@@ -207,7 +207,7 @@ Voici la liste exhaustive des symboles prédéfinis :
 
 @node Glossaire technique
 @appendixsec Glossaire technique
-@translationof Technical glossary @c external
+@translationof Technical glossary
 
 @untranslated
 
@@ -227,27 +227,27 @@ Voici la liste exhaustive des symboles prédéfinis :
 
 @node Liste des propriétés de contexte
 @appendixsec Liste des propriétés de contexte
-@translationof All context properties @c external
+@translationof All context properties
 
 @untranslated
 
 
 @node Propriétés de mise en forme
 @appendixsec Propriétés de mise en forme
-@translationof Layout properties @c external
+@translationof Layout properties
 
 @untranslated
 
 
 @node Variables
 @appendixsec Variables
-@translationof Identifiers @c external
+@translationof Identifiers
 
 @untranslated
 
 
 @node Fonctions Scheme
 @appendixsec Fonctions Scheme
-@translationof Scheme functions @c external
+@translationof Scheme functions
 
 @untranslated

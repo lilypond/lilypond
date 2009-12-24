@@ -10,7 +10,7 @@
 
 @node Exécution de LilyPond
 @chapter Exécution de LilyPond
-@translationof Running LilyPond @c external
+@translationof Running LilyPond
 
 @untranslated
 
@@ -25,14 +25,14 @@
 
 @node Utilisation habituelle
 @section Utilisation habituelle
-@translationof Normal usage @c external
+@translationof Normal usage
 
 @untranslated
 
 
 @node Utilisation en ligne de commande
 @section Utilisation en ligne de commande
-@translationof Command-line usage @c external
+@translationof Command-line usage
 
 @untranslated
 
@@ -45,35 +45,35 @@
 
 @node Lancement de lilypond
 @subsection Lancement de lilypond
-@translationof Invoking lilypond @c external
+@translationof Invoking lilypond
 
 @untranslated
 
 
 @node Options en ligne de commande
 @subsection Options en ligne de commande
-@translationof Command line options @c external
+@translationof Command line options
 
 @untranslated
 
 
 @node Variables d'environnement
 @subsection Variables d'environnement
-@translationof Environment variables @c external
+@translationof Environment variables
 
 @untranslated
 
 
 @node Messages d'erreur
 @section Messages d'erreur
-@translationof Error messages @c external
+@translationof Error messages
 
 @untranslated
 
 
 @node Mise à jour des fichiers avec convert-ly
 @section Mise à jour avec @command{convert-ly}
-@translationof Updating files with convert-ly @c external
+@translationof Updating files with convert-ly
 
 @untranslated
 
@@ -85,14 +85,14 @@
 
 @node Limitations de convert-ly
 @subsection Limitations de @command{convert-ly}
-@translationof Problems with convert-ly @c external
+@translationof Problems with convert-ly
 
 @untranslated
 
 
 @node Rapport de bogue
 @section Rapport de bogue
-@translationof Reporting bugs @c external
+@translationof Reporting bugs
 
 @untranslated
 

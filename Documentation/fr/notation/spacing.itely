@@ -27,7 +27,7 @@
 
 @node Du papier et des pages
 @section Du papier et des pages
-@translationof Paper and pages @c external
+@translationof Paper and pages
 
 @untranslated
 
@@ -39,21 +39,21 @@
 
 @node Format du papier
 @subsection Format du papier
-@translationof Paper size @c external
+@translationof Paper size
 
 @untranslated
 
 
 @node Mise en forme de la page
 @subsection Mise en forme de la page
-@translationof Page formatting @c external
+@translationof Page formatting
 
 @untranslated
 
 
 @node Mise en forme de la musique
 @section Mise en forme de la musique
-@translationof Music layout @c external
+@translationof Music layout
 
 @untranslated
 
@@ -65,21 +65,21 @@
 
 @node Définition de la taille de portée
 @subsection Définition de la taille de portée
-@translationof Setting the staff size @c external
+@translationof Setting the staff size
 
 @untranslated
 
 
 @node Mise en forme de la partition
 @subsection Mise en forme de la partition
-@translationof Score layout @c external
+@translationof Score layout
 
 @untranslated
 
 
 @node Sauts
 @section Sauts
-@translationof Breaks @c external
+@translationof Breaks
 
 @untranslated
 
@@ -96,56 +96,56 @@
 
 @node Sauts de ligne
 @subsection Sauts de ligne
-@translationof Line breaking @c external
+@translationof Line breaking
 
 @untranslated
 
 
 @node Sauts de page
 @subsection Sauts de page
-@translationof Page breaking @c external
+@translationof Page breaking
 
 @untranslated
 
 
 @node Optimisation des sauts de page
 @subsection Optimisation des sauts de page
-@translationof Optimal page breaking @c external
+@translationof Optimal page breaking
 
 @untranslated
 
 
 @node Optimisation des tournes
 @subsection Optimisation des tournes
-@translationof Optimal page turning @c external
+@translationof Optimal page turning
 
 @untranslated
 
 
 @node Minimisation des sauts de page
 @subsection Minimisation des sauts de page
-@translationof Minimal page breaking @c external
+@translationof Minimal page breaking
 
 @untranslated
 
 
 @node Sauts explicites
 @subsection Sauts explicites
-@translationof Explicit breaks @c external
+@translationof Explicit breaks
 
 @untranslated
 
 
 @node Recours à une voix supplémentaire pour gérer les sauts
 @subsection Recours à une voix supplémentaire pour gérer les sauts
-@translationof Using an extra voice for breaks @c external
+@translationof Using an extra voice for breaks
 
 @untranslated
 
 
 @node Espacement vertical
 @section Espacement vertical
-@translationof Vertical spacing @c external
+@translationof Vertical spacing
 
 @untranslated
 
@@ -160,42 +160,42 @@
 
 @node Espacement vertical au sein d'un système
 @subsection Espacement vertical au sein d'un système
-@translationof Vertical spacing inside a system @c external
+@translationof Vertical spacing inside a system
 
 @untranslated
 
 
 @node Espacement vertical entre les systèmes
 @subsection Espacement vertical entre les systèmes
-@translationof Vertical spacing between systems @c external
+@translationof Vertical spacing between systems
 
 @untranslated
 
 
 @node Positionnement explicite des portées et systèmes
 @subsection Positionnement explicite des portées et systèmes
-@translationof Explicit staff and system positioning @c external
+@translationof Explicit staff and system positioning
 
 @untranslated
 
 
 @node Optimisation du remplissage avec un deuxième passage
 @subsection Optimisation du remplissage avec un deuxième passage
-@translationof Two-pass vertical spacing @c external
+@translationof Two-pass vertical spacing
 
 @untranslated
 
 
 @node Résolution des collisions verticales
 @subsection Résolution des collisions verticales
-@translationof Vertical collision avoidance @c external
+@translationof Vertical collision avoidance
 
 @untranslated
 
 
 @node Espacement horizontal
 @section Espacement horizontal
-@translationof Horizontal spacing @c external
+@translationof Horizontal spacing
 
 @untranslated
 
@@ -210,28 +210,28 @@
 
 @node Généralités sur l'espacement horizontal
 @subsection Généralités sur l'espacement horizontal
-@translationof Horizontal spacing overview @c external
+@translationof Horizontal spacing overview
 
 @untranslated
 
 
 @node Changement d'espacement au cours de la partition
 @subsection Changement d'espacement au cours de la partition
-@translationof New spacing area @c external
+@translationof New spacing area
 
 @untranslated
 
 
 @node Modification de l'espacement horizontal
 @subsection Modification de l'espacement horizontal
-@translationof Changing horizontal spacing @c external
+@translationof Changing horizontal spacing
 
 @untranslated
 
 
 @node Longueur de ligne
 @subsection Longueur de ligne
-@translationof Line length @c external
+@translationof Line length
 
 @untranslated
 
@@ -291,7 +291,7 @@ proportionnelle stricte.
 
 @node Mise en évidence de l'espacement
 @subsection Mise en évidence de l'espacement
-@translationof Displaying spacing @c external
+@translationof Displaying spacing
 
 @untranslated
 

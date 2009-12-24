@@ -156,42 +156,42 @@ further explanation and with links to the IR.
 
 @node Score -- le père de tous les contextes
 @unnumberedsubsubsec Score -- le père de tous les contextes
-@translationof Score - the master of all contexts @c external
+@translationof Score - the master of all contexts
 
 @untranslated
 
 
 @node Contextes de haut niveau -- les systèmes
 @unnumberedsubsubsec Contextes de haut niveau -- les systèmes
-@translationof Top-level contexts - staff containers @c external
+@translationof Top-level contexts - staff containers
 
 @untranslated
 
 
 @node Contextes de niveau intermédiaire -- les portées
 @unnumberedsubsubsec Contextes de niveau intermédiaire -- les portées
-@translationof Intermediate-level contexts - staves @c external
+@translationof Intermediate-level contexts - staves
 
 @untranslated
 
 
 @node Contextes de bas niveau -- les voix
 @unnumberedsubsubsec Contextes de bas niveau -- les voix
-@translationof Bottom-level contexts - voices @c external
+@translationof Bottom-level contexts - voices
 
 @untranslated
 
 
 @node Création d'un contexte
 @subsection Création d'un contexte
-@translationof Creating contexts @c external
+@translationof Creating contexts
 
 @untranslated
 
 
 @node Conservation d'un contexte
 @subsection Conservation d'un contexte
-@translationof Keeping contexts alive @c external
+@translationof Keeping contexts alive
 
 @untranslated
 
@@ -1028,7 +1028,7 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{} @rinternals{Vo
 
 @node Conventions de nommage
 @subsection Conventions de nommage
-@translationof Naming conventions @c external
+@translationof Naming conventions
 
 @untranslated
 
@@ -1053,7 +1053,7 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{} @rinternals{Vo
 
 @node Vue d'ensemble de la modification des propriétés
 @subsection Vue d'ensemble de la modification des propriétés
-@translationof Overview of modifying properties @c external
+@translationof Overview of modifying properties
 
 @untranslated
 
@@ -1374,35 +1374,35 @@ courante, une propriété spéciale a été créée.  Elle doit
 
 @node Modes de saisie
 @subsection Modes de saisie
-@translationof Input modes @c external
+@translationof Input modes
 
 @untranslated
 
 
 @node Direction et positionnement
 @subsection Direction et positionnement
-@translationof Direction and placement @c external
+@translationof Direction and placement
 
 @untranslated
 
 
 @node Distances et unités de mesure
 @subsection Distances et unités de mesure
-@translationof Distances and measurements @c external
+@translationof Distances and measurements
 
 @untranslated
 
 
 @node Propriétés des lignes de portée
 @subsection Propriétés des lignes de portée
-@translationof Staff symbol properties @c external
+@translationof Staff symbol properties
 
 @untranslated
 
 
 @node Extenseurs et prolongateurs
 @subsection Extenseurs et prolongateurs
-@translationof Spanners @c external
+@translationof Spanners
 
 @untranslated
 
@@ -1411,7 +1411,7 @@ courante, une propriété spéciale a été créée.  Elle doit
 @unnumberedsubsubsec Utilisation de @code{line-spanner-interface}
 @node Visibilité des objets
 @subsection Visibilité des objets
-@translationof Visibility of objects @c external
+@translationof Visibility of objects
 
 @untranslated
 
@@ -1426,49 +1426,49 @@ courante, une propriété spéciale a été créée.  Elle doit
 
 @node Suppression des stencils
 @unnumberedsubsubsec Suppression des stencils
-@translationof Removing the stencil @c external
+@translationof Removing the stencil
 
 @untranslated
 
 
 @node Transparence des objets
 @unnumberedsubsubsec Transparence des objets
-@translationof Making objects transparent @c external
+@translationof Making objects transparent
 
 @untranslated
 
 
 @node Blanchiment des objets
 @unnumberedsubsubsec Blanchiment des objets
-@translationof Painting objects white @c external
+@translationof Painting objects white
 
 @untranslated
 
 
 @node Utilisation de break-visibility
 @unnumberedsubsubsec Utilisation de break-visibility
-@translationof Using break-visibility @c external
+@translationof Using break-visibility
 
 @untranslated
 
 
 @node Considérations spécifiques
 @unnumberedsubsubsec Considérations spécifiques
-@translationof Special considerations @c external
+@translationof Special considerations
 
 @untranslated
 
 
 @node Styles de ligne
 @subsection Styles de ligne
-@translationof Line styles @c external
+@translationof Line styles
 
 @untranslated
 
 
 @node Rotation des objets
 @subsection Rotation des objets
-@translationof Rotating objects @c external
+@translationof Rotating objects
 
 @untranslated
 
@@ -1480,21 +1480,21 @@ courante, une propriété spéciale a été créée.  Elle doit
 
 @node Rotation des objets de mise en forme
 @unnumberedsubsubsec Rotation des objets de mise en forme
-@translationof Rotating layout objects @c external
+@translationof Rotating layout objects
 
 @untranslated
 
 
 @node Rotation des étiquettes
 @unnumberedsubsubsec Rotation des étiquettes
-@translationof Rotating markup @c external
+@translationof Rotating markup
 
 @untranslated
 
 
 @node Retouches avancées
 @section Retouches avancées
-@translationof Advanced tweaks @c external
+@translationof Advanced tweaks
 
 @untranslated
 
@@ -1508,7 +1508,7 @@ courante, une propriété spéciale a été créée.  Elle doit
 
 @node Alignement des objets
 @subsection Alignement des objets
-@translationof Aligning objects @c external
+@translationof Aligning objects
 
 @untranslated
 
@@ -1522,21 +1522,21 @@ courante, une propriété spéciale a été créée.  Elle doit
 
 @node Détermination directe de @code{X-offset} et @code{Y-offset}
 @unnumberedsubsubsec Détermination directe de @code{X-offset} et @code{Y-offset}
-@translationof Setting @code{X-offset} and @code{Y-offset} directly @c external
+@translationof Setting @code{X-offset} and @code{Y-offset} directly
 
 @untranslated
 
 
 @node Utilisation de @code{side-position-interface}
 @unnumberedsubsubsec Utilisation de @code{side-position-interface}
-@translationof Using the @code{side-position-interface} @c external
+@translationof Using the @code{side-position-interface}
 
 @untranslated
 
 
 @node Utilisation de @code{self-alignment-interface}
 @unnumberedsubsubsec Utilisation de @code{self-alignment-interface}
-@translationof Using the @code{self-alignment-interface} @c external
+@translationof Using the @code{self-alignment-interface}
 
 @untranslated
 
@@ -1545,7 +1545,7 @@ courante, une propriété spéciale a été créée.  Elle doit
 @unnumberedsubsubsec Utilisation des procédures @code{centered-on-parent}
 @node Utilisation de @code{break-aligned-interface}
 @unnumberedsubsubsec Utilisation de @code{break-aligned-interface}
-@translationof Using the @code{break-alignable-interface} @c external
+@translationof Using the @code{break-alignable-interface}
 
 @untranslated
 
@@ -1566,7 +1566,7 @@ possède son propre @code{VerticalAxisGroup}.
 
 @node Modification des stencils
 @subsection Modification des stencils
-@translationof Modifying stencils @c external
+@translationof Modifying stencils
 
 @untranslated
 
@@ -1581,7 +1581,7 @@ possède son propre @code{VerticalAxisGroup}.
 
 @node Modification des liaisons
 @unnumberedsubsubsec Modification des liaisons
-@translationof Modifying ties and slurs @c external
+@translationof Modifying ties and slurs
 
 @untranslated
 

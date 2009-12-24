@@ -13,7 +13,7 @@
 
 @node Généralités en matière d'entrée et sortie
 @chapter Généralités en matière d'entrée et sortie
-@translationof General input and output @c external
+@translationof General input and output
 
 @untranslated
 
@@ -28,7 +28,7 @@
 
 @node Structure de fichier
 @section Structure de fichier
-@translationof Input structure @c external
+@translationof Input structure
 
 @untranslated
 
@@ -41,28 +41,28 @@
 
 @node Structure d'une partition
 @subsection Structure d'une partition
-@translationof Structure of a score @c external
+@translationof Structure of a score
 
 @untranslated
 
 
 @node Plusieurs partitions dans un même ouvrage
 @subsection Plusieurs partitions dans un même ouvrage
-@translationof Multiple scores in a book @c external
+@translationof Multiple scores in a book
 
 @untranslated
 
 
 @node Structure de fichier
 @subsection Structure de fichier
-@translationof File structure @c external
+@translationof File structure
 
 @untranslated
 
 
 @node Titres et entêtes
 @section Titres et entêtes
-@translationof Titles and headers @c external
+@translationof Titles and headers
 
 @untranslated
 
@@ -76,35 +76,35 @@
 
 @node Création de titres
 @subsection Création de titres
-@translationof Creating titles @c external
+@translationof Creating titles
 
 @untranslated
 
 
 @node Titres personnalisés
 @subsection Titres personnalisés
-@translationof Custom titles @c external
+@translationof Custom titles
 
 @untranslated
 
 
 @node Référencement des numéros de page
 @subsection Référencement des numéros de page
-@translationof Reference to page numbers @c external
+@translationof Reference to page numbers
 
 @untranslated
 
 
 @node Table des matières
 @subsection Table des matières
-@translationof Table of contents @c external
+@translationof Table of contents
 
 @untranslated
 
 
 @node Travail sur des fichiers texte
 @section Travail sur des fichiers texte
-@translationof Working with input files @c external
+@translationof Working with input files
 
 @untranslated
 
@@ -118,14 +118,14 @@
 
 @node Insertion de fichiers LilyPond
 @subsection Insertion de fichiers LilyPond
-@translationof Including LilyPond files @c external
+@translationof Including LilyPond files
 
 @untranslated
 
 
 @node Différentes éditions à partir d'une même source
 @subsection Différentes éditions à partir d'une même source
-@translationof Different editions from one source @c external
+@translationof Different editions from one source
 
 @untranslated
 
@@ -137,7 +137,7 @@
 
 @node Utilisation de variables
 @unnumberedsubsubsec Utilisation de variables
-@translationof Using variables @c external
+@translationof Using variables
 
 @untranslated
 
@@ -231,21 +231,21 @@ si vous imprimez une partition avec les deux sections balisées.
 
 @node Codage du texte
 @subsection Codage du texte
-@translationof Text encoding @c external
+@translationof Text encoding
 
 @untranslated
 
 
 @node Affichage de notation au format LilyPond
 @subsection Affichage de notation au format LilyPond
-@translationof Displaying LilyPond notation @c external
+@translationof Displaying LilyPond notation
 
 @untranslated
 
 
 @node Contrôle des sorties
 @section Contrôle des sorties
-@translationof Controlling output @c external
+@translationof Controlling output
 
 @untranslated
 
@@ -257,21 +257,21 @@ si vous imprimez une partition avec les deux sections balisées.
 
 @node Extraction de fragments musicaux
 @subsection Extraction de fragments musicaux
-@translationof Extracting fragments of music @c external
+@translationof Extracting fragments of music
 
 @untranslated
 
 
 @node Ignorer des passages de la partition
 @subsection Ignorer des passages de la partition
-@translationof Skipping corrected music @c external
+@translationof Skipping corrected music
 
 @untranslated
 
 
 @node Sortie MIDI
 @section Sortie MIDI
-@translationof MIDI output @c external
+@translationof MIDI output
 
 @untranslated
 
@@ -286,7 +286,7 @@ si vous imprimez une partition avec les deux sections balisées.
 
 @node Création de fichiers MIDI
 @subsection Création de fichiers MIDI
-@translationof Creating MIDI files @c external
+@translationof Creating MIDI files
 
 @untranslated
 
@@ -294,14 +294,14 @@ si vous imprimez une partition avec les deux sections balisées.
 @unnumberedsubsubsec Noms d'instrument
 @node Le bloc MIDI
 @subsection Le bloc MIDI
-@translationof MIDI block @c external
+@translationof MIDI block
 
 @untranslated
 
 
 @node Contenu de la sortie MIDI
 @subsection Contenu de la sortie MIDI
-@translationof What goes into the MIDI output? @c external
+@translationof What goes into the MIDI output?
 
 @untranslated
 
@@ -357,7 +357,7 @@ pourcentage.  Par exemple
 
 @node Gestion des nuances en MIDI
 @subsection Gestion des nuances en MIDI
-@translationof Controlling MIDI dynamics @c external
+@translationof Controlling MIDI dynamics
 
 @untranslated
 

@@ -15,7 +15,7 @@
 
 @node Interfaces pour les programmeurs
 @chapter Interfaces pour les programmeurs
-@translationof Interfaces for programmers @c external
+@translationof Interfaces for programmers
 
 @untranslated
 
@@ -33,7 +33,7 @@
 
 @node Fonctions musicales
 @section Fonctions musicales
-@translationof Music functions @c external
+@translationof Music functions
 
 @untranslated
 
@@ -50,49 +50,49 @@
 
 @node Aperçu des fonctions musicales
 @subsection Aperçu des fonctions musicales
-@translationof Overview of music functions @c external
+@translationof Overview of music functions
 
 @untranslated
 
 
 @node Fonctions de substitution simple
 @subsection Fonctions de substitution simple
-@translationof Simple substitution functions @c external
+@translationof Simple substitution functions
 
 @untranslated
 
 
 @node Fonctions de substitution par paire
 @subsection Fonctions de substitution par paire
-@translationof Paired substitution functions @c external
+@translationof Paired substitution functions
 
 @untranslated
 
 
 @node De l'usage des mathématiques dans les fonctions
 @subsection De l'usage des mathématiques dans les fonctions
-@translationof Mathematics in functions @c external
+@translationof Mathematics in functions
 
 @untranslated
 
 
 @node Fonctions fantômes
 @subsection Fonctions fantômes
-@translationof Void functions @c external
+@translationof Void functions
 
 @untranslated
 
 
 @node Fonctions dépourvues d'argument
 @subsection Fonctions dépourvues d'argument
-@translationof Functions without arguments @c external
+@translationof Functions without arguments
 
 @untranslated
 
 
 @node Liste des fonctions musicales prédéfinies
 @subsection Liste des fonctions musicales prédéfinies
-@translationof Overview of available music functions @c external
+@translationof Overview of available music functions
 
 @untranslated
 
@@ -100,7 +100,7 @@
 @include identifiers.tely
 @node Interfaces de programmation
 @section Interfaces de programmation
-@translationof Programmer interfaces @c external
+@translationof Programmer interfaces
 
 @untranslated
 
@@ -112,21 +112,21 @@
 
 @node Variables d'entrée et Scheme
 @subsection Variables d'entrée et Scheme
-@translationof Input variables and Scheme @c external
+@translationof Input variables and Scheme
 
 @untranslated
 
 
 @node Représentation interne de la musique
 @subsection Représentation interne de la musique
-@translationof Internal music representation @c external
+@translationof Internal music representation
 
 @untranslated
 
 
 @node Construction de fonctions complexes
 @section Construction de fonctions complexes
-@translationof Building complicated functions @c external
+@translationof Building complicated functions
 
 @untranslated
 
@@ -140,35 +140,35 @@
 
 @node Affichage d'expressions musicales
 @subsection Affichage d'expressions musicales
-@translationof Displaying music expressions @c external
+@translationof Displaying music expressions
 
 @untranslated
 
 
 @node Propriétés de la musique
 @subsection Propriétés de la musique
-@translationof Music properties @c external
+@translationof Music properties
 
 @untranslated
 
 
 @node Exemple : redoubler une note avec liaison
 @subsection Exemple : redoubler une note avec liaison
-@translationof Doubling a note with slurs (example) @c external
+@translationof Doubling a note with slurs (example)
 
 @untranslated
 
 
 @node Exemple : ajouter une articulation à plusieurs notes
 @subsection Exemple : ajouter une articulation à plusieurs notes
-@translationof Adding articulation to notes (example) @c external
+@translationof Adding articulation to notes (example)
 
 @untranslated
 
 
 @node Interface de programmation des marqueurs de texte
 @section Interface de programmation des marqueurs de texte
-@translationof Markup programmer interface @c external
+@translationof Markup programmer interface
 
 @untranslated
 
@@ -182,35 +182,35 @@
 
 @node Construction Scheme d'un marqueur
 @subsection Construction Scheme d'un marqueur
-@translationof Markup construction in Scheme @c external
+@translationof Markup construction in Scheme
 
 @untranslated
 
 
 @node Fonctionnement interne des marqueurs
 @subsection Fonctionnement interne des marqueurs
-@translationof How markups work internally @c external
+@translationof How markups work internally
 
 @untranslated
 
 
 @node Définition d'une nouvelle commande de marqueur
 @subsection Définition d'une nouvelle commande de marqueur
-@translationof New markup command definition @c external
+@translationof New markup command definition
 
 @untranslated
 
 
 @node Définition d'une nouvelle commande de liste de marqueurs
 @subsection Définition d'une nouvelle commande de liste de marqueurs
-@translationof New markup list command definition @c external
+@translationof New markup list command definition
 
 @untranslated
 
 
 @node Contextes pour programmeurs
 @section Contextes pour programmeurs
-@translationof Contexts for programmers @c external
+@translationof Contexts for programmers
 
 @untranslated
 
@@ -222,21 +222,21 @@
 
 @node Évaluation d'un contexte
 @subsection Évaluation d'un contexte
-@translationof Context evaluation @c external
+@translationof Context evaluation
 
 @untranslated
 
 
 @node Application d'une fonction à tous les objets de mise en forme
 @subsection Application d'une fonction à tous les objets de mise en forme
-@translationof Running a function on all layout objects @c external
+@translationof Running a function on all layout objects
 
 @untranslated
 
 
 @node Utilisation de procédures Scheme en tant que propriétés
 @section Utilisation de procédures Scheme en tant que propriétés
-@translationof Scheme procedures as properties @c external
+@translationof Scheme procedures as properties
 
 @untranslated
 

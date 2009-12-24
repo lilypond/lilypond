@@ -10,7 +10,7 @@
 
 @node Tutoriel Scheme
 @appendix Tutoriel Scheme
-@translationof Scheme tutorial @c external
+@translationof Scheme tutorial
 
 @untranslated
 
@@ -21,7 +21,7 @@
 
 @node Scheme et les retouches
 @appendixsec Scheme et les retouches
-@translationof Tweaking with Scheme @c external
+@translationof Tweaking with Scheme
 
 @untranslated
 

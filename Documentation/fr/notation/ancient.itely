@@ -113,7 +113,7 @@ Voici les points que nous allons aborder :
 
 @node Formes de notation ancienne prises en charge
 @unnumberedsubsubsec Formes de notation ancienne prises en charge
-@translationof Ancient notation supported @c external
+@translationof Ancient notation supported
 
 @untranslated
 
@@ -121,7 +121,7 @@ Voici les points que nous allons aborder :
 
 @node Signes de note alternatifs
 @subsection Signes de note alternatifs
-@translationof Alternative note signs @c external
+@translationof Alternative note signs
 
 @untranslated
 
@@ -691,7 +691,7 @@ plutôt un @code{\markup}.
 
 @node Signes de note supplémentaires
 @subsection Signes de note supplémentaires
-@translationof Additional note signs @c external
+@translationof Additional note signs
 
 @untranslated
 
@@ -1986,7 +1986,7 @@ s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 
 @node Contextes prédéfinis
 @subsection Contextes prédéfinis
-@translationof Pre-defined contexts @c external
+@translationof Pre-defined contexts
 
 @untranslated
 
@@ -2072,7 +2072,7 @@ lancer dans la saisie de votre chant comme ci-après :
 
 @node Transcription de musique mensurale
 @subsection Transcription de musique mensurale
-@translationof Transcribing ancient music @c external
+@translationof Transcribing ancient music
 
 @untranslated
 
@@ -2085,34 +2085,33 @@ lancer dans la saisie de votre chant comme ci-après :
 
 @node Différentes éditions à partir d'une même source
 @unnumberedsubsubsec Différentes éditions à partir d'une même source
-@translationof Ancient and modern from one source @c external
+@translationof Ancient and modern from one source
 
 @untranslated
 
 @node Des incipits
 @unnumberedsubsubsec Des incipits
-@translationof Incipits @c external
+@translationof Incipits
 
 @untranslated
 
 
 @node Mise en forme de la musique mensurale
 @unnumberedsubsubsec Mise en forme de la musique mensurale
-@translationof Mensurstriche layout @c external
+@translationof Mensurstriche layout
 
 @untranslated
 
 @node Transcription de chant grégorien
 @unnumberedsubsubsec Transcription de chant grégorien
-@translationof Transcribing Gregorian chant @c external
+@translationof Transcribing Gregorian chant
 
 @untranslated
 
 
 @node Notation éditoriale
 @subsection Notation éditoriale
-@translationof Editorial markings @c external
-
+@translationof Editorial markings
 
 @untranslated
 
@@ -2160,7 +2159,7 @@ lancer dans la saisie de votre chant comme ci-après :
 
 @node Notation du rythme dans la musique baroque
 @unnumberedsubsubsec Notation du rythme dans la musique baroque
-@translationof Baroque rhythmic notation @c external
+@translationof Baroque rhythmic notation
 
 @untranslated
 
