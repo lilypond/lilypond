@@ -596,58 +596,107 @@ the latest binary:
 
 @subheading Manuals
 
-Learning:
-@manualDevelLearningSplit
-@manualDevelLearningBig
-@manualDevelLearningPdf
+@divClass{keep-bullets}
+@itemize
 
+@item
+Learning:
+
+@manualDevelLearningSplit
+@* @manualDevelLearningBig
+@* @manualDevelLearningPdf
+
+@item
 Glossary:
+
 @manualDevelGlossarySplit
+
 @manualDevelGlossaryBig
+
 @manualDevelGlossaryPdf
 
+@item
 Essay:
+
 @manualDevelEssaySplit
+
 @manualDevelEssayBig
+
 @manualDevelEssayPdf
 
 
+@c separate introduction, regular, infrequent manuals
+@smallspace
+
+@item
 Notation:
+
 @manualDevelNotationSplit
+
 @manualDevelNotationBig
+
 @manualDevelNotationPdf
 
+@item
 Usage:
+
 @manualDevelUsageSplit
+
 @manualDevelUsageBig
+
 @manualDevelUsagePdf
 
+@item
 Snippets:
+
 @manualDevelSnippetsSplit
+
 @manualDevelSnippetsBig
+
 @manualDevelSnippetsPdf
 
 
+@c separate introduction, regular, infrequent manuals
+@smallspace
+
+@item
 Web:
+
 @manualDevelWebSplit
+
 @manualDevelWebBig
+
 @manualDevelWebPdf
 
+@item
 Changes:
+
 @manualDevelChangesSplit
+
 @manualDevelChangesBig
+
 @manualDevelChangesPdf
 
+@item
 Extend:
+
 @manualDevelExtendingSplit
+
 @manualDevelExtendingBig
+
 @manualDevelExtendingPdf
 
+@item
 Internals:
+
 @manualDevelInternalsSplit
+
 @manualDevelInternalsBig
+
 @manualDevelInternalsPdf
 
+@end itemize
+@divEnd
 @divEnd
 
 
@@ -667,20 +716,20 @@ them.  For more information about different jobs, see
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../contributor/index.html, Contributor's guide (split HTML)}:
+@item
+@manualDevelContributorSplit{}:
 the manual is split between many HTML pages.
 @*@ @  @emph{(small download for each page)}
 
-@item @uref{../contributor-big-page.html, Contributor's guide (big HTML)}:
+@item
+@manualDevelContributorBig{}:
 read this manual as one huge HTML page.
 @*@ @  @emph{(large single download, 500 kb)}
 
-@item @uref{../contributor.pdf, contributor.pdf}:
+@item
+@manualDevelContributorPdf{}:
 download as a PDF file.
 @*@ @  @emph{(large single download, 2.8 Mb)}
-
-@c @item @uref{TODO, contributor.info}:
-@c GNU info format for documentation.  TODO, link broken.
 
 @end itemize
 @divEnd

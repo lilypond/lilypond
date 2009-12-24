@@ -10,7 +10,7 @@
 @unnumbered Manuals
 
 @divClass{heading-center}
-@heading Documentation for LilyPond @version
+@heading Documentation for LilyPond @versionStable
 
 @divEnd
 
