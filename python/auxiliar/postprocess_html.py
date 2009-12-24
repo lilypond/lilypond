@@ -218,7 +218,7 @@ online_links_re = re.compile ('''(href|src)=['"]\
 ((?!Compiling-from-source.html")[^/][.]*[^.:'"]*)\
 ([.]html)(#[^"']*|)['"]''')
 offline_links_re = re.compile ('href=[\'"]\
-((?!Compiling-from-source.html")[^/][.]*[^.:\'"]*)([.]html)(#[^"\']*|)[\'"]')
+((?!Compiling-from-source.html")(?![.]{2}/contributor)[^/][.]*[^.:\'"]*)([.]html)(#[^"\']*|)[\'"]')
 big_page_name_re = re.compile ('''(.+?)-big-page''')
 
 def process_i18n_big_page_links (match, prefix, lang_ext):
