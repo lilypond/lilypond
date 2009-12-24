@@ -707,7 +707,7 @@ Para la versión de LilyPond @version{}
 @macro logoLegalLinux
 Tux, el pingüino de Linux, es obra de
 @uref{mailto:lewing@@isc.tamu.edu, lewing@@isc.tamu.edu} hecha con
-@uref{http://www.isc.tamu.edu/~lewing/gimp/, el GIMP, el Programa de
+@uref{http://www.isc.tamu.edu/~lewing/gimp/, el Programa de
 Manipulación de Imágenes de GNU}.
 
 @end macro
