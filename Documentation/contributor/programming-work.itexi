@@ -1059,7 +1059,8 @@ to the left of the issue name.
 
 If the changes were in response to a feature request on the Google
 issue tracker for LilyPond, the author should change the status to
-@q{Fixed_x_y_z} where the patch was fixed in version x.y.z.  If
+Fixed and a tag @q{fixed_x_y_z} should be added, where the patch was
+fixed in version x.y.z.  If
 the author does not have privileges to change the status, an email
 should be sent to bug-lilypond requesting the BugMeister to change
 the status.
