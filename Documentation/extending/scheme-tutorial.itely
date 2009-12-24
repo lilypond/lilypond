@@ -499,7 +499,7 @@ the average of 3 and 12:
 @lisp
 guile> (average 3 12)
 15/2
-@end list
+@end lisp
 
 @unnumberedsubsubsec Predicates
 
