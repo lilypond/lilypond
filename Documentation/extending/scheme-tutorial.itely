@@ -545,8 +545,45 @@ guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
 
 @unnumberedsubsubsec if
 
+Scheme has an @code{if} procedure:
+
+@example
+(if test-expression true-expression false-expression)
+@end example
+
+@var{test-expression} is an expression that returns a boolean
+value.  If @var{test-expression} returns @code{#t}, the if
+procedure returns the value of @var{true-expression}, otherwise
+it returns the value of @var{false-expression}.
+
+@lisp
+guile> (define a 3)
+guile> (define b 5)
+guile> (if (> a b) "a is greater than b" "a is not greater than b")
+"a is not greater than b"
+@end lisp
+
 @unnumberedsubsubsec cond
 
+Another conditional procedure in scheme is @code{cond}:
+
+@example
+(cond (test-expression-1 result-expression-sequence-1)
+      (test-expression-2 result-expression-sequence-2)
+      ...
+      (test-expression-n result-expression-sequence-n))
+@end example
+
+For example:
+
+@lisp
+guile> (define a 6)
+guile> (define b 8)
+guile> (cond ((< a b) "a is less than b")
+...          ((= a b) "a equals b")
+...          ((> a b) "a is greater than b"))
+"a is less than b"
+@end lisp
 
 @node Scheme in LilyPond
 @section Scheme in LilyPond
