@@ -6,6 +6,14 @@ compression is involved."
 }
 
 \paper { line-width = 14.4\cm }
+
+\layout {
+  \context {
+    \Voice
+    \override Beam #'auto-knee-gap = #1
+  }
+}
+
 rh = \change Staff = "rh"
 lh = \change Staff = "lh"
 \new PianoStaff <<
