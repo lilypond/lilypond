@@ -106,7 +106,12 @@ def make_manual_links(name, version):
 	for m in manuals:
 		# FIXME: this is disgusting
 		manual = m
-		mshort = 'glossary' if m=='music-glossary' else m
+		#mshort = 'glossary' if m=='music-glossary' else m
+		# grr, GUB only has python 2.4.5.  :(
+		if (m=='music-glossary'):
+			mshort = 'glossary'
+		else:
+			mshort = m
 		make_ver_link("manual"+name+mshort.capitalize()+'Pdf',
 		          version,
 		          manual + '.pdf',
