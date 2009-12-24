@@ -10,7 +10,7 @@ should appear on 3 pages.
 \book {
   \paper {
     #(define page-breaking ly:page-turn-breaking)
-    paper-height = #60
+    paper-height = #40
     print-page-number = ##t
   }
 

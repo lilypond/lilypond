@@ -17,7 +17,7 @@ long gap at the beginning or at the end of the repeat.
 \book {
   \paper {
     #(define page-breaking ly:page-turn-breaking)
-    paper-height = #90
+    paper-height = #80
     print-page-number = ##t
     print-first-page-number = ##t
   }
