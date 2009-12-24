@@ -291,13 +291,19 @@ FILENAME = 'filename'
 ALT = 'alt'
 
 
-# NOTIME has no opposite so it isn't part of this dictionary.
+# NOTIME and NOGETTEXT have no opposite so they aren't part of this
+# dictionary.
 # NOQUOTE is used internally only.
 no_options = {
     NOFRAGMENT: FRAGMENT,
     NOINDENT: INDENT,
 }
 
+# Options that have no impact on processing by lilypond (or --process
+# argument)
+PROCESSING_INDEPENDENT_OPTIONS = (
+    ALT, NOGETTEXT, VERBATIM, ADDVERSION,
+    TEXIDOC, DOCTITLE, VERSION, PRINTFILENAME)
 
 # Recognize special sequences in the input.
 #
@@ -1142,6 +1148,18 @@ class LilypondSnippet (Snippet):
                     self.option_dict[LINE_WIDTH] = "#(- paper-width \
 left-margin-default right-margin-default)"
 
+    def get_option_list (self):
+        if not 'option_list' in self.__dict__:
+            option_list = []
+            for (key, value) in self.option_dict.items ():
+                if value == None:
+                    option_list.append (key)
+                else:
+                    option_list.append (key + '=' + value)
+            option_list.sort ()
+            self.option_list = option_list
+        return self.option_list
+
     def compose_ly (self, code):
         if FRAGMENT in self.option_dict:
             body = FRAGMENT_LY
@@ -1179,11 +1197,10 @@ left-margin-default right-margin-default)"
         override.update (default_ly_options)
 
         option_list = []
-        for (key, value) in self.option_dict.items ():
-            if value == None:
-                option_list.append (key)
-            else:
-                option_list.append (key + '=' + value)
+        for option in self.get_option_list ():
+            for name in PROCESSING_INDEPENDENT_OPTIONS:
+                if not option.startswith (name):
+                    option_list.append (option)
         option_string = ','.join (option_list)
 
         compose_dict = {}
@@ -1191,7 +1208,10 @@ left-margin-default right-margin-default)"
         for a in compose_types:
             compose_dict[a] = []
 
-        for (key, value) in self.option_dict.items ():
+        option_names = self.option_dict.keys ()
+        option_names.sort ()
+        for key in option_names:
+            value = self.option_dict[key]
             (c_key, c_value) = classic_lilypond_book_compatibility (key, value)
             if c_key:
                 if c_value:
@@ -1253,9 +1273,14 @@ left-margin-default right-margin-default)"
             except ImportError:
                 from md5 import md5
 
-            # We only want to calculate the hash based
-            # on the snippet code, not the snippet + preamble
+            # We only want to calculate the hash based on the snippet
+            # code plus fragment options relevant to processing by
+            # lilypond, not the snippet + preamble
             hash = md5 (self.relevant_contents (self.ly ()))
+            for option in self.get_option_list ():
+                for name in PROCESSING_INDEPENDENT_OPTIONS:
+                    if not option.startswith (name):
+                        hash.update (option)
 
             ## let's not create too long names.
             self.checksum = hash.hexdigest ()[:10]
@@ -1264,7 +1289,7 @@ left-margin-default right-margin-default)"
 
     def basename (self):
         cs = self.get_checksum ()
-        name = '%s/lily-%s' % (cs[:2], cs[2:10])
+        name = '%s/lily-%s' % (cs[:2], cs[2:])
         return name
 
     def write_ly (self):
@@ -1273,13 +1298,20 @@ left-margin-default right-margin-default)"
         directory = os.path.split(path)[0]
         if not os.path.isdir (directory):
             os.makedirs (directory)
-        out = file (path + '.ly', 'w')
-        out.write (self.full_ly ())
-        file (path + '.txt', 'w').write ('image of music')
+        filename = path + '.ly'
+        if os.path.exists (filename):
+            diff_against_existing = filter_pipe (self.full_ly (), 'diff -u %s -' % filename)
+            if not diff_against_existing.startswith ('\n'):
+                warning ("%s: duplicate filename but different contents of orginal file,\n\
+printing diff against existing file." % filename)
+                ly.stderr_write (diff_against_existing)
+        else:
+            out = file (filename, 'w')
+            out.write (self.full_ly ())
+            file (path + '.txt', 'w').write ('image of music')
 
     def relevant_contents (self, ly):
-        return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n|' +
-                       NOGETTEXT + '[,\]]', '', ly)
+        return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
 
     def link_all_output_files (self, output_dir, output_dir_files, destination):
         existing, missing = self.all_output_files (output_dir, output_dir_files)
@@ -1722,7 +1754,7 @@ def process_snippets (cmd, snippets,
 
     checksum = snippet_list_checksum (snippets)
     contents = '\n'.join (['snippet-map-%d.ly' % checksum]
-                          + [snip.basename() + '.ly' for snip in snippets])
+                          + list (set ([snip.basename() + '.ly' for snip in snippets])))
     name = os.path.join (lily_output_dir,
                          'snippet-names-%d.ly' % checksum)
     file (name, 'wb').write (contents)
