@@ -10,6 +10,18 @@
 @include version.itexi
 @include common-macros.itexi
 
+@ignore
+****************************
+MACRO DEFINITIONS GUIDELINES
+****************************
+
+This file should contain macro defintions which are common to all
+languages, i.e. all macro definitions which do not contain text that
+should be translated (namely text visible in the output).
+
+Macro definitions which contain text that should be translated in
+translations should be in macros.itexi.
+@end ignore
 
 @c   ***** Displaying text *****
 
@@ -684,6 +696,25 @@ For LilyPond version @version{}
 @c  ***** Macros specific to the web site *****
 
 @ifset web
+
+@macro exampleImage{IMAGE-FILE}
+@html
+<div class="float-center">
+  <a class="clickable" href="examples/\IMAGE-FILE\.png">
+    <img src="examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
+  </a>
+  <p style="text-align: center">
+    (click to enlarge)
+  </p>
+</div>
+@end html
+@iftex
+@image{examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
+@end iftex
+@ifinfo
+@image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
+@end ifinfo
+@end macro
 
 @c LEGALESE
 
