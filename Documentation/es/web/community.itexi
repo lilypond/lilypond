@@ -122,11 +122,11 @@ preferentemente enviarse a una de las listas de correo.
 <form action="http://webchat.freenode.net"
       method="get"
       name="f_lily_irc"
-  <label>irc name:
+  <label>nombre de IRC:
     <input name="nick" type="text" size="15" value="">
   </label>
   <input name="channels" type="hidden" value="lilypond">
-  <input type="submit" value="Join #lilypond IRC Chat">
+  <input type="submit" value="Unirse al canal de IRC #lilypond">
 </form>
 
 <script language="JavaScript" type="text/javascript">
@@ -166,7 +166,7 @@ foro de holandés}
 @divClass{column-right-top}
 @subheading Esté siempre informado
 
-@subsubheading LilyPond Report (El informe LilyPond)
+@subsubheading LilyPond Report (el Informe LilyPond)
 
 La manera más fácil de estar en contacto es leer el boletín de nuestra
 comunidad, el @uref{http://news.lilynet.net/, LilyPond Report}.
@@ -264,7 +264,7 @@ Cuanto más simple es el ejemplo, más rápidamente pueden los
 desarrolladores entenderlo y ayudarle.
 
 @item
-UN ejemplo simple demuestra que se ha esforzado en resolver el
+Un ejemplo simple demuestra que se ha esforzado en resolver el
 problema por sí mismo.  Cuando alguien envía bloques grandes de código
 de entrada, da la impresión de que no le importa que le ayudemos o que
 no.
@@ -289,7 +289,7 @@ insuficiente sobre LilyPond, ¡no un verdadero bug!
 @itemize
 
 @item
-Incluya el número de \version.
+Incluya el número de versión en una instrucción @code{\version}.
 
 @item
 ¡Hágalo muy pequeño!  Los ejemplos relacionados con el espaciado o la
@@ -298,7 +298,7 @@ todos los problemas se pueden reproducir mediante un solo compás.
 
 @item
 Cuando trate de crear un ejemplo, pruebe a convertir en comentarios
-@w{(@code{%} o @code{%@{ @dots{} %@}})} distintas secciones del
+@w{(@code{%} ó @code{%@{ @dots{} %@}})} distintas secciones del
 archivo.  Si puede convertir un bloque en un comentario y aún mostrar
 la idea principal, entonces ¡elimine ese bloque!
 
@@ -444,7 +444,7 @@ indicaciones de @rcontrib{Documentation suggestions}.
 
 @item
 El Respositorio de Fragmentos de Código (LSR): elabore y arregle
-fragmentos.  Véase @rcontrib{Adding and editing snippets}.
+fragmentos.  Consulte @rcontrib{Adding and editing snippets}.
 
 @item
 Discusión, revisión y pruebas: los desarrolladores suelen solicitar un
@@ -457,13 +457,12 @@ prueba de nuevas funcionalidades.  ¡Contribuya a estas discusiones!
 
 @warning{En general, estos trabajos requieren que usted tenga los
 archivos de código fuente del programa y la documentación, pero no
-requieren un entorno de desarrollo completo.  Véase @rcontrib{Starting
-with git}.}
+requieren un entorno de desarrollo completo.  Consulte
+@rcontrib{Starting with git}.}
 
 @itemize
 @item
-Documentación: véase
-@rcontrib{Documentation work} y
+Documentación: consulte @rcontrib{Documentation work} y
 @rcontrib{Building documentation without compiling LilyPond}.
 
 @item
@@ -472,7 +471,7 @@ normal de la documentación.  Consulte la información sobre la
 documentación, y también @rcontrib{Website work}.
 
 @item
-Traducciones: véase @rcontrib{Translating the documentation} y
+Traducciones: consulte @rcontrib{Translating the documentation} y
 @rcontrib{Translating the website}.
 
 @end itemize
@@ -481,11 +480,11 @@ Traducciones: véase @rcontrib{Translating the documentation} y
 @subheading Tareas complejas
 
 @warning{En general, estos trabajos requieren que usted tenga el
-código fuente y sea capaz de compilar LilyPond.  Véase
+código fuente y sea capaz de compilar LilyPond.  Consulte
 @rcontrib{Starting with git} y @rcontrib{Compiling LilyPond}.}
 
 Sugerimos que los colaboradores nuevos que sean usuarios de Windows
-utilicen una máquina virtual para ejecutar @emph{lilybuntu}.  Véase
+utilicen una máquina virtual para ejecutar @emph{lilybuntu}.  Consulte
 @rcontrib{Using a Virtual Machine to Compile LilyPond}.
 
 @itemize
@@ -555,7 +554,7 @@ conminamos a que utilice la @ref{Descarga} estable, y lea los
 Existen dos conjuntos de lanzamientos para LilyPond: lanzamientos
 estables, y lanzamientos inestables de desarrollo.  Las versiones
 estables tienen un número de versión @q{menor} par (p.ej., 2.8, 2.10,
-2.12).  Las versiones de desarrollo tienen un número @q{minor} de
+2.12).  Las versiones de desarrollo tienen un número @q{menor} de
 versión impar (p.ej., 2.7, 2.9, 2.11).
 
 @divEnd
@@ -564,7 +563,7 @@ versión impar (p.ej., 2.7, 2.9, 2.11).
 @divClass{column-left-bottom}
 @subheading Descarga
 
-Las instrucciones para git y la compilación están e la Guí del
+Las instrucciones de git y para la compilación están en la Guía del
 Colaborador.
 
 @quotation
