@@ -53,11 +53,11 @@ grabado musical y la estética de la tipografía musical del s. XIX.
 la fracción principal de la documentación; aporta información
 detallada sobre la creación de notación musical.
 
-@item @ref{Usage}:
+@item @ref{Utilización}:
 trata sobre los programas concretos y asuntos específicos de los
 distintos sistemas operativos.
 
-@item @ref{Snippets}:
+@item @ref{Fragmentos}:
 trucos cortos, consejos y ejemplos.
 
 @end itemize
@@ -518,7 +518,7 @@ ello leyendo nuestra @ref{Entrada de texto}.
 
 @subsubheading ¡Hay un montón de documentación!  ¿Tengo que leerla?
 
-Debe leer el @ref{Learning, Manual de Aprendizaje}.  Respecto al resto
+Debe leer el manual de @ref{Learning,Aprendizaje}.  Respecto al resto
 de la documentación, sólo tiene que leer las secciones que tratan de
 la notación que quiera crear.
 
@@ -592,8 +592,8 @@ descárguelo como un documento PDF.
 @divEnd
 
 
-@node Expansión
-@unnumberedsec Expansión
+@node Extender
+@unnumberedsec Extender
 @translationof Extend
 
 @divClass{column-left-top}
@@ -608,7 +608,7 @@ Este manual explica cómo excibir extensiones de LilyPond.
 
 @itemize
 
-@item @rextendnamed{Top,Expansión}:
+@item @rextendnamed{Top,Extender}:
 lea este manual en el mismo formato que el presente documento.
 
 @end itemize
@@ -618,11 +618,11 @@ lea este manual en el mismo formato que el presente documento.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../extending/index.html, Expansión (HTML seccionado)}:
+@item @uref{../extending/index.html, Extender (HTML seccionado)}:
 el manual está dividido en muchas páginas HTML.
 @*@ @ @emph{(una pequeña descarga por cada página)}
 
-@item @uref{../extending-big-page.html, Expansión (HTML monolítico)}:
+@item @uref{../extending-big-page.html, Extender (HTML monolítico)}:
 lea este manual como una sola página HTML enorme.
 @*@ @ @emph{(una única descarga grande, 200 kb)}
 
@@ -778,7 +778,7 @@ enlaces a las respuestas de las Preguntas Frecuentes.
 @item @rchangesnamed{Top,Cambios}:
 cambios producidos a partir de la última versión principal.
 
-@item @rextendnamed{Top,Expansión}:
+@item @rextendnamed{Top,Extender}:
 programación de trucos interesantes en LilyPond.
 
 @item @rinternalsnamed{Top,Funcionamiento interno}:
