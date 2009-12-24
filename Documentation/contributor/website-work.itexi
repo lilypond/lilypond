@@ -12,8 +12,8 @@
 @section Introduction to website work
 
 The website is @emph{not} written directly in HTML;
-instead, the source is texinfo, which is then generated into HTML,
-pdf, and info formats.  The sources are
+instead, the source is Texinfo, which is then generated into HTML,
+PDF, and Info formats.  The sources are
 
 @verbatim
 Documentation/web.texi
@@ -22,7 +22,7 @@ Documentation/web/*.texi
 
 Unless otherwise specified, follow the instructions and policies
 given in @ref{Documentation work}.  That chapter also contains a
-quick introduction to texinfo; consulting an external texinfo
+quick introduction to Texinfo; consulting an external Texinfo
 manual should be not necessary.
 
 @subheading Exceptions to the documentation policies
@@ -45,5 +45,5 @@ existing texinfo files.
 @node Translating the website
 @section Translating the website
 
-
-
+As it has much more audience, the website should be translated before
+the documentation; see @ref{Translating the documentation}.

@@ -287,6 +287,12 @@ If this command lists any @emph{Changed but not updated} files,
 you should do a @command{git commit}.  If it lists any
 @emph{Untracked files}, then you should do a @command{git add}.
 
+@seealso
+
+If your patch includes a significant amount of code, you may want to see
+@ref{Adding or modifying features}, especially @emph{Post patch for
+comments}.
+
 
 @node Committing directly
 @subsection Committing directly

@@ -1363,7 +1363,19 @@ for each untranslated node with something like
 @@untranslated
 @end example
 
-@noindent
+@warning{you do not have to translate the node name of a cross-reference
+to a node that you do not have translated.  If you do, you must define
+an @qq{empty} node like explained just above; this will produce a
+cross-reference with the translated node name in output, although the
+target node will still be in English.  On the opposite, if all
+cross-references that refer to an untranslated node use the node name in
+English, then you do not have to define such an @qq{empty} node, and the
+cross-reference text will appear in English in the output.  The choice
+between these two strategies implies its particular maintenance
+requirements and is left to the translators, although the opinion of the
+Translation meister leans towards not translating these
+cross-references.}
+
 Finally, press in Emacs @key{C-c C-u C-a} to update or generate
 menus. This process should be made easier in the future, when the helper
 script @command{texi-langutils.py} and the makefile target are updated.
@@ -1378,6 +1390,11 @@ through the Free Translation Project.
 Take care of using typographic rules for your language, especially in
 @file{macros.itexi}.
 
+If you wonder whether a word, phrase or larger piece of text should be
+translated, whether it is an argument of a Texinfo command or a small
+piece sandwiched between two Texinfo commands, try to track whether and
+where it appears in PDF and/or HTML output as visible text.  This piece
+of advice is especially useful for translating @file{macros.itexi}.
 
 Please keep verbatim copies of music snippets (in @code{@@lilypond}
 blocs).  However, some music snippets containing text that shows in
