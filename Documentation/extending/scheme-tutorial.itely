@@ -603,20 +603,25 @@ guile> (cond ((< a b) "a is less than b")
 @node LilyPond Scheme syntax
 @subsection LilyPond Scheme syntax
 
-In a music file, snippets of Scheme code are introduced with the hash
-mark @code{#}.  So, the previous examples translated to LilyPond are
+The Guile interpreter is part of LilyPond, which means that
+Scheme can be included in LilyPond input files.  The hash mark @code{#}
+is used to tell the LilyPond parser that the next value is a Scheme
+value.
+
+Once the parser sees a hash mark, input is passed to the Guile
+interpreter to evaluate the Scheme expression.  The interpreter continues
+to process input until the end of a Scheme expression is seen.
+
+Scheme procedures can be defined in LilyPond input files:
 
 @example
-##t ##f
-#1 #-1.5
-#"this is a string"
-#"this
-is
-a string"
+#(define (average a b c) (/ (+ a b c) 3))
 @end example
 
 Note that LilyPond comments (@code{%} and @code{%@{ %@}}) cannot
-be used within Scheme code.  Comments in Guile Scheme are entered
+be used within Scheme code, even in a LilyPond input file, because
+the Guile interpreter, not the LilyPond parser, is interpreting
+the Scheme expression.  Comments in Guile Scheme are entered
 as follows:
 
 @example
@@ -629,48 +634,37 @@ as follows:
 !#
 @end example
 
-Multiple consecutive scheme expressions in a music file can be
-combined using the @code{begin} operator. This permits the number
-of hash marks to be reduced to one.
-
-@example
-#(begin
-  (define foo 0)
-  (define bar 1))
-@end example
-
-@c todo -- # introduces a scheme *expression*
-@c         need the concept of an expression
-
-If @code{#} is followed by an opening parenthesis, @code{(}, as in
-the example above, the parser will remain in Scheme mode until
-a matching closing parenthesis, @code{)}, is found, so further
-@code{#} symbols to introduce a Scheme section are not required.
-
 For the rest of this section, we will assume that the data is entered
-in a music file, so we add @code{#}s everywhere.
+in a music file, so we add @code{#}s at the beginning of each Scheme
+expression.
 
 @node LilyPond variables
 @subsection LilyPond variables
 
-
-TODO -- make this read right
-
-A similar thing happens with variables.  After defining a variable
+LilyPond variables are stored internally in the form of Scheme
+variables.  Thus,
 
 @example
 twelve = 12
 @end example
 
 @noindent
-variables can also be used in expressions, here
+is equivalent to
 
 @example
-twentyFour = (* 2 twelve)
+#(define twelve 12)
+@end example
+
+This means that LilyPond variables are available
+for use in Scheme expressions.  For example, we could use
+
+@example
+twentyFour = #(* 2 twelve)
 @end example
 
 @noindent
-the number 24 is stored in the variable @code{twentyFour}.
+which would result in the number 24 being stored in the
+LilyPond (and Scheme) variable @code{twentyFour}.
 
 @node Input variables and Scheme
 @subsection Input variables and Scheme
@@ -688,10 +682,12 @@ traLaLa = @{ c'4 d'4 @}
 There is also a form of scoping: in the following example, the
 @code{\layout} block also contains a @code{traLaLa} variable, which is
 independent of the outer @code{\traLaLa}.
+
 @example
 traLaLa = @{ c'4 d'4 @}
 \layout @{ traLaLa = 1.0 @}
 @end example
+
 @c
 In effect, each input file is a scope, and all @code{\header},
 @code{\midi}, and @code{\layout} blocks are scopes nested inside that
@@ -699,18 +695,20 @@ toplevel scope.
 
 Both variables and scoping are implemented in the GUILE module system.
 An anonymous Scheme module is attached to each scope.  An assignment of
-the form
+the form:
+
 @example
 traLaLa = @{ c'4 d'4 @}
 @end example
 
 @noindent
-is internally converted to a Scheme definition
+is internally converted to a Scheme definition:
+
 @example
 (define traLaLa @var{Scheme value of `@code{... }'})
 @end example
 
-This means that input variables and Scheme variables may be freely
+This means that LilyPond variables and Scheme variables may be freely
 mixed.  In the following example, a music fragment is stored in the
 variable @code{traLaLa}, and duplicated using Scheme.  The result is
 imported in a @code{\score} block by means of a second variable
@@ -769,21 +767,25 @@ Mixing Scheme and LilyPond variables is not possible with the
 @code{--safe} option.
 
 
-
-
 @node Object properties
 @subsection Object properties
 
-This syntax will be used very frequently, since many of the layout
-tweaks involve assigning (Scheme) values to internal variables, for
-example
+Object properties are stored in LilyPond in the form of alist-chains,
+which are lists of alists.  Properties are set by adding values at
+the beginning of the property list.  Properties are read by retrieving
+values from the alists.
+
+Setting a new value for a property requires assigning a value to
+the alist with both a key and a value.  The LilyPond syntax for doing
+this is:
 
 @example
 \override Stem #'thickness = #2.6
 @end example
 
-This instruction adjusts the appearance of stems.  The value @code{2.6}
-is put into the @code{thickness} variable of a @code{Stem}
+This instruction adjusts the appearance of stems.  An alist entry
+@code{'(thickness . 2.6)} is added to the property list of the
+@code{Stem}
 object.  @code{thickness} is measured relative to the thickness of
 staff lines, so these stem lines will be @code{2.6} times the
 width of staff lines.  This makes stems almost twice as thick as their
@@ -791,7 +793,7 @@ normal size.  To distinguish between variables defined in input files (like
 @code{twentyFour} in the example above) and variables of internal
 objects, we will call the latter @q{properties} and the former
 @q{variables.}  So, the stem object has a @code{thickness} property,
-while @code{twentyFour} is an variable.
+while @code{twentyFour} is a variable.
 
 @cindex properties vs. variables
 @cindex variables vs. properties
@@ -805,39 +807,71 @@ while @code{twentyFour} is an variable.
 
 @subheading Offsets
 
-Two-dimensional offsets (X and Y coordinates) as well as object sizes
-(intervals with a left and right point) are entered as @code{pairs}.  A
-pair@footnote{In Scheme terminology, the pair is called @code{cons},
-and its two elements are called @code{car} and @code{cdr} respectively.}
-is entered as @code{(first . second)} and, like symbols, they must be quoted,
+Two-dimensional offsets (X and Y coordinates) are stored as @code{pairs}.
+The @code{cdr} of the offset is the X coordinate, and the @code{cdr} is
+the Y coordinate.
 
 @example
 \override TextScript #'extra-offset = #'(1 . 2)
 @end example
 
-This assigns the pair (1, 2) to the @code{extra-offset} property of the
+This assigns the pair @code{(1 . 2)} to the @code{extra-offset}
+property of the
 TextScript object.  These numbers are measured in staff-spaces, so
 this command moves the object 1 staff space to the right, and 2 spaces up.
 
+Procedures for working with offsets are found in @file{scm/lily-library.scm}.
+
+@unnumberedsubsubsec Extents
 @subheading Extents
 
-todo -- write something about extents
+Pairs are also used to store intervals, which represent a range of numbers
+from the minimum (the @code{car}) to the maximum (the @code{cdr}).
+Intervals are used to store the X- and Y- extents of printable objects.
+For X extents, the @code{car} is the left hand X coordinate, and the
+@code{cdr} is the right hand X coordinate.  For Y extents, the @code{car}
+is the bottom coordinate, and the @code{cdr} is the top coordinate.
 
+Procedures for working with intervals are found in
+@file{scm/lily-library.scm}.  These procedures should be used when possible
+to ensure consistency of code.
+
+@unnumberedsubsubsec Property alists
 @subheading Property alists
 
-todo -- write something about property alists
+A property alist is a LilyPond data structure that is an alist whose
+keys are properties and whose values are Scheme expressions that give
+the desired value for the property.
 
+LilyPond properties are Scheme symbols, such as @code{'thickness}.
+
+@unnumberedsubsubsec Alist chains
 @subheading Alist chains
 
-todo -- write something about alist chains
+An alist chain is a list containing property alists.
+
+The set of all properties that will apply to a grob is typically
+stored as an alist chain.  In order to find the value for a particular
+property that a grob should have, each alist in the chain is searched in
+order, looking for an entry containing the property key.  The first alist
+entry found is returned, and the value is the property value.
+
+The Shceme procedure @code{chain-assoc-get} is normally used to get
+grob property values.
 
 @node Internal music representation
 @subsection Internal music representation
 
+Internally, music is represented as a Scheme list.  The list contains
+various elements that affect the printed output.  Parsing is the process
+of converting music from the LilyPond input representation to the
+internal Scheme representation.
+
 When a music expression is parsed, it is converted into a set of
 Scheme music objects.  The defining property of a music object is that
-it takes up time.  Time is a rational number that measures the length
-of a piece of music in whole notes.
+it takes up time.  The time it takes up is called its @emph{duration}.
+Durations are expressed as a rational number that measures the length
+of the music object in whole notes.
 
 A music object has three kinds of types:
 @itemize
