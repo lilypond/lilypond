@@ -1,7 +1,8 @@
 % -*- Scheme -*-
 
 \header {
-  texidoc = "This file profiles property accesses; the log file shows the top properties examined."
+  texidoc = "This file profiles property accesses; the log file shows the top properties examined.
+Note: lilypond must be compiled with --disable-optimising for this file to work."
 }
 
 
