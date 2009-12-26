@@ -161,8 +161,8 @@ and follow those cross-references for more information.
 @docLinks{Learning, learning,
   @rlearningnamed{Top,Learning},
   @manualStableLearningSplit,
-  @manualStableLearningBig, 1.5 Mb,
-  @manualStableLearningPdf, 3 Mb}
+  @manualStableLearningBig, 1.5 MB,
+  @manualStableLearningPdf, 3 MB}
 
 @divEnd
 
@@ -185,8 +185,8 @@ it is highly advisable to consult the glossary.
 @docLinks{Music glossary, music-glossary,
   @rglosnamed{Top,Music glossary},
   @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 Mb,
-  @manualStableGlossaryPdf, 1.5 Mb}
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
 
 @divEnd
 
@@ -207,37 +207,13 @@ in the PDF version due to its higher resolution.}
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Read it
 
-@itemize
+@docLinks{Essay, essay,
+  @rglosnamed{Top,Essay},
+  @manualStableEssaySplit,
+  @manualStableEssayBig, 2 MB,
+  @manualStableEssayPdf, 2.5 MB}
 
-@item @ressaynamed{Top,Essay}:
-read this manual in the same format as this one.
-
-@end itemize
-
-@subheading All formats
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../essay/index.html, Essay (split HTML)}:
-the manual is split between many HTML pages.
-@*@ @ @emph{(small download for each page)}
-
-@item @uref{../essay-big-page.html, Essay (big HTML)}:
-read this manual as one huge HTML page.
-@*@ @ @emph{(large single download, 2 Mb)}
-
-@item @uref{../essay.pdf, essay.pdf}:
-download as a PDF file.
-@*@ @ @emph{(large single download, 2.5 Mb)}
-
-@c @item @uref{../TODO, essay.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -252,42 +228,18 @@ notation.
 
 @warning{The Notation reference assumes that the reader knows
 basic material covered in the Learning manual and is familiar with
-the English musical terms presented in the Musical Glossary.}
+the English musical terms presented in the glossary.}
 
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Read it
 
-@itemize
+@docLinks{Notation, notation,
+  @rglosnamed{Top,Notation},
+  @manualStableNotationSplit,
+  @manualStableNotationBig, 7 MB,
+  @manualStableNotationPdf, 18 MB}
 
-@item @rusernamed{Top,Notation}:
-read this manual in the same format as this one.
-
-@end itemize
-
-@subheading All formats
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../notation/index.html, Notation (split HTML)}:
-the manual is split between many HTML pages.
-@*@ @ @emph{(small download for each page)}
-
-@item @uref{../notation-big-page.html, Notation (big HTML)}:
-read this manual as one huge HTML page.
-@*@ @ @emph{(large single download, 7 Mb)}
-
-@item @uref{../notation.pdf, notation.pdf}:
-download as a PDF file.
-@*@ @ @emph{(large single download, 18 Mb)}
-
-@c @item @uref{../TODO, notation.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -301,40 +253,17 @@ This book explains how to execute the programs, how to integrate
 LilyPond notation with other programs, and suggests @qq{best
 practices} for efficient use.  It is recommended reading before
 attempting any large projects.
+
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Read it
 
-@itemize
+@docLinks{Usage, usage,
+  @rglosnamed{Top,Usage},
+  @manualStableUsageSplit,
+  @manualStableUsageBig, 300 KB,
+  @manualStableUsagePdf, 400 KB}
 
-@item @rprogramnamed{Top,Usage}:
-read this manual in the same format as this one.
-
-@end itemize
-
-@subheading All formats
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../usage/index.html, Usage (split HTML)}:
-the manual is split between many HTML pages.
-@*@ @ @emph{(small download for each page)}
-
-@item @uref{../usage-big-page.html, Usage (big HTML)}:
-read this manual as one huge HTML page.
-@*@ @ @emph{(large single download, 300 kb)}
-
-@item @uref{../usage.pdf, usage.pdf}:
-download as a PDF file.
-@*@ @ @emph{(large single download, 400 kb)}
-
-@c @item @uref{../TODO, lilypond-usage.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -359,37 +288,13 @@ linked from the @strong{See also} portion.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Read it
 
-@itemize
+@docLinks{Snippets, snippets,
+  @rglosnamed{Top,Snippets},
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 2.5 MB,
+  @manualStableSnippetsPdf, 8 MB}
 
-@item @rlsrnamed{Top,Snippets}:
-read this manual in the same format as this one.
-
-@end itemize
-
-@subheading All formats
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../snippets/index.html, Snippets (split HTML)}:
-the manual is split between many HTML pages.
-@*@ @ @emph{(small download for each page)}
-
-@item @uref{../snippets-big-page.html, Snippets (big HTML)}:
-read this manual as one huge HTML page.
-@*@ @ @emph{(large single download, 2.5 Mb)}
-
-@item @uref{../snippets.pdf, snippets.pdf}:
-download as a PDF file.
-@*@ @ @emph{(large single download, 8 Mb)}
-
-@c @item @uref{../TODO, snippets.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -406,39 +311,14 @@ reporting, and development.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Read it
 
-@itemize
+@docLinks{Web, web,
+  @rglosnamed{Top,Web},
+  @manualStableWebSplit,
+  @manualStableWeb, 1 MB,
+  @manualStableWebPdf, 2 MB}
 
-@item @rweb{Top,Web}:
-read this manual in the same format as this one.
-
-@end itemize
-
-@subheading All formats
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../web/index.html, Web (split HTML)}:
-the manual is split between many HTML pages.
-@*@ @ @emph{(small download for each page)}
-
-@item @uref{../web-big-page.html, Web (big HTML)}:
-read this manual as one huge HTML page.
-@*@ @ @emph{(large single download, 1 Mb)}
-
-@item @uref{../web.pdf, web.pdf}:
-download as a PDF file.
-@*@ @ @emph{(large single download, 2 Mb)}
-
-@c @item @uref{../TODO, web.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
 @divEnd
-@divEnd
-
 
 
 @node FAQ
@@ -494,37 +374,13 @@ LilyPond since the previous stable version.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Read it
 
-@itemize
+@docLinks{Changes, changes,
+  @rglosnamed{Top,Changes},
+  @manualStableChangesSplit,
+  @manualStableChanges, 6 KB,
+  @manualStableChangesPdf, 200 KB}
 
-@item @rchangesnamed{Top,Changes}:
-read this manual in the same format as this one.
-
-@end itemize
-
-@subheading All formats
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../changes/index.html, Changes (split HTML)}:
-the manual is split between many HTML pages.
-@*@ @ @emph{(small download for each page)}
-
-@item @uref{../changes-big-page.html, Changes (big HTML)}:
-read this manual as one huge HTML page.
-@*@ @ @emph{(large single download, 6 kb)}
-
-@item @uref{../changes.pdf, changes.pdf}:
-download as a PDF file.
-@*@ @ @emph{(small single download, 200 kb)}
-
-@c @item @uref{../TODO, changes.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -539,37 +395,13 @@ This manual explains how to write extensions to LilyPond.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Read it
 
-@itemize
+@docLinks{Extend, extend,
+  @rglosnamed{Top,Extend},
+  @manualStableExtendSplit,
+  @manualStableExtend, 200 KB,
+  @manualStableExtendPdf, 400 KB}
 
-@item @rextendnamed{Top,Extend}:
-read this manual in the same format as this one.
-
-@end itemize
-
-@subheading All formats
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../extending/index.html, Extend (split HTML)}:
-the manual is split between many HTML pages.
-@*@ @ @emph{(small download for each page)}
-
-@item @uref{../extending-big-page.html, Extend (big HTML)}:
-read this manual as one huge HTML page.
-@*@ @ @emph{(large single download, 200 kb)}
-
-@item @uref{../extending.pdf, extending.pdf}:
-download as a PDF file.
-@*@ @ @emph{(large single download, 400 kb)}
-
-@c @item @uref{../TODO, extending.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -596,39 +428,14 @@ have clickable links.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Read it
 
-@itemize
+@docLinks{Internals, internals,
+  @rglosnamed{Top,Internals},
+  @manualStableInternalsSplit,
+  @manualStableInternals, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
 
- @rinternalsnamed{Top,Internals}:
-read this manual in the same format as this one.
-
-@end itemize
-
-@subheading All formats
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../internals/index.html, Internals (split HTML)}:
-the manual is split between many HTML pages.
-@*@ @ @emph{(small download for each page)}
-
-@item @uref{../internals-big-page.html, Internals (big HTML)}:
-read this manual as one huge HTML page.
-@*@ @ @emph{(large single download, 2.5 Mb)}
-
-@item @uref{../internals.pdf, internals.pdf}:
-download as a PDF file.
-@*@ @ @emph{(large single download, 2.8 Mb)}
-
-@c @item @uref{../TODO, internals.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
 @divEnd
-@divEnd
-
 
 
 @node Translated
