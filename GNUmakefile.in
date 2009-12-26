@@ -241,11 +241,6 @@ grand-replace:
 
 
 ################################################################
-# website (without the rest of the docs)
-website:
-	$(MAKE) out=www -C Documentation website
-
-################################################################
 # testing
 
 RESULT_DIR=$(top-build-dir)/out/test-results
@@ -293,3 +288,7 @@ snippets-clean:
 
 test-snippets-clean:
 	rm -rf out/lybook-testdb
+
+# we want this separate for security; see CG 4.2.  -gp
+include $(top-src-dir)/website.make
+

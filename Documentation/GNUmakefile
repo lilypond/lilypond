@@ -97,16 +97,6 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 ### Web site idiosyncrases
 $(XREF_MAPS_DIR)/web.xref-map: XREF_MAP_FLAGS += --split=node
 
-ifeq ($(out),www)
-website: $(outdir)/web.texi $(XREF_MAPS_DIR)/web.xref-map $(outdir)/version.itexi $(outdir)/pictures/
-	mkdir -p $(outdir)/website/
-	$(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) -D web_version \
-		--output=$(outdir)/website/ $(outdir)/web.texi
-	cp $(top-src-dir)/Documentation/css/*.css $(outdir)/website/
-	cd $(outdir)/website && ln -sf ../../pictures/$(outdir) pictures
-	cd $(outdir)/website && ln -sf ../../web/examples/$(outdir) examples
-endif
-
 
 ### bad hack for badly-integrated roadmap.
 $(outdir)/ROADMAP:
