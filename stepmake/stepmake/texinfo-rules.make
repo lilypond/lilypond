@@ -75,10 +75,6 @@ $(outdir)/%.pdf.omf: %.texi
 	$(call GENERATE_OMF,pdf)
 
 $(outdir)/version.%: $(top-src-dir)/VERSION
-	echo '@macro version'> $@
-	echo $(TOPLEVEL_VERSION)>> $@
-	echo '@end macro'>> $@
-	echo ''>> $@
 	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py >> $@
 
 .SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi \

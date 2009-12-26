@@ -1,9 +1,14 @@
 #!@PYTHON@
 # create-version-itexi.py
 
+""" when being called on lilypond.org, pass it the location of the
+top source dir on the command-line. """
+
 import sys
 import os
 import glob
+
+
 
 ### just like depth in our GNUmakefiles
 # these links are relative from /~graham/web/
@@ -20,10 +25,14 @@ WEB_DOCLINK_DEVEL  = depth + "doc/v2.13/Documentation/"
 VERSION_STABLE = ""
 VERSION_DEVEL = ""
 
-myDir = os.path.dirname(sys.argv[0])
-# use two abspaths to work around some windows python bug
-topDir = os.path.join(os.path.abspath(myDir)+os.sep+'..'+os.sep+'..'+os.sep)
-topDir = os.path.abspath( topDir )
+try:
+	topDir = sys.argv[1]
+except:
+	myDir = os.path.dirname(sys.argv[0])
+	# use two abspaths to work around some windows python bug
+	topDir = os.path.join(os.path.abspath(myDir)+os.sep+'..'+os.sep+'..'+os.sep)
+	topDir = os.path.abspath( topDir )
+
 
 # TODO: this might be useful for other scripts; can we make it available?
 manuals = map(lambda x: os.path.splitext(x)[0],
@@ -36,11 +45,22 @@ manuals.append('internals')
 version_file_path = os.path.join(topDir, "VERSION")
 
 version_contents = open(version_file_path).readlines()
+major = 0
+minor = 0
+patch = 0
 for line in version_contents:
+	if (line[0:13] == 'MAJOR_VERSION'):
+		major = line[14:-1]
+	if (line[0:13] == 'MINOR_VERSION'):
+		minor = line[14:-1]
+	if (line[0:11] == 'PATCH_LEVEL'):
+		patch = line[12:-1]
 	if (line[0:14] == 'VERSION_STABLE'):
 		VERSION_STABLE = line[15:-1]
 	if (line[0:13] == 'VERSION_DEVEL'):
 		VERSION_DEVEL = line[14:-1]
+
+VERSION = str(major)+'.'+str(minor)+'.'+str(patch)
 
 def make_macro(name, string):
 	print "@macro", name
@@ -127,6 +147,7 @@ def make_manual_links(name, version):
 
 
 print "@c ************************ Version numbers ************"
+make_macro("version", VERSION)
 make_macro("versionStable", VERSION_STABLE)
 make_macro("versionDevel", VERSION_DEVEL)
 
