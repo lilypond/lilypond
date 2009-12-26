@@ -4,6 +4,7 @@
 
 @menu
 * Introduction to website work::  
+* Uploading and security::
 * Translating the website::
 @end menu
 
@@ -40,6 +41,34 @@ For anything not listed here, just follow the same style as the
 existing texinfo files.
 
 @end itemize
+
+
+@node Uploading and security
+@section Uploading and security
+
+FIXME: currently these are plans, not yet completely implemented.
+Hey, I'm doing the reponsible "write documentation first, then
+code" thing!  I rock!  -gp
+
+The website is generated hourly by user @code{graham} the host
+@code{lilypond.org}.  For security reasons, we do not use the
+makefiles and scripts directly from git; copies of the relevant
+scripts (below) are examined and copied to
+@file{~graham/trusted-scripts} on the host.
+
+@example
+website.make
+scripts/build/extract_texi_filenames.py
+@end example
+
+To reduce the CPU burden on the shared host (as well as some
+security concerns), the @file{Documentation/pictures/} and
+@file{Documentation/web/examples/} directories are @strong{not}
+compiled.  If you modify any files in those directories, a user in
+the @code{lilypond} group must upload them to @file{~graham/media}
+on the host.  This is done by running (locally) @code{make doc},
+followed by @code{scripts/build/upload-web-media.sh}.
+
 
 
 @node Translating the website
