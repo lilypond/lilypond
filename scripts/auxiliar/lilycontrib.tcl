@@ -103,7 +103,7 @@ proc commit {} {
       -type ok -icon error
     } else {
       git commit -a -m $commit_message
-  #    git rebase -whitespace=fix HEAD^
+      git rebase --whitespace=fix HEAD^
     set commit_message ""
     }
   }
@@ -113,7 +113,7 @@ proc commit {} {
 #  lilyconfig users are on their own.
 proc commit_amend {} {
   git commit -a --amend
-#  git rebase -whitespace=fix HEAD^
+  git rebase --whitespace=fix HEAD^
 }
 
 proc update_lilypond_norebase {} {
