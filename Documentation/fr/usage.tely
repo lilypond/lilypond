@@ -10,6 +10,18 @@
 @setfilename lilypond-program.info
 @settitle GNU LilyPond -- Utilisation des programmes
 
+@macro manualIntro
+Ce document constitue le manuel d'utilisation des programmes de GNU
+LilyPond @version{}.  De plus, ce manuel suggère des @qq{bonnes
+pratiques} pour une utilisation plus efficace.
+@end macro
+
+@c `Usage' was born 1999-10-10 with git commit c82c30c...
+@macro copyrightDeclare
+Copyright @copyright{} 1999--2009 par les auteurs.
+@end macro
+
+@set FDL
 @include macros.itexi
 
 @afourpaper
@@ -25,128 +37,21 @@
 
 @c Translators: John Mandereau, Jean-Charles Malahieude
 
-@ifnottex
-@node Top
-@top GNU LilyPond --- Utilisation du programme
-@translationof Top
-@end ifnottex
-
-@ifhtml
-@ifclear bigpage
-Ce document est également disponible au
-@uref{source/Documentation/usage.fr.pdf,format PDF},
-et en une seule
-@uref{source/Documentation/usage-big-page.fr.html,grande page}.
-@end ifclear
-@ifset bigpage
-Ce document est également disponible au
-@uref{source/Documentation/usage.fr.pdf,format PDF},
-et en @uref{source/Documentation/usage/index.fr.html,pages HTML
-séparées}.
-@end ifset
-@end ifhtml
-
 @c urg, makeinfo 4.9.91 French translation is funky
 @iftex
 @documentlanguage fr
 @frenchspacing on
 @end iftex
 
-@syncodeindex fn cp
-@c @syncodeindex ky cp
-@c @syncodeindex pg cp
-@c @syncodeindex tp cp
-@c @syncodeindex vr cp
-
-@finalout
-
-@titlepage
-@title GNU LilyPond
-@subtitle Le système de gravure musicale
-@titlefont{Utilisation des programmes}
-@author L'équipe de développement de LilyPond
-
-
-Copyright @copyright{} 1999--2009 par les auteurs
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
-faciliter sa compréhension par le lecteur non anglophone, mais seule la
-notice en anglais a valeur légale.}
-
-@quotation
-Vous avez le droit de copier, distribuer et/ou modifier ce document
-selon les termes de la Licence GNU de documentation libre, version 1.1
-ou tout autre version ultérieure publiée par la Free Software
-Foundation, ``sans aucune section invariante''.
-Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-
-@vskip 20pt
-
-Pour LilyPond version @version{}
-@end titlepage
-
-
-@ifnottex
-Ce fichier documente GNU LilyPond.
-
-Copyright @copyright{} 1999--2009 par les auteurs
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
-faciliter sa compréhension par le lecteur non anglophone, mais seule la
-notice en anglais a valeur légale.}
-
-@quotation
-Vous avez le droit de copier, distribuer et/ou modifier ce document
-selon les termes de la Licence GNU de documentation libre, version 1.1
-ou tout autre version ultérieure publiée par la Free Software
-Foundation, ``sans aucune section invariante''.
-Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end ifnottex
-
+@lilyTitlePage{Utilisation des programmes}
 
 @ifnottex
 
-Ce document constitue le manuel d'utilisation des programmes de GNU
-LilyPond @version{}.  Pour connaître le rôle de ce manuel dans la
-documentation de LilyPond, consultez @rlearning{À propos de la documentation}.
+@c  maybe add a "Tasks" or "Specific tasks" or something like
+@c  that, after Suggestions  -gp
 
-@cindex web site
-@cindex URL
-
-Vous pouvez obtenir plus d'informations sur
-@uref{http://@/www@/.lilypond@/.org/}. Ce site contient des copies en
-ligne de ce manuel, ainsi qu'une documentation supplémentaire.
-
-@include dedication.itely
-
+@c FIXME: Move 'Suggestions for writing files' here from the Learning
+@c Manual, and reorder this menu according to docs in English -JM
 @menu
 * Installation::                        installation, compilation.
 * Environnement de travail::                          environnement de travail pour LilyPond.
@@ -159,6 +64,8 @@ Annexes
 * GNU Free Documentation License:: licence de ce document.
 * Index de LilyPond::
 @end menu
+
+@docMain
 @end ifnottex
 
 @contents

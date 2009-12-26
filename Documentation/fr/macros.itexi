@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 8135382760aa0adfac5aed987a272c394e59dbdb
+    Translation of GIT committish: 9d789d3cb5f3b0f227d28d16b81f79dd1dfd2927
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,6 +10,18 @@
 @include version.itexi
 @include common-macros.itexi
 
+@ignore
+****************************
+MACRO DEFINITIONS GUIDELINES
+****************************
+
+This file should contain macro defintions which are common to all
+languages, i.e. all macro definitions which do not contain text that
+should be translated (namely text visible in the output).
+
+Macro definitions which contain text that should be translated in
+translations should be in macros.itexi.
+@end ignore
 
 @c   ***** Displaying text *****
 
@@ -71,6 +83,100 @@
 
 @end ifnothtml
 
+@macro docMain
+@cartouche
+Pour connaître la place qu'occupe ce manuel dans la
+documentation, consultez @rlearning{À propos de la documentation}.
+
+Si vous ne disposez pas de certains manuels, la documentation complète
+se trouve sur @w{@uref{http://@/www@/.lilypond@/.org/}}.
+@end cartouche
+@end macro
+
+
+@macro lilyTitlePage{TITLE}
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
+
+
+@c   ***** Copyright stuff *****
+@ifset FDL
+@copying
+@copyrightDeclare
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
+faciliter sa compréhension par le lecteur non anglophone, mais seule la
+notice en anglais a valeur légale.}
+
+@quotation
+Vous avez le droit de copier, distribuer et/ou modifier ce document
+selon les termes de la Licence GNU de documentation libre, version 1.1
+ou tout autre version ultérieure publiée par la Free Software
+Foundation, ``sans aucune section invariante''.
+Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+@end ifset
+
+@ifclear FDL
+@copying
+Ce document a été placé dans le domaine public ; en France, les auteurs
+renoncent à tous leurs droits patrimoniaux.
+@end copying
+@end ifclear
+
+
+
+@c   ***** Title page *****
+@ifnottex
+@node Top
+@top LilyPond --- \TITLE\
+
+@cartouche
+@manualIntro{}
+@end cartouche
+@end ifnottex
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle Le système de gravure musicale
+@titlefont{\TITLE\}
+@author L'équipe de développement de LilyPond
+
+@vskip 60pt
+
+@cartouche
+@manualIntro{}
+@end cartouche
+
+@vskip 40pt
+
+@docMain{}
+
+@vskip 0pt plus 1filll
+
+@insertcopying
+
+Pour LilyPond version @version{}
+@end titlepage
+
+@end macro
 
 
 @c   ***** Headings in a doc subsection *****
@@ -130,15 +236,21 @@
 
 @c  Definitions for references:
 @c
+@c     @rweb
+@c     @ressay
 @c     @rglos
 @c     @rlearning
 @c     @ruser
 @c     @rprogram
 @c     @rlsr
 @c     @rinternals
+@c     @rextend
+@c     @rchanges
+@c     @rcontrib
 @c
 @c  All these also have a @...named version which allows to specify the
 @c  displayed text for the reference as second argument.
+
 @c
 @c ***** HTML + bigpage is a special case (other manual names); all other
 @c formats are treated similarly.
@@ -151,6 +263,16 @@
 @c ** bigpage **
 
 @ifset bigpage
+
+@macro rweb{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,web-big-page,Informations générales}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,web-big-page,Informations générales}
+@end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
@@ -221,12 +343,52 @@
 @ref{\TEXT\,,,internals-big-page,Référence des propriétés internes}
 @end macro
 
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending-big-page,Extension de LilyPond}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending-big-page,Extension de LilyPond}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,changes-big-page,Nouveautés}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,changes-big-page,Nouveautés}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,contributor-big-page,Guide des contributeurs}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,contributor-big-page,Guide des contributeurs}
+@end macro
+
 @end ifset
 
 
 @c ** not bigpage **
 
 @ifclear bigpage
+
+@macro rweb{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,web,Informations générales}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,web,Informations générales}
+@end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
@@ -297,6 +459,36 @@
 @ref{\TEXT\,,,internals,Référence des propriétés internes}
 @end macro
 
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending,Extension de LilyPond}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending,Extension de LilyPond}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,changes,Nouveautés}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,changes,Nouveautés}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,contributor,Guide des contributeurs}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,contributor,Guide des contributeurs}
+@end macro
+
 @end ifclear
 
 @end ifnottex
@@ -315,6 +507,16 @@
 @tex
 \gdef\lilyvindex#1{\doind{vr}{\code{#1}}\ignorespaces}
 @end tex
+
+@macro rweb{TEXT}
+@lilyvindex \TEXT\
+@ref{\TEXT\,,,web.fr,Informations générales}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@lilyvindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,web.fr,Informations générales}
+@end macro
 
 @macro rglos{TEXT}
 @lilyvindex{\TEXT\}
@@ -386,7 +588,38 @@
 @ref{\TEXT\,,,internals,Référence des propriétés internes}
 @end macro
 
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending,Extension de LilyPond}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending,Extension de LilyPond}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,changes,Nouveautés}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,changes,Nouveautés}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,contributor,Guide des contributeurs}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,contributor,Guide des contributeurs}
+@end macro
+
 @end iftex
+
 
 
 @c   ***** Macros specific to translated docs *****
@@ -395,3 +628,65 @@
 Cette section n'est pas encore encore traduite, veuillez
 vous reporter à la documentation correspondante en anglais.
 @end macro
+
+@c  ***** Macros specific to the web site *****
+
+@ifset web
+
+@macro exampleImage{IMAGE-FILE}
+@html
+<div class="float-center">
+  <a class="clickable" href="examples/\IMAGE-FILE\.png">
+    <img src="examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
+  </a>
+  <p style="text-align: center">
+    (cliquez pour agrandir)
+  </p>
+</div>
+@end html
+@iftex
+@image{examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
+@end iftex
+@ifinfo
+@image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
+@end ifinfo
+@end macro
+
+@c LEGALESE
+
+@macro logoLegalLinux
+Tux le pingouin Linux a été créé par
+@uref{mailto:lewing@@isc.tamu.edu, lewing@@isc.tamu.edu} avec
+@uref{http://www.isc.tamu.edu/~lewing/gimp/,GIMP}.
+
+@end macro
+
+@macro logoLegalFreeBSD
+Le logo FreeBSD logo est une marque déposée par la
+@uref{http://www.freebsd.org/,Fondation FreeBSD}.
+
+@end macro
+
+@macro logoLegalMacOSX
+L'image @q{X} n'est pas déposée.  Elle a été créée par
+@uref{http://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} et
+@uref{http://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, et
+distribuée sous la licence GNU Free Documentation License version 1.2 ou
+ultérieure.
+Nous avons trouvé cette image sur
+@uref{http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
+cette page de Wikimedia Commons}.
+
+@end macro
+
+@macro logoLegalWindows
+Le @qq{rectangle aux quatre couleurs} n'est pas une marque déposée.
+Il a été créé par @uref{http://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} et
+distribué sous la licence GNU Free Documentation License version 1.2.  Nous
+avons trouvé cette image sur
+@uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
+cette page de Wikimedia Commons}.
+
+@end macro
+
+@end ifset

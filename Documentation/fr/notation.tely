@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+    Translation of GIT committish: 9d789d3cb5f3b0f227d28d16b81f79dd1dfd2927
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,6 +10,18 @@
 @setfilename lilypond-notation.info
 @settitle GNU LilyPond -- Manuel de notation
 
+@macro manualIntro
+Ce document constitue le manuel de notation de GNU LilyPond
+@version{}.  Sa lecture requiert une familiarité avec le contenu
+présenté dans le @rlearningnamed{Top, Manuel d'initiation}.
+@end macro
+
+@c `Notation Reference' was born 1999-10-11 with git commit 940dda0...
+@macro copyrightDeclare
+Copyright @copyright{} 1999--2009 par les auteurs.
+@end macro
+
+@set FDL
 @include macros.itexi
 
 @afourpaper
@@ -28,127 +40,16 @@
 
 @c Translators: John Mandereau, Jean-Charles Malahieude
 
-@ifnottex
-@node Top
-@top GNU LilyPond --- Manuel de notation
-@translationof Top
-@end ifnottex
-
-@ifhtml
-@ifclear bigpage
-Ce document est également disponible au
-@uref{source/Documentation/notation.fr.pdf,format PDF},
-et en une seule
-@uref{source/Documentation/notation-big-page.fr.html,grande page}.
-@end ifclear
-@ifset bigpage
-Ce document est également disponible au
-@uref{source/Documentation/notation.fr.pdf,format PDF},
-et en @uref{source/Documentation/notation/index.fr.html,pages HTML
-séparées}.
-@end ifset
-@end ifhtml
-
 @c urg, makeinfo 4.9.91 French translation is funky
 @iftex
 @documentlanguage fr
 @frenchspacing on
 @end iftex
 
-@syncodeindex fn cp
-@c @syncodeindex ky cp
-@c @syncodeindex pg cp
-@c @syncodeindex tp cp
-@c @syncodeindex vr cp
-
-@finalout
-
-@titlepage
-@title GNU LilyPond
-@subtitle Le système de gravure musicale
-@titlefont{Manuel de notation}
-@author L'équipe de développement de LilyPond
-
-
-Copyright @copyright{} 1999--2009 par les auteurs
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
-faciliter sa compréhension par le lecteur non anglophone, mais seule la
-notice en anglais a valeur légale.}
-
-@quotation
-Vous avez le droit de copier, distribuer et/ou modifier ce document
-selon les termes de la Licence GNU de documentation libre, version 1.1
-ou tout autre version ultérieure publiée par la Free Software
-Foundation, ``sans aucune section invariante''.
-Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-
-@vskip 20pt
-
-Pour LilyPond version @version{}
-@end titlepage
+@lilyTitlePage{Manuel de notation}
 
 
 @ifnottex
-Ce fichier documente GNU LilyPond.
-
-Copyright @copyright{} 1999--2009 par les auteurs
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
-faciliter sa compréhension par le lecteur non anglophone, mais seule la
-notice en anglais a valeur légale.}
-
-@quotation
-Vous avez le droit de copier, distribuer et/ou modifier ce document
-selon les termes de la Licence GNU de documentation libre, version 1.1
-ou tout autre version ultérieure publiée par la Free Software
-Foundation, ``sans aucune section invariante''.
-Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end ifnottex
-
-
-@ifnottex
-
-Ce document constitue le manuel de notation de GNU LilyPond
-@version{}.  Pour connaître la place qu'occupe ce manuel dans la
-documentation, consultez @rlearning{À propos de la documentation}.
-
-@cindex web site
-@cindex URL
-
-Vous pouvez obtenir plus d'informations sur
-@uref{http://@/www@/.lilypond@/.org/}. Ce site contient des copies en
-ligne de ce manuel, ainsi qu'une documentation supplémentaire.
-
-@include dedication.itely
 
 @menu
 * Notation musicale générale::               notation générale.
@@ -162,14 +63,15 @@ Annexes
 
 * Tables du manuel de notation::         tables et diagrammes.
 * Aide-mémoire::                    résumé de la syntaxe de LilyPond.
-* LilyPond grammar::               diagramme syntaxique pour l'analyseur de LilyPond
+* Grammaire de LilyPond::               diagramme syntaxique pour l'analyseur de LilyPond
 * GNU Free Documentation License:: licence de ce document.
 * Index des commandes LilyPond::
 * Index de LilyPond::
 @end menu
+
+@docMain
 @end ifnottex
 
-@c * Bibliographie::                ouvrages de référence sur la notation musicale.
 
 @contents
 
@@ -184,15 +86,15 @@ Annexes
 @include notation/programming-interface.itely
 
 
-@c @include notation/literature.itely
 @include notation/notation-appendices.itely
 @include notation/cheatsheet.itely
 
-@node LilyPond grammar
-@appendix LilyPond grammar
+@node Grammaire de LilyPond
+@appendix Grammaire de LilyPond
+@translationof LilyPond grammar
 
-Cette annexe présente la « grammaire » de LilyPond telle qu'elle ressort
-de l'analyseur syntaxique.
+Cette annexe présente la grammaire du langage de LilyPond, telle qu'elle
+ressort de l'analyseur syntaxique.
 
 @verbatiminclude ly-grammar.txt
 
