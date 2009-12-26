@@ -4,7 +4,7 @@
 # Copyright 2009 by Johannes Schindelin and Carl Sorensen
 #
 
-set version 0.58
+set version 0.59
 
 # set to 1 to set up for translation, to 0 for other
 set translator 0
@@ -24,7 +24,6 @@ if {$translator == 1} {
         set originHead "master"
         set rebase 1
 }
-
 package require Tk
 
 # Helper functions
@@ -128,6 +127,7 @@ proc update_lilypond_with_rebase {} {
 proc update_lilypond {rebase} {
 	global lily_dir
         global originHead
+        global translator
 	. config -cursor watch
 	if {![file exists $lily_dir]} {
 		write_to_output "Cloning LilyPond (this can take some time) ...\n"
@@ -137,7 +137,11 @@ proc update_lilypond {rebase} {
 		git config core.bare false
 		git remote add -t $originHead \
 			origin git://git.sv.gnu.org/lilypond.git
-		git fetch --depth 1
+                if {$translator == 1} {
+                  git fetch
+                } else {
+                  git fetch --depth 1
+                }
 		git reset --hard origin/$originHead
 		git config branch.$originHead.remote origin
 		git config branch.$originHead.merge refs/heads/$originHead
