@@ -4,7 +4,7 @@
 # Copyright 2009 by Johannes Schindelin and Carl Sorensen
 #
 
-set version 0.57
+set version 0.58
 
 # set to 1 to set up for translation, to 0 for other
 set translator 0
@@ -233,7 +233,9 @@ proc set_rebase {} {
 
 proc commitMessageOK {} {
   global commit_message
-  set commit_message [.commitMessage.commit_message get 1.0 end]
+  global commit_header
+  set commit_body [.commitMessage.bottomFrame.commit_body get 1.0 end]
+  set commit_message "$commit_header\n\n$commit_body"
   destroy .commitMessage
 }
 
@@ -248,25 +250,40 @@ proc commitMessageCancel {} {
 
 # Commit message input window
 proc get_commit_message {} {
-  global commit_message
+  global commit_header
+  set commit_header ""
   toplevel .commitMessage
-  text   .commitMessage.commit_message \
-            -width 60  -height 10 -relief solid -border 2
-  frame .commitMessage.leftFrame
-  label .commitMessage.leftFrame.1 -text "Enter commit message:"
-  button .commitMessage.leftFrame.ok \
+  frame .commitMessage.topFrame
+  label .commitMessage.topFrame.label \
+      -text "Enter commit message header:\n(50 chars max = width of box)"
+  entry .commitMessage.topFrame.commit_header \
+            -width 50 -relief solid -border 2 -textvariable commit_header
+  pack   .commitMessage.topFrame.label -side left
+  pack   .commitMessage.topFrame.commit_header -side left
+
+  frame  .commitMessage.bottomFrame
+  text   .commitMessage.bottomFrame.commit_body \
+            -width 75  -height 10 -relief solid -border 2 -wrap none
+
+  frame .commitMessage.bottomFrame.leftFrame
+  label .commitMessage.bottomFrame.leftFrame.label \
+      -text "Enter commit message body:\n(No limit -- Full description)"
+  button .commitMessage.bottomFrame.leftFrame.ok \
            -text OK -default active -command commitMessageOK
-  button .commitMessage.leftFrame.cancel -text Cancel -default active \
+  button .commitMessage.bottomFrame.leftFrame.cancel -text Cancel -default active \
           -command commitMessageCancel
   wm withdraw .commitMessage
   wm title .commitMessage "Git Commit Message"
 
-  pack .commitMessage.leftFrame.1
-  pack .commitMessage.leftFrame.ok
-  pack .commitMessage.leftFrame.cancel
+  pack .commitMessage.bottomFrame.leftFrame.label
+  pack .commitMessage.bottomFrame.leftFrame.ok
+  pack .commitMessage.bottomFrame.leftFrame.cancel
 
-  pack .commitMessage.leftFrame -side left
-  pack .commitMessage.commit_message -side left
+  pack .commitMessage.bottomFrame.leftFrame -side left
+  pack .commitMessage.bottomFrame.commit_body -side left
+
+  pack .commitMessage.topFrame
+  pack .commitMessage.bottomFrame
 
   wm transient .commitMessage .
   wm deiconify .commitMessage
