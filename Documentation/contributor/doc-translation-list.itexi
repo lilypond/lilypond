@@ -21,11 +21,11 @@ Word counts (excluding LilyPond snippets) are given for each file.
 478   web.texi
 3652  web/introduction.itexi
 979   web/download.itexi
-1059  macros.itexi
+1091  macros.itexi
 161   translations.template.html.in
 9     po/lilypond-doc.pot (translate to po/@var{MY_LANGUAGE}.po)
 ---   lilypond-texi2html.init (section TRANSLATIONS)
-6338  total
+6370  total
 
 -2- Tutorial
 1948  web/manuals.itexi
@@ -40,8 +40,8 @@ Word counts (excluding LilyPond snippets) are given for each file.
 135   usage.tely
 3555  usage/running.itely
 1189  usage/updating.itely
-2401  web/community.itexi
-18826 total
+2411  web/community.itexi
+18836 total
 
 -4- Rest of Learning manual and Suggestions on writing LilyPond files
 15578 learning/tweaks.itely -- Tweaking output
