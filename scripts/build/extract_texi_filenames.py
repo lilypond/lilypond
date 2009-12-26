@@ -86,7 +86,7 @@ if not os.path.isdir (outdir):
         os.unlink (outdir)
     os.makedirs (outdir)
 
-include_re = re.compile (r'@include ((?!../lily-).*?\.i?texi)$', re.M)
+include_re = re.compile (r'@include ((?!../lily-).*?\.i?te(xi|ly))$', re.M)
 whitespaces = re.compile (r'\s+')
 section_translation_re = re.compile ('^@(node|(?:unnumbered|appendix)\
 (?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|\
