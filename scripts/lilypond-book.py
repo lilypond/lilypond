@@ -176,10 +176,27 @@ def get_option_parser ():
                   type="float",
                   default=3.0)
 
+    p.add_option ('--lily-output-dir',
+                  help=_ ("write lily-XXX files to DIR, link into --output dir"),
+                  metavar=_ ("DIR"),
+                  action='store', dest='lily_output_dir',
+                  default=None)
+
     p.add_option ("-o", '--output', help=_ ("write output to DIR"),
                   metavar=_ ("DIR"),
                   action='store', dest='output_dir',
                   default='')
+
+    p.add_option ('--pdf',
+                  action="store_true",
+                  dest="create_pdf",
+                  help=_ ("create PDF files for use with PDFTeX"),
+                  default=False)
+
+    p.add_option ('-P', '--process', metavar=_ ("COMMAND"),
+                  help = _ ("process ly_files using COMMAND FILE..."),
+                  action='store',
+                  dest='process_cmd', default='')
 
     p.add_option ('--skip-lily-check',
                   help=_ ("do not fail if no lilypond output is found"),
@@ -191,23 +208,6 @@ def get_option_parser ():
                   help=_ ("do not fail if no PNG images are found for EPS files"),
                   metavar=_ ("DIR"),
                   action='store_true', dest='skip_png_check',
-                  default=False)
-
-    p.add_option ('--lily-output-dir',
-                  help=_ ("write lily-XXX files to DIR, link into --output dir"),
-                  metavar=_ ("DIR"),
-                  action='store', dest='lily_output_dir',
-                  default=None)
-
-    p.add_option ('-P', '--process', metavar=_ ("COMMAND"),
-                  help = _ ("process ly_files using COMMAND FILE..."),
-                  action='store',
-                  dest='process_cmd', default='')
-
-    p.add_option ('--pdf',
-                  action="store_true",
-                  dest="create_pdf",
-                  help=_ ("create PDF files for use with PDFTeX"),
                   default=False)
 
     p.add_option ('-V', '--verbose', help=_ ("be verbose"),
