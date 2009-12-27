@@ -248,7 +248,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       for (vsize j = 0; j < c.size (); j++)
 	{
 	  c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
-	  dynamic_cast<Paper_column *> (c[j])->system_ = system;
+	  dynamic_cast<Paper_column *> (c[j])->set_system (system);
 	  /* collect the column labels */
 	  SCM col_labels = c[j]->get_property ("labels");
 	  if (scm_is_pair (col_labels))
@@ -273,7 +273,7 @@ System::add_column (Paper_column *p)
       ga = unsmob_grob_array (scm_ga);
     }
 
-  p->rank_ = ga->size ();
+  p->set_rank (ga->size ());
 
   ga->add (p);
   Axis_group_interface::add_element (this, p);
@@ -460,7 +460,7 @@ System::broken_col_range (Item const *left, Item const *right) const
 	 && Paper_column::get_rank (cols[i]) < end_rank)
     {
       Paper_column *c = dynamic_cast<Paper_column *> (cols[i]);
-      if (Paper_column::is_breakable (c) && !c->system_)
+      if (Paper_column::is_breakable (c) && !c->get_system ())
 	ret.push_back (c);
       i++;
     }

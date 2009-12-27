@@ -38,13 +38,12 @@ set_loose_columns (System *which, Column_x_positions const *posns)
     return;
 
   for (int i = 0; i < loose_col_count; i++)
+    dynamic_cast<Paper_column *> (posns->loose_cols_[i])->set_system (which);
+
+  for (int i = 0; i < loose_col_count; i++)
     {
       int divide_over = 1;
       Item *loose = dynamic_cast<Item *> (posns->loose_cols_[i]);
-      Paper_column *col = dynamic_cast<Paper_column *> (loose);
-
-      if (col->get_system ())
-	continue;
 
       Item *left = 0;
       Item *right = 0;
@@ -56,8 +55,13 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  if (!scm_is_pair (between))
 	    break;
 
-	  Item *le = dynamic_cast<Item *> (unsmob_grob (scm_car (between)));
-	  Item *re = dynamic_cast<Item *> (unsmob_grob (scm_cdr (between)));
+	  /* If the line was broken at one of the loose columns, split
+	     the clique at that column. */
+	  if (!loose->get_system ())
+	    break;
+
+	  Paper_column *le = dynamic_cast<Paper_column *> (unsmob_grob (scm_car (between)));
+	  Paper_column *re = dynamic_cast<Paper_column *> (unsmob_grob (scm_cdr (between)));
 
 	  if (! (le && re))
 	    break;
@@ -77,13 +81,18 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  loose = right = re->get_column ();
 	}
 
+      if (!right)
+	{
+	  programming_error ("Can't attach loose column sensibly. Attaching to end of system.");
+	  right = which->get_bound (RIGHT);
+	}
+
       if (right->get_system ())
 	; /* do nothing */
       else if (right->find_prebroken_piece (LEFT)
 	       && right->find_prebroken_piece (LEFT)->get_system () == which)
 	right = right->find_prebroken_piece (LEFT);
       else if (Paper_column::get_rank (which->get_bound (RIGHT)) < Paper_column::get_rank (right))
-	
 	right = which->get_bound (RIGHT);
       else
 	{
@@ -99,12 +108,6 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	    }
 	}
       
-
-      if (!right)
-	{
-	  programming_error ("Can't attach loose column sensibly. Attaching to end of system.");
-	  right = which->get_bound (RIGHT);
-	}
       Grob *common = right->common_refpoint (left, X_AXIS);
 
       clique.push_back (right);
@@ -170,12 +173,10 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  
 	  Real my_offset = right_point - distance_to_next;
 
-	  clique_col->set_system (which);
 	  clique_col->translate_axis (my_offset - clique_col->relative_coordinate (common, X_AXIS), X_AXIS);	  
 
 	  finished_right_column = clique_col;
 	}
- 
     }
 }
 

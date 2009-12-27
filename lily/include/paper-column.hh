@@ -29,9 +29,6 @@ class Paper_column : public Item
   /// if lines are broken then this column is in #line#
   System *system_;
 
-  // ugh: friend declarations.
-  friend void set_loose_columns (System *which, Column_x_positions const *posns);
-  friend class System;
 public:
   Paper_column (SCM);
   Paper_column (Paper_column const &);

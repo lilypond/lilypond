@@ -57,6 +57,12 @@ Paper_column::get_rank (Grob const *me)
   return dynamic_cast<Paper_column const *> (me)->rank_;
 }
 
+void
+Paper_column::set_rank (int rank)
+{
+  rank_ = rank;
+}
+
 System *
 Paper_column::get_system () const
 {

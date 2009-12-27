@@ -8,7 +8,6 @@ across a line break, it gets attached to the end of line."
 
 \new Score \with {
   \override SpacingSpanner #'strict-grace-spacing = ##t
-  \override PaperColumn #'used = ##t 
 } <<
 
   \new Staff <<
