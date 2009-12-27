@@ -5,8 +5,8 @@
 #####  SECURITY -- change these values for lilypond.org ########
 ################################################################
 ### for lilypond.org (comment out in git)
-top-src-dir=$(HOME)/src/lilypond/
-trusted-dir=$(HOME)/lilypond/trusted-scripts/
+#top-src-dir=$(HOME)/src/lilypond/
+#trusted-dir=$(HOME)/lilypond/trusted-scripts/
 
 ### for normal git (comment out on lilypond.org)
 script-dir=$(top-src-dir)/scripts/build/
