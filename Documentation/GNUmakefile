@@ -219,7 +219,7 @@ $(outdir)/notation.texi: $(outdir)/ly-grammar.txt
 ## Rules for the automatically generated documentation
 $(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
 	cd $(outdir) && $(BISON) -v $<
-	$(PYTHON) $(auxscript-dir)/yyout2grammar.py $(outdir)/parser.output $@
+	$(buildscript-dir)/yyout2grammar $(outdir)/parser.output $@
 
 # There used to be a dependency on a dummy target, to force a rebuild
 # of internals every time.  however, this triggers
