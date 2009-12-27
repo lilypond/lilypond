@@ -4,7 +4,7 @@ OUT_HTML_FILES = $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 
 # ISOLANG must be defined
 
-LANGS = $(shell $(PYTHON) $(buildscript-dir)/langdefs.py)
+LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 
 CSS_SOURCE_FILES = $(shell ls $(top-src-dir)/Documentation/lilypond*.css)
 
