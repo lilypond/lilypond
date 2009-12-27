@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!@PYTHON@
 #
 #  yyout2grammar.py
 
