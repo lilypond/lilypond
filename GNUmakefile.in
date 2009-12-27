@@ -290,5 +290,7 @@ test-snippets-clean:
 	rm -rf out/lybook-testdb
 
 # we want this separate for security; see CG 4.2.  -gp
-include $(top-src-dir)/website.make
+website:
+	$(MAKE) -f $(top-src-dir)/website.make \
+		top-src-dir=$(top-src-dir) website
 
