@@ -315,7 +315,7 @@ reporting, and development.
 @docLinks{Web, web,
   @rglosnamed{Top,Web},
   @manualStableWebSplit,
-  @manualStableWeb, 1 MB,
+  @manualStableWebBig, 1 MB,
   @manualStableWebPdf, 2 MB}
 
 @divEnd
@@ -378,7 +378,7 @@ LilyPond since the previous stable version.
 @docLinks{Changes, changes,
   @rglosnamed{Top,Changes},
   @manualStableChangesSplit,
-  @manualStableChanges, 6 KB,
+  @manualStableChangesBig, 6 KB,
   @manualStableChangesPdf, 200 KB}
 
 @divEnd
@@ -398,9 +398,9 @@ This manual explains how to write extensions to LilyPond.
 
 @docLinks{Extend, extend,
   @rglosnamed{Top,Extend},
-  @manualStableExtendSplit,
-  @manualStableExtend, 200 KB,
-  @manualStableExtendPdf, 400 KB}
+  @manualStableExtendingSplit,
+  @manualStableExtendingBig, 200 KB,
+  @manualStableExtendingPdf, 400 KB}
 
 @divEnd
 
@@ -432,7 +432,7 @@ have clickable links.
 @docLinks{Internals, internals,
   @rglosnamed{Top,Internals},
   @manualStableInternalsSplit,
-  @manualStableInternals, 2.5 MB,
+  @manualStableInternalsBig, 2.5 MB,
   @manualStableInternalsPdf, 2.8 MB}
 
 @divEnd
