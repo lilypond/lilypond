@@ -28,7 +28,6 @@ $(outdir)/%.png: $(top-build-dir)/Documentation/$(outdir)/%.png
 
 $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map
 	$(buildscript-dir)/extract_texi_filenames -o $(XREF_MAPS_DIR) $(XREF_MAP_FLAGS) --master-map-file=$(XREF_MAPS_DIR)/$*.xref-map $<
-	touch -r $< $@
 
 $(MASTER_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES) $(outdir)/pictures
 
