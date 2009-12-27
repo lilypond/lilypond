@@ -4,7 +4,7 @@
 # Copyright 2009 by Johannes Schindelin and Carl Sorensen
 #
 
-set version 0.59
+set version 0.60
 
 # set to 1 to set up for translation, to 0 for other
 set translator 0
@@ -28,7 +28,7 @@ package require Tk
 
 # Helper functions
 
-set lily_dir $env(HOME)/lilypond
+set lily_dir $env(HOME)/lilypond-git
 if {[file exists $lily_dir]} {
 	cd $lily_dir
 }
