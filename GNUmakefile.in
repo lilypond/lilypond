@@ -291,6 +291,8 @@ test-snippets-clean:
 
 # we want this separate for security; see CG 4.2.  -gp
 website:
-	$(MAKE) -f $(top-src-dir)/website.make \
-		top-src-dir=$(top-src-dir) website
+	$(MAKE) config_make=$(config_make) \
+		top-src-dir=$(top-src-dir) \
+		-f $(top-src-dir)/website.make \
+		website
 
