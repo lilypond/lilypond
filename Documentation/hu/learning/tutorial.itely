@@ -98,7 +98,7 @@ a kotta előállításához és a kimenet megtekintéséhez a felhasználó oper
 rendszerétől függően.
 
 Bizonyos szövegszerkesztőkbe beépíthető LilyPond támogatás, ami hatékonyabb
-szerkesztést tesz lehetőve; erről a @rprogram{Szövegszerkesztői támogatás}
+szerkesztést tesz lehetővé; erről a @rweb{Könnyebb bevitel} c.
 fejezet ír.
 
 @warning{Amikor a LilyPond első alkalommal fut, egy-két percig várni kell,
@@ -653,6 +653,7 @@ beviteli módját megnézni.
 
 @item
 @strong{Egy nagy mű bevitele előtt}: a program használatának kézikönyvéből a
-@rprogram{Tanácsok LilyPond bemeneti fájlok írásához} c. fejezetet érdemes elolvasni.
+@rprogramnamed{Suggestions for writing files, Tanácsok LilyPond bemeneti fájlok írásához}
+c. fejezetet érdemes elolvasni.
 
 @end itemize

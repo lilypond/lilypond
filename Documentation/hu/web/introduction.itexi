@@ -1,0 +1,972 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 8089295290c2b4f4e4700f9f52c28f324e875fa6
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Bevezetés
+@unnumbered Bevezetés
+@translationof Introduction
+
+@divClass{column-center-top}
+@subheading Célkitűzés
+
+@imageFloat{flat-design,png,right}
+
+Az ihlet akkor jött, amikor két zenész barát megelégelte a számítógéppel
+szedett kották csúnya kinézetét. Minden zenésznek jobb, ha a kotta, amiből
+játszik, szép; hát akkor mi, programozók, nem tudnánk erre megoldást találni?
+– gondolták.
+
+A megoldás a LilyPond: az általa szedett kotta a legmagasabb tipográfiai
+igényeknek felel meg, kézi beavatkozás nélkül. Ne azzal foglalkozz, hogy
+helyükre igazítsd a kotta elemeit! Ejtsd ámulatba zenész társaidat
+professzionális kinézetű kottákkal!
+@divEnd
+
+@divClass{column-left-top}
+@subheading Miért használd a LilyPondot?
+
+@itemize
+
+@item
+@ref{Képességek}: Mire képes a LilyPond?
+
+@item
+@ref{Példák}: Kottákat szeretnék látni!
+
+@item
+@ref{Szabadság}: A LilyPond szabad szoftver.
+
+@item
+@ref{Háttér}: Esztétikai elveink.
+
+@end itemize
+@divEnd
+
+@divClass{column-right-top}
+@subheading Ki használja?
+
+@itemize
+
+@item
+@ref{Felhasználások}: A LilyPonddal szedett kották előfordulásai a valós életben.
+
+@item
+@ref{Ajánlások}: Mit mondanak róla az emberek?
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Miért ne használnád a LilyPondot?
+
+@itemize
+
+@item
+@ref{Szöveges bevitel}: A zenét @emph{szöveg}ként kell beírni?!
+
+@item
+@ref{Könnyebb bevitel}: Egyszerűbb szerkesztési módok.
+
+@end itemize
+@divEnd
+
+@divClass{hide}
+@menu
+* Képességek:: Mire képes a LilyPond?
+* Példák:: Kottákat szeretnék látni!
+* Szabadság:: Szabadság és a GPL.
+* Háttér:: Esztétikai elvek.
+* Felhasználások:: A LilyPonddal szedett kották előfordulásai.
+* Ajánlások:: Mit mondanak mások?
+* Szöveges bevitel:: Zenét szövegként beírni?!
+* Könnyebb bevitel:: Egyszerűbb szerkesztés.
+@end menu
+@divEnd
+
+@node Képességek
+@unnumberedsec Képességek
+@translationof Features
+
+@subheading Miért érdemes a LilyPondra váltani?
+
+@subsubheading Kitűnő hagyományos szedés
+
+@imageFloat{flat-design,png,right}
+
+Minden elem, szimbólum és algoritmus megtervezéséhez a régi, aprólékosan
+kézzel szedett kottákból merítettünk ihletet. A LilyPond kimenete ugyanolyan
+jól olvasható, mint bármelyik klasszikus kotta. (Erről az @ref{Esszé}ben
+olvashatsz bővebben.)
+
+@subsubheading Nincs szükség finomhangolásra
+
+Ne töltsd azzal az idődet, hogy a kimenetet kézzel tökéletesíted; a LilyPond
+kezdettől fogva ügyel a tökéletes formázásra. Önmagától meghatározza az
+optimális elhelyezést, a sor- és oldaltöréseket az egyenletes kottakép
+érdekében. Nincsenek egymást átfedő elemek, az ívek és gerendák pedig szép
+arányosak – mindez automatikusan!
+
+@subsubheading Szöveges formátum
+
+A LilyPond bemenete egyszerű szöveges fájl, melyet saját kedvenc
+szövegszerkesztőddel írhatsz, gyorsan és kényelmesen. Nincs több babrálás az
+egérrel! A bemenet minden információt tartalmaz, így nincs szükség összetett
+menüstruktúrák megjegyzésére. Ha egy témára később szükséged van, csak
+elmented, és később hivatkozhatsz rá.
+
+@subsubheading Zene és szöveg együtt
+
+@imageFloat{lilypond-book,png,right}
+
+Egyszerűen helyezhetsz el kottapéldákat dokumentumaidban; nincs szükség képek
+konvertálására és beillesztésére. Akár LaTeX, akár HTML, sőt, az ooolilypond
+révén még OpenOffice.org dokumentumokba is simán integrálható a LilyPond.
+
+@subsubheading Szólamkották a lehető legegyszerűbben
+
+A partitúra és a szólamkották egy forrásból származnak, így minden változás
+automatikusan tükröződik a partitúrában és a szólamanyagokban is. A LilyPond
+hasonló technikával a belépés előtti segédhangokat is képes beszúrni.
+
+@subsubheading Szabad szoftver
+
+A LilyPond ingyenesen letölthető! Bizony, teljesen ingyen. Szerezd be most a
+letöltések közül!
+
+Ráadásul a LilyPond szabad szoftver. Forráskódja szabadon elérhető, és bárki
+továbbfejlesztheti. Tehát, ha zavar egy hiba, vagy nagyon vágysz egy
+megvalósítatlan képességre, te magad jobbá teheted a programot, vagy
+finanszírozhatod, hogy más tegye meg ezt.
+
+@subsubheading Bővíthetőség
+
+Minden beállítás módosítható a saját tipográfiai ízlésed szerint. Ha ez még
+mindig nem lenne elég, beépített scriptelési lehetőség áll rendelkezésedre
+Scheme nyelven, amivel szinte mindent megtehetsz. A beállítások, változók és
+függvények egytől egyig pontosan le vannak dokumentálva a mindenre kiterjedő
+programreferenciában.
+
+@subsubheading Széles körű támogatás
+
+A LilyPond minden népszerű operációs rendszeren fut: Linuxon, Mac OS X-en és
+Windowson. A LilyPondhoz egy 600 oldalas felhasználói kézikönyv és több, mint
+400 példafájl tartozik. Segítőkész felhasználói közösség kész megválaszolni
+kérdéseidet a LilyPond-felhasználók levelezőlistáján, a fejlesztőcsapat pedig
+gondoskodik arról, hogy a problémák gyorsan megoldódjanak.
+
+@divClass{column-center-bottom}
+@subheading Hogyan tovább?
+
+Még mindig nem vagy meggyőzve? Nézd meg a gyönyörű @ref{Példák, példákat}! Ha
+úgy döntöttél, hogy használni szeretnéd a LilyPondot, először olvasd el a
+tudnivalókat a @ref{Szöveges bevitel, szöveges bevitelről}.
+@divEnd
+
+
+@node Példák
+@unnumberedsec Példák
+@translationof Examples
+
+A LilyPond egy hatékony és rugalmas eszköz, mely mindenféle kottaszedési
+feladatra alkalmas. Gyönyörködj az alábbi példákban, és meríts ihletet belőlük!
+
+@ignore
+Here is a passage from Franz Liszt's solo piano transcription
+of the Overture to Wagner's @emph{Tannhäuser}. The spacing
+in this example was all performed by Lilypond's formatting
+algorithms, without tweaks of any kind. It
+handles cross-staff beaming gracefully and puts the system brace
+perfectly around all three staves.
+
+@exampleImage{liszt-wagner}
+@end ignore
+
+@newsItem
+@subsubheading Klasszikus zene
+
+J. S. Bach eme orgonaműve egyszerű szedési feladatot jelent.
+
+@exampleImage{bach-bwv610}
+@newsEnd
+
+@newsItem
+@subsubheading Komplex lejegyzés
+
+Enrique Granados @emph{Goyescas} c. művének részlete bemutat pár
+bonyolultabb kottaelemet, mint például a kottasorok közötti szárak
+vagy a szólamok más kottasorba ugrását jelző vonalak.
+
+@exampleImage{granados}
+@newsEnd
+
+@newsItem
+@subsubheading Régizene
+
+A LilyPond a menzurális és a kvadrátnotációt is támogatja, amint azt az alábbi
+gregorián antifóna-részlet is mutatja.
+
+@exampleImage{ancient-headword}
+@newsEnd
+
+@newsItem
+@subsubheading Modern zene
+
+A kortárs szerzők szokatlan lejegyzési igényeit a LilyPond teljes mértékben
+kielégíti. Íme egy részlet Trevor Baca @emph{Cáry} c. művéből szóló
+basszusfuvolára.
+
+@exampleImage{cary}
+@newsEnd
+
+
+@newsItem
+@subsubheading Szólamkották egyszerű és gyors létrehozása
+
+Egyazon forrásból automatikusan különböző célú próbaanyagok hozhatók létre.
+Händel @emph{Giulio Cesare} c. operájának partitúráját, zongorakivonatát és
+hegedűszólamát láthatjuk @uref{http://nicolas.sceaux.free.fr/,
+Nicolas Sceaux} szedésében.
+
+@exampleImage{sesto-full}
+
+@exampleImage{sesto-piano}
+
+@exampleImage{sesto-violin}
+
+@newsEnd
+
+@newsItem
+@subsubheading Tabulatúra
+
+A LilyPond tabulatúra szedésére is képes, és testreszabható bármilyen
+hangszerre, amely tabulatúrából olvas. A hangok bevitele ugyanúgy történik,
+mint a rendes ötvanalas vonalrendszerben, a LilyPond automatikusan
+tabulatúraként jegyzi le őket.
+
+@exampleImage{tab-example}
+@newsEnd
+
+@newsItem
+@subsubheading Schenker-diagramok
+
+Az alapbeállítású kimenet erőteljesen módosítható. Példánkban egy
+figyelemreméltó Schenker-féle analízis eredményét láthatjuk.
+
+@exampleImage{bach-schenker}
+@newsEnd
+
+@newsItem
+@subsubheading Vokális zene
+
+A LilyPond kiválóan alkalmas mindenféle vokális zene szedésére, az egyházi
+énekektől az operákig. Itt egy középkori motetta látható némileg szokatlan
+követelményekkel: a tenor szólam más metrumban van, mint a többi, de
+lüktetésének alapegysége ugyanakkora. A LilyPond ezt teljesen elegánsan
+kezeli. Az incipiteket is érdemes megfigyelni a régi stílusú kulcsokkal,
+a plicát jelző áthúzott szárat, valamint a ligatúrákat.
+
+@exampleImage{aucun-snippet}
+@newsEnd
+
+@newsItem
+@subsubheading Oktatási anyagok
+
+A LilyPond tökéletesen megfelel oktatási célokra is.
+Bemutatunk egy egyszerű ellenpont-kidolgozási feladatot.
+
+@exampleImage{theory}
+@newsEnd
+
+@newsItem
+@subsubheading Popszámok
+
+Könnyűzenei számok is egyszerűen lekottázhatóak dallamal, dalszöveggel,
+akkordnevekkel és -ábrákkal. Az alábbi példa az alapbeállítású akkordábrákat
+mutatja, de ezek is tetszőlegesen testreszabhatóak.
+
+@exampleImage{chart}
+@newsEnd
+
+@newsItem
+@subsubheading Nagy projektek
+
+A LilyPond kitűnően használható nagy művek, például operák vagy nagyzenekari
+művek szedésére. Ráadásul a szöveges beviteli mód akadálymentességet biztosít
+-- a következő példa Hu Haipengtől, egy vak zeneszerzőtől származik.
+
+@exampleImage{orchestra}
+@newsEnd
+
+
+@divClass{column-center-bottom}
+@subheading Hogyan tovább?
+
+Még mindig nem vagy meggyőzve? A LilyPond szabad szoftver, mely
+@ref{Szabadság, szabadságot} ad. Ha úgy döntöttél, hogy használni szeretnéd a
+LilyPondot, először olvasd el a tudnivalókat a @ref{Szöveges bevitel, szöveges bevitelről}.
+@divEnd
+
+
+@node Szabadság
+@unnumberedsec Szabadság
+@translationof Freedom
+
+@divClass{column-center-top}
+@subheading Szabad szoftver
+
+A @uref{http://www.gnu.org/, GNU} LilyPondot lelkes, zenét és informatikát
+kedvelő emberek írták és tartják karban. A program licence a
+@ref{GPL, GNU General Public License}, a dokumentációé pedig a
+@ref{FDL, GNU Free Documentation License}, ezáltal mindenki szabadon
+javíthatja, módosíthatja és bővítheti azt. Nem szabad, hogy több száz dollárba
+kerülő szoftverre legyen szükség gyönyörű kották írásához!
+@divEnd
+
+
+@c @divClass{column-left-top}
+@divClass{color2}
+@divClass{keep-bullets}
+@subheading Milyen előnyökkel jár ez a felhasználó számára?
+
+@itemize
+
+@item
+Ingyenesség: csak töltsd le és próbáld ki! Mi vesztenivalód van?
+
+@item
+Megosztás: ha tetszik, nyugodtan adhatsz belőle egy példányt
+barátaidnak, tanáraidnak, tanítványaidnak és kollégáidnak!
+
+@item
+Elérhető forráskód: ha kíváncsi vagy, hogyan működik a LilyPond,
+bármikor megvizsgálhatod.
+
+@item
+Bővíthetőség: bármikor megvalósíthatsz új funkcionalitást, kijavíthatsz
+hibákat, vagy megváltoztathatod a működést. Ha nem tudsz programozni,
+finanszírozhatod, hogy más tegye meg ezt.
+
+Ez a lehetőség lehet, hogy a mindennapi zenész számára nem vonzó,
+de a szoftver bővítésének lehetősége nagyon fontos lehet komoly igényekkel
+rendelkező zeneszerzők, cégek és akadémiák számára.
+
+@item
+Garancia a jövőre nézve: ha egy kottaszerkesztő szoftvert fejlesztő cég csődbe
+megy, mi lesz a kottákkal, amiket csak az ő termékük tud megnyitni?
+Ez a veszély nem áll fenn a LilyPond esetén; még ha az egész fejlesztőcsapat
+abba is hagyná a fejlesztést (ami persze elég valószínűtlen), a program
+továbbra is legálisan másolható, terjeszthető és módosítható marad, így
+bárki folytathatja a fejlesztését és a támogatását.
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@c @divClass{column-right-top}
+@divClass{color3}
+@divClass{keep-bullets}
+@subheading Miért ajánlják fel ingyen a fejlesztők a munkájukat?
+
+A legtöbben hobbiból, önkéntes módon fejlesztjük a LilyPondot.
+Így valójában az a kérdés: miért vállalkozik valaki ilyen önkéntes
+munkára?
+
+@itemize
+
+@item
+Élvezet: egy cél eléréséért végzett munka motiváló erővel bír, főleg, ha az
+ember csapatban dolgozik!
+
+@item
+Közös célok: mindannyian szeretnénk gyönyörű kottából játszani, de kevés
+embernek van szakértelme (és senkinek sincs ideje!), hogy létrehozzon egy
+programot, amely minden szituációt kezelni tud. De együttes erővel --
+egyvalaki az automatikus gerendázást fejleszti, másvalaki az ívek alakját
+javítja, megint másvalaki dokumentációt ír, hogy elmagyarázza, hogyan kell
+a funkciókat használni -- el tudjuk érni a célunkat az egyébként egyénileg
+belefektetendő erőfeszítés töredékével.
+
+@item
+@qq{Ajándék-kultúra}: a szabad szoftver- (vagy @qq{nyílt forrás-})
+mozgalom már sok nagyszerű szoftver projekttel állt elő, pl. a
+@uref{http://kernel.org/, GNU/Linux}, a
+@uref{http://www.getfirefox.com/, Mozilla Firefox} vagy a
+@uref{http://www.wesnoth.org/, Battle for Wesnoth}. Ezeket a projekteket
+használván, bizonyos fejlesztők szeretnének @qq{visszaadni} valamit a
+közösségnek.
+
+@item
+Szakmai tapasztalat: a nyílt forrású projektekben való közreműködés egy remek
+módja annak, hogy az ember gyakorolja a programozást, dokumentálást vagy
+tervezést. Ez a tapasztalat sok fejlesztőt segített már álláshoz vagy
+ösztöndíjhoz.
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Hogyan tovább?
+
+Még mindig nem vagy meggyőzve? Olvasd el az esszénket a kottaszedési
+filozófiánk @ref{Háttér, hátteréről}. Ha úgy döntöttél, hogy használni
+szeretnéd a LilyPondot, először olvasd el a tudnivalókat a
+@ref{Szöveges bevitel, szöveges bevitelről}.
+@divEnd
+
+
+@node Háttér
+@unnumberedsec Háttér
+@translationof Background
+
+@divClass{column-center-top}
+@subheading Esszé
+
+Írtunk egy sok mindenre kiterjedő esszét a számítási esztétikánkról,
+arról, hogyan kell számítógéppel szépet létrehozni.
+
+Ha csak egy gyors bevezetést szeretnél a LilyPondba, az esszé kicsit
+terjedelmes lehet, de ha kíváncsi vagy rá, @ref{Esszé, olvasd el} nyugodtan.
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Hogyan tovább?
+
+Még mindig nem vagy meggyőzve? Tájékozódj a LilyPonddal szedett kották
+@ref{Felhasználások, felhasználásairól}! Ha
+úgy döntöttél, hogy használni szeretnéd a LilyPondot, először olvasd el a
+tudnivalókat a @ref{Szöveges bevitel, szöveges bevitelről}.
+@divEnd
+
+
+@node Felhasználások
+@unnumberedsec Felhasználások
+@translationof Productions
+
+@divClass{column-left-top}
+@subheading Koncertek
+
+A LilyPonddal szedett kottákat szerte a világon használják előadásokon. Íme
+néhány ezek közül:
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+@emph{Affaire Étrangère}, Valentin Villenave operája, Lewis Trondheim
+szövegkönyvére. Bemutatója 2009. február 1-én volt, az
+@uref{http://www.orchestre-montpellier.com/, Opéra Montpellier}-ben.
+
+@item
+Lully @emph{Armide} c. operája a
+@uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury Baroque}
+előadásában, 2009. május 15-én és 16-án, a Texas állambeli Houstonban
+(@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux} szedésével).
+
+@item
+Zenekari tételek Rameau @emph{Hippolyte et Aricie} c. operájából
+a manhattani St. James's Churchben, 2009. május 8-án Frederick Renz
+és együttese, az @uref{http://www.earlymusicny.org/, Early Music
+New York} előadásában (Nicolas Sceaux szedésével).
+
+@end itemize
+@divEnd
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Kiadók
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+@uref{http://www.mutopiaproject.org/index.html, Mutopia Project}:
+több, mint 1500 klasszikus zenemű szabadon letölthető kottájával
+a LilyPonddal szedett kották online tárháza.
+
+@item
+@uref{http://www.adoromusicpub.com/, Adoro Music Publishing}:
+egyházi zeneművek kiadója, közvetlenül letölthető vagy
+papíron megrendelhető, rendkívül jó minőségű kottákkal.
+
+@item
+@uref{http://theshadylanepublishing.com/, The Shady Lane
+Publishing}:
+egy kis kottakiadó, melynek célja, hogy a kottakiadás gazdasági rendszerének
+egy új formáját hozza közelebb a zenészekhez és zenekedvelőkhöz.
+@end itemize
+
+@divEnd
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Hogyan tovább?
+
+Még mindig nem vagy meggyőzve? Olvasd el felhasználóink
+@ref{Ajánlások, ajánlásait}! Ha úgy döntöttél, hogy használni szeretnéd a
+LilyPondot, először olvasd el a tudnivalókat a
+@ref{Szöveges bevitel, szöveges bevitelről}.
+@divEnd
+
+
+@node Ajánlások
+@unnumberedsec Ajánlások
+@translationof Testimonials
+
+@divClass{testimonial-item}
+@imageFloat{carter-brey,jpg, right}
+@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, cselló szólamvezető, New York-i Filharmonikusok
+
+@qq{...Írtam pár virtuóz szólócsellóművet. Ezeket kinyomtattam LilyPonddal, és
+el fogom küldeni őket a Schirmer kiadónak publikálásra. Fogadjunk, hogy az
+általuk szedett verzió fele olyan szép sem lesz, mint az enyém!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@imageFloat{orm-finnendahl,jpg, left}
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, zeneszerzés professzor, Musikhochschule Freiburg
+
+@qq{Bár még nem ismerem [a LilyPondot] túlságosan, már most @strong{nagyon} le
+vagyok nyűgözve. Nemrég Josquin Desprez egy motettáját nyomtattam ki vele
+menzurális notációban, és kétségem sincs afelől, hogy a LilyPond messze
+felülmúl minden más kottaszedő programot sebesség, könnyű használat és kinézet
+terén!} @divEnd
+
+
+@divClass{testimonial-item}
+@imageFloat{darius-blasband,jpg, right}
+@subsubheading Darius Blasband, zeneszerző (Brüsszel, Belgium)
+
+@qq{[Az első zenekari próba után] számos dícséretet kaptam a kotta minőségével
+kapcsolatban. Ami a legfontosabb, hogy a LilyPond (bár számos módon
+hangolhatjuk vele a kotta kinézetét) olyan kottát produkált, amit
+gyakorlatilag módosítás, kézi szerkesztés nélkül adtam oda a zenekarnak.}
+
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Kieren MacMillan, zeneszerző (Toronto, Canada)
+
+@qq{Köszönet és hála a fejlesztőcsapatnak a hihetetlen munkáért.
+Még nem láttam bármit is, ami akár csak megközelítené a LilyPonddal szedett
+kotta kinézetét. Bizalommal mondhatom, hogy ez a nagyszerű alkalmazás messze
+felülmúlja az igényeimet. [...] A LilyPond módosítatlan kimenete [...] már
+önmagában jobban néz ki, mint az ún. "professzionális" kiadások. [...]}
+
+@qq{Ezt múld felül, Finale/Sibelius/Igor/akármi!!!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://percival-music.ca, Graham Percival}, zeneszerző-palánta és csellótanár
+
+@qq{Itt az ideje, hogy a LilyPond a rivaldafényben álljon; már két éve
+használom az egyetemen a zeneszerzés órákon, így megspórolva többszáz
+dollárt (vagy mennyibe is kerülnek a Finale vagy Sibelius "olcsó", iskolai
+verziói). És többen kiáltottak már fel: "Aszta! Hogy vetted rá a Finalét, hogy
+ilyen gyönyörű kottaképet kapj?"}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Chris Cannam, a @uref{http://www.rosegardenmusic.com/, RoseGarden} projekt fő fejlesztője
+
+@qq{A LilyPond egyértelműen nehézsúlyú bajnok [a professzionális
+kottaszedésben].}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading David Bobroff, basszusharsona, Izlandi Szimfonikus Zenekar
+
+@qq{Nagyszerűnek tartom a LilyPondot. [...] Minél többet tanulok róla, annál
+jobban szeretem!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Vaylor Trucks, elektromos gitárművész (igen, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, ő az})
+
+@qq{Nagy hatást tett rám a LilyPond. [...]}
+
+@qq{EZ A VILÁG LEGJOBB PROGRAMJA!!! }
+
+@qq{EZER köszönet a beléje fektetett sok kemény munkáért!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} közreműködő
+
+@qq{Ambivalens érzéseim voltak vele szemben. A pozitív érzést az jelentette, amikor megláttam az első vele készült kottát, mert egyszerűen bámulatos volt! A LilyPondot gyönyörűnek mondani enyhe kifejezés! [...] Ahogy a LilyPond egyre jobb lesz, és ahogy én egyre többet tudok meg a Scheme-ről, egyre kevesebb frusztrációt érzek vele kapcsolatban. Mindent egybevetve: köszönöm a LilyPondot, szerintem nagyon jó.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg},  a koblenzi opera karmestere és kiváló GNU coder
+
+@qq{Egyébként a LilyPond kiválóan teszi a dolgát!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Paul Davis, a @uref{http://jackaudio.org/, JACK} és az @uref{http://www.ardour.org/, Ardour} fejlesztője
+
+@qq{Véleményem szerint [a LilyPond] egy hihetetlen program, a kimenet
+egyszerűen csodálatos. Amikor tavaly olvastam róla egy interjúban, lelkendezve
+meséltem a barátaimnak, mikre képes.}
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Hogyan tovább?
+Olvasd el a tudnivalókat a @ref{Szöveges bevitel, szöveges bevitelről}.
+@divEnd
+
+
+
+@node Szöveges bevitel
+@unnumberedsec Szöveges bevitel
+@translationof Text input
+
+@c TRANSLATORS: so far it's mostly from
+@c http://lilypond.org/web/switch/howto
+
+@subheading A LilyPond működése
+
+@imageClickable{nereid-shot-small,png, (Kattints a képre a nagyításhoz), nereid-shot,png, right}
+
+A LilyPond @emph{parancssori} program: meg kell adni neki egy szöveges fájlt,
+ami a zene leírását tartalmazza. Az eredményül kapott kotta képernyőn
+megtekinthető vagy kinyomtatható.
+
+A kotta beírása nem grafikus felhasználói felületen történik, hanem a zene
+szöveges formájának begépelésével. Ezt a szöveget aztán @qq{lefordítja} a
+LilyPond, azaz gyönyörűen szedett kottává alakítja.
+
+A grafikus felületekhez szokott felhasználók részéről ez másfajta
+gondolkodásmódot igényel, de az eredmény mindenképpen megéri a beléje
+fektetett munkát!
+
+@warning{Itt gyorsan áttekintjük a szöveges bevitel alapjait -- ez messze
+nem olyan bonyolult, mint amilyennek hangzik! Nem baj, ha nem érted az alábbi
+példák minden egyes részletét; a tankönyv mindent részletesen, fokozatosan
+haladva elmagyaráz.}
+
+
+@subsubheading Egyszerű, mint az ABC
+
+A hangok betűkkel és számokkal írhatók le. A speciális parancsok a \
+karakterrel kezdődnek.
+
+@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-output,png,center}
+
+Módosított hangokat a hangnevek módosításával lehet elérni: a keresztes hang
+neve után -is, a bés hang neve után -es írandó. (Más nyelveknek megfelelő
+jelölések is alkalmazhatóak.) A LilyPond kitalálja, hova rakjon módosítójelet.
+
+@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-output,png,center}
+
+
+@subsubheading Popzene
+
+Könnyen írhatsz dalszöveget és akkordokat a dallam mellé:
+
+@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-output,png,center}
+
+
+
+@subsubheading Zenekari művek
+
+A bemeneti fájl a mű összes hangját tartalmazza. A partitúra és a szólamkották
+egyetlen forrásból származnak. Így a változások mind a partitúrában, mind az
+egyes szólamokban tükröződnek. A szólamok hangjainak újrafelhasználásához el
+kell nevezni őket:
+
+@imageFloat{text-input-parts-both-annotate,png,center}
+
+
+Az így létrejött változóra később lehet hivatkozni (akár transzponálva és
+összevonva a több ütemes szüneteket, mint itt):
+
+@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-output,png,center}
+
+
+Ugyanazt a változót használhatjuk a partitúrában (ez alkalommal hangzó
+magasságban):
+
+@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-output,png,center}
+
+
+@subsubheading Tankönyv
+
+Tisztában vagyunk vele, hogy sok felhasználónak szokatlan lehet a szöveges
+bevitel. Ezért a @ref{Tankönyv, tankönyvben} alapos segítséget nyújtunk
+az újdonsült felhasználóknak.
+
+A kevésbé tapasztalt felhasználók néha azt hiszik, hogy a LilyPond hibás,
+miközben valójában tökéletesen működik. Addig ne jelents be hibát, amíg végig
+nem olvastad a tankönyvet, és meg nem bizonyosodtál arról, hogy valóban hibára
+bukkantál!
+
+@subsubheading Könnyebb szerkesztés
+
+A LilyPond elsődleges profilja a csúcsminőségű kottaszedés. A grafikus
+felhasználói felület fejlesztése másodlagos, nehogy szem elől tévesszük a fő
+célt. Mindazonáltal léteznek olyan projektek, amelyek azt a célt szolgálják,
+hogy a LilyPond forrásfájlok létrehozása és karbantartása egyszerűbb legyen.
+
+Ezekbe az eszközökbe tipikusan szintaxiskiemelés, automatikus
+parancskiegészítés és sok előre gyártott sablon van beépítve.
+Más programok valamilyen szinten pótolják a grafikus felhasználói felületet,
+és lehetővé teszik a kotta vizuális szerkesztését. Ezekről a
+@ref{Könnyebb bevitel} c. szakaszban olvashatsz.
+
+
+@divClass{column-center-bottom}
+@subheading Hogyan tovább?
+
+Most már készen állsz a LilyPond @ref{Letöltés, letöltésére}.
+
+Még mindig nem vagy meggyőzve? Tudd meg, hogyan lehet @ref{Könnyebb bevitel,
+egyszerűbben szerkeszteni} a LilyPond fájlokat erre specializálódott
+szerkesztőprogramokkal!
+@divEnd
+
+
+@node Könnyebb bevitel
+@unnumberedsec Könnyebb bevitel
+@translationof Easier editing
+
+@divClass{column-center-top}
+@subheading Grafikus környezet: Denemo
+
+@imageClickable{screenshot-denemo-small,png,
+  (Kattints a képre a nagyításhoz),screenshot-denemo,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://denemo.org}
+
+A Denemo egy grafikus szerkesztő, amely LilyPond forrásfájlokat generál,
+és le is játssza a beírt kottát. Jelenleg fejlesztés alatt áll, és a LilyPond
+régebbi verziójának formátumát használja. Szerkesztés közben párhuzomosan
+mutatja a kottát és a LilyPond forrást.
+
+@ignore
+Import: LilyPond, MIDI
+
+Export: Lilypond, MIDI, ABC, CSound Score File, PDF
+@end ignore
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Integrált környezet: LilyPondTool
+
+@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
+  (Kattints a képre a nagyításhoz),lilypondtool-2.12-screenshot,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://lilypondtool@/.organum@/.hu}
+
+A magyar fejlesztésű LilyPondTool a @uref{http://@/www@/.jedit@/.org@/,jEdit}
+szövegszerkesztő bővítménye, és a legtöbbet tudó integrált LilyPond-környezet.
+Sokrétű funkciói közül megemlítendő a beépített PDF-nézegető, mely támogatja
+a kottáról forráskódra és visszafelé történő ugrást, ill. a kottaelemek
+grafikus pozicionálását; az Új kotta varázsló, amely megkönnyíti
+nagy művek létrehozását; valamint az automatikus elválasztás dalszövegek
+gyors begépeléséhez.
+@divEnd
+
+@divClass{column-center-top}
+@subheading Integrált környezet: Frescobaldi
+
+@imageClickable{frescobaldi-lilypond-editor-small,png,
+  (Kattints a képre a nagyításhoz),frescobaldi-lilypond-editor,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+
+@uref{http://www.frescobaldi.org}
+
+A Frescobaldi egy dedikált LilyPond-szerkesztő beépített PDF-előnézettel,
+jól konfigurálható Új kotta varázslóval és sok szerkesztési funkcióval.
+A KDE4 könyvtárakat használja, így minden Linuxon és UNIX-szerű operációs
+rendszeren fut.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Szöveges környezet: Emacs és Vim
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://www.geoffhorton.com/lilymacs.html}
+
+Az Emacs egy szövegszerkesztő, mely sok programnyelv-specifikus képességgel
+bír. Az Emacs rugalmasan bővíthető, és így integrált fejlesztőkörnyezetként
+is szolgálhat. Létezik hozzá egy @q{lilypond mód}, amely LilyPond forrásfájlok
+szerkesztését megkönnyítő funkciókat tartalmaz.
+
+A Vim egy minimalista szövegszerkesztő, a régi Unixos @command{vi} szerkesztő
+továbbfejlesztett változata. Szintén nagyon jól bővíthető és konfigurálható.
+
+Amennyiben még nem vagy járatos az Emacs vagy a Vim használatában,
+inkább azt ajánljuk, más programot használj a LilyPond fájlok
+szerkesztéséhez.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Egyéb
+
+@subsubheading Integrált környezet: LilyKDE
+
+@imageClickable{lilykde-screenshot-small,png,
+  (Kattints a képre a nagyításhoz),lilykde-screenshot,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+
+@uref{http://lilykde.googlecode.com/}
+
+A LilyKDE a @uref{http://kate-editor.org/,Kate} KDE-s szövegszerkesztő egy
+beépülő modulja.
+
+A @uref{http://www.volny.cz/smilauer/rumor/,Rumor}t használja,
+így a kotta bevitele MIDI-billentyűzetről is lehetséges.
+
+Hasznos funkciója többek között, hogy a KDE fájlkezelőjéből több fájlt le
+lehet fordítani egyszerre a segítségével.
+
+@subsubheading Integrált környezet: TexShop
+
+@sourceimage{logo-macosx,,,}
+
+@uref{http://@/www@/.uoregon@/.edu/~koch/texshop}
+
+A Mac OS@tie{}X alá írt TexShop szerkesztő a
+@uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html#desktoppub}
+címen található kiterjesztésekkel képes futtatni a LilyPondot, valamint a
+@command{lilypond-book} és a @command{convert-ly} segédprogramokat.
+
+@ignore
+TODO: ask somebody to sponsor/check these.  -gp
+
+@subsubheading TextMate
+
+@sourceimage{logo-macosx,,,}
+
+There is a LilyPond bundle for TextMate.  It may be installed by
+running:
+
+@example
+mkdir -p /Library/Application\ Support/TextMate/Bundles
+cd /Library/Application\ Support/TextMate/Bundles
+svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
+@end example
+@end ignore
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading A LilyPond formátumába exportáló programok
+
+@ignore
+TODO: change url back to full adress, to make it readable in printouts -ch
+@end ignore
+
+@subsubheading Grafikus kottaszerkesztők:
+
+@itemize
+@item
+@uref{http://@/noteedit@/.berlios@/.de,NoteEdit}
+@item
+@uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden}
+@item
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
+@item
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar}
+@item
+@uref{http://musescore.org,MuseScore}
+@item
+@uref{http://canorus.org,Canorus}
+@end itemize
+
+@subsubheading Parancssori eszközök:
+
+@itemize
+@item
+@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor},
+amely az egyszólamú MIDI bemenetet valós időben LilyPond bemenetté konvertálja
+@item
+@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, egy Emacs mód
+@item
+@uref{http://@/www@/.nongnu@/.org/@/xml2ly/,xml2ly}, amely
+@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}-LilyPond konverzióra képes
+@item
+@uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
+egy LISP könyvtár, amellyel kottát lehet generálni
+@end itemize
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Hogyan tovább?
+
+Most már készen állsz a LilyPond @ref{Letöltés, letöltésére}.
+
+Még mindig nem vagy meggyőzve? Számos zeneszerző, előadó és karmester könnyen
+elsajátította a LilyPond nyelvét. A tapasztalt felhasználók bizonyos esetekben
+gyorsabban begépelnek LilyPonddal egy kottát, mint MIDI billentyűzettel
+vagy egy grafikus kottaszerkesztővel! Esetleg nézd meg, @ref{Képességek,
+mit tud} a LilyPond, @ref{Példák, milyen gyönyörű kottákat szed}, milyen
+@ref{Szabadság, szabadságot} ad, vagy olvasd el felhasználóink
+@ref{Ajánlások, ajánlásait}. Ezenkívül a számítógéppel történő kottaszedés
+esztétikájának @ref{Háttér, hátteréről} is olvashatsz.
+
+
+@subheading Jogi tudnivalók
+
+@divClass{legal}
+Minden logó és termékábrázolás szerzői joggal védett.
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+
+@divEnd

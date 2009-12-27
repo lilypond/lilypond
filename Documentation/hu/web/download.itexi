@@ -1,0 +1,435 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 8089295290c2b4f4e4700f9f52c28f324e875fa6
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Letöltés
+@unnumbered Letöltés
+@translationof Download
+
+@divClass{heading-center}
+@heading A LilyPond @versionStable letöltése
+
+@divEnd
+
+@warning{A LilyPond egy @strong{szöveges alapú} kottaszedő program,
+nem egy grafikus kottaszerkesztő. Mielőtt letöltenéd a LilyPondot,
+olvasd el a tudnivalókat a @ref{Szöveges bevitel}ről.}
+
+@divClass{column-left-top}
+@subheading Felhasználóknak
+
+@itemize
+
+@item
+@c TODO: duplicate to avoid underlined refs in HTML?  icky.
+@ref{Unix, @sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}}
+@ref{Unix, Unix (Linux és FreeBSD)}
+
+@item
+@ref{Mac OS X, @sourceimage{logo-macosx,,,}}
+@ref{Mac OS X, Mac OS X}
+
+@item
+@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, Microsoft Windows}
+
+@end itemize
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading Fejlesztőknek
+
+@itemize
+
+@item
+@ref{Forrás}:
+csomagkészítőknek
+
+@item
+@ref{Régi verziók}:
+az idejétmúlt változatok archívuma
+
+@item @ref{Fejlesztés}:
+a legfrissebb fejlesztői verzió
+
+@end itemize
+@divEnd
+
+
+@divClass{column-center-bottom}
+
+@subheading Licenc
+
+A LilyPond licence a
+@ref{GPL, GNU General Public License}.
+@divEnd
+
+
+@divClass{color1}
+
+@subheading Támogatók
+
+Köszönet a @uref{http://www.vt.edu/, Virgina Tech} és a
+@uref{http://www.linuxaudio.org/, linuxaudio.org} részére a sávszélesség költségeinek fedezéséért.
+
+@sourceimage{VTlogo_ITF,,,}
+@sourceimage{lao_banner_06_on_white_demo,,,}
+
+@subheading Jogi tudnivalók
+
+@divClass{legal}
+Minden logó és termékábrázolás szerzői joggal védett.
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+@divEnd
+
+
+@divClass{hide}
+@menu
+* Unix::
+* Mac OS X::
+* Windows::
+* Forrás::
+* Régi verziók::
+* GPL::
+@end menu
+@divEnd
+
+
+@node Unix
+@unnumberedsec Unix
+@translationof Unix
+
+@divClass{column-center-top}
+@subheading Generikus vagy disztribúció-specifikus csomagokat használjak?
+
+Sok disztribúció csomagkezelőjében megtalálható a LilyPond. Ezeket a verziókat
+egyszerűbb telepíteni és eltávolítani, mint a generikus csomagokat, de
+régebbiek lehetnek. Ha egy generikus csomagot akarsz használni, előbb
+távolítsd el a csomag hivatalos verzióját a csomagkezelővel.
+Ehhez a disztribúció csomagkezelőjének dokumentációja nyújt segítséget.
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Generikus csomagok
+
+@subsubheading Letöltés
+
+@itemize
+
+@item
+@sourceimage{logo-linux,,,}
+@downloadStableLinuxNormal
+(ha bizonytalan vagy afelől, hogy melyiket töltsd le, ezt válaszd)
+
+@item
+@sourceimage{logo-linux,,,}
+@downloadStableLinuxBig
+
+@item
+@sourceimage{logo-linux,,,}
+@downloadStableLinuxPPC
+
+@item
+@sourceimage{logo-freebsd,,,}
+@downloadStableFreeBSDNormal
+
+@item
+@sourceimage{logo-freebsd,,,}
+@downloadStableFreeBSDBig
+
+@end itemize
+
+
+@subsubheading Telepítés
+
+Add ki a következő parancsokat:
+
+@example
+cd PATH-TO-DOWNLOAD-DIRECTORY
+sh lilypond-@versionStable-OS-TYPE.sh
+@end example
+
+@subsubheading Eltávolítás
+
+Add ki a következő parancsot:
+
+@example
+uninstall-lilypond
+@end example
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Disztribúció-specifikus csomagok
+
+Ezeket a csomagokat a disztribúciód csomagkezelőjével tudod telepíteni.
+
+@itemize
+
+@item
+@sourceimage{logo-fedora,,,}
+@uref{https://admin.fedoraproject.org/pkgdb/packages/name/lilypond,
+Fedora: LilyPond 2.12.0}
+
+@item
+@sourceimage{logo-ubuntu,,,}
+@uref{https://launchpad.net/ubuntu/+source/lilypond,
+Ubuntu: LilyPond 2.12.1}
+
+@item
+@sourceimage{logo-slackware,,,}
+@uref{http://www.johannes-schoepfer.de/lilypond/,
+Slackware: LilyPond 2.12.1}
+
+@item
+@sourceimage{logo-debian,,,}
+@uref{http://packages.debian.org/search?keywords=lilypond,
+Debian: LilyPond 2.10.33}
+
+@item
+@sourceimage{logo-suse,,,}
+@uref{http://opensuse.org/?fixme=urg-no-lilypond-package-page,
+openSUSE: LilyPond 2.10.33}
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Jogi tudnivalók
+
+@divClass{legal}
+Minden logó és termékábrázolás szerzői joggal védett.
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@divEnd
+@divEnd
+
+
+@node Mac OS X
+@unnumberedsec Mac OS X
+@translationof MacOS X
+
+@divClass{column-left-top}
+@subheading Csomagok
+
+@subsubheading Letöltés
+
+@itemize
+
+@item
+@sourceimage{logo-macosx,,,}
+@downloadStableDarwinNormal
+Intel processzorokra (ha bizonytalan vagy afelől, hogy melyiket töltsd le, ezt válaszd)
+
+@item
+@sourceimage{logo-macosx,,,}
+@downloadStableDarwinPPC
+G3 és G4 processzorokra (régi Apple gépekben találhatóak)
+
+@end itemize
+
+@subsubheading Telepítés
+
+Csak kattints duplán a letöltött fájlra a kitömörítéséhez, majd a
+kicsomagolt LilyPond.app alkalmazást húzd be az Applications könyvtárba.
+
+@subsubheading Eltávolítás
+
+Töröld a LilyPond.app alkalmazást.
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Parancssori futtatás
+
+@warning{Ha a grafikus felület megfelel, ezeket az utasításokat nyugodtan
+figyelmen kívül hagyhatod.}
+
+Írd be a könyvtáradban található @file{.profile} fájlba a következő sort:
+
+@example
+export PATH=/Applications/LilyPond.app/Contents/Resources/bin:$PATH
+@end example
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Jogi tudnivalók
+
+@divClass{legal}
+Minden logó és termékábrázolás szerzői joggal védett.
+
+@logoLegalMacOSX
+
+@divEnd
+@divEnd
+
+
+
+@node Windows
+@unnumberedsec Windows
+@translationof Windows
+
+@divClass{column-left-top}
+@subheading Csomagok
+
+@subsubheading Letöltés
+
+@itemize
+
+@item
+@sourceimage{logo-windows,,,}
+@downloadStableWindows
+Támogatott verziók: Windows ME, NT, 2000, XP, Vista és Windows 7
+
+@end itemize
+
+@subsubheading Telepítés
+
+@enumerate
+
+@item
+Kattintsd duplán a letöltött fájlra a telepítő elindításához.
+Amennyiben figyelmeztetést kapsz a fájl futtatásával kapcsolatban,
+válaszd a futtatást.
+
+@item
+Ezután olvasd el figyelmesen a licencszerződést, és ha elfogadod, kattints a
+Tovább gombra.
+
+@item
+A célkönyvtárat ajánlott az alapértelmezetten hagyni. Amennyiben mégis
+máshová akarod telepíteni a LilyPondot, válassz egy könyvtárat, és kattints a
+Tovább gombra.
+
+@item
+A következő oldalon hagyd mindhárom opciót bekapcsolva, mert mindhárom
+komponensre szükség lesz. Kattints a Tovább gombra.
+
+@item
+Megkezdődik a telepítés, amely pár percet igénybe vehet. Ha a Részletek
+mutatása gombra kattintasz, megláthatod, milyen fájlok és hova kerültek
+telepítésre, de erre az információra nem lesz szükséged. Miután a telepítés
+befejeződött, kattints a Befejés gombra.
+
+@item
+Sikeresen telepítetted a LilyPondot!
+
+@end enumerate
+
+@subsubheading Eltávolítás
+
+Az eltávolításnak két módja van:
+
+@enumerate
+
+@item
+Kattints a Start menü/LilyPond/Eltávolítás parancsikonra.
+
+@item
+A Vezérlőpult/Alkalmazások telepítése és eltávolítása ablakban jelöld ki a
+LilyPondot, és kattints az Eltávolítás gombra.
+
+@end enumerate
+
+@divEnd
+
+
+
+@divClass{column-center-bottom}
+@subheading Jogi tudnivalók
+
+@divClass{legal}
+Minden logó és termékábrázolás szerzői joggal védett.
+
+@logoLegalWindows
+
+@divEnd
+@divEnd
+
+
+
+@node Forrás
+@unnumberedsec Forrás
+@translationof Source
+
+@warning{Hacsak nem vagy fejlesztő, a LilyPond fordítása
+@strong{nem ajánlott}; szinte minden végfelhasználó jobb, ha az előre
+lefordított futtatható verziót használja.}
+
+@divClass{column-left-bottom}
+@subheading Tarball
+
+@downloadStableSource
+
+A LilyPond összes verziójának forrása
+@uref{http://download.linuxaudio.org/lilypond/, ezen az oldalon}
+található.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Fordítási útmutató
+
+A tudnivalók a @rcontrib{Compiling LilyPond} c. fejezetben vannak leírva.
+
+@divEnd
+
+
+@node Régi verziók
+@unnumberedsec Régi verziók
+@translationof Old downloads
+
+@divClass{column-center-top}
+@subheading All versions
+
+A LilyPond összes verziója
+@uref{http://download.linuxaudio.org/lilypond/binaries/, ezen az oldalon}
+található.
+
+@divEnd
+
+
+@node GPL
+@unnumberedsec GPL
+@translationof GPL
+
+@divClass{column-center-top}
+@subheading Szoftverlicenc
+
+A GNU LilyPond licence a GNU General Public License.
+A licenc választásának főbb előnyeit a @ref{Szabadság} c. szakasz ismerteti.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading GNU General Public License
+
+@include gpl.itexi
+
+@divEnd

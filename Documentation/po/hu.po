@@ -16,6 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: postprocess_html.py:59
+#, python-format
+msgid "Other languages: %s."
+msgstr "Más nyelvek: %s."
+
 #. -*- coding: utf-8 -*-
 #. @node in user/lilypond-learning.tely
 msgid "Top"
