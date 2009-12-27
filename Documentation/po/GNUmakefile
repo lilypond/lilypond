@@ -25,7 +25,7 @@ $(outdir)/messages: $(MO_FILES)
 	touch $@
 
 po-update:
-	$(auxscript-dir)/texi-langutils.py -d $(outdir) -o texi.pot --gettext $(TELY_FILES:%.tely=../%.tely)
+	$(PYTHON) $(auxscript-dir)/texi-langutils.py -d $(outdir) -o texi.pot --gettext $(TELY_FILES:%.tely=../%.tely)
 	$(foreach i, $(DOC_PO_SOURCES), cp $(top-src-dir)/$(i) $(outdir) &&) true
 	cd $(outdir) && sed -i -e s/_doc/_/g $(foreach i, $(DOC_PO_SOURCES), $(notdir $(i)))
 	cd $(outdir) && xgettext -cjn -L Python -o buildscripts.pot $(foreach i, $(DOC_PO_SOURCES), $(notdir $(i)))

@@ -219,7 +219,7 @@ $(outdir)/notation.texi: $(outdir)/ly-grammar.txt
 ## Rules for the automatically generated documentation
 $(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
 	cd $(outdir) && $(BISON) -v $<
-	$(auxscript-dir)/yyout2grammar.py $(outdir)/parser.output $@
+	$(PYTHON) $(auxscript-dir)/yyout2grammar.py $(outdir)/parser.output $@
 
 # There used to be a dependency on a dummy target, to force a rebuild
 # of internals every time.  however, this triggers
@@ -249,7 +249,7 @@ new-lang-dir:
 	cp fr/$(DIR)/GNUmakefile $(ISOLANG)/$(DIR)
 	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/$(DIR)/GNUmakefile
 	rm -f $(outdir)/*.*tely $(outdir)/*.*texi
-	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext $$(cd $(ISOLANG) && ls -1 ../$(DIR).tely ../$(DIR).texi)
+	$(PYTHON) $(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext $$(cd $(ISOLANG) && ls -1 ../$(DIR).tely ../$(DIR).texi)
 	for i in $$(cd $(outdir) && ls -1 $(DIR).tely $(DIR).texi); do\
 	    test -e $(ISOLANG)/$$i || mv $(outdir)/$$i $(ISOLANG)/$$i;\
 	done
@@ -274,11 +274,11 @@ TRANSLATION_FILES = $(shell git ls-files $(ISOLANG) | grep -v GNUmakefile)
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/*.tely)
 skeleton-update:
 	mkdir -p $(ISOLANG)
-	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/%.tely=../%.tely)
-	$(auxscript-dir)/texi-skeleton-update.py $(ISOLANG) $(outdir)
+	$(PYTHON) $(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/%.tely=../%.tely)
+	$(PYTHON) $(auxscript-dir)/texi-skeleton-update.py $(ISOLANG) $(outdir)
 
 snippet-update:
-	$(auxscript-dir)/update-snippets.py user $(ISOLANG) '*.itely'
+	$(PYTHON) $(auxscript-dir)/update-snippets.py user $(ISOLANG) '*.itely'
 
 DOCUMENTS_INCLUDES:=-I $(ISOLANG) \
 -I $(top-build-dir)/Documentation/$(ISOLANG)/out-www \
@@ -297,21 +297,21 @@ DOCUMENTS_INCLUDES:=-I . \
 endif # ISOLANG
 
 check-xrefs:
-	$(auxscript-dir)/check_texi_refs.py --batch \
+	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --batch \
 	$(DOCUMENTS_INCLUDES) $(auxpython-dir)/manuals_definitions.py
 
 fix-xrefs:
-	$(auxscript-dir)/check_texi_refs.py --auto-fix \
+	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --auto-fix \
 	$(DOCUMENTS_INCLUDES) $(auxpython-dir)/manuals_definitions.py
 
 check-translation:
-	ISOLANG=$(ISOLANG) $(auxscript-dir)/check_translation.py $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
+	ISOLANG=$(ISOLANG) $(PYTHON) $(auxscript-dir)/check_translation.py $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
 
 update-translation:
-	ISOLANG=$(ISOLANG) $(auxscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
+	ISOLANG=$(ISOLANG) $(PYTHON) $(auxscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
 
 translation-status:
 	make -C po out=www messages
-	$(auxscript-dir)/translations-status.py
+	$(PYTHON) $(auxscript-dir)/translations-status.py
 
 .SECONDARY:
