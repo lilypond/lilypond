@@ -123,7 +123,7 @@ WWW-post:
 	$(buildscript-dir)/mutopia-index -o $(outdir)/examples.html input/
 	find $(outdir) -name '*-root' | xargs rm -rf
 	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) "$(WEB_TARGETS)"
-	find $(outdir)/offline-root -type l -delete
+	find $(outdir)/offline-root -type l | xargs rm -f
 endif # ifeq ($(out),www)
 
 # For those who cannot for the life in them remember to type
