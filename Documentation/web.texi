@@ -251,6 +251,17 @@ read this manual in the same format as this one.
 @end macro
 
 
+@c don't add any extra spaces in this macro -gp
+@macro ifWebLinks{webLink,normalLink}
+@ifclear web_version
+  \normalLink\:
+@end ifclear
+@ifset web_version
+  \webLink\:
+@end ifset
+@end macro
+
+
 @include web/introduction.itexi
 @include web/download.itexi
 @include web/manuals.itexi

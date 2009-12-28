@@ -474,15 +474,16 @@ Links to other formats of these manuals can be found in
 
 @itemize
 
-@item @rlearningnamed{Top,Learning}:
+@c no colon : needed in this section
+@item @ifWebLinks{@manualStableLearningSplit,@rlearningnamed{Top,Learning}}
 a @qq{must-read} gentle introduction to LilyPond.
 
-@item @rglosnamed{Top,Glossary}:
+@item @ifWebLinks{@manualStableGlossarySplit,@rglosnamed{Top,Glossary}}
 @emph{(optional reading)}
 explains musical terms and gives translations for users unfamiliar
 with English musical terms.
 
-@item @ressaynamed{Top,Essay}:
+@item @ifWebLinks{@manualStableEssaySplit,@ressaynamed{Top,Essay}}
 @emph{(optional reading)}
 background information about the engraving process and the
 aesthetics of 19th century music engraving.
@@ -496,15 +497,15 @@ aesthetics of 19th century music engraving.
 
 @itemize
 
-@item @rusernamed{Top,Notation}:
+@item @ifWebLinks{@manualStableNotationSplit,@rusernamed{Top,Notation}}
 the main portion of the documentation; provides detailed
 information about creating notation.
 
-@item @rprogramnamed{Top,Usage}:
+@item @ifWebLinks{@manualStableUsageSplit,@rprogramnamed{Top,Usage}}
 discusses the actual programs and operation system-specific
 issues.
 
-@item @rlsrnamed{Top,Snippets}:
+@item @ifWebLinks{@manualStableSnippetsSplit,@rlsrnamed{Top,Snippets}}
 short tricks, tips, and examples.
 
 @end itemize
@@ -520,13 +521,13 @@ short tricks, tips, and examples.
 @item @ref{FAQ}:
 links to answers of Frequently Asked Questions.
 
-@item @rchangesnamed{Top,Changes}:
+@item @ifWebLinks{@manualStableChangesSplit,@rchangesnamed{Top,Changes}}
 updates since the last major version.
 
-@item @rextendnamed{Top,Extend}:
+@item @ifWebLinks{@manualStableExtendingSplit,@rextendnamed{Top,Extend}}
 programming fancy tweaks in LilyPond.
 
-@item @rinternalsnamed{Top,Internals}:
+@item @ifWebLinks{@manualStableInternalsSplit,@rinternalsnamed{Top,Internals}}
 information about LilyPond's internal structures, which is
 required for constructing tweaks.
 
