@@ -374,7 +374,7 @@ From a fresh Git checkout, do
 @example
 ./autogen.sh   # ignore any warning messages
 cp GNUmakefile.in GNUmakefile
-make -C python
+make -C scripts && make -C python
 nice make LILYPOND_EXTERNAL_BINARY=/path/to/bin/lilypond doc
 @end example
 
