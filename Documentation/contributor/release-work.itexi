@@ -262,6 +262,9 @@ Regenerating regtests (if the lilypond-book naming has changed):
 
 - git checkout release/lilypond-X.Y.Z-A
 
+- take lilypond-book and any related makefile updates from the
+  latest git.
+
 - configure; make; make test
 
 - tar -cjf lilypond-X.Y.Z-A.test-output.tar.bz2
