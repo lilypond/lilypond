@@ -18,10 +18,6 @@ depth = "../../"
 # these links are relative from the v2.13 docs
 #depth = "../../../../"
 
-# FIXME: remove the user/lilypond-  when 2.14 becomes stable
-WEB_DOCLINK_STABLE = depth + "doc/v2.12/Documentation/user/lilypond-"
-WEB_DOCLINK_DEVEL  = depth + "doc/v2.13/Documentation/"
-
 
 
 VERSION_STABLE = ""
@@ -113,16 +109,37 @@ def make_all_downloads(macroName, version):
 
 def make_ver_link(macroname, version, url, linktext):
     string = "@uref{"
-    # TODO: generalize this
-    if (version[:4] == '2.13'):
-        string += WEB_DOCLINK_DEVEL
-    if (version[:4] == '2.12'):
-        string += WEB_DOCLINK_STABLE
     string += url
     string += ","
     string += linktext
     string += "}"
     make_macro(macroname, string)
+
+# TODO: this kind of thing should really be in a central place for
+# lilypond python build scripts
+def translateNameToUrl(manual, version):
+    ver_split = version.split('.')
+    ver_minor = ver_split[0] + '.' + ver_split[1]
+    url = depth + "doc/v" + ver_minor + "/Documentation/"
+
+    if (ver_minor == '2.13'):
+        return url+manual
+    if (ver_minor == '2.12'):
+        if (manual=='learning'):
+            return url+'user/lilypond-learning'
+        if (manual=='internals'):
+            return url+'user/lilypond-internals'
+        if (manual=='notation'):
+            return url+'user/lilypond'
+        if (manual=='usage'):
+            return url+'user/lilypond-program'
+        if (manual=='snippets'):
+            return url+'../input/lsr/lilypond-snippets'
+        elif (manual=='music-glossary'):
+            return url+'user/music-glossary'
+        else:
+            return ''
+
 
 def make_manual_links(name, version):
     for m in manuals:
@@ -131,17 +148,31 @@ def make_manual_links(name, version):
             mshort = 'glossary'
         else:
             mshort = m
+        url = translateNameToUrl(m, version)
+
+        if (url == ''):
+            # can't have a comma here due to texinfo
+            make_ver_link("manual"+name+mshort.capitalize()+'Pdf',
+                version, "http://lilypond.org",
+                "Sorry; this manual did not exist in 2.12")
+            make_ver_link("manual"+name+mshort.capitalize()+'Split',
+                version, "http://lilypond.org",
+                "Sorry; this manual did not exist in 2.12")
+            make_ver_link("manual"+name+mshort.capitalize()+'Big',
+                version, "http://lilypond.org",
+                "Sorry; this manual did not exist in 2.12")
+            continue
         make_ver_link("manual"+name+mshort.capitalize()+'Pdf',
                   version,
-                  manual + '.pdf',
+                  url + '.pdf',
                   manual.capitalize() + '.pdf')
         make_ver_link("manual"+name+mshort.capitalize()+'Split',
                   version,
-                  manual+'/index.html',
+                  url + '/index.html',
                   manual.capitalize() + ' (split HTML)')
         make_ver_link("manual"+name+mshort.capitalize()+'Big',
                   version,
-                  manual+'-big-page.html',
+                  url + '-big-page.html',
                   manual.capitalize() + ' (big HTML)')
 
 
