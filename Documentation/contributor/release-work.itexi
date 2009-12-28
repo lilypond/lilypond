@@ -256,3 +256,46 @@ If releasing stable/2.12, then:
   to "lilypond-web.info"
 
 
+GENERAL STUFF TO BE MOVED ELSEWHERE
+
+Regenerating regtests (if the lilypond-book naming has changed):
+
+- git checkout release/lilypond-X.Y.Z-A
+
+- configure; make; make test
+
+- tar -cjf lilypond-X.Y.Z-A.test-output.tar.bz2
+  input/regression/out-test/
+
+- mv lilypond-X.Y.Z-A.test-output.tar.bz2 ../gub/regtests/
+
+- cd ../gub/regtests/
+
+- make lilypond
+
+
+New contributor idea:
+
+- tell them to spend 10 minutes on a problem, then give up and ask
+  for help
+
+
+Latest website:
+
+- generated hourly on lilypond.org.  Only split-HTML; big-html and
+  pdf are not generated hourly (wait for the next devel release)
+
+
+VERSION-SPECIFIC MACROS
+
+- made with scripts/build/create-version-itexi.py
+
+- used extensively in the WEBSITE_ONLY_BUILD version of the
+  website (made with website.make, and used on lilypond.org)
+
+- not (?) used in the main docs?
+
+- FIXME: the numbers in VERSION: MINOR should be 1 more than the
+  last release, VERSION_DEVEL should be the last *online* release.
+
+
