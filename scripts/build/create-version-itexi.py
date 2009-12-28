@@ -145,32 +145,32 @@ def make_manual_links(name, version):
     for m in manuals:
         manual = m
         if (m=='music-glossary'):
-            mshort = 'glossary'
+            mshort = 'Glossary'
         else:
-            mshort = m
+            mshort = m.capitalize()
         url = translateNameToUrl(m, version)
 
         if (url == ''):
             # can't have a comma here due to texinfo
-            make_ver_link("manual"+name+mshort.capitalize()+'Pdf',
+            make_ver_link("manual"+name+mshort+'Pdf',
                 version, "http://lilypond.org",
-                "Sorry; this manual did not exist in 2.12")
-            make_ver_link("manual"+name+mshort.capitalize()+'Split',
+                mshort+" (did not exist in 2.12)")
+            make_ver_link("manual"+name+mshort+'Split',
                 version, "http://lilypond.org",
-                "Sorry; this manual did not exist in 2.12")
-            make_ver_link("manual"+name+mshort.capitalize()+'Big',
+                mshort+" (did not exist in 2.12)")
+            make_ver_link("manual"+name+mshort+'Big',
                 version, "http://lilypond.org",
-                "Sorry; this manual did not exist in 2.12")
+                mshort+" (did not exist in 2.12)")
             continue
-        make_ver_link("manual"+name+mshort.capitalize()+'Pdf',
+        make_ver_link("manual"+name+mshort+'Pdf',
                   version,
                   url + '.pdf',
                   manual.capitalize() + '.pdf')
-        make_ver_link("manual"+name+mshort.capitalize()+'Split',
+        make_ver_link("manual"+name+mshort+'Split',
                   version,
                   url + '/index.html',
                   manual.capitalize() + ' (split HTML)')
-        make_ver_link("manual"+name+mshort.capitalize()+'Big',
+        make_ver_link("manual"+name+mshort+'Big',
                   version,
                   url + '-big-page.html',
                   manual.capitalize() + ' (big HTML)')
