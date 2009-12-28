@@ -17,7 +17,17 @@ our @ref{Text input}.}
 @unnumbered Download
 
 @divClass{heading-center}
-@heading Downloads for LilyPond @versionStable
+@ifclear web_version
+  @c yes, we want verisonDevel here, since the online links
+  @c for @version won't be up yet!
+  @heading Downloads for LilyPond @versionDevel
+
+Links for the stable version of LilyPond can be found on
+@uref{http://lilypond.org, lilypond.org}
+@end ifclear
+@ifset web_version
+  @heading Downloads for LilyPond @versionStable
+@end ifset
 
 @warningTextBased
 
@@ -146,7 +156,13 @@ package manager.
 
 @item
 @sourceimage{logo-linux,,,}
-@downloadStableLinuxNormal
+@ifclear web_version
+  @downloadDevelLinuxNormal
+@end ifclear
+@ifset web_version
+  @downloadStableLinuxNormal
+@end ifset
+
 (if in doubt, use this)
 
 @item

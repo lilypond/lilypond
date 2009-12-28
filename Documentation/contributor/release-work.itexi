@@ -302,3 +302,9 @@ VERSION-SPECIFIC MACROS
   last release, VERSION_DEVEL should be the last *online* release.
 
 
+LANGUAGE LISTS
+
+- a translator can ask for an official lilypond-xy mailing list
+  once they've finished all "priority 1" translation items.
+
+

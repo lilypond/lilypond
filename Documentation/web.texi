@@ -113,7 +113,11 @@ Read more in our @ref{Introduction}!
 
 @divEnd
 
-
+@ifclear web_version
+  @c do nothing
+@end ifclear
+@ifset web_version
+  @c make the box:
 @divId{latestVersion}
 @subheading Quick links
 
@@ -132,6 +136,7 @@ Read more in our @ref{Introduction}!
 @ref{Development, Manuals @versionDevel}
 
 @divEnd
+@end ifset
 
 
 @ifnottex

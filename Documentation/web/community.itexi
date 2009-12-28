@@ -713,26 +713,12 @@ contributors should only read the sections which are relevant to
 them.  For more information about different jobs, see
 @ref{Help us}.}
 
-@divClass{keep-bullets}
-@itemize
+@docLinks{Contributor's Guide, contributor,
+  @rcontribnamed{Top,Contributor's Guide},
+  @manualDevelContributorSplit,
+  @manualDevelContributorBig, 500 kB,
+  @manualDevelContributorPdf, 2.8 MB}
 
-@item
-@manualDevelContributorSplit{}:
-the manual is split between many HTML pages.
-@*@ @  @emph{(small download for each page)}
-
-@item
-@manualDevelContributorBig{}:
-read this manual as one huge HTML page.
-@*@ @  @emph{(large single download, 500 kb)}
-
-@item
-@manualDevelContributorPdf{}:
-download as a PDF file.
-@*@ @  @emph{(large single download, 2.8 Mb)}
-
-@end itemize
-@divEnd
 @divEnd
 
 
