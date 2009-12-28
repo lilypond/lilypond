@@ -588,8 +588,12 @@ detected.")
 middle@tie{}C in octavation brackets.")
 
 
+     (quotedCueEventTypes ,list? "A list of symbols, representing the
+event types that should be duplicated for @code{\\cueDuring} commands.")
      (quotedEventTypes ,list? "A list of symbols, representing the
-event types that should be duplicated for @code{\\quote} commands.")
+event types that should be duplicated for @code{\\quoteDuring} commands.
+This is also a fallback for @code{\\cueDuring} if @code{quotedCueEventTypes}
+is not set")
 ;    (quotes ,hash-table? "A hash table, mapping names to
 ;@code{music-event} vectors.")
 

@@ -655,7 +655,9 @@ automatically when an output definition (a @code{\score} or
     ;; need this, as stanza numbers are items, and appear only once.
     stanza-number-interface
   )
-  quotedEventTypes = #'(
+  % \quoteDuring is supposed to quote everything, cueDuring only the essentials
+  quotedEventTypes = #'(StreamEvent)
+  quotedCueEventTypes = #'(
     note-event
     rest-event
     tie-event

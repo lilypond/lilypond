@@ -1085,12 +1085,13 @@ The @code{\quoteDuring} command is used to indicate the point where the
 quotation begins.  It is followed by two arguments: the name of the
 quoted voice, as defined with @code{\addQuote}, and a music expression
 that indicates the duration of the quote, usually spacer rests or
-multi-measure rests.  The corresponding music from the quoted voice is
-inserted into the music expression:
+multi-measure rests.  The corresponding music (including all articulations,
+dynamics, markup, etc.) from the quoted voice is inserted into the music
+expression:
 
 @lilypond[verbatim,quote]
 flute = \relative c'' {
-  a4 gis g gis
+  a4 gis g->\f gis^\markup{quoted}
 }
 \addQuote "flute" { \flute }
 
@@ -1135,6 +1136,23 @@ It is possible to tag quotations with unique names in order to
 process them in different ways.  For details about this procedure,
 see @ref{Using tags}.
 
+It is also possible to adjust which objects from the original voice are quoted
+by changing the @code{quotedEventTypes} property.  By default, its value is
+@code{#'(StreamEvent)}, which means that everything is quoted.  Setting it
+to e.g. @code{#'(note-event rest-event tie-event)} causes lilypond to quote
+only notes, rests and ties, but no articulations, markup or dynamics.
+
+@lilypond[verbatim,quote]
+clarinet = \relative c'' {
+  a4 gis g->\f gis^\markup{quoted}
+}
+\addQuote "clarinet" { \clarinet }
+
+\relative c' {
+  \set Score.quotedEventTypes = #'(note-event rest-event tie-event)
+  c4 cis \quoteDuring #"clarinet" { s2 }
+}
+@end lilypond
 
 @snippets
 
@@ -1147,6 +1165,7 @@ see @ref{Using tags}.
 @cindex rest-event
 
 @funindex quotedEventTypes
+@funindex quotedCueEventTypes
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {quoting-another-voice.ly}
@@ -1205,9 +1224,9 @@ notes into a part.  The syntax is as follows:
 \cueDuring #@var{partname} #@var{voice} @var{music}
 @end example
 
-This command copies the corresponding measures from @var{partname}
-into a @code{CueVoice} context.  The @code{CueVoice} is created
-implicitly, and occurs simultaneously with @var{music}, which
+This command copies only the notes and rests from the corresponding measures
+from @var{partname} into a @code{CueVoice} context.  The @code{CueVoice} is
+created implicitly, and occurs simultaneously with @var{music}, which
 creates a polyphonic situation.  The @var{voice} argument
 determines whether the cue notes should be notated as a first or
 second voice; @code{UP} corresponds to the first voice, and
@@ -1215,7 +1234,7 @@ second voice; @code{UP} corresponds to the first voice, and
 
 @lilypond[verbatim,quote]
 oboe = \relative c'' {
-  r2 r8 d16 f e g f a
+  r2 r8 d16(\f f e g f a)
   g8 g16 g g2.
 }
 \addQuote "oboe" { \oboe }
@@ -1230,6 +1249,30 @@ oboe = \relative c'' {
 In the above example, the @code{Voice} context had to be
 explicitly declared, or else the entire music expression would
 belong to the @code{CueVoice} context.
+
+It is possible to adjust which aspects of the music are quoted with
+@code{\cueDuring} by setting the @code{quotedCueEventTypes} property.  Its
+default value is @code{#'(note-event rest-event tie-event beam-event
+tuplet-span-event)}, which means that only notes, rest, ties, beams and
+tuplets are quoted, but not articulations, dynamic marks, markup etc.
+
+@lilypond[verbatim,quote]
+oboe = \relative c'' {
+  r2 r8 d16(\f f e g f a)
+  g8 g16 g g2.
+}
+\addQuote "oboe" { \oboe }
+
+\new Voice \relative c'' {
+  \set Score.quotedCueEventTypes = #'(note-event rest-event tie-event
+                                      beam-event tuplet-span-event
+                                      dynamic-event slur-event)
+  \cueDuring #"oboe" #UP { R1 }
+  g2 c,
+}
+@end lilypond
+
+
 
 The name of the cued instrument can be printed by setting the
 @code{instrumentCueName} property in the @code{CueVoice} context.

@@ -45,7 +45,7 @@ public:
 
   DECLARE_SCHEME_CALLBACK (constructor, ());
   bool quote_ok () const;
-  bool accept_music_type (Stream_event *) const;
+  bool accept_music_type (Stream_event *, bool is_cue = true) const;
 
 protected:
   virtual void derived_mark () const;
@@ -64,10 +64,17 @@ Quote_iterator::do_quit ()
 }
 
 bool
-Quote_iterator::accept_music_type (Stream_event *ev) const
+Quote_iterator::accept_music_type (Stream_event *ev, bool is_cue) const
 {
-  for (SCM accept = get_outlet ()->get_property ("quotedEventTypes");
-       scm_is_pair (accept); accept = scm_cdr (accept))
+  SCM accept = SCM_EOL;
+  // Cue notes use the quotedCueEventTypes property, otherwise (and as fallback
+  // for cue notes if quotedCueEventTypes is not set) use quotedEventTypes
+  if (is_cue)
+    accept = get_outlet ()->get_property ("quotedCueEventTypes");
+  if (accept == SCM_EOL)
+    accept = get_outlet ()->get_property ("quotedEventTypes");
+
+  for (; scm_is_pair (accept); accept = scm_cdr (accept))
     {
       if (ev->internal_in_event_class (scm_car (accept)))
 	return true;
@@ -235,6 +242,8 @@ Quote_iterator::process (Moment m)
       Pitch *me_pitch = unsmob_pitch (get_music ()->get_property ("quoted-transposition"));
       if (!me_pitch)
 	me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
+      SCM cid = get_music ()->get_property ("quoted-context-id");
+      bool is_cue = scm_is_string (cid) && (ly_scm2string (cid) == "cue");
 
       for (SCM s = scm_cdr (entry); scm_is_pair (s); s = scm_cdr (s))
 	{
@@ -243,7 +252,7 @@ Quote_iterator::process (Moment m)
 	  Stream_event *ev = unsmob_stream_event (scm_car (ev_acc));
 	  if (!ev)
 	    programming_error ("no music found in quote");
-	  else if (accept_music_type (ev))
+	  else if (accept_music_type (ev, is_cue))
 	    {
 	      /* create a transposed copy if necessary */
 	      if (quote_pitch || me_pitch)
