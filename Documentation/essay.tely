@@ -7,7 +7,7 @@
 @end ignore
 
 @setfilename lilypond-essay.info
-@settitle LilyPond Notation Reference
+@settitle Essay on automated music engraving
 @documentencoding UTF-8
 @documentlanguage en
 @afourpaper
@@ -23,8 +23,6 @@ Copyright @copyright{} 2002--2009 by the authors.
 @end macro
 
 @set FDL
-@c TODO: we shouldn't need this!
-@set web
 @include macros.itexi
 
 @afourpaper
@@ -59,7 +57,6 @@ Copyright @copyright{} 2002--2009 by the authors.
 @include essay/engraving.itely
 @include essay/literature.itely
 
-@clear web
 @include fdl.itexi
 
 @node LilyPond index
