@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 9d789d3cb5f3b0f227d28d16b81f79dd1dfd2927
+    Translation of GIT committish: 7b34eac90f81c8123feaf2670fafae236101f14c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -86,7 +86,7 @@ translations should be in macros.itexi.
 @macro docMain
 @cartouche
 Pour connaître la place qu'occupe ce manuel dans la
-documentation, consultez @rlearning{À propos de la documentation}.
+documentation, consultez Manuels.
 
 Si vous ne disposez pas de certains manuels, la documentation complète
 se trouve sur @w{@uref{http://@/www@/.lilypond@/.org/}}.
@@ -138,7 +138,6 @@ Ce document a été placé dans le domaine public ; en France, les auteurs
 renoncent à tous leurs droits patrimoniaux.
 @end copying
 @end ifclear
-
 
 
 @c   ***** Title page *****
@@ -650,6 +649,16 @@ vous reporter à la documentation correspondante en anglais.
 @ifinfo
 @image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
 @end ifinfo
+@end macro
+
+@macro help{TEXT}
+@html
+<div class="help">
+<strong>
+  <span style="text-decoration:blink">À l'aide&nbsp;:</span>
+</strong> \TEXT\
+</div>
+@end html
 @end macro
 
 @c LEGALESE
