@@ -210,6 +210,11 @@ def get_option_parser ():
                   action='store_true', dest='skip_png_check',
                   default=False)
 
+    p.add_option ('--use-source-file-names',
+                  help=_ ("write snippet output files with the same base name as their source file"),
+                  action='store_true', dest='use_source_file_names',
+                  default=False)
+
     p.add_option ('-V', '--verbose', help=_ ("be verbose"),
                   action="store_true",
                   default=False,
@@ -1292,6 +1297,8 @@ left-margin-default right-margin-default)"
         name = '%s/lily-%s' % (cs[:2], cs[2:])
         return name
 
+    final_basename = basename
+
     def write_ly (self):
         base = self.basename ()
         path = os.path.join (global_options.lily_output_dir, base)
@@ -1319,13 +1326,25 @@ printing diff against existing file." % filename)
             print '\nMissing', missing
             raise CompileError(self.basename())
         for name in existing:
+            if (global_options.use_source_file_names
+                and isinstance (self, LilypondFileSnippet)):
+                base, ext = os.path.splitext (name)
+                components = base.split ('-')
+                # ugh, assume filenames with prefix with one dash (lily-xxxx)
+                if len (components) > 2:
+                    base_suffix = '-' + components[-1]
+                else:
+                    base_suffix = ''
+                final_name = self.final_basename () + base_suffix + ext
+            else:
+                final_name = name
             try:
-                os.unlink (os.path.join (destination, name))
+                os.unlink (os.path.join (destination, final_name))
             except OSError:
                 pass
 
             src = os.path.join (output_dir, name)
-            dst = os.path.join (destination, name)
+            dst = os.path.join (destination, final_name)
             dst_path = os.path.split(dst)[0]
             if not os.path.isdir (dst_path):
                 os.makedirs (dst_path)
@@ -1426,7 +1445,7 @@ printing diff against existing file." % filename)
         return func (self)
 
     def get_images (self):
-        base = self.basename ()
+        base = self.final_basename ()
 
         single = '%(base)s.png' % vars ()
         multiple = '%(base)s-page1.png' % vars ()
@@ -1443,7 +1462,7 @@ printing diff against existing file." % filename)
 
     def output_docbook (self):
         str = ''
-        base = self.basename ()
+        base = self.final_basename ()
         for image in self.get_images ():
             (base, ext) = os.path.splitext (image)
             str += output[DOCBOOK][OUTPUT] % vars ()
@@ -1459,7 +1478,7 @@ printing diff against existing file." % filename)
 
     def output_html (self):
         str = ''
-        base = self.basename ()
+        base = self.final_basename ()
         if self.format == HTML:
             str += self.output_print_filename (HTML)
             if VERBATIM in self.option_dict:
@@ -1488,13 +1507,13 @@ printing diff against existing file." % filename)
             info_image_path = os.path.join (global_options.info_images_dir, base)
             str += output[TEXINFO][OUTPUTIMAGE] % vars ()
 
-        base = self.basename ()
+        base = self.final_basename ()
         str += output[self.format][OUTPUT] % vars ()
         return str
 
     def output_latex (self):
         str = ''
-        base = self.basename ()
+        base = self.final_basename ()
         if self.format == LATEX:
             str += self.output_print_filename (LATEX)
             if VERBATIM in self.option_dict:
@@ -1515,7 +1534,7 @@ printing diff against existing file." % filename)
     def output_print_filename (self, format):
         str = ''
         if PRINTFILENAME in self.option_dict:
-            base = self.basename ()
+            base = self.final_basename ()
             filename = os.path.basename (self.substring ('filename'))
             str = output[format][PRINTFILENAME] % vars ()
 
@@ -1523,7 +1542,7 @@ printing diff against existing file." % filename)
 
     def output_texinfo (self):
         str = self.output_print_filename (TEXINFO)
-        base = self.basename ()
+        base = self.final_basename ()
         if DOCTITLE in self.option_dict:
             doctitle = base + '.doctitle'
             translated_doctitle = doctitle + document_language
@@ -1585,6 +1604,13 @@ class LilypondFileSnippet (LilypondSnippet):
         name = self.substring ('filename')
         return ('\\sourcefilename \"%s\"\n\\sourcefileline 0\n%s'
                 % (name, self.contents))
+
+    def final_basename (self):
+        if global_options.use_source_file_names:
+            base = os.path.splitext (os.path.basename (self.substring ('filename')))[0]
+            return base
+        else:
+            return self.basename ()
 
 
 class LilyPondVersionString (Snippet):

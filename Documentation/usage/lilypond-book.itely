@@ -923,7 +923,6 @@ elements that stick into the left margin, such as bar numbers and
 instrument names.  This option will shorten each line and move each
 line to the right by the same amount.
 
-
 @item -P @var{command}
 @itemx --process=@var{command}
 Process LilyPond snippets using @var{command}.  The default command is
@@ -932,6 +931,12 @@ Process LilyPond snippets using @var{command}.  The default command is
 
 @item --pdf
 Create PDF files for use with PDF@LaTeX{}.
+
+@itemx --use-source-file-names
+Write snippet output files with the same base name as their source file.
+This option works only for snippets included with @code{lilypondfile}
+and only if directories implied by @code{--output-dir} and
+@code{--lily-output-dir} options are different.
 
 @item -V
 @itemx --verbose
