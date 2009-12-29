@@ -207,7 +207,7 @@ This book gives a brief history of music typography, followed by
 an examination of LilyPond's engraving techniques.  A comparison
 between LilyPond and other music engraving systems is given.
 
-@warning{The detailed typographical examples are easier to analyze
+@warning{the detailed typographical examples are easier to analyze
 in the PDF version due to its higher resolution.}
 
 @divEnd
@@ -215,7 +215,7 @@ in the PDF version due to its higher resolution.}
 @divClass{column-right-bottom}
 
 @docLinks{Essay, essay,
-  @rglosnamed{Top,Essay},
+  @ressaynamed{Top,Essay},
   @manualStableEssaySplit,
   @manualStableEssayBig, 2 MB,
   @manualStableEssayPdf, 2.5 MB}
@@ -232,7 +232,7 @@ in the PDF version due to its higher resolution.}
 This book explains all the LilyPond commands which produce
 notation.
 
-@warning{The Notation reference assumes that the reader knows
+@warning{the Notation reference assumes that the reader knows
 basic material covered in the Learning manual and is familiar with
 the English musical terms presented in the glossary.}
 
@@ -241,7 +241,7 @@ the English musical terms presented in the glossary.}
 @divClass{column-right-bottom}
 
 @docLinks{Notation, notation,
-  @rglosnamed{Top,Notation},
+  @rusernamed{Top,Notation},
   @manualStableNotationSplit,
   @manualStableNotationBig, 7 MB,
   @manualStableNotationPdf, 18 MB}
@@ -265,7 +265,7 @@ attempting any large projects.
 @divClass{column-right-bottom}
 
 @docLinks{Usage, usage,
-  @rglosnamed{Top,Usage},
+  @rprogramnamed{Top,Usage},
   @manualStableUsageSplit,
   @manualStableUsageBig, 300 KB,
   @manualStableUsagePdf, 400 KB}
@@ -286,7 +286,7 @@ This shows a selected set of LilyPond snippets from the
 Please note that this document is not an exact subset of LSR.  LSR
 is running a stable LilyPond version, so any snippet which
 demonstrates new features of a development version must be added
-separately.  These are stored in @file{input/new/} in the LilyPond
+separately.  These are stored in @file{Documentation/snippets/new/} in the LilyPond
 source tree.
 
 The list of snippets for each subsection of the Notation are also
@@ -296,7 +296,7 @@ linked from the @strong{See also} portion.
 @divClass{column-right-bottom}
 
 @docLinks{Snippets, snippets,
-  @rglosnamed{Top,Snippets},
+  @rlsrnamed{Top,Snippets},
   @manualStableSnippetsSplit,
   @manualStableSnippetsBig, 2.5 MB,
   @manualStableSnippetsPdf, 8 MB}
@@ -319,7 +319,7 @@ reporting, and development.
 @divClass{column-right-bottom}
 
 @docLinks{Web, web,
-  @rglosnamed{Top,Web},
+  @ref{Top,,,,Web},
   @manualStableWebSplit,
   @manualStableWebBig, 1 MB,
   @manualStableWebPdf, 2 MB}
@@ -382,7 +382,7 @@ LilyPond since the previous stable version.
 @divClass{column-right-bottom}
 
 @docLinks{Changes, changes,
-  @rglosnamed{Top,Changes},
+  @rchangesnamed{Top,Changes},
   @manualStableChangesSplit,
   @manualStableChangesBig, 6 KB,
   @manualStableChangesPdf, 200 KB}
@@ -403,7 +403,7 @@ This manual explains how to write extensions to LilyPond.
 @divClass{column-right-bottom}
 
 @docLinks{Extend, extend,
-  @rglosnamed{Top,Extend},
+  @rextendnamed{Top,Extend},
   @manualStableExtendingSplit,
   @manualStableExtendingBig, 200 KB,
   @manualStableExtendingPdf, 400 KB}
@@ -417,7 +417,7 @@ This manual explains how to write extensions to LilyPond.
 @divClass{column-left-top}
 @subheading Internals reference
 
-This is a set of heavily cross linked HTML pages which document
+This is a set of heavily cross linked pages which document
 the nitty-gritty details of each and every LilyPond class, object,
 and function.  It is produced directly from the formatting
 definitions in the source code.
@@ -428,15 +428,14 @@ control thickness values, distances, etc., can be changed in input
 files.  There are a huge number of formatting options, and all of
 them are described in this document.  Each section of the Notation
 Reference has a @b{See also} subsection, which refers to the
-generated documentation.  In the HTML document, these subsections
-have clickable links.
+generated documentation.
 
 @divEnd
 
 @divClass{column-right-bottom}
 
 @docLinks{Internals, internals,
-  @rglosnamed{Top,Internals},
+  @rinternalsnamed{Top,Internals},
   @manualStableInternalsSplit,
   @manualStableInternalsBig, 2.5 MB,
   @manualStableInternalsPdf, 2.8 MB}
@@ -448,9 +447,9 @@ have clickable links.
 @unnumberedsec Translated
 
 @divClass{column-center-bottom}
-@subheading Translation status
+@subheading Translations status
 
-TODO: clean up / prettify
+TODO: prettify and generate in Texinfo.
 
 @uref{../translations.html}.
 

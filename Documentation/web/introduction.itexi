@@ -74,7 +74,9 @@ Impress friends and colleagues with sharp sheet music!
 @end itemize
 @divEnd
 
-
+@c TRANSLATORS, translations are not yet compiled in Info format, so
+@c it's not worth translating the right column of the following
+@c menu. -JM
 @divClass{hide}
 @menu
 * Features::                    What can LilyPond do?
@@ -111,14 +113,14 @@ Maybe draw inspiration from
 
 @imageFloat{flat-design,png,right}
 
-The point of using LilyPond is to produce elegant sheet music that
-is easy to read.  LilyPond's developer community has spent
-thousands of hours developing powerful music engraving software
-that results in beautifully engraved music.  All of LilyPond's
-style settings, font designs and algorithms have been inspired by
-the finest hand-engraved music.  LilyPond output has the same
-strong, balanced and elegant look as the best-engraved classical
-scores.  This is further explained in our @ref{Essay}.
+The point of using LilyPond is to produce elegant sheet music that is
+easy to read.  Its developer community has spent thousands of hours
+developing powerful music engraving software that results in beautifully
+engraved music.  All of LilyPond's style settings, font designs and
+algorithms have been inspired by the finest hand-engraved music.
+LilyPond output has the same strong, balanced and elegant look as the
+best-engraved classical scores.  This is further explained in our
+@ref{Essay}.
 
 
 @subsubheading Less fiddling
@@ -155,34 +157,34 @@ score-writing programs.
 @imageFloat{lilypond-book,png,right}
 
 Put fragments of music into texts without cutting and pasting
-pictures. Integrate music into LaTeX or HTML seamlessly, or add
-music to OpenOffice.org with ooolilypond.
+pictures.  Integrate music into @LaTeX{} or HTML seamlessly, or add
+music to OpenOffice.org with OOoLilyPond.
 
 
 
 @subsubheading Free software
 
-LilyPond can be downloaded free of charge! Yep - It's free.  Get
+LilyPond can be downloaded free of charge!  Yep - It's free.  Get
 it from the download page.
 
-It's also free (as in @qq{speech}) software. It comes with source
-code, and permission to change and copy it. So, are you irritated
+It's also free (as in @qq{speech}) software.  It comes with source
+code, and permission to change and copy it.  So, are you irritated
 by a bug, or yearning for a feature? Simply add it yourself, or
 pay someone else to do it.
 
 
 @subsubheading Extensible design
 
-All settings can be changed to suit your personal
-typographical taste. If that still is not enough, there is always
-the built-in scripting language, a dialect of the powerful
-language LISP. Settings, variables and functions are all
-documented in the comprehensive program reference manual.
+All settings can be changed to suit your personal typographical
+taste.  If that still is not enough, there is always the built-in
+scripting language Scheme, a dialect of the powerful language
+LISP.  Settings, variables and functions are all documented in the
+comprehensive program reference manual.
 
 
 @subsubheading Excellent support
 
-LilyPond runs on all popular platforms: Linux, MacOS X, and
+LilyPond runs on all popular platforms: GNU/Linux, MacOS X, and
 Windows.  LilyPond comes with extensive documentation and hundreds
 of example files.  There is an active user community answering
 questions on the Lilypond user mailing list, while the development
@@ -249,8 +251,8 @@ as this passage of Gregorian chant.
 @subsubheading Modern Music
 
 Contemporary composers find Lilypond well-suited to displaying
-unusual notation. Here is an excerpt from Trevor Baca's
-@emph{Cáry}, for unaccompanied bass flute.
+unusual notation.  Here is an excerpt from Trevor Bača's
+@emph{Čáry}, for unaccompanied bass flute.
 
 @exampleImage{cary}
 @newsEnd
@@ -260,7 +262,7 @@ unusual notation. Here is an excerpt from Trevor Baca's
 @subsubheading Efficient, flexible creation of performance materials
 
 Various performance materials can be created from the same source
-code. This is an excerpt of @uref{http://nicolas.sceaux.free.fr/,
+code.  This is an excerpt of @uref{http://nicolas.sceaux.free.fr/,
 Nicolas Sceaux's} engraving of Handel's @emph{Giulio Cesare}, in
 full score, piano-vocal reduction, and a violin part.
 
@@ -296,10 +298,10 @@ an impressive Schenkerian analysis.
 @subsubheading Vocal Music
 
 Lilypond is excellent for vocal music of all kinds, from sacred
-hymns to opera. Here is a medieval motet with slightly unusual
-requirements. The tenor voice is written in a different meter
+hymns to opera.  Here is a medieval motet with slightly unusual
+requirements.  The tenor voice is written in a different meter
 than the others, but must line up as if it were in the same meter.
-Lilypond handles this most elegantly. Note also the incipits with
+Lilypond handles this most elegantly.  Note also the incipits with
 Vaticana style clefs, the slashed stems indicating plicated notes,
 and the ligature braces above certain groups of notes.
 
@@ -319,7 +321,7 @@ Here is an example of a simple counterpoint exercise.
 @subsubheading Popular Music
 
 It is simple to create pop lead sheets with melody, lyrics,
-chord names, and fretboards. In this example you see some of the
+chord names, and fretboards.  In this example you see some of the
 predefined fretboard diagrams, but these can be heavily customized
 to suit nearly any situation.
 
@@ -457,6 +459,9 @@ LilyPond, first read about our @ref{Text input}.
 @divEnd
 
 
+@c Frankly, a node just for redirecting the reader just after a reading
+@c direction paragraph is a bit dense, I'd really like to merge this
+@c node into the previous paragraph. -JM
 @node Background
 @unnumberedsec Background
 
@@ -553,6 +558,8 @@ If you've already decided to try LilyPond, first read about our
 @ref{Text input}.
 @divEnd
 
+@c TRANSLATORS, so far it's mostly from
+@c http://lilypond.org/web/switch/testimonials
 
 @node Testimonials
 @unnumberedsec Testimonials
@@ -561,9 +568,9 @@ If you've already decided to try LilyPond, first read about our
 @imageFloat{carter-brey,jpg, right}
 @subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, Principal Cellist, New York Philharmonic
 
-@qq{... I've written a couple of encore pieces for solo cello
+@qq{@dots{} I've written a couple of encore pieces for solo cello
 which I've printed with LilyPond and which I'm going to submit to
-Schirmer for publication. I'll bet their engraved version wouldn't
+Schirmer for publication.  I'll bet their engraved version wouldn't
 look half as sharp as mine!}
 @divEnd
 
@@ -573,10 +580,11 @@ look half as sharp as mine!}
 @subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professor of Composition, Musikhochschule Freiburg
 
 @qq{Although I don't know [LilyPond] very well yet, I'm
-@strong{*very} impressed. I used the program to input a motet of
+@strong{*very} impressed.  I used the program to input a motet of
 Josquin Desprez in mensural notation and there's no doubt that
 lilypond outscores all other notation programs easily concerning
-speed, ease of use and look!} @divEnd
+speed, ease of use and look!}
+@divEnd
 
 
 @divClass{testimonial-item}
@@ -584,11 +592,10 @@ speed, ease of use and look!} @divEnd
 @subsubheading Darius Blasband, composer (Brussels, Belgium)
 
 @qq{[..after the first orchestra rehearsal] I got numerous
-compliments about the quality of the scores. Even more
+compliments about the quality of the scores.  Even more
 importantly, while Lilypond provides numerous hacks to improve the
 way its scores look, what the orchestra got from me is basically
 the raw, untouched output.}
-
 @divEnd
 
 
@@ -596,10 +603,10 @@ the raw, untouched output.}
 @subsubheading Kieren MacMillan, composer (Toronto, Canada)
 
 @qq{thanks and kudos to the development team for their incredible
-work. I've never seen anything approaching the output that I get
+work.  I've never seen anything approaching the output that I get
 from Lilypond -- I'm totally confident that my music publishing
 needs will be fulfilled beyond my expectations using this great
-application. [..] basically untweaked Lilypond output [..] looks
+application.  [..] basically untweaked Lilypond output [..] looks
 better than most recent @q{professional} publications I've compared
 it to (q.v., just about any Warner Bros. score, and even many of
 the most recent by @q{the old houses}). [..]}
@@ -609,7 +616,7 @@ the most recent by @q{the old houses}). [..]}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, lead programmer of the @uref{http://www.rosegardenmusic.com/, RoseGarden} project.
+@subsubheading Chris Cannam, lead programmer of the @uref{http://www.rosegardenmusic.com/, RoseGarden} project
 
 @qq{Lilypond is obviously the zillion-ton gorilla [of great music
 typesetting].}
@@ -627,14 +634,14 @@ would be confusing to read.  LilyPond makes it much easier for me
 to work in my dual editor+engraver role.}
 
 @qq{I've been using LilyPond exclusively for my fledgling music
-publishing business. Virtually without exception, every composer
+publishing business.  Virtually without exception, every composer
 has been blown away by the quality of the engraving when presented
-with the proofs of their music about to be published. I deserve
+with the proofs of their music about to be published.  I deserve
 some of the credit for this -- I spend a lot of time tweaking
 output, especially ties (mainly in chords) -- but LilyPond gives
 me an excellent starting point, a very intuitive interface, and
 the ability to modify absolutely anything if I want to take the
-time. I'm convinced that no commercial product can come close.}
+time.  I'm convinced that no commercial product can come close.}
 @divEnd
 
 
@@ -660,28 +667,28 @@ the more I like it!}
 @divClass{testimonial-item}
 @subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} contributor
 
-@qq{I had a kind of hate-passion relationship with it. Passion
+@qq{I had a kind of hate-passion relationship with it.  Passion
 because the first score I saw was so amazing! The description of
 LilyPond lies about its beautifulness, it is too modest! [..] as
 LilyPond is getting always better, and as I look closer how things
-are done in scheme, I have less and less frustrations. Anyway,
+are done in scheme, I have less and less frustrations.  Anyway,
 what I mean is: thank you for providing LilyPond, it is really
 good.}
 @divEnd
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Conductor at the Theatre in Koblenz, Germany and distinguished GNU Hacker.
+@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Conductor at the Theatre in Koblenz, Germany and distinguished GNU Hacker
 
 @qq{Anyway, LilyPond does an amazingly good job!}
 @divEnd
 
 
 @divClass{testimonial-item}
-@subsubheading Paul Davis, developer of @uref{http://jackaudio.org/, JACK} and @uref{http://www.ardour.org/, Ardour}.
+@subsubheading Paul Davis, developer of @uref{http://jackaudio.org/, JACK} and @uref{http://www.ardour.org/, Ardour}
 
 @qq{I think [LilyPond is] an incredible program, and it produces
-wonderful, wonderful output. when i read an interview about it
+wonderful, wonderful output.  when i read an interview about it
 last year, i was raving to several friends of mine about its
 potential.}
 @divEnd
@@ -888,7 +895,7 @@ systems.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-@uref{http://FIXME}
+@uref{http://www.gnu.org/software/emacs/}
 
 Emacs is a text editor with language-sensitive capabilities for
 many different computer languages.  Emacs is a highly extensible
@@ -896,11 +903,13 @@ editor and can be used as an Integrated Development Environment.
 There is a @q{lilypond mode} which supplies the language
 definitions for working with Lilypond source files.
 
+@uref{http://www.vim.org}
+
 Vim is a minimal text editor and is an extension of the older Unix
 @command{vi} editor.  It is also extensible and configurable.
 
-As a general rule, if you are not already familiar with emacs or
-vim, then you would probably prefer to use a different editor for
+As a general rule, if you are not already familiar with Emacs or
+Vim, then you would probably prefer to use a different editor for
 writing LilyPond input files.
 
 @divEnd
@@ -1000,9 +1009,6 @@ monophonic MIDI to LilyPond converter.
 @item
 @uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, an
 Emacs major mode.
-@item
-@uref{http://@/www@/.nongnu@/.org/@/xml2ly/,xml2ly}, which imports
-@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
 @item
 @uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
 a LISP library to generate music notation
