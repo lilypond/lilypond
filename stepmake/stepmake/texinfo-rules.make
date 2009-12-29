@@ -75,7 +75,7 @@ $(outdir)/%.pdf.omf: %.texi
 	$(call GENERATE_OMF,pdf)
 
 $(outdir)/version.%: $(top-src-dir)/VERSION
-	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py >> $@
+	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
 
 .SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi \
   $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep \

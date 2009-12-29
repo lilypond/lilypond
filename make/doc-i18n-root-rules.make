@@ -19,9 +19,7 @@ $(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf: $(outdir)/%.texi
 	    mkdir -p $(dir $@) && mv $*.pdf $@
 
 $(outdir)/version.%: $(top-src-dir)/VERSION
-	echo '@macro version'> $@
-	echo $(TOPLEVEL_VERSION)>> $@
-	echo '@end macro'>> $@
+	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
 
 $(outdir)/%.png: $(top-build-dir)/Documentation/$(outdir)/%.png
 	ln -f $< $@
