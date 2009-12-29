@@ -98,7 +98,7 @@ a kotta előállításához és a kimenet megtekintéséhez a felhasználó oper
 rendszerétől függően.
 
 Bizonyos szövegszerkesztőkbe beépíthető LilyPond támogatás, ami hatékonyabb
-szerkesztést tesz lehetővé; erről a @rweb{Könnyebb bevitel} c.
+szerkesztést tesz lehetővé; erről a @rprogram{Text editor support} c.
 fejezet ír.
 
 @warning{Amikor a LilyPond első alkalommal fut, egy-két percig várni kell,

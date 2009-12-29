@@ -1,0 +1,955 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 8089295290c2b4f4e4700f9f52c28f324e875fa6
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@include web/basic-authors.itexi
+
+@node Közösség
+@unnumbered Közösség
+@translationof Community
+
+
+@divClass{column-center-top}
+@subheading Kommunikáció a közösséggel
+
+@itemize
+
+@item
+@ref{Kapcsolat}: Kérj segítséget, tegyél fel kérdéseket, és segíts másoknak!
+
+@item
+@ref{Minimális példák}: Amikor egy zenei jelenségről van szó, ha csak lehet,
+minimális példákat @emph{kell} bemutatni.
+
+@item
+@ref{Hibajelentés}: Mi a teendő, ha valami nem működik?
+
+@end itemize
+@divEnd
+
+@divClass{column-left-bottom}
+@subheading A LilyPond jobbá tétele
+
+@itemize
+
+@item
+@ref{Közreműködés}: A Te segítségedre van szükségünk!
+
+@item
+@ref{Fejlesztés}: Anyagok fejlesztők és tesztelők számára.
+
+@item
+@ref{Készítők}: Azoknak az embereknek a listája, akik segítettek abban, hogy a
+LilyPond mára azzá legyen, ami.
+
+@end itemize
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Egyéb
+
+@itemize
+
+@item
+@ref{Publikációk}: Írások, amiket mi írtunk, vagy rólunk írtak.
+
+@item
+@ref{Hírarchívum}: A régebbi hírek archívuma.
+
+@end itemize
+@divEnd
+
+
+@divClass{hide}
+@menu
+* Kapcsolat::
+* Minimális példák::
+* Hibajelentés::
+* Közreműködés::
+* Fejlesztés::
+* Készítők::
+* Publikációk::
+* Hírarchívum::
+@end menu
+@divEnd
+
+
+@node Kapcsolat
+@unnumberedsec Kapcsolat
+@translationof Contact
+
+@divClass{column-left-bottom}
+@subheading A felhasználók fórumai
+
+@subsubheading Felhasználói levelezőlista: @code{lilypond-user@@gnu.org}
+
+Ezen a levelezőlistán a felhasználók segítséget kérhetnek egymástól és
+nyújthatnak egymásnak.
+
+@quotation
+@uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,
+feliratkozás és információ}
+
+@uref{http://mail.gnu.org/archive/html/lilypond-user/,
+1. archívum}
+@uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
+2. archívum}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.general,
+3. archívum}
+
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.general,
+webes hozzászólás}
+@end quotation
+
+@warning{Amikor kérdéseket teszel föl, @ref{Minimális példák}at használj!}
+
+
+@subsubheading IRC
+
+Bizonyos szintű támogatást nyújtunk az IRC csatornánkon keresztül:
+
+@example
+@uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
+@end example
+
+Ennek a csatornának nincs publikus archívuma, így ha olyan kérdésed van,
+amely hasznos lehet mások számára is, inkább a levelezőlistára írd.
+
+@html
+<form action="http://webchat.freenode.net"
+      method="get"
+      name="f_lily_irc"
+  <label>IRC név:
+    <input name="nick" type="text" size="15" value="">
+  </label>
+  <input name="channels" type="hidden" value="lilypond">
+  <input type="submit" value="Csatlakozz a #lilypond csatornához!">
+</form>
+
+<script language="JavaScript" type="text/javascript">
+  var username = "web";
+  var lang = window.navigator.userLanguage ? window.navigator.userLanguage
+  : window.navigator.language;
+  username += '-' + lang.substr(0, 2);
+  username += '-' + navigator.appName.substr(0, 2);
+  username += navigator.appCodeName.replace (" ", "").substr(0, 2);
+  username += navigator.platform.replace (" ", "").replace("nux", "").replace("n32", "");
+  document.forms["f_lily_irc"].nick.value = username;
+</script>
+@end html
+
+@subsubheading Más nyelveken
+
+@quotation
+@uref{http://groups.google.com/group/lilypond-user-hu,
+Magyar LilyPond-felhasználók közössége}
+
+@uref{http://es.groups.yahoo.com/group/lilypond-es,
+Spanyol LilyPond-felhasználók közössége}
+
+@uref{http://www.lilypondforum.de/,
+Német LilyPond-felhasználók közössége}
+
+@uref{http://groups.google.com/group/lilypond-brasil,
+Portugál LilyPond-felhasználók közössége}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+Francia LilyPond-felhasználók közössége}
+
+@uref{http://www.lilypondforum.nl/,
+Holland LilyPond-felhasználók közössége}
+@end quotation
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Kövesd a fejlesztést!
+
+@subsubheading LilyPond hírlevél
+
+Közösségi hírlevelünket olvasva nyomon követheted a program fejlődését:
+@uref{http://news.lilynet.net/, LilyPond hírlevél}.
+
+@subsubheading Értesítés a kiadott verziókról: @code{info-lilypond@@gnu.org}
+
+Ez a levelezőlista egy alacsony forgalmú, csak olvasható lista, melyen
+értesítünk az új verziókról.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+feliratkozás és információ}
+
+@uref{http://mail.gnu.org/archive/html/info-lilypond/,
+1. archívum}
+@uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
+2. archívum}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.announce,
+3. archívum}
+
+@c don't include gmane posting here.  -gp
+@end quotation
+
+
+@divEnd
+
+
+@divClass{column-right-bottom}
+@subheading A fejlesztők fórumai
+
+@subsubheading Fejlesztői levelezőlista: @code{lilypond-devel@@gnu.org}
+
+A fejlesztők itt tárgyalják meg a vitás kérdéseket, és ide kell küldeni a
+patcheket is.
+
+@quotation
+@uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,
+feliratkozás és információ}
+
+@uref{http://mail.gnu.org/archive/html/lilypond-devel/,
+1. archívum}
+@uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
+2. archívum}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.devel,
+3. archívum}
+
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.devel,
+webes hozzászólás}
+@end quotation
+
+
+@subsubheading Hibabejelentő levelezőlista: @code{bug-lilypond@@gnu.org}
+
+A hibákat ezen a listán kell bejelenteni.
+
+@quotation
+@uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,
+feliratkozás és információ}
+
+@uref{http://mail.gnu.org/archive/html/bug-lilypond/,
+1. archívum}
+@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
+2. archívum}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.bugs,
+3. archívum}
+
+@c don't include gmane posting here.  -gp
+@end quotation
+
+@warning{Mielőtt bejelentenél egy hibát, olvasd el a tudnivalókat a
+@ref{Hibajelentés}ről.}
+
+@divEnd
+
+
+
+@node Minimális példák
+@unnumberedsec Minimális példák
+@translationof Tiny examples
+
+@divClass{column-center-top}
+@subheading Mik azok a @qq{minimális példák}?
+
+A minimális példa egy olyan LilyPond példaforrás, amelyből semmit nem lehet
+elvenni.
+@divEnd
+
+@divClass{column-left-bottom}
+@subheading Miért kellenek a minimális példák?
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Minél egyszerűbb a példa, annál gyorsabban tudják mások megérteni és
+segíteni neked. 
+
+@item
+A minimális példán látszik, hogy már te magad is tettel lépéseket a probléma
+megoldása felé. Ezt látván mások jobban motiváltak, hogy segítsenek.
+
+@item
+Egy minimális példa létrehozása kényszerít arra, hogy megértsd, mi is történik
+valójában. Számos téves hibajelentés elkerülhető, ha az ember megpróbál
+létrehozni egy minimális példát; ha egy hibát nem sikerül reprodukálni egy
+minimális példával, akkor a hiba valószínűleg nem a LilyPond helytelen
+működéséből, hanem a megértés hiányából fakad.
+
+@end itemize
+@divEnd
+
+@divEnd
+
+
+@divClass{column-right-bottom}
+@subheading Milyen egy jó minimális példa?
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Tartalmazza a verziószámot (\version).
+
+@item
+Rövid. A legtöbb hiba egyetlenegy ütemmel reprodukálható. Az oldalak
+elrendezésével kapcsolatos hibák esetleg sok ütemet igényelhetnek, de
+ezek is elérhetőek rövid forráskóddal.
+
+@item
+Ha nem vagy biztos abban, hogy egy rész szükséges-e, kommentezd ki
+(a @w{@code{%} vagy @code{%@{ @dots{} %@}}} jelek használatával).
+Ha a lényeg ezután sem változik, nyugodtan kitörölheted a kikommentezett
+részt.
+
+@item
+Kerüld a bonyolult konstrukciók (akkordok, előjegyzés, ütemmutató stb.)
+használatát, hacsaknem ezekben van a hiba.
+
+@item
+Ne használj finomhangolásokat (@code{\override}, @code{\set}), hacsaknem
+ezek a hibásak. 
+
+@end itemize
+@divEnd
+
+@divEnd
+
+
+
+
+@node Hibajelentés
+@unnumberedsec Hibajelentés
+@translationof Bug reports
+
+@divClass{column-center-top}
+@subheading 1. lépés: Ismert hibák
+
+Ha egy adott bemenetre a LilyPond elszáll, vagy hibás kimenetet ad,
+akkor hibával állunk szemben. Az ismert hibák listája a következő oldalon
+található:
+
+@example
+@uref{http://code.google.com/p/lilypond/issues/list}
+@end example
+
+@warning{Ide @strong{TILOS} új hibákat bejelenteni, a hibajelentés a
+@ref{Kapcsolat, levelezőlistán} történik. Miután a hiba bekerült a
+nyilvántartásba, nyugodtan kiegészítheted a jelentést a szükséges
+információkkal.}
+
+@divEnd
+
+
+@divClass{column-left-bottom}
+@subheading 2. lépés: Hibajelentés létrehozása
+
+Ha tényleg felfedeztél egy még nem ismert hibát, nagy segítséget jelent,
+ha bejelented.
+
+@warning{Csakis @ref{Minimális példák}at fogadunk el hibabejelentésnél.
+Nagyon szűkösek az erőforrásaink, amiket a hibajelentések feldolgozására
+fordíthatunk, így minden nem minimális példát visszautasítunk.
+Szinte minden hiba négy vagy kevesebb hanggal bemutatható!}
+
+Íme, egy jó példa hibajelentésre:
+
+@example
+%% a set-octavation parancs
+%% nincs hatással a kimenetre!
+
+\version "2.10.0"
+\paper@{ ragged-right=##t @}
+\relative c''' @{
+  c1
+  #(set-octavation 1)
+  c1
+@}
+@end example
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading 3. lépés: Hibajelentés elküldése
+
+Miután megbizonyosodtál arról, hogy tényleg egy új hibáról van szó, és
+megírtad a hibajelentést, küldd el nekünk!
+
+A hibajelentés elejére mindenképpen írd oda:
+
+@example
+> I'm not top posting.
+@end example
+
+@noindent
+(a @code{>} karakter is fontos).
+
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
+Itt küldheted be webes felületen a hibát}, vagy írhatsz e-mailt a
+@uref{mailto:bug-lilypond@@gnu.prg, bug-lilypond@@gnu.org} levelezőlistára.
+
+Amikor a jelentés megérkezett a levelezőlistára, a hibafelelős megvizsgálja azt.
+Esetleg kérhet tőled további információt. Ha elfogadta, nyilvántartásba veszi a
+hibát, és elküldi a linkjét.
+
+A hibajelentést megjelölheted kedvencként, hogy e-mailben értesülj bármilyen
+tevékenységről a hibával kapcsolatban. Ehhez csak egy Google fiók szükséges.
+@divEnd
+
+
+@node Közreműködés
+@unnumberedsec Közreműködés
+@translationof Help us
+
+@divClass{column-center-top}
+@subheading Rád van szükségünk!
+
+A LilyPond fejlesztőcsapata igen kicsi, szeretnénk, ha minél több ember
+segítene. Kérlek, ha tetszik a LilyPond, segíts a többi felhasználónak azzal,
+hogy közreműködsz a fejlesztésben!
+
+A legkisebb feladat elvégzésének is nagy hatása lehet: lehetővé teszi, hogy a
+tapasztalt fejlesztők ezek helyett bonyolultabb feladatokon dolgozhassanak.
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Egyszerű feladatok
+
+@divClass{keep-bullets}
+
+@itemize
+@item
+Felhasználók támogatása a levelezőlistán: ha valamelyik felhasználónak kérdése
+van a levelezőlistán, válaszolj neki.
+
+@item
+Hibajelentés: készíts jó @ref{Hibajelentés}eket, vagy segíts a
+hibafelelősöknek @rcontribnamed{Issues, a hibajelentések kezelésében}.
+
+@item
+Dokumentáció: tegyél bármilyen javaslatot a dokumentációval kapcsolatban a
+@rcontribnamed{Documentation suggestions} c. fejezetben leírt módon.
+
+@item
+LilyPond Kódrészletek Tárháza: készíts hasznos kódrészleteket!
+Ld. a @rcontrib{Adding and editing snippets} c. fejezetet.
+
+@item
+Visszajelzés: a fejlesztők gyakran kérnek visszajelzést az új dokumentációról,
+a nyelvtan jövőbeli változásairól, vagy megkérnek, hogy tesztelj új
+képességeket. Ezekben is segíthetsz.
+
+@end itemize
+
+@subheading Bonyolultabb feladatok
+
+@warning{Ezek a feladatokhoz szükséges, hogy meglegyen a program és a
+dokumentáció forrása, de nem kell hozzájuk teljes fejlesztői környezet.
+Ld. a @rcontrib{Starting with git} c. fejezetet.}
+
+@itemize
+@item
+Dokumentáció: ld. @rcontrib{Documentation work} és
+@rcontrib{Building documentation without compiling LilyPond} c. fejezeteket.
+
+@item
+Weboldal: a weboldal a dokumentáció része, ld. a rá vonatkozó szabályokat,
+ill. a @rcontrib{Website work} c. fejezetet.
+
+@item
+Honosítás: ld. @rcontrib{Translating the documentation} és
+@rcontrib{Translating the website} c. fejezeteket.
+
+@end itemize
+
+
+@subheading Bonyolult feladatok
+
+@warning{Ezekhez a feladatokhoz szükséges, hogy meglegyen a forráskód,
+és le tudd fordítani a LilyPondot. Ld. a @rcontrib{Starting with git} és
+@rcontrib{Compiling LilyPond} c. fejezeteket.}
+
+Windowst használó felhasználóknak javasoljuk a @emph{lilybuntu} virtuális gép
+használatát. Ld. a @rcontrib{Using a Virtual Machine to Compile LilyPond}
+c. fejezetet.
+
+@itemize
+@item
+Hibák kijavítása, új képességek megvalósítása:
+csatlakozz a Békákhoz, és olvasd el a @rcontrib{Programming work} c.
+fejezetet!
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Projektek
+
+@subsubheading Békák
+
+Weboldal és levelezőlista: @uref{http://frogs.lilynet.net}
+
+A Békák mindennapi LilyPond-felhasználók, akik úgy döntöttek, hogy részt
+vesznek kedvenc programjuk fejlesztésében. Hibajavítás, fejlesztés, a
+forráskód dokumentációja: nagyon sok a tennivaló, és főleg: itt a nagy
+lehetőség, hogy több mindent tudj meg a LilyPondról, a szabad szoftverekről,
+a programozásról... az alkotás öröméért. Ha kedved támadt, ne habozz:
+@emph{csatlakozz a Békákhoz!}
+
+@divEnd
+
+
+@node Fejlesztés
+@unnumberedsec Fejlesztés
+@translationof Development
+
+@divClass{heading-center}
+@heading A LilyPond @versionDevel fejlesztőknek szóló anyagai
+
+@warning{Ezek @emph{fejlesztői}, kísérleti verziók. Ha nem vagy teljesen
+biztos abban, hogyan kell telepíteni vagy használni a LilyPondot, a stabil
+verzió @ref{Letöltés, letöltését} és @ref{Dokumentáció, dokumentációját} ajánljuk.}
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Verziószámok
+
+A LilyPond fejlesztése két ágon történik: stabil és fejlesztői ágon.
+A stabil verziók alverziószáma páros (pl. 2.8, 2.10, 2.12), míg a
+fejlesztői verzióké páratlan (pl. 2.7, 2.9, 2.11).
+
+@divEnd
+
+
+@divClass{column-left-bottom}
+@subheading Letöltés
+
+A git használatáról és a LilyPond fordításáról a közreműködőknek szóló
+útmutatóban olvashatsz.
+
+@quotation
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, Git repository}
+@end quotation
+
+Dokumentációt író és tesztelést végző felhasználók számára a legfrissebb
+fejlesztői verziót ajánljuk:
+
+@quotation
+
+@downloadDevelLinuxNormal
+
+@downloadDevelLinuxBig
+
+@downloadDevelLinuxPPC
+
+@downloadDevelFreeBSDNormal
+
+@downloadDevelFreeBSDBig
+
+@downloadDevelDarwinNormal
+
+@downloadDevelDarwinPPC
+
+@downloadDevelWindows
+
+@downloadDevelSource
+
+@end quotation
+
+
+@subheading Dokumentáció
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Tankönyv:
+
+@manualDevelLearningSplit
+@* @manualDevelLearningBig
+@* @manualDevelLearningPdf
+
+@item
+Fogalomtár:
+
+@manualDevelGlossarySplit
+
+@manualDevelGlossaryBig
+
+@manualDevelGlossaryPdf
+
+@item
+Esszé:
+
+@manualDevelEssaySplit
+
+@manualDevelEssayBig
+
+@manualDevelEssayPdf
+
+
+@c separate introduction, regular, infrequent manuals
+@smallspace
+
+@item
+Kottaírás:
+
+@manualDevelNotationSplit
+
+@manualDevelNotationBig
+
+@manualDevelNotationPdf
+
+@item
+Használat:
+
+@manualDevelUsageSplit
+
+@manualDevelUsageBig
+
+@manualDevelUsagePdf
+
+@item
+Kódrészletek:
+
+@manualDevelSnippetsSplit
+
+@manualDevelSnippetsBig
+
+@manualDevelSnippetsPdf
+
+
+@c separate introduction, regular, infrequent manuals
+@smallspace
+
+@item
+Web:
+
+@manualDevelWebSplit
+
+@manualDevelWebBig
+
+@manualDevelWebPdf
+
+@item
+Változások:
+
+@manualDevelChangesSplit
+
+@manualDevelChangesBig
+
+@manualDevelChangesPdf
+
+@item
+Bővítés:
+
+@manualDevelExtendingSplit
+
+@manualDevelExtendingBig
+
+@manualDevelExtendingPdf
+
+@item
+Belső működés:
+
+@manualDevelInternalsSplit
+
+@manualDevelInternalsBig
+
+@manualDevelInternalsPdf
+
+@end itemize
+@divEnd
+@divEnd
+
+@divClass{column-right-top}
+@subheading Útmutató közreműködőknek
+
+A LilyPond fejlesztése igen bonyolult feladat. A LilyPond egy nagy,
+(javarészt) stabil projekt. Az újdonsült közreműködők számára a rendszer
+stabilitása érdekében írtunk egy útmutatót.
+
+@warning{Ezt a kézikönyvet nem folyamatosan kell olvasni; az új
+közreműködőknek csak azokat a részeket kell elolvasni, amelyek számukra
+fontosak. A különböző feladatokról a @ref{Közreműködés} c. szakaszban
+olvashatsz.}
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../contributor/index.html, Útmutató közreműködőknek (HTML oldalak)}
+
+@item @uref{../contributor-big-page.html, Útmutató közreműködőknek (egy nagy HTML oldal)}
+
+@item @uref{../contributor.pdf, Útmutató közreműködőknek (PDF)}
+
+@c @item @uref{TODO, contributor.info}:
+@c GNU info format for documentation.  TODO, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Békák: az új fejlesztők
+
+A Békák azok a nemrég csatlakozott fejlesztők, akik azt tanulják, hogyan kell
+hibákat javítani és új képességeket megvalósítani a LilyPondban.
+Azok a programozók, akik még nem ismerik a LilyPondot, először a Békáknak
+küldjenek patcheket, akik átnézik ezeket, és biztatják őket.
+
+Weboldal és levelezőlista: @uref{http://frogs.lilynet.net}
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Regressziós tesztek
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../../input/regression/collated-files.html, Regressziós tesztek}:
+A kottaszedés tesztjei
+(@uref{../input/regression/collated-files.pdf, PDF formátumban is}).
+
+@item @uref{../../input/regression/musicxml/collated-files.html,
+MusicXML regressziós tesztek}:
+A MusicXML-konverzió tesztjei
+(@uref{../input/regression/musicxml/collated-files.pdf, PDF formátumban is}).
+
+@item @uref{http://lilypond.org/test, A regressziós tesztek archívuma}:
+A régebbi verziók összehasonlítása.
+
+@end itemize
+@divEnd
+@divEnd
+
+@node Készítők
+@unnumberedsec Készítők
+@translationof Authors
+
+
+@divClass{column-left-top}
+@subheading Jelenlegi fejlesztők
+
+@divClass{keep-bullets}
+@developersCurrent
+@divEnd
+@divEnd
+
+@divClass{column-right-top}
+@subheading Volt fejlesztők
+
+@divClass{keep-bullets}
+@developersPrevious
+@divEnd
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Jelenlegi közreműködők
+
+@divClass{keep-bullets}
+@subsubheading Programozás
+
+@coreCurrent
+
+@subsubheading Betűtípus
+
+@fontCurrent
+
+@subsubheading Dokumentáció
+
+@docCurrent
+
+@subsubheading Támogatás
+
+@supportCurrent
+
+@subsubheading Honosítás
+
+@translationsCurrent
+
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Volt közreműködők
+
+@divClass{keep-bullets}
+@subsubheading Programozás
+
+@corePrevious
+
+@subsubheading Betűtípus
+
+@fontPrevious
+
+@subsubheading Dokumentáció
+
+@docPrevious
+
+@subsubheading Támogatás
+
+@supportPrevious
+
+@subsubheading Honosítás
+
+@translationsPrevious
+
+@divEnd
+@divEnd
+
+
+
+@node Publikációk
+@unnumberedsec Publikációk
+@translationof Publications
+
+@divClass{column-center-top}
+@subheading Amit mi írtunk
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Han-Wen Nienhuys: @emph{LilyPond, automatikus kottaformázás és a
+szoftvertermék kiadásának művészete}. A szabad szoftver nemzetközi fóruma 2006
+(FISL7.0) (@uref{http://lilypond.org/web/images/FISL7-slides.pdf,
+PDF 1095k})
+
+@item
+Erik Sandberg: @emph{A bemeneti nyelv és a formázó szétválasztása a
+GNU Lilypondban}. Diplomaterv, Uppsalai Egyetem, Információtechnológiai
+Tanszék, 2006. március
+(@uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf,
+PDF 750k})
+
+@item
+Han-Wen Nienhuys, Jan Nieuwenhuizen: @emph{LilyPond, egy automatizált
+kottaszedő rendszer}. Jegyzőkönyv a XIV. zenei informatikai kollokviumról
+(XIV CIM 2003), Firenze, Olaszország, 2003. május
+(@uref{http://lilypond.org/web/images/xivcim.pdf, PDF 95k})
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+
+@subheading Amit mások írtak
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+2009. szeptember
+
+A német LinuxUser magazin írt egy
+@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+cikket a LilyPondról}.
+
+
+@item
+2008. február
+
+Andrew Hawryluk személyes oldalán egy
+@uref{http://www.musicbyandrew.ca/finale-lilypond-1.html, cikksorozatban}
+összehasonlítja általánosságban a Finalét és a LilyPondot, és a két szoftver
+kottaszedési képességeit értékeli részletesen. A
+@uref{http://www.musicbyandrew.ca/finale-lilypond-2.html, második cikk} egy
+tanulságos elemzés Rachmanyinov 6. prelűdjének kottaképéről, melyben egy kézzel
+szedett kiadás szolgál összehasonlítási alapul.
+
+@item
+2005. december
+
+A Linux Journal közzétesz egy cikket
+@uref{http://www.linuxjournal.com/article/8364,
+Schenker-diagramok készítése GNU LilyPonddal}
+címen. Ez egy gyakorlatias cikk igen szép LilyPond grafikákkal.
+A szerző, Kris Shaffer megjegyzi: @qq{A GNU Lilypond gyönyörű kottaképe után a
+kereskedelmi alternatívák másodosztályúnak tűnnek.}
+A cikk elérhető @uref{http://www.linuxjournal.com/article/8583, online}. 
+
+@item
+2005. augusztus 20.
+
+A belga hírlap, a De Standaard szerkesztői annak járnak utána, mi motiválja a
+szabad szoftverek fejlesztőit. Erről
+@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+A tudás nonprofit megosztása} című cikkben írnak. A szemléltető példa a
+LilyPond. A cikkben szerepelnek egy Jan Nieuwenhuizennel e-mailben készített
+riport részletei is. Ez a LilyPond első megjelenése a nyomtatott szakmai
+sajtóban. 
+
+@item
+2005. június
+
+A LilyPond 2.6-os verziójának kiadásáról megjelenik egy francia cikk a 
+@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org} weboldalon.
+
+@item
+2004. október
+
+A @emph{Computer!Totaal} holland informatikai magazin szerkesztői 
+@uref{http://lilypond.org/web/images/computer-totaal.jpeg, azt írják a
+LilyPondról} a 2004. októberi számban: @qq{A LilyPond egy csodálatos szabad
+(nyílt forrású) szoftver! [...] A LilyPonddal szedett kotta kivételesen szép.
+[...] Egy sokrétű rendszerrel állunk szemben, ami szinte mindenre képes!}
+
+@item
+2004. július-augusztus
+
+Dave Phillips egy bevezető cikket ír a Linux Journalba
+@emph{Csúcstechnológia a kottaírásban: LilyPond} címmel.
+@uref{http://www.linuxjournal.com/article.php?sid=7657, 1. rész},
+@uref{http://www.linuxjournal.com/article.php?sid=7719, 2. rész}.
+ 
+@item
+2004. március
+
+Chris Cannam riportot készít Han-Wen Nienhuysszal és Jan Nieuwenhuizennel a
+linuxmusician.com (ma már nem létező) oldalon. A riport megjelenik a
+@uref{http://slashdot.org/article.pl?sid=04/03/13/2054227, slashdot.org}-on
+is. 
+
+@item
+2004. február
+
+Gail Selkirk jazzénekes ír arról, hogyan
+@uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
+Merüljünk bele a LilyPond világába}. 
+
+@qq{...Könnyedén lejegyezhetsz akár slágereket, akár nagyzenekari műveket, az
+eredmény pompás!} (A @uref{http://www.computermusic.co.uk/,
+Computer Music Special} CMS06 száma)
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@node Hírarchívum
+@unnumberedsec Hírarchívum
+@translationof Old news
+
+@include web/news-front.itexi
+
+@include web/news.itexi
+
+

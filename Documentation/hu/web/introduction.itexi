@@ -673,14 +673,14 @@ haladva elmagyaráz.}
 A hangok betűkkel és számokkal írhatók le. A speciális parancsok a \
 karakterrel kezdődnek.
 
-@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-annotate-hu,png,center}
 @imageFloat{text-input-1-output,png,center}
 
 Módosított hangokat a hangnevek módosításával lehet elérni: a keresztes hang
 neve után -is, a bés hang neve után -es írandó. (Más nyelveknek megfelelő
 jelölések is alkalmazhatóak.) A LilyPond kitalálja, hova rakjon módosítójelet.
 
-@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-annotate-hu,png,center}
 @imageFloat{text-input-2-output,png,center}
 
 
@@ -688,7 +688,7 @@ jelölések is alkalmazhatóak.) A LilyPond kitalálja, hova rakjon módosítój
 
 Könnyen írhatsz dalszöveget és akkordokat a dallam mellé:
 
-@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-annotate-hu,png,center}
 @imageFloat{text-input-pop-output,png,center}
 
 
@@ -700,20 +700,20 @@ egyetlen forrásból származnak. Így a változások mind a partitúrában, min
 egyes szólamokban tükröződnek. A szólamok hangjainak újrafelhasználásához el
 kell nevezni őket:
 
-@imageFloat{text-input-parts-both-annotate,png,center}
+@imageFloat{text-input-parts-both-annotate-hu,png,center}
 
 
 Az így létrejött változóra később lehet hivatkozni (akár transzponálva és
 összevonva a több ütemes szüneteket, mint itt):
 
-@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-annotate-hu,png,center}
 @imageFloat{text-input-parts-single-output,png,center}
 
 
 Ugyanazt a változót használhatjuk a partitúrában (ez alkalommal hangzó
 magasságban):
 
-@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-annotate-hu,png,center}
 @imageFloat{text-input-score-output,png,center}
 
 

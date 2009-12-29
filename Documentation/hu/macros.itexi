@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
 @ignore
-    Translation of GIT committish: 2d8b567afe459b0ab6503731e0c2568915a5c4ef
+    Translation of GIT committish: b5a46a64ebd4cc09576a140399db580ea82167b5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,6 +10,18 @@
 @include version.itexi
 @include common-macros.itexi
 
+@ignore
+****************************
+MACRO DEFINITIONS GUIDELINES
+****************************
+
+This file should contain macro defintions which are common to all
+languages, i.e. all macro definitions which do not contain text that
+should be translated (namely text visible in the output).
+
+Macro definitions which contain text that should be translated in
+translations should be in macros.itexi.
+@end ignore
 
 @c   ***** Displaying text *****
 
@@ -181,7 +193,7 @@ A LilyPond @version{} verziójához
 
 @c  Definitions for references:
 @c
-@c     @rgeneral
+@c     @rweb
 @c     @ressay
 @c     @rglos
 @c     @rinternals
@@ -250,12 +262,12 @@ A LilyPond @version{} verziójához
 
 @macro rchanges{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,changes-big-page,Újdonságok}
+@ref{\TEXT\,,,changes-big-page,Változások}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,changes-big-page,Újdonságok}
+@ref{\TEXT\,,\DISPLAY\,changes-big-page,Változások}
 @end macro
 
 @macro rcontrib{TEXT}
@@ -268,12 +280,12 @@ A LilyPond @version{} verziójához
 @ref{\TEXT\,,\DISPLAY\,contributor-big-page,Útmutató közreműködőknek}
 @end macro
 
-@macro rgeneral{TEXT}
+@macro rweb{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,general-big-page,Általános információk}
 @end macro
 
-@macro rgeneralnamed{TEXT,DISPLAY}
+@macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,general-big-page,Általános információk}
 @end macro
@@ -357,12 +369,12 @@ A LilyPond @version{} verziójához
 
 @macro rchanges{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,changes,Újdonságok}
+@ref{\TEXT\,,,changes,Változások}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,changes,Újdonságok}
+@ref{\TEXT\,,\DISPLAY\,changes,Változások}
 @end macro
 
 @macro rextend{TEXT}
@@ -385,12 +397,12 @@ A LilyPond @version{} verziójához
 @ref{\TEXT\,,\DISPLAY\,contributor,Útmutató közreműködőknek}
 @end macro
 
-@macro rgeneral{TEXT}
+@macro rweb{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,general,Általános információk}
 @end macro
 
-@macro rgeneralnamed{TEXT,DISPLAY}
+@macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,general,Általános információk}
 @end macro
@@ -469,12 +481,12 @@ A LilyPond @version{} verziójához
 
 @macro rchanges{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-changes,Újdonságok}
+@ref{\TEXT\,,,lilypond-changes,Változások}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-changes,Újdonságok}
+@ref{\TEXT\,,\DISPLAY\,lilypond-changes,Változások}
 @end macro
 
 @macro rextend{TEXT}
@@ -497,12 +509,12 @@ A LilyPond @version{} verziójához
 @ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Útmutató közreműködőknek}
 @end macro
 
-@macro rgeneral{TEXT}
+@macro rweb{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-general,Általános információk}
 @end macro
 
-@macro rgeneralnamed{TEXT,DISPLAY}
+@macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,lilypond-general,Általános információk}
 @end macro
@@ -598,12 +610,12 @@ A LilyPond @version{} verziójához
 
 @macro rchanges{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,changes,Újdonságok}
+@ref{\TEXT\,,,changes,Változások}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,changes,Újdonságok}
+@ref{\TEXT\,,\DISPLAY\,changes,Változások}
 @end macro
 
 @macro rextend{TEXT}
@@ -626,12 +638,12 @@ A LilyPond @version{} verziójához
 @ref{\TEXT\,,\DISPLAY\,contributor,Útmutató közreműködőknek}
 @end macro
 
-@macro rgeneral{TEXT}
+@macro rweb{TEXT}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,,general,Általános információk}
 @end macro
 
-@macro rgeneralnamed{TEXT,DISPLAY}
+@macro rwebnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,general,Általános információk}
 @end macro
@@ -681,6 +693,25 @@ A LilyPond @version{} verziójához
 @c  ***** Macros specific to the web site *****
 
 @ifset web
+
+@macro exampleImage{IMAGE-FILE}
+@html
+<div class="float-center">
+  <a class="clickable" href="examples/\IMAGE-FILE\.png">
+    <img src="examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
+  </a>
+  <p style="text-align: center">
+    (Kattints a képre a nagyításhoz)
+  </p>
+</div>
+@end html
+@iftex
+@image{examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
+@end iftex
+@ifinfo
+@image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
+@end ifinfo
+@end macro
 
 @c LEGALESE
 

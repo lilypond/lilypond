@@ -379,7 +379,7 @@ Minden logó és termékábrázolás szerzői joggal védett.
 @translationof Source
 
 @warning{Hacsak nem vagy fejlesztő, a LilyPond fordítása
-@strong{nem ajánlott}; szinte minden végfelhasználó jobb, ha az előre
+@strong{nem ajánlott}; szinte minden végfelhasználó számára jobb, ha az előre
 lefordított futtatható verziót használja.}
 
 @divClass{column-left-bottom}
@@ -406,7 +406,7 @@ A tudnivalók a @rcontrib{Compiling LilyPond} c. fejezetben vannak leírva.
 @translationof Old downloads
 
 @divClass{column-center-top}
-@subheading All versions
+@subheading A régi verziók archívuma
 
 A LilyPond összes verziója
 @uref{http://download.linuxaudio.org/lilypond/binaries/, ezen az oldalon}

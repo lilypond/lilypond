@@ -95,8 +95,8 @@ szükséges.
 
 @itemize
 
-@item @ref{Fordítás}:
-A fordítás állapota.
+@item @ref{Honosítás}:
+A honosítás állapota.
 
 @item @ref{Teljes dokumentáció}:
 Gyorslinkek a dokumentáció különböző részeihez, letölthető változataihoz és
@@ -126,7 +126,7 @@ A dokumentáció licence, a GNU Free Documentation License.
 * Változások:: A program fejlődése.
 * Bővítés:: A funkcionalitás kiterjesztése.
 * Belső működés:: A belső működés referenciája.
-* Fordítás:: A fordítás állapota.
+* Honosítás:: A honosítás állapota.
 * Teljes dokumentáció:: Az összes kézikönyv egyben.
 * FDL:: Licensz.
 @end menu
@@ -193,7 +193,7 @@ olvasásra nem praktikus követni, csak az egész tankönyv elolvasása után, a
 @divClass{column-left-top}
 @subheading Fogalomtár
 
-A fogalomtár zenei fogalmak definícióját és fordításait tartalmazza.
+A fogalomtár zenei fogalmak definícióját és honosításait tartalmazza.
 Ha egy fogalommal nem vagy tisztában, vagy egy kifejezés angol nyelvű
 megfelelőjére vagy kíváncsi, érdemes megnézni a fogalomtárban.
 @divEnd
@@ -620,14 +620,14 @@ formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
 
 
 
-@node Fordítás
-@unnumberedsec Fordítás
+@node Honosítás
+@unnumberedsec Honosítás
 @translationof Translated
 
 @divClass{column-center-bottom}
-@subheading A fordítások állapota
+@subheading A honosítások állapota
 
-@uref{../translations.html, A fordítások naprakészsége} itt tekinthető meg.
+@uref{../translations.html, A honosítások naprakészsége} itt tekinthető meg.
 
 @divEnd
 
@@ -637,7 +637,7 @@ formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
 @translationof All
 
 @divClass{heading-center}
-@heading Gyorslinkek a dokumentációhoz
+@heading Gyorslinkek a dokumentációkhoz
 
 A dokumentáció más formátumokban is olvasható a @ref{Dokumentáció} főoldaláról
 elérhető linkeket követve.

@@ -1,0 +1,390 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of community.itexi and ../topdocs/AUTHORS.itexi
+
+@ignore
+
+  This file lists authors of LilyPond, and what they wrote.  Each
+  list is sorted alphabetically by surname.  This file lists people
+  that have contributed more than a few hours of work.
+
+  Developers are people who are (or have been) listed under the
+  "Development Team" in the THANKS, and can choose their own
+  titles.  Contributors are everybody else, and simply list their
+  contributions.  All lists are sorted alphabetically.
+
+  Anybody who has finished doing a "main devel team" task should
+  list it under developersPrevious, even if they're still doing
+  other "main devel team" stuff.  See "Graham Percival" for an
+  example.
+
+  Contributors are also split between Current and Previous, and
+  each category contains:
+    core...     (programming)
+    font...     (duh)
+    doc...      (documentation and examples)
+    support...  (building, distributions, editors,
+                 lilypond-book, LSR, but *not* answering emails)
+    translations... (duh)
+  We might add a "general" or "other" if there's something else.
+
+@end ignore
+
+
+@macro developersCurrent
+
+@itemize
+
+@item Mats Bengtsson:
+@email{mats.bengtsson@@ee.kth.se},
+@uref{http://www.s3.kth.se/~mabe/},
+Támogatás
+
+@item Trevor Daniels:
+Dokumentációszerkesztő asszisztens
+
+@item Reinhold Kainhofer:
+@email{reinhold@@kainhofer.com},
+@uref{http://reinhold.kainhofer.com},
+MusicXML guru, hibajavítás
+
+@item Jonathan Kulp:
+Dokumentációszerkesztő asszisztens
+
+@item Werner Lemberg,
+@email{wl@@gnu.org},
+Betűtípus-tervező, hibajavítás
+
+@item John Mandereau:
+@email{john.mandereau@@free.fr},
+Honosításfelelős
+
+@item Patrick McCarty:
+SVG guru, hibajavítás, szövegkezelés
+
+@item Joe Neeman:
+Fejlesztő
+
+@item Han-Wen Nienhuys:
+@email{hanwen@@xs4all.nl},
+@uref{http://www.xs4all.nl/~hanwen/},
+Fő fejlesztő
+
+@item Jan Nieuwenhuizen:
+@email{janneke@@gnu.org},
+@uref{http://www.xs4all.nl/~jantien/},
+Fő fejlesztő
+
+@item Graham Percival:
+@uref{http://percival-music.ca},
+Projekt manager, dokumentációszerkesztő
+
+@item Mark Polesky:
+Dokumentációszerkesztő assisztens, kódtisztítás
+
+@item Neil Puttock:
+Fejlesztő
+
+@item Nicolas Sceaux:
+Fejlesztő, Scheme guru
+
+@item Carl Sorensen:
+@email{c_sorensen@@byu.edu},
+Fejlesztő, a Békák felelőse
+
+@item Francisco Vila:
+Honosítás
+
+@item Valentin Villenave:
+LilyPond Kódrészletek Tárházának szerkesztője, hibafelelős
+
+@end itemize
+@end macro
+
+
+
+@macro developersPrevious
+
+@itemize
+
+@c use colons not commas for @item entries.
+
+@item Pedro Kroeger:
+Fordításfelelős
+
+@item Graham Percival:
+@uref{http://percival-music.ca},
+Hibafelelős, a Nagy Dokumentációs Projekt vezetője
+
+@item Jürgen Reuter:
+@email{reuter_j@@web.de},
+@uref{http://www.juergen-reuter.de},
+Régizene lejegyzése
+
+@item Erik Sandberg:
+Hibafelelős
+
+@end itemize
+@end macro
+
+
+@c  *****************  current contributors
+
+@macro coreCurrent
+
+@c use commas not colons
+
+Frédéric Bron,
+Hajo Dezelski,
+Andrew Hawryluk,
+Ian Hulin,
+Michael Käppler,
+Marek Klein,
+Kieren MacMillan,
+Andrew Wilson
+
+@c no comma for last entry
+
+@end macro
+
+
+
+@macro fontCurrent
+
+@c use commas not colons
+
+Simon Tatham
+
+@c no comma for last entry
+
+@end macro
+
+
+
+@macro docCurrent
+
+@c use commas not colons
+
+James Lowe,
+Ralph Palmer,
+Patrick Schmidt
+
+@c no comma for last entry
+
+@end macro
+
+
+@macro supportCurrent
+
+@c use commas not colons
+
+James E. Bailey,
+Christian Hitz
+
+@c no comma for last entry
+
+@end macro
+
+
+
+@macro translationsCurrent
+
+@c use commas not colons
+
+Benkő Pál,
+Fodor Bertalan,
+Harmath Dénes,
+Rébeli-Szabó Tamás,
+Selyem Zoltán Csaba,
+Szervác Attila,
+Udvari Gábor
+
+@c no comma for last entry
+
+@end macro
+
+
+@c  *****************  previous contributors
+
+@macro corePrevious
+
+@c use commas not colons
+
+Erlend Aasland,
+Maximilian Albert,
+Guido Amoruso,
+Kristof Bastiaensen,
+Pal Benko,
+@c @email{benkop@@freestart.hu},
+Juliusz Chroboczek,
+@c @email{jch@@pps.jussieu.fr},
+Angelo Contardi,
+David Feuer,
+@c @email{david.feuer@@gmail.com},
+Bertalan Fodor,
+Mathieu Giraud,
+Yuval Harel,
+Bernard Hurley,
+@c @email{bernard@@fong-hurley.org.uk},
+Yoshinobu Ishizaki,
+Chris Jackson,
+@c @email{chris@@fluffhouse.org.uk},
+David Jedlinsky,
+Heikki Junes,
+@c @email{heikki.junes@@hut.fi},
+Michael Krause,
+@c @email{m.krause@@tu-harburg.de},
+Jean-Baptiste Lamy,
+@c @email{jiba@@tuxfamily.org},
+Jonatan Liljedahl,
+Peter Lutek,
+Hendrik Maryns,
+Joe Neeman,
+@c @email{joeneeman@@gmail.com},
+Matthias Neeracher,
+Tatsuya Ono,
+Lisa Opus Goldstein,
+Guy Gascoigne-Piggford,
+Stan Sanderson,
+Edward Sanford Sutton,
+Andreas Scherer,
+Johannes Schindelin,
+Kim Shrier,
+Vicente Solsona Della,
+David Svoboda,
+Sebastiano Vigna,
+Arno Waschk,
+Michael Welsh Duggan,
+John Williams,
+Milan Zamazal,
+Rune Zedeler
+
+@c no comma for last entry
+
+@end macro
+
+
+
+@macro fontPrevious
+
+@c use commas not colons
+
+Tom Cato Amundsen,
+@c @email{tca@@gnu.org},
+Chris Jackson,
+@c @email{chris@@fluffhouse.org.uk},
+Arno Waschk,
+@c @email{arno@@arnowaschk.de},
+Rune Zedeler
+
+@c no comma for last entry
+
+@end macro
+
+
+
+@macro docPrevious
+
+@c use commas not colons
+
+Erlend Aasland,
+Trevor Bača,
+Alard de Boer,
+Jay Hamilton,
+Andrew Hawryluk,
+Joseph Harfouch,
+Cameron Horsburgh,
+Geoff Horton,
+Ian Hulin,
+Heikki Junes,
+@c @email{heikki.junes@@hut.fi},
+Kurtis Kroon,
+Dave Luttinen,
+Kieren MacMillan,
+Christian Mondrup,
+@c @email{scancm@@biobase.dk},
+Eyolf Østrem,
+Ralph Palmer,
+François Pinard,
+@c @email{pinard@@iro.umontreal.ca},
+@c @uref{http://pinard.progiciels-bpi.ca/},
+Eduardo Vieira,
+Michael Rasmussen,
+Till Rettig,
+Carl D. Sorensen,
+Anh Hai Trinh,
+Rune Zedeler
+
+@c no comma for last entry
+
+@end macro
+
+
+
+@macro supportPrevious
+
+@c use commas not colons
+
+Anthony Fok,
+@c @email{foka@@debian.org},
+Chris Jackson,
+@c @email{chris@@fluffhouse.org.uk},
+Heikki Junes,
+@c @email{heikki.junes@@hut.fi},
+David Svoboda
+@c @email{svoboda@@cmu.edu}
+
+@c no comma for last entry
+
+@end macro
+
+
+
+@macro translationsPrevious
+
+@c use commas not colons
+
+Frédéric Chiasson,
+Abel Cheung,
+Alard de Boer,
+Simon Dahlbacka,
+Orm Finnendahl,
+David González,
+Nicolas Grandclaude,
+@c @email{ngclaude@@123mail.org},
+Damien Heurtebise,
+Matthieu Jacquot,
+Bjoern Jacke,
+@c @email{bjoern.jacke@@gmx.de},
+Neil Jerram,
+@c @email{nj104@@cus.cam.ac.uk},
+Heikki Junes,
+@c @email{heikki.junes@@hut.fi},
+Nicolas Klutchnikoff,
+Jean-Charles Malahieude,
+@c @email{lolyfan@@wanadoo.fr},
+Adrian Mariano,
+Christian Mondrup,
+Tineke de Munnik,
+@c @email{tdm@@dds.nl},
+Steven Michael Murphy,
+François Pinard,
+Gauvain Pocentek,
+@c @email{gauvainpocentek@@yahoo.fr},
+Till Rettig,
+Ludovic Sardain,
+@c @email{ludovicsardain@@gmail.com},
+Yoshiki Sawada,
+Thomas Scharkowski,
+Clytie Siddall,
+August S. Sigov,
+@c @email{august@@infran.ru},
+Roland Stigge,
+Risto Vääräniemi,
+Andrea Valle,
+Olcay Yıldırım
+
+@c no comma for last entry
+
+@end macro
+
+
