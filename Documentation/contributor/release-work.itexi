@@ -277,10 +277,13 @@ Regenerating regtests (if the lilypond-book naming has changed):
 - make lilypond
 
 
-New contributor idea:
+New contributor / mentor idea:
 
 - tell them to spend 10 minutes on a problem, then give up and ask
-  for help
+  for help from their mentor
+
+- the mentor should tell them if a "make clean; make" (or the same
+  for docs) is required
 
 
 Latest website:
