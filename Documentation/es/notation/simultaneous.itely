@@ -389,7 +389,7 @@ identificarlas fácilmente:
 @end lilypond
 
 Para recuperar la presentación normal se utiliza la instrucción
-@code{\voiceNeutralstyle}.
+@code{\voiceNeutralStyle}.
 
 
 @predefined

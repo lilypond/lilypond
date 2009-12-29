@@ -411,7 +411,7 @@ easily identified:
 >>
 @end lilypond
 
-The @code{\voiceNeutralstyle} command is used to revert to the
+The @code{\voiceNeutralStyle} command is used to revert to the
 standard presentation.
 
 

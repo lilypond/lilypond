@@ -402,7 +402,7 @@ erkennbar zu sein:
 >>
 @end lilypond
 
-Der @code{\voiceNeutralstyle}-Befehl wird benutzt, um wieder
+Der @code{\voiceNeutralStyle}-Befehl wird benutzt, um wieder
 die Standardausgabe einzuschalten.
 
 @predefined

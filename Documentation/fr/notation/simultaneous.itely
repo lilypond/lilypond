@@ -393,7 +393,7 @@ permet de les identifier plus facliement :
 >>
 @end lilypond
 
-La commande @code{\voiceNeutralstyle} permet de revenir à la
+La commande @code{\voiceNeutralStyle} permet de revenir à la
 présentation normale.
 
 
