@@ -14,6 +14,7 @@
 * Engraver tutorial::
 * Callback tutorial::
 * LilyPond scoping::
+* LilyPond miscellany::
 @end menu
 
 @node Overview of LilyPond architecture
@@ -26,7 +27,6 @@ more complete description of the LilyPond architecture and internal program
 execution is found in Erik Sandberg's
 @uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf, master's
 thesis}.
-
 
 The first stage of LilyPond processing is @emph{parsing}.  In the parsing
 process, music expressions in LilyPond input format are converted to music
@@ -1274,3 +1274,257 @@ information belonging to user-defined commands and markups is stored in
 a manner that allows it to be garbage-collected when the module is
 dispersed, either by being stored module-locally, or in weak hash
 tables.
+
+@node LilyPond miscellany
+@section LilyPond miscellany
+
+This is a place to dump information that may be of use to developers
+but doesn't yet have a proper home.  Ideally, the length of this section
+would become zero as items are moved to other homes.
+
+@subsection Info from Han-Wen Email
+
+In 2004, Douglas Linhardt decided to try starting a document that would
+explain LilyPond architecture and design principles.  The material below
+is extracted from that email, which can be found at
+@uref{http://thread.gmane.org/gmane.comp.gnu.lilypond.devel/2992}.
+The headings reflect questions from Doug or comments from Han-Wen;
+the body text are Han-Wen's answers.
+
+@subsubsection Figuring out how things work.
+
+I must admit that when I want to know how a program works, I use grep
+and emacs and dive into the source code. The comments and the code
+itself are usually more revealing than technical documents.
+
+@subsubsection What's a grob, and how is one used?
+
+Graphical object - they are created from within engravers, either as
+Spanners (derived class) -slurs, beams- or Items (also a derived
+class) -notes, clefs, etc.
+
+There are two other derived classes System (derived from Spanner,
+contaning a "line of music") and Paper_column (derived from Item, it
+contains all items that happen at the same moment). They are separate
+classes because they play a special role in the linebreaking process.
+
+@subsubsection What's a smob, and how is one used?
+
+A C(++) object that is encapsulated so it can be used as a Scheme
+object.  See GUILE info, "19.3 Defining New Types (Smobs)"
+
+@subsubsection When is each C++ class constructed and used
+
+@itemize
+
+@item
+Music classes
+
+In the parser.yy see the macro calls MAKE_MUSIC_BY_NAME().
+
+@item
+Contexts
+
+Constructed during "interpreting" phase.
+
+@item
+Engravers
+
+Executive branch of Contexts, plugins that create grobs, usually one
+engraver per grob type. Created  together with context.
+
+@item
+Layout Objects
+
+= grobs
+
+@item
+Grob Interfaces
+
+These are not C++ classes per se. The idea of a Grob interface hasn't
+crystallized well. ATM, an interface is a symbol, with a bunch of grob
+properties. They are not objects that are created or destroyed.
+
+@item
+Iterators
+
+Objects that walk through different music classes, and deliver events
+in a synchronized way, so that notes that play together are processed
+at the same moment and (as a result) end up on the same horizontal position.
+
+Created during interpreting phase.
+
+BTW, the entry point for interpreting is ly:run-translator
+(ly_run_translator on the C++ side)
+
+@end itemize
+
+@subsubsection Can you get to Context properties from a Music object?
+
+You can create music object with a Scheme function that reads context
+properties (the \applycontext syntax). However, that function is
+executed during Interpreting, so you can not really get Context
+properties from Music objects, since music objects are not directly
+connected to Contexts. That connection is made by the  Music_iterators
+
+@subsubsection Can you get to Music properties from a Context object?
+
+Yes, if you are given the music object within a Context
+object. Normally, the music objects enter Contexts in synchronized
+fashion, and the synchronization is done by Music_iterators.
+
+@subsubsection What is the relationship between C++ classes and Scheme objects?
+
+Smobs are C++ objects in Scheme. Scheme objects (lists, functions) are
+manipulated from C++ as well using the GUILE C function interface
+(prefix: scm_)
+
+@subsubsection How do Scheme procedures get called from C++ functions?
+
+scm_call_*, where * is an integer from 0 to 4.
+Also scm_c_eval_string (), scm_eval ()
+
+@subsubsection How do C++ functions get called from Scheme procedures?
+
+Export a C++ function to Scheme with LY_DEFINE.
+
+@subsubsection What is the flow of control in the program?
+
+Good question.  Things used to be clear-cut, but we have Scheme
+and SMOBs now, which means that interactions do not follow a very
+rigid format anymore. See below for an overview, though.
+
+@subsubsection Does the parser make Scheme procedure calls or C++ function
+calls?
+
+Both. And the Scheme calls can call C++ and vice versa. It's nested,
+with the SCM datatype as lubrication between the interactions
+
+(I think the word "lubrication" describes the process better than the
+traditional word "glue")
+
+@subsubsection How do the front-end and back-end get started?
+
+Front-end: a file is parsed, the rest follows from that. Specifically,
+
+Parsing leads to a Music + Music_output_def object (see parser.yy,
+definition of toplevel_expression )
+
+A Music + Music_output_def object leads to a Global_context object (see
+ly_run_translator ())
+
+During interpreting, Global_context + Music leads to a bunch of
+Contexts. (see Global_translator::run_iterator_on_me () )
+
+After interpreting, Global_context contains a Score_context (which
+contains staves, lyrics etc.) as a child. Score_context::get_output ()
+spews a Music_output object (either a Paper_score object for notation
+or Performance object for MIDI).
+
+The Music_output object is the entry point for the backend. (see
+ly_render_output () )
+
+The main steps of the backend itself are in
+
+@itemize
+
+@item
+paper-score.cc , Paper_score::process_
+
+@item
+system.cc , System::get_lines()
+
+@item
+The step, where things go from grobs to output, is in
+System::get_line(): each grob delivers a Stencil (a Device
+independent output description), which is interpreted by our
+outputting backends (scm/output-tex.scm and scm/output-ps.scm)
+to produce TeX and PS.
+
+@end itemize
+
+Interactions between grobs and putting things into .tex and .ps files
+have gotten a little more complex lately. Jan has implemented
+page-breaking, so now the backend also involves Paper_book,
+Paper_lines and other things. This area is still heavily in flux, and
+perhaps not something you should want to look at.
+
+@subsubsection How do the front-end and back-end communicate?
+
+There is no communication from backend to front-end. From front-end to
+backend is simply the program flow: music + definitions gives
+contexts, contexts yield output, after processing, output is written
+to disk.
+
+@subsubsection Where is the functionality associated with KEYWORDs?
+
+See my-lily-lexer.cc (keywords, there aren't that many) and ly/*.ly
+(most of the other backslashed \words are identifiers)
+
+@subsubsection What Contexts/Properties/Music/etc. are available when they are processed?
+
+What do you mean exactly with this question?
+
+See ly/engraver-init.ly for contexts, see scm/define-*.scm for other
+objects.
+
+@subsubsection How do you decide if something is a Music, Context, or Grob property?
+Why is part-combine-status a Music property when it seems (IMO)
+to be related to the Staff context?
+
+The Music_iterators and Context communicate through two channels
+
+Music_iterators can set and read context properties, idem for
+Engravers and Contexts
+
+Music_iterators can send "synthetic" music events (which aren't in
+the input) to a context. These are caught by Engravers. This is
+mostly a one way communication channel.
+
+part-combine-status is part of such a synthetic event, used by
+Part_combine_iterator to communicate with Part_combine_engraver.
+
+
+@subsubsection I'm adding a property to affect how \autochange works.  It seems to
+me that it should be a context property, but the Scheme autochange
+procecure has a Music argument.  Does this mean I should use
+a Music property?
+
+\autochange is one of these extra strange beasts: it requires
+look-ahead to decide when to change staves. This is achieved by
+running the interpreting step twice (see scm/part-combiner.scm , at
+the bottom), and storing the result of the first step (where to switch
+staves) in a Music property.  Since you want to influence that
+where-to-switch list, your must affect the code in
+make-autochange-music (scm/part-combiner.scm). That code is called
+directly from the parser and there are no official "parsing
+properties" yet, so there is no generic way to tune \autochange. We
+would have to invent something new for this, or add a separate
+argument,
+
+@example
+    \autochange #around-central-C ..music..
+@end example
+
+@noindent
+where around-central-C is some function that is called from
+make-autochange-music.
+
+@subsubsection Also, I get lost figuring out what environment the code I'm looking at is in
+when it executes.  I found both the C++ and Scheme autochange code.  Then I was
+trying to figure out where the code got called from.  I finally figured out that
+the Scheme procedure was called before the C++ iterator code, but it took me a
+while to figure that out, and I still didn't know who did the calling in the
+first place.  I only know a little bit about Flex and Bison, so reading those
+files helped only a little bit.
+
+GDB can be of help here. Set a breakpoint in C++, and run. When you
+hit the breakpoint, do a backtrace. You can inspect Scheme objects
+along the way by doing
+
+@example
+p ly_display_scm(obj)
+@end example
+
+this will display OBJ through GUILE.
+
