@@ -1440,18 +1440,21 @@ defaults to @code{space - minimum-distance}.
   % Since space is small and there is no minimum-distance, the distance
   % between this staff and the next will be determined by padding.
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 1) (padding . 1))
+    \override VerticalAxisGroup #'next-staff-spacing =
+      #'((space . 1) (padding . 1))
   }
   { \clef bass c, }
   % Since space is small and nothing sticks out very far, the distance
   % between this staff and the next will be determined by minimum-distance.
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 1) (minimum-distance . 12))
+    \override VerticalAxisGroup #'next-staff-spacing =
+      #'((space . 1) (minimum-distance . 12))
   }
   { \clef bass c, }
   % By setting padding to a negative value, staves can be made to collide.
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 4) (padding . -10))
+    \override VerticalAxisGroup #'next-staff-spacing =
+      #'((space . 4) (padding . -10))
   }
   { \clef bass c, }
   \new Staff { \clef bass c, }
@@ -1544,19 +1547,29 @@ to which it does not belong.
 \layout {
   \context {
     \Lyrics
-    % By default, Lyrics are placed close together. Here, we allow them to be stretched
-    % more widely.
-    \override VerticalAxisGroup #'inter-loose-line-spacing #'stretchability = #1000
+    % By default, Lyrics are placed close together. Here, we allow them to
+    % be stretched more widely.
+    \override VerticalAxisGroup
+      #'inter-loose-line-spacing #'stretchability = #1000
   }
 }
 
 \new StaffGroup
 <<
-  \new Staff \with { \override VerticalAxisGroup #'next-staff-spacing = #'((space . 30)) } c'1
-  \new Lyrics \with { \override VerticalAxisGroup #'staff-affinity = #UP } \lyricmode { up }
-  \new Lyrics \with { \override VerticalAxisGroup #'staff-affinity = #CENTER } \lyricmode { center }
-  \new Lyrics \with { \override VerticalAxisGroup #'staff-affinity = #DOWN } \lyricmode { down }
-  \new Staff c'1
+  \new Staff \with {
+    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 30)) }
+    { c'1 }
+  \new Lyrics \with {
+    \override VerticalAxisGroup #'staff-affinity = #UP }
+    \lyricmode { up }
+  \new Lyrics \with {
+    \override VerticalAxisGroup #'staff-affinity = #CENTER }
+    \lyricmode { center }
+  \new Lyrics \with {
+    \override VerticalAxisGroup #'staff-affinity = #DOWN }
+    \lyricmode { down }
+  \new Staff
+    { c'1 }
 >>
 @end lilypond
 
