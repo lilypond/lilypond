@@ -1308,7 +1308,7 @@ left-margin-default right-margin-default)"
         filename = path + '.ly'
         if os.path.exists (filename):
             diff_against_existing = filter_pipe (self.full_ly (), 'diff -u %s -' % filename)
-            if not diff_against_existing.startswith ('\n'):
+            if diff_against_existing:
                 warning ("%s: duplicate filename but different contents of orginal file,\n\
 printing diff against existing file." % filename)
                 ly.stderr_write (diff_against_existing)
