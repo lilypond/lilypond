@@ -822,7 +822,6 @@ this command moves the object 1 staff space to the right, and 2 spaces up.
 
 Procedures for working with offsets are found in @file{scm/lily-library.scm}.
 
-@unnumberedsubsubsec Extents
 @subheading Extents
 
 Pairs are also used to store intervals, which represent a range of numbers
@@ -836,7 +835,6 @@ Procedures for working with intervals are found in
 @file{scm/lily-library.scm}.  These procedures should be used when possible
 to ensure consistency of code.
 
-@unnumberedsubsubsec Property alists
 @subheading Property alists
 
 A property alist is a LilyPond data structure that is an alist whose
@@ -845,7 +843,6 @@ the desired value for the property.
 
 LilyPond properties are Scheme symbols, such as @code{'thickness}.
 
-@unnumberedsubsubsec Alist chains
 @subheading Alist chains
 
 An alist chain is a list containing property alists.
@@ -856,7 +853,7 @@ property that a grob should have, each alist in the chain is searched in
 order, looking for an entry containing the property key.  The first alist
 entry found is returned, and the value is the property value.
 
-The Shceme procedure @code{chain-assoc-get} is normally used to get
+The Scheme procedure @code{chain-assoc-get} is normally used to get
 grob property values.
 
 @node Internal music representation
@@ -996,6 +993,10 @@ pitch properties) and any extra information (in this case, an
 
 @node Music properties
 @subsection Music properties
+
+TODO -- make sure we delineate between @emph{music} properties,
+@emph{context} properties, and @emph{layout} properties.  These
+are potentially confusing.
 
 The @code{NoteEvent} object is the first object of the
 @code{'elements} property of @code{someNote}.
