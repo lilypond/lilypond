@@ -1,1091 +1,226 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 7b34eac90f81c8123feaf2670fafae236101f14c
+    Translation of GIT committish: dab17828471057f4e12c0d80777ff9bb4c5b2309
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+
+@c -*- coding: utf-8; mode: texinfo; -*-
 @node Introduction
 @unnumbered Introduction
-@translationof Introduction
+
+@untranslated
+
 
 @divClass{column-center-top}
-@subheading Notre objectif
-
-@imageFloat{flat-design,png,right}
-
-L'inspiration pour LilyPond provint de deux musiciens qui s'étaient
-lassés de l'aspect fade et ennuyeux des partitions musicales produites
-avec un ordinateur.  Tous les musiciens préfèrent lire de belles
-partitions de musique, pourquoi donc les programmeurs ne
-développeraient-ils pas un logiciel pouvant en produire ?
-
-C'est justement ce que fait LilyPond : ce logiciel grave de la musique
-selon le meilleur de la tradition typographique avec un minimum de
-bricolage.  Ne perdez pas de temps à ajuster l'espacement, déplacer des
-symboles un par un ou remodeler des liaisons.  Vous impressionnerez vos
-amis et collègues avec des partitions soignées !
+@subheading Our Goal
+@imageFloat{flat-design.png,right}
 @divEnd
-
 @divClass{column-left-top}
-@subheading Pourquoi utiliser LilyPond?
-
-@itemize
-
-@item
-@ref{Fonctionnalités} : de quoi LilyPond est capable.
-
-@item
-@ref{Exemples} : je veux voir des partitions !
-
-@item
-@ref{Liberté} : LilyPond est un logiciel libre.
-
-@item
-@ref{Contexte} : notre esthétique de la gravure informatisée.
-
-@end itemize
+@subheading Why use LilyPond?
+@ref{Features}: What can LilyPond do?
+@ref{Examples}: I want to see some music!
+@ref{Freedom}: LilyPond is Free Software.
 @divEnd
-
 @divClass{column-right-top}
-@subheading Qui l'utilise ?
-
-@itemize
-
-@item
-@ref{Productions} : cas d'utilisation de LilyPond.
-
-@item
-@ref{Témoignages}: que disent les gens sur LilyPond ?
-
-@end itemize
+@subheading Who uses it?
+@ref{Productions}: Real-life use of LilyPond.
+@ref{Testimonials}: What do people say?
 @divEnd
-
 @divClass{column-center-bottom}
-@subheading Pourquoi utiliser LilyPond ?
-
-@itemize
-
-@item
-@ref{Entrée sous forme de texte}: vous écrivez de la musique comme du @emph{texte} ?!
-
-@item
-@ref{Facilités d'édition}: autres façons de travailler avec LilyPond.
-
-@end itemize
+@subheading Why not use LilyPond?
+@ref{Text input}: You write music as @emph{text}?!
 @divEnd
-
-@c Les traductions ne se compilent pas encore au format Info, il est
-@c donc inutile de traduire la colonne de droite du menu suivant. -JM
 @divClass{hide}
 @menu
-* Fonctionnalités::            What can LilyPond do?
-* Exemples::                   I want to see some music!
-* Liberté::                    Freedom and the GPL.
-* Contexte::                   Computational aesthetics.
-* Productions::                Real-life use of LilyPond.
-* Témoignages::                What do people say about it?
-* Entrée sous forme de texte:: You write music as text?!
-* Facilités d'édition::        Other ways of working with LilyPond.
+* Features::
+* Examples::
+* Freedom::
+* Productions::
+* Testimonials::
+* Text input::
 @end menu
+
 @divEnd
+@node Features
+@unnumberedsec Features
+
+@untranslated
 
 
-
-@node Fonctionnalités
-@unnumberedsec Fonctionnalités
-@translationof Features
-
-@help{on voudrait une tentative enthousiaste
-d'incitation à essayer LilyPond.  Les avertissements sur l'écriture de
-la musique sous forme de texte attendront le cours express, ils n'ont
-rien à faire ici.}
-
-S'inspirer de
-@uref{http://lilypond.org/web/about/features} et
-@uref{http://lilypond.org/web/switch/tour} et
-@uref{http://lilypond.org/web/switch/advantages}
-
-
-
-@subheading Pourquoi passer à LilyPond ?
-
-
-@subsubheading Excellente gravure de la musique classique
-
-@imageFloat{flat-design,png,right}
-
-L'intérêt d'utiliser LilyPond est de produire des partitions élégantes
-et fonctionnelles, c'est-à-dire à la fois agréables et faciles à lire.
-La communauté des développeurs a consacré des milliers d'heures à
-construire ce puissant logiciel.  Tous les détails de style, la
-conception des polices et les algorithmes ont été inspirés des
-meilleures gravures manuelles de partitions.  Les partitions produites
-par LilyPond ont le même aspect robuste, équilibré et élégant que les
-partitions les mieux gravées avec des méthodes traditionnelles.  Pour
-plus de détails, consultez notre @ref{Essai}.
-
-
-@subsubheading Moins de bricolage
-
-Perdez moins de temps à retoucher la mise en page.  En effet, LilyPond
-tend à déterminer la meilleure mise en page dès le départ, en
-déterminant l'espacement, les sauts de système et de page, afin de
-produire une mise en page compacte et homogène.  Le logiciel résout les
-collisions entre paroles, notes et accords sont résolues, et calcule la
-courbure des liaisons, tout cela automatiquement !
-
-
-@subsubheading Entrée sous forme de texte
-
-LilyPond prend en entrée du texte brut, que vous pouvez écrire dans
-votre éditeur de texte préféré, rapidement et confortablement.  Vous
-pouvez oublier les prises de tête avec la souris.  Le fichier texte
-d'entrée contient toute la description de la musique à graver ; ainsi,
-il n'est pas nécessaire de se rappeler de complexes séquences de
-commandes, il suffit de relire du texte d'entrée existant pour retrouver
-ce que l'on a déjà réussi à faire.
-
-
-@subsubheading Accessibilité
-
-Le format de fichier de LilyPond, qui décrit la musique sous forme de
-texte, permet également son utilisation par des utilisateurs ayant
-certains handicaps physiques.  Les personnes ne pouvant saisir au
-clavier ou contrôler une souris peuvent utiliser la reconnaissance de
-parole pour éditer des fichiers LilyPond.  Même des personnes aveugles
-peuvent utiliser des outils de lecture d'écran pour écrire des fichiers
-LilyPond, ce qui est quasiment impossible avec les logiciels de gravure
-musicale fonctionnant avec une interface graphique.
-
-
-@subsubheading Association de musique et texte
-
-@imageFloat{lilypond-book,png,right}
-
-Introduisez des fragments de partition musicale sans avoir besoin de
-copier-coller manuellement des images. Intégrez de façon transparente
-des partitions dans un document @LaTeX{} ou HTML, ou ajoutez des
-partitions dans un document OpenOffice.org avec OOoLilyPond.
-
-
-@subsubheading Un logiciel libre
-
-LilyPond peut être téléchargé gratuitement !  Si si, c'est vrai.  Vous
-pouvez le récupérer depuis la page de téléchargement.
-
-Ce logiciel est également et avant tout libre : son code source est
-également disponible, et il est possible sous certaines conditions de le
-copier, de le modifier et de le redistribuer.  Êtes-vous irrité par un
-bogue, ou désirez-vous une fonctionnalité ?  Ajoutez-la vous-même, ou
-payez quelqu'un d'autre pour le faire.
-
-
-@subsubheading Conception extensible
-
-Tous les paramètres peuvent être changés pour adapter le résultat à vos
-goûts typographiques.  Si ça ne suffit pas, le langage de script intégré
-Scheme, un dialecte du puissant langage LISP, offre beaucoup de
-possibilités.  Les paramètres, variables et fonctions sont tous
-documentés dans les manuels de référence.
-
-
+@subheading Why switch to LilyPond?
+@subsubheading Excellent classical engraving
+@imageFloat{flat-design.png,right}
+@subsubheading No fiddling
+@subsubheading Text-based input
+@subsubheading Mix music and text
+@imageFloat{lilypond-book.png,right}
+@subsubheading Free software
+@subsubheading Extensible design
 @subsubheading Excellent support
-
-LilyPond fonctionne sur les plateformes les plus courantes : GNU/Linux,
-MacOS X et Windows.  Le logiciel est accompagné d'une large
-documentation et des centaines d'exemples.  Une communauté active répond
-aux questions via les listes d'utilisateurs, en particulier la liste
-anglophone et la liste francophone, tandis que l'équipe de développement
-assure une prompte résolution des problèmes.
-
-
-
 @divClass{column-center-bottom}
-@subheading Et ensuite?
-
-Si vous n'êtes toujours pas convaincu(e), jetez un coup d'œil à quelques
-@ref{Exemples}.  Si vous êtes déjà décidé(e) à essayer LilyPond, nous
-vous invitons à lire d'abord @ref{Entrée sous forme de texte}.
+@subheading Where now?
+@ref{Text input}.
 @divEnd
+@node Examples
+@unnumberedsec Examples
+
+@untranslated
 
 
-
-@node Exemples
-@unnumberedsec Exemples
-@translationof Examples
-
-LilyPond est un outil puissant et flexible, adapté à beaucoup de styles
-et systèmes de notation.  Parcourez notre galerie d'exemples et
-inspirez-vous en !
-
-@ignore
-Here is a passage from Franz Liszt's solo piano transcription
-of the Overture to Wagner's @emph{Tannhäuser}. The spacing
-in this example was all performed by Lilypond's formatting
-algorithms, without tweaks of any kind. It
-handles cross-staff beaming gracefully and puts the system brace
-perfectly around all three staves.
-
-@exampleImage{liszt-wagner}
-@end ignore
-
-@newsItem
-@subsubheading Musique classique
-
-Cette pièce pour orgue de J.S. Bach est représentative d'un travail
-basique de gravure avec LilyPond.
-
-@exampleImage{bach-bwv610}
-@newsEnd
-
-@newsItem
-@subsubheading Notation complexe
-
-Cet exemple extrait de @emph{Goyescas} de Enrique Granados montre
-quelques-unes des fonctionnalités de gravure les plus avancées,
-notamment les liens coudés, les hampes traversant la portée, et les
-lignes de suivi de voix.
-
-@exampleImage{granados}
-@newsEnd
-
-@newsItem
-@subsubheading Musique ancienne
-
-LilyPond prend également en charge plusieurs types de notation ancienne,
-en particulier grégorienne comme le montre cet exemple.
-
-@exampleImage{ancient-headword}
-@newsEnd
-
-@newsItem
-@subsubheading Musique moderne
-
-Certains compositeurs de musique contemporaine apprécient la capacité de
-LilyPond à s'adapter à des notations personnalisées.  L'exemple suivant
-est extrait de @emph{Čáry} pour flûte basse seule, de Trevor Bača.
-
-@exampleImage{cary}
-@newsEnd
-
-
-@newsItem
-@subsubheading Création efficace et flexible de matériels d'exécution
-
-Divers matériels d'exécution --- conducteur, parties séparées ---
-peuvent être créés à partir du même code source LilyPond.  Voici un
-extrait de la gravure par @uref{http://nicolas.sceaux.free.fr/, Nicolas
-Sceaux} de @emph{Giulio Cesare} de Händel, avec le conducteur, une
-réduction à deux portées vocales, et une partie de violon.
-
-@exampleImage{sesto-full}
-
-@exampleImage{sesto-piano}
-
-@exampleImage{sesto-violin}
-
-@newsEnd
-
-@newsItem
+@imageClickable{examples/liszt-wagner-small.png, (click to enlarge), examples/liszt-wagner.png, center}
+@subsubheading Classical Music
+@imageClickable{examples/bach-bwv610-small.png, (click to enlarge), examples/bach-bwv610.png, center}
+@subsubheading Complex Notation
+@imageClickable{examples/granados-small.png, (click to enlarge), examples/granados.png, center}
+@subsubheading Early Music
+@imageClickable{examples/ancient-headword-small.png, (click to enlarge), examples/ancient-headword.png, center}
+@subsubheading Modern Music
+@imageClickable{examples/cary-small.png, (click to enlarge), examples/cary.png, center}
+@subsubheading Efficient, flexible creation of performance materials
+@imageClickable{examples/sesto-small.png, (click to enlarge), examples/sesto.png, center}
+@imageClickable{examples/sesto-1-small.png, (click to enlarge), examples/sesto-1.png, center}
+@imageClickable{examples/sesto-2-small.png, (click to enlarge), examples/sesto-2.png, center}
 @subsubheading Tablature
-
-LilyPond prend en charge la notation de tablature, qui peut être
-personnalisée pour n'importe quel instrument utilisant ce type de
-notation.  La notation des tablatures est calculée automatiquement par
-LilyPond en fonction des hauteurs de notes.
-
-@exampleImage{tab-example}
-@newsEnd
-
-@newsItem
-@subsubheading Diagrammes de Schenker
-
-La notation musicale standard peut être grandement personnalisée, au
-point de créer un diagramme d'analyse schenkérienne comme celui-ci.
-
-@exampleImage{bach-schenker}
-@newsEnd
-
-@newsItem
-@subsubheading Musique vocale
-
-LilyPond excelle dans la gravure de toutes sortes de musique vocale, du
-chant sacré à l'opéra.  Voici un motet médiéval qui présente quelques
-particularités.  La voix de ténor est écrite dans une métrique
-différente de celle des autres voix, mais doit tout de même se
-synchroniser avec elles.  LilyPond gère élégamment cette difficulté.
-Remarquez également les incipits avec des clés de style Vatican, les
-hampes barrées indiquant des notes plicaturées, et les crochets de
-ligature sur certains groupes de notes.
-
-@exampleImage{aucun-snippet}
-@newsEnd
-
-@newsItem
-@subsubheading Applications pédagogiques
-
-LilyPond est également adapté à une utilisation à des fins
-pédagogiques.  Voici en exemple un exercice de contrepoint.
-
-@exampleImage{theory}
-@newsEnd
-
-@newsItem
-@subsubheading Musique pop
-
-Il est facile de créer des partitions de chansons pop avec la mélodie,
-les paroles, les chiffrages d'accords et les diagrammes de frettes.
-Vous pouvez voir des exemples de tels diagrammes qui sont prédéfinis,
-mais il est possible de les personnaliser pour presque tous les cas.
-
-@exampleImage{chart}
-@newsEnd
-
-@newsItem
-@subsubheading Grands projets
-
-LilyPond excelle également dans les grands projets tels qu'un opéra ou
-une œuvre pour grand orchestre symphonique.  De plus, l'entrée sous
-forme de texte offre une meilleure accessibilité — cet exemple est
-extrait de l'œuvre de Hu Haipeng, compositeur aveugle.
-
-@exampleImage{orchestra}
-@newsEnd
-
-
+@imageClickable{examples/bach-tab-example-small.png, (click to enlarge), examples/bach-tab-example.png, center}
+@subsubheading Schenker Graphs
+@imageClickable{examples/bach-schenker-small.png, (click to enlarge), examples/bach-schenker.png, center}
+@subsubheading Vocal Music
+@imageClickable{examples/aucun-snippet-small.png, (click to enlarge), examples/aucun-snippet.png, center}
+@subsubheading Educational Applications
+@imageClickable{examples/theory-small.png, (click to enlarge), examples/theory.png, center}
+@subsubheading Popular Music
+@imageClickable{examples/chart-small.png, (click to enlarge), examples/chart.png, center}
+@subsubheading Large Projects
+@imageClickable{examples/orchestral-small.png, (click to enlarge), examples/orchestral.png, center}
 @divClass{column-center-bottom}
-@subheading Et ensuite ?
-
-Vous n'êtes toujours pas convaincu(e) ?  LilyPond est un logiciel libre,
-vous garantissant de la @ref{Liberté}.  Si vous êtes déjà décidé(e) à
-utiliser LilyPond, nous vous recommandons de lire d'abord @ref{Entrée
-sous forme de texte}.
+@subheading Where now?
+@ref{Freedom}.  If you've already decided to try LilyPond, first
 @divEnd
+@node Freedom
+@unnumberedsec Freedom
 
+@untranslated
 
-@node Liberté
-@unnumberedsec Liberté
-@translationof Freedom
 
 @divClass{column-center-top}
-@subheading Un logiciel libre
-
-@uref{http://www.gnu.org/, GNU} LilyPond est développé par une
-communauté de passionnés.  Ce logiciel est distribué selon la @ref{GPL,
-Licence Publique Générale GNU GPL} et la @ref{FDL, Licence Libre de
-Documentation GNU FDL}, donnant à tous la liberté de le corriger, le
-modifier et étendre ses fonctionnalités.  La gravure musicale de qualité
-ne devrait pas vous coûter des centaines d'euros dépensés pour acheter
-une licence de logiciel !
+@subheading Free Software
+@ref{GPL, GNU General Public License} and the @ref{FDL, GNU Free
 @divEnd
-
-
 @c @divClass{column-left-top}
 @divClass{color2}
 @divClass{keep-bullets}
-@subheading Les bénéfices pour les utilisateurs
-
-@itemize
-
-@item
-Aucun coût d'essai : téléchargez-le et essayez-le sans aucune
-restriction !  Qu'avez-vous à perdre ?
-
-@item
-Partage : si vous aimez ce logiciel, donnez-en une copie à vos amis,
-professeurs, étudiants et collègues !
-
-@item
-Code source disponible : si vous êtes curieux du fonctionnement interne de
-LilyPond, vous avez le droit de le connaître exactement grâce à la
-disponibilité du code source et de toute l'infrastructure de
-compilation.
-
-@item
-Extensible : vous pouvez ajouter des fonctionnalités, corriger des
-bogues, et modifier le fonctionnement.  Si vous n'êtes pas un
-programmeur, vous pouvez embaucher quelqu'un pour le faire à votre
-place.
-
-Cette possibilité de modifier le logiciel peut ne pas sembler
-primordiale pour un simple musicien utilisateur, mais est
-potentiellement importante pour un compositeur exigeant sur la notation,
-une entreprise ou un milieu de recherche.
-
-@item
-Indépendance par rapport aux éditeurs de logiciels : si une entreprise
-fait faillite, qu'advient-il des logiciels et fichiers dans le format de
-ces logiciels que cette entreprise développait et éditait ?  Ce n'est
-pas un problème avec LilyPond ; même si toute l'équipe de développement
-laissait ce logiciel à l'abandon, il serait encore légalement et
-effectivement disponible afin d'être copié, modifié et distribué.
-
-
-@end itemize
-
+@subheading What are the benefits to users?
 @divEnd
 @divEnd
-
-
 @c @divClass{column-right-top}
 @divClass{color3}
 @divClass{keep-bullets}
-@subheading Pourquoi les développeurs de LilyPond @qq{donnent} leur travail gratuitement ?
-
-La plupart d'entre nous conçoivent le développement de LilyPond comme un
-passe-temps ou un travail bénévole, c'est pourquoi cette question serait mieux
-formulée ainsi : pourquoi des gens contribuent bénévolement à LilyPond ?
-
-@itemize
-
-@item
-Pour le plaisir : travailler pour un but particulier peut être motivant,
-d'autant plus que le travail d'équipe apporte de l'entraide !
-
-@item
-Des objectifs communs : nous voulons tous produire des partitions de
-musique de qualité, mais peu de gens ont l'expertise — et personne n'a le
-temps ! — de créer un logiciel qui gère toutes les situations.  En
-travaillant tous ensemble — un améliore le code de ligatures
-automatiques, un autre corrige la forme des liaisons, et un troisième
-écrit de la documentation expliquant l'utilisation de ces
-fonctionnalités — nous pouvons tendre bien plus vite vers ce but.
-
-
-@item
-@qq{Culture du don} : le mouvement du logiciel libre a créé de nombreux
-grands projets logiciels, tels que @uref{http://kernel.org/, GNU/Linux},
-@uref{http://www.getfirefox.com/, Mozilla Firefox}, et
-@uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Ayant bénéficié de
-ces projets en tant qu'utilisateurs, certains souhaitent donner en
-retour à la communauté en contribuant à un logiciel libre.
-
-@item
-Expérience professionnelle : la contribution a des projets de logiciel libre
-est une excellente manière de pratiquer la programmation, l'édition de
-documentation et la conception.  Cette expérience a aidé quelques
-développeurs à obtenir une offre d'emploi ou un bourse d'études.
-
-
-@end itemize
-
+@subheading Why do LilyPond developers @qq{give away} their work for free?
 @divEnd
 @divEnd
-
 @divClass{column-center-bottom}
-@subheading Et ensuite ?
-
-Vous n'êtes toujours pas convaincu(e) ?  Lisez notre essai exposant nos
-conceptions de la typographie musicale à la section @ref{Contexte}.  Si
-vous êtes déjà décidé(e) à utiliser LilyPond, nous vous recommandons de
-lire d'abord @ref{Entrée sous forme de texte}.
+@subheading Where now?
+@ref{Productions} and sheet music.  If you've already decided to
 @divEnd
-
-
-@c Frankly, a node just for redirecting the reader just after a reading
-@c direction paragraph is a bit dense, I'd really like to merge this
-@c node into the previous paragraph. -JM
-@node Contexte
-@unnumberedsec Contexte
-@translationof Background
-
-@divClass{column-center-top}
-@subheading Essai sur la gravure musicale informatisée
-
-Nous vous proposons un essai complet sur nos conceptions de la
-typographie musicale informatisée.
-
-Si vous voulez une introduction rapide à LilyPond et préférez l'essayer
-au plus vite, la lecture de l'essai serait trop longue.  Si toutefois
-vous préférez le lire maintenant, allez à la section @ref{Essay}.
-
-
-@divClass{column-center-bottom}
-@subheading Et ensuite ?
-
-Vous n'êtes toujours pas convaincu(e) ?  Découvrez quelques
-@ref{Productions} de nos utilisateurs et sources de partitions de
-musique.  Si vous êtes déjà décidé(e) à utiliser LilyPond, nous vous
-recommandons de lire d'abord @ref{Entrée sous forme de texte}.
-@divEnd
-
-
 @node Productions
 @unnumberedsec Productions
-@translationof Productions
+
+@untranslated
+
 
 @divClass{column-left-top}
 @subheading Concerts
-
-Des partitions réalisées avec LilyPond ont été utilisées pour des
-concerts et représentations un peu partout dans le monde, nous en
-mentionnons quelques-uns.
-
 @divClass{keep-bullets}
-@itemize
-
-@item
-@emph{Affaire Étrangère}, un opéra de Valentin Villenave, avec un livret
-de Lewis Trondheim, dont la première a eu lieu le 1er février 2009 à
-@uref{http://www.orchestre-montpellier.com/, l'Opéra de Montpellier}.
-
-@item
-L'exécution d'@emph{Armide} de Lully, les 15 et 16 mai 2009, à Houston,
-Texas, par @uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury
-Baroque}, avec un matériel gravé par
-@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}.
-
-@item
-Des passages instrumentaux d'@emph{Hippolyte et Aricie} de Rameau ont
-été joués le 8 mai 2009 en l'Église Saint-James de Manhattan, par
-Frederick Renz et son ensemble @uref{http://www.earlymusicny.org/, Early
-Music New York}, avec des partitions gravées par Nicolas Sceaux.
-
-@end itemize
 @divEnd
-
 @divEnd
-
-
 @divClass{column-right-top}
-@subheading Partitions publiées
-
+@subheading Published sheet music
 @divClass{keep-bullets}
-@itemize
-
-@item
-Le @uref{http://www.mutopiaproject.org/index.html, projet Mutopia}
-propose en téléchargement libre des partitions de plus de 1500 pièces de
-musique classique ; c'est la plus grande vitrine de partitions LilyPond.
-
-@item
-@uref{http://www.adoromusicpub.com/, Adoro Music Publishing} propose des
-partitions de musique sacrée de grande qualité, disponibles
-immédiatement en téléchargement ou sous forme de partition imprimée.
-
-@item
-@uref{http://theshadylanepublishing.com/, The Shady Lane
-Publishing},
-est un @qq{micro-éditeur de partitions musicales} qui a pour but de
-promouvoir une nouvelle forme de pratique économique, plus proche des
-musiciens et amoureux de la musique.
-
-@end itemize
 @divEnd
-
 @divEnd
-
-
 @divClass{column-center-bottom}
-@subheading Et ensuite ?
-
-Vous n'êtes toujours pas convaincu(e) ?  Lisez quelques
-@ref{Témoignages} de nos utilisateurs.  Si vous êtes déjà décidé(e) à
-utiliser LilyPond, nous vous recommandons de lire d'abord @ref{Entrée
-sous forme de texte}.
+@subheading Where now?
+@ref{Text input}.
 @divEnd
+@node Testimonials
+@unnumberedsec Testimonials
 
-
-@node Témoignages
-@unnumberedsec Témoignages
-@translationof Testimonials
-
-@divClass{testimonial-item}
-@imageFloat{carter-brey,jpg, right}
-@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, Premier violoncelle, Philharmonique de New York
-
-@qq{@dots{} J'avais écrit avec Encore quelques pièces pour violoncelle
-  solo.  Je les ai imprimées avec LilyPond avant de les soumettre à
-  Schirmer en vue de les publier.  J'en mettrais ma main à couper que
-  leur édition ne sera jamais aussi pointue que la mienne !}
-@divEnd
+@untranslated
 
 
 @divClass{testimonial-item}
-@imageFloat{orm-finnendahl,jpg, left}
-@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl},  Professeur de composition, Musikhochschule Freiburg
-
-@qq{Bien que ma maîtrise [de LilyPond] soit pour l'instant imparfaite,
-  je suis néanmoins @emph{très} impressionné.  J'ai utilisé ce programme
-  pour un motet de Josquin Desprez en notation mensurale et je dois dire
-  que lilypond dépasse de loin tous les autres programmes de notation
-  tant au niveau de la rapidité que de l'ergonomie et du résultat !}
+@imageFloat{carter-brey.jpg, right}
+@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, Principal Cellist, New York Philharmonic
 @divEnd
-
-
 @divClass{testimonial-item}
-@imageFloat{darius-blasband,jpg, right}
-@subsubheading Darius Blasband, compositeur (Bruxelles)
-
-@qq{[Après la première répétition d'orchestre,] j'ai reçu de nombreux
-  compliments concernant la qualité des partitions.   Plus important,
-  bien que l'apparence des partitions puisse être améliorée par le biais
-  de nombreuses commandes, c'est le résultat d'un code basique, sans
-  retouches, que les musiciens ont utilisé.}
+@imageFloat{orm-finnendahl.jpg, left}
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professor of Composition, Musikhochschule Freiburg
 @divEnd
-
-
 @divClass{testimonial-item}
-@subsubheading Kieren MacMillan, compositeur (Toronto, Canada)
-
-@qq{Merci et encore merci à l'équipe des développeurs pour leur
-  admirable travail.  Je n'ai jamais rien vu qui approche le résultat que
-  j'obtiens avec Lilypond — je suis absolument convaincu que mes besoins
-  en terme d'édition musicale seront largement satisfaits par cette
-  superbe application.  [@dots{}] une partition de base générée par
-  Lilypond [@dots{}] a meilleure mine que la plupart des publications
-  @qq{professionnelles} auxquelles je l'ai comparée, aussi bien de chez
-  Warner Bros., que même les plus récentes productions des @qq{bonnes
-  vieilles maisons}. [@dots{}]}
-
-@qq{Faites donc mieux que Finale/Sibelius/Igor et consorts !!!}
+@imageFloat{darius-blasband.jpg, right}
+@subsubheading Darius Blasband, composer (Brussels, Belgium)
 @divEnd
-
-
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, programmeur en chef du projet @uref{http://www.rosegardenmusic.com/,RoseGarden}
-
-@qq{Lilypond est clairement le ténor brillantissime [de la gravure musicale
-de qualité].}
+@subsubheading Kieren MacMillan, composer (Toronto, Canada)
 @divEnd
-
-
+@divClass{testimonial-item}
+@subsubheading Chris Cannam, lead programmer of the @uref{http://www.rosegardenmusic.com/, RoseGarden} project.
+@divEnd
 @divClass{testimonial-item}
 @subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
-
-@qq{La façon dont on saisit la musique pour LilyPond me fait penser
-d'une façon plus musicale — il m'est arrivé plusieurs fois de buter sur
-la façon d'indiquer à Lily comment graver quelque chose, et de réaliser
-ensuite que même si j'arrivais à obtenir la notation voulue par le
-compositeur, celle-ci serait difficile à lire.  LilyPond facilite ainsi
-mon double travail de gravure et d'édition.}
-
-@qq{J'ai utilisé LilyPond exclusivement pour mes affaires débutantes
-d'édition.  Tous les compositeurs sans aucune exception ont été
-stupéfaits par la qualité de la gravure en apercevant les épreuves de
-prépublication de leur musique.  Bien que cela me revienne en partie — je
-passe beaucoup de temps à retoucher la gravure, notamment les liaisons et
-en particulier dans les accords — LilyPond me fournit un excellent point
-de départ, une interface très intuitive, et la possibilité de modifier
-absolument n'importe quoi si je prend le temps.  Je suis convaincu
-qu'aucun produit commercial ne peut approcher cela.}
 @divEnd
-
-
 @divClass{testimonial-item}
-@subsubheading David Bobroff, Trombone basse, Orchestre symphonique d'Islande
-
-@qq{LilyPond est tout simplement génial [@dots{}] Plus j'en
-  apprends sur LilyPond, plus je l'apprécie !}
+@subsubheading David Bobroff, Bass Trombone, Iceland Symphony Orchestra
 @divEnd
-
-
 @divClass{testimonial-item}
-@subsubheading Vaylor Trucks, Joueur de guitare électrique (si, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, il y a un rapport})
-
-@qq{Je suis super impressionné par LilyPond [@dots{}]}
-
-@qq{C'EST LE MEILLEUR PROGRAMME DE TOUS LES TEMPS !!!}
-
-@qq{Un GRAND merci à tous pour votre dur travail et votre
-investissement !}
+@subsubheading Vaylor Trucks, Electric guitar player (Yes, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, related to})
 @divEnd
-
-
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, contributeur au @uref{http://www.mutopiaproject.org/,projet Mutopia}
-
-@qq{J'avais une sorte de passion conflictuelle avec lui.  Passion parce
-  que la première partition que j'en ai vu m'a vraiment émerveillé ! Le
-  descriptif de LilyPond ne dit pas tout de ses capacités, il est trop
-  modeste !  [@dots{}] au fur et à mesure que LilyPond s'améliore, et
-  que je regarde de plus près comment cela se passe avec Scheme, je suis
-  de moins en moins frustré.  En fait, ce que je veux dire, c'est un
-  grand merci de nous fournir LilyPond, c'est vraiment un bon
-  programme.}
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} contributor
 @divEnd
-
-
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Chef au Théâtre de Coblence (Allemagne) et éminent hacker GNU
-
-@qq{À vrai dire, LilyPond fait un boulot des plus
-  étonnants !}
+@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Conductor at the Theatre in Koblenz, Germany and distinguished GNU Hacker.
 @divEnd
-
-
 @divClass{testimonial-item}
-@subsubheading Paul Davis, développeur de @uref{http://jackaudio.org/, JACK} et @uref{http://www.ardour.org/, Ardour}
-
-@qq{Je considère [que LilyPond est] un programme incroyable, et qu'il
-  produit des résultats vraiment merveilleux.  Après avoir lu une
-  interview à son sujet l'an dernier, j'ai déliré avec plusieurs de mes
-  amis sur son potentiel.}
+@subsubheading Paul Davis, developer of @uref{http://jackaudio.org/, JACK} and @uref{http://www.ardour.org/, Ardour}.
 @divEnd
-
-
 @divClass{column-center-bottom}
-@subheading Et ensuite ?
-
-Lisez @ref{Entrée sous forme de texte}.
+@subheading Where now?
 @divEnd
+@node Text input
+@unnumberedsec Text input
 
+@untranslated
 
-
-@node Entrée sous forme de texte
-@unnumberedsec Entrée sous forme de texte
-@translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
 @c http://lilypond.org/web/switch/howto
-
-@subheading @qq{Compilation} de la musique
-
-@imageClickable{nereid-shot-small,png, (cliquez pour agrandir), nereid-shot,png, right}
-
-LilyPond est un système de @emph{compilation} : il opère sur un fichier
-texte contenant les notes.  Le résultat produit en sortie peut être vu à
-l'écran ou imprimé.  De ce point de vue, LilyPond est plus proche d'un
-langage de programmation qu'un logiciel d'édition de partition avec une
-interface graphique.
-
-On n'écrit pas la musique en glissant des notes depuis une barre
-d'outils et en les plaçant sur une partition se constituant petit à
-petit, mais en écrivant du texte qui la décrit.  Ce texte est interprété
-— ou @emph{compilé} — par LilyPond, produisant une belle partition de
-musique.
-
-Cette façon de faire peut demander aux habitués des interfaces
-graphiques l'apprentissage d'une nouvelle façon de travailler, mais les
-résultats en valent vraiment la peine !
-
-@warning{nous ne présentons ici qu'un rapide aperçu du langage de
-LilyPond — ce n'est pas si compliqué que ça en a l'air !  Ce n'est pas
-la peine de comprendre ces exemples en détail, notre manuel d'initiation
-aborde d'une façon progressive tout ceci et bien d'autres choses.}
-
-
-@subsubheading C'est simple comme bonjour
-
-Les notes sont codées sous forme de lettres et de nombres.  Les
-commandes spéciales commencent par un antislash.
-
-@imageFloat{text-input-1-annotate,png,center}
-@imageFloat{text-input-1-output,png,center}
-
-Les altérations sont obtenues avec différents suffixes : @code{-is} pour dièse,
-@code{-es} pour bémol — ce sont des noms de note hollandais, d'autres langues
-sont disponibles.  LilyPond détermine où placer des signes d'altération.
-
-@imageFloat{text-input-2-annotate,png,center}
-@imageFloat{text-input-2-output,png,center}
-
-
-@subsubheading Musique pop
-
-Ajoutez des accords et des paroles pour obtenir une chanson :
-
-@imageFloat{text-input-pop-annotate,png,center}
-@imageFloat{text-input-pop-output,png,center}
-
-
-
-@subsubheading Pièces orchestrales
-
-Le fichier source contient les notes de la pièce.  Le conducteur et les
-parties séparées peuvent être réalisées à partir de la même source ;
-ainsi, la modification d'une note se répercute toujours à la fois sur
-les parties et le conducteur.  Pour pouvoir utiliser la même musique à
-plusieurs endroits, celle-ci est stockée dans une variable, c'est-à-dire
-qu'on lui attribue un nom.
-
-@imageFloat{text-input-parts-both-annotate,png,center}
-
-
-Cette variable est ensuite utilisée dans une partie séparée —
-ici transposée, avec les mesures de silence condensées.
-
-@imageFloat{text-input-parts-single-annotate,png,center}
-@imageFloat{text-input-parts-single-output,png,center}
-
-
-La même variable est réutilisée dans le conducteur, ici en sons réels.
-
-@imageFloat{text-input-score-annotate,png,center}
-@imageFloat{text-input-score-output,png,center}
-
-
-@subsubheading Documentation pour les débutants
-
-Nous concevons que beaucoup d'utilisateurs trouvent un peu étrange cette
-façon de saisir la musique.  Pour cette raison, nous avons écrit une
-documentation complète d'initiation, à commencer par le manuel
-d'@ref{Initiation}.
-
-S'il-vous-plaît, lisez le manuel d'initiation avant de vous plaindre
-d'un bogue !  Il arrive que de nouveaux utilisateurs pensent que
-LilyPond fonctionne incorrectement, alors qu'il n'en est rien et que
-quelque détail leur a simplement échappé.
-
-
-@subsubheading Environnements d'édition confortables
-
-@imageClickable{lilykde-screenshot-small,png,
-  (cliquez pour agrandir),lilykde-screenshot,png,right}
-
-L'objectif principal de LilyPond est de graver des partitions de qualité
-optimale, et le développement d'une interface utilisateur graphique nous
-détournerait de cet objectif.  Cependant, d'autres projets visent à
-faciliter l'édition de fichiers LilyPond.
-
-Certains environnements d'édition incluent la coloration de la syntaxe,
-le complètement automatique des commandes, et des modèles prédéfinis.
-D'autres programmes proposent même une interface utilisateur graphique
-(GUI) qui permet la manipulation directe des objets graphiques d'une
-partition.  Pour plus de détails, voir @ref{Fécilités d'édition}.
-
-
+@subheading @qq{Compiling} Music
+@imageClickable{examples/nereid-shot-small.png, (click to enlarge), examples/nereid-shot.png, right}
+@subsubheading It's as simple as A B C
+@imageFloat{text-input-1-annotate.png,center}
+@imageFloat{text-input-1-output.png,center}
+@imageFloat{text-input-2-annotate.png,center}
+@imageFloat{text-input-2-output.png,center}
+@subsubheading Pop music
+@imageFloat{text-input-pop-annotate.png,center}
+@imageFloat{text-input-pop-output.png,center}
+@subsubheading Orchestral parts
+@imageFloat{text-input-parts-both-annotate.png,center}
+@imageFloat{text-input-parts-single-annotate.png,center}
+@imageFloat{text-input-parts-single-output.png,center}
+@imageFloat{text-input-score-annotate.png,center}
+@imageFloat{text-input-score-output.png,center}
+@subsubheading Beginner Documentation
+@subsubheading Easier editing environments
 @divClass{column-center-bottom}
-@subheading Et ensuite ?
-
-Vous êtes désormais prêt(e) à @ref{Download,télécharger LilyPond}.  Si
-vous n'êtes toujours pas convaincu(e), examinez les @ref{Facilités
-d'édition}.
-
+@subheading Where now?
+@ref{Freedom} that LilyPond provides, or read about users'
+@ref{Productions} and @ref{Testimonials}.
 @divEnd
 
-
-@node Facilités d'édition
-@unnumberedsec Facilités d'édition
-@translationof Easier editing
-
-@divClass{column-center-top}
-@subheading Environnement graphique : Denemo
-
-@imageClickable{screenshot-denemo-small,png,
-  (cliquez pour agrandir),screenshot-denemo,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://denemo.org}
-
-Denemo est un éditeur graphique qui génère du code source LilyPond et
-peut jouer un rendu sonore.  Ce projet actuellement en phase de
-développement génère du code pour une version ancienne de LilyPond
-(2.8.7).  Il permet à l'utilisateur de voir le code source LilyPond en
-même temps que la vue graphique.
-
-@ignore
-Import: LilyPond, MIDI
-
-Export: Lilypond, MIDI, ABC, CSound Score File, PDF
-@end ignore
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading Environment intégré : LilyPondTool
-
-@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
-  (cliquez pour agrandir),lilypondtool-2.12-screenshot,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://lilypondtool@/.organum@/.hu}
-
-Greffon de l'éditeur de texte @uref{http://@/www@/.jedit@/.org@/,jEdit},
-LilyPondTool est l'un des outils d'édition en mode texte le plus riche
-pour éditer des partitions LilyPond.  Ses fonctionnalités comprennent un
-assistant de création de partition avec prise en charges des paroles,
-pour commencer plus facilement à saisir des partitions, et une
-visonneuse de PDF intégrée avec un excellent pointer-cliquer.
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading Environnement intégré : Frescobaldi
-
-@imageClickable{frescobaldi-lilypond-editor-small,png,
-  (click to enlarge),frescobaldi-lilypond-editor,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-
-@uref{http://www.frescobaldi.org}
-
-Frescobaldi est un éditeur de texte dédié à LilyPond, avec visionneuse
-PDF intégrée, un assistant de création de partition et beaucoup de
-fonctionnalités d'édition.  Il repose sur les bibliothèques KDE 4 et
-fonctionne actuellement sur toutes les variantes d'Unix dont GNU/Linux.
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading Environments texte : Emacs et Vim
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://www.gnu.org/software/emacs/}
-
-Emacs est un éditeur de texte avec des fontionnalités spécifiques pour
-un grand nombre de langages de programmation et de documents.  C'est un
-éditeur très extensible, qui peut être utilisé comme un environnement de
-développement intégré (IDE).  Il existe un @emph{mode LilyPond} qui offre
-quelques fonctionnalités spécifiques pour travailler avec des fichiers
-source LilyPond.
-
-@uref{http://www.vim.org}
-
-Vim, éditeur de texte minimal, est une extension de l'ancien éditeur
-Unix @command{vi}.  Il est également extensible et configurable.
-
-En règle générale, si vous n'êtes pas déjà familier avec Emacs ou Vim,
-alors vous préfèrerez peut-être utiliser un autre éditeur pour
-travailler sur des fichiers source LilyPond.
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading Autres
-
-@subsubheading Environnement intégré : LilyKDE
-
-@imageClickable{lilykde-screenshot-small,png,
-  (click to enlarge),lilykde-screenshot,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-
-@uref{http://lilykde.googlecode.com/}
-
-LilyKDE est un greffon pour l'éditeur de texte
-@uref{http://kate-editor.org/,Kate} pour KDE.  Il propose un puissant
-assistant de création de partition afin de créer rapidement une nouvelle
-partition LilyPond, et une visionneuse PDF intégrée.
-
-LilyKDE peut utiliser @uref{http://www.volny.cz/smilauer/rumor/,Rumor},
-afin de saisir la musique en jouant sur un clavier MIDI.
-
-LilyKDE propose également la coupure automatique des paroles et le
-lancement de LilyPond sur plusieurs fichiers à la fois depuis le
-gestionnaire de fichiers KDE.
-
-@subsubheading Environnement texte : TexShop
-
-@sourceimage{logo-macosx,,,}
-
-@uref{http://@/www@/.uoregon@/.edu/~koch/texshop}
-
-L'éditeur TexShop pour MacOS@tie{}X peut être muni d'une extension pour lancer LilyPond,
-@command{lilypond-book} et @command{convert-ly}, disponible à
-@uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html#desktoppub}.
-
-@ignore
-TODO: ask somebody to sponsor/check these.  -gp
-
-@subsubheading TextMate
-
-@sourceimage{logo-macosx,,,}
-
-There is a LilyPond bundle for TextMate.  It may be installed by
-running:
-
-@example
-mkdir -p /Library/Application\ Support/TextMate/Bundles
-cd /Library/Application\ Support/TextMate/Bundles
-svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
-@end example
-@end ignore
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading Autres programmes qui exportent du code LilyPond
-
-@ignore
-TODO: change url back to full adress, to make it readable in printouts -ch
-@end ignore
-
-@help mettre de l'ordre dans cette liste, vérifier les liens, etc.
-
-@subsubheading Environnements graphiques
-
-@itemize
-@item
-@uref{http://@/noteedit@/.berlios@/.de,NoteEdit}
-qui importe du @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
-@item
-@uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden},
-qui importe du MIDI
-@item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
-qui a une fonction d'export expérimentale pour LilyPond.
-@item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar} peut exporter du code LilyPond.
-@item
-@uref{http://musescore.org,MuseScore} produit du code LilyPond.
-@item
-@uref{http://canorus.org,Canorus} peut également exporter vers LilyPond,
-mais est encore au stade de développement bêta. Les testeurs sont les
-bienvenus.
-@end itemize
-
-@subsubheading Outils en ligne de commande
-
-@itemize
-@item
-@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, un
-convertisseur monophonique temps-réel MIDI vers LilyPond.
-@item
-@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, un mode
-Emacs majeur.
-@item
-@uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
-un bibliothèque LISP de génération de notation musicale.
-@end itemize
-@divEnd
-
-
-@divClass{column-center-bottom}
-@subheading Et ensuite ?
-
-Vous êtes prêt(e) à @ref{Téléchargement,télécharger LilyPond}.
-
-Vous êtes toujours incrédule ?  Beaucoup de compositeurs, musiciens et
-chefs ont appris à écrire de la musique dans notre format texte.  Des
-utilisateurs expérimentés nous font savoir qu'ils parviennent à entrer
-une partition LilyPond complète plus rapidement qu'avec un clavier MIDI
-ou la souris dans une interface graphique !  Peut-être souhaitez-vous
-relire les @ref{Fonctionnalités}, les @ref{Exemples}, la @ref{Liberté}
-donnée par LilyPond, ou revoir les @ref{Témoignages} ou
-@ref{Productions} des utilisateurs.  De plus, nous expliquons notre
-approche de la technique informatique au service de la gravure musicale
-dans la partie @ref{Contexte}.
-
-
-@subheading Mentions légales
-
-@divClass{legal}
-Tous les logos et images de produits sont sont des marques déposées ou
-sont protégés par le droit d'auteur.
-
-@logoLegalLinux
-
-@logoLegalFreeBSD
-
-@logoLegalMacOSX
-
-@logoLegalWindows
-
-@divEnd
-
-@divEnd
+@c -- SKELETON FILE --

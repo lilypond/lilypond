@@ -1,71 +1,44 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 7b34eac90f81c8123feaf2670fafae236101f14c
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+
 @setfilename web.info
 @settitle LilyPond -- la notation musicale pour tous
 @documentencoding UTF-8
 @documentlanguage fr
-@afourpaper
-
-@c `Web' was imported 2009-08-05 with git commit b938d71...
-@macro copyrightDeclare
-Copyright @copyright{} 2009 par les auteurs.
-@end macro
-
-@set FDL
 @set web
 @include macros.itexi
-
-
-@c don't remove this comment.
-@ignore
-@omfcreator Graham Percival and Patrick McCarty
-@omfdescription General info about the LilyPond music engraving system
-@omftype program usage
-@omfcategory Applications|Publishing
-@omflanguage French
-@end ignore
-
-
-@c TITLE PAGE
+@afourpaper
 @ifnottex
-@node Accueil
-@top LilyPond... la notation musicale pour tous
+@node Top
+@top LilyPond
+
 @translationof Top
 
-@c Translators: John Mandereau
+@c Translators: Test
 
 @chapheading
 @end ifnottex
-
-@ifnothtml
-
 @finalout
-
 @titlepage
 @title LilyPond
-@subtitle Le système de notation musicale
-@titlefont{Informations générales}
+@subtitle
+@titlefont{New Website}
 @author Équipe de développement de LilyPond
-
-@vskip 0pt plus 1filll
-@c @vskip 20pt
-
-@insertcopying
-
-Pour LilyPond version @version{}
+@quotation
+@end quotation
+@vskip 20pt
 @end titlepage
-@end ifnothtml
-@c end hack for texi2html
-
-@c ************************ WEBSITE START ***************
-
+@copying
+@quotation
+@end quotation
+@end copying
 @divId{pageHeader}
 @heading LilyPond
 
@@ -74,57 +47,27 @@ Pour LilyPond version @version{}
 @c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
 @imageId{lilylogo,double-lily-modified3.png,LilyPond logo}
 @c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
-
 @divId{quickSummary}
-@subheading Qu'est-ce que LilyPond ?
-
-LilyPond est un logiciel libre de gravure musicale, destiné à produire
-des partitions de qualité optimale.  Ce projet apporte à l'édition
-musicale informatisée l'esthétique typographique de la gravure
-traditionnelle.
-
+@subheading Qu'est-ce que c'est LilyPond?
+TODO FIXME FRENCH
 @divClass{align-right}
-Plus sur LilyPond dans notre @ref{Introduction} !
-
 @divEnd
 @divEnd
-
-@divClass{separator}
-@divEnd
-
 @divId{news}
-
-@c TODO: generate this automatically, including RSS feed.
 @include news-front.itexi
-
 @divClass{float-right}
-(@ref{Old news,,,,Actualités passées})
 @divEnd
-
 @divEnd
-
-
 @divId{latestVersion}
-@subheading Raccourcis
-
+@subheading Quick links
 @c TODO: javascript to detect OS and suggest download?
-
-@subsubheading Branche stable
-
-@ref{Download, Download @versionStable}
-
-@ref{Manuals, Manuals @versionStable}
-
-@subsubheading Branche de développement
-
-@ref{Development, @versionDevel}
-
-@ref{Development, @versionDevel}
-
+@subsubheading Stable
+@ref{Download, Download 2.12.3}
+@ref{Manuals, Manuals 2.12.3}
+@subsubheading Unstable
+@ref{Development, Download 2.13.2}
+@ref{Development, Manuals 2.13.2}
 @divEnd
-
-@ifnottex
-
 @divClass{hide}
 @menu
 * Introduction::
@@ -132,74 +75,12 @@ Plus sur LilyPond dans notre @ref{Introduction} !
 * Manuals::
 * Community::
 @end menu
+
 @divEnd
-
-@end ifnottex
-
 @contents
-
-@c FIXME: this still doesn't solve the broken links in pdf and big
-@c        html; we'll need a bunch of @iftext and stuff in here. -gp
-@c ****************** SPECIAL MACROS FOR WEB MANUAL ************
-@macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
-@subheading Lisez-le
-
-@itemize
-
-@c normal case, special online case
-@ifclear web_version
-  @item \refLink\:
-@end ifclear
-@ifset web_version
-  @c we assume that the online web version will be split html
-  @item \split\:
-@end ifset
-lisez ce manuel dans le même format que celui-ci.
-
-@end itemize
-
-@subheading Tous les formats
-
-@divClass{keep-bullets}
-@itemize
-
-@ifclear web_version
-  @item @uref{../\base\/index.html, \name\ (split HTML)}:
-@end ifclear
-@ifset web_version
-  @item \split\
-@end ifset
-  manuel sous forme de plusieurs pages HTML
-  @*@ @ @emph{— chaque page est assez petite.}
-
-@ifclear web_version
-  @item @uref{../\base\-big-page.html, \name\ (big HTML)}:
-@end ifclear
-@ifset web_version
-  @item \big\
-@end ifset
-  manuel sous forme d'une seule grande page
-  @*@ @ @emph{— un seul gros téléchargement, \bigsize\.}
-
-@ifclear web_version
-  @item @uref{../\base\.pdf, \base\.pdf}:
-@end ifclear
-@ifset web_version
-  @item \pdf\
-@end ifset
-  manuel au format PDF
-  @*@ @ @emph{— un seul gros téléchargement, \pdfsize\}
-
-@end itemize
-
-@divEnd
-
-@end macro
-
-
 @include web/introduction.itexi
 @include web/download.itexi
 @include web/manuals.itexi
 @include web/community.itexi
-
 @bye
+
