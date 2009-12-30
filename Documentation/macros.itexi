@@ -79,6 +79,12 @@ found at @w{@uref{http://@/www@/.lilypond@/.org/}}.
 @end macro
 
 
+@macro lilyTitlePage{TITLE}
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
+
+
 @c   ***** Copyright stuff *****
 @ifset FDL
 @copying
@@ -101,13 +107,9 @@ This document has been placed in the public domain.
 @end copying
 @end ifclear
 
+
+
 @c   ***** Title page *****
-@macro lilyTitlePage{TITLE}
-@c  This produces the unified index
-@syncodeindex fn cp
-@syncodeindex vr cp
-
-
 @ifnottex
 @node Top
 @top LilyPond --- \TITLE\
@@ -712,16 +714,6 @@ For LilyPond version @version{}
 @ifinfo
 @image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
 @end ifinfo
-@end macro
-
-@macro help{TEXT}
-@html
-<div class="help">
-<strong>
-  <span style="text-decoration:blink">Help wanted:</span>
-</strong> \TEXT\
-</div>
-@end html
 @end macro
 
 @c LEGALESE
