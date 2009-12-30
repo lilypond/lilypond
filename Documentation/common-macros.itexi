@@ -134,16 +134,6 @@ UNTRANSLATED NODE: IGNORE ME
 
 @ifset web
 
-@macro help{TEXT}
-@html
-<div class="help">
-<strong>
-  <span style="text-decoration:blink">Help wanted:</span>
-</strong> \TEXT\
-</div>
-@end html
-@end macro
-
 @macro divId {ID}
 @html
 <div id="\ID\">

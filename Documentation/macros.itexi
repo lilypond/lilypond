@@ -716,6 +716,17 @@ For LilyPond version @version{}
 @end ifinfo
 @end macro
 
+@macro help{TEXT}
+@html
+<div class="help">
+<strong>
+  <span style="text-decoration:blink">Help wanted:</span>
+</strong> \TEXT\
+</div>
+@end html
+@end macro
+
+
 @c LEGALESE
 
 @macro logoLegalLinux
