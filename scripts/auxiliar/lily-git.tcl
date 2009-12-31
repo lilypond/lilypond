@@ -4,7 +4,7 @@
 # Copyright 2009 by Johannes Schindelin and Carl Sorensen
 #
 
-set version 0.60
+set version 0.61
 
 # set to 1 to set up for translation, to 0 for other
 set translator 0
@@ -108,10 +108,8 @@ proc commit {} {
   }
 }
 
-# This won't work, because --amend needs an editor
-#  lilyconfig users are on their own.
 proc commit_amend {} {
-  git commit -a --amend
+  git commit -a --amend -C HEAD
   git rebase --whitespace=fix HEAD^
 }
 
@@ -146,6 +144,7 @@ proc update_lilypond {rebase} {
 		git config branch.$originHead.remote origin
 		git config branch.$originHead.merge refs/heads/$originHead
                 .buttons.commit configure -state normal
+                .buttond.amend configure -state normal
                 .buttons.update configure -text buttonUpdateText
                 .buttons.patch configure -state normal
                 .buttons.panic configure -state normal
@@ -301,11 +300,12 @@ wm title . $windowTitle
 # Buttons
 
 panedwindow .buttons
-button .buttons.commit -text "2. Make local commit" -command commit
 button .buttons.update -text $updateButtonText \
           -command update_lilypond_with_rebase
+button .buttons.commit -text "2. Make local commit" -command commit
+button .buttons.amend -text "3. Amend previous commit" -command commit_amend
 toggle_rebase
-button .buttons.patch -text "3. Make patch set" \
+button .buttons.patch -text "4. Make patch set" \
           -command patch_from_origin
 button .buttons.panic -text "Abort changes -- Reset to origin" \
           -command abort_changes -fg Blue -bg Red
@@ -314,6 +314,7 @@ if {![file exists $lily_dir]} {
 	.buttons.update configure \
             -text $initializeButtonText
         .buttons.commit configure -state disabled
+        .buttons.amend configure -state disabled
         .buttons.patch configure -state disabled
         .buttons.panic configure -state disabled
 }
@@ -322,9 +323,10 @@ if {![file exists $lily_dir]} {
 
 pack .buttons.update -side left
 pack .buttons.commit -side left
+pack .buttons.amend -side left
 pack .buttons.patch -side left
 pack .buttons.spacer -side left
-pack .buttons.panic -side left
+pack .buttons.panic -side right
 
 
 # Output text box
