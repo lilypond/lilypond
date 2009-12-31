@@ -37,6 +37,8 @@ protected:
   void process_acknowledged ();
   virtual Spanner *get_spanner ();
   virtual void add_element (Grob *);
+  virtual bool must_be_last () const;
+  
 public:
   TRANSLATOR_DECLARATIONS (Axis_group_engraver);
 };

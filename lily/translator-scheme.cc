@@ -17,6 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "context.hh"
 #include "context-def.hh"
 #include "translator-group.hh"
 #include "moment.hh"
@@ -41,3 +42,14 @@ LY_DEFINE (ly_translator_description, "ly:translator-description",
   return tr->translator_description ();
 }
 
+
+LY_DEFINE (ly_translator_context, "ly:translator-context",
+	   1, 0, 0, (SCM trans),
+	   "Return the context of the translator object @var{trans}.")
+{
+  LY_ASSERT_SMOB (Translator, trans, 1);
+  Translator *tr = unsmob_translator (trans);
+
+  Context *c = tr->context ();
+  return c ? c->self_scm () : SCM_BOOL_F;
+}

@@ -36,7 +36,6 @@ Translator::~Translator ()
 void
 Translator::init ()
 {
-  must_be_last_ = false;
   self_scm_ = SCM_EOL;
   daddy_context_ = 0;
   smobify_self ();
@@ -59,8 +58,8 @@ Translator::Translator ()
 
 Translator::Translator (Translator const &src)
 {
+  (void) src;
   init ();
-  must_be_last_ = src.must_be_last_;
 }
 
 Moment
@@ -121,15 +120,17 @@ Translator::finalize ()
 void
 Translator::connect_to_context (Context *c)
 {
-  for (translator_listener_record *r = get_listener_list (); r; r=r->next_)
-    c->events_below ()->add_listener (r->get_listener_ (this), r->event_class_);
+  for (translator_listener_record *r = get_listener_list (); r; r = r->next_)
+    c->events_below ()->add_listener (r->get_listener_ (this, r->event_class_),
+				      r->event_class_);
 }
 
 void
 Translator::disconnect_from_context (Context *c)
 {
-  for (translator_listener_record *r = get_listener_list (); r; r=r->next_)
-    c->events_below ()->remove_listener (r->get_listener_ (this), r->event_class_);
+  for (translator_listener_record *r = get_listener_list (); r; r = r->next_)
+    c->events_below ()->remove_listener (r->get_listener_ (this, r->event_class_),
+					 r->event_class_);
 }
 
 static SCM listened_event_class_table;
@@ -177,7 +178,7 @@ add_listened_event_class (SCM sym)
 void
 Translator::add_translator_listener (translator_listener_record **listener_list,
 				     translator_listener_record *r,
-				     Listener (*get_listener) (void *), 
+				     Listener (*get_listener) (void *, SCM), 
 				     const char *ev_class)
 {
   /* ev_class is the C++ identifier name. Convert to scm symbol */
@@ -258,7 +259,7 @@ IMPLEMENT_TYPE_P (Translator, "ly:translator?");
 bool
 Translator::must_be_last () const
 {
-  return must_be_last_;
+  return false;
 }
 
 void

@@ -136,11 +136,7 @@ Context_def::add_context_mod (SCM mod)
   else if (ly_symbol2scm ("consists") == tag
 	   || ly_symbol2scm ("remove") == tag)
     {
-      if (!get_translator (sym))
-	warning (_f ("program has no such type: `%s'",
-		     ly_symbol2string (sym).c_str ()));
-      else
-	translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_);
+      translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_);
     }
   else if (ly_symbol2scm ("accepts") == tag
 	   || ly_symbol2scm ("denies") == tag)

@@ -32,7 +32,6 @@
    A macro to automate administration of translators.
 */
 #define ADD_THIS_TRANSLATOR(T)						\
-  translator_listener_record *T::listener_list_;			\
   SCM T::static_description_ = SCM_EOL;					\
   static void _ ## T ## _adder ()					\
   {									\
@@ -45,12 +44,15 @@
   {									\
     return static_description_;						\
   }									\
-  ADD_GLOBAL_CTOR (_ ## T ## _adder);
+  ADD_GLOBAL_CTOR (_ ## T ## _adder); \
+  /* end define */
 
-#define ADD_TRANSLATOR(classname, desc, grobs, read, write)		\
+#define DEFINE_TRANSLATOR_LISTENER_LIST(T) \
+  translator_listener_record *T::listener_list_;	\
+  /* end define */
+
+#define DEFINE_ACKNOWLEDGERS(classname) \
   Drul_array< vector<Acknowledge_information> > classname::acknowledge_static_array_drul_;	\
-  IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);			\
-  ADD_THIS_TRANSLATOR (classname);					\
   Engraver_void_function_engraver_grob_info				\
   classname::static_get_acknowledger (SCM sym)				\
   {									\
@@ -61,12 +63,22 @@
   {									\
     return generic_get_acknowledger (sym, &acknowledge_static_array_drul_[STOP]);	\
   }									\
+  /* end define */
+
+#define DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)		\
   SCM									\
   classname::static_translator_description () const			\
   {									\
     return Translator::static_translator_description (grobs, desc, listener_list_, read, write); \
   }
 
+#define ADD_TRANSLATOR(classname, desc, grobs, read, write)		\
+  IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);			\
+  ADD_THIS_TRANSLATOR (classname);					\
+  DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)		\
+  DEFINE_ACKNOWLEDGERS(classname) \
+  DEFINE_TRANSLATOR_LISTENER_LIST(classname) \
+  
 #define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T)			\
   void									\
   T::fetch_precomputable_methods (Translator_void_method_ptr ptrs[])	\
@@ -130,9 +142,10 @@ cl :: _internal_declare_ ## m ()			\
 ADD_SCM_INIT_FUNC (cl ## _declare_event_ ## m, cl::_internal_declare_ ## m);	\
 							\
 Listener						\
-cl :: _get_ ## m ## _listener (void *me)		\
+ cl :: _get_ ## m ## _listener (void *me, SCM unused)   \
 {							\
   cl *obj = (cl *) me;					\
+  (void) unused; \
   return obj->GET_LISTENER (_listen_scm_ ## m);		\
 }							\
 							\

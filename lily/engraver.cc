@@ -70,9 +70,8 @@ Engraver::announce_grob (Grob *e, SCM cause)
 
 
 /*
-  CAUSE is the object (typically a Music object)  that
-  was the reason for making E.
-*/
+  CAUSE is the object (typically a grob or stream-event object) that
+  was the reason for ending E.  */
 void
 Engraver::announce_end_grob (Grob *e, SCM cause)
 {
@@ -175,11 +174,24 @@ Engraver::internal_make_column (SCM x, char const *name,
 }
 
 Spanner *
-Engraver::internal_make_spanner (SCM x, SCM cause, char const *name, char const *file, int line, char const *fun)
+Engraver::internal_make_spanner (SCM x, SCM cause, char const *name,
+				 char const *file, int line, char const *fun)
 {
   Spanner *sp = dynamic_cast<Spanner *> (internal_make_grob (x, cause, name, file, line, fun));
   assert (sp);
   return sp;
+}
+
+Engraver*
+unsmob_engraver (SCM eng)
+{
+  return dynamic_cast<Engraver*> (unsmob_translator (eng));
+}
+
+bool
+ly_is_grob_cause (SCM obj)
+{
+  return unsmob_grob (obj) || unsmob_stream_event (obj);
 }
 
 #include "translator.icc"
@@ -197,4 +209,5 @@ ADD_TRANSLATOR (Engraver,
 		/* write */
 		""
 		);
+
 

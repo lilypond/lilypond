@@ -29,9 +29,9 @@
 #include "music.hh"
 #include "output-def.hh"
 #include "performer-group.hh"
+#include "scheme-engraver.hh"
 #include "scm-hash.hh"
 #include "warn.hh"
-
 
 void
 translator_each (SCM list, Translator_method method)
@@ -152,15 +152,29 @@ Translator_group::create_child_translator (SCM sev)
 
   for (SCM s = trans_names; scm_is_pair (s); s = scm_cdr (s))
     {
-      Translator *type = get_translator (scm_car (s));
+      SCM definition = scm_car (s);
+
+      Translator *type = 0;
+      Translator *instance = type;
+      if (ly_is_symbol (definition))
+	{
+	  type = get_translator (definition);
+	  instance = type->clone ();
+	}
+      else if (ly_is_pair (definition))
+	{
+	  type = get_translator (ly_symbol2scm ("Scheme_engraver"));
+	  instance = type->clone ();
+	  dynamic_cast<Scheme_engraver*> (instance)->init_from_scheme (definition);
+	}
+	 
       if (!type)
 	warning (_f ("cannot find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
       else
 	{
-	  Translator *tr = type->clone ();
-	  SCM str = tr->self_scm ();
+	  SCM str = instance->self_scm ();
 
-	  if (tr->must_be_last ())
+	  if (instance->must_be_last ())
 	    {
 	      SCM cons = scm_cons (str, SCM_EOL);
 	      if (scm_is_pair (trans_list))
@@ -171,13 +185,13 @@ Translator_group::create_child_translator (SCM sev)
 	  else
 	    trans_list = scm_cons (str, trans_list);
 
-	  tr->daddy_context_ = new_context;
-	  tr->unprotect ();
+	  instance->daddy_context_ = new_context;
+	  instance->unprotect ();
 	}
     }
 
   /* Filter unwanted translator types. Required to make
-     \with {\consists "..."} work. */
+     \with { \consists "..." } work. */
   if (dynamic_cast<Engraver_group *> (g))
     g->simple_trans_list_ = filter_performers (trans_list);
   else if (dynamic_cast<Performer_group *> (g))

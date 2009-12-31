@@ -32,6 +32,11 @@ struct Acknowledge_information
 {
   SCM symbol_;
   Engraver_void_function_engraver_grob_info function_;
+
+  Acknowledge_information () {
+    symbol_ = SCM_EOL;
+    function_ = 0;
+  }
 };
 
 
@@ -41,14 +46,21 @@ struct Acknowledge_information
   listeners to a context.
 */
 typedef struct translator_listener_record {
-  Listener (*get_listener_) (void *);
+  Listener (*get_listener_) (void *, SCM event_class);
   SCM event_class_;
   struct translator_listener_record *next_;
+
+  translator_listener_record () {
+    next_ = 0;
+    event_class_ = SCM_EOL;
+    get_listener_ = 0;
+  }
+    
 } translator_listener_record;
 
-#define TRANSLATOR_DECLARATIONS(NAME)					\
+
+#define TRANSLATOR_DECLARATIONS_NO_LISTENER(NAME)                       \
 private:								\
-  static translator_listener_record *listener_list_;			\
   public:								\
   NAME ();								\
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);				\
@@ -57,6 +69,8 @@ private:								\
   virtual void fetch_precomputable_methods (Translator_void_method_ptr methods[]); \
   virtual SCM static_translator_description () const;			\
   virtual SCM translator_description () const;				\
+  static Engraver_void_function_engraver_grob_info static_get_acknowledger (SCM sym); \
+  static Engraver_void_function_engraver_grob_info static_get_end_acknowledger(SCM); \
   virtual Engraver_void_function_engraver_grob_info get_acknowledger (SCM sym) \
   {									\
     return static_get_acknowledger (sym);				\
@@ -65,8 +79,12 @@ private:								\
   {									\
     return static_get_end_acknowledger (sym);				\
   } \
-  static Engraver_void_function_engraver_grob_info static_get_acknowledger (SCM sym); \
-  static Engraver_void_function_engraver_grob_info static_get_end_acknowledger(SCM); \
+  /* end #define */
+
+#define TRANSLATOR_DECLARATIONS(NAME)					\
+  TRANSLATOR_DECLARATIONS_NO_LISTENER(NAME)				\
+private:								\
+  static translator_listener_record *listener_list_;			\
 public:									\
   virtual translator_listener_record *get_listener_list () const	\
   {									\
@@ -80,7 +98,7 @@ inline void listen_ ## m (Stream_event *);		\
 /* Should be private */					\
 static void _internal_declare_ ## m ();			\
 private:						\
-static Listener _get_ ## m ## _listener (void *);	\
+ static Listener _get_ ## m ## _listener (void *, SCM);	\
 DECLARE_LISTENER (_listen_scm_ ## m);
 
 #define DECLARE_ACKNOWLEDGER(x) public : void acknowledge_ ## x (Grob_info); protected:
@@ -102,12 +120,7 @@ class Translator
 {
   void init ();
 
-protected:
-  bool must_be_last_;
-
 public:
-  bool must_be_last () const;
-
   Context *context () const { return daddy_context_; }
 
   Translator (Translator const &);
@@ -117,11 +130,12 @@ public:
   virtual Output_def *get_output_def () const;
   virtual Translator_group *get_daddy_translator ()const;
   virtual Moment now_mom () const;
+  virtual bool must_be_last () const;
 
   virtual void initialize ();
   virtual void finalize ();
 
-  /*should maybe be virtual*/
+  /* should maybe be virtual */
   void connect_to_context (Context *c);
   void disconnect_from_context (Context *c);
 
@@ -140,7 +154,10 @@ protected:			// should be private.
   Context *daddy_context_;
   void protect_event (SCM ev);
   virtual void derived_mark () const;
-  static void add_translator_listener (translator_listener_record **listener_list, translator_listener_record *r, Listener (*get_listener) (void *), const char *ev_class);
+  static void add_translator_listener (translator_listener_record **listener_list,
+				       translator_listener_record *r,
+				       Listener (*get_listener) (void *, SCM),
+				       const char *ev_class);
   SCM static_translator_description (const char *grobs, 
 				     const char *desc,
 				     translator_listener_record *listener_list,
@@ -149,6 +166,7 @@ protected:			// should be private.
 
   friend class Translator_group;
 };
+
 void add_translator (Translator *trans);
 
 Translator *get_translator (SCM s);
@@ -162,6 +180,7 @@ DECLARE_UNSMOB (Translator, translator);
 */
 extern bool internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const char *function);
 #define ASSIGN_EVENT_ONCE(o,n) internal_event_assignment (&o, n, __FUNCTION__)
+
 
 
 #endif // TRANSLATOR_HH

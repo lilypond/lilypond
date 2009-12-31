@@ -22,6 +22,18 @@
 #include "context-def.hh"
 #include "dispatcher.hh"
 
+LY_DEFINE (ly_context_current_moment,
+	   "ly:context-current-moment",
+	   1, 0, 0, (SCM context),
+	   "Return the current moment of @var{context}.")
+{
+  Context *tr = unsmob_context (context);
+
+  LY_ASSERT_SMOB (Context, context, 1);
+
+  return tr->now_mom ().smobbed_copy ();
+}
+
 LY_DEFINE (ly_context_id, "ly:context-id",
 	   1, 0, 0, (SCM context),
 	   "Return the ID string of @var{context},"

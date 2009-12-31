@@ -30,8 +30,13 @@
 
 Axis_group_engraver::Axis_group_engraver ()
 {
-  must_be_last_ = true;
   staffline_ = 0;
+}
+
+bool
+Axis_group_engraver::must_be_last () const
+{
+  return true;
 }
 
 void

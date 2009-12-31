@@ -1316,6 +1316,17 @@ context_mod:
 	| context_def_mod STRING {
 		$$ = scm_list_2 ($1, $2);
 	}
+	| context_def_mod embedded_scm {
+	   if (ly_symbol2scm ("consists") != $1)
+	   {
+	     $$ = SCM_EOL;
+             PARSER->parser_error (@1, _ ("only \\consists takes non-string argument."));
+	   }
+	   else
+	   {
+ 	     $$ = scm_list_2 ($1, $2);
+	   }
+	}
 	;
 
 context_prop_spec:
