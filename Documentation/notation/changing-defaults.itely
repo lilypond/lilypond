@@ -3559,7 +3559,9 @@ to which the start of the tie (or slur) is attached.
 It is not possible to modify shapes of ties or slurs by changing
 the @code{control-points} property if there are more than one at
 the same musical moment, not even by using the @code{\tweak}
-command.
+command.  However, the @code{tie-configuration} property of
+@code{TieColumn} can be overridden to set start line and direction
+of ties as required.
 
 
 
