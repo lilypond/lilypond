@@ -204,11 +204,15 @@ def guess_lilypond_version (input):
     else:
         return ''
 
-class FatalConversionError:
+class FatalConversionError (Exception):
     pass
 
-class UnknownVersion:
+class UnknownVersion (Exception):
     pass
+
+class InvalidVersion (Exception):
+    def __init__ (self, version):
+      self.version = version
 
 def do_one_file (infile_name):
     ly.stderr_write (_ ("Processing `%s\'... ") % infile_name)
@@ -235,6 +239,9 @@ def do_one_file (infile_name):
         to_version = global_options.to_version
     else:
         to_version = latest_version ()
+
+    if len (from_version) != 3:
+        raise InvalidVersion (".".join ([str(n) for n in from_version]))
 
 
     (last, result) = do_conversion (input, from_version, to_version)
@@ -304,14 +311,18 @@ def main ():
         if f == '-':
             f = ''
         elif not os.path.isfile (f):
-            error (_ ("cannot open file: `%s'") % f)
+            error (_ ("%s: Unable to open file") % f)
             if len (files) == 1:
                 sys.exit (1)
             continue
         try:
             do_one_file (f)
         except UnknownVersion:
-            error (_ ("cannot determine version for `%s'.  Skipping") % f)
+            error (_ ("%s: Unable to determine version.  Skipping") % f)
+        except InvalidVersion as ex:
+            error (_ ("%s: Invalid version string `%s' \n"
+                      "Valid version strings consist of three numbers, "
+                      "separated by dots, e.g. `2.8.12'") % (f, ex.version) )
 
     sys.stderr.write ('\n')
 
