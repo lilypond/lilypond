@@ -323,32 +323,37 @@ Pango_font::text_stencil (string str,
   */
   PangoLayout *layout = pango_layout_new (context_);
   pango_layout_set_text (layout, str.c_str (), -1);
-  PangoLayoutLine *line = pango_layout_get_line (layout, 0);
-  GSList *layout_runs = line->runs;
+  GSList *lines = pango_layout_get_lines (layout);
 
   Stencil dest;
   Real last_x = 0.0;
 
-  for (GSList *p = layout_runs; p; p = p->next)
+  for (GSList *l = lines; l; l = l->next)
     {
-      PangoGlyphItem *item = (PangoGlyphItem *) p->data;
-      Stencil item_stencil = pango_item_string_stencil (item, tight);
+      PangoLayoutLine *line = (PangoLayoutLine *) l->data;
+      GSList *layout_runs = line->runs;
 
-      item_stencil.translate_axis (last_x, X_AXIS);
-      last_x = item_stencil.extent (X_AXIS)[RIGHT];
+      for (GSList *p = layout_runs; p; p = p->next)
+	{
+	  PangoGlyphItem *item = (PangoGlyphItem *) p->data;
+	  Stencil item_stencil = pango_item_string_stencil (item, tight);
+
+	  item_stencil.translate_axis (last_x, X_AXIS);
+	  last_x = item_stencil.extent (X_AXIS)[RIGHT];
 
 #if 0 // Check extents.
-      if (!item_stencil.extent_box ()[X_AXIS].is_empty ())
-	{
-	  Stencil frame = Lookup::frame (item_stencil.extent_box (), 0.1, 0.1);
-	  Box empty;
-	  empty.set_empty ();
-	  Stencil dimless_frame (empty, frame.expr ());
-	  dest.add_stencil (frame);
-	}
+	  if (!item_stencil.extent_box ()[X_AXIS].is_empty ())
+	    {
+	      Stencil frame = Lookup::frame (item_stencil.extent_box (), 0.1, 0.1);
+	      Box empty;
+	      empty.set_empty ();
+	      Stencil dimless_frame (empty, frame.expr ());
+	      dest.add_stencil (frame);
+	    }
 #endif
 
-      dest.add_stencil (item_stencil);
+	  dest.add_stencil (item_stencil);
+	}
     }
 
   string name = get_output_backend_name ();
