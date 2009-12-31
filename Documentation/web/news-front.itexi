@@ -4,6 +4,21 @@
 @c when you add a new item, consider moving the lowest item(s)
 @c into news-old.itexi.
 
+@c FIXME: fill in number
+@c used for news about the upcoming release; see CG x.y
+@c DO NOT WRITE BETWEEN THESE LINES
+@newsItem
+@subsubheading LilyPond 2.13.10 released!  @emph{December 31, 2009}
+
+We are happy to announce the release of LilyPond 2.13.10.  This
+release is intended for developers only, and brings a number of
+improvements such as predictable regression test output filenames
+and English names for feta filenames.
+
+@newsEnd
+@c DO NOT WRITE BETWEEN THESE LINES
+
+
 @newsItem
 @subsubheading LilyPond 2.12.3 released!  @emph{December 20, 2009}
 
