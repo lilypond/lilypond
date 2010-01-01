@@ -46,43 +46,15 @@ proc forceLen {len name el op} {
     set $old [set $name]
 }
 
-## entryLimit - a convenience proc for managing traces on entry widgets
-## Perhaps to make this even nicer, it could create a textvar for the
-## user with the name the same as the entry?
-# ARGS: entry           - the entry widget to trace
-#       traceProc       - trace procedure
-#       init            - initial value to use, defaults to {}
-## If traceProc=={}, then all write traces on the entry's textvar are
-## deleted.  This doesn't delete array traces.
-##
-proc entryLimit {entry traceProc {init {}}} {
-    if [string match {} [set var [$entry cget -textvariable]]] {
-        return -code error "-textvariable not set for entry \"$entry\""
-    }
+## Here is a wish example to use the routines.  Remember that with
+## write traces, a valid value must be set for each variable both
+## before AND after the trace is established.
 
-    if {[string compare $traceProc {}]} {
-        ## TextVars are always considered global
-        uplevel \#0 [list set $var $init]
-        uplevel \#0 [list trace variable $var w $traceProc]
-        if {[catch {uplevel \#0 [list set $var $init]} err]} {
-            ## If this errors out, the $init value was bad, or
-            ## something was wrong with the traceProc
-            return -code error "an error was received setting the initial\
-                    value of \"$var\" to \"$init\".  Make sure the value is\
-                    valid and the traceProc is functional:\n$err"
-        } else {
-            ## Do you really want to delete the trace when
-            ## destroying the entry?
-            #bind $entry <Destroy> [list + trace vdelete $var w $traceProc]
-            return
-        }
-    }
-    foreach p [uplevel \#0 [list trace vinfo $var]] {
-        if {[string match w [lindex $p 0]]} {
-            uplevel \#0 trace vdelete [list $var] $p
-        }
-    }
-}
+## The order must be:
+## 1) variable init
+## 1) textvariable specification
+## 3) set trace
+## 4) variable reinit
 
 set commit_header {}
 trace variable commit_header w {forceLen 50}
