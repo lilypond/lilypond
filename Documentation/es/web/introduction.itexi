@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 5fc07388a3ba9a0cb7f72d0a31949696d7bbd327
+    Translation of GIT committish: 7b34eac90f81c8123feaf2670fafae236101f14c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -76,7 +76,9 @@ espaciado, cambiar símbolos de sitio, o dando forma a las ligaduras.
 @end itemize
 @divEnd
 
-
+@c TRANSLATORS, translations are not yet compiled in Info format, so
+@c it's not worth translating the right column of the following
+@c menu. -JM
 @divClass{hide}
 @menu
 * Posibilidades::               ¿Qué puede hacer LilyPond?
@@ -106,14 +108,14 @@ espaciado, cambiar símbolos de sitio, o dando forma a las ligaduras.
 @imageFloat{flat-design,png,right}
 
 El propósito de LilyPond es que lo usemos para producir partituras
-elegantes que sean fáciles de leer.  La comunidad de desarrolladores
-de LilyPond ha empleado miles de horas en desarrollar un programa de
-grabado musical que produce como resultado música impresa de forma
-hermosa.  Todos los ajustes de estilo de LilyPond, el diseño de las
-fuentes y los algoritmos se han inspirado en la mejor música grabada a
-mano.  La salida de LilyPond tiene el mismo aspecto robusto,
-equilibrado y elegante que las partituras clásicas mejor grabadas.
-Todo esto se explica con detalle en nuestro @ref{Ensayo}.
+elegantes que sean fáciles de leer.  Su comunidad de desarrolladores
+ha empleado miles de horas en desarrollar un programa de grabado
+musical que produce como resultado música impresa de forma hermosa.
+Todos los ajustes de estilo de LilyPond, el diseño de las fuentes y
+los algoritmos se han inspirado en la mejor música grabada a mano.  La
+salida de LilyPond tiene el mismo aspecto robusto, equilibrado y
+elegante que las partituras clásicas mejor grabadas.  Todo esto se
+explica con detalle en nuestro @ref{Ensayo}.
 
 
 @subsubheading Menos complicaciones
@@ -153,8 +155,8 @@ partituras basados en gráficos).
 @imageFloat{lilypond-book,png,right}
 
 Inserte fragmentos de música dentro de textos sin cortar y pegar
-imágenes.  Integre música dentro de LaTeX o HTML de manera fácil, o
-añada música a los documentos de OpenOffice.org con ooolilypond.
+imágenes.  Integre música dentro de @LaTeX o HTML de manera fácil, o
+añada música a los documentos de OpenOffice.org con OOoLilyPond.
 
 
 
@@ -174,16 +176,16 @@ que lo haga.
 
 Todos los ajustes se pueden modificar para que se combinen con su
 gusto tipográfico personal.  Si eso no es suficiente, siempre nos
-queda el lenguaje de guiones incorporado, un dialecto del potente
-lenguaje LISP.  Todos los ajustes, variables y funciones están
+queda el lenguaje de guiones Scheme incorporado, un dialecto del
+potente lenguaje LISP.  Todos los ajustes, variables y funciones están
 documentados en el completo manual de referencia del programa.
 
 
 @subsubheading Soporte excelente
 
-LilyPond funciona en todas las plataformas populares: Linux, MacOS X y
-Windows.  LilyPond viene con una completa documentación y cientos de
-archivos de ejemplo.  Existe una activa comunidad de usuarios
+LilyPond funciona en todas las plataformas populares: GNU/Linux, MacOS
+X y Windows.  LilyPond viene con una completa documentación y cientos
+de archivos de ejemplo.  Existe una activa comunidad de usuarios
 dispuesta a responder dudas y cuestiones en la lista de distribución
 de correo de usuarios de Lilypond, mientras que el equipo de
 desarrollo se asegura de que los problemas se resuelven con prontitud.
@@ -252,7 +254,7 @@ este pasaje de canto gregoriano.
 
 Los compositores contemporáneos encuentran que Lilypond es adecuado
 para la impresión de notación inusual.  He aquí un extracto de la obra
-@emph{Cáry}, de Trevor Bača, para flauta baja sola.
+@emph{Čáry}, de Trevor Bača, para flauta baja sola.
 
 @exampleImage{cary}
 @newsEnd
@@ -576,7 +578,7 @@ lugar infórmese sobre nuestra @ref{Entrada de texto}.
 @imageFloat{carter-brey,jpg, right}
 @subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, primer cello de la Filarmónica de Nueva York
 
-@qq{... He escrito un par de piezas para violoncello solista que he
+@qq{@dots{} He escrito un par de piezas para violoncello solista que he
 impreso con LilyPond y que voy a enviar a Schirmer para su
 publicación.  ¡Puedo apostar a que su grabado no será ni la mitad de
 bueno que el mío!}
@@ -625,7 +627,7 @@ las más recientes de @q{las editoras antiguas}). (...)}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, programador principal del proyecto @uref{http://www.rosegardenmusic.com/, RoseGarden}.
+@subsubheading Chris Cannam, programador principal del proyecto @uref{http://www.rosegardenmusic.com/, RoseGarden}
 
 @qq{Lilypond es, obviamente, King Kong [de la tipografía musical a lo
 grande].}
@@ -689,14 +691,14 @@ es realmente bueno.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, director de orquesta en el Teatro de Koblenz, Alemania, y destacado hacker de GNU.
+@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, director de orquesta en el Teatro de Koblenz, Alemania, y destacado hacker de GNU
 
 @qq{¡De cualquier manera, LilyPond hace un trabajo sensacional!}
 @divEnd
 
 
 @divClass{testimonial-item}
-@subsubheading Paul Davis, desarrollador de @uref{http://jackaudio.org/, JACK} y @uref{http://www.ardour.org/, Ardour}.
+@subsubheading Paul Davis, desarrollador de @uref{http://jackaudio.org/, JACK} y @uref{http://www.ardour.org/, Ardour}
 
 @qq{Creo que [LilyPond] es un programa increíble, y produce un
 resultado realmente maravilloso.  Después de haber leído una reseña
@@ -726,7 +728,7 @@ Lea lo que tenemos que decirle sobre nuestra @ref{Entrada de texto}.
 nereid-shot,png, right}
 
 LilyPond es un sistema @emph{compilado}: se ejecuta sobre un archivo
-de texto que contiene las notas.  El resultado se puede ver en la
+de texto que describe la música.  El resultado se puede ver en la
 pantalla o imprimirse.  En cierto modo, LilyPond se parece más a un
 lenguaje de programación que a los programas de edición gráfica de
 partituras.
@@ -776,17 +778,18 @@ Junte acordes y letra para obtener una hoja guía de acordes:
 
 @subsubheading Particellas de orquesta
 
-El archivo de entrada contiene las notas de la pieza.  La partitura y
-las particellas se pueden hacer a partir de un solo archivo de
-entrada.  Así, un cambio en una nota siempre afecta tanto a las
-particellas como a la partitura general.  Para poder compartir las
-notas, asignamos la música a una variable:
+El archivo de entrada contiene las notas de la pieza musical.  La
+partitura y las particellas se pueden hacer a partir de un solo
+archivo de entrada, de manera que un cambio en una nota siempre afecta
+tanto a las particellas como a la partitura general.  Para poder
+incluir la misma música en varios lugares, asignamos la música a una
+@qq{variable} (un nombre):
 
 @imageFloat{text-input-parts-both-annotate-es,png,center}
 
 
 Esta variable se usa entonces en una sola parte instrumental (aquí
-transportada, con los silencios agrupados):
+transportada, con los silencios de varios compases agrupados):
 
 @imageFloat{text-input-parts-single-annotate-es,png,center}
 @imageFloat{text-input-parts-single-output,png,center}
@@ -816,6 +819,9 @@ exactamente tay y como está diseñado para hacerlo.
 
 @subsubheading Entornos de edición facilitados
 
+@imageClickable{lilykde-screenshot-small,png,
+  (puse para ver una imagen más grande),lilykde-screenshot,png,right}
+
 La preocupación de LilyPond está en primer lugar en la producción de
 música tipografiada con la máxima calidad; la creación de una interfaz
 gráfica de usuario (un GUI) nos habría distraído de esta meta.  Sin
@@ -825,16 +831,16 @@ creación de archivos de entrada de LilyPond.
 Ciertos entornos de edición incluyen el coloreado sintáctico,
 compleción automática de instrucciones y plantillas preelaboradas.
 Otros programas ofrecen realmente un GUI que permite la manipulación
-directa de una partitura gráfica.  Para ver más información, lea
-nuestra documentación sobre @ref{Entornos mejorados}.
+directa de una partitura gráfica.  Para ver más información, consulte
+@ref{Entornos mejorados}.
 
 
 @divClass{column-center-bottom}
 @subheading Y ahora ¿qué?
 
 Ya está preparado para @ref{Descarga, Descargar LilyPond}.  ¿Aún no
-está convencido?  Lea lo que tenemos que decirle acerca de los
-entornos de edición en @ref{Entornos mejorados}.
+está convencido?  Lea algo sobre los entornos de edición en
+@ref{Entornos mejorados}.
 
 @divEnd
 
@@ -919,7 +925,7 @@ Linux y otros sistemas operativos del tipo UNIX.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-@c @ure f{http://FIXME}
+@uref{http://www.gnu.org/software/emacs/}
 
 Emacs es un editor de texto con funcionalidades avanzadas para muchos
 lenuajes de programación.  Emacs es un editor ampliamente expandible y
@@ -927,11 +933,13 @@ se puede usar como un entorno integrado de desarrollo.  Existe un
 @q{modo de lilypond} que ofrece las definiciones del lenguaje para
 trabajar sobre archivos fuente de Lilypond.
 
+@uref{http://www.vim.org}
+
 Vim es un editor de texto minimalista que es una extensión del antiguo
 editor @command{vi} de Unix.  También es expandible y configurable.
 
-Por regla general, si no está familiarizado previamente con emacs o
-con vim, probablemente prefiera utilizar un editor distinto para
+Por regla general, si no está familiarizado previamente con Emacs o
+con Vim, probablemente prefiera utilizar un editor distinto para
 escribir archivos de entrada de LilyPond.
 
 @divEnd
@@ -1035,9 +1043,6 @@ convertidor monofónico de MIDI a LilyPond en tiempo real.
 @item
 @uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi},
 un modo principal de Emacs.
-@item
-@uref{http://@/www@/.nongnu@/.org/@/xml2ly/,xml2ly}, que importa
-@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
 @item
 @uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
 una biblioteca de LISP para generar notación musical
