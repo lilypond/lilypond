@@ -4,7 +4,7 @@
 # Copyright 2009 by Johannes Schindelin and Carl Sorensen
 #
 
-set version 0.62
+set version 0.63
 
 # set to 1 to set up for translation, to 0 for other
 set translator 0
@@ -143,8 +143,8 @@ proc update_lilypond {rebase} {
 		git reset --hard origin/$originHead
 		git config branch.$originHead.remote origin
 		git config branch.$originHead.merge refs/heads/$originHead
-                .buttons.commit configure -state normal
-                .buttond.amend configure -state normal
+                .buttons.commitFrame.commit configure -state normal
+                .buttons.commitFrame.amend configure -state normal
                 .buttons.update configure -text buttonUpdateText
                 .buttons.patch configure -state normal
                 .buttons.panic configure -state normal
@@ -300,12 +300,17 @@ wm title . $windowTitle
 # Buttons
 
 panedwindow .buttons
+
+frame  .buttons.commitFrame
+button .buttons.commitFrame.commit -text "2a. New local commit" -command commit
+button .buttons.commitFrame.amend -text "2b. Amend previous commit" -command commit_amend
+pack .buttons.commitFrame.commit -fill x
+pack .buttons.commitFrame.amend -fill x
+
 button .buttons.update -text $updateButtonText \
           -command update_lilypond_with_rebase
-button .buttons.commit -text "2. Local commit" -command commit
 button .buttons.patch -text "3. Make patch set" \
           -command patch_from_origin
-button .buttons.amend -text "Amend previous commit" -command commit_amend
 toggle_rebase
 button .buttons.panic -text "Abort changes -- Reset to origin" \
           -command abort_changes -fg Blue -bg Red
@@ -313,8 +318,8 @@ label   .buttons.spacer -text "                         "
 if {![file exists $lily_dir]} {
 	.buttons.update configure \
             -text $initializeButtonText
-        .buttons.commit configure -state disabled
-        .buttons.amend configure -state disabled
+        .buttons.commitFrame.commit configure -state disabled
+        .buttons.commitFrame.amend configure -state disabled
         .buttons.patch configure -state disabled
         .buttons.panic configure -state disabled
 }
@@ -322,11 +327,10 @@ if {![file exists $lily_dir]} {
 #  Operating buttons
 
 pack .buttons.update -side left
-pack .buttons.commit -side left
+pack .buttons.commitFrame -side left
 pack .buttons.patch -side left
 pack .buttons.spacer -side left
 pack .buttons.panic -side right
-pack .buttons.amend -side right
 
 
 # Output text box
