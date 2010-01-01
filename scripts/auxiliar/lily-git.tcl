@@ -4,7 +4,7 @@
 # Copyright 2009 by Johannes Schindelin and Carl Sorensen
 #
 
-set version 0.61
+set version 0.62
 
 # set to 1 to set up for translation, to 0 for other
 set translator 0
@@ -103,7 +103,7 @@ proc commit {} {
     } else {
       git commit -a -m $commit_message
       git rebase --whitespace=fix HEAD^
-    set commit_message ""
+    set commit_message "2
     }
   }
 }
@@ -302,11 +302,11 @@ wm title . $windowTitle
 panedwindow .buttons
 button .buttons.update -text $updateButtonText \
           -command update_lilypond_with_rebase
-button .buttons.commit -text "2. Make local commit" -command commit
-button .buttons.amend -text "3. Amend previous commit" -command commit_amend
-toggle_rebase
-button .buttons.patch -text "4. Make patch set" \
+button .buttons.commit -text "2. Local commit" -command commit
+button .buttons.patch -text "3. Make patch set" \
           -command patch_from_origin
+button .buttons.amend -text "Amend previous commit" -command commit_amend
+toggle_rebase
 button .buttons.panic -text "Abort changes -- Reset to origin" \
           -command abort_changes -fg Blue -bg Red
 label   .buttons.spacer -text "                         "
@@ -323,10 +323,10 @@ if {![file exists $lily_dir]} {
 
 pack .buttons.update -side left
 pack .buttons.commit -side left
-pack .buttons.amend -side left
 pack .buttons.patch -side left
 pack .buttons.spacer -side left
 pack .buttons.panic -side right
+pack .buttons.amend -side right
 
 
 # Output text box
