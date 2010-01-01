@@ -1060,17 +1060,14 @@ sub lilypond_generate_page_toc_body($)
       push (@toc_entries, generate_ly_toc_entries($_, \%parentelements, $page_toc_depth));
     }
     # search box
-    if ($sergsmoeivjriohuemf) {
-        # WTF, perl needs 6 lines of magic to do: ' ' + open ('file-name').read ()?
-	local $/=undef;
-        my $name = "search-box.html";
-	open FILE, "$ENV{SRC_DIR}/$name" or open FILE, "$ENV{SRC_DIR}/../$name" or die "no such file: $name: $!";
+    local $/=undef;
+    my $name = "search-box.html";
+    open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$name" or die "no such file: $name: $!";
+    my $search_string = <FILE>;
+    $search_string = "<li>\n" . $search_string . "</li>\n";
+    push (@toc_entries, $search_string);
+    close FILE;
 
-	my $string = <FILE>;
-	$string =  "<li>\n" . $string . "</li>\n";
-	push (@toc_entries, $string);
-	close FILE;
-    }
     push (@toc_entries, "</ul>\n");
     if ($web_manual) {
 	push (@toc_entries, "\n");

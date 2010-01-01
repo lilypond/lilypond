@@ -22,7 +22,7 @@ endif
 ################################################################
 OUT=out-website
 
-TEXI2HTML = SRC_DIR=$(top-src-dir)/Documentation/ PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
+TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 
 EXTRACT_TEXI_FILENAMES=python $(script-dir)/extract_texi_filenames.py
 CREATE_VERSION=python $(script-dir)/create-version-itexi.py
