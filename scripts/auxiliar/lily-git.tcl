@@ -4,7 +4,7 @@
 # Copyright 2009 by Johannes Schindelin and Carl Sorensen
 #
 
-set version 0.63
+set version 0.64
 
 # set to 1 to set up for translation, to 0 for other
 set translator 0
@@ -25,6 +25,72 @@ if {$translator == 1} {
         set rebase 1
 }
 package require Tk
+
+
+##  Entry limit routine from jeff at hobbs org, downloaded from
+##  http://www.purl.org/net/hobbs/tcl/tclet/entrylimit.html
+
+## For those who aren't using Tk4 with these, make a bell noop:
+if [string match {} [info commands bell]] { proc bell args {} }
+
+proc forceLen {len name el op} {
+    global $name ${name}_len
+    if [string comp $el {}] {
+        set old  ${name}_len\($el)
+        set name $name\($el)
+    } else { set old ${name}_len }
+    if {[string length [set $name]] > $len} {
+        set $name [set $old]
+        bell; return
+    }
+    set $old [set $name]
+}
+
+## entryLimit - a convenience proc for managing traces on entry widgets
+## Perhaps to make this even nicer, it could create a textvar for the
+## user with the name the same as the entry?
+# ARGS: entry           - the entry widget to trace
+#       traceProc       - trace procedure
+#       init            - initial value to use, defaults to {}
+## If traceProc=={}, then all write traces on the entry's textvar are
+## deleted.  This doesn't delete array traces.
+##
+proc entryLimit {entry traceProc {init {}}} {
+    if [string match {} [set var [$entry cget -textvariable]]] {
+        return -code error "-textvariable not set for entry \"$entry\""
+    }
+
+    if {[string compare $traceProc {}]} {
+        ## TextVars are always considered global
+        uplevel \#0 [list set $var $init]
+        uplevel \#0 [list trace variable $var w $traceProc]
+        if {[catch {uplevel \#0 [list set $var $init]} err]} {
+            ## If this errors out, the $init value was bad, or
+            ## something was wrong with the traceProc
+            return -code error "an error was received setting the initial\
+                    value of \"$var\" to \"$init\".  Make sure the value is\
+                    valid and the traceProc is functional:\n$err"
+        } else {
+            ## Do you really want to delete the trace when
+            ## destroying the entry?
+            #bind $entry <Destroy> [list + trace vdelete $var w $traceProc]
+            return
+        }
+    }
+    foreach p [uplevel \#0 [list trace vinfo $var]] {
+        if {[string match w [lindex $p 0]]} {
+            uplevel \#0 trace vdelete [list $var] $p
+        }
+    }
+}
+
+set commit_header {}
+trace variable commit_header w {forceLen 50}
+set commit_header {}
+
+
+## End of entry limit code
+
 
 # Helper functions
 
