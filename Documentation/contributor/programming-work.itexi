@@ -1291,13 +1291,13 @@ is extracted from that email, which can be found at
 The headings reflect questions from Doug or comments from Han-Wen;
 the body text are Han-Wen's answers.
 
-@subsubsection Figuring out how things work.
+@unnumberedsubsubsec Figuring out how things work.
 
 I must admit that when I want to know how a program works, I use grep
 and emacs and dive into the source code. The comments and the code
 itself are usually more revealing than technical documents.
 
-@subsubsection What's a grob, and how is one used?
+@unnumberedsubsubsec What's a grob, and how is one used?
 
 Graphical object - they are created from within engravers, either as
 Spanners (derived class) -slurs, beams- or Items (also a derived
@@ -1308,12 +1308,12 @@ contaning a "line of music") and Paper_column (derived from Item, it
 contains all items that happen at the same moment). They are separate
 classes because they play a special role in the linebreaking process.
 
-@subsubsection What's a smob, and how is one used?
+@unnumberedsubsubsec What's a smob, and how is one used?
 
 A C(++) object that is encapsulated so it can be used as a Scheme
 object.  See GUILE info, "19.3 Defining New Types (Smobs)"
 
-@subsubsection When is each C++ class constructed and used
+@unnumberedsubsubsec When is each C++ class constructed and used
 
 @itemize
 
@@ -1359,7 +1359,7 @@ BTW, the entry point for interpreting is ly:run-translator
 
 @end itemize
 
-@subsubsection Can you get to Context properties from a Music object?
+@unnumberedsubsubsec Can you get to Context properties from a Music object?
 
 You can create music object with a Scheme function that reads context
 properties (the \applycontext syntax). However, that function is
@@ -1367,35 +1367,34 @@ executed during Interpreting, so you can not really get Context
 properties from Music objects, since music objects are not directly
 connected to Contexts. That connection is made by the  Music_iterators
 
-@subsubsection Can you get to Music properties from a Context object?
+@unnumberedsubsubsec Can you get to Music properties from a Context object?
 
 Yes, if you are given the music object within a Context
 object. Normally, the music objects enter Contexts in synchronized
 fashion, and the synchronization is done by Music_iterators.
 
-@subsubsection What is the relationship between C++ classes and Scheme objects?
+@unnumberedsubsubsec What is the relationship between C++ classes and Scheme objects?
 
 Smobs are C++ objects in Scheme. Scheme objects (lists, functions) are
 manipulated from C++ as well using the GUILE C function interface
 (prefix: scm_)
 
-@subsubsection How do Scheme procedures get called from C++ functions?
+@unnumberedsubsubsec How do Scheme procedures get called from C++ functions?
 
 scm_call_*, where * is an integer from 0 to 4.
 Also scm_c_eval_string (), scm_eval ()
 
-@subsubsection How do C++ functions get called from Scheme procedures?
+@unnumberedsubsubsec How do C++ functions get called from Scheme procedures?
 
 Export a C++ function to Scheme with LY_DEFINE.
 
-@subsubsection What is the flow of control in the program?
+@unnumberedsubsubsec What is the flow of control in the program?
 
 Good question.  Things used to be clear-cut, but we have Scheme
 and SMOBs now, which means that interactions do not follow a very
 rigid format anymore. See below for an overview, though.
 
-@subsubsection Does the parser make Scheme procedure calls or C++ function
-calls?
+@unnumberedsubsubsec Does the parser make Scheme procedure calls or C++ function calls?
 
 Both. And the Scheme calls can call C++ and vice versa. It's nested,
 with the SCM datatype as lubrication between the interactions
@@ -1403,7 +1402,7 @@ with the SCM datatype as lubrication between the interactions
 (I think the word "lubrication" describes the process better than the
 traditional word "glue")
 
-@subsubsection How do the front-end and back-end get started?
+@unnumberedsubsubsec How do the front-end and back-end get started?
 
 Front-end: a file is parsed, the rest follows from that. Specifically,
 
@@ -1449,26 +1448,26 @@ page-breaking, so now the backend also involves Paper_book,
 Paper_lines and other things. This area is still heavily in flux, and
 perhaps not something you should want to look at.
 
-@subsubsection How do the front-end and back-end communicate?
+@unnumberedsubsubsec How do the front-end and back-end communicate?
 
 There is no communication from backend to front-end. From front-end to
 backend is simply the program flow: music + definitions gives
 contexts, contexts yield output, after processing, output is written
 to disk.
 
-@subsubsection Where is the functionality associated with KEYWORDs?
+@unnumberedsubsubsec Where is the functionality associated with KEYWORDs?
 
 See my-lily-lexer.cc (keywords, there aren't that many) and ly/*.ly
 (most of the other backslashed \words are identifiers)
 
-@subsubsection What Contexts/Properties/Music/etc. are available when they are processed?
+@unnumberedsubsubsec What Contexts/Properties/Music/etc. are available when they are processed?
 
 What do you mean exactly with this question?
 
 See ly/engraver-init.ly for contexts, see scm/define-*.scm for other
 objects.
 
-@subsubsection How do you decide if something is a Music, Context, or Grob property?
+@unnumberedsubsubsec How do you decide if something is a Music, Context, or Grob property?
 Why is part-combine-status a Music property when it seems (IMO)
 to be related to the Staff context?
 
@@ -1485,7 +1484,7 @@ part-combine-status is part of such a synthetic event, used by
 Part_combine_iterator to communicate with Part_combine_engraver.
 
 
-@subsubsection I'm adding a property to affect how \autochange works.  It seems to
+@unnumberedsubsubsec I'm adding a property to affect how \autochange works.  It seems to
 me that it should be a context property, but the Scheme autochange
 procecure has a Music argument.  Does this mean I should use
 a Music property?
@@ -1510,15 +1509,15 @@ argument,
 where around-central-C is some function that is called from
 make-autochange-music.
 
-@subsubsection Also, I get lost figuring out what environment the code I'm looking at is in
-when it executes.  I found both the C++ and Scheme autochange code.  Then I was
+@unnumberedsubsubsec I get lost figuring out what environment the code I'm looking at is in when it executes.
+I found both the C++ and Scheme autochange code.  Then I was
 trying to figure out where the code got called from.  I finally figured out that
 the Scheme procedure was called before the C++ iterator code, but it took me a
 while to figure that out, and I still didn't know who did the calling in the
 first place.  I only know a little bit about Flex and Bison, so reading those
 files helped only a little bit.
 
-GDB can be of help here. Set a breakpoint in C++, and run. When you
+@emph{Han-Wen:} GDB can be of help here. Set a breakpoint in C++, and run. When you
 hit the breakpoint, do a backtrace. You can inspect Scheme objects
 along the way by doing
 
