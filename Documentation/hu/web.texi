@@ -27,6 +27,7 @@
 @omflanguage English
 @end ignore
 
+@c Translators: Dénes Harmath
 
 @copying
 Copyright @copyright{} 2009 a szerzők.
