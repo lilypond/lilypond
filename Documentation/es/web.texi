@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 48e4b7f1ecad464e3c9973d7b65eed2de1e546e0
+    Translation of GIT committish: 6c1cdaa331972442a8fd62d98da5adebfaa9a17b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -12,11 +12,14 @@
 @documentlanguage es
 @afourpaper
 
+@c `Web' was imported 2009-08-05 with git commit b938d71...
+@c @macro copyrightDeclare
+@c Copyright @copyright{} 2009 by the authors.
+@c @end macro
+
 @set FDL
 @set web
 @include macros.itexi
-
-@afourpaper
 
 @c don't remove this comment.
 @ignore
@@ -115,7 +118,11 @@ mediante ordenador.
 
 @divEnd
 
-
+@ifclear web_version
+  @c do nothing
+@end ifclear
+@ifset web_version
+  @c make the box:
 @divId{latestVersion}
 @subheading Enlaces rápidos
 
@@ -151,6 +158,110 @@ mediante ordenador.
 
 @contents
 
+@c ****************** GENERAL STUFF FOR INFO ************
+@ignore
+Distributions will want to install lilypond.info in postinstall, doing:
+
+    install-info --info-dir=/usr/share/info out[-www]/lilypond-web.info
+
+  * Prepend GNU for dir, must be unique.
+
+  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+    goes to Top.
+
+  * List all commands in direntry.
+
+@c  * lilypond: (lilypond-application)Running LilyPond.      Invoking the
+@c    LilyPond  program.
+@end ignore
+
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond: el tipografiador de música
+@direntry
+* Manual de aprendizaje de LilyPond: (lilypond-learning).  Comience por aquí.
+* Glosario musical: (music-glossary).                 Para usuarios de habla no inglesa.
+* LilyPond: (lilypond-notation).                      Referencia de la notación con LilyPond.
+* Fragmentos de código de LilyPond: (lilypond-snippets).         Consejos, trucos y ejemplos cortos.
+* Referencia de funcionamiento interno: (lilypond-internals).  Definiciones para la construcción de trucos.
+* Utilización del programa: (lilypond-application). Instalación y ejecución de las aplicaciones.
+* Página web: (lilypond-general).    Vista previa de la nueva página.
+* abc2ly: (lilypond-application)Invocación de abc2ly.      Importación de ABC.
+* convert-ly: (lilypond-application)Actualización de archivos mediante convert-ly. Versiones antiguas de LilyPond.
+* etf2ly: (lilypond-application)Invocar etf2ly.      Importación de Finale.
+* lilypond-book: (lilypond-application)LilyPond-book. Intergrar texto y música.
+* midi2ly: (lilypond-application)Invocar midi2ly.    Importación de MIDI.
+* musicxml2ly: (lilypond-application)Invocar musicxml2ly.  Importación de MusicXML.
+@end direntry
+
+
+@c FIXME: this still doesn't solve the broken links in pdf and big
+@c        html; we'll need a bunch of @iftext and stuff in here. -gp
+@c ****************** SPECIAL MACROS FOR WEB MANUAL ************
+@macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@subheading Léalo
+
+@itemize
+
+@c normal case, special online case
+@ifclear web_version
+  @item \refLink\:
+@end ifclear
+@ifset web_version
+  @c we assume that the online web version will be split html
+  @item \split\:
+@end ifset
+lea el manual en el mismo formato que éste.
+
+@end itemize
+
+@subheading Todos los formatos
+
+@divClass{keep-bullets}
+@itemize
+
+@ifclear web_version
+  @item @uref{../\base\/index.html, \name\ (HTML seccionado)}:
+@end ifclear
+@ifset web_version
+  @item \split\
+@end ifset
+  el manual está dividido en muchas páginas HTML.
+  @*@ @ @emph{(una descarga pequeña por cada página)}
+
+@ifclear web_version
+  @item @uref{../\base\-big-page.html, \name\ (HTML monolítico)}:
+@end ifclear
+@ifset web_version
+  @item \big\
+@end ifset
+  lea este manual como una sola página HTML enorme.
+  @*@ @ @emph{(una sola descarga grande, \bigsize\)}
+
+@ifclear web_version
+  @item @uref{../\base\.pdf, \base\.pdf}:
+@end ifclear
+@ifset web_version
+  @item \pdf\
+@end ifset
+  descárguelo como un archivo en formato PDF.
+  @*@ @ @emph{(una sola descarga grande, \pdfsize\)}
+
+@end itemize
+
+@divEnd
+
+@end macro
+
+@c don't add any extra spaces in this macro -gp
+@macro ifWebLinks{webLink,normalLink}
+@ifclear web_version
+  \normalLink\:
+@end ifclear
+@ifset web_version
+  \webLink\:
+@end ifset
+@end macro
 
 @include web/introduction.itexi
 @include web/download.itexi

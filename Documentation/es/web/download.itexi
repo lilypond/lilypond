@@ -1,25 +1,40 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 52a8a5f063a44589ae8d1a75da47682dace8175a
+    Translation of GIT committish: 20db6a6d6560eae53c1ba654f35a013b3267967d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@macro warningTextBased
+@warning{LilyPond es un sistema de grabado musical @strong{basado en
+texto}; se parece más a un lenguaje de programación que a un programa
+gráfico de edición de partituras.  Antes de descargar LilyPond
+infórmese sobre nuestra @ref{Entrada de texto}.}
+@end macro
 
 @node Descarga
 @unnumbered Descarga
 @translationof Download
 
 @divClass{heading-center}
-@heading Descargas para LilyPond @versionStable
+@ifclear web_version
+  @c yes, we want verisonDevel here, since the online links
+  @c for @version won't be up yet!
+@heading Descargas para LilyPond @versionDevel
+
+Los enlaces para la versión estable de LilyPond están en
+@uref{http://lilypond.org, lilypond.org}
+@end ifclear
+@ifset web_version
+  @heading Descargas para LilyPond @versionStable
+@end ifset
+
+@warningTextBased
 
 @divEnd
 
-@warning{LilyPond es un sistema de grabado musical @strong{basado en
-texto}; es más parecido a un lenguaje de programación que a un
-programa gráfico de edición de partituras.  Antes de descargar
-LilyPond le rogamos que lea lo que tenemos que decirle acerca de
-nuestra @ref{Entrada de texto}.}
+
 
 @divClass{column-left-top}
 @subheading Para usuarios
@@ -104,12 +119,12 @@ e imágenes de productos.
 
 @divClass{hide}
 @menu
-* Unix::                        
-* MacOS X::                     
-* Windows::                     
-* Código fuente::                      
-* Descargas antiguas::     
-* GPL::                         
+* Unix::
+* MacOS X::
+* Windows::
+* Código fuente::
+* Descargas antiguas::
+* GPL::
 @end menu
 @divEnd
 
@@ -117,6 +132,10 @@ e imágenes de productos.
 @node Unix
 @unnumberedsec Unix
 @translationof Unix
+
+@divClass{heading-center}
+@warningTextBased
+@divEnd
 
 @divClass{column-center-top}
 @subheading ¿Paquetes genéricos, o paquetes específicos de la distribución?
@@ -141,7 +160,13 @@ usar su gestor de paquetes.
 
 @item
 @sourceimage{logo-linux,,,}
+@ifclear web_version
+  @downloadDevelLinuxNormal
+@end ifclear
+@ifset web_version
 @downloadStableLinuxNormal
+@end ifset
+
 (si no está seguro, utilice éste)
 
 @item
@@ -193,28 +218,27 @@ actualizar a estas versiones.
 
 @item
 @sourceimage{logo-fedora,,,}
-@uref{https://admin.fedoraproject.org/pkgdb/packages/name/lilypond,
-Fedora: LilyPond 2.12.0}
+@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,Fedora: LilyPond 2.12.2}
 
 @item
 @sourceimage{logo-ubuntu,,,}
-@uref{https://launchpad.net/ubuntu/+source/lilypond,
-Ubuntu: LilyPond 2.12.1}
+@uref{http://packages.ubuntu.com/search?keywords=lilypond,
+Ubuntu: LilyPond 2.12.2}
 
 @item
 @sourceimage{logo-slackware,,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.12.1}
+Slackware: LilyPond 2.12.2}
 
 @item
 @sourceimage{logo-debian,,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.10.33}
+Debian: LilyPond 2.12.2}
 
 @item
 @sourceimage{logo-suse,,,}
-@uref{http://opensuse.org/?fixme=urg-no-lilypond-package-page,
-openSUSE: LilyPond 2.10.33}
+@uref{http://download.opensuse.org/repositories/openSUSE:/Factory:/Contrib/standard/,
+openSUSE: LilyPond 2.12.2}
 
 @end itemize
 
@@ -238,6 +262,10 @@ todos los logotipos e imágenes de producto.
 @node MacOS X
 @unnumberedsec MacOS X
 @translationof MacOS X
+
+@divClass{heading-center}
+@warningTextBased
+@divEnd
 
 @divClass{column-left-top}
 @subheading Paquetes
@@ -395,6 +423,10 @@ e imágenes de productos.
 @unnumberedsec Windows
 @translationof Windows
 
+@divClass{heading-center}
+@warningTextBased
+@divEnd
+
 @divClass{column-left-top}
 @subheading Paquetes
 
@@ -415,48 +447,31 @@ Para Windows ME, NT, 2000, XP, Vista y Windows 7.
 
 @item
 Localice el archivo descargado y haga doble click sobre él para
-arrancar el instalador.  Apareceá una ventana con el título @qq{Abrir
-programa: advertencia de seguridad}, pulse sobre Ejecutar para
-continuar.
+arrancar el instalador.
 
 @item
-Aparecerá el Acuerdo de Licencia; léalo detenidamente y pulse sobre el
-botón Siguiente si lo acepta.
-
-@item
-Es preferible que deje la carpeta de destino a su ajuste
-predeterminado; en caso contrario, elija una carpeta distinta y pulse
-sobre el botón Siguiente.
-
-@item
-A continuación está la ventana de Opciones de Instalación, deje las
-tres opciones marcadas, porque necesitará tenerlas todas
-instaladas. Pulse sobre el botón Siguiente.
-
-@item
-A continuación comienza la instalación; espere un minuto o menos a que
-se complete la instalación.  Hay un botón de Mostrar Detalles que si
-se pulsa mostrará todos los archivos que se instala y dónde lo hacen,
-nada que le deba interesar necesariamente.  Pulse sobre el botón
-Finalizar.
-
-@item
-Lilypond está instalado.
+Siga las instrucciones que le indica el instalador; le recomendamos
+que deje seleccionadas todas las opciones de instalación y que utilice
+la ruta de instalación predeterminada. Pulse sobre el botón
+@q{Finalizar} cuando el instalador termine. Lilypond está instalado.
 
 @end enumerate
 
 @subsubheading Desinstalación
 
-Hay dos rutas a la desinstalación:
+Para la desinstalación, elija entre:
 
 @enumerate
 
 @item
-Seleccione Uninstall del menú  Lilypond del botón Inicio
+Localizar el apartado de LilyPond en el menú Inicio y elegir
+@q{Uninstall}.  Pulse el botón @q{Finish} cuando termine el programa
+de desinstalación.
 
 @item
-Abra Instalar o Desinstalar Programas del panel de control, localice a
-Lilypond y pulse sobre el botón Desinstalar.
+Desde el Panel de control, busque y seleccione el programa Lilypond y
+elija la opción de desinstalar/quitar programa.  Pulse el botón
+@q{Finish} cuando termine el programa de desinstalación.
 
 @end enumerate
 
@@ -492,6 +507,10 @@ e imágenes de productos.
 @unnumberedsec Código fuente
 @translationof Source
 
+@divClass{heading-center}
+@warningTextBased
+@divEnd
+
 @warning{@strong{No} recomendamos que intente compilar LilyPond por sí
 mismo; casi todas las necesidades del usuario se satisfacen mejor con
 la versión precompilada.}
@@ -520,6 +539,10 @@ Las instrucciones se encuentran desarrolladas dentro de
 @node Descargas antiguas
 @unnumberedsec Descargas antiguas
 @translationof Old downloads
+
+@divClass{heading-center}
+@warningTextBased
+@divEnd
 
 @divClass{column-center-top}
 @subheading Todas las versiones
