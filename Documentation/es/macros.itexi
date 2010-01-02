@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: da7ce7d651c3a0d1bfed695f6e952975937a1c79
+    Translation of GIT committish: 93e15c93777bafc46949aa9bf5103feb6c17d8e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,6 +9,19 @@
 
 @include version.itexi
 @include common-macros.itexi
+
+@ignore
+****************************
+MACRO DEFINITIONS GUIDELINES
+****************************
+
+This file should contain macro defintions which are common to all
+languages, i.e. all macro definitions which do not contain text that
+should be translated (namely text visible in the output).
+
+Macro definitions which contain text that should be translated in
+translations should be in macros.itexi.
+@end ignore
 
 
 @c   ***** Displaying text *****
@@ -143,7 +156,7 @@ Este documento se ha puesto en el dominio público.
 
 @vskip 0pt plus 1filll
 
-@insertcopying{}
+@insertcopying
 
 Para la versión de LilyPond @version{}
 @end titlepage
