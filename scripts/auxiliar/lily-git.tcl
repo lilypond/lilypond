@@ -141,7 +141,7 @@ proc commit {} {
     } else {
       git commit -a -m $commit_message
       git rebase --whitespace=fix HEAD^
-    set commit_message "2
+      set commit_message ""
     }
   }
 }
