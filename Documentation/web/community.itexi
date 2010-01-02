@@ -897,9 +897,30 @@ instructive analysis of Rachmaninoff's Piano Prelude 6 engraving,
 including comparisons with a reference hand-engraved edition.
 
 @item
+June 2006
+
+@uref{http://distrowatch.com,DistroWatch} awards LilyPond and writes
+@uref{http://distrowatch.com/weekly.php?issue=20060605,writes}
+
+“Ladies and Gentleman, we are pleased to announce that, based on
+readers' requests, the DistroWatch May 2006 donation has been awarded to
+LilyPond (€190.00) and Lua (US$250.00).”
+
+@item
 December 2005
 
-Linux journal cover Linux Journal publishes an article titled
+@ignore
+we lost lj cover image here
+
+  <a href="@IMAGES@lj-cover140.png">
+    <img src="@IMAGES@lj-cover140-small.png" align="right" alt="linux journal cover">
+  </a>
+
+@uref{http://linuxjournal.com,Linux journal} cover
+@end ignore
+
+
+@uref{http://linuxjournal.com,Linux Journal}  publishes an article titled
 @uref{http://www.linuxjournal.com/article/8364, Make Stunning
 Schenker Graphs with GNU LilyPond}.  It is a in-depth but hands-on
 feature article with crisp LilyPond graphics.  Author Kris Shaffer
@@ -937,7 +958,8 @@ can do almost anything.}
 @item
 July, August 2004
 
-Dave Phillips wrote an introductory article for Linux Journal At
+Dave Phillips wrote an introductory article for
+@uref{http://linuxjournal.com,Linux Journal}: At
 the sounding edge: LilyPond, parts
 @uref{http://www.linuxjournal.com/article/7657, one} and
 @uref{http://www.linuxjournal.com/article/7719, two}.
@@ -945,8 +967,8 @@ the sounding edge: LilyPond, parts
 @item
 March 2004
 
-Chris Cannam interviewed Han-Wen Nienhuys and Jan Nieuwenhuizen on
-linuxmusician.com (site now defunct). This interview was also
+Chris Cannam @uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,interviewed} Han-Wen Nienhuys and Jan Nieuwenhuizen on
+linuxmusician.com (original site defunct).  This interview was also
 reviewed in a
 @uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=,
 slashdot story}.
