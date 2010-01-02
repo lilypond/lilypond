@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 93e15c93777bafc46949aa9bf5103feb6c17d8e2
+    Translation of GIT committish: 589e2953e6e0d90a73eafe0b31ba86651c62f6eb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -715,6 +715,35 @@ Para la versión de LilyPond @version{}
 
 @ifset web
 
+@macro exampleImage{IMAGE-FILE}
+@html
+<div class="float-center">
+  <a class="clickable" href="examples/\IMAGE-FILE\.png">
+    <img src="examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
+  </a>
+  <p style="text-align: center">
+    (pulse para ver una imagen más grande)
+  </p>
+</div>
+@end html
+@iftex
+@image{examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
+@end iftex
+@ifinfo
+@image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
+@end ifinfo
+@end macro
+
+@macro help{TEXT}
+@html
+<div class="help">
+<strong>
+  <span style="text-decoration:blink">Necesitamos ayuda:</span>
+</strong> \TEXT\
+</div>
+@end html
+@end macro
+
 @c LEGALESE
 
 @macro logoLegalLinux
@@ -765,21 +794,3 @@ Esta sección aún no está traducida; consulte el manual en inglés.
 
 
 
-@macro exampleImage{IMAGE-FILE}
-@html
-<div class="float-center">
-  <a class="clickable" href="examples/\IMAGE-FILE\.png">
-    <img src="examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
-  </a>
-  <p style="text-align: center">
-    (pulse para ver una imagen más grande)
-  </p>
-</div>
-@end html
-@iftex
-@image{examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
-@end iftex
-@ifinfo
-@image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
-@end ifinfo
-@end macro
