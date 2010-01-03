@@ -646,7 +646,7 @@ div.float-right a.clickable {
   float: left;
   width: 99.5%;
   text-align: left;
-  border: 1px solid #8bbb6b;
+  border: 1px solid #9ccc7c;
   margin: 1em auto;
 }
 
@@ -654,7 +654,7 @@ div.float-right a.clickable {
 .column-center-top h3 {
   background: #9ccc7c url(../pictures/color1-bg.png) repeat-x top left;
   text-align: left;
-  border-bottom: 1px solid #8bbb6b;
+  border-bottom: 1px solid #9ccc7c;
 }
 
 .column-left-top {
@@ -672,14 +672,14 @@ div.float-right a.clickable {
 
 .column-left-top,
 .column-left-bottom {
-  border: 1px solid #aabe70;
+  border: 1px solid #adce82;
 }
 
 /* color2 */
 .column-left-top h3,
 .column-left-bottom h3 {
-  background: #bbcf81 url(../pictures/color2-bg.png) repeat-x top left;
-  border-bottom: 1px solid #aabe70;
+  background: #adce82 url(../pictures/color2-bg.png) repeat-x top left;
+  border-bottom: 1px solid #adce82;
 }
 
 .column-right-top {
@@ -696,29 +696,29 @@ div.float-right a.clickable {
 
 .column-right-top,
 .column-right-bottom {
-  border: 1px solid #cac175;
+  border: 1px solid #bdd088;
 }
 
 /* color3 */
 .column-right-top h3,
 .column-right-bottom h3 {
-  background: #dbd286 url(../pictures/color3-bg.png) repeat-x top left;
-  border-bottom: 1px solid #cac175;
+  background: #bdd088 url(../pictures/color3-bg.png) repeat-x top left;
+  border-bottom: 1px solid #bdd088;
 }
 
 .column-center-bottom {
   clear: both;
   width: 99.5%;
   text-align: center;
-  border: 1px solid #e9c47b;
+  border: 1px solid #ccd38f;
   margin: 1em auto 0;
 }
 
 /* color4 */
 .column-center-bottom h3 {
-  background: #fad58c url(../pictures/color4-bg.png) repeat-x top left;
+  background: #ccd38f url(../pictures/color4-bg.png) repeat-x top left;
   text-align: left;
-  border-bottom: 1px solid #e9c47b;
+  border-bottom: 1px solid #ccd38f;
 }
 
 .column-center-top,
@@ -818,40 +818,40 @@ div.color4 h3 {
 }
 
 div.color1 {
-  border: 1px solid #8bbb6b;
+  border: 1px solid #9ccc7c;
   margin: 1em auto;
 }
 
 div.color1 h3 {
   background: #9ccc7c;
-  border-bottom: 1px solid #8bbb6b;
+  border-bottom: 1px solid #9ccc7c;
 }
 
 div.color2 {
-  border: 1px solid #aabe70;
+  border: 1px solid #adce82;
 }
 
 div.color2 h3 {
-  background: #bbcf81;
-  border-bottom: 1px solid #aabe70;
+  background: #adce82;
+  border-bottom: 1px solid #adce82;
 }
 
 div.color3 {
-  border: 1px solid #cac175;
+  border: 1px solid #bdd088;
 }
 
 div.color3 h3 {
-  background: #dbd286;
-  border-bottom: 1px solid #cac175;
+  background: #bdd088;
+  border-bottom: 1px solid #bdd088;
 }
 
 div.color4 {
-  border: 1px solid #e9c47b;
+  border: 1px solid #ccd38f;
 }
 
 div.color4 h3 {
-  background: #fad58c;
-  border-bottom: 1px solid #e9c47b;
+  background: #ccd38f;
+  border-bottom: 1px solid #ccd38f;
 }
 
 .keep-bullets ul {
