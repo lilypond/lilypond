@@ -49,15 +49,15 @@ a:focus {
 }
 
 a:link {
-  color: #00b945;
+  color: #0c51ab;
 }
 
 a:visited {
-  color: #5b2c26;
+  color: #804f01;
 }
 
 a:hover {
-  color: #006919;
+  color: #0105ad;
 }
 
 /* Table of Contents */
