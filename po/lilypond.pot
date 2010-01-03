@@ -1,10 +1,10 @@
 # Translation of LilyPond.
-# Copyright (C) 2008--2009 Han-Wen Nienhuys, Jan Nieuwenhuizen
-# This file is distributed under the same license as lilypond package.
+# Copyright (C) 1998--2009 Han-Wen Nienhuys, Jan Nieuwenhuizen
+# This file is distributed under the same license as the lilypond package.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.12.0\n"
+"Project-Id-Version: lilypond 2.13.10\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2008-12-20 11:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"

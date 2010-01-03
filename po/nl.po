@@ -1,5 +1,6 @@
 # nl.po -- GNU LilyPond's dutch language file
 # Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Jan Nieuwenhuizen <janneke@gnu.org>, Han-Wen Nienhuys <hanwen@xs4all.nl>.
+# This file is distributed under the same license as the lilypond package.
 # Jan Nieuwenhuizen <janneke@gnu.org>, 1998.
 # Han-Wen Nienhuys <hanwen@cs.uu.nl>, 1998.
 #
@@ -9,9 +10,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.13.4\n"
+"Project-Id-Version: lilypond 2.13.10\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2007-04-28 12:03+0200\n"
+"POT-Creation-Date: 2010-01-03 16:06+0100\n"
 "PO-Revision-Date: 2009-11-20 09:33+0100\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -38,87 +39,615 @@ msgstr "Zie de handleiding voor de details, en actualiseer handmatig."
 msgid "%s has been replaced by %s"
 msgstr "%s is vervangen door %s"
 
-#: convertrules.py:2408
+#: convertrules.py:24 musicexp.py:17 convert-ly.py:64 lilypond-book.py:108
+#: warn.cc:59 input.cc:109
+#, c-format, python-format
+msgid "warning: %s"
+msgstr "waarschuwing: %s"
+
+#: convertrules.py:49 convertrules.py:99
+msgid "\\header { key = concat + with + operator }"
+msgstr ""
+
+#: convertrules.py:58
+#, fuzzy, python-format
+msgid "deprecated %s"
+msgstr "Geëxtraheerd %s"
+
+#: convertrules.py:70
+msgid "deprecated \\textstyle, new \\key syntax"
+msgstr ""
+
+#: convertrules.py:86 convertrules.py:1905 convertrules.py:2084
+#: convertrules.py:2236 convertrules.py:2566 convertrules.py:2862
+msgid "bump version for release"
+msgstr ""
+
+#: convertrules.py:103
+msgid "new \\header format"
+msgstr ""
+
+#: convertrules.py:132
+msgid "\\translator syntax"
+msgstr ""
+
+#: convertrules.py:184
+msgid "\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative"
+msgstr ""
+
+#: convertrules.py:216 convertrules.py:699 convertrules.py:1383
+#: convertrules.py:2378
+#, python-format
+msgid "deprecate %s"
+msgstr ""
+
+#: convertrules.py:290
+#, python-format
+msgid "deprecate %s "
+msgstr ""
+
+#: convertrules.py:319
+msgid "new \\notenames format"
+msgstr ""
+
+#: convertrules.py:337
+msgid "new tremolo format"
+msgstr ""
+
+#: convertrules.py:342
+msgid "Staff_margin_engraver deprecated, use Instrument_name_engraver"
+msgstr ""
+
+#: convertrules.py:395
+msgid "change property definiton case (eg. onevoice -> oneVoice)"
+msgstr ""
+
+#: convertrules.py:457
+msgid "new \\textscript markup text"
+msgstr ""
+
+#: convertrules.py:530
+#, fuzzy, python-format
+msgid "identifier names: %s"
+msgstr "identifier naam is een sleutelwoord: `%s'"
+
+#: convertrules.py:569
+msgid "point-and-click argument changed to procedure."
+msgstr ""
+
+#: convertrules.py:611
+msgid "semicolons removed"
+msgstr ""
+
+#. 40 ?
+#: convertrules.py:654
+#, python-format
+msgid "%s property names"
+msgstr ""
+
+#: convertrules.py:724
+msgid "automaticMelismata turned on by default"
+msgstr ""
+
+#: convertrules.py:963 convertrules.py:1682 convertrules.py:1942
+#: convertrules.py:2189
+#, fuzzy, python-format
+msgid "remove %s"
+msgstr "Verwijderen van `%s'"
+
+#: convertrules.py:1001 convertrules.py:1005
+msgid "cluster syntax"
+msgstr ""
+
+#: convertrules.py:1014
+msgid "new Pedal style syntax"
+msgstr ""
+
+#: convertrules.py:1273
+msgid ""
+"New relative mode,\n"
+"Postfix articulations, new text markup syntax, new chord syntax."
+msgstr ""
+
+#: convertrules.py:1286
+msgid "Remove - before articulation"
+msgstr ""
+
+#: convertrules.py:1324
+#, python-format
+msgid "%s misspelling"
+msgstr ""
+
+#: convertrules.py:1346
+msgid "Swap < > and << >>"
+msgstr ""
+
+#: convertrules.py:1349
+msgid "attempting automatic \\figures conversion.  Check results!"
+msgstr ""
+
+#: convertrules.py:1400
+msgid "Use Scheme code to construct arbitrary note events."
+msgstr ""
+
+#: convertrules.py:1407
+msgid ""
+"use symbolic constants for alterations,\n"
+"remove \\outputproperty, move ly:verbose into ly:get-option"
+msgstr ""
+
+#: convertrules.py:1432
+#, python-format
+msgid ""
+"\\outputproperty found,\n"
+"Please hand-edit, using\n"
+"\n"
+"  \\applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY "
+"VALUE>)\n"
+"\n"
+"as a substitution text."
+msgstr ""
+
+#: convertrules.py:1446
+msgid ""
+"The alteration field of Scheme pitches was multiplied by 2\n"
+"to support quarter tone accidentals.  You must update the following "
+"constructs manually:\n"
+"\n"
+"* calls of ly:make-pitch and ly:pitch-alteration\n"
+"* keySignature settings made with \\property\n"
+msgstr ""
+
+#: convertrules.py:1493
+msgid "removal of automaticMelismata; use melismaBusyProperties instead."
+msgstr ""
+
+#: convertrules.py:1600
+msgid "\\partcombine syntax change to \\newpartcombine"
+msgstr ""
+
+#: convertrules.py:1628
+msgid ""
+"Drum notation changes, Removing \\chordmodifiers, \\notenames.\n"
+"Harmonic notes. Thread context removed. Lyrics context removed."
+msgstr ""
+
+#: convertrules.py:1632
+msgid "Drums found. Enclose drum notes in \\drummode"
+msgstr ""
+
+#: convertrules.py:1643 convertrules.py:1650 convertrules.py:1661
+#, python-format
+msgid ""
+"\n"
+"%s found. Check file manually!\n"
+msgstr ""
+
+#: convertrules.py:1643
+msgid "Drum notation"
+msgstr ""
+
+#: convertrules.py:1702
+msgid "new syntax for property settings:"
+msgstr ""
+
+#: convertrules.py:1728
+msgid "Property setting syntax in \\translator{ }"
+msgstr ""
+
+#: convertrules.py:1767
+msgid "Scheme grob function renaming"
+msgstr ""
+
+#: convertrules.py:1780
+#, fuzzy, python-format
+msgid "use %s"
+msgstr "Gebruik: %s"
+
+#: convertrules.py:1797
+msgid "More Scheme function renaming"
+msgstr ""
+
+#: convertrules.py:1924
+msgid ""
+"Page layout has been changed, using paper size and margins.\n"
+"textheight is no longer used.\n"
+msgstr ""
+
+#: convertrules.py:2010
+msgid ""
+"\\foo -> \\foomode (for chords, notes, etc.)\n"
+"fold \\new FooContext \\foomode into \\foo."
+msgstr ""
+
+#: convertrules.py:2048
+msgid ""
+"staff size should be changed at top-level\n"
+"with\n"
+"\n"
+"  #(set-global-staff-size <STAFF-HEIGHT-IN-POINT>)\n"
+"\n"
+msgstr ""
+
+#: convertrules.py:2068
+msgid "regularize other identifiers"
+msgstr ""
+
+#: convertrules.py:2136
+msgid "\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click"
+msgstr ""
+
+#: convertrules.py:2149
 msgid "LilyPond source must be UTF-8"
 msgstr "LilyPond bron moet UTF-8 zijn"
 
-#: convertrules.py:2411
+#: convertrules.py:2152
 msgid "Try the texstrings backend"
 msgstr "Probeer het textstring backend"
 
-#: convertrules.py:2414
+#: convertrules.py:2155
 #, python-format
 msgid "Do something like: %s"
 msgstr "Doe iets als: %s"
 
-#: convertrules.py:2417
+#: convertrules.py:2158
 msgid "Or save as UTF-8 in your editor"
 msgstr "Of bewaar als UTF-8 in je editor"
 
-#: fontextract.py:26
+#: convertrules.py:2212
+msgid "warn about auto beam settings"
+msgstr ""
+
+#: convertrules.py:2217
+msgid "auto beam settings"
+msgstr ""
+
+#: convertrules.py:2219
+msgid ""
+"\n"
+"Auto beam settings must now specify each interesting moment in a measure\n"
+"explicitly; 1/4 is no longer multiplied to cover moments 1/2 and 3/4 too.\n"
+msgstr ""
+
+#: convertrules.py:2333
+msgid "verticalAlignmentChildCallback has been deprecated"
+msgstr ""
+
+#: convertrules.py:2337
+msgid "Remove callbacks property, deprecate XY-extent-callback."
+msgstr ""
+
+#: convertrules.py:2358
+msgid "Use grob closures iso. XY-offset-callbacks."
+msgstr ""
+
+#: convertrules.py:2420
+msgid "foobar -> foo-bar for \\paper, \\layout"
+msgstr ""
+
+#: convertrules.py:2530
+msgid "deprecate \\tempo in \\midi"
+msgstr ""
+
+#: convertrules.py:2583
+msgid "deprecate cautionary-style. Use AccidentalCautionary properties"
+msgstr ""
+
+#: convertrules.py:2596
+msgid "Rename accidental glyphs, use glyph-name-alist."
+msgstr ""
+
+#: convertrules.py:2651
+msgid "edge-text settings for TextSpanner."
+msgstr ""
+
+#: convertrules.py:2652
+#, fuzzy, python-format
+msgid ""
+"Use\n"
+"\n"
+"%s"
+msgstr "Gebruik: %s"
+
+#: convertrules.py:2685
+msgid "Use the `alignment-offsets' sub-property of\n"
+msgstr ""
+
+#: convertrules.py:2686
+msgid "NonMusicalPaperColumn #'line-break-system-details\n"
+msgstr ""
+
+#: convertrules.py:2687
+msgid "to set fixed distances between staves.\n"
+msgstr ""
+
+#: convertrules.py:2699
+msgid "Use #'style not #'dash-fraction to select solid/dashed lines."
+msgstr ""
+
+#: convertrules.py:2705
+msgid "all settings related to dashed lines.\n"
+msgstr ""
+
+#: convertrules.py:2706
+msgid "Use \\override ... #'style = #'line for solid lines and\n"
+msgstr ""
+
+#: convertrules.py:2707
+msgid "\t\\override ... #'style = #'dashed-line for dashed lines."
+msgstr ""
+
+#: convertrules.py:2743
+msgid ""
+"metronomeMarkFormatter uses text markup as second argument,\n"
+"fret diagram properties moved to fret-diagram-details."
+msgstr ""
+
+#: convertrules.py:2748
+msgid "metronomeMarkFormatter got an additional text argument.\n"
+msgstr ""
+
+#: convertrules.py:2749
+#, python-format
+msgid ""
+"The function assigned to Score.metronomeMarkFunction now uses the signature\n"
+"%s"
+msgstr ""
+
+#: convertrules.py:2812
+msgid "\\put-adjacent argument order.\n"
+msgstr ""
+
+#: convertrules.py:2813
+msgid "Axis and direction now come before markups:\n"
+msgstr ""
+
+#: convertrules.py:2814
+msgid "\\put-adjacent axis dir markup markup."
+msgstr ""
+
+#: convertrules.py:2845
+msgid "re-definition of InnerStaffGroup.\n"
+msgstr ""
+
+#: convertrules.py:2851
+msgid "re-definition of InnerChoirStaff.\n"
+msgstr ""
+
+#: convertrules.py:2861
+msgid "Syntax changes for \\addChordShape and \\chord-shape"
+msgstr ""
+
+#: convertrules.py:2866
+msgid "stringTuning must be added to addChordShape call.\n"
+msgstr ""
+
+#: convertrules.py:2872
+msgid "stringTuning must be added to chord-shape call.\n"
+msgstr ""
+
+#: convertrules.py:2879
+msgid "Remove oldaddlyrics"
+msgstr ""
+
+#: convertrules.py:2883
+msgid ""
+"oldaddlyrics is no longer supported. \n"
+"         Use addlyrics or lyrsicsto instead.\n"
+msgstr ""
+
+#: convertrules.py:2889
+msgid ""
+"keySignature property not reversed any more\n"
+"MIDI 47: orchestral strings -> orchestral harp"
+msgstr ""
+
+#: convertrules.py:2894
+msgid "The alist for Staff.keySignature is no longer in reversed order.\n"
+msgstr ""
+
+#: convertrules.py:2900
+msgid ""
+"\\bar \".\" now produces a thick barline\n"
+"ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time\n"
+"Dash parameters for slurs and ties are now in dash-definition"
+msgstr ""
+
+#: convertrules.py:2906
+msgid "\\bar \".\" now produces a thick barline.\n"
+msgstr ""
+
+#: convertrules.py:2912
+msgid "Dash parameters for slurs and ties are now in 'dash-details.\n"
+msgstr ""
+
+#: convertrules.py:2917
+msgid ""
+"Autobeaming rules have changed.  override-auto-beam-setting and\n"
+"revert-auto-beam-setting have been eliminated.  \\overrideBeamSettings has "
+"been\n"
+"added.  beatGrouping has been eliminated.\n"
+"Different settings for vertical layout.\n"
+"ly:system-start-text::print -> system-start-text::print\n"
+"Beam #'thickness -> Beam #'beam-thickness\n"
+"ly:note-head::brew-ez-stencil -> note-head::brew-ez-stencil\n"
+"ly:ambitus::print -> ambitus::print\n"
+"Explicit dynamics context definition from `Piano centered dynamics'\n"
+"template replaced by new `Dynamics' context."
+msgstr ""
+
+#: convertrules.py:2930
+msgid ""
+"override-auto-beam-setting.\n"
+"   Autobeam settings are now overriden with \\overrideBeamSettings.\n"
+msgstr ""
+
+#: convertrules.py:2935
+msgid ""
+"override-auto-beam-setting.\n"
+"   Autobeam settings are now reverted with \\revertBeamSettings.\n"
+msgstr ""
+
+#: convertrules.py:2940
+msgid ""
+"beatGrouping. \n"
+"   beatGrouping with a specified context must now be accomplished with\n"
+"   \\overrideBeamSettings.\n"
+msgstr ""
+
+#: convertrules.py:2946
+msgid ""
+"alignment-offsets has been changed to alignment-distances: you must now "
+"specify the distances between staves rather than the offset of staves.\n"
+msgstr ""
+
+#: convertrules.py:2957
+msgid ""
+"Remove obsolete engravers/translators: Note_swallow_translator,\n"
+"Rest_swallow_translator, Skip_event_swallow_translator, Swallow_engraver,\n"
+"Swallow_performer and String_number_engraver."
+msgstr ""
+
+#: fontextract.py:25
 #, python-format
 msgid "Scanning %s"
 msgstr "Scannen %s"
 
-#: fontextract.py:71
+#: fontextract.py:70
 #, python-format
 msgid "Extracted %s"
 msgstr "Geëxtraheerd %s"
 
-#: fontextract.py:86
+#: fontextract.py:85
 #, python-format
 msgid "Writing fonts to %s"
 msgstr "Schrijven van fonts naar %s"
 
-#: lilylib.py:85 lilylib.py:136
+#: lilylib.py:101 lilylib.py:152
 #, python-format
 msgid "Invoking `%s'"
 msgstr "Aanroepen van `%s'"
 
-#: lilylib.py:87 lilylib.py:138
+#: lilylib.py:103 lilylib.py:154
 #, python-format
 msgid "Running %s..."
 msgstr "Draaien van %s..."
 
-#: lilylib.py:203
+#: lilylib.py:219
 #, python-format
 msgid "Usage: %s"
 msgstr "Gebruik: %s"
 
-#: abc2ly.py:1342 convert-ly.py:71 lilypond-book.py:110 midi2ly.py:858
+#: musicexp.py:216 musicexp.py:221
+msgid "Language does not support microtones contained in the piece"
+msgstr ""
+
+#: musicexp.py:483
+msgid "Tuplet brackets of curved shape are not correctly implemented"
+msgstr ""
+
+#: musicexp.py:669
+#, python-format
+msgid "unable to set the music %(music)s for the repeat %(repeat)s"
+msgstr ""
+
+#: musicexp.py:678
+msgid "encountered repeat without body"
+msgstr ""
+
+#. no self.elements!
+#: musicexp.py:848
+#, python-format
+msgid "Grace note with no following music: %s"
+msgstr ""
+
+#: musicexp.py:1010
+#, python-format
+msgid "Invalid octave shift size found: %s. Using no shift."
+msgstr ""
+
+#: musicexp.py:1468
+#, python-format
+msgid "Unable to convert alteration %s to a lilypond expression"
+msgstr ""
+
+#: musicxml.py:13 convert-ly.py:67 lilypond-book.py:111 warn.cc:65
+#: input.cc:115 input.cc:123
+#, c-format, python-format
+msgid "error: %s"
+msgstr "fout: %s"
+
+#. TODO: Handle pieces without a time signature!
+#: musicxml.py:357
+msgid "Senza-misura time signatures are not yet supported!"
+msgstr ""
+
+#: musicxml.py:375
+msgid "Unable to interpret time signature! Falling back to 4/4."
+msgstr ""
+
+#: musicxml.py:431
+#, python-format
+msgid ""
+"Key alteration octave given for a non-existing alteration nr. %s, available "
+"numbers: %s!"
+msgstr ""
+
+#: musicxml.py:519
+#, python-format
+msgid "Unable to find instrument for ID=%s\n"
+msgstr ""
+
+#: abc2ly.py:1372 convert-ly.py:87 lilypond-book.py:135 midi2ly.py:860
 #, python-format
 msgid "%s [OPTION]... FILE"
 msgstr "%s [OPTIE]... BESTAND"
 
-#: abc2ly.py:1344
-#, python-format
+#: abc2ly.py:1373
+#, fuzzy, python-format
 msgid ""
 "abc2ly converts ABC music files (see\n"
-"%s) to LilyPond input."
+"%s) to LilyPond input.\n"
 msgstr ""
 "abc2ly converteert ABC muziekbestanden (zie\n"
 "%s) naar LilyPond invoer."
 
-#: abc2ly.py:1348 etf2ly.py:1184 midi2ly.py:874
+#: abc2ly.py:1381 convert-ly.py:94 etf2ly.py:1206 lilypond-book.py:226
+#: midi2ly.py:896 musicxml2ly.py:2622 main.cc:168
+msgid "show version number and exit"
+msgstr "toon versienummer en sluit af"
+
+#: abc2ly.py:1385 convert-ly.py:98 etf2ly.py:1202 lilypond-book.py:152
+#: midi2ly.py:875 musicxml2ly.py:2604 main.cc:157
+msgid "show this help and exit"
+msgstr "toon deze hulp en sluit af"
+
+#: abc2ly.py:1387 etf2ly.py:1207 midi2ly.py:879
 msgid "write output to FILE"
 msgstr "schrijf uitvoer naar BESTAND"
 
-#: abc2ly.py:1350
-msgid "be strict about succes"
+#: abc2ly.py:1389
+#, fuzzy
+msgid "be strict about success"
 msgstr "wees strikt over succes"
 
-#: abc2ly.py:1352
+#: abc2ly.py:1391
 msgid "preserve ABC's notion of beams"
 msgstr "behoud ABC's notie van waardestrepen"
 
-#: abc2ly.py:1354 convert-ly.py:103 etf2ly.py:1192 lilypond-book.py:161
-#: midi2ly.py:900 musicxml2ly.py:506
-msgid "Report bugs via"
+#. Translators, please translate this string as
+#. "Report bugs in English via %s",
+#. or if there is a LilyPond users list or forum in your language
+#. "Report bugs in English via %s or in YOUR_LANG via URI"
+#: abc2ly.py:1394 convert-ly.py:138 etf2ly.py:1216 lilypond-book.py:233
+#: midi2ly.py:909 musicxml2ly.py:2690 main.cc:281
+#, c-format, python-format
+msgid "Report bugs via %s"
 msgstr ""
-"Meld fouten in het programma via %;\n"
-"meld onjuistheden in de vertaling aan <janneke@gnu.org> of <hanwen@xs4all.nl>."
+"Meld fouten in het programma aan %s;\n"
+"meld onjuistheden in de vertaling aan <janneke@gnu.org> of <hanwen@cs.uu.nl>."
 
-#: convert-ly.py:32
+#: convert-ly.py:44
 msgid ""
 "Update LilyPond input to newer version.  By default, update from the\n"
 "version taken from the \\version command, to the current LilyPond version."
@@ -126,506 +655,703 @@ msgstr ""
 "Actualiseer LilyPond invoer naar nieuwere versie.  Standaard, actualiseer\n"
 "vanaf versie uit het \\version commando, naar de huidige LilyPond versie."
 
-#: convert-ly.py:34 lilypond-book.py:59
+#: convert-ly.py:46 lilypond-book.py:85
 msgid "Examples:"
 msgstr "Voorbeelden:"
 
-#: convert-ly.py:47 lilypond-book.py:83 warn.cc:48 input.cc:90
-#, c-format, python-format
-msgid "warning: %s"
-msgstr "waarschuwing: %s"
+#: convert-ly.py:81 etf2ly.py:1189 lilypond-book.py:129 midi2ly.py:90
+#, python-format
+msgid "Copyright (c) %s by"
+msgstr "Copyright (c) %s"
 
-#: convert-ly.py:50 lilypond-book.py:86 warn.cc:54 input.cc:96 input.cc:104
-#, c-format, python-format
-msgid "error: %s"
-msgstr "fout: %s"
-
-#: convert-ly.py:66 etf2ly.py:1174 lilypond-book.py:106 midi2ly.py:87
+#: convert-ly.py:83 etf2ly.py:1191 lilypond-book.py:131 midi2ly.py:92
 msgid "Distributed under terms of the GNU General Public License."
 msgstr "Verspreid onder de voorwaarden van de GNU General Public License."
 
-#: convert-ly.py:67 etf2ly.py:1175 lilypond-book.py:107 midi2ly.py:88
+#: convert-ly.py:84 etf2ly.py:1192 lilypond-book.py:132 midi2ly.py:93
 msgid "It comes with NO WARRANTY."
 msgstr "Er is GEEN GARANTIE."
 
-#: convert-ly.py:77 convert-ly.py:97
+#: convert-ly.py:102 convert-ly.py:129
 msgid "VERSION"
 msgstr "VERSIE"
 
-#: convert-ly.py:79
+#: convert-ly.py:104
 msgid "start from VERSION [default: \\version found in file]"
 msgstr "begin bij VERSIE [standaard: \\version gevonden in bestand]"
 
-#: convert-ly.py:82
+#: convert-ly.py:107
 msgid "edit in place"
 msgstr "bewerk bestand ter plekke"
 
-#: convert-ly.py:85
+#: convert-ly.py:111
 msgid "do not add \\version command if missing"
 msgstr "voeg geen \\version commando toe als het niet aanwezig is"
 
-#: convert-ly.py:91
-msgid "show rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"
+#: convert-ly.py:117
+#, python-format
+msgid "force updating \\version number to %s"
+msgstr ""
+
+#: convert-ly.py:123
+#, fuzzy, python-format
+msgid "show rules [default: -f 0, -t %s]"
 msgstr "toon regels [standaard: --from=0, --to=@TOPLEVEL_VERSION@]"
 
-#: convert-ly.py:96
-msgid "convert to VERSION [default: @TOPLEVEL_VERSION@]"
+#: convert-ly.py:128
+#, fuzzy, python-format
+msgid "convert to VERSION [default: %s]"
 msgstr "converteer naar VERSIE [standaard: @TOPLEVEL_VERSION@]"
 
-#: convert-ly.py:144
+#: convert-ly.py:133 etf2ly.py:1210 lilypond-book.py:229 midi2ly.py:897
+#: main.cc:170
+msgid "show warranty and copyright"
+msgstr "toon garantie en auteursrechten"
+
+#: convert-ly.py:178
 msgid "Applying conversion: "
 msgstr "toepassen van conversie: "
 
-#: convert-ly.py:157
+#: convert-ly.py:191
 msgid "Error while converting"
 msgstr "%s: fout tijdens converteren"
 
-#: convert-ly.py:159
-msgid "Stopping at last succesful rule"
+#: convert-ly.py:193
+#, fuzzy
+msgid "Stopping at last successful rule"
 msgstr "Stop na de laatste succesvolle regel"
 
-#: convert-ly.py:181
+#: convert-ly.py:214
 #, python-format
 msgid "Processing `%s'... "
 msgstr "Verwerken van `%s'..."
 
-#: convert-ly.py:268 relocate.cc:363 source-file.cc:54
+#: convert-ly.py:307 relocate.cc:372 source-file.cc:65
 #, c-format, python-format
 msgid "cannot open file: `%s'"
 msgstr "kan bestand niet openen: `%s'"
 
-#: convert-ly.py:275
+#: convert-ly.py:314
 #, python-format
 msgid "cannot determine version for `%s'.  Skipping"
 msgstr "kan versie niet bepalen voor `%s'.  Overslaan"
 
-#: etf2ly.py:1180
+#: etf2ly.py:1195
 #, python-format
 msgid "%s [OPTION]... ETF-FILE"
 msgstr "%s [OPTIE]... ETF-BESTAND"
 
-#: etf2ly.py:1182
+#: etf2ly.py:1196
+#, fuzzy
 msgid ""
 "Enigma Transport Format is a format used by Coda Music Technology's\n"
 "Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond "
-"file."
+"file.\n"
 msgstr ""
 "Enigma Transport Format is een format dat wordt gebruikt door Coda\n"
 "Music Technology's Finale produkt.  Dit programma converteert een\n"
 "subset van ETF naar een gebruiksklaar lilypondbestand."
 
-#: etf2ly.py:1185 midi2ly.py:875 musicxml2ly.py:499 main.cc:154 main.cc:159
+#: etf2ly.py:1208 midi2ly.py:880 musicxml2ly.py:2682 main.cc:161 main.cc:166
 msgid "FILE"
 msgstr "BESTAND"
 
-#: etf2ly.py:1187 lilypond-book.py:158 midi2ly.py:888 main.cc:163
-msgid "show warranty and copyright"
-msgstr "toon garantie en auteursrechten"
-
-#: lilypond-book.py:57
-msgid "Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
+#: lilypond-book.py:83
+msgid ""
+"Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
 msgstr ""
 "Verwerk LilyPond snippers in hybride HTML, LaTeX, texinfo of DocBook "
 "document."
 
-#: lilypond-book.py:64
+#: lilypond-book.py:90
 msgid "BOOK"
 msgstr "BOEK"
 
-#: lilypond-book.py:72
+#: lilypond-book.py:98
 #, python-format
 msgid "Exiting (%d)..."
 msgstr "Afsluiten (%d)..."
 
-#: lilypond-book.py:104
-#, python-format
-msgid "Copyright (c) %s by"
-msgstr "Copyright (c) %s"
-
-#: lilypond-book.py:114
+#: lilypond-book.py:139
 msgid "FILTER"
 msgstr "FILTER"
 
-#: lilypond-book.py:117
-msgid "pipe snippets through FILTER [convert-ly -n -]"
+#: lilypond-book.py:142
+#, fuzzy
+msgid "pipe snippets through FILTER [default: `convert-ly -n -']"
 msgstr "pijp snippers door FILTER [convert-ly -n -]"
 
-#: lilypond-book.py:120
-msgid "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
+#: lilypond-book.py:146
+msgid ""
+"use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
 msgstr ""
 "gebruik uitvoerformat FORMAT (texi [standaard], texi-html, latex, html, "
 "docbook)"
 
-#: lilypond-book.py:123
+#: lilypond-book.py:147
+#, fuzzy
+msgid "FORMAT"
+msgstr "FORMAATen"
+
+#: lilypond-book.py:154
 msgid "add DIR to include path"
 msgstr "voeg MAP toe aan zoekpad"
 
-#: lilypond-book.py:124 lilypond-book.py:136 main.cc:153
+#: lilypond-book.py:155 lilypond-book.py:162 lilypond-book.py:181
+#: lilypond-book.py:186 lilypond-book.py:203 lilypond-book.py:209 main.cc:160
 msgid "DIR"
 msgstr "MAP"
 
-#: lilypond-book.py:129
+#: lilypond-book.py:160
+msgid "format Texinfo output so that Info will look for images of music in DIR"
+msgstr ""
+
+#: lilypond-book.py:167
+msgid "run executable PROG instead of latex"
+msgstr ""
+
+#: lilypond-book.py:168
+msgid "PROG"
+msgstr ""
+
+#: lilypond-book.py:173
 msgid "PAD"
 msgstr "VUL"
 
-#: lilypond-book.py:135
+#: lilypond-book.py:175
+msgid ""
+"pad left side of music to align music inspite of uneven bar numbers (in mm)"
+msgstr ""
+
+#: lilypond-book.py:180
+msgid "write lily-XXX files to DIR, link into --output dir"
+msgstr ""
+
+#: lilypond-book.py:185
 msgid "write output to DIR"
 msgstr "schrijf uitvoer naar MAP"
 
-#: lilypond-book.py:140
+#: lilypond-book.py:193
+#, fuzzy
+msgid "create PDF files for use with PDFTeX"
+msgstr "Maak PDF bestanden voor gebruik met PDFTeX"
+
+#: lilypond-book.py:196
 msgid "COMMAND"
 msgstr "OPDRACHT"
 
-#: lilypond-book.py:141
+#: lilypond-book.py:197
 msgid "process ly_files using COMMAND FILE..."
 msgstr "verwerk ly_bestanden met OPDRACHT BESTAND..."
 
-#: lilypond-book.py:147
-msgid "Create PDF files for use with PDFTeX"
-msgstr "Maak PDF bestanden voor gebruik met PDFTeX"
-
-#: lilypond-book.py:150
-msgid ""
-"extract all PostScript fonts into INPUT.psfonts for LaTeX\n"
-"must use this with dvips -h INPUT.psfonts"
+#: lilypond-book.py:202
+msgid "do not fail if no lilypond output is found"
 msgstr ""
-"extraheer alle PostScript fonts naar BESTAND voor LaTeX\n"
-"dit dient gebruikt te worden met dvips -h BESTAND"
 
-#: lilypond-book.py:153 midi2ly.py:885 musicxml2ly.py:490 main.cc:162
+#: lilypond-book.py:208
+msgid "do not fail if no PNG images are found for EPS files"
+msgstr ""
+
+#: lilypond-book.py:214
+msgid "write snippet output files with the same base name as their source file"
+msgstr ""
+
+#: lilypond-book.py:218 midi2ly.py:890 musicxml2ly.py:2627 main.cc:169
 msgid "be verbose"
 msgstr "wees breedsprakig"
 
-#: lilypond-book.py:768
+#: lilypond-book.py:933
 #, python-format
 msgid "file not found: %s"
 msgstr "bestand niet gevonden: %s"
 
-#: lilypond-book.py:999
+#: lilypond-book.py:1224
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr "verouderde ly-optie gebruikt: %s=%s"
 
-#: lilypond-book.py:1002
+#: lilypond-book.py:1226
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr "compatibiliteitsmodus vertaling: %s=%s"
 
-#: lilypond-book.py:1006
+#: lilypond-book.py:1229
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr "verouderde ly-optie gebruikt: %s"
 
-#: lilypond-book.py:1009
+#: lilypond-book.py:1231
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr "compatibiliteitsmodus vertaling: %s"
 
-#: lilypond-book.py:1028
+#: lilypond-book.py:1249
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr "negeren van onbekende ly optie: %s"
 
-#: lilypond-book.py:1382
+#: lilypond-book.py:1728
 #, python-format
 msgid "Opening filter `%s'"
 msgstr "Open filter `%s'"
 
-#: lilypond-book.py:1399
+#: lilypond-book.py:1745
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr "`%s' gefaald (%d)"
 
-#: lilypond-book.py:1400
+#: lilypond-book.py:1746
 msgid "The error log is as follows:"
 msgstr "De foutlog is als volgt:"
 
-#: lilypond-book.py:1472
+#: lilypond-book.py:1808
 msgid "cannot find \\begin{document} in LaTeX document"
 msgstr "kan \\begin{document} niet vinden in LaTeX dokument"
 
-#: lilypond-book.py:1583
+#: lilypond-book.py:1908
 msgid "Writing snippets..."
 msgstr "Schrijven van snippers..."
 
-#: lilypond-book.py:1588
+#: lilypond-book.py:1914
 msgid "Processing..."
 msgstr "Verwerken..."
 
-#: lilypond-book.py:1592
+#: lilypond-book.py:1920
 msgid "All snippets are up to date..."
 msgstr "Alle snippers zijn actueel..."
 
-#: lilypond-book.py:1602
+#: lilypond-book.py:1954
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr "kan formaat niet bepalen voor: %s"
 
-#: lilypond-book.py:1613
+#: lilypond-book.py:1965
 #, python-format
 msgid "%s is up to date."
 msgstr "%s is actueel."
 
-#: lilypond-book.py:1619
+#: lilypond-book.py:1979
 #, python-format
 msgid "Writing `%s'..."
 msgstr "Schrijven van `%s'..."
 
-#: lilypond-book.py:1674
+#: lilypond-book.py:2037
 msgid "Output would overwrite input file; use --output."
 msgstr "Uitvoer zou invoerbestand overschrijven; gebruik --output."
 
-#: lilypond-book.py:1678
+#: lilypond-book.py:2041
 #, python-format
 msgid "Reading %s..."
 msgstr "Lezen %s..."
 
-#: lilypond-book.py:1697
+#: lilypond-book.py:2061
 msgid "Dissecting..."
 msgstr "Ontleden..."
 
-#: lilypond-book.py:1713
+#: lilypond-book.py:2077
 #, python-format
 msgid "Compiling %s..."
 msgstr "Samenstellen %s..."
 
-#: lilypond-book.py:1722
+#: lilypond-book.py:2086
 #, python-format
 msgid "Processing include: %s"
 msgstr "Verwerken van invoegsel: %s"
 
-#: lilypond-book.py:1736
+#: lilypond-book.py:2098
 #, python-format
 msgid "Removing `%s'"
 msgstr "Verwijderen van `%s'"
 
-#: lilypond-book.py:1769
-msgid "option --psfonts not used"
-msgstr "optie --psfonts niet gebruikt"
-
-#: lilypond-book.py:1770
-msgid "processing with dvips will have no fonts"
-msgstr "verwerking met dvips zal geen fonts hebben"
-
-#: lilypond-book.py:1773
-msgid "DVIPS usage:"
-msgstr "DVIPS gebruik:"
-
-#: lilypond-book.py:1829
-#, python-format
-msgid "Writing fonts to %s..."
-msgstr "Schrijven van fonts naar %s"
-
-#: midi2ly.py:95 lily-library.scm:577 lily-library.scm:586
+#: midi2ly.py:99
 msgid "warning: "
 msgstr "waarschuwing: "
 
-#: midi2ly.py:98 midi2ly.py:913
+#: midi2ly.py:102 midi2ly.py:922
 msgid "error: "
 msgstr "fout: "
 
-#: midi2ly.py:99
-msgid "Exiting ... "
+#: midi2ly.py:103
+#, fuzzy
+msgid "Exiting... "
 msgstr "Beëindigen ..."
 
-#: midi2ly.py:846
+#: midi2ly.py:848
 #, python-format
 msgid "%s output to `%s'..."
 msgstr "%s uitvoer naar `%s'..."
 
-#: midi2ly.py:860 musicxml2ly.py:486
-#, python-format
-msgid "Convert %s to LilyPond input."
+#: midi2ly.py:861
+#, fuzzy, python-format
+msgid "Convert %s to LilyPond input.\n"
 msgstr "Converteer %s naar LilyPond invoer."
 
-#: midi2ly.py:864
+#: midi2ly.py:866
 msgid "print absolute pitches"
 msgstr "schrijf absolute toonhoogten"
 
-#: midi2ly.py:866 midi2ly.py:878
+#: midi2ly.py:868 midi2ly.py:883
 msgid "DUR"
 msgstr "DUUR"
 
-#: midi2ly.py:867
+#: midi2ly.py:869
 msgid "quantise note durations on DUR"
 msgstr "kwantiseer nootlengtes op DUUR"
 
-#: midi2ly.py:870
+#: midi2ly.py:872
 msgid "print explicit durations"
 msgstr "schrijf expliciete nootlengtes"
 
-#: midi2ly.py:871
+#: midi2ly.py:876
 msgid "set key: ALT=+sharps|-flats; MINOR=1"
 msgstr "zet toonsoort: VER=+kruizen|-mollen; MINEUR=1"
 
-#: midi2ly.py:872
+#: midi2ly.py:877
 msgid "ALT[:MINOR]"
 msgstr "VER[:MINEUR]"
 
-#: midi2ly.py:877
+#: midi2ly.py:882
 msgid "quantise note starts on DUR"
 msgstr "kwantiseer begin van noten op DUUR"
 
-#: midi2ly.py:880
+#: midi2ly.py:885
 msgid "DUR*NUM/DEN"
 msgstr "DUUR*NOEM/TEL"
 
-#: midi2ly.py:883
+#: midi2ly.py:888
 msgid "allow tuplet durations DUR*NUM/DEN"
 msgstr "sta tuplet lengtes DUUR*NOEM/TEL toe"
 
-#: midi2ly.py:891
+#: midi2ly.py:900
 msgid "treat every text as a lyric"
 msgstr "behandel elke tekst als liedtekst"
 
-#: midi2ly.py:894
+#: midi2ly.py:903
 msgid "Examples"
 msgstr "Voorbeelden"
 
-#: midi2ly.py:914
+#: midi2ly.py:923
 msgid "no files specified on command line."
 msgstr "geen bestanden gespecificeerd op de commandoregel."
 
-#: musicxml2ly.py:474
-msgid "musicxml2ly FILE.xml"
-msgstr "musicxml2ly BESTAND.xml"
-
-#: musicxml2ly.py:477
+#: musicxml2ly.py:324
 #, python-format
 msgid ""
-"This program is free software.  It is covered by the GNU General Public\n"
-"License and you are welcome to change it and/or distribute copies of it\n"
-"under certain conditions.  Invoke as `%s --warranty' for more\n"
-"information."
+"Encountered file created by %s, containing wrong beaming information. All "
+"beaming information in the MusicXML file will be ignored"
 msgstr ""
-"Dit is vrije programmatuur.  Het valt onder de GNU Algemene Openbare\n"
-"Licentie (General Public Licence), en u wordt uitgenodigd het te\n"
-"veranderen en/of te verspreiden onder bepaalde voorwaarden.  Roep aan\n"
-"als `%s --warranty' voor meer informatie."
 
-#: musicxml2ly.py:496
-msgid "Use lxml.etree; uses less memory and cpu time."
+#: musicxml2ly.py:340 musicxml2ly.py:342
+#, python-format
+msgid "Unprocessed PartGroupInfo %s encountered"
+msgstr ""
+
+#: musicxml2ly.py:572
+#, python-format
+msgid "Encountered note at %s without type and duration (=%s)"
+msgstr ""
+
+#: musicxml2ly.py:592
+#, python-format
+msgid ""
+"Encountered rational duration with denominator %s, unable to convert to "
+"lilypond duration"
+msgstr ""
+
+#: musicxml2ly.py:841
+msgid "Unable to extract key signature!"
+msgstr ""
+
+#: musicxml2ly.py:868
+#, python-format
+msgid "unknown mode %s, expecting 'major' or 'minor' or a church mode!"
+msgstr ""
+
+#: musicxml2ly.py:965
+#, python-format
+msgid "Encountered unprocessed marker %s\n"
+msgstr ""
+
+#: musicxml2ly.py:1059
+#, fuzzy, python-format
+msgid "unknown span event %s"
+msgstr "Onbekende gebeurtenis klasse `%s'"
+
+#: musicxml2ly.py:1069
+#, fuzzy, python-format
+msgid "unknown span type %s for %s"
+msgstr "onbekende ontsnapte string: `\\%s'"
+
+#: musicxml2ly.py:1489
+msgid "Unknown metronome mark, ignoring"
+msgstr ""
+
+#. TODO: Implement the other (more complex) way for tempo marks!
+#: musicxml2ly.py:1494
+msgid ""
+"Metronome marks with complex relations (<metronome-note> in MusicXML) are "
+"not yet implemented."
+msgstr ""
+
+#: musicxml2ly.py:1695
+#, python-format
+msgid "Unable to convert chord type %s to lilypond."
+msgstr ""
+
+#: musicxml2ly.py:1842
+#, python-format
+msgid "drum %s type unknown, please add to instrument_drumtype_dict"
+msgstr ""
+
+#: musicxml2ly.py:1846
+#, fuzzy
+msgid "cannot find suitable event"
+msgstr "kan bestand niet vinden: `%s'"
+
+#: musicxml2ly.py:1994
+#, python-format
+msgid "Negative skip %s (from position %s to %s)"
+msgstr ""
+
+#: musicxml2ly.py:2141
+#, python-format
+msgid "Negative skip found: from %s to %s, difference is %s"
+msgstr ""
+
+#: musicxml2ly.py:2222
+#, python-format
+msgid "unexpected %s; expected %s or %s or %s"
+msgstr ""
+
+#: musicxml2ly.py:2328
+msgid "Encountered closing slur, but no slur is open"
+msgstr ""
+
+#: musicxml2ly.py:2331
+msgid "Cannot have two simultaneous (closing) slurs"
+msgstr ""
+
+#: musicxml2ly.py:2340
+msgid "Cannot have a slur inside another slur"
+msgstr ""
+
+#: musicxml2ly.py:2343
+msgid "Cannot have two simultaneous slurs"
+msgstr ""
+
+#: musicxml2ly.py:2477
+#, python-format
+msgid "cannot simultaneously have more than one mode: %s"
+msgstr ""
+
+#: musicxml2ly.py:2585
+#, fuzzy
+msgid "Converting to LilyPond expressions..."
+msgstr "Converteer %s naar LilyPond invoer."
+
+#: musicxml2ly.py:2596
+#, fuzzy
+msgid "musicxml2ly [OPTION]... FILE.xml"
+msgstr "musicxml2ly BESTAND.xml"
+
+#: musicxml2ly.py:2598
+msgid ""
+"Convert MusicXML from FILE.xml to LilyPond input.\n"
+"If the given filename is -, musicxml2ly reads from the command line.\n"
+msgstr ""
+
+#: musicxml2ly.py:2608
+msgid ""
+"Copyright (c) 2005--2009 by\n"
+"    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
+"    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
+"    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
+msgstr ""
+
+#: musicxml2ly.py:2633
+#, fuzzy
+msgid "use lxml.etree; uses less memory and cpu time"
 msgstr "Gebruik lxml.etree; gebruikt minder geheugen en processortijd."
 
-#: musicxml2ly.py:504
-msgid "set output filename to FILE"
+#: musicxml2ly.py:2639
+msgid "input file is a zip-compressed MusicXML file"
+msgstr ""
+
+#: musicxml2ly.py:2645
+msgid "convert pitches in relative mode (default)"
+msgstr ""
+
+#: musicxml2ly.py:2650
+msgid "convert pitches in absolute mode"
+msgstr ""
+
+#: musicxml2ly.py:2653
+msgid "LANG"
+msgstr ""
+
+#: musicxml2ly.py:2655
+msgid ""
+"use a different language file 'LANG.ly' and corresponding pitch names, e.g. "
+"'deutsch' for deutsch.ly"
+msgstr ""
+
+#: musicxml2ly.py:2661
+msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
+msgstr ""
+
+#: musicxml2ly.py:2667
+msgid "do not convert exact vertical positions of rests"
+msgstr ""
+
+#: musicxml2ly.py:2673
+msgid "do not convert the exact page layout and breaks"
+msgstr ""
+
+#: musicxml2ly.py:2679
+msgid ""
+"do not convert beaming information, use lilypond's automatic beaming instead"
+msgstr ""
+
+#: musicxml2ly.py:2687
+#, fuzzy
+msgid "set output filename to FILE, stdout if -"
 msgstr "zet uitvoerbestandnaam op BESTAND"
 
-#: getopt-long.cc:140
+#: musicxml2ly.py:2770
+#, fuzzy, python-format
+msgid "unknown part in part-list: %s"
+msgstr "onbekende translator: `%s'"
+
+#: musicxml2ly.py:2832
+msgid "Input is compressed, extracting raw MusicXML data from stdin"
+msgstr ""
+
+#: musicxml2ly.py:2835
+#, python-format
+msgid "Input file %s is compressed, extracting raw MusicXML data"
+msgstr ""
+
+#: musicxml2ly.py:2865
+msgid "Reading MusicXML from Standard input ..."
+msgstr ""
+
+#: musicxml2ly.py:2867
+#, fuzzy, python-format
+msgid "Reading MusicXML from %s ..."
+msgstr "Lezen %s..."
+
+#: musicxml2ly.py:2900
+#, fuzzy, python-format
+msgid "Output to `%s'"
+msgstr "%s uitvoer naar `%s'..."
+
+#: musicxml2ly.py:2967
+#, fuzzy, python-format
+msgid "Unable to find input file %s"
+msgstr "kan init bestand niet vinden: `%s'"
+
+#: getopt-long.cc:153
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr "optie `%s' vereist een argument"
 
-#: getopt-long.cc:144
+#: getopt-long.cc:157
 #, c-format
 msgid "option `%s' does not allow an argument"
 msgstr "optie `%s' staat geen argument toe"
 
-#: getopt-long.cc:148
+#: getopt-long.cc:161
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr "onbekende optie: `%s'"
 
-#: getopt-long.cc:154
+#: getopt-long.cc:167
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr "onjuist argument: `%s' voor optie `%s'"
 
-#: warn.cc:68 grob.cc:557 input.cc:82
+#: warn.cc:79 grob.cc:594 input.cc:97
 #, c-format
 msgid "programming error: %s"
 msgstr "programmeerfout: %s"
 
-#: warn.cc:69 input.cc:83
+#: warn.cc:80 input.cc:98
 msgid "continuing, cross fingers"
 msgstr "ga verder; duim maar"
 
-#: accidental-engraver.cc:247
+#: accidental-engraver.cc:180
 #, c-format
 msgid "accidental typesetting list must begin with context-name: %s"
 msgstr "voorteken zetlijst moet beginnen met context-naam: %s"
 
-#: accidental-engraver.cc:274
-#, c-format
-msgid "ignoring unknown accidental rule: %s"
-msgstr "negeren van onbekende voorteken regel: %s"
-
-#: accidental-engraver.cc:290
-#, c-format
-msgid "pair or context-name expected for accidental rule, found %s"
+#: accidental-engraver.cc:210
+#, fuzzy, c-format
+msgid "procedure or context-name expected for accidental rule, found %s"
 msgstr "paar of context-naam verwacht voor voorteken regel, gevonden: %s"
 
-#: accidental.cc:160
+#: accidental.cc:200
 #, c-format
 msgid "Could not find glyph-name for alteration %s"
 msgstr "Kan vorm naam niet vinden voor verandering %s"
 
-#: accidental.cc:175
+#: accidental.cc:215
 msgid "natural alteration glyph not found"
 msgstr "herstellingsteken vorm niet gevonden"
 
-#: align-interface.cc:322
-msgid "tried to get a translation for something that is no child of mine"
-msgstr "probeerde een verplaatsing te verkrijgen voor iets wat geen kind van mij is"
-
-#: all-font-metrics.cc:143
+#: all-font-metrics.cc:158
 #, c-format
 msgid "cannot find font: `%s'"
 msgstr "kan font niet vinden: `%s'"
 
-#: apply-context-iterator.cc:31
+#: apply-context-iterator.cc:42
 msgid "\\applycontext argument is not a procedure"
 msgstr "\\applycontext argument is geen procedure"
 
-#: auto-change-iterator.cc:63 change-iterator.cc:61
+#: auto-change-iterator.cc:74 change-iterator.cc:72
 #, c-format
 msgid "cannot change, already in translator: %s"
 msgstr "kan niet wisselen, al in vertaler: %s"
 
-#: axis-group-engraver.cc:78
+#: axis-group-engraver.cc:89
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr "Axis_group_engraver: verticale groep heeft al een ouder"
 
-#: axis-group-engraver.cc:79
+#: axis-group-engraver.cc:90
 msgid "are there two Axis_group_engravers?"
 msgstr "zijn er twee Axis_group_engravers?"
 
-#: axis-group-engraver.cc:80
+#: axis-group-engraver.cc:91
 msgid "removing this vertical group"
 msgstr "verwijder deze verticale groep"
 
-#: axis-group-interface.cc:109
-msgid "tried to calculate pure-height at a non-breakpoint"
-msgstr "probeerde pure-hoogte te berekenen op een niet-breekpunt"
-
-#: axis-group-interface.cc:449
+#: axis-group-interface.cc:578
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 "een buiten-notenbalk object moet een richting hebben, gebruik "
 "standaardwaarde omhoog"
 
-#: bar-check-iterator.cc:73
+#: bar-check-iterator.cc:84
 #, c-format
 msgid "barcheck failed at: %s"
 msgstr "maatstreep controle gefaald op: %s"
 
-#: beam-engraver.cc:126
+#: beam-engraver.cc:147
 msgid "already have a beam"
 msgstr "heb al een waardestreep"
 
-#: beam-engraver.cc:202
+#: beam-engraver.cc:230
 msgid "unterminated beam"
 msgstr "onbeëindigde waardestreep"
 
-#: beam-engraver.cc:244 chord-tremolo-engraver.cc:138
+#: beam-engraver.cc:266 chord-tremolo-engraver.cc:144
 msgid "stem must have Rhythmic structure"
 msgstr "stok moet Ritmische structuur hebben"
 
-#: beam-engraver.cc:252
+#: beam-engraver.cc:274
 msgid "stem does not fit in beam"
 msgstr "stok past niet in waardestreep"
 
-#: beam-engraver.cc:253
+#: beam-engraver.cc:275
 msgid "beam was started here"
 msgstr "waardestreep werd hier gestart"
 
@@ -633,26 +1359,28 @@ msgstr "waardestreep werd hier gestart"
 msgid "no feasible beam position"
 msgstr "geen werkbare waardestreeppositie gevonden"
 
-#: beam.cc:160
+#: beam.cc:171
 msgid "removing beam with no stems"
 msgstr "verwijderen van waardestreep zonder stokken"
 
-#: beam.cc:1035
+#: beam.cc:1116
 msgid "no viable initial configuration found: may not find good beam slope"
-msgstr "geen werkbare initiële configuratie gevonden: kan wellicht geen goede waardestreephelling vinden"
+msgstr ""
+"geen werkbare initiële configuratie gevonden: kan wellicht geen goede "
+"waardestreephelling vinden"
 
-#: break-alignment-interface.cc:195
+#: break-alignment-interface.cc:206
 #, c-format
 msgid "No spacing entry from %s to `%s'"
 msgstr "Geen spatiëringswaarde van %s naar`%s'"
 
-#: change-iterator.cc:23
+#: change-iterator.cc:34
 #, c-format
 msgid "cannot change `%s' to `%s'"
 msgstr "kan `%s' niet in `%s' veranderen"
 
 #. FIXME: constant error message.
-#: change-iterator.cc:82
+#: change-iterator.cc:93
 msgid "cannot find context to switch to"
 msgstr "kan `%s' niet wisselen in `%s'"
 
@@ -661,199 +1389,213 @@ msgstr "kan `%s' niet wisselen in `%s'"
 #.
 #. last->translator_id_string () = get_change
 #. ()->change_to_id_string ();
-#: change-iterator.cc:91
+#: change-iterator.cc:102
 #, c-format
 msgid "not changing to same context type: %s"
 msgstr "niet wisselen naar zelfde type context: %s"
 
 #. FIXME: uncomprehensable message
-#: change-iterator.cc:95
+#: change-iterator.cc:106
 msgid "none of these in my family"
 msgstr "geen van deze in mijn gezin"
 
-#: chord-tremolo-engraver.cc:88
+#: chord-tremolo-engraver.cc:91
 msgid "No tremolo to end"
 msgstr "Geen tremolo om te beëindigen"
 
-#: chord-tremolo-engraver.cc:110
+#: chord-tremolo-engraver.cc:112
 msgid "unterminated chord tremolo"
 msgstr "onbeëindigd akkoordtremolo"
 
-#: chord-tremolo-iterator.cc:35
+#: chord-tremolo-iterator.cc:46
 #, c-format
 msgid "expect 2 elements for chord tremolo, found %d"
 msgstr "verwacht 2 elementen voor akkoordtremolo, %d gevonden"
 
-#: clef.cc:54
+#: clef.cc:65
 #, c-format
 msgid "clef `%s' not found"
 msgstr "sleutel `%s' niet gevonden"
 
-#: cluster.cc:110
+#: cluster.cc:120
 #, c-format
 msgid "unknown cluster style `%s'"
 msgstr "onbekende clusterstijl `%s'"
 
-#: cluster.cc:135
+#: cluster.cc:157
 msgid "junking empty cluster"
 msgstr "verschroot lege cluster"
 
-#: coherent-ligature-engraver.cc:100
+#: coherent-ligature-engraver.cc:111
 #, c-format
 msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
 msgstr "Coherent_ligature_engraver: zet `spacing-increment=0.01': ptr=%ul"
 
 #. if we get to here, just put everything on one line
-#: constrained-breaking.cc:167 constrained-breaking.cc:184
+#: constrained-breaking.cc:189 constrained-breaking.cc:207
 msgid "cannot find line breaking that satisfies constraints"
 msgstr "kan geen regelbreuk vinden die aan voorwaarden voldoet"
 
-#: context-def.cc:130
+#: context-def.cc:140
 #, c-format
 msgid "program has no such type: `%s'"
 msgstr "programma heeft geen dergelijk type: `%s'"
 
-#: context-property.cc:30
+#: context-property.cc:42
 msgid "need symbol arguments for \\override and \\revert"
 msgstr "heb symbool-argumenten nodig voor \\override en \\revert"
 
-#: context.cc:144
+#: context.cc:149
 #, c-format
 msgid "cannot find or create new `%s'"
 msgstr "kan niet vinden of nieuw maken `%s'"
 
-#: context.cc:206
+#: context.cc:207
 #, c-format
 msgid "cannot find or create `%s' called `%s'"
 msgstr "kan niet vinden of maken `%s' genaamd `%s'"
 
-#: context.cc:268
+#: context.cc:269
 #, c-format
 msgid "Invalid CreateContext event: Cannot create %s context"
 msgstr "Ongeldig CreateContext gebeurtenis: Kan %s context niet maken"
 
-#: context.cc:380
+#: context.cc:400
 #, c-format
 msgid "cannot find or create: `%s'"
 msgstr "kan niet vinden of scheppen: `%s'"
 
-#: custos.cc:77
+#: custos.cc:88
 #, c-format
 msgid "custos `%s' not found"
 msgstr "custode `%s' niet gevonden"
 
-#: dispatcher.cc:71
+#: dispatcher.cc:82
 msgid "Event class should be a symbol"
 msgstr "Gebeurtenis klasse hoort een symbool te zijn"
 
-#: dispatcher.cc:78
+#: dispatcher.cc:89
 #, c-format
 msgid "Unknown event class %s"
 msgstr "Onbekende gebeurtenis klasse `%s'"
 
-#: dots.cc:37
+#: dots.cc:48
 #, c-format
 msgid "dot `%s' not found"
 msgstr "punt `%s' niet gevonden"
 
-#: dynamic-engraver.cc:184
+#: dynamic-engraver.cc:197
 msgid "cannot find start of (de)crescendo"
 msgstr "kan start van (de)crescendo niet vinden"
 
-#: dynamic-engraver.cc:193
+#: dynamic-engraver.cc:206
 msgid "already have a decrescendo"
 msgstr "heb al een decrescendo"
 
-#: dynamic-engraver.cc:195
+#: dynamic-engraver.cc:208
 msgid "already have a crescendo"
 msgstr "heb al een crescendo"
 
-#: dynamic-engraver.cc:198
+#: dynamic-engraver.cc:211
 msgid "cresc starts here"
 msgstr "cresc is hier gestart"
 
-#: dynamic-engraver.cc:327
+#: dynamic-engraver.cc:339
 msgid "unterminated (de)crescendo"
 msgstr "onbeëindigd (de)crescendo"
 
-#: extender-engraver.cc:142 extender-engraver.cc:151
+#: extender-engraver.cc:177 extender-engraver.cc:186
 msgid "unterminated extender"
 msgstr "onbeëindigde extender"
 
-#: font-config.cc:28
-msgid "Initializing FontConfig..."
-msgstr "Initialiseren van FontConfig..."
-
-#: font-config.cc:44
-#, c-format
-msgid "Rebuilding FontConfig cache %s, this may take a while..."
-msgstr "Herbouwen van FontConfig cache %s, dit kan wel even duren..."
-
-#: font-config.cc:55
+#: font-config-scheme.cc:152 font-config.cc:69
 #, c-format
 msgid "failed adding font directory: %s"
 msgstr "toevoegen van font map gefaald: %s"
 
-#: font-config.cc:57
+#: font-config-scheme.cc:154 font-config.cc:71
 #, c-format
 msgid "adding font directory: %s"
 msgstr "toevoegen van font map: %s"
 
-#: general-scheme.cc:198
+#: font-config-scheme.cc:168
+#, fuzzy, c-format
+msgid "failed adding font file: %s"
+msgstr "toevoegen van font map gefaald: %s"
+
+#: font-config-scheme.cc:170
+#, fuzzy, c-format
+msgid "adding font file: %s"
+msgstr "toevoegen van font map: %s"
+
+#: font-config.cc:40
+msgid "Initializing FontConfig..."
+msgstr "Initialiseren van FontConfig..."
+
+#: font-config.cc:56
+#, c-format
+msgid "Rebuilding FontConfig cache %s, this may take a while..."
+msgstr "Herbouwen van FontConfig cache %s, dit kan wel even duren..."
+
+#: font-config.cc:75
+msgid "Building font database."
+msgstr ""
+
+#: general-scheme.cc:240
 msgid "infinity or NaN encountered while converting Real number"
 msgstr "oneindig of NaN tegengekomen tijdens converteren van Reëel getal"
 
-#: general-scheme.cc:199
+#: general-scheme.cc:241
 msgid "setting to zero"
 msgstr "zet op nul"
 
-#: general-scheme.cc:417 output-ps.scm:61
+#: general-scheme.cc:476 output-ps.scm:47
 msgid "Found infinity or nan in output. Substituting 0.0"
 msgstr "Oneindig of nan gevonden in uitvoer.  Vervangen door 0.0"
 
-#: glissando-engraver.cc:94
+#: glissando-engraver.cc:105
 msgid "unterminated glissando"
 msgstr "onbeëindigd glissando"
 
-#: global-context-scheme.cc:87 global-context-scheme.cc:105
+#: global-context-scheme.cc:96 global-context-scheme.cc:114
 msgid "no music found in score"
 msgstr "geen muziek gevonden in score"
 
-#: global-context-scheme.cc:95
+#: global-context-scheme.cc:104
 msgid "Interpreting music... "
 msgstr "Vertolken van muziek..."
 
-#: global-context-scheme.cc:118
+#: global-context-scheme.cc:127
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr "duur: %.2f seconden"
 
-#: gregorian-ligature-engraver.cc:59
+#: gregorian-ligature-engraver.cc:70
 #, c-format
 msgid "\\%s ignored"
 msgstr "\\%s genegeerd"
 
-#: gregorian-ligature-engraver.cc:64
+#: gregorian-ligature-engraver.cc:75
 #, c-format
 msgid "implied \\%s added"
 msgstr "impliciete \\%s toegevoegd"
 
 #. ligature may not start with 2nd head of pes or flexa
-#: gregorian-ligature-engraver.cc:212
+#: gregorian-ligature-engraver.cc:224
 msgid "cannot apply `\\~' on first head of ligature"
 msgstr "Kan `\\~' niet op eerste noot van ligatuur toepassen"
 
 #. (pitch == prev_pitch)
-#: gregorian-ligature-engraver.cc:224
+#: gregorian-ligature-engraver.cc:236
 msgid "cannot apply `\\~' on heads with identical pitch"
 msgstr "kan `\\~' niet toepassen op noten met identieke toonhoogte"
 
-#: grob-interface.cc:57
+#: grob-interface.cc:68
 #, c-format
 msgid "Unknown interface `%s'"
 msgstr "onbekende interface `%s'"
 
-#: grob-interface.cc:68
+#: grob-interface.cc:79
 #, c-format
 msgid "Grob `%s' has no interface for property `%s'"
 msgstr "Grob `%s' heeft geen interface voor eigenschap `%s'"
@@ -863,165 +1605,160 @@ msgstr "Grob `%s' heeft geen interface voor eigenschap `%s'"
 msgid "%d: %s"
 msgstr "%d: %s"
 
-#: grob-property.cc:174
+#: grob-property.cc:173
 #, c-format
 msgid "cyclic dependency: calculation-in-progress encountered for #'%s (%s)"
-msgstr "circulaire afhankelijkheid: calculation-in-progress tegengekomen voor #'%s (%s)"
+msgstr ""
+"circulaire afhankelijkheid: calculation-in-progress tegengekomen voor #'%s (%"
+"s)"
 
-#: grob.cc:251
+#: grob.cc:273
 msgid "Infinity or NaN encountered"
 msgstr "Oneindig of NaN tegengekomen"
 
-#: hairpin.cc:187
+#: hairpin.cc:186
 msgid "decrescendo too small"
 msgstr "decrescendo te klein"
 
-#: hairpin.cc:188
-msgid "crescendo too small"
-msgstr "crescendo te klein"
-
-#: horizontal-bracket-engraver.cc:59
+#: horizontal-bracket-engraver.cc:78
 msgid "do not have that many brackets"
 msgstr "zoveel haken heb ik niet"
 
-#: horizontal-bracket-engraver.cc:68
+#: horizontal-bracket-engraver.cc:87
 msgid "conflicting note group events"
 msgstr "Tegenstrijdige nootgroeperingsgebeurtenissen"
 
-#: hyphen-engraver.cc:93
+#: hyphen-engraver.cc:108
 msgid "removing unterminated hyphen"
 msgstr "verwijderen van onafgesloten streepje"
 
-#: hyphen-engraver.cc:107
+#: hyphen-engraver.cc:122
 msgid "unterminated hyphen; removing"
 msgstr "verwijderen van onafgesloten streepje"
 
-#: includable-lexer.cc:53 lily-guile.cc:76 lily-parser-scheme.cc:117
+#: includable-lexer.cc:71 lily-guile.cc:87 lily-parser-scheme.cc:109
 #, c-format
 msgid "cannot find file: `%s'"
 msgstr "kan bestand niet vinden: `%s'"
 
-#: includable-lexer.cc:55 lily-parser-scheme.cc:108
+#: includable-lexer.cc:73 lily-parser-scheme.cc:100
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(zoekpad: `%s')"
 
-#: input.cc:112 source-file.cc:168 source-file.cc:183
+#: input.cc:131 source-file.cc:179 source-file.cc:194
 msgid "position unknown"
 msgstr "positie onbekend"
 
-#: key-signature-interface.cc:71
+#: key-signature-interface.cc:78
 #, c-format
 msgid "No glyph found for alteration: %s"
 msgstr "Geen vorm gevonden voor verandering: %s"
 
-#: key-signature-interface.cc:81
+#: key-signature-interface.cc:88
 msgid "alteration not found"
 msgstr "verandering niet gevonden"
 
-#: ligature-engraver.cc:93
+#: ligature-bracket-engraver.cc:73 ligature-engraver.cc:104
 msgid "cannot find start of ligature"
 msgstr "kan begin van ligatuur niet vinden"
 
-#: ligature-engraver.cc:98
-msgid "no right bound"
-msgstr "geen rechterkant"
-
-#: ligature-engraver.cc:120
+#: ligature-bracket-engraver.cc:86 ligature-engraver.cc:131
 msgid "already have a ligature"
 msgstr "heb al een ligatuur"
 
-#: ligature-engraver.cc:129
+#: ligature-engraver.cc:109
+msgid "no right bound"
+msgstr "geen rechterkant"
+
+#: ligature-engraver.cc:140
 msgid "no left bound"
 msgstr "geen linkerkant"
 
-#: ligature-engraver.cc:173
+#: ligature-engraver.cc:184
 msgid "unterminated ligature"
 msgstr "onbeëindigde ligatuur"
 
-#: ligature-engraver.cc:202
+#: ligature-engraver.cc:213
 msgid "ignoring rest: ligature may not contain rest"
 msgstr "negeer rust: ligatuur mag geen rust bevatten"
 
-#: ligature-engraver.cc:203
+#: ligature-engraver.cc:214
 msgid "ligature was started here"
 msgstr "ligatuur werd hier gestart"
 
-#: lily-guile.cc:78
+#: lily-guile.cc:89
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(zoekpad: `%s')"
 
-#: lily-guile.cc:438
+#: lily-guile.cc:439
 #, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr "kan geen type-controle vinden voor property `%s' (%s)"
 
-#: lily-guile.cc:441
+#: lily-guile.cc:442
 msgid "perhaps a typing error?"
 msgstr "misschien een typefout?"
 
-#: lily-guile.cc:448
+#: lily-guile.cc:449
 msgid "doing assignment anyway"
 msgstr "voer toewijzing toch door"
 
-#: lily-guile.cc:460
+#: lily-guile.cc:461
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr "type controle gefaald voor `%s'; waarde `%s' moet type hebben: `%s'"
 
-#: lily-lexer.cc:250
+#: lily-lexer.cc:265
 msgid "include files are not allowed in safe mode"
 msgstr "invoegbestanden zijn niet toegestaan in veilige modus"
 
-#: lily-lexer.cc:269
+#: lily-lexer.cc:284
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr "identifier naam is een sleutelwoord: `%s'"
 
-#: lily-lexer.cc:284
+#: lily-lexer.cc:299
 #, c-format
 msgid "error at EOF: %s"
 msgstr "fout bij EOF: %s"
 
-#: lily-parser-scheme.cc:30
-#, c-format
-msgid "deprecated function called: %s"
-msgstr "verouderde functie aangeroepen: %s"
-
-#: lily-parser-scheme.cc:89
+#: lily-parser-scheme.cc:82
 #, c-format
 msgid "Changing working directory to: `%s'"
 msgstr "Veranderen van werkmap naar: `%s'"
 
-#: lily-parser-scheme.cc:107
+#: lily-parser-scheme.cc:99
 #, c-format
 msgid "cannot find init file: `%s'"
 msgstr "kan init bestand niet vinden: `%s'"
 
-#: lily-parser-scheme.cc:126
+#: lily-parser-scheme.cc:118
 #, c-format
 msgid "Processing `%s'"
 msgstr "Verwerken van `%s'"
 
-#: lily-parser.cc:99
+#: lily-parser.cc:106
 msgid "Parsing..."
 msgstr "Ontleden..."
 
-#: lily-parser.cc:127
+#: lily-parser.cc:134
 msgid "braces do not match"
 msgstr "haakjes paren niet"
 
-#: lyric-combine-music-iterator.cc:327
+#: lyric-combine-music-iterator.cc:338
 #, c-format
 msgid "cannot find Voice `%s'"
 msgstr "kan Voice niet vinden: `%s'"
 
-#: lyric-engraver.cc:158
+#: lyric-engraver.cc:174
 msgid "Lyric syllable does not have note. Use \\lyricsto or associatedVoice."
-msgstr "Liedtekst lettergreep heeft geen noot.  Gebruik \\lyricsto of associatedVoice."
+msgstr ""
+"Liedtekst lettergreep heeft geen noot.  Gebruik \\lyricsto of "
+"associatedVoice."
 
-#: main.cc:100
+#: main.cc:109
 #, c-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -1034,7 +1771,7 @@ msgstr ""
 "veranderen en/of te verspreiden onder bepaalde voorwaarden.  Roep aan\n"
 "als `%s --warranty' voor meer informatie.\n"
 
-#: main.cc:106
+#: main.cc:115
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -1065,11 +1802,11 @@ msgstr ""
 "zoniet, schrijf dan naar de Free Software Foundation, Inc.,\n"
 "59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: main.cc:137
+#: main.cc:146
 msgid "SYM[=VAL]"
 msgstr "SYM[=WAARDE]"
 
-#: main.cc:138
+#: main.cc:147
 msgid ""
 "set Scheme option SYM to VAL (default: #t).\n"
 "Use -dhelp for help."
@@ -1077,53 +1814,41 @@ msgstr ""
 "zet Scheme optie SYM to WAARDE (standaard: #t)\n"
 "Gebruik -dhelp voor hulp."
 
-#: main.cc:141
+#: main.cc:150
 msgid "EXPR"
 msgstr "EXPR"
 
-#: main.cc:141
+#: main.cc:150
 msgid "evaluate scheme code"
 msgstr "evalueer scheme code"
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
-#: main.cc:144
+#: main.cc:153
 msgid "FORMATs"
 msgstr "FORMAATen"
 
-#: main.cc:144
+#: main.cc:153
 msgid "dump FORMAT,...  Also as separate options:"
 msgstr "dump FORMAAT,...  Ook als separate opties:"
 
-#: main.cc:145
-msgid "generate DVI (tex backend only)"
-msgstr "genereer DVI (alleen tex backend)"
-
-#: main.cc:146
+#: main.cc:154
 msgid "generate PDF (default)"
 msgstr "genereer PDF (standaard)"
 
-#: main.cc:147
+#: main.cc:155
 msgid "generate PNG"
 msgstr "genereer PNG"
 
-#: main.cc:148
+#: main.cc:156
 msgid "generate PostScript"
 msgstr "genereer PostScipt"
 
-#: main.cc:149
-msgid "generate TeX (tex backend only)"
-msgstr "genereer TeX (alleen tex backend)"
-
-#: main.cc:150
-msgid "show this help and exit"
-msgstr "toon deze hulp en sluit af"
-
-#: main.cc:151
+#: main.cc:158
 msgid "FIELD"
 msgstr "VELD"
 
-#: main.cc:151
+#: main.cc:158
 msgid ""
 "dump header field FIELD to file\n"
 "named BASENAME.FIELD"
@@ -1131,19 +1856,19 @@ msgstr ""
 "schrijf kopveld VELD naar bestand\n"
 "genaamd BASISNAAM.VELD"
 
-#: main.cc:153
+#: main.cc:160
 msgid "add DIR to search path"
 msgstr "voeg DIR toe aan zoekpad"
 
-#: main.cc:154
+#: main.cc:161
 msgid "use FILE as init file"
 msgstr "gebruik BESTAND als initialisatiebestand"
 
-#: main.cc:156
+#: main.cc:163
 msgid "USER, GROUP, JAIL, DIR"
 msgstr "GEBR, GROEP, GEVANG, DIR"
 
-#: main.cc:156
+#: main.cc:163
 msgid ""
 "chroot to JAIL, become USER:GROUP\n"
 "and cd into DIR"
@@ -1151,19 +1876,16 @@ msgstr ""
 "chroot naar GEVANG, word GEBR:GROEP\n"
 "en cd naar MAP"
 
-#: main.cc:159
+#: main.cc:166
 msgid "write output to FILE (suffix will be added)"
 msgstr "schrijf uitvoer naar BESTAND (extensie wordt toegevoegd)"
 
-#: main.cc:160
+#: main.cc:167
 msgid "relocate using directory of lilypond program"
 msgstr "verhuis aan de hand van de map van het lilypond programma"
 
-#: main.cc:161
-msgid "show version number and exit"
-msgstr "toon versienummer en sluit af"
-
-#: main.cc:203
+#. Do not update the copyright years here, run grand-replace.sh.
+#: main.cc:238
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -1173,121 +1895,112 @@ msgstr ""
 "%s  en anderen."
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:230
+#: main.cc:265
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Gebruik: %s [OPTIE]... BESTAND..."
 
-#: main.cc:232
-#, c-format
+#: main.cc:267
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr "Zet muziek en of produceer MIDI van BESTAND."
 
-#: main.cc:234
-#, c-format
+#: main.cc:269
 msgid "LilyPond produces beautiful music notation."
 msgstr "LilyPond produceert prachtige muzieknotatie."
 
-#: main.cc:236
+#: main.cc:271
 #, c-format
 msgid "For more information, see %s"
 msgstr "Voor meer informatie, zie %s"
 
-#: main.cc:238
-#, c-format
+#: main.cc:273
 msgid "Options:"
 msgstr "Opties:"
 
-#: main.cc:242
-#, c-format
-msgid "Report bugs via %s"
-msgstr "Meld fouten in het programma aan %s;\n"
-"meld onjuistheden in de vertaling aan <janneke@gnu.org> of <hanwen@cs.uu.nl>."
-
-#: main.cc:288
+#: main.cc:327
 #, c-format
 msgid "expected %d arguments with jail, found: %u"
 msgstr "verwachtte %d argumenten voor gevang, gevonden: %u"
 
-#: main.cc:302
+#: main.cc:341
 #, c-format
 msgid "no such user: %s"
 msgstr "onbekende gebruiker: %s"
 
-#: main.cc:304
+#: main.cc:343
 #, c-format
 msgid "cannot get user id from user name: %s: %s"
 msgstr "kan gebruikers id niet krijgen van gebruikersnaam: %s: %s"
 
-#: main.cc:319
+#: main.cc:358
 #, c-format
 msgid "no such group: %s"
 msgstr "onbekende groep: %s"
 
-#: main.cc:321
+#: main.cc:360
 #, c-format
 msgid "cannot get group id from group name: %s: %s"
 msgstr "kan groep id niet krijgen van groepnaam: %s: %s"
 
-#: main.cc:329
+#: main.cc:368
 #, c-format
 msgid "cannot chroot to: %s: %s"
 msgstr "kan niet chrooten naar: %s: %s"
 
-#: main.cc:336
+#: main.cc:375
 #, c-format
 msgid "cannot change group id to: %d: %s"
 msgstr "kan groep id niet veranderen in: %d: %s"
 
-#: main.cc:342
+#: main.cc:381
 #, c-format
 msgid "cannot change user id to: %d: %s"
 msgstr "kan gebruiker id niet veranderen in: %d: %s"
 
-#: main.cc:348
+#: main.cc:387
 #, c-format
 msgid "cannot change working directory to: %s: %s"
 msgstr "kan werkmap niet veranderen in: %s: %s"
 
-#: main.cc:594
+#: main.cc:628
 #, c-format
 msgid "exception caught: %s"
 msgstr "exceptie gevangen: %s"
 
 #. FIXME: constant error message.
-#: mark-engraver.cc:154
+#: mark-engraver.cc:157
 msgid "rehearsalMark must have integer value"
 msgstr "rehearsalMark moet een natuurlijk getal zijn"
 
-#: mark-engraver.cc:160
+#: mark-engraver.cc:163
 msgid "mark label must be a markup object"
 msgstr "mark etiket moet een markup zijn"
 
-#: mensural-ligature-engraver.cc:85
+#: mensural-ligature-engraver.cc:96
 msgid "ligature with less than 2 heads -> skipping"
 msgstr "ligatuur met minder dan 2 bolletjes -> overslaan"
 
-#: mensural-ligature-engraver.cc:112
+#: mensural-ligature-engraver.cc:123
 msgid "cannot determine pitch of ligature primitive -> skipping"
 msgstr "kan toonhoogte van primitieve ligatuur niet bepalen -> overslaan"
 
-#: mensural-ligature-engraver.cc:126
+#: mensural-ligature-engraver.cc:137
 msgid "single note ligature - skipping"
 msgstr "enkelnootse ligatuur - overslaan"
 
-#: mensural-ligature-engraver.cc:138
+#: mensural-ligature-engraver.cc:149
 msgid "prime interval within ligature -> skipping"
 msgstr "prieminterval binnen ligatuur -> overslaan"
 
-#: mensural-ligature-engraver.cc:150
+#: mensural-ligature-engraver.cc:161
 msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
 msgstr "mensurale ligatuur: lengte geen van Mx, L, S -> overslaan"
 
-#: mensural-ligature-engraver.cc:198
+#: mensural-ligature-engraver.cc:209
 msgid "semibrevis must be followed by another one -> skipping"
 msgstr "semibrevis moet worden gevolgd door een andere -> overslaan"
 
-#: mensural-ligature-engraver.cc:209
+#: mensural-ligature-engraver.cc:220
 msgid ""
 "semibreves can only appear at the beginning of a ligature,\n"
 "and there may be only zero or two of them"
@@ -1295,7 +2008,7 @@ msgstr ""
 "semibrevi kunnen alleen aan het begin van een ligatuur voorkomen,\n"
 "en het mogen er uitsluitend een of twee zijn"
 
-#: mensural-ligature-engraver.cc:236
+#: mensural-ligature-engraver.cc:247
 msgid ""
 "invalid ligatura ending:\n"
 "when the last note is a descending brevis,\n"
@@ -1307,117 +2020,188 @@ msgstr ""
 "moet de voorlaatste noot een andere zijn,\n"
 "of de ligatuur moet LB of SSB zijn"
 
-#: mensural-ligature-engraver.cc:356
+#: mensural-ligature-engraver.cc:367
 msgid "unexpected case fall-through"
 msgstr "onverwachte zaakdoorval"
 
-#: mensural-ligature.cc:141
+#: mensural-ligature.cc:152
 msgid "Mensural_ligature: unexpected case fall-through"
 msgstr "Mensural_ligature: onverwachte zaakdoorval"
 
-#: mensural-ligature.cc:192
+#: mensural-ligature.cc:203
 msgid "Mensural_ligature: (join_right == 0)"
 msgstr "Mensural_ligature: (join_right) == 0)"
 
-#: midi-item.cc:81
+#: midi-item.cc:92
 #, c-format
 msgid "no such MIDI instrument: `%s'"
 msgstr "onbekend MIDI instrument: `%s'"
 
-#: midi-stream.cc:28
+#: midi-stream.cc:39
 #, c-format
 msgid "cannot open for write: %s: %s"
 msgstr "kan bestand niet openen om te schrijven: %s: %s"
 
-#: midi-stream.cc:44
+#: midi-stream.cc:55
 #, c-format
 msgid "cannot write to file: `%s'"
 msgstr "kon niet naar bestand schrijven: `%s'"
 
-#: music-iterator.cc:171
+#: minimal-page-breaking.cc:46 paper-score.cc:116
+msgid "Calculating line breaks..."
+msgstr "Berekenen van regelafbreuken..."
+
+#: minimal-page-breaking.cc:50
+msgid "Calculating page breaks..."
+msgstr "Berekenen van pagina-afbreuken..."
+
+#: music-iterator.cc:182
 msgid "Sending non-event to context"
 msgstr "Zenden van niet-gebeurtenis naar context"
 
-#: music.cc:140
+#: music.cc:151
 #, c-format
 msgid "octave check failed; expected \"%s\", found: \"%s\""
 msgstr "octaafcontrole gefaald; verwachtte \"%s\", vond: \"%s\""
 
-#: music.cc:203
+#: music.cc:214
 #, c-format
 msgid "transposition by %s makes alteration larger than double"
 msgstr "transponering met %s maakt voorteken groter dan dubbel"
 
-#: new-fingering-engraver.cc:96
+#: new-dynamic-engraver.cc:142
+#, c-format
+msgid ""
+"unknown crescendo style: %s\n"
+"defaulting to hairpin."
+msgstr ""
+
+#: new-dynamic-engraver.cc:209
+#, fuzzy, c-format
+msgid "unterminated %s"
+msgstr "onbeëindigde bindingsboog"
+
+#: new-fingering-engraver.cc:107
 msgid "cannot add text scripts to individual note heads"
 msgstr "kan tekstscripts niet toevoegen aan individuele notenbolletjes"
 
-#: new-fingering-engraver.cc:239
+#: new-fingering-engraver.cc:248
 msgid "no placement found for fingerings"
 msgstr "geen plaatsing gevonden voor vingerzetting"
 
-#: new-fingering-engraver.cc:240
+#: new-fingering-engraver.cc:249
 msgid "placing below"
 msgstr "plaats onder"
 
-#: note-collision.cc:464
+#: note-collision.cc:495
 msgid "ignoring too many clashing note columns"
 msgstr "negeren van te veel botsende nootkolommen."
 
-#: note-column.cc:124
+#: note-column.cc:135
 msgid "cannot have note heads and rests together on a stem"
 msgstr "kan notenbolletjes en rusten niet samen op een stok zetten"
 
-#: note-head.cc:63
+#: note-head.cc:74
 #, c-format
 msgid "none of note heads `%s' or `%s' found"
 msgstr "geen van notenbolletjes `%s' of `%s' gevonden"
 
-#: note-heads-engraver.cc:64
+#: note-heads-engraver.cc:77
 msgid "NoteEvent without pitch"
 msgstr "NootGebeurtenis zonder toonhoogte"
 
-#: open-type-font.cc:33
+#: open-type-font.cc:44
 #, c-format
 msgid "cannot allocate %lu bytes"
 msgstr "kan geen %lu bytes toewijzen"
 
-#: open-type-font.cc:37
+#: open-type-font.cc:48
 #, c-format
 msgid "cannot load font table: %s"
 msgstr "kan fonttabel niet laden: %s"
 
-#: open-type-font.cc:42
+#: open-type-font.cc:53
 #, c-format
 msgid "Free type error: %s"
 msgstr "FreeType fout: %s"
 
-#: open-type-font.cc:100
+#: open-type-font.cc:111
 #, c-format
 msgid "unsupported font format: %s"
 msgstr "niet-ondersteund font formaat: %s"
 
-#: open-type-font.cc:102
+#: open-type-font.cc:113
 #, c-format
 msgid "error reading font file %s: %s"
 msgstr "fout bij lezen van font bestand %s: %s"
 
-#: open-type-font.cc:177
+#: open-type-font.cc:187
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr "FT_Get_Glyph_Name () Freetype fout: %s"
 
-#: open-type-font.cc:302 pango-font.cc:167
+#: open-type-font.cc:312 pango-font.cc:189
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr "FT_Get_Glyph_Name () fout: %s"
 
-#: page-turn-page-breaking.cc:146
+#: optimal-page-breaking.cc:90
+#, fuzzy, c-format
+msgid "[%d: %d pages]"
+msgstr "%d: %s"
+
+#: optimal-page-breaking.cc:92
+#, c-format
+msgid "[%d: %d or %d pages]"
+msgstr ""
+
+#: optimal-page-breaking.cc:186
+#, fuzzy, c-format
+msgid "Solving %d page-breaking chunks..."
+msgstr "Berekenen van pagina-afbreuken..."
+
+#: optimal-page-breaking.cc:193 page-turn-page-breaking.cc:247
+#: paper-score.cc:157
+msgid "Drawing systems..."
+msgstr "Tekenen van systemen..."
+
+#: output-def.cc:235
+msgid "margins do not fit with line-width, setting default values"
+msgstr ""
+
+#: output-def.cc:242
+msgid ""
+"systems run off the page due to improper paper settings, setting default "
+"values"
+msgstr ""
+
+#: page-breaking.cc:180
+msgid ""
+"ignoring min-systems-per-page and max-systems-per-page because systems-per-"
+"page was set"
+msgstr ""
+
+#: page-breaking.cc:185
+msgid ""
+"min-systems-per-page is larger than max-systems-per-page, ignoring both "
+"values"
+msgstr ""
+
+#: page-layout-problem.cc:308
+#, fuzzy
+msgid "couldn't fit music on page"
+msgstr "Muziek passend maken op 1 pagina..."
+
+#: page-layout-problem.cc:676
+msgid "staff-affinities should only decrease"
+msgstr ""
+
+#: page-turn-page-breaking.cc:167
 #, c-format
 msgid "page-turn-page-breaking: breaking from %d to %d"
 msgstr "page-turn-page-breaking: afbreken van %d naar %d"
 
-#: page-turn-page-breaking.cc:195
+#: page-turn-page-breaking.cc:216
 msgid ""
 "cannot fit the first page turn onto a single page.  Consider setting first-"
 "page-number to an even number."
@@ -1425,41 +2209,37 @@ msgstr ""
 "kan de eerste paginaomslag niet op eerste pagina gepast krijgen.  Overweeg\n"
 "first-page-number op een even getal te zetten."
 
-#: page-turn-page-breaking.cc:208
+#: page-turn-page-breaking.cc:229
 #, c-format
 msgid "Calculating page and line breaks (%d possible page breaks)..."
 msgstr "Berekenen van pagina en regelbreuken (%d mogelijke pagina breuken)..."
 
-#: page-turn-page-breaking.cc:226 paper-score.cc:146
-msgid "Drawing systems..."
-msgstr "Tekenen van systemen..."
-
-#: page-turn-page-breaking.cc:275
+#: page-turn-page-breaking.cc:296
 #, c-format
 msgid "break starting at page %d"
 msgstr "breuk gestart op pagina %d"
 
-#: page-turn-page-breaking.cc:276
+#: page-turn-page-breaking.cc:297
 #, c-format
 msgid "\tdemerits: %f"
 msgstr "\tstrafpunten: %f"
 
-#: page-turn-page-breaking.cc:277
+#: page-turn-page-breaking.cc:298
 #, c-format
 msgid "\tsystem count: %d"
 msgstr "\taantal systemen: %d"
 
-#: page-turn-page-breaking.cc:278
+#: page-turn-page-breaking.cc:299
 #, c-format
 msgid "\tpage count: %d"
 msgstr "\taantal bladzijden: %d"
 
-#: page-turn-page-breaking.cc:279
+#: page-turn-page-breaking.cc:300
 #, c-format
 msgid "\tprevious break: %d"
 msgstr "\tvorige breuk: %d"
 
-#: pango-font.cc:184
+#: pango-font.cc:206
 #, c-format
 msgid ""
 "Glyph has no name, but font supports glyph naming.\n"
@@ -1468,16 +2248,26 @@ msgstr ""
 "Vorm heeft geen naam, terwijl het font vormnamen ondersteunt<\n"
 "Overslaan van vorm U+%0X, bestand %s"
 
-#: pango-font.cc:229
+#: pango-font.cc:243
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr "geen PostScript fontnaam voor font: `%s'"
 
-#: pango-font.cc:277
+#: pango-font.cc:292
 msgid "FreeType face has no PostScript font name"
 msgstr "FreeType gezicht heeft geen PostScript fontnaam"
 
-#: paper-column-engraver.cc:199
+#: paper-book.cc:214
+#, c-format
+msgid "program option -dprint-pages not supported by backend `%s'"
+msgstr ""
+
+#: paper-book.cc:233
+#, c-format
+msgid "program option -dpreview not supported by backend `%s'"
+msgstr ""
+
+#: paper-column-engraver.cc:233
 msgid ""
 "forced break was overridden by some other event, should you be using bar "
 "checks?"
@@ -1485,129 +2275,125 @@ msgstr ""
 "geforceerde breuk werd opgeheven door andere gebeurtenis, misschien moet je "
 "maatcontrole gebruiken?"
 
-#: paper-outputter-scheme.cc:30
+#: paper-outputter-scheme.cc:41
 #, c-format
 msgid "Layout output to `%s'..."
 msgstr "Opmaakuitvoer naar `%s'..."
 
-#: paper-score.cc:105
-msgid "Calculating line breaks..."
-msgstr "Berekenen van regelafbreuken..."
-
-#: paper-score.cc:118
+#: paper-score.cc:129
 #, c-format
 msgid "Element count %d (spanners %d) "
 msgstr "Aantal elementen %d (spanners %d)"
 
-#: paper-score.cc:122
+#: paper-score.cc:133
 msgid "Preprocessing graphical objects..."
 msgstr "Voorbewerken van grafische objecten..."
 
-#: parse-scm.cc:87
+#: parse-scm.cc:101
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr "GUILE signaleerde een fout voor de expressie beginnend alhier"
 
-#: percent-repeat-engraver.cc:200
+#: percent-repeat-engraver.cc:213
 msgid "unterminated percent repeat"
 msgstr "onbeëindigde procentherhaling"
 
-#: performance.cc:43
+#: performance.cc:54
 msgid "Track..."
 msgstr "Spoor... "
 
-#: performance.cc:72
+#: performance.cc:83
 msgid "MIDI channel wrapped around"
 msgstr "MIDI kanaal is klokje rond"
 
-#: performance.cc:73
+#: performance.cc:84
 msgid "remapping modulo 16"
 msgstr "herafbeelden modulo 16"
 
-#: performance.cc:101
+#: performance.cc:111
 #, c-format
 msgid "MIDI output to `%s'..."
 msgstr "MIDI uitvoer naar %s..."
 
-#: phrasing-slur-engraver.cc:131
+#: phrasing-slur-engraver.cc:157
 msgid "unterminated phrasing slur"
 msgstr "onbeëindigde fraseringsboog"
 
-#: piano-pedal-engraver.cc:286
+#: piano-pedal-engraver.cc:298
 #, c-format
 msgid "expect 3 strings for piano pedals, found: %ld"
 msgstr "verwacht 3 teksten voor pianopedalen, gevonden: %ld"
 
-#: piano-pedal-engraver.cc:301 piano-pedal-engraver.cc:312
-#: piano-pedal-performer.cc:93
+#: piano-pedal-engraver.cc:313 piano-pedal-engraver.cc:324
+#: piano-pedal-performer.cc:104
 #, c-format
 msgid "cannot find start of piano pedal: `%s'"
 msgstr "kan start van piano pedaal niet vinden: `%s'"
 
-#: piano-pedal-engraver.cc:347
+#: piano-pedal-engraver.cc:359
 #, c-format
 msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr "kan start van piano pedaal haak niet vinden: `%s'"
 
-#: program-option-scheme.cc:207
+#: program-option-scheme.cc:231
 #, c-format
 msgid "no such internal option: %s"
 msgstr "onbekende interne optie: %s"
 
-#: property-iterator.cc:74
+#: property-iterator.cc:85
 #, c-format
 msgid "not a grob name, `%s'"
 msgstr "geen grobnaam, `%s'"
 
-#: relative-octave-check.cc:38
+#: relative-octave-check.cc:49
 msgid "Failed octave check, got: "
 msgstr "Octaafcontrole gefaald, heb:"
 
-#: relocate.cc:44
+#: relocate.cc:54
 #, c-format
 msgid "Setting %s to %s"
 msgstr "Zetten van %s op %s"
 
-#: relocate.cc:64
+#: relocate.cc:74
 #, c-format
 msgid "no such file: %s for %s"
 msgstr "onbekend bestand: %s voor %s"
 
-#: relocate.cc:74 relocate.cc:92
+#: relocate.cc:84 relocate.cc:102
 #, c-format
 msgid "no such directory: %s for %s"
 msgstr "onbekende map: %s voor %s"
 
-#: relocate.cc:84
+#: relocate.cc:94
 #, c-format
 msgid "%s=%s (prepend)\n"
 msgstr "%s=%s (voorvoegen)\n"
 
-#: relocate.cc:114
+#: relocate.cc:124
 #, c-format
 msgid "not relocating, no %s/ or current/ found under %s"
 msgstr "niet verhuizen, geen %s/ of current/ gevonden onder %s"
 
-#: relocate.cc:125
+#: relocate.cc:135
 #, c-format
 msgid "Relocation: compile datadir=%s, new datadir=%s"
 msgstr "Verhuizing: samenstel datamap=%s, nieuwe datamap=%s"
 
-#: relocate.cc:138
+#: relocate.cc:148
 #, c-format
 msgid "Relocation: framework_prefix=%s"
 msgstr "Verhuizing: draadwerk_voorvoegel=%s"
 
-#: relocate.cc:179
+#: relocate.cc:189
 #, c-format
 msgid "Relocation: is absolute: argv0=%s"
 msgstr "Verhuizing: is absoluut: argv0=%s"
 
-#: relocate.cc:186
+#: relocate.cc:196
 #, c-format
 msgid "Relocation: from cwd: argv0=%s"
 msgstr "Verhuizing: van cwd: argv0=%s"
 
-#: relocate.cc:195
+#: relocate.cc:205
 #, c-format
 msgid ""
 "Relocation: from PATH=%s\n"
@@ -1616,155 +2402,159 @@ msgstr ""
 "Verhuizing: van PATH=%s\n"
 "argv0=%s"
 
-#: relocate.cc:229
+#: relocate.cc:239
 msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
 msgstr "LILYPONDPREFIX is verouderd, gebruik LILYPOND_DATADIR"
 
-#: relocate.cc:357
+#: relocate.cc:366
 #, c-format
 msgid "Relocation file: %s"
 msgstr "Verhuisbestand: %s"
 
-#: relocate.cc:393
+#: relocate.cc:402
 #, c-format
 msgid "Unknown relocation command %s"
 msgstr "Onbekend verhuizingscommando %s"
 
-#: rest-collision.cc:145
+#: rest-collision-engraver.cc:70
+msgid "rhythmic head is not part of a rhythmic column"
+msgstr ""
+
+#: rest-collision.cc:157
 msgid "cannot resolve rest collision: rest direction not set"
 msgstr "kan rust botsing niet oplossen: richting van de rust is niet gezet"
 
-#: rest-collision.cc:159 rest-collision.cc:204
+#: rest-collision.cc:171 rest-collision.cc:216
 msgid "too many colliding rests"
 msgstr "te veel botsende rusten"
 
-#: rest.cc:132
+#: rest.cc:159
 #, c-format
 msgid "rest `%s' not found"
 msgstr "rust `%s' niet gevonden"
 
-#: score-engraver.cc:67
+#: score-engraver.cc:78
 #, c-format
 msgid "cannot find `%s'"
 msgstr "kan niet vinden `%s'"
 
-#: score-engraver.cc:69
+#: score-engraver.cc:80
 msgid "Music font has not been installed properly."
 msgstr "Muziekfont is niet correct geïnstalleerd."
 
-#: score-engraver.cc:71
+#: score-engraver.cc:82
 #, c-format
 msgid "Search path `%s'"
 msgstr "Zoekpad: `%s'"
 
-#: score-engraver.cc:73
+#: score-engraver.cc:84
 msgid "Aborting"
 msgstr "Afbreken"
 
-#: score.cc:167
+#: score.cc:178
 msgid "already have music in score"
 msgstr "heb al muziek in score"
 
-#: score.cc:168
+#: score.cc:179
 msgid "this is the previous music"
 msgstr "dit is de vorige muziek"
 
-#: score.cc:173
+#: score.cc:184
 msgid "errors found, ignoring music expression"
 msgstr "fouten gevonden, negeer muziekexpressie"
 
 #. FIXME:
-#: script-engraver.cc:102
+#: script-engraver.cc:113
 msgid "do not know how to interpret articulation: "
 msgstr "weet niet hoe articulatie te vertolken: "
 
-#: script-engraver.cc:103
+#: script-engraver.cc:114
 msgid "scheme encoding: "
 msgstr "scheme codering: "
 
-#: slur-engraver.cc:82
+#: slur-engraver.cc:93
 #, c-format
 msgid "direction of %s invalid: %d"
 msgstr "richting van %s ongeldig: %d"
 
-#: slur-engraver.cc:151
+#: slur-engraver.cc:162
 msgid "unterminated slur"
 msgstr "onbeëindigde bindingsboog"
 
-#: slur-engraver.cc:163
+#: slur-engraver.cc:174
 msgid "cannot end slur"
 msgstr "kan legatoboog niet beëindigen"
 
-#: slur.cc:355
+#: slur.cc:366
 #, c-format
 msgid "Ignoring grob for slur: %s. avoid-slur not set?"
 msgstr "Negeren van grob voor boogje: %s.  avoid-slur niet gezet?"
 
-#: source-file.cc:74
+#: source-file.cc:85
 #, c-format
 msgid "expected to read %d characters, got %d"
 msgstr "verwacht %d karakters te lezen, kreeg %d"
 
-#: spaceable-grob.cc:117
+#: spaceable-grob.cc:94
 #, c-format
 msgid "No spring between column %d and next one"
 msgstr "Geen veer tussen kolom %d en de volgende"
 
-#: staff-symbol-engraver.cc:62
+#: staff-symbol-engraver.cc:73
 msgid "staff-span event has no direction"
 msgstr "notenbalk-span gebeurtenis heeft geen richting"
 
-#: stem-engraver.cc:92
+#: stem-engraver.cc:103
 msgid "tremolo duration is too long"
 msgstr "tremololengte is te lang"
 
 #. FIXME:
-#: stem-engraver.cc:129
+#: stem-engraver.cc:140
 #, c-format
 msgid "adding note head to incompatible stem (type = %d)"
 msgstr "voeg nootbolletje toe aan onverenigbare stok (type = %d)"
 
-#: stem-engraver.cc:131
+#: stem-engraver.cc:142
 msgid "maybe input should specify polyphonic voices"
 msgstr "misschien moet invoer polyfonische stemmen specificeren"
 
-#: stem.cc:105
+#: stem.cc:116
 msgid "weird stem size, check for narrow beams"
 msgstr "vreemde stoklengte; controleer op krappe waardestrepen"
 
-#: stem.cc:618
+#: stem.cc:633
 #, c-format
 msgid "flag `%s' not found"
 msgstr "vlag `%s' niet gevonden"
 
-#: stem.cc:629
+#: stem.cc:649
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr "vlag streep `%s' niet gevonden"
 
-#: system.cc:180
-#, c-format
-msgid "Element count %d."
+#: system.cc:197
+#, fuzzy, c-format
+msgid "Element count %d"
 msgstr "Aantal elementen: %d."
 
-#: system.cc:266
+#: system.cc:289
 #, c-format
 msgid "Grob count %d"
 msgstr "Aantal grobs %d"
 
-#: text-spanner-engraver.cc:60
+#: text-spanner-engraver.cc:73
 msgid "cannot find start of text spanner"
 msgstr "kan start van tekst spanner niet vinden"
 
-#: text-spanner-engraver.cc:72
+#: text-spanner-engraver.cc:86
 msgid "already have a text spanner"
 msgstr "heb al een tekst spanner"
 
-#: text-spanner-engraver.cc:118
+#: text-spanner-engraver.cc:132
 msgid "unterminated text spanner"
 msgstr "onbeëindigde tekst spanner"
 
-#: tie-engraver.cc:267
+#: tie-engraver.cc:273
 msgid "lonely tie"
 msgstr "eenzame overbinding"
 
@@ -1773,56 +2563,57 @@ msgstr "eenzame overbinding"
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 #.
-#: time-signature-engraver.cc:64
+#: time-signature-engraver.cc:75
 #, c-format
 msgid "strange time signature found: %d/%d"
 msgstr "vreemde maatsoort gevonden: %d/%d"
 
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
-#: time-signature.cc:83
+#: time-signature.cc:94
 #, c-format
 msgid "time signature symbol `%s' not found; reverting to numbered style"
 msgstr "maatsoortsymbool `%s' niet gevonden; val terug op numerieke stijl"
 
-#: translator-ctors.cc:52
+#: translator-ctors.cc:65
 #, c-format
 msgid "unknown translator: `%s'"
 msgstr "onbekende translator: `%s'"
 
-#: translator-group-ctors.cc:29
+#: translator-group-ctors.cc:40
 #, c-format
 msgid "fatal error. Couldn't find type: %s"
 msgstr "fatale fout.  Kan type niet vinden: %s"
 
-#: translator-group.cc:146
+#: translator-group.cc:157
 #, c-format
 msgid "cannot find: `%s'"
 msgstr "kan niet vinden: `%s'"
 
-#: translator.cc:346
+#: translator.cc:358
 #, c-format
 msgid "Two simultaneous %s events, junking this one"
 msgstr "Twee gelijktijdige %s gebeurtenissen, verschroot deze"
 
-#: translator.cc:347
+#: translator.cc:359
 #, c-format
 msgid "Previous %s event here"
 msgstr "Vorige %s gebeurtenis hier"
 
-#: trill-spanner-engraver.cc:67
-msgid "cannot find start of trill spanner"
-msgstr "kan start van triller spanner niet vinden"
+#: ttf.cc:479 ttf.cc:528
+#, c-format
+msgid "font index %d too large for font `%s', using index 0"
+msgstr ""
 
-#: trill-spanner-engraver.cc:79
-msgid "already have a trill spanner"
-msgstr "heb al een tekst spanner"
+#: ttf.cc:511 ttf.cc:563
+msgid "font index must be non-negative, using index 0"
+msgstr ""
 
-#: tuplet-engraver.cc:96
+#: tuplet-engraver.cc:107
 msgid "No tuplet to end"
 msgstr "Geen tuplet om te beëindigen"
 
-#: vaticana-ligature-engraver.cc:388
+#: vaticana-ligature-engraver.cc:400
 #, c-format
 msgid ""
 "ignored prefix (es) `%s' of this head according to restrictions of the "
@@ -1832,296 +2623,321 @@ msgstr ""
 "de\n"
 "geselecteerde ligatuurstijl"
 
-#: vaticana-ligature-engraver.cc:714
+#: vaticana-ligature-engraver.cc:735
 #, c-format
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
-msgstr "Vaticana_ligature_engraver: instelling `spacing-increment = %f': ptr=%ul"
+msgstr ""
+"Vaticana_ligature_engraver: instelling `spacing-increment = %f': ptr=%ul"
 
-#: vaticana-ligature.cc:84
+#: vaticana-ligature.cc:95
 msgid "flexa-height undefined; assuming 0"
 msgstr "flexa-hoogte ongedefiniëerd; uitgaan van 0"
 
-#: vaticana-ligature.cc:89
+#: vaticana-ligature.cc:100
 msgid "ascending vaticana style flexa"
 msgstr "stijgende vaticana stijl flexa"
 
-#: vaticana-ligature.cc:177
+#: vaticana-ligature.cc:188
 msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
 msgstr "Vaticana_ligature: nulsamenvoeging (delta_pitch == 0)"
 
 #. fixme: be more verbose.
-#: volta-engraver.cc:143
+#: volta-engraver.cc:111
 msgid "cannot end volta spanner"
 msgstr "kan volta spanner niet beëindigen"
 
-#: volta-engraver.cc:153
+#: volta-engraver.cc:121
 msgid "already have a volta spanner, ending that one prematurely"
 msgstr "heb al een volta spanner, beëindig die voortijdig"
 
-#: volta-engraver.cc:157
+#: volta-engraver.cc:125
 msgid "also already have an ended spanner"
 msgstr "heb ook al een beëindigde spanner"
 
-#: volta-engraver.cc:158
+#: volta-engraver.cc:126
 msgid "giving up"
 msgstr "geef op"
 
-#: parser.yy:704
+#: parser.yy:824
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr "\\paper kan niet worden gebruikt in \\score, gebruik \\layout"
 
-#: parser.yy:728
+#: parser.yy:848
 msgid "need \\paper for paper block"
 msgstr "heb \\paper nodig voor paper blok"
 
-#: parser.yy:1187
+#: parser.yy:1325
 msgid "Grob name should be alphanumeric"
 msgstr "Grob naam zou alfanumeriek moeten zijn"
 
-#: parser.yy:1485
+#: parser.yy:1637
 msgid "second argument must be pitch list"
 msgstr "tweede argument moet een toonhoogtelijst zijn"
 
-#: parser.yy:1512 parser.yy:1517 parser.yy:1982
+#: parser.yy:1664 parser.yy:1669 parser.yy:2141
 msgid "have to be in Lyric mode for lyrics"
 msgstr "moet in Lyric modus zijn voor liedteksten"
 
-#: parser.yy:1614
+#: parser.yy:1766
 msgid "expecting string as script definition"
 msgstr "verwacht string voor script definitie"
 
-#: parser.yy:1769 parser.yy:1819
+#: parser.yy:1921 parser.yy:1971
 #, c-format
 msgid "not a duration: %d"
 msgstr "geen duur: %d"
 
-#: parser.yy:1936
+#: parser.yy:2095
 msgid "have to be in Note mode for notes"
 msgstr "moet in Note modus zijn voor noten"
 
-#: parser.yy:1997
+#: parser.yy:2156
 msgid "have to be in Chord mode for chords"
 msgstr "moet in Chord modus zijn voor akkoorden"
 
-#: lexer.ll:176
+#: lexer.ll:189
 msgid "stray UTF-8 BOM encountered"
 msgstr "losse UTF-8 BOM tegengekomen"
 
-#: lexer.ll:180
+#: lexer.ll:193
 msgid "Skipping UTF-8 BOM"
 msgstr "Overslaan van UTF-8 BOM"
 
-#: lexer.ll:235
+#: lexer.ll:248
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr "Hernoem invoer naar: `%s'"
 
-#: lexer.ll:252
+#: lexer.ll:265
 msgid "quoted string expected after \\version"
 msgstr "tekst tussen aanhalingstekens verwacht na \\version"
 
-#: lexer.ll:256
+#: lexer.ll:269
 msgid "quoted string expected after \\sourcefilename"
 msgstr "tekst tussen aanhalingstekens verwacht na \\sourcefilename"
 
-#: lexer.ll:260
+#: lexer.ll:273
 msgid "integer expected after \\sourcefileline"
 msgstr "geheel getal verwacht na \\sourcefileline"
 
-#: lexer.ll:273
+#: lexer.ll:286
 msgid "EOF found inside a comment"
 msgstr "EOF gevonden in een commentaar"
 
-#: lexer.ll:288
+#: lexer.ll:301
 msgid "\\maininput not allowed outside init files"
 msgstr "\\maininput niet toegestaan buiten init bestanden"
 
-#: lexer.ll:312
+#: lexer.ll:325
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "verkeerde of ongedefiniëerde identifier: `%s'"
 
 #. backup rule
-#: lexer.ll:321
+#: lexer.ll:334
 msgid "end quote missing"
 msgstr "aanhalingstekens sluiten ontbreekt"
 
-#: lexer.ll:466
+#: lexer.ll:479
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr "Accolade gevonden aan het eind van liedtekst.  Een spatie vergeten?"
 
-#: lexer.ll:559
+#: lexer.ll:594
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr "Accolade gevonden aan het eind van een opmaak.  Een spatie vergeten?"
 
-#: lexer.ll:663
+#: lexer.ll:698
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "ongeldig teken: `%c'"
 
-#: lexer.ll:778
+#: lexer.ll:813 lexer.ll:814
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "onbekende ontsnapte string: `\\%s'"
 
-#: lexer.ll:884
+#: lexer.ll:923 lexer.ll:924
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr "bestand te oud: %s (oudste ondersteund: %s)"
 
-#: lexer.ll:885
+#: lexer.ll:924 lexer.ll:925
 msgid "consider updating the input with the convert-ly script"
 msgstr "overweeg het actualiseren van de invoer met het convert-ly script"
 
-#: lexer.ll:891
+#: lexer.ll:930 lexer.ll:931
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr "programma te oud: %s (bestand vereist: %s)"
 
-#: backend-library.scm:19 lily.scm:752 ps-to-png.scm:58
+#: backend-library.scm:34 ps-to-png.scm:69
 #, scheme-format
 msgid "Invoking `~a'..."
 msgstr "Inroepen van `~a'..."
 
-#: backend-library.scm:28
+#: backend-library.scm:44
 #, scheme-format
 msgid "`~a' failed (~a)"
 msgstr "`~a' gefaald (~a)"
 
 # lisp-format
-#: backend-library.scm:115 framework-tex.scm:343 framework-tex.scm:368
+#: backend-library.scm:131
 #, scheme-format
 msgid "Converting to `~a'..."
 msgstr "Converteren naar `~a'..."
 
 # lisp-format
-#: backend-library.scm:128
+#. Do not try to guess the name of the png file,
+#. GS produces PNG files like BASE-page%d.png.
+#: backend-library.scm:141
 #, scheme-format
 msgid "Converting to ~a..."
 msgstr "Converteren naar ~a..."
 
-#: backend-library.scm:166
+#: backend-library.scm:179
 #, scheme-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr "Schrijven van header veld `~a' naar `~a'..."
 
-#: define-context-properties.scm:20 define-grob-properties.scm:10
-#: define-music-properties.scm:10
+#: backend-library.scm:209
+#, scheme-format
+msgid "missing stencil expression `~S'"
+msgstr ""
+
+#: define-context-properties.scm:31 define-grob-properties.scm:21
+#: define-music-properties.scm:21
 #, scheme-format
 msgid "symbol ~S redefined"
 msgstr "symbool ~S hergedefiniëerd"
 
-#: define-event-classes.scm:119
+#: define-event-classes.scm:130
 #, scheme-format
 msgid "event class ~A seems to be unused"
 msgstr "gebeurtenisklasse ~A schijnt ongebruikt te zijn"
 
 #. should be programming-error
-#: define-event-classes.scm:125
+#: define-event-classes.scm:136
 #, scheme-format
 msgid "translator listens to nonexisting event class ~A"
 msgstr "vertaler luistert naar nietbestaande gebeurtenisklasse ~A"
 
-#: define-markup-commands.scm:273
+#: define-markup-commands.scm:677
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr "geen systemen gevonden in \\score markup, heeft het een \\layout blok?"
 
-#: define-markup-commands.scm:1315
+#: define-markup-commands.scm:2433
+#, fuzzy, scheme-format
+msgid "Cannot find glyph ~a"
+msgstr "kan ~a niet vinden in ~a"
+
+#: define-markup-commands.scm:2690
+#, fuzzy, scheme-format
+msgid "no brace found for point size ~S "
+msgstr "geen plaatsing gevonden voor vingerzetting"
+
+#: define-markup-commands.scm:2691
+#, scheme-format
+msgid "defaulting to ~S pt"
+msgstr ""
+
+#: define-markup-commands.scm:2844
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr "geen geldige duurtekst: ~a"
 
-#: define-music-types.scm:743
+#: define-music-types.scm:698
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr "symbool verwacht: ~S"
 
-#: define-music-types.scm:746
+#: define-music-types.scm:701
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr "kan muziekobject niet vinden: ~S"
 
-#: define-music-types.scm:766
+#: define-music-types.scm:720
 #, scheme-format
 msgid "unknown repeat type `~S'"
 msgstr "onbekend herhaaltype `~S'"
 
-#: define-music-types.scm:767
-msgid "See music-types.scm for supported repeats"
+#: define-music-types.scm:721
+#, fuzzy
+msgid "See define-music-types.scm for supported repeats"
 msgstr "Zie music-types.scm voor ondersteunde herhalingen"
 
-#: document-backend.scm:91
+#: document-backend.scm:132
 #, scheme-format
 msgid "pair expected in doc ~s"
 msgstr "paar verwacht in doc ~s"
 
-#: document-backend.scm:135
+#: document-backend.scm:189
 #, scheme-format
 msgid "cannot find interface for property: ~S"
 msgstr "kan grob bediening voor eigenschap niet vinden: ~S"
 
-#: document-backend.scm:145
+#: document-backend.scm:199
 #, scheme-format
 msgid "unknown Grob interface: ~S"
 msgstr "onbekende Grob bediening: ~S"
 
-#: documentation-lib.scm:45
+#: documentation-lib.scm:59
 #, scheme-format
 msgid "Processing ~S..."
 msgstr "Verwerken van ~S..."
 
-#: documentation-lib.scm:150
+#: documentation-lib.scm:176
 #, scheme-format
 msgid "Writing ~S..."
 msgstr "Schrijven van ~S..."
 
-#: documentation-lib.scm:172
+#: documentation-lib.scm:198
 #, scheme-format
 msgid "cannot find description for property ~S (~S)"
 msgstr "kan beschrijving voor eigenschap niet vinden ~S (~S)"
 
-#: framework-eps.scm:89
+#: flag-styles.scm:157
+#, fuzzy, scheme-format
+msgid "flag stroke `~a' or `~a' not found"
+msgstr "vlag streep `%s' niet gevonden"
+
+#: framework-eps.scm:108
 #, scheme-format
 msgid "Writing ~a..."
 msgstr "Schrijven van ~a..."
 
-#: framework-ps.scm:281
+#: framework-ps.scm:273
 #, scheme-format
 msgid "cannot embed ~S=~S"
 msgstr "kan niet inbedden ~S=~S"
 
-#: framework-ps.scm:334
+#: framework-ps.scm:314
 #, scheme-format
 msgid "cannot extract file matching ~a from ~a"
 msgstr "kan bestand dat past op ~a niet uit ~a extraheren"
 
-#: framework-ps.scm:351
+#: framework-ps.scm:332
 #, scheme-format
 msgid "do not know how to embed ~S=~S"
 msgstr "weet niet hoe ~S=~S in te bedden"
 
-#: framework-ps.scm:382
+#: framework-ps.scm:357
 #, scheme-format
 msgid "do not know how to embed font ~s ~s ~s"
 msgstr "weet niet hoe font in te bedden: ~s ~s ~s"
 
-#: framework-ps.scm:731
+#: framework-ps.scm:663
 #, scheme-format
 msgid "cannot convert <stdout> to ~S"
 msgstr "kan <stduit> niet converteren naar ~S"
 
-#: framework-ps.scm:750 framework-ps.scm:753
-#, scheme-format
-msgid "cannot generate ~S using the postscript back-end"
-msgstr "kan ~S niet genereren, gebruikmakend van de postscript achterkant"
-
-#: framework-ps.scm:760
+#: framework-ps.scm:684
+#, fuzzy
 msgid ""
 "\n"
-"The PostScript backend does not support the system-by-system \n"
-"output. For that, use the EPS backend instead,\n"
+"The PostScript backend does not support the\n"
+"system-by-system output.  For that, use the EPS backend instead,\n"
 "\n"
-"  lilypond -b eps <file>\n"
+"  lilypond -dbackend=eps FILE\n"
 "\n"
 "If have cut & pasted a lilypond fragment from a webpage, be sure\n"
 "to only remove anything before\n"
@@ -2129,7 +2945,6 @@ msgid ""
 "  %% ****************************************************************\n"
 "  %% Start cut-&-pastable-section\n"
 "  %% ****************************************************************\n"
-"\n"
 msgstr ""
 "\n"
 "Het PostScript backend ondersteund geen system-by-system uitvoer.\n"
@@ -2146,66 +2961,65 @@ msgstr ""
 "\n"
 "is verwijderd\n"
 
-#: framework-tex.scm:360
-#, scheme-format
-msgid "TeX file name must not contain whitespace: `~a'"
-msgstr "TeX bestandsnaam mag geen spaties bevatten: `~a'"
-
-#: graphviz.scm:53
+#: graphviz.scm:64
 #, scheme-format
 msgid "Writing graph `~a'..."
 msgstr "Schrijven van graph `~a'..."
 
-#: layout-beam.scm:29
+#: layout-beam.scm:38
 #, scheme-format
 msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
 msgstr "Fout in waardestreep kwantisering.  Verwacht (~S,~S) gevonden ~S."
 
-#: layout-beam.scm:46
+#: layout-beam.scm:52
 #, scheme-format
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr "Fout in waardestreep kwantisering.  Verwacht ~S 0, gevonden ~S."
 
-#: layout-page-layout.scm:115
-msgid "Can't fit systems on page -- ignoring between-system-padding"
+#: lily-library.scm:623
+msgid ""
+"Find the index between @var{start} and @var{end} (an integer)\n"
+"which will produce the closest match to @var{target-val} when\n"
+"applied to function @var{getter}."
 msgstr ""
-"Kan systemen niet op pagina gepast krijgen -- negeren van between-system-"
-"padding"
 
-#: layout-page-layout.scm:449
-msgid "Calculating page breaks..."
-msgstr "Berekenen van pagina-afbreuken..."
-
-#: lily-library.scm:545
+#: lily-library.scm:694
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr "onbekende eenheid: ~S"
 
-#: lily-library.scm:579
+#: lily-library.scm:728 lily-library.scm:737
+#, fuzzy
+msgid "warning:"
+msgstr "waarschuwing: "
+
+#: lily-library.scm:730
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
-msgstr "geen \\version uitdrukking gevonden, voeg~atoe voor toekomstige compatibiliteit"
+msgstr ""
+"geen \\version uitdrukking gevonden, voeg~atoe voor toekomstige "
+"compatibiliteit"
 
-#: lily-library.scm:587
+#: lily-library.scm:738
 msgid "old relative compatibility not used"
 msgstr "oude relative compatibiliteit niet gebruikt"
 
-#: lily.scm:173
+#: lily.scm:259
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr "kan niet vinden: ~A"
 
-#: lily.scm:238
+#: lily.scm:312
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr "verkeerd type voor argument ~a.  Verwacht ~a, gevonden ~s"
 
-#: lily.scm:619
+#: lily.scm:650
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr "taak ~a beëindigd met met signaal: ~a"
 
-#: lily.scm:622
+#: lily.scm:653
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
@@ -2214,124 +3028,233 @@ msgstr ""
 "logfile ~a (exit ~a):\n"
 "~a"
 
-#: lily.scm:649 lily.scm:742
+#: lily.scm:674 lily.scm:755
 #, scheme-format
 msgid "failed files: ~S"
 msgstr "gefaalde bestanden: ~S"
 
 # lisp-format
-#: lily.scm:732
+#: lily.scm:746
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr "Omleiden van uitvoer naar ~a..."
 
-#: ly-syntax-constructors.scm:40
+#: lily.scm:765
+#, fuzzy, scheme-format
+msgid "Invoking `~a'...\n"
+msgstr "Inroepen van `~a'..."
+
+#: ly-syntax-constructors.scm:51
 msgid "Music head function must return Music object"
 msgstr "Muziek hoofd functie moet Muziek object teruggeven"
 
-#: ly-syntax-constructors.scm:139
+#: ly-syntax-constructors.scm:171
 #, scheme-format
 msgid "Invalid property operation ~a"
 msgstr "Ongeldige eigenschap operatie ~a"
 
-#: markup.scm:94
+#: markup.scm:232
 #, scheme-format
 msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
 msgstr "verkeerd aantal argumenten.  Verwacht: ~A, gevonden ~A: ~S"
 
-#: markup.scm:100
+#: markup.scm:238
 #, scheme-format
 msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
 msgstr "Ongeldig argument in positie ~A.  Verwacht: ~A, gevonden: ~S."
 
-#: music-functions.scm:228
-msgid "More alternatives than repeats.  Junking excess alternatives"
-msgstr "Meer alternatieven dan herhalingen.  Verschroten van overtollige alternatieven"
+#: markup.scm:301
+#, scheme-format
+msgid "Not a markup command: ~A"
+msgstr ""
 
-#: music-functions.scm:250
+#: music-functions.scm:253
+msgid "More alternatives than repeats.  Junking excess alternatives"
+msgstr ""
+"Meer alternatieven dan herhalingen.  Verschroten van overtollige "
+"alternatieven"
+
+#: music-functions.scm:271
+#, fuzzy, scheme-format
+msgid "invalid tremolo repeat count: ~a"
+msgstr "Ongeldige eigenschap operatie ~a"
+
+#: music-functions.scm:279
 #, scheme-format
 msgid "expecting 2 elements for chord tremolo, found ~a"
 msgstr "verwacht 2 elementen voor akkoordtremolo, ~a gevonden"
 
-#: music-functions.scm:573
+#: music-functions.scm:652
 #, scheme-format
 msgid "music expected: ~S"
 msgstr "muziek verwacht: ~S"
 
 #. FIXME: uncomprehensable message
-#: music-functions.scm:623
+#: music-functions.scm:700
 #, scheme-format
 msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
 msgstr "Maat controle gefaald.  Verwacht bij ~a te zijn, maar ben bij ~a"
 
-#: music-functions.scm:773
+#: music-functions.scm:879
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr "kan aangehaalde muziek niet vinden: `~S'"
 
-#: music-functions.scm:970
+#: music-functions.scm:1021
+msgid "Add @var{octave-shift} to the octave of @var{pitch}."
+msgstr ""
+
+#: music-functions.scm:1076
+#, fuzzy, scheme-format
+msgid "Unknown octaveness type: ~S "
+msgstr "onbekend herhaaltype `~S'"
+
+#: music-functions.scm:1077
+msgid "Defaulting to 'any-octave."
+msgstr ""
+
+#: music-functions.scm:1412
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr "onbekende toevallig teken stijl: ~S"
 
-#: output-ps.scm:276
-msgid "utf-8-string encountered in PS backend"
-msgstr "utf-8-string tegengekomen in in PS backend"
-
-#: output-svg.scm:42
+#: output-svg.scm:40
 #, scheme-format
 msgid "undefined: ~S"
 msgstr "ongedefiniëerd: ~S"
 
-#: output-svg.scm:132
+#: output-svg.scm:144
 #, scheme-format
 msgid "cannot decypher Pango description: ~a"
 msgstr "kan Pango fontbeschrijving niet ontcijferen: ~a"
 
-#: output-tex.scm:97
-#, scheme-format
-msgid "cannot find ~a in ~a"
-msgstr "kan ~a niet vinden in ~a"
+#: output-svg.scm:224
+msgid "Glyph must have a unicode value"
+msgstr ""
 
-#: paper.scm:84
+#: output-svg.scm:276 output-svg.scm:286
+#, fuzzy, scheme-format
+msgid "cannot find SVG font ~S"
+msgstr "kan font niet vinden: `%s'"
+
+#: paper.scm:115
 msgid "set-global-staff-size: not in toplevel scope"
 msgstr "set-global-staff-size: niet op topniveau"
 
-#: paper.scm:132
+#: paper.scm:298
 #, scheme-format
 msgid "This is not a \\layout {} object, ~S"
 msgstr "Dit is geen \\layout {} object, ~S"
 
-#: paper.scm:144
-#, scheme-format
-msgid "Unknown papersize: ~a"
+#: paper.scm:310
+#, fuzzy, scheme-format
+msgid "Unknown paper size: ~a"
 msgstr "Onbekende papiergrootte: ~a"
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:159
+#: paper.scm:325
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr "Moet #(set-paper-size .. ) gebruiken in \\paper { ... }"
 
-#: parser-clef.scm:127
+#: parser-clef.scm:140
 #, scheme-format
 msgid "unknown clef type `~a'"
 msgstr "onbekend sleuteltype `~a'"
 
-#: parser-clef.scm:128
+#: parser-clef.scm:141
 #, scheme-format
 msgid "supported clefs: ~a"
 msgstr "ondersteunde sleutels: ~a"
 
-#: ps-to-png.scm:64
+#: ps-to-png.scm:75
 #, scheme-format
 msgid "~a exited with status: ~S"
 msgstr "~a sloot af met status: ~S"
 
-#: to-xml.scm:180
+#: to-xml.scm:191
 #, scheme-format
 msgid "assertion failed: ~S"
 msgstr "assertie gefaald: ~S"
+
+#~ msgid "Report bugs via"
+#~ msgstr ""
+#~ "Meld fouten in het programma via %;\n"
+#~ "meld onjuistheden in de vertaling aan <janneke@gnu.org> of <hanwen@xs4all."
+#~ "nl>."
+
+#~ msgid ""
+#~ "extract all PostScript fonts into INPUT.psfonts for LaTeX\n"
+#~ "must use this with dvips -h INPUT.psfonts"
+#~ msgstr ""
+#~ "extraheer alle PostScript fonts naar BESTAND voor LaTeX\n"
+#~ "dit dient gebruikt te worden met dvips -h BESTAND"
+
+#~ msgid "option --psfonts not used"
+#~ msgstr "optie --psfonts niet gebruikt"
+
+#~ msgid "processing with dvips will have no fonts"
+#~ msgstr "verwerking met dvips zal geen fonts hebben"
+
+#~ msgid "DVIPS usage:"
+#~ msgstr "DVIPS gebruik:"
+
+#~ msgid "Writing fonts to %s..."
+#~ msgstr "Schrijven van fonts naar %s"
+
+#~ msgid ""
+#~ "This program is free software.  It is covered by the GNU General Public\n"
+#~ "License and you are welcome to change it and/or distribute copies of it\n"
+#~ "under certain conditions.  Invoke as `%s --warranty' for more\n"
+#~ "information."
+#~ msgstr ""
+#~ "Dit is vrije programmatuur.  Het valt onder de GNU Algemene Openbare\n"
+#~ "Licentie (General Public Licence), en u wordt uitgenodigd het te\n"
+#~ "veranderen en/of te verspreiden onder bepaalde voorwaarden.  Roep aan\n"
+#~ "als `%s --warranty' voor meer informatie."
+
+#~ msgid "ignoring unknown accidental rule: %s"
+#~ msgstr "negeren van onbekende voorteken regel: %s"
+
+#~ msgid "tried to get a translation for something that is no child of mine"
+#~ msgstr ""
+#~ "probeerde een verplaatsing te verkrijgen voor iets wat geen kind van mij "
+#~ "is"
+
+#~ msgid "tried to calculate pure-height at a non-breakpoint"
+#~ msgstr "probeerde pure-hoogte te berekenen op een niet-breekpunt"
+
+#~ msgid "crescendo too small"
+#~ msgstr "crescendo te klein"
+
+#~ msgid "deprecated function called: %s"
+#~ msgstr "verouderde functie aangeroepen: %s"
+
+#~ msgid "generate DVI (tex backend only)"
+#~ msgstr "genereer DVI (alleen tex backend)"
+
+#~ msgid "generate TeX (tex backend only)"
+#~ msgstr "genereer TeX (alleen tex backend)"
+
+#~ msgid "cannot find start of trill spanner"
+#~ msgstr "kan start van triller spanner niet vinden"
+
+#~ msgid "already have a trill spanner"
+#~ msgstr "heb al een tekst spanner"
+
+#~ msgid "cannot generate ~S using the postscript back-end"
+#~ msgstr "kan ~S niet genereren, gebruikmakend van de postscript achterkant"
+
+#~ msgid "TeX file name must not contain whitespace: `~a'"
+#~ msgstr "TeX bestandsnaam mag geen spaties bevatten: `~a'"
+
+#~ msgid "Can't fit systems on page -- ignoring between-system-padding"
+#~ msgstr ""
+#~ "Kan systemen niet op pagina gepast krijgen -- negeren van between-system-"
+#~ "padding"
+
+#~ msgid "utf-8-string encountered in PS backend"
+#~ msgstr "utf-8-string tegengekomen in in PS backend"
 
 #~ msgid "lilylib module"
 #~ msgstr "lilylib module"
@@ -2478,13 +3401,18 @@ msgstr "assertie gefaald: ~S"
 #~ msgstr "geen bestanden gespecificeerd op de commandoregel"
 
 #~ msgid "Running LilyPond failed. Rerun with --verbose for a trace."
-#~ msgstr "Draaien van LilyPond gefaald. Draai opnieuw met --verbose voor een foutpad."
+#~ msgstr ""
+#~ "Draaien van LilyPond gefaald. Draai opnieuw met --verbose voor een "
+#~ "foutpad."
 
 #~ msgid "Failed to make PS file. Rerun with --verbose for a trace."
-#~ msgstr "Gefaald in het maken van een PS bestand.  Draai opnieuw met --verbose voor een foutpad."
+#~ msgstr ""
+#~ "Gefaald in het maken van een PS bestand.  Draai opnieuw met --verbose "
+#~ "voor een foutpad."
 
 #~ msgid "Running LaTeX failed. Rerun with --verbose for a trace."
-#~ msgstr "Draaien van LaTeX gefaald.  Draai opnieuw met --verbose voor een foutpad."
+#~ msgstr ""
+#~ "Draaien van LaTeX gefaald.  Draai opnieuw met --verbose voor een foutpad."
 
 #~ msgid "%s output to <stdout>..."
 #~ msgstr "%s uitvoer naar <stdout>..."
@@ -2535,13 +3463,16 @@ msgstr "assertie gefaald: ~S"
 #~ msgstr "komt niet overeen: `%s'"
 
 #~ msgid "Rebuild all .afm files, and remove all .pk and .tfm files."
-#~ msgstr "Herbouw alle .afm bestanden en verwijder alle .pk en .tfm bestanden."
+#~ msgstr ""
+#~ "Herbouw alle .afm bestanden en verwijder alle .pk en .tfm bestanden."
 
 #~ msgid "Rerun with -V to show font paths."
 #~ msgstr "Draai opnieuw met -V voor het tonen van fontpaden."
 
 #~ msgid "A script for removing font-files is delivered with the source-code:"
-#~ msgstr "Een script ter verwijdering van fontbestanden is meegeleverd bij de bron-code:"
+#~ msgstr ""
+#~ "Een script ter verwijdering van fontbestanden is meegeleverd bij de bron-"
+#~ "code:"
 
 #~ msgid "Loading default font"
 #~ msgstr "Laad verstek font"
@@ -2594,10 +3525,13 @@ msgstr "assertie gefaald: ~S"
 #~ msgid ""
 #~ "round filled box horizontal extent smaller than blot; decreasing blot"
 #~ msgstr ""
-#~ "rond gevulde doos horizontale afmetingen kleiner dan blot; verkleinen van blot"
+#~ "rond gevulde doos horizontale afmetingen kleiner dan blot; verkleinen van "
+#~ "blot"
 
 #~ msgid "round filled box vertical extent smaller than blot; decreasing blot"
-#~ msgstr "rond gevulde doos vertikale afmetingen kleiner dan blot; verkleinen van blot"
+#~ msgstr ""
+#~ "rond gevulde doos vertikale afmetingen kleiner dan blot; verkleinen van "
+#~ "blot"
 
 #~ msgid "set options, use -e '(ly-option-usage)' for help"
 #~ msgstr "zet opties, gebruik -e '(ly-option-usage)' voor hulp"
@@ -2665,12 +3599,14 @@ msgstr "assertie gefaald: ~S"
 #~ msgid ""
 #~ "  Multiple -e options may be given, they will be evaluated sequentially."
 #~ msgstr ""
-#~ "  Verscheidene -e opties mogen worden gegeven, deze zullen sequentieel worden geëvalueerd."
+#~ "  Verscheidene -e opties mogen worden gegeven, deze zullen sequentieel "
+#~ "worden geëvalueerd."
 
 #~ msgid ""
 #~ "  The function ly-set-option allows for access to some internal variables."
 #~ msgstr ""
-#~ "  De functie ly-set-option verschaft toegang tot bepaalde interne variabelen."
+#~ "  De functie ly-set-option verschaft toegang tot bepaalde interne "
+#~ "variabelen."
 
 #~ msgid "Usage: lilypond-bin -e \"(ly-set-option SYMBOL VAL)\""
 #~ msgstr "Gebruik: lilypond-bin -e \"(ly-set-option SYMBOOL WAARDE)\""
@@ -2754,7 +3690,8 @@ msgstr "assertie gefaald: ~S"
 #~ msgid ""
 #~ "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 #~ msgstr ""
-#~ "Meld fouten naar <a href=\\\"%(mail_address_url)s\\\">%(mail_address)s</a>."
+#~ "Meld fouten naar <a href=\\\"%(mail_address_url)s\\\">%(mail_address)s</"
+#~ "a>."
 
 #~ msgid "Other languages: %s."
 #~ msgstr "Andere talen: %s."
@@ -2782,9 +3719,6 @@ msgstr "assertie gefaald: ~S"
 
 #~ msgid "Finding the ideal number of pages..."
 #~ msgstr "Zoeken naar het ideale aantal pagina's..."
-
-#~ msgid "Fitting music on 1 page..."
-#~ msgstr "Muziek passend maken op 1 pagina..."
 
 #~ msgid "Fitting music on %d or %d pages..."
 #~ msgstr "Muziek passend maken op %d of %d pagina's..."
