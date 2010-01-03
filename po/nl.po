@@ -639,9 +639,7 @@ msgstr "verwijderen van waardestreep zonder stokken"
 
 #: beam.cc:1035
 msgid "no viable initial configuration found: may not find good beam slope"
-msgstr ""
-"geen werkbare initiële configuratie gevonden: kan wellicht geen goede "
-"waardestreephelling vinden"
+msgstr "geen werkbare initiële configuratie gevonden: kan wellicht geen goede waardestreephelling vinden"
 
 #: break-alignment-interface.cc:195
 #, c-format
@@ -868,9 +866,7 @@ msgstr "%d: %s"
 #: grob-property.cc:174
 #, c-format
 msgid "cyclic dependency: calculation-in-progress encountered for #'%s (%s)"
-msgstr ""
-"circulaire afhankelijkheid: calculation-in-progress tegengekomen voor #'%s (%"
-"s)"
+msgstr "circulaire afhankelijkheid: calculation-in-progress tegengekomen voor #'%s (%s)"
 
 #: grob.cc:251
 msgid "Infinity or NaN encountered"
@@ -1023,9 +1019,7 @@ msgstr "kan Voice niet vinden: `%s'"
 
 #: lyric-engraver.cc:158
 msgid "Lyric syllable does not have note. Use \\lyricsto or associatedVoice."
-msgstr ""
-"Liedtekst lettergreep heeft geen noot.  Gebruik \\lyricsto of "
-"associatedVoice."
+msgstr "Liedtekst lettergreep heeft geen noot.  Gebruik \\lyricsto of associatedVoice."
 
 #: main.cc:100
 #, c-format
@@ -1159,15 +1153,11 @@ msgstr ""
 
 #: main.cc:159
 msgid "write output to FILE (suffix will be added)"
-msgstr ""
-"schrijf uitvoer naar BESTAND\n"
-"(extensie wordt toegevoegd)"
+msgstr "schrijf uitvoer naar BESTAND (extensie wordt toegevoegd)"
 
 #: main.cc:160
 msgid "relocate using directory of lilypond program"
-msgstr ""
-"verhuis aan de hand van de map van het\n"
-"lilypond programma"
+msgstr "verhuis aan de hand van de map van het lilypond programma"
 
 #: main.cc:161
 msgid "show version number and exit"
@@ -1211,8 +1201,7 @@ msgstr "Opties:"
 #: main.cc:242
 #, c-format
 msgid "Report bugs via %s"
-msgstr ""
-"Meld fouten in het programma aan %s;\n"
+msgstr "Meld fouten in het programma aan %s;\n"
 "meld onjuistheden in de vertaling aan <janneke@gnu.org> of <hanwen@cs.uu.nl>."
 
 #: main.cc:288
@@ -2195,9 +2184,7 @@ msgstr "onbekende eenheid: ~S"
 #: lily-library.scm:579
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
-msgstr ""
-"geen \\version uitdrukking gevonden, voeg~atoe voor toekomstige "
-"compatibiliteit"
+msgstr "geen \\version uitdrukking gevonden, voeg~atoe voor toekomstige compatibiliteit"
 
 #: lily-library.scm:587
 msgid "old relative compatibility not used"
@@ -2491,18 +2478,13 @@ msgstr "assertie gefaald: ~S"
 #~ msgstr "geen bestanden gespecificeerd op de commandoregel"
 
 #~ msgid "Running LilyPond failed. Rerun with --verbose for a trace."
-#~ msgstr ""
-#~ "Draaien van LilyPond gefaald. Draai opnieuw met --verbose voor een "
-#~ "foutpad."
+#~ msgstr "Draaien van LilyPond gefaald. Draai opnieuw met --verbose voor een foutpad."
 
 #~ msgid "Failed to make PS file. Rerun with --verbose for a trace."
-#~ msgstr ""
-#~ "Gefaald in het maken van een PS bestand.  Draai opnieuw met --verbose "
-#~ "voor een foutpad."
+#~ msgstr "Gefaald in het maken van een PS bestand.  Draai opnieuw met --verbose voor een foutpad."
 
 #~ msgid "Running LaTeX failed. Rerun with --verbose for a trace."
-#~ msgstr ""
-#~ "Draaien van LaTeX gefaald.  Draai opnieuw met --verbose voor een foutpad."
+#~ msgstr "Draaien van LaTeX gefaald.  Draai opnieuw met --verbose voor een foutpad."
 
 #~ msgid "%s output to <stdout>..."
 #~ msgstr "%s uitvoer naar <stdout>..."
@@ -2553,16 +2535,13 @@ msgstr "assertie gefaald: ~S"
 #~ msgstr "komt niet overeen: `%s'"
 
 #~ msgid "Rebuild all .afm files, and remove all .pk and .tfm files."
-#~ msgstr ""
-#~ "Herbouw alle .afm bestanden en verwijder alle .pk en .tfm bestanden."
+#~ msgstr "Herbouw alle .afm bestanden en verwijder alle .pk en .tfm bestanden."
 
 #~ msgid "Rerun with -V to show font paths."
 #~ msgstr "Draai opnieuw met -V voor het tonen van fontpaden."
 
 #~ msgid "A script for removing font-files is delivered with the source-code:"
-#~ msgstr ""
-#~ "Een script ter verwijdering van fontbestanden is meegeleverd bij de bron-"
-#~ "code:"
+#~ msgstr "Een script ter verwijdering van fontbestanden is meegeleverd bij de bron-code:"
 
 #~ msgid "Loading default font"
 #~ msgstr "Laad verstek font"
@@ -2615,13 +2594,10 @@ msgstr "assertie gefaald: ~S"
 #~ msgid ""
 #~ "round filled box horizontal extent smaller than blot; decreasing blot"
 #~ msgstr ""
-#~ "rond gevulde doos horizontale afmetingen kleiner dan blot; verkleinen van "
-#~ "blot"
+#~ "rond gevulde doos horizontale afmetingen kleiner dan blot; verkleinen van blot"
 
 #~ msgid "round filled box vertical extent smaller than blot; decreasing blot"
-#~ msgstr ""
-#~ "rond gevulde doos vertikale afmetingen kleiner dan blot; verkleinen van "
-#~ "blot"
+#~ msgstr "rond gevulde doos vertikale afmetingen kleiner dan blot; verkleinen van blot"
 
 #~ msgid "set options, use -e '(ly-option-usage)' for help"
 #~ msgstr "zet opties, gebruik -e '(ly-option-usage)' voor hulp"
@@ -2689,14 +2665,12 @@ msgstr "assertie gefaald: ~S"
 #~ msgid ""
 #~ "  Multiple -e options may be given, they will be evaluated sequentially."
 #~ msgstr ""
-#~ "  Verscheidene -e opties mogen worden gegeven, deze zullen sequentieel "
-#~ "worden geëvalueerd."
+#~ "  Verscheidene -e opties mogen worden gegeven, deze zullen sequentieel worden geëvalueerd."
 
 #~ msgid ""
 #~ "  The function ly-set-option allows for access to some internal variables."
 #~ msgstr ""
-#~ "  De functie ly-set-option verschaft toegang tot bepaalde interne "
-#~ "variabelen."
+#~ "  De functie ly-set-option verschaft toegang tot bepaalde interne variabelen."
 
 #~ msgid "Usage: lilypond-bin -e \"(ly-set-option SYMBOL VAL)\""
 #~ msgstr "Gebruik: lilypond-bin -e \"(ly-set-option SYMBOOL WAARDE)\""
@@ -2780,8 +2754,7 @@ msgstr "assertie gefaald: ~S"
 #~ msgid ""
 #~ "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 #~ msgstr ""
-#~ "Meld fouten naar <a href=\\\"%(mail_address_url)s\\\">%(mail_address)s</"
-#~ "a>."
+#~ "Meld fouten naar <a href=\\\"%(mail_address_url)s\\\">%(mail_address)s</a>."
 
 #~ msgid "Other languages: %s."
 #~ msgstr "Andere talen: %s."
