@@ -450,6 +450,7 @@ generated documentation.
 @subheading Translations status
 
 TODO: prettify and generate in Texinfo.
+@c http://code.google.com/p/lilypond/issues/detail?id=857
 
 @uref{../translations.html}.
 

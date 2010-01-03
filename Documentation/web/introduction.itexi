@@ -459,9 +459,6 @@ LilyPond, first read about our @ref{Text input}.
 @divEnd
 
 
-@c Frankly, a node just for redirecting the reader just after a reading
-@c direction paragraph is a bit dense, I'd really like to merge this
-@c node into the previous paragraph. -JM
 @node Background
 @unnumberedsec Background
 
