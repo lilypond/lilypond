@@ -228,14 +228,11 @@ div#tocframe {
   margin: 0;
 }
 
-
-#tocframe .toc .toc li.toc_current a {
-  background: #8cbc6c;
-  color: #000;
-}
-
+#tocframe .toc .toc li.toc_current a,
 #tocframe .toc .toc li.toc_current a:hover {
-  background: #acdd8c;
+  background: #8cbc6c url(../pictures/nav-active-2.png) repeat-x top left;
+  color: #fff;
+  text-decoration: underline;
 }
 
 #tocframe .toc .toc li a:hover {
@@ -268,19 +265,11 @@ div#tocframe {
 }
 
 /* having this useless style makes the perl init file easier */
-#tocframe .toc .toc li.colorDefault a {
-  color: #000;
-  text-decoration: none;
-  background: #9ccc7c;
-  background: url(../pictures/nav-bg-2.png) repeat-x top left;
-}
-
+#tocframe .toc .toc li.colorDefault a,
 #tocframe .toc .toc li.colorDefault a:hover {
   color: #fff;
-  text-decoration: underline;
-  background: #9ccc7c;
-  background: url(../pictures/nav-hover-2.png) repeat-x top left;
 }
+
 #tocframe .toc .toc li.color1 a:hover {
   background: #addd8d;
   background: url(../pictures/color1-hover.png) repeat-x top left;
