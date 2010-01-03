@@ -163,13 +163,13 @@ div#tocframe {
 }
 
 #tocframe li a {
+  background: #6aec7c url(../pictures/nav-bg.png);
   float: left;
   width: 18%;
   text-align: center;
   font-weight: bold;
   padding: 0.68em 0;
   margin: 0;
-  background: #6aec7c url(../pictures/nav-bg.png);
 }
 
 #tocframe li a:hover {
@@ -241,27 +241,23 @@ div#tocframe {
 
 /* colored second-level TOC items */
 #tocframe .toc .toc li.color1 a {
+  background: #9ccc7c url(../pictures/color1-bg.png) repeat-x top left;
   text-decoration: none;
-  background: #9ccc7c;
-  background: url(../pictures/color1-bg.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color2 a {
+  background: #bbcf81 url(../pictures/color2-bg.png) repeat-x top left;
   text-decoration: none;
-  background: #bbcf81;
-  background: url(../pictures/color2-bg.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color3 a {
+  background: #dbd286 url(../pictures/color3-bg.png) repeat-x top left;
   text-decoration: none;
-  background: #dbd286;
-  background: url(../pictures/color3-bg.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color4 a {
+  background: #fad58c url(../pictures/color4-bg.png) repeat-x top left;
   text-decoration: none;
-  background: #fad58c;
-  background: url(../pictures/color4-bg.png) repeat-x top left;
 }
 
 /* having this useless style makes the perl init file easier */
@@ -271,63 +267,39 @@ div#tocframe {
 }
 
 #tocframe .toc .toc li.color1 a:hover {
-  background: #addd8d;
-  background: url(../pictures/color1-hover.png) repeat-x top left;
+  background: #addd8d url(../pictures/color1-hover.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color2 a:hover {
-  background: #ccdf92;
-  background: url(../pictures/color2-hover.png) repeat-x top left;
+  background: #ccdf92 url(../pictures/color2-hover.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color3 a:hover {
-  background: #ece297;
-  background: url(../pictures/color3-hover.png) repeat-x top left;
+  background: #ece297 url(../pictures/color3-hover.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color4 a:hover {
-  background: #fbe69d;
-  background: url(../pictures/color4-hover.png) repeat-x top left;
+  background: #fbe69d url(../pictures/color4-hover.png) repeat-x top left;
 }
 
-#tocframe .toc .toc li.color1.toc_current a {
-  background: #beee9e;
-  background: url(../pictures/color1-active.png) repeat-x top left;
-}
-
+#tocframe .toc .toc li.color1.toc_current a,
 #tocframe .toc .toc li.color1.toc_current a:hover {
-  background: #beee9e;
-  background: url(../pictures/color1-active.png) repeat-x top left;
+  background: #beee9e url(../pictures/color1-active.png) repeat-x top left;
 }
 
-#tocframe .toc .toc li.color2.toc_current a {
-  background: #ddefa3;
-  background: url(../pictures/color2-active.png) repeat-x top left;
-}
-
+#tocframe .toc .toc li.color2.toc_current a,
 #tocframe .toc .toc li.color2.toc_current a:hover {
-  background: #ddefa3;
-  background: url(../pictures/color2-active.png) repeat-x top left;
+  background: #ddefa3 url(../pictures/color2-active.png) repeat-x top left;
 }
 
-#tocframe .toc .toc li.color3.toc_current a {
-  background: #fdf4a8;
-  background: url(../pictures/color3-active.png) repeat-x top left;
-}
-
+#tocframe .toc .toc li.color3.toc_current a,
 #tocframe .toc .toc li.color3.toc_current a:hover {
-  background: #fdf4a8;
-  background: url(../pictures/color3-active.png) repeat-x top left;
+  background: #fdf4a8 url(../pictures/color3-active.png) repeat-x top left;
 }
 
-#tocframe .toc .toc li.color4.toc_current a {
-  background: #fcf7ae;
-  background: url(../pictures/color4-active.png) repeat-x top left;
-}
-
+#tocframe .toc .toc li.color4.toc_current a,
 #tocframe .toc .toc li.color4.toc_current a:hover {
-  background: #fcf7ae;
-  background: url(../pictures/color4-active.png) repeat-x top left;
+  background: #fcf7ae url(../pictures/color4-active.png) repeat-x top left;
 }
 
 /* third level toc (unnumberedsubsec) */
@@ -379,7 +351,9 @@ div#main {
   margin: 0 auto 11.7em;
   /* Necessary to stretch over floated content;
    * will cause scrollbars to appear for content
-   * that is wider than the width of this div
+   * that is wider than the width of this div.
+   *
+   * FIXME: This breaks Konqueror 3 and 4.
    */
   overflow: auto;
 }
@@ -594,10 +568,10 @@ div#language {
 h1.unnumbered, h2.unnumberedsec, h3.unnumberedsubsec {
   position: relative;
   height: 0;
-  overflow: hidden;
   text-indent: -999em;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 table {
@@ -933,8 +907,8 @@ div.color4 h3 {
 h1.settitle {
   position: relative;
   height: 0;
-  overflow: hidden;
   text-indent: -999em;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
