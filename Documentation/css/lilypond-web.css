@@ -12,7 +12,7 @@ body {
   right: 0.5%;
   width: 99%;
   min-width: 42em;
-  max-width: 70em;
+  max-width: 60em;
   font-size: 95%;
   line-height: 1.5;
   background: #fff url(../pictures/background-image.png) no-repeat 0 0;
@@ -49,15 +49,15 @@ a:focus {
 }
 
 a:link {
-  color: #00b945;
+  color: #0c51ab;
 }
 
 a:visited {
-  color: #5b2c26;
+  color: #804f01;
 }
 
 a:hover {
-  color: #006919;
+  color: #0105ad;
 }
 
 /* Table of Contents */
@@ -68,7 +68,7 @@ div#tocframe {
   left: 0;
   right: 0;
   background: #6aec7c url(../pictures/nav-bg.png) repeat-x top left;
-  max-width: 70em;
+  max-width: 60em;
   font-size: 100%;
   line-height: 1;
   padding: 0;
@@ -163,13 +163,13 @@ div#tocframe {
 }
 
 #tocframe li a {
+  background: #6aec7c url(../pictures/nav-bg.png);
   float: left;
   width: 18%;
   text-align: center;
   font-weight: bold;
   padding: 0.68em 0;
   margin: 0;
-  background: #6aec7c url(../pictures/nav-bg.png);
 }
 
 #tocframe li a:hover {
@@ -228,14 +228,11 @@ div#tocframe {
   margin: 0;
 }
 
-
-#tocframe .toc .toc li.toc_current a {
-  background: #8cbc6c;
-  color: #000;
-}
-
+#tocframe .toc .toc li.toc_current a,
 #tocframe .toc .toc li.toc_current a:hover {
-  background: #acdd8c;
+  background: #8cbc6c url(../pictures/nav-active-2.png) repeat-x top left;
+  color: #fff;
+  text-decoration: underline;
 }
 
 #tocframe .toc .toc li a:hover {
@@ -244,101 +241,65 @@ div#tocframe {
 
 /* colored second-level TOC items */
 #tocframe .toc .toc li.color1 a {
+  background: #9ccc7c url(../pictures/color1-bg.png) repeat-x top left;
   text-decoration: none;
-  background: #9ccc7c;
-  background: url(../pictures/color1-bg.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color2 a {
+  background: #bbcf81 url(../pictures/color2-bg.png) repeat-x top left;
   text-decoration: none;
-  background: #bbcf81;
-  background: url(../pictures/color2-bg.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color3 a {
+  background: #dbd286 url(../pictures/color3-bg.png) repeat-x top left;
   text-decoration: none;
-  background: #dbd286;
-  background: url(../pictures/color3-bg.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color4 a {
+  background: #fad58c url(../pictures/color4-bg.png) repeat-x top left;
   text-decoration: none;
-  background: #fad58c;
-  background: url(../pictures/color4-bg.png) repeat-x top left;
 }
 
 /* having this useless style makes the perl init file easier */
-#tocframe .toc .toc li.colorDefault a {
-  color: #000;
-  text-decoration: none;
-  background: #9ccc7c;
-  background: url(../pictures/nav-bg-2.png) repeat-x top left;
-}
-
+#tocframe .toc .toc li.colorDefault a,
 #tocframe .toc .toc li.colorDefault a:hover {
   color: #fff;
-  text-decoration: underline;
-  background: #9ccc7c;
-  background: url(../pictures/nav-hover-2.png) repeat-x top left;
 }
+
 #tocframe .toc .toc li.color1 a:hover {
-  background: #addd8d;
-  background: url(../pictures/color1-hover.png) repeat-x top left;
+  background: #addd8d url(../pictures/color1-hover.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color2 a:hover {
-  background: #ccdf92;
-  background: url(../pictures/color2-hover.png) repeat-x top left;
+  background: #ccdf92 url(../pictures/color2-hover.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color3 a:hover {
-  background: #ece297;
-  background: url(../pictures/color3-hover.png) repeat-x top left;
+  background: #ece297 url(../pictures/color3-hover.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color4 a:hover {
-  background: #fbe69d;
-  background: url(../pictures/color4-hover.png) repeat-x top left;
+  background: #fbe69d url(../pictures/color4-hover.png) repeat-x top left;
 }
 
-#tocframe .toc .toc li.color1.toc_current a {
-  background: #beee9e;
-  background: url(../pictures/color1-active.png) repeat-x top left;
-}
-
+#tocframe .toc .toc li.color1.toc_current a,
 #tocframe .toc .toc li.color1.toc_current a:hover {
-  background: #beee9e;
-  background: url(../pictures/color1-active.png) repeat-x top left;
+  background: #beee9e url(../pictures/color1-active.png) repeat-x top left;
 }
 
-#tocframe .toc .toc li.color2.toc_current a {
-  background: #ddefa3;
-  background: url(../pictures/color2-active.png) repeat-x top left;
-}
-
+#tocframe .toc .toc li.color2.toc_current a,
 #tocframe .toc .toc li.color2.toc_current a:hover {
-  background: #ddefa3;
-  background: url(../pictures/color2-active.png) repeat-x top left;
+  background: #ddefa3 url(../pictures/color2-active.png) repeat-x top left;
 }
 
-#tocframe .toc .toc li.color3.toc_current a {
-  background: #fdf4a8;
-  background: url(../pictures/color3-active.png) repeat-x top left;
-}
-
+#tocframe .toc .toc li.color3.toc_current a,
 #tocframe .toc .toc li.color3.toc_current a:hover {
-  background: #fdf4a8;
-  background: url(../pictures/color3-active.png) repeat-x top left;
+  background: #fdf4a8 url(../pictures/color3-active.png) repeat-x top left;
 }
 
-#tocframe .toc .toc li.color4.toc_current a {
-  background: #fcf7ae;
-  background: url(../pictures/color4-active.png) repeat-x top left;
-}
-
+#tocframe .toc .toc li.color4.toc_current a,
 #tocframe .toc .toc li.color4.toc_current a:hover {
-  background: #fcf7ae;
-  background: url(../pictures/color4-active.png) repeat-x top left;
+  background: #fcf7ae url(../pictures/color4-active.png) repeat-x top left;
 }
 
 /* third level toc (unnumberedsubsec) */
@@ -386,11 +347,13 @@ div#main {
   left: 0;
   right: 0;
   width: 100%;
-  max-width: 70em;
+  max-width: 60em;
   margin: 0 auto 11.7em;
   /* Necessary to stretch over floated content;
    * will cause scrollbars to appear for content
-   * that is wider than the width of this div
+   * that is wider than the width of this div.
+   *
+   * FIXME: This breaks Konqueror 3 and 4.
    */
   overflow: auto;
 }
@@ -605,10 +568,10 @@ div#language {
 h1.unnumbered, h2.unnumberedsec, h3.unnumberedsubsec {
   position: relative;
   height: 0;
-  overflow: hidden;
   text-indent: -999em;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 table {
@@ -683,7 +646,7 @@ div.float-right a.clickable {
   float: left;
   width: 99.5%;
   text-align: left;
-  border: 1px solid #8bbb6b;
+  border: 1px solid #9ccc7c;
   margin: 1em auto;
 }
 
@@ -691,7 +654,7 @@ div.float-right a.clickable {
 .column-center-top h3 {
   background: #9ccc7c url(../pictures/color1-bg.png) repeat-x top left;
   text-align: left;
-  border-bottom: 1px solid #8bbb6b;
+  border-bottom: 1px solid #9ccc7c;
 }
 
 .column-left-top {
@@ -709,14 +672,14 @@ div.float-right a.clickable {
 
 .column-left-top,
 .column-left-bottom {
-  border: 1px solid #aabe70;
+  border: 1px solid #adce82;
 }
 
 /* color2 */
 .column-left-top h3,
 .column-left-bottom h3 {
-  background: #bbcf81 url(../pictures/color2-bg.png) repeat-x top left;
-  border-bottom: 1px solid #aabe70;
+  background: #adce82 url(../pictures/color2-bg.png) repeat-x top left;
+  border-bottom: 1px solid #adce82;
 }
 
 .column-right-top {
@@ -733,29 +696,29 @@ div.float-right a.clickable {
 
 .column-right-top,
 .column-right-bottom {
-  border: 1px solid #cac175;
+  border: 1px solid #bdd088;
 }
 
 /* color3 */
 .column-right-top h3,
 .column-right-bottom h3 {
-  background: #dbd286 url(../pictures/color3-bg.png) repeat-x top left;
-  border-bottom: 1px solid #cac175;
+  background: #bdd088 url(../pictures/color3-bg.png) repeat-x top left;
+  border-bottom: 1px solid #bdd088;
 }
 
 .column-center-bottom {
   clear: both;
   width: 99.5%;
   text-align: center;
-  border: 1px solid #e9c47b;
+  border: 1px solid #ccd38f;
   margin: 1em auto 0;
 }
 
 /* color4 */
 .column-center-bottom h3 {
-  background: #fad58c url(../pictures/color4-bg.png) repeat-x top left;
+  background: #ccd38f url(../pictures/color4-bg.png) repeat-x top left;
   text-align: left;
-  border-bottom: 1px solid #e9c47b;
+  border-bottom: 1px solid #ccd38f;
 }
 
 .column-center-top,
@@ -855,40 +818,40 @@ div.color4 h3 {
 }
 
 div.color1 {
-  border: 1px solid #8bbb6b;
+  border: 1px solid #9ccc7c;
   margin: 1em auto;
 }
 
 div.color1 h3 {
   background: #9ccc7c;
-  border-bottom: 1px solid #8bbb6b;
+  border-bottom: 1px solid #9ccc7c;
 }
 
 div.color2 {
-  border: 1px solid #aabe70;
+  border: 1px solid #adce82;
 }
 
 div.color2 h3 {
-  background: #bbcf81;
-  border-bottom: 1px solid #aabe70;
+  background: #adce82;
+  border-bottom: 1px solid #adce82;
 }
 
 div.color3 {
-  border: 1px solid #cac175;
+  border: 1px solid #bdd088;
 }
 
 div.color3 h3 {
-  background: #dbd286;
-  border-bottom: 1px solid #cac175;
+  background: #bdd088;
+  border-bottom: 1px solid #bdd088;
 }
 
 div.color4 {
-  border: 1px solid #e9c47b;
+  border: 1px solid #ccd38f;
 }
 
 div.color4 h3 {
-  background: #fad58c;
-  border-bottom: 1px solid #e9c47b;
+  background: #ccd38f;
+  border-bottom: 1px solid #ccd38f;
 }
 
 .keep-bullets ul {
@@ -944,8 +907,8 @@ div.color4 h3 {
 h1.settitle {
   position: relative;
   height: 0;
-  overflow: hidden;
   text-indent: -999em;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }

@@ -901,24 +901,12 @@ June 2006
 
 @uref{http://distrowatch.com,DistroWatch} awards LilyPond and writes
 @uref{http://distrowatch.com/weekly.php?issue=20060605,writes}
-
-“Ladies and Gentleman, we are pleased to announce that, based on
-readers' requests, the DistroWatch May 2006 donation has been awarded to
-LilyPond (€190.00) and Lua (US$250.00).”
+@qq{Ladies and Gentleman, we are pleased to announce that, based
+on readers' requests, the DistroWatch May 2006 donation has been
+awarded to LilyPond (@euro{} 190.00) and Lua (US$250.00).}
 
 @item
 December 2005
-
-@ignore
-we lost lj cover image here
-
-  <a href="@IMAGES@lj-cover140.png">
-    <img src="@IMAGES@lj-cover140-small.png" align="right" alt="linux journal cover">
-  </a>
-
-@uref{http://linuxjournal.com,Linux journal} cover
-@end ignore
-
 
 @uref{http://linuxjournal.com,Linux Journal}  publishes an article titled
 @uref{http://www.linuxjournal.com/article/8364, Make Stunning
@@ -967,9 +955,10 @@ the sounding edge: LilyPond, parts
 @item
 March 2004
 
-Chris Cannam @uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,interviewed} Han-Wen Nienhuys and Jan Nieuwenhuizen on
-linuxmusician.com (original site defunct).  This interview was also
-reviewed in a
+Chris Cannam
+@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,interviewed}
+Han-Wen Nienhuys and Jan Nieuwenhuizen on linuxmusician.com
+(original site defunct).  This interview was also reviewed in a
 @uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=,
 slashdot story}.
 

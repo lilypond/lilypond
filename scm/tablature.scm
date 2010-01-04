@@ -199,10 +199,14 @@
 					 (lambda (grob)
 					   (parenthesize-tab-note-head grob))))
 	      ;; tab note head is invisible
-	      (ly:grob-set-property! tied-tab-note-head 'transparent #t)))
+	      (begin
+	        (ly:grob-set-property! tied-tab-note-head 'transparent #t)
+	        (ly:grob-set-property! tied-tab-note-head 'whiteout #f))))
 
         ;; tie is not split -> make fret number invisible
-        (ly:grob-set-property! tied-tab-note-head 'transparent #t))))
+        (begin
+          (ly:grob-set-property! tied-tab-note-head 'transparent #t)
+          (ly:grob-set-property! tied-tab-note-head 'whiteout #f)))))
 
 ;; repeat ties occur within alternatives in a repeat construct;
 ;; TabNoteHead #'details handles the appearance in this case

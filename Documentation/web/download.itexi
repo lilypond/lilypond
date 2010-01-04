@@ -478,7 +478,50 @@ button when the uninstaller has completed.
 @warning{If you are happy with the GUI, then please ignore these
 instructions.}
 
-@help{don't know}
+@subsubheading Windows on the command line
+
+@ignore
+CHECK: check the following descriptions.
+I don't have English version of Windows.
+@end ignore
+
+The most convenient way to run LilyPond is by adding the folder
+which contains LilyPond executable files to the environmental variable
+@qq{Path}.
+
+
+@enumerate
+@item
+Open your @qq{System} on the Control Panel,
+select Advanced tab and click Environmental Variables button.
+
+@item
+Select the Variable @qq{Path} from Environmental variables list
+and click the Edit button.
+You will be presented a window titled @qq{Edit System Variable};
+append to @qq{Variable value} the name of the folder
+which contains LilyPond executable files like this:
+
+@example
+[@var{pre-set paths}];@var{DIR}\LilyPond\usr\bin
+@end example
+
+@warning{@var{DIR} will generally be @code{C:\Program Files}.}
+
+@noindent
+and click @qq{OK} button to close the window.
+
+@end enumerate
+
+@subsubheading Invoking individual excecutable files
+
+LilyPond excecutable files
+-- such as lilypond, lilypond-book, convert-ly, and so on --
+can be run from the command-line by invoking them:
+
+@example
+lilypond test.ly
+@end example
 
 @divEnd
 
