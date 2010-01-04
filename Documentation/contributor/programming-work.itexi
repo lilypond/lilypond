@@ -1527,3 +1527,54 @@ p ly_display_scm(obj)
 
 this will display OBJ through GUILE.
 
+@subsection Music functions and GUILE debugging
+
+Ian Hulin was trying to do some debugging in music functions, and
+came up with the following question
+
+HI all,
+I'm working on the Guile Debugger Stuff, and would like to try
+debugging a music function definition such as:
+
+@example
+conditionalMark = #(define-music-function (parser location) ()
+    #@{ \tag #'instrumental-part @{\mark \default@}  #@} )
+@end example
+
+It appears conditionalMark does not get set up as an
+equivalent of a Scheme
+
+@example
+(define conditionalMark = define-music-function(parser location () ...
+@end example
+
+@noindent
+although something gets defined because Scheme apparently recognizes
+
+@example
+#(set-break! conditionalMark)
+@end example
+
+@noindent
+later on in the file without signalling any Guile errors.
+
+However the breakpoint trap is never encountered as
+define-music-function passed things on to ly:make-music-function,
+which is really C++ code ly_make_music_function, so Guile never
+finds out about the breakpoint.
+
+Han-Wen answered as follows:
+
+You can see the defintion by doing
+
+@example
+#(display conditionalMark)
+@end example
+
+noindent
+inside the .ly file.
+
+The breakpoint failing may have to do with the call sequence.  See
+parser.yy, run_music_function().  The function is called directly from
+C++, without going through the GUILE evaluator, so I think that is why
+there is no debugger trap.
