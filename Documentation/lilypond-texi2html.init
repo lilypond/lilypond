@@ -96,7 +96,7 @@ $LY_LANGUAGES->{'ja'} = {
 
 $LY_LANGUAGES->{'hu'} = {
     'Back to Documentation Index' => 'Vissza a dokumentációk jegyzékéhez',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => 'Köszönet a ${webdev_link} részére a ${lily_site} tárhelyért.',
 };
 
 $LY_LANGUAGES->{'it'} = {
