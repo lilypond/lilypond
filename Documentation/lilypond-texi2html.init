@@ -81,7 +81,7 @@ $LY_LANGUAGES->{'fr'} = {
 
 $LY_LANGUAGES->{'es'} = {
     'Back to Documentation Index' => 'Volver al índice de la documentación',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Agradecemos a ${webdev_link} el alojamiento de ${lily_site}.',
 };
 
 $LY_LANGUAGES->{'de'} = {
