@@ -124,6 +124,7 @@ mediante ordenador.
 @ifset web_version
   @c make the box:
 @divId{latestVersion}
+
 @subheading Enlaces rápidos
 
 @c TODO: javascript to detect OS and suggest download?
@@ -141,7 +142,7 @@ mediante ordenador.
 @ref{Development, Manuales de @versionDevel}
 
 @divEnd
-
+@end ifset
 
 @ifnottex
 
