@@ -63,7 +63,7 @@ scripts/build/extract_texi_filenames.py
 
 To reduce the CPU burden on the shared host (as well as some
 security concerns), the @file{Documentation/pictures/} and
-@file{Documentation/web/examples/} directories are @strong{not}
+@file{Documentation/web/ly-examples/} directories are @strong{not}
 compiled.  If you modify any files in those directories, a user in
 the @code{lilypond} group must upload them to @file{~graham/media}
 on the host.  This is done by running (locally) @code{make doc},

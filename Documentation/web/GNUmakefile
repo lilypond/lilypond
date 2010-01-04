@@ -1,4 +1,4 @@
 depth = ../..
 LOCALSTEPMAKE_TEMPLATES = ly
-SUBDIRS = examples
+SUBDIRS = ly-examples
 include $(depth)/make/stepmake.make

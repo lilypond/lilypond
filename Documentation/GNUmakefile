@@ -32,7 +32,7 @@ README_TOP_FILES= DEDICATION THANKS
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
 
-EXTRA_DIST_FILES = $(call src-wildcard,*.init) search-box.html
+EXTRA_DIST_FILES = $(call src-wildcard,*.init) search-box.ihtml
 
 ### Out files
 
@@ -168,11 +168,11 @@ $(outdir)/pictures:
 	$(MAKE) -C pictures WWW-1
 	ln -sf ../pictures/$(outdir) $@
 
-$(outdir)/web.texi: $(outdir)/examples
+$(outdir)/web.texi: $(outdir)/ly-examples
 
-$(outdir)/examples:
-	$(MAKE) -C web/examples
-	ln -sf ../web/examples/$(outdir) $@
+$(outdir)/ly-examples:
+	$(MAKE) -C web/ly-examples
+	ln -sf ../web/ly-examples/$(outdir) $@
 endif
 
 # Ugh, using '%' twice not possible
