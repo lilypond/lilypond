@@ -409,18 +409,16 @@ $Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Tran
 );
 
 sub web_settings() {
-    print STDERR "Initializing settings for web site\n";
-    $Texi2HTML::Config::BODYTEXT = "";
-    @Texi2HTML::Config::CSS_REFS      = (
+  print STDERR "Initializing settings for web site\n";
+  $Texi2HTML::Config::BODYTEXT = "";
+  @Texi2HTML::Config::CSS_REFS      = (
       {FILENAME => "lilypond-web.css", TITLE => "Patrick McCarty's design"}
-    );
-    @Texi2HTML::Config::ALT_CSS_REFS      = (
+      );
+  @Texi2HTML::Config::ALT_CSS_REFS      = (
       {FILENAME => "lilypond-web-alt1.css", TITLE => "Alternate style 1"},
       {FILENAME => "lilypond-web-alt2.css", TITLE => "Alternate style 2"},
-    );
+      );
 }
-
-# web_settings() if (exists($main::value{'web_manual'}));
 
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
@@ -537,33 +535,33 @@ sub texinfo_file_name($)
 # Returns a ref to a hash "Node title" => ["FilenameWithoutExt", "Anchor"]
 sub load_map_file ($)
 {
-    my $mapfile = shift;
-    my $node_map = ();
+  my $mapfile = shift;
+  my $node_map = ();
 
-    # For some unknown reason, Perl on my system (5.10.0 on Fedora 12)
-    # refuses to open map files of translated documents with
-    # '<:encoding(utf8)', but decoding from UTF-8 line by line works. -jm
-    if (open(XREFFILE,'<', $mapfile)) {
-        my $line;
-	# print STDERR "*** PRINTING MAP FILE LINES ***\n";
-        while ( $line = decode ('UTF-8', <XREFFILE>) ) {
-            # parse the tab-separated entries and insert them into the map:
-            chomp($line);
-            my @entries = split(/\t/, $line);
-            if (scalar (@entries) == 3) {
-              $node_map->{$entries[0]} = [$entries[1], $entries[2]];
-	      $, = " ";
-	      # print STDERR @entries;
-	      # print STDERR "\n";
-            } else {
-              print STDERR "Invalid entry in the node file $mapfile: $line\n";
-            }
-        }
-        close (XREFFILE);
-    } else {
-        print STDERR "WARNING: Unable to load the map file $mapfile\n";
+  # For some unknown reason, Perl on my system (5.10.0 on Fedora 12)
+  # refuses to open map files of translated documents with
+  # '<:encoding(utf8)', but decoding from UTF-8 line by line works. -jm
+  if (open(XREFFILE,'<', $mapfile)) {
+    my $line;
+    # print STDERR "*** PRINTING MAP FILE LINES ***\n";
+    while ( $line = decode ('UTF-8', <XREFFILE>) ) {
+      # parse the tab-separated entries and insert them into the map:
+      chomp($line);
+      my @entries = split(/\t/, $line);
+      if (scalar (@entries) == 3) {
+	$node_map->{$entries[0]} = [$entries[1], $entries[2]];
+	$, = " ";
+	# print STDERR @entries;
+	# print STDERR "\n";
+      } else {
+	print STDERR "Invalid entry in the node file $mapfile: $line\n";
+      }
     }
-    return $node_map;
+    close (XREFFILE);
+  } else {
+    print STDERR "WARNING: Unable to load the map file $mapfile\n";
+  }
+  return $node_map;
 }
 
 
@@ -597,27 +595,30 @@ sub split_texi_filename ($)
 # For IE, conditionally include the lilypond-ie-fixes.css style sheet
 sub lilypond_css_lines ($$)
 {
-    my $import_lines = shift;
-    my $rule_lines = shift;
-    return if (defined($Texi2HTML::THISDOC{'CSS_LINES'}));
-    if (@$rule_lines or @$import_lines)
-    {
-        $Texi2HTML::THISDOC{'CSS_LINES'} = "<style type=\"text/css\">\n<!--\n";
-        $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$import_lines) . "\n" if (@$import_lines);
-        $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$rule_lines) . "\n" if (@$rule_lines);
-        $Texi2HTML::THISDOC{'CSS_LINES'} .= "-->\n</style>\n";
-    }
-    foreach my $ref (@CSS_REFS)
-    {
-        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"stylesheet\" type=\"text/css\" title=\"$ref->{TITLE}\" href=\"$ref->{FILENAME}\">\n";
-    }
-    foreach my $ref (@Texi2HTML::Config::ALT_CSS_REFS)
-    {
-        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
-    }
-    # FIXME: the website doesn't use ie7-specific fixes; do the
-    # docs still need this?  -gp
-    $Texi2HTML::THISDOC{'CSS_LINES'} .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+  my $import_lines = shift;
+  my $rule_lines = shift;
+  return if (defined($Texi2HTML::THISDOC{'CSS_LINES'}));
+  if (@$rule_lines or @$import_lines)
+  {
+    $Texi2HTML::THISDOC{'CSS_LINES'} = "<style type=\"text/css\">\n<!--\n";
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$import_lines) . "\n" if (@$import_lines);
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$rule_lines) . "\n" if (@$rule_lines);
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= "-->\n</style>\n";
+  }
+  foreach my $ref (@CSS_REFS)
+  {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .=
+	"<link rel=\"stylesheet\" type=\"text/css\" title=\"$ref->{TITLE}\" href=\"$ref->{FILENAME}\">\n";
+  }
+  foreach my $ref (@Texi2HTML::Config::ALT_CSS_REFS)
+  {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .=
+	"<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
+  }
+  # FIXME: the website doesn't use ie7-specific fixes; do the
+  # docs still need this?  -gp
+  $Texi2HTML::THISDOC{'CSS_LINES'} .=
+      "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
 }
 
 
@@ -684,7 +685,8 @@ sub lilypond_element_file_name($$$)
     print STDERR "Output file name: $filename\n";
     return $filename;
 
-  } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
+  } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or
+	   $type eq "stoc" or $type eq "foot" or $type eq "about") {
     return;
   } else {
     print STDERR "WARNING: Node '$node_name' was NOT found in the map\n"
@@ -942,30 +944,28 @@ sub generate_ly_toc_entries($$$$)
   my $level = $element->{'toc_level'};
   my $is_parent_of_current = $element->{'id'} && $element_path->{$element->{'id'}};
   my $ind = '  ' x $level;
-  my $this_css_class;
-  if ($web_manual) {
-    $this_css_class = " class=\"";
-  } else {
-    $this_css_class = "";
-  }
-  $this_css_class .= $is_parent_of_current ? " toc_current" : "";
-
+  my $this_css_class = " class=\"";
   # color indices for the second navigation bar on the website
-  my %color_maps = (
-      'introduction' => [2, 2, 2, 2, 3, 3, 4, 4],
-      'download' => [2, 2, 2, 3, 3, 4],
-      'manuals' => [1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4],
-      'community' => [1, 1, 1, 2, 2, 2, 3, 3],
-  );
-  my $addColor = " colorDefault";
-  while (($top_section, $color_indices) = each %color_maps) {
-      if (index ($element->{'sectionup'}->{'file'}, $top_section) >= 0) {
-	  $addColor = " color" . $color_indices->[$child_count];
+  if ($web_manual) {
+      my %color_maps = (
+	  'introduction' => [2, 2, 2, 2, 3, 3, 4, 4],
+	  'download' => [2, 2, 2, 3, 3, 4],
+	  'manuals' => [1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4],
+	  'community' => [1, 1, 1, 2, 2, 2, 3, 3],
+	  );
+      my $addColor = "colorDefault";
+      while (($top_section, $color_indices) = each %color_maps) {
+	  if (index ($element->{'sectionup'}->{'file'}, $top_section) >= 0) {
+	      $addColor = "color" . $color_indices->[$child_count];
+	  }
       }
+      $this_css_class .= $addColor;
   }
-  $this_css_class .= $addColor . "\"";
-
-  my $entry = "$ind<li$this_css_class>" . &$anchor ($element->{'tocid'}, "$element->{'file'}#$element->{'target'}",$element->{'text'});
+  $this_css_class .= $is_parent_of_current ? ' toc_current"' : '"';
+  my $entry = "$ind<li$this_css_class>" .
+      &$anchor ($element->{'tocid'},
+		"$element->{'file'}#$element->{'target'}",
+		$element->{'text'});
 
   push (@result, $entry);
   my $children = $element->{'section_childs'};
@@ -977,7 +977,8 @@ sub generate_ly_toc_entries($$$$)
       my $is_numbered_child = defined ($c->{'number'});
       my $below_maxlevel = $c->{'toc_level'} le $maxlevel;
       if ($force_children or ($is_numbered_child and $below_maxlevel)) {
-        my @child_res = generate_ly_toc_entries($c, $element_path, $maxlevel, $sub_child_count);
+        my @child_res =
+	    generate_ly_toc_entries($c, $element_path, $maxlevel, $sub_child_count);
         push (@child_result, @child_res);
 	$sub_child_count += 1;
       }
@@ -987,7 +988,10 @@ sub generate_ly_toc_entries($$$$)
     if (@child_result) {
       push (@result, "\n$ind<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
       if ($web_manual) {
-        push (@result, "$ind<li$this_css_class>" . &$anchor ($element->{'tocid'}, "$element->{'file'}#$element->{'target'}", $element->{'text'}));
+        push (@result, "$ind<li class=\"colorDefault toc_current\">" .
+	      &$anchor ($element->{'tocid'},
+			"$element->{'file'}#$element->{'target'}",
+			$element->{'text'}) . "</li>\n");
       }
       push (@result, @child_result);
       push (@result, "$ind</ul>\n");
@@ -1029,7 +1033,8 @@ sub lilypond_generate_page_toc_body($)
             # it's not the top element
             push (@toc_entries, "<li><a href=\"index.html\">Main</a></li>\n");
         } else {
-            push (@toc_entries, "<li class=\"toc_current\"><a href=\"index.html\">Main</a></li>\n");
+            push (@toc_entries,
+		  "<li class=\"toc_current\"><a href=\"index.html\">Main</a></li>\n");
         }
     } else {
         push (@toc_entries, "<div class=\"contents\">\n");
@@ -1252,11 +1257,13 @@ sub lilypond_print_navigation
                 if ($Texi2HTML::HREF{$button_href})
                 {
                   my $anchor_attributes = '';
-                  if ($USE_ACCESSKEY and (defined($BUTTONS_ACCESSKEY{$button_href})) and ($BUTTONS_ACCESSKEY{$button_href} ne ''))
+                  if ($USE_ACCESSKEY and (defined($BUTTONS_ACCESSKEY{$button_href})) and
+		      ($BUTTONS_ACCESSKEY{$button_href} ne ''))
                   {
                       $anchor_attributes = "accesskey=\"$BUTTONS_ACCESSKEY{$button_href}\"";
                   }
-                  if ($USE_REL_REV and (defined($BUTTONS_REL{$button_href})) and ($BUTTONS_REL{$button_href} ne ''))
+                  if ($USE_REL_REV and (defined($BUTTONS_REL{$button_href})) and
+		      ($BUTTONS_REL{$button_href} ne ''))
                   {
                       $anchor_attributes .= " rel=\"$BUTTONS_REL{$button_href}\"";
                   }
@@ -1285,11 +1292,13 @@ sub lilypond_print_navigation
         {                       # button is active
             my $btitle = $BUTTONS_GOTO{$button} ?
                 'title="' . $BUTTONS_GOTO{$button} . '"' : '';
-            if ($USE_ACCESSKEY and (defined($BUTTONS_ACCESSKEY{$button})) and ($BUTTONS_ACCESSKEY{$button} ne ''))
+            if ($USE_ACCESSKEY and (defined($BUTTONS_ACCESSKEY{$button})) and
+		($BUTTONS_ACCESSKEY{$button} ne ''))
             {
                 $btitle .= " accesskey=\"$BUTTONS_ACCESSKEY{$button}\"";
             }
-            if ($USE_REL_REV and (defined($BUTTONS_REL{$button})) and ($BUTTONS_REL{$button} ne ''))
+            if ($USE_REL_REV and (defined($BUTTONS_REL{$button})) and
+		($BUTTONS_REL{$button} ne ''))
             {
                 $btitle .= " rel=\"$BUTTONS_REL{$button}\"";
             }
@@ -1351,7 +1360,8 @@ sub lilypond_print_navigation
     );
 
 # buttons for misc stuff
-@Texi2HTML::Config::MISC_BUTTONS = ('center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About');
+@Texi2HTML::Config::MISC_BUTTONS = ('center-aligned-cell-3',
+				    'Top', 'Contents', 'Index', 'About');
 
 # buttons for chapter file footers
 # (and headers but only if SECTION_NAVIGATION is false)
@@ -1422,8 +1432,11 @@ sub makeinfo_like_foot_line_and_ref($$$$$$$$)
         $from_file = $footnote_file = '';
     }
 
-    my $foot_anchor = "<sup>" . &$anchor($docid, "$footnote_file#$footid", $relative_num) . "</sup>";
-    $foot_anchor = &$anchor($docid, "$footnote_file#$footid", "($relative_num)") if ($state->{'preformatted'});
+    my $foot_anchor = "<sup>" .
+	&$anchor($docid, "$footnote_file#$footid", $relative_num) . "</sup>";
+    $foot_anchor = &$anchor($docid,
+			    "$footnote_file#$footid",
+			    "($relative_num)") if ($state->{'preformatted'});
 
 #    unshift @$lines, "<li>";
 #    push @$lines, "</li>\n";
