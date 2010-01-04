@@ -34,6 +34,11 @@ manual should be not necessary.
 Sectioning: the website only uses chapters and sections; no
 subsections or subsubsections.
 
+@item
+@@ref@{@}s to other manuals (@@ruser, @@rlearning, etc): you can't
+link to any pieces of automatically generated documentation, like
+the IR or certain NR appendices.
+
 @dots{}
 
 @item
