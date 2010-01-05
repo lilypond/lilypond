@@ -45,7 +45,7 @@ Los enlaces para la versión estable de LilyPond están en
 @c TODO: duplicate to avoid underlined refs in HTML?  icky.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (Linux and FreeBSD)}
+@ref{Unix, Unix (Linux y FreeBSD)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}
@@ -531,7 +531,7 @@ descarga}.
 @subheading Instrucciones de compilación
 
 Las instrucciones se encuentran desarrolladas dentro de
-@rcontrib{Compiling LilyPond}.
+@rcontribnamed{Compiling LilyPond,Compilación de LilyPond}.
 
 @divEnd
 
