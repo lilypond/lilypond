@@ -444,7 +444,7 @@ Documentación: se pueden proponer cambios pequeños siguiendo las
 indicaciones de @rcontribnamed{Documentation suggestions,Sugerencias para la documentación}.
 
 @item
-El Respositorio de Fragmentos de Código (LSR): elabore y arregle
+El Repositorio de Fragmentos de Código (LSR): elabore y arregle
 fragmentos.  Consulte @rcontribnamed{Adding and editing snippets,Añadir y editar fragmentos de código}.
 
 @item
@@ -568,7 +568,7 @@ Las instrucciones de git y para la compilación están en la Guía del
 Colaborador.
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, respositorio git de lilypond}
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, Repositorio git de lilypond}
 @end quotation
 
 En general, los redactores de la documentación y los pilotos de
