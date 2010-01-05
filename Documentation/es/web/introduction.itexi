@@ -807,7 +807,7 @@ concierto):
 Nos damos cuenta de que muchos usuarios ven un poco extraña esta forma
 de introducir la música.  Por este motivo, hemos escrito una amplia
 documentación de ayuda a los nuevos usuarios, comenzando con
-@ref{Learning}.
+@ref{Aprendizaje}.
 
 ¡Le rogamos que lea el Manual de Aprendizaje antes de protestar por
 posibles fallos en el programa!  Con frecuencia, los usuarios noveles
@@ -847,7 +847,7 @@ está convencido?  Lea algo sobre los entornos de edición en
 
 @node Entornos mejorados
 @unnumberedsec Entornos mejorados
-@translationof Alternate input
+@translationof Easier editing
 
 @divClass{column-center-top}
 @subheading Entorno gráfico: Denemo
@@ -1003,7 +1003,7 @@ svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
 @divEnd
 
 @divClass{column-center-top}
-@subheading Other programs can export LilyPond code
+@subheading Otros programas capaces de exportar código de LilyPond
 
 @ignore
 TODO: change url back to full adress, to make it readable in printouts -ch
@@ -1053,7 +1053,7 @@ una biblioteca de LISP para generar notación musical
 @divClass{column-center-bottom}
 @subheading Y ahora ¿qué?
 
-Ya está preparado para @ref{Download, Descargar LilyPond}.
+Ya está preparado para @ref{Descarga, Descargar LilyPond}.
 
 ¿Aún no está convencido? Muchos compositores, músicos y directores de
 orquesta han aprendido a escribir música en nuestro formato de

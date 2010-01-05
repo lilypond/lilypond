@@ -66,7 +66,7 @@ de LilyPond.
 @menu
 * Contacto::
 * Ejemplos mínimos::
-* INformes de fallo::
+* Informes de fallos::
 * Preste su ayuda::
 * Desarrollo::
 * Autores::
@@ -237,7 +237,7 @@ archivo 3}
 @end quotation
 
 @warning{Antes de enviar un mensaje a la lista de fallos, lea nuestras
-indicaciones para elaborar @ref{Informes de fallo}.}
+indicaciones para elaborar @ref{Informes de fallos}.}
 
 @divEnd
 
@@ -319,8 +319,9 @@ el bug se refiera a esas instrucciones en particular.
 
 
 
-@node Informes de fallo
-@unnumberedsec Informes de fallo
+@node Informes de fallos
+@unnumberedsec Informes de fallos
+@translationof Bug reports
 
 @divClass{column-center-top}
 @subheading Paso 1: fallos conocidos
@@ -333,7 +334,7 @@ vigor en nuestro sistema de seguimiento de fallos,
 @uref{http://code.google.com/p/lilypond/issues/list}
 @end example
 
-@warning{Le rogamos que @strong{NO} añada informes de fallo
+@warning{Le rogamos que @strong{NO} añada informes de fallos
 directamente al sistema de seguimiento.  Una vez que un problema se ha
 añadido al sistema, ya puede añadir libremente más información a ese
 informe.}
@@ -347,7 +348,7 @@ informe.}
 Si ha descibuerto un fallo que no está en la lista, ayúdenos
 elaborando un informe de fallo.
 
-@warning{Sólo aceptamos informes de fallo en forma de @ref{Ejemplos
+@warning{Sólo aceptamos informes de fallos en forma de @ref{Ejemplos
 mínimos}.  Disponemos de recursos muy limitados para tratar los
 informes de fallos, por lo que cualquier ejemplo que no sea mínimo va
 a ser rechazado.  ¡Casi todos los bugs se pueden desmostrar con cuatro
@@ -435,16 +436,16 @@ sus colegas usuarios.
 
 @item
 Informar de fallos: ayude a los usuarios a crear @ref{Informes de
-fallo} adecuados, y asista al Equipo de Fallos en el manejo de los
-@rcontrib{Issues}.
+fallos} adecuados, y asista al Equipo de Fallos en el manejo de los
+@rcontribnamed{Issues,Problemas}.
 
 @item
 Documentación: se pueden proponer cambios pequeños siguiendo las
-indicaciones de @rcontrib{Documentation suggestions}.
+indicaciones de @rcontribnamed{Documentation suggestions,Sugerencias para la documentación}.
 
 @item
-El Respositorio de Fragmentos de Código (LSR): elabore y arregle
-fragmentos.  Consulte @rcontrib{Adding and editing snippets}.
+El Repositorio de Fragmentos de Código (LSR): elabore y arregle
+fragmentos.  Consulte @rcontribnamed{Adding and editing snippets,Añadir y editar fragmentos de código}.
 
 @item
 Discusión, revisión y pruebas: los desarrolladores suelen solicitar un
@@ -458,21 +459,21 @@ prueba de nuevas funcionalidades.  ¡Contribuya a estas discusiones!
 @warning{En general, estos trabajos requieren que usted tenga los
 archivos de código fuente del programa y la documentación, pero no
 requieren un entorno de desarrollo completo.  Consulte
-@rcontrib{Starting with git}.}
+@rcontribnamed{Starting with git,Comenzar con git}.}
 
 @itemize
 @item
-Documentación: consulte @rcontrib{Documentation work} y
-@rcontrib{Building documentation without compiling LilyPond}.
+Documentación: consulte @rcontribnamed{Documentation work,Trabajar en la documentación} y
+@rcontribnamed{Building documentation without compiling LilyPond,Construir la documentación sin compilar LilyPond}.
 
 @item
 Página web: nuestra página se construye a partir del código fuente
 normal de la documentación.  Consulte la información sobre la
-documentación, y también @rcontrib{Website work}.
+documentación, y también @rcontribnamed{Website work,Trabajar en la página web}.
 
 @item
-Traducciones: consulte @rcontrib{Translating the documentation} y
-@rcontrib{Translating the website}.
+Traducciones: consulte @rcontribnamed{Translating the documentation,Traducir la documentación} y
+@rcontribnamed{Translating the website,Traducir la página web}.
 
 @end itemize
 
@@ -481,17 +482,17 @@ Traducciones: consulte @rcontrib{Translating the documentation} y
 
 @warning{En general, estos trabajos requieren que usted tenga el
 código fuente y sea capaz de compilar LilyPond.  Consulte
-@rcontrib{Starting with git} y @rcontrib{Compiling LilyPond}.}
+@rcontribnamed{Starting with git,Comenzar con git} y @rcontribnamed{Compiling LilyPond,Compilación de LilyPond}.}
 
 Sugerimos que los colaboradores nuevos que sean usuarios de Windows
 utilicen una máquina virtual para ejecutar @emph{lilybuntu}.  Consulte
-@rcontrib{Using a Virtual Machine to Compile LilyPond}.
+@rcontribnamed{Using a Virtual Machine to Compile LilyPond,Utilización de una máquina virtual para la compilación de LilyPond}.
 
 @itemize
 @item
 Corrección de fallos, funcionalidades nuevas: la mejor forma de
 comenzar es unirse a los cazadores de bugs, los Frogs, y leer
-@rcontrib{Programming work}.
+@rcontribnamed{Programming work,Trabajos de programación}.
 
 @end itemize
 
@@ -567,7 +568,7 @@ Las instrucciones de git y para la compilación están en la Guía del
 Colaborador.
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, respositorio git de lilypond}
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, Repositorio git de lilypond}
 @end quotation
 
 En general, los redactores de la documentación y los pilotos de

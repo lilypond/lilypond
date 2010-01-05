@@ -779,7 +779,7 @@ ejemplos son mucho más fáciles de comprender que los ejemplos largos.
 Los ejemplos mínimos se utilizan para
 
 @itemize
-@item Informes de fallo
+@item Informes de fallos
 @item Solicitudes de ayuda a las listas de correo
 @item Añadir ejemplos al @uref{http://lsr@/.dsi@/.unimi@/.it/,Repositorio de Fragmentos de Código de LilyPond}
 @end itemize

@@ -265,7 +265,7 @@ versión en formato PDF a causa de su mayor resolución.}
 
 @itemize
 
-@item @ressaynamed{Top,Essay}:
+@item @ressaynamed{Top,Ensayo}:
 lea este manual en el mismo formato que el presente documento.
 
 @end itemize
@@ -275,11 +275,11 @@ lea este manual en el mismo formato que el presente documento.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../essay/index.html, Essay (HTML seccionado)}:
+@item @uref{../essay/index.html, Ensayo (HTML seccionado)}:
 el manual está dividido en muchas páginas HTML.
 @*@ @ @emph{(una pequeña descarga por cada página)}
 
-@item @uref{../essay-big-page.html, Essay (HTML monolítico)}:
+@item @uref{../essay-big-page.html, Ensayo (HTML monolítico)}:
 lea este manual como una sola página HTML enorme.
 @*@ @ @emph{(una única descarga grande, 2 Mb)}
 
@@ -518,7 +518,7 @@ ello leyendo nuestra @ref{Entrada de texto}.
 
 @subsubheading ¡Hay un montón de documentación!  ¿Tengo que leerla?
 
-Debe leer el manual de @ref{Learning,Aprendizaje}.  Respecto al resto
+Debe leer el manual de @ref{Aprendizaje}.  Respecto al resto
 de la documentación, sólo tiene que leer las secciones que tratan de
 la notación que quiera crear.
 
