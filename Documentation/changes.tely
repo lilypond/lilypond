@@ -64,6 +64,13 @@ which scares away people.
 @end ignore
 
 @item
+A half-open articulation was added:
+@lilypond[quote,relative=2]
+c4\halfopen
+@end lilypond
+This is sometimes used to indicate half-open hi-hats.
+
+@item
 The Unicode Bidirectional Algorithm is now fully supported for
 single-line markup due to enhanced integration with Pango.
 

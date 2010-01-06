@@ -101,6 +101,14 @@
 	(direction . ,UP)))
 
 
+    ("halfopen"
+     . (
+	(avoid-slur . outside)
+	(padding . 0.20)
+	(script-stencil . (feta . ("halfopen" . "halfopen")))
+	(direction . ,UP)))
+
+
     ("ictus"
      . (
 	(script-stencil . (feta . ("ictus" . "ictus")))

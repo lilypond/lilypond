@@ -583,6 +583,43 @@ fet_beginchar ("open (unstopped)", "open");
 fet_endchar;
 
 
+fet_beginchar ("halfopen (unstopped)", "halfopen");
+	save thin, height, width, thick, factor, slash;
+
+	factor = 5/4;
+	height# = 5/4 width#;
+	height# = staff_space#;
+	thin = 0.6 linethickness + 0.06 staff_space;
+	slash# = 1.05 linethickness#;
+
+	set_char_box (width# / 2, width# / 2, height# / 2, height# / 2);
+
+	define_pixels (width, height, slash);
+
+	2 thick + 0.6 (height - 2 thin) = width;
+
+	penpos1 (thick, 0);
+	penpos2 (thin, 90);
+	penpos3 (thick, 180);
+	penpos4 (thin, 270);
+	z1r = (w, 0);
+	z2r = (0, h);
+	z3r = (-w, 0);
+	z4r = (0, -h);
+
+	penlabels (1, 2, 3, 4);
+
+	penstroke z1e{up}
+		  .. z2e{left}
+		  .. z3e{down}
+		  .. z4e{right}
+		  .. cycle;
+
+	draw_brush ((-w * factor, -h * factor), slash,
+		    (w * factor, h * factor), slash);
+fet_endchar;
+
+
 fet_beginchar ("plus (stopped)", "stopped");
 	save hthick, vthick, size, outer_hsize, outer_vsize;
 

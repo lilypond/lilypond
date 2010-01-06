@@ -13,7 +13,7 @@ This chart shows all articulations, or scripts, that the feta font contains.
       c''\staccato           c''\tenuto          c''\portato
       c''\upbow              c''\downbow         c''\flageolet
       c''\thumb              c''^\lheel          c''\rheel
-      c''^\ltoe              c''\rtoe            c''\open
+      c''^\ltoe              c''\rtoe            c''\open          c''\halfopen
       c''\stopped            c''\snappizzicato   c''\turn          c''\reverseturn
       c''\trill              c''\prall           c''\mordent
       c''\prallprall         c''\prallmordent    c''\upprall
@@ -28,7 +28,7 @@ This chart shows all articulations, or scripts, that the feta font contains.
       staccato           tenuto          portato
       upbow              downbow         flageolet
       thumb              lheel           rheel
-      ltoe               rtoe            open
+      ltoe               rtoe            open          halfopen
       stopped            snappizzicato   turn          reverseturn
       trill              prall           mordent
       prallprall         prallmordent    upprall

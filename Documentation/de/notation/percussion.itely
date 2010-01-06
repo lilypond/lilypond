@@ -380,12 +380,13 @@ eigene Liste der Positionen und Notenköpfe am Anfang ihrer Datei erstellen.
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
-         (bassdrum     default   #f         -1)
-         (snare        default   #f         0)
-         (hihat        cross     #f         1)
-         (pedalhihat   xcircle   "stopped"  2)
-         (lowtom       diamond   #f         3)))
-up = \drummode { hh8 hh hh hh hhp4 hhp }
+         (bassdrum        default   #f           -1)
+         (snare           default   #f           0)
+         (hihat           cross     #f           1)
+         (halfopenhihat   cross     "halfopen"   1)
+         (pedalhihat      xcircle   "stopped"    2)
+         (lowtom          diamond   #f           3)))
+up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
 
 \new DrumStaff <<
