@@ -89,10 +89,10 @@ This mailing list is the main place for users to discuss and help
 each other.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
 lilypond-user subscribe and info}
 
-@uref{http://mail.gnu.org/archive/html/lilypond-user/,
+@uref{http://lists.gnu.org/archive/html/lilypond-user/,
 user archive1}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 archive2}
@@ -179,7 +179,7 @@ notifications of new releases.
 @uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
 info-lilypond subscribe and info}
 
-@uref{http://mail.gnu.org/archive/html/info-lilypond/,
+@uref{http://lists.gnu.org/archive/html/info-lilypond/,
 info archive1}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 archive2}
@@ -202,10 +202,10 @@ Most developer discussion takes place on this list.  Patches
 should be sent here.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
 lilypond-devel subscribe and info}
 
-@uref{http://mail.gnu.org/archive/html/lilypond-devel/,
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
 devel archive1}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 archive2}
@@ -222,10 +222,10 @@ send to lilypond-devel with gmane}
 Bug-specific discussion takes place here.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,
+@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
 bug-lilypond subscribe and info}
 
-@uref{http://mail.gnu.org/archive/html/bug-lilypond/,
+@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
 bug archive1}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 archive2}

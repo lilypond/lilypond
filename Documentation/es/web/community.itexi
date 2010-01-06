@@ -89,10 +89,10 @@ Esta lista de distribución de correo (en inglés) es el lugar principal
 que tienen los usuarios para discutir y prestarse mutua ayuda.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
 suscripción e información sobre lilypond-user}
 
-@uref{http://mail.gnu.org/archive/html/lilypond-user/,
+@uref{http://lists.gnu.org/archive/html/lilypond-user/,
 archivo 1 de la lista de usuarios}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 archivo 2}
@@ -180,7 +180,7 @@ bajo tráfico, que envía notificaciones de los últimos lanzamientos.
 @uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
 suscripción e información sobre info-lilypond}
 
-@uref{http://mail.gnu.org/archive/html/info-lilypond/,
+@uref{http://lists.gnu.org/archive/html/info-lilypond/,
 archivo 1 de la lista info}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 archivo 2}
@@ -203,10 +203,10 @@ Casi toda la discusión entre desarrolladores tiene lugar en esta
 lista.  Los parches se deben enviar aquí.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
 subscripción e información sobre lilypond-devel}
 
-@uref{http://mail.gnu.org/archive/html/lilypond-devel/,
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
 archivo 1 de la lista devel}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 archivo 2}
@@ -223,10 +223,10 @@ escribir a la lista lilypond-devel a través de gmane}
 La discusión específica sobre fallos se produce aquí.
 
 @quotation
-@uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,
+@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
 subscripción e información sobre bug-lilypond}
 
-@uref{http://mail.gnu.org/archive/html/bug-lilypond/,
+@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
 archivo 1 de la lista bug}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 archivo 2}

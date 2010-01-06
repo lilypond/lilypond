@@ -55,7 +55,7 @@ list, not to us personally.
 We have the following mailing lists:
 
 @itemize @bullet
-@item @uref{http://mail.gnu.org/mailman/listinfo/info-lilypond,info-lilypond@@gnu.org}
+@item @uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,info-lilypond@@gnu.org}
 is a low-volume list for information on LilyPond project.
     This list is moderated; ask
     @email{drl@@gnu.org, David R. Linn} or
@@ -63,16 +63,16 @@ is a low-volume list for information on LilyPond project.
 list.
 
 @item
-@uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,lilypond-devel@@gnu.org}
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,lilypond-devel@@gnu.org}
   for discussions about developing LilyPond, in particular the unstable series.
 
-@item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,lilypond-user@@gnu.org}
+@item @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,lilypond-user@@gnu.org}
   for discussions about using LilyPond, in particular the stable series.
 
-@item @uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,bug-lilypond@@gnu.org}
+@item @uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,bug-lilypond@@gnu.org}
 for sending bugreports.
 
-@item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-cvs,lilypond-cvs@@gnu.org}
+@item @uref{http://lists.gnu.org/mailman/listinfo/lilypond-cvs,lilypond-cvs@@gnu.org}
  for log files from the
 autobuild.
 @end itemize

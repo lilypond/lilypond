@@ -3249,7 +3249,7 @@ for Windows (Cygwin version 1.5).
 @subsubheading August 31, 2003
 LilyPond 1.9.4 is released.
 @emph{This is an experimental release}: read the
-@uref{http://mail.gnu.org/archive/html/lilypond-devel/2003-08/msg00133.html,announcement}
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2003-08/msg00133.html,announcement}
 before trying.
 @newsEnd
 
