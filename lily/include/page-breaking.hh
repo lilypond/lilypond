@@ -154,7 +154,8 @@ protected:
   Page_spacing_result space_systems_on_n_pages (vsize configuration_index,
 						vsize n, vsize first_page_num);
   Page_spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n,
-							    vsize first_page_num);
+							    vsize first_page_num,
+							    Real penalty_for_fewer_pages);
   Page_spacing_result space_systems_on_best_pages (vsize configuration_index,
 						   vsize first_page_num);
   Page_spacing_result space_systems_with_fixed_number_per_page (vsize configuration_index,

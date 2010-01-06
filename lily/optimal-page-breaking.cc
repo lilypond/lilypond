@@ -41,6 +41,8 @@ Optimal_page_breaking::~Optimal_page_breaking ()
 {
 }
 
+extern bool debug_page_breaking_scoring;
+
 // Solves the subproblem betwen the (END-1)th \pageBreak and the
 // ENDth \pageBreak.
 // Returns a vector of systems per page for the pages within this chunk.
@@ -98,6 +100,9 @@ Optimal_page_breaking::solve_chunk (vsize end)
       Page_spacing_result best_for_this_sys_count;
       set_current_breakpoints (end-1, end, sys_count, Line_division (), bound);
 
+      if (debug_page_breaking_scoring)
+	message (_f ("trying %d systems", (int)sys_count));
+
       for (vsize i = 0; i < current_configuration_count (); i++)
 	{
 	  vsize min_p_count = min_page_count (i, first_page_num);
@@ -106,7 +111,7 @@ Optimal_page_breaking::solve_chunk (vsize end)
 	  if (min_p_count == page_count || scm_is_integer (forced_page_count))
 	    cur = space_systems_on_n_pages (i, page_count, first_page_num);
 	  else
-	    cur = space_systems_on_n_or_one_more_pages (i, page_count-1, first_page_num);
+	    cur = space_systems_on_n_or_one_more_pages (i, page_count-1, first_page_num, 0);
 
 	  if (cur.demerits_ < best_for_this_sys_count.demerits_)
 	    {
@@ -114,6 +119,9 @@ Optimal_page_breaking::solve_chunk (vsize end)
 	      bound = current_configuration (i);
 	    }
 	}
+
+      if (debug_page_breaking_scoring)
+	message (_f ("best score for this sys-count: %f", best_for_this_sys_count.demerits_));
 
       if (best_for_this_sys_count.demerits_ < best.demerits_)
 	{
@@ -147,6 +155,9 @@ Optimal_page_breaking::solve_chunk (vsize end)
       Real best_demerits_for_this_sys_count = infinity_f;
       set_current_breakpoints (end-1, end, sys_count, bound);
 
+      if (debug_page_breaking_scoring)
+	message (_f ("trying %d systems", (int)sys_count));
+
       for (vsize i = 0; i < current_configuration_count (); i++)
 	{
 	  vsize min_p_count = min_page_count (i, first_page_num);
@@ -169,6 +180,10 @@ Optimal_page_breaking::solve_chunk (vsize end)
 	      bound = current_configuration (i);
 	    }
 	}
+
+      if (debug_page_breaking_scoring)
+	message (_f ("best score for this sys-count: %f", best_demerits_for_this_sys_count));
+
       if (best_demerits_for_this_sys_count >= BAD_SPACING_PENALTY
 	&& !(best.system_count_status_ & SYSTEM_COUNT_TOO_FEW))
 	break;

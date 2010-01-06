@@ -86,14 +86,14 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   if (start == 0 && auto_first)
     {
       if (min_p_count % 2)
-	result = space_systems_on_n_or_one_more_pages (configuration, min_p_count, page_number);
+	result = space_systems_on_n_or_one_more_pages (configuration, min_p_count, page_number, 0);
       else
 	result = space_systems_on_n_pages (configuration, min_p_count, page_number);
     }
   else if (page_number % 2 == min_p_count % 2)
     result = space_systems_on_n_pages (configuration, min_p_count, page_number);
   else
-    result = space_systems_on_n_or_one_more_pages (configuration, min_p_count, page_number);
+    result = space_systems_on_n_or_one_more_pages (configuration, min_p_count, page_number, blank_page_penalty ());
 
   Break_node ret;
   ret.prev_ = start - 1;

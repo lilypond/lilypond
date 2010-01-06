@@ -974,7 +974,8 @@ Page_breaking::blank_page_penalty () const
 // If systems_per_page_ is positive, we don't really try to space on N
 // or N+1 pages; see the comment to space_systems_on_n_pages.
 Page_spacing_result
-Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize n, vsize first_page_num)
+Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize n, vsize first_page_num,
+						     Real penalty_for_fewer_pages)
 {
   Page_spacing_result n_res;
   Page_spacing_result m_res;
@@ -1016,12 +1017,11 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
   m_res = finalize_spacing_result (configuration, m_res);
   n_res = finalize_spacing_result (configuration, n_res);
 
-  Real penalty = blank_page_penalty ();
   Real page_spacing_weight = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
-  n_res.demerits_ += penalty * page_spacing_weight;
+  n_res.demerits_ += penalty_for_fewer_pages * page_spacing_weight;
 
   if (n_res.force_.size ())
-    n_res.force_.back () += penalty;
+    n_res.force_.back () += penalty_for_fewer_pages;
 
   return (m_res.demerits_ < n_res.demerits_) ? m_res : n_res;
 }
@@ -1030,27 +1030,19 @@ Page_spacing_result
 Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_page_num)
 {
   vsize min_p_count = min_page_count (configuration, first_page_num);
-  Real page_spacing_weight = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
-  Real odd_pages_penalty = blank_page_penalty () * page_spacing_weight;
 
   cache_line_details (configuration);
   Page_spacer ps (cached_line_details_, first_page_num, this);
   Page_spacing_result best = ps.solve (min_p_count);
-  best.force_.back () += (min_p_count % 2) ? odd_pages_penalty : 0;
-  best.demerits_ += (min_p_count % 2) ? odd_pages_penalty : 0;
 
   for (vsize i = min_p_count+1; i <= cached_line_details_.size (); i++)
     {
       Page_spacing_result cur = ps.solve (i);
-      cur.demerits_ += (i % 2) ? odd_pages_penalty : 0;
       if (cur.demerits_ < best.demerits_)
 	best = cur;
     }
 
   Page_spacing_result ret = finalize_spacing_result (configuration, best);
-  ret.demerits_ += (ret.force_.size () % 2) ? odd_pages_penalty : 0;
-  if (ret.force_.size ())
-    ret.force_.back () += odd_pages_penalty;
   return ret;
 }
 
