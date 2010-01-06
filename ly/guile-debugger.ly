@@ -24,33 +24,27 @@
 %%  For more information, see the Contributor's Guide.
 
 
-\version "2.13.4"
+\version "2.13.10"
 
-#(use-modules
-  (ice-9 debugger)
-  (ice-9 debugging trace)
-  (ice-9 debugging steps)
-  (ice-9 debugging ice-9-debugger-extensions))
-
-#(define (break! proc)
-   (install-trap (make <procedure-trap>
-                   #:procedure proc
-                   #:behaviour debug-trap)))
-
-#(define (trace! proc)
-   (install-trap (make <procedure-trap>
-                   #:procedure proc
-                   #:behaviour (list trace-trap
-                                     trace-at-exit))))
-
-#(define (trace-subtree! proc)
-   (install-trap (make <procedure-trap>
-                   #:procedure proc
-                   #:behaviour (list trace-trap
-                                     trace-until-exit))))
+% define lilypond-module as a variable in the guile-user module and set to the current
+% Scheme module (which will be the lilypond top-level
+% module)
 
 #(module-define! (resolve-module '(guile-user))
                  'lilypond-module
                  (current-module))
+%
+% Ensure we have command-line recall available at guile> prompt
+%
+#(use-modules (ice-9 readline))
+#(activate-readline)
+#(display "\n Guile debugger for Lilypond\n")
+#(use-modules (scm guile-debugger))
+#(newline)
 #(top-repl)
+%
+% top-repl has re-set the module to guile-user,
+%  so we need to set it back to lilypond-module
+%
+#(ly:module-copy (current-module) (resolve-module '(lilypond-module)))
 #(set-current-module lilypond-module)

@@ -656,7 +656,10 @@ Do not run make po/po-update with GNU gettext < 0.10.35
 @section Debugging LilyPond
 
 The most commonly used tool for debugging LilyPond is the GNU debugger
-gdb.  Use of gdb is described in this section.
+gdb.
+The gdb tool is used for investigating and debugging core Lilypond code written in C++.
+Another tool is available for debugging Scheme code using the Guile debugger,
+This section describes using both gdb and the Guile Debugger.
 
 @subsection Debugging overview
 
@@ -671,9 +674,9 @@ the sequence in which functions are called and the arguments to the
 various function calls.
 
 
-@subsection Compiling with debugging information
+@subsection Compiling LilyPond for use with gdb
 
-In order to use a debugger with LilyPond, it is necessary to compile
+In order to use gdb with LilyPond, it is necessary to compile
 LilyPond with debugging information.  This is accomplished by running
 the following commands in the main LilyPond source directory.
 
@@ -683,51 +686,40 @@ the following commands in the main LilyPond source directory.
 make
 @end example
 
-This will create a version of LilyPond that contains the debugging
+This will create a version of LilyPond containing debugging
 information that will allow the debugger to tie the source code
 to the compiled code.
 
 You should not do @var{make install} if you want to use a debugger
-with LilyPond.  @var{make install} will strip the debugging information
+with LilyPond.  The @var{make install} command will strip debugging information
 from the LilyPond binary.
-
-To set breakpoints in Scheme functions, put
-
-@example
-\include "guile-debugger.ly"
-@end example
-
-in your input file after any scheme procedures you have defined in
-that file.  When your input file is processed, a guile prompt
-will be displayed.  At the guile prompt, you can set breakpoints with
-the @code{break!} procedure:
-
-@example
-guile> (break! my-scheme-procedure)
-@end example
-
-Once you have set the desired breakpoints, you exit the guile repl frame
-by typing:
-
-@example
-guile> (quit)
-@end example
-
-When one of the scheme routines for which you have set breakpoints is
-entered, guile will interrupt execution in a debug frame.  At this point,
-you will have access to guile debugging commands.  For a listing of these
-commands, type:
-
-@example
-debug> help
-@end example
 
 @subsection Typical gdb usage
 
+Once you have compiled the Lilypond image with the necessary debugging information it will
+have been written to a location in a subfolder of your current working directory:
+
+@example
+out/bin/lilypond
+@end example
+
+This is important as you will need to let gdb know where to find the image.
+You can invoke gdb from the command line using
+@example
+$ gdb out/bin/lilypond
+@end example
+or you may use a graphical interface to gdb such as ddd
+@example
+$ gdb out/bin/lilypond
+@end example
+You can also use sets of standard gdb commands stored in a .gdbinit file (see next
+section).
+
+
 @subsection Typical .gdbinit files
 
-The behavior of gdb can be readily customized through the use of
-@var{.gdbinit} files.  A @var{.gdbinit} file is a file named
+The behavior of gdb can be readily customized through the use of a
+@var{.gdbinit} file.  A @var{.gdbinit} file is a file named
 @var{.gdbinit} (notice the @qq{.} at the beginning of the file name)
 that is placed in a user's home directory.
 
@@ -756,10 +748,16 @@ define pmusic
 end
 @end example
 
+@subsection Debugging Scheme Code
+Scheme code can be developed using the Guile command line interpreter @code{top-repl}.
+You can either investigate interactively using just Guile or you can use the debugging
+tools available within Guile.
+
+
 @subsection Using Guile interactively with LilyPond
 
 In order to experiment with Scheme programming in the LilyPond
-environment, it is convenient to have a Guile interpreter that
+environment, it is necessary to have a Guile interpreter that
 has all the LilyPond modules loaded.  This requires the following
 steps.
 
@@ -771,7 +769,7 @@ in the .ly file:
                  'lilypond-module (current-module))
 @end example
 
-Second, place a Scheme function in the .ly file that gives an interactive Guile
+Now, place a Scheme function in the .ly file that gives an interactive Guile
 prompt:
 
 @example
@@ -779,15 +777,15 @@ prompt:
 @end example
 
 When the .ly file is compiled, this causes the compilation to be interrupted
-and an interactive guile prompt to appear.  When the guile prompt appears,
+and an interactive guile prompt to appear.  Once the guile prompt appears,
 the LilyPond active module must be set as the current guile module:
 
 @example
 guile> (set-current-module lilypond-module)
 @end example
 
-Proper operation of these commands can be demonstrated by typing the name
-of a LilyPond public scheme function to see if it's properly defined:
+You can demonstrate these commands are operating properly by typing the name
+of a LilyPond public scheme function to check it has been define:
 
 @example
 guile> fret-diagram-verbose-markup
@@ -814,6 +812,106 @@ guile> (quit)
 @end example
 
 The compilation of the .ly file will then continue.
+
+@subsection Using the Guile debugger
+
+To set breakpoints and/or enable tracing in Scheme functions, put
+
+@example
+\include "guile-debugger.ly"
+@end example
+
+in your input file after any scheme procedures you have defined in
+that file.
+This will invoke the Guile command-line and have set up the environment for the debug
+command lines.
+When your input file is processed, a guile prompt will be displayed.
+You may now enter commands to set up breakpoints and enable tracing by the Guile debugger.
+
+@subsection Using Breakpoints
+
+At the guile prompt, you can set breakpoints with
+the @code{set-break!} procedure:
+
+@example
+guile> (set-break! my-scheme-procedure)
+@end example
+
+Once you have set the desired breakpoints, you exit the guile repl frame
+by typing:
+
+@example
+guile> (quit)
+@end example
+
+When one of the scheme routines for which you have set breakpoints is
+entered, guile will interrupt execution in a debug frame.  At this point,
+you will have access to guile debugging commands.  For a listing of these
+commands, type:
+
+@example
+debug> help
+@end example
+
+Alternatively you may code the breakpoints in your Lilypond source file using a command
+such as:
+@example
+#(set-break! my-scheme-procedure)
+@end example
+immediately after the @code{\include} statement.  In this case the breakpoint will be set
+straight after you enter the @code{(quit)} command at the guile prompt.
+
+Embedding breakpoint commands like this is particularly useful if you want to look at how
+the Scheme procedures in the @var{.scm} files supplied with LilyPond work.
+
+In this case you can edit the file in the relevant directory to add this line near the top:
+
+@example
+(use-modules (scm guile-debugger)
+@end example
+Now you can set a breakpoint after the procedure you are interested in has been declared.
+For example if you are working on routines called by @var{print-book-with} in
+@var{lily-library.scm}:
+
+@example
+(define (print-book-with parser book process-procedure)
+  (let* ((paper (ly:parser-lookup parser '$defaultpaper))
+	 (layout (ly:parser-lookup parser '$defaultlayout))
+	 (outfile-name (get-outfile-name parser)))
+    (process-procedure book paper layout outfile-name)))
+
+(define-public (print-book-with-defaults parser book)
+  (print-book-with parser book ly:book-process))
+
+(define-public (print-book-with-defaults-as-systems parser book)
+  (print-book-with parser book ly:book-process-to-systems))
+
+@end example
+
+At this point in the code you could add this to set a breakpoint at print-book-with:
+
+@example
+
+(set-break print-book-with)
+
+@end example
+
+@strong{Tracing}
+
+In the above example you will note that trace-points have also been set.  There are two
+forms of trace available:
+
+@example
+(set-trace! my-scheme-procedure)
+@end example
+and
+@example
+(set-trace-subtree! my-scheme-procedure)
+@end example
+
+@code{set-trace!} allows Scheme to log a line to the standard output to show when the
+procedure is called and when it exits.  @code{set-trace-subtree!} traces each line in the
+body of the procedure as it is executed.
 
 @node Adding or modifying features
 @section Adding or modifying features
