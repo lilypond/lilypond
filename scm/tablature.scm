@@ -99,7 +99,9 @@
     (if (string=? glyph "markup.moderntab")
         ;; if it is "moderntab", we'll draw it
         (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
-               (line-count (ly:grob-property staff-symbol 'line-count))
+               (line-count (if (ly:grob? staff-symbol)
+			       (ly:grob-property staff-symbol 'line-count)
+			       0))
                (staff-space (ly:staff-symbol-staff-space grob)))
 
           (grob-interpret-markup grob (make-customTabClef-markup line-count
