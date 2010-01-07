@@ -22,7 +22,7 @@
   #:use-module (ice-9 debugging steps)
   #:use-module (ice-9 debugging ice-9-debugger-extensions)
   #:use-module (ice-9 readline)
-  #:export (set-break! set-trace! set-trace-subtree))
+  #:export (set-break! set-trace! set-trace-subtree!))
 
 (define (set-break! proc)
   (install-trap (make <procedure-trap>
