@@ -140,7 +140,8 @@ and duration-log @var{log}."
 	 (pitch (ly:event-property (event-cause grob) 'pitch))
 	 (pitch-index (ly:pitch-notename pitch))
 	 (note-names (ly:grob-property grob 'note-names))
-	 (pitch-string (if (vector? note-names)
+	 (pitch-string (if (and (vector? note-names)
+				(> (vector-length note-names) pitch-index))
 			   (vector-ref note-names pitch-index)
 			   (string
 			    (integer->char
