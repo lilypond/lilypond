@@ -110,12 +110,17 @@ Dot_column::calc_positioning_done (SCM smob)
 	  y.add_point (y1);
 	  y.add_point (y2);
 	}
+      else if (Note_head::has_interface (s))
+	y = Interval (-1, 1);
       else
-	y = s->extent (s, Y_AXIS);
+	{
+	  programming_error ("unknown grob in dot col support");
+	  continue;
+	}
 
       y *= 2 / ss;
       y += Staff_symbol_referencer::get_position (s);
-	  
+
       Box b (s->extent (commonx, X_AXIS), y);
       boxes.push_back (b);
 
@@ -133,7 +138,7 @@ Dot_column::calc_positioning_done (SCM smob)
 	  Interval y = flag.extent (Y_AXIS)
 	    * (2 / ss)
 	    + Stem::stem_end_position (stem);
-		  
+
 	  Interval x = stem->relative_coordinate (commonx, X_AXIS)
 	    + flag.extent (X_AXIS);
 
