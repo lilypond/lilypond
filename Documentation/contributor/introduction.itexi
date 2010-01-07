@@ -33,7 +33,7 @@ git clone git://git.sv.gnu.org/lilypond.git
 Documentation is built using Texinfo.  Subscribe to the
 developers' mailing list at
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel} and
-send well-formed Git patches to @uref{lilypond-devel@gnu.org} for
+send well-formed Git patches to @uref{mailto::lilypond-devel@@gnu.org} for
 discussion.
 
 
