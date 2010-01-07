@@ -265,7 +265,10 @@ Stem::pure_height (SCM smob,
 	iv = Interval (-len, 0);
 
       if (!hp.is_empty ())
-	iv.translate (hp[dir] * ss / 2);
+	{
+	  iv.translate (hp[dir] * ss / 2);
+	  iv.add_point (hp[-dir] * ss / 2);
+	}
 
       /* extend the stem (away from the head) to cover the staff */
       if (dir == UP)
