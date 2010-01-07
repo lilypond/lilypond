@@ -291,9 +291,10 @@ g1\espressivo
 
 Crescendos and decrescendos can be engraved as textual markings
 instead of hairpins.  Dashed lines are printed to indicate their
-extent.  The built-in commands that enable these text modes are
-@code{\crescTextCresc}, @code{\dimTextDecresc},
-@code{\dimTextDecr}, and @code{\dimTextDim}.  The corresponding
+extent.  The built-in commands @code{\crescTextCresc}, 
+@code{\dimTextDecresc}, @code{\dimTextDecr}, and @code{\dimTextDim} 
+will tell LilyPond to use such textual marks instead of hairpins 
+for all subsequent @code{\<} and @code{\>} commands.  The corresponding
 @code{\crescHairpin} and @code{\dimHairpin} commands will revert
 to hairpins again:
 
