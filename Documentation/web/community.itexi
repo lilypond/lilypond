@@ -883,7 +883,7 @@ September 2009
 
 The German LinuxUser magazine wrote an
 @uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
-article about lilypond}.
+article about LilyPond}.
 
 
 @item
@@ -891,29 +891,30 @@ February 2008
 
 In @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html,
 articles on his personal site}, Andrew Hawryluk compares Finale
-and LilyPond in general terms, and evaluates in detail engraving
-capabilities of both pieces of software.  The second article is an
-instructive analysis of Rachmaninoff's Piano Prelude 6 engraving,
-including comparisons with a reference hand-engraved edition.
+and LilyPond in general terms, and evaluates engraving
+capabilities of both pieces of software in detail.  The second
+article is an instructive analysis of engraving issues in
+Rachmaninoff's Piano Prelude No. 6, including comparisons with a
+hand-engraved reference edition.
 
 @item
 June 2006
 
-@uref{http://distrowatch.com,DistroWatch} awards LilyPond and writes
+@uref{http://distrowatch.com,DistroWatch} awards LilyPond and
 @uref{http://distrowatch.com/weekly.php?issue=20060605,writes}
 @qq{Ladies and Gentleman, we are pleased to announce that, based
 on readers' requests, the DistroWatch May 2006 donation has been
-awarded to LilyPond (@euro{} 190.00) and Lua (US$250.00).}
+awarded to LilyPond (@euro{}190.00) and Lua (US$250.00).}
 
 @item
 December 2005
 
-@uref{http://linuxjournal.com,Linux Journal}  publishes an article titled
-@uref{http://www.linuxjournal.com/article/8364, Make Stunning
-Schenker Graphs with GNU LilyPond}.  It is a in-depth but hands-on
-feature article with crisp LilyPond graphics.  Author Kris Shaffer
-remarks “GNU Lilypond generates beautiful graphics that make
-commercial alternatives seem second-rate.”
+@uref{http://linuxjournal.com,Linux Journal} publishes an article
+titled @uref{http://www.linuxjournal.com/article/8364, Make
+Stunning Schenker Graphs with GNU LilyPond}.  It is an in-depth
+but hands-on feature article with crisp LilyPond graphics.  Author
+Kris Shaffer remarks @qq{GNU Lilypond generates beautiful graphics
+that make commercial alternatives seem second-rate.}
 
 @item
 August 20, 2005
@@ -922,9 +923,9 @@ The Belgian newspaper De Standaard investigates what drives Free
 Software authors in an article titled
 @uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} (Non-profit sharing of
-knowlegde) in its `DS2 bijlage'.  LilyPond is used as an example
-and the article is interspersed with quotes from an `email
-interview' with Jan Nieuwenhuizen. This marks LilyPond's first
+knowlegde) in its @q{DS2 bijlage}.  LilyPond is used as an example
+and the article is interspersed with quotes from an email
+interview with Jan Nieuwenhuizen. This marks LilyPond's first
 appearance in mainstream printed press.
 
 @item
