@@ -793,7 +793,7 @@ Ghostscript package.
 To produce a PDF file through PDF@LaTeX{}, use
 
 @example
-lilypond-book --pdf yourfile.pdftex
+lilypond-book --pdf yourfile.lytex
 pdflatex yourfile.tex
 @end example
 
