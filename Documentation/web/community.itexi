@@ -610,20 +610,15 @@ Learning:
 Glossary:
 
 @manualDevelGlossarySplit
-
-@manualDevelGlossaryBig
-
-@manualDevelGlossaryPdf
+@* @manualDevelGlossaryBig
+@* @manualDevelGlossaryPdf
 
 @item
 Essay:
 
 @manualDevelEssaySplit
-
-@manualDevelEssayBig
-
-@manualDevelEssayPdf
-
+@* @manualDevelEssayBig
+@* @manualDevelEssayPdf
 
 @c separate introduction, regular, infrequent manuals
 @smallspace
@@ -632,29 +627,22 @@ Essay:
 Notation:
 
 @manualDevelNotationSplit
-
-@manualDevelNotationBig
-
-@manualDevelNotationPdf
+@* @manualDevelNotationBig
+@* @manualDevelNotationPdf
 
 @item
 Usage:
 
 @manualDevelUsageSplit
-
-@manualDevelUsageBig
-
-@manualDevelUsagePdf
+@* @manualDevelUsageBig
+@* @manualDevelUsagePdf
 
 @item
 Snippets:
 
 @manualDevelSnippetsSplit
-
-@manualDevelSnippetsBig
-
-@manualDevelSnippetsPdf
-
+@* @manualDevelSnippetsBig
+@* @manualDevelSnippetsPdf
 
 @c separate introduction, regular, infrequent manuals
 @smallspace
@@ -663,37 +651,29 @@ Snippets:
 Web:
 
 @manualDevelWebSplit
-
-@manualDevelWebBig
-
-@manualDevelWebPdf
+@* @manualDevelWebBig
+@* @manualDevelWebPdf
 
 @item
 Changes:
 
 @manualDevelChangesSplit
-
-@manualDevelChangesBig
-
-@manualDevelChangesPdf
+@* @manualDevelChangesBig
+@* @manualDevelChangesPdf
 
 @item
 Extend:
 
 @manualDevelExtendingSplit
-
-@manualDevelExtendingBig
-
-@manualDevelExtendingPdf
+@* @manualDevelExtendingBig
+@* @manualDevelExtendingPdf
 
 @item
 Internals:
 
 @manualDevelInternalsSplit
-
-@manualDevelInternalsBig
-
-@manualDevelInternalsPdf
+@* @manualDevelInternalsBig
+@* @manualDevelInternalsPdf
 
 @end itemize
 @divEnd
