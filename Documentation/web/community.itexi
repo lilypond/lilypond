@@ -508,7 +508,7 @@ before 2.14}
 
 @subsubheading Grand LilyPond Input Syntax Standardization
 
-Website and mailist: TODO
+Website: @uref{http://lilypond.org/~graham/gliss}
 
 GLISS will stabilize the (non-tweak) input syntax for the upcoming
 LilyPond 3.0.  After updating to 3.0, the input syntax for

@@ -8,6 +8,7 @@
 * Overview of tasks::
 * For unix developers::
 * For other contributors::
+* Mentors::
 @end menu
 
 
@@ -80,4 +81,86 @@ first, particularly for users not familiar with the command line
 and/or version control systems.  Contributors who don't want to
 deal with Git directly are encouraged to use the
 @command{lily-git} graphical user interface instead.
+
+
+@node Mentors
+@section Mentors
+
+We have a semi-formal system of mentorship, similar to the
+medieval @qq{journeyman/master} training system.  New contributors
+will have a dedicated mentor to help them @qq{learn the ropes}.
+
+@warning{This is subject to the availability of mentors; certain
+jobs have more potential mentors than others.}
+
+@subheading Contributor responsibilities
+
+@enumerate
+
+@item
+Ask your mentor which sections of the CG you should read.
+
+@item
+If you get stuck for longer than 10 minutes, ask your mentor.
+They might not be able to help you with all problems, but we find
+that new contributors often get stuck with something that could be
+solved/explained with 2 or 3 sentences from a mentor.
+
+@item
+Send patches to your mentor for initial comments.
+
+@item
+Inform your mentor if you're going to be away for a month, or if
+you leave entirely.  Contributing to lilypond isn't for everybody;
+just let your mentor know so that we can reassign that work to
+somebody else.
+
+@item
+Inform your mentor if you're willing to do more work -- we always
+have way more work than we have helpers available.
+
+@end enumerate
+
+
+@subheading Mentor responsibilities
+
+@enumerate
+
+@item
+Respond to questions from your contributor(s) promptly, even if
+the reponse is just @qq{sorry, I don't know} or @qq{sorry, I'm
+very busy for the next 3 days; I'll get back to you then}.  Make
+sure they feel valued.
+
+@item
+Inform your contributor(s) about the expected turnaround for your
+emails -- do you work on lilypond every day, or every weekend, or
+what?  Also, if you'll be unavailable for longer than usual (say,
+if you normally reply within 24 hours, but you'll be at a
+conference for a week), let your contributors know.  Again, make
+sure thay feel valued, and that your silence (if they ask a
+question during that period) isn't their fault.
+
+@item
+Inform your contributor(s) if they need to do anything unusual for
+the builds, such as doing a @qq{make clean / doc-clean} or
+switching git branches (not expected, but just in case...)
+
+@item
+You don't need to be able to completely approve patches.  Make
+sure the patch meets whatever you know of the guidelines (for doc
+style, code indentation, whatever), and then send it on to the
+frog list or -devel for more comments.  If you feel confident
+about the patch, you can push it directly (this is mainly intended
+for docs and translations; code patches should almost always go to
+-devel before being pushed).
+
+@item
+Keep track of patches from your contributor.  If you've sent a
+patch to -devel, it's your responsibility to pester people to get
+comments for it, or at very least add it to the google tracker.
+
+@end enumerate
+
+
 
