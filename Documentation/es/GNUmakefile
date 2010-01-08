@@ -6,6 +6,6 @@ LOCALSTEPMAKE_TEMPLATES = lilypond ly doc-i18n-root
 
 UNSPLITTED_HTML_MANUALS = changes
 
-EXTRA_DIST_FILES = web.texi
+EXTRA_DIST_FILES = web.texi search-box.ihtml
 
 include $(depth)/make/stepmake.make
