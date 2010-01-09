@@ -142,7 +142,7 @@ def translateNameToUrl(manual, version):
         elif (manual=='essay'):
             return url+'user/lilypond-learning/Background.html'
         elif (manual=='extending'):
-            return url+'user/music/Interfaces-for-programmers.html'
+            return url+'user/lilypond/Interfaces-for-programmers.html'
         else:
             return ''
 
