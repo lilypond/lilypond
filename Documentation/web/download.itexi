@@ -301,32 +301,6 @@ Delete the LilyPond.app folder.
 @warning{If you are happy with the GUI, then please ignore these
 instructions.}
 
-@ignore
-FIXME: I had one report that we don't need this stuff; will delete
-after confirmation.  -gp
-
-@subsubheading Using Python scripts on MacOS 10.3 or 10.4
-
-LilyPond binaries for MacOS X do not provide Python, but Python 2.4 or
-newer is required by @command{convert-ly}.  Therefore, if you use MacOS
-10.3 or 10.4, you must install a newer Python version from
-@uref{http://python.org/download/}, then edit the first line of
-@command{convert-ly} and @command{lilypond-book} as follows: if the
-Python binary you just installed is in your @var{PATH}, the first line
-should be
-
-@example
-#!/usr/bin/env python
-@end example
-
-@noindent
-otherwise it should be
-
-@example
-#!@var{/path/to/newly_installed/python}
-@end example
-@end ignore
-
 @subsubheading MacOS X on the command line
 
 The most convenient way to run lilypond scripts is by setting up
