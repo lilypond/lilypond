@@ -1,4 +1,4 @@
-@c -*- coding: us-ascii; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 
 @node Compiling LilyPond
 @chapter Compiling LilyPond
