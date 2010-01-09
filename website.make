@@ -11,11 +11,16 @@ ifeq ($(WEBSITE_ONLY_BUILD),1)
   script-dir=$(trusted-dir)
   texi2html-init-file=$(trusted-dir)/lilypond-texi2html.init
   TEXI2HTML_PROGRAM=$(HOME)/usr/bin/texi2html
+  EXAMPLES=$(HOME)/media/ly-examples/
+  PICTURES=$(HOME)/media/pictures
 else
   ### for normal git
   script-dir=$(top-src-dir)/scripts/build/
   texi2html-init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
   include $(config_make)
+  # I assume this is run from top-build-dir
+  EXAMPLES=Documentation/web/ly-examples/out-www/
+  PICTURES=Documentation/pictures/out-www/
 endif
 
 
@@ -26,9 +31,6 @@ TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 
 EXTRACT_TEXI_FILENAMES=python $(script-dir)/extract_texi_filenames.py
 CREATE_VERSION=python $(script-dir)/create-version-itexi.py
-
-EXAMPLES=$(HOME)/media/ly-examples/
-PICTURES=$(HOME)/media/pictures
 
 
 # don't include web
@@ -64,11 +66,13 @@ website-css:
 	cp $(top-src-dir)/Documentation/css/*.css $(OUT)/website/
 
 website-pictures:
-	cp -r $(PICTURES) $(OUT)/website/
+	mkdir -p $(OUT)/website/pictures/
+	cp $(PICTURES)/* $(OUT)/website/pictures/
 	ln -sf website/pictures $(OUT)/pictures
 
 website-examples:
-	cp -r $(EXAMPLES) $(OUT)/website/
+	mkdir -p $(OUT)/website/ly-examples
+	cp $(EXAMPLES)/* $(OUT)/website/ly-examples
 
 
 website: website-texinfo website-css website-pictures website-examples
