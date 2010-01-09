@@ -90,7 +90,7 @@ updates since the last major version.
 (@ref{Changes, details of Changes})
 
 @item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
-programming fancy tweaks in LilyPond.
+programming fancy tweaks.
 (@ref{Extending, details of Extending})
 
 @item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
@@ -530,7 +530,7 @@ links to answers of Frequently Asked Questions.
 updates since the last major version.
 
 @item @ifWebLinks{@manualStableExtendingSplit,@rextendnamed{Top,Extending}}
-programming fancy tweaks in LilyPond.
+programming fancy tweaks.
 
 @item @ifWebLinks{@manualStableInternalsSplit,@rinternalsnamed{Top,Internals}}
 information about LilyPond's internal structures, which is
