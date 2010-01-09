@@ -136,13 +136,13 @@ def translateNameToUrl(manual, version):
         elif (manual=='snippets'):
             return url+'../input/lsr/lilypond-snippets'
         elif (manual=='changes'):
-            return url+'topdocs/NEWS'
+            return url+'topdocs/NEWS.html'
         elif (manual=='music-glossary'):
             return url+'user/music-glossary'
         elif (manual=='essay'):
-            return url+'user/lilypond-learning/Background'
+            return url+'user/lilypond-learning/Background.html'
         elif (manual=='extending'):
-            return url+'user/music/Interfaces-for-programmers'
+            return url+'user/music/Interfaces-for-programmers.html'
         else:
             return ''
 
@@ -156,6 +156,7 @@ def make_manual_links(name, version):
             mshort = m.capitalize()
         url = translateNameToUrl(m, version)
 
+        print url
         if (url == ''):
             # can't have a comma here due to texinfo
             make_ver_link("manual"+name+mshort+'Pdf',
@@ -183,9 +184,17 @@ def make_manual_links(name, version):
                   version,
                   url + '-big-page.html',
                   manual.capitalize() + ' (big HTML)')
+	# this is stupid and I shouldn't have bothered trying
+	# to support the 2.12 docs and it will be deleted once
+	# 2.14 is out and the website won't be visible to users
+        # until 2.14 is out.  -gp
+        if (url.endswith('.html')):
+            newurl = url
+        else:
+            newurl = url + '/index.html'
         make_ver_link("manual"+name+mshort+'SplitNoName',
                   version,
-                  url + '/index.html',
+                  newurl,
                   manual.capitalize())
 
 
