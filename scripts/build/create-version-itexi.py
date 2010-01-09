@@ -127,16 +127,22 @@ def translateNameToUrl(manual, version):
     if (ver_minor == '2.12'):
         if (manual=='learning'):
             return url+'user/lilypond-learning'
-        if (manual=='internals'):
+        elif (manual=='internals'):
             return url+'user/lilypond-internals'
-        if (manual=='notation'):
+        elif (manual=='notation'):
             return url+'user/lilypond'
-        if (manual=='usage'):
+        elif (manual=='usage'):
             return url+'user/lilypond-program'
-        if (manual=='snippets'):
+        elif (manual=='snippets'):
             return url+'../input/lsr/lilypond-snippets'
+        elif (manual=='changes'):
+            return url+'topdocs/NEWS'
         elif (manual=='music-glossary'):
             return url+'user/music-glossary'
+        elif (manual=='essay'):
+            return url+'user/lilypond-learning/Background'
+        elif (manual=='extending'):
+            return url+'user/music/Interfaces-for-programmers'
         else:
             return ''
 
@@ -161,6 +167,9 @@ def make_manual_links(name, version):
             make_ver_link("manual"+name+mshort+'Big',
                 version, "http://lilypond.org",
                 mshort+" (did not exist in 2.12)")
+            make_ver_link("manual"+name+mshort+'SplitNoName',
+                version, "http://lilypond.org",
+                mshort+" (did not exist in 2.12)")
             continue
         make_ver_link("manual"+name+mshort+'Pdf',
                   version,
@@ -174,6 +183,10 @@ def make_manual_links(name, version):
                   version,
                   url + '-big-page.html',
                   manual.capitalize() + ' (big HTML)')
+        make_ver_link("manual"+name+mshort+'SplitNoName',
+                  version,
+                  url + '/index.html',
+                  manual.capitalize())
 
 
 print "@c ************************ Version numbers ************"
