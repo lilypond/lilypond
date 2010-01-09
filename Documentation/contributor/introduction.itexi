@@ -42,8 +42,9 @@ send well-formed Git patches to
 @section For other contributors
 
 
-The LilyPond source code is maintained as a Git repository, which
-contains:
+Git is a @emph{version control system} that tracks the history of
+a program's source code.  The LilyPond source code is maintained
+as a Git repository, which contains:
 
 @itemize
 @item
@@ -68,6 +69,12 @@ If a contributor's patch is approved for inclusion (usually
 through the mailing list), someone on the current development team
 will @emph{push} the patch to the official repository.
 
+Git is a complex and powerful tool, but tends to be confusing at
+first, particularly for users not familiar with the command line
+and/or version control systems.  Contributors who don't want to
+deal with Git directly are encouraged to use the
+@command{lily-git} graphical user interface instead.
+
 @emph{Compiling} (@q{building}) LilyPond allows developers to see
 how changes to the source code affect the program itself.
 Compiling is also needed to package the program for specific
@@ -76,11 +83,25 @@ a local Git repository (for developers), or from a downloaded
 tarball (for packagers).  Compiling LilyPond is a rather involved
 process, and most contributor tasks do not require it.
 
-Git is a complex and powerful tool, but tends to be confusing at
-first, particularly for users not familiar with the command line
-and/or version control systems.  Contributors who don't want to
-deal with Git directly are encouraged to use the
-@command{lily-git} graphical user interface instead.
+Contributors can contact the developers through the
+@q{lilypond-devel} mailing list.  The mailing list archive is
+located at
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/}.  If you
+have a question for the developers, search the archives first to
+see if the issue has already been discussed.  Otherwise, send an
+email to @email{lilypond-devel@@gnu.org}.  You can subscribe to
+the developers' mailing list here:
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel}.
+
+The Savannah software forge provides two separate interfaces for
+viewing the LilyPond Git repository online: @emph{cgit} and
+@emph{gitweb}.  The cgit interface should work faster than gitweb
+in most situations, but only gitweb allows you to search through
+the source code using @command{grep}, which you may find useful.
+The cgit interface is at
+@uref{http://git.sv.gnu.org/cgit/lilypond.git/} and the gitweb
+interface is at
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git}.
 
 
 @node Mentors
