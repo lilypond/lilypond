@@ -200,6 +200,9 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp
 @c ****************** SPECIAL MACROS FOR WEB MANUAL ************
 @macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+
+@c experimental removal; to be FIXME before 2.14.  -gp
+@ignore
 @subheading Read it
 
 @itemize
@@ -215,6 +218,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 read this manual in the same format as this one.
 
 @end itemize
+@end ignore
 
 @subheading All formats
 
@@ -225,7 +229,7 @@ read this manual in the same format as this one.
   @item @uref{../\base\/index.html, \name\ (split HTML)}:
 @end ifclear
 @ifset web_version
-  @item \split\
+  @item \split\:
 @end ifset
   the manual is split between many HTML pages.
   @*@ @ @emph{(small download for each page)}
@@ -234,7 +238,7 @@ read this manual in the same format as this one.
   @item @uref{../\base\-big-page.html, \name\ (big HTML)}:
 @end ifclear
 @ifset web_version
-  @item \big\
+  @item \big\:
 @end ifset
   read this manual as one huge HTML page.
   @*@ @ @emph{(large single download, \bigsize\)}
@@ -243,7 +247,7 @@ read this manual in the same format as this one.
   @item @uref{../\base\.pdf, \base\.pdf}:
 @end ifclear
 @ifset web_version
-  @item \pdf\
+  @item \pdf\:
 @end ifset
   download as a PDF file.
   @*@ @ @emph{(large single download, \pdfsize\)}
