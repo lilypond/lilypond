@@ -12,7 +12,7 @@ body {
   right: 0.5%;
   width: 99%;
   min-width: 42em;
-  max-width: 60em;
+  max-width: 70em;
   font-size: 95%;
   line-height: 1.5;
   background: #fff url(../pictures/background-image.png) no-repeat 0 0;
@@ -68,7 +68,7 @@ div#tocframe {
   left: 0;
   right: 0;
   background: #6aec7c url(../pictures/nav-bg.png) repeat-x top left;
-  max-width: 60em;
+  max-width: 70em;
   font-size: 100%;
   line-height: 1;
   padding: 0;
@@ -343,7 +343,7 @@ div#main {
   left: 0;
   right: 0;
   width: 100%;
-  max-width: 60em;
+  max-width: 70em;
   margin: 0 auto 11.7em;
   /* Necessary to stretch over floated content;
    * will cause scrollbars to appear for content
