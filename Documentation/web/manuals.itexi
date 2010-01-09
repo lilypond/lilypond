@@ -29,21 +29,22 @@
 @itemize
 
 @item @ref{Text input}:
-LilyPond is a @strong{text-based} music engraver.  If you are not
-familiar with this concept, please read this now!
+LilyPond is a @strong{text-based} music engraver.  Read this
+first!
 
-@item @ref{Learning}:
+@item @rlearningnamed{Top,Learning}:
 a @qq{must-read} gentle introduction to LilyPond.
+(@ref{Learning, details of Learning})
 
-@item @ref{Glossary}:
+@item @rglosnamed{Top,Music glossary}:
 @emph{(optional reading)}
-explains musical terms and gives translations for users unfamiliar
-with English musical terms.
+musical terms and translations.
+(@ref{Glossary, details of Glossary})
 
-@item @ref{Essay}:
+@item @ressaynamed{Top,Essay},
 @emph{(optional reading)}
-background information about the engraving process and the
-aesthetics of 19th century music engraving.
+background information about engraving and our aesthetics.
+(@ref{Essay, details of Essay})
 
 
 @end itemize
@@ -55,16 +56,17 @@ aesthetics of 19th century music engraving.
 
 @itemize
 
-@item @ref{Notation}:
-the main portion of the documentation; provides detailed
-information about creating notation.
+@item @rusernamed{Top, Notation}:
+detailed reference for syntax and notation.
+(@ref{Notation, details of Notation})
 
-@item @ref{Usage}:
-discusses the actual programs and operating system-specific
-issues.
+@item @rprogramnamed{Top, Usage}:
+running the programs and OS-specific issues.
+(@ref{Usage, details of Usage})
 
-@item @ref{Snippets}:
+@item @rlsrnamed{Top, Snippets}:
 short tricks, tips, and examples.
+(@ref{Snippets, details of Snippets})
 
 @end itemize
 
@@ -76,21 +78,24 @@ short tricks, tips, and examples.
 
 @itemize
 
-@item @ref{Web}:
-this document.
-
 @item @ref{FAQ}:
-links to the answers of Frequently Asked Questions.
+Frequently Asked Questions.
 
-@item @ref{Changes}:
+@item @ref{Top, Web}:
+this document.
+(@ref{Web, details of Web})
+
+@item @rchangesnamed{Top, Changes}:
 updates since the last major version.
+(@ref{Changes, details of Changes})
 
-@item @ref{Extend}:
+@item @rextendnamed{Top, Extend}:
 programming fancy tweaks in LilyPond.
+(@ref{Extend, details of Extend})
 
-@item @ref{Internals}:
-information about LilyPond's internal structures, which is
-required for constructing tweaks.
+@item @rinternalsnamed{Top, Internals}:
+reference about data structures.
+(@ref{Internals, details of Internals})
 
 @end itemize
 
@@ -128,8 +133,8 @@ License.
 * Notation::          Reference.
 * Usage::           Usage.
 * Snippets::                Snippets.
-* Web::                      Web.
 * FAQ::                         FAQ.
+* Web::                      Web.
 * Changes::                     NEWS.
 * Extend::         Programming.
 * Internals::         Internals.
@@ -304,29 +309,6 @@ linked from the @strong{See also} portion.
 @divEnd
 
 
-@node Web
-@unnumberedsec Web
-
-@divClass{column-left-top}
-@subheading Web
-
-This manual supplies general information about LilyPond.  It also
-contains information about various community forums, bug
-reporting, and development.
-
-@divEnd
-
-@divClass{column-right-bottom}
-
-@docLinks{Web, web,
-  @ref{Top,,,,Web},
-  @manualStableWebSplit,
-  @manualStableWebBig, 1 MB,
-  @manualStableWebPdf, 2 MB}
-
-@divEnd
-
-
 @node FAQ
 @unnumberedsec FAQ
 
@@ -364,6 +346,29 @@ This is explained in @rprogram{Troubleshooting}.
 @subsubheading Why do you change the syntax?
 
 This is explained in @rprogram{Why does the syntax change?}.
+
+@divEnd
+
+
+@node Web
+@unnumberedsec Web
+
+@divClass{column-left-top}
+@subheading Web
+
+This manual supplies general information about LilyPond.  It also
+contains information about various community forums, bug
+reporting, and development.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Web, web,
+  @ref{Top,,,,Web},
+  @manualStableWebSplit,
+  @manualStableWebBig, 1 MB,
+  @manualStableWebPdf, 2 MB}
 
 @divEnd
 
