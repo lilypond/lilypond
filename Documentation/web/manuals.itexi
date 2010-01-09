@@ -32,16 +32,16 @@
 LilyPond is a @strong{text-based} music engraver.  Read this
 first!
 
-@item @rlearningnamed{Top,Learning}:
+@item @ifWebLinks{@manualStableLearningSplit,@rlearningnamed{Top,Learning}}
 a @qq{must-read} gentle introduction to LilyPond.
 (@ref{Learning, details of Learning})
 
-@item @rglosnamed{Top,Music glossary}:
+@item @ifWebLinks{@manualStableGlossarySplit,@rglosnamed{Top,Glossary}}
 @emph{(optional reading)}
 musical terms and translations.
 (@ref{Glossary, details of Glossary})
 
-@item @ressaynamed{Top,Essay},
+@item @ifWebLinks{@manualStableEssaySplit,@ressaynamed{Top,Essay}}
 @emph{(optional reading)}
 background information about engraving and our aesthetics.
 (@ref{Essay, details of Essay})
@@ -56,15 +56,15 @@ background information about engraving and our aesthetics.
 
 @itemize
 
-@item @rusernamed{Top, Notation}:
+@item @ifWebLinks{@manualStableNotationSplit,@rusernamed{Top,Notation}}
 detailed reference for syntax and notation.
 (@ref{Notation, details of Notation})
 
-@item @rprogramnamed{Top, Usage}:
+@item @ifWebLinks{@manualStableUsageSplit,@rprogramnamed{Top,Usage}}
 running the programs and OS-specific issues.
 (@ref{Usage, details of Usage})
 
-@item @rlsrnamed{Top, Snippets}:
+@item @ifWebLinks{@manualStableSnippetsSplit,@rlsrnamed{Top,Snippets}}
 short tricks, tips, and examples.
 (@ref{Snippets, details of Snippets})
 
@@ -85,15 +85,15 @@ Frequently Asked Questions.
 this document.
 (@ref{Web, details of Web})
 
-@item @rchangesnamed{Top, Changes}:
+@item @ifWebLinks{@manualStableChangesSplit,@rchangesnamed{Top,Changes}}
 updates since the last major version.
 (@ref{Changes, details of Changes})
 
-@item @rextendnamed{Top, Extend}:
+@item @ifWebLinks{@manualStableExtendingSplit,@rextendnamed{Top,Extend}}
 programming fancy tweaks in LilyPond.
 (@ref{Extend, details of Extend})
 
-@item @rinternalsnamed{Top, Internals}:
+@item @ifWebLinks{@manualStableInternalsSplit,@rinternalsnamed{Top,Internals}}
 reference about data structures.
 (@ref{Internals, details of Internals})
 
