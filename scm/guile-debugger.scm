@@ -22,21 +22,60 @@
   #:use-module (ice-9 debugging steps)
   #:use-module (ice-9 debugging ice-9-debugger-extensions)
   #:use-module (ice-9 readline)
-  #:export (set-break! set-trace! set-trace-subtree!))
+  #:export (set-break!
+	    clear-break!
+	    set-trace-call!
+	    clear-trace-call!
+	    set-trace-subtree!
+	    clear-trace-subtree!
+	    debug-help))
 
 (define (set-break! proc)
   (install-trap (make <procedure-trap>
-		      #:procedure proc
-		      #:behaviour debug-trap)))
+		  #:procedure proc
+		  #:behaviour debug-trap)))
+(define (clear-break! proc)
+  (uninstall-trap (make <procedure-trap>
+		    #:procedure proc
+		    #:behaviour debug-trap)))
 
-(define (set-trace! proc)
+
+(define (set-trace-call! proc)
   (install-trap (make <procedure-trap>
-		      #:procedure proc
-		      #:behaviour (list trace-trap
-					trace-at-exit))))
+		  #:procedure proc
+		  #:behaviour (list trace-trap
+				    trace-at-exit))))
+(define (clear-trace-call! proc)
+  (uninstall-trap (make <procedure-trap>
+		    #:procedure proc
+		    #:behaviour (list trace-trap
+				      trace-at-exit))))
 
 (define (set-trace-subtree! proc)
   (install-trap (make <procedure-trap>
-		      #:procedure proc
-		      #:behaviour (list trace-trap
-					trace-until-exit))))
+		  #:procedure proc
+		  #:behaviour (list trace-trap
+				    trace-until-exit))))
+
+(define (clear-trace-subtree! proc)
+  (uninstall-trap (make <procedure-trap>
+		    #:procedure proc
+		    #:behaviour (list trace-trap
+				      trace-until-exit))))
+
+(define (debug-help )
+  (display "\nYou may add the following commands as debugging statements in your source file\n")
+  (display "or enter the set-x! commands at the guile prompt:\n\n")
+  (display " (set-break! <procedure>)\n")
+  (display "   causes guile to enter debugger on a call to <procedure>\n")
+  (display " (clear-break! <procedure>)\n")
+  (display "   disables a breakpoint previously set on a call to <procedure>\n")
+  (display " (set-trace-call! <procedure>)\n")
+  (display "   prints out a line when Scheme enters or exits <procedure>\n")
+  (display " (clear-trace-call! <procedure>)\n")
+  (display "   turns off tracing calls to <procedure>\n")
+  (display " (set-trace-subtree! <procedure>)\n")
+  (display "   displays each line of Scheme code executed during a call to <procedure>\n")
+  (display " (clear-trace-subtree! <procedure>)\n")
+  (display "   turns off tracing code during calls to <procedure>\n")
+  (newline))

@@ -18,29 +18,34 @@
 
 
 %%  \include this file to enable the setting of breakpoints in guile.
-%%  Once loaded, this file will open a guile debug prompt.  Type
-%%  help
-%%  at the debug prompt to get a list of possible commands.
+%%  Once loaded, this file will open a guile prompt.  Type
+%%  (debug-help)
+%%  at the guile prompt to get a list of possible commands.
 %%  For more information, see the Contributor's Guide.
 
 
 \version "2.13.10"
 
-% define lilypond-module as a variable in the guile-user module and set to the current
-% Scheme module (which will be the lilypond top-level
+% define lilypond-module as a variable in the guile-user module and set
+% to the current Scheme module (which will be the lilypond top-level
 % module)
 
 #(module-define! (resolve-module '(guile-user))
                  'lilypond-module
                  (current-module))
 %
-% Ensure we have command-line recall available at guile> prompt
+% Ensure we have command-line recall available at the guile prompt
 %
 #(use-modules (ice-9 readline))
 #(activate-readline)
-#(display "\n Guile debugger for Lilypond\n")
+#(display "\n Guile debugger for Lilypond")
+#(display "\n For help enter (debug-help)\n")
+%
+% Ensure debugger definitions are available in lilypond-module and guile-user
+%
 #(use-modules (scm guile-debugger))
-#(newline)
+#(ly:module-copy (resolve-module '(guile-user))
+                 (resolve-module '(scm guile-debugger)))
 #(top-repl)
 %
 % top-repl has re-set the module to guile-user,
