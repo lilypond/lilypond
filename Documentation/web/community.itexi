@@ -559,7 +559,7 @@ Development versions have an odd-numbered @q{minor} version number
 @divEnd
 
 
-@divClass{column-left-bottom}
+@divClass{column-left-top}
 @subheading Download
 
 Instructions for git and compiling are in the Contributor's Guide.
@@ -593,90 +593,6 @@ the latest binary:
 
 @end quotation
 
-
-@subheading Manuals
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Learning:
-
-@manualDevelLearningSplit
-@* @manualDevelLearningBig
-@* @manualDevelLearningPdf
-
-@item
-Glossary:
-
-@manualDevelGlossarySplit
-@* @manualDevelGlossaryBig
-@* @manualDevelGlossaryPdf
-
-@item
-Essay:
-
-@manualDevelEssaySplit
-@* @manualDevelEssayBig
-@* @manualDevelEssayPdf
-
-@c separate introduction, regular, infrequent manuals
-@smallspace
-
-@item
-Notation:
-
-@manualDevelNotationSplit
-@* @manualDevelNotationBig
-@* @manualDevelNotationPdf
-
-@item
-Usage:
-
-@manualDevelUsageSplit
-@* @manualDevelUsageBig
-@* @manualDevelUsagePdf
-
-@item
-Snippets:
-
-@manualDevelSnippetsSplit
-@* @manualDevelSnippetsBig
-@* @manualDevelSnippetsPdf
-
-@c separate introduction, regular, infrequent manuals
-@smallspace
-
-@item
-Web:
-
-@manualDevelWebSplit
-@* @manualDevelWebBig
-@* @manualDevelWebPdf
-
-@item
-Changes:
-
-@manualDevelChangesSplit
-@* @manualDevelChangesBig
-@* @manualDevelChangesPdf
-
-@item
-Extend:
-
-@manualDevelExtendingSplit
-@* @manualDevelExtendingBig
-@* @manualDevelExtendingPdf
-
-@item
-Internals:
-
-@manualDevelInternalsSplit
-@* @manualDevelInternalsBig
-@* @manualDevelInternalsPdf
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -688,11 +604,6 @@ a large, (mostly) stable project.  In order to help new
 contributors, and to keep the whole system (mostly) stable, we
 have written a manual for contributors.
 
-@warning{This manual is not intended to be read sequentially; new
-contributors should only read the sections which are relevant to
-them.  For more information about different jobs, see
-@ref{Help us}.}
-
 @docLinks{Contributor's Guide, contributor,
   @rcontribnamed{Top,Contributor's Guide},
   @manualDevelContributorSplit,
@@ -702,20 +613,9 @@ them.  For more information about different jobs, see
 @divEnd
 
 
-@divClass{column-right-top}
-@subheading Frogs: new contributors
-
-The Frogs are a collection of new contributors being mentored in
-how to @qq{eat} (fix) bugs and add new features to LilyPond.
-Programmers unfamiliar with LilyPond are encouraged to send
-patches to the Frogs first for initial discussion and
-encouragement.
-
-Website and mailist: @uref{http://frogs.lilynet.net}
-
-@divEnd
-
-@divClass{column-right-bottom}
+@c if Downloads was a bit longer, and/or the CG was a bit shorter,
+@c this would be great as column-right-top.  -gp
+@divClass{column-center-top}
 @subheading Regression tests
 
 @divClass{keep-bullets}
@@ -736,6 +636,93 @@ Comparisons between versions.
 @end itemize
 @divEnd
 @divEnd
+
+
+
+@divClass{column-center-bottom}
+@subheading Manuals
+
+@multitable @columnfractions .3 .3 .3
+@headitem Introduction
+@item
+@manualDevelLearningSplit
+@tab
+@manualDevelLearningBig
+@tab
+@manualDevelLearningPdf
+
+@item
+@manualDevelGlossarySplit
+@tab
+@manualDevelGlossaryBig
+@tab
+@manualDevelGlossaryPdf
+
+@item
+@manualDevelEssaySplit
+@tab
+@manualDevelEssayBig
+@tab
+@manualDevelEssayPdf
+
+@headitem Regular
+
+@item
+@manualDevelNotationSplit
+@tab
+@manualDevelNotationBig
+@tab
+@manualDevelNotationPdf
+
+@item
+@manualDevelUsageSplit
+@tab
+@manualDevelUsageBig
+@tab
+@manualDevelUsagePdf
+
+@item
+@manualDevelSnippetsSplit
+@tab
+@manualDevelSnippetsBig
+@tab
+@manualDevelSnippetsPdf
+
+@headitem Infrequent
+
+@item
+@manualDevelWebSplit
+@tab
+@manualDevelWebBig
+@tab
+@manualDevelWebPdf
+
+@item
+@manualDevelChangesSplit
+@tab
+@manualDevelChangesBig
+@tab
+@manualDevelChangesPdf
+
+@item
+@manualDevelExtendingSplit
+@tab
+@manualDevelExtendingBig
+@tab
+@manualDevelExtendingPdf
+
+@item
+@manualDevelInternalsSplit
+@tab
+@manualDevelInternalsBig
+@tab
+@manualDevelInternalsPdf
+
+@end multitable
+@divEnd
+
+
+
 
 @node Authors
 @unnumberedsec Authors
