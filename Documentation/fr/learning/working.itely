@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 35dc92475b9341fbbbaf194afcc2c6e2561840ac
+   Translation of GIT committish: 5a1312de54bc66dfe10a08670db976354e9ae5c3
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -23,7 +23,6 @@ de même pas votre temps à lire ce chapitre.
 @menu
 * Suggestions pour la saisie de fichiers LilyPond::
 * Quand ça ne fonctionne pas::      
-* Conducteurs et parties::            
 * De la commande @command{make} et des fichiers @code{Makefile}::
 @end menu
 
@@ -63,7 +62,6 @@ faciliter leur mise à jour.
 * Suggestions générales::         
 * Gravure de musique existante::  
 * Projets d'envergure::              
-* Économie de saisie grâce aux identificateurs et fonctions::  
 * Feuilles de style::                
 @end menu
 
@@ -214,115 +212,6 @@ g4\fpuisp c'8. e16
 @end example
 
 @end itemize
-
-
-@node Économie de saisie grâce aux identificateurs et fonctions
-@subsection Économie de saisie grâce aux identificateurs et fonctions
-@translationof Saving typing with variables and functions
-
-@cindex variables
-@cindex identificateurs
-
-Jusqu'à maintenant, vous avez vu ce type de code :
-
-@lilypond[quote,verbatim,ragged-right]
-hornNotes = \relative c'' { c4 b dis c }
-\score {
-  {
-    \hornNotes
-  }
-}
-@end lilypond
-
-Vous comprendrez combien cela peut être utile pour écrire de la
-musique minimaliste :
-
-@lilypond[quote,verbatim,ragged-right]
-fragmentA = \relative c'' { a4 a8. b16 }
-fragmentB = \relative c'' { a8. gis16 ees4 }
-violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
-\score {
-  {
-    \violin
-  }
-}
-@end lilypond
-
-Néanmoins vous pouvez aussi utiliser ces identificateurs
--- aussi connus sous le nom de variables, macros, ou commandes
-(définies par l'utilisateur) -- pour des retouches :
-
-@lilypond[quote,verbatim,ragged-right]
-dolce = \markup{ \italic \bold dolce }
-padText = { \once \override TextScript #'padding = #5.0 }
-fthenp=_\markup{ \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
-violin = \relative c'' {
-  \repeat volta 2 {
-    c4._\dolce b8 a8 g a b |
-    \padText
-    c4.^"hi there!" d8 e' f g d |
-    c,4.\fthenp b8 c4 c-. |
-  }
-}
-\score {
-  {
-    \violin
-  }
-\layout{ragged-right=##t}
-}
-@end lilypond
-
-Ces identificateurs sont évidemment utiles pour économiser de la
-frappe.  Mais ils peuvent l'être même si vous ne les utilisez qu'une
-seule fois : ils réduisent la complexité.  Regardons l'exemple
-précédent sans aucun identificateur.  C'est beaucoup plus laborieux à
-lire, et particulièrement la dernière ligne.
-
-@example
-violin = \relative c'' @{
-  \repeat volta 2 @{
-    c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
-    \once \override TextScript #'padding = #5.0
-    c4.^"hi there!" d8 e' f g d |
-    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @}
-      \hspace #0.1 \dynamic p @} b8 c4 c-. |
-  @}
-@}
-@end example
-
-@c TODO Replace the following with a better example  -td
-@c Skylining handles this correctly without padText
-
-Jusqu'ici nous avons vu des substitutions statiques : quand LilyPond
-rencontre @code{\padText}, il le remplace par le contenu que nous lui
-avons défini -- c'est-à-dire le contenu à droite de @code{padText=}.
-
-LilyPond gère également des substitutions non-statiques -- vous
-pouvez les voir comme des fonctions.
-
-@lilypond[quote,verbatim,ragged-right]
-padText =
-#(define-music-function (parser location padding) (number?)
-  #{
-    \once \override TextScript #'padding = #$padding
-  #})
-
-\relative c''' {
-  c4^"piu mosso" b a b
-  \padText #1.8
-  c4^"piu mosso" d e f
-  \padText #2.6
-  c4^"piu mosso" fis a g
-}
-@end lilypond
-
-Utiliser des identificateurs est aussi un bon moyen pour vous épargner
-du travail si la syntaxe de LilyPond change un jour -- voir
-@ref{Mise à jour d'anciens fichiers}.  Si vous avez une seule
-définition, par exemple @code{\dolce}, pour tous vos fichiers (voir
-@ref{Feuilles de style}), et que la syntaxe change, alors vous n'aurez
-qu'à mettre à jour votre seule définition @code{\dolce}, au lieu de
-devoir modifier chaque fichier @code{.ly}.
 
 
 @node Feuilles de style
@@ -867,133 +756,6 @@ l'intérêt de l'exemple.
 @end itemize
 
 
-@node Conducteurs et parties
-@section Conducteurs et parties
-@translationof Scores and parts
-
-Dans la musique d'orchestre, toutes les notes sont imprimées deux fois.
-D'abord dans les parties séparées destinées aux musiciens, et ensuite
-dans le conducteur destiné au chef.  Les variables sont là pour vous
-éviter un double travail.  La musique n'est entrée qu'une seule fois, et
-stockée dans une variable, dont le contenu servira à imprimer à la fois
-la partie séparée et la partition d'orchestre.
-
-Il est judicieux de définir les notes dans un fichier séparé. Par
-exemple, supposons que le fichier @code{musique-Cor.ly} contienne la
-partie suivante pour un duo cor/@/basson.
-
-@example
-notesCor = \relative c @{
-  \time 2/4
-  r4 f8 a cis4 f e d
-@}
-@end example
-
-@noindent
-On établira alors une partie séparée en constituant un nouveau fichier :
-
-@example
-\include "musique-Cor.ly"
-\header @{
-  instrument = "Cor en Fa"
-@}
-
-@{
- \transpose f c' \notesCor
-@}
-@end example
-
-À la ligne
-
-@example
-\include "musique-Cor.ly"
-@end example
-
-@noindent
-sera substitué le contenu du fichier @code{musique-Cor.ly}, et de ce
-fait la variable @code{notesCor} se trouvera définie.  La commande
-@w{@code{\transpose f c'}} indique que son argument @code{\notesCor}
-sera transposé à la quinte supérieure : le son réel @code{f} s'écrit
-@code{c'}, ce qui est la caractéristique d'un Cor en fa.  La
-transposition est visible comme suit :
-
-@lilypond[quote,ragged-right]
-\transpose f c' \relative c {
-  \time 2/4
-  r4 f8 a cis4 f e d
-}
-@end lilypond
-
-Dans les pièces d'ensemble, il arrive souvent qu'une voix ne joue pas
-pendant plusieurs mesures.  Un silence spécial, appelé silence
-multimesures, l'indique alors.  On l'obtient par un @code{R} majuscule,
-suivi d'une durée : @code{1}@tie{}pour une pause, @code{2}@tie{}pour une
-demi-pause, etc.  Cette durée peut être multipliée pour établir de plus
-longs silences. Par exemple, le silence suivant dure 3@tie{}mesures à 2/4.
-
-@example
-R2*3
-@end example
-
-Dans une partie séparée, les silences multimesure sont compressés.
-Il faut pour cela définir la propriété @code{skipBars} à @qq{vrai} :
-
-@example
-\set Score.skipBars = ##t
-@end example
-
-@noindent
-Cette commande assigne la valeur @qq{vrai} -- @emph{true} en anglais, et
-@code{#t} dans le langage Scheme -- à cette propriété dans le
-contexte @code{Score}.  Si l'on ajoute dans la musique ci-dessus le
-silence multimesure et cette option, on obtient le résultat suivant :
-
-@lilypond[quote,ragged-right]
-\transpose f c' \relative c {
-  \time 2/4
-  \set Score.skipBars = ##t
-  R2*3
-  r4 f8 a cis4 f e d
-}
-@end lilypond
-
-Le conducteur rassemble toute la musique. Si l'on suppose que l'autre
-voix de notre duo se trouve dans le fichier @code{musique-Basson.ly} en
-tant que variable @code{notesBasson}, on établira un conducteur avec
-
-@example
-\include "musique-Basson.ly"
-\include "musique-Cor.ly"
-
-<<
-  \new Staff \notesCor
-  \new Staff \notesBasson
->>
-@end example
-
-@noindent
-ce qui équivaut à
-
-@lilypond[quote,ragged-right]
-\relative c <<
-  \new Staff {
-    \time 2/4 R2*3
-    r4 f8 a cis4 f e d
-  }
-  \new Staff {
-    \clef bass
-    r4 d,8 f | gis4 c | b bes |
-    a8 e f4 | g d | gis f
-  }
->>
-@end lilypond
-
-Des informations plus détaillées sur la mise en place de conducteurs
-et de parties séparées se trouvent dans le manuel de notation : voir
-@ruser{Écriture de parties séparées}.
-
-Les variables (@qq{propriétés}) réglables sont abordées en détail dans
-@ruser{La commande de fixation (set)}.
 
 
 

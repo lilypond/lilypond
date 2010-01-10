@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c0ea3a158b80f5f6201e3ebebb82730827431000
+    Translation of GIT committish: 5a1312de54bc66dfe10a08670db976354e9ae5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -73,7 +73,9 @@ Il existe de nombreuses variantes à ce schéma simpliste, mais cet
 exemple est un préambule à notre propos.
 
 @funindex \book
+@funindex book
 @funindex \score
+@funindex score
 @cindex book, livre, ouvrage
 @cindex livre
 @cindex score, partition
@@ -119,7 +121,7 @@ expression était incluse dans les commandes de notre premier exemple.
 LilyPond, ne font pas apparaître les commandes @code{\new Staff} ou
 @code{\new Voice}, qui sont créées implicitement.  Ce qui
 n'est pas primordial pour des exemples simples le devient dès que la
-situation devient un peu plus complexe.  Le fait de ne pas déclarer
+situation se complexifie un tant soit peu.  Le fait de ne pas déclarer
 explicitement un contexte peut alors amener à des résultats quelque peu
 surprenants, comme la création d'une portée supplémentaire et
 indésirable.  La manière de créer explicitement des contextes est
@@ -161,7 +163,9 @@ d'autres informations :
 @end example
 
 @funindex \header
+@funindex header
 @funindex \layout
+@funindex layout
 @funindex \midi
 @funindex midi
 @cindex header
@@ -187,7 +191,8 @@ Les deux autres commandes -- @code{\layout @{@}} et @code{\midi @{@}}
 pour effet, lorsqu'elles interviennent, de produire une sortie
 imprimable et un fichier MIDI.  Nous nous y intéressons plus
 particulièrement dans le manuel de notation, aux chapitres 
-@ruser{Mise en forme de la partition} et @ruser{Création de fichiers MIDI}.
+@ruser{Mise en forme de la partition} et 
+@ruser{Création de fichiers MIDI}.
 
 @cindex partitions multiples
 @cindex book,  bloc implicite
@@ -212,6 +217,8 @@ un bloc @code{\book}.
 
 Tout bloc @code{\score} inclus dans un bloc @code{\book} constitue un
 fragment de musique.
+
+@cindex layout, effets selon l'emplacement
 
 Tout bloc @code{\layout} affecte le bloc @code{\score} ou @code{\book}
 au sein duquel il intervient : si c'est à l'intérieur d'un bloc
@@ -266,7 +273,7 @@ Pour une description complète du format des fichiers d'entrée, voir
 @funindex score
 @cindex partition
 @cindex bloc score, contenu
-@cindex Expression musicale composite
+@cindex expression musicale composite
 
 Dans la section précédente, 
 @ref{Introduction à la structure de fichier LilyPond},  nous
@@ -411,7 +418,8 @@ horizontal dans votre éditeur de texte !
 
 
 @seealso
-Manuel de notation : @ruser{Structure d'une partition}.
+Manuel de notation : 
+@ruser{Structure d'une partition}.
 
 
 @node Expressions musicales imbriquées
@@ -687,7 +695,7 @@ traiter trois voix ou plus en ajoutant autant de séparateurs @code{\\}
 que de besoin.
 
 Les contextes @code{Voice} portent les noms @code{"1"}, @code{"2"}, etc.
-Pour chacun de ces contextes, la direction et l'orientation des
+Pour chacun de ces contextes, le positionnement et l'orientation des
 liaisons, hampes, nuances, etc. est définie automatiquement.
 
 @lilypond[quote,verbatim,fragment]
@@ -763,10 +771,13 @@ de telles commandes.
 Voir @ref{Visibilité et couleur des objets} et
 @ref{Utilisation de variables dans les retouches}.
 
+@cindex polyphonie et mode relatif
+@cindex mode relatif et polyphonie
+
 La polyphonie ne modifie en rien la relation entre les notes au sein
-d'un bloc @w{@code{\relative @{ @}}}.  Chaque note est calculée par rapport
-à celle qui la précède, ou bien par rapport à la première note de
-l'accord qui précède.  Ainsi, dans
+d'un bloc @w{@code{\relative @{ @}}}.  Chaque note est calculée par
+rapport à celle qui la précède, ou bien par rapport à la première note
+de l'accord qui précède.  Ainsi, dans
 
 @example
 \relative c' @{ noteA << < noteB noteC > \\ noteD >> noteE @}
@@ -873,7 +884,7 @@ que vous ne comprendriez pas.
 
 Essayons à présent de coder cette musique en partant de zéro.  Comme
 nous le verrons, certaines difficultés vont se présenter.  Partons de ce
-que nous avons appris : utilisons la construction @code{<< \\  >>} pour
+que nous avons appris : utilisons la construction @code{<< \\ >>} pour
 saisir la première mesure dans trois voix :
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -890,13 +901,15 @@ saisir la première mesure dans trois voix :
 @cindex hampes en bas
 @cindex stem up
 @cindex hampes en haut
+@cindex voix et direction des hampes
+@cindex direction des hampes et voix
 
 La direction des hampes est attribuée automatiquement : les voix
 impaires portent des hampes vers le haut, les voix paires des hampes
 vers le bas.  Les hampes des voix 1 et 2 sont orientées comme il faut
 mais celles de la voix 3 devraient, dans le cas qui nous occupe, aller
 vers le bas.  Nous pouvons corriger cela en sautant la voix 3 et en
-plaçant la musique dans la voix 4 :
+plaçant la musique dans la voix 4 grâce à un @code{\\} supplémentaire :
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 \new Staff \relative c'' {
@@ -1201,7 +1214,7 @@ expressions différentes -- des notes et des paroles.
 @cindex Lyrics, création d'un contexte
 @cindex paroles, affectation à une voix
 
-Nous avons déjà abordé la commande @code{\addlyrics}, qui permet de
+Nous avons déjà abordé la commande @code{\addlyrics@{@}}, qui permet de
 gérer des partitions simples.  Cette technique est cependant
 relativement limitée.  Pour de la musique un peu plus compliquée, il
 vous faudra contenir les paroles dans un contexte @code{Lyrics}, créé
@@ -1642,16 +1655,18 @@ Manuel de notation : @ruser{Tout savoir sur les contextes}.
 @funindex new
 
 @cindex nouveaux contextes
-@cindex Contextes, création de
+@cindex contextes, création de
 
 Il en va des contextes comme de toute hiérarchie : il faut un sommet -- 
 le contexte @code{Score} en l'occurence.  La commande @code{\score} est
 chargée de le créer, mais pour des partitions simples, il le sera
-automatiquement. 
+automatiquement.  Le bloc @code{score} contient donc une expression
+musicale unique ainsi que la définition des supports à produire --
+@code{\layout} pour du visuel ou @code{\midi} pour de l'acoustique.
 
 Lorsqu'une partition ne comporte qu'une voix et une seule portée, vous
 pouvez laisser LilyPond créer automatiquement les contextes @code{Voice} 
-et @code{Staff} ; mais leur présence explicite devient indispenssable dès
+et @code{Staff} ; mais leur présence explicite devient indispensable dès
 que la situation se complique.  
 Le moyen le plus simple est d'utiliser la commande @code{\new}.  Elle
 doit intervenir avant une expression musicale, ainsi :
@@ -1666,13 +1681,21 @@ où @var{type} correspond au nom du contexte (tels @code{Staff} ou
 interprète l'@var{expression-musicale} contenue dans ledit
 contexte.  
 
-Notez bien qu'il n'existe pas de commande @code{\new Score}, puisque le
-contexte premier que constitue @code{Score} est créé par @code{\score}. 
+Notez bien que la commande @code{\new Score} n'est pas obligatoire,
+puisque le contexte premier que constitue @code{Score} est créé
+automatiquement par l'interprétation de l'@var{expression-musicale}
+contenue dans le bloc @code{\score}.  Le seul cas où il faut créer
+explicitement un contexte @code{Score} à l'aide de la commande
+@code{\new score} est lorsqu'il comprendra un bloc @code{\with} aux fins
+de stipuler les propriétés de certains contextes qui s'appliqueront à
+l'ensemble de la partition.  Vous trouverez plus dinformation sur
+l'utilisation des blocs @code{\with} au chapitre 
+@ref{Modification des propriétés d'un contexte}. 
 
 Nous avons déjà vu au cours des chapitres précédents de nombreux
 exemples où des contextes @code{Staff} ou @code{Voice} étaient créés au
 besoin.  Dans un but didactique, voici maintenant une application
-complète et largement commentée : 
+complète et abondamment commentée : 
 
 @lilypond[quote,verbatim,ragged-right]
 \score {  % start of single compound music expression
@@ -1722,7 +1745,7 @@ double chevron gauche -- nécessaire pour gérer ses deux voix -- alors que la
 portée MD ne contient qu'une seule expression musicale -- il n'y a
 qu'une voix -- bornée par des accolades simples.
 
-@cindex contexte, noms de
+@cindex contexte, nommage
 @cindex nommage des contextes
 
 La commande @code{\new} peut aussi permettre de nommer le contexte créé,
@@ -1756,7 +1779,7 @@ Manuel de notation : @ruser{Création d'un contexte}.
 @cindex graveurs
 
 Tout point qui compose une partition générée par LilyPond est
-produit par un graveur (@emph{Engraver} en anglais).   Ainsi, il y en a
+produit par un graveur (@emph{engraver} en anglais).   Ainsi, il y en a
 un qui imprime les portées, un autre les têtes de note, un autre les
 hampes, un autre encore pour les ligatures, etc.  LilyPond dispose de
 plus de 120 graveurs ! La plupart des partitions ne requièrent de
@@ -1830,7 +1853,8 @@ lorsqu'on modifie l'action des graveurs.
 
 
 @seealso
-Références internes : @rinternals{Engravers and Performers}.
+Référence des propriétés internes : 
+@rinternals{Engravers and Performers}.
 
 
 @node Modification des propriétés d'un contexte
@@ -2074,6 +2098,27 @@ ce qui donnerait :
 >>
 @end lilypond
 
+Dans le cas où ces ajustements de propriété doivent affecter
+toutes les portées de la partition, nous utiliserons alors
+l'instruction @code{\new Score}, comme ici :
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \new Score \with { extraNatural = ##f } <<
+    \new Staff {
+      \relative c'' {
+        gis ges aes ais
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        gis ges aes ais
+      }
+    }
+  >>
+}
+@end lilypond
+
 Les propriétés réglées de cette manière peuvent néanmoins être modifiées
 de façon dynamique grâce à @code{\set} ; un @code{\unset} les ramènera à
 leur valeur par défaut.
@@ -2132,7 +2177,7 @@ Manuel de notation :
 @c uncomment when backslash-node-name issue is resolved -pm
 @c @ruser{La commande de fixation (set)}.
 
-Références internes : 
+Référence des propriétés internes : 
 @rinternals{Contexts},
 @rinternals{Tunable context properties}.
 
@@ -2189,6 +2234,7 @@ commande se formule ainsi :
 
 @code{\consists @var{Nom_du_graveur}}
 
+@noindent
 et se place dans un bloc @code{\with}.  Certaines partitions vocales
 font apparaître un @rglos{ambitus} au début de la portée, afin
 d'indiquer ses notes extrêmes.  L'ambitus est généré par
@@ -2302,6 +2348,8 @@ adapter des modèles.
 * Soprano et violoncelle::           
 * Partition pour chœur à quatre voix mixtes::  
 * Écriture d'une partition à partir de zéro::  
+* Économie de saisie grâce aux identificateurs et fonctions::  
+* Conducteurs et parties::            
 @end menu
 
 @node Soprano et violoncelle
@@ -2362,12 +2410,12 @@ melodie = \relative c' @{
 @}
 @end example
 
-On n'a pas besoin de deux commandes @code{\version}.  Ce dont on a besoin,
-c'est de la section @code{melodie}. De même, on n'a pas besoin de deux sections
-@code{\score} -- si nous les gardions toutes les deux, on obtiendrait deux
-parties séparées ; mais nous voulons un vrai duo, avec les deux
-parties ensemble.  Dans la section @code{\score}, on n'a pas besoin
-non plus de deux @code{\layout} ni de deux @code{\midi}.
+On n'a pas besoin de deux commandes @code{\version}.  Ce dont on a
+besoin, c'est de la section @code{melodie}. De même, on n'a pas besoin
+de deux sections @code{\score} -- si nous les gardions toutes les deux,
+on obtiendrait deux parties séparées ; mais nous voulons un vrai duo,
+avec les deux parties ensemble.  Dans la section @code{\score}, on n'a
+pas besoin non plus de deux @code{\layout} ni de deux @code{\midi}.
 
 Si on se contente de couper et coller les sections @code{melodie}, on se
 retrouvera avec deux sections de ce nom ; il nous faut donc les renommer.
@@ -2379,8 +2427,8 @@ définition de départ, où l'on trouve @w{@code{melodie = relative c' @{ }},
 et l'endroit où cette dénomination est utilisée, dans la section 
 @code{\score}.
 
-Et puis, toujours tant qu'on y est, mettons le violoncelle en clé de fa, comme
-le veut l'usage, et donnons-lui d'autres notes.
+Et puis, toujours tant qu'on y est, mettons le violoncelle en clé de fa,
+comme le veut l'usage, et donnons-lui d'autres notes.
 
 @example
 \version @w{"@version{}"}
@@ -2940,4 +2988,235 @@ PedalOrganMusic = \relative c {
 }  % end Score context
 @end lilypond
 
+
+@node Économie de saisie grâce aux identificateurs et fonctions
+@subsection Économie de saisie grâce aux identificateurs et fonctions
+@translationof Saving typing with variables and functions
+
+@cindex variables
+@cindex identificateurs
+
+Jusqu'à maintenant, vous avez vu ce type de code :
+
+@lilypond[quote,verbatim,ragged-right]
+hornNotes = \relative c'' { c4 b dis c }
+\score {
+  {
+    \hornNotes
+  }
+}
+@end lilypond
+
+Vous comprendrez combien cela peut être utile pour écrire de la
+musique minimaliste :
+
+@lilypond[quote,verbatim,ragged-right]
+fragmentA = \relative c'' { a4 a8. b16 }
+fragmentB = \relative c'' { a8. gis16 ees4 }
+violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
+\score {
+  {
+    \violin
+  }
+}
+@end lilypond
+
+Néanmoins vous pouvez aussi utiliser ces identificateurs
+-- aussi connus sous le nom de variables, macros, ou commandes
+(définies par l'utilisateur) -- pour des retouches :
+
+@c TODO Avoid padtext - not needed with skylining
+@lilypond[quote,verbatim,ragged-right]
+dolce = \markup{ \italic \bold dolce }
+padText = { \once \override TextScript #'padding = #5.0 }
+fthenp=_\markup{ \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
+violin = \relative c'' {
+  \repeat volta 2 {
+    c4._\dolce b8 a8 g a b |
+    \padText
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\fthenp b8 c4 c-. |
+  }
+}
+\score {
+  {
+    \violin
+  }
+\layout{ragged-right=##t}
+}
+@end lilypond
+
+Ces identificateurs sont évidemment utiles pour économiser de la
+frappe.  Mais ils peuvent l'être même si vous ne les utilisez qu'une
+seule fois : ils réduisent la complexité.  Regardons l'exemple
+précédent sans aucun identificateur.  C'est beaucoup plus laborieux à
+lire, et particulièrement la dernière ligne.
+
+@example
+violin = \relative c'' @{
+  \repeat volta 2 @{
+    c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
+    \once \override TextScript #'padding = #5.0
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @}
+      \hspace #0.1 \dynamic p @} b8 c4 c-. |
+  @}
+@}
+@end example
+
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
+
+Jusqu'ici nous avons vu des substitutions statiques : quand LilyPond
+rencontre @code{\padText}, il le remplace par le contenu que nous lui
+avons défini -- c'est-à-dire le contenu à droite de @code{padText=}.
+
+LilyPond gère également des substitutions non-statiques -- vous
+pouvez les voir comme des fonctions.
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function (parser location padding) (number?)
+  #{
+    \once \override TextScript #'padding = #$padding
+  #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+Utiliser des identificateurs est aussi un bon moyen pour vous épargner
+du travail si la syntaxe de LilyPond change un jour -- voir
+@rprogram{Mise à jour d'anciens fichiers}.  Si vous avez une seule
+définition, par exemple @code{\dolce}, pour tous vos fichiers (voir
+@ref{Feuilles de style}), et que la syntaxe change, alors vous n'aurez
+qu'à mettre à jour votre seule définition @code{\dolce}, au lieu de
+devoir modifier chaque fichier @code{.ly}.
+
+
+@node Conducteurs et parties
+@subsection Conducteurs et parties
+@translationof Scores and parts
+
+Dans la musique d'orchestre, toutes les notes sont imprimées deux fois.
+D'abord dans les parties séparées destinées aux musiciens, et ensuite
+dans le conducteur destiné au chef.  Les variables sont là pour vous
+éviter un double travail.  La musique n'est entrée qu'une seule fois, et
+stockée dans une variable, dont le contenu servira à imprimer à la fois
+la partie séparée et la partition d'orchestre.
+
+Il est judicieux de définir les notes dans un fichier séparé. Par
+exemple, supposons que le fichier @code{musique-Cor.ly} contienne la
+partie suivante pour un duo cor/@/basson.
+
+@example
+notesCor = \relative c @{
+  \time 2/4
+  r4 f8 a cis4 f e d
+@}
+@end example
+
+@noindent
+On établira alors une partie séparée en constituant un nouveau fichier :
+
+@example
+\include "musique-Cor.ly"
+\header @{
+  instrument = "Cor en Fa"
+@}
+
+@{
+ \transpose f c' \notesCor
+@}
+@end example
+
+À la ligne
+
+@example
+\include "musique-Cor.ly"
+@end example
+
+@noindent
+sera substitué le contenu du fichier @code{musique-Cor.ly}, et de ce
+fait la variable @code{notesCor} se trouvera définie.  La commande
+@w{@code{\transpose f c'}} indique que son argument @code{\notesCor}
+sera transposé à la quinte supérieure : le son réel @code{f} s'écrit
+@code{c'}, ce qui est la caractéristique d'un Cor en fa.  La
+transposition est visible comme suit :
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+Dans les pièces d'ensemble, il arrive souvent qu'une voix ne joue pas
+pendant plusieurs mesures.  Un silence spécial, appelé silence
+multimesures, l'indique alors.  On l'obtient par un @code{R} majuscule,
+suivi d'une durée : @code{1}@tie{}pour une pause, @code{2}@tie{}pour une
+demi-pause, etc.  Cette durée peut être multipliée pour établir de plus
+longs silences. Par exemple, le silence suivant dure 3@tie{}mesures à 2/4.
+
+@example
+R2*3
+@end example
+
+Dans une partie séparée, les silences multimesure sont compressés.
+Il faut pour cela définir la propriété @code{skipBars} à @qq{vrai} :
+
+@example
+\set Score.skipBars = ##t
+@end example
+
+@noindent
+Cette commande assigne la valeur @qq{vrai} -- @emph{true} en anglais, et
+@code{#t} dans le langage Scheme -- à cette propriété dans le
+contexte @code{Score}.  Si l'on ajoute dans la musique ci-dessus le
+silence multimesure et cette option, on obtient le résultat suivant :
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  \set Score.skipBars = ##t
+  R2*3
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+Le conducteur rassemble toute la musique. Si l'on suppose que l'autre
+voix de notre duo se trouve dans le fichier @code{musique-Basson.ly} en
+tant que variable @code{notesBasson}, on établira un conducteur avec
+
+@example
+\include "musique-Basson.ly"
+\include "musique-Cor.ly"
+
+<<
+  \new Staff \notesCor
+  \new Staff \notesBasson
+>>
+@end example
+
+@noindent
+ce qui équivaut à
+
+@lilypond[quote,ragged-right]
+\relative c <<
+  \new Staff {
+    \time 2/4 R2*3
+    r4 f8 a cis4 f e d
+  }
+  \new Staff {
+    \clef bass
+    r4 d,8 f | gis4 c | b bes |
+    a8 e f4 | g d | gis f
+  }
+>>
+@end lilypond
 
