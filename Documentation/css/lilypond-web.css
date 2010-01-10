@@ -248,18 +248,14 @@ div#tocframe {
   background: #fad58c url(../pictures/color4-bg.png) repeat-x top left;
 }
 
-#tocframe .toc .toc li.toc_current a,
-#tocframe .toc .toc li.toc_current a:hover {
-  color: #000;
-  text-decoration: underline;
+#tocframe .toc .toc li.colorDefault a {
+  background: #8cbc6c url(../pictures/nav-bg-2.png) repeat-x top left;
+  color: #fff;
 }
 
-/* having this useless style makes the perl init file easier */
-#tocframe .toc .toc li.colorDefault a,
 #tocframe .toc .toc li.colorDefault a:hover {
-  background: #8cbc6c url(../pictures/nav-active-2.png) repeat-x top left;
+  background: #8cbc6c url(../pictures/nav-hover-2.png) repeat-x top left;
   color: #fff;
-  text-decoration: underline;
 }
 
 #tocframe .toc .toc li.color1 a:hover {
@@ -276,6 +272,19 @@ div#tocframe {
 
 #tocframe .toc .toc li.color4 a:hover {
   background: #fbe69d url(../pictures/color4-hover.png) repeat-x top left;
+}
+
+#tocframe .toc .toc li.toc_current a,
+#tocframe .toc .toc li.toc_current a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+#tocframe .toc .toc li.colorDefault.toc_current a,
+#tocframe .toc .toc li.colorDefault.toc_current a:hover {
+  background: #8cbc6c url(../pictures/nav-active-2.png) repeat-x top left;
+  color: #fff;
+  text-decoration: underline;
 }
 
 #tocframe .toc .toc li.color1.toc_current a,
