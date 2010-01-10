@@ -860,6 +860,23 @@ div.color4 h3 {
   padding: 0;
 }
 
+.normal-table table {
+  padding : 0em;
+  border-left: 2px;
+  margin: 0em;
+}
+
+.normal-table table td {
+  padding: 0em;
+}
+
+.normal-table table a {
+}
+
+.normal-table p {
+  line-height: 0.8;
+}
+
 .warning {
   background: #eef;
   text-align: left;

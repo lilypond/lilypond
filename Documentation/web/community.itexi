@@ -642,6 +642,7 @@ Comparisons between versions.
 @divClass{column-center-bottom}
 @subheading Manuals
 
+@divClass{normal-table}
 @multitable @columnfractions .3 .3 .3
 @headitem Introduction
 @item
@@ -719,6 +720,8 @@ Comparisons between versions.
 @manualDevelInternalsPdf
 
 @end multitable
+
+@divEnd
 @divEnd
 
 
