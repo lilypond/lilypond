@@ -3,44 +3,32 @@
 @node Introduction to contributing
 @chapter Introduction to contributing
 
+FIXME add fluff
 
 @menu
-* Overview of tasks::
-* For unix developers::
-* For other contributors::
+* Help us::
+* Overview of work flow::
 * Mentors::
 @end menu
 
 
-@node Overview of tasks
-@section Overview of tasks
-
+@node Help us
+@section Help us
 
 FIXME: The intro should contain the "help us" material from web/,
 quite possibly as the very first thing.  This requires having a
 macro for it, which depends on issue 939.
 
 
-@node For unix developers
-@section For unix developers
+@node Overview of work flow
+@section Overview of work flow
 
-
-To download the LilyPond Git repository:
-
-@example
-git clone git://git.sv.gnu.org/lilypond.git
-@end example
-
-Documentation is built using Texinfo.  Subscribe to the
-developers' mailing list at
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel} and
-send well-formed Git patches to
-@uref{mailto:lilypond-devel@@gnu.org} for discussion.
-
-
-@node For other contributors
-@section For other contributors
-
+@cartouche
+@strong{Ultra-short summary for Unix developers}: source code is at
+@code{git://git.sv.gnu.org/lilypond.git}.  Documentation is built
+with Texinfo, after pre-processing with @code{lilypond-book}.
+Send well-formed patches to @email{lilypond-devel@@gnu.org}.
+@end cartouche
 
 Git is a @emph{version control system} that tracks the history of
 a program's source code.  The LilyPond source code is maintained
