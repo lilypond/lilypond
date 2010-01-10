@@ -727,8 +727,10 @@ von @code{\markup}).
     }
   }
 
-  \markup { Die erste Partitur fäng auf Seite \page-ref #'ErstePartitur "0" "?" an.}
-  \markup { Zeichen A befindet sich auf Seite \page-ref #'ZeichenA "0" "?". }
+  \markup { Die erste Partitur fängt auf
+            Seite \page-ref #'ErstePartitur "0" "?" an.}
+  \markup { Zeichen A befindet sich auf Seite
+            \concat { \page-ref #'ZeichenA "0" "?" . } }
 }
 @end lilypond
 
