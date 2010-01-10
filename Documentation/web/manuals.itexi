@@ -57,15 +57,15 @@ background information about engraving and our aesthetics.
 @itemize
 
 @item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
-detailed reference for syntax and notation.
+syntax reference.
 (@ref{Notation, details of Notation})
 
 @item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
-running the programs and OS-specific issues.
+running the programs.
 (@ref{Usage, details of Usage})
 
 @item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
-short tricks, tips, and examples.
+short tricks and tips.
 (@ref{Snippets, details of Snippets})
 
 @end itemize
@@ -86,15 +86,15 @@ this document.
 (@ref{Web, details of Web})
 
 @item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
-updates since the last major version.
+what's new?
 (@ref{Changes, details of Changes})
 
 @item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
-programming fancy tweaks.
+writing fancy tweaks.
 (@ref{Extending, details of Extending})
 
 @item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
-reference about data structures.
+reference for tweaks.
 (@ref{Internals, details of Internals})
 
 @end itemize
