@@ -459,10 +459,8 @@ generated documentation.
 @divClass{column-center-bottom}
 @subheading Translations status
 
-TODO: prettify and generate in Texinfo.
+TODO: fix and generate in Texinfo.
 @c http://code.google.com/p/lilypond/issues/detail?id=857
-
-@uref{../translations.html}.
 
 @divEnd
 

@@ -73,9 +73,6 @@ source-links = $(outdir)/source\
 
 # Other out files
 
-HTML_PAGE_NAMES= translations index
-OUT_HTML_FILES += $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
-
 MAIN_INFO_DOC = lilypond-web
 INFO_DOCS = lilypond-usage lilypond-changes lilypond-contributor lilypond-internals \
  lilypond-essay lilypond-learning lilypond-notation music-glossary \
@@ -311,7 +308,6 @@ update-translation:
 	ISOLANG=$(ISOLANG) $(PYTHON) $(auxscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
 
 translation-status:
-	make -C po out=www messages
-	$(PYTHON) $(auxscript-dir)/translations-status.py
+	@echo Target temporarily disabled
 
 .SECONDARY:

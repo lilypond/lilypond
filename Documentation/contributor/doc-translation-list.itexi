@@ -22,7 +22,6 @@ Word counts (excluding LilyPond snippets) are given for each file.
 3649  web/introduction.itexi
 1151  web/download.itexi
 1107  macros.itexi
-161   translations.template.html.in
 9     po/lilypond-doc.pot (translate to po/@var{MY_LANGUAGE}.po)
 0     search-box.ihtml
 ---   lilypond-texi2html.init (section TRANSLATIONS)

@@ -1,7 +1,3 @@
-HTML_PAGE_NAMES = translations
-HTML_FILES = $(HTML_PAGE_NAMES:%=%.html)
-OUT_HTML_FILES = $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
-
 # ISOLANG must be defined
 
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
