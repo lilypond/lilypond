@@ -1189,7 +1189,7 @@ sub lilypond_generate_page_toc_body($)
     open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$lang/$name.ihtml" or
 	open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$name.ihtml"  or
 	die "no such file: $name.ihtml: $!";
-    my $search_string = <FILE>;
+    my $search_string = decode ('UTF-8', <FILE>);
     $search_string = "<li>\n" . $search_string . "</li>\n";
     push (@toc_entries, $search_string);
     close FILE;
