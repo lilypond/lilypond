@@ -4,7 +4,7 @@
 \version "2.13.10"
 
 \header {
-%% Translation of GIT committish: 
+%% Translation of GIT committish: b7ec64504da87595509ae6e88ae546d6a0ce633d
   texidocfr = "
 Pour obtenir la partition d'un chanson, il suffit d'assembler
 des noms d'accords, une mélodie et des paroles :
