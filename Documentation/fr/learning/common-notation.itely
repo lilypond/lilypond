@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 95e6825ee09ca7f8eea87580301c8819ff1d571b
+   Translation of GIT committish: 5a1312de54bc66dfe10a08670db976354e9ae5c3
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -80,7 +80,8 @@ Cette section présente la notation courante dont on a besoin pour
 @funindex eses
 @funindex isis
 
-Glossaire musical : @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
+Glossaire musicologique :
+@rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
 
 Dans la notation par défaut, on obtient un @notation{dièse} en
@@ -120,7 +121,8 @@ cis1 ees fisis, aeses
 @funindex \minor
 @funindex minor
 
-Glossaire musical : @rglos{key signature}, @rglos{major},
+Glossaire musicologique :
+@rglos{key signature}, @rglos{major},
 @rglos{minor}.
 
 L'armure est déterminée par la commande @code{\key}, suivie d'une
@@ -137,7 +139,8 @@ a
 
 @subheading Attention aux armures et aux hauteurs
 
-Glossaire musical : @rglos{accidental}, @rglos{key signature},
+Glossaire musicologique :
+@rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
 @rglos{transposition}.
 
@@ -196,7 +199,8 @@ Manuel de notation : @ruser{Noms de note dans d'autres langues},
 @ruser{Altérations}, @ruser{Altérations accidentelles automatiques},
 @ruser{Armure}.
 
-Glossaire musical : @rglos{Pitch names}.
+Glossaire musicologique :
+@rglos{Pitch names}.
 
 
 @node Liaisons
@@ -215,7 +219,8 @@ Glossaire musical : @rglos{Pitch names}.
 
 @subheading Liaisons de prolongation
 
-Glossaire musical : @rglos{tie}.
+Glossaire musicologique :
+@rglos{tie}.
 
 Pour créer une liaison de prolongation@footnote{parfois aussi appelée
 liaison de tenue}, on ajoute un tilde @code{~} à la première note
@@ -237,7 +242,8 @@ c4 ~ c8 a8 ~ a2
 @c slur = "il zon" (articulation). jcm
 @c phrasing slur = "ils ont des chapeaux ronds" (phrase). jcm
 
-Glossaire musical : @rglos{slur}, @rglos{phrasing}.
+Glossaire musicologique :
+@rglos{slur}, @rglos{phrasing}.
 
 Une liaison d'articulation ou @emph{legato} peut englober
 plusieurs notes.  Les notes de départ et d'arrivée sont suivies
@@ -265,7 +271,8 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 @cindex liaisons d'articulation et de prolongation, différences
 @subheading Attention aux types de liaison
 
-Glossaire musical : @rglos{articulation}, @rglos{slur}, @rglos{tie}.
+Glossaire musicologique :
+@rglos{articulation}, @rglos{slur}, @rglos{tie}.
 
 Une liaison d'articulation ou de phrasé ressemble à une liaison de
 prolongation, mais n'a pas la même signification.  Alors qu'une
@@ -295,7 +302,8 @@ Manuel de notation : @ruser{Liaisons de prolongation},
 @cindex accents
 @cindex staccato
 
-Glossaire musical : @rglos{articulation}.
+Glossaire musicologique :
+@rglos{articulation}.
 
 Des @notation{articulations} peuvent être ajoutées à une note, au moyen
 d'un tiret @code{-} suivi d'un caractère :
@@ -311,7 +319,8 @@ c-. c-- c-> c-^ c-+ c-_
 @funindex ^
 @funindex _
 
-Glossaire musical : @rglos{fingering}.
+Glossaire musicologique :
+@rglos{fingering}.
 
 De même, des indications de doigté peuvent être ajoutées à une note en
 utilisant un tiret (@samp{-}) et le chiffre à écrire :
@@ -346,7 +355,8 @@ c_-^1 d^. f^4_2-> e^-_+
 @funindex \!
 @funindex !
 
-Glossaire musical : @rglos{dynamics}, @rglos{crescendo},
+Glossaire musicologique :
+@rglos{dynamics}, @rglos{crescendo},
 @rglos{decrescendo}.
 
 On obtient un signe de @notation{nuance} en ajoutant à la note les
@@ -427,7 +437,8 @@ Manuel de notation : @ruser{Ajout de texte}.
 @funindex \autoBeamOn
 @funindex autoBeamOn
 
-Glossaire musical : @rglos{beam}.
+Glossaire musicologique :
+@rglos{beam}.
 
 Toutes les barres de ligature sont dessinées automatiquement :
 
@@ -475,7 +486,7 @@ Manuel de notation : @ruser{Barres de ligature automatiques},
 @funindex \partial
 @funindex partial
 
-Glossaire musical : @rglos{anacrusis}.
+Glossaire musicologique : @rglos{anacrusis}.
 
 On crée une levée (ou anacrouse) avec la commande @code{\partial},
 suivie d'une durée : @code{\partial 4} produit une levée d'une noire
@@ -494,7 +505,7 @@ f8 c2 d
 @funindex \times
 @funindex times
 
-Glossaire musical : @rglos{note value}, @rglos{triplet}.
+Glossaire musicologique : @rglos{note value}, @rglos{triplet}.
 
 Les @notation{nolets} sont créés avec la commande @code{\times}, qui
 prend deux arguments : une fraction et une expression musicale.  La
@@ -524,7 +535,7 @@ donc de 2/3 pour les triolets :
 @funindex \appoggiatura
 @funindex acciaccatura
 
-Glossaire musical : @rglos{grace notes}, @rglos{acciaccatura},
+Glossaire musicologique : @rglos{grace notes}, @rglos{acciaccatura},
 @rglos{appoggiatura}.
 
 Des @notation{notes d'ornement} s'obtiennent en appliquant la commande
@@ -643,7 +654,7 @@ de la musique polyphonique.
 @funindex >>
 @funindex << ... >>
 
-Glossaire musical : @rglos{polyphony}.
+Glossaire musicologique : @rglos{polyphony}.
 
 Cette technique est utile pour de la musique @notation{polyphonique}.
 Pour entrer une musique avec plusieurs voix ou plusieurs portées, nous
@@ -785,7 +796,7 @@ la musique polyrythmique.
 @funindex GrandStaff
 @funindex ChoirStaff
 
-Glossaire musical : @rglos{brace}.
+Glossaire musicologique : @rglos{brace}.
 
 La musique pour piano s'écrit sur deux portées reliées par une
 @notation{accolade}.  La gravure de ce type de portée est semblable à
@@ -836,7 +847,7 @@ Manuel de notation : @ruser{Instruments utilisant des portées multiples},
 @funindex >
 @funindex < ... >
 
-Glossaire musical : @rglos{chord}.
+Glossaire musicologique : @rglos{chord}.
 
 Nous avons vu précédemment comment combiner des notes simultanément,
 en les encadrant par des chevrons doubles @code{<<} et @code{>>}.  Pour
@@ -909,7 +920,7 @@ Cette section présente l'écriture vocale et les partitions de variété.
 @funindex \addlyrics
 @funindex addlyrics
 
-Glossaire musical : @rglos{lyrics}.
+Glossaire musicologique : @rglos{lyrics}.
 
 Prenons une mélodie toute simple, la comptine @emph{Girls and boys
 come out to play}.
@@ -957,7 +968,7 @@ produisent en même temps.
 @cindex alignement des paroles
 @cindex paroles, mot de plusieurs syllabes
 
-Glossaire musical : @rglos{melisma}, @rglos{extender line}.
+Glossaire musicologique : @rglos{melisma}, @rglos{extender line}.
 
 La deuxième ligne de la comptine précédente est @emph{The moon doth
 shine as bright as day}.  Ajoutons-la au code.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 15ef26d4cde4d2d170e88a13867169d4e75026ae
+    Translation of GIT committish: 5a1312de54bc66dfe10a08670db976354e9ae5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -182,8 +182,11 @@ La valeur @var{nomDeLaPortee} est le nom de la portée sur laquelle va se
 déplacer la voix courante.  Pour des raisons pratiques, on nomme la portée
 supérieure @code{"haut"} et la portée inférieure @code{"bas"}, donc
 @var{nomDeLaPortee} désigne habituellement @code{"haut"}, @code{"bas"},
-@code{"MD"} ou @code{"MG"}.  Dans tous les cas, le contexte de
-portée ainsi utilisé doit exister au préalable. 
+@code{"MD"} ou @code{"MG"}.  
+
+Dans tous les cas, le contexte de portée ainsi utilisé doit exister au
+préalable.  Le cas échéant, vous devrez qq{garder actives} certaines
+portées -- voir @ref{Conservation d'un contexte} à ce propos.
 
 Pour ligaturer automatiquement des notes entre deux portées, procédez
 ainsi : 
@@ -221,7 +224,8 @@ Manuel d'initiation :
 
 Manuel de notation :
 @ref{Hampes},
-@ref{Barres de ligature automatiques}.
+@ref{Barres de ligature automatiques},
+@ref{Conservation d'un contexte}.
 
 Exemples de code :
 @rlsr{Keyboards}.
@@ -615,7 +619,7 @@ d'autres chapitres, telles que :
 @ref{Glissando}.
 
 @item Le @notation{bisbigliando}, qui s'écrit comme un trémolo, 
-@ref{Répétitions en trémolo}
+@ref{Répétitions en trémolo}.
 
 @item Les harmoniques naturelles sont présentées dans @ref{Harmoniques}.
 
@@ -625,10 +629,10 @@ d'autres chapitres, telles que :
 
 @seealso
 Manuel de notation :
-@ref{Répétitions en trémolo}
-@ref{Glissando}
-@ref{Arpèges}
-@ref{Harmoniques}
+@ref{Répétitions en trémolo},
+@ref{Glissando},
+@ref{Arpèges},
+@ref{Harmoniques}.
 
 @node Pédales de harpe
 @unnumberedsubsubsec Pédales de harpe
@@ -650,8 +654,10 @@ position peut être indiquée par une marque textuelle :
 
 @lilypond[quote,verbatim,relative=2]
 \textLengthOn
-cis1_\markup \concat \vcenter { [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
-c!1_\markup \concat \vcenter {[ C \natural ]}
+cis1_\markup \concat \vcenter {
+  [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
+c!1_\markup \concat \vcenter {
+  [ C \natural ]}
 @end lilypond
 
 ou bien sous forme de diagrammes :
@@ -672,6 +678,6 @@ un symbole par un @code{o} permet de l'inscrire dans un cercle.
 
 @seealso
 Manuel de notation :
-@ref{Commentaires textuels}
-@ref{Instrument Specific Markup}
+@ref{Commentaires textuels},
+@ref{Instrument Specific Markup}.
 

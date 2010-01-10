@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+    Translation of GIT committish: 5a1312de54bc66dfe10a08670db976354e9ae5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -143,26 +143,25 @@ Manuel de notation :
 @strong{@i{Harmoniques naturels}}
 
 @cindex harmoniques naturels
-@cindex naturels, harmoniques 
+@cindex naturels, harmoniques
+@cindex tête de note en losange
+@cindex losange, tête de note
+
+@funindex \harmonicsOn
+@funindex \harmonicsOff
 
 Les harmoniques naturels sont indiqués de différentes manières : une
 tête de note en forme de losange signifie généralement que vous devez
 effleurer la corde à l'endroit où vous l'auriez pincée si la note avait
 été normale. 
 
-@warning{Les harmoniques @strong{doivent} être indiqués dans une
-construction de type accord même s'il n'y a qu'une seule note.} 
-
-@c TODO If the default for harmonicDots is changed, change this
-
-La propriété @code{harmonicDots}, lorsqu'elle est activée, permet
-d'ajouter un point point aux notes pointées affublées d'un
-@code{\harmonic}. 
-
 @lilypond[verbatim,quote,relative=2]
-<d\harmonic>4 <e\harmonic>2.
-\set harmonicDots = ##t
-<d\harmonic>4 <e\harmonic>2.
+d4 e4.
+\harmonicsOn
+d8 e e
+d4 e4.
+\harmonicsOff
+d8 e e
 @end lilypond
 
 Une autre façon de procéder consiste à faire surmonter la note normale
@@ -185,9 +184,30 @@ Les harmoniques artificiels sont indiqués par une double tête de note :
 l'une, normale, indique la note à pincer, et l'autre, en forme de
 losange, indique l'endroit où la corde doit être effleurée. 
 
-@lilypond[verbatim,quote,relative=1]
-<e a\harmonic>2  <c g'\harmonic>
+
+@c TODO If the default for harmonicDots is changed, change this
+La propriété @code{harmonicDots}, lorsqu'elle est activée, permet
+d'ajouter un point aux notes pointées affublées d'un @code{\harmonic}. 
+
+@lilypond[verbatim,quote,relative=2]
+<e a\harmonic>2.  <c g'\harmonic>4
+\set harmonicDots = ##t
+<e a\harmonic>2.  <c g'\harmonic>4
 @end lilypond
+
+@warning{La commande @code{@bs{}harmonic} @strong{doivent} être placée
+dans une construction de type accord même s'il n'y a qu'une seule note.
+On utiliserait plutôt la commande @code{@bs{}harmonicsOn} en pareil
+cas.} 
+
+@seealso
+Glossaire musicologique :
+@rglos{harmonics}.
+
+Manuel de notation :
+@ref{Têtes de note spécifiques},
+@ref{Références en matière de cordes non frettées}.
+
 
 @node Snap (Bartók) pizzicato
 @unnumberedsubsubsec Snap (Bartók) pizzicato
