@@ -5,7 +5,7 @@
 
 }
 
-\version "2.13.9"
+\version "2.13.11"
 
 \layout {
   \context {
@@ -55,7 +55,7 @@
 	(display (list "process-acknowledged"
 		  (ly:context-current-moment
 		   (ly:translator-context trans)) "\n"))))
-      (cons 'start-translation-timestep
+      (cons 'stop-translation-timestep
        (lambda (trans)
 	(display (list "stop-trans"
 		  (ly:context-current-moment
@@ -70,7 +70,6 @@
 		}}
 
 
-\relative {
+\relative c' {
   c8[ r c]
-
 }
