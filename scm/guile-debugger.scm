@@ -15,6 +15,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
+
+;;; This file provides the support routines for a guile debugger called
+;;; from a environment controlled by LilyPond.  It works in conjunction
+;;; with file guile-debugger.ly.
+
+;;; Code:
+
 (define-module (scm guile-debugger)
   #:use-module (ice-9 debugger)
   #:use-module (ice-9 debugging traps)
@@ -77,5 +85,6 @@
   (display " (set-trace-subtree! <procedure>)\n")
   (display "   displays each line of Scheme code executed during a call to <procedure>\n")
   (display " (clear-trace-subtree! <procedure>)\n")
-  (display "   turns off tracing code during calls to <procedure>\n")
+  (display "   turns off tracing code during calls to <procedure>\n\n")
+  (display "Enter help at the guile debug> prompt for further information on debugger commands\n")
   (newline))
