@@ -156,7 +156,6 @@ def make_manual_links(name, version):
             mshort = m.capitalize()
         url = translateNameToUrl(m, version)
 
-        print url
         if (url == ''):
             # can't have a comma here due to texinfo
             make_ver_link("manual"+name+mshort+'Pdf',
