@@ -15,31 +15,35 @@ source files.
        application/     Source files for Application Usage manual
        essay/           Academic material and .bib files with references
                           to books and articles
-       contributor/     Source files for the Contribotor's Guide
+       contributor/     Source files for the Contributor's Guide
+       extending/       Source files for the Extending manual
        learning/        Source files for the Learning Manual
+       logo/            The logo
        misc/            Old announcements, ChangeLogs and NEWS
        notation/        Source files for Notation Reference manual
-       pictures/        The logo
+       pictures/        Pictures and graphics used in the documentation
        snippets/        Snippets from the LilyPond Snippet Repository
                           (auto-generated, do not modify!)
            new/         Snippets which are too new for LSR
        topdocs/         Sources for the toplevel READMEs
                           (README.txt, INSTALL.txt etc.)
-       user/            User manuals
-       po/              Translated manual node names
+       po/              Translations for build and maintenance scripts
+       web/             lilypond.org website (a.k.a. General Information for
+                        offline documentation)
+           ly-examples/ LilyPond examples for the website
        fr/ es/ de/      Docs translated to French, Spanish, German, resp.
-       ja/              Docs translated to Japanese
+       ja/ hu/ it/      Docs translated to Japanese, Hungarian, Italian, resp.
+           Every subdirectory of Documentation/ that contains localizable
+           source files may be present in the directory of a translation;
+           in addition, each translation directory may contain a ubsdirectory
+	   texidocs/ that contains the translation of snippets texidocs.
    elisp/               Emacs LilyPond mode and syntax coloring
    flower/              A simple C++ library
    input/               Music input examples
-       manual/          Examples from the manual
-       mutopia/         Real music, more at www.mutopiaproject.org
        regression/      Testing of features, one test per file
-       tutorial/        Examples from the tutorial 
    lily/                C++ sources for the LilyPond binary
    ly/                  System music include files
-   make/                Specific make subroutines and packaging for
-                          Red Hat-like distributions (.spec files)
+   make/                Specific make subroutines
    mf/                  MetaFont sources for the Emmentaler and Aybabtu fonts
    po/                  Translations for binaries and end-user scripts
    ps/                  PostScript library files
