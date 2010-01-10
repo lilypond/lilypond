@@ -2976,6 +2976,11 @@ def conv(str):
                   r"\1-title-spacing #'space = #\2",
                   str)
 
+    if re.search(r'minimum-Y-extent', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % _("vertical spacing has been changed; minimum-Y-extent is obsolete.\n"))
+        stderr_write(UPDATE_MANUALLY)
+
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
