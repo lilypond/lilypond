@@ -715,16 +715,27 @@ out/bin/lilypond
 @end example
 
 This is important as you will need to let gdb know where to find the
-image.  You can invoke gdb from the command line using
+image containing the symbol tables.  You can invoke gdb from the
+command line using
 
 @example
-$ gdb out/bin/lilypond
+gdb out/bin/lilypond
 @end example
-
-or you may use a graphical interface to gdb such as ddd
+@noindent
+This loads the LilyPond symbol tables into gdb.  Then, to run
+LilyPond on @code{test.ly} under the debugger, enter
 
 @example
-$ ddd out/bin/lilypond
+run test.ly
+@end example
+@noindent
+at the gdb prompt.
+
+As an alternative to running gdb at the command line you may try
+a graphical interface to gdb such as ddd
+
+@example
+ddd out/bin/lilypond
 @end example
 
 You can also use sets of standard gdb commands stored in a .gdbinit
