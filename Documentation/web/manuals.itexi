@@ -17,12 +17,10 @@
   @heading Manuals for LilyPond @versionStable
 @end ifset
 
-
 @divEnd
 
 @c TODO: do we want these links to be in larger text / bold ?   CSS.
 
-@c if you change this page, also change All.
 @divClass{column-center-top}
 @subheading Introduction
 
@@ -111,7 +109,7 @@ reference for tweaks.
 translation status for non-English readers.
 
 @item @ref{All}:
-quick links, downloadable manuals, and old manuals.
+downloadable and old manuals.
 
 @item @ref{Development}:
 manuals for the unstable version.
@@ -465,83 +463,7 @@ TODO: prettify and generate in Texinfo.
 @node All
 @unnumberedsec All
 
-@divClass{heading-center}
-@heading Documentation quick links
-
-Links to other formats of these manuals can be found in
-@ref{Manuals}.
-
-@divEnd
-
-@c this should match the (main) manual page.
-@divClass{column-center-top}
-@subheading Introduction
-
-@itemize
-
-@c no colon : needed in this section
-@item @ifWebLinks{@manualStableLearningSplit,@rlearningnamed{Top,Learning}}
-a @qq{must-read} gentle introduction to LilyPond.
-
-@item @ifWebLinks{@manualStableGlossarySplit,@rglosnamed{Top,Glossary}}
-@emph{(optional reading)}
-explains musical terms and gives translations for users unfamiliar
-with English musical terms.
-
-@item @ifWebLinks{@manualStableEssaySplit,@ressaynamed{Top,Essay}}
-@emph{(optional reading)}
-background information about the engraving process and the
-aesthetics of 19th century music engraving.
-
-@end itemize
-
-@divEnd
-
 @divClass{column-left-top}
-@subheading Regular use
-
-@itemize
-
-@item @ifWebLinks{@manualStableNotationSplit,@rusernamed{Top,Notation}}
-the main portion of the documentation; provides detailed
-information about creating notation.
-
-@item @ifWebLinks{@manualStableUsageSplit,@rprogramnamed{Top,Usage}}
-discusses the actual programs and operation system-specific
-issues.
-
-@item @ifWebLinks{@manualStableSnippetsSplit,@rlsrnamed{Top,Snippets}}
-short tricks, tips, and examples.
-
-@end itemize
-
-@divEnd
-
-
-@divClass{column-right-top}
-@subheading Infrequent Use
-
-@itemize
-
-@item @ref{FAQ}:
-links to answers of Frequently Asked Questions.
-
-@item @ifWebLinks{@manualStableChangesSplit,@rchangesnamed{Top,Changes}}
-updates since the last major version.
-
-@item @ifWebLinks{@manualStableExtendingSplit,@rextendnamed{Top,Extending}}
-programming fancy tweaks.
-
-@item @ifWebLinks{@manualStableInternalsSplit,@rinternalsnamed{Top,Internals}}
-information about LilyPond's internal structures, which is
-required for constructing tweaks.
-
-@end itemize
-
-@divEnd
-
-
-@divClass{column-center-bottom}
 @subheading Downloadable versions
 
 @help{compare tarball vs. zip size, ask about windows users
@@ -564,7 +486,9 @@ apology here for no tarballs}
 @end itemize
 
 @divEnd
+@divEnd
 
+@divClass{column-right-bottom}
 @subheading Previous stable versions
 
 @divClass{keep-bullets}
