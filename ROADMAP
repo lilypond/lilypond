@@ -16,7 +16,9 @@ source files.
        essay/           Academic material and .bib files with references
                           to books and articles
        contributor/     Source files for the Contributor's Guide
+       css/             CSS files for documentation in HTML
        extending/       Source files for the Extending manual
+       included/        Snippets included in manuals
        learning/        Source files for the Learning Manual
        logo/            The logo
        misc/            Old announcements, ChangeLogs and NEWS
