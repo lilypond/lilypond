@@ -154,6 +154,20 @@ UNTRANSLATED NODE: IGNORE ME
 @end html
 @end macro
 
+@macro spanClass {CLASS}
+@html
+<span class="\CLASS\">
+@end html
+@end macro
+
+@macro spanEnd
+@c keep the space for proper nesting of </p>
+
+@html
+</span>
+@end html
+@end macro
+
 
 @c not strictly necessary, but it makes things easier for updating news
 @macro newsItem

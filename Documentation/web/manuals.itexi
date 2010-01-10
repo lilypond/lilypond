@@ -9,6 +9,13 @@
 @node Manuals
 @unnumbered Manuals
 
+@macro details{reference}
+@spanClass{detail}
+(@ref{\reference\, details of \reference\})
+@spanEnd
+@end macro
+
+
 @divClass{heading-center}
 @ifclear web_version
   @heading Manuals for LilyPond @version
@@ -32,17 +39,17 @@ first!
 
 @item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
 a @qq{must-read} gentle introduction to LilyPond.
-(@ref{Learning, details of Learning})
+@details{Learning}
 
 @item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
 @emph{(optional reading)}
 musical terms and translations.
-(@ref{Glossary, details of Glossary})
+@details{Glossary}
 
 @item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
 @emph{(optional reading)}
-background information about engraving and our aesthetics.
-(@ref{Essay, details of Essay})
+background information about computer engraving.
+@details{Essay}
 
 
 @end itemize
@@ -56,15 +63,15 @@ background information about engraving and our aesthetics.
 
 @item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
 syntax reference.
-(@ref{Notation, details of Notation})
+@details{Notation}
 
 @item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
 running the programs.
-(@ref{Usage, details of Usage})
+@details{Usage}
 
 @item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
 short tricks and tips.
-(@ref{Snippets, details of Snippets})
+@details{Snippets}
 
 @end itemize
 
@@ -81,19 +88,19 @@ Frequently Asked Questions.
 
 @item @ref{Top, Web}:
 this document.
-(@ref{Web, details of Web})
+@details{Web}
 
 @item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
 what's new?
-(@ref{Changes, details of Changes})
+@details{Changes}
 
 @item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
-writing fancy tweaks.
-(@ref{Extending, details of Extending})
+fancy tweaks.
+@details{Extending}
 
 @item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
-reference for tweaks.
-(@ref{Internals, details of Internals})
+tweaks reference.
+@details{Internals}
 
 @end itemize
 

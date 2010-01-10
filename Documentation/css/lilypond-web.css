@@ -898,6 +898,10 @@ div.color4 h3 {
   font-size: 0.6em;
 }
 
+.detail {
+  font-size: 0.8em;
+}
+
 
 /* kill title, probably best done in the init file, though */
 h1.settitle {
