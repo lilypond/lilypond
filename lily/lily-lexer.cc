@@ -270,11 +270,13 @@ Lily_lexer::new_input (string str, Sources *ss)
   Includable_lexer::new_input (str, ss);
 }
 
+// PATH is either a single symbol (or string) or a list of symbols
+// giving the path to a nested property.  A symbol is treated the same
+// as a list of length 1.
 void
-Lily_lexer::set_identifier (SCM path, SCM s)
+Lily_lexer::set_identifier (SCM path, SCM val)
 {
   SCM sym = path;
-  SCM val = s;
   if (scm_is_string (path))
     sym = scm_string_to_symbol (path);
   else if (scm_is_pair (path))
@@ -297,7 +299,7 @@ Lily_lexer::set_identifier (SCM path, SCM s)
 	{
 	  SCM prev = scm_module_lookup (mod, sym);
 	  if (prev != SCM_UNDEFINED)
-	    val = nested_property_alist (prev, path, s);
+	    val = nested_property_alist (prev, path, val);
 	}
       scm_module_define (mod, sym, val);
     }

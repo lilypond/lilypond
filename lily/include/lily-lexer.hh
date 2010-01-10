@@ -110,7 +110,7 @@ public:
   void push_note_state (SCM tab);
   void pop_state ();
   void LexerError (char const *);
-  void set_identifier (SCM name_string, SCM);
+  void set_identifier (SCM path, SCM val);
   int get_state () const;
   bool is_note_state () const;
   bool is_chord_state () const;
