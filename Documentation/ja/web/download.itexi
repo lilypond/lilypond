@@ -1,0 +1,675 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node ダウンロード
+@unnumbered ダウンロード
+@translationof Download
+
+@divClass{heading-center}
+@ifclear web_version
+  @c yes, we want verisonDevel here, since the online links
+  @c for @version won't be up yet!
+  @heading Downloads for LilyPond @versionDevel
+
+LilyPond の安定バージョンへのリンクは
+@uref{http://lilypond.org, lilypond.org}
+にあります。
+@end ifclear
+@ifset web_version
+  @heading LilyPond @versionStable のダウンロード
+@end ifset
+
+@warning{LilyPond は @strong{テキスト ベース} の楽譜作成プログラムです。@c
+グラフィカルな楽譜編集プログラムよりも、むしろプログラミング言語に似ています。@c
+LilyPond をダウンロードする前に、@c
+@ref{テキスト入力} を読んでください。}
+
+@divEnd
+
+@divClass{column-left-top}
+@subheading ユーザ向け
+
+@itemize
+
+@item
+@c TODO: duplicate to avoid underlined refs in HTML?  icky.
+@ref{Unix, @sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}}
+@ref{Unix, Unix (Linux や FreeBSD)}
+
+@item
+@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, MacOS X}
+
+@item
+@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, Microsoft Windows}
+
+@end itemize
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading 開発者向け
+
+@itemize
+
+@item
+@ref{ソース}:
+パッケージ作成用
+
+@item
+@ref{古いダウンロード}:
+旧バージョン
+
+@item @ref{Development}:
+最新の不安定なバージョン
+
+@end itemize
+@divEnd
+
+
+@divClass{column-center-bottom}
+
+@subheading ソフトウェア ライセンス
+
+LilyPond は @ref{GPL, GNU General Public License} に基づいて
+公開されています。
+@divEnd
+
+
+@divClass{color1}
+
+@subheading スポンサー
+通信帯域を提供してくれている @uref{http://www.vt.edu/, Virgina Tech} と
+@uref{http://www.linuxaudio.org/, linuxaudio.org} に深謝します。
+
+@sourceimage{VTlogo_ITF,,,}
+@sourceimage{lao_banner_06_on_white_demo,,,}
+
+@subheading 法律用語
+
+@divClass{legal}
+すべてのロゴと製品イメージには著作権があり、商標登録されています。
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+@divEnd
+
+
+@divClass{hide}
+@menu
+* Unix::                        
+* MacOS X::                     
+* Windows::                     
+* ソース::                      
+* 古いダウンロード::     
+* GPL::                         
+@end menu
+@divEnd
+
+
+@node Unix
+@unnumberedsec Unix
+@translationof Unix
+
+@ignore
+@help{翻訳ページでは、まだリンクがうまく機能していません。
+英語ページのリンクを使用してください。}
+@end ignore
+
+@divClass{column-center-top}
+@subheading 一般パッケージ？それともディストリビューション専用パッケージ？
+@c Generic Packages or Distribution-Specific Packages?
+
+多くのディストリビューションは、通常パッケージに LilyPond を含めています。@c
+そのようなバージョンは一般パッケージよりも@c
+容易にインストール/アンインストールできますが、@c
+古いバージョンである可能性があります。@c
+一般パッケージを使いたければ、@c
+お使いのディストリビューションのパッケージ マネージャを用いて、@c
+システムから公式バージョンをアンインストールしてください。@c
+お使いのディストリビューションのパッケージ マネージャの使い方については、@c
+そのディストリビューションのドキュメントを参照してください。
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading 一般パッケージ
+@c Generic Packages
+
+@subsubheading ダウンロード
+@c Download
+
+@itemize
+
+@item
+@sourceimage{logo-linux,,,}
+@downloadStableLinuxNormal
+(迷っているのなら、こちらを使ってください)
+
+@item
+@sourceimage{logo-linux,,,}
+@downloadStableLinuxBig
+
+@item
+@sourceimage{logo-linux,,,}
+@downloadStableLinuxPPC
+
+@item
+@sourceimage{logo-freebsd,,,}
+@downloadStableFreeBSDNormal
+
+@item
+@sourceimage{logo-freebsd,,,}
+@downloadStableFreeBSDBig
+
+@end itemize
+
+
+@subsubheading インストール
+@c Install
+
+シェルで、以下を入力してください:
+
+@example
+cd PATH-TO-DOWNLOAD-DIRECTORY
+sh lilypond-@versionStable{}-OS-TYPE.sh
+@end example
+
+@subsubheading アンインストール
+@c Uninstall
+
+シェルで、以下を入力してください:
+
+@example
+uninstall-lilypond
+@end example
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading ディストリビューション専用パッケージ
+@c Distribution-specific Packages
+
+これらのバージョンをインストール、あるいはアップグレードする場合、@c
+お使いのディストリビューションのパッケージ マネージャを使ってください。
+
+@itemize
+
+@item
+@sourceimage{logo-fedora,,,}
+@uref{https://admin.fedoraproject.org/pkgdb/packages/name/lilypond,
+Fedora: LilyPond 2.12.0}
+
+@item
+@sourceimage{logo-ubuntu,,,}
+@uref{https://launchpad.net/ubuntu/+source/lilypond,
+Ubuntu: LilyPond 2.12.1}
+
+@item
+@sourceimage{logo-slackware,,,}
+@uref{http://www.johannes-schoepfer.de/lilypond/,
+Slackware: LilyPond 2.12.1}
+
+@item
+@sourceimage{logo-debian,,,}
+@uref{http://packages.debian.org/search?keywords=lilypond,
+Debian: LilyPond 2.10.33}
+
+@item
+@sourceimage{logo-suse,,,}
+@uref{http://opensuse.org/?fixme=urg-no-lilypond-package-page,
+openSUSE: LilyPond 2.10.33}
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading 法律用語
+
+@divClass{legal}
+すべてのロゴと商品イメージには著作権があり、商標登録されています。
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@divEnd
+@divEnd
+
+
+@node MacOS X
+@unnumberedsec MacOS X
+@translationof MacOS X
+
+@ignore
+@help{翻訳ページでは、まだリンクがうまく機能していません。
+英語ページのリンクを使用してください。}
+@end ignore
+
+@divClass{column-left-top}
+@subheading パッケージ
+@c Packages
+
+@subsubheading ダウンロード
+@c Download
+
+@itemize
+
+@item
+@sourceimage{logo-macosx,,,}
+@downloadStableDarwinNormal
+Intel チップ用 (迷っているのなら、こちらを使ってください)
+
+@item
+@sourceimage{logo-macosx,,,}
+@downloadStableDarwinPPC
+G3 と G4 CPU 用 (古い Apple コンピュータ)
+
+@end itemize
+
+@subsubheading インストール
+@c Install
+
+ダウンロードしたファイルをダブルクリックして、@c
+それをお好みの場所にドラッグしてください。
+
+@subsubheading アンインストール
+@c Uninstall
+
+LilyPond.app フォルダを削除してください。
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading コマンドラインから実行する
+@c Running on the command-line
+
+@warning{GUI 環境の方を好むのであれば、以下の説明は無視してください。}
+
+@ignore
+FIXME: I had one report that we don't need this stuff; will delete
+after confirmation.  -gp
+
+@subsubheading Using Python scripts on MacOS 10.3 or 10.4
+
+LilyPond binaries for MacOS X do not provide Python, but Python 2.4 or
+newer is required by @command{convert-ly}.  Therefore, if you use MacOS
+10.3 or 10.4, you must install a newer Python version from
+@uref{http://python.org/download/}, then edit the first line of
+@command{convert-ly} and @command{lilypond-book} as follows: if the
+Python binary you just installed is in your @var{PATH}, the first line
+should be
+
+@example
+#!/usr/bin/env python
+@end example
+
+@noindent
+otherwise it should be
+
+@example
+#!@var{/path/to/newly_installed/python}
+@end example
+@end ignore
+
+@subsubheading MacOS X のコマンドライン
+@c MacOS X on the command line
+
+lilypond スクリプトを実行する最も簡便な方法は、@c
+あなた自身の @qq{ヘルパー} スクリプトをセットすることです。
+
+@enumerate
+
+@item
+スクリプトを保存するためのディレクトリを作成します:
+
+@example
+mkdir -p ~/bin
+cd ~/bin
+@end example
+
+
+@item
+以下の内容を持つ @command{lilypond} というファイルを作成します:
+
+@help obvious css issue to be dealt with.  :(
+@c we need a small font here to fit.  -gp
+@smallexample
+exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
+@end smallexample
+
+@warning{@var{DIR} は、一般には @code{/Applications/} です。}
+
+
+@item
+@command{bin/lilypond} を @command{bin/convert-ly} 
+(あるいは他のプログラム名) に置き換えて、@c
+@command{lilypond-book}, @command{convert-ly}, 
+それに他の使いたいスクリプトのファイルを同じように作成します。
+
+
+@item
+ファイルを実行可能にします:
+
+@example
+chmod u+x lilypond
+@end example
+
+
+@item
+さらに、このディレクトリをパスに加えます。@c
+ホーム ディレクトリの中にある @code{.profile} というファイルを変更
+(あるいは作成) して、以下のような内容を持たせます:
+
+@example
+export PATH=$PATH:~/bin
+@end example
+
+このファイルは、空の行で終わっていなければなりません。
+
+@end enumerate
+
+
+@subsubheading 個々のスクリプトを呼び出す
+@c Invoking individual scripts
+
+スクリプト
+-- @command{lilypond-book}, @command{convert-ly}, @command{abc2ly}, 
+それに @command{lilypond} 自体も
+-- は、MacOS@tie{}X 用の @code{.app} ファイルの中に含まれています。
+
+さらに、スクリプトを直接呼び出すことによって、@c
+コマンドラインから実行することができます:
+
+@example
+@var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
+@end example
+
+そのディレクトリの中にある他のすべてのスクリプト
+-- @command{lilypond-book} や @command{convert-ly} など
+-- についても同じことが言えます。
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading 法律用語
+
+@divClass{legal}
+すべてのロゴと商品イメージには著作権があり、商標登録されています。
+
+@logoLegalMacOSX
+
+@divEnd
+@divEnd
+
+
+
+@node Windows
+@unnumberedsec Windows
+@translationof Windows
+
+@ignore
+@help{翻訳ページでは、まだリンクがうまく機能していません。
+英語ページのリンクを使用してください。}
+@end ignore
+
+@divClass{column-left-top}
+@subheading パッケージ
+@c Packages
+
+@subsubheading ダウンロード
+@c Download
+
+@itemize
+
+@item
+@sourceimage{logo-windows,,,}
+@downloadStableWindows
+Windows ME, NT, 2000, XP, それに Vista 用
+
+@end itemize
+
+@subsubheading インストール
+@c Install
+
+@enumerate
+
+@item
+
+ダウンロードしたファイルをダブルクリックして、インストールを開始してください。@c
+@qq{Open File - Security Warning} 
+というタイトルのウィンドウが表示されたます。@c
+@qq{実行} ボタンをクリックしてインストールを続けてください。
+
+@item
+ライセンス同意が表示されます。@c
+注意深く読んでください。@c
+同意する場合は、@qq{次へ} ボタンをクリックしてください。
+
+@item
+できれば、インストール先フォルダはデフォルトのままにしておいてください。@c
+他の場所にしたければ、ブラウザで他の場所を選択してください。@c
+それから @qq{次へ} ボタンをクリックしてください。
+
+@item
+次にインストール オプション ウィンドウが表示されます。@c
+すべてインストールしたければ、@c
+3 つのオプションをチェックが入ったままにしておいてください。@c
+@qq{次へ} ボタンをクリックします。
+
+@item
+インストールが開始されます。@c
+インストール完了まで 1 分ほどお待ちください。@c
+@qq{詳細表示} ボタンがあり、それをクリックするとインストールされるファイルと、@c
+そのファイルのインスール先がすべて表示されます。@c
+それを見る必要は特にありません。@c
+@qq{完了} ボタンをクリックしてください。
+
+@item
+LilyPond がインストールされました。
+
+@end enumerate
+
+@subsubheading アンインストール
+@c Uninstall
+
+アンインストールする方法は 2 つあります --
+
+@enumerate
+
+@item
+スタート メニューから LilyPond を選択し、@c
+そこから @qq{Uninstall} を選択してください。
+
+@item
+コントロール パネルの @qq{プログラムの追加と削除} を開き、@c
+LilyPond までスクロールして、@qq{削除} ボタンをクリックしてください。
+
+@end enumerate
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading コマンドラインから実行する
+@c Running on the command-line
+
+@warning{GUI 環境の方を好むのであれば、以下の説明は無視してください。}
+
+@subsubheading Windows のコマンドライン
+@c Windows on the command line
+
+LilyPond を実行する最も簡便な方法は、@c
+LilyPond 実行可能のファイルを保持しているフォルダを、@c
+環境変数 @qq{Path} に追加することです。
+
+@ignore
+(The most convenient way to run LilyPond is by adding the folder 
+which contains LilyPond executable files to the environmental variable
+@qq{Path}.)
+@end ignore
+
+@enumerate
+
+@item
+コントロール パネルの @qq{システム} を開き、@c
+@qq{詳細設定} タブを選択し、@qq{環境変数} ボタンをクリックします。
+@ignore
+(Open your System on the Control Panel, 
+select Detailed Settings tab and click Environmental Variables button.)
+@end ignore
+
+@item
+@qq{システム環境変数} リストから変数 @qq{Path} をダブルクリックします。@c
+@qq{システム変数の編集} というタイトルのウィンドウが表示されます。@c
+@qq{変数値} の最後に、LilyPond の実行可能ファイルを保持しているフォルダを、@c
+以下のように付け加えます:
+@ignore
+(Double-click the variable @qq{Path} from System Environmental Variables list.
+You will be presented a window titled @qq{Editing a System Variable};
+append to @qq{Value of Variable} the name of the folder 
+which contains LilyPond executable files like this:)
+@end ignore
+
+@example
+;@var{DIR}\LilyPond\usr\bin
+@end example
+
+@warning{@var{DIR} は、一般には @code{C:\\Program Files} です。
+@ignore
+(@var{DIR} will generally be @code{C:\\Program Files}.)
+@end ignore
+}
+
+@noindent
+@qq{OK} ボタンをクリックしてウィンドウを閉じます。
+@ignore
+(and click @qq{OK} button to close the window.)
+@end ignore
+
+@end enumerate
+
+@subsubheading 個々の実行可能ファイルを呼び出す
+@c (Invoking individual excecutable files)
+
+lilypond, lilypond-book, convert-ly などの LilyPond 実行可能ファイルを@c
+コマンドラインから呼び出すことによって、実行することができます:
+
+@ignore
+(LilyPond excecutable files 
+-- such as lilypond, lilypond-book, convert-ly, and so on --
+can be run from the command-line by invoking them:)
+@end ignore
+
+@example
+lilypond test.ly
+@end example
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading 法律用語
+
+@divClass{legal}
+すべてのロゴと製品イメージには著作権があり、商標登録されています。
+
+@logoLegalWindows
+
+@divEnd
+@divEnd
+
+
+
+@node ソース
+@unnumberedsec ソース
+@translationof Source
+
+@ignore
+@help{翻訳ページでは、まだリンクがうまく機能していません。
+英語ページのリンクを使用してください。}
+@end ignore
+
+@warning{自分自身で LilyPond をビルドしようと @strong{しない} ことを@c
+強く推奨します。@c
+ほとんどすべてのユーザは、ビルド済みバージョンを使用した方が良いです。}
+
+@divClass{column-left-bottom}
+@subheading ソース tarball
+@c Source tarball
+
+@downloadStableSource{}
+
+新旧すべてのバージョンは、@c
+@uref{http://download.linuxaudio.org/lilypond/binaries/,ダウンロード サイト}
+でリストアップされています。
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading コンパイル方法
+@c Compiling instructions
+
+コンパイル方法は @rcontrib{Compiling LilyPond} に記載されています。
+
+@divEnd
+
+
+@node 古いダウンロード
+@unnumberedsec 古いダウンロード
+@translationof Old downloads
+
+@divClass{column-center-top}
+@subheading All versions
+
+新旧すべてのバージョンは、@c
+@uref{http://download.linuxaudio.org/lilypond/binaries/,ダウンロード サイト}
+でリストアップされています。
+
+@divEnd
+
+
+@node GPL
+@unnumberedsec GPL
+@translationof GPL
+
+@divClass{column-center-top}
+@subheading ソフトウェア ライセンス
+@c Software license
+
+GNU LilyPond は、@c
+GNU General Public License に基づいて公開されています。@c
+このライセンスの紹介と、このライセンスを選択した理由については、@c
+@ref{自由} に記述されています。@c
+(訳者) GNU GPL, GNU FDL の日本語訳は
+@uref{http://www.opensource.jp/,Open Source Group Japan}
+を参照してください。
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading GNU General Public License
+@include gpl.itexi
+
+@divEnd
+
+

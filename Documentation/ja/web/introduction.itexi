@@ -1,0 +1,1129 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c Translators: Yoshiki Sawada, Yoshinobu Ishizaki
+
+@node 導入部
+@unnumbered 導入部
+@translationof Introduction
+
+@divClass{column-center-top}
+@subheading 我々のゴール
+@c Our Goal
+
+@imageFloat{flat-design,png,right}
+@ignore
+2 人の音楽家が@c
+コンピュータによって作り出される楽譜の味気が無く、退屈な見た目に@c
+うんざりしたことから LilyPond のインスピレーションは生まれました。@c
+すべての音楽家は美しい楽譜を読むことを好みます。@c
+それなら、なぜプログラマーはもっと高品位の楽譜を生み出すソフトウェアを@c
+書くことができなかったのでしょうか？
+
+このソフトウェアは以下のことを行うだけです:
+最小限の労力で、最良の伝統的な譜刻方法を用いて楽譜を印刷します。@c
+スペースの調整、記号の移動、スラーの描画で時間を無駄にする必要はありません。@c
+美しい楽譜で友人や同僚を驚かせましょう！
+@end ignore
+
+LilyPondのきっかけは2人の音楽仲間が退屈でつまらない見栄えの@c
+コンピュータプリントアウトにうんざりしたことに始まりました。@c
+全ての音楽家は美しい楽譜を好むはずで、@c
+我々プログラマーが印刷上の問題を解決できないだろうか？
+
+LilyPondはそれを行います:
+楽譜を最小の指定で、クラシックの最良の伝統的譜刻に従って印刷します。@c
+間隔の調節に時間を費したり、記号をいじったり、スラーを動かしたりしなくて良いのです。@c
+素晴らしい楽譜で友人や同僚を驚かせましょう！
+@divEnd
+
+@divClass{column-left-top}
+@subheading 何故 LilyPond を使うのか？
+
+@c ここから
+@itemize
+
+@item
+@ref{特徴}: LilyPond で何ができるのか？
+
+@item
+@ref{例}: 実際に楽譜を見てみたい！
+
+@item
+@ref{自由}: LilyPond はフリー ソフトウェアです。
+
+@item
+@ref{バックグラウンド}: 我々のコンピュータ審美学。
+
+@end itemize
+@divEnd
+
+@divClass{column-right-top}
+@subheading Who uses it?
+
+@itemize
+
+@item
+@ref{成果物}: 実生活での LilyPond の使用。
+
+@item
+@ref{推薦状}: 人々は何と言っている？
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading 何故 LilyPond を使わないのですか？
+@c Why not use LilyPond?
+
+@itemize
+
+@item
+@ref{テキスト入力}: 楽譜を @emph{テキスト} で記述する？！
+
+@item
+@ref{より簡単な編集手段}: LilyPond に取り組むための他の方法。
+
+@end itemize
+@divEnd
+
+
+@divClass{hide}
+@menu
+* 特徴::                    What can LilyPond do?
+* 例::                    I want to see some music!
+* 自由::                     Freedom and the GPL.
+* バックグラウンド::                  Computational aesthetics.
+* 成果物::                 Real-life use of LilyPond.
+* 推薦状::                What do people say about it?
+* テキスト入力::                  You write music as text?!
+* より簡単な編集手段::             Other ways of working with LilyPond.
+@end menu
+@divEnd
+
+
+
+@node 特徴
+@unnumberedsec 特徴
+@translationof Features
+
+@help{hoping to delegate this.  Desired: an enthusiastic
+attempt to sway people towards trying lilypond.  The warnings
+about writing music as text come in Crash Course, not here.}
+
+以下からインスピレーションを得られるかもしれません:
+@uref{http://lilypond.org/web/about/features},
+@uref{http://lilypond.org/web/switch/tour},
+@uref{http://lilypond.org/web/switch/advantages}
+
+
+@c ここから
+@subheading 何故 LilyPond にするのか？
+@c Why switch to LilyPond?
+
+
+@subsubheading 美しく伝統的な譜刻
+@c Excellent classical engraving
+
+@imageFloat{flat-design,png,right}
+
+LilyPond を使用する利点は、美しく、読みやすい楽譜を生成できる点です。@c
+LilyPond の開発者コミュニティは、@c
+美しく譜刻された楽譜を生み出す強力な譜刻ソフトウェアを開発するために、@c
+何千時間も費やしてきました。@c
+LilyPond の書式設定、フォント デザイン、それにアルゴリズムはすべて、@c
+最高品質の手で譜刻された楽譜を参考にしています。@c
+LilyPond の出力は、最高の職人によって作られた伝統的な楽譜と同じくらい、@c
+力強く、バランスがとれていて、美しい見栄えがします。@c
+これらのことについて、@ref{エッセー} でさらに説明しています。
+
+
+@subsubheading いじらなくて良い
+@c Less fiddling
+
+出力の調整に時間を無駄にするのは止めましょう。@c
+LilyPond は最初から正しいフォーマットで出力します。@c
+緻密で統一のとれたレイアウトになるよう、スペースを自動的に決定し、@c
+改行、改ページを行います。@c
+歌詞、音符、和音の衝突回避、それにスラーや連桁の傾きは自動的に行われます！
+
+
+@subsubheading テキスト ベース入力
+@c Text-based input
+
+LilyPond は ASCII 入力を受け付けます。@c
+これは、お好みのテキスト エディタで素早く、快適に作成することができます。@c
+マウスを使うわずらわしさはありません。@c
+入力にはすべての情報が保持されるため、@c
+複雑なコマンドの羅列を覚える必要はありません。@c
+後で参照するために、入力を保存しておけば良いだけです。@c
+
+
+@subsubheading アクセス性
+@c Accessibility
+
+テキスト ベースの入力は、重い身体障がいを持つユーザであっても、@c
+楽譜を記述することを可能にします。@c
+キーボードやマウスを扱うことができない、上肢障がいのあるユーザは、@c
+音声認識ソフトウェアを使って、LilyPond ファイルを編集することができます。@c
+盲目のユーザでさえも、読み上げソフトウェアを使って、@c
+LilyPond ファイルを記述することができます
+-- これは、グラフィカル ベースの楽譜作成プログラムでは不可能なことです。
+
+
+@subsubheading 音楽とテキストの混合
+@c Mix music and text
+
+@imageFloat{lilypond-book,png,right}
+
+画像のカット＆ペーストをせずに、音楽の断片をテキストに入れることができます。@c
+LaTeX や HTML に楽譜を垣根無く統合できますし、@c
+ooolilypond を使えば OpenOffice.org に楽譜を追加することも出来ます。
+
+
+@subsubheading フリー ソフトウェア
+@c Free software
+
+LilyPond は無料でダウンロードすることができます！@c
+そうです -- 無料です。@c
+ダウンロード ページから入手してください。
+
+LilyPond は (口語的な意味でも) フリーなソフトウェアです。@c
+ソース コードが公開されており、変更もコピーも認められています。@c
+ですから、バグにいらいらしていたり、仕様面で不満があるなら、@c
+自分でそれを追加したり、他の人にそれを注文することが出来ます。
+
+
+@subsubheading 拡張可能な設計
+@c Extensible design
+
+すべての設定は、
+すべての設定は、個人的な写植上の趣味に合わせて変更可能です。@c
+仮にそれが不十分な場合でも、強力な LISP 言語の変種である@c
+組込みのスクリプト言語があります。@c
+設定、変数、それに関数の全ては、プログラムのリファレンス マニュアルの中に@c
+ドキュメント化されています。
+
+
+@subsubheading 素晴らしいサポート
+@c Excellent support
+
+LilyPond は全ての一般的なシステムで動きます: Linux, MacOS, そして Windows。@c
+LilyPond には、大規模なドキュメントと数百の実例ファイルが付属します。@c
+Lilypond ユーザー メーリング リストで質問に答えてくれる@c
+活発なユーザ コミュニティがありますし、@c
+一方、開発チームは問題が早期に解決されるよう活動しています。
+
+
+
+@divClass{column-center-bottom}
+@subheading どうですか？
+@c Where now?
+
+まだ確信が持てませんか？@c
+ちょっとした @ref{例} をいくつか見てください。@c
+LilyPond を試してみる決心がついたのなら、まず @ref{テキスト入力} を読んでください。
+@divEnd
+
+
+
+@node 例
+@unnumberedsec 例
+@translationof Examples
+
+LilyPond は、いかなる種類の譜刻にも対応できる、@c
+強力で、自由度の高いツールです。@c
+我々の陳列を見て、楽譜の多様さ、美しさに触れてください！
+
+@ignore
+Here is a passage from Franz Liszt's solo piano transcription
+of the Overture to Wagner's @emph{Tannhäuser}. The spacing
+in this example was all performed by Lilypond's formatting
+algorithms, without tweaks of any kind. It
+handles cross-staff beaming gracefully and puts the system brace
+perfectly around all three staves.
+
+@exampleImage{liszt-wagner}
+@end ignore
+
+@newsItem
+@subsubheading クラシック音楽
+@c Classical Music
+
+この J. S. Bach 作のオルガン曲は、@c
+LilyPond でのまさに象徴的な譜刻プロジェクトです。
+
+@exampleImage{bach-bwv610}
+@newsEnd
+
+@newsItem
+@subsubheading 複雑な楽譜
+@c Complex Notation
+
+@c 保留
+この Enrique Granados 作の @emph{Goyescas} からの例は、@c
+符幹が上下に突き出る連桁、譜をまたぐ符幹、それに voice-follow lines を含む@c
+より高度な写植機能を示しています。
+
+@exampleImage{granados}
+@newsEnd
+
+@newsItem
+@subsubheading 古楽
+@c Early Music
+
+LilyPond は、以下のグレゴリオ聖歌のパッセージのような、@c
+さまざまなタイプの古楽もサポートします。
+
+@exampleImage{ancient-headword}
+@newsEnd
+
+@newsItem
+@subsubheading 現代音楽
+@c Modern Music
+
+現代音楽の作曲家は、@c
+LilyPond が標準的でない楽譜を扱うのに適していることを見出すでしょう。@c
+ここで、Trevor Baca の無伴奏バス フルートのための @emph{Cáry} から、@c
+抜粋を示します。
+
+@exampleImage{cary}
+@newsEnd
+
+
+@newsItem
+@subsubheading Efficient, flexible creation of performance materials
+
+同じソース コードからさまざまな演奏資料を作り出すことができます。@c
+以下は、@uref{http://nicolas.sceaux.free.fr/,Nicolas Sceaux} が
+Handel の @emph{Giulio Cesare} を譜刻したものの抜粋から、@c
+総譜、ピアノ伴奏を持つボーカル譜、それにバイオリン パートを作り出しています。
+
+@exampleImage{sesto-full}
+
+@exampleImage{sesto-piano}
+
+@exampleImage{sesto-violin}
+
+@newsEnd
+
+@newsItem
+@subsubheading タブ譜
+@c Tablature
+
+@c ここから
+@c LilyPond はタブ譜をサポートします
+Lilypond supports tablature notation, which can be customized to
+suit any instrument that reads from tablature.  The tablature
+staff is generated automatically from notes entered for the 5-line
+staff.
+
+@exampleImage{tab-example}
+@newsEnd
+
+@newsItem
+@subsubheading Schenker Graphs
+
+Standard output can be modified heavily. Here someone has created
+an impressive Schenkerian analysis.
+
+@exampleImage{bach-schenker}
+@newsEnd
+
+@newsItem
+@subsubheading Vocal Music
+
+Lilypond is excellent for vocal music of all kinds, from sacred
+hymns to opera. Here is a medieval motet with slightly unusual
+requirements. The tenor voice is written in a different meter
+than the others, but must line up as if it were in the same meter.
+Lilypond handles this most elegantly. Note also the incipits with
+Vaticana style clefs, the slashed stems indicating plicated notes,
+and the ligature braces above certain groups of notes.
+
+@exampleImage{aucun-snippet}
+@newsEnd
+
+@newsItem
+@subsubheading Educational Applications
+
+Lilypond is perfectly suited for educational purposes as well.
+Here is an example of a simple counterpoint exercise.
+
+@exampleImage{theory}
+@newsEnd
+
+@newsItem
+@subsubheading Popular Music
+
+It is simple to create pop lead sheets with melody, lyrics,
+chord names, and fretboards. In this example you see some of the
+predefined fretboard diagrams, but these can be heavily customized
+to suit nearly any situation.
+
+@exampleImage{chart}
+@newsEnd
+
+@newsItem
+@subsubheading Large Projects
+
+Lilypond is excellent for large projects like operas or works for
+full symphony orchestra, as well.  In addition, the text-based
+input provides greater accessibility -- this example was
+contributed by Hu Haipeng, a blind composer.
+
+@exampleImage{orchestra}
+@newsEnd
+
+
+@divClass{column-center-bottom}
+@subheading どうですか？
+@c Where now?
+
+まだ確信が持てませんか？@c
+LilyPond は @ref{自由} をもたらすフリー ソフトウェアです。@c
+LilyPond を試してみる決心がついたのなら、まず @ref{テキスト入力} を読んでください。
+@divEnd
+
+
+@node 自由
+@unnumberedsec 自由
+@translationof Freedom
+
+@divClass{column-center-top}
+@subheading フリー ソフトウェア
+@c Free Software
+
+@uref{http://www.gnu.org/, GNU} LilyPond は熱心な人々からなる@c
+コミュニティによって作成され、維持されています。@c
+LilyPond は、すべての人にプログラムの修正、変更、拡張を許可する 
+@ref{GPL, GNU General Public License} と 
+@ref{FDL, GNU Free Documentation License} に基づいて公開されています。@c
+美しい楽譜を作るのに、何万円もするソフトウェアは必要ありません！
+@divEnd
+
+
+@c @divClass{column-left-top}
+@divClass{color2}
+@divClass{keep-bullets}
+@subheading ユーザにとっての利益は何なのか？
+@c What are the benefits to users?
+
+@itemize
+
+@item
+無料: ダウンロードして、試してみてください！何か失うものはありますか？
+
+@item
+共有: このプログラムを気に入ったのなら、@c
+コピーを友人、先生、生徒、同僚にあげることができます！
+
+@item
+ソースを入手可能: LilyPond がどのように記譜を行うのかに興味を持ったのなら、@c
+それを実際に見ることができます。
+
+@item
+拡張可能: 機能やバグ修正を追加したり、機能変更を行うことができます。@c
+プログラマでなければ、そういった仕事をする人を雇うことができます。
+
+このことはちょっとした音楽家には意味のないことかもしれませんが、@c
+ソフトウェアの拡張性は、本格的な作曲家、企業、大学にとっては@c
+非常に価値のあるものです。
+
+@item
+将来の安全性: 営利企業が破産した場合、@c
+その企業の製品に基づく電子音楽はどうなるでしょうか？@c
+LilyPond にはこういったこととは無縁です。@c
+たとえ開発チームが全員辞めたとしても (まったくあり得ない話ですが)、@c
+このプログラムは合法的にコピー、変更、配布することができます。
+
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@c @divClass{column-right-top}
+@divClass{color3}
+@divClass{keep-bullets}
+@subheading 何故 LilyPond の開発者たちはこのプログラムを無料にしておくのか？
+@c Why do LilyPond developers @qq{give away} their work for free?
+
+たいていの人たちは、LilyPond の開発を趣味やボランティア活動と見なしています。@c
+ですから、この質問の本質はこうです
+-- @qq{なぜボランティアで活動するのか？}。
+
+@itemize
+
+@item
+楽しい: ゴールに向かって取り組むことは楽しいことです。@c
+特に、チームで取り組んでいる場合は！
+
+@item
+ゴールの共有: 我々は皆、美しい楽譜を望んでいます。@c
+しかしながら、すべての状況を処理できるプログラムを作成できるような@c
+熟練者はほとんどいません (そして、皆、時間がありません！)。@c
+皆で取り組むことで
+-- ある人は自動連桁のコードを改良し、ある人はスラーの形を改良し、@c
+またある人は、それらの機能の使い方を説明するドキュメントを記述します --
+個々でできる努力からゴールを達成することができます。
+
+@item
+@qq{与える文化}: フリー ソフトウェア (あるいは @qq{オープン ソース})
+運動は多くの偉大なソフトウェア プロジェクトを生み出してきました
+-- @uref{http://kernel.org/, GNU/Linux},
+@uref{http://www.getfirefox.com/, Mozilla Firefox}, それに
+@uref{http://www.wesnoth.org/, Battle for Wesnoth} など。
+これらのプロジェクトの恩恵を受けて、@c
+そのコミュニティに @qq{恩返し} をしたいと考えている開発者もいます。
+
+@item
+経験: オープン ソース プロジェクトに貢献することは、@c
+プログラミング、ドキュメントの記述、デザインを訓練するための@c
+素晴らしい方法です。@c
+この経験により、仕事の依頼を受けたり、奨学金を得た開発者もいます。
+
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading どうですか？
+@c Where now?
+
+まだ確信が持てませんか？@c
+@ref{バックグラウンド} で我々の譜刻哲学につていの広範囲なエッセーを読んでください。
+ちょっとした @ref{例} をいくつか見てください。@c
+LilyPond を試してみる決心がついたのなら、まず @ref{テキスト入力} を読んでください。
+@divEnd
+
+
+@node バックグラウンド
+@unnumberedsec バックグラウンド
+@translationof Background
+
+@divClass{column-center-top}
+@subheading バックグラウンド エッセー
+
+コンピュータ審美学 -- コンピュータで美しいものを作り出す手法 -- について@c
+記述した広範囲なエッセーがあります。
+
+LilyPond についての簡単な紹介を望むのであれば、@c
+このエッセーは大きすぎるでしょう。@c
+今、このエッセーを読もうと思うのならば、@ref{エッセー} に進んでください。
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading どうですか？
+@c Where now?
+
+まだ確信が持てませんか？@c
+ユーザの @ref{成果物} と楽譜について読んでみてください。
+LilyPond を試してみる決心がついたのなら、まず @ref{テキスト入力} を読んでください。
+@divEnd
+
+
+@node 成果物
+@unnumberedsec 成果物
+@translationof Productions
+
+@divClass{column-left-top}
+@subheading コンサート
+
+LilyPond で生成された楽譜は、世界中の演奏で使用されています。@c
+いくつかハイライトを挙げます:
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+@emph{Affaire Étrangère}, an opera by Valentin Villenave, with
+libretto by Lewis Trondheim, premiered February 1, 2009, by
+@uref{http://www.orchestre-montpellier.com/, L'Opéra Montpellier}.
+
+@item
+@uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury Baroque}'s
+performance of Lully's @emph{Armide}, May 15-16, 2009, in Houston,
+Texas (engraving by @uref{http://nicolas.sceaux.free.fr/,
+Nicolas Sceaux}).
+
+@item
+Instrumental excerpts from Rameau's @emph{Hippolyte et Aricie} at
+St. James's Church in Manhattan, May 8, 2009, by Frederick Renz
+and his ensemble @uref{http://www.earlymusicny.org/, Early Music
+New York} (engraving by Nicolas Sceaux).
+
+@end itemize
+@divEnd
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading 公開されている楽譜
+@c Published sheet music
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+@uref{http://www.mutopiaproject.org/index.html, Mutopia Project},
+1500 曲を越えるクラシック音楽の楽譜を自由にダウンロードできます。@c
+LilyPond で生成された楽譜の主要なショーケースです。
+
+@item
+@uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
+high-quality scores of sacred music, available for immediate
+download or in traditional paper format.
+
+@item
+@uref{http://theshadylanepublishing.com/, The Shady Lane
+Publishing},
+a @qq{micro musical publishing house} whose goal is to promote a
+new form of musical economy closer to the musicians and music
+lovers.
+
+@end itemize
+
+@divEnd
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading どうですか？
+@c Where now?
+
+まだ確信が持てませんか？@c
+ユーザの @ref{推薦状} を読んでみてください。
+LilyPond を試してみる決心がついたのなら、まず @ref{テキスト入力} を読んでください。
+@divEnd
+
+
+@node 推薦状
+@unnumberedsec 推薦状
+@translationof Testimonials
+
+@divClass{testimonial-item}
+@imageFloat{carter-brey,jpg, right}
+@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, ニューヨークフィル首席チェロ奏者
+
+@qq{...私は、何曲かのチェロ独奏用のアンコール ピースを書き、@c
+LilyPond で印刷しました。@c
+Shirmer に出版を掛け合おうとしていますが、そこで印刷される物は@c
+恐らく私の物の半分も良くないでしょう！}
+
+@divEnd
+
+
+@divClass{testimonial-item}
+@imageFloat{orm-finnendahl,jpg, left}
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, フライブルク音楽大学作曲科教授
+
+@qq{まだ [LilyPond] について詳しく知りませんが、@strong{とても}感銘を受けています。@c
+定量記譜法で Josquin Desprez のモテットを入力するのに LilyPond を使いましたが、@c
+LilyPond が、スピード、使い易さ、見栄えにおいて、
+他の全ての楽譜作成プログラムを圧倒していることは間違いありません！}
+
+@divEnd
+
+
+@divClass{testimonial-item}
+@imageFloat{darius-blasband,jpg, right}
+@subsubheading Darius Blasband, 作曲家 (ベルギー ブリュッセル)
+
+@qq{[..最初のオーケストラリハーサルの後で] 私は楽譜の出来について@c
+たくさんの賛辞をいただきました。@c
+重要なのは、@c
+Lilypondには楽譜の見栄えをより良くするための数多くの方法があるのですが、@c
+私がオーケストラに渡したのは@c
+基本的に生の、そのままの出力結果だったということです。}
+
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Kieren MacMillan, 作曲家 (カナダ トロント)
+
+@qq{この素晴らしい仕事をした開発チームに感謝と賛辞の意を。@c
+Lilypondで得られる結果に近い物は他ではありません
+-- この偉大なアプリケーションは、私の楽譜出版の必要性に対して、@c
+期待以上の結果を間違いなくもたらしてくれます。@c
+[..] 基本的に、いじっていない Lilypond の出力は [..] 
+私が比較した最近の @q{プロ} の出版物 
+(Warner Bros. の楽譜、それから @q{老舗} の最近の楽譜の大多数)
+よりも良いです。[..]}
+
+@qq{Finale/Sibelius/Igor/他の楽譜ソフトウェアに負けるな！！！}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Chris Cannam, @uref{http://www.rosegardenmusic.com/, RoseGarden} プロジェクトの主任プログラマ。
+
+@qq{LilyPond は明らかに [楽譜清書における] 超重量級ゴリラです。}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro 楽譜出版社}
+
+@qq{
+楽譜作成を LilyPond に任せることで、私はより音楽に集中することができます。@c
+どうやって Lily に譜刻させるかで途方に暮れたこともありました。@c
+しかしながら、たとえ私が作曲家の思った通りに譜刻したとしても、@c
+その楽譜は読み難いものになるだろうということに気付きました。@c
+LilyPond を使うことで、@c
+私はより容易に編集者と譜刻者の 2 つの役割を果たすことができます。}
+
+
+@qq{私の拙い楽譜出版ビジネスは、完全に LilyPond に頼っています。@c
+作曲家に出版しようとしている楽譜の校正刷りを見せると、@c
+例外なく彼らはその質の高さに圧倒されます。@c
+賭けてもいいです。@c
+私は出力の調整 -- 特に (和音の) タイの調整 -- に多くの時間を費やしますが、@c
+LilyPond は私に素晴らしいスタート地点、直感的なインターフェイス、@c
+それに時間をかけさえすればすべてを思い通りに変更できる能力を与えてくれます。@c
+商用製品でこれだけのことをできるものは無いと確信しています。}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading David Bobroff, アイスランド交響楽団バス トロンボーン奏者
+
+@qq{LilyPond は素晴らしい。[..] LilyPond について知れば知るほど好きになる！}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Vaylor Trucks, エレキギター プレーヤ (そう、@uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, コレ} 関係)
+
+@qq{私は LilyPond に超、感動しています。[..]}
+
+@qq{今まででサイコーのプログラム！！！}
+
+@qq{作ってくれた人みんなの仕事と献身に感謝します！}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} メンバー
+
+@qq{憎悪にも似た情愛を感じました。@c
+情愛の理由は、最初に見た楽譜があまりにも素晴らしかったからです！@c
+LilyPond の美しさの説明は不十分です -- あまりにも控えめ過ぎる！@c
+LilyPond は常に良くなっていますし、@c
+scheme がどう使われているかを良く知るにつれ、@c
+フラストレーションは減ってきました。@c
+とにかく、言いたいことは @q{LilyPond を作ってくれて有難う、本当に素晴らしい。}@c
+ということです。}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, ドイツ Koblenz 劇場指揮者、優れた GNU ハッカー
+
+@qq{とにかく、LilyPond は驚くほど良い仕事をする！}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Paul Davis, @uref{http://jackaudio.org/, JACK} と @uref{http://www.ardour.org/, Ardour} の開発者
+
+@qq{[LilyPond] はすごいプログラムだと思う。実に素敵な結果が得られる。@c
+去年、これについてのインタビュー記事を読んだ後、@c
+そのポテンシャルについて友達に夢中で喋っていたよ。}
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading どうですか？
+@c Where now?
+
+@ref{テキスト入力} を読んでください。
+@divEnd
+
+
+
+@node テキスト入力
+@unnumberedsec テキスト入力
+@translationof Text input
+
+@c TRANSLATORS: so far it's mostly from
+@c http://lilypond.org/web/switch/howto
+
+@subheading 楽譜を @qq{コンパイル} する
+
+@imageClickable{nereid-shot-small,png, (クリックすると拡大), nereid-shot,png, right}
+
+LilyPond は @emph{コンパイル} システムです:
+音符を保持しているテキスト ファイルに対して実行します。@c
+結果として得られる出力は、スクリーン上で閲覧するか、プリントします。@c
+いくつかの点で、LilyPond はグラフィカルな楽譜編集ソフトウェアよりも@c
+プログラミング言語に似ています。
+
+ツールバーから音符をドラッグして、楽譜に配置するのではありません。@c
+テキストを打ち込むことで楽譜を記述します。@c
+このテキストは LilyPond によって解析 (あるいは @qq{コンパイル}) され、@c
+美しく譜刻された楽譜が生成されます。
+
+グラフィカル ユーザ インターフェイスに慣れている人は、@c
+新しい方法を学ぶ必要があるかもしれません。
+しかしながら、そうする価値は間違いなくあります！
+
+@warning{テキスト入力についての簡単な概要を用意しています
+-- これは、見た目ほど難しいものではありません！@c
+提示した例の詳細を理解できなくても心配ありません。
+初心者向けドキュメントがゆっくりとしたペースで説明しています。}
+
+
+@subsubheading A B C と同じくらい簡単
+
+音符は英字と数字で表現されます。@c
+特殊なコマンドはバックスラッシュと一緒に入力します。
+
+@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-output,png,center}
+
+臨時記号は違う名前で入力します。@c
+シャープには @code{-is} を、フラットには @code{-es} を付けます
+(これらは、オランダ語の音符名で、他の言語用もあります)。@c
+LilyPondがどこに臨時記号を付けるかを判断します。
+
+@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-output,png,center}
+
+
+@subsubheading ポップ ミュージック
+@c Pop music
+
+リード譜を作るために、コードと歌詞を一緒に配置します:
+
+@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-output,png,center}
+
+
+
+@subsubheading オーケストラ パート
+@c Orchesteral parts
+
+入力ファイルには楽曲の音符が入っています。@c
+スコアとパート譜を、一つの入力ファイルから作り出すことができます。@c
+そのため、音符を変更すると常にパートとスコア両方に影響します。@c
+音符を共有するには、その音楽を変数に割り当てます:
+
+@imageFloat{text-input-parts-both-annotate,png,center}
+
+
+この変数は、単一のパートに使うことができます
+(ここでは、移調され、複小節休符はまとめられています):
+
+@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-output,png,center}
+
+
+同じ変数をフル スコアで使うことができます
+(ここでは、コンサート ピッチです):
+
+@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-output,png,center}
+
+
+@subsubheading 初心者のためのドキュメント
+@c Beginner Documentation
+
+多くのユーザがこのような方法で楽譜を入力することに違和感を覚えます。@c
+そのため、新しいユーザを援助するために、@c
+@ref{学習} から始まる広範囲なドキュメントを用意してあります。
+
+バグだと不満を漏らす前に、学習マニュアルを読んでください！@c
+LilyPond は設計どおりに機能しているのですが、@c
+新しいユーザは LilyPond が正しく機能していないと思い込むことが@c
+しばしばあります。
+
+@help{any suggestions for a picture here?}
+
+
+@subsubheading より簡単な編集環境
+@c Easier editing environments
+
+LilyPond は元来、最高品質の楽譜を作り出すことを目的としています。@c
+グラフィカル ユーザ インターフェイス (GUI) を作ることは、@c
+本来の趣旨から外れます。@c
+しかしながら、LilyPond 入力ファイルの作成をより簡単にすることを@c
+目指しているプロジェクトが別に存在します。
+
+そのような編集環境のいくつかは、構文ハイライト、自動コマンド補完、@c
+それに作成済みのテンプレートを用意しています。
+また、他のプログラムでは、グラフィカルな楽譜を直接操作することができる
+GUI を提供しているものもあります。@c
+更なる情報は、@ref{より簡単な編集手段} というドキュメントを読んでください。
+
+
+@divClass{column-center-bottom}
+@subheading どうですか？
+@c Where now?
+
+@ref{ダウンロード, LilyPond をダウンロードする} ところまで来ました。@c
+まだ確信が持てませんか？@c
+@ref{より簡単な編集手段} でより簡単な編集環境について読んでください。
+@divEnd
+
+
+@node より簡単な編集手段
+@unnumberedsec より簡単な編集手段
+@translationof Easier editing
+
+@divClass{column-center-top}
+@subheading グラフィカルな環境: Denemo
+@c Graphical environment: Denemo
+
+@imageClickable{screenshot-denemo-small,png,
+  (クリックすると拡大),screenshot-denemo,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://denemo.org}
+
+Denemo は、LilyPond ソース コードを生成し、演奏することもできる@c
+グラフィカルなエディタです。@c
+このプログラムは、現在のところ、開発中であり、古いバージョンの
+LilyPond コードを生成します (V2.8.7)。@c
+このプログラムでは、LilyPond ソース コードと、@c
+グラフィカル環境を並べて使うことができます。
+
+@ignore
+Import: LilyPond, MIDI
+
+Export: Lilypond, MIDI, ABC, CSound Score File, PDF
+@end ignore
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading 混合環境: LilyPondTool
+@c Mixed environment: LilyPondTool
+
+@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
+  (クリックすると拡大),lilypondtool-2.12-screenshot,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://lilypondtool@/.organum@/.hu}
+
+@uref{http://@/www@/.jedit@/.org@/,jEdit} テキスト エディタのための@c
+プラグインである LilyPondTool は、LilyPond スコアを編集するための@c
+最も機能豊富なテキスト ベースのツールの 1 つです。@c
+このプログラムには、@c
+ドキュメントのセットアップを容易にするための歌詞サポート付き@c
+ドキュメント ウィザード、@c
+高度なポイント＆クリックをサポートする組み込み PDF ビューアといった@c
+機能を持っています。
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading テキスト環境: Emacs と Vim
+@c Text environment: Emacs and Vim
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://FIXME}
+
+Emacs は、多くのコンピュータ言語に対応する、言語検出機能を持つ@c
+テキスト エディタです。@c
+Emacs には高い拡張性があり、統合開発環境として使用することができます。@c
+LilyPond ソース ファイルに作成するための@c
+言語定義を提供する @q{lilypond モード} があります。
+
+Vim は最小限度の機能を持つテキスト エディタであり、@c
+古い Unix @command{vi} エディタの機能拡張版です。@c
+このプログラムも拡張やコンフィグレーションを行うことができます。
+
+一般的に言って、すでに emacs や vim に慣れているのでなければ、@c
+LilyPond 入力ファイルを記述するために他のエディタを使うべきです。
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading その他
+@c Other
+
+@help insert text and a graphic(s)
+
+@subsubheading 混合環境: Frescobaldi
+@c Mixed environment: Frescobaldi
+
+@imageClickable{frescobaldi-lilypond-editor-small,png,
+  (クリックすると拡大),frescobaldi-lilypond-editor,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+
+@uref{http://www.frescobaldi.org}
+
+Frescobaldi は LilyPond 専用のプログラムであり、@c
+ビルドイン PDF プレビューア、高機能な楽譜ウィザード、@c
+それに多くの編集機能を持つテキスト エディタです。@c
+このプログラムは KDE4 ライブラリの最上位階層でビルドされ、@c
+Linux や他の UNIX ライクなオペレーティング システムのすべてで@c
+実行できます。
+
+
+@subsubheading テキスト環境: TexShop
+@c Text environment: TexShop
+
+@sourceimage{logo-macosx,,,}
+
+@uref{http://@/www@/.uoregon@/.edu/~koch/texshop}
+
+MacOS@tie{}X 用の
+@uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}
+エディタは、@c
+@uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html#desktoppub}
+で入手可能な拡張を使うことで、@c
+エディタ内部から LilyPond、@command{lilypond-book}、それに
+@command{convert-ly}
+を実行するよう拡張することができます。
+
+
+@ignore
+TODO: ask somebody to sponsor/check these.  -gp
+
+@subsubheading TextMate
+
+@sourceimage{logo-macosx,,,}
+
+
+TextMate にバンドルされる LilyPond があります。@c
+以下を実行することでインストールされます:
+
+@example
+mkdir -p /Library/Application\ Support/TextMate/Bundles
+cd /Library/Application\ Support/TextMate/Bundles
+svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
+@end example
+@end ignore
+
+@subsubheading 混合環境: LilyKDE
+@c Mixed environment: LilyKDE
+
+@imageClickable{lilykde-screenshot-small,png,
+  (クリックすると拡大),lilykde-screenshot,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+
+@uref{http://lilykde.googlecode.com/}
+
+@uref{http://lilykde.googlecode.com/,LilyKDE} は
+KDE のテキスト エディタ @uref{http://kate-editor.org/,Kate} のための@c
+プラグインです。@c
+このプログラムは、@c
+LilyPond ドキュメントを素早くセットアップできる高機能な楽譜ウィザードや@c
+組み込み PDF ビューアを持っています。
+
+LilyKDE は、@c
+@uref{http://www.volny.cz/smilauer/rumor/,Rumor} を使うことで、
+MIDI キーボードの演奏によって楽譜を入力することができます。
+
+他の機能として、歌詞ハイフネーションがあり、@c
+KDE ファイル マネージャ内部から一度に複数のファイルに対して LilyPond 
+を実行できます。
+
+
+@help clean up this list, check links, etc.
+
+LilyPond コードを生成することができる他のプログラム:
+
+@itemize
+@item
+@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}:
+リアルタイムに単旋律 MIDI を LilyPond に変換します。
+@item
+@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}:
+Emacs メジャー モード。
+@item
+@uref{http://@/www@/.nongnu@/.org/@/xml2ly/,xml2ly}:
+@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
+をインポートします。
+@item
+@uref{http://@/common-lisp@/.net/project/fomus/,FOMUS}:
+楽譜記譜を生成する LISP ライブラリ。
+@item
+@uref{http://@/noteedit@/.berlios@/.de,NoteEdit}:
+@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
+をインポートします。
+@item
+@uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden}:
+MIDI をインポートします。
+@item
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}:
+LilyPond エクスポートを試験的に行っています。
+@item
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar}:
+LilyPond コードをエクスポートできます。
+@item
+@uref{http://musescore.org,MuseScore}:
+LilyPond コードをエクスポートできます。
+@item
+@uref{http://canorus.org,Canorus}:
+LilyPond コードをエクスポートできますが、ベータ版のソフトウェアです。@c
+テスタを歓迎しています。
+@end itemize
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading どうですか？
+@c Where now?
+
+@ref{ダウンロード, LilyPond をダウンロードする} ところまで来ました。@c
+
+まだ確信が持てませんか？@c
+多くの作曲家、ミュージシャン、それに指揮者が LilyPond 入力フォーマットで@c
+記述することを学んでいます。@c
+経験を積んだユーザは、LilyPond を使うことで、@c
+ピアノやマウス＆GUI を使うよりも短時間で総譜を入力できると@c
+レポートしてさえいます！@c
+LilyPond が提供する @ref{特徴}, @ref{例}, あるいは @ref{自由} を@c
+読み返してみてください。@c
+また、ユーザの @ref{成果物} と @ref{推薦状} を読んでみてください。@c
+さらに、伝統的な譜刻の審美性をコンピュータで実現するための@c
+我々のアプローチが @ref{バックグラウンド} で説明されています。
+
+
+@subheading 法律用語
+@c Legalese
+
+@divClass{legal}
+すべてのロゴと製品イメージには著作権があり、商標登録されています。 
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+
+@divEnd

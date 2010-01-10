@@ -55,9 +55,84 @@
 @end ifnothtml
 
 
+@macro docMain
+@cartouche
+このマニュアルと他のドキュメントの関係について、あるいは、このマニュアルを他の形式で読む方法についての情報は、@rwebnamed{マニュアル,マニュアル}
+を参照してください。
+
+マニュアルのいずれかを見失ってしまった場合、@w{@uref{http://@/www@/.lilypond@/.org/}} 
+にマニュアルがすべて揃っています。
+@end cartouche
+@end macro
+
+@macro lilyTitlePage{TITLE}
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
+
+
+@c   ***** Copyright stuff *****
+@ifset FDL
+@copying
+@copyrightDeclare
+
+@quotation
+GNU フリー文書利用許諾契約書バージョン 1.1 
+またはフリー ソフトウェア財団によって発行されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更する許可を与えます。変更不可部分はありません。この利用許諾契約書のコピーは「GNU フリー文書利用許諾契約書」という章に含まれています。
+@end quotation
+@end copying
+@end ifset
+
+@ifclear FDL
+@copying
+This document has been placed in the public domain.
+@end copying
+@end ifclear
+
+
+@c   ***** Title page *****
+@ifnottex
+@node Top
+@top LilyPond --- \TITLE\
+
+@cartouche
+@manualIntro{}
+@end cartouche
+@end ifnottex
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle 楽譜譜刻プログラム
+@titlefont{\TITLE\}
+@author LilyPond 開発チーム
+
+@vskip 60pt
+
+@cartouche
+@manualIntro{}
+@end cartouche
+
+@vskip 40pt
+
+@docMain{}
+
+@vskip 0pt plus 1filll
+
+@insertcopying
+
+LilyPond バージョン @version{} 用
+@end titlepage
+
+@end macro
+
 
 @c   ***** Headings in a doc subsection *****
 
+@c The next macro is a dummy currently since texinfo doesn't
+@c provide a real ragged-right environment yet.
+@c
 @c Don't insert an empty line after @predefined!  Right now
 @c it doesn't matter, but a future implementation will probably
 @c add some code which needs this restriction.
@@ -67,9 +142,6 @@
 @subsubheading 定義済みコマンド
 @end macro
 
-@c The next macro is a dummy currently since texinfo doesn't
-@c provide a real ragged-right environment yet.
-@c
 @c Due to a bug in texi2html (texi2html.pl CVS versions <= 1.245)
 @c the macro must not be empty.
 
@@ -105,13 +177,17 @@
 
 @c  Definitions for references:
 @c
-@c     @rglos
-@c     @rlearning
-@c     @ruser
+@c     @rweb
 @c     @ressay
-@c     @rprogram
-@c     @rlsr
+@c     @rglos
 @c     @rinternals
+@c     @rlearning
+@c     @rlsr
+@c     @rprogram
+@c     @ruser
+@c     @rchanges
+@c     @rextend
+@c     @rcontrib
 @c
 @c  All these also have a @...named version which allows to specify the
 @c  displayed text for the reference as second argument.
@@ -145,7 +221,7 @@
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,learning-big-page,Learning Manual}
+@ref{\TEXT\,,\DISPLAY\,learning-big-page,\DISPLAY\}
 @end macro
 
 @macro ruser{TEXT}
@@ -156,6 +232,46 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notation Reference}
+@end macro
+
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending-big-page,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending-big-page,Extending}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,changes-big-page,Changes}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,changes-big-page,Changes}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,contributor-big-page,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,contributor-big-page,Contributor's Guide}
+@end macro
+
+@macro rweb{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,web-big-page,General Information}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,web-big-page,General Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -212,7 +328,7 @@
 
 @macro rglosnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
+@ref{\TEXT\,,\DISPLAY\,music-glossary,\DISPLAY\}
 @end macro
 
 @macro rlearning{TEXT}
@@ -222,7 +338,7 @@
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,learning,Learning Manual}
+@ref{\TEXT\,,,learning,\DISPLAY\}
 @end macro
 
 @macro ruser{TEXT}
@@ -232,7 +348,47 @@
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
+@ref{\TEXT\,,\DISPLAY\,notation,\DISPLAY\}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,changes,Changes}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,changes,\DISPLAY\}
+@end macro
+
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending,\DISPLAY\}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,contributor,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,contributor,\DISPLAY\}
+@end macro
+
+@macro rweb{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,web,General Information}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,web,\DISPLAY\}
 @end macro
 
 @macro ressay{TEXT}
@@ -242,7 +398,7 @@
 
 @macro ressaynamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,essay,Essay}
+@ref{\TEXT\,,\DISPLAY\,essay,\DISPLAY\}
 @end macro
 
 @macro rprogram{TEXT}
@@ -252,7 +408,7 @@
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,usage,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,usage,\DISPLAY\}
 @end macro
 
 @macro rlsr{TEXT}
@@ -260,7 +416,7 @@
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,snippets,Snippets}
+@ref{\TEXT\,,\DISPLAY\,snippets,\DISPLAY\}
 @end macro
 
 @macro rinternals{TEXT}
@@ -270,7 +426,7 @@
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,internals,Internals Reference}
+@ref{\TEXT\,,\DISPLAY\,internals,\DISPLAY\}
 @end macro
 
 @end ifnotinfo
@@ -284,7 +440,7 @@
 
 @macro rglosnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
+@ref{\TEXT\,,\DISPLAY\,music-glossary,\DISPLAY\}
 @end macro
 
 @macro rlearning{TEXT}
@@ -294,7 +450,7 @@
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning,Learning Manual}
+@ref{\TEXT\,,,lilypond-learning,\DISPLAY\}
 @end macro
 
 @macro ruser{TEXT}
@@ -304,7 +460,47 @@
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notation Reference}
+@ref{\TEXT\,,\DISPLAY\,lilypond-notation,\DISPLAY\}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-changes,Changes}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-changes,\DISPLAY\}
+@end macro
+
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-extending,\DISPLAY\}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-contributor,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-contributor,\DISPLAY\}
+@end macro
+
+@macro rweb{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-web,General Information}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-web, \DISPLAY\}
 @end macro
 
 @macro ressay{TEXT}
@@ -314,7 +510,7 @@
 
 @macro ressaynamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-essay,Essay}
+@ref{\TEXT\,,\DISPLAY\,lilypond-essay,\DISPLAY\}
 @end macro
 
 @macro rprogram{TEXT}
@@ -324,7 +520,7 @@
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-usage,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,lilypond-usage,\DISPLAY\}
 @end macro
 
 @macro rlsr{TEXT}
@@ -332,7 +528,7 @@
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Snippets}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,\DISPLAY\}
 @end macro
 
 @macro rinternals{TEXT}
@@ -342,7 +538,7 @@
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Internals Reference}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,\DISPLAY\}
 @end macro
 
 @end ifinfo
@@ -373,7 +569,7 @@
 
 @macro rglosnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
+@ref{\TEXT\,,\DISPLAY\,music-glossary,\DISPLAY\}
 @end macro
 
 @macro rlearning{TEXT}
@@ -383,7 +579,7 @@
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,learning,Learning Manual}
+@ref{\TEXT\,,\DISPLAY\,learning,\DISPLAY\}
 @end macro
 
 @macro ruser{TEXT}
@@ -393,7 +589,47 @@
 
 @macro rusernamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
+@ref{\TEXT\,,\DISPLAY\,notation,\DISPLAY\}
+@end macro
+
+@macro rchanges{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,changes,Changes}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,changes,\DISPLAY\}
+@end macro
+
+@macro rextend{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,extending,\DISPLAY\}
+@end macro
+
+@macro rcontrib{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,contributor,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,contributor,\DISPLAY\}
+@end macro
+
+@macro rweb{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,web,General Information}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,web,\DISPLAY\}
 @end macro
 
 @macro ressay{TEXT}
@@ -403,7 +639,7 @@
 
 @macro ressaynamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,essay,Essay}
+@ref{\TEXT\,,\DISPLAY\,essay,\DISPLAY\}
 @end macro
 
 @macro rprogram{TEXT}
@@ -413,7 +649,7 @@
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,usage,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,usage,\DISPLAY\}
 @end macro
 
 @macro rlsr{TEXT}
@@ -423,7 +659,7 @@
 
 @macro rlsrnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,snippets,Snippets}
+@ref{\TEXT\,,\DISPLAY\,snippets,\DISPLAY\}
 @end macro
 
 @macro rinternals{TEXT}
@@ -433,7 +669,7 @@
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,internals,Internals Reference}
+@ref{\TEXT\,,\DISPLAY\,internals,\DISPLAY\}
 @end macro
 
 @end iftex
@@ -441,6 +677,36 @@
 @c  ***** Macros specific to the web site *****
 
 @ifset web
+
+@macro exampleImage{IMAGE-FILE}
+@html
+<div class="float-center">
+  <a class="clickable" href="examples/\IMAGE-FILE\.png">
+    <img src="examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
+  </a>
+  <p style="text-align: center">
+    (click to enlarge)
+  </p>
+</div>
+@end html
+@iftex
+@image{examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
+@end iftex
+@ifinfo
+@image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
+@end ifinfo
+@end macro
+
+@macro help{TEXT}
+@html
+<div class="help">
+<strong>
+  <span style="text-decoration:blink">Help wanted:</span>
+</strong> \TEXT\
+</div>
+@end html
+@end macro
+
 
 @c LEGALESE
 
