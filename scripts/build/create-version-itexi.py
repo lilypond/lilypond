@@ -82,7 +82,7 @@ def make_download_source(name, vstring, version):
     string += vstring + "/"
     string += "lilypond-" + version + ".tar.gz"
     string += ", "
-    string += "lilypond-" + version + ".tar.gz"
+    string += "Source: lilypond-" + version + ".tar.gz"
     string += "}"
     make_macro(name, string)
 
