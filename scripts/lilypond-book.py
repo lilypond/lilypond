@@ -164,7 +164,8 @@ def get_option_parser ():
                   default='')
 
     p.add_option ('--latex-program',
-                  help=_ ("run executable PROG instead of latex"),
+                  help=_ ("run executable PROG instead of latex, or in\n\
+case --pdf option is set instead of pdflatex"),
                   metavar=_ ("PROG"),
                   action='store', dest='latex_program',
                   default='latex')
@@ -2150,6 +2151,8 @@ def main ():
         global_options.process_cmd += ' --formats=eps '
         if global_options.create_pdf:
             global_options.process_cmd += "--pdf -dinclude-eps-fonts -dgs-load-fonts "
+            if global_options.latex_program == 'latex':
+                global_options.latex_program = 'pdflatex'
 
     if global_options.verbose:
         global_options.process_cmd += " --verbose "
