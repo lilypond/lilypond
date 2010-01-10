@@ -115,6 +115,9 @@ output to log file `FOO.log'.")
 			 "midi")
 "Set the default file extension for MIDI output
 file to given string.")
+    (music-strings-to-paths #f
+"Convert text strings to paths when glyphs belong
+to a music font.")
     (old-relative #f
 "Make \\relative mode for simultaneous music work
 similar to chord syntax.")
@@ -245,6 +248,11 @@ messages into errors.")
 
 (define-public parser #f)
 
+(define music-string-to-path-backends
+  '(svg))
+
+(if (memq (ly:get-option 'backend) music-string-to-path-backends)
+    (ly:set-option 'music-strings-to-paths #t))
 
 ;; gettext wrapper for guile < 1.7.2
 (if (defined? 'gettext)

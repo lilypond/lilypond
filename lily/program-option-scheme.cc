@@ -34,6 +34,7 @@ bool debug_skylines;
 bool debug_property_callbacks;
 bool debug_page_breaking_scoring;
 
+bool music_strings_to_paths;
 bool relative_includes;
 
 /*
@@ -126,6 +127,11 @@ internal_set_option (SCM var,
     }
   else if (var == ly_symbol2scm ("warning-as-error"))
     val = scm_from_bool (to_boolean (val));
+  else if (var == ly_symbol2scm ("music-strings-to-paths"))
+    {
+      music_strings_to_paths = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
 
   scm_hashq_set_x (option_hash, var, val);
 }

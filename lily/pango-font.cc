@@ -300,20 +300,22 @@ Pango_font::physical_font_tab () const
 }
 
 Stencil
-Pango_font::word_stencil (string str, bool feta) const
+Pango_font::word_stencil (string str, bool music_string) const
 {
-  return text_stencil (str, feta, true);
+  return text_stencil (str, music_string, true);
 }
 
 Stencil
-Pango_font::text_stencil (string str, bool feta) const
+Pango_font::text_stencil (string str, bool music_string) const
 {
-  return text_stencil (str, feta, false);
+  return text_stencil (str, music_string, false);
 }
+
+extern bool music_strings_to_paths;
 
 Stencil
 Pango_font::text_stencil (string str,
-			  bool feta,
+			  bool music_string,
 			  bool tight) const
 {
   /*
@@ -367,21 +369,23 @@ Pango_font::text_stencil (string str,
       SCM utf8_string = ly_module_lookup (mod, ly_symbol2scm ("utf-8-string"));
       /*
 	has_utf8_string should only be true when utf8_string is a
-	variable that is bound to a *named* procedure.
+	variable that is bound to a *named* procedure, i.e. not a
+	lambda expression.
       */
       if (utf8_string != SCM_BOOL_F
 	  && scm_procedure_name (SCM_VARIABLE_REF (utf8_string)) != SCM_BOOL_F)
 	has_utf8_string = true;
     }
 
-  /*
-    The SVG backend only uses utf-8-string for the non-music
-    fonts, hence the check here.  --pmccarty
+  bool to_paths = music_strings_to_paths;
 
-    TODO: use a program option (-dmusic-strings-to-paths) here
-    instead that is enabled only when -dbackend=svg.
+  /*
+    Backends with the utf-8-string expression use it when
+      1) the -dmusic-strings-to-paths option is set
+         and `str' is not a music string, or
+      2) the -dmusic-strings-to-paths option is not set.
   */
-  if ((name == "svg" && !feta) || (name != "svg" && has_utf8_string))
+  if (has_utf8_string && ((to_paths && !music_string) || !to_paths))
     {
       // For Pango based backends, we take a shortcut.
       SCM exp = scm_list_3 (ly_symbol2scm ("utf-8-string"),
