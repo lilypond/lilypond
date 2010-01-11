@@ -538,7 +538,7 @@ GOP is our big recruiting drive for new contributors.
 @unnumberedsec Development
 
 @divClass{heading-center}
-@heading Development materials for LilyPond @versionDevel{}
+@heading Development for LilyPond @versionDevel{}
 
 @warning{These are @emph{unstable development} versions.  If you
 have the slightest doubt about how to use or install LilyPond, we
@@ -599,12 +599,11 @@ the latest binary:
 @divClass{column-right-top}
 @subheading Contributor's Guide
 
-LilyPond development is a fairly complicated matter.  LilyPond is
-a large, (mostly) stable project.  In order to help new
-contributors, and to keep the whole system (mostly) stable, we
-have written a manual for contributors.
+LilyPond development is a fairly complicated matter.  In order to
+help new contributors, and to keep the whole system (mostly)
+stable, we have written a manual for development tasks.
 
-@docLinks{Contributor's Guide, contributor,
+@docLinksBare{Contributor's Guide, contributor,
   @rcontribnamed{Top,Contributor's Guide},
   @manualDevelContributorSplit,
   @manualDevelContributorBig, 500 kB,
@@ -613,9 +612,7 @@ have written a manual for contributors.
 @divEnd
 
 
-@c if Downloads was a bit longer, and/or the CG was a bit shorter,
-@c this would be great as column-right-top.  -gp
-@divClass{column-center-top}
+@divClass{column-right-top}
 @subheading Regression tests
 
 @divClass{keep-bullets}

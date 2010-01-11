@@ -200,27 +200,14 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp
 @c ****************** SPECIAL MACROS FOR WEB MANUAL ************
 @macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
-
-@c experimental removal; to be FIXME before 2.14.  -gp
-@ignore
 @subheading Read it
 
-@itemize
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
 
-@c normal case, special online case
-@ifclear web_version
-  @item \refLink\:
-@end ifclear
-@ifset web_version
-  @c we assume that the online web version will be split html
-  @item \split\:
-@end ifset
-read this manual in the same format as this one.
+@end macro
 
-@end itemize
-@end ignore
 
-@subheading All formats
+@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
 
 @divClass{keep-bullets}
 @itemize
