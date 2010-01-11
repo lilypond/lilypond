@@ -25,7 +25,7 @@ target_pattern = os.path.join (outdir, '%s-root')
 # from HTML manuals/snippets page
 static_files = {
     os.path.join (outdir, 'index.html'):
-        '''<META HTTP-EQUIV="refresh" content="0;URL=Documentation/index.html">
+        '''<META HTTP-EQUIV="refresh" content="0;URL=Documentation/web/index.html">
 <html><body>Redirecting to the documentation index...</body></html>\n''',
     os.path.join (outdir, 'VERSION'):
         package_version + '\n',
