@@ -234,8 +234,8 @@ Debian: LilyPond 2.12.2}
 
 @item
 @sourceimage{logo-suse,,,}
-@uref{http://download.opensuse.org/repositories/openSUSE:/Factory:/Contrib/standard/,
-openSUSE: LilyPond 2.12.2}
+@uref{http://software.opensuse.org/search?baseproject=openSUSE%3A11.2&p=1&q=lilypond,
+openSUSE: LilyPond 2.12.3}
 
 @end itemize
 
