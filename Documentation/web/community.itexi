@@ -649,78 +649,78 @@ Comparisons between versions.
 @multitable @columnfractions .3 .3 .3
 @headitem Introduction
 @item
-@manualDevelLearningSplit
+@docLinkSplit{Learning,learning,@manualDevelLearningSplit}
 @tab
-@manualDevelLearningBig
+@docLinkBig{Learning,learning,@manualDevelLearningBig}
 @tab
-@manualDevelLearningPdf
+@docLinkPdf{Learning,learning,@manualDevelLearningPdf}
 
 @item
-@manualDevelGlossarySplit
+@docLinkSplit{Glossary,music-glossary,@manualDevelGlossarySplit}
 @tab
-@manualDevelGlossaryBig
+@docLinkBig{Glossary,music-glossary,@manualDevelGlossaryBig}
 @tab
-@manualDevelGlossaryPdf
+@docLinkPdf{Glossary,music-glossary,@manualDevelGlossaryPdf}
 
 @item
-@manualDevelEssaySplit
+@docLinkSplit{Essay,essay,@manualDevelEssaySplit}
 @tab
-@manualDevelEssayBig
+@docLinkBig{Essay,essay,@manualDevelEssayBig}
 @tab
-@manualDevelEssayPdf
+@docLinkPdf{Essay,essay,@manualDevelEssayPdf}
 
 @headitem Regular
 
 @item
-@manualDevelNotationSplit
+@docLinkSplit{Notation,notation,@manualDevelNotationSplit}
 @tab
-@manualDevelNotationBig
+@docLinkBig{Notation,notation,@manualDevelNotationBig}
 @tab
-@manualDevelNotationPdf
+@docLinkPdf{Notation,notation,@manualDevelNotationPdf}
 
 @item
-@manualDevelUsageSplit
+@docLinkSplit{Usage,usage,@manualDevelUsageSplit}
 @tab
-@manualDevelUsageBig
+@docLinkBig{Usage,usage,@manualDevelUsageBig}
 @tab
-@manualDevelUsagePdf
+@docLinkPdf{Usage,usage,@manualDevelUsagePdf}
 
 @item
-@manualDevelSnippetsSplit
+@docLinkSplit{Snippets,snippets,@manualDevelSnippetsSplit}
 @tab
-@manualDevelSnippetsBig
+@docLinkBig{Snippets,snippets,@manualDevelSnippetsBig}
 @tab
-@manualDevelSnippetsPdf
+@docLinkPdf{Snippets,snippets,@manualDevelSnippetsPdf}
 
 @headitem Infrequent
 
 @item
-@manualDevelWebSplit
+@docLinkSplit{Web,web,@manualDevelWebSplit}
 @tab
-@manualDevelWebBig
+@docLinkBig{Web,web,@manualDevelWebBig}
 @tab
-@manualDevelWebPdf
+@docLinkPdf{Web,web,@manualDevelWebPdf}
 
 @item
-@manualDevelChangesSplit
+@docLinkSplit{Changes,changes,@manualDevelChangesSplit}
 @tab
-@manualDevelChangesBig
+@docLinkBig{Changes,changes,@manualDevelChangesBig}
 @tab
-@manualDevelChangesPdf
+@docLinkPdf{Changes,changes,@manualDevelChangesPdf}
 
 @item
-@manualDevelExtendingSplit
+@docLinkSplit{Extending,extending,@manualDevelExtendingSplit}
 @tab
-@manualDevelExtendingBig
+@docLinkBig{Extending,extending,@manualDevelExtendingBig}
 @tab
-@manualDevelExtendingPdf
+@docLinkPdf{Extending,extending,@manualDevelExtendingPdf}
 
 @item
-@manualDevelInternalsSplit
+@docLinkSplit{Internals,Internals,@manualDevelInternalsSplit}
 @tab
-@manualDevelInternalsBig
+@docLinkBig{Internals,Internals,@manualDevelInternalsBig}
 @tab
-@manualDevelInternalsPdf
+@docLinkPdf{Internals,Internals,@manualDevelInternalsPdf}
 
 @end multitable
 

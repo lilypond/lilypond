@@ -209,28 +209,28 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @macro docLinkSplit{name,base,webLink}
 @ifclear web_version
-  @uref{../\base\/index.html, \name\ (split HTML)}:
+  @uref{../\base\/index.html, \name\ (split HTML)}
 @end ifclear
 @ifset web_version
-  \webLink\:
+  \webLink\
 @end ifset
 @end macro
 
 @macro docLinkBig{name,base,webLink}
 @ifclear web_version
-  @uref{../\base\-big-page.html, \name\ (big HTML)}:
+  @uref{../\base\-big-page.html, \name\ (big HTML)}
 @end ifclear
 @ifset web_version
-  \webLink\:
+  \webLink\
 @end ifset
 @end macro
 
 @macro docLinkPdf{name,base,webLink}
 @ifclear web_version
-  @uref{../\base\.pdf, \base\.pdf}:
+  @uref{../\base\.pdf, \base\.pdf}
 @end ifclear
 @ifset web_version
-  \webLink\:
+  \webLink\
 @end ifset
 @end macro
 
@@ -240,15 +240,15 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @divClass{keep-bullets}
 @itemize
 
-@item @docLinkSplit{\name\,\base\,\split\}
+@item @docLinkSplit{\name\,\base\,\split\} @minus{}
   the manual is split between many HTML pages.
   @*@ @ @emph{(small download for each page)}
 
-@item @docLinkBig{\name\,\base\,\split\}
+@item @docLinkBig{\name\,\base\,\split\} @minus{}
   read this manual as one huge HTML page.
   @*@ @ @emph{(large single download, \bigsize\)}
 
-@item @docLinkPdf{\name\,\base\,\pdf\}
+@item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
   download as a PDF file.
   @*@ @ @emph{(large single download, \pdfsize\)}
 
