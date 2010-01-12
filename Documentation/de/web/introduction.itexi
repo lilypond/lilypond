@@ -11,7 +11,7 @@
 @translationof Introduction
 
 @divClass{column-center-top}
-@subheading Our Goal
+@subheading Unser Ziel
 
 @imageFloat{flat-design,png,right}
 
@@ -384,11 +384,11 @@ ein Programm zum erstellen schönen Notensatzes zu erwerben.
 @itemize
 
 @item
-Keine Kosten:  Laden Sie das Programm und probieren Sie es.  Was
+Keine Kosten: Laden Sie das Programm und probieren Sie es.  Was
 haben Sie zu verlieren?
 
 @item
-Teilen:  wenn Sie das Programm gut finden, können Sie Ihren Freunden, Lehrern, Studenten oder Kollegen eine Kopie weitergeben!
+Teilen: wenn Sie das Programm gut finden, können Sie Ihren Freunden, Lehrern, Studenten oder Kollegen eine Kopie weitergeben!
 
 @item
 Quellcode vorhanden: wenn es Sie interessiert, wie LilyPond
@@ -425,8 +425,7 @@ oder zu kopieren.
 @c @divClass{column-right-top}
 @divClass{color3}
 @divClass{keep-bullets}
-@subheading Warum @qq{geben} die Entwickler von LilyPond ihre
-Arbeit umsonst her?
+@subheading Warum @qq{geben} die Entwickler von LilyPond ihre Arbeit umsonst her?
 
 Die meisten sehen die Entwicklungsarbeit an LilyPond als ein
 Hobby oder freiwillige Arbeit.  Man müsste also eigentlich fragen:
@@ -735,7 +734,7 @@ Lesen Sie über unsere @ref{Text-Eingabe}.
 
 
 @node Text-Eingabe
-@unnumberedsec Test-Eingabe
+@unnumberedsec Text-Eingabe
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
