@@ -1,0 +1,67 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 36c4a7766b94d1d98519b619398c9b38bcaf5c38
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@setfilename lilypond-essay.info
+@settitle Ensayo sobre grabado musical automatizado
+@documentencoding UTF-8
+@documentlanguage es
+@afourpaper
+
+@macro manualIntro
+Este ensayo trata de las funciones de grabado musical automatizado
+dentro de LilyPond version @version{}.
+@end macro
+
+@c `Essay' was born 2002-06-03 with git commit e38f5fc...
+@macro copyrightDeclare
+Copyright @copyright{} 2002--2009 por los autores.
+@end macro
+
+@set FDL
+@include macros.itexi
+
+@afourpaper
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen
+@omfdescription Ensayo sobre grabado musical automatizado
+@omftype essay
+@omfcategory Applications|Publishing
+@omflanguage Spanish
+@end ignore
+
+
+@lilyTitlePage{Ensayo sobre grabado musical automatizado}
+
+
+@ifnottex
+
+@menu
+* Grabado musical::
+* Lista de referencias bibliográficas::
+* GNU Free Documentation License:: Licencia de este documento.
+* Índice de LilyPond::
+@end menu
+
+@docMain
+@end ifnottex
+
+
+@contents
+
+@include essay/engraving.itely
+@include essay/literature.itely
+
+@include fdl.itexi
+
+@node Índice de LilyPond
+@appendix Índice de LilyPond
+
+@printindex cp
+
+@bye
