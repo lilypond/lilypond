@@ -935,26 +935,28 @@ collide = \once \override NoteColumn #'force-hshift = #0
 >>
 @end lilypond
 
-@item Finale has placed all of the rests at fixed heights on the staff.
-The user is free to adjust them as needed, but the software makes no
-attempt to consider the content of the other voice.  As luck would have
-it, there are no true collisions between notes and rests in this example,
-but that has more to do with the positions of the notes than the rest.
-In other words, Bach deserves more credit for avoiding a complete
-collision than Finale does.
+@item Finale ha colocado todos los silencios en alturas fijas sobre el
+pentagrama.  El usuario es libre de ajustarlos según se necesite, pero
+el programa no hace ningún intento de tener en consideración el
+contenido de la otra voz.  Por suerte, en este ejemplo no se producen
+verdaderas colisiones entre notas y silencios, pero ello tiene que ver
+más con las posiciones de las notas que con otra cosa.  Dicho de otro
+modo, Bach se merece algo más de crédito para evitar una colisión
+completa que la que Finale le concede.
 
 @end itemize
 
-This example is not intended to suggest that Finale cannot be used to
-produce beautiful output.  On the contrary, in the hands of a skilled
-user it can and does, but it requires skill and time.  One of the
-fundamental differences between LilyPond and commercial score writers is
-that LilyPond hopes to reduce the amount of human intervention to an
-absolute minimum, while other packages try to provide an attractive
-interface in which to make these types of edits.
+Este ejemplo no pretende sugerir que Finale no se pueda usar para
+producir un resultado bello.  Por el contrario, en las manos de un
+usuario hábil puede hacerlo y de hecho lo hace, pero requiere destreza
+y tiempo.  Una de las diferencias fundamentales entre LilyPond y los
+editores de partituras comerciales es que LilyPond aspira a reducir la
+cantidad de intervención humana a un mínimo absoluto, mientras que
+otros paquetes pretenden ofrecer un interfaz atractivo en el que hacer
+este tipo de ediciones.
 
-One particularly glaring omission we found in the Finale sample is a
-missing flat in measure 33:
+Una omisión particularmente flagrante que hemos encontrado en la
+muestra de FInale es un bemol en el compás 33:
 
 @quotation
 @iftex
@@ -966,76 +968,86 @@ missing flat in measure 33:
 @end quotation
 
 @noindent
-The flat symbol is required to cancel out the natural in the same
-measure, but Finale misses it because it occurred in a different voice.
-The user must not only remember to run a beaming plug-in and respace the
-note heads and rests, she must also check each measure for cross-voice
-accidentals if she is to avoid interrupting a rehearsal for an engraving
-error.
+El símbolo del bemol es necesario para cancelar el becuadro que está
+en el mismo compás, pero Finale lo omite porque aparece en una voz
+distinta.  El usuario no debe recordar solamente ejecutar un
+complemento o plugín de barrado yre-espaciar las cabezas y los
+silencios, también tiene que comprobar la coherencia de las
+alteraciones entre las voces si pretende evitar la interrupción de un
+ensayo a causa de un error en la edición de la partitura.
 
-If you are interested in examining these examples in more detail, the
-full seven-measure excerpt can be found at the end of this essay in
-engravings by Finale and LilyPond along with four different published
-engravings.  Close examination reveals that there is some acceptable
-variation among the hand-engravings, but that LilyPond compares
-reasonably well to that acceptable range.  There are still some
-shortcomings in the LilyPond output, for example, it appears a bit too
-aggressive in shortening some of the stems, so there is room for further
-development and fine-tuning.
+Si está interesado en examinar estos ejemplos con más detalle, el
+ejemplo de siete compases completo está al final de este ensayo en
+grabados de Finale y de LilyPond junto a otros cuatro grabados
+diferentes publicados.  Un examen detenido revela que hay una cierta
+variación aceptable entre los grabados manuales, pero también que
+LilyPond se compara de forma razonablemente buena con este rango
+aceptable.  Aún existen algunos inconvenientes en la salida de
+LilyPond, por ejemplo, parece ser un tanto agresiva en acortar algunas
+de las plicas, así que aún hay espacio para un desarrollo y ajuste
+fino posteriores.
 
-Of course, typography relies on human judgment of appearance, so people
-cannot be replaced completely.  However, much of the dull work can be
-automated.  If LilyPond solves most of the common situations correctly,
-this will be a huge improvement over existing software.  Over the course
-of years, the software can be refined to do more and more things
-automatically, so manual overrides are less and less necessary.  Where
-manual adjustments are needed, LilyPond's structure has been designed
-with that flexibility in mind.
+Por supuesto, la tipografía se basa en el juicio humano sobre la
+apariencia, de manera que las personas no se pueden sustituir por
+completo.  Con todo, gran parte del trabajo tedioso se puede
+automatizar.  Si LilyPond resuelve casi todas las situaciones más
+comunes correctamente, esto ya constituirá una enorme ventaja sobre
+los programas existentes.  Con el transcurso de los años, software se
+puede refinar de forma que realice más y más cosas automáticamente de
+forma que los ajustes manuales sean también cada vez menos necesarios.
+Donde se necesitan ajustes manuales, la estructura de LilyPond está
+diseñada teniendo en mente esa flexibilidad.
 
 @node Arquitectura flexible
 @unnumberedsubsec Arquitectura flexible
 @translationof Flexible architecture
 
-When we started, we wrote the LilyPond program entirely in the C++
-programming language; the program's functionality was set in stone
-by the developers.  That proved to be unsatisfactory for a number
-of reasons:
+Al principio escribimos el programa LilyPond completamente en el
+lenguaje de programación C++; la funcionalidad del programa estaba
+grabada en piedra por parte de los desarrolladores.  Se comprobó que
+esto no era satisfactorio por unas cuantas razones:
 
 @itemize
 
-@item When LilyPond makes mistakes, users need to override
-formatting decisions.  Therefore, the user must have access to the
-formatting engine.  Hence, rules and settings cannot be fixed by
-us at compile-time but must be accessible for users at run-time.
+@item Cuando LilyPond comete errores, los usuarios necesitan sobreescribir
+las decisiones de formateo.  Por tanto, el usuario debe tener acceso
+al motor de formateo.  De aquí que las reglas y los ajustes
+predeterminados no se puedan fijar por nuestra parte en el tiempo de
+compilación sino que deben estar accesibles para los usuarios en el
+tiempo de ejecución.
 
-@item Engraving is a matter of visual judgment, and therefore a
-matter of taste.  As knowledgeable as we are, users can disagree
-with our personal decisions.  Therefore, the definitions of
-typographical style must also be accessible to the user.
+@item El grabado musical es cuestión de juicio visual, y por tanto está en
+el terreno del buen gusto.  Por más entendidos que pretendamos ser,
+nuestros usuarios siempre podrían discrepar de nuestras decisiones
+personales.  Por ello, las definiciones del estilo tipográfico debe
+también ser accesible para el usuario.
 
-@item Finally, we continually refine the formatting algorithms, so
-we need a flexible approach to rules.  The C++ language forces a
-certain method of grouping rules that cannot readily be applied to
-formatting music notation.
+@item Finalmente, nos encontramos refinando continuamente los algoritmos de
+formateo, por lo que necesitamos un enfoque flexible para las reglas.
+El lenguaje C++ fuerza un cierto método de agrupación de las reglas
+que no está preparado para aplicarse al formateo de la notación
+musical.
 
 @end itemize
 
-@cindex Scheme programming language
+@cindex Scheme, lenguaje de programación
 
-These problems have been addressed by integrating an interpreter
-for the Scheme programming language and rewriting parts of
-LilyPond in Scheme.  The current formatting architecture is built
-around the notion of graphical objects, described by Scheme
-variables and functions.  This architecture encompasses formatting
-rules, typographical style and individual formatting decisions.
-The user has direct access to most of these controls.
+Estos programas se han solucionado integrando un intérprete para el
+lenguaje de programación Scheme y reescribiendo partes de LilyPond en
+Scheme.  La arquitectura de formateo actual está construida alrededor
+de la noción de objetos gráficos, descritos por medio de variables y
+funciones de Scheme.  Esta arquitectura coordina las reglas de
+formateo, el estilo tipográfico y las decisiones de formateo
+individuales.  El usuario tiene acceso directo a la mayoría de esos
+controles.
 
-Scheme variables control layout decisions.  For example, many
-graphical objects have a direction variable that encodes the
-choice between up and down (or left and right).  Here you see two
-chords, with accents and arpeggios.  In the first chord, the
-graphical objects have all directions down (or left).  The second
-chord has all directions up (right).
+Las variables de Scheme controlan las decisiones de disposición en la
+página.  Por ejemplo, muchos objetos gráficos tienen una variable de
+dirección que codifica la elección entre arriba y abajo (o izquierda y
+derecha).  A continuación vemos dos acordes, con acentos y símbolos de
+arpegio.  En el primer acorde, los objetos gráficos tienen todas las
+direcciones hacia abajo (o hacia la izquierda).  El segundo acorde
+tiene todas las direcciones hacia arriba (o hacia la derecha).
 
 @lilypond[quote,ragged-right]
 \new Score \with {
@@ -1048,17 +1060,17 @@ chord has all directions up (right).
 }
 @end lilypond
 
-@cindex score formatting
-@cindex formatting a score
-@cindex formatting rules
+@cindex partitura, formateo de
+@cindex formateo de una partitura
+@cindex formateo, reglas de
 
 @noindent
-The process of formatting a score consists of reading and writing
-the variables of graphical objects.  Some variables have a preset
-value.  For example, the thickness of many lines -- a
-characteristic of typographical style -- is a variable with a
-preset value.  You are free to alter this value, giving your score
-a different typographical impression.
+El proceso de dar formato a una partitura comprende la lectura y
+escritura de las variables de los objetos gráficos.  Algunas variables
+tienen un valor preestablecido.  Por ejemplo, el grosor de muchas
+líneas (una característica del estilo tipográfico) es una variable con
+un valor preestablecido. Somos libres de alterar este valor, dando a
+nuestra partitura una impresión tipográfica distinta.
 
 @lilypond[quote,ragged-right]
 fragment = {
@@ -1079,12 +1091,13 @@ fragment = {
 >>
 @end lilypond
 
-Formatting rules are also preset variables: each object has
-variables containing procedures.  These procedures perform the
-actual formatting, and by substituting different ones, we can
-change the appearance of objects.  In the following example, the
-rule governing which note head objects are used to produce the
-note head symbol is changed during the music fragment.
+Las reglas de formateado también son variables preestablecidas: cada
+objeto tiene variables que contienen procedimientos.  Estos
+procedimientos realizan el formateo propiamente dicho, y mediante la
+sustitución de unos u otros, podemos modificar el aspecto de los
+objetos.  En el ejemplo siguiente, la regla que gobierna qué objetos
+de cabeza se utilizan para producir el símbolo de la cabeza, se cambia
+a lo largo del fragmento musical.
 
 @lilypond[quote,ragged-right]
 #(set-global-staff-size 30)
@@ -1129,36 +1142,39 @@ note head symbol is changed during the music fragment.
 @unnumberedsec ¿Qué símbolos grabar?
 @translationof What symbols to engrave?
 
-@cindex engraving
-@cindex typography
-@cindex engraver
-@cindex plug-in
+@cindex grabado
+@cindex tipografía
+@cindex grabador
+@cindex plug-in o complemento
+@cindex complemento o plug-in
 
-The formatting process decides where to place symbols.  However,
-this can only be done once it is decided @emph{what} symbols
-should be printed -- in other words, what notation to use.
+El proceso de formateo decide dónde colocar los símbolos.  Sin
+embargo, esto sólo puede hacerse una vez que se ha decidido @emph{qué}
+símbolos se deben imprimir: en otras palabras, qué notación utilizar.
 
-Common music notation is a system of recording music that has
-evolved over the past 1000 years.  The form that is now in common
-use dates from the early Renaissance.  Although the basic form
-(i.e., note heads on a 5-line staff) has not changed, the details
-still evolve to express the innovations of contemporary notation.
-Hence, common music notation encompasses some 500 years of music.
-Its applications range from monophonic melodies to monstrous
-counterpoints for a large orchestra.
+La notación musical común es un sistema de registro de la música que
+ha evolucionado durante los últimos mil años.  La forma que es hoy día
+de uso común data del Renacimiento temprano.  Aunque la forma básica
+(es decir, puntos sobre una pauta de cino líneas) no ha cambiado, los
+detalles aún evolucionan para expresar las innovaciones de la notación
+contemporánea.  De aquí que la notación musical común abarque unos
+quinientos años de música.  El ámbito de sus aplicaciones comprende
+desde melodías monofónicas hasta monstruosos contrapuntos para gran
+orquesta.
 
-How can we get a grip on such a seven-headed beast, and force it
-into the confines of a computer program?  Our solution is to break
-up the problem of notation (as opposed to engraving, i.e.,
-typography) into digestible and programmable chunks: every type of
-symbol is handled by a separate module, a so-called plug-in.  Each
-plug-in is completely modular and independent, so each can be
-developed and improved separately.  Such plug-ins are called
-@code{engraver}s, by analogy with craftsmen who translate musical
-ideas to graphic symbols.
+¿Cómo podemos ensillar a tal bestia de siete cabezas, y forzarla
+dentro de los confines de un programa de ordenador?  Nuestra solución
+es escindir el problema de la notación (en oposición al grabado, es
+decir, a la tipografía) en fragmentos fácilmente digeribles y
+programables: cada tipo de símbolo se maneja por parte de un módulo
+separado conocido como plug-in.  Cada plug-in es completamente modular
+e independiente, de manera que cada uno se puede desarrollar y mejorar
+por separado Estos plugines reciben el nombre de @code{engraver}s o
+@qq{grabadores}, por analogía con los artesanos que traducían las
+ideas musicales en símbolos gráficos.
 
-In the following example, we start out with a plug-in for note
-heads, the @code{Note_heads_engraver}.
+En el ejemplo siguiente, comenzamos con un plug-in para la cabeza de
+las notas, el grabador @code{Note_heads_engraver}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -1190,7 +1206,8 @@ heads, the @code{Note_heads_engraver}.
 @end lilypond
 
 @noindent
-Then a @code{Staff_symbol_engraver} adds the staff,
+A continuación, un grabador del pentagrama, el
+@code{Staff_symbol_engraver}, añade la pauta:
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -1221,7 +1238,8 @@ Then a @code{Staff_symbol_engraver} adds the staff,
 @end lilypond
 
 @noindent
-the @code{Clef_engraver} defines a reference point for the staff,
+el grabador de la clave o @code{Clef_engraver} define un punto de
+referencia para el pentagrama:
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -1250,7 +1268,7 @@ the @code{Clef_engraver} defines a reference point for the staff,
 @end lilypond
 
 @noindent
-and the @code{Stem_engraver} adds stems.
+y el grabador de las plicas @code{Stem_engraver} añade las plicas.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -1278,42 +1296,48 @@ and the @code{Stem_engraver} adds stems.
 @end lilypond
 
 @noindent
-The @code{Stem_engraver} is notified of any note head coming
-along.  Every time one (or more, for a chord) note head is seen, a
-stem object is created and connected to the note head.  By adding
-engravers for beams, slurs, accents, accidentals, bar lines, time
-signature, and key signature, we get a complete piece of notation.
+El grabador @code{Stem_engraver} que traza las plicas recibe una
+notificación por cada nota que le llega.  Cada vez que se ve la cabeza
+de una nota (o más, en el caso de un acorde), se crea un objeto plica
+y se conecta a la cabeza.  Añadiendo grabadores para las barras,
+ligaduras, acentos, alteraciones, líneas divisorias, la indicación de
+compás y la armadura, obtenemos un fragmento de notación musical
+completo.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
 \score { \topVoice }
 @end lilypond
 
-@cindex polyphony
-@cindex engraving multiple voices
-@cindex contexts
+@cindex polifonía
+@cindex grabado de varias voces
+@cindex contextos
 
-This system works well for monophonic music, but what about
-polyphony?  In polyphonic notation, many voices can share a staff.
+Este sistema funciona bien para la música a una voz, pero ¿qué tal
+para la polifnoía? En la notación polifónica, muchas voces pueden
+llegar a compartir el mismo pentagrama.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
 \new Staff << \topVoice \\ \botVoice >>
 @end lilypond
 
-In this situation, the accidentals and staff are shared, but the
-stems, slurs, beams, etc., are private to each voice.  Hence,
-engravers should be grouped.  The engravers for note heads, stems,
-slurs, etc., go into a group called @q{Voice context,} while the
-engravers for key, accidental, bar, etc., go into a group called
-@q{Staff context.}  In the case of polyphony, a single Staff
-context contains more than one Voice context.  Similarly, multiple
-Staff contexts can be put into a single Score context.  The Score
-context is the top level notation context.
+En esta situación, las alteraciones accidentales y la pauta se
+comparten, pero las plicas, ligaduras, barras, etc., son privadas para
+cada voz.  De aquí que los graabdores deban estar agrupados.  Los
+grabadores de la cabeza de las notas, plicas, ligaduras, etc., van a
+un grupo llamado @q{contexto de voz}, mientras que los grabadores de
+la armadura, las alteraciones, los compases, etc., van a un grupo
+llamado @q{contexto de pauta}.  En el caso de la polifonía, un solo
+contexto de pauta contiene más de un contexto de voz.  De forma
+similar, varios contextos de pentagrama se pueden reunir dentro de un
+único contexto de partitura.  El contexto de partitura es el contexto
+de notación del nivel más alto que hay.
 
 
 @seealso
-Internals Reference: @rinternals{Contexts}.
+Referencia de funcionamiento interno:
+@rinternals{Contexts}.
 
 
 @lilypond[quote,ragged-right]
@@ -1331,21 +1355,22 @@ Internals Reference: @rinternals{Contexts}.
 @unnumberedsec Representación musical
 @translationof Music representation
 
-@cindex syntax
-@cindex recursive structures
+@cindex sintaxis
+@cindex recursivas, estructuras
 
-Ideally, the input format for any high-level formatting system is
-an abstract description of the content.  In this case, that would
-be the music itself.  This poses a formidable problem: how can we
-define what music really is? Instead of trying to find an answer,
-we have reversed the question.  We write a program capable of
-producing sheet music, and adjust the format to be as lean as
-possible.  When the format can no longer be trimmed down, by
-definition we are left with content itself.  Our program serves as
-a formal definition of a music document.
+Idealmente, el formato de entrada de cualquier sistema de formateado
+de alto nivel es una descripción abstracta del contenido.  En este
+caso, eso sería la propia música.  Ello presenta un enorme problema:
+¿cómo podemos definir qué es la música realmente?  En lugar de buscar
+una respuesta, le hemos dado la vuelta a la pregunta.  Escribimos un
+programa capaz de producir música impresa, y luego ajustamos el
+formato de forma que sea lo más escueto posible.  Cuando el formato ya
+no se puede recortar más, por definición nos estamos quedando con el
+propio contenido.  Nuestro programa sirve como una definición formal
+de un documentso musical.
 
-The syntax is also the user-interface for LilyPond, hence it is
-easy to type:
+La sinataxis es también el interfaz de usuario de LilyPond, de aquí
+que sea tan fácil teclear:
 
 @example
 @{
@@ -1354,8 +1379,8 @@ easy to type:
 @end example
 
 @noindent
-to create a quarter note on middle C (C1) and an eighth note on
-the D above middle C (D1).
+para creat un Do central negra (Do 4) y un Re por encima del Do
+central, corchea (Re 4).
 
 @lilypond[quote]
 {
@@ -1363,20 +1388,20 @@ the D above middle C (D1).
 }
 @end lilypond
 
-On a microscopic scale, such syntax is easy to use.  On a larger
-scale, syntax also needs structure.  How else can you enter
-complex pieces like symphonies and operas?  The structure is
-formed by the concept of music expressions: by combining small
-fragments of music into larger ones, more complex music can be
-expressed.  For example
+A una escala microscópica, esta sintaxis es fácil de usar.  A una
+escala mayor, la sintaxis necesita también una estructura.  ¿De qué
+otra forma podríamos introducir piezas complejas como sinfonías u
+óperas?  La estructura se forma por medio del concepto de expresiones
+musicales: combinando pequeños fragmentos de música dentro de otros
+más grandes, se puede expresar una música más compleja.  Por ejemplo:
 
 @lilypond[quote,verbatim,fragment,relative=1]
 f4
 @end lilypond
 
 @noindent
-Simultaneous notes can be constructed by enclosing them with
-@code{<<} and @code{>>}:
+Las notas simultáneas se pueden construir encerrándolas dentro de
+@code{<<} y @code{>>}:
 
 @example
 <<c4 d4 e4>>
@@ -1387,7 +1412,7 @@ Simultaneous notes can be constructed by enclosing them with
 @end lilypond
 
 @noindent
-This expression is put in sequence by enclosing it in curly braces
+La expresión se pone en secuencia encerrándola dentro de llaves
 @code{@{@tie{}@dots{}@tie{}@}}:
 
 @example
@@ -1399,9 +1424,9 @@ This expression is put in sequence by enclosing it in curly braces
 @end lilypond
 
 @noindent
-The above is also an expression, and so it may be combined again
-with another simultaneous expression (a half note) using
-@code{<<}, @code{\\}, and @code{>>}:
+Esto es también una expresión, y así se puede combinar de nuevo con
+otra expresión simultánea (una blanca) utilizando @code{<<}, @code{\\}
+y @code{>>}:
 
 @example
 << g2 \\ @{ f4 <<c4 d4 e4>> @} >>
@@ -1411,33 +1436,36 @@ with another simultaneous expression (a half note) using
 \new Voice { << g2 \\ { f4 <<c d e>> } >> }
 @end lilypond
 
-Such recursive structures can be specified neatly and formally in
-a context-free grammar.  The parsing code is also generated from
-this grammar.  In other words, the syntax of LilyPond is clearly
-and unambiguously defined.
+Tales estructuras recursivas se pueden especificar limpia y
+formalmente dentro de una grmática independiente del contexto.  El
+código del analizador sintáctico también se genera a partir de esta
+gramática.  Dicho de otra forma, la sintaxis de LilyPond está definida
+claramente y sin ambigüedades.
 
-User-interfaces and syntax are what people see and deal with most.
-They are partly a matter of taste, and also the subject of much
-discussion.  Although discussions on taste do have their merit,
-they are not very productive.  In the larger picture of LilyPond,
-the importance of input syntax is small: inventing neat syntax is
-easy, while writing decent formatting code is much harder.  This
-is also illustrated by the line-counts for the respective
-components: parsing and representation take up less than 10% of
-the source code.
+Los interfaces de usuario y la sintaxis son aquello que la gente ve y
+con lo que trata más frecuentemente.  Son, en parte, cuestión de
+gusto, y también objeto de mucha discusión.  Aunque las discusiones
+sobre el gusto tienen su mérito, no son muy productivas.  Bajo el
+punto de vista más amplio de LilyPond, la importancia de la sintaxis
+de la entrada es pequeña: inventarse una sintaxis limpia es fácil,
+pero escribir un código de formatead que sea decente es mucho más
+difícil.  Esto queda ilustrado por la cantidad de líneas que están
+dedicadas a los componentes respectivos: el análisis sintáctico y la
+representación se llevan menos del 10% del código fuente.
 
 
 @node Aplicaciones de ejemplo
 @unnumberedsec Aplicaciones de ejemplo
 @translationof Example applications
 
-@cindex simple examples
-@cindex examples, simple
+@cindex simple, ejemplos
+@cindex ejemplos simples
 
-We have written LilyPond as an experiment of how to condense the
-art of music engraving into a computer program.  Thanks to all
-that hard work, the program can now be used to perform useful
-tasks.  The simplest application is printing notes.
+Escribimos LilyPond como un experimento sobre cómo condensar el arte
+del grabado musical dentro de un programa de ordenador.  Gracias a
+todo ese duro trabajo, ahora el programa se puede utilizar para que
+realice muchas tareas útiles.  La aplicación más simple es la
+impresión de notas.
 
 @lilypond[quote,relative=1]
 {
@@ -1447,7 +1475,8 @@ tasks.  The simplest application is printing notes.
 @end lilypond
 
 @noindent
-By adding chord names and lyrics we obtain a lead sheet.
+Añadiendo nombres de acorde y la letra de la canción obtenemos una
+hoja guía de acordes.
 
 @lilypond[quote,ragged-right]
 <<
@@ -1461,8 +1490,8 @@ By adding chord names and lyrics we obtain a lead sheet.
 >>
 @end lilypond
 
-Polyphonic notation and piano music can also be printed.  The
-following example combines some more exotic constructs.
+También puede imprimirse notación polifónica y música para piano.  El
+ejemplo siguiente combina unas pocas construcciones algo más exóticas.
 
 @lilypond[quote]
 \header {
@@ -1535,31 +1564,34 @@ following example combines some more exotic constructs.
 }
 @end lilypond
 
-The fragments shown above have all been written by hand, but that
-is not a requirement.  Since the formatting engine is mostly
-automatic, it can serve as an output means for other programs that
-manipulate music.  For example, it can also be used to convert
-databases of musical fragments to images for use on websites and
-multimedia presentations.
+Los fragmentos que se muestran arriba se han escrito a mano, pero esto
+no es obligatorio.  Puesto que el motor de formateado es casi
+totalmente automático, puede servir como un medio de salida para otros
+programas que manipulan música.  Por ejemplo, también se puede usar
+para convertir bases de datos de fragmentos musicales en imágenes
+orientadas a su utilización en páginas web y presentaciones
+multimedia.
 
-This manual also shows an application: the input format is text,
-and can therefore be easily embedded in other text-based formats
-such as @LaTeX{}, HTML, or in the case of this manual, Texinfo.
-By means of a special program, the input fragments can be replaced
-by music images in the resulting PDF or HTML output files.  This
-makes it easy to mix music and text in documents.
+Este manual muestra también una aplicación: el formato de entrada es
+texto, y puede ser por tanto fácilmente empotrado dentro de otros
+formatos basados en texto como @LaTeX{}, HTML, o en el caso de este
+manual, Texinfo.  Por medio de un programa especial, los fragmentos de
+entrada se pueden reemplazar por imágenes de la música en los archivos
+de salida PDF o HTML resultantes.  De esta forma se hace fácil la
+mezcla de música y texto dentro de los documentos.
 
 
-TODO: add extra chapter for computer aesthetics?
+@c TODO: add extra chapter for computer aesthetics?
 
 @page
 @node Apéndice
 @unnumberedsec Apéndice
 @translationof Appendix
 
-This appendix contains four reference engravings and two
-software-engraved versions of Bach's Fugue in G minor from the
-Well-Tempered Clavier, Book I, BWV 861 (the last seven measures).
+Eeste apéndice contiene cuatro grabados musicales de referencia y dos
+versiones grabadas por ordenador de la fuga en Sol menor del libro I
+del Clave Bien Temperado, BWV 861, de Bach (los últimos siete
+compases).
 
 @noindent
 Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
@@ -1574,9 +1606,9 @@ Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
 
 @noindent
 Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
-1989), an alternate musical source.  Aside from the textual differences,
-this demonstrates slight variations in the engraving decisions, even
-from the same publisher and edition:
+1989), una fuente musical alternativa.  Aparte de las diferencias
+textuales, esto presenta ligeras variaciones en las decisiones de
+grabado, incluso de la misma editorial y edición:
 
 @iftex
 @sourceimage{bwv861-baer-alt,16cm,,}
@@ -1586,10 +1618,11 @@ from the same publisher and edition:
 @end ifnottex
 
 @noindent
-Breitkopf & Härtel, edited by Ferruccio Busoni (Wiesbaden, 1894), also
-available from the Petrucci Music Library (IMSLP #22081).  The editorial
-markings (fingerings, articulations, etc.) have been removed for clearer
-comparison with the other editions here:
+Breitkopf & Härtel, editado por Ferruccio Busoni (Wiesbaden, 1894),
+disponible también a través de la Biblioteca Musical Petrucci (IMSLP
+#22081).  Las indicaciones editoriales (digitaciones, articulaciones,
+etc.)  se han suprimido para una comparación más clara con las otras
+ediciones que presentamos aquí:
 
 @iftex
 @sourceimage{bwv861-breitkopf,16cm,,}
@@ -1599,8 +1632,8 @@ comparison with the other editions here:
 @end ifnottex
 
 @noindent
-Bach-Gesellschaft edition (Leipzig, 1866), available from the Petrucci
-Music Library (IMSPL #02221):
+Edición Bach-Gesellschaft (Leipzig, 1866), disponible a través de la
+Biblioteca Musical Petrucci (IMSPL #02221):
 
 @iftex
 @sourceimage{bwv861-gessellschaft,16cm,,}
@@ -1621,7 +1654,7 @@ Finale 2008:
 
 @sp 4
 @noindent
-LilyPond, version @version{}:
+LilyPond, versión @version{}:
 
 @lilypond[staffsize=14.3,line-width=15.9\cm]
 global = {\key g \minor}
