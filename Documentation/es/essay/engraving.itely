@@ -27,7 +27,7 @@ LilyPond.
 
 @menu
 * Historia de LilyPond::
-* Detalles acerca del grabado::
+* Detalles del grabado::
 * Grabado automatizado::
 * ¿Qué símbolos grabar?::
 * Representación musical::
@@ -41,7 +41,7 @@ LilyPond.
 
 Antes de que LilyPond tuviera una comunidad de usuarios a lo largo y
 ancho del mundo, antes de que se hubiera utilizado para producir
-apuntes de dursos universitarios o partituras de estrenos mundiales de
+apuntes de cursos universitarios o partituras de estrenos mundiales de
 óperas, antes de que existiera un ensayo sobre grabado musical o
 cualquier código de programa o incluso algún equipo organizado de
 desarrolladores, LilyPond comenzó con esta pregunta:
@@ -90,7 +90,7 @@ edición más reciente parece fría y mecánica.
 
 Es un poco difícil apreciar inmediatamente en qué consiste la
 diferencia entra las ediciones antigua y nueva.  En ésta todo parece
-pulcro y detallista, posiblemente incluso ``mejor'' a causa de su
+pulcro y detallista, posiblemente incluso @qq{mejor} a causa de su
 aspecto computerizado y uniforme.  De hecho, esto nos tuvo confundidos
 durante un cierto tiempo.  Queríamos mejorar la notación por
 ordenador, pero en primer lugar teníamos que averiguar qué era lo que
@@ -162,7 +162,7 @@ Henle núm. 666, @copyright{}2000:
 
 El arte de la tipografía musical recibe el nombre de @emph{grabado (en
 plancha)}, un término que deriva del proceso manual de la impresión
-musical@footnote{Los impresores europeos de la antigüedad exporaron
+musical@footnote{Los impresores europeos de la antigüedad exploraron
 diversos procesos, entre los que se incluían los bloques de madera
 tallados a mano, los tipos móviles y planchas finas de metal grabadas.
 La composición tipográfica tenía la ventaja de poderse corregir más
@@ -181,7 +181,7 @@ papel contra la plancha.  El cortado y estampado se hacía
 completamente a mano y era muy fastidioso hacer una corrección, por lo
 que el grabado había de ser casi perfecto a la primera.  El grabado
 era una habilidad fuertemente especializada; un artesano tenía que
-cursar unos cinco años de entrenamientoo antes de poder obtener el
+cursar unos cinco años de entrenamiento antes de poder obtener el
 título de maestro grabador, y se necesitaban otros cinco años para
 adquirir una verdadera habilidad en el oficio.
 
@@ -227,7 +227,7 @@ derecha representa un símbolo procedente de una edición de la misma
 música, publicada en el año 2000.  Aunque las dos imágenes están
 impresas en el mismo tono de tinta, la versión antigua parece más
 oscura: las líneas del pentagrama son más gruesas, y el bemol de
-Bärenreiter tiene una apariencia pesada y redonda, casi voluptiosa.
+Bärenreiter tiene una apariencia pesada y redonda, casi voluptuosa.
 La imagen escaneada de la derecha, en cambio, tiene líneas más finas y
 una disposición simple con esquinas afiladas.
 
@@ -270,7 +270,7 @@ Henle (2000)
 @cindex equilibrio
 
 Cuando quisimos escribir un programa de ordenador para crear
-tipografía musical, no existína fuentes tipográficas musicales que
+tipografía musical, no existían fuentes tipográficas musicales que
 estuviesen libremente disponibles y que igualaran la elegancia de
 nuestras partituras favoritas. Sin desanimarnos, creamos una fuente de
 símbolos musicales, apoyándonos en música grabada a mano muy bien
@@ -279,7 +279,7 @@ y nos hizo apreciar los sutiles detalles del diseño.  Sin esa
 experiencia, no nos habríamos dado cuenta de lo feas que eran las
 fuentes que en un principio habíamos admirado.
 
-A continuación podemos ver uan muestra de dos fuentes tipográficas de
+A continuación podemos ver una muestra de dos fuentes tipográficas de
 música: el conjunto de arriba es la fuente predeterminada del programa
 Sibelius (la fuente @emph{Opus}), y el conjunto inferior es nuestra
 propia fuente de LilyPond.
@@ -492,7 +492,7 @@ de pentagrama de 26:
 @noindent
 y éste es el mismo fragmento a un tamaño de 11, aumentado
 posteriormente en un 236% para que se imprima al mismo tamaño que el
-ejemplo atnerior:
+ejemplo anterior:
 
 @quotation
 @iftex
@@ -581,7 +581,7 @@ del espacio vacío permite que la música se pueda disponer de forma muy
 apretada sin aglomerar los símbolos entre sí.  El resultado reduce a
 un mínimo el número de saltos de página, lo que es una gran ventaja.
 
-Ésta es una característica común de la tipgorafía.  La disposición
+Ésta es una característica común de la tipografía.  La disposición
 sobre la página debe ser bonita, no sólo por sí misma, sino
 especialmente porque ayuda al lector en su cometido.  Para las
 partituras musicales esto es de doble importancia porque los músicos
@@ -642,7 +642,7 @@ de las tres configuraciones elegiríamos para la siguiente ligadura?
 
 Están a nuestra disposición unos cuantos libros sobre el arte del
 grabado musical.  Desgraciadamente, contienen unas sencillas reglas
-prácticas y unos pocos ejemmplos.  Dichas reglas pueden ser
+prácticas y unos pocos ejemplos.  Dichas reglas pueden ser
 instructivas, pero están muy lejos de constituir un algoritmo
 preparado para poderlo implementar dentro de un programa.  Siguiendo
 las instrucciones de esta literatura nos lleva a algoritmos con gran
@@ -696,7 +696,7 @@ de fealdad:
 @end lilypond
 
 La ligadura final obtiene 10.04 puntos por el salto de la derecha y 2
-puntos por la inclinación hacia arriba, pero es la más actractiva de
+puntos por la inclinación hacia arriba, pero es la más atractiva de
 las tres configuraciones, así que LilyPond selecciona ésta:
 
 @lilypond
@@ -709,14 +709,14 @@ las tres configuraciones, así que LilyPond selecciona ésta:
 Esta técnica es bastante general, y se utiliza para tomar decisiones
 óptimas para la configuración de las barras, ligaduras y puntillos de
 los acordes, saltos de línea y saltos de página.  El resultado de
-estas decisiones se puede juzgar por conparación con grabados reales.
+estas decisiones se puede juzgar por comparación con grabados reales.
 
 @node Mejoras por medio de pruebas
 @unnumberedsubsec Mejoras por medio de pruebas
 @translationof Improvement by benchmarking
 
 La salida de LilyPond ha mejorado paulatinamente con el tiempo, y
-continúa mejorando mediante su comparación con poartituras grabadas a
+continúa mejorando mediante su comparación con partituras grabadas a
 mano.
 
 Por ejemplo, he aquí una línea de una pieza utilizada como banco de
@@ -817,7 +817,7 @@ principal competidor y parece tener especial presencia en el mercado
 europeo.
 
 Para nuestra comparación elegimos la fuga en Sol menor del Clave bien
-temperado de Bach, libro I, BWV 861, cuyo sujeto incial es
+temperado de Bach, libro I, BWV 861, cuyo sujeto inicial es
 
 @lilypond
 \relative c' {
@@ -907,12 +907,12 @@ partIV = \relative c {
 }
 @end lilypond
 
-Entre algunos de los puntos negativos de la salida si retocar de
+Entre algunos de los puntos negativos de la salida sin retocar de
 Finale se encuentran los siguientes:
 @itemize @bullet
 @item Casi todas las barras se salen demasiado del pentagrama.
 Una barra que apunta hacia el centro del pentagrama debe tener una
-longitud de una cotava aproximadamente, pero los grabadores acortan
+longitud de una octava aproximadamente, pero los grabadores acortan
 esta longitud cuando la barra apunta hacia fuera de la pauta en música
 de varias voces.  El barrado de Finale se puede mejorar fácilmente con
 el complemento de barras de Patterson, pero hemos decidido saltarnos
@@ -921,6 +921,7 @@ ese paso para este ejemplo.
 lo que hace a la música extremadamente difícil de leer cuando las
 voces superior e inferior intercambian temporalmente sus posiciones:
 
+@c KEEP LY
 @lilypond
 collide = \once \override NoteColumn #'force-hshift = #0
 \new Score <<
@@ -931,7 +932,7 @@ collide = \once \override NoteColumn #'force-hshift = #0
       \new Voice {\voiceTwo bes \collide bes}
     >>
   }
-  \new Lyrics \lyricsto "sample" \lyricmode { "good " " bad" }
+  \new Lyrics \lyricsto "sample" \lyricmode { "bien " " mal" }
 >>
 @end lilypond
 
@@ -956,7 +957,7 @@ otros paquetes pretenden ofrecer un interfaz atractivo en el que hacer
 este tipo de ediciones.
 
 Una omisión particularmente flagrante que hemos encontrado en la
-muestra de FInale es un bemol en el compás 33:
+muestra de Finale es un bemol en el compás 33:
 
 @quotation
 @iftex
@@ -971,7 +972,7 @@ muestra de FInale es un bemol en el compás 33:
 El símbolo del bemol es necesario para cancelar el becuadro que está
 en el mismo compás, pero Finale lo omite porque aparece en una voz
 distinta.  El usuario no debe recordar solamente ejecutar un
-complemento o plugín de barrado yre-espaciar las cabezas y los
+complemento o plug-in de barrado y re-espaciar las cabezas y los
 silencios, también tiene que comprobar la coherencia de las
 alteraciones entre las voces si pretende evitar la interrupción de un
 ensayo a causa de un error en la edición de la partitura.
@@ -1155,7 +1156,7 @@ símbolos se deben imprimir: en otras palabras, qué notación utilizar.
 La notación musical común es un sistema de registro de la música que
 ha evolucionado durante los últimos mil años.  La forma que es hoy día
 de uso común data del Renacimiento temprano.  Aunque la forma básica
-(es decir, puntos sobre una pauta de cino líneas) no ha cambiado, los
+(es decir, puntos sobre una pauta de cinco líneas) no ha cambiado, los
 detalles aún evolucionan para expresar las innovaciones de la notación
 contemporánea.  De aquí que la notación musical común abarque unos
 quinientos años de música.  El ámbito de sus aplicaciones comprende
@@ -1314,7 +1315,7 @@ completo.
 @cindex contextos
 
 Este sistema funciona bien para la música a una voz, pero ¿qué tal
-para la polifnoía? En la notación polifónica, muchas voces pueden
+para la polifonía? En la notación polifónica, muchas voces pueden
 llegar a compartir el mismo pentagrama.
 
 @lilypond[quote,ragged-right]
@@ -1324,7 +1325,7 @@ llegar a compartir el mismo pentagrama.
 
 En esta situación, las alteraciones accidentales y la pauta se
 comparten, pero las plicas, ligaduras, barras, etc., son privadas para
-cada voz.  De aquí que los graabdores deban estar agrupados.  Los
+cada voz.  De aquí que los grabadores deban estar agrupados.  Los
 grabadores de la cabeza de las notas, plicas, ligaduras, etc., van a
 un grupo llamado @q{contexto de voz}, mientras que los grabadores de
 la armadura, las alteraciones, los compases, etc., van a un grupo
@@ -1367,9 +1368,9 @@ programa capaz de producir música impresa, y luego ajustamos el
 formato de forma que sea lo más escueto posible.  Cuando el formato ya
 no se puede recortar más, por definición nos estamos quedando con el
 propio contenido.  Nuestro programa sirve como una definición formal
-de un documentso musical.
+de un documento musical.
 
-La sinataxis es también el interfaz de usuario de LilyPond, de aquí
+La sintaxis es también el interfaz de usuario de LilyPond, de aquí
 que sea tan fácil teclear:
 
 @example
@@ -1379,7 +1380,7 @@ que sea tan fácil teclear:
 @end example
 
 @noindent
-para creat un Do central negra (Do 4) y un Re por encima del Do
+para crear un Do central negra (Do 4) y un Re por encima del Do
 central, corchea (Re 4).
 
 @lilypond[quote]
@@ -1437,7 +1438,7 @@ y @code{>>}:
 @end lilypond
 
 Tales estructuras recursivas se pueden especificar limpia y
-formalmente dentro de una grmática independiente del contexto.  El
+formalmente dentro de una gramática independiente del contexto.  El
 código del analizador sintáctico también se genera a partir de esta
 gramática.  Dicho de otra forma, la sintaxis de LilyPond está definida
 claramente y sin ambigüedades.
@@ -1588,7 +1589,7 @@ mezcla de música y texto dentro de los documentos.
 @unnumberedsec Apéndice
 @translationof Appendix
 
-Eeste apéndice contiene cuatro grabados musicales de referencia y dos
+Este apéndice contiene cuatro grabados musicales de referencia y dos
 versiones grabadas por ordenador de la fuga en Sol menor del libro I
 del Clave Bien Temperado, BWV 861, de Bach (los últimos siete
 compases).
