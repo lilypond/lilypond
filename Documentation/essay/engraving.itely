@@ -84,7 +84,7 @@ and movement, and it feels like a living, breathing piece of music,
 while the newer edition seems cold and mechanical.
 
 It is kind of hard to immediately see what makes the difference with the
-newer edition.  Everything looks neat and tiny, possibly even ``better''
+newer edition.  Everything looks neat and tiny, possibly even @qq{better}
 because it looks more computerized and uniform.  This really puzzled us
 for quite a while.  We wanted to improve computer notation, but we first
 had to figure out what was wrong with it.
@@ -619,7 +619,7 @@ for each possible configuration we compute an ugliness score and we
 choose the least ugly configuration.
 
 For example, here are three possible slur configurations, and LilyPond
-has given each one a score in `ugly points'.  The first example gets 15.39
+has given each one a score in @q{ugly points}.  The first example gets 15.39
 points for grazing one of the notes:
 
 @lilypond
@@ -1240,9 +1240,9 @@ polyphony?  In polyphonic notation, many voices can share a staff.
 In this situation, the accidentals and staff are shared, but the
 stems, slurs, beams, etc., are private to each voice.  Hence,
 engravers should be grouped.  The engravers for note heads, stems,
-slurs, etc., go into a group called @q{Voice context,} while the
+slurs, etc., go into a group called @q{Voice context}, while the
 engravers for key, accidental, bar, etc., go into a group called
-@q{Staff context.}  In the case of polyphony, a single Staff
+@q{Staff context}.  In the case of polyphony, a single Staff
 context contains more than one Voice context.  Similarly, multiple
 Staff contexts can be put into a single Score context.  The Score
 context is the top level notation context.
