@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+    Translation of GIT committish: cc87a18271e3c4596510618a161892ab2ee3604c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,10 +9,11 @@
 
 @c \version "2.13.4"
 
-@node Music engraving
-@chapter Music engraving
+@node Grabado musical
+@chapter Grabado musical
+@translationof Music engraving
 
-This section covers the overall goals and architecture of
+Esta sección describe las metas generales y la arquitectura de
 LilyPond.
 
 @c TODO:
@@ -25,39 +26,42 @@ LilyPond.
 @c Incorrect beaming in the Sarabande is a known bug.
 
 @menu
-* The LilyPond story::          
-* Engraving details::           
-* Automated engraving::         
-* What symbols to engrave?::    
-* Music representation::        
-* Example applications::        
-* Appendix::                    
+* Historia de LilyPond::
+* Detalles acerca del grabado::
+* Grabado automatizado::
+* ¿Qué símbolos grabar?::
+* Representación musical::
+* Aplicaciones de ejemplo::
+* Apéndice::
 @end menu
 
-@node The LilyPond story
-@unnumberedsec The LilyPond story
+@node Historia de LilyPond
+@unnumberedsec Historia de LilyPond
+@translationof The LilyPond story
 
-Before LilyPond had a community of users around the world, before it had
-been used to produce university course notes or world-premier opera
-performance scores, before there was an essay on music engraving or any
-computer code or even an organized team of developers, LilyPond began
-with a question:
+Antes de que LilyPond tuviera una comunidad de usuarios a lo largo y
+ancho del mundo, antes de que se hubiera utilizado para producir
+apuntes de dursos universitarios o partituras de estrenos mundiales de
+óperas, antes de que existiera un ensayo sobre grabado musical o
+cualquier código de programa o incluso algún equipo organizado de
+desarrolladores, LilyPond comenzó con esta pregunta:
 
 @quotation
-Why does most computer output fail to achieve the beauty and balance of
-a hand-engraved score?
+¿Por qué casi ninguna de las partituras hechas con ordenador consigue
+la belleza y el equilibrio de una partitura grabada a mano?
 @end quotation
 
 @noindent
-Some of the answers can be found by examining the two scores
+Algunas de las respuestas pueden descubrirse examinando cuidadosamente
+las dos partituras que aparecen
 @ifnottex
-below.
+debajo.
 @end ifnottex
 @iftex
-on the following pages.
+en las siguientes páginas.
 @end iftex
-The first score is a beautiful hand-engraved score from 1950 and the
-second is a modern, computer-engraved edition.
+La primera es una hermosa partitura grabada a mano en 1950 y la
+segunda es una edición moderna hecha con ordenador.
 
 @ifnottex
 @noindent
@@ -66,36 +70,40 @@ Bärenreiter BA 320, @copyright{}1950:
 @sourceimage{baer-suite1-fullpage,,,png}
 
 @noindent
-Henle no. 666, @copyright{}2000:
+Henle núm. 666, @copyright{}2000:
 
 @sourceimage{henle-suite1-fullpage,,,png}
 @end ifnottex
 
-The notes here are identical, taken from Bach's first Suite for solo
-cello, but the appearance is different, especially if you print them out
-and view them from a distance.
+Aquí, las notas son idénticas, y proceden de la primera suite para
+violoncello solo de Bach, pero el aspecto es distinto, sobre todo si
+las imprimimos en papel y las observamos desde una cierta distancia.
 @ifnottex
-(The PDF version of this manual has high-resolution images suitable for
-printing.)
+(La versión del presente manual en PDF contiene imágenes de alta
+resolución, adecuadas para la impresión en papel.)
 @end ifnottex
-Try reading or playing from each of the scores and you will find that
-the hand-engraved score is more enjoyable to use.  It has flowing lines
-and movement, and it feels like a living, breathing piece of music,
-while the newer edition seems cold and mechanical.
+Trate de leer o tocar a partir de cada una de las partituras, y se
+dará cuenta de que la partitura grabada a mano es más agradable de
+utilizar.  Tiene unas líneas y un movimiento que parecen fluir, y se
+aprecia como un fragmento de música vivo y palpitante, mientras que la
+edición más reciente parece fría y mecánica.
 
-It is kind of hard to immediately see what makes the difference with the
-newer edition.  Everything looks neat and tiny, possibly even ``better''
-because it looks more computerized and uniform.  This really puzzled us
-for quite a while.  We wanted to improve computer notation, but we first
-had to figure out what was wrong with it.
+Es un poco difícil apreciar inmediatamente en qué consiste la
+diferencia entra las ediciones antigua y nueva.  En ésta todo parece
+pulcro y detallista, posiblemente incluso ``mejor'' a causa de su
+aspecto computerizado y uniforme.  De hecho, esto nos tuvo confundidos
+durante un cierto tiempo.  Queríamos mejorar la notación por
+ordenador, pero en primer lugar teníamos que averiguar qué era lo que
+fallaba.
 
-The answer lies in the precise, mathematical uniformity of the newer
-edition.  Find the bar line in the middle of each line: in the
-hand-engraved score the position of these bar lines has some natural
-natural variation, while in the newer version they line up almost
-perfectly.  This is shown in these simplified page layout diagrams,
-traced from the hand-engraved (left) and computer-generated music
-(right):
+La respuesta radica en la uniformidad precisa y matemática de la
+edición nueva.  Fíjese en la línea divisoria central de cada línea: en
+la partitura grabada a mano, la posición de estas líneas divisorias
+tiene una cierta variación natural, mientras que en la versión moderna
+estas líneas están alineadas de forma casi perfecta.  Lo podemos
+apreciar en estos diagramas simplificados de disposición de las
+páginas, trazados a partir de la música grabada a mano (a la
+izquierda) y la generada por ordenador (a la derecha):
 
 @quotation
 @iftex
@@ -107,23 +115,26 @@ traced from the hand-engraved (left) and computer-generated music
 @end quotation
 @noindent
 
-In the computer-generated output, even the individual note heads are
-aligned in vertical columns, making the contour of the melody disappear
-into a rigid grid of musical markings.
+En el resultado producido por el ordenador, incluso las cabezas de las
+notas individuales se alinean en columnas verticales, haciendo
+desaparecer el contorno de la melodía en una cuadrícula rígida de
+símbolos musicales.
 
-There are other differences as well: in the hand-engraved edition the
-vertical lines are all stronger, the slurs lie closer to the note heads,
-and there is more visual variety in the placement of the beams.  Although
-such details may seem like nitpicking, the result is a score that is
-easier to read.  In the computer-generated output, each line is nearly
-identical and if the musician looks away for a moment, she will be lost
-on the page.
+Existen también otras diferencias: en la edición grabada a mano todas
+las líneas verticales son más gruesas, las ligaduras quedan más cerca
+de la cabeza de las notas, y hay más variedad visual en la colocación
+de las barras de corchea.  Aunque dichos detalles pueden parecer
+minucias, el resultado es una partitura más fácil de leer.  En la
+partitura de ordenador, todas las líneas son casi idénticas y si el
+músico levanta la mirada por un momento, probablemente se pierda por
+la página.
 
-LilyPond was designed to solve the problems we found in existing
-software and to create beautiful music that mimics the finest
-hand-engraved scores.  Along the way, we have learned a great deal about
-the work that goes into a well-engraved score.  In this essay we describe
-several of those aspects that we have tried to imitate in LilyPond.
+LilyPond se diseñó para resolver los problemas que encontramos en el
+software existente y para crear notación musical bella que emulara a
+las mejores partituras trazadas a mano.  Al mismo tiempo, hemos
+aprendido una gran lección sobre el trabajo implícito en una partitura
+bien trazada.  En este ensayo vamos a describir algunos de esos
+aspectos que hemos tratado de imitar en LilyPond.
 
 @iftex
 @page
@@ -133,41 +144,46 @@ Bärenreiter BA 320, @copyright{}1950:
 @sourceimage{baer-suite1-fullpage,16cm,,}
 @page
 @noindent
-Henle no. 666, @copyright{}2000:
+Henle núm. 666, @copyright{}2000:
 @sp 3
 @sourceimage{henle-suite1-fullpage,16cm,,}
 @page
 @end iftex
 
-@node Engraving details
-@unnumberedsec Engraving details
+@node Detalles del grabado
+@unnumberedsec Detalles del grabado
+@translationof Engraving details
 
-@cindex engraving
-@cindex typography, music
-@cindex music typography
-@cindex plate engraving
-@cindex music engraving
+@cindex grabado
+@cindex tipografía musical
+@cindex musical, tipografía
+@cindex grabado en placas
+@cindex grabado musical
 
-The art of music typography is called @emph{(plate) engraving}, a term
-that derives from the manual process of music printing@footnote{Early
-European printers explored several processes, including hand-carved
-wooden blocks, movable type, and engraved sheets of thin metal.
-Typesetting had the advantage of being more easily corrected and
-facilitating the inclusion of text and lyrics, but only engraving
-offered the ability to do unimpeded layout and unanticipated notation.
-In the end, hand-engraved scores became the standard for all printed
-music, with the exception of some hymnals and songbooks where
-typesetting was justified by its ease and economy, even into the
-twentieth century.}.  Just a few decades ago, sheet music was made by
-cutting and stamping the music into a zinc or pewter plate in mirror
-image.  The plate would be inked, and the depressions caused by the
-cutting and stamping would hold ink.  An image was formed by pressing
-paper to the plate.  The stamping and cutting was done completely by hand
-and making a correction was cumbersome, so the engraving had to be
-nearly perfect in one go.  Engraving was a highly specialized skill; a
-craftsman had to complete around five years of training before earning
-the title of master engraver, and another five years of experience were
-necessary to become truly skilled.
+El arte de la tipografía musical recibe el nombre de @emph{grabado (en
+plancha)}, un término que deriva del proceso manual de la impresión
+musical@footnote{Los impresores europeos de la antigüedad exporaron
+diversos procesos, entre los que se incluían los bloques de madera
+tallados a mano, los tipos móviles y planchas finas de metal grabadas.
+La composición tipográfica tenía la ventaja de poderse corregir más
+fácilmente y facilitar la inclusión de textos y la letra de las
+canciones, pero sólo el grabado ofrecía la posibilidad de elaborar
+notación libre de compromisos y limitaciones anticipadas.  Al final,
+las partituras grabadas a mano se convirtieron en el estándar de toda
+la música impresa, con la excepción de algunos himnarios y cancioneros
+en los que la composición tipográfica estaba justificada por su
+comodidad y economía, incluso bien entrado el s.XX.}.  Hace tan sólo
+unas décadas, las partituras se hacían cortando y estampando la música
+en una plancha de zinc o estaño en imagen invertida como en un espejo.
+La plancha se entintaba, y las depresiones producidas por el grabado y
+el estampado retenían la tinta.  Se formaba una imagen presionando el
+papel contra la plancha.  El cortado y estampado se hacía
+completamente a mano y era muy fastidioso hacer una corrección, por lo
+que el grabado había de ser casi perfecto a la primera.  El grabado
+era una habilidad fuertemente especializada; un artesano tenía que
+cursar unos cinco años de entrenamientoo antes de poder obtener el
+título de maestro grabador, y se necesitaban otros cinco años para
+adquirir una verdadera habilidad en el oficio.
 
 @quotation
 @iftex
@@ -178,11 +194,11 @@ necessary to become truly skilled.
 @end ifnottex
 @end quotation
 
-LilyPond is inspired by traditional manual engravings published by
-European music publishers in and towards the end of the first half of
-the twentieth century, including Bärenreiter, Duhem, Durand,
-Hofmeister, Peters, and Schott.  This is sometimes regarded as the peak
-of traditional musical engraving practice.
+La inspiración de LilyPond proviene de los grabados manuales
+tradicionales publicados por los editores de música europeos de y
+hasta la primera mitad del s.XX, entre ellos Bärenreiter, Duhem,
+Durand, Hofmeister, Peters y Schott.  En ocasiones se consideran a
+éstos como la cima de la práctica del grabado musical tradicional.
 
 @c Now all newly printed music is produced with computers.  This has
 @c obvious advantages: prints are cheaper to make, editorial work can be
@@ -192,25 +208,28 @@ of traditional musical engraving practice.
 @c mechanical look, which makes them unpleasant to play from.
 
 @menu
-* Music fonts::                 
-* Optical spacing::             
-* Ledger lines::                
-* Optical sizing::              
-* Why work so hard?::           
+* Fuentes tipográficas de música::
+* Espaciado óptico::
+* Líneas adicionales::
+* Escalado óptico::
+* ¿Para qué tanto esfuerzo?::
 @end menu
 
-@node Music fonts
-@unnumberedsubsec Music fonts
+@node Fuentes tipográficas de música
+@unnumberedsubsec Fuentes tipográficas de música
+@translationof Music fonts
 
-The images below illustrate some differences between traditional
-engraving and typical computer output.  The left picture shows a scan of
-a flat symbol from a hand-engraved Bärenreiter edition, while the right
-picture depicts a symbol from an edition of the same music published in
-2000.  Although both images are printed in the same shade of ink, the
-earlier version looks darker: the staff lines are heavier, and the
-Bärenreiter flat has a bold, almost voluptuous rounded look.  The right
-scan, on the other hand, has thinner lines and a straight layout with
-sharp corners.
+Las imágenes de abajo ilustran algunas de las diferencias entre el
+grabado musical tradicional y la típica impresión por ordenador.  La
+imagen de la izquierda presenta un símbolo de bemol procedente de una
+edición Bärenreiter grabada a mano, mientras que la imagen de la
+derecha representa un símbolo procedente de una edición de la misma
+música, publicada en el año 2000.  Aunque las dos imágenes están
+impresas en el mismo tono de tinta, la versión antigua parece más
+oscura: las líneas del pentagrama son más gruesas, y el bemol de
+Bärenreiter tiene una apariencia pesada y redonda, casi voluptiosa.
+La imagen escaneada de la derecha, en cambio, tiene líneas más finas y
+una disposición simple con esquinas afiladas.
 
 @multitable @columnfractions .25 .25 .25 .25
 @item @tab
@@ -245,22 +264,25 @@ Henle (2000)
 
 @end multitable
 
-@cindex musical symbols
-@cindex font
-@cindex blackness
-@cindex balance
+@cindex símbolos musicales
+@cindex fuente tipográfica
+@cindex negrura
+@cindex equilibrio
 
-When we wanted to write a computer program to create music typography,
-there were no musical fonts freely available that could match the
-elegance of our favorite scores.  Undeterred, we created a font of
-musical symbols, relying on nice printouts of hand-engraved music.  The
-experience helped develop a typographical taste, and it made us
-appreciate subtle design details.  Without that experience, we would not
-have realized how ugly the fonts were that we admired at first.
+Cuando quisimos escribir un programa de ordenador para crear
+tipografía musical, no existína fuentes tipográficas musicales que
+estuviesen libremente disponibles y que igualaran la elegancia de
+nuestras partituras favoritas. Sin desanimarnos, creamos una fuente de
+símbolos musicales, apoyándonos en música grabada a mano muy bien
+impresa.  La experiencia nos ayudó a desarrollar un gusto tipográfico,
+y nos hizo apreciar los sutiles detalles del diseño.  Sin esa
+experiencia, no nos habríamos dado cuenta de lo feas que eran las
+fuentes que en un principio habíamos admirado.
 
-Below is a sample of two music fonts: the upper set is the default font
-in the Sibelius software (the @emph{Opus} font), and the lower set is
-our own LilyPond font.
+A continuación podemos ver uan muestra de dos fuentes tipográficas de
+música: el conjunto de arriba es la fuente predeterminada del programa
+Sibelius (la fuente @emph{Opus}), y el conjunto inferior es nuestra
+propia fuente de LilyPond.
 
 @quotation
 @iftex
@@ -271,32 +293,37 @@ our own LilyPond font.
 @end ifnottex
 @end quotation
 
-The LilyPond symbols are heavier and their weight is more consistent,
-which makes them easier to read.  Fine endings, such as the ones on the
-sides of the quarter rest, should not end in sharp points, but rather
-in rounded shapes.  This is because sharp corners of the punching dies
-are fragile and quickly wear out when stamping in metal.  Taken together,
-the blackness of the font must be carefully tuned together with the
-thickness of lines, beams and slurs to give a strong yet balanced
-overall impression.
+Los símbolos de LilyPond son más pesados y sus pesos son más
+consistentes, lo que los hace más fáciles de leer.  Las terminaciones
+finas, como las de los lados del silencio de negra, no deben finalizar
+en puntas afiladas, sino de forma redonda.  esto se debe a que las
+esquinas afiladas de los punzones de grabado son frágiles y se
+desgastan con rapidez al estampar con ellos sobre el metal.  Si se
+toma en su conjunto, la negrura de la fuente se debe ajustar
+cuidadosamente en relación con el grosor de las líneas, las barras y
+las ligaduras para dar una impresión general fuerte y pesada pero
+equilibrada.
 
-Also, notice that our half-note head is not elliptic but slightly diamond
-shaped.  The vertical stem of a flat symbol is slightly brushed, becoming
-wider at the top.  The sharp and the natural are easier to distinguish
-from a distance because their angled lines have different slopes and the
-vertical strokes are heavier.
+Observe también que la cabeza de nuestra blanca no es elíptica sino
+ligeramente romboidal.  El trazo vertical del símbolo del bemol se
+asemeja al trazo de un pincel, haciéndose más ancho en la parte
+superior.  El sostenido y el becuadro son más fáciles de distinguir
+desde una cierta distancia porque sus ángulos tienen distinta
+inclinación y los trazos verticales son más pesados.
 
-@node Optical spacing
-@unnumberedsubsec Optical spacing
+@node Espaciado óptico
+@unnumberedsubsec Espaciado óptico
+@translationof Optical spacing
 
-In spacing, the distribution of space should reflect the durations
-between notes.  However, as we saw in the Bach Suite above, many modern
-scores adhere to the durations with mathematical precision, which leads
-to poor results.  In the next example a motive is printed twice: the
-first time using exact mathematical spacing, and the second with
-corrections.  Which do you prefer?
+En el espaciado, la distribución del espacio debe reflejar las
+duraciones de las figuras.  Sin embargo, como vimos en la suite de
+Bach más arriba, muchas partituras modernas se atañen a las duraciones
+con precisión matemática, lo que lleva a un resultado pobre.  En el
+siguiente ejemplo se muestra un motivo impreso dos veces: la primera
+vez utilizando espaciado matemático exacto, y la segunda con
+correcciones.  ¿Cuál prefiere?
 
-@cindex optical spacing
+@cindex espaciado óptico
 
 @lilypond
 \paper {
@@ -351,25 +378,27 @@ music = {
 }
 @end lilypond
 
-@cindex regular rhythms
-@cindex regular spacing
-@cindex spacing, regular
+@cindex duraciones regulares
+@cindex espaciado regular
+@cindex regular, espaciado
 
-Each bar in the fragment only uses notes that are played in a constant
-rhythm.  The spacing should reflect that.  Unfortunately, the eye deceives
-us a little; not only does it notice the distance between note heads, it
-also takes into account the distance between consecutive stems.  As a
-result, the notes of an up-stem/@/down-stem combination should be put
-farther apart, and the notes of a down-stem/@/up-stem combination should
-be put closer together, all depending on the combined vertical positions
-of the notes.  The lower two measures are printed with this correction,
-the upper two measures, however, form down-stem/@/up-stem clumps of
-notes.  A master engraver would adjust the spacing as needed to please
-the eye.
+Cada compás de este fragmento utiliza figuras de duración constante.
+El espaciado debe reflejarlo.  Desgraciadamente, el ojo nos traiciona;
+no sólo aprecia la distancia entre la cabeza de las figuras, también
+tiene en cuenta la distancia entre las plicas consecutivas.  Como
+resultado, las notas de una combinación plica arriba @/ plica abajo
+deben separarse más, y las notas de una combinación plica abajo @/
+plica arriba se deben colocar más juntas, dependiendo siempre de las
+posiciones verticales relativas de las notas.  Los dos compases
+inferiores están impresos con esta corrección; los dos superiores, por
+el contrario, forman conglomerados de notas plica abajo @/ plica
+arriba.  Un grabador maestro ajustaría el espacio según se necesite
+para agradar al ojo.
 
-Another example of optical spacing is the visual interplay between the
-stems and the bar lines.  When an up-stem precedes the bar line, a little
-more space is needed to keep it from feeling crowded:
+Otro ejemplo de espaciado óptico es el juego visual entre las barras
+de corchea y semicorchea y las líneas divisorias.  Cuando una plica
+hacia arriba precede a la línea divisoria, se necesita un poco más de
+espacio para evitar la sensación de aglomeración:
 
 @lilypond
 \paper {
@@ -395,18 +424,21 @@ more space is needed to keep it from feeling crowded:
 }
 @end lilypond
 
-@node Ledger lines
-@unnumberedsubsec Ledger lines
+@node Líneas adicionales
+@unnumberedsubsec Líneas adicionales
+@translationof Ledger lines
 
-@cindex ledger lines
-@cindex collisions
+@cindex líneas adicionales
+@cindex colisiones
 
-Ledger lines present a typographical challenge: they make it more
-difficult to space musical symbols close together and they must be clear
-enough to identify the pitch at a glance.  In the example below, we see
-that ledger lines should be thicker than normal staff lines and that an
-expert engraver will shorten a ledger line to allow closer spacing with
-accidentals.  We have included this feature in LilyPond's engraving.
+Las líneas adicionales presentan un desafío tipográfico: hacen más
+difícil juntar los símbolos musicales y deben ser lo bastante claras
+como para identificar la altura de la nota de un vistazo.  En el
+ejemplo siguiente, vemos que las líneas adicionales deben ser más
+gruesas que las líneas normales del pentagrama y que un grabador
+experto acortará una línea adicional para permitir un espaciado más
+cercano con las alteraciones accidentales.  Hemos incluido esta
+posibilidad en el grabado que hace LilyPond.
 
 @multitable @columnfractions .25 .25 .25 .25
 @item @tab
@@ -430,19 +462,23 @@ accidentals.  We have included this feature in LilyPond's engraving.
 @end multitable
 
 
-@node Optical sizing
-@unnumberedsubsec Optical sizing
+@node Escalado óptico
+@unnumberedsubsec Escalado óptico
+@translationof Optical sizing
 
-Music may need to be printed in a range of sizes.  Originally, this was
-accomplished by creating punching dies in each of the required sizes,
-which meant that each die was designed to look its best at that size.
-With the advent of digital fonts, a single outline can be mathematically
-scaled to any size, which is very convenient, but at the smaller sizes
-the glyphs will appear very light.
+Puede ser necesario imprimir la música en distintos tamaños.
+Originalmente esto se conseguía mediante la creación de punzones de
+estampado en cada uno de los tamaños necesarios, lo que significaba
+que cada punzón estaba diseñado para presentar el mejor aspecto a ese
+tamaño.  Con la llegada de las fuentes tipográficas digitales, un solo
+diseño se puede escalar matemáticamente a cualquier tamaño, lo que es
+sin duda muy conveniente, pero a los tamaños menores los glifos
+aparecen en tipo muy delgado.
 
-In LilyPond, we have created fonts in a range of weights, corresponding
-to a range of music sizes.  This is a LilyPond engraving at staff size
-26:
+En LilyPond hemos creado las fuentes tipográficas en un cierto rango
+de pesos que corresponden a la correspondiente variedad de tamaños de
+notación musical.  He aquí un grabado musical de LilyPond a un tamaño
+de pentagrama de 26:
 
 @quotation
 @iftex
@@ -454,8 +490,9 @@ to a range of music sizes.  This is a LilyPond engraving at staff size
 @end quotation
 
 @noindent
-and this is the same engraving set at staff size 11, then
-magnified by 236% to print at the same size as the previous example:
+y éste es el mismo fragmento a un tamaño de 11, aumentado
+posteriormente en un 236% para que se imprima al mismo tamaño que el
+ejemplo atnerior:
 
 @quotation
 @iftex
@@ -467,8 +504,8 @@ magnified by 236% to print at the same size as the previous example:
 @end quotation
 
 @noindent
-At smaller sizes, LilyPond uses proportionally heavier lines so the
-music will still read well.
+A tamaños más pequeños, LilyPond utiliza líneas proporcionalmente más
+gruesas de manera que la música siga leyéndose con comodidad.
 
 @ignore
 This also allows staves of different sizes to coexist peacefully when
@@ -524,63 +561,73 @@ global = {
 @end lilypond
 @end ignore
 
-@node Why work so hard?
-@unnumberedsubsec Why work so hard?
+@node ¿Para qué tanto esfuerzo?
+@unnumberedsubsec ¿Para qué tanto esfuerzo?
+@translationof Why work so hard?
 
-Musicians are usually more absorbed with performing than with studying
-the looks of a piece of music, so nitpicking typographical details may
-seem academic.  But it is not.  Sheet music is performance material:
-everything is done to aid the musician in letting her perform better,
-and anything that is unclear or unpleasant to read is a hindrance.
+Los músicos están normalmente más absortos en su interpretación que en
+el estudio del aspecto gráfico de una partitura impresa, por lo que
+las minucias sobre los detalles tipográficos pueden parecer
+académicas.  Pero no lo son.  La música impresa es material de
+interpretación: todo se hace para ayudar al músico a tocar mejor, y
+todo aquello que no está claro o no es agradable se convierte en un
+obstáculo.
 
-Traditionally engraved music uses bold symbols on heavy staff to create
-a strong, well-balanced look that stands out well when the music is far
-away from the reader: for example, if it is on a music stand.  A careful
-distribution of white space allows music to be set very tightly without
-crowding symbols together.  The result minimizes the number of page
-turns, which is a great advantage.
+La música grabada de forma tradicional utiliza símbolos gruesos sobre
+pautas de líneas pesadas para producir una notación de aspecto fuerte
+y equilibrado que adquiere gran presencia cuando el papel está lejos
+del lector: por ejemplo, sobre un atril..  Una distribución cuidadosa
+del espacio vacío permite que la música se pueda disponer de forma muy
+apretada sin aglomerar los símbolos entre sí.  El resultado reduce a
+un mínimo el número de saltos de página, lo que es una gran ventaja.
 
-This is a common characteristic of typography.  Layout should be pretty,
-not only for its own sake, but especially because it helps the reader in
-his task.  For sheet music this is of double importance because musicians
-have a limited amount of attention.  The less attention they need for
-reading, the more they can focus on playing the music.  In other words,
-better typography translates to better performances.
+Ésta es una característica común de la tipgorafía.  La disposición
+sobre la página debe ser bonita, no sólo por sí misma, sino
+especialmente porque ayuda al lector en su cometido.  Para las
+partituras musicales esto es de doble importancia porque los músicos
+tienen una cantidad de atención limitada.  Cuanta menos atención
+necesitan para leer, más pueden centrarse en tocar la música.  En
+otras palabras, una mejor tipografía lleva a mejores interpretaciones.
 
-These examples demonstrate that music typography is an art that is
-subtle and complex, and that producing it requires considerable
-expertise, which musicians usually do not have.  LilyPond is our
-effort to bring the graphical excellence of hand-engraved music to
-the computer age, and make it available to normal musicians.  We
-have tuned our algorithms, font-designs, and program settings to
-produce prints that match the quality of the old editions we love
-to see and love to play from.
+Estos ejemplos demuestran que la tipografía musical es un arte sutil y
+complejo, y que producirla requiere una considerable experiencia, algo
+que los músicos no suelen tener.  LilyPond es el resultado de nuestro
+esfuerzo para llevar a la era de los ordenadores la excelencia gráfica
+de la música grabada a mano, y ponerla a disposición de los músicos
+normales.  Hemos ajustado nuestros algoritmos, el diseño de nuestras
+fuentes tipográficas y los valores predeterminados del programa para
+producir una impresión que iguala en calidad a la de las antiguas
+ediciones que tanto nos gusta ver y a partir de las que tanto nos
+gusta tocar.
 
 
-@node Automated engraving
-@unnumberedsec Automated engraving
+@node Grabado automatizado
+@unnumberedsec Grabado automatizado
+@translationof Automated engraving
 
-@cindex engraving, automated
-@cindex automated engraving
+@cindex grabado automatizado
+@cindex automatizado, grabado
 
-This section describes what is required to create software that can
-mimic the layout of engraved scores: a method of explaining good
-layouts to the computer, detailed comparisons with real engravings,
-and enough flexibility to deal with the wide range of challenges
-that printed music can present.
+Esta sección describe lo que se necesita para crear un software que
+pueda recrear la disposición de las partituras grabadas: un método de
+explicar las buenas disposiciones al ordenador, comparaciones
+detalladas con grabados reales, y la flexibilidad suficiente para
+enfrentarse al amplio rango de desafíos que puede presentar la música
+impresa.
 
 @menu
-* Beauty contests::             
-* Improvement by benchmarking::  
-* Getting things right::        
-* Flexible architecture::       
+* Concursos de belleza::
+* Mejoras por medio de pruebas::
+* Hacer las cosas bien::
+* Arquitectura flexible::
 @end menu
 
-@node Beauty contests
-@unnumberedsubsec Beauty contests
+@node Concursos de belleza
+@unnumberedsubsec Concursos de belleza
+@translationof Beauty contests
 
-How do we actually make formatting decisions?  In other words, which
-of the three configurations should we choose for the following slur?
+¿Cómo realizamos las decisiones de formateo?  En otras palabras, ¿cuál
+de las tres configuraciones elegiríamos para la siguiente ligadura?
 
 @lilypond
 \relative c {
@@ -593,13 +640,15 @@ of the three configurations should we choose for the following slur?
 }
 @end lilypond
 
-There are a few books on the art of music engraving
-available.  Unfortunately, they contain rules of simple thumbs and some
-examples.  Such rules can be instructive, but they are a far cry from
-an algorithm that we could readily implement in a computer.  Following
-the instructions from literature leads to algorithms with lots of
-hand coded exceptions.  Doing all this case analysis is a lot of work,
-and often not all cases are covered completely:
+Están a nuestra disposición unos cuantos libros sobre el arte del
+grabado musical.  Desgraciadamente, contienen unas sencillas reglas
+prácticas y unos pocos ejemmplos.  Dichas reglas pueden ser
+instructivas, pero están muy lejos de constituir un algoritmo
+preparado para poderlo implementar dentro de un programa.  Siguiendo
+las instrucciones de esta literatura nos lleva a algoritmos con gran
+cantidad de excepciones codificadas manualmente.  Hacer todo este
+análisis de casos es mucho trabajo, y a menudo no todos los casos
+están cubiertos completamente:
 
 @quotation
 @iftex
@@ -610,17 +659,19 @@ and often not all cases are covered completely:
 @end ifnottex
 @end quotation
 
-(Image source: Ted Ross, @emph{The Art of Music Engraving})
+(Fuente de la imagen: Ted Ross, @emph{The Art of Music Engraving})
 
-Rather than trying to write detailed layout rules for every possible
-scenario, we only have to describe the objectives well enough that
-LilyPond can judge the attractiveness of several alternatives.  Then,
-for each possible configuration we compute an ugliness score and we
-choose the least ugly configuration.
+En lugar de intentar escribir detalladas reglas de disposición para
+cada uno de los escenarios posibles, únicamente tenemos que describir
+los objetivos lo suficientemente bien como para que LilyPond pueda
+juzgar el nivel de atractivo visual de varias alternativas.  Después,
+para cada posible configuración calculamos una puntuación de
+fealdad y seleccionamos la configuración menos fea.
 
-For example, here are three possible slur configurations, and LilyPond
-has given each one a score in `ugly points'.  The first example gets 15.39
-points for grazing one of the notes:
+Por ejemplo, tenemos aquí tres configuraciones posibles para la
+ligadura, y LilyPond ha otorgado una puntuación a cada una en
+@q{puntos de fealdad}.  El primer ejemplo obtiene 15.39 puntos por
+rozar una de las notas:
 
 @lilypond
 \relative c {
@@ -630,11 +681,11 @@ points for grazing one of the notes:
 }
 @end lilypond
 
-The
-second one is nicer, but the slur doesn't start or end on the note heads.
-It gets 1.71 points for the left side and 9.37 points for the right
-side, plus another 2 points because the slur ascends while the melody
-descends for a total of 13.08 ugly points:
+El segundo es mejor, pero la ligadura no comienza ni termina sobre la
+cabeza de las notas.  Obtiene 1.71 puntos por el lado izquierdo y 9.37
+puntos por el lado derecho, más otros 2 puntos porque la ligadura
+asciende mientras la melodía desciende, dando un total de 13.08 puntos
+de fealdad:
 
 @lilypond
 \relative c {
@@ -644,10 +695,9 @@ descends for a total of 13.08 ugly points:
 }
 @end lilypond
 
-The final slur gets 10.04
-points for the gap on the right and 2 points for the upward slope, but
-it is the most attractive of the three configurations, so LilyPond
-selects this one:
+La ligadura final obtiene 10.04 puntos por el salto de la derecha y 2
+puntos por la inclinación hacia arriba, pero es la más actractiva de
+las tres configuraciones, así que LilyPond selecciona ésta:
 
 @lilypond
 \relative c {
@@ -656,19 +706,22 @@ selects this one:
 }
 @end lilypond
 
-This technique is quite general, and is used to make optimal decisions
-for beam configurations, ties and dots in chords, line breaks, and page
-breaks.  The results of these decisions can be judged by comparison to
-real engravings.
+Esta técnica es bastante general, y se utiliza para tomar decisiones
+óptimas para la configuración de las barras, ligaduras y puntillos de
+los acordes, saltos de línea y saltos de página.  El resultado de
+estas decisiones se puede juzgar por conparación con grabados reales.
 
-@node Improvement by benchmarking
-@unnumberedsubsec Improvement by benchmarking
+@node Mejoras por medio de pruebas
+@unnumberedsubsec Mejoras por medio de pruebas
+@translationof Improvement by benchmarking
 
-LilyPond's output has improved gradually over time, and it continues to
-improve by comparing its output to hand-engraved scores.
+La salida de LilyPond ha mejorado paulatinamente con el tiempo, y
+continúa mejorando mediante su comparación con poartituras grabadas a
+mano.
 
-For example, here is one line of a benchmark piece from a
-hand-engraved edition (Bärenreiter BA320):
+Por ejemplo, he aquí una línea de una pieza utilizada como banco de
+pruebas procedente de una edición realizada a mano (Bärenreiter
+BA320):
 
 @iftex
 @sourceimage{baer-sarabande-hires,16cm,,}
@@ -678,8 +731,8 @@ hand-engraved edition (Bärenreiter BA320):
 @end ifnottex
 
 @noindent
-and the same quotation as engraved by a very old version of LilyPond
-(version 1.4, May 2001):
+y el mismo fragmento grabado tal y como lo hacía una versión muy
+antigua de LilyPond (versión 1.4, mayo de 2001):
 
 @iftex
 @sourceimage{pdf/lily14-sarabande,16cm,,}
@@ -688,9 +741,10 @@ and the same quotation as engraved by a very old version of LilyPond
 @sourceimage{lily14-sarabande,,,png}
 @end ifnottex
 
-@noindent The LilyPond 1.4 output is certainly readable, but close
-comparison with the hand-engraved score showed a lot of errors in the
-formatting details:
+@noindent
+Ciertamente, la salida de LilyPond 1.4 es legible pero una comparación
+detenida con la partitura hecha a mano mostraba numerosos errores en
+los detalles de formateo:
 
 @iftex
 @sourceimage{lily14-sarabande-annotated-hires,16cm,,}
@@ -700,21 +754,22 @@ formatting details:
 @end ifnottex
 
 @itemize @bullet
-@item there is too much space before the time signature
-@item the stems of the beamed notes are too long
-@item the second and fourth measures are too narrow
-@item the slur is awkward-looking
-@item the trill marks are too big
-@item the stems are too thin
+@item hay demasiado espacio antes de la indicación de compás
+@item las plicas de las notas unidas por una barra son muy largas
+@item los compases segundo y cuarto son muy estrechos
+@item la ligadura tiene un aspecto extraño
+@item el símbolo del trino es demasiado grande
+@item las plicas son delgadas
 @end itemize
 
 @noindent
-(There were also two missing note heads, several missing editorial
-annotations, and an incorrect pitch!)
+(También faltaban dos cabezas de nota y varias anotaciones
+editoriales, y ¡la altura de una nota era incorrecta!)
 
-By adjusting the layout rules and font design, the output has improved
-considerably.  Compare the same reference score and the output
-from the current version of LilyPond (@version{}):
+Mediante el ajuste de las reglas de disposición y del diseño de la
+fuente tipográfica, la salida ha mejorado de forma considerable.
+Compare la misma partitura de referencia y la salida de la versión
+actual de LilyPond (@version{}):
 
 @iftex
 @sourceimage{baer-sarabande-hires,16cm,,}
@@ -745,21 +800,24 @@ from the current version of LilyPond (@version{}):
 @end lilypond
 
 @noindent
-The current output is not a clone of the reference edition, but it is
-much closer to publication quality that the earlier output.
+La salida actual no es un clon de la edición de referencia, pero está
+mucho más cerca de la calidad de publicación que la salida más
+antigua.
 
-@node Getting things right
-@unnumberedsubsec Getting things right
+@node Hacer las cosas bien
+@unnumberedsubsec Hacer las cosas bien
+@translationof Getting things right
 
-We can also measure LilyPond's ability to make music engraving decisions
-automatically by comparing LilyPond's output to the output of a
-commercial software product.  In this case we have chosen Finale 2008,
-which is one of the most popular commercial score writers, particularly
-in North America.  Sibelius is their major rival and they appear to be
-especially strong in the European market.
+También podemos medir la capacidad de LilyPond para tomar decisiones
+de grabado musical automáticamente comparando su salida con la de un
+producto de software comercial.  En este caso hemos elegido Finale
+2008, que es uno de los editores de partituras comerciales más
+populares, especialmente en los Estados Unidos.  Sibelius es su
+principal competidor y parece tener especial presencia en el mercado
+europeo.
 
-For our comparison we chose Bach's Fugue in G minor from the
-Well-Tempered Clavier, Book I, BWV 861, whose opening subject is
+Para nuestra comparación elegimos la fuga en Sol menor del Clave bien
+temperado de Bach, libro I, BWV 861, cuyo sujeto incial es
 
 @lilypond
 \relative c' {
@@ -772,15 +830,17 @@ Well-Tempered Clavier, Book I, BWV 861, whose opening subject is
 
 @noindent
 
-We made our comparison by engraving the last seven measures of the piece
-(28--34) in Finale and LilyPond.  This is the point in the piece where
-the subject returns in a three-part stretto and leads into the closing
-section.  In the Finale version, we have resisted the temptation to make
-any adjustments to the default output because we are trying to show the
-things that each software package gets right without assistance.
+Hemos realizado nuestra comparación grabando los últimos siete
+compases de la pieza (28 al 34) en Finale y en LilyPond.  Éste es el
+punto de la pieza en que el sujeto vuelve a aparecer en un estrecho a
+tres partes y conduce a la sección conclusiva.  En la versión de
+Finale, hemos resistido la tentación de hacer cualquier ajuste sobre
+la salida predeterminada porque tratamos de mostrar qué cosas hace
+bien cada programa sin ayuda.
 
-Many of the differences between the two engravings are visible in
-measures 28--29, as shown here with Finale first and LilyPond second:
+Muchas de las diferencias entre los dos grabados son visibles en los
+compases 28 al 29, como se muestra aquí con Finale en primer lugar y
+LilyPond en segundo:
 
 @iftex
 @sourceimage{pdf/bwv861mm28-29,14cm,,}
@@ -847,17 +907,19 @@ partIV = \relative c {
 }
 @end lilypond
 
-Some shortcomings in the unedited Finale output include:
+Entre algunos de los puntos negativos de la salida si retocar de
+Finale se encuentran los siguientes:
 @itemize @bullet
-@item Most of the beams extend too far off the staff.  A beam that points
-towards the center of the staff should have a length of about one
-octave, but engravers shorten this when the beam points away from the
-staff in multi-voice music.  The Finale beaming can be easily improved
-with the Patterson Beams plug-in, but we elected to skip that step for
-this example.
-@item Finale doesn't adjust the positions of interlocking note heads,
-which makes the music extremely difficult to read when the upper and
-lower voices exchange positions temporarily:
+@item Casi todas las barras se salen demasiado del pentagrama.
+Una barra que apunta hacia el centro del pentagrama debe tener una
+longitud de una cotava aproximadamente, pero los grabadores acortan
+esta longitud cuando la barra apunta hacia fuera de la pauta en música
+de varias voces.  El barrado de Finale se puede mejorar fácilmente con
+el complemento de barras de Patterson, pero hemos decidido saltarnos
+ese paso para este ejemplo.
+@item Finale no ajusta las posiciones de las cabezas que se bloquean mutuamente,
+lo que hace a la música extremadamente difícil de leer cuando las
+voces superior e inferior intercambian temporalmente sus posiciones:
 
 @lilypond
 collide = \once \override NoteColumn #'force-hshift = #0
@@ -930,8 +992,9 @@ automatically, so manual overrides are less and less necessary.  Where
 manual adjustments are needed, LilyPond's structure has been designed
 with that flexibility in mind.
 
-@node Flexible architecture
-@unnumberedsubsec Flexible architecture
+@node Arquitectura flexible
+@unnumberedsubsec Arquitectura flexible
+@translationof Flexible architecture
 
 When we started, we wrote the LilyPond program entirely in the C++
 programming language; the program's functionality was set in stone
@@ -1062,8 +1125,9 @@ note head symbol is changed during the music fragment.
 @end lilypond
 
 
-@node What symbols to engrave?
-@unnumberedsec What symbols to engrave?
+@node ¿Qué símbolos grabar?
+@unnumberedsec ¿Qué símbolos grabar?
+@translationof What symbols to engrave?
 
 @cindex engraving
 @cindex typography
@@ -1263,8 +1327,9 @@ Internals Reference: @rinternals{Contexts}.
 @end lilypond
 
 
-@node Music representation
-@unnumberedsec Music representation
+@node Representación musical
+@unnumberedsec Representación musical
+@translationof Music representation
 
 @cindex syntax
 @cindex recursive structures
@@ -1362,8 +1427,9 @@ components: parsing and representation take up less than 10% of
 the source code.
 
 
-@node Example applications
-@unnumberedsec Example applications
+@node Aplicaciones de ejemplo
+@unnumberedsec Aplicaciones de ejemplo
+@translationof Example applications
 
 @cindex simple examples
 @cindex examples, simple
@@ -1487,8 +1553,9 @@ makes it easy to mix music and text in documents.
 TODO: add extra chapter for computer aesthetics?
 
 @page
-@node Appendix
-@unnumberedsec Appendix
+@node Apéndice
+@unnumberedsec Apéndice
+@translationof Appendix
 
 This appendix contains four reference engravings and two
 software-engraved versions of Bach's Fugue in G minor from the
