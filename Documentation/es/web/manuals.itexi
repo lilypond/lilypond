@@ -37,7 +37,7 @@ musicales ingleses.
 
 @item @ref{Ensayo}:
 @emph{(lectura opcional)} la información de fondo sobre el proceso de
-grabado musical y la estética de la tipografía musical del s. XIX.
+grabado musical y la estética de la tipografía musical del s.XIX.
 
 
 @end itemize
@@ -153,7 +153,7 @@ en secuencia lineal.
 
 Al final de todas las secciones hay un párrafo @strong{Véase también}
 que contiene referencias cruzadas a otras secciones: no debiera seguir
-las referencias cruzadas la prinera vez que lea este manual.  Cuando
+las referencias cruzadas la primera vez que lea este manual.  Cuando
 haya leído todo el manual, le vendrá bien leer de nuevo algunas
 secciones y seguir esas referencias cruzadas para obtener más
 información.
@@ -202,10 +202,10 @@ descárguelo como un documento PDF.
 @divClass{column-left-top}
 @subheading Glosario
 
-El glosario explica términso musicales e incluye traducciones a varios
+El glosario explica términos musicales e incluye traducciones a varios
 idiomas.  Si no está familiarizado como la notación o la terminología
 musicales (en especial si no es un hablante nativo de inglés), se
-recomienda fervientemente que contulte el glosario.
+recomienda fervientemente que consulte el glosario.
 
 @divEnd
 
@@ -230,7 +230,7 @@ el manual está dividido en muchas páginas HTML.
 
 @item @uref{../music-glossary-big-page.html, Glosario (HTML monolítico)}:
 lea este manual como una sola página HTML enorme.
-@*@ @ @emph{(una única descarga grande, 1 mb)}
+@*@ @ @emph{(una única descarga grande, 1 Mb)}
 
 @item @uref{../music-glossary.pdf, glossary.pdf}:
 descárguelo como un documento PDF.
@@ -512,7 +512,7 @@ descárguelo como un documento PDF.
 
 @subsubheading ¿Dónde están el lienzo gráfico, los menús y las barras de herramientas?
 
-LilyPond requiere que escribamos la músca como texto. Infórmese de
+LilyPond requiere que escribamos la música como texto. Infórmese de
 ello leyendo nuestra @ref{Entrada de texto}.
 
 
@@ -599,7 +599,7 @@ descárguelo como un documento PDF.
 @divClass{column-left-top}
 @subheading Expansión de LilyPond
 
-Este manual explica cómo excibir extensiones de LilyPond.
+Este manual explica cómo escribir extensiones de LilyPond.
 
 @divEnd
 
@@ -648,7 +648,7 @@ descárguelo como un documento PDF.
 Éste es un conjunto de páginas HTML repleta de referencias cruzadas
 que constituyen la documentación de todos los detalles de cada una de
 las clases, objetos y funciones de LilyPond.  Se produce directamente
-a aprtir de las definiciones de formateo del código fuente.
+a partir de las definiciones de formateo del código fuente.
 
 Casi toda la funcionalidad de formateo que se utiliza internamente
 está disponible para el usuario directamente.  Por ejemplo, casi todas
@@ -751,7 +751,7 @@ s. XIX.
 
 @item @rusernamed{Top,Notación}:
 la fracción principal de la documentación; ofrece información
-detellada sobre cómo crear notación musical.
+detallada sobre cómo crear notación musical.
 
 @item @rprogramnamed{Top,Utilización}:
 trata sobre los programas concretos y la problemática específica de
