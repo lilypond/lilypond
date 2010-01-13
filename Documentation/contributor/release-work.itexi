@@ -311,3 +311,24 @@ LANGUAGE LISTS
   once they've finished all "priority 1" translation items.
 
 
+UPDATING A RELEASE ( x.y.z-a, where a>1 )
+
+really tentative instructions, almost certainly can be done better
+
+1. change the VERSION back to release you want.  push change.
+(hopefully you'll have forgotten to update it when you made your
+last release)
+
+2. make sure that there aren't any lilypond files floating around
+in target/  (like usr/bin/lilypond).
+
+3. build the specific package(s) you want, i.e.
+
+bin/gub mingw::lilypond-installer
+make LILYPOND_BRANCH=stable/2.12 -f lilypond.make doc
+bin/gub --platform=darwin-x86 'git://git.sv.gnu.org/lilypond-doc.git?branch=stable/2.12'
+
+4.  manually upload them.  good luck figuring out the rsync
+command(s).  Hints are in test-lily/
+
+
