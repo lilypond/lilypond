@@ -8,6 +8,7 @@ dodecaphonic-style-accidentals-for-each-note-including-naturals.ly
 generating-random-notes.ly
 makam-example.ly
 non-traditional-key-signatures.ly
+numbers-as-easy-note-heads.ly
 ottava-text.ly
 preventing-extra-naturals-from-being-automatically-added.ly
 preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly
