@@ -49,7 +49,7 @@ Copyright @copyright{} 2007--2009 by the authors.
 
 @menu
 * Introduction to contributing::
-* Starting with git::
+* Working with source code::
 * Compiling LilyPond::
 * Documentation work::
 * Website work::
@@ -71,7 +71,7 @@ Appendices
 
 
 @include contributor/introduction.itexi
-@include contributor/git-starting.itexi
+@include contributor/working.itexi
 @include contributor/compiling.itexi
 @include contributor/doc-work.itexi
 @include contributor/website-work.itexi

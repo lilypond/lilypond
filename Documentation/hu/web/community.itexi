@@ -266,7 +266,7 @@ elvenni.
 
 @item
 Minél egyszerűbb a példa, annál gyorsabban tudják mások megérteni és
-segíteni neked. 
+segíteni neked.
 
 @item
 A minimális példán látszik, hogy már te magad is tettel lépéseket a probléma
@@ -311,7 +311,7 @@ használatát, hacsaknem ezekben van a hiba.
 
 @item
 Ne használj finomhangolásokat (@code{\override}, @code{\set}), hacsaknem
-ezek a hibásak. 
+ezek a hibásak.
 
 @end itemize
 @divEnd
@@ -450,7 +450,7 @@ képességeket. Ezekben is segíthetsz.
 
 @warning{Ezek a feladatokhoz szükséges, hogy meglegyen a program és a
 dokumentáció forrása, de nem kell hozzájuk teljes fejlesztői környezet.
-Ld. a @rcontrib{Starting with git} c. fejezetet.}
+Ld. a @rcontrib{Starting with Git} c. fejezetet.}
 
 @itemize
 @item
@@ -471,7 +471,7 @@ Honosítás: ld. @rcontrib{Translating the documentation} és
 @subheading Bonyolult feladatok
 
 @warning{Ezekhez a feladatokhoz szükséges, hogy meglegyen a forráskód,
-és le tudd fordítani a LilyPondot. Ld. a @rcontrib{Starting with git} és
+és le tudd fordítani a LilyPondot. Ld. a @rcontrib{Starting with Git} és
 @rcontrib{Compiling LilyPond} c. fejezeteket.}
 
 Windowst használó felhasználóknak javasoljuk a @emph{lilybuntu} virtuális gép
@@ -883,7 +883,7 @@ Schenker-diagramok készítése GNU LilyPonddal}
 címen. Ez egy gyakorlatias cikk igen szép LilyPond grafikákkal.
 A szerző, Kris Shaffer megjegyzi: @qq{A GNU Lilypond gyönyörű kottaképe után a
 kereskedelmi alternatívák másodosztályúnak tűnnek.}
-A cikk elérhető @uref{http://www.linuxjournal.com/article/8583, online}. 
+A cikk elérhető @uref{http://www.linuxjournal.com/article/8583, online}.
 
 @item
 2005. augusztus 20.
@@ -894,18 +894,18 @@ szabad szoftverek fejlesztőit. Erről
 A tudás nonprofit megosztása} című cikkben írnak. A szemléltető példa a
 LilyPond. A cikkben szerepelnek egy Jan Nieuwenhuizennel e-mailben készített
 riport részletei is. Ez a LilyPond első megjelenése a nyomtatott szakmai
-sajtóban. 
+sajtóban.
 
 @item
 2005. június
 
-A LilyPond 2.6-os verziójának kiadásáról megjelenik egy francia cikk a 
+A LilyPond 2.6-os verziójának kiadásáról megjelenik egy francia cikk a
 @uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org} weboldalon.
 
 @item
 2004. október
 
-A @emph{Computer!Totaal} holland informatikai magazin szerkesztői 
+A @emph{Computer!Totaal} holland informatikai magazin szerkesztői
 @uref{http://lilypond.org/web/images/computer-totaal.jpeg, azt írják a
 LilyPondról} a 2004. októberi számban: @qq{A LilyPond egy csodálatos szabad
 (nyílt forrású) szoftver! [...] A LilyPonddal szedett kotta kivételesen szép.
@@ -918,21 +918,21 @@ Dave Phillips egy bevezető cikket ír a Linux Journalba
 @emph{Csúcstechnológia a kottaírásban: LilyPond} címmel.
 @uref{http://www.linuxjournal.com/article.php?sid=7657, 1. rész},
 @uref{http://www.linuxjournal.com/article.php?sid=7719, 2. rész}.
- 
+
 @item
 2004. március
 
 Chris Cannam riportot készít Han-Wen Nienhuysszal és Jan Nieuwenhuizennel a
 linuxmusician.com (ma már nem létező) oldalon. A riport megjelenik a
 @uref{http://slashdot.org/article.pl?sid=04/03/13/2054227, slashdot.org}-on
-is. 
+is.
 
 @item
 2004. február
 
 Gail Selkirk jazzénekes ír arról, hogyan
 @uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
-Merüljünk bele a LilyPond világába}. 
+Merüljünk bele a LilyPond világába}.
 
 @qq{...Könnyedén lejegyezhetsz akár slágereket, akár nagyzenekari műveket, az
 eredmény pompás!} (A @uref{http://www.computermusic.co.uk/,

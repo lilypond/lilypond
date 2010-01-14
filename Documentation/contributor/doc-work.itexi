@@ -10,7 +10,7 @@ set of source files.
 
 To organize multiple authors working on the documentation, we use a
 Version Control System (VCS) called git, previously discussed in
-@ref{Starting with git}.
+@ref{Starting with Git}.
 
 @menu
 * Introduction to documentation work::
@@ -1177,8 +1177,8 @@ an email to @code{translations-request@@lilynet.net} with subject
 @node Getting started with documentation translation
 @subsection Getting started with documentation translation
 
-First, get the sources from the Git repository, see @ref{Documentation
-translations source code}.
+First, get the sources from the Git repository, see
+@ref{Downloading remote branches}.
 
 @menu
 * Translation requirements::
@@ -1269,8 +1269,7 @@ Finally, add a language definition for your language in
 
 Before starting the real translation work, it is recommended to commit
 changes you made so far to Git, so e.g. you are able to get back to
-this state of the sources easily if needed; see @ref{Sharing your
-changes}.
+this state of the sources easily if needed; see @ref{Making commits}.
 
 
 @node Documentation translation details

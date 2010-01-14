@@ -1,0 +1,1568 @@
+@c -*- coding: us-ascii; mode: texinfo; -*-
+
+
+@node Working with source code
+@chapter Working with source code
+
+
+@menu
+* Using lily-git::
+* Starting with Git::
+* Basic Git procedures::
+* Advanced Git procedures::
+* Git on Windows::
+* Repository directory structure::
+* Other Git documentation::
+@end menu
+
+
+@node Using lily-git
+@section Using lily-git
+
+
+FIXME: Add instructions for using @command{lily-git} here.
+
+
+@node Starting with Git
+@section Starting with Git
+
+
+Using the Git program directly (as opposed to using the
+@command{lily-git} GUI) allows you to have much greater control
+over the contributing process.  You should consider using Git if
+you want to work on complex projects, or if you want to work on
+multiple projects concurrently.
+
+
+@menu
+* Setting up::
+* Downloading remote branches::
+@end menu
+
+
+@node Setting up
+@subsection Setting up
+
+
+FIXME: Remove this note if incorporating Windows instructions
+throughout this section:
+
+@warning{These instructions assume that you are using the
+command-line version of Git 1.5 or higher.  Windows users should
+skip to @ref{Git on Windows}.}
+
+@menu
+* Installing Git::
+* Initializing a repository::
+* Configuring Git::
+@end menu
+
+
+@node Installing Git
+@unnumberedsubsubsec Installing Git
+
+
+If you are using a Unix-based machine, the easiest way to download
+and install Git is through a package manager such as @command{rpm}
+or @command{apt-get}---the installation is generally automatic.
+The only required package is (usually) called @command{git-core},
+although some of the auxiliary @command{git@var{*}} packages are
+also useful (such as @command{gitk}).
+
+Alternatively, you can visit the Git website
+(@uref{http://git-scm.com/}) for downloadable binaries and
+tarballs.
+
+FIXME: add Windows installation instructions (or @@ref@{Git on
+Windows@}).
+
+
+@node Initializing a repository
+@unnumberedsubsubsec Initializing a repository
+
+
+Once Git is installed, you'll need to create a new directory where
+your initial repository will be stored (the example below uses
+@file{~/lilypond-git/}, where @code{~} represents your home
+directory).  Run @command{git@tie{}init} from within the new
+directory to initialize an empty repository:
+
+@example
+mkdir ~/lilypond-git/; cd ~/lilypond-git/
+git init
+@end example
+
+@subsubheading Technical details
+
+This creates (within the @file{~/lilypond-git/} directory) a
+subdirectory called @file{.git/}, which Git uses to keep track of
+changes to the repository, among other things.  Normally you don't
+need to access it, but it's good to know it's there.
+
+
+@node Configuring Git
+@unnumberedsubsubsec Configuring Git
+
+@warning{Throughout the rest of this manual, all command-line
+input should be entered from the top directory of the Git
+repository being discussed (eg. @file{~/lilypond-git/}).  This is
+referred to as a @emph{top source directory}.}
+
+Before downloading a copy of the main LilyPond repository, you
+should configure some basic settings with the
+@command{git@tie{}config} command.  Git allows you to set both
+global and repository-specific options.
+
+To configure settings that affect all repositories, use the
+@command{--global} command line option.  For example, the first
+two options that you should always set are your @var{name} and
+@var{email}, since Git needs these to keep track of commit
+authors:
+
+@example
+git config --global user.name "@var{John Smith}"
+git config --global user.email @var{john@@example.com}
+@end example
+
+To configure Git to use colored output where possible, use:
+
+@example
+git config --global color.ui auto
+@end example
+
+The text editor that opens when using @command{git@tie{}commit}
+can also be changed.  If none of your editor-related environment
+variables are set ($GIT_EDITOR, $VISUAL, or $EDITOR), the default
+editor is usually @command{vi} or @command{vim}.  If you're not
+familiar with either of these, you should probably change the
+default to an editor that you know how to use.  For example, to
+change the default editor to @command{nano}, enter:
+
+@example
+git config --global core.editor @var{nano}
+@end example
+
+FIXME: Add instructions for changing the editor on Windows, which
+is a little different, I think. -mp
+
+@subsubheading Technical details
+
+Git stores the information entered with
+@command{git@tie{}config@tie{}--global} in the file
+@file{.gitconfig}, located in your home directory.  This file can
+also be modified directly, without using
+@command{git@tie{}config}.  The @file{.gitconfig} file generated
+by the above commands would look like this:
+
+@example
+[user]
+        name = John Smith
+        email = john@@example.com
+[color]
+        ui = auto
+[core]
+        editor = nano
+@end example
+
+Using the @command{git@tie{}config} command @emph{without} the
+@command{--global} option configures repository-specific settings,
+which are stored in the file @file{.git/config}.  This file is
+created when a repository is initialized (using
+@command{git@tie{}init}), and by default contains these lines:
+
+@example
+[core]
+        repositoryformatversion = 0
+        filemode = true
+        bare = false
+        logallrefupdates = true
+@end example
+
+However, since different repository-specific options are
+recommended for different development tasks, it is best to avoid
+setting any now.  Specific recommendations will be mentioned later
+in this manual.
+
+
+@node Downloading remote branches
+@subsection Downloading remote branches
+
+
+@menu
+* Organization of remote branches::
+* LilyPond repository sources::
+* Downloading individual branches::
+* Downloading all remote branches::
+* Other branches::
+@end menu
+
+
+@node Organization of remote branches
+@unnumberedsubsubsec Organization of remote branches
+
+
+The main LilyPond repository is organized into @emph{branches} to
+facilitate development.  These are often called @emph{remote}
+branches to distinguish them from @emph{local} branches you might
+create yourself (see @ref{Using local branches}).
+
+The @code{master} branch contains all the source files used to
+build LilyPond, which includes the program itself (both stable and
+development releases), the documentation (and its translations),
+and the website.  Generally, the @code{master} branch is expected
+to compile successfully.
+
+The @code{lilypond/translation} branch is a side branch that
+allows translators to work without needing to worry about
+compilation problems.  Periodically, the Translation Meister
+(after verifying that it doesn't break compilation), will
+@emph{merge} this branch back into @code{master} to incorporate
+recent translations.  Similarly, the @code{master} branch is
+usually merged into the @code{lilypond/translation} branch after
+significant changes to the English documentation.  See
+@ref{Translating the documentation} for details.
+
+
+@node LilyPond repository sources
+@unnumberedsubsubsec LilyPond repository sources
+
+
+The recommended source for downloading a copy of the main
+repository is:
+
+@example
+git://git.sv.gnu.org/lilypond.git
+@end example
+
+However, if your internet router filters out connections using the
+GIT protocol, or if you experience difficulty connecting via GIT,
+you can try these other sources:
+
+@example
+ssh://git.sv.gnu.org/srv/git/lilypond.git
+http://git.sv.gnu.org/r/lilypond.git
+@end example
+
+The SSH protocol can only be used if your system is properly set
+up to use it.  Also, the HTTP protocol is slowest, so it should
+only be used as a last resort.
+
+
+@node Downloading individual branches
+@unnumberedsubsubsec Downloading individual branches
+
+
+Once you have initialized an empty Git repository on your system
+(see @ref{Initializing a repository}), you can download a remote
+branch into it.  Make sure you know which branch you want to start
+with.
+
+To download the @code{master} branch, enter the following:
+
+@example
+git remote add -ft master -m master \
+  origin git://git.sv.gnu.org/lilypond.git/
+@end example
+
+To download the @code{lilypond/translation} branch, enter:
+
+@example
+git remote add -ft lilypond/translation -m \
+  lilypond/translation origin git://git.sv.gnu.org/lilypond.git/
+@end example
+
+The @command{git@tie{}remote@tie{}add} process could take up to
+ten minutes, depending on the speed of your connection.  The
+output will be something like this:
+
+@example
+Updating origin
+remote: Counting objects: 235967, done.
+remote: Compressing objects: 100% (42721/42721), done.
+remote: Total 235967 (delta 195098), reused 233311 (delta 192772)
+Receiving objects: 100% (235967/235967), 68.37 MiB | 479 KiB/s, done.
+Resolving deltas: 100% (195098/195098), done.
+From git://git.sv.gnu.org/lilypond
+ * [new branch]      master     -> origin/master
+From git://git.sv.gnu.org/lilypond
+ * [new tag]         flower/1.0.1 -> flower/1.0.1
+ * [new tag]         flower/1.0.10 -> flower/1.0.10
+⋮
+ * [new tag]         release/2.9.6 -> release/2.9.6
+ * [new tag]         release/2.9.7 -> release/2.9.7
+@end example
+
+When @command{git@tie{}remote@tie{}add} is finished, the remote
+branch should be downloaded into your repository---though not yet
+in a form that you can use.  In order to browse the source code
+files, you need to @emph{create} and @emph{checkout} your own
+local branch.  In this case, however, it is easier to have Git
+create the branch automatically by using the @command{checkout}
+command on a non-existent branch.  Enter the following:
+
+@example
+git checkout -b @var{branch} origin/@var{branch}
+@end example
+
+@noindent
+where @code{@var{branch}} is the name of your tracking branch,
+either @code{master} or @code{lilypond/translation}.
+
+Git will issue some warnings; this is normal:
+
+@example
+warning: You appear to be on a branch yet to be born.
+warning: Forcing checkout of origin/master.
+Branch master set up to track remote branch master from origin.
+Already on 'master'
+@end example
+
+By now the source files should be accessible---you should be able
+to edit any files in the @file{lilypond-git/} directory using a
+text editor of your choice.  But don't start just yet!  Before
+editing any source files, learn how to keep your changes organized
+and prevent problems later---read @ref{Basic Git procedures}.
+
+@subsubheading Technical Details
+
+The @command{git@tie{}remote@tie{}add} command should add some
+lines to your local repository's @file{.git/config} file:
+
+@example
+[remote "origin"]
+        url = git://git.sv.gnu.org/lilypond.git/
+        fetch = +refs/heads/master:refs/remotes/origin/master
+@end example
+
+
+@node Downloading all remote branches
+@unnumberedsubsubsec Downloading all remote branches
+
+
+To download all remote branches at once, you can @command{clone}
+the entire repository:
+
+@example
+git clone git://git.sv.gnu.org/lilypond.git
+@end example
+
+
+@node Other branches
+@unnumberedsubsubsec Other branches
+
+Most contributors will never need to touch the other branches.  If
+you wish to do so, you will need more familiarity with Git; please
+see @ref{Other Git documentation}.
+
+@itemize
+@item @code{dev/XYZ}:
+These branches are for individual developers.  They store code
+which is not yet stable enough to be added to the @code{master}
+branch.
+
+@item @code{stable/XYZ}:
+The branches are kept for archival reasons.
+
+@end itemize
+
+Another item of interest might be the Grand Unified Builder, our
+cross-platform building tool.  Since it is used by projects as
+well, it is not stored in our gub repository.  For more info, see
+@uref{http://lilypond.org/gub}.  The git location is
+@uref{http://github.com/janneke/gub}.
+
+
+@node Basic Git procedures
+@section Basic Git procedures
+
+
+@menu
+* The Git contributor's cycle::
+* Pulling and rebasing::
+* Using local branches::
+* Commits and patches::
+@end menu
+
+
+@node The Git contributor's cycle
+@subsection The Git contributor's cycle
+
+
+Here is a simplified view of the contribution process on Git:
+
+@enumerate
+@item
+Update your local repository by @emph{pulling} the most recent
+updates from the remote repository.
+
+@item
+Edit source files within your local repository's @emph{working
+directory}.
+
+@item
+@emph{Commit} the changes you've made to a local @emph{branch}.
+
+@item
+Generate a @emph{patch} to share your changes with the developers.
+@end enumerate
+
+
+@node Pulling and rebasing
+@subsection Pulling and rebasing
+
+
+When developers push new patches to the @code{git.sv.gnu.org}
+repository, your local repository is @strong{not} automatically
+updated.  It is important to keep your repository up-to-date by
+periodically @emph{pulling} the most recent @emph{commits} from
+the remote branch.  Developers expect patches to be as current as
+possible, since outdated patches require extra work before they
+can be used.
+
+Occasionally you may need to rework some of your own modifications
+to match changes made to the remote branch (see @ref{Resolving
+conflicts}), and it's considerably easier to rework things
+incrementally.  If you don't update your repository along the way,
+you may have to spend a lot of time resolving branch conflicts and
+reconfiguring much of the work you've already done.
+
+Fortunately, Git is able to resolve certain types of branch
+conflicts automatically with a process called @emph{rebasing}.
+When rebasing, Git tries to modify your old commits so they appear
+as new commits (based on the latest updates).  For a more involved
+explanation, see the @command{git-rebase} man page.
+
+To pull without rebasing (recommended for translators), use the
+following command:
+
+@example
+git pull    # recommended for translators
+@end example
+
+If you're tracking the remote @code{master} branch, you should add
+the @code{-r} option (short for @code{--rebase}) to keep commits
+on your local branch current:
+
+@example
+git pull -r # use with caution when translating
+@end example
+
+If you don't edit translated documentation and don't want to type
+@code{-r} every time, configure the master branch to rebase by
+default with this command:
+
+@example
+git config branch.master.rebase true
+@end example
+
+FIXME: I think the next paragraph is confusing.  Perhaps prepare
+the reader for new terms `committish' and `head'?  -mp
+
+@warning{translators and documentation editors, if you have
+changed committishes in the head of translated files using commits
+you have not yet pushed to @code{git.sv.gnu.org}, please do not
+rebase.  If you want to avoid wondering whether you should rebase
+each time you pull, please always use committishes from master
+and/or lilypond/translation branch on @code{git.sv.gnu.org}, which
+in particular implies that you must push your changes to
+documentation except committishes updates (possibly after having
+rebased), then update the committishes and push them.}
+
+FIXME: when committishes automatic conditional update have been
+tested and documented, append the following to the warning above:
+Note that using update-committishes make target generally touches
+committishes.
+
+@subsubheading Technical details
+
+The @command{git@tie{}config} command mentioned above adds the
+line @code{rebase = true} to the master branch in your local
+repository's @file{.git/config} file:
+
+@example
+[branch "master"]
+        remote = origin
+        merge = refs/heads/master
+        rebase = true
+@end example
+
+
+@node Using local branches
+@subsection Using local branches
+
+
+@menu
+* Creating and removing branches::
+* Listing branches and remotes::
+* Checking out branches::
+* Merging branches::
+@end menu
+
+
+@node Creating and removing branches
+@unnumberedsubsubsec Creating and removing branches
+
+
+Local branches are useful when you're working on several different
+projects concurrently.  To create a new branch, enter:
+
+@example
+git branch @var{name}
+@end example
+
+To delete a branch, enter:
+
+@example
+git branch -d @var{name}
+@end example
+
+Git will ask you for confirmation if it sees that data would be
+lost by deleting the branch.  Use @code{-D} instead of @code{-d}
+to bypass this.  Note that you cannot delete a branch if it is
+currently checked out.
+
+
+@node Listing branches and remotes
+@unnumberedsubsubsec Listing branches and remotes
+
+You can get the exact path or URL of all remote branches by
+running:
+
+@example
+git remote -v
+@end example
+
+To list Git branches on your local repositories, run
+
+@example
+git branch     # list local branches only
+git branch -r  # list remote branches
+git branch -a  # list all branches
+@end example
+
+
+@node Checking out branches
+@unnumberedsubsubsec Checking out branches
+
+To know the currently checked out branch, i.e. the branch whose
+source files are present in your working tree, read the first line
+of the output of
+
+@example
+git status
+@end example
+
+@noindent
+The currently checked out branch is also marked with an asterisk
+in the output of @command{git branch}.
+
+You can check out another branch @code{@var{other_branch}}, i.e.
+check out @code{@var{other_branch}} to the working tree, by
+running
+
+@example
+git checkout @var{other_branch}
+@end example
+
+Note that it is possible to check out another branch while having
+uncommitted changes, but it is not recommended unless you know
+what you are doing; it is recommended to run @command{git status}
+to check this kind of issue before checking out another branch.
+
+@node Merging branches
+@unnumberedsubsubsec Merging branches
+
+To merge branch @code{@var{foo}} into branch @code{@var{bar}},
+i.e. to @qq{add} all changes made in branch @code{@var{foo}} to
+branch @code{@var{bar}}, run
+
+@example
+git checkout @var{bar}
+git merge @var{foo}
+@end example
+
+If any conflict happens, see @ref{Resolving conflicts}.
+
+There are common usage cases for merging: as a translator, you
+will often want to merge @code{master} into
+@code{lilypond/translation}; on the other hand, the Translations
+meister wants to merge @code{lilypond/translation} into
+@code{master} whenever he has checked that
+@code{lilypond/translation} builds successfully.
+
+
+@node Commits and patches
+@subsection Commits and patches
+
+
+@menu
+* Understanding commits::
+* Making commits::
+* Commit messages::
+* Making patches::
+@end menu
+
+
+@node Understanding commits
+@unnumberedsubsubsec Understanding commits
+
+Technically, a @emph{commit} is a single point in the history of a
+branch, but most developers use the term to mean a @emph{commit
+object}, which stores information about a particular revision.  A
+single commit can record changes to multiple source files, and
+typically represents one logical set of related changes (such as a
+bug-fix).  You can list the ten most recent commits in your
+current branch with this command:
+
+@example
+git log -10 --oneline
+@end example
+
+If you're using an older version of Git and get an @q{unrecognized
+argument} error, use this instead:
+
+@example
+git log -10 --pretty=oneline --abbrev-commit
+@end example
+
+More interactive lists of the commits on the remote @code{master}
+branch are available at
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=shortlog} and
+@uref{http://git.sv.gnu.org/cgit/lilypond.git/log/}.
+
+
+@node Making commits
+@unnumberedsubsubsec Making commits
+
+
+Once you have modified some source files in your working
+directory, you can make a commit with the following procedure:
+
+@enumerate
+@item
+Make sure you've configured Git properly (see @ref{Configuring
+Git}).  Check that your changes meet the requirements described in
+@ref{Code style} and/or @ref{Documentation policy}.  For advanced
+edits, you may also want to verify that the changes don't break
+the compilation process.
+
+@item
+Run the following command:
+
+@example
+git status
+@end example
+
+@noindent
+to make sure you're on the right branch, and to see which files
+have been modified, added or removed, etc.  You may need to tell
+Git about any files you've added by running one of these:
+
+@example
+git add @var{file}  # add untracked @var{file} individually
+git add .     # add all untracked files in current directory
+@end example
+
+@noindent
+After @command{git@tie{}add}, run @command{git@tie{}status} again
+to make sure you got everything.  You may also need to modify
+@file{GNUmakefile}.
+
+@item
+Preview the changes about to be committed (to make sure everything
+looks right) with:
+
+@example
+git diff HEAD
+@end example
+
+@noindent
+The @code{HEAD} argument refers to the most recent commit on the
+currently checked-out branch.
+
+@item
+Generate the commit with:
+
+@example
+git commit -a
+@end example
+
+@noindent
+The @code{-a} is short for @code{--all} which includes modified
+and deleted files, but not newly created files.
+@end enumerate
+
+
+@node Commit messages
+@unnumberedsubsubsec Commit messages
+
+
+When you run the @command{git@tie{}commit@tie{}-a} command, Git
+automatically opens the default text editor so you can enter a
+@emph{commit message}.  If you find yourself in a foreign editing
+environment, you're probably in @command{vi} or @command{vim}.  If
+you want to switch to an editor you're more familiar with, quit by
+typing @code{:q!} and pressing @code{<Enter>}.  See
+@ref{Configuring Git} for instructions on changing the default
+editor.
+
+In any case, Git will open a text file for your commit message
+that looks like this:
+
+@example
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   working.itexi
+#
+@end example
+
+Your commit message should begin with a one-line summary
+describing the change (no more than 50 characters long), and if
+necessary a blank line followed by several lines giving the
+details:
+
+@c $ git log -1 --pretty=medium 4d6f1e5
+@example
+Doc: add Baerenreiter and Henle solo cello suites
+
+Added comparison of solo cello suite engravings to new essay with
+high-res images, fixed cropping on Finale example.
+@end example
+
+Commit messages often start with a short prefix describing the
+general location of the changes.  If a commit affects the
+documentation in English (or in several languages simultaneously)
+the commit message should be prefixed with @qq{Doc:@tie{}}.  If
+the commit affects only one of the translations, the commit
+message should be prefixed with @qq{Doc-@var{**}:@tie{}}, where
+@var{**} is the two-letter language code.  Commits that affect the
+website should use @qq{Web:@tie{}} for English, and
+@qq{Web-@var{**}:@tie{}} for the other languages.  Also, changes
+to a single file are often prefixed with the name of the file
+involved.  Visit the links listed in @ref{Understanding commits}
+for examples.
+
+
+@node Making patches
+@unnumberedsubsubsec Making patches
+
+
+If you want to share your changes with other contributors and
+developers, you need to generate @emph{patches} from your commits.
+You should always run @command{git@tie{}pull@tie{}-r} (translators
+should leave off the @code{-r}) before doing this to ensure that
+your patches are as current as possible.
+
+Once you have made one or more commits in your local repository,
+and pulled the most recent commits from the remote branch, you can
+generate patches from your local commits with the command:
+
+@example
+git format-patch origin
+@end example
+
+The @code{origin} argument refers to the remote tracking branch at
+@code{git.sv.gnu.org}.  This command generates a separate patch
+for each commit that's in the current branch but not in the remote
+branch.  Patches are placed in the current working directory and
+will have names that look something like this:
+
+@example
+0001-Doc-Fix-typos.patch
+0002-Web-Remove-dead-links.patch
+⋮
+@end example
+
+Send an email to @email{lilypond-devel@@gnu.org} briefly
+explaining your work, with the patch files attached.  Translators
+should send patches to @email{translations@@lilynet.net}.  After
+your patches are reviewed, the developers may push one or more of
+them to the main repository or discuss them with you.
+
+@seealso
+
+If your patch includes a significant amount of code, you may want
+to see @ref{Adding or modifying features}, especially @emph{Post
+patch for comments}.
+
+
+@node Advanced Git procedures
+@section Advanced Git procedures
+
+
+@warning{This section is not necessary for normal contributors;
+these commands are presented for information for people interested
+in learning more about git.}
+
+It is possible to work with several branches on the same local Git
+repository; this is especially useful for translators who may have
+to deal with both @code{lilypond/translation} and a stable branch,
+e.g. @code{stable/2.12}.
+
+Some Git commands are introduced first, then a workflow with
+several Git branches of LilyPond source code is presented.
+
+
+@menu
+* Advanced Git concepts::
+* Resolving conflicts::
+* Reverting all local changes::
+* Working with remote branches::
+* Git log::
+* Applying remote patches::
+* Commit access::
+@end menu
+
+
+@node Advanced Git concepts
+@subsection Advanced Git concepts
+
+
+A bit of Git vocabulary will be explained below.  The following is
+only introductory; for a better understanding of Git concepts, you
+may wish to read @ref{Other Git documentation}.
+
+The @code{git@tie{}pull@tie{}origin} command above is just a
+shortcut for this command:
+
+@example
+git pull git://git.sv.gnu.org/lilypond.git/ @var{branch}:origin/@var{branch}
+@end example
+
+@noindent
+where @code{@var{branch}} is typically @code{master} or
+@code{lilypond/translation}; if you do not know or remember, see
+@ref{Downloading remote branches} to remember which commands you
+issued or which source code you wanted to get.
+
+A @emph{commit} is a set of changes made to the sources; it also
+includes the committish of the parent commit, the name and e-mail
+of the @emph{author} (the person who wrote the changes), the name
+and e-mail of the @emph{committer} (the person who brings these
+changes into the Git repository), and a commit message.
+
+A @emph{committish} is the SHA1 checksum of a commit, a number
+made of 40 hexadecimal digits, which acts as the internal unique
+identifier for this commit.  To refer to a particular revision,
+don't use vague references like the (approximative) date, simply
+copy and paste the committish.
+
+A @emph{branch} is nothing more than a pointer to a particular
+commit, which is called the @emph{head} of the branch; when
+referring to a branch, one often acutally thinks about its head
+and the ancestor commits of the head.
+
+Now we will explain the two last commands you used to get the
+source code from Git---see @ref{Downloading individual branches}.
+
+@example
+git remote add -ft @var{branch} -m @var{branch} \
+  origin git://git.sv.gnu.org/lilypond.git/
+
+git checkout -b @var{branch} origin/@var{branch}
+@end example
+
+The @command{git@tie{}remote} has created a branch called
+@code{origin/@var{branch}} in your local Git repository.  As this
+branch is a copy of the remote branch web from git.sv.gnu.org
+LilyPond repository, it is called a @emph{remote branch}, and is
+meant to track the changes on the branch from git.sv.gnu.org: it
+will be updated every time you run
+@command{git@tie{}pull@tie{}origin} or
+@command{git@tie{}fetch@tie{}origin}.
+
+The @command{git@tie{}checkout} command has created a branch named
+@code{@var{branch}}.  At the beginning, this branch is identical
+to @code{origin/@var{branch}}, but it will differ as soon as you
+make changes, e.g. adding newly translated pages or editing some
+documentation or code source file.  Whenever you pull, you merge
+the changes from @code{origin/@var{branch}} and
+@code{@var{branch}} since the last pulling.  If you do not have
+push (i.e. @qq{write}) access on git.sv.gnu.org, your
+@code{@var{branch}} will always differ from
+@code{origin/@var{branch}}.  In this case, remember that other
+people working like you with the remote branch @code{@var{branch}}
+of git://git.sv.gnu.org/lilypond.git/ (called
+@code{origin/@var{branch}} on your local repository) know nothing
+about your own @code{@var{branch}}: this means that whenever you
+use a committish or make a patch, others expect you to take the
+latest commit of @code{origin/@var{branch}} as a reference.
+
+Finally, please remember to read the man page of every Git command
+you will find in this manual in case you want to discover
+alternate methods or just understand how it works.
+
+
+@node Resolving conflicts
+@subsection Resolving conflicts
+
+
+Occasionally an update may result in conflicts -- this happens
+when you and somebody else have modified the same part of the same
+file and git cannot figure out how to merge the two versions
+together.  When this happens, you must manually merge the two
+versions.
+
+If you need some documentation to understand and resolve
+conflicts, see paragraphs @emph{How conflicts are presented} and
+@emph{How to resolve conflicts} in @command{git merge} man page.
+
+If all else fails, you can follow the instructions in
+@ref{Reverting all local changes}.  Be aware that this eliminates
+any changes you have made!
+
+
+@node Reverting all local changes
+@subsection Reverting all local changes
+
+Sometimes git will become hopelessly confused, and you just want
+to get back to a known, stable state.  This command destroys any
+local changes you have made, but at least you get back to the
+current online version:
+
+@example
+git reset --hard origin/master
+@end example
+
+
+@node Working with remote branches
+@subsection Working with remote branches
+
+
+@subsubheading Fetching new branches from git.sv.gnu.org
+
+To fetch and check out a new branch named @code{@var{branch}} on
+git.sv.gnu.org, run from top of the Git repository
+
+@example
+git config --add remote.origin.fetch \
+  +refs/heads/@var{branch}:refs/remotes/origin/@var{branch}
+
+git checkout --track -b @var{branch} origin/@var{branch}
+@end example
+
+After this, you can pull @code{@var{branch}} from git.sv.gnu.org
+with:
+
+@example
+git pull
+@end example
+
+Note that this command generally fetches all branches you added
+with @command{git@tie{}remote@tie{}add} (when you initialized the
+repository) or @command{git@tie{}config@tie{}--add}, i.e. it
+updates all remote branches from remote @code{origin}, then it
+merges the remote branch tracked by the current branch into the
+current branch.  For example, if your current branch is
+@code{master}, @code{origin/master} will be merged into
+@code{master}.
+
+
+@subsubheading Local clones, or having several working trees
+
+If you play with several Git branches, e.g. @code{master},
+@code{lilypond/translation}, @code{stable/2.12}), you may want to
+have one source and build tree for each branch; this is possible
+with subdirectories of your local Git repository, used as local
+cloned subrepositories.  To create a local clone for the branch
+named @code{@var{branch}}, run
+
+@example
+git checkout @var{branch}
+git clone -lsn . @var{subdir}
+cd @var{subdir}
+git reset --hard
+@end example
+
+Note that @code{@var{subdir}} must be a directory name which does
+not already exist.  In @code{@var{subdir}}, you can use all Git
+commands to browse revisions history, commit and uncommit changes;
+to update the cloned subrepository with changes made on the main
+repository, cd into @code{@var{subdir}} and run
+@command{git@tie{}pull}; to send changes made on the subrepository
+back to the main repository, run @command{git@tie{}push} from
+@code{@var{subdir}}.  Note that only one branch (the currently
+checked out branch) is created in the subrepository by default; it
+is possible to have several branches in a subrepository and do
+usual operations (checkout, merge, create, delete...) on these
+branches, but this possibility is not detailed here.
+
+When you push @code{@var{branch}} from @code{@var{subdir}} to the
+main repository, and @code{@var{branch}} is checked out in the
+main repository, you must save uncommitted changes (see
+@command{git@tie{}stash}) and do
+@command{git@tie{}reset@tie{}--hard} in the main repository in
+order to apply pushed changes in the working tree of the main
+repository.
+
+
+@node Git log
+@subsection Git log
+
+
+The commands above don't only bring you the latest version of the
+sources, but also the full history of revisions (revisons, also
+called commits, are changes made to the sources), stored in the
+@file{.git} directory.  You can browse this history with
+
+@example
+git log     # only shows the logs (author, committish and commit message)
+git log -p  # also shows diffs
+gitk        # shows history graphically
+@end example
+
+@warning{The @code{gitk} command may require a separate
+@code{gitk} package, available in the appropriate distribution's
+repositories.}
+
+
+@node Applying remote patches
+@subsection Applying remote patches
+
+
+FIXME: Explain how to determine if a patch was created with
+@code{git@tie{}format-patch}.
+
+Well-formed git patches created with @code{git@tie{}format-patch}
+should be committed with the following command:
+
+@example
+git am @var{patch}
+@end example
+
+Patches created without @code{git@tie{}format-patch} can be
+applied in two steps.  The first step is to apply the patch to the
+working tree:
+
+@example
+git apply @var{patch}
+@end example
+
+@noindent
+The second step is to commit the changes and give credit to the
+author of the patch.  This can be done with the following command:
+
+@example
+git commit -a --author="@var{John Smith} <@var{john@@example.com}>"
+@end example
+
+
+@node Commit access
+@subsection Commit access
+
+
+Most contributors are not able to commit patches directly to the
+main repository---only members of the LilyPond development team
+have @emph{commit access}.  If you are a contributor and are
+interested in joining the development team, contact the Project
+Manager through the mailing list
+(@email{lilypond-devel@@gnu.org}).  Generally, only contributors
+who have already provided a number of patches which have been
+pushed to the main repository will be considered for membership.
+
+If you have been approved by the Project Manager, use the
+following procedure to obtain commit access:
+
+@enumerate
+@item
+If you don't already have one, set up a Savannah user account at
+@uref{https://savannah.gnu.org/account/register.php}.  If your web
+browser responds with an @qq{untrusted connection} message when
+you visit the link, follow the steps for including the CAcert root
+certificate in your browser, given at
+@uref{http://savannah.gnu.org/tls/tutorial/}.
+
+@item
+After registering, if you are not logged in automatically, login
+at @uref{https://savannah.gnu.org/account/login.php}---this should
+take you to your @qq{my} page
+(@uref{https://savannah.gnu.org/my/}).
+
+@item
+Click on the @qq{My Groups} link to access the @qq{My Group
+Membership} page.  From there, find the @qq{Request for Inclusion}
+box and search for @qq{LilyPond}.  Among the search results, check
+the box labeled @qq{GNU LilyPond Music Typesetter} and write a
+brief (required) message for the Project Manager (@qq{Hey it's
+me!} should be fine).
+
+Note that you will not have commit access until the Project
+Manager activates your membership.  Once your membership is
+activated, LilyPond should appear under the heading @qq{Groups I'm
+Contributor of} on your @qq{My Group Membership} page.
+
+@item
+Go to the @qq{My Account Configuration} page.  From there, click
+on @qq{Edit SSH Keys} and follow the instructions given.
+
+FIXME: Explain the confusing warning I always get. -mp
+
+FIXME: Maybe add a note about enabling/disabling SSH passphrase?
+
+@item
+Configure Git to use the SSH protocol (instead of the GIT
+protocol).  From your local Git repository, enter:
+
+@example
+git config remote.origin.url \
+  ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
+@end example
+
+@noindent
+where @var{user} is your username on Savannah.
+
+@item
+After your membership has been activated and you've configured Git
+to use SSH, try doing a @command{git@tie{}pull} or
+@command{git@tie{}pull@tie{}-r}.  If that succeeds, this indicates
+that your SSH key stored at Savannah is working properly.
+
+FIXME: show what success/failure look like.
+
+@item
+Test your commit access with a dry run:
+
+@example
+git push --dry-run --verbose
+@end example
+
+Note that recent versions of Git (Git 1.6.3 or later) will issue a
+big warning if the above command is used.  The simplest solution
+is to tell Git to push all matching branches by default:
+
+@example
+git config push.default matching
+@end example
+
+@noindent
+Then @code{git@tie{}push} should work as before.  For more
+details, consult the @code{git@tie{}push} man page.
+@end enumerate
+
+
+@subsubheading Technical details
+
+@itemize
+@item
+On Firefox, to view or remove the CAcert root certificate, go to:
+Edit > Preferences > Advanced > Encryption > View Certificates >
+Authorities > Certificate Name > Root CA > CA Cert Signing
+Authority.
+
+@item
+The @command{git@tie{}config} commands above should modify your
+local repository's @file{.git/config} file.  These lines:
+
+@example
+[remote "origin"]
+        url = git://git.sv.gnu.org/lilypond.git/
+@end example
+
+@noindent
+should now be changed to:
+
+@example
+[remote "origin"]
+        url = ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
+@end example
+
+@noindent
+where @var{user} is your login name on Savannah.
+
+@item
+Similarly, the
+@command{git@tie{}config@tie{}push.default@tie{}matching} command
+should add these lines to @file{.git/config}:
+
+@example
+[push]
+        default = matching
+@end example
+@end itemize
+
+@node Git on Windows
+@section Git on Windows
+
+@c Some of this may duplicate stuff in other sections
+@c But it is probably best for windows users to have it all together
+@c If necessary, clear this up later  -td
+
+FIXME: Decide what to do with this...  Pare it down?  Move
+paragraphs next to analogous Unix instructions? -mp
+
+@subsection Background to nomenclature
+
+Git is a system for tracking the changes made to source files by a
+distributed set of editors.  It is designed to work without a
+master repository, but we have chosen to have a master respository
+for LilyPond files.  Editors hold a local copy of the master
+repository together with any changes they have made locally.
+Local changes are held in a local @q{branch}, of which there may
+be several, but these instructions assume you are using just one.
+The files visible in the local repository always correspond to
+those on the currently @q{checked out} local branch.
+
+Files are edited on a local branch, and in that state the changes
+are said to be @q{unstaged}.  When editing is complete, the
+changes are moved to being @q{staged for commit}, and finally the
+changes are @q{committed} to the local branch.  Once committed,
+the changes (called a @q{commit}) are given a unique 40-digit
+hexadecimal reference number called the @q{Committish} or @q{SHA1
+ID} which identifies the commit to Git.  Such committed changes
+can be sent to the master repository by @q{pushing} them (if you
+have write permission) or by sending them by email to someone who
+has, either as a complete file or as a @q{diff} or @q{patch}
+(which send just the differences from the master repository).
+
+@subsection Installing git
+
+Obtain Git from
+@uref{http://code.google.com/p/msysgit/downloads/list} (note, not
+msysGit, which is for Git developers and not PortableGit, which is
+not a full git installation) and install it.
+
+Note that most users will not need to install SSH.  That is not
+required until you have been granted direct push permissions to
+the master git repository.
+
+Start Git by clicking on the desktop icon.  This will bring up a
+command line bash shell.  This may be unfamiliar to Windows users.
+If so, follow these instructions carefully.  Commands are entered
+at a $ prompt and are terminated by keying a newline.
+
+@subsection Initialising Git
+
+Decide where you wish to place your local Git repository, creating
+the folders in Windows as necessary.  Here we call the folder to
+contain the repository @code{[path]/Git}, but if you intend using
+Git for other projects a directory name like @code{lilypond-git}
+might be better.  You will need to have space for around
+100Mbytes.
+
+Start the Git bash shell by clicking on the desk-top icon
+installed with Git and type
+
+@example
+cd [path]/Git
+@end example
+
+to position the shell at your new Git repository.
+
+Note: if [path] contains folders with names containing spaces use
+
+@example
+cd "[path]/Git"
+@end example
+
+Then type
+
+@example
+git init
+@end example
+
+to initialize your Git repository.
+
+Then type (all on one line; the shell will wrap automatically)
+
+@example
+git remote add -ft master origin git://git.sv.gnu.org/lilypond.git
+@end example
+
+to download the lilypond master files.
+
+@warning{Be patient!  Even on a broadband connection this can take
+10 minutes or more.  Wait for lots of [new tag] messages and the $
+prompt.}
+
+We now need to generate a local copy of the downloaded files in a
+new local branch.  Your local branch needs to have a name.  It is
+usual to call it @q{master} and we shall do that here.
+
+To do this, type
+
+@example
+git checkout -b master origin/master
+@end example
+
+This creates a second branch called @q{master}.  You will see two
+warnings (ignore these), and a message advising you that your
+local branch @q{master} has been set up to track the remote
+branch.  You now have two branches, a local branch called
+@q{master}, and a tracking branch called @q{origin/master}, which
+is a shortened form of @q{remotes/origin/master}.
+
+Return to Windows Explorer and look in your Git repository.  You
+should see lots of folders.  For example, the LilyPond
+documentation can be found in [path]/Git/Documentation/.
+
+The Git bash shell is terminated by typing @code{exit} or by
+clicking on the usual Windows close-window widget.
+
+@subsection Git GUI
+
+Almost all subsequent work will use the Git Graphical User
+Interface, which avoids having to type command line commands. To
+start Git GUI first start the Git bash shell by clicking on the
+desktop icon, and type
+
+@example
+cd [path]/Git
+git gui
+@end example
+
+The Git GUI will open in a new window.  It contains four panels
+and 7 pull-down menus.  At this stage do not use any of the
+commands under Branch, Commit, Merge or Remote.  These will be
+explained later.
+
+The top panel on the left contains the names of files which you
+are in the process of editing (Unstaged Changes), and the lower
+panel on the left contains the names of files you have finished
+editing and have staged ready for committing (Staged Changes).  At
+present, these panels will be empty as you have not yet made any
+changes to any file.  After a file has been edited and saved the
+top panel on the right will display the differences between the
+edited file selected in one of the panels on the left and the last
+version committed on the current branch.
+
+The panel at bottom right is used to enter a descriptive message
+about the change before committing it.
+
+The Git GUI is terminated by entering CNTL-Q while it is the
+active window or by clicking on the usual Windows close-window
+widget.
+
+@subsection Personalising your local git repository
+
+Open the Git GUI, click on
+
+@example
+Edit -> Options
+@end example
+
+and enter your name and email address in the left-hand (Git
+Repository) panel.  Leave everything else unchanged and save it.
+
+Note that Windows users must leave the default setting for line
+endings unchanged.  All files in a git repository must have lines
+terminated by just a LF, as this is required for Merge to work,
+but Windows files are terminated by CRLF by default.  The git
+default setting causes the line endings of files in a Windows git
+repository to be flipped automatically between LF and CRLF as
+required.  This enables files to be edited by any Windows editor
+without causing problems in the git repository.
+
+@subsection Checking out a branch
+
+At this stage you have two branches in your local repository,
+both identical.  To see them click on
+
+@example
+Branch -> Checkout
+@end example
+
+You should have one local branch called @q{master} and one
+tracking branch called @q{origin/master}.  The latter is your
+local copy of the @q{remotes/origin/master} branch in the master
+LilyPond repository.  The local @q{master} branch is where you
+will make your local changes.
+
+When a particular branch is selected, i.e., checked out, the files
+visible in your repository are changed to reflect the state of the
+files on that branch.
+
+@subsection Updating files from @q{remote/origin/master}
+
+Before starting the editing of a file, ensure your local
+repository contains the latest version of the files in the remote
+repository by first clicking
+
+@example
+Remote -> Fetch from -> origin
+@end example
+
+@noindent
+in the Git GUI.
+
+This will place the latest version of every file, including all
+the changes made by others, into the @q{origin/master} branch of
+the tracking branches in your git repository.  You can see these
+files by checking out this branch, but you must @emph{never} edit
+any files while this branch is checked out.  Check out your local
+@q{master} branch again.
+
+You then need to merge these fetched files into your local
+@q{master} branch by clicking on
+
+@example
+Merge -> Local Merge
+@end example
+
+@noindent
+and if necessary select the local @q{master} branch.
+
+Note that a merge cannot be completed if you have made any local
+changes which have not yet been committed.
+
+This merge will update all the files in the @q{master} branch to
+reflect the current state of the @q{origin/master} branch.  If any
+of the changes conflict with changes you have made yourself
+recently you will be notified of the conflict (see below).
+
+@subsection Editing files
+
+First ensure your @q{master} branch is checked out, then simply
+edit the files in your local Git repository with your favourite
+editor and save them back there.  If any file contains non-ASCII
+characters ensure you save it in UTF-8 format.  Git will detect
+any changes whenever you restart Git GUI and the file names will
+then be listed in the Unstaged Changes panel.  Or you can click
+the Rescan button to refresh the panel contents at any time.  You
+may break off and resume editing any time.
+
+The changes you have made may be displayed in diff form in the top
+right-hand panel of Git GUI by clicking on the file name shown in
+one of the left panels.
+
+When your editing is complete, move the files from being Unstaged
+to Staged by clicking the document symbol to the left of each
+name.  If you change your mind it can be moved back by clicking on
+the ticked box to the left of the name.
+
+Finally the changes you have made may be committed to your
+@q{master} branch by entering a brief message in the Commit
+Message box and clicking the Commit button.
+
+If you wish to amend your changes after a commit has been made,
+the original version and the changes you made in that commit may
+be recovered by selecting
+
+@example
+Commit -> Amend Last Commit
+@end example
+
+@noindent
+or by checking the Amend Last Commit radio button at bottom right.
+This will return the changes to the Staged state, so further
+editing made be carried out within that commit.  This must only be
+done @emph{before} the changes have been Pushed or sent to your
+mentor for Pushing - after that it is too late and corrections
+have to be made as a separate commit.
+
+
+@subsection Sending changes to @q{remotes/origin/master}
+
+If you do not have write access to @q{remotes/origin/master} you
+will need to send your changes by email to someone who does.
+
+First you need to create a diff or patch file containing your
+changes.  To create this, the file must first be committed.  Then
+terminate the Git GUI.  In the git bash shell first cd to your Git
+repository with
+
+@example
+cd [path]/Git
+@end example
+
+if necessary, then produce the patch with
+
+@example
+git format-patch origin
+@end example
+
+This will create a patch file for all the locally committed files
+which differ from @q{origin/master}.  The patch file can be found
+in [path]/Git and will have a name formed from the commit message.
+
+@subsection Resolving merge conflicts
+
+As soon as you have committed a changed file your local
+@code{master} branch has diverged from @code{origin/master}, and
+will remain diverged until your changes have been committed in
+@code{remotes/origin/master} and Fetched back into your
+@code{origin/master} branch.  Similarly, if a new commit has been
+made to @code{remotes/origin/master} by someone else and Fetched,
+your local @code{master} branch is divergent.  You can detect a
+divergent branch by clicking on
+
+@example
+Repository -> Visualise all branch history
+@end example
+
+This opens up a very useful new window called @q{gitk}.  Use this
+to browse all the commits made by yourself and others.
+
+If the diagram at top left of the resulting window does not show
+your @code{master} tag on the same node as the
+@code{remotes/origin/master} tag your branch has diverged from
+@code{origin/master}.  This is quite normal if files you have
+modified yourself have not yet been Pushed to
+@code{remotes/origin/master} and Fetched, or if files modified and
+committed by others have been Fetched since you last Merged
+@code{origin/master} into your local @code{master} branch.
+
+If a file being merged from @code{origin/master} differs from one
+you have modified in a way that cannot be resolved automatically
+by git, Merge will report a Conflict which you must resolve by
+editing the file to create the version you wish to keep.
+
+This could happen if the person updating
+@code{remotes/origin/master} for you has added some changes of his
+own before committing your changes to
+@code{remotes/origin/master}, or if someone else has changed the
+same file since you last fetched the file from
+@code{remotes/origin/master}.
+
+Open the file in your editor and look for sections which are
+delimited with ...
+
+[to be completed when I next have a merge conflict to be sure I
+give the right instructions  -td]
+
+
+@subsection Other actions
+
+The instructions above describe the simplest way of using git on
+Windows.  Other git facilities which may usefully supplement these
+include
+
+@itemize
+@item Using multiple local branches (Create, Rename, Delete)
+@item Resetting branches
+@item Cherry-picking commits
+@item Pushing commits to @w{remote/origin/master}
+@item Using gitk to review history
+@end itemize
+
+Once familiarity with using git on Windows has been gained the
+standard git manuals can be used to learn about these.
+
+
+@node Repository directory structure
+@section Repository directory structure
+
+
+@c TODO: integrate the roadmap better
+@verbatiminclude ROADMAP
+
+
+@node Other Git documentation
+@section Other Git documentation
+
+@itemize
+@item
+Official git man pages:
+@uref{http://www.kernel.org/pub/software/scm/git/docs/}
+
+@item
+More in-depth tutorials: @uref{http://git-scm.com/documentation}
+
+@item
+Book about git: @uref{http://progit.org/,Pro Git}
+@end itemize
+

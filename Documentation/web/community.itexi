@@ -445,7 +445,7 @@ testing new features.  Please contribute to these discussions!
 
 @warning{These jobs generally require that you have the program
 and documentation source files, but do not require a full
-development environment.  See @rcontrib{Starting with git}.}
+development environment.  See @rcontrib{Starting with Git}.}
 
 @itemize
 @item
@@ -468,7 +468,7 @@ Translations: see @rcontrib{Translating the documentation}, and
 @subheading Complex tasks
 
 @warning{These jobs generally require that you have the source
-code and can compile LilyPond.  See @rcontrib{Starting with git},
+code and can compile LilyPond.  See @rcontrib{Starting with Git},
 and @rcontrib{Compiling LilyPond}.}
 
 We suggest that new contributors using Windows use a virtual
