@@ -56,6 +56,27 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_grob_set_nested_property_x, "ly:grob-set-nested-property!",
+	   3, 0, 0, (SCM grob, SCM symlist, SCM val),
+	   "Set nested property @var{symlist} in grob @var{grob} to value @var{val}.")
+{
+  Grob *sc = unsmob_grob (grob);
+
+  LY_ASSERT_SMOB (Grob, grob, 1);
+
+  bool type_ok = ly_cheap_is_list (symlist);
+
+  if (type_ok)
+    for (SCM s = symlist; scm_is_pair (s) && type_ok; s = scm_cdr (s))
+      type_ok &= ly_is_symbol (scm_car (s));
+
+  SCM_ASSERT_TYPE (type_ok, symlist, SCM_ARG2, __FUNCTION__, "list of symbols");
+
+  set_nested_property (sc, symlist, val);
+  return SCM_UNSPECIFIED;
+}
+
+
 LY_DEFINE (ly_grob_property, "ly:grob-property",
 	   2, 1, 0, (SCM grob, SCM sym, SCM val),
 	   "Return the value for property @var{sym} of @var{grob}."
