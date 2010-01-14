@@ -128,7 +128,7 @@ Span_bar::width (SCM smob)
   SCM gn = me->get_property ("glyph-name");
   if (!me->is_live ())
     return ly_interval2scm (Interval ());
-  
+
   string gl = ly_scm2string (gn);
 
   /*
@@ -201,6 +201,14 @@ Span_bar::calc_glyph_name (SCM smob)
     type = "|.|";
   else if (type == ":|.:")
     type = "|.";
+  else if (type == "S" || type == "S|" || type == "|S")
+    type = "||";
+  else if (type == "S|:" || type == ".S|:")
+    type = ".|";
+  else if (type == ":|S" || type == ":|S.")
+    type = "|.";
+    else if (type == ":|S|:" || type == ":|S.|:")
+    type = "|._.|";
   else if (type == "'")
     type = "";
 

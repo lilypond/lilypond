@@ -281,6 +281,13 @@ and to add notes to the number or fraction:
 FretBoards now have a chordChanges property to keep repeated FretBoard objects
 from being typeset.
 
+@item
+A variant of the segno sign is provided:
+@lilypond[quote,relative=2]
+c4 d e f \bar "S"
+g4 f e d
+@end lilypond
+
 @end itemize
 
 

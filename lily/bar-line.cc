@@ -116,6 +116,9 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
   if (str == "||:")
     str = "|:";
 
+  if (str == "|S" || str == "S|")
+    str = "S";
+
   if (str == "")
     {
       Stencil empty =  Lookup::blank (Box (Interval (0, 0), Interval (-h / 2, h / 2)));
@@ -193,9 +196,58 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
       /*
 	should align to other side? this never appears
 	on the system-start?
-      */
       m.add_at_edge (X_AXIS, RIGHT, thin, 0);
       m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);
+      */
+      m.add_at_edge (X_AXIS, LEFT, thin, thinkern / 2);
+      m.add_at_edge (X_AXIS, RIGHT, thin, thinkern / 2);
+    }
+  else if (str.find ("S") != NPOS || str == "|._.|")
+    {
+      //  Handle all varsegno stuff
+      Stencil segno;
+      segno.add_at_edge (X_AXIS, LEFT, thin, thinkern / 2);
+      segno.add_at_edge (X_AXIS, RIGHT, thin, thinkern / 2);
+      segno.add_stencil (Font_interface::get_default_font (me)->find_by_name ("scripts.varsegno"));
+
+      if (str == "S")
+        {
+          m.add_stencil (segno);
+        }
+      else if (str == "S|:" || str == ".S|:")
+        {
+          m.add_at_edge (X_AXIS, RIGHT, thick, 0);
+          m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+          m.add_at_edge (X_AXIS, RIGHT, colon, kern);
+          m.add_at_edge (X_AXIS, LEFT, segno, thinkern);
+        }
+      else if (str == ":|S" || str == ":|S.")
+        {
+          m.add_at_edge (X_AXIS, LEFT, thick, 0);
+          m.add_at_edge (X_AXIS, LEFT, thin, kern);
+          m.add_at_edge (X_AXIS, LEFT, colon, kern);
+          m.add_at_edge (X_AXIS, RIGHT, segno, thinkern);
+        }
+      else if (str == ":|S|:" || str == ":|S.|:")
+        {
+          m.add_at_edge (X_AXIS, LEFT, thick, 0);
+          m.add_at_edge (X_AXIS, LEFT, thin, kern);
+          m.add_at_edge (X_AXIS, LEFT, colon, kern);
+          m.add_at_edge (X_AXIS, RIGHT, segno, thinkern);
+          m.add_at_edge (X_AXIS, RIGHT, thick, thinkern);
+          m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+          m.add_at_edge (X_AXIS, RIGHT, colon, kern);
+        }
+      else if (str == "|._.|") // :|S|: or :|S.|: without segno and colon
+        {
+          // get the width of the segno sign
+          Real segno_width = segno.extent (X_AXIS).length ();
+          m.add_at_edge (X_AXIS, LEFT, thick, 0);
+          m.add_at_edge (X_AXIS, LEFT, thin, kern);
+          m.add_at_edge (X_AXIS, RIGHT, thick, segno_width + 2 * thinkern);
+          m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+        }
+      // end varsegno block
     }
   else if (str == ":")
     {
@@ -369,18 +421,35 @@ ADD_INTERFACE (Bar_line,
 	       " is a string which specifies the kind of bar line to print."
 	       "  Options are @code{|}, @code{:|}, @code{|:}, @code{:|:}, @code{:|.|:},"
 	       " @code{:|.:}, @code{.}, @code{||}, @code{|.}, @code{.|}, @code{.|.},"
-	       " @code{|.|}, @code{:}, @code{dashed} and @code{'}.\n"
+	       " @code{|.|}, @code{:}, @code{dashed}, @code{'} and @code{S}.\n"
 	       "\n"
 	       "These produce, respectively, a normal bar line, a right repeat, a left repeat,"
 	       " a thick double repeat, a thin-thick-thin double repeat,"
 	       " a thin-thick double repeat, a thick bar, a double bar, a start bar,"
 	       " an end bar, a thick double bar, a thin-thick-thin bar,"
-	       " a dotted bar, a dashed bar, and a tick."
-	       "  In addition, there is an option"
+	       " a dotted bar, a dashed bar, a tick as bar line and a segno bar.\n"
+	       "\n"
+	       "In addition, there is an option"
 	       " @code{||:} which is equivalent to @code{|:} except at line"
 	       " breaks, where it produces a double bar (@code{||}) at the"
 	       " end of the line and a repeat sign (@code{|:}) at the"
 	       " beginning of the new line.\n"
+	       "\n"
+	       "For segno, @code{S} produces a segno sign except at line breaks,"
+	       " where it produces a double bar (@code{||}) at the"
+	       " end of the line and a segno sign at the beginning of the new line."
+	       " @code{|S} is equivalent to @code{S} but produces a simple bar line"
+	       " (@code{|}) instead of a double bar line (@code{||}) at line breaks."
+	       " @code{S|} produces the segno sign at line breaks and starts the following"
+	       " line without special bar lines.\n"
+	       "\n"
+	       "@code{S|:} and @code{:|S} are used for repeat/segno combinations that are"
+	       " separated at line breaks. Alternatively, @code{.S|:} and @code{:|S.}"
+	       " may be used which combine repeat signs and segno at the same line in"
+	       " case of a line break. @code{:|S|:} is a combination of a left repeat"
+	       " (@code{:|}), a segno (@code{S}) and a right repeat @code{|:} which"
+	       " splits before the segno at line breaks; @code{:|S.|:} splits after"
+	       " the segno sign.\n"
 	       "\n"
 	       "If @var{bartype} is set to @code{empty} then nothing is"
 	       " printed, but a line break is allowed at that spot.\n"

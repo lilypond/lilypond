@@ -2155,6 +2155,26 @@ However, as such ticks are typically used in Gregorian chant, it is
 preferable to use @code{\divisioMinima} there instead, described in
 the section @ref{Divisiones} in Gregorian chant.
 
+@cindex segno
+
+For in-line segno signs, there are three types of bar lines which
+differ in their behavior at line breaks:
+
+@lilypond[quote,relative=2,verbatim]
+c4 c c c
+\bar "S"
+c4 c c c \break
+\bar "S"
+c4 c c c
+\bar "|S"
+c4 c c c \break
+\bar "|S"
+c4 c c c
+\bar "S|"
+c4 c c c \break
+\bar "S|"
+c1
+@end lilypond
 
 @cindex repeats
 
@@ -2176,6 +2196,38 @@ c4 c c c \break
 \bar "||:"
 c4 c c c
 @end lilypond
+
+For combinations of repeats with the segno sign, there are six different
+variations:
+
+@lilypond[quote,relative=2,verbatim]
+c4 c c c
+\bar ":|S"
+c4 c c c \break
+\bar ":|S"
+c4 c c c
+\bar ":|S."
+c4 c c c \break
+\bar ":|S."
+c4 c c c
+\bar "S|:"
+c4 c c c \break
+\bar "S|:"
+c4 c c c
+\bar ".S|:"
+c4 c c c \break
+\bar ".S|:"
+c4 c c c
+\bar ":|S|:"
+c4 c c c \break
+\bar ":|S|:"
+c4 c c c
+\bar ":|S.|:"
+c4 c c c \break
+\bar ":|S.|:"
+c1
+@end lilypond
+
 
 In scores with many staves, a @code{\bar} command in one staff is
 automatically applied to all staves.  The resulting bar lines are
