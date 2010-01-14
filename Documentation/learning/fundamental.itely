@@ -1837,7 +1837,7 @@ appearance of the output.  They are changed by the
 
 Where the @emph{ContextName} is usually @code{Score},
 @code{Staff} or @code{Voice}.  It may be omitted,
-in which case @code{Voice} is assumed.
+in which case the current context (typically @code{Voice}) is assumed.
 
 The names of context properties consist of words joined
 together with no hyphens or underscores, all except the
