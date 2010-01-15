@@ -22,8 +22,8 @@ our @ref{Text input}.}
   @c for @version won't be up yet!
   @heading Downloads for LilyPond @versionDevel
 
-Links for the stable version of LilyPond can be found on
-@uref{http://lilypond.org, lilypond.org}
+@warning{Links for the stable version of LilyPond can be found at
+@uref{http://lilypond.org, lilypond.org}}
 @end ifclear
 @ifset web_version
   @heading Downloads for LilyPond @versionStable

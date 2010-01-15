@@ -645,6 +645,11 @@ Comparisons between versions.
 @divClass{column-center-bottom}
 @subheading Manuals
 
+@ifclear web_version
+@warning{These manuals are for LilyPond @version{}; the latest
+manuals can be found at @url{http://lilypond.org}}
+@end ifclear
+
 @divClass{normal-table}
 @multitable @columnfractions .3 .3 .3
 @headitem Introduction
