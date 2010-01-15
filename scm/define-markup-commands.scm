@@ -492,8 +492,8 @@ Create an invisible object taking up horizontal space @var{amount}.
 }
 @end lilypond"
   (if (> amount 0)
-      (ly:make-stencil "" (cons 0 amount) '(-1 . 1))
-      (ly:make-stencil "" (cons amount amount) '(-1 . 1))))
+      (ly:make-stencil "" (cons 0 amount) '(0 . 0))
+      (ly:make-stencil "" (cons amount amount) '(0 . 0))))
 
 ;; todo: fix negative space
 (define-markup-command (vspace layout props amount)
