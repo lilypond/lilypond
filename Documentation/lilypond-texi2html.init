@@ -806,7 +806,7 @@ sub lilypond_element_file_name($$$)
 
     # unnumbered sections (except those at top-level!) always go to the same
     # file as the previous numbered section
-    if (not $docu_name == "web" and not ($element->{number})
+    if (not ($web_manual) and not ($element->{number})
 	and not ($lastfilename eq '') and ($element->{level} > 1)) {
       $filename = $lastfilename;
     }
