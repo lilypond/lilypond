@@ -29,7 +29,10 @@ object it sees.
            (note-names (make-vector 7 (number->string (+ 1 delta)))))
         (ly:grob-set-property! grob 'note-names note-names))))))))
 
+#(set-global-staff-size 26)
+
 \layout {
+  ragged-right = ##t
   \context {
     \Voice
     \consists \Ez_numbers_engraver

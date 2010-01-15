@@ -17,6 +17,7 @@ custodes.ly
 customizing-fretboard-fret-diagrams.ly
 customizing-markup-fret-diagrams.ly
 display-bracket-with-only-one-staff-in-a-system.ly
+displaying-grob-ancestry.ly
 dotted-harmonics.ly
 drawing-boxes-around-grobs.ly
 drawing-circles-around-various-objects.ly
@@ -53,6 +54,7 @@ time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.l
 transcription-of-ancient-music-with-incipit.ly
 tweaking-clef-properties.ly
 tweaking-grace-layout-within-music.ly
+using-ly-grob-object-to-access-grobs-with--tweak.ly
 using-postscript-to-generate-special-note-head-shapes.ly
 using-the--tweak-command-to-tweak-individual-grobs.ly
 vertically-aligned-dynamics-and-textscripts.ly

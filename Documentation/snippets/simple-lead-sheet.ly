@@ -4,14 +4,6 @@
 \version "2.13.10"
 
 \header {
-%% Translation of GIT committish: b7ec64504da87595509ae6e88ae546d6a0ce633d
-  texidocfr = "
-Pour obtenir la partition d'un chanson, il suffit d'assembler
-des noms d'accords, une mélodie et des paroles :
-
-"
-  doctitlefr = "Chanson simple"
-
   lsrtags = "chords"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -28,6 +20,13 @@ Ein Liedblatt besteht aus Akkordbezeichnungen, einer Melodie und dem Liedtext:
 
 "
   doctitlede = "Ein einfaches Liedblatt"
+%% Translation of GIT committish: b7ec64504da87595509ae6e88ae546d6a0ce633d
+  texidocfr = "
+Pour obtenir la partition d'un chanson, il suffit d'assembler
+des noms d'accords, une mélodie et des paroles :
+
+"
+  doctitlefr = "Chanson simple"
 
   texidoc = "
 When put together, chord names, a melody, and lyrics form a lead sheet:

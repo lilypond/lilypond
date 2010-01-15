@@ -29,7 +29,7 @@ property.
 Inside the chord (within the brackets @code{< >}), before the note to
 be altered, place the @code{\\tweak} command, followed by
 @code{#'font-size} and define the proper size like @code{#-2} (a tiny
-notehead).
+note head).
 
 
 
