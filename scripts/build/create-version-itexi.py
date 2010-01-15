@@ -96,7 +96,7 @@ def make_all_downloads(macroName, version):
 
     make_download("download"+macroName+"FreeBSDNormal", "freebsd-x86/",
         "freebsd-x86.sh", version, "1", "FreeBSD i386")
-    make_download("download"+macroName+"FreeBSDBig", "freebsd-x86/",
+    make_download("download"+macroName+"FreeBSDBig", "freebsd-64/",
         "freebsd-64.sh", version, "1", "FreeBSD amd64")
 
     make_download("download"+macroName+"DarwinNormal", "darwin-x86/",
