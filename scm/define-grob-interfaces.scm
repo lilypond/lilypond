@@ -57,6 +57,11 @@ note)."
  '(avoid-slur))
 
 (ly:add-interface
+ 'dynamic-text-interface
+ "An absolute text dynamic."
+ '(right-padding))
+
+(ly:add-interface
  'dynamic-text-spanner-interface
  "Dynamic text spanner."
  '(text))

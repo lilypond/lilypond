@@ -660,6 +660,7 @@
 	(font-shape . italic)
 	(outside-staff-priority . 250)
 	(positioning-done . ,ly:script-interface::calc-positioning-done)
+	(right-padding . 0.5)
 	(self-alignment-X . ,CENTER)
 	(self-alignment-Y . ,CENTER)
 	(stencil . ,ly:text-interface::print)
@@ -667,6 +668,7 @@
 	(Y-offset . ,ly:self-alignment-interface::y-aligned-on-self)
 	(meta . ((class . Item)
 		 (interfaces . (dynamic-interface
+				dynamic-text-interface
 				font-interface
 				script-interface
 				self-alignment-interface
@@ -674,6 +676,7 @@
 
     (DynamicTextSpanner
      . (
+	(before-line-breaking . ,dynamic-text-spanner::before-line-breaking)
 	(bound-details . ((right . ((attach-dir .  ,LEFT)
 				    (Y . 0)
 				    (padding . 0.75)
@@ -684,8 +687,8 @@
 
 			  (left . ((attach-dir .  ,LEFT)
 				   (Y . 0)
-				   (stencil-offset . (0 . -0.5))
-				   (padding . 0.5)
+				   (stencil-offset . (-0.75 . -0.5))
+				   (padding . 0.75)
 				   ))
 			  (left-broken . ((attach-dir .  ,RIGHT)
 				   ))

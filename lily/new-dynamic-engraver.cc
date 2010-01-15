@@ -166,16 +166,7 @@ New_dynamic_engraver::process_music ()
       if (finished_spanner_)
 	finished_spanner_->set_bound (RIGHT, script_);
       if (current_spanner_)
-	{
-	  current_spanner_->set_bound (LEFT, script_);
-
-	  if (!Hairpin::has_interface (current_spanner_))
-	    set_nested_property (current_spanner_,
-				 scm_list_3 (ly_symbol2scm ("bound-details"),
-					     ly_symbol2scm ("left"),
-					     ly_symbol2scm ("attach-dir")),
-				 scm_from_int (RIGHT));
-	}
+	current_spanner_->set_bound (LEFT, script_);
     }
 }
 

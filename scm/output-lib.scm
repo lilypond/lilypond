@@ -644,6 +644,27 @@ and duration-log @var{log}."
       START
       STOP))
 
+(define-public (dynamic-text-spanner::before-line-breaking grob)
+  "Monitor left bound of @code{DynamicTextSpanner} for absolute dynamics.
+If found, ensure @code{DynamicText} does not collide with spanner text by
+changing @code{'attach-dir} and @code{'padding}.  Reads the
+@code{'right-padding} property of @code{DynamicText} to fine tune space
+between the two text elements."
+  (let ((left-bound (ly:spanner-bound grob LEFT)))
+    (if (grob::has-interface left-bound 'dynamic-text-interface)
+	(let* ((details (ly:grob-property grob 'bound-details))
+	       (left-details (ly:assoc-get 'left details))
+	       (my-padding (ly:assoc-get 'padding left-details))
+	       (script-padding (ly:grob-property left-bound 'right-padding 0)))
+
+	  (and (number? my-padding)
+	       (ly:grob-set-nested-property! grob
+					     '(bound-details left attach-dir)
+					     RIGHT)
+	       (ly:grob-set-nested-property! grob
+					     '(bound-details left padding)
+					     (+ my-padding script-padding)))))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lyrics
