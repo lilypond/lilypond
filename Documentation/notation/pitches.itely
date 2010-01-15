@@ -2639,6 +2639,12 @@ font, see @ref{Setting the staff size}.
 @endpredefined
 
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{numbers-as-easy-note-heads.ly}
+
+
 @seealso
 Notation Reference:
 @ref{Setting the staff size}.
