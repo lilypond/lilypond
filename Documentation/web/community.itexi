@@ -716,11 +716,11 @@ Comparisons between versions.
 @docLinkPdf{Extending,extending,@manualDevelExtendingPdf}
 
 @item
-@docLinkSplit{Internals,Internals,@manualDevelInternalsSplit}
+@docLinkSplit{Internals,internals,@manualDevelInternalsSplit}
 @tab
-@docLinkBig{Internals,Internals,@manualDevelInternalsBig}
+@docLinkBig{Internals,internals,@manualDevelInternalsBig}
 @tab
-@docLinkPdf{Internals,Internals,@manualDevelInternalsPdf}
+@docLinkPdf{Internals,internals,@manualDevelInternalsPdf}
 
 @end multitable
 
