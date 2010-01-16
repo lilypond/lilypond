@@ -527,6 +527,7 @@ automatically when an output definition (a @code{\score} or
 
 
   noteToFretFunction = #determine-frets
+  predefinedDiagramTable = ##f
   soloText = #"Solo"
   soloIIText = #"Solo II"
   aDueText = #"a2"
@@ -617,10 +618,11 @@ automatically when an output definition (a @code{\score} or
   stringOneTopmost = ##t
   highStringOne = ##t
 
-%% One may change the strings tuning as following :
-%% The lenght of the list must be equal to the number of string
+%% One may change the string tunings as follows :
+%% The length of the list must be equal to the number of strings
   stringTunings = #guitar-tuning
   tablatureFormat = #fret-number-tablature-format
+  tabStaffLineLayoutFunction = #tablature-position-on-lines
 
 %%
   figuredBassFormatter = #format-bass-figure

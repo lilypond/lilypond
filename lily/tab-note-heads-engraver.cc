@@ -77,16 +77,21 @@ void
 Tab_note_heads_engraver::process_music ()
 {
   vsize j = 0;
+
+  vector<Stream_event *> string_events;
+
   for (vsize i = 0; i < note_events_.size (); i++)
     {
-      SCM string_tunings = get_property ("stringTunings");
-      int string_count = scm_ilength (string_tunings);
-      bool high_string_one = to_boolean (get_property ("highStringOne"));
 
       Stream_event *event = note_events_[i];
 
       Stream_event *tabstring_event = 0;
 
+      /*
+         For notes inside a chord construct, string indications are
+         stored as articulations on the note, so we check through
+         the notes
+      */
       for (SCM s = event->get_property ("articulations");
 	   !tabstring_event && scm_is_pair (s); s = scm_cdr (s))
 	{
@@ -96,62 +101,65 @@ Tab_note_heads_engraver::process_music ()
 	    tabstring_event = art;
 	}
 
+      /*
+         For string indications listed outside a chord construct,
+         a string_number_event is generated, so if there was no string
+         in the articulations, we check for string events outside
+         the chord construct
+      */
       if (!tabstring_event && j < tabstring_events_.size ())
 	{
 	  tabstring_event = tabstring_events_[j];
 	  if (j + 1 < tabstring_events_.size ())
 	    j++;
 	}
-
-      int string_number = 0;
       if (tabstring_event)
-	string_number = scm_to_int (tabstring_event->get_property ("string-number"));
-
-      if (!string_number)
-	{
-	  SCM scm_pitch = event->get_property ("pitch");
-	  int min_fret = robust_scm2int (get_property ("minimumFret"), 0);
-	  int start = (high_string_one) ? 1 : string_count;
-	  int end = (high_string_one) ? string_count+1 : 0;
-
-	  int i = start;
-	  do
-	    {
-	      int fret = unsmob_pitch (scm_pitch)->rounded_semitone_pitch ()
-		- scm_to_int (robust_list_ref (i - 1, string_tunings));
-	  
-	      if (fret >= min_fret)
-		{
-		  string_number = i;
-		  break;
-		}
-	      i += high_string_one ? 1 : -1;
-	    }
-	  while (i != end);
-	}
-      
-      if (string_number)
-	{
-	  SCM proc = get_property ("tablatureFormat");
-	  SCM text = scm_call_3 (proc, scm_from_int (string_number),
-				 context ()->self_scm (),
-				 event->self_scm ());
-	  Item *note = make_item ("TabNoteHead", event->self_scm ());
-	  note->set_property ("text", text);
-
-
-	  int pos = 2 * string_number - string_count - 1; // No tab-note between the string !!!
-	  if (to_boolean (get_property ("stringOneTopmost")))
-	    pos = - pos;
-
-	  note->set_property ("staff-position", scm_from_int (pos));
-      
-	  notes_.push_back (note);
-	}
-      else
-	event->origin ()->warning ("could not calculate a string number.");
+        string_events.push_back (tabstring_event);
     }
+
+  SCM tab_notes = ly_cxx_vector_to_list (note_events_);
+  SCM tab_strings = SCM_EOL;
+  if (string_events.size ())
+    tab_strings = ly_cxx_vector_to_list (string_events);
+  SCM proc = get_property ("noteToFretFunction");
+  SCM string_fret_finger = SCM_EOL;
+  if (ly_is_procedure (proc))
+    string_fret_finger = scm_call_3 (proc,
+                                     context ()->self_scm (),
+                                     tab_notes,
+                                     tab_strings);
+  SCM note_entry = SCM_EOL;
+  SCM string_number = SCM_EOL;
+  SCM fret = SCM_EOL;
+  SCM fret_label = SCM_EOL;
+  SCM fret_procedure = get_property ("tablatureFormat");
+  SCM staff_line_procedure = get_property ("tabStaffLineLayoutFunction");
+  SCM staff_position = SCM_EOL;
+  vsize fret_count = (vsize) scm_ilength (string_fret_finger);
+  bool length_changed = (note_events_.size () != fret_count);
+  vsize index;
+
+  if (string_fret_finger != SCM_EOL)
+    for (vsize i=0; i < fret_count; i++)
+      {
+         note_entry = scm_list_ref (string_fret_finger, scm_from_int (i));
+         string_number = scm_car (note_entry);
+         fret = scm_cadr (note_entry);
+         fret_label = scm_call_3 (fret_procedure,
+                                  context ()->self_scm (),
+                                  string_number,
+                                  fret);
+         index = length_changed ? 0 : i;
+         Item *note = make_item ("TabNoteHead", note_events_[index]->self_scm ());
+         note->set_property ("text", fret_label);
+         staff_position = scm_call_2 (staff_line_procedure,
+                                      context ()->self_scm (),
+                                      string_number);
+         note->set_property ("staff-position", staff_position);
+         notes_.push_back (note);
+      }
 }
+
 void
 Tab_note_heads_engraver::stop_translation_timestep ()
 {
@@ -173,9 +181,11 @@ ADD_TRANSLATOR (Tab_note_heads_engraver,
 		"highStringOne "
 		"middleCPosition "
 		"minimumFret "
+                "noteToFretFunction "
 		"stringOneTopmost "
 		"stringTunings "
-		"tablatureFormat ",
+                "tablatureFormat "
+                "tabStaffLineLayoutFunction ",
 
 		/* write */ ""
 		);

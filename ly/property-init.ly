@@ -320,9 +320,9 @@ back to the lilypond source statement.")
 %% predefined fretboards
 
 predefinedFretboardsOff =
-  \set FretBoards.predefinedDiagramTable = ##f
+  \set predefinedDiagramTable = ##f
 predefinedFretboardsOn =
-  \set FretBoards.predefinedDiagramTable = #fretboard-table
+  \set predefinedDiagramTable = #fretboard-table
 
 
 %% shape note heads

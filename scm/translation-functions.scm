@@ -180,39 +180,64 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fret diagrams
 
-(define-public (determine-frets context grob notes string-numbers)
+(define (create-fretboard context grob placement-list)
+  "Convert @var{placement-list} into a fretboard @var{grob}."
 
-  (define (ensure-number a b)
-    (if (number? a)
-	a
-	b))
+  (let* ((tunings (ly:context-property context 'stringTunings))
+	 (my-string-count (length tunings))
+	 (details (ly:grob-property grob 'fret-diagram-details)))
 
-  (define (string-frets->dot-placement string-frets string-count)
-    (let* ((desc (list->vector
-		  (map (lambda (x) (list 'mute  (1+ x)))
-		       (iota string-count)))))
+    ;; Add string-count from string-tunings to fret-diagram-details.
+    (set! (ly:grob-property grob 'fret-diagram-details)
+            (acons 'string-count my-string-count details))
+    ;; Create the dot-placement list for the grob
+    (set! (ly:grob-property grob 'dot-placement-list) placement-list)))
+
+(define-public
+  (determine-frets context notes defined-strings . rest)
+  "Determine string numbers and frets for playing @var{notes}
+as a chord, given specified string numbers @var{defined-strings}.
+Will look for predefined fretboards if @code{predefinedFretboardTable}
+is not @code {#f}.  If @var{rest} is present, it contains the
+FretBoard grob, and a fretboard will be
+created.  Otherwise, a list of (string fret finger) lists will
+be returned)."
+
+  ;;  helper functions
+
+  (define (string-frets->placement-list string-frets string-count)
+    "Convert @var{string-frets} to @code{fret-diagram-verbose}
+dot placement entries."
+    (let* ((placements (list->vector
+                        (map (lambda (x) (list 'mute  (1+ x)))
+		             (iota string-count)))))
 
       (for-each (lambda (sf)
 		  (let* ((string (car sf))
 			 (fret (cadr sf))
 			 (finger (caddr sf)))
-
 		    (vector-set!
-		     desc (1- string)
+                     placements (1- string)
 		     (if (= 0 fret)
-			 (list 'open string)
+                         (list 'open string)
 			 (if finger
 			     (list 'place-fret string fret finger)
 			     (list 'place-fret string fret))))))
 		string-frets)
+      (vector->list placements)))
 
-      (vector->list desc)))
+  (define (placement-list->string-frets placement-list)
+    "Convert @var{placement-list} to string-fret list."
+    (map (lambda (x) (cdr x))
+         (filter (lambda (l) (eq? (cdr l) 'place-fret) placement-list))))
+
 
   (define (get-predefined-fretboard predefined-fret-table tuning pitches)
-;   (_i "Search through @var{predefined-fret-table} looking for a predefined
-;fretboard with a key of @var{(tuning . pitches)}.  The search will check
-;both up and down an octave in order to accomodate transposition of the
-;chords.")
+    "Search through @var{predefined-fret-table} looking for a predefined
+fretboard with a key of @var{(tuning . pitches)}.  The search will check
+both up and down an octave in order to accomodate transposition of the
+chords.  Returns a placement-list."
+
     (define (get-fretboard key)
       (let ((hash-handle
 	     (hash-get-handle predefined-fret-table key)))
@@ -220,6 +245,7 @@
 	    (cdr hash-handle)  ; return table entry
 	    '())))
 
+    ;; body of get-predefined-fretboard
     (let ((test-fretboard (get-fretboard (cons tuning pitches))))
       (if (not (null? test-fretboard))
 	  test-fretboard
@@ -232,51 +258,41 @@
 		 (cons tuning (map (lambda (x) (shift-octave x -1))
 				   pitches))))))))
 
-;; body.
-  (let* ((tunings (ly:context-property context 'stringTunings))
-	 (my-string-count (length tunings))
-	 (details (ly:grob-property grob 'fret-diagram-details))
-	 (predefined-frets
+  ;; body of determine-frets
+  (let* ((predefined-fret-table
 	  (ly:context-property context 'predefinedDiagramTable))
+         (tunings (ly:context-property context 'stringTunings))
+         (string-count (length tunings))
+         (grob (if (null? rest) '() (car rest)))
 	 (pitches (map (lambda (x) (ly:event-property x 'pitch)) notes))
          (predefined-fretboard
-          (if predefined-frets
+          (if predefined-fret-table
               (get-predefined-fretboard
-               predefined-frets
+               predefined-fret-table
                tunings
                pitches)
               '())))
 
-    (set! (ly:grob-property grob 'fret-diagram-details)
-          (if (null? details)
-              (acons 'string-count my-string-count '())
-              (acons 'string-count my-string-count details)))
+     (if (null? predefined-fretboard)
+         (let ((string-frets
+                (determine-frets-and-strings
+                 notes
+                 defined-strings
+                 (ly:context-property context 'minimumFret 0)
+                 (ly:context-property context 'maximumFretStretch 4)
+                 tunings)))
+            (if (null? grob)
+                string-frets
+                (create-fretboard
+                 context grob (string-frets->placement-list
+                                string-frets string-count))))
+         (if (null? grob)
+             (placement-list->string-frets predefined-fretboard)
+             (create-fretboard context grob predefined-fretboard)))))
 
-    (set! (ly:grob-property grob 'dot-placement-list)
-          (if (not (null? predefined-fretboard))
-              predefined-fretboard
-              (let* ((minimum-fret
-                      (ensure-number
-                       (ly:context-property context 'minimumFret)
-                       0))
-                     (max-stretch
-                      (ensure-number
-                       (ly:context-property context 'maximumFretStretch)
-                       4))
-                     (string-frets
-                      (determine-frets-mf
-                       notes
-                       string-numbers
-                       minimum-fret
-                       max-stretch
-                       tunings)))
-		(string-frets->dot-placement
-		  string-frets
-                  my-string-count))))))
 
-(define-public (determine-frets-mf notes string-numbers
-				   minimum-fret max-stretch
-				   tunings)
+(define (determine-frets-and-strings
+          notes defined-strings minimum-fret maximum-stretch tuning)
 
   (define (calc-fret pitch string tuning)
     (- (ly:pitch-semitones pitch) (list-ref tuning (1- string))))
@@ -302,85 +318,84 @@
 
       finger-found))
 
-  (define (note-string ev)
-    (let* ((articulations (ly:event-property ev 'articulations))
-	   (string-found #f))
+  (define (string-number event)
+    (let ((num (ly:event-property event 'string-number)))
+      (if (number? num)
+          num
+          #f)))
 
-      (map (lambda (art)
-	     (let* ((num (ly:event-property art 'string-number)))
 
-	       (if (number? num)
-		   (set! string-found num))))
-	   articulations)
-
-      string-found))
-
-  (define (del-string string)
+  (define (delete-free-string string)
     (if (number? string)
 	(set! free-strings
 	      (delete string free-strings))))
 
-  (define specified-frets '())
   (define free-strings '())
+  (define unassigned-notes '())
+  (define specified-frets '())
 
   (define (close-enough fret)
-    (reduce
-     (lambda (x y)
-       (and x y))
-     #t
-     (map (lambda (specced-fret)
-	    (> max-stretch (abs (- fret specced-fret))))
-	  specified-frets)))
+    (if (null? specified-frets)
+        #t
+        (reduce
+          (lambda (x y)
+            (and x y))
+          #t
+          (map (lambda (specced-fret)
+                 (> maximum-stretch (abs (- fret specced-fret))))
+               specified-frets))))
 
   (define (string-qualifies string pitch)
-    (let* ((fret (calc-fret pitch string tunings)))
+    (let* ((fret (calc-fret pitch string tuning)))
       (and (>= fret minimum-fret)
 	   (close-enough fret))))
 
   (define string-fret-fingering-tuples '())
+
   (define (set-fret note string)
-    (set! string-fret-fingering-tuples
-	  (cons (list string
-		      (calc-fret (ly:event-property note 'pitch)
-				 string tunings)
-		      (note-finger note))
-		string-fret-fingering-tuples))
-    (del-string string))
+    (let ((this-fret (calc-fret (ly:event-property note 'pitch)
+                                string
+                                tuning)))
+       (set! string-fret-fingering-tuples
+             (cons (list string
+                         this-fret
+                         (note-finger note))
+                   string-fret-fingering-tuples))
+       (delete-free-string string)
+       (set! specified-frets (cons this-fret specified-frets))))
 
+  ;;; body of determine-frets-and-strings
+  (set! free-strings (map 1+ (iota (length tuning))))
 
-  ;;; body.
-  (set! specified-frets
-	(filter identity (map
-			  (lambda (note)
-			    (if (note-string note)
-				(calc-fret (note-pitch note)
-					   (note-string note) tunings)
-				#f))
-			  notes)))
+  ;; get defined-strings same length as notes
+  (while (< (length defined-strings) (length notes))
+         (set! defined-strings (append defined-strings '(()))))
 
-  (set! free-strings (map 1+ (iota (length tunings))))
+  ;; handle notes with strings assigned
+  (for-each
+    (lambda (note string)
+      (if (null? string)
+          (set! unassigned-notes (cons note unassigned-notes))
+          (let ((this-string (string-number string)))
+            (delete-free-string this-string)
+            (set-fret note this-string))))
+    notes defined-strings)
 
-  (for-each (lambda (note)
-	      (del-string (note-string note)))
-	    notes)
-
-
+  ;; handle notes without strings assigned
   (for-each
    (lambda (note)
-     (if (note-string note)
-	 (set-fret note (note-string note))
-	 (let* ((fit-string (find (lambda (string)
-				    (string-qualifies string (note-pitch note)))
-				  free-strings)))
-	   (if fit-string
-	       (set-fret note fit-string)
-	       (ly:warning "No string for pitch ~a (given frets ~a)"
-                           (note-pitch note)
-			   specified-frets)))))
-   (sort notes note-pitch>?))
+     (let* ((fit-string
+              (find (lambda (string)
+                      (string-qualifies string (note-pitch note)))
+                    free-strings)))
+        (if fit-string
+            (set-fret note fit-string)
+            (ly:warning "No string for pitch ~a (given frets ~a)"
+                        (note-pitch note)
+                        specified-frets))))
+   (sort unassigned-notes note-pitch>?))
 
-  string-fret-fingering-tuples)
-
+   string-fret-fingering-tuples)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tablature
@@ -389,36 +404,26 @@
 
 ;; Calculate the fret from pitch and string number as letter
 ;; The fret letter is taken from 'fretLabels if present
-(define-public (fret-letter-tablature-format string-number context event)
-  (let* ((tuning (ly:context-property context 'stringTunings))
-         (pitch (ly:event-property event 'pitch))
-         (labels (ly:context-property context 'fretLabels))
-         (fret (- (ly:pitch-semitones pitch)
-                  (list-ref tuning (- string-number 1)))))
-    (make-vcenter-markup
-     (cond
-      ((= 0 (length labels))
-       (string (integer->char (+ fret (char->integer #\a)))))
-      ((and (<= 0 fret) (< fret (length labels)))
-       (list-ref labels fret))
-      (else
-       (ly:warning "No label for fret ~a (~a on string ~a);
+(define-public (fret-letter-tablature-format
+                context string-number fret-number)
+ (let ((labels (ly:context-property context 'fretLabels)))
+  (make-vcenter-markup
+   (cond
+    ((= 0 (length labels))
+     (string (integer->char (+ fret-number (char->integer #\a)))))
+    ((and (<= 0 fret-number) (< fret-number (length labels)))
+     (list-ref labels fret-number))
+    (else
+     (ly:warning "No label for fret ~a (on string ~a);
 only ~a fret labels provided"
-		   fret pitch string-number (length labels))
+                 fret-number string-number (length labels))
        ".")))))
 
-;; Calculate the fret from pitch and string number as number
-(define-public (fret-number-tablature-format string-number context event)
-  (let* ((tuning (ly:context-property context 'stringTunings))
-	 (pitch (ly:event-property event 'pitch)))
-    (make-vcenter-markup
-     (format
-      "~a"
-      (- (ly:pitch-semitones pitch)
-         (list-ref tuning
-                   ;; remove 1 because list index starts at 0
-                   ;;and guitar string at 1.
-                   (1- string-number)))))))
+;; Display the fret number as a number
+(define-public (fret-number-tablature-format
+                context string-number fret-number)
+  (make-vcenter-markup
+    (format "~a" fret-number)))
 
 ;; The 5-string banjo has got a extra string, the fifth (duh), which
 ;; starts at the fifth fret on the neck.  Frets on the fifth string
@@ -426,17 +431,28 @@ only ~a fret labels provided"
 ;;   the "first fret" on the fifth string is really the sixth fret
 ;;   on the banjo neck.
 ;; We solve this by defining a new fret-number-tablature function:
-(define-public (fret-number-tablature-format-banjo string-number context event)
-  (let* ((tuning (ly:context-property context 'stringTunings))
-	 (pitch (ly:event-property event 'pitch)))
-    (make-vcenter-markup
-      (let ((fret (- (ly:pitch-semitones pitch)
-                     (list-ref tuning (1- string-number)))))
-        (number->string (cond
-                          ((and (> fret 0) (= string-number 5))
-                            (+ fret 5))
-                          (else fret)))))))
+(define-public (fret-number-tablature-format-banjo
+                context string-number fret-number)
+ (make-vcenter-markup
+  (number->string (cond
+                   ((and (> fret-number 0) (= string-number 5))
+                    (+ fret-number 5))
+                   (else fret-number)))))
 
+;;  Tab note head staff position functions
+;;
+;;  Define where in the staff to display a given string.  Some forms of
+;;  tablature put the tab note heads in the spaces, rather than on the
+;;  lines
+
+(define-public (tablature-position-on-lines context string-number)
+ (let* ((string-tunings (ly:context-property context 'stringTunings))
+        (string-count (length string-tunings))
+        (string-one-topmost (ly:context-property context 'stringOneTopmost))
+        (staff-line (- (* 2 string-number) string-count 1)))
+  (if string-one-topmost
+      (- staff-line)
+      staff-line)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bar numbers

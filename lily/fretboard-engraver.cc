@@ -36,7 +36,7 @@ using namespace std;
 class Fretboard_engraver : public Engraver
 {
   Item *fret_board_;
-  
+
   vector<Stream_event*> note_events_;
   vector<Stream_event*> tabstring_events_;
 public:
@@ -90,18 +90,16 @@ Fretboard_engraver::process_music ()
   SCM fret_notes = ly_cxx_vector_to_list (note_events_);
   SCM proc = get_property ("noteToFretFunction");
   if (ly_is_procedure (proc))
-    {
      scm_call_4 (proc,
-		 context ()->self_scm (),
-		 fret_board_->self_scm (),
-		 fret_notes,	       
-		 ly_cxx_vector_to_list (tabstring_events_));
-    }
-  SCM changes = get_property("chordChanges");
-  if (to_boolean (changes) && scm_is_pair(last_fret_notes_)
+                 context ()->self_scm (),
+                 fret_notes,
+                 ly_cxx_vector_to_list (tabstring_events_),
+                 fret_board_->self_scm ());
+  SCM changes = get_property ("chordChanges");
+  if (to_boolean (changes) && scm_is_pair (last_fret_notes_)
       && ly_is_equal (last_fret_notes_, fret_notes))
     fret_board_->set_property ("begin-of-line-visible", SCM_BOOL_T);
-  
+
   last_fret_notes_ = fret_notes;
 }
 
@@ -115,7 +113,7 @@ Fretboard_engraver::stop_translation_timestep ()
 
 ADD_TRANSLATOR (Fretboard_engraver,
 		/* doc */
-		"Generate one or more tablature noteheads from event of type"
+                "Generate fret diagram from one or more events of type"
 		" @code{NoteEvent}.",
 
 		/* create */
@@ -123,12 +121,13 @@ ADD_TRANSLATOR (Fretboard_engraver,
 
 		/* read */
                 "chordChanges "
-		"stringTunings "
-		"minimumFret "
-                "maximumFretStretch "
-		"tablatureFormat "
 		"highStringOne "
-                "predefinedDiagramTable",
+                "maximumFretStretch "
+		"minimumFret "
+                "noteToFretFunction "
+                "predefinedDiagramTable "
+		"stringTunings "
+                "tablatureFormat ",
 
 		/* write */
 		""

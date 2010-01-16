@@ -63,7 +63,7 @@ Note_heads_engraver::process_music ()
 {
   SCM c0 = get_property ("middleCPosition");
   SCM layout_proc = get_property("staffLineLayoutFunction");
-      
+
   for (vsize i = 0; i < note_evs_.size (); i++)
     {
       Stream_event *ev = note_evs_[i];
@@ -84,12 +84,12 @@ Note_heads_engraver::process_music ()
 	SCM pitch = ev->get_property("pitch");
 	pos = scm_to_int(scm_call_1 (layout_proc, pitch));
       }
-      else 
+      else
 	pos = pit->steps ();
 
       if (scm_is_number (c0))
 	pos += scm_to_int(c0);
-      
+
       note->set_property ("staff-position", scm_from_int (pos));
 
       /*

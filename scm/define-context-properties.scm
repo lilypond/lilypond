@@ -347,8 +347,10 @@ repeated section for a page turn to be allowed within that section.")
 
      (noChordSymbol ,markup? "Markup to be displayed for rests in a
 ChordNames context.")
-     (noteToFretFunction ,procedure? "How to produce a fret diagram.
-Parameters: A list of note events and a list of tabstring events.")
+     (noteToFretFunction ,procedure? "Convert list of notes and list of
+defined strings to full list of strings and fret numbers.
+Parameters: The context, a list of note events, a list of
+tabstring events, and the fretboard grob if a fretboard is desired.")
 
 
      (ottavation ,markup? "If set, the text for an ottava spanner.
@@ -454,8 +456,11 @@ the nesting of a start delimiters.")
 
 
      (tablatureFormat ,procedure? "A function formatting a tablature
-note head.  Called with three arguments: string number, context and event.
-It returns the text as a string.")
+note head.  Called with three arguments: context, string number and,
+fret number.  It returns the text as a markup.")
+     (tabStaffLineLayoutFunction ,procedure? "A function determining the
+staff position of a tablature note head.  Called with two arguments:
+the context and the string.")
      (tempoHideNote ,boolean? "Hide the note=count in tempo marks.")
      (tempoText ,markup? "Text for tempo marks.")
      (tempoUnitCount ,number? "Count for specifying tempo.")

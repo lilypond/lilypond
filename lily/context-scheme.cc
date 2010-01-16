@@ -66,7 +66,7 @@ LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
 	   " @var{context} as an alist.")
 {
   Context *tr = unsmob_context (context);
-  
+
   LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
@@ -92,14 +92,17 @@ LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
 }
 
 LY_DEFINE (ly_context_property, "ly:context-property",
-	   2, 0, 0, (SCM context, SCM sym),
-	   "Return the value for property @var{sym} in @var{context}.")
+           2, 1, 0, (SCM context, SCM sym, SCM def),
+           "Return the value for property @var{sym} in @var{context}."
+           " If @var{def} is given, and property value is @code{'()},"
+           " return @var{def}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   Context *t = unsmob_context (context);
-  return t->internal_get_property (sym);
+  SCM result = t->internal_get_property (sym);
+  return def != SCM_UNDEFINED && scm_is_null (result) ? def : result;
 }
 
 LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",
@@ -124,7 +127,7 @@ LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined
 {
   LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
-  
+
   Context *tr = unsmob_context (context);
 
   SCM val;
@@ -142,7 +145,7 @@ LY_DEFINE (ly_context_unset_property, "ly:context-unset-property", 2, 0, 0,
   LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
   Context *tr = unsmob_context (context);
-  
+
   tr->unset_property (name);
   return SCM_UNSPECIFIED;
 }
