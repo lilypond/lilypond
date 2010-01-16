@@ -277,20 +277,6 @@ Regenerating regtests (if the lilypond-book naming has changed):
 - make lilypond
 
 
-New contributor / mentor idea:
-
-- tell them to spend 10 minutes on a problem, then give up and ask
-  for help from their mentor
-
-- the mentor should tell them if a "make clean; make" (or the same
-  for docs) is required
-
-
-Latest website:
-
-- generated hourly on lilypond.org.  Only split-HTML; big-html and
-  pdf are not generated hourly (wait for the next devel release)
-
 
 VERSION-SPECIFIC MACROS
 
@@ -345,26 +331,31 @@ after 2.13.11; I need a chance to test these instructions)
 
 2. make a release announcement by editing:
   Documentation/web/news-front.itexi
-(and maybe moving the oldest news item to news-old.itexi)
+  Documentation/web/news.itexi
+(moving the oldest news item to news-old.itexi)
 
 3. upload:
   git push release/unstable
 
 4. make GUB as "normal"
-  make LILYPOND_BRANCH=release/unstable -f lilypond.make doc
+  make LILYPOND_BRANCH=release/unstable lilypond
 (if this works, make it the default for GUB)
 
 5. upload git, etc.
 
-6. update VERSION, commit, push.
+6. switch back to master and get the updated news:
+  git checkout master
+  git cherry-pick release/unstable
+
+NOTE: this only works on the last change to release/unstable; if
+you had to hack more things to get the release working, then
+you'll need to put the hash directly in there
+
+7. update VERSION, commit, push.
   VERSION = what you just did +0.0.1
   DEVEL_VERSION = what you just did (i.e. is now online)
   STABLE_VERSION = what's online
 
-7. switch back to master and merge the changes
-  git merge release/unstable
-(FIXME: only if the release announcement+version are the only
-changes; if you hacked more stuff, then try cherry-picking)
 
 8. (for now)  manually upload
   Documentation/pictures/out-www/

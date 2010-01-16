@@ -51,29 +51,92 @@ existing texinfo files.
 @node Uploading and security
 @section Uploading and security
 
-FIXME: currently these are plans, not yet completely implemented.
-Hey, I'm doing the reponsible "write documentation first, then
-code" thing!  I rock!  -gp
-
 The website is generated hourly by user @code{graham} the host
 @code{lilypond.org}.  For security reasons, we do not use the
 makefiles and scripts directly from git; copies of the relevant
-scripts (below) are examined and copied to
-@file{~graham/trusted-scripts} on the host.
+scripts are examined and copied to
+@code{~graham/lilypond/trusted-scripts/}
 
-@example
-website.make
-scripts/build/extract_texi_filenames.py
-@end example
+Get latest source code:
+
+@verbatim
+### update-git.sh
+#!/bin/sh
+cd $HOME/src/lilypond
+git fetch origin
+git merge origin/master
+@end verbatim
+
+Check for any updates to trusted scripts:
+
+@verbatim
+### check-git.sh
+#!/bin/sh
+GIT=$HOME/src/lilypond
+DEST=$HOME/lilypond/trusted-scripts
+diff -u $GIT/website.make $DEST/website.make
+diff -u $GIT/Documentation/lilypond-texi2html.init $DEST/lilypond-texi2html.init
+diff -u $GIT/scripts/build/extract_texi_filenames.py $DEST/extract_texi_filenames.py
+diff -u $GIT/scripts/build/create-version-itexi.py $DEST/create-version-itexi.py
+@end verbatim
+
+If the changes look ok, make them trusted:
+
+@verbatim
+### copy-from-git.sh
+#!/bin/sh
+GIT=$HOME/src/lilypond
+DEST=$HOME/lilypond/trusted-scripts
+cp $GIT/website.make $DEST/website.make
+cp $GIT/Documentation/lilypond-texi2html.init $DEST/lilypond-texi2html.init
+cp $GIT/scripts/build/extract_texi_filenames.py $DEST/extract_texi_filenames.py
+cp $GIT/scripts/build/create-version-itexi.py $DEST/create-version-itexi.py
+@end verbatim
+
+Build the website:
+
+@verbatim
+### make-website.sh
+#!/bin/sh
+DEST=$HOME/public_html/
+cd $HOME/src/build-website
+cp $HOME/lilypond/trusted-scripts/website.make .
+
+make -f website.make WEBSITE_ONLY_BUILD=1 website
+rsync -ra $HOME/src/build-website/out-website/website/ $DEST/website/
+cp $HOME/src/build-website/out-website/pictures $DEST
+@end verbatim
+
+Cronjob to automate the trusted portions:
+
+@verbatim
+# website-rebuild.cron
+11 * * * * $HOME/lilypond/trusted-scripts/update-git.sh >/dev/null 2>&1
+22 * * * * $HOME/lilypond/trusted-scripts/make-website.sh >/dev/null 2>&1
+@end verbatim
+
 
 To reduce the CPU burden on the shared host (as well as some
 security concerns), the @file{Documentation/pictures/} and
 @file{Documentation/web/ly-examples/} directories are @strong{not}
 compiled.  If you modify any files in those directories, a user in
 the @code{lilypond} group must upload them to @file{~graham/media}
-on the host.  This is done by running (locally) @code{make doc},
-followed by @code{scripts/build/upload-web-media.sh}.
+on the host.
 
+Upload latest pictures/ and ly-examples/ (local script):
+
+@verbatim
+### upload-lily-web-media.sh
+#!/bin/sh
+BUILD_DIR=$HOME/src/build-lilypond
+
+PICS=$BUILD_DIR/Documentation/pictures/out-www/
+EXAMPLES=$BUILD_DIR/Documentation/web/ly-examples/out-www/
+
+cd $BUILD_DIR
+rsync -a $PICS graham@lilypond.org:media/pictures
+rsync -a $EXAMPLES graham@lilypond.org:ly-examples
+@end verbatim
 
 
 @node Translating the website
