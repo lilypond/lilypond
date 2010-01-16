@@ -228,11 +228,7 @@ ligature = #(define-music-function
     %ragged-right = ##t
     ragged-last = ##t
 
-    %%% FIXME: line-thickness should be set here to a slightly
-    %%% thicker value as the default; but we can not set it here,
-    %%% since neither \staff-space nor #staff-space is yet defined
-    %%% when lily comes across the following line.
-    %line-thickness = \staff-space / 7.0
+    line-thickness = #(/ (ly:output-def-lookup $defaultpaper 'staff-space) 7.0)
 
     \context {
 	\VaticanaStaff
