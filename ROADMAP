@@ -1,62 +1,100 @@
 Prebuilt Documentation and packages are available from:
 
-    http://lilypond.org
+    http://www.lilypond.org
 
 LilyPond development is hosted at:
 
     http://savannah.gnu.org/projects/lilypond
 
-Here is a simple explanation of the directory layout for LilyPond's
-source files.
+Here is a simple explanation of the directory layout for
+LilyPond's source files.
 
-   .                    Toplevel READMEs, ChangeLog, build bootstrapping,
-                          patches for third party programs
-   Documentation/
-       application/     Source files for Application Usage manual
-       essay/           Academic material and .bib files with references
-                          to books and articles
-       contributor/     Source files for the Contributor's Guide
-       css/             CSS files for documentation in HTML
-       extending/       Source files for the Extending manual
-       included/        Snippets included in manuals
-       learning/        Source files for the Learning Manual
-       logo/            The logo
-       misc/            Old announcements, ChangeLogs and NEWS
-       notation/        Source files for Notation Reference manual
-       pictures/        Pictures and graphics used in the documentation
-       snippets/        Snippets from the LilyPond Snippet Repository
-                          (auto-generated, do not modify!)
-           new/         Snippets which are too new for LSR
-       topdocs/         Sources for the toplevel READMEs
-                          (README.txt, INSTALL.txt etc.)
-       po/              Translations for build and maintenance scripts
-       web/             lilypond.org website (a.k.a. General Information for
-                        offline documentation)
-           ly-examples/ LilyPond examples for the website
-       fr/ es/ de/      Docs translated to French, Spanish, German, resp.
-       ja/ hu/ it/      Docs translated to Japanese, Hungarian, Italian, resp.
-           Every subdirectory of Documentation/ that contains localizable
-           source files may be present in the directory of a translation;
-           in addition, each translation directory may contain a ubsdirectory
-	   texidocs/ that contains the translation of snippets texidocs.
-   elisp/               Emacs LilyPond mode and syntax coloring
-   flower/              A simple C++ library
-   input/               Music input examples
-       regression/      Testing of features, one test per file
-   lily/                C++ sources for the LilyPond binary
-   ly/                  System music include files
-   make/                Specific make subroutines
-   mf/                  MetaFont sources for the Emmentaler and Aybabtu fonts
-   po/                  Translations for binaries and end-user scripts
-   ps/                  PostScript library files
-   python/              Python modules, MIDI module
-       auxiliar/        Python modules used by maintenance scripts
-                          or in the build process
-   scm/                 Scheme sources for LilyPond and subroutine files
-   scripts/             End-user scripts
-       auxiliar/        Scripts for maintaining the sources and scripts
-                          for the build process that need not be built
-       build/           Scripts for the build process that must be built
-   stepmake/            Generic make subroutine files
-   tex/                 TeX and texinfo library files
-   vim/                 Vi(M) LilyPond mode and syntax coloring
+
+.                        Toplevel READMEs, ChangeLog,
+|                          build bootstrapping, patches
+|                          for third party programs
+|
+|-- Documentation/       Top sources for manuals
+|   |
+|   |
+|   |   INDIVIDUAL CHAPTERS FOR EACH MANUAL:
+|   |
+|   |-- contributor/     Contributor's Guide
+|   |-- essay/           Essay on automated music engraving
+|   |-- extending/       Extending
+|   |-- learning/        Learning Manual
+|   |-- notation/        Notation Reference
+|   |-- usage/           Usage
+|   |-- web/             The website
+|   |   `-- ly-examples/ .ly files for the "Examples" page
+|   |
+|   |
+|   |   TRANSLATED MANUALS:
+|   |
+|   |-- de/              German
+|   |-- es/              Spanish
+|   |-- fr/              French
+|   |-- hu/              Hungarian
+|   |-- it/              Italian
+|   |-- ja/              Japanese
+|   |-- nl/              Dutch
+|   |
+|   |
+|   |   MISCELLANEOUS DOC STUFF:
+|   |
+|   |-- css/             CSS files for HTML docs
+|   |-- included/        .ly files used in the manuals
+|   |-- logo/            Web logo and "note" icon
+|   |-- misc/            Old announcements, ChangeLogs and NEWS
+|   |-- pictures/        Images used (eps/jpg/png/svg)
+|   |   `-- pdf/         (pdf)
+|   |-- po/              Translated build/maintenance scripts
+|   |-- snippets/        Auto-generated .ly snippets (from the LSR)
+|   |   `-- new/         Snippets too new for the LSR
+|   `-- topdocs/         AUTHORS, INSTALL, README
+|
+|
+|   C++ SOURCES:
+|
+|-- flower/              A simple C++ library
+|-- lily/                C++ sources for the LilyPond binary
+|
+|
+|   LIBRARIES:
+|
+|-- ly/                  .ly \include files
+|-- mf/                  MetaFont sources for Emmentaler and Aybabtu fonts
+|-- ps/                  PostScript library files
+|-- scm/                 Scheme sources for LilyPond and subroutine files
+|-- tex/                 TeX and texinfo library files
+|
+|
+|   SCRIPTS:
+|
+|-- python/              Python modules, MIDI module
+|   `-- auxiliar/        Python modules for build/maintenance
+|-- scripts/             End-user scripts (--> lilypond/usr/bin/)
+|   |-- auxiliar/        Maintenance and non-essential build scripts
+|   `-- build/           Essential build scripts
+|
+|
+|   BUILD PROCESS:
+|   (also see SCRIPTS section above)
+|
+|-- make/                Specific make subroutine files
+|-- stepmake/            Generic make subroutine files
+|
+|
+|   REGRESSION TESTS:
+|
+|-- input/
+|   `-- regression/      .ly regression tests
+|       |-- abc2ly/      .abc regression tests
+|       `-- musicxml/    .xml and .itexi regression tests
+|
+|
+|   MISCELLANEOUS:
+|
+|-- elisp/               Emacs LilyPond mode and syntax coloring
+|-- vim/                 Vi(M) LilyPond mode and syntax coloring
+`-- po/                  Translations for binaries and end-user scripts
