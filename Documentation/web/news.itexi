@@ -32,6 +32,19 @@ TODO
 
 
 @newsItem
+@subsubheading LilyPond 2.13.9 released!  @emph{December 12, 2009}
+
+LilyPond 2.13.9 is now out.  From 2.13.9 onwards, LilyPond is
+licensed under the GNU GPL v3+ for code, and the GNU FDL 1.3+ for
+documentation.  In addition to the usual round of bugfixes, this
+release adds a shortcut for repeated chords.
+
+Please note that 2.13 is an @strong{unstable development} branch;
+normal users should continue to use 2.12.
+
+@newsEnd
+
+@newsItem
 @subsubheading New Website!  @emph{October 3, 2009}
 
 As you can see, we have a new website design.  Many thanks to
