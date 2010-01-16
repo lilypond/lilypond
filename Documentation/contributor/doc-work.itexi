@@ -279,12 +279,16 @@ Again, LilyPond does not strictly require this, but it is a useful
 standard to follow.
 
 @item
-Examples should end with a complete bar if possible.
+If possible, only write one bar per line.
 
 @item
-If possible, only write one bar per line.  The notes on each
-line should be an independent line -- tweaks should occur on their
-own line if possible.  Bad:
+If you only have one bar per line, omit bar checks.  If you
+must put more than one bar per line (not recommended), then include bar
+checks.
+
+@item
+Tweaks should, if possible, also occur on their own line.
+Bad:
 
 @example
 \override textscript #'padding = #3 c1^"hi"
@@ -339,9 +343,9 @@ LSR snippets are linked with
 excepted in Templates, where `doctitle' may be omitted.
 
 @item
-Avoid long stretches of input code.  Noone is going to read
-them in print.  Please create a smaller example.  (the smaller
-example does not need to be minimal, however)
+Avoid long stretches of input code.  Nobody is going to read
+them in print.  Create small examples. However, this does not mean
+it has be minimal.
 
 @item
 Specify durations for at least the first note of every bar.
@@ -360,11 +364,6 @@ Add extra spaces around @{ @} marks; ie
 not:          \chordmode @{c e g@}
 but instead:  \chordmode @{ c e g @}
 @end example
-
-@item
-If you only have one bar per line, omit bar checks.  If you
-put more than one bar per line (not recommended), then include bar
-checks.
 
 @item
 If you want to work on an example outside of the manual (for
@@ -396,9 +395,9 @@ Documentation Editor.
 @itemize
 
 @item
-Lines should be less than 72 characters long.  (I personally
-recommend writing with 66-char lines, but don't bother modifying
-existing material.)
+Lines should be less than 72 characters long.  (We personally
+recommend writing with 66-char lines, but do not bother modifying
+existing material).
 
 @item
 Do not use tabs.
