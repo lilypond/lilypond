@@ -9,6 +9,10 @@ set version 0.64
 # set to 1 to set up for translation, to 0 for other
 set translator 0
 
+# location of lilypond git
+set lily_dir $env(HOME)/lilypond-git
+
+
 if {$translator == 1} {
         set windowTitle \
           "LilyPond Translator's Git Interface version $version"
@@ -66,7 +70,6 @@ set commit_header {}
 
 # Helper functions
 
-set lily_dir $env(HOME)/lilypond-git
 if {[file exists $lily_dir]} {
 	cd $lily_dir
 }
