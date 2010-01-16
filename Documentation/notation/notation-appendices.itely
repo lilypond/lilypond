@@ -212,11 +212,11 @@ Minor-major seventh
 @tab
 Minor triad, major seventh
 @tab
-@code{maj7.5-}
+@code{maj7.3-}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:maj7.5-
+  c1:maj7.3-
 }
 @end lilypond
 
