@@ -689,7 +689,9 @@ git commit -a
 
 @noindent
 The @code{-a} is short for @code{--all} which includes modified
-and deleted files, but not newly created files.
+and deleted files, but only those newly created files that have
+previously been added.
+
 @end enumerate
 
 
