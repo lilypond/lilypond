@@ -206,6 +206,12 @@ def make_regtest_links(name, version):
     make_ver_link("regtest"+name+"XmlPdf", url+"musicxml/collated-files.html",
         "pdf of "+version+" musicxml regtests")
 
+def make_doctarball_links(name, version):
+    url = depth + "download/binaries/documentation/lilypond-"
+    url += version
+    url += ".documentation.tar.bz2"
+    make_ver_link("doctarball"+name, url, "Doc tarball for "+version)
+
 print "@c ************************ Download binaries ************"
 make_all_downloads("Stable", VERSION_STABLE)
 make_all_downloads("Devel", VERSION_DEVEL)
@@ -218,6 +224,8 @@ make_download_source("downloadDevelSource", "v2.13", VERSION_DEVEL)
 print "@c ************************ Manual links ************"
 make_manual_links("Stable", VERSION_STABLE)
 make_manual_links("Devel", VERSION_DEVEL)
+make_doctarball_links("Stable", VERSION_STABLE)
+make_doctarball_links("Devel", VERSION_STABLE)
 
 print "@c ************************ Regtest links ************"
 make_regtest_links("Stable", VERSION_STABLE)

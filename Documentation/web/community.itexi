@@ -742,6 +742,13 @@ manuals can be found at @url{http://lilypond.org}}
 @tab
 @docLinkPdf{Internals,internals,@manualDevelInternalsPdf}
 
+@ifset web_version
+@headitem Downloadable
+
+@item
+@doctarballDevel
+@end ifset
+
 @end multitable
 
 @divEnd

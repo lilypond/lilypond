@@ -471,26 +471,21 @@ TODO: fix and generate in Texinfo.
 @divClass{column-left-top}
 @subheading Downloadable versions
 
-@help{compare tarball vs. zip size, ask about windows users
-dealing with tarballs (both gz and bz2), etc.}
-
-@help{on second thought, wait until the new doc build.  write an
-apology here for no tarballs}
+@ifclear web_version
+Downloadable tarballs only available at @uref{http://lilypond.org}
+@end ifclear
+@ifset web_version
 
 @divClass{keep-bullets}
 @itemize
 
-@item html-split zip
-
-@item html-big zip
-
-@item pdf zip
-
-@item info zip maybe?!?!
+@item @doctarballStable
 
 @end itemize
 
 @divEnd
+@end ifset
+
 @divEnd
 
 @divClass{column-right-bottom}
