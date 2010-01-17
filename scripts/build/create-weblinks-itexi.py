@@ -226,7 +226,7 @@ print "@c ************************ Manual links ************"
 make_manual_links("Stable", VERSION_STABLE)
 make_manual_links("Devel", VERSION_DEVEL)
 make_doctarball_links("Stable", VERSION_STABLE)
-make_doctarball_links("Devel", VERSION_STABLE)
+make_doctarball_links("Devel", VERSION_DEVEL)
 
 print "@c ************************ Regtest links ************"
 make_regtest_links("Stable", VERSION_STABLE)
