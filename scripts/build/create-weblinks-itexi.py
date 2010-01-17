@@ -208,7 +208,8 @@ def make_regtest_links(name, version):
 
 def make_doctarball_links(name, version):
     url = depth + "download/binaries/documentation/lilypond-"
-    url += version
+    # ugly FIXME, but proper build number support isn't Critical.
+    url += version + "-1"
     url += ".documentation.tar.bz2"
     make_ver_link("doctarball"+name, url, "Doc tarball for "+version)
 
