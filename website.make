@@ -31,6 +31,7 @@ TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 
 EXTRACT_TEXI_FILENAMES=python $(script-dir)/extract_texi_filenames.py
 CREATE_VERSION=python $(script-dir)/create-version-itexi.py
+CREATE_WEBLINKS=python $(script-dir)/create-weblinks-itexi.py
 
 
 # don't include web
@@ -43,6 +44,7 @@ website-test:
 website-version:
 	mkdir -p $(OUT)
 	$(CREATE_VERSION) $(top-src-dir) > $(OUT)/version.itexi
+	$(CREATE_WEBLINKS) $(top-src-dir) > $(OUT)/weblinks.itexi
 
 website-xrefs: website-version
 	$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/ \

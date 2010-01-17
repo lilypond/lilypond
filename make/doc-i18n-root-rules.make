@@ -10,7 +10,7 @@ $(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html: $(outdir)/%.te
 $(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(TRANSLATION_LILY_IMAGES)
 	$(TEXI2HTML) -D bigpage $(TEXI2HTML_FLAGS) --output=$@ $<
 
-$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(outdir)/version.itexi
+$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi
 	$(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<
 
 $(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf: $(outdir)/%.texi
@@ -20,6 +20,9 @@ $(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf: $(outdir)/%.texi
 
 $(outdir)/version.%: $(top-src-dir)/VERSION
 	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
+
+$(outdir)/weblinks.%: $(top-src-dir)/VERSION
+	$(PYTHON) $(top-src-dir)/scripts/build/create-weblinks-itexi.py > $@
 
 $(outdir)/%.png: $(top-build-dir)/Documentation/$(outdir)/%.png
 	ln -f $< $@
@@ -37,7 +40,7 @@ $(TRANSLATION_LILY_IMAGES): $(MASTER_TEXI_FILES)
 	find $(outdir) \( -name 'lily-*.png' -o -name 'lily-*.ly' \) | sed 's!$(outdir)/!!g' | xargs $(buildscript-dir)/mass-link hard $(outdir) $(top-build-dir)/Documentation/$(outdir)
 	touch $@
 
-$(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+$(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
 $(outdir)/index.$(ISOLANG).html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)

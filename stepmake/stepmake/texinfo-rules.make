@@ -26,24 +26,24 @@ endif
 $(outdir)/%.texi: $(src-dir)/%.texi
 	cp -p $< $@
 
-$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
 ifeq ($(WEB_VERSION),yes)
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) -D web_version --output=$@ $<
 else
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 endif
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi
 ifeq ($(WEB_VERSION),yes)
 	$(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage -D web_version --output=$@ $<
 else
 	$(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage --output=$@ $<
 endif
 
-$(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
+$(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi
 	$(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<
 
-$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/%.html.omf
+$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi $(outdir)/%.html.omf
 	mkdir -p $(dir $@)
 ifeq ($(WEB_VERSION),yes)
 	$(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) -D web_version --output=$(dir $@) $<
@@ -55,17 +55,17 @@ endif
 $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
 	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -o $(XREF_MAPS_DIR) $<
 
-$(outdir)/%.info: %.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+$(outdir)/%.info: %.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
-$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf
+$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(outdir)/weblinks.itexi
 ifeq ($(WEB_VERSION),yes)
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -D web_version -I $(abs-src-dir) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 else
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -I $(abs-src-dir) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 endif
 
-$(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi
+$(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --no-split --no-headers --output $@ $<
 
 $(outdir)/%.html.omf: %.texi
@@ -76,6 +76,9 @@ $(outdir)/%.pdf.omf: %.texi
 
 $(outdir)/version.%: $(top-src-dir)/VERSION
 	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
+
+$(outdir)/weblinks.%: $(top-src-dir)/VERSION
+	$(PYTHON) $(top-src-dir)/scripts/build/create-weblinks-itexi.py > $@
 
 .SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi \
   $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep \
