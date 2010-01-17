@@ -7,6 +7,7 @@
 ifeq ($(WEBSITE_ONLY_BUILD),1)
   ### for lilypond.org
   top-src-dir=$(HOME)/src/lilypond
+  depth=.
   trusted-dir=$(HOME)/lilypond/trusted-scripts
   script-dir=$(trusted-dir)
   texi2html-init-file=$(trusted-dir)/lilypond-texi2html.init
@@ -27,7 +28,7 @@ endif
 ################################################################
 OUT=out-website
 
-TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
+TEXI2HTML=TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 
 EXTRACT_TEXI_FILENAMES=python $(script-dir)/extract_texi_filenames.py
 CREATE_VERSION=python $(script-dir)/create-version-itexi.py
