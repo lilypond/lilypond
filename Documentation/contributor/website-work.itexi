@@ -78,6 +78,7 @@ diff -u $GIT/website.make $DEST/website.make
 diff -u $GIT/Documentation/lilypond-texi2html.init $DEST/lilypond-texi2html.init
 diff -u $GIT/scripts/build/extract_texi_filenames.py $DEST/extract_texi_filenames.py
 diff -u $GIT/scripts/build/create-version-itexi.py $DEST/create-version-itexi.py
+diff -u $GIT/scripts/build/create-weblinks-itexi.py $DEST/create-weblinks-itexi.py
 @end verbatim
 
 If the changes look ok, make them trusted:
@@ -91,6 +92,7 @@ cp $GIT/website.make $DEST/website.make
 cp $GIT/Documentation/lilypond-texi2html.init $DEST/lilypond-texi2html.init
 cp $GIT/scripts/build/extract_texi_filenames.py $DEST/extract_texi_filenames.py
 cp $GIT/scripts/build/create-version-itexi.py $DEST/create-version-itexi.py
+cp $GIT/scripts/build/create-weblinks-itexi.py $DEST/create-weblinks-itexi.py
 @end verbatim
 
 Build the website:
