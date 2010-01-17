@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+    Translation of GIT committish: b335d5e83baf2121b0378dae7b4f7f9a832abc9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -76,7 +76,8 @@ chapitre @ref{Liaisons de prolongation}.
 @item Des indications quant au support polyphonique se trouvent au
 chapitre @ref{Résolution des collisions}.
 
-@item La notation des sons harmoniques se trouve à la section @ref{Harmoniques}.
+@item La notation des sons harmoniques se trouve à la section 
+@ref{Harmoniques}.
 
 @end itemize
 
@@ -89,7 +90,7 @@ Manuel de notation :
 @ref{Noms d'instrument},
 @ref{Saisie de musique en parallèle},
 @ref{Arpèges},
-@ref{List of articulations},
+@ref{Liste des signes d'articulation},
 @ref{Clefs}.
 
 
@@ -159,28 +160,75 @@ Référence des propriétés internes :
 
 La notation en tablature est utilisée pour certains instruments à cordes
 pincées.  Les hauteurs n'y sont pas indiquées par des têtes de note,
-mais par des chiffres qui indiquent sur quelle corde, et à quelle case
-chaque note doit être jouée.  Dans certaines limites, LilyPond vous
-permet d'écrire des tablatures.
+mais par des chiffres ou autres symboles, qui indiquent sur quelle
+corde, et à quelle case chaque note doit être jouée.  Dans certaines
+limites, LilyPond vous permet d'écrire des tablatures.
 
 Chaque numéro de corde associé à une note doit être précédé d'une barre
 oblique inverse (ou @qq{antislash}) suivi d'un nombre.  Par défaut, la
-première corde est
-la plus aiguë, et les cordes suivent l'accordage traditionnel d'une
-guitare (à six cordes).  Les notes sont imprimées sous forme de
-tablature, dans les contextes @rinternals{TabStaff} et
-@rinternals{TabVoice}.
+première corde est la plus aiguë, et les cordes suivent l'accordage
+traditionnel d'une guitare (à six cordes).  Les notes sont imprimées
+sous forme de tablature, dans les contextes @code{TabStaff} et
+@code{TabVoice}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\new TabStaff {
-  a,4\5 c'\2 a\3 e'\1
-  e\4 c'\2 a\3 e'\1
+\new TabStaff \relative c' {
+	a,8 a' <c e> a
+	d, a' <d f> a
+}
+@end lilypond
+
+Par défaut, les tablatures ne comportent aucune marque de durée ni de
+symbole musical tel que des nuances.
+
+@lilypond[quote,ragged-right,verbatim]
+symbols = {
+  \time 3/4
+  c4-.^"Allegro" d( e)
+  f4-.\f g a^\fermata
+  \mark \default
+  c8_.\<\( c16 c ~ c2\!
+  c'2.\prall\)
+}
+
+\score {
+  <<
+    \new Staff { \clef "G_8" \symbols }
+    \new TabStaff   { \symbols }
+  >>
+}
+@end lilypond
+
+@funindex \tabFullNotation
+
+Pour obtenir les symboles de notation habituelle dans une tablature, il
+faut appliquer la commande @code{\tabFullNotation} au contexte
+@code{TabStaff}.  Vous noterez par ailleurs que les blanches sont
+affublées d'une double hampe afin de ne pas les confondre avec des
+noires. 
+
+@lilypond[quote,ragged-right,verbatim]
+symbols = {
+  \time 3/4
+  c4-.^"Allegro" d( e)
+  f4-.\f g a^\fermata
+  \mark \default
+  c8_.\<\( c16 c ~ c2\!
+  c'2.\prall\)
+}
+
+\score {
+  \new TabStaff {
+    \tabFullNotation
+    \symbols
+  }
 }
 @end lilypond
 
 @funindex minimumFret
 
 @cindex cases
+@cindex frets
 
 Quand aucune corde n'est précisée, LilyPond choisit automatiquement la
 corde pour laquelle la position est la moins élevée et qui donne un
@@ -193,15 +241,92 @@ numéro de case supérieur ou égal à la valeur de la propriété
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
+     \time 2/4
      c16 d e f g4
+     c,16\5 d\5 e\4 f\4 g4\4
      c,16 d e f g4
    }
    \new TabStaff \relative c {
      c16 d e f g4
+     c,16\5 d\5 e\4 f\4 g4\4
      \set TabStaff.minimumFret = #5
      c,16 d e f g4
    }
 >>
+@end lilypond
+
+Lorsqu'un liaison de prolongation intervient lors d'un saut de ligne, la
+note est répétée, entre parenthèses.  Il en va de même pour la seconde
+alternative d'une répétition.
+
+@lilypond[quote,ragged-right,verbatim]
+ties = \relative c' {
+	\repeat volta 2 {
+	e2. f4~
+	f2 g2~ }
+	\alternative {
+		{ g4 f2. }
+		{ g4\repeatTie c,2. }
+	}
+	b1~\break
+	b1  \bar "|."
+}
+
+\score {
+  <<
+    \new StaffGroup  <<
+    \context Staff  {
+        \clef "treble_8"
+        \ties
+    }
+      \context TabStaff  {
+        \ties
+      }
+    >>
+  >>
+  \layout {
+  indent = #0
+  ragged-right = ##t
+  }
+}
+@end lilypond
+
+@funindex \hideSplitTiedTabNotes
+
+La commande @code{\hideSplitTiedTabNotes} permet d'éviter d'imprimer
+ces cases entre parenthèses.
+
+@lilypond[quote,ragged-right,verbatim]
+ties = \relative c' {
+	\repeat volta 2 {
+	e2. f4~
+	f2 g2~ }
+	\alternative {
+		{ g4 f2. }
+		{ g4\repeatTie c,2. }
+	}
+	b1~\break
+	b1  \bar "|."
+}
+
+\score {
+  <<
+    \new StaffGroup  <<
+    \context Staff  {
+        \clef "treble_8"
+        \ties
+    }
+      \context TabStaff  {
+      \hideSplitTiedTabNotes
+        \ties
+      }
+    >>
+  >>
+  \layout {
+  indent = #0
+  ragged-right = ##t
+  }
+}
 @end lilypond
 
 @cindex harmoniques, indication en tablature
@@ -326,9 +451,9 @@ cordes de la plus aiguë à la plus grave, mais certains instruments
 (comme le ukulele) n'ont pas les cordes classées par hauteur.
 
 Dans cette liste, la hauteur des notes est représentée par l'intervalle,
-exprimé en demi-tons,  du do central jusqu'à la note de la corde à vide.
+exprimé en demi-tons, du do central jusqu'à la note de la corde à vide.
 Elle doit donc être représentée par un nombre entier.  LilyPond calcule
-la note correspondant  à chaque corde en ajoutant cet intervalle au do
+la note correspondant à chaque corde en ajoutant cet intervalle au do
 central.
 
 Lilypond calcule automatiquement le nombre de cordes à représenter dans
@@ -361,7 +486,7 @@ mynotes = {
 
 
 @seealso
-Fichiers sources installés :
+Fichiers d'initialisation :
 @file{scm/output-lib.scm}.
 
 Morceaux choisis :
@@ -369,6 +494,12 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{Tab_note_heads_engraver}.
+
+@knownissues
+Le calcul automatique des tablatures se révèle inapproprié pour les
+instruments dont l'ordre des cordes ne correspond pas à l'ordre des
+hauteurs, comme le ukulele.
+
 
 @node Tablatures sous forme d'étiquette
 @unnumberedsubsubsec Tablatures sous forme d'étiquette
@@ -415,7 +546,7 @@ Les cordes à vide et étouffées peuvent aussi être indiquées.
 @cindex barré, indication de
 @cindex indication du barré
 
-Les indications de barrés peuvent aussi être ajoutées au diagramme
+Les indications de barré peuvent aussi être ajoutées au diagramme
 d'accord dans l'interface standard :
 
 @lilypond[quote, verbatim]
@@ -548,7 +679,7 @@ cordes à vide ainsi que les numéros de case peuvent y être indiqués.
 >>
 @end lilypond
 
-Les indications de barré peuvent être inclus dans l'interface
+Les indications de barré peuvent être incluses dans l'interface
 @code{fret-diagram-terse}.
 
 @lilypond[quote, verbatim]
@@ -780,14 +911,32 @@ des diagrammes d'accords stockés dans une table de correspondance :
 @end lilypond
 
 Les diagrammes d'accord définis par défaut sont dans le fichier
-@code{predefined-guitar-fretboards.ly}.  Les diagrammes d'accords sont
+@code{predefined-guitar-fretboards.ly}.  Les diagrammes d'accord sont
 stockés en fonction des notes de l'accord ainsi que de l'accordage
 (@code{stringTunings}) utilisé.
-@code{predefined-guitar-fretboards.ly} contient les diagrammes d'accords
+@code{predefined-guitar-fretboards.ly} contient les diagrammes d'accord
 prédéfinis uniquement pour l'accordage standard (@code{guitar-tuning}).
 Des diagrammes d'accords peuvent être définis pour d'autres instruments
 ou d'autres accordages en suivant les exemples du fichier
 @code{predefined-guitar-fretboards.ly}.
+
+Les diagrammes de fret propres au ukulele se trouvent dans le fichier
+@code{predefined-ukulele-fretboards.ly}.
+
+@lilypond[verbatim, ragget-right, quote]
+\include "predefined-ukulele-fretboards.ly"
+
+myChords = \chordmode { a1 a:m a:aug }
+
+\new ChordNames {
+  \myChords
+}
+
+\new FretBoards {
+  \set stringTunings = #ukulele-tuning
+  \myChords
+}
+@end lilypond
 
 Les notes des accords peuvent être entrées aussi bien comme musique
 simultanée qu'en utilisant le mode accord (voir
@@ -860,8 +1009,9 @@ mychordlist = {
 La table des diagrammes d'accord contient sept types d'accord (majeur,
 mineur, augmenté, diminué, septième de dominante, majeur sept, mineur
 sept) pour chacune des 17 fondamentales possibles.  Une liste complète
-des diagrammes d'accords prédéfinis se trouve dans @ref{Tablatures prédéfinies}.   S'il n'y a pas d'entrée dans la table pour un
-accord donné, le graveur @code{Fretboard_engraver} calculera le
+des diagrammes d'accords prédéfinis se trouve dans 
+@ref{Tablatures prédéfinies}.   S'il n'y a pas d'entrée dans la table
+pour un accord donné, le graveur @code{Fretboard_engraver} calculera le
 diagramme d'accord en utilisant la fonctionnalité automatique  décrite
 dans @ref{Tablatures automatiques}.
 
@@ -912,7 +1062,8 @@ mychords = \chordmode{
 @end lilypond
 
 On peut enregistrer différents diagrammes pour un même accord
-en les définissant à des octaves différentes.
+en les définissant à des octaves différentes.   Notez qu'il faut un
+intervalle de deux octaves, le premier servant à la transposition.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1008,7 +1159,7 @@ Manuel de notation :
 @ref{Généralités sur le mode accords},
 @ref{Tablatures prédéfinies}.
 
-Fichiers sources installés :
+Fichiers d'initialisation :
 @file{ly/predefined-guitar-fretboards.ly},
 @file{ly/predefined-guitar-ninth-fretboards.ly}.
 
@@ -1060,7 +1211,7 @@ correspondant aux notes seront automatiquement calculées.
 
 Dans la mesure où aucun diagramme prédéfini n'est chargé par défaut, le
 calcul automatique des diagrammes d'accord est le comportement par
-défaut. Dès que les diagrammes par défaut sont chargés, le calcul
+défaut.  Dès que les diagrammes par défaut sont chargés, le calcul
 automatique peut être activé ou désactivé par des commandes
 prédéfinies :
 
@@ -1148,12 +1299,12 @@ servira à calculer les cordes et les cases du contexte @code{FretBoard}.
 Les cordes et les cases du contexte @code{FretBoards} sont liées à la
 propriété @code{stringTunings}, qui a là même signification que dans le
 contexte @code{TabStaff}.
-Voir @ref{Tablatures personnalisées} pour plus d'information sur la propriété
-@code{stringTunings}.
+Voir @ref{Tablatures personnalisées} pour plus d'information sur la
+propriété @code{stringTunings}.
 
 La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur au travers des propriétés de
-l'interface @rinternals{fret-diagram-interface}.  Pour un diagramme
+l'interface @code{fret-diagram-interface}.  Pour un diagramme
 d'accord, les propriétés de l'interface dépendent de
 @code{FretBoards.FretBoard}.
 
@@ -1173,6 +1324,11 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals {fret-diagram-interface}.
+
+@knownissues
+Le calcul automatique des diagrammes de fret se révèle inapproprié pour
+les instruments dont l'ordre des cordes ne correspond pas à l'ordre des
+hauteurs.
 
 
 @node Doigtés pour la main droite

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5a1312de54bc66dfe10a08670db976354e9ae5c3
+    Translation of GIT committish: b335d5e83baf2121b0378dae7b4f7f9a832abc9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -38,7 +38,7 @@ cordes d'orchestre.
 Il existe peu d'éléments spécifiques à l'écriture pour instruments à
 cordes non frettées.  La musique est notée sur une portée et ne
 nécessite généralement qu'une seule voix.  Le recours à deux voix
-disticntes peut cependant permettre de traiter efficacement des doubles
+distinctes peut cependant permettre de traiter efficacement des doubles
 notes ou des divisions.  
 
 @menu
@@ -59,7 +59,8 @@ d'autres chapitres de la documentation :
 @itemize
 
 @item Les indications textuelles telles que @qq{pizz.} ou @qq{arco} sont 
-ajoutées comme du texte simple -- voir à ce sujet @ref{Commentaires textuels}.
+ajoutées comme du texte simple -- voir à ce sujet 
+@ref{Commentaires textuels}.
 
 @item Les indications de doigtés, incluant les indications du pouce,
 sont décrites dans @ref{Doigtés}.
@@ -85,7 +86,7 @@ Manuel de notation :
 @ref{Notes en accords},
 @ref{Arpèges}.
 
-Exemples de code :
+Morceaux choisis :
 @rlsr{Unfretted strings}.
 
 @node Indications d'archet
@@ -195,7 +196,7 @@ d'ajouter un point aux notes pointées affublées d'un @code{\harmonic}.
 <e a\harmonic>2.  <c g'\harmonic>4
 @end lilypond
 
-@warning{La commande @code{@bs{}harmonic} @strong{doivent} être placée
+@warning{La commande @code{@bs{}harmonic} @strong{doit} être placée
 dans une construction de type accord même s'il n'y a qu'une seule note.
 On utiliserait plutôt la commande @code{@bs{}harmonicsOn} en pareil
 cas.} 
