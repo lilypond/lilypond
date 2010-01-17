@@ -107,7 +107,7 @@ def make_all_downloads(macroName, version):
     make_download("download"+macroName+"Windows", "mingw/",
         "mingw.exe", version, "1", "Windows")
 
-def make_ver_link(macroname, version, url, linktext):
+def make_ver_link(macroname, url, linktext):
     string = "@uref{"
     string += url
     string += ","
@@ -159,28 +159,25 @@ def make_manual_links(name, version):
         if (url == ''):
             # can't have a comma here due to texinfo
             make_ver_link("manual"+name+mshort+'Pdf',
-                version, "http://lilypond.org",
+                "http://lilypond.org",
                 mshort+" (did not exist in 2.12)")
             make_ver_link("manual"+name+mshort+'Split',
-                version, "http://lilypond.org",
+                "http://lilypond.org",
                 mshort+" (did not exist in 2.12)")
             make_ver_link("manual"+name+mshort+'Big',
-                version, "http://lilypond.org",
+                "http://lilypond.org",
                 mshort+" (did not exist in 2.12)")
             make_ver_link("manual"+name+mshort+'SplitNoName',
-                version, "http://lilypond.org",
+                "http://lilypond.org",
                 mshort+" (did not exist in 2.12)")
             continue
         make_ver_link("manual"+name+mshort+'Pdf',
-                  version,
                   url + '.pdf',
                   manual.capitalize() + '.pdf')
         make_ver_link("manual"+name+mshort+'Split',
-                  version,
                   url + '/index.html',
                   manual.capitalize() + ' (split HTML)')
         make_ver_link("manual"+name+mshort+'Big',
-                  version,
                   url + '-big-page.html',
                   manual.capitalize() + ' (big HTML)')
 	# this is stupid and I shouldn't have bothered trying
@@ -192,10 +189,22 @@ def make_manual_links(name, version):
         else:
             newurl = url + '/index.html'
         make_ver_link("manual"+name+mshort+'SplitNoName',
-                  version,
                   newurl,
                   manual.capitalize())
 
+def make_regtest_links(name, version):
+    ver_split = version.split('.')
+    ver_minor = ver_split[0] + '.' + ver_split[1]
+    url = depth + "doc/v" + ver_minor + "/input/regression/"
+
+    make_ver_link("regtest"+name, url+"collated-files.html",
+        "Regression tests for "+version)
+    make_ver_link("regtest"+name+"Pdf", url+"collated-files.pdf",
+        "pdf of "+version+" regtests")
+    make_ver_link("regtest"+name+"Xml", url+"musicxml/collated-files.html",
+        "MusicXML Regression tests for "+version)
+    make_ver_link("regtest"+name+"XmlPdf", url+"musicxml/collated-files.html",
+        "pdf of "+version+" musicxml regtests")
 
 print "@c ************************ Download binaries ************"
 make_all_downloads("Stable", VERSION_STABLE)
@@ -210,5 +219,7 @@ print "@c ************************ Manual links ************"
 make_manual_links("Stable", VERSION_STABLE)
 make_manual_links("Devel", VERSION_DEVEL)
 
-
+print "@c ************************ Regtest links ************"
+make_regtest_links("Stable", VERSION_STABLE)
+make_regtest_links("Devel", VERSION_DEVEL)
 
