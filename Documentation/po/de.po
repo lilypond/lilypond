@@ -4,14 +4,14 @@
 # This file is distributed under the same license as the lilypond package.
 #
 #
-# Till Rettig <till.rettig@gmx.de>, 2007,2008, 2009.
+# Till Paala <till.rettig@gmx.de>, 2007,2008,2009,2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-06 23:05+0200\n"
-"PO-Revision-Date: 2009-06-27 12:38+0300\n"
-"Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
+"PO-Revision-Date: 2010-01-18 23:28+0200\n"
+"Last-Translator: Till Paala <till.rettig@gmx.de>\n"
 "Language-Team: German <de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3521,27 +3521,26 @@ msgstr "Alte Eingabe-Dateien aktualisieren"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
-#, fuzzy
 msgid "Common errors"
-msgstr "Übliche Akkorde"
+msgstr "Übliche Fehler"
 
 #. @node in Documentation/user/working.itely
 #. @unnumberedsubsubsec in Documentation/user/working.itely
 msgid "Music runs off the page"
-msgstr ""
+msgstr "Die Musik steht über den Seitenrand hinaus"
 
 #. @node in Documentation/user/working.itely
 msgid "Apparent error in ../ly/init.ly"
-msgstr ""
+msgstr "Offensichtlicher Fehler in ../ly/init.ly"
 
 #. @unnumberedsubsubsec in Documentation/user/working.itely
 msgid "Apparent error in @code{../ly/init.ly}"
-msgstr ""
+msgstr "Offensichtlicher Fehler in @code{../ly/init.ly}"
 
 #. @node in Documentation/user/working.itely
 #. @unnumberedsubsubsec in Documentation/user/working.itely
 msgid "Error message Unbound variable %"
-msgstr ""
+msgstr "Fehlermeldung Ungebundene Variable %"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
@@ -4349,14 +4348,12 @@ msgid "Updating files with @command{convert-ly}"
 msgstr "Dateien mit @command{convert-ly} aktualisieren"
 
 #. @node in Documentation/user/running.itely
-#, fuzzy
 msgid "Invoking convert-ly"
-msgstr "etf2ly aufrufen"
+msgstr "convert-ly aufrufen"
 
 #. @subsection in Documentation/user/running.itely
-#, fuzzy
 msgid "Invoking @command{convert-ly}"
-msgstr "@command{etf2ly} aufrufen"
+msgstr "@command{convert-ly} aufrufen"
 
 #. @node in Documentation/user/running.itely
 #. @node in Documentation/es/user/running.itely
