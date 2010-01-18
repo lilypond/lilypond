@@ -19,11 +19,12 @@ def read_pipe (command):
     return output
 
 
-optlist, texi_files = getopt.getopt(sys.argv[1:],'no:d:b:i:l:',['skeleton', 'gettext'])
+optlist, texi_files = getopt.getopt(sys.argv[1:],'no:d:b:i:l:',['skeleton', 'gettext', 'head-only'])
 process_includes = not ('-n', '') in optlist # -n   don't process @include's in texinfo files
 
 make_gettext = ('--gettext', '') in optlist   # --gettext    generate a node list from a Texinfo source
 make_skeleton = ('--skeleton', '') in optlist # --skeleton   extract the node tree from a Texinfo source
+head_only = ('--head-only', '') in optlist # --head-only  only write first node in included Texinfo skeletons
 
 output_name = 'doc.pot'
 
@@ -59,7 +60,7 @@ for x in optlist:
     elif x[0] == '-l': # -l ISOLANG  set documentlanguage to ISOLANG
         doclang = '; documentlanguage: ' + x[1]
 
-texinfo_with_menus_re = re.compile (r"^(\*) +([^:\n]+)::.*?$|^@(afourpaper|author|bye|contents|copying|end copying|divClass|divEnd|divId|documentencoding|documentlanguage|finalout|ifnottex|end ifnottex|imageClickable|imageFloat|imageId|image|include|menu|end menu|node|quotation|end quotation|ref|rgloss|setfilename|settitle|set|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|titlefont|titlepage|end titlepage|title|sourceimage|subtitle|top|vskip|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading|c) *(([^ \n].*)|$)", re.M)
+texinfo_with_menus_re = re.compile (r"^(\*) +([^:\n]+)::.*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *(.*?)$|@(rglos){(.+?)}", re.M)
 
 texinfo_re = re.compile (r"^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *(.+?)$|@(rglos){(.+?)}", re.M)
 
@@ -67,7 +68,8 @@ ly_string_re = re.compile (r'^([a-zA-Z]+)[\t ]*=|%+[\t ]*(.*)$|\\(?:new|context)
 lsr_verbatim_ly_re = re.compile (r'% begin verbatim$')
 texinfo_verbatim_ly_re = re.compile (r'^@lilypond\[.*?verbatim')
 
-def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, output_file=None, scan_ly=False):
+def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile,
+                  output_file=None, scan_ly=False, inclusion_level=0):
     try:
         f = open (texifilename, 'r')
         texifile = f.read ()
@@ -131,6 +133,8 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                         g.write ('@translationof ' + node_just_defined + '\n')
                         g.write (n_blurb)
                         node_just_defined = ''
+                        if head_only and inclusion_level == 1:
+                            break
                     elif item[2] == 'include':
                         includes.append (item[3])
                     else:
@@ -139,7 +143,8 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                                 printedfilename + '\n_(r"' + item[3].strip () + '")\n')
                         if item[2] == 'node':
                             node_just_defined = item[3].strip ()
-            g.write (end_blurb)
+            if not head_only:
+                g.write (end_blurb)
             g.close ()
 
         elif output_file:
@@ -152,10 +157,11 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                 else:
                     output_file.write ('# @' + item[0] + ' in ' + printedfilename + '\n_(r"' + item[1].strip () + '")\n')
 
-        if process_includes:
+        if process_includes and (not head_only or inclusion_level < 1):
             dir = os.path.dirname (texifilename)
             for item in includes:
-                process_texi (os.path.join (dir, item.strip ()), i_blurb, n_blurb, write_skeleton, topfile, output_file, scan_ly)
+                process_texi (os.path.join (dir, item.strip ()), i_blurb, n_blurb,
+                              write_skeleton, topfile, output_file, scan_ly, inclusion_level + 1)
     except IOError, (errno, strerror):
         sys.stderr.write ("I/O error(%s): %s: %s\n" % (errno, texifilename, strerror))
 

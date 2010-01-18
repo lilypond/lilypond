@@ -1280,9 +1280,8 @@ All files should be encoded in UTF-8.
 
 @menu
 * Files to be translated::
-* Translating the Learning Manual and other Texinfo documentation::
-* Translating the Notation Reference and Application Usage::
-* Translating the Documentation index index.html.in::
+* Translating the Web site and other Texinfo documentation::
+* Adding a Texinfo manual::
 @end menu
 
 @node Files to be translated
@@ -1290,8 +1289,8 @@ All files should be encoded in UTF-8.
 
 @include contributor/doc-translation-list.itexi
 
-@node Translating the Learning Manual and other Texinfo documentation
-@unnumberedsubsubsec Translating the Learning Manual and other Texinfo documentation
+@node Translating the Web site and other Texinfo documentation
+@unnumberedsubsubsec Translating the Web site and other Texinfo documentation
 
 @iftex
 @vskip 12pt
@@ -1452,22 +1451,32 @@ and/or the Documentation Editors on @email{lilypond-devel@@gnu.org}
 list.
 
 
-@node Translating the Notation Reference and Application Usage
-@unnumberedsubsubsec Translating the Notation Reference and Application Usage
+@node Adding a Texinfo manual
+@unnumberedsubsubsec Adding a Texinfo manual
 
-Copy @file{notation.tely} (or @file{application.tely},
-respectively) into @file{@var{MY-LANGUAGE}}, then translate this
-file and run @code{skeleton-update} -- see @ref{Updating documentation
-translation}.  Your are now ready to translate the Notation Reference
-(Application Usage, respectively) exactly like the Learning Manual.
+In order to start translating a new manual whose basename is @var{FOO},
+do
 
+@example
+cd Documentation/@var{MY-LANGUAGE}
+cp ../@var{FOO}.tely .
+mkdir @var{FOO}
+cp web/GNUmakefile @var{FOO}
+@end example
 
-@node Translating the Documentation index index.html.in
-@unnumberedsubsubsec Translating the Documentation index @file{index.html.in}
+@noindent
+then append @var{FOO} to variable @code{SUBDIRS} in
+Documentation/@var{MY-LANGUAGE}/GNUmakefile, then translate file
+@var{MY-LANGUAGE}/@var{FOO}.tely and run @code{skeleton-update}:
 
-Unlike almost all HTML pages in this documentation, links in this page
-are not tweaked by @file{postprocess_html.py}, so links should be
-manually edited to link to existing translations.
+@example
+cd Documentation/
+make ISOLANG=@var{MY-LANGUAGE} TEXI_LANGUTIL_FLAGS=--head-only skeleton-update
+@end example
+
+@noindent
+Your are now ready to translate the new manual exactly like the web site
+or the Learning Manual.
 
 
 @node Documentation translation maintenance
@@ -1562,9 +1571,9 @@ diff cannot be generated or is bigger than the file in English itself,
 the full file in English will be opened instead.
 
 Texinfo skeleton files, i.e. @file{.itely} files not yet translated,
-containing only the Texinfo structure can be updated automatically:
-whenever @command{make check-translation} shows that such files should
-be updated, run from @file{Documentation/}
+containing only the first node of the original file in English can be
+updated automatically: whenever @command{make check-translation} shows
+that such files should be updated, run from @file{Documentation/}
 
 @example
 make ISOLANG=@var{MY_LANGUAGE} skeleton-update

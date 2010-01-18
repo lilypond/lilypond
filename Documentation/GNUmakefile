@@ -267,11 +267,12 @@ new-lang:
 
 TRANSLATION_DIRS = web texidocs
 TRANSLATION_FILES = $(shell git ls-files $(ISOLANG) | grep -v GNUmakefile)
+TEXI_LANGUTIL_FLAGS += --skeleton
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/*.tely)
 skeleton-update:
 	mkdir -p $(ISOLANG)
-	$(PYTHON) $(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/%.tely=../%.tely)
+	$(PYTHON) $(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) $(TEXI_LANGUTIL_FLAGS) $(TELY_FILES:$(ISOLANG)/%.tely=../%.tely)
 	$(PYTHON) $(auxscript-dir)/texi-skeleton-update.py $(ISOLANG) $(outdir)
 
 snippet-update:
