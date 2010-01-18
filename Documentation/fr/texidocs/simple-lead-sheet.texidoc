@@ -1,7 +1,7 @@
-%% Translation of GIT committish: b7ec64504da87595509ae6e88ae546d6a0ce633d
+%% Translation of GIT committish: 54687441dde2fe248e20989bd265a274583413a8
   texidocfr = "
-Pour obtenir la partition d'un chanson, il suffit d'assembler
-des noms d'accords, une mélodie et des paroles :
+Assembler des noms d'accords, une mélodie et des paroles permet
+d'obtenir la  partition d'un chanson :
 
 "
   doctitlefr = "Chanson simple"
