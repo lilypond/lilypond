@@ -7,6 +7,7 @@
 * Compiling from source::
 * Concurrent Stable and Development Versions::
 * Using a Virtual Machine to Compile LilyPond::
+* Build system::
 @end menu
 
 @node Compiling from source
@@ -166,3 +167,36 @@ At this point everything has been compiled.
 You may install Lilypond using @code{make install}, or you may wish
 to set up your system with concurrent stable and development
 versions as described in the previous section.
+
+
+@node Build system
+@section Build system
+
+We currently use make and stepmake, which is complicated and only
+used by us.  Hopefully this will change in the future.
+
+
+@subsubheading Version-specific texinfo macors
+
+@itemize
+
+@item
+made with @command{scripts/build/create-version-itexi.py} and
+@command{scripts/build/create-weblinks-itexi.py}
+
+@item
+used extensively in the @code{WEBSITE_ONLY_BUILD} version of the
+website (made with website.make, used on lilypond.org)
+
+@item
+not (?) used in the main docs?
+
+@item
+the numbers in VERSION file: MINOR_VERSION should be 1 more than
+the last release, VERSION_DEVEL should be the last @strong{online}
+release.  Yes, VERSION_DEVEL is less than VERSION.
+
+@end itemize
+
+
+

@@ -3,10 +3,11 @@
 @chapter Release work
 
 @menu
-* Development phases::          
-* Minor release checklist::     
-* Major release checklist::     
-* Release extra notes::         
+* Development phases::
+* Minor release checklist::
+* Major release checklist::
+* Release extra notes::
+* Administrative policies::
 @end menu
 
 
@@ -81,10 +82,37 @@ A @qq{minor release} means an update of @code{y} in @code{2.x.y}.
 
 @enumerate
 
-@item Add a news item to @file{Documentation/web/news-front.itexi}
+@item
+switch to the release branch:
 
-@item Check that lilypond builds from scratch in an out-of-tree
-build.
+@example
+git checkout release/unstable
+@end example
+
+@item
+Get latest changes:
+
+@example
+git merge origin
+@end example
+
+@item
+Make a release announcement by adding a news item, and moving the
+oldest news item out of -front.
+
+@example
+Documentation/web/news-front.itexi
+Documentation/web/news.itexi
+@end example
+
+@item (optional) Check that lilypond builds from scratch in an
+out-of-tree build.
+
+@item Upload release branch.
+
+@example
+git push release/unstable
+@end example
 
 @item
 If you do not have the previous release test-output tarball, download
@@ -101,17 +129,11 @@ or something like:
 
 @example
 make LILYPOND_BRANCH=stable/2.12 lilypond
+make LILYPOND_BRANCH=release/unstable lilypond
 @end example
-
 
 @item Check the regtest comparison in @file{uploads/webtest/} for
 any unintentional breakage.
-
-@item Check if the mingw build contains lilypad.exe; when you find
-that it doesn't, rebuild @code{mingw::lilypond-installer}.  Repeat
-as necessary.
-
-@uref{http://code.google.com/p/lilypond/issues/detail?id=901}
 
 @item If any work was done on GUB since the last release, upload
 binaries to a temporary location, ask for feedback, and wait a day
@@ -120,7 +142,7 @@ or two in case there's any major problems.
 @end enumerate
 
 
-@subheading Post-release
+@subheading Actual release
 
 @enumerate
 
@@ -143,14 +165,51 @@ or something like:
 make lilypond-upload LILYPOND_BRANCH=stable/2.12 LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git
 @end example
 
+@end enumerate
 
-@item Update @file{VERSION} in lilypond git.
+
+@subheading Post release
+
+@enumerate
+
+@item Switch back to master and get the updated news:
+
+@example
+git checkout master
+git merge release/unstable
+@end example
+
+@item Update @file{VERSION} in lilypond git:
+
+@example
+VERSION = what you just did +0.0.1
+DEVEL_VERSION = what you just did (i.e. is now online)
+STABLE_VERSION = what's online
+@end example
+
+@item Push changes.
+
+@item (for now) do a @code{make doc} and manually upload:
+
+@example
+### upload-lily-web-media.sh
+#!/bin/sh
+BUILD_DIR=$HOME/src/build-lilypond
+
+PICS=$BUILD_DIR/Documentation/pictures/out-www/
+EXAMPLES=$BUILD_DIR/Documentation/web/ly-examples/out-www/
+
+cd $BUILD_DIR
+rsync -a $PICS graham@@lilypond.org:media/pictures
+rsync -a $EXAMPLES graham@@lilypond.org:media/ly-examples
+@end example
 
 @item Wait a few hours for the website to update.
 
 @item Email release notice to @code{info-lilypond}
 
 @end enumerate
+
 
 
 @node Major release checklist
@@ -247,115 +306,104 @@ Web:
 @node Release extra notes
 @section Release extra notes
 
-If releasing stable/2.12, then:
-
-- apply doc patch: patches/rsync-lily.patch  (or something like
-  that)
-
-- change infodir in gub/specs/lilypond-doc.py from "lilypond.info"
-  to "lilypond-web.info"
-
-
-GENERAL STUFF TO BE MOVED ELSEWHERE
+@subsubheading Regenerating regression tests
 
 Regenerating regtests (if the lilypond-book naming has changed):
 
-- git checkout release/lilypond-X.Y.Z-A
+@itemize
 
-- take lilypond-book and any related makefile updates from the
-  latest git.
+@item
+git checkout release/lilypond-X.Y.Z-A
 
+@item
+take lilypond-book and any related makefile updates from the
+latest git.
+
+@item
 - configure; make; make test
 
-- tar -cjf lilypond-X.Y.Z-A.test-output.tar.bz2
-  input/regression/out-test/
+@item
+tar -cjf lilypond-X.Y.Z-A.test-output.tar.bz2 input/regression/out-test/
 
-- mv lilypond-X.Y.Z-A.test-output.tar.bz2 ../gub/regtests/
+@item
+mv lilypond-X.Y.Z-A.test-output.tar.bz2 ../gub/regtests/
 
-- cd ../gub/regtests/
+@item
+cd ../gub/regtests/
 
-- make lilypond
+@item
+make lilypond
 
-
-
-VERSION-SPECIFIC MACROS
-
-- made with scripts/build/create-version-itexi.py
-
-- used extensively in the WEBSITE_ONLY_BUILD version of the
-  website (made with website.make, and used on lilypond.org)
-
-- not (?) used in the main docs?
-
-- FIXME: the numbers in VERSION: MINOR should be 1 more than the
-  last release, VERSION_DEVEL should be the last *online* release.
+@end itemize
 
 
-LANGUAGE LISTS
+@subsubheading stable/2.12
 
-- a translator can ask for an official lilypond-xy mailing list
-  once they've finished all "priority 1" translation items.
+If releasing stable/2.12, then:
 
+@itemize
 
-UPDATING A RELEASE ( x.y.z-a, where a>1 )
+@item
+apply doc patch: patches/rsync-lily.patch  (or something like
+that)
 
-really tentative instructions, almost certainly can be done better
+@item
+change infodir in gub/specs/lilypond-doc.py from "lilypond.info"
+to "lilypond-web.info"
+@end itemize
 
-1. change the VERSION back to release you want.  push change.
+@subsubheading Updating a release (changing a in x.y.z-a)
+
+Really tentative instructions, almost certainly can be done
+better.
+
+@enumerate
+
+@item
+change the VERSION back to release you want.  push change.
 (hopefully you'll have forgotten to update it when you made your
 last release)
 
-2. make sure that there aren't any lilypond files floating around
-in target/  (like usr/bin/lilypond).
+@item
+make sure that there aren't any lilypond files floating around in
+target/  (like usr/bin/lilypond).
 
-3. build the specific package(s) you want, i.e.
+@item
+build the specific package(s) you want, i.e.
 
+@example
 bin/gub mingw::lilypond-installer
 make LILYPOND_BRANCH=stable/2.12 -f lilypond.make doc
 bin/gub --platform=darwin-x86 'git://git.sv.gnu.org/lilypond-doc.git?branch=stable/2.12'
+@end example
 
-4.  manually upload them.  good luck figuring out the rsync
+or
+
+build everything with the normal "make lilypond", then (maybe)
+manually delete stuff you don't want to upload.
+
+@item
+manually upload them.  good luck figuring out the rsync
 command(s).  Hints are in test-lily/
 
+or
 
-MAKING A RELEASE -- NEW INFO
+run the normal lilypond-upload command, and (maybe) manually
+delete stuff you didn't want to upload from the server.
 
-(wow, I really need to stop being so messy here.  Will clean it up
-after 2.13.11; I need a chance to test these instructions)
-
-1. switch to the release branch:
-  git checkout release/unstable
-
-1b. get latest changes
-  git merge origin
-
-2. make a release announcement by editing:
-  Documentation/web/news-front.itexi
-  Documentation/web/news.itexi
-(moving the oldest news item to news-old.itexi)
-
-3. upload:
-  git push release/unstable
-
-4. make GUB as "normal"
-  make LILYPOND_BRANCH=release/unstable lilypond
-(if this works, make it the default for GUB)
-
-5. upload git, etc.
-
-6. switch back to master and get the updated news:
-  git checkout master
-  git merge release/unstable
-
-7. update VERSION, commit, push.
-  VERSION = what you just did +0.0.1
-  DEVEL_VERSION = what you just did (i.e. is now online)
-  STABLE_VERSION = what's online
+@end enumerate
 
 
-8. (for now)  manually upload
-  Documentation/pictures/out-www/
-  Documentation/web/ly-examples/out-www/
-to $HOME/media/pictures .../ly-examples on lilypond.org
+@node Administrative policies
+@section Administrative policies
+
+Not really release-specific notes, but I don't see enough material
+here to make it a separate chapter, and the release person will
+probably be the one taking care of this anyway.
+
+@subsubheading Language-specific mailing lists
+
+A translator can ask for an official lilypond-xy mailing list once
+they've finished all @qq{priority 1} translation items.
 
 
