@@ -211,7 +211,7 @@ uninstall-lilypond
 @divClass{column-right-top}
 @subheading Paquetes específicos de la distribución
 
-Utilice el gestor de paquetes de su distribción para instalar o
+Utilice el gestor de paquetes de su distribución para instalar o
 actualizar a estas versiones.
 
 @itemize
@@ -288,7 +288,7 @@ Para CPUs G3 y G4 (ordenadores Apple antiguos).
 
 @subsubheading Instalación
 
-Haga dobe click sobre el archivo descargado.  Después, arrástrelo a
+Haga doble clic sobre el archivo descargado.  Después, arrástrelo a
 donde quiera.
 
 @subsubheading Desinstalación
@@ -446,7 +446,7 @@ Para Windows ME, NT, 2000, XP, Vista y Windows 7.
 @enumerate
 
 @item
-Localice el archivo descargado y haga doble click sobre él para
+Localice el archivo descargado y haga doble clic sobre él para
 arrancar el instalador.
 
 @item
@@ -490,7 +490,7 @@ instrucciones.}
 
 
 @divClass{column-center-bottom}
-@subheading Legalismmos
+@subheading Legalismos
 
 @divClass{legal}
 Se reconoce el copyright y la marca registrada de todos los logotipos

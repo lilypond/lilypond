@@ -13,7 +13,7 @@
 @translationof Community
 
 @divClass{column-center-top}
-@subheading Interactual con la comunidad
+@subheading Interactuar con la comunidad
 
 @itemize
 
@@ -345,13 +345,13 @@ informe.}
 @divClass{column-left-bottom}
 @subheading Paso 2: creación de un informe de fallo
 
-Si ha descibuerto un fallo que no está en la lista, ayúdenos
+Si ha descubierto un fallo que no está en la lista, ayúdenos
 elaborando un informe de fallo.
 
 @warning{Sólo aceptamos informes de fallos en forma de @ref{Ejemplos
 mínimos}.  Disponemos de recursos muy limitados para tratar los
 informes de fallos, por lo que cualquier ejemplo que no sea mínimo va
-a ser rechazado.  ¡Casi todos los bugs se pueden desmostrar con cuatro
+a ser rechazado.  ¡Casi todos los bugs se pueden demostrar con cuatro
 notas o menos!}
 
 He aquí un ejemplo de un buen informe de fallo:
@@ -673,7 +673,7 @@ el manual está dividido en muchas páginas HTML.
 @*@ @  @emph{(descarga pequeña para cada página)}
 
 @item @uref{../contributor-big-page.html, Guía del colaborador (HTML monolítico)}:
-lea este manual como una sola páinga HTML enorme.
+lea este manual como una sola página HTML enorme.
 @*@ @  @emph{(una sola descarga grande, 500 kb)}
 
 @item @uref{../contributor.pdf, contributor.pdf}:
@@ -858,7 +858,7 @@ Febrero de 2008
 
 En @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html, artículos
 en su página personal}, Andrew Hawryluk compara a Finale con LilyPond
-en términos generales, y evalúa en detalle las posiblidades de grabado
+en términos generales, y evalúa en detalle las posibilidades de grabado
 musical de los dos programas.  El segundo artículo es un instructivo
 análisis de la edición del Preludio para piano número 6 de
 Rachmaninoff, incluyendo comparaciones con una edición de referencia
@@ -869,7 +869,7 @@ Diciembre de 2005
 
 Linux Journal publica un artículo titulado
 @uref{http://www.linuxjournal.com/article/8364, Elabore fantásticos
-gráficos de Schenker con GNU LilyPond}.  Es un artítulo destacado,
+gráficos de Schenker con GNU LilyPond}.  Es un artículo destacado,
 profundo pero práctico con atractivos gráficos de LilyPond.  El autor,
 Kris Shaffer, destaca: “GNU Lilypond genera unos gráficos preciosos
 que hace a las alternativas comerciales parecer de segunda fila.”
@@ -882,14 +882,14 @@ Software Libre en un artículo titulado
 @uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} (Compartir el conocimiento sin
 ánimo de lucro) en su `DS2 bijlage'.  LilyPond se usa como ejemplo y
-el artículo esá salpicado de citas procedentes de una `entrevista por
+el artículo está salpicado de citas procedentes de una `entrevista por
 e-mail' con Jan Nieuwenhuizen.  Esto marca la primera aparición de
 LilyPond en la prensa escrita de importancia.
 
 @item
 Junio de 2005
 
-Un artítulo en francés sobre el lanzamiento de LilyPond 2.6 apareció
+Un artículo en francés sobre el lanzamiento de LilyPond 2.6 apareció
 en @uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
 
 @item

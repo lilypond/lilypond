@@ -1,3 +1,10 @@
+<!--
+    Translation of GIT committish: 246bc6e20c076beb305c59d1540c9119abc65668
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+-->
+
 <form action="http://google.com/search"
       method="get"
       name="search"

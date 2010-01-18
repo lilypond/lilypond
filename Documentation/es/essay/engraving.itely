@@ -1479,6 +1479,7 @@ impresión de notas.
 Añadiendo nombres de acorde y la letra de la canción obtenemos una
 hoja guía de acordes.
 
+@c KEEP LY
 @lilypond[quote,ragged-right]
 <<
    \chords { c2 c f2 c }
@@ -1487,7 +1488,7 @@ hoja guía de acordes.
      \time 2/4
      c4 c g' g a a g2
    }
-   \addlyrics { twin -- kle twin -- kle lit -- tle star }
+   \addlyrics { Cam -- pa ni -- ta del lu -- gar }
 >>
 @end lilypond
 

@@ -233,7 +233,7 @@ grabado con LilyPond.
 @subsubheading Notación compleja
 
 Este ejemplo procedente de las @emph{Goyescas} de Enrique Granados
-muestra algunas de las posiblidades más avanzadas de la composición
+muestra algunas de las posibilidades más avanzadas de la composición
 tipográfica, como las barras en ángulo, plicas de pentagrama cruzado y
 líneas de seguimiento de voces.
 
@@ -366,7 +366,7 @@ LilyPond, lea en primer lugar lo que tenemos que decirle sobre la
 @uref{http://www.gnu.org/, GNU} LilyPond está escrito y mantenido por
 una comunidad de entusiastas.  Está publicado bajo la @ref{GPL,
 Licencia General Pública de GNU} y la @ref{FDL, Licencia de
-Documentación Libre de GNU}, danto a todos la libertad de arreglar,
+Documentación Libre de GNU}, dando a todos la libertad de arreglar,
 modificar y ampliar el programa.  ¡Crear música hermosa no debería
 requerir cientos de euros en software!
 @divEnd
@@ -435,14 +435,14 @@ Metas comunes: todos nosotros queremos partituras con buen aspecto,
 pero son pocos los que tienen la experiencia (y ninguno tiene tiempo)
 para crear un programa que pueda manejar todas las situaciones.
 Trabajando en equipos (una persona mejora el código que traza las
-barras de corchea, otra mejora la forma de las ligaduras y un terecero
+barras de corchea, otra mejora la forma de las ligaduras y un tercero
 escribe documentación explicando cómo utilizar estas posibilidades)
 podemos alcanzar nuestra meta con tan sólo una fracción del esfuerzo
 individual.
 
 @item
 La @qq{cultura del regalo}: el movimiento del Software Libre (o de
-@qq{fuente abierta}) ha creado muchos proyectos geniales de sofware,
+@qq{fuente abierta}) ha creado muchos proyectos geniales de software,
 como @uref{http://kernel.org/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox} y el juego
 @uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Después de
@@ -644,13 +644,13 @@ cuenta de que incluso si hiciera exactamente lo que el compositor
 quería, la música sería confusa de leer.  LilyPond me lo pone mucho
 más fácil al trabajar en mi doble papel de editor y copista.}
 
-@qq{Llevo ustilizando exclusivamente LilyPond para mi negocio de
+@qq{Llevo utilizando exclusivamente LilyPond para mi negocio de
 publicación recién inaugurado. Prácticamente sin excepción, todos los
 compositores se han quedado boquiabiertos con la calidad del grabado
 cuando se lo presentaba con las pruebas de su música previa a la
-publicaicón.  Me reservo parte del mérito de esto (empleo mucho tiempo
+publicación.  Me reservo parte del mérito de esto (empleo mucho tiempo
 en trucar los resultados, especialmente las ligaduras, sobre todo en
-los acordes), pero LilyPond me da unexcelente punto de partida, un
+los acordes), pero LilyPond me da un excelente punto de partida, un
 interfaz muy intuitivo, y la capacidad de modificar absolutamente
 cualquier cosa si le quiero dedicar el tiempo necesario.  Estoy
 convencido de que ningún producto comercial se le acerca ni de lejos.}
@@ -658,7 +658,7 @@ convencido de que ningún producto comercial se le acerca ni de lejos.}
 
 
 @divClass{testimonial-item}
-@subsubheading David Bobroff, trombón bajo, Orquesta Sinfónca de Islandia
+@subsubheading David Bobroff, trombón bajo, Orquesta Sinfónica de Islandia
 
 @qq{Creo que Lilypond es genial (...) cuanto más aprendo de LilyPond,
 ¡más me gusta!}
@@ -812,7 +812,7 @@ documentación de ayuda a los nuevos usuarios, comenzando con
 ¡Le rogamos que lea el Manual de Aprendizaje antes de protestar por
 posibles fallos en el programa!  Con frecuencia, los usuarios noveles
 creen que LilyPond no funciona, cuando de hecho está funcionando
-exactamente tay y como está diseñado para hacerlo.
+exactamente tal y como está diseñado para hacerlo.
 
 @c @hel p{any suggestions for a picture here?}
 
@@ -928,7 +928,7 @@ Linux y otros sistemas operativos del tipo UNIX.
 @uref{http://www.gnu.org/software/emacs/}
 
 Emacs es un editor de texto con funcionalidades avanzadas para muchos
-lenuajes de programación.  Emacs es un editor ampliamente expandible y
+lenguajes de programación.  Emacs es un editor ampliamente expansible y
 se puede usar como un entorno integrado de desarrollo.  Existe un
 @q{modo de lilypond} que ofrece las definiciones del lenguaje para
 trabajar sobre archivos fuente de Lilypond.
@@ -936,7 +936,7 @@ trabajar sobre archivos fuente de Lilypond.
 @uref{http://www.vim.org}
 
 Vim es un editor de texto minimalista que es una extensión del antiguo
-editor @command{vi} de Unix.  También es expandible y configurable.
+editor @command{vi} de Unix.  También es expansible y configurable.
 
 Por regla general, si no está familiarizado previamente con Emacs o
 con Vim, probablemente prefiera utilizar un editor distinto para
