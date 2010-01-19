@@ -368,12 +368,23 @@ reporting, and development.
 @divEnd
 
 @divClass{column-right-bottom}
+@subheading Read it
 
-@docLinks{Web, web,
-  @ref{Top,,,,Web},
-  @manualStableWebSplit,
-  @manualStableWebBig, 1 MB,
-  @manualStableWebPdf, 2 MB}
+@subsubheading Lastest manual
+
+@divClass{keep-bullets}
+@itemize
+@ref{Top,Web}
+@end itemize
+@divEnd
+
+@subsubheading Web manual in @versionDevel
+
+@docLinksBare{Web, web,
+  @ref{Top,Web},
+  @manualDevelWebSplit,
+  @manualDevelWebBig, 1 MB,
+  @manualDevelWebPdf, 2 MB}
 
 @divEnd
 
