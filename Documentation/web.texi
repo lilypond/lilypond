@@ -245,7 +245,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
   the manual is split between many HTML pages.
   @*@ @ @emph{(small download for each page)}
 
-@item @docLinkBig{\name\,\base\,\split\} @minus{}
+@item @docLinkBig{\name\,\base\,\big\} @minus{}
   read this manual as one huge HTML page.
   @*@ @ @emph{(large single download, \bigsize\)}
 
