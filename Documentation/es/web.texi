@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 6c1cdaa331972442a8fd62d98da5adebfaa9a17b
+    Translation of GIT committish: 95f363f4bcd2a5b345845d3671f25eecd28d994b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -203,49 +203,54 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
 @subheading Léalo
 
-@itemize
 
-@c normal case, special online case
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
+
+@end macro
+
+
+@macro docLinkSplit{name,base,webLink}
 @ifclear web_version
-  @item \refLink\:
+  @uref{../\base\/index.html, \name\ (HTML seccionado)}
 @end ifclear
 @ifset web_version
-  @c we assume that the online web version will be split html
-  @item \split\:
+  \webLink\
 @end ifset
-lea el manual en el mismo formato que éste.
+@end macro
 
-@end itemize
+@macro docLinkBig{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\-big-page.html, \name\ (HTML monolítico)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
 
-@subheading Todos los formatos
+@macro docLinkPdf{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\.es.pdf, \base\.es.pdf}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+
+@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
 
 @divClass{keep-bullets}
 @itemize
 
-@ifclear web_version
-  @item @uref{../\base\/index.html, \name\ (HTML seccionado)}:
-@end ifclear
-@ifset web_version
-  @item \split\
-@end ifset
+@item @docLinkSplit{\name\,\base\,\split\} @minus{}
   el manual está dividido en muchas páginas HTML.
   @*@ @ @emph{(una descarga pequeña por cada página)}
 
-@ifclear web_version
-  @item @uref{../\base\-big-page.html, \name\ (HTML monolítico)}:
-@end ifclear
-@ifset web_version
-  @item \big\
-@end ifset
+@item @docLinkBig{\name\,\base\,\split\} @minus{}
   lea este manual como una sola página HTML enorme.
   @*@ @ @emph{(una sola descarga grande, \bigsize\)}
 
-@ifclear web_version
-  @item @uref{../\base\.pdf, \base\.pdf}:
-@end ifclear
-@ifset web_version
-  @item \pdf\
-@end ifset
+@item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
   descárguelo como un archivo en formato PDF.
   @*@ @ @emph{(una sola descarga grande, \pdfsize\)}
 
@@ -254,6 +259,7 @@ lea el manual en el mismo formato que éste.
 @divEnd
 
 @end macro
+
 
 @c don't add any extra spaces in this macro -gp
 @macro ifWebLinks{webLink,normalLink}
@@ -265,9 +271,11 @@ lea el manual en el mismo formato que éste.
 @end ifset
 @end macro
 
+
 @include web/introduction.itexi
 @include web/download.itexi
 @include web/manuals.itexi
 @include web/community.itexi
+
 
 @bye

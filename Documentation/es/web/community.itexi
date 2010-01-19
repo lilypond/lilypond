@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 24434ddfe4d4f5733034ac9dd4ab35951a5ea289
+    Translation of GIT committish: 95f363f4bcd2a5b345845d3671f25eecd28d994b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -520,9 +520,22 @@ cualquiera de ellos, el lema es: @emph{Join the Frogs!}
 
 @c @hel p{not active yet; either comment out or begin these projects before 2.14}
 
-@c @subsubheadin g Grand LilyPond Input Syntax Standardization
+@subsubheading El proyecto GLISS (Grand LilyPond Input Syntax Standardization)
 
-@c @subsubheadin g Grand Organizing Project
+Página web:: @uref{http://lilypond.org/~graham/gliss}
+
+GLISS estabilizará la sintaxis del código de entrada, sin trucajes, para el advenimiento de
+LilyPond 3.0.  Después de la actualización a 3.0, la sintaxis de entrada para
+música sin trucajes, permanecerá estable durante un futuro previsible.
+
+We will have an extensive discussion period to determine the final
+input specification.
+
+@subsubheading Grand Organizing Project
+
+Website and mailist: TODO
+
+GOP is our big recruiting drive for new contributors.
 
 @divEnd
 
@@ -540,7 +553,12 @@ cualquiera de ellos, el lema es: @emph{Join the Frogs!}
 @translationof Development
 
 @divClass{heading-center}
-@heading Materiales de desarrollo para LilyPond @versionDevel{}
+@ifclear web_version
+  @heading Materiales de desarrollo para LilyPond @version
+@end ifclear
+@ifset web_version
+  @heading Materiales de desarrollo para LilyPond @versionDevel
+@end ifset
 
 @warning{Éstas son las versiones @emph{inestables de desarrollo}.  Si
 tiene la más ligera duda acerca de cómo usar o instalar LilyPond, le
@@ -561,7 +579,7 @@ versión impar (p.ej., 2.7, 2.9, 2.11).
 @divEnd
 
 
-@divClass{column-left-bottom}
+@divClass{column-left-top}
 @subheading Descarga
 
 Las instrucciones de git y para la compilación están en la Guía del
@@ -596,59 +614,6 @@ pruebas querrán descargar el último archivo binario:
 
 @end quotation
 
-
-@subheading Manuales
-
-@c @help {these need the automatic symlinks or something.  Maybe even
-@c a hard-coded url to lilypond.org/docs/2.13 or something??}
-
-(En construcción)
-
-@c Commented out pending a real fix
-@ignore
-
-Learning:
-@uref{lm-html, html}
-@uref{lm-big-html, big html}
-@uref{lm-pdf, pdf}
-
-Glossary:
-@uref{mg-html, html}
-@uref{mg-big-html, big html}
-@uref{mg-pdf, pdf}
-
-Essay:
-@uref{essay-html, html}
-@uref{essay-big-html, big html}
-@uref{essay-pdf, pdf}
-
-Notation:
-@uref{notation-html, html}
-@uref{notation-big-html, big html}
-@uref{notation-pdf, pdf}
-
-Usage:
-@uref{usage-html, html}
-@uref{usage-big-html, big html}
-@uref{usage-pdf, pdf}
-
-Snippets:
-@uref{snippets-html, html}
-@uref{snippets-big-html, big html}
-@uref{snippets-pdf, pdf}
-
-Changes:
-@uref{changes-html, html}
-@uref{changes-big-html, big html}
-@uref{changes-pdf, pdf}
-
-Internals:
-@uref{internals-html, html}
-@uref{internals-big-html, big html}
-@uref{internals-pdf, pdf}
-
-@end ignore
-
 @divEnd
 
 
@@ -660,56 +625,24 @@ es un proyecto grande y (más o menos) estable.  Para poder ayudar a
 los nuevos colaboradores, y para mantener todo el sistema (más o
 menos) estable, hemos escrito un manual para los colaboradores.
 
-@warning{No se pretende que este manual se lea en secuencia lineal;
-los colaboradores nuevos deberían leer solamente las secciones que son
-de relevancia para ellos.  Para ver más información acerca de los
-diferentes trabajos, consulte @ref{Preste su ayuda}.}
+@docLinksBare{Guía del colaborador, contributor,
+  @rcontribnamed{Top,Guía del colaborador},
+  @manualDevelContributorSplit,
+  @manualDevelContributorBig, 500 kB,
+  @manualDevelContributorPdf, 2.8 MB}
 
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../contributor/index.html, Guía del colaborador (HTML seccionado)}:
-el manual está dividido en muchas páginas HTML.
-@*@ @  @emph{(descarga pequeña para cada página)}
-
-@item @uref{../contributor-big-page.html, Guía del colaborador (HTML monolítico)}:
-lea este manual como una sola página HTML enorme.
-@*@ @  @emph{(una sola descarga grande, 500 kb)}
-
-@item @uref{../contributor.pdf, contributor.pdf}:
-descárguelo como un archivo en formato PDF.
-@*@ @  @emph{(una sola descarga grande, 2.8 Mb)}
-
-@c @item @uref{TODO, contributor.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
 @divClass{column-right-top}
-@subheading Frogs: nuevos colaboradores
-
-Los Frogs son un equipo de colaboradores nuevos que están siendo
-apadrinados sobre cómo @qq{comerse} (arreglar) los bugs y añadir
-funcionalidades nuevas a LilyPond.  Se anima a los programadores no
-familiarizados con LilyPond a que envíen parches a la lista de Frogs
-en primer lugar, para una discusión y una promoción iniciales.
-
-Página web y lista de correo: @uref{http://frogs.lilynet.net}
-
-@divEnd
-
-@divClass{column-right-bottom}
-@subheading Pruebas de regresión
+@subheading Regression tests
 
 @divClass{keep-bullets}
 @itemize
 
 @item @uref{../../input/regression/collated-files.html, Pruebas de regresión}:
-Pruebas del presente lanzamiento (también en
-@uref{../input/regression/collated-files.pdf, PDF}).
+Pruebas del lanzamiento actual. (también en
+@uref{../input/regression/collated-files.pdf, pdf})
 
 @item @uref{../../input/regression/musicxml/collated-files.html,
 pruebas de regresión de MusicXML}: la pruebas de MusicXML del presente
@@ -723,11 +656,101 @@ Comparaciones entre versiones.
 @divEnd
 @divEnd
 
+
+
+@divClass{column-center-bottom}
+@subheading manuales
+
+@divClass{normal-table}
+@multitable @columnfractions .3 .3 .3
+@headitem Introducción
+@item
+@docLinkSplit{Aprendizaje,learning,@manualDevelLearningSplit}
+@tab
+@docLinkBig{Aprendizaje,learning,@manualDevelLearningBig}
+@tab
+@docLinkPdf{Aprendizaje,learning,@manualDevelLearningPdf}
+
+@item
+@docLinkSplit{Glosario,music-glossary,@manualDevelGlossarySplit}
+@tab
+@docLinkBig{Glosario,music-glossary,@manualDevelGlossaryBig}
+@tab
+@docLinkPdf{Glosario,music-glossary,@manualDevelGlossaryPdf}
+
+@item
+@docLinkSplit{Ensayo,essay,@manualDevelEssaySplit}
+@tab
+@docLinkBig{Ensayo,essay,@manualDevelEssayBig}
+@tab
+@docLinkPdf{Ensayo,essay,@manualDevelEssayPdf}
+
+@headitem Estándar
+
+@item
+@docLinkSplit{Notación,notation,@manualDevelNotationSplit}
+@tab
+@docLinkBig{Notación,notation,@manualDevelNotationBig}
+@tab
+@docLinkPdf{Notación,notation,@manualDevelNotationPdf}
+
+@item
+@docLinkSplit{Utilización,usage,@manualDevelUsageSplit}
+@tab
+@docLinkBig{Utilización,usage,@manualDevelUsageBig}
+@tab
+@docLinkPdf{Utilización,usage,@manualDevelUsagePdf}
+
+@item
+@docLinkSplit{Fragmentos,snippets,@manualDevelSnippetsSplit}
+@tab
+@docLinkBig{Fragmentos,snippets,@manualDevelSnippetsBig}
+@tab
+@docLinkPdf{Fragmentos,snippets,@manualDevelSnippetsPdf}
+
+@headitem Poco frecuentes
+
+@item
+@docLinkSplit{Web,web,@manualDevelWebSplit}
+@tab
+@docLinkBig{Web,web,@manualDevelWebBig}
+@tab
+@docLinkPdf{Web,web,@manualDevelWebPdf}
+
+@item
+@docLinkSplit{Cambios,changes,@manualDevelChangesSplit}
+@tab
+@docLinkBig{Cambios,changes,@manualDevelChangesBig}
+@tab
+@docLinkPdf{Cambios,changes,@manualDevelChangesPdf}
+
+@item
+@docLinkSplit{Extensiones,extending,@manualDevelExtendingSplit}
+@tab
+@docLinkBig{Extensiones,extending,@manualDevelExtendingBig}
+@tab
+@docLinkPdf{Extensiones,extending,@manualDevelExtendingPdf}
+
+@item
+@docLinkSplit{Funcionamiento interno,Internals,@manualDevelInternalsSplit}
+@tab
+@docLinkBig{Funcionamiento interno,Internals,@manualDevelInternalsBig}
+@tab
+@docLinkPdf{Funcionamiento interno,Internals,@manualDevelInternalsPdf}
+
+@end multitable
+
+@divEnd
+@divEnd
+
+
+
+
 @node Autores
 @unnumberedsec Autores
 @translationof Authors
 
-@help{En construcción: ¡no es una lista exacta!}
+@c @hel p{Under construction; this is not an accurate list!}
 
 
 @divClass{column-left-top}
@@ -865,14 +888,22 @@ Rachmaninoff, incluyendo comparaciones con una edición de referencia
 grabada a mano.
 
 @item
+Junio de 2006
+
+@uref{http://distrowatch.com,DistroWatch} premia a  LilyPond y
+@uref{http://distrowatch.com/weekly.php?issue=20060605,escribe}
+@qq{Damas y caballeros, nos complace anunciar que, basándonos
+en la demanda de los lectores, la donación de DistroWatch de mayo de 2006 ha sido
+concedida a LilyPond (190.00 @euro{}) y a Lua (US$250.00).}
+@item
 Diciembre de 2005
 
 Linux Journal publica un artículo titulado
 @uref{http://www.linuxjournal.com/article/8364, Elabore fantásticos
 gráficos de Schenker con GNU LilyPond}.  Es un artículo destacado,
 profundo pero práctico con atractivos gráficos de LilyPond.  El autor,
-Kris Shaffer, destaca: “GNU Lilypond genera unos gráficos preciosos
-que hace a las alternativas comerciales parecer de segunda fila.”
+Kris Shaffer, destaca: @qq{GNU Lilypond genera unos gráficos preciosos
+que hace a las alternativas comerciales parecer de segunda fila.}
 
 @item
 20 de agosto de 2005
@@ -881,9 +912,9 @@ El diario belga De Standaard investiga qué empuja a los autores de
 Software Libre en un artículo titulado
 @uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} (Compartir el conocimiento sin
-ánimo de lucro) en su `DS2 bijlage'.  LilyPond se usa como ejemplo y
-el artículo está salpicado de citas procedentes de una `entrevista por
-e-mail' con Jan Nieuwenhuizen.  Esto marca la primera aparición de
+ánimo de lucro) en su @q{DS2 bijlage}.  LilyPond se usa como ejemplo y
+el artículo está salpicado de citas procedentes de una entrevista por
+e-mail con Jan Nieuwenhuizen.  Esto marca la primera aparición de
 LilyPond en la prensa escrita de importancia.
 
 @item

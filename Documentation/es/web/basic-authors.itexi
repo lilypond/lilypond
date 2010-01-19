@@ -1,13 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 24434ddfe4d4f5733034ac9dd4ab35951a5ea289
+    Translation of GIT committish: f597c44765b8234d15c32cd0320812656cec7c53
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
 @c This file is part of community.itexi and ../topdocs/AUTHORS.itexi
-
 
 @ignore
 
@@ -50,12 +49,24 @@ Support guru
 @item Trevor Daniels:
 Assistant documentation editor
 
+@item Reinhold Kainhofer:
+@email{reinhold@@kainhofer.com},
+@uref{http://reinhold.kainhofer.com},
+Music2xml wrangler, bug squasher
+
+@item Jonathan Kulp:
+Assistant documentation editor
+
+@item Werner Lemberg,
+@email{wl@@gnu.org},
+Fonts, bug squasher
+
 @item John Mandereau:
 @email{john.mandereau@@free.fr},
 Translation meister
 
 @item Patrick McCarty:
-Core developer
+SVG guru, bug squasher, text handling
 
 @item Joe Neeman:
 Core developer
@@ -74,12 +85,21 @@ Main author
 @uref{http://percival-music.ca},
 Project manager, Documentation Editor
 
-@item Nicolas Sceaux:
+@item Mark Polesky:
+Assistant documentation editor, Code cleanup
+
+@item Neil Puttock:
 Core developer
+
+@item Nicolas Sceaux:
+Core developer, Schemer extraordinaire
 
 @item Carl Sorensen:
 @email{c_sorensen@@byu.edu},
 Core developer, Frog meister
+
+@item Francisco Vila:
+Translations
 
 @item Valentin Villenave:
 LSR editor and Bug meister
@@ -92,12 +112,20 @@ LSR editor and Bug meister
 @macro developersPrevious
 
 @itemize
+
+@c use colons not commas for @item entries.
+
 @item Pedro Kroeger:
 Build meister
 
 @item Graham Percival:
 @uref{http://percival-music.ca},
 Bug meister, Grand Documentation Project leader
+
+@item Jürgen Reuter:
+@email{reuter_j@@web.de},
+@uref{http://www.juergen-reuter.de},
+Ancient notation
 
 @item Erik Sandberg:
 Bug meister
@@ -110,87 +138,72 @@ Bug meister
 
 @macro coreCurrent
 
-@itemize
-@item Frédéric Bron: Frog
+@c use commas not colons
 
-@item Hajo Dezelski: Frog
+Frédéric Bron,
+Hajo Dezelski,
+Andrew Hawryluk,
+Ian Hulin,
+Michael Käppler,
+Marek Klein,
+Kieren MacMillan,
+Andrew Wilson
 
-@item Andrew Hawryluk: Frog
+@c no comma for last entry
 
-@item Ian Hulin: Frog
-
-@item Marek Klein: Frog
-
-@item Kieren MacMillan: Frog
-
-@item Andrew Wilson: Frog
-
-@end itemize
 @end macro
 
 
 
 @macro fontCurrent
 
-@c nobody listed yet
-@c @itemize
-@c @item
+@c use commas not colons
 
-@c @end itemize
+@c ** nobody listed yet
+
+@c no comma for last entry
+
 @end macro
 
 
 
 @macro docCurrent
 
-@itemize
-@item Jonathan Kulp:
-Clean-ups in documentation
+@c use commas not colons
 
-@item James Lowe:
-Minor editing
+James Lowe,
+Ralph Palmer,
+Patrick Schmidt
 
-@item Ralph Palmer:
-Documentation indexing
+@c no comma for last entry
 
-@item Patrick Schmidt:
-CSS improvements
-
-@end itemize
 @end macro
 
 
 @macro supportCurrent
 
-@itemize
-@item James E. Bailey:
-Bug meister
+@c use commas not colons
 
-@item Christian Hitz:
-update gui for OSX 10.5.
+James E. Bailey,
+Christian Hitz
 
-@end itemize
+@c no comma for last entry
+
 @end macro
 
 
 
 @macro translationsCurrent
 
-@itemize
-@item Jean-Charles Malahieude:
-@email{lolyfan@@wanadoo.fr},
-French translation of messages, website and documentation
+@c use commas not colons
 
-@item Till Rettig:
-German translation
+Jean-Charles Malahieude,
+@c @email{lolyfan@@wanadoo.fr},
+Till Rettig,
+Yoshiki Sawada
 
-@item Yoshiki Sawada:
-Japanese translation
+@c no comma for last entry
 
-@item Francisco Vila:
-Spanish translation
-
-@end itemize
 @end macro
 
 
@@ -198,407 +211,184 @@ Spanish translation
 
 @macro corePrevious
 
-@itemize
+@c use commas not colons
 
-@item Erlend Aasland:
-Color support, tablature improvements, trivial @code{\\mark}
-stuff, al-niente hairpins
+Erlend Aasland,
+Maximilian Albert,
+Guido Amoruso,
+Kristof Bastiaensen,
+Pal Benko,
+@c @email{benkop@@freestart.hu},
+Juliusz Chroboczek,
+@c @email{jch@@pps.jussieu.fr},
+Angelo Contardi,
+David Feuer,
+@c @email{david.feuer@@gmail.com},
+Bertalan Fodor,
+Mathieu Giraud,
+Yuval Harel,
+Bernard Hurley,
+@c @email{bernard@@fong-hurley.org.uk},
+Yoshinobu Ishizaki,
+Chris Jackson,
+@c @email{chris@@fluffhouse.org.uk},
+David Jedlinsky,
+Heikki Junes,
+@c @email{heikki.junes@@hut.fi},
+Michael Krause,
+@c @email{m.krause@@tu-harburg.de},
+Jean-Baptiste Lamy,
+@c @email{jiba@@tuxfamily.org},
+Jonatan Liljedahl,
+Peter Lutek,
+Hendrik Maryns,
+Joe Neeman,
+@c @email{joeneeman@@gmail.com},
+Matthias Neeracher,
+Tatsuya Ono,
+Lisa Opus Goldstein,
+Guy Gascoigne-Piggford,
+Stan Sanderson,
+Edward Sanford Sutton,
+Andreas Scherer,
+Johannes Schindelin,
+Kim Shrier,
+Vicente Solsona Della,
+David Svoboda,
+Sebastiano Vigna,
+Arno Waschk,
+Michael Welsh Duggan,
+John Williams,
+Milan Zamazal,
+Rune Zedeler
 
-@item Maximilian Albert:
+@c no comma for last entry
 
-@item Guido Amoruso:
-
-@item Kristof Bastiaensen:
-
-@item Pal Benko:
-@email{benkop@@freestart.hu},
-Ancient notation
-
-@item Juliusz Chroboczek:
-@email{jch@@pps.jussieu.fr},
-Type42 code
-
-@item Angelo Contardi:
-
-@item David Feuer:
-@email{david.feuer@@gmail.com},
-PS output code refactoring
-
-@item Bertalan Fodor:
-
-@item Mathieu Giraud:
-
-@item Yuval Harel:
-
-@item Bernard Hurley:
-@email{bernard@@fong-hurley.org.uk},
-X11 color
-
-@item Yoshinobu Ishizaki:
-
-@item Chris Jackson:
-@email{chris@@fluffhouse.org.uk},
-Piano pedals, directed arpeggios
-
-@item David Jedlinsky:
-
-@item Heikki Junes:
-@email{heikki.junes@@hut.fi},
-Fine tuning for quarter tones in midi output
-
-@item Reinhold Kainhofer:
-@email{reinhold@@kainhofer.com},
-@uref{http://reinhold.kainhofer.com},
-Musicxml2ly development, various features and fixes
-
-@item Michael Krause:
-@email{m.krause@@tu-harburg.de},
-Breathing signs
-
-@item Jean-Baptiste Lamy:
-@email{jiba@@tuxfamily.org},
-Tablature support
-
-@item Werner Lemberg:
-@email{wl@@gnu.org},
-@TeX{} glue code
-
-@item Jonatan Liljedahl:
-
-@item Peter Lutek:
-
-@item Hendrik Maryns:
-
-@item Joe Neeman:
-@email{joeneeman@@gmail.com},
-Constrained line breaking
-
-@item Matthias Neeracher:
-
-@item Han-Wen Nienhuys:
-@email{hanwen@@xs4all.nl},
-@uref{http://www.xs4all.nl/~hanwen/},
-Main author
-
-@item Jan Nieuwenhuizen:
-@email{janneke@@gnu.org},
-@uref{http://www.xs4all.nl/~jantien/},
-Main author
-
-@item Tatsuya Ono:
-
-@item Lisa Opus Goldstein:
-
-@item Guy Gascoigne-Piggford:
-
-@item Niel Puttock:
-
-@item Jürgen Reuter:
-@email{reuter_j@@web.de},
-@uref{http://www.juergen-reuter.de},
-Ancient notation support (Mensural and Gregorian chant)
-ambitus, clusters
-
-@item Stan Sanderson:
-Regression Checker
-
-@item Erik Sandberg:
-
-@item Edward Sanford Sutton:
-
-@item Nicolas Sceaux:
-@email{nicolas.sceaux@@free.fr},
-Scheme macros, @code{\\markup} syntax
-
-@item Andreas Scherer:
-
-@item Johannes Schindelin:
-
-@item Kim Shrier:
-
-@item Vicente Solsona Della:
-
-@item David Svoboda:
-
-@item Sebastiano Vigna:
-
-@item Arno Waschk:
-
-@item Michael Welsh Duggan:
-
-@item John Williams:
-
-@item Milan Zamazal:
-
-@item Carl Sorensen:
-@email{c_sorensen@@byu.edu},
-Fret diagrams
-
-@item Rune Zedeler:
-Auto-accidental code, zigzag glissandi, rest bugfixes,
-minimum fret, @code{subdivideBeams}.
-
-@end itemize
 @end macro
 
 
 
 @macro fontPrevious
 
+@c use commas not colons
 
-@itemize
+Tom Cato Amundsen,
+@c @email{tca@@gnu.org},
+Chris Jackson,
+@c @email{chris@@fluffhouse.org.uk},
+Arno Waschk,
+@c @email{arno@@arnowaschk.de},
+Rune Zedeler
 
-@item Tom Cato Amundsen:
-@email{tca@@gnu.org},
-Accordion symbols
+@c no comma for last entry
 
-@item Chris Jackson:
-@email{chris@@fluffhouse.org.uk},
-Arpeggio arrow
-
-@item Han-Wen Nienhuys:
-@email{hanwen@@xs4all.nl},
-@uref{http://www.xs4all.nl/~hanwen/},
-Main author
-
-@item Jan Nieuwenhuizen:
-@email{janneke@@gnu.org},
-@uref{http://www.xs4all.nl/~jantien/},
-Main author
-
-@item Jürgen Reuter:
-@email{reuter_j@@web.de},
-@uref{http://www.juergen-reuter.de},
-Ancient notation font Exact Type1 font outlines for feta,
-feta-alphabet
-
-@item Arno Waschk:
-@email{arno@@arnowaschk.de},
-"Espressivo" mark
-
-@item Rune Zedeler:
-16th and shorter rests
-
-@end itemize
 @end macro
 
 
 
 @macro docPrevious
 
+@c use commas not colons
 
-@itemize
+Erlend Aasland,
+Trevor Bača,
+Alard de Boer,
+Jay Hamilton,
+Andrew Hawryluk,
+Joseph Harfouch,
+Cameron Horsburgh,
+Geoff Horton,
+Ian Hulin,
+Heikki Junes,
+@c @email{heikki.junes@@hut.fi},
+Kurtis Kroon,
+Dave Luttinen,
+Kieren MacMillan,
+Christian Mondrup,
+@c @email{scancm@@biobase.dk},
+Eyolf Østrem,
+Ralph Palmer,
+François Pinard,
+@c @email{pinard@@iro.umontreal.ca},
+@c @uref{http://pinard.progiciels-bpi.ca/},
+Eduardo Vieira,
+Michael Rasmussen,
+Till Rettig,
+Carl D. Sorensen,
+Anh Hai Trinh,
+Rune Zedeler
 
-@item Erlend Aasland:
+@c no comma for last entry
 
-@item Trevor Bača:
-Inspirational headwords
-
-@item Alard de Boer:
-Formatting
-
-@item Mats Bengtsson:
-@email{mats.bengtsson@@ee.kth.se},
-@uref{http://www.s3.kth.se/~mabe/},
-Example files, documentation
-
-@item Jay Hamilton:
-NR work
-
-@item Andrew Hawryluk:
-NR work
-
-@item Joseph Harfouch:
-NR work
-
-@item Cameron Horsburgh:
-Formatting and editing
-
-@item Geoff Horton:
-Formatting and editing
-
-@item Heikki Junes:
-@email{heikki.junes@@hut.fi},
-Clean-ups in documentation and example files
-
-@item Reinhold Kainhofer:
-Technical aid
-
-@item Kurt Kroon:
-Glossary, updates and NR work
-
-@item Jonathan Kulp:
-Clean-ups in documentation
-
-@item Dave Luttinen:
-Formatting and editing
-
-@item Patrick McCarty:
-NR work
-
-@item John Mandereau:
-@email{john.mandereau@@free.fr},
-Internationalization
-
-@item Christian Mondrup:
-@email{scancm@@biobase.dk},
-Glossary
-
-@item Han-Wen Nienhuys:
-@email{hanwen@@xs4all.nl},
-@uref{http://www.xs4all.nl/~hanwen/},
-Main author
-
-@item Jan Nieuwenhuizen:
-@email{janneke@@gnu.org},
-@uref{http://www.xs4all.nl/~jantien/},
-Main author
-
-@item Eyolf Østrem:
-NR work
-
-@item Ralph Palmer:
-Documentation indexing
-
-@item François Pinard:
-@email{pinard@@iro.umontreal.ca},
-@uref{http://pinard.progiciels-bpi.ca/},
-Parts of Documentation/user/glossary*,
-started internationalization stuff
-
-@item Niel Puttock:
-Snippet editor and technical aid
-
-@item Eduardo Vieira:
-NR work
-
-@item Francisco Vila:
-NR work
-
-@item Michael Rasmussen:
-Formatting
-
-@item Till Rettig:
-NR work
-
-@item Carl Sorensen:
-NR work
-
-@item Rune Zedeler:
-Schumann example
-
-@end itemize
 @end macro
 
 
 
 @macro supportPrevious
 
+@c use commas not colons
 
-@itemize
+Anthony Fok,
+@c @email{foka@@debian.org},
+Chris Jackson,
+@c @email{chris@@fluffhouse.org.uk},
+Heikki Junes,
+@c @email{heikki.junes@@hut.fi},
+David Svoboda
+@c @email{svoboda@@cmu.edu}
 
-@item Anthony Fok:
-@email{foka@@debian.org},
-Debian package: @file{debian/*}
+@c no comma for last entry
 
-@item Chris Jackson:
-@email{chris@@fluffhouse.org.uk},
-Emacs mode indentation
-
-@item Heikki Junes:
-@email{heikki.junes@@hut.fi},
-Major emacs and vim-mode updates
-
-@item David Svoboda:
-@email{svoboda@@cmu.edu},
-What-beat emacs module
-
-@end itemize
 @end macro
 
 
 
 @macro translationsPrevious
 
+@c use commas not colons
 
-@itemize
+Frédéric Chiasson,
+Abel Cheung,
+Alard de Boer,
+Simon Dahlbacka,
+Orm Finnendahl,
+David González,
+Nicolas Grandclaude,
+@c @email{ngclaude@@123mail.org},
+Damien Heurtebise,
+Matthieu Jacquot,
+Bjoern Jacke,
+@c @email{bjoern.jacke@@gmx.de},
+Neil Jerram,
+@c @email{nj104@@cus.cam.ac.uk},
+Heikki Junes,
+@c @email{heikki.junes@@hut.fi},
+Nicolas Klutchnikoff,
+Jean-Charles Malahieude,
+@c @email{lolyfan@@wanadoo.fr},
+Adrian Mariano,
+Christian Mondrup,
+Tineke de Munnik,
+@c @email{tdm@@dds.nl},
+Steven Michael Murphy,
+François Pinard,
+Gauvain Pocentek,
+@c @email{gauvainpocentek@@yahoo.fr},
+Till Rettig,
+Ludovic Sardain,
+@c @email{ludovicsardain@@gmail.com},
+Yoshiki Sawada,
+Thomas Scharkowski,
+Clytie Siddall,
+August S. Sigov,
+@c @email{august@@infran.ru},
+Roland Stigge,
+Risto Vääräniemi,
+Andrea Valle,
+Olcay Yıldırım
 
-@item Frédéric Chiasson:
-French documentation translation
+@c no comma for last entry
 
-@item Abel Cheung:
-
-@item David González:
-Spanish glossary translation
-
-@item Nicolas Grandclaude:
-@email{ngclaude@@123mail.org},
-French documentation translation
-
-@item Damien Heurtebise:
-
-@item Matthieu Jacquot:
-
-@item Bjoern Jacke:
-@email{bjoern.jacke@@gmx.de},
-German glossary translation
-
-@item Neil Jerram:
-@email{nj104@@cus.cam.ac.uk},
-Glossary translation
-
-@item Heikki Junes:
-@email{heikki.junes@@hut.fi},
-Finnish translation
-
-@item Nicolas Klutchnikoff:
-
-@item Tineke de Munnik:
-@email{tdm@@dds.nl},
-Dutch website translation
-
-@item Jean-Charles Malahieude:
-@email{lolyfan@@wanadoo.fr},
-French translation of messages, website and documentation
-
-@item John Mandereau:
-@email{john.mandereau@@free.fr},
-French translation of messages, website and documentation
-
-@item Tineke de Munnik:
-@email{tdm@@dds.nl},
-Dutch website translation
-
-@item Steven Michael Murphy:
-
-@item Gauvain Pocentek:
-@email{gauvainpocentek@@yahoo.fr},
-French website translation
-
-@item Till Rettig:
-German translation
-
-@item Ludovic Sardain:
-@email{ludovicsardain@@gmail.com},
-French documentation translation
-
-@item Yoshiki Sawada:
-Japanese translation
-
-@item Clytie Siddall:
-
-@item August S. Sigov:
-@email{august@@infran.ru},
-Russian translation
-
-@item Roland Stigge:
-
-@item Francisco Vila:
-Spanish translation
-
-@item Olcay Yıldırım:
-
-@end itemize
 @end macro
 
 
