@@ -894,7 +894,7 @@ can be inserted with a grob closure.  Here is a setting from
 @code{AccidentalSuggestion},
 
 @example
-(X-offset .
+`(X-offset .
   ,(ly:make-simple-closure
     `(,+
         ,(ly:make-simple-closure
