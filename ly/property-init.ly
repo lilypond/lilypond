@@ -172,14 +172,14 @@ endincipit = \context Staff {
 
 fermataMarkup =
 #(make-music 'MultiMeasureTextEvent
-   'tweaks (list
-             ; Set the 'text based on the 'direction
-             (cons 'text (lambda (grob)
-               (if (eq? (ly:grob-property grob 'direction) DOWN)
-	         (markup #:musicglyph "scripts.dfermata")
-	         (markup #:musicglyph "scripts.ufermata"))))
-             (cons 'outside-staff-priority 40)))
-
+             'tweaks (list
+                      ;; Set the 'text based on the 'direction
+                      (cons 'text (lambda (grob)
+                                    (if (eq? (ly:grob-property grob 'direction) DOWN)
+                                        (markup #:musicglyph "scripts.dfermata")
+                                        (markup #:musicglyph "scripts.ufermata"))))
+                      (cons 'outside-staff-priority 40)
+                      (cons 'outside-staff-padding 0)))
 
 %% font sizes
 
