@@ -1,11 +1,12 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
+    Translation of GIT committish: 89d34c60267f06f630d11e540eb4681748aa540f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 @setfilename lilypond-changes.info
+@settitle Registro de cambios de LilyPond
 
 @ifhtml
 @macro inputfileref{DIR,NAME}
@@ -32,18 +33,20 @@ Véase el manual del usuario, \NAME\
 @end macro
 
 
-@documentencoding utf-8
+@documentencoding UTF-8
 @documentlanguage es
+@afourpaper
 @c Translators: Francisco Vila
 
 @finalout
 
 @node Top
-@top New features in 2.13 since 2.12
+@top Funcionalidades nuevas de la versión 2.13 desde la 2.12
 
 @ifhtml
-Este documento está disponible también en formato @uref{NEWS.es.pdf,PDF}. Forma parte de
-la @uref{../,Documentación de LilyPond}.
+Este documento está disponible también en formato
+@uref{changes.es.pdf,PDF}. Forma parte de la @uref{../,Documentación
+de LilyPond}.
 @end ifhtml
 
 
@@ -68,70 +71,215 @@ which scares away people.
 
 @end ignore
 
-@item Los archivos .ps intermedios que LilyPond crea
+@item
+Se ha añadido una articulación de semi-abierta:
+@lilypond[quote,relative=2]
+c4\halfopen
+@end lilypond
+A veces se utiliza para indicar golpes de hi-hat semi-abierto.
+
+@item
+Ahora está totalmente contemplado el algoritmo bidireccional de
+Unicode para elementos de marcado de una sola línea, gracias a la
+integración mejorada con Pango.
+
+@item
+LilyPond se encuentra ahora licenciado bajo la GPL v3+ de GNU.
+
+@item
+En las tablaturas, los trastes se pueden indicar mediante etiquetas
+que no sean números:
+
+@lilypond[verbatim,quote,relative=1]
+\new TabStaff
+\with {
+  stringTunings = #'(17 14 9 5 2 -3)
+  tablatureFormat = #fret-letter-tablature-format
+}
+\new TabVoice {
+  \set fretLabels = #`(,(markup #:with-color red "a")
+                       "b"
+                       ,(markup #:italic #:smaller "c"))
+  <f d>4. <bes>8 <g e>4
+}
+@end lilypond
+
+@item
+Los objetos de presentación se pueden imprimir sobre un fondo blanco,
+lo que tiene el efecto de tapar los objetos de las capas inferiores
+que coincidan en el mismo lugar:
+
+@lilypond[verbatim,quote,relative=1]
+\time 3/4
+\override Staff.StaffSymbol #'layer = #4
+\once \override Tie #'layer = #2
+b'2.~
+\once \override Staff.TimeSignature #'whiteout = ##t
+\once \override Staff.TimeSignature #'layer = #3
+\time 5/4
+b4
+@end lilypond
+
+@item
+Los acordes se pueden repetir utilizando la abreviatura @code{q}:
+
+@lilypond[verbatim,quote,relative=2]
+<c e g>8.-^ q16 q4-^
+@end lilypond
+
+@item
+Los márgenes predeterminados del papel, tal y como se especifican en
+el archivo @file{ly/@/paper@/-defaults@/-init@/.ly}, se aplican al
+tamaño de papel predeterminado (A4) y se redimensionan automáticamente
+al tamaño del papel seleccionado.
+
+@item
+Ahora funcionan todas las combinaciones de @code{left-margin},
+@code{right-margin} y @code{line-width}.  Ya no hay necesidad de
+establecer a mano el valor de @code{line-width} a no ser que queramos
+hacerlo explícitamente.
+
+@item
+A partir de ahora se contempla la utilización de una fuente
+tipográfica alternativa para la música, como Gonville.
+
+@item
+Además de la instrucción de marcado @code{\hspace}, se ha añadido una
+nueva instrucción @code{\vspace} para proporcionar una forma fácil y
+flexible de añadir espacio vertical dentro de los elementos de
+marcado.
+
+@item
+La dirección de las barras de corchea manuales se puede establecer con
+@code{^[} y @code{_[}.
+
+@item
+Se ha añadido una versión de la nota cuadrada que lleva dos líneas
+verticales a cada lado.
+
+@lilypond[quote,relative=2]
+\time 4/2
+\override Staff.NoteHead #'style = #'altdefault
+c\breve | b\breve
+@end lilypond
+
+@item
+Ahora los nombres de instrumentos y voces tienen en cuenta, para su
+posicionamiento, las dimensiones de los delimitadores iniciales de
+sistema (llaves o corchetes) que están en otros pentagramas, con el
+resultado de un mejor alineado predeterminado de los nombres por la
+izquierda, por la derecha o centrados.
+
+@lilypond[quote,indent=18\mm]
+<<
+  \new StaffGroup <<
+    \new GrandStaff <<
+      \new Staff {
+        \set Staff.instrumentName = #"Piccolo"
+        c''1
+      }
+      \new Staff {
+        \set Staff.instrumentName = #"Flute"
+        c''1
+      }
+    >>
+    \new Staff {
+      \set Staff.instrumentName = #"Bassoon"
+      \clef tenor
+      c'1
+    }
+  >>
+  \new PianoStaff <<
+    \set PianoStaff.instrumentName = #"Piano"
+    \context Staff = "up" {
+      c'1
+    }
+    \context Staff = "down" {
+      \clef bass
+      c1
+    }
+  >>
+>>
+@end lilypond
+
+@item
+Ahora se pueden seleccionar las llaves dentro de los elementos de
+marcado por su tamaño en puntos, usando las instrucciones de marcado
+@code{\left-brace} y @code{\right-brace}.
+
+@lilypond[quote]
+\markup {
+  \left-brace #35
+  \hspace #2
+  \right-brace #45
+}
+@end lilypond
+
+@item
+Los archivos .ps intermedios que LilyPond crea
 durante la compilación, ahora se borran de forma predeterminada.  Para
-conservarlos, escriba la línea
+conservarlos, escriba siguiente línea en el archivo de entrada:
 @example
 #(ly:set-option 'delete-intermediate-files #f)
 @end example
-en el archivo de entrada.
 
 @item Las ligaduras de unión, de expresión  y de fraseo,
 discontinuas y punteadas, pueden ahora tener un grosor variable,
 y están disponibles ligaduras parcialmente discontinuas:
-@lilypond[quote]
-\relative c'' {
-  \slurDashed
-    c4( d e f) |
-  \slurDotted
-    g4( f e d) |
-  \slurHalfDashed
-    c4( d e f)
-}
+@lilypond[quote,relative=2]
+\slurDashed
+c4( d e f) |
+\slurDotted
+g4( f e d) |
+\slurHalfDashed
+c4( d e f)
 @end lilypond
 
 
-@item Se ha añadido una marca en forma de gafas, indicando con vehemencia que se mire al director:
-@lilypond[quote]
-\relative c'' {
-  \mark \markup {\eyeglasses}
-  c4_\markup{\eyeglasses}
-}
+@item
+Se ha añadido una marca en forma de gafas, indicando con vehemencia que se mire al director:
+@lilypond[quote,relative=2]
+\mark \markup { \eyeglasses }
+c4_\markup { \eyeglasses }
 @end lilypond
 
 @item
 Se ha añadido una articulación de pizzicato pellizcado (conocido
 también como snap o pizzicato de Bartok):
-@lilypond[quote]
-\relative c'' {
-  c\snappizzicato
-}
+@lilypond[quote,relative=2]
+c4\snappizzicato
 @end lilypond
 
 @item
 Ahora están disponibles unas nuevas funciones de formateo de números
 para imprimir otras fracciones y añadir figuras a los números o
 fracciones de un grupo especial:
-@lilypond[quote]
-\relative c'' {
-  \once \override TupletNumber #'text = #(tuplet-number::non-default-tuplet-denominator-text 7)
-  \times 2/3  { c4. c4. c4. c4. } % begin verbatim
+@lilypond[quote,relative=2]
+\once \override TupletNumber #'text =
+  #(tuplet-number::non-default-tuplet-denominator-text 7)
+\times 2/3 { c4. c4. c4. c4. }
 
-  \once \override TupletNumber #'text = #(tuplet-number::non-default-tuplet-fraction-text 12 7)
-  \times 2/3  { c4. c4. c4. c4. }
-  \once \override TupletNumber #'text = #(tuplet-number::append-note-wrapper (tuplet-number::non-default-tuplet-fraction-text 12 7) "8")
-  \times 2/3  { c4. c4. c4. c4. }
+\once \override TupletNumber #'text =
+  #(tuplet-number::non-default-tuplet-fraction-text 12 7)
+\times 2/3 { c4. c4. c4. c4. }
+\once \override TupletNumber #'text =
+  #(tuplet-number::append-note-wrapper
+    (tuplet-number::non-default-tuplet-fraction-text 12 7) "8")
+\times 2/3 { c4. c4. c4. c4. }
 
-  \once \override TupletNumber #'text = #(tuplet-number::append-note-wrapper tuplet-number::calc-denominator-text "4")
-  \times 2/3  { c8 c8 c8 c8 c8 c8 }
-  \once \override TupletNumber #'text = #(tuplet-number::append-note-wrapper tuplet-number::calc-fraction-text "4")
-  \times 2/3  { c8 c8 c8 c8 c8 c8 }
+\once \override TupletNumber #'text =
+  #(tuplet-number::append-note-wrapper tuplet-number::calc-denominator-text "4")
+\times 2/3 { c8 c8 c8 c8 c8 c8 }
+\once \override TupletNumber #'text =
+  #(tuplet-number::append-note-wrapper tuplet-number::calc-fraction-text "4")
+\times 2/3 { c8 c8 c8 c8 c8 c8 }
 
-  \once \override TupletNumber #'text = #(tuplet-number::fraction-with-notes "4." "8")
-  \times 2/3  { c4. c4. c4. c4. }
-  \once \override TupletNumber #'text = #(tuplet-number::non-default-fraction-with-notes 12 "8" 4 "4")
-  \times 2/3  { c4. c4. c4. c4. }
-}
+\once \override TupletNumber #'text =
+  #(tuplet-number::fraction-with-notes "4." "8")
+\times 2/3 { c4. c4. c4. c4. }
+\once \override TupletNumber #'text =
+  #(tuplet-number::non-default-fraction-with-notes 12 "8" 4 "4")
+\times 2/3  { c4. c4. c4. c4. }
 @end lilypond
 
 @item
