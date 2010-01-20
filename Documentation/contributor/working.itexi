@@ -455,6 +455,36 @@ default with this command:
 git config branch.master.rebase true
 @end example
 
+If pull fails because of a message like
+
+@example
+error: Your local changes to 'Documentation/learning/tutorial.itely'
+would be overwritten by merge.  Aborting.
+@end example
+
+@noindent
+or
+
+@example
+Documentation/learning/tutorial.itely: needs update
+refusing to pull with rebase: your working tree is not up-to-date
+@end example
+
+@noindent
+it means that you have modified some files in you working tree
+without committing changes (see @ref{Commits and patches}); you
+can use the @command{git@tie{}stash} command to work around this:
+
+@example
+git stash      # save uncommitted changes
+git pull -r    # pull using rebase (translators omit "-r")
+git stash pop  # reapply previously saved changes
+@end example
+
+Note that @command{git@tie{}stash@tie{}pop} will try to apply a
+patch, and this may create a conflict.  If this happens, see
+@ref{Resolving conflicts}.
+
 FIXME: I think the next paragraph is confusing.  Perhaps prepare
 the reader for new terms `committish' and `head'?  -mp
 
