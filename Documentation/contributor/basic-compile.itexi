@@ -600,3 +600,14 @@ Debian GNU/Linux
         ttf-kochi-gothic ttf-kochi-mincho \
         xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi
 @end verbatim
+
+
+@unnumberedsubsubsec Using lilypond python libraries
+
+If you want to use lilypond's python libraries (either running
+certain build scripts manually, or using them in other programs),
+set @code{PYTHONPATH} to @file{python/out} in your build
+directory, or @file{.../usr/lib/lilypond/current/python} in the
+installation directory structure.
+
+
