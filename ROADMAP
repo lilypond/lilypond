@@ -30,6 +30,11 @@ LilyPond's source files.
 |   |
 |   |
 |   |   TRANSLATED MANUALS:
+|   |     Each language's directory can contain...
+|   |       1) translated versions of:
+|   |          * top sources for manuals
+|   |          * individual chapters for each manual
+|   |       2) a texidocs/ directory for snippet translations
 |   |
 |   |-- de/              German
 |   |-- es/              Spanish
