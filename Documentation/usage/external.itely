@@ -20,6 +20,7 @@ FIXME: blah blah
 * Text editor support::
 * Converting from other formats::
 * LilyPond output in other programs::
+* Independent includes::
 @end menu
 
 
@@ -572,5 +573,21 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
 @file{PNG}:
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
 @end example
+
+
+@node Independent includes
+@section Independent @code{include}s
+
+FIXME: blah blah
+
+@menu
+* MIDI articulation::
+@end menu
+
+
+@node MIDI articulation
+@subsection MIDI articulation
+
+stub for info about Dr. Peter Chubb's @file{articulate.ly}
 
 
