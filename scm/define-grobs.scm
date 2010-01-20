@@ -533,6 +533,7 @@
 	(direction . ,UP)
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(font-series . bold)
+	(outside-staff-priority . 450)
 	(padding . 0.5)
 	(script-priority . 200)
 	(side-axis . ,Y)
