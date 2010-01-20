@@ -628,12 +628,12 @@ stable, we have written a manual for development tasks.
 
 @item
 @uref{../../input/regression/collated-files.html, Regression tests}:
-This releases' regtests.
+This release's regtests.
 (@uref{../../input/regression/collated-files.pdf, pdf version})
 
 @item
 @uref{../../input/regression/musicxml/collated-files.html, MusicXML tests}:
-This releases' musicXML tests.
+This release's musicXML tests.
 (@uref{../../input/regression/musicxml/collated-files.pdf, pdf version})
 @end ifclear
 
