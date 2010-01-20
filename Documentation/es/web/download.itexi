@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: fde3330f4f855f45aa9f8a06b576be8abeb5de12
+    Translation of GIT committish: 5cc81a8250d5a16bd20dbb4f9eed1ae635104ab2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -23,8 +23,8 @@ infórmese sobre nuestra @ref{Entrada de texto}.}
   @c for @version won't be up yet!
 @heading Descargas para LilyPond @versionDevel
 
-Los enlaces para la versión estable de LilyPond están en
-@uref{http://lilypond.org, lilypond.org}
+@warning{Los enlaces para la versión estable de LilyPond están en
+@uref{http://lilypond.org, lilypond.org}}
 @end ifclear
 @ifset web_version
   @heading Descargas para LilyPond @versionStable
@@ -530,8 +530,8 @@ la versión precompilada.}
 
 Para ver un amplio listado de todas las versiones (antiguas y
 modernas), consulte nuestra
-@uref{http://download.linuxaudio.org/lilypond/binaries/, página de
-descarga}.
+@uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D, página
+de descarga}.
 
 @divEnd
 

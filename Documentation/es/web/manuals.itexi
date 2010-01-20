@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 0e9e9941bfded750ecf59409385f005735d30abf
+    Translation of GIT committish: d74ab34046b6ae48698ffdd2efdc11ade0355047
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -489,13 +489,21 @@ En construcción.
 @divClass{column-left-top}
 @subheading Versiones para descargar
 
-(En construcción)
+@ifclear web_version
+Los @emph{tarballs} para descargar
+sólo están disponibles en @uref{http://lilypond.org}
+@end ifclear
+@ifset web_version
 
-@c  @hel p{compare tarball vs. zip size, ask about windows users
-@c  dealing with tarballs (both gz and bz2), etc.}
+@divClass{keep-bullets}
+@itemize
 
-@c @hel p{on second thought, wait until the new doc build.  write an
-@c apology here for no tarballs}
+@item @doctarballStable
+
+@end itemize
+
+@divEnd
+@end ifset
 
 @divEnd
 
