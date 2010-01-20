@@ -1107,62 +1107,8 @@ unterst__tzt werden.
 @node Alternate methods of mixing text and music
 @section Alternative methods of mixing text and music
 
-This section shows methods to integrate text and music, different than
-the automated method with @command{lilypond-book}.
+Other means of mixing text and music (without
+@command{lilypond-book}) are discussed in
+@ref{LilyPond output in other programs}.
 
-@menu
-* Many quotes from a large score::
-* Inserting LilyPond output into OpenOffice.org::
-* Inserting LilyPond output into other programs::
-@end menu
-
-@node Many quotes from a large score
-@unnumberedsubsec Many quotes from a large score
-
-If you need to quote many fragments from a large score, you can also use
-the clip systems feature, see @ruser{Extracting fragments of music}.
-
-
-@node Inserting LilyPond output into OpenOffice.org
-@unnumberedsubsec Inserting LilyPond output into OpenOffice.org
-
-@cindex OpenOffice.org
-
-LilyPond notation can be added to OpenOffice.org with
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
-
-
-@node Inserting LilyPond output into other programs
-@unnumberedsubsec Inserting LilyPond output into other programs
-
-To insert LilyPond output in other programs, use @code{lilypond}
-instead of @code{lilypond-book}.  Each example must be created
-individually and added to the document; consult the documentation for
-that program.  Most programs will be able to insert LilyPond output in
-@file{PNG}, @file{EPS}, or @file{PDF} formats.
-
-To reduce the white space around your LilyPond score, use
-the following options
-
-@example
-\paper@{
-  indent=0\mm
-  line-width=120\mm
-  oddFooterMarkup=##f
-  oddHeaderMarkup=##f
-  bookTitleMarkup = ##f
-  scoreTitleMarkup = ##f
-@}
-
-@{ c1 @}
-@end example
-
-To produce a useful @file{EPS} file, use
-
-@example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
-
-@file{PNG}:
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
-@end example
 

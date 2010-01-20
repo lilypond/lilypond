@@ -49,7 +49,7 @@ Copyright @copyright{} 1999--2009 by the authors.
 * Running lilypond::               Operation.
 * Updating files with convert-ly:: Updating input files.
 * lilypond-book::                  Integrating text and music.
-* Converting from other formats::  Converting to lilypond source format.
+* External programs::              Mixing LilyPond and other programs.
 * Suggestions for writing files::  Best practices and effective bug-fixing.
 
 Appendices
@@ -68,7 +68,7 @@ Appendices
 @include usage/running.itely
 @include usage/updating.itely
 @include usage/lilypond-book.itely
-@include usage/converters.itely
+@include usage/external.itely
 @include usage/suggestions.itely
 
 @include fdl.itexi
