@@ -2690,8 +2690,7 @@ there is no blank space at the bottom of the page.
 
 @example
 \paper @{
-  between-system-padding = #0.1
-  between-system-space = #0.1
+  between-system-spacing = #'((padding . 0) (space . 0.1))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}
