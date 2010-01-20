@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: ae7ca5c10109a1fc1b23db493d73931abbb8794e
+    Translation of GIT committish: d74ab34046b6ae48698ffdd2efdc11ade0355047
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,14 +10,25 @@
 @unnumbered Manuales
 @translationof Manuals
 
+@macro details{reference}
+@spanClass{detail}
+(@ref{\reference\, detalles de \reference\})
+@spanEnd
+@end macro
+
+
 @divClass{heading-center}
-@heading Documentación de LilyPond @version
+@ifclear web_version
+@heading Manuales de LilyPond @version
+@end ifclear
+@ifset web_version
+  @heading Manuales de LilyPond @versionStable
+@end ifset
 
 @divEnd
 
 @c TODO: do we want these links to be in larger text / bold ?   CSS.
 
-@c if you change this page, also change All.
 @divClass{column-center-top}
 @subheading Introducción
 
@@ -25,19 +36,19 @@
 
 @item @ref{Entrada de texto}:
 LilyPond es un sistema de grabado musical @strong{basado en texto}.
-Si no está familiarizado con este concepto, ¡lea esto ahora mismo!
+¡Lea esto primero!
 
-@item @ref{Aprendizaje}:
+@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Aprendizaje}}
 una introducción a LilyPond amable e @qq{imprescindible}.
+@details{Aprendizaje}
 
-@item @ref{Glosario}:
-@emph{(lectura opcional)} explica términos musicales y aporta
-traducciones para los usuarios no familiarizados con los términos
-musicales ingleses.
+@item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glosario}}
+@emph{(lectura opcional)} términos musicales y traducciones.
+@details{Glosario}
 
-@item @ref{Ensayo}:
-@emph{(lectura opcional)} la información de fondo sobre el proceso de
-grabado musical y la estética de la tipografía musical del s.XIX.
+@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Ensayo}}
+@emph{(lectura opcional)} la información de trasfondo sobre grabado musical.
+@details{Ensayo}
 
 
 @end itemize
@@ -49,16 +60,17 @@ grabado musical y la estética de la tipografía musical del s.XIX.
 
 @itemize
 
-@item @ref{Notación}:
-la fracción principal de la documentación; aporta información
-detallada sobre la creación de notación musical.
+@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notación}}
+referencia de la sintaxis.
+@details{Notación}
 
-@item @ref{Utilización}:
-trata sobre los programas concretos y asuntos específicos de los
-distintos sistemas operativos.
+@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Utilización}}
+cómo ejecutar los programas.
+@details{Utilización}
 
-@item @ref{Fragmentos}:
-trucos cortos, consejos y ejemplos.
+@item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Fragmentos}}
+trucos y consejos cortos.
+@details{Fragmentos}
 
 @end itemize
 
@@ -70,22 +82,24 @@ trucos cortos, consejos y ejemplos.
 
 @itemize
 
+@item @ref{FAQ}:
+Preguntas más frecuentes (Frequently Asked Questions).
+
 @item @ref{Web}:
 este documento.
+@details{Web}
 
-@item @ref{FAQ}:
-enlaces a respuestas a las preguntas frecuentes (FAQ, Frequently Asked
-Questions).
+@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Cambios}}
+¿qué hay de nuevo?
+@details{Cambios}
 
-@item @ref{Cambios}:
-actualizaciones producidas desde la última versión principal.
+@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extender}}
+trucos interesantes.
+@details{Extender}
 
-@item @ref{Extender}:
-programar bonitos trucos en LilyPond.
-
-@item @ref{Funcionamiento interno}:
-información sobre las estructuras internas de LilyPond, necesaria para
-la construcción de trucos.
+@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Funcionamiento interno}}
+referencia sobre el trucaje.
+@details{Funcionamiento interno}
 
 @end itemize
 
@@ -123,8 +137,8 @@ Libre de GNU.
 * Notación::               Referencia.
 * Utilización::            Utilización.
 * Fragmentos de código::   Fragmentos de código.
-* Web::                    Web.
 * FAQ::                    Preguntas frecuentes.
+* Web::                    Web.
 * Cambios::                Noticias.
 * Extender::               Programación.
 * Funcionamiento interno:: Interioridades.
@@ -160,38 +174,13 @@ información.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Léalo
 
-@itemize
+@docLinks{Aprendizaje, learning,
+  @rlearningnamed{Top,Aprendizaje},
+  @manualStableLearningSplit,
+  @manualStableLearningBig, 1.5 MB,
+  @manualStableLearningPdf, 3 MB}
 
-@item @rlearningnamed{Top,Aprendizaje}:
-lea este manual en el mismo formato que el presente documento.
-
-@end itemize
-
-@subheading Todos los formatos
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../learning/index.html, Aprendizaje (HTML seccionado)}:
-el manual está dividido en muchas páginas HTML.
-@*@ @ @emph{(una pequeña descarga por cada página)}
-
-@item @uref{../learning-big-page.html, Aprendizaje (HTML monolítico)}:
-lea este manual como una sola página HTML enorme.
-@*@ @ @emph{(una única descarga grande, 1.5 Mb)}
-
-@item @uref{../learning.pdf, learning.pdf}:
-descárguelo como un documento PDF.
-@*@ @ @emph{(una única descarga grande, 3 Mb)}
-
-@c TODO: should make links to info?
-@c @item @uref{../TODO, learning.info}:
-@c GNU info format for documentation.  link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -200,7 +189,7 @@ descárguelo como un documento PDF.
 @translationof Glossary
 
 @divClass{column-left-top}
-@subheading Glosario
+@subheading Glossary
 
 El glosario explica términos musicales e incluye traducciones a varios
 idiomas.  Si no está familiarizado como la notación o la terminología
@@ -210,37 +199,13 @@ recomienda fervientemente que consulte el glosario.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Léalo
 
-@itemize
+@docLinks{Music glossary, music-glossary,
+  @rglosnamed{Top,Music glossary},
+  @manualStableGlossarySplit,
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
 
-@item @rglosnamed{Top,Glosario musical}:
-lea este manual en el mismo formato que el presente documento.
-
-@end itemize
-
-@subheading Todos los formatos
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../music-glossary/index.html, Glosario (HTML seccionado)}:
-el manual está dividido en muchas páginas HTML.
-@*@ @ @emph{(una pequeña descarga por cada página)}
-
-@item @uref{../music-glossary-big-page.html, Glosario (HTML monolítico)}:
-lea este manual como una sola página HTML enorme.
-@*@ @ @emph{(una única descarga grande, 1 Mb)}
-
-@item @uref{../music-glossary.pdf, glossary.pdf}:
-descárguelo como un documento PDF.
-@*@ @ @emph{(una única descarga grande, 1.5 Mb)}
-
-@c @item @uref{../TODO, glossary.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -261,37 +226,13 @@ versión en formato PDF a causa de su mayor resolución.}
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Léalo
 
-@itemize
+@docLinks{Ensayo, essay,
+  @ressaynamed{Top,Ensayo},
+  @manualStableEssaySplit,
+  @manualStableEssayBig, 2 MB,
+  @manualStableEssayPdf, 2.5 MB}
 
-@item @ressaynamed{Top,Ensayo}:
-lea este manual en el mismo formato que el presente documento.
-
-@end itemize
-
-@subheading Todos los formatos
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../essay/index.html, Ensayo (HTML seccionado)}:
-el manual está dividido en muchas páginas HTML.
-@*@ @ @emph{(una pequeña descarga por cada página)}
-
-@item @uref{../essay-big-page.html, Ensayo (HTML monolítico)}:
-lea este manual como una sola página HTML enorme.
-@*@ @ @emph{(una única descarga grande, 2 Mb)}
-
-@item @uref{../essay.es.pdf, essay.es.pdf}:
-descárguelo como un documento PDF.
-@*@ @ @emph{(una única descarga grande, 2.5 Mb)}
-
-@c @item @uref{../TODO, essay.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -300,9 +241,9 @@ descárguelo como un documento PDF.
 @translationof Notation
 
 @divClass{column-left-top}
-@subheading Referencia de la notación
+@subheading Notation reference
 
-este libro explica todas las instrucciones de LilyPond que producen
+Este libro explica todas las instrucciones de LilyPond que producen
 notación musical.
 
 @warning{La Referencia de la Notación supone que el lector está al
@@ -313,37 +254,13 @@ presentan en el Glosario Musical.}
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Léalo
 
-@itemize
+@docLinks{Notación, notation,
+  @rusernamed{Top,Notación},
+  @manualStableNotationSplit,
+  @manualStableNotationBig, 7 MB,
+  @manualStableNotationPdf, 18 MB}
 
-@item @rusernamed{Top,Notación}:
-lea este manual en el mismo formato que el presente documento.
-
-@end itemize
-
-@subheading Todos los formatos
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../notation/index.html, Notación (HTML seccionado)}:
-el manual está dividido en muchas páginas HTML.
-@*@ @ @emph{(una pequeña descarga por cada página)}
-
-@item @uref{../notation-big-page.html, Notación (HTML monolítico)}:
-lea este manual como una sola página HTML enorme.
-@*@ @ @emph{(una única descarga grande, 7 Mb)}
-
-@item @uref{../notation.pdf, notation.pdf}:
-descárguelo como un documento PDF.
-@*@ @ @emph{(una única descarga grande, 18 Mb)}
-
-@c @item @uref{../TODO, notation.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -358,40 +275,17 @@ Este libro explica cómo ejecutar los programas, cómo integrar la
 notación de LilyPond con otros programas, y sugiere @qq{buenas
 prácticas} para un uso eficiente de estas herramientas.  Se recomienda
 su lectura antes de afrontar proyectos grandes.
+
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Léalo
 
-@itemize
+@docLinks{Utilización, usage,
+  @rprogramnamed{Top,Utilización},
+  @manualStableUsageSplit,
+  @manualStableUsageBig, 300 KB,
+  @manualStableUsagePdf, 400 KB}
 
-@item @rprogramnamed{Top,Utilización}:
-lea este manual en el mismo formato que el presente documento.
-
-@end itemize
-
-@subheading Todos los formatos
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../usage/index.html, Utilización (HTML seccionado)}:
-el manual está dividido en muchas páginas HTML.
-@*@ @ @emph{(una pequeña descarga por cada página)}
-
-@item @uref{../usage-big-page.html, Utilización (HTML monolítico)}:
-lea este manual como una sola página HTML enorme.
-@*@ @ @emph{(una única descarga grande, 300 kb)}
-
-@item @uref{../usage.pdf, usage.pdf}:
-descárguelo como un documento PDF.
-@*@ @ @emph{(una única descarga grande, 400 kb)}
-
-@c @item @uref{../TODO, lilypond-usage.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -419,88 +313,16 @@ Notación están enlazados también a partir de la sección @strong{Véase
 también}.
 @divEnd
 
-@divClass{column-right-bottom}
-@subheading Léalo
-
-@itemize
-
-@item @rlsrnamed{Top,Fragmentos}:
-lea este manual en el mismo formato que el presente documento.
-
-@end itemize
-
-@subheading Todos los formatos
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../snippets/index.html, Fragmentos (HTML seccionado)}:
-el manual está dividido en muchas páginas HTML.
-@*@ @ @emph{(una pequeña descarga por cada página)}
-
-@item @uref{../snippets-big-page.html, Fragmentos (HTML monolítico)}:
-lea este manual como una sola página HTML enorme.
-@*@ @ @emph{(una única descarga grande, 2.5 Mb)}
-
-@item @uref{../snippets.pdf, snippets.pdf}:
-descárguelo como un documento PDF.
-@*@ @ @emph{(una única descarga grande, 8 Mb)}
-
-@c @item @uref{../TODO, snippets.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
-@divEnd
-
-
-@node Web
-@unnumberedsec Web
-@translationof Web
-
-@divClass{column-left-top}
-@subheading Web
-
-Este manual da una información general sobre LilyPond.  También
-contiene información sobre varios foros de la comunidad, maneras de
-informar de los fallos, y desarrollo.
-
-@divEnd
 
 @divClass{column-right-bottom}
-@subheading Léalo
 
-@itemize
+@docLinks{Fragmentos, snippets,
+  @rlsrnamed{Top,Fragmentos},
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 2.5 MB,
+  @manualStableSnippetsPdf, 8 MB}
 
-@item @rweb{Top,Web}:
-lea este manual en el mismo formato que el presente documento.
-
-@end itemize
-
-@subheading Todos los formatos
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../web/index.html, Web (HTML seccionado)}:
-el manual está dividido en muchas páginas HTML.
-@*@ @ @emph{(una pequeña descarga por cada página)}
-
-@item @uref{../web-big-page.html, Web (HTML monolítico)}:
-lea este manual como una sola página HTML enorme.
-@*@ @ @emph{(una única descarga grande, 1 Mb)}
-
-@item @uref{../web.pdf, web.pdf}:
-descárguelo como un documento PDF.
-@*@ @ @emph{(una única descarga grande, 2 Mb)}
-
-@c @item @uref{../TODO, web.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
 @divEnd
-@divEnd
-
 
 
 @node FAQ
@@ -535,12 +357,37 @@ se dan en la @ref{Introducción}.
 
 @subsubheading ¡Algo no funciona!  ¿Cómo lo arreglo?
 
-Se explica en @rprogram{Solución de problemas}.
+Se explica en @rlearningnamed{Resolución de problemas (tomar cada
+parte por separado),Solución de problemas}.
 
 
 @subsubheading ¿Por qué cambian la sintaxis del lenguaje?
 
-Se explica en @rprogram{¿Por qué cambia la sintaxis?}.
+Se explica en @rprogramnamed{Why does the syntax change?,¿Por qué cambia la sintaxis?}.
+
+@divEnd
+
+
+@node Web
+@unnumberedsec Web
+@translationof Web
+
+@divClass{column-left-top}
+@subheading Web
+
+Este manual da una información general sobre LilyPond.  También
+contiene información sobre varios foros de la comunidad, maneras de
+informar de los fallos, y desarrollo.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Web, web,
+  @ref{Top,,,,Web},
+  @manualStableWebSplit,
+  @manualStableWebBig, 1 MB,
+  @manualStableWebPdf, 2 MB}
 
 @divEnd
 
@@ -558,37 +405,13 @@ producidas en LilyPond a partir de la version estable anterior.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Léalo
 
-@itemize
+@docLinks{Cambios, changes,
+  @rchangesnamed{Top,Cambios},
+  @manualStableChangesSplit,
+  @manualStableChangesBig, 6 KB,
+  @manualStableChangesPdf, 200 KB}
 
-@item @rchangesnamed{Top,Cambios}:
-lea este manual en el mismo formato que el presente documento.
-
-@end itemize
-
-@subheading Todos los formatos
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../changes/index.html, Cambios (HTML seccionado)}:
-el manual está dividido en muchas páginas HTML.
-@*@ @ @emph{(una pequeña descarga por cada página)}
-
-@item @uref{../changes-big-page.html, Cambios (HTML monolítico)}:
-lea este manual como una sola página HTML enorme.
-@*@ @ @emph{(una única descarga grande, 6 kb)}
-
-@item @uref{../changes.pdf, changes.pdf}:
-descárguelo como un documento PDF.
-@*@ @ @emph{(una única descarga pequeña, 200 kb)}
-
-@c @item @uref{../TODO, changes.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
-@divEnd
 @divEnd
 
 
@@ -604,39 +427,14 @@ Este manual explica cómo escribir extensiones de LilyPond.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Léalo
 
-@itemize
+@docLinks{Extender, extending,
+  @rextendnamed{Top,Extender},
+  @manualStableExtendingSplit,
+  @manualStableExtendingBig, 200 KB,
+  @manualStableExtendingPdf, 400 KB}
 
-@item @rextendnamed{Top,Extender}:
-lea este manual en el mismo formato que el presente documento.
-
-@end itemize
-
-@subheading Todos los formatos
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../extending/index.html, Extender (HTML seccionado)}:
-el manual está dividido en muchas páginas HTML.
-@*@ @ @emph{(una pequeña descarga por cada página)}
-
-@item @uref{../extending-big-page.html, Extender (HTML monolítico)}:
-lea este manual como una sola página HTML enorme.
-@*@ @ @emph{(una única descarga grande, 200 kb)}
-
-@item @uref{../extending.pdf, extending.pdf}:
-descárguelo como un documento PDF.
-@*@ @ @emph{(una única descarga grande, 400 kb)}
-
-@c @item @uref{../TODO, extending.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
 @divEnd
-@divEnd
-
 
 @node Funcionamiento interno
 @unnumberedsec Funcionamiento interno
@@ -645,7 +443,7 @@ descárguelo como un documento PDF.
 @divClass{column-left-top}
 @subheading Referencia de funcionamiento interno
 
-Éste es un conjunto de páginas HTML repleta de referencias cruzadas
+Éste es un conjunto de páginas repleta de referencias cruzadas
 que constituyen la documentación de todos los detalles de cada una de
 las clases, objetos y funciones de LilyPond.  Se produce directamente
 a partir de las definiciones de formateo del código fuente.
@@ -657,45 +455,19 @@ etc., se pueden modificar en los archivos de entrada.  Existe un
 inmenso número de opciones de formateo, y todas ellas se encuentran
 descritas en este documento.  Cada una de las secciones de la
 Referencia de la Notación tiene una subsección @b{Véase también}, que
-se refiere a la documentación generada.  En el documento HTML, estas
-subsecciones son enlaces navegables.
+se refiere a la documentación generada.
 
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Léalo
 
-@itemize
+@docLinks{Funcionamiento interno, internals,
+  @rinternalsnamed{Top,Funcionamiento interno},
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
 
- @rinternalsnamed{Top,Funcionamiento interno}:
-lea este manual en el mismo formato que el presente documento.
-
-@end itemize
-
-@subheading Todos los formatos
-
-@divClass{keep-bullets}
-@itemize
-
-@item @uref{../internals/index.html, Funcionamiento interno (HTML seccionado)}:
-el manual está dividido en muchas páginas HTML.
-@*@ @ @emph{(una pequeña descarga por cada página)}
-
-@item @uref{../internals-big-page.html, Funcionamiento interno (HTML monolítico)}:
-lea este manual como una sola página HTML enorme.
-@*@ @ @emph{(una única descarga grande, 2.5 Mb)}
-
-@item @uref{../internals.pdf, internals.pdf}:
-descárguelo como un documento PDF.
-@*@ @ @emph{(una única descarga grande, 2.8 Mb)}
-
-@c @item @uref{../TODO, internals.info}:
-@c GNU info format for documentation.  TODO, link broken.
-
-@end itemize
 @divEnd
-@divEnd
-
 
 
 @node Traducido
@@ -714,97 +486,28 @@ En construcción.
 @unnumberedsec Todo
 @translationof All
 
-@divClass{heading-center}
-@heading Enlaces rápidos de la documentación
-
-Hay enlaces a otros formatos de estos manuales dentro de  @ref{Manuales}.
-
-@divEnd
-
-@c this should match the (main) manual page.
-@divClass{column-center-top}
-@subheading Introducción
-
-@itemize
-
-@item @rlearningnamed{Top,Aprendizaje}:
-una amable e @qq{imprescindible} introducción a LilyPond.
-
-@item @rglosnamed{Top,Glosario}:
-@emph{(lectura opcional)} explica términos musicales y ofrece
-traducciones de para los usuarios no familiarizados con los términos
-ingleses.
-
-@item @ressaynamed{Top,Ensayo}:
-@emph{(lectura opcional)} información de trasfondo relacionada con el
-proceso del grabado musica y la estética de la tipografía musical del
-s. XIX.
-
-@end itemize
-
-@divEnd
-
 @divClass{column-left-top}
-@subheading Uso frecuente
-
-@itemize
-
-@item @rusernamed{Top,Notación}:
-la fracción principal de la documentación; ofrece información
-detallada sobre cómo crear notación musical.
-
-@item @rprogramnamed{Top,Utilización}:
-trata sobre los programas concretos y la problemática específica de
-los distintos sistemas operativos.
-
-@item @rlsrnamed{Top,Fragmentos}:
-trucos cortos, consejos y ejemplos.
-
-@end itemize
-
-@divEnd
-
-
-@divClass{column-right-top}
-@subheading Uso infrecuente
-
-@itemize
-
-@item @ref{FAQ}:
-enlaces a las respuestas de las Preguntas Frecuentes.
-
-@item @rchangesnamed{Top,Cambios}:
-cambios producidos a partir de la última versión principal.
-
-@item @rextendnamed{Top,Extender}:
-programación de trucos interesantes en LilyPond.
-
-@item @rinternalsnamed{Top,Funcionamiento interno}:
-información acerca de las estructuras internas de LilyPond, necesaria
-para la construcción de los trucos.
-
-@end itemize
-
-@divEnd
-
-
-@divClass{column-center-bottom}
 @subheading Versiones para descargar
 
-(En construcción)
-
-@c  @hel p{compare tarball vs. zip size, ask about windows users
-@c  dealing with tarballs (both gz and bz2), etc.}
-
-@c @hel p{on second thought, wait until the new doc build.  write an
-@c apology here for no tarballs}
+@ifclear web_version
+Los @emph{tarballs} para descargar
+sólo están disponibles en @uref{http://lilypond.org}
+@end ifclear
+@ifset web_version
 
 @divClass{keep-bullets}
+@itemize
 
-(En construcción)
+@item @doctarballStable
+
+@end itemize
+
+@divEnd
+@end ifset
 
 @divEnd
 
+@divClass{column-right-bottom}
 @subheading Versiones estables anteriores
 
 @divClass{keep-bullets}

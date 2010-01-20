@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 589e2953e6e0d90a73eafe0b31ba86651c62f6eb
+    Translation of GIT committish: 7e21c2c45a72d559709a454d9416f406c8d5fb09
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -162,7 +162,6 @@ Para la versión de LilyPond @version{}
 @end titlepage
 
 @end macro
-
 
 
 @c   ***** Headings in a doc subsection *****
@@ -727,10 +726,10 @@ Para la versión de LilyPond @version{}
 </div>
 @end html
 @iftex
-@image{examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
+@image{ly-examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
 @end iftex
 @ifinfo
-@image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
+@image{lilypond/ly-examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
 @end ifinfo
 @end macro
 

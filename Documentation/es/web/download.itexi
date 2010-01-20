@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 20db6a6d6560eae53c1ba654f35a013b3267967d
+    Translation of GIT committish: 5cc81a8250d5a16bd20dbb4f9eed1ae635104ab2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -23,8 +23,8 @@ infórmese sobre nuestra @ref{Entrada de texto}.}
   @c for @version won't be up yet!
 @heading Descargas para LilyPond @versionDevel
 
-Los enlaces para la versión estable de LilyPond están en
-@uref{http://lilypond.org, lilypond.org}
+@warning{Los enlaces para la versión estable de LilyPond están en
+@uref{http://lilypond.org, lilypond.org}}
 @end ifclear
 @ifset web_version
   @heading Descargas para LilyPond @versionStable
@@ -33,8 +33,6 @@ Los enlaces para la versión estable de LilyPond están en
 @warningTextBased
 
 @divEnd
-
-
 
 @divClass{column-left-top}
 @subheading Para usuarios
@@ -218,7 +216,8 @@ actualizar a estas versiones.
 
 @item
 @sourceimage{logo-fedora,,,}
-@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,Fedora: LilyPond 2.12.2}
+@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
+Fedora: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-ubuntu,,,}
@@ -228,7 +227,7 @@ Ubuntu: LilyPond 2.12.2}
 @item
 @sourceimage{logo-slackware,,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.12.2}
+Slackware: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-debian,,,}
@@ -237,8 +236,8 @@ Debian: LilyPond 2.12.2}
 
 @item
 @sourceimage{logo-suse,,,}
-@uref{http://download.opensuse.org/repositories/openSUSE:/Factory:/Contrib/standard/,
-openSUSE: LilyPond 2.12.2}
+@uref{http://software.opensuse.org/search?baseproject=openSUSE%3A11.2&p=1&q=lilypond,
+openSUSE: LilyPond 2.12.3}
 
 @end itemize
 
@@ -302,32 +301,6 @@ Borre la carpeta LilyPond.app.
 @subheading Ejecución desde la línea de órdenes
 
 @warning{Si está satisfecho con el GUI, ignore estas instrucciones.}
-
-@ignore
-FIXME: I had one report that we don't need this stuff; will delete
-after confirmation.  -gp
-
-@subsubheading Uso de guiones Python sobre MacOS 10.3 or 10.4
-
-LilyPond binaries for MacOS X do not provide Python, but Python 2.4 or
-newer is required by @command{convert-ly}.  Therefore, if you use MacOS
-10.3 or 10.4, you must install a newer Python version from
-@uref{http://python.org/download/}, then edit the first line of
-@command{convert-ly} and @command{lilypond-book} as follows: if the
-Python binary you just installed is in your @var{PATH}, the first line
-should be
-
-@example
-#!/usr/bin/env python
-@end example
-
-@noindent
-otherwise it should be
-
-@example
-#!@var{/path/to/newly_installed/python}
-@end example
-@end ignore
 
 @subsubheading MacOS X sobre la línea de órdenes
 
@@ -447,10 +420,7 @@ Para Windows ME, NT, 2000, XP, Vista y Windows 7.
 
 @item
 Localice el archivo descargado y haga doble clic sobre él para
-arrancar el instalador.
-
-@item
-Siga las instrucciones que le indica el instalador; le recomendamos
+arrancar el instalador. Siga las instrucciones que le indica el instalador; le recomendamos
 que deje seleccionadas todas las opciones de instalación y que utilice
 la ruta de instalación predeterminada. Pulse sobre el botón
 @q{Finalizar} cuando el instalador termine. Lilypond está instalado.
@@ -484,7 +454,45 @@ elija la opción de desinstalar/quitar programa.  Pulse el botón
 @warning{Si le satisface el interfaz gráfico, ignore estas
 instrucciones.}
 
-@c @hel p{don't know}
+@subsubheading Windows sobre la línea de órdenes
+
+La forma más conveniente de ejecutar LilyPond es añadir la carpeta que
+contiene los archivos ejecutables del programa a la variable de
+entorno @qq{Path}.
+
+
+@enumerate
+@item
+Abra el apartado @qq{Sistema} en el Panel de Control, elija la pestaña
+Avanzado y pulse sobre el botón Variables de Entorno.
+
+@item
+Elija la variable @qq{Path} de la lista de variables de entorno y
+pulse el botón Edit.  Se le abrirá una ventana con el título
+@qq{Editar variable del sistema}; añada al final del @qq{Valor de la
+variable} el nombre de la carpeta que contiene los archivos
+ejecutables de LilyPond de la siguiente manera:
+
+@example
+[@var{ruta preestablecida}];@var{CARPETA}\LilyPond\usr\bin
+@end example
+
+@warning{@var{CARPETA} será por lo general @code{C:\Archivos de programa}.}
+
+@noindent
+y pulse el botón @qq{Aceptar} para cerrar la ventana.
+
+@end enumerate
+
+@subsubheading Invocar archivos ejecutables individuales
+
+Los archivos ejecutables de LilyPond (como lilypond, lilypond-book,
+convert-ly y así sucesivamente) se pueden ejecutar desde la línea de
+órdenes, invocándolos:
+
+@example
+lilypond prueba.ly
+@end example
 
 @divEnd
 
@@ -522,8 +530,8 @@ la versión precompilada.}
 
 Para ver un amplio listado de todas las versiones (antiguas y
 modernas), consulte nuestra
-@uref{http://download.linuxaudio.org/lilypond/binaries/, página de
-descarga}.
+@uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D, página
+de descarga}.
 
 @divEnd
 
