@@ -163,8 +163,9 @@ texinfo-all-menus-update:
 local-help: local-texinfo-help
 
 local-texinfo-help:
-	@echo -e "\
-  info [out=www]  update Info documentation (use \`out=www' for having images)\n\
-  install-info [out=www]   install Info documentation (idem)\n\
-  texinfo-all-menus-update update node menus in Texinfo source files (use with caution)\n"
+	@echo "  info [out=www]           update Info documentation"
+	@echo "                             (use \`out=www' for having images)"
+	@echo "  install-info [out=www]   install Info documentation (idem)"
+	@echo "  texinfo-all-menus-update update node menus in Texinfo source files"
+	@echo "                             (use with caution)"
 

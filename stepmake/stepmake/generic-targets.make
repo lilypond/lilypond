@@ -47,32 +47,33 @@ config:
 
 
 generic-help:
-	@echo -e "\
-Makefile for $(PACKAGE_NAME) $(TOPLEVEL_VERSION)\n\
-Usage: make ["VARIABLE=value"]... [TARGET]\n\
-\n\
-Targets specific to current directory:\n"
+	@echo "Makefile for $(PACKAGE_NAME) $(TOPLEVEL_VERSION)"
+	@echo "Usage: make ["VARIABLE=value"]... [TARGET]"
+	@echo
+	@echo "Targets specific to current directory:"
 
 help: generic-help local-help
-	@echo -e "Generic targets:\n\
-  all *       update everything except documentation with images\n\
-  clean *     remove all generated stuff in $(outdir)\n\
-  bin-clean * same as clean, except that mf/out is preserved\n\
-  default     same as the empty target\n\
-  doc *       update documentation with images in directory \`out-www'\n\
-  doc-stage-1 * update only PDF and Info documentation in directory \`out-www'\n\
-  doc-clean * clean \`out-www' directory\n\
-  exe         update all executables\n\
-  help        this help\n\
-  install *   install programs and data (prefix=$(prefix))\n\
-  lib         update all libraries\n\
-  uninstall*  uninstall programs and data\n\
-  TAGS        generate tagfiles\n\
-\n\
-\`make' may be invoked from any subdirectory.\n\
-Note that all commands marked with a star (*) recurse into subdirectories;\n\
-prepend \`local-' to restrict operation to the current directory.\n\
-Example: \`local-clean'."
+	@echo "Generic targets that recurse into subdirectories*:"
+	@echo "  all          update everything except documentation with images"
+	@echo "  clean        remove all generated stuff in $(outdir)"
+	@echo "  bin-clean    same as clean, except that mf/out is preserved"
+	@echo "  doc          update documentation with images in directory \`out-www'"
+	@echo "  doc-stage-1  update only PDF and Info documentation in directory \`out-www'"
+	@echo "  doc-clean    clean \`out-www' directory"
+	@echo "  install      install programs and data (prefix=$(prefix))"
+	@echo "  uninstall    uninstall programs and data"
+	@echo
+	@echo "  *Note: Prepend \`local-' (eg. \`local-clean') to restrict"
+	@echo "         any of the above commands to the current directory."
+	@echo
+	@echo "Other generic targets:"
+	@echo "  default      same as the empty target"
+	@echo "  exe          update all executables"
+	@echo "  help         this help"
+	@echo "  lib          update all libraries"
+	@echo "  TAGS         generate tagfiles"
+	@echo
+	@echo "\`make' may be invoked from any subdirectory."
 
 local-help:
 

@@ -56,7 +56,7 @@ TEXI_FILES_FROM_TELY = $(outdir)/internals.texi
 
 PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
 
-TOPDIR_HTML_MANUALS = 
+TOPDIR_HTML_MANUALS =
 UNSPLITTED_HTML_MANUALS =
 SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
  $(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),,$(manual)))
@@ -78,7 +78,7 @@ INFO_DOCS = lilypond-usage lilypond-changes lilypond-contributor lilypond-intern
  lilypond-essay lilypond-learning lilypond-notation music-glossary \
  lilypond-web lilypond-extending
 ifeq ($(out),www)
-INFO_DOCS += lilypond-snippets 
+INFO_DOCS += lilypond-snippets
 endif
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 
@@ -109,23 +109,30 @@ default: local-txt-doc
 local-help: extra-local-help
 
 extra-local-help:
-	@echo -e "\
-  check-xrefs [ISOLANG=LL] validate Texinfo cross-references\n\
-  fix-xrefs [ISOLANG=LL]   interactively fix Texinfo cross-references (use with caution)\n\
-  info        update info pages\n\
-  xml	      update Docbook xml documentation\n\
-\n\
-Translations specific targets (see TRANSLATION for details):\n\
-  new-lang ISOLANG=LL  create and initialize subdirectory \'LL' for language \'LL\n\
-(if \'LL exists, update missing file)\n\
-  po-update            update and replace PO files for documentation with msgmerged versions\n\
-  check-translation ISOLANG=LL   show changes in English docs since last translation update\n\
-  update-translation ISOLANG=LL  call $$$$EDITOR to help updating the translation\n\
-  skeleton-update ISOLANG=LL     update Texinfo skeleton files\n\
-  snippet-update ISOLANG=LL      update ly snippets in Texinfo translation according to\n\
-                              docs in English (use with caution)\n\
-\n\
-LL refers to the desired locale (most often only the ISO 639 language code).\n"
+	@echo "  check-xrefs [ISOLANG=LL] validate Texinfo cross-references"
+	@echo "  fix-xrefs [ISOLANG=LL]   interactively fix Texinfo cross-references"
+	@echo "                             (use with caution)"
+	@echo "  info                     update info pages"
+	@echo "  xml                      update Docbook xml documentation"
+	@echo
+	@echo "Translations specific targets (see TRANSLATION for details):"
+	@echo "  new-lang ISOLANG=LL           create and initialize"
+	@echo "                                  subdirectory \'LL' for language \'LL"
+	@echo "                                  (if \'LL exists, update missing file)"
+	@echo "  po-update                     update and replace PO files for"
+	@echo "                                  documentation with msgmerged versions"
+	@echo "  check-translation ISOLANG=LL  show changes in English docs since"
+	@echo "                                  last translation update"
+	@echo "  update-translation ISOLANG=LL call $$$$EDITOR to help updating"
+	@echo "                                  the translation"
+	@echo "  skeleton-update ISOLANG=LL    update Texinfo skeleton files"
+	@echo "  snippet-update ISOLANG=LL     update ly snippets in Texinfo translation"
+	@echo "                                  according to docs in English"
+	@echo "                                  (use with caution)"
+	@echo
+	@echo "  LL refers to the desired locale"
+	@echo "    (most often only the ISO 639 language code)."
+	@echo
 
 info: $(INFO_FILES)
 	@echo export LILYPOND_DATADIR=$(LILYPOND_DATADIR)

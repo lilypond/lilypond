@@ -56,24 +56,29 @@ dist:
 	rm -rf $(distdir)/
 
 local-help:
-	@echo -e "\
-  config      rerun configure\n\
-  dist        roll tarball: $(depth)/$(outdir)/$(distname).tar.gz\n\
-  distclean   also remove configure output\n\
-  cvs-clean   also remove out directories and generated files\n\
-  maintainerclean also remove distributed generated files\n\
-  po          make new translation Portable Object database\n\
-  po-replace  do po-update and replace catalogs with msgmerged versions\n\
-  po-update   update translation Portable Object database\n\
-\n\
-  install-doc install website documentation in (webdir=$(webdir))\n\
-              and Info documentation with images\n\
-  uninstall-doc remove installed documentation with images\n\
-  info        build Info documentation with images\n\
-  install-info  install Info documentation with images\n\
-\n\
-Some more targets are available for testing changes:\n\
-  test-baseline  check  test-redo  test-clean\n\
-For more information on these targets, see Testing LilyPond\n\
-in Application Usage documentation.\n"
+	@echo "  config          rerun configure"
+	@echo "  dist            roll tarball: $(depth)/$(outdir)/$(distname).tar.gz"
+	@echo "  distclean       also remove configure output"
+	@echo "  cvs-clean       also remove out directories and generated files"
+	@echo "  maintainerclean also remove distributed generated files"
+	@echo "  po              make new translation Portable Object database"
+	@echo "  po-replace      do po-update and replace catalogs with msgmerged versions"
+	@echo "  po-update       update translation Portable Object database"
+	@echo
+	@echo "  install-doc     install website documentation in"
+	@echo "                    (webdir=$(webdir))"
+	@echo "                    and Info documentation with images"
+	@echo "  uninstall-doc   remove installed documentation with images"
+	@echo "  info            build Info documentation with images"
+	@echo "  install-info    install Info documentation with images"
+	@echo
+	@echo "Some more targets are available for testing changes:"
+	@echo "  test-baseline"
+	@echo "  check"
+	@echo "  test-redo"
+	@echo "  test-clean"
+	@echo
+	@echo "  For more information on these targets, see"
+	@echo "    \`Testing LilyPond' in the Contributor's Guide."
+	@echo
 

@@ -39,7 +39,7 @@ LOCALSTEPMAKE_TEMPLATES=lilypond
 include $(depth)/make/stepmake.make
 
 
-local-dist: refresh-release-files dist-toplevel-txt-files 
+local-dist: refresh-release-files dist-toplevel-txt-files
 
 all: $(outdir)/VERSION
 
@@ -156,9 +156,9 @@ build-dir-setup: $(tree-share-prefix)/lilypond-force
 
 PO_FILES = $(call src-wildcard,$(src-depth)/po/*.po)
 HELP_CATALOGS = $(PO_FILES:po/%.po=%)
-CATALOGS = $(HELP_CATALOGS:lilypond=) 
+CATALOGS = $(HELP_CATALOGS:lilypond=)
 
-$(tree-share-prefix)/lilypond-force link-tree: GNUmakefile $(outdir)/VERSION 
+$(tree-share-prefix)/lilypond-force link-tree: GNUmakefile $(outdir)/VERSION
 # Preparing LilyPond tree for build-dir exec
 	cd $(top-build-dir)/$(outbase) && rm -rf bin lib share
 	mkdir -p $(tree-bin)
@@ -247,18 +247,19 @@ RESULT_DIR=$(top-build-dir)/out/test-results
 
 
 test:
-	@echo -en 'For tracking crashes: use\n\n\t'
-	@echo 'grep sourcefilename `grep -L systems.texi out/lybook-db/*/*log|sed s/log/ly/g`'
+	@echo 'For tracking crashes: use'
+	@echo
+	@echo '        grep sourcefilename `grep -L systems.texi out/lybook-db/*/*log|sed s/log/ly/g`'
 	@echo
 	$(MAKE) -C input/regression/ out=test local-test
 	$(MAKE) -C input/regression/musicxml out=test local-test
 	$(MAKE) -C input/regression/abc2ly out=test local-test
 
-test-baseline: 
+test-baseline:
 	@if test -d .git ; then \
 		$(if $(shell git diff), echo "commit before base lining" && false,true) ; \
 	fi
-	$(MAKE) 
+	$(MAKE)
 	$(MAKE) test
 	$(MAKE) out=test -C input/regression/ local-test-baseline
 	$(MAKE) out=test -C input/regression/musicxml local-test-baseline
@@ -270,7 +271,7 @@ local-check: test
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
 	$(buildscript-dir)/output-distance --create-images --output-dir $(RESULT_DIR) input/regression/out-test-baseline input/regression/out-test/
-	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g' 
+	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g'
 
 
 test-redo:
