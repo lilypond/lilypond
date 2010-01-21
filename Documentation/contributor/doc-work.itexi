@@ -13,14 +13,14 @@ Version Control System (VCS) called git, previously discussed in
 @ref{Starting with Git}.
 
 @menu
-* Introduction to documentation work::
-* Documentation suggestions::
-* Texinfo introduction and usage policy::
-* Documentation policy::
-* Tips for writing docs::
-* Scripts to ease doc work::
-* Docstrings in scheme::
-* Translating the documentation::
+* Introduction to documentation work::  
+* Documentation suggestions::   
+* Texinfo introduction and usage policy::  
+* Documentation policy::        
+* Tips for writing docs::       
+* Scripts to ease doc work::    
+* Docstrings in scheme::        
+* Translating the documentation::  
 @end menu
 
 
@@ -157,13 +157,13 @@ much faster.  Thanks for your interest!
 @section Texinfo introduction and usage policy
 
 @menu
-* Texinfo introduction::
-* Documentation files::
-* Sectioning commands::
-* LilyPond formatting::
-* Text formatting::
-* Syntax survey::
-* Other text concerns::
+* Texinfo introduction::        
+* Documentation files::         
+* Sectioning commands::         
+* LilyPond formatting::         
+* Text formatting::             
+* Syntax survey::               
+* Other text concerns::         
 @end menu
 
 
@@ -691,11 +691,11 @@ that all such characters appear in all output formats.
 @section Documentation policy
 
 @menu
-* Books::
-* Section organization::
-* Checking cross-references::
-* General writing::
-* Technical writing style::
+* Books::                       
+* Section organization::        
+* Checking cross-references::   
+* General writing::             
+* Technical writing style::     
 @end menu
 
 @node Books
@@ -1163,26 +1163,32 @@ and we regularly discuss translations issues common to all languagues.
 All people interested in LilyPond translations are invited to subscribe
 to this list regardless of the amount of their contribution, by sending
 an email to @code{translations-request@@lilynet.net} with subject
-@code{subscribe} and an empty message body.
+@code{subscribe} and an empty message body.  Unless mentioned explicitly
+or except if a translations coordinator contacts you privately, you
+should send questions, remarks, patches to this list
+@code{translations@@lilynet.net}; especially note that the traffic is so
+high on English-speaking list @code{lilypond-user@@gnu.org} that it may
+take months before your request or contribution is handled if you send a
+email to these lists.
 
 @menu
-* Getting started with documentation translation::
-* Documentation translation details::
-* Documentation translation maintenance::
-* Translations management policies::
-* Technical background::
+* Getting started with documentation translation::  
+* Documentation translation details::  
+* Documentation translation maintenance::  
+* Translations management policies::  
+* Technical background::        
 @end menu
 
 @node Getting started with documentation translation
 @subsection Getting started with documentation translation
 
-First, get the sources from the Git repository, see
-@ref{Downloading remote branches}.
+First, get the sources of branch @code{lilypond/translation} from the
+Git repository, see @ref{Starting with Git}.
 
 @menu
-* Translation requirements::
-* Which documentation can be translated::
-* Starting translation in a new language::
+* Translation requirements::    
+* Which documentation can be translated::  
+* Starting translation in a new language::  
 @end menu
 
 @node Translation requirements
@@ -1208,16 +1214,13 @@ more quickly; if you are interested, see @ref{Compiling from source}.
 @node Which documentation can be translated
 @unnumberedsubsubsec Which documentation can be translated
 
-FIXME: take into account the new web site integration in main sources.
-
 The makefiles and scripts infrastructure currently supports translation
 of the following documentation:
 
 @itemize
-@item documentation index (HTML);
-@item the Learning Manual, the Notation Reference and Application Usage
--- Texinfo source, PDF and HTML output; Info output might be added if
-there is enough demand for it;
+@item the web site, the Learning Manual, the Notation Reference and
+Application Usage -- Texinfo source, PDF and HTML output; Info output
+might be added if there is enough demand for it;
 @item the Changes document.
 @end itemize
 
@@ -1266,10 +1269,6 @@ where @var{MY-LANGUAGE} is the ISO 639 language code.
 Finally, add a language definition for your language in
 @file{python/langdefs.py}.
 
-Before starting the real translation work, it is recommended to commit
-changes you made so far to Git, so e.g. you are able to get back to
-this state of the sources easily if needed; see @ref{Making commits}.
-
 
 @node Documentation translation details
 @subsection Documentation translation details
@@ -1279,9 +1278,9 @@ Please follow all the instructions with care to ensure quality work.
 All files should be encoded in UTF-8.
 
 @menu
-* Files to be translated::
-* Translating the Web site and other Texinfo documentation::
-* Adding a Texinfo manual::
+* Files to be translated::      
+* Translating the Web site and other Texinfo documentation::  
+* Adding a Texinfo manual::     
 @end menu
 
 @node Files to be translated
@@ -1291,27 +1290,6 @@ All files should be encoded in UTF-8.
 
 @node Translating the Web site and other Texinfo documentation
 @unnumberedsubsubsec Translating the Web site and other Texinfo documentation
-
-@iftex
-@vskip 12pt
-@end iftex
-@cartouche
-@b{Note:} node names and section titles are now translated directly in
-Texinfo source files. In case you have files in your working tree that
-have not been converted, please pull first, then run
-
-@example
-make -C Documentation/po doc
-export LYDOC_LOCALEDIR=Documentation/po/out-www
-export PYTHONPATH=python:python/auxiliar
-scripts/auxiliar/tely-gettext.py @var{manual.tely}
-@end example
-
-@noindent
-This will also update files included in @file{@var{manual}.tely}, and of
-course this script can be used for individual @file{@var{foo}.itely}
-files too.
-@end cartouche
 
 Every piece of text should be translated in the source file, except
 Texinfo comments, text in @code{@@lilypond} blocks and a few cases
@@ -1372,6 +1350,31 @@ between these two strategies implies its particular maintenance
 requirements and is left to the translators, although the opinion of the
 Translation meister leans towards not translating these
 cross-references.}
+
+Please think of the fact that it may not make sense translating
+everything in some Texinfo files, and you may take distance from the
+original text; for instance, in the translation of the web site section
+Community, you may take this into account depending on what you know the
+community in your language is willing to support, which is possible only
+if you personnally assume this support, or there exists a public forum
+or mailing list listed in Community for LilyPond in your language:
+
+@itemize
+@item @rweb{Bug reports}: this page should be translated only if you
+know that every bug report sent on your language's mailing list or forum
+will be handled by someone who will translate it to English and send it
+on bug-lilypond or add an issue in the tracker, then translate back the
+reply from developers.
+
+@item @rweb{Help us}: this page should be translated very freely,
+and possibly not at all: ask help for contributing to LilyPond for tasks
+that LilyPond community in your language is able and going to handle.
+@end itemize
+
+@noindent
+In any case, please mark in your work the sections which do not result
+from the direct translation of a piece of English translation, using
+comments i.e. lines starting with @q{@code{@@c}}.
 
 Finally, press in Emacs @key{C-c C-u C-a} to update or generate
 menus. This process should be made easier in the future, when the helper
@@ -1486,16 +1489,32 @@ Several tools have been developed to make translations maintenance
 easier.  These helper scripts make use of the power of Git, the
 version control system used for LilyPond development.
 
+You should use them whenever you would like to update the translation in
+your language, which you may do at the frequency that fits your and your
+cotranslators' respective available times.  In the case your translation
+is up-do-date (which you can discover in the first subsection below), it
+is enough to check its state every one or two weeks.  If you feel
+overwhelmed by the quantity of documentation to be updated, see
+@ref{Maintaining without updating translations}.
+
 @menu
-* Check state of translation::
-* Updating documentation translation::
+* Check state of translation::  
+* Updating documentation translation::  
+* Updating translation committishes::  
 @end menu
+
+@macro seeCommittishesUpdate{}
+@warning{do not forget to update the committish in each file you have
+completely updated, see @ref{Updating translation committishes}.}
+@end macro
 
 @node Check state of translation
 @unnumberedsubsubsec Check state of translation
 
-First pull from Git, then cd into @file{Documentation/} (or at top of
-the source tree, replace @command{make} with @command{make -C
+First pull from Git -- see @ref{Pulling and rebasing}, but DO NOT rebase
+unless you are sure to master the translation state checking and
+updating system -- then cd into @file{Documentation/} (or at top of the
+source tree, replace @command{make} with @command{make -C
 Documentation}) and run
 
 @example
@@ -1513,8 +1532,8 @@ make CHECKED_FILES=@var{MY_LANGUAGE}/@var{manual}/@var{foo}.itely check-translat
 
 @noindent
 In case this file has been renamed since you last updated the
-translation, you should specify both old and new file names,
-e.g. @code{CHECKED_FILES=@var{MY_LANGUAGE}/@{@var{manual},user@}/@var{foo}.itely}.
+translation, you should specify both old and new file names, e.g.
+@code{CHECKED_FILES=@var{MY_LANGUAGE}/@{@var{manual},user@}/@var{foo}.itely}.
 
 To see only which files need to be updated, do
 
@@ -1528,6 +1547,16 @@ desirable when you redirect output to a file, run
 @example
 make ISOLANG=@var{MY_LANGUAGE} NO_COLOR=1 check-translation
 @end example
+
+You can see the diffs generated by the commands above as changes that
+you should make in your language to the existing translation, in order
+to make your translation up to date.
+
+@seeCommittishesUpdate
+
+@warning{translation status generation is currently broken, so
+translation status pages have been removed; it will be regenerated again
+as soon as possible, in Texinfo format.}
 
 Global state of the translation is recorded in
 @file{Documentation/translations.html.in}, which is used to generate
@@ -1569,6 +1598,8 @@ For each file to be udpated, @code{update-translation} will open your
 text editor with this file and a diff of the file in English; if the
 diff cannot be generated or is bigger than the file in English itself,
 the full file in English will be opened instead.
+
+@seeCommittishesUpdate
 
 Texinfo skeleton files, i.e. @file{.itely} files not yet translated,
 containing only the first node of the original file in English can be
@@ -1631,6 +1662,26 @@ useful until translations are stabilized after the end of GDP and GOP.
 @ref{Adding and editing snippets}.
 
 
+@node Updating translation committishes
+@unnumberedsubsubsec Updating translation committishes
+
+At the beginning of each translated file except PO files, there is a
+committish which represents the revision of the sources which you have
+used to translate this file from the file in English.
+
+When you have pulled and updated a translation, it is very important to
+update this committish in the files you have completely updated (and
+only these); to do this, first commit possible changes to any
+documentation in English which you are sure to have done in your
+translation as well, then replace in the up-to-date translated files the
+old committish by the committish of latest commit, which can be obtained
+by doing
+
+@example
+git rev-list HEAD |head -1
+@end example
+
+
 @node Translations management policies
 @subsection Translations management policies
 
@@ -1639,8 +1690,8 @@ be managed, they aim at helping translators, developers and
 coordinators work efficiently.
 
 @menu
-* Maintaining without updating translations::
-* Managing documentation translation with Git::
+* Maintaining without updating translations::  
+* Managing documentation translation with Git::  
 @end menu
 
 @node Maintaining without updating translations
