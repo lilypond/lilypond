@@ -30,6 +30,15 @@
 #include "stem.hh"
 #include "warn.hh"
 
+static Stencil
+get_squiggle (Grob *me)
+{
+  Font_metric *fm = Font_interface::get_default_font (me);
+  Stencil squiggle = fm->find_by_name ("scripts.arpeggio");
+
+  return squiggle;
+}
+
 Grob *
 Arpeggio::get_common_y (Grob *me)
 {
@@ -75,7 +84,7 @@ Arpeggio::calc_positions (SCM grob)
 		   - my_y);
     }
 
-  heads *= 1/Staff_symbol_referencer::staff_space(me);
+  heads *= 1 / Staff_symbol_referencer::staff_space (me);
 
   return ly_interval2scm (heads);
 }
@@ -91,12 +100,22 @@ Arpeggio::print (SCM smob)
   
   if (heads.is_empty () || heads.length () < 0.5)
     {
-      if (!to_boolean (me->get_property ("transparent")))
+      if (to_boolean (me->get_property ("transparent")))
+	{
+	  /*
+	    This is part of a cross-staff/-voice span-arpeggio,
+	    so we need to ensure `heads' is large enough to encompass
+	    a single trill-element since the span-arpeggio depends on
+	    its children to prevent collisions.
+	  */
+	  heads.unite (get_squiggle (me).extent (Y_AXIS));
+	}
+      else
 	{
 	  me->warning ("no heads for arpeggio found?");
 	  me->suicide ();
+	  return SCM_EOL;
 	}
-      return SCM_EOL;
     }
 
   SCM ad = me->get_property ("arpeggio-direction");
@@ -105,8 +124,7 @@ Arpeggio::print (SCM smob)
     dir = to_dir (ad);
 
   Stencil mol;
-  Font_metric *fm = Font_interface::get_default_font (me);
-  Stencil squiggle = fm->find_by_name ("scripts.arpeggio");
+  Stencil squiggle (get_squiggle (me));
 
   /*
     Compensate for rounding error which may occur when a chord
@@ -121,6 +139,7 @@ Arpeggio::print (SCM smob)
   Stencil arrow;
   if (dir)
     {
+      Font_metric *fm = Font_interface::get_default_font (me);
       arrow = fm->find_by_name ("scripts.arpeggio.arrow." + to_string (dir));
       heads[dir] -= dir * arrow.extent (Y_AXIS).length ();
     }
@@ -191,9 +210,7 @@ SCM
 Arpeggio::width (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Stencil arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts.arpeggio");
-
-  return ly_interval2scm (arpeggio.extent (X_AXIS));
+  return ly_interval2scm (get_squiggle (me).extent (X_AXIS));
 }
 
 MAKE_SCHEME_CALLBACK (Arpeggio, pure_height, 3);
