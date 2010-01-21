@@ -189,7 +189,7 @@ información.
 @translationof Glossary
 
 @divClass{column-left-top}
-@subheading Glossary
+@subheading Glosario
 
 El glosario explica términos musicales e incluye traducciones a varios
 idiomas.  Si no está familiarizado como la notación o la terminología
@@ -200,8 +200,8 @@ recomienda fervientemente que consulte el glosario.
 
 @divClass{column-right-bottom}
 
-@docLinks{Music glossary, music-glossary,
-  @rglosnamed{Top,Music glossary},
+@docLinks{Glosario musical, music-glossary,
+  @rglosnamed{Top,Glosario musical},
   @manualStableGlossarySplit,
   @manualStableGlossaryBig, 1 MB,
   @manualStableGlossaryPdf, 1.5 MB}
@@ -241,7 +241,7 @@ versión en formato PDF a causa de su mayor resolución.}
 @translationof Notation
 
 @divClass{column-left-top}
-@subheading Notation reference
+@subheading Referencia de la notación
 
 Este libro explica todas las instrucciones de LilyPond que producen
 notación musical.
@@ -514,13 +514,13 @@ sólo están disponibles en @uref{http://lilypond.org}
 @itemize
 
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
-LilyPond 2.12 Documentation}
+Documentación de LilyPond 2.12}
 
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
-LilyPond 2.10 Documentation}
+Documentación de LilyPond 2.10}
 
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
-LilyPond 2.8 Documentation}
+Documentación de LilyPond 2.8}
 
 @c @hel p anybody want to write this stuff?
 

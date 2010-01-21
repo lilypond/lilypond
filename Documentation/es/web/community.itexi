@@ -372,7 +372,7 @@ He aquí un ejemplo de un buen informe de fallo:
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Paso 3; enviar el informe de fallo
+@subheading Paso 3: enviar el informe de fallo
 
 Una vez que ha verificado que el problema no es conocido ya, y ha
 creado el informe, ¡puede enviárnoslo!
@@ -449,7 +449,7 @@ fragmentos.  Consulte @rcontribnamed{Adding and editing snippets,Añadir y edita
 
 @item
 Discusión, revisión y pruebas: los desarrolladores suelen solicitar un
-retorno sobre documentación nueva, cambios de sintaxis potenciales, y
+retorno sobre documentación nueva, potenciales cambios de sintaxis y
 prueba de nuevas funcionalidades.  ¡Contribuya a estas discusiones!
 
 @end itemize
@@ -459,7 +459,7 @@ prueba de nuevas funcionalidades.  ¡Contribuya a estas discusiones!
 @warning{En general, estos trabajos requieren que usted tenga los
 archivos de código fuente del programa y la documentación, pero no
 requieren un entorno de desarrollo completo.  Consulte
-@rcontribnamed{Starting with git,Comenzar con git}.}
+@rcontribnamed{Starting with git,Comenzar con Git}.}
 
 @itemize
 @item
@@ -482,7 +482,7 @@ Traducciones: consulte @rcontribnamed{Translating the documentation,Traducir la 
 
 @warning{En general, estos trabajos requieren que usted tenga el
 código fuente y sea capaz de compilar LilyPond.  Consulte
-@rcontribnamed{Starting with git,Comenzar con git} y @rcontribnamed{Compiling LilyPond,Compilación de LilyPond}.}
+@rcontribnamed{Starting with git,Comenzar con Git} y @rcontribnamed{Compiling LilyPond,Compilación de LilyPond}.}
 
 Sugerimos que los colaboradores nuevos que sean usuarios de Windows
 utilicen una máquina virtual para ejecutar @emph{lilybuntu}.  Consulte
@@ -522,20 +522,22 @@ cualquiera de ellos, el lema es: @emph{Join the Frogs!}
 
 @subsubheading El proyecto GLISS (Grand LilyPond Input Syntax Standardization)
 
-Página web:: @uref{http://lilypond.org/~graham/gliss}
+Página web: @uref{http://lilypond.org/~graham/gliss}
 
-GLISS estabilizará la sintaxis del código de entrada, sin trucajes, para el advenimiento de
-LilyPond 3.0.  Después de la actualización a 3.0, la sintaxis de entrada para
-música sin trucajes, permanecerá estable durante un futuro previsible.
+GLISS estabilizará la sintaxis del código de entrada, sin trucajes,
+para el advenimiento de LilyPond 3.0.  Después de la actualización a
+3.0, la sintaxis de entrada para música sin trucajes, permanecerá
+estable durante un futuro previsible.
 
 We will have an extensive discussion period to determine the final
 input specification.
 
 @subsubheading Grand Organizing Project
 
-Website and mailist: TODO
+Página web y lista de correo: en construcción
 
-GOP is our big recruiting drive for new contributors.
+El GOP es nuestro gran proyecto de reclutamiento de nuevos
+colaboradores.
 
 @divEnd
 
@@ -582,11 +584,11 @@ versión impar (p.ej., 2.7, 2.9, 2.11).
 @divClass{column-left-top}
 @subheading Descarga
 
-Las instrucciones de git y para la compilación están en la Guía del
+Las instrucciones de Git y para la compilación están en la Guía del
 Colaborador.
 
 @quotation
-@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, Repositorio git de lilypond}
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, Repositorio Git de lilypond}
 @end quotation
 
 En general, los redactores de la documentación y los pilotos de
@@ -635,7 +637,7 @@ menos) estable, hemos escrito un manual para los colaboradores.
 
 
 @divClass{column-right-top}
-@subheading Regression tests
+@subheading Pruebas de regresión
 
 @divClass{keep-bullets}
 @itemize
@@ -645,7 +647,7 @@ Pruebas del lanzamiento actual. (también en
 @uref{../input/regression/collated-files.pdf, pdf})
 
 @item @uref{../../input/regression/musicxml/collated-files.html,
-pruebas de regresión de MusicXML}: la pruebas de MusicXML del presente
+Pruebas de regresión de MusicXML}: la pruebas de MusicXML del presente
 lanzamiento (también en
 @uref{../input/regression/musicxml/collated-files.pdf, PDF}).
 
@@ -659,7 +661,7 @@ Comparaciones entre versiones.
 
 
 @divClass{column-center-bottom}
-@subheading manuales
+@subheading Manuales
 
 @divClass{normal-table}
 @multitable @columnfractions .3 .3 .3
@@ -732,11 +734,11 @@ Comparaciones entre versiones.
 @docLinkPdf{Extensiones,extending,@manualDevelExtendingPdf}
 
 @item
-@docLinkSplit{Funcionamiento interno,Internals,@manualDevelInternalsSplit}
+@docLinkSplit{Funcionamiento interno,internals,@manualDevelInternalsSplit}
 @tab
-@docLinkBig{Funcionamiento interno,Internals,@manualDevelInternalsBig}
+@docLinkBig{Funcionamiento interno,internals,@manualDevelInternalsBig}
 @tab
-@docLinkPdf{Funcionamiento interno,Internals,@manualDevelInternalsPdf}
+@docLinkPdf{Funcionamiento interno,internals,@manualDevelInternalsPdf}
 
 @end multitable
 
