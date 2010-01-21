@@ -245,6 +245,18 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 	    penalty += lines_[page_start-1].page_penalty_
 	      + (page % 2 == 0) ? lines_[page_start-1].turn_penalty_ : 0;
 
+	  /* Deal with widow/orphan lines */
+	  /* Last line of paragraph is first line on the new page */
+	  if ((page_start > 0) &&
+	      (page_start < lines_.size ()) &&
+	      (lines_[page_start].last_markup_line_))
+		  penalty += breaker_->orphan_penalty ();
+	  /* First line of paragraph is last line on the previous page */
+	  if ((page_start > 0) &&
+	      (page_start < lines_.size ()) &&
+	      (lines_[page_start-1].first_markup_line_))
+		  penalty += breaker_->orphan_penalty ();
+
 	  demerits += penalty;
 	  if (demerits < cur.demerits_ || page_start == line)
 	    {
