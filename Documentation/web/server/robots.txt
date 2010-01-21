@@ -1,0 +1,19 @@
+# avoid 404s -- so that we can take action if any occur in /stats
+
+User-agent: *
+Disallow: /doc/v1.6/
+Disallow: /doc/v1.8/
+Disallow: /doc/v1.9/
+Disallow: /doc/v2.0/
+Disallow: /doc/v2.1/
+Disallow: /doc/v2.2/
+Disallow: /doc/v2.3/
+Disallow: /doc/v2.4/
+Disallow: /doc/v2.5/
+Disallow: /doc/v2.6/
+Disallow: /doc/v2.7/
+Disallow: /doc/v2.8/
+Disallow: /doc/v2.9/
+Disallow: /doc/v2.10/
+Disallow: /doc/v2.11/
+Disallow: /doc/v2.13/
