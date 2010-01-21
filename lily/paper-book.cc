@@ -516,15 +516,20 @@ Paper_book::get_system_specs ()
 				  paper_->self_scm (),
 				  page_properties,
 				  scm_car (s));
-	  for (SCM list = texts ; scm_is_pair (list) ; list = scm_cdr (list))
+	  Prob *ps;
+	  SCM list;
+	  for (list = texts ; scm_is_pair (list) ; list = scm_cdr (list))
 	    {
 	      SCM t = scm_car (list);
 	      // TODO: init props
-	      Prob *ps = make_paper_system (SCM_EOL);
+	      ps = make_paper_system (SCM_EOL);
 	      ps->set_property ("page-break-permission",
 				ly_symbol2scm ("allow"));
 	      ps->set_property ("page-turn-permission",
 				ly_symbol2scm ("allow"));
+	      ps->set_property ("last-markup-line",  SCM_BOOL_F);
+	      ps->set_property ("first-markup-line",
+	    		  list == texts? SCM_BOOL_T : SCM_BOOL_F);
 
 	      paper_system_set_stencil (ps, *unsmob_stencil (t));
 	      ps->set_property ("is-title", SCM_BOOL_T);
@@ -543,6 +548,18 @@ Paper_book::get_system_specs ()
 		}
 	      // FIXME: figure out penalty.
 	      //set_system_penalty (ps, scores_[i].header_);
+	    }
+         // We may want to place a check here, for whether the line is too short
+         if (list == texts)
+           {
+             // if there is only one line in the paragraph,
+             // do not try to avoid orphans
+             ps->set_property ("last-markup-line", SCM_BOOL_F);
+             ps->set_property ("first-markup-line", SCM_BOOL_F);
+           }
+	  else
+           {
+             ps->set_property ("last-markup-line", SCM_BOOL_T);
 	    }
 	}
       else

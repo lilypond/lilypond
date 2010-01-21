@@ -525,4 +525,8 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   title_ = to_boolean (pb->get_property ("is-title"));
   compressed_lines_count_ = 1;
   compressed_nontitle_lines_count_ = title_ ? 0 : 1;
+  SCM last_scm  = pb->get_property ("last-markup-line");
+  last_markup_line_  = to_boolean (last_scm);
+  SCM first_scm = pb->get_property ("first-markup-line");
+  first_markup_line_ = to_boolean (first_scm);
 }

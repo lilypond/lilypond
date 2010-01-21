@@ -52,6 +52,8 @@ struct Line_details {
      class. */
   int compressed_lines_count_;
   int compressed_nontitle_lines_count_;
+  bool last_markup_line_;
+  bool first_markup_line_;
 
   Line_details ()
   {
@@ -71,6 +73,8 @@ struct Line_details {
     title_ = false;
     compressed_lines_count_ = 1;
     compressed_nontitle_lines_count_ = 1;
+    last_markup_line_ = false;
+    first_markup_line_ = false;
   }
 
   Line_details (Prob *pb, Output_def *paper);

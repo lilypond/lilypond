@@ -34,6 +34,7 @@ EXTRACT_TEXI_FILENAMES=python $(script-dir)/extract_texi_filenames.py
 CREATE_VERSION=python $(script-dir)/create-version-itexi.py
 CREATE_WEBLINKS=python $(script-dir)/create-weblinks-itexi.py
 
+SERVER_FILES=$(top-src-dir)/Documentation/web/server/
 
 # don't include web
 MANUALS=$(wildcard $(top-src-dir)/Documentation/*.tely)
@@ -77,7 +78,8 @@ website-examples:
 	mkdir -p $(OUT)/website/ly-examples
 	cp $(EXAMPLES)/* $(OUT)/website/ly-examples
 
-
 website: website-texinfo website-css website-pictures website-examples
-
+	cp $(SERVER_FILES)/favicon.ico $(OUT)/website/
+	cp $(SERVER_FILES)/lilypond.org.htaccess $(OUT)/website/.htaccess
+	cp $(SERVER_FILES)/robots.txt $(OUT)/website/
 

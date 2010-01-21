@@ -127,6 +127,7 @@ public:
   bool too_few_lines (int line_count) const;
   Real min_whitespace_at_top_of_page (Line_details const&) const;
   Real min_whitespace_at_bottom_of_page (Line_details const&) const;
+  int orphan_penalty () const;
 
 protected:
   Paper_book *book_;
@@ -180,6 +181,7 @@ private:
   int max_systems_per_page_;
   int min_systems_per_page_;
   vsize system_count_;
+  int orphan_penalty_;
 
   vector<Line_division> current_configurations_;
   vector<Break_position> current_chunks_;

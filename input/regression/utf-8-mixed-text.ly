@@ -7,4 +7,4 @@
 
 \version "2.12.0"
 
-\markup  { "Здравствуйт Hallo" }
+\markup { "Здравствуйте Hallo" }

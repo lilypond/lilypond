@@ -174,6 +174,7 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
   systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("systems-per-page"), 0));
   max_systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("max-systems-per-page"), 0));
   min_systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("min-systems-per-page"), 0));
+  orphan_penalty_ = robust_scm2int (pb->paper_->c_variable ("orphan-penalty"), 100000);
 
   if (systems_per_page_ && (max_systems_per_page_ || min_systems_per_page_))
     {
@@ -1406,4 +1407,10 @@ Page_breaking::min_whitespace_at_bottom_of_page (Line_details const &line) const
 
   // FIXME: take into account the height of the footer
   return max (0.0, max (padding, min_distance + line.extent_[DOWN]));
+}
+
+int
+Page_breaking::orphan_penalty () const
+{
+  return orphan_penalty_;
 }
