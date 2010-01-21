@@ -49,14 +49,8 @@ Line_interface::make_trill_line (Grob *me,
 				 Offset to)
 {
   Offset dz = (to-from);
-  SCM alist_chain = Font_interface::text_font_alist_chain (me);
-  SCM style_alist = scm_list_n (scm_cons (ly_symbol2scm ("font-encoding"),
-					  ly_symbol2scm ("fetaMusic")),
-				SCM_UNDEFINED);
 
-  Font_metric *fm = select_font (me->layout (),
-				 scm_cons (style_alist,
-					   alist_chain));
+  Font_metric *fm = Font_interface::get_default_font (me);
 
   Stencil elt = fm->find_by_name ("scripts.trill_element");
   elt.align_to (Y_AXIS, CENTER);
