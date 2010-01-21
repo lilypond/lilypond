@@ -132,11 +132,9 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
       return s;
     }
 
-  SCM alist_chain = Font_interface::music_font_alist_chain (me);
-
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Font_metric *musfont
-    = select_font (me->layout (), alist_chain);
+
+  Font_metric *musfont = Font_interface::get_default_font (me);
 
   SCM sml = me->get_property ("use-breve-rest");
   if (measures == 1)
