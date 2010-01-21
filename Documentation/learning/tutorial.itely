@@ -111,7 +111,7 @@ and the program(s) you use.
 
 There are several other text editors available with specific
 support for LilyPond.  For more information, see
-@rweb{Alternate input}.
+@rweb{Easier editing}.
 
 @warning{The first time you ever run LilyPond, it may take a
 minute or two because all of the system fonts have to be analyzed
@@ -125,7 +125,7 @@ first.  After this, LilyPond will be much faster!}
 
 @warning{These instructions assume that you are using the LilyPond
 application.  If you are using any of the programs described in
-@rweb{Alternate input}, please consult the documentation for
+@rweb{Easier editing}, please consult the documentation for
 those programs if you have any problems.}
 
 
@@ -196,20 +196,20 @@ may fail to generate an update PDF until you close the original.
 
 @warning{These instructions assume that you are using the built-in
 LilyPad editor.  If you are using any of the programs described in
-@rweb{Alternate input}, please consult the documentation for
+@rweb{Easier editing}, please consult the documentation for
 those programs if you have any problems compiling a file.}
 
 
 @subsubheading Step 1. Create your @file{.ly} file
 
-Double-click the @command{LilyPond.app}, an example file will open.
+Double-click the LilyPond icon on your desktop, an example file will open.
 
 @sourceimage{Learning_Win7_Welcome_File_Whole,,,}
 
-From the menus that appear alonbg the top of the example file,
+From the menus that appear along the top of the example file,
 select @w{@code{File > Save as}}. Do not use the @w{@code{File > Save}}
 for the example file as this will not work until you have given it a
-valid Lilypong file name.
+valid LilyPond file name.
 
 @sourceimage{Learning_Win7_Save_Menu,,,}
 
@@ -287,7 +287,7 @@ the new PDF while it is still being viewed.
 
 @warning{These instructions assume that you are familiar with
 command-line programs.  If you are using any of the programs
-described in @rweb{Alternate input}, please consult the
+described in @rweb{Easier editing}, please consult the
 documentation for those programs if you have any problems
 compiling a file.}
 
@@ -329,7 +329,7 @@ Converting to `./test.pdf'...
 
 @subsubheading Step 3. View output
 
-You may view or print the resulting @file{text.pdf}.
+You may view or print the resulting @file{test.pdf}.
 
 
 @node How to write input files
@@ -813,7 +813,7 @@ practice of including them in your files.
 @node Clickable examples
 @subsection Clickable examples
 
-@warning{This features is only available in the HTML manuals.}
+@warning{This feature is only available in the HTML manuals.}
 
 Many people learn programs by trying and fiddling around with the
 program.  This is also possible with LilyPond.  If you click on a
