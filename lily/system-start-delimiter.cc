@@ -33,11 +33,7 @@
 Stencil
 System_start_delimiter::staff_bracket (Grob *me, Real height)
 {
-  SCM fam = scm_cons (ly_symbol2scm ("font-encoding"),
-		      ly_symbol2scm ("fetaMusic"));
-
-  SCM alist = scm_list_n (fam, SCM_UNDEFINED);
-  Font_metric *fm = select_font (me->layout (), scm_list_n (alist, SCM_UNDEFINED));
+  Font_metric *fm = Font_interface::get_default_font (me);
 
   Drul_array<Stencil> tips (fm->find_by_name ("brackettips.down"),
 			    fm->find_by_name ("brackettips.up"));
