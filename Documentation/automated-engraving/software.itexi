@@ -3,7 +3,8 @@
     Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
 @end ignore
 
 

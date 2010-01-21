@@ -3,7 +3,8 @@
     Translation of GIT committish: 89d34c60267f06f630d11e540eb4681748aa540f
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
 @end ignore
 @setfilename lilypond-changes.info
 @settitle Registro de cambios de LilyPond

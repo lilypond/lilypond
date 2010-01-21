@@ -3,7 +3,8 @@
     Translation of GIT committish: 48e4b7f1ecad464e3c9973d7b65eed2de1e546e0
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
 @end ignore
 
 @c This file is part of lilypond-web.texi and community.itexi

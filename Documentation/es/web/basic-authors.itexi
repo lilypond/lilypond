@@ -3,7 +3,8 @@
     Translation of GIT committish: f597c44765b8234d15c32cd0320812656cec7c53
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
 @end ignore
 
 @c This file is part of community.itexi and ../topdocs/AUTHORS.itexi

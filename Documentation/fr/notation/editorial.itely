@@ -3,7 +3,8 @@
     Translation of GIT committish: ca543ea73189a1e53af94973dad0b8a5042c130c
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.12.0"

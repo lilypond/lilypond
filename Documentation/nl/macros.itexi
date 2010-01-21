@@ -3,7 +3,8 @@
     Translation of GIT committish: 8135382760aa0adfac5aed987a272c394e59dbdb
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
 @end ignore
 
 
