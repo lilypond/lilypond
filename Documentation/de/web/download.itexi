@@ -15,6 +15,7 @@ Sie bitte über unsere @ref{Text-Eingabe}.}
 
 @node Download
 @unnumbered Download
+@translationof Download
 
 @divClass{heading-center}
 @ifclear web_version
