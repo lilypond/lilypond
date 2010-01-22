@@ -55,7 +55,7 @@ para cometidos específicos.
 entrada y la salida de LilyPond.
 * Problemas de espaciado::              Presentación del resultado
 en papel.
-* Cambiar los valores predeterminados:: Ajuste fino del resultado.
+* Cambiar los valores por omisión:: Ajuste fino del resultado.
 
 Apéndices
 
@@ -64,8 +64,7 @@ Apéndices
 LilyPond.
 * Gramática de LilyPond::                  Diagrama de sintaxis
 para el analizador sintáctico de LilyPond.
-* Licencia de Documentación Libre de GNU:: Licencia de este
-documento.
+* GNU Free Documentation License:: Licencia de este documento.
 * Índice de instrucciones de LilyPond::
 * Índice de LilyPond::
 @end menu

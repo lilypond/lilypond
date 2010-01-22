@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: da7ce7d651c3a0d1bfed695f6e952975937a1c79
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -33,7 +33,7 @@ and just before
 @end ignore
 
 @menu
-* Carta de nombres de acordes::
+* Cuadro de nombres de acordes::
 * Modificadores de acorde más usuales::
 * Diagramas predefinidos de trastes::
 * Instrumentos MIDI::
@@ -44,6 +44,7 @@ and just before
 * Text markup list commands::
 * Lista de articulaciones::
 * Notas de percusión::
+* Glosario técnico::
 * Todas las propiedades de contexto::
 * Propiedades de disposición::
 * Identificadores::
@@ -52,8 +53,8 @@ and just before
 
 
 
-@node Carta de nombres de acordes
-@appendixsec Carta de nombres de acordes
+@node Cuadro de nombres de acordes
+@appendixsec Cuadro de nombres de acordes
 @translationof Chord name chart
 
 Las siguientes tablas muestran dos sistemas estándar para imprimir los nombres de los acordes,
@@ -207,7 +208,7 @@ Tríada disminuida y séptima menor
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:dim5m7
+  c1:m7.5-
 }
 @end lilypond
 
@@ -216,11 +217,11 @@ Menor con séptima mayor
 @tab
 Tríada menor con séptima mayor
 @tab
-@code{maj7.5-}
+@code{maj7.3-}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:maj7.5-
+  c1:maj7.3-
 }
 @end lilypond
 
@@ -413,10 +414,13 @@ Cuarta justa y quinta justa
 @appendixsec Diagramas predefinidos de trastes
 @translationof Predefined fretboard diagrams
 
-El cuadro siguiente presenta los diagramas de traste predefinidos.
+El cuadro siguiente presenta los diagramas de traste predefinidos para guitarra.
 
 @lilypondfile{display-predefined-fretboards.ly}
 
+El cuadro siguiente presenta los diagramas de traste predefinidos para ukelele.
+
+@lilypondfile{display-predefined-ukulele-fretboards.ly}
 
 @node Instrumentos MIDI
 @appendixsec Instrumentos MIDI
@@ -584,8 +588,11 @@ donde N es un número entre 0 y 100.
 
 Los símbolos siguientes están disponibles en la tipografía Emmentaler
 y es posible acceder a ellos directamente utilizando elementos de
-marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
-@}}, véase @ref{Formatear el texto}.
+marcado textual con el nombre del glifo
+tal y como se muestra en las tablas de abajo,
+por ejemplo @code{g^\markup @{\musicglyph #"scripts.segno" @}} ó
+@code{\markup @{\musicglyph #"five"@}}.  Para ver más información,
+consulte @ref{Formatear el texto}.
 
 @menu
 * Clef glyphs::
@@ -933,6 +940,219 @@ Se pueden usar los siguientes estilos para las cabezas de las notas.
 @translationof Percussion notes
 
 @lilypondfile[quote]{percussion-chart.ly}
+
+
+@node Glosario técnico
+@appendixsec Glosario técnico
+@translationof Technical glossary
+
+Glosario de los términos técnicos y conceptos que se utilizan
+internamente en LilyPond.  Estos términos pueden aparecer en los
+manuales, en las listas de distribución de correo o en el código
+fuente.
+
+@menu
+* alist::
+* callback::
+* closure::
+* glyph::
+* grob::
+* immutable::
+* interface::
+* lexer::
+* mutable::
+* output-def::
+* parser::
+* parser variable::
+* prob::
+* simple closure::
+* smob::
+* stencil::
+@end menu
+
+@node alist
+@unnumberedsubsec alist
+
+@cindex alist
+@cindex association list
+
+@untranslated
+
+@node callback
+@unnumberedsubsec callback
+
+@cindex callback
+
+@untranslated
+
+@node closure
+@unnumberedsubsec closure
+
+@cindex closure
+@cindex simple closure
+
+@untranslated
+
+@node glyph
+@unnumberedsubsec glyph
+
+@cindex glyph
+@cindex font
+@cindex typeface
+
+@untranslated
+
+@seealso
+Referencia de la notación:
+@ref{Fonts},
+@ref{Text encoding}.
+
+
+@node grob
+@unnumberedsubsec grob
+
+@cindex grob
+@cindex layout objects
+@cindex graphical objects
+
+@untranslated
+
+@seealso
+Manual de aprendizaje:
+@rlearning{Objects and interfaces},
+@rlearning{Naming conventions of objects and properties},
+@rlearning{Properties of layout objects}.
+
+Referencia de funcionamiento interno:
+@rinternals{grob-interface},
+@rinternals{All layout objects}.
+
+
+@node immutable
+@unnumberedsubsec immutable
+
+@cindex immutable objects
+@cindex immutable properties
+@cindex shared properties
+
+@untranslated
+
+@seealso
+Referencia de la notación:
+@ref{mutable}.
+
+@node interface
+@unnumberedsubsec interface
+
+@cindex interface
+@cindex grob-interface
+@cindex graphical object interfaces
+
+@untranslated
+
+@seealso
+Manual de aprendizaje:
+@rlearning{Objects and interfaces},
+@rlearning{Naming conventions of objects and properties},
+@rlearning{Properties found in interfaces}.
+
+Referencia de la notación:
+@ref{Layout interfaces}.
+
+Referencia de funcionamiento interno:
+@rinternals{Graphical Object Interfaces}.
+
+
+@node lexer
+@unnumberedsubsec lexer
+
+@cindex lexer
+@cindex Flex
+
+@untranslated
+
+@node mutable
+@unnumberedsubsec mutable
+
+@cindex mutable objects
+@cindex mutable properties
+
+@untranslated
+
+@seealso
+Referencia de la notación:
+@ref{immutable}.
+
+@node output-def
+@unnumberedsubsec output-def
+
+@cindex output-def
+
+@untranslated
+
+@node parser
+@unnumberedsubsec parser
+
+@cindex parser
+@cindex Bison
+@cindex grammar for LilyPond
+@cindex BNF
+
+@untranslated
+
+@node parser variable
+@unnumberedsubsec parser variable
+
+@cindex parser variable
+@cindex Scheme variable
+@cindex global variable
+@cindex afterGraceFraction
+@cindex musicQuotes
+@cindex mode
+@cindex output-count
+@cindex output-suffix
+@cindex parseStringResult
+@cindex partCombineListener
+@cindex pitchnames
+@cindex toplevel-bookparts
+@cindex toplevel-scores
+@cindex showLastLength
+@cindex showFirstLength
+
+@untranslated
+
+@node prob
+@unnumberedsubsec prob
+
+@cindex prob
+@cindex property object
+
+@untranslated
+
+@node simple closure
+@unnumberedsubsec simple closure
+
+Véase @ref{closure}.
+
+
+@node smob
+@unnumberedsubsec smob
+
+@cindex smob
+@cindex Scheme object
+
+@untranslated
+
+@node stencil
+@unnumberedsubsec stencil
+
+@cindex stencil
+
+@untranslated
+
+@seealso
+Referencia de funcionamiento interno:
+@rinternals{grob-interface}.
 
 
 @node Todas las propiedades de contexto
