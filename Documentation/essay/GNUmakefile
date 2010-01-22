@@ -9,6 +9,11 @@ BIB_FILES= $(call src-wildcard,*.bib)
 
 include $(depth)/make/stepmake.make
 
+# we no longer create bibliography files in this subdir,
+# since it needs to be done in the main Documentation/ dir.
+# all the below can _probably_ be removed, but I haven't
+# examined it in detail.
+# I think this is just going to wait until we switch to waf.  -gp
 dvi: $(DVI_FILES) $(OUT_BIB_FILES)
 
 ps: $(PS_FILES)
