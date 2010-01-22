@@ -129,11 +129,10 @@ Running LilyPond requires proper installation of the following software
 @item @uref{http://fontconfig.org/,FontConfig} (version 2.2 or newer).
 @item @uref{http://www.pango.org/,Pango} (version 1.12 or newer).
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
-(version 1.8.2 or newer), or patch 1.8.1 with
-@uref{http://lilypond.org/vc/gub.darcs/patches/guile-1.8-rational.patch}.
+(version 1.8.2 or newer)
 @item @uref{http://www.python.org,Python} (version 2.4 or newer).
-@item @uref{http://www.ghostscript.com,Ghostscript} (version 8.15 or
-newer. 8.60 recommended)
+@item @uref{http://www.ghostscript.com,Ghostscript} (version 8.60 or
+newer).
 @item Dejaview.  (This is normally installed by default)
 @end itemize
 
@@ -153,10 +152,7 @@ additional tools and packages:
 @item ImageMagick
 @item International fonts (see input/regression/utf-8.ly for hints
 about which font packages are necessary for your platform)
-@item Ghostscript 8.60 or newer, or 8.50 with the patch from
-@uref{http://bugs.ghostscript.com/show_bug.cgi?id=688154}
-and the patch from
-@uref{http://bugs.ghostscript.com/show_bug.cgi?id=688017}.
+@item Ghostscript 8.60 or newer
 @item @uref{http://www.nongnu.org/texi2html/,Texi2HTML} 1.82
 @item rsync
 @end itemize

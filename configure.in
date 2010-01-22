@@ -1,5 +1,5 @@
 dnl configure.in   -*-shell-script-*-
-dnl Process this file with autoconf to produce a configure script. 
+dnl Process this file with autoconf to produce a configure script.
 
 # Bootstrap the init proces.
 AC_INIT
@@ -110,9 +110,7 @@ STEPMAKE_GETTEXT
 STEPMAKE_MSGFMT(REQUIRED)
 STEPMAKE_TEXMF(REQUIRED)
 STEPMAKE_TEXMF_DIRS
-
-## should check for 1.8.2 ?  
-STEPMAKE_GUILE_DEVEL(REQUIRED, 1.8.0)
+STEPMAKE_GUILE_DEVEL(REQUIRED, 1.8.2)
 
 
 ## check rational bugfix.
@@ -122,7 +120,7 @@ AC_MSG_CHECKING(GUILE rational bugfix)
 AC_TRY_CPP(
 #include <libguile.h>
 #ifdef SCM_FRACTION_REDUCED_BIT
-#error 
+#error
 #endif
 ,
 AC_MSG_RESULT(ok),
@@ -133,7 +131,7 @@ CPPFLAGS="$save_CPPFLAGS"
 
 STEPMAKE_PYTHON_DEVEL(REQUIRED)
 
-STEPMAKE_PATH_PROG(GHOSTSCRIPT, gs, OPTIONAL, 8.15)
+STEPMAKE_PATH_PROG(GHOSTSCRIPT, gs, OPTIONAL, 8.60)
 
 STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20050624)
 
