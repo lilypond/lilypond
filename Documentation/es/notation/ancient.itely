@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
-
+@c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -194,7 +194,7 @@ Las ligaduras se escriben @emph{encerrándolas} dentro de un par
 @code{\[} y @code{\]}.  Ciertos estilos de ligadura podrían necesitar
 una sintaxis de entrada adicional específica para este tipo de
 ligadura en particular.  De forma predeterminada, el grabador
-@rinternals{LigatureBracket} se limita a colocar un corchete recto
+@code{LigatureBracket} se limita a colocar un corchete recto
 sobre la ligadura:
 
 @lilypond[quote,ragged-right,verbatim]
@@ -211,11 +211,12 @@ contempladas las ligaduras mensurales blancas para la música mensural,
 y con ciertas limitaciones).  Para usar cualquiera de estos estilos,
 se debe sustituir el grabador predeterminado
 @code{Ligature_bracket_engraver} por uno de los grabadores
-especializados en ligaduras del contexto @rinternals{Voice}, como se
+especializados en ligaduras del contexto @code{Voice}, como se
 explica en @ref{Ligaduras mensurales blancas} y @ref{Ligaduras de neumas cuadrados gregorianos}.
 
 
-@seealso
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @knownissues
@@ -255,7 +256,7 @@ para el custos que se utilizan en las diferentes variaciones de estilo
 notacional.
 
 Para tipografiar las custodias, simplemente coloque un grabador
-@rinternals{Custos_engraver} dentro del contexto @rinternals{Staff}
+@code{Custos_engraver} dentro del contexto @code{Staff}
 (el contexto del pentagrama) al declarar el bloque de @code{\layout}
 (el bloque de disposición de la página), y modifique el estilo del
 custos con una instrucción @code{\override} si lo desea, como se
@@ -286,19 +287,19 @@ fragmento:
 @lilypond[quote,ragged-right,fragment]
 \new Lyrics \lyricmode {
   \markup { \column {
-    \typewriter "vaticana"
+    \typewriter "vaticana "
     \line { " " \musicglyph #"custodes.vaticana.u0" }
   } }
   \markup { \column {
-    \typewriter "medicaea"
+    \typewriter "medicaea "
     \line { " " \musicglyph #"custodes.medicaea.u0" }
   }}
   \markup { \column {
-    \typewriter "hufnagel"
+    \typewriter "hufnagel "
     \line { " " \musicglyph #"custodes.hufnagel.u0" }
   }}
   \markup { \column {
-    \typewriter "mensural"
+    \typewriter "mensural "
     \line { " " \musicglyph #"custodes.mensural.u0" }
   }}
 }
@@ -372,7 +373,8 @@ escribir el canto, como lo demuestra el siguiente fragmento:
 @end lilypond
 
 
-@seealso
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @node Claves de la música mensural
@@ -557,7 +559,7 @@ tabla
 @end lilypond
 
 Utilice la propiedad @code{style} del elemento gráfico
-@rinternals{TimeSignature} para seleccionar las indicaciones de compás
+@code{TimeSignature} para seleccionar las indicaciones de compás
 de la música antigua.  Los estilos contemplados son @code{neomensural}
 y @code{mensural}.  La tabla anterior utiliza el estilo
 @code{neomensural}.  Los ejemplos siguientes muestran las diferencias
@@ -597,8 +599,8 @@ ofrece una introducción general al uso de las indicaciones de compás.
 @knownissues
 
 Las relaciones de duración de las notas no se modifican cuando cambia
-la indicación de compás.  Por ejemplo, la razón de 1 breve = 3
-semibreves (@emph{tempus perfectum}) se debe hacer a mano mediante el
+la indicación de compás.  Por ejemplo, la razón de 1@tie{}breve = 3@tie{}semibreves
+(@emph{tempus perfectum}) se debe hacer a mano mediante el
 establecimiento de
 
 @example
@@ -626,7 +628,7 @@ con @code{\time}.  En su lugar, utilice @code{\markup @{\musicglyph
 Para la notación antigua, se puede elegir un estilo de cabezas de
 notas distinto al @code{default} (estilo predeterminado).  Esto se
 consigue estableciendo la propiedad @code{style} del objeto
-@rinternals{NoteHead} a los valores @code{baroque},
+@code{NoteHead} a los valores @code{baroque},
 @code{neomensural}, @code{mensural} o @code{petrucci}.
 
 El estilo @code{baroque} se diferencia del estilo predeterminado
@@ -657,6 +659,7 @@ a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
 
 
 @seealso
+Referencia de la notación:
 @ref{Estilos de cabezas de nota} ofrece una visión de conjunto sobre la
 totalidad de los estilos de cabeza disponibles.
 
@@ -668,7 +671,7 @@ totalidad de los estilos de cabeza disponibles.
 @cindex flags
 
 Utilice la propiedad @code{flag-style} del elemento gráfico
-@rinternals{Stem} para seleccionar los corchetes de estilo antiguo.
+@code{Stem} para seleccionar los corchetes de estilo antiguo.
 Aparte del estilo de corchete por defecto @code{default}, sólo está
 contemplado el estilo @code{mensural}
 
@@ -684,18 +687,22 @@ c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
 Observe que la bandera más interna de cada uno de los corchetes
 mensurales siempre se alinea verticalmente con una línea de la pauta.
 
-No existe un estilo particular de corchete para la notación neo-mensural.
-
+No existe un estilo particular de corchete para la notación neo-mensural ni Petrucci.
+@c Hence,
+@c when typesetting the incipit of a transcribed piece of mensural
+@c music, the default flag style should be used.
 No existen corchetes en la notación del canto gregoriano.
 
 
-@seealso
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @knownissues
 
 La unión de los corchetes antiguos a las plicas está ligeramente
 desviada.
+@c due to a change in early 2.3.x.
 
 La alineación vertical de cada uno de los corchetes con una línea de
 la pauta da por supuesto que las plicas siempre terminan exactamente
@@ -712,7 +719,7 @@ por lo común se encuentra fuera del ámbito de la notación mensural).
 @cindex rests, ancient
 
 Utilice la propiedad @code{style} del elemento gráfico
-@rinternals{Rest} para seleccionar silencios antiguos.  Los estilos
+@code{Rest} para seleccionar silencios antiguos.  Los estilos
 contemplados son @code{classical}, @code{neomensural} y
 @code{mensural}.  @code{classical} se diferencia del estilo por
 defecto @code{default} solamente en que el silencio de negra parece un
@@ -786,8 +793,8 @@ símbolo de becuadro se extrae del estilo @code{vaticana}.
 
 El estilo de las alteraciones y de la armadura de la tonalidad se
 controlan a través de la propiedad @code{glyph-name-alist} de los
-elementos gráficos @rinternals{Accidental} y
-@rinternals{KeySignature}, respectivamente; p.ej.:
+elementos gráficos @code{Accidental} y
+@code{KeySignature}, respectivamente; p.ej.:
 
 @code{\override Staff.Accidental #'glyph-name-alist =
 #alteration-mensural-glyph-name-alist}
@@ -852,8 +859,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 
 @seealso
 Referencia de funcionamiento interno:
-el grabador @rinternals{Accidental_engraver}
-y el objeto
+@rinternals{Accidental_engraver},
 @rinternals{AccidentalSuggestion}.
 
 
@@ -868,9 +874,9 @@ Las ligaduras mensurales blancas están contempladas de forma limitada.
 
 Para grabar ligaduras mensurales blancas, en el bloque layout o de
 diseño de página reemplace el grabador
-@rinternals{Ligature_bracket_engraver} por el grabador
-@rinternals{Mensural_ligature_engraver} en el contexto
-@rinternals{Voice}:
+@code{Ligature_bracket_engraver} por el grabador
+@code{Mensural_ligature_engraver} en el contexto
+@code{Voice}:
 
 @example
 \layout @{
@@ -917,8 +923,8 @@ Por ejemplo:
 }
 @end lilypond
 
-Si no se sustituye el grabador @rinternals{Ligature_bracket_engraver}
-por el @rinternals{Mensural_ligature_engraver}, la misma música se
+Si no se sustituye el grabador @code{Ligature_bracket_engraver}
+por el @code{Mensural_ligature_engraver}, la misma música se
 transcribe de la siguiente manera:
 
 @lilypond[quote,ragged-right]
@@ -936,7 +942,8 @@ transcribe de la siguiente manera:
 @end lilypond
 
 
-@seealso
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @knownissues
@@ -959,13 +966,13 @@ El espaciado horizontal de las ligaduras es pobre.
 @end menu
 
 Al componer tipográficamente una pieza en notación de canto
-gregoriano, el grabador @rinternals{Vaticana_ligature_engraver}
+gregoriano, el grabador @code{Vaticana_ligature_engraver}
 selecciona automáticamente la cabeza adecuada de las figuras, de
 manera que no es necesario establecer explícitamente el estilo de las
 cabezas.  A pesar de ello se puede establecer el estilo de las
 cabezas, p.ej.: a @code{vaticana_punctum} para producir neumas de
 punctum.  De forma similar, el grabador
-@rinternals{Mensural_ligature_engraver} construye ligaduras mensurales
+@code{Mensural_ligature_engraver} construye ligaduras mensurales
 automáticamente.  Consulte @ref{Ligaduras} para ver cómo funcionan los
 grabadores de ligaduras.
 
@@ -1006,14 +1013,16 @@ como lo demuestra el siguiente fragmento:
 @end lilypond
 
 
-@seealso
+@c @seealso
+@c TODO: nothing here yet ...
+
 
 
 @node Claves de canto gregoriano
 @unnumberedsubsubsec Claves de canto gregoriano
 @translationof Gregorian clefs
 
-@cindex clefs
+@cindex claves
 
 La tabla siguiente muestra todas las claves gregorianas contempladas a
 través de la instrucción @code{\clef}.  Algunas de las claves usan el
@@ -1295,7 +1304,8 @@ la notación en el estilo de la @emph{Editio Vaticana}.
 @end lilypond
 
 
-@seealso
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @knownissues
@@ -2272,7 +2282,8 @@ Utilice la función musical unaria @code{\augmentum} para añadir puntos
 de augmentum.
 
 
-@seealso
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @knownissues
@@ -2325,7 +2336,8 @@ polifónica;
 Continuará...
 
 
-@seealso
+@c @seealso
+@c ... and reference to other sections ...
 
 
 @node Disposición tipo «Mensurstriche»
@@ -2345,7 +2357,7 @@ proporcionan las barras de compás.
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
-@seealso
+@c @seealso
 @c ... and reference to other sections ...
 
 
@@ -2387,7 +2399,7 @@ en la partitura, pues la indicación invisible sigue ocupando un
 espacio.
 
 En muchos casos da un buen resultado @code{\set Score.timing = ##f}.
-Otra alternativa es utilizar \@code{\CadenzaOn} y @code{\CadenzaOff}.
+Otra alternativa es utilizar @code{\CadenzaOn} y @code{\CadenzaOff}.
 
 Para quitar las barras de compás, el enfoque radical consiste en
 retirar (mediante la instrucción @code{\remove}) el grabador
@@ -2525,7 +2537,7 @@ spirLyr = \lyricmode {
 
 @c extract from 1.6.1.1
 
-@seealso
+@c @seealso
 @c ... and reference to other sections ...
 
 
@@ -2536,7 +2548,9 @@ spirLyr = \lyricmode {
 Continuará...
 
 
-@seealso
+@c @seealso
+@c ... and reference to other sections ...
+
 
 
 @node Anotaciones editoriales
@@ -2546,4 +2560,6 @@ Continuará...
 Continuará...
 
 
-@seealso
+@c @seealso
+@c ... and reference to other sections ...
+
