@@ -13,6 +13,17 @@
 @node Literature list
 @chapter Literature list
 
+FIXME: blah
+
+@menu
+* Short literature list::
+* Long literature list::
+@end menu
+
+@node Short literature list
+@section Short literature list
+
+
 If you need to know more about music notation, here are some
 interesting titles to read.
 
@@ -69,17 +80,19 @@ practices.
 
 @end table
 
-The source archive includes a more elaborate Bib@TeX{} bibliography of
-over 100 entries in
-@ifhtml
-@ifset bigpage
-@uref{../bibliography/index.html, the bibliography}.
-@end ifset
-@ifclear bigpage
-@uref{../../bibliography/index.html, the bibliography}.
-@end ifclear
-@end ifhtml
-@ifnothtml
-@file{Documentation/@/bibliography/}.
-@end ifnothtml
+
+@node Long literature list
+@section Long literature list
+
+@subheading Colorado
+
+@include colorado.itexi
+
+@subheading Computer notation
+
+@include computer-notation.itexi
+
+@subheading Engraving
+
+@include engravingbib.itexi
 
