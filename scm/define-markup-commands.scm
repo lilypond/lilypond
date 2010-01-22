@@ -850,8 +850,11 @@ If there are no arguments, return an empty stencil.
 
     (if (null? (remove ly:stencil-empty? orig-stencils))
 	empty-stencil
-	(stack-stencils-padding-list X
-				     RIGHT fill-space-normal line-stencils))))
+	(ly:stencil-translate-axis
+	  (stack-stencils-padding-list X
+				       RIGHT fill-space-normal line-stencils)
+	  (- (car (ly:stencil-extent (car stencils) X)))
+	  X))))
 
 (define-markup-command (line layout props args)
   (markup-list?)
