@@ -976,8 +976,6 @@ sub lilypond_unknown($$$$$)
 }
 
 
-
-
 my %translated_books = ();
 # Construct a href to an external source of information.
 # node is the node with texinfo @-commands
@@ -1023,13 +1021,32 @@ sub lilypond_external_href($$$)
   }
 
   if (defined $file) {
-    return &$default_external_href($node, $node_id, $node_hxmlt_id, lc($file));
+    $href = &$default_external_href($node, $node_id, $node_hxmlt_id, lc($file));
+    remove_unneeded_anchor($href);
+    return $href;
   } else {
-    return &$default_external_href($node, $node_id, $node_hxmlt_id);
+    $href = &$default_external_href($node, $node_id, $node_hxmlt_id);
+    remove_unneeded_anchor($href);
+    return $href;
   }
 }
 
-
+sub remove_unneeded_anchor($)
+{
+  my $ref = shift;
+  my @hrefsplit = split("/", $href);
+  for ($i = 0; $i < @hrefsplit; $i++) {
+    $item = @hrefsplit[$i];
+    if ($item =~ /#/) {
+      @splitted = split("#", $item);
+      if (@splitted[0] == @splitted[1]) {
+        @hrefsplit[$i] = @splitted[0]
+      }
+    }
+  }
+  $href = join("/", @hrefsplit);
+  return $href
+}
 
 
 
