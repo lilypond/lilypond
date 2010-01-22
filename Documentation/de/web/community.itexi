@@ -420,6 +420,8 @@ Sie einen Google-Account haben.
 
 @untranslated
 
+@ignore
+
 @divClass{column-center-top}
 @subheading Wir brauchen Sie!
 
@@ -553,6 +555,8 @@ GOP is our big recruiting drive for new contributors.
 
 @divEnd
 
+@end ignore
+
 
 @ignore
 @divClass{column-center-bottom}
@@ -564,11 +568,13 @@ GOP is our big recruiting drive for new contributors.
 
 
 
-@node Development
-@unnumberedsec Development
+@node Entwicklung
+@unnumberedsec Entwicklung
+@translationof Development
 
 @untranslated
 
+@ignore
 
 @divClass{heading-center}
 @heading Development materials for LilyPond 2.13.3
@@ -582,9 +588,12 @@ GOP is our big recruiting drive for new contributors.
 @subheading Contributor's Guide
 @divEnd
 
+@end ignore
 
-@node Authors
-@unnumberedsec Authors 
+
+@node Autoren
+@unnumberedsec Autoren
+@translationof Authors
 
 @untranslated
 
