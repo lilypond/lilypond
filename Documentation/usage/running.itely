@@ -132,7 +132,7 @@ at the top of the @code{.ly} file.
 
 @item -f,--format=@var{format}
 which formats should be written.  Choices for @code{format} are
-@code{svg}, @code{ps}, @code{pdf}, and @code{png}.
+@code{ps}, @code{pdf}, and @code{png}.
 
 Example: @code{lilypond -fpng @var{filename}.ly}
 
