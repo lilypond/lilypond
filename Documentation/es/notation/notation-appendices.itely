@@ -35,7 +35,7 @@ and just before
 @menu
 * Cuadro de nombres de acordes::
 * Modificadores de acorde más usuales::
-* Diagramas predefinidos de trastes::
+* Diagramas predefinidos de posiciones::
 * Instrumentos MIDI::
 * Lista de colores::
 * La tipografía Feta::
@@ -410,11 +410,12 @@ Cuarta justa y quinta justa
 
 @end multitable
 
-@node Diagramas predefinidos de trastes
-@appendixsec Diagramas predefinidos de trastes
+@node Diagramas predefinidos de posiciones
+@appendixsec Diagramas predefinidos de posiciones
 @translationof Predefined fretboard diagrams
 
-El cuadro siguiente presenta los diagramas de traste predefinidos para guitarra.
+El cuadro siguiente presenta los diagramas de posiciones de acordes
+predefinidos para guitarra.
 
 @lilypondfile{display-predefined-fretboards.ly}
 
