@@ -879,8 +879,14 @@ sub lilypond_element_target_name($$$)
   }
   # TODO: Once texi2html correctly prints out the target and not the id for
   #       the sections, change this back to ($id, $target)
+  # I don't understand this comment, so I'm reluctant to delete it -gp
   $target = lc($target);
-  return ($target, $target);
+  if ($target eq lc($id)) {
+    $id = "";
+  } else {
+    $id = substr($id, 0, - 2); # remove the "-1"
+  }
+  return ($id, $target);
 }
 
 
