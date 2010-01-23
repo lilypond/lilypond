@@ -46,6 +46,7 @@ copied_files = [
     'txi-en.tex',
     'txi-fr.tex',
     'txi-es.tex',
+    'txi-it.tex',
     ]
 
 def main ():
@@ -57,7 +58,7 @@ def main ():
     last_year = year - 1
     last_year_1d = last_year % 10
     for f in files:
-        pytt.pytt ('(Copyright|\(c\)|\(C\)|@copyright\{\})\s*%(last_year)s([^-]|$)' % locals (),
+        pytt.pytt ('(Copyright|\(c\)|\(C\)|@copyright\{\})\s*%(last_year)s(?=[^-]|$)' % locals (),
                    r'\1 %(last_year)s--%(year)s' % locals (),
                    f)
         pytt.pytt ('(Copyright|\(c\)|\(C\)|@copyright\{\})\s*([^-]*)--(20[0-9][0-%(last_year_1d)s])' % locals (),
