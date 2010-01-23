@@ -1,13 +1,15 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 7b34eac90f81c8123feaf2670fafae236101f14c
+    Translation of GIT committish: 98c18c374a10c480bbc82b7657b4a71cf4e6452a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
+@c Translators: John Mandereau
+@c Translation checkers: Jean-Charles Malahieude
 
 @node Manuels
 @unnumbered Manuels
@@ -41,7 +43,7 @@ particulier pour connaître les termes musicaux en anglais.
 @item @ref{Essai} :
 @emph{(lecture optionnelle)}
 essai sur la conception des processus de gravure d'après l'esthétique et
-la technique de la gravure traditionnelle avec poiçons et plaques de plomb.
+la technique de la gravure traditionnelle avec poinçons et plaques de plomb.
 
 
 @end itemize
@@ -104,8 +106,8 @@ particulier pour élaborer des retouches.
 état des traductions pour les lecteurs non anglophones.
 
 @item @ref{Tous} :
-liens rapides, manuels téléchargeables, manuels téléchargeables, et
-documentation des anciennes versions.
+liens rapides, manuels téléchargeables, et documentation des anciennes
+versions.
 
 @item @ref{Développement} :
 manuels pour la version de développement.

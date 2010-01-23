@@ -1,7 +1,7 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 7b34eac90f81c8123feaf2670fafae236101f14c
+    Translation of GIT committish: 98c18c374a10c480bbc82b7657b4a71cf4e6452a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -41,6 +41,7 @@ Copyright @copyright{} 2009 par les auteurs.
 @translationof Top
 
 @c Translators: John Mandereau
+@c Translators checkers: Jean-Charles Malahieude
 
 @chapheading
 @end ifnottex
