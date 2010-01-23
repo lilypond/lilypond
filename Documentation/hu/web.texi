@@ -31,7 +31,7 @@
 @c Translators: Dénes Harmath
 
 @copying
-Copyright @copyright{} 2009 a szerzők.
+Copyright @copyright{} 2009--2010 a szerzők.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document

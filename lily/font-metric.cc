@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1999--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1999--2010 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Mats Bengtsson <matsb@s3.kth.se> (the ugly TeX parsing in text_dimension)
 
   LilyPond is free software: you can redistribute it and/or modify

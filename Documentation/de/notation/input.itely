@@ -1381,7 +1381,7 @@ im Gesangstext und als normaler Text außerhalb der Partitur.
   }
   \addlyrics { O \markup { \concat{ Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008--2009" \char ##x00A9 }
+\markup { "Copyright 2008--2010" \char ##x00A9 }
 @end lilypond
 
 @cindex Copyright-Zeichen

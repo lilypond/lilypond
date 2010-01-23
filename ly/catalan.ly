@@ -1,7 +1,7 @@
 %%%% common Catalan names for notes
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 1998--2009 Jaume Obrador <jobrador@ipc4.uib.es>
+%%%% Copyright (C) 1998--2010 Jaume Obrador <jobrador@ipc4.uib.es>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
 %%%% it under the terms of the GNU General Public License as published by

@@ -1,7 +1,7 @@
 %%%% common Flemish names for notes
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2004--2009 Hendrik Maryns <hendrik.maryns@ugent.be>
+%%%% Copyright (C) 2004--2010 Hendrik Maryns <hendrik.maryns@ugent.be>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
 %%%% it under the terms of the GNU General Public License as published by

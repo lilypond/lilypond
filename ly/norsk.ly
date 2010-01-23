@@ -1,7 +1,7 @@
 %%%% common Norwegian names for notes
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 1998--2009 Arvid Grøtting <arvidg@ifi.uio.no>
+%%%% Copyright (C) 1998--2010 Arvid Grøtting <arvidg@ifi.uio.no>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
 %%%% it under the terms of the GNU General Public License as published by

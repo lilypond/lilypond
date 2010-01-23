@@ -19,7 +19,7 @@ Ce document constitue le manuel d'initiation à GNU LilyPond
 
 @c `Learning Manual' was born 1999-10-10 with git commit b9abaac...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2009 par les auteurs.
+Copyright @copyright{} 1999--2010 par les auteurs.
 @end macro
 
 @set FDL

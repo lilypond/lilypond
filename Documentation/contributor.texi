@@ -25,7 +25,7 @@ information about different jobs, see @rweb{Help us}.
 
 @c `Contributor's Guide' was born 2007-09-15 with git commit 48f3356...
 @macro copyrightDeclare
-Copyright @copyright{} 2007--2009 by the authors.
+Copyright @copyright{} 2007--2010 by the authors.
 @end macro
 
 @set FDL

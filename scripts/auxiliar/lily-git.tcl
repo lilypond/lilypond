@@ -1,7 +1,7 @@
 #!/usr/bin/wish
 
 # GUI interface for common LilyPond git repository commands
-# Copyright 2009 by Johannes Schindelin and Carl Sorensen
+# Copyright 2009--2010 by Johannes Schindelin and Carl Sorensen
 #
 
 set version 0.64

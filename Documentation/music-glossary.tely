@@ -14,7 +14,7 @@ terms used in the documentation manuals for LilyPond version
 
 @c `Music Glossary' was born 1999-10-04 with git commit 280a0bb...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2009 by the authors
+Copyright @copyright{} 1999--2010 by the authors
 @end macro
 
 @set FDL

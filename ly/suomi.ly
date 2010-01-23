@@ -1,7 +1,7 @@
 %%%% common Finnish names for notes
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2001--2009 Heikki Junes <heikki.junes@hut.fi>
+%%%% Copyright (C) 2001--2010 Heikki Junes <heikki.junes@hut.fi>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
 %%%% it under the terms of the GNU General Public License as published by

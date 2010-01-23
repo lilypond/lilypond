@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1996--2010 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   TODO: This is way too hairy

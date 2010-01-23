@@ -16,7 +16,7 @@
 
 @c `Web' was imported 2009-08-05 with git commit b938d71...
 @macro copyrightDeclare
-Copyright @copyright{} 2009 par les auteurs.
+Copyright @copyright{} 2009--2010 par les auteurs.
 @end macro
 
 @set FDL

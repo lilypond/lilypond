@@ -21,7 +21,7 @@ LilyPond version @version{}.  In addition, it suggests some
 
 @c `Usage' was born 1999-10-10 with git commit c82c30c...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2009 by the authors.
+Copyright @copyright{} 1999--2010 by the authors.
 @end macro
 
 @set FDL

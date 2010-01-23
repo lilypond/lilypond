@@ -1,6 +1,6 @@
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2004--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
+%%%% Copyright (C) 2004--2010 Han-Wen Nienhuys <hanwen@xs4all.nl>
 %%%%                          Jan Nieuwenhuizen <janneke@gnu.org>
 %%%%                          Neil Puttock <n.puttock@gmail.com>
 %%%%

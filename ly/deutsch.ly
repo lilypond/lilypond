@@ -1,7 +1,7 @@
 %%%% common German names for notes
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 1997--2009 Roland Meier <meier@informatik.th-darmstadt.de>
+%%%% Copyright (C) 1997--2010 Roland Meier <meier@informatik.th-darmstadt.de>
 %%%%                Bjoern Jacke <bjoern.jacke@gmx.de>
 %%%%                  (added asas; added comment to ases)
 %%%%
