@@ -24,10 +24,10 @@
 
 @menu
 * Panorámica de los estilos contemplados::
-* Notación antigua: funcionalidades comunes::
+* Notación antigua - funcionalidades comunes::
 * Tipografiar música mensural::
 * Tipografiado del canto gregoriano::
-* Trabajar con música antigua: escenarios y soluciones::
+* Trabajar con música antigua - escenarios y soluciones::
 @end menu
 
 Entre las formas en que está contemplada la notación antigua se
@@ -143,8 +143,8 @@ los otros, y así podemos usar corchetes mensurales, cabezas de
 petrucci, silencios de classical y claves de vaticana en la misma
 pieza, si queremos.
 
-@node Notación antigua: funcionalidades comunes
-@subsection Notación antigua: funcionalidades comunes
+@node Notación antigua - funcionalidades comunes
+@subsection Notación antigua - funcionalidades comunes
 @translationof Ancient notation---common features
 
 @menu
@@ -2299,8 +2299,8 @@ se pudiera entremezclar con los prefijos de cabeza en un orden
 arbitrario.
 
 
-@node Trabajar con música antigua: escenarios y soluciones
-@subsection Trabajar con música antigua: escenarios y soluciones
+@node Trabajar con música antigua - escenarios y soluciones
+@subsection Trabajar con música antigua - escenarios y soluciones
 @translationof Working with ancient music---scenarios and solutions
 
 @menu
