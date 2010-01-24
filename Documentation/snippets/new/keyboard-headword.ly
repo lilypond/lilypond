@@ -9,6 +9,13 @@
 
 % NR 2.2 Keyboard instruments
 
+
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
+
 % M. Ravel, Sonatine (1905)
 % First movement
 

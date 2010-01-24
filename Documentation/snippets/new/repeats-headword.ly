@@ -13,6 +13,13 @@
 % Movt II, Andante con moto
 % Measures 9 - 16
 
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
+
+
 \new PianoStaff <<
 
    \new Staff = RH {
@@ -112,7 +119,7 @@
       gf,4  (
       af,4 ~ )
       |
-      af,16. [ ( 
+      af,16. [ (
       gf,32
       f,16.
       ef,32 ]
@@ -120,5 +127,5 @@
       \oneVoice
       r8
    }
-   
+
 >>

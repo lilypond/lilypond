@@ -8,15 +8,22 @@
 
 % NR 1.3 Expressive marks
 
-% L. v. Beethoven, Op. 49 no. 1 
+
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
+
+% L. v. Beethoven, Op. 49 no. 1
 % Piano sonata 19 - "Leichte Sonate"
 % measures 1 - 12
 
 %\layout {
 %   \context {
 %      \Score
-%      \override SpacingSpanner #'base-shortest-duration = 
-%         #(ly:make-moment 1 20) 
+%      \override SpacingSpanner #'base-shortest-duration =
+%         #(ly:make-moment 1 20)
 %   }
 %}
 
@@ -210,7 +217,7 @@
       r8
       r8
       <a fs>8 \staccato
-      <b g>8 \staccato 
+      <b g>8 \staccato
 
       |
 

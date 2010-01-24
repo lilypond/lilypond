@@ -5,7 +5,13 @@
   indent = 0\cm
 }
 
-% NR 2.whatever  Wind 
+% NR 2.whatever  Wind
+
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
 
 % Tchaikovsky
 % Nutcracker Suite, VII Dance of the Merlitons

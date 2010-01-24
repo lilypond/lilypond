@@ -6,7 +6,14 @@
   line-width=17\cm
   indent=0\cm
 }
- 
+
+
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
+
 \layout {
   \context { \Score
     \override PaperColumn #'keep-inside-line = ##t
@@ -61,7 +68,7 @@
       c'4
       r4
    }
-   
+
    % LH Staff
    \new Staff {
       \key af \major

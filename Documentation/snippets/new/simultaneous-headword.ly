@@ -14,6 +14,13 @@
   }
 }
 
+
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
+
 % NR 1.5 Simultaneous notes
 
 % L. v. Beethoven, Op. 111
@@ -206,7 +213,7 @@ trillflat =
       \clef bass
       \key c \major
       \time 9/16
-      
+
       r8.
       r8.
       <c! c,!>8 [ (
@@ -307,7 +314,7 @@ trillflat =
       r8.
       r8.
       r8.
-         
+
    }
-   
+
 >>

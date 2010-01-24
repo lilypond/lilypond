@@ -7,6 +7,13 @@
   indent=0\cm
 }
 
+
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
+
 \header {
 	mutopiatitle = "Napolitan Dance (Swan Lake)"
  	mutopiacomposer = "TchaikovskyPI"

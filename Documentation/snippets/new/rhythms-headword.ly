@@ -8,6 +8,13 @@
 
 % NR 1.2 Rhythms
 
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
+
+
 % Beethoven, Op. 81a
 % Piano sonata 26 - Das Lebewohl
 % Movt II - Abwesenheit
@@ -64,7 +71,7 @@
       <c''' c''>32 )
 
       |
-      
+
       \once \override DynamicLineSpanner #'padding = #2
       b''32 ( \p \>
       c'''32
@@ -92,7 +99,7 @@
       c'''128
       f'''64
       f''64 ) ]
-      
+
       |
 
       \afterGrace
@@ -140,7 +147,7 @@
       c'32
 
       |
-      
+
       <bf g>32
       c'32
       <bf g>32
@@ -184,7 +191,7 @@
       c'32
 
       |
-      
+
       <bf! g>32
       c'32
       <bf g>32

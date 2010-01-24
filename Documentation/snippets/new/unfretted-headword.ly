@@ -21,6 +21,13 @@
 %% Statement Date: Octber the 9th, 2008
 
 
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
+
+
 \version "2.12.0"
 #(set-global-staff-size 15)
 

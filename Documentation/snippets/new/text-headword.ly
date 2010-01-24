@@ -5,7 +5,14 @@
   line-width = 16\cm
   indent = 0\cm
 }
- 
+
+
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
+
 \layout {
   \context { \Score
     \override PaperColumn #'keep-inside-line = ##t
@@ -22,8 +29,8 @@
 \layout {
    \context {
       \Score
-      \override SpacingSpanner #'base-shortest-duration = 
-         #(ly:make-moment 1 20) 
+      \override SpacingSpanner #'base-shortest-duration =
+         #(ly:make-moment 1 20)
       %\override NonMusicalPaperColumn #'line-break-system-details =
       %#'((alignment-offsets . (0 -12)))
    }
@@ -88,9 +95,9 @@
 
       \oneVoice
       \once \override TextScript #'staff-padding = #4
-      df''32 
+      df''32
       _ \markup { \italic dolce }
-      c''32 
+      c''32
       df''32
       ef''32
       \acciaccatura { df''[ ef'' ] }
@@ -124,7 +131,7 @@
    }
 
    % LH
-   \new Staff { 
+   \new Staff {
       \clef bass
       \key af \major
       \time 3/4
