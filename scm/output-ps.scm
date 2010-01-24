@@ -162,12 +162,11 @@
 			     (+ (car offset) (cdr x-ext))
 			     (+ (cdr offset) (cdr y-ext))
 
-			     ;; TODO
-			     ;;full escaping.
+			     ;; Backslashes are not valid
+			     ;; file URI path separators.
+			     (ly:string-substitute
+			       "\\" "/" (ly:string-percent-encode file))
 
-			     ;; backslash is interpreted by GS.
-			     (ly:string-substitute "\\" "/" 
-						   (ly:string-substitute " " "%20" file))
 			     (cadr location)
 			     (caddr location)
 			     (cadddr location))

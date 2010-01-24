@@ -22,6 +22,7 @@ public:
   static string pad_to (string s, int length);
   static string bool_string (bool b);
   static string bin2dec (string bin_string);
+  static string bin2hex (Byte bin_char);
   static string bin2hex (string bin_string);
   static string dec2bin (string str);
   static int bin2int (string bin_string);

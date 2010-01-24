@@ -34,6 +34,15 @@ String_convert::bool_string (bool b)
 }
 
 string
+String_convert::bin2hex (Byte bin_char)
+{
+  string str;
+  str += to_string ((char) nibble2hex_byte (bin_char >> 4));
+  str += to_string ((char) nibble2hex_byte (bin_char++));
+  return str;
+}
+
+string
 String_convert::bin2hex (string bin_string)
 {
   string str;
