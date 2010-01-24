@@ -306,12 +306,12 @@ Pour LilyPond version @version{}
 
 @macro ressay{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,essay-big-page,Essay}
+@ref{\TEXT\,,,essay-big-page,Essai}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,essay-big-page,Essay}
+@ref{\TEXT\,,\DISPLAY\,essay-big-page,Essai}
 @end macro
 
 @macro rprogram{TEXT}
@@ -326,11 +326,11 @@ Pour LilyPond version @version{}
 
 @macro rlsr{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,snippets-big-page,Exemples de code}
+@ref{\TEXT\,,,snippets-big-page,Morceaux choisis}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,snippets-big-page,Exemples de code}
+@ref{\TEXT\,,\DISPLAY\,snippets-big-page,Morceaux choisis}
 @end macro
 
 @macro rinternals{TEXT}
@@ -422,12 +422,12 @@ Pour LilyPond version @version{}
 
 @macro ressay{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,essay,Essay}
+@ref{\TEXT\,,,essay,Essai}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,essay,Essay}
+@ref{\TEXT\,,\DISPLAY\,essay,Essai}
 @end macro
 
 @macro rprogram{TEXT}
@@ -442,11 +442,11 @@ Pour LilyPond version @version{}
 
 @macro rlsr{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,snippets,Exemples de code}
+@ref{\TEXT\,,,snippets,Morceaux choisis}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,snippets,Exemples de code}
+@ref{\TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
 @end macro
 
 @macro rinternals{TEXT}
@@ -550,12 +550,12 @@ Pour LilyPond version @version{}
 
 @macro ressay{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-essay,Essay}
+@ref{\TEXT\,,,lilypond-essay,Essai}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-essay,Essay}
+@ref{\TEXT\,,\DISPLAY\,lilypond-essay,Essai}
 @end macro
 
 @macro rprogram{TEXT}
@@ -570,12 +570,12 @@ Pour LilyPond version @version{}
 
 @macro rlsr{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,snippets,Exemples de code}
+@ref{\TEXT\,,,snippets,Morceaux choisis}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,snippets,Exemples de code}
+@ref{\TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
 @end macro
 
 @macro rinternals{TEXT}

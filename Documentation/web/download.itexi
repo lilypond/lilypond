@@ -422,23 +422,23 @@ Locate the downloaded file and double-click on it to start the
 installer. Follow the instructions given to you by the installer;
 we recommend that you leave all the install options checked and
 use the default installation location. Click the @q{Finish} button
-when the installer has completed. Lilypond is now installed.
+when the installer has completed. LilyPond is now installed.
 
 @end enumerate
 
 @subsubheading Uninstall
 
-To uninstall Lilypond either:
+To uninstall LilyPond either:
 
 @enumerate
 
 @item
-Locate the Lilypond folder from the @q{Start} menu and click on the
+Locate the LilyPond folder from the @q{Start} menu and click on the
 @q{Uninstall} icon. Click the @q{Finish} button when the uninstaller
 has completed.
 
 @item
-Or from witin the Control Panel,locate and select Lilypond and then
+Or from witin the Control Panel,locate and select LilyPond and then
 choose the option to uninstall/remove the software. Click the @q{Finish}
 button when the uninstaller has completed.
 
