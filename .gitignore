@@ -11,6 +11,7 @@
 *.gcno
 *.gcov
 *.graph
+*.info
 *.log
 *.midi
 *.new
