@@ -188,11 +188,14 @@ accidentals can be printed according to different rules, see
 
 
 @seealso
-Notation Reference: @ruser{Note names in other languages},
-@ruser{Accidentals}, @ruser{Automatic accidentals},
+Notation Reference:
+@ruser{Note names in other languages},
+@ruser{Accidentals},
+@ruser{Automatic accidentals},
 @ruser{Key signature}.
 
-Music Glossary: @rglos{Pitch names}.
+Music Glossary:
+@rglos{Pitch names}.
 
 
 @node Ties and slurs
@@ -265,7 +268,9 @@ c2~( c8 fis fis4 ~ fis2 g2)
 
 
 @seealso
-Notation Reference: @ruser{Ties}, @ruser{Slurs},
+Notation Reference:
+@ruser{Ties},
+@ruser{Slurs},
 @ruser{Phrasing slurs}.
 
 
@@ -355,8 +360,10 @@ c2\< c2\ff\> c2 c2\!
 
 
 @seealso
-Notation Reference: @ruser{Articulations and ornamentations},
-@ruser{Fingering instructions}, @ruser{Dynamics}.
+Notation Reference:
+@ruser{Articulations and ornamentations},
+@ruser{Fingering instructions},
+@ruser{Dynamics}.
 
 
 @node Adding text
@@ -386,7 +393,8 @@ a1_\markup{
 
 
 @seealso
-Notation Reference: @ruser{Writing text}.
+Notation Reference:
+@ruser{Writing text}.
 
 
 @node Automatic and manual beams
@@ -437,7 +445,9 @@ a8 c b4 d8. c16 b4
 
 
 @seealso
-Notation Reference: @ruser{Automatic beams}, @ruser{Manual beams}.
+Notation Reference:
+@ruser{Automatic beams},
+@ruser{Manual beams}.
 
 
 @node Advanced rhythmic commands
@@ -514,7 +524,9 @@ c2 \acciaccatura b16 c2
 
 
 @seealso
-Notation Reference: @ruser{Grace notes}, @ruser{Tuplets},
+Notation Reference:
+@ruser{Grace notes},
+@ruser{Tuplets},
 @ruser{Upbeats}.
 
 
@@ -780,8 +792,8 @@ every system and also controls the extent of bar lines.
 
 
 @seealso
-Notation Reference: @ruser{Keyboard and other multi-staff
-instruments},
+Notation Reference:
+@ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
 
 
@@ -841,9 +853,11 @@ them here. Instead, the following sections introduce these concepts
 and explain them thoroughly.
 
 @seealso
-Learning Manual: @ref{Voices contain music}.
+Learning Manual:
+@ref{Voices contain music}.
 
-Notation Reference: @ruser{Simultaneous notes}.
+Notation Reference:
+@ruser{Simultaneous notes}.
 
 @node Songs
 @section Songs
@@ -1073,7 +1087,8 @@ Here's an example from Rossini's @notation{Figaro}, where
 
 
 @seealso
-Notation Reference: @ruser{Vocal music}.
+Notation Reference:
+@ruser{Vocal music}.
 
 
 @node Lyrics to multiple staves
@@ -1116,7 +1131,8 @@ pieces with variables}.
 
 
 @seealso
-Notation Reference: @ruser{Vocal music}.
+Notation Reference:
+@ruser{Vocal music}.
 
 
 @node Final touches
