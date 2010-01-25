@@ -2208,7 +2208,7 @@ The default order in which contexts are laid out and the
 @qq{accepts} list can be changed, see @ref{Aligning contexts}.
 
 @seealso
-Learning Manual:
+Usage Manual:
 @rprogram{An extra staff appears}.
 
 
@@ -3079,7 +3079,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{Explaining the Internals Reference},
-@ref{Modifying properties},
+@ref{Modifying properties}.
 
 Installed Files:
 @file{scm/@/define@/-grobs@/.scm}.

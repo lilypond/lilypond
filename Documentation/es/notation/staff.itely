@@ -803,7 +803,7 @@ otras voces y dar formato a las notas guía.
 * Indicaciones metronómicas::
 * Nombres de instrumentos::
 * Citar otras voces::
-* Formateo de las notas de aviso::
+* Formateo de las notas guía::
 @end menu
 
 
@@ -1192,8 +1192,8 @@ En anteriores versiones LilyPond (antes de la 2.11), @code{addQuote}
 se escribía completamente en minúsculas: @code{\addquote}.
 
 
-@node Formateo de las notas de aviso
-@unnumberedsubsubsec Formateo de las notas de aviso
+@node Formateo de las notas guía
+@unnumberedsubsubsec Formateo de las notas guía
 @translationof Formatting cue notes
 
 @cindex guía, formateo de las notas
