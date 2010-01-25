@@ -407,18 +407,4 @@ A translator can ask for an official lilypond-xy mailing list once
 they've finished all @qq{priority 1} translation items.
 
 
-@subsubheading Prep for a major stable release
-
-We should
-
-@itemize
-
-@item Check all regtests
-
-@item Send PO to free translation project
-
-
-@end itemize
-
-
 
