@@ -111,7 +111,7 @@ out-of-tree build.
 @item Upload release branch.
 
 @example
-git push release/unstable
+git push origin
 @end example
 
 @item
