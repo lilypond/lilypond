@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -95,7 +95,7 @@ Referencia de la notación:
 @ref{Modos de entrada}.
 
 Fragmentos de código:
-@rlsr{Chords}
+@rlsr{Chords}.
 
 
 @knownissues
@@ -521,6 +521,10 @@ Sin Acorde).
 
 @snippets
 
+@c Keep index entries with following snippet
+@cindex acordes, eliminar repetidos
+@funindex chordChanges
+
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {showing-chords-at-changes.ly}
 
@@ -571,11 +575,12 @@ de acorde dados se pueden personalizar.
 @cindex acordes de jazz
 
 El esquema de nomenclatura de acordes predeterminado es un sistema
-para música de Jazz, propuesto por Klaus Ignatzek (véase
-@ref{Lista bibliográfica}).  También funcionan otros dos esquemas de
-nomenclatura de acordes: una notación de acordes de Jazz alternativa y
-un esquema sistemático llamado Acordes de Banter.  La notación de Jazz
-alternativa también se puede ver en el cuadro @ref{Carta de nombres de acordes}.
+para música de Jazz, propuesto por Klaus Ignatzek (véase @ressay{Lista
+bibliográfica}).  También funcionan otros dos esquemas de nomenclatura
+de acordes: una notación de acordes de Jazz alternativa y un esquema
+sistemático llamado Acordes de Banter.  La notación de Jazz
+alternativa también se puede ver en el cuadro @ref{Carta de nombres de
+acordes}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
 @c  Make short example in docs, then move longer example to
@@ -801,7 +806,7 @@ Glosario musical:
 @rglos{figured bass}.
 
 Fragmentos de código:
-@rlsr{Chords}
+@rlsr{Chords}.
 
 
 @node Introducir el bajo cifrado
@@ -1099,7 +1104,7 @@ se puede presentar encima o debajo del mismo.
 @c Installed Files:
 @c @fil e{}.
 @c
-Snippets:
+Fragmentos de código:
 @rlsr{Chords}.
 
 Referencia de funcionamiento interno:
