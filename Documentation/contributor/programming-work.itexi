@@ -117,7 +117,7 @@ Interpretation of Computer Programs}, a popular textbook used to teach
 programming in Scheme is available in its entirety online.
 
 An introduction to Guile/Scheme as used in LilyPond can be found in the
-Learning Manual, see @rextend{Scheme tutorial}.
+@rextend{Scheme tutorial}.
 
 @subsection MetaFont
 
