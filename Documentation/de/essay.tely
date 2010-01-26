@@ -1,23 +1,34 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 67373601dabc72e32e3e7a4364c8be123d785e0b
+    Translation of GIT committish: 83c1d1a6ee4e89f7f913fab904816e6c033b6b04
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 @setfilename lilypond-essay.info
-@settitle GNU LilyPond Notation Reference
+@settitle Aufsatz über den automatischen Musiksatz
 @documentencoding UTF-8
 @documentlanguage de
+@afourpaper
+
 
 @c Translators: Till Paala
-@c this is a stub:
-@c TODO: translate essay.itely
 
 @include macros.itexi
 
-@afourpaper
+@macro manualIntro
+Dieser Aufsatz disskutiert den automatischen Musiksatz von
+LilyPond Version @version{}.
+@end macro
+
+@c `Essay' was born 2002-06-03 with git commit e38f5fc...
+@macro copyrightDeclare
+Copyright @copyright{} 2002--2010 bei den Autoren.
+@end macro
+
+@set FDL
+
 @c don't remove this comment.
 @ignore
 @omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen
@@ -27,132 +38,20 @@
 @omflanguage German
 @end ignore
 
-@ifnottex
-@node Oben
-@top Aufsatz über den automatischen Musiksatz
-@end ifnottex
+@lilyTitlePage{Aufsatz über den automatischen Musiksatz}
 
-
-@ifhtml
-@ifclear bigpage
-Dieses Dokument ist auch als
-@uref{source/Documentation/essay.de.pdf,PDF} und als HTML
-@uref{source/Documentation/essay-big-page.de.html,auf einer Seite} erhältlich.
-@end ifclear
-@ifset bigpage
-Dieses Dokument ist auch als
-@uref{source/Documentation/essay.de.pdf,PDF} und als
-@uref{source/Documentation/essay/index.html,HTML auf mehreren indizierten Seiten} erhältlich.
-@end ifset
-@end ifhtml
-
-@finalout
-
-@titlepage
-@title LilyPond
-@subtitle Das Musiksatzprogramm
-@titlefont{Aufsatz über den automatischen Musiksatz}
-@author Han-Wen Nienhuys und Jan Nieuwenhuizen
-
-Copyright @copyright{} ???? bei den Authoren
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
-für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
-nur die englische Version gültig.}
-
-@quotation
-Es ist erlaubt, dieses Dokument unter den Bedingungen der
-GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen, ohne
-invariante Abschnitte),
-zu kopieren, zu verbreiten und/oder
-zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
-Free Documentation License'' angefügt.
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-
-@end titlepage
-
-@copying
-Copyright @copyright{} ???? bei den Authoren
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
-für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
-nur die englische Version gültig.}
-
-@quotation
-Es ist erlaubt, dieses Dokument unter den Bedingungen der
-GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen, ohne
-invariante Abschnitte),
-zu kopieren, zu verbreiten und/oder
-zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
-Free Documentation License'' angefügt.
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end copying
 
 @ifnottex
-Copyright ???? bei den Authoren
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
-für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
-nur die englische Version gültig.}
-
-@quotation
-Es ist erlaubt, dieses Dokument unter den Bedingungen der
-GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen, ohne
-invariante Abschnitte),
-zu kopieren, zu verbreiten und/oder
-zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
-Free Documentation License'' angefügt.
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end ifnottex
 
 @menu
-@c * Musiksatz::
+* Musiksatz::
 * Literatur::
 * GNU Free Documentation License:: Die Lizenz dieses Dokuments.
 * LilyPond-Index::
 @end menu
+
+@docMain
+@end ifnottex
 
 @contents
 
