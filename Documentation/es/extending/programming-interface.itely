@@ -1560,3 +1560,10 @@ Observe, sin embargo, que @code{\override}, aplicado a
 como se espera dentro de los bloques @code{\context}.
 
 @end itemize
+
+
+@node Interfaces de Scheme de LilyPond
+@chapter Interfaces de Scheme de LilyPond
+@translationof LilyPond Scheme interfaces
+
+@untranslated
