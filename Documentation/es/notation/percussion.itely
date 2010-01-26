@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: cdafd04357c20d757098589280defe4b75b2acf0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -208,13 +208,11 @@ down = \drummode {
 @end lilypond
 
 El ejemplo anterior muestra una notación polifónica prolija.  La
-notación polifónica abreviada, descrita en @rlearning{Oigo voces}, también se puede usar si las voces se instancian primero a
-mano.  Por ejemplo,
+notación polifónica abreviada, descrita en @rlearning{Oigo voces},
+también se puede usar.  Por ejemplo,
 
 @lilypond[quote,verbatim]
 \new DrumStaff <<
-  \new DrumVoice = "1" { s1*2 }
-  \new DrumVoice = "2" { s1*2 }
   \drummode {
     bd4 sn4 bd4 sn4
     << {
@@ -515,8 +513,8 @@ bellstaff = {
 }
 @end lilypond
 
-Aquí un breve ejemplo del maestro Stravinsky (procedente de la
-@q{Historia del soldado})
+Aquí un breve ejemplo procedente de la @q{Historia del soldado} de
+Stravinsky:
 
 @lilypond[quote,verbatim]
 #(define mydrums '((bassdrum   default #t  4)
