@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 50b88336f4c69d7d3241cc01af98c362cd9d2b4b
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -41,6 +41,7 @@ ocasiones, será más práctico el modo relativo.
 * Escritura de octava relativa::
 * Alteraciones accidentales::
 * Nombres de las notas en otros idiomas::
+* Nombres de las notas y alteraciones no occidentales::
 @end menu
 
 
@@ -391,9 +392,6 @@ cis
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{makam-example.ly}
-
 
 @seealso
 Glosario musical:
@@ -580,13 +578,73 @@ Fragmentos de código:
 @rlsr{Pitches}.
 
 
+@node Nombres de las notas y alteraciones no occidentales
+@unnumberedsubsubsec Nombres de las notas y alteraciones no occidentales
+@translationof Non-Western note names and accidentals
+
+Muchas músicas no occidentales (y algunas folclóricas y tradicionales
+occidentales) emplean sistemas de afinación alternativos o extendidos
+que no encajan directamente dentro de la notación clásica estándar.
+
+En algunos casos aún se usa la notación estándar estando implícitas
+las diferencias de afinación.  Por ejemplo, la notación de la música
+árabe se hace con alteraciones estándar de semitono y de cuarto de
+tono, estando las modificaciones de altura exactas determinadas por el
+contexto.  Otras necesitan notaciones ampliadas o específicas.
+
+@notation{La música clásica turca}, o música otomana, emplea formas
+melódicas conocidas como @notation{makamlar}, cuyos intervalos están
+basados en divisiones del tono en novenos.  Desde el punto de vista de
+la notación moderna, es conveniente utilizar las notas (do, re, mi,
+...) de un pentagrama occidental estándar con alteraciones
+accidentales específicas de la música turca.  Estas alteraciones están
+definidas en @file{makam.ly} (para encontrar este archivo en su
+sistema, consulte @rlearning{Otras fuentes de información}).  La tabla
+siguiente relaciona sus nombres, el sufijo de la alteración que se
+debe escribir detrás de las notas, y su alteración de altura como una
+fracción del tono.
+
+@c TODO: can we include the actual accidentals in this table?
+@quotation
+@multitable {@b{büyük mücenneb (sostenido)}} {@b{suffix}} {@b{alteración de altura}}
+@headitem Nombre de la alteración
+  @tab Sufijo @tab Alteración de altura
+
+@item büyük mücenneb (sostenido)
+  @tab -bm @tab +8/9
+@item kücük mücenneb (sostenido)
+  @tab -k @tab +5/9
+@item bakiye (sostenido)
+  @tab -b @tab +4/9
+@item koma (sostenido)
+  @tab -c @tab +1/9
+
+@item koma (bemol)
+  @tab -fc @tab -1/9
+@item bakiye (bemol)
+  @tab -fb @tab -4/9
+@item kücük mücenneb (bemol)
+  @tab -fk @tab -5/9
+@item büyük mücenneb (bemol)
+  @tab -fbm @tab -8/9
+@end multitable
+@end quotation
+
+Para ver más información sobre la música clásica turca y los makamlar,
+consulte @ref{Música clásica turca}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{makam-example.ly}
+
+
 @node Modificación de varias notas a la vez
 @subsection Modificación de varias notas a la vez
 @translationof Changing multiple pitches
 
-
 Esta sección trata de la manera de modificar las alturas.
-
 
 @menu
 * Comprobación de octava::
@@ -966,10 +1024,6 @@ Referencia de funcionamiento interno:
 @funindex \key
 @funindex key
 
-Las alteraciones accidentales y las armaduras son una frecuente causa de confusión para los nuevos usuarios,
-porque las notas sin alteración pueden llevar signos de becuadro en función de la armadura.
-Para ver más información, consulte @ref{Alteraciones accidentales} o @rlearning{Alteraciones accidentales y armaduras}.
-
 @c duplicated in Key signature and Accidentals
 @warning{Las alteraciones accidentales y las armaduras son una
 frecuente causa de confusión para los nuevos usuarios.  En LilyPond,
@@ -1019,7 +1073,7 @@ armadura se hace con la instrucción @code{\key}:
 @cindex frigio, modo
 @cindex dórico, modo
 
-
+@noindent
 Aquí, @var{tipo} debe ser @code{\major} o @code{\minor} para obtener
 la tonalidad @var{nota} mayor o @var{nota} menor, respectivamente.
 También puede usar los nombres estándar de modo (también conocidos
@@ -1528,7 +1582,6 @@ predeterminada con paréntesis, pero también se pueden imprimir en
 tamaño reducido definiendo la propiedad @code{cautionary-style} de
 @code{AccidentalSuggestion}.
 
-
 @lilypond[quote]
 musicA = {
   <<
@@ -1824,6 +1877,8 @@ musicB = {
   >>
 }
 @end lilypond
+
+
 @item neo-modern
 
 @cindex neo-moderno, estilo de alteraciones
@@ -1940,9 +1995,19 @@ musicB = {
 }
 @end lilypond
 
+
 @item neo-modern-voice
 
+@cindex neo-modern-voice, estilo de alteración
+@cindex alteraciones, estilo, neo-moderno de voz
+
 @funindex neo-modern-voice
+
+Esta regla se usa para alteraciones accidentales sobre varias voces
+que se han de leer por parte de músicos que tocan una voz, así como
+por músicos que tocan todas las voces.  Las alteraciones se imprimen
+para cada voz como con @code{neo-modern}, pero se cancelan para otras
+voces que están en el mismo pentagrama @code{Staff}.
 
 @lilypond[quote]
 musicA = {
@@ -1993,7 +2058,13 @@ musicB = {
 
 @item neo-modern-voice-cautionary
 
+@cindex neo-modern-voice-cautionary, estilo de alteraciones
+@cindex alteraciones,estilo, neo-modern-voice-cautionary
+
 @funindex neo-modern-voice-cautionary
+
+Esta regla es similar a @code{neo-modern-voice}, pero las alteraciones
+adicionales se imprimen como alteraciones de precaución.
 
 @lilypond[quote]
 musicA = {
@@ -2296,7 +2367,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Accidental},
 @rinternals{Accidental_engraver},
-@rinternals{GrandStaff} and
+@rinternals{GrandStaff},
 @rinternals{PianoStaff},
 @rinternals{Staff},
 @rinternals{AccidentalSuggestion},
@@ -2319,6 +2390,51 @@ problema cuando las alteraciones de un acorde dependen unas de otras,
 lo que no se da en el estilo de alteraciones predeterminado.  El
 problema se puede resolver insertando manualmente@tie{}@code{!}
 y@tie{}@code{?} para las notas problemáticas.
+
+
+La cancelación de precacución de alteraciones se hace mirando el
+compás previo.  Sin embargo, en el bloque @code{\alternative} que
+sigue a una sección de repetición de primera y segunda vez
+@code{\repeat volta N}, se esperaría que la cancelación se calculase
+utilizando el compás previo @emph{que se ha tocado}, no el compás
+previo @emph{que se ha impreso}.  En el ejemplo siguiente, el Do
+natural de la casilla de segunda vez no necesita becuadro:
+
+@lilypond[quote]
+{
+  #(set-accidental-style 'modern)
+  \time 2/4
+  \repeat volta 2 {
+    c'2
+  }
+  \alternative {
+     cis'
+     c'
+  }
+}
+@end lilypond
+
+Se puede usar el siguiente rodeo del problema: definir una función que
+cambie localmente el estilo de alteraciones a @code{forget}:
+
+@lilypond[verbatim,quote]
+forget = #(define-music-function (parser location music) (ly:music?) #{
+  #(set-accidental-style 'forget)
+  $music
+  #(set-accidental-style 'modern)
+#})
+{
+  #(set-accidental-style 'modern)
+  \time 2/4
+  \repeat volta 2 {
+    c'2
+  }
+  \alternative {
+     cis'
+     \forget c'
+  }
+}
+@end lilypond
 
 @node Tesitura
 @unnumberedsubsubsec Tesitura
@@ -2354,6 +2470,7 @@ tonalidad.
   cis,1
 }
 @end lilypond
+
 
 @snippets
 
@@ -2422,25 +2539,61 @@ Esta sección propone formas de alterar las cabezas de las figuras.
 
 @funindex cross
 
-Se puede modificar la cabeza de las notas:
+Se puede modificar la apariencia de la cabeza de las notas:
 
 @lilypond[verbatim,quote,relative=2]
-c4 b a b
+c4 b
 \override NoteHead #'style = #'cross
-c4 b a b
+c4 b
+\revert NoteHead #'style
+a b
+\override NoteHead #'style = #'harmonic
+a b
 \revert NoteHead #'style
 c4 d e f
 @end lilypond
 
-Existe una abreviatura para las formas en rombo que sólo se puede usar en acordes:
+Para ver todos los estilos de cabeza de las notas, consulte
+@ref{Estilos de cabezas de nota}.
+
+El estilo @code{cross} (aspas) se usa para representar una amplia
+variedad de intenciones musicales.  Las siguientes instrucciones
+genéricas predefinidas modifican la forma de la cabeza de las figuras
+tanto en el contexto de pentagrama normal como en el de tablatura, y
+se pueden usar para representar cualquier significado musical:
+
+@lilypond[verbatim,quote,relative=2]
+c4 b
+\xNotesOn
+ a b c4 b
+\xNotesOff
+c4 d
+@end lilypond
+
+La forma de función musical de esta instrucción predefinida se puede
+usar dentro y fuera de los acordes para generar cabezas de nota en
+aspa, tanto en el contexto de pentagrama normal como en el de
+tablatura:
+
+@lilypond[verbatim,quote,relative=2]
+c4 b
+\xNote { e f }
+c b < g \xNote c f > b
+@end lilypond
+
+Existe una abreviatura para las formas en rombo que sólo se puede usar
+en acordes:
 
 @lilypond[verbatim,quote,relative=2]
 <c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
 @end lilypond
 
-@noindent
-Para ver todos los estilos de cabeza de las notas, consulte @ref{Estilos de cabezas de nota}.
-
+@predefined
+@code{\harmonic},
+@code{\xNotesOn},
+@code{\xNotesOff},
+@code{\xNote}.
+@endpredefined
 
 @seealso
 Fragmentos de código:
@@ -2477,9 +2630,10 @@ Referencia de funcionamiento interno:
 @funindex \easyHeadsOff
 @funindex easyHeadsOff
 
-Las cabezas @q{easy play} (fáciles de tocar) tienen el nombre de la
-nota (en inglés) dentro de la cabeza.  Se usa en la música para
-principiantes.
+The @q{easy play} note head includes a note name inside the head.
+It is used in music for beginners.  To make the letters readable,
+it should be printed in a large font size.  To print with a larger
+font, see @ref{Setting the staff size}.
 
 @lilypond[verbatim,quote]
 #(set-global-staff-size 26)
@@ -2492,17 +2646,17 @@ principiantes.
 }
 @end lilypond
 
-La instrucción @code{\easyHeadsOn} sobreescribe los ajustes del objeto
-@code{NoteHead}.  Estos ajustes se pueden deshacer mediante la
-instrucción @code{\easyHeadsOff}. Para que las letras sean legibles,
-se tienen que imprimir en un tamaño grande de la tipografía.  Para
-imprimir con un tamaño de tipografía mayor, consulte @ref{Establecer el tamaño del pentagrama}.
-
 
 @predefined
 @code{\easyHeadsOn},
 @code{\easyHeadsOff}.
 @endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{numbers-as-easy-note-heads.ly}
 
 
 @seealso
@@ -2564,7 +2718,6 @@ tónica está determinada por la instrucción @code{\key}
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
-@noindent
 Para ver todos los estilos de formas de cabeza de nota, consulte
 @ref{Estilos de cabezas de nota}.
 
