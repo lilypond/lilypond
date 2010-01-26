@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -631,7 +631,7 @@ otras partes de la documentación:
 @item El glissando es la técnica más característica del arpa,
 @ref{Glissando}.
 
-@item El @notation{bisbigliando} se escribe como un trémolo, @ref{Repeticiones de trémolo}
+@item El @notation{bisbigliando} se escribe como un trémolo, @ref{Repeticiones de trémolo}.
 
 @item Los armónicos naturales se estudian bajo el epígrafe @ref{Armónicos}.
 
@@ -667,7 +667,8 @@ textuales:
 @lilypond[quote,verbatim,relative=2]
 \textLengthOn
 cis1_\markup \concat \vcenter { [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
-c!1_\markup \concat \vcenter {[ C \natural ]}
+c!1_\markup \concat \vcenter {
+  [ C \natural ] }
 @end lilypond
 
 o mediante diagramas de pedal:
