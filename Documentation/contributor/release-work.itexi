@@ -406,5 +406,20 @@ probably be the one taking care of this anyway.
 A translator can ask for an official lilypond-xy mailing list once
 they've finished all @qq{priority 1} translation items.
 
+@subsubheading Performing yearly copyright update (@qq{grand-replace})
 
+At the start of each year, copyright notices for all source files
+should be refreshed by running the following command from the top of
+the source tree:
 
+@example
+make grand-replace
+@end example
+
+Internally, this invokes the script @file{scripts/build/grand-replace.py},
+which performs a regular expression substitution for old-year -> new-year
+wherever it finds a valid copyright notice.
+
+Note that snapshots of third party files such as @file{texinfo.tex} should
+not be included in the automatic update; @file{grand-replace.py} ignores these
+files if they are listed in the variable @code{copied_files}.
