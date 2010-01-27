@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 50b88336f4c69d7d3241cc01af98c362cd9d2b4b
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -761,9 +761,15 @@ de forma similar, se puede usar
 Glosario musical:
 @rglos{Frenched staff}.
 
+Manual de aprendizaje:
+@rlearning{Visibilidad y color de los objetos}.
+
 Referencia de la notación:
 @ref{El símbolo del pentagrama},
-@ref{Pentagramas de Ossia}.
+@ref{Pentagramas de Ossia},
+@ref{Notas ocultas},
+@ref{Silencios invisibles},
+@ref{Visibilidad de los objetos}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -1095,12 +1101,14 @@ La instrucción @code{\quoteDuring} se usa para indicar el punto en que
 comienza la cita.  va seguido por dos argumentos: el nombre de la voz
 citada, tal y como se definió con @code{\addQuote}, y una expresión
 musical que indica la duración de la cita, normalmente silencios de
-separación o silencios multicompás.  La música correspondiente de la
+separación o silencios multicompás.  La música correspondiente
+(incluidas todas las articulaciones,
+matices, elementos de marcado, etc.) de la
 voz citada se inserta dentro de la expresión musical:
 
 @lilypond[verbatim,quote]
 flute = \relative c'' {
-  a4 gis g gis
+  a4 gis g->\f gis^\markup{quoted}
 }
 \addQuote "flute" { \flute }
 
@@ -1146,6 +1154,26 @@ Es posible etiquetar las citas con nombres exclusivos para poder
 procesarlas de diferentes maneras.  Para ver más detalles sobre este
 procedimiento, consulte @ref{Uso de etiquetas}.
 
+También es posible ajustar qué objetos de la voz original se citan
+mediante la modificación de la propiedad @code{quotedEventTypes}.  De
+forma predeterminada, su valor es @code{#'(StreamEvent)}, lo que
+significa que todo se cita.  Su establecimiento a,
+p.ej. @code{#'(note-event rest-event tie-event)} provoca que LilyPond
+cite solamente las notas, silencios y ligaduras de unión, pero no las
+articulaciones, los elementos de marcado ni los matices dinámicos.
+
+@lilypond[verbatim,quote]
+clarinet = \relative c'' {
+  a4 gis g->\f gis^\markup{quoted}
+}
+\addQuote "clarinet" { \clarinet }
+
+\relative c' {
+  \set Score.quotedEventTypes = #'(note-event rest-event tie-event)
+  c4 cis \quoteDuring #"clarinet" { s2 }
+}
+@end lilypond
+
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
@@ -1157,6 +1185,7 @@ procedimiento, consulte @ref{Uso de etiquetas}.
 @cindex rest-event
 
 @funindex quotedEventTypes
+@funindex quotedCueEventTypes
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {quoting-another-voice.ly}
@@ -1217,7 +1246,9 @@ guía en una particella.  La sintaxis es como sigue:
 \cueDuring #@var{nombre_de_la_parte} #@var{voz} @var{música}
 @end example
 
-Esta instrucción copa los compases correspondientes a partir de
+Esta instrucción copia
+sólo las notas y los silencios de
+los compases correspondientes a partir de
 @var{nombre_de_la_parte} dentro de un contexto @code{CueVoice} de voz
 guía.  La voz guía @code{CueVoice} se crea implícitamente, y se
 produce simultáneamente con @var{música}, lo que crea una situación
@@ -1228,7 +1259,7 @@ corresponde a la segunda.
 
 @lilypond[verbatim,quote]
 oboe = \relative c'' {
-  r2 r8 d16 f e g f a
+  r2 r8 d16(\f f e g f a)
   g8 g16 g g2.
 }
 \addQuote "oboe" { \oboe }
@@ -1243,6 +1274,33 @@ oboe = \relative c'' {
 En el ejemplo anterior, el contexto @code{Voice} se tuvo que declarar
 explícitamente, pues en caso contrario toda la expresión musical
 habría pertenecido al contexto @code{CueVoice}.
+
+Es posible ajustar qué aspectos de la música se citan con
+@code{\cueDuring} estableciendo el valor de la propiedad
+@code{quotedCueEventTypes}.  Su valor por omisión es
+@code{#'(note-event rest-event tie-event beam-event
+tuplet-span-event)}, lo que significa que solamente las notas,
+silencios, ligaduras de unión, barras y grupos especiales se citan,
+pero no las articulaciones, marcas dinámicas, elementos de marcado,
+etc.
+
+@lilypond[verbatim,quote]
+oboe = \relative c'' {
+  r2 r8 d16(\f f e g f a)
+  g8 g16 g g2.
+}
+\addQuote "oboe" { \oboe }
+
+\new Voice \relative c'' {
+  \set Score.quotedCueEventTypes = #'(note-event rest-event tie-event
+                                      beam-event tuplet-span-event
+                                      dynamic-event slur-event)
+  \cueDuring #"oboe" #UP { R1 }
+  g2 c,
+}
+@end lilypond
+
+
 
 Se puede imprimir el nombre del instrumento de las notas guía
 estableciendo la propiedad @code{instrumentCueName} en el contexto
@@ -1331,6 +1389,28 @@ cbassoon = \relative c, {
 Es posible etiquetar las partes guía con nombres exclusivos de forma
 que se puedan procesar de diversas formas.  Para ver más detalles
 sobre este procedimiento, consulte @ref{Uso de etiquetas}.
+
+@cindex notas más pequeñas
+@cindex pequeñas, notas más
+
+Se puede crear un contexto de @code{CueVoice} explícitamente si se
+necesitan notas de un tamaño menor, por ejemplo para establecer una
+secuencia alternativa de notas más apropiada para una voz más aguda o
+más grave.
+
+@lilypond[verbatim,relative=2]
+\time 12/8
+\key ees \major
+g4 ees8 f4 g8
+\stemDown
+<<
+  { d4. bes4 c8 }
+  \new CueVoice
+  { g'4. f4 ees8 }
+>>
+\stemUp
+d2. d2.
+@end lilypond
 
 
 @seealso
