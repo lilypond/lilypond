@@ -12,16 +12,15 @@
 @c Translators: Till Rettig, Reinhold Kainhofer
 @c Translation checkers: Hajo Bäß
 
-@node Einleitung
-@chapter Einleitung
-@translationof Introduction
+@node Übung
+@chapter Übung
+@translationof Tutorial
 
 Dieses Kapitel stellt dem Leser das grundlegende Arbeiten mit LilyPond
 vor.
 
 @menu
 * Eine Quelldatei übersetzen::
-* Einfache Notation::
 * Arbeiten an Eingabe-Dateien::
 * Wie soll das Handbuch gelesen werden::
 @end menu
