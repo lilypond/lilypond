@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -118,6 +118,15 @@ encuentran definidas en el archivo @file{scm/@/script@/.scm}.  Las
 articulaciones y ornamentos se pueden colocar manualmente por encima o
 por debajo del pentagrama; véase @ref{Dirección y posición}.
 
+Las articulaciones son objetos @code{Script}.  Sus propiedades se
+describen de forma más completa en @rinternals{Script}.
+
+Además de articulaciones, se pueden adjuntar textos y elementos de
+marcado a las notas.  Véase @ref{Guiones de texto}.
+
+Para ver más información acerca de la ordenación de los elementos
+Script y TextScript que se adjuntan a las notas, consulte
+@rlearning{Colocación de los objetos}.
 
 @snippets
 
@@ -137,7 +146,11 @@ Glosario musical:
 @rglos{staccato},
 @rglos{portato}.
 
+Manual de aprendizaje:
+@rlearning{Colocación de los objetos}.
+
 Referencia de la notación:
+@ref{Guiones de texto},
 @ref{Dirección y posición},
 @ref{Lista de articulaciones},
 @ref{Trinos}.
@@ -181,6 +194,8 @@ Referencia de funcionamiento interno:
 @funindex fff
 @funindex \ffff
 @funindex ffff
+@funindex \fffff
+@funindex fffff
 @funindex \fp
 @funindex fp
 @funindex \sf
@@ -200,10 +215,11 @@ Las marcas dinámicas de matiz absoluto se especifican usando un
 comando después de una nota: @code{c4\ff}.  Las marcas dinámicas
 disponibles son @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp},
 @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
-@code{\ffff}, @code{\fp}, @code{\sf}, @code{\sff}, @code{\sp},
-@code{\spp}, @code{\sfz} y @code{\rfz}.  Las indicaciones dinámicas se
-pueden colocar manualmente por encima o por debajo del pentagrama;
-para ver más detalles, consulte @ref{Dirección y posición}.
+@code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},
+@code{\sp}, @code{\spp}, @code{\sfz} y @code{\rfz}.  Las indicaciones
+dinámicas se pueden colocar manualmente por encima o por debajo del
+pentagrama; para ver más detalles, consulte @ref{Dirección y
+posición}.
 
 @lilypond[verbatim,quote,relative=2]
 c2\ppp c\mp
@@ -284,11 +300,12 @@ g1\espressivo
 
 Los crescendi y decrescendi se pueden tipografiar como marcas
 textuales en lugar de reguladores.  Las instrucciones incorporadas
-que activan estos modos de texto son @code{\crescTextCresc},
-@code{\dimTextDecresc}, @code{\dimTextDecr} y @code{\dimTextDim}.  Las
-instrucciones correspondientes @code{\crescHairpin} y
-@code{\dimHairpin} hacen que vuelvan a aparecer los reguladores de
-nuevo:
+@code{\crescTextCresc}, @code{\dimTextDecresc}, @code{\dimTextDecr} y
+@code{\dimTextDim} le dicen a LilyPond que use estas marcas textuales
+en lugar de reguladores para todas las instrucciones @code{\<} y
+@code{\>} subsiguientes.  Las instrucciones correspondientes
+@code{\crescHairpin} y @code{\dimHairpin} hacen que vuelvan a aparecer
+los reguladores de nuevo:
 
 @lilypond[verbatim,quote,relative=2]
 \crescTextCresc
@@ -469,7 +486,7 @@ mfEspressDynamic = #(make-dynamic-script mfEspress)
 @end lilypond
 
 Se puede utilizar en su lugar la forma Scheme del modo de marcado.  Su
-sintaxis se explica en @ref{Construcción del marcado en Scheme}.
+sintaxis se explica en @rextend{Construcción del marcado en Scheme}.
 
 @lilypond[verbatim,quote]
 moltoF = #(make-dynamic-script
@@ -489,13 +506,14 @@ describen en @ref{Instrucciones de marcado de texto más usuales}.
 Referencia de la notación:
 @ref{Formatear el texto},
 @ref{Instrucciones de marcado de texto más usuales},
-@ref{Construcción del marcado en Scheme},
 @ref{¿Qué sale por el MIDI?},
 @ref{Control de los matices en el MIDI}.
 
 Fragmentos de código:
 @rlsr{Expressive marks}.
 
+Extender LilyPond:
+@rextend{Construcción del marcado en Scheme}.
 
 @node Curvas
 @subsection Curvas
@@ -519,6 +537,9 @@ elevaciones de tono.
 @cindex ligaduras de expresión
 
 Las @notation{Ligaduras de expresión} se introducen utilizando paréntesis:
+
+@warning{En música polifónica, las ligaduras de expresión deben
+terminar en la misma voz en la que empiezan.}
 
 @lilypond[verbatim,quote,relative=2]
 f4( g a) a8 b(
@@ -648,6 +669,7 @@ g4( e c2)
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
+
 
 @seealso
 Glosario musical:
@@ -986,10 +1008,13 @@ Se pueden escribir distintos tipos de acordes arpegiados.
 
 @lilypond[verbatim,quote,relative=1]
 <c e g c>2\arpeggio
+
 \arpeggioArrowUp
 <c e g c>2\arpeggio
+
 \arpeggioArrowDown
 <c e g c>2\arpeggio
+
 \arpeggioNormal
 <c e g c>2\arpeggio
 @end lilypond
@@ -1008,12 +1033,16 @@ Se pueden crear símbolos especiales de arpegio @emph{con corchete}:
 
 @lilypond[verbatim,quote,relative=1]
 <c e g c>2
+
 \arpeggioBracket
 <c e g c>2\arpeggio
+
 \arpeggioParenthesis
 <c e g c>2\arpeggio
+
 \arpeggioParenthesisDashed
 <c e g c>2\arpeggio
+
 \arpeggioNormal
 <c e g c>2\arpeggio
 @end lilypond

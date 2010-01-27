@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -89,6 +89,7 @@ La sintaxis de una repetición simple es
 \repeat @var{variante} @var{número_de_repeticiones} @var{cuerpo_de_la_repetición}
 @end example
 
+@noindent
 donde @var{cuerpo_de_la_repetición} es una expresión musical.  Los
 finales alternativos se pueden obtener utilizando @code{\alternative}.
 Para delimitar los finales alternativos, el grupo de alternativas se
@@ -116,6 +117,9 @@ Repeticiones normales con primera y segunda vez:
 c1
 @end lilypond
 
+@warning{No ponga @code{@bs{}relative} dentro de un bloque
+@code{@bs{}repeat}.  Hará que aparezcan pentagramas no deseados.
+Véase @rprogram{An extra staff appears}.}
 
 @cindex repetición con anacrusa
 @cindex anacrusa en repeticiones
@@ -375,6 +379,7 @@ repetitiva.  La sintaxis es:
 \repeat unfold @var{número_de_repeticiones} @var{expresión_musical}
 @end example
 
+@noindent
 donde @var{expresión_musical} es una expresión musical y
 @var{número_de_repeticiones} es el número de veces que
 @var{expresión_musical} se repite.
@@ -445,6 +450,7 @@ se sustituyen por símbolos de tipo porcentaje.  La sintaxis es:
 @code{\repeat percent @var{número} @var{expresión_musical}}
 @end example
 
+@noindent
 donde @var{expresión_musical} es una expresión musical.
 
 @lilypond[verbatim,quote,relative=2]
@@ -552,13 +558,18 @@ El mismo resultado se puede obtener escribiendo
 duración de la subdivisión, y debe ser 8 como mínimo.  Un valor de 8
 para @var{número} produce una línea que atraviesa la plica de la nota.
 Si se omite la longitud, se utiliza el último valor (almacenado en
-@code{tremoloFlags})
+@code{tremoloFlags}):
 
 @lilypond[quote,verbatim,relative=2]
 c2:8 c:32
 c: c:
 @end lilypond
 
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{cross-staff-tremolos.ly}
 
 @seealso
 Fragmentos de código:
