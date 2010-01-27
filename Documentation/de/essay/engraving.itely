@@ -1378,7 +1378,7 @@ wie in diesem Beispiel:
 In kleinem Rahmen ist diese Syntax sehr einfach zu benutzen.  In
 größeren Zusammenhängen aber brauchen wir Struktur.  Wie sonst kann
 man große Opern oder Symphonien notieren?  Diese Struktur wird
-gewährleistet durch sog. \emph{music expressions} (Musikausdrücke):
+gewährleistet durch sog. @emph{music expressions} (Musikausdrücke):
 indem kleine Teile zu größeren kombiniert werden, kann komplexere
 Musik dargestellt werden. So etwa hier:
 
