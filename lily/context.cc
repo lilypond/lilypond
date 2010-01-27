@@ -114,7 +114,7 @@ Context::create_unique_context (SCM name, string id, SCM operations)
   if (gthis && gthis->get_score_context ())
     return gthis->get_score_context ()->create_unique_context (name, id, operations);
 
-  vector<Context_def*> path = path_to_acceptable_context (name);
+  vector<Context_def *> path = path_to_acceptable_context (name);
   if (path.size ())
     {
       Context *current = this;
@@ -168,7 +168,7 @@ Context::find_create_context (SCM n, string id, SCM operations)
 
   if (n == ly_symbol2scm ("Bottom"))
     {
-      Context *tg = get_default_interpreter ();
+      Context *tg = get_default_interpreter (id);
       return tg;
     }
 
@@ -386,7 +386,7 @@ Context::is_bottom_context () const
 }
 
 Context *
-Context::get_default_interpreter ()
+Context::get_default_interpreter (string context_id)
 {
   if (!is_bottom_context ())
     {
@@ -401,8 +401,8 @@ Context::get_default_interpreter ()
 	  t = unsmob_context_def (this->definition_);
 	}
 
-      Context *tg = create_context (t, "", SCM_EOL);
-      return tg->get_default_interpreter ();
+      Context *tg = create_context (t, context_id, SCM_EOL);
+      return tg->get_default_interpreter (context_id);
     }
   return this;
 }
