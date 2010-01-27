@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -34,6 +34,7 @@ Esta sección trata de la notas simultáneas dentro de la misma voz.
 
 @menu
 * Notas en acorde::
+* Repetición de acordes::
 * Expresiones simultáneas::
 * Racimos (clusters)::
 @end menu
@@ -80,6 +81,41 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
+
+
+@node Repetición de acordes
+@unnumberedsubsubsec Repetición de acordes
+@translationof Chord repetition
+
+Para reducir el tecleo, se puede usar una abreviatura de repetición
+del acorde anterior.  El símbolo de repetición de acordes es @code{q}:
+
+@lilypond[verbatim,quote,relative=1]
+<c e g> q q q
+@end lilypond
+
+Como en los acordes normales, el símbolo de repetición de acordes
+puede ir seguido de una duración y unas articulaciones.  Sólo se
+duplican las alturas del acorde anterior; las articulaciones, matices,
+etc., no se repiten.
+
+@lilypond[verbatim,quote,relative=1]
+<c e g>8\p q q4-| q8.^"text" q16 q4-|
+@end lilypond
+
+Las notas de los acordes (introducidos utilizando ángulos de apertura
+y cierre) sólo se memorizan para ser repetidos por parte de @code{q}:
+es posible repetir un acorde incluso si, por ejemplo, una sola nota
+(sin ángulos de apertura y cierre) o un silencio se han producido
+mientras tanto.
+
+@lilypond[verbatim,quote,relative=1]
+<c e g>8 c' q c r4 q
+@end lilypond
+
+@seealso
+Archivos de inicio:
+@file{ly/@/chord-repetition-init@/.ly}.
 
 
 @node Expresiones simultáneas
@@ -217,6 +253,7 @@ siguiente:
 >>
 @end lilypond
 
+@noindent
 Aquí se crean explícitamente instancias de voces, cada una de las
 cuales recibe un nombre. Las instrucciones @code{\voiceOne}
 ... @code{\voiceFour} (voz uno hasta voz cuatro) preparan las voces de
@@ -239,6 +276,7 @@ siguiente:
 >> \oneVoice
 @end example
 
+@noindent
 Aquí, la primera expresión dentro de un pasaje polifónico temporal se
 coloca en el contexto @code{Voice} que estaba en uso inmediatamente
 antes del pasaje polifónico, y ese mismo contexto @code{Voice}
@@ -270,6 +308,7 @@ de la sección polifónica:
 >>
 @end lilypond
 
+@noindent
 Aquí, las instrucciones @code{\voiceOne} y @code{\voiceTwo} son
 necesarias para definir los ajustes de cada voz.
 
@@ -448,7 +487,10 @@ altura, la misma forma de cabeza, y dirección opuesta de la plica, se
 combinan automáticamente, pero las que tienen cabezas distintas o la
 misma dirección de la plica no se combinan.  Los silencios que se
 encuentran en el lado opuesto de una plica en otra voz se desplazan
-verticalmente.
+verticalmente.  El ejemplo siguiente muestra tres circunstancias
+distintas, sobre los pulsos 1 y 3 en el primer compás y sobre el pulso
+1 del segundo compás, donde la combinación automática falla.
+
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -467,7 +509,8 @@ verticalmente.
 @end lilypond
 
 Las cabezas de notas diferentes se pueden combinar, con la excepción
-de blancas con negras:
+de blancas con negras, como se muestra más abajo.  Aquí las cabezas
+del pulso 1 del primer compás sí se combinan:
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -486,7 +529,8 @@ de blancas con negras:
 >>
 @end lilypond
 
-Se pueden combinar cabezas con puntillos diferentes:
+También se pueden combinar cabezas con puntillos diferentes, como se
+muestra en el pulso 2 del primer compás:
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -507,15 +551,14 @@ Se pueden combinar cabezas con puntillos diferentes:
 @end lilypond
 
 La blanca y la corchea en el comienzo del segundo compás no están
-correctamente combinadas porque @code{\mergeDifferentlyHeadedOn} no es
-capaz de completar satisfactoriamente la combinación cuando se
-encuentran tres o más notas alineadas en la misma columna, y en este
-caso se obtiene una advertencia.  Para conseguir que la combinación
-funcione adecuadamente, se debe aplicar un @code{\shift} o
-desplazamiento a la nota que no se debe combinar.  Aquí, se aplica
-@code{\shiftOn} para mover el sol agudo fuera de la columna, y
-entonces @code{\mergeDifferentlyHeadedOn} hace su trabajo
-correctamente.
+correctamente combinadas porque la combinación automática no es capaz
+de completarse satisfactoriamente cuando se encuentran tres o más
+notas alineadas en la misma columna de notas, y en este caso la cabeza
+combinada es incorrecta.  Para conseguir que la combinación seleccione
+la cabeza correcta, se debe aplicar un @code{\shift} o desplazamiento
+a la nota que no se debe combinar.  Aquí, se aplica @code{\shiftOn}
+para mover el sol agudo fuera de la columna, y entonces
+@code{\mergeDifferentlyHeadedOn} hace su trabajo correctamente.
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -546,7 +589,9 @@ desactivado), mientras que las voces interiores (tres y cuatro) tienen
 @code{\shiftOnnn} definen niveles de desplazamiento más grandes.
 
 Sólo se combinan las notas si tienen la plica en direcciones opuestas
-(por ejemplo, en las @code{Voice}s 1 y 2).
+(como la tienen, por ejemplo, en las voces uno y dos de forma
+predeterminada o cuando las plicas se establecen explícitamente en
+direcciones opuestas).
 
 
 @predefined
@@ -578,7 +623,7 @@ Glosario musical:
 Manual de aprendizaje:
 @rlearning{Varias notas a la vez},
 @rlearning{Las voces contienen música},
-@rlearning{Colisiones de objetos}.
+@rlearning{Ejemplos reales de música}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
