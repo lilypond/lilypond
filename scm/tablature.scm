@@ -220,13 +220,15 @@
          (tab-note-head-parenthesized (assoc-get 'parenthesize repeat-tied-properties #t)))
 
     (if tab-note-head-visible
-	;; tab note head is visible
-	(if tab-note-head-parenthesized
+        ;; tab note head is visible
+        (if tab-note-head-parenthesized
 	    (ly:grob-set-property! tied-tab-note-head 'stencil
 				   (lambda (grob)
 				     (parenthesize-tab-note-head grob))))
 	;; tab note head is invisible
-	(ly:grob-set-property! tied-tab-note-head 'transparent #t))))
+	(begin
+          (ly:grob-set-property! tied-tab-note-head 'transparent #t)
+          (ly:grob-set-property! tied-tab-note-head 'whiteout #f)))))
 
 ;; the slurs should not be too far apart from the corresponding fret number, so
 ;; we move the slur towards the TabNoteHeads:
