@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -146,6 +146,11 @@ Los márgenes, encabezamientos y pies de página y otras variables de
 diseño de página se establecen automáticamente de acuerdo con el
 tamaño del papel.
 
+El valor predeterminado de los márgenes está accesible en el archivo
+@file{ly/@/paper@/-defaults@/-init@/.ly}.  Estos valores se aplican al
+tamaño predeterminado del papel (A4, a no ser que se especifique de
+otra forma) y se escalan adecuadamente para otros tamaños del papel.
+
 Esta sección relaciona y describe cierto número de variables del papel
 que se pueden alterar.
 
@@ -167,69 +172,99 @@ verticales de la página:
 
 @table @code
 
-@item after-title-space
-@funindex after-title-space
+@item after-title-spacing
+@funindex after-title-spacing
 
-Espacio entre el título y el primer sistema.
-Predeterminado: @code{5\mm}.
+Especifica cómo calcular el espacio entre un título (o un elemento de
+marcado del nivel superior) y el sistema que le sigue.  Es una lista
+asociativa con cinco componentes:
+@itemize @bullet
+@item @var{space}:
+cantidad de espacio que puede ensancharse entre la línea base de un
+título y el centro del pentagrama que le sigue;
+@item @var{padding}:
+cantidad mínima de espacio vacío que se debe dejar entre un título y
+el pentagrama que le sigue;
+@item @var{stretchability}:
+facilidad con que el espacio ensanchable aumenta cuando se estira una
+página.  Si es cero, la distancia al pentagrama siguiente no se
+ensancha en absoluto;
+@item @var{minimum-distance}:
+distancia mínima que poner entre la línea de base de un título y el
+centro del pentagrama que le sigue. Se diferencia de @var{padding} en
+que la altura de un pentagrama no tiene ningún efecto sobre la
+aplicación de @var{minimum-distance} (mientras que la altura del
+pentagrama es crucial para @var{padding}).
+@end itemize
 
-@item before-title-space
-@funindex before-title-space
+Si una página tiene la parte de abajo no ajustada, @var{space} no se
+ensancha.  Concretamente, la distancia que resulta sobre esta página
+es la mayor de
+@itemize @bullet
+@item @var{space},
+@item @var{minimum-distance}, y
+@item @var{padding} más la menor distancia necesaria para eliminar la superposición.
+@end itemize
 
-Distancia entre el último sistema de la pieza anterior y el título de
-la siguiente.  Predeterminado: @code{10\mm}.
+@item before-title-spacing
+@funindex before-title-spacing
 
-@item between-system-padding
-@funindex between-system-padding
+Especifica el espacio entre un sistema y el título (o elemento de
+marcado del nivel superior) que le sigue.  Las distancias se miden a
+partir del centro del último pentagrama del sistema hasta la línea de
+base del título que le sigue.  Véase @var{after-title-spacing}.
 
-Distancia mínima que se deja siempre entre el símbolo más bajo de un
-sistema y el más alto del siguiente.  Predeterminado: @code{4\mm}.
+@item between-scores-system-spacing
+@funindex between-scores-system-spacing
 
-El aumento de este valor separa más los sistemas cuyas cajas
-circundantes casi se tocan.
+Especifica el espacio entre dos sistemas si están en diferentes
+partituras, pero no hay ningún título entre ellas. Véase
+@var{after-title-spacing}.
 
-@item between-system-space
-@funindex between-system-space
+@item between-system-spacing
+@funindex between-system-spacing
 
-Distancia entre los sistemas.  Es la distancia ideal desde el centro
-del pentagrama inferior de un sistema hasta el centro del pentagrama
-superior del sistema siguiente.  Predeterminado: @code{20\mm}.
+Especifica el espacio entre el centro del pentagrama inferior de un
+sistema y el centro del pentagrama superior del sistema siguiente.
+Véase @var{after-title-spacing}.
 
-El aumento de este valor da a la página un aspecto más regular a costa
-de utilizar más espacio vertical.
+@item between-title-spacing
+@funindex between-title-spacing
 
-@item between-title-space
-@funindex between-title-space
-
-Distancia entre títulos consecutivos (p.ej., el título del libro y el
-título de una pieza).  Predeterminado: @code{2\mm}.
+Especifica el espacio entre dos títulos (o elementos de marcado del
+nivel superior).  Las distancias se miden a partir de la línea de base
+de del primer título hasta la línea de base del segundo.  Véase
+@var{after-title-spacing}.
 
 @item bottom-margin
 @funindex bottom-margin
 
-Margen entre el pie de página y la parte inferior del papel.
-Predeterminado: @code{6\mm}.
+Margen entre el pie y el final de la página.  Valor predeterminado:
+@code{6\mm}.
 
-@item foot-separation
-@funindex foot-separation
+@item bottom-system-spacing
+@funindex bottom-system-spacing
 
-Distancia entre el sistema situado más abajo y el pie de página.
-Predeterminado: @code{4\mm}.
+Especifica el espacio desde el centro del último pentagrama (o la
+línea de base del último elemento de marcado del nivel superior) hasta
+el final del área imprimible (es decir, el límite superior del margen
+inferior).  Véase @var{after-title-spacing}.
 
-@item head-separation
-@funindex head-separation
+@item top-title-spacing
+@funindex top-title-spacing
 
-Distancia entre el sistema situado más arriba y el encabezamiento de
-la página.  Predeterminado: @code{4\mm}.
+Especifica el espacio desde el principio del área imprimible (es
+decir, el límite inferior del margen superior) hasta la línea de base
+del título.  Véase @var{after-title-spacing}.
 
-@item page-top-space
-@funindex page-top-space
+@item top-system-spacing
+@funindex top-system-spacing
 
-Distancia desde la parte alta del área imprimible hasta el centro del
-primer pentagrama.  Esto sólo funciona para pentagramas con una
-anchura vertical pequeña.  Los pentagramas grandes se establecen con
-la parte alta de su caja circundante alineada a la parte alta del área
-imprimible.  Predeterminado: @code{12\mm}.
+Especifica el espacio desde el principio del área imprimible (es
+decir, el límite inferior del margen superior) hasta el centro del
+primer pentagrama.  Sólo tiene efecto si no hay ningún título al
+principio de la página (en cuyo caso se utiliza en su lugar
+@var{top-title-spacing}).  Véase @var{after-title-spacing}.
 
 @item paper-height
 @funindex paper-height
@@ -275,7 +310,7 @@ Por ello el valor 2 cm se debe multiplicar en el siguiente ejemplo:
 Ejemplo:
 
 @example
-\paper@{
+\paper @{
   paper-width = 2\cm
   top-margin = 3\cm
   bottom-margin = 3\cm
@@ -301,6 +336,29 @@ papel.
 @}
 @end example
 
+También podemos definir estos valores en Scheme.  En tal caso,
+@code{mm}, @code{in}, @code{pt} y @code{cm} son variables definidas en
+@file{paper@/-defaults@/-init@/.ly} con valores en milímetros.  Es la
+razón por la que el valor se debe multiplicar en el ejemplo
+
+@example
+\paper @{
+  #(define bottom-margin (* 2 cm))
+@}
+@end example
+
+El encabezamiento y el pie se crean por parte de las funciones
+@code{make-footer} y @code{make-header}, definidas en @code{\paper}.
+Las implementaciones predeterminadas están en
+@file{ly/@/paper@/-defaults@/-init@/.ly} y en
+@file{ly/@/titling@/-init@/.ly}.
+
+La propia disposición de la página se realiza por parte de dos
+funciones del bloque @code{\paper}, @code{page-music-height} y
+@code{page-make-stencil}.  La primera dice al algoritmo de saltos de
+línea cuánto espacio se puede emplear en la página, y la segunda crea
+la página en sí dado el sistema que poner en ella.
+
 
 @seealso
 Referencia de la notación:
@@ -314,14 +372,18 @@ Fragmentos de código:
 @unnumberedsubsubsec Dimensiones horizontales
 @translationof Horizontal dimensions
 
-@warning{Si se establece @code{paper-width} manualmente,
-@code{line-width}, @code{left-margin}, @code{indent} y
-@code{short-indent} pueden necesitar ajustarse también.}
 
 Existe un cierto número de variables que determinan las dimensiones
 horizontales de una página:
 
 @table @code
+
+@item binding-offset
+@funindex binding-offset
+
+Se aumenta la cantidad @code{inner-margin} para asegurar que el
+encuadernado no va a tapar nada.  Sólo funciona con @code{two-sided}
+establecido al valor verdadero.  Valor predeterminado: @code{0}.
 
 @item horizontal-shift
 @funindex horizontal-shift
@@ -333,24 +395,34 @@ Predeterminado: @code{0.0}.
 @item indent
 @funindex indent
 
-Nivel de sangrado para el primer sistema de una partitura.
-Predeterminado: @code{paper-width} dividido por @code{14}, tal y como
-viene determinado por @code{set-default-paper-size} o
-@code{set-paper-size}.
+Nivel de sangrado para el primer sistema de una partitura.  Valor
+predeterminado: @code{15\mm}.
+
+@item inner-margin
+@funindex inner-margin
+
+Margen que tienen todas las páginas en el lado interior si son parte
+de un libro.  Sólo funciona con @code{two-sided} establecido al valor
+verdadero.  Valor predeterminado: @code{10\mm}.
 
 @item left-margin
 @funindex left-margin
 
 El margen entre el límite izquierdo del papel y el comienzo de los
-sistemas.  Predeterminado: @code{10\mm}, tal y como se define por
-parte de @code{set-default-paper-size} o de @code{set-paper-size}.
+sistemas.  Predeterminado: @code{10\mm}.
 
 @item line-width
 @funindex line-width
 
 Ancho de los sistemas.  Predeterminado: @code{paper-width} menos
-@code{20\mm}, como viene determinado por @code{set-default-paper-size}
-o por @code{set-paper-size}.
+@code{left-margin} y @code{right-margin}.
+
+@item outer-margin
+@funindex outer-margin
+
+Margen que todas las páginas tienen en la parte exterior si son parte
+de un libro.  Sólo funciona con @code{two-sided} establecido al valor
+verdadero.  Valor predeterminado: @code{20\mm}.
 
 @item paper-width
 @funindex paper-width
@@ -358,26 +430,94 @@ o por @code{set-paper-size}.
 Ancho de la página.  Predeterminado: la anchura del tamaño actual del
 papel.  Para ver más detalles, consulte @ref{Tamaño del papel}.
 
+@item right-margin
+@funindex right-margin
+
+Margen entre el borde derecho de la página y el final de cada sistema.
+Valor predeterminado: @code{10\mm}.
+
 @item short-indent
 @funindex short-indent
 
 Nivel de sangrado para todos los sistemas de una partitura excepto el
-primero.  Predeterminado: @code{0}, como se determina en
-@code{set-default-paper-size} o en @code{set-paper-size}.
+primero.  Predeterminado: @code{0}.
 
 @end table
 
+Si hay valores sin ajustar, se toman los predeterminados.  Se ajusta
+su valor exacto, dependiendo del tamaño de papel especificado.  Por el
+momento, los siguientes valores se ven afectados por este escalado:
+
+@itemize
+@item @var{left-margin}
+@item @var{right-margin}
+@item @var{top-margin}
+@item @var{bottom-margin}
+@item @var{head-separation}
+@item @var{foot-separation}
+@item @var{indent}
+@item @var{short-indent}
+@end itemize
+
+Los ajustes para @code{line-width}, @code{left-margin},
+@code{right-margin} y @code{paper-width} dependen entre sí, pero no
+tienen que especificarse completamente.
+
+@example
+\paper @{
+  left-margin = 30\mm
+@}
+@end example
+
+En este ejemplo, sólo se establece un valor para @code{left-margin}.
+El valor de @code{right-margin} sigue siendo el predeterminado,
+@code{line-width} se calcula automáticamente.
+
+@example
+\paper @{
+  line-width = 150\mm
+@}
+@end example
+
+Aquí @code{left-margin} y @code{right-margin} se ajustan al mismo
+valor.  Por tanto, @code{line-width} se sustrae de @code{paper-width}
+y se divide entre dos.  Esto significa que los sistemas se imprimen
+centrados en la página, si sólo se especifica @code{line-width}.
+
+Tienen lugar algunas comprobaciones para asegurar que los valores se
+establecen correctamente.  Si los valores no encajasen o los sistemas
+se fueran a salir de la página, se imprime una advertencia y se
+establecen los valores predeterminados.
+
+@example
+\paper @{
+  paper-width = 210\mm
+  left-margin = 20\mm
+  right-margin = 30\mm
+  line-width = 100\mm
+@}
+@end example
+
+Estas comprobaciones se pueden evitar estableciendo
+@code{check-consistency} al valor falso.
+
+@example
+\paper @{
+  paper-width = 210\mm
+  left-margin = 20\mm
+  line-width = 200\mm
+  check-consistency = ##f
+@}
+@end example
+
+@warning{Si @code{paper-width} se ajusta manualmente,
+@code{line-width}, @code{left-margin}, @code{indent} y
+@code{short-indent} podrían tener que ajustarse también.}
 
 @seealso
 Fragmentos de código:
 @rlsr{Spacing}.
 
-
-@knownissues
-
-La opción @code{right-margin} está definida pero no establece aún el
-margen derecho.  El valor del margen derecho se debe definir ajustando
-los valores de @code{left-margin} y de @code{line-width}.
 
 
 @node Otras variables de diseño de página
@@ -422,6 +562,14 @@ Penalización por tener una página en blanco en medio de una partitura.
 Esto no se usa por parte de @code{ly:optimal-breaking} porque éste
 nunca considera la posibilidad de tener páginas en blanco en mitad de
 una partitura.  Predeterminado: @code{5}.
+
+@item check-consistency
+@funindex check-consistency
+
+Si es verdadero, comprobar si @code{left-margin}, @code{right-margin}
+y @code{line-width} encajan entre sí.  También asegurar que su
+combinación no excede del @code{paper-width} disponible.  Valor
+predeterminado: @code{##t}.
 
 @item first-page-number
 @funindex first-page-number
@@ -572,6 +720,15 @@ Número de sistemas que se deben colocar en cada página.  Está
 contemplado solamente por parte del algoritmo
 @code{ly:optimal-breaking} por el momento.  Predeterminado: no
 establecido.
+
+@item two-sided
+@funindex two-sided
+
+Si es verdadero, usar @code{inner-margin}, @code{outer-margin} y
+@code{binding-offset} para determinad los márgenes dependiendo de si
+el número de página es par o impar.  Esto sobreescribe a
+@code{left-margin} y a @code{right-margin}.  Valor predeterminado:
+@code{##f}.
 
 @end table
 
@@ -813,8 +970,8 @@ ragged-last = ##t
 
 
 
-@cindex regular line breaks
-@cindex four bar music.
+@cindex saltos de línea normales
+@cindex música de cuatro compases por línea
 
 Para saltos de línea a intervalos regulares utilice @code{\break}
 separado mediante desplazamientos con @code{\skip} y repetidos con
@@ -1273,7 +1430,6 @@ pentagramas dentro de un sistema.
 * Espaciado vertical dentro de un sistema::
 * Espaciado vertical entre sistemas::
 * Posicionamiento explícito de los pentagramas y los sistemas::
-* Espaciado vertical en dos fases::
 * Evitar las colisiones verticales::
 @end menu
 
@@ -1287,108 +1443,188 @@ pentagramas dentro de un sistema.
 @cindex espacio entre pentagramas
 @cindex espacio dentro de los sistemas
 
-La altura de cada sistema se determina automáticamente.  Para evitar
-que los pentagramas se superpongan unos encima de otros, se establecen
-algunas distancias mínimas.  Al modificarlas, podemos poner los
-pentagramas más cerca unos de otros.  Esto reduce el espacio que
-requiere cada sistema y puede resultar en la obtención de más sistemas
-por página.
+La altura de cada sistema se determina en dos fases.  Primero, todos
+los pentagramas se disponen según la cantidad de espacio vacío
+disponible.  Después, las líneas que no son pautas (p.ej. la letra o
+los nombres de acorde) se distribuyen entre las pautas.
 
-Normalmente los pentagramas se apilan verticalmente.  Para hacer que
-los pentagramas guarden una distancia, se rellena su tamaño vertical.
-Esto se hace con la propiedad @code{minimum-Y-extent}.  Si se aplica a
-@rinternals{VerticalAxisGroup}, controla el tamaño de una línea
-horizontal, como un pentagrama o una línea de letra.
-@code{minimum-Y-extent} acepta una pareja de números, de forma que si
-queremos hacerlo más pequeño que su valor predeterminado @code{#'(-4
-. 4)} entonces podemos establecer
+@unnumberedsubsubsec Espaciado entre los pentagramas
+El espaciado entre los pentagramas se controla mediante la propiedad
+@var{next-staff-spacing} del grob @var{VerticalAxisGroup}.  Esta
+propiedad es una lista-A de cuatro elementos: @var{space},
+@var{minimum-distance}, @var{padding} y @var{stretchability}:
+@itemize
+@item
+@var{space} es el tamaño del espacio ensanchable entre la línea media
+de un pentagrama hasta la línea media del pentagrama siguiente.
+
+@item
+@var{minimum-distance} proporciona un límite inferior sobre la
+distancia final entre la línea central de un pentagrama hasta la línea
+central del pentagrama siguiente.  Esto es, si una página tiene muchos
+sistemas y necesita comprimirse, la distancia desde este pentagrama
+hasta el siguiente nunca se comprimirá a menos de
+@var{minimum-distance}.
+
+@item
+@var{padding} es la cantidad de espacio vacío que debe estar presente
+entre el final de un pentagrama y el principio del siguiente.  Se
+diferencia de @var{minimum-distance} en que el efecto de @var{padding}
+depende de la altura de los objetos que están sobre el pentagrama.
+Por ejemplo, es más probable que @var{padding} entre en efecto para
+pentagramas que tienen notas muy agudas por encima de la pauta.
+
+@item
+@var{stretchability} controla la propensión del espacio ensanchable a
+ampliarse cuando lo hace el sistema.  Los valores grandes producen que
+un sistema se amplíe más, mientras que un valor de cero evita que el
+espacio se amplíe en absoluto.  Si se deja sin establecer, el valor
+predeterminado de @var{stretchability} será @code{space -
+minimum-distance}.
+@end itemize
+
+@lilypond[verbatim]
+#(set-global-staff-size 16)
+\new StaffGroup <<
+  % Since space is small and there is no minimum-distance, the distance
+  % between this staff and the next will be determined by padding.
+  \new Staff \with {
+    \override VerticalAxisGroup #'next-staff-spacing =
+      #'((space . 1) (padding . 1))
+  }
+  { \clef bass c, }
+  % Since space is small and nothing sticks out very far, the distance
+  % between this staff and the next will be determined by minimum-distance.
+  \new Staff \with {
+    \override VerticalAxisGroup #'next-staff-spacing =
+      #'((space . 1) (minimum-distance . 12))
+  }
+  { \clef bass c, }
+  % By setting padding to a negative value, staves can be made to collide.
+  \new Staff \with {
+    \override VerticalAxisGroup #'next-staff-spacing =
+      #'((space . 4) (padding . -10))
+  }
+  { \clef bass c, }
+  \new Staff { \clef bass c, }
+>>
+@end lilypond
+
+
+En partituras grandes como las orquestales, es común colocar los
+pentagramas en grupos.  El espacio entre los grupos suele ser mayor
+que el espacio que hay entre los pentagramas dentro del mismo grupo.
+Este espacio se puede manipular con el grob @var{StaffGrouper}: el
+valor predeterminado de @var{next-staff-spacing} para
+@var{VerticalAxisGroup} es una función de @q{callback} que opera por
+el procedimiento de buscar un grob @var{StaffGrouper} que contenga al
+pentagrama.  Si encuentra un grob @var{StaffGrouper} y el pentagrama
+en cuestión está en mitad de un grupo, lee la propiedad
+@var{between-staff-spacing} de @var{StaffGrouper} y la devuelve.  Si
+el pentagrama en cuestión es el último de un grupo, la función de
+@q{callback} lee la propiedad @var{after-last-staff-spacing} de
+@var{StaffGrouper} y la devuelve.  Si no encuentra un grob
+@var{StaffGrouper}, lee @var{default-next-staff-spacing} a partir de
+su @var{VerticalAxisGroup} y lo devuelve.
+
+@lilypond[verbatim]
+#(set-global-staff-size 16)
+<<
+  \new PianoStaff \with {
+    \override StaffGrouper #'between-staff-spacing #'space = #1
+    \override StaffGrouper #'between-staff-spacing #'padding = #0
+    \override StaffGrouper #'after-last-staff-spacing #'space = #20
+  }
+  <<
+    \new Staff c'1
+    \new Staff c'1
+  >>
+
+  \new StaffGroup \with {
+    \override StaffGrouper #'between-staff-spacing #'space = #1
+    \override StaffGrouper #'between-staff-spacing #'padding = #0
+  }
+  <<
+    \new Staff c'1
+    \new Staff c'1
+  >>
+>>
+@end lilypond
+
+
+@unnumberedsubsubsec Espaciado de las líneas que no son pautas
+
+Después de que se han determinado las posiciones de los pentagramas,
+se distribuyen las líneas que no son pautas entre los pentagramas.
+Cada una de esas líneas tiene una propiedad @var{staff-affinity} que
+controla su alineamiento vertical.  Por ejemplo:
 
 @example
-\override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
+\new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #DOWN @}
 @end example
 
 @noindent
-Esto fija el tamaño vertical del pentagrama en curso a 3 espacios de
-pentagrama a cada lado de la tercera línea.  El valor @code{(-3 . 3)}
-se interpreta como un intervalo, donde la línea central es el 0, por
-lo que el primer número es negativo en general.  Los números no tienen
-que coincidir; por ejemplo, el pentagrama se puede hacer mayor por
-debajo dándole el valor @code{(-6 . 4)}.
+crea un contexto de letra que se situará junto al pentagrama que tiene
+por debajo.  El establecimiento de @var{staff-affinity} a algo que no
+sea un número (@code{#f}, por ejemplo) hace que la línea se trate como
+si fuera una pauta.  De forma recíproca, el establecimiento de
+@var{staff-affinity} para un pentagrama hace que se le trate como si
+no fuera una pauta.
 
-@ignore
-FIXME: update this section
+Las líneas que no son pautas admiten tres propiedades para controlar
+su espaciado.  Cada una de estas propiedades es una lista-A del mismo
+formato que @var{next-staff-spacing}, véase más arriba.
+@itemize
+@item
+Si la línea más cercana en la dirección de @var{staff-affinity} es una
+pauta, entonces @var{inter-staff-spacing} da el espacio entre la línea
+que no es una pauta y la pauta.  Si @var{staff-affinity} es
+@code{CENTER}, entonces se usa @var{inter-staff-spacing} para las dos
+direcciones.
 
-Después de que se han determinado los saltos de página, se reevalúa el
-espaciado vertical dentro de cada sistema para llenar la página de
-forma más regular; si una página tiene más espacio de sobra, se
-amplían los sistemas para poder llenar este espacio.  La magnitud de
-esta ampliación se puede configurar a través de la propiedad
-@code{max-stretch} del grob @rinternals{VerticalAlignment}. De forma
-predeterminada, @code{max-stretch} se establece a cero, inhabilitando
-la ampliación. Para habilitar la ampliación, un valor prudente para
-@code{max-stretch} es @code{ly:align-interface::calc-max-stretch}.
+@item
+Si línea más cercana en la dirección de @var{staff-affinity} no es una
+pauta, entonces @var{inter-loose-line-spacing} da el espaciado entre
+las dos líneas que no son pautas.
 
-En ciertas situaciones, podemos querer ampliar la mayor parte de un
-sistema y al mismo tiempo dejar algunas partes fijas.  Por ejemplo, si
-una parte de piano aparece en el medio de una partitura orquestal,
-podemos querer dejar los pentagramas de piano cercanos entre sí
-mientras se estira el resto de la partitura.  Se puede usar la
-propiedad @code{keep-fixed-while-stretching} de
-@rinternals{VerticalAxisGroup} para conseguirlo.  Cuando se establece
-al valor @code{##t}, esta propiedad evita que su pentagrama (o línea
-de letra) se desplace en relación al que está directamente encima de
-él.  En el ejemplo anterior, podríamos sobreescribir
-@code{keep-fixed-while-stretching} al valor @code{##t} en el segundo
-pentagrama del piano:
+@item
+Si la línea más cercana en la dirección opuesta a @var{staff-affinity}
+es una pauta, entonces @var{non-affinity-spacing} da el espacio entre
+la línea que no es una pauta y la pauta.  esto se puede usar, por
+ejemplo, para requerir una cantidad de relleno mínima entre una línea
+de letra y el pentagrama a que no pertenece.
+@end itemize
 
 @lilypond[verbatim]
-#(set-default-paper-size "a6")
-#(set-global-staff-size 14.0)
-
-\book {
-\paper {
-  ragged-last-bottom = ##f
+#(set-global-staff-size 16)
+\layout {
+  \context {
+    \Lyrics
+    % By default, Lyrics are placed close together. Here, we allow them to
+    % be stretched more widely.
+    \override VerticalAxisGroup
+      #'inter-loose-line-spacing #'stretchability = #1000
+  }
 }
 
-\new Score \with
-{
-  \override VerticalAlignment #'max-stretch = #ly:align-interface::calc-max-stretch
-}
-{
-\new GrandStaff
+\new StaffGroup
 <<
-  \new StaffGroup
-  <<
-    \new Staff {c' d' e' f'}
-    \new Staff {c' d' e' f'}
-    \new Staff {c' d' e' f'}
-  >>
-
-  \new PianoStaff
-  <<
-    \new Staff {c' d' e' f'}
-    \new Staff \with {
-      \override VerticalAxisGroup #'keep-fixed-while-stretching = ##t
-    }
-    {c' d' e' f'}
-  >>
-
-  \new StaffGroup
-  <<
-    \new Staff {c' d' e' f'}
-    \new Staff {c' d' e' f'}
-  >>
+  \new Staff \with {
+    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 30)) }
+    { c'1 }
+  \new Lyrics \with {
+    \override VerticalAxisGroup #'staff-affinity = #UP }
+    \lyricmode { up }
+  \new Lyrics \with {
+    \override VerticalAxisGroup #'staff-affinity = #CENTER }
+    \lyricmode { center }
+  \new Lyrics \with {
+    \override VerticalAxisGroup #'staff-affinity = #DOWN }
+    \lyricmode { down }
+  \new Staff
+    { c'1 }
 >>
-}
-}
 @end lilypond
-@end ignore
-
-La alineación vertical de los pentagramas está manejada por el objeto
-@code{VerticalAlignment}.  Los parámetros de contexto que especifican
-las dimensiones verticales están descritas en conexión con el grabador
-@code{Axis_group_engraver}.
-
 
 @seealso
 Fragmentos de código:
@@ -1398,65 +1634,57 @@ Fragmentos de código:
 @c @lsr{spacing,alignment-vertical-spacing.ly}.
 
 Referencia de funcionamiento interno:
+@rinternals{VerticalAxisGroup},
 @rinternals{VerticalAlignment},
 @rinternals{Axis_group_engraver}.
 
+@knownissues
+Las líneas adyacentes que no son pentagramas debieran tener valores de
+@var{staff-affinity} no crecientes desde arriba hasta abajo.  Por
+ejemplo, el comportamiento de
+@example
+<<
+  \new Staff c
+  \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #DOWN @}
+  \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #UP @}
+  \new Staff c
+>>
+@end example
+es indeterminado.
+
+Una línea que no es una pauta, al final de un sistema, debiera tener
+establecido @var{staff-affinity} al valor @code{UP}.  De forma
+similar, una línea que no es una pauta al principio de un sistema
+debiera tener @var{staff-affinity} establecido al valor @code{DOWN}.
 
 @node Espaciado vertical entre sistemas
 @subsection Espaciado vertical entre sistemas
 @translationof Vertical spacing between systems
 
-La separación entre los sistemas está controlada por cuatro variables
-del papel:
+Los mecanismos que controlan el espaciado entre sistemas son similares
+a los que controlan el espaciado dentro de un sistema (véase
+@ref{Espaciado vertical dentro de un sistema}).  La diferencia
+principal es que las variables para controlar el espaciado entre
+sistemas se establece dentro del bloque @code{\paper} en lugar de
+hacerlo como propiedades de grob.  Estas variables del bloque paper
+son @var{between-system-spacing}, @var{between-scores-system-spacing},
+@var{after-title-spacing}, @var{before-title-spacing},
+@var{between-title-spacing}, @var{top-system-spacing},
+@var{top-system-spacing}, @var{top-title-spacing} y
+@var{bottom-system-spacing}.  Observe que estas variables ignoran las
+líneas que nos son pautas.  Por ejemplo, @var{between-system-spacing}
+controla el espaciado desde la línea media del pentagrama inferior de
+un sistema hasta la línea del pentagrama superior del sistema
+siguiente, tanto si hay letra debajo del sistema superior como si no.
+Consulte @ref{Dimensiones verticales} para ver una descripción de cada
+una de dichas variables.
 
-@example
-\paper @{
-  between-system-space = 1.5\cm
-  between-system-padding = #1
-  ragged-bottom=##f
-  ragged-last-bottom=##f
-@}
-@end example
-
-Cuando sólo se ponen dos simples sistemas en una página, el espaciado
-vertical resultante puede ser bastante poco elegante: un sistema en la
-parte alta de la página y el otro en la parte baja, con un enorme
-hueco entre ellos.  Para evitar esta situación se puede limitar el
-espacio que se añade entre los sistemas.  Esta posibilidad se activa
-mediante el establecimiento al valor @code{#t} de la variable
-@code{page-limit-inter-system-space} en el bloque @code{\paper}.  La
-variable del papel @code{page-limit-inter-system-space-factor}
-determina en qué cantidad se puede incrementar el espacio: por
-ejemplo, el valor @code{1.3} significa que el espacio puede ser un
-30% mayor que lo que sería en una página no justificada hasta abajo.
-
-En el ejemplo siguiente, si el espacio entre los sistemas no estuviese
-limitado, el segundo sistema de la página 1 se situaría en la parte de
-abajo de la página.  Activando la limitación de espacio, el segundo
-sistema se coloca más cerca del primero.  Estableciendo
-@code{page-limit-inter-system-space-factor} a @code{1}, el espacio
-sería el mismo que en una página sin justificar por abajo, como la
-última página.
-
-@lilypond[verbatim]
-#(set-default-paper-size "a6")
-\book {
-  \paper {
-    page-limit-inter-system-space = ##t
-    page-limit-inter-system-space-factor = 1.3
-
-    oddFooterMarkup = \markup "page bottom"
-    evenFooterMarkup = \markup "page bottom"
-    oddHeaderMarkup = \markup \fill-line {
-      "page top" \fromproperty #'page:page-number-string }
-    evenHeaderMarkup = \markup \fill-line {
-      "page top" \fromproperty #'page:page-number-string }
-  }
-  \new Staff << \repeat unfold 4 { g'4 g' g' g' \break }
-                { s1*2 \pageBreak } >>
-}
-@end lilypond
-
+Aún hay otras dos variables del bloque @code{\paper} que afectan al
+espaciado vertical: si @var{ragged-bottom} está ajustado a @code{##t},
+ninguna página se amplía (lo que significa que no se ampliará ni el
+espacio entre sistemas ni el espacio dentro de los sistemas).  Si el
+valor de @var{ragged-last-bottom} se ajusta a @code{##t} entonces la
+última página no se amplía.
 
 @seealso
 Fragmentos de código:
@@ -1481,14 +1709,12 @@ vertical, @code{NonMusicalPaperColumn #'line-break-system-details}
 especifica las posiciones verticales exactas en la página.
 
 @code{NonMusicalPaperColumn #'line-break-system-details} acepta una
-lista asociativa de cinco ajustes distintos:
+lista asociativa de tres ajustes distintos:
 
 @itemize
 @item @code{X-offset}
 @item @code{Y-offset}
-@item @code{alignment-offsets}
-@item @code{alignment-extra-space}
-@item @code{fixed-alignment-extra-space}
+@item @code{alignment-distances}
 @end itemize
 
 Las sobreescrituras de los objetos gráficos, entre ellas las de
@@ -1520,11 +1746,11 @@ instrucción especial @code{\overrideProperty}:
   #'line-break-system-details #'((X-offset . 20) (Y-offset . 40))
 
 \overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((alignment-offsets . (0 -15)))
+  #'line-break-system-details #'((alignment-distances . (15)))
 
 \overrideProperty NonMusicalPaperColumn
   #'line-break-system-details #'((X-offset . 20) (Y-offset . 40)
-                                 (alignment-offsets . (0 -15)))
+                                 (alignment-distances . (15)))
 @end example
 
 Para entender cómo funciona cada uno de los distintos ajustes,
@@ -1603,9 +1829,10 @@ fijamos un valor.  Observe también que aquí la propiedad
 en la que se trazará cada uno de los nuevos sistemas.
 
 Ahora que hemos establecido explícitamente el punto de origen vertical
-de cada sistema, podemos también establecer manualmente el punto de
-origen vertical de cada pentagrama dentro de cada sistema.  Lo hacemos
-usando la subpropiedad @code{alignment-offsets} de
+de cada sistema, podemos también establecer manualmente
+las distancias verticales entre
+los pentagramas dentro de cada sistema.  Lo hacemos
+usando la subpropiedad @code{alignment-distances} de
 @code{line-break-system-details}.
 
 @lilypond[quote]
@@ -1618,15 +1845,15 @@ usando la subpropiedad @code{alignment-offsets} de
         \new Voice {
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 20)
-                                           (alignment-offsets . (0 -15)))
+                                           (alignment-distances . (15)))
           s1*5 \break
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 60)
-                                           (alignment-offsets . (0 -15)))
+                                           (alignment-distances . (15)))
           s1*5 \break
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 100)
-                                           (alignment-offsets . (0 -15)))
+                                           (alignment-distances . (15)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -1645,9 +1872,9 @@ Observe que aquí asignamos dos valores distintos al atributo
 @code{line-break-system-details} acepta muchos parámetros de espaciado
 adicionales (entre ellos, por ejemplo, un par @code{X-offset}
 correspondiente), sólo tenemos que establecer el desplazamiento
-@code{Y-offset} y los pares @code{alignment-offsets} para controlar el
+@code{Y-offset} y los pares @code{alignment-distances} para controlar el
 punto de origen vertical de cada sistema y pentagrama.  Finalmente,
-observe que @code{alignment-offsets} especifica el posicionamiento
+observe que @code{alignment-distances} especifica el posicionamiento
 vertical de los pentagramas pero no de los grupos de pentagramas.
 
 @lilypond[quote]
@@ -1660,15 +1887,15 @@ vertical de los pentagramas pero no de los grupos de pentagramas.
         \new Voice {
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 0)
-                                           (alignment-offsets . (0 -30 -40)))
+                                           (alignment-distances . (30 10)))
           s1*5 \break
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 60)
-                                           (alignment-offsets . (0 -10 -20)))
+                                           (alignment-distances . (10 10)))
           s1*5 \break
           \overrideProperty #"Score.NonMusicalPaperColumn"
             #'line-break-system-details #'((Y-offset . 100)
-                                           (alignment-offsets . (0 -10 -40)))
+                                           (alignment-distances . (10 30)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -1685,10 +1912,11 @@ vertical de los pentagramas pero no de los grupos de pentagramas.
 Algunos puntos que tener en cuenta:
 
 @itemize
-@item Al usar @code{alignment-offsets}, la letra cuenta como un pentagrama.
+@item Al usar @code{alignment-distances}, la letra
+y otras líneas que no son pautas, no cuentan como un pentagrama.
 
 @item Las unidades de los números que se pasan a @code{X-offset},
-@code{Y-offset} y @code{alignment-offsets} se interpretan como
+@code{Y-offset} y @code{alignment-distances} se interpretan como
 múltiplos de la distancia entre líneas de pentagrama adyacentes.  Los
 valores positivos mueven a los pentagramas y a la letra hacia arriba,
 los valores negativos mueven los pentagramas y la letra hacia abajo.
@@ -1700,71 +1928,6 @@ límites del papel, o incluso imprimir pentagramas o sistemas unos
 encima de otros.  Esto se evitaría pasando a los diferentes ajustes
 unos valores razonables.
 @end itemize
-
-
-@seealso
-Fragmentos de código:
-@rlsr{Spacing}.
-
-
-@node Espaciado vertical en dos fases
-@subsection Espaciado vertical en dos fases
-@translationof Two-pass vertical spacing
-
-@warning{El espaciado vertical en dos pasadas está obsoleto y se
-eliminará en una versión futura de LilyPond.  Ahora los sistemas se
-amplían automáticamente en un solo paso.  Véase @ref{Espaciado vertical dentro de un sistema}.}
-
-In order to automatically stretch systems so that they should fill the
-space left on a page, a two-pass technique can be used:
-
-@enumerate
-@item In the first pass, the amount of vertical space used to increase
-the height of each system is computed and dumped to a file.
-@item In the second pass, spacing inside the systems are
-stretched according to the data in the page layout file.
-@end enumerate
-
-The @code{ragged-bottom} property adds space between systems, while
-the two-pass technique adds space between staves inside a system.
-
-To allow this behavior, a @code{tweak-key} variable has to be set in
-each score @code{\layout} block, and the tweaks included in each score
-music, using the @code{\scoreTweak} music function.
-
-@quotation
-@verbatim
-%% include the generated page layout file:
-\includePageLayoutFile
-
-\score {
-  \new StaffGroup <<
-    \new Staff <<
-      %% Include this score tweaks:
-      \scoreTweak "scoreA"
-      { \clef french c''1 \break c''1 }
-    >>
-    \new Staff { \clef soprano g'1 g'1 }
-    \new Staff { \clef mezzosoprano e'1 e'1 }
-    \new Staff { \clef alto g1 g1 }
-    \new Staff { \clef bass c1 c1 }
-  >>
-  \header {
-    piece = "Score with tweaks"
-  }
-  %% Define how to name the tweaks for this score:
-  \layout { #(define tweak-key "scoreA") }
-}
-@end verbatim
-@end quotation
-
-For the first pass, the @code{dump-tweaks} option should be set to
-generate the page layout file.
-
-@example
-lilypond -dbackend=null -d dump-tweaks <file>.ly
-lilypond <file>.ly
-@end example
 
 
 @seealso
@@ -1943,8 +2106,11 @@ semicorcheas al ejemplo anterior, irían seguidas por medio ACB:
 c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 @end lilypond
 
-En la introducción (véase @rlearning{Grabado}), se explicó que las
-direcciones de las plicas influyen en el espaciado.  Esto se controla
+
+En el @emph{Ensayo sobre grabado musical automatizado},
+se explicó que las
+direcciones de las plicas influyen en el espaciado
+(véase @ressay{Espaciado óptico}).  Esto se controla
 con la propiedad @code{stem-spacing-correction} en el objeto
 @rinternals{NoteSpacing}.  Estos se generan para cada uno de los
 contextos de @rinternals{Voice}.  El objeto @code{StaffSpacing}
@@ -2135,6 +2301,9 @@ Si se fija un valor verdadero para @code{ragged-right} en el bloque
 horizontal natural, en lugar de repartirse horizontalmente hasta
 llenar toda la línea.  Esto es útil para fragmentos cortos, y para
 comprobar qué tan apretado es el espaciado natural.
+El valor normal predeterminado es falso, pero si la partitura
+tiene un solo sistema, el valor predeterminado es verdadero.
+
 
 @cindex diseño de página
 @cindex página, disposición de la
@@ -2607,6 +2776,7 @@ superior del intervalo.
 
 
 @seealso
+Referencia de la notación:
 @ref{Establecer el tamaño del pentagrama}.
 
 Fragmentos de código:
@@ -2633,8 +2803,7 @@ parte baja del papel.
 
 @example
 \paper @{
-  between-system-padding = #0.1
-  between-system-space = #0.1
+  between-system-spacing = #'((padding . 0) (space . 0.1))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}
