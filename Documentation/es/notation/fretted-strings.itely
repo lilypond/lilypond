@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9318dde7b34435a3fdb2e1a7e0ddcf0f86e936ae
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -65,7 +65,8 @@ manual:
 
 @itemize
 @item
-Las digitaciones se indican como se explica en @ref{Indicaciones de digitación}.
+Las digitaciones se indican como se explica en @ref{Indicaciones de
+digitación}.
 
 @item
 Las instrucciones para ligaduras @notation{Laissez vibrer} así como
@@ -157,23 +158,70 @@ Referencia de funcionamiento interno:
 @funindex TabStaff
 @funindex TabVoice
 
-La notación de tablatura se utiliza para la notación de música de
-instrumentos de cuerda pulsada.  Las alturas no se denotan mediante
-cabezas de nota, sino mediante números que indican sobre qué cuerda y
-traste se debe tocar la nota.  LilyPond contempla las tablaturas de
-forma limitada.
+La notación para instrumentos de cuerda pulsada se realiza con
+frecuencia utilizando un sistema de dedos y cifras, o tablatura.  A
+diferencia de la notación tradicional, las notas no se designan
+mediante figuras, sino mediante números que indican sobre qué cuerda y
+traste se debe tocar la nota.  Los números se imprimen verticalmente
+unos encima de otros si las notas son simultáneas.
 
-El número de cuerda asociado a una nota se proporciona en la forma de
-una barra invertida seguida por un número, p.ej. @code{c4\3} es un Do
-negra sobre la tercera cuerda.  Por defecto, la cuerda 1 es la más
-aguda, y la afinación normal es la afinación estándar de guitarra (con
-6 cuerdas).  Las notas se imprimen como tablatura, usando lo contextos
-@rinternals{TabStaff} y @rinternals{TabVoice}:
+De forma predeterminada, la cuerda 1 es la más aguda, y la afinación
+normal es la afinación estándar de guitarra (con 6 cuerdas).  Las
+notas se imprimen como tablatura, usando los contextos @code{TabStaff}
+y @code{TabVoice}:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\new TabStaff {
-  a,4\5 c'\2 a\3 e'\1
-  e\4 c'\2 a\3 e'\1
+\new TabStaff \relative c' {
+	a,8 a' <c e> a
+	d, a' <d f> a
+}
+@end lilypond
+
+Las tablaturas predeterminadas no contienen símbolos para la duración
+de las notas ni ningún otro símbolo musical, como p.ej. indicaciones
+expresivas.
+
+@lilypond[quote,ragged-right,verbatim]
+symbols = {
+  \time 3/4
+  c4-.^"Allegro" d( e)
+  f4-.\f g a^\fermata
+  \mark \default
+  c8_.\<\( c16 c ~ c2\!
+  c'2.\prall\)
+}
+
+\score {
+  <<
+    \new Staff { \clef "G_8" \symbols }
+    \new TabStaff   { \symbols }
+  >>
+}
+@end lilypond
+
+@funindex \tabFullNotation
+
+Si queremos que todos los símbolos musicales que se usan en la
+notación tradicional aparezcan también en la tablatura, tenemos que
+aplicar la instrucción @code{\tabFullNotation} dentro de un contexto
+@code{TabStaff}.  Tenga en cuenta que, en la tablatura, las blancas
+tienen doble plica para poder distinguirlas de las negras.
+
+@lilypond[quote,ragged-right,verbatim]
+symbols = {
+  \time 3/4
+  c4-.^"Allegro" d( e)
+  f4-.\f g a^\fermata
+  \mark \default
+  c8_.\<\( c16 c ~ c2\!
+  c'2.\prall\)
+}
+
+\score {
+  \new TabStaff {
+    \tabFullNotation
+    \symbols
+  }
 }
 @end lilypond
 
@@ -181,25 +229,110 @@ aguda, y la afinación normal es la afinación estándar de guitarra (con
 
 @cindex traste
 
-Si se especifica ninguna cuerda para una nota, se le asigna la cuerda
-más aguda que produce la nota con un número de traste mayor o igual
-que el valor de @code{minimumFret} (traste mínimo).  El valor
-predeterminado de @code{minimumFret} es cero.
+De forma predeterminada, las notas se asignan a la posición más baja
+del mástil (primera posición).  Las cuerdas al aire se toman como
+preferencia, automáticamente.  Si queremos que una nota determinada se
+toque sobre una cuerda concreta, podemos añadir una indicación de
+número de cuerda al nombre de la nota.  Si definimos los nombres de
+nota y los números de cuerda sin una construcción de acorde
+(@code{<>}), las indicaciones de número de cuerda no aparecerán en la
+notación tradicional.  Es mucho más cómodo definir la posición
+utilizando el valor de @code{minimumFret}.  El valor predeterminado de
+es 0.
+
 
 @lilypond[quote,ragged-right,verbatim]
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
+     \time 2/4
      c16 d e f g4
+     c,16\5 d\5 e\4 f\4 g4\4
      c,16 d e f g4
    }
    \new TabStaff \relative c {
      c16 d e f g4
+     c,16\5 d\5 e\4 f\4 g4\4
      \set TabStaff.minimumFret = #5
      c,16 d e f g4
    }
 >>
 @end lilypond
+
+Las ligaduras de unión que cruzan saltos de línea llevan paréntesis de
+forma predeterminada.  Lo mismo rige para la casilla de segunda vez de
+una repetición.
+
+@lilypond[quote,ragged-right,verbatim]
+ties = \relative c' {
+	\repeat volta 2 {
+	e2. f4~
+	f2 g2~ }
+	\alternative {
+		{ g4 f2. }
+		{ g4\repeatTie c,2. }
+	}
+	b1~\break
+	b1  \bar "|."
+}
+
+\score {
+  <<
+    \new StaffGroup  <<
+    \context Staff  {
+        \clef "treble_8"
+        \ties
+    }
+      \context TabStaff  {
+        \ties
+      }
+    >>
+  >>
+  \layout {
+  indent = #0
+  ragged-right = ##t
+  }
+}
+@end lilypond
+
+@funindex \hideSplitTiedTabNotes
+
+La instrucción @code{\hideSplitTiedTabNotes} cancela el comportamiento
+de imprimir los números de traste entre paréntesis:
+
+@lilypond[quote,ragged-right,verbatim]
+ties = \relative c' {
+	\repeat volta 2 {
+	e2. f4~
+	f2 g2~ }
+	\alternative {
+		{ g4 f2. }
+		{ g4\repeatTie c,2. }
+	}
+	b1~\break
+	b1  \bar "|."
+}
+
+\score {
+  <<
+    \new StaffGroup  <<
+    \context Staff  {
+        \clef "treble_8"
+        \ties
+    }
+      \context TabStaff  {
+      \hideSplitTiedTabNotes
+        \ties
+      }
+    >>
+  >>
+  \layout {
+  indent = #0
+  ragged-right = ##t
+  }
+}
+@end lilypond
+
 
 @cindex armónicos en tablatura
 @cindex tablatura y armónicos
@@ -209,13 +342,14 @@ predeterminado de @code{minimumFret} es cero.
 Se pueden añadir indicaciones de armónicos y @emph{slides} o
 deslizamientos a la notación de tablatura.
 
-@lilypond[fragment, verbatim, quote, relative=1]
+@lilypond[verbatim, quote, relative=1]
 \new TabStaff {
   \new TabVoice {
     <c g'\harmonic> d\2\glissando e\2
   }
 }
 @end lilypond
+
 
 @snippets
 
@@ -281,10 +415,10 @@ Los efectos especiales de guitarra se limitan a armónicos y @emph{slides}.
 La tablatura en LilyPond calcula automáticamente el traste para cada
 nota, basándose en la cuerda a que está asignada la nota.  Para
 hacerlo, es necesario especificar la afinación de las cuerdas.  La
-afinación de las cuerdas se da en la propiedad @code{StringTunings}.
+afinación de las cuerdas se da en la propiedad @code{stringTunings}.
 
 LilyPond trae afinaciones predefinidas para el banjo, la mandolina, la
-guitarra y el bajo.  LilyPond establece automáticamente la
+guitarra, el bajo y el ukelele.  LilyPond establece automáticamente la
 transposición correcta para las afinaciones predefinidas.  El ejemplo
 siguiente es para bajo, que suena una octava por debajo de lo escrito.
 
@@ -310,7 +444,7 @@ estándar Mi-La-Re-Sol-Si-Mi).  Otras afinaciones predefinidas son
 @code{guitar-open-g-tuning} (Sol Mayor al aire, Re-Sol-Re-Sol-Si-Re),
 @code{mandolin-tuning} (mandolina) y @code{banjo-open-g-tuning} (banjo
 con Sol Mayor al aire).  Las afinaciones predefinidas están en
-@code{scm/output-lib.scm}.
+@code{scm/tablature.scm}.
 
 Una afinación de las cuerdas es una lista de Scheme de alturas, una
 por cada cuerda, ordenadas de 1 a N, donde la cuerda 1 está arriba en
@@ -355,13 +489,18 @@ mynotes = {
 
 @seealso
 Archivos de inicio:
-@file{scm/output-lib.scm}.
+@file{scm/@/tablature@/.scm}.
 
 Fragmentos de código:
 @rlsr{Fretted strings}.
 
 Referencia de funcionamiento interno:
 @rinternals{Tab_note_heads_engraver}.
+
+@knownissues
+Los cálculos de tablatura automáticos no funcionan bien en la mayoría
+de los casos para instrumentos en que la afinación de las cuerdas no
+varía de forma monótona con el número de cuerda, como el ukelele.
 
 
 @node Marcas de diagramas de trastes
@@ -465,7 +604,7 @@ la cadena de marcado del diagrama.
      }
   }
   \context Staff {
-        %% A chord for ukulele
+        %% An A chord for ukulele
     a'1 ^\markup \fret-diagram #"w:4;4-2-2;3-1-1;2-o;1-o;"
   }
 >>
@@ -783,6 +922,24 @@ predefinidos se pueden añadir para otros instrumentos u otras
 afinaciones siguiendo los ejemplos que aparecen en
 @code{predefined-guitar-fretboards.ly}.
 
+Los diagramas de posiciones para el ukelele están en el archivo
+@code{predefined-ukulele-fretboards.ly}.
+
+@lilypond[verbatim, ragget-right, quote]
+\include "predefined-ukulele-fretboards.ly"
+
+myChords = \chordmode { a1 a:m a:aug }
+
+\new ChordNames {
+  \myChords
+}
+
+\new FretBoards {
+  \set stringTunings = #ukulele-tuning
+  \myChords
+}
+@end lilypond
+
 Las notas de los acordes se pueden introducir como música simultánea o
 bien usando el modo de acordes (véase @ref{Panorámica del modo de acordes}).
 
@@ -852,19 +1009,22 @@ mychordlist = {
 @end lilypond
 
 
-La tabla de diagramas de traste predefinidos contiene siete acordes
-(mayor, menor, aumentado, disminuido, séptima dominante, séptima mayor
-y menor séptima) para 17 tonalidades distintas.  Se puede ver una
-lista completa de los diagramas de traste predefinidos en
-@ref{Diagramas predefinidos de trastes}.  Si no hay una entrada en la
-tabla para un acorde, el grabador FretBoards calcula un cadena de
-diagrama fret-diagram usando la funcionalidad de diagramas automáticos
-que se describe en @ref{Diagramas de traste automáticos}.
+La tabla de diagramas de traste predefinidos para la guitarra contiene
+ocho acordes (mayor, menor, aumentado, disminuido, séptima dominante,
+séptima mayor, menor séptima y novena domniante) para 17 tonalidades
+distintas.  The predefined fret diagram table for ukulele contains
+these chords plus an additional three chords (major sixth, suspended
+second, and suspended fourth).  Se puede ver una lista completa de los
+diagramas de traste predefinidos en @ref{Diagramas predefinidos de
+trastes}.  Si no hay una entrada en la tabla para un acorde, el
+grabador FretBoards calcula un cadena de diagrama fret-diagram usando
+la funcionalidad de diagramas automáticos que se describe en
+@ref{Diagramas de traste automáticos}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 mychords = \chordmode{
-  c1 c:9
+  c1 c:maj9
 }
 
 <<
@@ -891,12 +1051,12 @@ fret-diagram-verbose.
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram \chordmode {c:9}
+\storePredefinedDiagram \chordmode {c:maj9}
                         #guitar-tuning
-                        #"x;3-2;2-1;3-3;3-4;x;"
+                        #"x;3-2;o;o;o;o;"
 
 mychords = \chordmode{
-  c1 c:9
+  c1 c:maj9
 }
 
 <<
@@ -1011,8 +1171,8 @@ Referencia de la notación:
 @ref{Diagramas predefinidos de trastes}.
 
 Archivos de inicio:
-@file{ly/predefined-guitar-fretboards.ly},
-@file{ly/predefined-guitar-ninth-fretboards.ly}.
+@file{ly/@/predefined@/-guitar@/-fretboards@/.ly},
+@file{ly/@/predefined@/-guitar@/-ninth@/-fretboards@/.ly}.
 
 Fragmentos de código:
 @rlsr{Fretted strings}.
@@ -1176,6 +1336,10 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals {fret-diagram-interface}.
 
+@knownissues
+Los cálculos de tablatura automáticos no funcionan bien para
+instrumentos con afinaciones no monótonas.
+
 
 @node Digitaciones de la mano derecha
 @unnumberedsubsubsec Digitaciones de la mano derecha
@@ -1211,6 +1375,7 @@ corto, como por ejemplo @code{RH}:
 @example
 #(define RH rightHandFinger)
 @end example
+
 
 @snippets
 
@@ -1293,7 +1458,7 @@ Se pueden usar cabezas de nota especiales para indicar notas apagadas
 o armónicos.  Los armónicos se suelen explicar de forma más completa
 con un marcado de texto.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \relative c' {
   \clef "treble_8"
   \override Staff.NoteHead #'style = #'cross
@@ -1375,6 +1540,6 @@ cuatro cuerdas utilizando la función @code{four-string-banjo}:
 Fragmentos de código:
 @rlsr{Fretted strings}.
 
-El archivo @file{scm/@/output@/-lib@/.scm} contiene las afinaciones
+Archivos de inicio:
+@file{scm/@/output@/-lib@/.scm} contiene las afinaciones
 predefinidas para el banjo.
-

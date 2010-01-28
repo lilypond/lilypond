@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -24,6 +24,7 @@ un tipo específico o dentro de estilos específicos.
 * Percusión::
 * Instrumentos de viento::
 * Notación de acordes::
+* Música contemporánea::
 * Notación antigua::
 * Músicas del mundo::
 @end menu
@@ -35,5 +36,6 @@ un tipo específico o dentro de estilos específicos.
 @include notation/percussion.itely
 @include notation/wind.itely
 @include notation/chords.itely
+@include notation/contemporary.itely
 @include notation/ancient.itely
 @include notation/world.itely

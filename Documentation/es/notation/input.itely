@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 5f51567fbc5d7a811e147ebd01f103e066f36b3a
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -262,7 +262,7 @@ del nivel superior, y se combina con ellas formando un @code{\book}
 (libro) único.  Este comportamiento se puede cambiar estableciendo el
 valor de la variable @code{toplevel-score-handler} en el nivel
 superior.  El @emph{handler} predeterminado se define en el archivo de
-inicio @file{../scm/@/lily@/.scm}.
+inicio @file{../@/scm/@/lily@/.scm}.
 
 @item
 Un bloque @code{\book} combina lógicamente varios movimientos (es
@@ -279,7 +279,7 @@ explícitamente un bloque @code{\book} si queremos tener más de una
 ejemplo.  Se puede cambiar este comportamiento estableciendo el valor
 de la variable @code{toplevel-book-handler} en el nivel superior.  El
 @emph{handler} predeterminado se define en el archivo de inicio
-@file{../scm/@/lily@/.scm}.
+@file{../@/scm/@/lily@/.scm}.
 
 @item
 Un bloque @code{\bookpart}.  Un libro puede dividirse en varias
@@ -315,7 +315,7 @@ contiene sólo la expresión musical anterior se traduce a
 Se puede cambiar este comportamiento estableciendo el valor de la
 variable @code{toplevel-music-handler} en el nivel más alto.  El
 @emph{handler} predeterminado se define en el archivo de inicio
-@file{../scm/@/lily@/.scm}.
+@file{../@/scm/@/lily@/.scm}.
 
 @item
 Un texto de marcado, por ejemplo una estrofa
@@ -617,9 +617,9 @@ falso.
 @translationof Custom titles
 
 Una opción más avanzada es cambiar las definiciones de las variables
-siguientes dentro del bloque @code{\paper}.  El archivo de
-inicio @file{ly/titling-init.ly} ofrece un listado de la disposición
-predeterminada.
+siguientes dentro del bloque @code{\paper}.  El archivo de inicio
+@file{../@/ly/@/titling@/-init@/.ly} ofrece un listado de la
+disposición predeterminada.
 
 @table @code
 @funindex bookTitleMarkup
@@ -846,7 +846,7 @@ tocAct =
 
 @seealso
 Archivos de inicio:
-@file{ly/@/toc@/-init@/.ly}.
+@file{../@/ly/@/toc@/-init@/.ly}.
 
 
 @predefined
@@ -1316,7 +1316,11 @@ costumbre indicar los cuatro caracteres en la representación
 hexadecimal (observe que @emph{no} debe utilizarse la codificación
 UTF-8 del punto de código Unicode después de @code{\char}, pues la
 codificación UTF-8 contiene bits adicionales que indican el número de
-octetos.)
+octetos).  Hay tablas de códigos Unicode y un índice de nombres de
+caracteres que da el punto de código en hexadecimal para cualquier
+carácter en el portal del Consorcio Unicode,
+@uref{http://www.unicode.org/}.
+
 
 Por ejemplo, tanto @code{\char ##x03BE} como @code{\char #958}
 insertan el carácter Unicode U+03BE, que tiene el nombre Unicode
@@ -1396,6 +1400,7 @@ lilypond archivo.ly >resultado.txt
 @menu
 * Extracción de fragmentos de música::
 * Saltar la música corregida::
+* Formatos de salida alternativos::
 @end menu
 
 @node Extracción de fragmentos de música
@@ -1486,6 +1491,23 @@ y los cambios de instrumento.  Está usted advertido.
 
 En música polifónica, @code{Score.skipTypesetting} afecta a todas las
 voces y pentagramas, ahorrando más tiempo incluso.
+
+@node Formatos de salida alternativos
+@subsection Formatos de salida alternativos
+@translationof Alternative output formats
+
+@cindex salida de gráficos de vector escalables
+@cindex SVG, salida
+@cindex salida de PostScript encapsulado
+@cindex EPS, salida
+@cindex PostScript encapsulado, salida de
+
+Los formatos de salida predeterminados para la partitura impresa son
+el formato de documento portátil (PDF) y PostScript (PS).  Los
+formatos de salida Gráficos de vector escalables (SVG), PostScript
+encapsulado (EPS) y Gráficos de red portátiles (PNG) también están
+disponibles a través de opciones de la línea de órdenes, véase
+@rprogram{Opciones de la línea de órdenes para lilypond}.
 
 
 @node Salida MIDI
@@ -1696,7 +1718,7 @@ tempoWholesPerMinute = #(ly:make-moment 270 8)
 Las definiciones de contexto siguen con precisión la misma sintaxis
 que la de un bloque @code{\layout}.  Los módulos de traducción para el
 sonido reciben el nombre de ejecutantes.  Los contextos para la salida
-MIDI se definen en @file{../ly/@/performer@/-init@/.ly}, véase
+MIDI se definen en @file{../@/ly/@/performer@/-init@/.ly}, véase
 @rlearning{Otras fuentes de información}.  Por ejemplo, para eliminar
 el efecto de los matices de la salida MIDI, inserte las líneas
 siguientes en el bloque @code{\midi@{ @}}.
@@ -1837,7 +1859,7 @@ Los matices o indicaciones de dinámica se traducen a una fracción fija
 del rango de volumen MIDI disponible.  Las fracciones predeterminadas
 se extienden desde 0.25 para @notation{ppppp} hasta 0.95 para
 @notation{fffff}.  El conjunto de indicaciones dinámicas y las
-fracciones asociadas pueden verse en @file{../scm/midi.scm}, véase
+fracciones asociadas pueden verse en @file{../@/scm/@/midi.scm}, véase
 @rlearning{Otras fuentes de información}.  Este conjunto de fracciones
 se puede cambiar o extender proporcionando una función que toma como
 argumento una indicación dinámica y devuelve la fracción requerida, y
@@ -1879,7 +1901,7 @@ predeterminada.
 Como alternativa, si se necesitara redefinir la tabla completa de
 fracciones, sería mejor usar el procedimiento
 @notation{default-dynamic-absolute-volume} que aparece en
-@file{../scm/midi.scm} y la tabla asociada como modelo.  El último
+@file{../@/scm/@/midi.scm} y la tabla asociada como modelo.  El último
 ejemplo de esta sección muestra cómo se puede hacer esto.
 
 @unnumberedsubsubsec Volumen maestro MIDI
@@ -1990,7 +2012,7 @@ Si las propiedades de volumen MIDI máximo y mínimo no están
 establecidas, de forma predeterminada LilyPond aplica un pequeño grado
 de ecualización a algunos instrumentos.  Los instrumentos y la
 ecualización que se aplica se muestra en la tabla
-@notation{instrument-equalizer-alist} en @file{../scm/midi.scm}.
+@notation{instrument-equalizer-alist} en @file{../@/scm/@/midi.scm}.
 
 El ecualizador básico predeterminado se puede sustituir estableciendo
 @code{instrumentEqualizer} en el contexto @code{Score} a un
@@ -2000,8 +2022,9 @@ volúmenes máximo y mínimo que se aplican a dicho instrumento.  Esta
 sustitución se hace de la misma forma que mostramos para restablecer
 la fracción de volumen absoluto @code{dynamicAbsoluteVolumeFunction}
 al comienzo de esta sección.  El ecualizador predeterminado,
-@notation{default-instrument-equalizer}, en @file{../scm/midi.scm},
-muestra cómo se puede escribir tal procedimiento.
+@notation{default-instrument-equalizer}, en
+@file{../@/scm/@/midi.scm}, muestra cómo se puede escribir tal
+procedimiento.
 
 El ejemplo siguiente establece los volúmenes relativos de la flauta y
 del clarinete a los mismos valores que el ejemplo anterior.

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 95f363f4bcd2a5b345845d3671f25eecd28d994b
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -460,7 +460,7 @@ prueba de nuevas funcionalidades.  ¡Contribuya a estas discusiones!
 @warning{En general, estos trabajos requieren que usted tenga los
 archivos de código fuente del programa y la documentación, pero no
 requieren un entorno de desarrollo completo.  Consulte
-@rcontribnamed{Starting with git,Comenzar con Git}.}
+@rcontribnamed{Starting with Git,Comenzar con Git}.}
 
 @itemize
 @item
@@ -483,7 +483,7 @@ Traducciones: consulte @rcontribnamed{Translating the documentation,Traducir la 
 
 @warning{En general, estos trabajos requieren que usted tenga el
 código fuente y sea capaz de compilar LilyPond.  Consulte
-@rcontribnamed{Starting with git,Comenzar con Git} y @rcontribnamed{Compiling LilyPond,Compilación de LilyPond}.}
+@rcontribnamed{Starting with Git,Comenzar con Git} y @rcontribnamed{Compiling LilyPond,Compilación de LilyPond}.}
 
 Sugerimos que los colaboradores nuevos que sean usuarios de Windows
 utilicen una máquina virtual para ejecutar @emph{lilybuntu}.  Consulte
@@ -637,20 +637,35 @@ menos) estable, hemos escrito un manual para los colaboradores.
 @divEnd
 
 
-@divClass{column-right-top}
+@divClass{column-center-top}
 @subheading Pruebas de regresión
 
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../../input/regression/collated-files.html, Pruebas de regresión}:
-Pruebas del lanzamiento actual. (también en
-@uref{../input/regression/collated-files.pdf, pdf})
+@ifclear web_version
 
-@item @uref{../../input/regression/musicxml/collated-files.html,
-Pruebas de regresión de MusicXML}: la pruebas de MusicXML del presente
-lanzamiento (también en
-@uref{../input/regression/musicxml/collated-files.pdf, PDF}).
+@item
+@item @uref{../../input/regression/collated-files.html, Pruebas de regresión}:
+Pruebas del lanzamiento actual.
+(@uref{../../input/regression/collated-files.pdf, versión PDF})
+
+@item
+@uref{../../input/regression/musicxml/collated-files.html, Pruebas de regresión de MusicXML}:
+las pruebas de MusicXML de la versión actual.
+(@uref{../input/regression/musicxml/collated-files.pdf, versión PDF}).
+@end ifclear
+
+@ifset web_version
+@item @regtestDevel (@regtestDevelPdf{})
+
+@item @regtestDevelXml (@regtestDevelXmlPdf{})
+
+@item @regtestStable (@regtestStablePdf{})
+
+@item @regtestStableXml (@regtestStableXmlPdf{})
+@end ifset
+
 
 @item @uref{http://lilypond.org/test, Archivo de las pruebas de regresión}:
 Comparaciones entre versiones.
@@ -663,6 +678,11 @@ Comparaciones entre versiones.
 
 @divClass{column-center-bottom}
 @subheading Manuales
+
+@ifclear web_version
+@warning{Estos manuales son para LilyPond @version{}; los manuales más recientes
+están en @url{http://lilypond.org}}
+@end ifclear
 
 @divClass{normal-table}
 @multitable @columnfractions .3 .3 .3
@@ -740,6 +760,13 @@ Comparaciones entre versiones.
 @docLinkBig{Funcionamiento interno,internals,@manualDevelInternalsBig}
 @tab
 @docLinkPdf{Funcionamiento interno,internals,@manualDevelInternalsPdf}
+
+@ifset web_version
+@headitem Para descargar
+
+@item
+@doctarballDevel
+@end ifset
 
 @end multitable
 

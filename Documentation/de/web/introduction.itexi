@@ -73,14 +73,14 @@ Unser Programm tut genau das: es setzt Noten nach den besten Traditionen des kla
 @c menu. -JM
 @divClass{hide}
 @menu
-* Features::                    What can LilyPond do?
-* Examples::                    I want to see some music!
-* Freedom::                     Freedom and the GPL.
-* Background::                  Computational aesthetics.
-* Productions::                 Real-life use of LilyPond.
-* Testimonials::                What do people say about it?
-* Text input::                  You write music as text?!
-* Easier editing::             Other ways of working with LilyPond.
+* Eigenschaften::                    What can LilyPond do?
+* Beispiele::                    I want to see some music!
+* Freiheit::                     Freedom and the GPL.
+* Hintergrund::                  Computational aesthetics.
+* Produktionen::                 Real-life use of LilyPond.
+* Empfehlungen::                What do people say about it?
+* Text-Eingabe::                  You write music as text?!
+* Leichteres Editieren::             Other ways of working with LilyPond.
 @end menu
 @divEnd
 
@@ -588,8 +588,9 @@ haben, LilyPond auszuprobieren, lesen zuerst über unsere
 @c TRANSLATORS, so far it's mostly from
 @c http://lilypond.org/web/switch/testimonials
 
-@node Testimonials
-@unnumberedsec Testimonials
+@node Empfehlungen
+@unnumberedsec Empfehlungen
+@translationof Testimonials
 
 @divClass{testimonial-item}
 @imageFloat{carter-brey,jpg, right}
@@ -678,7 +679,7 @@ dem auch nur nahe kommen kann.}
 @divClass{testimonial-item}
 @subsubheading David Bobroff, Bassposaunist, Iceland Symphonieorchester
 
-@qq{IIch finde LilyPond einfach toll [..]  Je mehr ich darüber lerne,
+@qq{Ich finde LilyPond einfach toll [..]  Je mehr ich darüber lerne,
 desto mehr mag ich es!}
 @divEnd
 
@@ -690,7 +691,7 @@ desto mehr mag ich es!}
 
 @qq{DAS IST DAS BESTE PROGRAMM ALLER ZEITEN!!!}
 
-@qq{Vielen, vielen Dank an euch alle f&uuml;r die harte Arbeit und die Hingabe!}
+@qq{Vielen, vielen Dank an euch alle für die harte Arbeit und die Hingabe!}
 @divEnd
 
 
@@ -923,7 +924,7 @@ point-and-click.
 Frescobaldi ist ein eigener Musik- und Texteditor für LilyPond
 mit eingebauter PDF-Vorschau, einer vielseitigen Hilfe zum
 Erstellen neuer Partituren und vielen Editionseigenschaften.
-Er ist auf Grundlage der KDE4-Büchereien programmiert und läuft
+Er ist auf Grundlage der KDE4-Bibliotheken programmiert und läuft
 zur Zeit auf allen Arten von Linux-Systemen und anderen
 UNIX-artigen Betriebssystemen.
 
