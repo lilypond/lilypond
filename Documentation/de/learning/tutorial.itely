@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 4582b7b24d22b2041bfcba49e716a714effcce92
+    Translation of GIT committish: 354f8ea159bb5216202e5815685fca8bd7e6919c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,7 +9,7 @@
 @end ignore
 
 @c \version "2.13.4"
-@c Translators: Till Rettig, Reinhold Kainhofer
+@c Translators: Till Paala, Reinhold Kainhofer
 @c Translation checkers: Hajo Bäß
 
 @node Übung
@@ -30,7 +30,9 @@ vor.
 @subsection Eine Quelldatei übersetzen
 @translationof Compiling a file
 
-FIXME: Text hier
+Dieser Abschnitt führt in die @qq{Kompilation} ein -- den
+Bearbeitungsprozess von LilyPond-Eingabedateien (die Sie geschrieben
+haben) um eine Ausgabedatei zu erstellen.
 
 @menu
 * Noten eingeben::              
@@ -54,13 +56,13 @@ FIXME: Text hier
 
 @qq{Kompilation} ist der Begriff, der benutzt wird, um eine
 Lilypond-Eingabedatei mit dem Programm LilyPond in eine
-Notenausgabe umzuwandeln, die ausgedruckt werden kann. 
-Zusätzlich besteht die Option, eine MIDI-Datei zu produzieren,
-die abgespielt werden kann. Das erste Beispiel zeigt, wie
-solch eine einfache Eingabedatei ausschauen kann.
+Notenausgabe umzuwandeln.  Ausgabedateien sind in erster Linie
+PDF-Dateien (zum Anschauen und Drucken), MIDI (zum Abspielen)
+und PNG (für die Benutzung auf Internetseiten).  Die Eingabedateien
+von LilyPond sind einfache Textdateien.
 
-Um Notensatz zu erstellen, muss die Notation in der Eingabedatei
-beschrieben werden. Wenn man z.@w{}B. schreibt:
+Das erste Beispiel zeigt, wie
+solch eine einfache Eingabedatei ausschauen kann.
 
 @example
 @{
@@ -68,8 +70,7 @@ beschrieben werden. Wenn man z.@w{}B. schreibt:
 @}
 @end example
 
-@noindent
-so erhält man folgendes Resultat:
+Die graphische Ausgabe ist:
 
 @c  in this case we don't want verbatim
 @lilypond[quote]
@@ -106,9 +107,7 @@ Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
 @cindex Editoren
 @cindex Texteditoren
 @cindex LilyPond unter MacOS X
-@cindex Windows, LilyPond starten
 @cindex MacOS X, LilyPond starten
-@cindex Unix, LilyPond starten
 @cindex Starten von LilyPond
 
 Das Erstellen der Notenausgabe hängt davon ab, welches Betriebssystem
@@ -148,23 +147,74 @@ diesem ersten Mal läuft LilyPond sehr viel schneller.}
 @subsection MacOS X
 @translationof MacOS X
 
-@warning{Diese Anweisungen gehen davon aus, dass Sie den installierten
-LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rweb{Alternate input} beschrieben sind, schauen
+@warning{Diese Anweisungen gehen davon aus, dass Sie die
+LilyPond-Application benutzen.  Wenn Sie eins der Programme benutzen, die in @rweb{Leichteres Editieren} beschrieben sind, schauen
 Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
 eine Datei zu kompilieren.}
 
 
-Wenn Sie das @command{LilyPond.app}-Symbol doppelt klicken, öffnet
-sich eine Beispiel-Datei. Speichern Sie sie etwa als
- @file{test.ly} auf dem Desktop und übersetzen Sie sie
-mit dem Menü-Befehl  @w{@qq{Compile > Typeset File}}.
-Die PDF-Datei mit dem fertigen Notensatz wird automatisch
-geöffnet.
+@subsubheading 1. Schritt: Erstellen Sie eine @file{.ly}-Datei
 
-Das nächste Mal, wenn Sie LilyPond benutzen, sollten Sie
- @qq{New} oder @qq{Open} wählen.  Sie müssen die Datei
-speichern, bevor Sie sie übersetzen können. Wenn es Fehler gibt,
-lesen Sie die Meldungen im Log-Fenster.
+Wenn Sie das @command{LilyPond.app}-Symbol doppelt klicken, öffnet
+sich eine Beispiel-Datei.
+
+@sourceimage{Learning_Macos_welcome,,,}
+
+Wählen Sie aus den Menüs oben links auf Ihrem Bildschirm
+@w{@code{File > Save}}.
+
+@sourceimage{Learning_Macos_Save_menu,,,}
+
+Wählen Sie einen Namen für die Datei, etwa @file{test.ly}.
+
+@sourceimage{Learning_Macos_Save_file_with_name,,,}
+
+
+@subsubheading 2. Schritt: Kompilieren (mit LilyPad)
+
+Aus den selben Menüs wählen Sie jetzt @w{@code{Compile > Tyepset}}.
+
+@sourceimage{Learning_Macos_Typeset_menu,,,}
+
+Ein neues Fenster öffnet sich, in dem ein Forschrittslog der
+Kompilation der von ihnen gerade gespeicherten Datei gezeigt
+wird.
+
+@sourceimage{Learning_Macos_Compiling_log,,,}
+
+@subsubheading 3. Schritt: Ausgabe anschauen
+
+Wenn die Kompilation fertig ist, wird ein PDF mit dem gleichen
+Namen wie das Original erstellt und automatisch mit dem
+Standard-PDF-Programm geöffnet und angezeigt.
+
+@sourceimage{Learning_Macos_pdf_output,,,}
+
+
+@subsubheading Andere Befehle
+
+Um neue LilyPond-Dateien zu erstellen beginnen sie mit
+@w{@code{File > New}}
+
+@sourceimage{Learning_Macos_New_menu,,,}
+
+@noindent
+oder @w{@code{File > Open}} um eine schon existierende Datei zu
+öffnen und zu editieren.
+
+@sourceimage{Learning_Macos_Open_menu,,,}
+
+Sie müssen alle Änderungen an der Datei zuerst speichern, bevor Sie
+wieder @w{@code{Compile > Tyepset}} wählen.  Wenn das PDF nicht
+erscheint, schauen Sie im Fortschrittslog nach Fehlern.
+
+Wenn Sie nicht das Standard-PDF-Programm benutzen, das automatisch
+bei Mac OS X dabei ist, und Sie die PDF-Datei noch von einer vorigen
+Kompilation geöffnet haben, können weitere Kompilationen fehlschlagen,
+bis Sie das Original-PDF schließen.
+
+
+@cindex Windows, LilyPond starten
 
 @node Windows
 @subsection Windows
@@ -175,31 +225,90 @@ LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rweb{Alt
 Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
 eine Datei zu kompilieren.}
 
+@subsubheading 1. Schritt: Erstellen Sie eine @file{.ly}-Datei
+
 Wenn sie auf das LilyPond-Symbol auf dem Desktop doppelklicken,
-öffnet sich ein einfacher Texteditor mit einer Beispieldatei. Speichern
-Sie sie z. B. als @file{test.ly} auf dem Desktop und klicken Sie dann
-doppelt auf die Datei, um die Übersetzung zu beginnen (das Dateisymbol 
-ist eine Note). Nach einigen
-Sekunden wird eine Datei @file{test.pdf} auf dem Desktop erscheinen.
-Mit einem Doppelklick kann das fertige Notenbild in 
-der PDF-Datei angezeigt werden.
-Eine Alternative ist es, die @file{test.ly}-Datei mit der Maus auf das
-LilyPond-Symbol zu ziehen.
+öffnet sich ein einfacher Texteditor mit einer Beispieldatei.
 
-Um eine schon existierende Datei zu bearbeiten, klicken Sie mit der rechten 
-Maustaste auf die Datei und wählen Sie @qq{Edit source}. Um eine leere 
-Datei zu erhalten, mit der Sie ein neues Stück beginnen können, öffnen Sie 
-den Texteditor durch Doppelklick auf das LilyPond-Symbol und benutzen Sie 
-@qq{New} im @qq{File}-Menü, oder klicken Sie mit der rechten
-Maustaste auf den Desktop und wählen Sie @qq{Neu...Textdatei},
-ändern Sie dann den Namen so wie Sie möchten und ändern Sie 
-die Dateiendung in @code{.ly}. Doppelklicken Sie auf die Datei,
-um Ihren LilyPond-Eingabecode einzugeben.
+@sourceimage{Learning_Win7_Welcome_File_Whole,,,}
 
-Mit dem Doppelklick wird nicht nur die PDF-Datei erstellt, sondern
-auch eine @file{.log}-Datei. Hier wird gespeichert, was LilyPond aus
-der Quelldatei gelesen hat. Sollten Fehler auftreten, hilft oft ein 
-Blick in diese Datei.
+Aus dem Menü über der Beispieldatei wählen Sie @w{@code{File > Save as}}.
+Benutzen Sie nicht @w{@code{File > Save}} für die Beispieldatei,
+weil die Datei nicht funktioniert, bis Sie sie mit einem eigenen
+Namen gespeichert haben.
+
+@sourceimage{Learning_Win7_Save_Menu,,,}
+
+Wählen Sie einen Namen für Ihre Datei, etwa @file{test.ly}.
+
+@sourceimage{Learning_Win7_Save_File_With_Name,,,}
+
+
+@subsubheading Schritt 2a: Kompilieren (mit drag-and-drop)
+
+Sie können nach Belieben die Kompilation starten, indem Sie
+entweder:
+
+Die Datei auf das LilyPond-Symbol ziehen.
+
+@sourceimage{Learning_Win7_Open_Dragndrop,,,}
+
+Klicken Sie mit der rechten Maustaste auf die Datei und wählen
+Sie aus dem Menü @w{@code{Open with > LilyPond}}.
+
+@sourceimage{Learning_Win7_Open_Context_Menu,,,}
+
+
+@subsubheading Schritt 2b: Kompilieren (mit Doppelklick)
+
+Oder klicken Sie einfach die Datei @file{test.ly} doppelt an.
+
+
+@subsubheading 3. Schritt: Ausgabe anschauen
+
+Während der Kompilation von @file{test.ly} öffnet sich ein
+Kommandofenster sehr schnell und schließt sich wieder.  Drei
+zusätzliche Dateien werden in diesem Schritt erstellt.
+
+@sourceimage{Learning_Win7_All_Files_Created,,,}
+
+Das PDF enthält den Notensatz aus der Datei @file{test.ly}.
+
+@sourceimage{Learning_Win7_Pdf_Output,,,}
+
+
+@subsubheading Andere Befehle
+
+Um eine neue Datei zu erstellen, wählen Sie @w{@code{File > New}}
+aus irgendeiner schon erstellten Datei.
+
+@sourceimage{Learning_Win7_New_Menu,,,}
+
+@noindent
+oder @w{@code{File > Open}}, um eine Datei zu öffnen und zu
+bearbeiten, die Sie schon vorher gespeichert hatten.
+
+@sourceimage{Learning_Win7_Open_Menu,,,}
+
+Sie müssen jede neue Änderung erst speichern, bevor Sie die Datei
+kompilieren.  Wenn kein PDF erstellt wird, öffnen Sie die Log-Datei
+und schauen Sie nach Fehlern.
+
+@sourceimage{Learning_Win7_Log_File,,,}
+
+Die Log-Datei wird jedes Mal überschrieben, wenn Sie Ihre
+LilyPond-Datei kompilieren.
+
+Die PS-Datei wird intern von LilyPond benutzt um das PDF zu erstellen
+und kann ignoriert werden.  Sie wird auch jedes Mal neu überschrieben.
+
+Wenn Sie das PDF in einem PDF-Programm anschauen, müssen Sie es
+zuerst schließen, bevor Sie eine neue Kompilation durchführen
+können, denn es kann einen Fehler bei der Erstellung des neuen
+PDFs geben, wenn das alte noch geöffnet ist.
+
+
+@cindex Unix, LilyPond starten
 
 @node Kommandozeile
 @subsection Kommandozeile
@@ -209,6 +318,8 @@ Blick in diese Datei.
 LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rweb{Alternate input} beschrieben sind, schauen
 Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
 eine Datei zu kompilieren.}
+
+@subsubheading Schritt 1: Erstellen Sie eine @file{.ly}-Datei
 
 
 Erstellen Sie eine Text-Datei mit dem Namen @file{test.ly} und 
@@ -220,7 +331,9 @@ geben Sie folgenden Text ein:
 @}
 @end example
 
-Um die Datei zu bearbeiten, geben sie an der Konsole
+@subsubheading Schritt 2: Kompilieren (auf der Kommandozeile)
+
+Um die Datei zu kompilieren, geben sie an der Konsole bzw. Kommandozeile
 
 @example
 lilypond test.ly
@@ -245,15 +358,19 @@ Layout nach »test.ps« ausgeben...
 Konvertierung nach »test.pdf«...
 @end example
 
+@subsubheading 3. Schritt: Ausgabe anschauen
+
 Als Ergebnis erhalten Sie ein @file{test.pdf}, das Sie mit den
 Standardprogrammen Ihres Betriebssystemes anschauen können.
 
 
 
-@node How to write input files
-@section How to write input files
+@node Wie werden Eingabe-Dateien geschrieben
+@section Wie werden Eingabe-Dateien geschrieben
+@translationof How to write input files
 
-FIXME: Text hier
+Dieser Abschnitt erklärt die grundlegende LilyPond-Syntax und hilft
+bei den ersten Anfängen, eine LilyPond-Eingabedatei zu schreiben.
 
 @menu
 * Einfache Notation::             
@@ -321,7 +438,7 @@ gewählt, indem angenommen wird, dass die folgende Note immer so nah
 wie möglich in Bezug auf die vorhergehende gesetzt wird, d. h. sie 
 wird höchstens drei Notenzeilen höher oder tiefer als die vorhergehende 
 Note gesetzt. Fangen
-wir unser erstes Notationsbeispiel mit einer @notation{scale} an, wo also
+wir unser erstes Notationsbeispiel mit einer @notation{Tonleiter} an, wo also
 die nächste Note immer nur eine Notenlinie über der vorherigen steht.
 
 @c KEEP LY
@@ -408,8 +525,9 @@ Um eine Notenhöhe um zwei (oder mehr!) Oktaven zu verändern,
 werden sukzessive @code{''} oder @code{,,} benutzt -- es muss
 sich dabei wirklich um zwei einzelne Apostrophen und nicht um das
 Anführungszeichen @code{"}@tie{} (Taste Shift+2) handeln! Auch
-die Anfangsoktave für einen @w{@code{\relative c'}}-Abschnitt kann so
+die Anfangsoktave für einen @code{@w{\relative c'}}-Abschnitt kann so
 verändert werden.
+
 
 @subheading Tondauern (Rhythmen)
 
@@ -508,7 +626,7 @@ Die @notation{Taktart} kann mit dem
 @funindex \clef
 @funindex clef
 
-Glossar: @rglos{time signature}.
+Glossar: @rglos{clef}.
 
 Der @notation{Notenschlüssel} kann mit dem @code{\clef}-Befehl 
 gesetzt werden:
@@ -567,7 +685,8 @@ Notationsreferenz: @ruser{Tonhöhen setzen},
 
 
 LilyPonds Quelldateien ähneln Dateien in den meisten
-Programmiersprachen: Es ist auf Groß- und Kleinschreibung
+Programmiersprachen: Sie enthalten eine Versionsbezeichnung,
+es ist auf Groß- und Kleinschreibung
 zu achten und Leerzeichen werden ignoriert. Ausdrücke werden 
 mit geschweiften Klammern @{ @} eingeklammert und Kommentare 
 mit dem Prozentzeichen @code{%} auskommentiert
@@ -576,6 +695,28 @@ oder mit @code{%@{ ... %@}} umgeben.
 Wenn das jetzt unverständlich erscheint, sind hier die  Erklärungen:
 
 @itemize
+@item
+@strong{Versionsbezeichnung}:
+Jede LilyPond-Datei soll eine Versionsbezeichnung enthalten. Eine
+Versionsbezeichnung ist eine Zeile, die die Version von LilyPond
+deklariert, für die die Datei geschrieben wurde, wie in dem
+Beispiel:
+
+@example
+\version "@w{@version{}}"
+@end example
+
+Üblicherweise wird die Versionsbezeichnung oben in die Datei
+geschrieben.
+
+Die Versionsbezeichnung ist aus zwei Gründen sehr wichtig: 1. kann
+man mit ihrer Hilfe automatische Aktualisierungen der Eingabedateien
+vornehmen, wenn sich die LilyPond-Syntax ändern sollte. 2. wird
+hier die Version von LilyPond beschrieben, die nötig ist, um die
+Datei zu kompilieren.
+
+Wenn die Versionsbezeichnung in einer Datei fehlt, gibt LilyPond
+eine Warnung während der Kompilation der Datei aus.
 
 @item
 @strong{Groß- und Kleinschreibung:}
@@ -591,9 +732,8 @@ leere Zeilen sich zwischen den Zeichen der Quelldatei befinden.
 @w{@code{@{ c d e @}}} bedeutet das Gleiche wie
 @w{@code{@{ c @ @ @ @ @  d e @}}} oder
 @example
-          @{
-c                        d
-  e @}
+@{ c                        d
+                     e @}
 @end example
 
 @noindent
@@ -672,26 +812,25 @@ mögliche Anwendung von Kommentaren:
 
 
 
-@node How to read the manuals
-@section How to read the manuals
+@node Wie die Handbücher gelesen werden sollen
+@section Wie die Handbücher gelesen werden sollen
+@translationof How to read the manuals
 
-FIXME: fluff here
+Dieser Abschnitt zeigt, wie die Dokumenation effizient gelesen
+werden kann und erklärt auch einige nützliche Interaktionseigenschaften
+der Online-Version.
 
 @menu
-* Klammern weglassen::             
+* Ausgelassenes Material::             
 * Anklickbare Beispiele::          
 * Navigation mit der Tastatur::         
 * Überblick über die Handbücher::         
 @end menu
 
 
-@node Wie soll das Handbuch gelesen werden
-@subsection Wie soll das Handbuch gelesen werden
-@translationof How to read the manual
-
-@node Klammern weglassen
-@subsection Klammern weglassen
-@translationof Omitting braces
+@node Ausgelassenes Material
+@subsection Ausgelassenes Material
+@translationof Omitted material
 
 @cindex Handbuch, Lesen
 @cindex Wie soll das Handbuch gelesen werden
@@ -733,6 +872,11 @@ Die meisten Benutzer wollen
 Noten zu einer schon bestehenden Datei irgendwo in der Mitte
 hinzufügen, deshalb wurde der relative Modus für die Beispiele
 im Handbuch weggelassen.
+
+Denken Sie auch daran, dass jede LilyPond-Datei eine Versionsbezeichnung
+haben sollte.  Weil die Beispiele in den Handbüchern Schnipsel
+und keine vollständigen Dateien sind, fehlt hier die Versionsbezeichnung.
+Sie sollten sie aber immer in Ihre eigenen Dateien einfügen.
 
 
 @node Anklickbare Beispiele
@@ -794,7 +938,7 @@ fallen, spätere Abschnitte zu verstehen.}
 
 @item
 @strong{Bevor Sie @emph{irgendetwas} ausprobieren}: Lesen Sie die
-Abschnitte @ref{Einleitung} und @ref{Übliche Notation}.  Wenn
+Abschnitte @ref{Übung} und @ref{Übliche Notation}.  Wenn
 Sie auf musikalische Fachbegriffen stoßen, die Sie nicht kennen,
 schauen Sie diese im @rglosnamed{Top, Glossar} nach.
 
@@ -812,7 +956,7 @@ Lesen Sie @ref{Die Ausgabe verändern} im Handbuch zum Lernen.
 @item
 @strong{Bevor Sie sich an ein größeres Projekt machen}: Lesen
 Sie den Abschnitt
-@rprogram{Suggestions for writing files}
+@rprogram{Vorschläge, wie man Dateien schreibt}
 in der Programmbenutzung.
 
 @end itemize

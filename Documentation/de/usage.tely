@@ -200,7 +200,7 @@ Anhänge
 @include usage/lilypond-book.itely
 @include usage/converters.itely
 @include usage/working.itely
-@c @include usage/suggestions.itely
+@include usage/suggestions.itely
 
 @include fdl.itexi
 
