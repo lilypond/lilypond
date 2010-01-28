@@ -305,13 +305,14 @@ def debugfill = fill enddef;
 def draw_gclef (expr reduction) =
 	save reduced_ss, downstroke_dir, downstroke_angle, center;
 	save breapth_factor, inner_thick_end, thinness, thickness, thinnib;
-	save start_angle, inner_start_angle, thinness;
+	save start_angle, inner_start_angle;
 	save upward_swoosh_angle, bot_angle;
 	save pat;
+	save corr_angle, corr, left_, right_, up_, down_, bot_angle_;
 	path pat;
 	pair downstroke_dir, center;
-	save corr_angle, corr;
 	transform corr;
+	pair left_, right_, up_, down_;
 
 	reduced_ss# = staff_space# * reduction;
 	define_pixels (reduced_ss);
@@ -412,55 +413,63 @@ def draw_gclef (expr reduction) =
 	% rotating the whole picture won't work due to the complexity
 	% of the path and metafont's memory limitations, so we transform
 	% each point and draw the clef thereafter
-	corr_angle = 1.5;
-	corr = identity rotatedabout (center, -corr_angle);
+	corr_angle := 1.5;
+	corr := identity rotatedabout (center, -corr_angle);
+
+	bot_angle_ := bot_angle + corr_angle;
+
+	left_ := left rotated corr_angle;
+	right_ := right rotated corr_angle;
+	up_ := up rotated corr_angle;
+	down_ := down rotated corr_angle;
 
 	% transform points; we transform every point and save it
-	% to a shifted index range: z1 -> z101, z2 ->z102 etc.
-	for n=1 upto 21:
-	    forsuffixes e=l,,r:
-	       z[n+100]e = z[n]e  transformed corr;
-	    endfor
+	% to a shifted index range: z1 -> z101, z2 -> z102, etc.
+	for n := 1 upto 21:
+		forsuffixes e := l,,r:
+			z[n+100]e = z[n]e transformed corr;
+		endfor
 	endfor
+
 	% transform helper points
-	for n=10,11:
-		forsuffixes e=l,,r:
+	for n := 10, 11:
+		forsuffixes e := l,,r:
 			z[n+100]'e = z[n]'e transformed corr;
 		endfor
 	endfor
 
 	pat := z121l
-	       .. z110l{dir -90} % was {down}
+	       .. z110l{down}
 	       .. z110'l;
 
-	fill z102l{dir 0} % {right}
+	fill z102l{right}
 	     .. z103l
-	     .. z104l{dir (180 + corr_angle)} % {left}
-	     ..tension 1.07.. z105l{dir (90 + corr_angle)}  % inside curve % was {up}
-	     .. z107l{dir (90 + corr_angle)} % {up}
+	     .. z104l{left_}
+	     ..tension 1.07.. z105l{up_}% inside curve
+	     .. z107l{up_}
 	     ..tension 1.2.. z120r{curl 1}
 	     .. {direction 0 of pat}z120l
 	     -- z108
 	     -- z109r			% {dir (downstroke_angle + 0)}
-	     ..tension 0.8.. z107r{dir (-90 + corr_angle)} %{down}
-	     .. z105r{dir (-90 + corr_angle)} %{down}
-	     .. z104r{dir corr_angle} %{right}
+	     ..tension 0.8.. z107r{down_}
+	     .. z105r{down_}
+	     .. z104r{right_}
 	     .. z103r
-	     .. z102r{dir (180 + corr_angle)} % {left}
+	     .. z102r{left_}
 	     ..tension .95.. z101r
 	     -- simple_serif (z101r, z101l, 80)
 	     -- z101l
 	     ..tension 0.85.. cycle;
 
 	penstroke z121e
-		  .. z110e{dir (-90 + corr_angle)} %{down}
+		  .. z110e{down_}
 		  .. z110'e
 		  .. z106e
 		  .. z111'e
 		  .. z111e{dir (-95 + corr_angle)}
-		  .. z112e{dir (bot_angle + corr_angle)};
+		  .. z112e{dir (bot_angle_)};
 
-	fill new_bulb (z112r, bot_angle + corr_angle, z113r, z112l, bot_angle + corr_angle + 180,
+	fill new_bulb (z112r, bot_angle_, z113r, z112l, bot_angle_ + 180,
 		       0.45 reduced_ss, 0.38 reduced_ss,
 		       thinnib + .05 staff_space, 1, -1)
 	     -- cycle;
