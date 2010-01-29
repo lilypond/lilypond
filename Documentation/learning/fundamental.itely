@@ -2105,8 +2105,7 @@ throughout the @code{\score} or @code{\book} block in which the
     }
   }
   \layout {
-    \context {
-      \Staff
+    \context { \Staff
       extraNatural = ##t
     }
   }
@@ -2262,8 +2261,7 @@ staff in a four-staff score, we could write
     >>
   >>
   \layout {
-    \context {
-      \Staff
+    \context { \Staff
       \consists Ambitus_engraver
     }
   }

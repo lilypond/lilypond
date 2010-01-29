@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2010 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ public:
   virtual SCM get_output ();
   virtual Output_def *get_output_def () const;
   virtual Moment now_mom () const;
-  virtual Context *get_default_interpreter ();
+  virtual Context *get_default_interpreter (string context_id = "");
 
   Moment previous_moment () const;
 protected:

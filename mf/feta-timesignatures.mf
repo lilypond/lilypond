@@ -1,7 +1,7 @@
 % Feta (not the Font-En-Tja) music font --  implement Time Signatures
 % This file is part of LilyPond, the GNU music typesetter.
 %
-% Copyright (C) 1998--2009 Mats Bengtsson <matsb@s3.kth.se>,
+% Copyright (C) 1998--2010 Mats Bengtsson <matsb@s3.kth.se>,
 %		 Christian Mondrup <scancm@biobase.dk>
 %
 % LilyPond is free software: you can redistribute it and/or modify

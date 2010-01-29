@@ -1,7 +1,7 @@
 %%%% common Portuguese names for notes
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2004--2009 Pedro Kröger <kroeger@pedrokroeger.net>
+%%%% Copyright (C) 2004--2010 Pedro Kröger <kroeger@pedrokroeger.net>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
 %%%% it under the terms of the GNU General Public License as published by

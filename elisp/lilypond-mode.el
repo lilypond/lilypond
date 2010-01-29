@@ -1,7 +1,7 @@
 ;;;; lilypond-mode.el -- Major mode for editing GNU LilyPond music scores
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;  
-;;;; Copyright (C) 1999--2009 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 1999--2010 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Changed 2001--2003 Heikki Junes <heikki.junes@hut.fi>
 ;;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
 ;;;;    * Keyboard shortcuts (12th Sep 2001)

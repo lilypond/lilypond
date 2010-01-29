@@ -1,7 +1,7 @@
 %%%% common Spanish names for notes
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2002--2009 Carlos García Suárez <cgscqmp@terra.es>
+%%%% Copyright (C) 2002--2010 Carlos García Suárez <cgscqmp@terra.es>
 %%%%                Maximiliano G. G. <mxgdvg@yahoo.it>
 %%%%                  (double-flats, double-sharps, quarter-tones, etc.)
 %%%%

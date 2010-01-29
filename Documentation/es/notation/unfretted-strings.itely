@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -147,26 +147,26 @@ Referencia de la notación:
 
 @strong{@i{Armónicos naturales}}
 
+@cindex notas, cabeza de, forma de rombo
+@cindex rombo, cabezas en forma de
 @cindex naturales, armónicos
 @cindex armónicos naturales
+
+@funindex \harmonicsOn
+@funindex \harmonicsOff
 
 La notación de los armónicos naturales se puede realizar de varias
 formas.  Generalmente, una nota con la cabeza en forma de rombo
 significa tocar (sin apretar) la cuerda en el lugar donde se pisaría
 la nota si no fuese un rombo.
 
-@warning{Los armónicos @strong{se deben} definir dentro de una
-construcción de acorde incluso si hay una sola nota.}
-
-@c TODO If the default for harmonicDots is changed, change this
-Los armónicos con puntillo indicados con @code{\harmonic} no muestran
-el puntillo.  Se debe establecer la propiedad de contexto
-@code{harmonicDots} si se necesita el puntillo.
-
 @lilypond[verbatim,quote,relative=2]
-<d\harmonic>4 <e\harmonic>2.
-\set harmonicDots = ##t
-<d\harmonic>4 <e\harmonic>2.
+d4 e4.
+\harmonicsOn
+d8 e e
+d4 e4.
+\harmonicsOff
+d8 e e
 @end lilypond
 
 Como posibilidad alternativa está la de mostrar una cabeza normal de
@@ -190,9 +190,20 @@ una con una cabeza normal que indica la posición donde se pisa, y otra
 con una cabeza en forma de rombo hueco para indicar la posición donde
 se roza la cuerda (sin pisar) para producir el armónico.
 
+@c TODO If the default for harmonicDots is changed, change this
+Los armónicos artificiales indicados con @code{\harmonic} no presentan
+los puntillos.  La propiedad de contexto @code{harmonicDots} se debe
+activar si se necesitan los puntillos.
+
 @lilypond[verbatim,quote,relative=1]
-<e a\harmonic>2  <c g'\harmonic>
+<e a\harmonic>2.  <c g'\harmonic>4
+\set harmonicDots = ##t
+<e a\harmonic>2.  <c g'\harmonic>4
 @end lilypond
+
+@warning{@code{@bs{}harmonic} @strong{se debe} colocar dentro de una
+construcción de acorde incluso si solamente hay una nota.  Normalmente
+se usaría @code{@bs{}harmonicsOn} en esta situación.}
 
 
 @seealso

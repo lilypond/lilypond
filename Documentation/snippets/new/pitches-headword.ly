@@ -6,7 +6,7 @@
   line-width=17\cm
   indent=0\cm
 }
-  
+
 \layout {
   \context { \Score
     \override PaperColumn #'keep-inside-line = ##t
@@ -16,7 +16,14 @@
 
 % NR 1.1 Pitches
 
-% L. v. Beethoven 
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
+
+
+% L. v. Beethoven
 % Piano sonata 21 - Dem Grafen von Waldstein Gewidmet
 % chorale at measures 34 - 40+
 
@@ -79,7 +86,7 @@
          <e'' cs''>4
          |
          b'2. ( \sf \>
-         a'4 ) 
+         a'4 )
          \clef bass
          | \break
          s1 \p
@@ -127,7 +134,7 @@
       |
       %\break
       \clef bass
-      <gs e>2 ( 
+      <gs e>2 (
       <fs ds b,>4
       <e cs>4
       |

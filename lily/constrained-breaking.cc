@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2009 Joe Neeman <joeneeman@gmail.com>
+  Copyright (C) 2006--2010 Joe Neeman <joeneeman@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -514,7 +514,7 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   force_ = 0;
   extent_ = unsmob_stencil (pb->get_property ("stencil")) ->extent (Y_AXIS);
   bottom_padding_ = 0;
-  space_ = robust_scm2double (pb->get_property ("next-space"), 1.0);
+  space_ = 0.0;
   inverse_hooke_ = 1.0;
   break_permission_ = ly_symbol2scm ("allow");
   page_permission_ = pb->get_property ("page-break-permission");

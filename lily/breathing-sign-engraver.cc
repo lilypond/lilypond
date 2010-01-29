@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1999--2009 Michael Krause
+  Copyright (C) 1999--2010 Michael Krause
 
   written for the GNU LilyPond music typesetter
 

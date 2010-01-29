@@ -7,6 +7,13 @@
   indent=0\cm
 }
 
+
+\header {
+  lsrtags = "headwords"
+  texidoc = ""
+  doctitle = "headword"
+}
+
 \layout {
   \context { \Score
     \override PaperColumn #'keep-inside-line = ##t
@@ -14,7 +21,7 @@
   }
 }
 
-\include "gregorian.ly" 
+\include "gregorian.ly"
 
 \score {
   <<

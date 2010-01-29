@@ -1162,7 +1162,7 @@ msgstr ""
 
 #: musicxml2ly.py:2608
 msgid ""
-"Copyright (c) 2005--2009 by\n"
+"Copyright (c) 2005--2010 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"

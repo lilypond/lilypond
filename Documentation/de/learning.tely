@@ -60,7 +60,6 @@ verfügbar.
 @end ifhtml
 
 
-
 @ifnottex
 Das ist des Handbuch zum Erlernen von GNU LilyPond Version @version{}.
 Für einen Überblick über die gesamte Dokumentation von LilyPond und die Intention

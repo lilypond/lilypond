@@ -1,7 +1,7 @@
 %%%% common Italian names for notes
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 1998--2009 Paolo Zuliani <zuliap@easynet.it>
+%%%% Copyright (C) 1998--2010 Paolo Zuliani <zuliap@easynet.it>
 %%%%                Eric Wurbel <wurbel@univ-tln.fr>
 %%%%                  (additions for semi-sharps and semi-flats)
 %%%%

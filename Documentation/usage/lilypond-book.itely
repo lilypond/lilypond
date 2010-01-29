@@ -1011,16 +1011,14 @@ Normal LaTeX text.
 
 \begin@{lilypond@}
 \relative c'' @{
-a4 b c d
+  a4 b c d
 @}
 \end@{lilypond@}
 
-More LaTeX text.
+More LaTeX text, and options in square brackets.
 
-\begin@{lilypond@}
-\relative c'' @{
+\begin[fragment,relative=2,quote,staffsize=26,verbatim]@{lilypond@}
 d4 c b a
-@}
 \end@{lilypond@}
 \end@{document@}
 @end example
@@ -1031,16 +1029,19 @@ You can include LilyPond fragments in Texinfo; in fact, this entire manual
 is written in Texinfo.
 
 @example
-\input texinfo
+\input texinfo @c -*-texinfo-*-
 @@node Top
+@@top
 
 Texinfo text
 
-@@lilypond[verbatim,fragment,ragged-right]
-a4 b c d
+@@lilypond
+\relative @{
+  a4 b c d
+@}
 @@end lilypond
 
-More Texinfo text
+More Texinfo text, and options in brackets.
 
 @@lilypond[verbatim,fragment,ragged-right]
 d4 c b a
@@ -1049,6 +1050,38 @@ d4 c b a
 @@bye
 @end example
 
+
+@subsection html
+
+@example
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- header_tag -->
+<HTML>
+<body>
+
+<p>
+Documents for lilypond-book may freely mix music and text.  For
+example,
+<lilypond>
+\relative c'' @{
+  a4 b c d
+@}
+</lilypond>
+</p>
+
+<p>
+Another bit of lilypond, this time with options:
+
+<lilypond fragment quote staffsize=26 verbatim>
+a4 b c d
+</lilypond>
+</p>
+
+</body>
+</html>
+
+
+@end example
 
 @subsection xelatex
 

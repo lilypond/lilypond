@@ -1,7 +1,7 @@
 %%%% common Swedish names for notes
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 1997--2009 Mats Bengtsson <mabe@violin.s3.kth.se>
+%%%% Copyright (C) 1997--2010 Mats Bengtsson <mabe@violin.s3.kth.se>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
 %%%% it under the terms of the GNU General Public License as published by

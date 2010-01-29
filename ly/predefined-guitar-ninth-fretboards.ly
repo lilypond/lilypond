@@ -1,12 +1,23 @@
-\version "2.12.0"
-%
-%  Add ninth chords to to predefined fret diagrams for standard guitar tunings
-%
-%  This is part of the LilyPond distribution files
-%
-%  Copyright 2008--2009 by Jonathan Kulp
-%
+%%%% This file is part of LilyPond, the GNU music typesetter.
+%%%%
+%%%% Copyright (C) 2008--2010 by Jonathan Kulp
+%%%%
+%%%% LilyPond is free software: you can redistribute it and/or modify
+%%%% it under the terms of the GNU General Public License as published by
+%%%% the Free Software Foundation, either version 3 of the License, or
+%%%% (at your option) any later version.
+%%%%
+%%%% LilyPond is distributed in the hope that it will be useful,
+%%%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%%%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%%%% GNU General Public License for more details.
+%%%%
+%%%% You should have received a copy of the GNU General Public License
+%%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+\version "2.12.0"
+
+%  Add ninth chords to to predefined fret diagrams for standard guitar tunings
 
 \addChordShape #'c:9 #guitar-tuning #"x;3-2;2-1;3-3-(;3-3;3-3-);"
 \addChordShape #'f:9 #guitar-tuning #"1-1-(;3-3;1-1;2-2;1-1-);3-4;"
