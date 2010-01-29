@@ -29,29 +29,23 @@ the chord duration, add articulations."
                  (null? (ly:music-property previous-chord 'length))))
        (ly:input-message location
                          (_ "No memorized chord in music block before chord repetition")))
-   (let* ((new-chord (ly:music-deep-copy previous-chord))
-          (notes (filter (lambda (event)
-                           (eqv? (ly:music-property event 'name) 'NoteEvent))
-                         (ly:music-property new-chord 'elements))))
-     ;; remove possible cautionary/forced accidentals from notes
-     (for-each (lambda (note)
-                 (if (eqv? (ly:music-property note 'cautionary) #t)
-                     (set! (ly:music-property note 'cautionary) #f))
-                 (if (eqv? (ly:music-property note 'force-accidental) #t)
-                     (set! (ly:music-property note 'force-accidental) #f)))
-               notes)
-     ;; Add articulations and notes to the new event chord
-     (set! (ly:music-property new-chord 'elements)
-           (append! notes articulations))
-     ;; Set the duration of each event
-     (for-each (lambda (event)
-                 (if (ly:duration? (ly:music-property event 'duration))
-                     (set! (ly:music-property event 'duration) duration)))
-               (ly:music-property new-chord 'elements))
-     ;; Set the new chord origin
-     (set! (ly:music-property new-chord 'origin) location)
-     ;; return the new chord
-     new-chord))
+   ;; Instead of copying the previous chord, then removing the
+   ;; undesired elements (like articulations), a new empty chord is
+   ;; built.  Then, the pitch found in the previous chord are added to
+   ;; the new chord, without any "decoration" (e.g. cautionary
+   ;; accidentals, fingerings, text scripts, articulations).
+   (make-music
+    'EventChord
+    'origin location
+    'elements (append! (filter identity
+                               (map (lambda (event)
+                                      (and (eqv? (ly:music-property event 'name) 'NoteEvent)
+                                           (make-music
+                                            'NoteEvent
+                                            'pitch (ly:music-property event 'pitch)
+                                            'duration duration)))
+                                    (ly:music-property previous-chord 'elements)))
+                       articulations)))
 
 #(ly:parser-set-repetition-symbol parser 'q)
 #(ly:parser-set-repetition-function parser default-repeat-chord)
