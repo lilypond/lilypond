@@ -164,8 +164,8 @@
 
 			     ;; Backslashes are not valid
 			     ;; file URI path separators.
-			     (ly:string-substitute
-			       "\\" "/" (ly:string-percent-encode file))
+			     (ly:string-percent-encode
+			       (ly:string-substitute "\\" "/" file))
 
 			     (cadr location)
 			     (caddr location)
