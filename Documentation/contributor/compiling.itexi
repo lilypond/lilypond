@@ -82,7 +82,7 @@ ready to compile both Lilypond and the Documentation.
 The @code{lilybuntu} remix is available for download here:
 
 @example
-@uref{http://@/prodet.hu/@/bert/@/lilydev/@/lilybuntu.iso}
+@uref{http://@/files.lilynet.net/@/lilybuntu.iso}
 @end example
 
 We do not necessarily recommend any one virtualization tool,
@@ -102,9 +102,11 @@ file as the boot disk. It should not be necessary to burn it
 to a DVD, but consult the documentation for your virtualization
 software for specific instructions. If possible, use at least
 the recommended amount of RAM for the virtual machine (384 MB on
-VirtualBox), and use a dynamically expanding virtual hard drive
-starting with at least 5-6 GB of space, more if you can spare it.
-The Ubuntu installer should be straightforward, although in the
+VirtualBox), and use a dynamically expanding virtual hard drive.
+A virtual hard drive with 6 GB will be enough to compile LilyPond,
+but if you intend to build the docs and run the regression tests
+the virtual hard drive should be at least 10 GB.
+The Ubuntu installation should be straightforward, although in the
 partitioning stage do not be afraid to select @qq{use entire disk,}
 since this is only your @strong{virtual disk} and not your
 machine's actual hard drive.
