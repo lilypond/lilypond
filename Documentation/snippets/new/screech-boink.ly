@@ -1,9 +1,10 @@
 \version "2.12.0"
 \header {
-    title = "Screech and boink"
-    subtitle = "Random complex notation"
-    composer = "Han-Wen Nienhuys"
+  lsrtags = "headwords"
+  texidoc = "Random complex notation"
+  doctitle = "Screech and Boink"
 }
+
 
 \score {
      \context PianoStaff <<
