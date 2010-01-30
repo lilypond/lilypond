@@ -72,7 +72,7 @@ Appendices
 
 
 @include contributor/introduction.itexi
-@include contributor/working.itexi
+@include contributor/source-code.itexi
 @include contributor/compiling.itexi
 @include contributor/doc-work.itexi
 @include contributor/website-work.itexi
