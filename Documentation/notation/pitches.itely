@@ -892,6 +892,9 @@ This section discusses how to alter the output of pitches.
 @cindex baritone clef
 @cindex varbaritone clef
 @cindex subbass clef
+@cindex tab clef
+@cindex moderntab clef
+@cindex percussion clef
 @cindex clef
 @cindex ancient clef
 @cindex clef, ancient
@@ -910,10 +913,12 @@ This section discusses how to alter the output of pitches.
 @cindex clef, varbaritone
 @cindex subbass clef, subbass
 
+
 @funindex \clef
 @funindex clef
 
-The clef may be altered.  Middle C is shown in every example.
+The clef may be altered.  Middle C is shown in every example. The
+following clef names can be (but don't have to be) enclosed in quotes.
 
 @lilypond[verbatim,quote,relative=1]
 \clef treble
@@ -926,7 +931,9 @@ c2 c
 c2 c
 @end lilypond
 
-Other clefs include:
+Three of these clef names can be abbreviated: You can use @code{“G”}
+instead of @code{“treble”}, @code{“C”} instead of @code{“alto”} and
+@code{“F”} instead of @code{“bass”}. Other clefs include:
 
 @lilypond[verbatim,quote,relative=1]
 \clef french
@@ -949,19 +956,7 @@ c2 c
 \clef tab
 c2 c
 
-\break
-
-\clef G
-c2 c
-\clef F
-c2 c
-\clef C
-c2 c
-
 @end lilypond
-
-Further supported clefs are described under @ref{Mensural clefs}
-and @ref{Gregorian clefs}.
 
 @cindex transposing clefs
 @cindex clef, transposing
@@ -973,9 +968,9 @@ By adding@tie{}@code{_8} or@tie{}@code{^8} to the clef name, the
 clef is transposed one octave down or up, respectively,
 and@tie{}@code{_15} and@tie{}@code{^15} transpose by two octaves.
 The clef name must be enclosed in quotes when it contains
-underscores or digits.
+either underscores or circumflexes and digits.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
 \clef treble
 c2 c
 \clef "treble_8"
@@ -984,6 +979,9 @@ c2 c
 c2 c
 @end lilypond
 
+The abbreviated clef names mentioned above can also be used as a
+shortened notation for transposing clefs, e.g. @code{“G_8”} instead of @code{“treble_8”} and@tie{}@code{“F^15”} instead of@tie{}@code{“bass^15”}.  Further supported clefs are described under @ref{Mensural clefs},
+@ref{Gregorian clefs} and @ref{Custom tablatures}.
 
 @snippets
 
@@ -994,7 +992,8 @@ c2 c
 @seealso
 Notation Reference:
 @ref{Mensural clefs},
-@ref{Gregorian clefs}.
+@ref{Gregorian clefs},
+@ref{Custom tablatures}.
 
 Snippets:
 @rlsr{Pitches}.
