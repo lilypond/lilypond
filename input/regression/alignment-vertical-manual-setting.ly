@@ -1,6 +1,6 @@
 \header {
 
-  texidoc = "Alignments may be changed pre system by setting
+  texidoc = "Alignments may be changed per system by setting
   @code{alignment-distances} in the @code{line-break-system-details}
   property"
 
