@@ -3944,8 +3944,8 @@ interest are:
 @node Avoiding tweaks with slower processing
 @subsection Avoiding tweaks with slower processing
 
-LilyPond can perform extra checks while it processes input files.  These
-checks will take extra time to perform, but fewer manual tweaks
+LilyPond can perform extra checks while it processes input files.
+These checks will take extra time to perform, but fewer manual tweaks
 may be required to obtain an acceptable result.  If a text script
 or part of the lyrics extends over the margins these checks will
 compress that line of the score just enough to fit within the
@@ -3964,6 +3964,11 @@ in-line in music, as follows:
    ..
 @}
 @end example
+
+However, @code{keep-inside-line} is expensive and the recommendation
+is to not enable it, to allow for faster processing, until creating
+a final version.  This way you do not need to manually add @code{\break}
+commands to avoid text running off the right-hand side of the page.
 
 @node Advanced tweaks with Scheme
 @subsection Advanced tweaks with Scheme
