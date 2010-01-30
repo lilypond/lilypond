@@ -13,7 +13,7 @@
 @node Compiling from source
 @section Compiling from source
 
-@include contributor/basic-compile.itexi
+@include included/compile.itexi
 
 
 @node Concurrent Stable and Development Versions

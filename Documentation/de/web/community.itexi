@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@include web/basic-authors.itexi
+@include included/authors.itexi
 
 @node Gemeinschaft
 @unnumbered Gemeinschaft

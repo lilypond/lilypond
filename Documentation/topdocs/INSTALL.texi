@@ -13,7 +13,7 @@
 @contents
 
 @include macros.itexi
-@include contributor/basic-compile.itexi
+@include included/compile.itexi
 
 @bye
 

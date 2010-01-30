@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include web/basic-authors.itexi
+@include included/authors.itexi
 
 @node Comunidad
 @unnumbered Comunidad
