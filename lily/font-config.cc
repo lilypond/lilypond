@@ -40,7 +40,21 @@ init_fontconfig ()
     message (_ ("Initializing FontConfig..."));
 
   font_config_global = FcInitLoadConfig ();
+  FcChar8 *cache_file = FcConfigGetCache (font_config_global);
 
+#if 0
+  // always returns 0 for FC 2.4
+  if (!cache_file)
+    programming_error ("Cannot find file for FontConfig cache.");
+#endif
+  /*
+    This is a terrible kludge, but there is apparently no way for
+    FontConfig to signal whether it needs to rescan directories.
+   */ 
+  if (cache_file
+      && !is_file ((char const *)cache_file))
+    message (_f ("Rebuilding FontConfig cache %s, this may take a while...", cache_file));
+			
   vector<string> dirs;
 
   /* Extra trailing slash suddenly breaks fontconfig (fc-cache 2.5.0)
@@ -59,12 +73,20 @@ init_fontconfig ()
   
   if (be_verbose_global)
     message (_ ("Building font database."));
-
-  FcInitBringUptoDate ();
-
+  FcConfigBuildFonts (font_config_global);
+  FcConfigSetCurrent (font_config_global);
   if (be_verbose_global)
     message ("\n");
 
+  if (cache_file
+      && !is_file ((char*)cache_file))
+    {
+      /* inhibit future messages. */
+      FILE *f = fopen ((char*)cache_file, "w");
+      if (f)
+	fclose (f);
+    }
+  
 }
 
 #else
