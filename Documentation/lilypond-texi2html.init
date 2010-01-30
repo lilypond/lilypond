@@ -1029,6 +1029,15 @@ sub lilypond_external_href($$$)
   if (defined $file) {
     $href = &$default_external_href($node, $node_id, $node_hxmlt_id, lc($file));
     remove_unneeded_anchor($href);
+
+    # TODO: very yucky, but will be fixed in issue 1004
+    if ($web_manual) {
+      my $only_web = $ENV{ONLY_WEB};
+      if ($only_web) {
+        $href = "../../doc/v2.13/Documentation/web/".$href;
+      }
+    }
+
     return $href;
   } else {
     $href = &$default_external_href($node, $node_id, $node_hxmlt_id);
