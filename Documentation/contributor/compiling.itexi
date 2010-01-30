@@ -112,11 +112,22 @@ since this is only your @strong{virtual disk} and not your
 machine's actual hard drive.
 
 @item After installation is complete, restart the virtual
-machine. (If you are using @strong{VirtualBox}, you may wish
-to install the @qq{Guest Additions,} which will allow you to
-use the virtual machine in full screen.)
+machine.  If you are using @strong{VirtualBox}, you may wish
+to install the @qq{Guest Additions}, which while not essential for
+compiling @code{Lilypond} will allow you to use the virtual machine
+in full screen, Seamless mode (also known as Unity mode on other
+virtualization platforms) and allow you to share clipboards between
+the physical and virtual machine.  From the @code{Devices} menu select
+@code{Install Guest Additions...}, the @code{VBOXADDITIONS} CDROM device
+will appear on the desktop.  Open a @strong{terminal} session.
+(@code{Applications > Accessories > Terminal}) and @code{cd} to the
+top level of the CDROM.  Run the @code{autorun.sh} script as superuser
+(@code{sudo ./autorun.sh }), a console window will open while the
+@qq{Guest Additions} are being installed.  Once the script has
+been finished, reboot your Virtual Machine to complete the installation
+of the @qq{Guest Additions}.
 
-@item Open a @strong{terminal}.
+@item Open a @strong{terminal} session.
 (@code{Applications > Accessories > Terminal})
 
 @c FIXME: make sure the url link below doesn't get broken -vv
