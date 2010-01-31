@@ -273,8 +273,8 @@ instrument is to be taken.")
 (instrument name), and returning a @code{(@var{min} . @var{max})} pair
 of numbers for the loudness range of the instrument.")
      (instrumentName ,markup? "The name to print left of a staff.  The
-@code{instrument} property labels the staff in the first system, and
-the @code{instr} property labels following lines.")
+@code{instrumentName} property labels the staff in the first system, and
+the @code{shortInstrumentName} property labels following lines.")
      ;; the definition is reversed wrt traditional transposition
      ;; otherwise \transpose { \transposition .. } won't work
      (instrumentTransposition ,ly:pitch? "Define the transposition of
@@ -382,12 +382,6 @@ shortest-playing duration.  This is used for switching on proportional
 notation.")
 
 
-     (recordEventSequence ,procedure? "When
-@code{Recording_group_engraver} is in this context, then upon
-termination of the context, this function is called with current
-context and a list of music objects.  The list of contains entries with
-start times, music objects and whether they are processed in this
-context.")
      (rehearsalMark ,integer? "The last rehearsal mark printed.")
      (repeatCommands ,list? "This property is a list of commands
 of the form @code{(list 'volta @var{x})}, where @var{x} is a string or
@@ -402,7 +396,7 @@ measures than this, a number is printed.")
 
      (shapeNoteStyles ,vector? "Vector of symbols, listing style for
 each note head relative to the tonic (qv.) of the scale.")
-     (shortInstrumentName ,markup? "See @code{instrument}.")
+     (shortInstrumentName ,markup? "See @code{instrumentName}.")
      (shortVocalName ,markup? "Name of a vocal line, short version.")
      (skipBars ,boolean? "If set to true, then skip the empty bars
 that are produced by multimeasure notes and rests.  These bars will
@@ -572,10 +566,6 @@ should be manipulated through the @code{add-grace-property} function.")
 @code{CommandColumn} contains items that will affect spacing.")
 
 
-     (instrumentSupport ,grob-list? "A list of grobs to attach the
-instrument name to.")
-
-
      (lastKeySignature ,list? "Last key signature before a key
 signature change.")
      (localKeySignature ,list? "The key signature at this point in the
@@ -599,8 +589,6 @@ event types that should be duplicated for @code{\\cueDuring} commands.")
 event types that should be duplicated for @code{\\quoteDuring} commands.
 This is also a fallback for @code{\\cueDuring} if @code{quotedCueEventTypes}
 is not set")
-;    (quotes ,hash-table? "A hash table, mapping names to
-;@code{music-event} vectors.")
 
 
      (rootSystem ,ly:grob? "The System object.")
