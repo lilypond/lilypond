@@ -44,8 +44,8 @@ obtenir un tel résultat.
   lsrtags = "expressive-marks, keyboards, template"
   texidoc = "
 Many piano scores have the dynamics centered between the two staves.
-This requires a bit of tweaking to implement, but since the template is
-right here, you don't have to do the tweaking yourself.
+The @code{Dynamics} context, if placed between staves, will
+automatically position dynamics correctly.
 
 "
   doctitle = "Piano template with centered dynamics"

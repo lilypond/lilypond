@@ -28,7 +28,8 @@ piece.
     \new StaffGroup \relative c'' {
       \new Staff {
         c1 | c <<
-          c1 \new Staff {
+          c1
+          \new Staff {
             \once \override Staff.TimeSignature #'stencil = ##f
             c1
           }

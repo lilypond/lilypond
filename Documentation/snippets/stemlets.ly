@@ -37,7 +37,8 @@ the different notations.
   \override Staff.Stem #'stemlet-length = #0.75
 
   c'16[^\markup { stemlets over rests } d' r f']
-  g'16[^\markup { stemlets and no rests } f' \once \override Rest #'transparent = ##t r d']
+  g'16[^\markup { stemlets and no rests } f'
+  \once \override Rest #'transparent = ##t
+  r16 d']
 }
-
 

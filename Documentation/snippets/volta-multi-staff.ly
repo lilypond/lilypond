@@ -20,7 +20,7 @@ voltaMusic = \relative c'' {
   }
   \alternative {
     d1
-    e
+    e1
   }
 }
 
@@ -35,3 +35,4 @@ voltaMusic = \relative c'' {
     \new Staff \voltaMusic
   >>
 >>
+

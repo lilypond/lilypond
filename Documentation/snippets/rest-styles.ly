@@ -37,7 +37,7 @@ Rests may be used in various styles.
 } % begin verbatim
 
 \layout {
-  indent = 0.0
+  indent = 0
   \context {
     \Staff
     \remove "Time_signature_engraver"

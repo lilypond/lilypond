@@ -36,15 +36,15 @@ système autre que le @code{PianoStaff} dès lors que vous incluez le
 
   texidoc = "
 Cross-staff arpeggios can be created in contexts other than
-@code{PianoStaff} if the @code{Span_arpeggio_engraver} is included in
-the @code{Score} context.
+@code{GrandStaff}, @code{PianoStaff} and @code{StaffGroup} if the
+@code{Span_arpeggio_engraver} is included in the @code{Score} context.
 
 "
   doctitle = "Creating cross-staff arpeggios in other contexts"
 } % begin verbatim
 
 \score {
-  \new StaffGroup {
+  \new ChoirStaff {
     \set Score.connectArpeggios = ##t
     <<
       \new Voice \relative c' {
@@ -52,11 +52,11 @@ the @code{Score} context.
         <d f>2\arpeggio
         <c e>1\arpeggio
       }
-      \new Voice  \relative c {
+      \new Voice \relative c {
         \clef bass
-         <c g'>2\arpeggio
-         <b g'>2\arpeggio
-         <c g'>1\arpeggio
+        <c g'>2\arpeggio
+        <b g'>2\arpeggio
+        <c g'>1\arpeggio
       }
     >>
   }

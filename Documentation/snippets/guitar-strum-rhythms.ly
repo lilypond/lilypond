@@ -44,12 +44,12 @@ melody notes, chord names and fret diagrams.
 <<
   \new ChordNames {
     \chordmode {
-      c1 f g c
+      c1 | f | g | c
     }
   }
   \new FretBoards {
     \chordmode {
-      c1 f g c
+      c1 | f | g | c
     }
   }
   \new Voice \with {
@@ -78,3 +78,4 @@ melody notes, chord names and fret diagrams.
     }
   }
 >>
+

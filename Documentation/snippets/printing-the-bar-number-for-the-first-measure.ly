@@ -61,6 +61,7 @@ must be inserted before the first note for this to work.
 \relative c' {
   \set Score.barNumberVisibility = #all-bar-numbers-visible
   \bar ""
-  c1 d e f \break
-  g1 e d c
+  c1 | d | e | f \break
+  g1 | e | d | c
 }
+

@@ -17,4 +17,3 @@ printed without changing any of the other properties:
 \markup {
   This snippet is deprecated as of 2.13.5 and will be removed in 2.14
 }
-

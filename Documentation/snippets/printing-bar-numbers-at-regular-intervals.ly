@@ -50,7 +50,7 @@ measures except at the end of the line.
 } % begin verbatim
 
 \relative c' {
-  \override Score.BarNumber #'break-visibility = #'#(#f #t #t)
+  \override Score.BarNumber #'break-visibility = #end-of-line-invisible
   \set Score.currentBarNumber = #11
   % Permit first bar number to be printed
   \bar ""

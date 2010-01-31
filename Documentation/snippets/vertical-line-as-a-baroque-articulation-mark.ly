@@ -17,7 +17,7 @@ demonstrates how to achieve such a notation.
 } % begin verbatim
 
 upline =
-#(let ((m stopped))
+#(let ((m (make-articulation "stopped")))
    (set! (ly:music-property m 'tweaks)
          (acons 'font-size 3
                 (acons 'stencil (lambda (grob)

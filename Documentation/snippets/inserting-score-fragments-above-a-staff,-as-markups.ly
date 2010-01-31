@@ -18,7 +18,8 @@ tuning = \markup {
   \score {
     \new Staff \with { \remove "Time_signature_engraver" }
     {
-      \clef bass  <c, g, d g>1
+      \clef bass
+      <c, g, d g>1
     }
     \layout { ragged-right = ##t }
   }

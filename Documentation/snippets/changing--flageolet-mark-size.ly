@@ -40,12 +40,11 @@ function.
 } % begin verbatim
 
 smallFlageolet =
-#(let ((m (make-music 'ArticulationEvent
-                      'articulation-type "flageolet")))
-   (ly:music-set-property! m 'tweaks
-     (acons 'font-size -3
-       (ly:music-property m 'tweaks)))
-  m)
+#(let ((m (make-articulation "flageolet")))
+   (set! (ly:music-property m 'tweaks)
+         (acons 'font-size -3
+                (ly:music-property m 'tweaks)))
+   m)
 
 \layout { ragged-right = ##f }
 

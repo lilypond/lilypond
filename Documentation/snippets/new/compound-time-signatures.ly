@@ -15,12 +15,11 @@ database.)
 }
 
 #(define ((compound-time one two num) grob)
-  (grob-interpret-markup grob
-    (markup #:override '(baseline-skip . 0) #:number
-      (#:line (
-          (#:column (one num))
-          #:vcenter "+"
-          (#:column (two num)))))))
+   (grob-interpret-markup grob
+                          (markup #:override '(baseline-skip . 0) #:number
+                                  (#:line ((#:column (one num))
+                                           #:vcenter "+"
+                                           (#:column (two num)))))))
 
 \relative c' {
   \override Staff.TimeSignature #'stencil = #(compound-time "2" "3" "8")

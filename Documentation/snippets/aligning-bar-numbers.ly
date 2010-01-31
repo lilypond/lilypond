@@ -55,7 +55,7 @@ positioned directly over the bar line or left-aligned to the bar line.
 
 \relative c' {
   \set Score.currentBarNumber = #111
-  \override Score.BarNumber #'break-visibility = #'#(#t #t #t)
+  \override Score.BarNumber #'break-visibility = #all-visible
   % Increase the size of the bar number by 2
   \override Score.BarNumber #'font-size = #2
   % Print a bar number every second measure

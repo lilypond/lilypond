@@ -39,7 +39,7 @@ Bar numbers can also be printed inside boxes or circles.
 
 \relative c' {
   % Prevent bar numbers at the end of a line and permit them elsewhere
-  \override Score.BarNumber  #'break-visibility = #end-of-line-invisible
+  \override Score.BarNumber #'break-visibility = #end-of-line-invisible
   \set Score.barNumberVisibility = #(every-nth-bar-number-visible 4)
 
   % Increase the size of the bar number by 2

@@ -221,7 +221,7 @@ PianoRH = {
 PianoLH = {
   \clef bass
   \global
-  \set Staff.midiInstrument = "acoustic grand"
+  \set Staff.midiInstrument = #"acoustic grand"
   <<
     \new Voice = "one" \lhUpper
     \new Voice = "two" \lhLower
@@ -293,7 +293,6 @@ drumContents = {
       \new DrumStaff \drumContents
     >>
   >>
-
   \layout {
     \context { \RemoveEmptyStaffContext }
     \context {
@@ -303,7 +302,6 @@ drumContents = {
       skipBars = ##t
     }
   }
-
   \midi { }
 }
 

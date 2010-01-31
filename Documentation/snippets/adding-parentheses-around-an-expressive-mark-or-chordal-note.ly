@@ -17,8 +17,8 @@ objetos entre paréntesis.  El grob asociado es
 
   texidoc = "
 The @code{\\parenthesize} function is a special tweak that encloses
-objects in parentheses.  The associated grob is
-@code{Score.ParenthesesItem}.
+objects in parentheses.  The associated grob is @code{ParenthesesItem}.
+
 
 "
   doctitle = "Adding parentheses around an expressive mark or chordal note"
@@ -30,5 +30,4 @@ objects in parentheses.  The associated grob is
   \override ParenthesesItem #'font-size = #-4
   <d \parenthesize f a>2
 }
-
 

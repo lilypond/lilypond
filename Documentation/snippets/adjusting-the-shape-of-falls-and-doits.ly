@@ -41,9 +41,9 @@ adjust the shape of falls and doits.
 
 \relative c'' {
   \override Score.SpacingSpanner #'shortest-duration-space = #4.0
-  c2-\bendAfter #+5
+  c2-\bendAfter #5
   c2-\bendAfter #-3
-  c2-\bendAfter #+8
+  c2-\bendAfter #8
   c2-\bendAfter #-6
 }
 

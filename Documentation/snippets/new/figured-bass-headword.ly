@@ -1,13 +1,14 @@
 \version "2.12.0"
 #(set-global-staff-size 15)
-\paper{
-  ragged-right=##f
-  line-width=16\cm
-  indent=1.5\cm
+\paper {
+  ragged-right = ##f
+  line-width = 16\cm
+  indent = 1.5\cm
 }
 
 \layout {
-  \context { \Score
+  \context {
+    \Score
     \override PaperColumn #'keep-inside-line = ##t
     \override NonMusicalPaperColumn #'keep-inside-line = ##t
   }
@@ -38,7 +39,6 @@ extendOff = \bassFigureExtendersOff
 
       \new Staff = "violinoI" {
         \set Staff.instrumentName = \markup {
-          \hcenter-in #11
           \line { Violino I. }
         }
         \time 4/4
@@ -57,7 +57,6 @@ extendOff = \bassFigureExtendersOff
 
       \new Staff = "violinoII" {
         \set Staff.instrumentName = \markup {
-          \hcenter-in #11
           \line { Violino II. }
         }
         \time 4/4
@@ -76,11 +75,9 @@ extendOff = \bassFigureExtendersOff
 
     \new Staff = "violone" {
       \set Staff.instrumentName = \markup {
-        \hcenter-in #13 {
-          \center-column {
-            Violone,
-            \line { e Cembalo. }
-          }
+        \center-column {
+          Violone,
+          \line { e Cembalo. }
         }
       }
       \time 4/4

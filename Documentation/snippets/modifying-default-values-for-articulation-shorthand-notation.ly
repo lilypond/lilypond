@@ -65,6 +65,8 @@ the default + symbol, assign the value @code{trill} to the variable
 } % begin verbatim
 
 \relative c'' { c1-+ }
+
 dashPlus = "trill"
+
 \relative c'' { c1-+ }
 

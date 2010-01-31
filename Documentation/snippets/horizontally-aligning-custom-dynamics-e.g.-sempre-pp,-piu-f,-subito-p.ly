@@ -64,9 +64,9 @@ semppMarkup = \markup { \halign #1.4 \italic "sempre" \dynamic "pp" }
 semppK =
 #(make-dynamic-script
   (markup #:line
-	  (#:normal-text
-	   #:italic "sempre"
-	   #:dynamic "pp")))
+          (#:normal-text
+           #:italic "sempre"
+           #:dynamic "pp")))
 
 % Solution 3: Padding the dynamic script so the center-alignment
 %             puts it at the correct position
@@ -74,10 +74,10 @@ semppK =
 semppT =
 #(make-dynamic-script
   (markup #:line
-	  (#:normal-text
-	   #:italic "sempre"
-	   #:dynamic "pp"
-	   #:hspace 7.1)))
+          (#:normal-text
+           #:italic "sempre"
+           #:dynamic "pp"
+           #:hspace 7.1)))
 
 % Solution 4: Dynamic, setting the dimensions of the additional text to 0
 % Drawback: To lilypond "sempre" has no extent, so it might put
@@ -86,26 +86,37 @@ semppT =
 %           same alignment as without the additional text
 semppM =
 #(make-dynamic-script
-  (markup #:line (#:with-dimensions '(0 . 0) '(0 . 0)
-   #:right-align #:normal-text #:italic "sempre" #:dynamic "pp")))
+  (markup #:line
+          (#:with-dimensions '(0 . 0) '(0 . 0)
+                             #:right-align
+                             #:normal-text
+                             #:italic "sempre"
+                             #:dynamic "pp")))
 
 % Solution 5: Dynamic with explicit shifting inside the scheme function
 semppG =
 #(make-dynamic-script
-  (markup
-    #:hspace 0 #:translate '(-18.85 . 0)
-    #:line( #:normal-text #:italic "sempre" #:dynamic "pp")))
+  (markup #:hspace 0
+          #:translate '(-18.85 . 0)
+          #:line (#:normal-text
+                  #:italic "sempre"
+                  #:dynamic "pp")))
 
-% Solution 6: Dynamic with explicit alignment. This has only effect, if one sets X-offset!
+% Solution 6: Dynamic with explicit alignment. This has only effect
+%             if one sets X-offset!
 % Drawback: One needs to set DynamicText #'X-offset!
-% Drawback: Aligned at the right edge of the additional text, not at the center of pp
+% Drawback: Aligned at the right edge of the additional text,
+%           not at the center of pp
 semppMII =
-#(make-dynamic-script (markup #:line(#:right-align
-  #:normal-text #:italic "sempre" #:dynamic "pp")))
+#(make-dynamic-script
+  (markup #:line (#:right-align
+                  #:normal-text
+                  #:italic "sempre"
+                  #:dynamic "pp")))
 
 \context StaffGroup <<
   \context Staff = "s" <<
-    \set Staff.instrumentName = "Normal"
+    \set Staff.instrumentName = #"Normal"
     \relative c'' {
       \key es \major
       c4\pp c\p c c | c\ff c c\pp c
@@ -160,3 +171,4 @@ semppMII =
     }
   >>
 >>
+

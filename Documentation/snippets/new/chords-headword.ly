@@ -1,9 +1,9 @@
 \version "2.12.0"
 #(set-global-staff-size 15)
-\paper{
-  ragged-right=##f
-  line-width=15\cm
-  indent=0\cm
+\paper {
+  ragged-right = ##f
+  line-width = 15\cm
+  indent = 0\cm
 }
 
 \header {
@@ -14,7 +14,8 @@
 
 
 \layout {
-  \context { \Score
+  \context {
+    \Score
     \override PaperColumn #'keep-inside-line = ##t
     \override NonMusicalPaperColumn #'keep-inside-line = ##t
   }
@@ -26,15 +27,15 @@ theChords = \chordmode {
   f2 bes2 | f1 | c2:7 f | c1 | \break
 }
 
-verseOne = \lyricmode{
-  \set stanza = "1. "
+verseOne = \lyricmode {
+  \set stanza = #"1."
   Fair is the sun - shine,
   Fair - er the moon - light
   And all the stars __ _  in heav'n a -- bove;
 }
 
-verseTwo = \lyricmode{
-  \set stanza = "2. "
+verseTwo = \lyricmode {
+  \set stanza = #"2."
   Fair are the mead - ows,
   Fair - er the wood - land,
   Robed in the flow -- ers of bloom -- ing spring;
@@ -45,7 +46,7 @@ Soprano = {
   \key f \major
   \stemUp
   f'2 f'4 f' | g'4 e' f'2 | a'4. a'8 a'4 a' | bes'4 g' a'2 |
-c''2 f''4 d'' |  c''2  bes'4  a' | bes'2 a' | g'1 |
+  c''2 f''4 d'' |  c''2  bes'4  a' | bes'2 a' | g'1 |
 }
 
 Alto = {
@@ -79,8 +80,8 @@ Bass = {
         >>
       }
     }
-    \context Lyrics="LyrOne" \lyricsto "sop" {\verseOne}
-    \context Lyrics="LyrTwo" \lyricsto "sop" {\verseTwo}
+    \context Lyrics = "LyrOne" \lyricsto "sop" { \verseOne }
+    \context Lyrics = "LyrTwo" \lyricsto "sop" { \verseTwo }
     \context Staff = lower {
       \new Voice {
         \clef bass
@@ -93,16 +94,16 @@ Bass = {
     }
   >>
 
-\layout {
-  %between-system-space = 1\mm
-  indent = 0
-  \context {
-    \Score
-    \remove "Bar_number_engraver"
-  }
-  \context { \Staff
-    \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 1)
-  }
+  \layout {
+    indent = 0
+    \context {
+      \Score
+      \remove "Bar_number_engraver"
+    }
+    \context {
+      \Voice
+      \override StanzaNumber #'padding = #1.8
+    }
   }
 }
 \paper {  }

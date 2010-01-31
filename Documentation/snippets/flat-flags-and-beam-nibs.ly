@@ -158,14 +158,12 @@ carry both a left- and right-pointing flat flag. Do this with paired
       c16[]
       r8.
     }
-
     % Example 2
     \new RhythmicStaff {
       r8.
       \set stemRightBeamCount = #0
       c16[]
     }
-
     % Example 3
     \new RhythmicStaff {
       c16 c
@@ -174,7 +172,6 @@ carry both a left- and right-pointing flat flag. Do this with paired
       \set stemLeftBeamCount = #2
       c16 c c
     }
-
     % Example 4
     \new RhythmicStaff {
       c16 c

@@ -106,15 +106,15 @@ musicDown = \relative c'' {
   <<
     <<
     \new Staff {
-      \set Staff.instrumentName = "Standard polyphony  "
+      \set Staff.instrumentName = #"Standard polyphony"
       << \musicUp \\ \musicDown >>
     }
     \new Staff \with { printPartCombineTexts = ##f } {
-      \set Staff.instrumentName = "PartCombine without texts  "
+      \set Staff.instrumentName = #"PartCombine without texts"
       \partcombine \musicUp \musicDown
     }
     \new Staff {
-      \set Staff.instrumentName = "PartCombine with texts  "
+      \set Staff.instrumentName = #"PartCombine with texts"
       \partcombine \musicUp \musicDown
     }
     >>

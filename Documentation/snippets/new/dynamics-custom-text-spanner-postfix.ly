@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.13.8"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
@@ -11,12 +11,18 @@ otherwise the spanner start will rather be assigned to the next note.
 
 % Two functions for (de)crescendo spanners where you can explicitly give the
 % spanner text.
-mycresc = #(define-music-function (parser location mymarkup) (string?)
-  (make-music 'CrescendoEvent 'span-direction START
-              'span-type 'text 'span-text mymarkup))
-mydecresc = #(define-music-function (parser location mymarkup) (string?)
-  (make-music 'DecrescendoEvent 'span-direction START
-              'span-type 'text 'span-text mymarkup))
+mycresc =
+#(define-music-function (parser location mymarkup) (markup?)
+   (make-music 'CrescendoEvent
+               'span-direction START
+               'span-type 'text
+               'span-text mymarkup))
+mydecresc =
+#(define-music-function (parser location mymarkup) (markup?)
+   (make-music 'DecrescendoEvent
+               'span-direction START
+               'span-type 'text
+               'span-text mymarkup))
 
 \relative c' {
   c4-\mycresc "custom cresc" c4 c4 c4 |

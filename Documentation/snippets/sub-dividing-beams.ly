@@ -67,8 +67,8 @@ intervals defined by the current value of @code{beatLength} by reducing
 the multiple beams to just one beam between the sub-groups. Note that
 @code{beatLength} defaults to one over the denominator of the current
 time signature if not set explicitly. It must be set to a fraction
-giving the duration of the beam sub-group using the @code{make-moment}
-function, as shown here:
+giving the duration of the beam sub-group using the
+@code{ly:make-moment} function, as shown here:
 
 
 

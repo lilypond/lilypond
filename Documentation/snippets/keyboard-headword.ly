@@ -90,7 +90,7 @@ fermataLong = \markup {
     \clef bass
     <ds b! es'>4 ( ^ \markup \bold { Rall. }
     \override Script #'stencil = #(lambda (grob)
-      ly:script::print (grob-interpret-markup grob fermataLong))
+      (grob-interpret-markup grob fermataLong))
     <ds' as'>8 ) \fermata
     \noBeam
     \clef treble

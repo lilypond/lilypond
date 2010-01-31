@@ -62,3 +62,4 @@ to modify its output.
   b4 c
   a4 \stopTextSpan
 }
+

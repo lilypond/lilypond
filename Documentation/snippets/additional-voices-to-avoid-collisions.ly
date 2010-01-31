@@ -48,24 +48,34 @@ a variable using the Scheme function @code{context-spec-music}.
 } % begin verbatim
 
 voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
+
 \relative c'' {
-  \time 3/4 \key d \minor \partial 2
+  \time 3/4
+  \key d \minor
+  \partial 2
   <<
-    { \voiceOne
+    {
+      \voiceOne
       a4. a8
       e'4 e4. e8
       f4 d4. c8
-    } \\ {
+    }
+    \\
+    {
       \voiceThree
       f,2
       bes4 a2
       a4 s2
-    } \\ {
+    }
+    \\
+    {
       \voiceFive
       s2
       g4 g2
       f4 f2
-    } \\ {
+    }
+    \\
+    \bar "||"{
       \voiceTwo
       d2
       d4 cis2

@@ -18,8 +18,8 @@ cifrado americano se puede cambiar por la alemana
 
   texidoc = "
 The english naming of chords (default) can be changed to german
-(@code{\\germanChords} replaces B and Bes to H and B) or semi-german
-(@code{\\semiGermanChords} replaces B and Bes to H and Bb).
+(@code{\\germanChords} replaces B and Bes with H and B) or semi-german
+(@code{\\semiGermanChords} replaces B and Bes with H and Bb).
 
 
 
@@ -29,8 +29,8 @@ The english naming of chords (default) can be changed to german
 } % begin verbatim
 
 music = \chordmode {
-  c1/c cis/cis
-  b/b bis/bis bes/bes
+  c1/c | cis/cis
+  b1/b | bis/bis | bes/bes
 }
 
 %% The following is only here to print the names of the
@@ -38,7 +38,10 @@ music = \chordmode {
 %% print them.
 
 \layout {
-  \context {\ChordNames \consists Instrument_name_engraver }
+  \context {
+    \ChordNames
+    \consists "Instrument_name_engraver"
+  }
 }
 
 <<

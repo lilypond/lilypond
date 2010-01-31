@@ -35,7 +35,7 @@ portée (@code{Staff}) permet de distribuer un arpège sur plusieurs voix :
 
   texidoc = "
 An arpeggio can be drawn across notes in different voices on the same
-staff if the @code{Span_arpeggio_engraver} is moved to the @code{Staff}
+staff if the @code{Span_arpeggio_engraver} is added to the @code{Staff}
 context:
 
 "
@@ -48,7 +48,8 @@ context:
 \relative c' {
   \set Staff.connectArpeggios = ##t
   <<
-    { <e' g>4\arpeggio <d f> <d f>2 } \\
+    { <e' g>4\arpeggio <d f> <d f>2 }
+    \\
     { <d, f>2\arpeggio <g b>2 }
   >>
 }

@@ -27,10 +27,11 @@ The direction will always be above, but one can tweak this via a
 
 % The same as \flageolet, just a little smaller
 smallFlageolet =
-#(let ((m (make-music 'ArticulationEvent 'articulation-type "flageolet")))
-   (ly:music-set-property! m 'tweaks
-     (acons 'font-size -2 (ly:music-property m 'tweaks)))
-  m)
+#(let ((m (make-articulation "flageolet")))
+   (set! (ly:music-property m 'tweaks)
+         (acons 'font-size -2
+                (ly:music-property m 'tweaks)))
+   m)
 
 \relative c' {
   s4^"wrong:"

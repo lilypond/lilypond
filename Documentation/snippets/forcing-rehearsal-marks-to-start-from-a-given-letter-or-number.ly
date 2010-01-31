@@ -14,7 +14,7 @@ marks, but from the letter or number desired.
   doctitle = "Forcing rehearsal marks to start from a given letter or number"
 } % begin verbatim
 
-\relative c''{
+\relative c'' {
   c1 \mark \default
   c1 \mark \default
   c1 \mark \default

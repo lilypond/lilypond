@@ -65,7 +65,7 @@ entered only once.
 
 
 Read the relevant sections of the Notation Reference for more
-information about @code{make-moment}.
+information about @code{ly:make-moment}.
 
 "
   doctitle = "Entering several tuplets using only one \\times command"

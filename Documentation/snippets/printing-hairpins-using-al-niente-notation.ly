@@ -35,9 +35,9 @@ propriété @code{circled-tip}, ce qui affiche un cercle à leur extrémité.
 
 
   texidoc = "
-Hairpins may be printed with a circled tip (al niente notation) by
-setting the @code{circled-tip} property of the @code{Hairpin} object to
-@code{#t}.
+Hairpin dynamics may be printed with a circled tip (@qq{al niente}
+notation) by setting the @code{circled-tip} property of the
+@code{Hairpin} object to @code{#t}.
 
 "
   doctitle = "Printing hairpins using al niente notation"

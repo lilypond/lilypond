@@ -5,10 +5,10 @@
 \version "2.13.10"
 
 #(set-global-staff-size 15)
-\paper{
-  ragged-right=##t
-  line-width=17\cm
-  indent=0\cm
+\paper {
+  ragged-right = ##t
+  line-width = 17\cm
+  indent = 0\cm
 }
 
 
@@ -20,7 +20,8 @@
 
 
 \layout {
-  \context { \Score
+  \context {
+    \Score
     \override PaperColumn #'keep-inside-line = ##t
     \override NonMusicalPaperColumn #'keep-inside-line = ##t
   }
@@ -141,7 +142,6 @@
 \layout {
   \context {
     \Staff
-    \consists Custos_engraver
+    \consists "Custos_engraver"
   }
 }
-

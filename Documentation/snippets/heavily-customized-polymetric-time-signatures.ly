@@ -17,22 +17,20 @@ is the template of a real Balkan song!).
 
 #(define plus (markup #:vcenter "+"))
 #(define ((custom-time-signature one two three four five six
-           seven eight nine ten eleven num) grob)
-            (grob-interpret-markup grob
-              (markup #:override '(baseline-skip . 0) #:number
-                (#:line (
-                    (#:column (one num)) plus
-                    (#:column (two num)) plus
-                    (#:column (three num)) plus
-                    (#:column (four num)) plus
-                    (#:column (five num)) plus
-                    (#:column (six num)) plus
-                    (#:column (seven num)) plus
-                    (#:column (eight num)) plus
-                    (#:column (nine num)) plus
-                    (#:column (ten num)) plus
-                    (#:column (eleven num)))))))
-
+                                 seven eight nine ten eleven num) grob)
+   (grob-interpret-markup grob
+                          (markup #:override '(baseline-skip . 0) #:number
+                                  (#:line ((#:column (one num)) plus
+                                           (#:column (two num)) plus
+                                           (#:column (three num)) plus
+                                           (#:column (four num)) plus
+                                           (#:column (five num)) plus
+                                           (#:column (six num)) plus
+                                           (#:column (seven num)) plus
+                                           (#:column (eight num)) plus
+                                           (#:column (nine num)) plus
+                                           (#:column (ten num)) plus
+                                           (#:column (eleven num)))))))
 melody = \relative c'' {
   \set Staff.instrumentName = #"Bb Sop."
   \key g \major
@@ -48,7 +46,7 @@ melody = \relative c'' {
 }
 
 drum = \new DrumStaff \drummode {
-  \bar "|:" bd4.^\markup { "Drums" } sn4 bd \bar ":" sn4.
+  \bar "|:" bd4.^\markup { Drums } sn4 bd \bar ":" sn4.
   bd4 sn \bar ":" bd sn bd4. sn4 bd \bar ":|"
 }
 
@@ -56,3 +54,4 @@ drum = \new DrumStaff \drummode {
   \melody
   \drum
 }
+

@@ -51,28 +51,31 @@ draw the rectangle over the hairpin.
 } % begin verbatim
 
 \relative c' {
-  << {
-    \dynamicUp
-    \override DynamicLineSpanner #'staff-padding = #4
-    r2 r16 c'8.\pp r4
-  }
-  \\
-  {
-    \override DynamicLineSpanner #'layer = #0
-    des,2\mf\< ~
-    \override TextScript #'layer = #2
-    des16_\markup {
-      \postscript #"
-        1.9 -8 translate
-        5 4 scale
-        1 setgray
-        0 0 moveto
-        0 1 lineto
-        1 1 lineto
-        1 0 lineto
-        0 0 lineto
-        fill"
+  <<
+    {
+      \dynamicUp
+      \override DynamicLineSpanner #'staff-padding = #4
+      r2 r16 c'8.\pp r4
     }
-    r8. des4 ~ des16->\sff
-  } >>
+    \\
+    {
+      \override DynamicLineSpanner #'layer = #0
+      des,2\mf\< ~
+      \override TextScript #'layer = #2
+      des16_\markup {
+        \postscript #"
+          1.9 -8 translate
+          5 4 scale
+          1 setgray
+          0 0 moveto
+          0 1 lineto
+          1 1 lineto
+          1 0 lineto
+          0 0 lineto
+          fill"
+      }
+      r8. des4 ~ des16->\sff
+    }
+  >>
 }
+

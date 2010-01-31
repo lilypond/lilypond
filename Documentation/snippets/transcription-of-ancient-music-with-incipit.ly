@@ -33,22 +33,18 @@ global = {
   \set Score.skipBars = ##t
   \key g \major
   \time 4/4
-
   %make the staff lines invisible on staves
   \override Staff.BarLine #'transparent = ##t
   \skip 1*8 % the actual music
-
   % let finis bar go through all staves
   \override Staff.BarLine #'transparent = ##f
-
   % finis bar
   \bar "|."
 }
 
-
 discantusNotes = {
   \transpose c' c'' {
-    \clef "treble"
+    \clef treble
     d'2. d'4 |
     b e' d'2 |
     c'4 e'4.( d'8 c' b |
@@ -71,7 +67,7 @@ discantusLyrics = \lyricmode {
 
 altusNotes = {
   \transpose c' c'' {
-    \clef "treble"
+    \clef treble
     r2 g2. e4 fis g | % two bars
     a2 g4 e |
     fis g4.( fis16 e fis4) |
@@ -109,7 +105,7 @@ tenorLyrics = \lyricmode {
 
 bassusNotes = {
   \transpose c' c' {
-    \clef "bass"
+    \clef bass
     R1 |
     R1 |
     R1 |
@@ -126,137 +122,143 @@ bassusLyrics = \lyricmode {
   -us.
 }
 
-incipitDiscantus = \markup{
-	\score{
-		{
-		\set Staff.instrumentName="Discantus "
-		\override NoteHead   #'style = #'neomensural
-		\override Rest #'style = #'neomensural
-		\override Staff.TimeSignature #'style = #'neomensural
-		\cadenzaOn
-		\clef "neomensural-c1"
-		\key f \major
-		\time 2/2
-	  	c''1._"IV-" s2  %two bars
-	  	\skip 1*8 % eight bars
-    	}
-	\layout {
-		\context {\Voice
-			\remove Ligature_bracket_engraver
-			\consists Mensural_ligature_engraver
-		}
-		line-width=4.5\cm
-	}
-	}
-}
-
-incipitAltus = \markup{
-	\score{
-		{
-		\set Staff.instrumentName="Altus "
-		\override NoteHead   #'style = #'neomensural
-		\override Rest #'style = #'neomensural
-		\override Staff.TimeSignature #'style = #'neomensural
-		\cadenzaOn
-		\clef "neomensural-c3"
-		\key f \major
-		\time 2/2
-	  	r1        % one bar
-        f'1._"IV-" s2   % two bars
-        \skip 1*7 % seven bars
-		}
-	\layout {
-		\context {\Voice
-			\remove Ligature_bracket_engraver
-			\consists Mensural_ligature_engraver
-		}
-		line-width=4.5\cm
-	}
-	}
-}
-
-incipitTenor = \markup{
-    \score{ {
-    \set Staff.instrumentName = "Tenor  "
-    \override NoteHead   #'style = #'neomensural
-	\override Rest #'style = #'neomensural
-	\override Staff.TimeSignature #'style = #'neomensural
-	\cadenzaOn
-	\clef "neomensural-c4"
-	\key f \major
-	\time 2/2
-    r\longa   % four bars
-    r\breve   % two bars
-    r1        % one bar
-    c'1._"IV-" s2   % two bars
-    \skip 1   % one bar
+incipitDiscantus = \markup {
+  \score {
+    {
+      \set Staff.instrumentName = #"Discantus "
+      \override NoteHead #'style = #'neomensural
+      \override Rest #'style = #'neomensural
+      \override Staff.TimeSignature #'style = #'neomensural
+      \cadenzaOn
+      \clef "neomensural-c1"
+      \key f \major
+      \time 2/2
+      c''1._"IV-" s2  %two bars
+      \skip 1*8 % eight bars
     }
     \layout {
-		\context {\Voice
-			\remove Ligature_bracket_engraver
-			\consists Mensural_ligature_engraver
-		}
-		line-width=4.5\cm
-}
-}
+      \context {
+        \Voice
+        \remove "Ligature_bracket_engraver"
+        \consists "Mensural_ligature_engraver"
+      }
+      line-width = 4.5\cm
+    }
+  }
 }
 
-incipitBassus = \markup{
-    \score{ {
-    \set Staff.instrumentName = "Bassus  "
-    \override NoteHead   #'style = #'neomensural
-	\override Rest #'style = #'neomensural
-	\override Staff.TimeSignature #'style = #'neomensural
-	\cadenzaOn
-	\clef "bass"
-	\key f \major
-	\time 2/2
-    % incipit
-    r\maxima  % eight bars
-    f1._"IV-" s2    % two bars
+incipitAltus = \markup {
+  \score {
+    {
+      \set Staff.instrumentName = #"Altus "
+      \override NoteHead #'style = #'neomensural
+      \override Rest #'style = #'neomensural
+      \override Staff.TimeSignature #'style = #'neomensural
+      \cadenzaOn
+      \clef "neomensural-c3"
+      \key f \major
+      \time 2/2
+      r1        % one bar
+      f'1._"IV-" s2   % two bars
+      \skip 1*7 % seven bars
     }
     \layout {
-		\context {\Voice
-			\remove Ligature_bracket_engraver
-			\consists Mensural_ligature_engraver
-		}
-		line-width=4.5\cm
-            }
-     }
+      \context {
+        \Voice
+        \remove "Ligature_bracket_engraver"
+        \consists "Mensural_ligature_engraver"
+      }
+      line-width = 4.5\cm
+    }
+  }
+}
+
+incipitTenor = \markup {
+  \score {
+    {
+      \set Staff.instrumentName = #"Tenor  "
+      \override NoteHead #'style = #'neomensural
+      \override Rest #'style = #'neomensural
+      \override Staff.TimeSignature #'style = #'neomensural
+      \cadenzaOn
+      \clef "neomensural-c4"
+      \key f \major
+      \time 2/2
+      r\longa   % four bars
+      r\breve   % two bars
+      r1        % one bar
+      c'1._"IV-" s2   % two bars
+      \skip 1   % one bar
+    }
+    \layout {
+      \context {
+        \Voice
+        \remove "Ligature_bracket_engraver"
+        \consists "Mensural_ligature_engraver"
+      }
+      line-width = 4.5\cm
+    }
+  }
+}
+
+incipitBassus = \markup {
+  \score {
+    {
+      \set Staff.instrumentName = #"Bassus  "
+      \override NoteHead #'style = #'neomensural
+      \override Rest #'style = #'neomensural
+      \override Staff.TimeSignature #'style = #'neomensural
+      \cadenzaOn
+      \clef "bass"
+      \key f \major
+      \time 2/2
+      % incipit
+      r\maxima  % eight bars
+      f1._"IV-" s2    % two bars
+    }
+    \layout {
+      \context {
+        \Voice
+        \remove "Ligature_bracket_engraver"
+        \consists "Mensural_ligature_engraver"
+      }
+      line-width = 4.5\cm
+    }
+  }
 }
 
 %StaffGroup is used instead of ChoirStaff to get bar lines between systems
 \score {
   <<
-  \new StaffGroup = choirStaff <<
-    \new Voice =
-      "discantusNotes" << \global
-      \set Staff.instrumentName=\incipitDiscantus
-      \discantusNotes >>
-    \new Lyrics =
-      "discantusLyrics" \lyricsto discantusNotes { \discantusLyrics }
-
-    \new Voice =
-      "altusNotes" << \global
-      \set Staff.instrumentName=\incipitAltus
-      \altusNotes >>
-    \new Lyrics =
-      "altusLyrics" \lyricsto altusNotes { \altusLyrics }
-
-    \new Voice =
-      "tenorNotes" << \global
-      \set Staff.instrumentName=\incipitTenor
-      \tenorNotes >>
-    \new Lyrics =
-      "tenorLyrics" \lyricsto tenorNotes { \tenorLyrics }
-
-    \new Voice =
-      "bassusNotes" << \global
-      \set Staff.instrumentName=\incipitBassus
-      \bassusNotes >>
+    \new StaffGroup = choirStaff <<
+      \new Voice = "discantusNotes" <<
+        \global
+        \set Staff.instrumentName = \incipitDiscantus
+        \discantusNotes
       >>
-    \new Lyrics =
-      "bassusLyrics" \lyricsto bassusNotes { \bassusLyrics }
+      \new Lyrics = "discantusLyrics" \lyricsto discantusNotes { \discantusLyrics }
+
+      \new Voice = "altusNotes" <<
+        \global
+        \set Staff.instrumentName = \incipitAltus
+        \altusNotes
+      >>
+      \new Lyrics = "altusLyrics" \lyricsto altusNotes { \altusLyrics }
+
+      \new Voice = "tenorNotes" <<
+        \global
+        \set Staff.instrumentName = \incipitTenor
+        \tenorNotes
+      >>
+      \new Lyrics = "tenorLyrics" \lyricsto tenorNotes { \tenorLyrics }
+
+      \new Voice = "bassusNotes" <<
+        \global
+        \set Staff.instrumentName = \incipitBassus
+        \bassusNotes
+      >>
+    >>
+    \new Lyrics = "bassusLyrics" \lyricsto bassusNotes { \bassusLyrics }
     %Keep the bass lyrics outside of the staff group to avoid bar lines
     %between the lyrics.
   >>
@@ -264,21 +266,23 @@ incipitBassus = \markup{
   \layout {
     \context {
       \Score
-
       % no bars in staves
       \override BarLine #'transparent = ##t
     }
-    % the next three instructions keep the lyrics between the barlines
-	\context { \Lyrics
-	   \consists "Bar_engraver"
-	   \override BarLine #'transparent = ##t }
-	\context { \StaffGroup \consists "Separating_line_group_engraver" }
+    % the next three instructions keep the lyrics between the bar lines
+    \context {
+      \Lyrics
+      \consists "Bar_engraver"
+      \override BarLine #'transparent = ##t
+    }
+    \context {
+      \StaffGroup
+      \consists "Separating_line_group_engraver"
+    }
     \context {
       \Voice
-
       % no slurs
       \override Slur #'transparent = ##t
-
       % Comment in the below "\remove" command to allow line
       % breaking also at those barlines where a note overlaps
       % into the next bar.  The command is commented out in this
@@ -287,7 +291,7 @@ incipitBassus = \markup{
       % overall spacing if you comment in the following command.
       %\remove "Forbid_line_break_engraver"
     }
-    	indent=5\cm
+    indent = 5\cm
   }
 }
 
