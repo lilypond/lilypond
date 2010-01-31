@@ -924,7 +924,7 @@ ou d'autres accordages en suivant les exemples du fichier
 Les diagrammes de fret propres au ukulele se trouvent dans le fichier
 @code{predefined-ukulele-fretboards.ly}.
 
-@lilypond[verbatim, ragget-right, quote]
+@lilypond[verbatim, ragged-right, quote]
 \include "predefined-ukulele-fretboards.ly"
 
 myChords = \chordmode { a1 a:m a:aug }
