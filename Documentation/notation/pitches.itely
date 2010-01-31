@@ -911,14 +911,14 @@ This section discusses how to alter the output of pitches.
 @cindex clef, mezzosoprano
 @cindex clef, baritone
 @cindex clef, varbaritone
-@cindex subbass clef, subbass
+@cindex clef, subbass
 
 
 @funindex \clef
 @funindex clef
 
 The clef may be altered.  Middle C is shown in every example. The
-following clef names can be (but don't have to be) enclosed in quotes.
+following clef names can (but do not need to) be enclosed in quotes.
 
 @lilypond[verbatim,quote,relative=1]
 \clef treble
@@ -931,9 +931,7 @@ c2 c
 c2 c
 @end lilypond
 
-Three of these clef names can be abbreviated: You can use @code{“G”}
-instead of @code{“treble”}, @code{“C”} instead of @code{“alto”} and
-@code{“F”} instead of @code{“bass”}. Other clefs include:
+Other clefs include:
 
 @lilypond[verbatim,quote,relative=1]
 \clef french
@@ -956,9 +954,17 @@ c2 c
 \clef tab
 c2 c
 
+\break
+
+\clef G   % synonym for treble
+c2 c
+\clef F   % synonym for bass
+c2 c
+\clef C   % synonym for tenor
+c2 c
 @end lilypond
 
-@cindex transposing clefs
+@cindex transposing clef
 @cindex clef, transposing
 @cindex octave transposition
 @cindex choral tenor clef
@@ -967,21 +973,25 @@ c2 c
 By adding@tie{}@code{_8} or@tie{}@code{^8} to the clef name, the
 clef is transposed one octave down or up, respectively,
 and@tie{}@code{_15} and@tie{}@code{^15} transpose by two octaves.
-The clef name must be enclosed in quotes when it contains
-either underscores or circumflexes and digits.
+Clef names containing non-alphabetic characters must be enclosed
+in quotes.
 
 @lilypond[verbatim,quote,relative=1]
 \clef treble
 c2 c
 \clef "treble_8"
 c2 c
+\clef "G_8"
+c2 c
 \clef "bass^15"
+c2 c
+\clef "F^15"
 c2 c
 @end lilypond
 
-The abbreviated clef names mentioned above can also be used as a
-shortened notation for transposing clefs, e.g. @code{“G_8”} instead of @code{“treble_8”} and@tie{}@code{“F^15”} instead of@tie{}@code{“bass^15”}.  Further supported clefs are described under @ref{Mensural clefs},
-@ref{Gregorian clefs} and @ref{Custom tablatures}.
+Further supported clefs are described under
+@ref{Mensural clefs}, @ref{Gregorian clefs},
+and @ref{Custom tablatures}.
 
 @snippets
 
