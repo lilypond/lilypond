@@ -925,7 +925,7 @@ afinaciones siguiendo los ejemplos que aparecen en
 Los diagramas de posiciones para el ukelele están en el archivo
 @code{predefined-ukulele-fretboards.ly}.
 
-@lilypond[verbatim, ragget-right, quote]
+@lilypond[verbatim, ragged-right, quote]
 \include "predefined-ukulele-fretboards.ly"
 
 myChords = \chordmode { a1 a:m a:aug }

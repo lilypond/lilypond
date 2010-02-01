@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 4582b7b24d22b2041bfcba49e716a714effcce92
+    Translation of GIT committish: 354f8ea159bb5216202e5815685fca8bd7e6919c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,7 +32,7 @@ Tutorial guidelines:
 
 Dieser Abschnitt erklärt, wie wunderschöner Notensatz erstellt
 werden kann, der die am häufigsten vorkommenden Notationssymbole
-enthält.  Der Abschnitt baut auf der @ref{Einleitung} auf.
+enthält.  Der Abschnitt baut auf der @ref{Übung} auf.
 
 
 @menu
@@ -1203,7 +1203,6 @@ Gleichzeitig dient es als Einleitung zum Rest des Handbuches.
 
 @menu
 * Stücke durch Bezeichner organisieren::
-* Versionsnummer::
 * Titel hinzufügen::
 * Absolute Notenbezeichnungen::
 * Nach der Übung::
@@ -1306,36 +1305,6 @@ Benutzung der eben definierten Bezeichner:
 @end example
 
 
-@node Versionsnummer
-@subsection Versionsnummer
-@translationof Version number
-
-@cindex Update
-@cindex Neue Version
-@cindex Dateien aktualisieren
-@cindex Aktualisieren von Dateien
-@cindex Versionsnummern
-
-@funindex \version
-@funindex version
-@funindex convert-ly
-
-Der @code{\version}-Befehl zeigt an, welche LilyPond-Version
-für eine bestimmte Quelldatei benutzt worden ist:
-
-@example
-\version @w{"@version{}"}
-@end example
-
-@noindent
-Üblicherweise wird dieser Befehl am Anfang der Textdatei eingefügt.
-
-Durch diese Versionsmarkierung werden zukünftige Aktualisierungen
-des LilyPond-Programmes einfacher gemacht. Syntax-Änderungen
-zwischen den Programmversionen werden von einem speziellen
-Programm, @command{convert-ly}, vorgenommen. Dieses Programm braucht
-@code{\version}, um zu entscheiden, welche Regeln angewandt werden
-müssen. Für Einzelheiten, siehe @rprogram{Dateien mit convert-ly aktualisieren}.
 
 @node Titel hinzufügen
 @subsection Titel hinzufügen
@@ -1484,9 +1453,7 @@ haben, können Sie bei Bedarf diesen Verweisen folgen, um ein
 Thema zu vertiefen.
 
 Bitte lesen Sie jetzt 
-@c @ref{Über die Dokumentation}, 
-FIXME
-wenn Sie
+@ref{Überblick über die Handbücher}, wenn Sie
 es bisher noch nicht getan haben. Es gibt ungeheuer viel 
 Information über LilyPond, so dass Neulinge sich nicht sofort
 zurecht finden. Wenn Sie auch nur ein paar Minuten in diesem

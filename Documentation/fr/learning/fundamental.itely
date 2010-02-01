@@ -2424,7 +2424,7 @@ Appelons la section pour la soprano @code{sopranoMusique} et celle pour le
 violoncelle @code{violoncelleMusique}.  Tant qu'on y est, renommons 
 @code{texte} en @code{sopranoParoles}.  Attention à bien renommer les
 deux occurrences de chacune de ces dénominations : c'est-à-dire la
-définition de départ, où l'on trouve @w{@code{melodie = relative c' @{ }},
+définition de départ, où l'on trouve @w{@code{melodie = \relative c' @{ }},
 et l'endroit où cette dénomination est utilisée, dans la section 
 @code{\score}.
 

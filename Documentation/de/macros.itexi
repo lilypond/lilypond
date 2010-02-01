@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  82a821b7fb55935bc71ef8cc4716b9661f806ab3
+    Translation of GIT committish:  83c1d1a6ee4e89f7f913fab904816e6c033b6b04
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -57,6 +57,104 @@
 @end ifnothtml
 
 
+@macro docMain
+@cartouche
+Zu mehr Information, wie dieses Handbuch unter den anderen Handbüchern
+positioniert, oder um dieses Handbuch in einem anderen Format
+zu lesen, besuchen Sie bitte @rweb{Manuals}.
+
+Wenn Ihnen Handbücher fehlen, finden Sie die gesamte Dokumentation
+unter @w{@uref{http://@/www@/.lilypond@/.org/}}.
+@end cartouche
+@end macro
+
+
+@macro lilyTitlePage{TITLE}
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
+
+
+@c   ***** Copyright stuff *****
+@ifset FDL
+@copying
+@copyrightDeclare
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen, ohne
+invariante Abschnitte),
+zu kopieren, zu verbreiten und/oder
+zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+@end ifset
+
+@ifclear FDL
+@copying
+This document has been placed in the public domain.
+@end copying
+@end ifclear
+
+
+@c   ***** Title page *****
+@ifnottex
+@node Top
+@top LilyPond -- \TITLE\
+
+@cartouche
+@manualIntro{}
+@end cartouche
+@end ifnottex
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle Das Notensatzprogramm
+@titlefont{\TITLE\}
+@author Das LilyPond-Entwicklerteam
+
+@vskip 60pt
+
+@cartouche
+@manualIntro{}
+@end cartouche
+
+@vskip 40pt
+
+@docMain{}
+
+@vskip 0pt plus 1filll
+
+@insertcopying
+
+Für LilyPond Version @version{}
+@end titlepage
+
+@end macro
+
+
+
 @c   ***** Headings in a doc subsection *****
 
 @c Don't insert an empty line after @predefined!  Right now
@@ -107,13 +205,17 @@
 
 @c  Definitions for references:
 @c
-@c     @rglos
-@c     @rlearning
-@c     @ruser
+@c     @rweb
 @c     @ressay
-@c     @rprogram
-@c     @rlsr
+@c     @rglos
 @c     @rinternals
+@c     @rlearning
+@c     @rlsr
+@c     @ruser
+@c     @rprogram
+@c     @rchanges
+@c     @rextend
+@c     @rcontrib
 @c
 @c  All these also have a @...named version which allows to specify the
 @c  displayed text for the reference as second argument.
@@ -160,6 +262,16 @@
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notationsreferenz}
 @end macro
 
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending-big-page,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending-big-page,Extending}
+@end macro
+
 @macro rchanges{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,changes-big-page,Changes}
@@ -170,14 +282,24 @@
 @ref{\TEXT\,,\DISPLAY\,changes-big-page,Changes}
 @end macro
 
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,contributor-big-page,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,contributor-big-page,Contributor's Guide}
+@end macro
+
 @macro rweb{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,web-big-page,General Information}
+@ref{\TEXT\,,,web-big-page,Allgemeine Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,web-big-page,General Information}
+@ref{\TEXT\,,\DISPLAY\,web-big-page,Allgemeine Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -225,6 +347,8 @@
 
 @ifclear bigpage
 
+@ifnotinfo
+
 @macro rglos{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,music-glossary,Glossar}
@@ -265,14 +389,34 @@
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
 @end macro
 
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending,Extending}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,contributor,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,contributor,Contributor's Guide}
+@end macro
+
 @macro rweb{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-web,General Information}
+@ref{\TEXT\,,,lilypond-web,Allgemeine Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-web, General Information}
+@ref{\TEXT\,,\DISPLAY\,lilypond-web,Allgemeine Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -312,6 +456,120 @@
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,internals,Referenz der Interna}
 @end macro
+
+@end ifnotinfo
+
+@ifinfo
+
+@macro rglos{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,music-glossary,Glossar}
+@end macro
+
+@macro rglosnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Glossar}
+@end macro
+
+@macro rlearning{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-learning,Handbuch zum Lernen}
+@end macro
+
+@macro rlearningnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-learning,Handbuch zum Lernen}
+@end macro
+
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-notation,Notationsreferenz}
+@end macro
+
+@macro rusernamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notationsreferenz}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-changes,Changes}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
+@end macro
+
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-extending,Extending}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-contributor,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Contributor's Guide}
+@end macro
+
+@macro rweb{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-web,Allgemeine Information}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-web, Allgemeine Information}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-essay,Aufsatz}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-essay,Aufsatz}
+@end macro
+
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-usage,Anwendungsbenutzung}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-usage,Anwendungsbenutzung}
+@end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Schnipsel}
+@end macro
+
+@macro rlsrnamed{TEXT,DISPLAY}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Schnipsel}
+@end macro
+
+@macro rinternals{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-internals,Referenz der Interna}
+@end macro
+
+@macro rinternalsnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Referenz der Interna}
+@end macro
+
+@end ifinfo
 
 @end ifclear
 
@@ -372,24 +630,44 @@
 @ref{\TEXT\,,\DISPLAY\,changes,Changes}
 @end macro
 
+@macro rextend{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,extending,Extending}
+@end macro
+
+@macro rcontrib{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,contributor,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,contributor,Contributor's Guide}
+@end macro
+
 @macro rweb{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,web,General Information}
+@ref{\TEXT\,,,web.de,Allgemeine Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,web,General Information}
+@ref{\TEXT\,,\DISPLAY\,web.de,Allgemeine Information}
 @end macro
 
 @macro ressay{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,essay-big-page,Aufsatz}
+@ref{\TEXT\,,,essay.de,Aufsatz}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,essay-big-page,Aufsatz}
+@ref{\TEXT\,,\DISPLAY\,essay.de,Aufsatz}
 @end macro
 
 @macro rprogram{TEXT}

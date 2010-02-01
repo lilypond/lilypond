@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 32114617e6b96617749a3c4efb4fa2203a8c3d50
+    Translation of GIT committish: 6073b7f6288066f7c3acc1c56800478c3f5f0c57
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -341,7 +341,7 @@ Es gibt eine andere Form des @code{override}-Befehls,
 @code{\overrideProperty} (überschreibe Eigenschaft), 
 welcher ab und zu benötigt wird. Es wird hier nur der
 Vollständigkeit halber erwähnt, sein Einsatz wird demonstriert
-in @ruser{Schwierige Korrekturen}.
+in @rextend{Schwierige Korrekturen}.
 @c Maybe explain in a later iteration  -td
 
 
@@ -921,7 +921,7 @@ die an Eigenschaften übergeben werden können, wie
 Zeichenketten, die immer mit Anführungszeichen, also
 als @code{"Zeichenkette"} auftreten. Für weitere
 Einzelheiten zu Zeichenketten und Werten, siehe 
-@ref{Scheme-Übung}.
+@rextend{Scheme-Übung}.
 
 Gut, der @code{\override}-Befehl, mit dem der Gesangstext
 kursiv gesetzt wird, lautet:
@@ -990,6 +990,9 @@ Klammer gesetzt werden.}
 @warning{Innerhalb von @code{\override}-Befehlen in
 Gesangstexten müssen Leerzeichen um Punkte zwischen
 Kontext- und Objektbezeichnungen gesetzt werden.}
+
+@seealso
+Erweitern: @rextend{Scheme-Übung}.
 
 
 @node Typen von Eigenschaften
@@ -1063,7 +1066,7 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
 
 
 @seealso
-Handbuch zum Lernen: @ref{Scheme-Übung}.
+Erweitern: @rextend{Scheme-Übung}.
 
 
 @node Erscheinung von Objekten
@@ -2130,8 +2133,25 @@ auf falsch (@code{#f}) gesetzt; dieser Wert wird in einen numerischen
 Wert dem Objekt entsprechend geändert, wenn das Objekt für die
 Notenausgabe erstellt wird.  Die Tabelle unten zeigt die 
 Standardwerte für die meistbenutzten @code{outside-staff}-Objekte,
-die den Voreinstellungen nach im
-@code{Staff}- oder @code{Voice}-Kontext gesetzt werden.
+die den Voreinstellungen nach im @code{Staff}- oder
+@code{Voice}-Kontext gesetzt werden.
+
+@cindex spanners
+@cindex Strecker
+
+Achtung bei einigen ungewöhnlichen Objektbezeichnungen: Strecker-Objekte
+werden automatisch erstellt, um die vertikale Position von Grobs
+zu kontrollieren, die an unterschiedlichen musikalischen Momenten
+beginnen und enden (könnten).  Wenn also @code{outside-staff-priority}
+des darunterliegenden Grobs geändert wird, hat das keine Auswirkung.
+Zum Beispiel bringt das Ändern von @code{outside-staff-priority}
+des @code{Hairpin}-(Dynamikklammer)-Objekts keine Änderung in der
+vertikalen Position von Crescendo-Klammern -- anstatt dessen muss
+@code{outside-staff-priority} des hiermit assoziierten
+@code{DynamicLineSpanne}-Objekts geändert werden.  Dieser
+@code{\override}-Befehl muss zu Beginn des Streckers gesetzt werden,
+welcher womöglich mehrere verbundene Dynamikklammern und Dynamikbezeichnung
+beinhaltet.
 
 @multitable @columnfractions .3 .3 .3
 @headitem Layout-Objekt        
@@ -2184,14 +2204,13 @@ Objekten zeigt.
 % Start Ottava Bracket
 \ottava #1
 c' \startTextSpan
-% Add Dynamic Text
-c\pp
-% Add Dynamic Line Spanner
-c\<
+% Add Dynamic Text and hairpin
+c\pp\<
+c
 % Add Text Script
 c^Text
 c c
-% Add Dynamic Text
+% Add Dynamic Text and terminate hairpin
 c\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
@@ -3204,7 +3223,7 @@ Dynamik, Fingersatz und Pedalbezeichnung, um das Beispiel nicht
 zu kompliziert zu machen.
 
 @c This example should not be indexed
-@lilypond[quote,ragged-right]
+@lilypond[quote,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2
   c4.\( g8 |
@@ -3216,7 +3235,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyDottedOn
   bes2.^\markup {\bold "Moderato"} r8
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     % Reposition the c2 to the right of the merged note
     {c,8~ \once \override NoteColumn #'force-hshift = #1.0
@@ -3269,7 +3288,8 @@ notieren und dann die Systemstruktur in einer
 @code{\score}-Umgebung erstellen.  Das ist, was LilyPond
 erstellt:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4. g8 |
   bes1~ |
@@ -3322,7 +3342,8 @@ Hand und der Phrasierungsbogen der rechten Hand
 sind schnell gesetzt, denn sie wurden schon in der
 Übung erklärt.  Damit haben wir folgendes Notenbild:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   bes1~ |
@@ -3330,7 +3351,7 @@ rhMusic = \relative c'' {
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     {c,8~ c2 | }
   \\
@@ -3389,7 +3410,7 @@ den Bindebogen (@code{tie}) 3,5 halbe Notenlinienabstände
 
 Damit ist auch der zweite Takt vollständig:
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   \once \override Tie #'staff-position = #3.5
@@ -3399,7 +3420,7 @@ rhMusic = \relative c'' {
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     {c,8~ c2 | }
   \\
@@ -3465,7 +3486,7 @@ um das Verhalten wieder auszuschalten. Das sieht so aus:
 @cindex Bindebogen, Beispiel zur Veränderung
 @cindex staff-position-Eigenschaft, Beispiel
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   \once \override Tie #'staff-position = #3.5
@@ -3477,7 +3498,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     {c,8~ c2 | }
   \\
@@ -3531,7 +3552,7 @@ Stufe weiter verschoben werden mit @code{\shiftOnn}, damit
 es die Verschmelzung der Ds nicht stört.  Das sieht jetzt so
 aus:
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   \once \override Tie #'staff-position = #3.5
@@ -3543,7 +3564,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     % Move the c2 out of the main note column so the merge will work
     {c,8~ \shiftOnn c2 | }
@@ -3593,7 +3614,7 @@ wir durchsichtig und das C verschieben wir mit der
 @cindex Notenhals, Beispiel zur Veränderung
 @cindex transparent-Eigenschaft, Beispiel
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2
   c4.\( g8 |
@@ -3605,7 +3626,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyHeadedOn
   \mergeDifferentlyDottedOn
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     % Reposition the c2 to the right of the merged note
     {c,8~ \once \override NoteColumn #'force-hshift = #1.0
@@ -3994,7 +4015,7 @@ im Moment außerhalb des Rahmens dieses Handbuchs, denn
 sie erfordern einige Kenntnis der Scheme-Sprache.  Die Warnung
 ist hier angebracht, dass des ein gutes technisches Verständnis
 oder sehr viel Zeit braucht, um Scheme und diese
-Dateien zu verstehen (siehe auch @ref{Scheme-Übung}).
+Dateien zu verstehen (siehe auch @rextend{Scheme-Übung}).
 
 Wenn Sie sich mit Scheme auskennen, sind hier mögliche
 interessante Dateien:
@@ -4054,7 +4075,7 @@ zu beeinflussen.  Code, der in der Scheme-Programmiersprache
 geschrieben ist, kann direkt in die interne Satzmaschine von LilyPond
 eingefügt werden.  Natürlich brauchen Sie dazu wenigstens ein
 grundlegendes Verständnis von Scheme.  Eine Einleitung finden
-Sie in der @ref{Scheme-Übung}.
+Sie in der @rextend{Scheme-Übung}.
 
 Zur Illustration der vielen Möglichkeiten soll gezeigt werden, dass eine
 Eigenschaft nicht nur auf eine Konstante, sondern auch auf eine
@@ -4089,15 +4110,12 @@ zu ihrer Position innerhalb der Tonleiter gesetzt.
 \relative c' {
   % Arrange to obtain color from color-notehead procedure
   \override NoteHead #'color = #color-notehead
-  c2 c' |
-  b4 g8 a b4 c |
-  c,2 a' |
-  g1 |
-}
-\addlyrics {
-  Some -- where o -- ver the Rain -- bow, way up high,
+  a2 b |
+  c2 d |
+  e2 f |
+  g2 a |
 }
 @end lilypond
 
 Weiter Beispiele, die die Benutzung dieser programmierbaren
-Schnittstelle zeigen, finden sich in @ref{Optimierungen mit Scheme}.
+Schnittstelle zeigen, finden sich in @rextend{Optimierungen mit Scheme}.

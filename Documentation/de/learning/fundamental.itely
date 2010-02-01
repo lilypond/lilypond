@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 67373601dabc72e32e3e7a4364c8be123d785e0b
+    Translation of GIT committish: a67150a82a9b14cce6eeb044e54f85ea3a016175
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,7 +9,7 @@
 @end ignore
 
 @c \version "2.12.0"
-@c Translators: Till Rettig, Reinhold Kainhofer
+@c Translators: Till Paala, Reinhold Kainhofer
 
 @node Grundbegriffe
 @chapter Grundbegriffe
@@ -554,10 +554,11 @@ und @ruser{Ossia-Systeme}.
 @cindex Klammer-Typen
 
 Sie haben bisher zahlreiche verschiedene Arten von Klammern
-beim Schreiben von Musik mit LilyPond kennengelernt.  Diese
-folgen verschiedenen Regeln, die zu Beginn vielleicht 
-verwirrend wirken.  Bevor die genauen Regeln vorgestellt werden,
-wollen wir die diversen Klammerarten kurz rekapitulieren:
+und Klammer-artigen Konstruktionen beim Schreiben von Musik mit
+LilyPond kennengelernt.  Diese folgen verschiedenen Regeln, die zu
+Beginn vielleicht verwirrend wirken.  Bevor die genauen Regeln
+vorgestellt werden, wollen wir die diversen Klammerarten und Arten
+von Klammer-artigen Konstrukten kurz rekapitulieren:
 
 @c attempt to force this onto a new page
 @need 50
@@ -592,13 +593,14 @@ wie die öffnenden Klammern vor.  Dies ist auch in LilyPond
 ein @strong{Muss} für die drei Klammerarten, die in obiger 
 Tabelle mit dem Wort @q{Umschließt} beschrieben werden -- sie 
 müssen korrekt geschachtelt werden.
-Die restlichen Klammerarten (durch @q{Markiert} beschrieben),
-die Haltebögen und die Triolen brauchen jedoch mit den 
-anderen Klammerarten @strong{nicht} unbedingt korrekt 
-geschachtelt werden.  Tatsächlich sind sie auch keine Klammern
-in dem Sinn, dass sie etwas umschließen, sondern viel mehr
-Indikatoren, an welcher Stelle ein bestimmtes musikalisches 
-Objekt beginnt oder endet.
+Die restlichen Klammer-artigen Konstruktionen (durch @q{Markiert}
+in der Tabelle oben beschrieben), die Haltebögen und die Triolen
+brauchen jedoch mit
+den anderen Klammern oder Klammer-artigen Konstrukten @strong{nicht}
+unbedingt korrekt geschachtelt werden.  Tatsächlich sind sie auch
+keine Klammern in dem Sinn, dass sie etwas umschließen, sondern
+viel mehr Indikatoren, an welcher Stelle ein bestimmtes
+musikalisches Objekt beginnt oder endet.
 
 So kann also z.B. einen Phrasierungsbogen vor einem manuellen 
 Balken beginn, jedoch schon vor dem Ende des Balkens enden.
@@ -609,7 +611,8 @@ auch möglich:
  { g8\( a b[ c b\) a] }
 @end lilypond
 
-Im Allgemeinen können die verschiedenen Klammerarten, Haltebögen,
+Im Allgemeinen können die verschiedenen Klammerarten,
+Klammer-artigen Konstruktionen, Haltebögen,
 Triolen und Vorschlagnoten beliebig kombiniert werden.
 Das folgende Beispiel zeigt einen Balken, der in eine Triole reicht 
 (Zeile 1), eine Bindebogen, der ebenfalls in eine Triole 
@@ -1760,13 +1763,17 @@ Notationreferenz: @ruser{Was sind Kontexte?}.
 @cindex Erstellen von Kontexten
 @cindex Kontexte, Erstellen
 
-Es gibt nur einen Kontext der obersten Ebene: der 
-@code{Score}-Kontext.  Er wird mit dem @code{\score}-Befehl, 
-oder -- in einfacheren Partituren -- automatisch
-erstellt.
+In einer Eingabedatei enthält eine @code{Score}-Umgebung (einen
+Kontext), die mit
+dem Befehl @code{\score} eingeleitet wird, nur einen einzigen
+musikalischen Ausdruck und mit ihm verknüpft eine Ausgabedefinition
+(entweder eine @code{\layout}- oder eine @code{\midi}-Umgebung).
+Üblicherweise wird der @code{Score}-Kontext automatisch von
+LilyPond erstellt, wenn der musikalische Ausdruck interpretiert
+wird.
 
 Wenn nur ein System vorhanden ist, kann man es ruhig
-LilyPond überlassen, die @code{Voice}- und @code{Staff}-Kontexte
+LilyPond überlassen, auch die @code{Voice}- und @code{Staff}-Kontexte
 zu erstellen, aber für komplexere Partituren ist es notwendig, 
 sie mit einem Befehl zu erstellen.  Der einfachste Befehl 
 hierzu ist @code{\new}.  Er wird dem musikalischen Ausdruck 
@@ -1782,9 +1789,17 @@ wobei @var{Typ} eine Kontextbezeichnung (wie etwa @code{Staff} oder
 beginnt, den @var{muskalischen Ausdruck} innherhalb dieses
 Kontexts auszuwerten.
 
-Beachten Sie, dass es keinen @code{\new Score}-Befehl gibt: der
-Partitur-Kontext der obersten Ebene wird mit dem Befehl @code{\score}
-begonnen.
+(Beachten Sie, dass man normalerweise keinen @code{\new Score}-Befehl
+braucht: der Partitur-(Score)-Kontext der obersten Ebene wird
+normalerweise automatisch erstellt, wenn der musikalische Ausdruck
+innerhalb der @code{\score}-Umgebung interpretiert wird.  Der
+einzige Grund, einen @code{Score}-Kontext explizit mit
+@code{\new Score} zu erstellen ist es, wenn man eine @code{\with}-Umgebung
+beginnen will, in der man eine oder mehrere Partitur-weite
+Standardwerte definiert werden.  Information über die Benutzung
+von @code{\with}-Umgebungen finden sich unter der Unterüberschrift
+@qq{Kontexteigenschaften mit @code{\\with} setzen} in
+@ref{Kontexteigenschaften verändern}.)
 
 Wir haben schon viele explizite Beispiel gesehen, in denen
 neue @code{Staff}- und @code{Voice}-Kontexte erstellt wurden, aber
@@ -1993,9 +2008,10 @@ Er wird in Form
 
 @noindent
 verwendet, wobei @var{KontextBezeichnung} üblicherweise
- @code{Score},
+@code{Score},
 @code{Staff} oder @code{Voice} ist.  Der erste Teil kann auch
-ausgelassen werden; in diesem Fall wird @code{Voice} eingesetzt.
+ausgelassen werden; in diesem Fall wird der aktuelle
+Kontext (üblicherweise @code{Voice}) eingesetzt.
 
 Die Bezeichnung von Kontexten-Eigenschaften besteht
 aus zwei Wörtern, die ohne Unterstrich oder Bindestrich
@@ -2188,13 +2204,13 @@ eingegeben werden kann.
 @funindex with
 @cindex Kontexteigenschaft, setzen mit \with
 
-Kontexteigenschaften können auch gesetzt werden, wenn der Kontext
-erstellt wird.  Das ist in manchen Fällen eine deutlichere Art,
-eine Eigenschaft zu bestimmen, die für die gesamte Partitur
-erhalten bleichen soll.  Wenn ein Kontext mit einem
-@code{\new}-Befehl erstellt wird, dem direkt eine
-@code{\with @{ .. @}}-Umgebung folgt, können hier die
-Eigenschaften bestimmt werden.  Wenn also die zusätzlichen
+Die Standardwerte von Kontexteigenschaften können zu dem Zeitpunkt
+definiert werden, an welchem der Kontext erstellt wird. Manchmal
+ist das eine saubere Weise, eine Eigenschaft zu bestimmen, die für
+die gesamte Partitur erhalten bleichen soll.  Wenn ein Kontext mit
+einem @code{\new}-Befehl erstellt wird, können in einer
+direkt folgenden @code{\with @{ .. @}}-Umgebung die Eigenschaften
+bestimmt werden.  Wenn also die zusätzlichen
 Auflösungszeichen für eine ganze Partitur gelten sollen, könnte
 man schreiben:
 
@@ -2218,18 +2234,40 @@ etwa so:
 >>
 @end lilypond
 
+Oder, wenn das @code{\override} für die Eigenschaft auf alle
+Notensysteme innerhalt der Partitur gelten soll, kann es auch
+direkt an ein @code{\new Score} gehängt werden, wie etwa hier:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \new Score \with { extraNatural = ##f } <<
+    \new Staff {
+      \relative c'' {
+        gis ges aes ais
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        gis ges aes ais
+      }
+    }
+  >>
+}
+@end lilypond
+
 Eigenschaften, die auf diese Arte gesetzt werden, können immer noch
 dynamisch mit dem @code{\set}-Befehl geändert werden und mit
-@code{\unset} auf ihre Standardeinstellungen zurückgesetzt werden.
+@code{\unset} auf ihre Standardeinstellungen zurückgesetzt werden,
+wie sie vorher in der @code{\with}-Umgebung definiert wurden.
 
 @cindex Schriftgröße, Standardeinstellung
 @cindex fontSize (Schriftgröße), Standardeinstellung
 
-Die @code{fontSize}-Eigenschaft wird anders behandelt.  Wenn sie mit
-einer @code{\with}-Umgebung gesetzt wird, wird die Standardschriftgröße
-neu gesetzt.  Wenn die Schriftgröße später mit @code{\set} verändert
+Wenn also die @code{fontSize}-Eigenschaft in einer @code{\with}-Umgebung
+definiert wird, wird der Standardwert für die Schriftgröße
+festgelegt.  Wenn dieser Wert später mit @code{\set} verändert
 wird, kann dieser neue Standardwert mit dem Befehl
-@code{\unset fontSize} erreicht werden.
+@code{\unset fontSize} wieder erreicht werden.
 
 @subsubheading Kontexteigenschaften mit @code{\context} setzen
 
@@ -3253,7 +3291,8 @@ padText =
 
 Die Benutzung von Variablen ist auch eine gute Möglichkeit,
 Arbeit zu vermeiden, wenn sich einmal die Syntax von LilyPond
-ändern sollte (siehe auch @rprogram{Updating old input iles}).
+ändern sollte (siehe auch @rprogram{Updating old input files
+with convert-ly}).
 Wenn man eine einzige Definition hat (wie etwa @code{\dolce}),
 die für alle Vorkommen in der Notation eingesetzt wird, muss
 man auch nur einmal diese Definition aktualisieren, anstatt
@@ -3382,6 +3421,3 @@ leading to
   }
 >>
 @end lilypond
-
-
-
