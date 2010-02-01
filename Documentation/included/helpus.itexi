@@ -1,0 +1,128 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of FIXME
+
+@macro helpusNeed
+@subheading We need you!
+
+The LilyPond development team is quite small; we really want to
+get more people involved.  Please consider helping your fellow
+LilyPond users by contributing to development!
+
+Even working on small tasks can have a big impact: taking care
+of them let experienced developers work on advanced tasks, instead
+of spending time on those simple tasks.
+
+@end macro
+
+
+@macro helpusTasks
+@subheading Simple tasks
+
+@itemize
+@item
+Mailing list support: answer questions from fellow users.
+
+@item
+Bug reporting: help users create proper @rweb{Bug reports}, and
+aid the Bug Team in handling @rcontrib{Issues}.
+
+@item
+Documentation: small changes can be proposed by following the
+guidelines for @rcontrib{Documentation suggestions}.
+
+@item
+LilyPond Snippet Repository (LSR): create and fix snippets.  See
+@rcontrib{Adding and editing snippets}.
+
+@item
+Discussions, reviews, and testing: the developers often ask for
+feedback about new documentation, potential syntax changes, and
+testing new features.  Please contribute to these discussions!
+
+@end itemize
+
+@subheading Moderate tasks
+
+@warning{These jobs generally require that you have the program
+and documentation source files, but do not require a full
+development environment.  See @rcontrib{Starting with Git}.}
+
+@itemize
+@item
+Documentation: see
+@rcontrib{Documentation work}, and
+@rcontrib{Building documentation without compiling LilyPond}.
+
+@item
+Website: the website is built from the normal documentation
+source.  See the info about documentation, and also
+@rcontrib{Website work}.
+
+@item
+Translations: see @rcontrib{Translating the documentation}, and
+@rcontrib{Translating the website}.
+
+@end itemize
+
+
+@subheading Complex tasks
+
+@warning{These jobs generally require that you have the source
+code and can compile LilyPond.  See @rcontrib{Starting with Git},
+and @rcontrib{Compiling LilyPond}.}
+
+We suggest that new contributors using Windows use a virtual
+machine to run @emph{lilybuntu}.  See
+@rcontrib{Using a Virtual Machine to Compile LilyPond}.
+
+@itemize
+@item
+Bugfixes, new features: the best way to begin is to join the
+Frogs, and read @rcontrib{Programming work}.
+
+@end itemize
+
+@end macro
+
+
+@macro helpusProjects
+@subheading Projects
+
+@subsubheading Frogs
+
+Website and mailist: @uref{http://frogs.lilynet.net}
+
+The Frogs are ordinary LilyPond users who have chosen to get
+involved in their favorite software's development.  Fixing bugs,
+implementing new features, documenting the source code: there's a
+lot to be done, but most importantly: this is a chance for
+everyone to learn more about LilyPond, about Free Software, about
+programming... and to have fun.  If you're curious about any of
+it, then the word is: @emph{Join the Frogs!}
+
+
+
+@help{not active yet; either comment out or begin these projects
+before 2.14}
+
+@subsubheading Grand LilyPond Input Syntax Standardization
+
+Website: @uref{http://lilypond.org/~graham/gliss}
+
+GLISS will stabilize the (non-tweak) input syntax for the upcoming
+LilyPond 3.0.  After updating to 3.0, the input syntax for
+untweaked music will remain stable for the foreseeable future.
+
+We will have an extensive discussion period to determine the final
+input specification.
+
+@subsubheading Grand Organizing Project
+
+Website and mailist: TODO
+
+GOP is our big recruiting drive for new contributors.
+
+
+@end macro
+
+

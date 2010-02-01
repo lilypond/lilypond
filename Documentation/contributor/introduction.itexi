@@ -1,5 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
+@include included/helpus.itexi
+
 @node Introduction to contributing
 @chapter Introduction to contributing
 
@@ -15,9 +17,11 @@ FIXME add fluff
 @node Help us
 @section Help us
 
-FIXME: The intro should contain the "help us" material from web/,
-quite possibly as the very first thing.  This requires having a
-macro for it, which depends on issue 939.
+@helpusNeed
+
+@helpusTasks
+
+@helpusProjects
 
 
 @node Overview of work flow
