@@ -102,9 +102,6 @@ it, then the word is: @emph{Join the Frogs!}
 
 
 
-@help{not active yet; either comment out or begin these projects
-before 2.14}
-
 @subsubheading Grand LilyPond Input Syntax Standardization
 
 Website: @uref{http://lilypond.org/~graham/gliss}
