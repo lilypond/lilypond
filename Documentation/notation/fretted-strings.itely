@@ -148,23 +148,22 @@ Internals Reference:
 @funindex TabVoice
 
 Music for plucked string instruments is frequently notated using a
-finger/touch notation or tablature. In contrast to traditional
+finger/touch notation or tablature.  In contrast to traditional
 notation pitches are not denoted with note heads, but by numbers (or
-letterlike symbols in historical intavolatura). The numbers
-indicate on which string and fret a note must be played. The numbers
+letterlike symbols in historical intavolatura).  The numbers
+indicate on which string and fret a note must be played.  The numbers
 are printed on top of each other if they are to be played
 simultaneously.
 
+By default, string 1 is the highest, and the tuning defaults to the
+standard guitar tuning (with 6 strings).  The notes are printed as
+tablature, by using @code{TabStaff} and @code{TabVoice} contexts.  A
+calligraphic tablature clef is added automatically.
 
-By default, string 1 is the highest,
-and the tuning defaults to the standard guitar tuning (with 6 strings).
-The notes are printed as tablature, by using @code{TabStaff} and
-@code{TabVoice} contexts
-
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \new TabStaff \relative c' {
-	a,8 a' <c e> a
-	d, a' <d f> a
+  a,8 a' <c e> a
+  d, a' <d f> a
 }
 @end lilypond
 
@@ -215,9 +214,9 @@ symbols = {
 }
 @end lilypond
 
-@funindex minimumFret
-
 @cindex fret
+
+@funindex minimumFret
 
 By default pitches are assigned to the lowest playing position on the
 fret-board (first position). Open strings are automatically preferred.
@@ -254,15 +253,18 @@ the second alternative of a repeat.
 
 @lilypond[quote,ragged-right,verbatim]
 ties = \relative c' {
-	\repeat volta 2 {
-	e2. f4~
-	f2 g2~ }
-	\alternative {
-		{ g4 f2. }
-		{ g4\repeatTie c,2. }
-	}
-	b1~\break
-	b1  \bar "|."
+  \repeat volta 2 {
+    e2. f4~
+    f2 g2~
+  }
+  \alternative {
+     { g4 f2. }
+     { g4\repeatTie c,2. }
+  }
+  b1~
+  \break
+  b1
+  \bar "|."
 }
 
 \score {
@@ -291,15 +293,17 @@ engraving fret numbers in parentheses:
 
 @lilypond[quote,ragged-right,verbatim]
 ties = \relative c' {
-	\repeat volta 2 {
-	e2. f4~
-	f2 g2~ }
-	\alternative {
-		{ g4 f2. }
-		{ g4\repeatTie c,2. }
-	}
-	b1~\break
-	b1  \bar "|."
+  \repeat volta 2 {
+    e2. f4~
+    f2 g2~ }
+  \alternative {
+    { g4 f2. }
+    { g4\repeatTie c,2. }
+  }
+  b1~
+  \break
+  b1
+  \bar "|."
 }
 
 \score {
@@ -473,6 +477,24 @@ mynotes = {
 >>
 @end lilypond
 
+@cindex moderntab clef
+@cindex clef, moderntab
+@cindex clef, tab
+@cindex tab clef
+
+A modern tab clef can also be used.
+
+@lilypond[quote,ragged-right,verbatim]
+\new TabStaff {
+ \clef moderntab
+  <a, e a>1
+  \break
+  \clef tab
+  <a, e a>1
+}
+@end lilypond
+
+The modern tab clef supports tablatures from 4 to 7 strings.
 
 @seealso
 Installed Files:

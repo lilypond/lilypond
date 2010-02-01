@@ -90,10 +90,24 @@ Each piece of percussion has a full name and an abbreviated name,
 and both can be used in input files.  The full list of percussion
 note names may be found in @ref{Percussion notes}.
 
-Note that the normal notation of pitches (such as @code{cis4}) in
-a @code{DrumStaff} context will cause an error message.
-Percussion clefs are added automatically to a @code{DrumStaff}
-contex, but other clefs may also be used.
+@cindex clef, percussion
+@cindex percussion clef
+
+Note that the normal notation of pitches (such as @code{cis4}) in a
+@code{DrumStaff} context will cause an error message. Percussion clefs
+are added automatically to a @code{DrumStaff} context but they can also
+be set explicitly.  Other clefs may be used as well.
+
+@lilypond[quote,ragged-right,verbatim]
+\drums {
+  \clef treble
+  hh4 hh hh hh
+  \break
+  \clef percussion
+  bd4 bd bd bd
+}
+@end lilypond
+
 
 There are a few issues concerning MIDI support for percussion
 instruments; for details please see @ref{Percussion in MIDI}.

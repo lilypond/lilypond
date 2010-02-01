@@ -892,9 +892,6 @@ This section discusses how to alter the output of pitches.
 @cindex baritone clef
 @cindex varbaritone clef
 @cindex subbass clef
-@cindex tab clef
-@cindex moderntab clef
-@cindex percussion clef
 @cindex clef
 @cindex ancient clef
 @cindex clef, ancient
@@ -942,16 +939,9 @@ c2 c
 c2 c
 \clef baritone
 c2 c
-
-\break
-
 \clef varbaritone
 c2 c
 \clef subbass
-c2 c
-\clef percussion
-c2 c
-\clef tab
 c2 c
 
 \break
@@ -989,9 +979,9 @@ c2 c
 c2 c
 @end lilypond
 
-Further supported clefs are described under
-@ref{Mensural clefs}, @ref{Gregorian clefs},
-and @ref{Custom tablatures}.
+Some special purpose clefs are described in @ref{Mensural clefs},
+@ref{Gregorian clefs}, @ref{Default tablatures}, @ref{Custom
+tablatures}, and @ref{Basic percussion notation}.
 
 @snippets
 
@@ -1003,7 +993,9 @@ and @ref{Custom tablatures}.
 Notation Reference:
 @ref{Mensural clefs},
 @ref{Gregorian clefs},
-@ref{Custom tablatures}.
+@ref{Default tablatures},
+@ref{Custom tablatures},
+@ref{Basic percussion notation}.
 
 Snippets:
 @rlsr{Pitches}.
