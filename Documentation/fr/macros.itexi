@@ -87,7 +87,7 @@ translations should be in macros.itexi.
 @macro docMain
 @cartouche
 Pour connaître la place qu'occupe ce manuel dans la
-documentation, consultez @rweb{Manuels}.
+documentation, consultez Manuels.
 
 Si vous ne disposez pas de certains manuels, la documentation complète
 se trouve sur @w{@uref{http://@/www@/.lilypond@/.org/}}.

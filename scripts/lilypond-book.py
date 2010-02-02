@@ -1202,20 +1202,12 @@ left-margin-default right-margin-default)"
         override[LINE_WIDTH] = texinfo_line_widths['@smallbook']
         override.update (default_ly_options)
 
-        def not_processing_independent (opt):
-            for name in PROCESSING_INDEPENDENT_OPTIONS:
-                if opt.startswith (name):
-                    return False
-
-            return True
-
         option_list = []
         for option in self.get_option_list ():
-            option_list.append (option)
-        warning ("option_string before: %s" % option_list)
-        option_list = filter (not_processing_independent, option_list)
+            if not any (option.startswith (name)
+                        for name in PROCESSING_INDEPENDENT_OPTIONS):
+                option_list.append (option)
         option_string = ','.join (option_list)
-        warning ("option_string: %s" % option_string)
         compose_dict = {}
         compose_types = [NOTES, PREAMBLE, LAYOUT, PAPER]
         for a in compose_types:
@@ -1292,8 +1284,10 @@ left-margin-default right-margin-default)"
             hash = md5 (self.relevant_contents (self.ly ()))
             for option in self.get_option_list ():
                 for name in PROCESSING_INDEPENDENT_OPTIONS:
-                    if not option.startswith (name):
-                        hash.update (option)
+                    if option.startswith (name):
+                        break
+                else:
+                    hash.update (option)
 
             ## let's not create too long names.
             self.checksum = hash.hexdigest ()[:10]
