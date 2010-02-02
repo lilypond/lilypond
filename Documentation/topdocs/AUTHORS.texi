@@ -42,6 +42,10 @@ contributed over 100 lines of code or the equivalent.
 
 @docCurrent
 
+@subsubheading Bug squad
+
+@bugsquadCurrent
+
 @subsubheading Support
 
 @supportCurrent
@@ -64,6 +68,11 @@ contributed over 100 lines of code or the equivalent.
 @subsubheading Documentation
 
 @docPrevious
+
+@c    uncomment when we have somebody here.  -gp
+@c @subsubheading Bug squad
+
+@c @bugsquadPrevious
 
 @subsubheading Support
 

@@ -22,6 +22,7 @@
     core...     (programming)
     font...     (duh)
     doc...      (documentation and examples)
+    bug...      (bug squad members)
     support...  (building, distributions, editors,
                  lilypond-book, LSR, but *not* answering emails)
     translations... (duh)
@@ -173,11 +174,20 @@ Patrick Schmidt
 @end macro
 
 
+@macro bugsquadCurrent
+
+Dmytro O. Redchuk,
+James E. Bailey
+
+@c no comma for last entry
+
+@end macro
+
+
 @macro supportCurrent
 
 @c use commas not colons
 
-James E. Bailey,
 Christian Hitz
 
 @c no comma for last entry
@@ -316,6 +326,12 @@ Rune Zedeler
 @end macro
 
 
+@macro bugsquadPrevious
+
+@c nobody here yet
+
+@c no comma for last entry
+@end macro
 
 @macro supportPrevious
 
