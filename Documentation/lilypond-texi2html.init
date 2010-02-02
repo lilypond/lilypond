@@ -928,9 +928,11 @@ sub lilypond_external_ref($$$$$$)
 
   # only lc() the last portion:
   my @htmlsplit = split('/', $href);
-  # change the last portion (the filename)
-  @htmlsplit[$#array] = lc( @htmlsplit[$#array] );
-  $href = join("/", @htmlsplit);
+  # change the last portion (the filename), if it exists
+  if ($#array > 0) {
+    @htmlsplit[$#array] = lc( @htmlsplit[$#array] );
+    $href = join("/", @htmlsplit);
+  }
 
   my $cross_ref = shift;
 
