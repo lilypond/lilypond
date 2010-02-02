@@ -46,23 +46,17 @@ Copyright @copyright{} 1999--2009 por los autores.
 @ifnottex
 
 @menu
-* Notación musical::                    Notación que se utiliza en
-casi todos los proyectos.
-* Notación especializada::              Notación que sólo se usa
-para cometidos específicos.
-* Entrada y salida generales::          Información teneral sobre la
-entrada y la salida de LilyPond.
-* Problemas de espaciado::              Presentación del resultado
-en papel.
+* Notación musical::                Notación que se utiliza en casi todos los proyectos.
+* Notación especializada::          Notación que sólo se usa para cometidos específicos.
+* Entrada y salida generales::      Información teneral sobre la entrada y la salida de LilyPond.
+* Problemas de espaciado::          Presentación del resultado en papel.
 * Cambiar los valores por omisión:: Ajuste fino del resultado.
 
 Apéndices
 
-* Tablas del manual sobre notación::       Tablas y cuadros.
-* Hoja de referencia rápida::              Resumen de la sintaxis de
-LilyPond.
-* Gramática de LilyPond::                  Diagrama de sintaxis
-para el analizador sintáctico de LilyPond.
+* Tablas del manual sobre notación:: Tablas y cuadros.
+* Hoja de referencia rápida::        Resumen de la sintaxis de LilyPond.
+* Gramática de LilyPond::            Diagrama de sintaxis para el analizador sintáctico de LilyPond.
 * GNU Free Documentation License:: Licencia de este documento.
 * Índice de instrucciones de LilyPond::
 * Índice de LilyPond::
