@@ -7,6 +7,17 @@
 @c FIXME: fill in number
 @c used for news about the upcoming release; see CG x.y
 @c DO NOT WRITE BETWEEN THESE LINES
+@c DO NOT WRITE BETWEEN THESE LINES
+
+@newsItem
+@subsubheading LilyPond 2.13.12 released!  @emph{February 2, 2010}
+
+We are happy to announce the release of LilyPond 2.13.11.  This
+release is intended for developers only, and brings more stability
+and fewer bugs to the build system and Contributor's Guide.
+@newsEnd
+
+
 @newsItem
 @subsubheading LilyPond 2.13.11 released!  @emph{January 16, 2010}
 
@@ -14,36 +25,6 @@ We are happy to announce the release of LilyPond 2.13.11.  This
 release is intended for developers only, and brings a number of
 improvements to the build system, Contributor's Guide, and fixes 4
 critical regressions against earlier versions.
-
 @newsEnd
-@c DO NOT WRITE BETWEEN THESE LINES
-
-
-@newsItem
-@subsubheading LilyPond 2.13.10 released!  @emph{December 31, 2009}
-
-We are happy to announce the release of LilyPond 2.13.10.  This
-release is intended for developers only, and brings a number of
-improvements such as predictable regression test output filenames
-and English names for feta filenames.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.12.3 released!  @emph{December 20, 2009}
-
-We are happy to announce the release of LilyPond 2.12.3.  This
-version contains the long-awaited fix for our GUI on MacOS X 10.5
-and 10.6.  In addition to the GUI fixes, this version contains
-dozens of bugfixes backported from the unstable development
-version.
-
-We recommend that all users upgrade to this version.  This is the
-last planned release in the 2.12 stable series; development now
-shifts towards the upcoming 2.14 series.
-
-@newsEnd
-
 
 
