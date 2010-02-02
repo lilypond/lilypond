@@ -960,7 +960,7 @@ c2 c
 c2 c
 \clef F   % synonym for bass
 c2 c
-\clef C   % synonym for tenor
+\clef C   % synonym for alto
 c2 c
 @end lilypond
 
