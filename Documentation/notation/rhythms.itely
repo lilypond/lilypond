@@ -322,7 +322,7 @@ a4 a4
 b16*4 c4
 @end lilypond
 
-The duration of skip or spacing notes may also be modified by
+The duration of spacing notes may also be modified by
 a multiplier.  This is useful for skipping many measures, e.g.,
 @code{s1*23}.
 
@@ -686,9 +686,9 @@ s2 c
 @cindex lyrics, skip
 
 Spacer rests are available only in note mode and chord mode.  In
-other situations, for example, when entering lyrics, @code{\skip}
-is used to skip a musical moment.  @code{\skip} requires an
-explicit duration.
+other situations, for example, when entering lyrics, the
+command @code{\skip} is used to skip a musical moment.
+@code{\skip} requires an explicit duration.
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -702,6 +702,22 @@ explicit duration.
   }
 >>
 @end lilypond
+
+Because @code{\skip} is a command, it does not affect the default
+durations of following notes, unlike@tie{}@code{s}.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  {
+    \repeat unfold 8 {a4}
+  }
+  {
+    a4 \skip 2 a |
+    s2 a
+  }
+>>
+@end lilypond
+
 
 A spacer rest implicitly causes @code{Staff} and @code{Voice}
 contexts to be created if none exist, just like notes and rests
