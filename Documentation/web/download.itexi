@@ -7,6 +7,8 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@include included/generating-output.itexi
+
 @macro warningTextBased
 @warning{LilyPond is a @strong{text-based} music engraver; it is
 more similar to a programming language than a graphical score
@@ -205,7 +207,16 @@ uninstall-lilypond
 @divEnd
 
 
+
 @divClass{column-right-top}
+@subheading Compiling a file
+
+@lilypadCommandLine
+
+@divEnd
+
+
+@divClass{column-left-top}
 @subheading Distribution-specific Packages
 
 Please use your distribution's package manager to install or
@@ -295,8 +306,15 @@ Delete the LilyPond.app folder.
 
 @divEnd
 
-
 @divClass{column-right-top}
+@subheading Compiling a file
+
+@lilypadOSX
+
+@divEnd
+
+
+@divClass{column-left-top}
 @subheading Running on the command-line
 
 @warning{If you are happy with the GUI, then please ignore these
@@ -448,6 +466,14 @@ button when the uninstaller has completed.
 
 
 @divClass{column-right-top}
+@subheading Compiling a file
+
+@lilypadWindows
+
+@divEnd
+
+
+@divClass{column-left-top}
 @subheading Running on the command-line
 
 @warning{If you are happy with the GUI, then please ignore these
