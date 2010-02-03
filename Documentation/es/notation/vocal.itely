@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -407,6 +407,7 @@ previamente la jerarquía de pautas y textos, p.ej.:
 >>
 @end example
 
+@noindent
 y después combinar las melodías y líneas de texto correspondientes:
 
 @example
@@ -415,7 +416,6 @@ y después combinar las melodías y líneas de texto correspondientes:
 @end example
 
 @noindent
-
 El código de entrada definitivo sería algo como
 
 @example
@@ -450,7 +450,7 @@ tipografiado de la letra se preparan con la ayuda de saltos o
 @i{skips}, guiones y líneas extensoras.
 
 La letra se imprime a través de su interpretación dentro del contexto
-llamado @rinternals{Lyrics}.
+llamado @code{Lyrics}; véase @rinternals{Lyrics} para más información.
 
 @example
 \new Lyrics \lyricmode @dots{}
@@ -462,7 +462,7 @@ horizontal de las sílabas:
 @itemize
 @item
 alineando automáticamente el texto a una melodía o a otra voz,
-utilizando @code{\addlyrics} o @code{\lyricsto}.
+utilizando @code{\addlyrics} o @code{\lyricsto}
 
 @item
 o especificando la duración de cada sílaba explícitamente, utilizando
@@ -501,7 +501,8 @@ se consigue combinando la melodía y el texto con la expresión
 \new Lyrics \lyricsto @var{nombre} @dots{}
 @end example
 
-Esto alinea la letra a las notas del contexto de @rinternals{Voice}
+@noindent
+Esto alinea la letra a las notas del contexto de @code{Voice}
 llamado @var{nombre}, que debe existir previamente.  Por ello la
 @code{Voice} normalmente se especifica en primer lugar, y después se
 especifica la letra con @code{\lyricsto}.  La instrucción
@@ -519,7 +520,7 @@ letra.
     c4 b8. a16 g4. f8 e4 d c2
   }
 
-% not recommended: left aligns syllables
+% not recommended: left-aligned syllables
   \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
 
 % wrong: durations needed
@@ -573,7 +574,7 @@ propiedad @code{associatedVoice},
 
 @noindent
 El valor de la propiedad (aquí: @code{"lala"}) ha de ser el nombre de
-un contexto de @rinternals{Voice}.  Sin este ajuste, las líneas de
+un contexto de @code{Voice}.  Sin este ajuste, las líneas de
 extensión no se formatearán correctamente.
 
 Presentamos a continuación un ejemplo que muestra el uso de las
@@ -596,7 +597,8 @@ Referencia de la notación:
 @ref{Mantener vivos los contextos}.
 
 Referencia de funcionamiento interno:
-@rinternals{Lyrics}.
+@rinternals{Lyrics},
+@rinternals{Voice}.
 
 
 @node Varias sílabas sobre una nota
@@ -624,7 +626,9 @@ DejaVuLGC) que incluya este glifo.}.
 
 
 @seealso
-Referencia de funcionamiento interno: @rinternals{LyricCombineMusic}.
+Referencia de funcionamiento interno:
+@rinternals{LyricCombineMusic}.
+
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
@@ -698,15 +702,31 @@ forzar que un grupo de notas sin ligadura sea un melisma, inserte
 @end lilypond
 
 Además, las notas se consideran un melisma si están unidas manualmente
-mediante una barra, y el barrado automático (véase @ref{Establecer el comportamiento de las barras automáticas}) está desactivado.
+mediante una barra, y el barrado automático
+(véase @ref{Establecer el comportamiento de las barras automáticas})
+está desactivado.
+
+@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+<<
+  \new Voice = "lala" {
+    \time 3/4
+    \autoBeamOff
+    f4 g8[ f e f]
+    e2
+  }
+  \new Lyrics \lyricsto "lala" {
+    la di __ daah
+  }
+>>
+@end lilypond
 
 @c FIXME: this now links to LM -vv
 
 @cindex SATB
 @cindex coral, partitura
 
-Hay un ejemplo completo de una disposición de partitura SATB en la
-sección @rlearning{Conjuntos vocales}.
+Hay un ejemplo completo de una disposición de partitura SATB
+en @rlearning{Conjuntos vocales}.
 
 
 @predefined
@@ -717,7 +737,7 @@ sección @rlearning{Conjuntos vocales}.
 @endpredefined
 
 
-@seealso
+@c @seealso
 @c @lsr{vocal,lyric@/-combine.ly}.
 
 
@@ -735,8 +755,6 @@ la melodía, mediante la inserción de desplazamientos o @code{\skip}s
 en la letra.  Por cada @code{\skip}, el texto se retrasa en una nota.
 La instrucción @code{\skip} debe ir seguida de una duración válida,
 pero esta duración se ignora cuando se usa @code{\skip} en las letras.
-
-Por ejemplo,
 
 @lilypond[verbatim,ragged-right,quote]
 \relative c' { c c g' }
@@ -909,7 +927,7 @@ implícitos se ignoran.
 @cindex Letra, aumentar el espaciado
 
 Para aumentar el espaciado entre las sílabas de la letra, establezca
-la propiedad minimum-distance de LyricSpace.
+la propiedad @code{minimum-distance} de @code{LyricSpace}.
 
 @lilypond[relative,verbatim,fragment,quote,ragged-right]
 {
@@ -923,6 +941,7 @@ la propiedad minimum-distance de LyricSpace.
 }
 @end lilypond
 
+@noindent
 Para que este cambio sea válido para la letra de la partitura
 completa, establezca la propiedad dentro del @q{layout} o disposición.
 
