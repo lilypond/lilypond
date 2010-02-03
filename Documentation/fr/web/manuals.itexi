@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 98c18c374a10c480bbc82b7657b4a71cf4e6452a
+    Translation of GIT committish: d59f652451ef6948d1b256808d874b7d03bd3551
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,14 +15,25 @@
 @unnumbered Manuels
 @translationof Manuals
 
+@macro details{reference}
+@spanClass{detail}
+(@ref{\reference\, détails de \reference\})
+@spanEnd
+@end macro
+
+
 @divClass{heading-center}
-@heading Documentation pour LilyPond @versionStable
+@ifclear web_version
+  @heading Documentation pour LilyPond @version
+@end ifclear
+@ifset web_version
+  @heading Documentation pour LilyPond @versionStable
+@end ifset
 
 @divEnd
 
 @c TODO: do we want these links to be in larger text / bold ?   CSS.
 
-@c if you change this page, also change All.
 @divClass{column-center-top}
 @subheading Introduction
 
@@ -32,18 +43,21 @@
 LilyPond est un système de gravure musicale @strong{en mode texte}.  Si
 vous ne savez pas du tout ce que ça veut dire, lisez tout d'abord ceci !
 
-@item @ref{Initiation} :
+@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Initiation}} 
 une introduction pas-à-pas à LilyPond.
+@details{Initiation}
 
-@item @ref{Glossaire} :
+@item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossaire}} 
 @emph{(lecture optionnelle)}
 répertoire de définition et de traduction de termes musicaux, utile en
 particulier pour connaître les termes musicaux en anglais.
+@details{Glossaire}
 
-@item @ref{Essai} :
+@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essai}} 
 @emph{(lecture optionnelle)}
 essai sur la conception des processus de gravure d'après l'esthétique et
 la technique de la gravure traditionnelle avec poinçons et plaques de plomb.
+@details{Essai}
 
 
 @end itemize
@@ -55,16 +69,20 @@ la technique de la gravure traditionnelle avec poinçons et plaques de plomb.
 
 @itemize
 
-@item @ref{Notation} :
-the main portion of the documentation; provides detailed
-information about creating notation.
+@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}} 
+Partie la plus importante de la documentation, ce manuel fournit toutes
+les informations détaillées dont vous aurez besoin en matière de notation.
+@details{Notation}
 
-@item @ref{Utilisation} :
-discusses the actual programs and operating system-specific
-issues.
+@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Utilisation}}
+présentation des différentes composantes de LilyPond, ainsi que les
+particularités de certains systèmes d'exploitation.
+@details{Utilisation}
 
-@item @ref{Exemples de codes} :
+@item
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Morceaux choisis}} 
 courts extraits, trucs, modèles et autres exemples.
+@details{Morceaux choisis}
 
 @end itemize
 
@@ -76,21 +94,26 @@ courts extraits, trucs, modèles et autres exemples.
 
 @itemize
 
-@item @ref{Web} :
-Ce document.
-
 @item @ref{FAQ} :
 pointe vers la Foire Aux Questions.
 
-@item @ref{Nouveautés} :
+@item @ref{Web} :
+Ce document.
+@details{Web}
+
+@item 
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Nouveautés}}
 changements depuis la dernière version stable.
+@details{Nouveautés}
 
-@item @ref{Extension} :
+@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extension}}
 programmation avancée d'ajustements et retouches dans LilyPond.
+@details{Extension}
 
-@item @ref{Propriétés internes} :
+@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Propriétés internes}} :
 information sur les structures internes de LilyPond, nécessaire en
 particulier pour élaborer des retouches.
+@details{Propriétés internes}
 
 @end itemize
 
@@ -109,7 +132,7 @@ particulier pour élaborer des retouches.
 liens rapides, manuels téléchargeables, et documentation des anciennes
 versions.
 
-@item @ref{Développement} :
+@item @ref{Development} :
 manuels pour la version de développement.
 
 @item @ref{FDL} :
@@ -122,20 +145,20 @@ ces manuels sont publiés sous la licence GNU de documentation libre FDL.
 
 @divClass{hide}
 @menu
-* Initiation::
-* Glossaire::
-* Essai::
-* Notation::                    Reference.
-* Utilisation::
-* Exemples de codes::
-* Web::                         Web.
-* FAQ::                         FAQ.
+* Initiation::          Premiers pas
+* Glossaire::           Glossaire musicologique multilingue
+* Essai::               Pourquoi LilyPond
+* Notation::            Référence en matière de notation
+* Utilisation::         Les différentes composantes de LilyPond
+* Morceaux choisis::    Exemples de code, trucs et astuces
+* Web::                 
+* FAQ::                 Foire aux questions
 * Nouveautés::
 * Extension::
 * Propriétés internes::
 * Traductions::
 * Tous::
-* FDL::                         Licence.
+* FDL::                 Licence.
 @end menu
 
 @divEnd
@@ -241,7 +264,7 @@ Ce manuel détaille toutes les commandes LilyPond produisant une notation
 musicale.  La lecture de cet ouvrage requiert une bonne compréhension des
 concepts exposés dans le manuel d'initiation.
 
-@warning{l'utilisation optimale du manuel de notation requiert une
+@warning{L'utilisation optimale du manuel de notation requiert une
 familiarité avec les concepts et fonctions de base exposés dans le
 manuel de notation, ainsi que les concepts musicaux exposés dans le
 glossaire.}
@@ -284,12 +307,12 @@ recommandée avant d'aborder de grands projets.
 @divEnd
 
 
-@node Exemples de codes
-@unnumberedsec Exemples de code
+@node Morceaux choisis
+@unnumberedsec Morceaux choisis
 @translationof Snippets
 
 @divClass{column-left-top}
-@subheading Exemples de code
+@subheading Morceaux choisis
 
 Il s'agit d'une sélection de petits exemples montrant des trucs,
 astuces et fonctionnalités particulières de LilyPond, issus de
@@ -310,35 +333,11 @@ manuel de notation est accessible par des liens dans le paragraphe
 
 @divClass{column-right-bottom}
 
-@docLinks{Extraits de code, snippets,
-  @rlsrnamed{Top, Extraits de code},
+@docLinks{Morceaux choisis, snippets,
+  @rlsrnamed{Top, Morceaux choisis},
   @manualStableSnippetsSplit,
   @manualStableSnippetsBig, 2.5 MB,
   @manualStableSnippetsPdf, 8 MB}
-
-@divEnd
-
-
-@node Web
-@unnumberedsec Web
-@translationof Web
-
-@divClass{column-left-top}
-@subheading Web
-
-Ce document fournit des informations générales sur LilyPond et sur les
-outils de la communauté, c'est-à-dire les listes de discussion, les
-rapports de bogues et le développement.
-
-@divEnd
-
-@divClass{column-right-bottom}
-
-@docLinks{Web, web,
-  @ref{Top,,,,Web},
-  @manualStableWebSplit,
-  @manualStableWebBig, 1 MB,
-  @manualStableWebPdf, 2 MB}
 
 @divEnd
 
@@ -389,6 +388,30 @@ C'est expliqué (en anglais) dans @rprogram{Why does the syntax change?}.
 @divEnd
 
 
+@node Web
+@unnumberedsec Web
+@translationof Web
+
+@divClass{column-left-top}
+@subheading Web
+
+Ce document fournit des informations générales sur LilyPond et sur les
+outils de la communauté, c'est-à-dire les listes de discussion, les
+rapports de bogues et le développement.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Web, web,
+  @ref{Top,,,,Web},
+  @manualStableWebSplit,
+  @manualStableWebBig, 1 MB,
+  @manualStableWebPdf, 2 MB}
+
+@divEnd
+
+
 @node Nouveautés
 @unnumberedsec Nouveautés
 @translationof Changes
@@ -424,7 +447,7 @@ nouvelles fonctionnalités de LilyPond depuis la dernière version stable.
 @translationof Internals
 
 @divClass{column-left-top}
-@subheading Référece des propriétés internes
+@subheading Référence des propriétés internes
 
 C'est un ensemble de pages étroitement liées entre elles, qui documente
 les moindres petits détails de chaque classe, objet et fonction de
@@ -468,110 +491,65 @@ Désolé, l'état des traductions est indisponible en ce moment.
 @unnumberedsec Tous
 @translationof All
 
-@divClass{heading-center}
-@heading Liens rapides vers les manuels
-
-Les liens vers les autres formats de ces manuels se trouvent à
-@ref{Manuels}.
-
-@divEnd
-
-@c this should match the (main) manual page.
-@divClass{column-center-top}
-@subheading Introduction
-
-@itemize
-
-@item @rlearningnamed{Top,Initiation} :
-une introduction pas-à-pas à LilyPond.
-
-@item @rglosnamed{Top,Glossaire} :
-@emph{(lecture optionnelle)}
-répertoire de définition et de traduction de termes musicaux, utile en
-particulier pour connaître les termes musicaux en anglais.
-
-@item @ressaynamed{Top,Essai} :
-@emph{(lecture optionnelle)}
-essai sur la conception des processus de gravure d'après l'esthétique et
-la technique de la gravure traditionnelle avec poiçons et plaques de plomb.
-
-@end itemize
-
-@divEnd
-
 @divClass{column-left-top}
-@subheading Utilisation courante
+@subheading Versions disponibles au téléchargement
 
+@ifclear web_version
+L'intégrale de la documentation est disponible sous forme d'archive à
+l'adresse @uref{http://lilypond.org}
+@end ifclear
+@ifset web_version
+
+@divClass{keep-bullets}
 @itemize
 
-@item @rusernamed{Top,Notation} :
-the main portion of the documentation; provides detailed
-information about creating notation.
-
-@item @rprogramnamed{Top,Utilisation} :
-discusses the actual programs and operating system-specific
-issues.
-
-@item @rlsrnamed{Top,Exemples de codes} :
-courts extraits, trucs, modèles et autres exemples.
+@item @doctarballStable
 
 @end itemize
 
 @divEnd
-
-
-@divClass{column-right-top}
-@subheading Utilisation ponctuelle
-
-@itemize
-
-@item @ref{FAQ} :
-pointe vers la Foire Aux Questions.
-
-@item @rchangesnamed{Top,Nouveautés} :
-changements depuis la dernière version stable.
-
-@item @rextendnamed{Top,Extension} :
-programmation avancée d'ajustements et retouches dans LilyPond.
-
-@item @rinternalsnamed{Top,Propriétés internes} :
-information sur les structures internes de LilyPond, nécessaire en
-particulier pour élaborer des retouches.
-
-@end itemize
+@end ifset
 
 @divEnd
 
-
-@divClass{column-center-bottom}
-@subheading Versions téléchargeables
-
-À venir dans quelques mois@dots{}
-
-@divEnd
-
-@subheading Versions stables précédentes
+@divClass{column-right-bottom}
+@subheading Versions stables antérieures
 
 @divClass{keep-bullets}
 @itemize
 
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
-Documentation de LilyPond 2.12}
+LilyPond 2.12 Documentation}
 
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
-Documentation de LilyPond 2.10}
+LilyPond 2.10 Documentation}
 
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
-Documentation de LilyPond 2.8}
+LilyPond 2.8 Documentation}
+
+@help anybody want to write this stuff?
 
 @end itemize
 
 @divEnd
 @divEnd
-
-
 @node FDL
 @unnumberedsec FDL
 @translationof FDL
 
-@untranslated
+@divClass{column-center-top}
+@subheading Licence de la documentation
+
+La documentation de GNU LilyPond est poubliée selon les termes de la
+@emph{GNU Free Documentation License}.  Une brève introduction à cette
+licence ainsi que les motifs qui nous ont fait l'adopter se trouvent à
+la page @ref{Liberté}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading GNU Free Documentation License 1.1
+
+@include fdl.itexi
+
+@divEnd

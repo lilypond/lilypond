@@ -241,7 +241,8 @@ Anhänge
 @include notation/spacing.itely
 
 @include notation/changing-defaults.itely
-@include notation/programming-interface.itely
+@c @include notation/programming-interface.itely
+@c moved to extending.tely
 
 
 @include notation/notation-appendices.itely

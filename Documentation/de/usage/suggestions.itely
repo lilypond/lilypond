@@ -1,0 +1,55 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.12.0"
+
+@node Vorschläge, wie man Dateien schreibt
+@chapter Vorschläge, wie man Dateien schreibt
+@translationof Suggestions for writing files
+
+@untranslated
+
+@menu
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Troubleshooting::
+* Make and Makefiles::
+@end menu
+
+
+@node General suggestions
+@section General suggestions
+
+@untranslated
+
+
+@node Typesetting existing music
+@section Typesetting existing music
+
+@untranslated
+
+
+@node Large projects
+@section Large projects
+
+@untranslated
+
+
+@node Troubleshooting
+@section Troubleshooting
+
+@untranslated
+
+
+@node Make and Makefiles
+@section Make and Makefiles
+
+@untranslated

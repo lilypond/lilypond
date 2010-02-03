@@ -1,7 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-@c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 98c18c374a10c480bbc82b7657b4a71cf4e6452a
+    Translation of GIT committish: d59f652451ef6948d1b256808d874b7d03bd3551
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,14 +14,16 @@
 @afourpaper
 
 @c `Web' was imported 2009-08-05 with git commit b938d71...
-@macro copyrightDeclare
-Copyright @copyright{} 2009--2010 par les auteurs.
-@end macro
+@c @macro copyrightDeclare
+@c Copyright @copyright{} 2009--2010 par les auteurs.
+@c @end macro
 
 @set FDL
 @set web
 @include macros.itexi
+@include weblinks.itexi
 
+@afourpaper
 
 @c don't remove this comment.
 @ignore
@@ -33,19 +34,32 @@ Copyright @copyright{} 2009--2010 par les auteurs.
 @omflanguage French
 @end ignore
 
+@c Translators: John Mandereau
+@c Translators checkers: Jean-Charles Malahieude
+
+@copying
+Copyright @copyright{} 2009--2010 par les auteurs.
+
+@quotation
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled ``GNU Free Documentation
+License''.
+@end quotation
+@end copying
+
 
 @c TITLE PAGE
 @ifnottex
 @node Accueil
 @top LilyPond... la notation musicale pour tous
 @translationof Top
-
-@c Translators: John Mandereau
-@c Translators checkers: Jean-Charles Malahieude
-
-@chapheading
 @end ifnottex
 
+
+@c hack for texi2html, bleh -gp
 @ifnothtml
 
 @finalout
@@ -68,11 +82,13 @@ Pour LilyPond version @version{}
 
 @c ************************ WEBSITE START ***************
 
+
 @divId{pageHeader}
 @heading LilyPond
 
 ... la notation musicale pour tous
 @divEnd
+
 @c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
 @imageId{lilylogo,double-lily-modified3.png,LilyPond logo}
 @c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
@@ -94,18 +110,24 @@ Plus sur LilyPond dans notre @ref{Introduction} !
 @divClass{separator}
 @divEnd
 
+
 @divId{news}
 
 @c TODO: generate this automatically, including RSS feed.
-@include news-front.itexi
+@include web/news-front.itexi
 
 @divClass{float-right}
-(@ref{Old news,,,,Actualités passées})
+(@ref{Old news}) @c (@ref{Old news,,,,Actualités passées})
 @divEnd
 
 @divEnd
 
 
+@ifclear web_version
+  @c do nothing
+@end ifclear
+@ifset web_version
+  @c make the box:
 @divId{latestVersion}
 @subheading Raccourcis
 
@@ -113,26 +135,28 @@ Plus sur LilyPond dans notre @ref{Introduction} !
 
 @subsubheading Branche stable
 
-@ref{Download, Download @versionStable}
+@ref{Download, Téléchargemement de @versionStable}
 
-@ref{Manuals, Manuals @versionStable}
+@ref{Manuals, Manuels de @versionStable}
 
 @subsubheading Branche de développement
 
-@ref{Development, @versionDevel}
+@ref{Development, Téléchargement de @versionDevel}
 
-@ref{Development, @versionDevel}
+@ref{Development, Manuels de @versionDevel}
 
 @divEnd
+@end ifset
+
 
 @ifnottex
 
 @divClass{hide}
 @menu
-* Introduction::
-* Download::
-* Manuals::
-* Community::
+* Introduction::        Comment créer des partitions
+* Download::            Télécharger LilyPond
+* Manuals::             Bibliothèque de LilyPond
+* Community::           Comment contacter d'autres utilisateurs
 @end menu
 @divEnd
 
@@ -140,62 +164,115 @@ Plus sur LilyPond dans notre @ref{Introduction} !
 
 @contents
 
+
+@c ****************** GENERAL STUFF FOR INFO ************
+@ignore
+Distributions will want to install lilypond.info in postinstall, doing:
+
+    install-info --info-dir=/usr/share/info out[-www]/lilypond-web.info
+
+  * Prepend GNU for dir, must be unique.
+
+  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+    goes to Top.
+
+  * List all commands in direntry.
+
+@c  * lilypond: (lilypond-application)Running LilyPond.      Invoking the
+@c    LilyPond  program.
+@end ignore
+
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond -- le typographe de musique
+@direntry
+* Manuel d'initiation à LilyPond: (lilypond-learning).        Les premiers pas.
+* Glossaire musicologique: (music-glossary).                  Pour l'utilisateur non anglophone.
+* Manuel de notation: (lilypond-notation).                    Gravure de musique avec LilyPond.
+* Morceaux choisis de LilyPond: (lilypond-snippets).          Petits trucs, astuces et exemples.
+* Références des propriétés internes: (lilypond-internals).   Définitions pour les retouches.
+* Utilisation des programmes: (lilypond-application).         Installation et exécution des programmes.
+* LilyPond Website: (lilypond-general).                       Prévisualisation du site.
+* abc2ly: (lilypond-application)lancement de abc2ly.          Import de fichier ABC.
+* convert-ly: (lilypond-application)Mise à jour de fichiers.  Pour d'anciens fichiers LilyPond.
+* etf2ly: (lilypond-application)Lancement de etf2ly.          Import de fichier Finale.
+* lilypond-book: (lilypond-application)LilyPond-book.         Association musique-texte.
+* midi2ly: (lilypond-application)Lancement de midi2ly.        Import de fichier MIDI.
+* musicxml2ly: (lilypond-application)Lancement de musicxml2ly.  Import de fichier MusicXML.
+@end direntry
+
+
 @c FIXME: this still doesn't solve the broken links in pdf and big
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp
 @c ****************** SPECIAL MACROS FOR WEB MANUAL ************
 @macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
 @subheading Lisez-le
 
-@itemize
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
 
-@c normal case, special online case
+@end macro
+
+
+@macro docLinkSplit{name,base,webLink}
 @ifclear web_version
-  @item \refLink\:
+  @uref{../\base\/index.html, \name\ (split HTML)}
 @end ifclear
 @ifset web_version
-  @c we assume that the online web version will be split html
-  @item \split\:
+  \webLink\
 @end ifset
-lisez ce manuel dans le même format que celui-ci.
+@end macro
 
-@end itemize
+@macro docLinkBig{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\-big-page.html, \name\ (big HTML)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
 
-@subheading Tous les formats
+@macro docLinkPdf{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\.pdf, \base\.pdf}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+
+@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
 
 @divClass{keep-bullets}
 @itemize
 
-@ifclear web_version
-  @item @uref{../\base\/index.html, \name\ (split HTML)}:
-@end ifclear
-@ifset web_version
-  @item \split\
-@end ifset
+@item @docLinkSplit{\name\,\base\,\split\} :
   manuel sous forme de plusieurs pages HTML
-  @*@ @ @emph{— chaque page est assez petite.}
+  @*@ @ @emph{-- chaque page est assez petite.}
 
-@ifclear web_version
-  @item @uref{../\base\-big-page.html, \name\ (big HTML)}:
-@end ifclear
-@ifset web_version
-  @item \big\
-@end ifset
+@item @docLinkBig{\name\,\base\,\big\} :
   manuel sous forme d'une seule grande page
-  @*@ @ @emph{— un seul gros téléchargement, \bigsize\.}
+  @*@ @ @emph{-- un seul gros téléchargement, \bigsize\.}
 
-@ifclear web_version
-  @item @uref{../\base\.pdf, \base\.pdf}:
-@end ifclear
-@ifset web_version
-  @item \pdf\
-@end ifset
+@item @docLinkPdf{\name\,\base\,\pdf\} :
   manuel au format PDF
-  @*@ @ @emph{— un seul gros téléchargement, \pdfsize\}
+  @*@ @ @emph{-- un seul gros téléchargement, \pdfsize\.}
 
 @end itemize
 
 @divEnd
 
+@end macro
+
+
+@c don't add any extra spaces in this macro -gp
+@macro ifWebLinks{webLink,normalLink}
+@ifclear web_version
+  \normalLink\:
+@end ifclear
+@ifset web_version
+  \webLink\:
+@end ifset
 @end macro
 
 
