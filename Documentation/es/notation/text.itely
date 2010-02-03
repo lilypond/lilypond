@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,7 +20,8 @@ formateo) en las partituras.
 
 @noindent
 Ciertos elementos de texto de los que no nos ocupamos aquí se tratan
-en otras secciones específicas: @ref{Música vocal}, @ref{Títulos y cabeceras}.
+en otras secciones específicas: @ref{Música vocal}, @ref{Títulos y
+cabeceras}.
 
 @menu
 * Escritura del texto::
@@ -39,7 +40,8 @@ partitura.
 @warning{Para escribir texto con caracteres acentuados y especiales
 (como los de idiomas distintos del inglés), sencillamente inserte los
 caracteres directamente en el archivo de LilyPond.  El archivo se debe
-guardar como UTF-8.  Para ver más información, consulte @ref{Codificación del texto}.}
+guardar como UTF-8.  Para ver más información, consulte
+@ref{Codificación del texto}.}
 
 
 @menu
@@ -54,13 +56,16 @@ guardar como UTF-8.  Para ver más información, consulte @ref{Codificación del
 @unnumberedsubsubsec Guiones de texto
 @translationof Text scripts
 
-@cindex Texto, inscripciones de
+@cindex texto, inscripciones de
 @cindex texto, elementos no vacíos de
 @cindex no vacíos, textos
 @cindex texto destacado
 
 Es posible añadir indicaciones de @qq{texto entre comillas} a una
-partitura.
+partitura, como se muestra en el ejemplo siguiente.  Estas
+indicaciones se pueden colocar manualmente por encima o por debajo
+del pentagrama, utilizando la sintaxis que se describe en
+@ref{Dirección y posición}.
 
 @lilypond[quote,verbatim,relative=2]
 a8^"pizz." g f e a4-"scherz." f
@@ -76,10 +81,6 @@ a8^\markup { \italic pizz. } g f e
 a4_\markup { \tiny scherz. \bold molto } f
 @end lilypond
 
-Tales indicaciones se pueden colocar también manualmente encima o
-debajo del pentagrama utilizando la sintaxis que se describe en
-@ref{Dirección y posición}.
-
 De forma predeterminada, las indicaciones de texto no afectan al
 espaciado de las notas.  Sin embargo, su anchura sí podría tenerse en
 cuenta: en el siguiente ejemplo, la primera cadena de texto no afecta
@@ -91,16 +92,29 @@ a8^"pizz." g f e
 a4_"scherzando" f
 @end lilypond
 
+Se pueden adjuntar articulaciones a las notas, además de inscripciones
+de texto.  Para ver más información, consulte @ref{Articulaciones y
+ornamentos}.
+
+Para ver más información sobre el orden relativo de las inscripciones
+de texto y las articulaciones, consulte @rlearning{Colocación de los
+objetos}.
+
+@funindex \textLengthOn
+@funindex textLengthOn
+@funindex \textLengthOff
+@funindex textLengthOff
 
 @predefined
-@funindex \textLengthOn
 @code{\textLengthOn},
-@funindex \textLengthOff
 @code{\textLengthOff}.
 @endpredefined
 
 
 @seealso
+Manual de aprendizaje:
+@rlearning{Colocación de los objetos}.
+
 Referencia de la notación:
 @ref{Formatear el texto},
 @ref{Dirección y posición}.
@@ -110,6 +124,12 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
+
+
+@cindex texto fuera del margen
+@cindex margen, texto fuera del
+@cindex texto, mantener dentro del margen
+@cindex letra, mantener dentro del margen
 
 
 @knownissues
@@ -129,7 +149,7 @@ para habilitarlos, utilice
 @unnumberedsubsubsec Extensiones de texto
 @translationof Text spanners
 
-@cindex text spanners
+@cindex texto, elementos de extensión
 
 Ciertas indicaciones de ejecución, p.ej., @i{rallentando} o
 @i{accelerando}, se escriben como texto y se extienden sobre muchos
@@ -142,6 +162,9 @@ una nota hasta otra usando la siguiente sintaxis:
 b1\startTextSpan
 e,\stopTextSpan
 @end lilypond
+
+@cindex texto, formateado de los elementos de extensión
+@cindex formato de los elementos de extensión de texto
 
 @noindent
 La cadena de texto que imprimir se establece a través de propiedades
@@ -160,12 +183,18 @@ El estilo de la línea, así como la cadena de texto, se pueden definir
 como una propiedad de objeto.  Esta sintaxis se describe en @ref{Estilos de línea}.
 
 
-@predefined
+
+@funindex \textSpannerUp
 @funindex textSpannerUp
-@code{\textSpannerUp},
+@funindex \textSpannerDown
 @funindex textSpannerDown
-@code{\textSpannerDown},
+@funindex \textSpannerNeutral
 @funindex textSpannerNeutral
+
+
+@predefined
+@code{\textSpannerUp},
+@code{\textSpannerDown},
 @code{\textSpannerNeutral}.
 @endpredefined
 
@@ -173,8 +202,7 @@ como una propiedad de objeto.  Esta sintaxis se describe en @ref{Estilos de lín
 @seealso
 Referencia de la notación:
 @ref{Estilos de línea},
-@ref{Matices dinámicos},
-@ref{Dirección y posición}.
+@ref{Matices dinámicos}.
 
 Fragmentos de código:
 @rlsr{Text}.
@@ -187,11 +215,18 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Indicaciones de texto
 @translationof Text marks
 
+@cindex texto, indicaciones de
+@cindex indicaciones de texto
+@cindex texto sobre la barra de compás
 @cindex coda sobre la línea divisoria
 @cindex segno sobre la línea divisoria
 @cindex calderón sobre la línea divisoria
 @cindex líneas divisorias, símbolos sobre las
+
 @funindex \mark
+@funindex mark
+@funindex \markup
+@funindex markup
 
 Se pueden añadir a la partitura varios elementos de texto con la
 sintaxis que se describe en @ref{Llamadas de ensayo}:
@@ -271,16 +306,19 @@ Referencia de funcionamiento interno:
 @rinternals{RehearsalMark}.
 
 
-
 @node Texto separado
 @unnumberedsubsubsec Texto separado
 @translationof Separate text
 
-@cindex separate text
-@cindex standalone text
-@cindex top-level text
-@cindex text, standalone
+@cindex separado, texto
+@cindex texto separado
+@cindex independiente, texto
+@cindex nivel superior, texto del
+@cindex texto del nivel superior
+@cindex texto independiente
+
 @funindex \markup
+@funindex markup
 
 Un bloque @code{\markup} puede existir de forma independiente, fuera
 de cualquier bloque @code{\score}, como una @qq{expresión de nivel
@@ -315,8 +353,12 @@ posibilitando la impresión de documentos de texto o libros
 requiere se describen en @ref{Elementos de marcado de varias páginas}.
 
 
-@predefined
+@funindex \markup
+@funindex markup
 @funindex \markuplines
+@funindex markuplines
+
+@predefined
 @code{\markup},
 @code{\markuplines}.
 @endpredefined
@@ -326,6 +368,7 @@ requiere se describen en @ref{Elementos de marcado de varias páginas}.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -365,13 +408,17 @@ usando la sintaxis específica del modo de @code{\markup}.
 @cindex texto, marcado de
 @cindex marcado de texto
 @cindex tipografiar texto
+
 @funindex \markup
+@funindex markup
 
 Se usa un bloque @code{\markup} para tipografiar texto con una
 sintaxis ampliable que se denomina @qq{modo de marcado}.
 
 @cindex marcado, expresiones de
+@cindex expresiones de marcado
 @cindex marcado, sintaxis
+@cindex sintaxis del marcado
 
 La sintaxis del marcado es similar a la sintaxis usual de LilyPond:
 una expresión @code{\markup} se encierra entre llaves @code{@{ @dots{}
@@ -420,7 +467,7 @@ marcado afecta a cómo se apilan, se centran y se alinean estas
 expresiones; en el ejemplo siguiente, la segunda expresión
 @code{\markup} se trata igual que la primera:
 
-@lilypond[quote,verbatim,fragment,relative=1]
+@lilypond[quote,verbatim,relative=2]
 c1^\markup { \center-column { a bbb c } }
 c1^\markup { \center-column { a { bbb c } } }
 c1^\markup { \center-column { a \line { bbb c } } }
@@ -467,9 +514,14 @@ confusión.
 @translationof Selecting font and font size
 
 @cindex fuente tipográfica, cambiar
+@cindex cambio de la fuente tipográfica
+
 @funindex \italic
+@funindex italic
 @funindex \bold
+@funindex bold
 @funindex \underline
+@funindex underline
 
 Está contemplado de forma básica el cambio de la fuente tipográfica en
 el modo de marcado:
@@ -484,13 +536,17 @@ d,_\markup { \italic quasi \smallCaps Tromba }
 f1 d2 r
 @end lilypond
 
-
 @cindex fuente tipográfica, tamaño de
 @cindex texto, tamaño de
+
 @funindex \fontsize
+@funindex fontsize
 @funindex \smaller
+@funindex smaller
 @funindex \larger
+@funindex larger
 @funindex \magnify
+@funindex magnify
 
 El tamaño de los caracteres también se puede alterar de distintas
 maneras:
@@ -532,8 +588,11 @@ d c2 r8 c bes a g1
 
 @cindex subíndice
 @cindex superíndice
+
 @funindex \super
+@funindex super
 @funindex \sub
+@funindex sub
 
 El texto se puede imprimir como subíndice o como superíndice.  De
 forma predeterminada se imprimen en un tamaño menor, pero también se
@@ -602,23 +661,32 @@ utilización personalizada de las fuentes tipográficas en @ref{Font}.
 También es posible definir conjuntos personalizados de fuentes, tal y
 como se explica en @ref{Tipografías}.
 
+@funindex \teeny
+@funindex teeny
+@funindex \tiny
+@funindex tiny
+@funindex \small
+@funindex small
+@funindex \normalsize
+@funindex normalsize
+@funindex \large
+@funindex large
+@funindex \huge
+@funindex huge
+@funindex \smaller
+@funindex smaller
+@funindex \larger
+@funindex larger
+
 
 @predefined
-@funindex \teeny
 @code{\teeny},
-@funindex \tiny
 @code{\tiny},
-@funindex \small
 @code{\small},
-@funindex \normalsize
 @code{\normalsize},
-@funindex \large
 @code{\large},
-@funindex \huge
 @code{\huge},
-@funindex \smaller
 @code{\smaller},
-@funindex \larger
 @code{\larger}.
 @endpredefined
 
@@ -644,8 +712,12 @@ Archivos de inicio:
 @unnumberedsubsubsec Alineación de texto
 @translationof Text alignment
 
-@cindex texto alineación de
+@cindex texto, alineación de
 @cindex alinear texto
+@cindex alinear texto de marcado
+@cindex alinear elementos de marcado
+@cindex marcado, elementos, alinear
+@cindex marcado, texto, alinear
 
 Esta subsección trata sobre cómo colocar texto en el modo de marcado.
 Los objetos de marcado también se pueden mover como un todo, usando la
@@ -656,9 +728,13 @@ sintaxis que se describe en @rlearning{Mover objetos}.
 
 @cindex texto, alineación horizontal
 @cindex horizontal, alineación de texto
+
 @funindex \left-align
+@funindex left-align
 @funindex \center-align
+@funindex center-align
 @funindex \right-align
+@funindex right-align
 
 Los objetos de marcado se pueden alinear de distintas maneras.  De
 forma predeterminada, una indicación de texto se alinea sobre el borde
@@ -676,6 +752,7 @@ d-\markup { \right-align poco }
 @end lilypond
 
 @funindex \halign
+@funindex halign
 
 Se puede realizar un ajuste fino de la alineación horizontal usando un
 valor numérico:
@@ -698,8 +775,13 @@ muestra por ejemplo en @ref{Indicaciones de texto}.
 
 @cindex texto, alineación vertical
 @cindex vertical, alineación de texto
+
 @funindex \raise
+@funindex raise
 @funindex \lower
+@funindex lower
+@funindex \null
+@funindex null
 
 La alineación vertical es un poco más compleja.  Como se ha dicho más
 arriba, los objetos de marcado se pueden mover como un todo; sin
@@ -728,8 +810,11 @@ a'4 a g2 a
 @end lilypond
 
 @funindex \general-align
+@funindex general-align
 @funindex \translate
+@funindex translate
 @funindex \translate-scaled
+@funindex translate-scaled
 
 Algunas instrucciones pueden afectar tanto a la alineación horizontal
 como a la vertical de los objetos de texto en el modo de marcado.
@@ -754,12 +839,17 @@ d,^\markup {
 a'4 a g2 a
 @end lilypond
 
-@funindex \column
-@funindex \center-column
-
-@cindex varias líneas, marcado de
+@cindex varias líneas, marcado
+@cindex marcado de varias líneas
+@cindex varias líneas, texto
 @cindex texto de varias líneas
-@cindex columnas, texto en
+@cindex texto en columnas
+@cindex columnas, texto
+
+@funindex \column
+@funindex column
+@funindex \center-column
+@funindex center-column
 
 Un objeto de marcado puede incluir varias líneas de texto.  En el
 ejemplo siguiente, cada elemento o expresión se sitúa en su propia
@@ -781,9 +871,12 @@ línea, ya sea alineada por la izquierda o centrada:
 }
 @end lilypond
 
-@funindex \fill-line
-
 @cindex centrar texto en la página
+@cindex texto, centrar en la página
+@cindex marcado, centrar en la página
+
+@funindex \fill-line
+@funindex fill-line
 
 De forma similar, una lista de elementos o expresiones se puede
 repartir de forma que rellene por completo el ancho de la línea
@@ -808,11 +901,19 @@ cualquier otra expresión de marcado:
 }
 @end lilypond
 
-@funindex \wordwrap
-@funindex \justify
-
-@cindex ajuste de línea, texto con
+@cindex texto ajustado a palabras
+@cindex texto justificado
 @cindex justificado, texto
+@cindex ajustado a palabras, texto
+@cindex marcado, texto, ajustado a palabras
+@cindex texto de marcado ajustado a palabras
+@cindex ajuste de línea, texto con
+
+@funindex \wordwrap
+@funindex wordwrap
+@funindex \justify
+@funindex justify
+
 
 Las indicaciones de texto largas se pueden también ajustar
 automáticamente según un ancho de línea dado.  Estarán alineados por
@@ -844,6 +945,10 @@ la izquierda o justificados, como se muestra en el ejemplo siguiente.
 }
 @end lilypond
 
+@cindex texto, instrucciones de alineación
+@cindex marcado, texto, instrucciones de alineación
+@cindex alineación, instrucciones de texto
+
 Hay una lista exhaustiva de instrucciones de alineación de texto en
 @ref{Align}.
 
@@ -872,18 +977,30 @@ Archivos de inicio:
 
 @cindex gráficos, insertar
 @cindex dibujar objetos gráficos
+@cindex gráficos, dibujar objetos
+@cindex insertar objetos gráficos
+@cindex gráficos, insertar objetos
 
 Se puede añadir diversos objetos gráficos a una partitura, utilizando
 instrucciones de marcado.
 
-@funindex \box
-@funindex \circle
-@funindex \rounded-box
-@funindex \bracket
-@funindex \hbracket
-
-@cindex decorar texto
 @cindex enmarcar texto
+@cindex texto, enmarcar
+@cindex texto, decorar
+@cindex marcado, texto, decorar
+@cindex marcado, texto, enmarcar
+@cindex decorar texto
+
+@funindex \box
+@funindex box
+@funindex \circle
+@funindex circle
+@funindex \rounded-box
+@funindex rounded-box
+@funindex \bracket
+@funindex bracket
+@funindex \hbracket
+@funindex hbracket
 
 Ciertas instrucciones de marcado permiten la decoración de elementos
 de texto con gráficos, como se muestra en el ejemplo siguiente.
@@ -905,13 +1022,18 @@ de texto con gráficos, como se muestra en el ejemplo siguiente.
 }
 @end lilypond
 
-@funindex \pad-markup
-@funindex \pad-x
-@funindex \pad-to-box
-@funindex \pad-around
-
-@cindex relleno alrededor del texto
+@cindex relleno alrededor de texto
 @cindex texto, relleno de
+@cindex marcado, relleno de textos de
+
+@funindex \pad-markup
+@funindex pad-markup
+@funindex \pad-x
+@funindex pad-x
+@funindex \pad-to-box
+@funindex pad-to-box
+@funindex \pad-around
+@funindex pad-around
 
 Algunas instrucciones pueden requerir un aumento del relleno alrededor
 del texto: esto se puede conseguir con algunas instrucciones de
@@ -939,15 +1061,23 @@ Flute quartet keeps very uneven time."
 }
 @end lilypond
 
-@funindex \combine
-@funindex \draw-circle
-@funindex \filled-box
-@funindex \triangle
-@funindex \draw-line
-@funindex \arrow-head
-
 @cindex gráfica, notación
 @cindex símbolos no musicales
+@cindex no musicales, símbolos
+@cindex notación gráfica
+
+@funindex \combine
+@funindex combine
+@funindex \draw-circle
+@funindex draw-circle
+@funindex \filled-box
+@funindex filled-box
+@funindex \triangle
+@funindex triangle
+@funindex \draw-line
+@funindex draw-line
+@funindex \arrow-head
+@funindex arrow-head
 
 Se pueden imprimir otros símbolos o elementos gráficos sin que se
 requiera ningún otro texto.  De igual manera que en el caso de las
@@ -969,13 +1099,15 @@ expresiones de marcado, dichos objetos se pueden combinar:
 }
 @end lilypond
 
-@funindex \epsfile
-@funindex \postscript
-
 @cindex insertar gráficos
 @cindex imágenes, insertar
 @cindex gráficos, insertar
 @cindex PostScript
+
+@funindex \epsfile
+@funindex epsfile
+@funindex \postscript
+@funindex postscript
 
 Entre las funcionalidades gráficas avanzadas se encuentran la
 posibilidad de incluir archivos de imagen externos convertidos al
@@ -1027,6 +1159,10 @@ Archivos de inicio:
 @node Notación musical dentro de elementos de marcado
 @unnumberedsubsubsec Notación musical dentro de elementos de marcado
 @translationof Music notation inside markup
+
+@cindex notación dentro de marcado
+@cindex música dentro de marcado
+@cindex marcado, notación musical dentro de
 
 Se pueden añadir a la partitura diversos elementos de notación
 musical, dentro de un objeto de marcado.
@@ -1087,10 +1223,9 @@ c16
 c2^\markup { \musicglyph #"timesig.neomensural94" }
 @end lilypond
 
-@noindent
 Otra forma de imprimir glifos que no son de texto se encuentra
-descrita en @ref{Explicación de las fuentes tipográficas}.  Tiene la utilidad de imprimir
-llaves de distintos tamaños.
+descrita en @ref{Explicación de las fuentes tipográficas}.  Tiene la
+utilidad de imprimir llaves de distintos tamaños.
 
 El modo de marcado también contempla diagramas para instrumentos
 específicos:
@@ -1115,7 +1250,11 @@ c^\markup {
 @c The accordion diagram is actually taken from a snippet.
 
 @noindent
-Dichos diagramas se encuentran documentados es @ref{Instrument Specific Markup}.
+Dichos diagramas se encuentran documentados en @ref{Instrument
+Specific Markup}.
+
+@cindex partitura dentro marcado
+@cindex marcado, partitura dentro de
 
 Incluso una partitura completa se puede incluir dentro de un objeto de
 marcado.  En tal caso, el bloque anidado @code{\score} debe contener
@@ -1158,6 +1297,18 @@ Archivos de inicio:
 @unnumberedsubsubsec Elementos de marcado de varias páginas
 @translationof Multi-page markup
 
+@cindex páginas, marcado de varias
+@cindex marcado de varias páginas
+@cindex marcado, texto de, varias páginas
+@cindex texto que ocupa varias páginas
+
+@funindex \markuplines
+@funindex markuplines
+@funindex \justified-lines
+@funindex justified-lines
+@funindex \wordwrap-lines
+@funindex wordwrap-lines
+
 Aunque los objetos de marcado estándar no se pueden dividir, una
 sintaxis específica hace posible la introducción de líneas de texto
 que pueden abarcar varias páginas:
@@ -1193,11 +1344,13 @@ Hay una lista exhaustiva de las instrucciones de lista de marcado en
 
 @seealso
 Referencia de la notación:
-@ref{Text markup list commands},
-@ref{Definición de nuevas instrucciones de lista de marcado}.
+@ref{Text markup list commands}.
 
 Fragmentos de código:
 @rlsr{Text}.
+
+Manual de extensión:
+@rextend{New markup list command definition}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
@@ -1206,8 +1359,10 @@ Archivos de inicio:
 @file{scm/@/define@/-markup@/-commands@/.scm}.
 
 
-@predefined
 @funindex \markuplines
+@funindex markuplines
+
+@predefined
 @code{\markuplines}.
 @endpredefined
 
@@ -1233,6 +1388,10 @@ tipográficas, y cómo se pueden cambiar en las partituras.
 @cindex Pango
 @cindex fuentes tipográficas, explicación
 @cindex llaves de distintos tamaños
+@cindex fuentes tipográficas, explicación
+@cindex llaves de varios tamaños
+@cindex fuentes tipográficas de símbolos en marcado
+@cindex símbolos, fuentes tipográficas en el marcado
 
 @funindex font-interface
 
@@ -1346,7 +1505,7 @@ instalada en el sistema operativo y reconocida por parte de
 FontConfig, usando la siguiente sintaxis:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.TimeSignature #'font-name = #"Charter"
+\override Staff.TimeSignature #'font-name = #"Bitstream Charter"
 \override Staff.TimeSignature #'font-size = #2
 \time 3/4
 
@@ -1355,6 +1514,11 @@ a1_\markup {
     { Vera Bold }
 }
 @end lilypond
+
+@cindex fuentes tipográficas, buscar, disponibles
+@cindex buscar fuentes tipográficas disponibles
+@cindex listar fuentes tipográficas disponibles
+@cindex disponibles, listar las fuentes tipográficas
 
 @funindex show-available-fonts
 
@@ -1365,10 +1529,6 @@ disponibles en el sistema operativo:
 lilypond -dshow-available-fonts x
 @end example
 
-@noindent
-El último argumento de la instrucción puede ser cualquiera, pero debe
-estar presente.
-
 
 @seealso
 Referencia de la notación:
@@ -1378,8 +1538,9 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Text}.
 
-Archivos de inicio:
-@file{lily/@/font@/-config@/-scheme@/.cc}.
+@c A source file gets never installed...
+@c Installed files:
+@c @file{lily/@/font@/-config@/-scheme@/.cc}.
 
 
 @node Fuentes tipográficas del documento completo
@@ -1393,6 +1554,8 @@ orden como se ve en el ejemplo de abajo.  Para leer más explicaciones
 sobre las fuentes tipográficas, consulte @ref{Explicación de las fuentes tipográficas}.
 
 @cindex fuente, establecer la familia de
+@cindex fuentes tipográficas, cambiar para todo el documento
+
 @funindex make-pango-font-tree
 
 @lilypond[verbatim,quote]
