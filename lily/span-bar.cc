@@ -191,7 +191,7 @@ Span_bar::calc_glyph_name (SCM smob)
     }
 
   string type = ly_scm2string (gl);
-  if (type == "|:")
+  if (type == "|:" || type == "||:")
     type = ".|";
   else if (type == ":|")
     type = "|.";
