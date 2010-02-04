@@ -83,26 +83,13 @@ A @qq{minor release} means an update of @code{y} in @code{2.x.y}.
 @enumerate
 
 @item
-switch to the release branch:
+Switch to the release branch, get changes, prep release
+announcement:
 
 @example
 git checkout release/unstable
-@end example
-
-@item
-Get latest changes:
-
-@example
 git merge origin
-@end example
-
-@item
-Make a release announcement by adding a news item, and moving the
-oldest news item out of -front.
-
-@example
-Documentation/web/news-front.itexi
-Documentation/web/news.itexi
+vi Documentation/web/news-front.itexi Documentation/web/news.itexi
 @end example
 
 @item (optional) Check that lilypond builds from scratch in an
@@ -121,7 +108,7 @@ it and put it in @code{regtests/}
 @item Build release on GUB by running:
 
 @example
-make lilypond
+make LILYPOND_BRANCH=release/unstable lilypond
 @end example
 
 @noindent
@@ -129,7 +116,6 @@ or something like:
 
 @example
 make LILYPOND_BRANCH=stable/2.12 lilypond
-make LILYPOND_BRANCH=release/unstable lilypond
 @end example
 
 @item Check the regtest comparison in @file{uploads/webtest/} for
