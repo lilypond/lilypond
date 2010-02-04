@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,6 +20,7 @@ occidental.
 
 @menu
 * Música árabe::
+* Música clásica de Turquía::
 @end menu
 
 @node Música árabe
@@ -34,7 +35,7 @@ Esta sección destaca asuntos relativos a la música árabe.
 * Armaduras de tonalidad árabes::
 * Indicaciones de compás árabes::
 * Ejemplo de música árabe::
-* Lecturas adicionales::
+* Lecturas adicionales sobre música árabe::
 @end menu
 
 
@@ -46,6 +47,7 @@ Esta sección destaca asuntos relativos a la música árabe.
 @cindex medios, intervalos
 @cindex maqam
 @cindex maqams
+@cindex makamlar
 
 La música árabe ha sido principalmente una tradición oral hasta el
 momento.  Cuando se transcribe la música, se suele hacer en la forma
@@ -175,6 +177,7 @@ muhayer:
 \key re \bayati
 @end example
 
+@noindent
 Aquí, @var{re} es la altura predeterminada del maqam muhayer, y
 @var{bayati} es el nombre del maqam básico dentro del grupo.
 
@@ -350,17 +353,17 @@ esta sección.
 
 @seealso
 Fragmentos de código:
-@rlsr{World music}
+@rlsr{World music}.
 
 
-@node Lecturas adicionales
-@unnumberedsubsubsec Lecturas adicionales
-@translationof Further reading
+@node Lecturas adicionales sobre música árabe
+@unnumberedsubsubsec Lecturas adicionales sobre música árabe
+@translationof Further reading for Arabic music
 
 @enumerate
 
 @item
-The music of the Arabs, de Habib Hassan Touma [Amadeus Press, 1996],
+@emph{The music of the Arabs}, de Habib Hassan Touma [Amadeus Press, 1996],
 contiene un tratado de los maqams y sus formas de agrupación.
 
 También existen varios sitios web que explican los maqams, y algunos
@@ -384,8 +387,8 @@ texto, la forma en que se deben especificar las armaduras para los
 maqams concretos.  Sin embargo, es usual utilizar una armadura por
 grupo, más que una armadura distinta para cada maqam concreto.
 
-Varios métodos de los siguientes autores contienen ejemplos de
-composiciones turcas y árabes, principalmente.
+Varios métodos de los siguientes autores para el @dfn{Ud}, el laúd árabe,
+contienen ejemplos de composiciones turcas y árabes, principalmente.
 
 @itemize @bullet
 @item
@@ -396,3 +399,73 @@ George Farah
 Ibrahim Ali Darwish Al-masri
 @end itemize
 @end enumerate
+
+
+@node Música clásica de Turquía
+@subsection Música clásica de Turquía
+@translationof Turkish classical music
+
+Esta sección destaca los problemas de relevancia para la notación de
+la música clásica de Turquía.
+
+@menu
+* Referencias para música clásica de Turquía::
+* Nombres de las notas en turco::
+@end menu
+
+
+@node Referencias para música clásica de Turquía
+@unnumberedsubsubsec Referencias para música clásica de Turquía
+@translationof References for Turkish classical music
+
+@cindex Turquía, música de
+@cindex Otomana, música
+@cindex coma, intervalos de
+@cindex makam
+@cindex makamlar
+
+La música clásica de Turquía se desarrollo en el imperio Otomano
+durante un período aproximadamente contemporáneo con la música clásica
+de Europa, y se ha prolongado hasta los ss.XX y XXI como una viva y
+característica tradición con sus propias formas composicionales,
+teorías y estilos de interpretación.  Entre sus características más
+sobresalientes está el uso de intervalos microtonales basados en
+@q{comas} de 1/9 de tono, a partir de los que se construyen las formas
+melódicas conocidas como @notation{makam} (en plural
+@notation{makamlar}).
+
+Ciertos asuntos de relevancia respecto a la música clásica de Turquía
+se tratan en otras partes:
+
+@itemize
+@item Los nombres de las notas y las alteraciones se dan en
+@ref{Nombres de las notas y alteraciones no occidentales}.
+
+@end itemize
+
+
+@node Nombres de las notas en turco
+@unnumberedsubsubsec Nombres de las notas en turco
+@translationof Turkish note names
+
+@cindex Turquía, nombres de notas en
+@cindex makam
+@cindex makamlar
+
+Las notas en la música clásica de Turquía tienen tradicionalmente
+nombres únicos, y la base de las alturas sobre divisiones de 1/9 de
+tono significan que los makamlar utilizan un conjunto de intervalos
+completamente diferente de las escalas y modos occidentales:
+@notation{koma} (1/9 de tono), @notation{eksik bakiye} (3/9),
+@notation{bakiye} (4/9), @notation{kücük mücenneb} (5/9),
+@notation{büyük mücenneb} (8/9), @notation{tanîni} (un tono) y
+@notation{artık ikili} (12/9 ó 13/9 de tono).
+
+Desde el punto de vista de la notación moderna, es conveniente
+utilizar las notas occidentales (do, re, mi, ... ó c, d, e, ...) con
+alteraciones especiales que elevan o bajan las notas en intervalos de
+1/9, 4/9, 5/9 y 8/9 de tono.  Esetas alteraciones están definidas en
+el archivo @file{makam.ly} (para encontrar este archivo en su sistema,
+consulte @rlearning{Otras fuentes de información}). Se da una
+descripción más detallada en @ref{Nombres de las notas y alteraciones
+no occidentales}.

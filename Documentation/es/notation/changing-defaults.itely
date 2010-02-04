@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+Translation of GIT committish: 1eb98b180d639ff14d4152637bb97b1a8c651e90
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2210,7 +2210,7 @@ lista @qq{accepts}, pueden cambiarse; véase @ref{Alinear los
 contextos}.
 
 @seealso
-Manual de aprendizaje:
+Manual de utilización del programa:
 @rprogram{An extra staff appears}.
 
 @node Distancias y medidas

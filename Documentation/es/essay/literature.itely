@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: cc87a18271e3c4596510618a161892ab2ee3604c
+    Translation of GIT committish: 23cd7c415987593a6bafe1a6471caa3d34003498
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -13,6 +13,15 @@
 @node Lista de referencias bibliográficas
 @chapter Lista de referencias bibliográficas
 @translationof Literature list
+
+@menu
+* Lista bibliográfica resumida::
+* Lista bibliográfica ampliada::
+@end menu
+
+@node Lista bibliográfica resumida
+@section Lista bibliográfica resumida
+@translationof Short literature list
 
 Si tiene necesidad de aprender más acerca de la notación musical, le presentamos a continuación
 algunos títulos interesantes que puede leer.
@@ -70,17 +79,20 @@ tradicional.
 
 @end table
 
-El archivo de código fuente incluye una bibliografía de Bib@TeX{} más elaborada con más de
-100 elementos, en
-@ifhtml
-@ifset bigpage
-@uref{../bibliography/index.html, the bibliography}.
-@end ifset
-@ifclear bigpage
-@uref{../../bibliography/index.html, the bibliography}.
-@end ifclear
-@end ifhtml
-@ifnothtml
-@file{Documentation/@/bibliography/}.
-@end ifnothtml
+
+@node Lista bibliográfica ampliada
+@section Lista bibliográfica ampliada
+@translationof Long literature list
+
+@subheading Colorado
+
+@include colorado.itexi
+
+@subheading Notación por ordenador
+
+@include computer-notation.itexi
+
+@subheading Grabado musical
+
+@include engravingbib.itexi
 
