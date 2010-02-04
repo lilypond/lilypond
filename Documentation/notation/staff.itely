@@ -979,7 +979,10 @@ For details, see @ref{Modifying context plug-ins}.
 @cindex instrument names, changing
 @cindex changing instrument names
 
-Instrument names may be changed in the middle of a piece:
+Instrument names may be changed in the middle of a piece.
+However, remember that @code{instrumentName} will not be
+displayed in the middle of the piece, as it only appears
+on the first staff:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \set Staff.instrumentName = #"First"
