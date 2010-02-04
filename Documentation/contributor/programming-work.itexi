@@ -1412,6 +1412,31 @@ This is a place to dump information that may be of use to developers
 but doesn't yet have a proper home.  Ideally, the length of this section
 would become zero as items are moved to other homes.
 
+@subsection Spacing algorithms
+
+Here is information from an email exchange about spacing algorithms.
+
+On Thu, 2010-02-04 at 15:33 -0500, Boris Shingarov wrote:
+I am experimenting with some modifications to the line breaking code,
+and I am stuck trying to understand how some of it works.  So far my
+understanding is that Simple_spacer operates on a vector of Grobs, and
+it is a well-known Constrained-QP problem (rods = constraints, springs
+= quadratic function to minimize).  What I don't understand is, if the
+spacer operates at the level of Grobs, which are built at an earlier
+stage in the pipeline, how are the changes necessitated by differences
+in line breaking, taken into account?  in other words, if I take the
+last measure of a line and place it on the next line, it is not just a
+matter of literally moving that graphic to where the start of the next
+line is, but I also need to draw a clef, key signature, and possibly
+other fundamental things -- but at that stage in the rendering
+pipeline, is it not too late??
+
+Joe Neeman answered:
+
+We create lots of extra grobs (eg. a BarNumber at every bar line) but
+most of them are not drawn. See the break-visibility property in
+item-interface.
+
 @subsection Info from Han-Wen Email
 
 In 2004, Douglas Linhardt decided to try starting a document that would
