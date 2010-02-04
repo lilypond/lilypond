@@ -421,7 +421,9 @@ The chart below shows the predefined fretboard diagrams for ukulele.
 @appendixsec MIDI instruments
 
 The following is a list of names that can be used for the
-@code{midiInstrument} property.
+@code{midiInstrument} property.  The order of the instruments
+below, starting in the left-hand column moving down, corresponds
+to the General MIDI Standard's 128 Program Numbers.
 
 @example
 acoustic grand            contrabass           lead 7 (fifths)

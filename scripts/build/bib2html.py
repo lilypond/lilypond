@@ -28,8 +28,6 @@ for (o,a) in options:
 if style not in ['alpha','index','long','longp','long-pario','short','short-pario','split']:
     sys.stderr.write ("Unknown style \`%s'\n" % style)
 
-tempfile = tempfile.mktemp ('bib2html')
-
 if not files:
    usage ()
    sys.exit (2)
@@ -47,13 +45,17 @@ for f in files:
 
 files = ','.join (nf)
 
-open (tempfile + '.aux', 'w').write (r'''
+tmpfile = tempfile.mkstemp ('bib2html')[1]
+
+open (tmpfile + '.aux', 'w').write (r'''
 \relax 
 \citation{*}
 \bibstyle{html-%(style)s}
 \bibdata{%(files)s}''' % vars ()) 
 
-cmd = "bibtex %s" % tempfile
+tmpdir = tempfile.gettempdir ()
+
+cmd = "TEXMFOUTPUT=%s bibtex %s" % (tmpdir, tmpfile)
 
 sys.stdout.write ("Invoking `%s'\n" % cmd)
 stat = os.system (cmd)
@@ -63,14 +65,14 @@ if stat <> 0:
 
 #TODO: do tex -> html on output 
 
-bbl = open (tempfile + '.bbl').read ()
+bbl = open (tmpfile + '.bbl').read ()
 
 open (output, 'w').write  (bbl)
 
 
-def cleanup (tempfile):
+def cleanup (tmpfile):
     for a in ['aux','bbl', 'blg']:
-        os.unlink (tempfile + '.' + a)
+        os.unlink (tmpfile + '.' + a)
 
-cleanup (tempfile)
+cleanup (tmpfile)
 
