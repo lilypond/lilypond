@@ -1204,8 +1204,10 @@ left-margin-default right-margin-default)"
 
         option_list = []
         for option in self.get_option_list ():
-            if not any (option.startswith (name)
-                        for name in PROCESSING_INDEPENDENT_OPTIONS):
+            for name in PROCESSING_INDEPENDENT_OPTIONS:
+                if option.startswith (name):
+                    break
+            else:
                 option_list.append (option)
         option_string = ','.join (option_list)
         compose_dict = {}
