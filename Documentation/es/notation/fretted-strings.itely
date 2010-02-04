@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+    Translation of GIT committish: 7f60830e7fcaa24eb09096b7fc08bbea0cfc0927
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1012,10 +1012,10 @@ mychordlist = {
 La tabla de diagramas de traste predefinidos para la guitarra contiene
 ocho acordes (mayor, menor, aumentado, disminuido, séptima dominante,
 séptima mayor, menor séptima y novena domniante) para 17 tonalidades
-distintas.  The predefined fret diagram table for ukulele contains
-these chords plus an additional three chords (major sixth, suspended
-second, and suspended fourth).  Se puede ver una lista completa de los
-diagramas de traste predefinidos en @ref{Diagramas predefinidos de
+distintas.  La tabla de diagramas predefinidos para el ukelele
+contiene estos acordes y además otros tres (sexta mayor, segunda
+suspendida y cuarta suspendida).  Se puede ver una lista completa de
+los diagramas de traste predefinidos en @ref{Diagramas predefinidos de
 trastes}.  Si no hay una entrada en la tabla para un acorde, el
 grabador FretBoards calcula un cadena de diagrama fret-diagram usando
 la funcionalidad de diagramas automáticos que se describe en

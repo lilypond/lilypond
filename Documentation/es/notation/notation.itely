@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,14 +16,14 @@
 Este capítulo explica cómo crear notación musical.
 
 @menu
-* Alturas::            Escritura y presentación de la altura de las notas.
-* Duraciones::            Escritura y presentación de las duraciones de las notas.
-* Expresiones::   Añadir expresión a las notas.
+* Alturas::                 Escritura y presentación de la altura de las notas.
+* Duraciones::              Escritura y presentación de las duraciones de las notas.
+* Expresiones::             Añadir expresión a las notas.
 * Repeticiones::            Repetir música.
-* Notas simultáneas:: Más de una nota a la vez.
-* Notación de los pentagramas::     Imprimir pentagramas.
-* Anotaciones editoriales::  Notación especial para aumentar la legibilidad.
-* Texto::               Añadir texto a las partituras.
+* Notas simultáneas::       Más de una nota a la vez.
+* Notación de los pentagramas:: Imprimir pentagramas.
+* Anotaciones editoriales:: Notación especial para aumentar la legibilidad.
+* Texto::                   Añadir texto a las partituras.
 @end menu
 
 @include notation/pitches.itely
