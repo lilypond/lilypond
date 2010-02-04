@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 5cc81a8250d5a16bd20dbb4f9eed1ae635104ab2
+    Translation of GIT committish: db933a5e06faef310d68d0c63474ba3279ef7791
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -424,7 +424,7 @@ Localice el archivo descargado y haga doble clic sobre él para
 arrancar el instalador. Siga las instrucciones que le indica el instalador; le recomendamos
 que deje seleccionadas todas las opciones de instalación y que utilice
 la ruta de instalación predeterminada. Pulse sobre el botón
-@q{Finalizar} cuando el instalador termine. Lilypond está instalado.
+@q{Finalizar} cuando el instalador termine. LilyPond está instalado.
 
 @end enumerate
 
@@ -440,7 +440,7 @@ Localizar el apartado de LilyPond en el menú Inicio y elegir
 de desinstalación.
 
 @item
-Desde el Panel de control, busque y seleccione el programa Lilypond y
+Desde el Panel de control, busque y seleccione el programa LilyPond y
 elija la opción de desinstalar/quitar programa.  Pulse el botón
 @q{Finish} cuando termine el programa de desinstalación.
 
