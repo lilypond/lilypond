@@ -1,9 +1,9 @@
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
- Son posibles tanto los corchetes rectos sobre notas sueltas como
+Son posibles tanto los corchetes rectos sobre notas sueltas como
 extremos de barra sueltos en figuras unidas, con una combinación de
 @code{stemLeftBeamCount}, @code{stemRightBeamCount} e indicadores de
-barra @code{[ ]} emparejados.
+barra @code{[]} emparejados.
 
 Para corchetes rectos que apunten a la derecha sobre notas sueltas,
 use indicadores de barra emparejados @code{[]} y establezca
@@ -26,8 +26,8 @@ e izquierda.  Hágalo solamente con indicadores de barra emparejados
 (Observe que @code{\\set stemLeftBeamCount} siempre equivale a
 @code{\\once \\set}.  En otras palabras, los ajustes de la cantidad de
 barras no se recuerdan, y por ello el par de corchetes planos
-aplicados a la nota Do semicorchea @code{c'16[]} del último ejemplo
-no tiene nada que ver con el @code{\\set} de dos notas por detrás.)
+aplicados a la nota Do semicorchea @code{c'16[]} del último ejemplo no
+tiene nada que ver con el @code{\\set} de dos notas por detrás.)
 
 "
   doctitlees = "Corchetes rectos y extremos de barra sueltos"
