@@ -1380,7 +1380,6 @@
 
     (PhrasingSlur
      . (
-	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(control-points . ,ly:slur::calc-control-points)
 	(cross-staff . ,ly:slur::calc-cross-staff)
 	(details . ,default-slur-details)
@@ -1540,7 +1539,6 @@
 
     (Slur
      . (
-	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(avoid-slur . inside)
 	(control-points . ,ly:slur::calc-control-points)
 	(cross-staff . ,ly:slur::calc-cross-staff)
