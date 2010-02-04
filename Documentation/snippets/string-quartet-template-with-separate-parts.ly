@@ -6,9 +6,9 @@
 \header {
   lsrtags = "unfretted-strings, template"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
-El fragmento de código \"Plantilla de cuarteto de cuerda\" produce un
+El fragmento de código @qq{Plantilla de cuarteto de cuerda} produce un
 resultado satisfactorio para el cuarteto, pero ¿y si tenemos que
 imprimir las particellas? Esta nueva plantilla muestra cómo usar la
 funcionalidad @code{\\tag} (etiqueta) para dividir fácilmente una

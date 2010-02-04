@@ -6,12 +6,12 @@
 \header {
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 He aquí una partitura vocal estándar para cuatro voces SATB. Con
 grupos mayores, suele ser útil incluir una sección que aparezca en
 todas las partes.  Por ejemplo, el compás y la armadura casi siempre
-son los mismos para todas. Como en la plantilla \"Himno\", las cuatro
+son los mismos para todas. Como en la plantilla @qq{Himno}, las cuatro
 voces se reagrupan en sólo dos pentagramas.
 
 "

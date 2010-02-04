@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 Si hay un solo pentagrama en un de los tipos de sistema
 @code{ChoirStaff} o @code{StaffGroup}, el comportamiento

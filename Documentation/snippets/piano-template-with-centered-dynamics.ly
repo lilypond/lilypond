@@ -5,7 +5,7 @@
 \version "2.13.10"
 
 \header {
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 Muchas partituras de piano tienen las indicaciones dinámicas
 centradas entre los dos pentagramas.  Esto requiere un poco de

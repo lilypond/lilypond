@@ -6,15 +6,15 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 
-Al establecer la propiedad @code{'strict-grace-spacing} hacemos
-que las columnas musicales para las notas de adorno sean
-'flotantes', es decir, desacopladas de las notas que no son de
-adorno: primero se aplica el espaciado de las notas normales, y
-luego se ponen las columnas musicales de las notas de adorno a la
-izquierda de las columnas musicales de las notas principales.
+Al establecer la propiedad @code{'strict-grace-spacing} hacemos que
+las columnas musicales para las notas de adorno sean @q{flotantes}, es
+decir, desacopladas de las notas que no son de adorno: primero se
+aplica el espaciado de las notas normales, y luego se ponen las
+columnas musicales de las notas de adorno a la izquierda de las
+columnas musicales de las notas principales.
 
 "
 

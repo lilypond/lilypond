@@ -5,11 +5,11 @@
 \version "2.13.10"
 
 \header {
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
  doctitlees = "Indicaciones de compases compuestos"
  texidoces = "
-Las indicaciones de compás poco frecuentes como \"5/8\" se pueden
-ejecutar como compases compuestos (p.ej. \"3/8 + 2/8\"), que combinan
+Las indicaciones de compás poco frecuentes como @qq{5/8} se pueden
+ejecutar como compases compuestos (p.ej. @qq{3/8 + 2/8}), que combinan
 dos o más metros diferentes. LilyPond puede hacer la música de este
 tipo fácil de leer e interpretar, imprimiendo explícitamente las
 indicaciones de compás compuesto y adaptando el comportamiento

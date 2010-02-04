@@ -6,12 +6,12 @@
 \header {
   lsrtags = "expressive-marks, text"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
-Este ejemplo proporciona una función para tipografiar un regulador
-con texto por debajo, como \"molto\" o \"poco\". El ejemplo
-ilustra también cómo modificar la manera en que se imprime
-normalmente un objeto, utilizando código de Scheme.
+Este ejemplo proporciona una función para tipografiar un regulador con
+texto por debajo, como @qq{molto} o @qq{poco}. El ejemplo ilustra
+también cómo modificar la manera en que se imprime normalmente un
+objeto, utilizando código de Scheme.
 
 "
   doctitlees = "Centrar texto debajo de un regulador"
