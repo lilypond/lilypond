@@ -1,17 +1,21 @@
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
-Las opciones para agrupar los pulsos de un compás están a nuestra
-disposición a través de la función de Scheme
-@code{set-time-signature}, que acepta tres argumentos: el número
-de pulsos, la longitud del pulso, y la agrupación interna de los
-pulsos dentro del compás.  Si se incluye el grabador
-@code{Measure_grouping_engraver}, la función crea también símbolos
-de agrupación @code{MeasureGrouping}.  Dichos símbolos facilitan
-la lectura de la música moderna de cierta complejidad rítmica.  En
-el ejemplo, el compás de 9/8 se subdivide en 2, 2, 2 y 3.  Esto se
-pasa a la función @code{set-time-signature} como tercer argumento:
-@code{'(2 2 2 3)}:
+La agrupación de pulsos dentro de un compás está controlada por la
+agrupación predeterminada que se establece en @code{beamSettings}.
+Estas agrupaciones se pueden establecer mediante el uso de
+@code{\\overrideBeamSettings}.  De forma alternativa, se puede usar la
+función de Scheme @code{set-time-signature} para establecer tanto el
+compás como la regla de agrupamiento predeterminada.
+@code{set-time-signature} acepta tres argumentos: el número de pulsos,
+la longitud del pulso y la agrupación interna de los pulsos en el
+compás.  Si el grabador @code{Measure_grouping_engraver} está incluido
+en uno de los contextos de presentación, se imprimirán signos de
+agrupación de pulsos.  Estos símbolos facilitan la lectura de música
+moderna rítmicamente compleja.  En este ejemplo, el compás de 9/8 se
+agrupa según dos patrones distintos utilizando los dos métodos,
+mientras que el compás de 5/8 se agrupa de acuerdo con el ajuste
+predeterminado que está en @file{scm/beam-settings.scm}:
 
 "
-doctitlees = "Símbolos de dirección, símbolos de agrupación de compás"
+doctitlees = "Símbolos de dirección y símbolos de agrupación de compás"
 

@@ -1,6 +1,6 @@
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
-La instrucción @code{\time} establece las propiedades
+La instrucción @code{\\time} establece las propiedades
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping} y
 @code{measureLength} en el contexto @code{Timing}, que normalmente
 tiene el alias @code{Score}.  La modificación del valor de
