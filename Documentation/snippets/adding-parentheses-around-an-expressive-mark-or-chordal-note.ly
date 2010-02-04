@@ -6,11 +6,10 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 La función @code{\\parenthesize} es un truco especial que encierra
-objetos entre paréntesis.  El grob asociado es
-@code{Score.ParenthesesItem}.
+objetos entre paréntesis.  El grob asociado es @code{ParenthesesItem}.
 
 "
   doctitlees = "Encerrar entre paréntesis una marca expresiva o una nota de un acorde"
