@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
+    Translation of GIT committish: 276cce1176b8cc1b85167faa2ca223eb22d6bef8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -172,8 +172,6 @@ cosas, tales como
 @funindex layout
 @funindex \midi
 @funindex midi
-@cindex header
-@cindex layout
 @cindex midi
 @cindex cabecera
 @cindex disposición
@@ -235,7 +233,8 @@ Para ver más detalles, consulte @ruser{Varias partituras en un libro}.
 
 @cindex variables
 
-Otro atajo genial es la posibilidad de definir variables.  Todas las
+Otro atajo genial es la posibilidad de definir variables  (véase
+@ref{Organizar las piezas mediante variables}).  Todas las
 plantillas emplean lo siguiente:
 
 @example
@@ -253,11 +252,13 @@ Cuando LilyPond examina este archivo, toma el valor de @code{melodia}
 que ve @code{\melodia}.  No se requiere un cuidado especial con los
 nombres (puede ser @code{melodia}, @code{global},
 @code{CompasArmadura}, @code{manoderechadelpiano} o
-@code{fulanomengano}).  Para ver más detalles, consulte @ref{Ahorrar tecleo mediante variables y funciones}.  Recuerde que puede usar casi
+@code{fulanomengano}).  Para ver más detalles, consulte @ref{Ahorrar
+tecleo mediante variables y funciones}.  Recuerde que puede usar casi
 cualquier nombre que se le ocurra, en la medida en que contenga
 solamente caracteres alfabéticos y sea diferente de cualquiera de los
 nombres de instrucción de LilyPond.  Las limitaciones exactas que
-afectan a los nombres de variable se detallan en @ruser{Estructura del archivo}.
+afectan a los nombres de variable se detallan en @ruser{Estructura del
+archivo}.
 
 
 @seealso
@@ -279,13 +280,15 @@ consulte @ruser{Estructura del archivo}.
 @funindex \score
 @funindex score
 
-En la sección anterior, @ref{Introducción a la estructura de los archivos de LilyPond}, hemos podido ver la organización general de los archivos
-de entrada de LilyPond.  Pero parece que nos saltamos la parte más
-importante: ¿cómo averiguamos qué escribir después de @code{\score}?
+En la sección anterior, @ref{Introducción a la estructura de los
+archivos de LilyPond}, hemos podido ver la organización general de los
+archivos de entrada de LilyPond.  Pero parece que nos saltamos la
+parte más importante: ¿cómo averiguamos qué escribir después de
+@code{\score}?
 
-No nos hemos saltado nada en absoluto.  El gran misterio es, sencillamente,
-que no hay @emph{ningún} misterio.  La siguiente línea lo explica
-todo:
+No nos hemos saltado nada en absoluto.  El gran misterio es,
+sencillamente, que no hay @emph{ningún} misterio.  La siguiente línea
+lo explica todo:
 
 @quotation
 @emph{Un bloque @code{\score} debe comenzar con una expresión musical
@@ -299,25 +302,11 @@ musical compuesta, quizá encuentre útil dar un repaso al tutorial,
 elaborar grandes expresiones musicales a partir de pequeñas piezas
 (comenzábamos con notas, luego acordes, etc.).  Ahora partiremos de
 una gran expresión musical y recorreremos el camino inverso hacia
-abajo.
-
-@example
-\score @{
-  @{   % esta llave da inicio a toda la expresión musical compuesta
-    \new StaffGroup <<
-      @var{...introduzca aquí la partitura completa de una ópera de Wagner...}
-    >>
-  @}   % esta llave da por terminada toda expresión musical completa
-  \layout @{ @}
-@}
-@end example
-
-Una ópera de Wagner completa puede ser fácilmente el doble de larga
-que este manual, por tanto vamos a hacer sólo un cantante y un piano.
+abajo.  Por simplicidad, vamos a hacer sólo un cantante y un piano.
 No necesitamos un @code{StaffGroup} (que simplemente agrupa un cierto
 número de pautas con un corchete a la izquierda) para este conjunto,
-así que lo retiramos.  Sin embargo, @emph{sí} necesitamos un cantante
-y un piano.
+así que lo retiramos.  Sin embargo, @emph{sí} necesitamos pentagramas
+para un cantante y un piano.
 
 @example
 \score @{
@@ -331,16 +320,24 @@ y un piano.
 @}
 @end example
 
-Recuerde que usamos @code{<<} y @code{>>} en vez de @code{@{ ... @}}
-para presentar música simultánea.  Y, por supuesto, queremos presentar
-las partes vocal y del piano al mismo tiempo, ¡no una después de otra!
-Observe que la construcción @code{<< ... >>} no es realmente necesaria
-para el pentagrama del cantante (pues contiene una sola expresión
-musical); sin embargo, el uso de @code{<< ... >>} en lugar de llaves
-sigue siendo necesario si la música que debe ir en el pentagrama está
-compuesta por dos expresiones simultáneas, por ejemplo dos voces
-simultáneas o una voz con letra.  Escribiremos algo de música real más
-tarde; por ahora limitémonos a poner algunas notas y letra de relleno.
+Aquí hemos asignado nombres a los pentagramas: @qq{cantante} y
+@qq{piano}.  Esto no es esencial en este momento, pero es un hábito
+que resulta útil cultivar de manera que podamos saber de un vistazo
+para qué es cada pentagrama.
+
+Recuerde que utilizamos @code{<< ... >>} en lugar de @code{@{ ... @}}
+para presentar la música simultánea.  Esto hace que las partes vocal y
+del piano aparezcan una sobre la otra en la partitura.  La
+construcción @code{<< ... >>} no sería necesaria para el pentagrama
+del cantante en el ejemplo de arriba si contiene solamente una
+expresión musical secuencial, pero se necesitarían los @code{<<
+... >>} en lugar de las llaves si la música de ese pentagrama fuese a
+contener dos o más expresiones simultáneas, p.ej. dos voces
+simultáneas, o una voz con letra.  Vamos a tener una voz con letra,
+por lo que se requieren los ángulos dobles.  Después añadiremos algo
+de música real; por ahora limitémonos a poner unas cuantas notas y
+texto de relleno.  Si ha olvidado cómo añadir la letra, puede releer
+la sección @code{\addlyrics} de @ref{Elaborar canciones sencillas}.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -363,7 +360,8 @@ contiene una @code{Voice} o voz (en LilyPond, este término hace
 referencia a un conjunto de notas, no necesariamente notas vocales --
 por ejemplo, un violín generalmente toca una voz --) y el texto de la
 canción.  También tenemos una pauta de piano: contiene un pentagrama
-superior (mano derecha) y un pentagrama inferior (mano izquierda).
+superior (mano derecha) y un pentagrama inferior (mano izquierda),
+aunque el pentagrama inferior aún no tiene la clave de Fa.
 
 En este momento podríamos comenzar a meter las notas.  Dentro de las
 llaves que siguen a @code{\new Voice = "vocal"}, podríamos empezar
@@ -378,8 +376,17 @@ escribiendo
 Pero si lo hiciéramos, la sección @code{\score} se haría bastante
 larga y sería más difícil comprender lo que ocurre.  En lugar de esto
 utilizaremos identificadores o variables.  Recordará que las vimos por
-primera vez en la sección anterior.  Así pues, escribiendo algunas
-notas, ahora tenemos un fragmento musical de verdad:
+primera vez en la sección anterior.
+
+Para asegurarnos de que el contenido de la variable @code{text} se
+interpreta como letra, lo precedemos por @code{\lyricmode}.  Como
+@code{\addlyrics}, esto activa el modo de entrada de letra.  Sin ello,
+LilyPond trataría de interpretar el contenido como notas, lo que
+generaría errores (Existen algunos otros modos, véase @ruser{Modos de
+entrada}).
+
+Así pues, escribiendo algunas notas, y una clave de Fa para la mano
+izquierda, ahora tenemos un fragmento musical de verdad:
 
 @lilypond[verbatim,quote,ragged-right]
 melody = \relative c'' { r4 d8\noBeam g, c4 r }
@@ -404,12 +411,6 @@ lower  = \relative c { b2 e2 }
   \layout { }
 }
 @end lilypond
-
-Tenga cuidado con la diferencia entre las notas, que van precedidas de
-@code{\relative} o insertadas directamente en la expresión musical, y
-la letra, que va precedida de @code{\lyricmode}.  Estas instrucciones
-son esenciales para decirle a LilyPond que interprete el contenido que
-viene a continuación como música y texto, respectivamente.
 
 Cuando escriba una sección @code{\score} o cuando la esté leyendo,
 hágalo despacio y con cuidado.  Comience por el nivel exterior y luego
@@ -1618,7 +1619,7 @@ tonalidad.  Cuando LilyPond @emph{interpreta} la entrada, la
 información musical se analiza de izquierda a derecha de igual forma
 que un intérprete lee la partitura.  Mientras se lee el código de
 entrada, el programa recuerda dónde están los límites de los compases,
-y qué alturas requieren altereaciones accidentales explícitas.  Esta
+y qué alturas requieren alteraciones accidentales explícitas.  Esta
 información se debe conservar a varios niveles.  Por ejemplo, una
 alteración accidental afecta solamente a un pentagrama, mientras que
 una línea divisoria debe estar sincronizada a lo largo de todo el
@@ -1690,12 +1691,15 @@ Referencia de la notación:
 @cindex creación de contextos
 @cindex contextos, creación de
 
-Sólo puede haber un contexto en el nivel más alto: el contexto de
-partitura @code{Score}.  Se crea con la instrucción @code{\score} o,
-en partituras sencillas, se crea automáticamente.
+En un archivo de entrada, el bloque de partitura, que se presenta
+precedido por la instrucción @code{\score}, contiene una sola
+expresión musical y una definición de salida asociada (bien un bloque
+@code{\layout} o bien un bloque @code{\midi}).  El contexto
+@code{Score} se suele dejar que se cree automáticamente cuando
+comienza la interpretación de esa expresión musical.
 
 Para partituras que solamente tienen una voz y un pentagrama, podemos
-dejar que los contextos @code{Voice} y @code{Staff} se creen
+también dejar que los contextos @code{Voice} y @code{Staff} se creen
 automáticamente, pero para partituras más complejas es necesario
 crearlos a mano.  La instrucción más simple que hace esto es
 @code{\new}.  Se antepone a una expresión musical, por ejemplo
@@ -1710,9 +1714,17 @@ donde @var{tipo} es el nombre de un contexto (como @code{Staff} o
 interpretar la @var{expresión_musical} que está dentro de ese
 contexto.
 
-Observe que no hay ninguna instrucción @code{\new Score}; el contexto
-@code{Score} único en el nivel más alto se introduce con
-@code{\score}.
+(Observe que normalmente no se necesita una instrucción @code{\new
+Score}, pues el contexto esencial del nivel superior, @code{Score}, se
+crea automáticamente cuando se interpreta la expresión musical que
+está dentro del bloque @code{\score}.  La única razón para crear un
+contexto @code{Score} explícitamente utilizando @code{\new Score} es
+introducir un bloque @code{\with} en el que se pueden especificar uno
+o más valores predeterminados de propiedades de contexto para toda la
+partitura.  Se puede encontrar más información sobre el uso de los
+bloques @code{\with} bajo el epígrafe @qq{Setting context properties
+with @code{\\with} } en @ref{Modificar las propiedades de los
+contextos}).
 
 
 En las secciones anteriores ha podido ver muchos ejemplos prácticos que
@@ -1912,7 +1924,7 @@ la instrucción @code{\set}.  Esta instrucción toma la forma siguiente:
 
 Donde el @emph{NombreDelContexto} es normalmente @code{Score},
 @code{Staff} o @code{Voice}.  Se puede omitir, en cuyo caso se supone
-que es @code{Voice}.
+que es el contexto en curso (normalmente @code{Voice}).
 
 Los nombres de las propiedades de contexto consisten en palabras
 unidas sin ningún guión o barra baja, y donde todas las palabras
@@ -2101,12 +2113,12 @@ mucho más general utilizando la potentísima instrucción @code{markup}.
 @funindex with
 @cindex contexto, propiedades de, establecimiento con \with
 
-Las propiedades de contexto también se pueden establecer en el momento
+El valor predeterminado de las propiedades de contexto se puede establecer en el momento
 en que se crea el contexto.  A veces esta forma de establecer el valor
 de una propiedad es mucho más clara, si ha de quedar fijo durante todo
 el tiempo que dure el contexto.  Cuando se crea un contexto con una
 instrucción @code{\new} puede ir inmediatamente seguido de un bloque
-@code{\with @{ .. @}} en el que se establecen los valores de las
+@code{\with @{ .. @}} en el que se establecen los valores predeterminados de las
 propiedades.  Por ejemplo, si queremos suprimir la impresión de
 becuadros adicionales para toda la duración de un pentagrama, podemos
 escribir:
@@ -2131,19 +2143,41 @@ de la siguiente forma:
 >>
 @end lilypond
 
+O bien, si la sobreescritura de la propiedad se va a aplicar a todos
+los pentagramas de la partitura, se puede añadir a una instrucción
+@code{\new Score} explícita, como se ve a continuación:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \new Score \with { extraNatural = ##f } <<
+    \new Staff {
+      \relative c'' {
+        gis ges aes ais
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        gis ges aes ais
+      }
+    }
+  >>
+}
+@end lilypond
+
 Las propiedades ajustadas de esta manera aún pueden cambiarse
-dinámicamente utilizando @code{\set} y ser devueltas a sus valores
-predeterminados mediante @code{\unset}.
+dinámicamente utilizando @code{\set} y ser devueltas al valor
+predeterminados que se estableció en el bloque @code{\with} mediante
+@code{\unset}.
 
 @cindex fontSize (tamaño de la tipografía)
 @cindex fuente, tamaño de la
 @cindex tamaño de la fuente
 
-La propiedad @code{fontSize} se trata de forma distinta.  Si se ajusta
-dentro de una cláusula @code{\with}, tiene el efecto de reiniciar el
-valor predeterminado del tamaño de la fuente tipográfica.  Si más
-tarde se modifica con @code{\set}, este nuevo valor predeterminado
-puede restablecerse con la instrucción @code{\unset fontSize}.
+Así pues, si la propiedad @code{fontSize} se ajusta dentro de una
+cláusula @code{\with}, tiene el efecto de reiniciar el valor
+predeterminado del tamaño de la fuente tipográfica.  Si más tarde se
+modifica con @code{\set}, este nuevo valor predeterminado puede
+restablecerse con la instrucción @code{\unset fontSize}.
 
 @subsubheading Cambiar las propiedades de un contexto con @code{\context}
 
@@ -2172,8 +2206,7 @@ continuación presentamos un ejemplo que muestra el formato:
     }
   }
   \layout {
-    \context {
-      \Staff
+    \context { \Staff
       extraNatural = ##t
     }
   }
@@ -2333,8 +2366,7 @@ podemos escribir
     >>
   >>
   \layout {
-    \context {
-      \Staff
+    \context { \Staff
       \consists Ambitus_engraver
     }
   }
@@ -2370,6 +2402,8 @@ contemplado aquí? Continúe leyendo.
 * Soprano y violoncello::
 * Partitura vocal a cuatro voces SATB::
 * Crear una partitura partiendo de cero::
+* Ahorrar tecleo mediante variables y funciones::
+* Partituras y particellas::
 @end menu
 
 @node Soprano y violoncello
@@ -2467,7 +2501,6 @@ musicaCello = \relative c @{
   \clef bass
   \key c \major
   \time 4/4
-
   d4 g fis8 e d4
 @}
 
@@ -2475,7 +2508,7 @@ musicaCello = \relative c @{
   <<
     \new Voice = "uno" @{
       \autoBeamOff
-      \sopranoMusic
+      \musicaSoprano
     @}
     \new Lyrics \lyricsto "uno" \letraSoprano
   >>
@@ -3008,3 +3041,244 @@ PedalOrganMusic = \relative c {
   >>
 }  % end Score context
 @end lilypond
+
+
+@node Ahorrar tecleo mediante variables y funciones
+@subsection Ahorrar tecleo mediante variables y funciones
+@translationof Saving typing with variables and functions
+
+@cindex variables
+@cindex identificadores
+
+Llegado a este punto, usted ha visto cosas de este tipo:
+
+@lilypond[quote,verbatim,ragged-right]
+hornNotes = \relative c'' { c4 b dis c }
+\score {
+  {
+    \hornNotes
+  }
+}
+@end lilypond
+
+Incluso se dará cuenta de que esto puede ser útil en música
+minimalista:
+
+@lilypond[quote,verbatim,ragged-right]
+fragmentA = \relative c'' { a4 a8. b16 }
+fragmentB = \relative c'' { a8. gis16 ees4 }
+violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
+\score {
+  {
+    \violin
+  }
+}
+@end lilypond
+
+Sin embargo también puede usar estos identificadores (que también se
+conocen como variables, macros o instrucciones definidas por el
+usuario) para hacer trucos:
+
+@c TODO Avoid padtext - not needed with skylining
+@lilypond[quote,verbatim,ragged-right]
+dolce = \markup{ \italic \bold dolce }
+padText = { \once \override TextScript #'padding = #5.0 }
+fthenp=_\markup{ \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
+violin = \relative c'' {
+  \repeat volta 2 {
+    c4._\dolce b8 a8 g a b |
+    \padText
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\fthenp b8 c4 c-. |
+  }
+}
+\score {
+  {
+    \violin
+  }
+\layout{ragged-right=##t}
+}
+@end lilypond
+
+Obviamente estos identificadores son útiles para ahorrar tecleo.  Pero
+son dignos de tener en cuenta incluso si se van a utilizar una sola
+vez: reducen la complejidad.  Examinemos el ejemplo anterior reescrito
+sin ningún identificador.  Encontrará que es mucho más difícil de
+leer, sobre todo la última línea.
+
+@example
+violin = \relative c'' @{
+  \repeat volta 2 @{
+    c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
+    \once \override TextScript #'padding = #5.0
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @}
+      \hspace #0.1 \dynamic p @} b8 c4 c-. |
+  @}
+@}
+@end example
+
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
+
+Hasta ahora hemos contemplado la sustitución estática: cuando LilyPond
+se encuentra con @code{\padText}, lo sustituye con aquello que
+hemos definido que sea (es decir, todo lo que está a la derecha de
+@code{padtext=}).
+
+LilyPond también puede manejar sustituciones no estáticas (piense en
+ellas como en funciones).
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function (parser location padding) (number?)
+  #{
+    \once \override TextScript #'padding = #$padding
+  #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+La utilización de identificadores también es una buena forma de
+reducir el trabajo si la sintaxis de entrada de LilyPond cambia (véase
+@ref{Actualizar ficheros con convert-ly}).  Si tiene una sola
+definición (como p.ej. @code{\dolce}) para todos sus archivos (ver
+@ref{Hojas de estilo}), y después la sintaxis se modifica, sólo tendrá
+que actualizar su definición @code{\dolce} única, en lugar de tener
+que hacer cambios en cada uno de los archivos @code{.ly}.
+
+
+
+@node Partituras y particellas
+@section Partituras y particellas
+@translationof Scores and parts
+
+En música orquestal, todas las notas se imprimen dos veces.  Una vez
+en las particellas para los músicos, y otra para la partitura del
+director.  Los identificadores se pueden usar para evitar la
+duplicación del trabajo.  La música se escribe una vez y se almacena
+en una variable.  El contenido de dicha variable se usa después para
+generar tanto la particella como la partitura del director.
+
+Es muy conveniente definir las notas en un archivo especial.  Por
+ejemplo, supongamos que el archivo @file{trompa.ly} contiene la
+siguiente parte de un dúo para trompa y fagot:
+
+@example
+notasTrompa = \relative c @{
+  \time 2/4
+  r4 f8 a cis4 f e d
+@}
+@end example
+
+@noindent
+Luego se hace una particella escribiendo en un archivo lo siguiente
+
+@example
+\include "trompa.ly"
+\header @{
+  instrument = "Trompa en Fa"
+@}
+
+@{
+ \transpose f c' \notasTrompa
+@}
+@end example
+
+La línea
+
+@example
+\include "trompa.ly"
+@end example
+
+@noindent
+sustituye el contenido de @file{trompa.ly} en esta posición dentro del
+archivo, así que @code{notasTrompa} se define con posterioridad.  La
+instrucción @code{\transpose f@tie{}c'} indica que el argumento
+constituido por @code{\notasTrompa} se debe transponer una quinta
+hacia arriba.  Lo que suena como @code{f} se escribe como @code{c'},
+lo que corresponde con el tono de afinación de una trompa normal
+en@tie{}Fa.  La transposición se puede ver en la siguiente salida
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+En piezas para conjunto, con frecuencia una de las voces no suena
+durante muchos compases.  Esto queda denotado por un silencio
+especial, el silencio multicompás.  Se introduce con una @code{R}
+mayúscula seguida de una duración (@code{1}@tie{}en el caso de la
+redonda, @code{2}@tie{}en el caso de una blanca, etc.).  Multiplicando
+la duración se pueden construir silencios más largos.  Por ejemplo,
+este silencio ocupa 3@tie{}compases de 2/4
+
+@example
+R2*3
+@end example
+
+Cuando se imprime la particella tienen que comprimirse los silencios
+multicompás.  Esto se hace estableciendo una variable en tiempo de
+ejecución
+
+@example
+\set Score.skipBars = ##t
+@end example
+
+@noindent
+Esta instrucción establece el valor de la propiedad @code{skipBars} en
+el contexto de @code{Score} a verdadero (@code{##t}).  Anteponiendo el
+silencio y esta opción a la música anterior, llegamos al siguiente
+resultado
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  \set Score.skipBars = ##t
+  R2*3
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+
+Esta partitura se hace combinando toda la música junta.  Suponiendo
+que la otra voz se encuentra dentro de @code{notasFagot} en el archivo
+@file{fagot.ly}, la partitura se hace con
+
+@example
+\include "fagot.ly"
+\include "trompa.ly"
+
+<<
+  \new Staff \notasTrompa
+  \new Staff \notasFagot
+>>
+@end example
+
+@noindent
+lo que nos lleva a
+
+@lilypond[quote,ragged-right]
+\relative c <<
+  \new Staff {
+    \time 2/4 R2*3
+    r4 f8 a cis4 f e d
+  }
+  \new Staff {
+    \clef bass
+    r4 d,8 f | gis4 c | b bes |
+    a8 e f4 | g d | gis f
+  }
+>>
+@end lilypond
+
+
+
