@@ -638,7 +638,7 @@ this image:
 @c no verbatim here
 @lilypond[quote]
 \relative c'' {
-  c-\markup { \bold \huge { Click here.  } }
+  c-\markup { \bold \huge { Click here. } }
 }
 @end lilypond
 
