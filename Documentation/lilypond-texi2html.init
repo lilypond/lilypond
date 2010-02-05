@@ -630,6 +630,19 @@ sub print_element_info($)
 ###  HELPER FUNCTIONS
 #############################################################################
 
+# only lc() the last portion of an href
+sub lc_last($)
+{
+  my $href = shift;
+  my @hrefsplit = split('/', $href);
+  # change the last portion (the filename), if it exists
+  if ($#array > 0) {
+    @hrefsplit[$#array] = lc( @hrefsplit[$#array] );
+    $href = join("/", @hrefsplit);
+  }
+  return $href;
+}
+
 # Convert a given node name to its proper file name (normalization as explained
 # in the texinfo manual:
 # http://www.gnu.org/software/texinfo/manual/texinfo/html_node/HTML-Xref-Node-Name-Expansion.html
@@ -662,7 +675,7 @@ sub texinfo_file_name($)
     $result = 't_g' . $result;
   }
   # DONE
-  return lc($result)
+  return lc_last($result)
 }
 
 # Load a file containing a nodename<=>filename map (tab-sepatared, i.e.
@@ -802,7 +815,7 @@ sub lilypond_element_file_name($$$)
   if (exists ($node_to_filename_map->{$node_name})) {
     (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
     $filename .= ".$docu_ext" if (defined($docu_ext));
-    $filename = lc($filename);
+    $filename = lc_last($filename);
 
     # unnumbered sections (except those at top-level!) always go to the same
     # file as the previous numbered section
@@ -837,7 +850,7 @@ sub lilypond_element_file_name($$$)
       }
       my $filename = texinfo_file_name($node_name);
       $filename .= ".$docu_ext" if (defined($docu_ext));
-      $filename = lc($filename);
+      $filename = lc_last($filename);
       $docnr += 1;
       $$element{doc_nr} = $docnr;
       $lastfilename = $filename;
@@ -845,7 +858,7 @@ sub lilypond_element_file_name($$$)
       return $filename;
     } else {
       $$element{doc_nr} = $docnr;
-      $filename = lc ($filename);
+      $filename = lc_last($filename);
       print STDERR "File name: $filename\n";
       return $filename;
     }
@@ -880,8 +893,8 @@ sub lilypond_element_target_name($$$)
   # TODO: Once texi2html correctly prints out the target and not the id for
   #       the sections, change this back to ($id, $target)
   # I don't understand this comment, so I'm reluctant to delete it -gp
-  $target = lc($target);
-  if ($target eq lc($id)) {
+  $target = lc_last($target);
+  if ($target eq lc_last($id)) {
     $id = "";
   } else {
     $id = substr($id, 0, - 2); # remove the "-1"
@@ -926,13 +939,7 @@ sub lilypond_external_ref($$$$$$)
   my $file_node = shift;
   my $href = shift;
 
-  # only lc() the last portion:
-  my @htmlsplit = split('/', $href);
-  # change the last portion (the filename), if it exists
-  if ($#array > 0) {
-    @htmlsplit[$#array] = lc( @htmlsplit[$#array] );
-    $href = join("/", @htmlsplit);
-  }
+  $href = lc_last($href);
 
   my $cross_ref = shift;
 
@@ -1036,7 +1043,7 @@ sub lilypond_external_href($$$)
   }
 
   if (defined $file) {
-    $href = &$default_external_href($node, $node_id, $node_hxmlt_id, lc($file));
+    $href = &$default_external_href($node, $node_id, $node_hxmlt_id, lc_last($file));
     remove_unneeded_anchor($href);
 
     # TODO: very yucky, but will be fixed in issue 1004
