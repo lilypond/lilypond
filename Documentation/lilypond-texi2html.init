@@ -815,7 +815,8 @@ sub lilypond_element_file_name($$$)
   if (exists ($node_to_filename_map->{$node_name})) {
     (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
     $filename .= ".$docu_ext" if (defined($docu_ext));
-    $filename = lc_last($filename);
+    # don't do lc_last here, otherwise the colors are messed up!
+    $filename = lc($filename);
 
     # unnumbered sections (except those at top-level!) always go to the same
     # file as the previous numbered section
@@ -831,6 +832,7 @@ sub lilypond_element_file_name($$$)
       $lastfilename = $filename;
     }
     print STDERR "Output file name: $filename\n";
+    $filename = lc_last($filename);
     return $filename;
 
   } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or
