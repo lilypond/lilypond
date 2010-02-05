@@ -220,7 +220,7 @@ first note being tied.
 
 @lilypond[verbatim,quote,relative=2]
 g4~ g c2~
-c4 ~ c8 a8 ~ a2
+c4~ c8 a8~ a2
 @end lilypond
 
 @subheading Slurs
@@ -263,7 +263,7 @@ indicate the @notation{articulation} of notes, and can be used on
 larger groups of notes.  Slurs and ties can be nested.
 
 @lilypond[verbatim,quote,relative=2]
-c2~( c8 fis fis4 ~ fis2 g2)
+c2~( c8 fis fis4~ fis2 g2)
 @end lilypond
 
 
@@ -385,7 +385,7 @@ c1^"espr" a_"legato"
 Extra formatting may be added with the @code{\markup} command:
 
 @lilypond[verbatim,quote,relative=2]
-c1^\markup{ \bold espr}
+c1^\markup{ \bold espr }
 a1_\markup{
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
