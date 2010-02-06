@@ -7,8 +7,6 @@
 
   TODO:
 
-  . Cancel any beams running through the breathing sign
-  ([e8 \breathe f e f] should become [e8] \breathe [f e f])
   . Spacing is not yet completely pretty
 
   LilyPond is free software: you can redistribute it and/or modify

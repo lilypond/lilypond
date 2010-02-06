@@ -824,6 +824,13 @@ Breath marks are entered using @code{\breathe}:
 c2. \breathe d4
 @end lilypond
 
+A breath mark will end an automatic beam; to override this behavior, see
+@ref{Manual beams}.
+
+@lilypond[verbatim,quote,relative=2]
+c8 \breathe d e f g2
+@end lilypond
+
 Musical indicators for breath marks in ancient notation,
 divisiones, are supported.  For details, see @ref{Divisiones}.
 
@@ -851,7 +858,9 @@ Snippets:
 @rlsr{Expressive marks}.
 
 Internals Reference:
-@rinternals{BreathingSign}.
+@rinternals{BreathingEvent},
+@rinternals{BreathingSign},
+@rinternals{Breathing_sign_engraver}.
 
 
 @node Falls and doits

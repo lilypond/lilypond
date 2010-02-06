@@ -45,6 +45,7 @@ protected:
   DECLARE_ACKNOWLEDGER (rest);
   DECLARE_ACKNOWLEDGER (beam);
   DECLARE_ACKNOWLEDGER (bar_line);
+  DECLARE_ACKNOWLEDGER (breathing_sign);
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_TRANSLATOR_LISTENER (beam_forbid);
 
@@ -61,7 +62,7 @@ private:
   bool is_same_grace_state (Grob *e);
   void recheck_beam ();
   void typeset_beam ();
-  vector<Item*> *remove_end_stems (vsize);
+  vector<Item *> *remove_end_stems (vsize);
 
   Stream_event *forbid_;
   /*
@@ -69,7 +70,7 @@ private:
   */
   Moment shortest_mom_;
   Spanner *finished_beam_;
-  vector<Item*> *stems_;
+  vector<Item *> *stems_;
 
   int process_acknowledged_count_;
   Moment last_add_mom_;
@@ -208,7 +209,7 @@ Auto_beam_engraver::create_beam ()
       return 0;
 
   /*
-    Can't use make_spanner_from_properties () because we have to use
+    Can't use make_spanner () because we have to use
     beam_settings_.
   */
   Spanner *beam = new Spanner (beam_settings_);
@@ -230,7 +231,7 @@ Auto_beam_engraver::begin_beam ()
       return;
     }
 
-  stems_ = new vector<Item*>;
+  stems_ = new vector<Item *>;
   grouping_ = new Beaming_pattern ();
   beaming_options_.from_context (context ());
   beam_settings_ = updated_grob_properties (context (), ly_symbol2scm ("Beam"));
@@ -332,6 +333,14 @@ Auto_beam_engraver::acknowledge_bar_line (Grob_info /* info */)
 }
 
 void
+Auto_beam_engraver::acknowledge_breathing_sign (Grob_info /* info */)
+{
+  check_bar_property ();
+  if (stems_)
+    end_beam ();
+}
+
+void
 Auto_beam_engraver::acknowledge_rest (Grob_info /* info */)
 {
   check_bar_property ();
@@ -387,13 +396,13 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   Moment ev_dur = unsmob_duration (ev->get_property ("duration"))->get_length ();
   Moment dur = Rational (1, ev_dur.den ());
   Moment measure_now = measure_position (context ());
-  bool recheck_needed = 0;
+  bool recheck_needed = false;
 
   if (dur < shortest_mom_)
     {
     /* new shortest moment, so store it and set recheck_needed */
     shortest_mom_ = dur;
-    recheck_needed = 1;
+    recheck_needed = true;
     }
 
   /* end should be based on shortest_mom_, begin should be
@@ -410,7 +419,8 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   stems_->push_back (stem);
   last_add_mom_ = now;
   extend_mom_ = max (extend_mom_, now) + get_event_length (ev, now);
-  if (recheck_needed) recheck_beam ();
+  if (recheck_needed)
+    recheck_beam ();
 }
 
 void
@@ -423,14 +433,14 @@ Auto_beam_engraver::recheck_beam ()
     the last part of the beam
   */
   Beaming_pattern *new_grouping_ = 0;
-  vector<Item*> *new_stems_ = 0;
+  vector<Item *> *new_stems_ = 0;
   Moment temporary_shortest_mom;
   SCM temporary_beam_settings;
 
   bool found_end;
 
 
-  for (vsize i = 0; i < stems_->size () - 1; )
+  for (vsize i = 0; i < stems_->size () - 1;)
     {
       found_end = test_moment (STOP,
                                grouping_->end_moment (i),
@@ -472,17 +482,17 @@ Auto_beam_engraver::recheck_beam ()
   from stems_, and return a vector containing all of the
   removed stems
 */
-vector <Item*> *
+vector <Item *> *
 Auto_beam_engraver::remove_end_stems (vsize split_index)
 {
-  vector <Item*> *removed_stems = 0;
-  removed_stems = new vector <Item*>;
+  vector <Item *> *removed_stems = 0;
+  removed_stems = new vector <Item *>;
 
-  for (vsize j=split_index + 1; j < stems_->size (); j++)
+  for (vsize j = split_index + 1; j < stems_->size (); j++)
     removed_stems->push_back ((*stems_).at (j));
-  for (vsize j=split_index + 1; j < stems_->size (); )
+  for (vsize j = split_index + 1; j < stems_->size ();)
     stems_->pop_back ();
-  return (removed_stems);
+  return removed_stems;
 }
 
 void
@@ -516,6 +526,7 @@ Auto_beam_engraver::process_acknowledged ()
 ADD_ACKNOWLEDGER (Auto_beam_engraver, stem);
 ADD_ACKNOWLEDGER (Auto_beam_engraver, bar_line);
 ADD_ACKNOWLEDGER (Auto_beam_engraver, beam);
+ADD_ACKNOWLEDGER (Auto_beam_engraver, breathing_sign);
 ADD_ACKNOWLEDGER (Auto_beam_engraver, rest);
 ADD_TRANSLATOR (Auto_beam_engraver,
 		/* doc */
