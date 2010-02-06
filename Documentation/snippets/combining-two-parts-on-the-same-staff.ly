@@ -16,7 +16,7 @@ tales como @qq{solo} o @qq{a2} se añaden de forma predeterminada; para
 quitarlas, sencillamente establezca la propiedad
 @code{printPartCombineTexts} al valor @qq{falso}.  Para partituras
 vocales (como himnos), no hay necesidad de añadir los textos @qq{solo}
-o @qq{a2}}, por lo que se deben desactivar.  Sin embargo, podría ser
+o @qq{a2}, por lo que se deben desactivar.  Sin embargo, podría ser
 mejor no usarlo si hay solos, porque éstos no se indicarán.  En tales
 casos podría ser preferible la notación polifónica estándar.
 
