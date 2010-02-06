@@ -113,12 +113,25 @@ untweaked music will remain stable for the foreseeable future.
 We will have an extensive discussion period to determine the final
 input specification.
 
+@warning{GLISS will start shortly after 2.14 is released.}
+
 @subsubheading Grand Organizing Project
 
-Website and mailist: TODO
+Website: @uref{http://lilypond.org/~graham/gop}
 
-GOP is our big recruiting drive for new contributors.
+GOP will be our big recruiting drive for new contributors.  We
+desperately need to spread the development duties (including
+@qq{simple tasks} which require no programming or interaction with
+soruce code!) over more people.  We also need to document
+knowledge from existing developers so that it does not get lost.
 
+Unlike most @qq{Grand Projects}, GOP is not about adding huge new
+features or completely redesigning things.  Rather, it is aimed at
+giving us a much more stable foundation so that we can move ahead
+with larger tasks in the future.
+
+@warning{GLISS will start shortly before or after the 2.14
+release.}
 
 @end macro
 
