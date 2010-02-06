@@ -21,7 +21,7 @@ valor predeterminado de @code{beatLength} es de una unidad sobre
 el denominador del compás en curso, si no está establecido
 explícitamente.  Se debe establecer al valor de una fracción que
 da la duración el subgrupo de barras utilizando la función
-@code{make-moment}, como se muestra aquí:
+@code{ly:make-moment}, como se muestra aquí:
 
 "
   doctitlees = "Subdivisión de las barras de semicorchea"
