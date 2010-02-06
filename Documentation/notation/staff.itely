@@ -755,6 +755,7 @@ Learning Manual:
 @rlearning{Visibility and color of objects}.
 
 Notation Reference:
+@ref{Changing context default settings},
 @ref{Staff symbol},
 @ref{Ossia staves},
 @ref{Hidden notes},
@@ -785,6 +786,9 @@ engraver:
 \override NoteHead #'no-ledgers = ##t
 @end example
 
+For the Known issues and warnings associated with
+@code{\RemoveEmptyStaffContext} see @ref{Changing context default
+settings}.
 
 @node Writing parts
 @subsection Writing parts
