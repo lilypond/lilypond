@@ -6,16 +6,14 @@
 \header {
   lsrtags = "staff-notation, contexts-and-engravers, breaks"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 Al añadir un pentagrama nuevo en un salto de línea, por desgracia
 se añade un espacio adicional al final de la línea antes del salto
 (reservado para hacer sitio a un cambio de armadura que de todas
 formas no se va a imprimir). La solución alternativa es añadir un
 ajuste para @code{Staff.explicitKeySignatureVisibility} como se
-muestra en el ejemplo.  En las versiones 2.10 y anteriores,
-también se necesita un ajuste similar para las indicaciones de
-compás (véase el ejemplo).
+muestra en el ejemplo.
 
 "
   doctitlees = "Añadir un pentagrama adicional en un salto de línea"

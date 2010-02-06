@@ -6,14 +6,14 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 En este ejemplo se combinan las digitaciones de la mano izquierda,
 indicaciones del número de cuerda y digitaciones de la mano
 derecha.
 
 "
-  doctitlees = "Digitaciones indicación del número de cuerda y digitaciones de mano derecha"
+  doctitlees = "Digitaciones - indicación del número de cuerda y digitaciones de mano derecha"
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "

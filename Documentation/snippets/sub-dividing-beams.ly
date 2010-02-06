@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 Las barras de semicorcheas (o notas más breves) seguidas no se
 subdividen de forma predeterminada.  Esto es: las tres (o más)
@@ -21,7 +21,7 @@ valor predeterminado de @code{beatLength} es de una unidad sobre
 el denominador del compás en curso, si no está establecido
 explícitamente.  Se debe establecer al valor de una fracción que
 da la duración el subgrupo de barras utilizando la función
-@code{make-moment}, como se muestra aquí:
+@code{ly:make-moment}, como se muestra aquí:
 
 "
   doctitlees = "Subdivisión de las barras de semicorchea"

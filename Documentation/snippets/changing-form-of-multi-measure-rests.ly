@@ -6,12 +6,12 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
  doctitlees = "Cambiar la forma de los silencios multicompás"
  texidoces = "
 Si hay diez compases de silencio o menos, se imprime en el pentagrama
 una serie de silencios de breve y longa (conocidos en alemán como
-\"Kirchenpausen\", «silencios eclesiásticos»); en caso contrario se
+@qq{Kirchenpausen}, «silencios eclesiásticos»); en caso contrario se
 muestra una barra normal.  Este número predeterminado de diez se
 puede cambiar sobreescribiendo la propiedad @code{expand-limit}:
 

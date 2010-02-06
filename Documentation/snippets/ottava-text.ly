@@ -6,13 +6,14 @@
 \header {
   lsrtags = "pitches, text"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
+
 Internamente, @code{\\ottava} establece las propiedades
-@code{ottavation} (por ejemplo, a @code{\"8va\"} o a
-@code{\"8vb\"}) y @code{middleCPosition}.  Para sobreescribir el
-texto del corchete, ajuste @code{ottavation} después de invocar la
-instrucción @code{\\ottava}.
+@code{ottavation} (por ejemplo, a @code{8va} o a @code{8vb}) y
+@code{middleCPosition}.  Para sobreescribir el texto del corchete,
+ajuste @code{ottavation} después de invocar la instrucción
+@code{\\ottava}.
 
 "
 

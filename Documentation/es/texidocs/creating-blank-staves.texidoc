@@ -1,11 +1,10 @@
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
   texidoces = "
 Para crear pentagramas en blanco, genere compases vacíos y después
-elimine el grabador de números de compás
-@code{Bar_number_engraver} del contexto @code{Score}, y los
-grabadores de la indicación de compás
-@code{Time_signature_engraver}, de la clave @code{Clef_engraver} y
-de los compases @code{Bar_engraver} del contexto de @code{Staff}.
+elimine el grabador de números de compás @code{Bar_number_engraver}
+del contexto @code{Score}, y los grabadores de la indicación de compás
+@code{Time_signature_engraver}, de la clave @code{Clef_engraver} y de
+los compases @code{Bar_engraver} del contexto de @code{Staff}.
 
 "
   doctitlees = "Crear pentagramas en blanco"

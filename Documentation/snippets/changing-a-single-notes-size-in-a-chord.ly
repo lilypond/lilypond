@@ -6,16 +6,15 @@
 \header {
   lsrtags = "simultaneous-notes, editorial-annotations, tweaks-and-overrides"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
-Se pueden modificar notas individuales de un acorde con la
-instrucción @code{\\tweak}, alterando la propiedad
-@code{font-size}.
+Se pueden modificar notas individuales de un acorde con la instrucción
+@code{\\tweak}, alterando la propiedad @code{font-size}.
 
-Dentro de un acorde (entre ángulos simples @code{< >}), antes de
-la nota que queremos alterar, situamos la instrucción
-@code{\\tweak} seguida por @code{#'font-size} y definimos el
-tamaño adecuado como @code{#-2} (una cabeza pequeña).
+Dentro de un acorde (entre ángulos simples @code{< >}), antes de la
+nota que queremos alterar, situamos la instrucción @code{\\tweak}
+seguida por @code{#'font-size} y definimos el tamaño adecuado como
+@code{#-2} (una cabeza pequeña).
 
 "
   doctitlees = "Modificar el tamaño de una nota suelta de un acorde"

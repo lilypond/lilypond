@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
  doctitlees = "Escribir varios grupos especiales usando una sola instrucción \\times"
  texidoces = "
 La propiedad @code{tupletSpannerDuration} establece cuánto debe durar
@@ -19,8 +19,8 @@ En el ejemplo se muestran dos tresillos, aunque se ha escrito
 @code{\\times} una sola vez.
 
 
-Para ver más inforamción sobre @code{make-moment}, véase
-\"Administración del tiempo\".
+Para ver más inforamción sobre @code{make-moment}, véase la sección
+correspondiente del manual de Referencia de la Notación.
 
 "
 

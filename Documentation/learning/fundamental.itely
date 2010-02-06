@@ -217,7 +217,7 @@ For details see @ruser{Multiple scores in a book}.
 @cindex variables
 
 Another great shorthand is the ability to define variables (see
-@ref{Organizing pieces with variables}.  All the templates use this
+@ref{Organizing pieces with variables}).  All the templates use this
 
 @example
 melody = \relative c' @{

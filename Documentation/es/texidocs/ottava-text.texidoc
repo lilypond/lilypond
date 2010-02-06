@@ -1,10 +1,11 @@
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
   texidoces = "
+
 Internamente, @code{\\ottava} establece las propiedades
-@code{ottavation} (por ejemplo, a @code{\"8va\"} o a
-@code{\"8vb\"}) y @code{middleCPosition}.  Para sobreescribir el
-texto del corchete, ajuste @code{ottavation} después de invocar la
-instrucción @code{\\ottava}.
+@code{ottavation} (por ejemplo, a @code{8va} o a @code{8vb}) y
+@code{middleCPosition}.  Para sobreescribir el texto del corchete,
+ajuste @code{ottavation} después de invocar la instrucción
+@code{\\ottava}.
 
 "
 

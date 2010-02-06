@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, fretted-strings"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 Para la música de guitarra, es posible mostrar los ritmos de rasgueo,
 además de las notas de la melodía, acordes y diagramas de posiciones.

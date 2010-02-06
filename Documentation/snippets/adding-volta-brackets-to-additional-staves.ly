@@ -6,14 +6,14 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 El grabador @code{Volta_engraver} reside de forma predeterminada
 dentro del contexto de @code{Score}, y los corchetes de la repetición
 se imprimen así normalmente sólo encima del pentagrama superior.  Esto
 se puede ajustar añadiendo el grabador @code{Volta_engraver} al
 contexto de @code{Staff} en que deban aparecer los corchetes; véase
-también el fragmento de código \"Volta multi staff\".
+también el fragmento de código @qq{Volta multi staff}.
 
 "
   doctitlees = "Añadir corchetes de primera y segunda vez a más pentagramas"

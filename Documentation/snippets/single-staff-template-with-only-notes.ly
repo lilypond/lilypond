@@ -6,7 +6,7 @@
 \header {
   lsrtags = "template"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 Esta plantilla simple prepara un pentagrama con notas, adecuado para
 un instrumento solista o un fragmento melódico. Córtelo y péguelo en

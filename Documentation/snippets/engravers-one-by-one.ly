@@ -6,7 +6,7 @@
 \header {
   lsrtags = "contexts-and-engravers"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 Del problema central de la notación, esto es, crear un determinado
 símbolo, se encargan los «plugins» o complementos añadidos.  Cada
@@ -26,14 +26,11 @@ siguiente:
 
 - alteraciones, líneas divisorias, indicación del compás, y armadura.
 
-Los grabadores se encuentran agrupados. Por ejemplo, las cabezas
-de nota, ligaduras de expresión, barras de corchea, etc. forman un
-contexto de voz. Los grabadores de la armadura, alteraciones,
-compás, etc. forman un contexto de pentagrama.
-
-Sólo podemos ver el primer ejemplo en este documento; para ver los
-demás debemos descartar el fragmento de código y procesarlo en
-nuestro ordenador.
+Los grabadores se encuentran agrupados. Por ejemplo, las cabezas de
+nota, ligaduras de expresión, barras de corchea, etc. forman un
+contexto de voz, @code{Voice}. Los grabadores de la armadura,
+alteraciones, líneas de compás, etc. forman un contexto de pentagrama,
+@code{Staff}.
 
 "
   doctitlees = "Los grabadores uno por uno"

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   doctitlees = "Trucaje de las propiedades de clave"
   texidoces = "
 La instrucción @code{\\clef \"treble_8\"} equivale a un ajuste de

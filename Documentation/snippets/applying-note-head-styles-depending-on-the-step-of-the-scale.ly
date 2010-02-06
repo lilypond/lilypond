@@ -6,12 +6,12 @@
 \header {
   lsrtags = "pitches, editorial-annotations"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
   texidoces = "
 La propiedad @code{shapeNoteStyles} se puede usar para definir varios
 estilos de cabezas de nota para cada grado de la escala (según esté
-establecido por la armadura o por la propiedad \"tonic\").  Esta
+establecido por la armadura o por la propiedad @code{tonic}).  Esta
 propiedad requiere un conjunto de símbolos, que pueden ser puramente
 arbitrarios (se permiten expresiones geométricas como @code{triangle},
 triángulo, @code{cross}, aspas, y @code{xcircle}, círculo con aspas) o

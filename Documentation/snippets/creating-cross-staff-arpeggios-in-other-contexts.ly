@@ -6,10 +6,11 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
   texidoces = "
 Se pueden crear arpegios que se cruzan entre pentagramas dentro de
-contextos distintos a @code{PianoStaff} si se incluye el grabador
+contextos distintos a @code{GrandStaff}, @code{PianoStaff} y
+@code{StaffGroup} si se incluye el grabador
 @code{Span_arpeggio_engraver} en el contexto de @code{Score}.
 
 "
