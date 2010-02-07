@@ -216,8 +216,9 @@ For details see @ruser{Multiple scores in a book}.
 
 @cindex variables
 
-Another great shorthand is the ability to define variables (see
-@ref{Organizing pieces with variables}.  All the templates use this
+Another great shorthand is the ability to define variables, as
+shown in @ref{Organizing pieces with variables}.  All the
+templates use this:
 
 @example
 melody = \relative c' @{
@@ -1347,7 +1348,7 @@ versenotes = \relative c'' {
   \clef "treble"
   \key g \major
   \time 3/4
-  g g g b b b
+  g g g | b b b |
 }
 versewords = \lyricmode {
   One two three four five six
@@ -1400,16 +1401,16 @@ versenotes = \relative c'' {
   \clef "treble"
   \key g \major
   \time 3/4
-  g g g b b b
+  g g g | b b b |
 }
 refrainnotesA = \relative c'' {
   \time 2/4
-  c c g g \bar "|."
+  c c | g g \bar "|."
 }
 refrainnotesB = \relative c {
   \clef "bass"
   \key g \major
-  c e d d
+  c e | d d |
 }
 versewords = \lyricmode {
   One two three four five six
@@ -1463,16 +1464,16 @@ versenotes = \relative c'' {
   \clef "treble"
   \key g \major
   \time 3/4
-  g g g b b b
+  g g g | b b b |
 }
 refrainnotesA = \relative c'' {
   \time 2/4
-  c c g g \bar "|."
+  c c | g g \bar "|."
 }
 refrainnotesB = \relative c {
   \clef "bass"
   \key g \major
-  c e d d
+  c e | d d |
 }
 versewords = \lyricmode {
   One two three four five six
@@ -2108,7 +2109,8 @@ throughout the @code{\score} or @code{\book} block in which the
   }
   \layout {
     \context {
-      \Staff extraNatural = ##t
+      \Staff
+      extraNatural = ##t
     }
   }
 }
@@ -2249,27 +2251,27 @@ staff in a four-staff score, we could write
   <<
     \new Staff <<
       \relative c'' {
-      c a b g
-    }
-  >>
+        c a b g
+      }
+    >>
     \new Staff <<
       \relative c' {
-      c a b g
-    }
-  >>
+        c a b g
+      }
+    >>
     \new Staff <<
       \clef "G_8"
       \relative c' {
-      c a b g
-    }
-  >>
+        c a b g
+      }
+    >>
     \new Staff <<
       \clef "bass"
       \relative c {
-      c a b g
-    }
+        c a b g
+      }
+    >>
   >>
->>
   \layout {
     \context {
       \Staff
@@ -2314,10 +2316,10 @@ But what if you want something that isn't covered there?  Read on.
 @cindex template, modifying
 @cindex modifying templates
 
-Start off with the template that seems closest to what you want to end
-up with.  Let's say that you want to write something for soprano and
-cello.  In this case, we would start with the @q{Notes and lyrics} template (for the
-soprano part).
+Start off with the template that seems closest to what you want to
+end up with.  Let's say that you want to write something for
+soprano and cello.  In this case, we would start with the
+@q{Notes and lyrics} template (for the soprano part).
 
 @example
 \version @w{"@version{}"}
@@ -2442,8 +2444,7 @@ at once.  The @code{\score} looks like this now:
       @}
       \new Lyrics \lyricsto "one" \sopranoLyrics
     >>
-    \new Staff
-    \celloMusic
+    \new Staff \celloMusic
   >>
   \layout @{ @}
   \midi @{ @}
@@ -2482,8 +2483,7 @@ celloMusic = \relative c {
       }
       \new Lyrics \lyricsto "one" \sopranoLyrics
     >>
-    \new Staff
-    \celloMusic
+    \new Staff \celloMusic
   >>
   \layout { }
   \midi { }
@@ -2586,9 +2586,9 @@ lower = \relative c, {
         }
       >>
       \new Lyrics \lyricsto "basses" {
-          \bassWords
-        }
-      >>  % end ChoirStaff
+        \bassWords
+      }
+    >>  % end ChoirStaff
     \new PianoStaff <<
       \set PianoStaff.instrumentName = #"Piano"
       \new Staff = "upper" \upper
@@ -2638,7 +2638,7 @@ Doing this gives for our ChoirStaff:
         @}
       >>
       \new Lyrics \lyricsto "altos" @{
-      \altoWords
+        \altoWords
       @}
       \new Staff = "tenors" <<
         \set Staff.instrumentName = #"Tenor"
@@ -2743,7 +2743,7 @@ global = {
 }
 sopranoMusic = \relative c'' {
   \clef "treble"
-  r4 d2 a4 | d4. d8 a2 | cis4 d cis2
+  r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
 sopranoWords = \lyricmode {
   Wor -- thy is the lamb that was slain
@@ -2804,10 +2804,10 @@ lower = \relative c, {
       \new Staff = "tenors" <<
         \set Staff.instrumentName = #"Tenor"
         \new Voice = "tenors" {
-        \global
-        \tenorMusic
-      }
-    >>
+          \global
+          \tenorMusic
+        }
+      >>
       \new Lyrics \lyricsto "tenors" {
         \tenorWords
       }
@@ -2989,7 +2989,7 @@ and key to each staff using our predefined variable, @code{\TimeKey}.
       \clef "bass"
       \new Voice @{
         \PedalOrganMusic
-       @}
+      @}
     >>  % end PedalOrgan Staff
   >>
 @}  % end Score context
@@ -3133,7 +3133,8 @@ violin = \relative c'' @{
     c4._\markup @{ \italic \bold dolce @} b8 a8 g a b
     \once \override TextScript #'padding = #5.0
     c4.^"hi there!" d8 e' f g d
-    c,4.\markup @{ \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
+    c,4.\markup @{ \dynamic f \italic \small @{ 2nd @}
+      \hspace #0.1 \dynamic p @}
     b8 c4 c-.
   @}
 @}
