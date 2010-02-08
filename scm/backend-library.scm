@@ -20,6 +20,7 @@
 ;; backend helpers.
 
 (use-modules (scm ps-to-png)
+	     (scm paper-system)
 	     (ice-9 optargs))
 
 (define-public (ly:system command . rest)
@@ -200,6 +201,26 @@
 	  ""))
       scope)))
   (apply string-append (map output-scope scopes)))
+
+(define-public (relevant-book-systems book)
+  (let ((systems (ly:paper-book-systems book)))
+    ;; skip booktitles.
+    (if (and (not (ly:get-option 'include-book-title-preview))
+	     (pair? systems)
+	     (ly:prob-property (car systems) 'is-book-title #f))
+	(cdr systems)
+	systems)))
+
+(define-public (relevant-dump-systems systems)
+  (let ((to-dump-systems '()))
+    (for-each
+      (lambda (sys)
+	(if (or (paper-system-title? sys)
+		(not (pair? to-dump-systems))
+		(paper-system-title? (car to-dump-systems)))
+	    (set! to-dump-systems (cons sys to-dump-systems))))
+      systems)
+    to-dump-systems))
 
 (define missing-stencil-list '())
 
