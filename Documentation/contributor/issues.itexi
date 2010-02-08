@@ -286,6 +286,13 @@ commit which causes a problem.  See the git manual page for
 although it requires familiarity with git, ability to compile
 LilyPond, and generally a fair amount of technical knowledge.
 
+Even if you are not familiar with git or are not able to compile
+LilyPond you can still help to narrow down the cause of a regression
+simply by downloading the binaries of different LilyPond versions
+and testing them for the regression.  Knowing which version of
+LilyPond first exhibited the regression is helpful to a developer
+as it shortens the @code{git bisect} procedure described above.
+
 Once a problematic commit is identified, the programmers' job is
 much easier.  In fact, for most regression bugs, the majority of
 the time is spent simply finding the problematic commit.
