@@ -16,11 +16,14 @@
 @imageFloat{flat-design,png,right}
 
 LilyPond came about when two musicians wanted to go beyond the
-soulless look of computer-printed sheet music, to use the machine
-to produce elegance. The result is a system which frees musicians
-from the details of layout, allowing them to focus on making music.
-LilyPond works with them to create publication quality works, crafted
-in the best traditions of classical music engraving.
+soulless look of computer-printed sheet music.  Musicians prefer
+reading beautiful music, so why couldn't programmers write
+software to produce elegant printed parts?
+
+The result is a system which frees musicians from the details of
+layout, allowing them to focus on making music.  LilyPond works
+with them to create publication-quality parts, crafted in the best
+traditions of classical music engraving.
 
 @divEnd
 
@@ -770,15 +773,16 @@ pitch):
 
 We realize that many users find this way of entering music a bit
 odd.  For this reason, we have written extensive documentation to
-help new users, beginning with our @ref{Learning} Manual.
+help new users, beginning with @ref{Learning}.  The Learning
+Manual is the best place to start, as many questions are answered
+before they come up!
 
-The Learning Manual is the best place to start, as many questions
-are answered before they come up!
+Please read the Learning Manual before complaining about bugs!
+New users occasionally believe that LilyPond is not working
+correctly, when in fact it is working precisely as designed.
 
-More in-depth information is available on the @ref{Manuals} page,
-with the Notation Manual explaining each LilyPond command and
-function, as well as the Internals Manual for those who want to
-get down to the underlying code.
+More in-depth information is available in @ref{Manuals}.
+
 
 @subsubheading Easier editing environments
 
