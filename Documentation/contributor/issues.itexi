@@ -288,9 +288,9 @@ LilyPond, and generally a fair amount of technical knowledge.
 
 Even if you are not familiar with git or are not able to compile
 LilyPond you can still help to narrow down the cause of a regression
-simply by downloading the binaries of different LilyPond versions
-and testing them for the regression.  Knowing which version of
-LilyPond first exhibited the regression is helpful to a developer
+simply by downloading the binary releases of different LilyPond
+versions and testing them for the regression.  Knowing which version
+of LilyPond first exhibited the regression is helpful to a developer
 as it shortens the @code{git bisect} procedure described above.
 
 Once a problematic commit is identified, the programmers' job is
