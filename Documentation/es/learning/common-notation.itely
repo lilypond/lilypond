@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fc7e42590263fb4bf8a66b7d3986d03cd65ddef9
+    Translation of GIT committish: 79a335402980b9354a4786b9f0c908058301f42d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -243,7 +243,7 @@ tilde curva @code{~} a la primera nota ligada:
 
 @lilypond[verbatim,quote,relative=2]
 g4~ g c2~
-c4 ~ c8 a8 ~ a2
+c4~ c8 a8~ a2
 @end lilypond
 
 @subheading Ligaduras de expresión
@@ -294,7 +294,7 @@ sobre grupos mayores de notas.  Las ligaduras de unión y de expresión
 se pueden anidar unas dentro de otras.
 
 @lilypond[verbatim,quote,relative=2]
-c2~( c8 fis fis4 ~ fis2 g2)
+c2~( c8 fis fis4~ fis2 g2)
 @end lilypond
 
 
@@ -422,7 +422,7 @@ Se puede aplicar un formateo adicional mediante la instrucción
 @code{\markup}:
 
 @lilypond[verbatim,quote,relative=2]
-c1^\markup{ \bold espr}
+c1^\markup{ \bold espr }
 a1_\markup{
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
