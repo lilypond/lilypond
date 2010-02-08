@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: db933a5e06faef310d68d0c63474ba3279ef7791
+    Translation of GIT committish: e600412e50db9e8ee3b9e408527322b84b946f52
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
+
+@include included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond es un sistema de grabado musical @strong{basado en
@@ -208,7 +210,15 @@ uninstall-lilypond
 
 
 @divClass{column-right-top}
-@subheading Paquetes específicos de la distribución
+@subheading Compilación de un archivo
+
+@lilypadCommandLine
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Paquetes específicos de cada distribución
 
 Utilice el gestor de paquetes de su distribución para instalar o
 actualizar a estas versiones.
@@ -297,8 +307,15 @@ Borre la carpeta LilyPond.app.
 
 @divEnd
 
-
 @divClass{column-right-top}
+@subheading Compiling a file
+
+@lilypadOSX
+
+@divEnd
+
+
+@divClass{column-left-top}
 @subheading Ejecución desde la línea de órdenes
 
 @warning{Si está satisfecho con el GUI, ignore estas instrucciones.}
@@ -450,6 +467,14 @@ elija la opción de desinstalar/quitar programa.  Pulse el botón
 
 
 @divClass{column-right-top}
+@subheading Compiling a file
+
+@lilypadWindows
+
+@divEnd
+
+
+@divClass{column-left-top}
 @subheading Ejecución desde la línea de órdenes
 
 @warning{Si le satisface el interfaz gráfico, ignore estas
