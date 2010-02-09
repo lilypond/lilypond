@@ -24,10 +24,12 @@ TODOs, so the term @qq{bug} wouldn't be accurate.
 
 Second, the classification of what counts as a bug vs. feature
 request, and the priorities assigned to bugs, are a matter of
-concern @strong{for developers only}.  If you are curious about
-the classification, read on, but don't complain that your
-particular issue is higher priority or counts as a bug rather than
-a feature request.
+concern @strong{for developers only}.  The Bug Squad will classify
+issues according to the guidelines given by developers.
+
+If you are curious about the classification, read on, but please
+don't complain that your particular issue should have higher
+priority or counts as a bug rather than a feature request.
 
 
 @node Issue classification
@@ -42,10 +44,10 @@ Open issues:
 
 @item
 New: the item was added by a non-member, despite numerous warnings
-not to do this.  Should be reviewed by the Bug Meister.
+not to do this.  Should be reviewed by a member of the Bug Squad.
 
 @item
-Accepted: the Bug Meister added it, or reviewed the item.
+Accepted: the Bug Squad added it, or reviewed the item.
 
 @item
 Started: a contributor is working on a fix.  Owner should change
@@ -66,12 +68,12 @@ Duplicate: issue already exists in the tracker.
 
 @item
 Fixed: a contributor claims to have fixed the bug.  The Bug
-Meister should check the fix with the next official binary release
+Squad should check the fix with the next official binary release
 (not by compiling the source from git).  Owner should be set to
 that contributor.
 
 @item
-Verified: Bug Meister has confirmed that the issue is closed.
+Verified: Bug Squad has confirmed that the issue is closed.
 
 @end itemize
 
@@ -210,7 +212,7 @@ Performance: might potentially be used.
 @node Adding issues to the tracker
 @section Adding issues to the tracker
 
-This should only be done by the Bug Meister(s), or experienced
+This should only be done by the Bug Squad or experienced
 developers.  Normal users should not do this; instead, they should
 follow the guidelines for @rweb{Bug reports}.
 
