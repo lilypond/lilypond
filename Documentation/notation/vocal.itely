@@ -156,7 +156,7 @@ Notation Reference:
 @cindex spaces, in lyrics
 @cindex quotes, in lyrics
 
-@c FIXME: this section is to be rewritten.
+@c TODO: this section is to be rewritten.
 Since LilyPond input files are text, there is at least one
 issue to consider when working with vocal music:
 song texts must be interpreted as text, not notes.  For example, the
@@ -301,7 +301,7 @@ Internals Reference:
 @rinternals{LyricSpace}.
 
 
-@c FIXME: this title has to be changed (possible confusion with LM) -vv
+@c TODO: this title has to be changed (possible confusion with LM) -vv
 @node Setting simple songs
 @unnumberedsubsubsec Setting simple songs
 
@@ -395,7 +395,7 @@ The final input would resemble
 @end example
 
 @ignore
-@c FIXME
+@c TODO
 http://code.google.com/p/lilypond/issues/detail?id=329
 The problem cannot be reproduced.
 The following has no sense, because the issue seems to be fixed.
@@ -441,7 +441,7 @@ Internals Reference:
 @funindex \addlyrics
 @funindex \lyricsto
 
-@c FIXME: this stuff is to be rewritten. -vv
+@c TODO: this stuff is to be rewritten. -vv
 
 Aligning of text with melodies can be made automatically, but if you
 specify the durations of the syllables it can also be made manually.
@@ -646,7 +646,7 @@ single syllable; such vocalises are called melismas, or melismata.
 You can define melismata entirely in the lyrics, by entering @code{_}
 for every extra note that has to be added to the melisma.
 
-@c FIXME: clarify: __ is used to crate a lyric extender,
+@c TODO: clarify: __ is used to crate a lyric extender,
 @c _ is used to add a note to a melisma, so both __ and _ are needed.
 
 @c verbose! --FV
@@ -803,7 +803,7 @@ TBC
 @node Specific uses of lyrics
 @subsection Specific uses of lyrics
 
-@c FIXME This whole section is to be reorganized. -vv
+@c TODO This whole section is to be reorganized. -vv
 
 Often, different stanzas of one song are put to one melody in slightly
 differing ways.  Such variations can still be captured with
@@ -1214,7 +1214,7 @@ This is achieved with
 Here, @code{alternative} is the name of the @code{Voice} context
 containing the triplet.
 
-@c FIXME: make this easier to understand -vv
+@c TODO: make this easier to understand -vv
 This command must be one syllable too early, before @q{Ty} in this
 case.  In other words, changing the associatedVoice happens one step
 later than expected.  This is for technical reasons, and it is not a

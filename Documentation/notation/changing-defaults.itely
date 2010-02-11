@@ -2979,7 +2979,7 @@ The locations of the end-points of the spanner are computed
 on-the-fly for every graphic object, but it is possible to
 override these:
 
-@c FIXME Complete
+@c TODO Complete
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 e2 \glissando f
 \once \override Glissando #'(bound-details right Y) = #-2
@@ -3411,7 +3411,7 @@ e
 @node Vertical grouping of grobs
 @subsection Vertical grouping of grobs
 
-@c FIXME Expand this section
+@c TODO Expand this section
 
 The VerticalAlignment and VerticalAxisGroup grobs work together.
 VerticalAxisGroup groups together different grobs like Staff, Lyrics,

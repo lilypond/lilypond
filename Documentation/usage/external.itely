@@ -13,8 +13,7 @@
 @node External programs
 @chapter External programs
 
-FIXME: blah blah
-
+LilyPond can interact with other programs in various ways.
 
 @menu
 * Point and click::
@@ -579,7 +578,11 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
 @node Independent includes
 @section Independent @code{include}s
 
-FIXME: blah blah
+Some people have written large (and useful!) code that can be
+shared between projects.  This code might eventually make its way
+into LilyPond itself, but until that happens, you must download
+and @code{\include} them manually.
+
 
 @menu
 * MIDI articulation::
@@ -589,6 +592,6 @@ FIXME: blah blah
 @node MIDI articulation
 @subsection MIDI articulation
 
-stub for info about Dr. Peter Chubb's @file{articulate.ly}
+TODO stub for info about Dr. Peter Chubb's @file{articulate.ly}
 
 
