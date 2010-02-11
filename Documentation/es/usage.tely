@@ -6,193 +6,73 @@
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
+
+@setfilename lilypond-usage.info
+@settitle LilyPond: manual de utilización del programa
 @documentencoding UTF-8
 @documentlanguage es
-@setfilename lilypond-program.info
-@settitle GNU LilyPond: manual de utilización del programa
+@afourpaper
 
+@c Translators: Francisco Vila
+
+@macro manualIntro
+Este archivo explica cómo ejecutar los programas que se distribuyen
+con LilyPond versión @version{}.  Además sugiere ciertas @qq{buenas
+prácticas} para una utilización eficiente.
+@end macro
+
+@c `Usage' was born 1999-10-10 with git commit c82c30c...
+@macro copyrightDeclare
+Copyright @copyright{} 1999--2010 por los autores.
+@end macro
+
+@set FDL
 @include macros.itexi
 
-@afourpaper
 
 @c don't remove this comment.
 @ignore
 @omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
-@omfdescription Program Usage of the LilyPond music engraving system
+@omfdescription Application Usage of the LilyPond music engraving system
 @omftype program usage
 @omfcategory Applications|Publishing
 @omflanguage English
 @end ignore
 
-@c Translators: Francisco Vila
 
+@lilyTitlePage{Usage}
+
+
+@c TOC -- non-tex
 @ifnottex
-@node Arriba
-@top GNU LilyPond: Manual de utilización del programa
-@translationof Top
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
-@end ifnottex
 
-
-@ifhtml
-@ifclear bigpage
-Este documento también está disponible en formato
-@uref{source/Documentation/usage.es.pdf,PDF} y como
-@uref{source/Documentation/usage-big-page.es.html,una sola página}.
-@end ifclear
-@ifset bigpage
-Este documento también está disponible en formato
-@uref{source/Documentation/usage.es.pdf,PDF} y como
-@uref{source/Documentation/usage/index.es.html,un documento HTML normal de muchas páginas}.
-@end ifset
-@end ifhtml
-
-
-@c  This produces the unified index
-@syncodeindex fn cp
-@syncodeindex vr cp
-
-
-@finalout
-
-@titlepage
-@title LilyPond
-@subtitle El tipografiador de música
-@titlefont{Utilización del programa}
-@author El equipo de desarrollo de LilyPond
-
-
-Copyright @copyright{} 1999--2010 por los autores
-
-@emph{La traducción de la siguiente nota de copyright se ofrece como
-cortesía para las personas de habla no inglesa, pero únicamente la
-nota en inglés tiene validez legal.}
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@quotation
-Se otorga permiso para copiar, distribuir y/o modificar este documento
-bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
-o cualquier versión posterior publicada por la Free Software Foundation;
-sin ninguna de las secciones invariantes.
-Se incluye una copia de esta licencia dentro de la sección titulada ``Licencia
-de Documentación Libre de GNU''.
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-
-@vskip 20pt
-
-Para LilyPond versión @version{}
-@end titlepage
-
-
-@copying
-Copyright @copyright{} 1999--2010 por los autores
-
-@emph{La traducción de la siguiente nota de copyright se ofrece como
-cortesía para las personas de habla no inglesa, pero únicamente la
-nota en inglés tiene validez legal.}
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@quotation
-Se otorga permiso para copiar, distribuir y/o modificar este documento
-bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
-o cualquier versión posterior publicada por la Free Software Foundation;
-sin ninguna de las secciones invariantes.
-Se incluye una copia de esta licencia dentro de la sección titulada ``Licencia
-de Documentación Libre de GNU''.
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end copying
-
-@ifnottex
-Este archivo es la documentación de la utilización del programa GNU LilyPond.
-
-Copyright 1999--2010 por los autores
-
-@emph{La traducción de la siguiente nota de copyright se ofrece como
-cortesía para las personas de habla no inglesa, pero únicamente la
-nota en inglés tiene validez legal.}
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@quotation
-Se otorga permiso para copiar, distribuir y/o modificar este documento
-bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
-o cualquier versión posterior publicada por la Free Software Foundation;
-sin ninguna de las secciones invariantes.
-Se incluye una copia de esta licencia dentro de la sección titulada ``Licencia
-de Documentación Libre de GNU''.
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end ifnottex
-
-@ifnottex
-El presente documento es el manual de utilización del programa GNU
-LilyPond, versión @version{}.  Para ver más información sobre la
-relación entre éste y el resto de los documentos, consulte
-@rlearning{Sobre la documentación}.
-
-@cindex web, página
-@cindex página web
-@cindex URL
-
-Se puede encontrar más información en
-@uref{http://@/www@/.lilypond@/.org/}.  La página web incluye copias
-en línea de la presente documentación y de otras.
-
+@c  maybe add a "Tasks" or "Specific tasks" or something like
+@c  that, after Suggestions  -gp
 @menu
-* Instalación::                        Cómo instalarlo o compilarlo.
-* Configuración::                          Utilizar LilyPond con otros programas.
-* Ejecutar LilyPond::               Funcionamiento.
-* LilyPond-book::                  Integrar texto y música.
-* Conversión desde otros formatos::  Convertir al formato del código de entrada de lilypond.
+* Ejecutar LilyPond::              Funcionamiento.
+* Actualizar ficheros con convert-ly:: Actualizar los archivos de entrada.
+* lilypond-book::                  Integrar texto y música.
+* Programas externos::             Mezclar LilyPond con otros programas.
+* Sugerencias para escribir archivos de entrada::  Buenas prácticas y depuración de errores efectiva.
 
 Apéndices
 
 * GNU Free Documentation License:: Licencia de este documento.
 * Índice de LilyPond::
 @end menu
+
+@docMain
 @end ifnottex
+
 
 @contents
 
-@include usage/install.itely
-@include usage/setup.itely
+
 @include usage/running.itely
+@include usage/updating.itely
 @include usage/lilypond-book.itely
-@include usage/converters.itely
+@include usage/external.itely
+@include usage/suggestions.itely
 
 @include fdl.itexi
 

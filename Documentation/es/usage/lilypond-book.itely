@@ -12,9 +12,9 @@
 
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
-@node LilyPond-book
+@node lilypond-book
 @chapter @command{lilypond-book}: integrar texto y música
-@translationof LilyPond-book
+@translationof lilypond-book
 
 Si quiere añadir imágenes de música a un documento, puede hacerlo
 simplemente de la forma en que lo haría con otros tipos de imágenes.
