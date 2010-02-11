@@ -1,0 +1,75 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@setfilename lilypond-extending.info
+@settitle Extending LilyPond
+@documentencoding UTF-8
+@documentlanguage en
+@afourpaper
+
+@macro manualIntro
+Este archivo explica la forma de extender las funcionalidades de
+LilyPond versió @version{}.
+@end macro
+
+@c `Extending' was born 2003-04-23 with git commit c08f6e8...
+@macro copyrightDeclare
+Copyright @copyright{} 2003--2009 por los autores.
+@end macro
+
+@set FDL
+@include macros.itexi
+
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription Programming extensions for the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage English
+@end ignore
+
+
+@lilyTitlePage{Extending}
+
+
+@c TOC -- non-tex
+@ifnottex
+
+@menu
+* Tutorial de Scheme::             Programación desde dentro de LilyPond.
+* Interfaces para programadores::  Cómo interactuar con Scheme.
+* Interfaces de Scheme de LilyPond:: Obtener información hacia dentro y fuera de la música.
+
+Apéndices
+
+* GNU Free Documentation License:: Licencia de este documento.
+* Índice de LilyPond::
+@end menu
+
+@docMain
+@end ifnottex
+
+
+@contents
+
+
+@include extending/scheme-tutorial.itely
+@include extending/programming-interface.itely
+
+@include fdl.itexi
+
+@node Índice de LilyPond
+@appendix Índice de LilyPond
+@translationof LilyPond index
+
+@printindex cp
+
+@bye
