@@ -136,8 +136,10 @@ any regression against 2.12 or 2.10 counts)
 
 @item
 Priority-High: highly embarrassing items, and any regression
-against a version earlier than two stable versions.  (i.e. when
-developing 2.13, any regression against 2.8 or earlier)
+against a version earlier than two stable versions (i.e. when
+developing 2.13, any regression against 2.8 or earlier).  This
+level is also used for issues which produce no output and fail to
+give the user a clue about what's wrong.
 
 @item
 Priority-Medium: normal priority.
