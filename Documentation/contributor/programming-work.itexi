@@ -1198,7 +1198,7 @@ the status.
 @node Iterator tutorial
 @section Iterator tutorial
 
-FIXME -- this is a placeholder for a tutorial on iterators
+TODO -- this is a placeholder for a tutorial on iterators
 
 Iterators are routines written in C++ that process music expressions
 and sent the music events to the appropriate engravers and/or
@@ -1207,7 +1207,7 @@ performers.
 @node Engraver tutorial
 @section Engraver tutorial
 
-FIXME -- This is a placeholder for a tutorial on how engravers work.
+TODO -- This is a placeholder for a tutorial on how engravers work.
 
 Engravers are C++ classes that catch music events and
 create the appropriate grobs for display on the page.  Though the
@@ -1366,7 +1366,7 @@ the engraver.
 @node Callback tutorial
 @section Callback tutorial
 
-FIXME -- This is a placeholder for a tutorial on callback functions.
+TODO -- This is a placeholder for a tutorial on callback functions.
 
 @node LilyPond scoping
 @section LilyPond scoping

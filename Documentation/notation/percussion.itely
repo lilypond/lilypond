@@ -229,7 +229,7 @@ There are also other layout possibilities.  To use these, set the
 property @code{drumStyleTable} in context @code{DrumVoice}.  The
 following variables have been predefined:
 
-@c FIXME: decide what to do about this table.  (ie verbatim or not)
+@c TODO: decide what to do about this table.  (ie verbatim or not)
 @table @code
 
 @item drums-style
@@ -397,7 +397,7 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 @snippets
 
-FIXME: MOVE ALL THESE TO LSR!  -gp
+@c TODO: MOVE ALL THESE TO LSR!  -gp
 
 Here are some examples:
 

@@ -1468,7 +1468,7 @@ or crashes, or both.
 
 
 @node The set command
-@subsection The @code{\set} command
+@subsection The @code{@bs{}set} command
 
 @cindex properties
 @funindex \set

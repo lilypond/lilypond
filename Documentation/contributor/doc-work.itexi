@@ -863,8 +863,8 @@ To create links, use @@ref@{@} if the link is within the same
 manual.
 
 @item
-@@predefined ... @@endpredefined is for commands in ly/*-init.ly
-FIXME?
+@@predefined ... @@endpredefined is for commands in
+@file{ly/*-init.ly}
 
 @item
 Do not include any real info in second-level sections (ie 1.1

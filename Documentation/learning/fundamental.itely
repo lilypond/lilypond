@@ -2125,9 +2125,7 @@ instances of contexts by statements in a @code{\with} block, and by
 @seealso
 Notation Reference:
 @ruser{Changing context default settings}.
-@c FIXME
-@c uncomment when backslash-node-name issue is resolved -pm
-@c @ruser{The set command}.
+@ruser{The set command}.
 
 Internals Reference:
 @rinternals{Contexts},

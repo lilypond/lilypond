@@ -710,7 +710,8 @@ behavior}) is switched off.
 >>
 @end lilypond
 
-@c FIXME: this now links to LM -vv
+@c TODO: this now links to LM -vv
+@c   umm, yeah... so what?  -gp
 
 @cindex SATB
 @cindex choral score

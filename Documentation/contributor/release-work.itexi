@@ -45,7 +45,7 @@ Any commits are fine.  Readers may be familiar with the term
 
 
 @item @strong{Release prep phase}:
-FIXME: I don't like that name.
+TODO: I don't like that name.
 
 A new git branch @code{stable/2.x} is created, and a major release
 is made in two weeks.
