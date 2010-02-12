@@ -1,0 +1,278 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+
+@ignore
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.12.0"
+
+
+@node Actualizar ficheros con convert-ly
+@section Actualizar ficheros con @command{convert-ly}
+@translationof Updating files with convert-ly
+
+@cindex actualización de un archivo de LilyPond
+@cindex convert-ly
+
+La sintaxis del lenguaje de entrada de LilyPond se modifica de forma
+habitual para simplificarla o mejorarla de distintas maneras.  Como
+efecto secundario, el intérprete de LilyPond a menudo ya no es
+compatible con los archivos de entrada antiguos.  Para poner remedio a
+esto se puede utilizar el programa @command{convert-ly} para manejar
+casi todos los cambios de sintaxis entre versiones de LilyPond.
+
+@menu
+* ¿Por qué cambia la sintaxis?::
+* Invocar convert-ly::
+* Opciones de la línea de órdenes para convert-ly::
+* Problemas con convert-ly::
+* Conversiones manuales::
+@end menu
+
+
+@node ¿Por qué cambia la sintaxis?
+@section ¿Por qué cambia la sintaxis?
+@translationof Why does the syntax change?
+
+@cindex convert-ly
+@cindex actualizar archivos de entrada antiguos
+
+La sintaxis de la entrada de LilyPond cambia de manera ocasional.  A
+medida que el propio LilyPond mejora, la sintaxis (el lenguaje de la
+entrada) se modifica en consonancia.  A veces estos cambios se hacen
+para conseguir que la entrada sea más fácil de leer y escribir, y
+otras veces estos cambios son para dar cabida a nuevas funcionalidades
+de LilyPond.
+
+Por ejemplo, se supone que todos los nombres de las propiedades de
+@code{\paper} y de @code{\layout} están escritos en la dorma
+@code{primero-segundo-tercero}.  Sin embargo, en la versión 2.11.60,
+observamos que la propiedad @code{printallheaders} no seguía esta
+convención.  ¿Deberíamos dejarla como está (confundiendo a los nuevos
+usuarios que tienen que tratar con un formato de entrada
+inconsistente), o cambiarla (fastidiando a los usuarios con
+experiencia que tienen partituras antiguas)?  En este caso, decidimos
+cambiar el nombre a @code{print-all-headers}.  Afortunadamente, este
+cambio se puede automatizar con nuestra herramienta
+@command{convert-ly}.
+
+Sin embargo, lamentablemente @code{convert-ly} no puede tratar todos
+los cambios en la entrada.  Por ejemplo, en la versión 2.4 y
+anteriores de LilyPond, los acentos y las letras no inglesas se
+introducían utilizando LaTeX: por ejemplo, @code{No\"el} (que
+significa @q{Navidad} en francés).  En LilyPond 2.6 y siguientes, el
+carácter especial @code{ë} debe introducirse directamente en el
+archivo de LilyPond como un carácter UTF-8.  @code{convert-ly} no
+puede cambiar todos los caracteres especiales de LaTeX a caracteres de
+UTF-8; tendrá que actualizar manualmente sus archivos de LilyPond
+antiguos.
+
+
+@node Invocar convert-ly
+@subsection Invocar @command{convert-ly}
+@translationof Invoking convert-ly
+
+@command{convert-ly} utiliza los enunciados @code{\version} de los
+archivos de entrada para detectar el número de versión antiguo.  En
+casi todos los casos, para actualizar el archivo de entrada basta con
+ejecutar
+
+@example
+convert-ly -e miarchivo.ly
+@end example
+
+@noindent
+dentro del directorio que contiene el archivo.  Con esto se actualiza
+@code{miarchivo.ly} @emph{in situ} y se preserva el archivo original
+@code{miarchivo.ly~}.
+
+@warning{@command{convert-ly} siempre convierte hasta el último cambio
+de sintaxis que es capaz de manejar.  Esto significa que el número de
+@code{\version} que aparece en el archivo convertido suele ser
+inferior al número de versión del propio programa
+@command{convert-ly}.}
+
+Para convertir de una vez todos los archivos de entrada que hay en un
+directorio, use
+
+@example
+convert-ly -e *.ly
+@end example
+
+De forma alternativa, si queremos especificar un nombre distinto para
+el archivo actualizado, preservando el archivo original con el mismo
+nombre, haga
+
+@example
+convert-ly miarchivo.ly > minuevoarchivo.ly
+@end example
+
+El programa imprimirá una relación de los números de versión para los
+que se han hecho conversiones.  Si no se imprime ningún número de
+versión, el archivo ya está actualizado.
+
+@noindent
+Los usuarios de MacOS@tie{}X pueden ejecutar esta instrucción bajo el
+menú @code{Compilar > Actualizar sintaxis}.
+
+Los usuarios de Windows deben introducir esta instrucción en una
+ventana del terminal del sistema, que se encuentra por lo general bajo
+@code{Inicio > Accesorios > Símbolo del sistema}.
+
+
+@node Opciones de la línea de órdenes para convert-ly
+@subsection Opciones de la línea de órdenes para @command{convert-ly}
+@translationof Command line options for convert-ly
+
+
+En general, el programa se invoca de la manera siguiente:
+
+@example
+convert-ly [@var{opción}]@dots{} @var{archivo}@dots{}
+@end example
+
+
+Se pueden dar las siguientes opciones:
+
+@table @code
+@item -e,--edit
+Aplicar las conversiones directamente al archivo de entrada,
+modificándolo in situ.
+
+@item -f,--from=@var{versión_de_origen}
+Establece la versión desde la que convertir.  Si no aparece esta
+opción, @command{convert-ly} tratará de adivinarla, basándose en el
+enunciado @code{\version} del archivo.  Ejemplo: @code{--from=2.10.25}
+
+@item -n,--no-version
+Normalmente @command{convert-ly} añade un indicador @code{\version} a
+la salida.  La especificación de esta opción lo suprime.
+
+@item -s, --show-rules
+Mostrar todas las conversiones conocidas y salir.
+
+@item --to=@var{versión_final}
+Fijar la versión de destino de la conversión.  De forma predeterminada
+se convierte a la última versión disponible.
+
+@item -h, --help
+Imprimir la ayuda de la utilización.
+@end table
+
+Para actualizar fragmentos de LilyPond en archivos de texinfo, use
+
+@example
+convert-ly --from=... --to=... --no-version *.itely
+@end example
+
+Para ver los cambios en la sintaxis de LilyPond entre dos versiones
+dadas, use
+
+@example
+convert-ly --from=... --to=... -s
+@end example
+
+
+@node Problemas con convert-ly
+@subsection Problemas con @code{convert-ly}
+@translationof Problems with convert-ly
+
+Al ejecutar convert-ly en una ventana del Símbolo del Sistema bajo
+Windows sobre un archivo que tiene espacios en el nombre o en la ruta,
+es necesario encerrar todo el nombre del archivo de entrada con tres
+(!) pares de comillas:
+
+@example
+convert-ly """D:/Mis partituras/Oda.ly""" > "D:/Mis partituras/nueva Oda.ly"
+@end example
+
+Si la orden simple @command{convert-ly -e *.ly} no funciona porque la
+instrucción expandida se hace muy larga, en vez de ello la orden
+@command{convert-ly} se puede poner dentro de un bucle.  Este ejemplo
+para UNIX actualiza todos los documentos @code{.ly} del directorio
+actual
+
+@example
+for f in *.ly; do convert-ly -e $f; done;
+@end example
+
+En la ventana del terminal de órdenes de Windows, la instrucción
+correspondiente es
+
+@example
+for %x in (*.ly) do convert-ly -e """%x"""
+@end example
+
+No se manejan todos los cambios en el lenguaje.  Sólo se puede
+especificar una opción de salida.  La actualización automática de
+Scheme y los interfaces Scheme de LilyPond es bastante improbable;
+prepárese para trucar el código de Scheme a mano.
+
+@node Conversiones manuales
+@section Conversiones manuales
+@translationof Manual conversions
+
+En teoría, un programa como @command{convert-ly} debería poder tratar
+cualquier cambio en la sintaxis.  Después de todo, un programa de
+ordenador interpreta las versiones antigua y nueva, por lo que otro
+programa de ordenador podría traducir un archivo al otro@footnote{Al
+menos, esto es posible en cualquier archivo de LilyPond que no
+contenga Scheme.  Si hay Scheme dentro del archivo, contiene un
+lenguaje Turing-completo, y nos encontramos con el famoso @qq{Problema
+de la parada} en informática.}.
+
+Sin embargo, el proyecto LilyPond cuenta con unos recursos limitados:
+no todas las conversiones se efectúan automáticamente.  A continuación
+aparece una lista de los problemas conocidos.
+
+
+@verbatim
+1.6->2.0:
+ No siempre convierte el bajo cifrado correctamente, específicamente cosas como {<
+>}.  El comentario de Mats sobre cómo solventar el problema:
+   Para poder ejecutar convert-ly
+   sobre él, primero sustituí todas las apariciones de '{<' a algo mudo como '{#'
+   y de forma similar sustituí '>}' con '&}'.  Después de la conversión, pude
+   volver a cambiarlos de '{ #' a '{ <' y de '& }' a '> }'.
+ No convierte todos los marcados de texto correctamente.  En sintaxis antigua,
+ se podían agrupar varios marcados entre paréntesis, p.ej.
+   -#'((bold italic) "cadena")
+   Esto se convierte incorrectamente en
+   -\markup{{\bold italic} "cadena"}
+   en vez del correcto
+   -\markup{\bold \italic "cadena"}
+2.0->2.2:
+ No maneja \partcombine
+ No hace \addlyrics => \lyricsto, esto rompe algunas partituras con varias estrofas.
+2.0->2.4:
+ \magnify no se cambia por \fontsize.
+    - \magnify #m => \fontsize #f, donde f = 6ln(m)/ln(2)
+ remove-tag no se cambia.
+    - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
+ first-page-number no se cambia.
+    - first-page-number no => print-first-page-number = ##f
+ Los saltos de línea en las cadenas de cabecera no se convierten.
+    - \\\\  como salto de línea en las cadenas de \header  => \markup \center-align <
+      "Primera línea" "Segunda línea" >
+ Los terminadores de crescendo y decrescendo no se convierten.
+    - \rced => \!
+    - \rc => \!
+2.2->2.4:
+ \turnOff (usado en \set Staff.VoltaBracket = \turnOff) no se convierte
+adecuadamente.
+2.4.2->2.5.9
+ \markup{ \center-align <{ ... }> } se tendría que convertir en:
+ \markup{ \center-align {\line { ... }} }
+ pero ahora, falta el \line.
+2.4->2.6
+ Los caracteres especiales de LaTeX como $~$ en el texto no se convierten a UTF8.
+2.8
+ \score{} ahora debe empezar con una expresión musical.  Cualquier otra cosa
+ (en particular, \header{}) debe ir después de la música.
+@end verbatim
+
+

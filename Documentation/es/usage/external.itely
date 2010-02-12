@@ -1,0 +1,645 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.12.0"
+
+@node Programas externos
+@chapter Programas externos
+@translationof External programs
+
+@c FIXME: blah blah
+
+@menu
+* Apuntar y pulsar::
+* Apoyo respecto de los editores de texto::
+* Conversión desde otros formatos::
+* Salida de LilyPond dentreo de otros programas::
+* Archivos include independientes::
+@end menu
+
+
+@node Apuntar y pulsar
+@section Apuntar y pulsar
+@translationof Point and click
+@cindex apuntar y pulsar
+
+
+«Point and click» (apuntar y pulsar con el ratón) le da la posibilidad
+de localizar notas del código de entrada pulsando sobre ellas dentro
+del visor de PDF.  Ello facilita encontrar los fragmentos de la
+entrada que producen algún tipo de error en la partitura.
+
+Cuando esta funcionalidad está activada, LilyPond añade hiper-enlaces
+al archivo PDF. Estos hiper-enlaces se envían al navegador de web, que
+a su vez abre un editor de texto con el cursor situado en el lugar
+correcto.
+
+Para conseguir que esta cadena funcione, tendrá que configurar el
+visor de PDF de forma que siga los hiper-enlaces usando el guión
+@file{lilypond-invoke-editor} proporcionado con LilyPond.
+
+Para Xpdf sobre Unix, lo siguiente debe estar presente en
+@file{xpdfrc}@footnote{En Unix, este archivo se encuentra o bien en
+@file{/etc/xpdfrc} o como @file{.xpdfrc} en su directorio personal.}
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+El programa @file{lilypond-invoke-editor} es un pequeño programa de
+apoyo. Invoca un editor para las URIs especiales de @code{textedit}, y
+lanza un navegador de web para el resto.  Comprueba la variable de
+entorno @code{EDITOR} en busca de los siguientes patrones,
+
+@table @code
+@item emacs
+  esto invoca a
+@example
+emacsclient --no-wait +@var{línea}:@var{columna} @var{archivo}
+@end example
+@item vim
+  esto invoca a
+@example
+gvim --remote +:@var{línea}:norm@var{carácter} @var{archivo}
+@end example
+
+@item nedit
+esto invoca a
+@example
+  nc -noask +@var{línea} @var{archivo}'
+@end example
+@end table
+
+La variable de entorno @code{LYEDITOR} se utiliza para sobreescribir
+esto. Contiene la instrucción de línea de órdenes para abrir el
+editor, donde @code{%(archivo)s}, @code{%(columna)s} y
+@code{%(línea)s} se sustituyen por el archivo, columna y línea
+respectivamente. El ajuste
+
+@example
+emacsclient --no-wait +%(línea)s:%(columna)s %(archivo)s
+@end example
+
+@noindent
+para @code{LYEDITOR} equivale a la invocación estándar de
+emacsclient.
+
+
+@cindex archivo de salida, tamaño del
+
+Los enlaces de apuntar y pulsar aumentan significativamente el tamaño
+de los archivos de salida.  Para reducir el tamaño de los archivos PDF
+y PS, la posibilidad de apuntar y pulsar se puede desactivar
+escribiendo
+
+@example
+\pointAndClickOff
+@end example
+
+@noindent
+dentro de un archivo @file{.ly}.  Se puede activar explícitamente la
+posibilidad de apuntar y pulsar con
+
+@example
+\pointAndClickOn
+@end example
+
+De forma alternativa, puede desactivar la posibilidad de apuntar y
+pulsar con una opción de la línea de órdenes:
+
+@example
+lilypond -dno-point-and-click archivo.ly
+@end example
+
+@warning{Recuerde desactivar siempre la posibilidad Apuntar y pulsar
+en cualquier archivo de LilyPond que vaya a ser distribuido, para
+evitar incluir información de rutas de archivo relativas a su equipo
+dentro del archivo .pdf, lo que puede plantear un problema de
+seguridad.}
+
+
+
+@node Apoyo respecto de los editores de texto
+@section Apoyo respecto de los editores de texto
+@translationof Text editor support
+
+@cindex editores
+@cindex vim
+@cindex emacs
+@cindex modos del editor
+@cindex sintaxis, resaltado de
+@cindex colores, sintaxis
+
+Existe apoyo por parte de varios editores de texto para LilyPond.
+
+@menu
+* Modo de Emacs::
+* Modo de Vim::
+* jEdit::
+* TexShop::
+* TextMate::
+* LilyKDE::
+@end menu
+
+@node Modo de Emacs
+@subsection Modo de Emacs
+@translationof Emacs mode
+
+Emacs tiene un @file{lilypond-mode}, que proporciona autocompleción de
+teclado, sangrado, compensación de paréntesis específica de LilyPond y
+resaltado de sintaxis con colores, útiles combinaciones de teclas para
+compilar y leer los manuales de LilyPond utilizando Info.  Si el
+@file{lilypond-mode} no está instalado en su sistema, siga leyendo.
+
+Está incluido un modo de Emacs para escribir música y ejecutar
+LilyPond, en el archivo del código fuente dentro del directorio
+@file{elisp}.  Haga @command{make install} para instalarlo dentro de
+@var{elispdir}.  El archivo @file{lilypond-init.el} se debe situar en
+@var{load-path}@file{/site-start.d/} o añadirse a su @file{~/.emacs} o
+@file{~/.emacs.el}.
+
+Como usuario, puede querer añadir su ruta a las fuentes
+(p.ej. @file{~/site-lisp/}) a su @var{load-path} añadiendo la
+siguiente línea (modificada) a su @file{~/.emacs}
+
+@c any reason we do not advise:  (push "~/site-lisp" load-path)
+@example
+(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
+@end example
+
+
+@node Modo de Vim
+@subsection Modo de Vim
+@translationof Vim mode
+
+Para @uref{http://@/www@/.vim@/.org,VIM} se proporciona un
+@file{vimrc}, junto con herramientas de resaltado de sintaxis con
+colores.  Se encuentra incluido un modo de Vim para escribir música y
+ejecutar LilyPond, dentro del archivo de código fuente, en el
+directorio @code{$VIM}.
+
+El tipo de archivo de LilyPond se detecta si el archivo
+@file{~/.vim/filetype.vim} tiene el siguiente contenido
+
+@example
+if exists("did_load_filetypes")
+  finish
+endif
+augroup filetypedetect
+  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
+augroup END
+@end example
+
+Incluya esta ruta añadiendo la siguiente línea a su @file{~/.vimrc}
+
+@example
+set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
+@end example
+
+@noindent
+donde $@{LILYPOND_VERSION@} es su versión de lilypond.  Si LilyPond no
+se instaló en su momento en @file{/usr/local/}, cambie esta ruta de la
+forma correspondiente.
+
+En Fedora, la ruta apunta a la versión actual de Vim en lugar de
+LilyPond:
+
+@example
+set runtimepath+=/usr/share/vim/vim72/
+@end example
+
+
+@node Otros editores
+@unnumberedsubsec Otros editores
+@translationof Other editors
+
+Otros editores (de texto así como gráficos) tienen apoyo para
+LilyPond, pero sus archivos de configuración especiales no se
+distribuyen con LilyPond.  Debe consultar la documentación de estos
+programas para obtener más información.  Estos editores se encuentran
+relacionaddos en @rweb{Entornos mejorados}.
+
+
+@node Conversión desde otros formatos
+@chapter Conversión desde otros formatos
+@translationof Converting from other formats
+
+También se puede escribir la música a través de su importación desde
+otros formatos.  Este capítulo trata de documentar las herramientas
+incluidas en la distribución que permiten hacerlo.  Existen otras
+herramientas que producen código de entrada de LilyPond, como por
+ejemplo secuenciadores con interfaz gráfico y convertidores de XML.
+Consulte el @uref{http://@/lilypond@/.org,website} para ver más
+detalles.
+
+Son programas distintos a @command{lilypond} propiamente dicho, y se
+ejecutan desde la línea de órdenes; consulte @ref{Utilización desde la
+línea de órdenes} para ver más información.  Si tiene MacOS 10.3 o
+10.4 y tiene problemas para ejecutar alguno de estos guiones,
+p.ej. @code{convert-ly}, consulte @ref{Configuración para MacOS X}.
+
+
+@knownissues
+Por desgracia no disponemos de los recursos necesarios para poder
+mantener estos programas; le rogamos que los tome @qq{tal cual
+están}.  Se agradecerá el envío de parches correctores, pero los
+informes de fallo casi con certeza no se resolverán a medio plazo.
+
+@menu
+* Invocar midi2ly::            Importar archivos MIDI.
+* Invocar musicxml2ly::        Importar archivos MusicXML.
+* Invocar abc2ly::             Importar archivos ABC.
+* Invocar etf2ly::             Importar archivos de Finale.
+* Otros formatos::
+@end menu
+
+
+
+
+@node Invocar midi2ly
+@section Invocar @command{midi2ly}
+@translationof Invoking midi2ly
+
+@cindex MIDI
+
+@command{midi2ly} traduce un archivo MIDI de tipo@tie{}1 a un archivo
+de código fuente de LilyPond.
+
+El MIDI (Music Instrument Digital Interface, Interfase Digital para
+Instrumentos Musicales) es un estándar para instrumentos digitales:
+especifica la interconexión física, un protocolo en serie y un formato
+de archivo.  El formato de archivo MIDI es un formato estándar de
+facto para exportar música de otros programas, por lo que esta
+posibilidad puede ser de utilidad al importar archivos de un programa
+que tiene un convertidor para un formato directo.
+
+@command{midi2ly} convierte las pistas en contextos de
+@rinternals{Staff}) y los canales en contextos de
+@rinternals{Voice}.  Se utiliza el modo relativo para las alturas, y
+las duraciones se escriben solamente cuando es necesario.
+
+Es posible grabar un archivo MIDI usando un teclado digital y
+convertirlo después a @file{.ly}.  Sin embargo, los intérpretes
+humanos no son lo suficientemente exactos desde el punto de vista
+rítmico como para hacer que sea trivial la conversión de MIDI a LY.
+Si se invoca con las opciones de cuantización (@code{-s} y @code{-d}),
+@command{midi2ly} intenta compensar los errores de medida, pero no lo
+hace muy bien.  Por ello, no se recomienda usar @command{midi2ly} para
+archivos midi generados por seres humanos.
+
+
+Se invoca a partir de la línea de órdenes como sigue:
+@example
+midi2ly [@var{opción}]@dots{} @var{archivo_midi}
+@end example
+
+Observe que al decir @q{línea de órdenes}, queremos decir la línea de
+órdenes del sistema operativo.  Consulte @ref{Conversión desde otros
+formatos} para ver más información sobre esto.
+
+@command{midi2ly} contempla las siguientes opciones:
+
+@table @code
+@item -a, --absolute-pitches
+Imprimir alturas absolutas.
+
+@item -d, --duration-quant=@var{DURACIÓN}
+Cuantizar las duraciones a @var{DURACIÓN}.
+
+@item -e, --explicit-durations
+Imprimir valores de figura explícitos.
+
+@item -h,--help
+Mostrar un resumen de las instrucciones de utilización.
+
+@item -k, --key=@var{alteración}[:@var{minor}]
+Establecer la tonalidad predeterminada. @math{@var{alteración} > 0}
+establece el número de sostenidos; @math{@var{alteración} < 0}
+establece el número de bemoles.  Se indica una tonalidad menor
+mediante @code{:1}.
+
+@item -o, --output=@var{archivo}
+Escribir la salida en @var{archivo}.
+
+@item -s, --start-quant=@var{DURACIÓN}
+Cuantizar el inicio de las notas a @var{DURACIÓN}.
+
+@item -t, --allow-tuplet=@var{DURACIÓN}*@var{NUMERADOR}/@var{DENOMINADOR}
+Permitir duraciones de grupos especiales @var{DURACIÓN}*@var{NUMERADOR}/@var{DENOMINADOR}.
+
+@item -v, --verbose
+Ser prolijo en comentarios.
+
+@item -V, --version
+Imprimir el número de la versión.
+
+@item -w, --warranty
+Presentar la garantía y el  copyright.
+
+@item -x, --text-lyrics
+Tratar todos los textos como letra de la canción.
+@end table
+
+
+@knownissues
+
+Las notas superpuestas en un arpegio no se procesarán correctamente.
+La primera nota se lee y el resto se ignoran.  Aplique la misma
+duración a todas las notas y añada marcas de fraseo o indicaciones de
+pedal.
+
+
+@node Invocar musicxml2ly
+@section Invocar @command{musicxml2ly}
+@translationof Invoking musicxml2ly
+
+@cindex MusicXML
+
+@uref{http://@/www.@/musicxml@/.org/,MusicXML} es un
+dialecto del XML para representar notación musical.
+
+@command{musicxml2ly} extrae las notas, articulaciones, estructura de
+la partitura, letra, etc., de archivos de MusicXML parte a parte, y
+los escribe en un archivo .ly.  Se invoca a través de la línea de
+órdenes.
+
+La invocación desde la línea de órdenes se hace como sigue:
+
+@example
+musicxml2ly [@var{opción}]@dots{} @var{archivo_xml}
+@end example
+
+Observe que por @q{línea de órdenes}, nos referimos a la línea de
+órdenes del sistema operativo.  Consulte @ref{Conversión desde otros
+formatos}, para obtener más información acerca de esto.
+
+Si el nombre de archivo proporcionado es @file{-},
+@command{musicxml2ly} lee la entrada desde la entrada estándar.
+
+@command{musicxml2ly} contempla las siguientes opciones:
+
+@table @code
+@item -a, --absolute
+convertir las alturas en modo absoluto.
+
+@item -h,--help
+mostrar un resumen de la utilización y las opciones.
+
+@item -l, --language=IDIOMA
+utilizar un archivo de idioma distinto 'IDIOMA.ly' y los
+correspondientes nombres de nota, p.ej. 'deutsch' para deutsch.ly y
+los nombres de nota en alemán.
+
+@item --lxml
+usar el paquete de Python lxml.etree para el análisis de XML; usa
+menos memoria y tiempo de CPU.
+
+@item --nd --no-articulation-directions
+no convertir las direcciones (@code{^}, @code{_} o @code{-}) para las
+articulaciones, dinámica, etc.
+
+@item --no-beaming
+no convertir la información de las barras, en vez de ello usar el
+barrado automático de LilyPond.
+
+@item -o,--output=@var{archivo}
+fijar el nombre del archivo de salida como @var{archivo}. Si
+@var{archivo} es @file{-}, la salida se imprime sobre stdout, la
+salida estándar.  Si no se da, se usa @var{archivo_xml}@file{.ly}.
+
+@item -r,--relative
+convertir las alturas en modo relativo (predeterminado).
+
+@item -v,--verbose
+ser prolijo.
+
+@item -v,--version
+imprimir la información de la versión.
+
+@item -z,--compressed
+el archivo de entrada es un archivo MusicXML comprimido en zip.
+@end table
+
+
+
+@node Invocar abc2ly
+@section Invocar @code{abc2ly}
+@translationof Invoking abc2ly
+
+@cindex ABC
+
+ABC es un formato bastante simple basado en ASCII.  Se encuentra
+descrito en el sitio web de ABC:
+
+@quotation
+@uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/learn@/.html}.
+@end quotation
+
+@command{abc2ly} convierte ABC en LilyPond.  Se invoca de la siguiente
+manera:
+
+@example
+abc2ly [@var{opción}]@dots{} @var{archivo_abc}
+@end example
+
+@command{abc2ly} contempla las siguientes opciones:
+
+@table @code
+@item -b,--beams=None
+preservar la noción de ABC de las barras
+@item -h,--help
+esta ayuda
+@item -o,--output=@var{archivo}
+fijar el nombre del archivo de salida como @var{archivo}.
+@item -s,--strict
+ser estricto respecto al éxito
+@item --version
+imprimir la información de la versión.
+@end table
+
+Existe una posibilidad rudimentaria para añadir código de LilyPond el
+archivo fuente de ABC.  Si decimos:
+
+@example
+%%LY voices \set autoBeaming = ##f
+@end example
+
+Producirá que el texto que sigue a la palabra clave @q{voices} se
+inserte en la voz en curso del archivo de salida de LilyPond.
+
+De forma similar,
+
+@example
+%%LY slyrics más palabras
+@end example
+
+producirá que el texto que sigue a la palabra clave @q{slyrics} se
+inserte en la línea de letra en curso.
+
+
+@knownissues
+
+El estándar ABC no es muy @q{estándar}.  Existen diferentes
+convenciones para las posibilidades avanzadas (por ejemplo,
+polifonía).
+
+
+No se pueden convertir varias melodías de un solo archivo.
+
+ABC sincroniza las letras y las notas al principio de una línea;
+@command{abc2ly} no lo hace.
+
+@command{abc2ly} ignora el barrado de ABC.
+
+
+@node Invocar etf2ly
+@section Invocar @command{etf2ly}
+@translationof Invoking etf2ly
+
+@cindex ETF
+@cindex enigma
+@cindex Finale
+@cindex Coda Technology
+
+ETF (Enigma Transport Format) es un formato utilizado por Finale, un
+producto de Coda Music Technology.  @command{etf2ly} convierte parte
+de un archivo ETF en un archivo de LilyPond listo para usar.
+
+Se invoca a través de la línea de órdenes como sigue:
+
+@example
+etf2ly [@var{opción}]@dots{} @var{archivo_etf}
+@end example
+
+Observe que por @q{línea de órdenes}, nos referimos a la línea de
+órdenes del sistema operativo.  Consulte @ref{Conversión desde otros
+formatos}, para obtener más información acerca de esto.
+
+@command{etf2ly} contempla las siguientes opciones:
+
+@table @code
+@item -h,--help
+esta ayuda
+@item -o,--output=@var{ARCHIVO}
+fijar el nombre del archivo de salida como @var{ARCHIVO}
+@item --version
+información de la versión
+@end table
+
+
+@knownissues
+
+La lista de inscripciones de articulación posibles es incompleta.  Los
+compases vacíos confunden a @command{etf2ly}.  Las secuencias de notas
+de adorno no se dan por finalizadas satisfactoriamente.
+
+
+
+@node Otros formatos
+@subsection Otros formatos
+@translationof Other formats
+
+@cindex programas externos, generación de archivos de LilyPond
+
+El propio LilyPond no contempla la utilización de ningún otro formato,
+pero existen algunas herramientas externas que también generan
+archivos de LilyPond.
+
+Se encuentran relacionados en la sección @rweb{Entornos mejorados}.
+
+
+
+@node Salida de LilyPond dentro de otros programas
+@section Salida de LilyPond dentro de otros programas
+@translationof LilyPond output in other programs
+
+Esta sección presenta métodos para integrar texto y música distintos
+del método automatizado con @command{lilypond-book}.
+
+@menu
+* Muchas citas de una partitura extensa::
+* Insertar la salida de LilyPond dentro de OpenOffice.org::
+* Insertar la salida de LilyPond dentro de otros programas::
+@end menu
+
+@node Muchas citas de una partitura extensa
+@unnumberedsubsec Muchas citas de una partitura extensa
+@translationof Many quotes from a large score
+
+Si tiene que citar muchos fragmentos extraídos de una partitura grade,
+puede también usar la capacidad de recorte de sistemas, véase
+@ruser{Extracción de fragmentos de música}.
+
+
+@node Insertar la salida de LilyPond dentro de OpenOffice.org
+@unnumberedsubsec Insertar la salida de LilyPond dentro de OpenOffice.org
+@translationof Inserting LilyPond output into OpenOffice.org
+
+@cindex OpenOffice.org
+
+Se puede añadir notación de LilyPond a los documentos de
+OpenOffice.org con
+@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
+
+
+@node Insertar la salida de LilyPond dentro de otros programas
+@unnumberedsubsec Insertar la salida de LilyPond dentro de otros programas
+@translationof Inserting LilyPond output into other programs
+
+Para insertar la salida de LilyPond dentro de otros programas, use
+@code{lilypond} en vez de @code{lilypond-book}.  Cada ejemplo debe
+crearse individualmente y añadirse al documento; consulte la
+documentación del programa correspondiente.  La mayoría de los
+programas podrán insertar la salida de LilyPond en los formatos
+@file{PNG}, @file{EPS} o @file{PDF}.
+
+Para reducir el espacio vacío alrededor de la partitura de LilyPond,
+utilice las siguientes opciones:
+
+@example
+\paper@{
+  indent=0\mm
+  line-width=120\mm
+  oddFooterMarkup=##f
+  oddHeaderMarkup=##f
+  bookTitleMarkup = ##f
+  scoreTitleMarkup = ##f
+@}
+
+@{ c1 @}
+@end example
+
+Para obtener un archivo @file{EPS} que sea útil, utilice
+
+@example
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts miarchivo.ly
+
+@file{PNG}:
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miarchivo.ly
+@end example
+
+
+@node Archivos include independientes
+@section Archivos @code{include} independientes
+@translationof Independent includes
+
+@c FIXME: blah blah
+
+@menu
+* Articulación MIDI::
+@end menu
+
+
+@node Articulación MIDI
+@subsection Articulación MIDI
+@translationof MIDI articulation
+
+@c stub for info about Dr. Peter Chubb's @file{articulate.ly}
+
