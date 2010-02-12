@@ -18,6 +18,13 @@ files available for testing purposes.
 The complete set of MusicXML test files contained in this suite can be downloaded
 @uref{MusicXML-TestSuite-0.1.zip,here} as a ZIP archive.
 
+@heading License of the test suite
+
+This collection of MusicXML test files is distributed under the
+@uref{http://www.opensource.org/licenses/mit-license.php}{MIT license}, which
+means that you can use the files for any purpose, as long as you leave the
+copyright notice (or the LICENSE file) intact.
+
 @heading Connection with @uref{http://www.lilypond.org/,LilyPond}
 
 At the same time as providing a generic test suite for MusicXML document,
