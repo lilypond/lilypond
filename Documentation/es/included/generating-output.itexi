@@ -197,8 +197,9 @@ programas cuando tenga algún problema al compilar un documento.}
 Haga un archivo de texto con el nombre
 @file{prueba.ly} y escriba en él lo siguiente:
 
+@c double \\ required because this is inside a macro!
 @example
-\version "@w{@version{}}"
+\\version "@w{@version{}}"
 @{
   c' e' g' e'
 @}
