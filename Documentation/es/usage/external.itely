@@ -149,7 +149,7 @@ Existe apoyo por parte de varios editores de texto para LilyPond.
 @end menu
 
 @node Modo de Emacs
-@subsection Modo de Emacs
+@unnumberedsubsec Modo de Emacs
 @translationof Emacs mode
 
 Emacs tiene un @file{lilypond-mode}, que proporciona autocompleción de
@@ -176,7 +176,7 @@ siguiente línea (modificada) a su @file{~/.emacs}
 
 
 @node Modo de Vim
-@subsection Modo de Vim
+@unnumberedsubsec Modo de Vim
 @translationof Vim mode
 
 Para @uref{http://@/www@/.vim@/.org,VIM} se proporciona un
@@ -228,7 +228,7 @@ relacionaddos en @rweb{Entornos mejorados}.
 
 
 @node Conversión desde otros formatos
-@chapter Conversión desde otros formatos
+@section Conversión desde otros formatos
 @translationof Converting from other formats
 
 También se puede escribir la música a través de su importación desde
@@ -264,7 +264,7 @@ informes de fallo casi con certeza no se resolverán a medio plazo.
 
 
 @node Invocar midi2ly
-@section Invocar @command{midi2ly}
+@subsection Invocar @command{midi2ly}
 @translationof Invoking midi2ly
 
 @cindex MIDI
@@ -357,7 +357,7 @@ pedal.
 
 
 @node Invocar musicxml2ly
-@section Invocar @command{musicxml2ly}
+@subsection Invocar @command{musicxml2ly}
 @translationof Invoking musicxml2ly
 
 @cindex MusicXML
@@ -430,8 +430,11 @@ el archivo de entrada es un archivo MusicXML comprimido en zip.
 
 
 @node Invocar abc2ly
-@section Invocar @code{abc2ly}
+@subsection Invocar @code{abc2ly}
 @translationof Invoking abc2ly
+
+@warning{Este programa ya no está soportado, y podría desaparecer
+de versiones posteriores de LilyPond.}
 
 @cindex ABC
 
@@ -500,7 +503,7 @@ ABC sincroniza las letras y las notas al principio de una línea;
 
 
 @node Invocar etf2ly
-@section Invocar @command{etf2ly}
+@subsection Invocar @command{etf2ly}
 @translationof Invoking etf2ly
 
 @cindex ETF
