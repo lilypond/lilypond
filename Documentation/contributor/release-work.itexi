@@ -84,14 +84,22 @@ A @qq{minor release} means an update of @code{y} in @code{2.x.y}.
 
 @item
 Switch to the release branch, get changes, prep release
-announcement, upload:
+announcement:
 
 @example
 git checkout release/unstable
 git merge origin
 vi Documentation/web/news-front.itexi Documentation/web/news.itexi
+@end example
+
+@item
+Commit, push, switch back to master:
+
+@example
 git commit -m "Release: update news." Documentation/web/
 git push origin
+git checkout master
+git merge release/unstable
 @end example
 
 @item (optional) Check that lilypond builds from scratch in an
