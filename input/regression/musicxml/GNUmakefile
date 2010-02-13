@@ -3,6 +3,8 @@ depth = ../../..
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc musicxml
 
+EXTRA_DIST_FILES = LICENSE
+
 TEXI2HTML_FLAGS += --nomenu
 
 # Urgh, how can I do two replacements at once without messing up the order of the list?
