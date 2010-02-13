@@ -10,9 +10,9 @@
 
 @c \version "2.12.0"
 
-@node Sugerencias para escribir archivos de entrada de LilyPond
-@section Sugerencias para escribir archivos de entrada de LilyPond
-@translationof Suggestions for writing LilyPond input files
+@node Sugerencias para escribir archivos de entrada
+@section Sugerencias para escribir archivos de entrada
+@translationof Suggestions for writing files
 
 En este momento está preparado para comenzar a escribir archivos de
 LilyPond más grandes -- no sólo los pequeños ejemplos que aparecen en
