@@ -12,7 +12,7 @@
 
 
 @node Actualizar ficheros con convert-ly
-@section Actualizar ficheros con @command{convert-ly}
+@chapter Actualizar ficheros con @command{convert-ly}
 @translationof Updating files with convert-ly
 
 @cindex actualización de un archivo de LilyPond
@@ -73,7 +73,7 @@ antiguos.
 
 
 @node Invocar convert-ly
-@subsection Invocar @command{convert-ly}
+@section Invocar @command{convert-ly}
 @translationof Invoking convert-ly
 
 @command{convert-ly} utiliza los enunciados @code{\version} de los
@@ -125,7 +125,7 @@ ventana del terminal del sistema, que se encuentra por lo general bajo
 
 
 @node Opciones de la línea de órdenes para convert-ly
-@subsection Opciones de la línea de órdenes para @command{convert-ly}
+@section Opciones de la línea de órdenes para @command{convert-ly}
 @translationof Command line options for convert-ly
 
 
@@ -178,7 +178,7 @@ convert-ly --from=... --to=... -s
 
 
 @node Problemas con convert-ly
-@subsection Problemas con @code{convert-ly}
+@section Problemas con @code{convert-ly}
 @translationof Problems with convert-ly
 
 Al ejecutar convert-ly en una ventana del Símbolo del Sistema bajo

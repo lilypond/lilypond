@@ -11,7 +11,7 @@
 @c \version "2.12.0"
 
 @node Sugerencias para escribir archivos de entrada
-@section Sugerencias para escribir archivos de entrada
+@chapter Sugerencias para escribir archivos de entrada
 @translationof Suggestions for writing files
 
 En este momento está preparado para comenzar a escribir archivos de
@@ -55,7 +55,7 @@ estructurar para que sean más fáciles (o más difíciles) de actualizar.
 
 
 @node Sugerencias de tipo general
-@subsection Sugerencias de tipo general
+@section Sugerencias de tipo general
 @translationof General suggestions
 
 Presentamos algunas sugerencias que le pueden servir de ayuda para evitar
@@ -110,7 +110,7 @@ reelabora la música más tarde.
 
 
 @node Tipografiar música existente
-@subsection Tipografiar música existente
+@section Tipografiar música existente
 @translationof Typesetting existing music
 
 Si está introduciendo música a partir de una partitura existente (es
@@ -160,7 +160,7 @@ para una trompeta en Si bemol, aes para un clarinete en La bemol, etc.
 
 
 @node Proyectos grandes
-@subsection Proyectos grandes
+@section Proyectos grandes
 @translationof Large projects
 
 Al trabajar en proyectos grandes se hace esencial tener una estructura
