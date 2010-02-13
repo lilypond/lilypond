@@ -64,7 +64,7 @@ documentos sobre este tema si no le resulta familiar la línea de
 @end menu
 
 @node Invocar a LilyPond
-@subsection Invocar @command{lilypond}
+@unnumberedsubsec Invocar @command{lilypond}
 @translationof Invoking lilypond
 
 @cindex invocar @command{lilypond}
@@ -108,7 +108,7 @@ producirá como salida @var{base}@file{-violin.pdf} y
 
 
 @node Opciones de la línea de órdenes para lilypond
-@subsection Opciones de la línea de órdenes para @command{lilypond}
+@unnumberedsubsec Opciones de la línea de órdenes para @command{lilypond}
 @translationof Command line options for lilypond
 
 Están contempladas las siguientes opciones:
@@ -392,7 +392,7 @@ Mostrar la garantía con que viene GNU LilyPond (¡no viene con
 @end table
 
 @node Variables de entorno
-@subsection Variables de entorno
+@unnumberedsubsec Variables de entorno
 @translationof Environment variables
 
 
@@ -500,241 +500,11 @@ advertencias y errores se producen cuando ocurre algo inesperado.  Si
 no ve un error en la línea que se indica del archivo de entrada, trate
 de comprobar una o dos líneas por encima de la posición indicada.
 
+Se ofrece más información sobre los errores en la sección @ref{Errores
+comunes}.
 
-@node Actualizar ficheros con convert-ly
-@section Actualizar ficheros con @command{convert-ly}
-@translationof Updating files with convert-ly
+@node Errores comunes
+@section Errores comunes
+@translationof Common errors
 
-@cindex actualización de un archivo de LilyPond
-@cindex convert-ly
-
-La sintaxis del lenguaje de entrada de LilyPond se modifica de forma
-habitual para simplificarla o mejorarla de distintas maneras.  Como
-efecto secundario, el intérprete de LilyPond a menudo ya no es
-compatible con los archivos de entrada antiguos.  Para poner remedio a
-esto se puede utilizar el programa @command{convert-ly} para manejar
-casi todos los cambios de sintaxis entre versiones de LilyPond.
-
-@menu
-* Invocar convert-ly::
-* Opciones de la línea de órdenes para convert-ly::
-* Problemas con convert-ly::
-@end menu
-
-@node Invocar convert-ly
-@subsection Invocar @command{convert-ly}
-@translationof Invoking convert-ly
-
-@command{convert-ly} utiliza los enunciados @code{\version} de los
-archivos de entrada para detectar el número de versión antiguo.  En
-casi todos los casos, para actualizar el archivo de entrada basta con
-ejecutar
-
-@example
-convert-ly -e miarchivo.ly
-@end example
-
-@noindent
-dentro del directorio que contiene el archivo.  Con esto se actualiza
-@code{miarchivo.ly} @emph{in situ} y se preserva el archivo original
-@code{miarchivo.ly~}.
-
-Para convertir de una vez todos los archivos de entrada que hay en un
-directorio, use
-
-@example
-convert-ly -e *.ly
-@end example
-
-
-De forma alternativa, si queremos especificar un nombre distinto para
-el archivo actualizado, preservando el archivo original con el mismo
-nombre, haga
-
-@example
-convert-ly miarchivo.ly > minuevoarchivo.ly
-@end example
-
-@command{convert-ly} siempre convierte al último cambio de sintaxis
-que es capaz de manejar.  Esto supone que el número de @code{\version}
-que aparece en el archivo convertidoo suele ser más bajo que la
-versión del propio programa @command{convert-ly}.
-
-El programa imprimirá una relación de los números de versión para los
-que se han hecho conversiones.  Si no se imprime ningún número de
-versión, el archivo ya está actualizado.
-
-@noindent
-Los usuarios de MacOS@tie{}X pueden ejecutar esta instrucción bajo el
-menú @code{Compilar > Actualizar sintaxis}.
-
-Los usuarios de Windows deben introducir esta instrucción en una
-ventana del terminal del sistema, que se encuentra por lo general bajo
-@code{Inicio > Accesorios > Símbolo del sistema}.
-
-
-@node Opciones de la línea de órdenes para convert-ly
-@subsection Opciones de la línea de órdenes para @command{convert-ly}
-@translationof Command line options for convert-ly
-
-
-En general, el programa se invoca de la manera siguiente:
-
-@example
-convert-ly [@var{opción}]@dots{} @var{archivo}@dots{}
-@end example
-
-
-Se pueden dar las siguientes opciones:
-
-@table @code
-@item -e,--edit
-Aplicar las conversiones directamente al archivo de entrada,
-modificándolo in situ.
-
-@item -f,--from=@var{versión_de_origen}
-Establece la versión desde la que convertir.  Si no aparece esta
-opción, @command{convert-ly} tratará de adivinarla, basándose en el
-enunciado @code{\version} del archivo.  Ejemplo: @code{--from=2.10.25}
-
-@item -n,--no-version
-Normalmente @command{convert-ly} añade un indicador @code{\version} a
-la salida.  La especificación de esta opción lo suprime.
-
-@item -s, --show-rules
-Mostrar todas las conversiones conocidas y salir.
-
-@item --to=@var{versión_final}
-Fijar la versión de destino de la conversión.  De forma predeterminada
-se convierte a la última versión disponible.
-
-@item -h, --help
-Imprimir la ayuda de la utilización.
-@end table
-
-Para actualizar fragmentos de LilyPond en archivos de texinfo, use
-
-@example
-convert-ly --from=... --to=... --no-version *.itely
-@end example
-
-Para ver los cambios en la sintaxis de LilyPond entre dos versiones
-dadas, use
-
-@example
-convert-ly --from=... --to=... -s
-@end example
-
-
-@node Problemas con convert-ly
-@subsection Problemas con @code{convert-ly}
-@translationof Problems with convert-ly
-
-Al ejecutar convert-ly en una ventana del Símbolo del Sistema bajo
-Windows sobre un archivo que tiene espacios en el nombre o en la ruta,
-es necesario encerrar todo el nombre del archivo de entrada con tres
-(!) pares de comillas:
-
-@example
-convert-ly """D:/Mis partituras/Oda.ly""" > "D:/Mis partituras/nueva Oda.ly"
-@end example
-
-Si la orden simple @command{convert-ly -e *.ly} no funciona porque la
-instrucción expandida se hace muy larga, en vez de ello la orden
-@command{convert-ly} se puede poner dentro de un bucle.  Este ejemplo
-para UNIX actualiza todos los documentos @code{.ly} del directorio
-actual
-
-@example
-for f in *.ly; do convert-ly -e $f; done;
-@end example
-
-En la ventana del terminal de órdenes de Windows, la instrucción
-correspondiente es
-
-@example
-for %x in (*.ly) do convert-ly -e """%x"""
-@end example
-
-No se manejan todos los cambios en el lenguaje.  Sólo se puede
-especificar una opción de salida.  La actualización automática de
-Scheme y los interfaces Scheme de LilyPond es bastante improbable;
-prepárese para trucar el código de Scheme a mano.
-
-@verbatim
-Hay algunas cosas que convert-ly no puede manejar.  He aquí una lista
-de aquellas limitaciones que han dado lugar a protestas de la
-comunidad.
-
-Se ha escogido esta estructura de informe de fallo porque convert-ly
-tiene una estructura que no permite implementar de forma progresiva
-todos los cambios necesarios.  Así pues esto es sólo una lista de
-deseos, y se incluye aquí como referencia.
-
-1.6->2.0:
- No siempre convierte el bajo cifrado correctamente, específicamente cosas como {<
->}.  El comentario de Mats sobre cómo solventar el problema:
-   Para poder ejecutar convert-ly
-   sobre él, primero sustituí todas las apariciones de '{<' a algo mudo como '{#'
-   y de forma similar sustituí '>}' con '&}'.  Después de la conversión, pude
-   volver a cambiarlos de '{ #' a '{ <' y de '& }' a '> }'.
- No convierte todos los marcados de texto correctamente.  En sintaxis antigua,
- se podían agrupar varios marcados entre paréntesis, p.ej.
-   -#'((bold italic) "cadena")
-   Esto se convierte incorrectamente en
-   -\markup{{\bold italic} "cadena"}
-   en vez del correcto
-   -\markup{\bold \italic "cadena"}
-2.0->2.2:
- No maneja \partcombine
- No hace \addlyrics => \lyricsto, esto rompe algunas partituras con varias estrofas.
-2.0->2.4:
- \magnify no se cambia por \fontsize.
-    - \magnify #m => \fontsize #f, donde f = 6ln(m)/ln(2)
- remove-tag no se cambia.
-    - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
- first-page-number no se cambia.
-    - first-page-number no => print-first-page-number = ##f
- Los saltos de línea en las cadenas de cabecera no se convierten.
-    - \\\\  como salto de línea en las cadenas de \header  => \markup \center-align <
-      "Primera línea" "Segunda línea" >
- Los terminadores de crescendo y decrescendo no se convierten.
-    - \rced => \!
-    - \rc => \!
-2.2->2.4:
- \turnOff (usado en \set Staff.VoltaBracket = \turnOff) no se convierte
-adecuadamente.
-2.4.2->2.5.9
- \markup{ \center-align <{ ... }> } se tendría que convertir en:
- \markup{ \center-align {\line { ... }} }
- pero ahora, falta el \line.
-2.4->2.6
- Los caracteres especiales de LaTeX como $~$ en el texto no se convierten a UTF8.
-2.8
- \score{} ahora debe empezar con una expresión musical.  Cualquier otra cosa
- (en particular, \header{}) debe ir después de la música.
-@end verbatim
-
-
-@node Informar de fallos
-@section Informar de fallos
-@translationof Reporting bugs
-
-@cindex bugs (fallos)
-@cindex fallos (bugs)
-@cindex informes de fallo
-
-Si tiene una entrada que produce una interrupción abrupta o una salida
-errónea, entonces eso es un bug (fallo).  Hay una lista de los fallos
-actuales en nuestro rastreador de fallos de Google Code:
-
-@uref{http://code.google.com/p/lilypond/issues/list}
-
-Si descubre un error que no está en la lista, le rogamos que envíe un
-informe del fallo siguiendo las instrucciones que aparecen en
-
-@uref{http://lilypond.org/web/devel/participating/bugs}
-
-Le rogamos, asimismo, que para los informes prepare y envíe ejemplos
-mínimos de los fallos.  No tenemos los recursos para investigar
-informes que no sean lo más pequeños posible.
+@untranslated
