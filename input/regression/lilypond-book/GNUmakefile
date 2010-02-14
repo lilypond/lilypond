@@ -1,6 +1,6 @@
 depth = ../../..
 
-STEPMAKE_TEMPLATES=documentation texinfo tex
+STEPMAKE_TEMPLATES=documentation texinfo
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc lilypond-book
 
 ifndef LILYBOOK_OUT_FILES

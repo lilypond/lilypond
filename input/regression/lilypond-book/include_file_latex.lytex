@@ -1,0 +1,5 @@
+\documentclass{article}
+\begin{document}
+Including Lilypond file:
+\lilypondfile{include2.ly}
+\end{document}

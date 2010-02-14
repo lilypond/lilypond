@@ -1,0 +1,4 @@
+\documentclass{article}
+\begin{document}
+Lilypond version: \lilypondversion
+\end{document}
