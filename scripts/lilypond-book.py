@@ -390,7 +390,7 @@ snippet_res = {
          r'''(?mx)
           (?P<match>
           <lilypond
-           (\s*(?P<options>.*?)\s*:)?\s*
+           (\s+(?P<options>.*?))?\s*:\s*
            (?P<code>.*?)
           \s*/>)''',
 
