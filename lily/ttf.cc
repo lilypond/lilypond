@@ -78,10 +78,10 @@ print_header (void *out, FT_Face face)
     = (TT_Header *)FT_Get_Sfnt_Table (face, ft_sfnt_head);
 
   lily_cookie_fprintf (out, "/FontBBox [%lf %lf %lf %lf] def\n",
-		       float (ht->xMin) / ht->Units_Per_EM,
-		       float (ht->yMin) / ht->Units_Per_EM,
-		       float (ht->xMax) / ht->Units_Per_EM,
-		       float (ht->yMax) / ht->Units_Per_EM);
+		       float (ht->xMin) / float (ht->Units_Per_EM),
+		       float (ht->yMin) / float (ht->Units_Per_EM),
+		       float (ht->xMax) / float (ht->Units_Per_EM),
+		       float (ht->yMax) / float (ht->Units_Per_EM));
 
   lily_cookie_fprintf (out, "/FontType 42 def\n");
   lily_cookie_fprintf (out, "/FontInfo 8 dict dup begin\n");
@@ -112,9 +112,11 @@ print_header (void *out, FT_Face face)
   lily_cookie_fprintf (out, "/isFixedPitch %s def\n",
 		       pt->isFixedPitch ? "true" : "false");
   lily_cookie_fprintf (out, "/UnderlinePosition %lf def\n",
-		       float (pt->underlinePosition) / ht->Units_Per_EM);
+		       float (pt->underlinePosition)
+		       / float (ht->Units_Per_EM));
   lily_cookie_fprintf (out, "/UnderlineThickness %lf def\n",
-		       float (pt->underlineThickness) / ht->Units_Per_EM);
+		       float (pt->underlineThickness)
+		       / float (ht->Units_Per_EM));
   lily_cookie_fprintf (out, "end readonly def\n");
 }
 
@@ -168,7 +170,7 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
 	if (offset > last_offset + CHUNKSIZE)
 	  {
 	    if (last_chunk != last_offset)
-	      chunks.push_back (last_offset - last_chunk);
+	      chunks.push_back (FT_UShort (last_offset - last_chunk));
 	    /*
 	      a single glyph with more than 64k data
 	      is a pathological case but...
@@ -179,18 +181,18 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
 		chunks.push_back (CHUNKSIZE);
 		rest -= CHUNKSIZE;
 	      }
-	    chunks.push_back (rest);
+	    chunks.push_back (FT_UShort (rest));
 	    last_chunk = offset;
 	  }
 	else if (offset > last_chunk + CHUNKSIZE)
 	  {
-	    chunks.push_back (last_offset - last_chunk);
+	    chunks.push_back (FT_UShort (last_offset - last_chunk));
 	    last_chunk = last_offset;
 	  }
 
 	last_offset = offset;
       }
-      chunks.push_back (s - last_chunk);
+      chunks.push_back (FT_UShort (s - last_chunk));
 
       delete[] loca_buf;
     }
@@ -202,7 +204,7 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
 	  chunks.push_back (CHUNKSIZE);
 	  rest -= CHUNKSIZE;
 	}
-      chunks.push_back (rest);
+      chunks.push_back (FT_UShort (rest));
     }
   else
     chunks.push_back (CHUNKSIZE);
@@ -275,11 +277,11 @@ print_body (void *out, FT_Face face)
   unsigned char *hbuf = new unsigned char[hlength];
   unsigned char *p;
 
-  hbuf[0] = 0x00;			/* version */
+  hbuf[0] = 0x00;					/* version */
   hbuf[1] = 0x01;
   hbuf[2] = 0x00;
   hbuf[3] = 0x00;
-  hbuf[4] = (idx & 0xFF00) >> 8;	/* numTables */
+  hbuf[4] = (unsigned char) ((idx & 0xFF00) >> 8);	/* numTables */
   hbuf[5] = idx & 0x00FF;
 
   FT_UInt searchRange, entrySelector, rangeShift;
@@ -290,11 +292,11 @@ print_body (void *out, FT_Face face)
   searchRange = 0x10 << entrySelector;
   rangeShift = (idx << 4) - searchRange;
 
-  hbuf[6] = (searchRange & 0xFF00) >> 8;
+  hbuf[6] = (unsigned char) ((searchRange & 0xFF00) >> 8);
   hbuf[7] = searchRange & 0x00FF;
-  hbuf[8] = (entrySelector & 0xFF00) >> 8;
+  hbuf[8] = (unsigned char) ((entrySelector & 0xFF00) >> 8);
   hbuf[9] = entrySelector & 0x00FF;
-  hbuf[10] = (rangeShift & 0xFF00) >> 8;
+  hbuf[10] = (unsigned char) ((rangeShift & 0xFF00) >> 8);
   hbuf[11] = rangeShift & 0x00FF;
 
   p = &hbuf[12];
@@ -337,24 +339,24 @@ print_body (void *out, FT_Face face)
 
     delete[] buf;
 
-    *(p++) = (tags[i] & 0xFF000000UL) >> 24;
-    *(p++) = (tags[i] & 0x00FF0000UL) >> 16;
-    *(p++) = (tags[i] & 0x0000FF00UL) >> 8;
+    *(p++) = (unsigned char) ((tags[i] & 0xFF000000UL) >> 24);
+    *(p++) = (unsigned char) ((tags[i] & 0x00FF0000UL) >> 16);
+    *(p++) = (unsigned char) ((tags[i] & 0x0000FF00UL) >> 8);
     *(p++) = tags[i] & 0x000000FFUL;
 
-    *(p++) = (checksum & 0xFF000000UL) >> 24;
-    *(p++) = (checksum & 0x00FF0000UL) >> 16;
-    *(p++) = (checksum & 0x0000FF00UL) >> 8;
+    *(p++) = (unsigned char) ((checksum & 0xFF000000UL) >> 24);
+    *(p++) = (unsigned char) ((checksum & 0x00FF0000UL) >> 16);
+    *(p++) = (unsigned char) ((checksum & 0x0000FF00UL) >> 8);
     *(p++) = checksum & 0x000000FFUL;
 
-    *(p++) = (offset & 0xFF000000UL) >> 24;
-    *(p++) = (offset & 0x00FF0000UL) >> 16;
-    *(p++) = (offset & 0x0000FF00UL) >> 8;
+    *(p++) = (unsigned char) ((offset & 0xFF000000UL) >> 24);
+    *(p++) = (unsigned char) ((offset & 0x00FF0000UL) >> 16);
+    *(p++) = (unsigned char) ((offset & 0x0000FF00UL) >> 8);
     *(p++) = offset & 0x000000FFUL;
 
-    *(p++) = (lengths[i] & 0xFF000000UL) >> 24;
-    *(p++) = (lengths[i] & 0x00FF0000UL) >> 16;
-    *(p++) = (lengths[i] & 0x0000FF00UL) >> 8;
+    *(p++) = (unsigned char) ((lengths[i] & 0xFF000000UL) >> 24);
+    *(p++) = (unsigned char) ((lengths[i] & 0x00FF0000UL) >> 16);
+    *(p++) = (unsigned char) ((lengths[i] & 0x0000FF00UL) >> 8);
     *(p++) = lengths[i] & 0x000000FFUL;
 
     /* offset must be a multiple of 4 */
@@ -390,9 +392,9 @@ print_body (void *out, FT_Face face)
       if (tag == head_tag)
 	{
 	  /* in the second pass simply store the computed font checksum */
-	  buf[8] = (font_checksum & 0xFF000000UL) >> 24;
-	  buf[9] = (font_checksum & 0x00FF0000UL) >> 16;
-	  buf[10] = (font_checksum & 0x0000FF00UL) >> 8;
+	  buf[8] = (unsigned char) ((font_checksum & 0xFF000000UL) >> 24);
+	  buf[9] = (unsigned char) ((font_checksum & 0x00FF0000UL) >> 16);
+	  buf[10] = (unsigned char) ((font_checksum & 0x0000FF00UL) >> 8);
 	  buf[11] = font_checksum & 0x000000FFUL;
 	}
 
