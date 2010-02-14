@@ -95,7 +95,7 @@
 	 (svg-height (* output-scale device-height)))
 
     (dump (svg-begin svg-width svg-height
-		     left-x top-y device-width device-height))
+		     left-x (- top-y) device-width device-height))
     (ly:outputter-output-scheme outputter
 				`(begin (set! lily-unit-length ,unit-length)
 					""))
