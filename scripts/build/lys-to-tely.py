@@ -91,11 +91,22 @@ for opt in options:
         raise Exception ('unknown option: ' + o)
 
 texi_file_re = re.compile ('.*\.i?te(ly|xi)$')
+html_file_re = re.compile ('.*\.i?htm(l)?$')
 
 def name2line (n):
     if texi_file_re.match (n):
         # We have a texi include file, simply include it:
         s = r"@include %s" % os.path.basename (n)
+    if html_file_re.match (n):
+        s = r"""
+@ifhtml
+@html
+<a href="%s">%s</a>
+<br/>
+@end html
+@end ifhtml
+""" % (os.path.basename (n), os.path.basename (n))
+        return s
     else:
         # Assume it's a lilypond file -> create image etc.
         s = r"""
