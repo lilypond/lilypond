@@ -196,13 +196,10 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 
   if (to_boolean (get_property ("useBassFigureExtenders")))
     {
-      SCM fig = ev->get_property ("figure");
-      SCM txt = ev->get_property ("text");
       for (vsize i = 0; i < groups_.size (); i++)
 	{
 	  if (!groups_[i].current_event_
-	      && ly_is_equal (groups_[i].number_, fig)
-	      && ly_is_equal (groups_[i].text_, txt))
+	      && groups_[i].group_is_equal_to (ev))
 	    {
 	      groups_[i].current_event_ = ev;
 	      groups_[i].force_no_continuation_
