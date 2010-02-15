@@ -1,5 +1,11 @@
 # rules for directories with html files.
 
+LILYPOND_BOOK_COMMAND = LILYPOND_VERSION=$(TOPLEVEL_VERSION) \
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) \
+	--process='$(LILYPOND_BOOK_PROCESS) \
+	$(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) \
+	$(LILYPOND_BOOK_FLAGS)
+
 LILYBOOK_HTML_FILES = $(call src-wildcard,*.html)
 LILYBOOK_XML_FILES = $(call src-wildcard,*.xml)
 LILYBOOK_LYTEX_FILES = $(call src-wildcard,*.lytex)
