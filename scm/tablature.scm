@@ -22,7 +22,7 @@
 (define-public guitar-drop-d-tuning '(4 -1 -5 -10 -15 -22))
 (define-public guitar-open-g-tuning '(2 -1 -5 -10 -17 -22))
 (define-public guitar-open-d-tuning '(2 -3 -6 -10 -15 -22))
-(define-public guitar-dadgad-tuning '(2 -3 -7 -10 -15 -22))
+(define-public guitar-dadgad-tuning '(2 -3 -5 -10 -15 -22))
 (define-public guitar-lute-tuning '(4 -1 -6 -10 -15 -20))
 (define-public guitar-asus4-tuning '(4 -3 -8 -10 -15 -20))
 ;; bass tunings
