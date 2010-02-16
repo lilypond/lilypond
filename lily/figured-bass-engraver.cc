@@ -46,12 +46,10 @@ struct Figure_group
   
   Item *figure_item_; 
   Stream_event *current_event_;
-  bool force_no_continuation_;
   
   Figure_group ()
   {
     figure_item_ = 0;
-    force_no_continuation_ = false;
     continuation_line_ = 0;
     number_ = SCM_EOL;
     alteration_ = SCM_EOL;
@@ -86,7 +84,6 @@ struct Figure_group
   {
     return
       current_event_
-      && !force_no_continuation_
       && group_is_equal_to (current_event_);
   }
 };
@@ -194,7 +191,10 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
   Moment stop  = now_mom () + get_event_length (ev, now_mom ());
   stop_moment_ = max (stop_moment_, stop);
 
-  if (to_boolean (get_property ("useBassFigureExtenders")))
+  // Handle no-continuation here, don't even add it to the already existing
+  // spanner... This fixes some layout issues (figure will be placed separately)
+  bool no_continuation = to_boolean (ev->get_property ("no-continuation"));
+  if (to_boolean (get_property ("useBassFigureExtenders")) && !no_continuation)
     {
       for (vsize i = 0; i < groups_.size (); i++)
 	{
@@ -202,15 +202,8 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 	      && groups_[i].group_is_equal_to (ev))
 	    {
 	      groups_[i].current_event_ = ev;
-	      bool no_cont = to_boolean (ev->get_property ("no-continuation"));
-	      groups_[i].force_no_continuation_ = no_cont;
-	      // Exit only if this is a real continuation. If it is broken,
-	      // continue just as usual (otherwise the figure will still be
-	      // vertically aligned with the previous figure!)
-	      if (!no_cont) {
-	        continuation_ = true;
-	        return;
-	      }
+	      continuation_ = true;
+	      return;
 	    }
 	}
     }
