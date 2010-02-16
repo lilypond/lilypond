@@ -320,7 +320,8 @@ Figured_bass_engraver::add_brackets ()
 void
 Figured_bass_engraver::process_music ()
 {
-  if (alignment_ && !to_boolean (get_property ("useBassFigureExtenders")))
+  bool use_extenders = to_boolean (get_property ("useBassFigureExtenders"));
+  if (alignment_ && !use_extenders)
     clear_spanners ();
         
   if (rest_event_)
@@ -346,7 +347,6 @@ Figured_bass_engraver::process_music ()
   /*
     Don't need to sync alignments, if we're not using extenders. 
    */
-  bool use_extenders = to_boolean (get_property ("useBassFigureExtenders"));
   if (!use_extenders)
     {
       clear_spanners ();
