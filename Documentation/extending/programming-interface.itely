@@ -599,7 +599,7 @@ and the text. So we will introduce a new property,
 @code{box-padding} will be used for the inner padding.  The new code is
 now as follows:
 
-@lisp 
+@lisp
 #(define-markup-command (double-box layout props text) (markup?)
   #:properties ((inter-box-padding 0.4)
                 (box-padding 0.6))
@@ -683,7 +683,7 @@ Then, a property for setting the gap between two lines is added, called
 @lisp
 (define-markup-command (draw-double-line layout props dest)
   (number-pair?)
-  #:properties ((thickness 1) 
+  #:properties ((thickness 1)
                 (line-gap 0.6))
   "..documentation.."
   ...
@@ -695,8 +695,8 @@ stencils are combined using @code{ly:stencil-add}:
 
 @lilypond[quote,verbatim,ragged-right]
 #(define-markup-command (my-draw-line layout props dest)
-  (number-pair?) 
-  #:properties ((thickness 1) 
+  (number-pair?)
+  #:properties ((thickness 1)
                 (line-gap 0.6))
   "..documentation.."
   (let* ((th (* (ly:output-def-lookup layout 'line-thickness)
@@ -922,6 +922,13 @@ The inner @code{ly:make-simple-closure} supplies the grob as argument
 to @var{proc}, the outer ensures that result of the function is
 returned, rather than the @code{simple-closure} object.
 
+From within a callback, the easiest method for evaluating a markup is
+to use gro-interpret-markup.  For example:
+
+@example
+my-callback = #(lambda (grob)
+                 (grob-interpret-markup grob (markup "foo")))
+@end example
 
 @node Inline Scheme code
 @section Inline Scheme code
