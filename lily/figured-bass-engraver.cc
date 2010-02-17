@@ -252,11 +252,8 @@ Figured_bass_engraver::clear_spanners ()
   if (!alignment_)
     return;
 
-  if (alignment_)
-    {
-      announce_end_grob (alignment_, SCM_EOL);
-      alignment_ = 0;
-    }
+  announce_end_grob (alignment_, SCM_EOL);
+  alignment_ = 0;
 
   if (to_boolean (get_property ("figuredBassCenterContinuations")))
     center_repeated_continuations ();
