@@ -17,13 +17,14 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "protected-scm.hh"
-#include "note-column.hh"
-#include "side-position-interface.hh"
 #include "engraver.hh"
+#include "item.hh"
+#include "note-column.hh"
+#include "protected-scm.hh"
+#include "side-position-interface.hh"
 #include "spanner.hh"
 #include "text-interface.hh"
-#include "item.hh"
+
 
 class Ottava_spanner_engraver : public Engraver
 {
@@ -148,8 +149,8 @@ ADD_TRANSLATOR (Ottava_spanner_engraver,
 		"OttavaBracket ",
 
 		/* read */
+		"middleCOffset "
 		"ottavation "
-		"originalMiddleCPosition "
 		"currentMusicalColumn ",
 		
 		/* write */
