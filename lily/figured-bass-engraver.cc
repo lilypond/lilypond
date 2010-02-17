@@ -51,14 +51,19 @@ struct Figure_group
   {
     figure_item_ = 0;
     continuation_line_ = 0;
-    number_ = SCM_EOL;
-    alteration_ = SCM_EOL;
-    augmented_ = SCM_EOL;
-    diminished_ = SCM_EOL;
-    augmented_slash_ = SCM_EOL;
-    text_ = SCM_EOL;
+    reset_figure ();
     group_ = 0;
     current_event_ = 0;
+  }
+  /* Reset (or init) all figure information to FALSE */
+  void reset_figure ()
+  {
+    number_ = SCM_BOOL_F;
+    alteration_ = SCM_BOOL_F;
+    augmented_ = SCM_BOOL_F;
+    diminished_ = SCM_BOOL_F;
+    augmented_slash_ = SCM_BOOL_F;
+    text_ = SCM_BOOL_F;
   }
   /* Mark the members of the struct as used for the GUILE Garbage Collection */
   void gc_mark () const
@@ -378,12 +383,7 @@ Figured_bass_engraver::process_music ()
     {
       if (!groups_[i].is_continuation ())
 	{
-	  groups_[i].number_ = SCM_BOOL_F;
-	  groups_[i].alteration_ = SCM_BOOL_F;
-	  groups_[i].augmented_ = SCM_BOOL_F;
-	  groups_[i].diminished_ = SCM_BOOL_F;
-	  groups_[i].augmented_slash_ = SCM_BOOL_F;
-	  groups_[i].text_ = SCM_BOOL_F;
+	  groups_[i].reset_figure ();
 	}
     }
 
