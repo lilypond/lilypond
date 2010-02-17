@@ -988,7 +988,7 @@ class BracketSpannerEvent (SpanEvent):
     def print_before_note (self, printer):
         if self.span_direction == -1:
             printer.dump ('\[')
-    # the the bracket after the last note
+    # the bracket after the last note
     def print_after_note (self, printer):
         if self.span_direction == 1:
             printer.dump ('\]')

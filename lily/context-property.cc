@@ -55,10 +55,10 @@ general_pushpop_property (Context *context,
   alist defined in a parent context. BASED-ON should always be a tail
   of ALIST.
 
-  Push or pop (depending on value of VAL) a single entry entry from a
+  Push or pop (depending on value of VAL) a single entry from a
   translator property list by name of PROP.  GROB_PROPERTY_PATH
   indicates nested alists, eg. '(beamed-stem-lengths details)
-  
+
 */
 void
 execute_override_property (Context *context,
@@ -67,7 +67,7 @@ execute_override_property (Context *context,
 			   SCM new_value)
 {
   SCM current_context_val = SCM_EOL;
-  
+
   Context *where = context->where_defined (context_property,
 					   &current_context_val);
 
@@ -95,7 +95,7 @@ execute_override_property (Context *context,
   SCM symbol = scm_car (grob_property_path);
   if (scm_is_pair (scm_cdr (grob_property_path)))
     {
-      new_value = nested_property_alist (ly_assoc_get (symbol, target_alist, 
+      new_value = nested_property_alist (ly_assoc_get (symbol, target_alist,
 						       SCM_EOL),
 					 scm_cdr (grob_property_path),
 					 new_value);
@@ -163,7 +163,7 @@ execute_revert_property (Context *context,
 	  programming_error ("Grob property path should be list of symbols.");
 	  return;
 	}
-      
+
       SCM symbol = scm_car (grob_property_path);
       if (scm_is_pair (scm_cdr (grob_property_path)))
 	{
@@ -171,7 +171,7 @@ execute_revert_property (Context *context,
 	  SCM new_val
 	    = nested_property_revert_alist (current_sub_alist,
 					    scm_cdr (grob_property_path));
-	    
+
 	  if (scm_is_pair (current_alist)
 	      && scm_caar (current_alist) == symbol
 	      && current_alist != daddy)
@@ -183,7 +183,7 @@ execute_revert_property (Context *context,
       else
 	{
 	  SCM new_alist = evict_from_alist (symbol, current_alist, daddy);
-	  
+
 	  if (new_alist == daddy)
 	    context->unset_property (context_property);
 	  else
@@ -206,7 +206,7 @@ execute_pushpop_property (Context *context,
 			    scm_list_1 (grob_property),
 			    new_value);
 }
-  
+
 /*
   PRE_INIT_OPS is in the order specified, and hence must be reversed.
 */

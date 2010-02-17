@@ -58,7 +58,7 @@ foot_width# := 9/4 thick#;
 
 
 %
-% These numbers were taken from a part that that the EJE violas played
+% These numbers were taken from a part that the EJE violas played in
 % 1997 -- Probably Mendelssohn's ouverture `Heimkehr aus der Fremde'.
 %
 

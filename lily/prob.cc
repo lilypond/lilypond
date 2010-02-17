@@ -35,7 +35,7 @@ Prob::equal_p (SCM sa, SCM sb)
      constructor preserve equality.
 
      Perhaps it would be better to use a more strict definition of
-     equality; e.g., that that two probs are equal iff they can be
+     equality; e.g., that two probs are equal iff they can be
      distinguished by calls to ly:prob-property.
   */
   Prob *probs[2] = {unsmob_prob (sa), unsmob_prob (sb)};
@@ -66,7 +66,7 @@ Prob::equal_p (SCM sa, SCM sb)
 	  if (scm_caar (aprop) != scm_caar (bprop) ||
 	      (
 	       !(unsmob_input (aval) && unsmob_input (bval))
-	       &&		 
+	       &&
 	       !to_boolean (scm_equal_p (aval, bval))))
 	    return SCM_BOOL_F;
 	}
@@ -123,11 +123,11 @@ SCM
 Prob::mark_smob (SCM smob)
 {
   ASSERT_LIVE_IS_ALLOWED ();
-  
+
   Prob *system = (Prob *) SCM_CELL_WORD_1 (smob);
   scm_gc_mark (system->mutable_property_alist_);
   system->derived_mark ();
-  
+
   return system->immutable_property_alist_;
 }
 
@@ -142,7 +142,7 @@ Prob::print_smob (SCM smob, SCM port, scm_print_state*)
   scm_puts (p->class_name (), port);
   scm_display (p->mutable_property_alist_, port);
   scm_display (p->immutable_property_alist_, port);
-  
+
   scm_puts (" >\n", port);
   return 1;
 }
@@ -176,11 +176,11 @@ Prob::instrumented_set_property (SCM sym, SCM val, const char*, int, const char*
 }
 
 void
-Prob::internal_set_property (SCM sym, SCM val) 
+Prob::internal_set_property (SCM sym, SCM val)
 {
   if (do_internal_type_checking_global)
     type_check_assignment (sym, val);
-  
+
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, sym, val);
 }
 

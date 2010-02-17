@@ -19,9 +19,9 @@
 stafflines := 5;
 
 %
-% The design size of a staff should really be the 
+% The design size of a staff should really be the
 % staff_space, but we use staffsize for historical reasons.
-% 
+%
 
 staff_space# := staffsize# / (stafflines - 1);
 staff_space_rounded# := staff_space#;
@@ -42,11 +42,11 @@ fixed_line_thickness + variable_line_factor * 5 pt# = 0.50 pt#;
 fixed_line_thickness + variable_line_factor * 4.125 pt# = 0.47 pt#;
 
 stafflinethickness# := fixed_line_thickness
-		       + variable_line_factor * staff_space#; 
+		       + variable_line_factor * staff_space#;
 stafflinethickness_rounded# := stafflinethickness#;
 
 %
-% The following tunes the general blackness of the glyphs. 
+% The following tunes the general blackness of the glyphs.
 %
 
 linethickness# := stafflinethickness#;		%% 0.5 pt#;
@@ -79,7 +79,7 @@ if ledgerlinethickness_rounded > 2 stafflinethickness_rounded:
 	ledgerlinethickness_rounded := 2 stafflinethickness_rounded;
 fi;
 
-% 
+%
 % Because of the engraving/stamping process, no traditional
 % characters have sharp edges and corners.
 % The following variable controls the amount of `roundness'.
@@ -162,8 +162,8 @@ define_pixels (blot_diameter);
 %   . Restore height and decrease `d' by 1.
 %
 % o The glyph is centered between two or four staff lines, and the origin is
-%   the middle of the whitespace.  Assuming that the the whitespace consists
-%   of an odd number of pixels, we have this:
+%   the middle of the whitespace.  Assuming that the whitespace consists of
+%   an odd number of pixels, we have this:
 %
 %          -----------
 %                       b

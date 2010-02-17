@@ -4,7 +4,7 @@
 
   "With @code{music-map}, you can apply functions operating on a
 single piece of music to an entire music expression. In this example,
-the the function @code{notes-to-skip} changes a note to a skip. When
+the function @code{notes-to-skip} changes a note to a skip. When
 applied to an entire music expression in the 1st measure, the scripts
 and dynamics are left over. These are put onto the 2nd measure."
 
@@ -29,7 +29,7 @@ Scripts and dynamics are maintained.
 
 \layout { ragged-right= ##t }
 
-foobar =  \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  } 
+foobar =  \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  }
 
 
 \relative c''  \context Voice {
@@ -37,5 +37,5 @@ foobar =  \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  }
 
   << \applyMusic #(lambda (x) (music-map notes-to-skip x))
      \foobar
-     { d8 d d d d d d d  } >> 
+     { d8 d d d d d d d  } >>
 }

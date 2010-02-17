@@ -80,7 +80,7 @@ protected:
 
   void stop_translation_timestep ();
   void process_acknowledged ();
-  
+
   virtual void finalize ();
   virtual void derived_mark () const;
 
@@ -245,8 +245,8 @@ Accidental_engraver::process_acknowledged ()
 	  bool cautionary = to_boolean (note->get_property ("cautionary"));
 	  if (caut.score () > acc.score ())
 	    {
-	      acc.need_acc |= caut.need_acc; 
-	      acc.need_restore |= caut.need_restore; 
+	      acc.need_acc |= caut.need_acc;
+	      acc.need_restore |= caut.need_restore;
 
 	      cautionary = true;
 	    }
@@ -261,7 +261,7 @@ Accidental_engraver::process_acknowledged ()
 	  */
 	  if (!note->in_event_class ("trill-span-event"))
 	    {
-	      if (acc.need_acc)	      
+	      if (acc.need_acc)
 		create_accidental (&accidentals_[i], acc.need_restore, cautionary);
 
 	      if (forced || cautionary)
@@ -332,7 +332,7 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
   Accidental_placement::add_accidental (accidental_placement_, a);
 
   note_head->set_object ("accidental-grob", a->self_scm ());
-  
+
   return a;
 }
 
@@ -377,7 +377,7 @@ Accidental_engraver::stop_translation_timestep ()
     }
 
   for (vsize i = accidentals_.size (); i--;)
-    {      
+    {
       Stream_event *note = accidentals_[i].melodic_;
       Context *origin = accidentals_[i].origin_;
 
@@ -415,7 +415,7 @@ Accidental_engraver::stop_translation_timestep ()
 	  else
 	    {
 	      /*
-		not really really correct if there is more than one
+		not really correct if there is more than one
 		note head with the same notename.
 	      */
 	      localsig = ly_assoc_prepend_x (localsig, key,
