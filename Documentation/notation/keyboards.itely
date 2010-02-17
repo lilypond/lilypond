@@ -403,7 +403,7 @@ Chords that cross staves may be produced:
         \clef bass
         % stems may overlap the other staff
         \override Stem #'cross-staff = ##t
-        % extend the stems to reach other other staff
+        % extend the stems to reach the other staff
         \override Stem #'length = #12
         % do not print extra flags
         \override Stem #'flag-style = #'no-flag

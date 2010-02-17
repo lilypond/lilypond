@@ -212,7 +212,7 @@ A nested repeat like
 @end example
 
 @noindent
-is ambiguous, since it is is not clear to which @code{\repeat} the
+is ambiguous, since it is not clear to which @code{\repeat} the
 @code{\alternative} belongs.  This ambiguity is resolved by always
 having the @code{\alternative} belong to the inner @code{\repeat}.
 For clarity, it is advisable to use braces in such situations.

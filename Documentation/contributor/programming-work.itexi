@@ -1259,8 +1259,8 @@ processed prior to beginning the translation for the next timestep.
 
 In certain cases, an engraver might need to ensure private Scheme variables
 (with type SCM) do not get swept away by Guile's garbage collector: for example,
-a cache of the previous key signature which must persist persist between timesteps.
-The method @code{virtual derived_mark () const} can be used in such cases to mark
+a cache of the previous key signature which must persist between timesteps.  The
+method @code{virtual derived_mark () const} can be used in such cases to mark
 such objects as follows:
 
 @example
@@ -1273,7 +1273,7 @@ Engraver_name::derived_mark ()
 
 @subsection Listening to music events
 
-External interfaces to to the engraver are implemented by protected
+External interfaces to the engraver are implemented by protected
 macros including one or more of the following:
 
 @itemize

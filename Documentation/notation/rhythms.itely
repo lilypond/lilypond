@@ -1380,7 +1380,7 @@ Internals Reference:
 @knownissues
 
 When using different time signatures in parallel, notes
-at the same moment will be be placed at the same horizontal
+at the same moment will be placed at the same horizontal
 location.  However, the bar lines in the different staves
 will cause the note spacing to be less regular in each of the
 individual staves than would be normal without the different
