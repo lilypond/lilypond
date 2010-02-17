@@ -110,7 +110,7 @@ protected:
   bool new_event_found_;
   
   Moment stop_moment_;
-  Stream_event *rest_event_; 
+  bool have_rest_;
 
   DECLARE_TRANSLATOR_LISTENER (rest);
   DECLARE_TRANSLATOR_LISTENER (bass_figure);
@@ -151,7 +151,7 @@ Figured_bass_engraver::Figured_bass_engraver ()
 {
   alignment_ = 0;
   continuation_ = false;
-  rest_event_ = 0;
+  have_rest_ = 0;
   new_event_found_ = false;
 }
 
@@ -162,7 +162,7 @@ Figured_bass_engraver::start_translation_timestep ()
       || now_mom ().grace_part_ < Rational (0))
     return ;
   
-  rest_event_ = 0;
+  have_rest_ = 0;
   new_events_.clear ();
   for (vsize i = 0; i < groups_.size (); i++)
     groups_[i].current_event_ = 0;
@@ -176,16 +176,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Figured_bass_engraver, rest);
 void
 Figured_bass_engraver::listen_rest (Stream_event *ev)
 {
-  if (to_boolean (get_property ("ignoreFiguredBassRest")))
-    {
-      new_event_found_ = true;
-
-      /*
-	No ASSIGN_EVENT_ONCE () ; otherwise we get warnings about
-	polyphonic rests.
-       */
-      rest_event_ = ev;
-    }
+  have_rest_ = true;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Figured_bass_engraver, bass_figure);
@@ -327,15 +318,10 @@ Figured_bass_engraver::process_music ()
   if (alignment_ && !use_extenders)
     clear_spanners ();
         
-  if (rest_event_)
-    {
-      clear_spanners ();
-      groups_.clear ();
-      return;
-    }
-  
-  if (!continuation_
-      && new_events_.empty ())
+  // If we have a rest, or we have no new or continued events, clear all spanners
+  bool ignore_rest = to_boolean (get_property ("ignoreFiguredBassRest"));
+  if ((ignore_rest && have_rest_) ||
+      (!continuation_ && new_events_.empty ()))
     {
       clear_spanners ();
       groups_.clear ();
