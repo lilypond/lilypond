@@ -27,6 +27,8 @@ endif
 
 ################################################################
 OUT=out-website
+WEB_LANGS=es fr
+
 
 TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 
@@ -56,10 +58,14 @@ website-xrefs: website-version
 	$(foreach manual, $(MANUALS), \
 		$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/ \
 		-I $(OUT) -o $(OUT) $(manual) && ) :
-	# translation: es
-	$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/es \
-		-I $(OUT) -o $(OUT) --split=node \
-		$(top-src-dir)/Documentation/es/web.texi
+	# translations
+	for l in $(WEB_LANGS); do \
+		$(EXTRACT_TEXI_FILENAMES) \
+			-I $(top-src-dir)/Documentation/"$$l" \
+			-I $(OUT) -o $(OUT) --split=node \
+			$(top-src-dir)/Documentation/"$$l"/web.texi ;\
+	done;
+
 
 website-texinfo: website-version website-xrefs
 	$(TEXI2HTML) --prefix=index \
@@ -70,18 +76,20 @@ website-texinfo: website-version website-xrefs
 		-D web_version \
 		--output=$(OUT)/website/ \
 		$(top-src-dir)/Documentation/web.texi
-	# translation: es
-	$(TEXI2HTML) --prefix=index \
-		--split=section \
-		--I=$(top-src-dir)/Documentation/es \
-		--I=$(top-src-dir)/Documentation/ \
-		--I=$(OUT) \
-                --lang=es \
-		--init-file=$(texi2html-init-file) \
-		-D web_version \
-		--output=$(OUT)/es/ \
-		$(top-src-dir)/Documentation/es/web.texi
-	find $(OUT)/es/ -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/es/!!g' | xargs $(MASS_LINK) --prepend-suffix .es hard $(OUT)/es/ $(OUT)/website/
+	# translations
+	for l in $(WEB_LANGS); do \
+		$(TEXI2HTML) --prefix=index \
+			--split=section \
+			--I=$(top-src-dir)/Documentation/"$$l" \
+			--I=$(top-src-dir)/Documentation/ \
+			--I=$(OUT) \
+			--lang="$$l" \
+			--init-file=$(texi2html-init-file) \
+			-D web_version \
+			--output=$(OUT)/"$$l" \
+			$(top-src-dir)/Documentation/"$$l"/web.texi ; \
+		find $(OUT)/$$l/ -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/'$$l'/!!g' | xargs $(MASS_LINK) --prepend-suffix .$$l hard $(OUT)/$$l/ $(OUT)/website/ ; \
+	done
 
 
 website-css:
