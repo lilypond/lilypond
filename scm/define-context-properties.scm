@@ -579,10 +579,6 @@ This can be used to signal melismas on top of those automatically
 detected.")
 
 
-     (originalMiddleCPosition ,integer? "Used for temporary overriding
-middle@tie{}C in octavation brackets.")
-
-
      (quotedCueEventTypes ,list? "A list of symbols, representing the
 event types that should be duplicated for @code{\\cueDuring} commands.")
      (quotedEventTypes ,list? "A list of symbols, representing the
