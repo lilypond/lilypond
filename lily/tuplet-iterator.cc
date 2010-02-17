@@ -27,16 +27,16 @@
 
 /*
   Iterates \times, by sending TupletSpanEvents at the start/end of each
-  tuplet bracket. Extra stop/start events are sent at regular
+  tuplet bracket.  Extra stop/start events are sent at regular
   intervals if tupletSpannerDuration is set.
 */
-class Time_scaled_music_iterator : public Music_wrapper_iterator
+class Tuplet_iterator : public Music_wrapper_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   /* construction */
-  DECLARE_CLASSNAME (Time_scaled_music_iterator);
-  Time_scaled_music_iterator ();
+  DECLARE_CLASSNAME (Tuplet_iterator);
+  Tuplet_iterator ();
 protected:
   virtual void process (Moment m);
   virtual void construct_children ();
@@ -44,7 +44,7 @@ protected:
   virtual Moment pending_moment () const;
 
   Music *create_event (Direction d);
-  
+
 private:
 
   /* tupletSpannerDuration */
@@ -52,20 +52,20 @@ private:
 
   /* next time to add a stop/start pair */
   Moment next_split_mom_;
-  
+
   /* Recycle start/stop events if tupletSpannerDuration is set. */
   SCM synthesized_events_;
-  
+
   Context_handle tuplet_handler_;
 };
 
-Music*
-Time_scaled_music_iterator::create_event (Direction d)
+Music *
+Tuplet_iterator::create_event (Direction d)
 {
   SCM ev_scm = scm_call_2 (ly_lily_module_constant ("make-span-event"),
 			   ly_symbol2scm ("TupletSpanEvent"),
 			   scm_from_int (d));
-  
+
   Music *mus = get_music ();
 
   Music *ev = unsmob_music (ev_scm);
@@ -82,16 +82,14 @@ Time_scaled_music_iterator::create_event (Direction d)
   return ev;
 }
 
-
-Time_scaled_music_iterator::Time_scaled_music_iterator ()
+Tuplet_iterator::Tuplet_iterator ()
 {
   spanner_duration_ = next_split_mom_ = 0;
   synthesized_events_ = SCM_EOL;
 }
 
-
 Moment
-Time_scaled_music_iterator::pending_moment () const
+Tuplet_iterator::pending_moment () const
 {
   Moment next_mom = Music_wrapper_iterator::pending_moment ();
   next_mom = min (next_mom, next_split_mom_);
@@ -99,12 +97,11 @@ Time_scaled_music_iterator::pending_moment () const
   return next_mom;
 }
 
-
 void
-Time_scaled_music_iterator::process (Moment m)
+Tuplet_iterator::process (Moment m)
 {
-  if (spanner_duration_.to_bool () &&
-      m.main_part_ == next_split_mom_)
+  if (spanner_duration_.to_bool ()
+      && m.main_part_ == next_split_mom_)
     {
       descend_to_bottom_context ();
       if (tuplet_handler_.get_outlet ())
@@ -114,13 +111,11 @@ Time_scaled_music_iterator::process (Moment m)
 	{
 	  tuplet_handler_.set_context (get_outlet ());
 	  report_event (create_event (START));
-      
+
 	  next_split_mom_ += spanner_duration_;
 	}
       else
-	{
-	  tuplet_handler_.set_context (0);
-	}
+	tuplet_handler_.set_context (0);
     }
   Music_wrapper_iterator::process (m);
   if (child_iter_ && child_iter_->ok ())
@@ -129,14 +124,15 @@ Time_scaled_music_iterator::process (Moment m)
 }
 
 void
-Time_scaled_music_iterator::construct_children ()
+Tuplet_iterator::construct_children ()
 {
   spanner_duration_ = music_get_length ();
 
-  Moment *mp = unsmob_moment (get_outlet ()->get_property ("tupletSpannerDuration"));
+  Moment *mp
+    = unsmob_moment (get_outlet ()->get_property ("tupletSpannerDuration"));
   if (mp)
     spanner_duration_ = min (mp->main_part_, spanner_duration_);
-  
+
   Music_wrapper_iterator::construct_children ();
 
   if (child_iter_ && child_iter_->ok ())
@@ -144,10 +140,10 @@ Time_scaled_music_iterator::construct_children ()
 }
 
 void
-Time_scaled_music_iterator::derived_mark () const
+Tuplet_iterator::derived_mark () const
 {
   scm_gc_mark (synthesized_events_);
   Music_wrapper_iterator::derived_mark ();
 }
 
-IMPLEMENT_CTOR_CALLBACK (Time_scaled_music_iterator);
+IMPLEMENT_CTOR_CALLBACK (Tuplet_iterator);

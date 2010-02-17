@@ -578,7 +578,7 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
 @code{\\times 2/3 @{ @dots{} @}} for triplets.")
 	(length-callback . ,ly:music-wrapper::length-callback)
 	(start-callback . ,ly:music-wrapper::start-callback)
-	(iterator-ctor . ,ly:time-scaled-music-iterator::constructor)
+	(iterator-ctor . ,ly:tuplet-iterator::constructor)
 	(types . (time-scaled-music music-wrapper-music general-music))
 	))
 
