@@ -5,7 +5,7 @@
 \version "2.13.10"
 
 \header {
-%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
+%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
   texidoces = "
 La dirección de las plicas se contola de la misma forma en la
 tablatura que en la notación tradicional. Las barras se pueden

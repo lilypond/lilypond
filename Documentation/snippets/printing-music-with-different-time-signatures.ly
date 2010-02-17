@@ -36,7 +36,6 @@ global = { \time 3/4 { s2.*3 } \bar "" \break { s2.*3 } }
   \context {
     \Score
     \remove "Timing_translator"
-    \remove "Time_signature_engraver"
     \remove "Default_bar_line_engraver"
     \remove "Bar_number_engraver"
     \override SpacingSpanner #'uniform-stretching = ##t
@@ -47,7 +46,6 @@ global = { \time 3/4 { s2.*3 } \bar "" \break { s2.*3 } }
     \Staff
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
-    \consists "Time_signature_engraver"
   }
   \context {
     \Voice

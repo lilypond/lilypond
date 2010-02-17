@@ -6,7 +6,7 @@
 \header {
   lsrtags = "chords"
 
-%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
+%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
   texidoces = "
 La nomenclatura inglesa (predeterminada) para los acordes del cifrado
 americano se puede cambiar por la alemana (@code{\\germanChords}
