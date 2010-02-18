@@ -107,9 +107,10 @@ Done.
 @end example
 
 Send patch files to your mentor if you have one.  Otherwise, write
-an email to @email{lilypond-devel@@gnu.org} briefly explaining
-your work, with the patch files attached.  Translators should send
-patches to @email{translations@@lilynet.net}.
+an email (must be less than 64 KB) to
+@email{lilypond-devel@@gnu.org} briefly explaining your work, with
+the patch files attached.  Translators should send patches to
+@email{translations@@lilynet.net}.
 
 
 @subsubheading The @qq{Abort changes -- Reset to origin} button
@@ -910,11 +911,12 @@ will have names that look something like this:
 ⋮
 @end example
 
-Send an email to @email{lilypond-devel@@gnu.org} briefly
-explaining your work, with the patch files attached.  Translators
-should send patches to @email{translations@@lilynet.net}.  After
-your patches are reviewed, the developers may push one or more of
-them to the main repository or discuss them with you.
+Send an email (must be less than 64 KB) to
+@email{lilypond-devel@@gnu.org} briefly explaining your work, with
+the patch files attached.  Translators should send patches to
+@email{translations@@lilynet.net}.  After your patches are
+reviewed, the developers may push one or more of them to the main
+repository or discuss them with you.
 
 @seealso
 
