@@ -15,7 +15,7 @@
 
 @macro manualIntro
 Este archivo explica la forma de extender las funcionalidades de
-LilyPond versió @version{}.
+LilyPond versión @version{}.
 @end macro
 
 @c `Extending' was born 2003-04-23 with git commit c08f6e8...
