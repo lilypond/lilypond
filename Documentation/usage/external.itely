@@ -592,6 +592,27 @@ and @code{\include} them manually.
 @node MIDI articulation
 @subsection MIDI articulation
 
-TODO stub for info about Dr. Peter Chubb's @file{articulate.ly}
+LilyPond can be used to produce MIDI output, for
+@qq{proof-hearing} what has been written.  However, only dynamics,
+explicit tempo markings, and the notes and durations themselves
+are produced in the output.
+
+The @emph{articulate} project is one attempt to get more of the
+information in the score into he MIDI.  It works by shortening
+notes not under slurs, to @q{articulate} the notes.  The amount of
+shortening depends on any articulation markings attached to a
+note: staccato halves the note value, tenuto gives a note its full
+duration, and so on.  The script also realises trills and turns,
+and could be extended to expand other ornaments such as mordents.
+
+@example
+@uref{http://@/www@/.nicta@/.com@/.au/@/people/@/chubbp/@/articulate}
+@end example
+
+@knownissues
+
+Its main limitation is that it can only affect things it knows
+about: anything that is merely textual markup (instead of a note
+property) is still ignored.
 
 
