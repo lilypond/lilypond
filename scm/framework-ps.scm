@@ -602,21 +602,8 @@ fonts inline."
 
 (define-public (output-preview-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
-	 (systems (ly:paper-book-systems book))
-	 (scale (ly:output-def-lookup paper 'output-scale))
-	 (to-dump-systems '()))
-    ;; skip booktitles.
-    (if (and (not (ly:get-option 'include-book-title-preview))
-	     (pair? systems)
-	     (ly:prob-property (car systems) 'is-book-title #f))
-	(set! systems (cdr systems)))
-    (for-each
-     (lambda (sys)
-       (if (or (paper-system-title? sys)
-	       (not (pair? to-dump-systems))
-	       (paper-system-title? (car to-dump-systems)))
-	   (set! to-dump-systems (cons sys to-dump-systems))))
-     systems)
+	 (systems (relevant-book-systems book))
+	 (to-dump-systems (relevant-dump-systems systems)))
     (dump-stencil-as-EPS paper
 			 (stack-stencils Y DOWN 0.0
 					 (map paper-system-stencil
@@ -626,26 +613,6 @@ fonts inline."
     (postprocess-output book framework-ps-module
 			(format "~a.preview.eps" basename)
 			(cons "png" (ly:output-formats)))))
-
-(if #f
-    (define-public (output-preview-framework basename book scopes fields)
-      (let* ((paper (ly:paper-book-paper book))
-	     (systems (ly:paper-book-systems book))
-	     (scale (ly:output-def-lookup paper 'output-scale))
-	     (titles (take-while paper-system-title? systems))
-	     (non-title (find (lambda (x)
-				(not (paper-system-title? x))) systems))
-	     (dump-me
-	      (stack-stencils Y DOWN 0.0
-			      (map paper-system-stencil
-				   (append titles (list non-title))))))
-	(output-scopes scopes fields basename)
-	(dump-stencil-as-EPS paper dump-me
-			     (format "~a.preview" basename)
-			     #t)
-	(postprocess-output book framework-ps-module
-			    (format "~a.preview.eps" basename)
-			    (ly:output-formats)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

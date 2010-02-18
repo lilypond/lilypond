@@ -554,7 +554,7 @@ increased by one.  Default: @code{##f}.
 
 @ignore
 
-FIXME: this variable is used, but I don't know what it does. -pm
+TODO: this variable is used, but I don't know what it does. -pm
 @item blank-after-score-page-force
 @funindex blank-after-score-page-force
 

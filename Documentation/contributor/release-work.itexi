@@ -45,7 +45,7 @@ Any commits are fine.  Readers may be familiar with the term
 
 
 @item @strong{Release prep phase}:
-FIXME: I don't like that name.
+TODO: I don't like that name.
 
 A new git branch @code{stable/2.x} is created, and a major release
 is made in two weeks.
@@ -92,14 +92,18 @@ git merge origin
 vi Documentation/web/news-front.itexi Documentation/web/news.itexi
 @end example
 
-@item (optional) Check that lilypond builds from scratch in an
-out-of-tree build.
-
-@item Upload release branch.
+@item
+Commit, push, switch back to master:
 
 @example
+git commit -m "Release: update news." Documentation/web/
 git push origin
+git checkout master
+git merge release/unstable
 @end example
+
+@item (optional) Check that lilypond builds from scratch in an
+out-of-tree build.
 
 @item
 If you do not have the previous release test-output tarball, download

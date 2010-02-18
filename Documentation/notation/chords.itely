@@ -827,7 +827,7 @@ sixth steps) can be created:
 }
 @end lilypond
 
-Vertical spaces and brackets can be be included in figures:
+Vertical spaces and brackets can be included in figures:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {

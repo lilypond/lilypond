@@ -61,7 +61,14 @@ scripts/auxiliar/makelsr.py
 
 @noindent
 This also copies translated texidoc fields and snippet titles into
-snippets in @file{Documentation/snippets}.
+snippets in @file{Documentation/snippets}.  Note: this, in turn, could
+make the translated texidoc fields to appear as out of sync when you
+run @code{make check-translation}, if the originals changed from the
+last translation update, even if the translations are also updated;
+see @ref{Documentation translation maintenance} for details about
+updating the docs; in particular, see @ref{Updating translation
+committishes} to learn how to mark these translated fields as fully
+updated.
 
 Be sure that @command{make doc} runs successfully before submitting a
 patch, to prevent breaking compilation.

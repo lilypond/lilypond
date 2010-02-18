@@ -88,7 +88,7 @@ LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0,
 
 LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0,
 	   (SCM font),
-	   "Return the the number of glyphs in @var{font}.")
+	   "Return the number of glyphs in @var{font}.")
 {
   Modified_font_metric *fm
     = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));

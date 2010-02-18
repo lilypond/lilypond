@@ -20,7 +20,108 @@
 @section Using lily-git
 
 
-FIXME: Add instructions for using @command{lily-git} here.
+If you haven't already, download and install Git.  Go to
+@uref{http://git-scm.com/download}, and in the @qq{Binaries}
+section, select the appropriate package for your operating system.
+Windows users should visit
+@uref{http://code.google.com/p/msysgit/downloads/list} and
+download the @file{.exe} file labeled @qq{Full installer for
+official Git}.
+
+Download the lily-git script from:
+
+@c don't change the cgit link below to gitweb; gitweb uses
+@c long filenames like "scripts_auxiliar_lily-git.tcl"
+
+@example
+@uref{http://git.sv.gnu.org/cgit/lilypond.git/plain/scripts/auxiliar/lily-git.tcl}.
+@end example
+
+To run the program from the command line, navigate to the
+directory containing @file{lily-git.tcl} and enter:
+
+@example
+wish lily-git.tcl
+@end example
+
+
+@subsubheading Get source / Update source
+
+When you click the @qq{Get source} button, @command{lily-git} will
+create a directory called @file{lilypond-git/} within your home
+directory, and will download the complete source code into that
+directory (around 55Mb).  When the process is finished, the
+@qq{Command output} window will display @qq{Done}, and the button
+label will change to say @qq{Update source}.
+
+Navigate to the @file{lilypond-git/} directory to view the source
+files.  You should now be able to modify the source files using
+your normal text editor.
+
+
+@subsubheading New local commit
+
+A single commit typically represents one logical set of related
+changes (such as a bug-fix), and may incorporate changes to
+multiple files at the same time.
+
+When you're finished making the changes for your first commit,
+click the @qq{New local commit} button.  This will open the
+@qq{Git Commit Message} window.  The message header is required,
+and the message body is optional.  See @ref{Commits and patches}
+for more information regarding commits and commit messages.
+
+After entering a commit message, click @qq{OK} to finalize the
+commit.
+
+
+@subsubheading Amend previous commit
+
+You can go back and make changes to the most recent commit with
+the @qq{Amend previous commit} button.  This is useful if a
+mistake is found after you've clicked the @qq{New local commit}
+button.  To amend the most recent commit, edit the source files as
+needed and click the button.  The earlier version of the commit is
+not saved, but is replaced by the new one.
+
+Note that this does not update patch files; if you have a patch
+file from an earlier version of the commit, you will need to make
+another patch set when using this feature.  The old patch file is
+not saved, but is replaced by the new one.
+
+
+@subsubheading Make patch set
+
+Before making a patch set from any commits, you should click the
+@qq{Update source} button to make sure the commits are based on
+the most recent remote snapshot.
+
+When you click the @qq{Make patch set} button, @command{lily-git}
+will produce patch files for any new commits, saving them to the
+current directory.  The command output will display the name of
+the new patch files near the end of the output:
+
+@example
+0001-CG-add-lily-git-instructions.patch
+Done.
+@end example
+
+Send patch files to your mentor if you have one.  Otherwise, write
+an email (must be less than 64 KB) to
+@email{lilypond-devel@@gnu.org} briefly explaining your work, with
+the patch files attached.  Translators should send patches to
+@email{translations@@lilynet.net}.
+
+
+@subsubheading The @qq{Abort changes -- Reset to origin} button
+
+@warning{Only use this if your local commit history gets
+hopelessly confused!}
+
+The button labeled @qq{Abort changes -- Reset to origin} will copy
+all changed files to a subdirectory of @file{lilypond-git/} named
+@file{aborted_edits/}, and will reset the repository to the
+current state of the remote repository (at @code{git.sv.gnu.org}).
 
 
 @node Starting with Git
@@ -810,11 +911,12 @@ will have names that look something like this:
 ⋮
 @end example
 
-Send an email to @email{lilypond-devel@@gnu.org} briefly
-explaining your work, with the patch files attached.  Translators
-should send patches to @email{translations@@lilynet.net}.  After
-your patches are reviewed, the developers may push one or more of
-them to the main repository or discuss them with you.
+Send an email (must be less than 64 KB) to
+@email{lilypond-devel@@gnu.org} briefly explaining your work, with
+the patch files attached.  Translators should send patches to
+@email{translations@@lilynet.net}.  After your patches are
+reviewed, the developers may push one or more of them to the main
+repository or discuss them with you.
 
 @seealso
 

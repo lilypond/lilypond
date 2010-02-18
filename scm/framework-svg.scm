@@ -35,6 +35,7 @@
   (guile)
   (lily)
   (scm page)
+  (scm paper-system)
   (scm output-svg)
   (srfi srfi-1)
   (srfi srfi-2)
@@ -43,35 +44,65 @@
 
 (define format ergonomic-simple-format)
 
-(define (svg-header paper unit-length)
-  (let* ((lookup (lambda (x) (ly:output-def-lookup paper x)))
-	 (output-scale (* lily-unit->mm-factor unit-length))
-	 (paper-width (lookup 'paper-width))
-	 (paper-height (lookup 'paper-height))
-	 (page-width (* output-scale paper-width))
-	 (page-height (* output-scale paper-height)))
+(define (svg-begin . rest)
+  (eo 'svg
+      '(xmlns . "http://www.w3.org/2000/svg")
+      '(xmlns:xlink . "http://www.w3.org/1999/xlink")
+      '(version . "1.2")
+      `(width . ,(ly:format "~2fmm" (first rest)))
+      `(height . ,(ly:format "~2fmm" (second rest)))
+      `(viewBox . ,(ly:format "~4f ~4f ~4f ~4f"
+			      (third rest) (fourth rest)
+			      (fifth rest) (sixth rest)))))
 
-    `((xmlns . "http://www.w3.org/2000/svg")
-      (xmlns:xlink . "http://www.w3.org/1999/xlink")
-      (version . "1.2")
-      (width . ,(ly:format "~2fmm" page-width))
-      (height . ,(ly:format "~2fmm" page-height))
-      (viewBox . ,(ly:format "0 0 ~4f ~4f"
-			     paper-width paper-height)))))
+(define (svg-end)
+  (ec 'svg))
 
 (define (dump-page paper filename page page-number page-count)
   (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") 'svg))
 	 (dump (lambda (str) (display str (ly:outputter-port outputter))))
-	 (unit-length (ly:output-def-lookup paper 'output-scale)))
+	 (lookup (lambda (x) (ly:output-def-lookup paper x)))
+	 (unit-length (lookup 'output-scale))
+	 (output-scale (* lily-unit->mm-factor unit-length))
+	 (device-width (lookup 'paper-width))
+	 (device-height (lookup 'paper-height))
+	 (page-width (* output-scale device-width))
+	 (page-height (* output-scale device-height)))
 
-    (dump (apply eo 'svg (svg-header paper unit-length)))
+    (dump (svg-begin page-width page-height
+		     0 0 device-width device-height))
     (dump (comment (format "Page: ~S/~S" page-number page-count)))
     (ly:outputter-output-scheme outputter
 				`(begin (set! lily-unit-length ,unit-length)
 					""))
     (ly:outputter-dump-stencil outputter page)
-    (dump (ec 'svg))
+    (dump (svg-end))
     (ly:outputter-close outputter)))
+
+(define (dump-preview paper stencil filename)
+  (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") 'svg))
+	 (dump (lambda (str) (display str (ly:outputter-port outputter))))
+	 (lookup (lambda (x) (ly:output-def-lookup paper x)))
+	 (unit-length (lookup 'output-scale))
+	 (x-extent (ly:stencil-extent stencil X))
+	 (y-extent (ly:stencil-extent stencil Y))
+	 (left-x (car x-extent))
+	 (top-y (cdr y-extent))
+	 (device-width (interval-length x-extent))
+	 (device-height (interval-length y-extent))
+	 (output-scale (* lily-unit->mm-factor unit-length))
+	 (svg-width (* output-scale device-width))
+	 (svg-height (* output-scale device-height)))
+
+    (dump (svg-begin svg-width svg-height
+		     left-x (- top-y) device-width device-height))
+    (ly:outputter-output-scheme outputter
+				`(begin (set! lily-unit-length ,unit-length)
+					""))
+    (ly:outputter-dump-stencil outputter stencil)
+    (dump (svg-end))
+    (ly:outputter-close outputter)))
+
 
 (define (output-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
@@ -81,7 +112,6 @@
 	 (filename "")
 	 (file-suffix (lambda (num)
 			(if (= page-count 1) "" (format "-page-~a" num)))))
-
     (for-each
       (lambda (page)
 	(set! page-number (1+ page-number))
@@ -90,3 +120,13 @@
 			       (file-suffix page-number)))
 	(dump-page paper filename page page-number page-count))
       page-stencils)))
+
+(define (output-preview-framework basename book scopes fields)
+  (let* ((paper (ly:paper-book-paper book))
+	 (systems (relevant-book-systems book))
+	 (to-dump-systems (relevant-dump-systems systems)))
+    (dump-preview paper
+		  (stack-stencils Y DOWN 0.0
+				  (map paper-system-stencil
+				       (reverse to-dump-systems)))
+		  (format "~a.preview.svg" basename))))

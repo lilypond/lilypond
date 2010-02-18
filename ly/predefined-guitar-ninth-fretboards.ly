@@ -17,7 +17,7 @@
 
 \version "2.12.0"
 
-%  Add ninth chords to to predefined fret diagrams for standard guitar tunings
+%  Add ninth chords to predefined fret diagrams for standard guitar tunings
 
 \addChordShape #'c:9 #guitar-tuning #"x;3-2;2-1;3-3-(;3-3;3-3-);"
 \addChordShape #'f:9 #guitar-tuning #"1-1-(;3-3;1-1;2-2;1-1-);3-4;"

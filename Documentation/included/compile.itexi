@@ -315,10 +315,9 @@ make help
 
 @noindent
 from every directory in the build tree.  Most targets for
-documentation maintenance are available from @file{Documentation/};
-@c FIXME: xref to CG
-for more information, see the Contributor's Guide, section
-@emph{Documentation work}.
+documentation maintenance are available from
+@file{Documentation/}.  For more information, see
+@rcontrib{Documentation work}.
 
 The makefile variable @code{QUIET_BUILD} may be set to @code{1} for a
 less verbose build output, just like for building the programs.

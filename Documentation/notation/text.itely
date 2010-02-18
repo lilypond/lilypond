@@ -303,8 +303,8 @@ Internals Reference:
 @funindex markup
 
 A @code{\markup} block can exist by itself, outside of any
-any @code{\score} block, as a @qq{top-level
-expression}.  This syntax is described in @ref{File structure}.
+@code{\score} block, as a @qq{top-level expression}.  This syntax
+is described in @ref{File structure}.
 
 @lilypond[verbatim,quote]
 \markup {

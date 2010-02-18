@@ -15,16 +15,16 @@
 
 @imageFloat{flat-design,png,right}
 
-The inspiration for LilyPond came when two musicians became
-annoyed with the bland and boring look of computer-printed
-sheet music.  All musicians prefer reading beautiful music, so why
-couldn't programmers write software to produce better printed
-parts?
+LilyPond came about when two musicians wanted to go beyond the
+soulless look of computer-printed sheet music.  Musicians prefer
+reading beautiful music, so why couldn't programmers write
+software to produce elegant printed parts?
 
-This software just does that: it prints music in the best
-traditions of classical engraving with minimum fuss.  Don't waste
-time on tuning spacing, moving around symbols, or shaping slurs.
-Impress friends and colleagues with sharp sheet music!
+The result is a system which frees musicians from the details of
+layout, allowing them to focus on making music.  LilyPond works
+with them to create publication-quality parts, crafted in the best
+traditions of classical music engraving.
+
 @divEnd
 
 @divClass{column-left-top}
@@ -87,7 +87,7 @@ Impress friends and colleagues with sharp sheet music!
 * Productions::                 Real-life use of LilyPond.
 * Testimonials::                What do people say about it?
 * Text input::                  You write music as text?!
-* Easier editing::             Other ways of working with LilyPond.
+* Easier editing::              Other ways of working with LilyPond.
 @end menu
 @divEnd
 
@@ -95,16 +95,6 @@ Impress friends and colleagues with sharp sheet music!
 
 @node Features
 @unnumberedsec Features
-
-@help{hoping to delegate this.  Desired: an enthusiastic
-attempt to sway people towards trying lilypond.  The warnings
-about writing music as text come in Crash Course, not here.}
-
-Maybe draw inspiration from
-@uref{http://lilypond.org/web/about/features} and
-@uref{http://lilypond.org/web/switch/tour} and
-@uref{http://lilypond.org/web/switch/advantages}
-
 
 
 @subheading Why switch to LilyPond?
@@ -114,7 +104,7 @@ Maybe draw inspiration from
 
 @imageFloat{flat-design,png,right}
 
-The point of using LilyPond is to produce elegant sheet music that is
+LilyPond allows musicians to produce elegant sheet music that is
 easy to read.  Its developer community has spent thousands of hours
 developing powerful music engraving software that results in beautifully
 engraved music.  All of LilyPond's style settings, font designs and
@@ -136,10 +126,9 @@ and slurs and beams are sloped, automatically!
 @subsubheading Text-based input
 
 LilyPond takes ASCII input, which you can produce in your favorite
-text editor, quickly and comfortably.  No more futzing with the
-mouse.  The input contains all the information, so there is no
-need to remember complex command sequences.  Simply save an input
-for later reference.
+text editor, quickly and comfortably.  The input contains all the
+information, so there is no need to remember complex command sequences:
+simply save a file for later reference.
 
 
 @subsubheading Accessibility
@@ -196,7 +185,7 @@ team makes sure that problems are solved quickly.
 @divClass{column-center-bottom}
 @subheading Where now?
 
-Still not convinced?  Look at some neat @ref{Examples}.  If you've
+Still not convinced?  Look at some specific @ref{Examples}.  If you've
 already decided to try LilyPond, first read about our
 @ref{Text input}.
 @divEnd
@@ -784,11 +773,15 @@ pitch):
 
 We realize that many users find this way of entering music a bit
 odd.  For this reason, we have written extensive documentation to
-help new users, beginning with @ref{Learning}.
+help new users, beginning with @ref{Learning}.  The Learning
+Manual is the best place to start, as many questions are answered
+before they come up!
 
 Please read the Learning Manual before complaining about bugs!
 New users occasionally believe that LilyPond is not working
 correctly, when in fact it is working precisely as designed.
+
+More in-depth information is available in @ref{Manuals}.
 
 
 @subsubheading Easier editing environments
@@ -830,17 +823,16 @@ convinced?  Read about @ref{Easier editing}.
 
 @uref{http://denemo.org}
 
-Denemo is graphical editor which generates LilyPond source code
-and also allows audio playback.  It is currently in development
-and generates code for older versions of LilyPond (V2.8.7).  It
-allows users to view the LilyPond source code in parallel to the
-graphical view.
+Denemo is a graphical editor which generates LilyPond source code,
+at release 2.8.7, and also allows audio playback.  It allows users
+to view the LilyPond source code in parallel to the graphical view.
+Extra LilyPond tweaks can be attached to notes, chords etc. and are
+stored with the Denemo file, so that users can continue to edit graphically.
 
-@ignore
-Import: LilyPond, MIDI
+Moving the cursor in the LilyPond text moves the cursor in the graphical
+view, and any syntax errors in your LilyPond tweaks are highlighted in
+the text view when printed from there.
 
-Export: Lilypond, MIDI, ABC, CSound Score File, PDF
-@end ignore
 
 @divEnd
 
@@ -855,10 +847,10 @@ Export: Lilypond, MIDI, ABC, CSound Score File, PDF
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-@uref{http://lilypondtool@/.organum@/.hu}
+@uref{http://lilypondtool.organum.hu}
 
 Created as a plugin for the
-@uref{http://@/www@/.jedit@/.org@/,jEdit} text editor,
+@uref{http://www.jedit.org,jEdit} text editor,
 LilyPondTool is one of the most feature-rich text-based tool for
 editing LilyPond scores.  Its features include a Document Wizard
 with lyrics support to set up documents easier, and embedded PDF
@@ -915,7 +907,6 @@ writing LilyPond input files.
 @divClass{column-center-top}
 @subheading Other
 
-@help insert text and a graphic(s)
 
 @subsubheading Mixed environment: LilyKDE
 
@@ -926,6 +917,9 @@ writing LilyPond input files.
 @sourceimage{logo-freebsd,,,}
 
 @uref{http://lilykde.googlecode.com/}
+
+LilyKDE has been replaced by @uref{http://www.frescobaldi.org/,Frescobaldi},
+and exists as LilyKDE3 for KDE 3.5 and lilypond-KDE4 for KDE 4.1 only.
 
 LilyKDE is a plugin for KDE's text editor
 @uref{http://kate-editor.org/,Kate}.  It has a powerful Score
@@ -938,16 +932,17 @@ so music can entered by playing on a MIDI keyboard.
 Other features are lyric hyphenation and running LilyPond on
 multiple files at once from within the KDE file manager.
 
+
 @subsubheading Text environment: TexShop
 
 @sourceimage{logo-macosx,,,}
 
-@uref{http://@/www@/.uoregon@/.edu/~koch/texshop}
+@uref{http://www.uoregon.edu/~koch/texshop}
 
 The TexShop editor for MacOS@tie{}X can be extended to run LilyPond,
 @command{lilypond-book} and @command{convert-ly} from within the editor,
 using the extensions available at
-@uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html#desktoppub}.
+@uref{http://www.dimi.uniud.it/vitacolo/freesoftware.html#desktoppub}.
 
 @ignore
 TODO: ask somebody to sponsor/check these.  -gp
@@ -971,21 +966,16 @@ svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
 @divClass{column-center-top}
 @subheading Other programs can export LilyPond code
 
-@ignore
-TODO: change url back to full adress, to make it readable in printouts -ch
-@end ignore
-
-@help clean up this list, check links, etc.
 
 @subsubheading Graphical environments:
 
 @itemize
 @item
-@uref{http://@/noteedit@/.berlios@/.de,NoteEdit}
-which imports @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
+@uref{http://noteedit.berlios.de,NoteEdit}
+which imports @uref{http://www.musicxml.com/xml.html,MusicXML}
 @item
-@uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden},
-which imports MIDI
+@uref{http://www.rosegardenmusic.com,Rosegarden},
+which imports MIDI.
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
 has experimental export for LilyPond.
@@ -996,19 +986,22 @@ has experimental export for LilyPond.
 @item
 @uref{http://canorus.org,Canorus} can also export to LilyPond, but is still
 beta-software. Testers welcome though.
+@item
+@uref{http://lilycomp.sourceforge.net, LilyComp} is a graphical note entry
+program, acting much like a number-pad which produces lilypond notes.
 @end itemize
 
 @subsubheading Command Line Tools:
 
 @itemize
 @item
-@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, a realtime
+@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, a realtime
 monophonic MIDI to LilyPond converter.
 @item
-@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, an
+@uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}, an
 Emacs major mode.
 @item
-@uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
+@uref{http://common-lisp.net/project/fomus/,FOMUS},
 a LISP library to generate music notation
 @end itemize
 @divEnd

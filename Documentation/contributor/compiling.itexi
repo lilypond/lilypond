@@ -73,6 +73,8 @@ TODO: ADD
 @node Using a Virtual Machine to Compile LilyPond
 @section Using a Virtual Machine to Compile LilyPond
 
+TODO: rewrite for lily-git.tcl !!!  do before GOP!  -gp
+
 Since it is not possible to compile Lilypond on Windows, some
 developers may find it useful to install a GNU/Linux virtual
 machine. A disk image with a special remix of @strong{Ubuntu}
@@ -129,8 +131,6 @@ of the @qq{Guest Additions}.
 
 @item Open a @strong{terminal} session.
 (@code{Applications > Accessories > Terminal})
-
-@c FIXME: make sure the url link below doesn't get broken -vv
 
 @item Open @strong{Firefox} (there's an icon for it on the
 panel at the top of the screen) and go to the online Lilypond

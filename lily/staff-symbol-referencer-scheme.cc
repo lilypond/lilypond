@@ -39,7 +39,7 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
 LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?",
            2, 0, 0, (SCM sg, SCM spos),
            "Return whether @var{spos} is on a line of the staff associated"
-           " with the the grob @var{sg} (even on an extender line).")
+           " with the grob @var{sg} (even on an extender line).")
 {
   LY_ASSERT_SMOB (Grob, sg, 1);
   LY_ASSERT_TYPE (scm_is_number, spos, 2);

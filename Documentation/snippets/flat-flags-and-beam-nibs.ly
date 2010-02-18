@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
+%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
   texidoces = "
 Son posibles tanto los corchetes rectos sobre notas sueltas como
 extremos de barra sueltos en figuras unidas, con una combinación de

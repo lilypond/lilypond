@@ -863,8 +863,8 @@ To create links, use @@ref@{@} if the link is within the same
 manual.
 
 @item
-@@predefined ... @@endpredefined is for commands in ly/*-init.ly
-FIXME?
+@@predefined ... @@endpredefined is for commands in
+@file{ly/*-init.ly}
 
 @item
 Do not include any real info in second-level sections (ie 1.1
@@ -1288,6 +1288,10 @@ All files should be encoded in UTF-8.
 
 @include contributor/doc-translation-list.itexi
 
+In addition, not listed above, Snippets' titles and descriptions
+should be translated; they are a part of the Notation Reference and
+therefore their priority is 5.
+
 @node Translating the Web site and other Texinfo documentation
 @unnumberedsubsubsec Translating the Web site and other Texinfo documentation
 
@@ -1442,7 +1446,7 @@ Then, you should get these translated strings into compiled snippets in
 @file{Documentation/snippets}, see @q{General guidelines} in @ref{Adding
 and editing snippets}.
 
-@code{@@example} blocs need not be verbatim copies, e.g. variable
+@code{@@example} blocks need not be verbatim copies, e.g. variable
 names, file names and comments should be translated.
 
 Finally, please carefully apply every rule exposed in @ref{Texinfo
@@ -1679,6 +1683,31 @@ by doing
 @example
 git rev-list HEAD |head -1
 @end example
+
+A special case is updating Snippet documentation strings in
+@file{Documentation/@var{MY-LANGUAGE}/texidocs}.  For these to be
+correctly marked as up-to-date, first run @code{makelsr.py} as
+explained in @ref{Adding and editing snippets}, and commit the
+resulting compiled snippets left in @file{Documentation/snippets/}.
+Say the SHA1 ID code of this commit is <C>.  Now edit again your
+translated files in @file{Documentation/@var{MY-LANGUAGE}/texidocs}
+adjusting the 40-digit committish that appears in the text to be <C>;
+finally, commit these updated files.  Not doing so would result in
+changes made both to your updates and original snippets to
+persistently appear in the check-translation output as if they were
+out of sync.
+
+This two-phase mechanism avoids the (practically) unsolvable problem
+of guessing what committish will have our update, and pretending to
+put this very committish on the files in the same commit.
+
+@c http://lists.gnu.org/archive/html/lilypond-devel/2009-01/msg00245.html
+@c contains a helper script which could be used to perform massive
+@c committish updates.
+
+
+@seealso
+@ref{LSR work}.
 
 
 @node Translations management policies

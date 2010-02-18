@@ -60,7 +60,7 @@ Bar_line::print (SCM smob)
 
   SCM s = me->get_property ("glyph-name");
   SCM barsize = me->get_property ("bar-size");
-  
+
   if (scm_is_string (s) && scm_is_number (barsize))
     {
       string str = ly_scm2string (s);
@@ -284,12 +284,12 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
 
   if (fabs (line_thick + (count -1) * ss - h) <   0.1) // ugh.
     {
-      Real blot = 
+      Real blot =
 	me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
       Real half_space = ss/2;
       Stencil bar;
-  
+
       for (int i = (count-1); i >= -(count-1); i -= 2)
 	{
 	  Real top_y = min ((i + dash_size) * half_space,
@@ -312,7 +312,7 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
       int dashes = int (rint (h / ss));
       Real total_dash_size = h / dashes;
       Real factor = (dash_size - thick) / ss;
-      
+
       SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
 			   scm_from_double (thick),
 			   scm_from_double (factor * total_dash_size),
@@ -375,7 +375,7 @@ ADD_INTERFACE (Bar_line,
 	       " a thick double repeat, a thin-thick-thin double repeat,"
 	       " a thin-thick double repeat, a thick bar, a double bar, a start bar,"
 	       " an end bar, a thick double bar, a thin-thick-thin bar,"
-	       " a dotted bar, a dashed bar and a tick as bar bar line."
+	       " a dotted bar, a dashed bar, and a tick."
 	       "  In addition, there is an option"
 	       " @code{||:} which is equivalent to @code{|:} except at line"
 	       " breaks, where it produces a double bar (@code{||}) at the"

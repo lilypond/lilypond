@@ -14,3 +14,6 @@ The following exceptions apply:
 
   * It does not apply to any manual which explicitly states
     another license.
+  
+  * It does not apply to the MusicXML unit test suite,
+    which is licensed under the MIT license.

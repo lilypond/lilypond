@@ -24,10 +24,12 @@ TODOs, so the term @qq{bug} wouldn't be accurate.
 
 Second, the classification of what counts as a bug vs. feature
 request, and the priorities assigned to bugs, are a matter of
-concern @strong{for developers only}.  If you are curious about
-the classification, read on, but don't complain that your
-particular issue is higher priority or counts as a bug rather than
-a feature request.
+concern @strong{for developers only}.  The Bug Squad will classify
+issues according to the guidelines given by developers.
+
+If you are curious about the classification, read on, but please
+don't complain that your particular issue should have higher
+priority or counts as a bug rather than a feature request.
 
 
 @node Issue classification
@@ -42,10 +44,10 @@ Open issues:
 
 @item
 New: the item was added by a non-member, despite numerous warnings
-not to do this.  Should be reviewed by the Bug Meister.
+not to do this.  Should be reviewed by a member of the Bug Squad.
 
 @item
-Accepted: the Bug Meister added it, or reviewed the item.
+Accepted: the Bug Squad added it, or reviewed the item.
 
 @item
 Started: a contributor is working on a fix.  Owner should change
@@ -66,12 +68,12 @@ Duplicate: issue already exists in the tracker.
 
 @item
 Fixed: a contributor claims to have fixed the bug.  The Bug
-Meister should check the fix with the next official binary release
+Squad should check the fix with the next official binary release
 (not by compiling the source from git).  Owner should be set to
 that contributor.
 
 @item
-Verified: Bug Meister has confirmed that the issue is closed.
+Verified: Bug Squad has confirmed that the issue is closed.
 
 @end itemize
 
@@ -134,8 +136,10 @@ any regression against 2.12 or 2.10 counts)
 
 @item
 Priority-High: highly embarrassing items, and any regression
-against a version earlier than two stable versions.  (i.e. when
-developing 2.13, any regression against 2.8 or earlier)
+against a version earlier than two stable versions (i.e. when
+developing 2.13, any regression against 2.8 or earlier).  This
+level is also used for issues which produce no output and fail to
+give the user a clue about what's wrong.
 
 @item
 Priority-Medium: normal priority.
@@ -148,6 +152,14 @@ Priority-Postponed: no fix planned.  Generally used for things
 like Ancient notation, which nobody wants to touch.
 
 @end itemize
+
+The difference between Priority-Medium and Priority-Low is not
+well-defined, both in this policy and in practice.  The only
+answer we can give at the moment is @qq{look at existing items in
+of the same type, and try to guess whether the priority is closer
+to the Medium items or Low items}.  We're aware of the ambiguity,
+and won't complain if somebody picks a @q{wrong} value for
+Medium/Low.
 
 
 @subheading Opsys
@@ -202,7 +214,7 @@ Performance: might potentially be used.
 @node Adding issues to the tracker
 @section Adding issues to the tracker
 
-This should only be done by the Bug Meister(s), or experienced
+This should only be done by the Bug Squad or experienced
 developers.  Normal users should not do this; instead, they should
 follow the guidelines for @rweb{Bug reports}.
 
@@ -274,11 +286,18 @@ else about LilyPond development.
 
 Git has special functionality to help tracking down the exact
 commit which causes a problem.  See the git manual page for
-@code{git bisect}.
+@code{git bisect}.  This is a job that non-programmers can do,
+although it requires familiarity with git, ability to compile
+LilyPond, and generally a fair amount of technical knowledge.
 
-This is a job that non-programmers can do; once a problematic
-commit is identified, the programmers' job is much easier.  In
-fact, for most regression bugs, the majority of the time is spent
-simply finding the problematic commit.
+Even if you are not familiar with git or are not able to compile
+LilyPond you can still help to narrow down the cause of a regression
+simply by downloading the binary releases of different LilyPond
+versions and testing them for the regression.  Knowing which version
+of LilyPond first exhibited the regression is helpful to a developer
+as it shortens the @code{git bisect} procedure described above.
 
+Once a problematic commit is identified, the programmers' job is
+much easier.  In fact, for most regression bugs, the majority of
+the time is spent simply finding the problematic commit.
 

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "world-music"
 
-%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
+%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
   texidoces = "
 Para las improvisaciones o @emph{taqasim} que son libres durante unos
 momentos, se puede omitir la indicación de compás y se puede usar

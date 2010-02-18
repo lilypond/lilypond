@@ -2838,9 +2838,6 @@ second voice.
 
 @subheading force-hshift property
 
-@c FIXME: formatting stuff  (ie not important right now IMO)
-@c @a nchor Chopin finally corrected TODOgp
-
 We can now see how to apply the final corrections to the Chopin
 example introduced at the end of @ref{I'm hearing Voices}, which
 was left looking like this:

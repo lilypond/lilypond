@@ -27,12 +27,15 @@ endif
 
 ################################################################
 OUT=out-website
+WEB_LANGS=es fr
+
 
 TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 
 EXTRACT_TEXI_FILENAMES=python $(script-dir)/extract_texi_filenames.py
 CREATE_VERSION=python $(script-dir)/create-version-itexi.py
 CREATE_WEBLINKS=python $(script-dir)/create-weblinks-itexi.py
+MASS_LINK=python $(script-dir)/mass-link.py
 
 SERVER_FILES=$(top-src-dir)/Documentation/web/server/
 
@@ -55,6 +58,14 @@ website-xrefs: website-version
 	$(foreach manual, $(MANUALS), \
 		$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/ \
 		-I $(OUT) -o $(OUT) $(manual) && ) :
+	# translations
+	for l in $(WEB_LANGS); do \
+		$(EXTRACT_TEXI_FILENAMES) \
+			-I $(top-src-dir)/Documentation/"$$l" \
+			-I $(OUT) -o $(OUT) --split=node \
+			$(top-src-dir)/Documentation/"$$l"/web.texi ;\
+	done;
+
 
 website-texinfo: website-version website-xrefs
 	$(TEXI2HTML) --prefix=index \
@@ -65,6 +76,21 @@ website-texinfo: website-version website-xrefs
 		-D web_version \
 		--output=$(OUT)/website/ \
 		$(top-src-dir)/Documentation/web.texi
+	# translations
+	for l in $(WEB_LANGS); do \
+		$(TEXI2HTML) --prefix=index \
+			--split=section \
+			--I=$(top-src-dir)/Documentation/"$$l" \
+			--I=$(top-src-dir)/Documentation/ \
+			--I=$(OUT) \
+			--lang="$$l" \
+			--init-file=$(texi2html-init-file) \
+			-D web_version \
+			--output=$(OUT)/"$$l" \
+			$(top-src-dir)/Documentation/"$$l"/web.texi ; \
+		find $(OUT)/$$l/ -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/'$$l'/!!g' | xargs $(MASS_LINK) --prepend-suffix .$$l hard $(OUT)/$$l/ $(OUT)/website/ ; \
+	done
+
 
 website-css:
 	cp $(top-src-dir)/Documentation/css/*.css $(OUT)/website/

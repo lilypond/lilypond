@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches, vocal-music"
 
-%% Translation of GIT committish: 4385ed4cc738e164a95798862580b4b86703356f
+%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
   doctitlees = "Ámbitos con varias voces"
   texidoces = "
 La adición del grabador @code{Ambitus_engraver} al contexto de

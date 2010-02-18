@@ -3,6 +3,8 @@ depth = ../../..
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc musicxml
 
+EXTRA_DIST_FILES = LICENSE
+
 TEXI2HTML_FLAGS += --nomenu
 
 # Urgh, how can I do two replacements at once without messing up the order of the list?
@@ -23,5 +25,5 @@ endif
 
 zip: $(outdir)/MusicXML-TestSuite-$(TEST_SUITE_VERSION).zip
 
-$(outdir)/MusicXML-TestSuite-$(TEST_SUITE_VERSION).zip: $(MUSICXML_FILES) $(MUSICMXL_FILES)
-	$(ZIP) -r $@ $(addprefix $(src-dir)/,$(MUSICXML_FILES)) $(addprefix $(src-dir)/,$(MUSICMXL_FILES))
+$(outdir)/MusicXML-TestSuite-$(TEST_SUITE_VERSION).zip: $(MUSICXML_FILES) $(MUSICMXL_FILES) LICENSE
+	$(ZIP) -r $@ $(addprefix $(src-dir)/,$(MUSICXML_FILES)) $(addprefix $(src-dir)/,$(MUSICMXL_FILES)) LICENSE

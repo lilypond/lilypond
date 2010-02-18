@@ -390,9 +390,9 @@ snippet_res = {
          r'''(?mx)
           (?P<match>
           <lilypond
-           (\s*(?P<options>.*?)\s*:)?\s*
+           (\s+(?P<options>.*?))?\s*:\s*
            (?P<code>.*?)
-          />)''',
+          \s*/>)''',
 
         'lilypond_block':
          r'''(?msx)
@@ -401,7 +401,7 @@ snippet_res = {
            \s*(?P<options>.*?)\s*
           >
           (?P<code>.*?)
-          </lilypond>)''',
+          </lilypond\s*>)''',
 
         'lilypond_file':
          r'''(?mx)
@@ -410,7 +410,7 @@ snippet_res = {
            \s*(?P<options>.*?)\s*
           >
           \s*(?P<filename>.*?)\s*
-          </lilypondfile>)''',
+          </lilypondfile\s*>)''',
 
         'multiline_comment':
          r'''(?smx)

@@ -66,7 +66,7 @@ Context_def::Context_def (Context_def const &s)
   smobify_self ();
 
   description_ = s.description_;
-  input_location_ = make_input (*s.origin ()); 
+  input_location_ = make_input (*s.origin ());
   default_child_ = s.default_child_;
   accept_mods_ = s.accept_mods_;
   property_ops_ = s.property_ops_;
@@ -99,7 +99,7 @@ SCM
 Context_def::mark_smob (SCM smob)
 {
   ASSERT_LIVE_IS_ALLOWED ();
-  
+
   Context_def *me = (Context_def *) SCM_CELL_WORD_1 (smob);
 
   scm_gc_mark (me->description_);
@@ -205,7 +205,7 @@ Context_def::get_default_child (SCM user_mod) const
    - the first element in the list defines a context that is a valid child of
      the context defined by this Context_def
    - each subsequent element in the list defines a context that is a valid child
-     of the the context defined by the preceding element in the list
+     of the context defined by the preceding element in the list
    - the last element in the list defines a context with the given name
 
   The ADDITIONAL_ACCEPTS parameter is a list of additional contexts that this
