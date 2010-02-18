@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
+    Translation of GIT committish: 4b2f03141029b4bd73bee4d6175f727d92390076
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -22,8 +22,7 @@ LilyPond.
 * Utilización normal::
 * Utilización desde la línea de órdenes::
 * Mensajes de error::
-* Actualizar ficheros con convert-ly::
-* Informar de fallos::
+* Errores comunes::
 @end menu
 
 
@@ -67,10 +66,6 @@ documentos sobre este tema si no le resulta familiar la línea de
 @unnumberedsubsec Invocar @command{lilypond}
 @translationof Invoking lilypond
 
-@cindex invocar @command{lilypond}
-@cindex opciones de la línea de órdenes para @command{lilypond}
-@cindex órdenes, opciones de la línea de
-
 El ejecutable @command{lilypond} se puede llamar desde la línea de
 órdenes de la siguiente manera:
 
@@ -111,6 +106,11 @@ producirá como salida @var{base}@file{-violin.pdf} y
 @unnumberedsubsec Opciones de la línea de órdenes para @command{lilypond}
 @translationof Command line options for lilypond
 
+@cindex invocación de @command{lilypond}
+@cindex opciones de la línea de órdenes para @command{lilypond}
+@cindex línea de órdenes, opciones de
+@cindex modificadores
+
 Están contempladas las siguientes opciones:
 
 @table @code
@@ -139,7 +139,7 @@ al principio del archivo @code{.ly}.
 
 @item -f,--format=@var{formato}
 Formato de la salida.  Como @code{formato} se puede elegir entre
-@code{svg}, @code{ps}, @code{pdf} y @code{png}.
+@code{ps}, @code{pdf} y @code{png}.
 
 Ejemplo: @code{lilypond -fpng @var{archivo}.ly}
 
@@ -163,10 +163,14 @@ es lo mismo que
 
 A continuación veremos algunas opciones interesantes.
 
+@cindex help (ayuda), línea de órdenes
+
 @table @samp
 @item help
 La ejecución de @code{lilypond -dhelp} imprimirá todas las opciones
 @code{-d} que están disponibles.
+
+@cindex paper-size, línea de órdenes
 
 @item paper-size
 Esta opción establece el tamaño predeterminado del papel,
@@ -179,6 +183,8 @@ Observe que la cadena se debe incluir dentro de comillas escapadas
 ( @code{\"} ).
 
 @c Match " in previous line to help context-sensitive editors
+
+@cindex safe, línea de órdenes
 
 @item safe
 No confiar en la entrada @code{.ly}.
@@ -245,7 +251,9 @@ Este modo se usa de forma predeterminada por parte de
 @command{lilypond-book}.
 
 @item svg
-@cindex SVG (Scalable Vector Graphics)
+
+@cindex SVG (Gráficos vectoriales escalables)
+
  para obtener SVG (gráficos vectoriales escalables).
 
 Crea un único archivo SVG que contiene toda la salida de música, con
@@ -259,9 +267,12 @@ LilyPond (que normalmente es
 @file{~/.fonts/}.
 
 @item scm
+
 @cindex Scheme, volcado de
+
  para obtener un volcado de las instrucciones internas de dibujo
 basadas en Scheme, en bruto.
+
 @item null
  no producir una salida impresa; tiene el mismo efecto que @code{-dno-print-pages}.
 @end table
@@ -312,8 +323,12 @@ con
 -dresolution=110
 @end example
 
+@cindex PDF (formato de documento portátil), salida de
+
 @item --pdf
 Generar PDF.  Implica @code{--ps}.
+
+
 
 @item -j,--jail=@var{usuario},@var{grupo},@var{jaula},@var{directorio}
 Ejecutar @command{lilypond} en una jaula de chroot.
@@ -507,4 +522,164 @@ comunes}.
 @section Errores comunes
 @translationof Common errors
 
-@untranslated
+Las condiciones de error que se describen más abajo se producen con
+frecuencia, aunque su causa no es obvia o fácil de encontrar.  Una vez
+se han visto y comprendido, se manejan sin problema.
+
+
+@menu
+* La música se sale de la página::
+* Aparece un pentagrama de más::
+* Error aparente en ../ly/init.ly::
+* Mensaje de error Unbound variable %::
+* Mensaje de error FT_Get_Glyph_Name::
+@end menu
+
+@node La música se sale de la página
+@unnumberedsubsec La música se sale de la página
+@translationof Music runs off the page
+
+La música que se sale de la página por el margen derecho o que aparece
+exageradamente comprimida está causada casi siempre por haber
+introducido una duración incorrecta para una nota, produciendo que la
+nota final de un compás se extienda más allá de la línea divisoria.
+Esto no es inválido si la nota final de un compás no termina sobre la
+línea divisoria introducida automáticamente, pues simplemente se
+supone que la nota se solapa encima del siguiente compás.  Pero si se
+produce una larga secuencia tales notas solapadas, la música puede
+aparecer comprimida o salirse de la página porque los saltos de línea
+automáticos solamente se pueden insertar al final de compases
+completos, es decir, aquellos en que todas las notas terminan antes de
+o justo al final del compás.
+
+@warning{Una duración incorrecta puede hacer que se inhiban los saltos
+de línea, lo que llevaría a una sola línea de música muy comprimida o
+que se salga de la página.}
+
+La duración incorrecta se puede encontrar fácilmente si se utilizan
+comprobaciones de compás, véase @ruser{Comprobación de compás y de
+número de compás}.
+
+Si realmente queremos tener una serie de estos compases con notas
+solapadas, debemos insertar una línea divisoria invisible donde
+queramos el salto de línea.  Para ver más detalles, consulte
+@ruser{Barras de compás}.
+
+
+@node Aparece un pentagrama de más
+@unnumberedsubsec Aparece un pentagrama de más
+@translationof An extra staff appears
+
+Si no se crean los contextos explícitamente con @code{\new}, se
+crearán discretamente tan pronto como se encuentra una instrucción que
+no se puede aplicar a un contexto existente.  En partituras sencillas,
+la creación automática de los contextos es útil, y casi todos los
+ejemplos de los manuales de LilyPond se aprovechan de esta
+simplificación.  Pero ocasionalmente la creación discreta de contextos
+puede hacer aflorar pentagramas o partituras nuevos e inesperados.
+Por ejemplo, podría esperarse que el código siguiente hiciera que
+todas las notas dentro del pentagrama siguiente estuvieran coloreadas
+de rojo, pero de hecho el resultado son dos pentagramas, permaneciendo
+el de abajo con las notas en el color negro predeterminado.
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.NoteHead #'color = #red
+\new Staff { a }
+@end lilypond
+
+Esto es así porque no existe ningún contexto @code{Staff} cuando se
+procesa la instrucción override de sobreescritura, se crea uno
+implícitamente y la sobreescritura se aplica a éste, pero entonces la
+instrucción @code{\new Staff} crea un pentagrama nuevo y distinto, en
+el que se colocan las notas.  El código correcto para colorear todas
+las notas de rojo es
+
+@lilypond[quote,verbatim,relative=2]
+\new Staff {
+  \override Staff.NoteHead #'color = #red
+  a
+}
+@end lilypond
+
+Como segundo ejemplo, si una instrucción @code{\relative} se escribe
+dentro de una instrucción @code{\repeat}, el resultado son dos
+pentagramas, el segundo desplazado respecto al primero, porque la
+instrucción @code{\repeat} genera dos bloques @code{\relative},
+cada uno de los cuales crea implícitamente bloques @code{Staff} y
+@code{Voice}.
+
+@lilypond[quote,verbatim]
+\repeat unfold 2 {
+  \relative c' { c d e f }
+}
+@end lilypond
+
+La forma correcta es invertir el orden de las instrucciones
+@code{\repeat} y @code{\relative}, así:
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \repeat unfold 2 { c d e f }
+}
+@end lilypond
+
+
+@node Error aparente en ../ly/init.ly
+@unnumberedsubsubsec Error aparente en @code{../ly/init.ly}
+@translationof Apparent error in ../ly/init.ly
+
+Pueden aparecer varios mensajes de error extraños acerca de errores de
+sintaxis en @code{../ly/init.ly} si el archivo de entrada no está
+correctamente formado, por ejemplo si no contiene llaves o comillas
+correctamente emparejados.
+
+El error más común es la falta de una llave de cierre, (@code{@}}), al
+final de un bloque @code{score}.  Aquí la solución es obvia: compruebe
+que el bloque @code{score} está correctamente cerrado.  La estructura
+correcta de un archivo de entrada está descrita en @ref{Cómo funcionan
+los archivos de entrada de LilyPond}.  Usando un editor que resalte
+automáticamente las llaves correspondientes es de mucha ayuda para
+evitar estos errores.
+
+Una segunda causa frecuente es la falta de un espacio entre la última
+sílaba de un bloque lyrics (de letra) y la llave de cierre,
+(@code{@}}).  Sin esta separación, se considera que la llave forma
+parte de la sílaba.  Siempre se aconseja asegurarse de que hay
+espacios antes y después de @emph{todas} las llaves.  Para conocer la
+importancia de este asunto al utilizar letras de canciones, consulte
+@ruser{Explicación de la letra}.
+
+Este mensaje de error también puede aparecer si se omiten las comillas
+de terminación (@code{"}).  En este caso, un mensaje de error
+adicional debería indicar un número de línea cercano al de aquella
+donde está el error.  Las comillas desbalanceadas estarán por lo
+general una o dos líneas por encima.
+
+
+@node Mensaje de error Unbound variable %
+@unnumberedsubsubsec Mensaje de error Unbound variable %
+@translationof Error message Unbound variable %
+
+Este mensaje de error aparece al final de los mensajes de la consola o
+del archivo de registro junto a un mensaje @qq{GUILE señaló un error
+...} cada vez que se llame a una rutina de Scheme que
+(incorrectamente) contenga un comentario @emph{de LilyPond} en lugar
+de un comentario @emph{de Scheme}.
+
+Los comentarios de LilyPond comienzan con un símbolo de porcentaje,
+(@code{%}), y no se deben utilizar dentro de las rutinas de Scheme.
+Los comentarios de Scheme comienzan con punto y coma, (@code{;}).
+
+
+@node Mensaje de error FT_Get_Glyph_Name
+@unnumberedsubsec Mensaje de error FT_Get_Glyph_Name
+@translationof Error message FT_Get_Glyph_Name
+
+Este mensaje de error aparece en la salida de la consola o en el
+archivo log de registro si un archivo de entrada contiene un carácter
+que no es ASCII y no se ha guardado en la codificación de caracteres
+UTF-8.  Para ver más detalles, consulte @ruser{Codificación del
+texto}.
+
+
+

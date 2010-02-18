@@ -20,7 +20,7 @@
 * Apuntar y pulsar::
 * Apoyo respecto de los editores de texto::
 * Conversión desde otros formatos::
-* Salida de LilyPond dentreo de otros programas::
+* Salida de LilyPond dentro de otros programas::
 * Archivos include independientes::
 @end menu
 
@@ -142,10 +142,7 @@ Existe apoyo por parte de varios editores de texto para LilyPond.
 @menu
 * Modo de Emacs::
 * Modo de Vim::
-* jEdit::
-* TexShop::
-* TextMate::
-* LilyKDE::
+* Otros editores::
 @end menu
 
 @node Modo de Emacs
@@ -643,6 +640,8 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miarchivo.ly
 @node Articulación MIDI
 @subsection Articulación MIDI
 @translationof MIDI articulation
+
+@untranslated
 
 @c stub for info about Dr. Peter Chubb's @file{articulate.ly}
 
