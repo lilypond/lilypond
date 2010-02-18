@@ -24,10 +24,6 @@ NOTE:
   on one day.
 
   * don't duplicate entries from news-front.itexi
-
-TODO
-
-  * add macro for long Google issues list URL
 @end ignore
 
 
@@ -184,7 +180,7 @@ Neil Puttock.
 This is hopefully the last Release Candidate before stable release 2.12,
 so you are welcome to test this release if you can to report new
 issues.@*
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_65&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@bugfixes{2_11_65,},
 @ref{Changes},
 @ref{Old downloads}.
 @newsEnd
@@ -223,7 +219,7 @@ in @code{\tempo} command, this release has lot of updates
 to Spanish and German documentation translations, and the
 stylesheet for HTML documentation has been improved.
 @*
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_62&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@bugfixes{2_11_62,},
 @ref{Old downloads}.
 @newsEnd
 
@@ -235,7 +231,7 @@ LilyPond 2.11.61 has been released. It has updates to
 documentation translations, and a new automatic accidentals style
 (teaching) has been added.
 @*
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_61&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@bugfixes{2_11_61,},
 @ref{Changes},
 @ref{Old downloads}.
 @newsEnd
@@ -275,7 +271,7 @@ automatic beaming has been improved by Carl Sorensen, support
 for creating stem flags in a new style has been contributed by
 Reinhold Kainhofer, and a few bugs have been fixed.
 @*
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_58&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@bugfixes{2_11_58,},
 @ref{Changes},
 @ref{Old downloads}.
 @newsEnd
@@ -312,7 +308,8 @@ predefined commands @code{\pointAndClickOn},
 
 LilyPond 2.11.55 is out.  This release fixes several bugs, and for octavation brackets
 @code{set-octavation} has been replaced by a more user-friendly command, @code{\ottava}.
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_55&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@*
+@bugfixes{2_11_55,},
 @ref{Old downloads}.
 @newsEnd
 
@@ -323,7 +320,8 @@ LilyPond 2.11.55 is out.  This release fixes several bugs, and for octavation br
 LilyPond 2.11.54 is out.  This release fixes a bug in tie formatting
 following a line break, and changes the behavior of @code{short-indent}
 so that short instrument names are no longer indented in the margin.
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_54&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@*
+@bugfixes{2_11_54,},
 @ref{Old downloads}.
 @newsEnd
 
@@ -333,7 +331,7 @@ so that short instrument names are no longer indented in the margin.
 
 LilyPond 2.11.53 is out.  This release fixes a lot of bugs.
 @*
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_53&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@bugfixes{2_11_53,},
 @ref{Old downloads}.
 @newsEnd
 
@@ -343,8 +341,10 @@ LilyPond 2.11.53 is out.  This release fixes a lot of bugs.
 
 Release 2.11.52 fixes wrong offset of a bar number when it follows
 a breath mark, and syntax changes made in recent development
-releases are now fully listed on the News page.  @ref{Changes},
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_52&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+releases are now fully listed on the News page.
+@*
+@bugfixes{2_11_52,},
+@ref{Changes},
 @ref{Old downloads}.
 @newsEnd
 
@@ -356,7 +356,8 @@ Release 2.11.51 has a couple of bugfixes, and a lot of changes in
 predefined command names.  Fret diagrams formatting has been
 improved by Carl Sorensen, it is now controlled
 by @code{fret-diagram-details} property.
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_51&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@*
+@bugfixes{2_11_51,},
 @ref{Old downloads}.
 @newsEnd
 
@@ -367,7 +368,8 @@ by @code{fret-diagram-details} property.
 Release 2.11.50 adds support for metronome marks with text, and
 backslashed numbers for figured bass, contributed by
 Reinhold Kainhofer.
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_50&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@*
+@bugfixes{2_11_50,},
 @ref{Old downloads}.
 @newsEnd
 
@@ -393,7 +395,7 @@ Follow @uref{http://valentin.villenave.info/The-LilyPond-Report-12,this link} to
 
 LilyPond 2.11.49 is out.  It fixes a number of bugs, including bugs in beams formatting.
 @*
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_49&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@bugfixes{2_11_49,},
 @ref{Old downloads}.
 @newsEnd
 
@@ -405,7 +407,7 @@ LilyPond 2.11.48 is out.  This release fixes a few bugs, and
 @code{\compressMusic} has been renamed
 to @code{\scaleDurations}.
 @*
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_48&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@bugfixes{2_11_48,},
 @ref{Old downloads}.
 @newsEnd
 
@@ -432,7 +434,8 @@ Follow @uref{http://valentin.villenave.info/The-LilyPond-Report-10,this link} to
 LilyPond now allows all text context properties to be markups,
 except in @code{\lyricmode}.  This release also fixes
 regression tests maintenance for developers.
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_47&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+@*
+@bugfixes{2_11_47,},
 @ref{Old downloads}.
 @newsEnd
 
@@ -442,8 +445,9 @@ regression tests maintenance for developers.
 
 Release 2.11.46 fixes a lot of bugs and includes a rewrite of
 dynamics engravers.  Support for slur-shaped arpeggios has been added.
+@*
+@bugfixes{2_11_46,},
 @ref{Changes},
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_46&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
 @ref{Old downloads}.
 @newsEnd
 
@@ -478,8 +482,9 @@ performance, a bugfix about included files, and more flexibility
 for preprocessing documents with LaTeX variants. Support for
 enclosing text in a rounded box has been contributed by Valentin
 Villenave.
+@*
+@bugfixes{2_11_45,},
 @ref{Changes},
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_45&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
 @ref{Old downloads}.
 @newsEnd
 
@@ -489,7 +494,9 @@ Villenave.
 
 Release 2.11.44 is available. Support for figured bass and chord
 names has been added to the MusicXML
-converter. @uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_44&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+converter.
+@*
+@bugfixes{2_11_44,},
 @ref{Old downloads}.
 @newsEnd
 
@@ -507,7 +514,9 @@ Lilypond.orgのいくつかのページの日本語訳が出来ました。
 Release 2.11.43 has been available since March 27. It fixes a
 couple of formatting bugs, and the font cache problem with
 MS-Windows binaries which caused excessive slowness has been
-fixed. @uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_43&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
+fixed.
+@*
+@bugfixes{2_11_43,},
 @ref{Old downloads}.
 @newsEnd
 
@@ -516,8 +525,10 @@ fixed. @uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_1
 @subsubheading LilyPond 2.11.42 available.  @emph{March 9, 2008}
 
 Release 2.11.42 is out. It fixes some formatting and spacing
-bugs. (@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_42&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Old downloads})
+bugs.
+@*
+@bugfixes{2_11_42,},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -539,8 +550,10 @@ the articles}.
 
 Release 2.11.41 is available. It has a few bugfixes, updated
 program messages in French, German, Spanish and Vietnamese, and
-updates to the MusicXML converter. (@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_41&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Old downloads})
+updates to the MusicXML converter.
+@*
+@bugfixes{2_11_41,},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -557,17 +570,21 @@ documentation changes. (@ref{Old downloads})
 
 Release 2.11.36 is now available. It has many bugfixes, updates
 for MusicXML import, and it includes major documentation changes from
-Grand Documentation Project. (@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_36&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes}, @ref{Old downloads})
+Grand Documentation Project.
+@*
+@bugfixes{2_11_36,},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
-@subsubheading LilyPond 2.11.33 and 2.10.33 available.  @emph{September 20, 2007}
+@subsubheading LilyPond 2.10.33 and 2.11.33 available.  @emph{September 20, 2007}
 
 Release 2.11.33 is now available.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_10_33&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.10}, @uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_33&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11}, @ref{Old downloads})
+@*
+@bugfixes{2_10_33,2.10},
+@bugfixes{2_11_33,2.11},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -575,7 +592,9 @@ Release 2.11.33 is now available.
 @subsubheading LilyPond 2.11.32 available.  @emph{September 2, 2007}
 
 Release 2.11.32 is now available.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_32&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes}, @ref{Old downloads})
+@*
+@bugfixes{2_11_32,},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -584,7 +603,9 @@ Release 2.11.32 is now available.
 
 Release 2.11.31 is now available. It has more bugfixes, updates
 for MusicXML import and lots of updates for the translations.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_31&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes}, @ref{Old downloads})
+@*
+@bugfixes{2_11_31,},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -593,7 +614,10 @@ for MusicXML import and lots of updates for the translations.
 
 Release 2.11.30 is now available. It has various bugfixes among
 others in the new spacing code, MusicXML import and lots of updates
-for the translations.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_30&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes}, @ref{Old downloads})
+for the translations.
+@*
+@bugfixes{2_11_30,},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -603,9 +627,10 @@ for the translations.  (@uref{http://code.google.com/p/lilypond/issues/list?can=
 Release 2.11.29 is now available. 2.10.29 has a few small fixes.
 2.11.29 has several bugfixes, among others in the new spacing code,
 and lots of updates for the translations.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_10_29&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.10}, @uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_29&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11}, @ref{Old downloads})
+@*
+@bugfixes{2_10_29,2.10},
+@bugfixes{2_11_29,2.11},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -624,8 +649,9 @@ do @emph{sh lilypond-2.11.28-1.freebsd-64.sh} in a command window.
 Release 2.11.28 has several updates to the manual and its
 translations,  an plethora of bugfixes and a complete cleanup of the
 spacing engine code.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_28&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11}, @ref{Old downloads})
+@*
+@bugfixes{2_11_28,},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -634,8 +660,9 @@ spacing engine code.
 
 Release 2.11.26 supports page markers, eg. for use in
 tables-of-contents.  In addition, it fixes a number of bugs. Enjoy!
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_26&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11}, @ref{Old downloads})
+@*
+@bugfixes{2_11_26,},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -644,17 +671,20 @@ tables-of-contents.  In addition, it fixes a number of bugs. Enjoy!
 
 Release 2.11.25 has support for toplevel page breaking commands,
 and page breaking as a whole has been sped up significantly. Enjoy!
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_25&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11}, @uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_10_25&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.10}, @ref{Old downloads})
+@*
+@bugfixes{2_10_25,2.10},
+@bugfixes{2_11_25,2.11},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.10.23 and 2.11.23 available - @emph{May 1, 2007}
-This has lots of bugfixes.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_23&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11}, @uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_10_23&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.10}, @ref{Old downloads})
+This has lots of bugfixes.
+@*
+@bugfixes{2_10_23,2.10},
+@bugfixes{2_11_23,2.11},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -670,16 +700,21 @@ online und @ref{Old downloads}.
 
 @newsItem
 @subsubheading LilyPond 2.11.22 available - @emph{April 10, 2007}
-This release has updates of the dot collision code.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_22&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-}, @ref{Changes}, @ref{Old downloads})
+This release has updates of the dot collision code.
+@*
+@bugfixes{2_11_22,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.11.21 available - @emph{March 24, 2007}
 This release has some documentation updates.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_21&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-}, @ref{Changes}, @ref{Old downloads})
+@*
+@bugfixes{2_11_21,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -695,47 +730,51 @@ d&eacute;sormais traduits, et disponibles en ligne &mdash; @uref{@@DOC@@v2.10/Do
 @newsItem
 @subsubheading LilyPond 2.10.20 and 2.11.20 available - @emph{February 25, 2007}
 This release fixes many bugs.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_20&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11},
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_10_20&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.10}, @ref{Changes}, @ref{Old downloads})
+@*
+@bugfixes{2_10_20,2.10},
+@bugfixes{2_11_20,2.11},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.10.19 and 2.11.19 available - @emph{February 18, 2007}
 This release fixes many bugs.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_11_19&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11},
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&amp;q=fixed_2_10_19&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.10}, @ref{Changes}, @ref{Old downloads})
+@*
+@bugfixes{2_10_19,2.10},
+@bugfixes{2_11_19,2.11},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.11.18 available - @emph{February 12, 2007}
 This release fixes still more bugs, and included
-singing support through festival contributed by Milan Zamazal. (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_18&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11}, @ref{Changes}, @ref{Old downloads})
+singing support through festival contributed by Milan Zamazal.
+@*
+@bugfixes{2_11_18,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond  2.11.17 available - @emph{February 9, 2007}
 This release fixes still more bugs.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_17&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11}, @ref{Changes},
-@ref{Old downloads})
+@*
+@bugfixes{2_11_17,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.10.16 and 2.11.16 available - @emph{February 4, 2007}
 This release fixes many bugs.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_16&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11},
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_10_16&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.10},
+(@bugfixes{2_10_16,2.10},
+@bugfixes{2_11_16,2.11},
 @ref{Changes},
 @ref{Old downloads})
 @newsEnd
@@ -745,11 +784,12 @@ This release fixes many bugs.
 @subsubheading LilyPond 2.10.15 and 2.11.15 available - @emph{February 1, 2007}
 This release will stretch piano staves on a
 system-by-system basis and add a few glyphs: a black harmonic note
-head and the slashed mirrored flat.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_15&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.11},
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_10_15&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
-2.10},
-@ref{Changes}, @ref{Old downloads})
+head and the slashed mirrored flat.
+@*
+@bugfixes{2_10_15,2.10},
+@bugfixes{2_11_15,2.11},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -757,8 +797,10 @@ head and the slashed mirrored flat.  (@uref{http://code.google.com/p/lilypond/is
 @subsubheading LilyPond 2.10.14 and 2.11.14 available - @emph{January 26, 2007}
 This release has a rewrite of the line-spanner code, responsible for
 among other glissandi and text-crescendos, making them more flexible.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_14&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+@*
+@bugfixes{2_11_14,},
+@ref{Changes},
+@ref{Old downloads}
 @newsEnd
 
 
@@ -766,8 +808,10 @@ among other glissandi and text-crescendos, making them more flexible.
 @subsubheading LilyPond 2.10.13 and 2.11.13 available - @emph{January 17, 2007}
 This release fixes a few minor but irritating bugs. In addition, the
 2.11 release has updates of the tutorial.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_13&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+@*
+@bugfixes{2_11_13,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -775,23 +819,31 @@ This release fixes a few minor but irritating bugs. In addition, the
 @subsubheading LilyPond 2.11.12 available - @emph{January 17, 2007}
 This release fixes lots of bugs. In particular, the tie formatting has
 been further improved, and memory usage has been improved enormously.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_12&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+@*
+@bugfixes{2_11_12,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.10.12 available - @emph{January 17, 2007}
 This release mirrors 2.11.12. Notably, it has the same memory
-usage improvements.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_10_12&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+usage improvements.
+@*
+@bugfixes{2_10_12,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.10.11 available - @emph{January 12, 2007}
-This release mostly has the same fixes as 2.11.11.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_10_11&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+This release mostly has the same fixes as 2.11.11.
+@*
+@bugfixes{2_10_11,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -799,8 +851,11 @@ This release mostly has the same fixes as 2.11.11.  (@uref{http://code.google.co
 @subsubheading LilyPond 2.11.11 available - @emph{January 11, 2007}
 This release has further fixes for popular bugs. Timing of the MIDI
 output won't get confused by tuplets and grace notes anymore. Some fat
-has also been trimmed of the skyline code performance.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_11&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+has also been trimmed of the skyline code performance.
+@*
+@bugfixes{2_11_11,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -810,8 +865,11 @@ LilyPond 2.11.10 has further review of the test-suite, performance and
 code coverage. This brought to light several problems that were
 fixed.  Notably, 2.11.10 fixes lots of regressions in optical
 correction spacing and MIDI dynamics.  Also, this version is 20 to 50
-% faster than previous 2.11 releases. (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_10&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+% faster than previous 2.11 releases.
+@*
+@bugfixes{2_11_10,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -819,23 +877,32 @@ correction spacing and MIDI dynamics.  Also, this version is 20 to 50
 @subsubheading LilyPond 2.10.10 available - @emph{January 8, 2007}
 This release fixes several popular bugs, among others: MIDI files
 that go silent after (de)crescendi, and tuplets problems with quoting
-and part-combining (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_10&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+and part-combining.
+@*
+@bugfixes{2_10_10,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.11.9 and 2.10.9 available - @emph{January 3, 2007}
 This release has a couple of bugfixes, and &mdash;in 2.11.9&mdash
-further improvements in the regression test suite (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_9&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+further improvements in the regression test suite
+@*
+@bugfixes{2_11_9,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.11.8 and 2.10.8 available - @emph{January 3, 2007}
-New! Improved! With even more bugfixes!  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_8&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+New! Improved! With even more bugfixes!
+@*
+@bugfixes{2_11_8,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -853,8 +920,11 @@ Die LilyPond-Webseiten sind jetzt auch auf deutsch &uuml;bersetzt!
 
 @newsItem
 @subsubheading LilyPond 2.11.7 and 2.10.7 available - @emph{January 1, 2007}
-New! Improved! With even more bugfixes!  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_7&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+New! Improved! With even more bugfixes!
+@*
+@bugfixes{2_11_7,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -862,16 +932,20 @@ New! Improved! With even more bugfixes!  (@uref{http://code.google.com/p/lilypon
 @subsubheading LilyPond 2.11.6 available - @emph{December 30, 2006}
 This release supports arbitrary fractional alterations, allowing
 music with different microtonal conventions to be typeset.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_6&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+@*
+@bugfixes{2_11_6,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.10.6 available - @emph{December 30, 2006}
 New! Improved! With even more bugfixes!
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_10_6&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+@*
+@bugfixes{2_10_6,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -879,40 +953,51 @@ New! Improved! With even more bugfixes!
 @subsubheading LilyPond 2.11.5 available - @emph{December 24, 2006}
 These releases complete the translation infrastructure for
 Documentation.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_10_5&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+@*
+@bugfixes{2_11_5,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.10.5 available - @emph{December 24, 2006}
 New! Improved! With even more bugfixes!
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_10_5&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+@*
+@bugfixes{2_10_5,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.11.4 available - @emph{December 21, 2006}
 The vertical spacing improvements that were introduced in 2.11.0 now work
-within a system as well as between systems.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_4&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+within a system as well as between systems.
+@*
+@bugfixes{2_11_4,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.11.3 available - @emph{December 19, 2006}
 This release has @uref{http://lilypond.org/doc/v2.11/compare-v2.10.3/index.html,graphical
-test results} and several website build improvements.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_3&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+test results} and several website build improvements.
+@*
+@bugfixes{2_11_3,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.10.3 available - @emph{December 19, 2006}
 This release fixes several bugs.
-(@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_10_3&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Old downloads})
+@*
+@bugfixes{2_10_3,},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -933,29 +1018,39 @@ fran&ccedil;ais est maintenant disponible en ligne. @uref{@@DOC@@v2.10/Documenta
 
 @newsItem
 @subsubheading LilyPond 2.11.2 available - @emph{December 12, 2006}
-This release supports glissandi and harmonics in tablature.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_2&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+This release supports glissandi and harmonics in tablature.
+@*
+@bugfixes{2_11_2,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.10.2 available - @emph{December 12, 2006}
-A new stable release of LilyPond is available.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_10_2&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Old downloads})
+A new stable release of LilyPond is available.
+@*
+@bugfixes{2_10_2,},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.11.1 available - @emph{December 4, 2006}
-This release has improved support for horizontal spacing.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_11_1&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Changes}, @ref{Old downloads})
+This release has improved support for horizontal spacing.
+@*
+@bugfixes{2_11_1,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.10.1 available - @emph{December 3, 2006}
-A new stable release of LilyPond is available.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_10_1&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Old downloads})
+A new stable release of LilyPond is available.
+@*
+@bugfixes{2_10_1,},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -980,23 +1075,30 @@ system. Check out our repository at @uref{http://git.sv.gnu.org/gitweb/?p=lilypo
 
 @newsItem
 @subsubheading LilyPond 2.9.29 available - @emph{November 5, 2006}
-This release has many more bugfixes.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_9_29&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Old downloads})
+This release has many more bugfixes.
+@*
+@bugfixes{2_9_29,},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.9.28 available - @emph{November 3, 2006}
-This release has many more bugfixes.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_9_28&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Old downloads})
+This release has many more bugfixes.
+@*
+@bugfixes{2_9_28,},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.9.27 available - @emph{October 28, 2006}
 This release has a new @code{FretBoards} context, and some further
-bugfixes.  (@ref{Changes}, @uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_9_27&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Old downloads})
+bugfixes.
+@*
+@bugfixes{2_9_27,},
+@ref{Changes},
+@ref{Old downloads}.
 @newsEnd
 
 
@@ -1012,16 +1114,20 @@ the thesis is now available from lilypond.org
 
 @newsItem
 @subsubheading LilyPond 2.9.26 available - @emph{October 20, 2006}
-This release has further bugfixes.   (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_9_26&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Old downloads})
+This release has further bugfixes.
+@*
+@bugfixes{2_9_26,},
+@ref{Old downloads}.
 @newsEnd
 
 
 @newsItem
 @subsubheading LilyPond 2.9.25 available - @emph{October 18, 2006}
 This release has more bugfixes; from now on, binaries are also
-available for x86/64.  (@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_2_9_25&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes},
-@ref{Old downloads})
+available for x86/64.
+@*
+@bugfixes{2_9_25,},
+@ref{Old downloads}.
 @newsEnd
 
 
