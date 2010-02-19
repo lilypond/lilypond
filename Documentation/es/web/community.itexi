@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+    Translation of GIT committish: c8410dd44c317132e4747efb41ef7c1aab200df3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -8,6 +8,7 @@
 @end ignore
 
 @include included/authors.itexi
+@include included/helpus.itexi
 
 @node Comunidad
 @unnumbered Comunidad
@@ -410,145 +411,21 @@ usted disponga de una cuenta en Google.
 @translationof Help us
 
 @divClass{column-center-top}
-@subheading ¡Le necesitamos!
-
-El equipo de desarrollo de LilyPond es muy pequeño; verdaderamente nos
-gustaría tener a más gente implicada.  ¡Considere la posibilidad de
-ayudar a sus colegas usuarios de LilyPond contribuyendo a su
-desarrollo!
-
-Incluso el trabajo sobre pequeñas tareas puede tener un gran impacto:
-ocuparse de ellas permite a los desarrolladores con experiencia
-trabajar sobre las tareas avanzadas, en lugar de emplear su tiempo en
-esos trabajos sencillos.
+@helpusNeed
 
 @divEnd
-
 
 @divClass{column-left-top}
-@subheading Tareas sencillas
-
 @divClass{keep-bullets}
-
-@itemize
-@item
-Apoyo en la lista de distribución de correo: responda las preguntas de
-sus colegas usuarios.
-
-@item
-Informar de fallos: ayude a los usuarios a crear @ref{Informes de
-fallos} adecuados, y asista al Equipo de Fallos en el manejo de los
-@rcontribnamed{Issues,Problemas}.
-
-@item
-Documentación: se pueden proponer cambios pequeños siguiendo las
-indicaciones de @rcontribnamed{Documentation suggestions,Sugerencias para la documentación}.
-
-@item
-El Repositorio de Fragmentos de Código (LSR): elabore y arregle
-fragmentos.  Consulte @rcontribnamed{Adding and editing snippets,Añadir y editar fragmentos de código}.
-
-@item
-Discusión, revisión y pruebas: los desarrolladores suelen solicitar un
-retorno sobre documentación nueva, potenciales cambios de sintaxis y
-prueba de nuevas funcionalidades.  ¡Contribuya a estas discusiones!
-
-@end itemize
-
-@subheading Tareas de dificultad moderada
-
-@warning{En general, estos trabajos requieren que usted tenga los
-archivos de código fuente del programa y la documentación, pero no
-requieren un entorno de desarrollo completo.  Consulte
-@rcontribnamed{Starting with Git,Comenzar con Git}.}
-
-@itemize
-@item
-Documentación: consulte @rcontribnamed{Documentation work,Trabajar en la documentación} y
-@rcontribnamed{Building documentation without compiling LilyPond,Construir la documentación sin compilar LilyPond}.
-
-@item
-Página web: nuestra página se construye a partir del código fuente
-normal de la documentación.  Consulte la información sobre la
-documentación, y también @rcontribnamed{Website work,Trabajar en la página web}.
-
-@item
-Traducciones: consulte @rcontribnamed{Translating the documentation,Traducir la documentación} y
-@rcontribnamed{Translating the website,Traducir la página web}.
-
-@end itemize
-
-
-@subheading Tareas complejas
-
-@warning{En general, estos trabajos requieren que usted tenga el
-código fuente y sea capaz de compilar LilyPond.  Consulte
-@rcontribnamed{Starting with Git,Comenzar con Git} y @rcontribnamed{Compiling LilyPond,Compilación de LilyPond}.}
-
-Sugerimos que los colaboradores nuevos que sean usuarios de Windows
-utilicen una máquina virtual para ejecutar @emph{lilybuntu}.  Consulte
-@rcontribnamed{Using a Virtual Machine to Compile LilyPond,Utilización de una máquina virtual para la compilación de LilyPond}.
-
-@itemize
-@item
-Corrección de fallos, funcionalidades nuevas: la mejor forma de
-comenzar es unirse a los cazadores de bugs, los Frogs, y leer
-@rcontribnamed{Programming work,Trabajos de programación}.
-
-@end itemize
+@helpusTasks
 
 @divEnd
 @divEnd
-
 
 @divClass{column-right-top}
-@subheading Proyectos
-
-@subsubheading Frogs
-
-Página y lista de distribución de correo:
-@uref{http://frogs.lilynet.net}
-
-Los Frogs son usuarios de LilyPond normales que voluntariamente se
-implican en el desarrollo de su programa favorito.  Arreglar fallos,
-implementar funcionalidades nuevas, documentar el código fuente: es
-mucho lo que hay que hacer, pero lo principal es: hay una oportunidad
-para todos de aprender más sobre LilyPond, sobre el Software Libre,
-sobre programación... y pasarlo bien.  Si siente curiosidad sobre
-cualquiera de ellos, el lema es: @emph{Join the Frogs!}
-
-
-
-@c @hel p{not active yet; either comment out or begin these projects before 2.14}
-
-@subsubheading El proyecto GLISS (Grand LilyPond Input Syntax Standardization)
-
-Página web: @uref{http://lilypond.org/~graham/gliss}
-
-GLISS estabilizará la sintaxis del código de entrada, sin trucajes,
-para el advenimiento de LilyPond 3.0.  Después de la actualización a
-3.0, la sintaxis de entrada para música sin trucajes, permanecerá
-estable durante un futuro previsible.
-
-We will have an extensive discussion period to determine the final
-input specification.
-
-@subsubheading Grand Organizing Project
-
-Página web y lista de correo: en construcción
-
-El GOP es nuestro gran proyecto de reclutamiento de nuevos
-colaboradores.
+@helpusProjects
 
 @divEnd
-
-
-@ignore
-@divClass{column-center-bottom}
-@subheading ¿Está interesado?
-
-@divEnd
-@end ignore
 
 
 @node Desarrollo
@@ -816,6 +693,10 @@ están en @url{http://lilypond.org}}
 
 @docCurrent
 
+@subsubheading Bug squad
+
+@bugsquadCurrent
+
 @subsubheading Soporte
 
 @supportCurrent
@@ -843,6 +724,11 @@ están en @url{http://lilypond.org}}
 @subsubheading Documentación
 
 @docPrevious
+
+@c    uncomment when we have any previous members -gp
+@c @subsubheading Bug squad
+
+@c @bugsquadCurrent
 
 @subsubheading Soporte
 
