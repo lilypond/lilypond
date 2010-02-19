@@ -2630,10 +2630,11 @@ Referencia de funcionamiento interno:
 @funindex \easyHeadsOff
 @funindex easyHeadsOff
 
-The @q{easy play} note head includes a note name inside the head.
-It is used in music for beginners.  To make the letters readable,
-it should be printed in a large font size.  To print with a larger
-font, see @ref{Setting the staff size}.
+Las notas con cabeza de @q{notación facilitada} tienen el nombre de la
+nota (en inglés) dentro de la cabeza.  Se usan en la música para
+principiantes.  Para que las letras sean legibles, se deben imprimir
+en un tamaño grande de fuente tipográfica.  Para imprimir con una
+fuente más grande, véase @ref{Establecer el tamaño del pentagrama}.
 
 @lilypond[verbatim,quote]
 #(set-global-staff-size 26)
