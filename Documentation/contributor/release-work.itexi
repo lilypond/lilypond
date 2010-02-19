@@ -125,6 +125,10 @@ make LILYPOND_BRANCH=stable/2.12 lilypond
 @item Check the regtest comparison in @file{uploads/webtest/} for
 any unintentional breakage.
 
+Note that this test uses the bounding boxes inside lilypond.
+Errors in ghostscript don't generate differences inside lilypond,
+so they are not registered in the regtest comparison.
+
 @item If any work was done on GUB since the last release, upload
 binaries to a temporary location, ask for feedback, and wait a day
 or two in case there's any major problems.
