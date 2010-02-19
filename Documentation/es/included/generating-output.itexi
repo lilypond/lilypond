@@ -1,7 +1,9 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of web/download.itexi and
+@c learning/tutorial.itely
 
 @ignore
-    Translation of GIT committish: e600412e50db9e8ee3b9e408527322b84b946f52
+    Translation of GIT committish: a48879a125150c95571cc2cd06fd626e75cd3b65
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'

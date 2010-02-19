@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 42f15d2fa4de88b8ed1a3fed30570cde0ab03f5f
+    Translation of GIT committish: 412fa426d510594ec7772c7cf7b568e376bd1c84
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -233,8 +233,8 @@ Para ver más detalles, consulte @ruser{Varias partituras en un libro}.
 
 @cindex variables
 
-Otro atajo genial es la posibilidad de definir variables  (véase
-@ref{Organizar las piezas mediante variables}).  Todas las
+Otro magnífico atajo es la posibilidad de definir variables  como
+se muestra en @ref{Organizar las piezas mediante variables}.  Todas las
 plantillas emplean lo siguiente:
 
 @example
@@ -668,7 +668,7 @@ la nota de paso y la ligadura:
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key g \major
 %    Voice "1"                  Voice "2"
-<< { g4 fis8( g) a4 g }    \\ { d4 d d d }  >> |
+<< { g4 fis8( g) a4 g }  \\  { d4 d d d }  >>
 @end lilypond
 
 Observe cómo las plicas de la segunda voz ahora se dirigen hacia
@@ -679,9 +679,9 @@ A continuación veamos otro ejemplo sencillo:
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key d \minor
 %    Voice "1"             Voice "2"
-<< { r4 g g4. a8 }    \\ { d,2 d4 g }       >> |
-<< { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
-<< { a2. r4 }         \\ { fis2. s4 }       >> |
+<< { r4 g g4. a8 }    \\ { d,2 d4 g }       >>
+<< { bes4 bes c bes } \\ { g4 g g8( a) g4 } >>
+<< { a2. r4 }         \\ { fis2. s4 }       >>
 @end lilypond
 
 No es necesario usar una construcción @code{<< \\ >>} distinta para
@@ -723,8 +723,8 @@ correcta.
   % Main voice
   c16 d e f
   %    Voice "1"     Voice "2"                 Voice "3"
-  << { g4 f e } \\ { r8 e4 d c8 ~ } >> |
-  << { d2 e2 }  \\ { c8 b16 a b8 g ~ g2 } \\ { s4 b4 c2 } >> |
+  << { g4 f e } \\ { r8 e4 d c8~ } >>
+  << { d2 e2 }  \\ { c8 b16 a b8 g~ g2 } \\ { s4 b4 c2 } >>
 }
 @end lilypond
 
@@ -747,7 +747,7 @@ construcciones, como se indica aquí en la voz de triángulos azules.
 \new Staff \relative c' {
   % Main voice
   c16 d e f
-  << % Bar 1
+  <<  % Bar 1
     {
       \voiceOneStyle
       g4 f e
@@ -755,10 +755,10 @@ construcciones, como se indica aquí en la voz de triángulos azules.
   \\
     {
       \voiceTwoStyle
-      r8 e4 d c8 ~
+      r8 e4 d c8~
     }
   >>
-  << % Bar 2
+  <<  % Bar 2
      % Voice 1 continues
     { d2 e2 }
   \\
@@ -836,12 +836,12 @@ las complicaciones se explicarán en secciones posteriores).
 @lilypond[quote,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
-  << % Voice one
+  <<  % Voice one
     { c2 aes4. bes8 }
-  \\ % Voice two
+  \\  % Voice two
     { aes2 f4 fes }
-  \\ % No voice three
-  \\ % Voice four
+  \\  % No voice three
+  \\  % Voice four
     {
       % Ignore these for now - they are explained in Ch 4
       \once \override NoteColumn #'force-hshift = #0
@@ -880,7 +880,7 @@ entienda.
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { % Voice one
+    {  % Voice one
       \voiceOneStyle
       c2 aes4. bes8
     }
@@ -897,8 +897,8 @@ entienda.
       \once \override NoteColumn #'force-hshift = #0.5
       des2
     }
-  >> |
-  <c ees aes c>1 |
+  >>
+  <c ees aes c>1
 }
 @end lilypond
 
@@ -934,15 +934,15 @@ Esto se hace escribiendo otro par de barras invertidas (@code{\\}).
 @lilypond[quote,verbatim,fragment,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
-  << % Voice one
+  <<  % Voice one
     { c2 aes4. bes8 }
-  \\ % Voice two
-    { aes2 f4 fes   }
-  \\ % Omit Voice three
-  \\ % Voice four
+  \\  % Voice two
+    { aes2 f4 fes }
+  \\  % Omit Voice three
+  \\  % Voice four
     { <ees c>2 des2 }
-  >> |
-  <c ees aes c>1 |
+  >>
+  <c ees aes c>1
 }
 @end lilypond
 
@@ -1045,25 +1045,25 @@ las ligaduras de unión y de expresión y las indicaciones de dinámica:
 @lilypond[quote,ragged-right,verbatim]
 \relative c'{
   % Default behavior or behavior after \oneVoice
-  c d8 ~ d e4 ( f g a ) b-> c
+  c d8~ d e4( f g a) b-> c
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'{
   \voiceOne
-  c d8 ~ d e4 ( f g a ) b-> c
+  c d8~ d e4( f g a) b-> c
   \oneVoice
-  c, d8 ~ d e4 ( f g a ) b-> c
+  c, d8~ d e4( f g a) b-> c
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'{
   \voiceTwo
-  c d8 ~ d e4 ( f g a ) b-> c
+  c d8~ d e4( f g a) b-> c
   \oneVoice
-  c, d8 ~ d e4 ( f g a ) b-> c
+  c, d8~ d e4( f g a) b-> c
 }
 @end lilypond
 
@@ -1088,18 +1088,18 @@ pueda trazar una ligadura por encima de ellas.
   % Start simultaneous section of three voices
   <<
     % Continue the main voice in parallel
-    { g4 f e | d2 e2) }
+    { g4 f e | d2 e2) | }
     % Initiate second voice
     \new Voice {
-      % Set stems, etc, down
+      % Set stems, etc., down
       \voiceTwo
-      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+      r8 e4 d c8~ | c8 b16 a b8 g~ g2 |
     }
     % Initiate third voice
     \new Voice {
       % Set stems, etc, up
       \voiceThree
-      s2. | s4 b4 c2
+      s2. | s4 b4 c2 |
     }
   >>
 }
@@ -1119,12 +1119,12 @@ de tipografiar la música.
 \new Staff \relative c' {
   c16^( d e f
   <<
-    { g4 f e | d2 e2) }
+    { g4 f e | d2 e2) | }
     \new Voice {
       \voiceTwo
-      r8 e4 d c8 ~ |
+      r8 e4 d c8~
       <<
-        {c8 b16 a b8 g ~ g2}
+        { c8 b16 a b8 g~ g2 }
         \new Voice {
           \voiceThree
           s4 b4 c2
@@ -1154,7 +1154,7 @@ que una voz está en silencio, como aquí:
   \new Voice {
     % Set stems, etc, down
     \voiceTwo
-    s4 r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 |
+    s4 r8 e4 d c8~ | c8 b16 a b8 g~ g2 |
   }
   % Initiate third voice
   \new Voice {
@@ -1290,13 +1290,13 @@ no como música.
 @lilypond[quote,verbatim]
 global = { \time 6/8 \partial 8 \key f \major}
 SopOneMusic = \relative c'' {
-  c8 | c([ bes)] a a([ g)] f | f'4. b, | c4.~ c4 }
+  c8 | c([ bes)] a a([ g)] f | f'4. b, | c4.~ c4 | }
 SopTwoMusic = \relative c' {
-  r8 | r4. r4 c8 | a'([ g)] f f([ e)] d | e([ d)] c bes' }
+  r8 | r4. r4 c8 | a'([ g)] f f([ e)] d | e([ d)] c bes' | }
 SopOneLyrics = \lyricmode {
-  Let | flee -- cy flocks the | hills a -- dorn, __ }
+  Let | flee -- cy flocks the | hills a -- dorn, __ | }
 SopTwoLyrics = \lyricmode {
-  Let | flee -- cy flocks the | hills a -- dorn, }
+  Let | flee -- cy flocks the | hills a -- dorn, | }
 
 \score {
   \new ChoirStaff <<
@@ -1347,18 +1347,18 @@ ejemplos se le suele dar el nombre de @q{global}.
 
 @lilypond[quote,verbatim]
 TimeKey = { \time 4/4 \partial 4 \key c \major}
-SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
-AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
-TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
-BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
+SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g | }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e | }
+TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 | }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 | }
 VerseOne   = \lyricmode {
-  E -- | ter -- nal fa -- ther, | strong to save, }
+  E -- | ter -- nal fa -- ther, | strong to save, | }
 VerseTwo   = \lyricmode {
-  O | Christ, whose voice the | wa -- ters heard, }
+  O | Christ, whose voice the | wa -- ters heard, | }
 VerseThree = \lyricmode {
-  O | Ho -- ly Spi -- rit, | who didst brood }
+  O | Ho -- ly Spi -- rit, | who didst brood | }
 VerseFour  = \lyricmode {
-  O | Tri -- ni -- ty of | love and pow'r }
+  O | Tri -- ni -- ty of | love and pow'r | }
 
 \score {
   \new ChoirStaff <<
@@ -1374,7 +1374,7 @@ VerseFour  = \lyricmode {
     \new Staff <<
       \clef "bass"
       \new Voice = "Tenor" { \voiceOne \TimeKey \TenorMusic }
-      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic }
     >>
   >>
 }
@@ -1404,7 +1404,8 @@ comienzo al mismo tiempo:
 versenotes = \relative c'' {
   \clef "treble"
   \key g \major
-  \time 3/4 g g g b b b
+  \time 3/4
+  g g g | b b b |
 }
 versewords = \lyricmode {
   One two three four five six
@@ -1459,16 +1460,17 @@ estrofa:
 versenotes = \relative c'' {
   \clef "treble"
   \key g \major
-  \time 3/4 g g g b b b
+  \time 3/4
+  g g g | b b b |
 }
 refrainnotesA = \relative c'' {
   \time 2/4
-  c c g g \bar "|."
+  c c | g g \bar "|."
 }
 refrainnotesB = \relative c {
   \clef "bass"
   \key g \major
-  c e d d
+  c e | d d |
 }
 versewords = \lyricmode {
   One two three four five six
@@ -1522,16 +1524,17 @@ codificarlo como dos bloques @code{\score} dentro de un bloque
 versenotes = \relative c'' {
   \clef "treble"
   \key g \major
-  \time 3/4 g g g b b b
+  \time 3/4
+  g g g | b b b |
 }
 refrainnotesA = \relative c'' {
   \time 2/4
-  c c g g \bar "|."
+  c c | g g \bar "|."
 }
 refrainnotesB = \relative c {
   \clef "bass"
   \key g \major
-  c e d d
+  c e | d d |
 }
 versewords = \lyricmode {
   One two three four five six
@@ -1741,8 +1744,8 @@ un ejemplo anotado de música real:
       \clef "treble"
       \new Voice {  % create voice for RH notes
         \relative c'' {  % start of RH notes
-          d4 ees16 c8. |
-          d4 ees16 c8. |
+          d4 ees16 c8.
+          d4 ees16 c8.
         }  % end of RH notes
       }  % end of RH voice
     }  % end of RH staff
@@ -1752,15 +1755,15 @@ un ejemplo anotado de música real:
       \new Voice {  % create LH voice one
         \voiceOne
         \relative g {  % start of LH voice one notes
-          g8 <bes d> ees, <g c> |
-          g8 <bes d> ees, <g c> |
+          g8 <bes d> ees, <g c>
+          g8 <bes d> ees, <g c>
         }  % end of LH voice one notes
       }  % end of LH voice one
       \new Voice {  % create LH voice two
         \voiceTwo
         \relative g {  % start of LH voice two notes
-          g4 ees |
-          g4 ees |
+          g4 ees
+          g4 ees
         }  % end of LH voice two notes
       }  % end of LH voice two
     >>  % end of LH staff
@@ -2042,11 +2045,11 @@ Así, esto desactivará los becuadros adicionales en un pentagrama:
 <<
   \new Staff \relative c'' {
     ais4 aes
- }
+  }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
     ais4 aes
- }
+  }
 >>
 @end lilypond
 
@@ -2057,11 +2060,11 @@ y esto los desactivará en todos los pentagramas:
 <<
   \new Staff \relative c'' {
     ais4 aes
- }
+  }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
     ais4 aes
- }
+  }
 >>
 @end lilypond
 
@@ -2206,7 +2209,8 @@ continuación presentamos un ejemplo que muestra el formato:
     }
   }
   \layout {
-    \context { \Staff
+    \context {
+      \Staff
       extraNatural = ##t
     }
   }
@@ -2222,10 +2226,10 @@ enunciados dentro de un bloque @code{\with}, y mediante instrucciones
 
 @seealso
 Referencia de la notación:
-@ruser{Cambiar los valores por omisión de los contextos}.
+@ruser{Cambiar los valores por omisión de los contextos},
 @c FIXME
 @c uncomment when backslash-node-name issue is resolved -pm
-@c @ruser{La instrucción set}.
+@ruser{La instrucción set}.
 
 Referencia de funcionamiento interno:
 @rinternals{Contexts},
@@ -2351,22 +2355,31 @@ podemos escribir
 \score {
   <<
     \new Staff <<
-      \relative c'' { c a b g }
+      \relative c'' {
+        c a b g
+      }
     >>
     \new Staff <<
-      \relative c' { c a b g }
+      \relative c' {
+        c a b g
+      }
     >>
     \new Staff <<
       \clef "G_8"
-      \relative c' { c a b g }
+      \relative c' {
+        c a b g
+      }
     >>
     \new Staff <<
       \clef "bass"
-      \relative c { c a b g }
+      \relative c {
+        c a b g
+      }
     >>
   >>
   \layout {
-    \context { \Staff
+    \context {
+      \Staff
       \consists Ambitus_engraver
     }
   }
@@ -2535,16 +2548,16 @@ esto:
 
 @c Indentation in this example is deliberately poor
 @example
-\score@{
+\score @{
   <<
-  <<
-    \new Voice = "uno" @{
-      \autoBeamOff
-      \sopranoMusic
-    @}
-    \new Lyrics \lyricsto "uno" \letraSoprano
-  >>
-  \new Staff \musicaCello
+    <<
+      \new Voice = "uno" @{
+        \autoBeamOff
+        \sopranoMusic
+      @}
+      \new Lyrics \lyricsto "uno" \letraSoprano
+    >>
+    \new Staff \musicaCello
   >>
   \layout @{ @}
   \midi @{ @}
@@ -2636,16 +2649,16 @@ bassWords = \sopranoWords
 upper = \relative a' {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4 |
-  <d fis d'>4. <d fis d'>8 <a d a'>2 |
-  <g cis g'>4 <a d fis> <a cis e>2 |
+  r4 <a d fis>2 <a e' a>4
+  <d fis d'>4. <d fis d'>8 <a d a'>2
+  <g cis g'>4 <a d fis> <a cis e>2
 }
 lower = \relative c, {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4 |
-  <b b'>4. <b' b'>8 <fis fis'>2 |
-  <e e'>4 <d d'> <a' a'>2 |
+  <d d'>4 <d d'>2 <cis cis'>4
+  <b b'>4. <b' b'>8 <fis fis'>2
+  <e e'>4 <d d'> <a' a'>2
 }
 
 \score {
@@ -2653,26 +2666,41 @@ lower = \relative c, {
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
         \set Staff.instrumentName = #"Soprano"
-        \new Voice = "sopranos" { \global \sopranoMusic }
+        \new Voice = "sopranos" {
+          \global
+          \sopranoMusic
+        }
       >>
-      \new Lyrics \lyricsto "sopranos" { \sopranoWords }
+      \new Lyrics \lyricsto "sopranos" {
+        \sopranoWords
+      }
       \new Staff = "altos" <<
         \set Staff.instrumentName = #"Alto"
-        \new Voice = "altos" { \global \altoMusic }
+        \new Voice = "altos" {
+          \global
+          \altoMusic
+        }
       >>
       \new Lyrics \lyricsto "altos" { \altoWords }
       \new Staff = "tenors" <<
         \set Staff.instrumentName = #"Tenor"
-        \new Voice = "tenors" { \global \tenorMusic }
+        \new Voice = "tenors" {
+          \global
+          \tenorMusic
+        }
       >>
       \new Lyrics \lyricsto "tenors" { \tenorWords }
       \new Staff = "basses" <<
         \set Staff.instrumentName = #"Bass"
-        \new Voice = "basses" { \global \bassMusic }
+        \new Voice = "basses" {
+          \global
+          \bassMusic
+        }
       >>
-      \new Lyrics \lyricsto "basses" { \bassWords }
+      \new Lyrics \lyricsto "basses" {
+        \bassWords
+      }
     >>  % end ChoirStaff
-
     \new PianoStaff <<
       \set PianoStaff.instrumentName = #"Piano"
       \new Staff = "upper" \upper
@@ -2708,24 +2736,44 @@ Al hacerlo así obtenemos el ChoirStaff siguiente:
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
         \set Staff.instrumentName = #"Soprano"
-        \new Voice = "sopranos" @{ \global \musicaSoprano @}
+        \new Voice = "sopranos" @{
+          \global
+          \musicaSoprano
+        @}
       >>
-      \new Lyrics \lyricsto "sopranos" @{ \latraSoprano @}
+      \new Lyrics \lyricsto "sopranos" @{
+        \letraSoprano
+     @}
       \new Staff = "altos" <<
         \set Staff.instrumentName = #"Alto"
-        \new Voice = "altos" @{ \global \musicaAlto @}
+        \new Voice = "altos" @{
+          \global
+          \musicaAlto
+        @}
       >>
-      \new Lyrics \lyricsto "altos" @{ \letraAlto @}
+      \new Lyrics \lyricsto "altos" @{
+        \letraAlto
+      @}
       \new Staff = "tenores" <<
         \set Staff.instrumentName = #"Tenor"
-        \new Voice = "tenores" @{ \global \musicaTenor @}
+        \new Voice = "tenores" @{
+          \global
+          \musicaTenor
+        @}
       >>
-      \new Lyrics \lyricsto "tenores" @{ \letraTenor @}
+      \new Lyrics \lyricsto "tenores" @{
+        \letraTenor
+      @}
       \new Staff = "bajos" <<
-        \set Staff.instrumentName = #"Bass"
-        \new Voice = "bajos" @{ \global \musicaBajo @}
+        \set Staff.instrumentName = #"Bajo"
+        \new Voice = "bajos" @{
+          \global
+          \musicaBajo
+        @}
       >>
-      \new Lyrics \lyricsto "bajos" @{ \letraBajo @}
+      \new Lyrics \lyricsto "bajos" @{
+        \letraBajo
+      @}
     >>  % fin del ChoirStaff
 @end example
 
@@ -2751,23 +2799,43 @@ Los grupos ChoirStaff y PianoStaff se deben combinar utilizando
 <<  % combinar los grupos ChoirStaff y PianoStaff uno sobre el otro
   \new ChoirStaff <<
     \new Staff = "sopranos" <<
-      \new Voice = "sopranos" @{ \global \musicaSoprano @}
+      \new Voice = "sopranos" @{
+        \global
+        \musicaSoprano
+      @}
     >>
-    \new Lyrics \lyricsto "sopranos" @{ \letraSoprano @}
+    \new Lyrics \lyricsto "sopranos" @{
+      \letraSoprano
+     @}
     \new Staff = "altos" <<
-      \new Voice = "altos" @{ \global \musicaAlto @}
+      \new Voice = "altos" @{
+        \global
+        \musicaAlto
+      @}
     >>
-    \new Lyrics \lyricsto "altos" @{ \letraAlto @}
+    \new Lyrics \lyricsto "altos" @{
+      \letraAlto
+    @}
     \new Staff = "tenores" <<
       \clef "G_8"  % clave de tenor
-      \new Voice = "tenores" @{ \global \musicaTenor @}
+      \new Voice = "tenores" @{
+        \global
+        \musicaTenor
+      @}
     >>
-    \new Lyrics \lyricsto "tenores" @{ \letraTenor @}
+    \new Lyrics \lyricsto "tenores" @{
+      \letraTenor
+    @}
     \new Staff = "bajos" <<
       \clef "bass"
-      \new Voice = "bajos" @{ \global \musicaBajo @}
+      \new Voice = "bajos" @{
+        \global
+        \musicaBajo
+      @}
     >>
-    \new Lyrics \lyricsto "bajos" @{ \letraBajo @}
+    \new Lyrics \lyricsto "bajos" @{
+      \letraBajo
+    @}
   >>  % fin del ChoirStaff
 
   \new PianoStaff <<
@@ -2782,7 +2850,10 @@ Al combinar todo esto junto y escribir la música de los tres compases
 del ejemplo anterior, obtenemos:
 
 @lilypond[quote,verbatim,ragged-right,addversion]
-global = { \key d \major \time 4/4 }
+global = {
+  \key d \major
+  \time 4/4
+}
 sopranoMusic = \relative c'' {
   \clef "treble"
   r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
@@ -2808,16 +2879,16 @@ bassWords = \sopranoWords
 upper = \relative a' {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4 |
-  <d fis d'>4. <d fis d'>8 <a d a'>2 |
-  <g cis g'>4 <a d fis> <a cis e>2 |
+  r4 <a d fis>2 <a e' a>4
+  <d fis d'>4. <d fis d'>8 <a d a'>2
+  <g cis g'>4 <a d fis> <a cis e>2
 }
 lower = \relative c, {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4 |
-  <b b'>4. <b' b'>8 <fis fis'>2 |
-  <e e'>4 <d d'> <a' a'>2 |
+  <d d'>4 <d d'>2 <cis cis'>4
+  <b b'>4. <b' b'>8 <fis fis'>2
+  <e e'>4 <d d'> <a' a'>2
 }
 
 \score {
@@ -2825,24 +2896,44 @@ lower = \relative c, {
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
         \set Staff.instrumentName = #"Soprano"
-        \new Voice = "sopranos" { \global \sopranoMusic }
+        \new Voice = "sopranos" {
+          \global
+          \sopranoMusic
+        }
       >>
-      \new Lyrics \lyricsto "sopranos" { \sopranoWords }
+      \new Lyrics \lyricsto "sopranos" {
+        \sopranoWords
+      }
       \new Staff = "altos" <<
         \set Staff.instrumentName = #"Alto"
-        \new Voice = "altos" { \global \altoMusic }
+        \new Voice = "altos" {
+          \global
+          \altoMusic
+        }
       >>
-      \new Lyrics \lyricsto "altos" { \altoWords }
+      \new Lyrics \lyricsto "altos" {
+        \altoWords
+      }
       \new Staff = "tenors" <<
         \set Staff.instrumentName = #"Tenor"
-        \new Voice = "tenors" { \global \tenorMusic }
+        \new Voice = "tenors" {
+          \global
+          \tenorMusic
+        }
       >>
-      \new Lyrics \lyricsto "tenors" { \tenorWords }
+      \new Lyrics \lyricsto "tenors" {
+        \tenorWords
+      }
       \new Staff = "basses" <<
         \set Staff.instrumentName = #"Bass"
-        \new Voice = "basses" { \global \bassMusic }
+        \new Voice = "basses" {
+          \global
+          \bassMusic
+        }
       >>
-      \new Lyrics \lyricsto "basses" { \bassWords }
+      \new Lyrics \lyricsto "basses" {
+        \bassWords
+      }
     >>  % end ChoirStaff
 
     \new PianoStaff <<
@@ -2890,11 +2981,14 @@ tonalidad:
   title = "Jesu, meine Freude"
   composer = "J S Bach"
 @}
-TimeKey = @{ \time 4/4 \key c \minor @}
-MusicaManualUnoVozUno = @{s1@}
-MusicaManualUnoVozDos = @{s1@}
-MusicaManualDos = @{s1@}
-MusicaPedal = @{s1@}
+TimeKey = @{
+  \time 4/4
+  \key c \minor
+@}
+MusicaManualUnoVozUno = @{ s1 @}
+MusicaManualUnoVozDos = @{ s1 @}
+MusicaManualDos = @{ s1 @}
+MusicaPedal = @{ s1 @}
 
 \score @{
 @}
@@ -2914,11 +3008,17 @@ segunda sólo una.
 @example
   \new PianoStaff <<
     \new Staff = "ManualUno" <<
-      \new Voice @{ \MusicaManualUnoVozUno @}
-      \new Voice @{ \MusicaManualUnoVozDos @}
+      \new Voice @{
+        \MusicaManualUnoVozUno
+      @}
+      \new Voice @{
+        \MusicaManualUnoVozDos
+      @}
     >>  % fin del contexto de Staff ManualUno
     \new Staff = "ManualDos" <<
-      \new Voice @{ \MusicaManualDos @}
+      \new Voice @{
+        \MusicaManualDos
+      @}
     >>  % fin del contexto de Staff ManualDos
   >>  % fin del contexto de PianoStaff
 @end example
@@ -2935,15 +3035,23 @@ ejemplo final que aparece al final de la sección, borre los dobles
 <<  % el grupo PianoStaff y el pentagrama de Pedal son simultáneos
   \new PianoStaff <<
     \new Staff = "ManualUno" <<
-      \new Voice @{ \MusicaManualUnoVozUno @}
-      \new Voice @{ \MusicaManualUnoVozDos @}
+      \new Voice @{
+        \MusicaManualUnoVozUno
+      @}
+      \new Voice @{
+        \MusicaManualUnoVozDos
+      @}
     >>  % fin del contexto de Staff ManualUno
     \new Staff = "ManualDos" <<
-      \new Voice @{ \MusicaManualDos @}
+      \new Voice @{
+        \MusicaManualDos
+      @}
     >>  % fin del contexto de Staff ManualDos
   >>  % fin del contexto de PianoStaff
   \new Staff = "OrganoPedal" <<
-    \new Voice @{ \MusicaOrganoPedal @}
+    \new Voice @{
+      \MusicaOrganoPedal
+    @}
   >>
 >>
 @end example
@@ -2973,19 +3081,29 @@ los pentagramas usando nuestra variable previamente definida
       \new Staff = "ManualUno" <<
         \TimeKey  % establecer compás y tonalidad
         \clef "treble"
-        \new Voice @{ \voiceOne \MusicaManualUnoVozUno @}
-        \new Voice @{ \voiceTwo \MusicaManualUnoVozDos @}
+        \new Voice @{
+          \voiceOne
+          \MusicaManualUnoVozUno
+        @}
+        \new Voice @{
+          \voiceTwo
+          \MusicaManualUnoVozDos
+        @}
       >>  % fin del contexto de Staff ManualUno
       \new Staff = "ManualDos" <<
         \TimeKey
         \clef "bass"
-        \new Voice @{ \MusicaManualDos @}
+        \new Voice @{
+          \MusicaManualDos
+        @}
       >>  % fin del contexto de Staff ManualDos
     >>  % fin del contexto de PianoStaff
     \new Staff = "OrganoPedal" <<
       \TimeKey
       \clef "bass"
-      \new Voice @{ \MusicaOrganoPedal @}
+      \new Voice @{
+        \MusicaOrganoPedal
+      @}
     >>  % fin del pentagrama de OrganoPedal
   >>
 @}  % end Score context
@@ -3001,22 +3119,26 @@ todas las partes.
   title = "Jesu, meine Freude"
   composer = "J S Bach"
 }
-TimeKey = { \time 4/4 \key c \minor }
+TimeKey = {
+  \time 4/4
+  \key c \minor
+}
 ManualOneVoiceOneMusic = \relative g' {
-  g4 g f ees | d2 c2 |
+  g4 g f ees
+  d2 c2
 }
 ManualOneVoiceTwoMusic = \relative c' {
-  ees16 d ees8~ ees16 f ees d c8 d~ d c~ |
-  c c4 b8 c8. g16 c b c d |
+  ees16 d ees8~ ees16 f ees d c8 d~ d c~
+  c c4 b8 c8. g16 c b c d
 }
 ManualTwoMusic = \relative c' {
-  c16 b c8~ c16 b c g a8 g~ g16 g aes ees |
-  f ees f d g aes g f ees d e8~ ees16 f ees d |
+  c16 b c8~ c16 b c g a8 g~ g16 g aes ees
+  f ees f d g aes g f ees d e8~ ees16 f ees d
 }
 PedalOrganMusic = \relative c {
-  r8 c16 d ees d ees8~ ees16 a, b g c b c8 |
-  r16 g ees f g f g8 c,2 |
-  }
+  r8 c16 d ees d ees8~ ees16 a, b g c b c8
+  r16 g ees f g f g8 c,2
+}
 
 \score {
   <<  % PianoStaff and Pedal Staff must be simultaneous
@@ -3024,19 +3146,29 @@ PedalOrganMusic = \relative c {
       \new Staff = "ManualOne" <<
         \TimeKey  % set time signature and key
         \clef "treble"
-        \new Voice { \voiceOne \ManualOneVoiceOneMusic }
-        \new Voice { \voiceTwo \ManualOneVoiceTwoMusic }
+        \new Voice {
+          \voiceOne
+          \ManualOneVoiceOneMusic
+        }
+        \new Voice {
+          \voiceTwo
+          \ManualOneVoiceTwoMusic
+        }
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" <<
         \TimeKey
         \clef "bass"
-        \new Voice { \ManualTwoMusic }
+        \new Voice {
+          \ManualTwoMusic
+        }
       >>  % end ManualTwo Staff context
     >>  % end PianoStaff context
     \new Staff = "PedalOrgan" <<
       \TimeKey
       \clef "bass"
-      \new Voice { \PedalOrganMusic }
+      \new Voice {
+        \PedalOrganMusic
+      }
     >>  % end PedalOrgan Staff context
   >>
 }  % end Score context
@@ -3067,7 +3199,12 @@ minimalista:
 @lilypond[quote,verbatim,ragged-right]
 fragmentA = \relative c'' { a4 a8. b16 }
 fragmentB = \relative c'' { a8. gis16 ees4 }
-violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
+violin = \new Staff {
+  \fragmentA
+  \fragmentA
+  \fragmentB
+  \fragmentA
+}
 \score {
   {
     \violin
@@ -3081,22 +3218,22 @@ usuario) para hacer trucos:
 
 @c TODO Avoid padtext - not needed with skylining
 @lilypond[quote,verbatim,ragged-right]
-dolce = \markup{ \italic \bold dolce }
+dolce = \markup { \italic \bold dolce }
 padText = { \once \override TextScript #'padding = #5.0 }
-fthenp=_\markup{ \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
+fthenp=_\markup { \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
 violin = \relative c'' {
   \repeat volta 2 {
-    c4._\dolce b8 a8 g a b |
+    c4._\dolce b8 a8 g a b
     \padText
-    c4.^"hi there!" d8 e' f g d |
-    c,4.\fthenp b8 c4 c-. |
+    c4.^"hi there!" d8 e' f g d
+    c,4.\fthenp b8 c4 c-.
   }
 }
 \score {
   {
     \violin
   }
-\layout{ragged-right=##t}
+\layout { ragged-right=##t }
 }
 @end lilypond
 
@@ -3109,11 +3246,12 @@ leer, sobre todo la última línea.
 @example
 violin = \relative c'' @{
   \repeat volta 2 @{
-    c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
+    c4._\markup @{ \italic \bold dolce @} b8 a8 g a b
     \once \override TextScript #'padding = #5.0
-    c4.^"hi there!" d8 e' f g d |
-    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @}
-      \hspace #0.1 \dynamic p @} b8 c4 c-. |
+    c4.^"hi there!" d8 e' f g d
+    c,4.\markup @{ \dynamic f \italic \small @{ 2nd @}
+      \hspace #0.1 \dynamic p @}
+    b8 c4 c-.
   @}
 @}
 @end example
@@ -3269,13 +3407,14 @@ lo que nos lleva a
 @lilypond[quote,ragged-right]
 \relative c <<
   \new Staff {
-    \time 2/4 R2*3
+    \time 2/4
+    R2*3
     r4 f8 a cis4 f e d
   }
   \new Staff {
     \clef bass
     r4 d,8 f | gis4 c | b bes |
-    a8 e f4 | g d | gis f
+    a8 e f4 | g d | gis f |
   }
 >>
 @end lilypond
