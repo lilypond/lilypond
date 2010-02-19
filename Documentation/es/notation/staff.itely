@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+    Translation of GIT committish: 563798a5574f54db2d26c354810b6d578662698b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -765,6 +765,7 @@ Manual de aprendizaje:
 @rlearning{Visibilidad y color de los objetos}.
 
 Referencia de la notación:
+@ref{Cambiar los valores por omisión de los contextos},
 @ref{El símbolo del pentagrama},
 @ref{Pentagramas de Ossia},
 @ref{Notas ocultas},
@@ -796,6 +797,9 @@ grabador:
 \override NoteHead #'no-ledgers = ##t
 @end example
 
+Para ver los fallos y problemas conocidos, así como las advertencias
+asociadas con @code{\RemoveEmptyStaffContext}, consulte @ref{Cambiar
+los valores por omisión de los contextos}.
 
 @node Escritura de las particellas
 @subsection Escritura de las particellas
@@ -992,9 +996,11 @@ Para añadir nombres de instrumento a otros contextos (como
 añadir el grabador @code{Instrument_name_engraver} a dicho
 contexto. Para ver más detalles, consulte @ref{Modificar los complementos (plug-ins) de contexto}.
 
-@cindex instrument names, changing
+@cindex nombres de instrumento, cambiar
 
-Los nombres de instrumento se pueden cambiar en mitad de una pieza:
+Los nombres de instrumento se pueden cambiar en mitad de una pieza;
+sin embargo, recuerde que el @code{instrumentName} no se imprime en
+mitad de la pieza, ya que sólo aparece en el primer pentagrama:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \set Staff.instrumentName = #"First"

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 038c58f9e216c4d4ae046fcdd82d8499b94a0392
+    Translation of GIT committish: 3ddb74ce927e6e71bb61d1bad526c4dfe34d68a4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -992,9 +992,9 @@ c2 c
 c2 c
 @end lilypond
 
-Ciertas claves para usos especiales se describen en
-@ref{Claves de la música mensural},
-@ref{Claves de canto gregoriano}, @ref{Tablaturas predeterminadas} y @ref{Tablaturas personalizadas}.
+Ciertas claves para usos especiales se describen en @ref{Claves de la
+música mensural}, @ref{Claves de canto gregoriano}, @ref{Tablaturas
+predeterminadas} y @ref{Tablaturas personalizadas}.
 
 @snippets
 
