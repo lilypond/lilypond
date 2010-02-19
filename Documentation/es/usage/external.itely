@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+    Translation of GIT committish: 96d8791be5cc001ee2be172e5cfe1cb67fe94d2f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -14,7 +14,8 @@
 @chapter Programas externos
 @translationof External programs
 
-@c FIXME: blah blah
+LilyPond es capaz de interactuar con otros programas de diversas
+maneras.
 
 @menu
 * Apuntar y pulsar::
@@ -630,7 +631,11 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miarchivo.ly
 @section Archivos @code{include} independientes
 @translationof Independent includes
 
-@c FIXME: blah blah
+Hay personas que han escrito extensas (¡y útiles!) piezas de código
+que se pueden compartir entre distintos proyectos.  Este código
+podría, llegado el caso, incorporarse al propio LilyPond, pero hasta
+que esto ocurra, tendrá que descargarlos e incluirlos mediante
+@code{\include}, manualmente.
 
 @menu
 * Articulación MIDI::
@@ -641,7 +646,29 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miarchivo.ly
 @subsection Articulación MIDI
 @translationof MIDI articulation
 
-@untranslated
+LilyPond se puede usar para producir una salida MIDI, para efectuar
+una revisión @qq{de oído} de lo que se ha escrito.  Sin embargo, sólo
+los matices dinámicos, las marcas de tempo explícitas y las propias
+notas y duraciones se producen en la salida.
 
-@c stub for info about Dr. Peter Chubb's @file{articulate.ly}
+El proyecto @emph{articulate} es un intento de llevar más información
+de la partitura al MIDI.  Funciona acortando las notas que no están
+ligadas, para @q{articularlas}.  El grado de acortamiento depende de
+las marcas de articulación que se han puesto en las notas: los picados
+dan la mitad de duración, el tenuto da la duración completa, y así
+sucesivamente.  El script también realiza los trinos y los grupetos, y
+se puede extender para que desarrolle otros ornamentos como los
+mordentes.
+
+
+@example
+@uref{http://@/www@/.nicta@/.com@/.au/@/people/@/chubbp/@/articulate}
+@end example
+
+@knownissues
+
+Su principal limitación es que sólo afecta a las cosas de las que
+tiene algún conocimiento: todo aquello que son meramente marcas
+textuales (y no una propiedad de una nota) se ignora, por el momento.
+
 
