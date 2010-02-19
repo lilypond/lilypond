@@ -319,7 +319,7 @@ def main ():
             do_one_file (f)
         except UnknownVersion:
             error (_ ("%s: Unable to determine version.  Skipping") % f)
-        except InvalidVersion as ex:
+        except InvalidVersion, ex:
             error (_ ("%s: Invalid version string `%s' \n"
                       "Valid version strings consist of three numbers, "
                       "separated by dots, e.g. `2.8.12'") % (f, ex.version) )
