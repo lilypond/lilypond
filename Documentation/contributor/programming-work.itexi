@@ -1297,13 +1297,16 @@ performers.
 @node Engraver tutorial
 @section Engraver tutorial
 
-TODO -- This is a placeholder for a tutorial on how engravers work.
-
 Engravers are C++ classes that catch music events and
 create the appropriate grobs for display on the page.  Though the
 majority of engravers are responsible for the creation of a single grob,
 in some cases (e.g. @code{New_fingering_engraver}), several different grobs
 may be created.
+
+Engravers listen for events and acknowledge grobs.  Events are passed to
+the engraver in time-step order during the iteration phase.  Grobs are
+made available to the engraver when they are created by other engravers
+during the iteration phase.
 
 @subsection Useful methods for information processing
 
@@ -1333,25 +1336,28 @@ automatically or reported with a warning message.
 At each timestep in the music, translation proceeds by calling the
 following methods in turn:
 
-@code{start_translation_timestep ()} is called before any user information enters
-the translators, i.e., no property operations (\set, \override, etc.) or events
-have been processed yet.
+@code{start_translation_timestep ()} is called before any user
+information enters the translators, i.e., no property operations
+(\set, \override, etc.) or events have been processed yet.
 
-@code{process_music ()} and @code{process_acknowledged ()} are called after events
-have been heard, or grobs have been acknowledged.  The latter tends to be used
-exclusively with engravers which only acknowledge grobs, whereas the former is
-the default method for main processing within engravers.
+@code{process_music ()} and @code{process_acknowledged ()} are called
+after all events in the current time step have been heard, or all
+grobs in the current time step have been acknowledged.  The latter
+tends to be used exclusively with engravers which only acknowledge
+grobs, whereas the former is the default method for main processing
+within engravers.
 
-@code{stop_translation_timestep ()} is called after all user information has been
-processed prior to beginning the translation for the next timestep.
+@code{stop_translation_timestep ()} is called after all user
+information has been processed prior to beginning the translation for
+the next timestep.
 
 @subsection Preventing garbage collection for SCM member variables
 
-In certain cases, an engraver might need to ensure private Scheme variables
-(with type SCM) do not get swept away by Guile's garbage collector: for example,
-a cache of the previous key signature which must persist between timesteps.  The
-method @code{virtual derived_mark () const} can be used in such cases to mark
-such objects as follows:
+In certain cases, an engraver might need to ensure private Scheme
+variables (with type SCM) do not get swept away by Guile's garbage
+collector: for example, a cache of the previous key signature which
+must persist between timesteps.  The method
+@code{virtual derived_mark () const} can be used in such cases:
 
 @example
 Engraver_name::derived_mark ()
