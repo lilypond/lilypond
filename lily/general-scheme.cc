@@ -233,6 +233,7 @@ is_not_escape_character (Byte c)
     case '.':
     case '/':
     case '0'...'9':
+    case ':':
     case 'A'...'Z':
     case '_':
     case 'a'...'z':
