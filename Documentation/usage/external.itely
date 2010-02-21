@@ -201,7 +201,7 @@ set runtimepath+=/usr/share/vim/vim72/
 Other editors (both text and graphical) support LilyPond, but
 their special configuration files are not distributed with
 LilyPond.  Consult their documentation for more information.  Such
-editors are listed in @rweb{Alternate editors}.
+editors are listed in @rweb{Easier editing}.
 
 
 @node Converting from other formats
@@ -508,7 +508,7 @@ confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
 
 LilyPond itself does not come with support for any other formats,
 but some external tools can also generate LilyPond files.  These
-are listed in @rweb{Alternate editors}.
+are listed in @rweb{Easier editing}.
 
 
 
