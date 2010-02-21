@@ -124,6 +124,18 @@ LY_DEFINE (ly_grob_object, "ly:grob-object",
 }
 
 
+LY_DEFINE (ly_grob_set_object_x, "ly:grob-set-object!",
+	   3, 0, 0, (SCM grob, SCM sym, SCM val),
+	   "Set @var{sym} in grob @var{grob} to value @var{val}.")
+{
+  Grob *sc = unsmob_grob (grob);
+ 
+  LY_ASSERT_SMOB (Grob, grob, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
+
+  sc->set_object (sym, val);
+  return SCM_UNSPECIFIED;
+}
 
 /* TODO: make difference between scaled and unscalead variable in
    calling (i.e different funcs.) */
@@ -244,6 +256,22 @@ LY_DEFINE (ly_grob_parent, "ly:grob-parent",
 
   Grob *par = sc->get_parent (Axis (scm_to_int (axis)));
   return par ? par->self_scm () : SCM_EOL;
+}
+
+LY_DEFINE (ly_grob_set_parent_x, "ly:grob-set-parent!",
+	   3, 0, 0, (SCM grob, SCM axis, SCM parent_grob),
+	   "Set @var{parent_grob} the parent of grob @var{grob} in axis @var{axis}.")
+{
+  Grob *gr = unsmob_grob (grob);
+  Grob *parent = unsmob_grob (parent_grob);
+
+  LY_ASSERT_SMOB (Grob, grob, 1);
+  LY_ASSERT_TYPE (is_axis, axis, 2);
+  LY_ASSERT_SMOB (Grob, parent_grob, 3);
+
+  Axis a = Axis (scm_to_int (axis));
+  gr->set_parent (parent, a);
+  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_grob_properties, "ly:grob-properties",

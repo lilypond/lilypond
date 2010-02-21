@@ -191,7 +191,7 @@ unsmob_engraver (SCM eng)
 bool
 ly_is_grob_cause (SCM obj)
 {
-  return unsmob_grob (obj) || unsmob_stream_event (obj);
+  return unsmob_grob (obj) || unsmob_stream_event (obj) || (obj == SCM_EOL);
 }
 
 #include "translator.icc"

@@ -46,3 +46,13 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
   return ly_interval2scm (ext);
 }
 
+LY_DEFINE (ly_axis_group_interface__add_element, "ly:axis-group-interface::add-element",
+	   2, 0, 0, (SCM grob, SCM grob_element),
+	   "Set @var{grob} the parent of @var{grob-element} on all axes of"
+	   "@var{grob}.")
+{
+  LY_ASSERT_SMOB (Grob, grob, 1);
+  LY_ASSERT_SMOB (Grob, grob_element, 2);
+  Axis_group_interface::add_element (unsmob_grob (grob), unsmob_grob (grob_element));
+  return SCM_UNSPECIFIED;
+}
