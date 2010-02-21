@@ -145,7 +145,7 @@ multiple projects concurrently.
 @subsection Setting up
 
 
-FIXME: Remove this note if incorporating Windows instructions
+TODO: Remove this note if incorporating Windows instructions
 throughout this section:
 
 @warning{These instructions assume that you are using the
@@ -174,7 +174,7 @@ Alternatively, you can visit the Git website
 (@uref{http://git-scm.com/}) for downloadable binaries and
 tarballs.
 
-FIXME: add Windows installation instructions (or @@ref@{Git on
+TODO: add Windows installation instructions (or @@ref@{Git on
 Windows@}).
 
 
@@ -243,7 +243,7 @@ change the default editor to @command{nano}, enter:
 git config --global core.editor @var{nano}
 @end example
 
-FIXME: Add instructions for changing the editor on Windows, which
+TODO: Add instructions for changing the editor on Windows, which
 is a little different, I think. -mp
 
 @subsubheading Technical details
@@ -586,7 +586,7 @@ Note that @command{git@tie{}stash@tie{}pop} will try to apply a
 patch, and this may create a conflict.  If this happens, see
 @ref{Resolving conflicts}.
 
-FIXME: I think the next paragraph is confusing.  Perhaps prepare
+TODO: I think the next paragraph is confusing.  Perhaps prepare
 the reader for new terms `committish' and `head'?  -mp
 
 @warning{translators and documentation editors, if you have
@@ -599,7 +599,7 @@ in particular implies that you must push your changes to
 documentation except committishes updates (possibly after having
 rebased), then update the committishes and push them.}
 
-FIXME: when committishes automatic conditional update have been
+TODO: when committishes automatic conditional update have been
 tested and documented, append the following to the warning above:
 Note that using update-committishes make target generally touches
 committishes.
@@ -1160,7 +1160,7 @@ repositories.}
 @subsection Applying remote patches
 
 
-FIXME: Explain how to determine if a patch was created with
+TODO: Explain how to determine if a patch was created with
 @code{git@tie{}format-patch}.
 
 Well-formed git patches created with @code{git@tie{}format-patch}
@@ -1459,7 +1459,7 @@ should add these lines to @file{.git/config}:
 @c But it is probably best for windows users to have it all together
 @c If necessary, clear this up later  -td
 
-FIXME: Decide what to do with this...  Pare it down?  Move
+TODO: Decide what to do with this...  Pare it down?  Move
 paragraphs next to analogous Unix instructions? -mp
 
 @subsection Background to nomenclature
