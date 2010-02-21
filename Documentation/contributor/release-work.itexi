@@ -254,6 +254,14 @@ Disallow: /doc/v2.PREVIOUS-STABLE/
 Disallow: /doc/v2.CURRENT-DEVELOPMENT/
 @end example
 
+- check for emergencies the docs:
+
+@example
+grep FIXME --exclude "misc/*" --exclude "*GNUmakefile" \
+  --exclude "snippets/*" ????*/*
+@end example
+
+
 News:
 
         comp.music.research
