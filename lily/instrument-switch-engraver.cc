@@ -21,6 +21,7 @@
 #include "engraver.hh"
 #include "item.hh"
 #include "text-interface.hh"
+
 #include "translator.icc"
 
 
@@ -34,8 +35,15 @@ protected:
 
   void stop_translation_time_step ();
   void process_music ();
+
+  virtual void derived_mark () const;
 };
 
+void
+Instrument_switch_engraver::derived_mark () const
+{
+  scm_gc_mark (cue_name_);
+}
 
 Instrument_switch_engraver::Instrument_switch_engraver ()
 {
@@ -50,7 +58,7 @@ void
 Instrument_switch_engraver::process_music ()
 {
   SCM cue_text = get_property ("instrumentCueName");
-  
+
   if (!scm_is_eq (cue_name_, cue_text))
     {
       if (Text_interface::is_markup (cue_text))

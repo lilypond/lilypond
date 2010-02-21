@@ -46,7 +46,16 @@ protected:
   void start_spanner ();
   void consider_start_spanner ();
   void stop_spanner ();
+
+  virtual void derived_mark () const;
 };
+
+void
+Instrument_name_engraver::derived_mark () const
+{
+  scm_gc_mark (long_text_);
+  scm_gc_mark (short_text_);
+}
 
 Instrument_name_engraver::Instrument_name_engraver ()
 {
