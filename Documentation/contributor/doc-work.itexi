@@ -13,14 +13,14 @@ Version Control System (VCS) called git, previously discussed in
 @ref{Starting with Git}.
 
 @menu
-* Introduction to documentation work::  
-* Documentation suggestions::   
-* Texinfo introduction and usage policy::  
-* Documentation policy::        
-* Tips for writing docs::       
-* Scripts to ease doc work::    
-* Docstrings in scheme::        
-* Translating the documentation::  
+* Introduction to documentation work::
+* Documentation suggestions::
+* Texinfo introduction and usage policy::
+* Documentation policy::
+* Tips for writing docs::
+* Scripts to ease doc work::
+* Docstrings in scheme::
+* Translating the documentation::
 @end menu
 
 
@@ -157,13 +157,13 @@ much faster.  Thanks for your interest!
 @section Texinfo introduction and usage policy
 
 @menu
-* Texinfo introduction::        
-* Documentation files::         
-* Sectioning commands::         
-* LilyPond formatting::         
-* Text formatting::             
-* Syntax survey::               
-* Other text concerns::         
+* Texinfo introduction::
+* Documentation files::
+* Sectioning commands::
+* LilyPond formatting::
+* Text formatting::
+* Syntax survey::
+* Other text concerns::
 @end menu
 
 
@@ -397,7 +397,24 @@ Documentation Editor.
 @item
 Lines should be less than 72 characters long.  (We personally
 recommend writing with 66-char lines, but do not bother modifying
-existing material).
+existing material).  However, see the note below regarding line
+lengths within @@example blocks.
+
+@item
+Individual lines within an @@example block should not exceed 74
+characters; otherwise they will run into the margin in the pdf
+output, and may get clipped.  If an @@example block is part of an
+@@item within an @@itemize or @@enumerate block, each line of the
+@@example should not exceed 70 columns---each additional level of
+@@itemize or @@enumerate shortens the line by about 4 columns.
+
+For command line examples, if possible, use a trailing backslash
+to break up a single line, indenting the next line with 2 spaces.
+If this isn't feasible, use @@smallexample instead, which uses a
+smaller fontsize.  Use @@example whenever possible, but if needed,
+@@smallexample can fit up to 96 characters per line before running
+into the pdf margin.  Each additional level of @@itemize or
+@@enumerate shortens a @@smallexample line by about 5 columns.
 
 @item
 Do not use tabs.
@@ -691,11 +708,11 @@ that all such characters appear in all output formats.
 @section Documentation policy
 
 @menu
-* Books::                       
-* Section organization::        
-* Checking cross-references::   
-* General writing::             
-* Technical writing style::     
+* Books::
+* Section organization::
+* Checking cross-references::
+* General writing::
+* Technical writing style::
 @end menu
 
 @node Books
@@ -1172,11 +1189,11 @@ take months before your request or contribution is handled if you send a
 email to these lists.
 
 @menu
-* Getting started with documentation translation::  
-* Documentation translation details::  
-* Documentation translation maintenance::  
-* Translations management policies::  
-* Technical background::        
+* Getting started with documentation translation::
+* Documentation translation details::
+* Documentation translation maintenance::
+* Translations management policies::
+* Technical background::
 @end menu
 
 @node Getting started with documentation translation
@@ -1186,9 +1203,9 @@ First, get the sources of branch @code{lilypond/translation} from the
 Git repository, see @ref{Starting with Git}.
 
 @menu
-* Translation requirements::    
-* Which documentation can be translated::  
-* Starting translation in a new language::  
+* Translation requirements::
+* Which documentation can be translated::
+* Starting translation in a new language::
 @end menu
 
 @node Translation requirements
@@ -1278,9 +1295,9 @@ Please follow all the instructions with care to ensure quality work.
 All files should be encoded in UTF-8.
 
 @menu
-* Files to be translated::      
-* Translating the Web site and other Texinfo documentation::  
-* Adding a Texinfo manual::     
+* Files to be translated::
+* Translating the Web site and other Texinfo documentation::
+* Adding a Texinfo manual::
 @end menu
 
 @node Files to be translated
@@ -1501,9 +1518,9 @@ overwhelmed by the quantity of documentation to be updated, see
 @ref{Maintaining without updating translations}.
 
 @menu
-* Check state of translation::  
-* Updating documentation translation::  
-* Updating translation committishes::  
+* Check state of translation::
+* Updating documentation translation::
+* Updating translation committishes::
 @end menu
 
 @macro seeCommittishesUpdate{}
@@ -1718,8 +1735,8 @@ be managed, they aim at helping translators, developers and
 coordinators work efficiently.
 
 @menu
-* Maintaining without updating translations::  
-* Managing documentation translation with Git::  
+* Maintaining without updating translations::
+* Managing documentation translation with Git::
 @end menu
 
 @node Maintaining without updating translations
