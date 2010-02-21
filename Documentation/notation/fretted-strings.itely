@@ -1343,8 +1343,8 @@ Right-hand fingerings @var{p-i-m-a} must be entered within a
 chord construct @code{<>} for them to be printed in the score,
 even when applied to a single note.
 
-@warning{There @strong{must} be a hyphen before @code{\rightHandFinger}
-and a space before the closing @code{>}.}
+@warning{There @strong{must} be a hyphen before
+@code{@bs{}rightHandFinger} and a space before the closing @code{>}.}
 
 @lilypond[quote,verbatim,relative=0]
 \clef "treble_8"
