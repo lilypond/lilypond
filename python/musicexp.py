@@ -1036,7 +1036,7 @@ class GlissandoEvent (SpanEvent):
                 "wavy"   : "zigzag"
             }. get (self.line_type, None)
             if style:
-                printer.dump ("\once \override Glissando #'style = #'%s" % style)
+                printer.dump ("\\once \\override Glissando #'style = #'%s" % style)
     def ly_expression (self):
         return {-1: '\\glissando',
             1:''}.get (self.span_direction, '')
