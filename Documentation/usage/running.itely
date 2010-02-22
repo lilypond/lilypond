@@ -269,6 +269,10 @@ Example: @code{lilypond -dbackend=svg @var{filename}.ly}
 @item preview
 @cindex preview, command line
 Generate an output file containing the titles and the first system
+of music.  If @code{\bookpart} blocks are used, the titles and
+first system of every @code{\bookpart} will appear in the output.
+The @code{ps}, @code{eps}, and @code{svg} backends support this
+option.
 
 @item print-pages
 Generate the full pages, the default.  @code{-dno-print-pages} is
