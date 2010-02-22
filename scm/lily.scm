@@ -128,7 +128,7 @@ similar to chord syntax.")
     (pixmap-format "png16m"
 "Set GhostScript's output format for pixel images.")
     (preview #f
-"Create PNG and EPS preview images also.")
+"Create preview images also.")
     (print-pages #t
 "Print pages in the normal way.")
     (protected-scheme-parsing #t
