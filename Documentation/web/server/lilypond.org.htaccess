@@ -19,6 +19,7 @@ RedirectMatch ^/wiki	http://wiki.lilynet.net
 RedirectMatch ^/authors /doc/Documentation/topdocs/AUTHORS
 RedirectMatch ^/news    /doc/Documentation/topdocs/NEWS
 RedirectMatch ^/stable    /doc/stable
+RedirectMatch ^/development    /doc/development
 
 #old# default doc dir
 RedirectMatch ^/doc/*$ /doc/v2.12
