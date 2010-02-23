@@ -1128,17 +1128,19 @@ Internals Reference:
 @notation{Ottava brackets} introduce an extra transposition of an
 octave for the staff:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
 a'2 b
-\ottava #1
+\ottava #-2
+a b
+\ottava #-1
 a b
 \ottava #0
 a b
+\ottava #1
+a b
+\ottava #2
+a b
 @end lilypond
-
-The @code{ottava} function also takes -1 (for 8va bassa),
-2@tie{}(for 15ma), and -2 (for 15ma bassa) as arguments.
-
 
 @snippets
 
