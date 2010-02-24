@@ -53,7 +53,7 @@ All_font_metrics::All_font_metrics (string path)
     = G_TYPE_CHECK_INSTANCE_CAST (pfm,
 				  PANGO_TYPE_FT2_FONT_MAP,
 				  PangoFT2FontMap);
-  pango_dpi_ = 1200;
+  pango_dpi_ = PANGO_RESOLUTION;
   pango_ft2_font_map_set_resolution (pango_ft2_fontmap_,
 				     pango_dpi_, pango_dpi_);
 
