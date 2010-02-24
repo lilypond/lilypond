@@ -45,7 +45,7 @@ general_pushpop_property (Context *context,
     }
 
   sloppy_general_pushpop_property (context, context_property,
-				    grob_property_path, new_value);
+				   grob_property_path, new_value);
 }
 
 
@@ -91,6 +91,13 @@ execute_override_property (Context *context,
     }
 
   SCM target_alist = scm_car (current_context_val);
+
+  /*
+    If the car is a list, the property path comes from a nested override
+    using list syntax inside a \context block
+  */
+  if (scm_is_pair (scm_car (grob_property_path)))
+    grob_property_path = scm_car (grob_property_path);
 
   SCM symbol = scm_car (grob_property_path);
   if (scm_is_pair (scm_cdr (grob_property_path)))
