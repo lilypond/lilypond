@@ -46,7 +46,7 @@ public:
 Spanner *parent_spanner (Grob *g)
 {
   if (Spanner::has_interface (g))
-    return dynamic_cast<Spanner*> (g);
+    return dynamic_cast<Spanner *> (g);
   return parent_spanner (g->get_parent (Y_AXIS));
 }
 
@@ -75,7 +75,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
       for (SCM s = scm_reverse (extra); scm_is_pair (s); s = scm_cdr (s))
 	details = scm_cons (scm_car (s), details);
     }
-  
+
   if (details == SCM_BOOL_F)
     details = ly_assoc_get (ly_symbol2scm ("default"), bound_details, SCM_EOL);
 
@@ -89,7 +89,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 							     properties, text),
 			   details);
     }
-  
+
   if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("X"), details, SCM_BOOL_F)))
     {
       Direction attach = (Direction)
@@ -107,13 +107,13 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 	    bound_grob = (dir == LEFT)
 	      ? columns[0] : columns.back();
 	}
-      
+
       details = scm_acons (ly_symbol2scm ("X"),
 			   scm_from_double (robust_relative_extent (bound_grob, commonx, X_AXIS)
 					    .linear_combination (attach)),
 			   details);
     }
-  
+
 
   if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("Y"), details, SCM_BOOL_F)))
     {
@@ -139,11 +139,12 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 	  Spanner *next_bound_parent = parent_spanner (next_bound);
 	  Interval next_ext = next_bound->extent (next_bound_parent, Y_AXIS);
 
-	  /* We want to know what would be the
-	     y-position of the next bound (relative to my y-parent) if it belonged
-	     to the same system as this bound. We rely on the fact that
-	     the y-parent of the next bound is a spanner (probably the
-	     VerticalAxisGroup of a staff) that extends over the break.
+	  /*
+	    We want to know what would be the y-position of the next
+	    bound (relative to my y-parent) if it belonged to the
+	    same system as this bound.  We rely on the fact that the
+	    y-parent of the next bound is a spanner (probably the
+	    VerticalAxisGroup of a staff) that extends over the break.
 	  */
 	  Spanner *next_bound_parent_on_this_line =
 	    next_bound_parent->broken_neighbor (other_dir (dir));
@@ -156,8 +157,10 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 	    }
 	  else
 	    {
-	      /* We fall back to assuming that the distance between staves doesn't
-		 change over line breaks. */
+	      /*
+		We fall back to assuming that the distance between
+		staves doesn't change over line breaks.
+	      */
 	      programming_error ("next-bound's parent doesn't extend to this line");
 	      Grob *next_system = next_bound->get_system ();
 	      Grob *this_system = me->get_system ();
@@ -211,7 +214,7 @@ Line_spanner::calc_left_bound_info_and_text (SCM smob)
 							   properties, text),
 			 alist);
     }
-  
+
   return alist;
 }
 
@@ -223,7 +226,7 @@ Line_spanner::print (SCM smob)
 
   Drul_array<SCM> bounds (me->get_property ("left-bound-info"),
 			  me->get_property ("right-bound-info"));
-  
+
   Grob *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   commonx = me->common_refpoint (commonx, X_AXIS);
 
@@ -236,7 +239,7 @@ Line_spanner::print (SCM smob)
 						 bounds[d], SCM_BOOL_F), 0.0),
 		robust_scm2double (ly_assoc_get (ly_symbol2scm ("Y"),
 						 bounds[d], SCM_BOOL_F), 0.0));
-      
+
       span_points[d] = z;
     }
   while (flip (&d) != LEFT);
@@ -244,8 +247,13 @@ Line_spanner::print (SCM smob)
   Drul_array<Real> gaps (0, 0);
   Drul_array<bool> arrows (0, 0);
   Drul_array<Real> anchor_align (0, 0);
-  Drul_array<Stencil*> stencils (0,0);
-  Drul_array<Grob*> common_y (0, 0);
+  Drul_array<Stencil *> stencils (0,0);
+  Drul_array<Grob *> common_y (0, 0);
+
+  // For scaling of 'padding and 'stencil-offset
+  Real magstep
+    = pow (2, robust_scm2double (me->get_property ("font-size"), 0.0) / 6);
+
   do
     {
       gaps[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("padding"),
@@ -253,7 +261,7 @@ Line_spanner::print (SCM smob)
       arrows[d] = to_boolean (ly_assoc_get (ly_symbol2scm ("arrow"),
 					    bounds[d], SCM_BOOL_F));
       anchor_align[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("anchor-alignment"),
-								 bounds[d], SCM_BOOL_F), LEFT);
+							 bounds[d], SCM_BOOL_F), LEFT);
       stencils[d] = unsmob_stencil (ly_assoc_get (ly_symbol2scm ("stencil"),
 						  bounds[d], SCM_BOOL_F));
       common_y[d] = unsmob_grob (ly_assoc_get (ly_symbol2scm ("common-Y"),
@@ -278,7 +286,7 @@ Line_spanner::print (SCM smob)
   Stencil line;
   do
     {
-      span_points[d] += -d * gaps[d] *  dz.direction ();
+      span_points[d] += -d * gaps[d] * magstep * dz.direction ();
 
       if (stencils[d])
 	{
@@ -295,12 +303,9 @@ Line_spanner::print (SCM smob)
 	  if (scm_is_number (align)) 
 	    s.align_to (Y_AXIS, scm_to_double (align));
 
-	  /*
-	    todo: should use font-size.
-	  */
 	  if (is_number_pair (off))
-	    s.translate (ly_scm2offset (off));
-	 
+	    s.translate (ly_scm2offset (off) * magstep);
+
 	  line.add_stencil (s);
 	}
     }
@@ -331,7 +336,7 @@ Line_spanner::print (SCM smob)
 
   line.translate (Offset (-me->relative_coordinate (commonx, X_AXIS),
 			  -me->relative_coordinate (my_common_y, Y_AXIS)));
-			  
+
 
   return line.smobbed_copy ();
 }
@@ -350,4 +355,3 @@ ADD_INTERFACE (Line_spanner,
 	       "thickness "
 	       "to-barline "
 	       );
-
