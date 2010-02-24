@@ -17,7 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define PANGO_ENABLE_BACKEND // ugh, why necessary?
+// Necessary for supporting pango_context_new() and
+// pango_context_set_font_map() in Pango < 1.22
+#define PANGO_ENABLE_BACKEND
+
 #include <pango/pangoft2.h>
 #include <freetype/ftxf86.h>
 
@@ -40,14 +43,14 @@
 #if HAVE_PANGO_FT2
 #include "stencil.hh"
 
-Pango_font::Pango_font (PangoFT2FontMap * /* fontmap */,
+Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 			PangoFontDescription const *description,
 			Real output_scale)
 {
   physical_font_tab_ = scm_c_make_hash_table (11);
   PangoDirection pango_dir = PANGO_DIRECTION_LTR;
-  context_ = pango_ft2_get_context (PANGO_RESOLUTION,
-				    PANGO_RESOLUTION);
+  context_ = pango_context_new ();
+  pango_context_set_font_map (context_, PANGO_FONT_MAP (fontmap));
 
   pango_description_ = pango_font_description_copy (description);
   attribute_list_ = pango_attr_list_new ();
