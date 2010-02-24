@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+    Translation of GIT committish: 6af1d076865b903c39c6c240d337d3d7719b0ce4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -69,16 +69,16 @@ de LilyPond.
 @subsection Cajón de arena de Scheme
 @translationof Scheme sandbox
 
-La instalación de LilyPond inclute también la de la implementación
+La instalación de LilyPond incluye también la de la implementación
 Guile de Scheme.  Sobre casi todos los sistemas puede experimentar en
 una @qq{caja de arena} de Scheme abriendo una ventana del terminal y
 tecleando @q{guile}.  En algunos sistemas, sobre todo en Windows,
 podría necesitar ajustar la variable de entorno @code{GUILE_LOAD_PATH}
 a la carpeta @code{../usr/shr/guile/1.8} dentro de la instalación de
 LilyPond (para conocer la ruta completa a esta carpeta, consulte
-@ref{Otras fuentes de información}).  Como alternativa, los usuarios
-de Windows pueden seleccionar simplemente @q{Ejecutar} del menú Inicio
-e introducir @q{guile}.
+@rlearning{Otras fuentes de información}).  Como alternativa, los
+usuarios de Windows pueden seleccionar simplemente @q{Ejecutar} del
+menú Inicio e introducir @q{guile}.
 
 Una vez está funcionando el cajón de arena de Guile, verá un indicador
 del sistema de Guile:
@@ -94,7 +94,7 @@ experimentar con Scheme.
 @subsection Variables de Scheme
 @translationof Scheme variables
 
-Las variables de Scheme pueden tener cualquier valor válido de scheme,
+Las variables de Scheme pueden tener cualquier valor válido de Scheme,
 incluso un procedimiento de Scheme.
 
 Las variables de Scheme se crean con @code{define}:
@@ -180,7 +180,7 @@ una cadena"
 @end example
 
 @noindent
-y los caracterres de nueva línea al final de cada línea se incluirán
+y los caracteres de nueva línea al final de cada línea se incluirán
 dentro de la cadena.
 
 Los caracteres de nueva línea también se pueden añadir mediante la
@@ -191,9 +191,9 @@ inclusión de @code{\n} en la cadena.
 @end example
 
 
-Las comillas dobres y barras invertidas se añaden a las cadenas
-precediéndolas mediante una barra invertida.  La cadena @code{\a dijo
-"b"} se introduce como
+Las comillas dobles y barras invertidas se añaden a las cadenas
+precediéndolas de una barra invertida.  La cadena @code{\a dijo "b"}
+se introduce como
 
 @example
 "\\a dijo \"b\""
@@ -227,9 +227,9 @@ guile>
 @end lisp
 
 Observe que la pareja se imprime como dos elementos rodeados por
-paréntesis y separados por un espacio, un punto (@code{.}), y más
-espacios en blanco.  El punto @emph{no es} un punto decimal, sino más
-bien un indicador de la pareja.
+paréntesis y separados por un espacio, un punto (@code{.}) y otro
+espacio.  El punto @emph{no es} un punto decimal, sino más bien un
+indicador de pareja.
 
 Las parejas también se pueden introducir como valores literales
 precediéndolos de un carácter de comilla simple o apóstrofo.
@@ -246,8 +246,8 @@ Scheme:
 @lisp
 guile> (cons #t #f)
 (#t . #f)
-guile> '("blah-blah" . 3.1415926535)
-("blah-blah" . 3.1415926535)
+guile> '("bla-bla" . 3.1415926535)
+("bla-bla" . 3.1415926535)
 guile>
 @end lisp
 
@@ -255,11 +255,11 @@ Se puede accede al primero y segundo elementos de la pareja mediante
 los procedimientos de Scheme @code{car} y @code{cdr}, respectivamente.
 
 @lisp
-guile> (define mypair (cons 123 "Hola")
+guile> (define mipareja (cons 123 "Hola")
 ... )
-guile> (car mypair)
+guile> (car mipareja)
 123
-guile> (cdr mypair)
+guile> (cdr mipareja)
 "Hola"
 guile>
 @end lisp
@@ -273,7 +273,7 @@ véase
 
 @unnumberedsubsubsec Listas
 
-Una estrucgtura de datos muy común en Scheme es la @emph{lista}.
+Una estructura de datos muy común en Scheme es la @emph{lista}.
 Formalmente, una lista se define como la lista vacía (representada
 como @code{'()}, o bien como una pareja cuyo @code{cdr} es una lista.
 
@@ -290,7 +290,7 @@ separados por espacios y encerradas entre paréntesis.  A diferencia de
 las parejas, no hay ningún punto entre los elementos.
 
 También se puede escribir una lista como una lista literal encerrando
-sus elementos entre paréntesism y añadiendo un apóstrofo:
+sus elementos entre paréntesis y añadiendo un apóstrofo:
 
 @lisp
 guile> '(17 23 "fulano" "mengano" "zutano")
@@ -332,8 +332,7 @@ otros datos.
 
 Estructuras de datos que se utilizan en LilyPond de forma ocasional.
 Una tabla de hash es similar a una matriz, pero los índices de la
-matriz pueden ser cualquier tipo de valor de Scheme value, no sólo
-enteros.
+matriz pueden ser cualquier tipo de valor de Scheme, no sólo enteros.
 
 Las tablas de hash son más eficientes que las listas-A si hay una gran
 cantidad de datos que almacenar y los datos cambian con muy poca
@@ -418,7 +417,7 @@ guile> (+ 1 (* 3 4))
 13
 @end lisp
 
-Eestos cálculos son ejemplos de evaluaciones; una expresión como
+Estos cálculos son ejemplos de evaluaciones; una expresión como
 @code{(* 3 4)} se sustituye por su valor @code{12}.
 
 Los cálculos de Scheme son sensibles a las diferencias entre enteros y
@@ -432,7 +431,7 @@ guile> (/ 7.0 3.0)
 2.33333333333333
 @end lisp
 
-CUando el intérprete de Scheme encuentra una expresión que es una
+Cuando el intérprete de Scheme encuentra una expresión que es una
 lista, el primer elemento de la lista se trata como un procedimiento a
 evaluar con los argumentos del resto de la lista.  Por tanto, todos
 los operadores en Scheme son operadores prefijos.
@@ -502,9 +501,9 @@ nombre @code{veintiCuatro}.
 @subsection Procedimientos de Scheme
 @translationof Scheme procedures
 
-Los procedimientos de Scheme son expresiones de scheme ejecutables que
+Los procedimientos de Scheme son expresiones de Scheme ejecutables que
 devuelven un valor resultante de su ejecución.  También pueden
-manipular variables definidas fuera del proceimiento.
+manipular variables definidas fuera del procedimiento.
 
 @unnumberedsubsubsec Definir procedimientos
 
@@ -548,7 +547,7 @@ guile> (menor-que-diez? 15)
 
 @unnumberedsubsubsec Valores de retorno
 
-A veces, el usuario quiere tener varias espresiones de Scheme dentro
+A veces, el usuario quiere tener varias expresiones de Scheme dentro
 de un procedimiento.  Existen dos formas en que se pueden combinar
 distintas expresiones.  La primera es el procedimiento @code{begin},
 que permite evaluar varias expresiones, y devuelve el valor de la
@@ -650,7 +649,7 @@ una cadena"
 @end example
 
 Observe que los comentarios de LilyPond (@code{%} y @code{%@{ %@}}) no
-se puedden utilizar dentro del código de Scheme.  Los comentarios en
+se pueden utilizar dentro del código de Scheme.  Los comentarios en
 el Scheme de Guile se introducen como sigue:
 
 @example
@@ -665,7 +664,7 @@ el Scheme de Guile se introducen como sigue:
 
 Se pueden combinar en un mismo archivo de música varias expresiones de
 Scheme consecutivas mediante la utilización del operador @code{begin}.
-Ello permite que el número de marcas de cuadradillo se redizca a una.
+Ello permite que el número de marcas de cuadradillo se reduzca a una.
 
 @example
 #(begin
@@ -689,7 +688,7 @@ introducen en un archivo de música, por lo que añadiremos almohadillas
 
 @c TODO -- make this read right
 
-Algo simiar ocurre con las variables.  Después de definir una
+Algo similar ocurre con las variables.  Después de definir una
 variable,
 
 @example
@@ -790,7 +789,7 @@ sido introducido en la sintaxis de LilyPond.  En lugar de definir
 
 El código de Scheme se evalúa tan pronto como el analizador sintáctico
 lo encuentra.  Para definir código de Scheme dentro de un macro (para
-llamarse más tarde), utilice @ref{Void functions}, o bien
+llamarse más tarde), utilice @ref{Funciones vacías}, o bien
 
 @example
 #(define (nopc)
@@ -900,7 +899,7 @@ expressions}.
 @q{tipos} o interfaces, por ejemplo, una nota es un @code{event}, pero
 también es un @code{note-event}, un @code{rhythmic-event}, y un
 @code{melodic-event}.  Todas las clases de música están listadas en el
-manual de REferencia de funcionamiento interno, bajo el epígrafe
+manual de Referencia de funcionamiento interno, bajo el epígrafe
 @rinternals{Music classes}.
 
 @item
@@ -930,8 +929,8 @@ repetición se almacena dentro de la propiedad @code{element} de
 @section Construir funciones complicadas
 @translationof Building complicated functions
 
-Esta sección explica cómo recolectar la información necesaria para
-crear funciones musicales complicadas.
+Esta sección explica cómo reunir la información necesaria para crear
+funciones musicales complicadas.
 
 @menu
 * Presentación de las expresiones musicales::
@@ -951,9 +950,9 @@ crear funciones musicales complicadas.
 @cindex displayMusic
 @funindex \displayMusic
 
-Cuando se escribe una función musical, suele ser instructivo
-inspeccionar cómo se almacena internamente una expresión musical.
-Esto puede hacerse con la función musical @code{\displayMusic}
+Si se está escribiendo una función musical, puede ser muy instructivo
+examinar cómo se almacena internamente una expresión musical.  Esto se
+puede hacer con la función musical @code{\displayMusic}
 
 @example
 @{
@@ -962,7 +961,7 @@ Esto puede hacerse con la función musical @code{\displayMusic}
 @end example
 
 @noindent
-imprime
+imprime lo siguiente:
 
 @example
 (make-music
@@ -984,15 +983,16 @@ imprime
 @end example
 
 De forma predeterminada, LilyPond imprime estos mensajes sobre la
-conola junto a todos los tros mensajes.  Para separar estos mensajes y
-guardar los resultados de @code{\display@{LOQUESEA@}}, redirija la
+consola junto al resto de los mensajes.  Para separar estos mensajes y
+guardar el resultado de @code{\display@{LOQUESEA@}}, redirija la
 salida a un archivo.
 
 @example
 lilypond archivo.ly >salida.txt
 @end example
 
-Con un poco de formateo, la información anterior es fácil de leer,
+Con la aplicación de un poco de formateo, la información anterior es
+fácil de leer,
 
 @example
 (make-music 'SequentialMusic
@@ -1006,10 +1006,10 @@ Con un poco de formateo, la información anterior es fácil de leer,
 
 Una secuencia musical @code{@{ ... @}} tiene el nombre
 @code{SequentialMusic}, y sus expresiones internas se almacenan coma
-una lista dentro de su propiedad @code{'elements}.  Se representa una
-nota como una expresión @code{EventChord} que contiene un objeto
+una lista dentro de su propiedad @code{'elements}.  Una nota se
+representa como una expresión @code{EventChord} que contiene un objeto
 @code{NoteEvent} (que almacena las propiedades de duración y altura) y
-cualquier información adicional (en este caso, un
+cualquier información adicional (en este caso, un evento
 @code{AbsoluteDynamicEvent} con una propiedad @code{"f"} de texto.
 
 
@@ -1051,7 +1051,7 @@ Scheme de una expresión musical.
 @end example
 
 Después se accede a la altura de la nota a través de la propiedad
-@code{'pitch} del objeto @code{NoteEvent},
+@code{'pitch} del objeto @code{NoteEvent}:
 
 @example
 #(display-scheme-music
@@ -1061,8 +1061,8 @@ Después se accede a la altura de la nota a través de la propiedad
 (ly:make-pitch 0 0 0)
 @end example
 
-La altura de la nota se puede cambiar estableciendo su propiedad
-@code{'pitch},
+La altura de la nota se puede cambiar estableciendo el valor de esta
+propiedad @code{'pitch},
 
 @funindex \displayLilyMusic
 
@@ -1082,7 +1082,7 @@ d'
 
 Supongamos que queremos crear una función que convierte una entrada
 como @code{a} en @code{a( a)}.  Comenzamos examinando la
-representación interna del resultado deseado.
+representación interna de la música con la que queremos terminar.
 
 @example
 \displayMusic@{ a'( a') @}
@@ -1139,11 +1139,11 @@ Ahora examinamos la entrada,
                   (ly:make-pitch 0 5 0))))))
 @end example
 
-Así que en nuestra función, tenemos que clonar esta expresión (de
+Así pues, en nuestra función, tenemos que clonar esta expresión (de
 forma que tengamos dos notas para construir la secuencia), añadir
-@code{SlurEvents} a la propiedad @code{'elements} de cada una, y
-finalmente hacer una secuencia @code{SequentialMusic} con los dos
-@code{EventChords}.
+@code{SlurEvents} a la propiedad @code{'elements} de cada una de
+ellas, y por último hacer una secuencia @code{SequentialMusic} con los
+dos @code{EventChords}.
 
 @example
 doubleSlur = #(define-music-function (parser location note) (ly:music?)
@@ -1186,8 +1186,8 @@ articulación a una nota falsa,
 @end example
 
 @noindent
-pero para los propósitos de este ejemplo, aprenderemos cómo hacerlo en
-Scheme.  Empezamos examinando nuesta entrada y la salida deseada,
+pero a los efectos de este ejemplo, aprenderemos ahora cómo hacerlo en
+Scheme.  Empezamos examinando nuestra entrada y la salida deseada,
 
 @example
 %  input
@@ -1221,13 +1221,13 @@ Scheme.  Empezamos examinando nuesta entrada y la salida deseada,
           "marcato")))
 @end example
 
-Vemos que una nota (@code{c4}) se representa omo una expresión
+Vemos que una nota (@code{c4}) se representa como una expresión
 @code{EventChord}, con una expresión @code{NoteEvent} en su lista de
 elementos.  Para añadir una articulación de marcato, se debe añadir
 una expresión @code{ArticulationEvent} a la propiedad elements de la
 expresión @code{EventChord}.
 
-Para construir esta función, comenzamos por
+Para construir esta función, empezamos con
 
 @example
 (define (add-marcato event-chord)
@@ -1243,9 +1243,9 @@ Para construir esta función, comenzamos por
 
 La primera línea es la forma de definir una función en Scheme: el
 nombre de la función es @code{add-marcato}, y tiene una variable
-llamada @code{event-chord}.  En Scheme, el tipo de variable suele ser
-evidente a partir de su nombre (¡ésta es una buena práctica también en
-otros lenguajes de programación!!)
+llamada @code{event-chord}.  En Scheme, el tipo de variable suele
+quedar claro a partir de su nombre (¡esto también es una buena
+práctica en otros lenguajes de programación!)
 
 @example
 "Add a marcato..."
@@ -1260,23 +1260,23 @@ una buena práctica.
 (let ((result-event-chord (ly:music-deep-copy event-chord)))
 @end example
 
-Se usa @code{let} para declarar las variables locales.  Aquí, usamos
+Se usa @code{let} para declarar las variables locales.  Aquí usamos
 una variable local, llamada @code{result-event-chord}, a la que le
 damos el valor @code{(ly:music-deep-copy event-chord)}.
-@code{ly:music-deep-copy} Es una función específica de LilyPond, como
-todas las funciones predecidas de @code{ly:}.  Se usa para hacer una
-copia de una expresión musical.  Aquí, copiamos @code{event-chord} (el
-parámetro de la función).  Recuerde que nuestro propósito es añadir un
-marcato a una expresión @code{EventChord}.  Es mejor no mdoficar el
-@code{EventChord} que se ha dado como argumento, porque se puede usar
-en algún otro lugar.
+@code{ly:music-deep-copy} es una función específica de LilyPond, como
+todas las funciones que comienzan por @code{ly:}.  Se usa para hacer
+una copia de una expresión musical.  Aquí, copiamos @code{event-chord}
+(el parámetro de la función).  Recuerde que nuestro propósito es
+añadir un marcato a una expresión @code{EventChord}.  Es mejor no
+modificar el @code{EventChord} que se ha dado como argumento, porque
+podría utilizarse en algún otro lugar.
 
 Ahora tenemos un @code{result-event-chord}, que es una expresión
 @code{NoteEventChord} y es una copia de @code{event-chord}.  Añadimos
 el marcato a su propiedad de la lista de @code{'elements}.
 
 @example
-(set! lugar nuevo-valor)
+(set! lugar valor-nuevo)
 @end example
 
 Aquí, lo que queremos establecer (el @q{lugar}) es la propiedad
@@ -1291,7 +1291,7 @@ propiedades musicales (los @code{'elements}, @code{'duration},
 @code{'pitch}, etc, que vimos en la salida de @code{\displayMusic}
 anterior).  El nuevo valor es la antigua propiedad @code{'elements},
 con un elemento adicional: la expresión @code{ArticulationEvent}, que
-copiamos de la salida de @code{\displayMusic},
+copiamos a partir de la salida de @code{\displayMusic},
 
 @example
 (cons (make-music 'ArticulationEvent
@@ -1309,7 +1309,7 @@ propiedad @code{elements}, podemos devolver @code{result-event-chord},
 de ahí la última línea de la función.
 
 Ahora transformamos la función @code{add-marcato} en una función
-musical,
+musical:
 
 @example
 addMarcato = #(define-music-function (parser location event-chord)
@@ -1324,7 +1324,7 @@ addMarcato = #(define-music-function (parser location event-chord)
       result-event-chord))
 @end example
 
-Podemos verificar que esta función musical funciona correctamente,
+Podemos verificar que esta función musical funciona correctamente:
 
 @example
 \displayMusic \addMarcato c4
