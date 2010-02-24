@@ -2516,9 +2516,8 @@ See @ref{The Feta font}, for a list of symbols which may be
 printed with @code{\musicglyph}.
 
 For common tweaks to the positioning of rehearsal marks, see
-@ref{Formatting text}.
-For more precise control, see the @code{break-alignable-interface}
-under 5.5.1 of @ref{Aligning objects}.
+@ref{Formatting text}.  For more precise control, see
+@code{break-alignable-interface} in @ref{Aligning objects}.
 
 
 @seealso
