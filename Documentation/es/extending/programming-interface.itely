@@ -44,7 +44,7 @@ LilyPond.
 * Matemáticas dentro de las funciones::
 * Funciones vacías::
 * Funciones sin argumentos::
-* Pranorámica de las funciones musicales disponibles::
+* Panorámica de las funciones musicales disponibles::
 @end menu
 
 @node Panorámica de las funciones musicales
@@ -290,8 +290,8 @@ lilypond -d display-bar-numbers ARCHIVO.ly
 @end example
 
 
-@node Pranorámica de las funciones musicales disponibles
-@subsection Pranorámica de las funciones musicales disponibles
+@node Panorámica de las funciones musicales disponibles
+@subsection Panorámica de las funciones musicales disponibles
 @translationof Overview of available music functions
 
 @c fixme ; this should be move somewhere else?

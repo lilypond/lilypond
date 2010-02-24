@@ -39,9 +39,9 @@ Hay información sobre Guile en
 @uref{http://www.schemers.org/Documents/Standards/R5RS/}.
 
 @menu
-* Introducción a Scheme::       
-* Scheme dentro de LilyPond::   
-* Construir funciones complicadas::  
+* Introducción a Scheme::
+* Scheme dentro de LilyPond::
+* Construir funciones complicadas::
 @end menu
 
 @node Introducción a Scheme
@@ -56,13 +56,13 @@ de LilyPond.
 
 
 @menu
-* Cajón de arena de Scheme::    
-* Variables de Scheme::         
-* Tipos de datos simples de Scheme::  
-* Tipos de datos compuestos de Scheme::  
-* Cálculos en Scheme::          
-* Procedimientos de Scheme::    
-* Condicionales de Scheme::     
+* Cajón de arena de Scheme::
+* Variables de Scheme::
+* Tipos de datos simples de Scheme::
+* Tipos de datos compuestos de Scheme::
+* Cálculos en Scheme::
+* Procedimientos de Scheme::
+* Condicionales de Scheme::
 @end menu
 
 @node Cajón de arena de Scheme
@@ -624,12 +624,12 @@ guile> (cond ((< a b) "a es menor que b")
 @translationof Scheme in LilyPond
 
 @menu
-* Sintaxis del Scheme de LilyPond::  
-* Variables de LilyPond::       
-* Variables de entrada y Scheme::  
-* Propiedades de los objetos::  
-* Variables de LilyPond compuestas::  
-* Representación interna de la música::  
+* Sintaxis del Scheme de LilyPond::
+* Variables de LilyPond::
+* Variables de entrada y Scheme::
+* Propiedades de los objetos::
+* Variables de LilyPond compuestas::
+* Representación interna de la música::
 @end menu
 
 @node Sintaxis del Scheme de LilyPond
@@ -934,10 +934,10 @@ Esta sección explica cómo recolectar la información necesaria para
 crear funciones musicales complicadas.
 
 @menu
-* Presentación de las expresiones musicales::  
-* Propiedades musicales::       
-* Duplicar una nota con ligaduras (ejemplo)::  
-* Añadir articulaciones a las notas (ejemplo)::  
+* Presentación de las expresiones musicales::
+* Propiedades musicales::
+* Duplicar una nota con ligaduras (ejemplo)::
+* Añadir articulaciones a las notas (ejemplo)::
 @end menu
 
 
