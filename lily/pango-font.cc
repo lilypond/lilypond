@@ -124,9 +124,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
   PangoRectangle ink_rect;
   pango_glyph_string_extents (pgs, pa->font, &ink_rect, &logical_rect);
 
-  PangoFcFont *fcfont = G_TYPE_CHECK_INSTANCE_CAST (pa->font,
-						    PANGO_TYPE_FC_FONT,
-						    PangoFcFont);
+  PangoFcFont *fcfont = PANGO_FC_FONT (pa->font);
 
   FT_Face ftface = pango_fc_font_lock_face (fcfont);
 
