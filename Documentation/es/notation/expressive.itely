@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: bf9f2acb7fd1a9d3deb32e9e20d7b73cbff54b51
+    Translation of GIT committish: ce3b7b374deb1a9a80defbbc78d485dc46fa1a5d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -848,6 +848,13 @@ Las respiraciones se introducen utilizando @code{\breathe}:
 c2. \breathe d4
 @end lilypond
 
+Las marcas de respiración dan por terminadas las barras automáticas;
+para sobreescribir este comportamiento, consulte @ref{Barras manuales}.
+
+@lilypond[verbatim,quote,relative=2]
+c8 \breathe d e f g2
+@end lilypond
+
 Están contemplados los indicadores musicales para las marcas de
 respiración en la notación antigua, o divisiones.  Para ver más
 detalles, consulte @ref{Divisiones}.
@@ -874,8 +881,9 @@ Fragmentos de código:
 @rlsr{Expressive marks}.
 
 Referencia de funcionamiento interno:
-@rinternals{BreathingSign}.
-
+@rinternals{BreathingEvent},
+@rinternals{BreathingSign},
+@rinternals{Breathing_sign_engraver}.
 
 @node Caídas y elevaciones
 @unnumberedsubsubsec Caídas y elevaciones

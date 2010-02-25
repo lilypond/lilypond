@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 48e4b7f1ecad464e3c9973d7b65eed2de1e546e0
+    Translation of GIT committish: 3fcde915c606979c4bc220040eedc812937ef4e5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -13,18 +13,30 @@
 @c into news-old.itexi.
 
 @c Translators: Francisco Vila
+@c FIXME: fill in number
+@c used for news about the upcoming release; see CG x.y
+@c DO NOT WRITE BETWEEN THESE LINES
+@c DO NOT WRITE BETWEEN THESE LINES
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.9!  @emph{12 de diciembre de 2009}
+@subsubheading ¡Lanzado LilyPond 2.13.13!  @emph{13 de febrero de 2010}
 
-Ha salido LilyPond 2.13.9.  A partir de la versión 2.13.9, LilyPond se
-licencia bajo la GPL v3+ de GNU para el código, y la FDL 1.3+ de GNU
-para la documentación.  Además de la ronda habitual de corrección de
-fallos, esta versión incorpora una abreviatura para repetir acordes.
+Nos complace anunciar el lanzamiento de LilyPond 2.13.13.  Esta
+versión está orientada solamente a los desarrolladores, y arregla
+diversos problemas con el sistema de construcción de la documentación,
+así como la adición de un marco de vista previa para el back-end de
+salida SVG.  Además, los archivos binarios instalables son ahora unos
+6 Mb más pequeños.
+@newsEnd
 
-Observe que 2.13 es una rama de @strong{desarrollo inestable}; los
-usuarios normales deberían continuar utilizando la versión 2.12.
 
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.12!  @emph{2 de febrero de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.12.  Esta
+versión está orientada solamente a los desarrolladores, y aporta más
+estabilidad y menos bugs al sistema de construcción y a la guía del
+colaborador.
 @newsEnd
 
 

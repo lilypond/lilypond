@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+    Translation of GIT committish: 765a28ffb69f6b66b58b9c8d0e2078020c511620
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -337,9 +337,9 @@ a4 a4
 b16*4 c4
 @end lilypond
 
-La duración de las notas de salto o espaciadoras también se puede
-modificar mediante un multiplicador.  Esto es útil para saltar muchos
-compases, como por ejemplo @code{s1*23}.
+La duración de las notas espaciadoras también se puede modificar
+mediante un multiplicador.  Esto es útil para saltar muchos compases,
+como por ejemplo @code{s1*23}.
 
 @cindex compresión de música
 @cindex expansión de música
@@ -729,6 +729,21 @@ requiere una duración explícita.
     \lyricmode {
       foo2 \skip 1 bla2
     }
+  }
+>>
+@end lilypond
+
+Dado que @code{\skip} es una instrucción, no afecta a las duraciones
+por omisión de las notas siguientes, a diferencia de@tie{}@code{s}.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  {
+    \repeat unfold 8 {a4}
+  }
+  {
+    a4 \skip 2 a |
+    s2 a
   }
 >>
 @end lilypond

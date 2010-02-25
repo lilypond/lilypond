@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+    Translation of GIT committish: 171d30460a38e5304e7cfedf0a3391516ec072f8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,11 +10,10 @@
 
 @c \version "2.12.0"
 
-
 @c Note: keep this node named so that `info lilypond-book' brings you here.
-@node LilyPond-book
-@chapter @command{lilypond-book}: integrar texto y música
-@translationof LilyPond-book
+@node lilypond-book
+@chapter Ejecución de @command{lilypond-book}
+@translationof lilypond-book
 
 Si quiere añadir imágenes de música a un documento, puede hacerlo
 simplemente de la forma en que lo haría con otros tipos de imágenes.
@@ -31,14 +30,16 @@ que coincidan con los ajustes de su documento.
 
 Es un programa distinto a @command{lilypond} propiamente dicho, y se
 ejecuta sobre la línea de órdenes; para ver más información, consulte
-@ref{Utilización desde la línea de órdenes}.  Si tiene MacOS 10.3 o 10.4 y experimenta
-algún problema al ejecutar @code{lilypond-book}, consulte @ref{Configuración para MacOS X}.
+@ref{Utilización desde la línea de órdenes}.  Si tiene MacOS 10.3 o
+10.4 y experimenta algún problema al ejecutar @code{lilypond-book},
+consulte @ref{Configuración para MacOS X}.
 
 Este procedimiento se puede aplicar a documentos de @LaTeX{}, HTML,
 Texinfo o DocBook.
 
 @cindex texinfo
 @cindex latex
+@cindex texinfo
 @cindex texi
 @cindex html
 @cindex docbook
@@ -54,6 +55,7 @@ Texinfo o DocBook.
 * Opciones de fragmentos de música::
 * Invocar lilypond-book::
 * Extensiones de nombres de archivo::
+* Plantillas de lilypond-book::
 * Métodos alternativos para mezclar texto y música::
 @end menu
 
@@ -133,8 +135,8 @@ xpdf lilybook
 La ejecución de @command{lilypond-book} y @command{latex} crea un gran
 número de archivos temporales, que podrían abarrotar el directorio de
 trabajo.  Para poner remedio a esto utilice la opción
-@code{--output=@var{directorio}}.  Creará los archivos en un subdirectorio
-aparte @file{directorio}.
+@code{--output=@var{directorio}}.  Creará los archivos en un
+subdirectorio aparte @file{directorio}.
 
 Finalmente el resultado del ejemplo de @LaTeX{} que acabamos de
 mostrar@footnote{Este tutorial se procesa con Texinfo, por lo que el
@@ -215,7 +217,7 @@ o bien
 o bien
 
 @example
-\lilypond@{ EL CÓDIGO DE LILYPOND @}
+\lilypond[las,opciones,van,aquí]@{ EL CÓDIGO DE LILYPOND @}
 @end example
 
 De forma adicional, @code{\lilypondversion} imprime la versión actual
@@ -340,9 +342,16 @@ sustituya el @q{2} por el número de sistemas que quiere en la salida:
 
 @example
 \def\betweenLilyPondSystem#1@{
-    \ifnum##1<2\else\endinput\fi
+    \ifnum##1<2\else\expandafter\endinput\fi
 @}
 @end example
+
+@noindent
+(Dado que @code{\endinput} detiene inmediatamente el procesado del
+archivo de entrada actual, necesitamos @code{\expandafter} para
+posponer la llamada de @code{\endinput} después de ejecutar
+@code{\fi} de manera que la cláusula @code{\if}-@code{\fi} esté
+equilibrada.)
 
 Recuerde que la definición de @code{\betweenLilyPondSystem} es
 efectiva hasta que @TeX{} abandona el grupo actual (como el entorno
@@ -828,7 +837,7 @@ sencilla y es la que se recomienda@footnote{Observe que PDF@LaTeX{} y
 @LaTeX{}, y es por lo que explicamos las dos formas.}, y cualquiera
 que sea el método que utilice, podrá convertir fácilmente entre
 PostScript y PDF con herramientas como @command{ps2pdf} y
-@command{pdf2ps} que vienen incluidas con Ghostscript.
+@command{pdf2ps} que vienen incluidas con GhostScript.
 
 Para producir un archivo PDF por medio de PDF@LaTeX{}, utilice
 
@@ -869,7 +878,8 @@ salida), siga el procedimiento normal para Texinfo, esto es: o bien
 llame a @command{texi2pdf} o a @command{texi2dvi} o a
 @command{makeinfo}, según el formato de la salida que quiera crear.
 @ifinfo
-@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, y @ref{Creating an Info File, , , texinfo, GNU Texinfo}.
+@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, y @ref{Creating
+an Info File, , , texinfo, GNU Texinfo}.
 @end ifinfo
 @ifnotinfo
 Consulte la documentación de Texinfo para ver más detalles.
@@ -887,8 +897,8 @@ Consulte la documentación de Texinfo para ver más detalles.
 Especificar el tipo del documento que se va a procesar: @code{html},
 @code{latex}, @code{texi} (predeterminado) o @code{docbook}.  Si falta
 esta opción, @command{lilypond-book} tratará de detectar el formato
-automáticamente, véase @ref{Extensiones de nombres de archivo}. Por el momento,
-@code{texi} es lo mismo que @code{texi-html}.
+automáticamente, véase @ref{Extensiones de nombres de archivo}. Por el
+momento, @code{texi} es lo mismo que @code{texi-html}.
 
 @c This complicated detail is not implemented, comment it out -jm
 @ignore
@@ -975,16 +985,18 @@ derecha en la misma medida.
 @item -P @var{instrucción}
 @itemx --process=@var{instrucción}
 Procesar los fragmentos de LilyPond utilizando @var{instrucción}.  La
-instrucción predeterminada es @code{lilypond}.  @code{lilypond-book} no
-obedecerá a @code{--filter} y a @code{--process} al mismo tiempo.
+instrucción predeterminada es @code{lilypond}.  @code{lilypond-book}
+no obedecerá a @code{--filter} y a @code{--process} al mismo tiempo.
 
 @item --pdf
 Crear archivos PDF para su uso con PDF@LaTeX{}.
 
-@itemx --psfonts
-Extraer todas las tipografías PostScript en
-@file{@var{archivo}.psfonts} para dvips.  Esto es necesario para
-@command{dvips -h @var{archivo}.psfonts}.
+@itemx --use-source-file-names
+Escribir los archivos de salida de los fragmentos de música con el
+mismo nombre de base que su archivo fuente.  Esta opción sólo funciona
+para fragmentos incluidos con @code{lilypondfile} y sólo si los
+directorios determinados por las opciones @code{--output-dir} y
+@code{--lily-output-dir} son distintos.
 
 @item -V
 @itemx --verbose
@@ -1040,72 +1052,156 @@ funcione @command{lilypond-book}, pues en caso contrario saldrá con un
 mensaje de error como @qq{La salida sobreescribirá al archivo de
 entrada}.
 
+@node Plantillas de lilypond-book
+@section Plantillas de lilypond-book
+@translationof lilypond-book templates
+
+Estas plantillas se usan para @code{lilypond-book}.  Si no está
+familiarizado con este programa, consulte @rprogram{LilyPond-book}.
+
+@subsection LaTeX
+
+Podemos insertar fragmentos de LilyPond dentro de un documento de
+LaTeX.
+
+@example
+\documentclass[]@{article@}
+
+\begin@{document@}
+
+Texto normal en LaTeX.
+
+\begin@{lilypond@}
+\relative c'' @{
+  a4 b c d
+@}
+\end@{lilypond@}
+
+Más texto en LaTeX, y las opciones dentro de los corchetes.
+
+\begin[fragment,relative=2,quote,staffsize=26,verbatim]@{lilypond@}
+d4 c b a
+\end@{lilypond@}
+\end@{document@}
+@end example
+
+@subsection Texinfo
+
+Podemos insertar fragmentos de LilyPond dentro de Texinfo; de hecho,
+todo el presente manual está escrito en Texinfo.
+
+@example
+\input texinfo @c -*-texinfo-*-
+@@node Top
+@@top
+
+Texto en Texinfo
+
+@@lilypond
+\relative @{
+  a4 b c d
+@}
+@@end lilypond
+
+Más texto en Texinfo, y las opciones dentro de los corchetes.
+
+@@lilypond[verbatim,fragment,ragged-right]
+d4 c b a
+@@end lilypond
+
+@@bye
+@end example
+
+
+@subsection html
+
+@example
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- header_tag -->
+<HTML>
+<body>
+
+<p>
+Los documentos para lilypond-book pueden mezclar música y texto libremente.  Por
+ejemplo,
+<lilypond>
+\relative c'' @{
+  a4 b c d
+
+<p>
+Otro poco de lilypond, esta vez con opciones:
+
+<lilypond fragment quote staffsize=26 verbatim>
+a4 b c d
+</lilypond>
+</p>
+
+</body>
+</html>
+
+
+@end example
+
+@subsection xelatex
+
+@verbatim
+\documentclass{article}
+\usepackage{ifxetex}
+\ifxetex
+%xetex specific stuff
+\usepackage{xunicode,fontspec,xltxtra}
+\setmainfont[Numbers=OldStyle]{Times New Roman}
+\setsansfont{Arial}
+\else
+%Esto se puede dejar vacío si no vamos a utilizar pdftex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}%Times
+\usepackage{helvet}%Helvetica
+\fi
+%Aquí insertamos todos los paquetes que pdftex también entiende
+\usepackage[ngerman,finnish,english]{babel}
+\usepackage{graphicx}
+
+\begin{document}
+\title{Un documento breve con LilyPond y xelatex}
+\maketitle
+
+Las instrucciones \textbf{font} normales dentro del \emph{texto}
+funcionan, porque \textsf{están contempladas por \LaTeX{} y XeteX.}
+Si queremos usar instrucciones específicas como \verb+\XeTeX+, debemos
+incluirlas de nuevo dentro de un entorno \verb+\ifxetex+.  Podemos
+utilizar esto para imprimir la instrucción \ifxetex \XeTeX{} \else
+XeTeX \fi que no es conocida para el \LaTeX\ normal.
+
+Dentro del texto normal podemos utilizar instrucciones de LilyPond
+fácilmente, de esta forma:
+
+\begin{lilypond}
+{a2 b c'8 c' c' c'}
+\end{lilypond}
+
+\noindent
+y así sucesivamente.
+
+La fuente tipográfica de los fragmentos, establecida con LilyPond,
+tendrá que establecerse desde dentro del fragmento. Para esto puede
+leer la parte de lilypond-book en el manual de utilización.
+
+\selectlanguage{ngerman}
+Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle
+anderen
+seltsamen Zeichen: __ ______, wenn sie von der Schriftart
+unterst__tzt werden.
+\end{document}
+@end verbatim
+
 
 @node Métodos alternativos para mezclar texto y música
-@section Otros métodos para mezclar texto y música
+@section Métodos alternativos para mezclar texto y música
 @translationof Alternate methods of mixing text and music
 
-Esta sección presenta métodos para integrar texto y música distintos
-del método automatizado con @command{lilypond-book}.
-
-@menu
-* Muchas citas de una partitura extensa::
-* Insertar la salida de LilyPond dentro de OpenOffice.org::
-* Insertar la salida de LilyPond dentro de otros programas::
-@end menu
-
-@node Muchas citas de una partitura extensa
-@unnumberedsubsec Muchas citas de una partitura extensa
-@translationof Many quotes from a large score
-
-Si tiene que citar muchos fragmentos extraídos de una partitura grade,
-puede también usar la capacidad de recorte de sistemas, véase
-@ruser{Extracción de fragmentos de música}.
+Otras formas de mezclar texto y música (sin @command{lilypond-book})
+se estudian en @ref{Insertar la salida de LilyPond dentro de otros programas}.
 
 
-@node Insertar la salida de LilyPond dentro de OpenOffice.org
-@unnumberedsubsec Insertar la salida de LilyPond dentro de OpenOffice.org
-@translationof Inserting LilyPond output into OpenOffice.org
-
-@cindex OpenOffice.org
-
-Se puede añadir notación de LilyPond a los documentos de
-OpenOffice.org con
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
-
-
-@node Insertar la salida de LilyPond dentro de otros programas
-@unnumberedsubsec Insertar la salida de LilyPond dentro de otros programas
-@translationof Inserting LilyPond output into other programs
-
-Para insertar la salida de LilyPond dentro de otros programas, use
-@code{lilypond} en vez de @code{lilypond-book}.  Cada ejemplo debe
-crearse individualmente y añadirse al documento; consulte la
-documentación del programa correspondiente.  La mayoría de los
-programas podrán insertar la salida de LilyPond en los formatos
-@file{PNG}, @file{EPS} o @file{PDF}.
-
-Para reducir el espacio vacío alrededor de la partitura de LilyPond,
-utilice las siguientes opciones:
-
-@example
-\paper@{
-  indent=0\mm
-  line-width=120\mm
-  oddFooterMarkup=##f
-  oddHeaderMarkup=##f
-  bookTitleMarkup = ##f
-  scoreTitleMarkup = ##f
-@}
-
-@{ c1 @}
-@end example
-
-Para obtener un archivo @file{EPS} que sea útil, utilice
-
-@example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts miarchivo.ly
-
-@file{PNG}:
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miarchivo.ly
-@end example

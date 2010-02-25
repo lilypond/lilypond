@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 23cd7c415987593a6bafe1a6471caa3d34003498
+    Translation of GIT committish: a48879a125150c95571cc2cd06fd626e75cd3b65
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -14,6 +14,9 @@
 @chapter Lista de referencias bibliográficas
 @translationof Literature list
 
+A continuación presentamos algunas listas de referencias que se
+utilizan en LilyPond.
+
 @menu
 * Lista bibliográfica resumida::
 * Lista bibliográfica ampliada::
@@ -23,9 +26,9 @@
 @section Lista bibliográfica resumida
 @translationof Short literature list
 
-Si tiene necesidad de aprender más acerca de la notación musical, le presentamos a continuación
-algunos títulos interesantes que puede leer.
-
+Si tiene necesidad de aprender más acerca de la notación musical, le
+presentamos a continuación algunos títulos interesantes que puede
+leer.
 
 
 @table @cite

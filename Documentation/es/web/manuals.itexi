@@ -358,13 +358,12 @@ se dan en la @ref{Introducción}.
 
 @subsubheading ¡Algo no funciona!  ¿Cómo lo arreglo?
 
-Se explica en @rlearningnamed{Resolución de problemas (tomar cada
-parte por separado),Solución de problemas}.
+Se explica en @rprogram{Solución de problemas}.
 
 
 @subsubheading ¿Por qué cambian la sintaxis del lenguaje?
 
-Se explica en @rprogramnamed{Why does the syntax change?,¿Por qué cambia la sintaxis?}.
+Se explica en @rprogram{¿Por qué cambia la sintaxis?}.
 
 @divEnd
 

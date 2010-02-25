@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 1eb98b180d639ff14d4152637bb97b1a8c651e90
+Translation of GIT committish: 412fa426d510594ec7772c7cf7b568e376bd1c84
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1439,7 +1439,7 @@ abruptas, o las dos cosas.
 
 
 @node La instrucción set
-@subsection La instrucción @code{\set}
+@subsection La instrucción @code{@bs{}set}
 @translationof The set command
 
 @cindex propiedades
@@ -3126,7 +3126,7 @@ Archivos de inicio:
 Fragmentos de código:
 @rlsr{Tweaks and overrides}.
 
-Extending:
+Extender:
 @rextend{Interfaces for programmers}.
 
 Referencia de funcionamiento interno:

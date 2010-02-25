@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7f60830e7fcaa24eb09096b7fc08bbea0cfc0927
+    Translation of GIT committish: 038c58f9e216c4d4ae046fcdd82d8499b94a0392
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -168,12 +168,12 @@ unos encima de otros si las notas son simultáneas.
 De forma predeterminada, la cuerda 1 es la más aguda, y la afinación
 normal es la afinación estándar de guitarra (con 6 cuerdas).  Las
 notas se imprimen como tablatura, usando los contextos @code{TabStaff}
-y @code{TabVoice}:
+y @code{TabVoice}.  Se añade automáticamente una clave caligráfica de tablatura.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \new TabStaff \relative c' {
-	a,8 a' <c e> a
-	d, a' <d f> a
+  a,8 a' <c e> a
+  d, a' <d f> a
 }
 @end lilypond
 
@@ -225,6 +225,8 @@ symbols = {
 }
 @end lilypond
 
+@cindex traste
+
 @funindex minimumFret
 
 @cindex traste
@@ -265,15 +267,18 @@ una repetición.
 
 @lilypond[quote,ragged-right,verbatim]
 ties = \relative c' {
-	\repeat volta 2 {
-	e2. f4~
-	f2 g2~ }
-	\alternative {
-		{ g4 f2. }
-		{ g4\repeatTie c,2. }
-	}
-	b1~\break
-	b1  \bar "|."
+  \repeat volta 2 {
+    e2. f4~
+    f2 g2~
+  }
+  \alternative {
+     { g4 f2. }
+     { g4\repeatTie c,2. }
+  }
+  b1~
+  \break
+  b1
+  \bar "|."
 }
 
 \score {
@@ -302,15 +307,17 @@ de imprimir los números de traste entre paréntesis:
 
 @lilypond[quote,ragged-right,verbatim]
 ties = \relative c' {
-	\repeat volta 2 {
-	e2. f4~
-	f2 g2~ }
-	\alternative {
-		{ g4 f2. }
-		{ g4\repeatTie c,2. }
-	}
-	b1~\break
-	b1  \bar "|."
+  \repeat volta 2 {
+    e2. f4~
+    f2 g2~ }
+  \alternative {
+    { g4 f2. }
+    { g4\repeatTie c,2. }
+  }
+  b1~
+  \break
+  b1
+  \bar "|."
 }
 
 \score {
@@ -486,6 +493,24 @@ mynotes = {
 >>
 @end lilypond
 
+@cindex moderntab, clave
+@cindex clave moderntab
+@cindex clave de tablatura
+@cindex tablatura, clave de
+
+También se puede usar una clave moderna de tablatura.
+
+@lilypond[quote,ragged-right,verbatim]
+\new TabStaff {
+ \clef moderntab
+  <a, e a>1
+  \break
+  \clef tab
+  <a, e a>1
+}
+@end lilypond
+
+La clave moderna de tablatura contempla tablaturas de 4 a 7 cuerdas.
 
 @seealso
 Archivos de inicio:
