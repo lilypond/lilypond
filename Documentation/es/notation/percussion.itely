@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+    Translation of GIT committish: 412fa426d510594ec7772c7cf7b568e376bd1c84
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -97,10 +97,25 @@ nombre abreviado, y los dos se pueden usar en la entrada.  La lista
 completa de nombre de instrumentos de percusión se encuentra en
 @ref{Notas de percusión}.
 
+@cindex clave de percusión
+@cindex percusión, clave
+
 Observe que la notación normal de las notas con altura determinada
 (como @code{cis4}) en un contexto @code{DrumStaff} producen un mensaje
 de error.  Las claves de percusión se añaden automáticamente al
-contexto @code{DrumStaff}, pero también se pueden usar otras claves.
+contexto @code{DrumStaff} pero también se pueden establecer
+explícitamente o utilizar otras claves.
+
+@lilypond[quote,ragged-right,verbatim]
+\drums {
+  \clef treble
+  hh4 hh hh hh
+  \break
+  \clef percussion
+  bd4 bd bd bd
+}
+@end lilypond
+
 
 Hay ciertos detalles respecto a cómo está contemplado el MIDI para los
 instrumentos de percusión; para ver los detalles consulte

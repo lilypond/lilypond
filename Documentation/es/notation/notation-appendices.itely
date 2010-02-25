@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+    Translation of GIT committish: eb89fc37142758e8309f576a97a217b8fad257ff
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -427,8 +427,12 @@ El cuadro siguiente presenta los diagramas de traste predefinidos para ukelele.
 @appendixsec Instrumentos MIDI
 @translationof MIDI instruments
 
-A continuación figura una lista con los nombres que se pueden utilizar para la
-propiedad @code{midiInstrument} (instrumento MIDI).
+A continuación figura una lista con los nombres que se pueden utilizar
+para la propiedad @code{midiInstrument} (instrumento MIDI).  El orden
+de los instrumentos que aparece aquí, de arriba a abajo empezando por
+la columna de la izquierda, corresponde a los 128 números de programa
+del estándar General MIDI.
+
 
 @example
 acoustic grand            contrabass           lead 7 (fifths)

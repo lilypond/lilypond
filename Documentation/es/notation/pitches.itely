@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+    Translation of GIT committish: 3ddb74ce927e6e71bb61d1bad526c4dfe34d68a4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -922,7 +922,8 @@ notas.
 
 La clave se establece con la instrucción @code{\clef}
 @var{nombre_de_clave}.  En todos los ejemplos se muestra el Do
-central.
+central.  Estos nombres de clave pueden (aunque no necesariamente)
+encerrarse entre comillas.
 
 @lilypond[verbatim,quote,relative=1]
 \clef treble
@@ -955,22 +956,16 @@ c2 c
 c2 c
 \clef percussion
 c2 c
-\clef tab
-c2 c
 
 \break
 
-\clef G
+\clef G   % synonym for treble
 c2 c
-\clef F
+\clef F   % synonym for bass
 c2 c
-\clef C
+\clef C   % synonym for alto
 c2 c
-
 @end lilypond
-
-Están contempladas claves adicionales que se describen bajo
-@ref{Claves de la música mensural} y @ref{Claves de canto gregoriano}.
 
 @cindex transpositoras, claves
 @cindex clave transpositora
@@ -981,18 +976,25 @@ Están contempladas claves adicionales que se describen bajo
 Al añadir @code{_8} o @code{^8} al nombre de la clave, la clave se
 transpone una octava hacia abajo o hacia arriba, respectivamente, y
 @code{_15} y @code{^15} la transpone dos octavas.  El argumento
-@var{nombre_de_clave} se debe encerrar entre comillas cuando contiene
-guiones bajos o dígitos.
+@var{nombre_de_clave} se debe encerrar entre comillas si contiene
+caracteres no alfabéticos.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
 \clef treble
 c2 c
 \clef "treble_8"
 c2 c
+\clef "G_8"
+c2 c
 \clef "bass^15"
+c2 c
+\clef "F^15"
 c2 c
 @end lilypond
 
+Ciertas claves para usos especiales se describen en @ref{Claves de la
+música mensural}, @ref{Claves de canto gregoriano}, @ref{Tablaturas
+predeterminadas} y @ref{Tablaturas personalizadas}.
 
 @snippets
 
@@ -1003,7 +1005,9 @@ c2 c
 @seealso
 Referencia de la notación:
 @ref{Claves de la música mensural},
-@ref{Claves de canto gregoriano}.
+@ref{Claves de canto gregoriano},
+@ref{Tablaturas predeterminadas}
+@ref{Tablaturas personalizadas}.
 
 Fragmentos de código:
 @rlsr{Pitches}.
@@ -2630,10 +2634,11 @@ Referencia de funcionamiento interno:
 @funindex \easyHeadsOff
 @funindex easyHeadsOff
 
-The @q{easy play} note head includes a note name inside the head.
-It is used in music for beginners.  To make the letters readable,
-it should be printed in a large font size.  To print with a larger
-font, see @ref{Setting the staff size}.
+Las notas con cabeza de @q{notación facilitada} tienen el nombre de la
+nota (en inglés) dentro de la cabeza.  Se usan en la música para
+principiantes.  Para que las letras sean legibles, se deben imprimir
+en un tamaño grande de fuente tipográfica.  Para imprimir con una
+fuente más grande, véase @ref{Establecer el tamaño del pentagrama}.
 
 @lilypond[verbatim,quote]
 #(set-global-staff-size 26)

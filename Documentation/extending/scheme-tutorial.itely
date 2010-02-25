@@ -73,7 +73,7 @@ see @rlearning{Other sources of information}.  Alternatively, Windows
 users may simply choose @q{Run} from the Start menu and enter
 @q{guile}.
 
-Once the guile sandbox is running, you will received a guile prompt:
+Once the guile sandbox is running, you will receive a guile prompt:
 
 @lisp
 guile>
@@ -103,7 +103,7 @@ guile> a
 guile>
 @end lisp
 
-Scheme variables can be printed on the display by use of the display function:
+Scheme variables can be printed on the display by using the display function:
 
 @lisp
 guile> (display a)
@@ -111,9 +111,9 @@ guile> (display a)
 @end lisp
 
 @noindent
-Note that the value @code{2} and the guile prompt @code{guile} both
-showed up on the same line.  This can be avoided by calling the newline
-procedure or displaying a newline character.
+Note that both the value @code{2} and the guile prompt @code{guile}
+showed up on the same line.  This can be avoided by calling the
+newline procedure or displaying a newline character.
 
 @lisp
 guile> (display a)(newline)
@@ -152,7 +152,7 @@ Numbers are entered in the standard fashion,
 floating point number (a non-integer number).
 
 @item Strings
-Strings are enclosed in double quotes,
+Strings are enclosed in double quotes:
 
 @example
 "this is a string"
@@ -406,13 +406,14 @@ guile> (/ 7.0 3.0)
 2.33333333333333
 @end lisp
 
-When the scheme interpreter encounters an expression that is a list, the
-first element of the list is treated as a procedure to be evaluated
-with the arguments of the remainder of the list.  Therefore, all operators
-in Scheme are prefix operators.
+When the scheme interpreter encounters an expression that is a list,
+the first element of the list is treated as a procedure to be
+evaluated with the arguments of the remainder of the list.  Therefore,
+all operators in Scheme are prefix operators.
 
-If the first element of a Scheme expression that is a list passed to the
-interpreter`is @emph{not} an operator or procedure, an error will occur:
+If the first element of a Scheme expression that is a list passed to
+the interpreter is @emph{not} an operator or procedure, an error will
+occur:
 
 @lisp
 guile> (1 2 3)
@@ -427,10 +428,11 @@ ABORT: (misc-error)
 guile>
 @end lisp
 
-Here you can see that the interpreter was trying to treat 1 as an operator
-or procedure, and it couldn't.  Hence the error is "Wrong type to apply: 1".
+Here you can see that the interpreter was trying to treat 1 as an
+operator or procedure, and it couldn't.  Hence the error is "Wrong
+type to apply: 1".
 
-To create a list, then , we need to use the list operator, or we need to
+Therefore, to create a list we need to use the list operator, or to
 quote the list so that the interpreter will not try to evaluate it.
 
 @lisp
@@ -471,8 +473,8 @@ The quote mark @code{'} prevents the Scheme interpreter from substituting
 @node Scheme procedures
 @subsection Scheme procedures
 
-Scheme procedures are executable scheme expressions that return
-a value resulting from their execution.,  They can also manipulate
+Scheme procedures are executable scheme expressions that return a
+value resulting from their execution.  They can also manipulate
 variables defined outside of the procedure.
 
 @subheading Defining procedures
@@ -654,8 +656,7 @@ in a music file, so we add @code{#}s everywhere.
 
 TODO -- make this read right
 
-A similar thing
-happens with variables.  After defining a variable
+A similar thing happens with variables.  After defining a variable
 
 @example
 twelve = 12
@@ -939,8 +940,7 @@ a file.
 lilypond file.ly >display.txt
 @end example
 
-With a bit of reformatting, the above information is
-easier to read,
+With a bit of reformatting, the above information is easier to read,
 
 @example
 (make-music 'SequentialMusic
