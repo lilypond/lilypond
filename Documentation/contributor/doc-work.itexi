@@ -401,31 +401,11 @@ Documentation Editor.
 @subsection Text formatting
 
 @itemize
-
 @item
 Lines should be less than 72 characters long.  (We personally
 recommend writing with 66-char lines, but do not bother modifying
-existing material).  However, see the note below regarding line
-lengths within @code{@@example} blocks.
-
-@item
-Individual lines within an @code{@@example} block should not
-exceed 74 characters; otherwise they will run into the margin in
-the pdf output, and may get clipped.  If an @code{@@example} block
-is part of an @code{@@item} within an @code{@@itemize} or
-@code{@@enumerate} block, each line of the @code{@@example} should
-not exceed 70 columns---each additional level of @code{@@itemize}
-or @code{@@enumerate} shortens the line by about 4 columns.
-
-For command line examples, if possible, use a trailing backslash
-to break up a single line, indenting the next line with 2 spaces.
-If this isn't feasible, use @code{@@smallexample ...
-@@end@tie{}smallexample} instead, which uses a smaller fontsize.
-Use @code{@@example} whenever possible, but if needed,
-@code{@@smallexample} can fit up to 96 characters per line before
-running into the pdf margin.  Each additional level of
-@code{@@itemize} or @code{@@enumerate} shortens a
-@code{@@smallexample} line by about 5 columns.
+existing material).  Also see the recommendations for fixed-width
+fonts in the @ref{Syntax survey}.
 
 @item
 Do not use tabs.
@@ -449,232 +429,327 @@ tempted to do so, you're probably getting too close to @qq{talking
 through the code}.  If you really want to refer to a context, use
 @code{@@code@{@}} in the main text and @code{@@rinternals@{@}} in
 the @code{@@seealso}.
-
-@item
-Variables or numbers which consist of a single character (probably
-followed by a punctuation mark) should be tied properly, either to
-the previous or the next word.  Example:
-
-@example
-The variable@@tie@{@}@@var@{a@} ...
-@end example
-
-@item
-To get consistent indentation in the DVI output it is better to
-avoid the @code{@@verbatim} environment.  Use the @code{@@example}
-environment instead if possible, but without extraneous
-indentation.  For example, this
-
-@example
-@@example
-  foo @{
-    bar
-  @}
-@@end example
-@end example
-
-@noindent
-should be replaced with
-
-@example
-@@example
-foo @{
-  bar
-@}
-@@end example
-@end example
-
-@noindent
-where @q{@code{@@example}} starts the line (without leading
-spaces).
-
-@item
-Do not compress the input vertically; that is, do not use
-
-@example
-Beginning of logical unit
-@@example
-...
-@@end example
-continuation of logical unit
-@end example
-
-@noindent
-but instead do
-
-@example
-Beginning of logical unit
-
-@@example
-...
-@@end example
-
-@@noindent
-continuation of logical unit
-@end example
-
-This makes it easier to remember the @q{@code{@@noindent}}.  Only
-use @code{@@noindent} if the material is discussing the same
-material; new material should simply begin without anything
-special on the line above it.
-
-@item
-in @code{@@itemize} and @code{@@enumerate} blocks, use
-@code{@@item} on a separate line like this:
-
-@example
-@@itemize
-@@item
-Foo
-
-@@item
-Bar
-@end example
-
-Do not use @code{@@itemize@tie{}@@bullet}.
-
-@item
-To get LilyPond version, use @code{@@version@{@}} (this does not
-work inside LilyPond snippets).  If you write
-@code{"@@version@{@}"} (enclosed with quotes), or generally if
-@code{@@version@{@}} is not followed by a space, there will be an
-ugly line break in PDF output unless you enclose it with
-
-@example
-@@w@{ ... @}
-
-  e.g.
-
-@@w@{"@@version@{@}"@}
-@end example
-
 @end itemize
 
 
 @node Syntax survey
 @subsection Syntax survey
 
+
+@menu
+* Comments::
+* Cross references::
+* External links::
+* Fixed-width font::
+* Indexing::
+* Lists::
+* Special characters::
+* Miscellany::
+@end menu
+
+
+@node Comments
+@unnumberedsubsubsec Comments
+
 @itemize
 @item
-@code{@@bs} --- Generates a backslash inside @code{@@warning}.
-Any @q{@bs{}} used inside @code{@@warning} (and @code{@@q} or
-@code{@@qq}) must be written as @q{@code{@@bs@{@}}} (texinfo would
-also allow @q{@bs{}@bs{}}, but this breaks with PDF output).
-
-@item
-@code{@@c} --- single line comments.  @qq{@code{@@c NOTE:}} is a
+@code{@@c @dots{}} --- single line comment.  @samp{@@c NOTE:} is a
 comment which should remain in the final version.  (gp only
 command ;)
 
 @item
-@code{@@cindex} --- General index.  Please add as many as you can.
+@code{@@ignore} --- multi-line comment:
+
+@example
+@@ignore
+@dots{}
+@@end ignore
+@end example
+@end itemize
+
+
+@node Cross references
+@unnumberedsubsubsec Cross references
+
+Enter the exact @code{@@node} name of the target reference between
+the brackets (eg.@tie{}@w{@samp{@@ref@{Syntax survey@}}}).
+
+@itemize
+@item
+@code{@@ref@{@dots{}@}} --- link within current manual.
+
+@item
+@code{@@rchanges@{@dots{}@}} --- link to Changes.
+
+@item
+@code{@@rcontrib@{@dots{}@}} --- link to Contributor's Guide.
+
+@item
+@code{@@ressay@{@dots{}@}} --- link to Engraving Essay.
+
+@item
+@code{@@rextend@{@dots{}@}} --- link to Extending LilyPond.
+
+@item
+@code{@@rglos@{@dots{}@}} --- link to the Music Glossary.
+
+@item
+@code{@@rinternals@{@dots{}@}} --- link to the Internals Reference.
+
+@item
+@code{@@rlearning@{@dots{}@}} --- link to Learning Manual.
+
+@item
+@code{@@rlsr@{@dots{}@}} --- link to a Snippet section.
+
+@item
+@code{@@rprogram@{@dots{}@}} --- link to Application Usage.
+
+@item
+@code{@@ruser@{@dots{}@}} --- link to Notation Reference.
+
+@item
+@code{@@rweb@{@dots{}@}} --- link to General Informaion.
+@end itemize
+
+
+@node External links
+@unnumberedsubsubsec External links
+
+@itemize
+@item
+@code{@@email@{@dots{}@}} --- create a @code{mailto:} E-mail link.
+
+@item
+@code{@@uref@{@var{URL}[, @var{link text}]@}} --- link to an
+external url.
+@end itemize
+
+
+@node Fixed-width font
+@unnumberedsubsubsec Fixed-width font
+
+@itemize
+@item
+@code{@@code@{@dots{}@}}, @code{@@samp@{@dots{}@}} ---
+
+Use the @code{@@code@{@dots{}@}} command for individual
+language-specific tokens (keywords, commands, engravers, scheme
+symbols, etc.).  Ideally, a single @code{@@code@{@dots{}@}} block
+should fit within one line in the PDF output.  Use the
+@code{@@samp@{@dots{}@}} command when you have a short example of
+user input, unless it constitutes an entire @code{@@item} by
+itself, in which case @code{@@code@{@dots{}@}} is preferable.
+Otherwise, both should only be used when part of a larger sentence
+within a paragraph or @code{@@item}.  Never use a
+@code{@@code@{@dots{}@}} or @code{@@samp@{@dots{}@}} block as a
+free-standing paragraph; use @code{@@example} instead.
+
+A single unindented line in the PDF has space for about 79
+fixed-width characters (76 if indented).  Within an @code{@@item}
+there is space for about 75 fixed-width characters.  Each
+additional level of @code{@@itemize} or @code{@@enumerate}
+shortens the line by about 4 columns.
+
+However, even short blocks of @code{@@code@{@dots{}@}} and
+@code{@@samp@{@dots{}@}} can run into the margin if the Texinfo
+line-breaking algorithm gets confused.  Additionally, blocks that
+are longer than this may in fact print nicely; it all depends
+where the line breaks end up.  If you compile the docs yourself,
+check the PDF output to make sure the line breaks are
+satisfactory.
+
+The Texinfo setting @code{@@allowcodebreaks} is set to
+@code{false} in the manuals, so lines within
+@code{@@code@{@dots{}@}} or @code{@@samp@{@dots{}@}} blocks will
+only break at spaces, not at hyphens or underscores.  If the block
+contains spaces, use @code{@@w@{@@code@{@dots{}@}@}} or
+@code{@@w@{@@samp@{@dots{}@}@}} to prevent unexpected line breaks.
+
+@item
+@code{@@command@{@dots{}@}} --- Use for command-line commands (eg.
+@samp{@@command@{lilypond-book@}}).
+
+@item
+@code{@@example} --- Use for examples of program code.  Do not add
+extraneous indentation (ie. don't start every line with
+whitespace).  Use the following layout (notice the use of blank
+lines).  Omit the @code{@@noindent} if the text following the
+example starts a new paragraph:
+
+@example
+@var{@dots{}text leading into the example@dots{}}
+
+@@example
+@dots{}
+@@end example
+
+@@noindent
+@var{continuation of the text@dots{}}
+@end example
+
+Individual lines within an @code{@@example} block should not
+exceed 74 characters; otherwise they will run into the margin in
+the PDF output, and may get clipped.  If an @code{@@example} block
+is part of an @code{@@item}, individual lines in the
+@code{@@example} block should not exceed 70 columns.  Each
+additional level of @code{@@itemize} or @code{@@enumerate}
+shortens the line by about 4 columns.
+
+For long command line examples, if possible, use a trailing
+backslash to break up a single line, indenting the next line with
+2 spaces.  If this isn't feasible, use @samp{@@smallexample
+@dots{} @@end@tie{}smallexample} instead, which uses a smaller
+fontsize.  Use @code{@@example} whenever possible, but if needed,
+@code{@@smallexample} can fit up to 90 characters per line before
+running into the PDF margin.  Each additional level of
+@code{@@itemize} or @code{@@enumerate} shortens a
+@code{@@smallexample} line by about 5 columns.
+
+@item
+@code{@@file@{@dots{}@}} --- Use for filenames and directories.
+
+@item
+@code{@@option@{@dots{}@}} --- Use for options to command-line
+commands (eg. @samp{@@option@{--format@}}).
+
+@item
+@code{@@verbatim} --- Prints the block exactly as it appears in
+the source file (including whitespace, etc.).  For program code
+examples, use @code{@@example} instead.  @code{@@verbatim} uses
+the same format as @code{@@example}.
+
+Individual lines within an @code{@@verbatim} block should not
+exceed 74 characters; otherwise they will run into the margin in
+the PDF output, and may get clipped.  If an @code{@@verbatim}
+block is part of an @code{@@item}, individual lines in the
+@code{@@verbatim} block should not exceed 70 columns.  Each
+additional level of @code{@@itemize} or @code{@@enumerate}
+shortens the line by about 4 columns.
+@end itemize
+
+
+@node Indexing
+@unnumberedsubsubsec Indexing
+
+@itemize
+@item
+@code{@@cindex @dots{}} --- General index.  Please add as many as you can.
 Don't capitalize the first word.
 
 @item
-@code{@@code@{@}} --- typeset in a tt-font.  Use for actual
-LilyPond code or property/context names.  If the name contains a
-space, wrap the entire thing inside @code{@@w@{@@code@{ @}@}}.
+@code{@@funindex @dots{}} --- is for a \lilycommand.
+@end itemize
+
+
+@node Lists
+@unnumberedsubsubsec Lists
+
+@itemize
+@item
+@code{@@enumerate} --- Create an ordered list (with numbers).
+Always put @samp{@@item} on its own line, and separate consecutive
+items with a blank line:
+
+@example
+@@enumerate
+@@item
+Foo
+
+@@item
+Bar
+@@end enumerate
+@end example
 
 @item
-@code{@@example ... @@end example} --- example text that should be
-set as a blockquote.  Any @code{@{@tie{}@}} must be escaped with
-@code{@@@{@tie{}@@@}}.
+@code{@@itemize} --- Create an unordered list (with bullets).  Use
+the same format as @code{@@enumerate}.  Do not use
+@samp{@@itemize@tie{}@@bullet}.
+@end itemize
+
+
+@node Special characters
+@unnumberedsubsubsec Special characters
+
+@itemize
+@item
+@code{--}, @code{---} --- Create an en dash (--) or an em dash
+(---) in the text.  To print two or three literal hyphens in a
+row, wrap one of them in a @code{@@w@{@dots{}@}} (eg.
+@samp{-@@w@{-@}-}).
 
 @item
-@code{@@funindex} --- is for a \lilycommand.
+@code{@@@@}, @code{@@@{}, @code{@@@}} --- Create an at-sign (@@),
+a left curly bracket (@{), or a right curly bracket (@}).
 
 @item
-@code{@@ignore ... @@end ignore} --- multi-line comment
+@code{@@bs@{@}} --- Create a backslash within a
+@code{@@q@{@dots{}@}}, @code{@@qq@{@dots{}@}}, or
+@code{@@warning@{@dots{}@}} block.  This is a custom LilyPond
+macro, not a builtin @@-command in Texinfo.  Texinfo would also
+allow @samp{\\}, but this breaks the PDF output.
 
 @item
-@code{@@itemize @@item A @@item B ... @@end itemize} --- for
-bulleted lists.  Do not compress vertically like this.
+@code{@@tie@{@}} --- Create a @emph{variable-width} non-breaking
+space in the text (use @w{@samp{@@w@{ @}}} for a single
+@emph{fixed-width} non-breaking space).  Variables or numbers
+which consist of a single character (probably followed by a
+punctuation mark) should be tied properly, either to the previous
+or the next word.  Example: @samp{The letter@@tie@{@}@@q@{I@} is
+skipped}
+@end itemize
 
+
+@node Miscellany
+@unnumberedsubsubsec Miscellany
+
+@itemize
 @item
-@code{@@notation@{@}} --- refers to pieces of notation, e.g.
-@qq{@code{@@notation@{clef}.@}}.  Also use for specific lyrics
-(@qq{the @code{@@notation@{}A@tie{}-@tie{}men@} is centered}).
+@code{@@notation@{@dots{}@}} --- refers to pieces of notation, e.g.
+@samp{@@notation@{clef@}}.  Also use for specific lyrics
+(@samp{the @@notation@{A@tie{}-@tie{}men@} is centered}).
 Only use once per subsection per term.
 
 @item
-@code{@@q@{@}} --- Single quotes.  Used for @q{vague} terms.
+@code{@@q@{@dots{}@}} --- Single quotes.  Used for
+@quoteleft{}vague@quoteright{} terms.  To get a backslash
+(\), you must use @samp{@@bs@{@}}.
 
 @item
-@code{@@qq@{@}} --- Double quotes.  Used for actual quotes (@qq{he
-said}) or for introducing special input modes.
+@code{@@qq@{@dots{}@}} --- Double quotes.  Used for actual quotes
+(@qq{he said}) or for introducing special input modes.  To get a
+backslash (\), you must use @samp{@@bs@{@}}.
 
 @item
-@code{@@rchanges@{@}} --- link to Changes.
-
-@item
-@code{@@rcontrib@{@}} --- link to Contributor's Guide.
-
-@item
-@code{@@ref@{@}} --- link within current manual (type the exact
-node name inside the @code{@{@}}).
-
-@item
-@code{@@ressay@{@}} --- link to Engraving Essay.
-
-@item
-@code{@@rextend@{@}} --- link to Extending LilyPond.
-
-@item
-@code{@@rglos@{@}} --- link to the Music Glossary.
-
-@item
-@code{@@rinternals@{@}} --- link to the Internals Reference.
-
-@item
-@code{@@rlearning@{@}} --- link to Learning Manual.
-
-@item
-@code{@@rlsr@{@}} --- link to a Snippet section.
-
-@item
-@code{@@rprogram@{@}} --- link to Application Usage.
-
-@item
-@code{@@ruser@{@}} --- link to Notation Reference.
-
-@item
-@code{@@rweb@{@}} --- link to General Informaion.
-
-@item
-@code{@@tie@{@}} --- Variables or numbers which consist of a
-single character (probably followed by a punctuation mark) should
-be tied properly, either to the previous or the next word.
-Example: @q{@code{The letter@@tie@{@}@@q@{I@} is skipped}}
-
-@item
-@code{@@uref@{@}} --- link to an external url.
-
-@item
-@code{@@var} --- Use for variables.
+@code{@@var@{@dots{}@}} --- Use for variables.
 
 @item
 @code{@@version@{@}} --- Return the current LilyPond version
-string.
+string.  Use @samp{@@w@{@@version@{@}@}} if it's at the end of a
+line (to prevent an ugly line break in PDF); use
+@samp{@@w@{"@@version@{@}"@}} if you need it in quotes.
 
 @item
-@code{@@warning@{@}} --- produces a @qq{Note:@tie{}} box.  Use for
-important messages.
+@code{@@w@{@dots{}@}} --- Do not allow any line breaks.
 
+@item
+@code{@@warning@{@dots{}@}} --- produces a @qq{Note:@tie{}} box.
+Use for important messages.  To get a backslash (\), you must use
+@samp{@@bs@{@}}.
 @end itemize
-
 
 
 @node Other text concerns
 @subsection Other text concerns
 
 @itemize
-
 @item
 References must occur at the end of a sentence, for more
-information see @@ref@{the texinfo manual@}.  Ideally this should
-also be the final sentence of a paragraph, but this is not
-required.  Any link in a doc section must be duplicated in the
-@@seealso section at the bottom.
+information see the
+@uref{http://www.gnu.org/software/texinfo/manual/texinfo/,texinfo
+manual}.  Ideally this should also be the final sentence of a
+paragraph, but this is not required.  Any link in a doc section
+must be duplicated in the @code{@@seealso} section at the bottom.
 
 @item
 Introducing examples must be done with
@@ -695,28 +770,23 @@ Abbrevs in caps, e.g., HTML, DVI, MIDI, etc.
 Colon usage
 
 @enumerate
-
 @item
 To introduce lists
 
 @item
-When beginning a quote: "So, he said,...".
+When beginning a quote: @qq{So, he said,...}.
 
 This usage is rarer.  Americans often just use a comma.
 
 @item
 When adding a defining example at the end of a sentence.
-
 @end enumerate
 
 @item
 Non-ASCII characters which are in utf-8 should be directly used;
-this is, don't say @q{Ba@@ss@{@}tuba} but @q{Baßtuba}.  This ensures
-that all such characters appear in all output formats.
-
+this is, don't say @samp{Ba@@ss@{@}tuba} but @samp{Baßtuba}.  This
+ensures that all such characters appear in all output formats.
 @end itemize
-
-
 
 
 @node Documentation policy
