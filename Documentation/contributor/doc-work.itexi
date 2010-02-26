@@ -233,9 +233,17 @@ Please leave two blank lines above a @@node; this makes it
 easier to find sections in texinfo.
 
 @item
+If a heading is desired without creating a node, please use
+the following:
+
+@example
+@@subheading Foo
+@end example
+
+@item
 Sectioning commands (@@node and @@section) must not appear
-inside an @@ignore.  Separate those commands with a space, ie @@n
-ode.
+inside an @@ignore.  Separate those commands with a space, ie
+@@n@tie{}ode.
 
 @end itemize
 
