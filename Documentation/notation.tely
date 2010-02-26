@@ -69,6 +69,7 @@ Appendices
 
 @contents
 
+@allowcodebreaks false
 
 @include notation/notation.itely
 @include notation/specialist.itely

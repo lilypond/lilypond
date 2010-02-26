@@ -70,6 +70,7 @@ Appendices
 
 @contents
 
+@allowcodebreaks false
 
 @include contributor/introduction.itexi
 @include contributor/source-code.itexi

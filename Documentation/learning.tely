@@ -62,6 +62,7 @@ Appendices
 @c TOC - tex
 @contents
 
+@allowcodebreaks false
 
 @c INCLUDES
 

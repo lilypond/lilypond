@@ -65,6 +65,7 @@ Appendices
 
 @contents
 
+@allowcodebreaks false
 
 @include usage/running.itely
 @include usage/updating.itely

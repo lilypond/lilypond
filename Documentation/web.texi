@@ -160,6 +160,7 @@ Read more in our @ref{Introduction}!
 
 @contents
 
+@allowcodebreaks false
 
 @c ****************** GENERAL STUFF FOR INFO ************
 @ignore
