@@ -181,6 +181,7 @@
 			    )))))))
 
 (define-public (add-pango-fonts node lily-family family factor)
+  (define text-font-size (ly:pt (* factor 11.0)))
   (define (add-node shape series)
     (add-font node
 	      `((font-family . ,lily-family)
@@ -188,7 +189,7 @@
 		(font-series . ,series)
 		(font-encoding . latin1) ;; ugh.
 		)
-	      `(,(ly:pt (* factor 11.0))
+	      `(,text-font-size
 		. #(,(cons
 		     (ly:pt 12)
 		     (ly:make-pango-description-string
