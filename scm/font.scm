@@ -181,7 +181,10 @@
 			    )))))))
 
 (define-public (add-pango-fonts node lily-family family factor)
+  ;; Synchronized with the `text-font-size' variable in
+  ;; layout-set-absolute-staff-size-in-module (see paper.scm).
   (define text-font-size (ly:pt (* factor 11.0)))
+
   (define (add-node shape series)
     (add-font node
 	      `((font-family . ,lily-family)

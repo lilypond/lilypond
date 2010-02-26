@@ -69,6 +69,8 @@
        (setm! (lambda (sym val)
 		(module-define! module sym val))))
 
+    ;; Synchronized with the `text-font-size'
+    ;; binding in add-pango-fonts (see font.scm).
     (setm! 'text-font-size (* 11 factor))
 
     (setm! 'output-scale ss)
