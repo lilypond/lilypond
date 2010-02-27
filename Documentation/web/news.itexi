@@ -27,6 +27,13 @@ NOTE:
 @end ignore
 
 
+@newsItem
+@subsubheading LilyPond 2.13.12 released!  @emph{February 2, 2010}
+
+We are happy to announce the release of LilyPond 2.13.12.  This
+release is intended for developers only, and brings more stability
+and fewer bugs to the build system and Contributor's Guide.
+@newsEnd
 
 @newsItem
 @subsubheading LilyPond 2.13.11 released!  @emph{January 16, 2010}
