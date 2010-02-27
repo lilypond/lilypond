@@ -211,6 +211,9 @@ rsync -a $EXAMPLES graham@@lilypond.org:media/ly-examples
 
 A @qq{major release} means an update of @code{x} in @code{2.x.0}.
 
+- happens when we have 0 Critical issues for two weeks (14 days).
+
+
 Before release:
 
 * write release notes. note: stringent size requirements for
