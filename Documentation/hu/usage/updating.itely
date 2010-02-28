@@ -167,7 +167,7 @@ convert-ly --from=... --to=... -s
 
 Amikor olyan forrásfájlt frissítünk a @command{convert-ly} segédprogrammal
 Windows alatt parancssorból, amelynek elérési útja szóközt tartalmaz, a
-forrásfájl elérési utját három-három (!) idézőjel közé kell írni:
+forrásfájl elérési útját három-három (!) idézőjel közé kell írni:
 
 @example
 convert-ly """D:/Az én kottáim/Óda.ly""" > "D:/Az én kottáim/Óda - új.ly"
