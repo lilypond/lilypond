@@ -895,11 +895,9 @@ layout, MIDI, performance or error reporting.
 @node Other tests
 @unnumberedsubsubsec Other tests
 
-TODO: fix broken link here.
-
 For tracking memory usage as part of this test, you will need
 GUILE CVS; especially the following patch:
-@uref{http://lilypond.org/vc/gub.darcs/patches/guile-1.9-gcstats.patch}.
+@uref{http://www.lilypond.org/vc/old/gub.darcs/patches/guile-1.9-gcstats.patch}.
 
 For checking the coverage of the test suite, do the following
 
