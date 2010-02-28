@@ -1310,7 +1310,7 @@ It is not required to build LilyPond and the documentation to
 translate the documentation.  However, if you have enough time and
 motivation and a suitable system, it can be very useful to build at
 least the documentation so that you can check the output yourself and
-more quickly; if you are interested, see @ref{Compiling from source}.
+more quickly; if you are interested, see @ref{Compiling}.
 
 
 @node Which documentation can be translated
