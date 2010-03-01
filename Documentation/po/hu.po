@@ -1024,3 +1024,7 @@ msgstr "Lábjegyzet"
 msgid "Table of Contents"
 msgstr "Tartalomjegyzék"
 
+#: postprocess_html.py:60
+#, python-format
+msgid "About <A HREF=\"%s\">automatic language selection</A>."
+msgstr "Az <a href=\"%s\">automatikus nyelvválasztásról</a>."
