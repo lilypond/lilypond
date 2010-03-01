@@ -7,3 +7,7 @@ direction and listed here.
 - simple.ly isn't large, but it's included from
   scm/define-markup-commands.scm and should not be removed.
 
+Do not use @ref{} in files in Documentation/included/;
+cross-references should be made with specific macros such as
+@rcontrib{}, @rextend{}, etc.  See Documentation/macros.itexi for a
+complete list.

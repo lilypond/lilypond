@@ -228,7 +228,7 @@ xfonts-intl-.*
 
 In general, developers compile LilyPond from within a local Git
 repository.  Setting up a local Git repository is explained in
-@ref{Starting with Git}.
+@rcontrib{Starting with Git}.
 
 
 @subheading Downloading a source tarball
