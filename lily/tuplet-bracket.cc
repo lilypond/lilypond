@@ -137,10 +137,10 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
 
-  Direction dir = get_grob_direction (me); 
+  Direction dir = get_grob_direction (me);
   Drul_array<Item *> bounds (get_x_bound_item (me, LEFT, dir),
 			     get_x_bound_item (me, RIGHT, dir));
-  
+
   Drul_array<bool> connect_to_other (false, false);
   Direction d = LEFT;
   do
@@ -169,11 +169,11 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
   if (connect_to_other[LEFT] || connect_to_other[RIGHT])
     return scm_cons (scm_from_bool (connect_to_other[LEFT]),
 		     scm_from_bool (connect_to_other[RIGHT]));
-		     
+
   return SCM_EOL;
 }
 
-Grob * 
+Grob *
 Tuplet_bracket::get_common_x (Spanner *me)
 {
   extract_grob_set (me, "note-columns", columns);
@@ -282,16 +282,18 @@ Tuplet_bracket::print (SCM smob)
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, columns, &equally_long);
 
-  bool bracket_visibility = !(par_beam && equally_long);
+  bool bracket_visibility = !(par_beam && equally_long);          // Flag, print/don't print tuplet bracket.
   /*
-    Fixme: the type of this prop is sucky.
+    FIXME: The type of this prop is sucky.
   */
-  SCM bracket = me->get_property ("bracket-visibility");
-  if (scm_is_bool (bracket))
-    bracket_visibility = ly_scm2bool (bracket);
-  else if (bracket == ly_symbol2scm ("if-no-beam"))
+  SCM bracket_vis_prop = me->get_property ("bracket-visibility");
+  bool bracket_prop = ly_scm2bool (bracket_vis_prop);             // Flag, user has set bracket-visibility prop.
+  bool bracket = (bracket_vis_prop == ly_symbol2scm ("if-no-beam"));
+  if (scm_is_bool (bracket_vis_prop))
+    bracket_visibility = bracket_prop;
+  else if (bracket)
     bracket_visibility = !par_beam;
-  
+
   /*
     Don't print a tuplet bracket and number if
     no control-points were calculated
@@ -303,13 +305,17 @@ Tuplet_bracket::print (SCM smob)
       return SCM_EOL;
     }
   /*  if the tuplet does not span any time, i.e. a single-note tuplet, hide
-      the bracket, but still let the number be displayed */
-  if (robust_scm2moment (me->get_bound (LEFT)->get_column ()->get_property ("when"), Moment (0))
-      == robust_scm2moment (me->get_bound (RIGHT)->get_column ()->get_property ("when"), Moment (0)))
+      the bracket, but still let the number be displayed.
+      Only do this if the user has not explicitly specified bracket-visibility = #t.
+  */
+  if (!bracket_prop)
   {
-      bracket_visibility = false;
+      if (robust_scm2moment (me->get_bound (LEFT)->get_column ()->get_property ("when"), Moment (0))
+	  == robust_scm2moment (me->get_bound (RIGHT)->get_column ()->get_property ("when"), Moment (0)))
+      {
+	  bracket_visibility = false;
+      }
   }
-
   Drul_array<Offset> points;
   points[LEFT] = ly_scm2offset (scm_car (cpoints));
   points[RIGHT] = ly_scm2offset (scm_cadr (cpoints));
@@ -322,7 +328,8 @@ Tuplet_bracket::print (SCM smob)
   Grob *number_grob = unsmob_grob (me->get_object ("tuplet-number"));
 
   /*
-    No bracket when it would be smaller than the number.
+    Don't print the bracket when it would be smaller than the number.
+    ...Unless the user has coded bracket-visibility = #t, that is.
   */
   Real gap = 0.;
   if (bracket_visibility && number_grob)
@@ -332,7 +339,7 @@ Tuplet_bracket::print (SCM smob)
 	{
 	  gap = ext.length () + 1.0;
 
-	  if (0.75 * x_span.length () < gap)
+	  if ((0.75 * x_span.length () < gap) && !bracket_prop)
 	    bracket_visibility = false;
 	}
     }
@@ -621,7 +628,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       points.push_back (Offset (x0 - x0, staff[dir]));
       points.push_back (Offset (x1 - x0, staff[dir]));
     }
-  
+
   /*
     This is a slight hack. We compute two encompass points from the
     bbox of the smaller tuplets.
@@ -679,7 +686,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
     Kind of pointless since we put them outside the staff anyway, but
     let's leave code for the future when possibly allow them to move
     into the staff once again.
-  
+
     This doesn't seem to support cross-staff tuplets atm.
   */
   if (*dy == 0

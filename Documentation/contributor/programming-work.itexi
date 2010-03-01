@@ -9,6 +9,7 @@
 * Finding functions::
 * Code style::
 * Debugging LilyPond::
+* Tracing object relationships::
 * Adding or modifying features::
 * Iterator tutorial::
 * Engraver tutorial::
@@ -945,6 +946,95 @@ output to show when the procedure is called and when it exits.
 @code{set-trace-subtree!} traces every step the Scheme evaluator
 performs in evaluating the procedure.
 
+@node Tracing object relationships
+@section Tracing object relationships
+
+Understanding the LilyPond source often boils down to figuring out what
+is happening to the Grobs. Where (and why) are they being created,
+modified and destroyed? Tracing Lily through a debugger in order to
+identify these relationships can be time-consuming and tedious.
+
+In order to simplify this process, a facility has been added to
+display the grobs that are created and the properties that are set
+and modified.  Although it can be complex to get set up, once set up
+it easily provides detailed information about the life of grobs
+in the form of a network graph.
+
+Each of the steps necessary to use the graphviz utility
+is described below.
+
+@enumerate
+
+@item Installing graphviz
+
+In order to create the graph of the object relationships, it is
+first necessary to install Graphviz.  graphviz is available for a
+number of different platforms:
+
+@example
+@uref{http://www.graphviz.org/Download..php}
+@end example
+
+@item Modifying config.make
+
+In order for the Graphviz tool to work, config.make must be modified.
+It is probably a good idea to first save a copy of config.make under
+a different name.  Then, edit config.make by removing every occurence
+of @code{-DNDEBUG}.
+
+@item Rebuilding LilyPond
+
+The executable code of LilyPond must be rebuilt from scratch:
+
+@example
+make -C lily clean && make -C lily
+@end example
+
+@item Create a graphviz-compatible .ly file
+
+In order to use the graphviz utility, the .ly file must include
+@file{ly/graphviz-init.ly}, and should then specify the
+grobs and symbols that should be tracked.  An example of this
+is found in @file{input/regression/graphviz.ly}.
+
+@item Run lilypond with output sent to a log file
+
+The Graphviz data is sent to stderr by lilypond, so it is
+necessary to redirect stderr to a logfile:
+
+@example
+lilypond graphviz.ly 2> graphviz.log
+@end example
+
+@item Edit the logfile
+
+The logfile has standard lilypond output, as well as the Graphviz
+output data.  Delete everything from the beginning of the file
+up to but not including the first occurence of @code{digraph}.
+
+@item Process the logfile with @code{dot}
+
+The directed graph is created from the log file with the program
+@code{dot}:
+
+@example
+dot -Tpdf graphviz.log > graphviz.pdf
+@end example
+
+@end enumerate
+
+The pdf file can then be viewed with any pdf viewer.
+
+When compiled without @code{-DNDEBUG}, lilypond may run slower
+than normal.  The original configuration can be restored by either
+renaming the saved copy of @code{config.make} or rerunning
+@code{configure}.  Then rebuild lilypond with
+
+@example
+make -C lily clean && make -C lily
+@end example
+
+
 @node Adding or modifying features
 @section Adding or modifying features
 
@@ -1207,13 +1297,16 @@ performers.
 @node Engraver tutorial
 @section Engraver tutorial
 
-TODO -- This is a placeholder for a tutorial on how engravers work.
-
 Engravers are C++ classes that catch music events and
 create the appropriate grobs for display on the page.  Though the
 majority of engravers are responsible for the creation of a single grob,
 in some cases (e.g. @code{New_fingering_engraver}), several different grobs
 may be created.
+
+Engravers listen for events and acknowledge grobs.  Events are passed to
+the engraver in time-step order during the iteration phase.  Grobs are
+made available to the engraver when they are created by other engravers
+during the iteration phase.
 
 @subsection Useful methods for information processing
 
@@ -1243,25 +1336,28 @@ automatically or reported with a warning message.
 At each timestep in the music, translation proceeds by calling the
 following methods in turn:
 
-@code{start_translation_timestep ()} is called before any user information enters
-the translators, i.e., no property operations (\set, \override, etc.) or events
-have been processed yet.
+@code{start_translation_timestep ()} is called before any user
+information enters the translators, i.e., no property operations
+(\set, \override, etc.) or events have been processed yet.
 
-@code{process_music ()} and @code{process_acknowledged ()} are called after events
-have been heard, or grobs have been acknowledged.  The latter tends to be used
-exclusively with engravers which only acknowledge grobs, whereas the former is
-the default method for main processing within engravers.
+@code{process_music ()} and @code{process_acknowledged ()} are called
+after all events in the current time step have been heard, or all
+grobs in the current time step have been acknowledged.  The latter
+tends to be used exclusively with engravers which only acknowledge
+grobs, whereas the former is the default method for main processing
+within engravers.
 
-@code{stop_translation_timestep ()} is called after all user information has been
-processed prior to beginning the translation for the next timestep.
+@code{stop_translation_timestep ()} is called after all user
+information has been processed prior to beginning the translation for
+the next timestep.
 
 @subsection Preventing garbage collection for SCM member variables
 
-In certain cases, an engraver might need to ensure private Scheme variables
-(with type SCM) do not get swept away by Guile's garbage collector: for example,
-a cache of the previous key signature which must persist between timesteps.  The
-method @code{virtual derived_mark () const} can be used in such cases to mark
-such objects as follows:
+In certain cases, an engraver might need to ensure private Scheme
+variables (with type SCM) do not get swept away by Guile's garbage
+collector: for example, a cache of the previous key signature which
+must persist between timesteps.  The method
+@code{virtual derived_mark () const} can be used in such cases:
 
 @example
 Engraver_name::derived_mark ()

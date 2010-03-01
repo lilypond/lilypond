@@ -67,7 +67,7 @@ You must save any new edits you make to your file before you
 @w{@code{Compile > Tyepset}} and if the PDF file is not displayed
 check the window with the progress log for any errors.
 
-If you are not using the defualt Preview PDF viewer that comes
+If you are not using the default Preview PDF viewer that comes
 with the Mac Operating system and you have the PDF file generated
 from a previous compilation open, then any further compilations
 may fail to generate an update PDF until you close the original.

@@ -134,6 +134,15 @@ UNTRANSLATED NODE: IGNORE ME
 
 @ifset web
 
+@c make link to bugfixes for news.itexi
+@c use underscores for version: @bugfixes{2_13_13,}
+@c use specifier arg when listing multiple versions
+@c (see September 20, 2007 post for an example)
+@macro bugfixes{version,specifier}
+@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=fixed_\version\&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary,Bugfixes
+\specifier\}
+@end macro
+
 @macro divId {ID}
 @html
 <div id="\ID\">

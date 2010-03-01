@@ -459,22 +459,30 @@ and duration-log @var{log}."
     (list lp rp)))
 
 (define-public (parentheses-item::calc-angled-bracket-stencils grob)
-  (let* ((font (ly:grob-default-font grob))
-	 (lp (ly:stencil-aligned-to (ly:stencil-aligned-to
-				     (grob-interpret-markup
-				      grob
-				      (ly:wide-char->utf-8 #x2329))
-				     Y CENTER)
-				    X RIGHT))
-	 (rp (ly:stencil-aligned-to (ly:stencil-aligned-to
-				     (grob-interpret-markup
-				      grob
-				      (ly:wide-char->utf-8 #x232A))
-				     Y CENTER)
-				    X LEFT)))
+  (let* ((parent (ly:grob-parent grob Y))
+         (y-extent (ly:grob-extent parent parent Y))
+         (half-thickness 0.05) ; should it be a property?
+         (width 0.5) ; should it be a property?
+         (angularity 1.5)  ; makes angle brackets
+	 (lp (ly:stencil-aligned-to
+                 (ly:stencil-aligned-to
+                   (make-parenthesis-stencil y-extent
+                                             half-thickness
+                                             (- width)
+                                             angularity)
+                   Y CENTER)
+                 X RIGHT))
+	 (rp (ly:stencil-aligned-to
+                 (ly:stencil-aligned-to
+                   (make-parenthesis-stencil y-extent
+                                             half-thickness
+                                             width
+                                             angularity)
+                   Y CENTER)
+                 X LEFT)))
 
     (list (stencil-whiteout lp)
-	  (stencil-whiteout rp))))
+          (stencil-whiteout rp))))
 
 (define (parenthesize-elements grob . rest)
   (let* ((refp (if (null? rest)

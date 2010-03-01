@@ -2077,17 +2077,11 @@
     (TrillSpanner
      . (
 	(after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
-	(bound-details . ((left . ((text . ,(make-translate-scaled-markup
-					     '(0.0 . -1.0)
-					     (make-musicglyph-markup "scripts.trill")))
+	(bound-details . ((left . ((text . ,(make-musicglyph-markup "scripts.trill"))
 				   (Y . 0)
-				   (stencil-offset . (-0.5 . 0))
-				   (padding . 1.5)
+				   (stencil-offset . (-0.5 . -1))
+				   (padding . 0.5)
 				   (attach-dir . ,CENTER)
-				   ;; this isn't CENTER because the trill glyph's origin
-				   ;; is not centered in its extent; to have the trill
-				   ;; spanner aligned the same as a trill, we need a slight offset
-				   (anchor-alignment . 0.15)
 				   ))
 			  (left-broken . ((end-on-note . #t)))
 			  (right . ((Y . 0)))

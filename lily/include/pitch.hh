@@ -17,22 +17,22 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef MUSICAL_PITCH_HH
-#define MUSICAL_PITCH_HH
+#ifndef PITCH_HH
+#define PITCH_HH
 
 #include "lily-proto.hh"
 #include "smobs.hh"
 #include "rational.hh"
 
 
-/** A "tonal" pitch. This is a pitch used in diatonal western music
-    (24 quartertones in an octave), as opposed to a frequency in Hz or a
-    integer number of semitones.
+/*
+  A "tonal" pitch.  This is a pitch used in diatonal western music
+  (24 quartertones in an octave), as opposed to a frequency in Hz or a
+  integer number of semitones.
 
-    Pitch is lexicographically ordered by (octave, notename,
-    alteration).
-
+  Pitch is lexicographically ordered by (octave, notename, alteration).
 */
+
 class Pitch
 {
 private:
@@ -60,6 +60,8 @@ public:
   Pitch transposed (Pitch) const;
   Pitch to_relative_octave (Pitch) const;
 
+  Pitch normalized () const;
+
   static int compare (Pitch const &, Pitch const &);
 
   int steps () const;
@@ -86,15 +88,15 @@ enum {
   DOUBLE_SHARP,
 };
 
-extern Rational  DOUBLE_FLAT_ALTERATION;
-extern Rational  THREE_Q_FLAT_ALTERATION;
-extern Rational  FLAT_ALTERATION;
-extern Rational  SEMI_FLAT_ALTERATION;
-extern Rational  NATURAL_ALTERATION;
-extern Rational  SEMI_SHARP_ALTERATION;
-extern Rational  SHARP_ALTERATION;
-extern Rational  THREE_Q_SHARP_ALTERATION;
-extern Rational  DOUBLE_SHARP_ALTERATION;
+extern Rational DOUBLE_FLAT_ALTERATION;
+extern Rational THREE_Q_FLAT_ALTERATION;
+extern Rational FLAT_ALTERATION;
+extern Rational SEMI_FLAT_ALTERATION;
+extern Rational NATURAL_ALTERATION;
+extern Rational SEMI_SHARP_ALTERATION;
+extern Rational SHARP_ALTERATION;
+extern Rational THREE_Q_SHARP_ALTERATION;
+extern Rational DOUBLE_SHARP_ALTERATION;
 
 SCM ly_pitch_diff (SCM pitch, SCM root);
 SCM ly_pitch_transpose (SCM p, SCM delta);
@@ -105,5 +107,4 @@ INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 extern SCM pitch_less_proc;
 Pitch pitch_interval (Pitch const &from, Pitch const &to);
 
-#endif /* MUSICAL_PITCH_HH */
-
+#endif /* PITCH_HH */

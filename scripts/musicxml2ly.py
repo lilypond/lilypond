@@ -439,9 +439,20 @@ def extract_score_structure (part_list, staffinfo):
         # Finale gives unnamed parts the name "MusicXML Part" automatically!
         if partname and partname.get_text() != "MusicXML Part":
             staff.instrument_name = partname.get_text ()
-        if el.get_maybe_exist_named_child ('part-abbreviation'):
-            staff.short_instrument_name = el.get_maybe_exist_named_child ('part-abbreviation').get_text ()
+        # part-name-display overrides part-name!
+        partname = el.get_maybe_exist_named_child ("part-name-display")
+        if partname:
+            staff.instrument_name = extract_display_text (partname)
+
+        partdisplay = el.get_maybe_exist_named_child ('part-abbreviation')
+        if partdisplay:
+            staff.short_instrument_name = partdisplay.get_text ()
+        # part-abbreviation-display overrides part-abbreviation!
+        partdisplay = el.get_maybe_exist_named_child ("part-abbreviation-display")
+        if partdisplay:
+            staff.short_instrument_name = extract_display_text (partdisplay)
         # TODO: Read in the MIDI device / instrument
+
         return staff
 
     def read_score_group (el):
@@ -933,6 +944,14 @@ def musicxml_attributes_to_lily (attrs):
 
     return elts
 
+def extract_display_text (el):
+    child = el.get_maybe_exist_named_child ("display-text")
+    if child:
+        return child.get_text ()
+    else:
+        return False
+
+
 def musicxml_print_to_lily (el):
     # TODO: Implement other print attributes
     #  <!ELEMENT print (page-layout?, system-layout?, staff-layout*,
@@ -954,6 +973,14 @@ def musicxml_print_to_lily (el):
         val = getattr (el, "new-page")
         if (val == "yes"):
             elts.append (musicexp.Break ("pageBreak"))
+    child = el.get_maybe_exist_named_child ("part-name-display")
+    if child:
+        elts.append (musicexp.SetEvent ("Staff.instrumentName",
+                                        "\"%s\"" % extract_display_text (child)))
+    child = el.get_maybe_exist_named_child ("part-abbreviation-display")
+    if child:
+        elts.append (musicexp.SetEvent ("Staff.shortInstrumentName",
+                                        "\"%s\"" % extract_display_text (child)))
     return elts
 
 

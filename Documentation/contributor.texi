@@ -51,7 +51,7 @@ Copyright @copyright{} 2007--2010 by the authors.
 @menu
 * Introduction to contributing::
 * Working with source code::
-* Compiling LilyPond::
+* Compiling::
 * Documentation work::
 * Website work::
 * LSR work::
@@ -70,6 +70,7 @@ Appendices
 
 @contents
 
+@allowcodebreaks false
 
 @include contributor/introduction.itexi
 @include contributor/source-code.itexi

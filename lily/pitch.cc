@@ -156,7 +156,7 @@ Pitch::to_string () const
   string s = ::to_string (char (n + 'a'));
   Rational qtones = alteration_ * Rational (4,1);
   int qt = int (rint (Real (qtones)));
-      
+
   s += string (accname[qt + 4]);
   if (octave_ >= 0)
     {
@@ -285,6 +285,14 @@ Pitch::transposed (Pitch d) const
 {
   Pitch p = *this;
   p.transpose (d);
+  return p;
+}
+
+Pitch
+Pitch::normalized () const
+{
+  Pitch p = *this;
+  p.normalize ();
   return p;
 }
 

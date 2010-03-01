@@ -50,7 +50,7 @@ Music::Music (SCM init)
 {
   length_callback_ = SCM_EOL;
   start_callback_ = SCM_EOL;
-  
+
   length_callback_ = get_property ("length-callback");
   if (!ly_is_procedure (length_callback_))
     length_callback_ = duration_length_callback_proc;
@@ -172,7 +172,8 @@ Music::to_relative_octave (Pitch last)
   SCM callback = get_property ("to-relative-callback");
   if (ly_is_procedure (callback))
     {
-      Pitch *p = unsmob_pitch (scm_call_2 (callback, self_scm (), last.smobbed_copy ()));
+      Pitch *p = unsmob_pitch (scm_call_2 (callback, self_scm (),
+					   last.smobbed_copy ()));
       return *p;
     }
 
@@ -190,7 +191,8 @@ Music::compress (Moment factor)
   compress_music_list (get_property ("elements"), factor);
   Duration *d = unsmob_duration (get_property ("duration"));
   if (d)
-    set_property ("duration", d->compressed (factor.main_part_).smobbed_copy ());
+    set_property ("duration",
+		  d->compressed (factor.main_part_).smobbed_copy ());
 }
 
 /*
@@ -205,14 +207,23 @@ transpose_mutable (SCM alist, Pitch delta)
       SCM prop = scm_car (entry);
       SCM val = scm_cdr (entry);
       SCM new_val = val;
-      
+
       if (Pitch *p = unsmob_pitch (val))
 	{
 	  Pitch transposed = p->transposed (delta);
 	  if (transposed.get_alteration ().abs () > Rational (1,1))
 	    {
-	      warning (_f ("transposition by %s makes alteration larger than double",
-			   delta.to_string ()));
+	      string delta_str;
+	      if (delta.get_alteration ().abs () > Rational (1, 1))
+		delta_str = (delta.normalized ().to_string ()
+			     + " " + _ ("(normalized pitch)"));
+	      else
+		delta_str = delta.to_string ();
+
+	      warning (_f ("Transposing %s by %s makes alteration larger than double",
+			   p->to_string (),
+			   delta_str));
+	      transposed = transposed.normalized ();
 	    }
 
 	  new_val = transposed.smobbed_copy ();
@@ -265,9 +276,7 @@ Music::to_event () const
 
   // catch programming mistakes.
   if (!internal_is_music_type (class_name))
-    {
-      programming_error ("Not a music type");
-    }
+    programming_error ("Not a music type");
 
   Stream_event *e = new Stream_event (class_name, mutable_property_alist_);
   Moment length = get_length ();
@@ -333,6 +342,5 @@ Music::duration_length_callback (SCM m)
 Music *
 unsmob_music (SCM m)
 {
-  return dynamic_cast<Music*> (unsmob_prob (m));
+  return dynamic_cast<Music *> (unsmob_prob (m));
 }
-

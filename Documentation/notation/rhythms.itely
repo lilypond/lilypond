@@ -2516,13 +2516,15 @@ See @ref{The Feta font}, for a list of symbols which may be
 printed with @code{\musicglyph}.
 
 For common tweaks to the positioning of rehearsal marks, see
-@ref{Formatting text}.
+@ref{Formatting text}.  For more precise control, see
+@code{break-alignable-interface} in @ref{Aligning objects}.
 
 
 @seealso
 Notation Reference:
 @ref{The Feta font},
-@ref{Formatting text}.
+@ref{Formatting text},
+@ref{Aligning objects}.
 
 Installed Files:
 @file{scm/@/translation@/-functions@/.scm} contains

@@ -1036,7 +1036,7 @@ class GlissandoEvent (SpanEvent):
                 "wavy"   : "zigzag"
             }. get (self.line_type, None)
             if style:
-                printer.dump ("\once \override Glissando #'style = #'%s" % style)
+                printer.dump ("\\once \\override Glissando #'style = #'%s" % style)
     def ly_expression (self):
         return {-1: '\\glissando',
             1:''}.get (self.span_direction, '')
@@ -1587,6 +1587,16 @@ class StaffChange (Music):
         else:
             return ''
 
+class SetEvent (Music):
+    def __init__ (self, contextprop, value):
+        Music.__init__ (self)
+        self.context_prop = contextprop
+        self.value = value
+    def ly_expression (self):
+        if self.value:
+            return "\\set %s = %s" % (self.context_prop, self.value)
+        else:
+            return ''
 
 class TempoMark (Music):
     def __init__ (self):

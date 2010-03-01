@@ -198,7 +198,7 @@ For a complete listing see the Guile reference guide,
 There are also compound data types in Scheme.  The  types commonly used in
 LilyPond programming include pairs, lists, alists, and hash tables.
 
-@unnumberedsubsubsec Pairs
+@subheading Pairs
 
 The foundational compound data type of Scheme is the @code{pair}.  As
 might be expected from its name, a pair is two values glued together.
@@ -253,8 +253,7 @@ Note:  @code{cdr} is pronounced "could-er", according Sussman and
 Abelson, see
 @uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
 
-
-@unnumberedsubsubsec Lists
+@subheading Lists
 
 A very common Scheme data structure is the @emph{list}.  Formally, a
 list is defined as either the empty list (represented as @code{'()},
@@ -284,7 +283,7 @@ Lists are a central part of Scheme.  In, fact, Scheme is considered
 a dialect of lisp, where @q{lisp} is an abbreviation for
 @q{List Processing}.  Scheme expressions are all lists.
 
-@unnumberedsubsubsec Association lists (alists)
+@subheading Association lists (alists)
 
 A special type of list is an @emph{association list} or @emph{alist}.
 An alist is used to store data for easy retrieval.
@@ -308,7 +307,7 @@ guile>
 
 Alists are widely used in LilyPond to store properties and other data.
 
-@unnumberedsubsubsec Hash tables
+@subheading Hash tables
 
 A data structure that is used occasionally in LilyPond.  A hash table
 is similar to an array, but the indexes to the array can be any type
@@ -478,7 +477,7 @@ Scheme procedures are executable scheme expressions that return a
 value resulting from their execution.  They can also manipulate
 variables defined outside of the procedure.
 
-@unnumberedsubsubsec Defining procedures
+@subheading Defining procedures
 
 Procedures are defined in Scheme with define
 
@@ -504,7 +503,7 @@ guile> (average 3 12)
 15/2
 @end lisp
 
-@unnumberedsubsubsec Predicates
+@subheading Predicates
 
 Scheme procedures that return boolean values are often called
 @emph{predicates}.  By convention (but not necessity), predicate names
@@ -518,7 +517,7 @@ guile> (less-than-ten? 15)
 #f
 @end lisp
 
-@unnumberedsubsubsec Return values
+@subheading Return values
 
 Sometimes the user would like to have multiple Scheme expressions in
 a procedure.  There are two ways that multiple expressions can be
@@ -546,7 +545,7 @@ guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
 @node Scheme conditionals
 @subsection Scheme conditionals
 
-@unnumberedsubsubsec if
+@subheading if
 
 Scheme has an @code{if} procedure:
 
@@ -566,7 +565,7 @@ guile> (if (> a b) "a is greater than b" "a is not greater than b")
 "a is not greater than b"
 @end lisp
 
-@unnumberedsubsubsec cond
+@subheading cond
 
 Another conditional procedure in scheme is @code{cond}:
 
@@ -804,7 +803,7 @@ while @code{twentyFour} is an variable.
 @node LilyPond compound variables
 @subsection LilyPond compound variables
 
-@unnumberedsubsubsec Offsets
+@subheading Offsets
 
 Two-dimensional offsets (X and Y coordinates) as well as object sizes
 (intervals with a left and right point) are entered as @code{pairs}.  A
@@ -820,15 +819,15 @@ This assigns the pair (1, 2) to the @code{extra-offset} property of the
 TextScript object.  These numbers are measured in staff-spaces, so
 this command moves the object 1 staff space to the right, and 2 spaces up.
 
-@unnumberedsubsubsec Extents
+@subheading Extents
 
 todo -- write something about extents
 
-@unnumberedsubsubsec Property alists
+@subheading Property alists
 
 todo -- write something about property alists
 
-@unnumberedsubsubsec Alist chains
+@subheading Alist chains
 
 todo -- write something about alist chains
 
@@ -890,7 +889,6 @@ to create complicated music functions.
 * Doubling a note with slurs (example)::
 * Adding articulation to notes (example)::
 @end menu
-
 
 @node Displaying music expressions
 @subsection Displaying music expressions

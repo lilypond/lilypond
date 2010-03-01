@@ -577,7 +577,6 @@ online version.
 @menu
 * Omitted material::
 * Clickable examples::
-* Keyboard navigation::
 * Overview of manuals::
 @end menu
 
@@ -648,15 +647,18 @@ same output (line-width and all), copy everything from @qq{Start
 cut-&-pastable section} to the bottom of the file.
 
 
-@node Keyboard navigation
-@subsection Keyboard navigation
+@ignore
+This is item 825
+
+@n ode Keyboard navigation
+@s ubsection Keyboard navigation
 
 @warning{This features is only available in the HTML manuals.}
 
 @c TODO: once this is figured out, insert it here.
 
 We are currently working on this feature.
-
+@end ignore
 
 @node Overview of manuals
 @subsection Overview of manuals

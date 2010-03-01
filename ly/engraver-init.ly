@@ -78,7 +78,7 @@
 
   localKeySignature = #'()
   createSpacing = ##t
-  ignoreFiguredBassRest = ##t
+  ignoreFiguredBassRest = ##f
 
   %% explicitly set instrument, so we don't get
   %% weird effects when doing instrument names for

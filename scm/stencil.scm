@@ -46,7 +46,7 @@
   (do
       ((last-stencil #f (car p))
        (p stils (cdr p)))
-      
+
       ((null? p))
 
     (if (number? last-y)
@@ -56,9 +56,9 @@
 			     (* (- dir) (interval-bound (ly:stencil-extent (car p) Y) (- dir))))
 			  baseline))
 		 (y (+ last-y  (* dir dy))))
-	    
-			  
-	    
+
+
+
 	    (set! result
 		  (ly:stencil-add result (ly:stencil-translate-axis (car p) y Y)))
 	    (set! last-y y)))
@@ -95,10 +95,6 @@ the more angular the shape of the parenthesis."
 	  (if (< width 0)
 	      (- width)
 	      0))
-	 ;; Farthest X value (in relation to baseline)
-	 ;; on the outside of the curve.
-	 (outer-x (+ base-x width))
-	 (x-extent (ordered-cons base-x outer-x))
 	 (bottom-y (interval-start y-extent))
 	 (top-y (interval-end y-extent))
 
@@ -110,6 +106,7 @@ the more angular the shape of the parenthesis."
 			     (if (< width 0)
 				 half-thickness
 				 (- half-thickness))))
+	 (x-extent (ordered-cons base-x outer-control-x))
 
 	 ;; Vertical distance between a control point
 	 ;; and the end point it connects to.
@@ -144,8 +141,8 @@ the more angular the shape of the parenthesis."
 		     ;; Step 1: move to lower end point.
 		     lower-end-point))
 	   line-width)
-     x-extent
-     y-extent)))
+     (interval-widen x-extent (/ line-width 2))
+     (interval-widen y-extent (/ line-width 2)))))
 
 (define-public (parenthesize-stencil
 		stencil half-thickness width angularity padding)
@@ -165,7 +162,7 @@ the more angular the shape of the parenthesis."
         (yext (cons (min starty endy) (max starty endy))))
     (ly:make-stencil
       (list 'draw-line width startx starty endx endy)
-      ; Since the line has rounded edges, we have to / can safely add half the 
+      ; Since the line has rounded edges, we have to / can safely add half the
       ; width to all coordinates!
       (interval-widen xext (/ width 2))
       (interval-widen yext (/ width 2)))))
@@ -173,7 +170,7 @@ the more angular the shape of the parenthesis."
 
 (define-public (make-filled-box-stencil xext yext)
   "Make a filled box."
-  
+
   (ly:make-stencil
       (list 'round-filled-box (- (car xext)) (cdr xext)
                        (- (car yext)) (cdr yext) 0.0)
@@ -183,22 +180,22 @@ the more angular the shape of the parenthesis."
   "Make a circle of radius @var{radius} and thickness @var{thickness}"
   (let*
       ((out-radius (+ radius (/ thickness 2.0))))
-    
+
   (ly:make-stencil
-   (list 'circle radius thickness fill) 
+   (list 'circle radius thickness fill)
    (cons (- out-radius) out-radius)
    (cons (- out-radius) out-radius))))
 
 (define-public (make-oval-stencil x-radius y-radius thickness fill)
-  "Make an oval from two Bezier curves, of x radius @var{x-radius}, 
+  "Make an oval from two Bezier curves, of x radius @var{x-radius},
     y radius @code{y-radius},
     and thickness @var{thickness} with fill defined by @code{fill}."
   (let*
-      ((x-out-radius (+ x-radius (/ thickness 2.0))) 
+      ((x-out-radius (+ x-radius (/ thickness 2.0)))
        (y-out-radius (+ y-radius (/ thickness 2.0))) )
-    
+
   (ly:make-stencil
-   (list 'oval x-radius y-radius thickness fill) 
+   (list 'oval x-radius y-radius thickness fill)
    (cons (- x-out-radius) x-out-radius)
    (cons (- y-out-radius) y-out-radius))))
 
@@ -206,11 +203,11 @@ the more angular the shape of the parenthesis."
   "Make an ellipse of x radius @var{x-radius}, y radius @code{y-radius},
     and thickness @var{thickness} with fill defined by @code{fill}."
   (let*
-      ((x-out-radius (+ x-radius (/ thickness 2.0))) 
+      ((x-out-radius (+ x-radius (/ thickness 2.0)))
        (y-out-radius (+ y-radius (/ thickness 2.0))) )
-    
+
   (ly:make-stencil
-   (list 'ellipse x-radius y-radius thickness fill) 
+   (list 'ellipse x-radius y-radius thickness fill)
    (cons (- x-out-radius) x-out-radius)
    (cons (- y-out-radius) y-out-radius))))
 
@@ -228,7 +225,7 @@ encloses the contents.
      (make-filled-box-stencil (cons (cdr xext) (+ (cdr xext) thick)) yext)
      (make-filled-box-stencil (cons (- (car xext) thick) (car xext)) yext))))
 
-;; TODO merge this and prev function. 
+;; TODO merge this and prev function.
 (define-public (box-stencil stencil thickness padding)
   "Add a box around STENCIL, producing a new stencil."
   (let* ((x-ext (interval-widen (ly:stencil-extent stencil 0) padding))
@@ -238,7 +235,7 @@ encloses the contents.
 		  (interval-widen x-ext thickness) (cons 0 thickness))))
     (set! stencil (ly:stencil-combine-at-edge stencil X 1 y-rule padding))
     (set! stencil (ly:stencil-combine-at-edge stencil X -1 y-rule padding))
-    (set! stencil (ly:stencil-combine-at-edge stencil Y 1 x-rule 0.0))  
+    (set! stencil (ly:stencil-combine-at-edge stencil Y 1 x-rule 0.0))
     (set! stencil (ly:stencil-combine-at-edge stencil Y -1 x-rule 0.0))
     stencil))
 
@@ -247,7 +244,7 @@ encloses the contents.
   (let* ((x-ext (ly:stencil-extent stencil X))
 	 (y-ext (ly:stencil-extent stencil Y))
 	 (diameter (max (interval-length x-ext)
-                        (interval-length y-ext))) 
+                        (interval-length y-ext)))
 	 (radius (+ (/ diameter 2) padding thickness))
 	 (circle (make-circle-stencil radius thickness #f)))
 
@@ -259,7 +256,7 @@ encloses the contents.
 			    (interval-center y-ext))))))
 
 (define-public (oval-stencil stencil thickness x-padding y-padding)
-  "Add an oval around @code{stencil}, padded by the padding pair, 
+  "Add an oval around @code{stencil}, padded by the padding pair,
    producing a new stencil."
   (let* ((x-ext (ly:stencil-extent stencil X))
 	 (y-ext (ly:stencil-extent stencil Y))
@@ -277,7 +274,7 @@ encloses the contents.
 			    (interval-center y-ext))))))
 
 (define-public (ellipse-stencil stencil thickness x-padding y-padding)
-  "Add an ellipse around STENCIL, padded by the padding pair, 
+  "Add an ellipse around STENCIL, padded by the padding pair,
    producing a new stencil."
   (let* ((x-ext (ly:stencil-extent stencil X))
 	 (y-ext (ly:stencil-extent stencil Y))
@@ -299,7 +296,7 @@ encloses the contents.
 			    (interval-center y-ext))))))
 
 (define-public (rounded-box-stencil stencil thickness padding blot)
-   "Add a rounded box around STENCIL, producing a new stencil."  
+   "Add a rounded box around STENCIL, producing a new stencil."
 
   (let* ((xext (interval-widen (ly:stencil-extent stencil 0) padding))
 	 (yext (interval-widen (ly:stencil-extent stencil 1) padding))
@@ -307,11 +304,11 @@ encloses the contents.
    (ideal-blot (min blot (/ min-ext 2)))
    (ideal-thickness (min thickness (/ min-ext 2)))
 	 (outer (ly:round-filled-box
-            (interval-widen xext ideal-thickness) 
-            (interval-widen yext ideal-thickness) 
+            (interval-widen xext ideal-thickness)
+            (interval-widen yext ideal-thickness)
                ideal-blot))
-	 (inner (ly:make-stencil (list 'color (x11-color 'white) 
-            (ly:stencil-expr (ly:round-filled-box 
+	 (inner (ly:make-stencil (list 'color (x11-color 'white)
+            (ly:stencil-expr (ly:round-filled-box
                xext yext (- ideal-blot ideal-thickness)))))))
     (set! stencil (ly:stencil-add outer inner))
     stencil))
@@ -322,7 +319,7 @@ encloses the contents.
   (let* ((b (ly:text-dimension font-metric text)))
     (ly:make-stencil
      `(text ,font-metric ,text) (car b) (cdr b))))
-     
+
 (define-public (fontify-text-white scale font-metric text)
   "Set TEXT with scale factor SCALE"
   (let* ((b (ly:text-dimension font-metric text))
@@ -336,23 +333,23 @@ encloses the contents.
    (list 'color color (ly:stencil-expr stencil))
    (ly:stencil-extent stencil X)
    (ly:stencil-extent stencil Y)))
-  
+
 (define-public (stencil-whiteout stencil)
   (let*
       ((x-ext (ly:stencil-extent stencil X))
        (y-ext (ly:stencil-extent stencil Y))
 
        )
-    
+
     (ly:stencil-add
      (stencil-with-color (ly:round-filled-box x-ext y-ext 0.0)
 			 white)
      stencil)
     ))
 
-(define-public (dimension-arrows destination max-size) 
+(define-public (dimension-arrows destination max-size)
   "Draw twosided arrow from here to @var{destination}"
-  
+
   (let*
       ((e_x 1+0i)
        (e_y 0+1i)
@@ -364,7 +361,7 @@ encloses the contents.
 		    z)))
        (complex-to-offset (lambda (z)
 			    (list (real-part z) (imag-part z))))
-       
+
        (z-dest (+ (* e_x (car destination)) (* e_y (cdr destination))))
        (e_z (/ z-dest (magnitude z-dest)))
        (triangle-points (list
@@ -377,8 +374,8 @@ encloses the contents.
        (p2s (map (lambda (z)
 		   (rotate z (angle (- z-dest))))
 		   triangle-points))
-       (null (cons 0 0)) 
-       (arrow-1  
+       (null (cons 0 0))
+       (arrow-1
 	(ly:make-stencil
 	 `(polygon (quote ,(concatenate (map complex-to-offset p1s)))
 		   0.0
@@ -392,7 +389,7 @@ encloses the contents.
        (shorten-line (min (/ distance 3) 0.5))
        (start (complex-to-offset (/ (* e_z shorten-line) 2)))
        (end (complex-to-offset (- z-dest (/ (* e_z shorten-line) 2))))
-       
+
        (line (ly:make-stencil
 	      `(draw-line ,thickness
 			  ,(car start) ,(cadr start)
@@ -402,7 +399,7 @@ encloses the contents.
 		    (min 0 (cdr destination)))
 	      (cons (max 0 (car destination))
 		    (max 0 (cdr destination)))))
-		    
+
        (result (ly:stencil-add arrow-2 arrow-1 line)))
 
 
@@ -412,7 +409,7 @@ encloses the contents.
 ;; ANNOTATIONS
 ;;
 ;; annotations are arrows indicating the numerical value of
-;; spacing variables 
+;; spacing variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define*-public (annotate-y-interval layout name extent is-length
@@ -424,7 +421,7 @@ encloses the contents.
     (define (center-stencil-on-extent stil)
       (ly:stencil-translate (ly:stencil-aligned-to stil Y CENTER)
                             (cons 0 (interval-center extent))))
-    ;; do something sensible for 0,0 intervals. 
+    ;; do something sensible for 0,0 intervals.
     (set! extent (interval-widen extent 0.001))
     (if (not (interval-sane? extent))
 	(set! annotation (interpret-markup
@@ -444,7 +441,7 @@ encloses the contents.
                                               (else
                                                (ly:format "(~$,~$)"
                                                        (car extent) (cdr extent)))))))
-	      (arrows (ly:stencil-translate-axis 
+	      (arrows (ly:stencil-translate-axis
 		       (dimension-arrows (cons 0 (interval-length extent)) 1.0)
 		       (interval-start extent) Y)))
 	  (set! annotation
@@ -507,16 +504,16 @@ encloses the contents.
 		   0))
        (scaled-bbox
 	(map (lambda (x) (* factor x)) bbox))
-       ; We need to shift the whole eps to (0,0), otherwise it will appear 
+       ; We need to shift the whole eps to (0,0), otherwise it will appear
        ; displaced in lilypond (displacement will depend on the scaling!)
        (translate-string (ly:format "~a ~a translate" (- (list-ref bbox 0)) (- (list-ref bbox 1))))
        (clip-rect-string (ly:format
 			  "~a ~a ~a ~a rectclip"
-			  (list-ref bbox 0) 
-			  (list-ref bbox 1) 
+			  (list-ref bbox 0)
+			  (list-ref bbox 1)
 			  (- (list-ref bbox 2) (list-ref bbox 0))
 			  (- (list-ref bbox 3) (list-ref bbox 1)))))
-    
+
 
     (if bbox
 	(ly:make-stencil
@@ -529,7 +526,7 @@ gsave
 currentpoint translate
 BeginEPSF
 ~a dup scale
-~a 
+~a
 ~a
 %%BeginDocument: ~a
 "         factor translate-string  clip-rect-string
@@ -541,11 +538,11 @@ BeginEPSF
 EndEPSF
 grestore
 "))
-	 ; Stencil starts at (0,0), since we have shifted the eps, and its 
+	 ; Stencil starts at (0,0), since we have shifted the eps, and its
          ; size is exactly the size of the scaled bounding box
 	 (cons 0 (- (list-ref scaled-bbox 2) (list-ref scaled-bbox 0)))
 	 (cons 0 (- (list-ref scaled-bbox 3) (list-ref scaled-bbox 1))))
-	
+
 	(ly:make-stencil "" '(0 . 0) '(0 . 0)))
     ))
 
@@ -557,7 +554,7 @@ grestore
       (begin
 	(let*
 	    ((outname (simple-format #f "~a-~a.signature" basename count)) )
-	     
+
 	  (ly:message "Writing ~a" outname)
 	  (write-system-signature outname (car paper-systems))
 	  (write-system-signatures basename (cdr paper-systems) (1+ count))))))
@@ -569,7 +566,7 @@ grestore
 
   (define system-grob
     (paper-system-system-grob paper-system))
-  
+
   (define output (open-output-file filename))
 
   ;; todo: optionally use a command line flag? Or just junk this?
@@ -594,7 +591,7 @@ grestore
 	      (cons (fold-false-pairs first) rest)
 	      rest))
 	expr))
-  
+
   (define (raw-string expr)
     "escape quotes and slashes for python consumption"
     (regexp-substitute/global #f "[@\n]" (simple-format #f "~a" expr) 'pre " " 'post))
@@ -602,7 +599,7 @@ grestore
   (define (raw-pair expr)
     (simple-format #f "~a ~a"
 	    (car expr) (cdr expr)))
-  
+
   (define (found-grob expr)
     (let*
 	((grob (car expr))
@@ -648,7 +645,7 @@ grestore
 	  (for-each (lambda (e) (interpret e))  (cdr expr)))
 	 (else
 	  (collect (fold-false-pairs (strip-floats expr))))
-	 
+
 	 )))
 
     (interpret expr))
@@ -663,4 +660,4 @@ grestore
 
   ;; should be superfluous, but leaking "too many open files"?
   (close-port output))
-  
+

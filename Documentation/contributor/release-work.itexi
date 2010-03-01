@@ -125,6 +125,10 @@ make LILYPOND_BRANCH=stable/2.12 lilypond
 @item Check the regtest comparison in @file{uploads/webtest/} for
 any unintentional breakage.
 
+Note that this test uses the bounding boxes inside lilypond.
+Errors in ghostscript don't generate differences inside lilypond,
+so they are not registered in the regtest comparison.
+
 @item If any work was done on GUB since the last release, upload
 binaries to a temporary location, ask for feedback, and wait a day
 or two in case there's any major problems.
@@ -207,6 +211,9 @@ rsync -a $EXAMPLES graham@@lilypond.org:media/ly-examples
 
 A @qq{major release} means an update of @code{x} in @code{2.x.0}.
 
+- happens when we have 0 Critical issues for two weeks (14 days).
+
+
 Before release:
 
 * write release notes. note: stringent size requirements for
@@ -249,6 +256,14 @@ reorganize this list later.  -gp
 Disallow: /doc/v2.PREVIOUS-STABLE/
 Disallow: /doc/v2.CURRENT-DEVELOPMENT/
 @end example
+
+- check for emergencies the docs:
+
+@example
+grep FIXME --exclude "misc/*" --exclude "*GNUmakefile" \
+  --exclude "snippets/*" ????*/*
+@end example
+
 
 News:
 

@@ -145,7 +145,7 @@ multiple projects concurrently.
 @subsection Setting up
 
 
-FIXME: Remove this note if incorporating Windows instructions
+TODO: Remove this note if incorporating Windows instructions
 throughout this section:
 
 @warning{These instructions assume that you are using the
@@ -174,7 +174,7 @@ Alternatively, you can visit the Git website
 (@uref{http://git-scm.com/}) for downloadable binaries and
 tarballs.
 
-FIXME: add Windows installation instructions (or @@ref@{Git on
+TODO: add Windows installation instructions (or @@ref@{Git on
 Windows@}).
 
 
@@ -243,7 +243,7 @@ change the default editor to @command{nano}, enter:
 git config --global core.editor @var{nano}
 @end example
 
-FIXME: Add instructions for changing the editor on Windows, which
+TODO: Add instructions for changing the editor on Windows, which
 is a little different, I think. -mp
 
 @subsubheading Technical details
@@ -586,7 +586,7 @@ Note that @command{git@tie{}stash@tie{}pop} will try to apply a
 patch, and this may create a conflict.  If this happens, see
 @ref{Resolving conflicts}.
 
-FIXME: I think the next paragraph is confusing.  Perhaps prepare
+TODO: I think the next paragraph is confusing.  Perhaps prepare
 the reader for new terms `committish' and `head'?  -mp
 
 @warning{translators and documentation editors, if you have
@@ -599,7 +599,7 @@ in particular implies that you must push your changes to
 documentation except committishes updates (possibly after having
 rebased), then update the committishes and push them.}
 
-FIXME: when committishes automatic conditional update have been
+TODO: when committishes automatic conditional update have been
 tested and documented, append the following to the warning above:
 Note that using update-committishes make target generally touches
 committishes.
@@ -1160,7 +1160,7 @@ repositories.}
 @subsection Applying remote patches
 
 
-FIXME: Explain how to determine if a patch was created with
+TODO: Explain how to determine if a patch was created with
 @code{git@tie{}format-patch}.
 
 Well-formed git patches created with @code{git@tie{}format-patch}
@@ -1242,11 +1242,13 @@ you visit the link, follow the steps for including the CAcert root
 certificate in your browser, given at
 @uref{http://savannah.gnu.org/tls/tutorial/}.
 
+
 @item
 After registering, if you are not logged in automatically, login
 at @uref{https://savannah.gnu.org/account/login.php}---this should
 take you to your @qq{my} page
 (@uref{https://savannah.gnu.org/my/}).
+
 
 @item
 Click on the @qq{My Groups} link to access the @qq{My Group
@@ -1261,13 +1263,60 @@ Manager activates your membership.  Once your membership is
 activated, LilyPond should appear under the heading @qq{Groups I'm
 Contributor of} on your @qq{My Group Membership} page.
 
+
 @item
-Go to the @qq{My Account Configuration} page.  From there, click
-on @qq{Edit SSH Keys} and follow the instructions given.
+Generate an SSH @q{dsa} key pair.  Enter the following at the
+command prompt:
 
-FIXME: Explain the confusing warning I always get. -mp
+@example
+ssh-keygen -t dsa
+@end example
 
-FIXME: Maybe add a note about enabling/disabling SSH passphrase?
+When prompted for a location to save the key, press <ENTER> to
+accept the default location (@file{~/.ssh/id_dsa}).
+
+Next you are asked to enter an optional passphrase.  On most
+systems, if you use a passphrase, you will likely be prompted for
+it every time you use @command{git@tie{}push} or
+@command{git@tie{}pull}.  You may prefer this since it can protect
+you from your own mistakes (like pushing when you mean to pull),
+though you may find it tedious to keep re-entering it.
+
+You can change/enable/disable your passphrase at any time with:
+
+@example
+ssh-keygen -f ~/.ssh/id_dsa -p
+@end example
+
+Note that the GNOME desktop has a feature which stores your
+passphrase for you for an entire GNOME session.  If you use a
+passphrase to @qq{protect you from yourself}, you will want to
+disable this feature, since you'll only be prompted once.  Run the
+following command, then logout of GNOME and log back in:
+
+@example
+gconftool-2 --set -t bool \
+  /apps/gnome-keyring/daemon-components/ssh false
+@end example
+
+After setting up your passphrase, your private key is saved as
+@file{~/.ssh/id_dsa} and your public key is saved as
+@file{~/.ssh/id_dsa.pub}.
+
+
+@item
+Register your public SSH @q{dsa} key with Savannah.  From the
+@qq{My Account Configuration} page, click on @qq{Edit SSH Keys},
+then paste the contents of your @file{~/.ssh/id_dsa.pub} file into
+one of the @qq{Authorized keys} text fields, and click
+@qq{Update}.
+
+Savannah should respond with something like:
+
+@example
+Success: Key #1 seen Keys registered
+@end example
+
 
 @item
 Configure Git to use the SSH protocol (instead of the GIT
@@ -1281,13 +1330,66 @@ git config remote.origin.url \
 @noindent
 where @var{user} is your username on Savannah.
 
-@item
-After your membership has been activated and you've configured Git
-to use SSH, try doing a @command{git@tie{}pull} or
-@command{git@tie{}pull@tie{}-r}.  If that succeeds, this indicates
-that your SSH key stored at Savannah is working properly.
 
-FIXME: show what success/failure look like.
+@item
+After your membership has been activated and you’ve configured Git
+to use SSH, test the connection with:
+
+@example
+git pull --verbose
+@end example
+
+SSH should issue the following warning:
+
+@example
+The authenticity of host 'git.sv.gnu.org (140.186.70.72)' can't
+be established.
+RSA key fingerprint is
+80:5a:b0:0c:ec:93:66:29:49:7e:04:2b:fd:ba:2c:d5.
+Are you sure you want to continue connecting (yes/no)?
+@end example
+
+Make sure the RSA key fingerprint displayed matches the one above.
+If it doesn't, respond @qq{no} and check that you configured Git
+properly in the previous step.  If it does match, respond
+@qq{yes}.  SSH should then issue another warning:
+
+@example
+Warning: Permanently added 'git.sv.gnu.org,140.186.70.72' (RSA) to
+the list of known hosts.
+@end example
+
+The list of known hosts is stored in the file
+@file{~/.ssh/known_hosts}.
+
+At this point, you are prompted for your passphrase if you have
+one, then Git will attempt a pull.
+
+If @command{git@tie{}pull@tie{}--verbose} fails, you should see
+error messages like these:
+
+@example
+Permission denied (publickey).
+fatal: The remote end hung up unexpectedly
+@end example
+
+If you get the above error, you may have made a mistake when
+registering your SSH key at Savannah.  If the key is properly
+registered, you probably just need to wait for the Savannah server
+to activate it.  It usually takes a few minutes for the key to be
+active after registering it, but if it still doesn't work after an
+hour, ask for help on the mailing list.
+
+If @command{git@tie{}pull@tie{}--verbose} succeeds, the output
+will include a @q{From} line that shows @q{ssh} as the protocol:
+
+@example
+From ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond
+@end example
+
+If the protocol shown is not @q{ssh}, check that you configured
+Git properly in the previous step.
+
 
 @item
 Test your commit access with a dry run:
@@ -1357,7 +1459,7 @@ should add these lines to @file{.git/config}:
 @c But it is probably best for windows users to have it all together
 @c If necessary, clear this up later  -td
 
-FIXME: Decide what to do with this...  Pare it down?  Move
+TODO: Decide what to do with this...  Pare it down?  Move
 paragraphs next to analogous Unix instructions? -mp
 
 @subsection Background to nomenclature
