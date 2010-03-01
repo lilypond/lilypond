@@ -15,7 +15,7 @@
 @chapter A @command{convert-ly} használata
 @translationof Updating files with convert-ly
 
-@cindex Updating a LilyPond file
+@cindex fájlok frissítése
 @cindex convert-ly
 
 A LilyPond nyelvtana rendszeresen változik, hogy egyszerűsödjön és fejlődjön.
@@ -36,8 +36,6 @@ segédprogram, mely a verziók közötti nyelvváltozások legtöbbjét lekezeli
 @section Miért változik a szintaxis?
 @translationof Why does the syntax change?
 
-@cindex convert-ly
-@cindex updating old input files
 Ahogy a LilyPond maga fejlődik, a szintaxis (azaz a bemenet nyelve) is ennek
 megfelelően változik. Ezek a változások azért mennek végbe, hogy a bemenetet
 könnyebb legyen olvasni és írni, vagy a LilyPond új képességeihez igazodnak.
