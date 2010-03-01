@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 038c58f9e216c4d4ae046fcdd82d8499b94a0392
+    Translation of GIT committish: e18567dccce0f16b680e6b7e562329e5f8bcae59
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1381,8 +1381,9 @@ Las digitaciones de la mano derecha @var{p-i-m-a} se deben introducir
 dentro de una construcción de acorde @code{<>} para que se impriman en
 la partitura, incluso si se aplican a una nota suelta.
 
-@warning{@strong{Debe} haber un guión después de la nota y un espacio
-antes del ángulo de cierre @code{>}.}
+@warning{@strong{Debe} haber un guión antes de
+@code{@bs{}rightHandFinger} y un espacio antes del ángulo de cierre
+@code{>}.}
 
 @lilypond[quote,verbatim,relative=0]
 \clef "treble_8"

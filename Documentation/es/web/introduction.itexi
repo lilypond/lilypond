@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: de42a67a9f70b44dc4244333018c12bb73b1b7d2
+    Translation of GIT committish: e18567dccce0f16b680e6b7e562329e5f8bcae59
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -512,9 +512,13 @@ actuaciones por todo el mundo.  Algunos titulares:
 @itemize
 
 @item
-@emph{Affaire Étrangère}, ópera de Valentin Villenave, con libreto de
-Lewis Trondheim, estrenada el 1 de febrero de 2009 en
-@uref{http://www.opera-montpellier.com/, L'Opéra Montpellier}.
+@emph{Affaire Étrangère}, ópera de
+@uref{http://www.valentin.villenave.net/,Valentin Villenave}, con
+libreto en francés de
+@uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
+estrenada el 1 de febrero de 2009 en
+@uref{http://www.opera-montpellier.com/, L'Opéra National de
+Montpellier}, en Francia.
 
 @item
 La interpretación de

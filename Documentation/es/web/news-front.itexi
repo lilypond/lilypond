@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 3fcde915c606979c4bc220040eedc812937ef4e5
+    Translation of GIT committish: e18567dccce0f16b680e6b7e562329e5f8bcae59
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,6 +19,29 @@
 @c DO NOT WRITE BETWEEN THESE LINES
 
 @newsItem
+@subsubheading El Informe LilyPond, número 17.  @emph{1 de marzo de 2010}
+
+Viva, vuelve el Informe, con un equipo nuevo! Dicen que dos cabezas es
+mejor que una: ¿valdrá también para los diarios?  Léalo y ¡díganos qué
+le parece!  En esta edición hablaremos de páginas web y poesía, ranas
+y bichos, ¡por no mencionar una extensa reseña del editor Frescobaldi!
+
+¿A qué espera?  Acérquese y
+¡@uref{http://news.lilynet.net/The-LilyPond-Report-17, lea el Informe
+LilyPond número 17} (en inglés) ahora mismo!
+
+@newsEnd
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.14!  @emph{27 de febrero de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.14.  Esta
+versión está orientada a los desarrolladores solamente, e incluye una
+amplia actualización de la traducción, además de la ronda usual de
+correcciones de fallos.
+@newsEnd
+
+@newsItem
 @subsubheading ¡Lanzado LilyPond 2.13.13!  @emph{13 de febrero de 2010}
 
 Nos complace anunciar el lanzamiento de LilyPond 2.13.13.  Esta
@@ -28,15 +51,4 @@ así como la adición de un marco de vista previa para el back-end de
 salida SVG.  Además, los archivos binarios instalables son ahora unos
 6 Mb más pequeños.
 @newsEnd
-
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.12!  @emph{2 de febrero de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.12.  Esta
-versión está orientada solamente a los desarrolladores, y aporta más
-estabilidad y menos bugs al sistema de construcción y a la guía del
-colaborador.
-@newsEnd
-
 

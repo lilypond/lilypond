@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 53e7994b85468239c583d998fd193ec4560178a7
+    Translation of GIT committish: e18567dccce0f16b680e6b7e562329e5f8bcae59
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -623,7 +623,6 @@ versión en línea.
 @menu
 * Material omitido::
 * Ejemplos con enlace::
-* Navegación con el teclado::
 * Panorámica de los manuales::
 @end menu
 
@@ -701,8 +700,11 @@ para sus experimentos. Para poder ver exactamente el mismo resultado
 @qq{Start cut-&-pastable section} hasta el final del archivo.
 
 
-@node Navegación con el teclado
-@subsection Navegación con el teclado
+@ignore
+This is item 825
+
+@n ode Navegación con el teclado
+@s ubsection Navegación con el teclado
 @translationof Keyboard navigation
 
 @warning{Esta posibilidad sólo está disponible en los manuales en
@@ -711,7 +713,7 @@ HTML.}
 @c TODO: once this is figured out, insert it here.
 
 Estamos trabajando sobre esta funcionalidad.
-
+@end ignore
 
 @node Panorámica de los manuales
 @subsection Panorámica de los manuales
