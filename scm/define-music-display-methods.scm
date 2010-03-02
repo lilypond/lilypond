@@ -143,6 +143,7 @@
     'BeamForbidEvent
     'CrescendoEvent
     'DecrescendoEvent
+    'EpisemaEvent
     'ExtenderEvent
     'FingeringEvent
     'GlissandoEvent
@@ -234,6 +235,7 @@
 (define-span-event-display-method SlurEvent (event parser) #f "(" ")")
 (define-span-event-display-method CrescendoEvent (event parser) #f "\\<" "\\!")
 (define-span-event-display-method DecrescendoEvent (event parser) #f "\\>" "\\!")
+(define-span-event-display-method EpisemaEvent (event parser) #f "\\episemInitium" "\\episemFinis")
 (define-span-event-display-method PhrasingSlurEvent (event parser) #f "\\(" "\\)")
 (define-span-event-display-method SustainEvent (event parser) #f "\\sustainOn" "\\sustainOff")
 (define-span-event-display-method SostenutoEvent (event parser) #f "\\sostenutoOn" "\\sostenutoOff")
