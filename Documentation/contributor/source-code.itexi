@@ -34,7 +34,7 @@ Download the lily-git script from:
 @c long filenames like "scripts_auxiliar_lily-git.tcl"
 
 @example
-@uref{http://git.sv.gnu.org/cgit/lilypond.git/plain/scripts/auxiliar/lily-git.tcl}.
+@uref{http://git.sv.gnu.org/cgit/lilypond.git/plain/scripts/auxiliar/lily-git.tcl}
 @end example
 
 To run the program from the command line, navigate to the
