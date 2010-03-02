@@ -6,7 +6,7 @@
 \header {
   lsrtags = "chords"
 
-%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
+%% Translation of GIT committish: 341940d3830b59f93a80131471d622c2818afddb
   texidoces = "
 Para añadir indicaciones de línea divisoria dentro del contexto de
 los nombres de acorde @code{ChordNames}, incluya el grabador

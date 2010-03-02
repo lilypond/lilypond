@@ -159,7 +159,6 @@ tenorIncipit = <<
 
 tenorNotes = {
   \transpose c' c' {
-    \once \override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 3)
     \clef "treble_8"
     R1 |
     R1 |

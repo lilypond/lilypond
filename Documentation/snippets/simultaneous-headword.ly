@@ -44,12 +44,16 @@
   }
 }
 
-trillflat =
-\once \override TrillSpanner #'(bound-details left text) =
-#(markup #:translate-scaled '(-0.05 . -1)
-  #:concat (#:musicglyph "scripts.trill"
-    #:translate '(-0.5 . 1.9) #:fontsize -7 #:flat))
-
+trillFlat =
+\once \override TrillSpanner #'(bound-details left text) = \markup {
+  \concat {
+    \musicglyph #"scripts.trill"
+    \translate #'(-0.5 . 1.9)
+    \fontsize #-7
+    \with-dimensions #'(0 . 0) #'(0 . 0)
+    \flat
+  }
+}
 
 \new PianoStaff <<
 
@@ -100,7 +104,7 @@ trillflat =
       |
       \break
 
-      \trillflat
+      \trillFlat
       af''4. \startTrillSpan
       ~
       af''8.
@@ -156,7 +160,7 @@ trillflat =
       |
 
       d''8. \stopTrillSpan
-      \trillflat
+      \trillFlat
       d''4. \startTrillSpan
       ~
 
@@ -183,7 +187,7 @@ trillflat =
 
       |
 
-      \trillflat
+      \trillFlat
       d''4. \startTrillSpan
       ~
       d''8.

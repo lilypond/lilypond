@@ -5,7 +5,7 @@
 \version "2.13.10"
 
 \header {
-%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
+%% Translation of GIT committish: 341940d3830b59f93a80131471d622c2818afddb
   texidoces = "
 Los «incipit» se pueden escribir utilizando el grob del nombre del
 instruemento, pero manteniendo independientes las definiciones del
@@ -172,7 +172,6 @@ tenorIncipit = <<
 
 tenorNotes = {
   \transpose c' c' {
-    \once \override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 3)
     \clef "treble_8"
     R1 |
     R1 |
