@@ -260,7 +260,7 @@ LY_DEFINE (ly_grob_parent, "ly:grob-parent",
 
 LY_DEFINE (ly_grob_set_parent_x, "ly:grob-set-parent!",
 	   3, 0, 0, (SCM grob, SCM axis, SCM parent_grob),
-	   "Set @var{parent_grob} the parent of grob @var{grob} in axis @var{axis}.")
+	   "Set @var{parent-grob} the parent of grob @var{grob} in axis @var{axis}.")
 {
   Grob *gr = unsmob_grob (grob);
   Grob *parent = unsmob_grob (parent_grob);
