@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="311"
+   height="201"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47pre4 r22446"
+   sodipodi:docname="nestedboxes.svg"
+   inkscape:export-filename="/home/andrew/lilypond/Documentation/pictures/nestedboxes.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="170.92153"
+     inkscape:cy="120.80265"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1063"
+     inkscape:window-height="658"
+     inkscape:window-x="460"
+     inkscape:window-y="200"
+     inkscape:window-maximized="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3590"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-219.5,-341.86197)">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3631"
+       width="310"
+       height="200"
+       x="220"
+       y="342.36218" />
+    <rect
+       style="fill:#ebebeb;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3617"
+       width="290"
+       height="80"
+       x="230"
+       y="352.36218" />
+    <rect
+       style="fill:#ebebeb;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3619"
+       width="290"
+       height="80"
+       x="230"
+       y="452.36218" />
+    <rect
+       style="fill:#dcdcdc;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3604"
+       width="130"
+       height="60.000031"
+       x="240"
+       y="362.36218" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3594"
+       width="30.00001"
+       height="39.999947"
+       x="250"
+       y="372.36218" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3596"
+       width="10"
+       height="40"
+       x="290"
+       y="372.36218" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3598"
+       width="10"
+       height="40"
+       x="310"
+       y="372.36218" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3600"
+       width="10"
+       height="40"
+       x="330"
+       y="372.36218" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3602"
+       width="10"
+       height="40"
+       x="350"
+       y="372.36218" />
+    <rect
+       style="fill:#dcdcdc;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3615"
+       width="130"
+       height="60"
+       x="380"
+       y="362.36218" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3609"
+       width="30"
+       height="40"
+       x="390"
+       y="372.36218" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3611"
+       width="30"
+       height="40"
+       x="430"
+       y="372.36218" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3613"
+       width="30"
+       height="40"
+       x="470"
+       y="372.36218" />
+    <rect
+       style="fill:#dcdcdc;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3621"
+       width="130"
+       height="60"
+       x="240"
+       y="462.36218" />
+    <rect
+       style="fill:#dcdcdc;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3623"
+       width="130"
+       height="60"
+       x="380"
+       y="462.36218" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3625"
+       width="110"
+       height="40"
+       x="390"
+       y="472.36218" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3627"
+       width="70"
+       height="13.3332"
+       x="250"
+       y="472.36218"
+       inkscape:tile-cx="285"
+       inkscape:tile-cy="492.36219"
+       inkscape:tile-w="70"
+       inkscape:tile-h="13.3332"
+       inkscape:tile-x0="250"
+       inkscape:tile-y0="485.69559" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3629"
+       width="30"
+       height="40"
+       x="330"
+       y="472.36218" />
+    <use
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#rect3627"
+       xlink:href="#rect3627"
+       id="use3637"
+       width="744.09448"
+       height="1052.3622" />
+    <use
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#rect3627"
+       xlink:href="#rect3627"
+       transform="translate(0,13.3332)"
+       id="use3639"
+       style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+       width="744.09448"
+       height="1052.3622" />
+    <use
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#rect3627"
+       xlink:href="#rect3627"
+       transform="translate(0,26.6664)"
+       id="use3641"
+       style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+       width="744.09448"
+       height="1052.3622" />
+  </g>
+</svg>
