@@ -55,7 +55,7 @@ tablature.  Sometimes the two types are combined, and it is
 especially common in popular music to use chord diagrams above
 a staff of traditional notation.  The guitar and the banjo are
 transposing instruments, sounding an octave lower than written.
-Scores for these instruments should use the @code{"treble_8"} clef (and
+Scores for these instruments should use the @code{"treble_8"} clef (or
 @code{\transposition c} to get correct MIDI output).
 Some other elements pertinent to fretted string instruments
 are covered elsewhere:
