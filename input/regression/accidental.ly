@@ -4,7 +4,7 @@
 \header{
   texidoc="
 Accidentals work: the second note does not get a sharp. The third and
-fourth show forced and courtesy accidentals.
+fourth show forced and cautionary accidentals.
 "
 }
 

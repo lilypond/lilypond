@@ -6,7 +6,7 @@
   beam. If an up-beam has high notes on its center stems, then we call
   it concave.
 
-  If a beam is fails a test, the desired slope is printed next to it.
+  If a beam fails a test, the desired slope is printed next to it.
 
 " 
 }
