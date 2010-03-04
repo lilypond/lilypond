@@ -35,7 +35,7 @@ include articulation, but it does follows the same beaming and
 linebreaking as the printed edition. This is done in order to
 benchmark the quality of the LilyPond output.
 
-As of lilypond 1.5.42, the spacing and beam quantizing is almost
+As of lilypond 1.5.42, the spacing and beam quanting is almost
 identical.
 
 There are two tweaks in this file: a line-break was forced before
