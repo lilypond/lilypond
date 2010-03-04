@@ -9,7 +9,7 @@
 \version "2.12.0"
 
 \relative c' {
-  \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
+  \arpeggioParenthesis
 
   % Note: does not work for cross staff arpeggios.
   \override Arpeggio #'X-extent = #ly:grob::stencil-width
