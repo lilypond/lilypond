@@ -23,7 +23,6 @@ import re
 import shutil
 import sys
 import optparse
-import locale
 
 ################################################################
 # Users of python modules should include this snippet
@@ -49,9 +48,7 @@ underscore = _
 # Maybe guess encoding from LANG/LC_ALL/LC_CTYPE?
 
 def encoded_write(f, s):
-    f.write (s
-      .decode (sys.stderr.encoding or locale.getdefaultlocale()[1])
-      .encode (f.encoding or 'utf_8'))
+    f.write (s.encode (f.encoding or 'utf_8'))
 
 # ugh, Python 2.5 optparse requires Unicode strings in some argument
 # functions, and refuse them in some other places
@@ -71,7 +68,7 @@ please read 'Setup for MacOS X' in Application Usage.")
         os.system ("open http://python.org/download/")
         sys.exit (2)
 
-# Modified version of the commands.mkarg(x), which always uses
+# Modified version of the commands.mkarg(x), which always uses 
 # double quotes (since Windows can't handle the single quotes:
 def mkarg(x):
     s = ' "'
@@ -95,7 +92,7 @@ def subprocess_system (cmd,
                        log_file=None):
     import subprocess
 
-    show_progress= progress_p
+    show_progress= progress_p 
     name = command_name (cmd)
     error_log_file = ''
 
@@ -174,7 +171,7 @@ def ossystem_system (cmd,
 
 system = subprocess_system
 if sys.platform == 'mingw32':
-
+    
     ## subprocess x-compile doesn't work.
     system = ossystem_system
 
@@ -197,7 +194,7 @@ def search_exe_path (name):
 
 def print_environment ():
     for (k,v) in os.environ.items ():
-	sys.stderr.write ("%s=\"%s\"\n" % (k, v))
+	sys.stderr.write ("%s=\"%s\"\n" % (k, v)) 
 
 class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_heading(self, heading):
@@ -224,7 +221,7 @@ class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_description(self, description):
 	return description
 
-def get_option_parser (*args, **kwargs):
+def get_option_parser (*args, **kwargs): 
     p = optparse.OptionParser (*args, **kwargs)
-    p.formatter = NonDentedHeadingFormatter ()
+    p.formatter = NonDentedHeadingFormatter () 
     return p
