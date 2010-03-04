@@ -2,7 +2,7 @@
 
 forcedLastBreak =  { \break }
 
-%% We want this to perfectly match the Baerenreiter spacing.
+%% We want this to perfectly match the Bärenreiter spacing.
 %% If we're not using 6 systems, there's definately a problem.
 #(define (assert-system-count smob n)
   (let ((systems (length (ly:spanner-broken-into
@@ -26,24 +26,24 @@ forcedLastBreak =  { \break }
   piece ="Sarabande"
   composer = "Johann Sebastian Bach (1685-1750)"
   editor = "August Wenzinger"
-  source= "B\\\"arenreiter Urtext"
+  source= "Bärenreiter Urtext"
 
-  texidoc = "The B\\\"arenreiter edition of the Cello Suites is the
+  texidoc = "The Bärenreiter edition of the Cello Suites is the
 most beautifully typeset piece of music in our collection of music (we
 both own one. It is also lovely on French Horn). This piece does not
 include articulation, but it does follows the same beaming and
 linebreaking as the printed edition. This is done in order to
 benchmark the quality of the LilyPond output.
 
-As of lilypond 1.5.42, the spacing and beam quanting is almost
+As of lilypond 1.5.42, the spacing and beam quantizing is almost
 identical.
 
 There are two tweaks in this file: a line-break was forced before
-measure 25, we get back the linebreaking of Baerenreiter.  The stem
+measure 25, we get back the linebreaking of Bärenreiter.  The stem
 direction is forced in measure 24. The last beam of that measure is up
-in Baerenreiter because of context. We don't detect that yet.
+in Bärenreiter because of context. We don't detect that yet.
 
-Note that the Barenreiter edition contains a few engraving
+Note that the Bärenreiter edition contains a few engraving
 mistakes. The second line begins with measure 6 (but prints 5). The |:
 half way in measure 13 has been forgotten.
  "
