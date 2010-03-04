@@ -36,7 +36,7 @@ EXTRACT_TEXI_FILENAMES=python $(script-dir)/extract_texi_filenames.py
 CREATE_VERSION=python $(script-dir)/create-version-itexi.py
 CREATE_WEBLINKS=python $(script-dir)/create-weblinks-itexi.py
 MASS_LINK=python $(script-dir)/mass-link.py
-WEB_POST=python $(script-dir)/web_post.py
+WEB_POST=python $(script-dir)/website_post.py
 
 SERVER_FILES=$(top-src-dir)/Documentation/web/server/
 

@@ -80,7 +80,7 @@ diff -u $DEST/extract_texi_filenames.py $GIT/scripts/build/extract_texi_filename
 diff -u $DEST/create-version-itexi.py $GIT/scripts/build/create-version-itexi.py
 diff -u $DEST/create-weblinks-itexi.py $GIT/scripts/build/create-weblinks-itexi.py
 diff -u $DEST/mass-link.py $GIT/scripts/build/mass-link.py
-diff -u $DEST/web_post.py $GIT/scripts/build/web_post.py
+diff -u $DEST/website_post.py $GIT/scripts/build/website_post.py
 @end verbatim
 
 If the changes look ok, make them trusted:
@@ -96,7 +96,7 @@ cp $GIT/scripts/build/extract_texi_filenames.py $DEST/extract_texi_filenames.py
 cp $GIT/scripts/build/create-version-itexi.py $DEST/create-version-itexi.py
 cp $GIT/scripts/build/create-weblinks-itexi.py $DEST/create-weblinks-itexi.py
 cp $GIT/scripts/build/mass-link.py $DEST/mass-link.py
-cp $GIT/scripts/build/web_post.py $DEST/web_post.py
+cp $GIT/scripts/build/website_post.py $DEST/website_post.py
 @end verbatim
 
 Build the website:
