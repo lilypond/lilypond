@@ -10,6 +10,15 @@
 @c DO NOT WRITE BETWEEN THESE LINES
 
 @newsItem
+@subsubheading LilyPond 2.13.15 released!  @emph{March 4, 2010}
+
+We are happy to announce the release of LilyPond 2.13.15.  This
+release is intended for developers only, and includes a few
+updates to the binary build process in addition to the usual round
+of bugfixes.
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond Report #17.  @emph{March 1, 2010}
 
 Yay, the Report is back, with a new team! It has been said that
@@ -31,16 +40,5 @@ We are happy to announce the release of LilyPond 2.13.14.  This
 release is intended for developers only, and includes a large
 translation update in addition to the usual round of bugfixes.
 @newsEnd
-
-@newsItem
-@subsubheading LilyPond 2.13.13 released!  @emph{February 13, 2010}
-
-We are happy to announce the release of LilyPond 2.13.13.  This
-release is intended for developers only, and fixes various
-problems with documentation build system as well as adding an
-output-preview-framework for our SVG backend.  In addition, the
-binaries are now approximately 6 megabytes smaller.
-@newsEnd
-
 
 
