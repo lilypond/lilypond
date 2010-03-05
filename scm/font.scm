@@ -151,7 +151,8 @@
 
 ;; Each size family is a vector of fonts, loaded with a delay.  The
 ;; vector should be sorted according to ascending design size.
-(define-public (add-music-fonts node name family factor)
+(define-public (add-music-fonts node name family design-size-list factor)
+  "Add fonts to NODE.  DESIGN-SIZE-LIST is a list of numbers."
   (for-each
    (lambda (x)
      (add-font node
@@ -162,16 +163,11 @@
    `((fetaDynamic ,(ly:pt 20.0) ,feta-alphabet-size-vector)
      (fetaNumber ,(ly:pt 20.0) ,feta-alphabet-size-vector)
      (fetaMusic ,(ly:pt 20.0)
-		#(
-		  ,(delay (ly:system-font-load (string-append name "-11")))
-		  ,(delay (ly:system-font-load (string-append name "-13")))
-		  ,(delay (ly:system-font-load (string-append name "-14")))
-		  ,(delay (ly:system-font-load (string-append name "-16")))
-		  ,(delay (ly:system-font-load (string-append name "-18")))
-		  ,(delay (ly:system-font-load (string-append name "-20")))
-		  ,(delay (ly:system-font-load (string-append name "-23")))
-		  ,(delay (ly:system-font-load (string-append name "-26")))
-		  ))
+		,(list->vector
+		  (map (lambda (size)
+			 (delay (ly:system-font-load (format "~a-~a" name size))))
+		       design-size-list
+		       )))
      (fetaBraces ,(ly:pt 20.0)
 		 #(,(delay (ly:system-font-load
 			    ;;; TODO: rename aybabtu to emmentaler-brace
@@ -209,7 +205,7 @@
 
 (define-public (make-pango-font-tree roman-str sans-str typewrite-str factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
-    (add-music-fonts n "emmentaler" 'feta factor)
+    (add-music-fonts n "emmentaler" 'feta '(11 13 14 16 18 20 23 26) factor)
 ;; Let's not do this [yet], see input/regression/gonville.ly
 ;;    (add-music-fonts n "gonville" 'gonville factor)
     (add-pango-fonts n 'roman roman-str factor)
