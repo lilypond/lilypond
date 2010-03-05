@@ -379,7 +379,8 @@ makeClusters =
 
 musicMap =
 #(define-music-function (parser location proc mus) (procedure? ly:music?)
-	     (music-map proc mus))
+    (_i "Apply @var{proc} to @var{mus} and all of the music it contains.")
+    (music-map proc mus))
 
 
 
