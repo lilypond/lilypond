@@ -22,7 +22,7 @@ STAFF_SIZES = 11 13 14 16 18 20 23 26
 BRACES = a b c d e f g h i
 
 OTF_FILES = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.otf) \
-	    $(outdir)/aybabtu.otf
+	    $(outdir)/emmentaler-brace.otf
 PE_SCRIPTS = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.pe)
 OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table) \
 	     $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
@@ -44,10 +44,10 @@ LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
 ENC_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.enc)
 TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)
 
-$(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
+$(outdir)/emmentaler-brace.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 	cat $^ > $@
 
-$(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
+$(outdir)/emmentaler-brace.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
 	echo '(design_size . 20)' > $@
 
 
@@ -67,11 +67,11 @@ $(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe \
 			    $(outdir)/feta%.otf-gtable
 	cd $(outdir) && $(FONTFORGE) -script $(notdir $(basename ,$@).pe)
 
-$(outdir)/aybabtu.otf \
-$(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe \
+$(outdir)/emmentaler-brace.otf \
+$(outdir)/emmentaler-brace.svg: $(outdir)/emmentaler-brace.pe \
 		       $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfb) \
-		       $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
-	cd $(outdir) && $(FONTFORGE) -script aybabtu.pe
+		       $(outdir)/emmentaler-brace.otf-table $(outdir)/emmentaler-brace.otf-gtable
+	cd $(outdir) && $(FONTFORGE) -script emmentaler-brace.pe
 
 $(outdir)/%.pfb: $(outdir)/%.log
 
@@ -106,18 +106,18 @@ $(outdir)/feta11.otf-table: $(outdir)/feta11.lisp \
 			    $(outdir)/parmesan11.lisp \
 			    $(outdir)/feta-alphabet11.lisp
 
-$(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts \
-		       $(outdir)/aybabtu.fontname \
-		       $(outdir)/aybabtu.otf-table \
-		       $(outdir)/aybabtu.otf-gtable \
-		       $(outdir)/aybabtu.pe
+$(outdir)/emmentaler-brace.otf: $(outdir)/emmentaler-brace.subfonts \
+		       $(outdir)/emmentaler-brace.fontname \
+		       $(outdir)/emmentaler-brace.otf-table \
+		       $(outdir)/emmentaler-brace.otf-gtable \
+		       $(outdir)/emmentaler-brace.pe
 
-$(outdir)/aybabtu.otf \
-$(outdir)/aybabtu.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfb)
+$(outdir)/emmentaler-brace.otf \
+$(outdir)/emmentaler-brace.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfb)
 
-$(outdir)/aybabtu.fontname:
-	echo -n 'aybabtu' > $@
-$(outdir)/aybabtu.subfonts:
+$(outdir)/emmentaler-brace.fontname:
+	echo -n 'emmentaler-brace' > $@
+$(outdir)/emmentaler-brace.subfonts:
 	echo $(subst .mf,,$(call src-wildcard,feta-braces-[a-z].mf)) > $@
 
 $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts

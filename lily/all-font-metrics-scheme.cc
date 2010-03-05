@@ -39,7 +39,7 @@ LY_DEFINE (ly_system_font_load, "ly:system-font-load", 1, 0, 0,
 	   " additional SFNT font tables called @code{LILC},"
 	   " @code{LILF}, and @code{LILY}, needed for typesetting"
 	   " musical elements.  Currently, only the Emmentaler and"
-	   " the Aybabtu fonts fulfill these requirements.\n"
+	   " the Emmentaler-Brace fonts fulfill these requirements.\n"
 	   "\n"
 	   "Note that only @code{ly:font-get-glyph} and derived"
 	   " code (like @code{\\lookup}) can access glyphs from"

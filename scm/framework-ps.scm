@@ -240,8 +240,7 @@
   (define (internal-font? file-name)
     (or (string-startswith file-name "Emmentaler")
 	(string-startswith file-name "emmentaler")
-	(string-startswith file-name "aybabtu")
-	(string-startswith file-name "Aybabtu")))
+	))
 
   (define (load-font-via-GS font-name-filename)
     (define (ps-load-file file-name)

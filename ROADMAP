@@ -68,7 +68,7 @@ LilyPond's source files.
 |   LIBRARIES:
 |
 |-- ly/                  .ly \include files
-|-- mf/                  MetaFont sources for Emmentaler and Aybabtu fonts
+|-- mf/                  MetaFont sources for Emmentaler fonts
 |-- ps/                  PostScript library files
 |-- scm/                 Scheme sources for LilyPond and subroutine files
 |-- tex/                 TeX and texinfo library files

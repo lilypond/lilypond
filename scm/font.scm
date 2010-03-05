@@ -170,12 +170,9 @@
 		       )))
      (fetaBraces ,(ly:pt 20.0)
 		 #(,(delay (ly:system-font-load
-			    ;;; TODO: rename aybabtu to emmentaler-brace
-			    (if (string=? name "emmentaler")
-				"aybabtu"
-				(string-append name "-brace"))
-			    )))))))
-
+			    (format "~a-brace" name)))))
+     )))
+		 
 (define-public (add-pango-fonts node lily-family family factor)
   ;; Synchronized with the `text-font-size' variable in
   ;; layout-set-absolute-staff-size-in-module (see paper.scm).
