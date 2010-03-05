@@ -287,7 +287,7 @@ switches off the flag.")
 category for selecting a font.  Currently, only lilypond's system
 fonts (Emmentaler) are using this property.  Available
 values are @code{fetaMusic} (Emmentaler), @code{fetaBraces},
-@code{fetaNumber} (Emmentaler), and @code{fetaDynamic} (Emmentaler).")
+@code{fetaText} (Emmentaler).")
      (font-family ,symbol? "The font family is the broadest category
 for selecting text fonts.  Options include: @code{sans},
 @code{roman}.")

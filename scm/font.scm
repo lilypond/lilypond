@@ -20,6 +20,13 @@
 ;; lookup-font should be written in  C.
 ;;
 
+;; We have a tree, where each level of the tree is a qualifier
+;; (eg. encoding, family, shape, series etc.)  this defines the levels
+;; in the tree.  The first one is encoding, so we can directly select
+;; between text or music in the first step of the selection.
+(define default-qualifier-order
+  '(font-encoding font-family font-shape font-series))
+
 (define-class <Font-tree-element>
   ())
 
@@ -70,8 +77,6 @@
    (hash-table->alist (font-children node)))
   (display "} }\n"))
 
-(define default-qualifier-order
-  '(font-encoding font-family font-shape font-series))
 
 (define-method (add-font (node <Font-tree-node>) fprops size-family)
   (define (assoc-delete key alist)
@@ -129,7 +134,7 @@
   (g-lookup-font node alist-chain))
 
 
-;; Ugh.  Currently, we load the PFB Feta fonts for `fetaDynamic' with
+;; Ugh.  Currently, we load the PFB Feta fonts for `fetaText' with
 ;; Pango.  This should be changed to load the Emmentaler fonts instead
 ;; (with Pango too), but then we need support for a `font-style'
 ;; property which isn't implemented yet.
@@ -137,7 +142,7 @@
   (list->vector
    (map (lambda (tup)
 	  (cons (ly:pt (cdr tup))
-		(format "feta-alphabet~a ~a"
+		(format "emmentaler~a ~a"
 			(car tup)
 			(ly:pt (cdr tup)))))
 	'((11 . 11.22)
@@ -159,8 +164,8 @@ Arguments:
  NAME is the basename for the music font. NAME-DESIGNSIZE.otf should be the music font,
   NAME-brace.otf should have piano braces.
  DESIGN-SIZE-LIST is a list of numbers, used as suffix for font filenames
- FACTOR is size factor relative to default size that is being used.   This is used
-  to select the proper design size for text fonts.
+ FACTOR is size factor relative to default size that is being used.
+  This is used to select the proper design size for the text fonts.
 "
   (for-each
    (lambda (x)
@@ -169,8 +174,7 @@ Arguments:
 		     (cons 'font-family family))
 	       (cons (* factor (cadr x))
 		     (caddr x))))
-   `((fetaDynamic ,(ly:pt 20.0) ,feta-alphabet-size-vector)
-     (fetaNumber ,(ly:pt 20.0) ,feta-alphabet-size-vector)
+   `((fetaText ,(ly:pt 20.0) ,feta-alphabet-size-vector)
      (fetaMusic ,(ly:pt 20.0)
 		,(list->vector
 		  (map (lambda (size)
@@ -227,9 +231,8 @@ Arguments:
 
 (define-public all-music-font-encodings
   '(fetaBraces
-    fetaDynamic
     fetaMusic
-    fetaNumber))
+    fetaText))
 
 (define-public (magstep s)
   (exp (* (/ s 6) (log 2))))

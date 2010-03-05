@@ -607,7 +607,7 @@
     (DoublePercentRepeatCounter
      . (
 	(direction . ,UP)
-	(font-encoding . fetaNumber)
+	(font-encoding . fetaText)
 	(font-size . -2)
 	(padding . 0.2)
 	(self-alignment-X . ,CENTER)
@@ -656,7 +656,7 @@
 
 	(direction . ,ly:script-interface::calc-direction)
 	(extra-spacing-width . (+inf.0 . -inf.0))
-	(font-encoding . fetaDynamic)
+	(font-encoding . fetaText)
 	(font-series . bold)
 	(font-shape . italic)
 	(outside-staff-priority . 250)
@@ -757,7 +757,7 @@
 	(avoid-slur . around)
 	(cross-staff . ,ly:side-position-interface::calc-cross-staff)
 	(direction . ,ly:script-interface::calc-direction)
-	(font-encoding . fetaNumber)
+	(font-encoding . fetaText)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(padding . 0.5)
 	(positioning-done . ,ly:script-interface::calc-positioning-done)
@@ -1167,7 +1167,7 @@
      . (
 	(bound-padding  . 2.0)
 	(direction . ,UP)
-	(font-encoding . fetaNumber)
+	(font-encoding . fetaText)
 	(padding . 0.4)
 	(self-alignment-X . ,CENTER)
 	(side-axis . ,Y)
@@ -1385,7 +1385,7 @@
     (PercentRepeatCounter
      . (
 	(direction . ,UP)
-	(font-encoding . fetaNumber)
+	(font-encoding . fetaText)
 	(font-size . -2)
 	(padding . 0.2)
 	(self-alignment-X . ,CENTER)
@@ -1768,7 +1768,7 @@
     (StringNumber
      . (
 	(avoid-slur . around)
-	(font-encoding . fetaNumber)
+	(font-encoding . fetaText)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(padding . 0.5)
 	(script-priority . 100)
@@ -2264,7 +2264,7 @@
      . (
 	(direction . ,UP)
 	(edge-height . (2.0 . 2.0)) ;; staff-space;
-	(font-encoding . fetaNumber)
+	(font-encoding . fetaText)
 	(font-size . -4)
 	(stencil . ,ly:volta-bracket-interface::print)
 	(thickness . 1.6) ;; line-thickness
