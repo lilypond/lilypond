@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: 341940d3830b59f93a80131471d622c2818afddb
+%% Translation of GIT committish: 45fc8488655f9ea122d1ec6e3328892618bd6971
  doctitlees = "Cambiar la forma de los silencios multicompás"
  texidoces = "
 Si hay diez compases de silencio o menos, se imprime en el pentagrama

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, text"
 
-%% Translation of GIT committish: 341940d3830b59f93a80131471d622c2818afddb
+%% Translation of GIT committish: 45fc8488655f9ea122d1ec6e3328892618bd6971
 texidoces = "
 Los elementos de marcado aplicados a un silencio multicompás se
 centran encima o debajo de éste.  Los elementos de marcado extensos

@@ -5,7 +5,7 @@
 \version "2.13.10"
 
 \header {
-%% Translation of GIT committish: 341940d3830b59f93a80131471d622c2818afddb
+%% Translation of GIT committish: 45fc8488655f9ea122d1ec6e3328892618bd6971
   texidoces = "
 La agrupación de pulsos dentro de un compás está controlada por la
 agrupación predeterminada que se establece en @code{beamSettings}.
