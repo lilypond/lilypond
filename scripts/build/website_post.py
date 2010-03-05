@@ -44,7 +44,7 @@ def makeFooter(currentLang):
 		if (l == currentLang):
 			continue
 		text += "<a href=\"index"
-		if (not (l=='')):
+		if (not (l=="")):
 			text += "." + l
 		text += ".html\">"
 		text += lang_lookup[l]
@@ -88,7 +88,11 @@ for file in html_files:
 # eventually we want to do this, but I can't get it to work.
 # waiting for help with apache (?)
 #			line = line.replace(".html", "."+lang)
-			line = line.replace(".html", "."+lang+".html")
+			text = ""
+			if (not (lang=="")):
+				text += "." + lang
+			text += ".html"
+			line = line.replace(".html", text)
 		if (line.find("<!-- FOOTER -->") >= 0):
 			outfile.write( lang_footer )
 		outfile.write(line)
