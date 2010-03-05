@@ -1302,27 +1302,32 @@ Vaticana} style are provided.
     \override TextScript #'font-family = #'typewriter
     \override TextScript #'font-shape = #'upright
     \override Script #'padding = #-0.1
-    a\ictus_"ictus " \break
-    a\circulus_"circulus " \break
-    a\semicirculus_"semicirculus " \break
-    a\accentus_"accentus " \break
+    a\ictus_"ictus " \bar "" \break
+    a\circulus_"circulus " \bar "" \break
+    a\semicirculus_"semicirculus " \bar "" \break
+    a\accentus_"accentus " \bar "" \break
     \[ a_"episema" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
   }
 }
 @end lilypond
 
 
-@c @seealso
-@c TODO: nothing here yet ...
+Snippets:
+@rlsr{Ancient notation}.
+
+Internals Reference:
+@rinternals{Episema},
+@rinternals{EpisemaEvent},
+@rinternals{Episema_engraver},
+@rinternals{Script},
+@rinternals{ScriptEvent},
+@rinternals{Script_engraver}.
 
 
 @knownissues
 
 Some articulations are vertically placed too closely to the
 corresponding note heads.
-
-The episema line is not displayed in many cases.  If it is displayed,
-the right end of the episema line is often too far to the right.
 
 
 @c {{{2Augmentum dots (@emph{morae})

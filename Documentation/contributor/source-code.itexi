@@ -34,7 +34,7 @@ Download the lily-git script from:
 @c long filenames like "scripts_auxiliar_lily-git.tcl"
 
 @example
-@uref{http://git.sv.gnu.org/cgit/lilypond.git/plain/scripts/auxiliar/lily-git.tcl}.
+@uref{http://git.sv.gnu.org/cgit/lilypond.git/plain/scripts/auxiliar/lily-git.tcl}
 @end example
 
 To run the program from the command line, navigate to the
@@ -1451,6 +1451,31 @@ should add these lines to @file{.git/config}:
         default = matching
 @end example
 @end itemize
+
+@knownissues
+Encryption protocols, including ssh, generally do not permit packet
+fragmentation to avoid introducing a point of insecurity.  This
+means that the maximum packet size must not exceed the smallest
+MTU (Maximum Transmission Unit) set in the routers along the path.
+This smallest MTU is determined by a procedure during call set-up
+which relies on the transmission over the path of ICMP packets.
+If any of the routers in the path block ICMP packets this mechanism
+fails, resulting in the possibility of packets being transmitted
+which exceed the MTU of one of the routers.  If this happens the
+packet is discarded, causing the ssh session to hang, timeout or
+terminate with the error message
+
+@example
+ssh: connect to host <host ip addr> port 22: Bad file number
+fatal: The remote end hung up unexpectedly
+@end example
+
+depending on precisely when in the proceedings the first large
+packet is transmitted.  Most routers on the internet have MTU
+set to 1500, but routers installed in homes to connect via
+broadband may use a slightly smaller MTU for efficient transmission
+over ATM.  If this problem is encountered a possible work-around is
+to set the MTU in the local router to 1500.
 
 @node Git on Windows
 @section Git on Windows

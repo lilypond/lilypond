@@ -6,7 +6,7 @@
 \header {
   lsrtags = "contexts-and-engravers, midi"
 
-%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
+%% Translation of GIT committish: 341940d3830b59f93a80131471d622c2818afddb
   texidoces = "
 Al producir una salida MIDI, el comportamiento predeterminado es
 que cada pentagrama representa un canal MIDI, con todas las voces

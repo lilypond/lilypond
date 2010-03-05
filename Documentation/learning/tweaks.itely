@@ -440,7 +440,7 @@ appearance may be modified in the usual way with
 @c NOTE Tuplet brackets collide if notes are high on staff
 @c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\times 2/3 { c8[ c c]}
+\times 2/3 { c8[ c c] }
 \once \override TupletNumber
   #'text = #tuplet-number::calc-fraction-text
 \times 2/3 {
@@ -448,7 +448,7 @@ appearance may be modified in the usual way with
   c[ c]
   \once \override TupletNumber #'transparent = ##t
   \times 2/3 { c8[ c c] }
-\times 2/3 { c8[ c c]}
+  \times 2/3 { c8[ c c] }
 }
 @end lilypond
 
@@ -509,9 +509,9 @@ music:
 {
   \time 6/8
   {
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -597,9 +597,9 @@ close to it.}  Let's do that:
   {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -666,9 +666,9 @@ repositioned as follows:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    b4[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -705,11 +705,11 @@ the slurs begin:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g |
+    b4[( g]) g
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    g[( e]) e d[( f]) a |
-    a g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -732,12 +732,12 @@ after the second slur:
     r4 b8
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    b[( g]) g |
-    g[( e])
+    b4[( g]) g
+    g4[( e])
     % Revert thickness of all following slurs to default of 1.2
     \revert Slur #'thickness
-    e d[( f]) a |
-    a g
+    e4 d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -840,9 +840,9 @@ like so:
 {
   \time 6/8
   {
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     \override LyricText #'font-shape = #'italic
@@ -1021,8 +1021,8 @@ the implied Context, @code{Voice}:
 {
   \time 12/16
   \override BarLine #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1046,8 +1046,8 @@ it by adding the correct context:
 {
   \time 12/16
   \override Staff.BarLine #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1093,8 +1093,8 @@ required, as always, to precede the value itself in the
 {
   \time 12/16
   \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1125,8 +1125,8 @@ transparent is:
 {
   \time 12/16
   \override Staff.TimeSignature #'transparent = ##t
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1146,8 +1146,8 @@ instead:
 {
   \time 12/16
   \override Staff.TimeSignature #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1187,8 +1187,8 @@ we write:
 {
   \time 12/16
   \override Staff.BarLine #'color = #white
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1221,8 +1221,8 @@ converts X11 color names into the list of internal values,
 {
   \time 12/16
   \override Staff.BarLine #'color = #(x11-color 'white)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1251,8 +1251,8 @@ and to white it should be @code{(rgb-color 1 1 1)}:
 {
   \time 12/16
   \override Staff.BarLine #'color = #(rgb-color 1 1 1)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1281,8 +1281,8 @@ various shades of grey:
   \override Voice.NoteHead      #'color = #(x11-color 'grey85)
   \override Voice.Stem          #'color = #(x11-color 'grey85)
   \override Staff.BarLine       #'color = #(x11-color 'grey10)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1315,18 +1315,18 @@ how to introduce a new temporary staff, as in an @rglos{ossia}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-       \relative g' {
-         r4 g8 g c4 c8 d |
-         e4 r8
-         <<
-           { f c c }
-           \new Staff \with {
-             alignAboveContext = #"main" }
-           { f8 f c }
-         >>
-         r4 |
-       }
-     }
+  \relative g' {
+    r4 g8 g c4 c8 d
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main" }
+      { f8 f c }
+    >>
+    r4
+  }
+}
 @end lilypond
 
 Ossia are normally written without clef and time signature, and

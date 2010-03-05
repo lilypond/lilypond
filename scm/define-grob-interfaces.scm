@@ -67,6 +67,11 @@ note)."
  '(text))
 
 (ly:add-interface
+ 'episema-interface
+ "An episema line."
+ '())
+
+(ly:add-interface
  'finger-interface
  "A fingering instruction."
  '())

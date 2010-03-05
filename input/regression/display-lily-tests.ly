@@ -132,6 +132,7 @@ stderr of this run."
 \test "" ##[ { c(  c)  c^(  c^)  c_(  c_)  } #] 	% SlurEvent
 \test "" ##[ { c\<  c\!  c^\<  c^\!  c_\<  c_\!  } #]	% CrescendoEvent
 \test "" ##[ { c\>  c\!  c^\>  c^\!  c_\>  c_\!  } #]	% DecrescendoEvent
+\test "" ##[ { c\episemInitium  c\episemFinis  } #] % EpisemaEvent
 \test "" ##[ { c\(  c\)  c^\(  c^\)  c_\(  c_\)  } #]	% PhrasingSlurEvent
 \test "" ##[ { c\sustainOn  c\sustainOff  } #] % SustainEvent
 \test "" ##[ { c\sostenutoOn  c\sostenutoOff  } #] % SostenutoEvent

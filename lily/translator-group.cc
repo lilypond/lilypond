@@ -167,6 +167,16 @@ Translator_group::create_child_translator (SCM sev)
 	  instance = type->clone ();
 	  dynamic_cast<Scheme_engraver*> (instance)->init_from_scheme (definition);
 	}
+      else if (ly_is_procedure (definition))
+	{
+	  // `definition' is a procedure, which takes the context as
+	  // an argument and evaluates to an a-list scheme engraver
+	  // definition.
+	  SCM def = scm_call_1 (definition, cs);
+	  type = get_translator (ly_symbol2scm ("Scheme_engraver"));
+	  instance = type->clone ();
+	  dynamic_cast<Scheme_engraver*> (instance)->init_from_scheme (def);
+	}
 	 
       if (!type)
 	warning (_f ("cannot find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));

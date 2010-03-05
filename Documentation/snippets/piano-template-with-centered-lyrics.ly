@@ -6,7 +6,7 @@
 \header {
   lsrtags = "text, keyboards, template"
 
-%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
+%% Translation of GIT committish: 341940d3830b59f93a80131471d622c2818afddb
   texidoces = "
 En lugar de tener un pentagrama dedicado a la melodía y la letra, ésta
 se puede centrar entre los pentagramas de un sistema de piano.

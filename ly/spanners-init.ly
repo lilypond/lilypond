@@ -18,6 +18,10 @@ startTrillSpan = #(make-span-event 'TrillSpanEvent START)
 stopTrillSpan = #(make-span-event 'TrillSpanEvent STOP)
 
 
+episemInitium = #(make-span-event 'EpisemaEvent START)
+episemFinis = #(make-span-event 'EpisemaEvent STOP)
+
+
 % STOP: junkme!
 cresc =  {
   #(ly:export (make-event-chord (list cr)))

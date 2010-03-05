@@ -63,10 +63,55 @@ Methods to create new dynamic markings are also discussed.
 @cindex prallmordent
 @cindex prall, up
 @cindex prall, down
+@cindex mordent, up
+@cindex mordent, down
 @cindex thumb marking
 @cindex segno
 @cindex coda
 @cindex varcoda
+
+@funindex \accent
+@funindex \marcato
+@funindex \staccatissimo
+@funindex \espressivo
+@funindex \staccato
+@funindex \tenuto
+@funindex \portato
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \thumb
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \open
+@funindex \halfopen
+@funindex \stopped
+@funindex \snappizzicato
+@funindex \turn
+@funindex \reverseturn
+@funindex \trill
+@funindex \prall
+@funindex \mordent
+@funindex \prallprall
+@funindex \prallmordent
+@funindex \upprall
+@funindex \downprall
+@funindex \upmordent
+@funindex \downmordent
+@funindex \pralldown
+@funindex \prallup
+@funindex \lineprall
+@funindex \signumcongruentiae
+@funindex \shortfermata
+@funindex \fermata
+@funindex \longfermata
+@funindex \verylongfermata
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
+
 
 @funindex -
 
@@ -292,9 +337,9 @@ g1\espressivo
 
 Crescendos and decrescendos can be engraved as textual markings
 instead of hairpins.  Dashed lines are printed to indicate their
-extent.  The built-in commands @code{\crescTextCresc}, 
-@code{\dimTextDecresc}, @code{\dimTextDecr}, and @code{\dimTextDim} 
-will tell LilyPond to use such textual marks instead of hairpins 
+extent.  The built-in commands @code{\crescTextCresc},
+@code{\dimTextDecresc}, @code{\dimTextDecr}, and @code{\dimTextDim}
+will tell LilyPond to use such textual marks instead of hairpins
 for all subsequent @code{\<} and @code{\>} commands.  The corresponding
 @code{\crescHairpin} and @code{\dimHairpin} commands will revert
 to hairpins again:

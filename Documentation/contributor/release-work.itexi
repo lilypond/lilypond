@@ -264,6 +264,13 @@ grep FIXME --exclude "misc/*" --exclude "*GNUmakefile" \
   --exclude "snippets/*" ????*/*
 @end example
 
+- check for altered regtests, and document as necessary.  (update
+  tags as appropriate)
+
+@example
+git diff -u -r release/2.12.0-1 -r release/2.13.13-1 input/regression/
+@end example
+
 
 News:
 

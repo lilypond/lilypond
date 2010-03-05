@@ -36,6 +36,14 @@
   (make-procedure-with-setter ly:grob-property
 			      ly:grob-set-property!))
 
+(define-public ly:grob-object
+  (make-procedure-with-setter ly:grob-object
+			      ly:grob-set-object!))
+
+(define-public ly:grob-parent
+  (make-procedure-with-setter ly:grob-parent
+			      ly:grob-set-parent!))
+
 (define-public ly:prob-property
   (make-procedure-with-setter ly:prob-property
 			      ly:prob-set-property!))

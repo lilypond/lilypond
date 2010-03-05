@@ -177,6 +177,11 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
 		  event))
 	))
 
+    (EpisemaEvent
+     . ((description . "Begin or end an episema.")
+	(types . (general-music span-event event episema-event))
+	))
+
     (Event
      . ((description . "Atomic music event.")
 	(types . (general-music event))

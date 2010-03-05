@@ -149,8 +149,6 @@ accentus = #(make-articulation "accentus")
 ictus = #(make-articulation "ictus")
 semicirculus = #(make-articulation "semicirculus")
 circulus = #(make-articulation "circulus")
-episemInitium = \startTextSpan
-episemFinis = \stopTextSpan
 
 %
 % \augmentum increases the dot-count value of all note heads to which
@@ -224,7 +222,7 @@ ligature = #(define-music-function
 \layout {
     indent = 0.0
 
-    %%% TODO: should raggedright be the default?
+    %%% TODO: should ragged-right be the default?
     %ragged-right = ##t
     ragged-last = ##t
 

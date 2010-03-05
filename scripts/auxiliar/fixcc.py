@@ -92,16 +92,16 @@ rules = {
     ('([\w\)\]])(\+|-)([_A-Za-z\(])', '\\1 \\2 \\3'),
     ('([_\dA-Za-df-z\)\]])(\+|-)([\w\(])', '\\1 \\2 \\3'),
     # trailing operator
-    (' (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&XXX|\||\*XXX)[ \t]*\n([ \t]*)',         '\n\\2\\1 '),
+    (' (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&XXX|\||\*XXX)[ \t]*\n([ \t]*)', '\n\\2\\1 '),
     # pointer
     ##('(bool|char|const|delete|int|stream|unsigned|void|size_t|struct \w+|[A-Z]\w*|,|;|&&|<|[^-]>|\|\||-|\+)[ \t]*(\*|&)[ \t]*', '\\1 \\2'),
-    ('(bool|char|const|delete|int|stream|unsigned|void|size_t|struct \w+|[A-Z]\w*|,|;|:|=|\?\)|&&|<|[^-]>|\|\||-|\+)[ \t]*(\*|&)[ \t]*', '\\1 \\2'),
+    ('(bool|char|const|delete|int|stream|unsigned|void|vsize|size_t|struct \w+|[A-Z]\w*|,|;|:|=|\?\)|&&|<|[^-]>|\|\||-|\+)[ \t]*(\*|&)[ \t]*', '\\1 \\2'),
     #to#('(bool|char|const|delete|int|stream|unsigned|void|([A-Z]\w*)|[,])[ \n\t]*(\*|&)[ \t]*', '\\1 \\3'),
     # pointer with template
-    ('(( *((bool|char|const|delete|int|stream|unsigned|void|size_t|class[ \t]+\w*|[A-Z]\w*|\w+::\w+|[,])[ \*&],*)+)>) *(\*|&) *', '\\1 \\5'),
+    ('(( *((bool|char|const|delete|int|stream|unsigned|void|size_t|class[ \t]+\w*|[A-Z]\w*|\w+::\w+|[,])\s*[\*&],*)+)>) *(\*|&) *', '\\1 \\5'),
     #to#('(( *((bool|char|delete|int|stream|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)|[,])[ \*&],*)+)>)[ \t\n]*(\*|&) *', '\\1 \\7'),
     # unary pointer, minus, not
-    ('(return|=) (\*|&|-|!) ([\w\(])', '\\1 \\2\\3'),
+    ('(return|=|&&|\|\|) (\*|&|-|!) ([\w\(])', '\\1 \\2\\3'),
     # space after `operator'
     ('(\Woperator) *([^\w\s])', '\\1 \\2'),
     # dangling brace close
@@ -143,7 +143,7 @@ rules = {
     ('(typedef struct\s+([\w]*\s){([^}]|{[^}]*})*})\s*\n\s*(\w[\w\d]*;)', '\\1 \\4'),
     # delete spaces around template brackets
     #('(dynamic_cast|template|([A-Z]\w*))[ \t]*<[ \t]*(( *(bool|char|int|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)),?)+)[ \t]?(| [\*&])[ \t]*>', '\\1<\\3\\8>'),
-    ('(dynamic_cast|template|typedef|\w+::\w+|[A-Z]\w*)[ \t]*<[ \t]*(( *(bool|char|const|int|unsigned|void|size_t|class[ \t]+\w*|[A-Z]\w*)( *[\*&]?,|[\*&])*)+)[ \t]?(| [\*&])[ \t]*>', '\\1<\\2\\6>'),
+    ('(dynamic_cast|less|list|map|set|template|typedef|vector|\w+::\w+|[A-Z]\w*)[ \t]*<[ \t]*(( *(bool|char|const|string|int|unsigned|void|vsize|size_t|class[ \t]+\w*|[A-Z]\w*)( *[\*&]?,|[\*&])*)+)[ \t]?(| [\*&])[ \t]*>', '\\1<\\2\\6>'),
     ('(\w+::\w+|[A-Z]\w*) < ((\w+::\w+|[A-Z]\w*)<[A-Z]\w*>) >', '\\1<\\2 >'),
     ('((if|while)\s+\(([^\)]|\([^\)]*\))*\))\s*;', '\\1\n;'),
     ('(for\s+\(([^;]*;[^;]*;([^\)]|\([^\)]*\))*)\))\s*;', '\\1\n;'),

@@ -825,6 +825,8 @@ of Editio Vaticana."
   \remove "Stem_engraver"
   \remove "Ligature_bracket_engraver"
   \consists "Vaticana_ligature_engraver"
+  \remove "Text_spanner_engraver"
+  \consists "Episema_engraver"
 
   %% Set default head for notes outside of \[ \].
   \override NoteHead #'style = #'vaticana.punctum
@@ -835,15 +837,6 @@ of Editio Vaticana."
 
   %% There are no beams in Gregorian Chant notation.
   autoBeaming = ##f
-
-  %% Prepare TextSpanner for \episem{Initium|Finis} use.
-  %%
-  %% FIXME: The line @code{\override TextSpanner #'padding = #-0.1} is
-  %% required to force the articulation signs being placed vertically
-  %% tightly to the correpsonding note heads.
-  %%
-  \override TextSpanner #'style = #'line
-  \override TextSpanner #'padding = #-0.1
 }
 
 \context {
@@ -892,6 +885,7 @@ of Editio Vaticana."
   \Voice
   \name "GregorianTranscriptionVoice"
   \alias "Voice"
+  \consists "Episema_engraver"
 
   %% Removing ligature bracket engraver without replacing it by some
   %% other ligature engraver would cause a "Junking event: `LigatureEvent'"
@@ -906,18 +900,6 @@ of Editio Vaticana."
   %% There are no beams in Gregorian Chant notation.
   autoBeaming = ##f
 
-  %% Prepare TextSpanner for \episem{Initium|Finis} use.
-  %%
-  %% N.B.: dash-fraction MUST be unset; otherwise, TextSpanner will
-  %% always produce dashed lines, regardless of the style property.
-  %%
-  %% FIXME: The line @code{\override TextSpanner #'padding = #-0.1} is
-  %% required to force the articulation signs being placed vertically
-  %% tightly to the correpsonding note heads.
-  %%
-  \override TextSpanner #'dash-fraction = #'()
-  \override TextSpanner #'style = #'line
-  \override TextSpanner #'padding = #-0.1
 }
 
 \context {

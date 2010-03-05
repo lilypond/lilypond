@@ -722,6 +722,33 @@
 				text-interface))))))
 
 
+    (Episema
+     . (
+	(bound-details . ((left . ((Y . 0)
+				   (padding . 0)
+				   (attach-dir . ,LEFT)
+				   ))
+			  (right . ((Y . 0)
+				    (padding . 0)
+				    (attach-dir . ,RIGHT)
+				    ))
+			  ))
+	(direction . ,UP)
+	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+	(quantize-position . #t)
+	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+	(side-axis . ,Y)
+	(stencil . ,ly:line-spanner::print)
+	(style . line)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(meta . ((class . Spanner)
+		 (interfaces . (episema-interface
+				font-interface
+				line-interface
+				line-spanner-interface
+				side-position-interface))))))
+
+
     (Fingering
      . (
 

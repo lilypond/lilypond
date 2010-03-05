@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: 5cab62e8738ff02eead438042743116391f306f5
+%% Translation of GIT committish: 341940d3830b59f93a80131471d622c2818afddb
  doctitlees = "Posicionar los silencios multicompás"
  texidoces = "
 A diferencia de los silencios normales, no existe una instrucción

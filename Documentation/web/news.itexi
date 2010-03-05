@@ -28,6 +28,17 @@ NOTE:
 
 
 @newsItem
+@subsubheading LilyPond 2.13.13 released!  @emph{February 13, 2010}
+
+We are happy to announce the release of LilyPond 2.13.13.  This
+release is intended for developers only, and fixes various
+problems with documentation build system as well as adding an
+output-preview-framework for our SVG backend.  In addition, the
+binaries are now approximately 6 megabytes smaller.
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond 2.13.12 released!  @emph{February 2, 2010}
 
 We are happy to announce the release of LilyPond 2.13.12.  This

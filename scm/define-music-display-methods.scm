@@ -141,8 +141,10 @@
     'ArticulationEvent
     'BeamEvent
     'BeamForbidEvent
+    'BendAfterEvent
     'CrescendoEvent
     'DecrescendoEvent
+    'EpisemaEvent
     'ExtenderEvent
     'FingeringEvent
     'GlissandoEvent
@@ -224,6 +226,9 @@
 (define-post-event-display-method MultiMeasureTextEvent (event parser) #t
   (markup->lily-string (ly:music-property event 'text)))
 
+(define-post-event-display-method BendAfterEvent (event parser) #t
+  (format #f "\\bendAfter #~a" (ly:music-property event 'delta-step)))
+
 (define-post-event-display-method HarmonicEvent (event parser) #f "\\harmonic")
 (define-post-event-display-method GlissandoEvent (event parser) #t "\\glissando")
 (define-post-event-display-method ArpeggioEvent (event parser) #t "\\arpeggio")
@@ -234,6 +239,7 @@
 (define-span-event-display-method SlurEvent (event parser) #f "(" ")")
 (define-span-event-display-method CrescendoEvent (event parser) #f "\\<" "\\!")
 (define-span-event-display-method DecrescendoEvent (event parser) #f "\\>" "\\!")
+(define-span-event-display-method EpisemaEvent (event parser) #f "\\episemInitium" "\\episemFinis")
 (define-span-event-display-method PhrasingSlurEvent (event parser) #f "\\(" "\\)")
 (define-span-event-display-method SustainEvent (event parser) #f "\\sustainOn" "\\sustainOff")
 (define-span-event-display-method SostenutoEvent (event parser) #f "\\sostenutoOn" "\\sostenutoOff")

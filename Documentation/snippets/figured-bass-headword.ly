@@ -101,7 +101,6 @@ extendOff = \bassFigureExtendersOff
     \new FiguredBass \figuremode {
       \set figuredBassAlterationDirection = #RIGHT
       \set figuredBassPlusDirection = #RIGHT
-      \override VerticalAxisGroup #'minimum-Y-extent = #'()
       \override BassFigureAlignment #'stacking-dir = #DOWN
       s8 |
       s4 <6>4 <_+>4 <6>4 |

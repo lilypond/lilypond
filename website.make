@@ -27,7 +27,7 @@ endif
 
 ################################################################
 OUT=out-website
-WEB_LANGS=es fr
+WEB_LANGS=es
 
 
 TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
@@ -36,6 +36,7 @@ EXTRACT_TEXI_FILENAMES=python $(script-dir)/extract_texi_filenames.py
 CREATE_VERSION=python $(script-dir)/create-version-itexi.py
 CREATE_WEBLINKS=python $(script-dir)/create-weblinks-itexi.py
 MASS_LINK=python $(script-dir)/mass-link.py
+WEB_POST=python $(script-dir)/website_post.py
 
 SERVER_FILES=$(top-src-dir)/Documentation/web/server/
 
@@ -104,8 +105,12 @@ website-examples:
 	mkdir -p $(OUT)/website/ly-examples
 	cp $(EXAMPLES)/* $(OUT)/website/ly-examples
 
-website: website-texinfo website-css website-pictures website-examples
+web-post:
+	$(WEB_POST) $(OUT)/website/
+
+website: website-texinfo website-css website-pictures website-examples web-post
 	cp $(SERVER_FILES)/favicon.ico $(OUT)/website/
 	cp $(SERVER_FILES)/lilypond.org.htaccess $(OUT)/website/.htaccess
 	cp $(SERVER_FILES)/robots.txt $(OUT)/website/
+
 
