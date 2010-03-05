@@ -1343,10 +1343,10 @@ we simply set the stencil of each to @code{#f}, as follows:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
       }
@@ -1356,7 +1356,7 @@ we simply set the stencil of each to @code{#f}, as follows:
         { f8 f c }
       }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1404,10 +1404,10 @@ So we could replace the example above with
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         % Don't print clefs in this staff
@@ -1415,9 +1415,9 @@ So we could replace the example above with
         % Don't print time signatures in this staff
         \override TimeSignature #'stencil = ##f
       }
-        { f8 f c }
+      { f8 f c }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1468,10 +1468,10 @@ Let's try it in our ossia example:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         \override Clef #'stencil = ##f
@@ -1479,9 +1479,9 @@ Let's try it in our ossia example:
         % Reduce all font sizes by ~24%
         fontSize = #-2
       }
-        { f8 f c }
+      { f8 f c }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1534,10 +1534,10 @@ objects in proportion.  It is used like this:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         \override Clef #'stencil = ##f
@@ -1546,9 +1546,9 @@ objects in proportion.  It is used like this:
         % Reduce stem length and line spacing to match
         \override StaffSymbol #'staff-space = #(magstep -2)
       }
-        { f8 f c }
+      { f8 f c }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1640,9 +1640,9 @@ under @q{Text2}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
-c^"Text2"
-c^"Text3"
-c^"Text4"
+c2^"Text2"
+c2^"Text3"
+c2^"Text4"
 @end lilypond
 
 Staves are also positioned, by default, as closely together as
@@ -1655,10 +1655,10 @@ this @q{nestling} of the notes on adjacent staves:
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Staff {
-    \relative c' { c a, }
+    \relative c' { c4 a, }
   }
   \new Staff {
-    \relative c'''' { c a, }
+    \relative c'''' { c4 a, }
   }
 >>
 @end lilypond
@@ -1702,11 +1702,11 @@ default behavior.
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4 g c a
 \override Stem #'direction = #DOWN
-a g c a
+a4 g c a
 \override Stem #'direction = #UP
-a g c a
+a4 g c a
 \revert Stem #'direction
-a g c a
+a4 g c a
 @end lilypond
 
 Here we use the constants @code{DOWN} and @code{UP}.
@@ -1875,19 +1875,19 @@ Here are a few examples:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left down)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(right)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 @end lilypond
 
 @noindent
@@ -1900,19 +1900,19 @@ try @code{-7}:
 \override Fingering #'font-size = #-7
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left down)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(right)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 @end lilypond
 
 @node Outside-staff objects
@@ -1994,18 +1994,18 @@ these.
 \dynamicUp
 % Start Ottava Bracket
 \ottava #1
-c' \startTextSpan
+c'4 \startTextSpan
 % Add Dynamic Text and hairpin
-c\pp\<
-c
+c4\pp\<
+c4
 % Add Text Script
-c^Text
-c c
+c4^Text
+c4 c
 % Add Dynamic Text and terminate hairpin
-c\ff c \stopTextSpan
+c4\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
-c, c c c
+c,4 c c c
 @end lilypond
 
 This example also shows how to create Text Spanners --
@@ -2065,19 +2065,19 @@ in the @code{Staff} context:
 \once \override Staff.OttavaBracket #'outside-staff-priority = #340
 % Start Ottava Bracket
 \ottava #1
-c' \startTextSpan
+c'4 \startTextSpan
 % Add Dynamic Text
-c\pp
+c4\pp
 % Add Dynamic Line Spanner
-c\<
+c4\<
 % Add Text Script
-c^Text
-c c
+c4^Text
+c4 c
 % Add Dynamic Text
-c\ff c \stopTextSpan
+c4\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
-c, c c c
+c,4 c c c
 @end lilypond
 
 @cindex slurs and outside-staff-priority
@@ -2098,13 +2098,13 @@ other outside-staff objects according to that value.  Here's an
 example showing the effect of the two methods:
 
 @lilypond[quote,verbatim,relative=2]
-c4( c^\markup\tiny\sharp d4.) c8
+c4( c^\markup { \tiny \sharp } d4.) c8
 c4(
 \once \override TextScript #'avoid-slur = #'inside
 \once \override TextScript #'outside-staff-priority = ##f
-c^\markup\tiny\sharp d4.) c8
+c4^\markup \tiny \sharp d4.) c8
 \once \override Slur #'outside-staff-priority = #500
-c4( c^\markup\tiny\sharp d4.) c8
+c4( c^\markup { \tiny \sharp } d4.) c8
 @end lilypond
 
 Changing the @code{outside-staff-priority} can also be used to
@@ -2121,10 +2121,10 @@ in the IR or in the tables above, and increase the priority of
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
-c^"Text2"
+c2^"Text2"
 \once \override TextScript #'outside-staff-priority = #500
-c^"Text3"
-c^"Text4"
+c2^"Text3"
+c2^"Text4"
 @end lilypond
 
 This certainly lifts @qq{Text3} above @qq{Text4} but it also lifts it
@@ -2152,9 +2152,9 @@ out as far as is necessary to accommodate the text:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \textLengthOn  % Cause notes to space out to accommodate text
 c2^"Text1"
-c^"Text2"
-c^"Text3"
-c^"Text4"
+c2^"Text2"
+c2^"Text3"
+c2^"Text4"
 @end lilypond
 
 The command to revert to the default behavior is
@@ -2212,8 +2212,8 @@ shows:
 \key aes \major
 \time 9/8
 \dynamicUp
-bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
-ees,2.~\)\mf ees4 r8 |
+bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\!
+ees,2.~\)\mf ees4 r8
 @end lilypond
 
 However, if the notes and attached dynamics are close
@@ -2579,11 +2579,11 @@ b2\fermata
 @cindex padding property, example
 
 @lilypond[quote,fragment,relative=1,verbatim]
-% This will not work, see below:
+% This will not work, see below
 \override MetronomeMark #'padding = #3
 \tempo 4=120
 c1
-% This works:
+% This works
 \override Score.MetronomeMark #'padding = #3
 \tempo 4=80
 d1
@@ -2622,18 +2622,18 @@ stencil with a markup containing the desired symbol(s), like this:
 @lilypond[quote,ragged-right,verbatim]
 sesquisharp = \markup { \sesquisharp }
 \relative c'' {
-  c
+  c4
   % This prints a sesquisharp but the spacing is too small
   \once \override Accidental
     #'stencil = #ly:text-interface::print
   \once \override Accidental #'text = #sesquisharp
-  cis c
+  cis4 c
   % This improves the spacing
   \once \override Score.AccidentalPlacement #'right-padding = #0.6
   \once \override Accidental
     #'stencil = #ly:text-interface::print
   \once \override Accidental #'text = #sesquisharp
-  cis
+  cis4
 }
 @end lilypond
 
@@ -2687,9 +2687,9 @@ right edge with the reference point of the parent note:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
 \voiceOne
-< a \2 >
+< a\2 >
 \once \override StringNumber #'self-alignment-X = #RIGHT
-< a \2 >
+< a\2 >
 @end lilypond
 
 @subheading staff-position property
@@ -2705,7 +2705,7 @@ for notes and rests that occur at the same time.  Here's an
 example of a collision of this type:
 
 @lilypond[quote,verbatim,fragment,ragged-right, relative=1]
-<< {c c c c} \\ {R1} >>
+<< { c4 c c c } \\ { R1 } >>
 @end lilypond
 
 The best solution here is to move the multimeasure rest down, since
@@ -2719,10 +2719,10 @@ move it, say, four half-staff spaces down to @code{-8}.
 
 @lilypond[quote,verbatim,fragment,ragged-right, relative=1]
 <<
-  {c c c c}
-\\
+  { c4 c c c }
+  \\
   \override MultiMeasureRest #'staff-position = #-8
-  {R1}
+  { R1 }
 >>
 @end lilypond
 
@@ -2747,10 +2747,9 @@ the left, and 1.8 staff space downwards:
 
 @lilypond[quote,fragment,relative=1,verbatim]
 \stemUp
-f-5
-\once \override Fingering
-    #'extra-offset = #'(-0.3 . -1.8)
-f-5
+f4-5
+\once \override Fingering #'extra-offset = #'(-0.3 . -1.8)
+f4-5
 @end lilypond
 
 
@@ -2769,7 +2768,7 @@ Here's an example which has an ugly phrasing slur due to its trying to
 avoid the slur on the acciaccatura.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4  \acciaccatura e8\( d8 c ~c d c d\)
+r4 \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
 @noindent
@@ -2779,7 +2778,7 @@ would be the preferred solution:
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
 \phrasingSlurUp
-\acciaccatura e8\( d8 c ~c d c d\)
+\acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
 @noindent
@@ -2795,7 +2794,7 @@ also resolves the rather nasty shape.
 r4
 \once \override PhrasingSlur #'positions = #'(-4 . -3)
 \acciaccatura
-e8\( d8 c ~c d c d\)
+e8\( d8 c~ c d c d\)
 @end lilypond
 
 Here's a further example taken from the opening of the left-hand
@@ -2804,9 +2803,9 @@ collides with the upper notes:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-\clef "bass"
-<< {b,8 ais, b, g,} \\ {e, g e, g} >>
-<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+  \clef "bass"
+  << { b,8 ais, b, g, } \\ { e, g e, g } >>
+  << { b,8 ais, b, g, } \\ { e, g e, g } >>
 }
 @end lilypond
 
@@ -2823,11 +2822,11 @@ say, 3:
   \clef "bass"
   <<
     \override Beam #'positions = #'(3 . 3)
-    {b,8 ais, b, g,}
+    { b,8 ais, b, g, }
   \\
-    {e, g e, g}
+    { e,8 g e, g }
   >>
-  << {b,8 ais, b, g,} \\ {e, g e, g} >>
+  << { b,8 ais, b, g, } \\ { e, g e, g } >>
 }
 @end lilypond
 
