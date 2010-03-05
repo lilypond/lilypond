@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: fda031b689de1614e45d6f647f5ffb85e91fca8c
+    Translation of GIT committish: f29b91d7b12f04b14b207fae0edcc55993c213e9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -36,7 +36,7 @@ y cómo puede producir partituras musicales tan bellas.
 @end menu
 
 @node Historia de LilyPond
-@unnumberedsec Historia de LilyPond
+@section Historia de LilyPond
 @translationof The LilyPond story
 
 Mucho antes de que LilyPond se hubiese utilizado para editar preciosas
@@ -154,7 +154,7 @@ Henle núm. 666, @copyright{}2000:
 @end iftex
 
 @node Detalles del grabado
-@unnumberedsec Detalles del grabado
+@section Detalles del grabado
 @translationof Engraving details
 
 @cindex grabado
@@ -582,7 +582,7 @@ gusta tocar.
 
 
 @node Grabado automatizado
-@unnumberedsec Grabado automatizado
+@section Grabado automatizado
 @translationof Automated engraving
 
 @cindex grabado automatizado
@@ -1124,7 +1124,7 @@ a lo largo del fragmento musical.
 
 
 @node ¿Qué símbolos grabar?
-@unnumberedsec ¿Qué símbolos grabar?
+@section ¿Qué símbolos grabar?
 @translationof What symbols to engrave?
 
 @cindex grabado
@@ -1337,7 +1337,7 @@ Referencia de funcionamiento interno:
 
 
 @node Representación musical
-@unnumberedsec Representación musical
+@section Representación musical
 @translationof Music representation
 
 @cindex sintaxis
@@ -1440,7 +1440,7 @@ representación se llevan menos del 10% del código fuente.
 
 
 @node Aplicaciones de ejemplo
-@unnumberedsec Aplicaciones de ejemplo
+@section Aplicaciones de ejemplo
 @translationof Example applications
 
 @cindex simple, ejemplos
@@ -1571,7 +1571,7 @@ mezcla de música y texto dentro de los documentos.
 
 @page
 @node Apéndice
-@unnumberedsec Apéndice
+@section Apéndice
 @translationof Appendix
 
 Este apéndice contiene cuatro grabados musicales de referencia y dos

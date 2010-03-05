@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 412fa426d510594ec7772c7cf7b568e376bd1c84
+    Translation of GIT committish: c3d8651f5e20c9f2d81aef81b913e56f8681df50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -450,7 +450,7 @@ se puede modificar de la forma usual mediante instrucciones
 @c NOTE Tuplet brackets collide if notes are high on staff
 @c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\times 2/3 { c8[ c c]}
+\times 2/3 { c8[ c c] }
 \once \override TupletNumber
   #'text = #tuplet-number::calc-fraction-text
 \times 2/3 {
@@ -458,7 +458,7 @@ se puede modificar de la forma usual mediante instrucciones
   c[ c]
   \once \override TupletNumber #'transparent = ##t
   \times 2/3 { c8[ c c] }
-\times 2/3 { c8[ c c]}
+  \times 2/3 { c8[ c c] }
 }
 @end lilypond
 
@@ -522,9 +522,9 @@ real:
 {
   \time 6/8
   {
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -620,9 +620,9 @@ cerca de ella.}  Hagámoslo así:
   {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -694,9 +694,9 @@ siguiente:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    b4[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -734,11 +734,11 @@ ligaduras:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g |
+    b4[( g]) g
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    g[( e]) e d[( f]) a |
-    a g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -762,12 +762,12 @@ segunda ligadura:
     r4 b8
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    b[( g]) g |
-    g[( e])
+    b4[( g]) g
+    g4[( e])
     % Revert thickness of all following slurs to default of 1.2
     \revert Slur #'thickness
-    e d[( f]) a |
-    a g
+    e4 d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -881,9 +881,9 @@ de esta forma:
 {
   \time 6/8
   {
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     \override LyricText #'font-shape = #'italic
@@ -1066,8 +1066,8 @@ antes, omitiendo el Contexto implícito, @code{Voice}:
 {
   \time 12/16
   \override BarLine #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1094,8 +1094,8 @@ intentar corregirlo escribiendo el contexto correcto:
 {
   \time 12/16
   \override Staff.BarLine #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1142,8 +1142,8 @@ en sí dentro de la instrucción @code{\override}.
 {
   \time 12/16
   \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1176,8 +1176,8 @@ a la indicación de compás es:
 {
   \time 12/16
   \override Staff.TimeSignature #'transparent = ##t
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1197,8 +1197,8 @@ compás se debe establecer al valor @code{#f}:
 {
   \time 12/16
   \override Staff.TimeSignature #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1238,8 +1238,8 @@ poner las líneas divisorias de color blanco, escribimos:
 {
   \time 12/16
   \override Staff.BarLine #'color = #white
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1270,8 +1270,8 @@ internos, @code{x11-color}, de la siguiente manera:
 {
   \time 12/16
   \override Staff.BarLine #'color = #(x11-color 'white)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1300,8 +1300,8 @@ valor debe ser @code{(rgb-color 1 0 0)} y para blanco debe ser
 {
   \time 12/16
   \override Staff.BarLine #'color = #(rgb-color 1 1 1)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1365,18 +1365,18 @@ pentagrama temporal, como en un @rglos{ossia}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-       \relative g' {
-         r4 g8 g c4 c8 d |
-         e4 r8
-         <<
-           { f c c }
-           \new Staff \with {
-             alignAboveContext = #"main" }
-           { f8 f c }
-         >>
-         r4 |
-       }
-     }
+  \relative g' {
+    r4 g8 g c4 c8 d
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main" }
+      { f8 f c }
+    >>
+    r4
+  }
+}
 @end lilypond
 
 Los fragmentos de Ossia se escriben normalmente sin clave ni compás, y

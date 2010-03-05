@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: ce3b7b374deb1a9a80defbbc78d485dc46fa1a5d
+    Translation of GIT committish: 73a5a8011b89427f31771a3c7f7cbf38cfb74b78
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -67,10 +67,55 @@ métodos para crear las nuevas marcas dinámicas.
 @cindex prallmordent
 @cindex semitrino ascendente
 @cindex semitrino descendente
+@cindex mordente ascendente
+@cindex mordente descendente
 @cindex indicación de pulgar
 @cindex segno
 @cindex coda
 @cindex varcoda
+
+@funindex \accent
+@funindex \marcato
+@funindex \staccatissimo
+@funindex \espressivo
+@funindex \staccato
+@funindex \tenuto
+@funindex \portato
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \thumb
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \open
+@funindex \halfopen
+@funindex \stopped
+@funindex \snappizzicato
+@funindex \turn
+@funindex \reverseturn
+@funindex \trill
+@funindex \prall
+@funindex \mordent
+@funindex \prallprall
+@funindex \prallmordent
+@funindex \upprall
+@funindex \downprall
+@funindex \upmordent
+@funindex \downmordent
+@funindex \pralldown
+@funindex \prallup
+@funindex \lineprall
+@funindex \signumcongruentiae
+@funindex \shortfermata
+@funindex \fermata
+@funindex \longfermata
+@funindex \verylongfermata
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
+
 
 @funindex -
 
@@ -284,6 +329,7 @@ nota:
 c2 b4 a
 g1\espressivo
 @end lilypond
+
 
 @funindex \crescTextCresc
 @funindex crescTextCresc

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: e18567dccce0f16b680e6b7e562329e5f8bcae59
+    Translation of GIT committish: 476350576d964db79d05998981124d7cbb4bcc31
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,18 @@ NOTE:
 
   * don't duplicate entries from news-front.itexi
 @end ignore
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.13!  @emph{13 de febrero de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.13.  Esta
+versión está orientada solamente a los desarrolladores, y arregla
+diversos problemas con el sistema de construcción de la documentación,
+así como la adición de un marco de vista previa para el back-end de
+salida SVG.  Además, los archivos binarios instalables son ahora unos
+6 Mb más pequeños.
+@newsEnd
 
 
 @newsItem

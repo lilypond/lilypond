@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: e18567dccce0f16b680e6b7e562329e5f8bcae59
+    Translation of GIT committish: 21da0d12428c5b70eb1812a867c0a37d00fdebf8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -59,7 +59,8 @@ música popular utilizar diagramas de acordes por encima de un
 pentagrama de notación tradicional.  La guitarra y el banjo son
 instrumentos transpositores, que suenan una octava por debajo de lo
 escrito.  Las partituras para estos instrumentos deben usar la clave
-de Sol octava baja @code{"treble_8"}.  Otros elementos relativos a los
+de Sol octava baja @code{"treble_8"} (o @code{\transposition c} para
+obtener una salida MIDI correcta).  Otros elementos relativos a los
 instrumentos de cuerda con trastes se estudian en otras partes de
 manual:
 
@@ -92,7 +93,8 @@ Referencia de la notación:
 @ref{Escribir música en paralelo},
 @ref{Arpegio},
 @ref{Lista de articulaciones},
-@ref{Clave}.
+@ref{Clave},
+@ref{Transposición de los instrumentos}.
 
 
 @node Indicación de los números de cuerda

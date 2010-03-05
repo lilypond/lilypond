@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 829d4293f61b7583e20ecdd3c427cde11e942fef
+    Translation of GIT committish: 01dc495b5052c3c974b7a04791aa204b9f58ee58
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1401,6 +1401,7 @@ lilypond archivo.ly >resultado.txt
 * Extracción de fragmentos de música::
 * Saltar la música corregida::
 * Formatos de salida alternativos::
+* Sustituir la tipografía de la notación::
 @end menu
 
 @node Extracción de fragmentos de música
@@ -1508,6 +1509,13 @@ formatos de salida Gráficos de vector escalables (SVG), PostScript
 encapsulado (EPS) y Gráficos de red portátiles (PNG) también están
 disponibles a través de opciones de la línea de órdenes, véase
 @rprogram{Opciones de la línea de órdenes para lilypond}.
+
+
+@node Sustituir la tipografía de la notación
+@subsection Sustituir la tipografía de la notación
+@translationof Replacing the notation font
+
+HACER
 
 
 @node Salida MIDI
