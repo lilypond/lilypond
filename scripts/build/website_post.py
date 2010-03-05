@@ -8,11 +8,21 @@ import sys
 import os
 import glob
 
+#### Translation data
 lang_lookup = {
   'fr': 'français',
   'es': 'español',
   '': 'english'
 }
+
+lang_other_langs = {
+  'es': 'Blargle flop: ',
+  'fr': 'lirer des autres langs: ',
+  '': 'Other languages: '
+}
+
+
+#### Actual program
 
 #indir, outdir = sys.argv[1:]
 
@@ -38,7 +48,7 @@ langs.sort()
 
 def makeFooter(currentLang):
 	text = "<p id=\"languages\">\n"
-	text += "Other languages: "
+	text += lang_other_langs[currentLang]
 	for i in range(len(langs)):
 		l = langs[i]
 		if (l == currentLang):
