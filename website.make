@@ -56,12 +56,19 @@ website-xrefs: website-version
 	$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/ \
 		-I $(OUT) -o $(OUT) --split=node \
 		$(top-src-dir)/Documentation/web.texi
-	$(foreach manual, $(MANUALS), \
-		$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/ \
-		-I $(OUT) -o $(OUT) $(manual) && ) :
+	# normal manuals
+	for m in $(MANUALS); do \
+		b=`basename "$$m" .texi`; \
+		d=`basename "$$b" .tely`; \
+		$(EXTRACT_TEXI_FILENAMES) \
+			-I $(top-src-dir)/Documentation/ \
+			-I $(top-src-dir)/Documentation/"$$d"/ \
+			-I $(OUT) -o $(OUT) "$$m" ; \
+	done
 	# translations
 	for l in $(WEB_LANGS); do \
 		$(EXTRACT_TEXI_FILENAMES) \
+			-I $(top-src-dir)/Documentation/ \
 			-I $(top-src-dir)/Documentation/"$$l" \
 			-I $(OUT) -o $(OUT) --split=node \
 			$(top-src-dir)/Documentation/"$$l"/web.texi ;\
