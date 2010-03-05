@@ -31,7 +31,7 @@ such beautiful sheet music.
 @end menu
 
 @node The LilyPond story
-@unnumberedsec The LilyPond story
+@section The LilyPond story
 
 Long before LilyPond had been used to engrave beautiful performance
 scores, before it could create university course notes or even simple
@@ -137,7 +137,7 @@ Henle no. 666, @copyright{}2000:
 @end iftex
 
 @node Engraving details
-@unnumberedsec Engraving details
+@section Engraving details
 
 @cindex engraving
 @cindex typography, music
@@ -535,7 +535,7 @@ to see and love to play from.
 
 
 @node Automated engraving
-@unnumberedsec Automated engraving
+@section Automated engraving
 
 @cindex engraving, automated
 @cindex automated engraving
@@ -909,7 +909,7 @@ manual adjustments are needed, LilyPond's structure has been designed
 with that flexibility in mind.
 
 @node Building software
-@unnumberedsec Building software
+@section Building software
 
 This section describes some of the programming decisions that we made
 when designing LilyPond.
@@ -1441,7 +1441,7 @@ note head symbol is changed during the music fragment.
 
 
 @node Putting LilyPond to work
-@unnumberedsec Putting LilyPond to work
+@section Putting LilyPond to work
 
 @cindex simple examples
 @cindex examples, simple
@@ -1568,7 +1568,7 @@ software itself, see our main website: www.lilypond.org.
 
 @page
 @node Engraved examples (BWV 861)
-@unnumberedsec Engraved examples (BWV 861)
+@section Engraved examples (BWV 861)
 
 This section contains four reference engravings and two
 software-engraved versions of Bach's Fugue in G minor from the
