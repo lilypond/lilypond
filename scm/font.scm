@@ -152,7 +152,16 @@
 ;; Each size family is a vector of fonts, loaded with a delay.  The
 ;; vector should be sorted according to ascending design size.
 (define-public (add-music-fonts node name family design-size-list factor)
-  "Add fonts to NODE.  DESIGN-SIZE-LIST is a list of numbers."
+  "Setup music fonts.
+
+Arguments:
+ NODE the font tree to modify.
+ NAME is the basename for the music font. NAME-DESIGNSIZE.otf should be the music font,
+  NAME-brace.otf should have piano braces.
+ DESIGN-SIZE-LIST is a list of numbers, used as suffix for font filenames
+ FACTOR is size factor relative to default size that is being used.   This is used
+  to select the proper design size for text fonts.
+"
   (for-each
    (lambda (x)
      (add-font node
@@ -203,8 +212,6 @@
 (define-public (make-pango-font-tree roman-str sans-str typewrite-str factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
     (add-music-fonts n "emmentaler" 'feta '(11 13 14 16 18 20 23 26) factor)
-;; Let's not do this [yet], see input/regression/gonville.ly
-;;    (add-music-fonts n "gonville" 'gonville factor)
     (add-pango-fonts n 'roman roman-str factor)
     (add-pango-fonts n 'sans sans-str factor)
     (add-pango-fonts n 'typewriter typewrite-str factor)
