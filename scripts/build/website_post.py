@@ -17,7 +17,7 @@ lang_lookup = {
 
 lang_other_langs = {
   'es': 'Otros idiomas: ',
-  'fr': 'lirer des autres langs: ',
+  'fr': 'Autres langues : ',
   '': 'Other languages: '
 }
 
