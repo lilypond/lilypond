@@ -16,7 +16,7 @@ lang_lookup = {
 }
 
 lang_other_langs = {
-  'es': 'Blargle flop: ',
+  'es': 'Otros idiomas: ',
   'fr': 'lirer des autres langs: ',
   '': 'Other languages: '
 }
