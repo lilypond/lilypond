@@ -72,7 +72,20 @@ website-xrefs: website-version
 			-I $(top-src-dir)/Documentation/"$$l" \
 			-I $(OUT) -o $(OUT) --split=node \
 			$(top-src-dir)/Documentation/"$$l"/web.texi ;\
+		for m in $(MANUALS); do \
+			n=`echo "$$m" | sed 's/Documentation/Documentation\/'$$l'/'` ; \
+			b=`basename "$$n" .texi`; \
+			d=`basename "$$b" .tely`; \
+			if [ -e "$$n" ] ; then \
+				$(EXTRACT_TEXI_FILENAMES) \
+				-I $(top-src-dir)/Documentation/ \
+				-I $(top-src-dir)/Documentation/"$$l" \
+				-I $(top-src-dir)/Documentation/"$$l"/"$$d"/ \
+				-I $(OUT) -o $(OUT) "$$n" ; \
+			fi ; \
+		done; \
 	done;
+
 
 
 website-texinfo: website-version website-xrefs
