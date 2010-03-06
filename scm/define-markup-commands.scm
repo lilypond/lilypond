@@ -2646,7 +2646,7 @@ figured bass notation.
       stroke")
 
 (define-markup-command (eyeglasses layout props)
-  () 
+  ()
   #:category other
   "Prints out eyeglasses, indicating strongly to look at the conductor.
 @lilypond[verbatim,quote]
@@ -3165,10 +3165,20 @@ a column containing several lines of text.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\parenthesize {
-    \\column {
-      foo
-      bar
+  \\line {
+    \\parenthesize {
+      \\column {
+        foo
+        bar
+      }
+    }
+    \\override #'(angularity . 2) {
+      \\parenthesize {
+        \\column {
+          bah
+          baz
+        }
+      }
     }
   }
 }
