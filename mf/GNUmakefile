@@ -107,10 +107,10 @@ $(outdir)/feta11.otf-table: $(outdir)/feta11.lisp \
 			    $(outdir)/feta-alphabet11.lisp
 
 $(outdir)/emmentaler-brace.otf: $(outdir)/emmentaler-brace.subfonts \
-		       $(outdir)/emmentaler-brace.fontname \
-		       $(outdir)/emmentaler-brace.otf-table \
-		       $(outdir)/emmentaler-brace.otf-gtable \
-		       $(outdir)/emmentaler-brace.pe
+				$(outdir)/emmentaler-brace.fontname \
+				$(outdir)/emmentaler-brace.otf-table \
+				$(outdir)/emmentaler-brace.otf-gtable \
+				$(outdir)/emmentaler-brace.pe
 
 $(outdir)/emmentaler-brace.otf \
 $(outdir)/emmentaler-brace.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfb)
