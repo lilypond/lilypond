@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: e2988246eb2dff58021343f4360803b267064c40
+    Translation of GIT committish: 07c6e1952d29a3b0ce203898978c2c9472b64ad9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,6 +10,8 @@
 
 @c Translators: Jean-Charles Malahieude, John Mandereau
 @c Translation checkers: Jean-Charles Malahieude
+
+@include included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond travaille sur des @strong{fichiers textuels}.  Il
@@ -132,6 +134,7 @@ protégés par le droit d’auteur.
 @end menu
 @divEnd
 
+
 @node Unix
 @unnumberedsec Unix
 @translationof Unix
@@ -212,6 +215,14 @@ uninstall-lilypond
 
 
 @divClass{column-right-top}
+@subheading Compilation d'un fichier
+
+@lilypadCommandLine
+
+@divEnd
+
+
+@divClass{column-left-top}
 @subheading Paquetage des distributions
 
 Veuillez utiliser votre gestionnaire de paquet favori pour installer et
@@ -305,6 +316,14 @@ Supprimez le répertoire LilyPond.app.
 
 
 @divClass{column-right-top}
+@subheading Compilation d'un fichier
+
+@lilypadOSX
+
+@divEnd
+
+
+@divClass{column-left-top}
 @subheading Utilisation en ligne de commande
 
 @warning{Si vous préférez l'interface graphique, ne tenez pas compte de
@@ -455,6 +474,14 @@ effectuée.
 
 
 @divClass{column-right-top}
+@subheading Compilation d'un fichier
+
+@lilypadWindows
+
+@divEnd
+
+
+@divClass{column-left-top}
 @subheading Lancement en ligne de commande
 
 @warning{Si vous préférez l'interface graphique, ne tenez pas compte de
@@ -578,7 +605,7 @@ téléchargement}.
 @subheading Licence logicielle
 @translationof GPL
 
-GNU LilyPond est distribué selon les termes de la
+GNU LilyPond est distribué selon la 
 @ref{GPL,Licence Publique Générale GNU GPL}.  Pour une introduction à
 cette licence, et les raisons qui nous ont fait l'adopter, lisez
 @ref{Liberté}.

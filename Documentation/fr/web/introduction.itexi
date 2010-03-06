@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 98c18c374a10c480bbc82b7657b4a71cf4e6452a
+    Translation of GIT committish: 07c6e1952d29a3b0ce203898978c2c9472b64ad9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -918,7 +918,7 @@ visonneuse de PDF intégrée avec un excellent pointer-cliquer.
 @subheading Environnement intégré : Frescobaldi
 
 @imageClickable{frescobaldi-lilypond-editor-small,png,
-  (click to enlarge),frescobaldi-lilypond-editor,png,right}
+  (cliquez pour agrandir),frescobaldi-lilypond-editor,png,right}
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -966,7 +966,7 @@ travailler sur des fichiers source LilyPond.
 @subsubheading Environnement intégré : LilyKDE
 
 @imageClickable{lilykde-screenshot-small,png,
-  (click to enlarge),lilykde-screenshot,png,right}
+  (cliquez pour agrandir),lilykde-screenshot,png,right}
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
