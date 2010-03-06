@@ -54,7 +54,7 @@ MergeFonts("feta-braces-g.scale.pfb");
 MergeFonts("feta-braces-h.scale.pfb");
 MergeFonts("feta-braces-i.scale.pfb");
 
-SetFontNames("Emmentaler-Brace-Regular", "Emmentaler-Brace", "Emmentaler-Brace Regular", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
+SetFontNames("Emmentaler-Brace", "Emmentaler-Brace", "Emmentaler-Brace Regular", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
 
 i = 0;
 while (i < CharCnt())

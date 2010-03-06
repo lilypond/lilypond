@@ -708,9 +708,7 @@ applied to function @var{getter}.")
 				(string-length font)))
       (let* ((font-name (ly:font-name font))
 	     (full-name (if font-name font-name (ly:font-file-name font))))
-	(if (string-prefix? "Emmentaler-Brace" full-name)
-	    "emmentaler-brace"
-	    (string-downcase full-name)))))
+	  (string-downcase full-name))))
 
 (define-public (modified-font-metric-font-scaling font)
   (let* ((designsize (ly:font-design-size font))
