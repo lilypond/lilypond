@@ -948,8 +948,7 @@ this file if it does not exist.
 
 @example
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:\
-$DYLD_FALLBACK_LIBRARY_PATH
+export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 @end example
 
 Now you must edit the generated @code{config.make} file.  Change
