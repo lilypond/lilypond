@@ -56,16 +56,36 @@ website-xrefs: website-version
 	$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/ \
 		-I $(OUT) -o $(OUT) --split=node \
 		$(top-src-dir)/Documentation/web.texi
-	$(foreach manual, $(MANUALS), \
-		$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/ \
-		-I $(OUT) -o $(OUT) $(manual) && ) :
+	# normal manuals
+	for m in $(MANUALS); do \
+		b=`basename "$$m" .texi`; \
+		d=`basename "$$b" .tely`; \
+		$(EXTRACT_TEXI_FILENAMES) \
+			-I $(top-src-dir)/Documentation/ \
+			-I $(top-src-dir)/Documentation/"$$d"/ \
+			-I $(OUT) -o $(OUT) "$$m" ; \
+	done
 	# translations
 	for l in $(WEB_LANGS); do \
 		$(EXTRACT_TEXI_FILENAMES) \
+			-I $(top-src-dir)/Documentation/ \
 			-I $(top-src-dir)/Documentation/"$$l" \
 			-I $(OUT) -o $(OUT) --split=node \
 			$(top-src-dir)/Documentation/"$$l"/web.texi ;\
+		for m in $(MANUALS); do \
+			n=`echo "$$m" | sed 's/Documentation/Documentation\/'$$l'/'` ; \
+			b=`basename "$$n" .texi`; \
+			d=`basename "$$b" .tely`; \
+			if [ -e "$$n" ] ; then \
+				$(EXTRACT_TEXI_FILENAMES) \
+				-I $(top-src-dir)/Documentation/ \
+				-I $(top-src-dir)/Documentation/"$$l" \
+				-I $(top-src-dir)/Documentation/"$$l"/"$$d"/ \
+				-I $(OUT) -o $(OUT) "$$n" ; \
+			fi ; \
+		done; \
 	done;
+
 
 
 website-texinfo: website-version website-xrefs

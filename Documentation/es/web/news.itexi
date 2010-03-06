@@ -121,7 +121,7 @@ which will include the menu fixes for OSX 10.5.  Normal users may
 wish to wait for this release rather than using an unstable
 release.@*
 @ref{Cambios},
-@ref{Development}.
+@ref{Desarrollo}.
 @newsEnd
 
 
@@ -175,7 +175,7 @@ A new stable release of LilyPond is available.
 @*
 @uref{announce-v2.12,Announcement},
 @ref{Cambios},
-@ref{Download}.
+@ref{Descarga}.
 @newsEnd
 
 
@@ -462,7 +462,7 @@ A RSS feed is now available on lilypond.org.  It contains all
 news announced on the web site start page: releases, LilyPond
 report, new translations of the site and publications.
 @uref{http://lilypond.org/web/lilypond-rss-feed.xml,Feed URL}.
-The info mailing list (see @ref{Contact}) is still used to
+The info mailing list (see @ref{Contacto}) is still used to
 announce releases and special events.
 @newsEnd
 
@@ -1013,7 +1013,7 @@ The last months, Erik Sandberg has been overhauling the internals of
 Lily. This change introduces a new intermediate format, Music Streams,
 which will make it easier get music data out of LilyPond. A copy of
 the thesis is now available from lilypond.org
-(@ref{Publications}).
+(@ref{Publicaciones}).
 @newsEnd
 
 
@@ -1233,7 +1233,7 @@ and some cleanups of the PostScript output, courtesy David Feuer. (@ref{Cambios}
 @subsubheading FISL7.0 slides available - @emph{April 22, 2006}
 The slides for Han-Wen's talk at
 @uref{http://fisl.softwarelivre.org,FISL 7} are now online.
-(@ref{Publications})
+(@ref{Publicaciones})
 @newsEnd
 
 

@@ -52,7 +52,7 @@ development environment.  See @rcontrib{Starting with Git}.}
 @item
 Documentation: see
 @rcontrib{Documentation work}, and
-@rcontrib{Building documentation without compiling LilyPond}.
+@rcontrib{Building documentation without compiling}.
 
 @item
 Website: the website is built from the normal documentation

@@ -817,7 +817,7 @@ exec /sw/bin/pngtopnm "$@"
 On MacOS X with macports, you should use this:
 
 @verbatim
-export DYLD_LIBRARY_PATH=/opt/local/lib
+export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
 exec /opt/local/bin/pngtopnm "$@"
 @end verbatim
 
@@ -948,10 +948,7 @@ this file if it does not exist.
 
 @example
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-export DYLD_LIBRARY_PATH=/System/Library/Frameworks/\
-ApplicationServices.framework/Versions/A/Frameworks/\
-ImageIO.framework/Versions/A/Resources:\
-/opt/local/lib:$DYLD_LIBRARY_PATH
+export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 @end example
 
 Now you must edit the generated @code{config.make} file.  Change

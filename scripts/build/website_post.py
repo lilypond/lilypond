@@ -8,11 +8,21 @@ import sys
 import os
 import glob
 
+#### Translation data
 lang_lookup = {
   'fr': 'français',
   'es': 'español',
   '': 'english'
 }
+
+lang_other_langs = {
+  'es': 'Otros idiomas: ',
+  'fr': 'Autres langues : ',
+  '': 'Other languages: '
+}
+
+
+#### Actual program
 
 #indir, outdir = sys.argv[1:]
 
@@ -36,15 +46,16 @@ for file in html_files:
 langs = list(langs_set)
 langs.sort()
 
-def makeFooter(currentLang):
+def makeFooter(currentLang, currentPage):
 	text = "<p id=\"languages\">\n"
-	text += "Other languages: "
+	text += lang_other_langs[currentLang]
 	for i in range(len(langs)):
 		l = langs[i]
 		if (l == currentLang):
 			continue
-		text += "<a href=\"index"
-		if (not (l=='')):
+		text += "<a href=\""
+		text += currentPage
+		if (not (l=="")):
 			text += "." + l
 		text += ".html\">"
 		text += lang_lookup[l]
@@ -79,7 +90,8 @@ for file in html_files:
 	# ick
 	os.remove(file)
 
-	lang_footer = makeFooter(lang)
+	# ick
+	lang_footer = makeFooter(lang, out_filename.split('.')[0])
 	
 	outfile = open( os.path.join(outdir, out_filename), 'w')
 	for line in lines:
@@ -88,7 +100,21 @@ for file in html_files:
 # eventually we want to do this, but I can't get it to work.
 # waiting for help with apache (?)
 #			line = line.replace(".html", "."+lang)
-			line = line.replace(".html", "."+lang+".html")
+			text = ""
+			if (not (lang=="")):
+				text += "." + lang
+			text += ".html"
+			line = line.replace(".html", text)
+		if ((line.find("href") >= 0) and
+		    (line.find("http")==-1) and
+		    (line.find("pdf") >= 0)):
+			text = ""
+			if (not (lang=="")):
+				text += "." + lang
+			text += ".pdf"
+			line = line.replace(".pdf", text)
+
+
 		if (line.find("<!-- FOOTER -->") >= 0):
 			outfile.write( lang_footer )
 		outfile.write(line)

@@ -115,7 +115,7 @@ referencia sobre el trucaje.
 @item @ref{Traducido}:
 estado del proceso de traducción para los lectores no anglófonos.
 
-@item @ref{Todo}:
+@item @ref{Todos}:
 enlaces rápidos, manuales descargables y manuales antiguos.
 
 @item @ref{Desarrollo}:
@@ -137,7 +137,7 @@ Libre de GNU.
 * Ensayo::                 Ensayo.
 * Notación::               Referencia.
 * Utilización::            Utilización.
-* Fragmentos de código::   Fragmentos de código.
+* Fragmentos::             Fragmentos de código.
 * FAQ::                    Preguntas frecuentes.
 * Web::                    Web.
 * Cambios::                Noticias.
@@ -493,8 +493,8 @@ En construcción.
 @divEnd
 
 
-@node Todo
-@unnumberedsec Todo
+@node Todos
+@unnumberedsec Todos
 @translationof All
 
 @divClass{column-left-top}

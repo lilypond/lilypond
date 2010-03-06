@@ -236,6 +236,22 @@ Issues to verify:
 
 @end itemize
 
+Once every two weeks or so:
+
+@itemize
+
+@item
+Check for any items with @code{label:patch}.  If it's been more
+than a week since the last action on the issue, send an email to
+-devel to remind them about it.  If the patch was withdrawn for
+more work, then remove the @code{patch} label.
+
+@example
+@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:patch}
+@end example
+
+@end itemize
+
 Once every year or so:
 
 @itemize

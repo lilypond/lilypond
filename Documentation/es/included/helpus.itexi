@@ -64,7 +64,7 @@ requieren un entorno de desarrollo completo.  Consulte
 @itemize
 @item
 Documentación: consulte @rcontribnamed{Documentation work,Trabajar en la documentación} y
-@rcontribnamed{Building documentation without compiling LilyPond,Construir la documentación sin compilar LilyPond}.
+@rcontribnamed{Building documentation without compiling,Construir la documentación sin compilar LilyPond}.
 
 @item
 Página web: nuestra página se construye a partir del código fuente

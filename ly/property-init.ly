@@ -6,6 +6,14 @@
 #(define (make-simple-dash-definition dash-fraction dash-period)
     (list (list 0 1 dash-fraction dash-period)))
 
+%% common definition for all note head styles reverting
+%% (palm mute, harmonics, dead notes, ...)
+defaultNoteHeads=
+#(define-music-function (parser location) ()
+   (_i "Revert to the default note head style.")
+   (revert-head-style 'NoteHead))
+
+
 
 %% arpeggios
 
@@ -198,8 +206,15 @@ glissando = #(make-music 'GlissandoEvent)
 
 %% harmonics
 
-harmonicsOn  = \override NoteHead #'style = #'harmonic
-harmonicsOff = \revert NoteHead #'style
+harmonicsOn =
+#(define-music-function (parser location) ()
+   (_i "Set the default note head style to a diamond-shaped style.")
+   (override-head-style 'NoteHead 'harmonic))
+harmonicsOff = \defaultNoteHeads
+harmonicNote =
+#(define-music-function (parser location note) (ly:music?)
+   (_i "Print @var{note} with a diamond-shaped note head.")
+   (style-note-heads 'NoteHead 'harmonic note))
 
 
 %% hideNotes
@@ -259,12 +274,12 @@ defaultTimeSignature = \revert Staff.TimeSignature #'style
 
 palmMuteOn =
 #(define-music-function (parser location) ()
+   (_i "Set the default note head style to a triangle-shaped style.")
    (override-head-style 'NoteHead 'do))
-palmMuteOff =
-#(define-music-function (parser location) ()
-   (revert-head-style 'NoteHead))
+palmMuteOff = \defaultNoteHeads
 palmMute =
 #(define-music-function (parser location note) (ly:music?)
+   (_i "Print @var{note} with a triangle-shaped note head.")
    (style-note-heads 'NoteHead 'do note))
 
 
@@ -533,12 +548,12 @@ voiceNeutralStyle = {
 
 xNotesOn =
 #(define-music-function (parser location) ()
+   (_i "Set the default note head style to a cross-shaped style.")
    (override-head-style '(TabNoteHead NoteHead) 'cross))
-xNotesOff =
-#(define-music-function (parser location) ()
-   (revert-head-style '(TabNoteHead NoteHead)))
+xNotesOff = \defaultNoteHeads
 xNote =
 #(define-music-function (parser location note) (ly:music?)
+   (_i "Print @var{note} with a cross-shaped note head.")
    (style-note-heads '(TabNoteHead NoteHead) 'cross note))
 
 
