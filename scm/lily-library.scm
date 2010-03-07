@@ -698,14 +698,8 @@ applied to function @var{getter}.")
 
 ;;; FONT may be font smob, or pango font string...
 (define-public (font-name-style font)
-  ;; FIXME: ughr, barf: feta-alphabet is actually emmentaler
-  (if (and (string? font)
-	   (string-prefix? "feta-alphabet" font))
-      (string-append "emmentaler"
-		     "-"
-		     (substring font
-				(string-length "feta-alphabet")
-				(string-length font)))
+  (if (string? font)
+      (string-downcase font)
       (let* ((font-name (ly:font-name font))
 	     (full-name (if font-name font-name (ly:font-file-name font))))
 	  (string-downcase full-name))))
