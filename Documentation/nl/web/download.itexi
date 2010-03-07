@@ -1,175 +1,108 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
-@c This file is part of web.texi
+@c This file is part of download.itexi
 @ignore
-    Translation of GIT committish: dab17828471057f4e12c0d80777ff9bb4c5b2309
+    Translation of GIT committish: ffd8edadef992d85d26e9bdc54dad6cf1ba06674
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    version that you are working on.  See TRANSLATION for details.
 @end ignore
 
 
-@c -*- coding: utf-8; mode: texinfo; -*-
-@node download
+@include included/generating-output.itexi
+@node Download
 @unnumbered Download
+@translationof Download
 
 @untranslated
 
 
-@divClass{heading-center}
-@heading Downloads for LilyPond 2.12.2
-@divEnd
-@divClass{column-left-top}
 @subheading For users
-@c TODO: duplicate to avoid underlined refs in HTML?  icky.
-@ref{Unix, @sourceimage{logo-linux} @sourceimage{logo-freebsd}}
-@ref{Unix, Unix (Linux and FreeBSD)}
-@ref{MacOS X, @sourceimage{logo-macosx}}
-@ref{MacOS X, MacOS X}
-@ref{Windows, @sourceimage{logo-windows}}
-@ref{Windows, Microsoft Windows}
-@divEnd
-@divClass{column-right-top}
 @subheading For developers
-@ref{Source}:
-@ref{Old downloads}:
-@divEnd
-@divClass{column-center-bottom}
 @subheading Software License
-@divEnd
-@divClass{color1}
 @subheading Sponsors
-@sourceimage{VTlogo_ITF} @sourceimage{lao_banner_06_on_white_demo}
 @subheading Legalese
-@divClass{legal}
-@divEnd
-@divEnd
-@divClass{hide}
 @menu
-* UNIX::
+* Unix::
 * MacOS X::
 * Windows::
-* source::
-* old downloads::
+* Source::
+* Old downloads::
 * GPL::
 @end menu
 
-@divEnd
-@node UNIX
-@unnumberedsec UNIX
+@node Unix
+@unnumberedsec Unix
+@translationof Unix
 
 @untranslated
 
 
-@divClass{column-center-top}
 @subheading Generic Packages or Distribution-Specific Packages?
-@divEnd
-@divClass{column-left-top}
 @subheading Generic Packages
 @subsubheading Download
-@sourceimage{logo-linux}
-@sourceimage{logo-linux}
-@sourceimage{logo-linux}
-@sourceimage{logo-freebsd}
-@sourceimage{logo-freebsd}
 @subsubheading Install
 @subsubheading Uninstall
-@divEnd
-@divClass{column-right-top}
+@subheading Compiling a file
 @subheading Distribution-specific Packages
-@sourceimage{logo-fedora}
-@sourceimage{logo-ubuntu}
-@sourceimage{logo-slackware}
-@sourceimage{logo-debian}
-@sourceimage{logo-suse}
-@divEnd
-@divClass{column-center-bottom}
 @subheading Legalese
-@divClass{legal}
-@divEnd
-@divEnd
 @node MacOS X
 @unnumberedsec MacOS X
+@translationof MacOS X
 
 @untranslated
 
 
-@divClass{column-left-top}
 @subheading Packages
 @subsubheading Download
-@sourceimage{logo-macosx}
-@sourceimage{logo-macosx}
 @subsubheading Install
 @subsubheading Uninstall
-@divEnd
-@divClass{column-right-top}
+@subheading Compiling a file
 @subheading Running on the command-line
-@subsubheading Using Python scripts on MacOS 10.3 or 10.4
-@c ommand{convert-ly} and @command{lilypond-book} as follows: if the
 @subsubheading MacOS X on the command line
-@c ommand{abc2ly}, and even @command{lilypond} itself --- are included
-@c ommand{lilypond-book}, @command{convert-ly}, @command{abc2ly}, etc.
-@c ode{bin/convert-ly} (or other program name) in the above file.
-@divEnd
-@divClass{column-center-bottom}
+@subsubheading Invoking individual scripts
 @subheading Legalese
-@divClass{legal}
-@divEnd
-@divEnd
 @node Windows
 @unnumberedsec Windows
+@translationof Windows
 
 @untranslated
 
 
-@divClass{column-left-top}
 @subheading Packages
 @subsubheading Download
-@sourceimage{logo-windows}
 @subsubheading Install
 @subsubheading Uninstall
-@divEnd
-@divClass{column-right-top}
+@subheading Compiling a file
 @subheading Running on the command-line
-@divEnd
-@divClass{column-center-bottom}
+@subsubheading Windows on the command line
+@subsubheading Invoking individual excecutable files
 @subheading Legalese
-@divClass{legal}
-@divEnd
-@divEnd
-@node source
+@node Source
 @unnumberedsec Source
+@translationof Source
 
 @untranslated
 
 
-@divClass{column-left-bottom}
 @subheading Source tarball
-@divEnd
-@divClass{column-right-bottom}
 @subheading Compiling instructions
-@divEnd
-@node old downloads
+@node Old downloads
 @unnumberedsec Old downloads
+@translationof Old downloads
 
 @untranslated
 
 
-@divClass{column-center-top}
 @subheading All versions
-@divEnd
 @node GPL
 @unnumberedsec GPL
+@translationof GPL
 
 @untranslated
 
 
-@divClass{column-center-top}
 @subheading Software license
-@divEnd
-@divClass{column-center-bottom}
-@subheading GNU General Public License version 2
-@include gpl-2.0.itexi
-@divEnd
+@subheading GNU General Public License
+@include gpl.itexi
 
 @c -- SKELETON FILE --
