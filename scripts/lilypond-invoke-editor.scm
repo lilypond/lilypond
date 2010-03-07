@@ -47,12 +47,7 @@
 	(format #f "~a/share/lilypond/~a"
 		prefix TOPLEVEL-VERSION))))
 
-
-
-;; gettext wrapper for guile < 1.7.2
-(if (defined? 'gettext)
-    (define-public _ gettext)
-    (define-public (_ x) x))
+(define-public _ gettext)
 
 (define (show-version port)
   (format port "~a (GNU LilyPond) ~a\n" PROGRAM-NAME TOPLEVEL-VERSION))
