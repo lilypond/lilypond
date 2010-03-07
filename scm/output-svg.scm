@@ -266,7 +266,7 @@
 	(extract-glyph all-glyphs glyph size))))
 
 
-(define (feta-alphabet-to-path font size glyph)
+(define (music-string-to-path font size glyph)
   (let* ((name-style (font-name-style font))
 	 (scaled-size (/ size lily-unit-length))
 	 (font-file (ly:find-file (string-append name-style ".svg"))))
@@ -355,13 +355,13 @@
 (define (glyph-string font size cid glyphs)
   (define path "")
   (if (= 1 (length glyphs))
-      (set! path (feta-alphabet-to-path font size (car glyphs)))
+      (set! path (music-string-to-path font size (car glyphs)))
       (begin
 	(set! path
 	      (string-append (eo 'g)
 			     (string-join
 			       (map (lambda (x)
-				      (feta-alphabet-to-path font size x))
+				      (music-string-to-path font size x))
 				    glyphs)
 			       "\n")
 			     (ec 'g)))))
