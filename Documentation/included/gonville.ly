@@ -16,12 +16,12 @@ path)."
   %% the scheme statement starts parsing.
   bogus = 42
   
-  #(add-music-fonts fonts "gonville" 'gonville '(20)
+  #(add-music-fonts fonts "gonville" 'gonville '((20 . 20.0))
      (/ myStaffSize 20))
 }
 
 sampleMusic = \relative c'' {
-  a4-\trill_\f b8 c16 d32
+  a4-\trill_\sfz b8 c16 d32
 }
 
 
