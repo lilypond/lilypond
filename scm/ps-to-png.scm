@@ -16,10 +16,7 @@
  (lily)
  )
 
-;; gettext wrapper for guile < 1.7.2
-(if (defined? 'gettext)
-    (define-public _ gettext)
-    (define-public (_ x) x))
+(define-public _ gettext)
 
 (define PLATFORM
   (string->symbol

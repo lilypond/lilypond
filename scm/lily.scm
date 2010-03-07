@@ -229,10 +229,7 @@ second.  Dump results to `FILE.stacks' and
 (define-public parser #f)
 
 
-;; gettext wrapper for guile < 1.7.2
-(if (defined? 'gettext)
-    (define-public _ gettext)
-    (define-public _ ly:gettext))
+(define-public _ gettext)
 
 (define-public (ly:load x)
   (let* ((file-name (%search-load-path x)))
