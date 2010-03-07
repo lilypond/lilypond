@@ -124,6 +124,10 @@ $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts
 	$< --dir=$(outdir)
 
 ALL_FONTS = $(FETA_FONTS)
+PFB_FILES = $(ALL_FONTS:%=$(outdir)/%.pfb)
+
+.PRECIOUS: $(PFB_FILES)
+
 
 # Make tfm files first, log files last,
 # so that normally log files aren't made twice
@@ -152,7 +156,7 @@ INSTALLATION_OUT_FILES2 = $(SVG_FILES)
 export MFINPUTS := .:$(MFINPUTS)
 
 
-default: $(ALL_GEN_FILES) \
+default: $(PFB_FILES) $(ALL_GEN_FILES) \
 	 $(outdir)/emmentaler-20.otf \
 	 tree-regen \
 	 $(outdir)/fonts.conf
