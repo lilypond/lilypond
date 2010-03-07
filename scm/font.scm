@@ -133,37 +133,31 @@
 (define (lookup-font node alist-chain)
   (g-lookup-font node alist-chain))
 
-
-;; Ugh.  Currently, we load the PFB Feta fonts for `fetaText' with
-;; Pango.  This should be changed to load the Emmentaler fonts instead
-;; (with Pango too), but then we need support for a `font-style'
-;; property which isn't implemented yet.
-(define feta-alphabet-size-vector
-  (list->vector
-   (map (lambda (tup)
-	  (cons (ly:pt (cdr tup))
-		(format "emmentaler~a ~a"
-			(car tup)
-			(ly:pt (cdr tup)))))
-	'((11 . 11.22)
-	  (13 . 12.60)
-	  (14 .  14.14)
-	  (16 . 15.87)
-	  (18 . 17.82)
-	  (20 . 20)
-	  (23 . 22.45)
-	  (26 . 25.20)))))
+;; TODO - we could actually construct this by loading all OTFs and
+;; inspecting their design size fields.
+(define-public feta-design-size-mapping
+  '((11 . 11.22)
+    (13 . 12.60)
+    (14 . 14.14)
+    (16 . 15.87)
+    (18 . 17.82)
+    (20 . 20)
+    (23 . 22.45)
+    (26 . 25.20)))
 
 ;; Each size family is a vector of fonts, loaded with a delay.  The
 ;; vector should be sorted according to ascending design size.
-(define-public (add-music-fonts node name family design-size-list factor)
+(define-public (add-music-fonts node name family design-size-alist factor)
   "Setup music fonts.
 
 Arguments:
  NODE the font tree to modify.
  NAME is the basename for the music font. NAME-DESIGNSIZE.otf should be the music font,
   NAME-brace.otf should have piano braces.
- DESIGN-SIZE-LIST is a list of numbers, used as suffix for font filenames
+ DESIGN-SIZE-ALIST is a list of (ROUNDED . DESIGN-SIZE).  ROUNDED is
+   as suffix for font filenames, while DESIGN-SIZE should be the actual
+   design size.  The latter is used for text fonts loaded through
+   pango/fontconfig 
  FACTOR is size factor relative to default size that is being used.
   This is used to select the proper design size for the text fonts.
 "
@@ -174,12 +168,22 @@ Arguments:
 		     (cons 'font-family family))
 	       (cons (* factor (cadr x))
 		     (caddr x))))
-   `((fetaText ,(ly:pt 20.0) ,feta-alphabet-size-vector)
+   
+   `((fetaText ,(ly:pt 20.0)
+	       ,(list->vector
+		 (map (lambda (tup)
+			(cons (ly:pt (cdr tup))
+			      (format "~a-~a ~a"
+				      name
+				      (car tup)
+				      (ly:pt (cdr tup)))))
+		      design-size-alist)))
      (fetaMusic ,(ly:pt 20.0)
 		,(list->vector
-		  (map (lambda (size)
-			 (delay (ly:system-font-load (format "~a-~a" name size))))
-		       design-size-list
+		  (map (lambda (size-tup)
+			 (delay (ly:system-font-load
+				 (format "~a-~a" name (car size-tup)))))
+		       design-size-alist
 		       )))
      (fetaBraces ,(ly:pt 20.0)
 		 #(,(delay (ly:system-font-load
@@ -215,7 +219,7 @@ Arguments:
 
 (define-public (make-pango-font-tree roman-str sans-str typewrite-str factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
-    (add-music-fonts n "emmentaler" 'feta '(11 13 14 16 18 20 23 26) factor)
+    (add-music-fonts n "emmentaler" 'feta feta-design-size-mapping factor)
     (add-pango-fonts n 'roman roman-str factor)
     (add-pango-fonts n 'sans sans-str factor)
     (add-pango-fonts n 'typewriter typewrite-str factor)
