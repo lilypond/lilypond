@@ -1,0 +1,20 @@
+<!--
+    Translation of GIT committish: 246bc6e20c076beb305c59d1540c9119abc65668
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org +v2.12 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org +v2.12 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org +v2.12 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Zoek met Google">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Zoek">
+  <input type="hidden" name="q" value="">
+</form>
