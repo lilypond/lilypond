@@ -47,9 +47,9 @@ for file in html_files:
     elif (len(file_split) == 3):
         # it's a translation
         lang = file_split[1]
-        # make sure it's a translated language
-        if (not (lang == "en")):
-            langs_set.add(lang)
+    # make sure it's a translated language
+    if (not (lang == "en")):
+        langs_set.add(lang)
 langs = list(langs_set)
 langs.sort()
 
@@ -131,16 +131,19 @@ for file in html_files:
     lang_footer = makeFooter(file_base, lang)
 
 
-    ### replace links as appropraite
+    ### alter file
     for line in lines:
+        ### alter links as appropriate
         link = getLocalHref(line)
         if (link != ""):
             link_base = link.split('.')[0]
-            if (line.endswith(".html")):
+            if (link.endswith(".html")):
 	        langlink = addLangExt(link_base, lang, "html")
-                line.replace(link, langlink)
-            if (line.endswith(".pdf")):
+                line = line.replace(link, langlink)
+            if (link.endswith(".pdf")):
 	        langlink = addLangExt(link_base, lang, "pdf")
+                line = line.replace(link, langlink)
+        ### add language selection footer
         if (line.find("<!-- FOOTER -->") >= 0):
             outfile.write( lang_footer )
         outfile.write(line)
