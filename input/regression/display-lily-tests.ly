@@ -146,6 +146,7 @@ stderr of this run."
 \test "" ##[ \breathe #]
 \test "" ##[ { c \[ c \] } #]			% LigatureEvent
 \test "" ##[ \~ #]					% PesOrFlexaEvent
+\test "" ##[ { c-\bendAfter #3  } #] % BendAfterEvent
 
 \test "" ##[ \break #]
 \test "" ##[ \noBreak #]
