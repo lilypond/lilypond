@@ -134,15 +134,15 @@ mediante ordenador.
 
 @subsubheading Estable
 
-@ref{Download, Descarga de @versionStable}
+@ref{Descarga, Descarga de @versionStable}
 
-@ref{Manuals, Manuales de @versionStable}
+@ref{Manuales, Manuales de @versionStable}
 
 @subsubheading Desarrollo
 
-@ref{Development, Descarga de @versionDevel}
+@ref{Desarrollo, Descarga de @versionDevel}
 
-@ref{Development, Manuales de @versionDevel}
+@ref{Desarrollo, Manuales de @versionDevel}
 
 @divEnd
 @end ifset
