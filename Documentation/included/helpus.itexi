@@ -131,7 +131,7 @@ features or completely redesigning things.  Rather, it is aimed at
 giving us a much more stable foundation so that we can move ahead
 with larger tasks in the future.
 
-@warning{GLISS will start shortly before or after the 2.14
+@warning{GOP will start shortly before or after the 2.14
 release.}
 
 @end macro

@@ -1,0 +1,165 @@
+
+
+
+
+@c -*- coding: utf-8; mode: texinfo; documentlangage: fr -*-
+@c This file is part of web/community.itexi and
+@c contributor/introduction.itely
+
+@ignore
+    Translation of GIT committish:
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@macro helpusNeed
+@subheading Nous avons besoin de vous !
+
+L'équipe de développement de LilyPond est fort réduite ; nous
+souhaitons vraiment y accueillir davantage de contributeurs.
+Pourquoi pas vous ? Apportez votre contribution au développement
+de LilyPond !
+
+Prendre en charge même des tâches simples peut avoir un impact
+conséquent : cela permet aux développeurs plus expérimentés de
+consacrer leur temps à des travaux plus ardus.
+
+@end macro
+
+
+@macro helpusTasks
+@subheading Tâches simples
+
+@itemize
+@item
+La liste de diffusion : répondre aux questions des autres utilisateurs.
+
+@item
+Les rapports de bogue : aider les utilisateurs à rédiger correctement
+et traduire leurs @rweb{Rapports de bogue}, puis aider l'équipe des
+correcteurs à traiter ces @rcontribnamed{Issues,problèmes}.
+
+@item
+Documentation : il est possible de proposer des modifications,
+en suivant les recommandations s'appliquant aux
+@rcontribnamed{Documentation suggestions,Suggestions en matière de documentation}.
+
+@item
+LilyPond Snippet Repository (LSR): ajouter ou corriger des extraits. Voir
+@rcontribnamed{Adding and editing snippets,Ajout et édition d'extraits}.
+
+@item
+Discussions, relectures et tests : les développeurs demandent
+régulièrement des retours sur des ajouts à la documentation, d'éventuels
+changements de syntaxe ou de nouvelles fonctionnalités à tester.
+Vous aussi, prenez part à ces discussions !
+
+@end itemize
+
+@subheading Tâches intermédiaires
+
+@warning{Ces travaux demandent en général de disposer des
+fichiers source du logiciel et de la documentation, mais
+n'exigent pas un environnement de développement complet. Voir
+@rcontribnamed{Starting with Git,Débuter avec Git}.}
+
+@itemize
+@item
+Documentation : voir
+@rcontribnamed{Documentation work,Travailler sur la documentation} et
+@rcontribnamed{Building documentation without compiling LilyPond,Générer la documentation sans compiler LilyPond}.
+
+@item
+Site web : le site web est compilé par le même code source
+que le reste de la documentation.  Reportez-vous aux
+informations sur la documentation, ainsi qu'à
+@rcontribnamed{Website work,Travailler sur le site internet}.
+
+@item
+Traductions : voir
+@rcontribnamed{Translating the documentation,Traduire la documentation} et
+@rcontribnamed{Translating the website,Traduire le site internet}.
+
+@end itemize
+
+
+@subheading Tâches ardues
+
+@warning{Ces travaux demandent en général de disposer du code
+source et d'être en mesure de compiler LilyPond.  Voir
+@rcontribnamed{Starting with Git,Débuter avec Git} et
+@rcontribnamed{Compiling LilyPond,Compiler LilyPond}.}
+
+Nous engageons les nouveaux contributeurs utilisant Windows à utiliser
+une machine virtuelle pour faire tourner @emph{lilybuntu}.  Voir
+@rcontrib{Using a Virtual Machine to Compile LilyPond}.
+
+@itemize
+@item
+Corriger des bogues et ajouter de nouvelles fonctionnalités :
+la voie recommandée est de se joindre aux @qq{Frogs}, et de lire
+@rcontrib{Programming work}.
+
+@end itemize
+
+@end macro
+
+
+@macro helpusProjects
+@subheading Projets
+
+@subsubheading Frogs
+
+Site et liste de diffusion : @uref{http://frogs.lilynet.net}
+
+Les @qq{Frogs} sont de simples utilisateurs de LilyPond qui ont
+décidé de s'impliquer dans le développement de leur logiciel préféré.
+Ils corrigent des bogues, implémentent de nouvelles fonctionnalités ou
+documentent le code source.  Il y a beaucoup à faire, mais le plus
+important est que chacun peut ainsi en apprendre beaucoup
+sur LilyPond, les logiciels libres, la programmation@dots{} et s'amuser !
+L'aventure vous tente ? Alors une seule chose à faire :
+@emph{Rejoignez les Frogs !}
+
+
+
+@subsubheading Projet GLISS de stabilisation de la syntaxe
+
+Page web : @uref{http://lilypond.org/~graham/gliss}
+
+Le @qq{GLISS} (@emph{Grand LilyPond Input Syntax Standardization})
+est destiné à stabiliser la syntaxe (en-dehors des ajustements)
+en vue de la version 3.0 de LilyPond.  Les utilisateurs adoptant
+cette version bénéficieront, pour les partitions dépourvues
+d'ajustements, d'une syntaxe stable à long terme.
+
+Nous prendrons le temps de discuter la spécification de ce
+format de saisie définitif.
+
+
+@warning{Le GLISS commencera peu de temps après la sortie de 2.14.}
+
+@subsubheading Projet GOP d'organisation de LilyPond
+
+Page web : @uref{http://lilypond.org/~graham/gop}
+
+Le @qq{GOP} (@emph{Grand Organization Project}) est destiné à
+recruter de nouveaux contributeurs.  Nous avons désespérément
+besoin de mieux répartir les tâches de développement (y compris
+les plus simples, qui ne demandent ni de programmer ni de se
+plonger dans le code source !).  Nous devons aussi documenter
+le savoir des développeurs actuels afin qu'il ne se perde pas.
+
+Comme son nom ne l'indique pas, le GOP n'a pas pour propos
+d'ajouter de nouvelles fonctionnalités considérables ni de
+repenser complètement quoi que ce soit.  Il cherche plutôt à
+nous donner une base bien plus stable pour pouvoir entreprendre
+de grands travaux à l'avenir.
+
+@warning{Le GOP commencera peu avant ou peu après la sortie de 2.14.}
+
+@end macro
+
+
