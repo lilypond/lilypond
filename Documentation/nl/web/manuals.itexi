@@ -1,135 +1,162 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
-@c This file is part of web.texi
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of manuals.itexi
 @ignore
-    Translation of GIT committish: dab17828471057f4e12c0d80777ff9bb4c5b2309
+    Translation of GIT committish: ffd8edadef992d85d26e9bdc54dad6cf1ba06674
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@node handleiding
-@unnumbered Handleiding
-@translationof manuals
 
-@divClass{heading-center}
-@heading Documentation for LilyPond 2.12.2
-@divEnd
-@divClass{column-center-top}
+@node Handleidingen
+@unnumbered Handleidingen
+@translationof Manuals
+
+@untranslated
+
+
 @subheading Introduction
-@divEnd
-@divClass{column-left-top}
 @subheading Regular use
-@divEnd
-@divClass{column-right-top}
 @subheading Infrequent Use
-@divEnd
-@divClass{column-center-bottom}
 @subheading Other material
-@divEnd
-@divClass{hide}
 @menu
-* learning::
-* glossary::
-* essay::
-* notation::
-* usage::
-* snippets::
+* Learning::
+* Glossary::
+* Essay::
+* Notation::
+* Usage::
+* Snippets::
 * FAQ::
-* changes::
-* internals::
-* translated::
-* old::
+* Web::
+* Changes::
+* Extending::
+* Internals::
+* Translated::
+* All::
 * FDL::
 @end menu
 
-@divEnd
-@c TRANSLATORS, most of the text in this file came from
-@c LM 1.1 About the documentation  (before this section was
-@c removed in July 2009).
-@node learning
+@node Learning
 @unnumberedsec Learning
+@translationof Learning
 
 @untranslated
 
 
-@node glossary
+@subheading Learning manual
+@node Glossary
 @unnumberedsec Glossary
+@translationof Glossary
 
 @untranslated
 
 
-@node essay
+@subheading Glossary
+@node Essay
 @unnumberedsec Essay
+@translationof Essay
 
 @untranslated
 
 
-@node notation
+@subheading Essay
+@node Notation
 @unnumberedsec Notation
+@translationof Notation
 
 @untranslated
 
 
-@node usage
+@subheading Notation reference
+@node Usage
 @unnumberedsec Usage
+@translationof Usage
 
 @untranslated
 
 
-@node snippets
+@subheading Usage manual
+@node Snippets
 @unnumberedsec Snippets
+@translationof Snippets
 
 @untranslated
 
 
+@subheading Snippets
 @node FAQ
 @unnumberedsec FAQ
+@translationof FAQ
 
 @untranslated
 
 
-@subheading Where are the graphical canvas, menus, and toolbars?
-@subheading There's a lot of documentation!  Do I need to read it?
-@subheading That's still a lot of reading!  Is it worth it?
-@subheading Something isn't working!  How do I fix it?
-@subheading Why do you change the syntax?
-@node changes
+@subheading Introductory questions
+@subsubheading Where are the graphical canvas, menus, and toolbars?
+@subsubheading There's a lot of documentation!  Do I need to read it?
+@subsubheading That's still a lot of reading!  Is it worth it?
+@subheading Usage questions
+@subsubheading Something isn't working!  How do I fix it?
+@subsubheading Why do you change the syntax?
+@node Web
+@unnumberedsec Web
+@translationof Web
+
+@untranslated
+
+
+@subheading Web
+@subheading Read it
+@subsubheading Lastest manual
+@subsubheading Web manual in @versionDevel
+@node Changes
 @unnumberedsec Changes
+@translationof Changes
 
 @untranslated
 
 
-@node internals
+@subheading Changes
+@node Extending
+@unnumberedsec Extending
+@translationof Extending
+
+@untranslated
+
+
+@subheading Extending LilyPond
+@node Internals
 @unnumberedsec Internals
+@translationof Internals
 
 @untranslated
 
 
-@node translated
+@subheading Internals reference
+@node Translated
 @unnumberedsec Translated
+@translationof Translated
 
 @untranslated
 
 
-@node old
-@unnumberedsec Old
+@subheading Translations status
+@node All
+@unnumberedsec All
+@translationof All
 
 @untranslated
 
 
+@subheading Downloadable versions
+@subheading Previous stable versions
 @node FDL
 @unnumberedsec FDL
+@translationof FDL
 
 @untranslated
 
 
-@divClass{column-center-top}
 @subheading Documentation license
-@divEnd
-@divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
 @include fdl.itexi
-@divEnd
-
-@c -- SKELETON FILE --

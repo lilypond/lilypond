@@ -101,3 +101,9 @@ AddCharset utf-8 .txt
 
 # fix broken auto language selection for Hungarian
 AddLanguage hu .hu
+
+
+
+# FIXME: separate this from the main "root" .htaccess material
+DirectoryIndex index
+

@@ -101,7 +101,7 @@ Time_signature::numbered_time_signature (Grob *me, int num, int den)
 {
   SCM chain = me->get_property_alist_chain (Font_interface::text_font_alist_chain (me));
   chain = scm_cons (scm_list_1 (scm_cons (ly_symbol2scm ("font-encoding"),
-					  ly_symbol2scm ("fetaNumber"))),
+					  ly_symbol2scm ("fetaText"))),
 		    chain);
 
   SCM sn = Text_interface::interpret_markup (me->layout ()->self_scm (), chain,

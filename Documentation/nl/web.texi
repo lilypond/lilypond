@@ -1,7 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
-@c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+    Translation of GIT committish: ffd8edadef992d85d26e9bdc54dad6cf1ba06674
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -12,92 +11,269 @@
 @settitle LilyPond -- Muzieknotatie voor iedereen
 @documentencoding UTF-8
 @documentlanguage nl
+@afourpaper
+
+@set FDL
 @set web
 @include macros.itexi
+@include weblinks.itexi
+
 @afourpaper
-@ifnottex
-@node Top
-@top
-@translationof Top
 
-@c Translators: Test
+@c don't remove this comment.
+@ignore
+@omfcreator Graham Percival and Patrick McCarty
+@omfdescription General info about the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage English
+@end ignore
 
-@chapheading
-@end ifnottex
-@finalout
-@titlepage
-@title LilyPond
-@subtitle
-@titlefont{New Website}
-@author Het LilyPond ontwikkelteam
-@quotation
-@end quotation
-@vskip 20pt
-@end titlepage
+
 @copying
+Copyright @copyright{} 2009--2010 by the authors.
+
 @quotation
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled ``GNU Free Documentation
+License''.
 @end quotation
 @end copying
+
+
+@c TITLE PAGE
+@ifnottex
+@node Top
+@top LilyPond... muzieknotatie voor iedereen
+@end ifnottex
+
+
+@c hack for texi2html, bleh -gp
+@ifnothtml
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle De muziekzetter
+@titlefont{Algemene informatie}
+@author Het LilyPond ontwikkelteam
+
+@vskip 0pt plus 1filll
+@c @vskip 20pt
+
+@insertcopying
+
+Voor LilyPond versie @version{}
+@end titlepage
+@end ifnothtml
+@c end hack for texi2html
+
+
+@c ************************ WEBSITE START ***************
+
+
 @divId{pageHeader}
 @heading LilyPond
 
 ... muzieknotatie voor iedereen
 @divEnd
+
 @c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
-@imageId{lilylogo,double-lily-modified3.png,LilyPond logo}
+@imageId{lilylogo,double-lily-modified3,png,LilyPond logo}
 @c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
+
 @divId{quickSummary}
 @subheading Wat is LilyPond?
 
-LilyPond is een Open Source muziek-graveer programma, gewijd aan
-het produceren van de hoogst mogelijke kwaliteit bladmuziek.
-
-Wij brengen de esthetiek van traditioneel gegraveerde muziek naar
+LilyPond is een Open Source muziek-graveer programma, gewijd aan het
+produceren van de hoogst mogelijke kwaliteit bladmuziek.  Deze Vrije
+Software brengt de esthetiek van traditioneel gegraveerde muziek in
 computer afdrukken.
 
-LilyPond is Vrije Software, is gratis en is onderdeel van het
-@uref{http://@/www@/.gnu@/.org/, GNU} project.
-
 @divClass{align-right}
-Lees de @ref{Inleiding}!
-
-@c For this to work, essay needs to be split like we are
-@c   --split=node --node-files
-@c Dat en meer in ons @ressaynamed{Engraving, essay}.
-@c Possibly, node Top always works?
-@c Dat en meer in ons @ressaynamed{Top, essay}.
-Dat en meer in ons @ref{automated-engraving,,Essay,essay,Essay}.
+Lees meer in onze @ref{Inleiding}!
 
 @divEnd
 @divEnd
+
+@divClass{separator}
+@divEnd
+
+
 @divId{news}
-@include news-front.itexi
+
+@c TODO: generate this automatically, including RSS feed.
+@include web/news-front.itexi
+
 @divClass{float-right}
+(@ref{Old news}) @c (@ref{Old news,,,,Oud nieuws})
 @divEnd
+
 @divEnd
+
+@ifclear web_version
+  @c do nothing
+@end ifclear
+@ifset web_version
+  @c make the box:
 @divId{latestVersion}
-@subheading Quick links
+@subheading Snelle verwijzingen
+
 @c TODO: javascript to detect OS and suggest download?
-@subsubheading Stable
-@ref{Download, Download 2.12.3}
-@ref{Handleiding, Handleiding 2.12.3}
-@subsubheading Unstable
-@ref{Development, Download 2.13.2}
-@ref{Handleiding, Handleiding 2.13.2}
+
+@subsubheading Stabiel
+
+@ref{Download, Download @versionStable}
+
+@ref{Handleidingen, Handleidingen @versionStable}
+
+@subsubheading Ontwikkeling
+
+@ref{Ontwikkeling, Download @versionDevel}
+
+@ref{Ontwikkeling, Handleidingen @versionDevel}
+
 @divEnd
+@end ifset
+
+
+@ifnottex
+
 @divClass{hide}
 @menu
-* inleiding::
-* download::
-* handleiding::
-* community::
+* Inleiding::     Start here to creating sheet music.
+* Download::         Get LilyPond.
+* Handleidingen::          Read The Fine Manuals (RTFM).
+* Community::        Contact other users.
 @end menu
+@divEnd
+
+@end ifnottex
+
+@contents
+
+@allowcodebreaks false
+
+@c ****************** GENERAL STUFF FOR INFO ************
+@ignore
+Distributions will want to install lilypond.info in postinstall, doing:
+
+    install-info --info-dir=/usr/share/info out[-www]/lilypond-web.info
+
+  * Prepend GNU for dir, must be unique.
+
+  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+    goes to Top.
+
+  * List all commands in direntry.
+
+@c  * lilypond: (lilypond-application)Running LilyPond.      Invoking the
+@c    LilyPond  program.
+@end ignore
+
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond --- the music typesetter
+@direntry
+* LilyPond Learning Manual: (lilypond-learning).  Start here.
+* Music Glossary: (music-glossary).               For non-English users.
+* LilyPond: (lilypond-notation).                           LilyPond Notation Reference.
+* LilyPond Snippets: (lilypond-snippets).         Short tricks, tips, and examples.
+* LilyPond Internals Reference: (lilypond-internals).  Definitions for tweaking.
+* LilyPond Application Usage: (lilypond-application). Installing and running applications.
+* LilyPond Website: (lilypond-general).    Preview of new website.
+* abc2ly: (lilypond-application)Invoking abc2ly.      Importing ABC.
+* convert-ly: (lilypond-application)Updating files with convert-ly. Older LilyPond versions.
+* etf2ly: (lilypond-application)Invoking etf2ly.      Importing Finale.
+* lilypond-book: (lilypond-application)LilyPond-book. Integrating text and music.
+* midi2ly: (lilypond-application)Invoking midi2ly.    Importing MIDI.
+* musicxml2ly: (lilypond-application)Invoking musicxml2ly.  Importing MusicXML.
+@end direntry
+
+
+@c FIXME: this still doesn't solve the broken links in pdf and big
+@c        html; we'll need a bunch of @iftext and stuff in here. -gp
+@c ****************** SPECIAL MACROS FOR WEB MANUAL ************
+@macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@subheading Read it
+
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
+
+@end macro
+
+
+@macro docLinkSplit{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\/index.html, \name\ (split HTML)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+@macro docLinkBig{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\-big-page.html, \name\ (big HTML)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+@macro docLinkPdf{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\.pdf, \base\.pdf}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+
+@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+
+@divClass{keep-bullets}
+@itemize
+
+@item @docLinkSplit{\name\,\base\,\split\} @minus{}
+  the manual is split between many HTML pages.
+  @*@ @ @emph{(small download for each page)}
+
+@item @docLinkBig{\name\,\base\,\big\} @minus{}
+  read this manual as one huge HTML page.
+  @*@ @ @emph{(large single download, \bigsize\)}
+
+@item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
+  download as a PDF file.
+  @*@ @ @emph{(large single download, \pdfsize\)}
+
+@end itemize
 
 @divEnd
-@contents
+
+@end macro
+
+
+@c don't add any extra spaces in this macro -gp
+@macro ifWebLinks{webLink,normalLink}
+@ifclear web_version
+  \normalLink\:
+@end ifclear
+@ifset web_version
+  \webLink\:
+@end ifset
+@end macro
+
+
 @include web/introduction.itexi
 @include web/download.itexi
 @include web/manuals.itexi
 @include web/community.itexi
+
+
 @bye
 

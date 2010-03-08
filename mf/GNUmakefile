@@ -126,6 +126,9 @@ $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts
 ALL_FONTS = $(FETA_FONTS)
 PFB_FILES = $(ALL_FONTS:%=$(outdir)/%.pfb)
 
+.PRECIOUS: $(PFB_FILES)
+
+
 # Make tfm files first, log files last,
 # so that normally log files aren't made twice
 ALL_GEN_FILES = $(LOG_FILES) \
@@ -133,7 +136,6 @@ ALL_GEN_FILES = $(LOG_FILES) \
 		$(LISP_FILES) \
 		$(OTF_TABLES) \
 		$(NCSB_OTFS) \
-		$(PFB_FILES) \
 		$(OTF_FILES) \
 		$(SVG_FILES)
 
@@ -151,13 +153,10 @@ INSTALLATION_OUT_FILES1 = $(OTF_FILES) \
 INSTALLATION_OUT_DIR2 = $(local_lilypond_datadir)/fonts/svg
 INSTALLATION_OUT_FILES2 = $(SVG_FILES)
 
-INSTALLATION_OUT_DIR3 = $(local_lilypond_datadir)/fonts/type1
-INSTALLATION_OUT_FILES3 = $(PFB_FILES)
-
 export MFINPUTS := .:$(MFINPUTS)
 
 
-default: $(ALL_GEN_FILES) \
+default: $(PFB_FILES) $(ALL_GEN_FILES) \
 	 $(outdir)/emmentaler-20.otf \
 	 tree-regen \
 	 $(outdir)/fonts.conf

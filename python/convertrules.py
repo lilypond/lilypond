@@ -2983,6 +2983,11 @@ def conv(str):
 
     return str
 
+@rule ((2, 13, 16),
+       _ ("Unify fetaNumber and fetaDynamic encodings"))
+def conv(str):
+    return re.sub(r'\bfeta(Number|Dynamic)', 'fetaText', str)
+    
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

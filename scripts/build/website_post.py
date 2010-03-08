@@ -30,7 +30,9 @@ lang_other_langs = {
 indir = sys.argv[1]
 outdir=indir
 
-html_files = glob.glob( os.path.join(indir, '*.html') )
+os.chdir(indir)
+
+html_files = glob.glob( '*.html' )
 
 # messy way to get all languages
 langs_set = set()
@@ -42,7 +44,9 @@ for file in html_files:
 	else:
 		# it's a translation
 		lang = file_split[1]
-	langs_set.add(lang)
+	# make sure it's a real language
+	if (not (lang == "en")):
+		langs_set.add(lang)
 langs = list(langs_set)
 langs.sort()
 
@@ -77,9 +81,16 @@ for file in html_files:
 	if (len(file_split) == 2):
 		# it's English
 		lang = ''
+		# possibly necessary for automatic language selection
+		file_symlink =file.replace(".html", ".en.html")
+		if (not (os.path.exists(file_symlink))):
+			os.symlink (file, file_symlink)
 	else:
 		# it's a translation
 		lang = file_split[1]
+	# it's a symlink
+	if (lang == "en"):
+		continue
 	out_filename += '.'+lang
 
 # I can't get the previous name to work
@@ -93,7 +104,7 @@ for file in html_files:
 	# ick
 	lang_footer = makeFooter(lang, out_filename.split('.')[0])
 	
-	outfile = open( os.path.join(outdir, out_filename), 'w')
+	outfile = open( out_filename, 'w')
 	for line in lines:
 		# avoid external links
 		if ((line.find("href") >= 0) and (line.find("http")==-1)):
