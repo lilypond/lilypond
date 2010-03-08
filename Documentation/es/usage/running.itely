@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4b2f03141029b4bd73bee4d6175f727d92390076
+    Translation of GIT committish: e18567dccce0f16b680e6b7e562329e5f8bcae59
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -280,8 +280,12 @@ basadas en Scheme, en bruto.
 Ejemplo: @code{lilypond -dbackend=svg @var{archivo}.ly}
 
 @item preview
+@cindex vista previa, línea de órdenes
 Generar un archivo de salida que contenga solamente los títulos de
-cabecera y el primer sistema de la primera página.
+cabecera y el primer sistema de música.  Si se usan bloques
+@code{\bookpart}, los títulos y el primer sistema de todos los bloques
+@code{\bookpart} aparecerán en la salida.  Los motores @code{ps},
+@code{eps} y @code{svg} contemplan esta opción.
 
 @item print-pages
 Generar las páginas completas, el ajuste predeterminado.

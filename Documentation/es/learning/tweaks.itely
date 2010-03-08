@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 5f51567fbc5d7a811e147ebd01f103e066f36b3a
+    Translation of GIT committish: c3d8651f5e20c9f2d81aef81b913e56f8681df50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -316,7 +316,7 @@ a b c
 Hay otra forma para la instrucción de sobreescritura,
 @code{\overrideProperty}, que ocasionalmente es necesaria.  La
 mencionamos aquí con un propósito de exhaustividad, pero para ver más
-detalles consulte @ruser{Trucos difíciles}.
+detalles consulte @rextend{Trucos difíciles}.
 @c Maybe explain in a later iteration  -td
 
 @strong{La instrucción \tweak}
@@ -450,7 +450,7 @@ se puede modificar de la forma usual mediante instrucciones
 @c NOTE Tuplet brackets collide if notes are high on staff
 @c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\times 2/3 { c8[ c c]}
+\times 2/3 { c8[ c c] }
 \once \override TupletNumber
   #'text = #tuplet-number::calc-fraction-text
 \times 2/3 {
@@ -458,7 +458,7 @@ se puede modificar de la forma usual mediante instrucciones
   c[ c]
   \once \override TupletNumber #'transparent = ##t
   \times 2/3 { c8[ c c] }
-\times 2/3 { c8[ c c]}
+  \times 2/3 { c8[ c c] }
 }
 @end lilypond
 
@@ -522,9 +522,9 @@ real:
 {
   \time 6/8
   {
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -620,9 +620,9 @@ cerca de ella.}  Hagámoslo así:
   {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -694,9 +694,9 @@ siguiente:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    b4[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -734,11 +734,11 @@ ligaduras:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g |
+    b4[( g]) g
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    g[( e]) e d[( f]) a |
-    a g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -762,12 +762,12 @@ segunda ligadura:
     r4 b8
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    b[( g]) g |
-    g[( e])
+    b4[( g]) g
+    g4[( e])
     % Revert thickness of all following slurs to default of 1.2
     \revert Slur #'thickness
-    e d[( f]) a |
-    a g
+    e4 d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -858,7 +858,8 @@ Algunos de ellos son nombres de propiedades, como @code{thickness} o
 a las propiedades, como @code{italic}.  Observe la distinción entre
 esto y las cadenas de texto arbitrarias, que aparecerían
 entrecomilladas como @code{"a text string"}.  Para ver más detalles
-relacionados con los símbolos y las cadenas, consulte @ref{Tutorial de Scheme}.
+relacionados con los símbolos y las cadenas, consulte
+@rextend{Tutorial de Scheme}.
 
 Así pues, la instrucción @code{\override} necesaria para imprimir la
 letra en cursiva, es:
@@ -880,9 +881,9 @@ de esta forma:
 {
   \time 6/8
   {
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     \override LyricText #'font-shape = #'italic
@@ -924,8 +925,8 @@ nombre del contexto y el nombre del objeto.}
 
 
 @seealso
-Manual de aprendizaje:
-@ref{Tutorial de Scheme}.
+Manual de Extensión:
+@rextend{Tutorial de Scheme}.
 
 
 @node Tipos de propiedades
@@ -992,8 +993,8 @@ en la instrucción @code{\override}.
 
 
 @seealso
-Manual de aprendizaje:
-@ref{Tutorial de Scheme}.
+Manual de Extensión:
+@rextend{Tutorial de Scheme}.
 
 
 @node Apariencia de los objetos
@@ -1065,8 +1066,8 @@ antes, omitiendo el Contexto implícito, @code{Voice}:
 {
   \time 12/16
   \override BarLine #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1093,8 +1094,8 @@ intentar corregirlo escribiendo el contexto correcto:
 {
   \time 12/16
   \override Staff.BarLine #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1141,8 +1142,8 @@ en sí dentro de la instrucción @code{\override}.
 {
   \time 12/16
   \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1175,8 +1176,8 @@ a la indicación de compás es:
 {
   \time 12/16
   \override Staff.TimeSignature #'transparent = ##t
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1196,8 +1197,8 @@ compás se debe establecer al valor @code{#f}:
 {
   \time 12/16
   \override Staff.TimeSignature #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1237,8 +1238,8 @@ poner las líneas divisorias de color blanco, escribimos:
 {
   \time 12/16
   \override Staff.BarLine #'color = #white
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1269,8 +1270,8 @@ internos, @code{x11-color}, de la siguiente manera:
 {
   \time 12/16
   \override Staff.BarLine #'color = #(x11-color 'white)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1299,8 +1300,8 @@ valor debe ser @code{(rgb-color 1 0 0)} y para blanco debe ser
 {
   \time 12/16
   \override Staff.BarLine #'color = #(rgb-color 1 1 1)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1364,18 +1365,18 @@ pentagrama temporal, como en un @rglos{ossia}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-       \relative g' {
-         r4 g8 g c4 c8 d |
-         e4 r8
-         <<
-           { f c c }
-           \new Staff \with {
-             alignAboveContext = #"main" }
-           { f8 f c }
-         >>
-         r4 |
-       }
-     }
+  \relative g' {
+    r4 g8 g c4 c8 d
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main" }
+      { f8 f c }
+    >>
+    r4
+  }
+}
 @end lilypond
 
 Los fragmentos de Ossia se escriben normalmente sin clave ni compás, y
@@ -1570,7 +1571,8 @@ de forma predeterminada, a las líneas de los reguladores se les da un
 grosor de 1 unidad de @code{line-thickness}, mientras que el
 @code{thickness} de una plica es 1.3.  Observe sin embargo que ciertas
 propiedades de grosor son diferentes; por ejemplo, el grosor de las
-barras de corchea se mide en espacios de pentagrama.
+barras de corchea se controla por medio del valor de
+@code{beam-thickness}, que se mide en espacios de pentagrama.
 
 Entonces ¿cómo se tienen que escalar las longitudes en proporción al
 tamaño de la tipografía?  Se puede hacer con la ayuda de una función
@@ -1847,7 +1849,7 @@ nota, deberá elegir entre usar la instrucción @code{\once \override}
 equivalente, o usar la instrucción predefinida, seguida después de la
 nota afectada por la instrucción @code{\xxxNeutral} correspondiente.
 
-@subheading Digitaciones
+@unnumberedsubsubsec Digitaciones
 
 @cindex digitación, colocación
 @cindex digitación de acordes
@@ -2014,6 +2016,21 @@ presenta los valores numéricos predeterminados para algunos de los
 objetos fuera-del-pentagrama que están inicialmente dentro de los
 contextos @code{Staff} o @code{Voice}.
 
+@cindex objetos de extensión
+
+Observe los nombres algo inusuales de algunos de los objetos: los
+objetos de extensión se cearn automáticamente para controlar el
+posicionamiento vertical de los grobs que (quizá) comienzan y terminan
+en distintos momentos musicales, de manera que cualquier modificación
+a la prioridad @code{outside-staff-priority} del grob subyacente no
+tiene ningún efecto.  Por ejemplo, cambiar la
+@code{outside-staff-priority} del objeto de regulador @code{Hairpin}
+no tiene efecto sobre la posición vertical de los reguladores: en
+lugar de eso, tenemos que cambar la @code{outside-staff-priority} del
+objeto asociado @code{DynamicLineSpanner}.  Esta sobreeascritura se
+debe escribir al comienzo del objeto de extensión, que podría incluir
+varios reguladores o matices dinámicos encadenados.
+
 @multitable @columnfractions .3 .3 .3
 @headitem Objeto de presentación
   @tab Prioridad
@@ -2064,14 +2081,13 @@ de ellos.
 % Start Ottava Bracket
 \ottava #1
 c' \startTextSpan
-% Add Dynamic Text
-c\pp
-% Add Dynamic Line Spanner
-c\<
+% Add Dynamic Text and hairpin
+c\pp\<
+c
 % Add Text Script
 c^Text
 c c
-% Add Dynamic Text
+% Add Dynamic Text and terminate hairpin
 c\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
@@ -2713,11 +2729,11 @@ de él.
 
 La propiedad @code{right-padding} afecta al espaciado entre la
 alteración y la nota a que se aplica.  Normalmente no es necesaria,
-pero el ejemplo siguiente muestra una situación en la que sí se
-necesita.  Suponga que queremos presentar un acorde que contiene un Si
-natural y un Si bemol.  Para evitar la ambigüedad querríamos preceder
-las notas con un becuadro y un bemol.  Aquí vienen varios intentos de
-hacerlo así:
+pero el espaciado predeterminado puede estar mal para ciertos glifos
+de alteraciones o combinaciones de glifos que se usan en música
+microtonal.  Éstos tienen que introducirse sobreescribiendo el sello
+de la alteración con un elemento de marcado que contenga los símbolos
+deseados, así:
 
 @cindex Accidental, ejemplo de sobreescritura
 @cindex text, propiedad, ejemplo
@@ -2725,27 +2741,22 @@ hacerlo así:
 @cindex AccidentalPlacement, ejemplo de sobreescritura
 @cindex right-padding, propiedad, ejemplo
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<b bes>
-<b! bes>
-<b? bes>
-@end lilypond
-
-Ninguno de ellos funciona y el segundo además presenta una fea
-colisión entre las dos alteraciones.
-
-Una forma de conseguirlo es sobreescribir el sello de la alteración
-con un elemento de marcado que contenga los símbolos de becuadro y
-bemol en el orden que nos gustaría que estuvieran, así:
 
 @lilypond[quote,ragged-right,verbatim]
-naturalplusflat = \markup { \natural \flat }
+sesquisharp = \markup { \sesquisharp }
 \relative c'' {
+  c
+  % This prints a sesquisharp but the spacing is too small
   \once \override Accidental
     #'stencil = #ly:text-interface::print
-  \once \override Accidental #'text = #naturalplusflat
-  \once \override Score.AccidentalPlacement #'right-padding = #1.5
-  <b bes>
+  \once \override Accidental #'text = #sesquisharp
+  cis c
+  % This improves the spacing
+  \once \override Score.AccidentalPlacement #'right-padding = #0.6
+  \once \override Accidental
+    #'stencil = #ly:text-interface::print
+  \once \override Accidental #'text = #sesquisharp
+  cis
 }
 @end lilypond
 
@@ -2754,8 +2765,8 @@ Esto utiliza necesariamente una sobreescritura para el sello de la
 alteración que no se estudiará hasta más adelante.  El tipo de sello
 debe ser un procedimiento, aquí modificado para que imprima el
 contenido de la propiedad @code{text} del objeto @code{Accidental},
-que a su vez está establecido como un signo de becuadro seguido de un
-bemol.  Entonces el conjunto se puede separar de la cabeza de la nota
+que a su vez está establecido como un signo de sesquisostenido.
+Entonces el signo se puede separar de la cabeza de la nota
 sobreescribiendo @code{right-padding}.
 
 @noindent
@@ -2955,9 +2966,6 @@ segunda voz.
 
 @subheading la propiedad force-hshift (forzar desplazamiento horizontal)
 
-@c FIXME: formatting stuff  (ie not important right now IMO)
-@c @a nchor Chopin finally corrected TODOgp
-
 Ahora podremos ver cómo aplicar las correcciones finales al ejemplo de
 Chopin que presentamos al final de @ref{Oigo voces}, que
 dejamos con este aspecto:
@@ -3029,7 +3037,9 @@ resultado, pero para evitar complicar demasiado el ejemplo hemos
 quitado las indicaciones dinámicas, las digitaciones y el pedal.
 
 @c The following should appear as music without code
-@lilypond[quote,ragged-right]
+@c This example should not be indexed
+@c line-width ensures no break
+@lilypond[quote,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2
   c4.\( g8 |
@@ -3041,7 +3051,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyDottedOn
   bes2.^\markup {\bold "Moderato"} r8
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     % Reposition the c2 to the right of the merged note
     {c,8~ \once \override NoteColumn #'force-hshift = #1.0
@@ -3091,7 +3101,8 @@ momento en que se necesiten.  Si ha olvidado cómo hacerlo, lea
 como dos variables y disponiendo la estructura de pentagramas en un
 bloque Score, y veremos qué produce LilyPond de forma predeterminada:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4. g8 |
   bes1~ |
@@ -3133,16 +3144,15 @@ lhMusic = \relative c' {
 @end lilypond
 
 Todas las notas son correctas, pero el aspecto está lejos de ser
-satisfactorio.  La ligadura de unión choca con el cambio de compás, el
-barrado del tercer compás es incorrecto, las notas no se funden
-correctamente, y faltan algunos elementos de notación.  En primer
-lugar trataremos con lo más fácil.  Podemos corregir el barrado de las
-corcheas insertando una barra manualmente, y podemos añadir fácilmente
-la ligadura de expresión de la mano izquierda y la ligadura de fraseo
-de la mano derecha, pues todo ello se estudió en el Tutorial.  Al
-hacerlo así obtenemos:
+satisfactorio.  La ligadura de unión choca con el cambio de compás,
+las notas no se funden correctamente, y faltan algunos elementos de
+notación.  En primer lugar trataremos con lo más fácil.  Podemos
+añadir fácilmente la ligadura de expresión de la mano izquierda y la
+ligadura de fraseo de la mano derecha, pues todo ello se estudió en el
+Tutorial.  Al hacerlo así obtenemos:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   bes1~ |
@@ -3150,7 +3160,7 @@ rhMusic = \relative c'' {
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     {c,8~ c2 | }
   \\
@@ -3206,7 +3216,8 @@ central:
 
 Con esto se completa el compás dos, dando como resultado:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   \once \override Tie #'staff-position = #3.5
@@ -3216,7 +3227,7 @@ rhMusic = \relative c'' {
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     {c,8~ c2 | }
   \\
@@ -3278,7 +3289,8 @@ al principio de la sección, y
 @noindent
 al final, dando como resultado:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   \once \override Tie #'staff-position = #3.5
@@ -3290,7 +3302,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     {c,8~ c2 | }
   \\
@@ -3344,7 +3356,8 @@ aplicar estos cambios obtenemos:
 @cindex Tie, ejemplo de sobreescritura
 @cindex staff-position, propiedad, ejemplo
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   \once \override Tie #'staff-position = #3.5
@@ -3356,7 +3369,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     % Move the c2 out of the main note column so the merge will work
     {c,8~ \shiftOnn c2 | }
@@ -3405,7 +3418,8 @@ final:
 @cindex Stem, ejemplo de sobreescritura
 @cindex transparent, propiedad, ejemplo
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2
   c4.\( g8 |
@@ -3417,7 +3431,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyHeadedOn
   \mergeDifferentlyDottedOn
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     % Reposition the c2 to the right of the merged note
     {c,8~ \once \override NoteColumn #'force-hshift = #1.0
@@ -3464,6 +3478,7 @@ lhMusic = \relative c' {
 @menu
 * Otras aplicaciones de los trucos::
 * Uso de variables para los trucos::
+* Hojas de estilo::
 * Otras fuentes de información::
 * Evitar los trucos con un proceso ralentizado::
 * Trucos avanzados con Scheme::
@@ -3689,6 +3704,268 @@ VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and p
 @end lilypond
 
 
+@node Hojas de estilo
+@subsection Hojas de estilo
+@translationof Style sheets
+
+La salida que produce LilyPond se puede modificar profundamente;
+consulte @ref{Trucar la salida} para leer detalles sobre este asunto.
+Pero ¿qué ocurre si tiene muchos archivos a los que les quiere aplicar
+sus propios trucos?  O ¿qué ocurre si, sencillamente, quiere separar
+los trucos de la propia música?  Todo esto es bastante fácil de
+conseguir.
+
+Veamos un ejemplo.  No se preocupe si no entiende
+las partes que tienen todos los @code{#()}.  Esto se explicará en
+@ref{Trucos avanzados con Scheme}.
+
+@lilypond[quote,verbatim,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+Existen varios problemas con la salida que se superpone; los
+arreglaremos utilizando las técnicas descritas en @ref{Mover objetos}.  Pero también haremos algo respecto a las definiciones
+@code{mpdolce} e @code{inst}.  Éstas producen la salida que deseamos,
+pero quizá las querríamos utilizar en otra pieza.  Podríamos
+simplemente copiarlas y pegarlas al principio de cada archivo, pero
+sería bastante molesto.  También hace que se queden las definiciones a
+la vista dentro de nuestros archivos de música, y yo personalmente
+encuentro todos los @code{#()} bastante poco estéticos.  Los vamos a
+esconder dentro de otro archivo:
+
+@example
+%%% guardar esto en un archivo de nombre "definiciones.ily"
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+@end example
+
+Haremos referencia a este archivo utilizando la instrucción
+@code{\include} al principio del archivo de música (la extensión
+@code{.ily} se utiliza para distinguir este archivo de inclusión --que
+se supone que no debe ser procesado de forma independiente-- del
+archivo principal).  Ahora modificaremos la música (guardemos este
+archivo como @file{"musica.ly"}).
+
+@c  We have to do this awkward example/lilypond-non-verbatim
+@c  because we can't do the \include stuff in the manual.
+
+@example
+\include "definiciones.ily"
+
+\relative c'' @{
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \inst "Clarinete"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+
+
+Eso tiene mejor aspecto, pero haremos algunos cambios más.  El glissando es difícil
+de ver, así que lo haremos más grueso y lo acercaremos a las cabezas de las notas.  Pondremos
+la indicación metronómica encima de la clave, en lugar de ir encima de la primera
+nota.  Y por último, mi profesor de composición odia las indicaciones de compás @q{C},
+así que la convertiremos en @q{4/4}.
+
+Sin embargo, no debemos cambiar el archivo @file{musica.ly}.
+Sustituyamos nuestro archivo @file{definiciones.ily} con éste:
+
+@example
+%%%  definiciones.ily
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\layout@{
+  \context @{ \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{ \Staff
+    \override TimeSignature #'style = #'numbered
+  @}
+  \context @{ \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\layout{
+  \context { \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context { \Staff
+    \override TimeSignature #'style = #'numbered
+  }
+  \context { \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+¡Eso tiene un aspecto mucho mejor!  Ahora suponga que quiere publicar esta
+pieza.  A mi profesor de composición no le gustan las indicaciones de compás @q{C},
+pero yo les tengo cierto cariño.  Copiaremos el archivo
+actual @file{definiciones.ily} a @file{publicar-web.ily} y modificaremos
+éste.  Como el propósito de esta música es producir un PDF que va a mostrarse
+en la pantalla, también vamos a aumentar el
+tamaño general de la salida.
+
+@example
+%%%  definiciones.ily
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+#(set-global-staff-size 23)
+\layout@{
+  \context @{ \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{ \Staff
+  @}
+  \context @{ \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+#(set-global-staff-size 23)
+\layout{
+  \context { \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context { \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+Ahora, en la música, simplemente sustituyo @code{\include
+"definiciones.ily"} por @code{\include "publicar-web.ily"}.  Por
+supuesto, podríamos hacer esto aún más práctico.  Podríamos hacer un
+archivo @file{definiciones.ily} que contuviera solamente las
+definiciones de @code{mpdolce} y de @code{inst}, un archivo
+@file{publicar-web.ily} que contuviera solamente la sección
+@code{\layout} que se mostró en el ejemplo, y un archivo
+@file{universidad.ily} que contendría solamente los trucos para
+producir la salida que le gusta a mi profesor.  El comienzo de
+@file{musica.ly} tendría entonces este aspecto:
+
+@example
+\include "definiciones.ily"
+
+%%%  ¡Quitar el comentario de una sola de estas líneas!
+\include "publicar-web.ily"
+%\include "universidad.ily"
+@end example
+
+Este enfoque puede ser útil incluso si va a producir sólo un conjunto
+de particellas.  Yo utilizo media docena de archivos de @q{hojas de
+estilo} para mis proyectos.  Comienzo todos los archivos de música con
+@code{\include "../global.ily"}, que contiene
+
+@example
+%%%   global.ily
+\version @w{"@version{}"}
+#(ly:set-option 'point-and-click #f)
+\include "../iniciar/iniciar-definiciones.ily"
+\include "../iniciar/iniciar-disposicion.ily"
+\include "../iniciar/iniciar-cabeceras.ily"
+\include "../iniciar/iniciar-papel.ily"
+@end example
+
+
 @node Otras fuentes de información
 @subsection Otras fuentes de información
 @translationof Other sources of information
@@ -3793,7 +4070,7 @@ explicación adicional sobre estos archivos se encuentra por el momento
 fuera del ámbito de este manual, porque se requieren conocimientos del
 lenguaje Scheme.  Se advierte a los usuarios que se necesita una
 importante cantidad de conocimientos técnicos o de tiempo para
-comprender el lenguaje Scheme y estos archivos (véase @ref{Tutorial de Scheme}).
+comprender el lenguaje Scheme y estos archivos (véase @rextend{Tutorial de Scheme}).
 
 Si ya tiene estos conocimientos, los archivos de Scheme que pueden
 interesarle son:
@@ -3846,6 +4123,13 @@ en línea con la música, de la forma siguiente:
 @}
 @end example
 
+Sin embargo, @code{keep-inside-line} es costoso en términos de
+computación y la recomendación es no activarlo, para permitir un
+procesado más rápido, hasta el momento de crear una versión
+definitiva.  De esta forma, no tiene que añadir instrucciones
+@code{\break} manualmente para evitar que el texto se salga por la
+parte derecha de la página.
+
 @node Trucos avanzados con Scheme
 @subsection Trucos avanzados con Scheme
 @translationof Advanced tweaks with Scheme
@@ -3858,7 +4142,7 @@ puede incorporar código escrito en el lenguaje de programación Scheme,
 directamente en el mecanismo de funcionamiento de LilyPond.  Por
 supuesto, para hacer esto se necesitan al menos unos conocimientos
 básicos de programación en Scheme, y damos una introducción en el
-@ref{Tutorial de Scheme}.
+@rextend{Tutorial de Scheme}.
 
 Como ejemplo que ilustra una de las muchas posibilidades, en lugar de
 dar a una propiedad un valor constante, se puede establecer al
@@ -3892,13 +4176,10 @@ notas un color que depende de su posición dentro del pentagrama.
 \relative c' {
   % Arrange to obtain color from color-notehead procedure
   \override NoteHead #'color = #color-notehead
-  c2 c' |
-  b4 g8 a b4 c |
-  c,2 a' |
-  g1 |
-}
-\addlyrics {
-  Some -- where o -- ver the Rain -- bow, way up high,
+  a2 b |
+  c2 d |
+  e2 f |
+  g2 a |
 }
 @end lilypond
 

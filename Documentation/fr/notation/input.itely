@@ -283,6 +283,7 @@ si vous imprimez une partition avec les deux sections balisées.
 * Contenu de la sortie MIDI::  
 * Répétitions et MIDI::             
 * Gestion des nuances en MIDI::   
+* MIDI et percussions::
 @end menu
 
 @node Création de fichiers MIDI
@@ -367,3 +368,11 @@ pourcentage.  Par exemple
 @unnumberedsubsubsec Amplitude du volume en MIDI
 @unnumberedsubsubsec Égalisation de plusieurs instruments (i)
 @unnumberedsubsubsec Égalisation de plusieurs instruments (ii)
+
+
+@node MIDI et percussions
+@subsection MIDI et percussions
+@translationof Percussion in MIDI
+
+@untranslated
+
