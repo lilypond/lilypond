@@ -44,7 +44,9 @@ for file in html_files:
 	else:
 		# it's a translation
 		lang = file_split[1]
-	langs_set.add(lang)
+	# make sure it's a real language
+	if (not (lang == "en")):
+		langs_set.add(lang)
 langs = list(langs_set)
 langs.sort()
 
@@ -81,10 +83,14 @@ for file in html_files:
 		lang = ''
 		# possibly necessary for automatic language selection
 		file_symlink =file.replace(".html", ".en.html")
-		os.symlink (file, file_symlink)
+		if (not (os.path.exists(file_symlink))):
+			os.symlink (file, file_symlink)
 	else:
 		# it's a translation
 		lang = file_split[1]
+	# it's a symlink
+	if (lang == "en"):
+		continue
 	out_filename += '.'+lang
 
 # I can't get the previous name to work
