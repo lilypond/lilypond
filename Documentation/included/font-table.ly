@@ -27,15 +27,18 @@
   ;;;;;;;;;
 
   ;; define these 3 groups first since they're
-  ;; harder to get with (get-groups ...)
+  ;; harder to get with (get-group ...)
   (define numbers
     '("plus" "comma" "hyphen" "period"
       "zero" "one"   "two"    "three"  "four"
       "five" "six"   "seven"  "eight"  "nine"))
 
   (define default-noteheads
-    '("noteheads.uM2" "noteheads.dM2" "noteheads.sM1"
-      "noteheads.s0"  "noteheads.s1"  "noteheads.s2"))
+    '("noteheads.uM2" "noteheads.dM2"
+      "noteheads.sM1" "noteheads.sM1double"
+      "noteheads.s0"
+      "noteheads.s1"
+      "noteheads.s2"))
 
   (define dynamics
     '("space" "f" "m" "p" "r" "s" "z"))
