@@ -365,10 +365,10 @@ If we give names, Bison complains.
 %type <outputdef> output_def_head
 %type <outputdef> output_def_head_with_mode_switch
 %type <outputdef> output_def
-%type <outputdef> paper_block 
+%type <outputdef> paper_block
 
 %type <scm> alternative_music
-%type <scm> generic_prefix_music_scm 
+%type <scm> generic_prefix_music_scm
 %type <scm> music_list
 %type <scm> absolute_pitch
 %type <scm> assignment_id
@@ -408,7 +408,7 @@ If we give names, Bison complains.
 %type <scm> lyric_markup
 %type <scm> markup
 %type <scm> markup_braced_list
-%type <scm> markup_braced_list_body 
+%type <scm> markup_braced_list_body
 %type <scm> markup_composed_list
 %type <scm> markup_command_list
 %type <scm> markup_head_1_item
@@ -445,7 +445,7 @@ If we give names, Bison complains.
 %type <scm> steno_pitch
 %type <scm> steno_tonic_pitch
 %type <scm> step_number
-%type <scm> step_numbers 
+%type <scm> step_numbers
 %type <scm> string
 
 %type <score> score_block
@@ -476,7 +476,7 @@ lilypond:	/* empty */
 
 
 object_id_setting:
-	OBJECTID STRING { $$ = $2; } 
+	OBJECTID STRING { $$ = $2; }
 	;
 
 toplevel_expression:
@@ -686,7 +686,7 @@ book_body:
 		$$->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (PARSER->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
 		$$->paper_->unprotect ();
 		push_paper (PARSER, $$->paper_);
-		$$->header_ = PARSER->lexer_->lookup_identifier ("$defaultheader"); 
+		$$->header_ = PARSER->lexer_->lookup_identifier ("$defaultheader");
 		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$->self_scm ());
 		PARSER->lexer_->set_identifier (ly_symbol2scm ("book-output-suffix"), SCM_BOOL_F);
 		PARSER->lexer_->set_identifier (ly_symbol2scm ("book-filename"), SCM_BOOL_F);
@@ -962,7 +962,7 @@ music_list:
 	}
 	| music_list error {
 		Music *m = MY_MAKE_MUSIC("Music", @$);
-		// ugh. code dup 
+		// ugh. code dup
 		m->set_property ("error-found", SCM_BOOL_T);
 		SCM s = $$;
  		SCM c = scm_cons (m->self_scm (), SCM_EOL);
@@ -1051,7 +1051,7 @@ grouped_music_list:
 	;
 
 function_scm_argument:
-	embedded_scm  
+	embedded_scm
 	| simple_string
 	;
 
@@ -1159,14 +1159,14 @@ prefix_composite_music:
 	| re_rhythmed_music	{ $$ = $1; }
 	;
 
-mode_changing_head: 
+mode_changing_head:
 	NOTEMODE {
 		SCM nn = PARSER->lexer_->lookup_identifier ("pitchnames");
 		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
 
 		$$ = ly_symbol2scm ("notes");
 	}
-	| DRUMMODE 
+	| DRUMMODE
 		{
 		SCM nn = PARSER->lexer_->lookup_identifier ("drumPitchNames");
 		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
@@ -1192,7 +1192,7 @@ mode_changing_head:
 	}
 	;
 
-mode_changing_head_with_context: 
+mode_changing_head_with_context:
 	DRUMS {
 		SCM nn = PARSER->lexer_->lookup_identifier ("drumPitchNames");
 		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
@@ -1278,7 +1278,7 @@ property_path_revved:
 property_path:
 	property_path_revved  {
 		$$ = scm_reverse_x ($1, SCM_EOL);
-	} 
+	}
 	;
 
 property_operation:
@@ -1535,7 +1535,7 @@ chord_body_element:
 		}
 		$$ = n->unprotect ();
 	}
-	| music_function_chord_body { 
+	| music_function_chord_body {
 		$$ = run_music_function (PARSER, $1);
 	}
 	;
@@ -1716,7 +1716,7 @@ direction_less_char:
 		$$ = ly_symbol2scm ("bracketOpenSymbol");
 	}
 	| ']'  {
-		$$ = ly_symbol2scm ("bracketCloseSymbol"); 
+		$$ = ly_symbol2scm ("bracketCloseSymbol");
 	}
 	| '~'  {
 		$$ = ly_symbol2scm ("tildeSymbol");
@@ -2374,8 +2374,8 @@ full_markup:
 	;
 
 markup_top:
-	markup_list { 
-		$$ = scm_list_2 (ly_lily_module_constant ("line-markup"),  $1); 
+	markup_list {
+		$$ = scm_list_2 (ly_lily_module_constant ("line-markup"),  $1);
 	}
 	| markup_head_1_list simple_markup	{
 		$$ = scm_car (scm_call_2 (ly_lily_module_constant ("map-markup-command-list"), $1, scm_list_1 ($2)));
