@@ -63,6 +63,24 @@ which scares away people.
 @end ignore
 
 @item
+Context modifications (@code{\with} blocks) can be stored in variables and
+inserted into contexts or other @code{\with} blocks:
+@lilypond[quote,verbatim]
+coloredheads = \with { \override NoteHead #'color = #red }
+noclef = \with { \remove "Clef_engraver" }
+\score {
+  \new Staff {
+    \new Voice \with { \coloredheads } \relative c' { c4 e g c }
+  }
+  \layout {
+    \context { \Staff
+      \noclef
+    }
+  }
+}
+@end lilypond
+
+@item
 A half-open articulation was added:
 @lilypond[quote,relative=2]
 c4\halfopen
