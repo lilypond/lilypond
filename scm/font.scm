@@ -148,17 +148,17 @@
 ;; Each size family is a vector of fonts, loaded with a delay.  The
 ;; vector should be sorted according to ascending design size.
 (define-public (add-music-fonts node name family design-size-alist factor)
-  "Setup music fonts.
+  "Set up music fonts.
 
 Arguments:
  NODE the font tree to modify.
  NAME is the basename for the music font. NAME-DESIGNSIZE.otf should be the music font,
   NAME-brace.otf should have piano braces.
  DESIGN-SIZE-ALIST is a list of (ROUNDED . DESIGN-SIZE).  ROUNDED is
-   as suffix for font filenames, while DESIGN-SIZE should be the actual
+   a suffix for font filenames, while DESIGN-SIZE should be the actual
    design size.  The latter is used for text fonts loaded through
    pango/fontconfig 
- FACTOR is size factor relative to default size that is being used.
+ FACTOR is a size factor relative to the default size that is being used.
   This is used to select the proper design size for the text fonts.
 "
   (for-each

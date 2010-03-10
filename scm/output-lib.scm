@@ -464,6 +464,7 @@ and duration-log @var{log}."
          (half-thickness 0.05) ; should it be a property?
          (width 0.5) ; should it be a property?
          (angularity 1.5)  ; makes angle brackets
+         (white-padding 0.1) ; should it be a property?
 	 (lp (ly:stencil-aligned-to
                  (ly:stencil-aligned-to
                    (make-parenthesis-stencil y-extent
@@ -472,6 +473,8 @@ and duration-log @var{log}."
                                              angularity)
                    Y CENTER)
                  X RIGHT))
+         (lp-x-extent
+           (interval-widen (ly:stencil-extent lp X) white-padding))
 	 (rp (ly:stencil-aligned-to
                  (ly:stencil-aligned-to
                    (make-parenthesis-stencil y-extent
@@ -479,8 +482,15 @@ and duration-log @var{log}."
                                              width
                                              angularity)
                    Y CENTER)
-                 X LEFT)))
-
+                 X LEFT))
+          (rp-x-extent
+            (interval-widen (ly:stencil-extent rp X) white-padding)))
+    (set! lp (ly:make-stencil (ly:stencil-expr lp)
+                              lp-x-extent
+                              (ly:stencil-extent lp Y)))
+    (set! rp (ly:make-stencil (ly:stencil-expr rp)
+                              rp-x-extent
+                              (ly:stencil-extent rp Y)))
     (list (stencil-whiteout lp)
           (stencil-whiteout rp))))
 
