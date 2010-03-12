@@ -522,7 +522,7 @@ converter.
 @newsItem
 @subsubheading lilypond.org日本語訳 (lilypond.org Japanese translation).  @emph{2008年4月8日 (April 4, 2008)}
 
-Lilypond.orgのいくつかのページの日本語訳が出来ました。
+lilypond.orgのいくつかのページの日本語訳が出来ました。
 @newsEnd
 
 
@@ -1576,7 +1576,7 @@ in-depth but hands-on feature article with crisp LilyPond
 graphics.
 @*
 Author Kris Shaffer remarks
-&ldquo;GNU Lilypond generates beautiful graphics that make commercial
+&ldquo;GNU LilyPond generates beautiful graphics that make commercial
 alternatives seem second-rate.&rdquo;
 This article is now available @uref{http://www.linuxjournal.com/article/8583,on-line}.
 @newsEnd
@@ -2186,10 +2186,10 @@ file and download @ref{Old downloads}!
 
 @newsItem
 @subsubheading February 26, 2005
-The @uref{http://lsr.dsi.unimi.it/,Lilypond Snippet
-Repository (LSR)} is a searchable database of Lilypond code
+The @uref{http://lsr.dsi.unimi.it/,LilyPond Snippet
+Repository (LSR)} is a searchable database of LilyPond code
 snippets.  You can add snippets too, so join the LSR project, and
-contribute creative ideas for using Lilypond.
+contribute creative ideas for using LilyPond.
 @newsEnd
 
 
@@ -2410,7 +2410,7 @@ the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/C
 
 @newsItem
 @subsubheading October 29, 2004
-2.3.25 is the final release candidate for Lilypond 2.4.
+2.3.25 is the final release candidate for LilyPond 2.4.
 Werner has been overhauling the TeX macros and
 lilypond-book. In addition, this release contains an
 important fix for raggedbottom page-layout.
@@ -2664,7 +2664,7 @@ the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lily
 
 @newsItem
 @subsubheading July 23, 2004
-Lilypond 2.3.8 fixes a few minor bugs in the new slur code,
+LilyPond 2.3.8 fixes a few minor bugs in the new slur code,
 and has rewritten support for ledger lines. Now, in tight
 situations, ledger lines will be shortened so they stay
 separate.  This also required a cleanup of the Ambitus
