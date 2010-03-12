@@ -1340,8 +1340,8 @@ Podemos verificar que esta función musical funciona correctamente:
 * Trucos con Scheme::
 @end menu
 
-@node Trucos con Scheme
-@c @section Trucos con Scheme
+@c @nod e Trucos con Scheme
+@c @sectio n Trucos con Scheme
 @translationof Tweaking with Scheme
 
 Hemos visto cómo la salida de LilyPond se puede modificar

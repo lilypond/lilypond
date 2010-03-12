@@ -1276,14 +1276,13 @@ We may verify that this music function works correctly,
 
 
 
-
 @ignore
 @menu
 * Tweaking with Scheme::
 @end menu
 
-@c @node Tweaking with Scheme
-@c @section Tweaking with Scheme
+@c @nod e Tweaking with Scheme
+@c @sectio n Tweaking with Scheme
 
 We have seen how LilyPond output can be heavily modified using
 commands like
