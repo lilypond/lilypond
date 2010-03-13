@@ -1,162 +1,558 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
-@c This file is part of manuals.itexi
+@c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
     Translation of GIT committish: ffd8edadef992d85d26e9bdc54dad6cf1ba06674
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
 @end ignore
-
 
 @node Handleidingen
 @unnumbered Handleidingen
 @translationof Manuals
 
-@untranslated
+@macro details{reference}
+@spanClass{detail}
+(@ref{\reference\, meer over \reference\})
+@spanEnd
+@end macro
 
 
-@subheading Introduction
-@subheading Regular use
-@subheading Infrequent Use
-@subheading Other material
+@divClass{heading-center}
+@ifclear web_version
+  @heading Handleidingen voor LilyPond @version
+@end ifclear
+@ifset web_version
+  @heading Handleidingen voor LilyPond @versionStable
+@end ifset
+
+@divEnd
+
+@c TODO: do we want these links to be in larger text / bold ?   CSS.
+
+@divClass{column-center-top}
+@subheading Inleiding
+
+@itemize
+
+@item @ref{Tekst invoer}:
+LilyPond is een @strong{tekst-gebaseerd} muzieknotatie programma.  Lees
+dit eerst!
+
+@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Beginselen}}
+een vriendelijke @qq{zeker lezen!} inleiding in LilyPond.
+@details{Beginselen}
+
+@item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Terminologie}}
+@emph{(optioneel leesvoer)}
+muzikale termen en vertalingen.
+@details{Terminologie}
+
+@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
+@emph{(optioneel leesvoer)}
+achtergrond informatie over met de computer berekende notatie.
+@details{Essay}
+
+
+@end itemize
+
+@divEnd
+
+@divClass{column-left-top}
+@subheading Regelmatig gebruik
+
+@itemize
+
+@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notatie}}
+syntax handleiding.
+@details{Notatie}
+
+@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Gebruik}}
+het draaien van alle programma's.
+@details{Gebruik}
+
+@item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippers}}
+korte truuks en tips.
+@details{Snippers}
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Af en toe-gebruik
+
+@itemize
+
+@item @ref{FAQ}:
+Veel gestelde vragen.
+
+@item @ref{Top, Web}:
+dit document.
+@details{Web}
+
+@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Veranderingen}}
+wat is nieuw?
+@details{Veranderingen}
+
+@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Uitbreidingen}}
+specialistische verfijningen (tweaks).
+@details{Uitbreidingen}
+
+@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Inwendige}}
+tweaks handleiding.
+@details{Inwendige}
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Ander materiaal
+
+@itemize
+
+@item @ref{Vertaald}:
+status van de vertaling voor niet-Engelstaligen.
+
+@item @ref{Alles}:
+handleidingen voor download, oude handleidingen.
+
+@item @ref{Ontwikkeling}:
+handleidingen voor de ontwikkel versie.
+
+@item @ref{FDL}:
+deze handleidingen zijn uitgegeven onder de GNU Free Documentation
+License (GNU Vrije Documentatie Licentie).
+
+@end itemize
+
+@divEnd
+
+
+@divClass{hide}
 @menu
-* Learning::
-* Glossary::
-* Essay::
-* Notation::
-* Usage::
-* Snippets::
-* FAQ::
-* Web::
-* Changes::
-* Extending::
-* Internals::
-* Translated::
-* All::
-* FDL::
+* Beginselen::             Beginselen.
+* Terminologie::              Terminologie.
+* Essay::                       Essay.
+* Notatie::          Notatie.
+* Gebruik::           Gebruik.
+* Snippers::                Snippers.
+* FAQ::                         FAQ.
+* Web::                      Web.
+* Veranderingen::                     Veranderingen.
+* Uitbreidingen::         Uitbreidingen.
+* Inwendige::         Inwendige.
+* Vertaald::          Vertaald.
+* Alles::                 Alles.
+* FDL::                     FDL.
 @end menu
 
-@node Learning
-@unnumberedsec Learning
+@divEnd
+
+
+@c TRANSLATORS, most of the text in this file came from
+@c LM 1.1 About the documentation  (before this section was
+@c removed in July 2009).
+
+@node Beginselen
+@unnumberedsec Beginselen
 @translationof Learning
 
-@untranslated
+@divClass{column-left-top}
+@subheading Beginners handleiding
+
+Dit boek bespreekt de beginselen van het leren van LilyPond, en legt in
+eenvoudige taal enkele belangrijke concepten uit.  Deze hoofdstukken
+kun je achterelkaar doorlezen.
+
+Er is een alinea @strong{Zie ook} aan het eind van elke stukje dat
+kruis-referenties bevat naar andere stukjes: deze kruis-referenties kun
+je bij de eerste keer lezen beter niet volgen.  Als je de gehele
+beginners handleiding een keer hebt gelezen, wil je wellicht bepaalde
+stukjes herlezen en deze kruis-referenties wel volgen voor meer
+informatie.
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Beginselen, learning,
+  @rlearningnamed{Top,Learning},
+  @manualStableLearningSplit,
+  @manualStableLearningBig, 1.5 MB,
+  @manualStableLearningPdf, 3 MB}
+
+@divEnd
 
 
-@subheading Learning manual
-@node Glossary
-@unnumberedsec Glossary
+@node Terminologie
+@unnumberedsec Terminologie
 @translationof Glossary
 
-@untranslated
+@divClass{column-left-top}
+@subheading Terminologie
+
+Dit verklaart muzikale termen en bevat vertalingen in verschillende
+talen.  Als je niet zo bekend bent met muzieknotatie of muzikologische
+termen (en vooral als Engels niet je moedertaal is), is het aan te
+raden deze termijnlijst te raadplegen.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Terminologie, music-glossary,
+  @rglosnamed{Top,Music glossary},
+  @manualStableGlossarySplit,
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
+
+@divEnd
 
 
-@subheading Glossary
 @node Essay
 @unnumberedsec Essay
-@translationof Essay
 
-@untranslated
-
-
+@divClass{column-left-top}
 @subheading Essay
-@node Notation
-@unnumberedsec Notation
+
+Dit boek geeft een kort overzicht van de geschiedenis van de
+muziektypografie, gevolgd door een beschouwing van LilyPonds graveer
+technieken.  Ook wordt een vergelijking tussen LilyPond en andere
+muzieknotatie systemen gegeven.
+
+@warning{de gedetailleerde typografische voorbeelden zijn beter
+te analyseren in de PDF versie vanwege de veel hogere resolutie.}
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Essay, essay,
+  @ressaynamed{Top,Essay},
+  @manualStableEssaySplit,
+  @manualStableEssayBig, 2 MB,
+  @manualStableEssayPdf, 2.5 MB}
+
+@divEnd
+
+
+@node Notatie
+@unnumberedsec Notatie
 @translationof Notation
 
-@untranslated
+@divClass{column-left-top}
+@subheading Notatie handleiding
+
+Dit boek verklaart alle LilyPond commando's die notatie produceren.
+
+@warning{de Notatie handleiding veronderstelt dat de lezer bekend
+is met het basis materiaal dat besproken is in de Beginners handleiding
+en met de engelse termen uit de terminologie.}
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Notatie handleiding, notation,
+  @rusernamed{Top,Notation},
+  @manualStableNotationSplit,
+  @manualStableNotationBig, 7 MB,
+  @manualStableNotationPdf, 18 MB}
+
+@divEnd
 
 
-@subheading Notation reference
-@node Usage
-@unnumberedsec Usage
+@node Gebruik
+@unnumberedsec Gebruik
 @translationof Usage
 
-@untranslated
+@divClass{column-left-top}
+@subheading Gebruiks handleiding
+
+Dit boek laat zien hoe de programma's uit te voeren, hoe LilyPond
+notatie te combineren en integreren met andere programma's, en geeft
+@qq{beproefde technieken} voor efficiënt gebruik.  Dit is van aanbevolen
+lectuur als je een groot project wil beginnen.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Gebruik, usage,
+  @rprogramnamed{Top,Usage},
+  @manualStableUsageSplit,
+  @manualStableUsageBig, 300 KB,
+  @manualStableUsagePdf, 400 KB}
+
+@divEnd
 
 
-@subheading Usage manual
-@node Snippets
-@unnumberedsec Snippets
+@node Snippers
+@unnumberedsec Snippers
 @translationof Snippets
 
-@untranslated
+@divClass{column-left-top}
+@subheading Snippers
+
+Dit toont een geselecteerde set LilyPond snippers uit de
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR).  Al deze snippers zijn public domain.
+
+Let op dat dit document geen exacte subset is van de LSR.  LSR draait
+een stabiele versie van LilyPond, dus elke snipper die nieuwe
+functies demonstreert van een ontwikkelversie moet apart worden toegevoeg.  Deze
+worden opgeslagen in @file{Documentation/snippets/new/} in de LilyPond source
+tree.
+
+De lijst met snippers voor elke subsectie van de Notatie zijn ook
+gekoppeld vanuit het @strong{Zie ook} gedeelte.
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Snippers, snippets,
+  @rlsrnamed{Top,Snippets},
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 2.5 MB,
+  @manualStableSnippetsPdf, 8 MB}
+
+@divEnd
 
 
-@subheading Snippets
 @node FAQ
 @unnumberedsec FAQ
-@translationof FAQ
 
-@untranslated
+@divClass{column-center-top}
+@subheading Inleidende vragen
+
+@subsubheading Waar zijn het grafische notenwerkblad, de menu's en de werbalken?
+
+LilyPond vereist dat je muziek schrijft als tekst.  Lees alsjeblieft
+over onze @ref{Tekst invoer}.
 
 
-@subheading Introductory questions
-@subsubheading Where are the graphical canvas, menus, and toolbars?
-@subsubheading There's a lot of documentation!  Do I need to read it?
-@subsubheading That's still a lot of reading!  Is it worth it?
-@subheading Usage questions
-@subsubheading Something isn't working!  How do I fix it?
-@subsubheading Why do you change the syntax?
+@subsubheading Er is zo veel documentatie!  Moet ik dat allemaal lezen?
+
+Je moet de @ref{Beginselen, Beginners handleiding} lezen.  Wat betreft de
+rest van de documentatie, dat is een naslagwerk: je leest alleen die
+onderdelen die gaan over het specifiek soort notatie dat jij wil maken.
+
+
+@subsubheading Maar dat is nog steeds heel veel lezen!  Is het dat wel waard?
+
+Oordeel zelf; redenen waarom je LilyPond zou willen gebruiken worden
+besproken in de @ref{Inleiding}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Gebruikers vragen
+
+@subsubheading Iets werkt er niet!  Hoe repareer ik het?
+
+Dit wordt uitgelegd in @rprogram{Troubleshooting}.
+
+
+@subsubheading Waarom veranderen jullie de syntax?
+
+Dit wordt uitgelegd in @rprogram{Why does the syntax change?}.
+
+@divEnd
+
+
 @node Web
 @unnumberedsec Web
-@translationof Web
 
-@untranslated
-
-
+@divClass{column-left-top}
 @subheading Web
-@subheading Read it
-@subsubheading Lastest manual
-@subsubheading Web manual in @versionDevel
-@node Changes
-@unnumberedsec Changes
+
+Deze handleiding levert algemene informatie over LilyPond.  Het bevat
+ook informatie over verschillende gebruikersgroepen en fora,
+het sturen van foutrapporten (bug reports) en ontwikkeling.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Lees het
+
+@subsubheading Meest recente handleiding
+
+@divClass{keep-bullets}
+@itemize
+@ref{Top,Web}
+@end itemize
+@divEnd
+
+@subsubheading Web handleiding in @versionDevel
+
+@docLinksBare{Web, web,
+  @ref{Top,Web},
+  @manualDevelWebSplit,
+  @manualDevelWebBig, 1 MB,
+  @manualDevelWebPdf, 2 MB}
+
+@divEnd
+
+
+@node Veranderingen
+@unnumberedsec Veranderingen
 @translationof Changes
 
-@untranslated
+@divClass{column-left-top}
+@subheading Veranderingen
 
 
-@subheading Changes
-@node Extending
-@unnumberedsec Extending
+Dit is een opsomming van de belangrijkste veranderingen en nieuwe
+functies in LilyPond sinds de vorige stabiele versie.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Veranderingen, changes,
+  @rchangesnamed{Top,Changes},
+  @manualStableChangesSplit,
+  @manualStableChangesBig, 6 KB,
+  @manualStableChangesPdf, 200 KB}
+
+@divEnd
+
+
+@node Uitbreidingen
+@unnumberedsec Uitbreidingen
 @translationof Extending
 
-@untranslated
+@divClass{column-left-top}
+@subheading LilyPond Uitbreiden
+
+Deze handleiding laat zie hoe je uitbreidingen maakt voor LilyPond.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Uitbreidingen, extending,
+  @rextendnamed{Top,Extending},
+  @manualStableExtendingSplit,
+  @manualStableExtendingBig, 200 KB,
+  @manualStableExtendingPdf, 400 KB}
+
+@divEnd
 
 
-@subheading Extending LilyPond
-@node Internals
-@unnumberedsec Internals
+@node Inwendige
+@unnumberedsec Inwendige
 @translationof Internals
 
-@untranslated
+@divClass{column-left-top}
+@subheading Inwendige handleiding
+
+Dit is een set van zwaar kruis-gekoppelde pagina's die de kleinste
+details van werkelijk elke klasse, object en functie in LilyPond
+documenteren.  Het wordt direct vanuit de layout definities in de
+broncode gegenereerd.
+
+Bijna alle layout functionaliteit die intern wordt gebruikt, is ook
+direct beschikbaar voor de gebruiker.  Bijvoorbeeld, de meeste
+variabelen die diktes, afstanden enz. bepalen kunnen in het invoer
+bestand worden veranderd.  Er is een ernorm aantal layout opties en al
+deze staan beschreven in dit document.  Elk onderdeel van de Notatie
+Handleiding heeft een @b{Zie ook} sub-onderdeel, die refereert aan
+deze gegenereerde documentatie.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Inwendige, internals,
+  @rinternalsnamed{Top,Internals},
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
+
+@divEnd
 
 
-@subheading Internals reference
-@node Translated
-@unnumberedsec Translated
+@node Vertaald
+@unnumberedsec Vertaald
 @translationof Translated
 
-@untranslated
-
-
+@divClass{column-center-bottom}
 @subheading Translations status
-@node All
-@unnumberedsec All
+
+TODO: fix and generate in Texinfo.
+@c http://code.google.com/p/lilypond/issues/detail?id=857
+
+@divEnd
+
+
+@node Alles
+@unnumberedsec Alles
 @translationof All
 
-@untranslated
+@divClass{column-left-top}
+@subheading Te downloaden versies
 
+@ifclear web_version
+Downloadable tarballs only available at @uref{http://lilypond.org}
+@end ifclear
+@ifset web_version
 
-@subheading Downloadable versions
+@divClass{keep-bullets}
+@itemize
+
+@item @doctarballStable
+
+@end itemize
+
+@divEnd
+@end ifset
+
+@divEnd
+
+@divClass{column-right-bottom}
 @subheading Previous stable versions
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+LilyPond 2.12 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+LilyPond 2.10 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+LilyPond 2.8 Documentation}
+
+@help anybody want to write this stuff?
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
 @node FDL
 @unnumberedsec FDL
-@translationof FDL
 
-@untranslated
-
-
+@divClass{column-center-top}
 @subheading Documentation license
+
+De documentatie voor GNU LilyPond is uitgegeven onder de GNU Free
+Documentation License.  Een inleiding in deze licentie, en onze
+redenen om hiervoor te kiezen, wordt gegeven in @ref{Freedom}.
+
+@divEnd
+
+@divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
+
 @include fdl.itexi
+
+@divEnd
+
+

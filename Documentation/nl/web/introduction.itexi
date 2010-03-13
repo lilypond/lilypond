@@ -356,7 +356,7 @@ word onderhouden door een groep enthousiaste aanhangers.
 Het word uitgebracht onder de @ref{GPL, GNU General Public
 License} (GNU Algemene Publieke Licentie) en de @ref{FDL,
 GNU Free Documentation License} (GNU Vrije Documentatie
-Licentie}, hetgeen iedereen de vrijheid geeft het programma
+Licentie), hetgeen iedereen de vrijheid geeft het programma
 te repareren, veranderen en uit te breiden.  Het maken van
 prachtige muziek zou geen honderden euros aan software
 moeten kosten!
@@ -757,7 +757,7 @@ in een veel geleidelijker tempo.}
 Noten worden gecodeerd met letters en nummers. Speciale
 commando's worden ingevoerd met een backslash.
 
-@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-annotate-nl,png,center}
 @imageFloat{text-input-1-output,png,center}
 
 Alteraties worden gevormd met verschillende benamingen: voeg
@@ -765,7 +765,7 @@ Alteraties worden gevormd met verschillende benamingen: voeg
 LilyPond bepaalt zelf waar de toevallige tekens geplaatst
 worden.
 
-@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-annotate-nl,png,center}
 @imageFloat{text-input-2-output,png,center}
 
 @subsubheading Popmuziek
@@ -773,7 +773,7 @@ worden.
 Combineer akkoorden en songteksten om zogenaamde leadsheets
 te maken:
 
-@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-annotate-nl,png,center}
 @imageFloat{text-input-pop-output,png,center}
 
 @subsubheading Orkestpartijen
@@ -786,12 +786,13 @@ up-to-date zijn.  Om dezelfde muziek op verschillende
 plaatsen te kunnen invoegen, begin met de noten aan een
 @qq{variable} (een naam) toe te kennen.
 
-@imageFloat{text-input-parts-both-annotate,png,center}
+@imageFloat{text-input-parts-both-annotate-nl,png,center}
+@imageFloat{text-input-parts-both-output,png,center}
 
 Deze variabele wordt vervolgens in één partij gebruikt (hier
 getransponeerd en met samengevoegde rusten):
 
-@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-annotate-nl,png,center}
 @imageFloat{text-input-score-output,png,center}
 
 @subsubheading Beginners Documentatie
@@ -799,15 +800,14 @@ getransponeerd en met samengevoegde rusten):
 We realiseren ons dat veel gebruikers deze manier van muziek
 invoeren een beetje vreemd vinden.  Daarom hebben we
 uitgebreide documentatie geschreven om nieuwe gebruikers op
-weg te helpen, te beginnen met @ref{Learning}.  Het beste
-kun je beginnen met deze Learning Manual (verkorte
-handleiding) omdat het veel beantwoordt nog voordat ze
-opkomen.
+weg te helpen, te beginnen met @ref{Beginselen}.  Het beste
+kun je beginnen met deze Beginselen Handleiding omdat het
+veel beantwoordt nog voordat ze opkomen.
 
-Lees alsjeblieft de Learning Manual alvorens je te beklagen
-over fouten!  Nieuwe gebruikers geloven soms dat LilyPond
-niet goed werkt, terwijl het in feite precies werkt als
-ontworpen.
+Lees alsjeblieft de Beginselen Handleiding alvorens je te
+beklagen over fouten!  Nieuwe gebruikers geloven soms dat
+LilyPond niet goed werkt, terwijl het in feite precies werkt
+als ontworpen.
 
 Meer diepgaande informatie is beschikbaar in
 @ref{Handleidingen}.
@@ -856,15 +856,15 @@ Lees over @ref{Eenvoudiger bewerken}.
 Denemo is een grafische bewerker die LilyPond broncode
 genereert, op versie 2.8.7, en ook audio afspeelt.  Het kan
 de gebruiker de LilyPond broncode laten zien parallel aan
-het grafische beeld.  Extra LilyPond verfijningen kunnen
-aan noten, akkorden enz. worden gekoppeld en worden
-opgeslagen in het Denemo bestand, zodat gebruikers
-toch grafisch verder kunnen bewerken.
+het grafische beeld.  Extra LilyPond verfijningen (tweaks)
+kunnen aan noten, akkorden enz. worden gekoppeld en worden
+opgeslagen in het Denemo bestand, zodat gebruikers toch
+grafisch verder kunnen bewerken.
 
 Het verplaatsen van de aanwijzer in de LilyPond tekst
 verplaatst ook de aanwijzer in het grafische beeld, en
-syntax fouten in LilyPond verfijningen worden gehighlight
-in het tekst venster.
+syntax fouten in LilyPond verfijningen (tweaks) worden
+gehighlight in het tekst venster.
 
 @divEnd
 
