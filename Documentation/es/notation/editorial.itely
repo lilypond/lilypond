@@ -274,9 +274,9 @@ Manual de aprendizaje:
 @rlearning{Visibilidad y color de los objetos}.
 
 Notation Reference:
-@ref{Invisible rests},
-@ref{Visibility of objects},
-@ref{Hiding staves}.
+@ref{Silencios invisibles},
+@ref{Visibilidad de los objetos},
+@ref{Ocultar pentagramas}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.

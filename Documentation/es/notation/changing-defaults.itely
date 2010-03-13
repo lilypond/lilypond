@@ -1914,17 +1914,17 @@ f'
 
 El flujo musical que se genera a partir de una sección de un archivo
 de entrada (incluido cualquier elemento insertado automáticamente)
-puede examinarse, véase @ref{Displaying music expressions}.  Esto
-puede ser de utilidad en la determinación de lo que puede modificarse
-por medio de una instrucción @code{\tweak}.
+puede examinarse, véase @rextend{Presentación de las expresiones
+musicales}.  Esto puede ser de utilidad en la determinación de lo que
+puede modificarse por medio de una instrucción @code{\tweak}.
 
 
 @seealso
 Manual de aprendizaje:
 @rlearning{Métodos de trucaje}.
 
-Referencia de la notación:
-@ref{Presentación de expresiones musicales}.
+Manual de extensión:
+@rextend{Presentación de las expresiones musicales}.
 
 
 @knownissues

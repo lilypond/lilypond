@@ -579,8 +579,8 @@ para música de Jazz, propuesto por Klaus Ignatzek (véase @ressay{Lista
 bibliográfica}).  También funcionan otros dos esquemas de nomenclatura
 de acordes: una notación de acordes de Jazz alternativa y un esquema
 sistemático llamado Acordes de Banter.  La notación de Jazz
-alternativa también se puede ver en el cuadro @ref{Carta de nombres de
-acordes}.
+alternativa también se puede ver en el cuadro @ref{Cuadro de nombres
+de acordes}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
 @c  Make short example in docs, then move longer example to
@@ -700,7 +700,7 @@ acorde está alterado.
 
 @seealso
 Referencia de la notación:
-@ref{Carta de nombres de acordes},
+@ref{Cuadro de nombres de acordes},
 @ref{Modificadores de acorde más usuales}.
 
 Archivos instalados:
