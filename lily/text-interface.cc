@@ -75,10 +75,8 @@ Text_interface::interpret_string (SCM layout_smob,
 				     SCM_BOOL_F);
   SCM music_encodings = ly_lily_module_constant ("all-music-font-encodings");
 
-  if (scm_memq (encoding, music_encodings) != SCM_BOOL_F)
-    return fm->text_stencil (str, true).smobbed_copy ();
-  else
-    return fm->text_stencil (str, false).smobbed_copy ();
+  bool is_music = (scm_memq (encoding, music_encodings) != SCM_BOOL_F);
+  return fm->text_stencil (layout, str, is_music).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup, 3, 0,

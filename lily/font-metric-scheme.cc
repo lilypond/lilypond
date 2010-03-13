@@ -119,25 +119,6 @@ LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
   return scm_from_unsigned_integer (fm->index_to_charcode (fm->name_to_index (ly_scm2string (name))));
 }
 
-LY_DEFINE (ly_text_dimension, "ly:text-dimension",
-	   2, 0, 0,
-	   (SCM font, SCM text),
-	   "Given the font metric in @var{font} and the string @var{text},"
-	   " compute the extents of that text in that font.  The return"
-	   " value is a pair of number-pairs.")
-{
-  Box b;
-  Modified_font_metric *fm = dynamic_cast<Modified_font_metric *>
-    (unsmob_metrics (font));
-
-  LY_ASSERT_SMOB (Font_metric, font, 1);
-  LY_ASSERT_TYPE (scm_is_string, text, 2);
-  Stencil stc (fm->text_stencil (ly_scm2string (text), false));
-  return scm_cons (ly_interval2scm (stc.extent (X_AXIS)),
-		   ly_interval2scm (stc.extent (Y_AXIS)));
-}
-
-
 /*
   TODO: when are non string retvals allowed?
  */

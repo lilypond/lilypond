@@ -39,7 +39,10 @@ public:
   SCM description_;
   string file_name_;
 
-  virtual Stencil text_stencil (string, bool) const;
+  // Return stencil for given string. output_state may be modified to
+  // record the font.
+  virtual Stencil text_stencil (Output_def* output_state,
+                                string text, bool music) const;
 
   // ugh.
   virtual Box text_dimension (string) const;

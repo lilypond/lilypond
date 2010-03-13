@@ -189,8 +189,11 @@ Font_metric::sub_fonts () const
 }
 
 Stencil
-Font_metric::text_stencil (string, bool) const
+Font_metric::text_stencil (Output_def* state,
+                           string, bool) const
 {
+  (void) state;
+  
   programming_error ("Cannot get a text stencil from this font");
   return Stencil (Box (), SCM_EOL);
 }

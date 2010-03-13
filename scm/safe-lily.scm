@@ -139,7 +139,6 @@
    ly:stencil-translate
    ly:stencil-translate-axis
    ly:stencil?
-   ly:text-dimension
    ly:translator-description
    ly:translator-name
    ly:translator?
