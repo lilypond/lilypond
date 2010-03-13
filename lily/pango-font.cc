@@ -301,12 +301,6 @@ Pango_font::physical_font_tab () const
 }
 
 Stencil
-Pango_font::word_stencil (string str, bool music_string) const
-{
-  return text_stencil (str, music_string, true);
-}
-
-Stencil
 Pango_font::text_stencil (string str, bool music_string) const
 {
   return text_stencil (str, music_string, false);

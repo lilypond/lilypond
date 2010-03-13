@@ -40,7 +40,6 @@ public:
   string file_name_;
 
   virtual Stencil text_stencil (string, bool) const;
-  virtual Stencil word_stencil (string, bool) const;
 
   // ugh.
   virtual Box text_dimension (string) const;
