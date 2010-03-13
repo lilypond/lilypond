@@ -748,7 +748,7 @@ PDF 1095k})
 
 @item
 Erik Sandberg, @emph{Separating input language and formatter in
-GNU Lilypond}. Master's Thesis, Uppsala University, Department of
+GNU LilyPond}. Master's Thesis, Uppsala University, Department of
 Information Technology March 2006.
 (@uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf,
 PDF 750k})
@@ -807,7 +807,7 @@ December 2005
 titled @uref{http://www.linuxjournal.com/article/8364, Make
 Stunning Schenker Graphs with GNU LilyPond}.  It is an in-depth
 but hands-on feature article with crisp LilyPond graphics.  Author
-Kris Shaffer remarks @qq{GNU Lilypond generates beautiful graphics
+Kris Shaffer remarks @qq{GNU LilyPond generates beautiful graphics
 that make commercial alternatives seem second-rate.}
 
 @item
