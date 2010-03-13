@@ -414,7 +414,7 @@ translations should be in macros.itexi.
     <img src="ly-examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
   </a>
   <p style="text-align: center">
-    (Klick zum Vergrößern)
+    (Klik om te vergroten)
   </p>
 </div>
 @end html
