@@ -39,9 +39,9 @@
 LilyPond is een @strong{tekst-gebaseerd} muzieknotatie programma.  Lees
 dit eerst!
 
-@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Beginselen}}
+@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Beginner}}
 een vriendelijke @qq{zeker lezen!} inleiding in LilyPond.
-@details{Beginselen}
+@details{Beginner}
 
 @item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Terminologie}}
 @emph{(optioneel leesvoer)}
@@ -134,7 +134,7 @@ License (GNU Vrije Documentatie Licentie).
 
 @divClass{hide}
 @menu
-* Beginselen::             Beginselen.
+* Beginner::             Beginner.
 * Terminologie::              Terminologie.
 * Essay::                       Essay.
 * Notatie::          Notatie.
@@ -157,28 +157,28 @@ License (GNU Vrije Documentatie Licentie).
 @c LM 1.1 About the documentation  (before this section was
 @c removed in July 2009).
 
-@node Beginselen
-@unnumberedsec Beginselen
+@node Beginner
+@unnumberedsec Beginner
 @translationof Learning
 
 @divClass{column-left-top}
-@subheading Beginners handleiding
+@subheading Beginnershandleiding
 
-Dit boek bespreekt de beginselen van het leren van LilyPond, en legt in
-eenvoudige taal enkele belangrijke concepten uit.  Deze hoofdstukken
-kun je achterelkaar doorlezen.
+Dit boek bespreekt het beginnen leren van LilyPond, en legt in
+eenvoudige taal enkele belangrijke concepten uit.  Deze hoofdstukken kun
+je achterelkaar doorlezen.
 
 Er is een alinea @strong{Zie ook} aan het eind van elke stukje dat
 kruis-referenties bevat naar andere stukjes: deze kruis-referenties kun
 je bij de eerste keer lezen beter niet volgen.  Als je de gehele
-beginners handleiding een keer hebt gelezen, wil je wellicht bepaalde
+beginnershandleiding een keer hebt gelezen, wil je wellicht bepaalde
 stukjes herlezen en deze kruis-referenties wel volgen voor meer
 informatie.
 @divEnd
 
 @divClass{column-right-bottom}
 
-@docLinks{Beginselen, learning,
+@docLinks{Beginner, learning,
   @rlearningnamed{Top,Learning},
   @manualStableLearningSplit,
   @manualStableLearningBig, 1.5 MB,
@@ -249,7 +249,7 @@ te analyseren in de PDF versie vanwege de veel hogere resolutie.}
 Dit boek verklaart alle LilyPond commando's die notatie produceren.
 
 @warning{de Notatie handleiding veronderstelt dat de lezer bekend
-is met het basis materiaal dat besproken is in de Beginners handleiding
+is met het basis materiaal dat besproken is in de Beginnershandleiding
 en met de engelse termen uit de terminologie.}
 
 @divEnd
@@ -336,7 +336,7 @@ over onze @ref{Tekst invoer}.
 
 @subsubheading Er is zo veel documentatie!  Moet ik dat allemaal lezen?
 
-Je moet de @ref{Beginselen, Beginners handleiding} lezen.  Wat betreft de
+Je moet de @ref{Beginner, Beginnershandleiding} lezen.  Wat betreft de
 rest van de documentatie, dat is een naslagwerk: je leest alleen die
 onderdelen die gaan over het specifiek soort notatie dat jij wil maken.
 

@@ -157,12 +157,12 @@ translations should be in macros.itexi.
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,learning-big-page,Beginners handleiding}
+@ref{\TEXT\,,,learning-big-page,Beginnen}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,learning-big-page,Beginners handleiding}
+@ref{\TEXT\,,\DISPLAY\,learning-big-page,Beginnen}
 @end macro
 
 @macro ruser{TEXT}
@@ -276,12 +276,12 @@ translations should be in macros.itexi.
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,learning,Beginners handleiding}
+@ref{\TEXT\,,,learning,Beginnershandleiding}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,learning,Beginners handleiding}
+@ref{\TEXT\,,,learning,Beginnershandleiding}
 @end macro
 
 @macro ruser{TEXT}
@@ -390,12 +390,12 @@ translations should be in macros.itexi.
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning,Beginners handleiding}
+@ref{\TEXT\,,,lilypond-learning,Beginnershandleiding}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-learning,Beginners handleiding}
+@ref{\TEXT\,,\DISPLAY\,lilypond-learning,Beginnershandleiding}
 @end macro
 
 @macro ruser{TEXT}
@@ -520,12 +520,12 @@ translations should be in macros.itexi.
 
 @macro rlearning{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,learning.nl,Beginners handleiding}
+@ref{\TEXT\,,,learning.nl,Beginnershandleiding}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,learning.nl,Beginners handleiding}
+@ref{\TEXT\,,\DISPLAY\,learning.nl,Beginnershandleiding}
 @end macro
 
 @macro ruser{TEXT}
