@@ -35,7 +35,7 @@
 
 @itemize
 
-@item @ref{Tekst invoer}:
+@item @ref{Tekstinvoer}:
 LilyPond is een @strong{tekstgebaseerd} muzieknotatieprogramma.  Lees
 dit eerst!
 
@@ -329,7 +329,7 @@ gekoppeld vanuit het @strong{Zie ook} gedeelte.
 @subsubheading Waar zijn het grafische notenwerkblad, de menu's en de werkbalken?
 
 In LilyPond schrijf je muziek door het invoeren van tekst.  Lees alsjeblieft
-over onze @ref{Tekst invoer}.
+over onze @ref{Tekstinvoer}.
 
 
 @subsubheading Er is zo veel documentatie!  Moet ik dat allemaal lezen?

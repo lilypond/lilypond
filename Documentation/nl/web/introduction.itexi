@@ -22,11 +22,11 @@ geprinte bladmuziek.  Muzikanten lezen het liefst mooie
 muziek dus waarom zouden programmeurs geen software kunnen
 schrijven waarmee je prachtige partijen kunt afdrukken?
 
-Het resultaat is een systeem waarin muzikanten geen omkijken meer hebben aan
-layout-details, maar zich kunnen concentreren op het
-maken van muziek.  LilyPond biedt hen de mogelijkheid om partijen
-te maken van publicatiekwalteit, volgens de beste tratities
-van klassieke muziekgravure.
+Het resultaat is een systeem waarin muzikanten geen omkijken
+meer hebben naar layout-details, maar zich kunnen
+concentreren op het maken van muziek.  LilyPond biedt hen de
+mogelijkheid om partijen te maken van publicatiekwalteit,
+volgens de beste tratities van klassieke muziekgravure.
 
 @divEnd
 
@@ -70,7 +70,7 @@ van klassieke muziekgravure.
 @itemize
 
 @item
-@ref{Tekst invoer}: Jullie schrijven muziek als @emph{tekst}?!
+@ref{Tekstinvoer}: Jullie schrijven muziek als @emph{tekst}?!
 
 @item
 @ref{Eenvoudiger bewerken}: Andere manieren van werken met LilyPond.
@@ -121,8 +121,8 @@ Verlies minder tijd met het verfraaien van het resultaat;
 LilyPond verzint zelf de beste layout.  Het bepaalt de
 spatiëring en het afbreken van regels en pagina's, zodat een
 strakke en regelmatige layout ontstaat.  Het voorkomt
-botsingen tussen liedteksten, noten en akkoorden en plaatst
-legatobogen en waardestrepen automatisch op de juiste plaats!
+botsingen tussen liedteksten, noten en akkoorden en zet
+legatobogen en waardestrepen automatisch op de juiste manier!
 
 @subsubheading Tekstgebaseerde invoer
 
@@ -196,7 +196,7 @@ ervoor zorgt dat problemen snel worden opgelost.
 Nog steeds niet overtuigd?  Bekijk dan maar eens enkele
 specifieke @ref{Voorbeelden}.  Heb je al besloten LilyPond
 te gaan proberen, lees dan eerst over onze 
-@ref{Tekst invoer}.
+@ref{Tekstinvoer}.
 @divEnd
 
 
@@ -338,7 +338,7 @@ componist.
 
 Nog steeds niet overtuigd?  LilyPond is Vrije Software, die
 jou @ref{Vrijheid} geeft.  Heb je al besloten LilyPond te
-gaan proberen, lees dan eerst over onze @ref{Tekst invoer}.
+gaan proberen, lees dan eerst over onze @ref{Tekstinvoer}.
 @divEnd
 
 @node Vrijheid
@@ -457,7 +457,7 @@ een baan of een beurs opgeleverd.
 Nog steeds niet overtuigd?  Lees ons uitgebreide essay over
 onze graveerfilosofie in @ref{Achtergrond}.  Heb je al
 besloten LilyPond te gaan proberen, lees dan eerst over onze
-@ref{Tekst invoer}.
+@ref{Tekstinvoer}.
 @divEnd
 
 @node Achtergrond
@@ -483,7 +483,7 @@ het leuk zou vinden het nu te lezen, ga dan verder naar
 Nog steeds niet overtuigd?  Lees over @ref{Producties} en
 bladmuziek van enkele van onze gebruikers.  Heb je al
 besloten LilyPond te gaan proberen, lees dan eerst over onze
-@ref{Tekst invoer}.
+@ref{Tekstinvoer}.
 @divEnd
 
 @node Producties
@@ -710,12 +710,12 @@ het wel niet heeft.}
 @divClass{column-center-bottom}
 @subheading En nu?
 
-Lees over onze @ref{Tekst invoer}.
+Lees over onze @ref{Tekstinvoer}.
 @divEnd
 
 
-@node Tekst invoer
-@unnumberedsec Tekst invoer
+@node Tekstinvoer
+@unnumberedsec Tekstinvoer
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
