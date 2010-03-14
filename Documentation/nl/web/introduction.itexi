@@ -783,13 +783,21 @@ plaatsen te kunnen invoegen, moet aan de noten een
 @qq{variable} (een naam) worden toegekend.
 
 @imageFloat{text-input-parts-both-annotate-nl,png,center}
-@imageFloat{text-input-parts-both-output,png,center}
+
 
 Deze variabele wordt vervolgens in één partij gebruikt (hier
 getransponeerd en met samengevoegde rusten):
 
+@imageFloat{text-input-parts-single-annotate-nl,png,center}
+@imageFloat{text-input-parts-single-output,png,center}
+
+
+Dezelfde variabele wordt ook in de volledige partituur
+gebruikt (hier klinkend en met uitgeschreven rusten):
+
 @imageFloat{text-input-score-annotate-nl,png,center}
 @imageFloat{text-input-score-output,png,center}
+
 
 @subsubheading Beginnershandleiding
 
