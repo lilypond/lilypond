@@ -20,11 +20,11 @@ De inspiratie voor LilyPond ontstond toen twee muzikanten
 meer wilden dan de ontzielde aanblik van met de computer
 geprinte bladmuziek.  Muzikanten lezen het liefst mooie
 muziek dus waarom zouden programmeurs geen software kunnen
-schrijven waarmee je elegante partijen af kunt drukken?
+schrijven waarmee je prachtige partijen kunt afdrukken?
 
-Het resultaat is een systeem dat muzikanten bevrijdt van
-layout-details zodat ze zich kunnen concentreren op het
-maken van muziek.  LilyPond werkt met hen samen om partijen
+Het resultaat is een systeem waarin muzikanten geen omkijken meer hebben aan
+layout-details, maar zich kunnen concentreren op het
+maken van muziek.  LilyPond biedt hen de mogelijkheid om partijen
 te maken van publicatiekwalteit, volgens de beste tratities
 van klassieke muziekgravure.
 
@@ -56,7 +56,7 @@ van klassieke muziekgravure.
 @itemize
 
 @item
-@ref{Producties}: Levensecht gebruik van LilyPond.
+@ref{Producties}: Daadwerkelijke gebruik van LilyPond.
 
 @item
 @ref{Gebruikerservaringen}: Wat zeggen onze gebruikers?
@@ -86,7 +86,7 @@ van klassieke muziekgravure.
 * Achtergrond::                  Computational aesthetics.
 * Producties::                 Real-life use of LilyPond.
 * Gebruikerservaringen::                What do people say about it?
-* Tekst invoer::                  You write music as text?!
+* Tekstinvoer::                  You write music as text?!
 * Eenvoudiger bewerken::              Other ways of working with LilyPond.
 @end menu
 @divEnd
@@ -100,47 +100,46 @@ van klassieke muziekgravure.
 @subheading Waarom overstappen op LilyPond?
 
 
-@subsubheading Uitmuntende klassieke muziekgravure
+@subsubheading Prachtige klassieke muziekgravure
 
 @imageFloat{flat-design,png,right}
 
-Met LilyPond produceren muzikanten elegante bladmuziek die
+Met LilyPond kunnen muzikanten elegante bladmuziek produceren die
 gemakkelijk leest.  De community van ontwikkelaars heeft
 duizenden uren geïnvesteerd in het ontwikkelen van krachtige
-muzieknotatie software die in prachtig gegraveerde muziek
-resulteert.  Alle stijlinstellingen, het speciaal ontworpen
+muzieknotatie-software die prachtige gegraveerde muziek
+oplevert.  Alle stijlinstellingen, het speciaal ontworpen
 muziekfont en algoritmes zijn geïnspireerd op de mooiste
-handgegraveerde bladmuziek.  De LilyPond uitvoer ziet er net
+handgegraveerde bladmuziek.  De LilyPond-uitvoer ziet er net
 zo krachtig en harmonisch uit als de best gegraveerde
 klassieke partituren.  Dit wordt verder uitgewerkt in ons
 @ref{Essay}.
 
 @subsubheading Minder gepriegel
 
-Spendeer minder tijd aan het prutsen met het resultaat;
+Verlies minder tijd met het verfraaien van het resultaat;
 LilyPond verzint zelf de beste layout.  Het bepaalt de
 spatiëring en het afbreken van regels en pagina's, zodat een
 strakke en regelmatige layout ontstaat.  Het voorkomt
 botsingen tussen liedteksten, noten en akkoorden en plaatst
-legatobogen en waardestrepen automatisch!
+legatobogen en waardestrepen automatisch op de juiste plaats!
 
 @subsubheading Tekstgebaseerde invoer
 
-LilyPond werkt met ASCII invoer die je kunt aanleveren met
-jouw favoriete tekst editor, snel en comfortabel.  De invoer
+LilyPond werkt met ASCII-invoer die je kunt aanleveren met
+jouw favoriete teksteditor, snel en comfortabel.  De invoer
 bevat alle informatie, dus het onthouden van ingewikkelde
-reeksen commando's is niet nodig: bewaar eenvoudigweg je
-invoer bestand op en je kunt alles later raadplegen.
+reeksen commando's is niet nodig: sla gewoon je
+invoerbestand op en je kunt alles later opnieuw raadplegen.
 
-@subsubheading Toegangkelijkheid
+@subsubheading Toegankelijkheid
 
-Tekst-gebaseerde invoer maakt het schrijven van partituren
-ook mogelijk voor gebruikers met ernstige lichamelijke
+Tekstgebaseerde invoer maakt het schrijven van partituren
+ook toegankelijk voor gebruikers met ernstige lichamelijke
 beperkingen.  Gebruikers met motorische beperkingen die niet
 kunnen typen of een muis kunnen besturen, kunnen
-spraakherkennings software gebruiken om LilyPond bestanden
-te bewerken.  Zelfs blinde gebruikers kunnen voorlees
-software gebruiken voor het schrijven van LilyPond bestanden
+spraakherkenningssoftware gebruiken om LilyPond-bestanden
+te bewerken.  Zelfs blinde gebruikers kunnen voorleessoftware gebruiken voor het schrijven van LilyPond-bestanden
 -- een onmogelijke taak in grafisch-gebaseerde
 muziekprogramma's.
 
@@ -186,7 +185,7 @@ LilyPond werkt op alle bekende besturingssystemen:
 GNU/Linux, MacOS X, en Windows.  Er is een zeer uitgebreide
 handleiding met honderden voorbeeldbestandjes.  Er is een
 actieve gebruikersgroep die antwoorden geeft op de
-lilypond-user mailing list, terwijl het ontwikkelingsteam
+lilypond-user mailinglijst, terwijl het ontwikkelingsteam
 ervoor zorgt dat problemen snel worden opgelost.
 
 
@@ -206,22 +205,22 @@ te gaan proberen, lees dan eerst over onze
 @translationof Examples
 
 LilyPond is een krachtig en flexibel gereedschap voor
-uiteenlopende muzieknotatie taken.  Loop ter inspiratie door
-onze gallerij met voorbeelden!
+uiteenlopende muzieknotatie-taken.  Bekijk ter inspiratie eens
+onze galerij met voorbeelden!
 
 @newsItem
 @subsubheading Klassieke Muziek
 
-Dit orgelwerk van J.S. Bach is een typisch LilyPond project.
+Dit orgelwerk van J.S. Bach is een typisch LilyPond-project.
 
 @exampleImage{bach-bwv610}
 @newsEnd
 
 @newsItem
-@subsubheading Ingewikkelde Muzieknotatie
+@subsubheading Ingewikkelde muzieknotatie
 
 Dit voorbeeld uit @emph{Goyescas} van Enrique Granados laat
-voortgezette typesetting functies zien, zoals waardestrepen
+geavanceerde typesettingsfuncties zien, zoals waardestrepen
 met knie, stokken tussen notenbalken en
 melodie-volglijntjes.
 
@@ -229,27 +228,27 @@ melodie-volglijntjes.
 @newsEnd
 
 @newsItem
-@subsubheading Vroege Muziek
+@subsubheading Vroege muziek
 
-LilyPond heeft ook ondersteuning voor verscheidene
-verouderde notatievormen zoals dit Gregoriaans liedfragment.
+LilyPond geeft ook ondersteuning voor verscheidene
+verouderde notatievormen zoals dit Gregoriaanse liedfragment.
 
 @exampleImage{ancient-headword}
 @newsEnd
 
 @newsItem
-@subsubheading Moderne Muziek
+@subsubheading Moderne muziek
 
 Hedendaagse componisten vinden dat LilyPond zich goed leent
 voor het tonen van ongebruikelijke notatie.  Hier is een
-fragment uit Trevor Bača's @emph{Čáry}, voor solo bas fluit.
+fragment uit Trevor Bača's @emph{Čáry}, voor solo basfluit.
 
 @exampleImage{cary}
 @newsEnd
 
 
 @newsItem
-@subsubheading Efficiënte, flexibele creatie partijen voor uitvoerenden
+@subsubheading Maak efficiënte, flexibele partijen voor uitvoerenden
 
 Vanuit één en dezelfde broncode kunnen allerlei soorten
 partijen worden gemaakt.  Dit is een fragment uit
@@ -268,66 +267,65 @@ partituur, piano-zang reductie, en een vioolpartij.
 @newsItem
 @subsubheading Tablatuur
 
-LilyPond ondersteunt tablatuur notatie die aangepast kan
-worden voor elk intrument dat van tablatuur kan spelen.
-De tablatuurbalk wordt automatisch gegenereerd uit de
+LilyPond ondersteunt tablatuurnotatie die kan
+worden aangepast aan elk intrument dat van tablatuur kan spelen.
+De tablatuurbalk wordt automatisch gegenereerd op basis van de
 noten die voor de vijf-lijns notenbalk zijn ingevoerd.
 
 @exampleImage{tab-example}
 @newsEnd
 
 @newsItem
-@subsubheading Schenker Diagrammen
+@subsubheading Schenker-diagrammen
 
 De standaard uitvoer kan ingrijpend worden veranderd.  Hier
-heeft iemand een indrukwekkende Schenker analyse gemaakt.
+heeft iemand een indrukwekkende Schenker-analyse gemaakt.
 
 @exampleImage{bach-schenker}
 @newsEnd
 
 @newsItem
-@subsubheading Vocale Muziek
+@subsubheading Vocale muziek
 
 LilyPond blinkt uit in alle soorten vocale muziek, van
-psalmen en gezangen tot opera.  Hier is een middeleeuws
-motet met enigszins ongebruikelijke voorwaarden.  De tenor
-stem is in een andere maatsoort genoteerd dan de anderen,
+psalmen en gezangen tot opera.  Hier is een Middeleeuws
+motet met enigszins ongebruikelijke eisen.  De tenorstem is in een andere maatsoort genoteerd dan de anderen,
 maar moet uitgelijnd zijn als ware het dezelfde maatsoort.
 LilyPond doet dit bijzonder elegant.  Let ook op de incipits
 met sleutels in de Vaticana stijl, de doorgestreepte stokken
-die gepliceerde noten aangeven en de ligatuur haken boven
+die gepliceerde noten aangeven en de ligatuurhaken boven
 bepaalde groepen noten.
 
 @exampleImage{aucun-snippet}
 @newsEnd
 
 @newsItem
-@subsubheading Educatieve Toepassingen
+@subsubheading Educatieve doeleinden
 
-LilyPond is ook perfect geschikt voor educatieve doeleinden.
-Hier is een voorbeeld van een eenvoudige contrapunt oefening.
+LilyPond is ook perfect voor educatieve doeleinden.
+Hier is een voorbeeld van een eenvoudige contrapunt-oefening.
 
 @exampleImage{theory}
 @newsEnd
 
 @newsItem
-@subsubheading Populaire Muziek
+@subsubheading Populaire muziek
 
 Het is eenvoudig om zogenaamde pop leadsheets met melodie,
-songtekst, accoordnamen, en fretdiagrammen te maken.  In dit
+songtekst, akkoordnamen, en fretboard-diagrammen te maken.  In dit
 voorbeeld zie je enkele van de voorgedefiniëerde
-fretdiagrammen, maar ze kunnen ook ingrijpend aangepast
+fretboard-diagrammen, maar ze kunnen ook ingrijpend veranderd
 worden voor vrijwel elke andere situatie.
 
 @exampleImage{chart}
 @newsEnd
 
 @newsItem
-@subsubheading Grote Projecten
+@subsubheading Grote projecten
 
 LilyPond is uitstekend voor grote projecten zoals opera's of
-werken voor groot symfonie orkest.  Daarnaast levert de
-tekst-gebaseerde invoer een grotere toegankelijkheid -- dit
+werken voor groot symfonieorkest.  Daarnaast levert de
+tekstgebaseerde invoer een grotere toegankelijkheid -- dit
 voorbeeld is een bijdrage van Hu Haipeng, een blinde
 componist.
 
@@ -352,13 +350,13 @@ gaan proberen, lees dan eerst over onze @ref{Tekst invoer}.
 @subheading Vrije Software
 
 @uref{http://www.gnu.org/, GNU} LilyPond is geschreven en
-word onderhouden door een groep enthousiaste aanhangers.
-Het word uitgebracht onder de @ref{GPL, GNU General Public
+wordt onderhouden door een groep enthousiaste liefhebbers.
+Het wordt uitgebracht onder de @ref{GPL, GNU General Public
 License} (GNU Algemene Publieke Licentie) en de @ref{FDL,
 GNU Free Documentation License} (GNU Vrije Documentatie
 Licentie), hetgeen iedereen de vrijheid geeft het programma
-te repareren, veranderen en uit te breiden.  Het maken van
-prachtige muziek zou geen honderden euros aan software
+te verbeteren, veranderen en uit te breiden.  Het maken van
+prachtige muziek zou geen honderden euro's aan software
 moeten kosten!
 @divEnd
 
@@ -388,17 +386,17 @@ bent, kun je iemand inhuren die het voor je doet.
 
 Dit mag misschien niet zo aantrekkelijk lijken voor
 sommige muzikanten, maar de mogelijkheid om software
-uit te breiden kan van zeer grote waarde zijn voor
+uit te breiden kan van groot belang zijn voor
 serieuze componisten, bedrijven en wetenschappers.
 
 @item
 Veilige toekomst: als een commerciëel bedrijf bankroet gaat,
-wat gebeurt er dan met de electronische muziek die
+wat gebeurt er dan met de elektronische muziek die
 afhankelijk is van hun producten?  Dit bezwaar bestaat niet
 met LilyPond; zelfs wanneer het gehele ontwikkelteam ermee
 stop (bijzonder onwaarschijnlijk), zal het programma nog
-steeds legaal beschikbaar zijn te kopiëren, modificeren en
-distribueren.
+steeds legaal beschikbaar zijn om te kopiëren, wijzigen en
+te distribueren.
 
 @end itemize
 
@@ -408,7 +406,7 @@ distribueren.
 @c @divClass{column-right-top}
 @divClass{color3}
 @divClass{keep-bullets}
-@subheading Waarom @qq{geven} LilyPond ontwikkelaars hun werk gratis @qq{weg}?
+@subheading Waarom @qq{geven} LilyPond-ontwikkelaars hun werk gratis @qq{weg}?
 
 De meesten van ons zien het ontwikkelen van LilyPond als een
 hobby of als vrijwilligerswerk.  Dus de vraag is eigenlijk
@@ -426,10 +424,10 @@ Gedeelde doelen: we willen allemaal prachtige bladmuziek,
 maar weinig mensen hebben de expertise (en niemand heeft de
 tijd!), om een programma te maken dat alle situaties aan
 kan.  Door samen te werken -- één verbetert de automatische
-waardestreep code, een ander verbetert de vorm van de
+waardestreepcode, een ander verbetert de vorm van de
 legatoboogjes, en een derde schrijft documentatie waarin
-wordt uitgelegd hoe je deze functies kunt gebruiken -- kunne
-we samen onze doelen bereiken meteen fractie van de
+wordt uitgelegd hoe je deze functies kunt gebruiken -- kunnen
+we samen onze doelen bereiken met een fractie van de
 individuele inzet.
 
 @item
@@ -438,15 +436,14 @@ heeft veel geweldige software projecten opgeleverd, zoals
 @uref{http://kernel.org/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox}, en
 @uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Omdat
-ze deze projecten geprofiteerd hebbend, willen sommige 
-ontwikkelaars iets @qq{terug geven} aan de community.
+ze van deze projecten geprofiteerd hebben, willen sommige 
+ontwikkelaars iets @qq{terug doen} voor de community.
 
 @item
 Werkervaring: bijdragen aan open-source projecten is een
 mooie manier om te oefenen met programmeren, het schrijven
-van documentatie of ontwerp.  Deze ervaring heeft sommige
-ontwikkelaars geholpen aanbiedingen te krijgen voor een baan
-of een beurs.
+van documentatie of ontwerpen.  Deze ervaring heeft sommige
+ontwikkelaars zelfs een baan of een beurs opgeleverd.
 
 @end itemize
 
@@ -457,7 +454,7 @@ of een beurs.
 @subheading En nu?
 
 Nog steeds niet overtuigd?  Lees ons uitgebreide essay over
-onze graveer filosofie in @ref{Achtergrond}.  Heb je al
+onze graveerfilosofie in @ref{Achtergrond}.  Heb je al
 besloten LilyPond te gaan proberen, lees dan eerst over onze
 @ref{Tekst invoer}.
 @divEnd
@@ -512,13 +509,13 @@ Montpellier}, Frankrijk.
 
 @item
 @uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury Baroque}s
-uitvoering van Lullys @emph{Armide}, 15-16 mei, 2009, in Houston,
+uitvoering van Lullys @emph{Armide}, 15-16 mei 2009, in Houston,
 Texas (gravure door @uref{http://nicolas.sceaux.free.fr/,
 Nicolas Sceaux}).
 
 @item
 Instrumentale fragmenten van Rameaus @emph{Hippolyte et Aricie} in
-St. James's Church in Manhattan, 8 mei, 2009, door Frederick Renz
+St. James's Church in Manhattan, 8 mei 2009, door Frederick Renz
 met zijn ensemble @uref{http://www.earlymusicny.org/, Early Music
 New York} (gravure door Nicolas Sceaux).
 
@@ -542,16 +539,15 @@ van LilyPond partituren.
 
 @item
 @uref{http://www.adoromusicpub.com/, Adoro Music
-Publishing}, partituren van hoge kwaliteit van geestelijke
-muziek, beschikbaar voor directe download of op ouderwetse
-wijze op papier.
+Publishing}, partituren van hoge kwaliteit van religieuze
+muziek, beschikbaar voor directe download of ouderwets op papier.
 
 @item
 @uref{http://theshadylanepublishing.com/, The Shady Lane
 Publishing}, 
-een @qq{micro muziekuitgeverij} met de doelstelling het
-is het promoten van een vorm van een muzikale economie,
-dichterbij de muzikanten en muziekliefhebbers.
+een @qq{micro muziekuitgeverij} met als doelstelling het
+promoten van een nieuwe vorm van muzikale economie,
+die dichter bij de muzikanten en muziekliefhebbers staat.
 
 @end itemize
 
@@ -590,7 +586,7 @@ hun gegraveerde versie niet half zo gelikt is als de mijne!}
 @imageFloat{orm-finnendahl,jpg, left}
 @subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professor in de compositieleer, Musikhochschule Freiburg
 
-@qq{Hoewel ik [LilyPond] nog niet zo goed ken, Ben ik
+@qq{Hoewel ik [LilyPond] nog niet zo goed ken, ben ik
 @strong{erg} onder de indruk.  Ik heb het programma gebruikt
 om een motet van Josquin Desprez in te voeren in mensurale
 notatie.  Lilypond overtreft zonder twijfel en met gemak
@@ -604,7 +600,7 @@ snelheid, gebruiksgemak en schoonheid!}
 
 @qq{[..na de eerste orkestrepetitie] kreeg ik heel veel
 complimenten over de kwaliteit van de partituren.  En wat
-nog belangrijker is, terwijl Lilypond allerlei manieren
+nog veel mooier is: terwijl Lilypond allerlei manieren
 biedt om te zorgen dat de partituren er nog mooier uitzien,
 kreeg het orkest van mij slechts de ruwe, ongewijzigde
 LilyPond-output.}
@@ -653,10 +649,10 @@ waneer ik hem de proefdrukken van zijn muziek presenteerde.
 Ik verdien zelf ook een deel van deze lof -- ik heb veel
 tijd besteed aan het verfijnen van de uitvoer, met name
 overbindingen (hoofdzakelijk in akkoorden) -- maar LilyPond
-geeft me een uitstekend startpunt, een erg intuïtieve
-interface, en de mogelijkheid om absoluut alles te
+biedt me een uitstekend uitgangspunt, een erg intuïtieve
+interface, plus de mogelijkheid om absoluut alles te
 veranderen als ik daar de tijd voor wil nemen.  Ik ben ervan
-overtuigd dat geen commercieel product hierbij ook maar in
+overtuigd dat geen commercieel product hierbij ook maar enigszins in
 de buurt kan komen.}
 @divEnd
 
@@ -668,7 +664,7 @@ programma leer kennen, hoe mooier ik het vind!}
 @divEnd
 
 @divClass{testimonial-item}
-@subsubheading Vaylor Trucks, Elektrische gitaar (Ja, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, verwant aan})
+@subsubheading Vaylor Trucks, elektrische gitaar (Ja, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, verwant aan})
 @qq{Ik ben zwaar onder de indruk van LilyPond [..]}
 
 @qq{DIT IS HET BESTE PROGRAMMA OOIT!!!}
@@ -692,7 +688,7 @@ prachtig.}
 @divEnd
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Dirigent bij het Theater van Koblenz in Duitsland en een befaamde GNU Hacker
+@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Dirigent bij het Theater van Koblenz in Duitsland en een befaamde GNU-hacker
 
 @qq{Hoe dan ook, LilyPond levert een verbazingwekkend goed resultaat!}
 
@@ -729,10 +725,10 @@ Lees over onze @ref{Tekst invoer}.
 @imageClickable{nereid-shot-small,png, (klik om te vergroten), nereid-shot,png, right}
 
 LilyPond is een @emph{batch} programma: het wordt uitgevoerd
-op een tekstbestand dat de noten bevat.  Het resultaat kan
+op een tekstbestand waarin de muziek wordt beschreven.  Het resultaat kan
 op het beeldscherm worden bekeken of worden afgedrukt.  In
 bepaalde opzichten lijkt LilyPond meer op een
-programmeertaal dan op een grafische muziek programma.
+programmeertaal dan op een grafisch muziekprogramma.
 
 Je schrijft de muziek niet door noten van een grafische
 werkbalk naar een zichzelf dynamisch verversende partituur
@@ -743,15 +739,14 @@ maakt.
 
 Mensen die gewend zijn aan een grafische gebruikersinterface
 moeten wellicht een nieuwe manier van werken aanleren, maar
-de resultaten zijn het absoluut waard!
+de resultaten zijn de moeite meer dan waard!
 
-@warning{We presenteren een kort overzicht van onze tekst
-invoer -- het is niet zo ingewikkeld als het klinkt!  Maak
-je niet druk, je hoeft niet elk detail in deze voorbeelden
-te begrijpen; onze beginners documentatie behandeld alles
-in een veel geleidelijker tempo.}
+@warning{We presenteren een kort overzicht van onze tekstinvoer -- het is niet zo ingewikkeld als het klinkt!  Maak
+je geen zorgen, je hoeft niet elk detail in deze voorbeelden
+te begrijpen; in onze beginnershandleiding wordt alles
+stap voor stap uitgelegd.}
 
-@subsubheading Waarom moeilijk als het ook makkelijk kan?
+@subsubheading Waarom moeilijk doen als het ook makkelijk kan?
 @c Het is zo eenvoudig als A B C
 
 Noten worden gecodeerd met letters en nummers. Speciale
@@ -783,8 +778,8 @@ Partituur en partijen kunnen vanuit dit zelfde invoerbestand
 worden gemaakt.  Dus het veranderen van een noot heeft
 altijd invloed op partijen en partituur, zodat beide altijd
 up-to-date zijn.  Om dezelfde muziek op verschillende
-plaatsen te kunnen invoegen, begin met de noten aan een
-@qq{variable} (een naam) toe te kennen.
+plaatsen te kunnen invoegen, moet aan de noten een
+@qq{variable} (een naam) worden toegekend.
 
 @imageFloat{text-input-parts-both-annotate-nl,png,center}
 @imageFloat{text-input-parts-both-output,png,center}
@@ -795,21 +790,21 @@ getransponeerd en met samengevoegde rusten):
 @imageFloat{text-input-score-annotate-nl,png,center}
 @imageFloat{text-input-score-output,png,center}
 
-@subsubheading Beginners Documentatie
+@subsubheading Beginnershandleiding
 
 We realiseren ons dat veel gebruikers deze manier van muziek
 invoeren een beetje vreemd vinden.  Daarom hebben we
-uitgebreide documentatie geschreven om nieuwe gebruikers op
-weg te helpen, te beginnen met @ref{Beginselen}.  Het beste
-kun je beginnen met deze Beginselen Handleiding omdat het
-veel beantwoordt nog voordat ze opkomen.
+een uitgebreide handleiding geschreven om nieuwe gebruikers op
+weg te helpen, te beginnen met @ref{Beginnen}.  Het beste
+kun je beginnen met deze beginnershandleiding omdat hierin
+de meeste vragen worden beantwoord.
 
-Lees alsjeblieft de Beginselen Handleiding alvorens je te
-beklagen over fouten!  Nieuwe gebruikers geloven soms dat
+Lees liever eerst de beginnershandleiding alvorens eventuele
+fouten in het programma aan ons te melden!  Nieuwe gebruikers denken soms dat
 LilyPond niet goed werkt, terwijl het in feite precies werkt
-als ontworpen.
+zoals de bedoeling is.
 
-Meer diepgaande informatie is beschikbaar in
+Verdere informatie is beschikbaar in
 @ref{Handleidingen}.
 
 @subsubheading Omgevingen voor eenvoudiger bewerken
@@ -821,11 +816,11 @@ LilyPond gaat hoofdzakelijk over het produceren van
 gegraveerde bladmuziek van topkwaliteit; het maken van een
 Grafische Gebruikers Interface (GUI) zou ons enkel van dit doel
 afleiden.  Er zijn wel andere projecten die als doel hebben
-het maken van LilyPond invoer gemakkelijker te maken.
+het maken van LilyPond-invoer gemakkelijker te maken.
 
 Sommige omgevingen hebben syntax highlighting, automatische
 commando aanvulling, en voorbereide sjablonen.  Andere
-programma's bieden een GUI die direkte manipulatie van
+programma's bieden een GUI die directe manipulatie van
 een grafische partituur mogelijk maakt.  Voor meer
 informatie, zie @ref{Eenvoudiger bewerken}.
 
@@ -853,18 +848,18 @@ Lees over @ref{Eenvoudiger bewerken}.
 
 @uref{http://denemo.org}
 
-Denemo is een grafische bewerker die LilyPond broncode
-genereert, op versie 2.8.7, en ook audio afspeelt.  Het kan
-de gebruiker de LilyPond broncode laten zien parallel aan
-het grafische beeld.  Extra LilyPond verfijningen (tweaks)
-kunnen aan noten, akkorden enz. worden gekoppeld en worden
-opgeslagen in het Denemo bestand, zodat gebruikers toch
+Denemo is een grafische editor die LilyPond-broncode
+genereert, in versie 2.8.7, en ook audio afspeelt.  Hiermee
+kunnen gebruikers LilyPond-broncode parallel weergeven met
+het grafische beeld.  Extra LilyPond-verfijningen (tweaks)
+kunnen aan noten, akkoorden enz. worden gekoppeld en worden
+opgeslagen in het Denemo-bestand, zodat gebruikers toch
 grafisch verder kunnen bewerken.
 
-Het verplaatsen van de aanwijzer in de LilyPond tekst
-verplaatst ook de aanwijzer in het grafische beeld, en
-syntax fouten in LilyPond verfijningen (tweaks) worden
-gehighlight in het tekst venster.
+Het verplaatsen van de cursor in de LilyPond-tekst
+verplaatst ook de cursor in het grafische beeld, en
+syntaxfouten in LilyPond-verfijningen (tweaks) worden
+gehighlight in het tekstvenster.
 
 @divEnd
 
@@ -882,12 +877,12 @@ gehighlight in het tekst venster.
 @uref{http://lilypondtool.organum.hu}
 
 Gemaakt als een plugin voor de
-@uref{http://www.jedit.org,jEdit} tekst bewerker,
-LilyPondTool is één van de meest funcie-rijke
-tekst-gebaseerde gereedschappen voor het bewerken van
-LilyPond partituren.  Functies omvatten een Document Wizard
-met liedtekst ondersteuning om documenten eenvoudiger op te
-zetten, en geïntegreerde PDF viewer met geavanceerde
+@uref{http://www.jedit.org,jEdit} teksteditor,
+is LilyPondTool één van de tekstgebaseerde gereedschappen met de meeste 
+functies voor het bewerken van
+LilyPond-partituren.  Functies omvatten een Document-wizard
+met liedtekstondersteuning om documenten eenvoudiger op te
+stellen, en geïntegreerde PDF-viewer met geavanceerde
 point-and-click ondersteuning.
 
 @divEnd
@@ -903,10 +898,10 @@ point-and-click ondersteuning.
 
 @uref{http://www.frescobaldi.org}
 
-Frescobaldi is een muziek en tekst bewerker speciaal voor
-LilyPond met ingebouwde PDF viewer, een krachtige partituur
-wizard en vele bewerk functies.  Het is gebaseerd op de KDE4
-bibliotheken en draait momenteel op alle smaken Linux en
+Frescobaldi is een muziek- en teksteditor speciaal voor
+LilyPond met ingebouwde PDF-viewer, een krachtige partituur
+wizard en vele bewerkingsfuncties.  Het is gebaseerd op de KDE4
+bibliotheken en draait momenteel op alle soorten Linux en
 andere UNIX-achtige operating systemen.
 
 @divEnd
@@ -921,23 +916,22 @@ andere UNIX-achtige operating systemen.
 
 @uref{http://www.gnu.org/software/emacs/}
 
-Emacs is een tekst bewerker met taal-gevoelige uitbreidingen
-voor vele verschillende computertalen.  Emacs is een
-in hoge mate uitbreidbare bewerker en kan gebruikt worden
+Emacs is een teksteditor met taalgevoelige functies
+voor veel verschillende computertalen.  Emacs is een
+in hoge mate uitbreidbare editor en kan gebruikt worden
 als een Geïntegreerde Ontwikkel Omgeving (IDE).
 Er is een @q{lilypond mode} die de taaldefinities voor
-het werken met LilyPond broncode bestanden levert.
+het werken met LilyPond-broncodebestanden levert.
 
 @uref{http://www.vim.org}
 
-Vim is een minimale tekst bewerker en is een uitbreiding
-van de oudere Unix @command{vi} bewerker.  Het is ook
+Vim is een minimale teksteditor en is een uitbreiding
+van de oudere Unix @command{vi}-editor.  Het is
 uitbreidbaar en configureerbaar.
 
-Als algemene regel geldt, dat wanneer je nog niet bekend
+Als algemene regel geldt dat, wanneer je nog niet bekend
 bent met Emacs of Vim, je waarschijnlijk liever een andere
-bewerker verkiest voor het schrijven van LilyPond invoer
-bestanden.
+editor verkiest voor het schrijven van LilyPond-invoerbestanden.
 
 @divEnd
 
@@ -961,27 +955,26 @@ KDE 4.1.
 
 LilyKDE is een plugin voor de bewerker van KDE,
 @uref{http://kate-editor.org/,Kate}.  Het heeft een
-krachtige Partituur Wizard om LilyPond documenten snel op te
-zetten, en een geïntegreerde PDF viewer.
+krachtige partituur-wizard om snel LilyPond-documenten op te
+stellen en een geïntegreerde PDF-viewer.
 
 LilyKDE kan gebruik maken van
 @uref{http://www.volny.cz/smilauer/rumor/,Rumor}, zodat
-muziek kan worden ingevoerd door op een MIDI klavier te
-spelen.
+muziek kan worden ingevoerd door middel van een MIDI-klavier.
 
 Andere functies zijn het plaatsen van koppeltekens in
-liedteksten en het draaien van LilyPond op meerdere
-bestanden in een keer vanuit het KDE bestandsbeheer.
+liedteksten en het tegelijkertijd draaien van LilyPond op meerdere
+bestanden vanuit het KDE-bestandsbeheer.
 
-@subsubheading Tekst omgeving: TexShop
+@subsubheading Tekstomgeving: TexShop
 
 @sourceimage{logo-macosx,,,}
 
 @uref{http://www.uoregon.edu/~koch/texshop}
 
-De TexShop bewerker voor MacOS@tie{}X kan uitgebreid worden
+De TexShop-editor voor MacOS@tie{}X kan uitgebreid worden
 voor het uitvoeren van LilyPond, @command{lilypond-book} en
-@command{convert-ly} vanuit de bewerker, gebruikmakend van
+@command{convert-ly} vanuit de editor, door gebruik te maken van
 de uitbreidingen die beschikbaar zijn op
 @uref{http://www.dimi.uniud.it/vitacolo/freesoftware.html#desktoppub}.
 
@@ -990,7 +983,7 @@ de uitbreidingen die beschikbaar zijn op
 @divEnd
 
 @divClass{column-center-top}
-@subheading Andere programma's die LilyPond code kunnen exporteren
+@subheading Andere programma's die LilyPond-code kunnen exporteren
 
 @subsubheading Grafische omgevingen:
 
@@ -1011,20 +1004,20 @@ heeft experimentele LilyPond export
 @item
 @uref{http://canorus.org,Canorus} kan ook exporteren naar LilyPond, maar is nog beta-software.  Testers zijn welkom.
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} is een grafisch noot invoer programma, en werkt als een numeriek toetsenbord dat LilyPond noten produceert.
+@uref{http://lilycomp.sourceforge.net, LilyComp} is een grafisch nootinvoerprogramma, en werkt als een numeriek toetsenbord dat LilyPond-noten produceert.
 @end itemize
 
-@subsubheading Gereedschappen voor de commando regel
+@subsubheading Gereedschappen voor de commandoregel
 
 @itemize
 @item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, een realtime monophonische MIDI naar LilyPond vertaler.
+@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, een realtime monofonische MIDI naar LilyPond-vertaler.
 @item
 @uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}, een
 major moder voor Emacs.
 @item
 @uref{http://common-lisp.net/project/fomus/,FOMUS},
-een LISP bibliotheek voor het genereren van muzieknotatie
+een LISP-bibliotheek voor het genereren van muzieknotatie
 @end itemize
 @divEnd
 
@@ -1033,16 +1026,15 @@ een LISP bibliotheek voor het genereren van muzieknotatie
 @subheading En nu?
 Je bent nu zover om @ref{Download, LilyPond te downloaden}.
 
-Nog steeds niet overtuigd?  Veel componisten, muzikanten, en
-drigenten hebben geleerd muziek te schrijven in ons invoer
-formaat.  Eravaren gebruikers melden dat ze een volledige
+Nog steeds niet overtuigd?  Veel componisten, muzikanten en
+drigenten hebben geleerd muziek te schrijven in ons invoerformaat.  Ervaren gebruikers melden dat ze een volledige
 partituur sneller kunnen invoeren in LilyPond dan met een
-piano klavier of muis+GUI!  Misschien wil je de
+pianoklavier of muis+GUI!  Misschien wil je de
 @ref{Functies}, @ref{Voorbeelden} of @ref{Vrijheid}
 herlezen, of wil je lezen over @ref{Producties} en
 @ref{Gebruikerservaringen} van gebruikers.  Onze
-aanpak van berekende esthetiek van klassieke muziek gravure
-wordt uiteengezet in onze @ref{Achtergrond}.
+aanpak van berekende esthetiek van klassieke muziekgravure
+wordt beschreven in @ref{Achtergrond}.
 
 @subheading Legalese
 
