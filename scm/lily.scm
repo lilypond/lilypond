@@ -726,8 +726,7 @@ PIDs or the number of the process."
 	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
 	 (if (ly:get-option 'debug-gc)
 	     (dump-gc-protects)
-	     (if (= (random 40) 1)
-		 (ly:reset-all-fonts)))))
+	     (ly:reset-all-fonts))))
      files)
 
     ;; we want the failed-files notice in the aggregrate logfile.
