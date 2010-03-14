@@ -40,7 +40,6 @@
   todo: handle breaking elegantly.
 */
 
-
 #include "tuplet-bracket.hh"
 #include "line-interface.hh"
 #include "beam.hh"
@@ -71,7 +70,6 @@ get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
   return g;
 }
 
-
 void
 flatten_number_pair_property (Grob *me, Direction xdir, SCM sym)
 {
@@ -83,12 +81,11 @@ flatten_number_pair_property (Grob *me, Direction xdir, SCM sym)
   me->set_property (sym, ly_interval2scm (pair));
 }
 
-
 /*
   Return beam that encompasses the span of the tuplet bracket.
 */
 Grob *
-Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
+Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob *> const &cols,
 			       bool *equally_long)
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
@@ -98,22 +95,22 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
     return 0;
 
   Drul_array<Grob *> stems (Note_column::get_stem (cols[0]),
-			   Note_column::get_stem (cols.back ()));
+			    Note_column::get_stem (cols.back ()));
 
   if (!stems[RIGHT]
       || !stems[LEFT]
-      || (dynamic_cast<Item*> (stems[RIGHT])->get_column ()
+      || (dynamic_cast<Item *> (stems[RIGHT])->get_column ()
 	  != me->get_bound (RIGHT)->get_column ()))
     return 0;
 
   Drul_array<Grob *> beams;
   Direction d = LEFT;
-  do {
+  do
     beams[d] = stems[d] ? Stem::get_beam (stems[d]) : 0;
-  } while (flip (&d) != LEFT);
+  while (flip (&d) != LEFT);
 
   *equally_long = false;
-  if (!(beams[LEFT] && (beams[LEFT] == beams[RIGHT]) && !me->is_broken ()))
+  if (! (beams[LEFT] && (beams[LEFT] == beams[RIGHT]) && !me->is_broken ()))
     return 0;
 
   extract_grob_set (beams[LEFT], "stems", beam_stems);
@@ -124,12 +121,11 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
       return 0;
     }
 
-  *equally_long =
-    (beam_stems[0] == stems[LEFT]
-     && beam_stems.back () == stems[RIGHT]);
+  *equally_long
+    = (beam_stems[0] == stems[LEFT]
+       && beam_stems.back () == stems[RIGHT]);
   return beams[LEFT];
 }
-
 
 MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_connect_to_neighbors, 1);
 SCM
@@ -164,7 +160,6 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
 	   && orig_spanner->broken_intos_[neighbor_idx]->is_live ());
     }
   while (flip (&d) != LEFT);
-
 
   if (connect_to_other[LEFT] || connect_to_other[RIGHT])
     return scm_cons (scm_from_bool (connect_to_other[LEFT]),
@@ -210,9 +205,9 @@ Tuplet_bracket::calc_control_points (SCM smob)
   bounds[LEFT] = get_x_bound_item (me, LEFT, dir);
   bounds[RIGHT] = get_x_bound_item (me, RIGHT, dir);
 
-  Drul_array<bool> connect_to_other =
-    robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
-			 Drul_array<bool> (false, false));
+  Drul_array<bool> connect_to_other
+    = robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
+			   Drul_array<bool> (false, false));
 
   Interval x_span;
   Direction d = LEFT;
@@ -242,15 +237,15 @@ Tuplet_bracket::calc_control_points (SCM smob)
 	    We're connecting to a column, for the last bit of a broken
 	    fullLength bracket.
 	  */
-	  Real padding =
-	    robust_scm2double(me->get_property("full-length-padding"), 1.0);
+	  Real padding
+	    = robust_scm2double (me->get_property ("full-length-padding"), 1.0);
 
 	  if (bounds[d]->break_status_dir ())
 	    padding = 0.0;
 
-	  Real coord = bounds[d]->relative_coordinate(commonx, X_AXIS);
+	  Real coord = bounds[d]->relative_coordinate (commonx, X_AXIS);
 	  if (to_boolean (me->get_property ("full-length-to-extent")))
-	    coord = robust_relative_extent(bounds[d], commonx, X_AXIS)[LEFT];
+	    coord = robust_relative_extent (bounds[d], commonx, X_AXIS)[LEFT];
 
 	  coord = max (coord, x_span[LEFT]);
 
@@ -258,7 +253,6 @@ Tuplet_bracket::calc_control_points (SCM smob)
 	}
     }
   while (flip (&d) != LEFT);
-
 
   x_span -= me->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS);
   return scm_list_2 (ly_offset2scm (Offset (x_span[LEFT], positions[LEFT])),
@@ -282,12 +276,12 @@ Tuplet_bracket::print (SCM smob)
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, columns, &equally_long);
 
-  bool bracket_visibility = !(par_beam && equally_long);          // Flag, print/don't print tuplet bracket.
+  bool bracket_visibility = !(par_beam && equally_long); // Flag, print/don't print tuplet bracket.
   /*
     FIXME: The type of this prop is sucky.
   */
   SCM bracket_vis_prop = me->get_property ("bracket-visibility");
-  bool bracket_prop = ly_scm2bool (bracket_vis_prop);             // Flag, user has set bracket-visibility prop.
+  bool bracket_prop = ly_scm2bool (bracket_vis_prop); // Flag, user has set bracket-visibility prop.
   bool bracket = (bracket_vis_prop == ly_symbol2scm ("if-no-beam"));
   if (scm_is_bool (bracket_vis_prop))
     bracket_visibility = bracket_prop;
@@ -308,14 +302,11 @@ Tuplet_bracket::print (SCM smob)
       the bracket, but still let the number be displayed.
       Only do this if the user has not explicitly specified bracket-visibility = #t.
   */
-  if (!bracket_prop)
-  {
-      if (robust_scm2moment (me->get_bound (LEFT)->get_column ()->get_property ("when"), Moment (0))
-	  == robust_scm2moment (me->get_bound (RIGHT)->get_column ()->get_property ("when"), Moment (0)))
-      {
-	  bracket_visibility = false;
-      }
-  }
+  if (!to_boolean (bracket_vis_prop)
+      && (robust_scm2moment (me->get_bound (LEFT)->get_column ()->get_property ("when"), Moment (0))
+	  == robust_scm2moment (me->get_bound (RIGHT)->get_column ()->get_property ("when"), Moment (0))))
+    bracket_visibility = false;
+
   Drul_array<Offset> points;
   points[LEFT] = ly_scm2offset (scm_car (cpoints));
   points[RIGHT] = ly_scm2offset (scm_cadr (cpoints));
@@ -362,9 +353,9 @@ Tuplet_bracket::print (SCM smob)
       scale_drul (&flare, ss);
       scale_drul (&shorten, ss);
 
-      Drul_array<bool> connect_to_other =
-	robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
-			     Drul_array<bool> (false, false));
+      Drul_array<bool> connect_to_other
+	= robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
+			       Drul_array<bool> (false, false));
 
       Direction d = LEFT;
       do
@@ -495,7 +486,7 @@ Tuplet_bracket::get_bounds (Grob *me, Grob **left, Grob **right)
     l++;
 
   vsize r = columns.size ();
-  while (r > l && Note_column::has_rests (columns[r-1]))
+  while (r > l && Note_column::has_rests (columns[r - 1]))
     r--;
 
   *left = *right = 0;
@@ -503,7 +494,7 @@ Tuplet_bracket::get_bounds (Grob *me, Grob **left, Grob **right)
   if (l < r)
     {
       *left = columns[l];
-      *right = columns[r-1];
+      *right = columns[r - 1];
     }
 }
 
@@ -536,7 +527,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   if (st && !to_boolean (me->get_property ("cross-staff")))
     {
       Real pad = robust_scm2double (me->get_property ("staff-padding"), -1.0);
-      if  (pad >= 0.0)
+      if (pad >= 0.0)
 	{
 	  staff = st->extent (commony, Y_AXIS) - my_offset;
 	  staff.widen (pad);
@@ -554,7 +545,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
   bool follow_beam = par_beam
     && get_grob_direction (par_beam) == dir
-    && ! to_boolean (par_beam->get_property ("knee"));
+    && !to_boolean (par_beam->get_property ("knee"));
 
   vector<Offset> points;
   if (columns.size ()
@@ -564,7 +555,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
     {
       /*
 	trigger set_stem_ends
-       */
+      */
       (void) par_beam->get_property ("quantized-positions");
 
       Drul_array<Grob *> stems (Note_column::get_stem (columns[0]),
@@ -572,9 +563,9 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
       Real ss = 0.5 * Staff_symbol_referencer::staff_space (me);
       Real lp = ss * robust_scm2double (stems[LEFT]->get_property ("stem-end-position"), 0.0)
-        + stems[LEFT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
+	+ stems[LEFT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
       Real rp = ss * robust_scm2double (stems[RIGHT]->get_property ("stem-end-position"), 0.0)
-        + stems[RIGHT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
+	+ stems[RIGHT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
 
       *dy = rp - lp;
       points.push_back (Offset (stems[LEFT]->relative_coordinate (commonx, X_AXIS) - x0, lp));

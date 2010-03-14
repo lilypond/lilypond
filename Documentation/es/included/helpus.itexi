@@ -64,7 +64,7 @@ requieren un entorno de desarrollo completo.  Consulte
 @itemize
 @item
 Documentación: consulte @rcontribnamed{Documentation work,Trabajar en la documentación} y
-@rcontribnamed{Building documentation without compiling LilyPond,Construir la documentación sin compilar LilyPond}.
+@rcontribnamed{Building documentation without compiling,Construir la documentación sin compilar LilyPond}.
 
 @item
 Página web: nuestra página se construye a partir del código fuente
@@ -149,7 +149,7 @@ cosas completamente.  Más bien está orientado a proporcionarnos una
 base mucho más estable de forma que podamos afrontar mayores tareas en
 el futuro.
 
-@warning{El proyecto GLISS dará comienzo poco antes o después del
+@warning{El proyecto GOP dará comienzo poco antes o después del
 lanzamiento de la versión 2.14.}
 
 @end macro

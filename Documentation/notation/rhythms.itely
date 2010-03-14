@@ -1693,7 +1693,7 @@ a unit of musical duration.  A quantity of type @i{moment} is
 created by the scheme function @code{ly:make-moment}.  For more
 information about this function, see @ref{Time administration}.
 
-Autobeam and beam subdivide settings are stored in the
+Autobeam settings are stored in the
 @code{beamSettings} property.  Default values of @code{beamSettings}
 are determined in @file{scm/@/beam@/-settings@/.scm}.  Entries in
 @code{beamSettings} are indexed by time signature and
@@ -1701,12 +1701,12 @@ rule type.
 
 Time signature should be a scheme pair , e.g. @code{#'(4 . 4)}.
 
-Rule type should be @code{#'end} for beam ending and @code{#'subdivide} for
-beam subdivision.
+Rule type should be @code{#'end} for beam ending.
 
-The ending and subdivision rules consist of a scheme alist
+The ending rules consist of a scheme alist
 (or list of pairs) that
-indicates the beam type and the grouping to be applied to that
+indicates the beam type and the grouping to be applied to
+beams containing notes with a shortest duration of that
 beam type.
 
 @example
@@ -1732,7 +1732,7 @@ Beam settings are changed with
 @code{\overrideBeamSettings} and @code{\revertBeamSettings}.
 
 @warning{
-The ending and subdivision settings must be
+The ending settings must be
 @emph{complete} rules.  That is, every rule that should apply to
 the current time signature must be included in the setting.
 It is not possible to change the grouping of only one beam type

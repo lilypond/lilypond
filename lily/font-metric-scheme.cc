@@ -31,7 +31,8 @@ LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
 	   "\n"
 	   "Note that this command can only be used to access glyphs from"
 	   " fonts loaded with @code{ly:system-font-load}; currently, this"
-	   " means either the Emmentaler or Aybabtu fonts, corresponding"
+	   " means either the Emmentaler or Emmentaler-Brace "
+           " fonts, corresponding"
 	   " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
 	   " respectively.")
 {
@@ -53,7 +54,7 @@ LY_DEFINE (ly_get_glyph, "ly:get-glyph",
 	   "\n"
 	   "Note that this command can only be used to access glyphs from"
 	   " fonts loaded with @code{ly:system-font-load}; currently, this"
-	   " means either the Emmentaler or Aybabtu fonts, corresponding"
+	   " means either the Emmentaler or Emmentaler-Brace fonts, corresponding"
 	   " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
 	   " respectively.")
 {
@@ -71,7 +72,7 @@ LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
 	   "\n"
 	   "Note that this command can only be used to access glyphs from"
 	   " fonts loaded with @code{ly:system-font-load}; currently, this"
-	   " means either the Emmentaler or Aybabtu fonts, corresponding"
+	   " means either the Emmentaler or Emmentaler-Brace fonts, corresponding"
 	   " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
 	   " respectively.")
 {
@@ -89,7 +90,7 @@ LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
 	   "\n"
 	   "Note that this command can only be used to access glyphs from"
 	   " fonts loaded with @code{ly:system-font-load}; currently, this"
-	   " means either the Emmentaler or Aybabtu fonts, corresponding"
+	   " means either the Emmentaler or Emmentaler-Brace fonts, corresponding"
 	   " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
 	   " respectively.")
 {
@@ -107,7 +108,7 @@ LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
 	   "\n"
 	   "Note that this command can only be used to access glyphs from"
 	   " fonts loaded with @code{ly:system-font-load}; currently, this"
-	   " means either the Emmentaler or Aybabtu fonts, corresponding"
+	   " means either the Emmentaler or Emmentaler-Brace fonts, corresponding"
 	   " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
 	   " respectively.")
 {

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: e445e9c9fb367682feb83a60a7cf6dcfc8a2bcca
+    Translation of GIT committish: bb683a8d63f351d36df2c07aef380ce8be8a5174
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1323,18 +1323,26 @@ la notación en el estilo de la @emph{Editio Vaticana}.
     \override TextScript #'font-family = #'typewriter
     \override TextScript #'font-shape = #'upright
     \override Script #'padding = #-0.1
-    a\ictus_"ictus " \break
-    a\circulus_"circulus " \break
-    a\semicirculus_"semicirculus " \break
-    a\accentus_"accentus " \break
+    a\ictus_"ictus " \bar "" \break
+    a\circulus_"circulus " \bar "" \break
+    a\semicirculus_"semicirculus " \bar "" \break
+    a\accentus_"accentus " \bar "" \break
     \[ a_"episema" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
   }
 }
 @end lilypond
 
 
-@c @seealso
-@c TODO: nothing here yet ...
+Fragmentos de código:
+@rlsr{Ancient notation}.
+
+Referencia de funcionamiento interno:
+@rinternals{Episema},
+@rinternals{EpisemaEvent},
+@rinternals{Episema_engraver},
+@rinternals{Script},
+@rinternals{ScriptEvent},
+@rinternals{Script_engraver}.
 
 
 @knownissues

@@ -1784,7 +1784,7 @@ may be any property supported by @rinternals{font-interface},
 }
 @end lilypond"
   (interpret-markup layout
-                    (cons '((font-size . -5) (font-encoding . fetaNumber)) props)
+                    (cons '((font-size . -5) (font-encoding . fetaText)) props)
                     arg))
 
 (define-markup-command (abs-fontsize layout props size arg)
@@ -1912,7 +1912,7 @@ some punctuation; it has no letters.
   }
 }
 @end lilypond"
-  (interpret-markup layout (prepend-alist-chain 'font-encoding 'fetaNumber props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-encoding 'fetaText props) arg))
 
 (define-markup-command (roman layout props arg)
   (markup?)
@@ -2117,7 +2117,7 @@ done in a different font.  The recommended font for this is bold and italic.
 }
 @end lilypond"
   (interpret-markup
-   layout (prepend-alist-chain 'font-encoding 'fetaDynamic props) arg))
+   layout (prepend-alist-chain 'font-encoding 'fetaText props) arg))
 
 (define-markup-command (text layout props arg)
   (markup?)
@@ -2560,7 +2560,7 @@ and continue with double letters.
          ; backward slashes might use slope and point in the other direction!
          (dy (* mag (if forward 0.4 -0.4)))
          (number-stencil (interpret-markup layout
-                                           (prepend-alist-chain 'font-encoding 'fetaNumber props)
+                                           (prepend-alist-chain 'font-encoding 'fetaText props)
                                            (number->string num)))
          (num-x (horizontal-slash-interval num forward (ly:stencil-extent number-stencil X) mag))
          (center (interval-center (ly:stencil-extent number-stencil Y)))
@@ -2646,7 +2646,7 @@ figured bass notation.
       stroke")
 
 (define-markup-command (eyeglasses layout props)
-  () 
+  ()
   #:category other
   "Prints out eyeglasses, indicating strongly to look at the conductor.
 @lilypond[verbatim,quote]
@@ -3165,10 +3165,20 @@ a column containing several lines of text.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\parenthesize {
-    \\column {
-      foo
-      bar
+  \\line {
+    \\parenthesize {
+      \\column {
+        foo
+        bar
+      }
+    }
+    \\override #'(angularity . 2) {
+      \\parenthesize {
+        \\column {
+          bah
+          baz
+        }
+      }
     }
   }
 }

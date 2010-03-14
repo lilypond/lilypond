@@ -95,6 +95,10 @@ the more angular the shape of the parenthesis."
 	  (if (< width 0)
 	      (- width)
 	      0))
+         ;; X value farthest from baseline on outside  of curve
+         (outer-x (+ base-x width))
+         ;; X extent of bezier sandwich centerline curves
+         (x-extent (ordered-cons base-x outer-x))
 	 (bottom-y (interval-start y-extent))
 	 (top-y (interval-end y-extent))
 
@@ -106,7 +110,6 @@ the more angular the shape of the parenthesis."
 			     (if (< width 0)
 				 half-thickness
 				 (- half-thickness))))
-	 (x-extent (ordered-cons base-x outer-control-x))
 
 	 ;; Vertical distance between a control point
 	 ;; and the end point it connects to.

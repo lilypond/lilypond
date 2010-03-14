@@ -20,6 +20,13 @@
 ;; lookup-font should be written in  C.
 ;;
 
+;; We have a tree, where each level of the tree is a qualifier
+;; (eg. encoding, family, shape, series etc.)  this defines the levels
+;; in the tree.  The first one is encoding, so we can directly select
+;; between text or music in the first step of the selection.
+(define default-qualifier-order
+  '(font-encoding font-family font-shape font-series))
+
 (define-class <Font-tree-element>
   ())
 
@@ -70,8 +77,6 @@
    (hash-table->alist (font-children node)))
   (display "} }\n"))
 
-(define default-qualifier-order
-  '(font-encoding font-family font-shape font-series))
 
 (define-method (add-font (node <Font-tree-node>) fprops size-family)
   (define (assoc-delete key alist)
@@ -128,30 +133,34 @@
 (define (lookup-font node alist-chain)
   (g-lookup-font node alist-chain))
 
-
-;; Ugh.  Currently, we load the PFB Feta fonts for `fetaDynamic' with
-;; Pango.  This should be changed to load the Emmentaler fonts instead
-;; (with Pango too), but then we need support for a `font-style'
-;; property which isn't implemented yet.
-(define feta-alphabet-size-vector
-  (list->vector
-   (map (lambda (tup)
-	  (cons (ly:pt (cdr tup))
-		(format "feta-alphabet~a ~a"
-			(car tup)
-			(ly:pt (cdr tup)))))
-	'((11 . 11.22)
-	  (13 . 12.60)
-	  (14 .  14.14)
-	  (16 . 15.87)
-	  (18 . 17.82)
-	  (20 . 20)
-	  (23 . 22.45)
-	  (26 . 25.20)))))
+;; TODO - we could actually construct this by loading all OTFs and
+;; inspecting their design size fields.
+(define-public feta-design-size-mapping
+  '((11 . 11.22)
+    (13 . 12.60)
+    (14 . 14.14)
+    (16 . 15.87)
+    (18 . 17.82)
+    (20 . 20)
+    (23 . 22.45)
+    (26 . 25.20)))
 
 ;; Each size family is a vector of fonts, loaded with a delay.  The
 ;; vector should be sorted according to ascending design size.
-(define-public (add-music-fonts node name family factor)
+(define-public (add-music-fonts node name family design-size-alist factor)
+  "Set up music fonts.
+
+Arguments:
+ NODE the font tree to modify.
+ NAME is the basename for the music font. NAME-DESIGNSIZE.otf should be the music font,
+  NAME-brace.otf should have piano braces.
+ DESIGN-SIZE-ALIST is a list of (ROUNDED . DESIGN-SIZE).  ROUNDED is
+   a suffix for font filenames, while DESIGN-SIZE should be the actual
+   design size.  The latter is used for text fonts loaded through
+   pango/fontconfig 
+ FACTOR is a size factor relative to the default size that is being used.
+  This is used to select the proper design size for the text fonts.
+"
   (for-each
    (lambda (x)
      (add-font node
@@ -159,27 +168,28 @@
 		     (cons 'font-family family))
 	       (cons (* factor (cadr x))
 		     (caddr x))))
-   `((fetaDynamic ,(ly:pt 20.0) ,feta-alphabet-size-vector)
-     (fetaNumber ,(ly:pt 20.0) ,feta-alphabet-size-vector)
+   
+   `((fetaText ,(ly:pt 20.0)
+	       ,(list->vector
+		 (map (lambda (tup)
+			(cons (ly:pt (cdr tup))
+			      (format "~a-~a ~a"
+				      name
+				      (car tup)
+				      (ly:pt (cdr tup)))))
+		      design-size-alist)))
      (fetaMusic ,(ly:pt 20.0)
-		#(
-		  ,(delay (ly:system-font-load (string-append name "-11")))
-		  ,(delay (ly:system-font-load (string-append name "-13")))
-		  ,(delay (ly:system-font-load (string-append name "-14")))
-		  ,(delay (ly:system-font-load (string-append name "-16")))
-		  ,(delay (ly:system-font-load (string-append name "-18")))
-		  ,(delay (ly:system-font-load (string-append name "-20")))
-		  ,(delay (ly:system-font-load (string-append name "-23")))
-		  ,(delay (ly:system-font-load (string-append name "-26")))
-		  ))
+		,(list->vector
+		  (map (lambda (size-tup)
+			 (delay (ly:system-font-load
+				 (format "~a-~a" name (car size-tup)))))
+		       design-size-alist
+		       )))
      (fetaBraces ,(ly:pt 20.0)
 		 #(,(delay (ly:system-font-load
-			    ;;; TODO: rename aybabtu to emmentaler-brace
-			    (if (string=? name "emmentaler")
-				"aybabtu"
-				(string-append name "-brace"))
-			    )))))))
-
+			    (format "~a-brace" name)))))
+     )))
+		 
 (define-public (add-pango-fonts node lily-family family factor)
   ;; Synchronized with the `text-font-size' variable in
   ;; layout-set-absolute-staff-size-in-module (see paper.scm).
@@ -209,9 +219,7 @@
 
 (define-public (make-pango-font-tree roman-str sans-str typewrite-str factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
-    (add-music-fonts n "emmentaler" 'feta factor)
-;; Let's not do this [yet], see input/regression/gonville.ly
-;;    (add-music-fonts n "gonville" 'gonville factor)
+    (add-music-fonts n "emmentaler" 'feta feta-design-size-mapping factor)
     (add-pango-fonts n 'roman roman-str factor)
     (add-pango-fonts n 'sans sans-str factor)
     (add-pango-fonts n 'typewriter typewrite-str factor)
@@ -227,9 +235,8 @@
 
 (define-public all-music-font-encodings
   '(fetaBraces
-    fetaDynamic
     fetaMusic
-    fetaNumber))
+    fetaText))
 
 (define-public (magstep s)
   (exp (* (/ s 6) (log 2))))

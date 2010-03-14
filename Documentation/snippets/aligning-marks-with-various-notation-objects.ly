@@ -6,7 +6,7 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: 341940d3830b59f93a80131471d622c2818afddb
+%% Translation of GIT committish: 45fc8488655f9ea122d1ec6e3328892618bd6971
   texidoces = "
 Si están especificadas, las marcas de texto se pueden alinear con
 objetos de notación distintos a las líneas divisorias.  Entre estos

@@ -1331,6 +1331,7 @@ lilypond file.ly >display.txt
 * Extracting fragments of music::
 * Skipping corrected music::
 * Alternative output formats::
+* Replacing the notation font::
 @end menu
 
 @node Extracting fragments of music
@@ -1429,6 +1430,12 @@ Graphics (SVG), Encapsulated PostScript (EPS) and Portable
 Network Graphics (PNG) output formats are also available through
 command line options, see @rprogram{Command line options for
 lilypond}.
+
+
+@node Replacing the notation font
+@subsection Replacing the notation font
+
+FIXME stub.
 
 
 @node MIDI output

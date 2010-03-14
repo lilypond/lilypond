@@ -831,7 +831,7 @@ sub lilypond_element_file_name($$$)
       $$element{doc_nr} = $docnr;
       $lastfilename = $filename;
     }
-    print STDERR "Output file name: $filename\n";
+    #print STDERR "Output file name: $filename\n";
     $filename = lc_last($filename);
     return $filename;
 

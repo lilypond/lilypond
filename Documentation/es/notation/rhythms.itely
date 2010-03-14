@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 765a28ffb69f6b66b58b9c8d0e2078020c511620
+    Translation of GIT committish: e18567dccce0f16b680e6b7e562329e5f8bcae59
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2592,13 +2592,16 @@ Consulte @ref{La tipografía Feta} para ver una lista de los símbolos que se
 pueden imprimir con @code{\musicglyph}.
 
 Para ver formas comunes de trucar la colocación de las letras de
-ensayo, consulte @ref{Indicaciones de texto}.
+ensayo, consulte @ref{Indicaciones de texto}.  Para un control más
+preciso, consulte @code{break-alignable-interface} en la sección
+@ref{Alinear los contextos}.
 
 
 @seealso
 Referencia de la notación:
 @ref{La tipografía Feta},
-@ref{Formatear el texto}.
+@ref{Formatear el texto},
+@ref{Alinear los contextos}.
 
 Archivos de inicio: @file{scm/@/translation@/-functions@/.scm}
 contiene las definiciones de @code{format-mark-numbers} y de

@@ -285,9 +285,9 @@ for standard flags, @code{'mensural} and @code{'no-flag}, which
 switches off the flag.")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font.  Currently, only lilypond's system
-fonts (Emmentaler and Aybabtu) are using this property.  Available
-values are @code{fetaMusic} (Emmentaler), @code{fetaBraces} (Aybabtu),
-@code{fetaNumber} (Emmentaler), and @code{fetaDynamic} (Emmentaler).")
+fonts (Emmentaler) are using this property.  Available
+values are @code{fetaMusic} (Emmentaler), @code{fetaBraces},
+@code{fetaText} (Emmentaler).")
      (font-family ,symbol? "The font family is the broadest category
 for selecting text fonts.  Options include: @code{sans},
 @code{roman}.")

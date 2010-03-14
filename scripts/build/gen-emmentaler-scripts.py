@@ -38,7 +38,7 @@ notice += "this font, and embed this font or unaltered portions of this ";
 notice += "font into the document, this font does not by itself cause the ";
 notice += "resulting document to be covered by the GNU General Public License.";;
 
-SetFontNames("%(name)s-%(design_size)d", "%(name)s", "%(name)s %(design_size)d", "%(design_size)d", notice, "@TOPLEVEL_VERSION@");
+SetFontNames("%(name)s-%(design_size)d", "%(name)s-%(design_size)d", "%(name)s-%(design_size)d", "", notice, "@TOPLEVEL_VERSION@");
 
 MergeFonts("feta%(design_size)d.pfb");
 MergeFonts("parmesan%(design_size)d.pfb");

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3ddb74ce927e6e71bb61d1bad526c4dfe34d68a4
+    Translation of GIT committish: e18567dccce0f16b680e6b7e562329e5f8bcae59
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1141,15 +1141,19 @@ Los @notation{corchetes de Ottava} introducen un trasporte adicional
 de una octava para el pentagrama.
 
 @lilypond[verbatim,quote,relative=2]
-a'2 b
-\ottava #1
-a b
+a2 b
+\ottava #-2
+a2 b
+\ottava #-1
+a2 b
 \ottava #0
-a b
+a2 b
+\ottava #1
+a2 b
+\ottava #2
+a2 b
 @end lilypond
 
-La función @code{ottava} también admite los valores -1 (para
-8va bassa), 2@tie{}(para 15ma) y -2 (para 15ma bassa) como argumentos.
 
 @snippets
 

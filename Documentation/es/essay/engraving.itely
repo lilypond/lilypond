@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: c1eb9d63bb22ba4a9243942599f68768f5631e34
+    Translation of GIT committish: f29b91d7b12f04b14b207fae0edcc55993c213e9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -14,14 +14,13 @@
 @chapter Grabado musical
 @translationof Music engraving
 
-Esta sección describe las metas generales y la arquitectura de
-LilyPond.
+Este ensayo describe porqué se creó LilyPond
+y cómo puede producir partituras musicales tan bellas.
 
 @c TODO:
 @c remove 3mm eps bounding box left padding for Sarabande (This will
 @c     require adding a new snippet option to lilypond-book.py
 @c check formatting of HTML output
-@c
 
 @c Notes:
 @c Incorrect beaming in the Sarabande is a known bug.
@@ -37,15 +36,14 @@ LilyPond.
 @end menu
 
 @node Historia de LilyPond
-@unnumberedsec Historia de LilyPond
+@section Historia de LilyPond
 @translationof The LilyPond story
 
-Antes de que LilyPond tuviera una comunidad de usuarios a lo largo y
-ancho del mundo, antes de que se hubiera utilizado para producir
-apuntes de cursos universitarios o partituras de estrenos mundiales de
-óperas, antes de que existiera un ensayo sobre grabado musical o
-cualquier código de programa o incluso algún equipo organizado de
-desarrolladores, LilyPond comenzó con esta pregunta:
+Mucho antes de que LilyPond se hubiese utilizado para editar preciosas
+partituras de trabajo, antes de que pudiese crear apuntes de cursos
+universitarios o incluso melodías sencillas, antes de que tuviera una
+comunidad de usuarios a lo largo y ancho del mundo o incluso un ensayo
+sobre grabado musical, LilyPond comenzó con esta pregunta:
 
 @quotation
 ¿Por qué casi ninguna de las partituras hechas con ordenador consigue
@@ -65,15 +63,19 @@ La primera es una hermosa partitura grabada a mano en 1950 y la
 segunda es una edición moderna hecha con ordenador.
 
 @ifnottex
+@quotation
 @noindent
 Bärenreiter BA 320, @copyright{}1950:
 
 @sourceimage{baer-suite1-fullpage,,,png}
+@end quotation
 
+@quotation
 @noindent
 Henle núm. 666, @copyright{}2000:
 
 @sourceimage{henle-suite1-fullpage,,,png}
+@end quotation
 @end ifnottex
 
 Aquí, las notas son idénticas, y proceden de la primera suite para
@@ -142,17 +144,17 @@ aspectos que hemos tratado de imitar en LilyPond.
 @noindent
 Bärenreiter BA 320, @copyright{}1950:
 
-@sourceimage{baer-suite1-fullpage,16cm,,}
+@sourceimage{baer-suite1-fullpage-hires,16cm,,}
 @page
 @noindent
 Henle núm. 666, @copyright{}2000:
 @sp 3
-@sourceimage{henle-suite1-fullpage,16cm,,}
+@sourceimage{henle-suite1-fullpage-hires,16cm,,}
 @page
 @end iftex
 
 @node Detalles del grabado
-@unnumberedsec Detalles del grabado
+@section Detalles del grabado
 @translationof Engraving details
 
 @cindex grabado
@@ -396,34 +398,11 @@ el contrario, forman conglomerados de notas plica abajo @/ plica
 arriba.  Un grabador maestro ajustaría el espacio según se necesite
 para agradar al ojo.
 
-Otro ejemplo de espaciado óptico es el juego visual entre las barras
-de corchea y semicorchea y las líneas divisorias.  Cuando una plica
-hacia arriba precede a la línea divisoria, se necesita un poco más de
-espacio para evitar la sensación de aglomeración:
-
-@lilypond
-\paper {
-  ragged-right = ##t
-}
-
-\score {
-  {
-    c''8 c'' c'' c'' c'' c'' c'' c'' \break
-    a' a' a' a' a' a' a' a'
-  }
-  \layout {
-    \context {
-      \Staff
-      \remove "Time_signature_engraver"
-      \override NoteSpacing #'stem-spacing-correction = #0.7
-    }
-    \context {
-      \Score
-      \remove "Bar_number_engraver"
-    }
-  }
-}
-@end lilypond
+Los algoritmos de espaciado de LilyPond tienen incluso en cuenta a las
+líneas divisorias que es la razón por la que la última plica dirigida
+hacia arriba en el ejemplo bien espaciado ha recibido un poco más de
+espacio antes de la línea divisoria para evitar que tenga un aspecto
+aglomerado.  Una plica hacia abajo no necesitaría este ajuste.
 
 @node Líneas adicionales
 @unnumberedsubsec Líneas adicionales
@@ -603,14 +582,14 @@ gusta tocar.
 
 
 @node Grabado automatizado
-@unnumberedsec Grabado automatizado
+@section Grabado automatizado
 @translationof Automated engraving
 
 @cindex grabado automatizado
 @cindex automatizado, grabado
 
-Esta sección describe lo que se necesita para crear un software que
-pueda recrear la disposición de las partituras grabadas: un método de
+Aquí describimos lo que se necesita para crear un software que pueda
+recrear la disposición de las partituras grabadas: un método de
 explicar las buenas disposiciones al ordenador, comparaciones
 detalladas con grabados reales, y la flexibilidad suficiente para
 enfrentarse al amplio rango de desafíos que puede presentar la música
@@ -837,7 +816,12 @@ punto de la pieza en que el sujeto vuelve a aparecer en un estrecho a
 tres partes y conduce a la sección conclusiva.  En la versión de
 Finale, hemos resistido la tentación de hacer cualquier ajuste sobre
 la salida predeterminada porque tratamos de mostrar qué cosas hace
-bien cada programa sin ayuda.
+bien cada programa sin ayuda.  Las únicas manipulaciones de
+importancia que hemos hecho ha sido los ajustes del tamaño de la
+página para que se corresponda con este ensayo y forzar que la música
+quepa en dos sistemas para facilitar la comparación.  De forma
+predeterminada, Finale habría compuesto dos sistemas de tres compases
+cada uno y un último sistema de plena anchura con un solo compás.
 
 Muchas de las diferencias entre los dos grabados son visibles en los
 compases 28 al 29, como se muestra aquí con Finale en primer lugar y
@@ -949,16 +933,16 @@ completa que la que Finale le concede.
 @end itemize
 
 Este ejemplo no pretende sugerir que Finale no se pueda usar para
-producir un resultado bello.  Por el contrario, en las manos de un
-usuario hábil puede hacerlo y de hecho lo hace, pero requiere destreza
-y tiempo.  Una de las diferencias fundamentales entre LilyPond y los
-editores de partituras comerciales es que LilyPond aspira a reducir la
-cantidad de intervención humana a un mínimo absoluto, mientras que
-otros paquetes pretenden ofrecer un interfaz atractivo en el que hacer
-este tipo de ediciones.
+producir resultados con calidad de producción.  Por el contrario, en
+las manos de un usuario hábil puede hacerlo y de hecho lo hace, pero
+requiere destreza y tiempo.  Una de las diferencias fundamentales
+entre LilyPond y los editores de partituras comerciales es que
+LilyPond aspira a reducir la cantidad de intervención humana a un
+mínimo absoluto, mientras que otros paquetes pretenden ofrecer un
+interfaz atractivo en el que hacer este tipo de ediciones.
 
-Una omisión particularmente flagrante que hemos encontrado en la
-muestra de Finale es un bemol en el compás 33:
+Una omisión particularmente flagrante que hemos encontrado por parte
+de Finale es un bemol en el compás 33:
 
 @quotation
 @iftex
@@ -972,22 +956,21 @@ muestra de Finale es un bemol en el compás 33:
 @noindent
 El símbolo del bemol es necesario para cancelar el becuadro que está
 en el mismo compás, pero Finale lo omite porque aparece en una voz
-distinta.  El usuario no debe recordar solamente ejecutar un
-complemento o plug-in de barrado y re-espaciar las cabezas y los
-silencios, también tiene que comprobar la coherencia de las
-alteraciones entre las voces si pretende evitar la interrupción de un
+distinta.  De forma que además de ejecutar un complemento de barrado y
+comprobar el espaciado sobre las cabezas de nota y los silencios, el
+usuario también tiene que comprobar las alteraciones entre voces
+cruzadas para cada compás si pretende evitar la interrupción de un
 ensayo a causa de un error en la edición de la partitura.
 
 Si está interesado en examinar estos ejemplos con más detalle, el
-ejemplo de siete compases completo está al final de este ensayo en
-grabados de Finale y de LilyPond junto a otros cuatro grabados
-diferentes publicados.  Un examen detenido revela que hay una cierta
-variación aceptable entre los grabados manuales, pero también que
-LilyPond se compara de forma razonablemente buena con este rango
-aceptable.  Aún existen algunos inconvenientes en la salida de
-LilyPond, por ejemplo, parece ser un tanto agresiva en acortar algunas
-de las plicas, así que aún hay espacio para un desarrollo y ajuste
-fino posteriores.
+ejemplo de siete compases completo está al final de este ensayo junto
+a cuatro ediciones publicadas distintas.  Un examen detenido revela
+que hay una cierta variación aceptable entre los grabados manuales,
+pero también que LilyPond se compara de forma razonablemente buena con
+este rango aceptable.  Aún existen algunos inconvenientes en la salida
+de LilyPond, por ejemplo, parece ser un tanto agresiva en acortar
+algunas de las plicas, así que aún hay lugar para un desarrollo y
+ajuste fino posteriores.
 
 Por supuesto, la tipografía se basa en el juicio humano sobre la
 apariencia, de manera que las personas no se pueden sustituir por
@@ -1141,7 +1124,7 @@ a lo largo del fragmento musical.
 
 
 @node ¿Qué símbolos grabar?
-@unnumberedsec ¿Qué símbolos grabar?
+@section ¿Qué símbolos grabar?
 @translationof What symbols to engrave?
 
 @cindex grabado
@@ -1354,7 +1337,7 @@ Referencia de funcionamiento interno:
 
 
 @node Representación musical
-@unnumberedsec Representación musical
+@section Representación musical
 @translationof Music representation
 
 @cindex sintaxis
@@ -1457,7 +1440,7 @@ representación se llevan menos del 10% del código fuente.
 
 
 @node Aplicaciones de ejemplo
-@unnumberedsec Aplicaciones de ejemplo
+@section Aplicaciones de ejemplo
 @translationof Example applications
 
 @cindex simple, ejemplos
@@ -1588,7 +1571,7 @@ mezcla de música y texto dentro de los documentos.
 
 @page
 @node Apéndice
-@unnumberedsec Apéndice
+@section Apéndice
 @translationof Appendix
 
 Este apéndice contiene cuatro grabados musicales de referencia y dos

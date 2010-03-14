@@ -27,7 +27,7 @@ endif
 
 ################################################################
 OUT=out-website
-WEB_LANGS=es fr
+WEB_LANGS=es
 
 
 TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
@@ -36,6 +36,7 @@ EXTRACT_TEXI_FILENAMES=python $(script-dir)/extract_texi_filenames.py
 CREATE_VERSION=python $(script-dir)/create-version-itexi.py
 CREATE_WEBLINKS=python $(script-dir)/create-weblinks-itexi.py
 MASS_LINK=python $(script-dir)/mass-link.py
+WEB_POST=python $(script-dir)/website_post.py
 
 SERVER_FILES=$(top-src-dir)/Documentation/web/server/
 
@@ -55,16 +56,36 @@ website-xrefs: website-version
 	$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/ \
 		-I $(OUT) -o $(OUT) --split=node \
 		$(top-src-dir)/Documentation/web.texi
-	$(foreach manual, $(MANUALS), \
-		$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/ \
-		-I $(OUT) -o $(OUT) $(manual) && ) :
+	# normal manuals
+	for m in $(MANUALS); do \
+		b=`basename "$$m" .texi`; \
+		d=`basename "$$b" .tely`; \
+		$(EXTRACT_TEXI_FILENAMES) \
+			-I $(top-src-dir)/Documentation/ \
+			-I $(top-src-dir)/Documentation/"$$d"/ \
+			-I $(OUT) -o $(OUT) "$$m" ; \
+	done
 	# translations
 	for l in $(WEB_LANGS); do \
 		$(EXTRACT_TEXI_FILENAMES) \
+			-I $(top-src-dir)/Documentation/ \
 			-I $(top-src-dir)/Documentation/"$$l" \
 			-I $(OUT) -o $(OUT) --split=node \
 			$(top-src-dir)/Documentation/"$$l"/web.texi ;\
+		for m in $(MANUALS); do \
+			n=`echo "$$m" | sed 's/Documentation/Documentation\/'$$l'/'` ; \
+			b=`basename "$$n" .texi`; \
+			d=`basename "$$b" .tely`; \
+			if [ -e "$$n" ] ; then \
+				$(EXTRACT_TEXI_FILENAMES) \
+				-I $(top-src-dir)/Documentation/ \
+				-I $(top-src-dir)/Documentation/"$$l" \
+				-I $(top-src-dir)/Documentation/"$$l"/"$$d"/ \
+				-I $(OUT) -o $(OUT) "$$n" ; \
+			fi ; \
+		done; \
 	done;
+
 
 
 website-texinfo: website-version website-xrefs
@@ -104,8 +125,12 @@ website-examples:
 	mkdir -p $(OUT)/website/ly-examples
 	cp $(EXAMPLES)/* $(OUT)/website/ly-examples
 
-website: website-texinfo website-css website-pictures website-examples
+web-post:
+	$(WEB_POST) $(OUT)/website/
+
+website: website-texinfo website-css website-pictures website-examples web-post
 	cp $(SERVER_FILES)/favicon.ico $(OUT)/website/
 	cp $(SERVER_FILES)/lilypond.org.htaccess $(OUT)/website/.htaccess
 	cp $(SERVER_FILES)/robots.txt $(OUT)/website/
+
 

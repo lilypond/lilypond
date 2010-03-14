@@ -12,10 +12,20 @@ The angularity of the parentheses can be adjusted.
 }
 
 \score {
-  c''^\markup {
+  \relative c'' {c^\markup {
     \parenthesize {
       \column { "A" "B" "C" }
     }
+  } c c c
+  c^\markup {
+    \override #'(angularity . 2) {
+      \override #'(width . 0.5) {
+        \parenthesize {
+          \column { "A" "B" "C" }
+        }
+      }
+    }
+  } c c c
   }
 }
 

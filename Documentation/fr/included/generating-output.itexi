@@ -1,0 +1,237 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of web/download.itexi and
+@c learning/tutorial.itely
+@ignore
+    Translation of GIT committish: 3fd3ac03336676739982f4554be5c751f1d02ee9
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c This is about "compiling" a lilypond file
+@c (Learning 1 Tutorial), **not** compiling the
+@c source code.
+
+@macro lilypadOSX
+@warning{Les instructions qui suivent concernent ceux qui utilisent
+le lanceur LilyPond.  Si vous utilisez l'un des programmes mentionnés
+au chapitre @rweb{Facilités d'édition}, référez-vous à leur
+documentation respective en cas de problème.}
+
+
+@subsubheading Étape 1. Création d'un fichier @file{.ly}
+
+Lorsque vous faites un double clic sur @command{LilyPond.app}, un
+fichier exemple s'ouvre.
+
+@sourceimage{Learning_Macos_welcome,,,}
+
+Dans le menu, en haut et à gauche de la fenêtre, sélectionnez
+@w{@code{Fichier > Enregistrer}}.
+
+@sourceimage{Learning_Macos_Save_menu,,,}
+
+Attribuez un nom à votre fichier, par exemple @file{test.ly}.
+
+@sourceimage{Learning_Macos_Save_file_with_name,,,}
+
+
+@subsubheading Étape 2. Compilation (avec LilyPad)
+
+Dans le menu, sélectionnez
+@w{@code{Compiler > Typeset}}.
+
+@sourceimage{Learning_Macos_Typeset_menu,,,}
+
+Une nouvelle fenêtre s'ouvre dans laquelle s'affiche les journal de
+compilation du fichier que vous venez de sauvegarder.
+
+@sourceimage{Learning_Macos_Compiling_log,,,}
+
+
+@subsubheading Étape 3. Visualisation du résultat
+
+La compilation s'achève par la création d'un fichier PDF portant le même
+nom que le fichier source@tie{}; ce nouveau fichier sera automatiquement
+ouvert par votre lecteur PDF par défaut et affiché à l'écran.
+
+@sourceimage{Learning_Macos_pdf_output,,,}
+
+
+@subsubheading Autres commandes
+
+Pour créer de nouveaux fichiers pour LilyPond, sélectionnez
+@w{@code{Fichier > Nouveau}}
+
+@sourceimage{Learning_Macos_New_menu,,,}
+
+ou @w{@code{Fichier > Ouvrir}} pour reprendre un fichier précédemment
+enregistré.
+
+@sourceimage{Learning_Macos_Open_menu,,,}
+
+Pensez à toujours enregistrer votre travail avant de lancer l'option
+@w{@code{Compile > Tyepset}} du menu.  Si le PDF n'apparaît pas,
+vérifiez que la fenêtre @qq{log} ne comporte pas d'erreur.
+
+Si vous n'utilisez pas le lecteur de PDF par défaut de Mac@tie{OS} et
+qu'un fichier résultant d'un précédente compilation est encore ouvert
+dans votre lecteur, la régénération de ce PDF peut bloquer tant que vous
+ne fermez pas le fichier ouvert.
+
+
+@end macro
+
+
+@macro lilypadWindows
+@warning{Les instructions qui suivent partent du principe que vous
+utilisez l'éditeur LilyPad fourni.  Si vous utilisez l'un des programmes
+répertoriés dans @rweb{Facilités d'édition}, consultez sa documentation
+en cas de compilation infructueuse.}
+
+
+@subsubheading Étape 1. Création d'un fichier @file{.ly}
+
+Double-cliquez sur l'icone LilyPond qui se trouve sur le bureau.
+S'ouvre alors un fichier d'exemple.
+
+@sourceimage{Learning_Win7_Welcome_File_Whole,,,}
+
+Dans le menu, sélectionnez @w{@code{Fichier > Enregistrer sous}}.  Ne
+prenez pas l'option @w{@code{Fichier > Enregistrer}} pour ce fichier
+exemple@tie{}: LilyPond attend un nom de fichier valide.
+
+
+@sourceimage{Learning_Win7_Save_Menu,,,}
+
+Affectez un nom à votre fichier, comme par exemple @file{test.ly}.
+
+@sourceimage{Learning_Win7_Save_File_With_Name,,,}
+
+
+@subsubheading Étape 2a. Compilation par glisser-déposer
+
+Selon votre préférence, vous pouvez compiler votre fichier
+
+en le faisant glisser puis en le déposant sur l'icone LilyPond
+
+@sourceimage{Learning_Win7_Open_Dragndrop,,,}
+
+ou en ouvrant le menu contextuel par un clic-droit, puis en prenant
+l'option @w{@code{Ouvrir avec > LilyPond}}.
+
+@sourceimage{Learning_Win7_Open_Context_Menu,,,}
+
+
+@subsubheading Étape 2b. Compilation par double-clic
+
+Vous pouvez aussi faire un double-clic sur le fichier @file{test.ly}.
+
+
+@subsubheading Étape 3. Visualisation du résultat
+
+Au cours de la compilation du fichier @file{test.ly}, une fenêtre
+d'interpréteur de commande s'ouvre et se referme.  Trois fichiers
+complémentaires seront générés pendant ce temps là.
+
+@sourceimage{Learning_Win7_All_Files_Created,,,}
+
+Le fichier PDF contient la gravure de votre fichier @file{test.ly}.
+
+@sourceimage{Learning_Win7_Pdf_Output,,,}
+
+
+@subsubheading Autres commandes
+
+Pour créer un nouveau fichier, sélectionnez @w{@code{Fichier > Nouveau}}
+à parti de n'importe quel fichier déjà existant
+
+@sourceimage{Learning_Win7_New_Menu,,,}
+
+@noindent
+ou bien @w{@code{Fichier > Ouvrir}} pour reprendre un fichier sauvegeardé.
+
+@sourceimage{Learning_Win7_Open_Menu,,,}
+
+Pensez à toujours enregistrer votre travail avant de compiler votre
+fichier.  Si LilyPond ne crée pas de PDF, consultez le fichier de
+journalisation -- généré au fil du processus de compilation -- et
+vérifiez qu'il ne comporte pas d'erreur.
+
+@sourceimage{Learning_Win7_Log_File,,,}
+
+Ce fichier journal est remplacé à chaque compilation de votre fichier
+LilyPond.
+
+Le fichier PS est utilisé en interne par LilyPond pour créer le PDF.  Il
+sera écrasé à chaque fois que vous relancerez la compilation de votre
+fichier. 
+
+Pensez à fermer le fichier dans votre lecteur de PDF à chaque fois que
+vous relancez la compilation, afin d'être sûr que celle-ci arrive à son
+terme.
+
+
+@end macro
+
+
+@c not lilypad at all, but I ran out of names.  :(
+@macro lilypadCommandLine
+@warning{Les instructions qui suivent supposent que vous êtes familier
+de la ligne de commande.  Si vous utilisez l'un des programmes
+répertoriés dans @rweb{Facilités d'édition}, consultez sa documentation
+en cas de compilation infructueuse.}
+
+
+@subsubheading Étape 1. Création d'un fichier @file{.ly}
+
+Créez un fichier texte du nom de @file{test.ly} et saisissez@tie{}:
+
+@c double \\ required because this is inside a macro!
+@example
+\\version "@w{@version{}}"
+@{
+  c' e' g' e'
+@}
+@end example
+
+
+@subsubheading Étape 2. Compilation en ligne de commande
+
+Pour traiter le fichier @file{test.ly}, tapez ce qui suit à l'invite de
+commande@tie{}:
+
+@example
+lilypond test.ly
+@end example
+
+@noindent
+Vous verrez alors quelque chose qui ressemblera à@tie{}:
+
+@example
+GNU LilyPond @w{@version{}}
+Traitement de « test.ly »
+Analyse...
+Interprétation en cours de la musique...
+Pré-traitement des éléments graphiques...
+Détermination du nombre optimal de pages...
+Répartition de la musique sur une page...
+Dessin des systèmes...
+Sortie mise en page vers « test.ps »...
+Conversion à « ./test.pdf »...
+@end example
+
+@c DIV specific
+@noindent
+Suivant votre installation, ces messages peuvent être traduits ou
+non.
+@c END DIV
+
+@subsubheading Étape 3. Visualisation du résultat
+
+Vous pouez à présent visualiser ou imprimer @file{test.pdf}.
+
+@end macro
+
+

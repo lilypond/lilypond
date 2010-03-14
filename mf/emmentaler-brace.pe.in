@@ -54,7 +54,7 @@ MergeFonts("feta-braces-g.scale.pfb");
 MergeFonts("feta-braces-h.scale.pfb");
 MergeFonts("feta-braces-i.scale.pfb");
 
-SetFontNames("Aybabtu-Regular", "Aybabtu", "Aybabtu Regular", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
+SetFontNames("Emmentaler-Brace", "Emmentaler-Brace", "Emmentaler-Brace Regular", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
 
 i = 0;
 while (i < CharCnt())
@@ -76,9 +76,9 @@ PRIVATE AREA
   ++i;
 endloop
 
-LoadTableFromFile("LILF", "aybabtu.subfonts")
-LoadTableFromFile("LILC", "aybabtu.otf-table")
-LoadTableFromFile("LILY", "aybabtu.otf-gtable")
+LoadTableFromFile("LILF", "emmentaler-brace.subfonts")
+LoadTableFromFile("LILC", "emmentaler-brace.otf-table")
+LoadTableFromFile("LILY", "emmentaler-brace.otf-gtable")
 
-Generate("aybabtu.otf");
-Generate("aybabtu.svg");
+Generate("emmentaler-brace.otf");
+Generate("emmentaler-brace.svg");
