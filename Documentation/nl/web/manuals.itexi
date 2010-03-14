@@ -39,9 +39,9 @@
 LilyPond is een @strong{tekstgebaseerd} muzieknotatieprogramma.  Lees
 dit eerst!
 
-@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Beginner}}
+@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Beginnen}}
 een @qq{onmisbare} gebruiksvriendelijke inleiding in LilyPond.
-@details{Beginner}
+@details{Beginnen}
 
 @item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Terminologie}}
 @emph{(optioneel leesvoer)}
@@ -100,9 +100,9 @@ wat is nieuw?
 specialistische verfraaiingen (tweaks).
 @details{Uitbreidingen}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Inwendige}}
+@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
 tweaks-handleiding.
-@details{Inwendige}
+@details{Internals}
 
 @end itemize
 
@@ -134,7 +134,7 @@ License (GNU Vrije Documentatie Licentie).
 
 @divClass{hide}
 @menu
-* Beginner::             Beginner.
+* Beginnen::             Beginnen.
 * Terminologie::              Terminologie.
 * Essay::                       Essay.
 * Notatie::          Notatie.
@@ -144,7 +144,7 @@ License (GNU Vrije Documentatie Licentie).
 * Web::                      Web.
 * Veranderingen::                     Veranderingen.
 * Uitbreidingen::         Uitbreidingen.
-* Inwendige::         Inwendige.
+* Internals::         Internals.
 * Vertaald::          Vertaald.
 * Alles::                 Alles.
 * FDL::                     FDL.
@@ -157,8 +157,8 @@ License (GNU Vrije Documentatie Licentie).
 @c LM 1.1 About the documentation  (before this section was
 @c removed in July 2009).
 
-@node Beginner
-@unnumberedsec Beginner
+@node Beginnen
+@unnumberedsec Beginnen
 @translationof Learning
 
 @divClass{column-left-top}
@@ -178,7 +178,7 @@ informatie.
 
 @divClass{column-right-bottom}
 
-@docLinks{Beginner, learning,
+@docLinks{Beginnen, learning,
   @rlearningnamed{Top,Learning},
   @manualStableLearningSplit,
   @manualStableLearningBig, 1.5 MB,
@@ -243,17 +243,19 @@ te analyseren in de PDF-versie vanwege de veel hogere resolutie.}
 @divClass{column-left-top}
 @subheading Notatie-handleiding
 
-Deze handleiding behandelt alle LilyPond-commando's die notatie produceren.
+Deze handleiding behandelt alle LilyPond-commando's die
+notatie produceren.
 
-@warning{de notatie-handleiding veronderstelt dat de lezer bekend
-is met het basismateriaal dat besproken is in de beginnershandleiding
-en met de Engelse termen in de terminologielijst.}
+@warning{de notatie-handleiding veronderstelt dat de lezer
+bekend is met het basismateriaal dat besproken is in de
+beginnershandleiding en met de Engelse termen in de
+terminologielijst.}
 
 @divEnd
 
 @divClass{column-right-bottom}
 
-@docLinks{Notatie handleiding, notation,
+@docLinks{Notatie-handleiding, notation,
   @rusernamed{Top,Notation},
   @manualStableNotationSplit,
   @manualStableNotationBig, 7 MB,
@@ -451,17 +453,20 @@ details van werkelijk elke klasse, object en functie in LilyPond
 documenteren.  Het wordt direct vanuit de layout-definities in de
 broncode gegenereerd.
 
-Bijna alle layout-functionaliteit die intern wordt gebruikt, is ook
-direct beschikbaar voor de gebruiker.  Bijvoorbeeld, de meeste
-variabelen die diktes, afstanden enz. bepalen, kunnen in het invoerbestand worden veranderd.  Er is een ernorm aantal layout-opties en
-deze staan allemaal beschreven in dit document.  Elk onderdeel van de notatie-handleiding heeft een @b{Zie ook} subonderdeel dat verwijst naar
-deze gegenereerde documentatie.
+Bijna alle layout-functionaliteit die intern wordt gebruikt,
+is ook direct beschikbaar voor de gebruiker.  Bijvoorbeeld,
+de meeste variabelen die diktes, afstanden enz. bepalen,
+kunnen in het invoerbestand worden veranderd.  Er is een
+ernorm aantal layout-opties en deze staan allemaal
+beschreven in dit document.  Elk onderdeel van de
+notatie-handleiding heeft een @strong{Zie ook} subonderdeel dat
+verwijst naar deze gegenereerde documentatie.
 
 @divEnd
 
 @divClass{column-right-bottom}
 
-@docLinks{Inwendige, internals,
+@docLinks{Internals, internals,
   @rinternalsnamed{Top,Internals},
   @manualStableInternalsSplit,
   @manualStableInternalsBig, 2.5 MB,

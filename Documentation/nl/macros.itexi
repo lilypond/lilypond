@@ -167,12 +167,12 @@ translations should be in macros.itexi.
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,notation-big-page,Notatie handleiding}
+@ref{\TEXT\,,,notation-big-page,Notatie-handleiding}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,notation-big-page,Notatie handleiding}
+@ref{\TEXT\,,\DISPLAY\,notation-big-page,Notatie-handleiding}
 @end macro
 
 @macro rextend{TEXT}
@@ -286,12 +286,12 @@ translations should be in macros.itexi.
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,notation,Notatie handleiding}
+@ref{\TEXT\,,,notation,Notatie-handleiding}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,notation,Notatie handleiding}
+@ref{\TEXT\,,\DISPLAY\,notation,Notatie-handleiding}
 @end macro
 
 @macro rchanges{TEXT}
@@ -366,12 +366,12 @@ translations should be in macros.itexi.
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,internals,Inwendige handleiding}
+@ref{\TEXT\,,,internals,Internals handleiding}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,internals,Inwendige handleiding}
+@ref{\TEXT\,,\DISPLAY\,internals,Internals handleiding}
 @end macro
 
 @end ifnotinfo
@@ -400,12 +400,12 @@ translations should be in macros.itexi.
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-notation,Notatie handleiding}
+@ref{\TEXT\,,,lilypond-notation,Notatie-handleiding}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notatie handleiding}
+@ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notatie-handleiding}
 @end macro
 
 @macro rchanges{TEXT}
@@ -479,12 +479,12 @@ translations should be in macros.itexi.
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Inwendige handleiding}
+@ref{\TEXT\,,,lilypond-internals,Internals handleiding}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Inwendige handleiding}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Internals handleiding}
 @end macro
 
 @end ifinfo
@@ -530,12 +530,12 @@ translations should be in macros.itexi.
 
 @macro ruser{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,notation.nl,Notatie handleiding}
+@ref{\TEXT\,,,notation.nl,Notatie-handleiding}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,notation.nl,Notatie handleiding}
+@ref{\TEXT\,,\DISPLAY\,notation.nl,Notatie-handleiding}
 @end macro
 
 @macro rchanges{TEXT}
@@ -610,12 +610,12 @@ translations should be in macros.itexi.
 
 @macro rinternals{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,internals,Inwendige handleiding}
+@ref{\TEXT\,,,internals,Internals handleiding}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,internals,Inwendige handleiding}
+@ref{\TEXT\,,\DISPLAY\,internals,Internals handleiding}
 @end macro
 
 @end iftex
