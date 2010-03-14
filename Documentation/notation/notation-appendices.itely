@@ -859,39 +859,124 @@ The following styles may be used for note heads.
 @node List of articulations
 @appendixsec List of articulations
 
+
 @cindex accent
-@cindex marcato
-@cindex staccatissimo
+@cindex accentus
+@cindex circulus
+@cindex coda
+@cindex downbow
+@cindex downmordent
+@cindex downprall
 @cindex espressivo
 @cindex fermata
-@cindex stopped
-@cindex staccato
-@cindex portato
-@cindex tenuto
-@cindex upbow
-@cindex downbow
-@cindex foot marks
-@cindex organ pedal marks
-@cindex turn
-@cindex open
-@cindex halfopen
-@cindex stopped
 @cindex flageolet
-@cindex reverseturn
-@cindex trill
-@cindex prall
+@cindex halfopen
+@cindex ictus
+@cindex lheel
+@cindex lineprall
+@cindex longfermata
+@cindex ltoe
+@cindex marcato
 @cindex mordent
-@cindex prallprall
+@cindex open
+@cindex portato
+@cindex prall
+@cindex pralldown
 @cindex prallmordent
-@cindex prall, up
-@cindex prall, down
-@cindex thumb marking
+@cindex prallprall
+@cindex prallup
+@cindex reverseturn
+@cindex rheel
+@cindex rtoe
 @cindex segno
-@cindex coda
+@cindex semicirculus
+@cindex shortfermata
+@cindex signumcongruentiae
+@cindex snappizzicato
+@cindex staccatissimo
+@cindex staccato
+@cindex stopped
+@cindex tenuto
+@cindex thumb
+@cindex trill
+@cindex turn
+@cindex upbow
+@cindex upmordent
+@cindex upprall
 @cindex varcoda
+@cindex verylongfermata
+
+The following scripts are available in the Feta font and may be
+attached to notes (eg. @samp{c\accent}).
+
+@c Articulations and ornamentations
+@c Fingering instructions (for "thumb")
+@c Common notation for unfretted strings
+@c   Bowing indications
+@c   Harmonics
+@c   Snap (Bartók) pizzicato
+@c Custom percussion staves (for "halfopen" -- not yet funindexed)
+@c References for wind instruments (for "open"/"stopped" -- not yet funindexed)
 
 
-@lilypondfile[quote,texidoc]{script-chart.ly}
+@menu
+* Articulation scripts::
+* Ornament scripts::
+* Fermata scripts::
+* Instrument-specific scripts::
+* Repeat sign scripts::
+* Ancient scripts::
+@end menu
+
+
+@node Articulation scripts
+@unnumberedsubsec Articulation scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #articulations }
+@end lilypond
+
+@node Ornament scripts
+@unnumberedsubsec Ornament scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #ornaments }
+@end lilypond
+
+@node Fermata scripts
+@unnumberedsubsec Fermata scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #fermatas }
+@end lilypond
+
+@node Instrument-specific scripts
+@unnumberedsubsec Instrument-specific scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #instrument-specific }
+@end lilypond
+
+@node Repeat sign scripts
+@unnumberedsubsec Repeat sign scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #repeats }
+@end lilypond
+
+@node Ancient scripts
+@unnumberedsubsec Ancient scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\include "gregorian.ly"
+\new VaticanaStaff { \scriptStaffAncient #ancient }
+@end lilypond
 
 
 @node Percussion notes
