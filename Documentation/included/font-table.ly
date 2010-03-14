@@ -34,11 +34,8 @@
       "five" "six"   "seven"  "eight"  "nine"))
 
   (define default-noteheads
-    '("noteheads.uM2" "noteheads.dM2"
-      "noteheads.sM1" "noteheads.sM1double"
-      "noteheads.s0"
-      "noteheads.s1"
-      "noteheads.s2"))
+    '("noteheads.uM2" "noteheads.dM2" "noteheads.sM1"
+      "noteheads.s0"  "noteheads.s1"  "noteheads.s2"))
 
   (define dynamics
     '("space" "f" "m" "p" "r" "s" "z"))
@@ -128,20 +125,23 @@
   ;;;;;;;;;
 
   ;; get special noteheads
-  (define cross    (get-group glyph-list "cross"))
-  (define diamond  (get-group glyph-list "diamond"))
-  (define harmonic (get-group glyph-list "harmonic"))
-  (define slash    (get-group glyph-list "slash"))
-  (define triangle (get-group glyph-list "triangle"))
-  (define xcircle  (get-group glyph-list "xcircle"))
+  ;; (same order as in NR appendix "Note head styles")
+  (define altdefault '("noteheads.sM1double"))
+  (define harmonic   (get-group glyph-list "harmonic"))
+  (define diamond    (get-group glyph-list "diamond"))
+  (define cross      (get-group glyph-list "cross"))
+  (define xcircle    (get-group glyph-list "xcircle"))
+  (define triangle   (get-group glyph-list "triangle"))
+  (define slash      (get-group glyph-list "slash"))
 
   (define special-noteheads
-    (append cross
-            diamond
+    (append altdefault
             harmonic
-            slash
+            diamond
+            cross
+            xcircle
             triangle
-            xcircle))
+            slash))
 
   ;; remove special noteheads from the glyph-list
   (set! glyph-list

@@ -4018,7 +4018,7 @@ the staff.
 @end lilypond
 
 Further examples showing the use of these programmable interfaces
-can be found in @rextend{Tweaking with Scheme}.
+can be found in @rextend{Callback functions}.
 
 
 

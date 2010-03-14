@@ -86,6 +86,49 @@ Fretboard_engraver::process_music ()
   if (!note_events_.size ())
     return ;
 
+  // Ugh -- copied from tab-note-heads-engraver; need to resolve
+  vsize j = 0;
+
+  vector<Stream_event *> string_events;
+
+  for (vsize i = 0; i < note_events_.size (); i++)
+    {
+
+      Stream_event *event = note_events_[i];
+
+      Stream_event *tabstring_event = 0;
+
+      /*
+         For notes inside a chord construct, string indications are
+         stored as articulations on the note, so we check through
+         the notes
+      */
+      for (SCM s = event->get_property ("articulations");
+           !tabstring_event && scm_is_pair (s); s = scm_cdr (s))
+        {
+          Stream_event *art = unsmob_stream_event (scm_car (s));
+
+          if (art->in_event_class ("string-number-event"))
+            tabstring_event = art;
+        }
+
+      /*
+         For string indications listed outside a chord construct,
+         a string_number_event is generated, so if there was no string
+         in the articulations, we check for string events outside
+         the chord construct
+      */
+      if (!tabstring_event && j < tabstring_events_.size ())
+        {
+          tabstring_event = tabstring_events_[j];
+          if (j + 1 < tabstring_events_.size ())
+            j++;
+        }
+      if (tabstring_event)
+        string_events.push_back (tabstring_event);
+    }
+  // end of copied code
+
   fret_board_ = make_item ("FretBoard", note_events_[0]->self_scm ());
   SCM fret_notes = ly_cxx_vector_to_list (note_events_);
   SCM proc = get_property ("noteToFretFunction");
@@ -93,7 +136,7 @@ Fretboard_engraver::process_music ()
      scm_call_4 (proc,
                  context ()->self_scm (),
                  fret_notes,
-                 ly_cxx_vector_to_list (tabstring_events_),
+                 ly_cxx_vector_to_list (string_events),
                  fret_board_->self_scm ());
   SCM changes = get_property ("chordChanges");
   if (to_boolean (changes) && scm_is_pair (last_fret_notes_)

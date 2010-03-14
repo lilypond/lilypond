@@ -22,11 +22,11 @@ lang_other_langs = {
     '': 'Other languages: '
 }
 
-exclude_pages = [
-    'music-glossary',
-    'snippets',
-    'internals',
-    'contributor'
+exclude_manuals = [
+    '/music-glossary',
+    '/snippets',
+    '/internals',
+    '/contributor'
 ]
 
 ###### Actual program
@@ -57,7 +57,11 @@ langs.sort()
 ### helper functions
 def addLangExt(filename, lang, ext):
     text = filename
-    if (not (lang=="")):
+    exclude = 0
+    for dir in exclude_manuals:
+        if (text.find(dir) >= 0):
+            exclude = 1
+    if (not (exclude or (lang==""))):
         text += "." + lang
     text += "." + ext
     return text
@@ -136,12 +140,12 @@ for file in html_files:
         ### alter links as appropriate
         link = getLocalHref(line)
         if (link != ""):
-            link_base = link.split('.')[0]
+            # quesitonable
             if (link.endswith(".html")):
-	        langlink = addLangExt(link_base, lang, "html")
+	        langlink = addLangExt(link[:-5], lang, "html")
                 line = line.replace(link, langlink)
             if (link.endswith(".pdf")):
-	        langlink = addLangExt(link_base, lang, "pdf")
+	        langlink = addLangExt(link[:-4], lang, "pdf")
                 line = line.replace(link, langlink)
         ### add language selection footer
         if (line.find("<!-- FOOTER -->") >= 0):

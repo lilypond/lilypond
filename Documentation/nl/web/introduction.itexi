@@ -16,22 +16,22 @@
 @subheading Ons Doel
 @imageFloat{flat-design,png,right}
 
-De inspiratie voor LilyPond ontstond toen twee muzikanten meer wilden
-dan de ontzielde aanblik van met de computer geprinte bladmuziek.
-Muzikanten lezen het liefst mooie muziek dus waarom zouden programmeurs
-geen software kunnen schrijven waarmee je elegante partijen uit kunt
-printen?
+De inspiratie voor LilyPond ontstond toen twee muzikanten
+meer wilden dan de ontzielde aanblik van met de computer
+geprinte bladmuziek.  Muzikanten lezen het liefst mooie
+muziek dus waarom zouden programmeurs geen software kunnen
+schrijven waarmee je elegante partijen af kunt drukken?
 
-Het resultaat is een systeem dat muzikanten bevrijdt van details
-betreffende layout zodat ze zich kunnen concentreren op het maken van
-muziek.  LilyPond werkt met hen samen om partijen te maken van
-publicatiekwalteit, volgens de beste tratities van klassieke
-muziekgravure.
+Het resultaat is een systeem dat muzikanten bevrijdt van
+layout-details zodat ze zich kunnen concentreren op het
+maken van muziek.  LilyPond werkt met hen samen om partijen
+te maken van publicatiekwalteit, volgens de beste tratities
+van klassieke muziekgravure.
 
 @divEnd
 
 @divClass{column-left-top}
-@subheading Why use LilyPond?
+@subheading Waarom LilyPond gebruiken?
 
 @itemize
 
@@ -46,6 +46,7 @@ muziekgravure.
 
 @item
 @ref{Achtergrond}: Onze berekende esthetiek.
+@end itemize
 
 @divEnd
 
@@ -69,7 +70,10 @@ muziekgravure.
 @itemize
 
 @item
-@ref{Tekstinvoer}: Jullie schrijven muziek als @emph{tekst}?!
+@ref{Tekst invoer}: Jullie schrijven muziek als @emph{tekst}?!
+
+@item
+@ref{Eenvoudiger bewerken}: Andere manieren van werken met LilyPond.
 
 @end itemize
 @divEnd
@@ -82,7 +86,7 @@ muziekgravure.
 * Achtergrond::                  Computational aesthetics.
 * Producties::                 Real-life use of LilyPond.
 * Gebruikerservaringen::                What do people say about it?
-* Tekstinvoer::                  You write music as text?!
+* Tekst invoer::                  You write music as text?!
 * Eenvoudiger bewerken::              Other ways of working with LilyPond.
 @end menu
 @divEnd
@@ -93,60 +97,251 @@ muziekgravure.
 @unnumberedsec Functies
 @translationof Features
 
-@untranslated
-
-@subheading Why switch to LilyPond?
+@subheading Waarom overstappen op LilyPond?
 
 
-@subsubheading Excellent classical engraving
+@subsubheading Uitmuntende klassieke muziekgravure
 
 @imageFloat{flat-design,png,right}
 
 Met LilyPond produceren muzikanten elegante bladmuziek die
-goed te lezen is.  De community van ontwikkelaars heeft
+gemakkelijk leest.  De community van ontwikkelaars heeft
 duizenden uren geïnvesteerd in het ontwikkelen van krachtige
 muziek-graveer software die in prachtig gegraveerde muziek
-resulteert.  Alle stylistische instellingen in LilyPond,
-font designs en algoritmes zijn geïnspireerd door de beste
-hand gegraveerde muziek.
-LilyPond uitvoer heeft detzelfde krachtige, uitgebalanceerde
-en elegante aanblik als de best gegraveerde klassieke
-partituren.  Dit wordt verder uitgewerkt in ons @ref{Essay}.
+resulteert.  Alle stijlinstellingen, het speciaal ontworpen
+muziekfont en algoritmes zijn geïnspireerd op de mooiste
+handgegraveerde bladmuziek.  De LilyPond uitvoer ziet er net
+zo krachtig en harmonisch uit als de best gegraveerde
+klassieke partituren.  Dit wordt verder uitgewerkt in ons
+@ref{Essay}.
 
-@subsubheading Less fiddling
+@subsubheading Minder gepriegel
 
-Spendeer minder tijd aan het prutsen met het resultaat; LilyPond heeft
-de formattering direct al goed.  Het bepaalt de spatiëring zelf, en
-breekt regels en pagina's af voor een dichte en gelijkmatige layout.
-Botsingen tussen liedteksten, noten, en akkoorden worden opelost en
-hellingen van boogjes en waardestrepen zijn automatisch!
+Spendeer minder tijd aan het prutsen met het resultaat;
+LilyPond verzint zelf de beste layout.  Het bepaalt de
+spatiëring en het afbreken van regels en pagina's, zodat een
+strakke en regelmatige layout ontstaat.  Het voorkomt
+botsingen tussen liedteksten, noten en akkoorden en plaatst
+legatobogen en waardestrepen automatisch!
+
+@subsubheading Tekstgebaseerde invoer
+
+LilyPond werkt met ASCII invoer die je kunt aanleveren met
+jouw favoriete tekst editor, snel en comfortabel.  De invoer
+bevat alle informatie, dus het onthouden van ingewikkelde
+reeksen commando's is niet nodig: bewaar eenvoudigweg je
+invoer bestand op en je kunt alles later raadplegen.
+
+@subsubheading Toegangkelijkheid
+
+Tekst-gebaseerde invoer maakt het schrijven van partituren
+ook mogelijk voor gebruikers met ernstige lichamelijke
+beperkingen.  Gebruikers met motorische beperkingen die niet
+kunnen typen of een muis kunnen besturen, kunnen
+spraakherkennings software gebruiken om LilyPond bestanden
+te bewerken.  Zelfs blinde gebruikers kunnen voorlees
+software gebruiken voor het schrijven van LilyPond bestanden
+-- een onmogelijke taak in grafisch-gebaseerde
+muziekprogramma's.
 
 
-@subsubheading Text-based input
-@subsubheading Accessibility
-@subsubheading Mix music and text
-@subsubheading Free software
-@subsubheading Extensible design
-@subsubheading Excellent support
-@subheading Where now?
+@subsubheading Combineer muziek en tekst
+
+@imageFloat{lilypond-book,png,right}
+
+Voeg muziekfragmenten aan teksten toe zonder het knippen en
+plakken van plaatjes.  Je kunt naadloos bladmuziek in
+@LaTeX{} of HTML integreren, of muziek aan OpenOffice.org
+toevoegen met OOoLilyPond.
+
+
+
+@subsubheading Vrije software
+
+LilyPond kan kostenloos worden gedownload!  Ja hoor - het is
+gratis.  Je kunt het downloaden van de downloadpagina.
+
+Bovendien is het ook vrije software.  Wat betekent dat je de
+broncode erbij krijgt, plus toestemming om deze te
+veranderen en te kopiëren.  Dus als je je ergert aan een
+fout, of als er iets in het programma ontbreekt, kun je het
+zelf oplossen of iemand anders inhuren om het voor je te
+doen.
+
+@subsubheading Uitbreidbaar ontwerp
+
+Alle instellingen kunnen worden aangepast aan je eigen
+persoonlijke typografische voorkeuren.  Als dat niet
+voldoende is, bestaat er nog altijd de ingebouwde
+scriptingtaal, een dialect van de krachtige programmeertaal
+LISP, waarmee je desnoods elk detail kunt
+veranderen. Instellingen, variabelen en functies zijn
+allemaal beschreven in de uitvoerige referentiehandleiding
+van het programma.
+
+
+@subsubheading Uitstekende ondersteuning
+
+LilyPond werkt op alle bekende besturingssystemen:
+GNU/Linux, MacOS X, en Windows.  Er is een zeer uitgebreide
+handleiding met honderden voorbeeldbestandjes.  Er is een
+actieve gebruikersgroep die antwoorden geeft op de
+lilypond-user mailing list, terwijl het ontwikkelingsteam
+ervoor zorgt dat problemen snel worden opgelost.
+
+
+
+@divClass{column-center-bottom}
+@subheading En nu?
+
+Nog steeds niet overtuigd?  Bekijk dan maar eens enkele
+specifieke @ref{Voorbeelden}.  Heb je al besloten LilyPond
+te gaan proberen, lees dan eerst over onze 
+@ref{Tekst invoer}.
+@divEnd
+
 
 @node Voorbeelden
 @unnumberedsec Voorbeelden
 @translationof Examples
-@untranslated
 
-@subsubheading Classical Music
-@subsubheading Complex Notation
-@subsubheading Early Music
-@subsubheading Modern Music
-@subsubheading Efficient, flexible creation of performance materials
-@subsubheading Tablature
-@subsubheading Schenker Graphs
-@subsubheading Vocal Music
-@subsubheading Educational Applications
-@subsubheading Popular Music
-@subsubheading Large Projects
-@subheading Where now?
+LilyPond is een krachtig en flexibel gereedschap voor
+uiteenlopende muziekgraveertaken.  Loop ter inspiratie door
+onze gallerij met voorbeelden!
+
+@newsItem
+@subsubheading Klassieke Muziek
+
+Dit orgelwerk van J.S. Bach is een typisch LilyPond project.
+
+@exampleImage{bach-bwv610}
+@newsEnd
+
+@newsItem
+@subsubheading Ingewikkelde Muzieknotatie
+
+Dit voorbeeld uit @emph{Goyescas} van Enrique Granados laat
+voortgezette typesetting functies zien, zoals waardestrepen
+met knie, stokken tussen notenbalken en
+melodie-volglijntjes.
+
+@exampleImage{granados}
+@newsEnd
+
+@newsItem
+@subsubheading Vroege Muziek
+
+LilyPond heeft ook ondersteuning voor verscheidene
+verouderde notatievormen zoals dit Gregoriaans liedfragment.
+
+@exampleImage{ancient-headword}
+@newsEnd
+
+@newsItem
+@subsubheading Moderne Muziek
+
+Hedendaagse componisten vinden dat LilyPond zich goed leent
+voor het tonen van ongebruikelijke notatie.  Hier is een
+fragment uit Trevor Bača's @emph{Čáry}, voor solo bas fluit.
+
+@exampleImage{cary}
+@newsEnd
+
+
+@newsItem
+@subsubheading Efficiënte, flexibele creatie partijen voor uitvoerenden
+
+Vanuit één en dezelfde broncode kunnen allerlei soorten
+partijen worden gemaakt.  Dit is een fragment uit
+@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux's}
+gravure van Handels @emph{Giulio Cesare}, als volledige
+partituur, piano-zang reductie, en een vioolpartij.
+
+@exampleImage{sesto-full}
+
+@exampleImage{sesto-piano}
+
+@exampleImage{sesto-violin}
+
+@newsEnd
+
+@newsItem
+@subsubheading Tablatuur
+
+LilyPond ondersteunt tablatuur notatie die aangepast kan
+worden voor elk intrument dat van tablatuur kan spelen.
+De tablatuurbalk wordt automatisch gegenereerd uit de
+noten die voor de vijf-lijns notenbalk zijn ingevoerd.
+
+@exampleImage{tab-example}
+@newsEnd
+
+@newsItem
+@subsubheading Schenker Diagrammen
+
+De standaard uitvoer kan ingrijpend worden veranderd.  Hier
+heeft iemand een indrukwekkende Schenker analyse gemaakt.
+
+@exampleImage{bach-schenker}
+@newsEnd
+
+@newsItem
+@subsubheading Vocale Muziek
+
+LilyPond blinkt uit in alle soorten vocale muziek, van
+psalmen en gezangen tot opera.  Hier is een middeleeuws
+motet met enigszins ongebruikelijke voorwaarden.  De tenor
+stem is in een andere maatsoort genoteerd dan de anderen,
+maar moet uitgelijnd zijn als ware het dezelfde maatsoort.
+LilyPond doet dit bijzonder elegant.  Let ook op de incipits
+met sleutels in de Vaticana stijl, de doorgestreepte stokken
+die gepliceerde noten aangeven en de ligatuur haken boven
+bepaalde groepen noten.
+
+@exampleImage{aucun-snippet}
+@newsEnd
+
+@newsItem
+@subsubheading Educatieve Toepassingen
+
+LilyPond is ook perfect geschikt voor educatieve doeleinden.
+Hier is een voorbeeld van een eenvoudige contrapunt oefening.
+
+@exampleImage{theory}
+@newsEnd
+
+@newsItem
+@subsubheading Populaire Muziek
+
+Het is eenvoudig om pop lead sheets met melodie, songtekst,
+accoordnamen, en fretdiagrammen te maken.  In dit voorbeeld
+zie je enkele van de voorgedefiniëerde fretdiagrammen, maar
+ze kunnen ook ingrijpend aangepast worden voor vrijwel elke
+andere situatie.
+
+@exampleImage{chart}
+@newsEnd
+
+@newsItem
+@subsubheading Grote Projecten
+
+LilyPond is uitstekend voor grote projecten zoals opera's of
+werken voor groot symfonie orkest.  Daarnaast levert de
+tekst-gebaseerde invoer een grotere toegankelijkheid -- dit
+voorbeeld is een bijdrage van Hu Haipeng, een blinde
+componist.
+
+@exampleImage{orchestra}
+@newsEnd
+
+
+@divClass{column-center-bottom}
+@subheading En nu?
+
+Nog steeds niet overtuigd?  LilyPond is Vrije Software, die
+jou @ref{Vrijheid} geeft.  Heb je al besloten LilyPond te
+gaan proberen, lees dan eerst over onze @ref{Tekst invoer}.
+@divEnd
 
 @node Vrijheid
 @unnumberedsec Vrijheid
@@ -201,8 +396,8 @@ hellingen van boogjes en waardestrepen zijn automatisch!
 @subsubheading Paul Davis, developer of @uref{http://jackaudio.org/, JACK} and @uref{http://www.ardour.org/, Ardour}
 @subheading Where now?
 
-@node Tekstinvoer
-@unnumberedsec Tekstinvoer
+@node Tekst invoer
+@unnumberedsec Tekst invoer
 @translationof Text input
 
 @untranslated
