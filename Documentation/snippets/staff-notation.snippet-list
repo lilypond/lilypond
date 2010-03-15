@@ -8,6 +8,7 @@ changing-the-tempo-without-a-metronome-mark.ly
 creating-blank-staves.ly
 creating-metronome-marks-in-markup-mode.ly
 display-bracket-with-only-one-staff-in-a-system.ly
+forcing-measure-width-to-adapt-to-metronomemarks-width.ly
 incipit.ly
 inserting-score-fragments-above-a-staff,-as-markups.ly
 letter-tablature-formatting.ly
