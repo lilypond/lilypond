@@ -93,12 +93,6 @@ Modified_font_metric::index_to_charcode (vsize i) const
   return orig_->index_to_charcode (i);
 }
 
-vsize
-Modified_font_metric::index_to_ascii (vsize k) const
-{
-  return orig_->index_to_ascii (k);
-}
-
 void
 Modified_font_metric::derived_mark () const
 {

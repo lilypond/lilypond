@@ -49,12 +49,6 @@ public:
   virtual Offset attachment_point (string) const;
   virtual Offset get_indexed_wxwy (size_t) const;
   virtual Box get_indexed_char_dimensions (size_t index) const;
-
-  /*
-    WTF are these vsize ?
-
-    Font_metric is not related to vector<> 
-   */
   virtual size_t name_to_index (string) const;
   virtual size_t index_to_charcode (size_t) const;
   virtual size_t index_to_ascii (size_t) const;

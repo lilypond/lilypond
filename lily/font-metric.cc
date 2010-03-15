@@ -139,15 +139,9 @@ Font_metric::font_name () const
 }
 
 size_t
-Font_metric::index_to_ascii (size_t i) const
-{
-  return i;
-}
-
-size_t
 Font_metric::index_to_charcode (size_t i) const
 {
-  return index_to_ascii (i);
+  return i;
 }
 
 Offset

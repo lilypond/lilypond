@@ -46,7 +46,6 @@ protected:
   Real design_size () const;
   void derived_mark () const;
   Box get_indexed_char_dimensions (size_t) const;
-  size_t index_to_ascii (size_t) const;
 };
 
 #endif /* MODIFIED_FONT_METRIC_HH */
