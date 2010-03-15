@@ -28,6 +28,7 @@ ITELY_FILES := $(call src-wildcard,*.itely)
 ITEXI_FILES := $(call src-wildcard,*.itexi)
 
 DOCUMENTATION_INCLUDES = \
+  -I $(top-src-dir)/Documentation/$(ISOLANG)/included \
   -I $(top-src-dir)/Documentation \
   -I $(top-build-dir)/Documentation/$(outdir)
 
