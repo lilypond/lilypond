@@ -198,16 +198,6 @@ already decided to try LilyPond, first read about our
 LilyPond is a powerful and flexible tool for engraving tasks of
 all kinds. Please browse our gallery of examples and be inspired!
 
-@ignore
-Here is a passage from Franz Liszt's solo piano transcription
-of the Overture to Wagner's @emph{Tannhäuser}. The spacing
-in this example was all performed by LilyPond's formatting
-algorithms, without tweaks of any kind. It
-handles cross-staff beaming gracefully and puts the system brace
-perfectly around all three staves.
-
-@exampleImage{liszt-wagner}
-@end ignore
 
 @newsItem
 @subsubheading Classical Music
@@ -278,8 +268,9 @@ staff.
 @newsItem
 @subsubheading Schenker Graphs
 
-Standard output can be modified heavily. Here someone has created
-an impressive Schenkerian analysis.
+Standard output can be modified heavily. Here is an impressive
+Schenkerian analysis, created by Kris Schaffer, for an article
+in @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}
 
 @exampleImage{bach-schenker}
 @newsEnd
