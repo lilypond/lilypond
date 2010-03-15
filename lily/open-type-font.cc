@@ -241,13 +241,13 @@ Open_type_font::name_to_index (string nm) const
 size_t
 Open_type_font::index_to_charcode (size_t i) const
 {
-  return ((Open_type_font *) this)->index_to_charcode_map_[i];
+  return index_to_charcode_map_.at(i);
 }
 
 size_t
 Open_type_font::count () const
 {
-  return ((Open_type_font *) this)->index_to_charcode_map_.size ();
+  return index_to_charcode_map_.size ();
 }
 
 Real
