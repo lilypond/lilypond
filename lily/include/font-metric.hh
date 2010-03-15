@@ -48,7 +48,7 @@ public:
   virtual size_t count () const;
   virtual Offset attachment_point (string) const;
   virtual Offset get_indexed_wxwy (size_t) const;
-  virtual Box get_indexed_char (size_t index) const;
+  virtual Box get_indexed_char_dimensions (size_t index) const;
 
   /*
     WTF are these vsize ?
@@ -60,7 +60,6 @@ public:
   virtual size_t index_to_ascii (size_t) const;
   virtual Real design_size () const;
   virtual Stencil find_by_name (string) const;
-  virtual Stencil get_indexed_char_stencil (size_t k) const;
   virtual SCM sub_fonts () const;
   virtual SCM font_file_name () const;
   DECLARE_SMOBS (Font_metric);

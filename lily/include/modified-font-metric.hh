@@ -45,7 +45,7 @@ protected:
   string font_name () const;
   Real design_size () const;
   void derived_mark () const;
-  Box get_indexed_char (size_t) const;
+  Box get_indexed_char_dimensions (size_t) const;
   size_t index_to_ascii (size_t) const;
 };
 
