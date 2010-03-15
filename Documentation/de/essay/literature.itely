@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 83c1d1a6ee4e89f7f913fab904816e6c033b6b04
+    Translation of GIT committish: 0bbabe9eef32b46216a722cc0d49df759227b7be
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,6 +16,17 @@
 @node Literatur
 @chapter Literatur
 @translationof Literature list
+
+Hier eine Liste der Literatur, die in LilyPond benutzt wurde:
+
+@menu
+* Kurze Literaturliste::
+* Lange Literaturliste::
+@end menu
+
+@node Kurze Literaturliste
+@section Kurze Literaturliste
+@translationof Short literature list
 
 Wenn Sie mehr über Notation und den Notenstich erfahren wollen, sind 
 hier einige interessante Titel gesammelt.
@@ -72,17 +83,21 @@ beginnt aber mit einem Überblick über bereits existente Praktiken.
 
 @end table
 
-Das Quellenarchiv enthält eine ausführlichere Bib@TeX{}-Bibliographie mit 
-über 100 Titeln in 
-@ifhtml
-@ifset bigpage
-@uref{../bibliography/index.html, der Bibliographie}.
-@end ifset
-@ifclear bigpage
-@uref{../../bibliography/index.html, der Bibliographie}.
-@end ifclear
-@end ifhtml
-@ifnothtml
-@file{Documentation/@/bibliography/}.
-@end ifnothtml
+
+@node Lange Literaturliste
+@section Lange Literaturliste
+@translationof Long literatur list
+
+@subheading Colorado
+
+@include colorado.itexi
+
+@subheading Computernotation
+
+@include computer-notation.itexi
+
+@subheading Notensatz
+
+@include engravingbib.itexi
+
 
