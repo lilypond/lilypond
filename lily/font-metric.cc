@@ -2,7 +2,6 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 1999--2010 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  Mats Bengtsson <matsb@s3.kth.se> (the ugly TeX parsing in text_dimension)
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -197,10 +196,3 @@ Font_metric::text_stencil (Output_def* state,
   programming_error ("Cannot get a text stencil from this font");
   return Stencil (Box (), SCM_EOL);
 }
-
-Box
-Font_metric::text_dimension (string) const
-{
-  return Box (Interval (0, 0), Interval (0, 0));
-}
-

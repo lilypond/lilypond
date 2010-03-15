@@ -131,27 +131,6 @@ Modified_font_metric::text_stencil (Output_def* state,
   return Font_metric::text_stencil (state, text, feta);
 }
 
-Box
-Modified_font_metric::text_dimension (string text) const
-{
-  Box b;
-  Interval ydims;
-  Real w = 0.0;
-
-  for (ssize i = 0; i < text.length (); i++)
-    {
-      Box b = get_ascii_char ((unsigned char)text[i]);
-
-      w += b[X_AXIS].length ();
-      ydims.unite (b[Y_AXIS]);
-    }
-  if (ydims.is_empty ())
-    ydims = Interval (0, 0);
-
-  b = Box (Interval (0, w), ydims);
-  return b;
-}
-
 Font_metric *
 Modified_font_metric::original_font () const
 {

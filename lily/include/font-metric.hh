@@ -44,9 +44,6 @@ public:
   virtual Stencil text_stencil (Output_def* output_state,
                                 string text, bool music) const;
 
-  // ugh.
-  virtual Box text_dimension (string) const;
-
   virtual string font_name () const;
   virtual size_t count () const;
   virtual Offset attachment_point (string) const;
@@ -81,12 +78,6 @@ protected:
 };
 
 int get_encoded_index (Font_metric *m, string input_coding, int code);
-
-class Simple_font_metric : public Font_metric
-{
-  DECLARE_CLASSNAME(Simple_font_metric);
-public:
-};
 
 DECLARE_UNSMOB (Font_metric, metrics);
 
