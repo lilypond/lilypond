@@ -79,15 +79,9 @@ Font_metric::count () const
 }
 
 Box
-Font_metric::get_ascii_char (size_t) const
-{
-  return Box (Interval (0, 0), Interval (0, 0));
-}
-
-Box
 Font_metric::get_indexed_char (size_t k) const
 {
-  return get_ascii_char (k);
+  return Box (Interval (0, 0), Interval (0, 0));
 }
 
 size_t

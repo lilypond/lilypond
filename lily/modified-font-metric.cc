@@ -61,14 +61,6 @@ Modified_font_metric::get_indexed_char (vsize i) const
   return b;
 }
 
-Box
-Modified_font_metric::get_ascii_char (vsize i) const
-{
-  Box b = orig_->get_ascii_char (i);
-  b.scale (magnification_);
-  return b;
-}
-
 vsize
 Modified_font_metric::count () const
 {
