@@ -50,7 +50,7 @@ Font_metric::find_by_name (string s) const
       expr = scm_list_3 (ly_symbol2scm ("named-glyph"),
 			 self_scm (),
 			 ly_string2scm (s));
-      b = get_indexed_char (idx);
+      b = get_indexed_char_dimensions (idx);
     }
 
   Stencil q (b, expr);
@@ -79,7 +79,7 @@ Font_metric::count () const
 }
 
 Box
-Font_metric::get_indexed_char (size_t k) const
+Font_metric::get_indexed_char_dimensions (size_t k) const
 {
   return Box (Interval (0, 0), Interval (0, 0));
 }
@@ -156,7 +156,7 @@ Font_metric::get_indexed_char_stencil (size_t code) const
   size_t idx = index_to_ascii (code);
   SCM at = scm_list_3 (ly_symbol2scm ("char"), self_scm (),
 		       scm_from_unsigned (idx));
-  Box b = get_indexed_char (code);
+  Box b = get_indexed_char_dimensions (code);
   return Stencil (b, at);
 }
 

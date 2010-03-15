@@ -49,7 +49,6 @@ public:
   virtual Offset attachment_point (string) const;
   virtual Offset get_indexed_wxwy (size_t) const;
   virtual Box get_indexed_char (size_t index) const;
-  virtual Box get_ascii_char (size_t ascii) const;
 
   /*
     WTF are these vsize ?

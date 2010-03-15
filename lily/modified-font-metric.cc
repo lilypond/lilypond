@@ -54,9 +54,9 @@ Modified_font_metric::design_size () const
 }
 
 Box
-Modified_font_metric::get_indexed_char (vsize i) const
+Modified_font_metric::get_indexed_char_dimensions (vsize i) const
 {
-  Box b = orig_->get_indexed_char (i);
+  Box b = orig_->get_indexed_char_dimensions (i);
   b.scale (magnification_);
   return b;
 }
