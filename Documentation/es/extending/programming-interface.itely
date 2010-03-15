@@ -1011,8 +1011,9 @@ en cuando a la sintaxis; concretamente, no se puede adjuntar con
 @code{^} y @code{_}.
 
 Usando Scheme, se puede dar un rodeo a este problema.  La ruta hacia
-el resultado se da en @ref{Añadir articulación a las notas (ejemplo)},
-especialmente cómo usar @code{\displayMusic} como guía de ayuda.
+el resultado se da en @ref{Añadir articulaciones a las notas
+(ejemplo)}, especialmente cómo usar @code{\displayMusic} como guía de
+ayuda.
 
 @example
 F = #(let ((m (make-music 'ArticulationEvent

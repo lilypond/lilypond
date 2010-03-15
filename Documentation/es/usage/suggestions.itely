@@ -103,8 +103,8 @@ frase (en lugar de sólo @code{c d e}) se puede ahorrar problemas si
 reelabora la música más tarde.
 
 @item @strong{Separe los trucos} de las definiciones musicales.  Consulte
-@ref{Ahorrar tecleo mediante variables y funciones} y
-@ref{Hojas de estilo}.
+@rlearning{Ahorrar tecleo mediante variables y funciones} y
+@rlearning{Hojas de estilo}.
 
 @end itemize
 
@@ -258,7 +258,7 @@ Ahora empiece poco a poco descomentando cada vez más fracciones de la
 parte del @code{bajo} hasta que encuentre la línea del problema.
 
 Otra técnica de depuración muy útil es la construcción de
-@ref{Ejemplos mínimos}.
+@rweb{Ejemplos mínimos}.
 
 
 @node Make y los Makefiles

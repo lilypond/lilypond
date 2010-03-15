@@ -241,7 +241,7 @@ Son programas distintos a @command{lilypond} propiamente dicho, y se
 ejecutan desde la línea de órdenes; consulte @ref{Utilización desde la
 línea de órdenes} para ver más información.  Si tiene MacOS 10.3 o
 10.4 y tiene problemas para ejecutar alguno de estos guiones,
-p.ej. @code{convert-ly}, consulte @ref{Configuración para MacOS X}.
+p.ej. @code{convert-ly}, consulte @rweb{MacOS X}.
 
 
 @knownissues

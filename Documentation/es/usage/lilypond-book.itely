@@ -32,7 +32,7 @@ Es un programa distinto a @command{lilypond} propiamente dicho, y se
 ejecuta sobre la línea de órdenes; para ver más información, consulte
 @ref{Utilización desde la línea de órdenes}.  Si tiene MacOS 10.3 o
 10.4 y experimenta algún problema al ejecutar @code{lilypond-book},
-consulte @ref{Configuración para MacOS X}.
+consulte @rweb{MacOS X}.
 
 Este procedimiento se puede aplicar a documentos de @LaTeX{}, HTML,
 Texinfo o DocBook.

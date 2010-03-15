@@ -3285,7 +3285,7 @@ padText =
 
 La utilización de identificadores también es una buena forma de
 reducir el trabajo si la sintaxis de entrada de LilyPond cambia (véase
-@ref{Actualizar ficheros con convert-ly}).  Si tiene una sola
+@rprogram{Actualizar ficheros con convert-ly}).  Si tiene una sola
 definición (como p.ej. @code{\dolce}) para todos sus archivos (ver
 @ref{Hojas de estilo}), y después la sintaxis se modifica, sólo tendrá
 que actualizar su definición @code{\dolce} única, en lugar de tener
