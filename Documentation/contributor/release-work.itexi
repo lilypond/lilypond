@@ -173,15 +173,22 @@ git checkout master
 git merge release/unstable
 @end example
 
-@item Update @file{VERSION} in lilypond git:
+@item Update @file{VERSION} in lilypond git and upload changes:
 
-@example
+@quotation
+@quotation
 VERSION = what you just did +0.0.1
 DEVEL_VERSION = what you just did (i.e. is now online)
 STABLE_VERSION = what's online
+@end quotation
+@end quotation
+
+@example
+vi VERSION
+git commit -m "Release: bump version." VERSION
+git push origin
 @end example
 
-@item Push changes.
 
 @item (for now) do a @code{make doc} and manually upload:
 
