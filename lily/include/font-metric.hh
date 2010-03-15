@@ -51,7 +51,6 @@ public:
   virtual Box get_indexed_char_dimensions (size_t index) const;
   virtual size_t name_to_index (string) const;
   virtual size_t index_to_charcode (size_t) const;
-  virtual size_t index_to_ascii (size_t) const;
   virtual Real design_size () const;
   virtual Stencil find_by_name (string) const;
   virtual SCM sub_fonts () const;
