@@ -46,25 +46,6 @@ LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
   return m.smobbed_copy ();
 }
 
-LY_DEFINE (ly_get_glyph, "ly:get-glyph",
-	   2, 0, 0,
-	   (SCM font, SCM index),
-	   "Retrieve a stencil for the glyph numbered @var{index}"
-	   " in @var{font}.\n"
-	   "\n"
-	   "Note that this command can only be used to access glyphs from"
-	   " fonts loaded with @code{ly:system-font-load}; currently, this"
-	   " means either the Emmentaler or Emmentaler-Brace fonts, corresponding"
-	   " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
-	   " respectively.")
-{
-  Font_metric *fm = unsmob_metrics (font);
-  LY_ASSERT_SMOB (Font_metric, font, 1);
-  LY_ASSERT_TYPE (scm_is_number, index,2);
-
-  return fm->get_ascii_char_stencil (scm_to_int (index)).smobbed_copy ();
-}
-
 LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
 	   2, 0, 0,
 	   (SCM font, SCM name),

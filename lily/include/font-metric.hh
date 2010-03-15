@@ -62,7 +62,6 @@ public:
   virtual Real design_size () const;
   virtual Stencil find_by_name (string) const;
   virtual Stencil get_indexed_char_stencil (size_t k) const;
-  virtual Stencil get_ascii_char_stencil (size_t k) const;
   virtual SCM sub_fonts () const;
   virtual SCM font_file_name () const;
   DECLARE_SMOBS (Font_metric);

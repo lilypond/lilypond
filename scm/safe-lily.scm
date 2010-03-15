@@ -54,7 +54,6 @@
    ly:format-output
    ly:get-all-function-documentation
    ly:get-all-translators
-   ly:get-glyph
    ly:get-option
    ly:grob-alist-chain
    ly:grob-default-font

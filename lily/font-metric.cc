@@ -157,15 +157,6 @@ Font_metric::index_to_charcode (size_t i) const
 }
 
 Stencil
-Font_metric::get_ascii_char_stencil (size_t code) const
-{
-  SCM at = scm_list_3 (ly_symbol2scm ("char"), self_scm (),
-		       scm_from_unsigned (code));
-  Box b = get_ascii_char (code);
-  return Stencil (b, at);
-}
-
-Stencil
 Font_metric::get_indexed_char_stencil (size_t code) const
 {
   size_t idx = index_to_ascii (code);
