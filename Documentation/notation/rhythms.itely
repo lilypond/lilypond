@@ -2417,6 +2417,19 @@ To print a rehearsal mark, use the @code{\mark} command.
 @lilypond[quote,verbatim,relative=2]
 c1 \mark \default
 c1 \mark \default
+c1 \mark \default
+c1 \mark \default
+@end lilypond
+
+@noindent
+The mark is incremented automatically if you use @code{\mark
+\default}, but you can also use an integer argument to set the
+mark manually.  The value to use is stored in the property
+@code{rehearsalMark}.
+
+@lilypond[quote,verbatim,relative=2]
+c1 \mark \default
+c1 \mark \default
 c1 \mark #8
 c1 \mark \default
 c1 \mark \default
@@ -2424,16 +2437,25 @@ c1 \mark \default
 
 @noindent
 The letter@tie{}@q{I} is skipped in accordance with engraving
-traditions.  If you wish to include the letter @q{I}, then use
+traditions.  If you wish to include the letter @q{I}, then use one
+of the following commands, depending on which style of rehearsal mark
+you want (letters only, letters in a hollow box, or letters in a
+hollow circle).
 
 @example
 \set Score.markFormatter = #format-mark-alphabet
+\set Score.markFormatter = #format-mark-box-alphabet
+\set Score.markFormatter = #format-mark-circle-alphabet
 @end example
 
-The mark is incremented automatically if you use @code{\mark
-\default}, but you can also use an integer argument to set the
-mark manually.  The value to use is stored in the property
-@code{rehearsalMark}.
+@lilypond[quote,verbatim,relative=2]
+\set Score.markFormatter = #format-mark-box-alphabet
+c1 \mark \default
+c1 \mark \default
+c1 \mark #8
+c1 \mark \default
+c1 \mark \default
+@end lilypond
 
 @cindex rehearsal mark format
 @cindex rehearsal mark style
