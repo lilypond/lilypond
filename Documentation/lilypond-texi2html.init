@@ -104,6 +104,11 @@ $LY_LANGUAGES->{'it'} = {
     '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '',
 };
 
+$LY_LANGUAGES->{'nl'} = {
+    'Back to Documentation Index' => 'Terug naar de Documentatieindex',
+    '<p>Met dank aan ${webdev_link} voor het hosten van ${lily_site}.' => '',
+};
+
 # FIXME: request the translations below then send them to texi2html/texinfo devs
 $LANGUAGES->{'it'} = {
                        '  The buttons in the navigation panels have the following meaning:' => '  I bottoni nei pannelli di navigazione hanno il seguente significato:',
