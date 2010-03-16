@@ -194,7 +194,7 @@ symbols = {
 
 If all musical symbols used in traditional notation should also show up
 in tablature one has to apply the command @code{\tabFullNotation} in a
-@code{TabStaff}-context. Please bear in mind that half notes are
+@code{TabStaff}-context.  Please bear in mind that half notes are
 double-stemmed in tablature in order to distinguish them from quarter
 notes.
 
@@ -221,13 +221,13 @@ symbols = {
 @funindex minimumFret
 
 By default pitches are assigned to the lowest playing position on the
-fret-board (first position). Open strings are automatically preferred.
+fret-board (first position).  Open strings are automatically preferred.
 If you would like a certain pitch to be played on a specific string
-you can add a string number indication to the pitch name. If you
+you can add a string number indication to the pitch name.  If you
 define pitch names and string numbers without a chord construct
 (@code{<>}) the string number indications do not appear in traditional
 notation. It is much more comfortable to define the playing position
-by using the value of @code{minimumFret}. The default value for
+by using the value of @code{minimumFret}.  The default value for
 minimumFret is 0.
 
 
@@ -249,8 +249,34 @@ minimumFret is 0.
 >>
 @end lilypond
 
+@funindex \tabChordRepetition
 
-Ties over a line break are parenthesized by default. The same holds for
+Chord constructs can be repeated by the chord repetition symbol @code{q}.
+To use this feature in combination with tablature, @code{\tabChordRepetition}
+is provided.  It preserves the string information explicitly given within
+chord constructs so repeated chords get identical tablature representations.
+
+@lilypond[quote,verbatim]
+\tabChordRepetition
+
+guitar = \relative c' {
+  r8 < gis\4 cis\3 b\2 > ~ q4 q8 ~ q q4
+}
+
+\new StaffGroup <<
+  \new Staff {
+    \clef "treble_8"
+    \override Voice.StringNumber #'transparent = ##t
+    \guitar
+  }
+  \new TabStaff {
+    \guitar
+  }
+>>
+@end lilypond
+
+
+Ties over a line break are parenthesized by default.  The same holds for
 the second alternative of a repeat.
 
 @lilypond[quote,ragged-right,verbatim]
