@@ -626,7 +626,7 @@ fonts inline."
 	 (w (if landscape paper-height paper-width))
 	 (h (if landscape paper-width paper-height)))
     (if (equal? (basename name ".ps") "-")
-	(ly:warning (_ "cannot convert <stdout> to ~S" "PDF"))
+	(ly:warning (_ "cannot convert <stdout> to ~S") "PDF")
 	(postscript->pdf w h name))))
 
 (define-public (convert-to-png book name)
