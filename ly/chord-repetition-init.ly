@@ -54,6 +54,7 @@ are also copied. All other events are not copied into the new chord."
       'elements (append!
                  (map (lambda (note)
                         (let ((new-note (make-music 'NoteEvent
+                                                    'origin location
                                                     'pitch (ly:music-property note 'pitch)
                                                     'duration duration))
                               (articulations
