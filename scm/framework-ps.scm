@@ -638,6 +638,8 @@ fonts inline."
 	 (paper-width (ly:output-def-lookup defs 'paper-width))
 	 (paper-height (ly:output-def-lookup defs 'paper-height))
 	 (output-scale (ly:output-def-lookup defs 'output-scale)))
+    (if (equal? (basename name ".ps") "-")
+	(set! name (string-append "./" name)))
     (postscript->png resolution
 		     (* paper-width output-scale (/ (ly:bp 1)))
 		     (* paper-height output-scale (/ (ly:bp 1)))
