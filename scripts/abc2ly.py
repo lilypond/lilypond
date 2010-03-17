@@ -1045,14 +1045,15 @@ def try_parse_note (str, parser_state):
 
     voices_append (articulation)
 
-    if parser_state.parsing_tuplet:
-        parser_state.parsing_tuplet = parser_state.parsing_tuplet - 1
-        if not parser_state.parsing_tuplet:
-            voices_append ("}")
     if slur_begin:
         voices_append ('-(' * slur_begin )
     if slur_end:
         voices_append ('-)' *slur_end )
+
+    if parser_state.parsing_tuplet:
+        parser_state.parsing_tuplet = parser_state.parsing_tuplet - 1
+        if not parser_state.parsing_tuplet:
+            voices_append ("}")
 
     if global_options.beams and \
      str[0] in '^=_ABCDEFGabcdefg' and \
