@@ -110,12 +110,14 @@ Drag-and-drop the file directly onto the LilyPond icon.
 
 @sourceimage{Learning_Win7_Open_Dragndrop,,,}
 
+@c FIXME: use 2nd-click? Right/Left depends on where you place your mouse.
 Right-click on the file and from the pop-up context menu choose
 @w{@code{Open with > LilyPond}}.
 
 @sourceimage{Learning_Win7_Open_Context_Menu,,,}
 
 
+@c FIXME: why present/advise the best/simplest for last?
 @subsubheading Step 2b. Compile (with double-clicking)
 
 Or simply double-click the @file{test.ly}.

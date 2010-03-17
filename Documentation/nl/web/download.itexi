@@ -140,12 +140,13 @@ acknowledged.
 @subheading Generieke pakketten of distributie-specifieke pakketten?
 
 Veel distributies leveren LilyPond mee als onderdeel van hun normale
-software-pakketsysteem.  Zo'n pakket is eenvoudiger te installeren en
-verwijderen dan een generiek pakket, maar het kan een verouderde versie
-zijn.  Als je een generiek pakket wilt gebruiken, verwijder dan liever
-eerst de officiële versie van je systeem met het normale pakketbeheer
-van je distributie (softwarecentrum).  Zie de documentatie van je
-distributie voor hoe je het pakketbeheer of softwarecentrum gebruikt.
+software-pakketsysteem.  Zo'n LilyPond-pakket is eenvoudiger te
+installeren en verwijderen dan een generiek pakket, maar het kan een
+verouderde versie zijn.  Als je een generiek pakket wilt gebruiken,
+verwijder dan liever eerst de officiële versie van je systeem met het
+normale pakketbeheer van je distributie (softwarecentrum).  Zie de
+documentatie van je distributie voor hoe je het pakketbeheer of
+softwarecentrum gebruikt.
 
 @divEnd
 
