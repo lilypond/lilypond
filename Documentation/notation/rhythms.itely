@@ -1863,7 +1863,8 @@ still accepting notes, this last beam will not be typeset at all.
 The same holds for polyphonic voices, entered with @code{<<
 @dots{} \\ @dots{} >>}.  If a polyphonic voice ends while an
 automatic beam is still accepting notes, it is not typeset.
-
+The workaround for these problems is to manually beam the last
+beam in the voice or score.
 
 @node Manual beams
 @unnumberedsubsubsec Manual beams
