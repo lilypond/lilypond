@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 @ignore
     Translation of GIT committish: e70e5efa2ea3726202bb2114451c9af444814dca
 
@@ -15,15 +15,17 @@
 @c source code.
 
 @macro lilypadOSX
-@warning{Deze instructies veronderstellen dat je de de LilyPond
-applicate gebruikt.  Als je een van de andere programma's gebruikt die
-beschreven staan in @rweb{Eenvoudiger bewerken}, raadpleeg dan de
-documentatie voor dat programma als je problemen hebt.}
+@warning{Deze instructies veronderstellen dat je de de
+LilyPond applicate gebruikt.  Als je een van de andere
+programma's gebruikt die beschreven staan in
+@rweb{Eenvoudiger bewerken}, raadpleeg dan de documentatie
+voor dat programma als je problemen hebt.}
 
 
 @subsubheading Stap 1. Maak je @file{.ly}-bestand
 
-Dubbelklik de @command{LilyPond.app}, een voorbeeldbestand wordt geopend.
+Dubbelklik de @command{LilyPond.app}, een voorbeeldbestand
+wordt geopend.
 
 @sourceimage{Learning_Macos_welcome,,,}
 
@@ -44,17 +46,18 @@ Uit dezelfde menu's, kies
 
 @sourceimage{Learning_Macos_Typeset_menu,,,}
 
-Een nieuw venster opent en toont een voortgangslog van de compilatie
-van het bestand dat je zojuist hebt opgeslagen.
+Een nieuw venster opent en toont een voortgangslog van de
+compilatie van het bestand dat je zojuist hebt opgeslagen.
 
 @sourceimage{Learning_Macos_Compiling_log,,,}
 
 
 @subsubheading Stap 3. Bekijk de uitvoer
 
-Zodra de compilatie klaar is, wordt een PDF-bestand gemaakt met dezelfde
-naam als het originele bestand en dat wordt automatisch geopend in de
-standaard PDF-viewer en op je scherm getoond.
+Zodra de compilatie klaar is, wordt een PDF-bestand gemaakt
+met dezelfde naam als het originele bestand en dat wordt
+automatisch geopend in de standaard PDF-viewer en op je
+scherm getoond.
 
 @sourceimage{Learning_Macos_pdf_output,,,}
 
@@ -67,17 +70,18 @@ Een nieuw LilyPond bestand maken, doe je door het kiezen van
 
 @sourceimage{Learning_Macos_New_menu,,,}
 
-@c FIXME: is lilypad vertaald in het nederlands, of is dit File > Open?
+@c FIXME: is lilypad vertaald in het nederlands, of is dit
+@c File > Open?
 of je opent met @w{@code{Bestand > Openen}} een bestaand bestand
 om te bewerken.
 
 @sourceimage{Learning_Macos_Open_menu,,,}
 
 @c FIXME: is lilypad vertaald in het nederlands, hoe heet Compile > Typeset?
-Als je een bestand bewerkt hebt, moet je het eerst opslaan voordat je
-@w{@code{Compile > Typeset}} doet en als het PDF-bestand niet wordt
-getoond, controleer dan het venster met de voortgangslog op
-foutmeldingen.
+Als je een bestand bewerkt hebt, moet je het eerst opslaan
+voordat je @w{@code{Compile > Typeset}} doet en als het
+PDF-bestand niet wordt getoond, controleer dan het venster
+met de voortgangslog op foutmeldingen.
 
 @c FIXME: hoe heet Preview in de nederlandse osx?
 Als je geen gebruik maakt van de standaard Preview PDF-viewer die
@@ -91,24 +95,25 @@ een nieuwe PDF totdat je het originele venster sluit.
 
 
 @macro lilypadWindows
-@warning{Deze instructies veronderstellen dat je gebruik maakt van de
-ingebouwde LilyPad-editor.  Als je een van de andere programma's
-gebruikt die beschreven staan in @rweb{Eenvoudiger bewerken}, raadpleeg
-dan de documentatie voor dat programma als je problemen hebt met het
-compileren van een bestand.}
+@warning{Deze instructies veronderstellen dat je gebruik
+maakt van de ingebouwde LilyPad-editor.  Als je een van de
+andere programma's gebruikt die beschreven staan in
+@rweb{Eenvoudiger bewerken}, raadpleeg dan de documentatie
+voor dat programma als je problemen hebt met het compileren
+van een bestand.}
 
 
 @subsubheading Stap 1. Maak je @file{.ly}-bestand
 
-Dubbelklik het LilyPond ikoon op je Bureaublad, een voorbeeldbestand
-wordt geopend.
+Dubbelklik het LilyPond ikoon op je Bureaublad, een
+voorbeeldbestand wordt geopend.
 
 @sourceimage{Learning_Win7_Welcome_File_Whole,,,}
 
-Kies uit de menu's bovenaan het voorbeeldbestand @w{@code{Bestand >
-Opslaan als}}.  De optie @w{@code{Bestand > Opslaan}} kun je voor dit
-voorbeeldbestand niet gebruiken als je het nog geen geldige
-LilyPond-naam hebt gegeven.
+Kies uit de menu's bovenaan het voorbeeldbestand
+@w{@code{Bestand > Opslaan als}}.  De optie @w{@code{Bestand
+> Opslaan}} kun je voor dit voorbeeldbestand niet gebruiken
+als je het nog geen geldige LilyPond-naam hebt gegeven.
 
 @sourceimage{Learning_Win7_Save_Menu,,,}
 
@@ -119,9 +124,11 @@ Kies een naam voor je bestand, bijvoorbeeld @file{test.ly}.
 
 @subsubheading Stap 2a. Compileer (door slepen en neerzetten - drag and drop)
 
-Afhankelijk van wat je voorkeur heeft, compileer je je bestand door ofwel:
+Afhankelijk van wat je voorkeur heeft, compileer je je
+bestand door ofwel:
 
-te slepen en neer te zetten bovenop het LilyPond ikoon, ofwel
+te slepen en neer te zetten bovenop het LilyPond ikoon,
+ofwel
 
 @sourceimage{Learning_Win7_Open_Dragndrop,,,}
 
@@ -138,9 +145,10 @@ Of dubbelklik het @file{test.ly} bestand.
 
 @subsubheading Stap 3. Bekijk de uitvoer
 
-Tijdens het compileren van het @file{test.ly} bestand, wordt een
-commandovenster geopend dat zich na korte tijd weer sluit.  Tijdens
-dit proces worden drie extra bestanden aangemaakt.
+Tijdens het compileren van het @file{test.ly} bestand, wordt
+een commandovenster geopend dat zich na korte tijd weer
+sluit.  Tijdens dit proces worden drie extra bestanden
+aangemaakt.
 
 @sourceimage{Learning_Win7_All_Files_Created,,,}
 
@@ -157,27 +165,30 @@ een eerder gemaakt bestand.
 @sourceimage{Learning_Win7_New_Menu,,,}
 
 @noindent
-of gebruik @w{@code{Bestand > Openen}} om een eerder gemaakt bestand te
-openen en te bewerken.
+of gebruik @w{@code{Bestand > Openen}} om een eerder gemaakt
+bestand te openen en te bewerken.
 
 @sourceimage{Learning_Win7_Open_Menu,,,}
 
-Als je een bestand bewerkt hebt, moet je het eerst opslaan voordat je
-het compileert en als het PDF-bestand niet wordt aangemaakt, controleer
-dan het venster met de voortgangslog op foutmeldingen.
+Als je een bestand bewerkt hebt, moet je het eerst opslaan
+voordat je het compileert en als het PDF-bestand niet wordt
+aangemaakt, controleer dan het venster met de voortgangslog
+op foutmeldingen.
 
 @sourceimage{Learning_Win7_Log_File,,,}
 
-Dit logbestand wordt elke keer overschreven als je je LilyPond-bestand
-compileert.
+Dit logbestand wordt elke keer overschreven als je je
+LilyPond-bestand compileert.
 
-Het PS-bestand wordt LilyPond intern gebruikt als tussenstap om het
-PDF-bestand aan te maken, je kunt het verder negeren.  Dit bestand wordt
-ook elke keer overschreven als je je LilyPond-bestand compileert.
+Het PS-bestand wordt LilyPond intern gebruikt als tussenstap
+om het PDF-bestand aan te maken, je kunt het verder negeren.
+Dit bestand wordt ook elke keer overschreven als je je
+LilyPond-bestand compileert.
 
-Als je je bestand bekijkt met een PDF-viewer, dan moet je de PDF sluiten
-als je een nieuwe compilatie wilt doen omdat het genereren van een
-nieuwe PDF kan mislukken zolang je de oude nog aan het bekijken bent.
+Als je je bestand bekijkt met een PDF-viewer, dan moet je de
+PDF sluiten als je een nieuwe compilatie wilt doen omdat het
+genereren van een nieuwe PDF kan mislukken zolang je de oude
+nog aan het bekijken bent.
 
 
 @end macro
@@ -185,11 +196,12 @@ nieuwe PDF kan mislukken zolang je de oude nog aan het bekijken bent.
 
 @c not lilypad at all, but I ran out of names.  :(
 @macro lilypadCommandLine
-@warning{Deze instructies veronderstellen dat je vertrouwd bent met het
-gebruik van de commandoregel.  Als je een van de andere programma's
-gebruikt die beschreven staan in @rweb{Eenvoudiger bewerken}, raadpleeg
-dan de documentatie voor dat programma als je problemen hebt met het
-compileren van een bestand.}
+@warning{Deze instructies veronderstellen dat je vertrouwd
+bent met het gebruik van de commandoregel.  Als je een van
+de andere programma's gebruikt die beschreven staan in
+@rweb{Eenvoudiger bewerken}, raadpleeg dan de documentatie
+voor dat programma als je problemen hebt met het compileren
+van een bestand.}
 
 
 @subsubheading Stap 1. Maak je @file{.ly}-bestand
@@ -207,7 +219,8 @@ Maak een tekstbestand met de naam @file{test.ly} en vul het met:
 
 @subsubheading Stap 2. Compileren (op de commandoregel)
 
-Om het @file{test.ly} bestand te compileren, typ op de commandoregel:
+Om het @file{test.ly}-bestand te compileren, typ op de
+commandoregel:
 
 @example
 lilypond test.ly
@@ -230,7 +243,8 @@ Converteren naar `./test.pdf'...
 
 @subsubheading Stap 3. Bekijk de uitvoer
 
-Je kunt het resulterende @file{test.pdf} bestand bekijken of printen.
+Je kunt het resulterende @file{test.pdf}-bestand bekijken of
+printen.
 
 @end macro
 

@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 @ignore
     Translation of GIT committish: e70e5efa2ea3726202bb2114451c9af444814dca
 
@@ -10,9 +10,10 @@
 @include included/generating-output.itexi
 
 @macro warningTextBased
-@warning{LilyPond is een @strong{tekstgebaseerd} muzieknotatieprogramma;
-in bepaalde opzichten lijkt LilyPond meer op een programmeertaal dan op
-een grafisch muziekprogramma.  Voordat je LilyPond download, lees liever
+@warning{LilyPond is een @strong{tekstgebaseerd}
+muzieknotatieprogramma; in bepaalde opzichten lijkt LilyPond
+meer op een programmeertaal dan op een grafisch
+muziekprogramma.  Voordat je LilyPond download, lees liever
 eerst over onze @ref{Tekstinvoer}.}
 @end macro
 
@@ -83,8 +84,8 @@ meest recente ontwikkelversie
 
 @subheading Software licentie
 
-LilyPond is uitgegeven onder de
-@ref{GPL, GNU General Public License} (GNU Algemene Publieke Licentie).
+LilyPond is uitgegeven onder de @ref{GPL, GNU General Public
+License} (GNU Algemene Publieke Licentie).
 @divEnd
 
 
@@ -139,14 +140,15 @@ acknowledged.
 @divClass{column-center-top}
 @subheading Generieke pakketten of distributie-specifieke pakketten?
 
-Veel distributies leveren LilyPond mee als onderdeel van hun normale
-software-pakketsysteem.  Zo'n LilyPond-pakket is eenvoudiger te
-installeren en verwijderen dan een generiek pakket, maar het kan een
-verouderde versie zijn.  Als je een generiek pakket wilt gebruiken,
-verwijder dan liever eerst de officiële versie van je systeem met het
-normale pakketbeheer van je distributie (softwarecentrum).  Zie de
-documentatie van je distributie voor hoe je het pakketbeheer of
-softwarecentrum gebruikt.
+Veel distributies leveren LilyPond mee als onderdeel van hun
+normale software-pakketsysteem.  Zo'n LilyPond-pakket is
+eenvoudiger te installeren en verwijderen dan een generiek
+pakket, maar het kan een verouderde versie zijn.  Als je een
+generiek pakket wilt gebruiken, verwijder dan liever eerst
+de officiële versie van je systeem met het normale
+pakketbeheer van je distributie (softwarecentrum).  Zie de
+documentatie van je distributie voor hoe je het pakketbeheer
+of softwarecentrum gebruikt.
 
 @divEnd
 
@@ -220,8 +222,8 @@ uninstall-lilypond
 @divClass{column-left-top}
 @subheading Distributie-specifieke pakketten
 
-Gebruik het pakketbeheer (softwarecentrum) van je distributie
-voor het upgraden naar deze versies.
+Gebruik het pakketbeheer (softwarecentrum) van je
+distributie voor het upgraden naar deze versies.
 
 @itemize
 
@@ -318,12 +320,13 @@ Verwijder de LilyPond.app map.
 @divClass{column-left-top}
 @subheading Uitvoeren op de commandoregel
 
-@warning{Als je liever de GUI gebruikt, sla deze instructies dan over.}
+@warning{Als je liever de GUI gebruikt, sla deze instructies
+dan over.}
 
 @subsubheading MacOS X op de commandoregel
 
-De handigste manier om LilyPond scripts uit te voeren is door middel van
-het maken van je eigen @qq{hulp}scripts.
+De handigste manier om LilyPond scripts uit te voeren is
+door middel van het maken van je eigen @qq{hulp}scripts.
 
 @enumerate
 
@@ -350,9 +353,10 @@ exec @var{MAP}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
 
 @item
 Maak gelijksoortige bestanden @command{lilypond-book},
-@command{convert-ly}, en andere scripts die je wilt gebruiken, door het
-commando @command{bin/lilypond} te vervangen met
-@command{bin/convert-ly} (of een andere programmanaam).
+@command{convert-ly}, en andere scripts die je wilt
+gebruiken, door het commando @command{bin/lilypond} te
+vervangen met @command{bin/convert-ly} (of een andere
+programmanaam).
 
 
 @item
@@ -365,8 +369,8 @@ chmod u+x lilypond
 
 @item
 Voeg nu deze map toe aan je pad.  Wijzig het bestand genaamd
-@code{.profile} in je persoonlijke map (of maak nieuw aan) zodat
-het bevat
+@code{.profile} in je persoonlijke map (of maak nieuw aan)
+zodat het bevat
 
 @example
 export PATH=$PATH:~/bin
@@ -379,12 +383,13 @@ Het bestand moet eindigen met een lege regel.
 
 @subsubheading Afzonderlijke scripts uitvoeren
 
-De scripts --- zoals @command{lilypond-book}, @command{convert-ly},
-@command{abc2ly}, en zelfs @command{lilypond} zelf --- worden
-meegeleverd met het @code{.app} bestand voor MacOS@tie{}X.
+De scripts --- zoals @command{lilypond-book},
+@command{convert-ly}, @command{abc2ly}, en zelfs
+@command{lilypond} zelf --- worden meegeleverd met het
+@code{.app} bestand voor MacOS@tie{}X.
 
-Scripts kunnen ook worden uitgevoerd op de commandoregel door
-ze direct aan te roepen:
+Scripts kunnen ook worden uitgevoerd op de commandoregel
+door ze direct aan te roepen:
 
 @example
 @var{pad/naar}/LilyPond.app/Contents/Resources/bin/lilypond
@@ -436,11 +441,12 @@ Voor Windows ME, NT, 2000, XP, Vista, en Windows 7.
 @enumerate
 
 @item
-Zoek het gedownloade bestand en dubbelklik het om het te installeren.
-Volg de instructies op die de installer je geeft; wij raden je aan alle
-installatiekeuzes aangevinkt te laten en de standaard aangegeven locatie
-te gebruiken.  Klik op de @q{Finish} knop als de installer klaar is.
-LilyPond is nu geïnstalleerd.
+Zoek het gedownloade bestand en dubbelklik het om het te
+installeren.  Volg de instructies op die de installer je
+geeft; wij raden je aan alle installatiekeuzes aangevinkt te
+laten en de standaard aangegeven locatie te gebruiken.  Klik
+op de @q{Finish} knop als de installer klaar is.  LilyPond
+is nu geïnstalleerd.
 
 @end enumerate
 
@@ -451,13 +457,15 @@ Om LilyPond te verwijderen, ofwel:
 @enumerate
 
 @item
-Zoek de LilyPond map in het menu @q{Start} en klik op het @q{Uninstall}
-ikoon.  Klik op de @q{Finish} knop als de uninstaller klaar is.
+Zoek de LilyPond map in het menu @q{Start} en klik op het
+@q{Uninstall} ikoon.  Klik op de @q{Finish} knop als de
+uninstaller klaar is.
 
 @item
-Ofwel vanuit het Configuratiescherm, kies Programma's en onderdelen,
-zoek en selecteer LilyPond en kies de optie verwijderen/wijzigen.  Klik
-op de @q{Finish} knop als de uninstaller klaar is.
+Ofwel vanuit het Configuratiescherm, kies Programma's en
+onderdelen, zoek en selecteer LilyPond en kies de optie
+verwijderen/wijzigen.  Klik op de @q{Finish} knop als de
+uninstaller klaar is.
 
 @end enumerate
 
@@ -475,7 +483,8 @@ op de @q{Finish} knop als de uninstaller klaar is.
 @divClass{column-left-top}
 @subheading Uitvoeren op de commandoregel
 
-@warning{Als je liever de GUI gebruikt, sla deze instructies dan over.}
+@warning{Als je liever de GUI gebruikt, sla deze instructies
+dan over.}
 
 @subsubheading Windows on the command line
 
@@ -484,30 +493,30 @@ CHECK: check the following descriptions.
 I don't have English version of Windows.
 @end ignore
 
-De handigste manier om LilyPond uit te voeren is door de map die
-de LilyPond programmabestanden bevat, toe te voegen aan de
-omgevingsvariabele
-@qq{Path}.
+De handigste manier om LilyPond uit te voeren is door de map
+die de LilyPond programmabestanden bevat, toe te voegen aan
+de omgevingsvariabele @qq{Path}.
 
 
 @enumerate
 @item
-In het Configuratiescherm, open @qq{Systeem}, selecteer Geavanceerde
-systeeminstellingen of het Geavanceerd tabje en klik op de
-knop @q{Omgevingsvariabelen}.
+In het Configuratiescherm, open @qq{Systeem}, selecteer
+Geavanceerde systeeminstellingen of het Geavanceerd tabje en
+klik op de knop @q{Omgevingsvariabelen}.
 
 @item
 Selecteer de Variabele @qq{Path} uit lijst Systeemvariabelen
-en klik op de knop @q{Bewerken}.
-Een dialoogvenster met de titel @qq{Systeemvariabele bewerken}
-opent; voeg aan de @qq{Waarde van variable} de naam van de map toe
-waarin de LilyPond programmabestanden staan:
+en klik op de knop @q{Bewerken}.  Een dialoogvenster met de
+titel @qq{Systeemvariabele bewerken} opent; voeg aan de
+@qq{Waarde van variable} de naam van de map toe waarin de
+LilyPond programmabestanden staan:
 
 @example
 [@var{vooringestelde paden}];@var{MAP}\LilyPond\usr\bin
 @end example
 
-@warning{@var{MAP} is normaal gesproken @code{C:\Program Files}.}
+@warning{@var{MAP} is normaal gesproken @code{C:\Program
+Files}.}
 
 @noindent
 en klik op de @qq{OK} knop om het dialoogvenster te sluiten.
@@ -516,10 +525,9 @@ en klik op de @qq{OK} knop om het dialoogvenster te sluiten.
 
 @subsubheading Afzonderlijke programmabestanden uitvoeren
 
-LilyPond pogrammabestanden
--- zoals as lilypond, lilypond-book, convert-ly, enz. --
-kunnen op de commandoregel worden uitgevoerd door ze aan
-te roepen:
+LilyPond pogrammabestanden -- zoals as lilypond,
+lilypond-book, convert-ly, enz. -- kunnen op de
+commandoregel worden uitgevoerd door ze aan te roepen:
 
 @example
 lilypond test.ly
@@ -551,16 +559,17 @@ acknowledged.
 @divEnd
 
 @warning{Het zelf proberen te bouwen van LilyPond wordt
-@strong{afgeraden}; vrijwel iedere gebruiker is beter af met de
-voorgebouwde versie.}
+@strong{afgeraden}; vrijwel iedere gebruiker is beter af met
+de voorgebouwde versie.}
 
 @divClass{column-left-bottom}
 @subheading Broncode tarball
 
 @downloadStableSource{}
 
-Voor een uitgebreide lijst van alle versies (zowel oude als nieuwe), zie
-onze @uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D,
+Voor een uitgebreide lijst van alle versies (zowel oude als
+nieuwe), zie onze
+@uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D,
 download site}.
 
 @divEnd
@@ -568,7 +577,8 @@ download site}.
 @divClass{column-right-bottom}
 @subheading Compileerinstructies
 
-Instructies worden opgesomd in @rcontrib{Compiling LilyPond}.
+Instructies worden opgesomd in @rcontrib{Compiling
+LilyPond}.
 
 @divEnd
 
@@ -584,9 +594,10 @@ Instructies worden opgesomd in @rcontrib{Compiling LilyPond}.
 @divClass{column-center-top}
 @subheading Alle versies
 
-Voor een uitgebreide lijst van alle versies (zowel oude als nieuwe), zie
-onze @uref{http://download.linuxaudio.org/lilypond/binaries/, download
-site}.
+Voor een uitgebreide lijst van alle versies (zowel oude als
+nieuwe), zie onze
+@uref{http://download.linuxaudio.org/lilypond/binaries/,
+download site}.
 
 @divEnd
 
@@ -597,9 +608,10 @@ site}.
 @divClass{column-center-top}
 @subheading Software licentie
 
-GNU LilyPond wordt uitgebracht onder de GNU General Public License (GNU
-Algemene Publieke Licentie).  Een inleiding op deze licentie en onze
-redenen om hiervoor te kiezen, wordt gegeven in @ref{Vrijheid}.
+GNU LilyPond wordt uitgebracht onder de GNU General Public
+License (GNU Algemene Publieke Licentie).  Een inleiding op
+deze licentie en onze redenen om hiervoor te kiezen, wordt
+gegeven in @ref{Vrijheid}.
 
 @divEnd
 

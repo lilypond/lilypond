@@ -20,7 +20,7 @@ This file provides an introduction to LilyPond version
 
 @c `Learning Manual' was born 1999-10-10 with git commit b9abaac...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2010 van de auteurs.
+Copyright @copyright{} 1999--2010 door de auteurs.
 @end macro
 
 @set FDL
@@ -45,14 +45,17 @@ Copyright @copyright{} 1999--2010 van de auteurs.
 @menu
 * Leerboek::                       De basis van muzieknotatie met LilyPond.
 * Algemene muzieknotatie::         Het schrijven van algemene muzieknotatie.
-* Fundamentele concepten::         Basisconcepten van belang voor het begrijpen van het vervolg van de handleiding.
-* Uitvoerverfijningen::            Inleiding in het verfijnen van de uitvoer.
+@c * Fundamentele concepten::         Basisconcepten van belang voor het begrijpen van het vervolg van de handleiding.
+@c * Uitvoerverfijningen::            Inleiding in het verfijnen van de uitvoer.
+* Fundamental concepts::         Basisconcepten van belang voor het begrijpen van het vervolg van de handleiding.
+* Tweaking output::            Inleiding in het verfijnen van de uitvoer.
 
 Appendices
 
-* Sjablonen::                      Pasklare sjablonen.
+* Templates::                      Pasklare sjablonen.
+@c * Sjablonen::                      Pasklare sjablonen.
 * GNU Free Documentation License:: Licentie van dit document.
-* LilyPond index::                 Register.
+* LilyPond register::                 Register.
 @end menu
 
 @docMain

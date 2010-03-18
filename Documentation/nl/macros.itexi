@@ -68,6 +68,103 @@ translations should be in macros.itexi.
 @end ifnothtml
 
 
+@macro docMain
+@cartouche
+Voor meer informatie over waar deze handleiding in de rest van de
+documentatie past, of over het lezen van deze handleiding in andere
+formaten, zie @rweb{Handleidingen}.
+
+Mocht je een handleiding missen, de volledige documentatie is altijd te
+vinden op @w{@uref{http://@/www@/.lilypond@/.org/}}.
+@end cartouche
+@end macro
+
+
+@macro lilyTitlePage{TITLE}
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
+
+
+@c   ***** Copyright stuff *****
+@ifset FDL
+@copying
+@copyrightDeclare
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{De vertaling van onderstaande copyright voorwaarden wordt gegeven
+ter oriëntering voor niet-Engelstalige lezers.  Juridisch gezien is
+echter uitsluitend de engelstalige versie rechtsgeldig.}
+
+@c van http://nl.wiktionary.org/wiki/WikiWoordenboek:GNU-licentie_voor_vrije_documentatie_in_het_Nederlands
+@quotation
+Toestemming wordt verleend tot het kopiëren, verspreiden en/of wijzigen
+van dit document onder de bepalingen van de GNU Vrije Documentatie
+Licentie, versie 1.1 of iedere latere versie uitgegeven door de Free
+Software Foundation; zonder Invariante Secties, zonder Omslagteksten
+voor de Voorkant en zonder Omslagteksten voor de Achterkant. Een kopie
+van de licentie is opgenomen in de sectie getiteld ``GNU Vrije
+Documentatie Licentie''.
+
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+@end ifset
+
+@ifclear FDL
+@copying
+This document has been placed in the public domain.
+@end copying
+@end ifclear
+
+
+@c   ***** Title page *****
+@ifnottex
+@node Top
+@top LilyPond -- \TITLE\
+
+@cartouche
+@manualIntro{}
+@end cartouche
+@end ifnottex
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle Het muziekprogramma
+@titlefont{\TITLE\}
+@author Het LilyPond ontwikkelteam
+
+@vskip 60pt
+
+@cartouche
+@manualIntro{}
+@end cartouche
+
+@vskip 40pt
+
+@docMain{}
+
+@vskip 0pt plus 1filll
+
+@insertcopying
+
+Voor LilyPond versie @version{}
+@end titlepage
+
+@end macro
 
 @c   ***** Headings in a doc subsection *****
 
