@@ -2,10 +2,10 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.4
-\version "2.13.10"
+\version "2.13.16"
 
 \header {
-%% Translation of GIT committish: 45fc8488655f9ea122d1ec6e3328892618bd6971
+%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
   texidoces = "
 Para tipografiar las barras agrupadas en la forma @code{3-4-3-2}
 en 12/8, en primer lugar tenemos que sobreescribir los finales de

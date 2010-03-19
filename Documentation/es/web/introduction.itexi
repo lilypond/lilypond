@@ -156,7 +156,7 @@ partituras basados en gráficos).
 @imageFloat{lilypond-book,png,right}
 
 Inserte fragmentos de música dentro de textos sin cortar y pegar
-imágenes.  Integre música dentro de @LaTeX o HTML de manera fácil, o
+imágenes.  Integre música dentro de @LaTeX{} o HTML de manera fácil, o
 añada música a los documentos de OpenOffice.org con OOoLilyPond.
 
 

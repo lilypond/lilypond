@@ -198,7 +198,7 @@ void set_music_properties (Music *p, SCM a);
 %token MIDI "\\midi"
 %token NAME "\\name"
 %token NOTEMODE "\\notemode"
-%token OBJECTID "\\objectid"	
+%token OBJECTID "\\objectid"
 %token OCTAVE "\\octave"
 %token ONCE "\\once"
 %token OVERRIDE "\\override"
@@ -365,10 +365,10 @@ If we give names, Bison complains.
 %type <outputdef> output_def_head
 %type <outputdef> output_def_head_with_mode_switch
 %type <outputdef> output_def
-%type <outputdef> paper_block 
+%type <outputdef> paper_block
 
 %type <scm> alternative_music
-%type <scm> generic_prefix_music_scm 
+%type <scm> generic_prefix_music_scm
 %type <scm> music_list
 %type <scm> absolute_pitch
 %type <scm> assignment_id
@@ -408,7 +408,7 @@ If we give names, Bison complains.
 %type <scm> lyric_markup
 %type <scm> markup
 %type <scm> markup_braced_list
-%type <scm> markup_braced_list_body 
+%type <scm> markup_braced_list_body
 %type <scm> markup_composed_list
 %type <scm> markup_command_list
 %type <scm> markup_head_1_item
@@ -445,7 +445,7 @@ If we give names, Bison complains.
 %type <scm> steno_pitch
 %type <scm> steno_tonic_pitch
 %type <scm> step_number
-%type <scm> step_numbers 
+%type <scm> step_numbers
 %type <scm> string
 
 %type <score> score_block
@@ -476,7 +476,7 @@ lilypond:	/* empty */
 
 
 object_id_setting:
-	OBJECTID STRING { $$ = $2; } 
+	OBJECTID STRING { $$ = $2; }
 	;
 
 toplevel_expression:
@@ -497,7 +497,7 @@ toplevel_expression:
 	}
 	| score_block {
 		Score *score = $1;
-		
+
 		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-score-handler");
 		scm_call_2 (proc, PARSER->self_scm (), score->self_scm ());
 		score->unprotect ();
@@ -543,7 +543,7 @@ lilypond_header_body:
 		PARSER->lexer_->add_scope ($$);
 	}
 	| lilypond_header_body assignment  {
-		
+
 	}
 	;
 
@@ -661,7 +661,7 @@ context_def_spec_body:
 		}
 	}
 	| context_def_spec_body context_mod {
-		unsmob_context_def ($$)->add_context_mod ($2);		
+		unsmob_context_def ($$)->add_context_mod ($2);
 	}
 	;
 
@@ -686,7 +686,7 @@ book_body:
 		$$->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (PARSER->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
 		$$->paper_->unprotect ();
 		push_paper (PARSER, $$->paper_);
-		$$->header_ = PARSER->lexer_->lookup_identifier ("$defaultheader"); 
+		$$->header_ = PARSER->lexer_->lookup_identifier ("$defaultheader");
 		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$->self_scm ());
 		PARSER->lexer_->set_identifier (ly_symbol2scm ("book-output-suffix"), SCM_BOOL_F);
 		PARSER->lexer_->set_identifier (ly_symbol2scm ("book-filename"), SCM_BOOL_F);
@@ -826,7 +826,7 @@ score_body:
 		if ($2->lookup_variable (ly_symbol2scm ("is-paper")) == SCM_BOOL_T)
 		{
 			PARSER->parser_error (@2, _("\\paper cannot be used in \\score, use \\layout instead"));
-		
+
 		}
 		else
 		{
@@ -962,7 +962,7 @@ music_list:
 	}
 	| music_list error {
 		Music *m = MY_MAKE_MUSIC("Music", @$);
-		// ugh. code dup 
+		// ugh. code dup
 		m->set_property ("error-found", SCM_BOOL_T);
 		SCM s = $$;
  		SCM c = scm_cons (m->self_scm (), SCM_EOL);
@@ -1051,7 +1051,7 @@ grouped_music_list:
 	;
 
 function_scm_argument:
-	embedded_scm  
+	embedded_scm
 	| simple_string
 	;
 
@@ -1112,7 +1112,7 @@ optional_id:
 	| '=' simple_string {
 		$$ = $2;
 	}
-	;	
+	;
 
 
 prefix_composite_music:
@@ -1159,14 +1159,14 @@ prefix_composite_music:
 	| re_rhythmed_music	{ $$ = $1; }
 	;
 
-mode_changing_head: 
+mode_changing_head:
 	NOTEMODE {
 		SCM nn = PARSER->lexer_->lookup_identifier ("pitchnames");
 		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
 
 		$$ = ly_symbol2scm ("notes");
 	}
-	| DRUMMODE 
+	| DRUMMODE
 		{
 		SCM nn = PARSER->lexer_->lookup_identifier ("drumPitchNames");
 		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
@@ -1192,7 +1192,7 @@ mode_changing_head:
 	}
 	;
 
-mode_changing_head_with_context: 
+mode_changing_head_with_context:
 	DRUMS {
 		SCM nn = PARSER->lexer_->lookup_identifier ("drumPitchNames");
 		PARSER->lexer_->push_note_state (alist_to_hashq (nn));
@@ -1278,7 +1278,7 @@ property_path_revved:
 property_path:
 	property_path_revved  {
 		$$ = scm_reverse_x ($1, SCM_EOL);
-	} 
+	}
 	;
 
 property_operation:
@@ -1351,7 +1351,7 @@ context_prop_spec:
 
 simple_music_property_def:
 	OVERRIDE context_prop_spec property_path '=' scalar {
-		$$ = scm_append (scm_list_2 (scm_list_n (scm_car ($2),			
+		$$ = scm_append (scm_list_2 (scm_list_n (scm_car ($2),
 				ly_symbol2scm ("OverrideProperty"),
 				scm_cadr ($2),
 				$5, SCM_UNDEFINED),
@@ -1472,7 +1472,7 @@ note_chord_element:
 		SCM dur = unsmob_duration ($2)->smobbed_copy ();
 		SCM es = m->get_property ("elements");
 		SCM postevs = scm_reverse_x ($3, SCM_EOL);
-		
+
 		for (SCM s = es; scm_is_pair (s); s = scm_cdr (s))
 		  unsmob_music (scm_car (s))->set_property ("duration", dur);
 		es = ly_append2 (es, postevs);
@@ -1535,7 +1535,7 @@ chord_body_element:
 		}
 		$$ = n->unprotect ();
 	}
-	| music_function_chord_body { 
+	| music_function_chord_body {
 		$$ = run_music_function (PARSER, $1);
 	}
 	;
@@ -1644,7 +1644,7 @@ command_event:
 
 		Music *key = MY_MAKE_MUSIC ("KeyChangeEvent", @$);
 		if (scm_ilength ($3) > 0)
-		{		
+		{
 			key->set_property ("pitch-alist", $3);
 			key->set_property ("tonic", Pitch (0, 0, 0).smobbed_copy ());
 			key->transpose (* unsmob_pitch ($2));
@@ -1666,7 +1666,7 @@ post_events:
 		$$ = scm_cons ($2, $$);
 	}
 	;
-	
+
 post_event:
 	direction_less_event {
 		$$ = $1;
@@ -1716,7 +1716,7 @@ direction_less_char:
 		$$ = ly_symbol2scm ("bracketOpenSymbol");
 	}
 	| ']'  {
-		$$ = ly_symbol2scm ("bracketCloseSymbol"); 
+		$$ = ly_symbol2scm ("bracketCloseSymbol");
 	}
 	| '~'  {
 		$$ = ly_symbol2scm ("tildeSymbol");
@@ -1767,8 +1767,8 @@ direction_less_event:
                a->set_property ("tremolo-type", scm_from_int ($1));
                $$ = a->unprotect ();
         }
-	;	
-	
+	;
+
 direction_reqd_event:
 	gen_text_def {
 		$$ = $1;
@@ -2114,7 +2114,7 @@ simple_element:
 			n = MY_MAKE_MUSIC ("RestEvent", @$);
 		else
 			n = MY_MAKE_MUSIC ("NoteEvent", @$);
-		
+
 		n->set_property ("pitch", $1);
 		n->set_property ("duration", $5);
 
@@ -2136,7 +2136,7 @@ simple_element:
 		n->set_property ("duration", $2);
 		n->set_property ("drum-type", $1);
 
-		$$ = n->unprotect ();		
+		$$ = n->unprotect ();
 	}
  	| RESTNAME optional_notemode_duration		{
 		Music *ev = 0;
@@ -2146,7 +2146,7 @@ simple_element:
 		  }
 		else {
 			ev = MY_MAKE_MUSIC ("RestEvent", @$);
-		
+
 		    }
 		ev->set_property ("duration", $2);
  		$$ = ev->unprotect ();
@@ -2165,7 +2165,7 @@ simple_element:
 simple_chord_elements:
 	simple_element	{
 		$$ = scm_list_1 ($1);
-	}	
+	}
 	| new_chord {
                 if (!PARSER->lexer_->is_chord_state ())
                         PARSER->parser_error (@1, _ ("have to be in Chord mode for chords"));
@@ -2177,7 +2177,7 @@ simple_chord_elements:
 			unsmob_music (scm_car (s))->set_property ("duration", $2);
 		}
 		$$ = $1;
-	}	
+	}
 	;
 
 lyric_element:
@@ -2201,7 +2201,7 @@ new_chord:
 
 chord_items:
 	/**/ {
-		$$ = SCM_EOL;		
+		$$ = SCM_EOL;
 	}
 	| chord_items chord_item {
 		$$ = scm_cons ($2, $$);
@@ -2252,7 +2252,7 @@ step_number:
 	| bare_unsigned CHORD_MINUS {
 		$$ = make_chord_step ($1, FLAT_ALTERATION);
 	}
-	;	
+	;
 
 /*
 	UTILITIES
@@ -2324,7 +2324,7 @@ unsigned_number:
 		$$ = $1;
 	}
 	;
-	
+
 
 exclamations:
 		{ $$ = 0; }
@@ -2374,8 +2374,8 @@ full_markup:
 	;
 
 markup_top:
-	markup_list { 
-		$$ = scm_list_2 (ly_lily_module_constant ("line-markup"),  $1); 
+	markup_list {
+		$$ = scm_list_2 (ly_lily_module_constant ("line-markup"),  $1);
 	}
 	| markup_head_1_list simple_markup	{
 		$$ = scm_car (scm_call_2 (ly_lily_module_constant ("map-markup-command-list"), $1, scm_list_1 ($2)));
@@ -2400,7 +2400,7 @@ markup_list:
 markup_composed_list:
 	markup_head_1_list markup_braced_list {
 		$$ = scm_call_2 (ly_lily_module_constant ("map-markup-command-list"), $1, $2);
-		
+
 	}
 	;
 
@@ -2506,7 +2506,7 @@ simple_markup:
 		$$ = scm_list_3 ($1, $2, $3);
 	}
 	;
-	
+
 markup:
 	markup_head_1_list simple_markup	{
 		SCM mapper = ly_lily_module_constant ("map-markup-command-list");
@@ -2561,7 +2561,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 
 		*destination = def->self_scm ();
 		def->unprotect ();
-		
+
 		return CONTEXT_DEF_IDENTIFIER;
 	} else if (unsmob_score (sid)) {
 		Score *score = new Score (*unsmob_score (sid));
@@ -2586,7 +2586,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	} else if (unsmob_output_def (sid)) {
 		Output_def *p = unsmob_output_def (sid);
 		p = p->clone ();
-	
+
 		*destination = p->self_scm ();
 		p->unprotect ();
 		return OUTPUT_DEF_IDENTIFIER;
@@ -2597,7 +2597,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		return MARKUP_IDENTIFIER;
 	}
 
-	return -1;	
+	return -1;
 }
 
 SCM
@@ -2731,7 +2731,7 @@ make_music_relative (Pitch start, SCM music, Input loc)
 {
 	Music *relative = MY_MAKE_MUSIC ("RelativeOctaveMusic", loc);
  	relative->set_property ("element", music);
-	
+
 	Music *m = unsmob_music (music);
  	Pitch last = m->to_relative_octave (start);
  	if (lily_1_8_relative)

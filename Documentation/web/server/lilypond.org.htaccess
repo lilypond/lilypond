@@ -1,3 +1,5 @@
+# htaccess for root dir of lilypond.org
+
 RewriteEngine On
 
 # Deny following of symlinks by robots.

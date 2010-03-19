@@ -28,32 +28,14 @@ translations should be in macros.itexi.
 @c   ***** Displaying text *****
 
 @c To get decent quotes in `foo' and ``foo''.
-@c FIXME: Use thin spaces for @qq.
-
-@ifnotinfo
 
 @macro q{TEXT}
 @quoteleft{}\TEXT\@quoteright{}
 @end macro
 
 @macro qq{TEXT}
-@guillemetleft{}@tie{}\TEXT\@tie{}@guillemetright{}
+@quotedblleft{}\TEXT\@quotedblright{}
 @end macro
-
-@end ifnotinfo
-
-@ifinfo
-
-@macro q{TEXT}
-`\TEXT\'
-@end macro
-
-@macro qq{TEXT}
-« \TEXT\ »
-@end macro
-
-@end ifinfo
-
 
 @ifhtml
 
@@ -61,7 +43,7 @@ translations should be in macros.itexi.
 @html
 <div class="warning">
 @end html
-@strong{Note :} \TEXT\
+@strong{Nota bene :} \TEXT\
 @c keep the space for proper nesting of </p>
 
 @html
@@ -95,7 +77,7 @@ translations should be in macros.itexi.
 
 @macro predefined
 @noindent
-@subsubheading Commandes prédéfinies
+@subsubheading Voorgedefiniëerde commando's
 @end macro
 
 @c The next macro is a dummy currently since texinfo doesn't
@@ -111,14 +93,7 @@ translations should be in macros.itexi.
 
 @macro snippets
 @noindent
-@subsubheading Morceaux choisis
-@end macro
-
-
-@c obsolete, remove when translation is fully updated
-@macro commonprop
-@noindent
-@subsubheading Propriétés couramment modifiées
+@subsubheading Uitgezochte snippers
 @end macro
 
 
@@ -127,16 +102,15 @@ translations should be in macros.itexi.
 
 @macro seealso
 @noindent
-@subsubheading Voir aussi
+@subsubheading Zie ook
 @indent
 @end macro
 
 
 @macro knownissues
 @noindent
-@subsubheading Problèmes connus et avertissements
+@subsubheading Bekende problemen en waarschuwingen
 @end macro
-
 
 
 
@@ -144,12 +118,17 @@ translations should be in macros.itexi.
 
 @c  Definitions for references:
 @c
+@c     @rweb
+@c     @ressay
 @c     @rglos
-@c     @rlearning
-@c     @ruser
-@c     @rprogram
-@c     @rlsr
 @c     @rinternals
+@c     @rlearning
+@c     @rlsr
+@c     @rprogram
+@c     @ruser
+@c     @rchanges
+@c     @rextend
+@c     @rcontrib
 @c
 @c  All these also have a @...named version which allows to specify the
 @c  displayed text for the reference as second argument.
@@ -168,32 +147,72 @@ translations should be in macros.itexi.
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary-big-page,Glossaire}
+@ref{\TEXT\,,,music-glossary-big-page,Terminologie}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Glossaire}
+@ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Terminologie}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,learning-big-page,Manuel d'initiation}
+@ref{\TEXT\,,,learning-big-page,Beginnen}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,learning-big-page,Manuel d'initiation}
+@ref{\TEXT\,,\DISPLAY\,learning-big-page,Beginnen}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,notation-big-page,Manuel de notation}
+@ref{\TEXT\,,,notation-big-page,Notatie-handleiding}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,notation-big-page,Manuel de notation}
+@ref{\TEXT\,,\DISPLAY\,notation-big-page,Notatie-handleiding}
+@end macro
+
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending,Extending}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,changes,Changes}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,changes,Veranderingen}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,contributor,Medewerkers handleiding}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,contributor,Medewerkers handleiding}
+@end macro
+
+@macro rweb{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,web,Algemene Informatie}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,web,Algemene Informatie}
 @end macro
 
 @macro ressay{TEXT}
@@ -208,31 +227,32 @@ translations should be in macros.itexi.
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,usage-big-page,Manuel d'utilisation du programme}
+@ref{\TEXT\,,,usage-big-page,Gebruiks handleiding}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,usage-big-page,Manuel d'utilisation du programme}
+@ref{\TEXT\,,\DISPLAY\,usage-big-page,Gebruiks handleiding}
 @end macro
 
 @macro rlsr{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,snippets-big-page,Exemples de code}
+@ref{\TEXT\,,,snippets-big-page,Snippers}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,snippets-big-page,Exemples de code}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,snippets-big-page,Snippets}
 @end macro
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,internals-big-page,Référence des propriétés internes}
+@ref{\TEXT\,,,internals-big-page,Internals Reference}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,internals-big-page,Référence des propriétés internes}
+@ref{\TEXT\,,\DISPLAY\,internals-big-page,Internals Reference}
 @end macro
 
 @end ifset
@@ -242,34 +262,76 @@ translations should be in macros.itexi.
 
 @ifclear bigpage
 
+@ifnotinfo
+
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary,Glossaire}
+@ref{\TEXT\,,,music-glossary,Terminologie}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,music-glossary,Glossaire}
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Terminologie}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,learning,Manuel d'initiation}
+@ref{\TEXT\,,,learning,Beginnershandleiding}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,learning,Manuel d'initiation}
+@ref{\TEXT\,,,learning,Beginnershandleiding}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,notation,Manuel de notation}
+@ref{\TEXT\,,,notation,Notatie-handleiding}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,notation,Manuel de notation}
+@ref{\TEXT\,,\DISPLAY\,notation,Notatie-handleiding}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,changes,Veranderingen}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,changes,Veranderingen}
+@end macro
+
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending,Uitbreidingen}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending,Uitbreidingen}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,contributor,Medewerkers handleiding}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,contributor,Medewerkers handleiding}
+@end macro
+
+@macro rweb{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,web,Algemene Informatie}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,web,Algemene Informatie}
 @end macro
 
 @macro ressay{TEXT}
@@ -284,32 +346,148 @@ translations should be in macros.itexi.
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,usage,Manuel d'utilisation du programme}
+@ref{\TEXT\,,,usage,Gebruiks handleiding}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,usage,Manuel d'utilisation du programme}
+@ref{\TEXT\,,\DISPLAY\,usage,Gebruiks handleiding}
 @end macro
 
 @macro rlsr{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,snippets,Exemples de code}
+@ref{\TEXT\,,,snippets,Snippers}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,snippets,Exemples de code}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,snippets,Snippers}
 @end macro
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,internals,Référence des propriétés internes}
+@ref{\TEXT\,,,internals,Internals handleiding}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,internals,Référence des propriétés internes}
+@ref{\TEXT\,,\DISPLAY\,internals,Internals handleiding}
 @end macro
+
+@end ifnotinfo
+
+@ifinfo
+
+@macro rglos{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,music-glossary,Terminologie}
+@end macro
+
+@macro rglosnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Terminologie}
+@end macro
+
+@macro rlearning{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-learning,Beginnershandleiding}
+@end macro
+
+@macro rlearningnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-learning,Beginnershandleiding}
+@end macro
+
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-notation,Notatie-handleiding}
+@end macro
+
+@macro rusernamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notatie-handleiding}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-changes,Veranderingen}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-changes,Veranderingen}
+@end macro
+
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-extending,Uitbreidingen}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-extending,Uitbreidingen}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-contributor,Medewerkers handleiding}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Medewerkers handleiding}
+@end macro
+
+@macro rweb{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-web,Algemene Informatie}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-web,Algemene Informatie}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-essay,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-essay,Essay}
+@end macro
+
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-usage,Gebruiks handleiding}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-usage,Gebruiks handleiding}
+@end macro
+
+@macro rlsr{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-snippets,Snippers}
+@end macro
+
+@macro rlsrnamed{TEXT,DISPLAY}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Snippers}
+@end macro
+
+@macro rinternals{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-internals,Internals handleiding}
+@end macro
+
+@macro rinternalsnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Internals handleiding}
+@end macro
+
+@end ifinfo
 
 @end ifclear
 
@@ -332,72 +510,112 @@ translations should be in macros.itexi.
 
 @macro rglos{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,music-glossary,Glossaire}
+@ref{\TEXT\,,,music-glossary,Terminologie}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,music-glossary,Glossaire}
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Terminologie}
 @end macro
 
 @macro rlearning{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,learning.fr,Manuel d'initiation}
+@ref{\TEXT\,,,learning.nl,Beginnershandleiding}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,learning.fr,Manuel d'initiation}
+@ref{\TEXT\,,\DISPLAY\,learning.nl,Beginnershandleiding}
 @end macro
 
 @macro ruser{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,notation.fr,Manuel de notation}
+@ref{\TEXT\,,,notation.nl,Notatie-handleiding}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,notation.fr,Manuel de notation}
+@ref{\TEXT\,,\DISPLAY\,notation.nl,Notatie-handleiding}
+@end macro
+
+@macro rchanges{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,changes,Veranderingen}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,changes,Veranderingen}
+@end macro
+
+@macro rextend{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,extending,Uitbreidingen}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,extending,Uitbreidingen}
+@end macro
+
+@macro rcontrib{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,contributor,Medewerkers handleiding}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,contributor,Medewerkers handleiding}
+@end macro
+
+@macro rweb{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,web,Algemene Informatie}
+@end macro
+
+@macro rwebnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,web,Algemene Informatie}
 @end macro
 
 @macro ressay{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-essay,Essay}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,essay,Essay}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-essay,Essay}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,essay,Essay}
 @end macro
 
 @macro rprogram{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,usage.fr,Manuel d'utilisation du programme}
+@ref{\TEXT\,,,usage.nl,Gebruiks handleiding}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,usage.fr,Manuel d'utilisation du programme}
+@ref{\TEXT\,,\DISPLAY\,usage.nl,Gebruiks handleiding}
 @end macro
 
 @macro rlsr{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,snippets,Exemples de code}
+@ref{\TEXT\,,,snippets,Snippers}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,snippets,Exemples de code}
+@ref{\TEXT\,,\DISPLAY\,snippets,Snippers}
 @end macro
 
 @macro rinternals{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,internals,Référence des propriétés internes}
+@ref{\TEXT\,,,internals,Internals handleiding}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,internals,Référence des propriétés internes}
+@ref{\TEXT\,,\DISPLAY\,internals,Internals handleiding}
 @end macro
 
 @end iftex
@@ -414,7 +632,7 @@ translations should be in macros.itexi.
     <img src="ly-examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
   </a>
   <p style="text-align: center">
-    (Klick zum Vergrößern)
+    (Klik om te vergroten)
   </p>
 </div>
 @end html
@@ -431,7 +649,7 @@ translations should be in macros.itexi.
 @html
 <div class="help">
 <strong>
-  <span style="text-decoration:blink">Hilfe gesucht:</span>
+  <span style="text-decoration:blink">Hulp gezocht:</span>
 </strong> \TEXT\
 </div>
 @end html

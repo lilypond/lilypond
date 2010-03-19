@@ -11,6 +11,8 @@ ifeq ($(WEBSITE_ONLY_BUILD),1)
   trusted-dir=$(HOME)/lilypond/trusted-scripts
   script-dir=$(trusted-dir)
   texi2html-init-file=$(trusted-dir)/lilypond-texi2html.init
+  top-htaccess=$(trusted-dir)/lilypond.org.htaccess
+  dir-htaccess=$(trusted-dir)/website-dir.htaccess
   TEXI2HTML_PROGRAM=$(HOME)/usr/bin/texi2html
   EXAMPLES=$(HOME)/media/ly-examples/
   PICTURES=$(HOME)/media/pictures
@@ -18,6 +20,8 @@ else
   ### for normal git
   script-dir=$(top-src-dir)/scripts/build/
   texi2html-init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
+  top-htaccess=$(top-src-dir)/Documentation/web/server/lilypond.org.htaccess
+  dir-htaccess=$(top-src-dir)/Documentation/web/server/website-dir.htaccess
   include $(config_make)
   # I assume this is run from top-build-dir
   EXAMPLES=Documentation/web/ly-examples/out-www/
@@ -130,7 +134,8 @@ web-post:
 
 website: website-texinfo website-css website-pictures website-examples web-post
 	cp $(SERVER_FILES)/favicon.ico $(OUT)/website/
-	cp $(SERVER_FILES)/lilypond.org.htaccess $(OUT)/website/.htaccess
 	cp $(SERVER_FILES)/robots.txt $(OUT)/website/
+	cp $(top-htaccess) $(OUT)/.htaccess
+	cp $(dir-htaccess) $(OUT)/website/.htaccess
 
 

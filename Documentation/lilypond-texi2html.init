@@ -831,7 +831,7 @@ sub lilypond_element_file_name($$$)
       $$element{doc_nr} = $docnr;
       $lastfilename = $filename;
     }
-    print STDERR "Output file name: $filename\n";
+    #print STDERR "Output file name: $filename\n";
     $filename = lc_last($filename);
     return $filename;
 
@@ -914,7 +914,7 @@ sub lilypond_init_map ()
     my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
     my $map_filename = main::locate_include_file ("${docu_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
 	|| main::locate_include_file ("${docu_name}.xref-map");
-    print STDERR "Map filename is: $map_filename\nDocu name is $docu_name\n";
+    #print STDERR "Map filename is: $map_filename\nDocu name is $docu_name\n";
     if ($docu_name eq 'web') {
 	$web_manual = 1;
 	web_settings();

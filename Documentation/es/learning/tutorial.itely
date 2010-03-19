@@ -79,7 +79,7 @@ encuentren al principio o al final de una línea, para evitar
 ambigüedades.  Es posible que se omitan en algunos ejemplos del
 presente manual ¡pero no las omita en su propia música!  Para ver más
 información sobre la presentación de los ejemplos del manual, consulte
-@ref{Cómo leer el manual}.}
+@ref{Cómo leer los manuales}.}
 
 Además, la entrada de LilyPond es @strong{sensible a las mayúsculas}.
 @code{ @{ c d e @}} es una entrada válida; @code{@{ C D E @}} produce

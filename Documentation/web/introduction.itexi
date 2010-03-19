@@ -177,7 +177,7 @@ comprehensive program reference manual.
 LilyPond runs on all popular platforms: GNU/Linux, MacOS X, and
 Windows.  LilyPond comes with extensive documentation and hundreds
 of example files.  There is an active user community answering
-questions on the Lilypond user mailing list, while the development
+questions on the lilypond-user mailing list, while the development
 team makes sure that problems are solved quickly.
 
 
@@ -195,25 +195,15 @@ already decided to try LilyPond, first read about our
 @node Examples
 @unnumberedsec Examples
 
-Lilypond is a powerful and flexible tool for engraving tasks of
+LilyPond is a powerful and flexible tool for engraving tasks of
 all kinds. Please browse our gallery of examples and be inspired!
 
-@ignore
-Here is a passage from Franz Liszt's solo piano transcription
-of the Overture to Wagner's @emph{Tannhäuser}. The spacing
-in this example was all performed by Lilypond's formatting
-algorithms, without tweaks of any kind. It
-handles cross-staff beaming gracefully and puts the system brace
-perfectly around all three staves.
-
-@exampleImage{liszt-wagner}
-@end ignore
 
 @newsItem
 @subsubheading Classical Music
 
 This organ work by J.S. Bach is a fairly typical engraving project
-in Lilypond.
+in LilyPond.
 
 @exampleImage{bach-bwv610}
 @newsEnd
@@ -231,7 +221,7 @@ beams, cross-staff stems, and voice-follow lines.
 @newsItem
 @subsubheading Early Music
 
-Lilypond also supports various types of ancient notation, such
+LilyPond also supports various types of ancient notation, such
 as this passage of Gregorian chant.
 
 @exampleImage{ancient-headword}
@@ -240,7 +230,7 @@ as this passage of Gregorian chant.
 @newsItem
 @subsubheading Modern Music
 
-Contemporary composers find Lilypond well-suited to displaying
+Contemporary composers find LilyPond well-suited to displaying
 unusual notation.  Here is an excerpt from Trevor Bača's
 @emph{Čáry}, for unaccompanied bass flute.
 
@@ -267,7 +257,7 @@ full score, piano-vocal reduction, and a violin part.
 @newsItem
 @subsubheading Tablature
 
-Lilypond supports tablature notation, which can be customized to
+LilyPond supports tablature notation, which can be customized to
 suit any instrument that reads from tablature.  The tablature
 staff is generated automatically from notes entered for the 5-line
 staff.
@@ -278,8 +268,9 @@ staff.
 @newsItem
 @subsubheading Schenker Graphs
 
-Standard output can be modified heavily. Here someone has created
-an impressive Schenkerian analysis.
+Standard output can be modified heavily. Here is an impressive
+Schenkerian analysis, created by Kris Schaffer, for an article
+in @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}
 
 @exampleImage{bach-schenker}
 @newsEnd
@@ -287,11 +278,11 @@ an impressive Schenkerian analysis.
 @newsItem
 @subsubheading Vocal Music
 
-Lilypond is excellent for vocal music of all kinds, from sacred
+LilyPond is excellent for vocal music of all kinds, from sacred
 hymns to opera.  Here is a medieval motet with slightly unusual
 requirements.  The tenor voice is written in a different meter
 than the others, but must line up as if it were in the same meter.
-Lilypond handles this most elegantly.  Note also the incipits with
+LilyPond handles this most elegantly.  Note also the incipits with
 Vaticana style clefs, the slashed stems indicating plicated notes,
 and the ligature braces above certain groups of notes.
 
@@ -301,7 +292,7 @@ and the ligature braces above certain groups of notes.
 @newsItem
 @subsubheading Educational Applications
 
-Lilypond is perfectly suited for educational purposes as well.
+LilyPond is perfectly suited for educational purposes as well.
 Here is an example of a simple counterpoint exercise.
 
 @exampleImage{theory}
@@ -321,7 +312,7 @@ to suit nearly any situation.
 @newsItem
 @subsubheading Large Projects
 
-Lilypond is excellent for large projects like operas or works for
+LilyPond is excellent for large projects like operas or works for
 full symphony orchestra, as well.  In addition, the text-based
 input provides greater accessibility -- this example was
 contributed by Hu Haipeng, a blind composer.
@@ -428,10 +419,10 @@ benefitted from these projects, some developers want to @qq{give
 back} to the community.
 
 @item
-Work experience: contributing to open-source projects is a great
-way to practice programming, documentation writing, or design.
-This experience has helped some developers gain job offers or
-scholarships.
+Work experience: contributing to open-source projects is a great way to
+practice programming, documentation writing, documentation translation,
+or design.  This experience has helped some developers gain job offers
+or scholarships.
 
 
 @end itemize
@@ -478,7 +469,7 @@ try LilyPond, first read about our @ref{Text input}.
 @divClass{column-left-top}
 @subheading Concerts
 
-Lilypond engravings have been used for performances around the world.
+LilyPond engravings have been used for performances around the world.
 Some highlights:
 
 @divClass{keep-bullets}
@@ -584,7 +575,7 @@ speed, ease of use and look!}
 
 @qq{[..after the first orchestra rehearsal] I got numerous
 compliments about the quality of the scores.  Even more
-importantly, while Lilypond provides numerous hacks to improve the
+importantly, while LilyPond provides numerous hacks to improve the
 way its scores look, what the orchestra got from me is basically
 the raw, untouched output.}
 @divEnd
@@ -595,9 +586,9 @@ the raw, untouched output.}
 
 @qq{thanks and kudos to the development team for their incredible
 work.  I've never seen anything approaching the output that I get
-from Lilypond -- I'm totally confident that my music publishing
+from LilyPond -- I'm totally confident that my music publishing
 needs will be fulfilled beyond my expectations using this great
-application.  [..] basically untweaked Lilypond output [..] looks
+application.  [..] basically untweaked LilyPond output [..] looks
 better than most recent @q{professional} publications I've compared
 it to (q.v., just about any Warner Bros. score, and even many of
 the most recent by @q{the old houses}). [..]}
@@ -609,7 +600,7 @@ the most recent by @q{the old houses}). [..]}
 @divClass{testimonial-item}
 @subsubheading Chris Cannam, lead programmer of the @uref{http://www.rosegardenmusic.com/, RoseGarden} project
 
-@qq{Lilypond is obviously the zillion-ton gorilla [of great music
+@qq{LilyPond is obviously the zillion-ton gorilla [of great music
 typesetting].}
 @divEnd
 
@@ -639,7 +630,7 @@ time.  I'm convinced that no commercial product can come close.}
 @divClass{testimonial-item}
 @subsubheading David Bobroff, Bass Trombone, Iceland Symphony Orchestra
 
-@qq{I think Lilypond is great [..] The more I learn about LilyPond
+@qq{I think LilyPond is great [..] The more I learn about LilyPond
 the more I like it!}
 @divEnd
 
@@ -895,7 +886,7 @@ Emacs is a text editor with language-sensitive capabilities for
 many different computer languages.  Emacs is a highly extensible
 editor and can be used as an Integrated Development Environment.
 There is a @q{lilypond mode} which supplies the language
-definitions for working with Lilypond source files.
+definitions for working with LilyPond source files.
 
 @uref{http://www.vim.org}
 

@@ -67,7 +67,7 @@ git fetch origin
 git merge origin/master
 @end verbatim
 
-Check for any updates to trusted scripts:
+Check for any updates to trusted scripts / files:
 
 @verbatim
 ### check-git.sh
@@ -81,6 +81,8 @@ diff -u $DEST/create-version-itexi.py $GIT/scripts/build/create-version-itexi.py
 diff -u $DEST/create-weblinks-itexi.py $GIT/scripts/build/create-weblinks-itexi.py
 diff -u $DEST/mass-link.py $GIT/scripts/build/mass-link.py
 diff -u $DEST/website_post.py $GIT/scripts/build/website_post.py
+diff -u $DEST/lilypond.org.htaccess $GIT/Documentation/web/server/lilypond.org.htaccess
+diff -u $DEST/website-dir.htaccess $GIT/Documentation/web/server/website-dir.htaccess
 @end verbatim
 
 If the changes look ok, make them trusted:
@@ -97,6 +99,8 @@ cp $GIT/scripts/build/create-version-itexi.py $DEST/create-version-itexi.py
 cp $GIT/scripts/build/create-weblinks-itexi.py $DEST/create-weblinks-itexi.py
 cp $GIT/scripts/build/mass-link.py $DEST/mass-link.py
 cp $GIT/scripts/build/website_post.py $DEST/website_post.py
+cp $GIT/Documentation/web/server/lilypond.org.htaccess $DEST/lilypond.org.htaccess
+cp $GIT/Documentation/web/server/website-dir.htaccess $DEST/website-dir.htaccess
 @end verbatim
 
 Build the website:
@@ -104,13 +108,14 @@ Build the website:
 @verbatim
 ### make-website.sh
 #!/bin/sh
-DEST=$HOME/public_html/
+DEST=$HOME/web/
 cd $HOME/src/build-website
 cp $HOME/lilypond/trusted-scripts/website.make .
 
 make -f website.make WEBSITE_ONLY_BUILD=1 website
 rsync -ra $HOME/src/build-website/out-website/website/ $DEST/website/
 cp $HOME/src/build-website/out-website/pictures $DEST
+cp $HOME/src/build-website/out-website/.htaccess $DEST
 @end verbatim
 
 Cronjob to automate the trusted portions:

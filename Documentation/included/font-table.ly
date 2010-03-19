@@ -4,167 +4,106 @@
 
   ;; some helper functions
 
-  (define (filter-out pred lst)
-    (filter (lambda (x) (not (pred x))) lst))
-
-  (define (filter-out-group glyph-list substring)
-    (filter-out (lambda (x) (string-contains x substring)) glyph-list))
-
-  (define (filter-out-groups glyph-list . substrings)
-    (let loop ((new glyph-list) (rem substrings))
-      (if (null? rem)
-          new
-          (loop (filter-out-group new (car rem))
-                (cdr rem)))))
-
-  (define (get-group glyph-list substring)
-    (filter (lambda (x) (string-contains x substring)) glyph-list))
+  (use-modules (ice-9 regex))
 
   (define glyph-list
     (delete ".notdef"
             (ly:otf-glyph-list (ly:system-font-load "emmentaler-20"))))
 
+  (define (get-group glyph-list regexp)
+    (let ((r (make-regexp regexp)))
+      (filter (lambda (token) (regexp-exec r token))
+              glyph-list)))
+
   ;;;;;;;;;
 
-  ;; define these 3 groups first since they're
-  ;; harder to get with (get-groups ...)
+  ;; extract ancient-music groups before extracting default
+  ;; accidentals, rests, etc. to prevent duplication
+
+  ;; make sure "mensural" regexp doesn't match "neomensural"
+  (define neomensural (get-group glyph-list "^.*neomensural.*$"))
+  (define mensural
+    (filter (lambda (x) (not (member x neomensural)))
+            (get-group glyph-list "^.*mensural.*$")))
+
+  ;; get the rest of the ancient-music groups
+  (define vaticana (get-group glyph-list "^.*vaticana.*$"))
+  (define medicaea (get-group glyph-list "^.*medicaea.*$"))
+  (define hufnagel (get-group glyph-list "^.*hufnagel.*$"))
+  (define petrucci (get-group glyph-list "^.*petrucci.*$"))
+  (define solesmes (get-group glyph-list "^.*solesmes.*$"))
+
+  ;; remove ancient-music groups from the glyph-list
+  (for-each
+    (lambda (x) (set! glyph-list (delete x glyph-list)))
+    (append vaticana
+            medicaea
+            hufnagel
+            mensural
+            neomensural
+            petrucci
+            solesmes))
+
+  ;; define all remaining groups
   (define numbers
     '("plus" "comma" "hyphen" "period"
       "zero" "one"   "two"    "three"  "four"
       "five" "six"   "seven"  "eight"  "nine"))
 
-  (define default-noteheads
-    '("noteheads.uM2" "noteheads.dM2" "noteheads.sM1"
-      "noteheads.s0"  "noteheads.s1"  "noteheads.s2"))
-
   (define dynamics
     '("space" "f" "m" "p" "r" "s" "z"))
 
-  ;; remove them from the glyph-list
+  (define default-noteheads
+    (get-group glyph-list
+      "^noteheads.[dsu]M?[012]$"))
+
+  (define special-noteheads
+    (get-group glyph-list
+      "^noteheads.[dsu]M?[012](double|harmonic|diamond|cross|xcircle|triangle|slash)$"))
+
+  (define shape-note-noteheads
+    (get-group glyph-list
+      "^noteheads.[dsu][012](do|re|mi|fa|la|ti)$"))
+
+  (define clefs       (get-group glyph-list "^clefs\\."))
+  (define timesig     (get-group glyph-list "^timesig\\."))
+  (define accidentals (get-group glyph-list "^accidentals\\."))
+  (define rests       (get-group glyph-list "^rests\\."))
+  (define flags       (get-group glyph-list "^flags\\."))
+  (define dots        (get-group glyph-list "^dots\\."))
+  (define scripts     (get-group glyph-list "^scripts\\."))
+  (define arrowheads  (get-group glyph-list "^arrowheads\\."))
+  (define brackettips (get-group glyph-list "^brackettips\\."))
+  (define pedal       (get-group glyph-list "^pedal\\."))
+  (define accordion   (get-group glyph-list "^accordion\\."))
+
+  ;; remove all remaining groups from the glyph-list
   (for-each
     (lambda (x) (set! glyph-list (delete x glyph-list)))
     (append numbers
+            dynamics
             default-noteheads
-            dynamics))
+            special-noteheads
+            shape-note-noteheads
+            clefs
+            timesig
+            accidentals
+            rests
+            flags
+            dots
+            scripts
+            arrowheads
+            brackettips
+            pedal
+            accordion))
 
   ;;;;;;;;;
 
-  ;; extract ancient-music groups before extracting default
-  ;; accidentals, rests, etc. to prevent duplication.
-  (define vaticana    (get-group glyph-list "vaticana"))
-  (define medicaea    (get-group glyph-list "medicaea"))
-  (define hufnagel    (get-group glyph-list "hufnagel"))
-  (define neomensural (get-group glyph-list "neomensural"))
-
-  ;; remove neomensural before defining mensural; otherwise, searching
-  ;; for "mensural" would return "neomensural" matches too.
-  (set! glyph-list
-    (filter-out-groups
-      glyph-list
-      "vaticana"
-      "medicaea"
-      "hufnagel"
-      "neomensural"))
-
-  ;; get the rest of the ancient-music groups
-  (define mensural (get-group glyph-list "mensural"))
-  (define petrucci (get-group glyph-list "petrucci"))
-  (define solesmes (get-group glyph-list "solesmes"))
-
-  ;; remove them from the glyph-list
-  (set! glyph-list
-    (filter-out-groups
-      glyph-list
-      "mensural"
-      "petrucci"
-      "solesmes"))
-
-  ;; This would only get "rests.2classical".
-  ;; We're leaving it with the other rests for now.
-  ;; (define classical (get-group glyph-list "classical"))
-  ;; (set! glyph-list (filter-out-groups glyph-list "classical"))
-
-  ;;;;;;;;;
-
-  ;; get everything else except noteheads.
-  ;; * Some accidentals contain "slash" substring, so extract
-  ;;   "accidentals" before extracting "slash" (noteheads).
-  ;; * Also use "pedal." not "pedal", for example, to prevent things
-  ;;   like "scripts.upedalheel" ending up in the "pedal." list.
-  ;; * This doesn't apply to the ancient stuff because searching for
-  ;;   "vaticana." (as an example) would miss things like
-  ;;   "dots.dotvaticana"
-  (define clefs       (get-group glyph-list "clefs."))
-  (define timesig     (get-group glyph-list "timesig."))
-  (define accidentals (get-group glyph-list "accidentals."))
-  (define rests       (get-group glyph-list "rests."))
-  (define flags       (get-group glyph-list "flags."))
-  (define dots        (get-group glyph-list "dots."))
-  (define scripts     (get-group glyph-list "scripts."))
-  (define arrowheads  (get-group glyph-list "arrowheads."))
-  (define brackettips (get-group glyph-list "brackettips."))
-  (define pedal       (get-group glyph-list "pedal."))
-  (define accordion   (get-group glyph-list "accordion."))
-
-  ;; remove them from the glyph-list
-  (set! glyph-list
-    (filter-out-groups
-      glyph-list
-      "clefs."
-      "timesig."
-      "accidentals."
-      "rests."
-      "flags."
-      "dots."
-      "scripts."
-      "arrowheads."
-      "brackettips."
-      "pedal."
-      "accordion."))
-
-  ;;;;;;;;;
-
-  ;; get special noteheads
-  (define cross    (get-group glyph-list "cross"))
-  (define diamond  (get-group glyph-list "diamond"))
-  (define harmonic (get-group glyph-list "harmonic"))
-  (define slash    (get-group glyph-list "slash"))
-  (define triangle (get-group glyph-list "triangle"))
-  (define xcircle  (get-group glyph-list "xcircle"))
-
-  (define special-noteheads
-    (append cross
-            diamond
-            harmonic
-            slash
-            triangle
-            xcircle))
-
-  ;; remove special noteheads from the glyph-list
-  (set! glyph-list
-    (filter-out-groups
-      glyph-list
-      "cross"
-      "diamond"
-      "harmonic"
-      "slash"
-      "triangle"
-      "xcircle"))
-
-  ;; (lazy solution)
-  ;; any remaining glyphs containing "noteheads." should be shape-notes.
-  (define shape-note-noteheads (get-group glyph-list "noteheads."))
-
-  ;; remove shape-note-noteheads from the glyph-list
-  (set! glyph-list (filter-out-group glyph-list "noteheads."))
-
-  ;;;;;;;;;
-
-  ;; simple debug test for any glyphs that didn't make it.
-  (if #f
-    (if (null? glyph-list)
-        (format #t "No glyphs are missing from the table.\n")
-        (format #t "You missed these glyphs: ~a\n" glyph-list)))
+  ;; require all glyphs to appear here
+  (if (pair? glyph-list) ; glyph-list should be empty by now
+      (ly:error
+        (_ "Unlisted glyphs in Documentation/included/font-table.ly: ~A")
+        glyph-list))
 
 ) % end of (begin ...)
 

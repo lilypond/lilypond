@@ -388,14 +388,14 @@ informar de los fallos, y desarrollo.
 
 @divClass{keep-bullets}
 @itemize
-@ref{Top,Web}
+@ref{Arriba,Web}
 @end itemize
 @divEnd
 
 @subsubheading Manual web en @versionDevel
 
 @docLinksBare{Web, web,
-  @ref{Top,Web},
+  @ref{Arriba,Web},
   @manualDevelWebSplit,
   @manualDevelWebBig, 1 MB,
   @manualDevelWebPdf, 2 MB}

@@ -8,16 +8,8 @@ import sys
 import os
 import glob
 
-
-
-# FIXME: if the depth depends on the type of build, figure it
-#        out automatically.
-### just like depth in our GNUmakefiles
-# these links are relative from /~graham/web/
-depth = "../../"
-# these links are relative from the v2.13 docs
-#depth = "../../../../"
-
+# these links are relative from /website/
+depth = "../"
 
 
 VERSION_STABLE = ""

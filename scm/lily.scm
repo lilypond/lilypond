@@ -254,10 +254,7 @@ messages into errors.")
 (if (memq (ly:get-option 'backend) music-string-to-path-backends)
     (ly:set-option 'music-strings-to-paths #t))
 
-;; gettext wrapper for guile < 1.7.2
-(if (defined? 'gettext)
-    (define-public _ gettext)
-    (define-public _ ly:gettext))
+(define-public _ gettext)
 
 (define-public (ly:load x)
   (let* ((file-name (%search-load-path x)))
@@ -729,8 +726,7 @@ PIDs or the number of the process."
 	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
 	 (if (ly:get-option 'debug-gc)
 	     (dump-gc-protects)
-	     (if (= (random 40) 1)
-		 (ly:reset-all-fonts)))))
+	     (ly:reset-all-fonts))))
      files)
 
     ;; we want the failed-files notice in the aggregrate logfile.
