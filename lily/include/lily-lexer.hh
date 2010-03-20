@@ -63,8 +63,8 @@ private:
   int hidden_state_;
 public:
   vector<int> extra_token_types_;
-  void *lexval;
-  Input *lexloc;
+  void *lexval_;
+  Input *lexloc_;
   bool is_main_input_;
   
   Sources *sources_;

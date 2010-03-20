@@ -2745,8 +2745,8 @@ yylex (YYSTYPE *s, YYLTYPE *loc, void *v)
 	Lily_parser *pars = (Lily_parser*) v;
 	Lily_lexer *lex = pars->lexer_;
 
-	lex->lexval = (void*) s;
-	lex->lexloc = loc;
+	lex->lexval_ = (void*) s;
+	lex->lexloc_ = loc;
 	lex->prepare_for_next_token ();
 	return lex->yylex ();
 }

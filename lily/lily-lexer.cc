@@ -315,7 +315,7 @@ Lily_lexer::LexerError (char const *s)
   else
     {
       error_level_ |= 1;
-      Input spot (*lexloc);
+      Input spot (*lexloc_);
       spot.error (s);
     }
 }
@@ -340,7 +340,7 @@ Lily_lexer::escaped_char (char c) const
 Input
 Lily_lexer::here_input () const
 {
-  return Input (*lexloc);
+  return Input (*lexloc_);
 }
 
 void
@@ -357,8 +357,8 @@ void
 Lily_lexer::add_lexed_char (int count)
 {
   char const *start = here_str0 ();
-  lexloc->set (get_source_file (),
-	       start, start + count);
+  lexloc_->set (get_source_file (),
+		start, start + count);
   char_count_stack_.back () += count;
 }
 

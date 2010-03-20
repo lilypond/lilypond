@@ -85,10 +85,10 @@ bool is_valid_version (string s);
 	yylval.string = new string
 
 #define yylval \
-	(*(YYSTYPE*)lexval)
+	(*(YYSTYPE*)lexval_)
 
 #define yylloc \
-	(*(YYLTYPE*)lexloc)
+	(*(YYLTYPE*)lexloc_)
 
 #define YY_USER_ACTION	add_lexed_char (YYLeng ());
 
@@ -184,7 +184,7 @@ BOM_UTF8	\357\273\277
    /* Use the trailing context feature. Otherwise, the BOM will not be
       found if the file starts with an identifier definition. */
 <INITIAL,chords,lyrics,figures,notes>{BOM_UTF8}/.* {
-  if (this->lexloc->line_number () != 1 || this->lexloc->column_number () != 0)
+  if (this->lexloc_->line_number () != 1 || this->lexloc_->column_number () != 0)
     {
       LexerError (_ ("stray UTF-8 BOM encountered").c_str ());
       exit (1);
