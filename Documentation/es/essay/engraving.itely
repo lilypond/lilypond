@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: f29b91d7b12f04b14b207fae0edcc55993c213e9
+    Translation of GIT committish: 8f0119c745cb3f39f8e7edb927020ec7418aeaed
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -22,17 +22,13 @@ y cómo puede producir partituras musicales tan bellas.
 @c     require adding a new snippet option to lilypond-book.py
 @c check formatting of HTML output
 
-@c Notes:
-@c Incorrect beaming in the Sarabande is a known bug.
-
 @menu
 * Historia de LilyPond::
 * Detalles del grabado::
 * Grabado automatizado::
-* ¿Qué símbolos grabar?::
-* Representación musical::
-* Aplicaciones de ejemplo::
-* Apéndice::
+* Construcción del software::
+* Poner a LilyPond a trabajar::
+* Ejemplos de partituras (BWV 861)::
 @end menu
 
 @node Historia de LilyPond
@@ -91,7 +87,7 @@ utilizar.  Tiene unas líneas y un movimiento que parecen fluir, y se
 aprecia como un fragmento de música vivo y palpitante, mientras que la
 edición más reciente parece fría y mecánica.
 
-Es un poco difícil apreciar inmediatamente en qué consiste la
+Es difícil apreciar inmediatamente en qué consiste la
 diferencia entra las ediciones antigua y nueva.  En ésta todo parece
 pulcro y detallista, posiblemente incluso @qq{mejor} a causa de su
 aspecto computerizado y uniforme.  De hecho, esto nos tuvo confundidos
@@ -125,19 +121,16 @@ símbolos musicales.
 
 Existen también otras diferencias: en la edición grabada a mano todas
 las líneas verticales son más gruesas, las ligaduras quedan más cerca
-de la cabeza de las notas, y hay más variedad visual en la colocación
+de la cabeza de las notas, y hay más variedad en las inclinaciones
 de las barras de corchea.  Aunque dichos detalles pueden parecer
 minucias, el resultado es una partitura más fácil de leer.  En la
 partitura de ordenador, todas las líneas son casi idénticas y si el
-músico levanta la mirada por un momento, probablemente se pierda por
+músico levanta la mirada por un momento probablemente se pierda por
 la página.
 
 LilyPond se diseñó para resolver los problemas que encontramos en el
 software existente y para crear notación musical bella que emulara a
-las mejores partituras trazadas a mano.  Al mismo tiempo, hemos
-aprendido una gran lección sobre el trabajo implícito en una partitura
-bien trazada.  En este ensayo vamos a describir algunos de esos
-aspectos que hemos tratado de imitar en LilyPond.
+las mejores partituras trazadas a mano.
 
 @iftex
 @page
@@ -202,6 +195,9 @@ tradicionales publicados por los editores de música europeos de y
 hasta la primera mitad del s.XX, entre ellos Bärenreiter, Duhem,
 Durand, Hofmeister, Peters y Schott.  En ocasiones se consideran a
 éstos como la cima de la práctica del grabado musical tradicional.
+Según hemos estudiado estas ediciones, hemos aprendido una gran
+lección sobre el trabajo implícito en una partitura bien trazada, y
+los aspectos de ella que queríamos tratar de imitar en LilyPond.
 
 @c Now all newly printed music is produced with computers.  This has
 @c obvious advantages: prints are cheaper to make, editorial work can be
@@ -590,16 +586,13 @@ gusta tocar.
 
 Aquí describimos lo que se necesita para crear un software que pueda
 recrear la disposición de las partituras grabadas: un método de
-explicar las buenas disposiciones al ordenador, comparaciones
-detalladas con grabados reales, y la flexibilidad suficiente para
-enfrentarse al amplio rango de desafíos que puede presentar la música
-impresa.
+explicar las buenas disposiciones al ordenador, y gran cantidad de
+comparaciones detalladas con grabados de música reales.
 
 @menu
 * Concursos de belleza::
 * Mejoras por medio de pruebas::
 * Hacer las cosas bien::
-* Arquitectura flexible::
 @end menu
 
 @node Concursos de belleza
@@ -651,7 +644,7 @@ fealdad y seleccionamos la configuración menos fea.
 Por ejemplo, tenemos aquí tres configuraciones posibles para la
 ligadura, y LilyPond ha otorgado una puntuación a cada una en
 @q{puntos de fealdad}.  El primer ejemplo obtiene 15.39 puntos por
-rozar una de las notas:
+rozar la cabeza de una de las figuras:
 
 @lilypond
 \relative c {
@@ -900,7 +893,7 @@ Una barra que apunta hacia el centro del pentagrama debe tener una
 longitud de una octava aproximadamente, pero los grabadores acortan
 esta longitud cuando la barra apunta hacia fuera de la pauta en música
 de varias voces.  El barrado de Finale se puede mejorar fácilmente con
-el complemento de barras de Patterson, pero hemos decidido saltarnos
+su complemento de barras de Patterson, pero hemos decidido saltarnos
 ese paso para este ejemplo.
 @item Finale no ajusta las posiciones de las cabezas que se bloquean mutuamente,
 lo que hace a la música extremadamente difícil de leer cuando las
@@ -983,148 +976,217 @@ forma que los ajustes manuales sean también cada vez menos necesarios.
 Donde se necesitan ajustes manuales, la estructura de LilyPond está
 diseñada teniendo en mente esa flexibilidad.
 
-@node Arquitectura flexible
-@unnumberedsubsec Arquitectura flexible
-@translationof Flexible architecture
 
-Al principio escribimos el programa LilyPond completamente en el
-lenguaje de programación C++; la funcionalidad del programa estaba
-grabada en piedra por parte de los desarrolladores.  Se comprobó que
-esto no era satisfactorio por unas cuantas razones:
+@node Construcción del software
+@section Construcción del software
+@translationof Building software
 
-@itemize
+Esta sección describe algunas de las decisiones de programación que
+hicimos cuando diseñamos el programa LilyPond.
 
-@item Cuando LilyPond comete errores, los usuarios necesitan sobreescribir
-las decisiones de formateo.  Por tanto, el usuario debe tener acceso
-al motor de formateo.  De aquí que las reglas y los ajustes
-predeterminados no se puedan fijar por nuestra parte en el tiempo de
-compilación sino que deben estar accesibles para los usuarios en el
-tiempo de ejecución.
+@menu
+* Representación musical::
+* ¿Qué símbolos grabar?::
+* Arquitectura flexible::
+@end menu
 
-@item El grabado musical es cuestión de juicio visual, y por tanto está en
-el terreno del buen gusto.  Por más entendidos que pretendamos ser,
-nuestros usuarios siempre podrían discrepar de nuestras decisiones
-personales.  Por ello, las definiciones del estilo tipográfico debe
-también ser accesible para el usuario.
 
-@item Finalmente, nos encontramos refinando continuamente los algoritmos de
-formateo, por lo que necesitamos un enfoque flexible para las reglas.
-El lenguaje C++ fuerza un cierto método de agrupación de las reglas
-que no está preparado para aplicarse al formateo de la notación
-musical.
+@node Representación musical
+@unnumberedsubsec Representación musical
+@translationof Music representation
 
-@end itemize
+@cindex sintaxis
+@cindex recursivas, estructuras
 
-@cindex Scheme, lenguaje de programación
+Idealmente, el formato de entrada de cualquier sistema de formateado
+de alto nivel es una descripción abstracta del contenido.  En este
+caso, eso sería la propia música.  Ello presenta un enorme problema:
+¿cómo podemos definir qué es la música realmente?  En lugar de buscar
+una respuesta, le hemos dado la vuelta a la pregunta.  Escribimos un
+programa capaz de producir música impresa, y luego ajustamos el
+formato de forma que sea lo más escueto posible.  Cuando el formato ya
+no se puede recortar más, por definición nos estamos quedando con el
+propio contenido.  Nuestro programa sirve como una definición formal
+de un documento musical.
 
-Estos programas se han solucionado integrando un intérprete para el
-lenguaje de programación Scheme y reescribiendo partes de LilyPond en
-Scheme.  La arquitectura de formateo actual está construida alrededor
-de la noción de objetos gráficos, descritos por medio de variables y
-funciones de Scheme.  Esta arquitectura coordina las reglas de
-formateo, el estilo tipográfico y las decisiones de formateo
-individuales.  El usuario tiene acceso directo a la mayoría de esos
-controles.
+La sintaxis es también el interfaz de usuario de LilyPond, de aquí
+que sea tan fácil teclear:
 
-Las variables de Scheme controlan las decisiones de disposición en la
-página.  Por ejemplo, muchos objetos gráficos tienen una variable de
-dirección que codifica la elección entre arriba y abajo (o izquierda y
-derecha).  A continuación vemos dos acordes, con acentos y símbolos de
-arpegio.  En el primer acorde, los objetos gráficos tienen todas las
-direcciones hacia abajo (o hacia la izquierda).  El segundo acorde
-tiene todas las direcciones hacia arriba (o hacia la derecha).
+@example
+@{
+  c'4 d'8
+@}
+@end example
 
-@lilypond[quote,ragged-right]
-\new Score \with {
-   \override SpacingSpanner #'spacing-increment = #3
-   \override TimeSignature #'transparent = ##t
-} \relative c' {
-   \stemDown <e g b>4_>-\arpeggio
-   \override Arpeggio #'direction = #RIGHT
-   \stemUp <e g b>4^>-\arpeggio
+@noindent
+para crear un Do central negra (Do 4) y un Re por encima del Do
+central, corchea (Re 4).
+
+@lilypond[quote]
+{
+  c'4 d'8
 }
 @end lilypond
 
-@cindex partitura, formateo de
-@cindex formateo de una partitura
-@cindex formateo, reglas de
+A una escala microscópica, esta sintaxis es fácil de usar.  A una
+escala mayor, la sintaxis necesita también una estructura.  ¿De qué
+otra forma podríamos introducir piezas complejas como sinfonías u
+óperas?  La estructura se forma por medio del concepto de expresiones
+musicales: combinando pequeños fragmentos de música dentro de otros
+más grandes, se puede expresar una música más compleja.  Por ejemplo:
+
+@lilypond[quote,verbatim,fragment,relative=1]
+f4
+@end lilypond
 
 @noindent
-El proceso de dar formato a una partitura comprende la lectura y
-escritura de las variables de los objetos gráficos.  Algunas variables
-tienen un valor preestablecido.  Por ejemplo, el grosor de muchas
-líneas (una característica del estilo tipográfico) es una variable con
-un valor preestablecido. Somos libres de alterar este valor, dando a
-nuestra partitura una impresión tipográfica distinta.
+Las notas simultáneas se pueden construir encerrándolas dentro de
+@code{<<} y @code{>>}:
 
-@lilypond[quote,ragged-right]
-fragment = {
-   \clef bass f8 as8
-   c'4-~ c'16 as g f e16 g bes c' des'4
-}
+@example
+<<c4 d4 e4>>
+@end example
+
+@lilypond[quote,fragment,relative=1]
+\new Voice { <<c4 d4 e>> }
+@end lilypond
+
+@noindent
+La expresión se pone en secuencia encerrándola dentro de llaves
+@code{@{@tie{}@dots{}@tie{}@}}:
+
+@example
+@{ f4 <<c4 d4 e4>> @}
+@end example
+
+@lilypond[quote,relative=1,fragment]
+{ f4 <<c d e4>> }
+@end lilypond
+
+@noindent
+Esto es también una expresión, y así se puede combinar de nuevo con
+otra expresión simultánea (una blanca) utilizando @code{<<}, @code{\\}
+y @code{>>}:
+
+@example
+<< g2 \\ @{ f4 <<c4 d4 e4>> @} >>
+@end example
+
+@lilypond[quote,fragment,relative=2]
+\new Voice { << g2 \\ { f4 <<c d e>> } >> }
+@end lilypond
+
+Tales estructuras recursivas se pueden especificar limpia y
+formalmente dentro de una gramática independiente del contexto.  El
+código del analizador sintáctico también se genera a partir de esta
+gramática.  Dicho de otra forma, la sintaxis de LilyPond está definida
+claramente y sin ambigüedades.
+
+Los interfaces de usuario y la sintaxis son aquello que la gente ve y
+con lo que trata más frecuentemente.  Son, en parte, cuestión de
+gusto, y también objeto de mucha discusión.  Aunque las discusiones
+sobre el gusto tienen su mérito, no son muy productivas.  Bajo el
+punto de vista más amplio de LilyPond, la importancia de la sintaxis
+de la entrada es pequeña: inventarse una sintaxis limpia es fácil,
+pero escribir un código de formatead que sea decente es mucho más
+difícil.  Esto queda ilustrado por la cantidad de líneas que están
+dedicadas a los componentes respectivos: el análisis sintáctico y la
+representación se llevan menos del 10% del código fuente.
+
+Cuando estábamos diseñando las estructuras utilizadas dentro de
+LilyPond, tomamos algunas decisiones de forma diferente a como es
+aparente en otros programas.  Consideremos la naturaleza jerárquica de
+la notación musical:
+
+@lilypond[quote,fragment]
 <<
-   \new Staff \fragment
-   \new Staff \with {
-      \override Beam #'beam-thickness = #0.3
-      \override Stem #'thickness = #0.5
-      \override Bar #'thickness = #3.6
-      \override Tie #'thickness = #2.2
-      \override StaffSymbol #'thickness = #3.0
-      \override Tie #'extra-offset = #'(0 .  0.3)
-      }
-      \fragment
+\new Staff \relative c'' {
+  \key g \major
+  \time 3/4
+  d4 g,8 a b c d4 g, g
+}
+\new Staff \relative c' {
+  \clef "bass"
+  \key g \major
+  <g b d>2 a4 b2.
+}
 >>
 @end lilypond
 
-Las reglas de formateado también son variables preestablecidas: cada
-objeto tiene variables que contienen procedimientos.  Estos
-procedimientos realizan el formateo propiamente dicho, y mediante la
-sustitución de unos u otros, podemos modificar el aspecto de los
-objetos.  En el ejemplo siguiente, la regla que gobierna qué objetos
-de cabeza se utilizan para producir el símbolo de la cabeza, se cambia
-a lo largo del fragmento musical.
+En este caso, hay notas agrupadas en acordes que están dentro de
+compases, que pertenecen a pentagramas.  Esto se parece a una
+estructura ordenada de cajas anidadas unas dentro de otras:
 
-@lilypond[quote,ragged-right]
-#(set-global-staff-size 30)
+@quotation
+@iftex
+@sourceimage{pdf/nestedboxes,,4cm,}
+@end iftex
+@ifnottex
+@sourceimage{nestedboxes,,,png}
+@end ifnottex
+@end quotation
 
-#(define (mc-squared grob orig current)
-  (let* ((interfaces (ly:grob-interfaces grob))
-         (pos (ly:grob-property grob 'staff-position)))
-    (if (memq 'note-head-interface interfaces)
-        (begin
-          (ly:grob-set-property! grob 'stencil
-            (grob-interpret-markup grob
-              (make-lower-markup 0.5
-                (case pos
-                  ((-5) "m")
-                  ((-3) "c ")
-                  ((-2) (make-smaller-markup (make-bold-markup "2")))
-                  (else "bla")))))))))
+Desgraciadamente la estructura resulta ordenada porque está basada en
+algunas suposiciones excesivamente restrictivas.  Este extremo se hace
+aparente si tenemos en cuenta un ejemplo musical más complejo:
 
-\new Voice \relative c' {
-  \stemUp
-  \set autoBeaming = ##f
-  \time 2/4
-  <d f g>4
-  \once \override NoteHead #'stencil = #note-head::brew-ez-stencil
-  \once \override NoteHead #'font-size = #-7
-  \once \override NoteHead #'font-family = #'sans
-  \once \override NoteHead #'font-series = #'bold
-  <d f g>4
-  \once \override NoteHead #'style = #'cross
-  <d f g>4
-  \applyOutput #'Voice #mc-squared
-  <d f g>4
-  <<
-    { d8[ es-( fis^^ g] fis2-) }
-    \repeat unfold 5 { \applyOutput #'Voice #mc-squared s8 }
-  >>
+@lilypond[quote]
+\layout {
+  \context {
+    \Score
+    \remove "Timing_translator"
+    \remove "Default_bar_line_engraver"
+  }
+  \context {
+    \Staff
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  }
 }
+
+\new PianoStaff <<
+  \new Staff = "RH" <<
+    \new Voice = "I" \relative c''' {
+      \time 3/4
+      \voiceOne
+      \times 6/7 {g8 g g g g g g}
+      \oneVoice
+      r4 <b,, fis' g bes> r4\fermata
+    }
+    \new Voice = "II" \relative c' {
+      \voiceTwo
+      c4
+      \times 4/5 {
+        <c ees>8 f g
+        \change Staff = "LH" \oneVoice
+        \stemUp g,( c}
+      r4
+      \override Stem #'cross-staff = ##t
+      \override Stem #'length = #12
+      <fis, b>) r\fermata
+    }
+  >>
+  \new Staff = "LH" <<
+    \new Voice = "III" \relative c' {
+      \time 2/4
+      \clef "bass"
+      g4 \stopStaff s
+      \startStaff s2*2
+    }
+  >>
+>>
 @end lilypond
 
+En este ejemplo, los pentagramas parecen iniciarse y terminar a
+capricho, las voces saltan de un pentagrama a otro, y las pautas
+tienen tipos de compás diferentes.  Muchos programas se las ven y se
+las desean para reproducir este ejemplo porque están construidos sobre
+la estructura de las cajas anidadas.  Con LilyPond, por el contrario,
+hemos tratado de conservar el formato del código de entrada y la
+estructura lo más flexibles posible.
 
 @node ¿Qué símbolos grabar?
-@section ¿Qué símbolos grabar?
+@unnumberedsubsec ¿Qué símbolos grabar?
 @translationof What symbols to engrave?
 
 @cindex grabado
@@ -1319,12 +1381,6 @@ similar, varios contextos de pentagrama se pueden reunir dentro de un
 único contexto de partitura.  El contexto de partitura es el contexto
 de notación del nivel más alto que hay.
 
-
-@seealso
-Referencia de funcionamiento interno:
-@rinternals{Contexts}.
-
-
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
 \score {
@@ -1335,113 +1391,154 @@ Referencia de funcionamiento interno:
 }
 @end lilypond
 
+@seealso
+Referencia de funcionamiento interno:
+@rinternals{Contexts}.
 
-@node Representación musical
-@section Representación musical
-@translationof Music representation
+@node Arquitectura flexible
+@unnumberedsubsec Arquitectura flexible
+@translationof Flexible architecture
 
-@cindex sintaxis
-@cindex recursivas, estructuras
+Al principio escribimos el programa LilyPond completamente en el
+lenguaje de programación C++; la funcionalidad del programa estaba
+grabada en piedra por parte de los desarrolladores.  Se comprobó que
+esto no era satisfactorio por unas cuantas razones:
 
-Idealmente, el formato de entrada de cualquier sistema de formateado
-de alto nivel es una descripción abstracta del contenido.  En este
-caso, eso sería la propia música.  Ello presenta un enorme problema:
-¿cómo podemos definir qué es la música realmente?  En lugar de buscar
-una respuesta, le hemos dado la vuelta a la pregunta.  Escribimos un
-programa capaz de producir música impresa, y luego ajustamos el
-formato de forma que sea lo más escueto posible.  Cuando el formato ya
-no se puede recortar más, por definición nos estamos quedando con el
-propio contenido.  Nuestro programa sirve como una definición formal
-de un documento musical.
+@itemize
 
-La sintaxis es también el interfaz de usuario de LilyPond, de aquí
-que sea tan fácil teclear:
+@item Cuando LilyPond comete errores, los usuarios necesitan sobreescribir
+las decisiones de formateo.  Por tanto, el usuario debe tener acceso
+al motor de formateo.  De aquí que las reglas y los ajustes
+predeterminados no se puedan fijar por nuestra parte en el tiempo de
+compilación sino que deben estar accesibles para los usuarios en el
+tiempo de ejecución.
 
-@example
-@{
-  c'4 d'8
-@}
-@end example
+@item El grabado musical es cuestión de juicio visual, y por tanto está en
+el terreno del buen gusto.  Por más entendidos que pretendamos ser,
+nuestros usuarios siempre podrían discrepar de nuestras decisiones
+personales.  Por ello, las definiciones del estilo tipográfico debe
+también ser accesible para el usuario.
 
-@noindent
-para crear un Do central negra (Do 4) y un Re por encima del Do
-central, corchea (Re 4).
+@item Finalmente, nos encontramos refinando continuamente los algoritmos de
+formateo, por lo que necesitamos un enfoque flexible para las reglas.
+El lenguaje C++ fuerza un cierto método de agrupación de las reglas
+que no está preparado para aplicarse al formateo de la notación
+musical.
 
-@lilypond[quote]
-{
-  c'4 d'8
+@end itemize
+
+@cindex Scheme, lenguaje de programación
+
+Estos programas se han solucionado integrando un intérprete para el
+lenguaje de programación Scheme y reescribiendo partes de LilyPond en
+Scheme.  La arquitectura de formateo actual está construida alrededor
+de la noción de objetos gráficos, descritos por medio de variables y
+funciones de Scheme.  Esta arquitectura coordina las reglas de
+formateo, el estilo tipográfico y las decisiones de formateo
+individuales.  El usuario tiene acceso directo a la mayoría de esos
+controles.
+
+Las variables de Scheme controlan las decisiones de disposición en la
+página.  Por ejemplo, muchos objetos gráficos tienen una variable de
+dirección que codifica la elección entre arriba y abajo (o izquierda y
+derecha).  A continuación vemos dos acordes, con acentos y símbolos de
+arpegio.  En el primer acorde, los objetos gráficos tienen todas las
+direcciones hacia abajo (o hacia la izquierda).  El segundo acorde
+tiene todas las direcciones hacia arriba (o hacia la derecha).
+
+@lilypond[quote,ragged-right]
+\new Score \with {
+   \override SpacingSpanner #'spacing-increment = #3
+   \override TimeSignature #'transparent = ##t
+} \relative c' {
+   \stemDown <e g b>4_>-\arpeggio
+   \override Arpeggio #'direction = #RIGHT
+   \stemUp <e g b>4^>-\arpeggio
 }
 @end lilypond
 
-A una escala microscópica, esta sintaxis es fácil de usar.  A una
-escala mayor, la sintaxis necesita también una estructura.  ¿De qué
-otra forma podríamos introducir piezas complejas como sinfonías u
-óperas?  La estructura se forma por medio del concepto de expresiones
-musicales: combinando pequeños fragmentos de música dentro de otros
-más grandes, se puede expresar una música más compleja.  Por ejemplo:
-
-@lilypond[quote,verbatim,fragment,relative=1]
-f4
-@end lilypond
+@cindex partitura, formateo de
+@cindex formateo de una partitura
+@cindex formateo, reglas de
 
 @noindent
-Las notas simultáneas se pueden construir encerrándolas dentro de
-@code{<<} y @code{>>}:
+El proceso de dar formato a una partitura comprende la lectura y
+escritura de las variables de los objetos gráficos.  Algunas variables
+tienen un valor preestablecido.  Por ejemplo, el grosor de muchas
+líneas (una característica del estilo tipográfico) es una variable con
+un valor preestablecido. Somos libres de alterar este valor, dando a
+nuestra partitura una impresión tipográfica distinta.
 
-@example
-<<c4 d4 e4>>
-@end example
-
-@lilypond[quote,fragment,relative=1]
-\new Voice { <<c4 d4 e>> }
+@lilypond[quote,ragged-right]
+fragment = {
+   \clef bass f8 as8
+   c'4-~ c'16 as g f e16 g bes c' des'4
+}
+<<
+   \new Staff \fragment
+   \new Staff \with {
+      \override Beam #'beam-thickness = #0.3
+      \override Stem #'thickness = #0.5
+      \override Bar #'thickness = #3.6
+      \override Tie #'thickness = #2.2
+      \override StaffSymbol #'thickness = #3.0
+      \override Tie #'extra-offset = #'(0 .  0.3)
+      }
+      \fragment
+>>
 @end lilypond
 
-@noindent
-La expresión se pone en secuencia encerrándola dentro de llaves
-@code{@{@tie{}@dots{}@tie{}@}}:
+Las reglas de formateado también son variables preestablecidas: cada
+objeto tiene variables que contienen procedimientos.  Estos
+procedimientos realizan el formateo propiamente dicho, y mediante la
+sustitución de unos u otros, podemos modificar el aspecto de los
+objetos.  En el ejemplo siguiente, la regla que gobierna qué objetos
+de cabeza se utilizan para producir el símbolo de la cabeza, se cambia
+a lo largo del fragmento musical.
 
-@example
-@{ f4 <<c4 d4 e4>> @}
-@end example
+@lilypond[quote,ragged-right]
+#(set-global-staff-size 30)
 
-@lilypond[quote,relative=1,fragment]
-{ f4 <<c d e4>> }
+#(define (mc-squared grob orig current)
+  (let* ((interfaces (ly:grob-interfaces grob))
+         (pos (ly:grob-property grob 'staff-position)))
+    (if (memq 'note-head-interface interfaces)
+        (begin
+          (ly:grob-set-property! grob 'stencil
+            (grob-interpret-markup grob
+              (make-lower-markup 0.5
+                (case pos
+                  ((-5) "m")
+                  ((-3) "c ")
+                  ((-2) (make-smaller-markup (make-bold-markup "2")))
+                  (else "bla")))))))))
+
+\new Voice \relative c' {
+  \stemUp
+  \set autoBeaming = ##f
+  \time 2/4
+  <d f g>4
+  \once \override NoteHead #'stencil = #note-head::brew-ez-stencil
+  \once \override NoteHead #'font-size = #-7
+  \once \override NoteHead #'font-family = #'sans
+  \once \override NoteHead #'font-series = #'bold
+  <d f g>4
+  \once \override NoteHead #'style = #'cross
+  <d f g>4
+  \applyOutput #'Voice #mc-squared
+  <d f g>4
+  <<
+    { d8[ es-( fis^^ g] fis2-) }
+    \repeat unfold 5 { \applyOutput #'Voice #mc-squared s8 }
+  >>
+}
 @end lilypond
 
-@noindent
-Esto es también una expresión, y así se puede combinar de nuevo con
-otra expresión simultánea (una blanca) utilizando @code{<<}, @code{\\}
-y @code{>>}:
-
-@example
-<< g2 \\ @{ f4 <<c4 d4 e4>> @} >>
-@end example
-
-@lilypond[quote,fragment,relative=2]
-\new Voice { << g2 \\ { f4 <<c d e>> } >> }
-@end lilypond
-
-Tales estructuras recursivas se pueden especificar limpia y
-formalmente dentro de una gramática independiente del contexto.  El
-código del analizador sintáctico también se genera a partir de esta
-gramática.  Dicho de otra forma, la sintaxis de LilyPond está definida
-claramente y sin ambigüedades.
-
-Los interfaces de usuario y la sintaxis son aquello que la gente ve y
-con lo que trata más frecuentemente.  Son, en parte, cuestión de
-gusto, y también objeto de mucha discusión.  Aunque las discusiones
-sobre el gusto tienen su mérito, no son muy productivas.  Bajo el
-punto de vista más amplio de LilyPond, la importancia de la sintaxis
-de la entrada es pequeña: inventarse una sintaxis limpia es fácil,
-pero escribir un código de formatead que sea decente es mucho más
-difícil.  Esto queda ilustrado por la cantidad de líneas que están
-dedicadas a los componentes respectivos: el análisis sintáctico y la
-representación se llevan menos del 10% del código fuente.
 
 
-@node Aplicaciones de ejemplo
-@section Aplicaciones de ejemplo
-@translationof Example applications
+@node Poner a LilyPond a trabajar
+@section Poner a LilyPond a trabajar
+@translationof Putting LilyPond to work
 
 @cindex simple, ejemplos
 @cindex ejemplos simples
@@ -1479,7 +1576,7 @@ hoja guía de acordes.
 También puede imprimirse notación polifónica y música para piano.  El
 ejemplo siguiente combina unas pocas construcciones algo más exóticas.
 
-@lilypond[quote]
+@lilypond[quote,line-width=15.9\cm]
 \header {
   title = "Screech and boink"
   subtitle = "Random complex notation"
@@ -1561,20 +1658,23 @@ multimedia.
 Este manual muestra también una aplicación: el formato de entrada es
 texto, y puede ser por tanto fácilmente empotrado dentro de otros
 formatos basados en texto como @LaTeX{}, HTML, o en el caso de este
-manual, Texinfo.  Por medio de un programa especial, los fragmentos de
-entrada se pueden reemplazar por imágenes de la música en los archivos
-de salida PDF o HTML resultantes.  De esta forma se hace fácil la
-mezcla de música y texto dentro de los documentos.
+manual, Texinfo.  Utilizando el programa @command{lilypond-book}, que
+viene incluido con LilyPond, los fragmentos de entrada se pueden
+reemplazar por imágenes de la música en los archivos de salida PDF o
+HTML resultantes.  Otro ejemplo es la extensión (de terceras partes)
+OOoLilyPond para OpenOffice.org, que hace de la inclusión de ejemplos
+musicales dentro de los documentos, una tarea extremadamente sencilla.
 
-
-@c TODO: add extra chapter for computer aesthetics?
+Para ver más ejemplos de LilyPond en acción, la documentación
+completa, y el programa propiamente dicho, visite nuestra página
+principal: www.lilypond.org.
 
 @page
-@node Apéndice
-@section Apéndice
-@translationof Appendix
+@node Ejemplos de partituras (BWV 861)
+@section Ejemplos de partituras (BWV 861)
+@translationof Engraved examples (BWV 861)
 
-Este apéndice contiene cuatro grabados musicales de referencia y dos
+Esta sección contiene cuatro grabados musicales de referencia y dos
 versiones grabadas por ordenador de la fuga en Sol menor del libro I
 del Clave Bien Temperado, BWV 861, de Bach (los últimos siete
 compases).
