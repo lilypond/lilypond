@@ -66,8 +66,8 @@ are music expressions:
 
 @lilypond[verbatim,quote]
 {
-  { c'4 c' c' c'}
-  { d'4 d' d' d'}
+  { c'4 c' c' c' }
+  { d'4 d' d' d' }
 }
 @end lilypond
 
@@ -663,7 +663,7 @@ point is placed, using the @code{\page-ref} markup command.
     {
       c'1
       \pageBreak \mark A \label #'markA
-      c'
+      c'1
     }
   }
 
@@ -712,16 +712,16 @@ top-level, or inside a music expression.
 \tocItem \markup "First score"
 \score {
   {
-    c'  % ...
+    c'4  % ...
     \tocItem \markup "Some particular point in the first score"
-    d'  % ...
+    d'4  % ...
   }
 }
 
 \tocItem \markup "Second score"
 \score {
   {
-    e' % ...
+    e'4 % ...
   }
 }
 @end verbatim
@@ -973,7 +973,7 @@ may be combined on one staff, see @ref{Automatic part combining}.
 Here is an example:
 
 @lilypond[verbatim,quote]
-sopranoMusic = \relative c'' { a4 b c b8( a)}
+sopranoMusic = \relative c'' { a4 b c b8( a) }
 altoMusic = \relative g' { e4 e e f }
 tenorMusic = \relative c' { c4 b e d8( c) }
 bassMusic = \relative c' { a4 gis a d, }
@@ -1065,8 +1065,8 @@ explicitly expanded:
 @lilypond[verbatim,quote]
 music = \relative g' {
   g8. c32 d
-  \tag #'trills {d8.\trill }
-  \tag #'expand {\repeat unfold 3 {e32 d} }
+  \tag #'trills { d8.\trill }
+  \tag #'expand { \repeat unfold 3 { e32 d } }
   c32 d
  }
 
@@ -1084,8 +1084,8 @@ Alternatively, it is sometimes easier to exclude sections of music:
 @lilypond[verbatim,quote]
 music = \relative g' {
   g8. c32 d
-  \tag #'trills {d8.\trill }
-  \tag #'expand {\repeat unfold 3 {e32 d} }
+  \tag #'trills { d8.\trill }
+  \tag #'expand {\repeat unfold 3 { e32 d } }
   c32 d
  }
 
@@ -1119,9 +1119,9 @@ Multiple tags may be placed on expressions with multiple
 @code{\tag} entries:
 
 @lilypond[quote,verbatim]
-music = \relative c'' {
-  \tag #'a \tag #'both { a a a a }
-  \tag #'b \tag #'both { b b b b }
+music = \relative c''4 {
+  \tag #'a \tag #'both { a4 a a a }
+  \tag #'b \tag #'both { b4 b b b }
 }
 <<
 \keepWithTag #'a \music
@@ -1135,10 +1135,10 @@ music expression to remove several differently named tagged sections:
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-\tag #'A { a a a a }
-\tag #'B { b b b b }
-\tag #'C { c c c c }
-\tag #'D { d d d d }
+\tag #'A { a4 a a a }
+\tag #'B { b4 b b b }
+\tag #'C { c4 c c c }
+\tag #'D { d4 d d d }
 }
 {
 \removeWithTag #'B
@@ -1277,7 +1277,7 @@ lyrics and as stand-alone text below the score:
     c1 \mark \markup { \char ##x03EE }
     c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
   }
-  \addlyrics { O \markup { \concat{ Ph \char ##x0153 be! } } }
+  \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
 \markup { "Copyright 2008--2010" \char ##x00A9 }
 @end lilypond
@@ -1301,14 +1301,14 @@ done using the music function @code{\displayLilyMusic}.  For example,
 
 @example
 @{
-  \displayLilyMusic \transpose c a, @{ c e g a bes @}
+  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
 @}
 @end example
 
 will display
 
 @example
-@{ a, cis e fis g @}
+@{ a,4 cis e fis g @}
 @end example
 
 By default, LilyPond will print these messages to the console along
@@ -1408,9 +1408,10 @@ been warned.
 \relative c'' {
   c8 d
   \set Score.skipTypesetting = ##t
-  e e e e e e e e
+  e8 e e e e e e e
   \set Score.skipTypesetting = ##f
-  c d b bes a g c2 }
+  c8 d b bes a g c2
+}
 @end lilypond
 
 In polyphonic music, @code{Score.skipTypesetting} will affect all
@@ -1572,14 +1573,14 @@ resulting in silent passages of music.  The workaround is to explicitly
 terminate the (de)crescendo.  For example,
 
 @example
-@{ a\< b c d\f @}
+@{ a4\< b c d\f @}
 @end example
 
 @noindent
 will not work properly but
 
 @example
-@{ a\< b c d\!\f @}
+@{ a4\< b c d\!\f @}
 @end example
 
 @noindent
@@ -1730,12 +1731,12 @@ repeats to unfold repeats.
 
 @lilypond[quote,verbatim]
 \unfoldRepeats {
-  \repeat tremolo 8 {c'32 e' }
+  \repeat tremolo 8 { c'32 e' }
   \repeat percent 2 { c''8 d'' }
-  \repeat volta 2 {c'4 d' e' f'}
+  \repeat volta 2 { c'4 d' e' f' }
   \alternative {
     { g' a' a' g' }
-    {f' e' d' c' }
+    { f' e' d' c' }
   }
 }
 \bar "|."
@@ -1798,9 +1799,9 @@ found, or calls the default function otherwise.
     \set Staff.midiInstrument = #"cello"
     \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
     \new Voice {
-       \relative c'' {
-         a\pp b c-\rfz
-       }
+      \relative c'' {
+        a4\pp b c-\rfz
+      }
     }
   }
   \layout {}
@@ -1839,8 +1840,8 @@ volume is limited to the range 0.2 - 0.5.
       \time 2/2
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
-        r2 g\mp g fis ~
-        fis4 g8 fis e2 ~
+        r2 g\mp g fis~
+        fis4 g8 fis e2~
         e4 d8 cis d2
       }
     }
@@ -1854,7 +1855,7 @@ volume is limited to the range 0.2 - 0.5.
       }
     }
   >>
-  \layout { }
+  \layout {}
   \midi {
     \context {
       \Score
@@ -1889,8 +1890,8 @@ correctly.
       \set Staff.midiMinimumVolume = #0.7
       \set Staff.midiMaximumVolume = #0.9
       \new Voice \relative c''' {
-        r2 g\mp g fis ~
-        fis4 g8 fis e2 ~
+        r2 g\mp g fis~
+        fis4 g8 fis e2~
         e4 d8 cis d2
       }
     }
@@ -1906,7 +1907,7 @@ correctly.
       }
     }
   >>
-  \layout { }
+  \layout {}
   \midi {
     \context {
       \Score
@@ -1960,8 +1961,8 @@ to the same values as the previous example.
       \set Score.instrumentEqualizer = #my-instrument-equalizer
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
-        r2 g\mp g fis ~
-        fis4 g8 fis e2 ~
+        r2 g\mp g fis~
+        fis4 g8 fis e2~
         e4 d8 cis d2
       }
     }
@@ -2002,12 +2003,12 @@ copied out and compiled to test microtones in your MIDI player.
 @lilypond[verbatim,quote]
 \score {
   \relative c' {
-    c cih cis cisih
-    d dih ees eeh
-    e eih f fih
-    fis fisih g gih
-    gis gisih a aih
-    bes beh b bih
+    c4 cih cis cisih
+    d4 dih ees eeh
+    e4 eih f fih
+    fis4 fisih g gih
+    gis4 gisih a aih
+    bes4 beh b bih
   }
   \layout {}
   \midi {}
