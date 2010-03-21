@@ -22,11 +22,16 @@
       FLAT
       0))
 
-;; 
+(define (conditional-string-downcase str condition)
+  (if condition
+      (string-downcase str)
+      str))
+
+;;
 ;; TODO: make into markup.
-;; 
+;;
 (define-public (alteration->text-accidental-markup alteration)
-  
+
   (make-smaller-markup
    (make-raise-markup
     (if (= alteration FLAT)
@@ -34,7 +39,7 @@
 	0.6)
     (make-musicglyph-markup
      (assoc-get alteration standard-alteration-glyph-name-alist "")))))
-  
+
 (define (accidental->markup alteration)
   "Return accidental markup for ALTERATION."
   (if (= alteration 0)
@@ -54,18 +59,21 @@
 	(make-hspace-markup (if (= alteration SHARP) 0.2 0.1))
 	))))
 
-(define-public (note-name->markup pitch)
+(define-public (note-name->markup pitch lowercase?)
   "Return pitch markup for PITCH."
   (make-line-markup
    (list
     (make-simple-markup
-     (vector-ref #("C" "D" "E" "F" "G" "A" "B") (ly:pitch-notename pitch)))
-     (accidental->markup (ly:pitch-alteration pitch)))))
+     (conditional-string-downcase
+      (vector-ref #("C" "D" "E" "F" "G" "A" "B") (ly:pitch-notename pitch))
+      lowercase?))
+    (accidental->markup (ly:pitch-alteration pitch)))))
 
 (define (pitch-alteration-semitones pitch)
   (inexact->exact (round (* (ly:pitch-alteration pitch) 2))))
 
-(define-safe-public ((chord-name->german-markup B-instead-of-Bb) pitch)
+(define-safe-public ((chord-name->german-markup B-instead-of-Bb)
+		     pitch lowercase?)
   "Return pitch markup for PITCH, using german note names.
    If B-instead-of-Bb is set to #t real german names are returned.
    Otherwise semi-german names (with Bb and below keeping the british names)
@@ -78,11 +86,13 @@
     (make-line-markup
      (list
       (make-simple-markup
-       (vector-ref #("C" "D" "E" "F" "G" "A" "H" "B") (car n-a)))
+       (conditional-string-downcase
+		(vector-ref #("C" "D" "E" "F" "G" "A" "H" "B") (car n-a))
+		lowercase?))
       (make-normal-size-super-markup
        (accidental->markup (/ (cdr n-a) 2)))))))
 
-(define-safe-public (note-name->german-markup pitch)
+(define-safe-public (note-name->german-markup pitch lowercase?)
   (let* ((name (ly:pitch-notename pitch))
 	 (alt-semitones (pitch-alteration-semitones pitch))
 	 (n-a (if (member (cons name alt-semitones) `((6 . -1) (6 . -2)))
@@ -96,7 +106,7 @@
 	   (list-ref '( "ses" "s" "" "is" "isis") (+ 2 (cdr n-a)))
 	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
 
-(define-public ((chord-name->italian-markup re-with-eacute) pitch)
+(define-public ((chord-name->italian-markup re-with-eacute) pitch lowercase?)
   "Return pitch markup for PITCH, using italian/french note names.
    If re-with-eacute is set to #t, french 'ré' is returned for D instead of 're'
 "
@@ -105,11 +115,13 @@
     (make-line-markup
      (list
       (make-simple-markup
-       (vector-ref
-        (if re-with-eacute
-            #("Do" "Ré" "Mi" "Fa" "Sol" "La" "Si")
-            #("Do" "Re" "Mi" "Fa" "Sol" "La" "Si"))
-        name))
+       (conditional-string-downcase
+		(vector-ref
+		 (if re-with-eacute
+		     #("Do" "Ré" "Mi" "Fa" "Sol" "La" "Si")
+		     #("Do" "Re" "Mi" "Fa" "Sol" "La" "Si"))
+		 name)
+		lowercase?))
       (accidental->markup-italian alt)
       ))))
 
@@ -131,7 +143,7 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 			  elts)))
 	   (sorted (sort pitches ly:pitch<?))
 	   (root (car sorted))
-	   
+
 	   ;; ugh?
 	   ;;(diff (ly:pitch-diff root (ly:make-pitch -1 0 0)))
 	   ;; FIXME.  This results in #<Pitch c> ...,

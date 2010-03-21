@@ -591,6 +591,7 @@ automatically when an output definition (a @code{\score} or
 %% chord names:
   chordNameFunction = #ignatzek-chord-names
   majorSevenSymbol = #whiteTriangleMarkup
+  chordNameLowercaseMinor = ##f
   chordNameSeparator = #(make-simple-markup  "/")
   chordNameExceptions = #ignatzekExceptions
   chordNoteNamer = #'()

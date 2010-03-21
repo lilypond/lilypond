@@ -146,6 +146,7 @@ exceptions.  Contains @code{(@var{chord} . (@var{prefix-markup}
 @var{suffix-markup}))} entries.")
      (chordNameFunction ,procedure? "The function that converts lists
 of pitches to chord names.")
+	 (chordNameLowercaseMinor ,boolean? "Downcase roots of minor chords?")
      (chordNameSeparator ,markup? "The markup object used to
 separate parts of a chord name.")
      (chordNoteNamer ,procedure? "A function that converts from a pitch

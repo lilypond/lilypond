@@ -99,7 +99,8 @@
 	   alteration-pitches
 	   addition-pitches
 	   suffix-modifiers
-	   bass-pitch)
+	   bass-pitch
+	   lowercase-root?)
 
     "Format for the given (lists of) pitches. This is actually more
 work than classifying the pitches."
@@ -129,7 +130,7 @@ work than classifying the pitches."
     (define (prefix-modifier->markup mod)
       (if (and (= 3 (pitch-step mod))
 	       (= FLAT (ly:pitch-alteration mod)))
-	  (make-simple-markup "m")
+	  (make-simple-markup (if lowercase-root? "" "m"))
 	  (make-simple-markup "huh")))
     
     (define (filter-alterations alters)
@@ -167,7 +168,7 @@ work than classifying the pitches."
 	(make-line-markup total)))
 
     (let* ((sep (ly:context-property context 'chordNameSeparator))
-	   (root-markup (name-root root))
+	   (root-markup (name-root root lowercase-root?))
 	   (add-markups (map (lambda (x) (glue-word-to-step "add" x))
 			     addition-pitches))
 	   (filtered-alterations (filter-alterations alteration-pitches))
@@ -199,20 +200,25 @@ work than classifying the pitches."
   (define (ignatzek-format-exception
 	   root
 	   exception-markup
-	   bass-pitch)
+	   bass-pitch
+	   lowercase-root?)
 
     (make-line-markup
      `(
-       ,(name-root root)
+       ,(name-root root lowercase-root?)
        ,exception-markup
        . 
        ,(if (ly:pitch? bass-pitch)
 	    (list (ly:context-property context 'chordNameSeparator)
-		  (name-note bass-pitch))
+		  (name-note bass-pitch #f))
 	    '()))))
 
   (let* ((root (car in-pitches))
 	 (pitches (map (lambda (x) (ly:pitch-diff x root)) (cdr in-pitches)))
+	 (lowercase-root?
+	  (and (ly:context-property context 'chordNameLowercaseMinor)
+       (let ((third (get-step 3 pitches)))
+	    (and third (= (ly:pitch-alteration third) FLAT)))))
 	 (exceptions (ly:context-property context 'chordNameExceptions))
 	 (exception (assoc-get pitches exceptions))
 	 (prefixes '())
@@ -226,7 +232,7 @@ work than classifying the pitches."
 	 (alterations '()))
     
     (if exception
-	(ignatzek-format-exception root exception bass-note)
+	(ignatzek-format-exception root exception bass-note lowercase-root?)
 	
 	(begin
 	  ;; no exception.
@@ -281,4 +287,5 @@ work than classifying the pitches."
 		  (set! alterations '())))
 
 	    (ignatzek-format-chord-name
-	     root prefixes main-name alterations add-steps suffixes bass-note))))))
+	     root prefixes main-name alterations add-steps suffixes bass-note
+	     lowercase-root?))))))
