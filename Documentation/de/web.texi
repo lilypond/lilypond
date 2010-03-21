@@ -1,10 +1,13 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  82a821b7fb55935bc71ef8cc4716b9661f806ab3
+    Translation of GIT committish:  0bbabe9eef32b46216a722cc0d49df759227b7be
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes.
 @end ignore
+
+@c Translators: Till Paala
 
 @setfilename web.info
 @settitle LilyPond -- Notation für Jedermann
@@ -20,6 +23,7 @@
 @set FDL
 @set web
 @include macros.itexi
+@include weblinks.itexi
 
 @afourpaper
 
@@ -52,8 +56,6 @@ License''.
 @top LilyPond... Notensatz für Jedermann
 @translationof Top
 @end ifnottex
-
-@c Translators: Till Paala
 
 @c hack for texi2html, bleh -gp
 @ifnothtml
@@ -157,6 +159,8 @@ Lesen Sie mehr in der @ref{Einleitung}!
 
 @contents
 
+@allowcodebreaks false
+
 
 @c ****************** GENERAL STUFF FOR INFO ************
 @ignore
@@ -198,52 +202,56 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c FIXME: this still doesn't solve the broken links in pdf and big
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp
 @c ****************** SPECIAL MACROS FOR WEB MANUAL ************
+
 @macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
-@subheading Read it
+@subheading Lesen Sie
 
-@itemize
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
 
-@c normal case, special online case
+@end macro
+
+@macro docLinkSplit{name,base,webLink}
 @ifclear web_version
-  @item \refLink\:
+  @uref{../\base\/index.html, \name\ (aufgeteilt, HTML)}
 @end ifclear
 @ifset web_version
-  @c we assume that the online web version will be split html
-  @item \split\:
+  \webLink\
 @end ifset
-lesen Sie das Handbuch im gleichen Format wie das vorliegende.
+@end macro
 
-@end itemize
+@macro docLinkBig{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\-big-page.html, \name\ (großes HTML)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
 
-@subheading Alle Formate
+@macro docLinkPdf{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\.pdf, \base\.pdf}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+
+@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
 
 @divClass{keep-bullets}
 @itemize
 
-@ifclear web_version
-  @item @uref{../\base\/index.html, \name\ (split HTML)}:
-@end ifclear
-@ifset web_version
-  @item \split\
-@end ifset
+@item @docLinkSplit{\name\,\base\,\split\} @minus{}
   das Handbuch wird auf viele HTML-Seiten aufgeteilt.
   @*@ @ @emph{(kleiner Download für jede Seite)}
 
-@ifclear web_version
-  @item @uref{../\base\-big-page.html, \name\ (big HTML)}:
-@end ifclear
-@ifset web_version
-  @item \big\
-@end ifset
+@item @docLinkBig{\name\,\base\,\big\} @minus{}
   das Handbuch auf einer großen HTML-Seite.
   @*@ @ @emph{(großer einmaliger Download, \bigsize\)}
 
-@ifclear web_version
-  @item @uref{../\base\.pdf, \base\.pdf}:
-@end ifclear
-@ifset web_version
-  @item \pdf\
-@end ifset
+@item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
   das Handbuch als PDF-Datei.
   @*@ @ @emph{(großer einmaliger Download, \pdfsize\)}
 
@@ -263,6 +271,7 @@ lesen Sie das Handbuch im gleichen Format wie das vorliegende.
   \webLink\:
 @end ifset
 @end macro
+
 
 
 @include web/introduction.itexi
