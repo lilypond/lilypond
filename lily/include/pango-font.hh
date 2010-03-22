@@ -49,9 +49,8 @@ public:
   string description_string () const; 
   SCM font_file_name () const;
   void register_font_file (string, string, int);
-  Stencil text_stencil (string, bool, bool) const;
 
-  Stencil pango_item_string_stencil (PangoGlyphItem const *, bool) const;
+  Stencil pango_item_string_stencil (PangoGlyphItem const *) const;
 
   virtual Stencil text_stencil (Output_def* output_state,
                                 string text, bool music) const;

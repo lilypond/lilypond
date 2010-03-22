@@ -111,8 +111,7 @@ get_unicode_name (char *s,
 }
 
 Stencil
-Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
-				       bool tight_bbox) const
+Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
 {
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
@@ -128,13 +127,11 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
 
   FT_Face ftface = pango_fc_font_lock_face (fcfont);
 
-  PangoRectangle const *which_rect = tight_bbox ? &ink_rect
-						: &logical_rect;
-
   Box b (Interval (PANGO_LBEARING (logical_rect),
 		   PANGO_RBEARING (logical_rect)),
-	 Interval (-PANGO_DESCENT (*which_rect),
-		   PANGO_ASCENT (*which_rect)));
+	 Interval (-PANGO_DESCENT (ink_rect),
+		   PANGO_ASCENT (ink_rect)));
+
   b.scale (scale_);
 
   char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
@@ -300,19 +297,11 @@ Pango_font::physical_font_tab () const
   return physical_font_tab_;
 }
 
-Stencil
-Pango_font::text_stencil (Output_def* state,
-                          string str, bool music_string) const
-{
-  return text_stencil (str, music_string, false);
-}
-
 extern bool music_strings_to_paths;
 
 Stencil
-Pango_font::text_stencil (string str,
-			  bool music_string,
-			  bool tight) const
+Pango_font::text_stencil (Output_def* state,
+			  string str, bool music_string) const
 {
   /*
     The text assigned to a PangoLayout is automatically divided
@@ -334,7 +323,7 @@ Pango_font::text_stencil (string str,
       for (GSList *p = layout_runs; p; p = p->next)
 	{
 	  PangoGlyphItem *item = (PangoGlyphItem *) p->data;
-	  Stencil item_stencil = pango_item_string_stencil (item, tight);
+	  Stencil item_stencil = pango_item_string_stencil (item);
 
 	  item_stencil.translate_axis (last_x, X_AXIS);
 	  last_x = item_stencil.extent (X_AXIS)[RIGHT];
