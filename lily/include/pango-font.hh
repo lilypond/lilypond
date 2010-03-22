@@ -52,7 +52,7 @@ public:
 
   Stencil pango_item_string_stencil (PangoGlyphItem const *) const;
 
-  virtual Stencil text_stencil (Output_def* output_state,
+  virtual Stencil text_stencil (Output_def *output_state,
                                 string text, bool music) const;
   virtual void derived_mark () const;
 };

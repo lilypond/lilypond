@@ -40,7 +40,7 @@ public:
 
   // Return stencil for given string. output_state may be modified to
   // record the font.
-  virtual Stencil text_stencil (Output_def* output_state,
+  virtual Stencil text_stencil (Output_def *output_state,
                                 string text, bool music) const;
 
   virtual string font_name () const;

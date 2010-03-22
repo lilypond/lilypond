@@ -99,7 +99,7 @@ Modified_font_metric::derived_mark () const
 }
 
 Stencil
-Modified_font_metric::text_stencil (Output_def* state,
+Modified_font_metric::text_stencil (Output_def *state,
                                     string text, bool feta) const
 {
   Box b;

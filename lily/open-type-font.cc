@@ -241,7 +241,7 @@ Open_type_font::name_to_index (string nm) const
 size_t
 Open_type_font::index_to_charcode (size_t i) const
 {
-  return index_to_charcode_map_.at(i);
+  return index_to_charcode_map_.at (i);
 }
 
 size_t
@@ -295,7 +295,6 @@ Open_type_font::font_name () const
 {
   return FT_Get_Postscript_Name (face_);
 }
-
 
 SCM
 Open_type_font::glyph_list () const
