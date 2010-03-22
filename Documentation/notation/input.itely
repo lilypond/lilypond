@@ -1119,7 +1119,7 @@ Multiple tags may be placed on expressions with multiple
 @code{\tag} entries:
 
 @lilypond[quote,verbatim]
-music = \relative c''4 {
+music = \relative c'' {
   \tag #'a \tag #'both { a4 a a a }
   \tag #'b \tag #'both { b4 b b b }
 }
