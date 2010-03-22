@@ -54,17 +54,9 @@ Modified_font_metric::design_size () const
 }
 
 Box
-Modified_font_metric::get_indexed_char (vsize i) const
+Modified_font_metric::get_indexed_char_dimensions (vsize i) const
 {
-  Box b = orig_->get_indexed_char (i);
-  b.scale (magnification_);
-  return b;
-}
-
-Box
-Modified_font_metric::get_ascii_char (vsize i) const
-{
-  Box b = orig_->get_ascii_char (i);
+  Box b = orig_->get_indexed_char_dimensions (i);
   b.scale (magnification_);
   return b;
 }
@@ -101,24 +93,19 @@ Modified_font_metric::index_to_charcode (vsize i) const
   return orig_->index_to_charcode (i);
 }
 
-vsize
-Modified_font_metric::index_to_ascii (vsize k) const
-{
-  return orig_->index_to_ascii (k);
-}
-
 void
 Modified_font_metric::derived_mark () const
 {
 }
 
 Stencil
-Modified_font_metric::text_stencil (string text, bool feta) const
+Modified_font_metric::text_stencil (Output_def* state,
+                                    string text, bool feta) const
 {
   Box b;
   if (Pango_font *pf = dynamic_cast<Pango_font *> (orig_))
     {
-      Stencil stc = pf->text_stencil (text, feta);
+      Stencil stc = pf->text_stencil (state, text, feta);
 
       Box b = stc.extent_box ();
 
@@ -127,28 +114,7 @@ Modified_font_metric::text_stencil (string text, bool feta) const
       return scaled;
     }
 
-  return Font_metric::text_stencil (text, feta);
-}
-
-Box
-Modified_font_metric::text_dimension (string text) const
-{
-  Box b;
-  Interval ydims;
-  Real w = 0.0;
-
-  for (ssize i = 0; i < text.length (); i++)
-    {
-      Box b = get_ascii_char ((unsigned char)text[i]);
-
-      w += b[X_AXIS].length ();
-      ydims.unite (b[Y_AXIS]);
-    }
-  if (ydims.is_empty ())
-    ydims = Interval (0, 0);
-
-  b = Box (Interval (0, w), ydims);
-  return b;
+  return Font_metric::text_stencil (state, text, feta);
 }
 
 Font_metric *

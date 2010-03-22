@@ -123,7 +123,7 @@ Note_head::get_stem_attachment (Font_metric *fm, string key)
   int k = fm->name_to_index (key);
   if (k >= 0)
     {
-      Box b = fm->get_indexed_char (k);
+      Box b = fm->get_indexed_char_dimensions (k);
       Offset wxwy = fm->attachment_point (key);
       for (int i = X_AXIS ; i < NO_AXES; i++)
 	{

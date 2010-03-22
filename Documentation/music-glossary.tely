@@ -525,8 +525,8 @@ No cross-references.
 ES: mordente de una nota,
 I: acciaccatura,
 F: acciaccatura, appoggiature brève,
-D: ?,
-NL: ?,
+D: Zusammenschlag,
+NL: samenslag,
 DK: ?,
 S: ?,
 FI: ?.
@@ -885,7 +885,7 @@ ES: apoyatura,
 I: appoggiatura,
 F: appoggiature, (port de voix),
 D: Vorschlag, Vorhalt
-NL: voorslag,
+NL: (korte) voorslag,
 DK: forslag,
 S: förslag,
 FI: appoggiatura, etuhele.
@@ -8091,7 +8091,7 @@ ES: grupo de valoración especial,
 I: gruppi irregolari,
 F: ?,
 D: ?,
-NL: ?,
+NL: Antimetrische figuur,
 DK: ?,
 S: ?,
 FI: ?.

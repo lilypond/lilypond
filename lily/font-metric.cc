@@ -2,7 +2,6 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 1999--2010 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  Mats Bengtsson <matsb@s3.kth.se> (the ugly TeX parsing in text_dimension)
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -51,7 +50,7 @@ Font_metric::find_by_name (string s) const
       expr = scm_list_3 (ly_symbol2scm ("named-glyph"),
 			 self_scm (),
 			 ly_string2scm (s));
-      b = get_indexed_char (idx);
+      b = get_indexed_char_dimensions (idx);
     }
 
   Stencil q (b, expr);
@@ -80,15 +79,9 @@ Font_metric::count () const
 }
 
 Box
-Font_metric::get_ascii_char (size_t) const
+Font_metric::get_indexed_char_dimensions (size_t k) const
 {
   return Box (Interval (0, 0), Interval (0, 0));
-}
-
-Box
-Font_metric::get_indexed_char (size_t k) const
-{
-  return get_ascii_char (k);
 }
 
 size_t
@@ -146,34 +139,9 @@ Font_metric::font_name () const
 }
 
 size_t
-Font_metric::index_to_ascii (size_t i) const
-{
-  return i;
-}
-
-size_t
 Font_metric::index_to_charcode (size_t i) const
 {
-  return index_to_ascii (i);
-}
-
-Stencil
-Font_metric::get_ascii_char_stencil (size_t code) const
-{
-  SCM at = scm_list_3 (ly_symbol2scm ("char"), self_scm (),
-		       scm_from_unsigned (code));
-  Box b = get_ascii_char (code);
-  return Stencil (b, at);
-}
-
-Stencil
-Font_metric::get_indexed_char_stencil (size_t code) const
-{
-  size_t idx = index_to_ascii (code);
-  SCM at = scm_list_3 (ly_symbol2scm ("char"), self_scm (),
-		       scm_from_unsigned (idx));
-  Box b = get_indexed_char (code);
-  return Stencil (b, at);
+  return i;
 }
 
 Offset
@@ -189,21 +157,11 @@ Font_metric::sub_fonts () const
 }
 
 Stencil
-Font_metric::word_stencil (string str, bool feta) const
+Font_metric::text_stencil (Output_def* state,
+                           string, bool) const
 {
-  return text_stencil (str, feta);
-}
-
-Stencil
-Font_metric::text_stencil (string, bool) const
-{
+  (void) state;
+  
   programming_error ("Cannot get a text stencil from this font");
   return Stencil (Box (), SCM_EOL);
 }
-
-Box
-Font_metric::text_dimension (string) const
-{
-  return Box (Interval (0, 0), Interval (0, 0));
-}
-

@@ -50,9 +50,9 @@ msgid "\\header { key = concat + with + operator }"
 msgstr ""
 
 #: convertrules.py:58
-#, fuzzy, python-format
+#, python-format
 msgid "deprecated %s"
-msgstr "Geëxtraheerd %s"
+msgstr "verouderd %s"
 
 #: convertrules.py:70
 msgid "deprecated \\textstyle, new \\key syntax"
@@ -107,9 +107,9 @@ msgid "new \\textscript markup text"
 msgstr ""
 
 #: convertrules.py:530
-#, fuzzy, python-format
+#, python-format
 msgid "identifier names: %s"
-msgstr "identifier naam is een sleutelwoord: `%s'"
+msgstr "identifier namen: `%s'"
 
 #: convertrules.py:569
 msgid "point-and-click argument changed to procedure."
@@ -1285,9 +1285,9 @@ msgid "accidental typesetting list must begin with context-name: %s"
 msgstr "voorteken zetlijst moet beginnen met context-naam: %s"
 
 #: accidental-engraver.cc:210
-#, fuzzy, c-format
+#, c-format
 msgid "procedure or context-name expected for accidental rule, found %s"
-msgstr "paar of context-naam verwacht voor voorteken regel, gevonden: %s"
+msgstr "procedure of context-naam verwacht voor voorteken regel, gevonden: %s"
 
 #: accidental.cc:200
 #, c-format
@@ -1511,22 +1511,22 @@ msgstr "onbeëindigde extender"
 #: font-config-scheme.cc:152 font-config.cc:69
 #, c-format
 msgid "failed adding font directory: %s"
-msgstr "toevoegen van font map gefaald: %s"
+msgstr "toevoegen van font map-gefaald: %s"
 
 #: font-config-scheme.cc:154 font-config.cc:71
 #, c-format
 msgid "adding font directory: %s"
-msgstr "toevoegen van font map: %s"
+msgstr "toevoegen van font-map: %s"
 
 #: font-config-scheme.cc:168
-#, fuzzy, c-format
+#, c-format
 msgid "failed adding font file: %s"
-msgstr "toevoegen van font map gefaald: %s"
+msgstr "toevoegen van font-bestand gefaald: %s"
 
 #: font-config-scheme.cc:170
-#, fuzzy, c-format
+#, c-format
 msgid "adding font file: %s"
-msgstr "toevoegen van font map: %s"
+msgstr "toevoegen van font-bestand: %s"
 
 #: font-config.cc:40
 msgid "Initializing FontConfig..."
@@ -2045,7 +2045,7 @@ msgstr "kan bestand niet openen om te schrijven: %s: %s"
 #: midi-stream.cc:55
 #, c-format
 msgid "cannot write to file: `%s'"
-msgstr "kon niet naar bestand schrijven: `%s'"
+msgstr "kan niet naar bestand schrijven: `%s'"
 
 #: minimal-page-breaking.cc:46 paper-score.cc:116
 msgid "Calculating line breaks..."
@@ -2074,12 +2074,13 @@ msgstr "transponering met %s maakt voorteken groter dan dubbel"
 msgid ""
 "unknown crescendo style: %s\n"
 "defaulting to hairpin."
-msgstr ""
+msgstr "onbekende crescendo stijl: %s\n"
+"standaard haarspeld wordt gebruikt"
 
 #: new-dynamic-engraver.cc:209
-#, fuzzy, c-format
+#, c-format
 msgid "unterminated %s"
-msgstr "onbeëindigde bindingsboog"
+msgstr "onbeëindigd %s"
 
 #: new-fingering-engraver.cc:107
 msgid "cannot add text scripts to individual note heads"
@@ -2146,19 +2147,19 @@ msgid "FT_Get_Glyph_Name () error: %s"
 msgstr "FT_Get_Glyph_Name () fout: %s"
 
 #: optimal-page-breaking.cc:90
-#, fuzzy, c-format
+#, c-format
 msgid "[%d: %d pages]"
-msgstr "%d: %s"
+msgstr "[%d: %d pagina's]"
 
 #: optimal-page-breaking.cc:92
 #, c-format
 msgid "[%d: %d or %d pages]"
-msgstr ""
+msgstr "[%d: %d of %d pagina's]"
 
 #: optimal-page-breaking.cc:186
-#, fuzzy, c-format
+#, c-format
 msgid "Solving %d page-breaking chunks..."
-msgstr "Berekenen van pagina-afbreuken..."
+msgstr "Berekenen van %d pagina-afbreek brokken..."
 
 #: optimal-page-breaking.cc:193 page-turn-page-breaking.cc:247
 #: paper-score.cc:157
@@ -2167,7 +2168,7 @@ msgstr "Tekenen van systemen..."
 
 #: output-def.cc:235
 msgid "margins do not fit with line-width, setting default values"
-msgstr ""
+msgstr "kantlijnen passen niet met regellengte, standaardwaarden worden ingesteld"
 
 #: output-def.cc:242
 msgid ""

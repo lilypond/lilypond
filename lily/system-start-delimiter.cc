@@ -159,7 +159,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   do
     {
       int cmp = (lo + hi) / 2;
-      b = fm->get_indexed_char (cmp);
+      b = fm->get_indexed_char_dimensions (cmp);
       if (b[Y_AXIS].is_empty () || b[Y_AXIS].length () > y)
 	hi = cmp;
       else

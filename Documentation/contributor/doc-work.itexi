@@ -296,17 +296,10 @@ checks.
 
 @item
 Tweaks should, if possible, also occur on their own line.
-Bad:
-
 @example
-\override textscript #'padding = #3 c1^"hi"
-@end example
-
-Good:
-
-@example
-\override textscript #'padding = #3
-c1^"hi"
+not:          \override TextScript #'padding = #3 c1^"hi"
+but instead:  \override TextScript #'padding = #3
+              c1^"hi"
 @end example
 
 @item
@@ -323,7 +316,7 @@ or
 @@lilypond[verbatim,quote,relative=1]
 @end example
 
-If you want to use \layout@{@} or define variables, use
+If you want to use @code{\layout@{@}} or define variables, use
 
 @example
 @@lilypond[verbatim,quote]
@@ -374,6 +367,30 @@ but instead:  \chordmode @{ c e g @}
 @end example
 
 @item
+Use @{ @} marks for additional @code{\markup} format comands; ie
+
+@example
+not:          c^\markup \tiny\sharp
+but instead:  c^\markup @{ \tiny \sharp @}
+@end example
+
+@item
+Remove any space around @code{<} @code{>} marks; ie
+
+@example
+not:           < c e g > 4
+but instead:   <c e g>4
+@end example
+
+@item
+Beam, slur and tie marks should begin immediately after the first
+note with beam and phrase marks ending immediately after the last.
+
+@example
+a8(\ ais16[ b cis( d] b) cis4~ b' cis,\)
+@end example
+
+@item
 If you want to work on an example outside of the manual (for
 easier/faster processing), use this header:
 
@@ -391,7 +408,7 @@ easier/faster processing), use this header:
 @end example
 
 You may not change any of these values.  If you are making an
-example demonstrating special \paper@{@} values, contact the
+example demonstrating special @code{\paper@{@}} values, contact the
 Documentation Editor.
 
 @end itemize

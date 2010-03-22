@@ -626,8 +626,8 @@ fonts inline."
 	 (w (if landscape paper-height paper-width))
 	 (h (if landscape paper-width paper-height)))
     (if (equal? (basename name ".ps") "-")
-	(ly:warning (_ "cannot convert <stdout> to ~S" "PDF"))
-	(postscript->pdf w h name))))
+	(set! name (string-append "./" name)))
+    (postscript->pdf w h name)))
 
 (define-public (convert-to-png book name)
   (let* ((defs (ly:paper-book-paper book))
@@ -638,6 +638,8 @@ fonts inline."
 	 (paper-width (ly:output-def-lookup defs 'paper-width))
 	 (paper-height (ly:output-def-lookup defs 'paper-height))
 	 (output-scale (ly:output-def-lookup defs 'output-scale)))
+    (if (equal? (basename name ".ps") "-")
+	(set! name (string-append "./" name)))
     (postscript->png resolution
 		     (* paper-width output-scale (/ (ly:bp 1)))
 		     (* paper-height output-scale (/ (ly:bp 1)))

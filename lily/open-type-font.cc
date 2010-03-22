@@ -167,7 +167,7 @@ Open_type_font::attachment_point (string glyph_name) const
 }
 
 Box
-Open_type_font::get_indexed_char (size_t signed_idx) const
+Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
 {
   if (SCM_HASHTABLE_P (lily_index_to_bbox_table_))
     {
@@ -241,13 +241,13 @@ Open_type_font::name_to_index (string nm) const
 size_t
 Open_type_font::index_to_charcode (size_t i) const
 {
-  return ((Open_type_font *) this)->index_to_charcode_map_[i];
+  return index_to_charcode_map_.at(i);
 }
 
 size_t
 Open_type_font::count () const
 {
-  return ((Open_type_font *) this)->index_to_charcode_map_.size ();
+  return index_to_charcode_map_.size ();
 }
 
 Real

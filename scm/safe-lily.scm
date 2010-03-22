@@ -54,7 +54,6 @@
    ly:format-output
    ly:get-all-function-documentation
    ly:get-all-translators
-   ly:get-glyph
    ly:get-option
    ly:grob-alist-chain
    ly:grob-default-font
@@ -139,7 +138,6 @@
    ly:stencil-translate
    ly:stencil-translate-axis
    ly:stencil?
-   ly:text-dimension
    ly:translator-description
    ly:translator-name
    ly:translator?

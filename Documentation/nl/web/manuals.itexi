@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 @ignore
     Translation of GIT committish: ffd8edadef992d85d26e9bdc54dad6cf1ba06674
 
@@ -120,7 +120,7 @@ status van de vertaling voor niet-Engelstaligen.
 @item @ref{Alles}:
 te downloaden handleidingen en oude handleidingen.
 
-@item @ref{Ontwikkeling}:
+@item @ref{Development}:
 handleidingen voor de ontwikkelversie.
 
 @item @ref{FDL}:
@@ -164,15 +164,17 @@ License (GNU Vrije Documentatie Licentie).
 @divClass{column-left-top}
 @subheading Beginnershandleiding
 
-Deze handleiding behandelt de eerste stappen van LilyPond en legt in
-eenvoudige taal enkele belangrijke concepten uit.  Deze hoofdstukken kun
-je in chronologische volgorde doorlezen.
+Deze handleiding behandelt de eerste stappen van LilyPond en
+legt in eenvoudige taal enkele belangrijke concepten uit.
+Deze hoofdstukken kun je in chronologische volgorde
+doorlezen.
 
-Er is een alinea @strong{Zie ook} aan het eind van elk stuk dat
-kruisverwijzingen bevat naar andere stukken: deze kruisverwijzingen kun
-je beter niet volgen bij de eerste keer lezen.  Als je de gehele
-beginnershandleiding een keer hebt gelezen, wil je wellicht bepaalde
-stukken herlezen en kun je deze kruisverwijzingen bijvoorbeeld volgen voor meer
+Er is een alinea @strong{Zie ook} aan het eind van elke
+paragraaf met kruisverwijzingen naar andere paragrafen: deze
+kruisverwijzingen kun je beter niet volgen bij de eerste
+keer lezen.  Als je de gehele beginnershandleiding een keer
+hebt gelezen, wil je wellicht bepaalde stukken herlezen en
+kun je deze kruisverwijzingen bijvoorbeeld volgen voor meer
 informatie.
 @divEnd
 
@@ -194,9 +196,11 @@ informatie.
 @divClass{column-left-top}
 @subheading Terminologie
 
-Dit verklaart muziektermen en bevat vertalingen in verschillende
-talen.  Als je niet zo bekend bent met muzieknotatie of muziektermen (en vooral als Engels niet je moedertaal is), is het aan te
-raden deze termijnlijst te raadplegen.
+Dit verklaart muziektermen en bevat vertalingen in
+verschillende talen.  Als je niet zo bekend bent met
+muzieknotatie of muziektermen (en vooral als Engels niet je
+moedertaal is), is het aan te raden deze termijnlijst te
+raadplegen.
 
 @divEnd
 
@@ -217,11 +221,14 @@ raden deze termijnlijst te raadplegen.
 @divClass{column-left-top}
 @subheading Essay
 
-Deze essay geeft een kort overzicht van de geschiedenis van de
-muziektypografie, gevolgd door een beschouwing van LilyPonds graveertechnieken.  Ook wordt er een vergelijking gegeven tussen LilyPond en andere muzieknotatiesystemen.
+Deze essay geeft een kort overzicht van de geschiedenis van
+de muziektypografie, gevolgd door een beschouwing van
+LilyPonds graveertechnieken.  Ook wordt er een vergelijking
+gegeven tussen LilyPond en andere muzieknotatiesystemen.
 
-@warning{de gedetailleerde typografische voorbeelden zijn beter
-te analyseren in de PDF-versie vanwege de veel hogere resolutie.}
+@warning{de gedetailleerde typografische voorbeelden zijn
+beter te analyseren in de PDF-versie vanwege de veel hogere
+resolutie.}
 
 @divEnd
 
@@ -271,8 +278,10 @@ terminologielijst.}
 @divClass{column-left-top}
 @subheading Gebruikshandleiding
 
-Deze handleiding laat zien hoe de programma's moeten worden uitgevoerd, hoe LilyPond-notatie kan worden gecombineerd en geïntegreerd met andere programma's, en geeft
-@qq{goede gebruiken} voor een efficiënt gebruik.  Dit is aanbevolen
+Deze handleiding laat zien hoe de programma's moeten worden
+uitgevoerd, hoe LilyPond-notatie kan worden gecombineerd en
+geïntegreerd met andere programma's, en geeft @qq{goede
+gebruiken} voor een efficiënt gebruik.  Dit is aanbevolen
 lectuur indien je een groot project wilt beginnen.
 
 @divEnd
@@ -295,18 +304,20 @@ lectuur indien je een groot project wilt beginnen.
 @divClass{column-left-top}
 @subheading Snippers
 
-Dit toont een geselecteerde set LilyPond-snippers (codefragementen) uit de
-@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
-(LSR).  Al deze snippers zijn publiek domein.
+Dit toont een geselecteerde set LilyPond-snippers
+(codefragementen) uit de
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet
+Repository} (LSR).  Al deze snippers zijn publiek domein.
 
-Let op dat dit document geen exacte deelverzameling is van de LSR.  LSR draait
-een stabiele versie van LilyPond, dus elke snipper die nieuwe
-functies demonstreert van een ontwikkelversie moet apart worden toegevoegd.  Deze
-worden opgeslagen in @file{Documentation/snippets/new/} in de LilyPond source
-tree.
+Let op dat dit document geen exacte deelverzameling is van
+de LSR.  LSR draait een stabiele versie van LilyPond, dus
+elke snipper die nieuwe functies demonstreert van een
+ontwikkelversie moet apart worden toegevoegd.  Deze worden
+opgeslagen in @file{Documentation/snippets/new/} in de
+LilyPond source tree.
 
-De lijst met snippers voor elke subsectie van de notatie zijn ook
-gekoppeld vanuit het @strong{Zie ook} gedeelte.
+De lijst met snippers voor elke subsectie van de notatie
+zijn ook gekoppeld vanuit het @strong{Zie ook} gedeelte.
 @divEnd
 
 @divClass{column-right-bottom}
@@ -328,21 +339,22 @@ gekoppeld vanuit het @strong{Zie ook} gedeelte.
 
 @subsubheading Waar zijn het grafische notenwerkblad, de menu's en de werkbalken?
 
-In LilyPond schrijf je muziek door het invoeren van tekst.  Lees alsjeblieft
-over onze @ref{Tekstinvoer}.
+In LilyPond schrijf je muziek door het invoeren van tekst.
+Lees alsjeblieft over onze @ref{Tekstinvoer}.
 
 
 @subsubheading Er is zo veel documentatie!  Moet ik dat allemaal lezen?
 
-Je moet de @ref{Beginnen, Beginnershandleiding} lezen.  Wat betreft de
-rest van de documentatie, dat is een naslagwerk: je leest alleen die
-onderdelen die gaan over het soort notatie dat jij wilt produceren.
+Je moet de @ref{Beginnen, Beginnershandleiding} lezen.  Wat
+betreft de rest van de documentatie, dat is een naslagwerk:
+je leest alleen die onderdelen die gaan over het soort
+notatie dat jij wilt produceren.
 
 
 @subsubheading Maar dat is nog steeds heel veel leeswerk!  Is het dat wel de moeite waard?
 
-Oordeel zelf; redenen waarom je LilyPond zou willen gebruiken, worden
-besproken in de @ref{Inleiding}.
+Oordeel zelf; redenen waarom je LilyPond zou willen
+gebruiken, worden besproken in de @ref{Inleiding}.
 
 @divEnd
 
@@ -356,7 +368,8 @@ Dit wordt uitgelegd in @rprogram{Troubleshooting}.
 
 @subsubheading Waarom veranderen jullie de syntax?
 
-Dit wordt uitgelegd in @rprogram{Why does the syntax change?}.
+Dit wordt uitgelegd in @rprogram{Why does the syntax
+change?}.
 
 @divEnd
 
@@ -367,9 +380,10 @@ Dit wordt uitgelegd in @rprogram{Why does the syntax change?}.
 @divClass{column-left-top}
 @subheading Web
 
-Deze handleiding geeft algemene informatie over LilyPond.  Het bevat
-ook informatie over verschillende gebruikersgroepen en -forums,
-het sturen van foutrapporten (bug reports) en ontwikkeling.
+Deze handleiding geeft algemene informatie over LilyPond.
+Het bevat ook informatie over verschillende
+gebruikersgroepen en -forums, het sturen van foutrapporten
+(bug reports) en ontwikkeling.
 
 @divEnd
 
@@ -403,8 +417,8 @@ het sturen van foutrapporten (bug reports) en ontwikkeling.
 @subheading Veranderingen
 
 
-Dit is een overzicht van de belangrijkste veranderingen en nieuwe
-functies in LilyPond sinds de vorige stabiele versie.
+Dit is een overzicht van de belangrijkste veranderingen en
+nieuwe functies in LilyPond sinds de vorige stabiele versie.
 
 @divEnd
 
@@ -426,7 +440,8 @@ functies in LilyPond sinds de vorige stabiele versie.
 @divClass{column-left-top}
 @subheading LilyPond uitbreiden
 
-Deze handleiding laat zie hoe je uitbreidingen maakt voor LilyPond.
+Deze handleiding laat zie hoe je uitbreidingen maakt voor
+LilyPond.
 
 @divEnd
 
@@ -448,10 +463,10 @@ Deze handleiding laat zie hoe je uitbreidingen maakt voor LilyPond.
 @divClass{column-left-top}
 @subheading Internals handleiding
 
-Dit is een set van zwaar kruisgekoppelde pagina's die de kleinste
-details van werkelijk elke klasse, object en functie in LilyPond
-documenteren.  Het wordt direct vanuit de layout-definities in de
-broncode gegenereerd.
+Dit is een set van zwaar kruisgekoppelde pagina's die de
+kleinste details van werkelijk elke klasse, object en
+functie in LilyPond documenteren.  Het wordt direct vanuit
+de layout-definities in de broncode gegenereerd.
 
 Bijna alle layout-functionaliteit die intern wordt gebruikt,
 is ook direct beschikbaar voor de gebruiker.  Bijvoorbeeld,
@@ -459,8 +474,8 @@ de meeste variabelen die diktes, afstanden enz. bepalen,
 kunnen in het invoerbestand worden veranderd.  Er is een
 ernorm aantal layout-opties en deze staan allemaal
 beschreven in dit document.  Elk onderdeel van de
-notatie-handleiding heeft een @strong{Zie ook} subonderdeel dat
-verwijst naar deze gegenereerde documentatie.
+notatie-handleiding heeft een @strong{Zie ook} subonderdeel
+dat verwijst naar deze gegenereerde documentatie.
 
 @divEnd
 
@@ -541,9 +556,10 @@ LilyPond 2.8 Documentation}
 @divClass{column-center-top}
 @subheading Documentation license
 
-De documentatie voor GNU LilyPond is uitgegeven onder de GNU Free
-Documentation License.  Een inleiding op deze licentie en onze
-redenen om hiervoor te kiezen, wordt gegeven in @ref{Freedom}.
+De documentatie voor GNU LilyPond is uitgegeven onder de GNU
+Free Documentation License.  Een inleiding op deze licentie
+en onze redenen om hiervoor te kiezen, wordt gegeven in
+@ref{Vrijheid}.
 
 @divEnd
 

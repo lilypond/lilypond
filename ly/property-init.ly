@@ -8,10 +8,10 @@
 
 %% common definition for all note head styles reverting
 %% (palm mute, harmonics, dead notes, ...)
-defaultNoteHeads=
+defaultNoteHeads =
 #(define-music-function (parser location) ()
    (_i "Revert to the default note head style.")
-   (revert-head-style 'NoteHead))
+   (revert-head-style '(NoteHead TabNoteHead)))
 
 
 

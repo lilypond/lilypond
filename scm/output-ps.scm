@@ -239,29 +239,6 @@
 (define (resetrotation ang x y)
   "grestore  ")
 
-
-(define (text font s)
-  ;; (ly:warning (_ "TEXT backend-command encountered in Pango backend"))
-  ;; (ly:warning (_ "Arguments: ~a ~a"" font str))
-  
-  (let* ((space-length (cdar (ly:text-dimension font " ")))
-	 (space-move (string-append (number->string space-length)
-				    ;; how much precision do we need here?
-				    " 0.0 rmoveto "))
-	 (out-vec (decode-byte-string s)))
-
-    (string-append
-     (ps-font-command font) " "
-     (string-join
-      (vector->list
-       (vector-for-each
-	
-	(lambda (sym)
-	  (if (eq? sym 'space)
-	      space-move
-	      (string-append "/" (symbol->string sym) " glyphshow")))
-	out-vec))))))
-
 (define (unknown) 
   "\n unknown\n")
 

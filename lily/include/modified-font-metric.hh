@@ -26,9 +26,7 @@
 struct Modified_font_metric : public Font_metric
 {
 public:
-  Box text_dimension (string) const;
-  Box word_dimension (string) const;
-  Stencil text_stencil (string, bool) const;
+  Stencil text_stencil (Output_def* output_state, string, bool) const;
 
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);
   size_t count () const;
@@ -47,9 +45,7 @@ protected:
   string font_name () const;
   Real design_size () const;
   void derived_mark () const;
-  Box get_indexed_char (size_t) const;
-  size_t index_to_ascii (size_t) const;
-  Box get_ascii_char (size_t) const;
+  Box get_indexed_char_dimensions (size_t) const;
 };
 
 #endif /* MODIFIED_FONT_METRIC_HH */

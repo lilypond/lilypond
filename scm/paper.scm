@@ -326,25 +326,23 @@ size. SZ is in points"
       ;;; that in parse-scm.cc
       (ly:warning (_ "Must use #(set-paper-size .. ) within \\paper { ... }"))))
 
-(define-public (scale-layout pap scale)
-  (let* ((new-pap (ly:output-def-clone pap))
-	 (dim-vars (ly:output-def-lookup pap 'dimension-variables))
-	 (old-scope (ly:output-def-scope pap))
-	 (scope (ly:output-def-scope new-pap)))
+(define-public (scale-layout paper scale)
+  "Return a clone of the paper, scaled by the given scale factor."
+  (let* ((new-paper (ly:output-def-clone paper))
+	 (dim-vars (ly:output-def-lookup paper 'dimension-variables))
+	 (old-scope (ly:output-def-scope paper))
+	 (scope (ly:output-def-scope new-paper)))
 
     (for-each
      (lambda (v)
        (let* ((var (module-variable old-scope v))
 	      (val (if (variable? var) (variable-ref var) #f)))
-
+	 
 	 (if (number? val)
-	     (module-define! scope v
-			     (/ val scale))
-
-	     ;; spurious warnings, eg. for paper-width, paper-height.
-	     ;; (ly:warning (_ "not a number, ~S = ~S " v  val))
+	     (module-define! scope v (/ val scale))
+	     ;; Cannot warn for non-numbers, eg. for paper-width, paper-height.
 	     )))
-
      dim-vars)
-
-    new-pap))
+    ;; Mark the clone.
+    (ly:output-def-set-variable! new-paper 'cloned #t)
+    new-paper))

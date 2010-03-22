@@ -290,7 +290,7 @@ Book::process (Output_def *default_paper,
     {
       paper_book->paper_->normalize ();
       /* Process scores */
-  /* Render in order of parsing.  */
+      /* Render in order of parsing.  */
       for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
         {
           process_score (s, paper_book, default_layout);
