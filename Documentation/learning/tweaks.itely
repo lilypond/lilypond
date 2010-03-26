@@ -3445,10 +3445,10 @@ We show here the effect of the two methods:
     \once \override Score.MetronomeMark #'transparent = ##t
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
-    a\fermata
+    a4\fermata
     % New tempo for next section
     \tempo 4=100
-    a a a a
+    a4 a a a
   }
   \layout { }
   \midi { }
@@ -3467,10 +3467,10 @@ We show here the effect of the two methods:
     \once \override Score.MetronomeMark #'stencil = ##f
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
-    a\fermata
+    a4\fermata
     % New tempo for next section
     \tempo 4=100
-    a a a a
+    a4 a a a
   }
   \layout { }
   \midi { }
@@ -3550,15 +3550,15 @@ VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and p
       \clef "treble"
       \new Voice = "Soprano"  { \voiceOne \global \SopranoMusic }
       \new Voice = "Alto" { \voiceTwo \AltoMusic }
-      \new Lyrics \lyricsto "Soprano" { \VerseOne   }
-      \new Lyrics \lyricsto "Soprano" { \VerseTwo   }
+      \new Lyrics \lyricsto "Soprano" { \VerseOne }
+      \new Lyrics \lyricsto "Soprano" { \VerseTwo }
       \new Lyrics \lyricsto "Soprano" { \VerseThree }
-      \new Lyrics \lyricsto "Soprano" { \VerseFour  }
+      \new Lyrics \lyricsto "Soprano" { \VerseFour }
     >>
     \new Staff <<
       \clef "bass"
       \new Voice = "Tenor" { \voiceOne \TenorMusic }
-      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic }
     >>
   >>
 }
@@ -3590,9 +3590,11 @@ inst = #(define-music-function (parser location string) (string?)
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a
+  b4 bes a2
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis
+  g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
@@ -3631,9 +3633,11 @@ Now let's modify our music (let's save this file as @file{"music.ly"}).
 
 \relative c'' @{
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a
+  b4 bes a2
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis
+  g8(\! fis)-. e( d)-. cis2
 @}
 @end example
 
@@ -3649,9 +3653,11 @@ inst = #(define-music-function (parser location string) (string?)
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a
+  b4 bes a2
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis
+  g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
@@ -3716,9 +3722,11 @@ inst = #(define-music-function (parser location string) (string?)
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a
+  b4 bes a2
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis
+  g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
@@ -3780,9 +3788,11 @@ inst = #(define-music-function (parser location string) (string?)
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a
+  b4 bes a2
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis
+  g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
@@ -4018,10 +4028,10 @@ the staff.
 \relative c' {
   % Arrange to obtain color from color-notehead procedure
   \override NoteHead #'color = #color-notehead
-  a2 b |
-  c2 d |
-  e2 f |
-  g2 a |
+  a2 b
+  c2 d
+  e2 f
+  g2 a
 }
 @end lilypond
 
