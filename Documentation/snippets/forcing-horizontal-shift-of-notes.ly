@@ -6,7 +6,7 @@
 \header {
   lsrtags = "simultaneous-notes, tweaks-and-overrides"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
 
  doctitlees = "Forzar el desplazamiento horizontal de las notas"
 
@@ -18,7 +18,7 @@ texidoces = "
 "
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Wenn es zu Zusammenstößen kommt, kann mit folgender Lösung eine andere
 Position manuell eingestellt werden.  Die Einheiten hier sind
@@ -27,7 +27,7 @@ Notenlinienzwischenräume.
 "
   doctitlede = "Horizontale Verschiebung von Noten erzwingen"
 
-%% Translation of GIT committish: c39256c433c9e0d80429fb768cde5834541524f8
+%% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
   texidocfr = "
 Quand LilyPond est dépassé, la propriété @code{force-hshift} de l'objet
 @code{NoteColumn}, et des silences à hauteur déterminée, peuvent

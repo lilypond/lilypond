@@ -6,7 +6,7 @@
 \header {
   lsrtags = "simultaneous-notes, text"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 
 La herramienta de combinación de partes ( instrucción
@@ -29,7 +29,7 @@ textos.
   doctitlees = "Combinar dos partes sobre el mismo pentagrama"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Funktion, die Stimmen kombiniert (also der @code{\\partcombine}-Befehl)
 ermöglicht die Kombination unterschiedlicher Stimmen auf einem
@@ -49,7 +49,7 @@ kombinieren: Standardpolyphonie, @code{\\partcombine} ohne Text und
 "
   doctitlede = "Zwei Stimmen auf einem System kombinieren"
 
-%% Translation of GIT committish: c39256c433c9e0d80429fb768cde5834541524f8
+%% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
   texidocfr = "
 L'outil de combinaison de parties (la commande @code{\\partcombine})
 permet d'avoir deux parties différentes sur une même portée.  LilyPond

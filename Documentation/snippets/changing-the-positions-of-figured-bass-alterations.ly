@@ -6,7 +6,7 @@
 \header {
   lsrtags = "chords"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Las alteraciones y los signos «más» pueden aparecer antes o
 después de los números, según el valor de las propiedades
@@ -17,7 +17,7 @@ después de los números, según el valor de las propiedades
   doctitlees = "Cambiar las posiciones de las alteraciones del bajo cifrado"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Versetzungszeichen und Pluszeichen können vor oder nach den Ziffern erscheinen,
 je nach den Einstellungen der @code{figuredBassAlterationDirection} und

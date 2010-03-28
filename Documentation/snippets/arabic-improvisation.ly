@@ -6,7 +6,7 @@
 \header {
   lsrtags = "world-music"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Para las improvisaciones o @emph{taqasim} que son libres durante unos
 momentos, se puede omitir la indicación de compás y se puede usar
@@ -19,7 +19,7 @@ cómo podría ser el comienzo de una improvisación @emph{hijaz}:
 doctitlees = "Improvisación de música árabe"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Bei Improvisation oder @emph{taqasim}, die zeitlich frei gespielt
 werden, kann die Taktart ausgelassen werden und @code{\cadenzaOn}

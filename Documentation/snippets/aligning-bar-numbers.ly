@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 
 Los números de compás se alinean de forma predeterminada por la
@@ -21,7 +21,7 @@ alineados por la izquierda con ella.
   doctitlees = "Alineación de los números de compás"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Taktnummern sind standardmäßig links an ihrem Ursprungsobjet
 ausgerichtet.  Das ist normalerweise die linke Ecke einer Linie oder,
@@ -35,7 +35,7 @@ Taktstrich gesetzt werden.
 
 
 
-%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+%% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b
   texidocfr = "
 Les numéros de mesure s'alignent en principe sur la droite de l'objet
 dont ils dépendent.  C'est normalement le coin gauche de la portée ou,

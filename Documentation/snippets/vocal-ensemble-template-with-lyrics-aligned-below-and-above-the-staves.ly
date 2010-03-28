@@ -6,7 +6,7 @@
 \header {
   lsrtags = "text, vocal-music, contexts-and-engravers, template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Esta plantilla es, básicamente, la misma que la sencilla plantilla
 @qq{Conjunto vocal}, excepto que aquí todas las líneas de letra se
@@ -17,13 +17,13 @@ colocan utilizando @code{alignAboveContext} y
   doctitlees = "Plantilla para conjunto vocal con letras alineadas encima y debajo de los pentagramas"
 
 
-%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
+%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 このテンプレートは基本的に単純な \"合唱\" テンプレートと同じですが、歌詞が
 @code{alignAboveContext} と @code{alignBelowContext} を用いて配置されています。
 "
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 In diesem Beispiel werden die Texte mit den Befehlen
 @code{alignAboveContext} und @code{alignBelowContext}
@@ -33,7 +33,7 @@ In diesem Beispiel werden die Texte mit den Befehlen
   doctitlede = "Vorlage für Vokalensemble mit dem Gesangstext über und unter dem System"
 
 
-%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "
 Ce canevas ressemble beaucoup à celui pour chœur à quatre voix mixtes.
 La différence réside dans le fait que les paroles sont positionnées en

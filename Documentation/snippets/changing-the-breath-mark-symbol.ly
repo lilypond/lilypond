@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 El glifo de la marca de respiración se puede ajustar
 sobreescribiendo la propiedad de texto del objeto de presentación
@@ -16,7 +16,7 @@ sobreescribiendo la propiedad de texto del objeto de presentación
   doctitlees = "Cambiar el símbolo de la marca de respiración"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Das Schriftzeichen für das Atemzeichen kann verändert werden, indem
 die Text-Eigenschaft des @code{BreathingSign}-Layoutobjekts mit einer
@@ -25,7 +25,7 @@ beliebigen Textbeschriftung definiert wird.
 "
   doctitlede = "Das Atemzeichen-Symbol verändern"
 
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 On peut choisir le glyphe imprimé par cette commande, en modifiant la
 propriété @code{text} de l'objet @code{BreathingSign}, pour lui affecter

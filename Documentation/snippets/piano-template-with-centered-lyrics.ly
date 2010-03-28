@@ -6,7 +6,7 @@
 \header {
   lsrtags = "text, keyboards, template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 En lugar de tener un pentagrama dedicado a la melodía y la letra, ésta
 se puede centrar entre los pentagramas de un sistema de piano.
@@ -15,12 +15,12 @@ se puede centrar entre los pentagramas de un sistema de piano.
   doctitlees = "Plantilla de piano con letra centrada"
 
 
-%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
+%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 旋律と歌詞のための譜表を持つ代わりに、歌詞をピアノ譜の 2 つの譜の間に置くことができます。
 "
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Anstatt ein eigenes System für Melodie und Text zu schreiben, können
 Sie den Text auch zwischen die beiden Klaviersysteme schreiben
@@ -28,7 +28,7 @@ Sie den Text auch zwischen die beiden Klaviersysteme schreiben
 "
 
 
-%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "
 Lorsque la mélodie est doublée au piano, cela ne nécessite pas forcément
 une portée spécifique.  Les paroles peuvent s'insérer entre les deux

@@ -5,7 +5,7 @@
 \version "2.13.16"
 
 \header {
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Las reglas de final de barra especificadas en el contexto
 @code{Score} se aplican a todos los pentagramas, pero se pueden
@@ -16,7 +16,7 @@ modificar tanto en los niveles de @code{Staff} como de
   doctitlees = "Finales de barra en el contexto Score"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Balkenenderegeln, die im @code{Score}-Kontext definiert werden, wirken
 sich auf alle Systeme aus, können aber auf @code{Staff}- und
@@ -27,7 +27,7 @@ sich auf alle Systeme aus, können aber auf @code{Staff}- und
 
 
 
-%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+%% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b
   texidocfr = "
 Les règles de ligatures définies au niveau du contexte @code{Score}
 s'appliqueront à toutes les portées.  Il est toutefois possible de

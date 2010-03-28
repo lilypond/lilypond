@@ -6,7 +6,7 @@
 \header {
   lsrtags = "keyboards, percussion, fretted-strings, template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Ésta es una plantilla bastante avanzada, para un conjunto de
 jazz. Observe que la notación de todos los instrumentos está en
@@ -18,7 +18,7 @@ dentro de una sección @code{\\transpose}.
   doctitlees = "Plantilla para combo de jazz"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Hier ist ein ziemlich kompliziertes Beispiel für ein Jazz-Ensemble. Achtung:
 Alle Instrumente sind in @code{\key c \major} (C-Dur) notiert. Das bezieht sich
@@ -29,7 +29,7 @@ sich die Noten innerhalb eines @code{\transpose}-Abschnitts befinden.
 
   doctitlede = "Vorlage für Jazz-Combo"
 
-%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "
 Bien que compliqué de prime abord, voici un canevas tout à fait indiqué
 pour les ensembles de jazz.  Vous noterez que tous les instruments sont

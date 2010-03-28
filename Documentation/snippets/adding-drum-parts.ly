@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, percussion"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Mediante la utilización de las potentes herramientas preconfiguradas
 como la función @code{\\drummode} y el contexto @code{DrumStaff}, la
@@ -20,7 +20,7 @@ de líneas.
   doctitlees = "Escritura de partes de percusión"
 
 
-%% Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+%% Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
   texidocfr = "
 Grâce à la puissance des outils préconfigurés tels que la fonction
 @code{\\drummode} et le contexte @code{DrumStaff}, la saisie de

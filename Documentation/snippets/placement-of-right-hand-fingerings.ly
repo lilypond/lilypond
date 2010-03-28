@@ -6,7 +6,7 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Es posible ejercer un mayor control sobre la colocación de las
 digitaciones de la mano derecha estableciendo el valor de una
@@ -17,7 +17,7 @@ se debe usar una construcción de acorde.
   doctitlees = "Posicionamiento de digitaciones de mano derecha"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Man kann die Positionierung von Fingersatz der rechten Hand besser
 kontrollieren, wenn eine bestimmte Eigenschaft gesetzt wird, wie
@@ -26,7 +26,7 @@ das folgende Beispiel zeigt:
 "
   doctitlede = "Positionierung von Fingersatz der rechten Hand"
 
-%% Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+%% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
 
   texidocfr = "
 Vous disposez d'une propriété spécifique qui permet de contrôler plus

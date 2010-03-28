@@ -6,7 +6,7 @@
 \header {
   lsrtags = "text, vocal-music, spacing"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Este fragmento de código muestra cómo situar la línea de base de la
 letra más cerca del pentagrama.
@@ -15,7 +15,7 @@ letra más cerca del pentagrama.
   doctitlees = "Ajuste del especiado vertical de la letra"
 
 
-%% Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+%% Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
   texidocfr = "
 Cet extrait illustre la manière de rapprocher la ligne de paroles
 de la portée.

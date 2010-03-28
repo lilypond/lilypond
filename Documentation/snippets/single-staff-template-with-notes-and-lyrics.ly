@@ -6,7 +6,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Esta pequeña plantilla muestra una melodía sencilla con letra. Córtela
 y péguela, escriba las notas y luego la letra. Este ejemplo desactiva
@@ -18,7 +18,7 @@ comentario la línea correspondiente.
   doctitlees = "Plantilla de pentagrama único don notas y letra"
 
 
-%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
+%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 この小さなテンプレートは歌詞を持つ簡単な旋律を表しています。カット＆ペーストして、音符@c
 を付け加えて、それから歌詞の単語を付け加えてください。この例は自動ビームを off にして@c
@@ -27,7 +27,7 @@ comentario la línea correspondiente.
 "
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Das nächste Beispiel zeigt eine einfache Melodie mit Text. Kopieren
 Sie es in Ihre Datei, fügen Sie Noten und Text hinzu und übersetzen
@@ -41,7 +41,7 @@ entsprechende Zeile entweder ändern oder auskommentieren.
   doctitlede = "Vorlage für ein Notensystem mit Noten und Gesangstext"
 
 
-%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
 
   texidocfr = "
 Ce canevas comporte une simple ligne mélodique agrémentée de paroles.

@@ -5,7 +5,7 @@
 \version "2.13.16"
 
 \header {
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 La agrupación de pulsos dentro de un compás está controlada por la
 agrupación predeterminada que se establece en @code{beamSettings}.
@@ -27,7 +27,7 @@ predeterminado que está en @file{scm/beam-settings.scm}:
 doctitlees = "Símbolos de dirección y símbolos de agrupación de compás"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Optionen, mit denen die Balken in einem Takt gruppiert werden, sind
 durch die Scheme-Funktion @code{set-time-signature} erhältlich, die
@@ -45,7 +45,7 @@ der @code{set-time-signature}-Funktion als das dritte Argument mitgegeben:
 
 
 
-%% Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
+%% Translation of GIT committish: 3d7ffa1f82bb44673134b28becf7898482fe7316
   texidocfr = "
 Les règles de ligature par mesure sont gérées par la propriété
 @code{beamSettings}.  Elles peuvent être modifiées par la commande

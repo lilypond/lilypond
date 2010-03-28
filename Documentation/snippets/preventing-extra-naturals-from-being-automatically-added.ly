@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
 doctitlees = "Evitar que se añadan becuadros adicionales automáticamente"
 
 texidoces = "
@@ -20,7 +20,7 @@ dentro del contexto de @code{Staff}.
 "
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Verhindern, dass zusätzliche Auflösungszeichen automatisch
 hinzugefügt werden"
 
@@ -31,7 +31,7 @@ soll.  Um dieses Verhalten zu ändern, muss die Eigenschaft
 @code{extraNatural} im @code{Staff}-Kontext auf \"false\" gesetzt werden.
 "
 
-%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+%% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
   texidocfr = "
 En accord avec les règles standards de l'écriture musicale, on grave
 un bécarre avant un dièse ou un bémol si on a besoin d'annuler une

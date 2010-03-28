@@ -6,7 +6,7 @@
 \header {
   lsrtags = "chords, ancient-notation, contexts-and-engravers"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Al escribir un bajo cifrado, existe una forma de especificar si
 queremos que las cifras se sitúen encima o debajo de las notas del
@@ -24,7 +24,7 @@ truco se aplique a toda la partitura.
   doctitlees = "Añadir un bajo cifrado encima o debajo de las notas"
 
 
-%% Translation of GIT committish: 7eb450e8e6c935410b8f3212cb53e5a731f4f33f
+%% Translation of GIT committish: 05624d5147843d2fcbd6e4e126f1fd43142ac6e5
   doctitlefr = "Ajout d'une basse chiffrée au-dessus ou au-dessous des notes"
 
   texidoc = "

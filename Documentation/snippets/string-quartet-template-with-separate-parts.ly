@@ -6,7 +6,7 @@
 \header {
   lsrtags = "unfretted-strings, template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 El fragmento de código @qq{Plantilla de cuarteto de cuerda} produce un
 resultado satisfactorio para el cuarteto, pero ¿y si tenemos que
@@ -28,7 +28,7 @@ los archivos independientes!
   doctitlees = "Plantilla de cuarteto de cuerda con particellas independientes"
 
 
-%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
+%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 \"弦楽四重奏テンプレート\" は適切な弦楽四重奏の楽譜を作り出しますが、個々の@c
 パート譜を譜刻する必要がある場合はどうでしょうか？今度の新しいテンプレートは
@@ -43,7 +43,7 @@ los archivos independientes!
 別々のファイルに分ける場合は、指定されたコメントを外すことを忘れないでください！
 "
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Mit diesem Beispiel können Sie ein schönes Streichquartett notieren,
 aber wie gehen Sie vor, wenn Sie Stimmen brauchen? Das Beispiel
@@ -63,7 +63,7 @@ zugewiesen, auf den zurückgegriffen werden kann.
   doctitlede = "Vorlage für Streichquartett mit einzelnen Stimmen"
 
 
-%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "
 Grâce à ce canevas, vous pouvez obtenir une partition d'excellente
 facture pour quatuor à cordes mais aussi, si le besoin s'en faisait

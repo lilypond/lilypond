@@ -5,7 +5,7 @@
 \version "2.13.16"
 
 \header {
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 No está especificada ninguna agrupación predeterminada automática
 de las barras para el compás de 7/8, de forma que si se requieren
@@ -17,7 +17,7 @@ compás de 7/8, especificamos los finales de barra en 2/8 y 5/8:
   doctitlees = "Agrupamiento de las barras en el compás de 7/8"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Es gibt keine automatischen Balkengruppen für 7/8-Takte.  Wenn diese
 Taktart benötigt wird, müssen die Gruppierungen definiert werden.  Um
@@ -28,7 +28,7 @@ für 2/8 und 5/8 definiert werden:
   doctitlede = "Balkengruppen für 7/8-Takte"
 
 
-%% Translation of GIT committish: bee31293920d834cd3698f00ddcc2402c3164619
+%% Translation of GIT committish: 548076f550a2b7fb09f1260f0e5e2bb028ad396c
 texidocfr = "
 Aucune règle de ligature automatique n'est disponible pour une mesure à
 7/8.  Il faudra donc, en pareil cas, définir vous-même les règles de

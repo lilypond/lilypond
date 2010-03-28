@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Se pueden imprimir reguladores con un círculo en la punta (notación
 «al niente») estableciendo la propiedad @code{circled-tip} del objeto
@@ -16,7 +16,7 @@ Se pueden imprimir reguladores con un círculo en la punta (notación
   doctitlees = "Impresión de reguladores utilizando la notación «al niente»"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
  texidocde = "
  Crescendo-Klammern können mit einem kleinen Kreis vor der Spitze
  notiert werden (al niente = bis zum Nichts), indem die
@@ -26,7 +26,7 @@ Se pueden imprimir reguladores con un círculo en la punta (notación
 "
   doctitlede = "Crescendo Klammern al niente schreiben"
 
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Des crescendos ou decrescendos @emph{al niente} peuvent être indiqués de
 manière graphique, en assignant @emph{vrai} (@code{#t}) à la

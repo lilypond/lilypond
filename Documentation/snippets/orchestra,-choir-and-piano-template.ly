@@ -6,7 +6,7 @@
 \header {
   lsrtags = "template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 
 Esta plantilla muestra el uso de contextos @code{StaffGroup} y
@@ -20,7 +20,7 @@ a Do antes de ser asignada a una variable.
 "
   doctitlees = "Plantilla de orquesta con coro y piano"
 
-%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "
 Ce canevas illustre l'utilisation de contextes @code{StaffGroup} pour
 regrouper les instruments selon leur famille, imbriqués dans un

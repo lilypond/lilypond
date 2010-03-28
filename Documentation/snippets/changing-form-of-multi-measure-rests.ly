@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
  doctitlees = "Cambiar la forma de los silencios multicompás"
  texidoces = "
 Si hay diez compases de silencio o menos, se imprime en el pentagrama
@@ -18,7 +18,7 @@ puede cambiar sobreescribiendo la propiedad @code{expand-limit}:
 "
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Wenn zehn oder weniger Pausentakte vorkommen, wird eine Reihe von Longa-
 und Brevispausen (auch Kirchenpausen genannt) gesetzt, bei mehr Takten
@@ -30,7 +30,7 @@ setzt:
 
 
 
-%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
+%% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685
 texidocfr = "
 Dans le cas où ce silence dure moins de dix mesures, LilyPond imprime sur
 la portée des @qq{ silences d'église } -- @emph{Kirchenpause} en

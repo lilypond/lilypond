@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, contexts-and-engravers"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 
 Se pueden eliminar completamente los números de compás quitando el
@@ -18,7 +18,7 @@ grabador @code{Bar_number_engraver} del contexto de @code{Score}.
 
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Taktnummern können vollkommen aus den Noten entfernt werden, indem
 man den @code{Bar_number_engraver} aus dem @code{Score}-Kontext
@@ -29,7 +29,7 @@ entfernt.
 
 
 
-%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+%% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b
   texidocfr = "
 Désactiver le graveur concerné --- @code{Bar_number_engraver} ---
 donnera une partition  --- contexte @code{Score} --- sans numéros de

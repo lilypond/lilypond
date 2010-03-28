@@ -6,7 +6,7 @@
 \header {
   lsrtags = "text, titles"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Con algo de código de Scheme, se puede añadir fácilmente la fecha
 actual a una partitura.
@@ -14,7 +14,7 @@ actual a una partitura.
   doctitlees = "Añadir la fecha actual a una partitura"
 
 
-%% Translation of GIT committish: 7eb450e8e6c935410b8f3212cb53e5a731f4f33f
+%% Translation of GIT committish: 05624d5147843d2fcbd6e4e126f1fd43142ac6e5
   texidocfr = "
 Avec un peu de code Scheme, voici comment ajouter facilement
 la date du jour à votre partition.

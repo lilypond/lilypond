@@ -5,7 +5,7 @@
 \version "2.13.16"
 
 \header {
-%% Translation of GIT committish: c8446d6eb2fadbf8931a867741572582759935ad
+%% Translation of GIT committish: 96ee692447057131395fe4c1f9fe55805b710aa6
   texidocfr = "Ajout de doigtés à des tablatures"
 
   doctitlefr = "

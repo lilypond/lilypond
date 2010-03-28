@@ -6,7 +6,7 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 De forma predeterminada, los corchetes de primera y segunda vez se
 trazan encima de los finales alternativos completos, pero es posible
@@ -18,7 +18,7 @@ sólo dura un compás, que corresponde a una duración de 3/4.
   doctitlees = "Shortening volta brackets"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Volta-Klammern werden normalerweise über alle Noten der Klammer gezogen, aber
 es ist möglich sie zu verkürzen.  Hierzu muss
@@ -28,7 +28,7 @@ es ist möglich sie zu verkürzen.  Hierzu muss
 "
   doctitlede = "Volta-Klammern verkürzen"
 
-%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
+%% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
   texidocfr = "
 Les crochets indiquant les fins alternatives s'étalent tout au long ce
 celle-ci.  On peut les raccourcir en définissant la propriété

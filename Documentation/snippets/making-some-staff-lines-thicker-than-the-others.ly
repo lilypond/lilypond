@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, editorial-annotations"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Se puede engrosar una línea del pentagrama con fines pedagógicos
 (p.ej. la tercera línea o la de la clave de Sol).  Esto se puede
@@ -18,7 +18,7 @@ destacar, utilizando la propiedad @code{line-positions} del objeto
   doctitlees = "Hacer unas líneas del pentagrama más gruesas que las otras"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Für den pädagogischen Einsatz kann eine Linie des Notensystems dicker
 gezeichnet werden (z. B. die Mittellinie, oder um den Schlüssel hervorzuheben).
@@ -29,7 +29,7 @@ herangezogen.
 "
   doctitlede = "Eine Linie des Notensystems dicker als die anderen machen"
 
-%% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
+%% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Vous pourriez avoir envie, dans un but pédagogique, de rendre certaines
 lignes d'une portée plus épaisses que les autres, comme la ligne médiane

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Se insertan automáticamente barras en ángulo cuando se detecta un
 intervalo muy grande entre las notas.  Se puede hacer un ajuste
@@ -21,7 +21,7 @@ establecido a 5.5 espacios de pentagrama.
   doctitlees = "Cambiar el salto de las barras en ángulo"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Balken mit Hälsen in unterschiedliche Richtungen werden automatisch
 erstellt, wenn ein großer Sprung zwischen Tonhöhen gefunden wird.  Dieses
@@ -36,7 +36,7 @@ Standardwert von @code{auto-knee-gap} ist 5.5 Notensystemabstände.
 
 
 
-%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
+%% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60
   texidocfr = "
 LilyPond insère automatiquement des ligatures coudées --- certaines
 hampes vers le haut, d'autres vers le bas --- lorsqu'il détecte un

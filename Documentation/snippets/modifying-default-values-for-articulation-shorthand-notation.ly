@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Las abreviaturas se encuentran definidas dentro del archivo
 @code{ly/script-init.ly}, donde las variables @code{dashHat},
@@ -22,7 +22,7 @@ semitrino en lugar del símbolo predeterminado +, asigne el valor
   doctitlees = "Modificar los valores predeterminados para la notación abreviada de las articulaciones"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
  texidocde = "
 Die Abkürzungen sind in der Datei @samp{ly/script-init.ly} definiert, wo
 den Variablen @code{dashHat}, @code{dashPlus}, @code{dashDash},
@@ -36,7 +36,7 @@ assoziieren, muss der Wert @code{trill} der Variable
 "
   doctitlede = "Die Standardwerte der Abkürzungen von Artikulationen verändern"
 
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Les raccourcis sont répertoriés dans le fichier
 @code{ly/script-init.ly}, dans lequel on retrouve les variables

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "repeats, tweaks-and-overrides"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Se puede imprimir una línea divisoria de la forma @code{|:} al
 principio de la pieza, sobreescribiendo la propiedad correspondiente:
@@ -15,7 +15,7 @@ principio de la pieza, sobreescribiendo la propiedad correspondiente:
   doctitlees = "Imprimir puntos de repetición al prinicpio de la pieza"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Ein @code{|:}-Taktstrich kann auch zu Beginn eines Stückes ausgegeben werden, indem
 man die entsprechende Eigenschaft verändert:
@@ -23,7 +23,7 @@ man die entsprechende Eigenschaft verändert:
 "
   doctitlede = "Ein Wiederholungszeichen zu Beginn eines Stückes ausgeben"
 
-%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
+%% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
   texidocfr = "
 Bien qu'allant à l'encontre des usages en matière de gravure, vous
 imprimerez une barre de reprise (@code{|:}) en début de partition si

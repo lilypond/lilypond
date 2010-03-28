@@ -6,7 +6,7 @@
 \header {
   lsrtags = "vocal-music, keyboards, template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 
 Esta plantilla añade una reducción de piano automática a la partitura
@@ -20,7 +20,7 @@ entonces los cambios se aplicarán también a la reducción de piano.
   doctitlees = "Plantilla de conjunto vocal con reducción de piano automática"
 
 
-%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
+%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 このテンプレートは、\"合唱テンプレート\"で示された標準の SATB ボーカル譜に自動@c
 ピアノ譜を付け加えています。これは LilyPond の強みの 1 つを示しています - 音楽@c
@@ -28,7 +28,7 @@ entonces los cambios se aplicarán también a la reducción de piano.
 の音符) に変更が加えられた場合、その変更はピアノ譜にも適用されます。
 "
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 In diesem Beispiel wird ein automatischer Klavierauszug zu der
 Chorpartitur hinzugefügt. Das zeigt eine der Stärken von LilyPond
@@ -38,7 +38,7 @@ tenorMusic), verändert sich auch der Klavierauszug entsprechend.
 "
 
 
-%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "
 Ce canevas ajoute une réduction pour piano à une partition standard pour
 chœur à quatre voix mixtes.  Ceci illustre l'un des avantages de

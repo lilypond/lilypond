@@ -6,7 +6,7 @@
 \header {
   lsrtags = "editorial-annotations, fretted-strings, spacing"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
 
   texidoces = "
 Las cifras de digitación orientadas verticalmente se colocan de forma
@@ -19,7 +19,7 @@ aunque sea una sola nota.
   doctitlees = "Permitir que las digitaciones se impriman dentro del pentagrama"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Normalerweise werden vertikal orientierte Fingersatzzahlen außerhalb des Systems
 gesetzt.  Das kann aber verändert werden.
@@ -27,7 +27,7 @@ gesetzt.  Das kann aber verändert werden.
 "
   doctitlede = "Fingersatz auch innerhalb des Systems setzen"
 
-%% Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+%% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
   texidocfr = "
 L'empilement des indications de doigté se fait par défaut à l'extérieur de la portée.  Néanmoins, il est possible d'annuler ce comportement.
 

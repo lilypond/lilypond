@@ -5,7 +5,7 @@
 \version "2.13.16"
 
 \header {
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 La dirección de las plicas se contola de la misma forma en la
 tablatura que en la notación tradicional. Las barras se pueden
@@ -15,7 +15,7 @@ poner horizontales, como se muestra en este ejemplo.
   doctitlees = "Comportamiento de las plicas y las barras de corchea en tablaturas"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Richtung von Hälsen wird in Tabulaturen genauso wie in normaler Notation
 eingestellt.  Balken können horizontal eingestellt werden, wie das Beispiel
@@ -24,7 +24,7 @@ zeigt.
 "
   doctitlede = "Hals- und Balkenverhalten in einer Tabulatur"
 
-%% Translation of GIT committish: cd4950757ab1ab6c89805b0b7c978bfca034f940
+%% Translation of GIT committish: 718fa63a806b2ae307f320e250bc83236e9cd136
 
   texidocfr = "
 La direction des hampes se gère dans les tablatures tout comme en

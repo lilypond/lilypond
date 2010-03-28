@@ -5,7 +5,7 @@
 \version "2.13.16"
 
 \header {
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 LilyPond también proporciona funciones de formato para imprimir
 números de grupo especial diferentes a la propia fracción, así
@@ -17,7 +17,7 @@ agrupación.
   doctitlees = "Números de agrupación especial distintos a los predeterminados"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 LilyPond stellt auch Formatierungsfunktionen zur Verfügung, mit denen
 N-tolennummern gesetzt werden können, die sich von dem eigentlichen Bruch
@@ -27,7 +27,7 @@ hinzugefügt werden.
   doctitlede = "Nicht-standard-N-tolennummern"
 
 
-%% Translation of GIT committish: fa7695ea860d7ab2db86581dd5f8bc4f413f6705
+%% Translation of GIT committish: 015b8e65e5e9a74cea1618b597402b5b74f89b89
   texidocfr = "
 LilyPond sait aussi gérer des nolets dont le chiffrage imprimé ne
 correspond pas exactement à la fraction de mesure à laquelle ils se

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "vocal-music, keyboards, template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 He aquí el típico formato dde una canción: un pentagrama con la
 melodía y la letra, y el acompañamiento de piano por debajo.
@@ -15,12 +15,12 @@ melodía y la letra, y el acompañamiento de piano por debajo.
   doctitlees = "Plantilla de piano con melodía y letra"
 
 
-%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
+%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 これは一般的な歌曲のフォーマットです: 旋律と歌詞を持つ譜表と、その下にピアノ伴奏譜があります。
 "
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Das nächste Beispiel ist typisch für ein Lied: Im oberen System die
 Melodie mit Text, darunter Klavierbegleitung.
@@ -29,7 +29,7 @@ Melodie mit Text, darunter Klavierbegleitung.
   doctitlede = "Vorlage für Klavier und Gesangsstimme"
 
 
-%% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
+%% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
   texidocfr = "
 Il s'agit du format classique pour le chant : une portée pour la mélodie
 et les paroles au-dessus de l'accompagnement au piano.

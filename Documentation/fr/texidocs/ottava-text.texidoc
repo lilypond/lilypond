@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+%% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
   texidocfr = "
 En interne, la fonction @code{\\ottava} détermine les
 propriétés @code{ottavation} (p.ex. en @code{\"8va\"} ou @code{\"8vb\"})

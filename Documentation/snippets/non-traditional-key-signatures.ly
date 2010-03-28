@@ -5,7 +5,7 @@
 \version "2.13.16"
 
 \header {
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   doctitlees = "Armaduras de tonalidad no tradicionales"
   texidoces = "
 
@@ -34,7 +34,7 @@ exátona:
 "
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Untypische Tonarten"
   texidocde = "
 Der üblicherweise benutzte @code{\\key}-Befehl setzt die
@@ -57,7 +57,7 @@ für alle Oktaven gelten.
 Hier ein Beispiel einer möglichen Tonart für eine Ganztonleiter:
 "
 
-%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+%% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
   texidocfr = "
 La commande @code{\\key} détermine la propriété @code{keySignature} d'un 
 contexte @code{Staff}.

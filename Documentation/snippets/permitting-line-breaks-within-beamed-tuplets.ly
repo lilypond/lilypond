@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
  doctitlees = "Permitir saltos de línea dentro de grupos especiales con barra"
  texidoces = "
 Este ejemplo artificial muestra cómo se pueden permitir tanto los
@@ -17,7 +17,7 @@ sincopados se deben barrar manualmente.
 "
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Dieses künstliche Beispiel zeigt, wie sowohl automatische als auch
 manuelle Zeilenumbrüche innerhalb einer N-tole mit Balken erlaubt
@@ -29,7 +29,7 @@ gesetzt werden.
 
 
 
-%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
+%% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685
   texidocfr = "
 Cet exemple peu académique démontre comment il est possible d'insérer un saut
 de ligne dans un nolet portant une ligature.  Ces ligatures doivent toutefois

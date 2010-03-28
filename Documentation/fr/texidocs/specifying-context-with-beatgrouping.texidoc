@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
+%% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60
   texidocfr = "
 Le fait de spécifier un contexte à @code{beatGrouping} permet d'en
 limiter les effets.  Par voie de conséquence, il sera possible

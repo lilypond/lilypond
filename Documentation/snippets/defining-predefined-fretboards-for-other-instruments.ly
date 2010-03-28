@@ -6,7 +6,7 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 
 Se pueden añadir diagramas de posiciones predefinidas para
@@ -26,7 +26,7 @@ de las cuerdas.  Hay planes para corregir esto en un futuro.
   doctitlees = "Definición de posiciones predefinidas para otros instrumentos"
 
 
-%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: f23429bc5cfa9d141ef7b4509afc46c140308a1e
   texidocde = "
 Vordefinierte Bunddiagramme können für neue Instrumente hinzugefügt werden
 neben denen, die schon für die Gitarre definiert sind.  Dieses Schnipsel
@@ -44,7 +44,7 @@ enthalten.  Das soll in der Zukunft verbessert werden.
 "
   doctitlede = "Eigene vordefinierte Bunddiagramme für andere Instrumente erstellen"
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 
   texidocfr = "
 La liste des diagrammes standards prédéfinis pour la guitare peut être

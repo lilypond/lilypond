@@ -6,7 +6,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 He aquí una partitura vocal estándar para cuatro voces SATB. Con
 grupos mayores, suele ser útil incluir una sección que aparezca en
@@ -18,14 +18,14 @@ voces se reagrupan en sólo dos pentagramas.
   doctitlees = "Plantilla de conjunto vocal"
 
 
-%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
+%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 これは標準の 4 パート SATB (ソプラノ、アルト、テナー、バス) ボーカル譜です。@c
 もっと大きな合唱では、すべてのパートで使用されるセクションをインクルードすると@c
 便利です。例えば、拍子記号と調号はほとんど常にすべてのパートで同じです。\"賛美@c
 歌\" テンプレートのように、4 つのボイスは 2 つの譜にグループ分けされています。"
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Dieses Beispiel ist für vierstimmigen Gesang (SATB). Bei größeren
 Stücken ist es oft sinnvoll, eine allgemeine Variable zu bestimmen,
@@ -36,7 +36,7 @@ sind fast immer gleich in allen Stimmen.
   doctitlede = "Vorlage für Vokalensemble"
 
 
-%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "
 Ce fichier constitue un canevas standard de partition pour chœur à
 quatre voix mixtes.  Lorsque les ensembles s'étoffent, il est judicieux

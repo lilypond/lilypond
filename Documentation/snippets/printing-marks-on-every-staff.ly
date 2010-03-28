@@ -6,7 +6,7 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Aunque normalmente las marcas de texto sólo se imprimen sobre el
 pentagrama superior, también se pueden imprimir en otro pentagrama
@@ -16,7 +16,7 @@ cualquiera.
   doctitlees = "Imprimir marcas en cualquier pentagrama"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Normalerweise werden Textzeichen nur über dem obersten Notensystem gesetzt.  Sie
 können aber auch über jedem System ausgegeben werden.
@@ -24,7 +24,7 @@ können aber auch über jedem System ausgegeben werden.
 "
   doctitlede = "Zeichen über jedem System ausgeben"
 
-%% Translation of GIT committish: c2e8b1d6d671dbfc138f890cbc7e9882b7be2761
+%% Translation of GIT committish: 548ef200973bd3d46ea75c5498461d9e5f168334
   texidocfr = "
 Bien que ces indications textuelles ne soient habituellement imprimées
 qu'au niveau de la portée supérieure, vous pouvez forcer leur

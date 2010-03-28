@@ -6,7 +6,7 @@
 \header {
   lsrtags = "chords, template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 ¿Quiere preparar una hoja guía de acordes (o «lead sheet») con
 melodía y acordes?  ¡No busque más!
@@ -16,12 +16,12 @@ melodía y acordes?  ¡No busque más!
 doctitlees = "Plantilla de pentagrama único con música y acordes"
 
 
-%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
+%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 旋律とコードを持つリード譜を欲しくはありませんか？他を見る必要はありません！
 "
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Wollen Sie ein Liedblatt mit Melodie und Akkorden schreiben?  Hier ist
 das richtige Beispiel für Sie!
@@ -30,7 +30,7 @@ das richtige Beispiel für Sie!
   doctitlede = "Vorlage für eine Notenzeile mit Akkorden"
 
 
-%% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
+%% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
   texidocfr = "
 Vous avez besoin de la partition d'une mélodie avec les accords ?
 N'allez pas plus loin !

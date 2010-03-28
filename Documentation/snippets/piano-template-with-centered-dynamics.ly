@@ -5,7 +5,7 @@
 \version "2.13.16"
 
 \header {
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Muchas partituras de piano tienen las indicaciones dinámicas centradas
 entre los dos pentagramas.  El contexto @code{Dynamics}, si se sitúa
@@ -16,14 +16,14 @@ automática.
   doctitlees = "Plantilla de piano con matices centrados"
 
 
-%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
+%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 多くのピアノ譜は、強弱記号を 2 つの譜の間に置きます。これを実現するにはちょっ@c
 とした調整が必要ですが、そのテンプレートがここにあるので、あなた自身が調整を行@c
 う必要はありません。
 "
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 In der meisten Klaviernotation werden die Dynamikzeichen zwischen
 den beiden Systemen zentriert. Für LilyPond muss man die Einstellungen
@@ -32,7 +32,7 @@ kopieren.
 "
 
 
-%% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
+%% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
   texidocfr = "
 Nombre d'ouvrages pour piano font apparaître les nuances entre les deux
 portées.  Bien que cela nécessite quelques subtilités, voici de quoi

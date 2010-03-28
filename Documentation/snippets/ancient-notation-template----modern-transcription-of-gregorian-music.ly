@@ -6,7 +6,7 @@
 \header {
   lsrtags = "ancient-notation, template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Este ejemplo muestra cómo hacer una transcripción moderna de canto
 gregoriano. El canto gregoriano no tiene compás ni plicas; utiliza
@@ -17,7 +17,7 @@ especiales que indican silencios de distintas longitudes.
 
   doctitlees = "Plantilla para notación de música antigua (transcripción moderna de canto gregoriano)"
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 
   texidocde = "
 Dieses Beispiel zeigt eine moderne Transkription des Gregorianischen
@@ -28,7 +28,7 @@ Länge von Pausen an.
 
  doctitlede = "Vorlage für Alte Notation -- moderne Transkription des gregorianischen Chorals"
 
-%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "
 Voici comment vous pourriez transcrire du grégorien.  Pour mémoire, il
 n'y a en grégorien ni de découpage en mesure, ni de hampe ; seules

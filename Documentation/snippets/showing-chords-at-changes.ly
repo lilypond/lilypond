@@ -6,7 +6,7 @@
 \header {
   lsrtags = "chords"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Se pueden imprimir los acordes exclusivamente al comienzo de las
 líneas y cuando cambia el acorde.
@@ -15,7 +15,7 @@ líneas y cuando cambia el acorde.
   doctitlees = "Imprimir los acordes cuando se produce un cambio"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Akkordsymbole können so eingestellt werden, dass sie nur zu Beginn der Zeile
 und bei Akkordwechseln angezeigt werden.

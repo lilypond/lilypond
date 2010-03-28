@@ -6,7 +6,7 @@
 \header {
   lsrtags = "ancient-notation, template"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Al transcribir música mensural, es útil un «incipit» al compienzo
 de la pieza para indicar la tonalidad y el tempo
@@ -22,7 +22,7 @@ encima de ellos.
   doctitlees = "Plantilla de notación de música antigua (transcripción moderna de música mensural)"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Bei der Transkription von Mensuralmusik ist es oft erwünscht, ein
 Incipit an den Anfang des Stückes zu stellen, damit klar ist, wie
@@ -37,7 +37,7 @@ zwischen den Systemen geschrieben.
 doctitlede = "Vorlage für Alte Notation -- moderne Transkription von Mensuralmusik"
 
 
-%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "
 Lorsque l'on transcrit de la musique mensurale, un @emph{incipit} permet
 d'indiquer la tonalité et le tempo d'origine.  Si les musiciens sont de

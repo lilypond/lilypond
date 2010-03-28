@@ -5,7 +5,7 @@
 \version "2.13.16"
 
 \header {
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
  doctitlees = "Indicaciones de compases compuestos"
  texidoces = "
 Las indicaciones de compás poco frecuentes como @qq{5/8} se pueden
@@ -20,7 +20,7 @@ apropiado en la base de datos).
 "
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Ungerade Taktarten werden (wie etwa \"5/8\") werden oft als zusammengesetzte
 Taktarten interpretiert (bspw. \"3/8 + 2/8\"), in welchen zwei oder mehr
@@ -33,7 +33,7 @@ Bebalkung angepasst wird.
 
 
 
-%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
+%% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685
   texidocfr = "
 Des métriques telles que @qq{5/8} peuvent s'interpréter sous une forme
 décomposée --- @qq{3/8 + 2/8} par exemple --- qui combine plusieurs

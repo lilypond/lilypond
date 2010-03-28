@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Se puede modificar el texto empleado para los crescendos y
 decrescendos modificando las propiedades de contexto
@@ -22,7 +22,7 @@ valores posibles se encuentran @code{'line} (línea),
   doctitlees = "Cambiar el texto y los estilos de objeto de extensión para las indicaciones dinámicas textuales"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Der Text, der für Crescendo und Decrescendo gestzt wird, kann geändert
 werden, indem man die Eigenschaften @code{crescendoText} und
@@ -34,7 +34,7 @@ und @code{'dotted-line}.
 "
   doctitlede = "Text und Strecker-Stile für Dynamik-Texte ändern"
 
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Le texte par défaut des crescendos et decrescendos se change en
 modifiant les propriétés de contexte @code{crescendoText} et 

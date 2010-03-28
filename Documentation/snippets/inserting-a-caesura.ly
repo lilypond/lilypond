@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Las marcas de cesura se pueden crear sobreescribiendo la propiedad
 @code{'text} del objeto @code{BreathingSign}.  También está disponible
@@ -16,7 +16,7 @@ una marca de cesura curva.
   doctitlees = "Insertar una cesura"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
  texidocde = "
 Zäsurzeichen können erstellt werden, indem die @code{'text}-Eigenschaft
 des @code{BreathingSign}-Objektes verändert wird.  Ein gekrümmtes
@@ -24,7 +24,7 @@ Zäsurzeichen ist auch möglich.
 "
   doctitlede = "Eine Zäsur einfügen"
 
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Une surcharge de la propriété @code{'text} de l'objet
 @code{BreathingSign} permet de créer une marque de césure.  LilyPond

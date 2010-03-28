@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Las barras de semicorcheas (o notas más breves) seguidas no se
 subdividen de forma predeterminada.  Esto es: las tres (o más)
@@ -27,7 +27,7 @@ da la duración el subgrupo de barras utilizando la función
   doctitlees = "Subdivisión de las barras de semicorchea"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Balken von aufeinanderfolgenden Sechszehnteln (oder kürzeren Notenwerten)
 werden standardmäßig nicht unterteilt.  Dieses Verhalten kann verändert
@@ -42,7 +42,7 @@ Standardwert für @code{beatLength} ist 1 / Zähler des aktuellen Taktes.
 
 
 
-%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
+%% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60
   texidocfr = "
 Les ligatures d'une succession de notes de durée inférieure à la croche
 ne sont pas subdivisées par défaut.  Autrement dit, tous les traits de

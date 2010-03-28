@@ -5,7 +5,7 @@
 \version "2.13.16"
 
 \header {
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Para tipografiar las barras agrupadas en la forma @code{3-4-3-2}
 en 12/8, en primer lugar tenemos que sobreescribir los finales de
@@ -17,7 +17,7 @@ barra nuevos:
 
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Um Balken im 12/8-Takt als @code{3-4-3-2} zu gruppieren, muss man zuerst die
 Standardwerte für die Balken im 12/8-Takt rückgängig machen und dann die neuen
@@ -28,7 +28,7 @@ Werte setzen:
 
 
 
-%% Translation of GIT committish: bee31293920d834cd3698f00ddcc2402c3164619
+%% Translation of GIT committish: 548076f550a2b7fb09f1260f0e5e2bb028ad396c
   texidocfr = "
 Pour obtenir des ligatures en groupes de @code{3-4-3-2} croches, dans
 une mesure à 12/8, il faudra préalablement annuler les réglages par

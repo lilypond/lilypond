@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, ancient-notation, contexts-and-engravers, tweaks-and-overrides"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 La disposición «mensurstriche» en que las líneas divisorias no
 están dibujadas sobre los pentagramas, sino entre ellos, se puede
@@ -19,7 +19,7 @@ propiedad @code{transparent}.
   doctitlees = "Disposición Mensurstriche (líneas divisorias entre pentagramas)"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Das Mensurstiche-Layout, in welchem die Taktlinien nicht auf den Systemen,
 sondern zwischen den Systemen gesetzt werden, kann mit einer @code{StaffGroup}
@@ -29,7 +29,7 @@ Systemen werden mit der the @code{transparent}-Eigenschaft ausgelöscht.
 "
   doctitlede = "Mensurstriche-Layout (Taktstriche zwischen den Systemen"
 
-%% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
+%% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 En musique mensurale, les barres de mesure ne traversent pas les
 portées.  Pour obtenir ce résultat avec un @code{StaffGroup} plutôt

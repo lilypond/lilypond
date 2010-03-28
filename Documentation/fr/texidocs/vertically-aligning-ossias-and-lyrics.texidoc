@@ -1,4 +1,4 @@
-%% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
+%% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Cet exemple illustre la manière de positionner une portée d'ossia et
 des paroles à l'aide des propriétés de contexte @code{alignBelowContext}

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "chords"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Al juntar nombres de acorde en cifrado americano, melodía y letra,
 obtenemos una hoja guía de acordes o «lead sheet»:
@@ -15,14 +15,14 @@ obtenemos una hoja guía de acordes o «lead sheet»:
   doctitlees = "Hoja guía de acordes o «lead sheet» sencilla"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
  texidocde = "
 Ein Liedblatt besteht aus Akkordbezeichnungen, einer Melodie und dem Liedtext:
 
 "
   doctitlede = "Ein einfaches Liedblatt"
 
-%% Translation of GIT committish: 54687441dde2fe248e20989bd265a274583413a8
+%% Translation of GIT committish: 9594a4569164407a146bbc4aad8be3a60a4725cf
   texidocfr = "
 Assembler des noms d'accords, une mélodie et des paroles permet
 d'obtenir la  partition d'un chanson :

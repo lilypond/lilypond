@@ -5,7 +5,7 @@
 \version "2.13.16"
 
 \header {
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Los patrones de barrado se pueden alterar con la propiedad
 @code{beatGrouping}:
@@ -14,7 +14,7 @@ Los patrones de barrado se pueden alterar con la propiedad
   doctitlees = "Agrupar los pulsos"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Balkengruppen können mit der @code{beatGrouping}-Eigenschaft geändert
 werden:
@@ -24,7 +24,7 @@ werden:
 
 
 
-%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
+%% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60
   texidocfr = "
 La manière de gérer les ligatures est influencée par la propriété
 @code{beatGrouping} :

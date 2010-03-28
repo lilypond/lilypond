@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 00ef2ac3dd16e21c9ffdffaa4d6d043a3f1a76e6
+%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
   texidoces = "
 Se puede tipografiar un gissando contemporáneo sin nota final
 utilizando una nota oculta y temporalización de cadenza.
@@ -15,7 +15,7 @@ utilizando una nota oculta y temporalización de cadenza.
   doctitlees = "Glissando contemporáneo"
 
 
-%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Ein modernes Glissando ohne eine Endnote kann gesetzt werden, indem
 eine Kadenz eingesetzt wird und die Endnote unsichtbar gemacht wird.
@@ -23,7 +23,7 @@ eine Kadenz eingesetzt wird und die Endnote unsichtbar gemacht wird.
 "
   doctitlede = "Moderne Glissandi"
 
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 De nos jours, il peut arriver que la note d'arrivée d'un glissando soit
 absente de la partition.  Pour ce faire, il vous faudra utiliser une
