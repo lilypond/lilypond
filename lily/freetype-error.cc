@@ -27,7 +27,7 @@
                                                                          
 const struct Freetype_error_message
 {                                                               
-  int          err_code;                                        
+  FT_Error     err_code;                                        
   const char*  err_msg;
 } ft_errors[] =                                                 
                                                                          
@@ -39,7 +39,7 @@ const struct Freetype_error_message
 #include <string>
 
 string
-freetype_error_string (int code)
+freetype_error_string (FT_Error code)
 {
   for (Freetype_error_message const *p = ft_errors;
        p->err_msg; p ++)

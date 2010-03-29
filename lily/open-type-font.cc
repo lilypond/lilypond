@@ -36,7 +36,7 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
   *length = 0;
   FT_ULong tag = FT_MAKE_TAG (tag_str[0], tag_str[1], tag_str[2], tag_str[3]);
 
-  int error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, length);
+  FT_Error error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, length);
   if (!error_code)
     {
       FT_Byte *buffer = (FT_Byte *) malloc (*length);
@@ -105,7 +105,7 @@ FT_Face
 open_ft_face (string str, FT_Long idx)
 {
   FT_Face face;
-  int error_code = FT_New_Face (freetype2_library, str.c_str (), idx, &face);
+  FT_Error error_code = FT_New_Face (freetype2_library, str.c_str (), idx, &face);
 
   if (error_code == FT_Err_Unknown_File_Format)
     error (_f ("unsupported font format: %s", str.c_str ()));
@@ -182,7 +182,7 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
     {
       const size_t len = 256;
       char name[len];
-      size_t code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
+      FT_Error code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
       if (code)
 	warning (_f ("FT_Get_Glyph_Name () Freetype error: %s",
 		     freetype_error_string (code)));
@@ -315,7 +315,7 @@ Open_type_font::glyph_list () const
     {
       const size_t len = 256;
       char name[len];
-      size_t code = FT_Get_Glyph_Name (face_, i, name, len);
+      FT_Error code = FT_Get_Glyph_Name (face_, i, name, len);
       if (code)
 	warning (_f ("FT_Get_Glyph_Name () error: %s",
 		     freetype_error_string (code).c_str ()));

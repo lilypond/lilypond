@@ -180,8 +180,8 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
       glyph_name[0] = '\0';
       if (has_glyph_names)
 	{
-	  int errorcode = FT_Get_Glyph_Name (ftface, pg, glyph_name,
-					     GLYPH_NAME_LEN);
+	  FT_Error errorcode = FT_Get_Glyph_Name (ftface, pg, glyph_name,
+						  GLYPH_NAME_LEN);
 	  if (errorcode)
 	    programming_error (
 	      _f ("FT_Get_Glyph_Name () error: %s",

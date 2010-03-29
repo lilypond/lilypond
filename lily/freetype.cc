@@ -25,7 +25,7 @@ FT_Library freetype2_library;
 void
 init_freetype ()
 {
-  int errorcode = FT_Init_FreeType (&freetype2_library);
+  FT_Error errorcode = FT_Init_FreeType (&freetype2_library);
   if (errorcode)
     error ("cannot initialize FreeType");
 }
