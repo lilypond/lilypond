@@ -182,7 +182,8 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
     {
       const size_t len = 256;
       char name[len];
-      FT_Error code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
+      FT_Error code = FT_Get_Glyph_Name (face_, FT_UInt (signed_idx),
+					 name, FT_UInt (len));
       if (code)
 	warning (_f ("FT_Get_Glyph_Name () Freetype error: %s",
 		     freetype_error_string (code)));
@@ -213,16 +214,14 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
 	}
     }
 
-  FT_UInt idx = signed_idx;
-  FT_Load_Glyph (face_,
-		 idx,
-		 FT_LOAD_NO_SCALE);
+  FT_UInt idx = FT_UInt (signed_idx);
+  FT_Load_Glyph (face_, idx, FT_LOAD_NO_SCALE);
 
   FT_Glyph_Metrics m = face_->glyph->metrics;
-  int hb = m.horiBearingX;
-  int vb = m.horiBearingY;
-  Box b (Interval (-hb, m.width - hb),
-	 Interval (-vb, m.height - vb));
+  FT_Pos hb = m.horiBearingX;
+  FT_Pos vb = m.horiBearingY;
+  Box b (Interval (Real (-hb), Real (m.width - hb)),
+	 Interval (Real (-vb), Real (m.height - vb)));
 
   b.scale (design_size () / Real (face_->units_per_EM));
   return b;
@@ -232,8 +231,8 @@ size_t
 Open_type_font::name_to_index (string nm) const
 {
   char *nm_str = (char *) nm.c_str ();
-  if (size_t idx = FT_Get_Name_Index (face_, nm_str))
-    return idx;
+  if (FT_UInt idx = FT_Get_Name_Index (face_, nm_str))
+    return (size_t) idx;
   
   return (size_t) -1;
 }
@@ -242,7 +241,7 @@ size_t
 Open_type_font::index_to_charcode (size_t i) const
 {
   map<FT_UInt, FT_ULong>::const_iterator iter;
-  iter = index_to_charcode_map_.find (i);
+  iter = index_to_charcode_map_.find (FT_UInt (i));
 
   if (iter != index_to_charcode_map_.end ())
     return (size_t) iter->second;
