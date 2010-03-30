@@ -1470,13 +1470,34 @@ text markup.
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
   \clef "treble_8"
-  \override Staff.NoteHead #'style = #'cross
-  g8 a b c b4
   \override Staff.NoteHead #'style = #'harmonic-mixed
   d^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
 }
 @end lilypond
 
+Dampened notes (also called @notation{dead notes}) are supported
+within normal and tablature staves:
+
+@lilypond[quote,ragged-right,verbatim]
+music = \relative c' {
+  < a\3 \deadNote c\2 a'\1 >4
+  < b\3 \deadNote d\2 b'\1 >4
+  < c\3 \deadNote e\2 c'\1 >8
+  \deadNotesOn
+  \times 2/3 { g16\3 b\2 e\1 }
+  \deadNotesOff
+  < a,\3 c\2 e\1 >4
+}
+\new StaffGroup <<
+  \new Staff {
+    \clef "treble_8"
+    \music
+  }
+  \new TabStaff {
+    \music
+  }
+>>
+@end lilypond
 
 @seealso
 Snippets:

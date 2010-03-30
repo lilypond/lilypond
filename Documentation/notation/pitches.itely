@@ -2574,6 +2574,10 @@ c4 b
 c b < g \xNote c f > b
 @end lilypond
 
+As synonyms for @code{\xNote}, @code{\xNotesOn} and @code{\xNotesOff},
+@code{\deadNote}, @code{\deadNotesOn} and @code{\deadNotesOff} can
+be used.  The term @notation{dead note} is commonly used by guitarists.
+
 There is also a shorthand for diamond shapes which can be used
 only inside chords:
 
@@ -2594,7 +2598,8 @@ Snippets:
 
 Notation Reference:
 @ref{Note head styles},
-@ref{Chorded notes}.
+@ref{Chorded notes},
+@ref{Indicating harmonics and dampened notes}.
 
 Internals Reference:
 @rinternals{note-event},
