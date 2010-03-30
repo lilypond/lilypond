@@ -233,7 +233,7 @@ def make_manual_links(name, version, lang):
         make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
                   url + '-big-page.html',
                   getTrans(manual.capitalize(),lang) +
-                  getTrans(' (split HTML)',lang))
+                  getTrans(' (big HTML)',lang))
 	# this is stupid and I shouldn't have bothered trying
 	# to support the 2.12 docs and it will be deleted once
 	# 2.14 is out and the website won't be visible to users
