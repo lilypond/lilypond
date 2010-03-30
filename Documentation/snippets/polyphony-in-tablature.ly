@@ -14,7 +14,6 @@ en una pauta normal.
 "
   doctitlees = "Polifonía en tablaturas"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Polyphonie kann in einer Tabulatur (@code{TabStaff}) genauso wie in einem
@@ -22,7 +21,6 @@ normalen Notensystem erstellt werden.
 
 "
   doctitlede = "Polyphonie in einer Tabulatur"
-
 %% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
 
   texidocfr = "

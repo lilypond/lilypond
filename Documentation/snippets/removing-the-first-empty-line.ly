@@ -23,7 +23,6 @@ escribe.
 "
   doctitlees = "Quitar la primera línea vacía"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Ein leeres Notensystem kann auch aus der ersten Zeile einer Partitur
@@ -39,7 +38,6 @@ gültig sind.
 
 "
   doctitlede = "Die erste leere Notenzeile auch entfernen"
-
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Par défaut, le premier système comportera absolument toutes les portées.

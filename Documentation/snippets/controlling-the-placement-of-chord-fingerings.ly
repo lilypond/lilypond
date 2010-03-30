@@ -18,14 +18,12 @@ sea una sola nota.
   doctitlees = "Controlar la colocación de las digitaciones de acordes"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Position von Fingersatzzahlen kann exakt kontrolliert werden.
 
 "
   doctitlede = "Position von Fingersatz in Akkorden kontrollieren"
-
 %% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
 
   texidocfr = "

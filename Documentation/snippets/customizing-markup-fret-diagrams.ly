@@ -16,7 +16,6 @@ diagramas de posiciones de marcado, se pueden aplicar overrides
 "
  doctitlees = "Personalizar diagramas de posiciones de marcado"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Bunddiagramme können mit der Eigenschaft @code{'fret-diagram-details}
@@ -26,7 +25,6 @@ Beschriftung vorgenommen werden.
 
 "
   doctitlede = "Anpassung von Beschriftungs-Bunddiagrammen"
-
 %% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
 
   texidocfr = "

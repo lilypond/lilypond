@@ -15,7 +15,6 @@ comportamiento como se muestra aquí:
 "
   doctitlees = "Barras que atraviesan saltos de línea"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Zeilenumbrüche sind normalerweise während Balken verboten.  Das kann geändert
@@ -23,7 +22,6 @@ werden.
 
 "
   doctitlede = "Balken über Zeilenumbrüche"
-
 
 
 %% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60

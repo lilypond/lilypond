@@ -14,7 +14,6 @@ marcado, pero no cambian el tempo en la salida MIDI.
 "
   doctitlees = "Crear indicaciones metronómicas en modo de marcado"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Neue Metronombezeichnungen können als Textbeschriftung erstellt werden,
@@ -23,7 +22,6 @@ aber sie ändern nicht das Tempo für die MIDI-Ausgabe.
 "
 
   doctitlede = "Eine Metronombezeichnung als Textbeschriftung erstellen"
-
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Vous pouvez créer des indications de tempo sous la forme d'étiquettes

@@ -15,7 +15,6 @@ una marca de cesura curva.
 "
   doctitlees = "Insertar una cesura"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
  texidocde = "
 Zäsurzeichen können erstellt werden, indem die @code{'text}-Eigenschaft
@@ -23,7 +22,6 @@ des @code{BreathingSign}-Objektes verändert wird.  Ein gekrümmtes
 Zäsurzeichen ist auch möglich.
 "
   doctitlede = "Eine Zäsur einfügen"
-
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Une surcharge de la propriété @code{'text} de l'objet

@@ -41,7 +41,6 @@ cambios manuales preservan el posicionamiento relativo estándar de
 las claves y las notas, pero no lo hacen en la segunda línea.
 "
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Eigenschaften des Schlüssels optimieren"
   texidocde = "
@@ -74,7 +73,6 @@ Eigenschaften manuell setzt.  Auf der ersten Zeile erhalten die manuellen
 Änderungen die ursprüngliche relative Positionierung von Schlüssel und
 Noten, auf der zweiten Zeile nicht.
 "
-
 %% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
   texidocfr = "
 La commande @code{\\clef \"treble_8\"} équivaut à définir @code{clefGlyph},

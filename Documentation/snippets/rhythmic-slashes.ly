@@ -32,7 +32,7 @@ rs = {
 }
 
 % Function to print a specified number of slashes
-comp = #(define-music-function (parser location count) ( integer?)
+comp = #(define-music-function (parser location count) (integer?)
   #{
     \override Rest #'stencil = #ly:percent-repeat-item-interface::beat-slash
     \override Rest #'thickness = #0.48

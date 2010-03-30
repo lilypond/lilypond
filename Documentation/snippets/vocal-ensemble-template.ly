@@ -17,14 +17,12 @@ voces se reagrupan en sólo dos pentagramas.
 "
   doctitlees = "Plantilla de conjunto vocal"
 
-
 %% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 これは標準の 4 パート SATB (ソプラノ、アルト、テナー、バス) ボーカル譜です。@c
 もっと大きな合唱では、すべてのパートで使用されるセクションをインクルードすると@c
 便利です。例えば、拍子記号と調号はほとんど常にすべてのパートで同じです。\"賛美@c
 歌\" テンプレートのように、4 つのボイスは 2 つの譜にグループ分けされています。"
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Dieses Beispiel ist für vierstimmigen Gesang (SATB). Bei größeren
@@ -34,7 +32,6 @@ sind fast immer gleich in allen Stimmen.
 "
 
   doctitlede = "Vorlage für Vokalensemble"
-
 
 %% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "

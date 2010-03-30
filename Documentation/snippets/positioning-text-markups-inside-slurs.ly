@@ -16,7 +16,6 @@ impriman por dentro de las ligaduras de expresión.
 "
   doctitlees = "Situar los elementos de marcado de texto por dentro de las ligaduras"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die
@@ -24,7 +23,6 @@ Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die
 
 "
   doctitlede = "Textbeschriftung innerhalb von Bögen positionieren"
-
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Lorsqu'il vous faut inscrire une annotation à l'intérieur d'une liaison,

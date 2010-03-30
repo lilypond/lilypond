@@ -17,7 +17,6 @@ texidoces = "
 
 "
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Wenn es zu Zusammenstößen kommt, kann mit folgender Lösung eine andere
@@ -26,7 +25,6 @@ Notenlinienzwischenräume.
 
 "
   doctitlede = "Horizontale Verschiebung von Noten erzwingen"
-
 %% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
   texidocfr = "
 Quand LilyPond est dépassé, la propriété @code{force-hshift} de l'objet

@@ -16,7 +16,6 @@ variable que utiliza la función de Scheme @code{context-spec-music}.
 
 "
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Ein einigen Fällen von sehr komplexer polyphoner Musik sind zusätzliche
@@ -27,7 +26,6 @@ Stimmen definiert werden, indem eine Variable mit der Funktion
 
 "
   doctitlede = "Zusätzliche Stimmen um Zusammenstöße zu vermeiden"
-
 %% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
   texidocfr = "
 Dans certains cas de musique polyphonie complexe, une voix

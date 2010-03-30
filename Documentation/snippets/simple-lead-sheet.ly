@@ -14,14 +14,12 @@ obtenemos una hoja guía de acordes o «lead sheet»:
 "
   doctitlees = "Hoja guía de acordes o «lead sheet» sencilla"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
  texidocde = "
 Ein Liedblatt besteht aus Akkordbezeichnungen, einer Melodie und dem Liedtext:
 
 "
   doctitlede = "Ein einfaches Liedblatt"
-
 %% Translation of GIT committish: 9594a4569164407a146bbc4aad8be3a60a4725cf
   texidocfr = "
 Assembler des noms d'accords, une mélodie et des paroles permet

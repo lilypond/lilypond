@@ -14,7 +14,6 @@ letra más cerca del pentagrama.
 "
   doctitlees = "Ajuste del especiado vertical de la letra"
 
-
 %% Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
   texidocfr = "
 Cet extrait illustre la manière de rapprocher la ligne de paroles

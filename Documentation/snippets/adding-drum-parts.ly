@@ -19,7 +19,6 @@ de líneas.
 "
   doctitlees = "Escritura de partes de percusión"
 
-
 %% Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
   texidocfr = "
 Grâce à la puissance des outils préconfigurés tels que la fonction
