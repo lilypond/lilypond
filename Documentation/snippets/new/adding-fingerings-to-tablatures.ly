@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.13.17"
 
 \header {
   lsrtags = "fretted-strings"
@@ -30,7 +30,7 @@ threeFour = \markup {
   \new TabStaff {
     \tabFullNotation
     \stemUp
-    e8\4^\one b\2 <e, g\3 e'\1>^>[ b\2 e\4]
+    e8\4^\one b\2 <g\3 e'\1>^>[ b\2 e\4]
     <a\3 fis'\1>^>^\threeTwo[ b\2 e\4]
   }
 }
