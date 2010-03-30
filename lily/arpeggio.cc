@@ -55,13 +55,13 @@ Arpeggio::get_common_y (Grob *me)
   return common;
 }
 
-MAKE_SCHEME_CALLBACK(Arpeggio, calc_positions, 1);
+MAKE_SCHEME_CALLBACK (Arpeggio, calc_positions, 1);
 SCM
 Arpeggio::calc_positions (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
   Grob *common = get_common_y (me);
-  
+
   /*
     TODO:
 
@@ -78,10 +78,9 @@ Arpeggio::calc_positions (SCM grob)
       Grob *stem = stems[i];
       Grob *ss = Staff_symbol_referencer::get_staff_symbol (stem);
       Interval iv = Stem::head_positions (stem);
-      iv *= Staff_symbol::staff_space (ss) / 2.0;
-
-      heads.unite (iv + ss->relative_coordinate (common, Y_AXIS)
-		   - my_y);
+      iv *= Staff_symbol_referencer::staff_space (me) / 2.0;
+      Real staff_y = ss ? ss->relative_coordinate (common, Y_AXIS) : 0.0;
+      heads.unite (iv + staff_y - my_y);
     }
 
   heads *= 1 / Staff_symbol_referencer::staff_space (me);
@@ -95,9 +94,9 @@ Arpeggio::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Interval heads = robust_scm2interval (me->get_property ("positions"),
-					Interval())
+					Interval ())
     * Staff_symbol_referencer::staff_space (me);
-  
+
   if (heads.is_empty () || heads.length () < 0.5)
     {
       if (to_boolean (me->get_property ("transparent")))
@@ -145,9 +144,7 @@ Arpeggio::print (SCM smob)
     }
 
   while (mol.extent (Y_AXIS).length () + epsilon < heads.length ())
-    {
-      mol.add_at_edge (Y_AXIS, UP, squiggle, 0.0);
-    }
+    mol.add_at_edge (Y_AXIS, UP, squiggle, 0.0);
 
   mol.translate_axis (heads[LEFT], Y_AXIS);
   if (dir)
@@ -165,7 +162,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Interval heads = robust_scm2interval (me->get_property ("positions"),
-					Interval())
+					Interval ())
     * Staff_symbol_referencer::staff_space (me);
 
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
@@ -185,7 +182,7 @@ Arpeggio::brew_chord_slur (SCM smob)
   Grob *me = unsmob_grob (smob);
   SCM dash_definition = me->get_property ("dash-definition");
   Interval heads = robust_scm2interval (me->get_property ("positions"),
-					Interval())
+					Interval ())
     * Staff_symbol_referencer::staff_space (me);
 
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
@@ -232,6 +229,6 @@ ADD_INTERFACE (Arpeggio,
 	       "positions "
 	       "script-priority " // TODO: make around-note-interface
 	       "stems "
-               "dash-definition " // TODO: make apply to non-slur arpeggios
+	       "dash-definition " // TODO: make apply to non-slur arpeggios
 	       );
 
