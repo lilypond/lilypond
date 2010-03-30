@@ -193,11 +193,13 @@ anhand von unterschiedlichen Regeln ausgegeben werden können.
 
 
 @seealso
-Notationsreferenz: @ruser{Notenbezeichnungen in anderen Sprachen},
+Notationsreferenz:
+@ruser{Notenbezeichnungen in anderen Sprachen},
 @ruser{Versetzungszeichen}, @ruser{Automatische Versetzungszeichen},
 @ruser{Tonartbezeichnung}.
 
-Glossar: @rglos{Pitch names}.
+Glossar:
+@rglos{Pitch names}.
 
 
 @node Bindebögen und Legatobögen
@@ -224,7 +226,7 @@ an die erste der zu verbindenden Noten hängt.
 
 @lilypond[verbatim,quote,relative=2]
 g4~ g c2~
-c4 ~ c8 a8 ~ a2
+c4~ c8 a8~ a2
 @end lilypond
 
 
@@ -270,12 +272,14 @@ für größere Notengruppen gesetzt werden. Binde- und Legatobögen können
 geschachtelt werden.
 
 @lilypond[verbatim,quote,relative=2]
-c2~( c8 fis fis4 ~ fis2 g2)
+c2~( c8 fis fis4~ fis2 g2)
 @end lilypond
 
 
 @seealso
-Notationsreferenz: @ruser{Bindebögen}, @ruser{Legatobögen},
+Notationsreferenz:
+@ruser{Bindebögen},
+@ruser{Legatobögen},
 @ruser{Phrasierungsbögen}.
 
 
@@ -289,7 +293,8 @@ Notationsreferenz: @ruser{Bindebögen}, @ruser{Legatobögen},
 @cindex Akzente
 @cindex Staccato
 
-Glossar: @rglos{articulation}.
+Glossar:
+@rglos{articulation}.
 
 Übliche @notation{Artikulationszeichen} können durch Anfügen von Minus
 (@q{-}) und einem entsprechenden Zeichen eingegeben werden:
@@ -346,7 +351,9 @@ c_-^1 d^. f^4_2-> e^-_+
 @funindex \!
 @funindex !
 
-Glossar: @rglos{dynamics}, @rglos{crescendo},
+Glossar:
+@rglos{dynamics},
+@rglos{crescendo},
 @rglos{decrescendo}.
 
 Die Dynamik innerhalb eines Stückes wird eingegeben, indem man
@@ -369,8 +376,10 @@ c2\< c2\ff\> c2 c2\!
 
 
 @seealso
-Notationsreferenz: @ruser{Artikulationszeichen und Verzierungen},
-@ruser{Fingersatzanweisungen}, @ruser{Dynamik}.
+Notationsreferenz:
+@ruser{Artikulationszeichen und Verzierungen},
+@ruser{Fingersatzanweisungen},
+@ruser{Dynamik}.
 
 
 @node Text hinzufügen
@@ -396,7 +405,7 @@ Zusätzliche Formatierung kann eingesetzt werden, wenn Sie den
 @code{\markup}-Befehl benutzen:
 
 @lilypond[verbatim,quote,relative=2]
-c1^\markup{ \bold espr}
+c1^\markup{ \bold espr }
 a1_\markup{
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
@@ -404,7 +413,8 @@ a1_\markup{
 
 
 @seealso
-Notationsreferenz: @ruser{Text eingeben}.
+Notationsreferenz:
+@ruser{Text eingeben}.
 
 
 @node Automatische und manuelle Balken
@@ -455,7 +465,9 @@ a8 c b4 d8. c16 b4
 
 
 @seealso
-Notationsreferenz: @ruser{Automatische Balken}, @ruser{Manuelle Balken}.
+Notationsreferenz:
+@ruser{Automatische Balken},
+@ruser{Manuelle Balken}.
 
 
 @node Zusätzliche rhythmische Befehle
@@ -531,7 +543,9 @@ c2 \acciaccatura b16 c2
 
 
 @seealso
-Notationsreferenz: @ruser{Verzierungen}, @ruser{Andere rhythmische Aufteilungen},
+Notationsreferenz:
+@ruser{Verzierungen},
+@ruser{Andere rhythmische Aufteilungen},
 @ruser{Auftakte}.
 
 
@@ -1146,7 +1160,8 @@ in Figaros Arie @notation{Largo al factotum} gesungen werden mus.
 
 
 @seealso
-Notationsreferenz: @ruser{Notation von Gesang}.
+Notationsreferenz:
+@ruser{Notation von Gesang}.
 
 
 @node Text zu mehreren Systemen
@@ -1190,7 +1205,8 @@ von Variablen wird erklärt im Abschnitt @ref{Stücke durch Bezeichner organisie
 
 
 @seealso
-Notationsreferenz: @ruser{Notation von Gesang}.
+Notationsreferenz:
+@ruser{Notation von Gesang}.
 
 
 @node Letzter Schliff

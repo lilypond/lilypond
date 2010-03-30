@@ -487,7 +487,7 @@ beginnen, kann ihr Aussehen auf die übliche Art mit dem
 @c NOTE Tuplet brackets collide if notes are high on staff
 @c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\times 2/3 { c8[ c c]}
+\times 2/3 { c8[ c c] }
 \once \override TupletNumber
   #'text = #tuplet-number::calc-fraction-text
 \times 2/3 {
@@ -495,7 +495,7 @@ beginnen, kann ihr Aussehen auf die übliche Art mit dem
   c[ c]
   \once \override TupletNumber #'transparent = ##t
   \times 2/3 { c8[ c c] }
-\times 2/3 { c8[ c c]}
+\times 2/3 { c8[ c c] }
 }
 @end lilypond
 
@@ -571,9 +571,9 @@ Komposition demonstriert werden. Hier das Beispiel:
 {
   \time 6/8
   {
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -675,9 +675,9 @@ Legatobogen und nahe bei ihm.} Also etwa so:
   {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -749,9 +749,9 @@ muss also wie folgt positioniert werden:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    b4[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -790,11 +790,11 @@ Note gestellt, an welcher der Bogen beginnt:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g |
+    b4[( g]) g
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    g[( e]) e d[( f]) a |
-    a g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -817,12 +817,12 @@ dessen später den @code{\revert}-Befehl einsetzen, um die
     r4 b8
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    b[( g]) g |
-    g[( e])
+    b4[( g]) g
+    g4[( e])
     % Revert thickness of all following slurs to default of 1.2
     \revert Slur #'thickness
-    e d[( f]) a |
-    a g
+    e4 d[( f]) a
+    a4 g
   }
   \addlyrics {
     The man who feels love's sweet e -- mo -- tion
@@ -943,9 +943,9 @@ bezieht, etwa so:
 {
   \time 6/8
   {
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 b8 b[( g]) g
+    g4[( e]) e d[( f]) a
+    a4 g
   }
   \addlyrics {
     \override LyricText #'font-shape = #'italic
@@ -1147,8 +1147,8 @@ auslassen:
 {
   \time 12/16
   \override BarLine #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1177,8 +1177,8 @@ den richtigen Kontext mitanzugeben:
 {
   \time 12/16
   \override Staff.BarLine #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1230,8 +1230,8 @@ den Wert in einem @code{\override}-Befehl anzuführen.
 {
   \time 12/16
   \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1266,8 +1266,8 @@ machen, ist also:
 {
   \time 12/16
   \override Staff.TimeSignature #'transparent = ##t
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1288,8 +1288,8 @@ gesetzt werden:
 {
   \time 12/16
   \override Staff.TimeSignature #'stencil = ##f
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1332,8 +1332,8 @@ weiß zu setzen, können Sie schreiben:
 {
   \time 12/16
   \override Staff.BarLine #'color = #white
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1367,8 +1367,8 @@ in interne Werte konvertiert:
 {
   \time 12/16
   \override Staff.BarLine #'color = #(x11-color 'white)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1397,8 +1397,8 @@ würde sein: @code{(rgb-color 1 1 1)}.
 {
   \time 12/16
   \override Staff.BarLine #'color = #(rgb-color 1 1 1)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1432,8 +1432,8 @@ verschiede Grauschattierungen erhalten:
   \override Voice.NoteHead      #'color = #(x11-color 'grey85)
   \override Voice.Stem          #'color = #(x11-color 'grey85)
   \override Staff.BarLine       #'color = #(x11-color 'grey10)
-  c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  c4 b8 c d16 c d8
+  g,8 a16 b8 c d4 e16
   e8
 }
 @end lilypond
@@ -1469,18 +1469,18 @@ braucht.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-       \relative g' {
-         r4 g8 g c4 c8 d |
-         e4 r8
-         <<
-           { f c c }
-           \new Staff \with {
-             alignAboveContext = #"main" }
-           { f8 f c }
-         >>
-         r4 |
-       }
-     }
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = #"main" }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
 @end lilypond
 
 Ossia-Systeme werden normalerweise ohne Schlüssel und Taktangabe
@@ -1498,10 +1498,10 @@ wir setzen den Stencil von beiden auf @code{#f}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
       }
@@ -1511,7 +1511,7 @@ wir setzen den Stencil von beiden auf @code{#f}:
         { f8 f c }
       }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1567,10 +1567,10 @@ Das obige Beispiel könnte also auch so aussehen:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         % Don't print clefs in this staff
@@ -1578,9 +1578,9 @@ Das obige Beispiel könnte also auch so aussehen:
         % Don't print time signatures in this staff
         \override TimeSignature #'stencil = ##f
       }
-        { f8 f c }
+      { f8 f c }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1638,10 +1638,10 @@ Setzen wir das also in unserem Ossia-Beispiel ein:
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         \override Clef #'stencil = ##f
@@ -1649,9 +1649,9 @@ Setzen wir das also in unserem Ossia-Beispiel ein:
         % Reduce all font sizes by ~24%
         fontSize = #-2
       }
-        { f8 f c }
+      { f8 f c }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1711,10 +1711,10 @@ sie benutzt:
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         \override Clef #'stencil = ##f
@@ -1723,9 +1723,9 @@ sie benutzt:
         % Reduce stem length and line spacing to match
         \override StaffSymbol #'staff-space = #(magstep -2)
       }
-        { f8 f c }
+      { f8 f c }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1824,9 +1824,9 @@ er unter @qq{Text2} passt.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
-c^"Text2"
-c^"Text3"
-c^"Text4"
+c2^"Text2"
+c2^"Text3"
+c2^"Text4"
 @end lilypond
 
 Notensysteme werden in den Standardeinstellungen auch so dicht
@@ -1839,10 +1839,10 @@ Im nächsten Beispiel sehen Sie, wie Noten auf zwei Systemen
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Staff {
-    \relative c' { c a, }
+    \relative c' { c4 a, }
   }
   \new Staff {
-    \relative c'''' { c a, }
+    \relative c'''' { c4 a, }
   }
 >>
 @end lilypond
@@ -1893,11 +1893,11 @@ der Standard eingestellt.
 @lilypond[quote,verbatim,relative=2]
 a4 g c a
 \override Stem #'direction = #DOWN
-a g c a
+a4 g c a
 \override Stem #'direction = #UP
-a g c a
+a4 g c a
 \revert Stem #'direction
-a g c a
+a4 g c a
 @end lilypond
 
 Hier werden die Konstanten @code{DOWN} und @code{UP}
@@ -2073,19 +2073,19 @@ Hier ein paar Beispiele:
 @lilypond[quote,verbatim,relative=1]
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left down)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(right)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1  e-2 g-3 b-5>4
 @end lilypond
 
 @noindent
@@ -2099,19 +2099,19 @@ er ist @code{-5}, versuchen wir es also mit @code{-7}.
 \override Fingering #'font-size = #-7
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left down)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(right)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1  e-2 g-3 b-5>4
 @end lilypond
 
 
@@ -2203,18 +2203,18 @@ Objekten zeigt.
 \dynamicUp
 % Start Ottava Bracket
 \ottava #1
-c' \startTextSpan
+c'4 \startTextSpan
 % Add Dynamic Text and hairpin
-c\pp\<
-c
+c4\pp\<
+c4
 % Add Text Script
-c^Text
-c c
+c4^Text
+c4 c
 % Add Dynamic Text and terminate hairpin
-c\ff c \stopTextSpan
+c4\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
-c, c c c
+c,4 c c c
 @end lilypond
 
 Dieses Beispiel zeigt auch, wie man Text-Strecker erstellt, d.h.
@@ -2283,19 +2283,19 @@ erstellt wird:
 \once \override Staff.OttavaBracket #'outside-staff-priority = #340
 % Start Ottava Bracket
 \ottava #1
-c' \startTextSpan
+c'4 \startTextSpan
 % Add Dynamic Text
-c\pp
+c4\pp
 % Add Dynamic Line Spanner
-c\<
+c4\<
 % Add Text Script
-c^Text
-c c
+c4^Text
+c4 c
 % Add Dynamic Text
-c\ff c \stopTextSpan
+c4\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
-c, c c c
+c,4 c c c
 @end lilypond
 
 @cindex Legatobögen und outside-staff-priority
@@ -2315,11 +2315,11 @@ Außersystem-Objekten anhand dieses Wertes gesetzt wird.
 Hier ein Beispiel, das die beiden Möglichkeiten veranschaulicht:
 
 @lilypond[quote,verbatim,relative=2]
-c4( c^\markup\tiny\sharp d4.) c8
+c4( c^\markup { \tiny\sharp } d4.) c8
 c4(
 \once \override TextScript #'avoid-slur = #'inside
 \once \override TextScript #'outside-staff-priority = ##f
-c^\markup\tiny\sharp d4.) c8
+c4^\markup { \tiny\sharp } d4.) c8
 \once \override Slur #'outside-staff-priority = #500
 c4( c^\markup\tiny\sharp d4.) c8
 @end lilypond
@@ -2339,10 +2339,10 @@ Tabelle oben festgestellt werden und dann die Priorität für
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
-c^"Text2"
+c2^"Text2"
 \once \override TextScript #'outside-staff-priority = #500
-c^"Text3"
-c^"Text4"
+c2^"Text3"
+c2^"Text4"
 @end lilypond
 
 Damit wird zwar @qq{Text3} ganz richtig über @qq{Text4}
@@ -2371,9 +2371,9 @@ die Breite des Textes es erfordert:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \textLengthOn  % Cause notes to space out to accommodate text
 c2^"Text1"
-c^"Text2"
-c^"Text3"
-c^"Text4"
+c2^"Text2"
+c2^"Text3"
+c2^"Text4"
 @end lilypond
 
 Dieses Verhalten wird mit dem @code{\textLengthOff}-Befehl 
@@ -2435,8 +2435,8 @@ folgenden Beispiel:
 \key aes \major
 \time 9/8
 \dynamicUp
-bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
-ees,2.~\)\mf ees4 r8 |
+bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\!
+ees,2.~\)\mf ees4 r8
 @end lilypond
 
 Wenn aber Noten und Dynamikzeichen sehr dicht beieinander
@@ -2855,11 +2855,11 @@ b2\fermata
 @cindex padding (Verschiebuns-Eigenschaft), Beispiel
 
 @lilypond[quote,fragment,relative=1,verbatim]
-% This will not work, see below:
+% This will not work, see below
 \override MetronomeMark #'padding = #3
 \tempo 4=120
 c1
-% This works:
+% This works
 \override Score.MetronomeMark #'padding = #3
 \tempo 4=80
 d1
@@ -2904,18 +2904,18 @@ wie im folgenden Beispiel:
 @lilypond[quote,ragged-right,verbatim]
 sesquisharp = \markup { \sesquisharp }
  \relative c'' {
-  c
+  c4
   % This prints a sesquisharp but the spacing is too small
   \once \override Accidental
     #'stencil = #ly:text-interface::print
   \once \override Accidental #'text = #sesquisharp
-  cis c
+  cis4 c
   % This improves the spacing
   \once \override Score.AccidentalPlacement #'right-padding = #0.6
   \once \override Accidental
     #'stencil = #ly:text-interface::print
   \once \override Accidental #'text = #sesquisharp
-  cis
+  cis4
 }
 @end lilypond
 
@@ -2975,9 +2975,9 @@ Referenzpunkt der abhängigen Note angeordnet wird:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
 \voiceOne
-< a \2 >
+< a\2 >
 \once \override StringNumber #'self-alignment-X = #RIGHT
-< a \2 >
+< a\2 >
 @end lilypond
 
 
@@ -2998,7 +2998,7 @@ zur selben Zeit auftreten.  Hier ein typisches Beispiel für eine
 Kollision dieser Art:
 
 @lilypond[quote,verbatim,fragment,ragged-right, relative=1]
-<< {c c c c} \\ {R1} >>
+<< { c4 c c c } \\ { R1 } >>
 @end lilypond
 
 Die beste Lösung ist es, die Ganztaktpause nach unten zu
@@ -3017,10 +3017,10 @@ d.h. vier halbe Notenlinienabstände weiter nach unten:
 
 @lilypond[quote,verbatim,fragment,ragged-right, relative=1]
 <<
-  {c c c c}
-\\
+  { c4 c c c }
+  \\
   \override MultiMeasureRest #'staff-position = #-8
-  {R1}
+  { R1 }
 >>
 @end lilypond
 
@@ -3047,10 +3047,9 @@ links und 1,8 Notenlinienabstände nach unten verschoben:
 
 @lilypond[quote,fragment,relative=1,verbatim]
 \stemUp
-f-5
-\once \override Fingering
-    #'extra-offset = #'(-0.3 . -1.8)
-f-5
+f4-5
+\once \override Fingering #'extra-offset = #'(-0.3 . -1.8)
+f4-5
 @end lilypond
 
 
@@ -3071,7 +3070,7 @@ Hier ein Beispiel, in der ein unschöner Phrasierungsbogen auftritt, weil
 er den Bogen des Vorschlags vermeidet:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4  \acciaccatura e8\( d8 c ~c d c d\)
+r4  \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
 @noindent
@@ -3085,7 +3084,7 @@ das wäre auch die beste Lösung:
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
 \phrasingSlurUp
-\acciaccatura e8\( d8 c ~c d c d\)
+\acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
 @noindent
@@ -3098,7 +3097,7 @@ verschwindet auch die etwas unschöne Form:
 r4
 \once \override PhrasingSlur #'positions = #'(-4 . -3)
 \acciaccatura
-e8\( d8 c ~c d c d\)
+e8\( d8 c~ c d c d\)
 @end lilypond
 
 Hier noch ein weiteres Beispiel aus der Einleitung von Chopins
@@ -3108,8 +3107,8 @@ stößt der Balken mit den oberen Noten zusammen:
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
 \clef "bass"
-<< {b,8 ais, b, g,} \\ {e, g e, g} >>
-<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+<< { b,8 ais, b, g, } \\ { e, g e, g } >>
+<< { b,8 ais, b, g, } \\ { e, g e, g } >>
 }
 @end lilypond
 
@@ -3127,11 +3126,11 @@ hochgeschoben werden, etwa auf 3:
   \clef "bass"
   <<
     \override Beam #'positions = #'(3 . 3)
-    {b,8 ais, b, g,}
+    { b,8 ais, b, g, }
   \\
-    {e, g e, g}
+    { e, g e, g }
   >>
-  << {b,8 ais, b, g,} \\ {e, g e, g} >>
+  << { b,8 ais, b, g, } \\ { e, g e, g } >>
 }
 @end lilypond
 
@@ -3144,9 +3143,6 @@ Auswirkung auf die Balken der zweiten Stimme hat.
 
 @cindex force-hshift-Eigenschaft
 @cindex Vertikale Verschiebung erzwingen
-
-@c FIXME: formatting stuff  (ie not important right now IMO)
-@c @a nchor Chopin finally corrected TODOgp
 
 An diesem Punkt können wir den letzten Feinschliff an unserem
 Chopin-Beispiel vornhemen, das wir behandelt haben in
@@ -4062,6 +4058,13 @@ dass sie sich innerhalb der Ränder befindet.
    ...
 @}
 @end example
+
+@code{keep-inside-line} braucht jedoch sehr viel Berechnungen,
+sodass es sich anbietet, diese Funktion zunächst nicht zu aktivieren
+und erst einzufügen, wenn man die endgültige Version erstellt.
+Auf diese Weise muss man nicht mit der Hand @code{\break}-Befehle
+hinzufügen, um zu vermeiden, dass Text über den rechten Rand der
+Seite hinausragt.
 
 
 @node Fortgeschrittene Optimierungen mit Scheme

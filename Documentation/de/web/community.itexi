@@ -3,10 +3,14 @@
     Translation of GIT committish:  e9bfcb4ffbd7eab2aa453c8b8d4ddd4c43f99ac2
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes.
 @end ignore
 
+@c Translators: Till Paala
+
 @include included/authors.itexi
+@include included/helpus.itexi
 
 @node Gemeinschaft
 @unnumbered Gemeinschaft
@@ -418,184 +422,337 @@ Sie einen Google-Account haben.
 @unnumberedsec Helfen Sie uns
 @translationof Help us
 
-@untranslated
-
-@ignore
-
 @divClass{column-center-top}
-@subheading Wir brauchen Sie!
-
-Das Entwicklerteam von LilyPond ist ziemlich klein -- es wäre
-wirklich notwendig, dass mehr Leute sich einbringen.  Bitte
-erwägen Sie, Ihren LilyPond-Benutzerkollegen zu helfen indem
-Sie zur Entwicklung beitragen.
-
-Auch kleine Aufgaben können große Auswirkungen haben: wenn man sich
-ihnen annimmt, können sich die erfahrenen Entwickler den schwierigen
-Aufgaben widmen anstatt diese einfachen Probleme zu lösen.
+@helpusNeed
 
 @divEnd
-
 
 @divClass{column-left-top}
-@subheading Einfache Aufgaben
-
 @divClass{keep-bullets}
-
-@itemize
-@item
-Unterstützung auf der Mailingliste: beantworten Sie Fragen von
-anderen Benutzern.
-
-@item
-Fehlerberichte: helfen Sie anderen Benutzern, richtige
-@ref{Fehlerberichte} zu erstellen und helfen Sie dem
-Fehlerteam bei der Verwaltung der @rcontrib{Issues}.
-
-@item
-Dokumentation: kleine Änderungen (immer zuerst auf Englisch)
-können vorgeschlagen werden, wenn man die Richtlinien
-von @rcontrib{Documentation suggestions} beachtet.
-
-@item
-Das LilyPond-Schnipsel-Depot (LSR): erstellen und reparieren Sie
-Schnipsel.  Siehe
-@rcontrib{Adding and editing snippets}.
-
-@item
-Diskussionen, Gutachten und Testen:  die Entwickler brauchen
-oft Feedback zu neuer Dokumentation, möglichen Änderungen der
-Syntax und um neue Funktionen zu testen.  Bitte nehmen Sie an
-diesen Diskussionen teil!
-
-@end itemize
-
-@subheading Mittlere Aufgaben
-
-@warning{Diese Aufgaben setzen voraus, dass Sie die Quellen
-von Programm und Dokumentation haben, aber keine volle
-Entwicklungsumgebung.  Siehe @rcontrib{Starting with git}.}
-
-@itemize
-@item
-Dokumentation: siehe
-@rcontrib{Documentation work} und
-@rcontrib{Building documentation without compiling LilyPond}.
-
-@item
-Website: die Website wird aus der Quelle der Dokumentation
-erstellt.  Siehe die Information über die Dokumentation und
-zusätzlich @rcontrib{Website work}.
-
-@item
-Übersetzungen: siehe @rcontrib{Translating the documentation} und
-@rcontrib{Translating the website}.
-
-@end itemize
-
-
-@subheading Komplexe Aufgaben
-
-@warning{Diese Aufgaben erfordern, dass Sie die Quellen haben
-und LilyPond kompilieren können.  Siehe @rcontrib{Starting with git}
-und @rcontrib{Compiling LilyPond}.}
-
-Wir empfehlen, dass neue Mithelfer, die Windows benutzen, eine
-virtuale Maschine einsezten, um @emph{lilybuntu} zu benutzen.  Siehe
-@rcontrib{Using a Virtual Machine to Compile LilyPond}.
-
-@itemize
-@item
-Fehlerberichte, neue Eigenschaften: die beste Art, hiermit zu
-beginnen ist es, sich den @emph{Frogs} anzuschließen. Siehe
-auch @rcontrib{Programming work}.
-
-@end itemize
+@helpusTasks
 
 @divEnd
 @divEnd
-
 
 @divClass{column-right-top}
-@subheading Projects
-
-@subsubheading Frogs
-
-Website and mailist: @uref{http://frogs.lilynet.net}
-
-The Frogs are ordinary LilyPond users who have chosen to get
-involved in their favorite software's development.  Fixing bugs,
-implementing new features, documenting the source code: there's a
-lot to be done, but most importantly: this is a chance for
-everyone to learn more about LilyPond, about Free Software, about
-programming... and to have fun.  If you're curious about any of
-it, then the word is: @emph{Join the Frogs!}
-
-
-
-@help{not active yet; either comment out or begin these projects
-before 2.14}
-
-@subsubheading Grand LilyPond Input Syntax Standardization
-
-Website and mailist: TODO
-
-GLISS will stabilize the (non-tweak) input syntax for the upcoming
-LilyPond 3.0.  After updating to 3.0, the input syntax for
-untweaked music will remain stable for the foreseeable future.
-
-We will have an extensive discussion period to determine the final
-input specification.
-
-@subsubheading Grand Organizing Project
-
-Website and mailist: TODO
-
-GOP is our big recruiting drive for new contributors.
+@helpusProjects
 
 @divEnd
-
-@end ignore
-
-
-@ignore
-@divClass{column-center-bottom}
-@subheading Interested?
-
-@divEnd
-@end ignore
-
-
 
 
 @node Entwicklung
 @unnumberedsec Entwicklung
 @translationof Development
 
-@untranslated
-
-@ignore
-
 @divClass{heading-center}
-@heading Development materials for LilyPond 2.13.3
-@ref{Manuals}.}
-@divEnd
-@divClass{column-left-bottom}
-@subheading Download
-@subheading Manuals
-@divEnd
-@divClass{column-right-bottom}
-@subheading Contributor's Guide
+@ifclear web_version
+  @heading Entwicklung für LilyPond @version
+@end ifclear
+@ifset web_version
+  @heading Entwicklung für LilyPond @versionDevel
+@end ifset
+
+
+@warning{Hier handelt es sich um nicht stabile Entwicklerversionen.
+Wenn Sie nicht genau wissen, wie man LilyPond installiert und
+benutzt, empfehlen wir ausdrücklich, die stabilen @ref{Download}-Versionen
+zu benutzen und die stabilen @ref{Handbücher} zu lesen.}
+
 @divEnd
 
-@end ignore
+@divClass{column-center-top}
+@subheading Veröffentlichungsnummern
+
+Es gibt zwei Veröffentlichungsreihen für LilyPond: stabile Versionen
+und die unstabilen Entwicklerversionen.  Stabile Versionen haben eine
+gerade zweite Versionsnummer (also etwa 2.8, 2.10, 2.12).
+Entwicklerversionen haben eine ungerade zweite Versionsnummer
+(also 2.7, 2.9, 2.11).
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Download
+
+Anleitungen zu git und der Kompilierung finden sich im Contributor's Guide (nur auf Englisch).
+
+@quotation
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git-Repositorium}
+@end quotation
+
+Schreiber der Dokumentation und Tester sollten die neuesten
+Binärpakete herunterladen:
+
+@quotation
+
+@downloadDevelLinuxNormal
+
+@downloadDevelLinuxBig
+
+@downloadDevelLinuxPPC
+
+@downloadDevelFreeBSDNormal
+
+@downloadDevelFreeBSDBig
+
+@downloadDevelDarwinNormal
+
+@downloadDevelDarwinPPC
+
+@downloadDevelWindows
+
+@downloadDevelSource
+
+@end quotation
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Handbuch für Entwicklungsarbeiten (Contributor's guide)
+
+Die Entwicklung von LilyPond ist eine ziemlich komplizierte Angelegenheit.
+Um neuen Mitarbeitern zu helfen und das ganze System (ziemlich)
+stabil zu halten, haben wir ein Handbuch für Entwicklungsarbeiten
+geschrieben (nur auf Englisch).
+
+@docLinksBare{Handbuch für Entwicklungsarbeiten, contributor,
+  @rcontribnamed{Top,Handbuch für Entwicklungsarbeiten},
+  @manualDevelContributorSplit,
+  @manualDevelContributorBig, 500 kB,
+  @manualDevelContributorPdf, 2.8 MB}
+
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Regressionsteste
+
+@divClass{keep-bullets}
+@itemize
+
+@ifclear web_version
+
+@item
+@uref{../../input/regression/collated-files.html, Regressionsteste}:
+Die Regressionsteste dieser Version.
+(@uref{../../input/regression/collated-files.pdf, PDF-Version})
+
+@item
+@uref{../../input/regression/musicxml/collated-files.html, MusicXML-Teste}:
+musicXML-Regressionsteste dieser Version.
+(@uref{../../input/regression/musicxml/collated-files.pdf, PDF-Version})
+@end ifclear
+
+@ifset web_version
+@item @regtestDevel (@regtestDevelPdf{})
+
+@item @regtestDevelXml (@regtestDevelXmlPdf{})
+
+@item @regtestStable (@regtestStablePdf{})
+
+@item @regtestStableXml (@regtestStableXmlPdf{})
+@end ifset
+
+
+@item @uref{http://lilypond.org/test, Archiv der Regressionsteste}:
+Vergleiche zweier Versionen.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+
+@divClass{column-center-bottom}
+@subheading Handbücher
+
+@ifclear web_version
+@warning{Diese Handbücher sind für LilyPond @version{}; die neuesten
+Handbücher finden sich auf @url{http://lilypond.org}.}
+@end ifclear
+
+@divClass{normal-table}
+@multitable @columnfractions .3 .3 .3
+@headitem Einleitung
+@item
+@docLinkSplit{Lernen,learning,@manualDevelLearningSplit}
+@tab
+@docLinkBig{Lernen,learning,@manualDevelLearningBig}
+@tab
+@docLinkPdf{Lernen,learning,@manualDevelLearningPdf}
+
+@item
+@docLinkSplit{Glossar,music-glossary,@manualDevelGlossarySplit}
+@tab
+@docLinkBig{Glossar,music-glossary,@manualDevelGlossaryBig}
+@tab
+@docLinkPdf{Glossar,music-glossary,@manualDevelGlossaryPdf}
+
+@item
+@docLinkSplit{Aufsatz,essay,@manualDevelEssaySplit}
+@tab
+@docLinkBig{Aufsatz,essay,@manualDevelEssayBig}
+@tab
+@docLinkPdf{Aufsatz,essay,@manualDevelEssayPdf}
+
+@headitem Häufig benutzte Handbücher
+
+@item
+@docLinkSplit{Notation,notation,@manualDevelNotationSplit}
+@tab
+@docLinkBig{Notation,notation,@manualDevelNotationBig}
+@tab
+@docLinkPdf{Notation,notation,@manualDevelNotationPdf}
+
+@item
+@docLinkSplit{Benutzung,usage,@manualDevelUsageSplit}
+@tab
+@docLinkBig{Benutzung,usage,@manualDevelUsageBig}
+@tab
+@docLinkPdf{Benutzung,usage,@manualDevelUsagePdf}
+
+@item
+@docLinkSplit{Schnipsel,snippets,@manualDevelSnippetsSplit}
+@tab
+@docLinkBig{Schnipsel,snippets,@manualDevelSnippetsBig}
+@tab
+@docLinkPdf{Schnipsel,snippets,@manualDevelSnippetsPdf}
+
+
+@headitem Seltenere Handbücher
+
+@item
+@docLinkSplit{Webseite,web,@manualDevelWebSplit}
+@tab
+@docLinkBig{Webseite,web,@manualDevelWebBig}
+@tab
+@docLinkPdf{Webseite,web,@manualDevelWebPdf}
+
+@item
+@docLinkSplit{Veränderungen,changes,@manualDevelChangesSplit}
+@tab
+@docLinkBig{Veränderungen,changes,@manualDevelChangesBig}
+@tab
+@docLinkPdf{Veränderungen,changes,@manualDevelChangesPdf}
+
+@item
+@docLinkSplit{Erweitern,extending,@manualDevelExtendingSplit}
+@tab
+@docLinkBig{Erweitern,extending,@manualDevelExtendingBig}
+@tab
+@docLinkPdf{Erweitern,extending,@manualDevelExtendingPdf}
+
+@item
+@docLinkSplit{Interna,internals,@manualDevelInternalsSplit}
+@tab
+@docLinkBig{Interna,internals,@manualDevelInternalsBig}
+@tab
+@docLinkPdf{Interna,internals,@manualDevelInternalsPdf}
+
+@ifset web_version
+@headitem Zum Herunterladen
+
+@item
+@doctarballDevel
+@end ifset
+
+@end multitable
+
+@divEnd
+@divEnd
+
 
 
 @node Autoren
 @unnumberedsec Autoren
 @translationof Authors
 
-@untranslated
+@help{Under construction; this is not an accurate list!}
+
+
+@divClass{column-left-top}
+@subheading Current Development Team
+
+@divClass{keep-bullets}
+@developersCurrent
+@divEnd
+@divEnd
+
+@divClass{column-right-top}
+@subheading Previous Development Team
+
+@divClass{keep-bullets}
+@developersPrevious
+@divEnd
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Current Contributors
+
+@divClass{keep-bullets}
+@subsubheading Programming
+
+@coreCurrent
+
+@subsubheading Font
+
+@fontCurrent
+
+@subsubheading Documentation
+
+@docCurrent
+
+@subsubheading Bug squad
+
+@bugsquadCurrent
+
+@subsubheading Support
+
+@supportCurrent
+
+@subsubheading Translation
+
+@translationsCurrent
+
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Previous Contributors
+
+@divClass{keep-bullets}
+@subsubheading Programming
+
+@corePrevious
+
+@subsubheading Font
+
+@fontPrevious
+
+@subsubheading Documentation
+
+@docPrevious
+
+@c    uncomment when we have any previous members -gp
+@c @subsubheading Bug squad
+
+@c @bugsquadCurrent
+
+@subsubheading Support
+
+@supportPrevious
+
+@subsubheading Translation
+
+@translationsPrevious
+
+@divEnd
+@divEnd
+
 
 
 @node Veröffentlichungen

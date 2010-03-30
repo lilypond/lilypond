@@ -3,7 +3,8 @@
     Translation of GIT committish:  e9bfcb4ffbd7eab2aa453c8b8d4ddd4c43f99ac2
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes.
 @end ignore
 
 @node Handbücher
@@ -130,8 +131,8 @@ License herausgegeben.
 * Notation::
 * Benutzung::
 * Schnipsel::
-* Web::
 * FAQ::
+* Web::
 * Änderungen::
 * Erweitert::
 * Inerna::
@@ -320,31 +321,6 @@ sind auch verlinkt vom @strong{Siehe auch}-Absatz.
 @divEnd
 
 
-@node Web
-@unnumberedsec Web
-@translationof Web
-
-@divClass{column-left-top}
-@subheading Web
-
-Dieses Handbuch stellt allgemeine Information zu LilyPond zur
-Verfügung.  Es enthält auch Information über die verschiedenen
-Gemeinschaftsforen, das Melden von Fehlern und die Mitarbeit am
-Programm.
-
-@divEnd
-
-@divClass{column-right-bottom}
-
-@docLinks{Web, web,
-  @ref{Top,,,,Web},
-  @manualStableWebSplit,
-  @manualStableWebBig, 1 MB,
-  @manualStableWebPdf, 2 MB}
-
-@divEnd
-
-
 @node FAQ
 @unnumberedsec FAQ
 @translationof FAQ
@@ -388,6 +364,43 @@ Das wird erklärt in @rprogram{Troubleshooting}.
 Das wird erklärt in @rprogram{Why does the syntax change?}.
 
 @divEnd
+
+
+@node Web
+@unnumberedsec Web
+@translationof Web
+
+@divClass{column-left-top}
+@subheading Web
+
+Dieses Handbuch stellt allgemeine Information zu LilyPond zur
+Verfügung.  Es enthält auch Information über die verschiedenen
+Gemeinschaftsforen, das Melden von Fehlern und die Mitarbeit am
+Programm.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Lesen Sie es
+
+@subsubheading Das neueste Handbuch
+
+@divClass{keep-bullets}
+@itemize
+@ref{Top,Web}
+@end itemize
+@divEnd
+
+@subsubheading Web-Handbuch von @versionDevel
+
+@docLinksBare{Web, web,
+  @ref{Top,Web},
+  @manualDevelWebSplit,
+  @manualDevelWebBig, 1 MB,
+  @manualDevelWebPdf, 2 MB}
+
+@divEnd
+
 
 
 @node Änderungen
@@ -497,12 +510,12 @@ Links und andere Formate dieser Handbücher finden sich in
 
 @c this should match the (main) manual page.
 @divClass{column-center-top}
-@subheading Einleitung
+@subheading Einführung
 
 @itemize
 
 @c no colon : needed in this section
-@item @ifWebLinks{@manualStableLearningSplit,@rlearningnamed{Top,Einführung}}
+@item @ifWebLinks{@manualStableLearningSplit,@rlearningnamed{Top,Handbuch zum Lernen}}
 eine sanfte @qq{unbedingt lesen!} Einführung in LilyPond.
 
 @item @ifWebLinks{@manualStableGlossarySplit,@rglosnamed{Top,Glossar}}
@@ -526,7 +539,7 @@ Hintergrundinformation über den Notensatzprozess und die
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplit,@rusernamed{Top,Notation}}
+@item @ifWebLinks{@manualStableNotationSplit,@rusernamed{Top,Notationsreferenz}}
 der hauptsächliche Teil der Dokumentation, welcher detailierte
 Information zur Notensatzerstellung zur Verfügung stellt.
 
@@ -568,27 +581,26 @@ wird, wenn man eigene Anpassungen erstellen will.
 @divClass{column-center-bottom}
 @subheading Versionen zum Herunterladen
 
-@help{Vergleich von Tar und Zip-Größe, wie gehen Windowsbenutzer
-mit gz und bz2 um etc.}
 
-@help{oder: warten bis die neue Doku-Version erscheint. Entschuldigung,
-dass es keine Tar-Pakete gibt.}
+@ifclear web_version
+Tar-Archive zum Herunterladen sind nur über @uref{http://lilypond.org}
+erhältlich.
+@end ifclear
+@ifset web_version
 
 @divClass{keep-bullets}
 @itemize
 
-@item html-split zip
-
-@item html-big zip
-
-@item pdf zip
-
-@item info zip maybe?!?!
+@item @doctarballStable
 
 @end itemize
 
 @divEnd
+@end ifset
 
+@divEnd
+
+@divClass{column-right-bottom}
 @subheading Alte stabile Versionen
 
 @divClass{keep-bullets}
@@ -603,7 +615,6 @@ LilyPond 2.10 Dokumentation} (auf englisch)
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 Dokumentation} (auf englisch)
 
-@help wer schreibt das?
 
 @end itemize
 

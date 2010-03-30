@@ -3,8 +3,11 @@
     Translation of GIT committish:  e9bfcb4ffbd7eab2aa453c8b8d4ddd4c43f99ac2
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes.
 @end ignore
+
+@c Translators: Till Paala
 
 @macro warningTextBased
 @warning{LilyPond ist ein @strong{textbasiertes} Notationsprogramm,
@@ -204,6 +207,13 @@ uninstall-lilypond
 
 @divEnd
 
+@divClass{column-right-top}
+@subheading Eine Datei kompilieren
+
+@lilypadCommandLine
+
+@divEnd
+
 
 @divClass{column-right-top}
 @subheading Distributionspezifische Pakete
@@ -296,37 +306,19 @@ Entfernen Sie den LilyPond.app-Ordner.
 
 
 @divClass{column-right-top}
+@subheading Compiling a file
+
+@lilypadOSX
+
+@divEnd
+
+
+@divClass{column-right-top}
 @subheading Benutzung auf der Kommandozeile
 
 @warning{Wenn Sie mit der GUI zufrieden sind, dann ignorieren Sie
 bitte diese Anweisungen.}
 
-@ignore
-FIXME: I had one report that we don't need this stuff; will delete
-after confirmation.  -gp
-
-@subsubheading Benutzung von Python-Skripten unter MacOS 10.3 oder 10.4
-
-LilyPond-Programme für MacOS X stellen Python nicht zur Verfügung,
-aber Python 2.4 oder neuer wird benötigt, um @command{convert-ly}
-benutzen zu können.  Darum müssen Sie eine neuere Python-Version
-von @uref{http://python.org/download/} installieren, wenn Sie
-MacOS 10.3 oder 10.4 benutzen.  Editieren Sie die erste Zeile
-von @command{convert-ly} und @command{lilypond-book} folgenderweise:
-Wenn das Python-Programm, das Sie installiert haben, in ihrem
-@var{PFAD} ist, sollte die erste Zeile einfach lauten:
-
-@example
-#!/usr/bin/env python
-@end example
-
-@noindent
-andernfalls sollte sie sein:
-
-@example
-#!@var{/Pfad/zum/gerade/installierten/phyton}
-@end example
-@end ignore
 
 @subsubheading MacOS X auf der Kommandozeile
 
@@ -475,6 +467,14 @@ Eintrag LilyPond und wählen die Option Entfernen.  Klicken Sie auf
 
 
 @divClass{column-right-top}
+@subheading Compiling a file
+
+@lilypadWindows
+
+@divEnd
+
+
+@divClass{column-right-top}
 @subheading Benutzung auf der Kommandozeile
 
 @warning{Wenn Sie mit der GUI zufrieden sind, dann ignorieren Sie
@@ -557,14 +557,14 @@ Benutzer haben mehr Vorteile von der vorkompilierten Version.}
 
 Für ein ausführliche Liste aller Versionen (alt und neu) siehe
 unsere
-@uref{http://download.linuxaudio.org/lilypond/binaries/, Download-Seite}.
+@uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D, Download-Seite}.
 
 @divEnd
 
 @divClass{column-right-bottom}
 @subheading Anweisungen zum Kompilieren
 
-Anweisungen finden sich unter @rcontrib{Compiling LilyPond}.
+Anweisungen finden sich unter @rcontribnamed{Compiling LilyPond,LilyPond kompilieren}.
 
 @divEnd
 
