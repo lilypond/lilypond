@@ -552,7 +552,7 @@ la versión precompilada.}
 @divClass{column-left-bottom}
 @subheading Tarball del código fuente
 
-@downloadStableSource{}
+@downloadStableSource-es{}
 
 Para ver un amplio listado de todas las versiones (antiguas y
 modernas), consulte nuestra

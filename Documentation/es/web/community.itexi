@@ -490,7 +490,7 @@ pruebas querrán descargar el último archivo binario:
 
 @downloadDevelWindows
 
-@downloadDevelSource
+@downloadDevelSource-es
 
 @end quotation
 
@@ -507,9 +507,9 @@ menos) estable, hemos escrito un manual para los colaboradores.
 
 @docLinksBare{Guía del colaborador, contributor,
   @rcontribnamed{Top,Guía del colaborador},
-  @manualDevelContributorSplit,
-  @manualDevelContributorBig, 500 kB,
-  @manualDevelContributorPdf, 2.8 MB}
+  @manualDevelContributorSplit-es,
+  @manualDevelContributorBig-es, 500 kB,
+  @manualDevelContributorPdf-es, 2.8 MB}
 
 @divEnd
 
@@ -534,13 +534,13 @@ las pruebas de MusicXML de la versión actual.
 @end ifclear
 
 @ifset web_version
-@item @regtestDevel (@regtestDevelPdf{})
+@item @regtestDevel-es (@regtestDevelPdf-es{})
 
-@item @regtestDevelXml (@regtestDevelXmlPdf{})
+@item @regtestDevelXml-es (@regtestDevelXmlPdf-es{})
 
-@item @regtestStable (@regtestStablePdf{})
+@item @regtestStable-es (@regtestStablePdf-es{})
 
-@item @regtestStableXml (@regtestStableXmlPdf{})
+@item @regtestStableXml-es (@regtestStableXmlPdf-es{})
 @end ifset
 
 
@@ -565,78 +565,78 @@ están en @url{http://lilypond.org}}
 @multitable @columnfractions .3 .3 .3
 @headitem Introducción
 @item
-@docLinkSplit{Aprendizaje,learning,@manualDevelLearningSplit}
+@docLinkSplit{Aprendizaje,learning,@manualDevelLearningSplit-es}
 @tab
-@docLinkBig{Aprendizaje,learning,@manualDevelLearningBig}
+@docLinkBig{Aprendizaje,learning,@manualDevelLearningBig-es}
 @tab
-@docLinkPdf{Aprendizaje,learning,@manualDevelLearningPdf}
+@docLinkPdf{Aprendizaje,learning,@manualDevelLearningPdf-es}
 
 @item
-@docLinkSplit{Glosario,music-glossary,@manualDevelGlossarySplit}
+@docLinkSplit{Glosario,music-glossary,@manualDevelGlossarySplit}-es
 @tab
-@docLinkBig{Glosario,music-glossary,@manualDevelGlossaryBig}
+@docLinkBig{Glosario,music-glossary,@manualDevelGlossaryBig-es}
 @tab
-@docLinkPdf{Glosario,music-glossary,@manualDevelGlossaryPdf}
+@docLinkPdf{Glosario,music-glossary,@manualDevelGlossaryPdf-es}
 
 @item
-@docLinkSplit{Ensayo,essay,@manualDevelEssaySplit}
+@docLinkSplit{Ensayo,essay,@manualDevelEssaySplit-es}
 @tab
-@docLinkBig{Ensayo,essay,@manualDevelEssayBig}
+@docLinkBig{Ensayo,essay,@manualDevelEssayBig-es}
 @tab
-@docLinkPdf{Ensayo,essay,@manualDevelEssayPdf}
+@docLinkPdf{Ensayo,essay,@manualDevelEssayPdf-es}
 
 @headitem Estándar
 
 @item
-@docLinkSplit{Notación,notation,@manualDevelNotationSplit}
+@docLinkSplit{Notación,notation,@manualDevelNotationSplit-es}
 @tab
-@docLinkBig{Notación,notation,@manualDevelNotationBig}
+@docLinkBig{Notación,notation,@manualDevelNotationBig-es}
 @tab
-@docLinkPdf{Notación,notation,@manualDevelNotationPdf}
+@docLinkPdf{Notación,notation,@manualDevelNotationPdf-es}
 
 @item
-@docLinkSplit{Utilización,usage,@manualDevelUsageSplit}
+@docLinkSplit{Utilización,usage,@manualDevelUsageSplit-es}
 @tab
-@docLinkBig{Utilización,usage,@manualDevelUsageBig}
+@docLinkBig{Utilización,usage,@manualDevelUsageBig-es}
 @tab
-@docLinkPdf{Utilización,usage,@manualDevelUsagePdf}
+@docLinkPdf{Utilización,usage,@manualDevelUsagePdf-es}
 
 @item
-@docLinkSplit{Fragmentos,snippets,@manualDevelSnippetsSplit}
+@docLinkSplit{Fragmentos,snippets,@manualDevelSnippetsSplit-es}
 @tab
-@docLinkBig{Fragmentos,snippets,@manualDevelSnippetsBig}
+@docLinkBig{Fragmentos,snippets,@manualDevelSnippetsBig-es}
 @tab
-@docLinkPdf{Fragmentos,snippets,@manualDevelSnippetsPdf}
+@docLinkPdf{Fragmentos,snippets,@manualDevelSnippetsPdf-es}
 
 @headitem Poco frecuentes
 
 @item
-@docLinkSplit{Web,web,@manualDevelWebSplit}
+@docLinkSplit{Web,web,@manualDevelWebSplit-es}
 @tab
-@docLinkBig{Web,web,@manualDevelWebBig}
+@docLinkBig{Web,web,@manualDevelWebBig-es}
 @tab
-@docLinkPdf{Web,web,@manualDevelWebPdf}
+@docLinkPdf{Web,web,@manualDevelWebPdf-es}
 
 @item
-@docLinkSplit{Cambios,changes,@manualDevelChangesSplit}
+@docLinkSplit{Cambios,changes,@manualDevelChangesSplit-es}
 @tab
-@docLinkBig{Cambios,changes,@manualDevelChangesBig}
+@docLinkBig{Cambios,changes,@manualDevelChangesBig-es}
 @tab
-@docLinkPdf{Cambios,changes,@manualDevelChangesPdf}
+@docLinkPdf{Cambios,changes,@manualDevelChangesPdf-es}
 
 @item
-@docLinkSplit{Extensiones,extending,@manualDevelExtendingSplit}
+@docLinkSplit{Extensiones,extending,@manualDevelExtendingSplit-es}
 @tab
-@docLinkBig{Extensiones,extending,@manualDevelExtendingBig}
+@docLinkBig{Extensiones,extending,@manualDevelExtendingBig-es}
 @tab
-@docLinkPdf{Extensiones,extending,@manualDevelExtendingPdf}
+@docLinkPdf{Extensiones,extending,@manualDevelExtendingPdf-es}
 
 @item
-@docLinkSplit{Funcionamiento interno,internals,@manualDevelInternalsSplit}
+@docLinkSplit{Funcionamiento interno,internals,@manualDevelInternalsSplit-es}
 @tab
-@docLinkBig{Funcionamiento interno,internals,@manualDevelInternalsBig}
+@docLinkBig{Funcionamiento interno,internals,@manualDevelInternalsBig-es}
 @tab
-@docLinkPdf{Funcionamiento interno,internals,@manualDevelInternalsPdf}
+@docLinkPdf{Funcionamiento interno,internals,@manualDevelInternalsPdf-es}
 
 @ifset web_version
 @headitem Para descargar

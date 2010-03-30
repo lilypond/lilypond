@@ -1,4 +1,5 @@
 #!@PYTHON@
+# -*- coding: utf-8 -*-
 # create-version-itexi.py
 
 """ when being called on lilypond.org, pass it the location of the
@@ -8,8 +9,53 @@ import sys
 import os
 import glob
 
-# these links are relative from /website/
+# these links are relative from /website/ on lilypond.org
 depth = "../"
+
+### translation data -- shouldn't be here; see issue
+### http://code.google.com/p/lilypond/issues/detail?id=1050
+
+# don't add your language to this list unless you have all the
+# items.
+langs = ['', 'es']
+
+translations = {
+    'es': {
+        'Source': 'Código fuente',
+
+        'Learning': 'Aprendizaj',
+        'Music glossary': 'Glosario',
+        'Essay': 'a',
+        'Notation': 'b',
+        'Usage': 'c',
+        'Snippets': 'd',
+        'Web': 'e',
+        'Changes': 'f',
+        'Extending': 'g',
+        'Internals': 'h',
+        'Contributor': 'Guía del colaborador',
+
+# keep the spaces!
+        ' (split HTML)': ' (muchas páginas HTML)',
+        ' (big HTML)': ' (como una sola página HTML enorme)',
+
+        'Regression tests for ': 'aa ',
+        'PDF of regtests for ': 'bb ',
+        'MusicXML Regression tests for ': 'cc ',
+        'PDF of MusicXML regtests for ': 'dd ',
+
+        'Doc tarball for ': 'ee ',
+        ' (did not exist in 2.12)': ' (existes la nottes e 2.12)',
+     },
+    'fr': {
+        'Learning': 'Apprener?',
+        'Music glossary': 'Lizes ici pour les motes?',
+     },
+}
+
+
+
+### actual program
 
 
 VERSION_STABLE = ""
@@ -52,6 +98,16 @@ for line in version_contents:
 
 VERSION = str(major)+'.'+str(minor)+'.'+str(patch)
 
+def getTrans(text, lang):
+    if (lang != ''):
+        text = translations[lang][text]
+    return text
+
+def macroLang(name, lang):
+    if (lang != ''):
+        return name + '-' + lang
+    return name
+
 def make_macro(name, string):
     print "@macro", name
     print string
@@ -69,14 +125,15 @@ def make_download(name, osA, osB, version, revision, text):
     string += "}"
     make_macro(name, string)
 
-def make_download_source(name, vstring, version):
+def make_download_source(name, vstring, version, lang):
     string = "@uref{http://download.linuxaudio.org/lilypond/sources/"
     string += vstring + "/"
     string += "lilypond-" + version + ".tar.gz"
     string += ", "
-    string += "Source: lilypond-" + version + ".tar.gz"
+    string += getTrans("Source", lang)
+    string += ": lilypond-" + version + ".tar.gz"
     string += "}"
-    make_macro(name, string)
+    make_macro(macroLang(name,lang), string)
 
 def make_all_downloads(macroName, version):
     make_download("download"+macroName+"LinuxNormal", "linux-x86/",
@@ -139,39 +196,44 @@ def translateNameToUrl(manual, version):
             return ''
 
 
-def make_manual_links(name, version):
+def make_manual_links(name, version, lang):
     for m in manuals:
         manual = m
+        # TODO: this is a stupid way of doing it
         if (m=='music-glossary'):
             mshort = 'Glossary'
         else:
             mshort = m.capitalize()
+        if (manual=='music-glossary'):
+            manual = 'Music glossary'
         url = translateNameToUrl(m, version)
 
         if (url == ''):
             # can't have a comma here due to texinfo
-            make_ver_link("manual"+name+mshort+'Pdf',
+            make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
                 "http://lilypond.org",
-                mshort+" (did not exist in 2.12)")
-            make_ver_link("manual"+name+mshort+'Split',
+                mshort+getTrans(" (did not exist in 2.12)",lang))
+            make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
                 "http://lilypond.org",
-                mshort+" (did not exist in 2.12)")
-            make_ver_link("manual"+name+mshort+'Big',
+                mshort+getTrans(" (did not exist in 2.12)",lang))
+            make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
                 "http://lilypond.org",
-                mshort+" (did not exist in 2.12)")
-            make_ver_link("manual"+name+mshort+'SplitNoName',
+                mshort+getTrans(" (did not exist in 2.12)",lang))
+            make_ver_link(macroLang("manual"+name+mshort+'SplitNoName',lang),
                 "http://lilypond.org",
-                mshort+" (did not exist in 2.12)")
+                mshort+getTrans(" (did not exist in 2.12)",lang))
             continue
-        make_ver_link("manual"+name+mshort+'Pdf',
+        make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
                   url + '.pdf',
-                  manual.capitalize() + '.pdf')
-        make_ver_link("manual"+name+mshort+'Split',
+                  getTrans(manual.capitalize(),lang) + '.pdf')
+        make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
                   url + '/index.html',
-                  manual.capitalize() + ' (split HTML)')
-        make_ver_link("manual"+name+mshort+'Big',
+                  getTrans(manual.capitalize(),lang) +
+                  getTrans(' (split HTML)',lang))
+        make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
                   url + '-big-page.html',
-                  manual.capitalize() + ' (big HTML)')
+                  getTrans(manual.capitalize(),lang) +
+                  getTrans(' (split HTML)',lang))
 	# this is stupid and I shouldn't have bothered trying
 	# to support the 2.12 docs and it will be deleted once
 	# 2.14 is out and the website won't be visible to users
@@ -180,30 +242,35 @@ def make_manual_links(name, version):
             newurl = url
         else:
             newurl = url + '/index.html'
-        make_ver_link("manual"+name+mshort+'SplitNoName',
+        make_ver_link(macroLang("manual"+name+mshort+'SplitNoName',lang),
                   newurl,
                   manual.capitalize())
 
-def make_regtest_links(name, version):
+def make_regtest_links(name, version, lang):
     ver_split = version.split('.')
     ver_minor = ver_split[0] + '.' + ver_split[1]
     url = depth + "doc/v" + ver_minor + "/input/regression/"
 
-    make_ver_link("regtest"+name, url+"collated-files.html",
-        "Regression tests for "+version)
-    make_ver_link("regtest"+name+"Pdf", url+"collated-files.pdf",
-        "pdf of "+version+" regtests")
-    make_ver_link("regtest"+name+"Xml", url+"musicxml/collated-files.html",
-        "MusicXML Regression tests for "+version)
-    make_ver_link("regtest"+name+"XmlPdf", url+"musicxml/collated-files.html",
-        "pdf of "+version+" musicxml regtests")
+    make_ver_link(macroLang("regtest"+name, lang),
+        url+"collated-files.html",
+        getTrans("Regression tests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"Pdf", lang),
+        url+"collated-files.pdf",
+        getTrans("PDF of regtests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"Xml", lang),
+        url+"musicxml/collated-files.html",
+        getTrans("MusicXML Regression tests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"XmlPdf", lang),
+         url+"musicxml/collated-files.html",
+        getTrans("PDF of MusicXML regtests for ", lang)+version)
 
-def make_doctarball_links(name, version):
+def make_doctarball_links(name, version, lang):
     url = depth + "download/binaries/documentation/lilypond-"
     # ugly FIXME, but proper build number support isn't Critical.
     url += version + "-1"
     url += ".documentation.tar.bz2"
-    make_ver_link("doctarball"+name, url, "Doc tarball for "+version)
+    make_ver_link(macroLang("doctarball"+name, lang),
+        url, getTrans("Doc tarball for ", lang)+version)
 
 print "@c ************************ Download binaries ************"
 make_all_downloads("Stable", VERSION_STABLE)
@@ -211,16 +278,24 @@ make_all_downloads("Devel", VERSION_DEVEL)
 
 print "@c ************************ Download source ************"
 # FIXME: icky hard-coding!  -gp
-make_download_source("downloadStableSource", "v2.12", VERSION_STABLE)
-make_download_source("downloadDevelSource", "v2.13", VERSION_DEVEL)
+for lang in langs:
+    print "@c *********", lang, "***"
+    make_download_source("downloadStableSource","v2.12",VERSION_STABLE,lang)
+    make_download_source("downloadDevelSource","v2.13",VERSION_DEVEL,lang)
 
 print "@c ************************ Manual links ************"
-make_manual_links("Stable", VERSION_STABLE)
-make_manual_links("Devel", VERSION_DEVEL)
-make_doctarball_links("Stable", VERSION_STABLE)
-make_doctarball_links("Devel", VERSION_DEVEL)
+for lang in langs:
+    print "@c *********", lang, "***"
+    make_manual_links("Stable", VERSION_STABLE,lang)
+    make_manual_links("Devel", VERSION_DEVEL,lang)
+
+    make_doctarball_links("Stable", VERSION_STABLE,lang)
+    make_doctarball_links("Devel", VERSION_DEVEL,lang)
 
 print "@c ************************ Regtest links ************"
-make_regtest_links("Stable", VERSION_STABLE)
-make_regtest_links("Devel", VERSION_DEVEL)
+for lang in langs:
+    print "@c *********", lang, "***"
+    make_regtest_links("Stable", VERSION_STABLE,lang)
+    make_regtest_links("Devel", VERSION_DEVEL,lang)
+
 
