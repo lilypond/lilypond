@@ -19,7 +19,6 @@ configurar a la forma de corchete en el contexto de @code{PianoStaff}.
 "
   doctitlees = "Indicar acordes de pentagrama cruzado con corchetes de arpegio"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Eine Arpeggioklammer kann anzeigen, dass Noten auf zwei unterschiedlichen

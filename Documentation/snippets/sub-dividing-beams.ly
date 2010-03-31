@@ -26,7 +26,6 @@ da la duración el subgrupo de barras utilizando la función
 "
   doctitlees = "Subdivisión de las barras de semicorchea"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Balken von aufeinanderfolgenden Sechszehnteln (oder kürzeren Notenwerten)
@@ -39,7 +38,6 @@ Standardwert für @code{beatLength} ist 1 / Zähler des aktuellen Taktes.
 
 "
   doctitlede = "Balken in Untergruppen teilen"
-
 
 
 %% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60

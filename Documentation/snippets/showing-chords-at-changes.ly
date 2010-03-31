@@ -14,7 +14,6 @@ líneas y cuando cambia el acorde.
 "
   doctitlees = "Imprimir los acordes cuando se produce un cambio"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Akkordsymbole können so eingestellt werden, dass sie nur zu Beginn der Zeile

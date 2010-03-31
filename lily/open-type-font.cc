@@ -241,7 +241,16 @@ Open_type_font::name_to_index (string nm) const
 size_t
 Open_type_font::index_to_charcode (size_t i) const
 {
-  return index_to_charcode_map_.at (i);
+  map<FT_UInt, FT_ULong>::const_iterator iter;
+  iter = index_to_charcode_map_.find (i);
+
+  if (iter != index_to_charcode_map_.end ())
+    return (size_t) iter->second;
+  else
+    {
+      programming_error (_ ("Invalid index for character"));
+      return 0;
+    }
 }
 
 size_t
