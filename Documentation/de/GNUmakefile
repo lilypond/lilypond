@@ -1,6 +1,6 @@
 ISOLANG = de
 depth = ../..
-SUBDIRS = web learning notation texidocs essay usage extending
+SUBDIRS = web learning notation texidocs essay usage extending included
 STEPMAKE_TEMPLATES = documentation
 LOCALSTEPMAKE_TEMPLATES = lilypond ly doc-i18n-root
 
