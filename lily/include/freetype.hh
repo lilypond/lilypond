@@ -28,6 +28,6 @@
 void init_freetype ();
 extern FT_Library freetype2_library;
 
-string freetype_error_string (int code);
+string freetype_error_string (FT_Error code);
 
 #endif /* FREETYPE_HH */
