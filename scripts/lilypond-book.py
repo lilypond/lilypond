@@ -960,7 +960,7 @@ def verb_ly_gettext (s):
 
     if langdefs.LANGDICT[document_language].enable_ly_identifier_l10n:
         for v in ly_var_def_re.findall (s):
-            s = re.sub (r"(?m)(^|[' \\#])%s([^a-zA-Z])" % v,
+            s = re.sub (r"(?m)(?<!\\clef)(^|[' \\#])%s([^a-zA-Z])" % v,
                         "\\1" + t (v) + "\\2",
                         s)
         for id in ly_context_id_re.findall (s):
