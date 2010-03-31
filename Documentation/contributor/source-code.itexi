@@ -58,6 +58,15 @@ Navigate to the @file{lilypond-git/} directory to view the source
 files.  You should now be able to modify the source files using
 your normal text editor.
 
+@knownissues
+
+The @qq{Get source} button does not fetch the entire history of
+the git repository, so utilities like @command{gitk} will only
+be able to display the most recent additions.  As you continue to
+work with @command{lily-git}, the @qq{Update source} button will take
+any new additions and add it to whatever is currently in your repository's
+history.
+
 
 @subsubheading New local commit
 
