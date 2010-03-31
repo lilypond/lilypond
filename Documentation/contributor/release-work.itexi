@@ -255,6 +255,10 @@ reorganize this list later.  -gp
 
   - change all links to the stable documentation
 
+  - make a link from the old unstable to the next stable in
+    lilypond.org's /doc/ dir.  Keep all previous unstable->stable
+    doc symlinks.
+
   - doc auto redirects  to v2.LATEST-STABLE
 
   - add these two lines to http://www.lilypond.org/robots.txt:
