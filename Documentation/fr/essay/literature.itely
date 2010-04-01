@@ -1,7 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 9c14e95e980875a6f5af33562e5a57afa8f389b3
+    Translation of GIT committish: 3b1c477ab2212f124f865c46df350c5a1c1f2412
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -14,8 +14,8 @@
 @c Translation checkers: Jean-Charles Malahieude
 
 
-@node Bibliographie
-@chapter Bibliographie
+@node Références bibliographiques
+@chapter Références bibliographiques
 @translationof Literature list
 
 Voici des listes de références utilisées dans Lilypond.

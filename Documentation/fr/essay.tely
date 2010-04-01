@@ -1,0 +1,73 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@ignore
+    Translation of GIT committish: 3b1c477ab2212f124f865c46df350c5a1c1f2412
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c Translators: Jean-Charles Malahieude
+@c Translation checkers: 
+
+@setfilename lilypond-essay.info
+@settitle Essai sur la gravure musicale automatisée
+@documentencoding UTF-8
+@documentlanguage fr
+@afourpaper
+
+@macro manualIntro
+Cet essai traite de la gravure de la musique et de la notation assistée
+par ordinateur à l'aide de LilyPond version @version{}.
+@end macro
+
+@c `Essay' was born 2002-06-03 with git commit e38f5fc...
+@macro copyrightDeclare
+Copyright @copyright{} 2002--2010 par les auteurs.
+@end macro
+
+@set FDL
+@include macros.itexi
+
+@afourpaper
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen
+@omfdescription Essay on automated music engraving
+@omftype essay
+@omfcategory Applications|Publishing
+@omflanguage English
+@end ignore
+
+
+@lilyTitlePage{Essai sur la gravure musicale automatisée}
+
+
+@ifnottex
+
+@menu
+* La gravure musicale::
+* Références bibliographiques::
+* GNU Free Documentation License:: Licence de ce document.
+* Index de LilyPond::
+@end menu
+
+@docMain
+@end ifnottex
+
+
+@contents
+
+@allowcodebreaks false
+
+@include essay/engraving.itely
+@include essay/literature.itely
+
+@include fdl.itexi
+
+@node Index de LilyPond
+@appendix Index de LilyPond
+
+@printindex cp
+
+@bye
