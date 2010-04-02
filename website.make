@@ -6,9 +6,11 @@
 ################################################################
 ifeq ($(WEBSITE_ONLY_BUILD),1)
   ### for lilypond.org
-  top-src-dir=$(HOME)/src/lilypond
+  TOP_SRC_DIR=$(HOME)/src/lilypond
+  TRUSTED_DIR=$(HOME)/lilypond/trusted-scripts
+  top-src-dir=$(TOP_SRC_DIR)
   depth=.
-  trusted-dir=$(HOME)/lilypond/trusted-scripts
+  trusted-dir=$(TRUSTED_DIR)
   script-dir=$(trusted-dir)
   texi2html-init-file=$(trusted-dir)/lilypond-texi2html.init
   top-htaccess=$(trusted-dir)/lilypond.org.htaccess
