@@ -8,6 +8,7 @@
 #ifndef LY_MODULE_HH
 #define LY_MODULE_HH
 
+#include "config.hh"
 #include "lily-guile.hh"
 
 SCM ly_make_anonymous_module (bool safe);
@@ -22,8 +23,11 @@ SCM ly_clear_anonymous_modules ();
 void clear_anonymous_modules ();
 SCM ly_use_module (SCM mod, SCM used);
 
-/* Ugh signature of scm_internal_hash_fold () is inaccurate.  */
-typedef SCM (*Hash_closure_function) (GUILE_ELLIPSIS);
+/* For backward compatability with Guile 1.8 */
+#if !HAVE_GUILE_HASH_FUNC
+typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
+typedef SCM (*scm_t_hash_handle_fn) (GUILE_ELLIPSIS);
+#endif
 
 #define MODULE_GC_KLUDGE
 

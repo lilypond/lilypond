@@ -115,7 +115,8 @@ LY_DEFINE (ly_module_2_alist, "ly:module->alist",
   SCM_VALIDATE_MODULE (1, mod);
   SCM obarr = SCM_MODULE_OBARRAY (mod);
 
-  return scm_internal_hash_fold ((Hash_closure_function) & entry_to_alist, NULL, SCM_EOL, obarr);
+  return scm_internal_hash_fold ((scm_t_hash_fold_fn) &entry_to_alist,
+				 NULL, SCM_EOL, obarr);
 }
 
 void
@@ -177,10 +178,8 @@ make_stand_in_procs_weak ()
   SCM old_tab = scm_stand_in_procs;
   SCM new_tab = scm_make_weak_key_hash_table (scm_from_int (257));
 
-  new_tab = scm_internal_hash_fold ((Hash_closure_function) & redefine_keyval,
-				    NULL,
-				    new_tab,
-				    old_tab);
+  new_tab = scm_internal_hash_fold ((scm_t_hash_fold_fn) &redefine_keyval,
+				    NULL, new_tab, old_tab);
 
   scm_stand_in_procs = new_tab;
 }

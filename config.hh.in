@@ -100,3 +100,6 @@
 
 /* define if you have utf8/wchar.h */
 #define HAVE_UTF8_WCHAR_H 0
+
+/* define if Guile has types scm_t_hash_fold_fn and scm_t_hash_handle_fn */
+#define HAVE_GUILE_HASH_FUNC 0

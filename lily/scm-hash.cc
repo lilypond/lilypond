@@ -28,7 +28,8 @@ copy_handle (void *closure, SCM handle)
 static void
 copy_scm_hashes (SCM dest, SCM src)
 {
-  scm_internal_hash_for_each_handle (  (SCM (*)(GUILE_ELLIPSIS)) &copy_handle, dest, src);
+  scm_internal_hash_for_each_handle ((scm_t_hash_handle_fn) &copy_handle,
+				     dest, src);
 }
 
 Scheme_hash_table::Scheme_hash_table ()
@@ -131,7 +132,8 @@ collect_handles (void * /* closure */,
 SCM
 Scheme_hash_table::to_alist () const
 {
-  return scm_internal_hash_fold ((SCM (*)(GUILE_ELLIPSIS)) &collect_handles, NULL, SCM_EOL, hash_tab_);
+  return scm_internal_hash_fold ((scm_t_hash_fold_fn) &collect_handles,
+				 NULL, SCM_EOL, hash_tab_);
 }
 
 IMPLEMENT_SMOBS (Scheme_hash_table);

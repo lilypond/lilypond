@@ -114,6 +114,13 @@ STEPMAKE_TEXMF_DIRS
 ## should check for 1.8.2 ?  
 STEPMAKE_GUILE_DEVEL(REQUIRED, 1.8.0)
 
+# check for 2 typedefs added in Guile 1.9
+save_CFLAGS="$CFLAGS"
+CFLAGS="$GUILE_CFLAGS $CFLAGS"
+AC_CHECK_TYPES([scm_t_hash_fold_fn, scm_t_hash_handle_fn],
+	       [AC_DEFINE(HAVE_GUILE_HASH_FUNC)], [],
+	       [#include <libguile.h>])
+CFLAGS="$save_CFLAGS"
 
 ## check rational bugfix.
 save_CPPFLAGS="$CPPFLAGS"
