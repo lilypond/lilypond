@@ -13,27 +13,27 @@ import re
 translations = {
     'de': {
         'English': 'Deutsch',
-        'Other languages: ': 'Andere Sprachen: ',
+        'Other languages': 'Andere Sprachen',
         },
     'es': {
         'English': 'Español',
-        'Other languages: ': 'Otros idiomas: ',
+        'Other languages': 'Otros idiomas',
         },
     'fr': {
         'English': 'Français',
-        'Other languages: ': 'Autres langues: ',
+        'Other languages': 'Autres langues',
         },
     'hu': {
         'English': 'Magyar',
-        'Other languages: ': 'Más nyelvek: ',
+        'Other languages': 'Más nyelvek',
         },
     'ja': {
         'English': 'Japanese',
-        'Other languages: ': '他の言語: ',
+        'Other languages': '他の言語',
         },
     'nl': {
         'English': 'Nederlands',
-        'Other languages: ': 'Andere talen: ',
+        'Other languages': 'Andere talen',
         },
     }
 
@@ -93,22 +93,21 @@ def addLangExt(filename, lang, ext):
     text += "." + ext
     return text
 
-def makeFooter(filename, currentLang):
-    text = "<p id=\"languages\">\n"
-    text += _ ('Other languages: ', currentLang)
-    for lang in langs:
-        if (lang == currentLang):
-            continue
-        text += "<a href=\""
-	text += addLangExt(filename, lang, "html")
-        text += "\">"
-        text += _ ('English', lang)
-        text += "</a>, "
-    text = text[:-2] + '.\n'
+def makeFooter (filename, currentLang):
     # TODO: add link to automatic language selection?
     # still need to include this page in the new webpages somewhere
-    text += "</p>\n"
-    return text
+    footer = '''<p id="languages">
+%(other)s: %(lst)s.
+</p>
+'''
+    def link (lang):
+        str = '''<a href="%(file_name)s">%(language_name)s</a>'''
+        file_name = addLangExt (filename, lang, 'html')
+        language_name = _ ('English', lang)
+        return str % locals ()
+    lst = ', '.join ([link (lang) for lang in langs if lang != currentLang])
+    other = _ ('Other languages', currentLang)
+    return footer % locals ()
 
 def getLocalHref(line):
     match = re.search(r'href=[\'"]?([^\'" >]+)', line)
@@ -155,7 +154,7 @@ for file in html_files:
     os.remove(file)
     outfile = open(file, 'w')
 
-    lang_footer = makeFooter(file_base, lang)
+    lang_footer = makeFooter (file_base, lang)
 
     ### alter file
     for line in lines:
