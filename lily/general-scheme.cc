@@ -462,7 +462,7 @@ LY_DEFINE (ly_hash_table_keys, "ly:hash-table-keys",
 	  1,0,0, (SCM tab),
 	  "Return a list of keys in @var{tab}.")
 {
-  return scm_internal_hash_fold ((Hash_closure_function) & accumulate_symbol,
+  return scm_internal_hash_fold ((scm_t_hash_fold_fn) &accumulate_symbol,
 				 NULL, SCM_EOL, tab);
 }
 

@@ -47,7 +47,7 @@ LY_DEFINE (ly_module_copy, "ly:module-copy",
 {
 #define FUNC_NAME __FUNCTION__
   SCM_VALIDATE_MODULE (1, src);
-  scm_internal_hash_fold ((Hash_closure_function) & module_define_closure_func,
+  scm_internal_hash_fold ((scm_t_hash_fold_fn) &module_define_closure_func,
 			  (void *) dest,
 			  SCM_EOL, SCM_MODULE_OBARRAY (src));
   return SCM_UNSPECIFIED;
