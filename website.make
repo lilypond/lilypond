@@ -33,7 +33,8 @@ endif
 
 ################################################################
 OUT=out-website
-WEB_LANGS=$(shell PYTHONPATH=$(top-src-dir)/python python $(top-src-dir)/python/langdefs.py)
+#WEB_LANGS=$(shell PYTHONPATH=$(top-src-dir)/python python $(top-src-dir)/python/langdefs.py)
+WEB_LANGS = fr es de nl ja hu it
 
 TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 
