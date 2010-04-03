@@ -19,6 +19,8 @@ depth = "../"
 # items.
 langs = ['', 'es']
 
+# FIXME: `grep -nH -B1 translationof Documentation/<lang>/web/*'
+# gives us the correct node names.
 translations = {
     'es': {
         'Source': 'Código fuente',
@@ -50,6 +52,33 @@ translations = {
     'fr': {
         'Learning': 'Apprener?',
         'Music glossary': 'Lizes ici pour les motes?',
+     },
+    'nl': {
+        'Source': 'Broncode',
+
+        'Learning': 'Beginnen',
+        'Music glossary': 'Terminologie',
+        'Essay': 'Essay',
+        'Notation': 'Notatie',
+        'Usage': 'Gebruik',
+        'Snippets': 'Snippers',
+        'Web': 'Web',
+        'Changes': 'Veranderingen',
+        'Extending': 'Uitbreidingen',
+        'Internals': 'Internals',
+        'Contributor': 'Contributor',
+
+# keep the spaces!
+        ' (split HTML)': ' (opgesplitste HTML)',
+        ' (big HTML)': ' (grote pagina HTML)',
+
+        'Regression tests for ': 'Regressietesten voor ',
+        'PDF of regtests for ': 'PDF van regressietesten voor ',
+        'MusicXML Regression tests for ': 'MusicXML regressietesten voor ',
+        'PDF of MusicXML regtests for ': 'MusicXML regressietesten voor ',
+
+        'Doc tarball for ': 'Tarball met documentation voor ',
+        ' (did not exist in 2.12)': ' (bestond nog niet in 2.12)',
      },
 }
 
