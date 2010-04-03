@@ -226,6 +226,11 @@ def translateNameToUrl(manual, version):
 
 
 def make_manual_links(name, version, lang):
+    """Here is where all the macros manualStableLearningSplit,
+    manualStableLearningBig, manualStableLearningSplitNoName, etc. are
+    created on the fly.  Hopefully this documentation string will help
+    others a bit while grepping for those.
+    """
     for m in manuals:
         manual = m
         # TODO: this is a stupid way of doing it
@@ -273,7 +278,7 @@ def make_manual_links(name, version, lang):
             newurl = url + '/index.html'
         make_ver_link(macroLang("manual"+name+mshort+'SplitNoName',lang),
                   newurl,
-                  manual.capitalize())
+                  getTrans(manual.capitalize(),lang))
 
 def make_regtest_links(name, version, lang):
     ver_split = version.split('.')

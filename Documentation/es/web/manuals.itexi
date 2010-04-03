@@ -39,15 +39,15 @@
 LilyPond es un sistema de grabado musical @strong{basado en texto}.
 ¡Lea esto primero!
 
-@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Aprendizaje}}
+@item @ifWebLinks{@manualStableLearningSplitNoName-es,@rlearningnamed{Top,Aprendizaje}}
 una introducción a LilyPond amable e @qq{imprescindible}.
 @details{Aprendizaje}
 
-@item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glosario}}
+@item @ifWebLinks{@manualStableGlossarySplitNoName-es,@rglosnamed{Top,Glosario}}
 @emph{(lectura opcional)} términos musicales y traducciones.
 @details{Glosario}
 
-@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Ensayo}}
+@item @ifWebLinks{@manualStableEssaySplitNoName-es,@ressaynamed{Top,Ensayo}}
 @emph{(lectura opcional)} la información de trasfondo sobre grabado musical.
 @details{Ensayo}
 
@@ -61,15 +61,15 @@ una introducción a LilyPond amable e @qq{imprescindible}.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notación}}
+@item @ifWebLinks{@manualStableNotationSplitNoName-es,@rusernamed{Top,Notación}}
 referencia de la sintaxis.
 @details{Notación}
 
-@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Utilización}}
+@item @ifWebLinks{@manualStableUsageSplitNoName-es,@rprogramnamed{Top,Utilización}}
 cómo ejecutar los programas.
 @details{Utilización}
 
-@item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Fragmentos}}
+@item @ifWebLinks{@manualStableSnippetsSplitNoName-es,@rlsrnamed{Top,Fragmentos}}
 trucos y consejos cortos.
 @details{Fragmentos}
 
@@ -90,15 +90,15 @@ Preguntas más frecuentes (Frequently Asked Questions).
 este documento.
 @details{Web}
 
-@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Cambios}}
+@item @ifWebLinks{@manualStableChangesSplitNoName-es,@rchangesnamed{Top,Cambios}}
 ¿qué hay de nuevo?
 @details{Cambios}
 
-@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extender}}
+@item @ifWebLinks{@manualStableExtendingSplitNoName-es,@rextendnamed{Top,Extender}}
 trucos interesantes.
 @details{Extender}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Funcionamiento interno}}
+@item @ifWebLinks{@manualStableInternalsSplitNoName-es,@rinternalsnamed{Top,Funcionamiento interno}}
 referencia sobre el trucaje.
 @details{Funcionamiento interno}
 
@@ -419,9 +419,9 @@ producidas en LilyPond a partir de la version estable anterior.
 
 @docLinks{Cambios, changes,
   @rchangesnamed{Top,Cambios},
-  @manualStableChangesSplit,
-  @manualStableChangesBig, 6 KB,
-  @manualStableChangesPdf, 200 KB}
+  @manualStableChangesSplit-es,
+  @manualStableChangesBig-es, 6 KB,
+  @manualStableChangesPdf-es, 200 KB}
 
 @divEnd
 
@@ -441,9 +441,9 @@ Este manual explica cómo escribir extensiones de LilyPond.
 
 @docLinks{Extender, extending,
   @rextendnamed{Top,Extender},
-  @manualStableExtendingSplit,
-  @manualStableExtendingBig, 200 KB,
-  @manualStableExtendingPdf, 400 KB}
+  @manualStableExtendingSplit-es,
+  @manualStableExtendingBig-es, 200 KB,
+  @manualStableExtendingPdf-es, 400 KB}
 
 @divEnd
 
@@ -474,9 +474,9 @@ se refiere a la documentación generada.
 
 @docLinks{Funcionamiento interno, internals,
   @rinternalsnamed{Top,Funcionamiento interno},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsSplit-es,
+  @manualStableInternalsBig-es, 2.5 MB,
+  @manualStableInternalsPdf-es, 2.8 MB}
 
 @divEnd
 
