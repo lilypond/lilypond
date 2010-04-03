@@ -162,6 +162,19 @@ there are a few additional things to note:
 @itemize
 
 @item
+Build the website with:
+
+@example
+make website
+@end example
+
+@noindent
+however, please note that this command is not designed for being
+run multiple times.  If you see unexpected output (mainly the page
+footers getting all messed up), then delete your
+@file{out-website} directory and run @code{make website} again.
+
+@item
 Some of the translation infrastructure is defined in python files;
 you must look at the @code{### translation data} sections in:
 
