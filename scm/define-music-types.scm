@@ -251,7 +251,6 @@ Syntax: @var{note}@code{\\laissezVibrer}")
 
     (LigatureEvent
      . ((description . "Start or end a ligature.")
-	(span-type . ligature)
 	(types . (general-music span-event ligature-event event))
 	))
 
