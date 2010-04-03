@@ -155,3 +155,35 @@ rsync -a $EXAMPLES graham@lilypond.org:ly-examples
 
 As it has much more audience, the website should be translated before
 the documentation; see @ref{Translating the documentation}.
+
+In addition to the normal documentation translation practices,
+there are a few additional things to note:
+
+@itemize
+
+@item
+Some of the translation infrastructure is defined in python files;
+you must look at the @code{### translation data} sections in:
+
+@example
+scripts/build/create-weblinks-itexi.py
+scripts/build/website_post.py
+@end example
+
+@item
+Translations are not included by default in @code{make website}.
+To test your translation, edit the @code{WEB_LANGS} line in
+@file{website.make}.  Do not submit a patch to add your language
+to this file unless @code{make website} completes with less than 5
+warnings.
+
+@item
+Links to manuals are done with macros like
+@code{@@manualDevelLearningSplit}.  To get translated links, you
+must change that to @code{@@manualDevelLearningSplit-es} (for
+es/Spanish translations, for example).
+
+@end itemize
+
+
+
