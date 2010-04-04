@@ -1011,8 +1011,8 @@ define_blacker_pixels (solfa_pen_thick);
 save solfa_base_notewidth;
 solfa_base_notewidth# := black_notehead_width#;
 
-solfa_whole_width := whole_notehead_width# / black_notehead_width#;
-solfa_half_width := half_notehead_width# / black_notehead_width#;
+solfa_whole_width := 1.0;
+solfa_half_width := 1.0;
 solfa_quarter_width := 1.0;
 
 def draw_do_head (expr width_factor, dir) =
