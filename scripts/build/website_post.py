@@ -40,13 +40,18 @@ translations = {
 # needs at least: make -C po or make- C Documentation/po
 HAVE_GETTEXT = False
 
+####  this breaks on lilypond.org
 # Keep some freakin' gettext compatibility
-if HAVE_GETTEXT:
-    import lilylib as ly;
-    global _;_=ly._
-else: # poor mans translation
-    def _ (string, lang=os.environ['LANG']):
-        return translations.get (lang.split ('_')[0], {}).get (string, string)
+#if HAVE_GETTEXT:
+#    import lilylib as ly;
+#    global _;_=ly._
+#else: # poor mans translation
+#    def _ (string, lang=os.environ['LANG']):
+#        return translations.get (lang.split ('_')[0], {}).get (string, string)
+
+#### this works on lilypond.org
+def _ (string, lang):
+    return translations.get (lang.split ('_')[0], {}).get (string, string)
 
 
 exclude_manuals = [

@@ -112,7 +112,7 @@ DEST=$HOME/web/
 cd $HOME/src/build-website
 cp $HOME/lilypond/trusted-scripts/website.make .
 
-make -f make/website.make WEBSITE_ONLY_BUILD=1 website
+make -f website.make WEBSITE_ONLY_BUILD=1 website
 rsync -ra $HOME/src/build-website/out-website/website/ $DEST/website/
 cp $HOME/src/build-website/out-website/pictures $DEST
 cp $HOME/src/build-website/out-website/.htaccess $DEST
