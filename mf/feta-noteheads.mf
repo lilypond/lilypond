@@ -1360,6 +1360,32 @@ fet_beginchar ("Quarter fa down head", "d2fa");
 fet_endchar;
 
 
+def draw_sol_head (expr filled) =
+	draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
+        if not filled:
+	  undraw_inside_ellipse (3.25, 33, 0.81, 2.5 stafflinethickness#);
+        fi
+        draw_staff (-2, 2, 0);
+enddef;
+
+fet_beginchar ("Whole solhead", "s0sol");
+	draw_sol_head ( false);
+fet_endchar;
+
+
+fet_beginchar ("Half solhead", "s1sol");
+	draw_sol_head ( false);
+fet_endchar;
+
+
+fet_beginchar ("Quart solhead", "s2sol");
+	draw_sol_head ( true);
+fet_endchar;
+
+
+
+
+
 def draw_la_head (expr width_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
