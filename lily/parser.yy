@@ -1990,6 +1990,7 @@ steno_duration:
 	| DURATION_IDENTIFIER dots	{
 		Duration *d = unsmob_duration ($1);
 		Duration k (d->duration_log (), d->dot_count () + $2);
+		k = k.compressed (d->factor ());
 		*d = k;
 		$$ = $1;
 	}
