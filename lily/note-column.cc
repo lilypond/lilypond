@@ -161,7 +161,7 @@ Note_column::first_head (Grob *me)
 }
 
 /*
-  Return the first Accidentals grob that we find in a note-head.
+  Return the first AccidentalPlacement grob that we find in a note-head.
 */
 Grob *
 Note_column::accidentals (Grob *me)
@@ -196,7 +196,7 @@ Note_column::dot_column (Grob *me)
       if (dots)
 	return dots->get_parent (X_AXIS);
     }
-  
+
   return 0;
 }
 
