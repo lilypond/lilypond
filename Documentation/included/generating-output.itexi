@@ -32,7 +32,7 @@ Choose a name for your file, for example @file{test.ly}.
 @subsubheading Step 2. Compile (with LilyPad)
 
 From the same menus, select
-@w{@code{Compile > Tyepset}}.
+@w{@code{Compile > Typeset}}.
 
 @sourceimage{Learning_Macos_Typeset_menu,,,}
 
