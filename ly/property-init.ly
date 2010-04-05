@@ -342,8 +342,8 @@ predefinedFretboardsOn =
 
 %% shape note heads
 
-aikenHeads      = \set shapeNoteStyles = #'#(do re mi fa #f la ti)
-sacredHarpHeads = \set shapeNoteStyles = #'#(fa #f la fa #f la mi)
+aikenHeads      = \set shapeNoteStyles = #'#(do re mi fa sol la ti)
+sacredHarpHeads = \set shapeNoteStyles = #'#(fa sol la fa sol la mi)
 
 
 %% shifts
