@@ -1004,12 +1004,12 @@ fi;
 %
 
 save solfa_pen_thick;
-solfa_pen_thick# = 1.5 stafflinethickness#;
+solfa_pen_thick# = 1.75 stafflinethickness#;
 define_blacker_pixels (solfa_pen_thick);
 
 
 save solfa_base_notewidth;
-solfa_base_notewidth# := half_notehead_width#;
+solfa_base_notewidth# := black_notehead_width#;
 
 solfa_whole_width := 1.0;
 solfa_half_width := 1.0;
@@ -1407,10 +1407,10 @@ def draw_la_head (expr width_factor) =
 
 	labels (range 1 thru 4);
 
-	p_in := (z1 + 0.5 solfa_pen_thick * (1, -2.5))
-		-- (z2 + 0.5 solfa_pen_thick * (-1, -2.5))
-		-- (z3 + 0.5 solfa_pen_thick * (-1, 2.5))
-		-- (z4 + 0.5 solfa_pen_thick * (1, 2.5))
+	p_in := (z1 + 0.5 solfa_pen_thick * (1, -1))
+		-- (z2 + 0.5 solfa_pen_thick * (-1, -1))
+		-- (z3 + 0.5 solfa_pen_thick * (-1, 1))
+		-- (z4 + 0.5 solfa_pen_thick * (1, 1))
 		-- cycle;
 
 	p_out := top z1
