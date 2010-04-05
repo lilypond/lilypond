@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 3d7ffa1f82bb44673134b28becf7898482fe7316
+    Translation of GIT committish: 0bbabe9eef32b46216a722cc0d49df759227b7be
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1238,13 +1238,13 @@ Atemzeichen aus dem Abschnitt @ref{Atemzeichen}. Das @emph{finalis}-Zeichen
 bezeichnet nicht nur das Ende eines Chorals, sondern wird auch oft innerhalb
 eines Antiphons/Responsoriums benutzt, um das Ende eines Abschnitts anzuzeigen.
 
-Divisiones können benutzt werden, indem die Datei @file{gregorian@/-init@/.ly}
+Divisiones können benutzt werden, indem die Datei @file{gregorian@/.ly}
 in die Quelldatei eingefügt wird. Hier sind die entsprechenden Definitionen
 schon abgelegt, so dass es genügt, die Befehle @code{\divisioMinima},
 @code{\divisioMaior}, @code{\divisioMaxima} und @code{\finalis} an den
 entsprechenden Stellen zu schreiben. Einige Editionen verwenden eine
 @emph{virgula} oder @emph{caesura} anstelle der divisio minima. Darum findet
-sich in der Datei @file{gregorian@/-init@/.ly} auch eine Definition für
+sich in der Datei @file{gregorian@/.ly} auch eine Definition für
 @code{\virgula} und @code{\caesura}.
 
 @lilypond[quote,ragged-right]
@@ -1327,14 +1327,25 @@ Vaticana-Stils zur Verfügung gestellt.
     \override TextScript #'font-family = #'typewriter
     \override TextScript #'font-shape = #'upright
     \override Script #'padding = #-0.1
-    a\ictus_"ictus" \break
-    a\circulus_"circulus" \break
-    a\semicirculus_"semicirculus" \break
-    a\accentus_"accentus" \break
+    a\ictus_"ictus" \bar "" \break
+    a\circulus_"circulus" \bar "" \break
+    a\semicirculus_"semicirculus" \bar "" \break
+    a\accentus_"accentus" \bar "" \break
     \[ a_"episem" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
   }
 }
 @end lilypond
+
+Schnipsel:
+@rlsr{Ancient notation}.
+
+Referenz der Interna:
+@rinternals{Episema},
+@rinternals{EpisemaEvent},
+@rinternals{Episema_engraver},
+@rinternals{Script},
+@rinternals{ScriptEvent},
+@rinternals{Script_engraver}.
 
 
 
@@ -1342,10 +1353,6 @@ Vaticana-Stils zur Verfügung gestellt.
 
 Einige Artikulationszeichen sind vertikal zu dich an den
 entsprechenden Notenköpfen gesetzt.
-
-Die Episem-Linie wird in vielen Fällen nicht angezeigt.
-Wenn sie angezeigt wird, ist das rechte Ende der Episem-Linie
-oft zu weit rechts.
 
 
 @c {{{2Augmentum dots (@emph{morae})
