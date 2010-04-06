@@ -1,7 +1,7 @@
 #!@PYTHON@
 import sys
 import getopt
-import re 
+import re
 import os
 
 (options, files) = \
@@ -22,7 +22,7 @@ for opt in options:
 
 # Ugh
 for design_size in [11,13,14,16,18,20,23,26]:
-    name = 'Emmentaler' 
+    name = 'Emmentaler'
     filename = name.lower ()
     script = '''#!@FONTFORGE@
 
@@ -41,6 +41,7 @@ notice += "resulting document to be covered by the GNU General Public License.";
 SetFontNames("%(name)s-%(design_size)d", "%(name)s-%(design_size)d", "%(name)s-%(design_size)d", "", notice, "@TOPLEVEL_VERSION@");
 
 MergeFonts("feta%(design_size)d.pfb");
+MergeFonts("feta-noteheads%(design_size)d.pfb");
 MergeFonts("parmesan%(design_size)d.pfb");
 
 # load nummer/din after setting PUA.
@@ -87,9 +88,9 @@ Generate("%(filename)s-%(design_size)d.svg");
     ns = []
     for s in subfonts:
         ns.append ('%s' % (s % vars()))
-        
+
     subfonts_str = ' '.join (ns)
-    
+
     open (os.path.join (outdir, '%(filename)s-%(design_size)d.subfonts' % vars()), 'w').write (subfonts_str)
 
     path = os.path.join (outdir, '%s-%d.dep' % (filename, design_size))

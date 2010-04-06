@@ -65,6 +65,12 @@ which scares away people.
 @end ignore
 
 @item
+Aesthetics of shape note heads have been enhanced.  Variable line thicknesses
+have been implemented.  All note widths have been made consistent.
+Minor shape note commands that use the relative major key for scale steps
+have been added.
+
+@item
 A variant of the segno sign is provided:
 @lilypond[quote,relative=2]
 c4 d e f \bar "S"

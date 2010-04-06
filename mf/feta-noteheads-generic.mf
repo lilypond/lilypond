@@ -11,11 +11,11 @@
 %
 % LilyPond is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
 % GNU General Public License for more details.
 %
 % You should have received a copy of the GNU General Public License
-% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+% along with LilyPond.	If not, see <http://www.gnu.org/licenses/>.
 
 
 if test = -1:
@@ -32,26 +32,17 @@ input feta-params;
 
 font_x_height staff_space#;
 
-%% this is a fallback so we can run the font without including feta-noteheads.
+%% this is a fallback so we can run the font without
+%%    including feta-noteheads.
 black_notehead_width# := 1.0 staff_space#;
 
 
 fet_beginfont ("feta", design_size, "fetaMusic");
 
 if test = 0:
-	input feta-rests;
-	input feta-accidentals;
-	input feta-arrowheads;
-	input feta-dots;
-	input feta-scripts;
-	input feta-flags;
-	input feta-clefs;
-	input feta-timesignatures;
-	input feta-pedals;
-	input feta-brackettips;
-	input feta-accordion;
+	input feta-noteheads;
 else:
-	input feta-test-generic.mf;
+	input feta-noteheads-test-generic.mf;
 fi
 
 autometric_parameter ("staffsize", staffsize#);

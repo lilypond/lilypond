@@ -1,6 +1,6 @@
 #!@PYTHON@
 
-# mf-to-table.py -- convert spacing info in MF logs . 
+# mf-to-table.py -- convert spacing info in MF logs .
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
@@ -55,7 +55,7 @@ font_family = 'feta'
 def parse_logfile (fn):
     autolines, deps = read_log_file (fn)
     charmetrics = []
-    
+
     global_info = {
         'filename' : os.path.splitext (os.path.basename (fn))[0]
         }
@@ -112,7 +112,7 @@ def parse_logfile (fn):
 
         elif tags[0] == 'parameter':
             global_info[tags[1]] = tags[2];
-            
+
     return (global_info, charmetrics, deps)
 
 
@@ -150,7 +150,7 @@ def global_lisp_table (global_info):
 
     keys = ['staffsize', 'stafflinethickness', 'staff_space',
         'linethickness', 'black_notehead_width', 'ledgerlinethickness',
-        'design_size', 
+        'design_size',
         'blot_diameter'
         ]
     for k in keys:
@@ -159,7 +159,7 @@ def global_lisp_table (global_info):
 
     return str
 
-    
+
 def ps_encoding (name, global_info, charmetrics):
     encs = ['.notdef'] * 256
     for m in charmetrics:
@@ -220,9 +220,9 @@ for opt in options:
         depfile_nm = a
     elif o == '--outdir' or o == '-o':
         outdir_prefix = a
-    elif o == '--lisp': 
+    elif o == '--lisp':
         char_lisp_nm = a
-    elif o == '--global-lisp': 
+    elif o == '--global-lisp':
         global_lisp_nm = a
     elif o == '--enc':
         enc_nm = a
@@ -242,6 +242,8 @@ for filenm in files:
     enc_name = 'FetaEncoding'
     if re.search ('parmesan', filenm):
         enc_name = 'ParmesanEncoding'
+    elif re.search ('feta-noteheads', filenm):
+        enc_name = 'FetaNoteheadsEncoding'
     elif re.search ('feta-brace', filenm):
         enc_name = 'FetaBraceEncoding'
     elif re.search ('feta-alphabet', filenm):
