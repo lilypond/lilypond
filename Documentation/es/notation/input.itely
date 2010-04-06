@@ -387,7 +387,7 @@ evitar errores, en las siguientes situaciones:
 que comienzan con un signo @code{\} de barra invertida.
 @item A continuación de todo elemento que se deba interpretar como expresión
 de Scheme, es decir, todo elemento que comience por un signo @code{#}.
-@item Para separar los elementode de una expresión de Scheme.
+@item Para separar los elementos de una expresión de Scheme.
 @item Dentro de @code{lyricmode} para separar todos los términos de las instrucciones
 @code{\override} y @code{\set}.  Concretamente, hay que usar espacios
 alrededor del punto y el signo igual en instrucciones como
@@ -1691,7 +1691,7 @@ funcionan se encuentran el Reproductor de Medios de MS Windows y
 
 Si se requiere una salida MIDI, debe aparecer un bloque @code{\midi}
 dentro de un bloque de partitura.  Es análogo al bloque layout de
-diseño de página, pero algo maś simple.  Con frecuencia, el bloque
+diseño de página, pero algo más simple.  Con frecuencia, el bloque
 @code{\midi} se deja vacío, pero puede contener reorganizaciones de
 contextos, definiciones de contexto nuevas o código para fijar valores
 de propiedades.  Por ejemplo, en el ejemplo siguiente se establece el
