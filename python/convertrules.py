@@ -2987,7 +2987,18 @@ def conv(str):
        _ ("Unify fetaNumber and fetaDynamic encodings"))
 def conv(str):
     return re.sub(r'\bfeta(Number|Dynamic)', 'fetaText', str)
-    
+
+@rule ((2, 13, 18),
+       _ ("\RemoveEmpty*StaffContext -> \*Staff \RemoveEmptyStaves"))
+def conv(str):
+    str = re.sub (r"\\RemoveEmpty(|Drum|Rhythmic|Tab)StaffContext",
+                  r"\\\1Staff \\RemoveEmptyStaves",
+                  str);
+    str = re.sub (r"\\AncientRemoveEmptyStaffContext",
+                  r"\\VaticanaStaff \\RemoveEmptyStaves",
+                  str);
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

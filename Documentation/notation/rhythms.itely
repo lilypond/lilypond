@@ -1089,34 +1089,38 @@ entered using the @code{\partial} command, with the syntax
 @end example
 
 @noindent
-where @code{duration} is the rhythmic length of the interval
-before the start of the first complete measure:
+where @code{duration} is the rhythmic length of the remaining
+interval of the current measure before the start of the next.
 
 @lilypond[quote,verbatim,relative=2]
 \partial 4 e4 |
 a2. c,4 |
 @end lilypond
 
-The partial measure can be any duration less than a full measure:
+The partial measure can be any duration less than the full measure:
 
 @lilypond[quote,verbatim,relative=2]
 \partial 8*3 c8 d e |
 a2. c,4 |
 @end lilypond
 
-Internally, @code{\partial} is translated into
+Internally, @code{\partial @var{duration}} is translated into:
 
 @example
-\set Timing.measurePosition = -@var{duration}
+\set Timing.measurePosition -@var{duration}
 @end example
 
-@noindent
+For example, @code{\partial 8*3} becomes:
+
+@example
+\set Timing.measurePosition = #(ly:make-moment -3 8)
+@end example
+
 The property @code{measurePosition} contains a rational number
 indicating how much of the measure has passed at this point.  Note
-that this is set to a negative number by the @code{\partial}
-command: i.e., @code{\partial 4} is internally translated to
-@code{-4}, meaning @qq{there is a quarter note left in the measure.}
-
+that this is set to a negative number by the @code{\partial} command:
+i.e., @code{\partial 4} is internally translated to @code{-4}, meaning
+@qq{there is a quarter note left in the measure.}
 
 @seealso
 Music Glossary:
@@ -1131,12 +1135,12 @@ Snippets:
 Internal Reference:
 @rinternals{Timing_translator}.
 
-
 @knownissues
 
 The @code{\partial} command is intended to be used only at the
 beginning of a piece.  If you use it after the beginning, some
-odd warnings may occur.
+odd warnings or effects may occur, in this case use
+@code{\set Timing.measurePosition} instead.
 
 @node Unmetered music
 @unnumberedsubsubsec Unmetered music

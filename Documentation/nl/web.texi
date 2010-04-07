@@ -133,9 +133,10 @@ Lees meer in onze @ref{Inleiding}!
 
 @subsubheading Ontwikkeling
 
-@ref{Ontwikkeling, Download @versionDevel}
+@c community.itexi met `Ontwikkeling' is nog niet vertaald
+@ref{Development, Download @versionDevel}
 
-@ref{Ontwikkeling, Handleidingen @versionDevel}
+@ref{Development, Handleidingen @versionDevel}
 
 @divEnd
 @end ifset

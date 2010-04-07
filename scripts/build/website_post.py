@@ -9,18 +9,50 @@ import os
 import glob
 import re
 
-###### Translation data
-lang_lookup = {
-    'fr': 'français',
-    'es': 'español',
-    '': 'english'
-}
+###### Translation data, move out, see create-weblinks-itexi.py
+translations = {
+    'de': {
+        'English': 'Deutsch',
+        'Other languages': 'Andere Sprachen',
+        },
+    'es': {
+        'English': 'Español',
+        'Other languages': 'Otros idiomas',
+        },
+    'fr': {
+        'English': 'Français',
+        'Other languages': 'Autres langues',
+        },
+    'hu': {
+        'English': 'Magyar',
+        'Other languages': 'Más nyelvek',
+        },
+    'ja': {
+        'English': 'Japanese',
+        'Other languages': '他の言語',
+        },
+    'nl': {
+        'English': 'Nederlands',
+        'Other languages': 'Andere talen',
+        },
+    }
 
-lang_other_langs = {
-    'es': 'Otros idiomas: ',
-    'fr': 'Autres langues : ',
-    '': 'Other languages: '
-}
+# needs at least: make -C po or make- C Documentation/po
+HAVE_GETTEXT = False
+
+####  this breaks on lilypond.org
+# Keep some freakin' gettext compatibility
+#if HAVE_GETTEXT:
+#    import lilylib as ly;
+#    global _;_=ly._
+#else: # poor mans translation
+#    def _ (string, lang=os.environ['LANG']):
+#        return translations.get (lang.split ('_')[0], {}).get (string, string)
+
+#### this works on lilypond.org
+def _ (string, lang):
+    return translations.get (lang.split ('_')[0], {}).get (string, string)
+
 
 exclude_manuals = [
     '/music-glossary',
@@ -48,7 +80,7 @@ for file in html_files:
         # it's a translation
         lang = file_split[1]
     # make sure it's a translated language
-    if (not (lang == "en")):
+    if lang != "en":
         langs_set.add(lang)
 langs = list(langs_set)
 langs.sort()
@@ -66,26 +98,21 @@ def addLangExt(filename, lang, ext):
     text += "." + ext
     return text
 
-def makeFooter(filename, currentLang):
-    text = "<p id=\"languages\">\n"
-    text += lang_other_langs[currentLang]
-    for i in range(len(langs)):
-        lang = langs[i]
-        if (lang == currentLang):
-            continue
-        text += "<a href=\""
-	text += addLangExt(filename, lang, "html")
-        text += "\">"
-        text += lang_lookup[lang]
-        text += "</a>"
-        if (i < len(langs)-2):
-            text += ", "
-        else:
-            text += ".\n"
+def makeFooter (filename, currentLang):
     # TODO: add link to automatic language selection?
     # still need to include this page in the new webpages somewhere
-    text += "</p>\n"
-    return text
+    footer = '''<p id="languages">
+%(other)s: %(lst)s.
+</p>
+'''
+    def link (lang):
+        str = '''<a href="%(file_name)s">%(language_name)s</a>'''
+        file_name = addLangExt (filename, lang, 'html')
+        language_name = _ ('English', lang)
+        return str % locals ()
+    lst = ', '.join ([link (lang) for lang in langs if lang != currentLang])
+    other = _ ('Other languages', currentLang)
+    return footer % locals ()
 
 def getLocalHref(line):
     match = re.search(r'href=[\'"]?([^\'" >]+)', line)
@@ -132,8 +159,7 @@ for file in html_files:
     os.remove(file)
     outfile = open(file, 'w')
 
-    lang_footer = makeFooter(file_base, lang)
-
+    lang_footer = makeFooter (file_base, lang)
 
     ### alter file
     for line in lines:

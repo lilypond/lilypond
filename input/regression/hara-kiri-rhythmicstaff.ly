@@ -1,4 +1,4 @@
-\version "2.13.10"
+\version "2.13.18"
 \header {
   texidoc =
 
@@ -18,7 +18,8 @@ and no staff case.
 \layout {
   ragged-right= ##t
   \context {
-    \RemoveEmptyRhythmicStaffContext
+    \RhythmicStaff
+    \RemoveEmptyStaves
   }
 }
 

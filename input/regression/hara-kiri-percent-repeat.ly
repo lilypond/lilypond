@@ -1,4 +1,4 @@
-\version "2.13.10"
+\version "2.13.18"
 
 \header {
   texidoc = "Staves, RhythmicStaves, TabStaves and DrumStaves
@@ -11,12 +11,11 @@
   \new TabStaff \repeat  percent 4 { c1 }
   \new DrumStaff \drummode { \repeat percent 4 { hh1 } }
   \new RhythmicStaff \repeat percent 4 { c'1 }
->>                          
+>>
 
 \layout {
-  \context { \RemoveEmptyStaffContext }
-  \context { \RemoveEmptyRhythmicStaffContext }
-  \context { \RemoveEmptyDrumStaffContext }
-  \context { \RemoveEmptyTabStaffContext }
-  }
-
+  \context { \Staff \RemoveEmptyStaves }
+  \context { \RhythmicStaff \RemoveEmptyStaves }
+  \context { \DrumStaff \RemoveEmptyStaves }
+  \context { \TabStaff \RemoveEmptyStaves }
+}

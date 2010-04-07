@@ -1481,12 +1481,12 @@ within normal and tablature staves:
 @lilypond[quote,ragged-right,verbatim]
 music = \relative c' {
   < a\3 \deadNote c\2 a'\1 >4
-  < b\3 \deadNote d\2 b'\1 >4
-  < c\3 \deadNote e\2 c'\1 >8
+  < b\3 \deadNote d\2 b'\1 >
+  < c\3 \deadNote e\2 c'\1 >
   \deadNotesOn
-  \times 2/3 { g16\3 b\2 e\1 }
+  \times 2/3 { g8 b e }
   \deadNotesOff
-  < a,\3 c\2 e\1 >4
+  < a,\3 c\2 e\1 >1
 }
 \new StaffGroup <<
   \new Staff {

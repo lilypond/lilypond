@@ -19,37 +19,66 @@ depth = "../"
 # items.
 langs = ['', 'es']
 
+# FIXME: `grep -nH -B1 translationof Documentation/<lang>/web/*'
+# gives us the correct node names.
 translations = {
     'es': {
         'Source': 'Código fuente',
 
-        'Learning': 'Aprendizaj',
+        'Learning': 'Aprendizaje',
         'Music glossary': 'Glosario',
-        'Essay': 'a',
-        'Notation': 'b',
-        'Usage': 'c',
-        'Snippets': 'd',
-        'Web': 'e',
-        'Changes': 'f',
-        'Extending': 'g',
-        'Internals': 'h',
+        'Essay': 'Ensayo',
+        'Notation': 'Notación',
+        'Usage': 'Utilización',
+        'Snippets': 'Fragmentos',
+        'Web': 'Web',
+        'Changes': 'Cambios',
+        'Extending': 'Extensión',
+        'Internals': 'Funcionamiento interno',
         'Contributor': 'Guía del colaborador',
 
 # keep the spaces!
-        ' (split HTML)': ' (muchas páginas HTML)',
-        ' (big HTML)': ' (como una sola página HTML enorme)',
+        ' (split HTML)': ' (HTML seccionado)',
+        ' (big HTML)': ' (HTML monolítico)',
 
-        'Regression tests for ': 'aa ',
-        'PDF of regtests for ': 'bb ',
-        'MusicXML Regression tests for ': 'cc ',
-        'PDF of MusicXML regtests for ': 'dd ',
+        'Regression tests for ': 'Pruebas de regresión para ',
+        'PDF of regtests for ': 'Pruebas en PDF para ',
+        'MusicXML Regression tests for ': 'Pruebas de regresión de MusicXML para ',
+        'PDF of MusicXML regtests for ': 'Pruebas de MusicXML en PDF para ',
 
-        'Doc tarball for ': 'ee ',
-        ' (did not exist in 2.12)': ' (existes la nottes e 2.12)',
+        'Doc tarball for ': 'Tarball de la documentación para ',
+        ' (did not exist in 2.12)': ' (no existía en la versión 2.12)',
      },
     'fr': {
         'Learning': 'Apprener?',
         'Music glossary': 'Lizes ici pour les motes?',
+     },
+    'nl': {
+        'Source': 'Broncode',
+
+        'Learning': 'Beginnen',
+        'Music glossary': 'Terminologie',
+        'Essay': 'Essay',
+        'Notation': 'Notatie',
+        'Usage': 'Gebruik',
+        'Snippets': 'Snippers',
+        'Web': 'Web',
+        'Changes': 'Veranderingen',
+        'Extending': 'Uitbreidingen',
+        'Internals': 'Internals',
+        'Contributor': 'Contributor',
+
+# keep the spaces!
+        ' (split HTML)': ' (opgesplitste HTML)',
+        ' (big HTML)': ' (grote pagina HTML)',
+
+        'Regression tests for ': 'Regressietesten voor ',
+        'PDF of regtests for ': 'PDF van regressietesten voor ',
+        'MusicXML Regression tests for ': 'MusicXML regressietesten voor ',
+        'PDF of MusicXML regtests for ': 'MusicXML regressietesten voor ',
+
+        'Doc tarball for ': 'Tarball met documentation voor ',
+        ' (did not exist in 2.12)': ' (bestond nog niet in 2.12)',
      },
 }
 
@@ -197,6 +226,11 @@ def translateNameToUrl(manual, version):
 
 
 def make_manual_links(name, version, lang):
+    """Here is where all the macros manualStableLearningSplit,
+    manualStableLearningBig, manualStableLearningSplitNoName, etc. are
+    created on the fly.  Hopefully this documentation string will help
+    others a bit while grepping for those.
+    """
     for m in manuals:
         manual = m
         # TODO: this is a stupid way of doing it
@@ -244,7 +278,7 @@ def make_manual_links(name, version, lang):
             newurl = url + '/index.html'
         make_ver_link(macroLang("manual"+name+mshort+'SplitNoName',lang),
                   newurl,
-                  manual.capitalize())
+                  getTrans(manual.capitalize(),lang))
 
 def make_regtest_links(name, version, lang):
     ver_split = version.split('.')

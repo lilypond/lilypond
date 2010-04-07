@@ -763,7 +763,7 @@ Otherwise, return #f."
 					 (*indent*)
 					 (first op)
 					 (second op)))
-			       (reverse operations)))
+			       operations))
 			(*indent*)))
 	    (parameterize ((*current-context* ctype))
 	      (music->lily-string music parser)))))

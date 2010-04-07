@@ -152,11 +152,10 @@ or down-stem?")
      (repeat-count ,integer? "Do a @code{\\repeat} how often?")
 
      (span-direction ,ly:dir? "Does this start or stop a spanner?")
-     (span-type ,string? "What kind of spanner should be created? E.g. ligature
-for ligatures, or text or hairpin for (de-)crescendi.
-
-TODO: Consider making type into symbol.")
-     (span-text ,string? "The displayed text for text spanners (e.g. cresc.)")
+     (span-type ,symbol? "What kind of dynamic spanner should be created?
+Options are @code{'text} and @code{'hairpin}.")
+     (span-text ,markup? "The displayed text for dynamic text spanners
+(e.g., cresc.)")
      (split-list ,list? "Splitting moments for part combiner.")
      (start-callback ,procedure? "Function to compute the negative length
 of starting grace notes.  This property can only be defined as initializer
@@ -170,8 +169,6 @@ a @code{StringNumberEvent}.")
 in a part.")
      (tempo-unit ,ly:duration? "The unit for the metronome count.")
      (text ,markup? "Markup expression to be printed.")
-     (text-type ,symbol?
-		"Particular type of text script (e.g., finger, dynamic).")
      (to-relative-callback ,procedure? "How to transform a piece of music
 to relative pitches.")
      (tonic ,ly:pitch? "Base of the scale.")
