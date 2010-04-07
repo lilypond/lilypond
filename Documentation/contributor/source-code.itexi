@@ -88,15 +88,19 @@ commit.
 
 You can go back and make changes to the most recent commit with
 the @qq{Amend previous commit} button.  This is useful if a
-mistake is found after you've clicked the @qq{New local commit}
-button.  To amend the most recent commit, edit the source files as
-needed and click the button.  The earlier version of the commit is
-not saved, but is replaced by the new one.
+mistake is found after you have clicked the @qq{New local commit}
+button.
 
-Note that this does not update patch files; if you have a patch
-file from an earlier version of the commit, you will need to make
-another patch set when using this feature.  The old patch file is
-not saved, but is replaced by the new one.
+To amend the most recent commit, re-edit the source files as
+needed and then click the @qq{Amend previous commit} button.  The
+earlier version of the commit is not saved, but is replaced by the
+new one.
+
+Note that this does not update the patch @strong{files}; if you
+have a patch file from an earlier version of the commit, you will
+need to make another patch set when using this feature.  The old
+patch file will not be saved, but will be replaced by the new one
+after you click on @qq{Make patch set}.
 
 
 @subsubheading Make patch set
