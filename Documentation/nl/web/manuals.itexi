@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 @ignore
-    Translation of GIT committish: 77c34ddc0877c0625a48e1b41049b6dbaae215e0
+    Translation of GIT committish: b275aa092642adb798079f7853309e2f5e4383ce
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -515,7 +515,7 @@ TODO: fix and generate in Texinfo.
 @subheading Te downloaden versies
 
 @ifclear web_version
-Downloadable tarballs only available at @uref{http://lilypond.org}
+Tarballen voor downloaden uitsluitend beschikbaar op @uref{http://lilypond.org}
 @end ifclear
 @ifset web_version
 
@@ -538,15 +538,34 @@ Downloadable tarballs only available at @uref{http://lilypond.org}
 @itemize
 
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
-LilyPond 2.12 Documentation}
+LilyPond 2.12 Documentatie}
+
+@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
+LilyPond 2.11 Documentatie}
 
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
-LilyPond 2.10 Documentation}
+LilyPond 2.10 Documentatie}
 
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
-LilyPond 2.8 Documentation}
+LilyPond 2.8 Documentatie}
 
-@help anybody want to write this stuff?
+@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+LilyPond 2.6 Documentatie}
+
+@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+LilyPond 2.4 Documentatie}
+
+@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+LilyPond 2.2 Documentatie}
+
+@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+LilyPond 2.0 Documentatie}
+
+@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+LilyPond 1.8 Documentatie}
+
+@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+LilyPond 1.6 Documentatie}
 
 @end itemize
 
@@ -558,7 +577,7 @@ LilyPond 2.8 Documentation}
 @unnumberedsec FDL
 
 @divClass{column-center-top}
-@subheading Documentation license
+@subheading Documentatie-licentie
 
 De documentatie voor GNU LilyPond is uitgegeven onder de GNU
 Free Documentation License.  Een inleiding op deze licentie

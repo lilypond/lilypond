@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl; fill-column: 60 -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 95df7225b95a95bebf0ce8af0cb59fe3c2d85d01
+    Translation of GIT committish: b275aa092642adb798079f7853309e2f5e4383ce
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -545,6 +545,15 @@ Frederick Renz met zijn ensemble
 Project}, bladmuziek voor meer dan 1500 klassieke
 muziekstukken vrij te downloaden, de voornaamste verzameling
 van LilyPond partituren.
+
+@c don't make this "Mutopia" a link, since that looks silly.
+@item
+@uref{http://etudeapp.com, Etude}, @qq{bladmuziek op
+steroïden} is een iPhone app die pianomuziek toont die gezet
+is met LilyPond, inclusief vele stukken uit Mutopia.  De app
+heeft een virtueel pianoklavier waarop is te zien welke
+toetsen aangeslagen worden om beginners te helpen bladmuziek
+lezen.
 
 @item
 @uref{http://www.adoromusicpub.com/, Adoro Music
