@@ -1514,13 +1514,10 @@ triangle shape.
     \clef "G_8"
     \palmMuteOn
     e8^\markup { \musicglyph #"noteheads.u2do"  = palm mute }
-    e e
+    < e b' e > e
     \palmMuteOff
     e e  \palmMute e e e |
     e8 \palmMute { e e e } e e e e |
-    \palmMuteOn
-    < e b' e >8 e e e < e b' e >2
-    \palmMuteOff |
     < \palmMute e b' e >8 \palmMute { e e e } < \palmMute e b' e >2
   }
 }
