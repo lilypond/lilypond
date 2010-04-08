@@ -1227,7 +1227,7 @@ Partituren die ingewikkelder zijn dan dit eenvoudige
 voorbeeld kun je beter maken door het uit elkaar trekken van
 de score structuur en de noten en liedteksten door het
 gebruik van variabelen.  Dit wordt behandeld in
-@ref{Organizing pieces with variables}.
+@ref{Stukken organiseren met variabelen}.
 
 
 @seealso
