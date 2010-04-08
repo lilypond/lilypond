@@ -63,7 +63,7 @@
 
   (define shape-note-noteheads
     (get-group glyph-list
-      "^noteheads.[dsu][012](do|re|mi|fa|la|ti)$"))
+      "^noteheads.[dsu][012](do|re|mi|fa|sol|la|ti)$"))
 
   (define clefs       (get-group glyph-list "^clefs\\."))
   (define timesig     (get-group glyph-list "^timesig\\."))
