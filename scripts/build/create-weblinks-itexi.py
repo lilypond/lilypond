@@ -17,7 +17,7 @@ depth = "../"
 
 # don't add your language to this list unless you have all the
 # items.
-langs = ['', 'es']
+langs = ['', 'es', 'nl']
 
 # FIXME: `grep -nH -B1 translationof Documentation/<lang>/web/*'
 # gives us the correct node names.
