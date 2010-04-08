@@ -8,6 +8,10 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c translator: Jan Nieuwenhuizen
+@c revision: Tineke de Munnik
+@c revision committish: fd33752
+
 @node Inleiding
 @unnumbered Inleiding
 @translationof Introduction

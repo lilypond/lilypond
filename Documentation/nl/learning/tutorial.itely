@@ -7,6 +7,10 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c translator: Jan Nieuwenhuizen
+@c revision:
+@c revision committish:
+
 @include included/generating-output.itexi
 
 @c \version "2.12.0"

@@ -7,6 +7,10 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c translator: Jan Nieuwenhuizen
+@c revision:
+@c revision committish:
+
 @setfilename lilypond-learning.info
 @settitle LilyPond beginnershandleiding
 @documentencoding UTF-8

@@ -7,6 +7,10 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c translator: Jan Nieuwenhuizen
+@c revision: Tineke de Munnik
+@c revision committish: fd33752
+
 @setfilename web.info
 @settitle LilyPond -- Muzieknotatie voor iedereen
 @documentencoding UTF-8
