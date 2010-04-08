@@ -1499,6 +1499,33 @@ music = \relative c' {
 >>
 @end lilypond
 
+Another playing technique (especially used on electic guitars) is
+called @notation{palm mute}. The string is hereby partly muted by the
+palm of the striking hand (hence the name). Lilypond supports
+the notation of palm mute-style notes by changing the note head to a
+triangle shape.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice { % Warning: explicit Voice instantiation is
+             %    required to have palmMuteOff work properly
+             %    when palmMuteOn comes at the beginning of
+             %    the piece.
+  \relative c, {
+    \clef "G_8"
+    \palmMuteOn
+    e8^\markup { \musicglyph #"noteheads.u2do"  = palm mute }
+    e e
+    \palmMuteOff
+    e e  \palmMute e e e |
+    e8 \palmMute { e e e } e e e e |
+    \palmMuteOn
+    < e b' e >8 e e e < e b' e >2
+    \palmMuteOff |
+    < \palmMute e b' e >8 \palmMute { e e e } < \palmMute e b' e >2
+  }
+}
+@end lilypond
+
 @seealso
 Snippets:
 @rlsr{Fretted strings}.
