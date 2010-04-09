@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f6e802d4ad4fbbaf3f5c4cc62221df9ed7be1a4d
+    Translation of GIT committish: 0e4c274ff15e99d0149b74996a6722d3ea957489
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -188,8 +188,9 @@ LilyPond funciona en todas las plataformas populares: GNU/Linux, MacOS
 X y Windows.  LilyPond viene con una completa documentación y cientos
 de archivos de ejemplo.  Existe una activa comunidad de usuarios
 dispuesta a responder dudas y cuestiones en la lista de distribución
-de correo de usuarios de Lilypond, mientras que el equipo de
-desarrollo se asegura de que los problemas se resuelven con prontitud.
+de correo de usuarios de LilyPond, lilypond-user, mientras que el
+equipo de desarrollo se asegura de que los problemas se resuelven con
+prontitud.
 
 
 @divClass{column-center-bottom}
@@ -210,16 +211,6 @@ LilyPond es una herramienta potente y flexible para tareas de grabado
 musical de todo tipo.  Explore libremente nuestra galería de ejemplos
 e ¡inspírese!
 
-@ignore
-Here is a passage from Franz Liszt's solo piano transcription
-of the Overture to Wagner's @emph{Tannhäuser}. The spacing
-in this example was all performed by Lilypond's formatting
-algorithms, without tweaks of any kind. It
-handles cross-staff beaming gracefully and puts the system brace
-perfectly around all three staves.
-
-@exampleImage{liszt-wagner}
-@end ignore
 
 @newsItem
 @subsubheading Música Clásica
@@ -244,7 +235,7 @@ líneas de seguimiento de voces.
 @newsItem
 @subsubheading Música antigua
 
-Lilypond también contempla distintos tipos de notación antigua, como
+LilyPond también contempla distintos tipos de notación antigua, como
 este pasaje de canto gregoriano.
 
 @exampleImage{ancient-headword}
@@ -253,7 +244,7 @@ este pasaje de canto gregoriano.
 @newsItem
 @subsubheading Música moderna
 
-Los compositores contemporáneos encuentran que Lilypond es adecuado
+Los compositores contemporáneos encuentran que LilyPond es adecuado
 para la impresión de notación inusual.  He aquí un extracto de la obra
 @emph{Čáry}, de Trevor Bača, para flauta baja sola.
 
@@ -281,7 +272,7 @@ y una particella de violín.
 @newsItem
 @subsubheading Tablatura
 
-Lilypond contempla la notación de cifra para guitarra, que se puede
+LilyPond contempla la notación de cifra para guitarra, que se puede
 personalizar para adaptarla a cualquier instrumento que lea de
 tablatura.  La pauta de tablatura se genera automáticamente a partir
 de las notas que se escriben para el pentagrama normal.
@@ -292,8 +283,10 @@ de las notas que se escriben para el pentagrama normal.
 @newsItem
 @subsubheading Gráficos de Schenker
 
-La salida estándar se puede modificar de forma muy profunda.  Aquí,
-alguien ha creado un impresionante análisis schenkeriano.
+La salida estándar se puede modificar de forma muy profunda.  He aquí
+un impresionante análisis schenkeriano creado por Kris Schaffer, para
+un artículo de la revista
+@uref{http://www.linuxjournal.com/article/8364 , Linux Journal}
 
 @exampleImage{bach-schenker}
 @newsEnd
@@ -301,11 +294,11 @@ alguien ha creado un impresionante análisis schenkeriano.
 @newsItem
 @subsubheading Música vocal
 
-Lilypond es excelente para todo tipo de música vocal, desde himnos de
+LilyPond es excelente para todo tipo de música vocal, desde himnos de
 música sacra hasta óperas.  Presentamos a continuación un motete
 medieval con unos requisitos ligeramente inusuales.  La voz de tenor
 está escrita en un compás distinto a las otras pero debe alinearse
-como si estuviera en el mismo compás.  Lilypond trata esta situación
+como si estuviera en el mismo compás.  LilyPond trata esta situación
 con suma elegancia.  Observe también los incipit con las claves en el
 estilo de la edición Vaticana, las plicas barradas que indican notas
 repetidas, y los corchetes de ligadura por encima de ciertos grupos de
@@ -317,7 +310,7 @@ notas.
 @newsItem
 @subsubheading Aplicaciones para la educación
 
-Lilypond está muy indicado también para aplicaciones educativas.  He
+LilyPond está muy indicado también para aplicaciones educativas.  He
 aquí un ejemplo de un sencillo ejercicio de contrapunto.
 
 @exampleImage{theory}
@@ -338,7 +331,7 @@ para cumplir con casi cualquier situación.
 @newsItem
 @subsubheading Proyectos grandes
 
-Lilypond es excelente para proyectos grandes como óperas u obras para
+LilyPond es excelente para proyectos grandes como óperas u obras para
 orquesta sinfónica, también.  Además, la entrada basada en texto
 proporciona una mayor accesibilidad (este ejemplo ha sido aportado por
 Hu Haipeng, un compositor ciego).
@@ -453,8 +446,9 @@ desarrolladores desean @qq{devolver} algo a la comunidad.
 @item
 Experiencia laboral: las contribuciones a proyectos de código abierto
 son una magnífica forma de practicar la programación, la escritura de
-documentación o el diseño.  Esta experiencia ha ayudado a muchos
-programadores a encontrar trabajo en empresas o en universidades.
+documentación, la traducción de documentación o el diseño.  Esta
+experiencia ha ayudado a muchos programadores a encontrar trabajo en
+empresas o en universidades.
 
 
 @end itemize
@@ -505,7 +499,7 @@ de texto}.
 @divClass{column-left-top}
 @subheading Conciertos
 
-La música grabada con Lilypond se ha utilizado en interpretaciones y
+La música grabada con LilyPond se ha utilizado en interpretaciones y
 actuaciones por todo el mundo.  Algunos titulares:
 
 @divClass{keep-bullets}
@@ -548,6 +542,15 @@ York} (realización tipográfica de Nicolas Sceaux).
 El @uref{http://www.mutopiaproject.org/index.html, Proyecto Mutopia}
 incluye más de 1500 partituras de música clásica para su libre
 descarga, y es el principal escaparate de partituras de LilyPond.
+
+@c don't make this "Mutopia" a link, since that looks silly.
+@item
+@uref{http://etudeapp.com, Etude}, @qq{partituras en versión extra} es
+una aplicación para el iPhone que presenta en pantalla música para
+piano editada con LilyPond, entre ellas muchas piezas procedentes de
+Mutopia.  La aplicación incluye un teclado virtual de piano que
+muestra las teclas que hay que pulsar para ayuda de los principiantes
+que están aprendiendo a leer música.
 
 @item
 @uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
@@ -634,7 +637,7 @@ las más recientes de @q{las editoras antiguas}). (...)}
 @divClass{testimonial-item}
 @subsubheading Chris Cannam, programador principal del proyecto @uref{http://www.rosegardenmusic.com/, RoseGarden}
 
-@qq{Lilypond es, obviamente, King Kong [de la tipografía musical a lo
+@qq{LilyPond es, obviamente, King Kong [de la tipografía musical a lo
 grande].}
 @divEnd
 
@@ -665,7 +668,7 @@ convencido de que ningún producto comercial se le acerca ni de lejos.}
 @divClass{testimonial-item}
 @subsubheading David Bobroff, trombón bajo, Orquesta Sinfónica de Islandia
 
-@qq{Creo que Lilypond es genial (...) cuanto más aprendo de LilyPond,
+@qq{Creo que LilyPond es genial (...) cuanto más aprendo de LilyPond,
 ¡más me gusta!}
 @divEnd
 
@@ -687,7 +690,7 @@ dedicación!}
 
 @qq{Tenía una especie de relación pasión-odio con LilyPond. Pasión
 porque la primera partitura que vi ¡era tan increíble!  La descripción
-de Lilypond se fundamenta en la belleza. ¡Esto es demasiada modestia!
+de LilyPond se fundamenta en la belleza. ¡Esto es demasiada modestia!
 (...) conforme LilyPond mejora continuamente y observo cómo se hacen
 las cosas con Scheme, tengo cada vez menos frustraciones.  De
 cualquier forma, lo que quiero decir es: gracias por darnos LilyPond,
@@ -947,7 +950,7 @@ Emacs es un editor de texto con funcionalidades avanzadas para muchos
 lenguajes de programación.  Emacs es un editor ampliamente expansible y
 se puede usar como un entorno integrado de desarrollo.  Existe un
 @q{modo de lilypond} que ofrece las definiciones del lenguaje para
-trabajar sobre archivos fuente de Lilypond.
+trabajar sobre archivos fuente de LilyPond.
 
 @uref{http://www.vim.org}
 

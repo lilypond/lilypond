@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 56905a4e7a87120c763e1f28a6294264258d2ac1
+    Translation of GIT committish: 0efe4dff23a1c3313387c68613c04adfb58fbb15
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -760,7 +760,7 @@ Art of Shipping}.  Forum Internacional Software Livre 2006 (FISL7.0)
 
 @item
 Erik Sandberg, @emph{Separating input language and formatter in GNU
-Lilypond}. Master's Thesis, Uppsala University, Department of
+LilyPond}. Master's Thesis, Uppsala University, Department of
 Information Technology, marzo de 2006.
 (@uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf, PDF
 750k})
@@ -818,7 +818,7 @@ Linux Journal publica un artículo titulado
 @uref{http://www.linuxjournal.com/article/8364, Elabore fantásticos
 gráficos de Schenker con GNU LilyPond}.  Es un artículo destacado,
 profundo pero práctico con atractivos gráficos de LilyPond.  El autor,
-Kris Shaffer, destaca: @qq{GNU Lilypond genera unos gráficos preciosos
+Kris Shaffer, destaca: @qq{GNU LilyPond genera unos gráficos preciosos
 que hace a las alternativas comerciales parecer de segunda fila.}
 
 @item

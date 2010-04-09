@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: fff56b6d7326cb0bdcd781e2635c86c6972d6195
+    Translation of GIT committish: 23299d4b138d032fc3ca47df7de6b52e4dec159b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -17,6 +17,23 @@
 @c used for news about the upcoming release; see CG x.y
 @c DO NOT WRITE BETWEEN THESE LINES
 @c DO NOT WRITE BETWEEN THESE LINES
+
+@newsItem
+@subsubheading LilyPond 2.13.17 released!  @emph{April 2, 2010}
+
+We are happy to announce the release of LilyPond 2.13.17.  This
+release includes bugfixes for 4 critical issues.  However, 15
+critical issues still remain, so this release is intended for
+developers only.
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.13.16 released!  @emph{March 15, 2010}
+
+We are happy to announce the release of LilyPond 2.13.16.  This
+release is intended for developers only, and includes the usual
+round of bugfixes.
+@newsEnd
 
 @newsItem
 @subsubheading ¡Lanzado LilyPond 2.13.15!  @emph{4 de marzo de 2010}
@@ -41,12 +58,4 @@ LilyPond número 17} (en inglés) ahora mismo!
 
 @newsEnd
 
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.14!  @emph{27 de febrero de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.14.  Esta
-versión está orientada a los desarrolladores solamente, e incluye una
-amplia actualización de la traducción, además de la ronda usual de
-correcciones de fallos.
-@newsEnd
 
