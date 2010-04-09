@@ -17,10 +17,20 @@ depth = "../"
 
 # don't add your language to this list unless you have all the
 # items.
+# Hmm, is this a feature -- why not keep original english as a fallback?
 langs = ['', 'es', 'nl']
 
-# FIXME: `grep -nH -B1 translationof Documentation/<lang>/web/*'
-# gives us the correct node names.
+# Get/update node translations
+'''
+for i in es fr nl de hu ja it; do
+    echo "'"$i"': {"
+    (echo '--' ; grep -nH -B1 translationof Documentation/$i/web/*) \
+        | pytt '^--\n.*@(?:unnum|sub)[^ ]* (.*)\n.*@translationof (.*)\n' "'\2': '\1',\n" \
+        | grep -E 'Source|Learning|Glossary|Essay|Notation|Usage|Snippets|Web|Changes|Extending|Internals|Contributor'
+    echo "},"
+done
+'''
+
 translations = {
     'es': {
         'Source': 'Código fuente',
@@ -50,9 +60,19 @@ translations = {
         ' (did not exist in 2.12)': ' (no existía en la versión 2.12)',
      },
     'fr': {
-        'Learning': 'Apprener?',
-        'Music glossary': 'Lizes ici pour les motes?',
-     },
+        'Source': 'Sources',
+        'Learning': 'Initiation',
+        'Music glossary': 'Glossaire',
+        'Essay': 'Essai',
+        'Notation': 'Notation',
+        'Usage': 'Utilisation',
+        'Snippets': 'Morceaux choisis',
+        'Web': 'Web',
+        'Changes': 'Nouveautés',
+        'Internals': 'Propriétés internes',
+
+        #TODO
+        },
     'nl': {
         'Source': 'Broncode',
 
@@ -80,7 +100,50 @@ translations = {
         'Doc tarball for ': 'Tarball met documentation voor ',
         ' (did not exist in 2.12)': ' (bestond nog niet in 2.12)',
      },
-}
+    'de': {
+        'Source': 'Quellen',
+        'Learning': 'Einführung',
+        'Music glossary': 'Glossar',
+        'Essay': 'Aufsatz',
+        'Notation': 'Notation',
+        'Usage': 'Benutzung',
+        'Snippets': 'Schnipsel',
+        'Web': 'Web',
+        'Changes': 'Änderungen',
+        'Internals': 'Interna',
+
+        #TODO
+        },
+    'hu': {
+        'Source': 'Forrás',
+        'Learning': 'Tankönyv',
+        'Music glossary': 'Fogalomtár',
+        'Essay': 'Esszé',
+        'Notation': 'Kottaírás',
+        'Usage': 'Használat',
+        'Snippets': 'Kódrészletek',
+        'Web': 'Web',
+        'Changes': 'Változások',
+        'Internals': 'Belső működés',
+
+        #TODO
+        },
+    'ja': {
+        'Source': 'ソース',
+        'Learning': '学習',
+        'Music glossary': '用語集',
+        'Essay': 'エッセー',
+        'Notation': '記譜法',
+        'Usage': '使用方法',
+        'Snippets': 'コード断片集',
+        'Web': 'Web',
+        'Changes': '変更点',
+        'Internals': '内部リファレンス',
+
+        #TODO
+        },
+    }
+
 
 
 
