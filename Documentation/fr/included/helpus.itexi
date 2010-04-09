@@ -38,7 +38,7 @@ La liste de diffusion : répondre aux questions des autres utilisateurs.
 
 @item
 Les rapports de bogue : aider les utilisateurs à rédiger correctement
-et traduire leurs @rweb{Rapports de bogue}, puis aider l'équipe des
+et traduire leurs @rweb{Bug reports}, puis aider l'équipe des
 correcteurs à traiter ces @rcontribnamed{Issues,problèmes}.
 
 @item
