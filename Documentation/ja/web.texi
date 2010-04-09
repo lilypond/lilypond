@@ -207,49 +207,52 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
 @subheading お読みください
 
-@itemize
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
 
-@c normal case, special online case
+@end macro
+
+
+@macro docLinkSplit{name,base,webLink}
 @ifclear web_version
-  @item \refLink\:
+  @uref{../\base\/index.html, \name\ (split HTML)}
 @end ifclear
 @ifset web_version
-  @c we assume that the online web version will be split html
-  @item \split\:
+  \webLink\
 @end ifset
-マニュアルをこのページと同じフォーマットで読むことができます。
+@end macro
 
-@end itemize
+@macro docLinkBig{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\-big-page.html, \name\ (big HTML)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
 
-@subheading すべてのフォーマット
+@macro docLinkPdf{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\.pdf, \base\.pdf}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
 
 @divClass{keep-bullets}
 @itemize
 
-@ifclear web_version
-  @item @uref{../\base\/index.html, \name\ (分割 HTML)}:
-@end ifclear
-@ifset web_version
-  @item \split\
-@end ifset
+@item @docLinkSplit{\name\,\base\,\split\} @minus{}
   このマニュアルはいくつもの HTML ページに分割されています。
-  @*@ @ @emph{(ページごとの小さなダウンロード)}
+  @*@ @ @emph{(small download for each page)}
 
-@ifclear web_version
-  @item @uref{../\base\-big-page.html, \name\ (大きな HTML)}:
-@end ifclear
-@ifset web_version
-  @item \big\
-@end ifset
+@item @docLinkBig{\name\,\base\,\big\} @minus{}
   このマニュアルは 1 つの巨大な HTML ページです。
-  @*@ @ @emph{(大きな単一のダウンロード。 \bigsize\)}
+  @*@ @ @emph{(large single download, \bigsize\)}
 
-@ifclear web_version
-  @item @uref{../\base\.pdf, \base\.pdf}:
-@end ifclear
-@ifset web_version
-  @item \pdf\
-@end ifset
+@item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
   日本語では PDF 形式での提供はありません。
   @*@ @ @emph{(large single download, \pdfsize\)}
 
@@ -258,7 +261,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @divEnd
 
 @end macro
-
 
 @c don't add any extra spaces in this macro -gp
 @macro ifWebLinks{webLink,normalLink}
