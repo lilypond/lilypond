@@ -65,13 +65,13 @@ diesen Diskussionen teil!
 @warning{Diese Aufgaben setzen voraus, dass Sie die Quellen
 von Programm und Dokumentation haben; Sie brauchen aber keine volle
 Entwicklungsumgebung.  Siehe
-@rcontribnamed{Starting with git,Mit git beginnen}.}
+@rcontribnamed{Starting with Git,Mit Git beginnen}.}
 
 @itemize
 @item
 Dokumentation: siehe
 @rcontribnamed{Documentation work,Arbeit an der Dokumentation} und
-@rcontribnamed{Building documentation without compiling LilyPond,Kompilieren der Dokumenation ohne LilyPond zu kompilieren}.
+@rcontribnamed{Building documentation without compiling,Kompilieren der Dokumenation ohne LilyPond zu kompilieren}.
 
 @item
 Website: die Website wird aus der Quelle der Dokumentation
@@ -90,7 +90,7 @@ zusätzlich @rcontribnamed{Website work,Arbeit an der Webseite}.
 
 @warning{Diese Aufgaben erfordern, dass Sie die Quellen haben
 und LilyPond kompilieren können.  Siehe
-@rcontribnamed{Starting with git,Mit git beginnen}
+@rcontribnamed{Starting with Git,Mit Git beginnen}
 und @rcontribnamed{Compiling LilyPond,LilyPond kompilieren}.}
 
 Wir empfehlen, dass neue Mithelfer, die Windows benutzen, eine
