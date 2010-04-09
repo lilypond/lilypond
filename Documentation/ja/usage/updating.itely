@@ -30,10 +30,16 @@ LilyPond の入力構文は、さまざまな方法で単純化または改善�
 
 
 @menu
+* 何故構文は変更されるのか？::
 * convert-ly を呼び出す::
 * convert-ly のコマンド ライン オプション::
 * convert-ly の問題点::
 @end menu
+
+@node 何故構文は変更されるのか？
+@section 何故構文は変更されるのか？
+@translationof Why does the syntax change?
+@untranslated
 
 @node convert-ly を呼び出す
 @section @command{convert-ly} を呼び出す
