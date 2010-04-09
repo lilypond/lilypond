@@ -7,6 +7,8 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@include included/generating-output.itexi
+
 @node Letöltés
 @unnumbered Letöltés
 @translationof Download
