@@ -69,7 +69,7 @@ n'exigent pas un environnement de développement complet. Voir
 @item
 Documentation : voir
 @rcontribnamed{Documentation work,Travailler sur la documentation} et
-@rcontribnamed{Building documentation without compiling LilyPond,Générer la documentation sans compiler LilyPond}.
+@rcontribnamed{Building documentation without compiling,Générer la documentation sans compiler}.
 
 @item
 Site web : le site web est compilé par le même code source
