@@ -341,6 +341,28 @@ manuel de notation est accessible par des liens dans le paragraphe
 
 @divEnd
 
+@node Web
+@unnumberedsec Web
+@translationof Web
+
+@divClass{column-left-top}
+@subheading Web
+
+Ce document fournit des informations générales sur LilyPond et sur les
+outils de la communauté, c'est-à-dire les listes de discussion, les
+rapports de bogues et le développement.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Web, web,
+  @ref{Top,,,,Web},
+  @manualStableWebSplit,
+  @manualStableWebBig, 1 MB,
+  @manualStableWebPdf, 2 MB}
+
+@divEnd
 
 @node FAQ
 @unnumberedsec FAQ
@@ -384,30 +406,6 @@ remettre à plat,Résolution de problèmes}.
 @c FIXME : corriger cette phrase lorsque la section correspondante sera
 @c traduite -JM
 C'est expliqué (en anglais) dans @rprogram{Why does the syntax change?}.
-
-@divEnd
-
-
-@node Web
-@unnumberedsec Web
-@translationof Web
-
-@divClass{column-left-top}
-@subheading Web
-
-Ce document fournit des informations générales sur LilyPond et sur les
-outils de la communauté, c'est-à-dire les listes de discussion, les
-rapports de bogues et le développement.
-
-@divEnd
-
-@divClass{column-right-bottom}
-
-@docLinks{Web, web,
-  @ref{Top,,,,Web},
-  @manualStableWebSplit,
-  @manualStableWebBig, 1 MB,
-  @manualStableWebPdf, 2 MB}
 
 @divEnd
 
