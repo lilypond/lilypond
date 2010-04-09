@@ -154,8 +154,8 @@ Plus sur LilyPond dans notre @ref{Introduction} !
 @divClass{hide}
 @menu
 * Introduction::        Comment créer des partitions
-* Download::            Télécharger LilyPond
-* Manuals::             Bibliothèque de LilyPond
+* Téléchargement::            Télécharger LilyPond
+* Manuels::             Bibliothèque de LilyPond
 * Community::           Comment contacter d'autres utilisateurs
 @end menu
 @divEnd
