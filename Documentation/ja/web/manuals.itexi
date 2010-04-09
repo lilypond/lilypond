@@ -587,7 +587,7 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 @subsubheading 何かがうまくいっていません！どうやって直せば良いのですか？
 @c Something isn't working!  How do I fix it?
 
-修正方法については、@rprogram{トラブルシューティング} で説明されています。
+修正方法については、@rprogram{トラブルシューティング (すべてをバラバラにする)} で説明されています。
 @c @rprogram{Troubleshooting}.
 
 
