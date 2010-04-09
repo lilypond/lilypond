@@ -9,6 +9,8 @@
 
 @c Translators: Till Paala
 
+@include included/generating-output.itexi
+
 @macro warningTextBased
 @warning{LilyPond ist ein @strong{textbasiertes} Notationsprogramm,
 es ähnelt eher einer Programmiersprache als einem graphischen
