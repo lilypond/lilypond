@@ -451,22 +451,13 @@ printing of a single line of lyrics."
 }
 
 
-RemoveEmptyStaffContext = \context {
-  \Staff
+RemoveEmptyStaves = \with {
   \remove "Axis_group_engraver"
   \consists "Hara_kiri_engraver"
   \override Beam #'auto-knee-gap = #'()
   \override VerticalAxisGroup #'remove-empty = ##t
 }
 
-AncientRemoveEmptyStaffContext = \context {
-%% why not add by default?
-
-  \RemoveEmptyStaffContext
-  \accepts "VaticanaVoice"
-  \accepts "GregorianTranscriptionVoice"
-  \accepts "MensuralVoice"
-}
 
 \context {
   \type "Score_engraver"
@@ -980,24 +971,35 @@ accommodated for typesetting a piece in mensural style."
   printKeyCancellation = ##f
 }
 
+
+%% Keep the old definitions in here for compatibility (they erase previous
+%% settings to the corresponding context!).
+%% For new scores, one should simply insert the \RemoveEmptyStaves settings
+%% into the desired context. That's just as easy, requires only one line more
+%% (the \*Staff), but preserves previous context mods.
+%% TODO: DEPRECATED_2.13.17, remove at some point in the future
+RemoveEmptyStaffContext = \context {
+  \Staff
+  \RemoveEmptyStaves
+}
+
+AncientRemoveEmptyStaffContext = \context {
+  \VaticanaStaff
+  \RemoveEmptyStaves
+}
+
 RemoveEmptyDrumStaffContext = \context {
   \DrumStaff
-  \remove "Axis_group_engraver"
-  \override VerticalAxisGroup #'remove-empty = ##t
-  \consists "Hara_kiri_engraver"
+  \RemoveEmptyStaves
 }
 
 RemoveEmptyRhythmicStaffContext = \context {
   \RhythmicStaff
-  \remove "Axis_group_engraver"
-  \override VerticalAxisGroup #'remove-empty = ##t
-  \consists "Hara_kiri_engraver"
+  \RemoveEmptyStaves
 }
 
 RemoveEmptyTabStaffContext = \context {
   \TabStaff
-  \remove "Axis_group_engraver"
-  \override VerticalAxisGroup #'remove-empty = ##t
-  \consists "Hara_kiri_engraver"
+  \RemoveEmptyStaves
 }
 

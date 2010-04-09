@@ -513,6 +513,14 @@ New York} (engraving by Nicolas Sceaux).
 over 1500 pieces of classical sheet music for free download, and
 the main showcase of LilyPond scores.
 
+@c don't make this "Mutopia" a link, since that looks silly.
+@item
+@uref{http://etudeapp.com, Etude}, @qq{sheet music on steroids} is
+an iPhone app which displays piano music engraved with LilyPond,
+including many pieces from Mutopia.  The app includes a virtual
+piano keyboard showing which keys to press to help beginners learn
+how to read sheet music.
+
 @item
 @uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
 high-quality scores of sacred music, available for immediate

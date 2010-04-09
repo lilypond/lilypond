@@ -676,7 +676,7 @@ inside of and outside of chord construct."
 ;; Make a function that checks score element for being of a specific type.
 (define-public (make-type-checker symbol)
   (lambda (elt)
-    (not (eq? #f (memq symbol (ly:grob-property elt 'interfaces))))))
+    (grob::has-interface elt symbol)))
 
 (define-public ((outputproperty-compatibility func sym val) grob g-context ao-context)
   (if (func grob)

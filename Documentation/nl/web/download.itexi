@@ -73,7 +73,8 @@ voor packagers
 @ref{Oude downloads}:
 oude versies
 
-@item @ref{Ontwikkeling}:
+@c community.itexi met `Ontwikkeling' is nog niet vertaald
+@item @ref{Development}:
 meest recente ontwikkelversie
 
 @end itemize

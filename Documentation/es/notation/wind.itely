@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3dd9b13331489a191d0e901245cc98476e5fcac1
+    Translation of GIT committish: 1d3fcd871b4312feb27047b4dda0d45bd4b55453
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -94,12 +94,22 @@ Fragmentos de código:
 @unnumberedsubsubsec Digitaciones
 @translationof Fingerings
 
-@c TODO add link to LSR snippet by Libero Mureddo once he has added
-@c it (after August 15th).
 Todos los instrumentos de viento aparte del trombón requieren el uso
 de los distintos dedos para producir cada nota.
 
-[REDACTAR]
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{fingering-symbols-for-wind-instruments.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{recorder-fingering-chart.ly}
+
+@seealso
+
+Fragmentos de código:
+@rlsr{Winds}.
+
 
 @node Gaita
 @subsection Gaita

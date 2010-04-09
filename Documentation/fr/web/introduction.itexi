@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: dee4f5842abe7e7f638485b7b36e9e0dffa56b3e
+    Translation of GIT committish: c650e54334b64e0e9fd534ee13742f6c07257637
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -102,6 +102,7 @@ amis et collègues avec des partitions soignées !
 @unnumberedsec Fonctionnalités
 @translationof Features
 
+@ignore
 @help{on voudrait une tentative enthousiaste
 d'incitation à essayer LilyPond.  Les avertissements sur l'écriture de
 la musique sous forme de texte attendront le cours express, ils n'ont
@@ -111,7 +112,7 @@ S'inspirer de
 @uref{http://lilypond.org/web/about/features} et
 @uref{http://lilypond.org/web/switch/tour} et
 @uref{http://lilypond.org/web/switch/advantages}
-
+@end ignore
 
 
 @subheading Pourquoi passer à LilyPond ?
@@ -492,6 +493,7 @@ lire d'abord @ref{Entrée sous forme de texte}.
 @c Frankly, a node just for redirecting the reader just after a reading
 @c direction paragraph is a bit dense, I'd really like to merge this
 @c node into the previous paragraph. -JM
+
 @node Contexte
 @unnumberedsec Contexte
 @translationof Background
@@ -856,7 +858,7 @@ partition.  Pour plus de détails, voir @ref{Facilités d'édition}.
 @divClass{column-center-bottom}
 @subheading Et ensuite ?
 
-Vous êtes désormais prêt(e) à @ref{Download,télécharger LilyPond}.  Si
+Vous êtes désormais prêt(e) à @ref{Téléchargement,télécharger LilyPond}.  Si
 vous n'êtes toujours pas convaincu(e), examinez les @ref{Facilités
 d'édition}.
 
@@ -1017,24 +1019,19 @@ svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
 @divClass{column-center-top}
 @subheading Autres programmes qui exportent du code LilyPond
 
-@ignore
-TODO: change url back to full adress, to make it readable in printouts -ch
-@end ignore
-
-@help mettre de l'ordre dans cette liste, vérifier les liens, etc.
 
 @subsubheading Environnements graphiques
 
 @itemize
 @item
-@uref{http://@/noteedit@/.berlios@/.de,NoteEdit}
-qui importe du @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
+@uref{http://noteedit.berlios.de,NoteEdit}
+qui importe du @uref{http://www.musicxml.com/xml.html,MusicXML}
 @item
-@uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden},
+@uref{http://www.rosegardenmusic.com,Rosegarden},
 qui importe du MIDI
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
-qui a une fonction d'export expérimentale pour LilyPond.
+qui a une fonction expérimentale d'export pour LilyPond.
 @item
 @uref{http://www.tuxguitar.com.ar/,TuxGuitar} peut exporter du code LilyPond.
 @item
@@ -1043,17 +1040,20 @@ qui a une fonction d'export expérimentale pour LilyPond.
 @uref{http://canorus.org,Canorus} peut également exporter vers LilyPond,
 mais est encore au stade de développement bêta.  Les testeurs sont les
 bienvenus.
+@uref{http://lilycomp.sourceforge.net,LilyComp} permet de saisir
+graphiquement des notes.  Il fonctionne comme un pavé numérique
+permettant de produire de la notation LilyPond.
 @end itemize
 
 @subsubheading Outils en ligne de commande
 
 @itemize
 @item
-@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, un
+@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, un
 convertisseur monophonique temps-réel MIDI vers LilyPond.
 @item
-@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, un mode
-Emacs majeur.
+@uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}, un mode
+majeur pour Emacs.
 @item
 @uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
 un bibliothèque LISP de génération de notation musicale.

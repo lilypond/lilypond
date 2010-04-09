@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: da016f2a73d350d86eeb78a07eaeaaf0ef3123a6
+    Translation of GIT committish: ba9298b3ea614367f3f463134bf49ba2cbd8c1fb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1393,10 +1393,10 @@ el sello de cada uno de ellos a @code{#f}, como sigue:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
       }
@@ -1406,7 +1406,7 @@ el sello de cada uno de ellos a @code{#f}, como sigue:
         { f8 f c }
       }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1456,10 +1456,10 @@ Así pues, podemos reemplazar el ejemplo anterior con
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         % Don't print clefs in this staff
@@ -1467,9 +1467,9 @@ Así pues, podemos reemplazar el ejemplo anterior con
         % Don't print time signatures in this staff
         \override TimeSignature #'stencil = ##f
       }
-        { f8 f c }
+      { f8 f c }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1526,10 +1526,10 @@ Vamos a probarlo en nuestro ejemplo del ossia:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         \override Clef #'stencil = ##f
@@ -1537,9 +1537,9 @@ Vamos a probarlo en nuestro ejemplo del ossia:
         % Reduce all font sizes by ~24%
         fontSize = #-2
       }
-        { f8 f c }
+      { f8 f c }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1595,10 +1595,10 @@ siguiente forma:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
-    r4 g8 g c4 c8 d |
+    r4 g8 g c4 c8 d
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         \override Clef #'stencil = ##f
@@ -1607,9 +1607,9 @@ siguiente forma:
         % Reduce stem length and line spacing to match
         \override StaffSymbol #'staff-space = #(magstep -2)
       }
-        { f8 f c }
+      { f8 f c }
     >>
-    r4 |
+    r4
   }
 }
 @end lilypond
@@ -1708,9 +1708,9 @@ acomodado por debajo de @q{Text2}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
-c^"Text2"
-c^"Text3"
-c^"Text4"
+c2^"Text2"
+c2^"Text3"
+c2^"Text4"
 @end lilypond
 
 Los pentagramas también se posicionan, de forma predeterminada, tan
@@ -1724,10 +1724,10 @@ pentagramas adyacentes:
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Staff {
-    \relative c' { c a, }
+    \relative c' { c4 a, }
   }
   \new Staff {
-    \relative c'''' { c a, }
+    \relative c'''' { c4 a, }
   }
 >>
 @end lilypond
@@ -1779,11 +1779,11 @@ comportamiento predeterminado.
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4 g c a
 \override Stem #'direction = #DOWN
-a g c a
+a4 g c a
 \override Stem #'direction = #UP
-a g c a
+a4 g c a
 \revert Stem #'direction
-a g c a
+a4 g c a
 @end lilypond
 
 Aquí utilizamos las constantes @code{DOWN} (abajo) y @code{UP}
@@ -1957,19 +1957,19 @@ Aquí podemos ver algunos ejemplos:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left down)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(right)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 @end lilypond
 
 @noindent
@@ -1982,19 +1982,19 @@ objeto @code{Fingering} del RFI que es @code{-5}, así que probaremos
 \override Fingering #'font-size = #-7
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left down)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(right)
 <f-2>
-< c-1  e-2 g-3 b-5 > 4
+<c-1 e-2 g-3 b-5>4
 @end lilypond
 
 
@@ -2080,18 +2080,18 @@ de ellos.
 \dynamicUp
 % Start Ottava Bracket
 \ottava #1
-c' \startTextSpan
+c'4 \startTextSpan
 % Add Dynamic Text and hairpin
-c\pp\<
-c
+c4\pp\<
+c4
 % Add Text Script
-c^Text
-c c
+c4^Text
+c4 c
 % Add Dynamic Text and terminate hairpin
-c\ff c \stopTextSpan
+c4\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
-c, c c c
+c,4 c c c
 @end lilypond
 
 Este ejemplo también muestra cómo crear textos con extensión (Text
@@ -2154,19 +2154,19 @@ recordando que @code{OttavaBracket} se crea dentro del contexto de
 \once \override Staff.OttavaBracket #'outside-staff-priority = #340
 % Start Ottava Bracket
 \ottava #1
-c' \startTextSpan
+c'4 \startTextSpan
 % Add Dynamic Text
-c\pp
+c4\pp
 % Add Dynamic Line Spanner
-c\<
+c4\<
 % Add Text Script
-c^Text
-c c
+c4^Text
+c4 c
 % Add Dynamic Text
-c\ff c \stopTextSpan
+c4\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
-c, c c c
+c,4 c c c
 @end lilypond
 
 @cindex ligaduras y outside-staff-priority
@@ -2189,13 +2189,13 @@ fuera del pentagrama de acuerdo con este valor.  He aquí un ejemplo
 que muestra el efecto de los dos métodos:
 
 @lilypond[quote,verbatim,relative=2]
-c4( c^\markup\tiny\sharp d4.) c8
+c4( c^\markup { \tiny \sharp } d4.) c8
 c4(
 \once \override TextScript #'avoid-slur = #'inside
 \once \override TextScript #'outside-staff-priority = ##f
-c^\markup\tiny\sharp d4.) c8
+c4^\markup \tiny \sharp d4.) c8
 \once \override Slur #'outside-staff-priority = #500
-c4( c^\markup\tiny\sharp d4.) c8
+c4( c^\markup { \tiny \sharp } d4.) c8
 @end lilypond
 
 Los cambios en @code{outside-staff-priority} también se pueden emplear
@@ -2212,10 +2212,10 @@ aumentar la prioridad de @qq{Text3} hasta un valor superior:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
-c^"Text2"
+c2^"Text2"
 \once \override TextScript #'outside-staff-priority = #500
-c^"Text3"
-c^"Text4"
+c2^"Text3"
+c2^"Text4"
 @end lilypond
 
 Esto, ciertamente, eleva a @qq{Text3} por encima de @qq{Text4} pero
@@ -2245,9 +2245,9 @@ sea necesario para acomodar el texto:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \textLengthOn  % Cause notes to space out to accommodate text
 c2^"Text1"
-c^"Text2"
-c^"Text3"
-c^"Text4"
+c2^"Text2"
+c2^"Text3"
+c2^"Text4"
 @end lilypond
 
 La instrucción para volver al comportamiento predeterminado es
@@ -2307,8 +2307,8 @@ aceptables, como muestra este ejemplo:
 \key aes \major
 \time 9/8
 \dynamicUp
-bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
-ees,2.~\)\mf ees4 r8 |
+bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\!
+ees,2.~\)\mf ees4 r8
 @end lilypond
 
 Sin embargo, si las notas y sus indicaciones dinámicas adosadas están
@@ -2699,11 +2699,11 @@ b2\fermata
 @cindex padding, propiedad, ejemplo
 
 @lilypond[quote,fragment,relative=1,verbatim]
-% This will not work, see below:
+% This will not work, see below
 \override MetronomeMark #'padding = #3
 \tempo 4=120
 c1
-% This works:
+% This works
 \override Score.MetronomeMark #'padding = #3
 \tempo 4=80
 d1
@@ -2745,18 +2745,18 @@ deseados, así:
 @lilypond[quote,ragged-right,verbatim]
 sesquisharp = \markup { \sesquisharp }
 \relative c'' {
-  c
+  c4
   % This prints a sesquisharp but the spacing is too small
   \once \override Accidental
     #'stencil = #ly:text-interface::print
   \once \override Accidental #'text = #sesquisharp
-  cis c
+  cis4 c
   % This improves the spacing
   \once \override Score.AccidentalPlacement #'right-padding = #0.6
   \once \override Accidental
     #'stencil = #ly:text-interface::print
   \once \override Accidental #'text = #sesquisharp
-  cis
+  cis4
 }
 @end lilypond
 
@@ -2813,9 +2813,9 @@ de la nota «padre»:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
 \voiceOne
-< a \2 >
+< a\2 >
 \once \override StringNumber #'self-alignment-X = #RIGHT
-< a \2 >
+< a\2 >
 @end lilypond
 
 @subheading la propiedad staff-position (posición en el pentagrama)
@@ -2831,7 +2831,7 @@ hace solamente para notas y silencios que ocurren al mismo tiempo.  He
 aquí un ejemplo de colisión de este tipo:
 
 @lilypond[quote,verbatim,fragment,ragged-right, relative=1]
-<< {c c c c} \\ {R1} >>
+<< { c4 c c c } \\ { R1 } >>
 @end lilypond
 
 La mejor solución aquí es mover el silencio multi-compás hacia abajo,
@@ -2846,10 +2846,10 @@ cuatro semi-espacios de pentagrama, al valor @code{-8}.
 
 @lilypond[quote,verbatim,fragment,ragged-right, relative=1]
 <<
-  {c c c c}
-\\
+  { c4 c c c }
+  \\
   \override MultiMeasureRest #'staff-position = #-8
-  {R1}
+  { R1 }
 >>
 @end lilypond
 
@@ -2874,10 +2874,9 @@ a la izquierda, y 1.8 espacios de pentagrama hacia abajo:
 
 @lilypond[quote,fragment,relative=1,verbatim]
 \stemUp
-f-5
-\once \override Fingering
-    #'extra-offset = #'(-0.3 . -1.8)
-f-5
+f4-5
+\once \override Fingering #'extra-offset = #'(-0.3 . -1.8)
+f4-5
 @end lilypond
 
 
@@ -2897,7 +2896,7 @@ ligadura de fraseo debido a que intenta evitar la ligadura de
 expresión que está sobre la acciaccatura.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4  \acciaccatura e8\( d8 c ~c d c d\)
+r4 \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
 @noindent
@@ -2910,7 +2909,7 @@ notas, y de hecho ésta será la solución preferida:
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
 \phrasingSlurUp
-\acciaccatura e8\( d8 c ~c d c d\)
+\acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
 @noindent
@@ -2923,7 +2922,7 @@ resuelve la forma algo indecente de la ligadura.
 r4
 \once \override PhrasingSlur #'positions = #'(-4 . -3)
 \acciaccatura
-e8\( d8 c ~c d c d\)
+e8\( d8 c~ c d c d\)
 @end lilypond
 
 Presentamos un ejemplo más extraído del comienzo del pentagrama de la
@@ -2932,9 +2931,9 @@ choca con las notas superiores:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-\clef "bass"
-<< {b,8 ais, b, g,} \\ {e, g e, g} >>
-<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+  \clef "bass"
+  << { b,8 ais, b, g, } \\ { e, g e, g } >>
+  << { b,8 ais, b, g, } \\ { e, g e, g } >>
 }
 @end lilypond
 
@@ -2951,11 +2950,11 @@ central hasta, digamos, 3 espacios:
   \clef "bass"
   <<
     \override Beam #'positions = #'(3 . 3)
-    {b,8 ais, b, g,}
+    { b,8 ais, b, g, }
   \\
-    {e, g e, g}
+    { e,8 g e, g }
   >>
-  << {b,8 ais, b, g,} \\ {e, g e, g} >>
+  << { b,8 ais, b, g, } \\ { e, g e, g } >>
 }
 @end lilypond
 
@@ -2975,13 +2974,13 @@ dejamos con este aspecto:
   \key aes \major
   <<
     { c2 aes4. bes8 } \\
-    { aes2 f4 fes   } \\
+    { aes2 f4 fes } \\
     { \voiceFour
       <ees c>2
       des2
     }
-  >> |
-  <c ees aes c>1 |
+  >>
+  <c ees aes c>1
 }
 @end lilypond
 
@@ -3006,13 +3005,15 @@ Presentamos a continuación el resultado final:
   \key aes \major
   <<
     { c2 aes4. bes8 } \\
-    { aes2 f4 fes   } \\
+    { aes2 f4 fes } \\
     { \voiceFour
-      \once \override NoteColumn #'force-hshift = #0 <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5 des2
+      \once \override NoteColumn #'force-hshift = #0
+      <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
     }
-  >> |
-  <c ees aes c>1 |
+  >>
+  <c ees aes c>1
 }
 @end lilypond
 
@@ -3042,26 +3043,29 @@ quitado las indicaciones dinámicas, las digitaciones y el pedal.
 @lilypond[quote,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2
-  c4.\( g8 |
+  c4.\( g8
   \once \override Tie #'staff-position = #3.5
-  bes1~ |
+  bes1~
   \bar "||"
   \time 6/4
   \mergeDifferentlyHeadedOn
   \mergeDifferentlyDottedOn
-  bes2.^\markup {\bold "Moderato"} r8
+  bes2.^\markup { \bold "Moderato" } r8
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a }
   \\
     % Reposition the c2 to the right of the merged note
-    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
+    { c,8~ \once \override NoteColumn #'force-hshift = #1.0
     % Move the c2 out of the main note column so the merge will work
-    \shiftOnn c2}
+    \shiftOnn c2 }
   \\
     % Stem on the d2 must be down to permit merging
-    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+    { s8 \stemDown
+      \once \override Stem #'transparent = ##t
+      d2
+    }
   \\
-    {s4 fis4.}
+    { s4 fis4. }
   >>
   \mergeDifferentlyHeadedOff
   \mergeDifferentlyDottedOff
@@ -3069,9 +3073,9 @@ rhMusic = \relative c'' {
 }
 
 lhMusic = \relative c' {
-  r2 <c g ees>2( |
-  <d g, d>1)\arpeggio |
-  r2. d,,4 r4 r |
+  r2 <c g ees>2(
+  <d g, d>1)\arpeggio
+  r2. d,,4 r4 r
   r4
 }
 
@@ -3104,27 +3108,27 @@ bloque Score, y veremos qué produce LilyPond de forma predeterminada:
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4. g8 |
-  bes1~ |
+  r2 c4. g8
+  bes1~
   \time 6/4
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a }
   \\
-    {c,8~ c2 | }
+    { c,8~ c2 }
   \\
-    {s8 d2 | }
+    { s8 d2 }
   \\
-    {s4 fis4. | }
+    { s4 fis4. }
   >>
   g2.
 }
 
 lhMusic = \relative c' {
-  r2 <c g ees>2 |
-  <d g, d>1 |
-  r2. d,,4 r4 r |
+  r2 <c g ees>2
+  <d g, d>1
+  r2. d,,4 r4 r
   r4
 }
 
@@ -3154,27 +3158,27 @@ Tutorial.  Al hacerlo así obtenemos:
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  bes1~ |
+  r2 c4.\( g8
+  bes1~
   \time 6/4
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a }
   \\
-    {c,8~ c2 | }
+    { c,8~ c2 }
   \\
-    {s8 d2 | }
+    { s8 d2 }
   \\
-    {s4 fis4. | }
+    { s4 fis4. }
   >>
   g2.\)
 }
 
 lhMusic = \relative c' {
-  r2 <c g ees>2( |
-  <d g, d>1) |
-  r2. d,,4 r4 r |
+  r2 <c g ees>2(
+  <d g, d>1)
+  r2. d,,4 r4 r
   r4
 }
 
@@ -3219,29 +3223,29 @@ Con esto se completa el compás dos, dando como resultado:
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
+  r2 c4.\( g8
   \once \override Tie #'staff-position = #3.5
-  bes1~ |
+  bes1~
   \bar "||"
   \time 6/4
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a }
   \\
-    {c,8~ c2 | }
+    { c,8~ c2 }
   \\
-    {s8 d2 | }
+    { s8 d2 }
   \\
-    {s4 fis4. | }
+    { s4 fis4. }
   >>
   g2.\)
 }
 
 lhMusic = \relative c' {
-  r2 <c g ees>2( |
-  <d g, d>1)\arpeggio |
-  r2. d,,4 r4 r |
+  r2 <c g ees>2(
+  <d g, d>1)\arpeggio
+  r2. d,,4 r4 r
   r4
 }
 
@@ -3292,23 +3296,23 @@ al final, dando como resultado:
 @c line-width ensures no break
 @lilypond[quote,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
+  r2 c4.\( g8
   \once \override Tie #'staff-position = #3.5
-  bes1~ |
+  bes1~
   \bar "||"
   \time 6/4
-  bes2.^\markup {\bold "Moderato"} r8
+  bes2.^\markup { \bold "Moderato" } r8
   \mergeDifferentlyHeadedOn
   \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a }
   \\
-    {c,8~ c2 | }
+    { c,8~ c2 }
   \\
-    {s8 d2 | }
+    { s8 d2 }
   \\
-    {s4 fis4. | }
+    { s4 fis4. }
   >>
   \mergeDifferentlyHeadedOff
   \mergeDifferentlyDottedOff
@@ -3316,9 +3320,9 @@ rhMusic = \relative c'' {
 }
 
 lhMusic = \relative c' {
-  r2 <c g ees>2( |
-  <d g, d>1)\arpeggio |
-  r2. d,,4 r4 r |
+  r2 <c g ees>2(
+  <d g, d>1)\arpeggio
+  r2. d,,4 r4 r
   r4
 }
 
@@ -3359,25 +3363,25 @@ aplicar estos cambios obtenemos:
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
+  r2 c4.\( g8
   \once \override Tie #'staff-position = #3.5
-  bes1~ |
+  bes1~
   \bar "||"
   \time 6/4
-  bes2.^\markup {\bold "Moderato"} r8
+  bes2.^\markup { \bold "Moderato" } r8
   \mergeDifferentlyHeadedOn
   \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a }
   \\
     % Move the c2 out of the main note column so the merge will work
-    {c,8~ \shiftOnn c2 | }
+    { c,8~ \shiftOnn c2 }
   \\
     % Stem on the d2 must be down to permit merging
-    {s8 \stemDown d2 | }
+    { s8 \stemDown d2 }
   \\
-    {s4 fis4. | }
+    { s4 fis4. }
   >>
   \mergeDifferentlyHeadedOff
   \mergeDifferentlyDottedOff
@@ -3385,9 +3389,9 @@ rhMusic = \relative c'' {
 }
 
 lhMusic = \relative c' {
-  r2 <c g ees>2( |
-  <d g, d>1)\arpeggio |
-  r2. d,,4 r4 r |
+  r2 <c g ees>2(
+  <d g, d>1)\arpeggio
+  r2. d,,4 r4 r
   r4
 }
 
@@ -3422,26 +3426,29 @@ final:
 @lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2
-  c4.\( g8 |
+  c4.\( g8
   \once \override Tie #'staff-position = #3.5
-  bes1~ |
+  bes1~
   \bar "||"
   \time 6/4
-  bes2.^\markup {\bold "Moderato"} r8
+  bes2.^\markup { \bold "Moderato" } r8
   \mergeDifferentlyHeadedOn
   \mergeDifferentlyDottedOn
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a }
   \\
     % Reposition the c2 to the right of the merged note
-    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
+    { c,8~ \once \override NoteColumn #'force-hshift = #1.0
     % Move the c2 out of the main note column so the merge will work
-    \shiftOnn c2}
+    \shiftOnn c2 }
   \\
     % Stem on the d2 must be down to permit merging
-    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+    { s8 \stemDown
+      \once \override Stem #'transparent = ##t
+      d2
+    }
   \\
-    {s4 fis4.}
+    { s4 fis4. }
   >>
   \mergeDifferentlyHeadedOff
   \mergeDifferentlyDottedOff
@@ -3449,9 +3456,9 @@ rhMusic = \relative c'' {
 }
 
 lhMusic = \relative c' {
-  r2 <c g ees>2( |
-  <d g, d>1)\arpeggio |
-  r2. d,,4 r4 r |
+  r2 <c g ees>2(
+  <d g, d>1)\arpeggio
+  r2. d,,4 r4 r
   r4
 }
 
@@ -3579,10 +3586,10 @@ los dos métodos:
     \once \override Score.MetronomeMark #'transparent = ##t
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
-    a\fermata
+    a4\fermata
     % New tempo for next section
     \tempo 4=100
-    a a a a
+    a4 a a a
   }
   \layout { }
   \midi { }
@@ -3601,10 +3608,10 @@ los dos métodos:
     \once \override Score.MetronomeMark #'stencil = ##f
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
-    a\fermata
+    a4\fermata
     % New tempo for next section
     \tempo 4=100
-    a a a a
+    a4 a a a
   }
   \layout { }
   \midi { }
@@ -3689,15 +3696,15 @@ VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and p
       \clef "treble"
       \new Voice = "Soprano"  { \voiceOne \global \SopranoMusic }
       \new Voice = "Alto" { \voiceTwo \AltoMusic }
-      \new Lyrics \lyricsto "Soprano" { \VerseOne   }
-      \new Lyrics \lyricsto "Soprano" { \VerseTwo   }
+      \new Lyrics \lyricsto "Soprano" { \VerseOne }
+      \new Lyrics \lyricsto "Soprano" { \VerseTwo }
       \new Lyrics \lyricsto "Soprano" { \VerseThree }
-      \new Lyrics \lyricsto "Soprano" { \VerseFour  }
+      \new Lyrics \lyricsto "Soprano" { \VerseFour }
     >>
     \new Staff <<
       \clef "bass"
       \new Voice = "Tenor" { \voiceOne \TenorMusic }
-      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic }
     >>
   >>
 }
@@ -3731,9 +3738,11 @@ inst = #(define-music-function (parser location string) (string?)
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a
+  b4 bes a2
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis
+  g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
@@ -3774,9 +3783,11 @@ archivo como @file{"musica.ly"}).
 
 \relative c'' @{
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a
+  b4 bes a2
   \inst "Clarinete"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis
+  g8(\! fis)-. e( d)-. cis2
 @}
 @end example
 
@@ -3792,9 +3803,11 @@ inst = #(define-music-function (parser location string) (string?)
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a
+  b4 bes a2
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis
+  g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
@@ -3861,9 +3874,11 @@ inst = #(define-music-function (parser location string) (string?)
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a
+  b4 bes a2
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis
+  g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
@@ -3925,9 +3940,11 @@ inst = #(define-music-function (parser location string) (string?)
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a
+  b4 bes a2
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis
+  g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
@@ -4176,10 +4193,10 @@ notas un color que depende de su posición dentro del pentagrama.
 \relative c' {
   % Arrange to obtain color from color-notehead procedure
   \override NoteHead #'color = #color-notehead
-  a2 b |
-  c2 d |
-  e2 f |
-  g2 a |
+  a2 b
+  c2 d
+  e2 f
+  g2 a
 }
 @end lilypond
 

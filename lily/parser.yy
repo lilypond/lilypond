@@ -84,6 +84,7 @@ using namespace std;
 
 #include "book.hh"
 #include "context-def.hh"
+#include "context-mod.hh"
 #include "dimensions.hh"
 #include "file-path.hh"
 #include "input.hh"
@@ -279,6 +280,7 @@ If we give names, Bison complains.
 %token <scm> CHORD_MODIFIER
 %token <scm> CHORD_REPETITION
 %token <scm> CONTEXT_DEF_IDENTIFIER
+%token <scm> CONTEXT_MOD_IDENTIFIER
 %token <scm> DRUM_PITCH
 %token <scm> DURATION_IDENTIFIER
 %token <scm> EVENT_IDENTIFIER
@@ -346,6 +348,7 @@ If we give names, Bison complains.
 %type <scm> chord_body_element
 %type <scm> command_element
 %type <scm> command_event
+%type <scm> context_modification
 %type <scm> context_change
 %type <scm> direction_less_event
 %type <scm> direction_reqd_event
@@ -631,6 +634,9 @@ identifier_init:
 	| DIGIT {
 		$$ = scm_from_int ($1);
 	}
+        | context_modification {
+                $$ = $1;
+        }
 	;
 
 context_def_spec_block:
@@ -662,6 +668,13 @@ context_def_spec_body:
 	}
 	| context_def_spec_body context_mod {
 		unsmob_context_def ($$)->add_context_mod ($2);
+	}
+	| context_def_spec_body context_modification {
+                Context_def *td = unsmob_context_def ($$);
+                SCM new_mods = unsmob_context_mod ($2)->get_mods ();
+                for (SCM m = new_mods; scm_is_pair (m); m = scm_cdr (m)) {
+                    td->add_context_mod (scm_car (m));
+                }
 	}
 	;
 
@@ -1023,22 +1036,45 @@ simple_music:
 	| context_change
 	;
 
+context_modification:
+        WITH { PARSER->lexer_->push_initial_state (); } '{' context_mod_list '}'
+        {
+                PARSER->lexer_->pop_state ();
+                $$ = $4;
+        }
+        | WITH CONTEXT_MOD_IDENTIFIER
+        {
+                $$ = $2;
+        }
+        | CONTEXT_MOD_IDENTIFIER
+        {
+                $$ = $1;
+        }
+        ;
+
 optional_context_mod:
-	/**/ { $$ = SCM_EOL; }
-	| WITH { PARSER->lexer_->push_initial_state (); }
-	'{' context_mod_list '}'
-	{
-		PARSER->lexer_->pop_state ();
-		$$ = $4;
-	}
-	;
+        /**/ {
+            $$ = SCM_EOL;
+        }
+        | context_modification
+        {
+              $$ = $1;
+        }
+        ;
 
 context_mod_list:
-	/* */  { $$ = SCM_EOL; }
-	| context_mod_list context_mod  {
-		 $$ = scm_cons ($2, $1);
-	}
-	;
+        /**/ {
+            $$ = Context_mod ().smobbed_copy ();
+        }
+        | context_mod_list context_mod  {
+                 unsmob_context_mod ($1)->add_context_mod ($2);
+        }
+        | context_mod_list CONTEXT_MOD_IDENTIFIER {
+                 Context_mod *md = unsmob_context_mod ($2);
+                 if (md)
+                     unsmob_context_mod ($1)->add_context_mods (md->get_mods ());
+        }
+        ;
 
 composite_music:
 	prefix_composite_music { $$ = $1; }
@@ -1120,10 +1156,18 @@ prefix_composite_music:
 		$$ = run_music_function (PARSER, $1);
 	}
 	| CONTEXT simple_string optional_id optional_context_mod music {
-		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, $4, SCM_BOOL_F);
+                Context_mod *ctxmod = unsmob_context_mod ($4);
+                SCM mods = SCM_EOL;
+                if (ctxmod)
+                        mods = ctxmod->get_mods ();
+		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, mods, SCM_BOOL_F);
 	}
 	| NEWCONTEXT simple_string optional_id optional_context_mod music {
-		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, $4, SCM_BOOL_T);
+                Context_mod *ctxmod = unsmob_context_mod ($4);
+                SCM mods = SCM_EOL;
+                if (ctxmod)
+                        mods = ctxmod->get_mods ();
+		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, mods, SCM_BOOL_T);
 	}
 
 	| TIMES fraction music {
@@ -1148,7 +1192,11 @@ prefix_composite_music:
 		PARSER->lexer_->pop_state ();
 	}
 	| mode_changing_head_with_context optional_context_mod grouped_music_list {
-		$$ = MAKE_SYNTAX ("context-specification", @$, $1, SCM_EOL, $3, $2, SCM_BOOL_T);
+                Context_mod *ctxmod = unsmob_context_mod ($2);
+                SCM mods = SCM_EOL;
+                if (ctxmod)
+                        mods = ctxmod->get_mods ();
+		$$ = MAKE_SYNTAX ("context-specification", @$, $1, SCM_EOL, $3, mods, SCM_BOOL_T);
 		if ($1 == ly_symbol2scm ("ChordNames"))
 		{
 		  $$ = MAKE_SYNTAX ("unrelativable-music", @$, $$);
@@ -1942,6 +1990,7 @@ steno_duration:
 	| DURATION_IDENTIFIER dots	{
 		Duration *d = unsmob_duration ($1);
 		Duration k (d->duration_log (), d->dot_count () + $2);
+		k = k.compressed (d->factor ());
 		*d = k;
 		$$ = $1;
 	}
@@ -2556,13 +2605,17 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	} else if (scm_is_number (sid)) {
 		*destination = sid;
 		return NUMBER_IDENTIFIER;
-	} else if (unsmob_context_def (sid)) {
-		Context_def *def= unsmob_context_def (sid)->clone ();
+        } else if (unsmob_context_def (sid)) {
+                Context_def *def= unsmob_context_def (sid)->clone ();
 
-		*destination = def->self_scm ();
-		def->unprotect ();
+                *destination = def->self_scm ();
+                def->unprotect ();
 
-		return CONTEXT_DEF_IDENTIFIER;
+                return CONTEXT_DEF_IDENTIFIER;
+        } else if (unsmob_context_mod (sid)) {
+                *destination = unsmob_context_mod (sid)->smobbed_copy ();
+
+                return CONTEXT_MOD_IDENTIFIER;
 	} else if (unsmob_score (sid)) {
 		Score *score = new Score (*unsmob_score (sid));
 		*destination = score->self_scm ();

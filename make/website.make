@@ -6,9 +6,11 @@
 ################################################################
 ifeq ($(WEBSITE_ONLY_BUILD),1)
   ### for lilypond.org
-  top-src-dir=$(HOME)/src/lilypond
+  TOP_SRC_DIR=$(HOME)/src/lilypond
+  TRUSTED_DIR=$(HOME)/lilypond/trusted-scripts
+  top-src-dir=$(TOP_SRC_DIR)
   depth=.
-  trusted-dir=$(HOME)/lilypond/trusted-scripts
+  trusted-dir=$(TRUSTED_DIR)
   script-dir=$(trusted-dir)
   texi2html-init-file=$(trusted-dir)/lilypond-texi2html.init
   top-htaccess=$(trusted-dir)/lilypond.org.htaccess
@@ -31,8 +33,10 @@ endif
 
 ################################################################
 OUT=out-website
-WEB_LANGS=es
 
+### only update this when the language compiles correctly!
+#WEB_LANGS = es fr nl
+WEB_LANGS = es
 
 TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 
