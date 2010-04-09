@@ -456,7 +456,7 @@ Ld. a @rcontrib{Starting with Git} c. fejezetet.}
 @itemize
 @item
 Dokumentáció: ld. @rcontrib{Documentation work} és
-@rcontrib{Building documentation without compiling LilyPond} c. fejezeteket.
+@rcontrib{Building documentation without compiling} c. fejezeteket.
 
 @item
 Weboldal: a weboldal a dokumentáció része, ld. a rá vonatkozó szabályokat,
