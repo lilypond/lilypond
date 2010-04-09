@@ -166,7 +166,7 @@ Add ki a következő parancsokat:
 
 @example
 cd PATH-TO-DOWNLOAD-DIRECTORY
-sh lilypond-@versionStable-OS-TYPE.sh
+sh lilypond-@versionStable{}-OS-TYPE.sh
 @end example
 
 @subsubheading Eltávolítás
