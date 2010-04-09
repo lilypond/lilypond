@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f28f870dbd356da530ce1a89bc9accec0494e237
+    Translation of GIT committish: f46c0183ef97a5d37310a6aff9e1a98d2b6865e9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -154,8 +154,8 @@ salida correspondiente a estas articulaciones aparece de la siguiente
 manera:
 
 @lilypond[verbatim,quote,relative=2]
-c4-^  c-+  c--  c-|
-c4->  c-.  c2-_
+c4-^ c-+ c-- c-|
+c4-> c-. c2-_
 @end lilypond
 
 Las reglas para la colocación predeterminada de las articulaciones se
@@ -477,7 +477,8 @@ editoriales (entre paréntesis o corchetes).  La sintaxis del modo de
 marcado se describe en @ref{Formatear el texto}.
 
 @lilypond[verbatim,quote]
-roundF = \markup { \center-align \concat { \bold { \italic ( }
+roundF = \markup {
+    \center-align \concat { \bold { \italic ( }
            \dynamic f \bold { \italic ) } } }
 boxF = \markup { \bracket { \dynamic f } }
 \relative c' {
@@ -525,9 +526,9 @@ mfEspressDynamic = #(make-dynamic-script mfEspress)
 \relative c' {
   c4_\roundFdynamic\< d e f
   g,1~_\boxFdynamic\>
-  g
-  g'~\mfEspressDynamic
-  g
+  g1
+  g'1~\mfEspressDynamic
+  g1
 }
 @end lilypond
 
@@ -864,6 +865,7 @@ de discontinuidad complejos, consulte los fragmentos de código bajo
 @code{\phrasingSlurSolid}.
 @endpredefined
 
+
 @seealso
 Manual de aprendizaje:
 @rlearning{Acerca de la no anidabilidad de llaves y ligaduras}.
@@ -952,6 +954,8 @@ de alturas sobre el que se extiende la caída o elevación
 @lilypond[verbatim,quote,relative=2]
 c2-\bendAfter #+4
 c2-\bendAfter #-4
+c2-\bendAfter #+6.5
+c2-\bendAfter #-6.5
 c2-\bendAfter #+8
 c2-\bendAfter #-8
 @end lilypond

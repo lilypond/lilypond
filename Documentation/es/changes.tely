@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3b870eb9ab448ebc11a2d6283ad35796b22351aa
+    Translation of GIT committish: 3c2e17bbdd44174a8dab25333738a75afa788f31
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,6 +70,26 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Las modificaciones de contexto (bloques @code{\with}) se pueden
+almacenar en variables e insertarse dentro de contextos u otros
+bloques @code{\with}:
+
+@lilypond[quote,verbatim]
+coloredheads = \with { \override NoteHead #'color = #red }
+noclef = \with { \remove "Clef_engraver" }
+\score {
+  \new Staff {
+    \new Voice \with { \coloredheads } \relative c' { c4 e g c }
+  }
+  \layout {
+    \context { \Staff
+      \noclef
+    }
+  }
+}
+@end lilypond
 
 @item
 Se ha añadido una articulación de semi-abierta:

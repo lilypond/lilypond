@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: efdc514b7a7357d67c6e0f3927c38b70d645f9c7
+    Translation of GIT committish: 7d4f38dff496e4cb06b3d241ced1d35108dedf9f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -41,11 +41,13 @@ fallos} adecuados, y asista al Equipo de Fallos en el manejo de los
 
 @item
 Documentación: se pueden proponer cambios pequeños siguiendo las
-indicaciones de @rcontribnamed{Documentation suggestions,Sugerencias para la documentación}.
+indicaciones de @rcontribnamed{Documentation suggestions,Sugerencias
+para la documentación}.
 
 @item
 El Repositorio de Fragmentos de Código (LSR): elabore y arregle
-fragmentos.  Consulte @rcontribnamed{Adding and editing snippets,Añadir y editar fragmentos de código}.
+fragmentos.  Consulte @rcontribnamed{Adding and editing
+snippets,Añadir y editar fragmentos de código}.
 
 @item
 Discusión, revisión y pruebas: los desarrolladores suelen solicitar un
@@ -63,17 +65,20 @@ requieren un entorno de desarrollo completo.  Consulte
 
 @itemize
 @item
-Documentación: consulte @rcontribnamed{Documentation work,Trabajar en la documentación} y
-@rcontribnamed{Building documentation without compiling,Construir la documentación sin compilar LilyPond}.
+Documentación: consulte @rcontribnamed{Documentation work,Trabajar en
+la documentación} y @rcontribnamed{Building documentation without
+compiling,Construir la documentación sin compilar LilyPond}.
 
 @item
 Página web: nuestra página se construye a partir del código fuente
 normal de la documentación.  Consulte la información sobre la
-documentación, y también @rcontribnamed{Website work,Trabajar en la página web}.
+documentación, y también @rcontribnamed{Website work,Trabajar en la
+página web}.
 
 @item
-Traducciones: consulte @rcontribnamed{Translating the documentation,Traducir la documentación} y
-@rcontribnamed{Translating the website,Traducir la página web}.
+Traducciones: consulte @rcontribnamed{Translating the
+documentation,Traducir la documentación} y @rcontribnamed{Translating
+the website,Traducir la página web}.
 
 @end itemize
 
@@ -82,11 +87,13 @@ Traducciones: consulte @rcontribnamed{Translating the documentation,Traducir la 
 
 @warning{En general, estos trabajos requieren que usted tenga el
 código fuente y sea capaz de compilar LilyPond.  Consulte
-@rcontribnamed{Starting with Git,Comenzar con Git} y @rcontribnamed{Compiling LilyPond,Compilación de LilyPond}.}
+@rcontribnamed{Starting with Git,Comenzar con Git} y
+@rcontribnamed{Compiling LilyPond,Compilación de LilyPond}.}
 
 Sugerimos que los colaboradores nuevos que sean usuarios de Windows
 utilicen una máquina virtual para ejecutar @emph{lilybuntu}.  Consulte
-@rcontribnamed{Using a Virtual Machine to Compile LilyPond,Utilización de una máquina virtual para la compilación de LilyPond}.
+@rcontribnamed{Using a Virtual Machine to Compile LilyPond,Utilización
+de una máquina virtual para la compilación de LilyPond}.
 
 @itemize
 @item
