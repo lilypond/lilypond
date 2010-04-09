@@ -89,7 +89,8 @@ bis Sie das Original-PDF schließen.
 
 @macro lilypadWindows
 @warning{Diese Anweisungen gehen davon aus, dass Sie den installierten
-LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rweb{Alternate input} beschrieben sind, schauen
+LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in
+@rweb{Leichteres Editieren} beschrieben sind, schauen
 Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
 eine Datei zu kompilieren.}
 
@@ -185,7 +186,8 @@ PDFs geben, wenn das alte noch geöffnet ist.
 @c not lilypad at all, but I ran out of names.  :(
 @macro lilypadCommandLine
 @warning{Diese Anweisungen gehen davon aus, dass Sie den installierten
-LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rweb{Alternate input} beschrieben sind, schauen
+LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in
+@rweb{Leichteres Editieren} beschrieben sind, schauen
 Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
 eine Datei zu kompilieren.}
 
