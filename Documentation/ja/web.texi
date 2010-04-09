@@ -23,6 +23,7 @@
 @set FDL
 @set web
 @include macros.itexi
+@include weblinks.itexi
 
 @afourpaper
 
