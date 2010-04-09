@@ -18,7 +18,7 @@ depth = "../"
 # don't add your language to this list unless you have all the
 # items.
 # Hmm, is this a feature -- why not keep original english as a fallback?
-langs = ['', 'es', 'nl']
+langs = ['', 'es', 'fr', 'nl']
 
 # Get/update node translations
 '''
@@ -61,6 +61,7 @@ translations = {
      },
     'fr': {
         'Source': 'Sources',
+
         'Learning': 'Initiation',
         'Music glossary': 'Glossaire',
         'Essay': 'Essai',
@@ -69,9 +70,21 @@ translations = {
         'Snippets': 'Morceaux choisis',
         'Web': 'Web',
         'Changes': 'Nouveautés',
+        'Extending': 'Extension',
         'Internals': 'Propriétés internes',
+        'Contributor': 'Guide du contributeur',
 
-        #TODO
+# keep the spaces!
+        ' (split HTML)': ' (HTML multipages)',
+        ' (big HTML)': ' (HTML en page unique)',
+
+        'Regression tests for ': 'Tests de régression pour ',
+        'PDF of regtests for ': 'PDF des tests de régression pour ',
+        'MusicXML Regression tests for ': 'Tests de régression de MusicXML pour ',
+        'PDF of MusicXML regtests for ': 'PDF des tests de régression de MusicXML pour ',
+
+        'Doc tarball for ': 'Archive de la documentation pour ',
+        ' (did not exist in 2.12)': ' (non disponible pour la version 2.12)',
         },
     'nl': {
         'Source': 'Broncode',
