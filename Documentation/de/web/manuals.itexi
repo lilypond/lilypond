@@ -171,9 +171,9 @@ weitere Informationen zu erhalten.
 
 @docLinks{Einführung, learning,
   @rlearningnamed{Top,Einführung},
-  @manualStableLearningSplit-es,
-  @manualStableLearningBig-es, 1.5 MB,
-  @manualStableLearningPdf-es, 3 MB}
+  @manualStableLearningSplit,
+  @manualStableLearningBig, 1.5 MB,
+  @manualStableLearningPdf, 3 MB}
 
 @divEnd
 
@@ -197,9 +197,9 @@ es sich sehr, dieses Glossar zu Hilfe zu ziehen.
 
 @docLinks{Musikglossar, music-glossary,
   @rglosnamed{Top,Musikglossar},
-  @manualStableGlossarySplit-es,
-  @manualStableGlossaryBig-es, 1 MB,
-  @manualStableGlossaryPdf-es, 1.5 MB}
+  @manualStableGlossarySplit,
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
 
 @divEnd
 
@@ -226,9 +226,9 @@ Auflösung hat.}
 
 @docLinks{Aufsatz, essay,
   @ressaynamed{Top,Aufsatz},
-  @manualStableEssaySplit-es,
-  @manualStableEssayBig-es, 2 MB,
-  @manualStableEssayPdf-es, 2.5 MB}
+  @manualStableEssaySplit,
+  @manualStableEssayBig, 2 MB,
+  @manualStableEssayPdf, 2.5 MB}
 
 @divEnd
 
@@ -253,9 +253,9 @@ englische Musikterminologie (siehe Glossar) bekannt sein.}
 
 @docLinks{Notation, notation,
   @rusernamed{Top,Notation},
-  @manualStableNotationSplit-es,
-  @manualStableNotationBig-es, 7 MB,
-  @manualStableNotationPdf-es, 18 MB}
+  @manualStableNotationSplit,
+  @manualStableNotationBig, 7 MB,
+  @manualStableNotationPdf, 18 MB}
 
 @divEnd
 
@@ -279,9 +279,9 @@ in Angriff nimmt.
 
 @docLinks{Benutzung, usage,
   @rprogramnamed{Top,Benutzung},
-  @manualStableUsageSplit-es,
-  @manualStableUsageBig-es, 300 KB,
-  @manualStableUsagePdf-es, 400 KB}
+  @manualStableUsageSplit,
+  @manualStableUsageBig, 300 KB,
+  @manualStableUsagePdf, 400 KB}
 
 @divEnd
 
@@ -314,9 +314,9 @@ sind auch verlinkt vom @strong{Siehe auch}-Absatz.
 
 @docLinks{Schnipsel, snippets,
   @rlsrnamed{Top,Schnipsel},
-  @manualStableSnippetsSplit-es,
-  @manualStableSnippetsBig-es, 2.5 MB,
-  @manualStableSnippetsPdf-es, 8 MB}
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 2.5 MB,
+  @manualStableSnippetsPdf, 8 MB}
 
 @divEnd
 
@@ -395,9 +395,9 @@ Programm.
 
 @docLinksBare{Web, web,
   @ref{Top,Web},
-  @manualDevelWebSplit-es,
-  @manualDevelWebBig-es, 1 MB,
-  @manualDevelWebPdf-es, 2 MB}
+  @manualDevelWebSplit,
+  @manualDevelWebBig, 1 MB,
+  @manualDevelWebPdf, 2 MB}
 
 @divEnd
 
@@ -419,9 +419,9 @@ Eigenschaften in LilyPond seit der vorigen stabilen Version.
 
 @docLinks{Änderungen, changes,
   @rchangesnamed{Top,Änderungen},
-  @manualStableChangesSplit-es,
-  @manualStableChangesBig-es, 6 KB,
-  @manualStableChangesPdf-es, 200 KB}
+  @manualStableChangesSplit,
+  @manualStableChangesBig, 6 KB,
+  @manualStableChangesPdf, 200 KB}
 
 @divEnd
 
@@ -440,9 +440,9 @@ Dieses Handbuch erklärt, wie man Erweiterungen für LilyPond schreibt.
 
 @docLinks{Erweitert, extend,
   @rextendnamed{Top,Erweitert},
-  @manualStableExtendingSplit-es,
-  @manualStableExtendingBig-es, 200 KB,
-  @manualStableExtendingPdf-es, 400 KB}
+  @manualStableExtendingSplit,
+  @manualStableExtendingBig, 200 KB,
+  @manualStableExtendingPdf, 400 KB}
 
 @divEnd
 
@@ -474,9 +474,9 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 
 @docLinks{Interna, internals,
   @rinternalsnamed{Top,Interna},
-  @manualStableInternalsSplit-es,
-  @manualStableInternalsBig-es, 2.5 MB,
-  @manualStableInternalsPdf-es, 2.8 MB}
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
 
 @divEnd
 
@@ -515,16 +515,16 @@ Links und andere Formate dieser Handbücher finden sich in
 @itemize
 
 @c no colon : needed in this section
-@item @ifWebLinks{@manualStableLearningSplit-es,@rlearningnamed{Top,Handbuch zum Lernen}}
+@item @ifWebLinks{@manualStableLearningSplit,@rlearningnamed{Top,Handbuch zum Lernen}}
 eine sanfte @qq{unbedingt lesen!} Einführung in LilyPond.
 
-@item @ifWebLinks{@manualStableGlossarySplit-es,@rglosnamed{Top,Glossar}}
+@item @ifWebLinks{@manualStableGlossarySplit,@rglosnamed{Top,Glossar}}
 @emph{(optional)}
 hier werden musikalische Begriffe auf englisch erklärt und
 die passenden Übersetzungen in vielen anderen Sprachen
 gegeben.
 
-@item @ifWebLinks{@manualStableEssaySplit-es,@ressaynamed{Top,Aufsatz}}
+@item @ifWebLinks{@manualStableEssaySplit,@ressaynamed{Top,Aufsatz}}
 @emph{(optional)}
 Hintergrundinformation über den Notensatzprozess und die
 Ästhetik des Notenstichs im 19. Jahrhundert.
@@ -539,14 +539,14 @@ Hintergrundinformation über den Notensatzprozess und die
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplit-es,@rusernamed{Top,Notationsreferenz}}
+@item @ifWebLinks{@manualStableNotationSplit,@rusernamed{Top,Notationsreferenz}}
 der hauptsächliche Teil der Dokumentation, welcher detailierte
 Information zur Notensatzerstellung zur Verfügung stellt.
 
-@item @ifWebLinks{@manualStableUsageSplit-es,@rprogramnamed{Top,Benutzung}}
+@item @ifWebLinks{@manualStableUsageSplit,@rprogramnamed{Top,Benutzung}}
 hier werden die eigentlichen Programme detailiert erklärt und bestimmte Besonderheiten für einige Betriebssysteme behandelt.
 
-@item @ifWebLinks{@manualStableSnippetsSplit-es,@rlsrnamed{Top,Schnipsel}}
+@item @ifWebLinks{@manualStableSnippetsSplit,@rlsrnamed{Top,Schnipsel}}
 kurze Tricks, Tipps und Beispiele.
 
 @end itemize
@@ -563,13 +563,13 @@ kurze Tricks, Tipps und Beispiele.
 @item @ref{FAQ}:
 ein Link zur der Liste der häufig gefragten Fragen.
 
-@item @ifWebLinks{@manualStableChangesSplit-es,@rchangesnamed{Top,Änderungen}}
+@item @ifWebLinks{@manualStableChangesSplit,@rchangesnamed{Top,Änderungen}}
 Aktualisierungen seit der letzten Hauptversion.
 
-@item @ifWebLinks{@manualStableExtendingSplit-es,@rextendnamed{Top,Erweitert}}
+@item @ifWebLinks{@manualStableExtendingSplit,@rextendnamed{Top,Erweitert}}
 Wie man clevere eigene Anpassungen in LilyPond programmiert.
 
-@item @ifWebLinks{@manualStableInternalsSplit-es,@rinternalsnamed{Top,Interna}}
+@item @ifWebLinks{@manualStableInternalsSplit,@rinternalsnamed{Top,Interna}}
 Information über die internen Strukturen von LilyPond, welche benötigt
 wird, wenn man eigene Anpassungen erstellen will.
 
@@ -591,7 +591,7 @@ erhältlich.
 @divClass{keep-bullets}
 @itemize
 
-@item @doctarballStable-es
+@item @doctarballStable
 
 @end itemize
 
