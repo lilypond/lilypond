@@ -571,7 +571,7 @@ de voorgebouwde versie gebruiken.}
 @divClass{column-left-bottom}
 @subheading Broncode tarball
 
-@downloadStableSource-es{}
+@downloadStableSource{}
 
 Voor een uitgebreide lijst van alle versies (zowel oude als
 nieuwe), zie onze
