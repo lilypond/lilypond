@@ -60,20 +60,7 @@ website-version:
 	$(CREATE_WEBLINKS) $(top-src-dir) > $(OUT)/weblinks.itexi
 
 website-xrefs: website-version
-	$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/ \
-		-I $(OUT) -o $(OUT) --split=node \
-		$(top-src-dir)/Documentation/web.texi
-	# normal manuals
-	for m in $(MANUALS); do \
-		b=`basename "$$m" .texi`; \
-		d=`basename "$$b" .tely`; \
-		$(EXTRACT_TEXI_FILENAMES) \
-			-I $(top-src-dir)/Documentation/ \
-			-I $(top-src-dir)/Documentation/"$$d"/ \
-			-I $(OUT) -o $(OUT) "$$m" ; \
-	done
-	# translations
-	for l in $(WEB_LANGS); do \
+	for l in '' $(WEB_LANGS); do \
 		$(EXTRACT_TEXI_FILENAMES) \
 			-I $(top-src-dir)/Documentation/ \
 			-I $(top-src-dir)/Documentation/"$$l" \
@@ -96,22 +83,16 @@ website-xrefs: website-version
 
 
 website-texinfo: website-version website-xrefs
-	$(TEXI2HTML) --prefix=index \
-		--split=section \
-		--I=$(top-src-dir)/Documentation/ \
-		--I=$(OUT) \
-		--init-file=$(texi2html-init-file) \
-		-D web_version \
-		--output=$(OUT)/website/ \
-		$(top-src-dir)/Documentation/web.texi
-	# translations
-	for l in $(WEB_LANGS); do \
+	for l in '' $(WEB_LANGS); do \
+	        if test -n "$$l"; then \
+			langopt=--lang="$$l"; \
+		fi; \
 		$(TEXI2HTML) --prefix=index \
 			--split=section \
 			--I=$(top-src-dir)/Documentation/"$$l" \
 			--I=$(top-src-dir)/Documentation/ \
 			--I=$(OUT) \
-			--lang="$$l" \
+			$$langopt \
 			--init-file=$(texi2html-init-file) \
 			-D web_version \
 			--output=$(OUT)/"$$l" \
