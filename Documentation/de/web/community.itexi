@@ -519,9 +519,9 @@ geschrieben (nur auf Englisch).
 
 @docLinksBare{Handbuch für Entwicklungsarbeiten, contributor,
   @rcontribnamed{Top,Handbuch für Entwicklungsarbeiten},
-  @manualDevelContributorSplit,
-  @manualDevelContributorBig, 500 kB,
-  @manualDevelContributorPdf, 2.8 MB}
+  @manualDevelContributorSplit-de,
+  @manualDevelContributorBig-de, 500 kB,
+  @manualDevelContributorPdf-de, 2.8 MB}
 
 @divEnd
 
@@ -577,79 +577,79 @@ Handbücher finden sich auf @url{http://lilypond.org}.}
 @multitable @columnfractions .3 .3 .3
 @headitem Einleitung
 @item
-@docLinkSplit{Lernen,learning,@manualDevelLearningSplit}
+@docLinkSplit{Lernen,learning,@manualDevelLearningSplit-de}
 @tab
-@docLinkBig{Lernen,learning,@manualDevelLearningBig}
+@docLinkBig{Lernen,learning,@manualDevelLearningBig-de}
 @tab
-@docLinkPdf{Lernen,learning,@manualDevelLearningPdf}
+@docLinkPdf{Lernen,learning,@manualDevelLearningPdf-de}
 
 @item
-@docLinkSplit{Glossar,music-glossary,@manualDevelGlossarySplit}
+@docLinkSplit{Glossar,music-glossary,@manualDevelGlossarySplit-de}
 @tab
-@docLinkBig{Glossar,music-glossary,@manualDevelGlossaryBig}
+@docLinkBig{Glossar,music-glossary,@manualDevelGlossaryBig-de}
 @tab
-@docLinkPdf{Glossar,music-glossary,@manualDevelGlossaryPdf}
+@docLinkPdf{Glossar,music-glossary,@manualDevelGlossaryPdf-de}
 
 @item
-@docLinkSplit{Aufsatz,essay,@manualDevelEssaySplit}
+@docLinkSplit{Aufsatz,essay,@manualDevelEssaySplit-de}
 @tab
-@docLinkBig{Aufsatz,essay,@manualDevelEssayBig}
+@docLinkBig{Aufsatz,essay,@manualDevelEssayBig-de}
 @tab
-@docLinkPdf{Aufsatz,essay,@manualDevelEssayPdf}
+@docLinkPdf{Aufsatz,essay,@manualDevelEssayPdf-de}
 
 @headitem Häufig benutzte Handbücher
 
 @item
-@docLinkSplit{Notation,notation,@manualDevelNotationSplit}
+@docLinkSplit{Notation,notation,@manualDevelNotationSplit-de}
 @tab
-@docLinkBig{Notation,notation,@manualDevelNotationBig}
+@docLinkBig{Notation,notation,@manualDevelNotationBig-de}
 @tab
-@docLinkPdf{Notation,notation,@manualDevelNotationPdf}
+@docLinkPdf{Notation,notation,@manualDevelNotationPdf-de}
 
 @item
-@docLinkSplit{Benutzung,usage,@manualDevelUsageSplit}
+@docLinkSplit{Benutzung,usage,@manualDevelUsageSplit-de}
 @tab
-@docLinkBig{Benutzung,usage,@manualDevelUsageBig}
+@docLinkBig{Benutzung,usage,@manualDevelUsageBig-de}
 @tab
-@docLinkPdf{Benutzung,usage,@manualDevelUsagePdf}
+@docLinkPdf{Benutzung,usage,@manualDevelUsagePdf-de}
 
 @item
-@docLinkSplit{Schnipsel,snippets,@manualDevelSnippetsSplit}
+@docLinkSplit{Schnipsel,snippets,@manualDevelSnippetsSplit-de}
 @tab
-@docLinkBig{Schnipsel,snippets,@manualDevelSnippetsBig}
+@docLinkBig{Schnipsel,snippets,@manualDevelSnippetsBig-de}
 @tab
-@docLinkPdf{Schnipsel,snippets,@manualDevelSnippetsPdf}
+@docLinkPdf{Schnipsel,snippets,@manualDevelSnippetsPdf-de}
 
 
 @headitem Seltenere Handbücher
 
 @item
-@docLinkSplit{Webseite,web,@manualDevelWebSplit}
+@docLinkSplit{Webseite,web,@manualDevelWebSplit-de}
 @tab
-@docLinkBig{Webseite,web,@manualDevelWebBig}
+@docLinkBig{Webseite,web,@manualDevelWebBig-de}
 @tab
-@docLinkPdf{Webseite,web,@manualDevelWebPdf}
+@docLinkPdf{Webseite,web,@manualDevelWebPdf-de}
 
 @item
-@docLinkSplit{Veränderungen,changes,@manualDevelChangesSplit}
+@docLinkSplit{Veränderungen,changes,@manualDevelChangesSplit-de}
 @tab
-@docLinkBig{Veränderungen,changes,@manualDevelChangesBig}
+@docLinkBig{Veränderungen,changes,@manualDevelChangesBig-de}
 @tab
-@docLinkPdf{Veränderungen,changes,@manualDevelChangesPdf}
+@docLinkPdf{Veränderungen,changes,@manualDevelChangesPdf-de}
 
 @item
-@docLinkSplit{Erweitern,extending,@manualDevelExtendingSplit}
+@docLinkSplit{Erweitern,extending,@manualDevelExtendingSplit-de}
 @tab
-@docLinkBig{Erweitern,extending,@manualDevelExtendingBig}
+@docLinkBig{Erweitern,extending,@manualDevelExtendingBig-de}
 @tab
-@docLinkPdf{Erweitern,extending,@manualDevelExtendingPdf}
+@docLinkPdf{Erweitern,extending,@manualDevelExtendingPdf-de}
 
 @item
-@docLinkSplit{Interna,internals,@manualDevelInternalsSplit}
+@docLinkSplit{Interna,internals,@manualDevelInternalsSplit-de}
 @tab
-@docLinkBig{Interna,internals,@manualDevelInternalsBig}
+@docLinkBig{Interna,internals,@manualDevelInternalsBig-de}
 @tab
-@docLinkPdf{Interna,internals,@manualDevelInternalsPdf}
+@docLinkPdf{Interna,internals,@manualDevelInternalsPdf-de}
 
 @ifset web_version
 @headitem Zum Herunterladen
