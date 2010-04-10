@@ -147,13 +147,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile,
                 g.write (end_blurb)
             g.close ()
 
-        elif output_file:
-            m = re.search ('Documentation/(..)/', texifilename)
-            if m:
-                lang = m.group (1)
-                print 'FIXME: extracting node names from:', texifilename
-                print 'please explain why extract translated (LANG=%(lang)s) node names into node_list' % locals ()
-                print 'and thus into Documentation/*.po for translation?'
+        elif output_file and scan_ly:
             toto = texinfo_re.findall (texifile)
             for item in toto:
                 if item[0] == 'include':
