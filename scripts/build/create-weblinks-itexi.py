@@ -24,7 +24,7 @@ langs = ['', 'es', 'fr', 'nl']
 '''
 for i in es fr nl de hu ja it; do
     echo "'"$i"': {"
-    (echo '--' ; grep -nH -B1 translationof Documentation/$i/web/*) \
+    (echo '--' ; grep -nH -B1 translationof Documentation/$i/web/* ) \
         | pytt '^--\n.*@(?:unnum|sub)[^ ]* (.*)\n.*@translationof (.*)\n' "'\2': '\1',\n" \
         | grep -E 'Source|Learning|Glossary|Essay|Notation|Usage|Snippets|Web|Changes|Extending|Internals|Contributor'
     echo "},"
@@ -123,9 +123,12 @@ translations = {
         'Snippets': 'Schnipsel',
         'Web': 'Web',
         'Changes': 'Änderungen',
-        'Internals': 'Interna',
 
         #TODO
+        'Extending': 0,
+        'Internals': 'Interna',
+        'Contributor': 0,
+
         },
     'hu': {
         'Source': 'Forrás',
@@ -137,9 +140,12 @@ translations = {
         'Snippets': 'Kódrészletek',
         'Web': 'Web',
         'Changes': 'Változások',
-        'Internals': 'Belső működés',
 
         #TODO
+        'Extending': 0,
+        'Internals': 'Belső működés',
+        'Contributor': 0,
+
         },
     'ja': {
         'Source': 'ソース',
@@ -151,9 +157,12 @@ translations = {
         'Snippets': 'コード断片集',
         'Web': 'Web',
         'Changes': '変更点',
-        'Internals': '内部リファレンス',
 
         #TODO
+        'Extending': 0,
+        'Internals': '内部リファレンス',
+        'Contributor': 0,
+
         },
     }
 
