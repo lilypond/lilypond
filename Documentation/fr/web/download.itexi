@@ -563,7 +563,7 @@ utilisateur a besoin.}
 @divClass{column-left-bottom}
 @subheading Archive des sources
 
-@downloadStableSource{}
+@downloadStableSource-es{}
 
 L'intégralité des versions, récentes ou non, est accessible sur notre
 @uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D, site de

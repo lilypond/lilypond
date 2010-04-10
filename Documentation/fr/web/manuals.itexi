@@ -43,17 +43,17 @@
 LilyPond est un système de gravure musicale @strong{en mode texte}.  Si
 vous ne savez pas du tout ce que ça veut dire, lisez tout d'abord ceci !
 
-@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Initiation}} 
+@item @ifWebLinks{@manualStableLearningSplitNoName-es,@rlearningnamed{Top,Initiation}} 
 une introduction pas-à-pas à LilyPond.
 @details{Initiation}
 
-@item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossaire}} 
+@item @ifWebLinks{@manualStableGlossarySplitNoName-es,@rglosnamed{Top,Glossaire}} 
 @emph{(lecture optionnelle)}
 répertoire de définition et de traduction de termes musicaux, utile en
 particulier pour connaître les termes musicaux en anglais.
 @details{Glossaire}
 
-@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essai}} 
+@item @ifWebLinks{@manualStableEssaySplitNoName-es,@ressaynamed{Top,Essai}} 
 @emph{(lecture optionnelle)}
 essai sur la conception des processus de gravure d'après l'esthétique et
 la technique de la gravure traditionnelle avec poinçons et plaques de plomb.
@@ -69,18 +69,18 @@ la technique de la gravure traditionnelle avec poinçons et plaques de plomb.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}} 
+@item @ifWebLinks{@manualStableNotationSplitNoName-es,@rusernamed{Top,Notation}} 
 Partie la plus importante de la documentation, ce manuel fournit toutes
 les informations détaillées dont vous aurez besoin en matière de notation.
 @details{Notation}
 
-@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Utilisation}}
+@item @ifWebLinks{@manualStableUsageSplitNoName-es,@rprogramnamed{Top,Utilisation}}
 présentation des différentes composantes de LilyPond, ainsi que les
 particularités de certains systèmes d'exploitation.
 @details{Utilisation}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Morceaux choisis}} 
+@ifWebLinks{@manualStableSnippetsSplitNoName-es,@rlsrnamed{Top,Morceaux choisis}} 
 courts extraits, trucs, modèles et autres exemples.
 @details{Morceaux choisis}
 
@@ -102,15 +102,15 @@ Ce document.
 @details{Web}
 
 @item 
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Nouveautés}}
+@ifWebLinks{@manualStableChangesSplitNoName-es,@rchangesnamed{Top,Nouveautés}}
 changements depuis la dernière version stable.
 @details{Nouveautés}
 
-@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extension}}
+@item @ifWebLinks{@manualStableExtendingSplitNoName-es,@rextendnamed{Top,Extension}}
 programmation avancée d'ajustements et retouches dans LilyPond.
 @details{Extension}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Propriétés internes}} :
+@item @ifWebLinks{@manualStableInternalsSplitNoName-es,@rinternalsnamed{Top,Propriétés internes}} :
 information sur les structures internes de LilyPond, nécessaire en
 particulier pour élaborer des retouches.
 @details{Propriétés internes}
@@ -191,9 +191,9 @@ aspects.
 
 @docLinks{Initiation, learning,
   @rlearningnamed{Top,Initiation},
-  @manualStableLearningSplit,
-  @manualStableLearningBig, 1.5 MB,
-  @manualStableLearningPdf, 3 MB}
+  @manualStableLearningSplit-es,
+  @manualStableLearningBig-es, 1.5 MB,
+  @manualStableLearningPdf-es, 3 MB}
 
 @divEnd
 
@@ -217,9 +217,9 @@ documentation.
 
 @docLinks{Glossaire musical, music-glossary,
   @rglosnamed{Top,Glossaire musical},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossarySplit-es,
+  @manualStableGlossaryBig-es, 1 MB,
+  @manualStableGlossaryPdf-es, 1.5 MB}
 
 @divEnd
 
@@ -246,9 +246,9 @@ haute résolution.}
 
 @docLinks{Essai, essay,
   @ressaynamed{Top,Essai},
-  @manualStableEssaySplit,
-  @manualStableEssayBig, 2 MB,
-  @manualStableEssayPdf, 2.5 MB}
+  @manualStableEssaySplit-es,
+  @manualStableEssayBig-es, 2 MB,
+  @manualStableEssayPdf-es, 2.5 MB}
 
 @divEnd
 
@@ -275,9 +275,9 @@ glossaire.}
 
 @docLinks{Notation, notation,
   @rusernamed{Top,Notation},
-  @manualStableNotationSplit,
-  @manualStableNotationBig, 7 MB,
-  @manualStableNotationPdf, 18 MB}
+  @manualStableNotationSplit-es,
+  @manualStableNotationBig-es, 7 MB,
+  @manualStableNotationPdf-es, 18 MB}
 
 @divEnd
 
@@ -300,9 +300,9 @@ recommandée avant d'aborder de grands projets.
 
 @docLinks{Utilisation des programmes, usage,
   @rprogramnamed{Top,Utilisation des programmes},
-  @manualStableUsageSplit,
-  @manualStableUsageBig, 300 KB,
-  @manualStableUsagePdf, 400 KB}
+  @manualStableUsageSplit-es,
+  @manualStableUsageBig-es, 300 KB,
+  @manualStableUsagePdf-es, 400 KB}
 
 @divEnd
 
@@ -335,9 +335,9 @@ manuel de notation est accessible par des liens dans le paragraphe
 
 @docLinks{Morceaux choisis, snippets,
   @rlsrnamed{Top, Morceaux choisis},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsSplit-es,
+  @manualStableSnippetsBig-es, 2.5 MB,
+  @manualStableSnippetsPdf-es, 8 MB}
 
 @divEnd
 
@@ -358,9 +358,9 @@ rapports de bogues et le développement.
 
 @docLinks{Web, web,
   @ref{Top,,,,Web},
-  @manualStableWebSplit,
-  @manualStableWebBig, 1 MB,
-  @manualStableWebPdf, 2 MB}
+  @manualStableWebSplit-es,
+  @manualStableWebBig-es, 1 MB,
+  @manualStableWebPdf-es, 2 MB}
 
 @divEnd
 
@@ -426,9 +426,9 @@ nouvelles fonctionnalités de LilyPond depuis la dernière version stable.
 
 @docLinks{Nouveautés, changes,
   @rglosnamed{Top,Nouveautés},
-  @manualStableChangesSplit,
-  @manualStableChangesBig, 6 KB,
-  @manualStableChangesPdf, 200 KB}
+  @manualStableChangesSplit-es,
+  @manualStableChangesBig-es, 6 KB,
+  @manualStableChangesPdf-es, 200 KB}
 
 @divEnd
 
@@ -466,9 +466,9 @@ renvoie à la documentation générée automatiquement.
 
 @docLinks{Référence des propriétés internes, internals,
   @rinternalsnamed{Top,Référence des propriétés internes},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsSplit-es,
+  @manualStableInternalsBig-es, 2.5 MB,
+  @manualStableInternalsPdf-es, 2.8 MB}
 
 @divEnd
 
@@ -501,7 +501,7 @@ l'adresse @uref{http://lilypond.org}
 @divClass{keep-bullets}
 @itemize
 
-@item @doctarballStable
+@item @doctarballStable-es
 
 @end itemize
 
