@@ -86,6 +86,7 @@ website-texinfo: website-version website-xrefs
 	for l in '' $(WEB_LANGS); do \
 	        if test -n "$$l"; then \
 			langopt=--lang="$$l"; \
+			langsuf=.$$l; \
 		fi; \
 		$(TEXI2HTML) --prefix=index \
 			--split=section \
@@ -97,7 +98,7 @@ website-texinfo: website-version website-xrefs
 			-D web_version \
 			--output=$(OUT)/"$$l" \
 			$(top-src-dir)/Documentation/"$$l"/web.texi ; \
-		find $(OUT)/$$l/ -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/'$$l'/!!g' | xargs $(MASS_LINK) --prepend-suffix .$$l hard $(OUT)/$$l/ $(OUT)/website/ ; \
+		find $(OUT)/$$l/ -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/'$$l'/!!g' | xargs $(MASS_LINK) --prepend-suffix="$langsuf" hard $(OUT)/$$l/ $(OUT)/website/ ; \
 	done
 
 
