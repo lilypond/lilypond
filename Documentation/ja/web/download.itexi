@@ -625,7 +625,7 @@ lilypond test.ly
 @subheading ソース tarball
 @c Source tarball
 
-@downloadStableSource{}
+@downloadStableSource-es{}
 
 新旧すべてのバージョンは、@c
 @uref{http://download.linuxaudio.org/lilypond/binaries/,ダウンロード サイト}
