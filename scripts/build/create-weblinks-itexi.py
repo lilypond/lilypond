@@ -15,14 +15,11 @@ depth = "../"
 ### translation data -- shouldn't be here; see issue
 ### http://code.google.com/p/lilypond/issues/detail?id=1050
 
-# don't add your language to this list unless you have all the
-# items.
-# Hmm, is this a feature -- why not keep original english as a fallback?
-langs = ['', 'es', 'fr', 'nl']
+langs = ['', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl']
 
 # Get/update node translations
 '''
-for i in es fr nl de hu ja it; do
+for i in de es fr hu it ja nl; do
     echo "'"$i"': {"
     (echo '--' ; grep -nH -B1 translationof Documentation/$i/web/* ) \
         | pytt '^--\n.*@(?:unnum|sub)[^ ]* (.*)\n.*@translationof (.*)\n' "'\2': '\1',\n" \
@@ -129,6 +126,16 @@ translations = {
         'Internals': 'Interna',
         'Contributor': 0,
 
+        ' (split HTML)': 0,
+        ' (big HTML)': 0,
+
+        'Regression tests for ': 0,
+        'PDF of regtests for ': 0,
+        'MusicXML Regression tests for ': 0,
+        'PDF of MusicXML regtests for ': 0,
+
+        'Doc tarball for ': 0,
+        ' (did not exist in 2.12)': 0,
         },
     'hu': {
         'Source': 'Forrás',
@@ -146,6 +153,16 @@ translations = {
         'Internals': 'Belső működés',
         'Contributor': 0,
 
+        ' (split HTML)': 0,
+        ' (big HTML)': 0,
+
+        'Regression tests for ': 0,
+        'PDF of regtests for ': 0,
+        'MusicXML Regression tests for ': 0,
+        'PDF of MusicXML regtests for ': 0,
+
+        'Doc tarball for ': 0,
+        ' (did not exist in 2.12)': 0,
         },
     'ja': {
         'Source': 'ソース',
@@ -162,6 +179,17 @@ translations = {
         'Extending': 0,
         'Internals': '内部リファレンス',
         'Contributor': 0,
+
+        ' (split HTML)': 0,
+        ' (big HTML)': 0,
+
+        'Regression tests for ': 0,
+        'PDF of regtests for ': 0,
+        'MusicXML Regression tests for ': 0,
+        'PDF of MusicXML regtests for ': 0,
+
+        'Doc tarball for ': 0,
+        ' (did not exist in 2.12)': 0,
 
         },
     }
@@ -212,10 +240,17 @@ for line in version_contents:
 
 VERSION = str(major)+'.'+str(minor)+'.'+str(patch)
 
+def _ (string, lang):
+    return translations.get (lang.split ('_')[0], {}).get (string, string)
+
+getTrans = _
+# let's not barf, but print a warning when something's missing
 def getTrans(text, lang):
-    if (lang != ''):
-        text = translations[lang][text]
-    return text
+    trans = _ (text, lang)
+    if not trans:
+        trans = text
+        sys.stderr.write ('create-weblinks-itexi: warning: [%(lang)s]: translation missing for: %(text)s\n' % locals ())
+    return trans
 
 def macroLang(name, lang):
     if (lang != ''):
