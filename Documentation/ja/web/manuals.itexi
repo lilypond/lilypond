@@ -165,9 +165,9 @@ LilyPond での思いつきの調整をプログラミングします。
 
 @docLinks{学習, learning,
   @rlearningnamed{Top,学習},
-  @manualStableLearningSplit,
-  @manualStableLearningBig, 1.5 MB,
-  @manualStableLearningPdf, 3 MB}
+  @manualStableLearningSplit-ja,
+  @manualStableLearningBig-ja, 1.5 MB,
+  @manualStableLearningPdf-ja, 3 MB}
 
 @divEnd
 
@@ -225,9 +225,9 @@ LilyPond での思いつきの調整をプログラミングします。
 
 @docLinks{音楽用語集, music-glossary,
   @rglosnamed{Top,音楽用語集},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossarySplit-ja,
+  @manualStableGlossaryBig-ja, 1 MB,
+  @manualStableGlossaryPdf-ja, 1.5 MB}
 
 @divEnd
 
@@ -289,9 +289,9 @@ LilyPond の譜刻テクニックの例を挙げます。@c
 
 @docLinks{エッセー, essay,
   @ressaynamed{Top,エッセー},
-  @manualStableEssaySplit,
-  @manualStableEssayBig, 2 MB,
-  @manualStableEssayPdf, 2.5 MB}
+  @manualStableEssaySplit-ja,
+  @manualStableEssayBig-ja, 2 MB,
+  @manualStableEssayPdf-ja, 2.5 MB}
 
 @divEnd
 
@@ -354,9 +354,9 @@ LilyPond の譜刻テクニックの例を挙げます。@c
 
 @docLinks{記譜法, notation,
   @rusernamed{Top,記譜法},
-  @manualStableNotationSplit,
-  @manualStableNotationBig, 7 MB,
-  @manualStableNotationPdf, 18 MB}
+  @manualStableNotationSplit-ja,
+  @manualStableNotationBig-ja, 7 MB,
+  @manualStableNotationPdf-ja, 18 MB}
 
 @divEnd
 
@@ -414,9 +414,9 @@ LilyPond 記譜法を他のプログラムと統合する方法について説�
 
 @docLinks{使用方法, usage,
   @rprogramnamed{Top,使用方法},
-  @manualStableUsageSplit,
-  @manualStableUsageBig, 300 KB,
-  @manualStableUsagePdf, 400 KB}
+  @manualStableUsageSplit-ja,
+  @manualStableUsageBig-ja, 300 KB,
+  @manualStableUsagePdf-ja, 400 KB}
 
 @divEnd
 
@@ -482,9 +482,9 @@ LSR は LilyPond の安定版で実行することを前提としているため
 
 @docLinks{コード断片集, snippets,
   @rlsrnamed{Top,コード断片集},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsSplit-ja,
+  @manualStableSnippetsBig-ja, 2.5 MB,
+  @manualStableSnippetsPdf-ja, 8 MB}
 
 @divEnd
 
@@ -542,9 +542,9 @@ LSR は LilyPond の安定版で実行することを前提としているため
 
 @docLinks{Web, web,
   @ref{Top,,,,Web},
-  @manualStableWebSplit,
-  @manualStableWebBig, 1 MB,
-  @manualStableWebPdf, 2 MB}
+  @manualStableWebSplit-ja,
+  @manualStableWebBig-ja, 1 MB,
+  @manualStableWebPdf-ja, 2 MB}
 
 @divEnd
 
@@ -617,9 +617,9 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 
 @docLinks{変更点, changes,
   @rchangesnamed{Top,変更点},
-  @manualStableChangesSplit,
-  @manualStableChangesBig, 6 KB,
-  @manualStableChangesPdf, 200 KB}
+  @manualStableChangesSplit-ja,
+  @manualStableChangesBig-ja, 6 KB,
+  @manualStableChangesPdf-ja, 200 KB}
 
 
 @ignore
@@ -674,9 +674,9 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 
 @docLinks{拡張, extend,
   @rextendnamed{Top,拡張},
-  @manualStableExtendingSplit,
-  @manualStableExtendingBig, 200 KB,
-  @manualStableExtendingPdf, 400 KB}
+  @manualStableExtendingSplit-ja,
+  @manualStableExtendingBig-ja, 200 KB,
+  @manualStableExtendingPdf-ja, 400 KB}
 
 
 @ignore
@@ -744,9 +744,9 @@ HTML ドキュメントでは、それらサブセクションにはクリック
 
 @docLinks{内部リファレンス, internals,
   @rinternalsnamed{Top,内部リファレンス},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsSplit-ja,
+  @manualStableInternalsBig-ja, 2.5 MB,
+  @manualStableInternalsPdf-ja, 2.8 MB}
 
 
 @ignore
@@ -817,15 +817,15 @@ Sorry, translations status is temporarily unavailable.
 @itemize
 
 @c no colon : needed in this section
-@item @ifWebLinks{@manualStableLearningSplit,@rlearningnamed{Top,学習}}
+@item @ifWebLinks{@manualStableLearningSplit-ja,@rlearningnamed{Top,学習}}
 @qq{必読} のやさしい LilyPond 入門書です。
 
-@item @ifWebLinks{@manualStableGlossarySplit,@rglosnamed{Top,音楽用語集}}
+@item @ifWebLinks{@manualStableGlossarySplit-ja,@rglosnamed{Top,音楽用語集}}
 @emph{(副読本)}
 これは音楽用語集について説明し、@c
 英語の音楽用語に馴染みの無いユーザに訳語を提供します。
 
-@item @ifWebLinks{@manualStableEssaySplit,@ressaynamed{Top,エッセー}}
+@item @ifWebLinks{@manualStableEssaySplit-ja,@ressaynamed{Top,エッセー}}
 @emph{(副読本)}
 楽譜譜刻プロセスと 19 世紀の楽譜譜刻の審美性についてのバックグラウンド情報です。
 
@@ -854,13 +854,13 @@ Sorry, translations status is temporarily unavailable.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplit,@rusernamed{Top,記譜法}}
+@item @ifWebLinks{@manualStableNotationSplit-ja,@rusernamed{Top,記譜法}}
 このドキュメントの主要部です: 楽譜作成についての詳しい情報を提供します。
 
-@item @ifWebLinks{@manualStableUsageSplit,@rprogramnamed{Top,使用方法}}
+@item @ifWebLinks{@manualStableUsageSplit-ja,@rprogramnamed{Top,使用方法}}
 プログラムの実際と、オペレーション システム特有の問題について議論します。
 
-@item @ifWebLinks{@manualStableSnippetsSplit,@rlsrnamed{Top,コード断片集}}
+@item @ifWebLinks{@manualStableSnippetsSplit-ja,@rlsrnamed{Top,コード断片集}}
 ちょっとしたトリック、秘訣、例。
 
 
@@ -889,13 +889,13 @@ Sorry, translations status is temporarily unavailable.
 @item @ref{FAQ}:
 FAQ の回答へのリンク
 
-@item @ifWebLinks{@manualStableChangesSplit,@rchangesnamed{Top,変更点}}
+@item @ifWebLinks{@manualStableChangesSplit-ja,@rchangesnamed{Top,変更点}}
 最新のメジャー バージョンから変更された点。 
 
-@item @ifWebLinks{@manualStableExtendingSplit,@rextendnamed{Top,拡張}}
+@item @ifWebLinks{@manualStableExtendingSplit-ja,@rextendnamed{Top,拡張}}
 LilyPond での思いつきの調整をプログラミングします。
 
-@item @ifWebLinks{@manualStableInternalsSplit,@rinternalsnamed{Top,内部リファレンス}}
+@item @ifWebLinks{@manualStableInternalsSplit-ja,@rinternalsnamed{Top,内部リファレンス}}
 調整を行うために必要となる、LilyPond の内部構造についての情報。
 
 
