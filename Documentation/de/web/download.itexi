@@ -555,7 +555,7 @@ Benutzer haben mehr Vorteile von der vorkompilierten Version.}
 @divClass{column-left-bottom}
 @subheading Quell-Tarball
 
-@downloadStableSource{}
+@downloadStableSource-es{}
 
 Für ein ausführliche Liste aller Versionen (alt und neu) siehe
 unsere
