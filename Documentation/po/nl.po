@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-04 21:44+0100\n"
-"PO-Revision-Date: 2010-03-07 19:58+0100\n"
+"PO-Revision-Date: 2010-04-10 16:34+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,10 +26,7 @@ msgid ""
 "Your <a href=\"%(suggest_Docs_url)s\">suggestions for the documentation</a> "
 "are welcome, please report errors to our <a href=\"%(mail_address_url)s"
 "\">bug list</a>."
-msgstr ""
-"Ihre <a href=\"%(suggest_Docs_url)s\">Vorschläge für die Dokumentation</a> "
-"sind willkommen. Bitte melden Sie Probleme und Fehler an unsere <a·href=\"%"
-"(mail_address_url)s\">Fehler-Liste</a>."
+msgstr "Jouw <a href=\"%(suggest_Docs_url)s\">suggesties ter verbetering van de documentatie</a> zijn welkom. Meld fouten en problemen alsjeblieft aan onze <a·href=\"%(mail_address_url)s\">foutenlijst</a>."
 
 #: postprocess_html.py:59
 #, python-format
@@ -43,70 +40,68 @@ msgstr "Gebruik van <A HREF=\"%s\">automatische taalkeuze</A>."
 
 #: postprocess_html.py:316
 msgid "stable-branch"
-msgstr ""
+msgstr "stabiele tak"
 
 #: postprocess_html.py:318
 msgid "development-branch"
-msgstr ""
+msgstr "ontwikkelingstak"
 
 #: texi-gettext.py:63
 msgid ""
 "This section has not been translated yet; please refer to the manual in "
 "English."
-msgstr ""
-"Dieser Abschnitt wurde noch nicht übersetzt, bitte lesen Sie den Abschnitt "
-"in der englischen Notationsreferenz."
+msgstr "Deze paragraaf is nog niet vertaald, je kunt het Engelstalig origineel lezen."
 
 #: translations-status.py:59
 msgid "Section titles"
-msgstr ""
+msgstr "Paragraaftitels"
 
 #: translations-status.py:60
 #, python-format
 msgid " <p><i>Last updated %s</i></p>\n"
-msgstr ""
+msgstr " <p><i>Meest recente update %s</i></p>\\n"
 
 #: translations-status.py:61
 msgid "Translators"
-msgstr ""
+msgstr "Vertalers"
 
 #: translations-status.py:61
 msgid "Translation checkers"
-msgstr ""
+msgstr "Revisie vertaling"
 
 #: translations-status.py:62
 msgid "Translated"
-msgstr ""
+msgstr "Vertaald"
 
 #: translations-status.py:62
 msgid "Up to date"
-msgstr ""
+msgstr "Actueel"
 
 #: translations-status.py:63
 msgid "Other info"
-msgstr ""
+msgstr "Andere informatie"
 
 #: translations-status.py:65
 msgid "no"
-msgstr ""
+msgstr "nee"
 
 #: translations-status.py:66
 msgid "not translated"
-msgstr ""
+msgstr "niet vertaald"
 
 #: translations-status.py:68
 #, python-format
 msgid "partially (%(p)d %%)"
-msgstr ""
+msgstr "gedeeltelijk (%(p)d %%)"
 
 #: translations-status.py:70
 #, python-format
 msgid "partially translated (%(p)d %%)"
-msgstr ""
+msgstr "gedeeltelijk vertaald (%(p)d %%)"
 
 #: translations-status.py:71 translations-status.py:73
 msgid "yes"
-msgstr ""
+msgstr "ja"
 
 #: translations-status.py:72
 msgid "translated"
@@ -114,27 +109,28 @@ msgstr ""
 
 #: translations-status.py:73 translations-status.py:74
 msgid "up to date"
-msgstr ""
+msgstr "actueel"
 
 #: translations-status.py:75
 msgid "partially"
-msgstr ""
+msgstr "gedeeltelijk"
 
 #: translations-status.py:76
 msgid "partially up to date"
-msgstr ""
+msgstr "gedeeltelijk actueel"
 
 #: translations-status.py:77
 msgid "N/A"
-msgstr ""
+msgstr "nvt"
 
+# voor-GDP
 #: translations-status.py:78
 msgid "pre-GDP"
 msgstr ""
 
 #: translations-status.py:79
 msgid "post-GDP"
-msgstr ""
+msgstr "na-GDP"
 
 #. -*- coding: utf-8 -*-
 #. @node in Documentation/user/lilypond-learning.tely
