@@ -148,6 +148,12 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile,
             g.close ()
 
         elif output_file:
+            m = re.search ('Documentation/(..)/', texifilename)
+            if m:
+                lang = m.group (1)
+                print 'FIXME: extracting node names from:', texifilename
+                print 'please explain why extract translated (LANG=%(lang)s) node names into node_list' % locals ()
+                print 'and thus into Documentation/*.po for translation?'
             toto = texinfo_re.findall (texifile)
             for item in toto:
                 if item[0] == 'include':
@@ -155,7 +161,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile,
                 elif item[2] == 'rglos':
                     output_file.write ('# @rglos in ' + printedfilename + '\n_(r"' + item[3] + '")\n')
                 else:
-                    output_file.write ('# @' + item[0] + ' in ' + printedfilename + '\n_(r"' + item[1].strip () + '")\n')
+                    output_file.write ('# @' + item[0] + ' in ' + printedfilename + '\n_(r"' + item[1].strip ().replace ('\\', r'\\') + '")\n')
 
         if process_includes and (not head_only or inclusion_level < 1):
             dir = os.path.dirname (texifilename)
@@ -182,6 +188,8 @@ if make_gettext:
             and not 'Documentation/es/' in texi_file
             and not 'Documentation/fr/' in texi_file
             and not 'Documentation/ja/' in texi_file
+            and not 'Documentation/hu/' in texi_file
+            and not 'Documentation/it/' in texi_file
             and not 'Documentation/nl/' in texi_file
             and not 'Documentation/po/' in texi_file
             )
@@ -191,7 +199,7 @@ if make_gettext:
     for word in ('Up:', 'Next:', 'Previous:', 'Appendix ', 'Footnotes', 'Table of Contents'):
         node_list.write ('_(r"' + word + '")\n')
     node_list.close ()
-    os.system ('xgettext -c -L Python --no-location -o ' + output_name + ' ' + node_list_filename)
+    os.system ('xgettext --keyword=_doc -c -L Python --no-location -o ' + output_name + ' ' + node_list_filename)
 else:
     for texi_file in texi_files:
         process_texi (texi_file, intro_blurb, node_blurb, make_skeleton,
