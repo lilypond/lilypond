@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-10 19:17+0200\n"
-"PO-Revision-Date: 2010-04-10 17:36+0200\n"
+"PO-Revision-Date: 2010-04-10 19:46+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +102,7 @@ msgstr "ja"
 
 #: translations-status.py:72
 msgid "translated"
-msgstr ""
+msgstr "vertaald"
 
 #: translations-status.py:73 translations-status.py:74
 msgid "up to date"
@@ -123,7 +123,7 @@ msgstr "nvt"
 # voor-GDP
 #: translations-status.py:78
 msgid "pre-GDP"
-msgstr ""
+msgstr "voor-GDP"
 
 #: translations-status.py:79
 msgid "post-GDP"
@@ -155,8 +155,6 @@ msgstr ""
 #. @appendix in Documentation/learning.tely
 #. @node in Documentation/notation.tely
 #. @appendix in Documentation/notation.tely
-#. @node in Documentation/usage.tely
-#. @appendix in Documentation/usage.tely
 msgid "LilyPond index"
 msgstr ""
 
@@ -3558,9 +3556,8 @@ msgstr ""
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "note"
-msgstr "nee"
+msgstr "Noot"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -5568,9 +5565,8 @@ msgstr ""
 
 #. @node in Documentation/usage/external.itely
 #. @unnumberedsubsec in Documentation/usage/external.itely
-#, fuzzy
 msgid "Other editors"
-msgstr "Andere informatie"
+msgstr "Andere editors"
 
 #. @node in Documentation/usage/external.itely
 #. @section in Documentation/usage/external.itely
@@ -5611,9 +5607,8 @@ msgstr ""
 
 #. @node in Documentation/usage/external.itely
 #. @subsection in Documentation/usage/external.itely
-#, fuzzy
 msgid "Other formats"
-msgstr "Andere informatie"
+msgstr "Andere formaten"
 
 #. @node in Documentation/usage/external.itely
 #. @section in Documentation/usage/external.itely
@@ -6793,9 +6788,8 @@ msgid "spanner text."
 msgstr ""
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:19 (variable)
-#, fuzzy
 msgid "mycresc"
-msgstr "ja"
+msgstr ""
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:25 (variable)
 msgid "mydecresc"
@@ -7407,7 +7401,6 @@ msgstr ""
 #. Documentation/snippets/grid-lines--changing-their-appearance.ly:77 (comment)
 msgid "this moves them to the right half a staff space"
 msgstr ""
-"damit werden sie nach rechts um einen halben Notenlinienabstand verschoben"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:38 (comment)
 msgid "hides staff and notes so that only the grid lines are visible"
@@ -7428,7 +7421,6 @@ msgstr ""
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:69 (comment)
 msgid "two staff spaces above center line on hidden staff"
 msgstr ""
-"zwei Notenlinienzwischenräume über der Mittellinie auf dem versteckten System"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:70 (comment)
 msgid "to four spaces below center line on visible staff"
@@ -7453,12 +7445,10 @@ msgstr ""
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:56 (comment)
 msgid "Solution 1: Using a simple markup with a particular halign value"
 msgstr ""
-"Lösung 1: Benutzung von einfacher Beschriftung mit horizontaler Verschiebung"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:57 (comment)
 msgid "Drawback: It's a markup, not a dynamic command, so \\dynamicDown"
 msgstr ""
-"Nachteil: nur Beschriftung, keine Dynamik, also wirkt sich \\dynamicDown"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:58 (comment)
 msgid "etc. will have no effect"
@@ -7496,8 +7486,6 @@ msgstr ""
 msgid ""
 "Drawback: the padding really reserves the space, nothing else can be there"
 msgstr ""
-"Nachteil: Die Verschiebung lässt den Platz frei, dort kann nichts anderes "
-"stehen"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:74 (variable)
 msgid "semppT"
@@ -7518,7 +7506,6 @@ msgstr ""
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:85 (comment)
 msgid "Drawback: Also, there seems to be some spacing, so it's not exactly the"
 msgstr ""
-"Nachteil: Es gibt offensichtlich noch Ränder, so dass es nicht genau die"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:86 (comment)
 msgid "same alignment as without the additional text"
@@ -7531,19 +7518,14 @@ msgstr ""
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:96 (comment)
 msgid "Solution 5: Dynamic with explicit shifting inside the scheme function"
 msgstr ""
-"Lösung 5: Dynamik mit ausdrücklicher Verschiebung innerhalb von Scheme-"
-"Funktion"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:97 (variable)
 msgid "semppG"
 msgstr ""
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:105 (comment)
-#, fuzzy
 msgid "Solution 6: Dynamic with explicit alignment. This has only effect"
 msgstr ""
-"Lösung 6: Dynamik mit expliziter Ausrichtung. Das wirkt sich nur dann aus,"
-"wenn X-offset auch gesetzt wird!"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:106 (comment)
 msgid "if one sets X-offset!"
@@ -9359,13 +9341,10 @@ msgstr ""
 #. Documentation/snippets/utf-8.ly:20 (comment)
 msgid "from choking on non-European UTF-8 subsets"
 msgstr ""
-"daran zu hindern, sich an nicht-europäische UTF-8-Untergruppen zu stören"
 
 #. Documentation/snippets/utf-8.ly:22 (comment)
 msgid "Edit this file using a Unicode aware editor, such as GVIM, GEDIT, Emacs"
 msgstr ""
-"Diese Datei mit einem Editor bearbeiten, der in Unicode speichern kann, wie "
-"etwa GVIM, GEDIT, Emacs"
 
 #. Documentation/snippets/utf-8.ly:40 (comment)
 msgid "Cyrillic font"
@@ -9509,38 +9488,20 @@ msgid "Nutcracker Suite, VII Dance of the Merlitons"
 msgstr ""
 
 msgid "Up:"
-msgstr ""
+msgstr "Omhoog:"
 
 msgid "Next:"
-msgstr ""
+msgstr "Volgende:"
 
 msgid "Previous:"
-msgstr ""
+msgstr "Vorige:"
 
 msgid "Appendix "
-msgstr ""
+msgstr "Appendix "
 
 msgid "Footnotes"
-msgstr ""
+msgstr "Voetnoten"
 
 msgid "Table of Contents"
-msgstr ""
+msgstr "Inhoudsopgave"
 
-#~ msgid ""
-#~ "This section has not been translated yet; please refer to the manual in "
-#~ "English."
-#~ msgstr ""
-#~ "Deze paragraaf is nog niet vertaald, je kunt het Engelstalig origineel "
-#~ "lezen."
-
-#~ msgid "This fails, as the wrong object name is specified"
-#~ msgstr ""
-#~ "Das funktioniert nicht, weil die falsche Objektbezeichnung angegeben ist"
-
-#~ msgid "if you like, you can change it or you can use special note heads"
-#~ msgstr ""
-#~ "Wenn Sie wollen, können Sie das ändern oder besondere Notenköpfe benutzen"
-
-#~ msgid "now it can be used as \\snappizzicato after the note/chord"
-#~ msgstr ""
-#~ "jetzt kann es als \\schlagPizzicato nach einer Note/Akkord benutzt werden"
