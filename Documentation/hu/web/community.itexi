@@ -575,27 +575,27 @@ fejlesztői verziót ajánljuk:
 @item
 Tankönyv:
 
-@manualDevelLearningSplit
-@* @manualDevelLearningBig
-@* @manualDevelLearningPdf
+@manualDevelLearningSplit-es
+@* @manualDevelLearningBig-es
+@* @manualDevelLearningPdf-es
 
 @item
 Fogalomtár:
 
-@manualDevelGlossarySplit
+@manualDevelGlossarySplit-es
 
-@manualDevelGlossaryBig
+@manualDevelGlossaryBig-es
 
-@manualDevelGlossaryPdf
+@manualDevelGlossaryPdf-es
 
 @item
 Esszé:
 
-@manualDevelEssaySplit
+@manualDevelEssaySplit-es
 
-@manualDevelEssayBig
+@manualDevelEssayBig-es
 
-@manualDevelEssayPdf
+@manualDevelEssayPdf-es
 
 
 @c separate introduction, regular, infrequent manuals
@@ -604,29 +604,29 @@ Esszé:
 @item
 Kottaírás:
 
-@manualDevelNotationSplit
+@manualDevelNotationSplit-es
 
-@manualDevelNotationBig
+@manualDevelNotationBig-es
 
-@manualDevelNotationPdf
+@manualDevelNotationPdf-es
 
 @item
 Használat:
 
-@manualDevelUsageSplit
+@manualDevelUsageSplit-es
 
-@manualDevelUsageBig
+@manualDevelUsageBig-es
 
-@manualDevelUsagePdf
+@manualDevelUsagePdf-es
 
 @item
 Kódrészletek:
 
-@manualDevelSnippetsSplit
+@manualDevelSnippetsSplit-es
 
-@manualDevelSnippetsBig
+@manualDevelSnippetsBig-es
 
-@manualDevelSnippetsPdf
+@manualDevelSnippetsPdf-es
 
 
 @c separate introduction, regular, infrequent manuals
@@ -635,38 +635,38 @@ Kódrészletek:
 @item
 Web:
 
-@manualDevelWebSplit
+@manualDevelWebSplit-es
 
-@manualDevelWebBig
+@manualDevelWebBig-es
 
-@manualDevelWebPdf
+@manualDevelWebPdf-es
 
 @item
 Változások:
 
-@manualDevelChangesSplit
+@manualDevelChangesSplit-es
 
-@manualDevelChangesBig
+@manualDevelChangesBig-es
 
-@manualDevelChangesPdf
+@manualDevelChangesPdf-es
 
 @item
 Bővítés:
 
-@manualDevelExtendingSplit
+@manualDevelExtendingSplit-es
 
-@manualDevelExtendingBig
+@manualDevelExtendingBig-es
 
-@manualDevelExtendingPdf
+@manualDevelExtendingPdf-es
 
 @item
 Belső működés:
 
-@manualDevelInternalsSplit
+@manualDevelInternalsSplit-es
 
-@manualDevelInternalsBig
+@manualDevelInternalsBig-es
 
-@manualDevelInternalsPdf
+@manualDevelInternalsPdf-es
 
 @end itemize
 @divEnd

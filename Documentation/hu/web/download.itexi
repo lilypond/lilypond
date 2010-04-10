@@ -388,7 +388,7 @@ lefordított futtatható verziót használja.}
 @divClass{column-left-bottom}
 @subheading Tarball
 
-@downloadStableSource
+@downloadStableSource-es
 
 A LilyPond összes verziójának forrása
 @uref{http://download.linuxaudio.org/lilypond/, ezen az oldalon}
