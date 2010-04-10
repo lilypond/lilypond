@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-04 21:44+0100\n"
-"PO-Revision-Date: 2010-04-10 17:10+0200\n"
+"PO-Revision-Date: 2010-04-10 17:36+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -59,9 +59,7 @@ msgstr "Paragraaftitels"
 #: translations-status.py:60
 #, python-format
 msgid " <p><i>Last updated %s</i></p>\n"
-msgstr ""
-" <p><i>Meest recente update %s</i></p>\n"
-" "
+msgstr " <p><i>Meest recente update %s</i></p>\n"
 
 #: translations-status.py:61
 msgid "Translators"
