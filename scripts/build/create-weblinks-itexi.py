@@ -29,6 +29,33 @@ done
 '''
 
 translations = {
+    'de': {
+        'Source': 'Quellen',
+        'Learning': 'Einführung',
+        'Music glossary': 'Glossar',
+        'Essay': 'Aufsatz',
+        'Notation': 'Notation',
+        'Usage': 'Benutzung',
+        'Snippets': 'Schnipsel',
+        'Web': 'Web',
+        'Changes': 'Änderungen',
+
+        #TODO
+        'Extending': 0,
+        'Internals': 'Interna',
+        'Contributor': 0,
+
+        ' (split HTML)': 0,
+        ' (big HTML)': 0,
+
+        'Regression tests for ': 0,
+        'PDF of regtests for ': 0,
+        'MusicXML Regression tests for ': 0,
+        'PDF of MusicXML regtests for ': 0,
+
+        'Doc tarball for ': 0,
+        ' (did not exist in 2.12)': 0,
+        },
     'es': {
         'Source': 'Código fuente',
 
@@ -82,60 +109,6 @@ translations = {
 
         'Doc tarball for ': 'Archive de la documentation pour ',
         ' (did not exist in 2.12)': ' (non disponible pour la version 2.12)',
-        },
-    'nl': {
-        'Source': 'Broncode',
-
-        'Learning': 'Beginnen',
-        'Music glossary': 'Terminologie',
-        'Essay': 'Essay',
-        'Notation': 'Notatie',
-        'Usage': 'Gebruik',
-        'Snippets': 'Snippers',
-        'Web': 'Web',
-        'Changes': 'Veranderingen',
-        'Extending': 'Uitbreidingen',
-        'Internals': 'Internals',
-        'Contributor': 'Contributor',
-
-# keep the spaces!
-        ' (split HTML)': ' (opgesplitste HTML)',
-        ' (big HTML)': ' (grote pagina HTML)',
-
-        'Regression tests for ': 'Regressietesten voor ',
-        'PDF of regtests for ': 'PDF van regressietesten voor ',
-        'MusicXML Regression tests for ': 'MusicXML regressietesten voor ',
-        'PDF of MusicXML regtests for ': 'MusicXML regressietesten voor ',
-
-        'Doc tarball for ': 'Tarball met documentation voor ',
-        ' (did not exist in 2.12)': ' (bestond nog niet in 2.12)',
-     },
-    'de': {
-        'Source': 'Quellen',
-        'Learning': 'Einführung',
-        'Music glossary': 'Glossar',
-        'Essay': 'Aufsatz',
-        'Notation': 'Notation',
-        'Usage': 'Benutzung',
-        'Snippets': 'Schnipsel',
-        'Web': 'Web',
-        'Changes': 'Änderungen',
-
-        #TODO
-        'Extending': 0,
-        'Internals': 'Interna',
-        'Contributor': 0,
-
-        ' (split HTML)': 0,
-        ' (big HTML)': 0,
-
-        'Regression tests for ': 0,
-        'PDF of regtests for ': 0,
-        'MusicXML Regression tests for ': 0,
-        'PDF of MusicXML regtests for ': 0,
-
-        'Doc tarball for ': 0,
-        ' (did not exist in 2.12)': 0,
         },
     'hu': {
         'Source': 'Forrás',
@@ -192,6 +165,33 @@ translations = {
         ' (did not exist in 2.12)': 0,
 
         },
+    'nl': {
+        'Source': 'Broncode',
+
+        'Learning': 'Beginnen',
+        'Music glossary': 'Terminologie',
+        'Essay': 'Essay',
+        'Notation': 'Notatie',
+        'Usage': 'Gebruik',
+        'Snippets': 'Snippers',
+        'Web': 'Web',
+        'Changes': 'Veranderingen',
+        'Extending': 'Uitbreidingen',
+        'Internals': 'Internals',
+        'Contributor': 'Contributor',
+
+# keep the spaces!
+        ' (split HTML)': ' (opgesplitste HTML)',
+        ' (big HTML)': ' (grote pagina HTML)',
+
+        'Regression tests for ': 'Regressietesten voor ',
+        'PDF of regtests for ': 'PDF van regressietesten voor ',
+        'MusicXML Regression tests for ': 'MusicXML regressietesten voor ',
+        'PDF of MusicXML regtests for ': 'MusicXML regressietesten voor ',
+
+        'Doc tarball for ': 'Tarball met documentation voor ',
+        ' (did not exist in 2.12)': ' (bestond nog niet in 2.12)',
+     },
     }
 
 
