@@ -1045,7 +1045,7 @@ een @notation{melisma} genoemd, een enkele lettergreep
 gezongen op meer dan een noot.  Er zijn verschillende
 manieren om een lettergreep over meerdere noten uit te
 verdelen, het eenvoudigst is een legatoboog over de noten te
-zetten, voor details, zie @ref{Overbindingen en legatoboog}:
+zetten, voor details, zie @ref{Overbindingen en legatobogen}:
 
 @lilypond[verbatim,quote]
 <<
