@@ -1623,6 +1623,7 @@ overwhelmed by the quantity of documentation to be updated, see
 * Check state of translation::
 * Updating documentation translation::
 * Updating translation committishes::
+* Actual translation status::
 @end menu
 
 @macro seeCommittishesUpdate{}
@@ -1676,12 +1677,8 @@ to make your translation up to date.
 
 @seeCommittishesUpdate
 
-@warning{translation status generation is currently broken, so
-translation status pages have been removed; it will be regenerated again
-as soon as possible, in Texinfo format.}
-
 Global state of the translation is recorded in
-@file{Documentation/translations.html.in}, which is used to generate
+@file{Documentation/translations.itexi}, which is used to generate
 Translations status page.  To update that page, do from
 @file{Documentation/}
 
@@ -1695,7 +1692,6 @@ counts of documentation files in this Guide.
 
 @seealso
 @ref{Maintaining without updating translations}.
-
 
 @node Updating documentation translation
 @unnumberedsubsubsec Updating documentation translation
@@ -1828,6 +1824,9 @@ put this very committish on the files in the same commit.
 @seealso
 @ref{LSR work}.
 
+@c NOTE: translations only work if toplevel doc `contributor.texi' is
+@c translated.
+@include translations.itexi
 
 @node Translations management policies
 @subsection Translations management policies
