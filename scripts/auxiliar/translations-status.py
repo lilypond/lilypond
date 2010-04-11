@@ -44,14 +44,13 @@ comments_re = re.compile (r'^@ignore\n(.|\n)*?\n@end ignore$|@c .*?$', re.M)
 space_re = re.compile (r'\s+', re.M)
 lilypond_re = re.compile (r'@lilypond({.*?}|(.|\n)*?\n@end lilypond$)', re.M)
 node_re = re.compile ('^@node .*?$', re.M)
-title_re = re.compile ('^@(top|chapter|(?:sub){0,2}section|' + \
-'(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?) (.*?)$', re.M)
+title_re = re.compile ('^@(settitle|chapter|top|(?:sub){0,2}section|'
+                           '(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?) (.*?)$', re.M)
 include_re = re.compile ('^@include (.*?)$', re.M)
 
 # allow multiple lines
 translators_re = re.compile (r'^@c\s+[tT]ranslators?\s*:\s*(.*?)$', re.M | re.I)
-# FIXME: use revision: (or proofreading:?)
-checkers_re = re.compile (r'^@c\s+Translation\s*checkers\s*:\s*(.*?)$',
+checkers_re = re.compile (r'^@c\s+Translation\s*checkers?\s*:\s*(.*?)$',
                           re.M | re.I)
 status_re = re.compile (r'^@c\s+Translation\s*status\s*:\s*(.*?)$', re.M | re.I)
 post_gdp_re = re.compile ('post.GDP', re.I)
@@ -183,7 +182,9 @@ def tely_word_count (tely_doc):
 class TelyDocument (object):
     def __init__ (self, filename):
         self.filename = filename
-        self.contents = open (filename).read ()
+        self.contents = 'GIT committish: 0'
+        if os.path.exists (filename):
+            self.contents = open (filename).read ()
         self.top = os.path.splitext (filename)[1] in ['.tely', '.texi']
         ## record title and sectionning level of first Texinfo section
         self.sectioning = 'unnumbered'
@@ -191,16 +192,27 @@ class TelyDocument (object):
         m = title_re.search (self.contents)
         if m:
             self.sectioning = m.group (1)
-            if self.sectioning == 'top':
-                self.sectioning = 'unnumbered'
             self.title = m.group (2)
+        # This is all quite ugly and hairy.  The original code worked
+        # with @top node detection and each manual had its own @top
+        # node.  Not any more.  Declaring .tely / .texi files to be
+        # @top sort of works...
+        if self.top:
+            self.sectioning = 'top'
         self.level = texi_level [self.sectioning]
 
+        if not hasattr (self, 'language'):
+            self.language = ''
         m = language_re.search (self.contents)
         if m:
             self.language = m.group (1)
 
-        included_files = [os.path.join (os.path.dirname (filename), t)
+        dir = os.path.dirname (filename).split ('/')[0]
+        if len (dir) == 2:
+            dir += '/'
+        else:
+            dir = ''
+        included_files = [dir + t
                           for t in include_re.findall (self.contents)]
         self.included_files = [p for p in included_files if os.path.exists (p)]
 
@@ -211,7 +223,6 @@ class TelyDocument (object):
 class TranslatedTelyDocument (TelyDocument):
     def __init__ (self, filename, masterdocument, parent_translation=None):
         TelyDocument.__init__ (self, filename)
-
         self.masterdocument = masterdocument
         if not hasattr (self, 'language'):
             self.language = ''
@@ -230,14 +241,15 @@ class TranslatedTelyDocument (TelyDocument):
         self.title = self.translation (self.title)
 
         ## record authoring information
-        self.translators = []
+        self.translators = ['']
         if parent_translation:
-            self.translators = parent_translation.__dict__.get ('translators', [])
+            self.translators = parent_translation.__dict__.get ('translators', [''])
         m = translators_re.findall (self.contents)
         if m:
             self.translators = [n.strip () for n in
                                 reduce (operator.add, [n.split (',') for n in m])]
-        if (not self.translators
+        if (not isinstance (self, UntranslatedTelyDocument)
+            and (not self.translators or not self.translators[0])
             and not 'macros.itexi' in self.filename):
             error ('%s: no translator name found, \nplease \
 specify at least one in the master file as a line containing\n\
@@ -389,12 +401,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
                    sum (self.masterdocument.word_count))
 
         else:
-            s =  ''' <!-- no table 388
-filename: %(filename)s
-sectioning: %(sectioning)s
-title: %(title)s
-!-->''' % self.__dict__
-            s += ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
+            s = ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
                 % (self.print_title (numbering),
                    sum (self.masterdocument.word_count))
 
@@ -426,29 +433,41 @@ title: %(title)s
             s += '</table>\n<p></p>\n'
         return s
 
+class UntranslatedTelyDocument (TranslatedTelyDocument):
+    def __init__ (self, filename, masterdocument, parent_translation=None):
+        if filename[2] == '/':
+            self.language = filename[:2]
+        TranslatedTelyDocument.__init__ (self, filename, masterdocument, parent_translation)
+
 class MasterTelyDocument (TelyDocument):
     def __init__ (self,
                   filename,
                   parent_translations=dict ([(lang, None)
                                              for lang in langdefs.LANGDICT])):
         TelyDocument.__init__ (self, filename)
-        self.sectioning = 'top'
-        self.title = 'Untitled'
-        m = title_re.search (self.contents)
-        if m:
-            self.title = m.group (2)
-        self.level = texi_level [self.sectioning]
-
         self.size = len (self.contents)
         self.word_count = tely_word_count (self.contents)
+        self.translations = {}
+        found = {}
         translations = dict ([(lang, os.path.join (lang, filename))
                               for lang in langdefs.LANGDICT])
-        self.translations = \
-            dict ([(lang,
-                    TranslatedTelyDocument (translations[lang],
-                                            self, parent_translations.get (lang)))
-                   for lang in langdefs.LANGDICT
-                   if os.path.exists (translations[lang])])
+        if not self.language or self.language == 'en':
+            languages = [x for x in parent_translations.keys () if x != 'en']
+            for lang in languages:
+                if os.path.exists (translations[lang]):
+                    found[lang] = True
+                    self.translations[lang] = TranslatedTelyDocument (translations[lang],
+                                                                      self,
+                                                                      parent_translations.get (lang))
+                else:
+                    self.translations[lang] = UntranslatedTelyDocument (translations[lang],
+                                                                        self,
+                                                                        parent_translations.get (lang))
+            if self.top:
+                for lang in [x for x in langdefs.LANGDICT if x and x != 'en']:
+                    if not found.has_key (lang):
+                        del self.translations[lang]
+
         if self.translations:
             self.includes = [MasterTelyDocument (f, self.translations)
                              for f in self.included_files]
@@ -474,12 +493,7 @@ class MasterTelyDocument (TelyDocument):
                 % sum (self.word_count)
 
         else:  # if self is an included file
-           s =  ''' <!-- no table 462
-filename: %(filename)s
-sectioning: %(sectioning)s
-title: %(title)s
-!-->''' % self.__dict__
-           s += ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
+           s = ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
                 % (self.print_title (numbering), sum (self.word_count))
 
         s += ''.join ([t.short_texi_status ()
@@ -554,6 +568,9 @@ main_status_body += '\n'.join ([doc.texi_status () for doc in master_docs])
 
 texi_header = '''@c -*- coding: utf-8; mode: texinfo; -*-
 @c This file was generated by translation-status.py -- DO NOT EDIT!
+@ignore
+    Translation of GIT committish: 0
+@end ignore
 
 @ifnothtml
 Translation status currently only available in HTML.

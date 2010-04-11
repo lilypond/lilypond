@@ -67,6 +67,8 @@ def check_translated_doc (original, translated_file, translated_contents,
         sys.stderr.write (no_committish_fatal_error % translated_file)
         sys.exit (1)
     revision = m.group (1)
+    if revision == '0':
+        return '', 0
 
     if color:
         color_flag = '--color --color-words'
