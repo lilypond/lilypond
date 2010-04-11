@@ -91,8 +91,18 @@ include $(depth)/make/stepmake.make
 
 OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
+
 ### Web site idiosyncrases
 $(XREF_MAPS_DIR)/web.xref-map: XREF_MAP_FLAGS += --split=node
+
+### AJAX scripts
+JS_FILES = $(call src-wildcard,*.js)
+PHP_FILES = $(call src-wildcard,*.php)
+EXTRA_DIST_FILES += $(JS_FILES)
+
+OUT_JS_FILES = $(JS_FILES:%.js=$(outdir)/%.js)
+OUT_PHP_FILES = $(PHP_FILES:%.php=$(outdir)/%.php)
+
 
 
 ### bad hack for badly-integrated roadmap.
@@ -168,7 +178,7 @@ local-clean:
 ifeq ($(out),www)
 local-WWW-1: $(OUT_TEXINFO_MANUALS) $(PDF_FILES) info
 
-local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links) $(OMF_FILES)
+local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(OUT_JS_FILES) $(OUT_PHP_FILES) $(source-links) $(OMF_FILES)
 endif
 
 
@@ -231,6 +241,12 @@ $(outdir)/%.itely: snippets/%-intro.itely snippets/%.snippet-list
 $(outdir)/snippets.texi: $(GENERATED_ITELY_FILES) $(SNIPPET_LY_FILES)
 
 $(outdir)/%.bib: %.bib
+	ln -f $< $@
+
+$(outdir)/%.js: %.js
+	ln -f $< $@
+
+$(outdir)/%.php: %.php
 	ln -f $< $@
 
 ## notation.texi deps

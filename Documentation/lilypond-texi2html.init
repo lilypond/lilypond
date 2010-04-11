@@ -583,9 +583,14 @@ $Texi2HTML::Config::USE_REL_REV   = 1;
 $Texi2HTML::Config::SPLIT_INDEX   = 0;
 $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
 
+my $bigpage = 0;
+my $have_index_entries = 0;
 if ($Texi2HTML::Config::SPLIT eq 'section' or
     $Texi2HTML::Config::SPLIT eq 'node') {
   $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
+  $bigpage = 0;
+} else {
+  $bigpage = 1;
 }
 
 $Texi2HTML::Config::anchor  = \&lilypond_anchor;
@@ -793,6 +798,17 @@ sub lilypond_css_lines ($$)
   # docs still need this?  -gp
   $Texi2HTML::THISDOC{'CSS_LINES'} .=
       "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+
+  # Add the JavaScript file only if we have an index.
+  # Unfortunately, init_out is called after css_lines, so as a workaround
+  # here we have to check again for the existence of an index...
+  my $ix = main::get_index ("cp");
+  $have_index_entries = (scalar $ix > 0);
+  my $reldir = "";
+  $reldir = "../" unless $bigpage;
+  if ($have_index_entries) {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= "<script language=\"JavaScript\" src=\"${reldir}lily_search.js\"></script>\n";
+  }
 }
 
 
@@ -1359,6 +1375,14 @@ sub lilypond_print_toc_div ($$)
 	 &ly_get_string ('Back to Documentation Index') .
 	 "</a></p>\n";
 
+      # AJAX search box, written in JavaScript
+      if ($have_index_entries) {
+        my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+        print $fh '<script language="JavaScript">print_search_field ("' . 
+             $Texi2HTML::THISDOC{current_lang} . '", "' . 
+             $docu_name . "\", " . $bigpage . ")</script>\n";
+      }
+
       print $fh '<h4 class="toc_header"> ' . &$anchor('',
                                     $Texi2HTML::HREF{'Top'},
                                     $topname,
@@ -1779,6 +1803,61 @@ sub makeinfo_like_paragraph ($$$$$$$$$$$$$)
     }
     return $open.'>'.$footnote_text.$text.'</p>';
 }
+
+
+#############################################################################
+###  WRITING OUT THE INDEX FOR THE AJAX SEARCH FIELD
+#############################################################################
+
+$Texi2HTML::Config::IDX_SUMMARY   = 1;
+$Texi2HTML::Config::init_out                  = \&lilypond_init_out;
+$Texi2HTML::Config::finish_out                = \&lilypond_finish_out;
+$Texi2HTML::Config::index_summary_file_entry  = \&lilypond_index_summary_file_entry;
+
+my @index_entries;
+
+sub lilypond_init_out ()
+{
+  t2h_default_init_out ();
+  # Check whether we have an index at all! If not -> don't print out a search box!
+  my $ix = main::get_index ("cp");
+  $have_index_entries = (scalar $ix > 0);
+}
+
+sub lilypond_index_summary_file_entry ($$$$$$$$$)
+{
+  my $index_name = shift;
+  my $entry_text = shift;
+  my $entry_reference = shift;
+  my $formatted_entry = shift;
+  my $texi_entry = shift;
+  my $entry_element_reference = shift;
+  my $entry_element_header = shift;
+  my $is_printed = shift;
+  my $manual_name = shift;
+
+  if ($index_name eq "cp")
+  {
+    # The entries in the index file have the form:
+    # SearchText \t FormattedText \t EntryURL \t SectionText \t SectionURL
+    push @index_entries, "$entry_text\t$formatted_entry\t$entry_reference\t$entry_element_header\t$entry_element_reference\n";
+  }
+}
+
+sub lilypond_finish_out ()
+{
+  if (((scalar @index_entries) > 0) and $have_index_entries) {
+    my $lang = $Texi2HTML::THISDOC{current_lang};
+    my $big = "";
+    $big = "-big-page" if $bigpage;
+    my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+    my $idx_file = "$docu_dir/$docu_name$big.$lang.idx";
+    open IDXOUTFILE, ">:utf8", $idx_file;
+    print IDXOUTFILE @index_entries;
+    close IDXOUTFILE;
+  }
+}
+
 
 
 #############################################################################
