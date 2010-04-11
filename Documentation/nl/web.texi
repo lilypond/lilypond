@@ -7,6 +7,8 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c Translation status: post-GDP
+
 @c translator: Jan Nieuwenhuizen
 @c revision: Tineke de Munnik
 @c revision committish: fd33752
