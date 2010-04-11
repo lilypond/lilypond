@@ -16,8 +16,9 @@ partition =  {
   \key e \major
   <e\5 dis'\4>
   <e dis'>
-  <<e\5 dis'\4>>
+  <e dis'\4>
   <e dis'>\5\4
+  <e dis'\4>\5
 }
 
 
