@@ -21,6 +21,7 @@
 #include <cstdio>
 using namespace std;
 
+#include "articulations.hh"
 #include "context.hh"
 #include "item.hh"
 #include "engraver.hh"
@@ -37,22 +38,21 @@ class Fretboard_engraver : public Engraver
 {
   Item *fret_board_;
 
-  vector<Stream_event*> note_events_;
-  vector<Stream_event*> tabstring_events_;
+  vector<Stream_event *> note_events_;
+  vector<Stream_event *> tabstring_events_;
 public:
   TRANSLATOR_DECLARATIONS (Fretboard_engraver);
 
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  virtual void derived_mark() const;
+  virtual void derived_mark () const;
   DECLARE_TRANSLATOR_LISTENER (note);
   DECLARE_TRANSLATOR_LISTENER (string_number);
 
 private:
   SCM last_fret_notes_;
 };
-
 
 void
 Fretboard_engraver::derived_mark () const
@@ -84,60 +84,20 @@ void
 Fretboard_engraver::process_music ()
 {
   if (!note_events_.size ())
-    return ;
+    return;
 
-  // Ugh -- copied from tab-note-heads-engraver; need to resolve
-  vsize j = 0;
-
-  vector<Stream_event *> string_events;
-
-  for (vsize i = 0; i < note_events_.size (); i++)
-    {
-
-      Stream_event *event = note_events_[i];
-
-      Stream_event *tabstring_event = 0;
-
-      /*
-         For notes inside a chord construct, string indications are
-         stored as articulations on the note, so we check through
-         the notes
-      */
-      for (SCM s = event->get_property ("articulations");
-           !tabstring_event && scm_is_pair (s); s = scm_cdr (s))
-        {
-          Stream_event *art = unsmob_stream_event (scm_car (s));
-
-          if (art->in_event_class ("string-number-event"))
-            tabstring_event = art;
-        }
-
-      /*
-         For string indications listed outside a chord construct,
-         a string_number_event is generated, so if there was no string
-         in the articulations, we check for string events outside
-         the chord construct
-      */
-      if (!tabstring_event && j < tabstring_events_.size ())
-        {
-          tabstring_event = tabstring_events_[j];
-          if (j + 1 < tabstring_events_.size ())
-            j++;
-        }
-      if (tabstring_event)
-        string_events.push_back (tabstring_event);
-    }
-  // end of copied code
-
+  SCM tab_strings = articulation_list (note_events_,
+				       tabstring_events_,
+				       "string-number-event");
   fret_board_ = make_item ("FretBoard", note_events_[0]->self_scm ());
   SCM fret_notes = ly_cxx_vector_to_list (note_events_);
   SCM proc = get_property ("noteToFretFunction");
   if (ly_is_procedure (proc))
-     scm_call_4 (proc,
-                 context ()->self_scm (),
-                 fret_notes,
-                 ly_cxx_vector_to_list (string_events),
-                 fret_board_->self_scm ());
+    scm_call_4 (proc,
+		context ()->self_scm (),
+		fret_notes,
+		tab_strings,
+		fret_board_->self_scm ());
   SCM changes = get_property ("chordChanges");
   if (to_boolean (changes) && scm_is_pair (last_fret_notes_)
       && ly_is_equal (last_fret_notes_, fret_notes))
@@ -156,21 +116,21 @@ Fretboard_engraver::stop_translation_timestep ()
 
 ADD_TRANSLATOR (Fretboard_engraver,
 		/* doc */
-                "Generate fret diagram from one or more events of type"
+		"Generate fret diagram from one or more events of type"
 		" @code{NoteEvent}.",
 
 		/* create */
 		"FretBoard ",
 
 		/* read */
-                "chordChanges "
+		"chordChanges "
 		"highStringOne "
-                "maximumFretStretch "
+		"maximumFretStretch "
 		"minimumFret "
-                "noteToFretFunction "
-                "predefinedDiagramTable "
+		"noteToFretFunction "
+		"predefinedDiagramTable "
 		"stringTunings "
-                "tablatureFormat ",
+		"tablatureFormat ",
 
 		/* write */
 		""
