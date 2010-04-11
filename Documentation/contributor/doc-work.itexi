@@ -1623,7 +1623,6 @@ overwhelmed by the quantity of documentation to be updated, see
 * Check state of translation::
 * Updating documentation translation::
 * Updating translation committishes::
-* Actual translation status::
 @end menu
 
 @macro seeCommittishesUpdate{}
@@ -1823,10 +1822,6 @@ put this very committish on the files in the same commit.
 
 @seealso
 @ref{LSR work}.
-
-@c NOTE: translations only work if toplevel doc `contributor.texi' is
-@c translated.
-@include translations.itexi
 
 @node Translations management policies
 @subsection Translations management policies

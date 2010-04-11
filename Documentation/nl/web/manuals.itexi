@@ -499,10 +499,9 @@ dat verwijst naar deze gegenereerde documentatie.
 @translationof Translated
 
 @divClass{column-center-bottom}
-@subheading Translations status
+@subheading Status van de vertaling
 
-TODO: fix and generate in Texinfo.
-@c http://code.google.com/p/lilypond/issues/detail?id=857
+@include translations.itexi
 
 @divEnd
 

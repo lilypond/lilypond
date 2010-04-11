@@ -628,7 +628,7 @@ formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
 @divClass{column-center-bottom}
 @subheading A honosítások állapota
 
-A honosítások naprakészsége itt tekinthető meg.
+@include translations.itexi
 
 @divEnd
 

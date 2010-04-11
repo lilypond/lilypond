@@ -488,10 +488,7 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 @divClass{column-center-bottom}
 @subheading Status der Übersetzungen
 
-TODO: verschönern und in Texinfo erstellen.
-@c http://code.google.com/p/lilypond/issues/detail?id=857
-
-@uref{../translations.html}.
+@include translations.itexi
 
 @divEnd
 

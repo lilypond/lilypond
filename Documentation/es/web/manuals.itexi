@@ -488,7 +488,7 @@ se refiere a la documentación generada.
 @divClass{column-center-bottom}
 @subheading Estado de la traducción
 
-En construcción.
+@include translations.itexi
 
 @divEnd
 

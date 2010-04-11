@@ -792,7 +792,7 @@ HTML ドキュメントでは、それらサブセクションにはクリック
 @divClass{column-center-bottom}
 @subheading 翻訳状況
 
-Sorry, translations status is temporarily unavailable.
+@include translations.itexi
 
 @divEnd
 

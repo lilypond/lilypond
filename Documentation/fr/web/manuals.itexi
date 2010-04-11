@@ -480,7 +480,7 @@ renvoie à la documentation générée automatiquement.
 @divClass{column-center-bottom}
 @subheading État des traductions
 
-Désolé, l'état des traductions est indisponible en ce moment.
+@include translations.itexi
 
 @divEnd
 
