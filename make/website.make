@@ -35,6 +35,7 @@ endif
 OUT=out-website
 
 ### only update this when the language compiles correctly!
+# LANGUAGES = (site, de, es, fr, hu, it, ja, nl)
 WEB_LANGS = es fr nl
 
 TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
