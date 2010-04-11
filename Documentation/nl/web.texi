@@ -9,9 +9,9 @@
 
 @c Translation status: post-GDP
 
-@c translator: Jan Nieuwenhuizen
-@c revision: Tineke de Munnik
-@c revision committish: fd33752
+@c Translator: Jan Nieuwenhuizen
+@c Translation checker: Tineke de Munnik
+@c Translation checker committish: fd33752
 
 @setfilename web.info
 @settitle LilyPond -- Muzieknotatie voor iedereen

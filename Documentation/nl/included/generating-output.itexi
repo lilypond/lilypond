@@ -7,9 +7,9 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c translator: Jan Nieuwenhuizen
-@c revision:
-@c revision committish:
+@c Translator: Jan Nieuwenhuizen
+@c Translation checker:
+@c Translation checker committish:
 
 @c This file is part of web/download.itexi and
 @c learning/tutorial.itely
