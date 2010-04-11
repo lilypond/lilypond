@@ -1,23 +1,23 @@
 #!/usr/bin/env python
 
-"""
-USAGE: translations-status.py BUILDSCRIPT-DIR LOCALEDIR
+'''
+USAGE: cd Documentation && translations-status.py
 
-  This script must be run from Documentation/
+  Write:
+    translations.itexi
+    <LANG>/translations.itexi
+    out/translations-status.txt
 
-  Reads template files translations.template.html.in
-and for each LANG in LANGUAGES LANG/translations.template.html.in
-  Writes translations.html.in and for each LANG in LANGUAGES
-translations.LANG.html.in
-  Writes out/translations-status.txt
-  Updates word counts in TRANSLATION
-"""
+  Update word counts in:
+    contributor/doc-translation-list.itexi
+'''
 
 import sys
 import re
 import string
+import operator
 import os
-
+#
 import langdefs
 import buildlib
 
@@ -48,7 +48,9 @@ title_re = re.compile ('^@(top|chapter|(?:sub){0,2}section|' + \
 '(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?) (.*?)$', re.M)
 include_re = re.compile ('^@include (.*?)$', re.M)
 
-translators_re = re.compile (r'^@c\s+Translators\s*:\s*(.*?)$', re.M | re.I)
+# allow multiple lines
+translators_re = re.compile (r'^@c\s+[tT]ranslators?\s*:\s*(.*?)$', re.M | re.I)
+# FIXME: use revision: (or proofreading:?)
 checkers_re = re.compile (r'^@c\s+Translation\s*checkers\s*:\s*(.*?)$',
                           re.M | re.I)
 status_re = re.compile (r'^@c\s+Translation\s*status\s*:\s*(.*?)$', re.M | re.I)
@@ -182,15 +184,17 @@ class TelyDocument (object):
     def __init__ (self, filename):
         self.filename = filename
         self.contents = open (filename).read ()
-
+        self.top = os.path.splitext (filename)[1] in ['.tely', '.texi']
         ## record title and sectionning level of first Texinfo section
+        self.sectioning = 'unnumbered'
+        self.title = 'Untitled'
         m = title_re.search (self.contents)
         if m:
+            self.sectioning = m.group (1)
+            if self.sectioning == 'top':
+                self.sectioning = 'unnumbered'
             self.title = m.group (2)
-            self.level = texi_level [m.group (1)]
-        else:
-            self.title = 'Untitled'
-            self.level = ('u', 1)
+        self.level = texi_level [self.sectioning]
 
         m = language_re.search (self.contents)
         if m:
@@ -209,36 +213,42 @@ class TranslatedTelyDocument (TelyDocument):
         TelyDocument.__init__ (self, filename)
 
         self.masterdocument = masterdocument
-        if not hasattr (self, 'language') \
-                and hasattr (parent_translation, 'language'):
-            self.language = parent_translation.language
-        if hasattr (self, 'language'):
+        if not hasattr (self, 'language'):
+            self.language = ''
+        if not self.language and parent_translation:
+            self.language = parent_translation.__dict__.get ('language', '')
+        if self.language == 'en':
+            print filename + ': language en specified: set @documentlanguage', self.filename[:2]
+            self.language = ''
+        if not self.language and filename[2] == '/':
+            print filename + ': no language specified: add @documentlanguage', self.filename[:2]
+            self.language = filename[:2]
+        if self.language:
             self.translation = translation[self.language]
         else:
             self.translation = lambda x: x
         self.title = self.translation (self.title)
 
         ## record authoring information
-        m = translators_re.search (self.contents)
+        self.translators = []
+        if parent_translation:
+            self.translators = parent_translation.__dict__.get ('translators', [])
+        m = translators_re.findall (self.contents)
         if m:
-            self.translators = [n.strip () for n in m.group (1).split (',')]
-        else:
-            try:
-                self.translators = parent_translation.translators
-            except:
-                if 'macros.itexi' in self.filename:
-                    self.translators = ['']
-                else:
-                    error ('%s: no translator name found, \nplease \
+            self.translators = [n.strip () for n in
+                                reduce (operator.add, [n.split (',') for n in m])]
+        if (not self.translators
+            and not 'macros.itexi' in self.filename):
+            error ('%s: no translator name found, \nplease \
 specify at least one in the master file as a line containing\n\
 @c Translators: FirstName1 LastName1, FirstName2 LastName2' % self.filename)
-        m = checkers_re.search (self.contents)
+        self.checkers = []
+        m = checkers_re.findall (self.contents)
         if m:
-            self.checkers = [n.strip () for n in m.group (1).split (',')]
-        elif isinstance (parent_translation, TranslatedTelyDocument):
+            self.checkers = [n.strip () for n in
+                             reduce (operator.add, [n.split (',') for n in m])]
+        if not self.checkers and isinstance (parent_translation, TranslatedTelyDocument):
             self.checkers = parent_translation.checkers
-        else:
-            self.checkers = []
 
         ## check whether translation is pre- or post-GDP
         m = status_re.search (self.contents)
@@ -336,7 +346,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
         else:
             return self.translation (format_table['pre-GDP'])
 
-    def short_html_status (self):
+    def short_texi_status (self):
         s = '  <td>'
         if self.partially_translated:
             s += '<br>\n   '.join (self.translators) + '<br>\n'
@@ -363,11 +373,11 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             s += self.uptodateness ('abbr')['abbr'] + ' '
         return s
 
-    def html_status (self, numbering=SectionNumber ()):
+    def texi_status (self, numbering=SectionNumber ()):
         if self.title == 'Untitled':
             return ''
 
-        if self.level[1] == 0: # if self is a master document
+        if self.top:
             s = '''<table align="center" border="2">
  <tr align="center">
   <th>%s</th>''' % self.print_title (numbering)
@@ -379,7 +389,12 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
                    sum (self.masterdocument.word_count))
 
         else:
-            s = ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
+            s =  ''' <!-- no table 388
+filename: %(filename)s
+sectioning: %(sectioning)s
+title: %(title)s
+!-->''' % self.__dict__
+            s += ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
                 % (self.print_title (numbering),
                    sum (self.masterdocument.word_count))
 
@@ -403,11 +418,11 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             s += '  <td></td>\n'
 
         s += '  <td>' + self.gdp_status () + '</td>\n </tr>\n'
-        s += ''.join ([i.translations[self.language].html_status (numbering)
+        s += ''.join ([i.translations[self.language].texi_status (numbering)
                        for i in self.masterdocument.includes
                        if self.language in i.translations])
 
-        if self.level[1] == 0:  # if self is a master document
+        if self.top:
             s += '</table>\n<p></p>\n'
         return s
 
@@ -417,6 +432,13 @@ class MasterTelyDocument (TelyDocument):
                   parent_translations=dict ([(lang, None)
                                              for lang in langdefs.LANGDICT])):
         TelyDocument.__init__ (self, filename)
+        self.sectioning = 'top'
+        self.title = 'Untitled'
+        m = title_re.search (self.contents)
+        if m:
+            self.title = m.group (2)
+        self.level = texi_level [self.sectioning]
+
         self.size = len (self.contents)
         self.word_count = tely_word_count (self.contents)
         translations = dict ([(lang, os.path.join (lang, filename))
@@ -439,10 +461,10 @@ class MasterTelyDocument (TelyDocument):
             s = i.update_word_counts (s)
         return s
 
-    def html_status (self, numbering=SectionNumber ()):
+    def texi_status (self, numbering=SectionNumber ()):
         if self.title == 'Untitled' or not self.translations:
             return ''
-        if self.level[1] == 0: # if self is a master document
+        if self.top:
             s = '''<table align="center" border="2">
  <tr align="center">
   <th>%s</th>''' % self.print_title (numbering)
@@ -452,15 +474,20 @@ class MasterTelyDocument (TelyDocument):
                 % sum (self.word_count)
 
         else:  # if self is an included file
-            s = ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
+           s =  ''' <!-- no table 462
+filename: %(filename)s
+sectioning: %(sectioning)s
+title: %(title)s
+!-->''' % self.__dict__
+           s += ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
                 % (self.print_title (numbering), sum (self.word_count))
 
-        s += ''.join ([t.short_html_status ()
+        s += ''.join ([t.short_texi_status ()
                        for t in self.translations.values ()])
         s += ' </tr>\n'
-        s += ''.join ([i.html_status (numbering) for i in self.includes])
+        s += ''.join ([i.texi_status (numbering) for i in self.includes])
 
-        if self.level[1] == 0:  # if self is a master document
+        if self.top:
             s += '</table>\n<p></p>\n'
         return s
 
@@ -469,7 +496,7 @@ class MasterTelyDocument (TelyDocument):
             return ''
 
         s = ''
-        if self.level[1] == 0: # if self is a master document
+        if self.top:
             s += (self.print_title (numbering) + ' ').ljust (colspec[0])
             s += ''.join (['%s'.ljust (colspec[1]) % l
                            for l in self.translations])
@@ -487,7 +514,7 @@ class MasterTelyDocument (TelyDocument):
         s += '\n\n'
         s += ''.join ([i.text_status (numbering) for i in self.includes])
 
-        if self.level[1] == 0:
+        if self.top:
             s += '\n'
         return s
 
@@ -497,61 +524,77 @@ update_category_word_counts_re = re.compile (r'(?ms)^-(\d+)-(.*?\n)\d+ *total')
 counts_re = re.compile (r'(?m)^(\d+) ')
 
 def update_category_word_counts_sub (m):
-    return '-' + m.group (1) + '-' + m.group (2) + \
-        str (sum ([int (c)
-                   for c in counts_re.findall (m.group (2))])).ljust (6) + \
-        'total'
+    return ('-' + m.group (1) + '-' + m.group (2)
+            + str (sum ([int (c)
+                         for c in counts_re.findall (m.group (2))])).ljust (6)
+            + 'total')
 
+# urg 
+# main () starts here-abouts
 
 progress ("Reading documents...")
 
 master_files = \
-    buildlib.read_pipe ("find -maxdepth 2 -and -name '*.tely' -or -name '*.texi'")[0].splitlines ()
+    buildlib.read_pipe ("git ls-files | grep -E '[^/]*/?[^/]*[.](tely|texi)$'")[0].splitlines ()
 master_files.sort ()
 master_docs = [MasterTelyDocument (os.path.normpath (filename))
                for filename in master_files]
 master_docs = [doc for doc in master_docs if doc.translations]
 
-main_status_page = open ('translations.template.html.in').read ()
-
 enabled_languages = [l for l in langdefs.LANGDICT
                      if langdefs.LANGDICT[l].enabled
                      and l != 'en']
-lang_status_pages = \
-    dict ([(l, open (os.path.join (l, 'translations.template.html.in')). read ())
-           for l in enabled_languages])
 
 progress ("Generating status pages...")
 
 date_time = buildlib.read_pipe ('LANG= date -u')[0]
 
-main_status_html = last_updated_string % date_time
-main_status_html += '\n'.join ([doc.html_status () for doc in master_docs])
+main_status_body = last_updated_string % date_time
+main_status_body += '\n'.join ([doc.texi_status () for doc in master_docs])
 
-html_re = re.compile ('<html>', re.I)
-end_body_re = re.compile ('</body>', re.I)
+ats = 'Actual translation status'
+node = '''
+@node %(ats)s
+@unnumberedsubsubsec %(ats)s
+''' % locals ()
 
-html_header = '''<html>
-<!-- This page is automatically generated by translation-status.py from
-translations.template.html.in; DO NOT EDIT !-->'''
+texi_header = '''@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file was generated by translation-status.py -- DO NOT EDIT!
 
-main_status_page = html_re.sub (html_header, main_status_page)
+%(node)s
 
-main_status_page = end_body_re.sub (main_status_html + '\n</body>',
-                                    main_status_page)
+@ifnothtml
+Translation status currently only available in HTML.
+@end ifnothtml
+@ifhtml
+@html
+'''
 
-open ('translations.html.in', 'w').write (main_status_page)
+texi_footer = '''
+@end html
+@end ifhtml
+'''
+
+main_status_page = texi_header % locals () + main_status_body + texi_footer
+
+open ('translations.itexi', 'w').write (main_status_page)
 
 for l in enabled_languages:
+    lats = translation[l] (ats)
+    node = '''
+@node %(lats)s
+@subheading %(lats)s
+''' % locals ()
     date_time = buildlib.read_pipe ('LANG=%s date -u' % l)[0]
-    lang_status_pages[l] = translation[l] (last_updated_string) % date_time + lang_status_pages[l]
-    lang_status_page = html_re.sub (html_header, lang_status_pages[l])
-    html_status = '\n'.join ([doc.translations[l].html_status ()
+    updated = translation[l] (last_updated_string) % date_time
+    if l and l != 'en':
+        node += '''@translationof %(ats)s
+''' % locals ()
+    texi_status = '\n'.join ([doc.translations[l].texi_status ()
                               for doc in master_docs
                               if l in doc.translations])
-    lang_status_page = end_body_re.sub (html_status + '\n</body>',
-                                        lang_status_page)
-    open (os.path.join (l, 'translations.html.in'), 'w').write (lang_status_page)
+    lang_status_page = texi_header % locals () + updated + texi_status + texi_footer
+    open (os.path.join (l, 'translations.itexi'), 'w').write (lang_status_page)
 
 main_status_txt = '''Documentation translations status
 Generated %s

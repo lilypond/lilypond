@@ -337,7 +337,8 @@ check-translation:
 update-translation:
 	ISOLANG=$(ISOLANG) $(PYTHON) $(auxscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
 
+# what's it gonna be, boy...tranlationS-/translation-
 translation-status:
-	@echo Target temporarily disabled
+	PYTHONPATH=$(top-src-dir)/python:$(top-src-dir)/python/auxiliar $(PYTHON) $(top-src-dir)/scripts/auxiliar/translations-status.py 
 
 .SECONDARY:
