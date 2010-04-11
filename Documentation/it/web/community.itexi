@@ -1,0 +1,892 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: afdfd9e608370743933d8dfdaa03a682053c33c9
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@include included/authors.itexi
+@include included/helpus.itexi
+
+@node Comunità
+@unnumbered Comunità
+@translationof Community
+
+
+@divClass{column-center-top}
+@subheading Interagire con la comunità
+
+@itemize
+
+@item
+@ref{Contatti}: chiedi aiuto, discuti e resta in contatto!
+
+@item
+@ref{Esempi minimi}: questi esempi sono @emph{altamente} raccomandati
+quando si discute di LilyPond.
+
+@item
+@ref{Segnalazione bug}: qualcosa non ha funzionato.
+
+@end itemize
+@divEnd
+
+@divClass{column-left-bottom}
+@subheading Migliorare LilyPond
+
+@itemize
+
+@item
+@ref{Aiutaci}: è richiesto il tuo aiuto.
+
+@item
+@ref{Sviluppo}: per i collaboratori e i tester.
+
+@item
+@ref{Autori}: le persone che hanno reso LilyPond quello che è oggi.
+
+@end itemize
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Varie
+
+@itemize
+
+@item
+@ref{Pubblicazioni}: cosa abbiamo scritto, e cosa è stato scritto su di noi.
+
+@item
+@ref{Vecchie notizie}: un archivio.
+
+@end itemize
+@divEnd
+
+
+@divClass{hide}
+@menu
+* Contatti::
+* Esempi minimi::
+* Segnalazione bug::
+* Aiutaci::
+* Sviluppo::
+* Autori::
+* Pubblicazioni::
+* Vecchie notizie::
+@end menu
+@divEnd
+
+
+@node Contatti
+@unnumberedsec Contatti
+@translationof Contact
+
+
+@divClass{column-left-bottom}
+@subheading Discussioni e aiuto per gli utenti
+
+@subsubheading Mailing list degli utenti: @code{lilypond-user@@gnu.org}
+
+Questa mailing list è il principale luogo dove gli utenti possono discutere
+e aiutarsi.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
+iscrizione e informazioni su lilypond-user}
+
+@uref{http://lists.gnu.org/archive/html/lilypond-user/,
+archivio 1 della lista degli utenti}
+@uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
+archivio 2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.general,
+archivio 3}
+
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.general,
+scrivi alla lista lilypond-user tramite gmane}
+@end quotation
+
+@warning{Quando poni domande, usa gli @ref{Esempi minimi}!}
+
+
+@subsubheading IRC
+
+Un certo livello di supporto è fornito nel nostro canale IRC,
+
+@example
+@uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
+@end example
+
+Questo canale non ha un archivio pubblico, dunque qualsiasi domanda che
+potrebbe essere utile per altri dovrebbe essere inviata a una delle mailing list.
+
+@html
+<form action="http://webchat.freenode.net"
+      method="get"
+      name="f_lily_irc"
+  <label>irc name:
+    <input name="nick" type="text" size="15" value="">
+  </label>
+  <input name="channels" type="hidden" value="lilypond">
+  <input type="submit" value="Entra nella chat IRC #lilypond">
+</form>
+
+<script language="JavaScript" type="text/javascript">
+  var username = "web";
+  var lang = window.navigator.userLanguage ? window.navigator.userLanguage
+  : window.navigator.language;
+  username += '-' + lang.substr(0, 2);
+  username += '-' + navigator.appName.substr(0, 2);
+  username += navigator.appCodeName.replace (" ", "").substr(0, 2);
+  username += navigator.platform.replace (" ", "").replace("nux", "").replace("n32", "");
+  document.forms["f_lily_irc"].nick.value = username;
+</script>
+@end html
+
+@subsubheading Altre lingue
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+mailing list spagnola}
+
+@uref{http://www.lilypondforum.de/,
+forum tedesco}
+
+@uref{http://groups.google.com/group/lilypond-brasil,
+gruppo portoghese}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+mailing list francese}
+
+@uref{http://www.lilypondforum.nl/,
+forum olandese}
+@end quotation
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Resta informato
+
+@subsubheading LilyPond Report
+
+Il modo più semplice per restare in contatto è leggere la newsletter della
+nostra comunità, il @uref{http://news.lilynet.net/, LilyPond Report}.
+
+@subsubheading Mailing list dei rilasci: @code{info-lilypond@@gnu.org}
+
+Questa mailing list è una lista a basso volume e in sola lettura che riceve
+notifiche dei nuovi rilasci.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+iscrizione e informazioni su info-lilypond}
+
+@uref{http://lists.gnu.org/archive/html/info-lilypond/,
+archivio 1 della lista info}
+@uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
+archivio 2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.announce,
+archivio 3}
+
+@c don't include gmane posting here.  -gp
+@end quotation
+
+
+@divEnd
+
+
+@divClass{column-right-bottom}
+@subheading Discussione per gli Sviluppatori
+
+@subsubheading Mailing list degli sviluppatori: @code{lilypond-devel@@gnu.org}
+
+Gran parte delle discussioni tra sviluppatori ha luogo in questa lista.  Le
+pezze (patch) devono essere inviate qui.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
+iscrizione e informazioni su lilypond-devel}
+
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
+archivio 1 della lista devel}
+@uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
+archivio 2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.devel,
+archivio 3}
+
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.devel,
+scrivi alla lista lilypond-devel tramite gmane}
+@end quotation
+
+
+@subsubheading Mailing list dei bug: @code{bug-lilypond@@gnu.org}
+
+Le discussioni relative ai bug hanno luogo qui.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
+iscrizione e informazioni su bug-lilypond}
+
+@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
+archivio 1 della lista bug}
+@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
+archivio 2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.bugs,
+archivio 3}
+
+@c don't include gmane posting here.  -gp
+@end quotation
+
+@warning{Prima di inviare un messaggio alla lista bug, leggi le nostre
+linee guida per la @ref{Segnalazione bug}.}
+
+@divEnd
+
+
+
+@node Esempi minimi
+@unnumberedsec Esempi minimi
+@translationof Tiny examples
+
+@divClass{column-center-top}
+@subheading Cosa sono gli @qq{Esempi minimi}?
+
+Un esempio minimo è un esempio dal quale niente può essere tolto.
+@divEnd
+
+@divClass{column-left-bottom}
+@subheading Perché crearli?
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Più l'esempio è semplice, più rapidamente potenziali solutori
+possono comprenderlo e aiutarti.
+
+@item
+Un esempio semplice dimostra che hai tentato di risolvere il problema
+da solo.  Quando le persone inviano grandi porzioni di input, sembra
+che non si preoccupino che noi li possiamo aiutare o no.
+
+@item
+Creare un esempio minimo ti spinge a capire cosa sta
+succedendo.  Molte segnalazioni di un falso problema possono essere
+evitate se si prova a creare un esempio minimo; se non riesci a ricreare
+un @qq{bug} in un esempio minimo, allora probabilmente il problema è
+una comprensione di LilyPond insufficiente, non un vero bug!
+
+@end itemize
+@divEnd
+
+@divEnd
+
+
+@divClass{column-right-bottom}
+@subheading Come li creo?
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Includi il numero di versione nel comando \version.
+
+@item
+Crea un esempio piccolo!  Gli esempi che riguardano la spaziatura o la
+formattazione di pagina potrebbero richiedere molte battute, ma la maggior
+parte dei problemi può essere ricreata in una singola
+battuta.
+
+@item
+Durante la preparazione di un esempio, cerca di commentare @w{(@code{%}
+o @code{%@{ @dots{} %@}})} le sezioni del tuo file.  Se riesci a
+commentare una porzione di codice riuscendo a mantenere chiara l'idea principale,
+allora elimina il materiale commentato!
+
+@item
+Evita di usare note, tonalità, o segni di tempo complicati a meno che
+il malfunzionamento non riguardi proprio il comportamento di questi elementi.
+
+@item
+Non usare i comandi @code{\override} o @code{\set} a meno che il malfunzionamento
+non riguardi questi comandi in particolare.
+
+@end itemize
+@divEnd
+
+@divEnd
+
+
+
+
+@node Segnalazione bug
+@unnumberedsec Segnalazione bug
+@translationof Bug reports
+
+@divClass{column-center-top}
+@subheading Passo 1: Bug noti
+
+Se hai un codice di input che produce un crash o un output sbagliato,
+allora si tratta di un bug.  Sul nostro bug tracker su google c'è una
+lista dei bug aperti,
+
+@example
+@uref{http://code.google.com/p/lilypond/issues/list}
+@end example
+
+@warning{Per favore @strong{NON} aggiungere segnalazioni di bug direttamente
+nel bug tracker.  Una volta che il problema è stato aggiunto al tracker, aggiungi
+pure maggiori informazioni nella segnalazione.}
+
+@divEnd
+
+
+@divClass{column-left-bottom}
+@subheading Passo 2: Creare una segnalazione bug
+
+Se hai scoperto un bug che non è elencato, aiutaci a creare
+una segnalazione bug.
+
+@warning{Accettiamo segnalazioni bug esclusivamente nella forma di @ref{Esempi
+minimi}.  Abbiamo risorse molto limitate da dedicare alle segnalazioni
+bug, quindi qualsiasi esempio non minimo sarà scartato.  Quasi
+ogni bug può essere dimostrato con quattro note o meno!}
+
+Ecco un esempio di una valida segnalazione bug:
+
+@example
+%% il comando di ottavazione
+%% non modifica l'output!
+
+\version "2.10.0"
+\paper@{ ragged-right=##t @}
+\relative c''' @{
+  c1
+  #(set-octavation 1)
+  c1
+@}
+@end example
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Passo 3: Inviare una segnalazione bug
+
+Dopo aver verificato che il problema non sia già noto e aver
+creato una segnalazione bug, inviacela!
+
+Purtroppo c'è un severo controllo @qq{no top-posting} nella lista
+bug, che viene spesso innescato erroneamente dai file lilypond.
+Per evitarlo, aggiungi
+
+@example
+> I'm not top posting.
+@end example
+
+@noindent
+(devi includere il @code{>} ) in cima alla tua segnalazione bug.
+
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
+Scrivi tramite l'interfaccia gmane di lilypond.bugs}, o invia un'email a
+@uref{mailto:bug-lilypond@@gnu.prg, bug-lilypond@@gnu.org}.
+
+Una volta che il bug è stato inviato alla lista, il nostro Bug Meister
+esaminerà la segnalazione.  Potrebbe chiederti maggiori informazioni, oppure
+aggiungere la segnalazione al tracker e comunicartene il numero di
+riferimento.
+
+Puoi contrassegnare il bug in modo da ricevere automaticamente delle email
+ogni volta capiti un'attività relativa al bug.  Per fare questo occorre
+avere un account google.
+@divEnd
+
+
+@node Aiutaci
+@unnumberedsec Aiutaci
+@translationof Help us
+
+@divClass{column-center-top}
+@helpusNeed
+
+@divEnd
+
+@divClass{column-left-top}
+@divClass{keep-bullets}
+@helpusTasks
+
+@divEnd
+@divEnd
+
+@divClass{column-right-top}
+@helpusProjects
+
+@divEnd
+
+
+@node Sviluppo
+@unnumberedsec Sviluppo
+@translationof Development
+
+@divClass{heading-center}
+@ifclear web_version
+  @heading Development for LilyPond @version
+@end ifclear
+@ifset web_version
+  @heading Development for LilyPond @versionDevel
+@end ifset
+
+
+@warning{Queste sono le versioni @emph{instabili e di sviluppo}.  Se hai
+un minimo dubbio su come usare o installare LilyPond, ti raccomandiamo
+di usare il @ref{Download} per la versione stabile, e leggere i relativi
+@ref{Manuali}.}
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Numeri di versione
+
+LilyPond viene distribuito in due versioni: la versione stabile e quella
+di sviluppo o instabile.  Le versioni stabili hanno un numero pari
+per numero di versione @q{minore} (e.g., 2.8, 2.10, 2.12).
+Le versioni di sviluppo hanno un numero dispari per numero di versione
+@q{minore} (e.g., 2.7, 2.9, 2.11).
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Download
+
+Le istruzioni su git e la compilazione sono nella Guida del Collaboratore.
+
+@quotation
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, repository git di lilypond}
+@end quotation
+
+Gli editor della Documentazione e i tester generalmente vorranno scaricare
+l'ultimo binario:
+
+@quotation
+
+@downloadDevelLinuxNormal
+
+@downloadDevelLinuxBig
+
+@downloadDevelLinuxPPC
+
+@downloadDevelFreeBSDNormal
+
+@downloadDevelFreeBSDBig
+
+@downloadDevelDarwinNormal
+
+@downloadDevelDarwinPPC
+
+@downloadDevelWindows
+
+@downloadDevelSource
+
+@end quotation
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Guida del Collaboratore
+
+Lo sviluppo di LilyPond è piuttosto complesso.  Per aiutare i
+nuovi collaboratori e mantenere l'intero sistema (tendenzialmente)
+stabile, abbiamo scritto un manuale per i compiti di sviluppo.
+
+@docLinksBare{Contributor's Guide, contributor,
+  @rcontribnamed{Top,Contributor's Guide},
+  @manualDevelContributorSplit,
+  @manualDevelContributorBig, 500 kB,
+  @manualDevelContributorPdf, 2.8 MB}
+
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Collaudi di regressione
+
+@divClass{keep-bullets}
+@itemize
+
+@ifclear web_version
+
+@item
+@uref{../../input/regression/collated-files.html, Regression tests}:
+I collaudi per questa versione.
+(@uref{../../input/regression/collated-files.pdf, pdf version})
+
+@item
+@uref{../../input/regression/musicxml/collated-files.html, MusicXML tests}:
+I collaudi musicXML per questa versione.
+(@uref{../../input/regression/musicxml/collated-files.pdf, pdf version})
+@end ifclear
+
+@ifset web_version
+@item @regtestDevel (@regtestDevelPdf{})
+
+@item @regtestDevelXml (@regtestDevelXmlPdf{})
+
+@item @regtestStable (@regtestStablePdf{})
+
+@item @regtestStableXml (@regtestStableXmlPdf{})
+@end ifset
+
+
+@item @uref{http://lilypond.org/test, Archive of regression tests}:
+Confronti tra le versioni.
+
+@end itemize
+@divEnd
+@divEnd
+
+
+
+@divClass{column-center-bottom}
+@subheading Manuali
+
+@ifclear web_version
+@warning{Questi manuali sono per LilyPond @version{}; gli ultimi
+manuali sono reperibili su @url{http://lilypond.org}}
+@end ifclear
+
+@divClass{normal-table}
+@multitable @columnfractions .3 .3 .3
+@headitem Introduzione
+@item
+@docLinkSplit{Learning,learning,@manualDevelLearningSplit}
+@tab
+@docLinkBig{Learning,learning,@manualDevelLearningBig}
+@tab
+@docLinkPdf{Learning,learning,@manualDevelLearningPdf}
+
+@item
+@docLinkSplit{Glossary,music-glossary,@manualDevelGlossarySplit}
+@tab
+@docLinkBig{Glossary,music-glossary,@manualDevelGlossaryBig}
+@tab
+@docLinkPdf{Glossary,music-glossary,@manualDevelGlossaryPdf}
+
+@item
+@docLinkSplit{Essay,essay,@manualDevelEssaySplit}
+@tab
+@docLinkBig{Essay,essay,@manualDevelEssayBig}
+@tab
+@docLinkPdf{Essay,essay,@manualDevelEssayPdf}
+
+@headitem Regolare
+
+@item
+@docLinkSplit{Notation,notation,@manualDevelNotationSplit}
+@tab
+@docLinkBig{Notation,notation,@manualDevelNotationBig}
+@tab
+@docLinkPdf{Notation,notation,@manualDevelNotationPdf}
+
+@item
+@docLinkSplit{Usage,usage,@manualDevelUsageSplit}
+@tab
+@docLinkBig{Usage,usage,@manualDevelUsageBig}
+@tab
+@docLinkPdf{Usage,usage,@manualDevelUsagePdf}
+
+@item
+@docLinkSplit{Snippets,snippets,@manualDevelSnippetsSplit}
+@tab
+@docLinkBig{Snippets,snippets,@manualDevelSnippetsBig}
+@tab
+@docLinkPdf{Snippets,snippets,@manualDevelSnippetsPdf}
+
+@headitem Saltuario
+
+@item
+@docLinkSplit{Web,web,@manualDevelWebSplit}
+@tab
+@docLinkBig{Web,web,@manualDevelWebBig}
+@tab
+@docLinkPdf{Web,web,@manualDevelWebPdf}
+
+@item
+@docLinkSplit{Changes,changes,@manualDevelChangesSplit}
+@tab
+@docLinkBig{Changes,changes,@manualDevelChangesBig}
+@tab
+@docLinkPdf{Changes,changes,@manualDevelChangesPdf}
+
+@item
+@docLinkSplit{Extending,extending,@manualDevelExtendingSplit}
+@tab
+@docLinkBig{Extending,extending,@manualDevelExtendingBig}
+@tab
+@docLinkPdf{Extending,extending,@manualDevelExtendingPdf}
+
+@item
+@docLinkSplit{Internals,internals,@manualDevelInternalsSplit}
+@tab
+@docLinkBig{Internals,internals,@manualDevelInternalsBig}
+@tab
+@docLinkPdf{Internals,internals,@manualDevelInternalsPdf}
+
+@ifset web_version
+@headitem Per scaricare
+
+@item
+@doctarballDevel
+@end ifset
+
+@end multitable
+
+@divEnd
+@divEnd
+
+
+
+
+@node Autori
+@unnumberedsec Autori
+@translationof Authors
+
+@c @help{Under construction; this is not an accurate list!}
+
+
+@divClass{column-left-top}
+@subheading Team di Sviluppo attuale
+
+@divClass{keep-bullets}
+@developersCurrent
+@divEnd
+@divEnd
+
+@divClass{column-right-top}
+@subheading Team di Sviluppo precedente
+
+@divClass{keep-bullets}
+@developersPrevious
+@divEnd
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Collaboratori attuali
+
+@divClass{keep-bullets}
+@subsubheading Programmazione
+
+@coreCurrent
+
+@subsubheading Font tipografico
+
+@fontCurrent
+
+@subsubheading Documentazione
+
+@docCurrent
+
+@subsubheading Bug squad
+
+@bugsquadCurrent
+
+@subsubheading Supporto
+
+@supportCurrent
+
+@subsubheading Traduzione
+
+@translationsCurrent
+
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Collaboratori precedenti
+
+@divClass{keep-bullets}
+@subsubheading Programmazione
+
+@corePrevious
+
+@subsubheading Font tipografico
+
+@fontPrevious
+
+@subsubheading Documentazione
+
+@docPrevious
+
+@c    uncomment when we have any previous members -gp
+@c @subsubheading Bug squad
+
+@c @bugsquadCurrent
+
+@subsubheading Supporto
+
+@supportPrevious
+
+@subsubheading Traduzione
+
+@translationsPrevious
+
+@divEnd
+@divEnd
+
+
+
+@node Pubblicazioni
+@unnumberedsec Pubblicazioni
+@translationof Publications
+
+@divClass{column-center-top}
+@subheading Cosa abbiamo scritto
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Han-Wen Nienhuys, @emph{LilyPond, Automated music formatting and
+the Art of Shipping}.  Forum Internacional Software Livre 2006
+(FISL7.0) (@uref{http://lilypond.org/web/images/FISL7-slides.pdf,
+PDF 1095k})
+
+@item
+Erik Sandberg, @emph{Separating input language and formatter in
+GNU Lilypond}. Master's Thesis, Uppsala University, Department of
+Information Technology March 2006.
+(@uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf,
+PDF 750k})
+
+@item
+Han-Wen Nienhuys and Jan Nieuwenhuizen, @emph{LilyPond, a system
+for automated music engraving}.  Proceedings of the XIV Colloquium
+on Musical Informatics (XIV CIM 2003), Firenze, Italy, May 2003.
+(@uref{ http://lilypond.org/web/images/xivcim.pdf, PDF 95k})
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+
+@subheading Cosa altri hanno scritto
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Settembre 2009
+
+La rivista tedesca LinuxUser ha scritto un
+@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+articolo su LilyPond}.
+
+
+@item
+Febbraio 2008
+
+In alcuni @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html,
+articoli sul suo sito personale}, Andrew Hawryluk confronta Finale
+e LilyPond in termini generali, e valuta in dettaglio le capacità di
+incisione di entrambi i software.  Il secondo articolo è un'analisi
+istruttiva dei problemi di incisione nel Preludio n. 6 per pianoforte
+di Rachmaninoff, e include dei confronti con un'edizione di riferimento
+incisa a mano.
+
+@item
+Giugno 2006
+
+@uref{http://distrowatch.com,DistroWatch} premia LilyPond e
+@uref{http://distrowatch.com/weekly.php?issue=20060605,scrive}
+@qq{Signore e signori, siamo lieti di annunciare che, in base alle
+richieste dei lettori, la donazione di Maggio 2006 di DistroWatch
+è stata assegnata a LilyPond (@euro{}190.00) e Lua (US$250.00).}
+
+@item
+Dicembre 2005
+
+@uref{http://linuxjournal.com,Linux Journal} pubblica un articolo
+intitolato @uref{http://www.linuxjournal.com/article/8364, Crea
+dei fantastici grafici Schenker con GNU LilyPond}.  È un articolo
+approfondito e pratico con attraenti grafici di LilyPond.  L'autore
+Kris Shaffer commenta @qq{GNU Lilypond genera una grafica splendida
+che fa sembrare le alternative commerciali di second'ordine.}
+
+@item
+August 20, 2005
+
+La rivista belga De Standaard fa un'indagine sulle motivazioni degli
+autori di Software Libero in un articolo intitolato
+@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+Delen van KENNIS zonder WINSTBEJAG} (Condividere la conoscenza senza
+scopo di lucro) nel suo @q{DS2 bijlage}.  LilyPond viene citato come esempio
+e l'articolo è disseminato di estratti di un'intervista email
+con Jan Nieuwenhuizen. Questo articolo segna la prima comparsa di
+LilyPond su un periodico tradizionale, su carta stampata.
+
+@item
+Giugno 2005
+
+Un articolo in francese sul rilascio di LilyPond 2.6 è apparso su
+@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
+
+@item
+Ottobre 2004
+
+Gli editor di Computer!Totaal, una rivista olandese di computer,
+nel numero di Ottobre 2004
+@uref{http://lilypond.org/web/images/computer-totaal.jpeg,
+descrivono LilyPond} come: @qq{Meraviglioso software
+libero (open source) [..] Gli spartiti prodotti da
+LilyPond sono incredibilmente belli [..] un sistema molto potente che
+può fare praticamente qualsiasi cosa.}
+
+@item
+Luglio, Agosto 2004
+
+Dave Phillips ha scritto un articolo introduttivo per
+@uref{http://linuxjournal.com,Linux Journal}: At
+the sounding edge: LilyPond, parte
+@uref{http://www.linuxjournal.com/article/7657, uno} e
+@uref{http://www.linuxjournal.com/article/7719, due}.
+
+@item
+Marzo 2004
+
+Chris Cannam
+@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,ha intervistato}
+Han-Wen Nienhuys e Jan Nieuwenhuizen su linuxmusician.com
+(sito originale defunto).  Questa intervista è stata anche recensita in una
+@uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=,
+storia di slashdot}.
+
+@item
+Febbraio 2004
+
+Il cantante jazz Gail Selkirk scrive su
+@uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
+Tuffarsi in LilyPond}.  @qq{... puoi scrivere lead sheet o parti per
+un'intera orchestra, e i risultati possono essere sorprendenti.}
+@uref{http://www.computermusic.co.uk/, Computer Music Special},
+numero CMS06.
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@node Notizie vecchie
+@unnumberedsec Notizie vecchie
+@translationof Old news
+
+@include web/news-front.itexi
+
+@include web/news.itexi

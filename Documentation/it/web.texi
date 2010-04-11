@@ -1,0 +1,285 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@setfilename web.info
+@settitle LilyPond -- Notazione musicale per tutti
+@documentencoding UTF-8
+@documentlanguage it
+@afourpaper
+
+@c `Web' was imported 2009-08-05 with git commit b938d71...
+@c @macro copyrightDeclare
+@c Copyright @copyright{} 2009--2010 by the authors.
+@c @end macro
+
+@set FDL
+@set web
+@include macros.itexi
+@include weblinks.itexi
+
+@afourpaper
+
+@c don't remove this comment.
+@ignore
+@omfcreator Graham Percival and Patrick McCarty
+@omfdescription General info about the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage Italian
+@end ignore
+
+@c Translators: Federico Bruni
+
+@copying
+Copyright @copyright{} 2009--2010 degli autori.
+
+@quotation
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled ``GNU Free Documentation
+License''.
+@end quotation
+@end copying
+
+
+@c TITLE PAGE
+@ifnottex
+@node Su
+@top LilyPond... notazione musicale per tutti
+@translationof Top
+@end ifnottex
+
+
+@c hack for texi2html, bleh -gp
+@ifnothtml
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle Il compositore tipografico di musica
+@titlefont{Informazioni generali}
+@author Il team di sviluppo di LilyPond
+
+@vskip 0pt plus 1filll
+@c @vskip 20pt
+
+@insertcopying
+
+Per la versione di LilyPond @version{}
+@end titlepage
+@end ifnothtml
+@c end hack for texi2html
+
+
+@c ************************ WEBSITE START ***************
+
+
+@divId{pageHeader}
+@heading LilyPond
+
+... notazione musicale per tutti
+@divEnd
+
+@c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
+@imageId{lilylogo,double-lily-modified3,png,LilyPond logo}
+@c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
+
+@divId{quickSummary}
+@subheading Cos'è LilyPond?
+
+LilyPond è un programma open source di incisione musicale e il suo scopo
+è produrre spartiti musicali della migliore qualità possibile.  Questo software
+libero introduce l'estetica della musica incisa secondo i metodi tradizionali
+nelle stampe prodotte dai computer.
+
+@divClass{align-right}
+Maggiori informazioni nella nostra @ref{Introduzione}!
+
+@divEnd
+@divEnd
+
+@divClass{separator}
+@divEnd
+
+
+@divId{news}
+
+@c TODO: generate this automatically, including RSS feed.
+@include web/news-front.itexi
+
+@divClass{float-right}
+(@ref{Notizie vecchie})
+@divEnd
+
+@divEnd
+
+@ifclear web_version
+  @c do nothing
+@end ifclear
+@ifset web_version
+  @c make the box:
+@divId{latestVersion}
+@subheading Link rapidi
+
+@c TODO: javascript to detect OS and suggest download?
+
+@subsubheading Stabile
+
+@ref{Download, Download @versionStable}
+
+@ref{Manuali, Manuali @versionStable}
+
+@subsubheading Instabile
+
+@ref{Sviluppo, Download @versionDevel}
+
+@ref{Sviluppo, Manuali @versionDevel}
+
+@divEnd
+@end ifset
+
+
+@ifnottex
+
+@divClass{hide}
+@menu
+* Introduzione::     Inizia da qui se vuoi creare spartiti musicali.
+* Download::         Scarica LilyPond.
+* Manuali::          Leggi i manuali (RTFM).
+* Comunità::         Contatta altri utenti.
+@end menu
+@divEnd
+
+@end ifnottex
+
+@contents
+
+@allowcodebreaks false
+
+@c ****************** GENERAL STUFF FOR INFO ************
+@ignore
+Distributions will want to install lilypond.info in postinstall, doing:
+
+    install-info --info-dir=/usr/share/info out[-www]/lilypond-web.info
+
+  * Prepend GNU for dir, must be unique.
+
+  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+    goes to Top.
+
+  * List all commands in direntry.
+
+@c  * lilypond: (lilypond-application)Running LilyPond.      Invoking the
+@c    LilyPond  program.
+@end ignore
+
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond --- il compositore tipografico di musica
+@direntry
+* Manuale di Apprendimento di LilyPond: (lilypond-learning).  Comincia da qui.
+* Glossario Musicale: (music-glossary).               Per gli utenti non di lingua inglese.
+* LilyPond: (lilypond-notation).                      Guida alla Notazione di LilyPond.
+* Frammenti di Codice di LilyPond: (lilypond-snippets).         Piccoli trucchi, consigli, e esempi.
+* Guida al Funzionamento Interno: (lilypond-internals).  Definizioni per le modifiche manuali.
+* Uso del Programma: (lilypond-application). Istallazione e esecuzione delle applicazioni.
+* Sito web: (lilypond-general).    Anteprima del nuovo sito.
+* abc2ly: (lilypond-application)Invocare abc2ly.      Importare ABC.
+* convert-ly: (lilypond-application)Aggiornare i file con convert-ly. Versioni precedenti di LilyPond.
+* etf2ly: (lilypond-application)Invocare etf2ly.      Importare Finale.
+* lilypond-book: (lilypond-application)LilyPond-book. Integrare testo e musica.
+* midi2ly: (lilypond-application)Invocare midi2ly.    Importare MIDI.
+* musicxml2ly: (lilypond-application)Invocare musicxml2ly.  Importare MusicXML.
+@end direntry
+
+
+@c FIXME: this still doesn't solve the broken links in pdf and big
+@c        html; we'll need a bunch of @iftext and stuff in here. -gp
+@c ****************** SPECIAL MACROS FOR WEB MANUAL ************
+@macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@subheading Leggilo
+
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
+
+@end macro
+
+
+@macro docLinkSplit{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\/index.html, \name\ (split HTML)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+@macro docLinkBig{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\-big-page.html, \name\ (big HTML)}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+@macro docLinkPdf{name,base,webLink}
+@ifclear web_version
+  @uref{../\base\.pdf, \base\.pdf}
+@end ifclear
+@ifset web_version
+  \webLink\
+@end ifset
+@end macro
+
+
+@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+
+@divClass{keep-bullets}
+@itemize
+
+@item @docLinkSplit{\name\,\base\,\split\} @minus{}
+  il manuale è diviso in tante pagine HTML.
+  @*@ @ @emph{(small download for each page)}
+
+@item @docLinkBig{\name\,\base\,\big\} @minus{}
+  leggi questo manuale in un'unica grande pagina HTML.
+  @*@ @ @emph{(large single download, \bigsize\)}
+
+@item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
+  scarica come file PDF.
+  @*@ @ @emph{(large single download, \pdfsize\)}
+
+@end itemize
+
+@divEnd
+
+@end macro
+
+
+@c don't add any extra spaces in this macro -gp
+@macro ifWebLinks{webLink,normalLink}
+@ifclear web_version
+  \normalLink\:
+@end ifclear
+@ifset web_version
+  \webLink\:
+@end ifset
+@end macro
+
+
+@include web/introduction.itexi
+@include web/download.itexi
+@include web/manuals.itexi
+@include web/community.itexi
+
+
+@bye
