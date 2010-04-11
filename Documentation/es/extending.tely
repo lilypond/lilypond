@@ -10,7 +10,7 @@
 @setfilename lilypond-extending.info
 @settitle Extending LilyPond
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage es
 @afourpaper
 
 @macro manualIntro
