@@ -248,10 +248,13 @@ class TranslatedTelyDocument (TelyDocument):
         if m:
             self.translators = [n.strip () for n in
                                 reduce (operator.add, [n.split (',') for n in m])]
+        if self.language != self.filename[:2]:
+            print 'Barf:', self.filename
+            barf
         if (not isinstance (self, UntranslatedTelyDocument)
             and (not self.translators or not self.translators[0])
             and not 'macros.itexi' in self.filename):
-            error ('%s: no translator name found, \nplease \
+            error ('%s: error: no translator name found, \nplease \
 specify at least one in the master file as a line containing\n\
 @c Translators: FirstName1 LastName1, FirstName2 LastName2' % self.filename)
         self.checkers = []
@@ -359,7 +362,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             return self.translation (format_table['pre-GDP'])
 
     def short_texi_status (self):
-        s = '  <td>'
+        s = '  <td title="%(filename)s">' % self.__dict__
         if self.partially_translated:
             s += '<br>\n   '.join (self.translators) + '<br>\n'
             if self.checkers:
@@ -396,14 +399,14 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             s += ''.join (['  <th>%s</th>\n' % self.translation (h)
                            for h in detailed_status_heads])
             s += ' </tr>\n'
-            s += ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
-                % (self.translation (section_titles_string),
-                   sum (self.masterdocument.word_count))
+            s += (' <tr align="left">\n  <td title="%%(filename)s">%s<br>(%d)</td>\n'
+                  % (self.translation (section_titles_string),
+                     sum (self.masterdocument.word_count))) % self.__dict__
 
         else:
-            s = ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
-                % (self.print_title (numbering),
-                   sum (self.masterdocument.word_count))
+            s = (' <tr align="left">\n  <td title="%%(filename)s">%s<br>(%d)</td>\n'
+                 % (self.print_title (numbering),
+                    sum (self.masterdocument.word_count))) % self.__dict__
 
         if self.partially_translated:
             s += '  <td>' + '<br>\n   '.join (self.translators) + '</td>\n'
@@ -487,17 +490,17 @@ class MasterTelyDocument (TelyDocument):
             s = '''<table align="center" border="2">
  <tr align="center">
   <th>%s</th>''' % self.print_title (numbering)
-            s += ''.join (['  <th>%s</th>\n' % l for l in self.translations])
+            s += ''.join (['  <th>%s</th>\n' % l for l in sorted (self.translations.keys ())])
             s += ' </tr>\n'
-            s += ' <tr align="left">\n  <td>Section titles<br>(%d)</td>\n' \
-                % sum (self.word_count)
+            s += (' <tr align="left">\n  <td title="%%(filename)s">Section titles<br>(%d)</td>\n'
+                      % sum (self.word_count)) % self.__dict__
 
         else:  # if self is an included file
-           s = ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
-                % (self.print_title (numbering), sum (self.word_count))
+           s = (' <tr align="left">\n  <td title=%%(filename)s>%s<br>(%d)</td>\n'
+                % (self.print_title (numbering), sum (self.word_count))) % self.__dict__
 
-        s += ''.join ([t.short_texi_status ()
-                       for t in self.translations.values ()])
+        s += ''.join ([self.translations[k].short_texi_status ()
+                       for k in sorted (self.translations.keys ())])
         s += ' </tr>\n'
         s += ''.join ([i.texi_status (numbering) for i in self.includes])
 
@@ -513,7 +516,7 @@ class MasterTelyDocument (TelyDocument):
         if self.top:
             s += (self.print_title (numbering) + ' ').ljust (colspec[0])
             s += ''.join (['%s'.ljust (colspec[1]) % l
-                           for l in self.translations])
+                           for l in sorted (self.translations.keys ())])
             s += '\n'
             s += ('Section titles (%d)' % \
                       sum (self.word_count)).ljust (colspec[0])
@@ -523,8 +526,8 @@ class MasterTelyDocument (TelyDocument):
                 % (self.print_title (numbering), sum (self.word_count))
             s = s.ljust (colspec[0])
 
-        s += ''.join ([t.text_status ().ljust(colspec[1])
-                       for t in self.translations.values ()])
+        s += ''.join ([self.translations[k].text_status ().ljust(colspec[1])
+                       for k in sorted (self.translations.keys ())])
         s += '\n\n'
         s += ''.join ([i.text_status (numbering) for i in self.includes])
 

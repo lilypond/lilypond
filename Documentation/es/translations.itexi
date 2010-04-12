@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>Actualizado en Mon Apr 12 00:01:39 UTC 2010
+ <p><i>Actualizado en Mon Apr 12 08:13:11 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -20,7 +20,7 @@ Translation status currently only available in HTML.
   <th>Más inf.</th>
  </tr>
  <tr align="left">
-  <td>Títulos de sección<br>(491)</td>
+  <td title="es/changes.tely">Títulos de sección<br>(491)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -39,7 +39,7 @@ Translation status currently only available in HTML.
   <th>Más inf.</th>
  </tr>
  <tr align="left">
-  <td>Títulos de sección<br>(93)</td>
+  <td title="es/essay.tely">Títulos de sección<br>(93)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -47,7 +47,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond --- \TITLE\<br>(1107)</td>
+  <td title="es/macros.itexi">LilyPond --- \TITLE\<br>(1107)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -55,7 +55,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Grabado musical<br>(5297)</td>
+  <td title="es/essay/engraving.itely">1 Grabado musical<br>(5297)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -63,7 +63,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 Lista de referencias bibliográficas<br>(319)</td>
+  <td title="es/essay/literature.itely">2 Lista de referencias bibliográficas<br>(319)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -82,7 +82,7 @@ Translation status currently only available in HTML.
   <th>Más inf.</th>
  </tr>
  <tr align="left">
-  <td>Títulos de sección<br>(107)</td>
+  <td title="es/extending.tely">Títulos de sección<br>(107)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -90,7 +90,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond --- \TITLE\<br>(1107)</td>
+  <td title="es/macros.itexi">LilyPond --- \TITLE\<br>(1107)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -98,7 +98,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>B Tutorial de Scheme<br>(4622)</td>
+  <td title="es/extending/scheme-tutorial.itely">A Tutorial de Scheme<br>(4622)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -106,7 +106,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Interfaces para programadores<br>(3799)</td>
+  <td title="es/extending/programming-interface.itely">1 Interfaces para programadores<br>(3799)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -125,7 +125,7 @@ Translation status currently only available in HTML.
   <th>Más inf.</th>
  </tr>
  <tr align="left">
-  <td>Títulos de sección<br>(124)</td>
+  <td title="es/learning.tely">Títulos de sección<br>(124)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -133,7 +133,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond --- \TITLE\<br>(1107)</td>
+  <td title="es/macros.itexi">LilyPond --- \TITLE\<br>(1107)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -141,7 +141,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Tutorial<br>(2379)</td>
+  <td title="es/learning/tutorial.itely">1 Tutorial<br>(2379)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -149,7 +149,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 Notación corriente<br>(4035)</td>
+  <td title="es/learning/common-notation.itely">2 Notación corriente<br>(4035)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -157,7 +157,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>6 Conceptos fundamentales<br>(11151)</td>
+  <td title="es/learning/fundamental.itely">3 Conceptos fundamentales<br>(11151)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -165,7 +165,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>8 Trucar la salida<br>(15619)</td>
+  <td title="es/learning/tweaks.itely">4 Trucar la salida<br>(15619)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -173,7 +173,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>B Plantillas<br>(201)</td>
+  <td title="es/learning/templates.itely">A Plantillas<br>(201)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -192,7 +192,7 @@ Translation status currently only available in HTML.
   <th>Más inf.</th>
  </tr>
  <tr align="left">
-  <td>Títulos de sección<br>(355)</td>
+  <td title="es/notation.tely">Títulos de sección<br>(355)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -200,7 +200,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond --- \TITLE\<br>(1107)</td>
+  <td title="es/macros.itexi">LilyPond --- \TITLE\<br>(1107)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -208,7 +208,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Notación musical<br>(91)</td>
+  <td title="es/notation/notation.itely">1 Notación musical<br>(91)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -216,7 +216,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.2 Alturas<br>(3482)</td>
+  <td title="es/notation/pitches.itely">1.1 Alturas<br>(3482)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -224,7 +224,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.4 Duraciones<br>(4936)</td>
+  <td title="es/notation/rhythms.itely">1.2 Duraciones<br>(4936)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -232,7 +232,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.6 Expresiones<br>(1481)</td>
+  <td title="es/notation/expressive.itely">1.3 Expresiones<br>(1481)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -240,7 +240,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.8 Repeticiones<br>(578)</td>
+  <td title="es/notation/repeats.itely">1.4 Repeticiones<br>(578)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -248,7 +248,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.10 Notas simultáneas<br>(1639)</td>
+  <td title="es/notation/simultaneous.itely">1.5 Notas simultáneas<br>(1639)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -256,7 +256,7 @@ Translation status currently only available in HTML.
   <td>post-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.12 Notación de los pentagramas<br>(1855)</td>
+  <td title="es/notation/staff.itely">1.6 Notación de los pentagramas<br>(1855)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -264,7 +264,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.14 Anotaciones editoriales<br>(935)</td>
+  <td title="es/notation/editorial.itely">1.7 Anotaciones editoriales<br>(935)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -272,7 +272,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.16 Texto<br>(2755)</td>
+  <td title="es/notation/text.itely">1.8 Texto<br>(2755)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -280,7 +280,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 Notación especializada<br>(81)</td>
+  <td title="es/notation/specialist.itely">2 Notación especializada<br>(81)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -288,7 +288,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.2 Música vocal<br>(2730)</td>
+  <td title="es/notation/vocal.itely">2.1 Música vocal<br>(2730)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -296,7 +296,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.4 Teclados y otros instrumentos de varios pentagramas<br>(747)</td>
+  <td title="es/notation/keyboards.itely">2.2 Teclados y otros instrumentos de varios pentagramas<br>(747)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -304,7 +304,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.6 Instrumentos de cuerda sin trastes<br>(255)</td>
+  <td title="es/notation/unfretted-strings.itely">2.3 Instrumentos de cuerda sin trastes<br>(255)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -312,7 +312,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.8 Instrumentos de cuerda con trastes<br>(2233)</td>
+  <td title="es/notation/fretted-strings.itely">2.4 Instrumentos de cuerda con trastes<br>(2233)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -320,7 +320,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.10 Percusión<br>(807)</td>
+  <td title="es/notation/percussion.itely">2.5 Percusión<br>(807)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -328,7 +328,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.12 Instrumentos de viento<br>(136)</td>
+  <td title="es/notation/wind.itely">2.6 Instrumentos de viento<br>(136)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -336,7 +336,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.14 Notación de acordes<br>(1521)</td>
+  <td title="es/notation/chords.itely">2.7 Notación de acordes<br>(1521)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -344,7 +344,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.16 Música contemporánea<br>(473)</td>
+  <td title="es/notation/contemporary.itely">2.8 Música contemporánea<br>(473)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #dfef77">parcialmente (84 %)</span></td>
@@ -352,7 +352,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.18 Notación antigua<br>(4479)</td>
+  <td title="es/notation/ancient.itely">2.9 Notación antigua<br>(4479)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -360,7 +360,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.20 Músicas del mundo<br>(1429)</td>
+  <td title="es/notation/world.itely">2.10 Músicas del mundo<br>(1429)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -368,7 +368,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>6 Entrada y salida generales<br>(6287)</td>
+  <td title="es/notation/input.itely">3 Entrada y salida generales<br>(6287)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -376,7 +376,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>8 Problemas de espaciado<br>(9253)</td>
+  <td title="es/notation/spacing.itely">4 Problemas de espaciado<br>(9253)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -384,7 +384,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>10 Cambiar los valores por omisión<br>(11890)</td>
+  <td title="es/notation/changing-defaults.itely">5 Cambiar los valores por omisión<br>(11890)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -392,7 +392,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>B Tablas del manual sobre notación<br>(1954)</td>
+  <td title="es/notation/notation-appendices.itely">A Tablas del manual sobre notación<br>(1954)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #dfef77">parcialmente (39 %)</span></td>
@@ -400,7 +400,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>D Hoja de referencia rápida<br>(252)</td>
+  <td title="es/notation/cheatsheet.itely">B Hoja de referencia rápida<br>(252)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -419,7 +419,7 @@ Translation status currently only available in HTML.
   <th>Más inf.</th>
  </tr>
  <tr align="left">
-  <td>Títulos de sección<br>(135)</td>
+  <td title="es/usage.tely">Títulos de sección<br>(135)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -427,7 +427,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond --- \TITLE\<br>(1107)</td>
+  <td title="es/macros.itexi">LilyPond --- \TITLE\<br>(1107)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -435,7 +435,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Ejecutar LilyPond<br>(2902)</td>
+  <td title="es/usage/running.itely">1 Ejecutar LilyPond<br>(2902)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -443,7 +443,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 Actualizar ficheros con @command{convert-ly}<br>(1189)</td>
+  <td title="es/usage/updating.itely">2 Actualizar ficheros con @command{convert-ly}<br>(1189)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -451,7 +451,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>6 Ejecución de @command{lilypond-book}<br>(3438)</td>
+  <td title="es/usage/lilypond-book.itely">3 Ejecución de @command{lilypond-book}<br>(3438)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -459,7 +459,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>8 Programas externos<br>(2229)</td>
+  <td title="es/usage/external.itely">4 Programas externos<br>(2229)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -467,7 +467,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>10 Sugerencias para escribir archivos de entrada<br>(2694)</td>
+  <td title="es/usage/suggestions.itely">5 Sugerencias para escribir archivos de entrada<br>(2694)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -486,7 +486,7 @@ Translation status currently only available in HTML.
   <th>Más inf.</th>
  </tr>
  <tr align="left">
-  <td>Títulos de sección<br>(496)</td>
+  <td title="es/web.texi">Títulos de sección<br>(496)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -494,7 +494,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond --- \TITLE\<br>(1107)</td>
+  <td title="es/macros.itexi">LilyPond --- \TITLE\<br>(1107)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -502,7 +502,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>Introducción<br>(3755)</td>
+  <td title="es/web/introduction.itexi">Introducción<br>(3755)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -510,7 +510,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>Descarga<br>(1174)</td>
+  <td title="es/web/download.itexi">Descarga<br>(1174)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -518,7 +518,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>Manuales<br>(1198)</td>
+  <td title="es/web/manuals.itexi">Manuales<br>(1198)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>
@@ -526,7 +526,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>Comunidad<br>(1959)</td>
+  <td title="es/web/community.itexi">Comunidad<br>(1959)</td>
   <td>Francisco Vila</td>
   <td></td>
   <td><span style="background-color: #1fff1f">sí</span></td>

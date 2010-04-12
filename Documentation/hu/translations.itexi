@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>Last updated Mon Apr 12 00:01:39 UTC 2010
+ <p><i>Last updated Mon Apr 12 08:13:11 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -20,7 +20,7 @@ Translation status currently only available in HTML.
   <th>Other info</th>
  </tr>
  <tr align="left">
-  <td>Section titles<br>(124)</td>
+  <td title="hu/learning.tely">Section titles<br>(124)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -28,7 +28,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond --- \TITLE\<br>(1107)</td>
+  <td title="hu/macros.itexi">LilyPond --- \TITLE\<br>(1107)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -36,7 +36,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Első lecke<br>(2379)</td>
+  <td title="hu/learning/tutorial.itely">1 Első lecke<br>(2379)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -44,7 +44,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 Elemi kottaírás<br>(4035)</td>
+  <td title="hu/learning/common-notation.itely">2 Elemi kottaírás<br>(4035)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -52,7 +52,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>6 Alapfogalmak<br>(11151)</td>
+  <td title="hu/learning/fundamental.itely">3 Alapfogalmak<br>(11151)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #d0f0f8">no</span></td>
@@ -60,7 +60,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>8 A kimenet finomhangolása<br>(15619)</td>
+  <td title="hu/learning/tweaks.itely">4 A kimenet finomhangolása<br>(15619)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #d0f0f8">no</span></td>
@@ -68,7 +68,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>B Sablonok<br>(201)</td>
+  <td title="hu/learning/templates.itely">A Sablonok<br>(201)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #d0f0f8">no</span></td>
@@ -87,7 +87,7 @@ Translation status currently only available in HTML.
   <th>Other info</th>
  </tr>
  <tr align="left">
-  <td>Section titles<br>(135)</td>
+  <td title="hu/usage.tely">Section titles<br>(135)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -95,7 +95,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond --- \TITLE\<br>(1107)</td>
+  <td title="hu/macros.itexi">LilyPond --- \TITLE\<br>(1107)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -103,7 +103,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 A @command{lilypond} használata<br>(2902)</td>
+  <td title="hu/usage/running.itely">1 A @command{lilypond} használata<br>(2902)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -111,7 +111,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 A @command{convert-ly} használata<br>(1189)</td>
+  <td title="hu/usage/updating.itely">2 A @command{convert-ly} használata<br>(1189)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -130,7 +130,7 @@ Translation status currently only available in HTML.
   <th>Other info</th>
  </tr>
  <tr align="left">
-  <td>Section titles<br>(496)</td>
+  <td title="hu/web.texi">Section titles<br>(496)</td>
   <td>Dénes Harmath</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -138,7 +138,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond --- \TITLE\<br>(1107)</td>
+  <td title="hu/macros.itexi">LilyPond --- \TITLE\<br>(1107)</td>
   <td>Dénes Harmath</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -146,7 +146,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>Bevezetés<br>(3755)</td>
+  <td title="hu/web/introduction.itexi">Bevezetés<br>(3755)</td>
   <td>so far it's mostly from</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -154,7 +154,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>Letöltés<br>(1174)</td>
+  <td title="hu/web/download.itexi">Letöltés<br>(1174)</td>
   <td>Dénes Harmath</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -162,7 +162,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>Dokumentáció<br>(1198)</td>
+  <td title="hu/web/manuals.itexi">Dokumentáció<br>(1198)</td>
   <td>most of the text in this file came from</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -170,7 +170,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>Közösség<br>(1959)</td>
+  <td title="hu/web/community.itexi">Közösség<br>(1959)</td>
   <td>Dénes Harmath</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>

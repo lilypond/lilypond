@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>Meest recente update Mon Apr 12 00:01:39 UTC 2010
+ <p><i>Meest recente update Mon Apr 12 08:13:11 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -20,7 +20,7 @@ Translation status currently only available in HTML.
   <th>Andere informatie</th>
  </tr>
  <tr align="left">
-  <td>Paragraaftitels<br>(124)</td>
+  <td title="nl/learning.tely">Paragraaftitels<br>(124)</td>
   <td>Jan Nieuwenhuizen</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -28,7 +28,7 @@ Translation status currently only available in HTML.
   <td>na-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond -- \TITLE\<br>(1107)</td>
+  <td title="nl/macros.itexi">LilyPond -- \TITLE\<br>(1107)</td>
   <td>Jan Nieuwenhuizen</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -36,7 +36,7 @@ Translation status currently only available in HTML.
   <td>voor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Leerboek<br>(2379)</td>
+  <td title="nl/learning/tutorial.itely">1 Leerboek<br>(2379)</td>
   <td>Jan Nieuwenhuizen</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -44,7 +44,7 @@ Translation status currently only available in HTML.
   <td>voor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 Algemene muzieknotatie<br>(4035)</td>
+  <td title="nl/learning/common-notation.itely">2 Algemene muzieknotatie<br>(4035)</td>
   <td>Jan Nieuwenhuizen</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -52,7 +52,7 @@ Translation status currently only available in HTML.
   <td>voor-GDP</td>
  </tr>
  <tr align="left">
-  <td>6 Fundamentele concepten<br>(11151)</td>
+  <td title="nl/learning/fundamental.itely">3 Fundamentele concepten<br>(11151)</td>
   <td>Jan Nieuwenhuizen</td>
   <td></td>
   <td><span style="background-color: #dfef77">gedeeltelijk (9 %)</span></td>
@@ -71,7 +71,7 @@ Translation status currently only available in HTML.
   <th>Andere informatie</th>
  </tr>
  <tr align="left">
-  <td>Paragraaftitels<br>(496)</td>
+  <td title="nl/web.texi">Paragraaftitels<br>(496)</td>
   <td>Jan Nieuwenhuizen</td>
   <td>Tineke de Munnik</td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -79,7 +79,7 @@ Translation status currently only available in HTML.
   <td>na-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond -- \TITLE\<br>(1107)</td>
+  <td title="nl/macros.itexi">LilyPond -- \TITLE\<br>(1107)</td>
   <td>Jan Nieuwenhuizen</td>
   <td>Tineke de Munnik</td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -87,7 +87,7 @@ Translation status currently only available in HTML.
   <td>voor-GDP</td>
  </tr>
  <tr align="left">
-  <td>Inleiding<br>(3755)</td>
+  <td title="nl/web/introduction.itexi">Inleiding<br>(3755)</td>
   <td>Jan Nieuwenhuizen</td>
   <td>Tineke de Munnik</td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -95,7 +95,7 @@ Translation status currently only available in HTML.
   <td>voor-GDP</td>
  </tr>
  <tr align="left">
-  <td>Download<br>(1174)</td>
+  <td title="nl/web/download.itexi">Download<br>(1174)</td>
   <td>Jan Nieuwenhuizen</td>
   <td>Tineke de Munnik</td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -103,7 +103,7 @@ Translation status currently only available in HTML.
   <td>voor-GDP</td>
  </tr>
  <tr align="left">
-  <td>Handleidingen<br>(1198)</td>
+  <td title="nl/web/manuals.itexi">Handleidingen<br>(1198)</td>
   <td>Jan Nieuwenhuizen</td>
   <td>Tineke de Munnik</td>
   <td><span style="background-color: #1fff1f">ja</span></td>

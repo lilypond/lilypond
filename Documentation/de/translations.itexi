@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
-·<p><i>Zuletzt aktualisiert am·Mon Apr 12 00:01:39 UTC 2010
+·<p><i>Zuletzt aktualisiert am·Mon Apr 12 08:13:11 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -20,7 +20,7 @@ Translation status currently only available in HTML.
   <th>Mehr Information</th>
  </tr>
  <tr align="left">
-  <td>Überschriften<br>(93)</td>
+  <td title="de/essay.tely">Überschriften<br>(93)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -28,7 +28,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond -- \TITLE\<br>(1107)</td>
+  <td title="de/macros.itexi">LilyPond -- \TITLE\<br>(1107)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -36,7 +36,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Notensatz<br>(5297)</td>
+  <td title="de/essay/engraving.itely">1 Notensatz<br>(5297)</td>
   <td> Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -44,7 +44,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 Literatur<br>(319)</td>
+  <td title="de/essay/literature.itely">2 Literatur<br>(319)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -63,7 +63,7 @@ Translation status currently only available in HTML.
   <th>Mehr Information</th>
  </tr>
  <tr align="left">
-  <td>Überschriften<br>(107)</td>
+  <td title="de/extending.tely">Überschriften<br>(107)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -71,7 +71,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond -- \TITLE\<br>(1107)</td>
+  <td title="de/macros.itexi">LilyPond -- \TITLE\<br>(1107)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -79,7 +79,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>B Scheme-Übung<br>(4622)</td>
+  <td title="de/extending/scheme-tutorial.itely">A Scheme-Übung<br>(4622)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #dfef77">teilweise (4 %)</span></td>
@@ -87,7 +87,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Schnittstellen für Programmierer<br>(3799)</td>
+  <td title="de/extending/programming-interface.itely">1 Schnittstellen für Programmierer<br>(3799)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -106,7 +106,7 @@ Translation status currently only available in HTML.
   <th>Mehr Information</th>
  </tr>
  <tr align="left">
-  <td>Überschriften<br>(124)</td>
+  <td title="de/learning.tely">Überschriften<br>(124)</td>
   <td>Till Rettig</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -114,7 +114,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond -- \TITLE\<br>(1107)</td>
+  <td title="de/macros.itexi">LilyPond -- \TITLE\<br>(1107)</td>
   <td>Till Rettig</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -122,7 +122,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Übung<br>(2379)</td>
+  <td title="de/learning/tutorial.itely">1 Übung<br>(2379)</td>
   <td>Till Paala<br>
    Reinhold Kainhofer</td>
   <td>Hajo Bäß</td>
@@ -131,7 +131,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 Übliche Notation<br>(4035)</td>
+  <td title="de/learning/common-notation.itely">2 Übliche Notation<br>(4035)</td>
   <td>Till Rettig</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -139,7 +139,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>6 Grundbegriffe<br>(11151)</td>
+  <td title="de/learning/fundamental.itely">3 Grundbegriffe<br>(11151)</td>
   <td>Till Paala<br>
    Reinhold Kainhofer</td>
   <td></td>
@@ -148,7 +148,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>8 Die Ausgabe verändern<br>(15619)</td>
+  <td title="de/learning/tweaks.itely">4 Die Ausgabe verändern<br>(15619)</td>
   <td>Till Rettig</td>
   <td></td>
   <td><span style="background-color: #dfef77">teilweise (98 %)</span></td>
@@ -156,7 +156,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>B Vorlagen<br>(201)</td>
+  <td title="de/learning/templates.itely">A Vorlagen<br>(201)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -175,7 +175,7 @@ Translation status currently only available in HTML.
   <th>Mehr Information</th>
  </tr>
  <tr align="left">
-  <td>Überschriften<br>(355)</td>
+  <td title="de/notation.tely">Überschriften<br>(355)</td>
   <td>Till Paala<br>
    Till Rettig</td>
   <td></td>
@@ -184,7 +184,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond -- \TITLE\<br>(1107)</td>
+  <td title="de/macros.itexi">LilyPond -- \TITLE\<br>(1107)</td>
   <td>Till Paala<br>
    Till Rettig</td>
   <td></td>
@@ -193,7 +193,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Musikalische Notation<br>(91)</td>
+  <td title="de/notation/notation.itely">1 Musikalische Notation<br>(91)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -201,7 +201,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.2 Tonhöhen<br>(3482)</td>
+  <td title="de/notation/pitches.itely">1.1 Tonhöhen<br>(3482)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -209,7 +209,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.4 Rhythmus<br>(4936)</td>
+  <td title="de/notation/rhythms.itely">1.2 Rhythmus<br>(4936)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -217,7 +217,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.6 Ausdrucksbezeichnungen<br>(1481)</td>
+  <td title="de/notation/expressive.itely">1.3 Ausdrucksbezeichnungen<br>(1481)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -225,7 +225,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.8 Wiederholungszeichen<br>(578)</td>
+  <td title="de/notation/repeats.itely">1.4 Wiederholungszeichen<br>(578)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -233,7 +233,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.10 Gleichzeitig erscheinende Noten<br>(1639)</td>
+  <td title="de/notation/simultaneous.itely">1.5 Gleichzeitig erscheinende Noten<br>(1639)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -241,7 +241,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.12 Notation auf Systemen<br>(1855)</td>
+  <td title="de/notation/staff.itely">1.6 Notation auf Systemen<br>(1855)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -249,7 +249,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.14 Anmerkungen<br>(935)</td>
+  <td title="de/notation/editorial.itely">1.7 Anmerkungen<br>(935)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -257,7 +257,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2.16 Text<br>(2755)</td>
+  <td title="de/notation/text.itely">1.8 Text<br>(2755)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -265,7 +265,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 Spezielle Notation<br>(81)</td>
+  <td title="de/notation/specialist.itely">2 Spezielle Notation<br>(81)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -273,7 +273,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.2 Notation von Gesang<br>(2730)</td>
+  <td title="de/notation/vocal.itely">2.1 Notation von Gesang<br>(2730)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -281,7 +281,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.4 Tasteninstrumente und andere Instrumente mit mehreren Systemen<br>(747)</td>
+  <td title="de/notation/keyboards.itely">2.2 Tasteninstrumente und andere Instrumente mit mehreren Systemen<br>(747)</td>
   <td> Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -289,7 +289,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.6 Bundlose Saiteninstrumente<br>(255)</td>
+  <td title="de/notation/unfretted-strings.itely">2.3 Bundlose Saiteninstrumente<br>(255)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -297,7 +297,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.8 Saiteninstrumente mit Bünden<br>(2233)</td>
+  <td title="de/notation/fretted-strings.itely">2.4 Saiteninstrumente mit Bünden<br>(2233)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -305,7 +305,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.10 Schlagzeug<br>(807)</td>
+  <td title="de/notation/percussion.itely">2.5 Schlagzeug<br>(807)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -313,7 +313,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.12 Blasinstrumente<br>(136)</td>
+  <td title="de/notation/wind.itely">2.6 Blasinstrumente<br>(136)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -321,7 +321,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.14 Notation von Akkorden<br>(1521)</td>
+  <td title="de/notation/chords.itely">2.7 Notation von Akkorden<br>(1521)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -329,7 +329,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.16 Notation von alter Musik<br>(4479)</td>
+  <td title="de/notation/ancient.itely">2.8 Notation von alter Musik<br>(4479)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -337,7 +337,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4.18 Weltmusik<br>(1429)</td>
+  <td title="de/notation/world.itely">2.9 Weltmusik<br>(1429)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #dfef77">teilweise (89 %)</span></td>
@@ -345,7 +345,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>6 Allgemeine Eingabe und Ausgabe<br>(6287)</td>
+  <td title="de/notation/input.itely">3 Allgemeine Eingabe und Ausgabe<br>(6287)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -353,7 +353,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>8 Abstände<br>(9253)</td>
+  <td title="de/notation/spacing.itely">4 Abstände<br>(9253)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -361,7 +361,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>10 Standardeinstellungen verändern<br>(11890)</td>
+  <td title="de/notation/changing-defaults.itely">5 Standardeinstellungen verändern<br>(11890)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #dfef77">teilweise (96 %)</span></td>
@@ -369,7 +369,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>B Notationsübersicht<br>(1954)</td>
+  <td title="de/notation/notation-appendices.itely">A Notationsübersicht<br>(1954)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #dfef77">teilweise (98 %)</span></td>
@@ -377,7 +377,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>D Befehlsübersicht<br>(252)</td>
+  <td title="de/notation/cheatsheet.itely">B Befehlsübersicht<br>(252)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -396,7 +396,7 @@ Translation status currently only available in HTML.
   <th>Mehr Information</th>
  </tr>
  <tr align="left">
-  <td>Überschriften<br>(135)</td>
+  <td title="de/usage.tely">Überschriften<br>(135)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -404,7 +404,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond -- \TITLE\<br>(1107)</td>
+  <td title="de/macros.itexi">LilyPond -- \TITLE\<br>(1107)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -412,7 +412,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 @command{lilypond} starten<br>(2902)</td>
+  <td title="de/usage/running.itely">1 @command{lilypond} starten<br>(2902)</td>
   <td>Reinhold Kainhofer<br>
    Till Paala</td>
   <td></td>
@@ -421,7 +421,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 @command{lilypond-book}: Noten in den Text integrieren<br>(3438)</td>
+  <td title="de/usage/lilypond-book.itely">2 @command{lilypond-book}: Noten in den Text integrieren<br>(3438)</td>
   <td>Reinhold Kainhofer</td>
   <td>Till Paala</td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -429,7 +429,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>6 Vorschläge, wie man Dateien schreibt<br>(2694)</td>
+  <td title="de/usage/suggestions.itely">3 Vorschläge, wie man Dateien schreibt<br>(2694)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #d0f0f8">nein</span></td>
@@ -448,7 +448,7 @@ Translation status currently only available in HTML.
   <th>Mehr Information</th>
  </tr>
  <tr align="left">
-  <td>Überschriften<br>(496)</td>
+  <td title="de/web.texi">Überschriften<br>(496)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -456,7 +456,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>LilyPond -- \TITLE\<br>(1107)</td>
+  <td title="de/macros.itexi">LilyPond -- \TITLE\<br>(1107)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -464,7 +464,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>Einleitung<br>(3755)</td>
+  <td title="de/web/introduction.itexi">Einleitung<br>(3755)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -472,7 +472,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>Download<br>(1174)</td>
+  <td title="de/web/download.itexi">Download<br>(1174)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -480,7 +480,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>Handbücher<br>(1198)</td>
+  <td title="de/web/manuals.itexi">Handbücher<br>(1198)</td>
   <td>Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
@@ -488,7 +488,7 @@ Translation status currently only available in HTML.
   <td>vor-GDP</td>
  </tr>
  <tr align="left">
-  <td>Gemeinschaft<br>(1959)</td>
+  <td title="de/web/community.itexi">Gemeinschaft<br>(1959)</td>
   <td> Till Paala</td>
   <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
