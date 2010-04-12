@@ -178,7 +178,17 @@ def tely_word_count (tely_doc):
     return [len (space_re.split (n)) for n in nodes]
 
 class TexiMarkup (object):
-    pass
+    def entity (self, name, string='', attributes=[]):
+        return '''
+@%(name)s
+%(string)s
+@end %(name)s
+''' % locals ()
+    def paragraph (self, string=''):
+        return '''
+%(string)s''' % locals ()
+    def table (self, string):
+        return self.entity ('multitable', string)
 
 class HTMLMarkup (TexiMarkup):
     def entity (self, name, string='', attributes=[]):
@@ -588,6 +598,7 @@ progress ("Generating status pages...")
 date_time = buildlib.read_pipe ('LANG= date -u')[0]
 
 markup = HTMLMarkup ()
+#markup = TexiMarkup ()
 main_status_body = last_updated_string % date_time
 main_status_body += '\n'.join ([doc.texi_status (markup) for doc in master_docs])
 
