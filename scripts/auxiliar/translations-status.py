@@ -435,11 +435,17 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             s += '</table>\n<p></p>\n'
         return s
 
+class IncludedTranslatedTelyDocument (TranslatedTelyDocument):
+    pass
+
 class UntranslatedTelyDocument (TranslatedTelyDocument):
     def __init__ (self, filename, masterdocument, parent_translation=None):
         if filename[2] == '/':
             self.language = filename[:2]
         TranslatedTelyDocument.__init__ (self, filename, masterdocument, parent_translation)
+
+class IncludedUntranslatedTelyDocument (UntranslatedTelyDocument):
+    pass
 
 class MasterTelyDocument (TelyDocument):
     def __init__ (self,
@@ -450,31 +456,22 @@ class MasterTelyDocument (TelyDocument):
         self.size = len (self.contents)
         self.word_count = tely_word_count (self.contents)
         self.translations = {}
-        found = {}
-        translations = dict ([(lang, os.path.join (lang, filename))
-                              for lang in langdefs.LANGDICT])
+        self.includes = []
         if not self.language or self.language == 'en':
             languages = [x for x in parent_translations.keys () if x != 'en']
-            for lang in languages:
-                self.translations[lang] = self.translated_factory (translations[lang],
-                                                                   parent_translations.get (lang))
-                found[lang] = not isinstance (self.translations[lang], UntranslatedTelyDocument)
-            if self.top:
-                for lang in [x for x in langdefs.LANGDICT if x and x != 'en']:
-                    if not found.get (lang, False):
-                        del self.translations[lang]
-
-        if self.translations:
-            self.includes = [MasterTelyDocument (f, self.translations)
-                             for f in self.included_files]
-        else:
-            self.includes = []
+            self.translations = dict ([x for x in
+                                       [(lang, self.translated_factory (os.path.join (lang, self.filename),
+                                                                        parent_translations.get (lang)))
+                                        for lang in languages]
+                                       if x[1]])
+            if self.translations:
+                self.includes = [IncludedMasterTelyDocument (f, self.translations)
+                                 for f in self.included_files]
 
     def translated_factory (self, filename, parent):
         if os.path.exists (filename):
             return TranslatedTelyDocument (filename, self, parent)
-        else:
-            return UntranslatedTelyDocument (filename, self, parent)
+        return None
 
     def update_word_counts (self, s):
         s = update_word_count (s, self.filename, sum (self.word_count))
@@ -534,6 +531,11 @@ class MasterTelyDocument (TelyDocument):
             s += '\n'
         return s
 
+class IncludedMasterTelyDocument (MasterTelyDocument):
+    def translated_factory (self, filename, parent):
+        if os.path.exists (filename):
+            return IncludedTranslatedTelyDocument (filename, self, parent)
+        return IncludedUntranslatedTelyDocument (filename, self, parent)
 
 update_category_word_counts_re = re.compile (r'(?ms)^-(\d+)-(.*?\n)\d+ *total')
 
