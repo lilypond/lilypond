@@ -189,6 +189,23 @@ class TexiMarkup (object):
 %(string)s''' % locals ()
     def table (self, string):
         return self.entity ('multitable', string)
+    def row (self, string, attributes=[]):
+        return '''
+@item ''' + string
+    def cell (self, string, attributes=[]):
+        return '''
+@tab ''' + string
+    def headcell (self, string, attributes=[]):
+# @headitem...
+        return '''
+@tab ''' + string
+    def newline (self):
+        return '''
+@* '''
+    def span (self, string, attributes=[]):
+        return string
+    def small (self, string, attributes=[]):
+        return string
 
 class HTMLMarkup (TexiMarkup):
     def entity (self, name, string='', attributes=[]):
@@ -198,6 +215,18 @@ class HTMLMarkup (TexiMarkup):
         return self.entity ('p')
     def table (self, string):
         return self.entity ('table', string, [('align', 'center'), ('border', '2')])
+    def row (self, string, attributes=[]):
+        return self.entity ('tr', string, attributes)
+    def cellhead (self, string, attributes=[]):
+        return self.entity ('th', string, attributes)
+    def cell (self, string, attributes=[]):
+        return self.entity ('td', string, attributes)
+    def newline (self, attributes=[]):
+        return self.entity ('br', '', attributes)[:-5]
+    def span (self, string, attributes=[]):
+        return self.entity ('span', string, attributes)
+    def small (self, string, attributes=[]):
+        return self.entity ('small', string, attributes)
 
 class TelyDocument (object):
     def __init__ (self, filename):
@@ -382,24 +411,18 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             return self.translation (format_table['pre-GDP'])
 
     def short_texi_status (self, markup):
-        s = '  <td title="%(filename)s">' % self.__dict__
+        s = ''
         if self.partially_translated:
-            s += '<br>\n   '.join (self.translators) + '<br>\n'
+            s += markup.newline ().join (self.translators + [''])
             if self.checkers:
-                s += '   <small>' + \
-                    '<br>\n   '.join (self.checkers) + '</small><br>\n'
-
+                s += markup.small (markup.newline ().join (self.checkers + ['']))
         c = self.completeness (['color', 'long'])
-        s += '   <span style="background-color: #%(color)s">\
-%(long)s</span><br>\n' % c
-
+        s += markup.span ('%(long)s' % c, [('style', 'background-color: #%(color)s' % c)])
+        s += markup.newline ()
         if self.partially_translated:
             u = self.uptodateness (['vague', 'color'])
-            s += '   <span style="background-color: #%(color)s">\
-%(vague)s</span><br>\n' % u
-
-        s += '  </td>\n'
-        return s
+            s += markup.span ('%(vague)s' % u, [('style', 'background-color: #%(color)s' % u)])
+        return markup.cell (s, [('title', filename)])
 
     def text_status (self):
         s = self.completeness ('abbr')['abbr'] + ' '
