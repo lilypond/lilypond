@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>Meest recente update Sun Apr 11 23:33:33 UTC 2010
+ <p><i>Meest recente update Mon Apr 12 00:01:39 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -22,7 +22,7 @@ Translation status currently only available in HTML.
  <tr align="left">
   <td>Paragraaftitels<br>(124)</td>
   <td>Jan Nieuwenhuizen</td>
-  <td>@c Translation checker committish:</td>
+  <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
   <td>na-GDP</td>
@@ -30,31 +30,31 @@ Translation status currently only available in HTML.
  <tr align="left">
   <td>LilyPond -- \TITLE\<br>(1107)</td>
   <td>Jan Nieuwenhuizen</td>
-  <td>@c Translation checker committish:</td>
+  <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
   <td>voor-GDP</td>
  </tr>
  <tr align="left">
-  <td>1 Leerboek<br>(2379)</td>
+  <td>2 Leerboek<br>(2379)</td>
   <td>Jan Nieuwenhuizen</td>
-  <td>@c Translation checker committish:</td>
+  <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
   <td>voor-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Algemene muzieknotatie<br>(4035)</td>
+  <td>4 Algemene muzieknotatie<br>(4035)</td>
   <td>Jan Nieuwenhuizen</td>
-  <td>@c Translation checker committish:</td>
+  <td></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
   <td>voor-GDP</td>
  </tr>
  <tr align="left">
-  <td>3 Fundamentele concepten<br>(11151)</td>
+  <td>6 Fundamentele concepten<br>(11151)</td>
   <td>Jan Nieuwenhuizen</td>
-  <td>@c Translation checker committish:</td>
+  <td></td>
   <td><span style="background-color: #dfef77">gedeeltelijk (9 %)</span></td>
   <td><span style="background-color: #1fff1f">ja</span></td>
   <td>voor-GDP</td>

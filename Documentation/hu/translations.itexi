@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>Last updated Sun Apr 11 23:33:33 UTC 2010
+ <p><i>Last updated Mon Apr 12 00:01:39 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -36,7 +36,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>1 Első lecke<br>(2379)</td>
+  <td>2 Első lecke<br>(2379)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -44,7 +44,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Elemi kottaírás<br>(4035)</td>
+  <td>4 Elemi kottaírás<br>(4035)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -52,7 +52,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>3 Alapfogalmak<br>(11151)</td>
+  <td>6 Alapfogalmak<br>(11151)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #d0f0f8">no</span></td>
@@ -60,7 +60,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 A kimenet finomhangolása<br>(15619)</td>
+  <td>8 A kimenet finomhangolása<br>(15619)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #d0f0f8">no</span></td>
@@ -68,7 +68,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>A Sablonok<br>(201)</td>
+  <td>B Sablonok<br>(201)</td>
   <td>Harmath Dénes</td>
   <td></td>
   <td><span style="background-color: #d0f0f8">no</span></td>
@@ -103,7 +103,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>1 A @command{lilypond} használata<br>(2902)</td>
+  <td>2 A @command{lilypond} használata<br>(2902)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -111,7 +111,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 A @command{convert-ly} használata<br>(1189)</td>
+  <td>4 A @command{convert-ly} használata<br>(1189)</td>
   <td></td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>

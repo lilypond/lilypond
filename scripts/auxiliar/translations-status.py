@@ -49,10 +49,10 @@ title_re = re.compile ('^@(settitle|chapter|top|(?:sub){0,2}section|'
 include_re = re.compile ('^@include (.*?)$', re.M)
 
 # allow multiple lines
-translators_re = re.compile (r'^@c\s+[tT]ranslators?\s*:\s*(.*?)$', re.M | re.I)
-checkers_re = re.compile (r'^@c\s+Translation\s*checkers?\s*:\s*(.*?)$',
+translators_re = re.compile (r'^@c[ ]+[tT]ranslators?[ ]*:[ ]*(.*?)$', re.M | re.I)
+checkers_re = re.compile (r'^@c[ ]+Translation[ ]*checkers?[ ]*:[ ]*(.*?)$',
                           re.M | re.I)
-status_re = re.compile (r'^@c\s+Translation\s*status\s*:\s*(.*?)$', re.M | re.I)
+status_re = re.compile (r'^@c[ ]+Translation[ ]*status[ ]*:[ ]*(.*?)$', re.M | re.I)
 post_gdp_re = re.compile ('post.GDP', re.I)
 untranslated_node_str = '@untranslated'
 skeleton_str = '-- SKELETON FILE --'

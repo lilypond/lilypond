@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>Last updated Sun Apr 11 23:33:33 UTC 2010
+ <p><i>Last updated Mon Apr 12 00:01:39 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -34,7 +34,7 @@ Translation status currently only available in HTML.
  <tr align="left">
   <td>Section titles<br>(93)</td>
   <td>Jean-Charles Malahieude<br>
-   <small>@setfilename lilypond-essay.info</small><br>
+   <small></small><br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -50,7 +50,7 @@ Translation status currently only available in HTML.
  <tr align="left">
   <td>LilyPond --- \TITLE\<br>(1107)</td>
   <td>Jean-Charles Malahieude<br>
-   <small>@setfilename lilypond-essay.info</small><br>
+   <small></small><br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -64,11 +64,11 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1 Music engraving<br>(5297)</td>
+  <td>2 Music engraving<br>(5297)</td>
   <td>Jean-Charles Malahieude<br>
    John Mandereau<br>
    Gauvain Pocentek<br>
-   <small>@node La gravure musicale</small><br>
+   <small></small><br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -82,7 +82,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2 Literature list<br>(319)</td>
+  <td>4 Literature list<br>(319)</td>
   <td>Jean-Jacques Gerbaud<br>
    Valentin Villenave<br>
    <small>Jean-Charles Malahieude</small><br>
@@ -99,9 +99,9 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>A GNU Free Documentation License<br>(3724)</td>
+  <td>B GNU Free Documentation License<br>(3724)</td>
   <td>Jean-Charles Malahieude<br>
-   <small>@setfilename lilypond-essay.info</small><br>
+   <small></small><br>
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -145,7 +145,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1 Scheme tutorial<br>(4622)</td>
+  <td>2 Scheme tutorial<br>(4622)</td>
   <td>Till Paala<br>
    <span style="background-color: #dfef77">partially translated (4 %)</span><br>
    <span style="background-color: #ff6959">partially up to date</span><br>
@@ -156,7 +156,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2 Interfaces for programmers<br>(3799)</td>
+  <td>4 Interfaces for programmers<br>(3799)</td>
   <td>Till Paala<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6b58">partially up to date</span><br>
@@ -167,7 +167,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>A GNU Free Documentation License<br>(3724)</td>
+  <td>B GNU Free Documentation License<br>(3724)</td>
   <td>Till Paala<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
@@ -198,7 +198,7 @@ Translation status currently only available in HTML.
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>Jan Nieuwenhuizen<br>
-   <small>@c Translation checker committish:</small><br>
+   <small></small><br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -232,7 +232,7 @@ Translation status currently only available in HTML.
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>Jan Nieuwenhuizen<br>
-   <small>@c Translation checker committish:</small><br>
+   <small></small><br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -259,7 +259,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1 Tutorial<br>(2379)</td>
+  <td>2 Tutorial<br>(2379)</td>
   <td>Nicolas Grandclaude<br>
    Ludovic Sardain<br>
    Gauvain Pocentek<br>
@@ -270,7 +270,7 @@ Translation status currently only available in HTML.
    <span style="background-color: #ff6959">partially up to date</span><br>
   </td>
   <td>Jan Nieuwenhuizen<br>
-   <small>@c Translation checker committish:</small><br>
+   <small></small><br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -299,7 +299,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2 Common notation<br>(4035)</td>
+  <td>4 Common notation<br>(4035)</td>
   <td>Nicolas Grandclaude<br>
    Ludovic Sardain<br>
    Gauvain Pocentek<br>
@@ -310,7 +310,7 @@ Translation status currently only available in HTML.
    <span style="background-color: #2cff20">partially up to date</span><br>
   </td>
   <td>Jan Nieuwenhuizen<br>
-   <small>@c Translation checker committish:</small><br>
+   <small></small><br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -337,7 +337,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>3 Fundamental concepts<br>(11151)</td>
+  <td>6 Fundamental concepts<br>(11151)</td>
   <td>Valentin Villenave<br>
    Jean-Charles Malahieude<br>
    <small>John Mandereau</small><br>
@@ -345,7 +345,7 @@ Translation status currently only available in HTML.
    <span style="background-color: #4efe25">partially up to date</span><br>
   </td>
   <td>Jan Nieuwenhuizen<br>
-   <small>@c Translation checker committish:</small><br>
+   <small></small><br>
    <span style="background-color: #dfef77">partially translated (9 %)</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -373,7 +373,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>4 Tweaking output<br>(15619)</td>
+  <td>8 Tweaking output<br>(15619)</td>
   <td>Valentin Villenave<br>
    Nicolas Klutchnikoff<br>
    Damien Heurtebise<br>
@@ -383,7 +383,7 @@ Translation status currently only available in HTML.
    <span style="background-color: #39ff22">partially up to date</span><br>
   </td>
   <td>Jan Nieuwenhuizen<br>
-   <small>@c Translation checker committish:</small><br>
+   <small></small><br>
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -410,13 +410,13 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>A Templates<br>(201)</td>
+  <td>B Templates<br>(201)</td>
   <td>Jean-Charles Malahieude<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #a5ff31">partially up to date</span><br>
   </td>
   <td>Jan Nieuwenhuizen<br>
-   <small>@c Translation checker committish:</small><br>
+   <small></small><br>
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -443,14 +443,14 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>B GNU Free Documentation License<br>(3724)</td>
+  <td>D GNU Free Documentation License<br>(3724)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>Jan Nieuwenhuizen<br>
-   <small>@c Translation checker committish:</small><br>
+   <small></small><br>
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -520,7 +520,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1 Musical notation<br>(91)</td>
+  <td>2 Musical notation<br>(91)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -536,7 +536,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1.1 Pitches<br>(3482)</td>
+  <td>2.2 Pitches<br>(3482)</td>
   <td>Frédéric Chiasson<br>
    <small>Valentin Villenave<br>
    Jean-Charles Malahieude</small><br>
@@ -553,7 +553,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1.2 Rhythms<br>(4936)</td>
+  <td>2.4 Rhythms<br>(4936)</td>
   <td>Frédéric Chiasson<br>
    Jean-Charles Malahieude<br>
    <small>Valentin Villenave<br>
@@ -572,7 +572,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1.3 Expressive marks<br>(1481)</td>
+  <td>2.6 Expressive marks<br>(1481)</td>
   <td>Valentin Villenave<br>
    Jean-Charles Malahieude<br>
    <small>Jean-Charles Malahieude<br>
@@ -590,7 +590,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1.4 Repeats<br>(578)</td>
+  <td>2.8 Repeats<br>(578)</td>
   <td>Valentin Villenave<br>
    Jean-Charles Malahieude<br>
    <small>Jean-Charles Malahieude<br>
@@ -608,7 +608,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1.5 Simultaneous notes<br>(1639)</td>
+  <td>2.10 Simultaneous notes<br>(1639)</td>
   <td>Frédéric Chiasson<br>
    Valentin Villenave<br>
    Jean-Charles Malahieude<br>
@@ -627,7 +627,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1.6 Staff notation<br>(1855)</td>
+  <td>2.12 Staff notation<br>(1855)</td>
   <td>Valentin Villenave<br>
    Jean-Charles Malahieude<br>
    <small>John Mandereau</small><br>
@@ -644,7 +644,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1.7 Editorial annotations<br>(935)</td>
+  <td>2.14 Editorial annotations<br>(935)</td>
   <td>Jean-Charles Malahieude<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #25fe1f">partially up to date</span><br>
@@ -659,7 +659,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1.8 Text<br>(2755)</td>
+  <td>2.16 Text<br>(2755)</td>
   <td>Jean-Charles Malahieude<br>
    <small>Valentin Villenave<br>
    John Mandereau</small><br>
@@ -676,7 +676,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2 Specialist notation<br>(81)</td>
+  <td>4 Specialist notation<br>(81)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -692,7 +692,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2.1 Vocal music<br>(2730)</td>
+  <td>4.2 Vocal music<br>(2730)</td>
   <td>Valentin Villenave<br>
    Jean-Charles Malahieude<br>
    <small>Jean-Charles Malahieude<br>
@@ -710,7 +710,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2.2 Keyboard and other multi-staff instruments<br>(747)</td>
+  <td>4.4 Keyboard and other multi-staff instruments<br>(747)</td>
   <td>Valentin Villenave<br>
    Jean-Charles Malahieude<br>
    <small>Jean-Charles Malahieude<br>
@@ -728,7 +728,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2.3 Unfretted string instruments<br>(255)</td>
+  <td>4.6 Unfretted string instruments<br>(255)</td>
   <td>Valentin Villenave<br>
    Matthieu Jacquot<br>
    <small>Jean-Charles Malahieude<br>
@@ -746,7 +746,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2.4 Fretted string instruments<br>(2233)</td>
+  <td>4.8 Fretted string instruments<br>(2233)</td>
   <td>Matthieu Jacquot<br>
    <small>Jean-Charles Malahieude</small><br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -762,7 +762,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2.5 Percussion<br>(807)</td>
+  <td>4.10 Percussion<br>(807)</td>
   <td>Valentin Villenave<br>
    <small>Jean-Charles Malahieude<br>
    John Mandereau</small><br>
@@ -779,7 +779,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2.6 Wind instruments<br>(136)</td>
+  <td>4.12 Wind instruments<br>(136)</td>
   <td>Valentin Villenave<br>
    <small>Jean-Charles Malahieude<br>
    John Mandereau</small><br>
@@ -796,7 +796,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2.7 Chord notation<br>(1521)</td>
+  <td>4.14 Chord notation<br>(1521)</td>
   <td>Valentin Villenave<br>
    <small>Jean-Charles Malahieude<br>
    John Mandereau</small><br>
@@ -813,7 +813,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2.8 Contemporary music<br>(473)</td>
+  <td>4.16 Contemporary music<br>(473)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
@@ -829,7 +829,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2.9 Ancient notation<br>(4479)</td>
+  <td>4.18 Ancient notation<br>(4479)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #dfef77">partially translated (45 %)</span><br>
@@ -845,7 +845,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2.10 World music<br>(1429)</td>
+  <td>4.20 World music<br>(1429)</td>
   <td>Jean-Jacques Gerbaud<br>
    Valentin Villenave<br>
    <small>Jean-Charles Malahieude</small><br>
@@ -862,7 +862,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>3 General input and output<br>(6287)</td>
+  <td>6 General input and output<br>(6287)</td>
   <td>Jean-Charles Malahieude<br>
    Valentin Villenave<br>
    <span style="background-color: #dfef77">partially translated (14 %)</span><br>
@@ -878,7 +878,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>4 Spacing issues<br>(9253)</td>
+  <td>8 Spacing issues<br>(9253)</td>
   <td>Frédéric Chiasson<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #dfef77">partially translated (6 %)</span><br>
@@ -894,7 +894,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>5 Changing defaults<br>(11890)</td>
+  <td>10 Changing defaults<br>(11890)</td>
   <td>Valentin Villenave<br>
    Jean-Charles Malahieude<br>
    <small>Gilles Thibault</small><br>
@@ -911,7 +911,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>A Notation manual tables<br>(1954)</td>
+  <td>B Notation manual tables<br>(1954)</td>
   <td>Frédéric Chiasson<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #dfef77">partially translated (4 %)</span><br>
@@ -927,7 +927,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>B Cheat sheet<br>(252)</td>
+  <td>D Cheat sheet<br>(252)</td>
   <td>Valentin Villenave<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #40fe23">partially up to date</span><br>
@@ -942,7 +942,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>C GNU Free Documentation License<br>(3724)</td>
+  <td>F GNU Free Documentation License<br>(3724)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
@@ -1018,7 +1018,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>1 Running @command{lilypond}<br>(2902)</td>
+  <td>2 Running @command{lilypond}<br>(2902)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
@@ -1043,7 +1043,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>2 Updating files with @command{convert-ly}<br>(1189)</td>
+  <td>4 Updating files with @command{convert-ly}<br>(1189)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
@@ -1067,7 +1067,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>3 Running @command{lilypond-book}<br>(3438)</td>
+  <td>6 Running @command{lilypond-book}<br>(3438)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
@@ -1092,7 +1092,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>4 External programs<br>(2229)</td>
+  <td>8 External programs<br>(2229)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
@@ -1116,7 +1116,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>5 Suggestions for writing files<br>(2694)</td>
+  <td>10 Suggestions for writing files<br>(2694)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
@@ -1140,7 +1140,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>A GNU Free Documentation License<br>(3724)</td>
+  <td>B GNU Free Documentation License<br>(3724)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
@@ -1328,7 +1328,7 @@ Translation status currently only available in HTML.
   </td>
  </tr>
  <tr align="left">
-  <td>A GNU Free Documentation License<br>(3724)</td>
+  <td>B GNU Free Documentation License<br>(3724)</td>
   <td>John Mandereau<br>
    <small>Jean-Charles Malahieude</small><br>
    <span style="background-color: #d0f0f8">not translated</span><br>

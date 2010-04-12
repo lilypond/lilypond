@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>Last updated Sun Apr 11 23:33:33 UTC 2010
+ <p><i>Last updated Mon Apr 12 00:01:39 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -36,7 +36,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>1 Tutorial<br>(2379)</td>
+  <td>2 Tutorial<br>(2379)</td>
   <td>Federico Bruni</td>
   <td>Luca Rossetto Casel</td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -44,7 +44,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 Notazione comunemente utilizzata<br>(4035)</td>
+  <td>4 Notazione comunemente utilizzata<br>(4035)</td>
   <td>Federico Bruni</td>
   <td>Luca Rossetto Casel</td>
   <td><span style="background-color: #1fff1f">yes</span></td>
@@ -52,7 +52,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>3 Concetti fondamentali<br>(11151)</td>
+  <td>6 Concetti fondamentali<br>(11151)</td>
   <td>Federico Bruni</td>
   <td>Luca Rossetto Casel</td>
   <td><span style="background-color: #1fff1f">yes</span></td>

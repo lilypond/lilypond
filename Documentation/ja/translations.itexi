@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>最終更新日 Sun Apr 11 23:33:33 UTC 2010
+ <p><i>最終更新日 Mon Apr 12 00:01:39 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -36,7 +36,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>1 チュートリアル<br>(2379)</td>
+  <td>2 チュートリアル<br>(2379)</td>
   <td>Yoshiki Sawada</td>
   <td></td>
   <td><span style="background-color: #1fff1f">はい</span></td>
@@ -44,7 +44,7 @@ Translation status currently only available in HTML.
   <td>post-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 一般的な記譜法<br>(4035)</td>
+  <td>4 一般的な記譜法<br>(4035)</td>
   <td>Yoshiki Sawada</td>
   <td></td>
   <td><span style="background-color: #1fff1f">はい</span></td>
@@ -52,7 +52,7 @@ Translation status currently only available in HTML.
   <td>post-GDP</td>
  </tr>
  <tr align="left">
-  <td>3 基礎となるコンセプト<br>(11151)</td>
+  <td>6 基礎となるコンセプト<br>(11151)</td>
   <td>Yoshiki Sawada</td>
   <td></td>
   <td><span style="background-color: #1fff1f">はい</span></td>
@@ -60,7 +60,7 @@ Translation status currently only available in HTML.
   <td>post-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 出力を調整する<br>(15619)</td>
+  <td>8 出力を調整する<br>(15619)</td>
   <td>Yoshiki Sawada</td>
   <td></td>
   <td><span style="background-color: #1fff1f">はい</span></td>
@@ -68,7 +68,7 @@ Translation status currently only available in HTML.
   <td>post-GDP</td>
  </tr>
  <tr align="left">
-  <td>A テンプレート<br>(201)</td>
+  <td>B テンプレート<br>(201)</td>
   <td>Yoshiki Sawada</td>
   <td></td>
   <td><span style="background-color: #1fff1f">はい</span></td>
@@ -103,7 +103,7 @@ Translation status currently only available in HTML.
   <td>pre-GDP</td>
  </tr>
  <tr align="left">
-  <td>1 lilypond を実行する<br>(2902)</td>
+  <td>2 lilypond を実行する<br>(2902)</td>
   <td>Yoshiki Sawada</td>
   <td></td>
   <td><span style="background-color: #dfef77">一部 (72 %)</span></td>
@@ -111,7 +111,7 @@ Translation status currently only available in HTML.
   <td>post-GDP</td>
  </tr>
  <tr align="left">
-  <td>2 @command{convert-ly} を使ってファイルを更新する<br>(1189)</td>
+  <td>4 @command{convert-ly} を使ってファイルを更新する<br>(1189)</td>
   <td>Yoshiki Sawada</td>
   <td></td>
   <td><span style="background-color: #dfef77">一部 (50 %)</span></td>
@@ -119,7 +119,7 @@ Translation status currently only available in HTML.
   <td>post-GDP</td>
  </tr>
  <tr align="left">
-  <td>3 @command{lilypond-book}: Integrating text and music<br>(3438)</td>
+  <td>6 @command{lilypond-book}: Integrating text and music<br>(3438)</td>
   <td>Yoshiki Sawada</td>
   <td></td>
   <td><span style="background-color: #d0f0f8">いいえ</span></td>
@@ -127,7 +127,7 @@ Translation status currently only available in HTML.
   <td>post-GDP</td>
  </tr>
  <tr align="left">
-  <td>4 LilyPond 入力ファイルの記述に対する提案<br>(2694)</td>
+  <td>8 LilyPond 入力ファイルの記述に対する提案<br>(2694)</td>
   <td>Yoshiki Sawada</td>
   <td></td>
   <td><span style="background-color: #dfef77">一部 (38 %)</span></td>
