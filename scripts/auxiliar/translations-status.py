@@ -192,13 +192,6 @@ class TelyDocument (object):
         if m:
             self.sectioning = m.group (1)
             self.title = m.group (2)
-        # This is all quite ugly and hairy.  The original code worked
-        # with @top node detection and each manual had its own @top
-        # node.  Not any more.  Declaring .tely / .texi files to be
-        # @top sort of works...
-        if self.top:
-            self.sectioning = 'top'
-        self.level = texi_level [self.sectioning]
 
         if not hasattr (self, 'language'):
             self.language = ''
@@ -215,7 +208,12 @@ class TelyDocument (object):
                           for t in include_re.findall (self.contents)]
         self.included_files = [p for p in included_files if os.path.exists (p)]
 
+    def get_level (self):
+        return texi_level [self.sectioning]
+
     def print_title (self, section_number):
+        if not hasattr (self, 'level'):
+            self.level = self.get_level ()
         return section_number.increase (self.level) + self.title
 
 
@@ -312,6 +310,9 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
                 progress ("%s: strange uptodateness percentage %d %%, \
 setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
                 self.uptodate_percentage = alternative
+
+    def get_level (self):
+        return texi_level ['top']
 
     def completeness (self, formats=['long'], translated=False):
         if translated:
@@ -436,7 +437,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
         return s
 
 class IncludedTranslatedTelyDocument (TranslatedTelyDocument):
-    pass
+    get_level = TelyDocument.get_level
 
 class UntranslatedTelyDocument (TranslatedTelyDocument):
     def __init__ (self, filename, masterdocument, parent_translation=None):
@@ -445,7 +446,7 @@ class UntranslatedTelyDocument (TranslatedTelyDocument):
         TranslatedTelyDocument.__init__ (self, filename, masterdocument, parent_translation)
 
 class IncludedUntranslatedTelyDocument (UntranslatedTelyDocument):
-    pass
+    get_level = TelyDocument.get_level
 
 class MasterTelyDocument (TelyDocument):
     def __init__ (self,
@@ -467,6 +468,9 @@ class MasterTelyDocument (TelyDocument):
             if self.translations:
                 self.includes = [IncludedMasterTelyDocument (f, self.translations)
                                  for f in self.included_files]
+
+    def get_level (self):
+        return texi_level ['top']
 
     def translated_factory (self, filename, parent):
         if os.path.exists (filename):
@@ -532,6 +536,7 @@ class MasterTelyDocument (TelyDocument):
         return s
 
 class IncludedMasterTelyDocument (MasterTelyDocument):
+    get_level = TelyDocument.get_level
     def translated_factory (self, filename, parent):
         if os.path.exists (filename):
             return IncludedTranslatedTelyDocument (filename, self, parent)
