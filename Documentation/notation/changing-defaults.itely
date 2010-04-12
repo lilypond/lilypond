@@ -3612,7 +3612,11 @@ where
 
 Common variable types are described in @ref{Common argument types}.
 A more complete description of variable types is found in
-@rextend{Music function syntax}.
+@rextend{Music function syntax}.  The complete list of defined variable
+types is found in the @var{type-p-name-alist} entry of
+@file{scm/lily.scm}.
+
+@c TODO -- find an automatic way of documenting the type-p-name-alist
 
 The @code{parser} and @code{location} arguments are mandatory,
 and are used in some advanced situations as described in
