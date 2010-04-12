@@ -184,7 +184,6 @@ class TelyDocument (object):
         self.contents = 'GIT committish: 0'
         if os.path.exists (filename):
             self.contents = open (filename).read ()
-        self.top = os.path.splitext (filename)[1] in ['.tely', '.texi']
         ## record title and sectionning level of first Texinfo section
         self.sectioning = 'unnumbered'
         self.title = 'Untitled'
@@ -389,55 +388,63 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
         return s
 
     def texi_status (self, numbering=SectionNumber ()):
-        if self.title == 'Untitled':
-            return ''
-
-        if self.top:
-            s = '''<table align="center" border="2">
+        s = '''<table align="center" border="2">
  <tr align="center">
   <th>%s</th>''' % self.print_title (numbering)
-            s += ''.join (['  <th>%s</th>\n' % self.translation (h)
-                           for h in detailed_status_heads])
-            s += ' </tr>\n'
-            s += (' <tr align="left">\n  <td title="%%(filename)s">%s<br>(%d)</td>\n'
-                  % (self.translation (section_titles_string),
-                     sum (self.masterdocument.word_count))) % self.__dict__
+        s += ''.join (['  <th>%s</th>\n' % self.translation (h)
+                       for h in detailed_status_heads])
+        s += ' </tr>\n'
+        s += (' <tr align="left">\n  <td title="%%(filename)s">%s<br>(%d)</td>\n'
+              % (self.translation (section_titles_string),
+                 sum (self.masterdocument.word_count))) % self.__dict__
+        s += self.texi_body (numbering)
+        s += '</table>\n<p></p>\n'
+        return s
 
-        else:
-            s = (' <tr align="left">\n  <td title="%%(filename)s">%s<br>(%d)</td>\n'
-                 % (self.print_title (numbering),
-                    sum (self.masterdocument.word_count))) % self.__dict__
+    def texi_body (self, numbering):
+        return (self.texi_translators ()
+                + self.texi_completeness ()
+                + self.texi_uptodateness ()
+                + self.texi_gdp ()
+                + self.texi_translations (numbering))
 
+    def texi_translators (self):
         if self.partially_translated:
-            s += '  <td>' + '<br>\n   '.join (self.translators) + '</td>\n'
-            s += '  <td>' + '<br>\n   '.join (self.checkers) + '</td>\n'
-        else:
-            s += '  <td></td>\n' * 2
+            return ('  <td>' + '<br>\n   '.join (self.translators) + '</td>\n'
+                    + '  <td>' + '<br>\n   '.join (self.checkers) + '</td>\n')
+        return '  <td></td>\n' * 2
 
+    def texi_completeness (self):
         c = self.completeness (['color', 'short'], translated=True)
-        s += '  <td><span style="background-color: #%(color)s">\
+        return '  <td><span style="background-color: #%(color)s">\
 %(short)s</span></td>\n' % {'color': c['color'],
                            'short': c['short']}
 
+    def texi_uptodateness (self):
         if self.partially_translated:
             u = self.uptodateness (['short', 'color'], translated=True)
-            s += '  <td><span style="background-color: #%(color)s">\
+            return '  <td><span style="background-color: #%(color)s">\
 %(short)s</span></td>\n' % {'color': u['color'],
                            'short': u['short']}
-        else:
-            s += '  <td></td>\n'
+        return '  <td></td>\n'
 
-        s += '  <td>' + self.gdp_status () + '</td>\n </tr>\n'
-        s += ''.join ([i.translations[self.language].texi_status (numbering)
-                       for i in self.masterdocument.includes
-                       if self.language in i.translations])
+    def texi_gdp (self):
+        return '  <td>' + self.gdp_status () + '</td>\n </tr>\n'
 
-        if self.top:
-            s += '</table>\n<p></p>\n'
-        return s
+    def texi_translations (self, numbering):
+        return ''.join ([i.translations[self.language].texi_status (numbering)
+                         for i in self.masterdocument.includes
+                         if self.language in i.translations])
 
 class IncludedTranslatedTelyDocument (TranslatedTelyDocument):
     get_level = TelyDocument.get_level
+    def texi_status (self, numbering=SectionNumber ()):
+        if self.title != 'Untitled':
+            return ((' <tr align="left">\n  <td title="%%(filename)s">%s<br>(%d)</td>\n'
+                     % (self.print_title (numbering),
+                        sum (self.masterdocument.word_count))) % self.__dict__
+                    + self.texi_body (numbering))
+        return ''
 
 class UntranslatedTelyDocument (TranslatedTelyDocument):
     def __init__ (self, filename, masterdocument, parent_translation=None):
@@ -445,7 +452,7 @@ class UntranslatedTelyDocument (TranslatedTelyDocument):
             self.language = filename[:2]
         TranslatedTelyDocument.__init__ (self, filename, masterdocument, parent_translation)
 
-class IncludedUntranslatedTelyDocument (UntranslatedTelyDocument):
+class IncludedUntranslatedTelyDocument (UntranslatedTelyDocument, IncludedTranslatedTelyDocument):
     get_level = TelyDocument.get_level
 
 class MasterTelyDocument (TelyDocument):
@@ -484,63 +491,63 @@ class MasterTelyDocument (TelyDocument):
         return s
 
     def texi_status (self, numbering=SectionNumber ()):
-        if self.title == 'Untitled' or not self.translations:
-            return ''
-        if self.top:
-            s = '''<table align="center" border="2">
+        s = '''<table align="center" border="2">
  <tr align="center">
   <th>%s</th>''' % self.print_title (numbering)
-            s += ''.join (['  <th>%s</th>\n' % l for l in sorted (self.translations.keys ())])
-            s += ' </tr>\n'
-            s += (' <tr align="left">\n  <td title="%%(filename)s">Section titles<br>(%d)</td>\n'
-                      % sum (self.word_count)) % self.__dict__
-
-        else:  # if self is an included file
-           s = (' <tr align="left">\n  <td title=%%(filename)s>%s<br>(%d)</td>\n'
-                % (self.print_title (numbering), sum (self.word_count))) % self.__dict__
-
-        s += ''.join ([self.translations[k].short_texi_status ()
-                       for k in sorted (self.translations.keys ())])
+        s += ''.join (['  <th>%s</th>\n' % l for l in sorted (self.translations.keys ())])
         s += ' </tr>\n'
-        s += ''.join ([i.texi_status (numbering) for i in self.includes])
-
-        if self.top:
-            s += '</table>\n<p></p>\n'
+        s += (' <tr align="left">\n  <td title="%%(filename)s">Section titles<br>(%d)</td>\n'
+              % sum (self.word_count)) % self.__dict__
+        s += self.texi_body (numbering)
+        s += '</table>\n<p></p>\n'
         return s
+
+    def texi_body (self, numbering):
+        return (''.join ([self.translations[k].short_texi_status ()
+                          for k in sorted (self.translations.keys ())])
+                + ' </tr>\n'
+                + ''.join ([i.texi_status (numbering) for i in self.includes]))
 
     def text_status (self, numbering=SectionNumber (), colspec=[48,12]):
-        if self.title == 'Untitled' or not self.translations:
-            return ''
-
-        s = ''
-        if self.top:
-            s += (self.print_title (numbering) + ' ').ljust (colspec[0])
-            s += ''.join (['%s'.ljust (colspec[1]) % l
-                           for l in sorted (self.translations.keys ())])
-            s += '\n'
-            s += ('Section titles (%d)' % \
-                      sum (self.word_count)).ljust (colspec[0])
-
-        else:
-            s = '%s (%d) ' \
-                % (self.print_title (numbering), sum (self.word_count))
-            s = s.ljust (colspec[0])
-
-        s += ''.join ([self.translations[k].text_status ().ljust(colspec[1])
-                       for k in sorted (self.translations.keys ())])
-        s += '\n\n'
-        s += ''.join ([i.text_status (numbering) for i in self.includes])
-
-        if self.top:
-            s += '\n'
+        s = (self.print_title (numbering) + ' ').ljust (colspec[0])
+        s += ''.join (['%s'.ljust (colspec[1]) % l
+                       for l in sorted (self.translations.keys ())])
+        s += '\n'
+        s += ('Section titles (%d)' % \
+                  sum (self.word_count)).ljust (colspec[0])
+        s += self.text_body (numbering, colspec)
+        s += '\n'
         return s
+
+    def text_body (self, numbering, colspec):
+        return (''.join ([self.translations[k].text_status ().ljust(colspec[1])
+                          for k in sorted (self.translations.keys ())])
+                + '\n\n'
+                + ''.join ([i.text_status (numbering) for i in self.includes]))
 
 class IncludedMasterTelyDocument (MasterTelyDocument):
     get_level = TelyDocument.get_level
+
     def translated_factory (self, filename, parent):
         if os.path.exists (filename):
             return IncludedTranslatedTelyDocument (filename, self, parent)
         return IncludedUntranslatedTelyDocument (filename, self, parent)
+
+    def texi_status (self, numbering=SectionNumber ()):
+        if self.title != 'Untitled':
+            return ((' <tr align="left">\n  <td title=%%(filename)s>%s<br>(%d)</td>\n'
+                     % (self.print_title (numbering), sum (self.word_count))) % self.__dict__
+                    + self.texi_body (numbering))
+        return ''
+
+    def text_status (self, numbering=SectionNumber (), colspec=[48,12]):
+        if self.title != 'Untitled':
+            return (('%s (%d) '
+                     % (self.print_title (numbering), sum (self.word_count)))
+                    + self.text_body (numbering, colspec)
+                    ).ljust (colspec[0])
+        return ''
+
 
 update_category_word_counts_re = re.compile (r'(?ms)^-(\d+)-(.*?\n)\d+ *total')
 
