@@ -177,7 +177,29 @@ def tely_word_count (tely_doc):
     nodes = node_re.split (tely_doc)
     return [len (space_re.split (n)) for n in nodes]
 
-class TexiMarkup (object):
+class HTMLMarkup (object):
+    def entity (self, name, string='', attributes=[]):
+        attr_list = ''.join ([' %s="%s"' % x for x in attributes])
+        return '<%(name)s%(attr_list)s>%(string)s</%(name)s>' % locals ()
+    def paragraph (self, string=''):
+        return self.entity ('p')
+    def table (self, string):
+        return self.entity ('table', string, [('align', 'center'), ('border', '2')])
+    def row (self, string, attributes=[]):
+        return self.entity ('tr', string, attributes)
+    headrow = row
+    def cellhead (self, string, attributes=[]):
+        return self.entity ('th', string, attributes)
+    def cell (self, string, attributes=[]):
+        return self.entity ('td', string, attributes)
+    def newline (self, attributes=[]):
+        return self.entity ('br', '', attributes)[:-5]
+    def span (self, string, attributes=[]):
+        return self.entity ('span', string, attributes)
+    def small (self, string, attributes=[]):
+        return self.entity ('small', string, attributes)
+
+class TexiMarkup (HTMLMarkup):
     def entity (self, name, string='', attributes=[]):
         return '''
 @%(name)s
@@ -189,44 +211,25 @@ class TexiMarkup (object):
 %(string)s''' % locals ()
     def table (self, string):
         return self.entity ('multitable', string)
+    def headrow (self, string, attributes=[]):
+        return '''
+@headitem ''' + string
     def row (self, string, attributes=[]):
         return '''
 @item ''' + string
     def cell (self, string, attributes=[]):
         return '''
 @tab ''' + string
-    def headcell (self, string, attributes=[]):
-# @headitem...
-        return '''
-@tab ''' + string
+    headcell = cell
     def newline (self):
         return '''
 @* '''
+    def html (self, string):
+        return self.entity ('ifhtml', self.entity ('html', string))
     def span (self, string, attributes=[]):
-        return string
+        return self.html (HTMLMarkup.span (self, string, attributes))
     def small (self, string, attributes=[]):
-        return string
-
-class HTMLMarkup (TexiMarkup):
-    def entity (self, name, string='', attributes=[]):
-        attr_list = ''.join ([' %s="%s"' % x for x in attributes])
-        return '<%(name)s%(attr_list)s>%(string)s</%(name)s>' % locals ()
-    def paragraph (self, string=''):
-        return self.entity ('p')
-    def table (self, string):
-        return self.entity ('table', string, [('align', 'center'), ('border', '2')])
-    def row (self, string, attributes=[]):
-        return self.entity ('tr', string, attributes)
-    def cellhead (self, string, attributes=[]):
-        return self.entity ('th', string, attributes)
-    def cell (self, string, attributes=[]):
-        return self.entity ('td', string, attributes)
-    def newline (self, attributes=[]):
-        return self.entity ('br', '', attributes)[:-5]
-    def span (self, string, attributes=[]):
-        return self.entity ('span', string, attributes)
-    def small (self, string, attributes=[]):
-        return self.entity ('small', string, attributes)
+        return self.html (HTMLMarkup.small (self, string, attributes))
 
 class TelyDocument (object):
     def __init__ (self, filename):
@@ -441,14 +444,15 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
               % (self.translation (section_titles_string),
                  sum (self.masterdocument.word_count))) % self.__dict__
         s += self.texi_body (markup, numbering)
+        s += ' </tr>\n'
+        s += self.texi_translations (markup, numbering)
         return markup.table (s) + markup.paragraph ()
 
     def texi_body (self, markup, numbering):
         return (self.texi_translators (markup)
                 + self.texi_completeness (markup)
                 + self.texi_uptodateness (markup)
-                + self.texi_gdp (markup)
-                + self.texi_translations (markup, numbering))
+                + self.texi_gdp (markup))
 
     def texi_translators (self, markup):
         if self.partially_translated:
@@ -485,7 +489,9 @@ class IncludedTranslatedTelyDocument (TranslatedTelyDocument):
             return ((' <tr align="left">\n  <td title="%%(filename)s">%s<br>(%d)</td>\n'
                      % (self.print_title (numbering),
                         sum (self.masterdocument.word_count))) % self.__dict__
-                    + self.texi_body (markup, numbering))
+                    + self.texi_body (markup, numbering)
+                    + '</tr>'
+                    + self.texi_translations (markup, numbering))
         return ''
 
 class UntranslatedTelyDocument (TranslatedTelyDocument):
@@ -541,13 +547,17 @@ class MasterTelyDocument (TelyDocument):
         s += (' <tr align="left">\n  <td title="%%(filename)s">Section titles<br>(%d)</td>\n'
               % sum (self.word_count)) % self.__dict__
         s += self.texi_body (markup, numbering)
+        s += ' </tr>\n'
+        s += self.texi_includes (markup, numbering)
         return markup.table (s) + markup.paragraph ()
+
+    def texi_includes (self, markup, numbering):
+        return ''.join ([i.texi_status (markup, numbering) for i in self.includes])
 
     def texi_body (self, markup, numbering):
         return (''.join ([self.translations[k].short_texi_status (markup)
                           for k in sorted (self.translations.keys ())])
-                + ' </tr>\n'
-                + ''.join ([i.texi_status (markup, numbering) for i in self.includes]))
+                + ' </tr>\n')
 
     def text_status (self, markup, numbering=SectionNumber (), colspec=[48,12]):
         s = (self.print_title (numbering) + ' ').ljust (colspec[0])
@@ -578,7 +588,9 @@ class IncludedMasterTelyDocument (MasterTelyDocument):
         if self.title != 'Untitled':
             return ((' <tr align="left">\n  <td title=%%(filename)s>%s<br>(%d)</td>\n'
                      % (self.print_title (numbering), sum (self.word_count))) % self.__dict__
-                    + self.texi_body (markup, numbering))
+                    + self.texi_body (markup, numbering)
+                    + '</tr>'
+                    + self.texi_includes (markup, numbering))
         return ''
 
     def text_status (self, markup, numbering=SectionNumber (), colspec=[48,12]):
