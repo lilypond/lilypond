@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: fa8dd31ed29a5ef35d76f127a795b5c2d951f5dd
+    Translation of GIT committish: 27a4d9354effb09c696925881ec4df007da8a0db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -132,7 +132,7 @@ particulier pour élaborer des retouches.
 liens rapides, manuels téléchargeables, et documentation des anciennes
 versions.
 
-@item @ref{Development} :
+@item @ref{Développement} :
 manuels pour la version de développement.
 
 @item @ref{FDL} :
@@ -341,28 +341,6 @@ manuel de notation est accessible par des liens dans le paragraphe
 
 @divEnd
 
-@node Web
-@unnumberedsec Web
-@translationof Web
-
-@divClass{column-left-top}
-@subheading Web
-
-Ce document fournit des informations générales sur LilyPond et sur les
-outils de la communauté, c'est-à-dire les listes de discussion, les
-rapports de bogues et le développement.
-
-@divEnd
-
-@divClass{column-right-bottom}
-
-@docLinks{Web, web,
-  @ref{Top,,,,Web},
-  @manualStableWebSplit-fr,
-  @manualStableWebBig-fr, 1 MB,
-  @manualStableWebPdf-fr, 2 MB}
-
-@divEnd
 
 @node FAQ
 @unnumberedsec FAQ
@@ -386,7 +364,7 @@ rapport avec la notation musicale que vous voulez produire.
 
 @subsubheading Ça fait encore beaucoup à lire !  Ai-je besoin de lire tout cela ?
 
-Décidez-en donc vous-même ; les raisons pour lesquelles vous souhaitez
+C'est vous qui voyez ; les raisons pour lesquelles vous souhaitez
 utiliser LilyPond se trouvent peut-être dans l'@ref{Introduction}.
 
 @divEnd
@@ -406,6 +384,40 @@ remettre à plat,Résolution de problèmes}.
 @c FIXME : corriger cette phrase lorsque la section correspondante sera
 @c traduite -JM
 C'est expliqué (en anglais) dans @rprogram{Pourquoi la syntaxe change-t-elle?}.
+
+@divEnd
+
+
+@node Web
+@unnumberedsec Web
+@translationof Web
+
+@divClass{column-left-top}
+@subheading Web
+
+Ce document fournit des informations générales sur LilyPond et sur les
+outils de la communauté, c'est-à-dire les listes de discussion, les
+rapports de bogues et le développement.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@subsubheading La version que vous consultez actuellement
+
+@divClass{keep-bullets}
+@itemize
+@ref{Top,Web}
+@end itemize
+@divEnd
+
+@subsubheading Web de la version @versionDevel
+
+@docLinks{Web, web,
+  @ref{Top,,,,Web},
+  @manualStableWebSplit-fr,
+  @manualStableWebBig-fr, 1 MB,
+  @manualStableWebPdf-fr, 2 MB}
 
 @divEnd
 
@@ -525,7 +537,23 @@ LilyPond 2.10 Documentation}
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 Documentation}
 
-@help anybody want to write this stuff?
+@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+LilyPond 2.6 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+LilyPond 2.4 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+LilyPond 2.2 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+LilyPond 2.0 Documentation}
+
+@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+LilyPond 1.8 Documentation}
+
+@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+LilyPond 1.6 Documentation}
 
 @end itemize
 
@@ -538,7 +566,7 @@ LilyPond 2.8 Documentation}
 @divClass{column-center-top}
 @subheading Licence de la documentation
 
-La documentation de GNU LilyPond est poubliée selon les termes de la
+La documentation de GNU LilyPond est publiée selon les termes de la
 @emph{GNU Free Documentation License}.  Une brève introduction à cette
 licence ainsi que les motifs qui nous ont fait l'adopter se trouvent à
 la page @ref{Liberté}.
