@@ -4,63 +4,14 @@
     Translation of GIT committish: 0
 @end ignore
 
+
 @ifnothtml
 Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>Last updated Mon Apr 12 08:27:40 UTC 2010
-</i></p>
-<table align="center" border="2">
- <tr align="center">
-  <th>Manuale di apprendimento di LilyPond</th>  <th>Translators</th>
-  <th>Translation checkers</th>
-  <th>Translated</th>
-  <th>Up to date</th>
-  <th>Other info</th>
- </tr>
- <tr align="left">
-  <td title="it/learning.tely">Section titles<br>(124)</td>
-  <td>Federico Bruni</td>
-  <td>Luca Rossetto Casel</td>
-  <td><span style="background-color: #dfef77">partially (93 %)</span></td>
-  <td><span style="background-color: #ff625a">partially</span></td>
-  <td>pre-GDP</td>
- </tr>
- <tr align="left">
-  <td title="it/macros.itexi">LilyPond --- \TITLE\<br>(1107)</td>
-  <td>Federico Bruni</td>
-  <td>Luca Rossetto Casel</td>
-  <td><span style="background-color: #1fff1f">yes</span></td>
-  <td><span style="background-color: #ff6b58">partially</span></td>
-  <td>pre-GDP</td>
- </tr>
- <tr align="left">
-  <td title="it/learning/tutorial.itely">1 Tutorial<br>(2379)</td>
-  <td>Federico Bruni</td>
-  <td>Luca Rossetto Casel</td>
-  <td><span style="background-color: #1fff1f">yes</span></td>
-  <td><span style="background-color: #ff625a">partially</span></td>
-  <td>pre-GDP</td>
- </tr>
- <tr align="left">
-  <td title="it/learning/common-notation.itely">2 Notazione comunemente utilizzata<br>(4035)</td>
-  <td>Federico Bruni</td>
-  <td>Luca Rossetto Casel</td>
-  <td><span style="background-color: #1fff1f">yes</span></td>
-  <td><span style="background-color: #ff6d58">partially</span></td>
-  <td>pre-GDP</td>
- </tr>
- <tr align="left">
-  <td title="it/learning/fundamental.itely">3 Concetti fondamentali<br>(11151)</td>
-  <td>Federico Bruni</td>
-  <td>Luca Rossetto Casel</td>
-  <td><span style="background-color: #1fff1f">yes</span></td>
-  <td><span style="background-color: #83fe2c">partially</span></td>
-  <td>pre-GDP</td>
- </tr>
-</table>
-<p></p>
+<p><em>Last updated Mon Apr 12 23:35:24 UTC 2010
+</em></p><table align="center" border="2"><tr align="center"><th>Manuale di apprendimento di LilyPond</th><th>Translators</th><th>Translation checkers</th><th>Translated</th><th>Up to date</th><th>Other info</th></tr><tr align="left"><td title="web.texi">Section titles<br>124</td><td>Federico Bruni</td><td>Luca Rossetto Casel</td><td><span style="background-color: #dfef77">partially (93 %)</span></td><td><span style="background-color: #ff625a">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond --- \TITLE\<br>1107</td><td>Federico Bruni</td><td>Luca Rossetto Casel</td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #ff6b58">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">1 Tutorial<br>2379</td><td>Federico Bruni</td><td>Luca Rossetto Casel</td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #ff625a">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">2 Notazione comunemente utilizzata<br>4035</td><td>Federico Bruni</td><td>Luca Rossetto Casel</td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #ff6d58">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">3 Concetti fondamentali<br>11151</td><td>Federico Bruni</td><td>Luca Rossetto Casel</td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #83fe2c">partially</span></td><td>pre-GDP</td></tr></table><p></p>
 
 @end html
 @end ifhtml

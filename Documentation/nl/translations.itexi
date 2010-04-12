@@ -4,114 +4,15 @@
     Translation of GIT committish: 0
 @end ignore
 
+
 @ifnothtml
 Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>Meest recente update Mon Apr 12 08:27:40 UTC 2010
-</i></p>
-<table align="center" border="2">
- <tr align="center">
-  <th>LilyPond beginnershandleiding</th>  <th>Vertalers</th>
-  <th>Revisie vertaling</th>
-  <th>Vertaald</th>
-  <th>Actueel</th>
-  <th>Andere informatie</th>
- </tr>
- <tr align="left">
-  <td title="nl/learning.tely">Paragraaftitels<br>(124)</td>
-  <td>Jan Nieuwenhuizen</td>
-  <td></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td>na-GDP</td>
- </tr>
- <tr align="left">
-  <td title="nl/macros.itexi">LilyPond -- \TITLE\<br>(1107)</td>
-  <td>Jan Nieuwenhuizen</td>
-  <td></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td>voor-GDP</td>
- </tr>
- <tr align="left">
-  <td title="nl/learning/tutorial.itely">1 Leerboek<br>(2379)</td>
-  <td>Jan Nieuwenhuizen</td>
-  <td></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td>voor-GDP</td>
- </tr>
- <tr align="left">
-  <td title="nl/learning/common-notation.itely">2 Algemene muzieknotatie<br>(4035)</td>
-  <td>Jan Nieuwenhuizen</td>
-  <td></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td>voor-GDP</td>
- </tr>
- <tr align="left">
-  <td title="nl/learning/fundamental.itely">3 Fundamentele concepten<br>(11151)</td>
-  <td>Jan Nieuwenhuizen</td>
-  <td></td>
-  <td><span style="background-color: #dfef77">gedeeltelijk (9 %)</span></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td>voor-GDP</td>
- </tr>
-</table>
-<p></p>
-
-<table align="center" border="2">
- <tr align="center">
-  <th>LilyPond -- Muzieknotatie voor iedereen</th>  <th>Vertalers</th>
-  <th>Revisie vertaling</th>
-  <th>Vertaald</th>
-  <th>Actueel</th>
-  <th>Andere informatie</th>
- </tr>
- <tr align="left">
-  <td title="nl/web.texi">Paragraaftitels<br>(496)</td>
-  <td>Jan Nieuwenhuizen</td>
-  <td>Tineke de Munnik</td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td>na-GDP</td>
- </tr>
- <tr align="left">
-  <td title="nl/macros.itexi">LilyPond -- \TITLE\<br>(1107)</td>
-  <td>Jan Nieuwenhuizen</td>
-  <td>Tineke de Munnik</td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td>voor-GDP</td>
- </tr>
- <tr align="left">
-  <td title="nl/web/introduction.itexi">Inleiding<br>(3755)</td>
-  <td>Jan Nieuwenhuizen</td>
-  <td>Tineke de Munnik</td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td>voor-GDP</td>
- </tr>
- <tr align="left">
-  <td title="nl/web/download.itexi">Download<br>(1174)</td>
-  <td>Jan Nieuwenhuizen</td>
-  <td>Tineke de Munnik</td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td>voor-GDP</td>
- </tr>
- <tr align="left">
-  <td title="nl/web/manuals.itexi">Handleidingen<br>(1198)</td>
-  <td>Jan Nieuwenhuizen</td>
-  <td>Tineke de Munnik</td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td><span style="background-color: #1fff1f">ja</span></td>
-  <td>voor-GDP</td>
- </tr>
-</table>
-<p></p>
+<p><em>Last updated Mon Apr 12 23:35:24 UTC 2010
+</em></p><table align="center" border="2"><tr align="center"><th>LilyPond beginnershandleiding</th><th>Vertalers</th><th>Revisie vertaling</th><th>Vertaald</th><th>Actueel</th><th>Andere informatie</th></tr><tr align="left"><td title="web.texi">Paragraaftitels<br>124</td><td>Jan Nieuwenhuizen</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>na-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond -- \TITLE\<br>1107</td><td>Jan Nieuwenhuizen</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>voor-GDP</td></tr><tr align="left"><td title="web.texi">1 Leerboek<br>2379</td><td>Jan Nieuwenhuizen</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>voor-GDP</td></tr><tr align="left"><td title="web.texi">2 Algemene muzieknotatie<br>4035</td><td>Jan Nieuwenhuizen</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>voor-GDP</td></tr><tr align="left"><td title="web.texi">3 Fundamentele concepten<br>11151</td><td>Jan Nieuwenhuizen</td><td></td><td><span style="background-color: #dfef77">gedeeltelijk (9 %)</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>voor-GDP</td></tr></table><p></p>
+<table align="center" border="2"><tr align="center"><th>LilyPond -- Muzieknotatie voor iedereen</th><th>Vertalers</th><th>Revisie vertaling</th><th>Vertaald</th><th>Actueel</th><th>Andere informatie</th></tr><tr align="left"><td title="web.texi">Paragraaftitels<br>496</td><td>Jan Nieuwenhuizen</td><td>Tineke de Munnik</td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>na-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond -- \TITLE\<br>1107</td><td>Jan Nieuwenhuizen</td><td>Tineke de Munnik</td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>voor-GDP</td></tr><tr align="left"><td title="web.texi">Inleiding<br>3755</td><td>Jan Nieuwenhuizen</td><td>Tineke de Munnik</td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>voor-GDP</td></tr><tr align="left"><td title="web.texi">Download<br>1174</td><td>Jan Nieuwenhuizen</td><td>Tineke de Munnik</td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>voor-GDP</td></tr><tr align="left"><td title="web.texi">Handleidingen<br>1198</td><td>Jan Nieuwenhuizen</td><td>Tineke de Munnik</td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>voor-GDP</td></tr></table><p></p>
 
 @end html
 @end ifhtml

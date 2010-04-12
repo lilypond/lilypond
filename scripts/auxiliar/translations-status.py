@@ -3,6 +3,12 @@
 '''
 USAGE: cd Documentation && translations-status.py
 
+TODO:
+   * layout tweaks for TexiMarkup
+     - set html table border
+     - collapse first column
+   * switch to using TexiMarkup (see #markup = ..)
+
   Write:
     translations.itexi
     <LANG>/translations.itexi
@@ -57,7 +63,7 @@ untranslated_node_str = '@untranslated'
 skeleton_str = '-- SKELETON FILE --'
 
 section_titles_string = _doc ('Section titles')
-last_updated_string = _doc (' <p><i>Last updated %s</i></p>\n')
+last_updated_string = _doc ('Last updated %s')
 detailed_status_heads = [_doc ('Translators'), _doc ('Translation checkers'),
                          _doc ('Translated'), _doc ('Up to date'),
                          _doc ('Other info')]
@@ -182,7 +188,7 @@ class HTMLMarkup (object):
         attr_list = ''.join ([' %s="%s"' % x for x in attributes])
         return '<%(name)s%(attr_list)s>%(string)s</%(name)s>' % locals ()
     def paragraph (self, string=''):
-        return self.entity ('p')
+        return self.entity ('p', string)
     def table (self, string):
         return self.entity ('table', string, [('align', 'center'), ('border', '2')])
     def row (self, string, attributes=[]):
@@ -190,7 +196,7 @@ class HTMLMarkup (object):
     headrow = row
     def headcell (self, string, attributes=[]):
         return self.entity ('th', string, attributes)
-    def cell (self, string, attributes=[]):
+    def cell (self, string='', attributes=[]):
         return self.entity ('td', string, attributes)
     def newline (self, attributes=[]):
         return self.entity ('br', '', attributes)[:-5]
@@ -198,38 +204,47 @@ class HTMLMarkup (object):
         return self.entity ('span', string, attributes)
     def small (self, string, attributes=[]):
         return self.entity ('small', string, attributes)
+    def emph (self, string, attributes=[]):
+        return self.entity ('em', string, attributes)
 
 class TexiMarkup (HTMLMarkup):
     def entity (self, name, string='', attributes=[]):
         return '''
 @%(name)s
 %(string)s
-@end %(name)s
-''' % locals ()
+@end %(name)s''' % locals ()
     def paragraph (self, string=''):
         return '''
 %(string)s''' % locals ()
     def table (self, string):
-        return self.entity ('multitable', string)
+        # Ugh, makeinfo is fine without @columnfractions
+        # but texi2html 1.82 barfs: `empty multicolumn'
+        return (self.entity ('multitable', string)
+                .replace ('@multitable',
+                          '@multitable @columnfractions' + ' .1' * 10))
     def headrow (self, string, attributes=[]):
         return '''
 @headitem ''' + string
     def row (self, string, attributes=[]):
         return '''
 @item ''' + string
-    def cell (self, string, attributes=[]):
+    def cell (self, string='', attributes=[]):
         return '''
 @tab ''' + string
     headcell = cell
     def newline (self):
-        return '''
-@* '''
+        return ''' @*
+'''
     def html (self, string):
         return self.entity ('ifhtml', self.entity ('html', string))
     def span (self, string, attributes=[]):
-        return self.html (HTMLMarkup.span (self, string, attributes))
+        return self.html (HTMLMarkup ().span (string, attributes))
     def small (self, string, attributes=[]):
-        return self.html (HTMLMarkup.small (self, string, attributes))
+        return self.html (HTMLMarkup ().small (string, attributes))
+    def command (self, name, string):
+        return '@%(name)s{%(string)s}' % locals ()
+    def emph (self, string, attributes=[]):
+        return self.command ('emph', string)
 
 class TelyDocument (object):
     def __init__ (self, filename):
@@ -418,7 +433,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
         if self.partially_translated:
             s += markup.newline ().join (self.translators + [''])
             if self.checkers:
-                s += markup.small (markup.newline ().join (self.checkers + ['']))
+                s += markup.newline ().join ([markup.small (x) for x in self.checkers + ['']])
         c = self.completeness (['color', 'long'])
         s += markup.span ('%(long)s' % c, [('style', 'background-color: #%(color)s' % c)])
         s += markup.newline ()
@@ -441,9 +456,9 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
                                  for h in detailed_status_heads])),
                     [('align', 'center')])
                 + markup.row (
-                    (markup.cell (((self.translation (section_titles_string)
-                                    + markup.newline ()
-                                    + '%d' % sum (self.masterdocument.word_count))) % self.__dict__,
+                    (markup.cell ((self.translation (section_titles_string)
+                                   + markup.newline ()
+                                   + '%d' % sum (self.masterdocument.word_count)),
                                   [('title',filename)])
                      + self.texi_body (markup, numbering)),
                     [('align','left')])
@@ -458,26 +473,24 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
 
     def texi_translators (self, markup):
         if self.partially_translated:
-            return ('  <td>' + '<br>\n   '.join (self.translators) + '</td>\n'
-                    + '  <td>' + '<br>\n   '.join (self.checkers) + '</td>\n')
-        return '  <td></td>\n' * 2
+            return (markup.cell (markup.newline ().join (self.translators))
+                    + markup.cell (markup.newline ().join (self.checkers)))
+        return markup.cell () + markup.cell ()
 
     def texi_completeness (self, markup):
         c = self.completeness (['color', 'short'], translated=True)
-        return '  <td><span style="background-color: #%(color)s">\
-%(short)s</span></td>\n' % {'color': c['color'],
-                           'short': c['short']}
+        return markup.cell (markup.span (c['short'],
+                                         [('style', 'background-color: #' + c['color'])]))
 
     def texi_uptodateness (self, markup):
         if self.partially_translated:
             u = self.uptodateness (['short', 'color'], translated=True)
-            return '  <td><span style="background-color: #%(color)s">\
-%(short)s</span></td>\n' % {'color': u['color'],
-                           'short': u['short']}
-        return '  <td></td>\n'
+            return markup.cell (markup.span (u['short'],
+                                             [('style', 'background-color: #' + u['color'])]))
+        return markup.cell ()
 
     def texi_gdp (self, markup):
-        return '  <td>' + self.gdp_status () + '</td>\n </tr>\n'
+        return markup.cell (self.gdp_status ())
 
     def texi_translations (self, markup, numbering):
         return ''.join ([i.translations[self.language].texi_status (markup, numbering)
@@ -488,11 +501,14 @@ class IncludedTranslatedTelyDocument (TranslatedTelyDocument):
     get_level = TelyDocument.get_level
     def texi_status (self, markup, numbering=SectionNumber ()):
         if self.title != 'Untitled':
-            return ((' <tr align="left">\n  <td title="%%(filename)s">%s<br>(%d)</td>\n'
-                     % (self.print_title (numbering),
-                        sum (self.masterdocument.word_count))) % self.__dict__
-                    + self.texi_body (markup, numbering)
-                    + '</tr>'
+            return (markup.row (
+                    (markup.cell ((
+                                self.print_title (numbering)
+                                + markup.newline ()
+                                + '%d' % sum (self.masterdocument.word_count)),
+                                  [('title',filename)])
+                     + self.texi_body (markup, numbering)),
+                    [('align','left')])
                     + self.texi_translations (markup, numbering))
         return ''
 
@@ -541,25 +557,27 @@ class MasterTelyDocument (TelyDocument):
         return s
 
     def texi_status (self, markup, numbering=SectionNumber ()):
-        s = '''
- <tr align="center">
-  <th>%s</th>''' % self.print_title (numbering)
-        s += ''.join (['  <th>%s</th>\n' % l for l in sorted (self.translations.keys ())])
-        s += ' </tr>\n'
-        s += (' <tr align="left">\n  <td title="%%(filename)s">Section titles<br>(%d)</td>\n'
-              % sum (self.word_count)) % self.__dict__
-        s += self.texi_body (markup, numbering)
-        s += ' </tr>\n'
-        s += self.texi_includes (markup, numbering)
-        return markup.table (s) + markup.paragraph ()
+        return markup.table (
+            (markup.headrow (
+                    (markup.headcell (self.print_title (numbering))
+                     + ''.join ([markup.headcell (l) for l in sorted (self.translations.keys ())])),
+                    [('align','center')])
+             + markup.row (
+                    (markup.cell (('Section titles'
+                                   + markup.newline ()
+                                   + '(%d)' % sum (self.word_count)),
+                                  [('title',filename)])
+                     + self.texi_body (markup, numbering)),
+                    [('align','left')])
+             + self.texi_includes (markup, numbering)
+             )) + markup.paragraph ()
 
     def texi_includes (self, markup, numbering):
         return ''.join ([i.texi_status (markup, numbering) for i in self.includes])
 
     def texi_body (self, markup, numbering):
-        return (''.join ([self.translations[k].short_texi_status (markup)
+        return ''.join ([self.translations[k].short_texi_status (markup)
                           for k in sorted (self.translations.keys ())])
-                + ' </tr>\n')
 
     def text_status (self, markup, numbering=SectionNumber (), colspec=[48,12]):
         s = (self.print_title (numbering) + ' ').ljust (colspec[0])
@@ -588,18 +606,21 @@ class IncludedMasterTelyDocument (MasterTelyDocument):
 
     def texi_status (self, markup, numbering=SectionNumber ()):
         if self.title != 'Untitled':
-            return ((' <tr align="left">\n  <td title=%%(filename)s>%s<br>(%d)</td>\n'
-                     % (self.print_title (numbering), sum (self.word_count))) % self.__dict__
-                    + self.texi_body (markup, numbering)
-                    + '</tr>'
+            return (markup.row (
+                    (markup.cell ((self.print_title (numbering)
+                                   + markup.newline ()
+                                   + '(%d)' % sum (self.word_count)),
+                                  [('title',filename)])
+                     + self.texi_body (markup, numbering)),
+                    [('align','left')])
                     + self.texi_includes (markup, numbering))
         return ''
 
     def text_status (self, markup, numbering=SectionNumber (), colspec=[48,12]):
         if self.title != 'Untitled':
-            return (('%s (%d) '
-                     % (self.print_title (numbering), sum (self.word_count)))
-                    + self.text_body (markup, numbering, colspec)
+            return (self.print_title (numbering)
+                     + '(%d)' % sum (self.word_count)
+                     + self.text_body (markup, numbering, colspec)
                     ).ljust (colspec[0])
         return ''
 
@@ -634,9 +655,12 @@ progress ("Generating status pages...")
 
 date_time = buildlib.read_pipe ('LANG= date -u')[0]
 
-markup = HTMLMarkup ()
-#markup = TexiMarkup ()
-main_status_body = last_updated_string % date_time
+# TEXI output sort of works
+# TODO: table border, td-titles :-)
+#markup = HTMLMarkup ()
+markup = TexiMarkup ()
+
+main_status_body = markup.paragraph (markup.emph (last_updated_string % date_time))
 main_status_body += '\n'.join ([doc.texi_status (markup) for doc in master_docs])
 
 texi_header = '''@c -*- coding: utf-8; mode: texinfo; -*-
@@ -645,6 +669,10 @@ texi_header = '''@c -*- coding: utf-8; mode: texinfo; -*-
     Translation of GIT committish: 0
 @end ignore
 
+'''
+
+if not isinstance (markup, TexiMarkup):
+    texi_header += '''
 @ifnothtml
 Translation status currently only available in HTML.
 @end ifnothtml
@@ -653,6 +681,10 @@ Translation status currently only available in HTML.
 '''
 
 texi_footer = '''
+'''
+
+if not isinstance (markup, TexiMarkup):
+    texi_footer += '''
 @end html
 @end ifhtml
 '''
@@ -663,7 +695,7 @@ open ('translations.itexi', 'w').write (main_status_page)
 
 for l in enabled_languages:
     date_time = buildlib.read_pipe ('LANG=%s date -u' % l)[0]
-    updated = translation[l] (last_updated_string) % date_time
+    updated = markup.paragraph (markup.emph (translation[l] (last_updated_string) % date_time))
     texi_status = '\n'.join ([doc.translations[l].texi_status (markup)
                               for doc in master_docs
                               if l in doc.translations])
