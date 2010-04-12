@@ -181,7 +181,13 @@ class TexiMarkup (object):
     pass
 
 class HTMLMarkup (TexiMarkup):
-    pass
+    def entity (self, name, string='', attributes=[]):
+        attr_list = ''.join ([' %s="%s"' % x for x in attributes])
+        return '<%(name)s%(attr_list)s>%(string)s</%(name)s>' % locals ()
+    def paragraph (self, string=''):
+        return self.entity ('p')
+    def table (self, string):
+        return self.entity ('table', string, [('align', 'center'), ('border', '2')])
 
 class TelyDocument (object):
     def __init__ (self, filename):
@@ -393,8 +399,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
         return s
 
     def texi_status (self, markup, numbering=SectionNumber ()):
-        s = '''<table align="center" border="2">
- <tr align="center">
+        s =  '''<tr align="center">
   <th>%s</th>''' % self.print_title (numbering)
         s += ''.join (['  <th>%s</th>\n' % self.translation (h)
                        for h in detailed_status_heads])
@@ -403,8 +408,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
               % (self.translation (section_titles_string),
                  sum (self.masterdocument.word_count))) % self.__dict__
         s += self.texi_body (markup, numbering)
-        s += '</table>\n<p></p>\n'
-        return s
+        return markup.table (s) + markup.paragraph ()
 
     def texi_body (self, markup, numbering):
         return (self.texi_translators (markup)
@@ -496,7 +500,7 @@ class MasterTelyDocument (TelyDocument):
         return s
 
     def texi_status (self, markup, numbering=SectionNumber ()):
-        s = '''<table align="center" border="2">
+        s = '''
  <tr align="center">
   <th>%s</th>''' % self.print_title (numbering)
         s += ''.join (['  <th>%s</th>\n' % l for l in sorted (self.translations.keys ())])
@@ -504,8 +508,7 @@ class MasterTelyDocument (TelyDocument):
         s += (' <tr align="left">\n  <td title="%%(filename)s">Section titles<br>(%d)</td>\n'
               % sum (self.word_count)) % self.__dict__
         s += self.texi_body (markup, numbering)
-        s += '</table>\n<p></p>\n'
-        return s
+        return markup.table (s) + markup.paragraph ()
 
     def texi_body (self, markup, numbering):
         return (''.join ([self.translations[k].short_texi_status (markup)
