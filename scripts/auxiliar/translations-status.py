@@ -188,7 +188,7 @@ class HTMLMarkup (object):
     def row (self, string, attributes=[]):
         return self.entity ('tr', string, attributes)
     headrow = row
-    def cellhead (self, string, attributes=[]):
+    def headcell (self, string, attributes=[]):
         return self.entity ('th', string, attributes)
     def cell (self, string, attributes=[]):
         return self.entity ('td', string, attributes)
@@ -429,24 +429,26 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
 
     def text_status (self):
         s = self.completeness ('abbr')['abbr'] + ' '
-
         if self.partially_translated:
             s += self.uptodateness ('abbr')['abbr'] + ' '
         return s
 
     def texi_status (self, markup, numbering=SectionNumber ()):
-        s =  '''<tr align="center">
-  <th>%s</th>''' % self.print_title (numbering)
-        s += ''.join (['  <th>%s</th>\n' % self.translation (h)
-                       for h in detailed_status_heads])
-        s += ' </tr>\n'
-        s += (' <tr align="left">\n  <td title="%%(filename)s">%s<br>(%d)</td>\n'
-              % (self.translation (section_titles_string),
-                 sum (self.masterdocument.word_count))) % self.__dict__
-        s += self.texi_body (markup, numbering)
-        s += ' </tr>\n'
-        s += self.texi_translations (markup, numbering)
-        return markup.table (s) + markup.paragraph ()
+        return (markup.table (
+                markup.headrow (
+                    (markup.headcell (self.print_title (numbering))
+                     + ''.join ([markup.headcell (self.translation (h))
+                                 for h in detailed_status_heads])),
+                    [('align', 'center')])
+                + markup.row (
+                    (markup.cell (((self.translation (section_titles_string)
+                                    + markup.newline ()
+                                    + '%d' % sum (self.masterdocument.word_count))) % self.__dict__,
+                                  [('title',filename)])
+                     + self.texi_body (markup, numbering)),
+                    [('align','left')])
+                + self.texi_translations (markup, numbering))
+                ) + markup.paragraph ()
 
     def texi_body (self, markup, numbering):
         return (self.texi_translators (markup)
