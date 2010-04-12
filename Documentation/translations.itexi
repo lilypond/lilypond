@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>Last updated Mon Apr 12 08:13:11 UTC 2010
+ <p><i>Last updated Mon Apr 12 08:27:40 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -1250,13 +1250,12 @@ Translation status currently only available in HTML.
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
-  <td title="hu/web/introduction.itexi">so far it's mostly from<br>
+  <td title="hu/web/introduction.itexi">Dénes Harmath<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #c0ff34">partially up to date</span><br>
   </td>
   <td title="ja/web/introduction.itexi">Yoshiki Sawada<br>
    Yoshinobu Ishizaki<br>
-   so far it's mostly from<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6b58">partially up to date</span><br>
   </td>
@@ -1312,12 +1311,11 @@ Translation status currently only available in HTML.
    <span style="background-color: #dfef77">partially translated (97 %)</span><br>
    <span style="background-color: #33ff21">partially up to date</span><br>
   </td>
-  <td title="hu/web/manuals.itexi">most of the text in this file came from<br>
+  <td title="hu/web/manuals.itexi">Dénes Harmath<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ffd743">partially up to date</span><br>
   </td>
   <td title="ja/web/manuals.itexi">Yoshiki Sawada<br>
-   most of the text in this file came from<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6f57">partially up to date</span><br>
   </td>
@@ -1342,12 +1340,11 @@ Translation status currently only available in HTML.
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
-  <td title="hu/fdl.itexi">most of the text in this file came from<br>
+  <td title="hu/fdl.itexi">Dénes Harmath<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td title="ja/fdl.itexi">Yoshiki Sawada<br>
-   most of the text in this file came from<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>

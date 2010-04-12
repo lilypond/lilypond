@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>Last updated Mon Apr 12 08:13:11 UTC 2010
+ <p><i>Last updated Mon Apr 12 08:27:40 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -147,7 +147,7 @@ Translation status currently only available in HTML.
  </tr>
  <tr align="left">
   <td title="hu/web/introduction.itexi">Bevezetés<br>(3755)</td>
-  <td>so far it's mostly from</td>
+  <td>Dénes Harmath</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
   <td><span style="background-color: #c0ff34">partially</span></td>
@@ -163,7 +163,7 @@ Translation status currently only available in HTML.
  </tr>
  <tr align="left">
   <td title="hu/web/manuals.itexi">Dokumentáció<br>(1198)</td>
-  <td>most of the text in this file came from</td>
+  <td>Dénes Harmath</td>
   <td></td>
   <td><span style="background-color: #1fff1f">yes</span></td>
   <td><span style="background-color: #ffd743">partially</span></td>

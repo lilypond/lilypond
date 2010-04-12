@@ -49,10 +49,9 @@ title_re = re.compile ('^@(settitle|chapter|top|(?:sub){0,2}section|'
 include_re = re.compile ('^@include (.*?)$', re.M)
 
 # allow multiple lines
-translators_re = re.compile (r'^@c[ ]+[tT]ranslators?[ ]*:[ ]*(.*?)$', re.M | re.I)
-checkers_re = re.compile (r'^@c[ ]+Translation[ ]*checkers?[ ]*:[ ]*(.*?)$',
-                          re.M | re.I)
-status_re = re.compile (r'^@c[ ]+Translation[ ]*status[ ]*:[ ]*(.*?)$', re.M | re.I)
+translators_re = re.compile (r'^@c[ ]+[Tt]ranslators?[ ]*:[ ]*(.*?)$', re.M)
+checkers_re = re.compile (r'^@c[ ]+[Tt]ranslation[ ]*[Cc]heckers?[ ]*:[ ]*(.*?)$', re.M)
+status_re = re.compile (r'^@c[ ]+[Tt]ranslation[ ]*[Ss]tatus[ ]*:[ ]*(.*?)$', re.M)
 post_gdp_re = re.compile ('post.GDP', re.I)
 untranslated_node_str = '@untranslated'
 skeleton_str = '-- SKELETON FILE --'
@@ -254,9 +253,9 @@ class TranslatedTelyDocument (TelyDocument):
         if (not isinstance (self, UntranslatedTelyDocument)
             and (not self.translators or not self.translators[0])
             and not 'macros.itexi' in self.filename):
-            error ('%s: error: no translator name found, \nplease \
-specify at least one in the master file as a line containing\n\
-@c Translators: FirstName1 LastName1, FirstName2 LastName2' % self.filename)
+            error (self.filename + ''': error: no translator name found
+please specify one ore more lines in the master file
+@c Translator: FirstName LastName[, FirstName LastName]..''')
         self.checkers = []
         m = checkers_re.findall (self.contents)
         if m:

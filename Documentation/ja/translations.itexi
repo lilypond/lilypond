@@ -9,7 +9,7 @@ Translation status currently only available in HTML.
 @end ifnothtml
 @ifhtml
 @html
- <p><i>最終更新日 Mon Apr 12 08:13:11 UTC 2010
+ <p><i>最終更新日 Mon Apr 12 08:27:40 UTC 2010
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -166,8 +166,7 @@ Translation status currently only available in HTML.
  <tr align="left">
   <td title="ja/web/introduction.itexi">導入部<br>(3755)</td>
   <td>Yoshiki Sawada<br>
-   Yoshinobu Ishizaki<br>
-   so far it's mostly from</td>
+   Yoshinobu Ishizaki</td>
   <td></td>
   <td><span style="background-color: #1fff1f">はい</span></td>
   <td><span style="background-color: #ff6b58">partially</span></td>
@@ -184,8 +183,7 @@ Translation status currently only available in HTML.
  </tr>
  <tr align="left">
   <td title="ja/web/manuals.itexi">マニュアル<br>(1198)</td>
-  <td>Yoshiki Sawada<br>
-   most of the text in this file came from</td>
+  <td>Yoshiki Sawada</td>
   <td></td>
   <td><span style="background-color: #1fff1f">はい</span></td>
   <td><span style="background-color: #ff6f57">partially</span></td>
