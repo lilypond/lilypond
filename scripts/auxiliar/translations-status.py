@@ -456,18 +456,12 @@ class MasterTelyDocument (TelyDocument):
         if not self.language or self.language == 'en':
             languages = [x for x in parent_translations.keys () if x != 'en']
             for lang in languages:
-                if os.path.exists (translations[lang]):
-                    found[lang] = True
-                    self.translations[lang] = TranslatedTelyDocument (translations[lang],
-                                                                      self,
-                                                                      parent_translations.get (lang))
-                else:
-                    self.translations[lang] = UntranslatedTelyDocument (translations[lang],
-                                                                        self,
-                                                                        parent_translations.get (lang))
+                self.translations[lang] = self.translated_factory (translations[lang],
+                                                                   parent_translations.get (lang))
+                found[lang] = not isinstance (self.translations[lang], UntranslatedTelyDocument)
             if self.top:
                 for lang in [x for x in langdefs.LANGDICT if x and x != 'en']:
-                    if not found.has_key (lang):
+                    if not found.get (lang, False):
                         del self.translations[lang]
 
         if self.translations:
@@ -475,6 +469,12 @@ class MasterTelyDocument (TelyDocument):
                              for f in self.included_files]
         else:
             self.includes = []
+
+    def translated_factory (self, filename, parent):
+        if os.path.exists (filename):
+            return TranslatedTelyDocument (filename, self, parent)
+        else:
+            return UntranslatedTelyDocument (filename, self, parent)
 
     def update_word_counts (self, s):
         s = update_word_count (s, self.filename, sum (self.word_count))
