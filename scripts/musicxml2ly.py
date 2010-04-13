@@ -1867,7 +1867,9 @@ def musicxml_note_to_lily_main_event (n):
         acc = n.get_maybe_exist_named_child ('accidental')
         if acc:
             # let's not force accs everywhere.
-            event.cautionary = acc.editorial
+            event.cautionary = acc.cautionary
+            # TODO: Handle editorial accidentals
+            # TODO: Handle the level-display setting for displaying brackets/parentheses
 
     elif n.get_maybe_exist_typed_child (musicxml.Unpitched):
 	# Unpitched elements have display-step and can also have
