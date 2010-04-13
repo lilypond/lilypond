@@ -78,11 +78,11 @@ procedures}.
 6287  notation/input.itely -- Input syntax
 2164  notation/non-music.itely -- Non-musical notation
 9253  notation/spacing.itely -- Spacing issues
-11890 notation/changing-defaults.itely -- Changing defaults
+11905 notation/changing-defaults.itely -- Changing defaults
 5187  notation/programming-interface.itely -- Interfaces for programmers
 1954  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-66582 total
+66597 total
 
 -6- Rest of Application Usage
 3438  usage/lilypond-book.itely -- LilyPond-book

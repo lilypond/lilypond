@@ -5,18 +5,1501 @@
 @end ignore
 
 
-@ifnothtml
-Translation status currently only available in HTML.
-@end ifnothtml
 @ifhtml
+
 @html
-<p><em>Last updated Mon Apr 12 23:35:24 UTC 2010
-</em></p><table align="center" border="2"><tr align="center"><th>Aufsatz über den automatischen Musiksatz</th><th>Übersetzer</th><th>Übersetzungsüberprüfer</th><th>Übersetzt</th><th>Aktuell</th><th>Mehr Information</th></tr><tr align="left"><td title="web.texi">Überschriften<br>93</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #39ff22">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond -- \TITLE\<br>1107</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1 Notensatz<br>5297</td><td> Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #cdfe36">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2 Literatur<br>319</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #76fe2a">teilweise</span></td><td>vor-GDP</td></tr></table><p></p>
-<table align="center" border="2"><tr align="center"><th>Extending LilyPond</th><th>Übersetzer</th><th>Übersetzungsüberprüfer</th><th>Übersetzt</th><th>Aktuell</th><th>Mehr Information</th></tr><tr align="left"><td title="web.texi">Überschriften<br>107</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #33ff21">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond -- \TITLE\<br>1107</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">A Scheme-Übung<br>4622</td><td>Till Paala</td><td></td><td><span style="background-color: #dfef77">teilweise (4 %)</span></td><td><span style="background-color: #ff6959">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1 Schnittstellen für Programmierer<br>3799</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #ff6b58">teilweise</span></td><td>vor-GDP</td></tr></table><p></p>
-<table align="center" border="2"><tr align="center"><th>LilyPond Handbuch zum Lernen</th><th>Übersetzer</th><th>Übersetzungsüberprüfer</th><th>Übersetzt</th><th>Aktuell</th><th>Mehr Information</th></tr><tr align="left"><td title="web.texi">Überschriften<br>124</td><td>Till Rettig</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #33ff21">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond -- \TITLE\<br>1107</td><td>Till Rettig</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1 Übung<br>2379</td><td>Till Paala<br>Reinhold Kainhofer</td><td>Hajo Bäß</td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #7dff2b">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2 Übliche Notation<br>4035</td><td>Till Rettig</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #2cff20">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">3 Grundbegriffe<br>11151</td><td>Till Paala<br>Reinhold Kainhofer</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #4efe25">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">4 Die Ausgabe verändern<br>15619</td><td>Till Rettig</td><td></td><td><span style="background-color: #dfef77">teilweise (98 %)</span></td><td><span style="background-color: #33ff21">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">A Vorlagen<br>201</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>vor-GDP</td></tr></table><p></p>
-<table align="center" border="2"><tr align="center"><th>GNU LilyPond Benutzerhandbuch</th><th>Übersetzer</th><th>Übersetzungsüberprüfer</th><th>Übersetzt</th><th>Aktuell</th><th>Mehr Information</th></tr><tr align="left"><td title="web.texi">Überschriften<br>355</td><td>Till Paala<br>Till Rettig</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #ffd544">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond -- \TITLE\<br>1107</td><td>Till Paala<br>Till Rettig</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1 Musikalische Notation<br>91</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #54ff26">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1.1 Tonhöhen<br>3482</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #5bff27">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1.2 Rhythmus<br>4970</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #9eff30">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1.3 Ausdrucksbezeichnungen<br>1481</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #40fe23">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1.4 Wiederholungszeichen<br>578</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #25fe1f">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1.5 Gleichzeitig erscheinende Noten<br>1639</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #47ff24">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1.6 Notation auf Systemen<br>1855</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #40fe23">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1.7 Anmerkungen<br>935</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #25fe1f">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1.8 Text<br>2755</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #fcff3c">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2 Spezielle Notation<br>81</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #fff53e">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2.1 Notation von Gesang<br>2730</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #33ff21">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2.2 Tasteninstrumente und andere Instrumente mit mehreren Systemen<br>747</td><td> Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #25fe1f">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2.3 Bundlose Saiteninstrumente<br>255</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #76fe2a">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2.4 Saiteninstrumente mit Bünden<br>2233</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #76fe2a">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2.5 Schlagzeug<br>807</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #47ff24">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2.6 Blasinstrumente<br>136</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #39ff22">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2.7 Notation von Akkorden<br>1521</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2.8 Notation von alter Musik<br>4479</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #25fe1f">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2.9 Weltmusik<br>1429</td><td>Till Paala</td><td></td><td><span style="background-color: #dfef77">teilweise (89 %)</span></td><td><span style="background-color: #6fff29">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">3 Allgemeine Eingabe und Ausgabe<br>6287</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #39ff22">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">4 Abstände<br>9253</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #91ff2e">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">5 Standardeinstellungen verändern<br>11890</td><td>Till Paala</td><td></td><td><span style="background-color: #dfef77">teilweise (96 %)</span></td><td><span style="background-color: #5bff27">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">A Notationsübersicht<br>1954</td><td>Till Paala</td><td></td><td><span style="background-color: #dfef77">teilweise (98 %)</span></td><td><span style="background-color: #97ff2f">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">B Befehlsübersicht<br>252</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #25fe1f">teilweise</span></td><td>vor-GDP</td></tr></table><p></p>
-<table align="center" border="2"><tr align="center"><th>GNU LilyPond Programmbenutzung</th><th>Übersetzer</th><th>Übersetzungsüberprüfer</th><th>Übersetzt</th><th>Aktuell</th><th>Mehr Information</th></tr><tr align="left"><td title="web.texi">Überschriften<br>135</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #ff6f57">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond -- \TITLE\<br>1107</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">1 @command{lilypond} starten<br>2902</td><td>Reinhold Kainhofer<br>Till Paala</td><td></td><td><span style="background-color: #dfef77">teilweise (72 %)</span></td><td><span style="background-color: #ff6b58">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">2 @command{lilypond-book}: Noten in den Text integrieren<br>3438</td><td>Reinhold Kainhofer</td><td>Till Paala</td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #ff6b58">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">3 Vorschläge, wie man Dateien schreibt<br>2694</td><td>Till Paala</td><td></td><td><span style="background-color: #d0f0f8">nein</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>vor-GDP</td></tr></table><p></p>
-<table align="center" border="2"><tr align="center"><th>LilyPond -- Notation für Jedermann</th><th>Übersetzer</th><th>Übersetzungsüberprüfer</th><th>Übersetzt</th><th>Aktuell</th><th>Mehr Information</th></tr><tr align="left"><td title="web.texi">Überschriften<br>496</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #33ff21">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond -- \TITLE\<br>1107</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #1fff1f">ja</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">Einleitung<br>3755</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #7dff2b">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">Download<br>1174</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #39ff22">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">Handbücher<br>1198</td><td>Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #4efe25">teilweise</span></td><td>vor-GDP</td></tr><tr align="left"><td title="web.texi">Gemeinschaft<br>1959</td><td> Till Paala</td><td></td><td><span style="background-color: #1fff1f">ja</span></td><td><span style="background-color: #68ff28">teilweise</span></td><td>vor-GDP</td></tr></table><p></p>
+
+<style type="text/css"><!--
+th { border: 1px solid black; text-align: center; }
+td { border: 1px solid black; text-align: center; }
+!--></style>
 
 @end html
 @end ifhtml
+@emph{Last updated Tue Apr 13 08:17:20 UTC 2010
+}
+@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+
+@headitem
+Aufsatz über den automatischen Musiksatz
+@tab Übersetzer
+@tab Übersetzungsüberprüfer
+@tab Übersetzt
+@tab Aktuell
+@tab Mehr Information
+@item
+Überschriften
+@*
+93
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #39ff22">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+LilyPond -- \TITLE\
+@*
+1107
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab vor-GDP
+@item
+1 Notensatz
+@*
+5297
+@tab  Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #cdfe36">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2 Literatur
+@*
+319
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #76fe2a">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@end multitable
+
+
+@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+
+@headitem
+Extending LilyPond
+@tab Übersetzer
+@tab Übersetzungsüberprüfer
+@tab Übersetzt
+@tab Aktuell
+@tab Mehr Information
+@item
+Überschriften
+@*
+107
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+LilyPond -- \TITLE\
+@*
+1107
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab vor-GDP
+@item
+A Scheme-Übung
+@*
+4934
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">teilweise (4 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise (4 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #ff6959">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+1 Schnittstellen für Programmierer
+@*
+3815
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #ff6b58">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@end multitable
+
+
+@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+
+@headitem
+LilyPond Handbuch zum Lernen
+@tab Übersetzer
+@tab Übersetzungsüberprüfer
+@tab Übersetzt
+@tab Aktuell
+@tab Mehr Information
+@item
+Überschriften
+@*
+124
+@tab Till Rettig
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+LilyPond -- \TITLE\
+@*
+1107
+@tab Till Rettig
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab vor-GDP
+@item
+1 Übung
+@*
+2379
+@tab Till Paala
+@*
+Reinhold Kainhofer
+@tab Hajo Bäß
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #7dff2b">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2 Übliche Notation
+@*
+4035
+@tab Till Rettig
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #2cff20">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+3 Grundbegriffe
+@*
+11151
+@tab Till Paala
+@*
+Reinhold Kainhofer
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #4efe25">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+4 Die Ausgabe verändern
+@*
+15619
+@tab Till Rettig
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">teilweise (98 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise (98 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+A Vorlagen
+@*
+201
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab vor-GDP
+@end multitable
+
+
+@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+
+@headitem
+GNU LilyPond Benutzerhandbuch
+@tab Übersetzer
+@tab Übersetzungsüberprüfer
+@tab Übersetzt
+@tab Aktuell
+@tab Mehr Information
+@item
+Überschriften
+@*
+355
+@tab Till Paala
+@*
+Till Rettig
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #ffd544">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+LilyPond -- \TITLE\
+@*
+1107
+@tab Till Paala
+@*
+Till Rettig
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab vor-GDP
+@item
+1 Musikalische Notation
+@*
+91
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #54ff26">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+1.1 Tonhöhen
+@*
+3482
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #5bff27">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+1.2 Rhythmus
+@*
+4970
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #9eff30">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+1.3 Ausdrucksbezeichnungen
+@*
+1481
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #40fe23">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+1.4 Wiederholungszeichen
+@*
+578
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #25fe1f">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+1.5 Gleichzeitig erscheinende Noten
+@*
+1639
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #47ff24">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+1.6 Notation auf Systemen
+@*
+1855
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #40fe23">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+1.7 Anmerkungen
+@*
+935
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #25fe1f">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+1.8 Text
+@*
+2755
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #fcff3c">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2 Spezielle Notation
+@*
+81
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #fff53e">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2.1 Notation von Gesang
+@*
+2730
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2.2 Tasteninstrumente und andere Instrumente mit mehreren Systemen
+@*
+747
+@tab  Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #25fe1f">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2.3 Bundlose Saiteninstrumente
+@*
+255
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #76fe2a">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2.4 Saiteninstrumente mit Bünden
+@*
+2233
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #76fe2a">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2.5 Schlagzeug
+@*
+807
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #47ff24">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2.6 Blasinstrumente
+@*
+136
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #39ff22">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2.7 Notation von Akkorden
+@*
+1521
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab vor-GDP
+@item
+2.8 Notation von alter Musik
+@*
+4479
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #25fe1f">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2.9 Weltmusik
+@*
+1429
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">teilweise (89 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise (89 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #6fff29">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+3 Allgemeine Eingabe und Ausgabe
+@*
+6287
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #39ff22">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+4 Abstände
+@*
+9253
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #91ff2e">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+5 Standardeinstellungen verändern
+@*
+11905
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">teilweise (96 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise (96 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #5bff27">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+A Notationsübersicht
+@*
+1954
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">teilweise (98 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise (98 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #97ff2f">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+B Befehlsübersicht
+@*
+252
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #25fe1f">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@end multitable
+
+
+@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+
+@headitem
+GNU LilyPond Programmbenutzung
+@tab Übersetzer
+@tab Übersetzungsüberprüfer
+@tab Übersetzt
+@tab Aktuell
+@tab Mehr Information
+@item
+Überschriften
+@*
+135
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #ff6f57">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+LilyPond -- \TITLE\
+@*
+1107
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab vor-GDP
+@item
+1 @command{lilypond} starten
+@*
+2902
+@tab Reinhold Kainhofer
+@*
+Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">teilweise (72 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise (72 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #ff6b58">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+2 @command{lilypond-book}: Noten in den Text integrieren
+@*
+3438
+@tab Reinhold Kainhofer
+@tab Till Paala
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #ff6b58">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+3 Vorschläge, wie man Dateien schreibt
+@*
+2694
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">nein</span>
+@end html
+@end ifhtml
+@ifnothtml
+nein
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab vor-GDP
+@end multitable
+
+
+@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+
+@headitem
+LilyPond -- Notation für Jedermann
+@tab Übersetzer
+@tab Übersetzungsüberprüfer
+@tab Übersetzt
+@tab Aktuell
+@tab Mehr Information
+@item
+Überschriften
+@*
+496
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+LilyPond -- \TITLE\
+@*
+1107
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab vor-GDP
+@item
+Einleitung
+@*
+3755
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #7dff2b">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+Download
+@*
+1174
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #39ff22">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+Handbücher
+@*
+1198
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #4efe25">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+Gemeinschaft
+@*
+1959
+@tab  Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #68ff28">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@end multitable
+

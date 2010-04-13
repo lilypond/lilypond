@@ -5,15 +5,510 @@
 @end ignore
 
 
-@ifnothtml
-Translation status currently only available in HTML.
-@end ifnothtml
 @ifhtml
+
 @html
-<p><em>Last updated Mon Apr 12 23:35:24 UTC 2010
-</em></p><table align="center" border="2"><tr align="center"><th>LilyPond Tankönyv</th><th>Translators</th><th>Translation checkers</th><th>Translated</th><th>Up to date</th><th>Other info</th></tr><tr align="left"><td title="web.texi">Section titles<br>124</td><td>Harmath Dénes</td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #68ff28">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond --- \TITLE\<br>1107</td><td>Harmath Dénes</td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #2cff20">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">1 Első lecke<br>2379</td><td>Harmath Dénes</td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #acff31">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">2 Elemi kottaírás<br>4035</td><td>Harmath Dénes</td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #33ff21">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">3 Alapfogalmak<br>11151</td><td>Harmath Dénes</td><td></td><td><span style="background-color: #d0f0f8">no</span></td><td><span style="background-color: #4efe25">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">4 A kimenet finomhangolása<br>15619</td><td>Harmath Dénes</td><td></td><td><span style="background-color: #d0f0f8">no</span></td><td><span style="background-color: #33ff21">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">A Sablonok<br>201</td><td>Harmath Dénes</td><td></td><td><span style="background-color: #d0f0f8">no</span></td><td><span style="background-color: #25fe1f">partially</span></td><td>pre-GDP</td></tr></table><p></p>
-<table align="center" border="2"><tr align="center"><th>LilyPond Használati útmutató</th><th>Translators</th><th>Translation checkers</th><th>Translated</th><th>Up to date</th><th>Other info</th></tr><tr align="left"><td title="web.texi">Section titles<br>135</td><td></td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #33ff21">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond --- \TITLE\<br>1107</td><td></td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #2cff20">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">1 A @command{lilypond} használata<br>2902</td><td></td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #1fff1f">yes</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">2 A @command{convert-ly} használata<br>1189</td><td></td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #1fff1f">yes</span></td><td>pre-GDP</td></tr></table><p></p>
-<table align="center" border="2"><tr align="center"><th>LilyPond -- kottaszedés mindenkinek</th><th>Translators</th><th>Translation checkers</th><th>Translated</th><th>Up to date</th><th>Other info</th></tr><tr align="left"><td title="web.texi">Section titles<br>496</td><td>Dénes Harmath</td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #acff31">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">LilyPond --- \TITLE\<br>1107</td><td>Dénes Harmath</td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #2cff20">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">Bevezetés<br>3755</td><td>Dénes Harmath</td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #c0ff34">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">Letöltés<br>1174</td><td>Dénes Harmath</td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #97ff2f">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">Dokumentáció<br>1198</td><td>Dénes Harmath</td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #ffd743">partially</span></td><td>pre-GDP</td></tr><tr align="left"><td title="web.texi">Közösség<br>1959</td><td>Dénes Harmath</td><td></td><td><span style="background-color: #1fff1f">yes</span></td><td><span style="background-color: #f6fe3b">partially</span></td><td>pre-GDP</td></tr></table><p></p>
+
+<style type="text/css"><!--
+th { border: 1px solid black; text-align: center; }
+td { border: 1px solid black; text-align: center; }
+!--></style>
 
 @end html
 @end ifhtml
+@emph{Last updated Tue Apr 13 08:17:20 UTC 2010
+}
+@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+
+@headitem
+LilyPond Tankönyv
+@tab Translators
+@tab Translation checkers
+@tab Translated
+@tab Up to date
+@tab Other info
+@item
+Section titles
+@*
+124
+@tab Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #68ff28">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1107
+@tab Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #2cff20">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+1 Első lecke
+@*
+2379
+@tab Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #acff31">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+2 Elemi kottaírás
+@*
+4035
+@tab Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+3 Alapfogalmak
+@*
+11151
+@tab Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">no</span>
+@end html
+@end ifhtml
+@ifnothtml
+no
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #4efe25">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+4 A kimenet finomhangolása
+@*
+15619
+@tab Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">no</span>
+@end html
+@end ifhtml
+@ifnothtml
+no
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+A Sablonok
+@*
+201
+@tab Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">no</span>
+@end html
+@end ifhtml
+@ifnothtml
+no
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #25fe1f">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@end multitable
+
+
+@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+
+@headitem
+LilyPond Használati útmutató
+@tab Translators
+@tab Translation checkers
+@tab Translated
+@tab Up to date
+@tab Other info
+@item
+Section titles
+@*
+135
+@tab 
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1107
+@tab 
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #2cff20">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+1 A @command{lilypond} használata
+@*
+2902
+@tab 
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@item
+2 A @command{convert-ly} használata
+@*
+1189
+@tab 
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@end multitable
+
+
+@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+
+@headitem
+LilyPond -- kottaszedés mindenkinek
+@tab Translators
+@tab Translation checkers
+@tab Translated
+@tab Up to date
+@tab Other info
+@item
+Section titles
+@*
+496
+@tab Dénes Harmath
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #acff31">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1107
+@tab Dénes Harmath
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #2cff20">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+Bevezetés
+@*
+3755
+@tab Dénes Harmath
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #c0ff34">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+Letöltés
+@*
+1174
+@tab Dénes Harmath
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #97ff2f">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+Dokumentáció
+@*
+1198
+@tab Dénes Harmath
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #ffd743">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+Közösség
+@*
+1959
+@tab Dénes Harmath
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #f6fe3b">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@end multitable
+
