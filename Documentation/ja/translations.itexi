@@ -16,9 +16,9 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Tue Apr 13 08:17:20 UTC 2010
+@emph{Last updated Tue Apr 13 10:11:41 UTC 2010
 }
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 GNU LilyPond -- 学習マニュアル
@@ -219,7 +219,7 @@ partially
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 GNU LilyPond -- アプリケーション使用方法
@@ -393,7 +393,7 @@ partially
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 LilyPond -- みんなの楽譜作成

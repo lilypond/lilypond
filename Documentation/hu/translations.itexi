@@ -16,9 +16,9 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Tue Apr 13 08:17:20 UTC 2010
+@emph{Last updated Tue Apr 13 10:11:41 UTC 2010
 }
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 LilyPond Tankönyv
@@ -219,7 +219,7 @@ partially
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 LilyPond Használati útmutató
@@ -232,7 +232,7 @@ LilyPond Használati útmutató
 Section titles
 @*
 135
-@tab 
+@tab Team-hu
 @tab 
 @tab 
 @ifhtml
@@ -259,7 +259,7 @@ partially
 LilyPond --- \TITLE\
 @*
 1107
-@tab 
+@tab Team-hu
 @tab 
 @tab 
 @ifhtml
@@ -286,7 +286,7 @@ partially
 1 A @command{lilypond} használata
 @*
 2902
-@tab 
+@tab Team-hu
 @tab 
 @tab 
 @ifhtml
@@ -313,7 +313,7 @@ yes
 2 A @command{convert-ly} használata
 @*
 1189
-@tab 
+@tab Team-hu
 @tab 
 @tab 
 @ifhtml
@@ -339,7 +339,7 @@ yes
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 LilyPond -- kottaszedés mindenkinek

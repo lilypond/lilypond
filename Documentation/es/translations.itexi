@@ -16,9 +16,9 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Tue Apr 13 08:17:20 UTC 2010
+@emph{Last updated Tue Apr 13 10:11:41 UTC 2010
 }
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 Registro de cambios de LilyPond
@@ -57,7 +57,7 @@ parcialmente
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 Ensayo sobre grabado musical automatizado
@@ -70,7 +70,7 @@ Ensayo sobre grabado musical automatizado
 Títulos de sección
 @*
 93
-@tab 
+@tab Team-es
 @tab 
 @tab 
 @ifhtml
@@ -97,7 +97,7 @@ sí
 LilyPond --- \TITLE\
 @*
 1107
-@tab 
+@tab Team-es
 @tab 
 @tab 
 @ifhtml
@@ -124,7 +124,7 @@ sí
 1 Grabado musical
 @*
 5297
-@tab 
+@tab Team-es
 @tab 
 @tab 
 @ifhtml
@@ -151,7 +151,7 @@ parcialmente
 2 Lista de referencias bibliográficas
 @*
 319
-@tab 
+@tab Team-es
 @tab 
 @tab 
 @ifhtml
@@ -177,7 +177,7 @@ sí
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 Extending LilyPond
@@ -190,7 +190,7 @@ Extending LilyPond
 Títulos de sección
 @*
 107
-@tab 
+@tab Team-es
 @tab 
 @tab 
 @ifhtml
@@ -217,7 +217,7 @@ sí
 LilyPond --- \TITLE\
 @*
 1107
-@tab 
+@tab Team-es
 @tab 
 @tab 
 @ifhtml
@@ -244,7 +244,7 @@ sí
 A Tutorial de Scheme
 @*
 4934
-@tab 
+@tab Team-es
 @tab 
 @tab 
 @ifhtml
@@ -271,7 +271,7 @@ parcialmente
 1 Interfaces para programadores
 @*
 3815
-@tab 
+@tab Team-es
 @tab 
 @tab 
 @ifhtml
@@ -297,7 +297,7 @@ sí
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 Manual de aprendizaje de GNU LilyPond
@@ -498,7 +498,7 @@ sí
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 Referencia de la notación de GNU LilyPond
@@ -1239,7 +1239,7 @@ sí
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 LilyPond: manual de utilización del programa
@@ -1440,7 +1440,7 @@ sí
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 LilyPond: notación musical para todos

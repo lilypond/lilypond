@@ -12,12 +12,16 @@ USAGE: cd Documentation && translations-status.py
     contributor/doc-translation-list.itexi
 
 TODO:
-   * decide if we really want this in printed output:
-     - the PDF output of TexiMarkup () is useless
-     - the INFO output of TexiMarkup() is useless
-     - using markup = HTMLMarkup (), we get nice <td title="FILENAME">
-       popups -- do we want that with texi output? -- how?
-       or possibly links to the git archive?
+   * using markup = TexiMarkup (), html tables (columns)
+     are evenly spaced and bit too wide.  This can
+     be fixed by using
+        @multitable @columnfractions 0 0 0 0 0 0 0 0,
+     but with that, PDF and info output get borked.
+   * in info and PDF, columns have too little separation
+   * using markup = HTMLMarkup (), we get nice
+        <td title="FILENAME">
+     popups -- do we want that with texi output? -- how?
+     or possibly links to the git archive?
 
 '''
 
@@ -203,7 +207,7 @@ class HTMLMarkup (object):
 Translation status currently only available in HTML.
 @end ifnothtml
 '''
-                + self.html (string)
+                + string
                 + self.texi_footer)
     def entity (self, name, string='', attributes=[]):
         attr_list = ''.join ([' %s="%s"' % x for x in attributes])
@@ -237,12 +241,22 @@ th { border: 1px solid black; text-align: center; }
 td { border: 1px solid black; text-align: center; }
 !--></style>
 ''')
-                + (string
-                   .replace ('''item \n@tab ''', '''item
-''')
-                   .replace ('@multitable',
-                             '@multitable @columnfractions' + ' 0' * 10))
+                + self.columnfraction_disaster (self.itemtab_disaster (string))
                 + self.texi_footer)
+    def itemtab_disaster (self, string):
+        return string.replace ('''item \n@tab ''', '''item
+''')
+    def columnfraction_disaster (self, string):
+        if False:
+            # nice trick for html-only
+            return string.replace ('@multitable', '@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0')
+        tables = re.findall ('(?s)(@multitable)(.*?)(@item)', string)
+        for t in tables:
+            columns = len (re.findall ('(?s)(\n@tab)', t[1])) + 1
+            columnfractions = '@columnfractions ' + (' ' + str (1.0/columns)) * columns
+            string = string.replace ('@multitable\n',
+                                     '@multitable %(columnfractions)s\n' % locals (), 1)
+        return string
     def entity (self, name, string='', attributes=[]):
         return '''
 @%(name)s
@@ -357,8 +371,8 @@ class TranslatedTelyDocument (TelyDocument):
             and (not self.translators or not self.translators[0])
             and not 'macros.itexi' in self.filename):
             error (self.filename + ''': error: no translator name found
-please specify one ore more lines in the master file
-@c Translator: FirstName LastName[, FirstName LastName]..''')
+    please specify one ore more lines in the master file
+    @c Translator: FirstName LastName[, FirstName LastName]..''')
         self.checkers = []
         m = checkers_re.findall (self.contents)
         if m:
@@ -696,7 +710,11 @@ date_time = buildlib.read_pipe ('LANG= date -u')[0]
 # TEXI output sort of works
 # TODO: table border, td-titles :-)
 # markup = HTMLMarkup ()
+#sys.stderr.write ('''translations-status.py:713: warning: using markup = HTMLMarkup (): HTML only\n''')
 markup = TexiMarkup ()
+sys.stderr.write ('''translations-status.py:717: warning: using markup = TexiMarkup (): ugly HTML
+    output, questionable PDF and info output.
+    Consider using HTML-only markup = HTMLMarkup ()\n''')
 
 main_status_body = markup.paragraph (markup.emph (last_updated_string % date_time))
 main_status_body += '\n'.join ([doc.texi_status (markup) for doc in master_docs])

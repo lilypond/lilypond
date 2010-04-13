@@ -16,9 +16,9 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Tue Apr 13 08:17:19 UTC 2010
+@emph{Last updated Tue Apr 13 10:11:41 UTC 2010
 }
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 Essai sur la gravure musicale automatisée
@@ -144,7 +144,7 @@ oui
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 GNU LilyPond -- Manuel d'initiation
@@ -373,7 +373,7 @@ partiellement
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 GNU LilyPond -- Manuel de notation
@@ -1151,7 +1151,7 @@ partiellement
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 GNU LilyPond -- Utilisation des programmes
@@ -1279,7 +1279,7 @@ partiellement
 @end multitable
 
 
-@multitable @columnfractions 0 0 0 0 0 0 0 0 0 0
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 LilyPond -- la notation musicale pour tous
