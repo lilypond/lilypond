@@ -1554,16 +1554,6 @@
 	(meta . ((class . Item)
 		 (interfaces . (script-column-interface))))))
 
-    (SeparationItem
-     . (
-	(avoid-slur . inside)
-	(horizontal-skylines . ,ly:separation-item::calc-skylines)
-	(stencil . ,ly:separation-item::print)
-	(X-extent . ,ly:axis-group-interface::width)
-	(Y-extent . ,ly:axis-group-interface::height)
-	(meta . ((class . Item)
-		 (interfaces . (separation-item-interface))))))
-
     (Slur
      . (
 	(avoid-slur . inside)

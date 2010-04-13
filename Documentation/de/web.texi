@@ -148,10 +148,10 @@ Lesen Sie mehr in der @ref{Einleitung}!
 
 @divClass{hide}
 @menu
-* Introduction::     Hier beginnen, um Noten zu setzen.
-* Download::         LilyPond Herunterladen.
-* Manuals::          Lesen der Handbücher.
-* Community::        Kontakt mit anderen Benutzern aufnehmen.
+* Einleitung::     Hier beginnen, um Noten zu setzen.
+* Download::       LilyPond Herunterladen.
+* Handbücher::     Lesen der Handbücher.
+* Gemeinschaft::   Kontakt mit anderen Benutzern aufnehmen.
 @end menu
 @divEnd
 

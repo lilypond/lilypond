@@ -137,8 +137,7 @@ und welche Programme Sie benutzen.
 
 Beachten Sie, dass es eine Reihe an Texteditoren mit besserer 
 Unterstützung für LilyPond gibt. Mehr dazu im Abschnitt
-@rprogram{Unterstützung von Texteditoren}.
-@c FIXME: link to @rweb{Alternate input}
+@rweb{Leichteres Editieren}.
 
 @warning{Das erste Mal, wenn Sie LilyPond benutzen, kann es eine 
 Minute oder länger dauern, weil das Programm zuerst alle Schriftarten,

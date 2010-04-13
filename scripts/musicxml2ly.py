@@ -401,6 +401,8 @@ def staff_attributes_to_lily_staff (mxl_attr):
         if staff_lines:
             lines = string.atoi (staff_lines.get_text ())
 
+    # TODO: Handle other staff attributes like staff-space, etc.
+
     staff = None
     if clef_sign == "percussion" and lines == 1:
         staff = musicexp.RhythmicStaff ()
@@ -412,8 +414,11 @@ def staff_attributes_to_lily_staff (mxl_attr):
         staff.string_tunings = staff_attributes_to_string_tunings (attributes)
         # staff.tablature_format = ???
     else:
-        # TODO: Handle case with lines <> 5!
         staff = musicexp.Staff ()
+        # TODO: Handle case with lines <> 5!
+        if (lines != 5):
+            staff.add_context_modification ("\\override StaffSymbol #'line-count = #%s" % lines)
+
 
     return staff
 
@@ -926,6 +931,22 @@ def musicxml_transpose_to_lily (attributes):
     transposition.pitch = musicexp.Pitch ().transposed (shift)
     return transposition
 
+def musicxml_staff_details_to_lily (attributes):
+    details = attributes.get_maybe_exist_named_child ('staff-details')
+    if not details:
+        return None
+
+    ## TODO: Handle staff-type, staff-lines, staff-tuning, capo, staff-size
+    ret = []
+
+    stafflines = details.get_maybe_exist_named_child ('staff-lines')
+    if stafflines:
+        lines = string.atoi (stafflines.get_text ());
+        lines_event = musicexp.StaffLinesEvent (lines);
+        ret.append (lines_event);
+
+    return ret;
+
 
 def musicxml_attributes_to_lily (attrs):
     elts = []
@@ -934,12 +955,16 @@ def musicxml_attributes_to_lily (attrs):
         'time': musicxml_time_to_lily,
         'key': musicxml_key_to_lily,
         'transpose': musicxml_transpose_to_lily,
+        'staff-details': musicxml_staff_details_to_lily,
     }
     for (k, func) in attr_dispatch.items ():
         children = attrs.get_named_children (k)
         if children:
             ev = func (attrs)
-            if ev:
+            if isinstance (ev, list):
+              for e in ev:
+                elts.append (e)
+            elif ev:
                 elts.append (ev)
 
     return elts
@@ -1842,7 +1867,9 @@ def musicxml_note_to_lily_main_event (n):
         acc = n.get_maybe_exist_named_child ('accidental')
         if acc:
             # let's not force accs everywhere.
-            event.cautionary = acc.editorial
+            event.cautionary = acc.cautionary
+            # TODO: Handle editorial accidentals
+            # TODO: Handle the level-display setting for displaying brackets/parentheses
 
     elif n.get_maybe_exist_typed_child (musicxml.Unpitched):
 	# Unpitched elements have display-step and can also have

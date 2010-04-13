@@ -20,6 +20,7 @@
 * Utilisation habituelle::
 * Utilisation en ligne de commande::
 * Messages d'erreur::
+* Pourquoi la syntaxe change-t-elle?::
 * Mise à jour des fichiers avec convert-ly::
 * Rapport de bogue::
 @end menu
@@ -71,6 +72,10 @@
 
 @untranslated
 
+@node Pourquoi la syntaxe change-t-elle?
+@section Pourquoi la syntaxe change-t-elle?
+@translationof Why does the syntax change?
+@untranslated
 
 @node Mise à jour des fichiers avec convert-ly
 @section Mise à jour avec @command{convert-ly}

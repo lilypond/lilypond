@@ -963,8 +963,6 @@ relevant for finding the @code{pure-Y-extent}.")
      (right-items ,ly:grob-array? "DOCME")
      (right-neighbor ,ly:grob? "See @code{left-neighbor}.")
 
-     (separation-item ,ly:grob? "A pointer to a @code{SeparationItem}
-object.")
      (side-support-elements ,ly:grob-array? "The side support, an array of
 grobs.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")

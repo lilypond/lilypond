@@ -3,7 +3,7 @@
 @c learning/tutorial.itely
 
 @ignore
-    Translation of GIT committish: 0bbabe9eef32b46216a722cc0d49df759227b7be
+    Translation of GIT committish: 6235465503c3adde476120e78514fc3feef14ef2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -89,7 +89,8 @@ bis Sie das Original-PDF schließen.
 
 @macro lilypadWindows
 @warning{Diese Anweisungen gehen davon aus, dass Sie den installierten
-LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rweb{Alternate input} beschrieben sind, schauen
+LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in
+@rweb{Leichteres Editieren} beschrieben sind, schauen
 Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
 eine Datei zu kompilieren.}
 
@@ -185,7 +186,8 @@ PDFs geben, wenn das alte noch geöffnet ist.
 @c not lilypad at all, but I ran out of names.  :(
 @macro lilypadCommandLine
 @warning{Diese Anweisungen gehen davon aus, dass Sie den installierten
-LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rweb{Alternate input} beschrieben sind, schauen
+LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in
+@rweb{Leichteres Editieren} beschrieben sind, schauen
 Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
 eine Datei zu kompilieren.}
 

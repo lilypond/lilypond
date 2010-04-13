@@ -58,8 +58,7 @@ Staff_symbol_engraver::Staff_symbol_engraver ()
   finished_span_ = 0;
   first_start_ = true;
   span_ = 0;
-  span_events_[LEFT] = 0;
-  span_events_[RIGHT] = 0;
+  span_events_.set (0, 0);
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Staff_symbol_engraver, staff_span);
@@ -70,7 +69,7 @@ Staff_symbol_engraver::listen_staff_span (Stream_event *ev)
   if (d)
     ASSIGN_EVENT_ONCE (span_events_[d], ev);
   else
-    programming_error (_ ("staff-span event has no direction"));
+    programming_error ("staff-span event has no direction");
 }
 
 void
@@ -108,12 +107,12 @@ Staff_symbol_engraver::stop_spanner ()
 
   if (!finished_span_->get_bound (RIGHT))
     finished_span_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
-  
+
   announce_end_grob (finished_span_,
 		     span_events_[STOP]
 		     ? span_events_[STOP]->self_scm ()
 		     : SCM_EOL);
-  
+
   finished_span_ = 0;
 }
 
@@ -122,12 +121,9 @@ Staff_symbol_engraver::stop_translation_timestep ()
 {
   if ((span_events_[START] || first_start_)
       && span_)
-    {
-      first_start_ = false;
-    }
+    first_start_ = false;
 
-  span_events_[START] = 0;
-  span_events_[STOP] = 0;
+  span_events_.set (0, 0);
   stop_spanner ();
 }
 
@@ -145,10 +141,6 @@ Staff_symbol_engraver::finalize ()
 void
 Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 {
-  /*
-    Perhaps should try to take SeparationItem as bound of the staff
-    symbol?
-  */
   if (span_ || finished_span_)
     {
       Spanner *my = span_ ? span_ : finished_span_;

@@ -1598,6 +1598,16 @@ class SetEvent (Music):
         else:
             return ''
 
+class StaffLinesEvent (Music):
+    def __init__ (self, lines):
+        Music.__init__ (self)
+        self.lines = lines
+    def ly_expression (self):
+        if (self.lines > 0):
+          return "\\stopStaff \\override Staff.StaffSymbol #'line-count = #%s \\startStaff" % self.lines
+        else:
+          return "\\stopStaff \\revert Staff.StaffSymbol #'line-count \\startStaff"
+
 class TempoMark (Music):
     def __init__ (self):
         Music.__init__ (self)
@@ -1738,6 +1748,7 @@ class StaffGroup:
         self.spanbar = None
         self.children = []
         self.is_group = True
+        self.context_modifications = []
         # part_information is a list with entries of the form
         #     [staffid, voicelist]
         # where voicelist is a list with entries of the form
@@ -1754,27 +1765,38 @@ class StaffGroup:
             for c in self.children:
                 c.set_part_information (part_name, staves_info)
 
+    def add_context_modification (self, modification):
+        self.context_modifications.append (modification)
+
     def print_ly_contents (self, printer):
         for c in self.children:
             if c:
                 c.print_ly (printer)
-    def print_ly_overrides (self, printer):
+    def needs_with (self):
         needs_with = False
         needs_with |= self.spanbar == "no"
         needs_with |= self.instrument_name != None
         needs_with |= self.short_instrument_name != None
         needs_with |= (self.symbol != None) and (self.symbol != "bracket")
+        return needs_with
+    def print_ly_context_mods (self, printer):
+        if self.instrument_name or self.short_instrument_name:
+            printer.dump ("\\consists \"Instrument_name_engraver\"")
+        if self.spanbar == "no":
+            printer.dump ("\\override SpanBar #'transparent = ##t")
+        brack = {"brace": "SystemStartBrace",
+                 "none": "f",
+                 "line": "SystemStartSquare"}.get (self.symbol, None)
+        if brack:
+            printer.dump ("systemStartDelimiter = #'%s" % brack)
+
+    def print_ly_overrides (self, printer):
+        needs_with = self.needs_with () | (len (self.context_modifications) > 0);
         if needs_with:
             printer.dump ("\\with {")
-            if self.instrument_name or self.short_instrument_name:
-                printer.dump ("\\consists \"Instrument_name_engraver\"")
-            if self.spanbar == "no":
-                printer.dump ("\\override SpanBar #'transparent = ##t")
-            brack = {"brace": "SystemStartBrace",
-                     "none": "f",
-                     "line": "SystemStartSquare"}.get (self.symbol, None)
-            if brack:
-                printer.dump ("systemStartDelimiter = #'%s" % brack)
+            self.print_ly_context_mods (printer)
+            for m in self.context_modifications:
+                printer.dump (m)
             printer.dump ("}")
 
     def print_ly (self, printer):
@@ -1805,7 +1827,9 @@ class Staff (StaffGroup):
         self.voice_command = "Voice"
         self.substafftype = None
 
-    def print_ly_overrides (self, printer):
+    def needs_with (self):
+        return False
+    def print_ly_context_mods (self, printer):
         pass
 
     def print_ly_contents (self, printer):

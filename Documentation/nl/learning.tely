@@ -7,6 +7,12 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c Translation status: post-GDP
+
+@c Translator: Jan Nieuwenhuizen
+@c Translation checker:
+@c Translation checker committish:
+
 @setfilename lilypond-learning.info
 @settitle LilyPond beginnershandleiding
 @documentencoding UTF-8
@@ -45,9 +51,8 @@ Copyright @copyright{} 1999--2010 door de auteurs.
 @menu
 * Leerboek::                       De basis van muzieknotatie met LilyPond.
 * Algemene muzieknotatie::         Het schrijven van algemene muzieknotatie.
-@c * Fundamentele concepten::         Basisconcepten van belang voor het begrijpen van het vervolg van de handleiding.
+* Fundamentele concepten::         Basisconcepten van belang voor het begrijpen van het vervolg van de handleiding.
 @c * Uitvoerverfijningen::            Inleiding in het verfijnen van de uitvoer.
-* Fundamental concepts::         Basisconcepten van belang voor het begrijpen van het vervolg van de handleiding.
 * Tweaking output::            Inleiding in het verfijnen van de uitvoer.
 
 Appendices

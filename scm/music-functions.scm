@@ -311,17 +311,15 @@ through MUSIC."
 ;; repeats.
 
 (define-public (unfold-repeats music)
-  "
-This function replaces all repeats  with unfold repeats. "
+  "This function replaces all repeats with unfolded repeats."
 
   (let ((es (ly:music-property music 'elements))
-	(e  (ly:music-property music 'element))
-	)
+	(e (ly:music-property music 'element)))
+
     (if (memq 'repeated-music (ly:music-property music 'types))
-	(let*
-	    ((props (ly:music-mutable-properties music))
-	     (old-name (ly:music-property music 'name))
-	     (flattened  (flatten-alist props)))
+	(let* ((props (ly:music-mutable-properties music))
+	       (old-name (ly:music-property music 'name))
+	       (flattened (flatten-alist props)))
 
 	  (set! music (apply make-music (cons 'UnfoldedRepeatedMusic
 					      flattened)))
@@ -329,20 +327,22 @@ This function replaces all repeats  with unfold repeats. "
 	  (if (equal? old-name 'TremoloRepeatedMusic)
 	      (let* ((seq-arg? (memq 'sequential-music
 				     (ly:music-property e 'types)))
-		     (count  (ly:music-property music 'repeat-count))
+		     (count (ly:music-property music 'repeat-count))
 		     (dot-shift (if (= 0 (remainder count 3))
-				    -1 0)))
+				    -1 0))
+		     (child-count (if seq-arg?
+				      (length (ly:music-property e 'elements))
+				      0)))
 
 		(if (= 0 -1)
 		    (set! count (* 2 (quotient count 3))))
 
-		(shift-duration-log music (+ (if seq-arg? 1 0)
+		(shift-duration-log music (+ (if (= 2 child-count)
+						 1 0)
 					     (ly:intlog2 count)) dot-shift)
 
 		(if seq-arg?
-		    (ly:music-compress e (ly:make-moment (length (ly:music-property
-								  e 'elements)) 1)))))))
-
+		    (ly:music-compress e (ly:make-moment child-count 1)))))))
 
     (if (pair? es)
 	(set! (ly:music-property music 'elements)

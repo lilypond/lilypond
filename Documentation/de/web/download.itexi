@@ -9,6 +9,8 @@
 
 @c Translators: Till Paala
 
+@include included/generating-output.itexi
+
 @macro warningTextBased
 @warning{LilyPond ist ein @strong{textbasiertes} Notationsprogramm,
 es ähnelt eher einer Programmiersprache als einem graphischen
@@ -122,7 +124,7 @@ Alle Logos und Produktabbildungen erkennen Copyright und Trademark an.
 * Unix::
 * MacOS X::
 * Windows::
-* Source::
+* Quellen::
 * Alte Downloads::
 * GPL::
 @end menu
@@ -553,7 +555,7 @@ Benutzer haben mehr Vorteile von der vorkompilierten Version.}
 @divClass{column-left-bottom}
 @subheading Quell-Tarball
 
-@downloadStableSource{}
+@downloadStableSource-de{}
 
 Für ein ausführliche Liste aller Versionen (alt und neu) siehe
 unsere

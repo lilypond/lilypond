@@ -7,6 +7,10 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c Translator: Jan Nieuwenhuizen
+@c Translation checker:
+@c Translation checker committish:
+
 @include included/generating-output.itexi
 
 @c \version "2.12.0"
@@ -730,14 +734,14 @@ het vervolg te begrijpen.}
 @item
 @strong{Voordat je ook maar @emph{iets}} probeert: lees uit
 de Beginnershandleiding het @ref{Leerboek}, en @ref{Algemene
-notatie}.  Als je muziektermen tegenkomt die je niet
+muzieknotatie}.  Als je muziektermen tegenkomt die je niet
 herkent, zoek ze dan op in de @rglosnamed{Top,
 Terminologie}.
 
 @item
 @strong{Voordat je een heel muziekstuk probeert te
 schrijven}: lees uit de Beginnershandleiding de
-@ref{Fundamental concepts}.  Daarna wil je wellicht de
+@ref{Fundamentele concepten}.  Daarna wil je wellicht de
 relevante delen van de @rusernamed{Top, Notatiehandleiding}
 bekijken.
 

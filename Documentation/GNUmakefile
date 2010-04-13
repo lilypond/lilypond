@@ -145,7 +145,6 @@ extra-local-help:
 	@echo "                                  last translation update"
 	@echo "  update-translation ISOLANG=LL call $$$$EDITOR to help updating"
 	@echo "                                  the translation"
-	@echo "  skeleton-update ISOLANG=LL    update Texinfo skeleton files"
 	@echo "  snippet-update ISOLANG=LL     update ly snippets in Texinfo translation"
 	@echo "                                  according to docs in English"
 	@echo "                                  (use with caution)"
@@ -298,6 +297,9 @@ TEXI_LANGUTIL_FLAGS += --skeleton
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/*.tely)
 skeleton-update:
+	@echo "$@ has been discontinued"
+	@echo "simply copy .texi, .itexi files you want to translate"
+	exit 2
 	mkdir -p $(ISOLANG)
 	$(PYTHON) $(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) $(TEXI_LANGUTIL_FLAGS) $(TELY_FILES:$(ISOLANG)/%.tely=../%.tely)
 	$(PYTHON) $(auxscript-dir)/texi-skeleton-update.py $(ISOLANG) $(outdir)
@@ -335,7 +337,8 @@ check-translation:
 update-translation:
 	ISOLANG=$(ISOLANG) $(PYTHON) $(auxscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
 
+# what's it gonna be, boy...tranlationS-/translation-
 translation-status:
-	@echo Target temporarily disabled
+	PYTHONPATH=$(top-src-dir)/python:$(top-src-dir)/python/auxiliar $(PYTHON) $(top-src-dir)/scripts/auxiliar/translations-status.py
 
 .SECONDARY:

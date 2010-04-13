@@ -7,6 +7,10 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c Translator: Jan Nieuwenhuizen
+@c Translation checker: Tineke de Munnik
+@c Translation checker committish: abc1ebe
+
 @include included/generating-output.itexi
 
 @macro warningTextBased
@@ -567,7 +571,7 @@ de voorgebouwde versie gebruiken.}
 @divClass{column-left-bottom}
 @subheading Broncode tarball
 
-@downloadStableSource{}
+@downloadStableSource-nl{}
 
 Voor een uitgebreide lijst van alle versies (zowel oude als
 nieuwe), zie onze

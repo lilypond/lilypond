@@ -7,6 +7,8 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@include included/generating-output.itexi
+
 @node Letöltés
 @unnumbered Letöltés
 @translationof Download
@@ -164,7 +166,7 @@ Add ki a következő parancsokat:
 
 @example
 cd PATH-TO-DOWNLOAD-DIRECTORY
-sh lilypond-@versionStable-OS-TYPE.sh
+sh lilypond-@versionStable{}-OS-TYPE.sh
 @end example
 
 @subsubheading Eltávolítás
@@ -386,7 +388,7 @@ lefordított futtatható verziót használja.}
 @divClass{column-left-bottom}
 @subheading Tarball
 
-@downloadStableSource
+@downloadStableSource-hu
 
 A LilyPond összes verziójának forrása
 @uref{http://download.linuxaudio.org/lilypond/, ezen az oldalon}

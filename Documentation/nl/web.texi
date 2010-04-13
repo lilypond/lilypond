@@ -7,6 +7,12 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c Translation status: post-GDP
+
+@c Translator: Jan Nieuwenhuizen
+@c Translation checker: Tineke de Munnik
+@c Translation checker committish: fd33752
+
 @setfilename web.info
 @settitle LilyPond -- Muzieknotatie voor iedereen
 @documentencoding UTF-8

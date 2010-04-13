@@ -471,8 +471,7 @@ generated documentation.
 @divClass{column-center-bottom}
 @subheading Translations status
 
-TODO: fix and generate in Texinfo.
-@c http://code.google.com/p/lilypond/issues/detail?id=857
+@include translations.itexi
 
 @divEnd
 

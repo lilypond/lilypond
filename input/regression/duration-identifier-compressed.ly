@@ -9,7 +9,7 @@ correctly accounted for by the parser."
 wholeHalved = #(ly:make-duration 0 0 1 2)
 
 
-\displayMusic \relative c' {
+\relative c' {
   c\wholeHalved c |
   c\wholeHalved. c4 |
 }

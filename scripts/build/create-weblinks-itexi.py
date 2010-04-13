@@ -15,13 +15,47 @@ depth = "../"
 ### translation data -- shouldn't be here; see issue
 ### http://code.google.com/p/lilypond/issues/detail?id=1050
 
-# don't add your language to this list unless you have all the
-# items.
-langs = ['', 'es']
+langs = ['', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl']
 
-# FIXME: `grep -nH -B1 translationof Documentation/<lang>/web/*'
-# gives us the correct node names.
+# Get/update node translations
+'''
+for i in de es fr hu it ja nl; do
+    echo "'"$i"': {"
+    (echo '--' ; grep -nH -B1 translationof Documentation/$i/web/* ) \
+        | pytt '^--\n.*@(?:unnum|sub)[^ ]* (.*)\n.*@translationof (.*)\n' "'\2': '\1',\n" \
+        | grep -E 'Source|Learning|Glossary|Essay|Notation|Usage|Snippets|Web|Changes|Extending|Internals|Contributor'
+    echo "},"
+done
+'''
+
 translations = {
+    'de': {
+        'Source': 'Quellen',
+        'Learning': 'Einführung',
+        'Music glossary': 'Glossar',
+        'Essay': 'Aufsatz',
+        'Notation': 'Notation',
+        'Usage': 'Benutzung',
+        'Snippets': 'Schnipsel',
+        'Web': 'Web',
+        'Changes': 'Änderungen',
+
+        #TODO
+        'Extending': 0,
+        'Internals': 'Interna',
+        'Contributor': 0,
+
+        ' (split HTML)': 0,
+        ' (big HTML)': 0,
+
+        'Regression tests for ': 0,
+        'PDF of regtests for ': 0,
+        'MusicXML Regression tests for ': 0,
+        'PDF of MusicXML regtests for ': 0,
+
+        'Doc tarball for ': 0,
+        ' (did not exist in 2.12)': 0,
+        },
     'es': {
         'Source': 'Código fuente',
 
@@ -50,9 +84,87 @@ translations = {
         ' (did not exist in 2.12)': ' (no existía en la versión 2.12)',
      },
     'fr': {
-        'Learning': 'Apprener?',
-        'Music glossary': 'Lizes ici pour les motes?',
-     },
+        'Source': 'Sources',
+
+        'Learning': 'Initiation',
+        'Music glossary': 'Glossaire',
+        'Essay': 'Essai',
+        'Notation': 'Notation',
+        'Usage': 'Utilisation',
+        'Snippets': 'Morceaux choisis',
+        'Web': 'Web',
+        'Changes': 'Nouveautés',
+        'Extending': 'Extension',
+        'Internals': 'Propriétés internes',
+        'Contributor': 'Guide du contributeur',
+
+# keep the spaces!
+        ' (split HTML)': ' (HTML multipages)',
+        ' (big HTML)': ' (HTML en page unique)',
+
+        'Regression tests for ': 'Tests de régression pour ',
+        'PDF of regtests for ': 'PDF des tests de régression pour ',
+        'MusicXML Regression tests for ': 'Tests de régression de MusicXML pour ',
+        'PDF of MusicXML regtests for ': 'PDF des tests de régression de MusicXML pour ',
+
+        'Doc tarball for ': 'Archive de la documentation pour ',
+        ' (did not exist in 2.12)': ' (non disponible pour la version 2.12)',
+        },
+    'hu': {
+        'Source': 'Forrás',
+        'Learning': 'Tankönyv',
+        'Music glossary': 'Fogalomtár',
+        'Essay': 'Esszé',
+        'Notation': 'Kottaírás',
+        'Usage': 'Használat',
+        'Snippets': 'Kódrészletek',
+        'Web': 'Web',
+        'Changes': 'Változások',
+
+        #TODO
+        'Extending': 0,
+        'Internals': 'Belső működés',
+        'Contributor': 0,
+
+        ' (split HTML)': 0,
+        ' (big HTML)': 0,
+
+        'Regression tests for ': 0,
+        'PDF of regtests for ': 0,
+        'MusicXML Regression tests for ': 0,
+        'PDF of MusicXML regtests for ': 0,
+
+        'Doc tarball for ': 0,
+        ' (did not exist in 2.12)': 0,
+        },
+    'ja': {
+        'Source': 'ソース',
+        'Learning': '学習',
+        'Music glossary': '用語集',
+        'Essay': 'エッセー',
+        'Notation': '記譜法',
+        'Usage': '使用方法',
+        'Snippets': 'コード断片集',
+        'Web': 'Web',
+        'Changes': '変更点',
+
+        #TODO
+        'Extending': 0,
+        'Internals': '内部リファレンス',
+        'Contributor': 0,
+
+        ' (split HTML)': 0,
+        ' (big HTML)': 0,
+
+        'Regression tests for ': 0,
+        'PDF of regtests for ': 0,
+        'MusicXML Regression tests for ': 0,
+        'PDF of MusicXML regtests for ': 0,
+
+        'Doc tarball for ': 0,
+        ' (did not exist in 2.12)': 0,
+
+        },
     'nl': {
         'Source': 'Broncode',
 
@@ -80,7 +192,8 @@ translations = {
         'Doc tarball for ': 'Tarball met documentation voor ',
         ' (did not exist in 2.12)': ' (bestond nog niet in 2.12)',
      },
-}
+    }
+
 
 
 
@@ -127,10 +240,17 @@ for line in version_contents:
 
 VERSION = str(major)+'.'+str(minor)+'.'+str(patch)
 
+def _ (string, lang):
+    return translations.get (lang.split ('_')[0], {}).get (string, string)
+
+getTrans = _
+# let's not barf, but print a warning when something's missing
 def getTrans(text, lang):
-    if (lang != ''):
-        text = translations[lang][text]
-    return text
+    trans = _ (text, lang)
+    if not trans:
+        trans = text
+        sys.stderr.write ('create-weblinks-itexi: warning: [%(lang)s]: translation missing for: %(text)s\n' % locals ())
+    return trans
 
 def macroLang(name, lang):
     if (lang != ''):

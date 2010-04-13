@@ -8,3 +8,11 @@ NO_PDF_FILES = 1
 EXTRA_DIST_FILES = web.texi
 
 include $(depth)/make/stepmake.make
+
+check-xrefs:
+	# This is still clumsy, as check_texi_ref.py does not handle
+	# an untranslated @ref{Tutorial} (used in an untranslated
+	# file) to the translated @node Leerboek
+	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --batch \
+		$(DOCUMENTS_INCLUDES) -I $(top-src-dir)/Documentation \
+		$(auxpython-dir)/manuals_definitions.py

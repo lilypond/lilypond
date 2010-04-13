@@ -218,7 +218,18 @@ and duration-log @var{log}."
     ("'" . ("'" . ()))
     ("empty" . (() . ()))
     ("brace" . (() . "brace"))
-    ("bracket" . (() . "bracket"))))
+    ("bracket" . (() . "bracket"))
+
+    ;; segno bar lines
+    ("S" . ("||" . "S"))
+    ("|S" . ("|" . "S"))
+    ("S|" . ("S" . ()))
+    (":|S" . (":|" . "S"))
+    (":|S." . (":|S" . ()))
+    ("S|:" . ("S" . "|:"))
+    (".S|:" . ("|" . "S|:"))
+    (":|S|:" . (":|" . "S|:"))
+    (":|S.|:" . (":|S" . "|:"))))
 
 (define-public (bar-line::calc-glyph-name grob)
   (let* ((glyph (ly:grob-property grob 'glyph))

@@ -264,8 +264,22 @@ This will initiate a search of the remote git repository.
 @section Code style
 
 @menu
+* Handling errors::
+* Languages::
+* Filenames::
+* Indentation::
+* Indenting files with fixcc.py::
+* Indenting files with emacs in script mode::
+* Indenting with vim::
+* Naming conventions::
+* Broken code::
+* Code comments::
+* Messages::
+* Localization::
 @end menu
 
+
+@node Handling errors
 @subsection Handling errors
 
 As a general rule, you should always try to continue computations,
@@ -277,10 +291,14 @@ some viewable output.
 So functions and methods do not return errorcodes, they never
 crash, but report a programming_error and try to carry on.
 
+
+@node Languages
 @subsection Languages
 
 C++ and Python are preferred.  Python code should use PEP 8.
 
+
+@node Filenames
 @subsection Filenames
 
 Definitions of classes that are only accessed via pointers (*) or
@@ -309,6 +327,8 @@ references (&) shall not be included as include files.
 
 The class Class_name is coded in @q{class-name.*}
 
+
+@node Indentation
 @subsection Indentation
 
 Standard GNU coding style is used. In emacs:
@@ -335,6 +355,28 @@ Some source files may not currently have proper indenting.  If this
 is the case, it is desirable to fix the improper indenting when the
 file is modified, with the hope of continually improving the code.
 
+
+@node Indenting files with fixcc.py
+@subsection Indenting files with fixcc.py
+
+LilyPond provides a python script that will correct the indentation
+on a c++ file:
+
+@example
+scripts/auxiliar/fixcc.py lily/my-test-file.cc
+@end example
+
+Be sure you replace @code{my-test-file.cc} with the name of the file
+that you edited.
+
+If you are editing a file that contains an ADD_TRANSLATOR or ADD_INTERFACE
+macro, the fixcc.py script will move the final parenthesis up one line
+from where it should be.  Please check the end of the file before
+you run fixcc.py, and then put the final parenthesis and semicolon
+back on a line by themselves.
+
+
+@node Indenting files with emacs in script mode
 @subsection Indenting files with emacs in script mode
 
 @c email to wl@gnu.org when I get here.
@@ -352,6 +394,8 @@ emacs $1 -batch --eval '(indent-region (point-min) (point-max) nil)' -f save-buf
 
 Save it as a shell script, then run on the file(s) you modified.
 
+
+@node Indenting with vim
 @subsection Indenting with vim
 
 Although emacs indentation is the LilyPond standard, acceptable
@@ -411,14 +455,17 @@ set lw-=set!
 syn match schemeFunc "ly:[^) ]\+"
 @end verbatim
 
-@subsection Classes and Types
+
+@node Naming conventions
+@subsection Naming Conventions
+
+@subheading Classes and Types
 
 @verbatim
 This_is_a_class
 @end verbatim
 
-
-@subsection Members
+@subheading Members
 
 Member variable names end with an underscore:
 
@@ -426,22 +473,11 @@ Member variable names end with an underscore:
 Type Class::member_
 @end verbatim
 
-
-@subsection Macros
+@subheading Macros
 
 Macro names should be written in uppercase completely.
 
-
-@subsection Broken code
-
-Do not write broken code.  This includes hardwired dependencies,
-hardwired constants, slow algorithms and obvious limitations.  If
-you can not avoid it, mark the place clearly, and add a comment
-explaining shortcomings of the code.
-
-We reject broken-in-advance on principle.
-
-@subsection Naming
+@subheading Variables
 
 Variable names should be complete words, rather than abbreviations.
 For example, it is preferred to use @code{thickness} rather than
@@ -453,7 +489,20 @@ by the underscore character (@q{_}).
 Multi-word variable names in Scheme should have the words separated
 by a hyphen (@q{-}).
 
-@subsection Comments
+
+@node Broken code
+@subsection Broken code
+
+Do not write broken code.  This includes hardwired dependencies,
+hardwired constants, slow algorithms and obvious limitations.  If
+you can not avoid it, mark the place clearly, and add a comment
+explaining shortcomings of the code.
+
+We reject broken-in-advance on principle.
+
+
+@node Code comments
+@subsection Code comments
 
 Comments may not be needed if descriptive variable names are used
 in the code and the logic is straightforward.  However, if the
@@ -466,14 +515,18 @@ If significant time is required to understand the code as part of
 preparing a patch, it would be wise to add comments reflecting your
 understanding to make future work easier.
 
+
+@node Messages
 @subsection Messages
 
 Messages need to follow Localization.
 
 
+@node Localization
 @subsection Localization
 
-This document provides some guidelines for programmers write user
+This document provides some guidelines to help programmers write
+proper user
 messages.  To help translations, user messages must follow
 uniform conventions.  Follow these rules when coding for LilyPond.
 Hopefully, this can be replaced by general GNU guidelines in the

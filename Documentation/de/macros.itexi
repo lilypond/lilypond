@@ -411,12 +411,12 @@ Für LilyPond Version @version{}
 
 @macro rweb{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-web,Allgemeine Information}
+@ref{\TEXT\,,,web,Allgemeine Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-web,Allgemeine Information}
+@ref{\TEXT\,,\DISPLAY\,web,Allgemeine Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -523,12 +523,12 @@ Für LilyPond Version @version{}
 
 @macro rweb{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-web,Allgemeine Information}
+@ref{\TEXT\,,,web,Allgemeine Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-web, Allgemeine Information}
+@ref{\TEXT\,,\DISPLAY\,web, Allgemeine Information}
 @end macro
 
 @macro ressay{TEXT}

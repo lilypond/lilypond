@@ -70,7 +70,11 @@ expression.
 The variable type checkers are scheme procedures that will return
 @code{#t} if a variable is of a given type.  Some common types
 are shown in the table below.  Other types can be found in the files
-@file{lily/music-scheme.cc} and @file{scm/c++.scm}.
+@file{lily/music-scheme.cc} and @file{scm/c++.scm}.  The complete
+list of named type checkers for LilyPond is found in the
+@var{type-p-name-alist} of @file{scm/lily.scm}.
+
+@c TODO -- automatically document type-p-name-alist
 
 @multitable @columnfractions .33 .66
 @headitem Input type          @tab @var{vari-type?} notation

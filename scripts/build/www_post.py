@@ -49,7 +49,8 @@ html_files = []
 hardlinked_files = []
 for f in files:
     if f.endswith ('.html'):
-        html_files.append (f)
+        if not 'UNTRANSLATED NODE: IGNORE ME' in open (f).read ():
+            html_files.append (f)
     else:
         hardlinked_files.append (f)
 dirs = [re.sub ('/' + outdir, '', d) for d in dirs]

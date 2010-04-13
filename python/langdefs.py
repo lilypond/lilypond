@@ -59,19 +59,19 @@ def french_html_filter (page):
         body = body.replace (r[0], r[1])
     return page[:body_begin] + body + page[body_end:]
 
-fr = LanguageDef ('fr', 'français', double_punct_char_sep='&nbsp;', html_filter = french_html_filter)
-es = LanguageDef ('es', 'español')
 de = LanguageDef ('de', 'deutsch')
-nl = LanguageDef ('nl', 'nederlands')
-ja = LanguageDef ('ja', '日本語', enable_ly_identifier_l10n=False)
+es = LanguageDef ('es', 'español')
+fr = LanguageDef ('fr', 'français', double_punct_char_sep='&nbsp;', html_filter = french_html_filter)
 hu = LanguageDef ('hu', 'magyar')
 it = LanguageDef ('it', 'italiano')
+ja = LanguageDef ('ja', '日本語', enable_ly_identifier_l10n=False)
+nl = LanguageDef ('nl', 'nederlands')
 
 # Outdated or broken translations may be disabled
 # (please run 'make doc-clean' before doing that):
 #fr.enabled = False
 
-LANGUAGES = (site, fr, es, de, nl, ja, hu, it)
+LANGUAGES = (site, de, es, fr, hu, it, ja, nl)
 
 if __name__ == '__main__':
     print ' '.join ([l.code for l in LANGUAGES if l.enabled and l.code != 'en'])

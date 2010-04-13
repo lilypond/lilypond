@@ -27,6 +27,10 @@ translations = {
         'English': 'Magyar',
         'Other languages': 'Más nyelvek',
         },
+    'it': {
+        'English': 'Italiano',
+        'Other languages': 'Altre lingue',
+        },
     'ja': {
         'English': 'Japanese',
         'Other languages': '他の言語',

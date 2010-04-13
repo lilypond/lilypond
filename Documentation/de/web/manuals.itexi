@@ -135,7 +135,7 @@ License herausgegeben.
 * Web::
 * Änderungen::
 * Erweitert::
-* Inerna::
+* Interna::
 * Übersetzt::
 * Alles::
 * FDL::
@@ -171,9 +171,9 @@ weitere Informationen zu erhalten.
 
 @docLinks{Einführung, learning,
   @rlearningnamed{Top,Einführung},
-  @manualStableLearningSplit,
-  @manualStableLearningBig, 1.5 MB,
-  @manualStableLearningPdf, 3 MB}
+  @manualStableLearningSplit-de,
+  @manualStableLearningBig-de, 1.5 MB,
+  @manualStableLearningPdf-de, 3 MB}
 
 @divEnd
 
@@ -197,9 +197,9 @@ es sich sehr, dieses Glossar zu Hilfe zu ziehen.
 
 @docLinks{Musikglossar, music-glossary,
   @rglosnamed{Top,Musikglossar},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossarySplit-de,
+  @manualStableGlossaryBig-de, 1 MB,
+  @manualStableGlossaryPdf-de, 1.5 MB}
 
 @divEnd
 
@@ -226,9 +226,9 @@ Auflösung hat.}
 
 @docLinks{Aufsatz, essay,
   @ressaynamed{Top,Aufsatz},
-  @manualStableEssaySplit,
-  @manualStableEssayBig, 2 MB,
-  @manualStableEssayPdf, 2.5 MB}
+  @manualStableEssaySplit-de,
+  @manualStableEssayBig-de, 2 MB,
+  @manualStableEssayPdf-de, 2.5 MB}
 
 @divEnd
 
@@ -253,9 +253,9 @@ englische Musikterminologie (siehe Glossar) bekannt sein.}
 
 @docLinks{Notation, notation,
   @rusernamed{Top,Notation},
-  @manualStableNotationSplit,
-  @manualStableNotationBig, 7 MB,
-  @manualStableNotationPdf, 18 MB}
+  @manualStableNotationSplit-de,
+  @manualStableNotationBig-de, 7 MB,
+  @manualStableNotationPdf-de, 18 MB}
 
 @divEnd
 
@@ -279,9 +279,9 @@ in Angriff nimmt.
 
 @docLinks{Benutzung, usage,
   @rprogramnamed{Top,Benutzung},
-  @manualStableUsageSplit,
-  @manualStableUsageBig, 300 KB,
-  @manualStableUsagePdf, 400 KB}
+  @manualStableUsageSplit-de,
+  @manualStableUsageBig-de, 300 KB,
+  @manualStableUsagePdf-de, 400 KB}
 
 @divEnd
 
@@ -314,9 +314,9 @@ sind auch verlinkt vom @strong{Siehe auch}-Absatz.
 
 @docLinks{Schnipsel, snippets,
   @rlsrnamed{Top,Schnipsel},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsSplit-de,
+  @manualStableSnippetsBig-de, 2.5 MB,
+  @manualStableSnippetsPdf-de, 8 MB}
 
 @divEnd
 
@@ -395,9 +395,9 @@ Programm.
 
 @docLinksBare{Web, web,
   @ref{Top,Web},
-  @manualDevelWebSplit,
-  @manualDevelWebBig, 1 MB,
-  @manualDevelWebPdf, 2 MB}
+  @manualDevelWebSplit-de,
+  @manualDevelWebBig-de, 1 MB,
+  @manualDevelWebPdf-de, 2 MB}
 
 @divEnd
 
@@ -419,9 +419,9 @@ Eigenschaften in LilyPond seit der vorigen stabilen Version.
 
 @docLinks{Änderungen, changes,
   @rchangesnamed{Top,Änderungen},
-  @manualStableChangesSplit,
-  @manualStableChangesBig, 6 KB,
-  @manualStableChangesPdf, 200 KB}
+  @manualStableChangesSplit-de,
+  @manualStableChangesBig-de, 6 KB,
+  @manualStableChangesPdf-de, 200 KB}
 
 @divEnd
 
@@ -440,9 +440,9 @@ Dieses Handbuch erklärt, wie man Erweiterungen für LilyPond schreibt.
 
 @docLinks{Erweitert, extend,
   @rextendnamed{Top,Erweitert},
-  @manualStableExtendingSplit,
-  @manualStableExtendingBig, 200 KB,
-  @manualStableExtendingPdf, 400 KB}
+  @manualStableExtendingSplit-de,
+  @manualStableExtendingBig-de, 200 KB,
+  @manualStableExtendingPdf-de, 400 KB}
 
 @divEnd
 
@@ -474,9 +474,9 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 
 @docLinks{Interna, internals,
   @rinternalsnamed{Top,Interna},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsSplit-de,
+  @manualStableInternalsBig-de, 2.5 MB,
+  @manualStableInternalsPdf-de, 2.8 MB}
 
 @divEnd
 
@@ -488,10 +488,7 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 @divClass{column-center-bottom}
 @subheading Status der Übersetzungen
 
-TODO: verschönern und in Texinfo erstellen.
-@c http://code.google.com/p/lilypond/issues/detail?id=857
-
-@uref{../translations.html}.
+@include translations.itexi
 
 @divEnd
 
@@ -515,16 +512,16 @@ Links und andere Formate dieser Handbücher finden sich in
 @itemize
 
 @c no colon : needed in this section
-@item @ifWebLinks{@manualStableLearningSplit,@rlearningnamed{Top,Handbuch zum Lernen}}
+@item @ifWebLinks{@manualStableLearningSplit-de,@rlearningnamed{Top,Handbuch zum Lernen}}
 eine sanfte @qq{unbedingt lesen!} Einführung in LilyPond.
 
-@item @ifWebLinks{@manualStableGlossarySplit,@rglosnamed{Top,Glossar}}
+@item @ifWebLinks{@manualStableGlossarySplit-de,@rglosnamed{Top,Glossar}}
 @emph{(optional)}
 hier werden musikalische Begriffe auf englisch erklärt und
 die passenden Übersetzungen in vielen anderen Sprachen
 gegeben.
 
-@item @ifWebLinks{@manualStableEssaySplit,@ressaynamed{Top,Aufsatz}}
+@item @ifWebLinks{@manualStableEssaySplit-de,@ressaynamed{Top,Aufsatz}}
 @emph{(optional)}
 Hintergrundinformation über den Notensatzprozess und die
 Ästhetik des Notenstichs im 19. Jahrhundert.
@@ -539,14 +536,14 @@ Hintergrundinformation über den Notensatzprozess und die
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplit,@rusernamed{Top,Notationsreferenz}}
+@item @ifWebLinks{@manualStableNotationSplit-de,@rusernamed{Top,Notationsreferenz}}
 der hauptsächliche Teil der Dokumentation, welcher detailierte
 Information zur Notensatzerstellung zur Verfügung stellt.
 
-@item @ifWebLinks{@manualStableUsageSplit,@rprogramnamed{Top,Benutzung}}
+@item @ifWebLinks{@manualStableUsageSplit-de,@rprogramnamed{Top,Benutzung}}
 hier werden die eigentlichen Programme detailiert erklärt und bestimmte Besonderheiten für einige Betriebssysteme behandelt.
 
-@item @ifWebLinks{@manualStableSnippetsSplit,@rlsrnamed{Top,Schnipsel}}
+@item @ifWebLinks{@manualStableSnippetsSplit-de,@rlsrnamed{Top,Schnipsel}}
 kurze Tricks, Tipps und Beispiele.
 
 @end itemize
@@ -563,13 +560,13 @@ kurze Tricks, Tipps und Beispiele.
 @item @ref{FAQ}:
 ein Link zur der Liste der häufig gefragten Fragen.
 
-@item @ifWebLinks{@manualStableChangesSplit,@rchangesnamed{Top,Änderungen}}
+@item @ifWebLinks{@manualStableChangesSplit-de,@rchangesnamed{Top,Änderungen}}
 Aktualisierungen seit der letzten Hauptversion.
 
-@item @ifWebLinks{@manualStableExtendingSplit,@rextendnamed{Top,Erweitert}}
+@item @ifWebLinks{@manualStableExtendingSplit-de,@rextendnamed{Top,Erweitert}}
 Wie man clevere eigene Anpassungen in LilyPond programmiert.
 
-@item @ifWebLinks{@manualStableInternalsSplit,@rinternalsnamed{Top,Interna}}
+@item @ifWebLinks{@manualStableInternalsSplit-de,@rinternalsnamed{Top,Interna}}
 Information über die internen Strukturen von LilyPond, welche benötigt
 wird, wenn man eigene Anpassungen erstellen will.
 
@@ -591,7 +588,7 @@ erhältlich.
 @divClass{keep-bullets}
 @itemize
 
-@item @doctarballStable
+@item @doctarballStable-de
 
 @end itemize
 

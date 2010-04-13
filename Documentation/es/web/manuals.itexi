@@ -178,9 +178,9 @@ información.
 
 @docLinks{Aprendizaje, learning,
   @rlearningnamed{Top,Aprendizaje},
-  @manualStableLearningSplit,
-  @manualStableLearningBig, 1.5 MB,
-  @manualStableLearningPdf, 3 MB}
+  @manualStableLearningSplit-es,
+  @manualStableLearningBig-es, 1.5 MB,
+  @manualStableLearningPdf-es, 3 MB}
 
 @divEnd
 
@@ -203,9 +203,9 @@ recomienda fervientemente que consulte el glosario.
 
 @docLinks{Glosario musical, music-glossary,
   @rglosnamed{Top,Glosario musical},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossarySplit-es,
+  @manualStableGlossaryBig-es, 1 MB,
+  @manualStableGlossaryPdf-es, 1.5 MB}
 
 @divEnd
 
@@ -230,9 +230,9 @@ versión en formato PDF a causa de su mayor resolución.}
 
 @docLinks{Ensayo, essay,
   @ressaynamed{Top,Ensayo},
-  @manualStableEssaySplit,
-  @manualStableEssayBig, 2 MB,
-  @manualStableEssayPdf, 2.5 MB}
+  @manualStableEssaySplit-es,
+  @manualStableEssayBig-es, 2 MB,
+  @manualStableEssayPdf-es, 2.5 MB}
 
 @divEnd
 
@@ -258,9 +258,9 @@ presentan en el Glosario Musical.}
 
 @docLinks{Notación, notation,
   @rusernamed{Top,Notación},
-  @manualStableNotationSplit,
-  @manualStableNotationBig, 7 MB,
-  @manualStableNotationPdf, 18 MB}
+  @manualStableNotationSplit-es,
+  @manualStableNotationBig-es, 7 MB,
+  @manualStableNotationPdf-es, 18 MB}
 
 @divEnd
 
@@ -283,9 +283,9 @@ su lectura antes de afrontar proyectos grandes.
 
 @docLinks{Utilización, usage,
   @rprogramnamed{Top,Utilización},
-  @manualStableUsageSplit,
-  @manualStableUsageBig, 300 KB,
-  @manualStableUsagePdf, 400 KB}
+  @manualStableUsageSplit-es,
+  @manualStableUsageBig-es, 300 KB,
+  @manualStableUsagePdf-es, 400 KB}
 
 @divEnd
 
@@ -319,9 +319,9 @@ también}.
 
 @docLinks{Fragmentos, snippets,
   @rlsrnamed{Top,Fragmentos},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsSplit-es,
+  @manualStableSnippetsBig-es, 2.5 MB,
+  @manualStableSnippetsPdf-es, 8 MB}
 
 @divEnd
 
@@ -396,9 +396,9 @@ informar de los fallos, y desarrollo.
 
 @docLinksBare{Web, web,
   @ref{Arriba,Web},
-  @manualDevelWebSplit,
-  @manualDevelWebBig, 1 MB,
-  @manualDevelWebPdf, 2 MB}
+  @manualDevelWebSplit-es,
+  @manualDevelWebBig-es, 1 MB,
+  @manualDevelWebPdf-es, 2 MB}
 
 @divEnd
 
@@ -488,7 +488,7 @@ se refiere a la documentación generada.
 @divClass{column-center-bottom}
 @subheading Estado de la traducción
 
-En construcción.
+@include translations.itexi
 
 @divEnd
 

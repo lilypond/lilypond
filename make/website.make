@@ -6,7 +6,7 @@
 ################################################################
 ifeq ($(WEBSITE_ONLY_BUILD),1)
   ### for lilypond.org
-  TOP_SRC_DIR=$(HOME)/src/lilypond
+  TOP_SRC_DIR=$(HOME)/lilypond/lilypond-git
   TRUSTED_DIR=$(HOME)/lilypond/trusted-scripts
   top-src-dir=$(TOP_SRC_DIR)
   depth=.
@@ -35,8 +35,8 @@ endif
 OUT=out-website
 
 ### only update this when the language compiles correctly!
-#WEB_LANGS = es fr nl
-WEB_LANGS = es
+# LANGUAGES = (site, de, es, fr, hu, it, ja, nl)
+WEB_LANGS = es fr nl
 
 TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 
@@ -61,20 +61,7 @@ website-version:
 	$(CREATE_WEBLINKS) $(top-src-dir) > $(OUT)/weblinks.itexi
 
 website-xrefs: website-version
-	$(EXTRACT_TEXI_FILENAMES) -I $(top-src-dir)/Documentation/ \
-		-I $(OUT) -o $(OUT) --split=node \
-		$(top-src-dir)/Documentation/web.texi
-	# normal manuals
-	for m in $(MANUALS); do \
-		b=`basename "$$m" .texi`; \
-		d=`basename "$$b" .tely`; \
-		$(EXTRACT_TEXI_FILENAMES) \
-			-I $(top-src-dir)/Documentation/ \
-			-I $(top-src-dir)/Documentation/"$$d"/ \
-			-I $(OUT) -o $(OUT) "$$m" ; \
-	done
-	# translations
-	for l in $(WEB_LANGS); do \
+	for l in '' $(WEB_LANGS); do \
 		$(EXTRACT_TEXI_FILENAMES) \
 			-I $(top-src-dir)/Documentation/ \
 			-I $(top-src-dir)/Documentation/"$$l" \
@@ -97,27 +84,22 @@ website-xrefs: website-version
 
 
 website-texinfo: website-version website-xrefs
-	$(TEXI2HTML) --prefix=index \
-		--split=section \
-		--I=$(top-src-dir)/Documentation/ \
-		--I=$(OUT) \
-		--init-file=$(texi2html-init-file) \
-		-D web_version \
-		--output=$(OUT)/website/ \
-		$(top-src-dir)/Documentation/web.texi
-	# translations
-	for l in $(WEB_LANGS); do \
+	for l in '' $(WEB_LANGS); do \
+	        if test -n "$$l"; then \
+			langopt=--lang="$$l"; \
+			langsuf=.$$l; \
+		fi; \
 		$(TEXI2HTML) --prefix=index \
 			--split=section \
 			--I=$(top-src-dir)/Documentation/"$$l" \
 			--I=$(top-src-dir)/Documentation/ \
 			--I=$(OUT) \
-			--lang="$$l" \
+			$$langopt \
 			--init-file=$(texi2html-init-file) \
 			-D web_version \
 			--output=$(OUT)/"$$l" \
 			$(top-src-dir)/Documentation/"$$l"/web.texi ; \
-		find $(OUT)/$$l/ -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/'$$l'/!!g' | xargs $(MASS_LINK) --prepend-suffix .$$l hard $(OUT)/$$l/ $(OUT)/website/ ; \
+		ls $(OUT)/$$l/*.html | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/'$$l'/!!g' | xargs $(MASS_LINK) --prepend-suffix="$$langsuf" hard $(OUT)/$$l/ $(OUT)/website/ ; \
 	done
 
 

@@ -10,8 +10,10 @@
 @setfilename lilypond-extending.info
 @settitle Extending LilyPond
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage es
 @afourpaper
+
+@c translator: Team-es
 
 @macro manualIntro
 Este archivo explica la forma de extender las funcionalidades de

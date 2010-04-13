@@ -7,6 +7,8 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@include included/generating-output.itexi
+
 @node ダウンロード
 @unnumbered ダウンロード
 @translationof Download
@@ -159,7 +161,12 @@ LilyPond は @ref{GPL, GNU General Public License} に基づいて
 
 @item
 @sourceimage{logo-linux,,,}
-@downloadStableLinuxNormal
+@ifclear web_version
+  @downloadDevelLinuxNormal
+@end ifclear
+@ifset web_version
+  @downloadStableLinuxNormal
+@end ifset
 (迷っているのなら、こちらを使ってください)
 
 @item
@@ -618,7 +625,7 @@ lilypond test.ly
 @subheading ソース tarball
 @c Source tarball
 
-@downloadStableSource{}
+@downloadStableSource-ja{}
 
 新旧すべてのバージョンは、@c
 @uref{http://download.linuxaudio.org/lilypond/binaries/,ダウンロード サイト}

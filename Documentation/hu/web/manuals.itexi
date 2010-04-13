@@ -485,7 +485,7 @@ Lásd: @rprogram{Troubleshooting}
 
 @subsubheading Miért változik a nyelvtan?
 
-Lásd: @rprogram{Why does the syntax change?}
+Lásd: @rprogram{Miért változik a szintaxis?}
 
 @divEnd
 
@@ -628,7 +628,7 @@ formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
 @divClass{column-center-bottom}
 @subheading A honosítások állapota
 
-A honosítások naprakészsége itt tekinthető meg.
+@include translations.itexi
 
 @divEnd
 

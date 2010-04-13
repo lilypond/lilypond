@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: fa8dd31ed29a5ef35d76f127a795b5c2d951f5dd
+    Translation of GIT committish: 27a4d9354effb09c696925881ec4df007da8a0db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -43,17 +43,17 @@
 LilyPond est un système de gravure musicale @strong{en mode texte}.  Si
 vous ne savez pas du tout ce que ça veut dire, lisez tout d'abord ceci !
 
-@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Initiation}} 
+@item @ifWebLinks{@manualStableLearningSplitNoName-fr,@rlearningnamed{Top,Initiation}} 
 une introduction pas-à-pas à LilyPond.
 @details{Initiation}
 
-@item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossaire}} 
+@item @ifWebLinks{@manualStableGlossarySplitNoName-fr,@rglosnamed{Top,Glossaire}} 
 @emph{(lecture optionnelle)}
 répertoire de définition et de traduction de termes musicaux, utile en
 particulier pour connaître les termes musicaux en anglais.
 @details{Glossaire}
 
-@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essai}} 
+@item @ifWebLinks{@manualStableEssaySplitNoName-fr,@ressaynamed{Top,Essai}} 
 @emph{(lecture optionnelle)}
 essai sur la conception des processus de gravure d'après l'esthétique et
 la technique de la gravure traditionnelle avec poinçons et plaques de plomb.
@@ -69,18 +69,18 @@ la technique de la gravure traditionnelle avec poinçons et plaques de plomb.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}} 
+@item @ifWebLinks{@manualStableNotationSplitNoName-fr,@rusernamed{Top,Notation}} 
 Partie la plus importante de la documentation, ce manuel fournit toutes
 les informations détaillées dont vous aurez besoin en matière de notation.
 @details{Notation}
 
-@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Utilisation}}
+@item @ifWebLinks{@manualStableUsageSplitNoName-fr,@rprogramnamed{Top,Utilisation}}
 présentation des différentes composantes de LilyPond, ainsi que les
 particularités de certains systèmes d'exploitation.
 @details{Utilisation}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Morceaux choisis}} 
+@ifWebLinks{@manualStableSnippetsSplitNoName-fr,@rlsrnamed{Top,Morceaux choisis}} 
 courts extraits, trucs, modèles et autres exemples.
 @details{Morceaux choisis}
 
@@ -102,15 +102,15 @@ Ce document.
 @details{Web}
 
 @item 
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Nouveautés}}
+@ifWebLinks{@manualStableChangesSplitNoName-fr,@rchangesnamed{Top,Nouveautés}}
 changements depuis la dernière version stable.
 @details{Nouveautés}
 
-@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extension}}
+@item @ifWebLinks{@manualStableExtendingSplitNoName-fr,@rextendnamed{Top,Extension}}
 programmation avancée d'ajustements et retouches dans LilyPond.
 @details{Extension}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Propriétés internes}} :
+@item @ifWebLinks{@manualStableInternalsSplitNoName-fr,@rinternalsnamed{Top,Propriétés internes}} :
 information sur les structures internes de LilyPond, nécessaire en
 particulier pour élaborer des retouches.
 @details{Propriétés internes}
@@ -132,7 +132,7 @@ particulier pour élaborer des retouches.
 liens rapides, manuels téléchargeables, et documentation des anciennes
 versions.
 
-@item @ref{Development} :
+@item @ref{Développement} :
 manuels pour la version de développement.
 
 @item @ref{FDL} :
@@ -151,8 +151,8 @@ ces manuels sont publiés sous la licence GNU de documentation libre FDL.
 * Notation::            Référence en matière de notation
 * Utilisation::         Les différentes composantes de LilyPond
 * Morceaux choisis::    Exemples de code, trucs et astuces
-* Web::                 
 * FAQ::                 Foire aux questions
+* Web::                 
 * Nouveautés::
 * Extension::
 * Propriétés internes::
@@ -191,9 +191,9 @@ aspects.
 
 @docLinks{Initiation, learning,
   @rlearningnamed{Top,Initiation},
-  @manualStableLearningSplit,
-  @manualStableLearningBig, 1.5 MB,
-  @manualStableLearningPdf, 3 MB}
+  @manualStableLearningSplit-fr,
+  @manualStableLearningBig-fr, 1.5 MB,
+  @manualStableLearningPdf-fr, 3 MB}
 
 @divEnd
 
@@ -217,9 +217,9 @@ documentation.
 
 @docLinks{Glossaire musical, music-glossary,
   @rglosnamed{Top,Glossaire musical},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossarySplit-fr,
+  @manualStableGlossaryBig-fr, 1 MB,
+  @manualStableGlossaryPdf-fr, 1.5 MB}
 
 @divEnd
 
@@ -246,9 +246,9 @@ haute résolution.}
 
 @docLinks{Essai, essay,
   @ressaynamed{Top,Essai},
-  @manualStableEssaySplit,
-  @manualStableEssayBig, 2 MB,
-  @manualStableEssayPdf, 2.5 MB}
+  @manualStableEssaySplit-fr,
+  @manualStableEssayBig-fr, 2 MB,
+  @manualStableEssayPdf-fr, 2.5 MB}
 
 @divEnd
 
@@ -275,9 +275,9 @@ glossaire.}
 
 @docLinks{Notation, notation,
   @rusernamed{Top,Notation},
-  @manualStableNotationSplit,
-  @manualStableNotationBig, 7 MB,
-  @manualStableNotationPdf, 18 MB}
+  @manualStableNotationSplit-fr,
+  @manualStableNotationBig-fr, 7 MB,
+  @manualStableNotationPdf-fr, 18 MB}
 
 @divEnd
 
@@ -300,9 +300,9 @@ recommandée avant d'aborder de grands projets.
 
 @docLinks{Utilisation des programmes, usage,
   @rprogramnamed{Top,Utilisation des programmes},
-  @manualStableUsageSplit,
-  @manualStableUsageBig, 300 KB,
-  @manualStableUsagePdf, 400 KB}
+  @manualStableUsageSplit-fr,
+  @manualStableUsageBig-fr, 300 KB,
+  @manualStableUsagePdf-fr, 400 KB}
 
 @divEnd
 
@@ -335,9 +335,9 @@ manuel de notation est accessible par des liens dans le paragraphe
 
 @docLinks{Morceaux choisis, snippets,
   @rlsrnamed{Top, Morceaux choisis},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsSplit-fr,
+  @manualStableSnippetsBig-fr, 2.5 MB,
+  @manualStableSnippetsPdf-fr, 8 MB}
 
 @divEnd
 
@@ -364,7 +364,7 @@ rapport avec la notation musicale que vous voulez produire.
 
 @subsubheading Ça fait encore beaucoup à lire !  Ai-je besoin de lire tout cela ?
 
-Décidez-en donc vous-même ; les raisons pour lesquelles vous souhaitez
+C'est vous qui voyez ; les raisons pour lesquelles vous souhaitez
 utiliser LilyPond se trouvent peut-être dans l'@ref{Introduction}.
 
 @divEnd
@@ -383,7 +383,7 @@ remettre à plat,Résolution de problèmes}.
 
 @c FIXME : corriger cette phrase lorsque la section correspondante sera
 @c traduite -JM
-C'est expliqué (en anglais) dans @rprogram{Why does the syntax change?}.
+C'est expliqué (en anglais) dans @rprogram{Pourquoi la syntaxe change-t-elle?}.
 
 @divEnd
 
@@ -403,11 +403,21 @@ rapports de bogues et le développement.
 
 @divClass{column-right-bottom}
 
+@subsubheading La version que vous consultez actuellement
+
+@divClass{keep-bullets}
+@itemize
+@ref{Top,Web}
+@end itemize
+@divEnd
+
+@subsubheading Web de la version @versionDevel
+
 @docLinks{Web, web,
   @ref{Top,,,,Web},
-  @manualStableWebSplit,
-  @manualStableWebBig, 1 MB,
-  @manualStableWebPdf, 2 MB}
+  @manualStableWebSplit-fr,
+  @manualStableWebBig-fr, 1 MB,
+  @manualStableWebPdf-fr, 2 MB}
 
 @divEnd
 
@@ -428,9 +438,9 @@ nouvelles fonctionnalités de LilyPond depuis la dernière version stable.
 
 @docLinks{Nouveautés, changes,
   @rglosnamed{Top,Nouveautés},
-  @manualStableChangesSplit,
-  @manualStableChangesBig, 6 KB,
-  @manualStableChangesPdf, 200 KB}
+  @manualStableChangesSplit-fr,
+  @manualStableChangesBig-fr, 6 KB,
+  @manualStableChangesPdf-fr, 200 KB}
 
 @divEnd
 
@@ -468,9 +478,9 @@ renvoie à la documentation générée automatiquement.
 
 @docLinks{Référence des propriétés internes, internals,
   @rinternalsnamed{Top,Référence des propriétés internes},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsSplit-fr,
+  @manualStableInternalsBig-fr, 2.5 MB,
+  @manualStableInternalsPdf-fr, 2.8 MB}
 
 @divEnd
 
@@ -482,7 +492,7 @@ renvoie à la documentation générée automatiquement.
 @divClass{column-center-bottom}
 @subheading État des traductions
 
-Désolé, l'état des traductions est indisponible en ce moment.
+@include translations.itexi
 
 @divEnd
 
@@ -503,7 +513,7 @@ l'adresse @uref{http://lilypond.org}
 @divClass{keep-bullets}
 @itemize
 
-@item @doctarballStable
+@item @doctarballStable-fr
 
 @end itemize
 
@@ -527,7 +537,23 @@ LilyPond 2.10 Documentation}
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 Documentation}
 
-@help anybody want to write this stuff?
+@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+LilyPond 2.6 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+LilyPond 2.4 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+LilyPond 2.2 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+LilyPond 2.0 Documentation}
+
+@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+LilyPond 1.8 Documentation}
+
+@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+LilyPond 1.6 Documentation}
 
 @end itemize
 
@@ -540,7 +566,7 @@ LilyPond 2.8 Documentation}
 @divClass{column-center-top}
 @subheading Licence de la documentation
 
-La documentation de GNU LilyPond est poubliée selon les termes de la
+La documentation de GNU LilyPond est publiée selon les termes de la
 @emph{GNU Free Documentation License}.  Une brève introduction à cette
 licence ainsi que les motifs qui nous ont fait l'adopter se trouvent à
 la page @ref{Liberté}.
