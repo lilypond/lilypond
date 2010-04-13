@@ -13,6 +13,8 @@
 @documentlanguage es
 @afourpaper
 
+@c translator: Team-es
+
 @macro manualIntro
 Este ensayo trata de las funciones de grabado musical automatizado
 dentro de LilyPond version @version{}.

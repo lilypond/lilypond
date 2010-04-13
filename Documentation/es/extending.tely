@@ -13,6 +13,8 @@
 @documentlanguage es
 @afourpaper
 
+@c translator: Team-es
+
 @macro manualIntro
 Este archivo explica la forma de extender las funcionalidades de
 LilyPond versión @version{}.
