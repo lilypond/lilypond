@@ -263,33 +263,19 @@ This will initiate a search of the remote git repository.
 @node Code style
 @section Code style
 
+This section describes style guidelines for LilyPond
+source code.
+
 @menu
-* Handling errors::
 * Languages::
 * Filenames::
 * Indentation::
-* Indenting files with fixcc.py::
-* Indenting files with emacs in script mode::
-* Indenting with vim::
 * Naming conventions::
 * Broken code::
 * Code comments::
-* Messages::
+* Handling errors::
 * Localization::
 @end menu
-
-
-@node Handling errors
-@subsection Handling errors
-
-As a general rule, you should always try to continue computations,
-even if there is some kind of error.  When the program stops, it
-is often very hard for a user to pinpoint what part of the input
-causes an error.  Finding the culprit is much easier if there is
-some viewable output.
-
-So functions and methods do not return errorcodes, they never
-crash, but report a programming_error and try to carry on.
 
 
 @node Languages
@@ -356,8 +342,7 @@ is the case, it is desirable to fix the improper indenting when the
 file is modified, with the hope of continually improving the code.
 
 
-@node Indenting files with fixcc.py
-@subsection Indenting files with fixcc.py
+@subheading Indenting files with fixcc.py
 
 LilyPond provides a python script that will correct the indentation
 on a c++ file:
@@ -376,8 +361,7 @@ you run fixcc.py, and then put the final parenthesis and semicolon
 back on a line by themselves.
 
 
-@node Indenting files with emacs in script mode
-@subsection Indenting files with emacs in script mode
+@subheading Indenting files with emacs in script mode
 
 @c email to wl@gnu.org when I get here.
 
@@ -395,8 +379,7 @@ emacs $1 -batch --eval '(indent-region (point-min) (point-max) nil)' -f save-buf
 Save it as a shell script, then run on the file(s) you modified.
 
 
-@node Indenting with vim
-@subsection Indenting with vim
+@subheading Indenting with vim
 
 Although emacs indentation is the LilyPond standard, acceptable
 indentation can usually be accomplished with vim.  Some hints for
@@ -459,7 +442,13 @@ syn match schemeFunc "ly:[^) ]\+"
 @node Naming conventions
 @subsection Naming Conventions
 
+Naming conventions have been established for LilyPond
+source code.
+
 @subheading Classes and Types
+
+Classes begin with an uppercase letter, and words
+in class names are separated with @code{_}:
 
 @verbatim
 This_is_a_class
@@ -475,7 +464,12 @@ Type Class::member_
 
 @subheading Macros
 
-Macro names should be written in uppercase completely.
+Macro names should be written in uppercase completely,
+with words separated by @code{_}:
+
+@verbatim
+THIS_IS_A_MACRO
+@end verbatim
 
 @subheading Variables
 
@@ -484,11 +478,18 @@ For example, it is preferred to use @code{thickness} rather than
 @code{th} or @code{t}.
 
 Multi-word variable names in C++ should have the words separated
-by the underscore character (@q{_}).
+by the underscore character (@q{_}):
+
+@verbatim
+cxx_multiword_variable
+@end verbatim
 
 Multi-word variable names in Scheme should have the words separated
-by a hyphen (@q{-}).
+by a hyphen (@q{-}):
 
+@verbatim
+scheme-multiword-variable
+@end verbatim
 
 @node Broken code
 @subsection Broken code
@@ -497,6 +498,9 @@ Do not write broken code.  This includes hardwired dependencies,
 hardwired constants, slow algorithms and obvious limitations.  If
 you can not avoid it, mark the place clearly, and add a comment
 explaining shortcomings of the code.
+
+Ideally, the comment marking the shortcoming would include
+TODO, so that it is marked for future fixing.
 
 We reject broken-in-advance on principle.
 
@@ -516,10 +520,19 @@ preparing a patch, it would be wise to add comments reflecting your
 understanding to make future work easier.
 
 
-@node Messages
-@subsection Messages
+@node Handling errors
+@subsection Handling errors
 
-Messages need to follow Localization.
+As a general rule, you should always try to continue computations,
+even if there is some kind of error.  When the program stops, it
+is often very hard for a user to pinpoint what part of the input
+causes an error.  Finding the culprit is much easier if there is
+some viewable output.
+
+So functions and methods do not return errorcodes, they never
+crash, but report a programming_error and try to carry on.
+
+Error and warning messages need to be localized.
 
 
 @node Localization
