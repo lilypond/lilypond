@@ -752,7 +752,7 @@ passed to the called functions.
 
 The GNU debugger, gdb, is the principal tool for debugging C++ code.
 
-@unnumberedsubsubsec Compiling LilyPond for use with gdb
+@subheading Compiling LilyPond for use with gdb
 
 In order to use gdb with LilyPond, it is necessary to compile
 LilyPond with debugging information.  This is accomplished by running
@@ -771,7 +771,7 @@ You should not do @var{make install} if you want to use a debugger
 with LilyPond.  The @var{make install} command will strip debugging
 information from the LilyPond binary.
 
-@unnumberedsubsubsec Typical gdb usage
+@subheading Typical gdb usage
 
 Once you have compiled the Lilypond image with the necessary
 debugging information it will have been written to a location in a
@@ -783,23 +783,24 @@ out/bin/lilypond
 
 This is important as you will need to let gdb know where to find the
 image containing the symbol tables.  You can invoke gdb from the
-command line using
+command line usinga the following:
 
 @example
 gdb out/bin/lilypond
 @end example
 @noindent
 This loads the LilyPond symbol tables into gdb.  Then, to run
-LilyPond on @code{test.ly} under the debugger, enter
+LilyPond on @code{test.ly} under the debugger, enter the following:
 
 @example
 run test.ly
 @end example
+
 @noindent
 at the gdb prompt.
 
 As an alternative to running gdb at the command line you may try
-a graphical interface to gdb such as ddd
+a graphical interface to gdb such as ddd:
 
 @example
 ddd out/bin/lilypond
@@ -808,7 +809,7 @@ ddd out/bin/lilypond
 You can also use sets of standard gdb commands stored in a .gdbinit
 file (see next section).
 
-@unnumberedsubsubsec Typical .gdbinit files
+@subheading Typical .gdbinit files
 
 The behavior of gdb can be readily customized through the use of a
 @var{.gdbinit} file.  A @var{.gdbinit} file is a file named
@@ -848,7 +849,7 @@ interpreter @code{top-repl}.  You can either investigate
 interactively using just Guile or you can use the debugging
 tools available within Guile.
 
-@unnumberedsubsubsec Using Guile interactively with LilyPond
+@subheading Using Guile interactively with LilyPond
 
 In order to experiment with Scheme programming in the LilyPond
 environment, it is necessary to have a Guile interpreter that
@@ -907,7 +908,7 @@ guile> (quit)
 
 The compilation of the .ly file will then continue.
 
-@unnumberedsubsubsec Using the Guile debugger
+@subheading Using the Guile debugger
 
 To set breakpoints and/or enable tracing in Scheme functions, put
 
@@ -921,7 +922,7 @@ up the environment for the debug command-line.  When your input file
 is processed, a guile prompt will be displayed.  You may now enter
 commands to set up breakpoints and enable tracing by the Guile debugger.
 
-@unnumberedsubsubsec Using breakpoints
+@subheading Using breakpoints
 
 At the guile prompt, you can set breakpoints with
 the @code{set-break!} procedure:
@@ -992,7 +993,7 @@ print-book-with:
 (set-break! print-book-with)
 @end example
 
-@unnumberedsubsubsec Tracing procedure calls and evaluator steps
+@subheading Tracing procedure calls and evaluator steps
 
 Two forms of trace are available:
 
@@ -1109,6 +1110,22 @@ ensure that the feature is properly integrated to maintain
 its long-term support.  This section describes the steps necessary
 for feature addition and modification.
 
+
+@menu
+* Write the code::
+* Write regression tests::
+* Write convert-ly rule::
+* Automaticaly update auxiliary information::
+* Manually update auxiliary information::
+* Edit changes.tely::
+* Verify successful build::
+* Verify regression tests::
+* Post patch for comments::
+* Push patch::
+* Closing the issues::
+@end menu
+
+@node Write the code
 @subsection Write the code
 
 You should probably create a new git branch for writing the code, as that
@@ -1118,6 +1135,8 @@ to work on small projects related to master.
 Please be sure to follow the rules for programming style discussed
 earlier in this chapter.
 
+
+@node Write regression tests
 @subsection Write regression tests
 
 In order to demonstrate that the code works properly, you will
@@ -1134,6 +1153,8 @@ multiple-issue regression test.
 Use existing regression tests as templates to demonstrate the type of
 header information that should be included in a regression test.
 
+
+@node Write convert-ly rule
 @subsection Write convert-ly rule
 
 If the modification changes the input syntax, a convert-ly rule
@@ -1147,7 +1168,9 @@ of the file.  In some cases, this will not be possible, so the
 rule will simply point out to the user that the feature needs
 manual correction.
 
-@subsection Automatically update documentation, snippets, and regtests
+
+@node Automaticaly update auxiliary information
+@subsection Automatically update auxiliary information
 
 convert-ly should be used to update the documentation, the snippets,
 and the regression tests.  This not only makes the necessary syntax
@@ -1178,7 +1201,9 @@ find input/regression/ -name '*.ly' | xargs convert-ly -e --from @qq{@var{X.Y.Z}
 
 @end example
 
-@subsection Manually update documentation, snippets, and regtests
+
+@node Manually update auxiliary information
+@subsection Manually update auxiliary information
 
 Where the convert-ly rule is not able to automatically update the inline
 lilypond code in the documentation (i.e. if a NOT_SMART rule is used), the
@@ -1191,7 +1216,7 @@ English version of the documentation.
 Where the convert-ly rule is not able to automatically update snippets
 in Documentation/snippets/, those snippets must be manually updated.
 Those snippets should be copied to Documentation/snippets/new.  The
-comments at the top of the snippet describing its automatice generation
+comments at the top of the snippet describing its automatic generation
 should be removed.  All translated texidoc strings should be removed.
 The comment @qq{% begin verbatim} should be removed.  The syntax of
 the snippet should then be manually edited.
@@ -1230,6 +1255,8 @@ write it from the regression tests.  The text that is added to
 or removed from the documentation should be changed only in
 the English version.
 
+
+@node Edit changes.tely
 @subsection Edit changes.tely
 
 An entry should be added to Documentation/changes.tely to describe
@@ -1243,6 +1270,8 @@ New entries in changes.tely go at the top of the file.
 The changes.tely entry should be written to show how the new change
 improves LilyPond, if possible.
 
+
+@node Verify successful build
 @subsection Verify successful build
 
 When the changes have been made, successful completion must be
@@ -1259,12 +1288,16 @@ considered to function successfully.
 Developers on Windows who are unable to build LilyPond should
 get help from a Linux or OSX developer to do the make tests.
 
-@subsection Verify regression test
+
+@node Verify regression tests
+@subsection Verify regression tests
 
 In order to avoid breaking LilyPond, it is important to verify that
 the regression tests all succeed.  This process is described in
 @ref{Regression tests}.
 
+
+@node Post patch for comments
 @subsection Post patch for comments
 
 For any change other than a minor change, a patch set should be
@@ -1327,6 +1360,8 @@ As revisions are made in response to comments, successive patch sets
 for the same issue can be uploaded by reissuing the git-cl command
 with the modified branch checked out.
 
+
+@node Push patch
 @subsection Push patch
 
 Once all the comments have been addressed, the patch can be pushed.
@@ -1334,6 +1369,8 @@ Once all the comments have been addressed, the patch can be pushed.
 If the author has push privileges, the author will push the patch.
 Otherwise, a developer with push privileges will push the patch.
 
+
+@node Closing the issues
 @subsection Closing the issues
 
 Once the patch has been pushed, all the relevant issues should be
@@ -1351,6 +1388,7 @@ the author does not have privileges to change the status, an email
 should be sent to bug-lilypond requesting the BugMeister to change
 the status.
 
+
 @node Iterator tutorial
 @section Iterator tutorial
 
@@ -1359,6 +1397,7 @@ TODO -- this is a placeholder for a tutorial on iterators
 Iterators are routines written in C++ that process music expressions
 and sent the music events to the appropriate engravers and/or
 performers.
+
 
 @node Engraver tutorial
 @section Engraver tutorial
@@ -1374,6 +1413,17 @@ the engraver in time-step order during the iteration phase.  Grobs are
 made available to the engraver when they are created by other engravers
 during the iteration phase.
 
+
+@menu
+* Useful methods for information processing::
+* Translation process::
+* Preventing garbage collection for SCM member variables::
+* Listening to music events::
+* Acknowledging grobs::
+* Engraver declaration/documentation::
+@end menu
+
+@node Useful methods for information processing
 @subsection Useful methods for information processing
 
 An engraver inherits the following public methods from the Translator
@@ -1397,6 +1447,8 @@ of context properties before translation starts, whereas
 translation: for example, an unterminated spanner might be completed
 automatically or reported with a warning message.
 
+
+@node Translation process
 @subsection Translation process
 
 At each timestep in the music, translation proceeds by calling the
@@ -1417,6 +1469,8 @@ within engravers.
 information has been processed prior to beginning the translation for
 the next timestep.
 
+
+@node Preventing garbage collection for SCM member variables
 @subsection Preventing garbage collection for SCM member variables
 
 In certain cases, an engraver might need to ensure private Scheme
@@ -1433,6 +1487,7 @@ Engraver_name::derived_mark ()
 @end example
 
 
+@node Listening to music events
 @subsection Listening to music events
 
 External interfaces to the engraver are implemented by protected
@@ -1459,6 +1514,8 @@ Engraver_name::listen_event_name (Stream event *event)
 @}
 @end example
 
+
+@node Acknowledging grobs
 @subsection Acknowledging grobs
 
 Some engravers also need information from grobs as they are created
@@ -1494,6 +1551,8 @@ Engraver_name::acknowledge_interface_name (Grob_info info)
 @}
 @end example
 
+
+@node Engraver declaration/documentation
 @subsection Engraver declaration/documentation
 
 An engraver must have a public macro
@@ -1524,6 +1583,14 @@ is the name of the interface that will be acknowledged,
 @code{Engraver_reads} is the set of properties read by the engraver,
 and @code{Engraver_writes} is the set of properties written by
 the engraver.
+
+The @code{ADD_ACKNOWLEDGER} and @code{ADD_TRANSLATOR} macros use a
+non-standard indentation system.  Each interface, grob, read property,
+and write property is on its own line, and the closing parenthesis
+and semicolon for the macro all occupy a separate line beneath the final
+interface or write property.  See existing engraver files for more
+information.
+
 
 @node Callback tutorial
 @section Callback tutorial
@@ -1574,6 +1641,14 @@ This is a place to dump information that may be of use to developers
 but doesn't yet have a proper home.  Ideally, the length of this section
 would become zero as items are moved to other homes.
 
+
+@menu
+* Spacing algorithms::
+* Info from Han-Wen email::
+* Music functions and GUILE debugging::
+@end menu
+
+@node Spacing algorithms
 @subsection Spacing algorithms
 
 Here is information from an email exchange about spacing algorithms.
@@ -1599,7 +1674,9 @@ We create lots of extra grobs (eg. a BarNumber at every bar line) but
 most of them are not drawn. See the break-visibility property in
 item-interface.
 
-@subsection Info from Han-Wen Email
+
+@node Info from Han-Wen email
+@subsection Info from Han-Wen email
 
 In 2004, Douglas Linhardt decided to try starting a document that would
 explain LilyPond architecture and design principles.  The material below
@@ -1608,13 +1685,13 @@ is extracted from that email, which can be found at
 The headings reflect questions from Doug or comments from Han-Wen;
 the body text are Han-Wen's answers.
 
-@unnumberedsubsubsec Figuring out how things work.
+@subheading Figuring out how things work.
 
 I must admit that when I want to know how a program works, I use grep
 and emacs and dive into the source code. The comments and the code
 itself are usually more revealing than technical documents.
 
-@unnumberedsubsubsec What's a grob, and how is one used?
+@subheading What's a grob, and how is one used?
 
 Graphical object - they are created from within engravers, either as
 Spanners (derived class) -slurs, beams- or Items (also a derived
@@ -1625,12 +1702,12 @@ contaning a "line of music") and Paper_column (derived from Item, it
 contains all items that happen at the same moment). They are separate
 classes because they play a special role in the linebreaking process.
 
-@unnumberedsubsubsec What's a smob, and how is one used?
+@subheading What's a smob, and how is one used?
 
 A C(++) object that is encapsulated so it can be used as a Scheme
 object.  See GUILE info, "19.3 Defining New Types (Smobs)"
 
-@unnumberedsubsubsec When is each C++ class constructed and used
+@@subheading When is each C++ class constructed and used
 
 @itemize
 
@@ -1676,7 +1753,7 @@ BTW, the entry point for interpreting is ly:run-translator
 
 @end itemize
 
-@unnumberedsubsubsec Can you get to Context properties from a Music object?
+@subheading Can you get to Context properties from a Music object?
 
 You can create music object with a Scheme function that reads context
 properties (the \applycontext syntax). However, that function is
@@ -1684,34 +1761,34 @@ executed during Interpreting, so you can not really get Context
 properties from Music objects, since music objects are not directly
 connected to Contexts. That connection is made by the  Music_iterators
 
-@unnumberedsubsubsec Can you get to Music properties from a Context object?
+@subheading Can you get to Music properties from a Context object?
 
 Yes, if you are given the music object within a Context
 object. Normally, the music objects enter Contexts in synchronized
 fashion, and the synchronization is done by Music_iterators.
 
-@unnumberedsubsubsec What is the relationship between C++ classes and Scheme objects?
+@subheading What is the relationship between C++ classes and Scheme objects?
 
 Smobs are C++ objects in Scheme. Scheme objects (lists, functions) are
 manipulated from C++ as well using the GUILE C function interface
 (prefix: scm_)
 
-@unnumberedsubsubsec How do Scheme procedures get called from C++ functions?
+@subheading How do Scheme procedures get called from C++ functions?
 
 scm_call_*, where * is an integer from 0 to 4.
 Also scm_c_eval_string (), scm_eval ()
 
-@unnumberedsubsubsec How do C++ functions get called from Scheme procedures?
+@subheading How do C++ functions get called from Scheme procedures?
 
 Export a C++ function to Scheme with LY_DEFINE.
 
-@unnumberedsubsubsec What is the flow of control in the program?
+@subheading What is the flow of control in the program?
 
 Good question.  Things used to be clear-cut, but we have Scheme
 and SMOBs now, which means that interactions do not follow a very
 rigid format anymore. See below for an overview, though.
 
-@unnumberedsubsubsec Does the parser make Scheme procedure calls or C++ function calls?
+@subheading Does the parser make Scheme procedure calls or C++ function calls?
 
 Both. And the Scheme calls can call C++ and vice versa. It's nested,
 with the SCM datatype as lubrication between the interactions
@@ -1719,7 +1796,7 @@ with the SCM datatype as lubrication between the interactions
 (I think the word "lubrication" describes the process better than the
 traditional word "glue")
 
-@unnumberedsubsubsec How do the front-end and back-end get started?
+@subheading How do the front-end and back-end get started?
 
 Front-end: a file is parsed, the rest follows from that. Specifically,
 
@@ -1765,26 +1842,26 @@ page-breaking, so now the backend also involves Paper_book,
 Paper_lines and other things. This area is still heavily in flux, and
 perhaps not something you should want to look at.
 
-@unnumberedsubsubsec How do the front-end and back-end communicate?
+@subheading How do the front-end and back-end communicate?
 
 There is no communication from backend to front-end. From front-end to
 backend is simply the program flow: music + definitions gives
 contexts, contexts yield output, after processing, output is written
 to disk.
 
-@unnumberedsubsubsec Where is the functionality associated with KEYWORDs?
+@subheading Where is the functionality associated with KEYWORDs?
 
 See my-lily-lexer.cc (keywords, there aren't that many) and ly/*.ly
 (most of the other backslashed \words are identifiers)
 
-@unnumberedsubsubsec What Contexts/Properties/Music/etc. are available when they are processed?
+@subheading What Contexts/Properties/Music/etc. are available when they are processed?
 
 What do you mean exactly with this question?
 
 See ly/engraver-init.ly for contexts, see scm/define-*.scm for other
 objects.
 
-@unnumberedsubsubsec How do you decide if something is a Music, Context, or Grob property?
+@subheading How do you decide if something is a Music, Context, or Grob property?
 Why is part-combine-status a Music property when it seems (IMO)
 to be related to the Staff context?
 
@@ -1801,9 +1878,11 @@ part-combine-status is part of such a synthetic event, used by
 Part_combine_iterator to communicate with Part_combine_engraver.
 
 
-@unnumberedsubsubsec I'm adding a property to affect how \autochange works.  It seems to
+@subheading Deciding between context and music properties
+
+I'm adding a property to affect how \autochange works.  It seems to
 me that it should be a context property, but the Scheme autochange
-procecure has a Music argument.  Does this mean I should use
+procedure has a Music argument.  Does this mean I should use
 a Music property?
 
 \autochange is one of these extra strange beasts: it requires
@@ -1826,10 +1905,12 @@ argument,
 where around-central-C is some function that is called from
 make-autochange-music.
 
-@unnumberedsubsubsec I get lost figuring out what environment the code I'm looking at is in when it executes.
-I found both the C++ and Scheme autochange code.  Then I was
-trying to figure out where the code got called from.  I finally figured out that
-the Scheme procedure was called before the C++ iterator code, but it took me a
+@subheading How do I tell about the execution environment?
+
+I get lost figuring out what environment the code I'm looking at is in when it
+executes.  I found both the C++ and Scheme autochange code.  Then I was trying
+to figure out where the code got called from.  I finally figured out that the
+Scheme procedure was called before the C++ iterator code, but it took me a
 while to figure that out, and I still didn't know who did the calling in the
 first place.  I only know a little bit about Flex and Bison, so reading those
 files helped only a little bit.
@@ -1844,6 +1925,7 @@ p ly_display_scm(obj)
 
 this will display OBJ through GUILE.
 
+@node Music functions and GUILE debugging
 @subsection Music functions and GUILE debugging
 
 Ian Hulin was trying to do some debugging in music functions, and
