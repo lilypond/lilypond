@@ -57,6 +57,29 @@ makefiles and scripts directly from git; copies of the relevant
 scripts are examined and copied to
 @code{~graham/lilypond/trusted-scripts/}
 
+@subheading Initial setup
+
+You should symlink your own @file{~/lilypond/} to
+@file{~graham/lilypond/}
+
+If this directory does not exist, make it.  Git master should go
+in @file{~/lilypond/lilypond-git/} but make sure you enable:
+
+@example
+git config core.filemode false
+@end example
+
+If you have created any files in @file{~graham/lilypond/} then
+please run:
+
+@example
+chgrp lilypond ~graham/lilypond/ -R
+chmod 775 ~graham/lilypond/ -R
+@end example
+
+
+@subheading Normal maintenance
+
 Get latest source code:
 
 @verbatim
@@ -157,17 +180,6 @@ rsync -a $EXAMPLES graham@lilypond.org:ly-examples
 Some information about the website is stored in
 @file{~graham/lilypond/*.txt}; this information should not be
 shared with people without trusted access to the server.
-
-If you have created any files in @file{~graham/lilypond/} then
-please run:
-
-@example
-chgrp lilypond ~graham/lilypond/ -R
-chmod 775 ~graham/lilypond/ -R
-@end example
-
-You should symlink your own @file{~/lilypond/} to
-@file{~graham/lilypond/}
 
 
 @node Translating the website
