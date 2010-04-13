@@ -99,7 +99,7 @@ website-texinfo: website-version website-xrefs
 			-D web_version \
 			--output=$(OUT)/"$$l" \
 			$(top-src-dir)/Documentation/"$$l"/web.texi ; \
-		find $(OUT)/$$l/ -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/'$$l'/!!g' | xargs $(MASS_LINK) --prepend-suffix="$$langsuf" hard $(OUT)/$$l/ $(OUT)/website/ ; \
+		ls $(OUT)/$$l/*.html | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/'$$l'/!!g' | xargs $(MASS_LINK) --prepend-suffix="$$langsuf" hard $(OUT)/$$l/ $(OUT)/website/ ; \
 	done
 
 
