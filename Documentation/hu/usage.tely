@@ -13,6 +13,8 @@
 @documentlanguage hu
 @afourpaper
 
+@c translator: Team-hu
+
 @macro manualIntro
 Ez a dokumentáció ismerteti, hogyan kell a LilyPond @version{} verziójához
 tartozó programokat futtatni, valamint tanácsokat ad azok hatékony
