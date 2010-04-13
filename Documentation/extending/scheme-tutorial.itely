@@ -519,6 +519,11 @@ guile> (less-than-ten? 15)
 
 @subheading Return values
 
+Scheme procedures always return a return value, which is the value
+of the last expression executed in the procedure.  The return
+value can be any valid Scheme value, including a complex data
+structure or a procedure.
+
 Sometimes the user would like to have multiple Scheme expressions in
 a procedure.  There are two ways that multiple expressions can be
 combined.  The first is the @code{begin} procedure, which allows
@@ -637,6 +642,17 @@ as follows:
 For the rest of this section, we will assume that the data is entered
 in a music file, so we add @code{#}s at the beginning of each Scheme
 expression.
+
+All of the top-level Scheme expressions in a LilyPond input file can
+be combined into a single Scheme expression by the use of the
+@code{begin} statement:
+
+@example
+#(begin
+  (define foo 0)
+  (define bar 1))
+@end example
+
 
 @node LilyPond variables
 @subsection LilyPond variables
