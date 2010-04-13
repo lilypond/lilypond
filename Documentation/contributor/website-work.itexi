@@ -114,7 +114,7 @@ cd $HOME/lilypond/build-website/
 cp $HOME/lilypond/trusted-scripts/website.make .
 
 make -f website.make WEBSITE_ONLY_BUILD=1 website
-rsync -ra $HOME/src/build-website/out-website/website/ $DEST/website/
+rsync -raO $HOME/lilypond/build-website/out-website/website/ $DEST/website/
 cp $HOME/src/build-website/out-website/pictures $DEST
 cp $HOME/src/build-website/out-website/.htaccess $DEST
 @end verbatim
@@ -149,6 +149,24 @@ cd $BUILD_DIR
 rsync -a $PICS graham@lilypond.org:media/pictures
 rsync -a $EXAMPLES graham@lilypond.org:ly-examples
 @end verbatim
+
+
+@subsubheading Additional information
+
+Some information about the website is stored in
+@file{~graham/lilypond/*.txt}; this information should not be
+shared with people without trusted access to the server.
+
+If you have created any files in @file{~graham/lilypond/} then
+please run:
+
+@example
+chgrp lilypond ~graham/lilypond/ -R
+chmod 775 ~graham/lilypond/ -R
+@end example
+
+You should symlink your own @file{~/lilypond/} to
+@file{~graham/lilypond/}
 
 
 @node Translating the website
