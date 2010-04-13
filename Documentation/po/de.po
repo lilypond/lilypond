@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 19:17+0200\n"
-"PO-Revision-Date: 2010-01-18 23:28+0200\n"
+"POT-Creation-Date: 2010-04-13 12:25+0200\n"
+"PO-Revision-Date: 2010-04-13 12:42+0200\n"
 "Last-Translator: Till Paala <till.rettig@gmx.de>\n"
 "Language-Team: German <de>\n"
 "MIME-Version: 1.0\n"
@@ -52,82 +52,82 @@ msgstr "stabiler Zweig"
 msgid "development-branch"
 msgstr "Entwicklungszweig"
 
-#: translations-status.py:59
+#: translations-status.py:72
 msgid "Section titles"
 msgstr "Überschriften"
 
-#: translations-status.py:60
+#: translations-status.py:73
 #, python-format
-msgid " <p><i>Last updated %s</i></p>\n"
-msgstr "·<p><i>Zuletzt aktualisiert am·%s</i></p>\n"
+msgid "Last updated %s"
+msgstr "Zuletzt aktualisiert am %s"
 
-#: translations-status.py:61
+#: translations-status.py:74
 msgid "Translators"
 msgstr "Übersetzer"
 
-#: translations-status.py:61
+#: translations-status.py:74
 msgid "Translation checkers"
 msgstr "Übersetzungsüberprüfer"
 
-#: translations-status.py:62
+#: translations-status.py:75
 msgid "Translated"
 msgstr "Übersetzt"
 
-#: translations-status.py:62
+#: translations-status.py:75
 msgid "Up to date"
 msgstr "Aktuell"
 
-#: translations-status.py:63
+#: translations-status.py:76
 msgid "Other info"
 msgstr "Mehr Information"
 
-#: translations-status.py:65
+#: translations-status.py:78
 msgid "no"
 msgstr "nein"
 
-#: translations-status.py:66
+#: translations-status.py:79
 msgid "not translated"
 msgstr "nicht übersetzt"
 
-#: translations-status.py:68
+#: translations-status.py:81
 #, python-format
 msgid "partially (%(p)d %%)"
 msgstr "teilweise (%(p)d %%)"
 
-#: translations-status.py:70
+#: translations-status.py:83
 #, python-format
 msgid "partially translated (%(p)d %%)"
 msgstr "teilweise übersetzt (%(p)d·%%)"
 
-#: translations-status.py:71 translations-status.py:73
+#: translations-status.py:84 translations-status.py:86
 msgid "yes"
 msgstr "ja"
 
-#: translations-status.py:72
+#: translations-status.py:85
 msgid "translated"
 msgstr "übersetzt"
 
-#: translations-status.py:73 translations-status.py:74
+#: translations-status.py:86 translations-status.py:87
 msgid "up to date"
 msgstr "aktuell"
 
-#: translations-status.py:75
+#: translations-status.py:88
 msgid "partially"
 msgstr "teilweise"
 
-#: translations-status.py:76
+#: translations-status.py:89
 msgid "partially up to date"
 msgstr "teilweise aktuell"
 
-#: translations-status.py:77
+#: translations-status.py:90
 msgid "N/A"
 msgstr "K/A"
 
-#: translations-status.py:78
+#: translations-status.py:91
 msgid "pre-GDP"
 msgstr "vor-GDP"
 
-#: translations-status.py:79
+#: translations-status.py:92
 msgid "post-GDP"
 msgstr "nach-GDP"
 
@@ -335,28 +335,28 @@ msgstr "GNU Free Documentation License"
 msgid "ADDENDUM: How to use this License for your documents"
 msgstr "Anhang: Wie kann die Lizenz für eigene Dokumente verwendet werden"
 
-#. Documentation/extending/scheme-tutorial.itely:720 (variable)
+#. Documentation/extending/scheme-tutorial.itely:734 (variable)
 msgid "traLaLa"
 msgstr "traLaLa"
 
-#. Documentation/extending/scheme-tutorial.itely:722 (comment)
+#. Documentation/extending/scheme-tutorial.itely:736 (comment)
 msgid "dummy action to deal with parser lookahead"
 msgstr "Belanglose Aktion um Vorausschau des Parsers zu umgehen"
 
-#. Documentation/extending/scheme-tutorial.itely:1303 (variable)
-#. Documentation/extending/programming-interface.itely:123 (variable)
+#. Documentation/extending/scheme-tutorial.itely:1354 (variable)
+#. Documentation/extending/programming-interface.itely:127 (variable)
 #. Documentation/learning/fundamental.itely:3103 (variable)
 #. Documentation/learning/fundamental.itely:3153 (variable)
-#. Documentation/notation/changing-defaults.itely:3673 (variable)
+#. Documentation/notation/changing-defaults.itely:3677 (variable)
 msgid "padText"
 msgstr "AbstandText"
 
-#. Documentation/extending/scheme-tutorial.itely:1326 (variable)
-#. Documentation/notation/changing-defaults.itely:3708 (variable)
+#. Documentation/extending/scheme-tutorial.itely:1377 (variable)
+#. Documentation/notation/changing-defaults.itely:3712 (variable)
 msgid "tempoPadded"
 msgstr "tempoVerschoben"
 
-#. Documentation/extending/scheme-tutorial.itely:1345 (variable)
+#. Documentation/extending/scheme-tutorial.itely:1396 (variable)
 msgid "pattern"
 msgstr "Muster"
 
@@ -537,26 +537,26 @@ msgstr "Verdoppelung einer Note mit Bindebögen (Beispiel)"
 msgid "Adding articulation to notes (example)"
 msgstr "Artikulationszeichen zu Noten hinzufügen (Beispiel)"
 
-#. Documentation/extending/programming-interface.itely:141 (variable)
-#. Documentation/notation/changing-defaults.itely:3691 (variable)
+#. Documentation/extending/programming-interface.itely:145 (variable)
+#. Documentation/notation/changing-defaults.itely:3695 (variable)
 msgid "custosNote"
 msgstr "custosNote"
 
-#. Documentation/extending/programming-interface.itely:188 (variable)
+#. Documentation/extending/programming-interface.itely:192 (variable)
 msgid "manualBeam"
 msgstr "ManuellerBalken"
 
-#. Documentation/extending/programming-interface.itely:208 (variable)
+#. Documentation/extending/programming-interface.itely:212 (variable)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:192 (variable)
 msgid "AltOn"
 msgstr "AltOn"
 
-#. Documentation/extending/programming-interface.itely:213 (variable)
+#. Documentation/extending/programming-interface.itely:217 (variable)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:198 (variable)
 msgid "AltOff"
 msgstr "AltOff"
 
-#. Documentation/extending/programming-interface.itely:226 (variable)
+#. Documentation/extending/programming-interface.itely:230 (variable)
 msgid "withAlt"
 msgstr "with Alt"
 

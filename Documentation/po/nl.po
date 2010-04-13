@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 19:17+0200\n"
-"PO-Revision-Date: 2010-04-10 19:46+0200\n"
+"POT-Creation-Date: 2010-04-13 12:25+0200\n"
+"PO-Revision-Date: 2010-04-13 12:28+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -49,83 +49,83 @@ msgstr "stabiele tak"
 msgid "development-branch"
 msgstr "ontwikkelingstak"
 
-#: translations-status.py:59
+#: translations-status.py:72
 msgid "Section titles"
 msgstr "Paragraaftitels"
 
-#: translations-status.py:60
+#: translations-status.py:73
 #, python-format
-msgid " <p><i>Last updated %s</i></p>\n"
-msgstr " <p><i>Meest recente update %s</i></p>\n"
+msgid "Last updated %s"
+msgstr "Meest recente update %s"
 
-#: translations-status.py:61
+#: translations-status.py:74
 msgid "Translators"
 msgstr "Vertalers"
 
-#: translations-status.py:61
+#: translations-status.py:74
 msgid "Translation checkers"
 msgstr "Revisie vertaling"
 
-#: translations-status.py:62
+#: translations-status.py:75
 msgid "Translated"
 msgstr "Vertaald"
 
-#: translations-status.py:62
+#: translations-status.py:75
 msgid "Up to date"
 msgstr "Actueel"
 
-#: translations-status.py:63
+#: translations-status.py:76
 msgid "Other info"
 msgstr "Andere informatie"
 
-#: translations-status.py:65
+#: translations-status.py:78
 msgid "no"
 msgstr "nee"
 
-#: translations-status.py:66
+#: translations-status.py:79
 msgid "not translated"
 msgstr "niet vertaald"
 
-#: translations-status.py:68
+#: translations-status.py:81
 #, python-format
 msgid "partially (%(p)d %%)"
 msgstr "gedeeltelijk (%(p)d %%)"
 
-#: translations-status.py:70
+#: translations-status.py:83
 #, python-format
 msgid "partially translated (%(p)d %%)"
 msgstr "gedeeltelijk vertaald (%(p)d %%)"
 
-#: translations-status.py:71 translations-status.py:73
+#: translations-status.py:84 translations-status.py:86
 msgid "yes"
 msgstr "ja"
 
-#: translations-status.py:72
+#: translations-status.py:85
 msgid "translated"
 msgstr "vertaald"
 
-#: translations-status.py:73 translations-status.py:74
+#: translations-status.py:86 translations-status.py:87
 msgid "up to date"
 msgstr "actueel"
 
-#: translations-status.py:75
+#: translations-status.py:88
 msgid "partially"
 msgstr "gedeeltelijk"
 
-#: translations-status.py:76
+#: translations-status.py:89
 msgid "partially up to date"
 msgstr "gedeeltelijk actueel"
 
-#: translations-status.py:77
+#: translations-status.py:90
 msgid "N/A"
 msgstr "nvt"
 
 # voor-GDP
-#: translations-status.py:78
+#: translations-status.py:91
 msgid "pre-GDP"
 msgstr "voor-GDP"
 
-#: translations-status.py:79
+#: translations-status.py:92
 msgid "post-GDP"
 msgstr "na-GDP"
 
@@ -155,6 +155,8 @@ msgstr ""
 #. @appendix in Documentation/learning.tely
 #. @node in Documentation/notation.tely
 #. @appendix in Documentation/notation.tely
+#. @node in Documentation/usage.tely
+#. @appendix in Documentation/usage.tely
 msgid "LilyPond index"
 msgstr ""
 
@@ -314,28 +316,28 @@ msgstr ""
 msgid "ADDENDUM: How to use this License for your documents"
 msgstr ""
 
-#. Documentation/extending/scheme-tutorial.itely:720 (variable)
+#. Documentation/extending/scheme-tutorial.itely:734 (variable)
 msgid "traLaLa"
 msgstr ""
 
-#. Documentation/extending/scheme-tutorial.itely:722 (comment)
+#. Documentation/extending/scheme-tutorial.itely:736 (comment)
 msgid "dummy action to deal with parser lookahead"
 msgstr ""
 
-#. Documentation/extending/scheme-tutorial.itely:1303 (variable)
-#. Documentation/extending/programming-interface.itely:123 (variable)
+#. Documentation/extending/scheme-tutorial.itely:1354 (variable)
+#. Documentation/extending/programming-interface.itely:127 (variable)
 #. Documentation/learning/fundamental.itely:3103 (variable)
 #. Documentation/learning/fundamental.itely:3153 (variable)
-#. Documentation/notation/changing-defaults.itely:3673 (variable)
+#. Documentation/notation/changing-defaults.itely:3677 (variable)
 msgid "padText"
 msgstr ""
 
-#. Documentation/extending/scheme-tutorial.itely:1326 (variable)
-#. Documentation/notation/changing-defaults.itely:3708 (variable)
+#. Documentation/extending/scheme-tutorial.itely:1377 (variable)
+#. Documentation/notation/changing-defaults.itely:3712 (variable)
 msgid "tempoPadded"
 msgstr ""
 
-#. Documentation/extending/scheme-tutorial.itely:1345 (variable)
+#. Documentation/extending/scheme-tutorial.itely:1396 (variable)
 msgid "pattern"
 msgstr ""
 
@@ -496,26 +498,26 @@ msgstr ""
 msgid "Adding articulation to notes (example)"
 msgstr ""
 
-#. Documentation/extending/programming-interface.itely:141 (variable)
-#. Documentation/notation/changing-defaults.itely:3691 (variable)
+#. Documentation/extending/programming-interface.itely:145 (variable)
+#. Documentation/notation/changing-defaults.itely:3695 (variable)
 msgid "custosNote"
 msgstr ""
 
-#. Documentation/extending/programming-interface.itely:188 (variable)
+#. Documentation/extending/programming-interface.itely:192 (variable)
 msgid "manualBeam"
 msgstr ""
 
-#. Documentation/extending/programming-interface.itely:208 (variable)
+#. Documentation/extending/programming-interface.itely:212 (variable)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:192 (variable)
 msgid "AltOn"
 msgstr ""
 
-#. Documentation/extending/programming-interface.itely:213 (variable)
+#. Documentation/extending/programming-interface.itely:217 (variable)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:198 (variable)
 msgid "AltOff"
 msgstr ""
 
-#. Documentation/extending/programming-interface.itely:226 (variable)
+#. Documentation/extending/programming-interface.itely:230 (variable)
 msgid "withAlt"
 msgstr ""
 
@@ -7536,11 +7538,8 @@ msgid "Drawback: One needs to set DynamicText #'X-offset!"
 msgstr ""
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:108 (comment)
-#, fuzzy
 msgid "Drawback: Aligned at the right edge of the additional text,"
 msgstr ""
-"Nachteil: An der rechten Ecke des zusätzlichen Textes ausgerichtet, nichtan "
-"der Mitte von pp"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:109 (comment)
 msgid "not at the center of pp"
@@ -8053,16 +8052,12 @@ msgid "the following trick moves the rest to the center line"
 msgstr ""
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:68 (comment)
-#, fuzzy
 msgid "MMRs in odd-numbered voices are under the top line"
 msgstr ""
-"Ganztaktpausen in Stimmen mit ungerader Zahl sind unter der obersten Linie"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:70 (comment)
-#, fuzzy
 msgid "MMRs in even-numbered voices are under the bottom line"
 msgstr ""
-"Ganztaktpausen in Stimmen mit ungerader Zahl sind unter der obersten Linie"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:72 (comment)
 msgid "They remain separated even in empty measures"
@@ -8497,15 +8492,11 @@ msgid ""
 "Shows one horizontal line. The vertical line (simulating a bar-line) is "
 "simulated with a gridline"
 msgstr ""
-"Zeigt eine horizontale Zeile. Vertikale Linie (wie eine Taktlinie) wirdmit "
-"einer Gitterlinie simuliert"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:84 (comment)
-#, fuzzy
 msgid ""
 "disable the following line to see the the noteheads while writing the song"
 msgstr ""
-"nächste Zeile auskommentieren, um Noten während des Schreibens zu sehen"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:88 (comment)
 msgid "The beam between 8th-notes is used to draw the push-line"
@@ -8516,12 +8507,9 @@ msgid "How to fast write the push-lines:"
 msgstr ""
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:90 (comment)
-#, fuzzy
 msgid ""
 "1. write repeatedly 'c c c c c c c c |' for the whole length of the song"
 msgstr ""
-"1. wiederholt 'c·c·c·c·c·c·c·c·|' über die gesamte Länge des Stückes "
-"schreiben"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:91 (comment)
 msgid "2. uncomment the line \\NoNoteHead"
@@ -8594,21 +8582,16 @@ msgstr ""
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:116 (comment)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:135 (comment)
-#, fuzzy
 msgid ""
 "2. Separate piano melody into pull- and push-parts according to the "
 "staffTabLine you've already made"
 msgstr ""
-"2. Klaviermelodie in Zug- und Schubteile teilen, wie schon mitsystemTabLinie "
-"gemacht"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:117 (comment)
 msgid ""
 "3. For each line: Double the line. Remark the 1st one (Keeps unchanged as "
 "reference) and then change the second line using the transformation paper"
 msgstr ""
-"3. Für jede Zeile: verdoppele die Zeile. die erste bleibt als Referenz, die "
-"zweite wirdmit dem Transformationspapier verändert"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:118 (comment)
 msgid "or the macros 'conv2diaton push.bsh' and 'conv2diaton pull.bsh'"
@@ -8661,13 +8644,10 @@ msgid "1. Place a copy of the piano melody above"
 msgstr ""
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:136 (comment)
-#, fuzzy
 msgid ""
 "3. For each line: Double the line. Remark the 1st one (Keeps unchanged as "
 "reference) and then"
 msgstr ""
-"3. Für jede Zeile: Zeile verdoppeln. Erste bleibt unverändert (Referenz), "
-"dann"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:137 (comment)
 msgid "change the second line using the transformation paper"
@@ -8678,11 +8658,8 @@ msgid "-"
 msgstr ""
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:149 (comment)
-#, fuzzy
 msgid "The vertical line (simulating a bar-line) in"
 msgstr ""
-"Die·vertikale·Linie·(wie·eine·Taktlinie) im "
-"systemBassRhythmus·istvon·einer·Gitterlinie·simuliert "
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:150 (comment)
 msgid "the staffBassRhytm is a gridline"
@@ -8750,10 +8727,8 @@ msgstr ""
 "istvon einer Gitterlinie simuliert"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:213 (comment)
-#, fuzzy
 msgid "Search for 'grid' in this page to find all related functions"
 msgstr ""
-"Suche 'grid' (Gitter) in dieser Seite um alle wichtigen Funktionen zu finden"
 
 #. Documentation/snippets/showing-the-same-articulation-above-and-below-a-note-or-chord.ly:28 (comment)
 msgid "The same as \\flageolet, just a little smaller"
@@ -9036,17 +9011,12 @@ msgid "Based on the box-stencil command defined in scm/stencil.scm"
 msgstr ""
 
 #. Documentation/snippets/three-sided-box.ly:19 (comment)
-#, fuzzy
 msgid "Note that \\\";;\\\" is used to comment a line in Scheme"
 msgstr ""
-"Achtung: \\\";\\\" wird benutzt, um eine Zeile in Scheme auszukommentieren"
 
 #. Documentation/snippets/three-sided-box.ly:33 (comment)
-#, fuzzy
 msgid "The corresponding markup command, based on the \\box command defined"
 msgstr ""
-"Der entsprechende Beschriftungbefehl, basierend auf dem \\box-Befehl "
-"definiert"
 
 #. Documentation/snippets/three-sided-box.ly:34 (comment)
 msgid "in scm/define-markup-commands.scm"
@@ -9104,10 +9074,8 @@ msgid "between the lyrics."
 msgstr ""
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:272 (comment)
-#, fuzzy
 msgid "the next three instructions keep the lyrics between the bar lines"
 msgstr ""
-"die nächsten drei Anweisungen, um den Text zwischen den Taktstriche zu halten"
 
 #. Documentation/snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly:163 (variable)
 msgid "naturalizeMusic"
@@ -9206,9 +9174,8 @@ msgid "sulp"
 msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:67 (variable)
-#, fuzzy
 msgid "norm"
-msgstr "nee"
+msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:69 (variable)
 msgid "quatre"
@@ -9504,4 +9471,3 @@ msgstr "Voetnoten"
 
 msgid "Table of Contents"
 msgstr "Inhoudsopgave"
-
