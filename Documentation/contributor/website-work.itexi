@@ -62,7 +62,7 @@ Get latest source code:
 @verbatim
 ### update-git.sh
 #!/bin/sh
-cd $HOME/src/lilypond
+cd $HOME/lilypond/lilypond-git
 git fetch origin
 git merge origin/master
 @end verbatim
@@ -72,7 +72,7 @@ Check for any updates to trusted scripts / files:
 @verbatim
 ### check-git.sh
 #!/bin/sh
-GIT=$HOME/src/lilypond
+GIT=$HOME/lilypond/lilypond-git
 DEST=$HOME/lilypond/trusted-scripts
 diff -u $DEST/website.make $GIT/make/website.make
 diff -u $DEST/lilypond-texi2html.init $GIT/Documentation/lilypond-texi2html.init
@@ -90,7 +90,7 @@ If the changes look ok, make them trusted:
 @verbatim
 ### copy-from-git.sh
 #!/bin/sh
-GIT=$HOME/src/lilypond
+GIT=$HOME/lilypond/lilypond-git
 DEST=$HOME/lilypond/trusted-scripts
 cp $GIT/make/website.make $DEST/website.make
 cp $GIT/Documentation/lilypond-texi2html.init $DEST/lilypond-texi2html.init
@@ -109,7 +109,8 @@ Build the website:
 ### make-website.sh
 #!/bin/sh
 DEST=$HOME/web/
-cd $HOME/src/build-website
+mkdir -p $HOME/lilypond/build-website/
+cd $HOME/lilypond/build-website/
 cp $HOME/lilypond/trusted-scripts/website.make .
 
 make -f website.make WEBSITE_ONLY_BUILD=1 website

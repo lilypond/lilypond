@@ -6,7 +6,7 @@
 ################################################################
 ifeq ($(WEBSITE_ONLY_BUILD),1)
   ### for lilypond.org
-  TOP_SRC_DIR=$(HOME)/src/lilypond
+  TOP_SRC_DIR=$(HOME)/lilypond/lilypond-git
   TRUSTED_DIR=$(HOME)/lilypond/trusted-scripts
   top-src-dir=$(TOP_SRC_DIR)
   depth=.
