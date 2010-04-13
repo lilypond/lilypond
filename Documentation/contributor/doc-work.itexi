@@ -539,7 +539,13 @@ the brackets (eg.@tie{}@w{@samp{@@ref@{Syntax survey@}}}).
 
 @item
 @code{@@uref@{@var{URL}[, @var{link text}]@}} --- link to an
-external url.
+external url.  Use within an @code{@@example ... @@end example}.
+
+@example
+@@example
+@@uref@{URL [, link text ]@}
+@@end example
+@end example
 @end itemize
 
 
