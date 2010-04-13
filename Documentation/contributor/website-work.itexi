@@ -109,14 +109,15 @@ Build the website:
 ### make-website.sh
 #!/bin/sh
 DEST=$HOME/web/
-mkdir -p $HOME/lilypond/build-website/
-cd $HOME/lilypond/build-website/
+BUILD=$HOME/lilypond/build-website
+mkdir -p $BUILD
+cd $BUILD
 cp $HOME/lilypond/trusted-scripts/website.make .
 
 make -f website.make WEBSITE_ONLY_BUILD=1 website
-rsync -raO $HOME/lilypond/build-website/out-website/website/ $DEST/website/
-cp $HOME/src/build-website/out-website/pictures $DEST
-cp $HOME/src/build-website/out-website/.htaccess $DEST
+rsync -raO $BUILD/out-website/website/ $DEST/website/
+cp $BUILD/out-website/pictures $DEST
+cp $BUILD/out-website/.htaccess $DEST
 @end verbatim
 
 Cronjob to automate the trusted portions:
