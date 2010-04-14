@@ -37,10 +37,6 @@
 
 using namespace std;
 
-#if HAVE_BOOST_LAMBDA_LAMBDA_HPP
-#include <boost/lambda/lambda.hpp>
-#endif
-
 template<typename T>
 int default_compare (T const &a, T const &b)
 {
@@ -238,18 +234,6 @@ find (vector<T> const &v, T const &key)
   return find (v.begin (), v.end (), key);
 }
 
-#if HAVE_BOOST_LAMBDA_LAMBDA_HPP
-#include <boost/lambda/lambda.hpp>
-using namespace boost::lambda;
-template<typename T>
-void
-junk_pointers (vector<T> &v)
-{
-  for_each (v.begin (), v.end (), (delete _1, _1 = 0));
-  v.clear ();
-}
-#else
-
 template<typename T> struct del : public unary_function<T, void>
 {
   void operator() (T x)
@@ -267,7 +251,6 @@ junk_pointers (vector<T> &v)
   for_each (v.begin (), v.end (), del<T> ());
   v.clear ();
 }
-#endif /* HAVE_BOOST_LAMBDA */
 
 vector<string> string_split (string str, char c);
 string string_join (vector<string> const &strs, string infix);
