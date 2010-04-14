@@ -583,6 +583,25 @@ only break at spaces, not at hyphens or underscores.  If the block
 contains spaces, use @code{@@w@{@@code@{@dots{}@}@}} or
 @code{@@w@{@@samp@{@dots{}@}@}} to prevent unexpected line breaks.
 
+The Texinfo settings @code{txicodequoteundirected} and
+@code{txicodequotebacktick} are both set in the manuals, so
+backticks (@code{`}) and apostrophes (@code{'}) placed within
+blocks of @code{@@code}, @code{@@example}, or @code{@@verbatim}
+are not converted to left- and right-angled quotes
+(@code{@quoteleft{} @quoteright{}}) as they normally are within
+the text, so the apostrophes in
+@q{@w{@code{@@w@{@@code@{\relative c''@}@}}}} will display
+correctly.  However, these settings do not affect the PDF output
+for anything within a @code{@@samp} block (even if it includes a
+nested @code{@@code} block), so entering
+@q{@code{@@w@{@@samp@{\relative c''@}@}}} wrongly produces
+@q{@w{@code{\relative c@quoteright{}@quoteright{}}}} in PDF.
+Consequently, if you want to use a @code{@@samp@{@dots{}@}} block
+which contains backticks or apostrophes, you should instead use
+@q{@code{@@q@{@@code@{@dots{}@}@}}} (or
+@q{@code{@@q@{@@w@{@@code@{@dots{}@}@}@}}} if the block also
+contains spaces).
+
 @item
 @code{@@command@{@dots{}@}} --- Use for command-line commands (eg.
 @samp{@@command@{lilypond-book@}}).
