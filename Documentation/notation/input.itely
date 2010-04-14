@@ -1435,7 +1435,43 @@ lilypond}.
 @node Replacing the notation font
 @subsection Replacing the notation font
 
-FIXME stub.
+Gonville is an alternative to the Feta font used in LilyPond and can
+be downloaded from:
+@example
+@uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
+@end example
+
+Here are a few sample bars of music set in Gonville:
+
+@sourceimage{Gonville_after,,,}
+
+Here are a few sample bars of music set in LilyPond's Feta font:
+
+@sourceimage{Gonville_before,,,}
+
+@subsubheading Installation Instructions for MacOS
+
+Download and extract the zip file.  Using @code{Terminal.app}, move
+the @code{lilyfonts} directory to
+@file{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current}.
+Move the existing @code{fonts} directory to @code{fonts_orig} and
+move the @code{lilyfonts} directory to @code{fonts}.  Simply move
+@code{fonts_orig} back to @code{fonts} to revert back to Feta.
+
+@subsubheading Installation Instructions for Windows
+
+Download and extract the zip file.  Using Explorer, copy the @code{lilyfonts}
+directory to
+@file{@var{INSTALLDIR}/LilyPond/usr/share/lilypond/current}. Rename
+the existing @code{fonts} directory to @code{fonts_orig} and
+rename the @code{lilyfonts} directory to @code{fonts}.  Simply rename
+@code{fonts_orig} back to @code{fonts} to revert back to Feta.
+
+@knownissues
+
+Gonville cannot be used to typeset @q{Ancient Music} notation.  Please
+refer to the author's website for more information on this and other
+specifics including licensing of Gonville.
 
 
 @node MIDI output
