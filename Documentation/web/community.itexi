@@ -170,7 +170,11 @@ Dutch forum}
 @subsubheading LilyPond Report
 
 The easiest way to keep touch is by reading our community
-newsletter, the @uref{http://news.lilynet.net/, LilyPond Report}.
+newsletter, the LilyPond Report:
+
+@example
+@uref{http://news.lilynet.net}
+@end example
 
 @subsubheading Releases mailing list: @code{info-lilypond@@gnu.org}
 
