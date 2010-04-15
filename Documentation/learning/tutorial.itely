@@ -20,7 +20,7 @@ This chapter gives a basic introduction to working with LilyPond.
 @menu
 * Compiling a file::
 * How to write input files::
-* What if it doesn't work::
+* Dealing with errors::
 * How to read the manuals::
 @end menu
 
@@ -568,8 +568,8 @@ comments:
 @end itemize
 
 
-@node What if it doesn't work
-@section What if it doesn't work
+@node Dealing with errors
+@section Dealing with errors
 
 @cindex troubleshooting
 
