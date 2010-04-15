@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 0767b19c9139922e6d4f7fc569e1f5ffa016b7ac
+Translation of GIT committish: e90fa9a8a1d71251a2c047e69798be05938a1241
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3669,7 +3669,12 @@ donde
 
 Los tipos de variable comunes se describen en @ref{Tipos de argumento
 comunes}.  Hay una descripción más completa de los tipos de variable
-en @rextend{Music function syntax}.
+en @rextend{Music function syntax}.  La lista completa de los tipos de
+variable definidos está en el elemento @var{type-p-name-alist} de
+@file{scm/lily.scm}.
+
+@c TODO -- find an automatic way of documenting the type-p-name-alist
+
 
 Los argumentos @code{parser} y @code{location} son necesarios, y se
 utilizan en algunas situaciones avanzadas como se encuentra descrito

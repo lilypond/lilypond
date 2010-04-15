@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2b1c53c017a17890a0f5bc72a4d8880eeb5f4991
+    Translation of GIT committish: ea19bcc59cf8bab03632a84a23646b9c10853618
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -69,8 +69,8 @@ complejidad.  Todos los siguientes ejemplos son expresiones musicales:
 
 @lilypond[verbatim,quote]
 {
-  { c'4 c' c' c'}
-  { d'4 d' d' d'}
+  { c'4 c' c' c' }
+  { d'4 d' d' d' }
 }
 @end lilypond
 
@@ -701,7 +701,7 @@ instrucción de marcado @code{\page-ref}.
     {
       c'1
       \pageBreak \mark A \label #'markA
-      c'
+      c'1
     }
   }
 
@@ -753,16 +753,16 @@ la jerarquía del código, o dentro de una expresión musical.
 \tocItem \markup "Primera partitura"
 \score {
   {
-    c'  % ...
+    c'4  % ...
     \tocItem \markup "Un punto concreto dentro de la primera partitura"
-    d'  % ...
+    d'4  % ...
   }
 }
 
 \tocItem \markup "Segunda partitura"
 \score {
   {
-    e' % ...
+    e'4 % ...
   }
 }
 @end verbatim
@@ -1025,7 +1025,7 @@ puede combinar sobre un solo pentagrama la música de dos variables,
 véase @ref{Combinación automática de las partes}.  He aquí un ejemplo:
 
 @lilypond[verbatim,quote]
-sopranoMusic = \relative c'' { a4 b c b8( a)}
+sopranoMusic = \relative c'' { a4 b c b8( a) }
 altoMusic = \relative g' { e4 e e f }
 tenorMusic = \relative c' { c4 b e d8( c) }
 bassMusic = \relative c' { a4 gis a d, }
@@ -1121,8 +1121,8 @@ expandidos explícitamente:
 @lilypond[verbatim,quote]
 music = \relative g' {
   g8. c32 d
-  \tag #'trills {d8.\trill }
-  \tag #'expand {\repeat unfold 3 {e32 d} }
+  \tag #'trills { d8.\trill }
+  \tag #'expand { \repeat unfold 3 { e32 d } }
   c32 d
  }
 
@@ -1140,8 +1140,8 @@ De forma alternativa, a veces es más fácil excluir secciones de música:
 @lilypond[verbatim,quote]
 music = \relative g' {
   g8. c32 d
-  \tag #'trills {d8.\trill }
-  \tag #'expand {\repeat unfold 3 {e32 d} }
+  \tag #'trills { d8.\trill }
+  \tag #'expand {\repeat unfold 3 { e32 d } }
   c32 d
  }
 
@@ -1176,8 +1176,8 @@ de @code{\tag}:
 
 @lilypond[quote,verbatim]
 music = \relative c'' {
-  \tag #'a \tag #'both { a a a a }
-  \tag #'b \tag #'both { b b b b }
+  \tag #'a \tag #'both { a4 a a a }
+  \tag #'b \tag #'both { b4 b b b }
 }
 <<
 \keepWithTag #'a \music
@@ -1192,10 +1192,10 @@ distintos:
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-\tag #'A { a a a a }
-\tag #'B { b b b b }
-\tag #'C { c c c c }
-\tag #'D { d d d d }
+\tag #'A { a4 a a a }
+\tag #'B { b4 b b b }
+\tag #'C { c4 c c c }
+\tag #'D { d4 d d d }
 }
 {
 \removeWithTag #'B
@@ -1343,7 +1343,7 @@ partitura:
     c1 \mark \markup { \char ##x03EE }
     c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
   }
-  \addlyrics { O \markup { \concat{ Ph \char ##x0153 be! } } }
+  \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
 \markup { "Copyright 2008--2010" \char ##x00A9 }
 @end lilypond
@@ -1365,27 +1365,26 @@ Para escribir el símbolo de copyright en la nota de créditos, utilice:
 
 @funindex \displayLilyMusic
 La impresión textual de una expresión musical en notación de LilyPond
-puede hacerse usando la función musical @code{\displayLilyMusic}.  Por
-ejemplo,
+puede hacerse con la función musical @code{\displayLilyMusic} pero solamente
+mediante la línea de órdenes.  Por ejemplo,
 
 @example
 @{
-  \displayLilyMusic \transpose c a, @{ c e g a bes @}
+  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
 @}
 @end example
 
 imprimirá
 
 @example
-@{ a, cis e fis g @}
+@{ a,4 cis e fis g @}
 @end example
 
 De forma predeterminada, LilyPond imprime estos mensajes en la consola
-junto al resto de los mensajes.  Para discernir entre estos mensajes y
+junto al resto de los mensajes de la compilación de LilyPond.
+Para discernir entre estos mensajes y
 guardar el resultado de @code{\display@{MATERIAL@}}, redireccione la
 salida hacia un archivo.
-
-@c TODO What happens under Windows?
 
 @example
 lilypond archivo.ly >resultado.txt
@@ -1485,9 +1484,10 @@ y los cambios de instrumento.  Está usted advertido.
 \relative c'' {
   c8 d
   \set Score.skipTypesetting = ##t
-  e e e e e e e e
+  e8 e e e e e e e
   \set Score.skipTypesetting = ##f
-  c d b bes a g c2 }
+  c8 d b bes a g c2
+}
 @end lilypond
 
 En música polifónica, @code{Score.skipTypesetting} afecta a todas las
@@ -1659,14 +1659,14 @@ resulting in silent passages of music.  The workaround is to explicitly
 terminate the (de)crescendo.  For example,
 
 @example
-@{ a\< b c d\f @}
+@{ a4\< b c d\f @}
 @end example
 
 @noindent
 will not work properly but
 
 @example
-@{ a\< b c d\!\f @}
+@{ a4\< b c d\!\f @}
 @end example
 
 @noindent
@@ -1822,12 +1822,12 @@ función cambia todas las repeticiones a repeticiones desplegadas.
 
 @lilypond[quote,verbatim]
 \unfoldRepeats {
-  \repeat tremolo 8 {c'32 e' }
+  \repeat tremolo 8 { c'32 e' }
   \repeat percent 2 { c''8 d'' }
-  \repeat volta 2 {c'4 d' e' f'}
+  \repeat volta 2 { c'4 d' e' f' }
   \alternative {
     { g' a' a' g' }
-    {f' e' d' c' }
+    { f' e' d' c' }
   }
 }
 \bar "|."
@@ -1896,9 +1896,9 @@ predeterminada.
     \set Staff.midiInstrument = #"cello"
     \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
     \new Voice {
-       \relative c'' {
-         a\pp b c-\rfz
-       }
+      \relative c'' {
+        a4\pp b c-\rfz
+      }
     }
   }
   \layout {}
@@ -1938,8 +1938,8 @@ general MIDI está limitado al intervalo desde 0.2 hasta 0.5.
       \time 2/2
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
-        r2 g\mp g fis ~
-        fis4 g8 fis e2 ~
+        r2 g\mp g fis~
+        fis4 g8 fis e2~
         e4 d8 cis d2
       }
     }
@@ -1953,7 +1953,7 @@ general MIDI está limitado al intervalo desde 0.2 hasta 0.5.
       }
     }
   >>
-  \layout { }
+  \layout {}
   \midi {
     \context {
       \Score
@@ -1987,8 +1987,8 @@ cada instrumento para que esto funcione correctamente.
       \set Staff.midiMinimumVolume = #0.7
       \set Staff.midiMaximumVolume = #0.9
       \new Voice \relative c''' {
-        r2 g\mp g fis ~
-        fis4 g8 fis e2 ~
+        r2 g\mp g fis~
+        fis4 g8 fis e2~
         e4 d8 cis d2
       }
     }
@@ -2004,7 +2004,7 @@ cada instrumento para que esto funcione correctamente.
       }
     }
   >>
-  \layout { }
+  \layout {}
   \midi {
     \context {
       \Score
@@ -2014,7 +2014,7 @@ cada instrumento para que esto funcione correctamente.
 }
 @end lilypond
 
-@unnumberedsubsubsec Balance entre instrumentos (i)
+@unnumberedsubsubsec Balance entre instrumentos (ii)
 
 Si las propiedades de volumen MIDI máximo y mínimo no están
 establecidas, de forma predeterminada LilyPond aplica un pequeño grado
@@ -2060,8 +2060,8 @@ del clarinete a los mismos valores que el ejemplo anterior.
       \set Score.instrumentEqualizer = #my-instrument-equalizer
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
-        r2 g\mp g fis ~
-        fis4 g8 fis e2 ~
+        r2 g\mp g fis~
+        fis4 g8 fis e2~
         e4 d8 cis d2
       }
     }
@@ -2102,12 +2102,12 @@ copied out and compiled to test microtones in your MIDI player.
 @lilypond[verbatim,quote]
 \score {
   \relative c' {
-    c cih cis cisih
-    d dih ees eeh
-    e eih f fih
-    fis fisih g gih
-    gis gisih a aih
-    bes beh b bih
+    c4 cih cis cisih
+    d4 dih ees eeh
+    e4 eih f fih
+    fis4 fisih g gih
+    gis4 gisih a aih
+    bes4 beh b bih
   }
   \layout {}
   \midi {}
