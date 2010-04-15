@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 44a3532f78aa2d5f5407ba758db6bd417bc8fc06
+    Translation of GIT committish: 56691afedddbbbbc6cf8abbc53c9f1753e3922e6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -260,6 +260,35 @@ es 0.
      \set TabStaff.minimumFret = #5
      c,16 d e f g4
    }
+>>
+@end lilypond
+
+@funindex \tabChordRepetition
+
+Las construcciones de acorde se pueden repetir mediante el símbolo de
+repetición de acordes @code{q}.  Para utilizar esta posibilidad en
+combinación con la tablatura, se proporciona
+@code{\tabChordRepetition}, que preserva la información de cuerdas
+dada explícitamente dentro de las construcciones de acorde, de forma
+que los acordes repetidos den lugar a representaciones de tablatura
+idénticas.
+
+@lilypond[quote,verbatim]
+\tabChordRepetition
+
+guitar = \relative c' {
+  r8 < gis\4 cis\3 b\2 > ~ q4 q8 ~ q q4
+}
+
+\new StaffGroup <<
+  \new Staff {
+    \clef "treble_8"
+    \override Voice.StringNumber #'transparent = ##t
+    \guitar
+  }
+  \new TabStaff {
+    \guitar
+  }
 >>
 @end lilypond
 
@@ -1489,13 +1518,62 @@ con un marcado de texto.
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
   \clef "treble_8"
-  \override Staff.NoteHead #'style = #'cross
-  g8 a b c b4
   \override Staff.NoteHead #'style = #'harmonic-mixed
   d^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
 }
 @end lilypond
 
+Las notas tapadas (llamadas también @notation{notas muertas}) están
+contempladas dentro de los pentagramas normales y de tablatura:
+
+@lilypond[quote,ragged-right,verbatim]
+music = \relative c' {
+  < a\3 \deadNote c\2 a'\1 >4
+  < b\3 \deadNote d\2 b'\1 >
+  < c\3 \deadNote e\2 c'\1 >
+  \deadNotesOn
+  \times 2/3 { g8 b e }
+  \deadNotesOff
+  < a,\3 c\2 e\1 >1
+}
+\new StaffGroup <<
+  \new Staff {
+    \clef "treble_8"
+    \music
+  }
+  \new TabStaff {
+    \music
+  }
+>>
+@end lilypond
+
+Otra téctnica de ejecución (utilizada especialmente en la guitarra
+eléctrica) se llama @notation{tapado de palma}.  La cuerda es
+parcialmente tapada por la palma de la mano que pulsa (de ahí el
+nombre).  Lilypond contempla la notación de las notas de estilo de
+tapado de palma mediante el cambio de la forma de la cabeza de nota a
+un triángulo.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice { % Warning: explicit Voice instantiation is
+             %    required to have palmMuteOff work properly
+             %    when palmMuteOn comes at the beginning of
+             %    the piece.
+  \relative c, {
+    \clef "G_8"
+    \palmMuteOn
+    e8^\markup { \musicglyph #"noteheads.u2do"  = palm mute }
+    e e
+    \palmMuteOff
+    e e  \palmMute e e e |
+    e8 \palmMute { e e e } e e e e |
+    \palmMuteOn
+    < e b' e >8 e e e < e b' e >2
+    \palmMuteOff |
+    < \palmMute e b' e >8 \palmMute { e e e } < \palmMute e b' e >2
+  }
+}
+@end lilypond
 
 @seealso
 Fragmentos de código:
