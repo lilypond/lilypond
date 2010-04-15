@@ -20,6 +20,7 @@ This chapter gives a basic introduction to working with LilyPond.
 @menu
 * Compiling a file::
 * How to write input files::
+* What if it doesn't work::
 * How to read the manuals::
 @end menu
 
@@ -565,6 +566,43 @@ comments:
 @end example
 
 @end itemize
+
+
+@node What if it doesn't work
+@section What if it doesn't work
+
+@cindex troubleshooting
+
+Sometimes LilyPond doesn't produce the output you expect.  This
+section provides some links to help you solve the problems you
+might encounter.
+
+
+@menu
+* General troubleshooting tips::
+* Some common errors::
+@end menu
+
+@node General troubleshooting tips
+@subsection General troubleshooting tips
+
+Troubleshooting LilyPond problems can be challenging for
+people who are used to a graphical interface, because invalid
+input files can be created.  When this happens, a logical approach
+is the best way to identify and solve the problem.  Some guidelines
+to help you learn to do this are provided in @rprogram{Troubleshooting}.
+
+
+@node Some common errors
+@subsection Some common errors
+
+@cindex common errors
+@cindex errors, common
+
+There are a few common errors that are difficult to troubleshoot
+based simply on the error messages that are displayed.  These are
+described in @rprogram{Common errors}.
+
 
 
 @node How to read the manuals
