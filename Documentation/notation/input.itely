@@ -1443,6 +1443,8 @@ be downloaded from:
 
 Here are a few sample bars of music set in Gonville:
 
+@c NOTE: these images are a bit big, but that's important
+@c       for the font comparison.  -gp
 @sourceimage{Gonville_after,,,}
 
 Here are a few sample bars of music set in LilyPond's Feta font:
