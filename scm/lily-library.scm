@@ -400,17 +400,6 @@ found."
 	    (ly:list->offsets accum (cddr coords)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; numbers
-
-(if (not (defined? 'nan?)) ;; guile 1.6 compat
-    (define-public (nan? x) (not (or (< 0.0 x)
-				     (> 0.0 x)
-				     (= 0.0 x)))))
-
-(if (not (defined? 'inf?))
-    (define-public (inf? x) (= (/ 1.0 x) 0.0)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; intervals
 
 (define-public (interval-length x)
