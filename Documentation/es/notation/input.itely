@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ea19bcc59cf8bab03632a84a23646b9c10853618
+    Translation of GIT committish: 80e6ba1898ac1d299851002844658c725597969e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1515,7 +1515,48 @@ disponibles a través de opciones de la línea de órdenes, véase
 @subsection Sustituir la tipografía de la notación
 @translationof Replacing the notation font
 
-HACER
+Gonville es una alternativa a la tipografía Feta que se utiliza en
+LilyPond y se puede descargar de:
+@example
+@uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
+@end example
+
+Aquí presentamos algunos compases de muestra tipografiados con la
+fuente Gonville:
+
+@c NOTE: these images are a bit big, but that's important
+@c       for the font comparison.  -gp
+@sourceimage{Gonville_after,,,}
+
+Aquí hay unos compases de muestra tipografiados en la fuente Feta de
+LilyPond:
+
+@sourceimage{Gonville_before,,,}
+
+@subsubheading Instrucciones de instalación para MacOS
+
+Descargue y extraiga el archivo zip.  Usando @code{Terminal.app},
+mueva la carpeta @code{lilyfonts} a
+@file{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current}.
+Mueva la carpeta @code{fonts} existente a @code{fonts_orig} y mueva la
+carpeta @code{lilyfonts} a @code{fonts}.  Sencillamente vuelva a mover
+@code{fonts_orig} a @code{fonts} para volver a la fuente Feta.
+
+@subsubheading Instrucciones de instalación para Windows
+
+Descargue y extraiga el archivo zip.  Utilizando el Explorador de
+archivos, copie la carpeta @code{lilyfonts} a
+@file{@var{INSTALLDIR}/LilyPond/usr/share/lilypond/current}. Cambie el
+nombre de la carpeta @code{fonts} existente a @code{fonts_orig} y de
+la carpeta @code{lilyfonts} a @code{fonts}.  Sencillamente vuelva a
+renombrar @code{fonts_orig} a @code{fonts} para volver a Feta.
+
+@knownissues
+
+Gonville no se puede usar para tipografiar notación de @q{Música
+Antigua}.  Diríjase a la página web del autor para obtener más
+información sobre éste y otros asuntos, entre ellos el régimen de
+licencias de Gonville.
 
 
 @node Salida MIDI
