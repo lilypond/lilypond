@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3b870eb9ab448ebc11a2d6283ad35796b22351aa
+    Translation of GIT committish: 27a4d9354effb09c696925881ec4df007da8a0db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1122,8 +1122,8 @@ escriben usando la instrucción @code{\partial}, con la sintaxis
 @end example
 
 @noindent
-donde @code{duración} es el valor rítmico que se se debe añadir antes
-del comienzo del siguiente compás completo:
+donde @code{duración} es el valor rítmico restante del compás actual
+antes de que comience el siguiente.
 
 @lilypond[quote,verbatim,relative=2]
 \partial 4 e4 |
@@ -1138,13 +1138,18 @@ completo:
 a2. c,4 |
 @end lilypond
 
-Internamente, @code{\partial} se traduce a
+Internamente, @code{\partial @var{duración}} se traduce a
 
 @example
-\set Timing.measurePosition = -@var{duración}
+\set Timing.measurePosition -@var{duración}
 @end example
 
-@noindent
+For example, @code{\partial 8*3} becomes:
+
+@example
+\set Timing.measurePosition = #(ly:make-moment -3 8)
+@end example
+
 La propiedad @code{measurePosition} contiene un número racional que
 indica qué parte del compás ha transcurrido hasta el momento.  Observe
 que se establece a un número negativo por parte de la instrucción
@@ -1166,12 +1171,12 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Timing_translator}.
 
-
 @knownissues
 
 El uso de @code{\partial} está previsto solamente para el comienzo de
 una pieza.  Si se emplea después del comienzo se obtendrán varias
-advertencias desagradables.
+advertencias o efectos desagradables, en este caso utilice en su lugar
+@code{\set Timing.measurePosition}.
 
 
 @node Música sin compasear
@@ -1742,7 +1747,7 @@ Las cantidades del tipo @i{moment} se crean por la función de Scheme
 @code{ly:make-moment}.  Para ver más información sobre esta función,
 consulte @ref{Gestión del tiempo}.
 
-Los ajustes de barrado automático y de subdivisión de los barrados se
+Los ajustes de barrado automático se
 almacenan en la propiedad @code{beamSettings}.  Los valores
 predeterminados de @code{beamSettings} están precisados en
 @file{scm/@/beam@/-settings@/.scm}.  Las entradas de
@@ -1751,10 +1756,9 @@ predeterminados de @code{beamSettings} están precisados en
 EL tipo de compás debe ser una dupla de Scheme, p.ej. @code{#'(4
 . 4)}.
 
-El tipo de regla debe ser @code{#'end} para finales de barra y
-@code{#'subdivide} para subdivisión de barras.
+El tipo de regla debe ser @code{#'end} para finales de barra.
 
-Las reglas de final y subdivisión consisten en una lista-A de Scheme
+Las reglas de final consisten en una lista-A de Scheme
 (o una lista de duplas) que indica el tipo de barra y la agrupación
 que se aplica a ese tipo de barra.
 
@@ -1913,7 +1917,8 @@ aún todavía está aceptando notas, esta última barra no se imprimirá en
 absoluto.  Lo mismo sirve para las voces polifónicas, introducidas con
 @code{<< @dots{} \\ @dots{} >>}.  Si una voz polifónica termina
 mientras una barra automática está aún aceptando notas, no se imprime.
-
+El rodeo para estos problemas es aplicar el barrado
+manual a la última barra de la voz o partitura.
 
 @node Barras manuales
 @unnumberedsubsubsec Barras manuales
@@ -2211,6 +2216,27 @@ el canto gregoriano, es preferible en este caso utilizar
 @code{\divisioMinima}, que se describe en la sección @ref{Divisiones}
 dentro de Canto gregoriano.
 
+@cindex segno
+
+Para los símbolos de segno en línea, existen tres tipos
+de barras de compás que se diferencian en su comportamiento
+en los saltos de línea:
+
+@lilypond[quote,relative=2,verbatim]
+c4 c c c
+\bar "S"
+c4 c c c \break
+\bar "S"
+c4 c c c
+\bar "|S"
+c4 c c c \break
+\bar "|S"
+c4 c c c
+\bar "S|"
+c4 c c c \break
+\bar "S|"
+c1
+@end lilypond
 
 @cindex repeticiones
 
@@ -2232,6 +2258,38 @@ c4 c c c \break
 \bar "||:"
 c4 c c c
 @end lilypond
+
+Para combinaciones de repeticiones con el símbolo de segno,
+existen seis variantes diferentes:
+
+@lilypond[quote,relative=2,verbatim]
+c4 c c c
+\bar ":|S"
+c4 c c c \break
+\bar ":|S"
+c4 c c c
+\bar ":|S."
+c4 c c c \break
+\bar ":|S."
+c4 c c c
+\bar "S|:"
+c4 c c c \break
+\bar "S|:"
+c4 c c c
+\bar ".S|:"
+c4 c c c \break
+\bar ".S|:"
+c4 c c c
+\bar ":|S|:"
+c4 c c c \break
+\bar ":|S|:"
+c4 c c c
+\bar ":|S.|:"
+c4 c c c \break
+\bar ":|S.|:"
+c1
+@end lilypond
+
 
 En las partituras con muchos pentagramas, una instrucción @code{\bar}
 en uno de ellos se aplica automáticamente a todos los demás.  Las
@@ -2489,6 +2547,19 @@ Para imprimir una letra de ensayo, utilice la orden @code{\mark}.
 @lilypond[quote,verbatim,relative=2]
 c1 \mark \default
 c1 \mark \default
+c1 \mark \default
+c1 \mark \default
+@end lilypond
+
+@noindent
+La letra de ensayo se incrementa automáticamente si usa @code{\mark
+\default}, pero también puede utilizar un número entero como argumento
+para establecer la indicación manualmente.  El valor que se utilizará
+se almacena dentro de la propiedad @code{rehearsalMark}.
+
+@lilypond[quote,verbatim,relative=2]
+c1 \mark \default
+c1 \mark \default
 c1 \mark #8
 c1 \mark \default
 c1 \mark \default
@@ -2496,16 +2567,25 @@ c1 \mark \default
 
 @noindent
 La letra@tie{}@q{I} se salta de acuerdo con las tradiciones de
-grabado.  Si quiere incluir la letra @q{I}, use
+grabado.  Si quiere incluir la letra @q{I}, use una de las
+instrucciones siguientes, según el estilo de marcas de 
+ensayo que desee (sólo letras, letras dentro de un rectángulo
+o letras dentro de un círculo).
 
 @example
 \set Score.markFormatter = #format-mark-alphabet
+\set Score.markFormatter = #format-mark-box-alphabet
+\set Score.markFormatter = #format-mark-circle-alphabet
 @end example
 
-La letra de ensayo se incrementa automáticamente si usa @code{\mark
-\default}, pero también puede utilizar un número entero como argumento
-para establecer la indicación manualmente.  El valor que se utilizará
-se almacena dentro de la propiedad @code{rehearsalMark}.
+@lilypond[quote,verbatim,relative=2]
+\set Score.markFormatter = #format-mark-box-alphabet
+c1 \mark \default
+c1 \mark \default
+c1 \mark #8
+c1 \mark \default
+c1 \mark \default
+@end lilypond
 
 @cindex ensayo, letra de, formato
 @cindex ensayo, letra de, estilo
