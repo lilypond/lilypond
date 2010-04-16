@@ -824,7 +824,7 @@ while @code{twentyFour} is a variable.
 @subheading Offsets
 
 Two-dimensional offsets (X and Y coordinates) are stored as @code{pairs}.
-The @code{cdr} of the offset is the X coordinate, and the @code{cdr} is
+The @code{car} of the offset is the X coordinate, and the @code{cdr} is
 the Y coordinate.
 
 @example
