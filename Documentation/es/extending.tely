@@ -13,7 +13,7 @@
 @documentlanguage es
 @afourpaper
 
-@c translator: Team-es
+@c translator: Francisco Vila
 
 @macro manualIntro
 Este archivo explica la forma de extender las funcionalidades de

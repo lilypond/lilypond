@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Tue Apr 13 10:52:13 UTC 2010
+@emph{Last updated Fri Apr 16 12:00:36 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,18 +84,18 @@ partially
 @item
 1 Tutorial
 @*
-2379
+2519
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #dfef77">partially (90 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially (90 %)
 @end ifnothtml
 @tab 
 @ifhtml

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Tue Apr 13 10:52:13 UTC 2010
+@emph{Dernière mise à jour Fri Apr 16 12:00:36 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -214,7 +214,7 @@ oui
 @item
 1 Tutoriel
 @*
-2379
+2519
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -229,11 +229,11 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partiellement (16 %)</span>
+<span style="background-color: #dfef77">partiellement (15 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement (16 %)
+partiellement (15 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1008,7 +1008,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-6287
+6448
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1221,7 +1221,7 @@ oui
 @item
 1 Exécution de LilyPond
 @*
-2902
+3376
 @tab John Mandereau
 @*
 Jean-Charles Malahieude
@@ -1240,7 +1240,7 @@ non
 @ifhtml
 
 @html
-<span style="background-color: #ffea40">partiellement</span>
+<span style="background-color: #ffdf42">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Tue Apr 13 10:52:13 UTC 2010
+@emph{Zuletzt aktualisiert am Fri Apr 16 12:00:36 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -324,7 +324,7 @@ ja
 @item
 1 Übung
 @*
-2379
+2519
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -333,17 +333,17 @@ Reinhold Kainhofer
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dfef77">teilweise (80 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise (80 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">teilweise</span>
+<span style="background-color: #8aff2d">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -466,7 +466,7 @@ ja
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
-GNU LilyPond Benutzerhandbuch
+LilyPond Benutzerhandbuch
 @tab Übersetzer
 @tab Übersetzungsüberprüfer
 @tab Übersetzt
@@ -477,8 +477,6 @@ GNU LilyPond Benutzerhandbuch
 @*
 355
 @tab Till Paala
-@*
-Till Rettig
 @tab 
 @tab 
 @ifhtml
@@ -494,11 +492,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #ffd544">teilweise</span>
+<span style="background-color: #d587ff">K/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+K/A
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -506,8 +504,6 @@ LilyPond -- \TITLE\
 @*
 1107
 @tab Till Paala
-@*
-Till Rettig
 @tab 
 @tab 
 @ifhtml
@@ -1009,11 +1005,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">teilweise</span>
+<span style="background-color: #d587ff">K/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+K/A
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1046,7 +1042,7 @@ teilweise
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-6287
+6448
 @tab Till Paala
 @tab 
 @tab 
@@ -1063,7 +1059,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">teilweise</span>
+<span style="background-color: #40fe23">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1117,11 +1113,11 @@ teilweise (96 %)
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">teilweise</span>
+<span style="background-color: #d587ff">K/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+K/A
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1247,7 +1243,7 @@ ja
 @item
 1 @command{lilypond} starten
 @*
-2902
+3376
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -1256,11 +1252,11 @@ Till Paala
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">teilweise (72 %)</span>
+<span style="background-color: #dfef77">teilweise (66 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise (72 %)
+teilweise (66 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1477,7 +1473,7 @@ teilweise
 @item
 Gemeinschaft
 @*
-1959
+1962
 @tab  Till Paala
 @tab 
 @tab 

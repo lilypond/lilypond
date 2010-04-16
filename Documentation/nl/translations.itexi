@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Tue Apr 13 10:52:13 UTC 2010
+@emph{Meest recente update Fri Apr 16 12:00:36 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,28 +84,28 @@ ja
 @item
 1 Leerboek
 @*
-2379
+2519
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dfef77">gedeeltelijk (80 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk (80 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #2cff20">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk
 @end ifnothtml
 @tab voor-GDP
 @item
