@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Tue Apr 13 10:52:13 UTC 2010
+@emph{Last updated Fri Apr 16 12:00:36 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,24 +84,24 @@ partially
 @item
 1 Első lecke
 @*
-2379
+2519
 @tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #dfef77">partially (80 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially (80 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #acff31">partially</span>
+<span style="background-color: #b9ff33">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,28 +285,28 @@ partially
 @item
 1 A @command{lilypond} használata
 @*
-2902
+3376
 @tab Team-hu
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #dfef77">partially (98 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially (98 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #4efe25">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -486,7 +486,7 @@ partially
 @item
 Közösség
 @*
-1959
+1962
 @tab Dénes Harmath
 @tab 
 @tab 

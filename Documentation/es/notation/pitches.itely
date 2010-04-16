@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3b870eb9ab448ebc11a2d6283ad35796b22351aa
+    Translation of GIT committish: d6d03af3812fa82e84abd2b57c42f254bda735ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2589,6 +2589,11 @@ c4 b
 c b < g \xNote c f > b
 @end lilypond
 
+Como sinónimos de @code{\xNote}, @code{\xNotesOn} y @code{\xNotesOff},
+se pueden usar @code{\deadNote}, @code{\deadNotesOn} y
+@code{\deadNotesOff}.  El término @notation{dead note} (nota muerta)
+se utiliza corrientemente por parte de los guitarristas.
+
 Existe una abreviatura para las formas en rombo que sólo se puede usar
 en acordes:
 
@@ -2608,7 +2613,9 @@ Fragmentos de código:
 @rlsr{Pitches}.
 
 Referencia de la notación:
-@ref{Estilos de cabezas de nota}.
+@ref{Estilos de cabezas de nota},
+@ref{Notas en acorde},
+@ref{Indicar armónicos y notas tapadas}.
 
 Referencia de funcionamiento interno:
 @rinternals{note-event},

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 178f197ea8af2209b872fb00bb3e1c76913e6bac
+    Translation of GIT committish: 97a27c707de72468d690426755eb4e42b3a9dbf4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -896,48 +896,138 @@ Se pueden usar los siguientes estilos para las cabezas de las notas.
 @appendixsec Lista de articulaciones
 @translationof List of articulations
 
-@cindex accent
 @cindex acento
 @cindex apagado
 @cindex arco abajo
 @cindex arco arriba
 @cindex calderón
+@cindex circulus
 @cindex coda
 @cindex downbow
+@cindex downmordent
+@cindex downprall
 @cindex espressivo
 @cindex fermata
 @cindex flageolet
-@cindex foot marks
 @cindex grupeto circular
 @cindex grupeto circular invertido
+@cindex halfopen
+@cindex ictus
+@cindex indicación de pulgar
+@cindex lheel
+@cindex lineprall
+@cindex longfermata
+@cindex ltoe
+@cindex marcas de pie
 @cindex marcato
 @cindex mordent
 @cindex open
-@cindex halfopen
-@cindex organ pedal marks
+@cindex órgano, indicaciones de pedal de
 @cindex pedal, indicaciones de
 @cindex portato
 @cindex prall
+@cindex pralldown
 @cindex prallmordent
 @cindex prallprall
+@cindex prallup
+@cindex pulgar, indicación de
 @cindex reverseturn
+@cindex rheel
+@cindex rtoe
 @cindex segno
+@cindex semicirculus
 @cindex semitrino
 @cindex semitrino descendente
+@cindex shortfermata
+@cindex signumcongruentiae
+@cindex snappizzicato
 @cindex staccatissimo
 @cindex staccato
-@cindex stopped
 @cindex tenuto
-@cindex thumb marking
 @cindex trill
 @cindex trino
-@cindex turn
-@cindex upbow
+@cindex upmordent
+@cindex upprall
 @cindex varcoda
-@cindex órgano, indicaciones de pedal de
+@cindex verylongfermata
+
+Las siguientes inscripciones setán disponibles en la tipografía Feta y
+se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
+
+@c Articulations and ornamentations
+@c Fingering instructions (for "thumb")
+@c Common notation for unfretted strings
+@c   Bowing indications
+@c   Harmonics
+@c   Snap (Bartók) pizzicato
+@c Custom percussion staves (for "halfopen" -- not yet funindexed)
+@c References for wind instruments (for "open"/"stopped" -- not yet funindexed)
 
 
-@lilypondfile[quote,texidoc]{script-chart.ly}
+@menu
+* Indicaciones de articulación::
+* Indicaciones de adrornos::
+* Indicaciones de calderón::
+* Indicaciones específicas de ciertos instrumentos::
+* Indicaciones de repetición::
+* Inidicaciones antiguas::
+@end menu
+
+
+@node Indicaciones de articulación
+@unnumberedsubsec Indicaciones de articulación
+@translationof Articulation scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #articulations }
+@end lilypond
+
+@node Indicaciones de adrornos
+@unnumberedsubsec Indicaciones de adrornos
+@translationof Ornament scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #ornaments }
+@end lilypond
+
+@node Indicaciones de calderón
+@unnumberedsubsec Indicaciones de calderón
+@translationof Fermata scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #fermatas }
+@end lilypond
+
+@node Indicaciones específicas de ciertos instrumentos
+@unnumberedsubsec Indicaciones específicas de ciertos instrumentos
+@translationof Instrument-specific scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #instrument-specific }
+@end lilypond
+
+@node Indicaciones de repetición
+@unnumberedsubsec Indicaciones de repetición
+@translationof Repeat sign scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #repeats }
+@end lilypond
+
+@node Inidicaciones antiguas
+@unnumberedsubsec Inidicaciones antiguas
+@translationof Ancient scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\include "gregorian.ly"
+\new VaticanaStaff { \scriptStaffAncient #ancient }
+@end lilypond
 
 
 @node Notas de percusión

@@ -49,6 +49,8 @@ the @uref{lilypond/manuals.html,LilyPond Documentation}.
 
 HINTS
 
+* add new items at the top
+
 * only show verbatim input for syntax/input changes
 
 * try to be as brief possible in those cases
@@ -61,6 +63,13 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Se ofrece una variante de la llamada de tipo segno:
+@lilypond[quote,relative=2]
+c4 d e f \bar "S"
+g4 f e d
+@end lilypond
 
 @item
 Context modifications (@code{\with} blocks) can be stored in variables and
@@ -280,13 +289,6 @@ and to add notes to the number or fraction:
 @item
 FretBoards now have a chordChanges property to keep repeated FretBoard objects
 from being typeset.
-
-@item
-A variant of the segno sign is provided:
-@lilypond[quote,relative=2]
-c4 d e f \bar "S"
-g4 f e d
-@end lilypond
 
 @end itemize
 

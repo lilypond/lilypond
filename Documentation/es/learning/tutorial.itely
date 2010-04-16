@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3b870eb9ab448ebc11a2d6283ad35796b22351aa
+    Translation of GIT committish: 5e8800f7a39cf13ac6b5e3d69e7973366b1da54b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -21,6 +21,7 @@ Este capítulo ofrece una introducción básica al trabajo con LilyPond.
 @menu
 * Compilación del archivo::
 * Escritura del código de entrada::
+* Tratar con los errores::
 * Cómo leer los manuales::
 @end menu
 
@@ -610,6 +611,45 @@ fragmento muestra algunos posibles usos para los comentarios:
 @end example
 
 @end itemize
+
+
+@node Tratar con los errores
+@section Tratar con los errores
+@translationof Dealing with errors
+
+@cindex depuración de errores
+
+A veces, LilyPond no produce el resultado esperado.  Esta sección
+aporta algunos enlaces para ayudarle a resolver los problemas que
+pudiera encontrar.
+
+@menu
+* Consejos generales de solución de problemas::
+* Algunos errores comunes::
+@end menu
+
+@node Consejos generales de solución de problemas
+@subsection Consejos generales de solución de problemas
+@translationof General troubleshooting tips
+
+La solución de problemas en LilyPond puede ser un desafío para las
+personas acostumbradas a los interfaces gráficos, porque es posible
+crear archivos de entrada inválidos.  Cuando esto ocurre, la mejor
+forma de identificar y resolver el problema es aplicar un enfoque
+lógico.  Se dan algunas guías para ayudarle a aprender a hacerlo, en
+@rprogram{Solución de problemas}.
+
+
+@node Algunos errores comunes
+@subsection Algunos errores comunes
+@translationof Some common errors
+
+@cindex comunes, errores
+@cindex errores comunes
+
+Esisten algunos errores comunes que son difíciles de solucionar si nos
+basamos solamente en los mensajes de error que se nos presentan.
+Éstos se describen en @rprogram{Errores comunes}.
 
 
 @node Cómo leer los manuales

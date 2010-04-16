@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Tue Apr 13 10:52:13 UTC 2010
+@emph{Actualizado en Fri Apr 16 12:00:36 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Registro de cambios de LilyPond
 @item
 Títulos de sección
 @*
-500
+502
 @tab Francisco Vila
 @tab 
 @tab 
@@ -47,11 +47,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -70,7 +70,7 @@ Ensayo sobre grabado musical automatizado
 Títulos de sección
 @*
 93
-@tab Team-es
+@tab Francisco Vila
 @tab 
 @tab 
 @ifhtml
@@ -97,7 +97,7 @@ sí
 LilyPond --- \TITLE\
 @*
 1107
-@tab Team-es
+@tab Francisco Vila
 @tab 
 @tab 
 @ifhtml
@@ -124,7 +124,7 @@ sí
 1 Grabado musical
 @*
 5297
-@tab Team-es
+@tab Francisco Vila
 @tab 
 @tab 
 @ifhtml
@@ -140,18 +140,18 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #acff31">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
 2 Lista de referencias bibliográficas
 @*
 319
-@tab Team-es
+@tab Francisco Vila
 @tab 
 @tab 
 @ifhtml
@@ -190,7 +190,7 @@ Extending LilyPond
 Títulos de sección
 @*
 107
-@tab Team-es
+@tab Francisco Vila
 @tab 
 @tab 
 @ifhtml
@@ -217,7 +217,7 @@ sí
 LilyPond --- \TITLE\
 @*
 1107
-@tab Team-es
+@tab Francisco Vila
 @tab 
 @tab 
 @ifhtml
@@ -244,7 +244,7 @@ sí
 A Tutorial de Scheme
 @*
 5006
-@tab Team-es
+@tab Francisco Vila
 @tab 
 @tab 
 @ifhtml
@@ -260,18 +260,18 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
 1 Interfaces para programadores
 @*
 3815
-@tab Team-es
+@tab Francisco Vila
 @tab 
 @tab 
 @ifhtml
@@ -363,7 +363,7 @@ sí
 @item
 1 Tutorial
 @*
-2379
+2519
 @tab Francisco Vila
 @tab 
 @tab 
@@ -461,11 +461,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -635,11 +635,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -932,11 +932,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -986,11 +986,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1104,7 +1104,7 @@ sí
 @item
 3 Entrada y salida generales
 @*
-6287
+6448
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1121,11 +1121,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1192,21 +1192,21 @@ A Tablas del manual sobre notación
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parcialmente (39 %)</span>
+<span style="background-color: #dfef77">parcialmente (60 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente (39 %)
+parcialmente (60 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1305,7 +1305,7 @@ sí
 @item
 1 Ejecutar LilyPond
 @*
-2902
+3376
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1523,11 +1523,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1577,17 +1577,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
 Comunidad
 @*
-1959
+1962
 @tab Francisco Vila
 @tab 
 @tab 

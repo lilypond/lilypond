@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Tue Apr 13 10:52:13 UTC 2010
+@emph{最終更新日 Fri Apr 16 12:00:36 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,7 +84,7 @@ partially
 @item
 1 チュートリアル
 @*
-2379
+2519
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -285,24 +285,24 @@ partially
 @item
 1 lilypond を実行する
 @*
-2902
+3376
 @tab Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (72 %)</span>
+<span style="background-color: #dfef77">一部 (66 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (72 %)
+一部 (66 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #fffa3d">partially</span>
+<span style="background-color: #ffef3f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

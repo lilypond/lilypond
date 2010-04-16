@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 455d04e3d5225e6f178ee5ad92024cb811733b42
+    Translation of GIT committish: e90fa9a8a1d71251a2c047e69798be05938a1241
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -72,7 +72,11 @@ de entrada de LilyPond dentro de esta expresión musical.
 Los comprobadores de tipo de variable son procedimientos de Scheme que
 devuelven @code{#t} si una variable es de un tipo dado.  Se muestran
 algunos tipos comunes en la tabla de abajo.  Hay más tipos en los
-archivos @file{lily/music-scheme.cc} y @file{scm/c++.scm}.
+archivos @file{lily/music-scheme.cc} y @file{scm/c++.scm}.  La lista
+completa de los comprobadores de tipo con nombre para LilyPond está en
+la lista @var{type-p-name-alist} de @file{scm/lily.scm}.
+
+@c TODO -- automatically document type-p-name-alist
 
 @multitable @columnfractions .33 .66
 @headitem Tipo de entrada          @tab notación de @var{vari-type?}
