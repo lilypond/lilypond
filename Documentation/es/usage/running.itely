@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3b870eb9ab448ebc11a2d6283ad35796b22351aa
+    Translation of GIT committish: fe39074b3c7b100142ca01a88b470a11c214462f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -61,6 +61,7 @@ documentos sobre este tema si no le resulta familiar la línea de
 * Invocar a LilyPond::
 * Opciones de la línea de órdenes para lilypond::
 * Variables de entorno::
+* LilyPond en una jaula de chroot::
 @end menu
 
 @node Invocar a LilyPond
@@ -438,6 +439,118 @@ memoria; con valores más bajos, usa más tiempo de CPU.  El valor
 predeterminado es @code{70}.
 
 @end table
+
+
+@node LilyPond en una jaula de chroot
+@unnumberedsubsec LilyPond en una jaula de chroot
+@translationof LilyPond in chroot jail
+
+La preparación del servidor para que ejecute LilyPond en una jaula de
+chroot es una tarea muy complicada.  Los pasos están relacionados más
+abajo.  Los ejemplos que aparecen en cada uno de los pasos son válidos
+para Ubuntu Linux, y pueden requerir el uso de @code{sudo} según
+corresponda.
+
+@itemize
+
+@item Instale los paquetes necesarios: LilyPond, GhostScript e ImageMagick.
+
+@item Cree un usuario nuevo con el nombre de @code{lily}:
+
+@example
+adduser lily
+@end example
+
+@noindent
+Esto también creará un nuevo grupo para el usuario @code{lily}, y una
+carpeta personal, @code{/home/lily}
+
+@item En la carpeta personal del usuario @code{lily}, cree un archivo para usarlo como un sistema de archivos separado:
+
+@example
+dd if=/dev/zero of=/home/lily/loopfile bs=1k count= 200000
+@end example
+
+@noindent
+Este ejemplo crea un archivo de 200MB para su uso como el sistema de
+archivos de la jaula.
+
+@item Cree un dispositivo loop, haga un sistema de archivos y móntelo,
+después cree una carpeta que sea escribible por el usuario
+@code{lily}:
+
+@example
+mkdir /mnt/lilyloop
+losetup /dev/loop0 /home/lily/loopfile
+mkfs -t ext3 /dev/loop0 200000
+mount -t ext3 /dev/loop0 /mnt/lilyloop
+mkdir /mnt/lilyloop/lilyhome
+chown lily /mnt/lilyloop/lilyhome
+@end example
+
+@item En la configuración de los servidores, JAIL será @code{/mnt/lilyloop}
+y DIR será @code{/lilyhome}.
+
+@item Cree un gran árbol de directorios dentro de la jaula copiando los
+archivos necesarios, como se muestra en el guión de ejemplo que aparece
+más abajo.
+
+Puede usar @code{sed} para crear los archivos de copia necesarios para
+un ejecutable dado:
+
+@example
+for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
+@end example
+
+@end itemize
+
+@subheading Guión de ejemplo para Ubuntu 8.04 de 32 bits
+
+@example
+#!/bin/sh
+## aquí se fijan los valores predeterminados
+
+username=lily
+home=/home
+loopdevice=/dev/loop0
+jaildir=/mnt/lilyloop
+# prefijo (¡sin la barra inicial!)
+lilyprefix=usr/local
+# el directorio en que lilypond se encuentra instalado en el sistema
+lilydir=/$lilyprefix/lilypond/
+
+userhome=$home/$username
+loopfile=$userhome/loopfile
+adduser $username
+dd if=/dev/zero of=$loopfile bs=1k count=200000
+mkdir $jaildir
+losetup $loopdevice $loopfile
+mkfs -t ext3 $loopdevice 200000
+mount -t ext3 $loopdevice $jaildir
+mkdir $jaildir/lilyhome
+chown $username $jaildir/lilyhome
+cd $jaildir
+
+mkdir -p bin usr/bin usr/share usr/lib usr/share/fonts $lilyprefix tmp
+chmod a+w tmp
+
+cp -r -L $lilydir $lilyprefix
+cp -L /bin/sh /bin/rm bin
+cp -L /usr/bin/convert /usr/bin/gs usr/bin
+cp -L /usr/share/fonts/truetype usr/share/fonts
+
+# Ahora la magia de copiar las bibliotecas
+for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh" "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done | sh -s
+
+# Los archivos compartidos para ghostscript...
+      cp -L -r /usr/share/ghostscript usr/share
+# Los archivos compartidos para ImageMagick
+      cp -L -r /usr/lib/ImageMagick* usr/lib
+
+### Ahora, suponiendo que tenemos test.ly en /mnt/lilyloop/lilyhome, deberíamos poder ejecutar:
+### Observe que /$lilyprefix/bin/lilypond es un guión, que establece un valor para LD_LIBRARY_PATH : esto es crucial
+      /$lilyprefix/bin/lilypond -jlily,lily,/mnt/lilyloop,/lilyhome test.ly
+@end example
 
 
 @node Mensajes de error
