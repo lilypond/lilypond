@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9c43de58d4686a5ff9bbf7149dfe0159b45dbccc
+    Translation of GIT committish: 3312aad46463fdae183931f24a8fafb743c72cd1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -547,6 +547,11 @@ guile> (menor-que-diez? 15)
 
 @subheading Valores de retorno
 
+Los procedimientos de Scheme siempre devuelven un valor de retorno,
+que es el valor de la última expresión ejecutada en el procedimiento.
+El valor de retorno puede ser cualquier valor de Scheme válido,
+incluso una estructura de datos compleja o un procedimiento.
+
 A veces, el usuario quiere tener varias expresiones de Scheme dentro
 de un procedimiento.  Existen dos formas en que se pueden combinar
 distintas expresiones.  La primera es el procedimiento @code{begin},
@@ -635,22 +640,29 @@ guile> (cond ((< a b) "a es menor que b")
 @subsection Sintaxis del Scheme de LilyPond
 @translationof LilyPond Scheme syntax
 
-En un archivo de música, los fragmentos de código de Scheme se
-escriben con el signo de almohadilla @code{#}.  Así, los ejemplos
-anteriores traducidos a LilyPond son:
+El intérprete Guile forma parte de LilyPond, lo que significa que se
+puede incluir Scheme dentro de los archivos de entrada de LilyPond.
+La marca de almohadilla @code{#} se utiliza para indicar al analizador
+sintáctico de LilyPond que lo siguiente es un valor de Scheme.
+
+Una vez el analizador sintáctico se encuentra con un símbolo de
+almohadilla, la entrada se le pasa al intérprete Guile para evaluar la
+expresión de Scheme.  El intérprete continúa procesando la entrada
+hasta que se encuentra con el final de una expresión de Scheme.
+
+Los procedimientos de Scheme se pueden definir dentro de los archivos
+de entrada de LilyPond:
 
 @example
-##t ##f
-#1 #-1.5
-#"esto es una cadena"
-#"esto
-es
-una cadena"
+#(define (average a b c) (/ (+ a b c) 3))
 @end example
 
 Observe que los comentarios de LilyPond (@code{%} y @code{%@{ %@}}) no
-se pueden utilizar dentro del código de Scheme.  Los comentarios en
-el Scheme de Guile se introducen como sigue:
+se pueden utilizar dentro del código de Scheme, ni siquiera dentro de
+un archivo de entrada de LilyPond input file, porque es el intérprete
+Guile, y no el analizador sintáctico de LilyPond, el que está
+interpretando la expresión de Scheme.  Los comentarios en el Scheme de
+Guile se introducen como sigue:
 
 @example
 ; esto es un comentario de una línea
@@ -662,9 +674,13 @@ el Scheme de Guile se introducen como sigue:
 !#
 @end example
 
-Se pueden combinar en un mismo archivo de música varias expresiones de
-Scheme consecutivas mediante la utilización del operador @code{begin}.
-Ello permite que el número de marcas de cuadradillo se reduzca a una.
+Durante el resto de esta sección, supondremos que los datos se
+introducen en un archivo de música, por lo que añadiremos almohadillas
+@code{#} al principio de todas las expresiones de Scheme.
+
+Todas las expresiones de Scheme del nivel jerárquico superior dentro
+de un archivo de entrada de LilyPond se pueden combinar en una sola
+expresión de Scheme mediante la utilización del operador @code{begin}:
 
 @example
 #(begin
@@ -672,38 +688,35 @@ Ello permite que el número de marcas de cuadradillo se reduzca a una.
   (define menganito 1))
 @end example
 
-Si el @code{#} va seguido de un paréntesis de apertura, @code{(}, como
-en el ejemplo anterior, el analizador sintáctico permanece dentro del
-modo de Scheme hasta que encuentra el paréntesis de cierre
-correspondiente, @code{)}, por lo que no son necesarios más símbolos
-de @code{#} para introducir una sección de Scheme.
-
-Durante el resto de esta sección, supondremos que los datos se
-introducen en un archivo de música, por lo que añadiremos almohadillas
-@code{#} en todas partes.
 
 @node Variables de LilyPond
 @subsection Variables de LilyPond
 @translationof LilyPond variables
 
-@c TODO -- make this read right
-
-Algo similar ocurre con las variables.  Después de definir una
-variable,
+Las variables de LilyPond se almacenan internamente en la forma de
+variables de Scheme.  Así,
 
 @example
 doce = 12
 @end example
 
 @noindent
-las variables se pueden usar también dentro de expresiones, aquí
+equivale a
+
+@example
+#(define doce 12)
+@end example
+
+Esto significa que las variables de LilyPond están disponibles para su
+uso dentro de expresiones de Scheme.  Por ejemplo, podríamos usar
 
 @example
 veintiCuatro = (* 2 doce)
 @end example
 
 @noindent
-el número 24 se almacena dentro de la variable @code{veintiCuatro}.
+lo que daría lugar a que el número 24 se almacenase dentro de la
+variable @code{veintiCuatro} de LilyPond (y de Scheme).
 
 @node Variables de entrada y Scheme
 @subsection Variables de entrada y Scheme
@@ -727,6 +740,7 @@ independiente de la @code{\traLaLa} externa.
 traLaLa = @{ c'4 d'4 @}
 \layout @{ traLaLa = 1.0 @}
 @end example
+
 @c
 En efecto, cada archivo de entrada constituye un ámbito, y cada bloque
 @code{\header}, @code{\midi} y @code{\layout} son ámbitos anidados
@@ -734,20 +748,20 @@ dentro del ámbito de nivel superior.
 
 Tanto las variables como los ámbitos están implementados en el sistema
 de módulos de GUILE.  A cada ámbito se adjunta un módulo anónimo de
-Scheme.  Una asignación de la forma
+Scheme.  Una asignación de la forma:
 
 @example
 traLaLa = @{ c'4 d'4 @}
 @end example
 
 @noindent
-se convierte internamente en una definición de Scheme
+se convierte internamente en una definición de Scheme:
 
 @example
 (define traLaLa @var{Valor Scheme de `@code{... }'})
 @end example
 
-Esto significa que las variables de entrada y las variables de Scheme
+Esto significa que las variables de LilyPond y las variables de Scheme
 se pueden mezclar con libertad.  En el ejemplo siguiente, se almacena
 un fragmento de música en la variable @code{traLaLa}, y se duplica
 usando Scheme.  El resultado se importa dentro de un bloque
@@ -806,32 +820,35 @@ No es posible mezclar variables de Scheme y de LilyPond con la opción
 @code{--safe}.
 
 
-
-
 @node Propiedades de los objetos
 @subsection Propiedades de los objetos
 @translationof Object properties
 
-Esta sintaxis se usará con mucha frecuencia, pues muchos de los trucos
-de presentación consisten en asignar valores (de Scheme) a variables
-internas, por ejemplo
+Las propiedades de los objetos se almacenan en LilyPond en forma de
+cadenas de listas-A, que son listas de listas-A.  Las propiedades se
+establecen añadiendo valores al principio de la lista de propiedades.
+Las propiedades se leen extrayendo valores de las listas-A.
+
+El establecimiento de un valor nuevo para una propiedad requiere la
+asignación de un valor a la lista-A con una clave y un valor.  La
+sintaxis de LilyPond para hacer esto es la siguiente:
 
 @example
 \override Stem #'thickness = #2.6
 @end example
 
-Esta instrucción ajusta el aspecto de las plicas.  El valor @code{2.6}
-se pone dentro de la variable @code{thickness} de un objeto
-@code{Stem}.  @code{thickness} se mide a partir del grosor de las
-líneas del pentagrama, y así estas plicas serán @code{2.6} veces el
-grosor de las líneas del pentagrama.  Esto hace que las plicas sean
-casi el doble de gruesas de lo normal.  Para distinguir entre las
-variables que se definen en los archivos de entrada (como
-@code{veintiCuatro} en el ejemplo anterior) y las variables de los
-objetos internos, llamaremos a las últimas @q{propiedades} y a las
-primeras @q{variables.}  Así, el objeto plica tiene una propiedad
-@code{thickness} (grosor), mientras que @code{veintiCuatro} es una
-variable.
+Esta instrucción ajusta el aspecto de las plicas.  Se añade una
+entrada de lista-A @code{'(thickness . 2.6)} a la lista de propiedades
+de un objeto @code{Stem}.  @code{thickness} se mide a partir del
+grosor de las líneas del pentagrama, y así estas plicas serán
+@code{2.6} veces el grosor de las líneas del pentagrama.  Esto hace
+que las plicas sean casi el doble de gruesas de lo normal.  Para
+distinguir entre las variables que se definen en los archivos de
+entrada (como @code{veintiCuatro} en el ejemplo anterior) y las
+variables de los objetos internos, llamaremos a las últimas
+@q{propiedades} y a las primeras @q{variables.}  Así, el objeto plica
+tiene una propiedad @code{thickness} (grosor), mientras que
+@code{veintiCuatro} es una variable.
 
 @cindex propiedades frente a variables
 @cindex variables frente a propiedades
@@ -846,43 +863,77 @@ variable.
 
 @subheading Desplazamientos
 
-Los desplazamientos bidimensionales (coordenadas X e Y) así como los
-tamaños de los objetos (intervalos con un punto izquierdo y otro
-derecho) se introducen como @code{parejas}.  Una pareja@footnote{En la
-terminología de Scheme, la pareja se llama @code{cons}, y sus dos
-elementos se llaman @code{car} y @code{cdr} respectivamente.}  se
-introduce como @code{(primero . segundo)} y, como los símbolos, se deben
-preceder de un apóstrofo:
+Los desplazamientos bidimensionales (coordenadas X e Y) se almacenan
+como @code{parejas}.  El @code{car} del desplazamiento es la
+coordenada X, y el @code{cdr} es la coordenada Y.
 
 @example
 \override TextScript #'extra-offset = #'(1 . 2)
 @end example
 
-Esto asigna la pareja (1, 2) a la propiedad @code{extra-offset} del
-objeto TextScript.  Estos números se miden en espacios de pentagrama,
-y así esta instrucción mueve el objeto un espacio de pentagrama a la
-derecha, y dos espacios hacia arriba.
+Esto asigna la pareja @code{(1 . 2)} a la propiedad
+@code{extra-offset} del objeto TextScript.  Estos números se miden en
+espacios de pentagrama, y así esta instrucción mueve el objeto un
+espacio de pentagrama a la derecha, y dos espacios hacia arriba.
+
+Los procedimientos para trabajar con desplazamientos están en
+@file{scm/lily-library.scm}.
 
 @subheading Dimensiones
 
-HACER @c todo -- write something about extents
+Las parejas se usan también para almacenar intervalos, que representan
+un rango de números desde el mínimo (el @code{car}) hasta el máximo
+(el @code{cdr}).  Los intervalos se usan para almacenar las
+dimensiones en X y en Y de los objetos imprimibles.  Para dimensiones
+en X, el @code{car} es la coordenada X de la parte izquierda, y el
+@code{cdr} es la coordenada X de la parte derecha.  Para las
+dimensiones en Y, el @code{car} es la coordenada inferior, y el
+@code{cdr} es la coordenada superior.
+
+Los procedimientos para trabajar con intervalos están en
+@file{scm/lily-library.scm}.  Se deben usar estos procedimientos
+siempre que sea posible, para asegurar la consistencia del código.
 
 @subheading Listas-A de propiedades
 
-HACER @c todo -- write something about property alists
+Una lista-A de propiedades es una estructura de datos de LilyPond que
+es una lista-A cuyas claves son propiedades y cuyos valores son
+expresiones de Scheme que dan el valor deseado de la propiedad.
+
+Las propiedades de LilyPond son símbolos de Scheme, como por ejemplo
+@code{'thickness}.
 
 @subheading Cadenas de listas-A
 
-HACER @c todo -- write something about alist chains
+Una cadena de listas-A es una lista que contiene listas-A de
+propiedades.
+
+El conjunto de todas las propiedades que se aplican a un grob se
+almacena por lo general como una cadena de listas-A.  Para poder
+encontrar el valor de una propiedad determinada que debería tener un
+grob, se busca por todas las listas-A de la cadena, una a una,
+tratando de encontrar una entrada que contenga la clave de la
+propiedad.  Se devuelve la primera entrada de lista-A que se
+encuentre, y el valor es el valor de la propiedad.
+
+El procedimiento de Scheme @code{chain-assoc-get} se usa normalmente
+para obtener los valores de propiedades.
 
 @node Representación interna de la música
 @subsection Representación interna de la música
 @translationof Internal music representation
 
+Internamente, la música se representa como una lista de Scheme.  La
+lista contiene varios elementos que afectan a la salida impresa.  El
+análisis sintáctico es el proceso de convertir la música de la
+representación de entrada de LilyPond a la representación interna de
+Scheme.
+
 Cuando se analiza una expresión musical, se convierte en un conjunto
 de objetos musicales de Scheme.  La propiedad definitoria de un objeto
-musical es que ocupa un tiempo.  El tiempo es un número racional que
-mide la longitud de una pieza de música en redondas.
+musical es que ocupa un tiempo.  El tiempo que ocupa se llama
+@emph{duración}.  Las duraciones se expresan como un número racional
+que mide la longitud del objeto musical en redondas.
 
 Un objeto musical tiene tres clases de tipos:
 @itemize
@@ -1016,6 +1067,10 @@ cualquier información adicional (en este caso, un evento
 @node Propiedades musicales
 @subsection Propiedades musicales
 @translationof Music properties
+
+@c TODO -- make sure we delineate between @emph{music} properties,
+@c @emph{context} properties, and @emph{layout} properties.  These
+@c are potentially confusing.
 
 El objeto @code{NoteEvent} es el primer objeto de la propiedad
 @code{'elements} de @code{someNote}.
