@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Fri Apr 16 12:00:36 UTC 2010
+@emph{Last updated Fri Apr 16 16:00:03 UTC 2010
 }
 @multitable @columnfractions  0.5 0.5
 
@@ -4502,11 +4502,11 @@ up to date
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (84 %)</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (84 %)
+translated
 @end ifnothtml
 @*
 

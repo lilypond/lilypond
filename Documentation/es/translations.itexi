@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Fri Apr 16 12:00:36 UTC 2010
+@emph{Actualizado en Fri Apr 16 16:00:03 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -1030,11 +1030,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parcialmente (84 %)</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente (84 %)
+sí
 @end ifnothtml
 @tab 
 @ifhtml

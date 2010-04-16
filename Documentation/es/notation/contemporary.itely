@@ -68,8 +68,6 @@ accidentales se estudian en @ref{Alteraciones accidentales automáticas}.
 @unnumberedsubsubsec Notación microtonal
 @translationof Microtonal notation
 
-@untranslated
-
 @ignore
     Discussion of microtones other than quarter-tones, alternative
 notations (arrows, slash-flats), etc.
@@ -79,8 +77,6 @@ notations (arrows, slash-flats), etc.
 @node Armonía y armaduras de tonalidad contemporáneas
 @unnumberedsubsubsec Armonía y armaduras de tonalidad contemporáneas
 @translationof Contemporary key signatures and harmony
-
-@untranslated
 
 @ignore
     Discussion of contemporary key signatures:
@@ -128,8 +124,6 @@ pentagramas}.
 @unnumberedsubsubsec Grupos de valoración especial en música contemporánea
 @translationof Tuplets in contemporary music
 
-@untranslated
-
 @ignore
     Extended discussion of modern tuplets, including
     non-standard ratios, nested tuplets and customising
@@ -142,8 +136,6 @@ pentagramas}.
 @node Compases contemporáneos
 @unnumberedsubsubsec Compases contemporáneos
 @translationof Contemporary time signatures
-
-@untranslated
 
 @ignore
     Extended discussion of compound time signatures
@@ -160,8 +152,6 @@ pentagramas}.
 @unnumberedsubsubsec Notación polimétrica extendida
 @translationof Extended polymetric notation
 
-@untranslated
-
 @ignore
     Extended examples e.g. different instruments
     or ensembles with independent tempi
@@ -171,8 +161,6 @@ pentagramas}.
 @node Barrado en música contemporánea
 @unnumberedsubsubsec Barrado en música contemporánea
 @translationof Beams in contemporary music
-
-@untranslated
 
 @ignore
     Beaming practises, stemlets, Boulez-esque displaying
@@ -184,7 +172,6 @@ pentagramas}.
 @unnumberedsubsubsec Líneas divisorias en música contemporánea
 @translationof Bar lines in contemporary music
 
-@untranslated
 
 @ignore
     Mensurstriche barlines, tick barlines, etc.
@@ -195,19 +182,16 @@ pentagramas}.
 @subsection Notación gráfica
 @translationof Graphical notation
 
-@untranslated
 
 @node Técnicas de partitura contemporáneas
 @subsection Técnicas de partitura contemporáneas
 @translationof Contemporary scoring techniques
 
-@untranslated
 
 @node Nuevas técnicas instrumentales
 @subsection Nuevas técnicas instrumentales
 @translationof New instrumental techniques
 
-@untranslated
 
 @node Lecturas adicionales y partituras de interés
 @subsection Lecturas adicionales y partituras de interés
@@ -245,8 +229,6 @@ de Kurt Stone [W. W. Norton, 1980]
 @node Partituras y ejemplos musicales
 @unnumberedsubsubsec Partituras y ejemplos musicales
 @translationof Scores and musical examples
-
-@untranslated
 
 @ignore
     Rough list of composers whose work could be included
