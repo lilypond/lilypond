@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 0efe4dff23a1c3313387c68613c04adfb58fbb15
+    Translation of GIT committish: f503d7a55b76504c18dd273209c9d67ecd60f7a4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -171,7 +171,11 @@ foro de holandés}
 @subsubheading LilyPond Report (el Informe LilyPond)
 
 La manera más fácil de estar en contacto es leer el boletín de nuestra
-comunidad, el @uref{http://news.lilynet.net/, LilyPond Report}.
+comunidad, el Informe LilyPond:
+
+@example
+@uref{http://news.lilynet.net}
+@end example
 
 @subsubheading Lista de correo de lanzamientos: @code{info-lilypond@@gnu.org}
 
