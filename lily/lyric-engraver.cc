@@ -124,7 +124,7 @@ get_voice_to_lyrics (Context *lyrics)
 }
 
 Grob *
-get_current_note_head (Context *voice)
+get_current_note_head (Context *voice, bool include_grace_notes)
 {
   Moment now = voice->now_mom ();
   for (SCM s = voice->get_property ("busyGrobs");
@@ -138,10 +138,13 @@ get_current_note_head (Context *voice)
 	  continue;
 	}
 
-      if (end_mom->main_part_ > now.main_part_
-	  && dynamic_cast<Item *> (g)
-	  && Note_head::has_interface (g))
-	return g;
+      if (((end_mom->main_part_ > now.main_part_) ||
+           (include_grace_notes && end_mom->grace_part_ > now.grace_part_))
+          && dynamic_cast<Item *> (g)
+          && Note_head::has_interface (g))
+        {
+	  return g;
+        }
     }
 
   return 0;
@@ -156,7 +159,8 @@ Lyric_engraver::stop_translation_timestep ()
 
       if (voice)
 	{
-	  Grob *head = get_current_note_head (voice);
+	  bool include_grace_notes = to_boolean (get_property ("includeGraceNotes"));
+	  Grob *head = get_current_note_head (voice, include_grace_notes);
 
 	  if (head)
 	    {
@@ -188,6 +192,7 @@ ADD_TRANSLATOR (Lyric_engraver,
 
 		/* read */
 		"ignoreMelismata "
+		"includeGraceNotes "
 		"lyricMelismaAlignment ",
 
 		/* write */

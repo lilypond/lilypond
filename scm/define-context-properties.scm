@@ -267,6 +267,8 @@ string selector for tablature notation.")
 printed as numbers, but only as extender lines.")
      (implicitTimeSignatureVisibility ,vector? "break visibility for
 the default time signature.")
+     (includeGraceNotes ,boolean? "Do not ignore grace notes for
+@rinternals{Lyrics}.")
      (instrumentCueName ,markup? "The name to print if another
 instrument is to be taken.")
      (instrumentEqualizer ,procedure? "A function taking a string

@@ -1194,6 +1194,51 @@ Es ist notwendig, explizit @code{\set} und @code{\unset} zu
 verwenden, um den Text einzugrenzen, für den Melismen ignoriert
 werden sollen.
 
+@subsubheading Silben zu Verzierungsnoten hinzufügen
+
+Normalerweise werden Verzierungsnoten (z.B. durch @code{\grace}) bei
+@code{\lyricsto} keine Silben zugeordnet.  Dieses Verhalten kann
+geändert werden, wie das folgende Beispiel zeigt.
+
+@lilypond[verbatim,ragged-right,quote]
+\relative c' {
+  f4 \appoggiatura a32 b4
+  \grace { f16[ a16] } b2
+  \afterGrace b2 { f16[ a16] }
+  \appoggiatura a32 b4
+  \acciaccatura a8 b4
+}
+\addlyrics {
+  normal
+  \set includeGraceNotes = ##t
+  case,
+  gra -- ce case,
+  after -- grace case,
+  \set ignoreMelismata = ##t
+  app. case,
+  acc. case.
+}
+@end lilypond
+
+@knownissues
+Wie bei @code{associatedVoice} muss @code{includeGraceNotes}
+spätestens eine Silbe vor derjenigen gesetzt werden, die unter einer
+Verzierungsnote stehen soll.  Im Fall, dass eine Verzierungsnote
+die erste des Musikstückes ist, kann ein @code{\with}- oder
+@code{\context}-Block verwendet werden:
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Voice = melody \relative c' {
+    \grace { c16[( d e f] }
+    g1) f
+  }
+  \new Lyrics \with { includeGraceNotes = ##t }
+  \lyricsto melody {
+    Ah __ fa
+  }
+>>
+@end lilypond
 
 @subsubheading Zu einer alternativen Melodie umschalten
 
