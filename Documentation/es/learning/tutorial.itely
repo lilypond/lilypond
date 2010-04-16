@@ -647,7 +647,7 @@ lógico.  Se dan algunas guías para ayudarle a aprender a hacerlo, en
 @cindex comunes, errores
 @cindex errores comunes
 
-Esisten algunos errores comunes que son difíciles de solucionar si nos
+Existen algunos errores comunes que son difíciles de solucionar si nos
 basamos solamente en los mensajes de error que se nos presentan.
 Éstos se describen en @rprogram{Errores comunes}.
 
