@@ -10,6 +10,15 @@
 @c DO NOT WRITE BETWEEN THESE LINES
 
 @newsItem
+@subsubheading LilyPond 2.13.18 released!  @emph{April 16, 2010}
+
+We are happy to announce the release of LilyPond 2.13.18.  This
+release contains the usual number of bugfixes, along with improved
+website translations.  However, 14 critical issues still remain,
+so this release is intended for developers only.
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond 2.13.17 released!  @emph{April 2, 2010}
 
 We are happy to announce the release of LilyPond 2.13.17.  This
