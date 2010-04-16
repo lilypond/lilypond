@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 56691afedddbbbbc6cf8abbc53c9f1753e3922e6
+    Translation of GIT committish: b8b5ffaddd82471fdcf076b3931d59c0fc54b1a9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1563,13 +1563,10 @@ un triángulo.
     \clef "G_8"
     \palmMuteOn
     e8^\markup { \musicglyph #"noteheads.u2do"  = palm mute }
-    e e
+    < e b' e > e
     \palmMuteOff
     e e  \palmMute e e e |
     e8 \palmMute { e e e } e e e e |
-    \palmMuteOn
-    < e b' e >8 e e e < e b' e >2
-    \palmMuteOff |
     < \palmMute e b' e >8 \palmMute { e e e } < \palmMute e b' e >2
   }
 }
