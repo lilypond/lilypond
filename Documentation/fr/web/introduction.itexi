@@ -507,7 +507,7 @@ conceptions de la typographie musicale informatisée.
 Si vous voulez une introduction rapide à LilyPond et préférez l'essayer
 au plus vite, la lecture de l'essai serait trop longue.  Si toutefois
 vous préférez le lire maintenant, allez à la section @ref{Essai}.
-
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading Et ensuite ?
