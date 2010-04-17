@@ -65,7 +65,7 @@ which scares away people.
 @end ignore
 
 @item
-Se ofrece una variante de la llamada de tipo segno:
+A variant of the segno sign is provided:
 @lilypond[quote,relative=2]
 c4 d e f \bar "S"
 g4 f e d
