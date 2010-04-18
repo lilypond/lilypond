@@ -138,6 +138,13 @@ Syntax: @var{note}@code{\\breathe}")
 		  rhythmic-event event))
 	))
 
+    (CompletizeExtenderEvent
+     . ((description . "Used internally to signal the end of a lyrics block to
+ensure extenders are completed correctly when a @code{Lyrics} context ends
+before its associated @code{Voice} context.")
+	(types . (general-music completize-extender-event event))
+	))
+
     (ContextChange
      . ((description . "Change staves in Piano staff.
 

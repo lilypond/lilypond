@@ -1,4 +1,4 @@
-\version "2.12.0"
+\version "2.13.19"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -100,9 +100,9 @@ stderr of this run."
 \test "" ##[ \lyricmode { a --  b } #] 		% HyphenEvent
 \test "" ##[ \lyricmode { a __  b } #] 		% ExtenderEvent
 \test "" ##[ \lyricmode { "a " } #] 			% LyricEvent
-\test "" ##[ \lyricsto "foo" { bla bla } #]		% LyricCombineMusic
+\test "" ##[ \lyricsto "foo" { bla bla  } #]		% LyricCombineMusic
 \test "" ##[ { { c d }
-  \addlyrics { bla bla } } #]
+  \addlyrics { bla bla  } } #]
 
 %% Drums
 \test "" ##[ \drums { hihat } #]

@@ -196,6 +196,11 @@
   (call-with-output-string (lambda (p) (format p "uniqueContext~s" unique-counter))))
 
 (define (lyric-combine-music sync music loc)
+  ;; CompletizeExtenderEvent is added following the last lyric in MUSIC
+  ;; to signal to the Extender_engraver that any pending extender should
+  ;; be completed if the lyrics end before the associated voice.
+  (append! (ly:music-property music 'elements)
+	   (list (make-music 'CompletizeExtenderEvent)))
   (make-music 'LyricCombineMusic
 	      'element music
 	      'associated-context sync

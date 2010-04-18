@@ -75,11 +75,8 @@ Lyric_engraver::process_music ()
 	  if (last_text_)
 	    last_text_->set_property ("self-alignment-X", scm_from_int (LEFT));
 	}
-      /*
-        "Empty" LyricText objects are needed to allow the Extender_engraver to
-        distinguish between the end of a lyrics block and manual melismata.
-      */
-      text_ = make_item ("LyricText", event_->self_scm ());
+      else
+	text_ = make_item ("LyricText", event_->self_scm ());
     }
 }
 
@@ -167,7 +164,7 @@ Lyric_engraver::stop_translation_timestep ()
 	      if (melisma_busy (voice)
 		  && !to_boolean (get_property ("ignoreMelismata")))
 		text_->set_property ("self-alignment-X",
-				     get_property("lyricMelismaAlignment"));
+				     get_property ("lyricMelismaAlignment"));
 	    }
 	  else
 	    {

@@ -1202,4 +1202,6 @@ Otherwise, return #f."
 		  (music->lily-string ?lyric-sequence parser)))
 	#f)))
 
-
+;; Silence internal event sent at end of each lyrics block
+(define-display-method CompletizeExtenderEvent (expr parser)
+  "")
