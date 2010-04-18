@@ -35,17 +35,16 @@ class Score
   SCM input_location_;
   SCM header_;
 public:
-  Input *origin() const;
- 
-  vector<Output_def*> defs_;
-  string user_key_;
+  Input *origin () const;
+
+  vector<Output_def *> defs_;
   bool error_found_;
 
   Score ();
   Score (Score const &);
 
   VIRTUAL_COPY_CONSTRUCTOR (Score, Score);
-  
+
   SCM get_music () const;
   void add_output_def (Output_def *def);
   void set_music (SCM music);

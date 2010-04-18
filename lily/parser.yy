@@ -199,7 +199,6 @@ void set_music_properties (Music *p, SCM a);
 %token MIDI "\\midi"
 %token NAME "\\name"
 %token NOTEMODE "\\notemode"
-%token OBJECTID "\\objectid"
 %token OCTAVE "\\octave"
 %token ONCE "\\once"
 %token OVERRIDE "\\override"
@@ -429,7 +428,6 @@ If we give names, Bison complains.
 %type <scm> number_expression
 %type <scm> number_factor
 %type <scm> number_term
-%type <scm> object_id_setting
 %type <scm> octave_check
 %type <scm> optional_context_mod
 %type <scm> optional_id
@@ -477,10 +475,6 @@ lilypond:	/* empty */
 	}
 	;
 
-
-object_id_setting:
-	OBJECTID STRING { $$ = $2; }
-	;
 
 toplevel_expression:
 	lilypond_header {
@@ -748,9 +742,6 @@ book_body:
 		$$->scores_ = SCM_EOL;
 		$$->bookparts_ = SCM_EOL;
 	}
-	| book_body object_id_setting {
-		$$->user_key_ = ly_scm2string ($2);
-	}
 	;
 
 bookpart_block:
@@ -802,9 +793,6 @@ bookpart_body:
 		$$->paper_ = 0;
 		$$->scores_ = SCM_EOL;
 	}
-	| bookpart_body object_id_setting {
-		$$->user_key_ = ly_scm2string ($2);
-	}
 	;
 
 score_block:
@@ -828,9 +816,6 @@ score_body:
 		$$ = unsmob_score ($1);
 		$$->protect ();
 		$$->origin ()->set_spot (@$);
-	}
-	| score_body object_id_setting {
-		$$->user_key_ = ly_scm2string ($2);
 	}
 	| score_body lilypond_header 	{
 		$$->set_header ($2);

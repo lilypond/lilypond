@@ -31,7 +31,6 @@ class Book
   DECLARE_SMOBS (Book);
 
 public:
-  string user_key_;
   SCM header_;
   Output_def *paper_;
   SCM scores_;
@@ -39,8 +38,8 @@ public:
   SCM input_location_;
 
   Book (Book const &);
-  Input *origin() const;
-  VIRTUAL_COPY_CONSTRUCTOR(Book, Book);
+  Input *origin () const;
+  VIRTUAL_COPY_CONSTRUCTOR (Book, Book);
   Book ();
   void add_score (SCM);
   void add_bookpart (SCM);
