@@ -522,8 +522,8 @@ The braces should be surrounded by a space unless they are at the
 beginning or end of a line to avoid ambiguities.
 
 A LilyPond command followed by a simple expression in braces (such
-as @w{@samp{\relative @{ @dots{} @}}}) also counts as a single
-music expression.
+as @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}}) also counts as a
+single music expression.
 
 @cindex comments
 @cindex line comment
@@ -665,7 +665,6 @@ But you should make a practice of including them in your files.
 
 @warning{This feature is only available in the HTML manuals.}
 
-@ifhtml
 Many people learn programs by trying and fiddling around with the
 program.  This is also possible with LilyPond.  If you click on a
 picture in the HTML version of this manual, you will see the exact
@@ -683,7 +682,6 @@ By cutting and pasting everything in the @qq{ly snippet} section,
 you have a starting template for experiments.  To see exactly the
 same output (line-width and all), copy everything from @qq{Start
 cut-&-pastable section} to the bottom of the file.
-@end ifhtml
 
 
 @ignore
