@@ -21,8 +21,13 @@ keywords += ['include', 'maininput', 'version']
 s = open ('lily/lily-lexer.cc', 'r').read ()
 keywords += [w for w in re.findall (r"\s*{\"(.+)\",\s*.*},\s*\n", s)]
 
-s = open ('scm/markup.scm', 'r').read ()
-keywords += [w for w in re.findall (r"(?m)^\s*\(cons\s*([a-z-]+)-markup", s)]
+# markup commands
+for name in ['ly/toc-init.ly',
+             'scm/define-markup-commands.scm',
+             'scm/fret-diagrams.scm',
+             'scm/harp-pedals.scm']:
+    s = open (name, 'r').read ()
+    keywords += [w for w in re.findall (r"\(define-markup[a-z-]+\s+\(([a-zA-Z-]+)", s)]
 
 # identifiers and keywords
 for name in ['ly/chord-modifiers-init.ly',
@@ -36,6 +41,7 @@ for name in ['ly/chord-modifiers-init.ly',
              'ly/scale-definitions-init.ly',
              'ly/script-init.ly',
              'ly/spanners-init.ly',
+             'ly/toc-init.ly',
              'ly/declarations-init.ly']:
     s = open (name, 'r').read ()
     keywords += [w for w in re.findall (r"(?m)^\s*\"?([a-zA-Z]+)\"?\s*=", s)]
@@ -47,6 +53,7 @@ for name in ['ly/catalan.ly',
              'ly/english.ly',
              'ly/espanol.ly',
              'ly/italiano.ly',
+             'ly/makam.ly',
              'ly/nederlands.ly',
              'ly/norsk.ly',
              'ly/portugues.ly',
@@ -125,9 +132,9 @@ if out_el:
                   '//markup - { _ } -',
                   '//notes - { _ } -',
                   '//relative - % { _ } -',
-                  '//score - { //n /? //simultaneous { //n _ //n } /! //n //paper {  } //n /? //midi {  } //n /! } //n -',
+                  '//score - { //n /? //simultaneous { //n _ //n } /! //n //layout {  } //n /? //midi {  } //n /! } //n -',
                   '//simultaneous - { _ } -',
-                  '//sustainDown - _ //sustainUp -',
+                  '//sustainOn - _ //sustainOff -',
                   '//times - % { _ } -',
                   '//transpose - % { _ } -',
                   '']
@@ -145,4 +152,4 @@ if out_vim:
 
     f.write ('syn match lilyNote \"\\<\\(\\(\\(')
     f.write (''.join ([w + '\\|' for w in note_names]))
-    f.write ('a\\)\\([,\']\\)\\{,4}\\([?!]\\)\\?\\)\\|s\\|r\\)\\(\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\|\\\\breve\\|\\\\longa\\|\\\\maxima\\)[.]\\{,8}\\)\\?\\(\\A\\|\\n\\)\"me=e-1\n')
+    f.write ('a\\)\\([,\']\\)\\{,4}\\([?!]\\)\\?\\)\\|s\\|r\\|R\\|q\\)\\(\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\|\\\\breve\\|\\\\longa\\|\\\\maxima\\)[.]\\{,8}\\)\\?\\(\\A\\|\\n\\)\"me=e-1\n')
