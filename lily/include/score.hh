@@ -55,7 +55,6 @@ public:
 
 DECLARE_UNSMOB (Score, score);
 
-SCM ly_render_output (SCM, SCM);
 SCM ly_run_translator (SCM, SCM);
 
 #endif /* SCORE_HH */
