@@ -31,11 +31,11 @@ cd $resultdir
 
 cat > long-score.ly << EOF
 \version "2.10.0"
-foo = \new Staff \new Voice \repeat unfold 50 \relative { c4 d8[ d16( e]~ e16[ e e) f] g8  }
-\score { 
-  \new ChoirStaff << 
-    \foo \foo \foo \foo 
-    \foo \foo \foo \foo 
+foo = \new Staff \new Voice \repeat unfold 50 \relative c' { c4 d8[ d16( e]~ e16[ e e) f] g8  }
+\score {
+  \new ChoirStaff <<
+    \foo \foo \foo \foo
+    \foo \foo \foo \foo
 
   >>
   \midi {}
@@ -62,7 +62,7 @@ for a in *.profile; do
   cat $a
 done
 
-echo 'running gprof' 
+echo 'running gprof'
 gprof $exe > profile
 
 exit 0
@@ -75,7 +75,7 @@ for a in seq 1 3; do
        -I $depth/input/mutopia/W.A.Mozart/ \
        $f
 
-    echo 'running gprof' 
+    echo 'running gprof'
     if test -f gmon.sum ; then
       gprof -s $exe gmon.out gmon.sum
     else
