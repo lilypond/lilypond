@@ -8,8 +8,8 @@
 
 \score
 {
-  
-  \relative  {
+
+  \relative c' {
     a geseh \acciaccatura a geseh
   }
 

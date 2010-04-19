@@ -12,7 +12,7 @@
 
 \version "2.12.0"
 
-\relative {
+\relative c' {
   \override Score.SpacingSpanner #'packed-spacing = ##t
   c2 d4 f8[ g] a
 }

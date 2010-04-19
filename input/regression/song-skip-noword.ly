@@ -4,7 +4,7 @@
 #(set! *skip-word* #f)
 
 \festival #"song-skip-noword.xml" { \tempo 4 = 100 }
-\relative { c c g' }
+\relative c' { c c g' }
 \addlyrics {
   twin -- \skip 4
   kle

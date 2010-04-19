@@ -35,7 +35,7 @@ in unbroken state.
     <bis f' b>) s2..\break
     \stemNeutral
 
-    \new Voice \relative  {
+    \new Voice \relative c' {
 	c'8[( c c c] g2 ~ | \break
 	g1) | \break
 	\slurDown c8[( c] g4 ~ g2 ~ | \break

@@ -8,7 +8,7 @@
   ragged-right = ##t
 }
 
-\relative {
+\relative c' {
   << {  f
 	\override NoteColumn #'force-hshift = #0.1
 	f } \\

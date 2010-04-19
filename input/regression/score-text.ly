@@ -10,16 +10,16 @@
     line-width = #110
 }
 
-%% using Book and Score to get text in lilypond-book 
+%% using Book and Score to get text in lilypond-book
 \book {
     \markup {
 	\fill-line { "High up above" }
     }
     \score {
 	<<
-	    \relative {
+	    \relative c {
 		\clef bass
-		d,2 d c4 bes a2 \break
+		d2 d c4 bes a2 \break
 		c2 c d4 f g2
 	    }
 	    \addlyrics {

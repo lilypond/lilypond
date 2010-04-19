@@ -7,7 +7,7 @@ space and line equal to one semitone.
 "
 }
 
-scales = \relative {
+scales = \relative c' {
   a ais b c cis d dis e f fis g gis
   a
 }

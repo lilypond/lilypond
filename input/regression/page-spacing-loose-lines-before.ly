@@ -20,8 +20,8 @@ is spaced appropriately."
   \new Lyrics \lyricmode {
     Not2 much can4 go wrong!
   }
-  \context Voice = "voice" \relative {
-    d'2 d c4 bes a2
+  \context Voice = "voice" \relative c'' {
+    d2 d c4 bes a2
   }
 >>
 

@@ -6,7 +6,7 @@ texidoc = "skipTypesetting doesn't affect bar checks."
 
 }
 
-\relative {
+\relative c' {
   c4
   \set Score.skipTypesetting = ##t
   c4 c4

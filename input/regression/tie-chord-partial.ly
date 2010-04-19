@@ -8,7 +8,7 @@
   ragged-right = ##t
 }
 
-\relative {
+\relative c' {
   <c~ e g>  <c e g~> <c e g>
 }
 

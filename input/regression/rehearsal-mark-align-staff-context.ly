@@ -16,7 +16,7 @@ another context."
   }
 }
 
-\relative {
+\relative c' {
   c1 \mark "foo"
   c1
   \key cis \major

@@ -13,7 +13,7 @@ has a @code{minimum-length} of 5."
   line-width = 40.0\mm
 }
 
-\relative {
+\relative c' {
   \override Tie #'minimum-length = #5
   f2. f16  f  f  f ~ | \break
   f1

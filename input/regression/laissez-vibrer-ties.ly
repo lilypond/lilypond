@@ -15,7 +15,7 @@ They have fixed size. Their formatting can be tuned with
   ragged-right = ##t
 }
 
-\relative {
+\relative c' {
   <c e g>\laissezVibrer r4
   <c f g>\laissezVibrer r
   <c d f g>\laissezVibrer r

@@ -8,7 +8,7 @@
 \version "2.12.0"
 
 \score {
-  \relative {
+  \relative c' {
 
     \set midiMinimumVolume = #0.0
     \set midiMaximumVolume = #1.0

@@ -12,7 +12,7 @@ This may not work if the slur starts after the tuplet.  "
 %  #(define debug-slur-scoring #t)
 }
 
-\relative {
+\relative c' {
   \slurUp
   \override TupletBracket #'bracket-visibility = ##f
   \override Slur #'(details region-size)  = #6

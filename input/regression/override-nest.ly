@@ -6,7 +6,7 @@ next example, the @code{beamed-lengths} property of the @code{Stem}
 grob is tweaked."
 }
 
-\relative {
+\relative c' {
   \override Stem #'details #'beamed-lengths = #'(6 10 8)
   c8[ c] c16[ c] c32[ c]
   \revert Stem #'details

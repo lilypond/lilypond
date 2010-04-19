@@ -12,6 +12,6 @@
   ragged-right = ##t
 }
 
-\relative {
+\relative c' {
   \pitchedTrill c4.\startTrillSpan es f\stopTrillSpan
 }

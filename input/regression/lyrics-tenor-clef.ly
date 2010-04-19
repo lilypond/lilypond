@@ -15,5 +15,5 @@
     ragged-right = ##t
 }
 
-\relative { \clef "G_8" c c c c }
+\relative c' { \clef "G_8" c c c c }
 \addlyrics { bla bla bla bla }

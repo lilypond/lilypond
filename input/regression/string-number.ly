@@ -9,7 +9,7 @@ positioning mechanism as finger instructions."
   ragged-right = ##t
 }
 
-\relative {
+\relative c' {
   <c\1 e\2 g\3>
   c4
   \set fingeringOrientations = #'(down left up)

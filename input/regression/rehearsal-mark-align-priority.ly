@@ -6,7 +6,7 @@
 
 \version "2.12.0"
   
-\relative {
+\relative c' {
   \override Score.RehearsalMark #'break-align-symbols = #'(clef key-signature staff-bar)
   c1
   \clef "bass"

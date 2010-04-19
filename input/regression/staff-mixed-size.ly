@@ -1,8 +1,8 @@
 \header {
-  
+
   texidoc = "Staves may be present in several sizes within a score.
-This is achieved with an internal scaling factor. If the scaling factor is 
-forgotten in some places, objects generally become too thick or too 
+This is achieved with an internal scaling factor. If the scaling factor is
+forgotten in some places, objects generally become too thick or too
 large on smaller staves."
 
 }
@@ -13,9 +13,9 @@ large on smaller staves."
   ragged-right = ##t
 }
 
-melody = \relative {
+melody = \relative c''' {
   \override DynamicText  #'extra-offset = #'(0 . 3)
-  s1-\f c''8[(\< r a g]) e[ r d( <f a>])\! \times 2/3 { d4 d d }
+  s1-\f c8[(\< r a g]) e[ r d( <f a>])\! \times 2/3 { d4 d d }
 }
 
 <<
@@ -26,8 +26,6 @@ melody = \relative {
     \melody
   }
   \new Staff {
-    \relative c' {
-      \melody
-    }
+    \melody
   }
 >>
