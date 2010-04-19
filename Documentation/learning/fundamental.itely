@@ -754,9 +754,9 @@ See @ref{Visibility and color of objects} and
 @cindex relative note entry and polyphony
 
 Polyphony does not change the relationship of notes within a
-@code{\relative @{ @}} block.  Each note is still calculated
-relative to the note immediately preceding it, or to the first
-note of the preceding chord.  So in
+@code{\relative} block.  Each note is still calculated relative to
+the note immediately preceding it, or to the first note of the
+preceding chord.  So in
 
 @example
 \relative c' @{ noteA << < noteB noteC > \\ noteD >> noteE @}

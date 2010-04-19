@@ -1236,7 +1236,7 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative  {
+\relative c' {
   c2 d e f g f e
 }
 \addlyrics { \bulgarian }

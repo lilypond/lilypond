@@ -1036,7 +1036,7 @@ is written in Texinfo.
 Texinfo text
 
 @@lilypond
-\relative @{
+\relative c' @{
   a4 b c d
 @}
 @@end lilypond
