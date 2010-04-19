@@ -1453,14 +1453,15 @@ Here are a few sample bars of music set in LilyPond's Feta font:
 
 @subsubheading Installation Instructions for MacOS
 
-Download and extract the zip file.  Copy the @code{lilyfonts} directory
-to @file{@var{SHARE_DIR}/lilypond/current} see @rlearning{Other sources of information}.
+Download and extract the zip file.  Copy the @code{lilyfonts}
+directory to @file{@var{SHARE_DIR}/lilypond/current}; for more
+information, see @rlearning{Other sources of information}.
 Move the existing @code{fonts} directory to @code{fonts_orig} and
 move the @code{lilyfonts} directory to @code{fonts}.  Simply move
 @code{fonts_orig} back to @code{fonts} to revert back to Feta.
 
 @seealso
-@rlearning{Other sources of information}.
+Learning Manual: @rlearning{Other sources of information}.
 
 @knownissues
 
