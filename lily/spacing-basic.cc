@@ -41,7 +41,6 @@ Spring
 Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *options)
 {
   Real min_dist = max (0.0, Paper_column::minimum_distance (l, r));
-  Real ideal;
 
   if (Paper_column::is_breakable (l) && Paper_column::is_breakable (r))
     {
@@ -51,24 +50,33 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
 	mlen = *dt;
 
       Real incr = robust_scm2double (me->get_property ("spacing-increment"), 1);
+      Real space = incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
+      Spring spring = Spring (min_dist + space, min_dist);
 
-      ideal = min_dist + incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
+      /*
+	By default, the spring will have an inverse_stretch_strength of space+min_dist.
+	However, we don't want stretchability to scale with min_dist or else an
+	empty first measure on a line (which has a large min_dist because of the clef)
+	will stretch much more than an empty measure later in the line.
+      */
+      spring.set_inverse_stretch_strength (space);
+      return spring;
+    }
+
+  Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
+  Real ideal;
+
+  if (dt == Moment (0, 0))
+    {
+      /*
+	In this case, Staff_spacing should handle the job,
+	using dt when it is 0 is silly.
+      */
+      ideal = min_dist + 0.5;
     }
   else
-    {
-      Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
+    ideal = min_dist + options->get_duration_space (dt.main_part_);
 
-      if (dt == Moment (0, 0))
-	{
-	  /*
-	    In this case, Staff_spacing should handle the job,
-	    using dt when it is 0 is silly.
-	  */
-	  ideal = min_dist + 0.5;
-	}
-      else
-	ideal = min_dist + options->get_duration_space (dt.main_part_);
-    }
   return Spring (ideal, min_dist);
 }
 
