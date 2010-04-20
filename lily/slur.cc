@@ -93,7 +93,10 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 	ret.unite (d);
     }
 
-  ret.widen (height * 0.5);
+  // The +0.5 comes from the fact that we try to place a slur
+  // 0.5 staff spaces from the note-head.
+  // (see Slur_score_state.get_base_attachments ())
+  ret.widen (height * 0.5 + 0.5);
   return ly_interval2scm (ret);
 }
 
