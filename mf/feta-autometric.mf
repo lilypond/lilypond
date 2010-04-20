@@ -196,7 +196,7 @@ enddef;
 
 
 %
-% we leave the ctrl characters alone
+% we leave the ctrl characters alone.
 %
 code := 32;
 

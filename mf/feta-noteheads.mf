@@ -13,11 +13,11 @@
 %
 % LilyPond is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 % GNU General Public License for more details.
 %
 % You should have received a copy of the GNU General Public License
-% along with LilyPond.	If not, see <http://www.gnu.org/licenses/>.
+% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 test_outlines := 0;
 
@@ -1004,7 +1004,7 @@ fi;
 %
 
 save solfa_pen_thick;
-solfa_pen_thick# = 1.3 stafflinethickness#;
+solfa_pen_thick# = 1.75 stafflinethickness#;
 define_blacker_pixels (solfa_pen_thick);
 
 
@@ -1015,25 +1015,17 @@ solfa_whole_width := 1.0;
 solfa_half_width := 1.0;
 solfa_quarter_width := 1.0;
 
-def draw_do_head (expr width_factor, dir, thickness_factor) =
+def draw_do_head (expr width_factor, dir) =
 	save p_in, p_out;
-	save left_dist, right_dist, bottom_dist;
+	save left_dist, right_dist;
 	path p_in, p_out;
-	pair left_dist, right_dist, bottom_dist;
+	pair left_dist, right_dist;
 
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 
 	pickup pencircle scaled solfa_pen_thick;
 
-
-	bottom_thick_factor := thickness_factor;
-	% no different thickness for left side if we want uniform thickness
-	left_thick_factor := if thickness_factor = 1 :
-				1;
-			     else :
-				0.7 * thickness_factor;
-			     fi
 	bot y1 = -d;
 	y1 = y2;
 	lft x1 = 0;
@@ -1043,25 +1035,14 @@ def draw_do_head (expr width_factor, dir, thickness_factor) =
 
 	left_dist = (unitvector (z3 - z1) rotated 90) * 0.5 solfa_pen_thick;
 	right_dist = (unitvector (z2 - z3) rotated 90) * 0.5 solfa_pen_thick;
-	bottom_dist = (0,1) * 0.5 solfa_pen_thick;
 
-	save pa, pb, pc;
-	path pa, pb, pc;
-	save point_a, point_b, point_c;
-	pair point_a, point_b, point_c;
-
-	pa := (z1 - left_thick_factor * left_dist) --
-	      (z3 - left_thick_factor * left_dist);
-	pb := (z1 + bottom_thick_factor * bottom_dist) --
-	      (z2 + bottom_thick_factor * bottom_dist);
-	pc := (z2 - right_dist) -- (z3 - right_dist);
-
-
-	point_a := pa intersectionpoint pb;
-	point_b := pb intersectionpoint pc;
-	point_c := pc intersectionpoint pa;
-
-	p_in := point_a -- point_b -- point_c -- cycle;
+	p_in := (((z1 - left_dist) -- (z3 - left_dist)) intersectionpoint
+		  (top z1 -- top z2))
+		-- ((top z1 -- top z2) intersectionpoint
+		    ((z2 - right_dist) -- (z3 - right_dist)))
+		-- (((z2 - right_dist) -- (z3 - right_dist)) intersectionpoint
+		    ((z1 - left_dist) -- (z3 - left_dist)))
+		-- cycle;
 
 	p_out := bot z1
 		 -- bot z2{right}
@@ -1074,6 +1055,7 @@ def draw_do_head (expr width_factor, dir, thickness_factor) =
 		 .. lft z1{down}
 		 .. {right}cycle;
 
+
 	labels (1, 2, 3);
 
 	charwx := charwd;
@@ -1085,86 +1067,47 @@ enddef;
 
 
 fet_beginchar ("Whole dohead", "s0do");
-	draw_do_head (solfa_whole_width, 1, 3.25);
+	draw_do_head (solfa_whole_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half dohead", "d1do");
-	draw_do_head (solfa_half_width, -1, 3.25);
+	draw_do_head (solfa_half_width, -1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half dohead", "u1do");
-	draw_do_head (solfa_half_width, 1, 3.25);
+	draw_do_head (solfa_half_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Quart dohead", "d2do");
-	draw_do_head (solfa_quarter_width, -1, 3.25);
+	draw_do_head (solfa_quarter_width, -1);
 	fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("Quart dohead", "u2do");
-	draw_do_head (solfa_quarter_width, 1, 3.25);
+	draw_do_head (solfa_quarter_width, 1);
 	fill p_out;
 fet_endchar;
-
-
-
-fet_beginchar ("Whole thin dohead", "s0doThin");
-	draw_do_head (solfa_whole_width, 1, 1);
-	fill p_out;
-	unfill p_in;
-fet_endchar;
-
-
-fet_beginchar ("Half thin dohead", "d1doThin");
-	draw_do_head (solfa_half_width, -1, 1);
-	fill p_out;
-	unfill p_in;
-fet_endchar;
-
-
-fet_beginchar ("Half thin dohead", "u1doThin");
-	draw_do_head (solfa_half_width, 1, 1);
-	fill p_out;
-	unfill p_in;
-fet_endchar;
-
-
-fet_beginchar ("Quart thin dohead", "d2doThin");
-	draw_do_head (solfa_quarter_width, -1, 1);
-	fill p_out;
-fet_endchar;
-
-
-fet_beginchar ("Quart thin dohead", "u2doThin");
-	draw_do_head (solfa_quarter_width, 1, 1);
-	fill p_out;
-fet_endchar;
-
 
 
 %
 % re - flat top, curved bottom:
-%		 (0,h/2) {dir -90} .. (w/2,-h/2) .. {dir 90} (w,h/2) -- cycle;
+%                (0,h/2) {dir -90} .. (w/2,-h/2) .. {dir 90} (w,h/2) -- cycle;
 % (broader along the base and with more vertical sides for half and
 % whole notes)
-%
-% Note:  According to some shape-note singers, there should be no size
-%	 differences for half and whole notes, contrary to the comment above
-%
 % stem attachment: h/2
 %
 
-def draw_re_head (expr width_factor, dir, thickness_factor) =
+def draw_re_head (expr width_factor, dir) =
 	save p_in, p_out;
 	path p_in, p_out;
 
@@ -1172,7 +1115,6 @@ def draw_re_head (expr width_factor, dir, thickness_factor) =
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 
 	pickup pencircle scaled solfa_pen_thick;
-
 
 	save curve_start;
 	curve_start = 0.7;
@@ -1189,11 +1131,11 @@ def draw_re_head (expr width_factor, dir, thickness_factor) =
 
 	labels (range 1 thru 5);
 
-	p_in := (z1 + 0.5 solfa_pen_thick * (1, -1 * thickness_factor))
+	p_in := (z1 + 0.5 solfa_pen_thick * (1, -1))
 		-- rt z2{down}
-		.. ((top z3) + (0, thickness_factor * 0.5 solfa_pen_thick))
+		.. top z3
 		.. lft z4{up}
-		-- (z5 + 0.5 solfa_pen_thick * (-1, -1 * thickness_factor))
+		-- (z5 + 0.5 solfa_pen_thick * (-1, -1))
 		-- cycle;
 
 	p_out := lft z1
@@ -1215,84 +1157,43 @@ enddef;
 
 
 fet_beginchar ("Whole rehead", "s0re");
-	draw_re_head (solfa_whole_width, 1, 2.5);
+	draw_re_head (solfa_whole_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half up rehead", "u1re");
-	draw_re_head (solfa_half_width, 1, 2.5);
+	draw_re_head (solfa_half_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half down rehead", "d1re");
-	draw_re_head (solfa_half_width, -1, 2.5);
+	draw_re_head (solfa_half_width, -1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Quart rehead", "u2re");
-	draw_re_head (solfa_quarter_width, 1, 2.5);
+	draw_re_head (solfa_quarter_width, 1);
 	fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("Quart rehead", "d2re");
-	draw_re_head (solfa_quarter_width, -1, 2.5);
+	draw_re_head (solfa_quarter_width, -1);
 	fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Whole thin rehead", "s0reThin");
-	draw_re_head (solfa_whole_width, 1, 1);
-	fill p_out;
-	unfill p_in;
-fet_endchar;
-
-
-fet_beginchar ("Half up thin rehead", "u1reThin");
-	draw_re_head (solfa_half_width, 1, 1);
-	fill p_out;
-	unfill p_in;
-fet_endchar;
-
-
-fet_beginchar ("Half down thin rehead", "d1reThin");
-	draw_re_head (solfa_half_width, -1, 1);
-	fill p_out;
-	unfill p_in;
-fet_endchar;
-
-
-fet_beginchar ("Quart thin rehead", "u2reThin");
-	draw_re_head (solfa_quarter_width, 1, 1);
-	fill p_out;
-fet_endchar;
-
-
-fet_beginchar ("Quart thin rehead", "d2reThin");
-	draw_re_head (solfa_quarter_width, -1, 1);
-	fill p_out;
-fet_endchar;
-
-
-
-
-%%%% mi head -- diamond shape
-
-def draw_mi_head (expr width_factor, thickness_factor, mirror) =
+def draw_mi_head (expr width_factor) =
 	save path_out, path_in;
 	save ne_dist, se_dist, ne, se;
-	save path_a, path_b, path_c, path_d;
 	path path_out, path_in;
 	pair ne_dist, se_dist, ne, se;
-	path path_a, path_b, path_c, path_d;
-	save inner_path;
-	path inner_path;
 
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
@@ -1308,7 +1209,6 @@ def draw_mi_head (expr width_factor, thickness_factor, mirror) =
 	y3 = y1;
 	top y4 = h;
 
-	% inner sides are parallel to outer sides
 	z6 - z5 = whatever * (z2 - z1);
 	z8 - z7 = whatever * (z2 - z1);
 	z8 - z5 = whatever * (z4 - z1);
@@ -1320,29 +1220,18 @@ def draw_mi_head (expr width_factor, thickness_factor, mirror) =
 	ne_dist = (ne rotated 90) * 0.5 solfa_pen_thick;
 	se_dist = (se rotated 90) * 0.5 solfa_pen_thick;
 
-	path_a := (z1 - se_dist) -- (z2 - se_dist);
-	path_b := (z2 + (ne_dist * thickness_factor)) --
-		  (z3 + (ne_dist * thickness_factor));
-	path_c := (z3 + se_dist) -- (z4 + se_dist);
-	path_d := (z4 - (ne_dist * thickness_factor)) --
-		  (z1 - (ne_dist * thickness_factor));
+	z5 = whatever [z1, z4] - ne_dist;
+	z5 = whatever [z1, z2] - 1.5 se_dist;
 
-	z5 = path_a intersectionpoint path_d;
-	z7 = path_b intersectionpoint path_c;
+	z5 - z1 = -(z7 - z3);
 
 	labels (range 1 thru 8);
 
-	inner_path := z5
+	path_in := z5
 		   -- z6
 		   -- z7
 		   -- z8
 		   -- cycle;
-
-	path_in := if mirror:
-		      inner_path;
-		   else:
-		      inner_path reflectedabout (z2, z4);
-		   fi
 
 	path_out := lft z1
 		    .. (z1 + se_dist){-se}
@@ -1361,75 +1250,31 @@ enddef;
 
 
 fet_beginchar ("Whole mihead", "s0mi");
-	draw_mi_head (solfa_whole_width, 3, false);
+	draw_mi_head (solfa_whole_width);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Half mihead", "s1mi");
-	draw_mi_head (solfa_quarter_width, 3, false);
+	draw_mi_head (solfa_quarter_width);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
+
 
 fet_beginchar ("Quart mihead", "s2mi");
-	draw_mi_head (solfa_quarter_width, 3, false);
+	draw_mi_head (solfa_quarter_width);
 	fill path_out;
 fet_endchar;
 
 
-
-fet_beginchar ("Whole mirror mihead", "s0miMirror");
-	draw_mi_head (solfa_whole_width, 3, true);
-	fill path_out;
-	unfill path_in;
-fet_endchar;
-
-fet_beginchar ("Half  mirror mihead", "s1miMirror");
-	draw_mi_head (solfa_quarter_width, 3, true);
-	fill path_out;
-	unfill path_in;
-fet_endchar;
-
-fet_beginchar ("Quart mirror mihead", "s2miMirror");
-	draw_mi_head (solfa_quarter_width, 3, true);
-	fill path_out;
-fet_endchar;
-
-
-
-fet_beginchar ("Whole thin mihead", "s0miThin");
-	draw_mi_head (solfa_whole_width, 1, false);
-	fill path_out;
-	unfill path_in;
-fet_endchar;
-
-
-fet_beginchar ("Half thin mihead", "s1miThin");
-	draw_mi_head (solfa_quarter_width, 1, false);
-	fill path_out;
-	unfill path_in;
-fet_endchar;
-
-
-fet_beginchar ("Quart thin mihead", "s2miThin");
-	draw_mi_head (solfa_quarter_width, 1, false);
-	fill path_out;
-fet_endchar;
-
-
-
-%%%%  fa head
-
-def draw_fa_head (expr width_factor, thickness_factor) =
+def draw_fa_head (expr width_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 
 	save p_down_in, p_down_out, p_up_in, p_up_out, nw_dist, nw;
 	path p_down_in, p_down_out, p_up_in, p_up_out;
-	save path_a, path_b, path_c;
-	path path_a, path_b, path_c;
 	pair nw_dist, nw;
 
 	pickup pencircle scaled solfa_pen_thick;
@@ -1450,16 +1295,12 @@ def draw_fa_head (expr width_factor, thickness_factor) =
 	nw = unitvector (z1 - z3);
 	nw_dist = (nw rotated 90) * 0.5 solfa_pen_thick;
 
-	path_a := (z1 - (0,1) * thickness_factor * solfa_pen_thick) --
-		  (z2 - (0,1) * thickness_factor * solfa_pen_thick);
-	path_b := (z2 - (1,0) * 0.5 solfa_pen_thick) --
-		  (z3 - (1,0) * 0.5 solfa_pen_thick);
-	path_c := (z3 - nw_dist) -- (z1 - nw_dist);
-
-	p_up_in := (path_a intersectionpoint path_b) --
-		   (path_b intersectionpoint path_c) --
-		   (path_c intersectionpoint path_a) --
-		   cycle;
+	p_up_in := (((z1 - nw_dist) -- (z3 - nw_dist)) intersectionpoint
+		     (bot z1 -- bot z2))
+		   -- (((z1 - nw_dist) -- (z3 - nw_dist)) intersectionpoint
+			(lft z3 -- lft z2))
+		   -- (z2 + 0.5 solfa_pen_thick * (-1, -1))
+		   -- cycle;
 
 	p_up_out := lft z1{down}
 		    .. (z1 + nw_dist){-nw}
@@ -1480,99 +1321,51 @@ enddef;
 
 
 fet_beginchar ("Whole fa up head", "u0fa");
-	draw_fa_head (solfa_whole_width, 1.5);
+	draw_fa_head (solfa_whole_width);
 	fill p_up_out;
 	unfill p_up_in;
 fet_endchar;
 
 
 fet_beginchar ("Whole fa down head", "d0fa");
-	draw_fa_head (solfa_whole_width, 1.5);
+	draw_fa_head (solfa_whole_width);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
 
 
 fet_beginchar ("half fa up head", "u1fa");
-	draw_fa_head (solfa_half_width, 1.5);
+	draw_fa_head (solfa_half_width);
 	fill p_up_out;
 	unfill p_up_in;
 fet_endchar;
 
 
 fet_beginchar ("Half fa down head", "d1fa");
-	draw_fa_head (solfa_half_width, 1.5);
+	draw_fa_head (solfa_half_width);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
 
 
 fet_beginchar ("Quarter fa up head", "u2fa");
-	draw_fa_head (solfa_quarter_width, 1.5);
+	draw_fa_head (solfa_quarter_width);
 	fill p_up_out;
 fet_endchar;
 
 
 fet_beginchar ("Quarter fa down head", "d2fa");
-	draw_fa_head (solfa_quarter_width, 1.5);
+	draw_fa_head (solfa_quarter_width);
 	fill p_down_out;
 fet_endchar;
 
-
-fet_beginchar ("Whole thin fa up head", "u0faThin");
-	draw_fa_head (solfa_whole_width, 1);
-	fill p_up_out;
-	unfill p_up_in;
-fet_endchar;
-
-
-fet_beginchar ("Whole thin fa down head", "d0faThin");
-	draw_fa_head (solfa_whole_width, 1);
-	fill p_down_out;
-	unfill p_down_in;
-fet_endchar;
-
-
-fet_beginchar ("half thin fa up head", "u1faThin");
-	draw_fa_head (solfa_half_width, 1);
-	fill p_up_out;
-	unfill p_up_in;
-fet_endchar;
-
-
-fet_beginchar ("Half thin fa down head", "d1faThin");
-	draw_fa_head (solfa_half_width, 1);
-	fill p_down_out;
-	unfill p_down_in;
-fet_endchar;
-
-
-fet_beginchar ("Quarter thin fa up head", "u2faThin");
-	draw_fa_head (solfa_quarter_width, 1);
-	fill p_up_out;
-fet_endchar;
-
-
-fet_beginchar ("Quarter thin fa down head", "d2faThin");
-	draw_fa_head (solfa_quarter_width, 1);
-	fill p_down_out;
-fet_endchar;
-
-
-
-%%%% sol head
-%%
-%%  Note -- sol head is the same shape as a standard music
-%%	    head, and doesn't vary from style to style.
-%%	    However, width is constant with duration, so we
-%%	    can't just use the standard note font.
 
 def draw_sol_head (expr filled) =
 	draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
-	if not filled:
+        if not filled:
 	  undraw_inside_ellipse (3.25, 33, 0.81, 2.5 stafflinethickness#);
-	fi
-	draw_staff (-2, 2, 0);
+        fi
+        draw_staff (-2, 2, 0);
 enddef;
 
 fet_beginchar ("Whole solhead", "s0sol");
@@ -1591,9 +1384,9 @@ fet_endchar;
 
 
 
-%%%% la head
 
-def draw_la_head (expr width_factor, thickness_factor) =
+
+def draw_la_head (expr width_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 	save p_in, p_out;
@@ -1614,10 +1407,10 @@ def draw_la_head (expr width_factor, thickness_factor) =
 
 	labels (range 1 thru 4);
 
-	p_in := (z1 + 0.5 solfa_pen_thick * (1, -thickness_factor))
-		-- (z2 + 0.5 solfa_pen_thick * (-1, -thickness_factor))
-		-- (z3 + 0.5 solfa_pen_thick * (-1, thickness_factor))
-		-- (z4 + 0.5 solfa_pen_thick * (1, thickness_factor))
+	p_in := (z1 + 0.5 solfa_pen_thick * (1, -1))
+		-- (z2 + 0.5 solfa_pen_thick * (-1, -1))
+		-- (z3 + 0.5 solfa_pen_thick * (-1, 1))
+		-- (z4 + 0.5 solfa_pen_thick * (1, 1))
 		-- cycle;
 
 	p_out := top z1
@@ -1633,54 +1426,31 @@ enddef;
 
 
 fet_beginchar ("Whole lahead", "s0la");
-	draw_la_head (solfa_whole_width, 3);
+	draw_la_head (solfa_whole_width);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half lahead", "s1la");
-	draw_la_head (solfa_half_width, 3);
+	draw_la_head (solfa_half_width);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Quart lahead", "s2la");
-	draw_la_head (solfa_quarter_width, 3);
+	draw_la_head (solfa_quarter_width);
 	fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Whole thin lahead", "s0laThin");
-	draw_la_head (solfa_whole_width, 1);
-	fill p_out;
-	unfill p_in;
-fet_endchar;
-
-
-fet_beginchar ("Half thin lahead", "s1laThin");
-	draw_la_head (solfa_half_width, 1);
-	fill p_out;
-	unfill p_in;
-fet_endchar;
-
-
-fet_beginchar ("Quart lahead", "s2laThin");
-	draw_la_head (solfa_quarter_width, 1);
-	fill p_out;
-fet_endchar;
-
-
-
-%%%% ti head
-
-def draw_ti_head (expr width_factor, dir, thickness_factor) =
+def draw_ti_head (expr width_factor, dir) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
-	save p_in, p_out, p_top, p_top_in;
+	save p_in, p_out, p_top;
 	save nw_dist, sw_dist, nw, sw;
-	path p_in, p_out, p_top, p_top_in;
+	path p_in, p_out, p_top;
 	pair nw_dist, sw_dist, nw, sw;
 	save cone_height;
 	cone_height = 0.64;
@@ -1695,8 +1465,6 @@ def draw_ti_head (expr width_factor, dir, thickness_factor) =
 	y4 = y2;
 	x3 = x1;
 	top y3 = h;
-	x5 = x1;
-	y5 = y1 + thickness_factor * 0.5 * solfa_pen_thick;
 
 	labels (range 1 thru 4);
 
@@ -1710,19 +1478,14 @@ def draw_ti_head (expr width_factor, dir, thickness_factor) =
 		 .. (top z3){right}
 		 .. (z4 - nw_dist);
 
-	p_top_in := (z2 + sw_dist * thickness_factor) {- sw}
-		    .. ((top z3) - (0,1) * thickness_factor * 0.5 solfa_pen_thick) {right}
-		    .. (z4 + nw_dist * thickness_factor){- nw};
-
-	save path_a, path_b;
-	path path_a, path_b;
-	path_a := z2 -- z5;
-	path_b := z5 -- z4;
-
-	z6 = path_a intersectionpoint p_top_in;
-	z7 = path_b intersectionpoint p_top_in;
-
-	p_in := z5 -- z6 .. bot z3 .. z7 -- cycle;
+	p_in := (((z1 - nw_dist) -- (z2 - nw_dist)) intersectionpoint
+		  ((z1 - sw_dist) -- (z4 - sw_dist)))
+		-- (((z1 - nw_dist) -- (z2 - nw_dist)) intersectionpoint
+		     ((z2 + sw_dist) .. {right}(bot z3)))
+		.. bot z3
+		.. (((bot z3){right} .. (z4 + nw_dist)) intersectionpoint
+		     ((z1 - sw_dist) -- (z4 - sw_dist)))
+		-- cycle;
 
 	p_out := bot z1
 		 .. (z1 + nw_dist)
@@ -1745,74 +1508,39 @@ enddef;
 
 
 fet_beginchar ("Whole up tihead", "s0ti");
-	draw_ti_head (solfa_whole_width, 1, 3);
+	draw_ti_head (solfa_whole_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half up tihead", "u1ti");
-	draw_ti_head (solfa_half_width, 1, 3);
+	draw_ti_head (solfa_half_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half down tihead", "d1ti");
-	draw_ti_head (solfa_half_width, -1, 3);
+	draw_ti_head (solfa_half_width, -1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Quart up tihead", "u2ti");
-	draw_ti_head (solfa_quarter_width, 1, 3);
+	draw_ti_head (solfa_quarter_width, 1);
 	fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("Quart down tihead", "d2ti");
-	draw_ti_head (solfa_quarter_width, -1, 3);
+	draw_ti_head (solfa_quarter_width, -1);
 	fill p_out;
 fet_endchar;
-
-
-fet_beginchar ("Whole thin up tihead", "s0tiThin");
-	draw_ti_head (solfa_whole_width, 1, 1);
-	fill p_out;
-	unfill p_in;
-fet_endchar;
-
-
-fet_beginchar ("Half thin up tihead", "u1tiThin");
-	draw_ti_head (solfa_half_width, 1, 1);
-	fill p_out;
-	unfill p_in;
-fet_endchar;
-
-
-fet_beginchar ("Half thin down tihead", "d1tiThin");
-	draw_ti_head (solfa_half_width, -1, 1);
-	fill p_out;
-	unfill p_in;
-fet_endchar;
-
-
-fet_beginchar ("Quart thin up tihead", "u2tiThin");
-	draw_ti_head (solfa_quarter_width, 1, 1);
-	fill p_out;
-fet_endchar;
-
-
-fet_beginchar ("Quart thin down tihead", "d2tiThin");
-	draw_ti_head (solfa_quarter_width, -1, 1);
-	fill p_out;
-fet_endchar;
-
 
 
 fet_endgroup ("noteheads");
-
 
 
 %

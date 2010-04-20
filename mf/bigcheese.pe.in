@@ -10,7 +10,6 @@ New();
 SetFontNames("bigcheese20", "LilyPond", "LilyPond BigCheese 20", "20", "GNU GPL", "@TOPLEVEL_VERSION@");
 
 MergeFonts("feta20.pfa");
-MergeFonts("feta-noteheads20.pfa");
 MergeFonts("parmesan20.pfa");
 
 # load nummer/din after setting PUA.

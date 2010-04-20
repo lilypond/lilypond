@@ -6,6 +6,7 @@
 %input feta-rests;
 input feta-accidentals;
 %input feta-dots;
+%input feta-noteheads;
 %input feta-arrowheads;
 %input feta-scripts;
 %input feta-flags;
