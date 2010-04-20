@@ -539,7 +539,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
     {
       Real full_measure_extra_space = robust_scm2double (l->get_property ("full-measure-extra-space"), 1.0);
       spring.set_distance (spring.distance () + full_measure_extra_space);
-      spring.set_default_strength ();
+      spring.set_default_compress_strength ();
     }
   
   if (options->stretch_uniformly_ && l->break_status_dir () != RIGHT)

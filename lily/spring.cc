@@ -175,9 +175,21 @@ Spring::set_blocking_force (Real f)
 void
 Spring::set_default_strength ()
 {
+  set_default_stretch_strength ();
+  set_default_compress_strength ();
+}
+
+void
+Spring::set_default_compress_strength ()
+{
   inverse_compress_strength_ = (distance_ >= min_distance_) ? distance_ - min_distance_ : 0;
-  inverse_stretch_strength_ = distance_;
   update_blocking_force ();
+}
+
+void
+Spring::set_default_stretch_strength ()
+{
+  inverse_stretch_strength_ = distance_;
 }
 
 Real
