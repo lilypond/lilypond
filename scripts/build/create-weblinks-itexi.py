@@ -40,21 +40,20 @@ translations = {
         'Web': 'Web',
         'Changes': 'Änderungen',
 
-        #TODO
-        'Extending': 0,
+        'Extending': 'Erweitern',
         'Internals': 'Interna',
-        'Contributor': 0,
+        'Contributor': 'Beitragen',
 
-        ' (split HTML)': 0,
-        ' (big HTML)': 0,
+        ' (split HTML)': ' (geteiltes HTML)',
+        ' (big HTML)': ' (großes HTML)',
 
-        'Regression tests for ': 0,
-        'PDF of regtests for ': 0,
-        'MusicXML Regression tests for ': 0,
-        'PDF of MusicXML regtests for ': 0,
+        'Regression tests for ': 'Regressionstests für ',
+        'PDF of regtests for ': 'PDF der Regressionstests für ',
+        'MusicXML Regression tests for ': 'MusicXML Regressionstests für ',
+        'PDF of MusicXML regtests for ': 'PDF der MusicXML Regressionstests für ',
 
-        'Doc tarball for ': 0,
-        ' (did not exist in 2.12)': 0,
+        'Doc tarball for ': 'Dokumentation tar-gepackt für ',
+        ' (did not exist in 2.12)': ' (nicht existent in 2.12)',
         },
     'es': {
         'Source': 'Código fuente',
