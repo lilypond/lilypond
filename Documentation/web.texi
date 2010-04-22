@@ -37,6 +37,11 @@
 @copying
 Copyright @copyright{} 2009--2010 by the authors.
 
+@c next line is necessary for broken pre-4.13 texinfo's
+@c install-info, so leave it there until we officially
+@c bump the required version.  -gp
+This file documents the LilyPond website.
+
 @quotation
 Permission is granted to copy, distribute and/or modify this
 document under the terms of the GNU Free Documentation License,
