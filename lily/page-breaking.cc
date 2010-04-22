@@ -101,8 +101,7 @@ compress_lines (const vector<Line_details> &orig)
 	  Line_details compressed = orig[i];
 	  Real padding = orig[i].title_ ? old.title_padding_ : old.padding_;
 
-	  compressed.extent_[DOWN] = old.extent_[DOWN];
-	  compressed.extent_[UP] = old.extent_[UP] + orig[i].extent_.length () + padding;
+	  compressed.shape_ = old.shape_.piggyback (orig[i].shape_, padding);
 	  compressed.space_ += old.space_;
 	  compressed.inverse_hooke_ += old.inverse_hooke_;
 
@@ -836,6 +835,28 @@ Page_breaking::line_divisions_rec (vsize system_count,
     }
 }
 
+void
+Page_breaking::compute_line_heights ()
+{
+  Real prev_hanging = 0;
+  Real prev_hanging_begin = 0;
+  Real prev_hanging_rest = 0;
+  for (vsize i = 0; i < cached_line_details_.size (); i++)
+    {
+      Line_shape shape = cached_line_details_[i].shape_;
+      Real a = shape.begin_[UP];
+      Real b = shape.rest_[UP];
+      Real midline_hanging = max (prev_hanging_begin + a, prev_hanging_rest + b);
+      Real hanging_begin = midline_hanging - shape.begin_[DOWN];
+      Real hanging_rest = midline_hanging - shape.rest_[DOWN];
+      Real hanging = max (hanging_begin, hanging_rest);
+      cached_line_details_[i].tallness_ = hanging - prev_hanging;
+      prev_hanging = hanging;
+      prev_hanging_begin = hanging_begin;
+      prev_hanging_rest = hanging_rest;
+    }
+}
+
 vsize
 Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 {
@@ -847,18 +868,26 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
   int line_count = 0;
 
   cache_line_details (configuration);
+  compute_line_heights ();
 
   if (cached_line_details_.size ())
     cur_page_height -= min_whitespace_at_top_of_page (cached_line_details_[0]);
 
   for (vsize i = 0; i < cached_line_details_.size (); i++)
     {
-      Real ext_len = cached_line_details_[i].extent_.length ();
       Real padding = 0;
+      Real ext_len;
       if (cur_rod_height > 0)
-	padding = cached_line_details_[i].title_ ?
-	  cached_line_details_[i-1].title_padding_ : cached_line_details_[i-1].padding_;
-
+        {
+          padding = cached_line_details_[i].title_ ?
+            cached_line_details_[i-1].title_padding_ :
+            cached_line_details_[i-1].padding_;
+          ext_len = cached_line_details_[i].tallness_;
+        }
+      else
+        {
+          ext_len = cached_line_details_[i].full_height();
+        }
       Real next_rod_height = cur_rod_height + ext_len + padding;
       Real next_spring_height = cur_spring_height + cached_line_details_[i].space_;
       Real next_height = next_rod_height + (ragged () ? next_spring_height : 0)
@@ -871,7 +900,7 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 	      && cached_line_details_[i-1].page_permission_ == ly_symbol2scm ("force")))
 	{
 	  line_count = cached_line_details_[i].compressed_nontitle_lines_count_;
-	  cur_rod_height = ext_len;
+	  cur_rod_height = cached_line_details_[i].full_height();
 	  cur_spring_height = cached_line_details_[i].space_;
 	  page_starter = i;
 
@@ -909,7 +938,7 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
   if (!too_few_lines (line_count - cached_line_details_.back ().compressed_nontitle_lines_count_)
       && cur_height > cur_page_height
       /* don't increase the page count if the last page had only one system */
-      && cur_rod_height > cached_line_details_.back ().extent_.length ())
+      && cur_rod_height > cached_line_details_.back ().full_height ())
     ret++;
 
   assert (ret <= cached_line_details_.size ());
@@ -1388,7 +1417,8 @@ Page_breaking::min_whitespace_at_top_of_page (Line_details const &line) const
 					  ly_symbol2scm ("padding"));
 
   // FIXME: take into account the height of the header
-  return max (0.0, max (padding, min_distance - line.extent_[UP]));
+  Real translate = max (line.shape_.begin_[UP], line.shape_.rest_[UP]);
+  return max (0.0, max (padding, min_distance - translate));
 }
 
 Real
@@ -1406,7 +1436,8 @@ Page_breaking::min_whitespace_at_bottom_of_page (Line_details const &line) const
 					  ly_symbol2scm ("padding"));
 
   // FIXME: take into account the height of the footer
-  return max (0.0, max (padding, min_distance + line.extent_[DOWN]));
+  Real translate = min (line.shape_.begin_[DOWN], line.shape_.rest_[DOWN]);
+  return max (0.0, max (padding, min_distance + translate));
 }
 
 int
