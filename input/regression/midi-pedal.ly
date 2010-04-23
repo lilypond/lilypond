@@ -8,7 +8,7 @@
 \version "2.12.0"
 
 \score {
-  \relative {
+  \relative c' {
     {
       { c16 e g c }
       

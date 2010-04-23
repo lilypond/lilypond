@@ -23,7 +23,7 @@ long gap at the beginning or at the end of the repeat.
   }
 
   \score {
-    \relative {
+    \relative c' {
       \set Score.skipBars = ##t
       % this should be kept on one page
       \repeat volta 2 {

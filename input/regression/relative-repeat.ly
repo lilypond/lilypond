@@ -3,7 +3,7 @@
   }
 \version "2.12.0"
 
-\relative {
+\relative c' {
   \repeat "unfold" 3
   { f2 bes2 }
   \alternative { a1 e b } 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: c650e54334b64e0e9fd534ee13742f6c07257637
+    Translation of GIT committish: 67d6d3fd903a5dbe9b3a1112c646db29abb622e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -34,7 +34,7 @@ amis et collègues avec des partitions soignées !
 @divEnd
 
 @divClass{column-left-top}
-@subheading Pourquoi utiliser LilyPond?
+@subheading Pourquoi utiliser LilyPond ?
 
 @itemize
 
@@ -62,7 +62,7 @@ amis et collègues avec des partitions soignées !
 @ref{Productions} : cas d'utilisation de LilyPond.
 
 @item
-@ref{Témoignages}: que disent les gens sur LilyPond ?
+@ref{Témoignages} : que disent les gens sur LilyPond ?
 
 @end itemize
 @divEnd
@@ -73,10 +73,11 @@ amis et collègues avec des partitions soignées !
 @itemize
 
 @item
-@ref{Entrée sous forme de texte}: vous écrivez de la musique comme du @emph{texte} ?!
+@ref{Entrée sous forme de texte} : vous écrivez de la musique comme du
+@emph{texte} ?
 
 @item
-@ref{Facilités d'édition}: autres façons de travailler avec LilyPond.
+@ref{Facilités d'édition} : autres façons de travailler avec LilyPond.
 
 @end itemize
 @divEnd
@@ -140,7 +141,7 @@ tend à déterminer la meilleure mise en page dès le départ, en
 déterminant l'espacement, les sauts de système et de page, afin de
 produire une mise en page compacte et homogène.  Le logiciel résout les
 collisions entre paroles, notes et accords, et calcule la
-courbure des liaisons, tout cela automatiquement !
+courbure des liaisons, tout cela automatiquement@tie{}!
 
 
 @subsubheading Entrée sous forme de texte
@@ -148,8 +149,8 @@ courbure des liaisons, tout cela automatiquement !
 LilyPond prend en entrée du texte brut, que vous pouvez écrire dans
 votre éditeur de texte préféré, rapidement et confortablement.  Vous
 pouvez oublier les prises de tête avec la souris.  Le fichier texte
-d'entrée contient toute la description de la musique à graver ; ainsi,
-il n'est pas nécessaire de se rappeler de complexes séquences de
+d'entrée contient toute la description de la musique à graver@tie{};
+ainsi, il n'est pas nécessaire de se rappeler de complexes séquences de
 commandes, il suffit de relire du texte d'entrée existant pour retrouver
 ce que l'on a déjà réussi à faire.
 
@@ -184,7 +185,7 @@ pouvez le récupérer depuis la page de téléchargement.
 Ce logiciel est également et avant tout libre : son code source est
 également disponible, et il est possible sous certaines conditions de le
 copier, de le modifier et de le redistribuer.  Êtes-vous irrité par un
-bogue, ou désirez-vous une fonctionnalité ?  Ajoutez-la vous-même, ou
+bogue, ou désirez-vous une fonctionnalité@tie{}?  Ajoutez-la vous-même, ou
 payez quelqu'un d'autre pour le faire.
 
 
@@ -354,7 +355,7 @@ mais il est possible de les personnaliser dans presque tous les cas.
 
 LilyPond excelle également dans les grands projets tels qu'un opéra ou
 une œuvre pour grand orchestre symphonique.  De plus, l'entrée sous
-forme de texte offre une meilleure accessibilité — cet exemple est
+forme de texte offre une meilleure accessibilité -- cet exemple est
 extrait de l'œuvre de Hu Haipeng, compositeur aveugle.
 
 @exampleImage{orchestra}
@@ -384,7 +385,7 @@ Licence Publique Générale GNU GPL} et la @ref{FDL, Licence Libre de
 Documentation GNU FDL}, accordant à tous la liberté de le corriger, le
 modifier et étendre ses fonctionnalités.  La gravure musicale de qualité
 ne devrait pas vous coûter des centaines d'euros dépensés pour acheter
-une licence de logiciel !
+une licence de logiciel@tie{}!
 @divEnd
 
 
@@ -397,11 +398,11 @@ une licence de logiciel !
 
 @item
 Aucun coût d'essai : téléchargez-le et essayez-le sans aucune
-restriction !  Qu'avez-vous à perdre ?
+restriction@tie{}!  Qu'avez-vous à perdre@tie{}?
 
 @item
 Partage : si vous appréciez ce logiciel, donnez-en une copie à vos amis,
-professeurs, étudiants et collègues !
+professeurs, étudiants et collègues@tie{}!
 
 @item
 Code source disponible : si vous êtes curieux du fonctionnement interne de
@@ -423,7 +424,7 @@ une entreprise ou un milieu de recherche.
 @item
 Indépendance par rapport aux éditeurs de logiciel : si une entreprise
 fait faillite, qu'advient-il des logiciels et fichiers dans le format de
-ces logiciels que cette entreprise développait et éditait ?  Ce n'est
+ces logiciels que cette entreprise développait et éditait@tie{}?  Ce n'est
 pas un problème avec LilyPond ; même si toute l'équipe de développement
 laissait ce logiciel à l'abandon, il serait encore légalement et
 effectivement disponible afin d'être copié, modifié et distribué.
@@ -438,22 +439,23 @@ effectivement disponible afin d'être copié, modifié et distribué.
 @c @divClass{column-right-top}
 @divClass{color3}
 @divClass{keep-bullets}
-@subheading Pourquoi les développeurs de LilyPond @qq{donnent} leur travail gratuitement ?
+@subheading Pourquoi les développeurs de LilyPond @qq{donnent-ils} leur travail gratuitement ?
 
 La plupart d'entre nous conçoivent le développement de LilyPond comme un
 passe-temps ou un travail bénévole, c'est pourquoi cette question serait mieux
-formulée ainsi : pourquoi des gens contribuent bénévolement à LilyPond ?
+formulée ainsi@tie{}: pourquoi des gens contribuent bénévolement à
+LilyPond@tie{}?
 
 @itemize
 
 @item
 Pour le plaisir : travailler pour un but particulier peut être motivant,
-d'autant plus que le travail d'équipe apporte de l'entraide !
+d'autant plus que le travail d'équipe apporte de l'entraide@tie{}!
 
 @item
 Des objectifs communs : nous voulons tous produire des partitions de
 musique de qualité, mais peu de gens ont l'expertise -- et personne n'a le
-temps ! -- de créer un logiciel qui gère toutes les situations.  En
+temps@tie{}! -- de créer un logiciel qui gère toutes les situations.  En
 travaillant tous ensemble -- l'un améliore le code des ligatures
 automatiques, un autre corrige le galbe des liaisons, et un troisième
 écrit de la documentation expliquant l'utilisation de ces
@@ -507,7 +509,7 @@ conceptions de la typographie musicale informatisée.
 Si vous voulez une introduction rapide à LilyPond et préférez l'essayer
 au plus vite, la lecture de l'essai serait trop longue.  Si toutefois
 vous préférez le lire maintenant, allez à la section @ref{Essai}.
-
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading Et ensuite ?
@@ -566,7 +568,7 @@ Music New York}, avec des partitions gravées par Nicolas Sceaux.
 @item
 Le @uref{http://www.mutopiaproject.org/index.html, projet Mutopia}
 propose en téléchargement libre des partitions de plus de 1@tie{}500 pièces de
-musique classique ; c'est la plus grande vitrine de partitions LilyPond.
+musique classique@tie{}; c'est la plus grande vitrine de partitions LilyPond.
 
 @item
 @uref{http://www.adoromusicpub.com/, Adoro Music Publishing} propose des
@@ -607,7 +609,7 @@ sous forme de texte}.
 @qq{@dots{} J'avais écrit avec Encore quelques pièces pour violoncelle
   solo.  Je les ai imprimées avec LilyPond avant de les soumettre à
   Schirmer en vue de les publier.  J'en mettrais ma main à couper que
-  leur édition ne sera jamais aussi pointue que la mienne !}
+  leur édition ne sera jamais aussi pointue que la mienne@tie{}!}
 @divEnd
 
 
@@ -619,7 +621,7 @@ sous forme de texte}.
   je suis néanmoins @emph{très} impressionné.  J'ai utilisé ce programme
   pour un motet de Josquin Desprez en notation mensurale et je dois dire
   que lilypond dépasse de loin tous les autres programmes de notation
-  tant au niveau de la rapidité que de l'ergonomie et du résultat !}
+  tant au niveau de la rapidité que de l'ergonomie et du résultat@tie{}!}
 @divEnd
 
 
@@ -648,7 +650,7 @@ sous forme de texte}.
   Warner Bros., que même les plus récentes productions des @qq{bonnes
   vieilles maisons}. [@dots{}]}
 
-@qq{Faites donc mieux que Finale/Sibelius/Igor et consorts !!!}
+@qq{Faites donc mieux que Finale/Sibelius/Igor et consorts@tie{}!!!}
 @divEnd
 
 
@@ -686,7 +688,7 @@ qu'aucun produit commercial ne peut approcher cela.}
 @subsubheading David Bobroff, trombone basse, Orchestre symphonique d'Islande
 
 @qq{LilyPond est tout simplement génial [@dots{}] Plus j'en
-  apprends sur LilyPond, plus je l'apprécie !}
+  apprends sur LilyPond, plus je l'apprécie@tie{}!}
 @divEnd
 
 
@@ -708,7 +710,7 @@ investissement !}
 @qq{J'avais une sorte de passion conflictuelle avec lui.  Passion parce
   que la première partition que j'en ai vu m'a vraiment émerveillé ! Le
   descriptif de LilyPond ne dit pas tout de ses capacités, il est trop
-  modeste !  [@dots{}] au fur et à mesure que LilyPond s'améliore, et
+  modeste@tie{}!  [@dots{}] au fur et à mesure que LilyPond s'améliore, et
   que je regarde de plus près comment cela se passe avec Scheme, je suis
   de moins en moins frustré.  En fait, ce que je veux dire, c'est un
   grand merci de nous fournir LilyPond, c'est vraiment un bon
@@ -719,8 +721,7 @@ investissement !}
 @divClass{testimonial-item}
 @subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Chef au Théâtre de Coblence (Allemagne) et éminent hacker GNU
 
-@qq{À vrai dire, LilyPond fait un boulot des plus
-  étonnants !}
+@qq{À vrai dire, LilyPond fait un boulot des plus étonnants@tie{}!}
 @divEnd
 
 
@@ -767,10 +768,10 @@ musique.
 
 Cette façon de faire peut demander aux habitués des interfaces
 graphiques l'apprentissage d'une nouvelle façon de travailler, mais les
-résultats en valent vraiment la peine !
+résultats en valent vraiment la peine@tie{}!
 
 @warning{nous ne présentons ici qu'un rapide aperçu du langage de
-LilyPond -- ce n'est pas si compliqué que ça en a l'air !  Ce n'est pas
+LilyPond -- ce n'est pas si compliqué que ça en a l'air@tie{}!  Ce n'est pas
 la peine de comprendre ces exemples en détail, notre manuel d'initiation
 aborde d'une façon progressive tout ceci et bien d'autres choses encore.}
 
@@ -803,7 +804,7 @@ Ajoutez des accords et des paroles pour obtenir une chanson :
 @subsubheading Pièces orchestrales
 
 Le fichier source contient les notes de la pièce.  Le conducteur et les
-parties séparées peuvent être réalisés à partir de la même source ;
+parties séparées peuvent être réalisés à partir de la même source@tie{};
 ainsi, la modification d'une note se répercute toujours à la fois sur
 les parties et le conducteur.  Pour pouvoir utiliser la même musique à
 plusieurs endroits, celle-ci est stockée dans une variable, c'est-à-dire
@@ -1038,7 +1039,7 @@ qui a une fonction expérimentale d'export pour LilyPond.
 @uref{http://musescore.org,MuseScore} produit du code LilyPond.
 @item
 @uref{http://canorus.org,Canorus} peut également exporter vers LilyPond,
-mais est encore au stade de développement bêta.  Les testeurs sont les
+mais est encore au stade de développement beta.  Les testeurs sont les
 bienvenus.
 @uref{http://lilycomp.sourceforge.net,LilyComp} permet de saisir
 graphiquement des notes.  Il fonctionne comme un pavé numérique
@@ -1070,7 +1071,7 @@ Vous êtes toujours incrédule ?  Beaucoup de compositeurs, musiciens et
 chefs ont appris à écrire de la musique dans notre format texte.  Des
 utilisateurs expérimentés nous font savoir qu'ils parviennent à entrer
 une partition LilyPond complète plus rapidement qu'avec un clavier MIDI
-ou la souris dans une interface graphique !  Peut-être souhaitez-vous
+ou la souris dans une interface graphique@tie{}!  Peut-être souhaitez-vous
 relire les @ref{Fonctionnalités}, les @ref{Exemples}, la @ref{Liberté}
 donnée par LilyPond, ou revoir les @ref{Témoignages} ou
 @ref{Productions} des utilisateurs.  De plus, nous expliquons notre

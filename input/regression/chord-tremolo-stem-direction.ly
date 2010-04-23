@@ -10,7 +10,7 @@
   ragged-right = ##t
 }
 
-\relative {
+\relative c {
   \stemDown
-  \repeat tremolo 16 {d,32 a'32 }
-} 
+  \repeat tremolo 16 { d32 a'32 }
+}

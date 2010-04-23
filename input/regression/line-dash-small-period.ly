@@ -7,7 +7,7 @@
 
 \version "2.12.0"
 
-\relative {
+\relative c' {
   \override Staff.OttavaBracket #'dash-period = #0.1
   \override Score.OttavaBracket #'dash-fraction = #1
 

@@ -272,25 +272,17 @@ messages into errors.")
     (if (null? (cdr platform)) #f
 	(member (string-downcase (cadr platform)) '("95" "98" "me")))))
 
-(case PLATFORM
-  ((windows)
-   (define native-getcwd
-     getcwd)
+(define (slashify x)
+  (if (string-index x #\\)
+      x
+      (string-regexp-substitute
+	"//*" "/"
+	(string-regexp-substitute "\\\\" "/" x))))
 
-   (define (slashify x)
-     (if (string-index x #\\)
-	 x
-	 (string-regexp-substitute
-	  "//*" "/"
-	  (string-regexp-substitute "\\\\" "/" x))))
-
-   ;; FIXME: this prints a warning.
-   (define-public (ly-getcwd)
-     (slashify (native-getcwd))))
-
-  (else
-   (define-public ly-getcwd
-     getcwd)))
+(define-public (ly-getcwd)
+  (if (eq? PLATFORM 'windows)
+      (slashify (getcwd))
+      (getcwd)))
 
 (define-public (is-absolute? file-name)
   (let ((file-name-length (string-length file-name)))

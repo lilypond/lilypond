@@ -11,7 +11,7 @@
   indent = 0\cm
 }
 
-\relative {
+\relative c' {
   \set Staff.shortInstrumentName = "foo"
   f1 | f1 | f1 |
   f1\< | f1 | f1\! |

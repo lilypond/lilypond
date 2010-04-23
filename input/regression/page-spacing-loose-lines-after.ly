@@ -13,8 +13,8 @@ gets spaced appropriately."
   }
 }
 <<
-    \new Staff \relative {
-	d'2 d c4 bes a2 \break
+    \new Staff \relative c'' {
+	d2 d c4 bes a2 \break
     }
     \addlyrics {
 	My first Li -- ly song,

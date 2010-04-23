@@ -8,7 +8,7 @@ that ledger lines stay separate."
     ragged-right = ##t
 }
 
-\relative {
+\relative c' {
 \time 2/4 
 
 c4

@@ -47,12 +47,16 @@ Page_spacing::resize (Real new_height)
 void
 Page_spacing::append_system (const Line_details &line)
 {
-  if (!rod_height_)
-    first_line_ = line;
-
+  if (rod_height_)
+    {
+      rod_height_ += line.tallness_;
+    }
+  else
+    {
+      rod_height_ += line.full_height ();
+      first_line_ = line;
+    }
   rod_height_ += line.title_ ? last_line_.title_padding_ : last_line_.padding_;
-
-  rod_height_ += line.extent_.length ();
   spring_len_ += line.space_;
   inverse_spring_k_ += line.inverse_hooke_;
 
@@ -69,7 +73,9 @@ Page_spacing::prepend_system (const Line_details &line)
   else
     last_line_ = line;
 
-  rod_height_ += line.extent_.length ();
+  rod_height_ -= first_line_.full_height ();
+  rod_height_ += first_line_.tallness_;
+  rod_height_ += line.full_height();
   spring_len_ += line.space_;
   inverse_spring_k_ += line.inverse_hooke_;
 

@@ -8,7 +8,7 @@ Use the @code{\override} and @code{\revert} expressions to set the
 
 \paper { ragged-right = ##t }
 
-\relative {
+\relative c' {
   \override Accidental #'color = #darkgreen
   \override Beam #'color = #cyan
   \override NoteHead #'color = #darkyellow

@@ -19,8 +19,8 @@ which measures distances between spaceable staves."
     My2 first Li4 -- ly song,2
     My2 first Li4 -- ly song,2
   }
-  \context Voice = "voice" \relative {
-    d'2 d c4 bes a2 \break
+  \context Voice = "voice" \relative c'' {
+    d2 d c4 bes a2 \break
     d'2 d c4 bes a2
   }
   \new Lyrics \lyricmode {

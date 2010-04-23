@@ -126,7 +126,8 @@ LY_DEFINE (ly_module_2_alist, "ly:module->alist",
   SCM_VALIDATE_MODULE (1, mod);
   SCM obarr = SCM_MODULE_OBARRAY (mod);
 
-  return scm_internal_hash_fold ((Hash_closure_function) & entry_to_alist, NULL, SCM_EOL, obarr);
+  return scm_internal_hash_fold ((scm_t_hash_fold_fn) &entry_to_alist,
+				 NULL, SCM_EOL, obarr);
 }
 
 void
@@ -144,57 +145,3 @@ ly_reexport_module (SCM mod)
 {
   ly_export (mod, ly_module_symbols (mod));
 }
-
-#ifdef MODULE_GC_KLUDGE
-static SCM
-redefine_keyval (void * /* closure */,
-		 SCM key,
-		 SCM val,
-		 SCM result)
-{
-  SCM new_tab = result;
-  scm_hashq_set_x (new_tab, key, val);
-  return new_tab;
-}
-
-/*
-  UGH UGH.
-  Kludge for older GUILE 1.6 versions.
-*/
-void
-make_stand_in_procs_weak ()
-{
-  /*
-    Ugh, ABI breakage for 1.6.5: scm_stand_in_procs is a hashtab from
-    1.6.5 on.
-   */
-  if (scm_is_pair (scm_stand_in_procs))
-    {
-      return; 
-    }
-      
-  if (scm_weak_key_hash_table_p (scm_stand_in_procs) == SCM_BOOL_T)
-    {
-#if (SCM_MINOR_VERSION == 7) 
-      perform_gc_kludge = false;
-#endif
-      return; 
-    }
-
-  
-  perform_gc_kludge = true;
-  
-  
-  SCM old_tab = scm_stand_in_procs;
-  SCM new_tab = scm_make_weak_key_hash_table (scm_from_int (257));
-
-  new_tab = scm_internal_hash_fold ((Hash_closure_function) & redefine_keyval,
-				    NULL,
-				    new_tab,
-				    old_tab);
-
-  scm_stand_in_procs = new_tab;
-}
-
-ADD_SCM_INIT_FUNC (make_stand_in_procs_weak, make_stand_in_procs_weak);
-#endif

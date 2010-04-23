@@ -177,7 +177,7 @@ manualBeam =
   \once \override Beam #'positions = #$beg-end
 #@})
 
-\relative @{
+\relative c' @{
   \manualBeam #'(3 . 6) c8 d e f
 @}
 @end example
@@ -196,7 +196,7 @@ manualBeam =
   \once \override Beam #'positions = #(cons $beg $end)
 #})
 
-\relative {
+\relative c' {
   \manualBeam #3 #6 c8 d e f
 }
 @end lilypond
@@ -850,7 +850,7 @@ note-heads on the center-line:
             (eq? (ly:grob-property grob 'staff-position) 0))
        (set! (ly:grob-property grob 'transparent) #t)))
 
-\relative {
+\relative c' {
   e4 g8 \applyOutput #'Voice #blanker b d2
 }
 @end lilypond

@@ -129,9 +129,6 @@ class Music_wrapper;
 class Music_wrapper_iterator;
 class Note_performer;
 class Output_def;
-class Object_key;
-class Object_key_dumper;
-class Object_key_undumper;
 class Open_type_font;
 class Output_property;
 class Page_breaking;
@@ -198,7 +195,8 @@ class Translator_group;
 class Transposed_music;
 class yyFlexLexer;
 
-typedef void (*Engraver_void_function_engraver_grob_info) (Engraver *, Grob_info);
+typedef void (*Engraver_void_function_engraver_grob_info) (Engraver *,
+							   Grob_info);
 typedef void (*Translator_void_method_ptr) (Translator *);
 
 #endif /* LILY_PROTO_HH */

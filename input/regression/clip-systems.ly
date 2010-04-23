@@ -25,7 +25,7 @@ The result will be files named
 #(define output-suffix "1")
 
 origScore = \score{
-    \relative {
+    \relative c' {
       \set Staff.instrumentName = #"bla"
       c1
       d

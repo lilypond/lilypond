@@ -9,7 +9,7 @@ the given pair. "
 \version "2.12.0"
 
 \paper { ragged-right = ##T }
-\relative {
+\relative c' {
   \override Slur #'positions = #'(-4 . -5)
   e( f g)
 }

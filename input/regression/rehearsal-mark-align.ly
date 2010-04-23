@@ -9,7 +9,7 @@
 
 \version "2.12.0"
   
-\relative {
+\relative c' {
   c1 \mark "foo"
   c1
   \key cis \major

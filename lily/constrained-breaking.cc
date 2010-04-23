@@ -458,7 +458,8 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
   int start_rank = Paper_column::get_rank (all_[breaks_[start]]);
   int end_rank = Paper_column::get_rank (all_[breaks_[end]]);
   System *sys = pscore_->root_system ();
-  Interval extent = sys->pure_height (sys, start_rank, end_rank);
+  Interval begin_of_line_extent = sys->begin_of_line_pure_height (start_rank, end_rank);
+  Interval rest_of_line_extent = sys->rest_of_line_pure_height (start_rank, end_rank);
 
   Grob *c = all_[breaks_[end]];
   out->last_column_ = c;
@@ -476,20 +477,19 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
   out->turn_permission_ = min_permission (out->page_permission_,
 					  out->turn_permission_);
 
-  // TODO: see the hack regarding begin_of_line and
-  // rest_of_line extents in align-interface.  Perhaps we
-  // should do the same thing here so that the effect extends
-  // between systems as well as within systems.  It isn't as
-  // crucial here, however, because the effect is largest when
-  // dealing with large systems.
-  out->extent_ = (extent.is_empty ()
-		  || isnan (extent[LEFT])
-		  || isnan (extent[RIGHT]))
-    ? Interval (0, 0) : extent;
+  begin_of_line_extent = (begin_of_line_extent.is_empty ()
+			  || isnan (begin_of_line_extent[LEFT])
+			  || isnan (begin_of_line_extent[RIGHT]))
+    ? Interval (0, 0) : begin_of_line_extent;
+  rest_of_line_extent = (rest_of_line_extent.is_empty ()
+			 || isnan (rest_of_line_extent[LEFT])
+			 || isnan (rest_of_line_extent[RIGHT]))
+    ? Interval (0, 0) : rest_of_line_extent;
+  out->shape_ = Line_shape (begin_of_line_extent, rest_of_line_extent);
   out->padding_ = between_system_padding_;
   out->title_padding_ = before_title_padding_;
   out->space_ = between_system_space_;
-  out->inverse_hooke_ = extent.length () + between_system_space_;
+  out->inverse_hooke_ = out->full_height () + between_system_space_;
 }
 
 Real
@@ -512,7 +512,9 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
 
   last_column_ = 0;
   force_ = 0;
-  extent_ = unsmob_stencil (pb->get_property ("stencil")) ->extent (Y_AXIS);
+  Interval stencil_extent = unsmob_stencil (pb->get_property ("stencil"))->extent (Y_AXIS);
+  shape_ = Line_shape (stencil_extent, stencil_extent); // pretend it goes all the way across
+  tallness_ = 0;
   bottom_padding_ = 0;
   space_ = 0.0;
   inverse_hooke_ = 1.0;
@@ -529,4 +531,34 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   last_markup_line_  = to_boolean (last_scm);
   SCM first_scm = pb->get_property ("first-markup-line");
   first_markup_line_ = to_boolean (first_scm);
+}
+
+Real
+Line_details::full_height () const
+{
+  Interval ret;
+  ret.unite(shape_.begin_);
+  ret.unite(shape_.rest_);
+  return ret.length();
+}
+
+Real
+Line_details::tallness () const
+{
+  return tallness_;
+}
+
+Line_shape::Line_shape (Interval begin, Interval rest)
+{
+  begin_ = begin;
+  rest_ = rest;
+}
+
+Line_shape
+Line_shape::piggyback (Line_shape mount, Real padding) const
+{
+  Real elevation = max (begin_[UP]-mount.begin_[DOWN], rest_[UP]-mount.rest_[DOWN]);
+  Interval begin = Interval (begin_[DOWN], elevation + mount.begin_[UP] + padding);
+  Interval rest = Interval (rest_[DOWN], elevation + mount.rest_[UP] + padding);
+  return Line_shape (begin, rest);
 }

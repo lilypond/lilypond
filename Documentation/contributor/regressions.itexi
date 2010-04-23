@@ -3,15 +3,33 @@
 @chapter Regression tests
 
 @menu
-* Introduction to regression tests::  
-* Current regtest output::      
-* Comparison regtest output::   
-* MusicXML tests::              
+* Introduction to regression tests::
+* Current regtest output::
+* Comparison regtest output::
+* MusicXML tests::
 @end menu
 
 
 @node Introduction to regression tests
 @section Introduction to regression tests
+
+LilyPond has a complete suite of regression tests that are used
+to ensure that changes to the code do not break existing behavior.
+These regression tests comprise small LilyPond snippets that test
+the functionality of each part of LilyPond.
+
+Regression tests are added when new functionality is added to
+LilyPond.  They are also added when bugs are identified.  The
+snippet that causes the bug becomes a regression test to verify
+that the bug has been fixed.
+
+The regression tests are automatically compiled using special @code{make}
+targets.  The output of the regression tests is also automatically
+checked to identify changes in LilyPond output.
+
+The output of the regression tests is available on the website
+for every stable version of LilyPond.  This allows the comparison
+of different versions to see when bugs appeared.
 
 
 @node Current regtest output

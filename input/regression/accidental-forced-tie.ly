@@ -8,6 +8,6 @@
   ragged-right = ##t
 }
 
-\relative {
-  gis'4 ~ gis!~ gis?
-  }
+\relative c'' {
+  gis4 ~ gis!~ gis?
+}

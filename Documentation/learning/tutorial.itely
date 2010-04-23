@@ -77,7 +77,7 @@ in your own music!  For more information about the display of
 examples in the manual, see @ref{How to read the manuals}.}
 
 In addition, LilyPond input is @strong{case sensitive}.
-@w{@code{@{ c d e @}}} is valid input; @w{@code{@{ C D E @}}} will
+@w{@samp{@{ c d e @}}} is valid input; @w{@samp{@{ C D E @}}} will
 produce an error message.
 
 
@@ -234,8 +234,8 @@ example, the first note -- the @code{d} -- is the closest D to
 middle C.
 
 By adding (or removing) quotes @code{'} or commas @code{,} from
-the @code{@w{\relative c' @{}} command, we can change the starting
-octave:
+the @q{@w{@code{@bs{}relative c'}}} command, we can change the
+starting octave:
 
 @lilypond[verbatim,quote]
 % one octave above middle C
@@ -284,9 +284,7 @@ comma @code{,} to the note name.
 @noindent
 To change a note by two (or more!) octaves, we use multiple
 @code{''} or @code{,,} -- but be careful that you use two single
-quotes @code{''} and not one double quote @code{"}@tie{}!  The
-initial value in @code{@w{\relative c'}} may also be modified like
-this.
+quotes @code{''} and not one double quote @code{"}@tie{}!
 @c " - keeps quotes in order for context-sensitive editor -td
 
 @subheading Durations (rhythms)
@@ -311,7 +309,7 @@ so on.  @notation{Beams} are added automatically.
 
 If you do not specify a duration, the previous duration is used
 for the next note.  The duration of the first note defaults to a
-quarter.
+quarter note.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -447,11 +445,10 @@ Notation Reference: @ruser{Writing pitches},
 @funindex %@{ ... %@}
 
 LilyPond input files are similar to source files in many common
-programming languages.  They contain a version statement,
-are case sensitive, and white-space
-is generally ignored.  Expressions are formed with curly braces
-@{ @}, and comments are denoted with @code{%} or
-@w{@code{%@{ ... %@}}}.
+programming languages.  They contain a version statement, are case
+sensitive, and white-space is generally ignored.  Expressions are
+formed with curly braces @w{@code{@{ @}}}, and comments are
+denoted with @code{%} or @w{@code{%@{ @dots{} %@}}}@tie{}.
 
 If the previous sentences sound like nonsense, don't worry!  We'll
 explain what all these terms mean:
@@ -482,15 +479,15 @@ a warning during the compilation of the file.
 @item
 @strong{Case sensitive}:
 it matters whether you enter a letter in lower case (e.g.
-@w{@code{a, b, s, t}}) or upper case (e.g.  @w{@code{A, B, S, T}}).
-Notes are lower case: @w{@code{@{ c d e @}}} is valid input;
-@w{@code{@{ C D E @}}} will produce an error message.
+@w{@code{a, b, s, t}}) or upper case (e.g. @w{@code{A, B, S, T}}).
+Notes are lower case: @w{@samp{@{ c d e @}}} is valid input;
+@w{@samp{@{ C D E @}}} will produce an error message.
 
 @item
 @strong{Whitespace insensitive}:
 it does not matter how many spaces (or tabs or new lines) you add.
-@w{@code{@{ c d e @}}} means the same thing as
-@w{@code{@{ c @tie{}} @tie{} @tie{} d e @}} and:
+@w{@samp{@{ c d e @}}} means the same thing as
+@w{@samp{@{ c @tie{} @tie{} @tie{} d e @}}} and:
 
 @example
 @{ c                        d
@@ -507,25 +504,26 @@ thumb is to indent code blocks with either a tab or two spaces:
 @}
 @end example
 
-However, whitespace @emph{is} required to separate many syntactical
-elements from others.  In other words, whitespace can always be
-@emph{added}, but it cannot be @emph{eliminated}.  As missing
-whitespace can give rise to strange errors it is advisable to
-always insert whitespace before and after every syntactic element,
-for example, before and after every curly brace.
+However, whitespace @emph{is} required to separate many
+syntactical elements from others.  In other words, whitespace can
+always be @emph{added}, but not always @emph{eliminated}.  Since
+missing whitespace can give rise to strange errors, it is
+advisable to always insert whitespace before and after every
+syntactic element, for example, before and after every curly
+brace.
 
 @item
 @strong{Expressions}:
-every piece of LilyPond input needs to have @strong{@{ curly
-braces @}} placed around the input.  These braces tell LilyPond
-that the input is a single music expression, just like parentheses
-@code{()} in mathematics.  The braces should be surrounded by a
-space unless they are at the beginning or end of a line to avoid
-ambiguities.
+every piece of LilyPond input needs to have
+@strong{@{@tie{}curly@tie{}braces@tie{}@}} placed around the
+input.  These braces tell LilyPond that the input is a single
+music expression, just like parentheses @code{()} in mathematics.
+The braces should be surrounded by a space unless they are at the
+beginning or end of a line to avoid ambiguities.
 
 A LilyPond command followed by a simple expression in braces (such
-as @w{@code{\relative @{ @}}}) also counts as a single music
-expression.
+as @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}}) also counts as a
+single music expression.
 
 @cindex comments
 @cindex line comment
@@ -633,33 +631,34 @@ online version.
 @cindex constructing files, tips
 @cindex files, tips for constructing
 
-LilyPond input must be surrounded by @{ @} marks or a
-@code{@w{\relative c'' @{ ... @}}}, as we saw in @ref{Working on
-input files}.  For the rest of this manual, most examples will
-omit this.  To replicate the examples, you may copy and paste the
-displayed input, but you @strong{must} add the
-@code{@w{\relative c'' @{ @}}} like this:
+LilyPond input must be surrounded by @code{@{ @}} marks or a
+@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}, as we saw in
+@ref{Working on input files}.  For the rest of this manual, most
+examples will omit this.  To replicate the examples, you may copy
+and paste the displayed input, but you @strong{must} add the
+@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} like this:
 
 @example
 \relative c'' @{
-  ... example goes here...
+  @dots{}example goes here@dots{}
 @}
 @end example
 
 Why omit the braces?  Most examples in this manual can be inserted
 into the middle of a longer piece of music.  For these examples,
-it does not make sense to add @code{@w{\relative c'' @{ @}}} --
-you should not place a @code{\relative} inside another
-@code{\relative}!  If we included @code{@w{\relative c'' @{ @}}}
-around every example, you would not be able to copy a small
-documentation example and paste it inside a longer piece of your
-own.  Most people want to add material to an existing piece, so we
-format the manual this way.
+it does not make sense to add
+@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} -- you should not
+place a @code{\relative} inside another @code{\relative}!  If we
+included @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} around
+every example, you would not be able to copy a small documentation
+example and paste it inside a longer piece of your own.  Most
+people want to add material to an existing piece, so we format the
+manual this way.
 
-Also, remember that every LilyPond file should have a @code{@bs{}version}
-statement.  Because the examples in the manuals are snippets, not files,
-the @code{@bs{}version} statement is omitted.  But you should make a
-practice of including them in your files.
+Also, remember that every LilyPond file should have a
+@code{\version} statement.  Because the examples in the manuals
+are snippets, not files, the @code{\version} statement is omitted.
+But you should make a practice of including them in your files.
 
 @node Clickable examples
 @subsection Clickable examples
@@ -728,8 +727,8 @@ may want to look in relevant sections of the
 Learning manual's @ref{Tweaking output}.
 
 @item
-@strong{Before undertaking a large project}: read Usage document's
-@rprogram{Suggestions for writing files}.
+@strong{Before undertaking a large project}: read the Usage
+document's @rprogram{Suggestions for writing files}.
 
 @end itemize
 

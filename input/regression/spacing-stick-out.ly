@@ -11,7 +11,7 @@
 
 \layout { ragged-right = ##t } 
 
-\relative {
+\relative c' {
   \override Score.PaperColumn #'keep-inside-line = ##t 
   c1 c1^"This is a really long text" c
 }

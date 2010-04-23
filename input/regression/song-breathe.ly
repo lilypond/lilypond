@@ -5,7 +5,7 @@
 \festival #"song-breathe.xml" { \tempo 4 = 100 }
 {
 \time 3/4
-\relative { c2 e \breathe g }
+\relative c' { c2 e \breathe g }
 \addlyrics { play the game }
 }
 #(ly:progress "song-breathe")

@@ -9,7 +9,7 @@
   ragged-right=##t
 }
 
-\new Staff \relative {
+\new Staff \relative c' {
   \override Score.NonMusicalPaperColumn #'stencil = #ly:paper-column::print
   \override Score.NonMusicalPaperColumn #'layer = #1
   

@@ -9,7 +9,7 @@ depth = ..
 
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-MANUALS_SUBDIRS = usage automated-engraving contributor essay \
+MANUALS_SUBDIRS = usage contributor essay \
   web learning notation extending
 SUBDIRS = $(MANUALS_SUBDIRS) snippets logo pictures misc po css topdocs \
   included $(LANGS)

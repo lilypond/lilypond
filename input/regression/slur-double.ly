@@ -6,7 +6,7 @@
 \version "2.12.0"
 
 \layout { ragged-right = ##t }
-\relative {
+\relative c' {
     \set doubleSlurs = ##t
     <c e>4 ( <d f> <c e> <d f> )
 }

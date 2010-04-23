@@ -7,7 +7,7 @@
 \begin{document}
 
 \begin{lilypond}
-\relative { c' d e f g a b c }
+\relative c' { c d e f g a b c }
 \end{lilypond}
 
 

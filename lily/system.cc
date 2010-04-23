@@ -570,6 +570,43 @@ System::get_extremal_staff (Direction dir, Interval const &iv)
   return 0;
 }
 
+Interval
+System::part_of_line_pure_height (vsize start, vsize end, bool begin)
+{
+  Grob *alignment = get_vertical_alignment ();
+  if (!alignment)
+    {
+      programming_error("system does not have a vertical alignment");
+      return Interval();
+    }
+  extract_grob_set (alignment, "elements", staves);
+  vector<Real> offsets = Align_interface::get_minimum_translations (alignment, staves, Y_AXIS, true, start, end);
+
+  Interval ret;
+  for (vsize i = 0; i < staves.size(); ++i)
+    {
+      Interval iv = begin?
+        Axis_group_interface::begin_of_line_pure_height (staves[i], start) :
+        Axis_group_interface::rest_of_line_pure_height (staves[i], start, end);
+      if (i<offsets.size())
+        iv.translate (offsets[i]);
+      ret.unite (iv);
+    }
+  return ret;
+}
+
+Interval
+System::begin_of_line_pure_height (vsize start, vsize end)
+{
+  return part_of_line_pure_height (start, end, true);
+}
+
+Interval
+System::rest_of_line_pure_height (vsize start, vsize end)
+{
+  return part_of_line_pure_height (start, end, false);
+}
+
 ADD_INTERFACE (System,
 	       "This is the top-level object: Each object in a score"
 	       " ultimately has a @code{System} object as its X and"

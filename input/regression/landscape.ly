@@ -3,7 +3,7 @@
 \header { texidoc = " Scores may be printed in landscape mode."}
 
 
-pattern = \relative { a b c d \break }
+pattern = \relative c' { a b c d \break }
 
 \book {    
     \score {

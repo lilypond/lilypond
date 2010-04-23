@@ -8,7 +8,7 @@
 
 }
 
-foo = \relative {
+foo = \relative c' {
   \times 2/3 { c4 c c } \times 2/3 { c4 c c }
 }
 

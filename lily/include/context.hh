@@ -146,7 +146,7 @@ Context *find_context_below (Context *where,
 bool melisma_busy (Context *);
 
 Context *get_voice_to_lyrics (Context *lyrics);
-Grob *get_current_note_head (Context *voice);
+Grob *get_current_note_head (Context *voice, bool include_grace_notes);
 Grob *get_current_rest (Context *voice);
 DECLARE_UNSMOB (Context, context);
 

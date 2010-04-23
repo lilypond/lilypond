@@ -22,11 +22,11 @@ tuning = \markup {
     subsubtitle = \markup { "Originalstimmung:" \tuning }
 }
 
-\relative {
+\relative c'' {
     \time 4/8
-    \times 2/3 { c'8 d e } \times 2/3 {c d e}
     \times 2/3 { c8 d e } \times 2/3 {c d e}
-    g8 a8 g8 a 
-    g8 a8 g8 a 
+    \times 2/3 { c8 d e } \times 2/3 {c d e}
+    g8 a8 g8 a
+    g8 a8 g8 a
 }
 

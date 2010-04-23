@@ -24,10 +24,27 @@
 #include "matrix.hh"
 #include "prob.hh"
 
+/*
+ * Begin/rest-of-line hack.  This geometrical shape is a crude approximation
+ * of Skyline, but it is better than a rectangle.
+ */
+struct Line_shape
+{
+  Interval begin_;
+  Interval rest_;
+
+  Line_shape ()
+  {
+  }
+  Line_shape (Interval begin, Interval rest);
+  Line_shape piggyback (Line_shape mount, Real padding) const;
+};
+
 struct Line_details {
   Grob *last_column_;
   Real force_;
-  Interval extent_;   /* Y-extent of the system */
+  Line_shape shape_;
+  Real tallness_; /* Y-extent, adjusted according to begin/rest-of-line*/
 
   Real padding_;  /* compulsory space after this system (if we're not
 		     last on a page) */
@@ -75,9 +92,12 @@ struct Line_details {
     compressed_nontitle_lines_count_ = 1;
     last_markup_line_ = false;
     first_markup_line_ = false;
+    tallness_ = 0;
   }
 
   Line_details (Prob *pb, Output_def *paper);
+  Real full_height () const;
+  Real tallness () const;
 };
 
 /*

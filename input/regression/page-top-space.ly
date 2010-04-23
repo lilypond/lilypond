@@ -11,7 +11,7 @@ first system can be forced to be uniform."
 \book {
   \score {
 
-    \relative {
+    \relative c' {
       c1\break\pageBreak
       c1\break\pageBreak
       c1

@@ -14,7 +14,7 @@
 
 \version "2.12.0"
 
-\relative {
+\relative c' {
   c4 -\parenthesize -.
 
   \override ParenthesesItem #'padding = #0.1

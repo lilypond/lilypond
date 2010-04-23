@@ -1236,7 +1236,7 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative  {
+\relative c' {
   c2 d e f g f e
 }
 \addlyrics { \bulgarian }
@@ -1453,21 +1453,15 @@ Here are a few sample bars of music set in LilyPond's Feta font:
 
 @subsubheading Installation Instructions for MacOS
 
-Download and extract the zip file.  Using @code{Terminal.app}, move
-the @code{lilyfonts} directory to
-@file{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current}.
+Download and extract the zip file.  Copy the @code{lilyfonts}
+directory to @file{@var{SHARE_DIR}/lilypond/current}; for more
+information, see @rlearning{Other sources of information}.
 Move the existing @code{fonts} directory to @code{fonts_orig} and
 move the @code{lilyfonts} directory to @code{fonts}.  Simply move
 @code{fonts_orig} back to @code{fonts} to revert back to Feta.
 
-@subsubheading Installation Instructions for Windows
-
-Download and extract the zip file.  Using Explorer, copy the @code{lilyfonts}
-directory to
-@file{@var{INSTALLDIR}/LilyPond/usr/share/lilypond/current}. Rename
-the existing @code{fonts} directory to @code{fonts_orig} and
-rename the @code{lilyfonts} directory to @code{fonts}.  Simply rename
-@code{fonts_orig} back to @code{fonts} to revert back to Feta.
+@seealso
+Learning Manual: @rlearning{Other sources of information}.
 
 @knownissues
 

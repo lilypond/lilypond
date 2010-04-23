@@ -12,7 +12,7 @@
 \version "2.12.0"
 
 \paper { ragged-right =  ##t }
-\relative {
+\relative c' {
   c~ e~ g~ <c, e g>
   \set tieWaitForNote = ##t
   c~ e~ g~ <c, e g>

@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef MUSIC_OUTPUT_DEF_HH
-#define MUSIC_OUTPUT_DEF_HH
+#ifndef OUTPUT_DEF_HH
+#define OUTPUT_DEF_HH
 
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
@@ -58,7 +58,6 @@ public:
   Output_def *parent_;
   
   Input input_origin_;
-  string user_key_;
 
   Output_def (Output_def const&);
   Output_def ();
@@ -86,9 +85,10 @@ DECLARE_UNSMOB (Output_def, output_def);
 
 
 Font_metric* find_pango_font (Output_def *layout,  SCM descr, Real factor);
-Font_metric *find_scaled_font (Output_def *od, Font_metric *f, Real magnification);
+Font_metric *find_scaled_font (Output_def *od, Font_metric *f,
+			       Real magnification);
 Output_def *scale_output_def (Output_def *def, Real scale);
 
 Real output_scale (Output_def*);
 
-#endif /* MUSIC_OUTPUT_DEF_HH */
+#endif /* OUTPUT_DEF_HH */

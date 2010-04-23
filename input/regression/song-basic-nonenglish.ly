@@ -4,7 +4,7 @@
 
 \festivalsyl #"song-basic-nonenglish.xml" { \tempo 4 = 100 }
 {
-\relative { c e g r }
+\relative c' { c e g r }
 \addlyrics { ov -- čá -- ci }
 }
 #(ly:progress "song-basic-nonenglish")

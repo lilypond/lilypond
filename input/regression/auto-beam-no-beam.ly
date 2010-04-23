@@ -1,5 +1,5 @@
 \header {
-    
+
     texidoc = "The autobeamer may be switched off for a single note
     with @code{\\noBeam}."
 
@@ -11,4 +11,4 @@
     ragged-right = ##t
 }
 
-\relative  { c8 c-\noBeam c c }
+\relative c' { c8 c-\noBeam c c }

@@ -34,7 +34,7 @@
       harmonic-event hyphen-event laissez-vibrer-event mark-event
       multi-measure-text-event note-grouping-event 
       pes-or-flexa-event repeat-tie-event spacing-section-event
-      layout-instruction-event))
+      layout-instruction-event completize-extender-event))
     
     (layout-instruction-event . (apply-output-event ))
     (script-event . (articulation-event text-script-event))

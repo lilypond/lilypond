@@ -55,6 +55,8 @@ public:
   void set_inverse_compress_strength (Real);
   void set_blocking_force (Real);
   void set_default_strength ();
+  void set_default_compress_strength ();
+  void set_default_stretch_strength ();
 
   void operator*= (Real);
   bool operator> (Spring const&) const;

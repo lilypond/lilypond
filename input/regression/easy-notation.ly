@@ -5,7 +5,7 @@
 You also get ledger lines, of course."
 }
 
-\relative {
+\relative c' {
   \easyHeadsOn
   f1 e
   f2 e

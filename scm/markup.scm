@@ -22,7 +22,7 @@ Internally markup is stored as lists, whose head is a function.
 
 When the markup is formatted, then FUNCTION is called as follows
 
-  (FUNCTION GROB PROPS ARG1 ARG2 ... ) 
+  (FUNCTION GROB PROPS ARG1 ARG2 ... )
 
 GROB is the current grob, PROPS is a list of alists, and ARG1.. are
 the rest of the arguments.
@@ -261,17 +261,17 @@ Example:
          <==>
   (markup \"foo\"
           #:raise 0.2 #:hbracket #:bold \"bar\"
-          #:override '(baseline-skip . 4) 
+          #:override '(baseline-skip . 4)
           #:bracket #:column (\"baz\" \"bazr\" \"bla\"))
 Use `markup*' in a \\notemode context."
-  
+
   (car (compile-all-markup-expressions `(#:line ,body))))
 
 (defmacro*-public markup* (#:rest body)
   "Same as `markup', for use in a \\notes block."
   `(ly:export (markup ,@body)))
-  
-  
+
+
 (define (compile-all-markup-expressions expr)
   "Return a list of canonical markups expressions, e.g.:
   (#:COMMAND1 arg11 arg12 #:COMMAND2 arg21 arg22 arg23)
@@ -375,12 +375,12 @@ Use `markup*' in a \\notemode context."
 ;;; (markup-command-signature raise-markup)
 ;;; ==> (#<primitive-procedure number?> #<procedure markup? (obj)>)
 ;;;
-;;; (markup-command-keyword raise-markup) ==> "scheme0-markup1"
-;;; 
+;;; (markup-command-keyword raise-markup) ==> scheme0-markup1
+;;;
 
 (define-public (markup-command-keyword markup-command)
-  "Return markup-command's argument keyword, ie a string describing the command
-  arguments, eg. \"scheme0markup1\""
+  "Return markup-command's argument keyword, ie a symbol describing the command
+  arguments, eg. scheme0-markup1"
   (object-property markup-command 'markup-keyword))
 
 (define-public (markup-command-signature-ref markup-command)
@@ -390,7 +390,7 @@ Use `markup*' in a \\notemode context."
 (define-public (markup-command-signature-set! markup-command signature)
   "Set markup-command's signature and keyword (as object properties)"
   (set-object-property! markup-command 'markup-signature signature)
-  (set-object-property! markup-command 'markup-keyword 
+  (set-object-property! markup-command 'markup-keyword
                         (markup-signature-to-keyword signature))
   signature)
 
@@ -410,7 +410,7 @@ Use `markup*' in a \\notemode context."
                                          ;; for reasons I don't get,
                                          ;; (case func ((markup?) .. )
                                          ;; doesn't work.
-                                         (cond 
+                                         (cond
                                           ((eq? func markup?) "markup")
                                           ((eq? func markup-list?) "markup-list")
                                           (else "scheme"))
@@ -507,10 +507,10 @@ a markup list function and its arguments."
            (markup-argument-list? (markup-command-signature (car arg))
                                   (cdr arg)))))
 
-;; 
-;; 
 ;;
-;; 
+;;
+;;
+;;
 (define (markup-thrower-typecheck arg)
   "typecheck, and throw an error when something amiss.
 
@@ -528,7 +528,7 @@ Uncovered - cheap-markup? is used."
 
 ;;
 ;; good enough if you only  use make-XXX-markup functions.
-;; 
+;;
 (define (cheap-markup? x)
   (or (string? x)
       (and (pair? x)
@@ -536,7 +536,7 @@ Uncovered - cheap-markup? is used."
 
 ;;
 ;; replace by markup-thrower-typecheck for more detailed diagnostics.
-;; 
+;;
 (define-public markup? cheap-markup?)
 
 ;; utility
@@ -568,7 +568,7 @@ Uncovered - cheap-markup? is used."
   "DOCME"
   (if (and (pair? stencils)
 	   (ly:stencil? (car stencils)))
-      
+
       (if (and (pair? (cdr stencils))
 	       (ly:stencil? (cadr stencils)))
           (let* ((tail (stack-stencil-line space (cdr stencils)))

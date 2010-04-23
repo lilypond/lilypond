@@ -89,11 +89,11 @@
 /* define if you have sstream */
 #define HAVE_SSTREAM 0
 
-/* define if you have boost/lambda/lambda.hpp */
-#define HAVE_BOOST_LAMBDA_LAMBDA_HPP 0
-
 /* define if you have fontconfig */
 #define HAVE_FONTCONFIG 0
 
 /* define if you have pango FT2 binding */
 #define HAVE_PANGO_FT2 0
+
+/* define if Guile has types scm_t_hash_fold_fn and scm_t_hash_handle_fn */
+#define HAVE_GUILE_HASH_FUNC 0

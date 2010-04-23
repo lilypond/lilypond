@@ -37,6 +37,11 @@
 @copying
 Copyright @copyright{} 2009--2010 by the authors.
 
+@c next line is necessary for broken pre-4.13 texinfo's
+@c install-info, so leave it there until we officially
+@c bump the required version.  -gp
+This file documents the LilyPond website.
+
 @quotation
 Permission is granted to copy, distribute and/or modify this
 document under the terms of the GNU Free Documentation License,
@@ -175,8 +180,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
   * List all commands in direntry.
 
-@c  * lilypond: (lilypond-application)Running LilyPond.      Invoking the
-@c    LilyPond  program.
 @end ignore
 
 @c Info files are no longer installed in a subdirectory, images are
@@ -188,14 +191,15 @@ Distributions will want to install lilypond.info in postinstall, doing:
 * LilyPond: (lilypond-notation).                           LilyPond Notation Reference.
 * LilyPond Snippets: (lilypond-snippets).         Short tricks, tips, and examples.
 * LilyPond Internals Reference: (lilypond-internals).  Definitions for tweaking.
-* LilyPond Application Usage: (lilypond-application). Installing and running applications.
-* LilyPond Website: (lilypond-general).    Preview of new website.
-* abc2ly: (lilypond-application)Invoking abc2ly.      Importing ABC.
-* convert-ly: (lilypond-application)Updating files with convert-ly. Older LilyPond versions.
-* etf2ly: (lilypond-application)Invoking etf2ly.      Importing Finale.
-* lilypond-book: (lilypond-application)LilyPond-book. Integrating text and music.
-* midi2ly: (lilypond-application)Invoking midi2ly.    Importing MIDI.
-* musicxml2ly: (lilypond-application)Invoking musicxml2ly.  Importing MusicXML.
+* LilyPond Application Usage: (lilypond-usage). Installing and running applications.
+* LilyPond Website: (lilypond-web).    Preview of new website.
+* lilypond: (lilypond-usage)Running LilyPond.      Invoking the LilyPond program.
+* abc2ly: (lilypond-usage)Invoking abc2ly.      Importing ABC.
+* convert-ly: (lilypond-usage)Updating files with convert-ly. Older LilyPond versions.
+* etf2ly: (lilypond-usage)Invoking etf2ly.      Importing Finale.
+* lilypond-book: (lilypond-usage)LilyPond-book. Integrating text and music.
+* midi2ly: (lilypond-usage)Invoking midi2ly.    Importing MIDI.
+* musicxml2ly: (lilypond-usage)Invoking musicxml2ly.  Importing MusicXML.
 @end direntry
 
 

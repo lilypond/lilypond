@@ -65,9 +65,15 @@ public:
   void typeset_grob (Grob *);
   void pre_processing ();
 
+  Interval begin_of_line_pure_height (vsize start, vsize end);
+  Interval rest_of_line_pure_height (vsize start, vsize end);
+
 protected:
   virtual void derived_mark () const;
   virtual Grob *clone () const;
+
+private:
+  Interval part_of_line_pure_height (vsize start, vsize end, bool begin);
 };
 
 void set_loose_columns (System *which, Column_x_positions const *posns);

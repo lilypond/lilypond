@@ -18,5 +18,5 @@ it should always show up in the output-distance testing. "
   ragged-right = ##f
 }
 
-\relative { c4 d f8_\f[ g-.] }
+\relative c' { c4 d f8_\f[ g-.] }
 

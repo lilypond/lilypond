@@ -10,7 +10,7 @@
   ragged-right = ##t
 }
 
-\relative {
+\relative c' {
   \set melismaBusyProperties = #'()
   c d( e) f f( e) e e  }
 \addlyrics

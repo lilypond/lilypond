@@ -73,7 +73,6 @@ LY_DEFINE (ly_score_header, "ly:score-header",
   return sc->get_header ();
 }
 
-
 LY_DEFINE (ly_score_set_header_x, "ly:score-set-header!",
 	   2, 0, 0, (SCM score, SCM module),
 	   "Set the score header.")
@@ -81,12 +80,11 @@ LY_DEFINE (ly_score_set_header_x, "ly:score-set-header!",
   LY_ASSERT_SMOB (Score, score, 1);
   SCM_ASSERT_TYPE (ly_is_module (module), module, SCM_ARG2, __FUNCTION__,
 		   "module");
-  
+
   Score *sc = unsmob_score (score);
   sc->set_header (module);
   return SCM_UNSPECIFIED;
 }
-
 
 LY_DEFINE (ly_score_music, "ly:score-music",
 	   1, 0, 0, (SCM score),
@@ -110,8 +108,7 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 	   2, 0, 0, (SCM score, SCM layout),
 	   "Run @var{score} through @var{layout} (an output definition)"
 	   " scaled to correct output-scale already, returning a list of"
-	   " layout-lines.  This function takes an optional"
-	   " @code{Object_key} argument.")
+	   " layout-lines.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
   LY_ASSERT_SMOB (Output_def, layout, 2);

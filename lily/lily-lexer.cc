@@ -23,7 +23,7 @@
 #include <sstream>
 using namespace std;
 
-#include "context.hh"  // for nested_property_alist
+#include "context.hh" // for nested_property_alist
 #include "international.hh"
 #include "interval.hh"
 #include "keyword.hh"
@@ -71,7 +71,6 @@ static Keyword_ent the_key_tab[]
   {"name", NAME},
   {"new", NEWCONTEXT},
   {"notemode", NOTEMODE},
-  {"objectid", OBJECTID},
   {"once", ONCE},
   {"override", OVERRIDE},
   {"paper", PAPER},
@@ -118,7 +117,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
 Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
   : Includable_lexer ()
 {
-  parser_ = parser; 
+  parser_ = parser;
   keytable_ = (src.keytable_) ? new Keyword_table (*src.keytable_) : 0;
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
@@ -204,7 +203,7 @@ Lily_lexer::keyword_list () const
 {
   if (!keytable_)
     return SCM_EOL;
-  
+
   SCM l = SCM_EOL;
   SCM *tail = &l;
   for (vsize i = 0; i < keytable_->table_.size (); i++)
@@ -244,7 +243,6 @@ Lily_lexer::start_main_input ()
   yy_flex_debug = get_program_option ("debug-lexer");
   parser_->set_yydebug (get_program_option ("debug-parser"));
 
-  
   new_input (main_input_name_, sources_);
 
   scm_module_define (scm_car (scopes_),
@@ -372,7 +370,7 @@ SCM
 Lily_lexer::mark_smob (SCM s)
 {
   ASSERT_LIVE_IS_ALLOWED ();
-  
+
   Lily_lexer *lexer = (Lily_lexer *) SCM_CELL_WORD_1 (s);
 
   scm_gc_mark (lexer->chordmodifier_tab_);

@@ -3,7 +3,7 @@
   texidoc = "This file tests a few standard beam quants, taken from
     Ted Ross' book. If LilyPond finds another quant, the correct quant
     is printed over the beam."
-  
+
 }
 
 \version "2.12.0"
@@ -13,85 +13,85 @@
   #(define debug-beam-quanting #t)
 }
 
-filler = \new Voice \relative  {
+filler = \new Voice \relative c' {
   \hideNotes
   e4 e
 }
-				% 
+				%
 
 %%
 %% Ross p108--112
-primes = \relative {
-  \time 3/4 
+primes = \relative c' {
+  \time 3/4
   \assertBeamQuant #'(0 . 0)  #'(0 . 0)
   c8[ c]
   \filler
   \assertBeamQuant #'(1 . -1)  #'(1 . -1)
   d8[ d]
-  
+
   \filler
-  
+
   \assertBeamQuant #'(1 . 0)  #'(1 . 0)
   e8[ e]
   \filler
-  
-  
+
+
   \assertBeamQuant #'(2 . -1)  #'(2 . -1)
   f8[ f]
   \filler
-  
-  
+
+
   \assertBeamQuant #'(2 . 0)  #'(2 . 0)
   g8[ g]
   \filler
-  
-  
+
+
   \assertBeamQuant #'(2 . 1)  #'(2 . 1)
   a8[ a]
   \filler
-  
+
 %{
   \once \override Beam #'inspect-quants = #'(2.2 . 2.2)
-  \assertBeamQuant 
+  \assertBeamQuant
   a8[ a]
   \filler
-  
+
 %}
-  
+
 }
 
 
-seconds = \relative {
-  
+seconds = \relative c' {
+
   \assertBeamQuant #'(0 . 0)  #'(0 . 1)
   a8[ b]
   \filler
-  
+
 
   \assertBeamQuant #'(0 . 0)  #'(0 . 1)
   b8[ c]
   \filler
-  
+
 
   \assertBeamQuant #'(0 . 0)  #'(0 . 1)
   c8[ d]
   \filler
-  
+
   \assertBeamQuant #'(1 . -1)  #'(1 . 0)
   d8[ e]
   \filler
-  
-  
+
+
   \assertBeamQuant #'(1 . 0)  #'(1 . 1)
   e8[ f]
   \filler
-  
-  
+
+
   \assertBeamQuant #'(2 . -1)  #'(2 . 0)
   f8[ g]
   \filler
-  
-  
+
+
   \assertBeamQuant #'(2 . 0)  #'(2 . 1)
   g8[ a]
   \filler
@@ -101,13 +101,13 @@ seconds = \relative {
   \filler
 }
 
-filler = \new Voice \relative  {
+filler = \new Voice \relative c' {
   \hideNotes
   e4 e4.
 }
 
-				% Ross, p122 
-primeSixteenths = \relative {
+				% Ross, p122
+primeSixteenths = \relative c' {
   \stemUp
   \assertBeamQuant #'(0 . -1)  #'(0 . -1)
   g16[ g]

@@ -1,12 +1,12 @@
 \header {
-    
+
     texidoc = "newlyrics, multiple stanzas, multiple lyric voices."
-    
+
 }
 \layout { ragged-right = ##t }
 <<
-    \new Staff \relative {
-	d'2 d c4 bes a2 \break
+    \new Staff \relative c'' {
+	d2 d c4 bes a2 \break
     }
     \addlyrics {
 	My first Li -- ly song,
@@ -14,7 +14,7 @@
     \addlyrics {
 	Not much can go wrong!
     }
-    \new Staff \relative {
+    \new Staff \relative c' {
 	\clef bass
 	d2 d c4 bes a2 \break
     }

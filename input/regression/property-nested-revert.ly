@@ -8,7 +8,7 @@ Scheme list syntax."
 
 \version "2.12.0"
 
-\relative {
+\relative c' {
   f2 \glissando c
   \override Glissando #'bound-details #'right #'Y = #4
   f2 \glissando c |

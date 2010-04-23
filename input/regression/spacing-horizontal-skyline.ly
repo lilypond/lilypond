@@ -9,8 +9,8 @@
   ragged-right = ##t
   }
 
-\relative {
-  \stemUp c''4...*1/2
+\relative c''' {
+  \stemUp c4...*1/2
 
   ceses,,!
   eses!
@@ -19,6 +19,6 @@
   ceses!
   geses'!
   ceses,!
-  
+
 }
-  
+
