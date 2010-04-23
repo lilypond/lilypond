@@ -908,21 +908,26 @@ Stem::calc_stem_info (SCM smob)
   SCM lengths = ly_assoc_get (ly_symbol2scm ("beamed-lengths"), details, SCM_EOL);
   
   Real ideal_length
-    = scm_to_double (robust_list_ref (beam_count - 1, lengths))
-    * staff_space
-    * length_fraction
-    
-    /* stem only extends to center of beam
-     */
-    - 0.5 * beam_thickness;
+    = (scm_is_pair (lengths)
+       ? (scm_to_double (robust_list_ref (beam_count - 1, lengths))
+	  * staff_space
+	  * length_fraction
+	  /*
+	    stem only extends to center of beam
+	  */
+	  - 0.5 * beam_thickness)
+       : 0.0);
 
   /* Condition: sane minimum free stem length (chord to beams) */
-  lengths = ly_assoc_get (ly_symbol2scm ("beamed-minimum-free-lengths"), details, SCM_EOL);
+  lengths = ly_assoc_get (ly_symbol2scm ("beamed-minimum-free-lengths"),
+			  details, SCM_EOL);
 
   Real ideal_minimum_free
-    = scm_to_double (robust_list_ref (beam_count - 1, lengths))
-    * staff_space
-    * length_fraction;
+    = (scm_is_pair (lengths)
+       ? (scm_to_double (robust_list_ref (beam_count - 1, lengths))
+	  * staff_space
+	  * length_fraction)
+       : 0.0);
 
   Real height_of_my_trem = 0.0;
   Grob *trem = unsmob_grob (me->get_object ("tremolo-flag"));
@@ -939,7 +944,7 @@ Stem::calc_stem_info (SCM smob)
      It seems that also for ideal minimum length, we must use
      the maximum beam count (for this direction):
 
-     \score{ \notes\relative c''{ [a8 a32] }}
+     \score { \relative c'' { a8[ a32] } }
 
      must be horizontal. */
   Real height_of_my_beams = beam_thickness
@@ -993,9 +998,11 @@ Stem::calc_stem_info (SCM smob)
 			    details, SCM_EOL);
   
   Real minimum_free
-    = scm_to_double (robust_list_ref (beam_count - 1, bemfl))
-    * staff_space
-    * length_fraction;
+    = (scm_is_pair (bemfl)
+       ? (scm_to_double (robust_list_ref (beam_count - 1, bemfl))
+	  * staff_space
+	  * length_fraction)
+       : 0.0);
 
   Real minimum_length = max (minimum_free, height_of_my_trem)
     + height_of_my_beams
