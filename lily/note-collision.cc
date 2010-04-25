@@ -53,7 +53,7 @@ check_meshing_chords (Grob *me,
 
   Drul_array<Grob*> stems (Note_column::get_stem (clash_down),
 			   Note_column::get_stem (clash_up));
-  
+
   Grob *head_up = Note_column::first_head (clash_up);
   Grob *head_down = Note_column::first_head (clash_down);
 
@@ -192,16 +192,18 @@ check_meshing_chords (Grob *me,
      direction.  In case of a collision, one of them should be removed,
      so the resulting note does not look like a block.
   */
+  SCM up_style = head_up->get_property ("style");
+  SCM down_style = head_down->get_property ("style");
   if (merge_possible
-      && head_up->get_property ("style") == ly_symbol2scm ("fa")
-      && head_down->get_property ("style") == ly_symbol2scm ("fa"))
+      && (up_style == ly_symbol2scm ("fa") || up_style == ly_symbol2scm ("faThin"))
+      && (down_style == ly_symbol2scm ("fa") || down_style == ly_symbol2scm ("faThin")))
     {
       Interval uphead_size = head_up->extent (head_up, Y_AXIS);
       Offset att = Offset (0.0, -1.0);
       head_up->set_property ("stem-attachment", ly_offset2scm (att));
-      head_up->set_property ("transparent", SCM_BOOL_T); 
+      head_up->set_property ("transparent", SCM_BOOL_T);
     }
-  
+
   if (merge_possible)
     {
       shift_amount = 0;
@@ -240,7 +242,7 @@ check_meshing_chords (Grob *me,
 	    If upper head is eighth note or shorter, and lower head is half note,
 	    shift by the difference between the open and filled note head widths,
 	    otherwise upper stem will be misaligned slightly.
-	  */ 
+	  */
 	  if (Stem::duration_log (stems[DOWN]) == 1
 	      && Stem::duration_log (stems[UP]) >= 3)
 	    shift_amount = (1 - head_up->extent (head_up, X_AXIS).length () /
@@ -274,7 +276,7 @@ check_meshing_chords (Grob *me,
     shift_amount *= 0.17;
 
   /*
-    
+
   */
   if (full_collide
       && down_ball_type * up_ball_type == 0)
@@ -288,7 +290,7 @@ check_meshing_chords (Grob *me,
       else if (down_ball_type == 0 && up_ball_type == 2)
 	shift_amount *= 0.75;
     }
-  
+
   /*
    * Fix issue #44:
    *
@@ -358,13 +360,13 @@ check_meshing_chords (Grob *me,
 }
 
 
-MAKE_SCHEME_CALLBACK (Note_collision_interface, calc_positioning_done, 1) 
+MAKE_SCHEME_CALLBACK (Note_collision_interface, calc_positioning_done, 1)
 SCM
 Note_collision_interface::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   me->set_property ("positioning-done", SCM_BOOL_T);
-  
+
   Drul_array<vector<Grob*> > clash_groups = get_clash_groups (me);
 
   Direction d = UP;
@@ -546,7 +548,7 @@ Note_collision_interface::automatic_shift (Grob *me,
     {
       Grob *g = clash_groups[UP][i];
       Grob *dc = Note_column::dot_column (g);
-      
+
       if (dc)
 	for (vsize j = i + 1;  j < clash_groups[UP].size (); j++)
 	  {
@@ -554,7 +556,7 @@ Note_collision_interface::automatic_shift (Grob *me,
 	    Side_position_interface::add_support (dc, stem);
 	  }
     }
-  
+
   /*
     Check if chords are meshing
   */
