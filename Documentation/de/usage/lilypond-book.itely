@@ -102,7 +102,7 @@ kombinieren. Zum Beispiel:
 
 Optionen für \verb+lilypond+ werden dabei in eckige Klammern gesetzt.
 
-\begin[fragment,quote,staffsize=26,verbatim]{lilypond}
+\begin{lilypond}[fragment,quote,staffsize=26,verbatim]
   c'4 f16
 \end{lilypond}
 
@@ -207,7 +207,7 @@ Benutzung von @LaTeX{}.
 Musikbeispiele können eingegeben werden als
 
 @example
-\begin[Optionen,kommen,]@{lilypond@}
+\begin@{lilypond@}[Optionen,kommen,hierhin]
   IHR LILYPOND QUELLCODE
 \end@{lilypond@}
 @end example
@@ -233,7 +233,7 @@ liefert eine Datei, die dann mit @LaTeX{} weiter verarbeitet werden kann.
 Dies soll hier an einigen Beispielen gezeigt werden. Die @code{lilypond}-Umgebung
 
 @example
-\begin[quote,fragment,staffsize=26]@{lilypond@}
+\begin@{lilypond@}[quote,fragment,staffsize=26]
   c' d' e' f' g'2 g'2
 \end@{lilypond@}
 @end example
@@ -337,7 +337,7 @@ wird, ist die Ausgabe nur eines Systems trivial.
 @example
 \def\betweenLilyPondSystem#1@{\endinput@}
 
-\begin[fragment]@{lilypond@}
+\begin@{lilypond@}[fragment]
   c'1\( e'( c'~ \break c' d) e f\)
 \end@{lilypond@}
 @end example

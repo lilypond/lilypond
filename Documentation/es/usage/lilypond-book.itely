@@ -97,7 +97,7 @@ música y texto. Por ejemplo:
 
 Las opciones se escriben entre corchetes.
 
-\begin[fragment,quote,staffsize=26,verbatim]{lilypond}
+\begin{lilypond}[fragment,quote,staffsize=26,verbatim]
   c'4 f16
 \end{lilypond}
 
@@ -201,7 +201,7 @@ breve a @LaTeX{}) para ver una panorámica sobre cómo usar @LaTeX{}.
 La música se introduce usando
 
 @example
-\begin[las,opciones,van,aquí]@{lilypond@}
+\begin@{lilypond@}[las,opciones,van,aquí]
   EL CÓDIGO DE LILYPOND
 \end@{lilypond@}
 @end example
@@ -229,7 +229,7 @@ que se puede procesar posteriormente con @LaTeX{}.
 A continuación mostramos algunos ejemplos.  El entorno @code{lilypond}
 
 @example
-\begin[quote,fragment,staffsize=26]@{lilypond@}
+\begin@{lilypond@}[quote,fragment,staffsize=26]
   c' d' e' f' g'2 g'2
 \end@{lilypond@}
 @end example
@@ -1079,7 +1079,7 @@ Texto normal en LaTeX.
 
 Más texto en LaTeX, y las opciones dentro de los corchetes.
 
-\begin[fragment,relative=2,quote,staffsize=26,verbatim]@{lilypond@}
+\begin@{lilypond@}[fragment,relative=2,quote,staffsize=26,verbatim]
 d4 c b a
 \end@{lilypond@}
 \end@{document@}

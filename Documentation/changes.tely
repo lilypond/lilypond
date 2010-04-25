@@ -65,6 +65,22 @@ which scares away people.
 @end ignore
 
 @item
+The documented syntax of @samp{lilypond} environments in the @LaTeX{}
+mode of @command{lilypond-book} has been changed to conform with
+standard @LaTeX{} syntax: options now come after the environment name:
+@example
+\begin@{lilypond@}[@var{options}] @dots{}
+@end example
+
+The previous syntax with options after @samp{\begin} is still accepted
+by @command{lilypond-book} but deprecated.  Something like
+@example
+sed -i '/begin\[/s/begin\(\[[^]]*]\)\(@{lilypond@}\)/begin\2\1/'
+@end example
+
+might do the trick for conversion.
+
+@item
 Aesthetics of shape note heads have been enhanced.  Variable line thicknesses
 have been implemented.  All note widths have been made consistent.
 Minor shape note commands that use the relative major key for scale steps
