@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.1
-\version "2.13.16"
+\version "2.13.18"
 
 \header {
   lsrtags = "simultaneous-notes, chords"

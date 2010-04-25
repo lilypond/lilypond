@@ -6,7 +6,7 @@
 \header {
   lsrtags = "vocal-music, chords, template"
 
-%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
+%% Translation of GIT committish: 2b0dc29608d6c3f5a03ead4877ae514c647adb74
   texidoces = "
 Esta plantilla facilita la preparación de una canción con melodía,
 letra y acordes.

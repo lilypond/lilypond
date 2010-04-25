@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
+%% Translation of GIT committish: 2b0dc29608d6c3f5a03ead4877ae514c647adb74
  doctitlees = "Uso de ligaduras en los arpegios"
  texidoces = "
 En ocasiones se usan ligaduras de unión para escribir los arpegios.

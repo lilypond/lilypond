@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
+%% Translation of GIT committish: 2b0dc29608d6c3f5a03ead4877ae514c647adb74
   texidoces = "
 Si la nota que da fin a un regulador cae sobre la primera parte de
 un compás, el regulador se detiene en la línea divisoria

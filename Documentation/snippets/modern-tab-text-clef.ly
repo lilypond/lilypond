@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.4
-\version "2.13.16"
+\version "2.13.18"
 
 \header {
   lsrtags = "staff-notation, fretted-strings"

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
+%% Translation of GIT committish: 2b0dc29608d6c3f5a03ead4877ae514c647adb74
   texidoces = "
 Para hacer invisibles partes de un regulador de crescendo, se usa
 el método de dibujar un rectángulo blanco encima de la parte
