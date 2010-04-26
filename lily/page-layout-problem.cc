@@ -325,19 +325,20 @@ Page_layout_problem::find_system_offsets ()
   vector<Real> loose_line_min_distances;
   Grob *last_spaceable_line = 0;
   Real last_spaceable_line_translation = 0;
+  Interval last_title_extent;
   for (vsize i = 0; i < elements_.size (); ++i)
     {
       if (elements_[i].prob)
 	{
 	  *tail = scm_cons (scm_from_double (solution_[spring_idx]), SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
+	  Interval prob_extent = unsmob_stencil (elements_[i].prob->get_property ("stencil"))->extent (Y_AXIS);
 
 	  // Lay out any non-spaceable lines between this line and
 	  // the last one.
 	  if (loose_lines.size ())
 	    {
 	      Interval loose_extent = loose_lines.back ()->extent (loose_lines.back (), Y_AXIS);
-	      Interval prob_extent = unsmob_stencil (elements_[i].prob->get_property ("stencil"))->extent (Y_AXIS);
 	      Real min_distance = -loose_extent[DOWN] + prob_extent[UP]; // TODO: include padding/minimum-distance
 
 	      loose_line_min_distances.push_back (min_distance);
@@ -351,6 +352,7 @@ Page_layout_problem::find_system_offsets ()
 
 	  last_spaceable_line = 0;
 	  last_spaceable_line_translation = -solution_[spring_idx];
+	  last_title_extent = prob_extent;
 	  spring_idx++;
 	}
       else
@@ -417,6 +419,12 @@ Page_layout_problem::find_system_offsets ()
 			min_dist = Axis_group_interface::minimum_distance (loose_lines.back (),
 									   staff,
 									   Y_AXIS);
+		      else if (!last_title_extent.is_empty ())
+			{ // distance to the preceding title
+			  // TODO: add options for controlling the space between a loose line
+			  // and a title/markup preceding it.
+			  min_dist = staff->extent (staff, Y_AXIS)[UP] - last_title_extent[DOWN];
+			}
 		      else // distance to the top margin
 			min_dist = header_padding_ + header_height_ + staff->extent (staff, Y_AXIS)[UP];
 
