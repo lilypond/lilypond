@@ -104,7 +104,8 @@ noclef = \with { \remove "Clef_engraver" }
     \new Voice \with { \coloredheads } \relative c' { c4 e g c }
   }
   \layout {
-    \context { \Staff
+    \context {
+      \Staff
       \noclef
     }
   }
@@ -163,6 +164,18 @@ Chords can be repeated using the @code{q} shortcut:
 @lilypond[verbatim,quote,relative=2]
 <c e g>8.-^ q16 q4-^
 @end lilypond
+
+@item
+With two-sided mode, margins for odd and even pages can be set using
+@code{inner-margin} and @code{outer-margin}:
+
+@example
+\paper @{
+  two-sided = ##t
+  inner-margin = 10 \mm
+  outer-margin = 20 \mm
+@}
+@end example
 
 @item
 Paper margin defaults, as specified in @file{ly/@/paper@/-defaults@/-init@/.ly}, apply
