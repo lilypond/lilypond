@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 5e8800f7a39cf13ac6b5e3d69e7973366b1da54b
+    Translation of GIT committish: cec6b24809cf3ffbb594f70c9823365501ccc2b4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -74,7 +74,7 @@ El resultado tiene este aspecto:
 @end lilypond
 
 @warning{la música y la letra escrita en el código de entrada de
-LilyPond tiene que ir siempre entre @strong{@{ llaves @}}.  Las llaves
+LilyPond tiene que ir siempre entre @w{@strong{@{ llaves @}}}.  Las llaves
 deberían también estar rodeadas por espacios a no ser que se
 encuentren al principio o al final de una línea, para evitar
 ambigüedades.  Es posible que se omitan en algunos ejemplos del
@@ -83,7 +83,7 @@ información sobre la presentación de los ejemplos del manual, consulte
 @ref{Cómo leer los manuales}.}
 
 Además, la entrada de LilyPond es @strong{sensible a las mayúsculas}.
-@code{ @{ c d e @}} es una entrada válida; @code{@{ C D E @}} produce
+@w{@samp{ @{ c d e @}}} es una entrada válida; @w{@samp{@{ C D E @}}} produce
 un mensaje de error.
 
 @smallspace
@@ -252,7 +252,7 @@ anterior, la primera nota (@code{d}) es el Re más cercano al Do
 central.
 
 Añadiendo (o eliminando) comillas simples @code{'} o comas @code{,} a
-la instrucción @code{@w{\relative c' @{}}, podemos cambiar la octava
+la instrucción @q{@w{@code{@bs{}\relative c'}}}, podemos cambiar la octava
 de inicio:
 
 @c KEEP LY
@@ -308,8 +308,6 @@ nombre de la nota.
 Para subir o bajar una nota en dos (¡o más!) octavas, utilizamos
 varias @code{''} ó @code{,,} (pero tenga cuidado de utilizar dos
 comillas simples @code{''} ¡y no una comilla doble @code{"}@tie{}!)
-El valor inicial de @code{@w{\relative c'}} también puede modificarse
-de esta forma.
 @c " - keeps quotes in order for context-sensitive editor -td
 
 @subheading Duraciones (valores rítmicos)
@@ -490,9 +488,9 @@ Referencia de la notación:
 Los archivos de entrada de LilyPond son como los archivos fuente de
 muchos lenguajes de programación corrientes.  Contienen un enunciado
 de versión, son sensibles a las mayúsculas y generalmente los espacios
-se ignoran.  Las expresiones se forman con llaves @{ @} y los
+se ignoran.  Las expresiones se forman con llaves @w{@code{@{ @}}} y los
 comentarios se denotan por un signo de porcentaje (@code{%}) o por
-@w{@code{%@{ ... %@}}}.
+@w{@code{%@{ @dots{} %@}}}@tie{}.
 
 Si la frase anterior no tiene sentido para usted ¡no se preocupe! A
 continuación explicaremos el significado de todos estos términos:
@@ -525,13 +523,13 @@ LilyPond imprime una advertencia durante la compilación del mismo.
 @strong{Sensible a las mayúsculas}: tiene importancia el hecho de que
 introduzca una letra en minúsculas (p.ej. @w{@code{a, b, s, t}}) o en
 mayúsculas (p.ej.  @w{@code{A, B, S, T}}).  Las notas son minúsculas:
-@w{@code{@{ c d e @}}} es una entrada válida; @w{@code{@{ C D E @}}}
+@w{@samp{@{ c d e @}}} es una entrada válida; @w{@samp{@{ C D E @}}}
 produciría un mensaje de error.
 
 @item
 @strong{Insensible al número de espacios}: no importa cuántos espacios
-(o saltos de línea o de tabulación) añada.  @w{@code{@{ c d e @}}}
-significa lo mismo que @w{@code{@{ c @tie{}} @tie{} @tie{} d e @}} y
+(o saltos de línea o de tabulación) añada.  @w{@samp{@{ c d e @}}}
+significa lo mismo que @w{@samp{@{ c @tie{} @tie{} @tie{} d e @}}} y
 que
 
 @example
@@ -552,15 +550,14 @@ tabulación, o bien con dos espacios:
 
 Sin embargo, @emph{sí} se necesitan espacios para separar muchos
 elementos sintácticos unos de otros.  En otras palabras, los espacios
-se pueden siempre @emph{añadir}, pero no se pueden @emph{eliminar}.
-Dado que la falta de espacios puede dar lugar a extraños errore,
+se pueden siempre @emph{añadir}, pero no siempre @emph{eliminar}.
+Dado que la falta de espacios puede dar lugar a extraños errores,
 recomendamos insertar espacios siempre antes y después de cualquier
-elemento sintáctico, por ejemplo, antes y después de las llaves
-curvas.
+elemento sintáctico, por ejemplo, antes y después de las llaves.
 
 @item
 @strong{Expresiones:} Todo fragmento de código de entrada para
-LilyPond ha de llevar @strong{@{ llaves @}} antes y después de la
+LilyPond ha de llevar @strong{@{@tie{}llaves@tie{}@}} antes y después de la
 entrada.  Estas llaves le dicen a LilyPond que la entrada es una
 expresión musical unitaria, igual que los paréntesis @samp{()} de las
 matemáticas.  Las llaves deben ir rodeadas de un espacio a no ser que
@@ -568,7 +565,7 @@ se encuentren al comienzo o al final de una línea, para evitar
 cualquier ambigüedad.
 
 Una instrucción de LilyPond seguida de una expresión simple entre
-llaves (como por ejemplo @w{@code{\relative @{ @}}}) también es una
+llaves (como por ejemplo @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}}) también es una
 expresión musical unitaria.
 
 @cindex comentarios
@@ -683,33 +680,35 @@ versión en línea.
 @cindex archivos, consejos para construir
 
 Como ya vimos en @ref{Trabajar sobre los archivos de entrada}, el
-código de entrada de LilyPond debe estar rodeado de llaves @{ @} o de
-@code{@w{\relative c'' @{ ... @}}}.  Durante el resto del presente
+código de entrada de LilyPond debe estar rodeado de llaves @code{@{ @}} o de
+@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}.  Durante el resto del presente
 manual, la mayor parte de los ejemplos omitirán las llaves.  Para
 reproducir los ejemplos, deberá copiar y pegar la entrada que se
-muestra, pero @strong{deberá} escribir el @code{@w{\relative c'' @{
-@}}}, de la siguiente forma:
+muestra, pero @strong{deberá} escribir el @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}},
+de la siguiente forma:
 
 @example
 \relative c'' @{
-  ... aquí va el ejemplo...
+  @dots{}aquí va el ejemplo@dots{}
 @}
 @end example
 
 ¿Por qué omitir las llaves? Casi todos los ejemplos del presente
 manual se pueden insertar en medio de un fragmento mayor de música.
-Para estos ejemplos no tiene ningún sentido añadir @code{@w{\relative
-c'' @{ @}}} (¡no debería poner un @code{\relative} dentro de otro
-@code{\relative}!); si hubiésemos incluido @code{@w{\relative c'' @{
-@}}} rodeando a cada uno de los ejemplos, usted no podría copiar un
+Para estos ejemplos no tiene ningún sentido añadir
+@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
+(¡no debería poner un @code{\relative} dentro de otro
+@code{\relative}!); si hubiésemos incluido
+@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
+rodeando a cada uno de los ejemplos, usted no podría copiar un
 ejemplo pequeño procedente de la documentación y pegarlo dentro de su
 propia pieza.  La mayoría querrá insertar el código dentro de una
 pieza más grande, por eso hemos formateado el manual de esta manera.
 
 Asimismo, recuerde que todo archivo de LilyPond debe llevar un
-enunciado @code{@bs{}version}.  Dado que los ejemplos de los manuales
+enunciado @code{\version}.  Dado que los ejemplos de los manuales
 son fragmentos de código y no archivos completos, el enunciado
-@code{@bs{}version} se omite.  De todas formas, debemos acostumbrarnos
+@code{\version} se omite.  De todas formas, debemos acostumbrarnos
 a incluirlo en nuestros documentos.
 
 @node Ejemplos con enlace

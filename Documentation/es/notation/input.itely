@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 80e6ba1898ac1d299851002844658c725597969e
+    Translation of GIT committish: c588e39bb25b7c92bb83afc743c60f1a4cedfd00
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1535,21 +1535,17 @@ LilyPond:
 
 @subsubheading Instrucciones de instalación para MacOS
 
-Descargue y extraiga el archivo zip.  Usando @code{Terminal.app},
-mueva la carpeta @code{lilyfonts} a
-@file{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current}.
+Descargue y extraiga el archivo zip. Copie
+la carpeta @code{lilyfonts} a
+@file{@var{SHARE_DIR}/lilypond/current}; para más información, consulte
+@rlearning{Otras fuentes de información}.
 Mueva la carpeta @code{fonts} existente a @code{fonts_orig} y mueva la
 carpeta @code{lilyfonts} a @code{fonts}.  Sencillamente vuelva a mover
 @code{fonts_orig} a @code{fonts} para volver a la fuente Feta.
 
-@subsubheading Instrucciones de instalación para Windows
-
-Descargue y extraiga el archivo zip.  Utilizando el Explorador de
-archivos, copie la carpeta @code{lilyfonts} a
-@file{@var{INSTALLDIR}/LilyPond/usr/share/lilypond/current}. Cambie el
-nombre de la carpeta @code{fonts} existente a @code{fonts_orig} y de
-la carpeta @code{lilyfonts} a @code{fonts}.  Sencillamente vuelva a
-renombrar @code{fonts_orig} a @code{fonts} para volver a Feta.
+@seealso
+Manual de aprendizaje:
+@rlearning{Otras fuentes de información}.
 
 @knownissues
 
