@@ -107,7 +107,7 @@ struct Slur_score_state
 
   Bezier get_best_curve ();
   void fill (Grob *);
-  void set_next_direction ();
+  Direction slur_direction () const;
   
   vector<Offset> generate_avoid_offsets () const;
   Drul_array<Bound_info> get_bound_info () const;

@@ -78,18 +78,22 @@ Slur_score_state::~Slur_score_state ()
 }
 
 /*
-  copy slur dir forwards across line break.
+  If a slur is broken across a line break, the direction
+  of the post-break slur must be the same as the pre-break
+  slur.
 */
-void
-Slur_score_state::set_next_direction ()
+Direction
+Slur_score_state::slur_direction () const
 {
-  if (extremes_[RIGHT].note_column_)
-    return;
+  if (Grob *left_neighbor = slur_->broken_neighbor (LEFT))
+    return get_grob_direction (left_neighbor);
 
-  if (Grob *neighbor = slur_->broken_neighbor (RIGHT))
-    {
-      set_grob_direction (neighbor, dir_);
-    }
+  Direction dir = get_grob_direction (slur_);
+
+  if (Grob *right_neighbor = slur_->broken_neighbor (RIGHT))
+    set_grob_direction (right_neighbor, dir);
+
+  return dir;
 }
 
 Encompass_info
@@ -215,7 +219,7 @@ Slur_score_state::fill (Grob *me)
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   thickness_ = robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
 
-  dir_ = get_grob_direction (me);
+  dir_ = slur_direction ();
   parameters_.fill (me);
 
   extract_grob_set (me, "note-columns", columns);
@@ -276,8 +280,6 @@ Slur_score_state::fill (Grob *me)
   edge_has_beams_
     = (extremes_[LEFT].stem_ && Stem::get_beam (extremes_[LEFT].stem_))
     || (extremes_[RIGHT].stem_ && Stem::get_beam (extremes_[RIGHT].stem_));
-
-  set_next_direction ();
 
   if (is_broken_)
     musical_dy_ = 0.0;
