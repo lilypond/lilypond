@@ -398,7 +398,7 @@ syntax called @qq{markup mode}.
 @cindex markup expressions
 @cindex expressions, markup
 @cindex markup syntax
-@cindex synatax, markup
+@cindex syntax, markup
 
 The markup syntax is similar to LilyPond's usual syntax: a
 @code{\markup} expression is enclosed in curly braces @code{@{
