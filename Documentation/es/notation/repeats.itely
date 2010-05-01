@@ -119,8 +119,8 @@ c1
 
 @warning{Si pone @code{@bs{}relative} dentro de un bloque
 @code{@bs{}repeat} sin instanciar explícitamente el contexto
-@code{Voice}, aparecerán pentagramas no deseados.  Véase @rprogram{An
-extra staff appears}.}
+@code{Voice}, aparecerán pentagramas no deseados.  Véase
+@rprogram{Aparece un pentagrama de más}.}
 
 @cindex repetición con anacrusa
 @cindex anacrusa en repeticiones
@@ -407,8 +407,8 @@ c1
 
 @warning{Si pone @code{@bs{}relative} dentro de un bloque
 @code{@bs{}repeat} sin instanciar explícitamente el contexto
-@code{Voice}, aparecerán pentagramas no deseados.  Véase @rprogram{An
-extra staff appears}.}
+@code{Voice}, aparecerán pentagramas no deseados.  Véase
+@rprogram{Aparece un pentagrama de más}.}
 
 @seealso
 Fragmentos de código:

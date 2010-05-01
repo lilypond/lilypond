@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4c8bedcc234393e8ca02726bf677de707858261b
+    Translation of GIT committish: 119073f232bac1d756e2b3d3dc00c53fac40e9dd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -723,6 +723,9 @@ establecido.
 
 @item two-sided
 @funindex two-sided
+
+@cindex encuadernación
+@cindex margen de encuadernación
 
 Si es verdadero, usar @code{inner-margin}, @code{outer-margin} y
 @code{binding-offset} para determinad los márgenes dependiendo de si
