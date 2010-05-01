@@ -6,9 +6,9 @@
 \header {
   lsrtags = "keyboards"
 
-%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
+%% Translation of GIT committish: 2b0dc29608d6c3f5a03ead4877ae514c647adb74
   texidoces = "
-Un corchete de arpegio puede indicar que se tienen que tocadr con la
+Un corchete de arpegio puede indicar que se tienen que tocar con la
 misma mano notas que están en dos pentagramas distintos. Para hacerlo,
 el @code{PianoStaff} se debe configurar para que acepte símbolos de
 arpegio de pentagrama cruzado y los símbolos de arpegio se deben

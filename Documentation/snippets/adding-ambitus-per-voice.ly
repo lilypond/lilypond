@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches, staff-notation, vocal-music"
 
-%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
+%% Translation of GIT committish: 2b0dc29608d6c3f5a03ead4877ae514c647adb74
   doctitlees = "Añadir un ámbito por voz"
   texidoces = "
 Se puede añadir un ámbito por cada voz. En este caso, el ámbito se

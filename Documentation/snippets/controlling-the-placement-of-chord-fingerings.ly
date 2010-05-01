@@ -6,7 +6,7 @@
 \header {
   lsrtags = "editorial-annotations, chords, keyboards, fretted-strings"
 
-%% Translation of GIT committish: 1d589aa04c20d7711bf662618adbdd6d445db29d
+%% Translation of GIT committish: 2b0dc29608d6c3f5a03ead4877ae514c647adb74
   texidoces = "
 Se puede controlar con precisión la colocación de los números de
 digitación.  Para que se tenga en cuenta la orientación de las

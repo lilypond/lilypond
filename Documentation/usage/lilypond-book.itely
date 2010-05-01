@@ -90,7 +90,7 @@ For example,
 
 Options are put in brackets.
 
-\begin[fragment,quote,staffsize=26,verbatim]{lilypond}
+\begin{lilypond}[fragment,quote,staffsize=26,verbatim]
   c'4 f16
 \end{lilypond}
 
@@ -188,7 +188,7 @@ to use @LaTeX{}.
 Music is entered using
 
 @example
-\begin[options,go,here]@{lilypond@}
+\begin@{lilypond@}[options,go,here]
   YOUR LILYPOND CODE
 \end@{lilypond@}
 @end example
@@ -215,7 +215,7 @@ processed with @LaTeX{}.
 We show some examples here.  The @code{lilypond} environment
 
 @example
-\begin[quote,fragment,staffsize=26]@{lilypond@}
+\begin@{lilypond@}[quote,fragment,staffsize=26]
   c' d' e' f' g'2 g'2
 \end@{lilypond@}
 @end example
@@ -315,7 +315,7 @@ is trivial.
 @example
 \def\betweenLilyPondSystem#1@{\endinput@}
 
-\begin[fragment]@{lilypond@}
+\begin@{lilypond@}[fragment]
   c'1\( e'( c'~ \break c' d) e f\)
 \end@{lilypond@}
 @end example
@@ -1017,7 +1017,7 @@ Normal LaTeX text.
 
 More LaTeX text, and options in square brackets.
 
-\begin[fragment,relative=2,quote,staffsize=26,verbatim]@{lilypond@}
+\begin@{lilypond@}[fragment,relative=2,quote,staffsize=26,verbatim]
 d4 c b a
 \end@{lilypond@}
 \end@{document@}

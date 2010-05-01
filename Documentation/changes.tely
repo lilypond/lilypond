@@ -65,6 +65,28 @@ which scares away people.
 @end ignore
 
 @item
+The documented syntax of @samp{lilypond} environments in the @LaTeX{}
+mode of @command{lilypond-book} has been changed to conform with
+standard @LaTeX{} syntax: options now come after the environment name:
+@example
+\begin@{lilypond@}[@var{options}] @dots{}
+@end example
+
+The previous syntax with options after @samp{\begin} is still accepted
+by @command{lilypond-book} but deprecated.  Something like
+@example
+sed -i '/begin\[/s/begin\(\[[^]]*]\)\(@{lilypond@}\)/begin\2\1/'
+@end example
+
+might do the trick for conversion.
+
+@item
+Aesthetics of shape note heads have been enhanced.  Variable line thicknesses
+have been implemented.  All note widths have been made consistent.
+Minor shape note commands that use the relative major key for scale steps
+have been added.
+
+@item
 A variant of the segno sign is provided:
 @lilypond[quote,relative=2]
 c4 d e f \bar "S"
@@ -82,7 +104,8 @@ noclef = \with { \remove "Clef_engraver" }
     \new Voice \with { \coloredheads } \relative c' { c4 e g c }
   }
   \layout {
-    \context { \Staff
+    \context {
+      \Staff
       \noclef
     }
   }
@@ -141,6 +164,18 @@ Chords can be repeated using the @code{q} shortcut:
 @lilypond[verbatim,quote,relative=2]
 <c e g>8.-^ q16 q4-^
 @end lilypond
+
+@item
+With two-sided mode, margins for odd and even pages can be set using
+@code{inner-margin} and @code{outer-margin}:
+
+@example
+\paper @{
+  two-sided = ##t
+  inner-margin = 10 \mm
+  outer-margin = 20 \mm
+@}
+@end example
 
 @item
 Paper margin defaults, as specified in @file{ly/@/paper@/-defaults@/-init@/.ly}, apply

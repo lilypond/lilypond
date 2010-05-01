@@ -1,4 +1,3 @@
-%% This file is in the public domain.
 \version "2.13.16"
 
 \header {
@@ -19,8 +18,8 @@ This snippet shows how to bring the lyrics line closer to the staff.
   }
   \new Lyrics \lyricsto melody { aa aa aa aa aa aa aa aa aa }
 
-% Reducing the minimum space below the staff and above the lyrics:
-  \new Staff  {
+  % Reducing the minimum space below the staff and above the lyrics:
+  \new Staff {
     \new Voice = melody \relative c' {
       c4 d e f
       g4 f e d
@@ -28,8 +27,7 @@ This snippet shows how to bring the lyrics line closer to the staff.
     }
   }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #UP
-    \override VerticalAxisGroup #'inter-staff-spacing = #'((space . 1)) }
-    \lyricsto melody { aa aa aa aa aa aa aa aa aa }
+    \override VerticalAxisGroup #'inter-staff-spacing = #'((space . 1))
+  }
+  \lyricsto melody { aa aa aa aa aa aa aa aa aa }
 >>
-

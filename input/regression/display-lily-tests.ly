@@ -1,4 +1,4 @@
-\version "2.13.19"
+\version "2.13.20"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -41,7 +41,7 @@
 	      result-info "BUG")
           input output))
      (make-music 'SequentialMusic 'void #t)))))
-	  
+
 test = 
 #(define-music-function (parser location result-info strings) (string? pair?)
    (test-function parser location result-info strings))
@@ -76,6 +76,7 @@ stderr of this run."
 \test "" ##[ R1.*2/3 #]		% MultiMeasureRestMusicGroup, MultiMeasureRestEvent
 \test "" ##[ \skip 2.*3/4 #]		% SkipMusic
 \test "" ##[ < c\1 e\3 >4.*3/4-. #]	% EventChord, NoteEvent, StringNumberEvent, ArticulationEvent
+\test "NOT A BUG" ##[ { < c e g c' > q8-. } #] % RepeatedChord
 
 %% tags
 \test "" ##[ { \tag #'foo { c4 d } } #]

@@ -464,10 +464,10 @@ snippet_res = {
          r'''(?smx)
           ^[^%\n]*?
           (?P<match>
-          \\begin\s*(
+          \\begin\s*(?P<env>{lilypond}\s*)?(
           \[
            \s*(?P<options>.*?)\s*
-          \])?\s*{lilypond}
+          \])?(?(env)|\s*{lilypond})
            (?P<code>.*?)
           ^[^%\n]*?
           \\end\s*{lilypond})''',

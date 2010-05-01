@@ -563,6 +563,9 @@ Otherwise, return #f."
 (define-display-method SkipEvent (rest parser)
   "s")
 
+(define-display-method RepeatedChord (chord parser)
+  (music->lily-string (ly:music-property chord 'element) parser))
+
 (define-display-method MarkEvent (mark parser)
   (let ((label (ly:music-property mark 'label)))
     (if (null? label)

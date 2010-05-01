@@ -2,7 +2,7 @@
 % This file is part of LilyPond, the GNU music typesetter.
 %
 % Copyright (C) 1997--2010 Han-Wen Nienhuys <hanwen@xs4all.nl>
-% 
+%
 %
 % LilyPond is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -38,12 +38,11 @@ black_notehead_width# := 1.0 staff_space#;
 
 fet_beginfont ("feta", design_size, "fetaMusic");
 
-if test = 0: 
+if test = 0:
 	input feta-rests;
 	input feta-accidentals;
 	input feta-arrowheads;
 	input feta-dots;
-	input feta-noteheads;
 	input feta-scripts;
 	input feta-flags;
 	input feta-clefs;

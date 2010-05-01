@@ -1077,7 +1077,7 @@ function_scm_argument:
 	;
 
 /* An argument list. If a function \foo expects scm scm music, then the lexer expands \foo into the token sequence:
- MUSIC_FUNCTION EXPECT_MUSIC EXPECT_SCM EXPECT_SCM
+ MUSIC_FUNCTION EXPECT_MUSIC EXPECT_SCM EXPECT_SCM EXPECT_NO_MORE_ARGS
 and this rule returns the reversed list of arguments. */
 
 function_arglist_music_last:

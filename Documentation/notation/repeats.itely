@@ -109,9 +109,10 @@ Normal repeats with alternate endings:
 c1
 @end lilypond
 
-@warning{Do not include @code{@bs{}relative} inside a
-@code{@bs{}repeat}.  It will cause unwanted staves to appear.
-See @rprogram{An extra staff appears}.}
+@warning{If you include @code{@bs{}relative} inside a
+@code{@bs{}repeat} without explicitly instantiating the
+@code{Voice} context, extra (unwanted) staves will appear.  See
+@rprogram{An extra staff appears}.}
 
 @cindex repeat with upbeat
 @cindex upbeat in a repeat
@@ -384,6 +385,11 @@ c1
   }
 c1
 @end lilypond
+
+@warning{If you include @code{@bs{}relative} inside a
+@code{@bs{}repeat} without explicitly instantiating the
+@code{Voice} context, extra (unwanted) staves will appear.  See
+@rprogram{An extra staff appears}.}
 
 
 @seealso

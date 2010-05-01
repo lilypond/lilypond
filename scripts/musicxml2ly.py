@@ -1599,6 +1599,7 @@ def musicxml_direction_to_lily (n):
         if ev:
             # TODO: set the correct direction! Unfortunately, \mark in ly does
             #       not seem to support directions!
+            ev.force_direction = dir
             res.append (ev)
             continue
 

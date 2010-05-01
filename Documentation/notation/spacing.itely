@@ -728,6 +728,9 @@ Default: unset.
 @item two-sided
 @funindex two-sided
 
+@cindex gutter
+@cindex binding gutter
+
 If set to true, use @code{inner-margin}, @code{outer-margin} and
 @code{binding-offset} to determine margins depending on whether
 the page number is odd or even.  This overrides @code{left-margin}
