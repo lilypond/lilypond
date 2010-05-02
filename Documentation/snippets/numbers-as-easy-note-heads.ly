@@ -5,6 +5,22 @@
 \version "2.13.18"
 
 \header {
+%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+  texidoc = "
+
+Las cabezas de nota de notación fácil utilizan la propiedad
+@code{note-names} del objeto @code{NoteHead} para determinad lo que
+aparece dentro de la cabeza.  Mediante la sobreescritura de esta
+propiedad, es posible imprimir números que representen el grado de la
+escala.
+
+Se puede crear un grabador simple que haga esto para la cabeza de cada
+nota que ve.
+
+"
+
+  doctitle = "Números como notas de notación fácil"
+
   lsrtags = "pitches"
   texidoc = "
 Easy notation note heads use the @code{note-names} property

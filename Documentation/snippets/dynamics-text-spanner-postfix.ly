@@ -5,6 +5,21 @@
 \version "2.13.18"
 
 \header {
+%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+
+  texidoc = "
+Los objetos de extensión \cresc, \dim y \decresc ahora se pueden
+redefinir como operadores postfijos y producir un solo objeto de
+extensión de texto.  La definición de extensores personalizados
+también es fácil.  Se pueden mezclar con facilidad los crescendi
+textuales y en forma de reguladores. \< y \> producen reguladores
+gráficos de forma predeterminada, \cresc etc. producen elementos
+extensores de texto de forma predeterminada.
+
+"
+
+  doctitle = "Objetos extensores de texto postfijos para dinámica"
+
   lsrtags = "expressive-marks, tweaks-and-overrides"
   texidoc = "The \cresc, \dim and \decresc spanners can now be redefined as
 postfix operators and produce one text spanner.  Defining custom spanners is

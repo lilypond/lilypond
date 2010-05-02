@@ -5,6 +5,46 @@
 \version "2.13.18"
 
 \header {
+%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+
+  texidoc = "
+
+Se puede acceder @qq{lateralmente} a algunos grobs desde dentro de la
+función de callback de otro grob.  Éstos se encuentran relacionados
+normalmente como @qq{layout objects} (objetos de presentación) en la
+sección @qq{Internal properties} (propiedades internas) de un
+interface de grob.  Se usa la función @code{ly:grob-object} para
+acceder a estos grobs.
+
+
+Se presentan más abajo como ejemplo algunas formas de addecer a grobs
+desde dentro de una función de callback de NoteHead, pero la técnica
+no se limita a las cabezas de nota.  Sin embargo, la función de
+callback de NoteHead es especialmente importante, porque es la función
+de callback implícita que utiliza la instrucción @code{\\tweak}.
+
+
+La función de ejemplo que se define abajo (\"display-grobs\") no es
+probablemente tan útil, pero muestra que se está accediendo
+efectivamente a los grobs.
+
+
+Salida de ejemplo de la consola:
+
+
+@example
+--------------------
+#-Grob Accidental -
+#-Grob Arpeggio -
+#-Grob Stem -
+@end example
+
+
+"
+
+  doctitle = "Utilizar ly:grob-object para acceder a los grobs con \\tweak"
+
+
   lsrtags = "tweaks-and-overrides"
 
   texidoc = "

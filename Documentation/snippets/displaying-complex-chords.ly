@@ -5,6 +5,15 @@
 \version "2.13.18"
 
 \header {
+%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+
+  texidoces = "
+He aquí una forma de imprimir un acorde en el que suena la misma nota
+dos veces con distintas alteraciones.
+
+"
+  doctitlees = "Impresión de acordes complejos"
+
   lsrtags = "simultaneous-notes, chords"
   texidoc = "
 Here is a way to display a chord where the same note is played twice

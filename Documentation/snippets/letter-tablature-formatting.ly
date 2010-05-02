@@ -5,6 +5,14 @@
 \version "2.13.18"
 
 \header {
+%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+  texidoc = "
+La tablatura se puede formatear utilizando letras en lugar de números.
+
+"
+
+  doctitle = "Formateado de tablaturas con letras"
+
   lsrtags = "staff-notation, fretted-strings"
 
   texidoc = "

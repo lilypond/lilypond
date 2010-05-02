@@ -5,6 +5,76 @@
 \version "2.13.18"
 
 \header {
+%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+
+  texidoc = "
+Al trabajar con los callbacks de un grob, puede ser de mucha ayuda
+entender el @qq{árbol genealógico} de un grob.  La mayor parte de los
+grobs tienen @qq{padres} que influyen en el posicionamiento del grob.
+los padres X e Y influyen en las posiciones horizontal y vertical del
+grob, respectivamente.  Además, cada pade puede tener padres a su vez.
+
+
+Por desgracia, existen varios aspectos de la genealogía de un grob que
+pueden llevar a confusión:
+
+
+@itemize
+
+@item Los tipos de padre que tiene un grob pueden depender del
+contexto.
+
+@item Para ciertos grobs, los padres X e Y son el mismo.
+
+@item Un @qq{ancestro} concreto puede estar relacionado con un grob de
+mas de una manera.
+
+@item El concepto de @qq{generaciones} es engañoso.
+
+@end itemize
+
+
+Por ejemplo, el grob @code{System} puede ser tanto un padre (sobre el
+lado Y) como un abuelo (dos veces en el lado X) de un grob
+@code{VerticalAlignment}.
+
+
+Este macro imprime, en la consola, una representación textual de la
+genealogía de un grob.
+
+
+Cuando se llama de esta forma
+
+@example
+@{
+   \\once \\override NoteHead #'before-line-breaking = #display-ancestry
+   c4
+@}
+@end example
+
+
+Se genera la siguiente salida:
+
+
+@example
+------------------------------------
+
+NoteHead X,Y: NoteColumn
+    X: PaperColumn
+       X,Y: System
+    Y: VerticalAxisGroup
+       X: NonMusicalPaperColumn
+          X,Y: System
+       Y: VerticalAlignment
+          X: NonMusicalPaperColumn
+             X,Y: System
+          Y: System
+@end example
+
+"
+
+  doctitle = "Imprimir el árbol genealógico de un grob"
+
   lsrtags = "tweaks-and-overrides"
 
   texidoc = "
@@ -37,7 +107,8 @@ The concept of @qq{generations} is misleading.
 
 
 For example, the @code{System} grob can be both parent (on the Y-side)
-and grandparent (twice on the X-side) to a @code{VerticalAlignment}
+and grandparent (twice on the X-side) to a @code{VerticalAlignment} % begin verbatim
+
 grob.
 
 
@@ -76,8 +147,7 @@ NoteHead X,Y: NoteColumn
 
 "
   doctitle = "Displaying grob ancestry"
-} % begin verbatim
-
+}
 
 #(define (grob-name grob)
    (if (ly:grob? grob)
