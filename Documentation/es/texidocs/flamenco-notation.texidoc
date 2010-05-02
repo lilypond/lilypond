@@ -1,0 +1,37 @@
+  texidoc = "
+
+Para la guitarra flamenca se utilizan ciertos elementos de notación
+especiales:
+
+
+@itemize
+
+@item un símbolo para indicar un golpe sobre la caja de la guitarra
+con el nudillo del dedo anular
+
+@item una flecha para indicar la dirección de los rasgueos
+
+@item distintas legras para las digitaciones (@qq{p}: pulgar, @qq{i}:
+índice, @qq{m}: medio, @qq{a}: anular y @qq{x}: meñique)
+
+@item Rasgueados de 3 y cautro dedos: hacia arriba con todos los dedos
+y terminando con arriba y abajo con el índice
+
+@item abanicos: rasgueos en serie con el pulgar, hacia abajo y el
+meñique y el índice hacia arriba (hay también un abanico 2 en el que
+los dedos medio y anular se usan en lugar del meñique)
+
+@item alza púa: pulsaciones rápidas con el pulgar
+
+@end itemize
+
+
+Casi todas las figuras utilizan flechas combinadas con digitaciones;
+con los abanicos y los rasgueados, las notas se imprimen con cabeza
+sólo en el primer acorde.
+
+Este fragmento de código contiene código de tipo cabecera que se puede
+copiar como @samp{flamenco.ly} e incluirse en los documentos fuente.
+
+"
+  doctitle = "Notación del flamenco"

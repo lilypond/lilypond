@@ -1,0 +1,24 @@
+%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+
+  texidoc = "
+
+Se puede imprimir cualquier objeto gráfico sobre un fondo blanco para
+enmascarar parte de los objetos que están por debajo.  Esto puede ser
+útil para mejorar el aspecto de las colisiones en situaciones
+complejas cuando no es práctico reposicionar los objetos.  Es
+necesario establecer explícitamente la propiedad de capa
+(@code{layer}) para controlar qué objetos resultan enmascarados por el
+fondo blanco.
+
+En este ejemplo, la colisión de la ligadura de unión con la indicación
+de compás resulta mejorada enmascarando la parte de la ligadura que
+cruza a la indicación de compás mediante el establecimiento de la
+propiedad @code{whiteout} de @code{TimeSignature}.  Para hacer esto,
+se mueve @code{TimeSignature} a una capa por encima de @code{Tie}, que
+se deja en la capa predeterminada de 1, y @code{StaffSymbol} se mueve
+a una capa por encima de @code{TimeSignature} de manera que no resulte
+enmascarada.
+
+"
+
+  doctitle = "Uso de la propiedad whiteout"

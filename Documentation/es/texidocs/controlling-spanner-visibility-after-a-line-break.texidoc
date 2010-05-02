@@ -1,0 +1,21 @@
+%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+
+  texidoces = "
+La visibilidad de los objetos de extensión que acaban en la primera
+nota después de un salto de línea está controlada por la función de
+callback de @code{after-line-breaking}
+@code{ly:spanner::kill-zero-spanned-time}.
+
+Para los objetos como los glissandos y los reguladores, el
+comportamiento predeterminado es ocultar el objeto de extensión
+después del salto; la inhabilitación de la función de callback hace
+que el objeto de extensión roto por la izquierda pueda mostrarse.
+
+De forma inversa, los objetos de extensión que son visibles
+normalmente, como los objetos de extensión de texto, se pueden
+ocultar habilitando la función de callback.
+"
+
+  doctitlees = "Controlar la visibilidad de los objetos de
+  extensión después de un salto de línea"
+
