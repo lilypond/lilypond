@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Fri Apr 16 12:00:36 UTC 2010
+@emph{Last updated Sun May  2 18:05:56 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,7 +84,7 @@ partially
 @item
 1 Első lecke
 @*
-2519
+2508
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -101,7 +101,7 @@ partially (80 %)
 @ifhtml
 
 @html
-<span style="background-color: #b9ff33">partially</span>
+<span style="background-color: #fffa3d">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -138,7 +138,7 @@ partially
 @item
 3 Alapfogalmak
 @*
-11151
+11149
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -285,7 +285,7 @@ partially
 @item
 1 A @command{lilypond} használata
 @*
-3376
+3373
 @tab Team-hu
 @tab 
 @tab 
@@ -302,7 +302,7 @@ partially (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially</span>
+<span style="background-color: #68ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -351,7 +351,7 @@ LilyPond -- kottaszedés mindenkinek
 @item
 Section titles
 @*
-496
+510
 @tab Dénes Harmath
 @tab 
 @tab 
@@ -368,7 +368,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #acff31">partially</span>
+<span style="background-color: #f6fe3b">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -405,7 +405,7 @@ partially
 @item
 Bevezetés
 @*
-3755
+3803
 @tab Dénes Harmath
 @tab 
 @tab 
@@ -422,7 +422,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">partially</span>
+<span style="background-color: #d4ff37">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

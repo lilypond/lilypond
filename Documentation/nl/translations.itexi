@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Fri Apr 16 12:00:36 UTC 2010
+@emph{Meest recente update Sun May  2 18:05:56 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,7 +84,7 @@ ja
 @item
 1 Leerboek
 @*
-2519
+2508
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -101,7 +101,7 @@ gedeeltelijk (80 %)
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">gedeeltelijk</span>
+<span style="background-color: #91ff2e">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -138,7 +138,7 @@ ja
 @item
 3 Fundamentele concepten
 @*
-11151
+11149
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -177,7 +177,7 @@ LilyPond -- Muzieknotatie voor iedereen
 @item
 Paragraaftitels
 @*
-496
+510
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -194,11 +194,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #68ff28">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk
 @end ifnothtml
 @tab na-GDP
 @item
@@ -231,7 +231,7 @@ ja
 @item
 Inleiding
 @*
-3755
+3803
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -248,11 +248,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #40fe23">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk
 @end ifnothtml
 @tab voor-GDP
 @item

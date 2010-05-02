@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Fri Apr 16 12:00:36 UTC 2010
+@emph{Zuletzt aktualisiert am Sun May  2 18:05:56 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -231,7 +231,7 @@ teilweise
 @item
 1 Schnittstellen für Programmierer
 @*
-3815
+3816
 @tab Till Paala
 @tab 
 @tab 
@@ -324,7 +324,7 @@ ja
 @item
 1 Übung
 @*
-2519
+2508
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -343,7 +343,7 @@ teilweise (80 %)
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">teilweise</span>
+<span style="background-color: #e1ff39">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -380,7 +380,7 @@ teilweise
 @item
 3 Grundbegriffe
 @*
-11151
+11149
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -556,7 +556,7 @@ teilweise
 @item
 1.1 Tonhöhen
 @*
-3482
+3519
 @tab Till Paala
 @tab 
 @tab 
@@ -573,7 +573,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">teilweise</span>
+<span style="background-color: #62ff28">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -637,7 +637,7 @@ teilweise
 @item
 1.4 Wiederholungszeichen
 @*
-578
+605
 @tab Till Paala
 @tab 
 @tab 
@@ -654,7 +654,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">teilweise</span>
+<span style="background-color: #33ff21">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -799,7 +799,7 @@ teilweise
 @item
 2.1 Notation von Gesang
 @*
-2730
+2805
 @tab Till Paala
 @tab 
 @tab 
@@ -816,7 +816,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">teilweise</span>
+<span style="background-color: #39ff22">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1042,7 +1042,7 @@ teilweise
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-6448
+6417
 @tab Till Paala
 @tab 
 @tab 
@@ -1069,7 +1069,7 @@ teilweise
 @item
 4 Abstände
 @*
-9253
+9258
 @tab Till Paala
 @tab 
 @tab 
@@ -1243,7 +1243,7 @@ ja
 @item
 1 @command{lilypond} starten
 @*
-3376
+3373
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -1272,7 +1272,7 @@ teilweise
 @item
 2 @command{lilypond-book}: Noten in den Text integrieren
 @*
-3438
+3439
 @tab Reinhold Kainhofer
 @tab Till Paala
 @tab 
@@ -1338,7 +1338,7 @@ LilyPond -- Notation für Jedermann
 @item
 Überschriften
 @*
-496
+510
 @tab Till Paala
 @tab 
 @tab 
@@ -1355,7 +1355,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">teilweise</span>
+<span style="background-color: #83fe2c">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1392,7 +1392,7 @@ ja
 @item
 Einleitung
 @*
-3755
+3803
 @tab Till Paala
 @tab 
 @tab 
@@ -1409,7 +1409,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">teilweise</span>
+<span style="background-color: #97ff2f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
