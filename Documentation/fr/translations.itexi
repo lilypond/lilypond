@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Fri Apr 16 12:00:36 UTC 2010
+@emph{Dernière mise à jour Sun May  2 18:05:56 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -214,7 +214,7 @@ oui
 @item
 1 Tutoriel
 @*
-2519
+2508
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -284,7 +284,7 @@ oui
 @item
 3 Concepts fondamentaux
 @*
-11151
+11149
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -472,7 +472,7 @@ partiellement
 @item
 1.1 Hauteurs
 @*
-3482
+3519
 @tab Frédéric Chiasson
 @tab Valentin Villenave
 @*
@@ -491,11 +491,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #25fe1f">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -565,7 +565,7 @@ partiellement
 @item
 1.4 Répétitions et reprises
 @*
-578
+605
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -586,7 +586,7 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partiellement</span>
+<span style="background-color: #33ff21">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -743,7 +743,7 @@ partiellement
 @item
 2.1 Musique vocale
 @*
-2730
+2805
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -764,7 +764,7 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partiellement</span>
+<span style="background-color: #2cff20">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1008,7 +1008,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-6448
+6417
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1037,7 +1037,7 @@ partiellement
 @item
 4 Gestion de l'espace
 @*
-9253
+9258
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1221,7 +1221,7 @@ oui
 @item
 1 Exécution de LilyPond
 @*
-3376
+3373
 @tab John Mandereau
 @*
 Jean-Charles Malahieude
@@ -1250,7 +1250,7 @@ partiellement
 @item
 2 @command{lilypond-book} : association musique-texte
 @*
-3438
+3439
 @tab John Mandereau
 @*
 Jean-Charles Malahieude
@@ -1269,7 +1269,7 @@ non
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partiellement</span>
+<span style="background-color: #83fe2c">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1291,7 +1291,7 @@ LilyPond -- la notation musicale pour tous
 @item
 Titre des chapitres
 @*
-496
+510
 @tab John Mandereau
 @tab 
 @tab 
@@ -1308,11 +1308,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #68ff28">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1345,7 +1345,7 @@ oui
 @item
 Introduction
 @*
-3755
+3803
 @tab Gauvain Pocentek
 @*
 Jean-Charles Malahieude
@@ -1366,11 +1366,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #40fe23">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1417,6 +1417,35 @@ Manuels
 @end ifhtml
 @ifnothtml
 partiellement (97 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">oui</span>
+@end html
+@end ifhtml
+@ifnothtml
+oui
+@end ifnothtml
+@tab pré-GDP
+@item
+Communauté
+@*
+1962
+@tab Jean-Charles Malahieude
+@*
+John Mandereau
+@tab Jean-Charles Malahieude
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">oui</span>
+@end html
+@end ifhtml
+@ifnothtml
+oui
 @end ifnothtml
 @tab 
 @ifhtml

@@ -5,6 +5,18 @@
 \version "2.13.18"
 
 \header {
+%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+
+  texidoc = "
+Funciones postfijas para la creación de objetos de extensión de texto
+personalizados.  Los objetos de extensión deben comenzar en la primera
+nota del compás.  Hay que utilizar -\mycresc, en caso contrario el
+comienzo del eobjeto de extensión se asignará a la nota siguiente.
+
+"
+
+  doctitle = "Objeto personalizado de extensión de texto de matices dinámicos postfijo"
+
   lsrtags = "expressive-marks, tweaks-and-overrides"
   texidoc = "Postfix functions for custom crescendo text spanners.  The spanners
 should start on the first note of the measure.  One has to use -\mycresc,

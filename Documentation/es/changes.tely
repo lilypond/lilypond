@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3cf511e82ff0cb655ed5dc1d2bb01af281153396
+    Translation of GIT committish: 0b9d54d6fa3c1f5ae020396f5d55ba7a712851d7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -74,6 +74,31 @@ which scares away people.
 @end ignore
 
 @item
+La sintaxis documentada del entorno @samp{lilypond} en el modo
+@LaTeX{} de @command{lilypond-book} se ha modificado de forma que se
+corresponda con la sintaxis estándar de @LaTeX{}: ahora las opciones
+se colocan después del nombre del entorno:
+@example
+\begin@{lilypond@}[@var{opciones}] @dots{}
+@end example
+
+La sintaxis anterior con las opciones después de @samp{\begin} todavía
+se acepta por parte de @command{lilypond-book} pero está obsoleta.
+Algo como
+@example
+sed -i '/begin\[/s/begin\(\[[^]]*]\)\(@{lilypond@}\)/begin\2\1/'
+@end example
+
+puede servir para realizar la conversión.
+
+@item
+Se ha mejorado el aspecto estético del sistema de cabezas de nota con
+forma.  Se ha implementado el grosor de líneas variable.  Se han hecho
+consistentes todas las anchuras de las notas.  Se han añadido
+instrucciones menores para el sistema de notas con forma, que utilizan
+la tonalidad relativa mayor para las notas de la escala.
+
+@item
 Se ofrece una variante de la llamada de tipo segno:
 @lilypond[quote,relative=2]
 c4 d e f \bar "S"
@@ -84,7 +109,6 @@ g4 f e d
 Las modificaciones de contexto (bloques @code{\with}) se pueden
 almacenar en variables e insertarse dentro de contextos u otros
 bloques @code{\with}:
-
 @lilypond[quote,verbatim]
 coloredheads = \with { \override NoteHead #'color = #red }
 noclef = \with { \remove "Clef_engraver" }
@@ -93,7 +117,8 @@ noclef = \with { \remove "Clef_engraver" }
     \new Voice \with { \coloredheads } \relative c' { c4 e g c }
   }
   \layout {
-    \context { \Staff
+    \context {
+      \Staff
       \noclef
     }
   }
@@ -155,6 +180,19 @@ Los acordes se pueden repetir utilizando la abreviatura @code{q}:
 @lilypond[verbatim,quote,relative=2]
 <c e g>8.-^ q16 q4-^
 @end lilypond
+
+@item
+En el modo de doble cara, los márgenes para las páginas impares y
+pares se pueden fijar utilizando @code{inner-margin} y
+@code{outer-margin}:
+
+@example
+\paper @{
+  two-sided = ##t
+  inner-margin = 10 \mm
+  outer-margin = 20 \mm
+@}
+@end example
 
 @item
 Los márgenes predeterminados del papel, tal y como se especifican en

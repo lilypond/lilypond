@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Fri Apr 16 16:00:03 UTC 2010
+@emph{Last updated Sun May  2 18:05:56 UTC 2010
 }
 @multitable @columnfractions  0.5 0.5
 
@@ -26,7 +26,7 @@ LilyPond Changes
 @item
 Section titles
 @*
-(502)
+(634)
 @tab Francisco Vila
 @*
 
@@ -693,7 +693,7 @@ up to date
 @item
 2 Interfaces for programmers
 @*
-(3815)
+(3816)
 @tab Till Paala
 @*
 
@@ -1221,7 +1221,7 @@ up to date
 @item
 1 Tutorial
 @*
-(2519)
+(2508)
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -1261,7 +1261,7 @@ partially translated (80 %)
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">partially up to date</span>
+<span style="background-color: #e1ff39">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1376,7 +1376,7 @@ partially translated (80 %)
 @ifhtml
 
 @html
-<span style="background-color: #b9ff33">partially up to date</span>
+<span style="background-color: #fffa3d">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1485,7 +1485,7 @@ partially translated (80 %)
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #91ff2e">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1745,7 +1745,7 @@ up to date
 @item
 3 Fundamental concepts
 @*
-(11151)
+(11149)
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -2861,7 +2861,7 @@ partially up to date
 @item
 1.1 Pitches
 @*
-(3482)
+(3519)
 @tab Till Paala
 @*
 
@@ -2879,7 +2879,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially up to date</span>
+<span style="background-color: #62ff28">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -2956,11 +2956,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 1.2 Rhythms
@@ -3188,7 +3188,7 @@ partially up to date
 @item
 1.4 Repeats
 @*
-(578)
+(605)
 @tab Till Paala
 @*
 
@@ -3206,7 +3206,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #33ff21">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -3285,7 +3285,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #33ff21">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -3749,7 +3749,7 @@ partially up to date
 @item
 2.1 Vocal music
 @*
-(2730)
+(2805)
 @tab Till Paala
 @*
 
@@ -3767,7 +3767,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #39ff22">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -3846,7 +3846,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -4717,7 +4717,7 @@ up to date
 @item
 3 General input and output
 @*
-(6448)
+(6417)
 @tab Till Paala
 @*
 
@@ -4792,7 +4792,7 @@ partially up to date
 @item
 4 Spacing issues
 @*
-(9253)
+(9258)
 @tab Till Paala
 @*
 
@@ -5439,7 +5439,7 @@ partially up to date
 @item
 1 Running @command{lilypond}
 @*
-(3376)
+(3373)
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -5530,7 +5530,7 @@ partially translated (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially up to date</span>
+<span style="background-color: #68ff28">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5683,7 +5683,7 @@ partially up to date
 @item
 3 Running @command{lilypond-book}
 @*
-(3438)
+(3439)
 @tab Reinhold Kainhofer
 @*
 
@@ -5769,7 +5769,7 @@ not translated
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially up to date</span>
+<span style="background-color: #83fe2c">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5815,7 +5815,7 @@ not translated
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially up to date</span>
+<span style="background-color: #62ff28">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6200,7 +6200,7 @@ LilyPond -- Music notation for everyone
 @item
 Section titles
 @*
-(496)
+(510)
 @tab Till Paala
 @*
 
@@ -6218,7 +6218,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #83fe2c">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6264,11 +6264,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #68ff28">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Dénes Harmath
 @*
@@ -6287,7 +6287,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #acff31">partially up to date</span>
+<span style="background-color: #f6fe3b">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6355,11 +6355,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #68ff28">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 LilyPond --- \TITLE\
@@ -6528,7 +6528,7 @@ up to date
 @item
 Introduction
 @*
-(3755)
+(3803)
 @tab Till Paala
 @*
 
@@ -6546,7 +6546,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially up to date</span>
+<span style="background-color: #97ff2f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6616,11 +6616,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #40fe23">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Dénes Harmath
 @*
@@ -6639,7 +6639,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">partially up to date</span>
+<span style="background-color: #d4ff37">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6707,11 +6707,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #40fe23">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 Download
@@ -7313,17 +7313,39 @@ translated
 @ifnothtml
 up to date
 @end ifnothtml
-@tab John Mandereau
+@tab Jean-Charles Malahieude
+@*
+John Mandereau
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #d0f0f8">not translated</span>
+<small>Jean-Charles Malahieude</small>
 @end html
 @end ifhtml
 @ifnothtml
-not translated
+Jean-Charles Malahieude
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
 @end ifnothtml
 @*
 

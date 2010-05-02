@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ed748ad93c3b4aebee28dbc078d3f8c388db5cce
+    Translation of GIT committish: 655ff5747c4103f55db501725c7bab381b42a94b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1178,6 +1178,53 @@ A diferencia de casi todas las instrucciones @code{\set}, @code{\set
 ignoreMelismata} no funciona si va precedido de @code{\once}.  Es
 necesario utilizar @code{\set} y @code{\unset} para delimitar la letra
 en que se quieren ignorar los melismas.
+
+
+@subsubheading Aplicar sílabas a notas de adorno
+
+De forma predeterminada, las notas de adorno (p.ej. insertadas por
+medio de @code{\grace}) no pueden recibirla asignación de sílabas si
+se utiliza @code{\lyricsto}, pero este comportamiento puede cambiarse:
+
+@lilypond[verbatim,ragged-right,quote]
+\relative c' {
+  f4 \appoggiatura a32 b4
+  \grace { f16[ a16] } b2
+  \afterGrace b2 { f16[ a16] }
+  \appoggiatura a32 b4
+  \acciaccatura a8 b4
+}
+\addlyrics {
+  normal
+  \set includeGraceNotes = ##t
+  case,
+  gra -- ce case,
+  after -- grace case,
+  \set ignoreMelismata = ##t
+  app. case,
+  acc. case.
+}
+@end lilypond
+
+@knownissues
+Como ocurre con @code{associatedVoice}, @code{includeGraceNotes} se
+tiene que establecer al menos una sílaba antes de la que se va a
+colocar bajo una nota de adorno.  Para el caso de una nota de adorno
+al comienzo mismo de una pieza, considere la posibilidad de usar un
+bloque @code{\with} o @code{\context}:
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Voice = melody \relative c' {
+    \grace { c16[( d e f] }
+    g1) f
+  }
+  \new Lyrics \with { includeGraceNotes = ##t }
+  \lyricsto melody {
+    Ah __ fa
+  }
+>>
+@end lilypond
 
 
 @subsubheading Cambio a una melodía alternativa

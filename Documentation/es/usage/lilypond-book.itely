@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7b76aa0ec445a5c97f3e41101ba7a434abf3ab0f
+    Translation of GIT committish: d43f0a2575409659fbdd21b9b17b5f8440cc7268
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1098,7 +1098,7 @@ todo el presente manual está escrito en Texinfo.
 Texto en Texinfo
 
 @@lilypond
-\relative @{
+\relative c' @{
   a4 b c d
 @}
 @@end lilypond

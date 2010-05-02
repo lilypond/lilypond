@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 0e4c274ff15e99d0149b74996a6722d3ea957489
+    Translation of GIT committish: 066e812530c4f455d8ad3d11583f76737511ef15
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -967,33 +967,6 @@ escribir archivos de entrada de LilyPond.
 @subheading Otros
 
 
-@subsubheading Entorno mixto: LilyKDE
-
-@imageClickable{lilykde-screenshot-small,png,
-  (pulse para ver una imagen más grande),lilykde-screenshot,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-
-@uref{http://lilykde.googlecode.com/}
-
-LilyKDE se ha sustituido por
-@uref{http://www.frescobaldi.org/,Frescobaldi}, y existe como LilyKDE3
-para KDE 3.5 y lilypond-KDE4 para KDE 4.1 solamente.
-
-LilyKDE es un complemento para el editor de texto de KDE
-@uref{http://kate-editor.org/,Kate}.  Tiene un potente asistente de
-partitura para preparar rápidamente un documento de LilyPond, y un
-visor de PDF integrado.
-
-LilyKDE es capaz de utilizar
-@uref{http://www.volny.cz/smilauer/rumor/,Rumor}, de manera que se
-puede introducir la música tocándola sobre un teclado MIDI.
-
-Otras posibilidades son el enguionado de la letra de las canciones y
-la ejecución de LilyPond sobre varios archivos de una sola vez desde
-dentro del gestor de archivos de KDE.
-
 @subsubheading Entorno de edición de texto: TexShop
 
 @sourceimage{logo-macosx,,,}
@@ -1002,11 +975,11 @@ dentro del gestor de archivos de KDE.
 
 El editor TexShop para MacOS@tie{}X se puede extender para que ejecute
 LilyPond, @command{lilypond-book} y @command{convert-ly} desde dentro
-del editor, utilizando las extensiones que están disponibles en
-@uref{http://www.dimi.uniud.it/vitacolo/freesoftware.html#desktoppub}.
+del editor, utilizando las extensiones que están disponibles en:
 
-@ignore
-TODO: ask somebody to sponsor/check these.  -gp
+@example
+@uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
+@end example
 
 @subsubheading TextMate
 
@@ -1020,7 +993,6 @@ mkdir -p /Library/Application\ Support/TextMate/Bundles
 cd /Library/Application\ Support/TextMate/Bundles
 svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
 @end example
-@end ignore
 
 @divEnd
 
@@ -1032,42 +1004,77 @@ svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
 
 @itemize
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, que importa archivos
-@uref{http://www.musicxml.com/xml.html,MusicXML}
-@item
-@uref{http://www.rosegardenmusic.com,Rosegarden},
-que importa archivos MIDI
+@uref{http://www.rosegardenmusic.com,Rosegarden}, un secuenciador MIDI
+y de audio, que tiene también un editor de partitura para edición de
+un solo pentagrama.
+
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
-que exporta archivos de LilyPond de forma experimental.
+está basado en la biblioteca @uref{http://cairographics.org, Cairo} y
+exporta archivos de LilyPond de forma experimental.
+
 @item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar} es capaz de exportar
-hacia LilyPond.
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, un editor y reproductor
+de tablatura multipista tiene un modo de vista de partitura y
+tablatura, y es capaz de exportar hacia LilyPond.
+
 @item
-@uref{http://musescore.org,MuseScore} también exporta hacia LilyPond.
+@uref{http://musescore.org,MuseScore} tiene exportación incompleta de
+LilyPond pero se está desarrollando de forma activa.
+
 @item
 @uref{http://canorus.org,Canorus} puede exportar también a LilyPond,
 pero aún es un programa en fase beta, se agradecen las pruebas por
 parte de los usuarios.
+
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} es un programa de
-introducción gráfica de notas, que actúa más o menos como un teclado
-numérico que produce notas de lilypond.
-@end itemize
+@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, un
+convertidor monofónico de MIDI a LilyPond en tiempo real.
+
+@item
+@uref{http://strasheela.sourceforge.net, Strasheela} es @qq{un sistema
+de composición musical basado en restricciones, altamente expresivo}.
 
 @subsubheading Herramientas de línea de comandos:
 
 @itemize
+
 @item
 @uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, un
 convertidor monofónico de MIDI a LilyPond en tiempo real.
 @item
+
 @uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi},
 un modo principal de Emacs.
+
+@end itemize
+
+@subheading Otros programas sin desarrollo activo en la actualidad
+
+@itemize
+
+@item
+@uref{http://lilykde.googlecode.com/,LilyKDE} se ha sustituido por
+@uref{http://www.frescobaldi.org/,Frescobaldi}, y existe como LilyKDE3
+para KDE 3.5 y como lilypond-KDE4 para KDE 4.1 solamente.
+
+@item
+@uref{http://noteedit.berlios.de,NoteEdit}, que importaba
+@uref{http://www.musicxml.com/xml.html,MusicXML}, se ha escindido en
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
+y @uref{http://canorus.org,Canorus}.
+
 @item
 @uref{http://common-lisp.net/project/fomus/,FOMUS},
-una biblioteca de LISP para generar notación musical
+una biblioteca de LISP para generar notación musical.
+
+@item
+@uref{http://lilycomp.sourceforge.net, LilyComp} es un programa
+gráfico de introducción de notas, que actúa más o menos como un
+teclado numérico que produce notas de lilypond.
+
 @end itemize
+
 @divEnd
 
 

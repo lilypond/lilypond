@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d6d03af3812fa82e84abd2b57c42f254bda735ca
+    Translation of GIT committish: 6aa85858a5a60256a77dd16e7be44192b523a8f2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2699,33 +2699,66 @@ Referencia de funcionamiento interno:
 @cindex formas, notas con
 @cindex Aiken, cabezas de nota con forma de
 @cindex arpa sacra, cabezas de nota de
+@cindex cabezas de nota de, Southern Harmony
+@cindex Southern Harmony, cabezas de nota
 
-@funindex \key
-@funindex key
 @funindex \aikenHeads
 @funindex aikenHeads
 @funindex \sacredHarpHeads
 @funindex sacredHarpHeads
+@funindex \southernHarmonyHeads
+@funindex southernHarmonyHeads
 
 En la notación de cabezas con forma, la forma de la cabeza corresponde
 a la función armónica de una nota dentro de la escala. Esta notación
 se hizo popular en los libros americanos de canciones durante el
-s.XIX.
+s.XIX.  Las cabezas de nota con formas se pueden producir en los
+estilos @q{Sacred Harp}, @q{Southern Harmony} y Aiken @q{(Christian
+Harmony)}:
 
 @lilypond[verbatim,quote,relative=2]
 \aikenHeads
-c, d e f g a b c
+c, d e f g2 a b1 c \break
 \sacredHarpHeads
-c, d e f g a b c
+c,4 d e f g2 a b1 c \break
+\southernHarmonyHeads
+c,4 d e f g2 a b1 c \break
 @end lilypond
 
+@funindex \key
+@funindex key
+@funindex \aikenHeadsMinor
+@funindex aikenHeadsMinor
+@funindex \sacredHarpHeadsMinor
+@funindex sacredHarpHeadsMinor
+@funindex \southernHarmonyHeadsMinor
+@funindex southernHarmonyHeadsMinor
+
 Las formas se determinan en función del grado de la escala, donde la
-tónica está determinada por la instrucción @code{\key}
+tónica está determinada por la instrucción @code{\key} Cuando se
+escribe en un tono menor, la nota de la escala se puede determinar a
+partir del relativo mayor:
+
+@lilypond[verbatim,quote,relative=2]
+\key a \minor
+\aikenHeads
+a b c d e2 f g1 a \break
+\aikenHeadsMinor
+a,4 b c d e2 f g1 a \break
+\sacredHarpHeadsMinor
+a,2 b c d \break
+\southernHarmonyHeadsMinor
+a2 b c d \break
+@end lilypond
 
 
 @predefined
 @code{\aikenHeads},
-@code{\sacredHarpHeads}.
+@code{\aikenHeadsMinor},
+@code{\sacredHarpHeads},
+@code{\sacredHarpHeadsMinor},
+@code{\southernHarmonyHeads},
+@code{\southernHarmonyHeadsMinor}.
 @endpredefined
 
 

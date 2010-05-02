@@ -1,0 +1,15 @@
+%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+  texidoc = "
+
+Las cabezas de nota de notación fácil utilizan la propiedad
+@code{note-names} del objeto @code{NoteHead} para determinad lo que
+aparece dentro de la cabeza.  Mediante la sobreescritura de esta
+propiedad, es posible imprimir números que representen el grado de la
+escala.
+
+Se puede crear un grabador simple que haga esto para la cabeza de cada
+nota que ve.
+
+"
+
+  doctitle = "Números como notas de notación fácil"

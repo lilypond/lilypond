@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fe39074b3c7b100142ca01a88b470a11c214462f
+    Translation of GIT committish: e776d5bb2a48191d2c7ccd60b160211462701b2e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -688,17 +688,18 @@ queramos el salto de línea.  Para ver más detalles, consulte
 @unnumberedsubsec Aparece un pentagrama de más
 @translationof An extra staff appears
 
-Si no se crean los contextos explícitamente con @code{\new}, se
-crearán discretamente tan pronto como se encuentra una instrucción que
-no se puede aplicar a un contexto existente.  En partituras sencillas,
-la creación automática de los contextos es útil, y casi todos los
-ejemplos de los manuales de LilyPond se aprovechan de esta
-simplificación.  Pero ocasionalmente la creación discreta de contextos
-puede hacer aflorar pentagramas o partituras nuevos e inesperados.
-Por ejemplo, podría esperarse que el código siguiente hiciera que
-todas las notas dentro del pentagrama siguiente estuvieran coloreadas
-de rojo, pero de hecho el resultado son dos pentagramas, permaneciendo
-el de abajo con las notas en el color negro predeterminado.
+Si no se crean los contextos explícitamente con @code{\new} o con
+@code{\context}, se crearán discretamente tan pronto como se encuentra
+una instrucción que no se puede aplicar a un contexto existente.  En
+partituras sencillas, la creación automática de los contextos es útil,
+y casi todos los ejemplos de los manuales de LilyPond se aprovechan de
+esta simplificación.  Pero ocasionalmente la creación discreta de
+contextos puede hacer aflorar pentagramas o partituras nuevos e
+inesperados.  Por ejemplo, podría esperarse que el código siguiente
+hiciera que todas las notas dentro del pentagrama siguiente estuvieran
+coloreadas de rojo, pero de hecho el resultado son dos pentagramas,
+permaneciendo el de abajo con las notas en el color negro
+predeterminado.
 
 @lilypond[quote,verbatim,relative=2]
 \override Staff.NoteHead #'color = #red
@@ -728,16 +729,18 @@ cada uno de los cuales crea implícitamente bloques @code{Staff} y
 
 @lilypond[quote,verbatim]
 \repeat unfold 2 {
-  \relative c' { c d e f }
+  \relative c' { c4 d e f }
 }
 @end lilypond
 
-La forma correcta es invertir el orden de las instrucciones
-@code{\repeat} y @code{\relative}, así:
+El problema se resuelve instanciando el contexto @code{Voice}
+explícitamente:
 
 @lilypond[quote,verbatim]
-\relative c' {
-  \repeat unfold 2 { c d e f }
+\new Voice {
+  \repeat unfold 2 {
+    \relative c' { c4 d e f }
+  }
 }
 @end lilypond
 

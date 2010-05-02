@@ -5,6 +5,14 @@
 \version "2.13.18"
 
 \header {
+%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+  texidoc = "
+Utilice un texto de marcado para sustituir el glifo de clave (TAB) con
+una fuente tipográfica moderna.
+
+"
+  doctitle = "Clave de texto TAB moderna para tablatura"
+
   lsrtags = "staff-notation, fretted-strings"
 
   texidoc = "

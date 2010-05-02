@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: e90fa9a8a1d71251a2c047e69798be05938a1241
+    Translation of GIT committish: 4c8bedcc234393e8ca02726bf677de707858261b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -183,7 +183,7 @@ barraManual =
   \once \override Beam #'positions = #$principio-final
 #@})
 
-\relative @{
+\relative c' @{
   \barraManual #'(3 . 6) c8 d e f
 @}
 @end example
@@ -201,7 +201,7 @@ manualBeam =
   \once \override Beam #'positions = #(cons $beg $end)
 #})
 
-\relative {
+\relative c' {
   \manualBeam #3 #6 c8 d e f
 }
 @end lilypond
@@ -902,7 +902,7 @@ cabezas de las notas que están sobre la línea central:
             (eq? (ly:grob-property grob 'staff-position) 0))
        (set! (ly:grob-property grob 'transparent) #t)))
 
-\relative {
+\relative c' {
   e4 g8 \applyOutput #'Voice #blanker b d2
 }
 @end lilypond

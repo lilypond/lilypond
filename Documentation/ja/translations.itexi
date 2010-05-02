@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Fri Apr 16 12:00:36 UTC 2010
+@emph{最終更新日 Sun May  2 18:05:56 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,7 +84,7 @@ partially
 @item
 1 チュートリアル
 @*
-2519
+2508
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -138,7 +138,7 @@ partially
 @item
 3 基礎となるコンセプト
 @*
-11151
+11149
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -285,7 +285,7 @@ partially
 @item
 1 lilypond を実行する
 @*
-3376
+3373
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -339,7 +339,7 @@ partially
 @item
 3 @command{lilypond-book}: Integrating text and music
 @*
-3438
+3439
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -356,7 +356,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -405,7 +405,7 @@ LilyPond -- みんなの楽譜作成
 @item
 セクション タイトル
 @*
-496
+510
 @tab Yoshiki Sawada
 @*
 Yoshinobu Ishizaki
@@ -463,7 +463,7 @@ partially
 @item
 導入部
 @*
-3755
+3803
 @tab Yoshiki Sawada
 @*
 Yoshinobu Ishizaki

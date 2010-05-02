@@ -1,0 +1,7 @@
+%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+  texidoc = "
+Utilice un texto de marcado para sustituir el glifo de clave (TAB) con
+una fuente tipográfica moderna.
+
+"
+  doctitle = "Clave de texto TAB moderna para tablatura"

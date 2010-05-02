@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ed748ad93c3b4aebee28dbc078d3f8c388db5cce
+    Translation of GIT committish: 119073f232bac1d756e2b3d3dc00c53fac40e9dd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -699,7 +699,7 @@ valor predeterminado apropiado, por ejemplo
 #(set-default-paper-size "a6" 'landscape)
 \book {
   \score {
-    \relative { c1 \break c1 }
+    \relative c' { c1 \break c1 }
   }
   \paper {
     system-separator-markup = \slashSeparator
@@ -723,6 +723,9 @@ establecido.
 
 @item two-sided
 @funindex two-sided
+
+@cindex encuadernación
+@cindex margen de encuadernación
 
 Si es verdadero, usar @code{inner-margin}, @code{outer-margin} y
 @code{binding-offset} para determinad los márgenes dependiendo de si

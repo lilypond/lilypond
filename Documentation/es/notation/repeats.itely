@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: ed748ad93c3b4aebee28dbc078d3f8c388db5cce
+    Translation of GIT committish: e776d5bb2a48191d2c7ccd60b160211462701b2e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -117,9 +117,10 @@ Repeticiones normales con primera y segunda vez:
 c1
 @end lilypond
 
-@warning{No ponga @code{@bs{}relative} dentro de un bloque
-@code{@bs{}repeat}.  Hará que aparezcan pentagramas no deseados.
-Véase @rprogram{An extra staff appears}.}
+@warning{Si pone @code{@bs{}relative} dentro de un bloque
+@code{@bs{}repeat} sin instanciar explícitamente el contexto
+@code{Voice}, aparecerán pentagramas no deseados.  Véase
+@rprogram{Aparece un pentagrama de más}.}
 
 @cindex repetición con anacrusa
 @cindex anacrusa en repeticiones
@@ -404,6 +405,10 @@ c1
 c1
 @end lilypond
 
+@warning{Si pone @code{@bs{}relative} dentro de un bloque
+@code{@bs{}repeat} sin instanciar explícitamente el contexto
+@code{Voice}, aparecerán pentagramas no deseados.  Véase
+@rprogram{Aparece un pentagrama de más}.}
 
 @seealso
 Fragmentos de código:
