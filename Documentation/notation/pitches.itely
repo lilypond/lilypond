@@ -2715,10 +2715,10 @@ c,4 d e f g2 a b1 c \break
 @funindex \southernHarmonyHeadsMinor
 @funindex southernHarmonyHeadsMinor
 
-Shapes are typeset according to the step in the scale, where the
-base of the scale is determined by the @code{\key} command.
-When when writing in a minor key, the scale step can be determined
-from the relative major:
+Shapes are typeset according to the step in the scale, where the base
+of the scale is determined by the @code{\key} command.  When writing
+in a minor key, the scale step can be determined from the relative
+major:
 
 @lilypond[verbatim,quote,relative=2]
 \key a \minor
