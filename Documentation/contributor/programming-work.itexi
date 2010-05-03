@@ -1360,6 +1360,20 @@ As revisions are made in response to comments, successive patch sets
 for the same issue can be uploaded by reissuing the git-cl command
 with the modified branch checked out.
 
+Sometimes in response to comments on revisions, the best way to
+work may require creation of a new branch in git.  In order to
+associate the new branch with an existing Reitveld issue,
+the following command can be used:
+
+@example
+git-cl issue issue-number
+@end example
+
+@noindent
+where @code{issue-number} is the number of the existing Rietveld
+issue.
+
+
 
 @node Push patch
 @subsection Push patch
