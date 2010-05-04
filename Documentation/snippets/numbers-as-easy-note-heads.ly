@@ -2,11 +2,11 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.11
-\version "2.13.18"
+\version "2.13.20"
 
 \header {
-%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
-  texidoc = "
+%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+  texidoces = "
 
 Las cabezas de nota de notación fácil utilizan la propiedad
 @code{note-names} del objeto @code{NoteHead} para determinad lo que
@@ -19,7 +19,7 @@ nota que ve.
 
 "
 
-  doctitle = "Números como notas de notación fácil"
+  doctitlees = "Números como notas de notación fácil"
 
   lsrtags = "pitches"
   texidoc = "

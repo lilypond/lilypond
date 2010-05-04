@@ -2,12 +2,12 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.10
-\version "2.13.18"
+\version "2.13.20"
 
 \header {
-%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
 
-  texidoc = "
+  texidoces = "
 
 Para la guitarra flamenca se utilizan ciertos elementos de notación
 especiales:
@@ -43,7 +43,7 @@ Este fragmento de código contiene código de tipo cabecera que se puede
 copiar como @samp{flamenco.ly} e incluirse en los documentos fuente.
 
 "
-  doctitle = "Notación del flamenco"
+  doctitlees = "Notación del flamenco"
 
   lsrtags = "fretted-strings"
 

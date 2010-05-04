@@ -1,6 +1,6 @@
 %% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
 
-  texidoc = "
+  texidoces = "
 Al trabajar con los callbacks de un grob, puede ser de mucha ayuda
 entender el @qq{árbol genealógico} de un grob.  La mayor parte de los
 grobs tienen @qq{padres} que influyen en el posicionamiento del grob.
@@ -66,4 +66,4 @@ NoteHead X,Y: NoteColumn
 
 "
 
-  doctitle = "Imprimir el árbol genealógico de un grob"
+  doctitlees = "Imprimir el árbol genealógico de un grob"

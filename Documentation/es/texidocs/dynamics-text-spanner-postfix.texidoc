@@ -1,6 +1,6 @@
 %% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
 
-  texidoc = "
+  texidoces = "
 Los objetos de extensión \cresc, \dim y \decresc ahora se pueden
 redefinir como operadores postfijos y producir un solo objeto de
 extensión de texto.  La definición de extensores personalizados
@@ -11,4 +11,4 @@ extensores de texto de forma predeterminada.
 
 "
 
-  doctitle = "Objetos extensores de texto postfijos para dinámica"
+  doctitlees = "Objetos extensores de texto postfijos para dinámica"

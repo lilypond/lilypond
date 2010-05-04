@@ -2,12 +2,12 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.8
-\version "2.13.18"
+\version "2.13.20"
 
 \header {
-%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
 
-  texidoc = "
+  texidoces = "
 Funciones postfijas para la creación de objetos de extensión de texto
 personalizados.  Los objetos de extensión deben comenzar en la primera
 nota del compás.  Hay que utilizar -\mycresc, en caso contrario el
@@ -15,7 +15,7 @@ comienzo del eobjeto de extensión se asignará a la nota siguiente.
 
 "
 
-  doctitle = "Objeto personalizado de extensión de texto de matices dinámicos postfijo"
+  doctitlees = "Objeto personalizado de extensión de texto de matices dinámicos postfijo"
 
   lsrtags = "expressive-marks, tweaks-and-overrides"
   texidoc = "Postfix functions for custom crescendo text spanners.  The spanners
