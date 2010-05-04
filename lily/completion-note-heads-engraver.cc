@@ -87,6 +87,8 @@ class Completion_heads_engraver : public Engraver
   Rational left_to_do_;
   Rational do_nothing_until_;
 
+  Rational factor_;
+
   Moment next_barline_moment ();
   Item *make_note_head (Stream_event*);
 
@@ -187,16 +189,17 @@ Completion_heads_engraver::process_music ()
   Duration note_dur;
   Duration *orig = 0;
   if (left_to_do_)
-    note_dur = Duration (left_to_do_, false);
+    note_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
   else
     {
       orig = unsmob_duration (note_events_[0]->get_property ("duration"));
       note_dur = *orig;
+      factor_ = note_dur.factor ();
     }
   Moment nb = next_barline_moment ();
   if (nb.main_part_ && nb < note_dur.get_length ())
     {
-      note_dur = Duration (nb.main_part_, false);
+      note_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
 
       do_nothing_until_ = now.main_part_ + note_dur.get_length ();
     }
