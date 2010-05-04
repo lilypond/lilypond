@@ -518,8 +518,8 @@ of @var{amount} multiplied by 3.
 @end lilypond"
   (let ((amount (* amount 3.0)))
     (if (> amount 0)
-        (ly:make-stencil "" (cons -1 1) (cons 0 amount))
-        (ly:make-stencil "" (cons -1 1) (cons amount amount)))))
+        (ly:make-stencil "" (cons 0 0) (cons 0 amount))
+        (ly:make-stencil "" (cons 0 0) (cons amount amount)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
