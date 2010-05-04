@@ -6,12 +6,6 @@ ritenuto = \markup { \italic  "rit." }
 
 \version "2.11.61"
   
-cresc =  {
-    #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
-    \set crescendoText =  \markup { \italic \bold "cresc." }
-    \set crescendoSpanner =  #'text
-}
-
 \layout {
     \context {
         \Score
