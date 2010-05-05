@@ -1139,28 +1139,6 @@ AC_DEFUN(STEPMAKE_FREETYPE2, [
     fi
 ])
 
-AC_DEFUN(STEPMAKE_GTK2, [
-    PKG_CHECK_MODULES(GTK2, $1 >= $3, have_gtk2=yes, true)
-    if test "$have_gtk2" = yes ; then
-	AC_DEFINE(HAVE_GTK2)
-	# Do not pollute user-CPPFLAGS with configure-CPPFLAGS
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-	CPPFLAGS="$GTK2_CFLAGS $CPPFLAGS"
-	LIBS="$GTK2_LIBS $LIBS"
-	AC_SUBST(GTK2_CFLAGS)
-	AC_SUBST(GTK2_LIBS)
-	CPPFLAGS="$save_CPPFLAGS"
-	LIBS="$save_LIBS"
-    else
-	# UGR
-     	# r="lib$1-dev or $1-devel"
-     	r="libgtk2.0-dev or gtk2-devel"
-     	ver="`pkg-config --modversion $1`"
-     	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
-    fi
-])
-
 AC_DEFUN(STEPMAKE_PANGO, [
     PKG_CHECK_MODULES(PANGO, $1 >= $3, have_pango16=yes, true)
     if test "$have_pango16" = yes ; then
