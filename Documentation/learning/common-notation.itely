@@ -51,6 +51,7 @@ This section introduces common notation that is used for one voice
 on one staff.
 
 @menu
+* Bar checks::
 * Accidentals and key signatures::
 * Ties and slurs::
 * Articulation and dynamics::
@@ -58,6 +59,26 @@ on one staff.
 * Automatic and manual beams::
 * Advanced rhythmic commands::
 @end menu
+
+
+@node Bar checks
+@subsection Bar checks
+
+Though not strictly necessary, @emph{bar checks} should be
+used in the input code to show where bar lines are expected
+to fall.  They are entered using the bar symbol, @code{|}.
+With bar checks, the program can verify that you've entered
+durations that make each measure add up to the correct
+length.  Bar checks also make your input code easier to
+read, since they help to keep things organized.
+
+@lilypond[verbatim,quote,relative=2]
+g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
+@end lilypond
+
+@seealso
+Notation Reference:
+@ruser{Bar and bar number checks}.
 
 
 @node Accidentals and key signatures
