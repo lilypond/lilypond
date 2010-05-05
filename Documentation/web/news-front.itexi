@@ -10,6 +10,21 @@
 @c DO NOT WRITE BETWEEN THESE LINES
 
 @newsItem
+@subsubheading LilyPond 2.13.20 released!  @emph{May 5, 2010}
+
+We are happy to announce the release of LilyPond 2.13.20.  This
+release contains the usual number of bugfixes.  However, a number
+of critical issues still remain, so this release is intended for
+developers only.
+
+Minor syntax change: the undocumented @code{\cresc} and
+@code{\decresc} have changed.  In addition, the [options] for the
+LaTeX mode of @code{lilypond-book} now comes after the
+@code{@{lilypond@}}, following normal LaTeX practice.  As always,
+see the Changes document for more information.
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond 2.13.19 released!  @emph{April 24, 2010}
 
 We are happy to announce the release of LilyPond 2.13.19.  This
