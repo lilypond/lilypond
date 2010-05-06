@@ -44,7 +44,6 @@ if test = 0:
 	input feta-arrowheads;
 	input feta-dots;
 	input feta-scripts;
-	input feta-flags;
 	input feta-clefs;
 	input feta-timesignatures;
 	input feta-pedals;

@@ -8,7 +8,6 @@ input feta-accidentals;
 %input feta-dots;
 %input feta-arrowheads;
 %input feta-scripts;
-%input feta-flags;
 %input feta-trills;
 %input feta-clefs;
 %input feta-brackettips;
