@@ -91,7 +91,7 @@ música y texto. Por ejemplo:
 
 \begin{lilypond}
 \relative c' {
-  c2 g'2 \times 2/3 { f8 e d } c'2 g4
+  c2 e2 \times 2/3 { f8 a b } a2 e4
 }
 \end{lilypond}
 
@@ -152,7 +152,7 @@ música y texto.  Por ejemplo:
 
 @lilypond
 \relative c' {
-  c2 g'2 \times 2/3 { f8 e d } c'2 g4
+  c2 e2 \times 2/3 { f8 a b } a2 e4
 }
 @end lilypond
 
