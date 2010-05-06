@@ -508,24 +508,8 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
     
     AC_SUBST(localedir)
     AC_DEFINE_UNQUOTED(LOCALEDIR, ["${LOCALEDIR}"])
-    # ouch.  autoconf <= 2.57's gettext check fails for
-    # g++ >= 3.3 (with -std=gnu++98, the default).
-    # While the check is OK for g++ -std=c++98,
-    # LilyPond needs GNU g++, so who is to blame here?
-    # Use a workaround until this is resolved:
-    # for g++ >= 3.3, select C language.
-    GCC_UNSUPPORTED=
-    STEPMAKE_CHECK_VERSION_UNSUPPORTED(CXX, GCC_UNSUPPORTED, 3.3)
-    if test -n "$GCC_UNSUPPORTED"; then
-	AC_MSG_WARN([autoconf <= 2.59 with g++ >= 3.3 gettext test broken.])
-	AC_MSG_WARN([Trying gcc, cross fingers.])
-	AC_LANG_PUSH(C)
-    fi
     AC_CHECK_LIB(intl, gettext)
     AC_CHECK_FUNCS(gettext)
-    if test -n "$GCC_UNSUPPORTED"; then
-	AC_LANG_POP(C)
-    fi
 ])
 
 
