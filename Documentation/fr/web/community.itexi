@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 83c81ef45b6e94bac53f6261f9631cd84e8ece37
+    Translation of GIT committish: cb2cd4b74f545f1d0a25725ffac6ce0c01b45c50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -894,7 +894,7 @@ Février 2004
 
 Jazz singer Gail Selkirk writes about
 @uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
-Diving into LilyPond}.  @qq{dots{} you can make lead sheets or full
+Diving into LilyPond}.  @qq{@dots{} you can make lead sheets or full
 orchestral parts, and the results can be stunning.}
 @uref{http://www.computermusic.co.uk/, Computer Music Special},
 issue CMS06.
