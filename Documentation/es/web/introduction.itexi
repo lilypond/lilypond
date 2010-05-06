@@ -1035,6 +1035,8 @@ convertidor monofónico de MIDI a LilyPond en tiempo real.
 @uref{http://strasheela.sourceforge.net, Strasheela} es @qq{un sistema
 de composición musical basado en restricciones, altamente expresivo}.
 
+@end itemize
+
 @subsubheading Herramientas de línea de comandos:
 
 @itemize
