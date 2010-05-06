@@ -1,7 +1,7 @@
 dnl configure.in   -*-shell-script-*-
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.50)
+AC_PREREQ(2.60)
 
 # Bootstrap the init proces.
 AC_INIT
