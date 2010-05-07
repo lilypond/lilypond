@@ -95,11 +95,10 @@ traditions of classical music engraving.
 
 @node Features
 @unnumberedsec Features
+@divClass{column-center-top}
 
 
-@subheading Why switch to LilyPond?
-
-
+@subheading Elegance
 @subsubheading Excellent classical engraving
 
 @imageFloat{flat-design,png,right}
@@ -113,8 +112,7 @@ LilyPond output has the same strong, balanced and elegant look as the
 best-engraved classical scores.  This is further explained in our
 @ref{Essay}.
 
-
-@subsubheading Less fiddling
+@subsubheading Effective layout choices
 
 Spend less time with tweaking the output; LilyPond gets the
 formatting correct right from the start.  It determines spacing by
@@ -123,12 +121,22 @@ layout.  Clashes between lyrics, notes, and chords are resolved
 and slurs and beams are sloped, automatically!
 
 
+@subheading Ease of use
+
 @subsubheading Text-based input
 
 LilyPond takes ASCII input, which you can produce in your favorite
 text editor, quickly and comfortably.  The input contains all the
 information, so there is no need to remember complex command sequences:
 simply save a file for later reference.
+
+@subsubheading Mix music and text
+
+@imageFloat{lilypond-book,png,right}
+
+Put fragments of music into texts without cutting and pasting
+pictures.  Integrate music into @LaTeX{} or HTML seamlessly, or add
+music to OpenOffice.org with OOoLilyPond.
 
 
 @subsubheading Accessibility
@@ -141,16 +149,15 @@ who are totally blind can use screen-reading software to write
 LilyPond files -- an impossible task in graphical-based
 score-writing programs.
 
+@subsubheading Extensible design
 
-@subsubheading Mix music and text
+All settings can be changed to suit your personal typographical
+taste.  If that still is not enough, there is always the built-in
+scripting language Scheme, a dialect of the powerful language
+LISP.  Settings, variables and functions are all documented in the
+comprehensive program reference manual.
 
-@imageFloat{lilypond-book,png,right}
-
-Put fragments of music into texts without cutting and pasting
-pictures.  Integrate music into @LaTeX{} or HTML seamlessly, or add
-music to OpenOffice.org with OOoLilyPond.
-
-
+@subheading Environment
 
 @subsubheading Free software
 
@@ -163,15 +170,6 @@ by a bug, or yearning for a feature? Simply add it yourself, or
 pay someone else to do it.
 
 
-@subsubheading Extensible design
-
-All settings can be changed to suit your personal typographical
-taste.  If that still is not enough, there is always the built-in
-scripting language Scheme, a dialect of the powerful language
-LISP.  Settings, variables and functions are all documented in the
-comprehensive program reference manual.
-
-
 @subsubheading Excellent support
 
 LilyPond runs on all popular platforms: GNU/Linux, MacOS X, and
@@ -180,7 +178,7 @@ of example files.  There is an active user community answering
 questions on the lilypond-user mailing list, while the development
 team makes sure that problems are solved quickly.
 
-
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading Where now?
