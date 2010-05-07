@@ -49,8 +49,8 @@
 "Render at higher resolution (using given factor)
 and scale down result to prevent jaggies in
 PNG images.")
-    (aux-files #t 
-"Create .tex, .texi, .count files in the 
+    (aux-files #t
+"Create .tex, .texi, .count files in the
 EPS backend.")
     (backend ps
 "Select backend.  Possible values: 'eps, 'null,
@@ -410,50 +410,119 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 
 (for-each ly:load init-scheme-files)
 
+(define-public r5rs-primary-predicates
+  `((,boolean? . "boolean")
+    (,char? . "character")
+    (,number? . "number")
+    (,pair? . "pair")
+    (,port? . "port")
+    (,procedure? . "procedure")
+    (,string? . "string")
+    (,symbol? . "symbol")
+    (,vector? . "vector")))
+
+(define-public r5rs-secondary-predicates
+  `((,char-alphabetic? . "alphabetic character")
+    (,char-lower-case? . "lower-case character")
+    (,char-numeric? . "numeric character")
+    (,char-upper-case? . "upper-case character")
+    (,char-whitespace? . "whitespace character")
+
+    (,complex? . "complex number")
+    (,even? . "even number")
+    (,exact? . "exact number")
+    (,inexact? . "inexact number")
+    (,integer? . "integer")
+    (,negative? . "negative number")
+    (,odd? . "odd number")
+    (,positive? . "positive number")
+    (,rational? . "rational number")
+    (,real? . "real number")
+    (,zero? . "zero")
+
+    (,list? . "list")
+    (,null? . "null")
+
+    (,input-port? . "input port")
+    (,output-port? . "output port")
+
+    ;; would this ever be used?
+    (,eof-object? . "end-of-file object")
+    ))
+
+(define-public guile-predicates
+  `((,hash-table? . "hash table")
+  ))
+
+(define-public lilypond-scheme-predicates
+  `((,boolean-or-symbol? . "boolean or symbol")
+    (,color? . "color")
+    (,cheap-list? . "list")
+    (,grob-list? . "list of grobs")
+    ;; this is built on cheap-list
+    (,list-or-symbol? . "list or symbol")
+    (,markup? . "markup")
+    (,markup-command-list? . "markup command list")
+    (,markup-list? . "markup list")
+    (,moment-pair? . "pair of moment objects")
+    (,number-or-grob? . "number or grob")
+    (,number-or-string? . "number or string")
+    (,number-pair? . "pair of numbers")
+    (,rhythmic-location? . "rhythmic location")
+    (,scheme? . "any type")
+    (,string-or-pair? . "string or pair")
+    (,string-or-symbol? . "string or symbol")
+    ))
+
+(define-public lilypond-exported-predicates
+  `((,ly:box? . "box")
+    (,ly:context? . "context")
+    (,ly:dimension? . "dimension, in staff space")
+    (,ly:dir? . "direction")
+    (,ly:dispatcher? . "dispatcher")
+    (,ly:duration? . "duration")
+    (,ly:font-metric? . "font metric")
+    (,ly:grob? . "graphical (layout) object")
+    (,ly:grob-array? . "array of grobs")
+    (,ly:input-location? . "input location")
+    (,ly:item? . "item")
+    (,ly:iterator? . "iterator")
+    (,ly:lily-lexer? . "lily-lexer")
+    (,ly:lily-parser? . "lily-parser")
+    (,ly:listener? . "listener")
+    (,ly:moment? . "moment")
+    (,ly:music? . "music")
+    (,ly:music-function? . "music function")
+    (,ly:music-list? . "list of music objects")
+    (,ly:music-output? . "music output")
+    (,ly:otf-font? . "OpenType font")
+    (,ly:output-def? . "output definition")
+    (,ly:page-marker? . "page marker")
+    (,ly:pango-font? . "pango font")
+    (,ly:paper-book? . "paper book")
+    (,ly:paper-system? . "paper-system Prob")
+    (,ly:pitch? . "pitch")
+    (,ly:prob? . "property object")
+    (,ly:score? . "score")
+    (,ly:simple-closure? . "simple closure")
+    (,ly:skyline? . "skyline")
+    (,ly:skyline-pair? . "pair of skylines")
+    (,ly:source-file? . "source file")
+    (,ly:spanner? . "spanner")
+    (,ly:stencil? . "stencil")
+    (,ly:stream-event? . "stream event")
+    (,ly:translator? . "translator")
+    (,ly:translator-group? . "translator group")
+    ))
+
+
 (set! type-p-name-alist
-      `((,boolean? . "boolean")
-	(,boolean-or-symbol? . "boolean or symbol")
-	(,char? . "char")
-	(,grob-list? . "list of grobs")
-	(,hash-table? . "hash table")
-	(,input-port? . "input port")
-	(,integer? . "integer")
-	(,list? . "list")
-	(,list-or-symbol? . "list or symbol")
-	(,ly:context? . "context")
-	(,ly:dimension? . "dimension, in staff space")
-	(,ly:dir? . "direction")
-	(,ly:duration? . "duration")
-	(,ly:font-metric? . "font metric")
-	(,ly:grob? . "layout object")
-	(,ly:grob-array? . "array of grobs")
-	(,ly:input-location? . "input location")
-	(,ly:moment? . "moment")
-	(,ly:music? . "music")
-	(,ly:music-list? . "list of music objects")
-	(,ly:music-output? . "music output")
-	(,ly:pitch? . "pitch")
-	(,ly:translator? . "translator")
-        (,ly:score? . "score")
-	(,ly:simple-closure? . "simple closure")
-	(,ly:skyline-pair? . "pair of skylines")
-	(,ly:stencil? . "stencil")
-	(,markup-list? . "list of markups")
-	(,markup? . "markup")
-	(,number-or-grob? . "number or grob")
-	(,number-or-string? . "number or string")
-	(,number-pair? . "pair of numbers")
-	(,number? . "number")
-	(,output-port? . "output port")
-	(,pair? . "pair")
-	(,procedure? . "procedure")
-	(,real? . "real number")
-	(,rhythmic-location? . "rhythmic location")
-	(,scheme? . "any type")
-	(,string? . "string")
-	(,string-or-pair? . "string or pair")
-	(,symbol? . "symbol")
-	(,vector? . "vector")))
+      (append r5rs-primary-predicates
+              r5rs-secondary-predicates
+              guile-predicates
+              lilypond-scheme-predicates
+              lilypond-exported-predicates))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; timing

@@ -32,6 +32,7 @@
 	       "document-functions.scm"
 	       "document-translation.scm"
 	       "document-music.scm"
+	       "document-type-predicates.scm"
 	       "document-identifiers.scm"
 	       "document-backend.scm"
 	       "document-markup.scm"))
@@ -42,7 +43,7 @@
  (slot-ref (all-scheme-functions-doc) 'text)
  (open-output-file "scheme-functions.tely"))
 
-;;(display 
+;;(display
 ;; (markup-doc-string)
 ;; (open-output-file "markup-commands.tely"))
 
@@ -54,7 +55,11 @@
   (lambda (port)
     (dump-node (markup-list-doc-node) port 2)))
 
-(display 
+(display
+ type-predicates-doc-string
+ (open-output-file "type-predicates.tely"))
+
+(display
  (identifiers-doc-string)
  (open-output-file "identifiers.tely"))
 

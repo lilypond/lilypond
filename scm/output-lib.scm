@@ -329,7 +329,12 @@ and duration-log @var{log}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Color
 
-(define-public color? list?)
+(define-public (color? x)
+  (and (list? x)
+       (= 3 (length x))
+       (apply eq? #t (map number? x))
+       (apply eq? #t (map (lambda (y) (<= 0 y 1)) x))))
+
 (define-public (rgb-color r g b) (list r g b))
 
 ; predefined colors
