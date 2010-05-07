@@ -971,10 +971,6 @@ export but is being actively developed.
 is still beta-software. Testers are welcome, though.
 
 @item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, a
-realtime monophonic MIDI to LilyPond converter.
-
-@item
 @uref{http://strasheela.sourceforge.net, Strasheela} is @qq{a
 highly expressive constraint-based music composition system}.
 
