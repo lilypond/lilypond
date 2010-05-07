@@ -163,7 +163,7 @@ signature only affects the @emph{printed} accidentals, not the
 note's @notation{pitch}!  This is a feature that often causes
 confusion to newcomers, so let us explain it in more detail.
 
-LilyPond makes a sharp distinction between musical content and
+LilyPond makes a clear distinction between musical content and
 layout.  The alteration (@notation{flat}, @notation{natural sign} or
 @notation{sharp}) of a note is part of the pitch, and is therefore
 musical content.  Whether an accidental (a @emph{printed} flat,
@@ -973,12 +973,25 @@ shine as bright as day}.  Let's extend it:
 >>
 @end lilypond
 
-We see the extra lyrics do not align properly with the notes.  The
-word @notation{shine} should be sung on two notes, not one.  This
-is called a @notation{melisma}, a single syllable sung to more
-than one note.  There are several ways to spread a syllable over
-multiple notes, the simplest being to add a slur across them, for
-details, see @ref{Ties and slurs}:
+If you compile the code in the example above, you should see some
+warnings in the console output:
+
+@example
+song.ly:12:29: warning: barcheck failed at: 5/8
+    The | moon doth shine as
+                             | bright as day; |
+song.ly:12:46: warning: barcheck failed at: 3/8
+    The | moon doth shine as | bright as day;
+                                              |
+@end example
+
+This is a good example of the usefulness of bar checks.  Now,
+looking at the music, we see that the extra lyrics do not align
+properly with the notes.  The word @notation{shine} should be sung
+on two notes, not one.  This is called a @notation{melisma}, a
+single syllable sung to more than one note.  There are several
+ways to spread a syllable over multiple notes, the simplest being
+to add a slur across them, for details, see @ref{Ties and slurs}:
 
 @lilypond[verbatim,quote]
 <<

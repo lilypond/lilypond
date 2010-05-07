@@ -235,13 +235,13 @@ melody = \relative c' @{
 When LilyPond looks at this file, it takes the value of
 @code{melody} (everything after the equals sign) and inserts it
 whenever it sees @code{\melody}.  There's nothing special about
-the names -- it could be @code{melody}, @code{global},
-@code{keyTime}, @code{pianorighthand}, or @code{foofoobarbaz}.
-For more details, see @ref{Saving typing with variables and
-functions}.  Remember that you can use almost any name you like as
-long as it contains just alphabetic characters and is distinct
-from LilyPond command names.  The exact limitations on variable
-names are detailed in @ruser{File structure}.
+the name -- it could be @code{melody}, @code{global},
+@code{keyTime}, @code{pianorighthand}, or something else.
+Remember that you can use almost any name you like as long as it
+contains just alphabetic characters and is distinct from LilyPond
+command names.  For more details, see @ref{Saving typing with
+variables and functions}.  The exact limitations on variable names
+are detailed in @ruser{File structure}.
 
 
 @seealso
