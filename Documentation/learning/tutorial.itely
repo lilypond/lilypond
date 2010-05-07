@@ -325,7 +325,7 @@ explicitly (i.e., with a number).
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  a a a4. a8
+  a4 a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -343,7 +343,7 @@ A @notation{rest} is entered just like a note with the name
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  a r r2
+  a4 r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -390,13 +390,13 @@ The @notation{clef} can be set using the @code{\clef} command:
 
 @lilypond[verbatim,quote]
 \relative c' {
-  \clef treble
+  \clef "treble"
   c1
-  \clef alto
+  \clef "alto"
   c1
-  \clef tenor
+  \clef "tenor"
   c1
-  \clef bass
+  \clef "bass"
   c1
 }
 @end lilypond
@@ -408,10 +408,12 @@ Here is a small example showing all these elements together:
 
 @lilypond[verbatim,quote]
 \relative c, {
+  \clef "bass"
   \time 3/4
-  \clef bass
-  c2 e8 c' g'2.
-  f4 e d c4 c, r4
+  c2 e8 c'
+  g'2.
+  f4 e d
+  c4 c, r
 }
 @end lilypond
 
@@ -486,21 +488,21 @@ Notes are lower case: @w{@samp{@{ c d e @}}} is valid input;
 @item
 @strong{Whitespace insensitive}:
 it does not matter how many spaces (or tabs or new lines) you add.
-@w{@samp{@{ c d e @}}} means the same thing as
-@w{@samp{@{ c @tie{} @tie{} @tie{} d e @}}} and:
+@w{@samp{@{ c4 d e @}}} means the same thing as
+@w{@samp{@{ c4 @tie{} @tie{} @tie{} d e @}}} and:
 
 @example
-@{ c                        d
+@{ c4                       d
                    e   @}
 @end example
 
 @noindent
 Of course, the previous example is hard to read.  A good rule of
-thumb is to indent code blocks with either a tab or two spaces:
+thumb is to indent code blocks with two spaces:
 
 @example
 @{
-  c d e
+  c4 d e
 @}
 @end example
 
@@ -559,7 +561,7 @@ comments:
   This line, and the notes below are ignored,
   since they are in a block comment.
 
-  f f e e d d c2
+  f4 f e e d d c2
 %@}
 @end example
 
@@ -674,7 +676,7 @@ this image:
 @c no verbatim here
 @lilypond[quote]
 \relative c'' {
-  c-\markup { \bold \huge { Click here. } }
+  c4-\markup { \bold \huge { Click here. } }
 }
 @end lilypond
 
