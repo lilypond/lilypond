@@ -128,8 +128,9 @@ and slurs and beams are sloped, automatically!
 @divClass{color2}
 @subheading Ease of use
 
-@subsubheading Text-based input
 @imageFloat{lilypond-book,png,right}
+
+@subsubheading Text-based input
 
 LilyPond takes ASCII input, which you can produce in your favorite
 text editor, quickly and comfortably.  The input contains all the
@@ -167,10 +168,9 @@ comprehensive program reference manual.
 
 @subheading Environment
 
-
+@imageFloat{frescobaldi-lilypond-editor-small,png,right}
 
 @subsubheading Free software
-@imageFloat{frescobaldi-lilypond-editor-small,png,right}
 
 LilyPond can be downloaded free of charge!  Yep - It's free.  Get
 it from the download page.
