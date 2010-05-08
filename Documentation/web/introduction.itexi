@@ -112,6 +112,8 @@ LilyPond output has the same strong, balanced and elegant look as the
 best-engraved classical scores.  This is further explained in our
 @ref{Essay}.
 
+
+
 @subsubheading Effective layout choices
 
 Spend less time with tweaking the output; LilyPond gets the
@@ -121,9 +123,13 @@ layout.  Clashes between lyrics, notes, and chords are resolved
 and slurs and beams are sloped, automatically!
 
 
+@divEnd
+
+@divClass{color2}
 @subheading Ease of use
 
 @subsubheading Text-based input
+@imageFloat{lilypond-book,png,right}
 
 LilyPond takes ASCII input, which you can produce in your favorite
 text editor, quickly and comfortably.  The input contains all the
@@ -131,8 +137,6 @@ information, so there is no need to remember complex command sequences:
 simply save a file for later reference.
 
 @subsubheading Mix music and text
-
-@imageFloat{lilypond-book,png,right}
 
 Put fragments of music into texts without cutting and pasting
 pictures.  Integrate music into @LaTeX{} or HTML seamlessly, or add
@@ -157,9 +161,16 @@ scripting language Scheme, a dialect of the powerful language
 LISP.  Settings, variables and functions are all documented in the
 comprehensive program reference manual.
 
+@divEnd
+
+@divClass{color3}
+
 @subheading Environment
 
+
+
 @subsubheading Free software
+@imageFloat{frescobaldi-lilypond-editor-small,png,right}
 
 LilyPond can be downloaded free of charge!  Yep - It's free.  Get
 it from the download page.
@@ -178,8 +189,16 @@ of example files.  There is an active user community answering
 questions on the lilypond-user mailing list, while the development
 team makes sure that problems are solved quickly.
 
-@divEnd
 
+@subsubheading Enhanced editors
+
+
+Several developers, themselves active LilyPond users, have also
+written tools specifically aimed at making the process of editing
+LilyPond files faster and more effective. For some examples, see
+@ref{Easier editing}.
+
+@divEnd
 @divClass{column-center-bottom}
 @subheading Where now?
 
