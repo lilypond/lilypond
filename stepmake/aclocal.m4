@@ -178,19 +178,23 @@ AC_DEFUN(STEPMAKE_COMPILE_BEFORE, [
     pipe_b=yes
 
     AC_ARG_ENABLE(debugging,
-    [  --enable-debugging      compile with debugging info.  Default: on],
+    [AS_HELP_STRING([--enable-debugging],
+                    [compile with debugging info.  Default: on])],
     [debug_b=$enableval])
 
     AC_ARG_ENABLE(optimising,
-    [  --enable-optimising     compile with optimising.  Default: on],
+    [AS_HELP_STRING([--enable-optimising],
+                    [compile with optimising.  Default: on])],
     [optimise_b=$enableval])
 
     AC_ARG_ENABLE(profiling, 
-    [  --enable-profiling      compile with gprof support.  Default: off],
+    [AS_HELP_STRING([--enable-profiling],
+                    [compile with gprof support.  Default: off])],
     [profile_b=$enableval])
     
     AC_ARG_ENABLE(pipe, 
-    [  --enable-pipe           compile with -pipe.  Default: on],
+    [AS_HELP_STRING([--enable-pipe],
+                    [compile with -pipe.  Default: on])],
     [pipe_b=$enableval])
 
     if test "$optimise_b" = yes; then
@@ -745,8 +749,9 @@ AC_DEFUN(STEPMAKE_INIT, [
 
     CONFIGSUFFIX=
     AC_ARG_ENABLE(config,
-    [  --enable-config=CONF    put settings in config-CONF.make and config-CONF.h;
-                            do `make conf=CONF' to get output in ./out-CONF],
+    [AS_HELP_STRING([--enable-config=CONF],
+                    [put settings in config-CONF.make and config-CONF.h;
+		    do `make conf=CONF' to get output in ./out-CONF])],
     [CONFIGURATION=$enableval])
 
     ##'`#
@@ -837,12 +842,14 @@ AC_DEFUN(STEPMAKE_LOCALE, [
 
     # with/enable ??
     AC_ARG_WITH(localedir,
-    [  --with-localedir=DIR    location of locales.  Default: PREFIX/share/locale ],
+    [AS_HELP_STRING([--with-localedir=DIR],
+                    [location of locales.  Default: PREFIX/share/locale])],
     localedir=$with_localedir,
     localedir='${prefix}/share/locale')
 
     AC_ARG_WITH(lang,
-    [  --with-lang=LANG        use LANG as language to emit messages],
+    [AS_HELP_STRING([--with-lang=LANG],
+                    [use LANG as language to emit messages])],
     language=$with_lang,
     language=English)
 
@@ -946,23 +953,24 @@ AC_DEFUN(STEPMAKE_PYTHON, [
 
 AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
     AC_ARG_WITH(python-include,
-	[  --with-python-include=DIR
-	                  location of the python include dir],[
-	    if test "$withval" = "yes" -o "$withval" = "no"; then
-		AC_MSG_WARN(Usage: --with-python-include=includedir)
-	    else
-		PYTHON_CFLAGS="-I${withval}"
-	    fi
-	    ])
+	[AS_HELP_STRING([--with-python-include=DIR],
+	                [location of the python include dir])],[
+	if test "$withval" = "yes" -o "$withval" = "no"; then
+	    AC_MSG_WARN(Usage: --with-python-include=includedir)
+	else
+	    PYTHON_CFLAGS="-I${withval}"
+	fi
+    ])
     
     AC_ARG_WITH(python-lib,
-	[  --with-python-lib=NAME  name of the python lib],[
-	    if test "$withval" = "yes" -o "$withval" = "no"; then
-		AC_MSG_WARN(Usage: --with-python-lib=name)
-	    else
-		LDFLAGS="$LDFLAGS -l${withval}"
-	    fi
-	    ])
+	[AS_HELP_STRING([--with-python-lib=NAME],
+	                [name of the python lib])],[
+	if test "$withval" = "yes" -o "$withval" = "no"; then
+	    AC_MSG_WARN(Usage: --with-python-lib=name)
+	else
+	    LDFLAGS="$LDFLAGS -l${withval}"
+	fi
+    ])
     
     AC_CHECK_PROGS(PYTHON_CONFIG, python-config, no)
 
