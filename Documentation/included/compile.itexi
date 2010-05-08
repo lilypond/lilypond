@@ -69,7 +69,7 @@ software:
 @item @uref{http://www.dejavu-fonts.org/, DejaVu fonts} (normally
 installed by default)
 
-@item @uref{http://www.fontconfig.org/, FontConfig} (2.2 or newer)
+@item @uref{http://www.fontconfig.org/, FontConfig} (2.4.0 or newer)
 
 @item @uref{http://www.freetype.org/, Freetype} (2.1.10 or newer)
 
