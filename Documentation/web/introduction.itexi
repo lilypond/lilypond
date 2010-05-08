@@ -844,16 +844,18 @@ convinced?  Read about @ref{Easier editing}.
 @uref{http://denemo.org}
 
 Denemo is a graphical editor which generates LilyPond source code,
-at release 2.8.7, and also allows audio playback.  It allows users
-to view the LilyPond source code in parallel to the graphical view.
-Extra LilyPond tweaks can be attached to notes, chords etc. and are
-stored with the Denemo file, so that users can continue to edit graphically.
+and also allows audio playback.  It allows users to view the
+LilyPond source code in parallel to the graphical view. Extra
+LilyPond tweaks can be attached to notes, chords etc. and are stored
+with the Denemo file, so that users can continue to edit graphically.
 
 Moving the cursor in the LilyPond text moves the cursor in the graphical
 view, and any syntax errors in your LilyPond tweaks are highlighted in
 the text view when printed from there.
 
-
+@warning{Denemo officially supports an outdated Lilypond version 2.8.7,
+which lacks many of the features added since then. The Denemo developers
+are actively working to bring it up to our present stable version, 2.12.}
 @divEnd
 
 @divClass{column-center-top}
