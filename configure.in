@@ -146,7 +146,7 @@ AC_CHECK_HEADERS([sstream])
 AC_HEADER_STAT
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([chroot fopencookie funopen gettext isinf memmem snprintf vsnprintf wcrtomb])
+AC_CHECK_FUNCS([chroot fopencookie gettext isinf memmem snprintf vsnprintf])
 
 STEPMAKE_PROGS(PKG_CONFIG, pkg-config, REQUIRED, 0.9.0)
 
