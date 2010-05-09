@@ -87,9 +87,7 @@ translations should be in macros.itexi.
 @macro docMain
 @cartouche
 Pour connaître la place qu'occupe ce manuel dans la
-documentation, consultez 
-@c rweb{Manuels}.
-Manuels.
+documentation, consultez la page @rweb{Manuels}.
 
 Si vous ne disposez pas de certains manuels, la documentation complète
 se trouve sur @w{@uref{http://@/www@/.lilypond@/.org/}}.
@@ -252,7 +250,6 @@ Pour LilyPond version @version{}
 @c
 @c  All these also have a @...named version which allows to specify the
 @c  displayed text for the reference as second argument.
-@c
 @c
 @c ***** HTML + bigpage is a special case (other manual names); all other
 @c formats are treated similarly.
@@ -488,7 +485,7 @@ Pour LilyPond version @version{}
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,internals,Référence des propriétés internes}
+@ref{\TEXT\,,\DISPLAY\,internals,Référence des propriétés internes}
 @end macro
 
 @end ifnotinfo
@@ -507,7 +504,7 @@ Pour LilyPond version @version{}
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypon-learning,Manuel d'initiation}
+@ref{\TEXT\,,,lilypond-learning,Manuel d'initiation}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
@@ -600,7 +597,7 @@ Pour LilyPond version @version{}
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Référence des propriétés internes}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Référence des propriétés internes}
 @end macro
 
 @end ifinfo
@@ -655,52 +652,52 @@ Pour LilyPond version @version{}
 @end macro
 
 @macro rchanges{TEXT}
-@vindex \TEXT\
+@vindex{\TEXT\}
 @ref{\TEXT\,,,changes,Nouveautés}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,changes,Nouveautés}
 @end macro
 
 @macro rextend{TEXT}
-@vindex \TEXT\
+@vindex{\TEXT\}
 @ref{\TEXT\,,,extending,Extension de LilyPond}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,extending,Extension de LilyPond}
 @end macro
 
 @macro rcontrib{TEXT}
-@vindex \TEXT\
+@vindex{\TEXT\}
 @ref{\TEXT\,,,contributor,Guide des contributeurs}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,contributor,Guide des contributeurs}
 @end macro
 
 @macro rweb{TEXT}
-@lilyvindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,web,Informations générales}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@lilyvindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,web,Informations générales}
 @end macro
 
 @macro ressay{TEXT}
-@vindex \TEXT\
+@vindex{\TEXT\}
 @ref{\TEXT\,,,essay,Essai}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@vindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,essay,Essai}
 @end macro
 
