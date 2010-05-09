@@ -28,27 +28,27 @@ beim Setzen von Noten für Saiteninstrumente ohne Bund herangezogen
 werden können.
 
 @menu
-* Übliche Notation für nichtgebundene Saiteninstrumente::  
+* Übliche Notation für bundlose Saiteninstrumente::  
 @end menu
 
-@node Übliche Notation für nichtgebundene Saiteninstrumente
-@subsection Übliche Notation für nichtgebundene Saiteninstrumente
+@node Übliche Notation für bundlose Saiteninstrumente
+@subsection Übliche Notation für bundlose Saiteninstrumente
 @translationof Common notation for unfretted strings
 
-Es gibt wenige Spezifikat für die Notation von Saiteninstrumenten ohne
-Bund.  Die Noten werden auf einem System notiert und meistens ist auch nur
+Es gibt wenige Spezifikationen für die Notation von Saiteninstrumenten ohne
+Bünde.  Die Noten werden auf einem System notiert und meistens ist auch nur
 eine Stimme erforderlich.  Zwei Stimmen können für Doppelgriff- oder
 Divisi-Stellen erforderlich sein.
 
 @menu
-* Hinweise für ungebundene Saiteninstrumente::
+* Hinweise für bundlose Saiteninstrumente::
 * Bezeichnung des Bogens::
 * Flageolett::
 * Bartók-Pizzicato::     
 @end menu
 
-@node Hinweise für ungebundene Saiteninstrumente
-@unnumberedsubsubsec Hinweise für ungebundene Saiteninstrumente
+@node Hinweise für bundlose Saiteninstrumente
+@unnumberedsubsubsec Hinweise für bundlose Saiteninstrumente
 @translationof References for unfretted strings
 
 Die meisten Notationseigenschaften, die für Orchersterstreicher eingesetzt
@@ -184,7 +184,7 @@ Glossar:
 
 Notationsreferenz:
 @ref{Besondere Notenköpfe},
-@ref{Hinweise für ungebundene Saiteninstrumente}.
+@ref{Hinweise für bundlose Saiteninstrumente}.
 
 
 
