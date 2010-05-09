@@ -660,20 +660,32 @@ PIDs or the number of the process."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define* (ly:exit status #:optional (silently #f) )
+    "Exit function for lilypond"
+    (if (not silently)
+	(case status
+	    ((0) (ly:success "Compilation successfully completed"))
+	    ((1) (ly:warning "Compilation completed with warnings or errors"))
+	    (else (ly:message "")))
+	)
+    (exit status)
+    )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
   (eval-string (ly:command-line-code))
   (if (ly:get-option 'help)
       (begin (ly:option-usage)
-	     (exit 0)))
+	     (ly:exit 0 #t )))
   (if (ly:get-option 'show-available-fonts)
       (begin (ly:font-config-display-fonts)
-	     (exit 0)))
+	     (ly:exit 0 #t)))
   (if (ly:get-option 'gui)
       (gui-main files))
   (if (null? files)
       (begin (ly:usage)
-	     (exit 2)))
+	     (ly:exit 2 #t)))
   (if (ly:get-option 'read-file-list)
       (set! files
 	    (filter (lambda (s)
@@ -729,9 +741,10 @@ PIDs or the number of the process."
 		   (if (ly:get-option 'dump-profile)
 		       (dump-profile "lily-run-total"
 				     '(0 0) (profile-measurements)))
-		   (exit (if (null? errors)
-			     0
-			     1))))))
+		   (if (null? errors)
+		       (ly:exit 0 #f)
+		       (ly:exit 1 #f))))))
+
   (if (string-or-symbol? (ly:get-option 'log-file))
       (ly:stderr-redirect (format "~a.log" (ly:get-option 'log-file)) "w"))
   (let ((failed (lilypond-all files)))
@@ -741,11 +754,10 @@ PIDs or the number of the process."
 			       (string-contains f "lilypond")))))
     (if (pair? failed)
 	(begin (ly:error (_ "failed files: ~S") (string-join failed))
-	       (exit 1))
+               (ly:exit 1 #f))
 	(begin
-	  ;; HACK: be sure to exit with single newline
-	  (ly:message "")
-	  (exit 0)))))
+	  (ly:exit 0 #f)))))
+
 
 (define-public (lilypond-all files)
   (let* ((failed '())
@@ -787,7 +799,7 @@ PIDs or the number of the process."
 	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
 	 (if (ly:get-option 'debug-gc)
 	     (dump-gc-protects)
-	     (ly:reset-all-fonts))))
+             (ly:reset-all-fonts))))
      files)
 
     ;; we want the failed-files notice in the aggregrate logfile.
@@ -823,7 +835,7 @@ PIDs or the number of the process."
 	      (ly:error (_ "failed files: ~S") (string-join failed))
 	      ;; not reached?
 	      (exit 1))
-	    (exit 0)))))
+	    (ly:exit 0 #f)))))
 
 (define (gui-no-files-handler)
   (let* ((ly (string-append (ly:effective-prefix) "/ly/"))
@@ -832,4 +844,4 @@ PIDs or the number of the process."
 	 (cmd (get-editor-command welcome-ly 0 0 0)))
     (ly:message (_ "Invoking `~a'...\n") cmd)
     (system cmd)
-    (exit 1)))
+    (ly:exit 1 #f)))

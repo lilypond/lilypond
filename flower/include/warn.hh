@@ -28,5 +28,6 @@ void non_fatal_error (string);
 void programming_error (string s);
 void progress_indication (string s);
 void warning (string s);
+void successful (string s);
 
 #endif /* WARN_HH */

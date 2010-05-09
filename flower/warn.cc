@@ -52,6 +52,13 @@ message (string s)
   progress_indication (s);
 }
 
+/* Display a success message.  Always starts on a new line.  */
+void
+successful (string s)
+{
+  message (_f ("success: %s", s.c_str ()) + "\n");
+}
+
 /* Display a warning message.  Always starts on a new line.  */
 void
 warning (string s)
