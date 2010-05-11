@@ -1,4 +1,5 @@
 #!@TARGET_PYTHON@
+# -*- coding: utf-8 -*-
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
@@ -29,8 +30,6 @@ classic lilypond-book:
 
 TODO:
 
-  *  this script is too complex. Modularize.
-
   *  ly-options: intertext?
   *  --line-width?
   *  eps in latex / eps by lilypond -b ps?
@@ -43,12 +42,17 @@ TODO:
 
 '''
 
+
+# TODO: Better solve the global_options copying to the snippets...
+
 import glob
 import os
 import re
 import stat
 import sys
 import tempfile
+from optparse import OptionGroup
+
 
 """
 @relocate-preamble@
@@ -59,22 +63,14 @@ import fontextract
 import langdefs
 global _;_=ly._
 
+import book_base as BookBase
+import book_snippets as BookSnippet
+import book_html
+import book_docbook
+import book_texinfo
+import book_latex
+
 ly.require_python_version ()
-
-# Lilylib globals.
-program_version = '@TOPLEVEL_VERSION@'
-program_name = os.path.basename (sys.argv[0])
-
-# Check if program_version contains @ characters. This will be the case if
-# the .py file is called directly while building the lilypond documentation.
-# If so, try to check for the env var LILYPOND_VERSION, which is set by our
-# makefiles and use its value.
-at_re = re.compile (r'@')
-if at_re.match (program_version):
-    if os.environ.has_key('LILYPOND_VERSION'):
-        program_version = os.environ['LILYPOND_VERSION']
-    else:
-        program_version = "unknown"
 
 original_dir = os.getcwd ()
 backend = 'ps'
@@ -100,22 +96,12 @@ def exit (i):
         sys.exit (i)
 
 def identify ():
-    ly.encoded_write (sys.stdout, '%s (GNU LilyPond) %s\n' % (program_name, program_version))
+    ly.encoded_write (sys.stdout, '%s (GNU LilyPond) %s\n' % (ly.program_name, ly.program_version))
 
 progress = ly.progress
+warning = ly.warning
+error = ly.error
 
-def warning (s):
-    ly.stderr_write (program_name + ": " + _ ("warning: %s") % s + '\n')
-
-def error (s):
-    ly.stderr_write (program_name + ": " + _ ("error: %s") % s + '\n')
-
-def ps_page_count (ps_name):
-    header = file (ps_name).read (1024)
-    m = re.search ('\n%%Pages: ([0-9]+)', header)
-    if m:
-        return int (m.group (1))
-    return 0
 
 def warranty ():
     identify ()
@@ -134,6 +120,7 @@ def warranty ():
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'lilypond-book',
                               description=help_summary,
+                              conflict_handler="resolve",
                               add_help_option=False)
 
     p.add_option ('-F', '--filter', metavar=_ ("FILTER"),
@@ -163,13 +150,6 @@ def get_option_parser ():
                   action='store', dest='info_images_dir',
                   default='')
 
-    p.add_option ('--latex-program',
-                  help=_ ("run executable PROG instead of latex, or in\n\
-case --pdf option is set instead of pdflatex"),
-                  metavar=_ ("PROG"),
-                  action='store', dest='latex_program',
-                  default='latex')
-
     p.add_option ('--left-padding',
                   metavar=_ ("PAD"),
                   dest="padding_mm",
@@ -187,12 +167,6 @@ case --pdf option is set instead of pdflatex"),
                   metavar=_ ("DIR"),
                   action='store', dest='output_dir',
                   default='')
-
-    p.add_option ('--pdf',
-                  action="store_true",
-                  dest="create_pdf",
-                  help=_ ("create PDF files for use with PDFTeX"),
-                  default=False)
 
     p.add_option ('-P', '--process', metavar=_ ("COMMAND"),
                   help = _ ("process ly_files using COMMAND FILE..."),
@@ -229,11 +203,31 @@ case --pdf option is set instead of pdflatex"),
     p.add_option ('-w', '--warranty',
                   help=_ ("show warranty and copyright"),
                   action='store_true')
+
+    group = OptionGroup (p, "Options only for the latex and texinfo backends")
+    group.add_option ('--latex-program',
+              help=_ ("run executable PROG instead of latex, or in\n\
+case --pdf option is set instead of pdflatex"),
+              metavar=_ ("PROG"),
+              action='store', dest='latex_program',
+              default='latex')
+    group.add_option ('--pdf',
+              action="store_true",
+              dest="create_pdf",
+              help=_ ("create PDF files for use with PDFTeX"),
+              default=False)
+    p.add_option_group (group)
+
     p.add_option_group ('',
                         description=(
         _ ("Report bugs via %s")
         % ' http://post.gmane.org/post.php'
         '?group=gmane.comp.gnu.lilypond.bugs') + '\n')
+
+
+    for formatter in BookBase.all_formats:
+      formatter.add_options (p)
+
     return p
 
 lilypond_binary = os.path.join ('@bindir@', 'lilypond')
@@ -251,1388 +245,7 @@ if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
 global_options = None
 
 
-default_ly_options = { 'alt': "[image of music]" }
 
-document_language = ''
-
-#
-# Is this pythonic?  Personally, I find this rather #define-nesque. --hwn
-#
-ADDVERSION = 'addversion'
-AFTER = 'after'
-BEFORE = 'before'
-DOCBOOK = 'docbook'
-EXAMPLEINDENT = 'exampleindent'
-FILTER = 'filter'
-FRAGMENT = 'fragment'
-HTML = 'html'
-INDENT = 'indent'
-LANG = 'lang'
-LATEX = 'latex'
-LAYOUT = 'layout'
-LINE_WIDTH = 'line-width'
-LILYQUOTE = 'lilyquote'
-NOFRAGMENT = 'nofragment'
-NOGETTEXT = 'nogettext'
-NOINDENT = 'noindent'
-NOQUOTE = 'noquote'
-NORAGGED_RIGHT = 'noragged-right'
-NOTES = 'body'
-NOTIME = 'notime'
-OUTPUT = 'output'
-OUTPUTIMAGE = 'outputimage'
-PAPER = 'paper'
-PREAMBLE = 'preamble'
-PRINTFILENAME = 'printfilename'
-QUOTE = 'quote'
-RAGGED_RIGHT = 'ragged-right'
-RELATIVE = 'relative'
-STAFFSIZE = 'staffsize'
-DOCTITLE = 'doctitle'
-TEXIDOC = 'texidoc'
-TEXINFO = 'texinfo'
-VERBATIM = 'verbatim'
-VERSION = 'lilypondversion'
-FILENAME = 'filename'
-ALT = 'alt'
-
-
-# NOTIME and NOGETTEXT have no opposite so they aren't part of this
-# dictionary.
-# NOQUOTE is used internally only.
-no_options = {
-    NOFRAGMENT: FRAGMENT,
-    NOINDENT: INDENT,
-}
-
-# Options that have no impact on processing by lilypond (or --process
-# argument)
-PROCESSING_INDEPENDENT_OPTIONS = (
-    ALT, NOGETTEXT, VERBATIM, ADDVERSION,
-    TEXIDOC, DOCTITLE, VERSION, PRINTFILENAME)
-
-# Recognize special sequences in the input.
-#
-#   (?P<name>regex) -- Assign result of REGEX to NAME.
-#   *? -- Match non-greedily.
-#   (?!...) -- Match if `...' doesn't match next (without consuming
-#              the string).
-#
-#   (?m) -- Multiline regex: Make ^ and $ match at each line.
-#   (?s) -- Make the dot match all characters including newline.
-#   (?x) -- Ignore whitespace in patterns.
-no_match = 'a\ba'
-snippet_res = {
- ##
-    DOCBOOK: {
-        'include':
-         no_match,
-
-        'lilypond':
-         r'''(?smx)
-          (?P<match>
-          <(?P<inline>(inline)?)mediaobject>\s*
-          <textobject.*?>\s*
-          <programlisting\s+language="lilypond".*?(role="(?P<options>.*?)")?>
-          (?P<code>.*?)
-          </programlisting\s*>\s*
-          </textobject\s*>\s*
-          </(inline)?mediaobject>)''',
-
-        'lilypond_block':
-         r'''(?smx)
-          (?P<match>
-          <(?P<inline>(inline)?)mediaobject>\s*
-          <textobject.*?>\s*
-          <programlisting\s+language="lilypond".*?(role="(?P<options>.*?)")?>
-          (?P<code>.*?)
-          </programlisting\s*>\s*
-          </textobject\s*>\s*
-          </(inline)?mediaobject>)''',
-
-        'lilypond_file':
-         r'''(?smx)
-          (?P<match>
-          <(?P<inline>(inline)?)mediaobject>\s*
-          <imageobject.*?>\s*
-          <imagedata\s+
-           fileref="(?P<filename>.*?\.ly)"\s*
-           (role="(?P<options>.*?)")?\s*
-           (/>|>\s*</imagedata>)\s*
-          </imageobject>\s*
-          </(inline)?mediaobject>)''',
-
-        'multiline_comment':
-         r'''(?smx)
-          (?P<match>
-          \s*(?!@c\s+)
-          (?P<code><!--\s.*?!-->)
-          \s)''',
-
-        'singleline_comment':
-         no_match,
-
-        'verb':
-         no_match,
-
-        'verbatim':
-         no_match,
-
-        'lilypondversion':
-         no_match,
-    },
-    ##
-    HTML: {
-        'include':
-         no_match,
-
-        'lilypond':
-         r'''(?mx)
-          (?P<match>
-          <lilypond
-           (\s+(?P<options>.*?))?\s*:\s*
-           (?P<code>.*?)
-          \s*/>)''',
-
-        'lilypond_block':
-         r'''(?msx)
-          (?P<match>
-          <lilypond
-           \s*(?P<options>.*?)\s*
-          >
-          (?P<code>.*?)
-          </lilypond\s*>)''',
-
-        'lilypond_file':
-         r'''(?mx)
-          (?P<match>
-          <lilypondfile
-           \s*(?P<options>.*?)\s*
-          >
-          \s*(?P<filename>.*?)\s*
-          </lilypondfile\s*>)''',
-
-        'multiline_comment':
-         r'''(?smx)
-          (?P<match>
-          \s*(?!@c\s+)
-          (?P<code><!--\s.*?!-->)
-          \s)''',
-
-        'singleline_comment':
-         no_match,
-
-        'verb':
-         r'''(?x)
-          (?P<match>
-           (?P<code><pre>.*?</pre>))''',
-
-        'verbatim':
-         r'''(?x)
-          (?s)
-          (?P<match>
-           (?P<code><pre>\s.*?</pre>\s))''',
-
-        'lilypondversion':
-         r'''(?mx)
-          (?P<match>
-          <lilypondversion\s*/>)''',
-    },
-
-    ##
-    LATEX: {
-        'include':
-         r'''(?smx)
-          ^[^%\n]*?
-          (?P<match>
-          \\input\s*{
-           (?P<filename>\S+?)
-          })''',
-
-        'lilypond':
-         r'''(?smx)
-          ^[^%\n]*?
-          (?P<match>
-          \\lilypond\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s*{
-           (?P<code>.*?)
-          })''',
-
-        'lilypond_block':
-         r'''(?smx)
-          ^[^%\n]*?
-          (?P<match>
-          \\begin\s*(?P<env>{lilypond}\s*)?(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?(?(env)|\s*{lilypond})
-           (?P<code>.*?)
-          ^[^%\n]*?
-          \\end\s*{lilypond})''',
-
-        'lilypond_file':
-         r'''(?smx)
-          ^[^%\n]*?
-          (?P<match>
-          \\lilypondfile\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s*\{
-           (?P<filename>\S+?)
-          })''',
-
-        'multiline_comment':
-         no_match,
-
-        'singleline_comment':
-         r'''(?mx)
-          ^.*?
-          (?P<match>
-           (?P<code>
-           %.*$\n+))''',
-
-        'verb':
-         r'''(?mx)
-          ^[^%\n]*?
-          (?P<match>
-           (?P<code>
-           \\verb(?P<del>.)
-            .*?
-           (?P=del)))''',
-
-        'verbatim':
-         r'''(?msx)
-          ^[^%\n]*?
-          (?P<match>
-           (?P<code>
-           \\begin\s*{verbatim}
-            .*?
-           \\end\s*{verbatim}))''',
-
-        'lilypondversion':
-         r'''(?smx)
-          (?P<match>
-          \\lilypondversion)[^a-zA-Z]''',
-
-    },
-
-    ##
-    TEXINFO: {
-        'include':
-         r'''(?mx)
-          ^(?P<match>
-          @include\s+
-           (?P<filename>\S+))''',
-
-        'lilypond':
-         r'''(?smx)
-          ^[^\n]*?(?!@c\s+)[^\n]*?
-          (?P<match>
-          @lilypond\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s*{
-           (?P<code>.*?)
-          })''',
-
-        'lilypond_block':
-         r'''(?msx)
-          ^(?P<match>
-          @lilypond\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s+?
-          ^(?P<code>.*?)
-          ^@end\s+lilypond)\s''',
-
-        'lilypond_file':
-         r'''(?mx)
-          ^(?P<match>
-          @lilypondfile\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s*{
-           (?P<filename>\S+)
-          })''',
-
-        'multiline_comment':
-         r'''(?smx)
-          ^(?P<match>
-           (?P<code>
-           @ignore\s
-            .*?
-           @end\s+ignore))\s''',
-
-        'singleline_comment':
-         r'''(?mx)
-          ^.*
-          (?P<match>
-           (?P<code>
-           @c([ \t][^\n]*|)\n))''',
-
-    # Don't do this: It interferes with @code{@{}.
-    #        'verb': r'''(?P<code>@code{.*?})''',
-
-        'verbatim':
-         r'''(?sx)
-          (?P<match>
-           (?P<code>
-           @example
-            \s.*?
-           @end\s+example\s))''',
-
-        'lilypondversion':
-         r'''(?mx)
-         [^@](?P<match>
-          @lilypondversion)[^a-zA-Z]''',
-
-    },
-}
-
-
-format_res = {
-    DOCBOOK: {
-        'intertext': r',?\s*intertext=\".*?\"',
-        'option_sep': '\s*',
-    },
-    HTML: {
-        'intertext': r',?\s*intertext=\".*?\"',
-        'option_sep': '\s*',
-    },
-
-    LATEX: {
-        'intertext': r',?\s*intertext=\".*?\"',
-        'option_sep': '\s*,\s*',
-    },
-
-    TEXINFO: {
-        'intertext': r',?\s*intertext=\".*?\"',
-        'option_sep': '\s*,\s*',
-    },
-}
-
-
-# Options without a pattern in ly_options.
-simple_options = [
-    EXAMPLEINDENT,
-    FRAGMENT,
-    NOFRAGMENT,
-    NOGETTEXT,
-    NOINDENT,
-    PRINTFILENAME,
-    DOCTITLE,
-    TEXIDOC,
-    LANG,
-    VERBATIM,
-    FILENAME,
-    ALT,
-    ADDVERSION
-]
-
-ly_options = {
-    ##
-    NOTES: {
-        RELATIVE: r'''\relative c%(relative_quotes)s''',
-    },
-
-    ##
-    PAPER: {
-        INDENT: r'''indent = %(indent)s''',
-
-        LINE_WIDTH: r'''line-width = %(line-width)s''',
-
-        QUOTE: r'''line-width = %(line-width)s - 2.0 * %(exampleindent)s''',
-
-        LILYQUOTE: r'''line-width = %(line-width)s - 2.0 * %(exampleindent)s''',
-
-        RAGGED_RIGHT: r'''ragged-right = ##t''',
-
-        NORAGGED_RIGHT: r'''ragged-right = ##f''',
-    },
-
-    ##
-    LAYOUT: {
-        NOTIME: r'''
- \context {
-   \Score
-   timing = ##f
- }
- \context {
-   \Staff
-   \remove "Time_signature_engraver"
- }''',
-    },
-
-    ##
-    PREAMBLE: {
-        STAFFSIZE: r'''#(set-global-staff-size %(staffsize)s)''',
-    },
-}
-
-output = {
-    ##
-    DOCBOOK: {
-        FILTER: r'''<mediaobject>
-  <textobject>
-    <programlisting language="lilypond"
-                    role="%(options)s">
-%(code)s
-    </programlisting>
-  </textobject>
-</mediaobject>''',
-
-        OUTPUT: r'''<imageobject role="latex">
-  <imagedata fileref="%(base)s.pdf" format="PDF"/>
-</imageobject>
-<imageobject role="html">
-  <imagedata fileref="%(base)s.png" format="PNG"/>
-</imageobject>''',
-
-        VERBATIM: r'''<programlisting>
-%(verb)s</programlisting>''',
-
-        VERSION: program_version,
-
-        PRINTFILENAME: r'''<textobject>
-  <simpara>
-    <ulink url="%(base)s.ly">
-      <filename>
-        %(filename)s
-      </filename>
-    </ulink>
-  </simpara>
-</textobject>'''
-    },
-    ##
-    HTML: {
-        FILTER: r'''<lilypond %(options)s>
-%(code)s
-</lilypond>
-''',
-
-        AFTER: r'''
- </a>
-</p>''',
-
-        BEFORE: r'''<p>
- <a href="%(base)s.ly">''',
-
-        OUTPUT: r'''
-  <img align="middle"
-       border="0"
-       src="%(image)s"
-       alt="%(alt)s">''',
-
-        PRINTFILENAME: '<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
-
-        QUOTE: r'''<blockquote>
-%(str)s
-</blockquote>
-''',
-
-        VERBATIM: r'''<pre>
-%(verb)s</pre>''',
-
-        VERSION: program_version,
-    },
-
-    ##
-    LATEX: {
-        OUTPUT: r'''{%%
-\parindent 0pt
-\ifx\preLilyPondExample \undefined
-\else
-  \expandafter\preLilyPondExample
-\fi
-\def\lilypondbook{}%%
-\input %(base)s-systems.tex
-\ifx\postLilyPondExample \undefined
-\else
-  \expandafter\postLilyPondExample
-\fi
-}''',
-
-        PRINTFILENAME: '''\\texttt{%(filename)s}
-''',
-
-        QUOTE: r'''\begin{quotation}
-%(str)s
-\end{quotation}''',
-
-        VERBATIM: r'''\noindent
-\begin{verbatim}%(verb)s\end{verbatim}
-''',
-
-        VERSION: program_version,
-
-        FILTER: r'''\begin{lilypond}[%(options)s]
-%(code)s
-\end{lilypond}''',
-    },
-
-    ##
-    TEXINFO: {
-        FILTER: r'''@lilypond[%(options)s]
-%(code)s
-@lilypond''',
-
-        OUTPUT: r'''
-@iftex
-@include %(base)s-systems.texi
-@end iftex
-''',
-
-        OUTPUTIMAGE: r'''@noindent
-@ifinfo
-@image{%(info_image_path)s,,,%(alt)s,%(ext)s}
-@end ifinfo
-@html
-<p>
- <a href="%(base)s.ly">
-  <img align="middle"
-       border="0"
-       src="%(image)s"
-       alt="%(alt)s">
- </a>
-</p>
-@end html
-''',
-
-        PRINTFILENAME: '''
-@html
-<a href="%(base)s.ly">
-@end html
-@file{%(filename)s}
-@html
-</a>
-@end html
-    ''',
-
-        QUOTE: r'''@quotation
-%(str)s@end quotation
-''',
-
-        NOQUOTE: r'''@format
-%(str)s@end format
-''',
-
-        VERBATIM: r'''@exampleindent 0
-%(version)s@verbatim
-%(verb)s@end verbatim
-''',
-
-        VERSION: program_version,
-
-        ADDVERSION: r'''@example
-\version @w{"@version{}"}
-@end example
-'''
-    },
-}
-
-#
-# Maintain line numbers.
-#
-
-## TODO
-if 0:
-    for f in [HTML, LATEX]:
-        for s in (QUOTE, VERBATIM):
-            output[f][s] = output[f][s].replace("\n"," ")
-
-
-PREAMBLE_LY = '''%%%% Generated by %(program_name)s
-%%%% Options: [%(option_string)s]
-\\include "lilypond-book-preamble.ly"
-
-
-%% ****************************************************************
-%% Start cut-&-pastable-section
-%% ****************************************************************
-
-%(preamble_string)s
-
-\paper {
-  %(paper_string)s
-  force-assignment = #""
-  line-width = #(- line-width (* mm  %(padding_mm)f))
-}
-
-\layout {
-  %(layout_string)s
-}
-'''
-
-FRAGMENT_LY = r'''
-%(notes_string)s
-{
-
-
-%% ****************************************************************
-%% ly snippet contents follows:
-%% ****************************************************************
-%(code)s
-
-
-%% ****************************************************************
-%% end ly snippet
-%% ****************************************************************
-}
-'''
-
-FULL_LY = '''
-
-
-%% ****************************************************************
-%% ly snippet:
-%% ****************************************************************
-%(code)s
-
-
-%% ****************************************************************
-%% end ly snippet
-%% ****************************************************************
-'''
-
-texinfo_line_widths = {
-    '@afourpaper': '160\\mm',
-    '@afourwide': '6.5\\in',
-    '@afourlatex': '150\\mm',
-    '@smallbook': '5\\in',
-    '@letterpaper': '6\\in',
-}
-
-def classic_lilypond_book_compatibility (key, value):
-    if key == 'singleline' and value == None:
-        return (RAGGED_RIGHT, None)
-
-    m = re.search ('relative\s*([-0-9])', key)
-    if m:
-        return ('relative', m.group (1))
-
-    m = re.match ('([0-9]+)pt', key)
-    if m:
-        return ('staffsize', m.group (1))
-
-    if key == 'indent' or key == 'line-width':
-        m = re.match ('([-.0-9]+)(cm|in|mm|pt|staffspace)', value)
-        if m:
-            f = float (m.group (1))
-            return (key, '%f\\%s' % (f, m.group (2)))
-
-    return (None, None)
-
-def find_file (name, raise_error=True):
-    for i in global_options.include_path:
-        full = os.path.join (i, name)
-        if os.path.exists (full):
-            return full
-
-    if raise_error:
-        error (_ ("file not found: %s") % name + '\n')
-        exit (1)
-    return ''
-
-def verbatim_html (s):
-    return re.sub ('>', '&gt;',
-           re.sub ('<', '&lt;',
-               re.sub ('&', '&amp;', s)))
-
-ly_var_def_re = re.compile (r'^([a-zA-Z]+)[\t ]*=', re.M)
-ly_comment_re = re.compile (r'(%+[\t ]*)(.*)$', re.M)
-ly_context_id_re = re.compile ('\\\\(?:new|context)\\s+(?:[a-zA-Z]*?(?:Staff\
-(?:Group)?|Voice|FiguredBass|FretBoards|Names|Devnull))\\s+=\\s+"?([a-zA-Z]+)"?\\s+')
-
-def ly_comment_gettext (t, m):
-    return m.group (1) + t (m.group (2))
-
-def verb_ly_gettext (s):
-    if not document_language:
-        return s
-    try:
-        t = langdefs.translation[document_language]
-    except:
-        return s
-
-    s = ly_comment_re.sub (lambda m: ly_comment_gettext (t, m), s)
-
-    if langdefs.LANGDICT[document_language].enable_ly_identifier_l10n:
-        for v in ly_var_def_re.findall (s):
-            s = re.sub (r"(?m)(?<!\\clef)(^|[' \\#])%s([^a-zA-Z])" % v,
-                        "\\1" + t (v) + "\\2",
-                        s)
-        for id in ly_context_id_re.findall (s):
-            s = re.sub (r'(\s+|")%s(\s+|")' % id,
-                        "\\1" + t (id) + "\\2",
-                        s)
-    return s
-
-texinfo_lang_re = re.compile ('(?m)^@documentlanguage (.*?)( |$)')
-def set_default_options (source, default_ly_options, format):
-    global document_language
-    if LINE_WIDTH not in default_ly_options:
-        if format == LATEX:
-            textwidth = get_latex_textwidth (source)
-            default_ly_options[LINE_WIDTH] = '%.0f\\pt' % textwidth
-        elif format == TEXINFO:
-            m = texinfo_lang_re.search (source)
-            if m and not m.group (1).startswith ('en'):
-                document_language = m.group (1)
-            else:
-                document_language = ''
-            for regex in texinfo_line_widths:
-                # FIXME: @layout is usually not in
-                # chunk #0:
-                #
-                #  \input texinfo @c -*-texinfo-*-
-                #
-                # Bluntly search first K items of
-                # source.
-                # s = chunks[0].replacement_text ()
-                if re.search (regex, source[:1024]):
-                    default_ly_options[LINE_WIDTH] = texinfo_line_widths[regex]
-                    break
-
-class Chunk:
-    def replacement_text (self):
-        return ''
-
-    def filter_text (self):
-        return self.replacement_text ()
-
-    def is_plain (self):
-        return False
-
-class Substring (Chunk):
-    """A string that does not require extra memory."""
-    def __init__ (self, source, start, end, line_number):
-        self.source = source
-        self.start = start
-        self.end = end
-        self.line_number = line_number
-        self.override_text = None
-
-    def is_plain (self):
-        return True
-
-    def replacement_text (self):
-        if self.override_text:
-            return self.override_text
-        else:
-            return self.source[self.start:self.end]
-
-class Snippet (Chunk):
-    def __init__ (self, type, match, format, line_number):
-        self.type = type
-        self.match = match
-        self.checksum = 0
-        self.option_dict = {}
-        self.format = format
-        self.line_number = line_number
-
-    def replacement_text (self):
-        return self.match.group ('match')
-
-    def substring (self, s):
-        return self.match.group (s)
-
-    def __repr__ (self):
-        return `self.__class__` + ' type = ' + self.type
-
-class IncludeSnippet (Snippet):
-    def processed_filename (self):
-        f = self.substring ('filename')
-        return os.path.splitext (f)[0] + format2ext[self.format]
-
-    def replacement_text (self):
-        s = self.match.group ('match')
-        f = self.substring ('filename')
-
-        return re.sub (f, self.processed_filename (), s)
-
-class LilypondSnippet (Snippet):
-    def __init__ (self, type, match, format, line_number):
-        Snippet.__init__ (self, type, match, format, line_number)
-        os = match.group ('options')
-        self.do_options (os, self.type)
-
-    def verb_ly (self):
-        verb_text = self.substring ('code')
-        if not NOGETTEXT in self.option_dict:
-            verb_text = verb_ly_gettext (verb_text)
-        if not verb_text.endswith ('\n'):
-            verb_text += '\n'
-        return verb_text
-
-    def ly (self):
-        contents = self.substring ('code')
-        return ('\\sourcefileline %d\n%s'
-                % (self.line_number - 1, contents))
-
-    def full_ly (self):
-        s = self.ly ()
-        if s:
-            return self.compose_ly (s)
-        return ''
-
-    def split_options (self, option_string):
-        if option_string:
-            if self.format == HTML:
-                options = re.findall('[\w\.-:]+(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|\S+))?',
-                                     option_string)
-                options = [re.sub('^([^=]+=\s*)(?P<q>["\'])(.*)(?P=q)', '\g<1>\g<3>', opt)
-                           for opt in options]
-                return options
-            else:
-                return re.split (format_res[self.format]['option_sep'],
-                                 option_string)
-        return []
-
-    def do_options (self, option_string, type):
-        self.option_dict = {}
-
-        options = self.split_options (option_string)
-
-        for option in options:
-            if '=' in option:
-                (key, value) = re.split ('\s*=\s*', option)
-                self.option_dict[key] = value
-            else:
-                if option in no_options:
-                    if no_options[option] in self.option_dict:
-                        del self.option_dict[no_options[option]]
-                else:
-                    self.option_dict[option] = None
-
-        has_line_width = self.option_dict.has_key (LINE_WIDTH)
-        no_line_width_value = 0
-
-        # If LINE_WIDTH is used without parameter, set it to default.
-        if has_line_width and self.option_dict[LINE_WIDTH] == None:
-            no_line_width_value = 1
-            del self.option_dict[LINE_WIDTH]
-
-        for k in default_ly_options:
-            if k not in self.option_dict:
-                self.option_dict[k] = default_ly_options[k]
-
-        # RELATIVE does not work without FRAGMENT;
-        # make RELATIVE imply FRAGMENT
-        has_relative = self.option_dict.has_key (RELATIVE)
-        if has_relative and not self.option_dict.has_key (FRAGMENT):
-            self.option_dict[FRAGMENT] = None
-
-        if not has_line_width:
-            if type == 'lilypond' or FRAGMENT in self.option_dict:
-                self.option_dict[RAGGED_RIGHT] = None
-
-            if type == 'lilypond':
-                if LINE_WIDTH in self.option_dict:
-                    del self.option_dict[LINE_WIDTH]
-            else:
-                if RAGGED_RIGHT in self.option_dict:
-                    if LINE_WIDTH in self.option_dict:
-                        del self.option_dict[LINE_WIDTH]
-
-            if QUOTE in self.option_dict or type == 'lilypond':
-                if LINE_WIDTH in self.option_dict:
-                    del self.option_dict[LINE_WIDTH]
-
-        if not INDENT in self.option_dict:
-            self.option_dict[INDENT] = '0\\mm'
-
-        # Set a default line-width if there is none. We need this, because
-        # lilypond-book has set left-padding by default and therefore does
-        # #(define line-width (- line-width (* 3 mm)))
-        # TODO: Junk this ugly hack if the code gets rewritten to concatenate
-        # all settings before writing them in the \paper block.
-        if not LINE_WIDTH in self.option_dict:
-            if not QUOTE in self.option_dict:
-                if not LILYQUOTE in self.option_dict:
-                    self.option_dict[LINE_WIDTH] = "#(- paper-width \
-left-margin-default right-margin-default)"
-
-    def get_option_list (self):
-        if not 'option_list' in self.__dict__:
-            option_list = []
-            for (key, value) in self.option_dict.items ():
-                if value == None:
-                    option_list.append (key)
-                else:
-                    option_list.append (key + '=' + value)
-            option_list.sort ()
-            self.option_list = option_list
-        return self.option_list
-
-    def compose_ly (self, code):
-        if FRAGMENT in self.option_dict:
-            body = FRAGMENT_LY
-        else:
-            body = FULL_LY
-
-        # Defaults.
-        relative = 1
-        override = {}
-        # The original concept of the `exampleindent' option is broken.
-        # It is not possible to get a sane value for @exampleindent at all
-        # without processing the document itself.  Saying
-        #
-        #   @exampleindent 0
-        #   @example
-        #   ...
-        #   @end example
-        #   @exampleindent 5
-        #
-        # causes ugly results with the DVI backend of texinfo since the
-        # default value for @exampleindent isn't 5em but 0.4in (or a smaller
-        # value).  Executing the above code changes the environment
-        # indentation to an unknown value because we don't know the amount
-        # of 1em in advance since it is font-dependent.  Modifying
-        # @exampleindent in the middle of a document is simply not
-        # supported within texinfo.
-        #
-        # As a consequence, the only function of @exampleindent is now to
-        # specify the amount of indentation for the `quote' option.
-        #
-        # To set @exampleindent locally to zero, we use the @format
-        # environment for non-quoted snippets.
-        override[EXAMPLEINDENT] = r'0.4\in'
-        override[LINE_WIDTH] = texinfo_line_widths['@smallbook']
-        override.update (default_ly_options)
-
-        option_list = []
-        for option in self.get_option_list ():
-            for name in PROCESSING_INDEPENDENT_OPTIONS:
-                if option.startswith (name):
-                    break
-            else:
-                option_list.append (option)
-        option_string = ','.join (option_list)
-        compose_dict = {}
-        compose_types = [NOTES, PREAMBLE, LAYOUT, PAPER]
-        for a in compose_types:
-            compose_dict[a] = []
-
-        option_names = self.option_dict.keys ()
-        option_names.sort ()
-        for key in option_names:
-            value = self.option_dict[key]
-            (c_key, c_value) = classic_lilypond_book_compatibility (key, value)
-            if c_key:
-                if c_value:
-                    warning (
-                        _ ("deprecated ly-option used: %s=%s") % (key, value))
-                    warning (
-                        _ ("compatibility mode translation: %s=%s") % (c_key, c_value))
-                else:
-                    warning (
-                        _ ("deprecated ly-option used: %s") % key)
-                    warning (
-                        _ ("compatibility mode translation: %s") % c_key)
-
-                (key, value) = (c_key, c_value)
-
-            if value:
-                override[key] = value
-            else:
-                if not override.has_key (key):
-                    override[key] = None
-
-            found = 0
-            for type in compose_types:
-                if ly_options[type].has_key (key):
-                    compose_dict[type].append (ly_options[type][key])
-                    found = 1
-                    break
-
-            if not found and key not in simple_options:
-                warning (_ ("ignoring unknown ly option: %s") % key)
-
-        # URGS
-        if RELATIVE in override and override[RELATIVE]:
-            relative = int (override[RELATIVE])
-
-        relative_quotes = ''
-
-        # 1 = central C
-        if relative < 0:
-            relative_quotes += ',' * (- relative)
-        elif relative > 0:
-            relative_quotes += "'" * relative
-
-        paper_string = '\n  '.join (compose_dict[PAPER]) % override
-        layout_string = '\n  '.join (compose_dict[LAYOUT]) % override
-        notes_string = '\n  '.join (compose_dict[NOTES]) % vars ()
-        preamble_string = '\n  '.join (compose_dict[PREAMBLE]) % override
-        padding_mm = global_options.padding_mm
-
-        d = globals().copy()
-        d.update (locals())
-        return (PREAMBLE_LY + body) % d
-
-    def get_checksum (self):
-        if not self.checksum:
-            # Work-around for md5 module deprecation warning in python 2.5+:
-            try: 
-                from hashlib import md5
-            except ImportError:
-                from md5 import md5
-
-            # We only want to calculate the hash based on the snippet
-            # code plus fragment options relevant to processing by
-            # lilypond, not the snippet + preamble
-            hash = md5 (self.relevant_contents (self.ly ()))
-            for option in self.get_option_list ():
-                for name in PROCESSING_INDEPENDENT_OPTIONS:
-                    if option.startswith (name):
-                        break
-                else:
-                    hash.update (option)
-
-            ## let's not create too long names.
-            self.checksum = hash.hexdigest ()[:10]
-
-        return self.checksum
-
-    def basename (self):
-        cs = self.get_checksum ()
-        name = '%s/lily-%s' % (cs[:2], cs[2:])
-        return name
-
-    final_basename = basename
-
-    def write_ly (self):
-        base = self.basename ()
-        path = os.path.join (global_options.lily_output_dir, base)
-        directory = os.path.split(path)[0]
-        if not os.path.isdir (directory):
-            os.makedirs (directory)
-        filename = path + '.ly'
-        if os.path.exists (filename):
-            diff_against_existing = filter_pipe (self.full_ly (), 'diff -u %s -' % filename)
-            if diff_against_existing:
-                warning ("%s: duplicate filename but different contents of orginal file,\n\
-printing diff against existing file." % filename)
-                ly.stderr_write (diff_against_existing)
-        else:
-            out = file (filename, 'w')
-            out.write (self.full_ly ())
-            file (path + '.txt', 'w').write ('image of music')
-
-    def relevant_contents (self, ly):
-        return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
-
-    def link_all_output_files (self, output_dir, output_dir_files, destination):
-        existing, missing = self.all_output_files (output_dir, output_dir_files)
-        if missing:
-            print '\nMissing', missing
-            raise CompileError(self.basename())
-        for name in existing:
-            if (global_options.use_source_file_names
-                and isinstance (self, LilypondFileSnippet)):
-                base, ext = os.path.splitext (name)
-                components = base.split ('-')
-                # ugh, assume filenames with prefix with one dash (lily-xxxx)
-                if len (components) > 2:
-                    base_suffix = '-' + components[-1]
-                else:
-                    base_suffix = ''
-                final_name = self.final_basename () + base_suffix + ext
-            else:
-                final_name = name
-            try:
-                os.unlink (os.path.join (destination, final_name))
-            except OSError:
-                pass
-
-            src = os.path.join (output_dir, name)
-            dst = os.path.join (destination, final_name)
-            dst_path = os.path.split(dst)[0]
-            if not os.path.isdir (dst_path):
-                os.makedirs (dst_path)
-            os.link (src, dst)
-
-
-    def all_output_files (self, output_dir, output_dir_files):
-        """Return all files generated in lily_output_dir, a set.
-
-        output_dir_files is the list of files in the output directory.
-        """
-        result = set ()
-        missing = set ()
-        base = self.basename()
-        full = os.path.join (output_dir, base)
-        def consider_file (name):
-            if name in output_dir_files:
-                result.add (name)
-
-        def require_file (name):
-            if name in output_dir_files:
-                result.add (name)
-            else:
-                missing.add (name)
-
-        # UGH - junk global_options
-        skip_lily = global_options.skip_lilypond_run
-        for required in [base + '.ly',
-                         base + '.txt']:
-            require_file (required)
-        if not skip_lily:
-            require_file (base + '-systems.count')
-
-        if 'ddump-profile' in global_options.process_cmd:
-            require_file (base + '.profile')
-        if 'dseparate-log-file' in global_options.process_cmd:
-            require_file (base + '.log')
-
-        map (consider_file, [base + '.tex',
-                             base + '.eps',
-                             base + '.texidoc',
-                             base + '.doctitle',
-                             base + '-systems.texi',
-                             base + '-systems.tex',
-                             base + '-systems.pdftexi'])
-        if document_language:
-            map (consider_file,
-                 [base + '.texidoc' + document_language,
-                  base + '.doctitle' + document_language])
-
-        # UGH - junk global_options
-        if (base + '.eps' in result and self.format in (HTML, TEXINFO)
-            and not global_options.skip_png_check):
-            page_count = ps_page_count (full + '.eps')
-            if page_count <= 1:
-                require_file (base + '.png')
-            else:
-                for page in range (1, page_count + 1):
-                    require_file (base + '-page%d.png' % page)
-
-        system_count = 0
-        if not skip_lily and not missing:
-            system_count = int(file (full + '-systems.count').read())
-
-        for number in range(1, system_count + 1):
-            systemfile = '%s-%d' % (base, number)
-            require_file (systemfile + '.eps')
-            consider_file (systemfile + '.pdf')
-
-            # We can't require signatures, since books and toplevel
-            # markups do not output a signature.
-            if 'ddump-signature' in global_options.process_cmd:
-                consider_file (systemfile + '.signature')
-
-
-        return (result, missing)
-
-    def is_outdated (self, output_dir, current_files):
-        found, missing = self.all_output_files (output_dir, current_files)
-        return missing
-
-    def filter_text (self):
-        """Run snippet bodies through a command (say: convert-ly).
-
-        This functionality is rarely used, and this code must have bitrot.
-        """
-        code = self.substring ('code')
-        s = filter_pipe (code, global_options.filter_cmd)
-        d = {
-            'code': s,
-            'options': self.match.group ('options')
-        }
-        # TODO
-        return output[self.format][FILTER] % d
-
-    def replacement_text (self):
-        func = LilypondSnippet.__dict__['output_' + self.format]
-        return func (self)
-
-    def get_images (self):
-        base = self.final_basename ()
-
-        single = '%(base)s.png' % vars ()
-        multiple = '%(base)s-page1.png' % vars ()
-        images = (single,)
-        if (os.path.exists (multiple)
-            and (not os.path.exists (single)
-                 or (os.stat (multiple)[stat.ST_MTIME]
-                     > os.stat (single)[stat.ST_MTIME]))):
-            count = ps_page_count ('%(base)s.eps' % vars ())
-            images = ['%s-page%d.png' % (base, page) for page in range (1, count+1)]
-            images = tuple (images)
-
-        return images
-
-    def output_docbook (self):
-        str = ''
-        base = self.final_basename ()
-        for image in self.get_images ():
-            (base, ext) = os.path.splitext (image)
-            str += output[DOCBOOK][OUTPUT] % vars ()
-            str += self.output_print_filename (DOCBOOK)
-            if (self.substring('inline') == 'inline'):
-                str = '<inlinemediaobject>' + str + '</inlinemediaobject>'
-            else:
-                str = '<mediaobject>' + str + '</mediaobject>'
-        if VERBATIM in self.option_dict:
-                verb = verbatim_html (self.verb_ly ())
-                str = output[DOCBOOK][VERBATIM] % vars () + str
-        return str
-
-    def output_html (self):
-        str = ''
-        base = self.final_basename ()
-        if self.format == HTML:
-            str += self.output_print_filename (HTML)
-            if VERBATIM in self.option_dict:
-                verb = verbatim_html (self.verb_ly ())
-                str += output[HTML][VERBATIM] % vars ()
-            if QUOTE in self.option_dict:
-                str = output[HTML][QUOTE] % vars ()
-
-        str += output[HTML][BEFORE] % vars ()
-        for image in self.get_images ():
-            (base, ext) = os.path.splitext (image)
-            alt = self.option_dict[ALT]
-            str += output[HTML][OUTPUT] % vars ()
-        str += output[HTML][AFTER] % vars ()
-        return str
-
-    def output_info (self):
-        str = ''
-        for image in self.get_images ():
-            (base, ext) = os.path.splitext (image)
-
-            # URG, makeinfo implicitly prepends dot to extension.
-            # Specifying no extension is most robust.
-            ext = ''
-            alt = self.option_dict[ALT]
-            info_image_path = os.path.join (global_options.info_images_dir, base)
-            str += output[TEXINFO][OUTPUTIMAGE] % vars ()
-
-        base = self.final_basename ()
-        str += output[self.format][OUTPUT] % vars ()
-        return str
-
-    def output_latex (self):
-        str = ''
-        base = self.final_basename ()
-        if self.format == LATEX:
-            str += self.output_print_filename (LATEX)
-            if VERBATIM in self.option_dict:
-                verb = self.verb_ly ()
-                str += (output[LATEX][VERBATIM] % vars ())
-
-        str += (output[LATEX][OUTPUT] % vars ())
-
-        ## todo: maintain breaks
-        if 0:
-            breaks = self.ly ().count ("\n")
-            str += "".ljust (breaks, "\n").replace ("\n","%\n")
-
-        if QUOTE in self.option_dict:
-            str = output[LATEX][QUOTE] % vars ()
-        return str
-
-    def output_print_filename (self, format):
-        str = ''
-        if PRINTFILENAME in self.option_dict:
-            base = self.final_basename ()
-            filename = os.path.basename (self.substring ('filename'))
-            str = output[format][PRINTFILENAME] % vars ()
-
-        return str
-
-    def output_texinfo (self):
-        str = self.output_print_filename (TEXINFO)
-        base = self.final_basename ()
-        if DOCTITLE in self.option_dict:
-            doctitle = base + '.doctitle'
-            translated_doctitle = doctitle + document_language
-            if os.path.exists (translated_doctitle):
-                str += '@lydoctitle %s\n\n' % open (translated_doctitle).read ()
-            elif os.path.exists (doctitle):
-                str += '@lydoctitle %s\n\n' % open (doctitle).read ()
-        if TEXIDOC in self.option_dict:
-            texidoc = base + '.texidoc'
-            translated_texidoc = texidoc + document_language
-            if os.path.exists (translated_texidoc):
-                str += '@include %(translated_texidoc)s\n\n' % vars ()
-            elif os.path.exists (texidoc):
-                str += '@include %(texidoc)s\n\n' % vars ()
-
-        substr = ''
-        if VERBATIM in self.option_dict:
-            version = ''
-            if ADDVERSION in self.option_dict:
-                version = output[TEXINFO][ADDVERSION]
-            verb = self.verb_ly ()
-            substr = output[TEXINFO][VERBATIM] % vars ()
-        substr += self.output_info ()
-        if LILYQUOTE in self.option_dict:
-            substr = output[TEXINFO][QUOTE] % {'str':substr}
-        str += substr
-
-#                str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
-#                str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
-#                str += ('@html\n' + self.output_html () + '\n@end html\n')
-
-        if QUOTE in self.option_dict:
-            str = output[TEXINFO][QUOTE] % vars ()
-
-        # need par after image
-        str += '\n'
-
-        return str
-
-re_begin_verbatim = re.compile (r'\s+%.*?begin verbatim.*\n*', re.M)
-re_end_verbatim = re.compile (r'\s+%.*?end verbatim.*$', re.M)
-
-class LilypondFileSnippet (LilypondSnippet):
-    def __init__ (self, type, match, format, line_number):
-        LilypondSnippet.__init__ (self, type, match, format, line_number)
-        self.contents = file (find_file (self.substring ('filename'))).read ()
-
-    def verb_ly (self):
-        s = self.contents
-        s = re_begin_verbatim.split (s)[-1]
-        s = re_end_verbatim.split (s)[0]
-        if not NOGETTEXT in self.option_dict:
-            s = verb_ly_gettext (s)
-        if not s.endswith ('\n'):
-            s += '\n'
-        return s
-
-    def ly (self):
-        name = self.substring ('filename')
-        return ('\\sourcefilename \"%s\"\n\\sourcefileline 0\n%s'
-                % (name, self.contents))
-
-    def final_basename (self):
-        if global_options.use_source_file_names:
-            base = os.path.splitext (os.path.basename (self.substring ('filename')))[0]
-            return base
-        else:
-            return self.basename ()
-
-
-class LilyPondVersionString (Snippet):
-    """A string that does not require extra memory."""
-    def __init__ (self, type, match, format, line_number):
-        Snippet.__init__ (self, type, match, format, line_number)
-
-    def replacement_text (self):
-        return output[self.format][self.type]
-
-
-snippet_type_to_class = {
-    'lilypond_file': LilypondFileSnippet,
-    'lilypond_block': LilypondSnippet,
-    'lilypond': LilypondSnippet,
-    'include': IncludeSnippet,
-    'lilypondversion': LilyPondVersionString,
-}
 
 def find_linestarts (s):
     nls = [0]
@@ -1650,10 +263,11 @@ def find_linestarts (s):
     nls.append (len (s))
     return nls
 
-def find_toplevel_snippets (input_string, format, types):
+def find_toplevel_snippets (input_string, formatter):
     res = {}
+    types = formatter.supported_snippet_types ()
     for t in types:
-        res[t] = re.compile (snippet_res[format][t])
+        res[t] = re.compile (formatter.snippet_regexp (t))
 
     snippets = []
     index = 0
@@ -1667,7 +281,6 @@ def find_toplevel_snippets (input_string, format, types):
     # where we search.
     # Since every part of the string is traversed at most once for
     # every type of snippet, this is linear.
-
     while 1:
         first = None
         endex = 1 << 30
@@ -1679,9 +292,7 @@ def find_toplevel_snippets (input_string, format, types):
                 if not m:
                     continue
 
-                klass = Snippet
-                if type in snippet_type_to_class:
-                    klass = snippet_type_to_class[type]
+                klass = global_options.formatter.snippet_class (type)
 
                 start = index + m.start ('match')
                 line_number = line_start_idx
@@ -1689,7 +300,7 @@ def find_toplevel_snippets (input_string, format, types):
                     line_number += 1
 
                 line_number += 1
-                snip = klass (type, m, format, line_number)
+                snip = klass (type, m, formatter, line_number, global_options)
 
                 found[type] = (start, snip)
 
@@ -1711,51 +322,19 @@ def find_toplevel_snippets (input_string, format, types):
                 endex = found[first][0]
 
         if not first:
-            snippets.append (Substring (input_string, index, len (input_string), line_start_idx))
+            snippets.append (BookSnippet.Substring (input_string, index, len (input_string), line_start_idx))
             break
 
         while (start > line_starts[line_start_idx+1]):
             line_start_idx += 1
 
         (start, snip) = found[first]
-        snippets.append (Substring (input_string, index, start, line_start_idx + 1))
+        snippets.append (BookSnippet.Substring (input_string, index, start, line_start_idx + 1))
         snippets.append (snip)
         found[first] = None
         index = start + len (snip.match.group ('match'))
 
     return snippets
-
-def filter_pipe (input, cmd):
-    """Pass input through cmd, and return the result."""
-
-    if global_options.verbose:
-        progress (_ ("Opening filter `%s'") % cmd)
-
-    (stdin, stdout, stderr) = os.popen3 (cmd)
-    stdin.write (input)
-    status = stdin.close ()
-
-    if not status:
-        status = 0
-        output = stdout.read ()
-        status = stdout.close ()
-        error = stderr.read ()
-
-    if not status:
-        status = 0
-    signal = 0x0f & status
-    if status or (not output and error):
-        exit_status = status >> 8
-        error (_ ("`%s' failed (%d)") % (cmd, exit_status))
-        error (_ ("The error log is as follows:"))
-        ly.stderr_write (error)
-        ly.stderr_write (stderr.read ())
-        exit (status)
-
-    if global_options.verbose:
-        progress ('\n')
-
-    return output
 
 def system_in_directory (cmd, directory):
     """Execute a command in a different directory.
@@ -1771,16 +350,13 @@ def system_in_directory (cmd, directory):
 
 
 def process_snippets (cmd, snippets,
-                      format, lily_output_dir):
+                      formatter, lily_output_dir):
     """Run cmd on all of the .ly files from snippets."""
 
     if not snippets:
         return
 
-    if format in (HTML, TEXINFO) and '--formats' not in cmd:
-        cmd += ' --formats=png '
-    elif format in (DOCBOOK) and '--formats' not in cmd:
-        cmd += ' --formats=png,pdf '
+    cmd = formatter.adjust_snippet_command (cmd)
 
     checksum = snippet_list_checksum (snippets)
     contents = '\n'.join (['snippet-map-%d.ly' % checksum]
@@ -1792,86 +368,6 @@ def process_snippets (cmd, snippets,
     system_in_directory (' '.join ([cmd, ly.mkarg (name)]),
                          lily_output_dir)
 
-
-###
-# Retrieve dimensions from LaTeX
-LATEX_INSPECTION_DOCUMENT = r'''
-\nonstopmode
-%(preamble)s
-\begin{document}
-\typeout{textwidth=\the\textwidth}
-\typeout{columnsep=\the\columnsep}
-\makeatletter\if@twocolumn\typeout{columns=2}\fi\makeatother
-\end{document}
-'''
-
-# Do we need anything else besides `textwidth'?
-def get_latex_textwidth (source):
-    m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
-    if m == None:
-        warning (_ ("cannot find \\begin{document} in LaTeX document"))
-
-        ## what's a sensible default?
-        return 550.0
-
-    preamble = source[:m.start (0)]
-    latex_document = LATEX_INSPECTION_DOCUMENT % vars ()
-
-    (handle, tmpfile) = tempfile.mkstemp('.tex')
-    logfile = os.path.splitext (tmpfile)[0] + '.log'
-    logfile = os.path.split (logfile)[1]
-
-    tmp_handle = os.fdopen (handle,'w')
-    tmp_handle.write (latex_document)
-    tmp_handle.close ()
-
-    ly.system ('%s %s' % (global_options.latex_program, tmpfile),
-               be_verbose=global_options.verbose)
-    parameter_string = file (logfile).read()
-
-    os.unlink (tmpfile)
-    os.unlink (logfile)
-
-    columns = 0
-    m = re.search ('columns=([0-9.]+)', parameter_string)
-    if m:
-        columns = int (m.group (1))
-
-    columnsep = 0
-    m = re.search ('columnsep=([0-9.]+)pt', parameter_string)
-    if m:
-        columnsep = float (m.group (1))
-
-    textwidth = 0
-    m = re.search ('textwidth=([0-9.]+)pt', parameter_string)
-    if m:
-        textwidth = float (m.group (1))
-        if columns:
-            textwidth = (textwidth - columnsep) / columns
-
-    return textwidth
-
-def modify_preamble (chunk):
-    str = chunk.replacement_text ()
-    if (re.search (r"\\begin *{document}", str)
-      and not re.search ("{graphic[sx]", str)):
-        str = re.sub (r"\\begin{document}",
-               r"\\usepackage{graphics}" + '\n'
-               + r"\\begin{document}",
-               str)
-        chunk.override_text = str
-
-
-format2ext = {
-    HTML: '.html',
-    # TEXINFO: '.texinfo',
-    TEXINFO: '.texi',
-    LATEX: '.tex',
-    DOCBOOK: '.xml'
-}
-
-class CompileError(Exception):
-    pass
 
 def snippet_list_checksum (snippets):
     return hash (' '.join([l.basename() for l in snippets]))
@@ -1903,7 +399,7 @@ def split_output_files(directory):
     return set (files)
 
 def do_process_cmd (chunks, input_name, options):
-    snippets = [c for c in chunks if isinstance (c, LilypondSnippet)]
+    snippets = [c for c in chunks if isinstance (c, BookSnippet.LilypondSnippet)]
 
     output_files = split_output_files (options.lily_output_dir)
     outdated = [c for c in snippets if c.is_outdated (options.lily_output_dir, output_files)]
@@ -1918,7 +414,7 @@ def do_process_cmd (chunks, input_name, options):
         progress (_ ("Processing..."))
         progress ('\n')
         process_snippets (options.process_cmd, outdated,
-                          options.format, options.lily_output_dir)
+                          options.formatter, options.lily_output_dir)
 
     else:
         progress (_ ("All snippets are up to date..."))
@@ -1935,30 +431,15 @@ def do_process_cmd (chunks, input_name, options):
 
 ###
 # Format guessing data
-ext2format = {
-    '.html': HTML,
-    '.itely': TEXINFO,
-    '.latex': LATEX,
-    '.lytex': LATEX,
-    '.tely': TEXINFO,
-    '.tex': LATEX,
-    '.texi': TEXINFO,
-    '.texinfo': TEXINFO,
-    '.xml': HTML,
-    '.lyxml': DOCBOOK
-}
 
 def guess_format (input_filename):
     format = None
     e = os.path.splitext (input_filename)[1]
-    if e in ext2format:
-        # FIXME
-        format = ext2format[e]
-    else:
-        error (_ ("cannot determine format for: %s"
-                  % input_filename))
-        exit (1)
-    return format
+    for formatter in BookBase.all_formats:
+      if formatter.can_handle_extension (e):
+        return formatter
+    error (_ ("cannot determine format for: %s" % input_filename))
+    exit (1)
 
 def write_if_updated (file_name, lines):
     try:
@@ -2006,10 +487,8 @@ def do_file (input_filename, included=False):
     else:
         if os.path.exists (input_filename):
             input_fullname = input_filename
-        elif global_options.format == LATEX and ly.search_exe_path ('kpsewhich'):
-            input_fullname = os.popen ('kpsewhich ' + input_filename).read()[:-1]
         else:
-            input_fullname = find_file (input_filename)
+            input_fullname = global_options.formatter.input_fullname (input_filename)
         # Normalize path to absolute path, since we will change cwd to the output dir!
         input_fullname = os.path.abspath (input_fullname)
 
@@ -2035,7 +514,7 @@ def do_file (input_filename, included=False):
         os.chdir (global_options.output_dir)
 
     output_filename = os.path.join(global_options.output_dir,
-                                   input_base + format2ext[global_options.format])
+                                   input_base + global_options.formatter.default_extension)
     if (os.path.exists (input_filename)
         and os.path.exists (output_filename)
         and samefile (output_filename, input_fullname)):
@@ -2048,31 +527,14 @@ def do_file (input_filename, included=False):
         source = in_handle.read ()
         progress ('\n')
 
-        set_default_options (source, default_ly_options, global_options.format)
+        global_options.formatter.init_default_snippet_options (source)
 
 
-        # FIXME: Containing blocks must be first, see
-        #        find_toplevel_snippets.
-        snippet_types = (
-            'multiline_comment',
-            'verbatim',
-            'lilypond_block',
-    #                'verb',
-            'singleline_comment',
-            'lilypond_file',
-            'include',
-            'lilypond',
-            'lilypondversion',
-        )
         progress (_ ("Dissecting..."))
-        chunks = find_toplevel_snippets (source, global_options.format, snippet_types)
+        chunks = find_toplevel_snippets (source, global_options.formatter)
 
-        if global_options.format == LATEX:
-            for c in chunks:
-                if (c.is_plain () and
-                  re.search (r"\\begin *{document}", c.replacement_text())):
-                    modify_preamble (c)
-                    break
+        # Let the formatter modify the chunks before further processing
+        chunks = global_options.formatter.process_chunks (chunks)
         progress ('\n')
 
         if global_options.filter_cmd:
@@ -2094,24 +556,24 @@ def do_file (input_filename, included=False):
             return do_file (name, included=True)
 
         include_chunks = map (process_include,
-                              filter (lambda x: isinstance (x, IncludeSnippet),
+                              filter (lambda x: isinstance (x, BookSnippet.IncludeSnippet),
                                       chunks))
 
         return chunks + reduce (lambda x, y: x + y, include_chunks, [])
 
-    except CompileError:
+    except BookSnippet.CompileError:
         os.chdir (original_dir)
         progress (_ ("Removing `%s'") % output_filename)
         progress ('\n')
-        raise CompileError
+        raise BookSnippet.CompileError
 
 def do_options ():
     global global_options
 
     opt_parser = get_option_parser()
     (global_options, args) = opt_parser.parse_args ()
-    if global_options.format in ('texi-html', 'texi'):
-        global_options.format = TEXINFO
+
+    global_options.information = {'program_version': ly.program_version, 'program_name': ly.program_name }
 
     global_options.include_path =  map (os.path.abspath, global_options.include_path)
 
@@ -2131,12 +593,18 @@ def main ():
     basename = os.path.splitext (files[0])[0]
     basename = os.path.split (basename)[1]
 
-    if not global_options.format:
-        global_options.format = guess_format (files[0])
+    if global_options.format:
+      # Retrieve the formatter for the given format
+      for formatter in BookBase.all_formats:
+        if formatter.can_handle_format (global_options.format):
+          global_options.formatter = formatter
+    else:
+        global_options.formatter = guess_format (files[0])
+        global_options.format = global_options.formatter.format
 
-    formats = 'ps'
-    if global_options.format in (TEXINFO, HTML, DOCBOOK):
-        formats += ',png'
+    # make the global options available to the formatters:
+    global_options.formatter.global_options = global_options
+    formats = global_options.formatter.image_formats
 
     if global_options.process_cmd == '':
         global_options.process_cmd = (lilypond_binary
@@ -2151,13 +619,7 @@ def main ():
         global_options.process_cmd += ' '.join ([' -I %s' % ly.mkarg (p)
                                                  for p in includes])
 
-    if global_options.format in (TEXINFO, LATEX):
-        ## prevent PDF from being switched on by default.
-        global_options.process_cmd += ' --formats=eps '
-        if global_options.create_pdf:
-            global_options.process_cmd += "--pdf -dinclude-eps-fonts -dgs-load-fonts "
-            if global_options.latex_program == 'latex':
-                global_options.latex_program = 'pdflatex'
+    global_options.formatter.process_options (global_options)
 
     if global_options.verbose:
         global_options.process_cmd += " --verbose "
@@ -2178,7 +640,7 @@ def main ():
     identify ()
     try:
         chunks = do_file (files[0])
-    except CompileError:
+    except BookSnippet.CompileError:
         exit (1)
 
     inputs = note_input_file ('')
