@@ -10,6 +10,19 @@
 @c DO NOT WRITE BETWEEN THESE LINES
 
 @newsItem
+@subsubheading LilyPond Report #18.  @emph{May 11, 2010}
+
+The @emph{LilyPond Report} is back, with its two
+@qq{grumpy-and-fluffy} editors! This issue will be filled
+with emotion and coolness, paper bags and zigzag-ending
+staves, plus the usual Frogs and Bugs.
+
+Come
+@uref{http://news.lilynet.net/The-LilyPond-Report-18, read
+LilyPond Report 18} now; comments and contributions are
+warmly encouraged!
+
+@newsItem
 @subsubheading LilyPond 2.13.20 released!  @emph{May 5, 2010}
 
 We are happy to announce the release of LilyPond 2.13.20.  This
@@ -68,18 +81,6 @@ updates to the binary build process in addition to the usual round
 of bugfixes.
 @newsEnd
 
-@newsItem
-@subsubheading LilyPond Report #17.  @emph{March 1, 2010}
-
-Yay, the Report is back, with a new team! It has been said that
-two heads are better than one — does it apply to newsletters as
-well? Read on and let us know! In this issue we’ll talk about
-websites and poetry, frogs and bugs, not to mention an extensive
-review of the Frescobaldi editor!
-
-What are you waiting for?  Come
-@uref{http://news.lilynet.net/The-LilyPond-Report-17, read
-LilyPond Report 17} now!
 
 @newsEnd
 
