@@ -556,7 +556,3 @@ Snippets:
 @cindex tremolo, cross-staff
 @cindex cross-staff tremolo
 
-@knownissues
-
-Cross-staff tremolos do not work well.
-
