@@ -4,10 +4,26 @@
 @c when you add a new item, consider moving the lowest item(s)
 @c into news-old.itexi.
 
+@c keep two blank lines between news entries
+
 @c FIXME: fill in number
 @c used for news about the upcoming release; see CG x.y
-@c DO NOT WRITE BETWEEN THESE LINES
-@c DO NOT WRITE BETWEEN THESE LINES
+
+@newsItem
+@subsubheading LilyPond 2.13.21 released!  @emph{May 12, 2010}
+
+We are happy to announce the release of LilyPond 2.13.21.  This
+release contains the usual number of bugfixes.  However, a number
+of critical issues still remain, so this release is intended for
+developers only.
+
+This release should be of particular interest to package
+maintainers: we have made a few changes to the configure script
+and the required libraries.  Barring any urgent bug reports, this
+is the build system and libraries that will be used for the next
+stable release.
+@newsEnd
+
 
 @newsItem
 @subsubheading LilyPond Report #18.  @emph{May 11, 2010}
@@ -21,67 +37,6 @@ Come
 @uref{http://news.lilynet.net/The-LilyPond-Report-18, read
 LilyPond Report 18} now; comments and contributions are
 warmly encouraged!
-
-@newsItem
-@subsubheading LilyPond 2.13.20 released!  @emph{May 5, 2010}
-
-We are happy to announce the release of LilyPond 2.13.20.  This
-release contains the usual number of bugfixes.  However, a number
-of critical issues still remain, so this release is intended for
-developers only.
-
-Minor syntax change: the undocumented @code{\cresc} and
-@code{\decresc} have changed.  In addition, the [options] for the
-LaTeX mode of @code{lilypond-book} now comes after the
-@code{@{lilypond@}}, following normal LaTeX practice.  As always,
-see the Changes document for more information.
-@newsEnd
-
-@newsItem
-@subsubheading LilyPond 2.13.19 released!  @emph{April 24, 2010}
-
-We are happy to announce the release of LilyPond 2.13.19.  This
-release contains the usual number of bugfixes.  However, 11
-critical issues still remain, so this release is intended for
-developers only.
-@newsEnd
-
-@newsItem
-@subsubheading LilyPond 2.13.18 released!  @emph{April 16, 2010}
-
-We are happy to announce the release of LilyPond 2.13.18.  This
-release contains the usual number of bugfixes, along with improved
-website translations.  However, 14 critical issues still remain,
-so this release is intended for developers only.
-@newsEnd
-
-@newsItem
-@subsubheading LilyPond 2.13.17 released!  @emph{April 2, 2010}
-
-We are happy to announce the release of LilyPond 2.13.17.  This
-release includes bugfixes for 4 critical issues.  However, 15
-critical issues still remain, so this release is intended for
-developers only.
-@newsEnd
-
-@newsItem
-@subsubheading LilyPond 2.13.16 released!  @emph{March 15, 2010}
-
-We are happy to announce the release of LilyPond 2.13.16.  This
-release is intended for developers only, and includes the usual
-round of bugfixes.
-@newsEnd
-
-@newsItem
-@subsubheading LilyPond 2.13.15 released!  @emph{March 4, 2010}
-
-We are happy to announce the release of LilyPond 2.13.15.  This
-release is intended for developers only, and includes a few
-updates to the binary build process in addition to the usual round
-of bugfixes.
-@newsEnd
-
-
 @newsEnd
 
 
