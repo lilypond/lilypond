@@ -178,7 +178,12 @@ local-clean:
 ifeq ($(out),www)
 local-WWW-1: $(OUT_TEXINFO_MANUALS) $(PDF_FILES) info
 
+ifeq ($(AJAX_SEARCH),1)
 local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(OUT_JS_FILES) $(OUT_PHP_FILES) $(source-links) $(OMF_FILES)
+else
+local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links) $(OMF_FILES)
+endif
+
 endif
 
 

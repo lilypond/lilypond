@@ -799,15 +799,17 @@ sub lilypond_css_lines ($$)
   $Texi2HTML::THISDOC{'CSS_LINES'} .=
       "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
 
-  # Add the JavaScript file only if we have an index.
-  # Unfortunately, init_out is called after css_lines, so as a workaround
-  # here we have to check again for the existence of an index...
-  my $ix = main::get_index ("cp");
-  $have_index_entries = (scalar $ix > 0);
-  my $reldir = "";
-  $reldir = "../" unless $bigpage;
-  if ($have_index_entries) {
-    $Texi2HTML::THISDOC{'CSS_LINES'} .= "<script language=\"JavaScript\" src=\"${reldir}lily_search.js\"></script>\n";
+  if ($ENV{'AJAX_SEARCH'} == 1) {
+    # Add the JavaScript file only if we have an index.
+    # Unfortunately, init_out is called after css_lines, so as a workaround
+    # here we have to check again for the existence of an index...
+    my $ix = main::get_index ("cp");
+    $have_index_entries = (scalar $ix > 0);
+    my $reldir = "";
+    $reldir = "../" unless $bigpage;
+    if ($have_index_entries) {
+      $Texi2HTML::THISDOC{'CSS_LINES'} .= "<script language=\"JavaScript\" src=\"${reldir}lily_search.js\"></script>\n";
+    }
   }
 }
 
@@ -1324,16 +1326,19 @@ sub lilypond_generate_page_toc_body($)
       push (@toc_entries, generate_ly_toc_entries($_, \%parentelements, $page_toc_depth, 0, $element));
     }
     # search box
-    local $/=undef;
-    my $name = "search-box";
-    $lang = $Texi2HTML::THISDOC{current_lang};
-    open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$lang/$name.ihtml" or
+    #  I'm assuming that we wouldn't keep the google search box? -gp
+    if (!($ENV{AJAX_SEARCH} == 1)) {
+      local $/=undef;
+      my $name = "search-box";
+      $lang = $Texi2HTML::THISDOC{current_lang};
+      open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$lang/$name.ihtml" or
 	open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$name.ihtml"  or
 	die "no such file: $name.ihtml: $!";
-    my $search_string = decode ('UTF-8', <FILE>);
-    $search_string = "<li>\n" . $search_string . "</li>\n";
-    push (@toc_entries, $search_string);
-    close FILE;
+      my $search_string = decode ('UTF-8', <FILE>);
+      $search_string = "<li>\n" . $search_string . "</li>\n";
+      push (@toc_entries, $search_string);
+      close FILE;
+    }
 
     push (@toc_entries, "</ul>\n");
     if ($web_manual) {
@@ -1376,11 +1381,13 @@ sub lilypond_print_toc_div ($$)
 	 "</a></p>\n";
 
       # AJAX search box, written in JavaScript
-      if ($have_index_entries) {
-        my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
-        print $fh '<script language="JavaScript">print_search_field ("' . 
+      if ($ENV{'AJAX_SEARCH'} == 1) {
+        if ($have_index_entries) {
+          my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+          print $fh '<script language="JavaScript">print_search_field ("' .
              $Texi2HTML::THISDOC{current_lang} . '", "' . 
              $docu_name . "\", " . $bigpage . ")</script>\n";
+        }
       }
 
       print $fh '<h4 class="toc_header"> ' . &$anchor('',
@@ -1836,25 +1843,29 @@ sub lilypond_index_summary_file_entry ($$$$$$$$$)
   my $is_printed = shift;
   my $manual_name = shift;
 
-  if ($index_name eq "cp")
-  {
-    # The entries in the index file have the form:
-    # SearchText \t FormattedText \t EntryURL \t SectionText \t SectionURL
-    push @index_entries, "$entry_text\t$formatted_entry\t$entry_reference\t$entry_element_header\t$entry_element_reference\n";
+  if ($ENV{'AJAX_SEARCH'}==1) {
+    if ($index_name eq "cp")
+    {
+      # The entries in the index file have the form:
+      # SearchText \t FormattedText \t EntryURL \t SectionText \t SectionURL
+      push @index_entries, "$entry_text\t$formatted_entry\t$entry_reference\t$entry_element_header\t$entry_element_reference\n";
+    }
   }
 }
 
 sub lilypond_finish_out ()
 {
-  if (((scalar @index_entries) > 0) and $have_index_entries) {
-    my $lang = $Texi2HTML::THISDOC{current_lang};
-    my $big = "";
-    $big = "-big-page" if $bigpage;
-    my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
-    my $idx_file = "$docu_dir/$docu_name$big.$lang.idx";
-    open IDXOUTFILE, ">:utf8", $idx_file;
-    print IDXOUTFILE @index_entries;
-    close IDXOUTFILE;
+  if ($ENV{'AJAX_SEARCH'}==1) {
+    if (((scalar @index_entries) > 0) and $have_index_entries) {
+      my $lang = $Texi2HTML::THISDOC{current_lang};
+      my $big = "";
+      $big = "-big-page" if $bigpage;
+      my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+      my $idx_file = "$docu_dir/$docu_name$big.$lang.idx";
+      open IDXOUTFILE, ">:utf8", $idx_file;
+      print IDXOUTFILE @index_entries;
+      close IDXOUTFILE;
+    }
   }
 }
 
