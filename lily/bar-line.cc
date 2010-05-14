@@ -199,15 +199,15 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
       m.add_at_edge (X_AXIS, RIGHT, thin, 0);
       m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);
       */
-      m.add_at_edge (X_AXIS, LEFT, thin, thinkern / 2);
-      m.add_at_edge (X_AXIS, RIGHT, thin, thinkern / 2);
+      m.add_at_edge (X_AXIS, LEFT, thin, thinkern);
+      m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);
     }
   else if (str.find ("S") != NPOS || str == "|._.|")
     {
       //  Handle all varsegno stuff
       Stencil segno;
-      segno.add_at_edge (X_AXIS, LEFT, thin, thinkern / 2);
-      segno.add_at_edge (X_AXIS, RIGHT, thin, thinkern / 2);
+      segno.add_at_edge (X_AXIS, LEFT, thin, thinkern);
+      segno.add_at_edge (X_AXIS, RIGHT, thin, thinkern);
       segno.add_stencil (Font_interface::get_default_font (me)->find_by_name ("scripts.varsegno"));
 
       if (str == "S")
