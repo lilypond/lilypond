@@ -255,7 +255,13 @@ Stem::pure_height (SCM smob,
 
   if (!to_boolean (me->get_property ("cross-staff")))
     {
-      Real len = scm_to_double (calc_length (smob)) * ss / 2;
+      Real len_in_halfspaces;
+      SCM user_set_len_scm = me->get_property_data ("length");
+      if (scm_is_number (user_set_len_scm))
+	len_in_halfspaces = scm_to_double (user_set_len_scm);
+      else
+	len_in_halfspaces = scm_to_double (calc_length (smob));
+      Real len = len_in_halfspaces * ss / 2;
       Direction dir = get_grob_direction (me);
 
       Interval hp = head_positions (me);
