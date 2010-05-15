@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.12.0
-\version "2.13.18"
+\version "2.13.20"
 #(set-global-staff-size 15)
 \paper {
   line-width = 16\cm
