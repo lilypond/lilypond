@@ -1485,7 +1485,8 @@ event_chord:
 	| MULTI_MEASURE_REST optional_notemode_duration post_events {
 		Input i;
 		i.set_location (@1, @3);
-		$$ = MAKE_SYNTAX ("multi-measure-rest", i, $2, $3);
+		$$ = MAKE_SYNTAX ("multi-measure-rest", i, $2,
+				  scm_reverse_x ($3, SCM_EOL));
 	}
 	| command_element
 	/* note chord elements are memorized into
