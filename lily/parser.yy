@@ -1480,7 +1480,7 @@ event_chord:
 		$$ = MAKE_SYNTAX ("repetition-chord", i,
 				  PARSER->lexer_->chord_repetition_.last_chord_,
 				  PARSER->lexer_->chord_repetition_.repetition_function_,
-				  $2, $3);
+				  $2, scm_reverse_x ($3, SCM_EOL));
 	}
 	| MULTI_MEASURE_REST optional_notemode_duration post_events {
 		Input i;
