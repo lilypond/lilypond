@@ -55,10 +55,33 @@ def encoded_write(f, s):
 def display_encode (s):
     return s.encode (sys.stderr.encoding or 'utf_8')
 
+# Lilylib globals.
+program_version = '@TOPLEVEL_VERSION@'
+program_name = os.path.basename (sys.argv[0])
+
+
+# Check if program_version contains @ characters. This will be the case if
+# the .py file is called directly while building the lilypond documentation.
+# If so, try to check for the env var LILYPOND_VERSION, which is set by our
+# makefiles and use its value.
+at_re = re.compile (r'@')
+if at_re.match (program_version):
+    if os.environ.has_key('LILYPOND_VERSION'):
+        program_version = os.environ['LILYPOND_VERSION']
+    else:
+        program_version = "unknown"
+
 def stderr_write (s):
     encoded_write (sys.stderr, s)
 
+def warning (s):
+    stderr_write (program_name + ": " + _ ("warning: %s") % s + '\n')
+
+def error (s):
+    stderr_write (program_name + ": " + _ ("error: %s") % s + '\n')
+
 progress = stderr_write
+
 
 def require_python_version ():
     if sys.hexversion < 0x02040000:
@@ -68,7 +91,7 @@ please read 'Setup for MacOS X' in Application Usage.")
         os.system ("open http://python.org/download/")
         sys.exit (2)
 
-# Modified version of the commands.mkarg(x), which always uses 
+# Modified version of the commands.mkarg(x), which always uses
 # double quotes (since Windows can't handle the single quotes:
 def mkarg(x):
     s = ' "'
@@ -92,7 +115,7 @@ def subprocess_system (cmd,
                        log_file=None):
     import subprocess
 
-    show_progress= progress_p 
+    show_progress= progress_p
     name = command_name (cmd)
     error_log_file = ''
 
@@ -171,7 +194,7 @@ def ossystem_system (cmd,
 
 system = subprocess_system
 if sys.platform == 'mingw32':
-    
+
     ## subprocess x-compile doesn't work.
     system = ossystem_system
 
@@ -194,7 +217,7 @@ def search_exe_path (name):
 
 def print_environment ():
     for (k,v) in os.environ.items ():
-	sys.stderr.write ("%s=\"%s\"\n" % (k, v)) 
+	sys.stderr.write ("%s=\"%s\"\n" % (k, v))
 
 class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_heading(self, heading):
@@ -221,7 +244,7 @@ class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_description(self, description):
 	return description
 
-def get_option_parser (*args, **kwargs): 
+def get_option_parser (*args, **kwargs):
     p = optparse.OptionParser (*args, **kwargs)
-    p.formatter = NonDentedHeadingFormatter () 
+    p.formatter = NonDentedHeadingFormatter ()
     return p
