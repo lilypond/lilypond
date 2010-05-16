@@ -56,7 +56,7 @@ traditions of classical music engraving.
 @ref{Productions}: Real-life use of LilyPond.
 
 @item
-@ref{Testimonials}: What do people say?
+@ref{Reviews}: What do people say?
 
 @end itemize
 @divEnd
@@ -85,7 +85,7 @@ traditions of classical music engraving.
 * Freedom::                     Freedom and the GPL.
 * Background::                  Computational aesthetics.
 * Productions::                 Real-life use of LilyPond.
-* Testimonials::                What do people say about it?
+* Reviews::                     What do people say about it?
 * Text input::                  You write music as text?!
 * Easier editing::              Other ways of working with LilyPond.
 @end menu
@@ -562,7 +562,7 @@ lovers.
 @divClass{column-center-bottom}
 @subheading Where now?
 
-Still not convinced?  Read some of our users' @ref{Testimonials}.
+Still not convinced?  Read some of our users' @ref{Reviews}.
 If you've already decided to try LilyPond, first read about our
 @ref{Text input}.
 @divEnd
@@ -570,8 +570,118 @@ If you've already decided to try LilyPond, first read about our
 @c TRANSLATORS, so far it's mostly from
 @c http://lilypond.org/web/switch/testimonials
 
-@node Testimonials
-@unnumberedsec Testimonials
+@node Reviews
+@unnumberedsec Reviews
+
+@divClass{column-left-top}
+@subheading Published articles
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+September 2009
+
+The German LinuxUser magazine wrote an
+@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+article about LilyPond}.
+
+
+@item
+February 2008
+
+In @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html,
+articles on his personal site}, Andrew Hawryluk compares Finale
+and LilyPond in general terms, and evaluates engraving
+capabilities of both pieces of software in detail.  The second
+article is an instructive analysis of engraving issues in
+Rachmaninoff's Piano Prelude No. 6, including comparisons with a
+hand-engraved reference edition.
+
+@item
+June 2006
+
+@uref{http://distrowatch.com,DistroWatch} awards LilyPond and
+@uref{http://distrowatch.com/weekly.php?issue=20060605,writes}
+@qq{Ladies and Gentleman, we are pleased to announce that, based
+on readers' requests, the DistroWatch May 2006 donation has been
+awarded to LilyPond (@euro{}190.00) and Lua (US$250.00).}
+
+@item
+December 2005
+
+@uref{http://linuxjournal.com,Linux Journal} publishes an article
+titled @uref{http://www.linuxjournal.com/article/8364, Make
+Stunning Schenker Graphs with GNU LilyPond}.  It is an in-depth
+but hands-on feature article with crisp LilyPond graphics.  Author
+Kris Shaffer remarks @qq{GNU LilyPond generates beautiful graphics
+that make commercial alternatives seem second-rate.}
+
+@item
+August 20, 2005
+
+The Belgian newspaper De Standaard investigates what drives Free
+Software authors in an article titled
+@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+Delen van KENNIS zonder WINSTBEJAG} (Non-profit sharing of
+knowlegde) in its @q{DS2 bijlage}.  LilyPond is used as an example
+and the article is interspersed with quotes from an email
+interview with Jan Nieuwenhuizen. This marks LilyPond's first
+appearance in mainstream printed press.
+
+@item
+June 2005
+
+A French article on the LilyPond 2.6 release appeared on
+@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
+
+@item
+October 2004
+
+The editors of Computer!Totaal, a Dutch computer magazine,
+@uref{http://lilypond.org/web/images/computer-totaal.jpeg,
+describe LilyPond} in the October 2004 issue as: @qq{Wonderful
+free (open source) software [..] The sheet music produced by
+LilyPond is exceptionally pretty [..] a very powerful system that
+can do almost anything.}
+
+@item
+July, August 2004
+
+Dave Phillips wrote an introductory article for
+@uref{http://linuxjournal.com,Linux Journal}: At
+the sounding edge: LilyPond, parts
+@uref{http://www.linuxjournal.com/article/7657, one} and
+@uref{http://www.linuxjournal.com/article/7719, two}.
+
+@item
+March 2004
+
+Chris Cannam
+@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,interviewed}
+Han-Wen Nienhuys and Jan Nieuwenhuizen on linuxmusician.com
+(original site defunct).  This interview was also reviewed in a
+@uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=,
+slashdot story}.
+
+@item
+February 2004
+
+Jazz singer Gail Selkirk writes about
+@uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
+Diving into LilyPond}.  @qq{... you can make lead sheets or full
+orchestral parts, and the results can be stunning.}
+@uref{http://www.computermusic.co.uk/, Computer Music Special},
+issue CMS06.
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading User testimonials
 
 @divClass{testimonial-item}
 @imageFloat{carter-brey,jpg, right}
@@ -702,6 +812,7 @@ last year, i was raving to several friends of mine about its
 potential.}
 @divEnd
 
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading Where now?
@@ -820,6 +931,7 @@ Some editing environments include syntax highlighting, automatic
 command completion, and pre-made templates.  Other programs
 actually provide a GUI which allows direct manipulation of a
 graphical score.  For more information, see @ref{Easier editing}.
+
 
 
 @divClass{column-center-bottom}
@@ -1052,7 +1164,7 @@ users even report that they can enter a full score in LilyPond
 faster than with a piano keyboard or mouse+GUI!  Perhaps you would
 like to review the @ref{Features}, @ref{Examples}, or the
 @ref{Freedom} that LilyPond provides, or read about users'
-@ref{Productions} and @ref{Testimonials}.  In addition, our
+@ref{Productions} and @ref{Reviews}.  In addition, our
 approach to the computational aesthetics of classical engraving is
 explained in our @ref{Background}.
 
