@@ -141,7 +141,9 @@ simply save a file for later reference.
 
 Put fragments of music into texts without cutting and pasting
 pictures.  Integrate music into @LaTeX{} or HTML seamlessly, or add
-music to OpenOffice.org with OOoLilyPond.
+music to OpenOffice.org with OOoLilyPond. Plugins are also available
+to allow LilyPond code in various blogs and wikis, making online
+collaboration possible.
 
 
 @subsubheading Accessibility
