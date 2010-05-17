@@ -218,7 +218,7 @@ Tuplets may be nested:
 
 @lilypond[quote,verbatim,relative=2]
 \autoBeamOff
-c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4 |
+c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4
 @end lilypond
 
 Modifying nested tuplets which begin at the same musical moment
@@ -255,6 +255,9 @@ see @ref{Scaling durations}.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {non-default-tuplet-numbers.ly}
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{controlling-tuplet-bracket-visibility.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
