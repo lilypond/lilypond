@@ -739,7 +739,7 @@ manuals can be found at @url{http://lilypond.org}}
 @unnumberedsec Publications
 
 @divClass{column-center-top}
-@subheading What we wrote
+@subheading What we wrote about LilyPond
 
 @divClass{keep-bullets}
 @itemize
@@ -771,13 +771,20 @@ on Musical Informatics (XIV CIM 2003), Firenze, Italy, May 2003.
 
 @divClass{column-center-bottom}
 
-@subheading What others wrote
+@subheading What people did with LilyPond
+
+@help{Yeah, this doesn't look bad at all... there's 20-50 papers
+out there that cite lilypond; somebody should find at least 3 or 4
+of them, so that it doesn't look so graham-specific.}
 
 @divClass{keep-bullets}
 @itemize
 
 @item
-null
+Graham Percival, Tosten Anders, and George Tzanetakis,
+@emph{Generating Targeted Rhythmic Exercises for Music Students
+with Constraint Satisfaction Programming}, International Computer
+Music Conference 2008.
 
 @end itemize
 
