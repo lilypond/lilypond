@@ -2887,7 +2887,10 @@ Snippets:
 Time is administered by the @code{Timing_translator}, which by
 default is to be found in the @code{Score} context.  An alias,
 @code{Timing}, is added to the context in which the
-@code{Timing_translator} is placed.
+@code{Timing_translator} is placed.  To ensure that the
+@code{Timing} alias is available, you may need to explicitly
+instantiate the containing context (such as @code{Voice} or
+@code{Staff}).
 
 The following properties of @code{Timing} are used
 to keep track of timing within the score.
@@ -2926,14 +2929,16 @@ At 4/8 through the third measure, the @code{measurePosition} is
 advanced by 1/8 to 5/8, shortening that bar by 1/8.
 The next bar line then falls at 9/8 rather than 5/4.
 
-@lilypond[quote,verbatim,relative=1]
-\set Score.measureLength = #(ly:make-moment 5 4)
-c1 c4
-c1 c4
-c4 c4
-\set Score.measurePosition = #(ly:make-moment 5 8)
-b4 b4 b8
-c4 c1
+@lilypond[quote,verbatim]
+\new Voice \relative c' {
+  \set Timing.measureLength = #(ly:make-moment 5 4)
+  c1 c4 |
+  c1 c4 |
+  c4 c
+  \set Timing.measurePosition = #(ly:make-moment 5 8)
+  b4 b b8 |
+  c4 c1 |
+}
 @end lilypond
 
 @noindent
