@@ -18,7 +18,7 @@
 
 ;;;; Note: currently misused as testbed for titles with markup, see
 ;;;;       input/test/title-markup.ly
-;;;; 
+;;;;
 ;;;; TODO:
 ;;;;   * %% Papersize in (header ...)
 ;;;;   * text setting, kerning.
@@ -51,7 +51,7 @@
       (ly:number->string num)))
 
 (define (number-pair->string4 numpair)
-  (ly:format "~4l" numpair)) 
+  (ly:format "~4l" numpair))
 
 ;;;
 ;;; Lily output interface, PostScript implementation --- cleanup and docme
@@ -59,7 +59,7 @@
 
 ;; two beziers
 (define (bezier-sandwich lst thick)
-  (ly:format "~l ~4f draw_bezier_sandwich" 
+  (ly:format "~l ~4f draw_bezier_sandwich"
 	     (map number-pair->string4 lst)
 	  thick))
 
@@ -102,6 +102,40 @@
 	  (- x2 x1) (- y2 y1)
 	  x1 y1 thick))
 
+(define (connected-shape pointlist thick x-scale y-scale connect fill)
+  (ly:format "~a~4f ~4f ~4f ~4f ~a ~a draw_connected_shape"
+    (string-concatenate
+      (map (lambda (x)
+             (apply (if (eq? (length x) 6)
+                        (lambda (x1 x2 x3 x4 x5 x6)
+                          (ly:format "~4f ~4f ~4f ~4f ~4f ~4f 6 "
+                                     x1
+                                     x2
+                                     x3
+                                     x4
+                                     x5
+                                     x6))
+                        (lambda (x1 x2)
+                           (ly:format "~4f ~4f 2 " x1 x2)))
+                    x))
+           (reverse pointlist)))
+      (length pointlist)
+      x-scale
+      y-scale
+      thick
+      (if connect "true" "false")
+      (if fill "true" "false")))
+
+(define (partial-ellipse x-radius y-radius start-angle end-angle thick connect fill)
+  (ly:format "~a ~a ~4f ~4f ~4f ~4f ~4f draw_partial_ellipse"
+        (if fill "true" "false")
+	(if connect "true" "false")
+	x-radius
+	y-radius
+	start-angle
+	end-angle
+	thick))
+
 (define (ellipse x-radius y-radius thick fill)
   (ly:format
    "~a ~4f ~4f ~4f draw_ellipse"
@@ -123,8 +157,8 @@
       (ly:format "~4f ~4f ~4f ~a~a"
 		 w x y
 		 prefix g)))
-  
-  (ly:format 
+
+  (ly:format
    (if cid?
 "/~a /CIDFont findresource ~a output-scale div scalefont setfont
 ~a
@@ -190,7 +224,7 @@
      "false")
    x-radius y-radius thick))
 
-(define (placebox x y s) 
+(define (placebox x y s)
   (if (not (string-null? s))
       (ly:format "~4f ~4f moveto ~a\n" x y s)
       ""))
@@ -239,7 +273,7 @@
 (define (resetrotation ang x y)
   "grestore  ")
 
-(define (unknown) 
+(define (unknown)
   "\n unknown\n")
 
 (define (url-link url x y)
@@ -256,7 +290,7 @@
 	(let*
 	    ((head (car exps))
 	     (rest (cdr exps))
-	     (arity 
+	     (arity
 	      (cond
 	       ((memq head '(rmoveto rlineto lineto moveto)) 2)
 	       ((memq head '(rcurveto curveto)) 6)
@@ -268,14 +302,13 @@
 	  ;; WARNING: this is a vulnerability: a user can output arbitrary PS code here.
 	  (cons (ly:format
 			"~l ~a "
-			args 
+			args
 			head)
 		(convert-path-exps (drop rest arity))))
 	'()))
-    
-    
+
+
   (ly:format
    "gsave currentpoint translate 1 setlinecap ~a setlinewidth\n~l stroke grestore"
    thickness
    (convert-path-exps exps)))
-  

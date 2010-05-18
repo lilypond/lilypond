@@ -27,6 +27,7 @@ defined in the output modules (output-*.scm)"
     bracket
     char
     circle
+    connected-shape
     dashed-line
     dashed-slur
     dot
@@ -40,6 +41,7 @@ defined in the output modules (output-*.scm)"
     no-origin
     oval
     path
+    partial-ellipse
     placebox
     polygon
     repeat-slash

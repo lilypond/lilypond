@@ -376,6 +376,94 @@
     `(rx . ,x-radius)
     `(ry . ,y-radius)))
 
+(define (partial-ellipse x-radius y-radius start-angle end-angle thick connect fill)
+  (define (make-ellipse-radius x-radius y-radius angle)
+    (/ (* x-radius y-radius)
+       (sqrt (+ (* (* y-radius y-radius)
+                   (* (cos angle) (cos angle)))
+                (* (* x-radius x-radius)
+                   (* (sin angle) (sin angle)))))))
+  (let*
+    ((dummy (format #t "INFO XR ~a YR ~a SA ~a EA ~a\n" x-radius y-radius start-angle end-angle))
+     (new-start-angle (* PI-OVER-180 (angle-0-360 start-angle)))
+     (start-radius (make-ellipse-radius x-radius y-radius new-start-angle))
+     (new-end-angle (* PI-OVER-180 (angle-0-360 end-angle)))
+     (end-radius (make-ellipse-radius x-radius y-radius new-end-angle))
+     (epsilon 1.5e-3)
+     (x-end (- (* end-radius (cos new-end-angle))
+               (* start-radius (cos new-start-angle))))
+     (y-end (- (* end-radius (sin new-end-angle))
+               (* start-radius (sin new-start-angle))))
+     (dummy (format #t "INFO NSA ~a SR ~a NEA ~a ER ~a\n" new-start-angle start-radius new-end-angle end-radius)))
+   (if (and (< (abs x-end) epsilon) (< (abs y-end) epsilon))
+    (entity
+      'ellipse ""
+      `(fill . ,(if fill "currentColor" "none"))
+      `(stroke . "currentColor")
+      `(stroke-width . ,thick)
+      '(stroke-linejoin . "round")
+      '(stroke-linecap . "round")
+      '(cx . 0)
+      '(cy . 0)
+      `(rx . ,x-radius)
+      `(ry . ,y-radius))
+    (entity
+      'path ""
+      `(fill . ,(if fill "currentColor" "none"))
+      `(stroke . "currentColor")
+      `(stroke-width . ,thick)
+      '(stroke-linejoin . "round")
+      '(stroke-linecap . "round")
+      (cons
+        'd
+        (string-append
+          (ly:format
+            "M~4f ~4fA~4f ~4f 0 ~4f 0 ~4f ~4f"
+            (* start-radius (cos new-start-angle))
+            (- (* start-radius (sin new-start-angle)))
+            x-radius
+            y-radius
+            (if (> 0 (- new-start-angle new-end-angle)) 0 1)
+            (* end-radius (cos new-end-angle))
+            (- (* end-radius (sin new-end-angle))))
+            (if connect
+                (ly:format "L~4f,~4f"
+                           (* start-radius (cos new-start-angle))
+                           (- (* start-radius (sin new-start-angle))))
+                "")))))))
+
+(define (connected-shape pointlist thick x-scale y-scale connect fill)
+  (entity
+    'path ""
+    `(fill . ,(if fill "currentColor" "none"))
+    `(stroke . "currentColor")
+    `(stroke-width . ,thick)
+    '(stroke-linejoin . "round")
+    '(stroke-linecap . "round")
+    (cons
+      'd
+      (ly:format
+        "M0 0~a ~a"
+        (string-concatenate
+          (map (lambda (x)
+                 (apply
+                   (if (eq? (length x) 6)
+                       (lambda (x1 x2 x3 x4 x5 x6)
+                         (ly:format "C~4f ~4f ~4f ~4f ~4f ~4f"
+                                    (* x1 x-scale)
+                                    (- (* x2 y-scale))
+                                    (* x3 x-scale)
+                                    (- (* x4 y-scale))
+                                    (* x5 x-scale)
+                                    (- (* x6 y-scale))))
+                       (lambda (x1 x2)
+                         (ly:format "L~4f ~4f"
+                                    (* x-scale x1)
+                                    (- (* y-scale x2)))))
+                   x))
+               pointlist))
+        (if connect "z " "")))))
+
 (define (embedded-svg string)
   string)
 

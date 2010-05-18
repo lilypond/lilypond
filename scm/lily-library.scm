@@ -280,6 +280,36 @@ bookoutput function"
 	    (cons (cdar alist)
 		  (flatten-alist (cdr alist))))))
 
+(define (assoc-remove key alist)
+  "Remove key (and its corresponding value) from an alist.
+   Different than assoc-remove! because it is non-destructive."
+  (define (assoc-crawler key l r)
+    (if (null? r)
+        l
+        (if (equal? (caar r) key)
+            (append l (cdr r))
+            (assoc-crawler key (append l `(,(car r))) (cdr r)))))
+  (assoc-crawler key '() alist))
+
+(define-public (map-selected-alist-keys function keys alist)
+  "Returns alist with function applied to all of the values in list keys.
+   For example:
+   @code{guile> (map-selected-alist-keys - '(a b) '((a . 1) (b . -2) (c . 3) (d . 4)))}
+   @code{((a . -1) (b . 2) (c . 3) (d . 4))}"
+   (define (map-selected-alist-keys-helper function key alist)
+     (map
+     (lambda (pair)
+       (if (equal? key (car pair))
+           (cons key (function (cdr pair)))
+           pair))
+     alist))
+   (if (null? keys)
+       alist
+       (map-selected-alist-keys
+         function
+         (cdr keys)
+         (map-selected-alist-keys-helper function (car keys) alist))))
+
 ;;;;;;;;;;;;;;;;
 ;; vector
 
@@ -369,7 +399,7 @@ bookoutput function"
    (lambda (x) x)
    (map proc lst)))
 
-(define (flatten-list x)
+(define-public (flatten-list x)
   "Unnest list."
   (cond ((null? x) '())
         ((not (pair? x)) (list x))
@@ -471,27 +501,25 @@ bookoutput function"
 
 (define-public interval-end cdr)
 
-(define-public (interval-translate iv amount)
-  (cons (+ amount (car iv))
-	(+ amount (cdr iv))))
-
 (define (other-axis a)
   (remainder (+ a 1) 2))
 
 (define-public (interval-widen iv amount)
-   (cons (- (car iv) amount)
-         (+ (cdr iv) amount)))
+  (cons (- (car iv) amount)
+    (+ (cdr iv) amount)))
 
 (define-public (interval-empty? iv)
    (> (car iv) (cdr iv)))
 
 (define-public (interval-union i1 i2)
-   (cons (min (car i1) (car i2))
-	 (max (cdr i1) (cdr i2))))
+  (cons
+    (min (car i1) (car i2))
+    (max (cdr i1) (cdr i2))))
 
 (define-public (interval-intersection i1 i2)
-   (cons (max (car i1) (car i2))
-	 (min (cdr i1) (cdr i2))))
+   (cons
+     (max (car i1) (car i2))
+     (min (cdr i1) (cdr i2))))
 
 (define-public (interval-sane? i)
   (not (or  (nan? (car i))
@@ -503,6 +531,104 @@ bookoutput function"
 (define-public (add-point interval p)
   (cons (min (interval-start interval) p)
         (max (interval-end interval) p)))
+
+(define-public (reverse-interval iv)
+  (cons (cdr iv) (car iv)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; coordinates
+
+(define coord-x car)
+(define coord-y cdr)
+
+(define (coord-operation operator operand coordinate)
+  (if (pair? operand)
+    (cons (operator (coord-x operand) (coord-x coordinate))
+          (operator (coord-y operand) (coord-y coordinate)))
+    (cons (operator operand (coord-x coordinate))
+          (operator operand (coord-y coordinate)))))
+
+(define (coord-apply function coordinate)
+  (if (pair? function)
+    (cons
+      ((coord-x function) (coord-x coordinate))
+      ((coord-y function) (coord-y coordinate)))
+    (cons
+      (function (coord-x coordinate))
+      (function (coord-y coordinate)))))
+
+(define-public (coord-translate coordinate amount)
+  (coord-operation + amount coordinate))
+
+(define-public (coord-scale coordinate amount)
+  (coord-operation * amount coordinate))
+
+(define-public (coord-rotate coordinate degrees-in-radians)
+  (let*
+    ((coordinate
+      (cons
+        (exact->inexact (coord-x coordinate))
+        (exact->inexact (coord-y coordinate))))
+     (radius
+      (sqrt
+        (+ (* (coord-x coordinate) (coord-x coordinate))
+           (* (coord-y coordinate) (coord-y coordinate)))))
+    (angle (angle-0-2pi (atan (coord-y coordinate) (coord-x coordinate)))))
+   (cons
+     (* radius (cos (+ angle degrees-in-radians)))
+     (* radius (sin (+ angle degrees-in-radians))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; trig
+
+(define-public PI (* 4 (atan 1)))
+
+(define-public TWO-PI (* 2 PI))
+
+(define-public PI-OVER-TWO (/ PI 2))
+
+(define-public THREE-PI-OVER-TWO (* 3 PI-OVER-TWO))
+
+(define-public (cyclic-base-value value cycle)
+  "Takes a value and modulo-maps it between 0 and base."
+  (if (< value 0)
+      (cyclic-base-value (+ value cycle) cycle)
+      (if (>= value cycle)
+          (cyclic-base-value (- value cycle) cycle)
+          value)))
+
+(define-public (angle-0-2pi angle)
+  "Takes an angle in radians and maps it between 0 and 2pi."
+  (cyclic-base-value angle TWO-PI))
+
+(define-public (angle-0-360 angle)
+  "Takes an angle in radians and maps it between 0 and 2pi."
+  (cyclic-base-value angle 360.0))
+
+(define-public PI-OVER-180  (/ PI 180))
+
+(define-public (degrees->radians angle-degrees)
+  "Convert the given angle from degrees to radians"
+  (* angle-degrees PI-OVER-180))
+
+(define-public (ellipse-radius x-radius y-radius angle)
+  (/
+    (* x-radius y-radius)
+    (sqrt
+      (+ (* (expt y-radius 2)
+            (* (cos angle) (cos angle)))
+        (* (expt x-radius 2)
+           (* (sin angle) (sin angle)))))))
+
+(define-public (polar->rectangular radius angle-in-degrees)
+  "Convert polar coordinate @code{radius} and @code{angle-in-degrees}
+   to (x-length . y-length)"
+  (let ((complex (make-polar
+                    radius
+                    (degrees->radians angle-in-degrees))))
+     (cons
+       (real-part complex)
+       (imag-part complex))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; string
@@ -625,6 +751,9 @@ applied to function @var{getter}.")
 
 (define-public (car< a b)
   (< (car a) (car b)))
+
+(define-public (car<= a b)
+  (<= (car a) (car b)))
 
 (define-public (symbol<? lst r)
   (string<? (symbol->string lst) (symbol->string r)))

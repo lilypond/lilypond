@@ -35,7 +35,7 @@
 }
 bind def
 
-% from adobe tech note 5002. 
+% from adobe tech note 5002.
 /BeginEPSF { %def
     /b4_Inc_state save def % Save state for cleanup
     /dict_count countdictstack def % Count objects on dict stack
@@ -57,7 +57,7 @@ bind def
   count op_count sub {pop} repeat % Clean up stacks
   countdictstack dict_count sub {end} repeat
   b4_Inc_state restore
-} bind def 
+} bind def
 
 /stroke_and_fill {
 	gsave
@@ -103,7 +103,7 @@ bind def
 	def
 	rmoveto % x(0) y(0)
 	{ polygon_x polygon_y vector_add lineto } repeat % n times
-	closepath 
+	closepath
 	{ %fill?
 		stroke_and_fill
 	}{
@@ -126,7 +126,7 @@ bind def
 % this is for drawing slurs and barre-indicators.
 /draw_bezier_sandwich  % x5 y5 x6 y6 x7 y7
                        % x4 y4
-                       % x1 y1 x2 y2 x3 y3 
+                       % x1 y1 x2 y2 x3 y3
                        % x0 y0
                        % linewidth draw_bezier_sandwich
 {
@@ -159,7 +159,7 @@ bind def
 	3 2 roll	% f? x0 y0 r
 	dup 0 rmoveto
 	0 360 arc closepath
-		{ stroke_and_fill } 
+		{ stroke_and_fill }
 		{ stroke }
 	ifelse
 } bind def
@@ -190,6 +190,64 @@ bind def
              { stroke_and_fill}
              { stroke }
   ifelse
+} bind def
+
+/draw_partial_ellipse % filled connect x-radius y-radius startangle endangle thickness draw_partial_ellipse
+% Note that filled is not boolean to permit for different graylevels (ie for trill keys)
+{
+  gsave
+  currentpoint translate
+  /thickness exch def
+  /endangle exch def
+  /startangle exch def
+  /y_radius exch def
+  /x_radius exch def
+  /endrad x_radius y_radius mul
+    x_radius x_radius mul
+    endangle cos endangle cos mul mul
+    y_radius y_radius mul
+    endangle sin endangle sin mul mul add sqrt div def
+  /endangle endangle sin endrad mul y_radius div
+    endangle cos endrad mul x_radius div atan def
+  /startrad x_radius y_radius mul
+    x_radius x_radius mul
+      startangle cos startangle cos mul mul
+    y_radius y_radius mul
+      startangle sin startangle sin mul mul add sqrt div def
+  /startangle startangle sin startrad mul y_radius div
+    startangle cos startrad mul x_radius div atan def
+  /connect exch def
+  /filled exch def
+  /savematrix matrix currentmatrix def
+  thickness setlinewidth
+  x_radius y_radius scale
+  startangle cos startangle sin moveto
+  0 0 1 startangle
+    startangle endangle eq { endangle 360 add } { endangle } ifelse
+    arc
+  connect {
+    startangle cos startangle sin moveto endangle cos endangle sin lineto }
+    if
+  savematrix setmatrix filled { stroke_and_fill } { stroke } ifelse
+  grestore
+} bind def
+
+/draw_connected_shape
+{
+  gsave
+  currentpoint translate
+  /filled exch def
+  /connect exch def
+  /savematrix matrix currentmatrix def
+  setlinewidth
+  scale
+  /arlen exch def
+  arlen {
+    /shlen exch def
+    shlen { } repeat shlen 2 eq { lineto } { curveto } ifelse
+  } repeat connect { closepath } if
+  savematrix setmatrix filled { stroke_and_fill } { stroke } ifelse
+  grestore
 } bind def
 
 /draw_line % dx dy x1 y1 thickness draw_line

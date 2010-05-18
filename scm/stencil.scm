@@ -202,6 +202,188 @@ the more angular the shape of the parenthesis."
    (cons (- x-out-radius) x-out-radius)
    (cons (- y-out-radius) y-out-radius))))
 
+(define-public
+  (make-partial-ellipse-stencil
+    x-radius y-radius start-angle end-angle thick connect fill)
+
+  (define (make-radius-list x-radius y-radius)
+    (apply append
+           (map (lambda (adder)
+                  (map (lambda (quadrant)
+                         (cons (+ adder (car quadrant))
+                               (cdr quadrant)))
+                       `((0.0 . (,x-radius . 0.0))
+                         (,PI-OVER-TWO . (0.0 . ,y-radius))
+                         (,PI . (,(- x-radius) . 0.0))
+                         (,THREE-PI-OVER-TWO . (0.0 . ,(- y-radius))))))
+                `(0.0 ,TWO-PI))))
+
+  (define
+    (insert-in-ordered-list ordering-function value inlist cutl? cutr?)
+    (define
+      (helper ordering-function value left-list right-list cutl? cutr?)
+      (if (null? right-list)
+          (append
+            (if cutl? '() left-list)
+            (list value)
+            (if cutr? '() right-list))
+          (if (ordering-function value (car right-list))
+              (append
+                (if cutl? '() left-list)
+                (list value)
+                (if cutr? '() right-list))
+              (helper
+                ordering-function
+                value
+                (append left-list (list (car right-list)))
+                (cdr right-list)
+                cutl?
+                cutr?))))
+    (helper ordering-function value '() inlist cutl? cutr?))
+
+  (define (ordering-function-1 a b) (car< a b))
+
+  (define (ordering-function-2 a b) (car<= a b))
+
+  (define (min-max-crawler min-max side l)
+    (reduce min-max
+            (if (eq? min-max min) 100000 -100000)
+            (map (lambda (x) (side x)) l)))
+
+  (let*
+      ((x-out-radius (+ x-radius (/ thick 2.0)))
+       (y-out-radius (+ y-radius (/ thick 2.0)))
+       (new-end-angle (angle-0-2pi (degrees->radians end-angle)))
+       (end-radius (ellipse-radius x-out-radius y-out-radius new-end-angle))
+       (new-start-angle (angle-0-2pi (degrees->radians start-angle)))
+       (start-radius (ellipse-radius x-out-radius y-out-radius new-start-angle))
+       (radius-list (make-radius-list x-out-radius y-out-radius))
+       (rectangular-end-radius (polar->rectangular end-radius end-angle))
+       (rectangular-start-radius (polar->rectangular start-radius start-angle))
+       (new-end-angle
+         (if (<= new-end-angle new-start-angle)
+             (+ TWO-PI new-end-angle)
+             new-end-angle))
+       (possible-extrema
+         (insert-in-ordered-list
+           ordering-function-2
+           (cons new-end-angle rectangular-end-radius)
+           (insert-in-ordered-list
+             ordering-function-1
+             (cons new-start-angle rectangular-start-radius)
+             radius-list
+             #t
+             #f)
+           #f
+           #t)))
+    (ly:make-stencil
+      (list
+        'partial-ellipse
+        x-radius
+        y-radius
+        start-angle
+        end-angle
+        thick
+        connect
+        fill)
+      (cons (min-max-crawler min cadr possible-extrema)
+            (min-max-crawler max cadr possible-extrema))
+      (cons (min-max-crawler min cddr possible-extrema)
+            (min-max-crawler max cddr possible-extrema)))))
+
+(define-public
+  (make-connected-shape-stencil pointlist
+                                thickness
+                                x-scale
+                                y-scale
+                                connect
+                                fill)
+
+  (define (connected-shape-min-max pointlist)
+
+    (define (line-part-min-max x1 x2)
+      (list (min x1 x2) (max x1 x2)))
+
+    (define (bezier-part-min-max x1 x2 x3 x4)
+      ((lambda (x) (list (reduce min 10000 x) (reduce max -10000 x)))
+        (map
+          (lambda (x)
+            (+ (* x1 (expt (- 1 x) 3))
+               (+ (* 3 (* x2 (* (expt (- 1 x) 2) x)))
+                  (+ (* 3 (* x3 (* (- 1 x) (expt x 2))))
+                     (* x4 (expt x 3))))))
+          (if (< (+ (expt x2 2) (+ (expt x3 2) (* x1 x4)))
+                 (+ (* x1 x3) (+ (* x2 x4) (* x2 x3))))
+              (list 0.0 1.0)
+              (filter
+                (lambda (x) (and (>= x 0) (<= x 1)))
+                (append
+                  (list 0.0 1.0)
+                  (map (lambda (op)
+                         (if (not (eqv? 0.0
+                                        (- (+ x1 (* 3 x3)) (+ x4 (* 3 x2)))))
+                             ;; Zeros of the bezier curve
+                             (/ (+ (- x1 (* 2 x2))
+                                   (op x3
+                                       (sqrt (- (+ (expt x2 2)
+                                                   (+ (expt x3 2) (* x1 x4)))
+                                                (+ (* x1 x3)
+                                                   (+ (* x2 x4) (* x2 x3)))))))
+                                (- (+ x1 (* 3 x3)) (+ x4 (* 3 x2))))
+                             ;; Apply L'hopital's rule to get the zeros if 0/0
+                             (* (op 0 1)
+                                (/ (/ (- x4 x3) 2)
+                                   (sqrt (- (+ (* x2 x2)
+                                               (+ (* x3 x3) (* x1 x4)))
+                                            (+ (* x1 x3)
+                                               (+ (* x2 x4) (* x2 x3)))))))))
+                       (list + -))))))))
+
+  (define (bezier-min-max x1 y1 x2 y2 x3 y3 x4 y4)
+    (map (lambda (x)
+           (apply bezier-part-min-max x))
+         `((,x1 ,x2 ,x3 ,x4) (,y1 ,y2 ,y3 ,y4))))
+
+  (define (line-min-max x1 y1 x2 y2)
+    (map (lambda (x)
+           (apply line-part-min-max x))
+         `((,x1 ,x2) (,y1 ,y2))))
+
+  ((lambda (x)
+     (list
+       (reduce min +inf.0 (map caar x))
+       (reduce max -inf.0 (map cadar x))
+       (reduce min +inf.0 (map caadr x))
+       (reduce max -inf.0 (map cadadr x))))
+    (map (lambda (x)
+           (if (eq? (length x) 8)
+               (apply bezier-min-max x)
+               (apply line-min-max x)))
+         (map (lambda (x y)
+                (append (list (cadr (reverse x)) (car (reverse x))) y))
+              (append (list (list 0 0))
+                      (reverse (cdr (reverse pointlist)))) pointlist))))
+
+  (let* ((boundlist (connected-shape-min-max pointlist)))
+  (ly:make-stencil
+    `(connected-shape
+      ',pointlist
+      ',thickness
+      ',x-scale
+      ',y-scale
+      ',connect
+      ',fill)
+    (coord-translate
+      ((if (< x-scale 0) reverse-interval identity)
+        (cons (* x-scale (list-ref boundlist 0))
+              (* x-scale (list-ref boundlist 1))))
+        `(,(/ thickness -2) . ,(/ thickness 2)))
+    (coord-translate
+      ((if (< y-scale 0) reverse-interval identity)
+        (cons (* y-scale (list-ref boundlist 2))
+              (* y-scale (list-ref boundlist 3))))
+        `(,(/ thickness -2) . ,(/ thickness 2))))))
+
 (define-public (make-ellipse-stencil x-radius y-radius thickness fill)
   "Make an ellipse of x radius @var{x-radius}, y radius @code{y-radius},
     and thickness @var{thickness} with fill defined by @code{fill}."
@@ -335,9 +517,11 @@ encloses the contents.
      stencil)
     ))
 
-(define-public (dimension-arrows destination max-size)
-  "Draw twosided arrow from here to @var{destination}"
-
+(define-public (arrow-stencil-maker start? end?)
+  "Returns a function drawing a line from current point to @var{destination},
+   with optional arrows of @var{max-size} on start and end controlled by
+   @var{start?} and @var{end?}."
+  (lambda (destination max-size)
   (let*
       ((e_x 1+0i)
        (e_y 0+1i)
@@ -388,10 +572,15 @@ encloses the contents.
 	      (cons (max 0 (car destination))
 		    (max 0 (cdr destination)))))
 
-       (result (ly:stencil-add arrow-2 arrow-1 line)))
+       (result
+         (ly:stencil-add
+           (if start? arrow-2 empty-stencil)
+           (if end? arrow-1 empty-stencil)
+           line)))
 
+    result)))
 
-    result))
+(define-public dimension-arrows (arrow-stencil-maker #t #t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ANNOTATIONS

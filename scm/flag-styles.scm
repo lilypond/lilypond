@@ -31,31 +31,16 @@
 
 (define-public (add-stroke-straight stencil stem-grob dir log stroke-style offset length thickness stroke-thickness)
   "Add the stroke for acciaccatura to the given flag stencil.
-  The stroke starts for up-flags at upper-end-of-flag+(0,length/2) and 
+  The stroke starts for up-flags at upper-end-of-flag+(0,length/2) and
   ends at (0, vertical-center-of-flag-end) - (flag-x-width/2, flag-x-width + flag-thickness).
-  Here length is the whole length, while flag-x-width is just the 
-  x-extent and thus depends on the angle! Other combinations don't look as 
+  Here length is the whole length, while flag-x-width is just the
+  x-extent and thus depends on the angle! Other combinations don't look as
   good... For down-stems the y-coordinates are simply mirrored."
   (let* ((start (offset-add offset (cons 0  (* (/ length 2) dir))))
-         (end (offset-add (cons 0 (cdr offset)) 
+         (end (offset-add (cons 0 (cdr offset))
                           (cons (- (/ (car offset) 2)) (* (- (+ thickness (car offset))) dir))))
          (stroke (make-line-stencil stroke-thickness (car start) (cdr start) (car end) (cdr end))))
   (ly:stencil-add stencil stroke)))
-
-(define PI-OVER-180  (/ (atan 1 1) 45))
-(define (degrees->radians angle-degrees)
-  "Convert the given angle from degrees to radians"
-  (* angle-degrees PI-OVER-180))
-
-(define (polar->rectangular radius angle-in-degrees)
-  "Convert polar coordinate @code{radius} and @code{angle-in-degrees}
-   to (x-length . y-length)"
-  (let* ((complex (make-polar
-                    radius
-                    (degrees->radians angle-in-degrees))))
-     (cons
-       (real-part complex)
-       (imag-part complex))))
 
 (define (buildflag flag-stencil remain curr-stencil spacing)
   "Internal function to recursively create a stencil with @code{remain} flags
@@ -72,7 +57,7 @@
                        downflag-angle downflag-length)
     "Create a stencil for a straight flag.
      flag-thickness, -spacing are given in staff spaces,
-     *flag-angle is given in degree, *flag-length is given in staff spaces. 
+     *flag-angle is given in degree, *flag-length is given in staff spaces.
      All lengths will be scaled according to the font size of the note."
   (lambda (stem-grob)
     (let* ((log (ly:grob-property stem-grob 'duration-log))
@@ -184,10 +169,10 @@
 (define-public (mensural-flag stem-grob)
   "Mensural flags: Create the flag stencil by loading the glyph from the font.
    Flags are always aligned with staff lines, so we need to check the end point
-   of the stem: For stems ending on staff lines, use different flags than for 
-   notes between staff lines.  The idea is that flags are always vertically 
-   aligned with the staff lines, regardless of whether the note head is on a 
-   staff line or between two staff lines.  In other words, the inner end of 
+   of the stem: For stems ending on staff lines, use different flags than for
+   notes between staff lines.  The idea is that flags are always vertically
+   aligned with the staff lines, regardless of whether the note head is on a
+   staff line or between two staff lines.  In other words, the inner end of
    a flag always touches a staff line."
 
   (let* ((adjust #t)
@@ -213,10 +198,10 @@
 
 
 (define-public (default-flag stem-grob)
-  "Create a flag stencil for the stem. Its style will be derived from the 
+  "Create a flag stencil for the stem. Its style will be derived from the
    @code{'flag-style} Stem property. By default, @code{lilypond} uses a
-   C++ Function (which is slightly faster) to do exactly the same as this 
-   function. However, if one wants to modify the default flags, this function 
+   C++ Function (which is slightly faster) to do exactly the same as this
+   function. However, if one wants to modify the default flags, this function
    can be used to obtain the default flag stencil, which can then be modified
    at will. The correct way to do this is:
 @example
