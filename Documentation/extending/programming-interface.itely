@@ -418,59 +418,26 @@ If the command uses properties from the @var{props} arguments, the
 @code{#:properties} keyword can be used, to specify which properties are
 used, and their default values.
 
-@knownissues
-There are restrictions on the possible arguments to a markup command.
-
-Arguments are distingued according to their type:
+Arguments are distinguished according to their type:
 @itemize
 @item a markup, corresponding to type predicate @code{markup?};
-@item a list of markup, corresponding to type predicate
+@item a list of markups, corresponding to type predicate
 @code{markup-list?};
 @item any other scheme object, corresponding to type predicates such as
 @code{list?}, @code{number?}, @code{boolean?}, etc.
 @end itemize
 
-The available combinations of arguments (after the standard @var{layout}
-and @var{props} arguments) to a markup command defined with
-@code{define-markup-command} are limited as follows.
+There is no limitation on the order of arguments (after the standard
+@var{layout} and @var{props} arguments).  However, markup functions
+taking a markup as their last argument are somewhat special as you can
+apply them to a markup list, and the result is a markup list where the
+markup function (with the specified leading arguments) has been applied
+to every element of the original markup list.
 
-@table @asis
-@item (no argument)
-@itemx @var{markup-list}
-@itemx @var{markup}
-@itemx @var{markup markup}
-@itemx @var{scheme}
-@itemx @var{scheme markup}
-@itemx @var{scheme scheme}
-@itemx @var{scheme scheme markup}
-@itemx @var{scheme scheme markup markup}
-@itemx @var{scheme markup markup}
-@itemx @var{scheme scheme scheme}
-@end table
-
-@noindent
-This means that it is not possible to define with e.g. three scheme
-arguments and a markup arguments, like:
-
-@example
-#(define-markup-command (foo layout props
-                         num1    num2    a-list a-markup)
-                        (number? number? list?  markup?)
-  ...)
-@end example
-
-@noindent
-If you apply it as, say,
-
-@example
-\markup \foo #1 #2 #'(bar baz) Blah
-@end example
-
-@cindex Scheme signature
-@cindex signature, Scheme
-@noindent
-@command{lilypond} complains that it cannot parse @code{foo} due to its
-unknown Scheme signature.
+Since replicating the leading arguments for applying a markup function
+to a markup list is cheap mostly for Scheme arguments, you avoid
+performance pitfalls by just using Scheme arguments for the leading
+arguments of markup functions that take a markup as their last argument.
 
 @node On properties
 @unnumberedsubsubsec On properties

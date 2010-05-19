@@ -431,7 +431,7 @@ BOM_UTF8	\357\273\277
 	\\{ESCAPED}	{
 		*yylval.string += to_string (escaped_char (YYText ()[1]));
 	}
-	[^\\"]+	{
+	[^\\""]+	{
 		*yylval.string += YYText ();
 	}
 	\"	{
@@ -528,58 +528,53 @@ BOM_UTF8	\357\273\277
 	}
 	{MARKUPCOMMAND} {
 		string str (YYText () + 1);
+
+                int token_type = MARKUP_FUNCTION;
 		SCM s = lookup_markup_command (str);
-		SCM s2 = lookup_markup_list_command (str);
-		if (scm_is_pair (s) && scm_is_symbol (scm_cdr (s)) ) {
-			yylval.scm = scm_car(s);
-			SCM tag = scm_cdr(s);
-			if (tag == ly_symbol2scm("markup0"))
-				return MARKUP_HEAD_MARKUP0;
-			if (tag == ly_symbol2scm("empty"))
-				return MARKUP_HEAD_EMPTY;
-			else if (tag == ly_symbol2scm ("markup0-markup1"))
-				return MARKUP_HEAD_MARKUP0_MARKUP1;
-			else if (tag == ly_symbol2scm ("markup-list0"))
-				return MARKUP_HEAD_LIST0;
-			else if (tag == ly_symbol2scm ("scheme0"))
-				return MARKUP_HEAD_SCM0;
-			else if (tag == ly_symbol2scm ("scheme0-scheme1"))
-				return MARKUP_HEAD_SCM0_SCM1;
-			else if (tag == ly_symbol2scm ("scheme0-markup1"))
-				return MARKUP_HEAD_SCM0_MARKUP1;
-			else if (tag == ly_symbol2scm ("scheme0-scheme1-markup2"))
-				return MARKUP_HEAD_SCM0_SCM1_MARKUP2;
-			else if (tag == ly_symbol2scm ("scheme0-scheme1-markup2-markup3"))
-				return MARKUP_HEAD_SCM0_SCM1_MARKUP2_MARKUP3;
-			else if (tag == ly_symbol2scm ("scheme0-markup1-markup2"))
-				return MARKUP_HEAD_SCM0_MARKUP1_MARKUP2;
-			else if (tag == ly_symbol2scm ("scheme0-scheme1-scheme2"))
-				return MARKUP_HEAD_SCM0_SCM1_SCM2;
-			else {
-				programming_error ("no parser tag defined for this markup signature"); 
-				ly_display_scm (s);
-				assert(false);
-			}
-		} else if (scm_is_pair (s2) && scm_is_symbol (scm_cdr (s2))) {
-		        yylval.scm = scm_car(s2);
-			SCM tag = scm_cdr(s2);
-			if (tag == ly_symbol2scm("empty"))
-				return MARKUP_LIST_HEAD_EMPTY;
-			else if (tag == ly_symbol2scm ("scheme0"))
-				return MARKUP_LIST_HEAD_SCM0;
-			else if (tag == ly_symbol2scm ("markup-list0"))
-				return MARKUP_LIST_HEAD_LIST0;
-			else if (tag == ly_symbol2scm ("scheme0-markup-list1"))
-				return MARKUP_LIST_HEAD_SCM0_LIST1;
-			else if (tag == ly_symbol2scm ("scheme0-scheme1-markup-list2"))
-				return MARKUP_LIST_HEAD_SCM0_SCM1_LIST2;
-			else {
-				programming_error ("no parser tag defined for this markup list signature"); 
-				ly_display_scm (s);
-				assert(false);
-			}
-		} else
-			return scan_escaped_word (str);
+
+		// lookup-markup-command returns a pair with the car
+		// being the function to call, and the cdr being the
+		// call signature specified to define-markup-command,
+		// a list of predicates.
+
+                if (!scm_is_pair (s)) {
+		  // If lookup-markup-command was not successful, we
+		  // try lookup-markup-list-command instead.
+		  // If this fails as well, we just scan and return
+		  // the escaped word.
+		  s = lookup_markup_list_command (str);
+		  if (scm_is_pair (s))
+		    token_type = MARKUP_LIST_FUNCTION;
+		  else
+		    return scan_escaped_word (str);
+                }
+
+		// If the list of predicates is, say,
+		// (number? number? markup?), then tokens
+		// EXPECT_MARKUP EXPECT_SCM EXPECT_SCM EXPECT_NO_MORE_ARGS
+		// will be generated.  Note that we have to push them
+		// in reverse order, so the first token pushed in the
+		// loop will be EXPECT_NO_MORE_ARGS.
+
+		yylval.scm = scm_car(s);
+
+		// yylval now contains the function to call as token
+		// value (for token type MARKUP_FUNCTION or
+		// MARKUP_LIST_FUNCTION).
+
+		push_extra_token(EXPECT_NO_MORE_ARGS);
+		s = scm_cdr(s);
+		for (; scm_is_pair(s); s = scm_cdr(s)) {
+		  SCM predicate = scm_car(s);
+
+		  if (predicate == ly_lily_module_constant ("markup-list?"))
+		    push_extra_token(EXPECT_MARKUP_LIST);
+		  else if (predicate == ly_lily_module_constant ("markup?"))
+		    push_extra_token(EXPECT_MARKUP);
+		  else
+		    push_extra_token(EXPECT_SCM);
+		}
+		return token_type;
 	}
 	[{}]	{
 		return YYText ()[0];

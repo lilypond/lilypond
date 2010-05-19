@@ -271,6 +271,7 @@ If we give names, Bison complains.
 %token <i> EXPECT_MARKUP;
 %token <i> EXPECT_MUSIC;
 %token <i> EXPECT_SCM;
+%token <i> EXPECT_MARKUP_LIST
 /* After the last argument. */
 %token <i> EXPECT_NO_MORE_ARGS;
 
@@ -286,22 +287,8 @@ If we give names, Bison complains.
 %token <scm> FRACTION
 %token <scm> LYRICS_STRING
 %token <scm> LYRIC_MARKUP_IDENTIFIER
-%token <scm> MARKUP_HEAD_EMPTY
-%token <scm> MARKUP_HEAD_LIST0
-%token <scm> MARKUP_HEAD_MARKUP0
-%token <scm> MARKUP_HEAD_MARKUP0_MARKUP1
-%token <scm> MARKUP_HEAD_SCM0
-%token <scm> MARKUP_HEAD_SCM0_MARKUP1
-%token <scm> MARKUP_HEAD_SCM0_SCM1
-%token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2
-%token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2_MARKUP3
-%token <scm> MARKUP_HEAD_SCM0_MARKUP1_MARKUP2
-%token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
-%token <scm> MARKUP_LIST_HEAD_EMPTY
-%token <scm> MARKUP_LIST_HEAD_LIST0
-%token <scm> MARKUP_LIST_HEAD_SCM0
-%token <scm> MARKUP_LIST_HEAD_SCM0_LIST1
-%token <scm> MARKUP_LIST_HEAD_SCM0_SCM1_LIST2
+%token <scm> MARKUP_FUNCTION
+%token <scm> MARKUP_LIST_FUNCTION
 %token <scm> MARKUP_IDENTIFIER
 %token <scm> MUSIC_FUNCTION
 %token <scm> MUSIC_IDENTIFIER
@@ -413,6 +400,8 @@ If we give names, Bison complains.
 %type <scm> markup_braced_list_body
 %type <scm> markup_composed_list
 %type <scm> markup_command_list
+%type <scm> markup_command_list_arguments
+%type <scm> markup_command_basic_arguments
 %type <scm> markup_head_1_item
 %type <scm> markup_head_1_list
 %type <scm> markup_list
@@ -2451,37 +2440,38 @@ markup_braced_list_body:
 		$$ = scm_cons ($2, $1);
 	}
 	| markup_braced_list_body markup_list {
-		$$ = scm_append_x (scm_list_2 (scm_reverse_x ($2, SCM_EOL), $1));
+		$$ = scm_reverse_x ($2, $1);
 	}
 	;
 
 markup_command_list:
-	MARKUP_LIST_HEAD_EMPTY	{
-		$$ = scm_list_1 ($1);
+	MARKUP_LIST_FUNCTION markup_command_list_arguments {
+	  $$ = scm_cons ($1, scm_reverse_x($2, SCM_EOL));
 	}
-	| MARKUP_LIST_HEAD_LIST0 markup_list	{
-		$$ = scm_list_2 ($1, $2);
+	;
+
+markup_command_basic_arguments:
+	EXPECT_MARKUP_LIST markup_command_list_arguments markup_list {
+	  $$ = scm_cons ($3, $2);
 	}
-	| MARKUP_LIST_HEAD_SCM0 embedded_scm	{
-		$$ = scm_list_2 ($1, $2);
+	| EXPECT_SCM markup_command_list_arguments embedded_scm {
+	  $$ = scm_cons ($3, $2);
 	}
-	| MARKUP_LIST_HEAD_SCM0_LIST1 embedded_scm markup_list	{
-		$$ = scm_list_3 ($1, $2, $3);
+	| EXPECT_NO_MORE_ARGS {
+	  $$ = SCM_EOL;
 	}
-	| MARKUP_LIST_HEAD_SCM0_SCM1_LIST2 embedded_scm embedded_scm markup_list	{
-		$$ = scm_list_4 ($1, $2, $3, $4);
+	;
+
+markup_command_list_arguments:
+	markup_command_basic_arguments { $$ = $1; }
+	| EXPECT_MARKUP markup_command_list_arguments markup {
+	  $$ = scm_cons ($3, $2);
 	}
 	;
 
 markup_head_1_item:
-	MARKUP_HEAD_MARKUP0	{
-		$$ = scm_list_1 ($1);
-	}
-	| MARKUP_HEAD_SCM0_MARKUP1 embedded_scm	{
-		$$ = scm_list_2 ($1, $2);
-	}
-	| MARKUP_HEAD_SCM0_SCM1_MARKUP2 embedded_scm embedded_scm	{
-		$$ = scm_list_3 ($1, $2, $3);
+	MARKUP_FUNCTION EXPECT_MARKUP markup_command_list_arguments {
+	  $$ = scm_cons ($1, scm_reverse_x ($3, SCM_EOL));
 	}
 	;
 
@@ -2516,29 +2506,8 @@ simple_markup:
 		sc->unprotect ();
 		PARSER->lexer_->pop_state ();
 	}
-	| MARKUP_HEAD_SCM0 embedded_scm {
-		$$ = scm_list_2 ($1, $2);
-	}
-	| MARKUP_HEAD_SCM0_SCM1_SCM2 embedded_scm embedded_scm embedded_scm {
-		$$ = scm_list_4 ($1, $2, $3, $4);
-	}
-	| MARKUP_HEAD_SCM0_SCM1 embedded_scm embedded_scm {
-		$$ = scm_list_3 ($1, $2, $3);
-	}
-	| MARKUP_HEAD_SCM0_MARKUP1_MARKUP2 embedded_scm markup markup {
-		$$ = scm_list_4 ($1, $2, $3, $4);
-	}
-	| MARKUP_HEAD_SCM0_SCM1_MARKUP2_MARKUP3 embedded_scm embedded_scm markup markup {
-		$$ = scm_list_5 ($1, $2, $3, $4, $5);
-	}
-	| MARKUP_HEAD_EMPTY {
-		$$ = scm_list_1 ($1);
-	}
-	| MARKUP_HEAD_LIST0 markup_list {
-		$$ = scm_list_2 ($1,$2);
-	}
-	| MARKUP_HEAD_MARKUP0_MARKUP1 markup markup {
-		$$ = scm_list_3 ($1, $2, $3);
+	| MARKUP_FUNCTION markup_command_basic_arguments {
+		$$ = scm_cons ($1, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
