@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 
 @ignore
-    Translation of GIT committish: f0968c08c70e954c1d928feadf94006504ac4de1
+    Translation of GIT committish: 66dd932f6519b7913400a838c5efbc5407e06cd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -57,6 +57,7 @@ Deze paragraaf introduceert algemene muzieknotatie gebruikt
 voor een enkelvoudige melodie op één notenbalk.
 
 @menu
+* Maat-controles::
 * Verplaatsingstekens en toonsoorten::
 * Overbindingen en legatobogen::
 * Articulatie en dynamiek::
@@ -64,6 +65,29 @@ voor een enkelvoudige melodie op één notenbalk.
 * Automatische en handmatige waardestrepen::
 * Geavanceerde ritmische commando's::
 @end menu
+
+
+@node Maat-controles
+@subsection Maat-controles
+@translationof Bar checks
+
+Alhoewel ze niet strikt noodzakelijk zijn, zouden
+@emph{maat-controles} gebruikt moeten worden in de
+invoer-code om aan te geven waar de maatstrepen verwacht
+worden.  Ze worden ingevoerd met het vertikale
+streep-symbool, @code{|}.  Met behulp van deze
+maat-controles kan het programma nagaan, door de nootlengten
+die je ingevoerd hebt op te tellen, dat alle maten precies
+gevuld zijn.  Maat-controles maken de invoer-code eenvoudiger
+te lezen, omdat ze helpen deze opgeruimd te houden.
+
+@lilypond[verbatim,quote,relative=2]
+g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
+@end lilypond
+
+@seealso
+Notatiehandleiding:
+@ruser{Bar and bar number checks}.
 
 
 @node Verplaatsingstekens en toonsoorten
@@ -105,7 +129,7 @@ Nederlands.  Om andere namen te gebruiken voor
 other languages}.
 
 @lilypond[verbatim,quote,relative=2]
-cis1 ees fisis, aeses
+cis4 ees fisis, aeses
 @end lilypond
 
 @cindex toonsoort, zetten van
@@ -135,9 +159,9 @@ De @notation{toonsoort} wordt gezet met het commando
 
 @lilypond[verbatim,quote,relative=2]
 \key d \major
-a1
+a1 |
 \key c \minor
-a
+a1 |
 @end lilypond
 
 @smallspace
@@ -156,7 +180,7 @@ de @notation{toonsoort}.  De toonsoort beïnvloed alleen het
 verwarring bij nieuwe gebruikers, dus laten we het eens wat
 beter bekijken.
 
-LilyPond maakt een scherp onderscheid tussen muzikale
+LilyPond maakt een duidelijk onderscheid tussen muzikale
 beschrijving en layout.  De verhoging of verlaging
 (@notation{mol}, @notation{herstellingsteken} of
 @notation{kruis}) van een noot is onderdeel van de
@@ -174,7 +198,7 @@ In dit voorbeeld:
 
 @lilypond[verbatim,quote,relative=2]
 \key d \major
-d cis fis
+cis4 d e fis
 @end lilypond
 
 @noindent
@@ -190,7 +214,7 @@ In de toonsoort van A-mol majeur, krijgt hij bij het printen
 
 @lilypond[verbatim,quote,relative=2]
 \key aes \major
-b
+aes4 c b c
 @end lilypond
 
 Als het bovenstaand voorbeeld verwarrend is, ga dan eens na:
@@ -242,8 +266,7 @@ een tilde @code{~} aan de eerste noot die overgebonden
 wordt.
 
 @lilypond[verbatim,quote,relative=2]
-g4~ g c2~
-c4~ c8 a8~ a2
+g4~ g c2~ | c4~ c8 a~ a2 |
 @end lilypond
 
 @subheading Legatobogen
@@ -270,7 +293,7 @@ tegelijkertijd gebruiken, maar je kunt geen gelijktijdige
 legatobogen of gelijktijdige fraseringsbogen gebruiken.
 
 @lilypond[verbatim,quote,relative=2]
-a8(\( ais b c) cis2 b'2 a4 cis,\)
+g4\( g8( a) b( c) b4\)
 @end lilypond
 
 @smallspace
@@ -290,7 +313,7 @@ gebruikt over grotere nootgroepen.  Legatobogen en
 overbindingen kunnen worden genest.
 
 @lilypond[verbatim,quote,relative=2]
-c2~( c8 fis fis4~ fis2 g2)
+c4~( c8 d~ d4 e)
 @end lilypond
 
 
@@ -320,7 +343,8 @@ aan een noot met een streepje @code{-} en een enkel
 karakter:
 
 @lilypond[verbatim,quote,relative=2]
-c-. c-- c-> c-^ c-+ c-_
+c4-^ c-+ c-- c-|
+c4-> c-. c2-_
 @end lilypond
 
 @subheading Vingerzetting
@@ -337,7 +361,7 @@ aan een noot toegevoegd met een streepje (@code{-}) en het
 cijfer dat moet worden geprint:
 
 @lilypond[verbatim,quote,relative=2]
-c-3 e-5 b-2 a-1
+c4-3 e-5 b-2 a-1
 @end lilypond
 
 Je kunt meerdere articulaties bij dezelfde noot gebruiken.
@@ -349,7 +373,7 @@ beter om LilyPond de richting van de articulaties te laten
 uitzoeken.
 
 @lilypond[verbatim,quote,relative=2]
-c_-^1 d^. f^4_2-> e^-_+
+c4_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
 @subheading Dynamiek
@@ -378,7 +402,7 @@ Terminologie: @rglos{dynamics}, @rglos{crescendo},
 backslash) aan de noot toe te voegen:
 
 @lilypond[verbatim,quote,relative=2]
-c\ff c\mf c\p c\pp
+c4\ff c\mf c\p c\pp
 @end lilypond
 
 
@@ -389,7 +413,7 @@ dynamische teken, bijvoorbeeld @code{\f}, beïndigt de
 gebruiken:
 
 @lilypond[verbatim,quote,relative=2]
-c2\< c2\ff\> c2 c2\!
+c4\< c\ff\> c c\!
 @end lilypond
 
 
@@ -415,15 +439,15 @@ Notatiehandleiding:
 Je kunt tekst aan je muziek toevoegen door:
 
 @lilypond[verbatim,quote,relative=2]
-c1^"espr" a_"legato"
+c2^"espr" a_"legato"
 @end lilypond
 
 Extra formattering kan worden toegevoegd met het
 @code{\markup}-commando:
 
 @lilypond[verbatim,quote,relative=2]
-c1^\markup{ \bold espr }
-a1_\markup{
+c2^\markup { \bold espr }
+a2_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 @end lilypond
@@ -458,7 +482,7 @@ Terminologie: @rglos{beam}.
 Alle @notation{waardestrepen} worden automatisch getekend:
 
 @lilypond[verbatim,quote,relative=2]
-a8 ais d ees r d c16 b a8
+a8[ ais] d[ ees r d] c16 b a8
 @end lilypond
 
 Als de automatische waardestrepen je niet bevallen, kun je
@@ -477,9 +501,9 @@ zetten en @code{\autoBeamOn} om ze weer aan te zetten.
 
 @lilypond[verbatim,quote,relative=2]
 \autoBeamOff
-a8 c b4 d8. c16 b4
+a8 c b4 d8. c16 b4 |
 \autoBeamOn
-a8 c b4 d8. c16 b4
+a8 c b4 d8. c16 b4 |
 @end lilypond
 
 
@@ -510,8 +534,8 @@ nootlengte: @code{\partial 4} is een opmaat van een kwart en
 @code{\partial 8} een achtste.
 
 @lilypond[verbatim,quote,relative=2]
-\partial 8
-f8 c2 d
+\partial 8 f8 |
+c2 d |
 @end lilypond
 
 @c Note bene: duolen, triolen, kwartolen etc. worden anti-metrische
@@ -536,7 +560,7 @@ maakt dat de noten 2/3 van hun lengte duren, dus een
 
 @lilypond[verbatim,quote,relative=2]
 \times 2/3 { f8 g a }
-\times 2/3 { c r c }
+\times 2/3 { c8 r c }
 \times 2/3 { f,8 g16[ a g a] }
 \times 2/3 { d4 a8 }
 @end lilypond
@@ -565,9 +589,9 @@ sleutelwoord @code{\appoggiatura} of @code{\acciaccatura}
 voor een muziekuitdrukking te zetten
 
 @lilypond[verbatim,quote,relative=2]
-c2 \grace { a32[ b] } c2
-c2 \appoggiatura b16 c2
-c2 \acciaccatura b16 c2
+c2 \grace { a32[ b] } c2 |
+c2 \appoggiatura b16 c2 |
+c2 \acciaccatura b16 c2 |
 @end lilypond
 
 
@@ -631,7 +655,7 @@ volgt op de vorige).  Het resultaat is een nieuwe
 muziekuitdrukking:
 
 @lilypond[verbatim,quote,relative=2]
-{ { a4 g } f g }
+{ { a4 g } f4 g }
 @end lilypond
 
 @subheading Analogie: wiskundige uitdrukkingen
@@ -697,9 +721,9 @@ samengesteld:
 @lilypond[verbatim,quote]
 \relative c'' {
   <<
-    { a4 g }
-    { f e }
-    { d b }
+    { a2 g }
+    { f2 e }
+    { d2 b }
   >>
 }
 @end lilypond
@@ -727,8 +751,8 @@ genoteerd op een enkele notenbalk.
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  c2 <<c e>>
-  << { e f } { c <<b d>> } >>
+  c2 <<c e>> |
+  << { e2 f } { c2 <<b d>> } >> |
 }
 @end lilypond
 
@@ -768,8 +792,8 @@ met @code{<<} en @code{>>}:
 @lilypond[verbatim,quote]
 \relative c'' {
   <<
-    \new Staff { \clef treble c }
-    \new Staff { \clef bass c,, }
+    \new Staff { \clef "treble" c4 }
+    \new Staff { \clef "bass" c,,4 }
   >>
 }
 @end lilypond
@@ -803,8 +827,8 @@ partituren.
 @lilypond[verbatim,quote]
 \relative c'' {
   <<
-    \new Staff { \clef treble \key d \major \time 3/4 c }
-    \new Staff { \clef bass c,, }
+    \new Staff { \clef "treble" \key d \major \time 3/4 c4 }
+    \new Staff { \clef "bass" c,,4 }
   >>
 }
 @end lilypond
@@ -848,8 +872,8 @@ Hier is een voorbeeldje:
 @lilypond[verbatim,quote]
 \relative c'' {
   \new PianoStaff <<
-    \new Staff { \time 2/4 c4 e g g, }
-    \new Staff { \clef bass c,, c' e c }
+    \new Staff { \time 2/4 c4 e | g g, | }
+    \new Staff { \clef bass c,,4 c' | e c | }
   >>
 }
 @end lilypond
@@ -892,7 +916,7 @@ lengte moeten hebben, en dat die lengte na de afsluitende
 haak komt.
 
 @lilypond[verbatim,quote,relative=2]
-r4 <c e g>4 <c f a>2
+r4 <c e g> <c f a>2
 @end lilypond
 
 Beschouw accoorden als vrijwel identiek aan enkele noten:
@@ -903,8 +927,8 @@ waardestrepen en overbindingen gebruiken met accoorden.  Ze
 worden geplaatst buiten de hoekige haken.
 
 @lilypond[verbatim,quote,relative=2]
-r4 <c e g>8[ <c f a>]~ <c f a>2
-r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
+r4 <c e g>8[ <c f a>]~ <c f a>2 |
+r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!) |
 @end lilypond
 
 
@@ -970,7 +994,7 @@ Hier is het begin van de melodie van een slaapliedje,
 \relative c'' {
   \key g \major
   \time 6/8
-  d4 b8 c4 a8 d4 b8 g4
+  d4 b8 c4 a8 | d4 b8 g4
 }
 @end lilypond
 
@@ -985,10 +1009,10 @@ een spatie.
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
+    d4 b8 c4 a8 | d4 b8 g4
   }
   \addlyrics {
-    Girls and boys come out to play,
+    Girls and boys come | out to play,
   }
 >>
 @end lilypond
@@ -1028,36 +1052,50 @@ doth shine as bright as day}.  Laten we die ook invoeren:
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c b a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c b a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
   }
 >>
 @end lilypond
 
-We zien dat de extra liedteksten niet helemaal goed
-uitgericht zijn met de noten.  Het woord @notation{shine}
-moet op twee noten gezongen worden, niet op één.  Dit wordt
-een @notation{melisma} genoemd, een enkele lettergreep
-gezongen op meer dan een noot.  Er zijn verschillende
-manieren om een lettergreep over meerdere noten uit te
-verdelen, het eenvoudigst is een legatoboog over de noten te
-zetten, voor details, zie @ref{Overbindingen en legatobogen}:
+Als je de code van het bovenstaand voorbeeld compileert,
+zul je waarschuwingen op het scherm zien:
+
+@example
+song.ly:12:29: waarschuwing: maat-controle gefaald op: 5/8
+    The | moon doth shine as
+                             | bright as day; |
+song.ly:12:46: waarschuwing: maat-controle gefaald op: 3/8
+    The | moon doth shine as | bright as day;
+                                              |
+@end example
+
+Dit is een goed voorbeeld van de waarde van maat-controles.
+Als we naar de muziek kijken, dan zien we dat de extra
+liedteksten niet helemaal goed uitgericht zijn met de noten.
+Het woord @notation{shine} moet op twee noten gezongen
+worden, niet op één.  Dit wordt een @notation{melisma}
+genoemd, een enkele lettergreep gezongen op meer dan een
+noot.  Er zijn verschillende manieren om een lettergreep
+over meerdere noten uit te verdelen, het eenvoudigst is een
+legatoboog over de noten te zetten, voor details, zie
+@ref{Overbindingen en legatobogen}:
 
 @lilypond[verbatim,quote]
 <<
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c( b) a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c( b) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
   }
 >>
 @end lilypond
@@ -1075,12 +1113,12 @@ waardestrepen te overschrijven, voor details, see
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c([ b]) a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c([ b]) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
   }
 >>
 @end lilypond
@@ -1095,12 +1133,12 @@ worden opgenomen in de melisma:
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c[ b] a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c[ b] a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine _ as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine _ as | bright as day; |
   }
 >>
 @end lilypond
@@ -1118,12 +1156,12 @@ Lament}, van Purcells @notation{Dido and Æneas}:
   \relative c'' {
     \key g \minor
     \time 3/2
-    g2 a bes bes( a)
-    b c4.( bes8 a4. g8 fis4.) g8 fis1
+    g2 a bes | bes2( a) b2 |
+    c4.( bes8 a4. g8 fis4.) g8 | fis1
   }
   \addlyrics {
-    When I am laid,
-    am laid __ in earth,
+    When I am | laid,
+    am | laid __ in | earth,
   }
 >>
 @end lilypond
@@ -1146,12 +1184,12 @@ noten.  notes.
     \key g \major
     \time 3/4
     \partial 4
-    d4 g4 g a8( b) g4 g4
-    b8( c) d4 d e4 c2
+    d4 | g4 g a8( b) | g4 g b8( c) |
+    d4 d e | c2
   }
   \addlyrics {
-    A -- way in a __ man -- ger,
-    no __ crib for a bed, __
+    A -- | way in a __ | man -- ger,
+    no __ | crib for a | bed, __
   }
 >>
 @end lilypond
@@ -1171,13 +1209,13 @@ in Figaro's aria @notation{Largo al factotum}:
 @lilypond[verbatim,quote,noragged-right]
 <<
   \relative c' {
-    \clef bass
+    \clef "bass"
     \key c \major
     \time 6/8
-    c4.~ c8 d b c([ d]) b c d b c
+    c4.~ c8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
-    Lar -- go_al fac -- to -- tum del -- la cit -- tà
+    Lar -- go_al fac -- | to -- tum del -- la cit -- | tà
   }
 >>
 @end lilypond
@@ -1206,19 +1244,19 @@ notenbalk.  Hier is een voorbeeld uit Handels
     \key f \major
     \time 6/8
     \partial 8
-    c8 c([ bes]) a a([ g]) f f'4. b, c4.~ c4
+    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ c4
   }
   \addlyrics {
-    Let flee -- cy flocks the hills a -- dorn, __
+    Let | flee -- cy flocks the | hills a -- | dorn, __
   }
   \relative c' {
     \key f \major
     \time 6/8
     \partial 8
-    r8 r4. r4 c8 a'([ g]) f f([ e]) d e([ d]) c bes'4
+    r8 | r4. r4 c8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
   }
   \addlyrics {
-    Let flee -- cy flocks the hills a -- dorn,
+    Let | flee -- cy flocks the | hills a -- dorn,
   }
 >>
 @end lilypond
@@ -1293,9 +1331,10 @@ viool = \new Staff {
     a4 b c b
   }
 }
+
 cello = \new Staff {
   \relative c {
-    \clef bass
+    \clef "bass"
     e2 d
   }
 }
@@ -1324,7 +1363,7 @@ trioolA = \times 2/3 { c,8 e g }
 maatA = { \trioolA \trioolA \trioolA \trioolA }
 
 \relative c'' {
- \maatA \maatA
+  \maatA \maatA
 }
 @end lilypond
 
@@ -1346,6 +1385,7 @@ gebruik van de bovenstaande variabelen:
   \aVijfPapier
   line-width = \breedte
 @}
+
 @{
   c4^\naam
 @}
@@ -1370,6 +1410,7 @@ staat gewoonlijk direct onder het versienummer.
 
 @example
 \version @w{"@version{}"}
+
 \header @{
   title = "Symfonie"
   composer = "Ik"
@@ -1410,9 +1451,9 @@ noot onderaan de balk bij de bassleutel.
 
 @lilypond[verbatim,quote]
 {
-  \clef bass
-  c' b g, g,
-  g, f, f c'
+  \clef "bass"
+  c'4 b g, g, |
+  g,4 f, f c' |
 }
 @end lilypond
 
@@ -1420,16 +1461,16 @@ Hier is een toonladder over vier octaven:
 
 @lilypond[verbatim,quote]
 {
-  \clef bass
-  c, d, e, f,
-  g, a, b, c
-  d e f g
-  a b c' d'
-  \clef treble
-  e' f' g' a'
-  b' c'' d'' e''
-  f'' g'' a'' b''
-  c'''1
+  \clef "bass"
+  c,4 d, e, f, |
+  g,4 a, b, c |
+  d4 e f g |
+  a4 b c' d' |
+  \clef "treble"
+  e'4 f' g' a' |
+  b'4 c'' d'' e'' |
+  f''4 g'' a'' b'' |
+  c'''1 |
 }
 @end lilypond
 
@@ -1441,8 +1482,8 @@ naar dit fragment van mozart:
 {
   \key a \major
   \time 6/8
-  cis''8. d''16 cis''8 e''4 e''8
-  b'8. cis''16 b'8 d''4 d''8
+  cis''8. d''16 cis''8 e''4 e''8 |
+  b'8. cis''16 b'8 d''4 d''8 |
 }
 @end lilypond
 
@@ -1454,8 +1495,8 @@ een stuk leesbaarder en ook eenvoudiger in te voeren:
 \relative c'' {
   \key a \major
   \time 6/8
-  cis8. d16 cis8 e4 e8
-  b8. cis16 b8 d4 d8
+  cis8. d16 cis8 e4 e8 |
+  b8. cis16 b8 d4 d8 |
 }
 @end lilypond
 
