@@ -946,8 +946,50 @@ convinced?  Read about @ref{Easier editing}.
 @node Easier editing
 @unnumberedsec Easier editing
 
+
 @divClass{column-center-top}
-@subheading Graphical environment: Denemo
+@subheading LilyPondTool
+
+@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
+  (click to enlarge),lilypondtool-2.12-screenshot,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://lilypondtool.organum.hu}
+
+Created as a plugin for the
+@uref{http://www.jedit.org,jEdit} text editor,
+LilyPondTool is one of the most feature-rich text-based tools for
+editing LilyPond scores.  Its features include a Document Wizard
+with lyrics support to set up documents easier, and embedded PDF
+viewer with advanced point-and-click support.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Frescobaldi
+
+@imageClickable{frescobaldi-lilypond-editor-small,png,
+  (click to enlarge),frescobaldi-lilypond-editor,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+
+@uref{http://www.frescobaldi.org}
+
+Frescobaldi is a dedicated LilyPond music and text editor with a
+built-in PDF previewer, a powerful score wizard and many editing
+features.  It is built on top of the KDE4 libraries and runs
+currently on all flavours of Linux and other UNIX-like operating
+systems.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Denemo
 
 @imageClickable{screenshot-denemo-small,png,
   (click to enlarge),screenshot-denemo,png,right}
@@ -973,47 +1015,6 @@ are actively working to bring it up to our present stable version, 2.12.}
 @divEnd
 
 @divClass{column-center-top}
-@subheading Mixed environment: LilyPondTool
-
-@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
-  (click to enlarge),lilypondtool-2.12-screenshot,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://lilypondtool.organum.hu}
-
-Created as a plugin for the
-@uref{http://www.jedit.org,jEdit} text editor,
-LilyPondTool is one of the most feature-rich text-based tools for
-editing LilyPond scores.  Its features include a Document Wizard
-with lyrics support to set up documents easier, and embedded PDF
-viewer with advanced point-and-click support.
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading Mixed environment: Frescobaldi
-
-@imageClickable{frescobaldi-lilypond-editor-small,png,
-  (click to enlarge),frescobaldi-lilypond-editor,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-
-@uref{http://www.frescobaldi.org}
-
-Frescobaldi is a dedicated LilyPond music and text editor with a
-built-in PDF previewer, a powerful score wizard and many editing
-features.  It is built on top of the KDE4 libraries and runs
-currently on all flavours of Linux and other UNIX-like operating
-systems.
-
-@divEnd
-
-@divClass{column-center-top}
 @subheading Text environment: Emacs and Vim
 
 @sourceimage{logo-linux,,,}
@@ -1027,7 +1028,9 @@ Emacs is a text editor with language-sensitive capabilities for
 many different computer languages.  Emacs is a highly extensible
 editor and can be used as an Integrated Development Environment.
 There is a @q{lilypond mode} which supplies the language
-definitions for working with LilyPond source files.
+definitions for working with LilyPond source files. As well, one of
+our developers has written @uref{http://nicolas.sceaux.free.fr/
+lilypond/lyqi.html,lyqi}, an Emacs major mode.
 
 @uref{http://www.vim.org}
 
@@ -1038,7 +1041,13 @@ As a general rule, if you are not already familiar with Emacs or
 Vim, then you would probably prefer to use a different editor for
 writing LilyPond input files.
 
+More information on setting up Emacs and Vim can be found in
+@rprogram{Text editor support}.
+
 @divEnd
+
+@ignore these may not need to be here at all, as they are purely
+MacOS scripts.
 
 @divClass{column-center-top}
 @subheading Other
@@ -1072,12 +1081,13 @@ svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
 @end example
 
 @divEnd
+@end ignore
 
 @divClass{column-center-top}
 @subheading Other programs can export LilyPond code
 
 
-@subsubheading Graphical environments:
+@subsubheading Score, tab and MIDI editors:
 
 @itemize
 @item
@@ -1104,23 +1114,27 @@ export but is being actively developed.
 is still beta-software. Testers are welcome, though.
 
 @item
-@uref{http://strasheela.sourceforge.net, Strasheela} is @qq{a
-highly expressive constraint-based music composition system}.
-
-@end itemize
-
-@subsubheading Command Line Tools:
-
-@itemize
-@item
 @uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, a realtime
 monophonic MIDI to LilyPond converter.
 
+@end itemize
+
+@subsubheading Algorithmic code generators
+
+@itemize
+
 @item
-@uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}, an
-Emacs major mode.
+@uref{http://strasheela.sourceforge.net, Strasheela} is @qq{a
+highly expressive constraint-based music composition system}.
+
+@item
+@uref{http://common-lisp.net/project/fomus/,FOMUS}, a LISP library
+to generate music notation from computer music software environments.
 
 @end itemize
+@divEnd
+
+@divClass{column-center-top}
 
 @subheading Other programs not being actively developed
 
@@ -1138,10 +1152,6 @@ into
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 and @uref{http://canorus.org,Canorus}.
 
-@item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, a LISP library
-to generate music notation a LISP library to generate music
-notation.
 
 @item
 @uref{http://lilycomp.sourceforge.net, LilyComp} is a graphical
