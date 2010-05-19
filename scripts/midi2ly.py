@@ -801,7 +801,7 @@ def convert_midi (in_file, out_file):
     global  duration_quant_clocks
     global allowed_tuplet_clocks
 
-    str = open (in_file).read ()
+    str = open (in_file, 'rb').read ()
     midi_dump = midi.parse (str)
     
     clocks_per_1 = midi_dump[0][1]
