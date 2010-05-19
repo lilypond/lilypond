@@ -40,6 +40,14 @@ each track is an EVENTLIST, where EVENT is
 
 #include <Python.h>
 
+char *
+itoa (int i)
+{
+  static char buffer[9];
+  snprintf (buffer, 8, "%d", i);
+  return buffer;
+}
+
 /* PyMIDINIT_FUNC isn't defined in Python < 2.3 */
 #ifndef PyMODINIT_FUNC
 #       if defined(__cplusplus)
@@ -61,11 +69,13 @@ static PyObject *Midi_error;
 static PyObject *Midi_warning;
 
 static PyObject *
-midi_error (char const *func, char *s)
+midi_error (char const *func, char *s, char *t)
 {
-  char *dest = (char*) malloc (sizeof (char) * (strlen (func) + strlen (s) + 1));
+  char *dest = (char*) malloc (sizeof (char)
+			       * (strlen (func) + strlen (s) + strlen (t) + 1));
   strcpy (dest, func);
   strcat (dest, s);
+  strcat (dest, t);
   PyErr_SetString (Midi_error, dest);
   free (dest);
   
@@ -293,12 +303,14 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
 
   debug_print ("%s", "\n");
   if (memcmp (*track, "MTrk", 4))
-    return midi_error (__FUNCTION__,  ": MTrk expected");
+    {
+      *track[4] = 0;
+      return midi_error (__FUNCTION__,  ": MTrk expected, got: ", *(char**)track);
+    }
   
   *track += 4;
 
   track_len = get_number (track, *track + 4, 4);
-
 
   debug_print ("track_len: %u\n", track_len);
   debug_print ("track_size: %u\n", track_size);
@@ -306,7 +318,7 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
   debug_print ("track end: %p\n", track + track_len);
   
   if (track_len > track_size)
-    return midi_error (__FUNCTION__,  ": track size corrupt");
+    return midi_error (__FUNCTION__,  ": track length corrupt: ", itoa (track_len));
 
   pytrack = PyList_New (0);
 
@@ -349,7 +361,7 @@ pymidi_parse_track (PyObject *self, PyObject *args)
     return 0;
 
   if (track_size < 0)
-    return midi_error (__FUNCTION__,   ": negative track size");
+    return midi_error (__FUNCTION__,   ": negative track size: ", itoa (track_size));
 
   track_end = track + track_size;
   
@@ -371,13 +383,13 @@ midi_parse (unsigned char **midi,unsigned  char *midi_end)
   header_len = get_number (midi, *midi + 4, 4);
   
   if (header_len < 6)
-    return midi_error (__FUNCTION__,  ": header too short");
+    return midi_error (__FUNCTION__,  ": header too short: ", itoa (header_len));
     
   format = get_number (midi, *midi + 2, 2);
   tracks = get_number (midi, *midi + 2, 2);
 
   if (tracks > 32)
-    return midi_error (__FUNCTION__,  ": too many tracks");
+    return midi_error (__FUNCTION__,  ": too many tracks: ", itoa (tracks));
   
   division = get_number (midi, *midi + 2, 2) * 4;
 
@@ -409,8 +421,11 @@ pymidi_parse (PyObject *self, PyObject *args)
     return 0;
 
   if (memcmp (midi, "MThd", 4))
-    return midi_error (__FUNCTION__,  ": MThd expected");
-  
+    {
+      midi[4] = 0;
+      return midi_error (__FUNCTION__,  ": MThd expected, got: ", (char*)midi);
+    }
+
   midi += 4;
 
   midi_end = midi + midi_size;
