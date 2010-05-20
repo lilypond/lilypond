@@ -359,6 +359,24 @@ Comments should go on their own line, and be placed before
 the line(s) to which they refer.
 
 @item
+For clarity, always use @{ @} marks even if they are not technically
+required; ie
+
+not:
+\context Voice \repeat unfold 2 \relative c' {
+  c2 d
+}
+
+but instead:
+\context Voice {
+  \repeat unfold 2 {
+    \relative c' {
+      c2 d
+    }
+  }
+}
+
+@item
 Add extra spaces around @{ @} marks; ie
 
 @example
