@@ -359,10 +359,32 @@ Comments should go on their own line, and be placed before
 the line(s) to which they refer.
 
 @item
-Add extra spaces around @{ @} marks; ie
+For clarity, always use @{ @} marks even if they are not technically
+required; ie
 
 @example
-not:          \chordmode @{c e g@}
+not:
+
+\context Voice \repeat unfold 2 \relative c' @{
+  c2 d
+@}
+
+but instead:
+
+\context Voice @{
+  \repeat unfold 2 @{
+    \relative c' @{
+      c2 d
+    @}
+  @}
+@}
+@end example
+
+@item
+Add a space around @{ @} marks; ie
+
+@example
+not:          \chordmode@{c e g@}
 but instead:  \chordmode @{ c e g @}
 @end example
 
