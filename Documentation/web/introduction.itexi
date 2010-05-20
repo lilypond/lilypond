@@ -28,7 +28,7 @@ traditions of classical music engraving.
 @divEnd
 
 @divClass{column-left-top}
-@subheading Why use LilyPond?
+@subheading What LilyPond does
 
 @itemize
 
@@ -48,8 +48,7 @@ traditions of classical music engraving.
 @divEnd
 
 @divClass{column-right-top}
-@subheading Who uses it?
-
+@subheading LilyPond in use
 @itemize
 
 @item
@@ -62,8 +61,7 @@ traditions of classical music engraving.
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Why not use LilyPond?
-
+@subheading How LilyPond works
 @itemize
 
 @item
