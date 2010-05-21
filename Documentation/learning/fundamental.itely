@@ -53,7 +53,9 @@ A basic example of a LilyPond input file is
 
 @example
 \version @w{"@version{}"}
+
 \header @{ @}
+
 \score @{
   @var{...compound music expression...}  % all the music goes here!
   \layout @{ @}
@@ -233,15 +235,13 @@ melody = \relative c' @{
 When LilyPond looks at this file, it takes the value of
 @code{melody} (everything after the equals sign) and inserts it
 whenever it sees @code{\melody}.  There's nothing special about
-the names -- it could be @code{melody}, @code{global},
-@code{TimeKey},
-@code{pianorighthand}, or @code{foofoobarbaz}.  For more details,
-see @ref{Saving typing with variables and functions}.
-Remember that you can use almost any name you like as long
-as it contains just alphabetic characters and is distinct from
-LilyPond command names.  The exact
-limitations on variable names are detailed in
-@ruser{File structure}.
+the name -- it could be @code{melody}, @code{global},
+@code{keyTime}, @code{pianorighthand}, or something else.
+Remember that you can use almost any name you like as long as it
+contains just alphabetic characters and is distinct from LilyPond
+command names.  For more details, see @ref{Saving typing with
+variables and functions}.  The exact limitations on variable names
+are detailed in @ruser{File structure}.
 
 
 @seealso
@@ -364,7 +364,7 @@ have a piece of real music:
 melody = \relative c'' { r4 d8\noBeam g, c4 r }
 text   = \lyricmode { And God said, }
 upper  = \relative c'' { <g d g,>2~ <g d g,> }
-lower  = \relative c { b2 e2 }
+lower  = \relative c { b2 e }
 
 \score {
   <<
@@ -414,7 +414,7 @@ duration of three notes:
     r4 g8 g c4 c8 d |
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff {
         f8 f c
       }
@@ -441,10 +441,10 @@ as follows:
     r4 g8 g c4 c8 d |
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main" }
-      { f8 f c }
+        alignAboveContext = #"main"
+      } { f8 f c }
     >>
     r4 |
   }
@@ -521,7 +521,7 @@ inserted beam and end before the end of the beam -- not very
 musical, perhaps, but possible:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
- { g8\( a b[ c b\) a] }
+ { g8\( a b[ c b\) a] g4 }
 @end lilypond
 
 In general, different kinds of brackets, bracket-like constructs,
@@ -533,10 +533,10 @@ phrasing slur extending out of a tuplet (lines 3 and 4).
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  r16[ g16 \times 2/3 {r16 e'8] }
-  g16( a \times 2/3 {b d) e' }
-  g8[( a \times 2/3 {b d') e'~]}
-  \times 4/5 {e'32\( a b d' e'} a'4.\)
+  r16[ g \times 2/3 { r16 e'8] }
+  g16( a \times 2/3 { b16 d) e' }
+  g8[( a \times 2/3 { b8 d') e'~] } |
+  \times 4/5 { e'32\( a b d' e' } a'4.\)
 }
 @end lilypond
 
@@ -626,8 +626,8 @@ the passing note and a slur:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key g \major
-%    Voice "1"                  Voice "2"
-<< { g4 fis8( g) a4 g }  \\  { d4 d d d }  >>
+%    Voice "1"               Voice "2"
+<< { g4 fis8( g) a4 g } \\ { d4 d d d }  >>
 @end lilypond
 
 Notice how the stems of the second voice now point down.
@@ -637,9 +637,9 @@ Here's another simple example:
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key d \minor
 %    Voice "1"             Voice "2"
-<< { r4 g g4. a8 }    \\ { d,2 d4 g }       >>
-<< { bes4 bes c bes } \\ { g4 g g8( a) g4 } >>
-<< { a2. r4 }         \\ { fis2. s4 }       >>
+<< { r4 g g4. a8 }    \\ { d,2 d4 g }       >> |
+<< { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
+<< { a2. r4 }         \\ { fis2. s4 }       >> |
 @end lilypond
 
 It is not necessary to use a separate @code{<< \\ >>} construct
@@ -681,9 +681,9 @@ stems, ties, dynamics etc., is set appropriately.
 \new Staff \relative c' {
   % Main voice
   c16 d e f
-  %    Voice "1"     Voice "2"                 Voice "3"
-  << { g4 f e } \\ { r8 e4 d c8~ } >>
-  << { d2 e2 }  \\ { c8 b16 a b8 g~ g2 } \\ { s4 b4 c2 } >>
+  %    Voice "1"     Voice "2"                Voice "3"
+  << { g4 f e } \\ { r8 e4 d c8~ } >> |
+  << { d2 e }   \\ { c8 b16 a b8 g~ g2 } \\ { s4 b c2 } >> |
 }
 @end lilypond
 
@@ -715,19 +715,19 @@ blue triangle voice.
       \voiceTwoStyle
       r8 e4 d c8~
     }
-  >>
+  >> |
   <<  % Bar 2
      % Voice 1 continues
-    { d2 e2 }
+    { d2 e }
   \\
      % Voice 2 continues
-    { c8 b16 a b8 g ~ g2 }
+    { c8 b16 a b8 g~ g2 }
   \\
     {
       \voiceThreeStyle
-      s4 b4 c2
+      s4 b c2
     }
-  >>
+  >> |
 }
 @end lilypond
 
@@ -858,8 +858,8 @@ not understand.
       \once \override NoteColumn #'force-hshift = #0.5
       des2
     }
-  >>
-  <c ees aes c>1
+  >> |
+  <c ees aes c>1 |
 }
 @end lilypond
 
@@ -873,9 +873,9 @@ enter the music of the first bar in three voices:
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des2 }
-  >>
-  <c ees aes c>1
+    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des }
+  >> |
+  <c ees aes c>1 |
 }
 @end lilypond
 
@@ -901,9 +901,9 @@ adding another pair of @code{\\}.
     { aes2 f4 fes }
   \\  % Omit Voice three
   \\  % Voice four
-    { <ees c>2 des2 }
-  >>
-  <c ees aes c>1
+    { <ees c>2 des }
+  >> |
+  <c ees aes c>1 |
 }
 @end lilypond
 
@@ -998,27 +998,27 @@ Let us see in some simple examples exactly what effect
 markup, ties, slurs, and dynamics:
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c'{
+\relative c' {
   % Default behavior or behavior after \oneVoice
-  c d8~ d e4( f g a) b-> c
+  c4 d8~ d e4( f | g4 a) b-> c |
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c'{
+\relative c' {
   \voiceOne
-  c d8~ d e4( f g a) b-> c
+  c4 d8~ d e4( f | g4 a) b-> c |
   \oneVoice
-  c, d8~ d e4( f g a) b-> c
+  c,4 d8~ d e4( f | g4 a) b-> c |
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c'{
+\relative c' {
   \voiceTwo
-  c d8~ d e4( f g a) b-> c
+  c4 d8~ d e4( f | g4 a) b-> c |
   \oneVoice
-  c, d8~ d e4( f g a) b-> c
+  c,4 d8~ d e4( f | g4 a) b-> c |
 }
 @end lilypond
 
@@ -1042,7 +1042,7 @@ permitting a phrasing slur to be drawn over them.
   % Start simultaneous section of three voices
   <<
     % Continue the main voice in parallel
-    { g4 f e | d2 e2) | }
+    { g4 f e | d2 e) | }
     % Initiate second voice
     \new Voice {
       % Set stems, etc., down
@@ -1053,7 +1053,7 @@ permitting a phrasing slur to be drawn over them.
     \new Voice {
       % Set stems, etc, up
       \voiceThree
-      s2. | s4 b4 c2 |
+      s2. | s4 b c2 |
     }
   >>
 }
@@ -1073,15 +1073,15 @@ typeset the music:
 \new Staff \relative c' {
   c16^( d e f
   <<
-    { g4 f e | d2 e2) | }
+    { g4 f e | d2 e) | }
     \new Voice {
       \voiceTwo
-      r8 e4 d c8~
+      r8 e4 d c8~ |
       <<
-        { c8 b16 a b8 g~ g2 }
+        { c8 b16 a b8 g~ g2 | }
         \new Voice {
           \voiceThree
-          s4 b4 c2
+          s4 b c2 |
         }
       >>
     }
@@ -1103,7 +1103,7 @@ as here:
   % Initiate first voice
   \new Voice {
     \voiceOne
-    c16^( d e f g4 f e | d2 e2) |
+    c16^( d e f g4 f e | d2 e) |
   }
   % Initiate second voice
   \new Voice {
@@ -1115,7 +1115,7 @@ as here:
   \new Voice {
     % Set stems, etc, up
     \voiceThree
-    s1 | s4 b4 c2 |
+    s1 | s4 b c2 |
   }
 >>
 @end lilypond
@@ -1194,13 +1194,15 @@ name assigned to the Voice.
 
 @lilypond[quote,verbatim,fragment]
 <<
-  \new Voice = "one" \relative c'' {
-    \autoBeamOff
-    \time 2/4
-    c4 b8. a16 g4. f8 e4 d c2
+  \new Voice = "one" {
+    \relative c'' {
+      \autoBeamOff
+      \time 2/4
+      c4 b8. a16 | g4. f8 | e4 d | c2 |
+    }
   }
   \new Lyrics \lyricsto "one" {
-    No more let sins and sor -- rows grow.
+    No more let | sins and | sor -- rows | grow. |
   }
 >>
 @end lilypond
@@ -1237,15 +1239,20 @@ bracket.  The lyrics themselves must be introduced with
 rather than music.
 
 @lilypond[quote,verbatim]
-global = { \time 6/8 \partial 8 \key f \major}
+global = { \key f \major \time 6/8 \partial 8 }
+
 SopOneMusic = \relative c'' {
-  c8 | c([ bes)] a a([ g)] f | f'4. b, | c4.~ c4 | }
-SopTwoMusic = \relative c' {
-  r8 | r4. r4 c8 | a'([ g)] f f([ e)] d | e([ d)] c bes' | }
+  c8 | c8([ bes)] a a([ g)] f | f'4. b, | c4.~ c4
+}
 SopOneLyrics = \lyricmode {
-  Let | flee -- cy flocks the | hills a -- dorn, __ | }
+  Let | flee -- cy flocks the | hills a -- dorn, __
+}
+SopTwoMusic = \relative c' {
+  r8 | r4. r4 c8 | a'8([ g)] f f([ e)] d | e8([ d)] c bes'
+}
 SopTwoLyrics = \lyricmode {
-  Let | flee -- cy flocks the | hills a -- dorn, | }
+  Let | flee -- cy flocks the | hills a -- dorn,
+}
 
 \score {
   \new ChoirStaff <<
@@ -1286,30 +1293,32 @@ Here is an example of the first line of a hymn with four
 verses, set for SATB.  In this case the words for all four
 parts are the same.  Note how we use variables to separate the
 music notation and words from the staff structure.  See too
-how a variable, which we have chosen to call @q{TimeKey}, is used
+how a variable, which we have chosen to call @q{keyTime}, is used
 to hold several commands for use within the two staves.  In other
 examples this is often called @q{global}.
 
 @lilypond[quote,verbatim]
-TimeKey = { \time 4/4 \partial 4 \key c \major}
-SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g | }
-AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e | }
-TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 | }
-BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 | }
-VerseOne   = \lyricmode {
-  E -- | ter -- nal fa -- ther, | strong to save, | }
-VerseTwo   = \lyricmode {
-  O | Christ, whose voice the | wa -- ters heard, | }
-VerseThree = \lyricmode {
-  O | Ho -- ly Spi -- rit, | who didst brood | }
-VerseFour  = \lyricmode {
-  O | Tri -- ni -- ty of | love and pow'r | }
+keyTime = { \key c \major \time 4/4 \partial 4 }
+
+SopMusic   = \relative c' { c4 | e4. e8 g4  g    | a4   a   g  }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e    | f4   f   e  }
+TenorMusic = \relative c  { e4 | g4. g8 c4.   b8 | a8 b c d e4 }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c    | f8 g a b c4 }
+
+VerseOne =
+  \lyricmode { E -- | ter -- nal fa -- ther, | strong to save, }
+VerseTwo   =
+  \lyricmode { O | Christ, whose voice the | wa -- ters heard, }
+VerseThree =
+  \lyricmode { O | Ho -- ly Spi -- rit, | who didst brood }
+VerseFour  =
+  \lyricmode { O | Tri -- ni -- ty of | love and pow'r }
 
 \score {
   \new ChoirStaff <<
     \new Staff <<
       \clef "treble"
-      \new Voice = "Sop"  { \voiceOne \TimeKey \SopMusic }
+      \new Voice = "Sop"  { \voiceOne \keyTime \SopMusic }
       \new Voice = "Alto" { \voiceTwo \AltoMusic }
       \new Lyrics \lyricsto "Sop" { \VerseOne   }
       \new Lyrics \lyricsto "Sop" { \VerseTwo   }
@@ -1318,200 +1327,8 @@ VerseFour  = \lyricmode {
     >>
     \new Staff <<
       \clef "bass"
-      \new Voice = "Tenor" { \voiceOne \TimeKey \TenorMusic }
+      \new Voice = "Tenor" { \voiceOne \keyTime \TenorMusic }
       \new Voice = "Bass"  { \voiceTwo \BassMusic }
-    >>
-  >>
-}
-@end lilypond
-
-@cindex verse and refrain
-
-We end with an example to show how we might code a solo verse which
-continues into a two-part refrain in two staves.  The positioning
-of the sequential and simultaneous sections to achieve this within
-a single score is quite tricky, so follow the explanation carefully!
-
-Let's start with a score block containing a @code{ChoirStaff}, as
-we would like the brace to appear at the start of the chorus.
-Normally you would need angle brackets after @code{\new ChoirStaff}
-to bring in all the staves in parallel, but here we want to
-defer the parallelism during the solo so we use braces, although
-angle brackets here wouldn't hurt.  Inside the @code{ChoirStaff} we
-want first the staff which will contain the verse.  This must
-contain notes and lyrics in parallel, so here we need angle
-brackets around the @code{\new Voice} and @code{\new Lyrics} to
-start them at the same time:
-
-@lilypond[quote,verbatim,ragged-right]
-versenotes = \relative c'' {
-  \clef "treble"
-  \key g \major
-  \time 3/4
-  g g g | b b b |
-}
-versewords = \lyricmode {
-  One two three four five six
-}
-\score {
-  \new ChoirStaff {
-    \new Staff <<
-      \new Voice = "verse" {
-        \versenotes \break
-      }
-      \new Lyrics \lyricsto verse {
-        \versewords
-      }
-    >>
-  }
-}
-@end lilypond
-
-That gives the verse line.
-
-Now we want to continue with refrainA on the same staff while a
-second staff is introduced in parallel with it for refrainB, so
-this is a parallel section which must be positioned immediately
-following the @code{\break} in the verse Voice.  Yes, @emph{within}
-the verse Voice!  Here's that parallel section.  More staves
-could be introduced here in the same way.
-
-@example
-<<
-  \refrainnotesA
-  \new Lyrics \lyricsto verse @{
-    \refrainwordsA
-  @}
-  \new Staff <<
-    \new Voice = "refrainB" @{
-      \refrainnotesB
-    @}
-    \new Lyrics \lyricsto "refrainB" @{
-      \refrainwordsB
-    @}
-  >>
->>
-@end example
-
-Here's the final result with two staves in the chorus showing
-how the parallel section is positioned within the verse Voice:
-
-@lilypond[quote,verbatim, ragged-right]
-versenotes = \relative c'' {
-  \clef "treble"
-  \key g \major
-  \time 3/4
-  g g g | b b b |
-}
-refrainnotesA = \relative c'' {
-  \time 2/4
-  c c | g g \bar "|."
-}
-refrainnotesB = \relative c {
-  \clef "bass"
-  \key g \major
-  c e | d d |
-}
-versewords = \lyricmode {
-  One two three four five six
-}
-refrainwordsA = \lyricmode {
-  la la la la
-}
-refrainwordsB = \lyricmode {
-  dum dum dum dum
-}
-\score {
-  \new ChoirStaff {
-    \new Staff <<
-      \new Voice = "verse" {
-        \versenotes \break
-        <<
-          \refrainnotesA
-          \new Lyrics \lyricsto "verse" {
-            \refrainwordsA
-          }
-          \new Staff <<
-            \new Voice = "refrainB" {
-              \refrainnotesB
-            }
-            \new Lyrics \lyricsto "refrainB" {
-              \refrainwordsB
-            }
-          >>
-        >>
-      }
-      \new Lyrics \lyricsto "verse" {
-        \versewords
-      }
-    >>
-  }
-}
-@end lilypond
-
-@cindex book, example of using
-@funindex \book
-@funindex book
-
-However, although this is an interesting and useful exercise to
-help you to understand how sequential and simultaneous blocks work,
-in practice one would perhaps choose to code this as two
-@code{\score} blocks within an implicit @code{\book} block, as
-follows:
-
-@lilypond[quote,verbatim,ragged-right]
-versenotes = \relative c'' {
-  \clef "treble"
-  \key g \major
-  \time 3/4
-  g g g | b b b |
-}
-refrainnotesA = \relative c'' {
-  \time 2/4
-  c c | g g \bar "|."
-}
-refrainnotesB = \relative c {
-  \clef "bass"
-  \key g \major
-  c e | d d |
-}
-versewords = \lyricmode {
-  One two three four five six
-}
-refrainwordsA = \lyricmode {
-  la la la la
-}
-refrainwordsB = \lyricmode {
-  dum dum dum dum
-}
-\score {
-  \new Staff <<
-    \new Voice = "verse" {
-      \versenotes
-    }
-    \new Lyrics \lyricsto "verse" {
-      \versewords
-    }
-  >>
-}
-
-\score {
-  \new ChoirStaff <<
-    \new Staff <<
-      \new Voice = "refrainA" {
-        \refrainnotesA
-      }
-      \new Lyrics \lyricsto "refrainA" {
-        \refrainwordsA
-      }
-    >>
-    \new Staff <<
-      \new Voice = "refrainB" {
-        \refrainnotesB
-      }
-      \new Lyrics \lyricsto "refrainB" {
-        \refrainwordsB
-      }
     >>
   >>
 }
@@ -1550,7 +1367,7 @@ output.  For example, compare the input and output of the
 following example:
 
 @lilypond[quote,verbatim,relative=2,fragment]
-cis4 cis2. g4
+cis4 cis2. | a4 a2. |
 @end lilypond
 
 The input is rather sparse, but in the output, bar lines,
@@ -1664,30 +1481,30 @@ annotated real-music example:
   <<  % start of simultaneous staves section
     \time 2/4
     \new Staff {  % create RH staff
-      \key g \minor
       \clef "treble"
+      \key g \minor
       \new Voice {  % create voice for RH notes
         \relative c'' {  % start of RH notes
-          d4 ees16 c8.
-          d4 ees16 c8.
+          d4 ees16 c8. |
+          d4 ees16 c8. |
         }  % end of RH notes
       }  % end of RH voice
     }  % end of RH staff
     \new Staff <<  % create LH staff; needs two simultaneous voices
-      \key g \minor
       \clef "bass"
+      \key g \minor
       \new Voice {  % create LH voice one
         \voiceOne
         \relative g {  % start of LH voice one notes
-          g8 <bes d> ees, <g c>
-          g8 <bes d> ees, <g c>
+          g8 <bes d> ees, <g c> |
+          g8 <bes d> ees, <g c> |
         }  % end of LH voice one notes
       }  % end of LH voice one
       \new Voice {  % create LH voice two
         \voiceTwo
         \relative g {  % start of LH voice two notes
-          g4 ees
-          g4 ees
+          g4 ees |
+          g4 ees |
         }  % end of LH voice two notes
       }  % end of LH voice two
     >>  % end of LH staff
@@ -1908,12 +1725,12 @@ because we omitted the context name.
 <<
   \new Staff \relative c'' {
     \set Staff.instrumentName = #"Soprano"
-    c4 c
- }
+    c2 c
+  }
   \new Staff \relative c' {
-  \set instrumentName = #"Alto"  % Wrong!
-  d4 d
- }
+    \set instrumentName = #"Alto"  % Wrong!
+    d2 d
+  }
 >>
 @end lilypond
 
@@ -1952,11 +1769,11 @@ So this turns off extra naturals in one staff:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais4 aes
+    ais2 aes
   }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
-    ais4 aes
+    ais2 aes
   }
 >>
 @end lilypond
@@ -1967,11 +1784,11 @@ and this turns them off in all staves:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais4 aes
+    ais2 aes
   }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
-    ais4 aes
+    ais2 aes
   }
 >>
 @end lilypond
@@ -1996,16 +1813,16 @@ other things) several times.  The change is from the default
 value, not the most recently set value.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
-c4
+c4 d
 % make note heads smaller
 \set fontSize = #-4
-d e
+e4 f |
 % make note heads larger
 \set fontSize = #2.5
-f g
+g4 a
 % return to default size
 \unset fontSize
-a b
+b4 c |
 @end lilypond
 
 We have now seen how to set the values of several different types of
@@ -2040,13 +1857,15 @@ like this:
 
 @lilypond[quote,verbatim,ragged-right]
 <<
-  \new Staff
-  \relative c'' {
-    gis ges aes ais
+  \new Staff {
+    \relative c'' {
+      gis4 ges aes ais
+    }
   }
-  \new Staff \with { extraNatural = ##f }
-  \relative c'' {
-    gis ges aes ais
+  \new Staff \with { extraNatural = ##f } {
+    \relative c'' {
+      gis4 ges aes ais
+    }
   }
 >>
 @end lilypond
@@ -2060,12 +1879,12 @@ within the score, it may be appended to an explicit
   \new Score \with { extraNatural = ##f } <<
     \new Staff {
       \relative c'' {
-        gis ges aes ais
+        gis4 ges aes ais
       }
     }
     \new Staff {
       \relative c'' {
-        gis ges aes ais
+        gis4 ges aes ais
       }
     }
   >>
@@ -2167,13 +1986,13 @@ produced by the @code{Staff_symbol_engraver}.
   \remove Staff_symbol_engraver
 }
 \relative c' {
-  c4
+  c4 d
   \set fontSize = #-4  % make note heads smaller
-  d e
+  e4 f |
   \set fontSize = #2.5  % make note heads larger
-  f g
+  g4 a
   \unset fontSize  % return to default size
-  a b
+  b4 c |
 }
 @end lilypond
 
@@ -2196,15 +2015,17 @@ range from that voice only:
 \new Staff <<
   \new Voice \with {
     \consists Ambitus_engraver
+  } {
+    \relative c'' {
+      \voiceOne
+      c4 a b g
+    }
   }
-  \relative c'' {
-    \voiceOne
-    c a b g
-  }
-  \new Voice
-  \relative c' {
-    \voiceTwo
-    c e d f
+  \new Voice {
+    \relative c' {
+      \voiceTwo
+      c4 e d f
+    }
   }
 >>
 @end lilypond
@@ -2216,18 +2037,20 @@ the notes in all the voices on that staff:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
-    \consists Ambitus_engraver
+  \consists Ambitus_engraver
+}
+<<
+  \new Voice {
+    \relative c'' {
+      \voiceOne
+      c4 a b g
+    }
   }
-  <<
-  \new Voice
-  \relative c'' {
-    \voiceOne
-    c a b g
-  }
-  \new Voice
-  \relative c' {
-    \voiceTwo
-    c e d f
+  \new Voice {
+    \relative c' {
+      \voiceTwo
+      c4 e d f
+    }
   }
 >>
 @end lilypond
@@ -2247,28 +2070,28 @@ staff in a four-staff score, we could write
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
-    \new Staff <<
+    \new Staff {
       \relative c'' {
-        c a b g
+        c4 a b g
       }
-    >>
-    \new Staff <<
+    }
+    \new Staff {
       \relative c' {
-        c a b g
+        c4 a b g
       }
-    >>
-    \new Staff <<
+    }
+    \new Staff {
       \clef "G_8"
       \relative c' {
-        c a b g
+        c4 a b g
       }
-    >>
-    \new Staff <<
+    }
+    \new Staff {
       \clef "bass"
       \relative c {
-        c a b g
+        c4 a b g
       }
-    >>
+    }
   >>
   \layout {
     \context {
@@ -2321,8 +2144,9 @@ soprano and cello.  In this case, we would start with the
 
 @example
 \version @w{"@version{}"}
+
 melody = \relative c' @{
-  \clef treble
+  \clef "treble"
   \key c \major
   \time 4/4
   a4 b c d
@@ -2349,8 +2173,9 @@ Now we want to add a cello part.  Let's look at the @q{Notes only} example:
 
 @example
 \version @w{"@version{}"}
+
 melody = \relative c' @{
-  \clef treble
+  \clef "treble"
   \key c \major
   \time 4/4
   a4 b c d
@@ -2386,8 +2211,9 @@ different notes.
 
 @example
 \version @w{"@version{}"}
+
 sopranoMusic = \relative c' @{
-  \clef treble
+  \clef "treble"
   \key c \major
   \time 4/4
   a4 b c d
@@ -2398,7 +2224,7 @@ sopranoLyrics = \lyricmode @{
 @}
 
 celloMusic = \relative c @{
-  \clef bass
+  \clef "bass"
   \key c \major
   \time 4/4
   d4 g fis8 e d4
@@ -2435,14 +2261,14 @@ at once.  The @code{\score} looks like this now:
 @example
 \score @{
   <<
-    <<
-      \new Voice = "one" @{
-        \autoBeamOff
-        \sopranoMusic
-      @}
-      \new Lyrics \lyricsto "one" \sopranoLyrics
-    >>
-    \new Staff \celloMusic
+  <<
+    \new Voice = "one" @{
+      \autoBeamOff
+      \sopranoMusic
+    @}
+    \new Lyrics \lyricsto "one" \sopranoLyrics
+  >>
+  \new Staff \celloMusic
   >>
   \layout @{ @}
   \midi @{ @}
@@ -2455,7 +2281,7 @@ easily fixed.  Here's the complete soprano and cello template.
 
 @lilypond[quote,verbatim,ragged-right,addversion]
 sopranoMusic = \relative c' {
-  \clef treble
+  \clef "treble"
   \key c \major
   \time 4/4
   a4 b c d
@@ -2466,7 +2292,7 @@ sopranoLyrics = \lyricmode {
 }
 
 celloMusic = \relative c {
-  \clef bass
+  \clef "bass"
   \key c \major
   \time 4/4
   d4 g fis8 e d4
@@ -2510,41 +2336,47 @@ from Handel's Messiah:
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
 global = { \key d \major \time 4/4 }
+
 sopranoMusic = \relative c'' {
   \clef "treble"
   r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
 sopranoWords = \lyricmode {
-  Wor -- thy is the lamb that was slain
+  Wor -- thy | is the lamb | that was slain |
 }
+
 altoMusic = \relative a' {
   \clef "treble"
   r4 a2 a4 | fis4. fis8 a2 | g4 fis e2 |
 }
 altoWords = \sopranoWords
+
 tenorMusic = \relative c' {
   \clef "G_8"
   r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
 }
 tenorWords = \sopranoWords
+
 bassMusic = \relative c' {
   \clef "bass"
   r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
 bassWords = \sopranoWords
+
 upper = \relative a' {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4
-  <d fis d'>4. <d fis d'>8 <a d a'>2
-  <g cis g'>4 <a d fis> <a cis e>2
+  r4 <a d fis>2 <a e' a>4 |
+  <d fis d'>4. <d fis d'>8 <a d a'>2 |
+  <g cis g'>4 <a d fis> <a cis e>2 |
 }
+
 lower = \relative c, {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4
-  <b b'>4. <b' b'>8 <fis fis'>2
-  <e e'>4 <d d'> <a' a'>2
+  <d d'>4 <d d'>2 <cis cis'>4 |
+  <b b'>4. <b' b'>8 <fis fis'>2 |
+  <e e'>4 <d d'> <a' a'>2 |
 }
 
 \score {
@@ -2617,48 +2449,48 @@ each staff.
 Doing this gives for our ChoirStaff:
 
 @example
-    \new ChoirStaff <<
-      \new Staff = "sopranos" <<
-        \set Staff.instrumentName = #"Soprano"
-        \new Voice = "sopranos" @{
-          \global
-          \sopranoMusic
-        @}
-      >>
-      \new Lyrics \lyricsto "sopranos" @{
-        \sopranoWords
-     @}
-      \new Staff = "altos" <<
-        \set Staff.instrumentName = #"Alto"
-        \new Voice = "altos" @{
-          \global
-          \altoMusic
-        @}
-      >>
-      \new Lyrics \lyricsto "altos" @{
-        \altoWords
-      @}
-      \new Staff = "tenors" <<
-        \set Staff.instrumentName = #"Tenor"
-        \new Voice = "tenors" @{
-          \global
-          \tenorMusic
-        @}
-      >>
-      \new Lyrics \lyricsto "tenors" @{
-        \tenorWords
-      @}
-      \new Staff = "basses" <<
-        \set Staff.instrumentName = #"Bass"
-        \new Voice = "basses" @{
-          \global
-          \bassMusic
-        @}
-      >>
-      \new Lyrics \lyricsto "basses" @{
-        \bassWords
-      @}
-    >>  % end ChoirStaff
+\new ChoirStaff <<
+  \new Staff = "sopranos" <<
+    \set Staff.instrumentName = #"Soprano"
+    \new Voice = "sopranos" @{
+      \global
+      \sopranoMusic
+    @}
+  >>
+  \new Lyrics \lyricsto "sopranos" @{
+    \sopranoWords
+  @}
+  \new Staff = "altos" <<
+    \set Staff.instrumentName = #"Alto"
+    \new Voice = "altos" @{
+      \global
+      \altoMusic
+    @}
+  >>
+  \new Lyrics \lyricsto "altos" @{
+    \altoWords
+  @}
+  \new Staff = "tenors" <<
+    \set Staff.instrumentName = #"Tenor"
+    \new Voice = "tenors" @{
+      \global
+      \tenorMusic
+    @}
+  >>
+  \new Lyrics \lyricsto "tenors" @{
+    \tenorWords
+  @}
+  \new Staff = "basses" <<
+    \set Staff.instrumentName = #"Bass"
+    \new Voice = "basses" @{
+      \global
+      \bassMusic
+    @}
+  >>
+  \new Lyrics \lyricsto "basses" @{
+    \bassWords
+  @}
+>>  % end ChoirStaff
 @end example
 
 Next we must work out the piano part.  This is
@@ -2735,16 +2567,13 @@ Combining all these together and adding the music
 for the three bars of the example above gives:
 
 @lilypond[quote,verbatim,ragged-right,addversion]
-global = {
-  \key d \major
-  \time 4/4
-}
+global = { \key d \major \time 4/4 }
 sopranoMusic = \relative c'' {
   \clef "treble"
   r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
 sopranoWords = \lyricmode {
-  Wor -- thy is the lamb that was slain
+  Wor -- thy | is the lamb | that was slain |
 }
 altoMusic = \relative a' {
   \clef "treble"
@@ -2764,16 +2593,16 @@ bassWords = \sopranoWords
 upper = \relative a' {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4
-  <d fis d'>4. <d fis d'>8 <a d a'>2
-  <g cis g'>4 <a d fis> <a cis e>2
+  r4 <a d fis>2 <a e' a>4 |
+  <d fis d'>4. <d fis d'>8 <a d a'>2 |
+  <g cis g'>4 <a d fis> <a cis e>2 |
 }
 lower = \relative c, {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4
-  <b b'>4. <b' b'>8 <fis fis'>2
-  <e e'>4 <d d'> <a' a'>2
+  <d d'>4 <d d'>2 <cis cis'>4 |
+  <b b'>4. <b' b'>8 <fis fis'>2 |
+  <e e'>4 <d d'> <a' a'>2 |
 }
 
 \score {
@@ -2865,10 +2694,7 @@ and key:
   title = "Jesu, meine Freude"
   composer = "J S Bach"
 @}
-TimeKey = @{
-  \time 4/4
-  \key c \minor
-@}
+keyTime = @{ \key c \minor \time 4/4 @}
 ManualOneVoiceOneMusic = @{ s1 @}
 ManualOneVoiceTwoMusic = @{ s1 @}
 ManualTwoMusic = @{ s1 @}
@@ -2891,21 +2717,21 @@ manual part needs two voices and the second manual
 part just one.
 
 @example
-  \new PianoStaff <<
-    \new Staff = "ManualOne" <<
-      \new Voice @{
-        \ManualOneVoiceOneMusic
-      @}
-      \new Voice @{
-        \ManualOneVoiceTwoMusic
-      @}
-    >>  % end ManualOne Staff context
-    \new Staff = "ManualTwo" <<
-      \new Voice @{
-        \ManualTwoMusic
-      @}
-    >>  % end ManualTwo Staff context
-  >>  % end PianoStaff context
+\new PianoStaff <<
+  \new Staff = "ManualOne" <<
+    \new Voice @{
+      \ManualOneVoiceOneMusic
+    @}
+    \new Voice @{
+      \ManualOneVoiceTwoMusic
+    @}
+  >>  % end ManualOne Staff context
+  \new Staff = "ManualTwo" <<
+    \new Voice @{
+      \ManualTwoMusic
+    @}
+  >>  % end ManualTwo Staff context
+>>  % end PianoStaff context
 @end example
 
 Next we need to add a staff for the pedal organ.
@@ -2955,15 +2781,15 @@ which need to run consecutively.
 Let's add this structure to the score block, and adjust the indenting.
 We also add the appropriate clefs, ensure stems, ties and slurs in
 each voice on the upper staff point to the right direction with
-@code{\voiceOne} and @code{\voiceTwo}, and enter the time signature
-and key to each staff using our predefined variable, @code{\TimeKey}.
+@code{\voiceOne} and @code{\voiceTwo}, and enter the key and time
+signature to each staff using our predefined variable, @code{\keyTime}.
 
 @example
 \score @{
   <<  % PianoStaff and Pedal Staff must be simultaneous
     \new PianoStaff <<
       \new Staff = "ManualOne" <<
-        \TimeKey  % set time signature and key
+        \keyTime  % set key and time signature
         \clef "treble"
         \new Voice @{
           \voiceOne
@@ -2975,7 +2801,7 @@ and key to each staff using our predefined variable, @code{\TimeKey}.
         @}
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" <<
-        \TimeKey
+        \keyTime
         \clef "bass"
         \new Voice @{
           \ManualTwoMusic
@@ -2983,7 +2809,7 @@ and key to each staff using our predefined variable, @code{\TimeKey}.
       >>  % end ManualTwo Staff context
     >>  % end PianoStaff context
     \new Staff = "PedalOrgan" <<
-      \TimeKey
+      \keyTime
       \clef "bass"
       \new Voice @{
         \PedalOrganMusic
@@ -3003,32 +2829,29 @@ is to add the music, and combine all the parts together.
   title = "Jesu, meine Freude"
   composer = "J S Bach"
 }
-TimeKey = {
-  \time 4/4
-  \key c \minor
-}
+keyTime = { \key c \minor \time 4/4 }
 ManualOneVoiceOneMusic = \relative g' {
-  g4 g f ees
-  d2 c2
+  g4 g f ees |
+  d2 c |
 }
 ManualOneVoiceTwoMusic = \relative c' {
-  ees16 d ees8~ ees16 f ees d c8 d~ d c~
-  c c4 b8 c8. g16 c b c d
+  ees16 d ees8~ ees16 f ees d c8 d~ d c~ |
+  c8 c4 b8 c8. g16 c b c d |
 }
 ManualTwoMusic = \relative c' {
-  c16 b c8~ c16 b c g a8 g~ g16 g aes ees
-  f ees f d g aes g f ees d e8~ ees16 f ees d
+  c16 b c8~ c16 b c g a8 g~ g16 g aes ees |
+  f16 ees f d g aes g f ees d e8~ ees16 f ees d |
 }
 PedalOrganMusic = \relative c {
-  r8 c16 d ees d ees8~ ees16 a, b g c b c8
-  r16 g ees f g f g8 c,2
+  r8 c16 d ees d ees8~ ees16 a, b g c b c8 |
+  r16 g ees f g f g8 c,2 |
 }
 
 \score {
   <<  % PianoStaff and Pedal Staff must be simultaneous
     \new PianoStaff <<
       \new Staff = "ManualOne" <<
-        \TimeKey  % set time signature and key
+        \keyTime  % set key and time signature
         \clef "treble"
         \new Voice {
           \voiceOne
@@ -3040,7 +2863,7 @@ PedalOrganMusic = \relative c {
         }
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" <<
-        \TimeKey
+        \keyTime
         \clef "bass"
         \new Voice {
           \ManualTwoMusic
@@ -3048,7 +2871,7 @@ PedalOrganMusic = \relative c {
       >>  % end ManualTwo Staff context
     >>  % end PianoStaff context
     \new Staff = "PedalOrgan" <<
-      \TimeKey
+      \keyTime
       \clef "bass"
       \new Voice {
         \PedalOrganMusic
@@ -3069,6 +2892,7 @@ By this point, you've seen this kind of thing:
 
 @lilypond[quote,verbatim,ragged-right]
 hornNotes = \relative c'' { c4 b dis c }
+
 \score {
   {
     \hornNotes
@@ -3081,12 +2905,12 @@ You may even realize that this could be useful in minimalist music:
 @lilypond[quote,verbatim,ragged-right]
 fragmentA = \relative c'' { a4 a8. b16 }
 fragmentB = \relative c'' { a8. gis16 ees4 }
+
 violin = \new Staff {
-  \fragmentA
-  \fragmentA
-  \fragmentB
-  \fragmentA
+  \fragmentA \fragmentA |
+  \fragmentB \fragmentA |
 }
+
 \score {
   {
     \violin
@@ -3100,21 +2924,26 @@ macros, or user-defined commands) for tweaks:
 @c TODO Avoid padtext - not needed with skylining
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
+
 padText = { \once \override TextScript #'padding = #5.0 }
-fthenp=_\markup { \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
+fthenp =_\markup {
+  \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
+}
+
 violin = \relative c'' {
   \repeat volta 2 {
-    c4._\dolce b8 a8 g a b
+    c4._\dolce b8 a8 g a b |
     \padText
-    c4.^"hi there!" d8 e' f g d
-    c,4.\fthenp b8 c4 c-.
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\fthenp b8 c4 c-. |
   }
 }
+
 \score {
   {
     \violin
   }
-\layout { ragged-right=##t }
+  \layout { ragged-right = ##t }
 }
 @end lilypond
 
@@ -3128,12 +2957,13 @@ the last line.
 @example
 violin = \relative c'' @{
   \repeat volta 2 @{
-    c4._\markup @{ \italic \bold dolce @} b8 a8 g a b
+    c4._\markup @{ \italic \bold dolce @} b8 a8 g a b |
     \once \override TextScript #'padding = #5.0
-    c4.^"hi there!" d8 e' f g d
-    c,4.\markup @{ \dynamic f \italic \small @{ 2nd @}
-      \hspace #0.1 \dynamic p @}
-    b8 c4 c-.
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\markup @{
+      \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p
+    @}
+    b8 c4 c-. |
   @}
 @}
 @end example
@@ -3151,17 +2981,19 @@ can think of these as functions).
 
 @lilypond[quote,verbatim,ragged-right]
 padText =
-#(define-music-function (parser location padding) (number?)
-  #{
-    \once \override TextScript #'padding = #$padding
-  #})
+#(define-music-function
+     (parser location padding)
+     (number?)
+   #{
+     \once \override TextScript #'padding = $padding
+   #})
 
 \relative c''' {
-  c4^"piu mosso" b a b
+  c4^"piu mosso" b a b |
   \padText #1.8
-  c4^"piu mosso" d e f
+  c4^"piu mosso" d e f |
   \padText #2.6
-  c4^"piu mosso" fis a g
+  c4^"piu mosso" fis a g |
 }
 @end lilypond
 
@@ -3190,7 +3022,7 @@ of a horn/@/bassoon duo
 @example
 hornNotes = \relative c @{
   \time 2/4
-  r4 f8 a cis4 f e d
+  r4 f8 a | cis4 f | e4 d |
 @}
 @end example
 
@@ -3199,6 +3031,7 @@ Then, an individual part is made by putting the following in a file
 
 @example
 \include "horn-music.ly"
+
 \header @{
   instrument = "Horn in F"
 @}
@@ -3226,7 +3059,7 @@ in the following output
 @lilypond[quote,ragged-right]
 \transpose f c' \relative c {
   \time 2/4
-  r4 f8 a cis4 f e d
+  r4 f8 a | cis4 f | e4 d |
 }
 @end lilypond
 
@@ -3258,8 +3091,8 @@ this option to the music above, leads to the following result
 \transpose f c' \relative c {
   \time 2/4
   \set Score.skipBars = ##t
-  R2*3
-  r4 f8 a cis4 f e d
+  R2*3 |
+  r4 f8 a | cis4 f | e4 d |
 }
 @end lilypond
 
@@ -3284,14 +3117,16 @@ leading to
 @lilypond[quote,ragged-right]
 \relative c <<
   \new Staff {
+    \clef "treble"
     \time 2/4
-    R2*3
-    r4 f8 a cis4 f e d
+    R2*3 |
+    r4 f8 a | cis4 f | e4 d |
   }
   \new Staff {
-    \clef bass
-    r4 d,8 f | gis4 c | b bes |
-    a8 e f4 | g d | gis f |
+    \clef "bass"
+    \time 2/4
+    r4 d,8 f | gis4 c | b4 bes |
+    a8 e f4 | g4 d | gis4 f |
   }
 >>
 @end lilypond

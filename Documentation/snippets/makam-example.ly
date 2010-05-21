@@ -2,10 +2,10 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.0
-\version "2.13.18"
+\version "2.13.20"
 
 \header {
-%% Translation of GIT committish: 2b0dc29608d6c3f5a03ead4877ae514c647adb74
+%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
   texidoces = "
 El «Makam» es un tipo de melodía de Turquía que
 utiliza alteraciones microtonales de 1/9 de tono.  Consulte el

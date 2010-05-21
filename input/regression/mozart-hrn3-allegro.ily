@@ -55,15 +55,15 @@ allegro =
 	 a[(  g) d'(  b)]  a[(  g) e'(  c) ]
 	 b8[(  a)] a4 r4  a8[ a]
 	 a[( \< b c cis\!\> ]  d4  c\!)
-	 ais8[( b)] r8 \cresc b  b[( c)] r c
+	 ais8[( b)] r8 b\cresc  b[( c)] r c
 	 cis[ ( d)] r4 r2
-	\endcresc g,1\f ~ g2 ~  g8[ a16 b]  c[( d) e c]
+	g,1\!\f ~ g2 ~  g8[ a16 b]  c[( d) e c]
 	%% 64
 	f4-. d-. b-. g-.
 	R1
 
-	c,2\p e4 g c \cresc e g4. e8 |
-	\endcresc d4.\f  e16[ fis]  g[ ( fis) e d]  c[( b) a g]
+	c,2\p e4 g c e\cresc g4. e8 |
+	d4.\!\f  e16[ fis]  g[ ( fis) e d]  c[( b) a g]
 
 	<< a1(\trill
 	  { s2 \grace {
@@ -146,9 +146,9 @@ allegro =
 	R1
 	c1 ~
 	c |
-	 c8[-. c-.] r c-.  cis[( d)] r\cresc d-. |
+	 c8[-. c-.] r c-.  cis[( d)] r d-.\cresc |
 	 dis[( e)] r e-.  e[( f)] r f-. |
-	g4-.\f\endcresc  e-. c-. bes-. |
+	g4-.\!\f  e-. c-. bes-. |
 	g-.\ff e-. c-. r |
 	a'2 ~  a8[_""_\markup { \bold \italic "sempre " \dynamic "f" }  b16 c]  d[( e d  e)]
 

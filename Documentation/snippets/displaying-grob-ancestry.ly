@@ -2,12 +2,12 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.10
-\version "2.13.18"
+\version "2.13.20"
 
 \header {
-%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
 
-  texidoc = "
+  texidoces = "
 Al trabajar con los callbacks de un grob, puede ser de mucha ayuda
 entender el @qq{árbol genealógico} de un grob.  La mayor parte de los
 grobs tienen @qq{padres} que influyen en el posicionamiento del grob.
@@ -73,7 +73,7 @@ NoteHead X,Y: NoteColumn
 
 "
 
-  doctitle = "Imprimir el árbol genealógico de un grob"
+  doctitlees = "Imprimir el árbol genealógico de un grob"
 
   lsrtags = "tweaks-and-overrides"
 
@@ -107,8 +107,7 @@ The concept of @qq{generations} is misleading.
 
 
 For example, the @code{System} grob can be both parent (on the Y-side)
-and grandparent (twice on the X-side) to a @code{VerticalAlignment} % begin verbatim
-
+and grandparent (twice on the X-side) to a @code{VerticalAlignment}
 grob.
 
 
@@ -147,7 +146,8 @@ NoteHead X,Y: NoteColumn
 
 "
   doctitle = "Displaying grob ancestry"
-}
+} % begin verbatim
+
 
 #(define (grob-name grob)
    (if (ly:grob? grob)

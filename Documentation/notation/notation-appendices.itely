@@ -47,6 +47,7 @@ and just before
 * All context properties::
 * Layout properties::
 * Available music functions::
+* Predefined type predicates::
 * Scheme functions::
 @end menu
 
@@ -1341,6 +1342,12 @@ Internals Reference:
 @appendixsec Available music functions
 
 @include identifiers.tely
+
+
+@node Predefined type predicates
+@appendixsec Predefined type predicates
+
+@include type-predicates.tely
 
 
 @node Scheme functions

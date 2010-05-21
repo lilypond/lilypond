@@ -4,3 +4,4 @@
 %
 
 input feta-noteheads;
+%input feta-flags;

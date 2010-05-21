@@ -64,6 +64,26 @@ which scares away people.
 
 @end ignore
 
+
+@item
+The LilyPond G clef has been rotated 1.5 degrees clockwise for improved
+balance.  The old and new versions can be compared by looking at the
+documentation:
+@uref{http://lilypond.org/doc/v2.12/Documentation/user/lilypond/The-Feta-font.html#Clef-glyphs,
+old version},
+@uref{http://lilypond.org/doc/v2.13/Documentation/notation/the-feta-font.html#Clef-glyphs,
+new version}.
+
+
+@item
+Text crescendo spanners can now be added directly using @code{\cresc},
+@code{\dim} and @code{\decresc}.
+@lilypond[quote,relative=2]
+c4\cresc c c c\f |
+c4\dim c c c\!
+@end lilypond
+
+
 @item
 The documented syntax of @samp{lilypond} environments in the @LaTeX{}
 mode of @command{lilypond-book} has been changed to conform with

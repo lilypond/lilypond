@@ -2,13 +2,13 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.4
-\version "2.13.18"
+\version "2.13.20"
 
 \header {
-%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
 
 
-  texidoc = "
+  texidoces = "
 A diferencia de los glissandos, los @q{slides} o ligaduras pueden
 partir de un punto impreciso del mástil hasta un traste específico.
 Una buena forma de hacerlo es añadir una nota de mordente antes de la
@@ -16,7 +16,7 @@ nota real, como se muestra en el ejemplo siguiente.
 
 "
 
-  doctitle = "Ligaduras de guitarra"
+  doctitlees = "Ligaduras de guitarra"
 
   lsrtags = "fretted-strings"
 

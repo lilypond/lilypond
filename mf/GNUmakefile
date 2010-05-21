@@ -30,7 +30,7 @@ OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table) \
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg)
 
-FC_FIND = $(shell $(FCMATCH) --verbose 'Century Schoolbook L:style=$(1)' \
+FC_FIND = $(shell $(FCLIST) --verbose 'Century Schoolbook L:style=$(1)' \
 		  | grep 'file:' \
 		  | sed 's/.*"\([^"]*\)".*/\1/g')
 

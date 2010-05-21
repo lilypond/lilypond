@@ -133,11 +133,10 @@ rondo =  	\relative c'
 	R2. |
 	r8  g[ g]  g[ g g]
 	es'4. ~  es8[ d c]
-	\cresc b4.  c4. d4. e4.
+	b4.\cresc  c4. d4. e4.
 	\mark "F"
-	\endcresc
 	
-	f2.\f ~ |
+	f2.\!\f ~ |
 	f4 r8 r4 r8
 	r8  g,[\> g]  g[ g g]
 	
@@ -161,10 +160,10 @@ rondo =  	\relative c'
 	 c[ ( e) g,-.] 	 c[ ( e) g,-.]
 	 c[ ( e) g,-.] 	 c[ ( e) g,-.]
 	\mark "H"
-	\cresc g'2.  bes,2.
+	g'2.\cresc  bes,2.
 	a4.  b16[ c d e f g]
 	a4. f4 d8
-	\endcresc c8[\f g' e]  c[ g e]
+	c8[\!\f g' e]  c[ g e]
 	 c[ e' c]   g[ e c]
 	g4 r8  g''8[ e c]
 
@@ -181,9 +180,9 @@ rondo =  	\relative c'
 	R2.*5
 	r8 r8^\fermata d8\p  d[ e f]
 	 g[ ( e) c]  d[( e) d]
-	\cresc  c[  c c]  d[ e f]
+	c[\cresc  c c]  d[ e f]
 	 g[( e) c]  d[( e) d]
-	\endcresc c4\f  r8 r4 r8
+	c4\!\f  r8 r4 r8
 	R2.*5
 	 c8[\f c, c]  c[ c c]
 	c4 r8 c4 r8

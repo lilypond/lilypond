@@ -28,6 +28,80 @@ NOTE:
 
 
 @newsItem
+@subsubheading LilyPond 2.13.20 released!  @emph{May 5, 2010}
+
+We are happy to announce the release of LilyPond 2.13.20.  This
+release contains the usual number of bugfixes.  However, a number
+of critical issues still remain, so this release is intended for
+developers only.
+
+Minor syntax change: the undocumented @code{\cresc} and
+@code{\decresc} have changed.  In addition, the [options] for the
+LaTeX mode of @code{lilypond-book} now comes after the
+@code{@{lilypond@}}, following normal LaTeX practice.  As always,
+see the Changes document for more information.
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.13.19 released!  @emph{April 24, 2010}
+
+We are happy to announce the release of LilyPond 2.13.19.  This
+release contains the usual number of bugfixes.  However, 11
+critical issues still remain, so this release is intended for
+developers only.
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.13.18 released!  @emph{April 16, 2010}
+
+We are happy to announce the release of LilyPond 2.13.18.  This
+release contains the usual number of bugfixes, along with improved
+website translations.  However, 14 critical issues still remain,
+so this release is intended for developers only.
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.13.17 released!  @emph{April 2, 2010}
+
+We are happy to announce the release of LilyPond 2.13.17.  This
+release includes bugfixes for 4 critical issues.  However, 15
+critical issues still remain, so this release is intended for
+developers only.
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.13.16 released!  @emph{March 15, 2010}
+
+We are happy to announce the release of LilyPond 2.13.16.  This
+release is intended for developers only, and includes the usual
+round of bugfixes.
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.13.15 released!  @emph{March 4, 2010}
+
+We are happy to announce the release of LilyPond 2.13.15.  This
+release is intended for developers only, and includes a few
+updates to the binary build process in addition to the usual round
+of bugfixes.
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond Report #17.  @emph{March 1, 2010}
+
+Yay, the Report is back, with a new team! It has been said that
+two heads are better than one — does it apply to newsletters as
+well? Read on and let us know! In this issue we’ll talk about
+websites and poetry, frogs and bugs, not to mention an extensive
+review of the Frescobaldi editor!
+
+What are you waiting for?  Come
+@uref{http://news.lilynet.net/The-LilyPond-Report-17, read
+LilyPond Report 17} now!
+
+
+@newsItem
 @subsubheading LilyPond 2.13.14 released!  @emph{February 27, 2010}
 
 We are happy to announce the release of LilyPond 2.13.14.  This

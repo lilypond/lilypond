@@ -66,7 +66,7 @@ register COMMAND-markup and its signature,
 
 * add COMMAND-markup to markup-functions-by-category,
 
-* sets COMMAND-markup markup-signature and markup-keyword object properties,
+* sets COMMAND-markup markup-signature object property,
 
 * define a make-COMMAND-markup function.
 
@@ -366,57 +366,27 @@ Use `markup*' in a \\notemode context."
 
 ;;;;;;;;;;;;;;;
 ;;; Utilities for storing and accessing markup commands signature
-;;; and keyword.
 ;;; Examples:
 ;;;
 ;;; (set! (markup-command-signature raise-markup) (list number? markup?))
-;;; ==> ((#<primitive-procedure number?> #<procedure markup? (obj)>) . scheme0-markup1)
+;;; ==> (#<primitive-procedure number?> #<procedure markup? (obj)>)
 ;;;
 ;;; (markup-command-signature raise-markup)
 ;;; ==> (#<primitive-procedure number?> #<procedure markup? (obj)>)
 ;;;
-;;; (markup-command-keyword raise-markup) ==> scheme0-markup1
-;;;
-
-(define-public (markup-command-keyword markup-command)
-  "Return markup-command's argument keyword, ie a symbol describing the command
-  arguments, eg. scheme0-markup1"
-  (object-property markup-command 'markup-keyword))
 
 (define-public (markup-command-signature-ref markup-command)
   "Return markup-command's signature (the 'markup-signature object property)"
   (object-property markup-command 'markup-signature))
 
 (define-public (markup-command-signature-set! markup-command signature)
-  "Set markup-command's signature and keyword (as object properties)"
+  "Set markup-command's signature (as object property)"
   (set-object-property! markup-command 'markup-signature signature)
-  (set-object-property! markup-command 'markup-keyword
-                        (markup-signature-to-keyword signature))
   signature)
 
 (define-public markup-command-signature
   (make-procedure-with-setter markup-command-signature-ref
                               markup-command-signature-set!))
-
-(define-public (markup-signature-to-keyword sig)
-  " (A B C) -> a0-b1-c2 "
-  (if (null? sig)
-      'empty
-      (string->symbol (string-join (map
-                                    (let* ((count 0))
-                                      (lambda (func)
-                                        (set! count (+ count 1))
-                                        (string-append
-                                         ;; for reasons I don't get,
-                                         ;; (case func ((markup?) .. )
-                                         ;; doesn't work.
-                                         (cond
-                                          ((eq? func markup?) "markup")
-                                          ((eq? func markup-list?) "markup-list")
-                                          (else "scheme"))
-                                         (number->string (- count 1)))))
-                                    sig)
-                         "-"))))
 
 (define (lookup-markup-command-aux symbol)
   (let ((proc (catch 'misc-error
@@ -429,13 +399,13 @@ Use `markup*' in a \\notemode context."
   (let ((proc (lookup-markup-command-aux
 	       (string->symbol (format #f "~a-markup" code)))))
     (and proc (markup-function? proc)
-	 (cons proc (markup-command-keyword proc)))))
+	 (cons proc (markup-command-signature proc)))))
 
 (define-public (lookup-markup-list-command code)
   (let ((proc (lookup-markup-command-aux
 	       (string->symbol (format #f "~a-markup-list" code)))))
      (and proc (markup-list-function? proc)
-	  (cons proc (markup-command-keyword proc)))))
+	  (cons proc (markup-command-signature proc)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; used in parser.yy to map a list of markup commands on markup arguments

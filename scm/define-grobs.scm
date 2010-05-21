@@ -984,7 +984,7 @@
 
     (LaissezVibrerTieColumn
      . (
-	(head-direction . ,LEFT)
+	(head-direction . ,ly:semi-tie-column::calc-head-direction)
 	(positioning-done . ,ly:semi-tie-column::calc-positioning-done)
 	(X-extent . #f)
 	(Y-extent . #f)

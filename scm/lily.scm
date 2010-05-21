@@ -49,8 +49,8 @@
 "Render at higher resolution (using given factor)
 and scale down result to prevent jaggies in
 PNG images.")
-    (aux-files #t 
-"Create .tex, .texi, .count files in the 
+    (aux-files #t
+"Create .tex, .texi, .count files in the
 EPS backend.")
     (backend ps
 "Select backend.  Possible values: 'eps, 'null,
@@ -410,50 +410,119 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 
 (for-each ly:load init-scheme-files)
 
+(define-public r5rs-primary-predicates
+  `((,boolean? . "boolean")
+    (,char? . "character")
+    (,number? . "number")
+    (,pair? . "pair")
+    (,port? . "port")
+    (,procedure? . "procedure")
+    (,string? . "string")
+    (,symbol? . "symbol")
+    (,vector? . "vector")))
+
+(define-public r5rs-secondary-predicates
+  `((,char-alphabetic? . "alphabetic character")
+    (,char-lower-case? . "lower-case character")
+    (,char-numeric? . "numeric character")
+    (,char-upper-case? . "upper-case character")
+    (,char-whitespace? . "whitespace character")
+
+    (,complex? . "complex number")
+    (,even? . "even number")
+    (,exact? . "exact number")
+    (,inexact? . "inexact number")
+    (,integer? . "integer")
+    (,negative? . "negative number")
+    (,odd? . "odd number")
+    (,positive? . "positive number")
+    (,rational? . "rational number")
+    (,real? . "real number")
+    (,zero? . "zero")
+
+    (,list? . "list")
+    (,null? . "null")
+
+    (,input-port? . "input port")
+    (,output-port? . "output port")
+
+    ;; would this ever be used?
+    (,eof-object? . "end-of-file object")
+    ))
+
+(define-public guile-predicates
+  `((,hash-table? . "hash table")
+  ))
+
+(define-public lilypond-scheme-predicates
+  `((,boolean-or-symbol? . "boolean or symbol")
+    (,color? . "color")
+    (,cheap-list? . "list")
+    (,grob-list? . "list of grobs")
+    ;; this is built on cheap-list
+    (,list-or-symbol? . "list or symbol")
+    (,markup? . "markup")
+    (,markup-command-list? . "markup command list")
+    (,markup-list? . "markup list")
+    (,moment-pair? . "pair of moment objects")
+    (,number-or-grob? . "number or grob")
+    (,number-or-string? . "number or string")
+    (,number-pair? . "pair of numbers")
+    (,rhythmic-location? . "rhythmic location")
+    (,scheme? . "any type")
+    (,string-or-pair? . "string or pair")
+    (,string-or-symbol? . "string or symbol")
+    ))
+
+(define-public lilypond-exported-predicates
+  `((,ly:box? . "box")
+    (,ly:context? . "context")
+    (,ly:dimension? . "dimension, in staff space")
+    (,ly:dir? . "direction")
+    (,ly:dispatcher? . "dispatcher")
+    (,ly:duration? . "duration")
+    (,ly:font-metric? . "font metric")
+    (,ly:grob? . "graphical (layout) object")
+    (,ly:grob-array? . "array of grobs")
+    (,ly:input-location? . "input location")
+    (,ly:item? . "item")
+    (,ly:iterator? . "iterator")
+    (,ly:lily-lexer? . "lily-lexer")
+    (,ly:lily-parser? . "lily-parser")
+    (,ly:listener? . "listener")
+    (,ly:moment? . "moment")
+    (,ly:music? . "music")
+    (,ly:music-function? . "music function")
+    (,ly:music-list? . "list of music objects")
+    (,ly:music-output? . "music output")
+    (,ly:otf-font? . "OpenType font")
+    (,ly:output-def? . "output definition")
+    (,ly:page-marker? . "page marker")
+    (,ly:pango-font? . "pango font")
+    (,ly:paper-book? . "paper book")
+    (,ly:paper-system? . "paper-system Prob")
+    (,ly:pitch? . "pitch")
+    (,ly:prob? . "property object")
+    (,ly:score? . "score")
+    (,ly:simple-closure? . "simple closure")
+    (,ly:skyline? . "skyline")
+    (,ly:skyline-pair? . "pair of skylines")
+    (,ly:source-file? . "source file")
+    (,ly:spanner? . "spanner")
+    (,ly:stencil? . "stencil")
+    (,ly:stream-event? . "stream event")
+    (,ly:translator? . "translator")
+    (,ly:translator-group? . "translator group")
+    ))
+
+
 (set! type-p-name-alist
-      `((,boolean? . "boolean")
-	(,boolean-or-symbol? . "boolean or symbol")
-	(,char? . "char")
-	(,grob-list? . "list of grobs")
-	(,hash-table? . "hash table")
-	(,input-port? . "input port")
-	(,integer? . "integer")
-	(,list? . "list")
-	(,list-or-symbol? . "list or symbol")
-	(,ly:context? . "context")
-	(,ly:dimension? . "dimension, in staff space")
-	(,ly:dir? . "direction")
-	(,ly:duration? . "duration")
-	(,ly:font-metric? . "font metric")
-	(,ly:grob? . "layout object")
-	(,ly:grob-array? . "array of grobs")
-	(,ly:input-location? . "input location")
-	(,ly:moment? . "moment")
-	(,ly:music? . "music")
-	(,ly:music-list? . "list of music objects")
-	(,ly:music-output? . "music output")
-	(,ly:pitch? . "pitch")
-	(,ly:translator? . "translator")
-        (,ly:score? . "score")
-	(,ly:simple-closure? . "simple closure")
-	(,ly:skyline-pair? . "pair of skylines")
-	(,ly:stencil? . "stencil")
-	(,markup-list? . "list of markups")
-	(,markup? . "markup")
-	(,number-or-grob? . "number or grob")
-	(,number-or-string? . "number or string")
-	(,number-pair? . "pair of numbers")
-	(,number? . "number")
-	(,output-port? . "output port")
-	(,pair? . "pair")
-	(,procedure? . "procedure")
-	(,real? . "real number")
-	(,rhythmic-location? . "rhythmic location")
-	(,scheme? . "any type")
-	(,string? . "string")
-	(,string-or-pair? . "string or pair")
-	(,symbol? . "symbol")
-	(,vector? . "vector")))
+      (append r5rs-primary-predicates
+              r5rs-secondary-predicates
+              guile-predicates
+              lilypond-scheme-predicates
+              lilypond-exported-predicates))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; timing
@@ -591,20 +660,32 @@ PIDs or the number of the process."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define* (ly:exit status #:optional (silently #f) )
+    "Exit function for lilypond"
+    (if (not silently)
+	(case status
+	    ((0) (ly:success "Compilation successfully completed"))
+	    ((1) (ly:warning "Compilation completed with warnings or errors"))
+	    (else (ly:message "")))
+	)
+    (exit status)
+    )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
   (eval-string (ly:command-line-code))
   (if (ly:get-option 'help)
       (begin (ly:option-usage)
-	     (exit 0)))
+	     (ly:exit 0 #t )))
   (if (ly:get-option 'show-available-fonts)
       (begin (ly:font-config-display-fonts)
-	     (exit 0)))
+	     (ly:exit 0 #t)))
   (if (ly:get-option 'gui)
       (gui-main files))
   (if (null? files)
       (begin (ly:usage)
-	     (exit 2)))
+	     (ly:exit 2 #t)))
   (if (ly:get-option 'read-file-list)
       (set! files
 	    (filter (lambda (s)
@@ -660,9 +741,10 @@ PIDs or the number of the process."
 		   (if (ly:get-option 'dump-profile)
 		       (dump-profile "lily-run-total"
 				     '(0 0) (profile-measurements)))
-		   (exit (if (null? errors)
-			     0
-			     1))))))
+		   (if (null? errors)
+		       (ly:exit 0 #f)
+		       (ly:exit 1 #f))))))
+
   (if (string-or-symbol? (ly:get-option 'log-file))
       (ly:stderr-redirect (format "~a.log" (ly:get-option 'log-file)) "w"))
   (let ((failed (lilypond-all files)))
@@ -672,11 +754,10 @@ PIDs or the number of the process."
 			       (string-contains f "lilypond")))))
     (if (pair? failed)
 	(begin (ly:error (_ "failed files: ~S") (string-join failed))
-	       (exit 1))
+               (ly:exit 1 #f))
 	(begin
-	  ;; HACK: be sure to exit with single newline
-	  (ly:message "")
-	  (exit 0)))))
+	  (ly:exit 0 #f)))))
+
 
 (define-public (lilypond-all files)
   (let* ((failed '())
@@ -718,7 +799,7 @@ PIDs or the number of the process."
 	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
 	 (if (ly:get-option 'debug-gc)
 	     (dump-gc-protects)
-	     (ly:reset-all-fonts))))
+             (ly:reset-all-fonts))))
      files)
 
     ;; we want the failed-files notice in the aggregrate logfile.
@@ -754,7 +835,7 @@ PIDs or the number of the process."
 	      (ly:error (_ "failed files: ~S") (string-join failed))
 	      ;; not reached?
 	      (exit 1))
-	    (exit 0)))))
+	    (ly:exit 0 #f)))))
 
 (define (gui-no-files-handler)
   (let* ((ly (string-append (ly:effective-prefix) "/ly/"))
@@ -763,4 +844,4 @@ PIDs or the number of the process."
 	 (cmd (get-editor-command welcome-ly 0 0 0)))
     (ly:message (_ "Invoking `~a'...\n") cmd)
     (system cmd)
-    (exit 1)))
+    (ly:exit 1 #f)))

@@ -144,6 +144,17 @@ LY_DEFINE (ly_programming_error, "ly:programming-error",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_success, "ly:success",
+	   1, 0, 1, (SCM str, SCM rest),
+	   "A Scheme callable function to issue a success message @code{str}."
+	   "  The message is formatted with @code{format} and @code{rest}.")
+{
+  LY_ASSERT_TYPE (scm_is_string, str, 1);
+  str = scm_simple_format (SCM_BOOL_F, str, rest);
+  successful (ly_scm2string (str));
+  return SCM_UNSPECIFIED;
+
+}
 LY_DEFINE (ly_warning, "ly:warning",
 	   1, 0, 1, (SCM str, SCM rest),
 	   "A Scheme callable function to issue the warning @code{str}."
@@ -440,12 +451,13 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
   LY_ASSERT_TYPE (scm_is_string, file_name, 1);
 
   string m = "w";
+  FILE *stderrfile;
   if (mode != SCM_UNDEFINED && scm_string_p (mode))
     m = ly_scm2string (mode);
   /* dup2 and (fileno (current-error-port)) do not work with mingw'c
      gcc -mwindows.  */
   fflush (stderr);
-  freopen (ly_scm2string (file_name).c_str (), m.c_str (), stderr);
+  stderrfile = freopen (ly_scm2string (file_name).c_str (), m.c_str (), stderr);
   return SCM_UNSPECIFIED;
 }
 

@@ -122,30 +122,83 @@ c1
 @cindex pickup in a repeat
 @funindex \partial
 
-Repeats with upbeats can be entered in two ways:
 
-@lilypond[verbatim,quote,relative=2]
-\partial 4
-e |
-\repeat volta 4 { c2 d | e2 f | }
-\alternative {
-  { g4 g g e }
-  { a4 a a a | b2. }
+If a repeat starts in the middle of a measure and has no alternate
+endings, normally the end of the repeat will also fall in the
+middle of a measure, so that the two ends add up to one complete
+measure.  In such cases, the repeat signs do not constitute true
+bar lines.  Do not use @code{\partial} commands or bar checks
+where these repeat signs are printed:
+
+@lilypond[verbatim,quote,relative=1]
+% no \partial here
+c4 e g  % no bar check here
+% no \partial here
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  % no \partial here
+  g4 g g  % no bar check here
 }
+% no \partial here
+g4 |
+a2 a |
+g1 |
 @end lilypond
 
-@noindent
-or
+Similarly, if a repeat begins with the initial partial measure of
+a score and has no alternate endings, the same conditions apply as
+in the above example, except that in this case the @code{\partial}
+command is required at the beginning of the score:
 
-@lilypond[verbatim,quote,relative=2]
-\partial 4
-\repeat volta 4 { e4 | c2 d | e2 f | }
-\alternative {
-  { \partial 4*3 g4 g g }
-  { a4 a a a | b2. }
+@lilypond[verbatim,quote,relative=1]
+\partial 4  % required
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  % no \partial here
+  g4 g g  % no bar check here
 }
+% no \partial here
+g4 |
+a2 a |
+g1 |
 @end lilypond
 
+When alternate endings are added to a repeat that begins with an
+incomplete measure, it becomes necessary to set the
+@code{Timing.measureLength} context property manually, in the
+following specific places:
+
+@itemize
+@item
+at the start of any incomplete measures in the @code{\alternative}
+block, which normally occur at the end of each alternative, except
+(in most cases) the last.
+
+@item
+at the start of each alternative, except the first.
+@end itemize
+
+@lilypond[verbatim,quote,relative=1]
+\partial 4
+\repeat volta 2 { e4 | c2 e | }
+\alternative {
+  {
+    f2 d |
+    \set Timing.measureLength = #(ly:make-moment 3 4)
+    g4 g g  % optional bar check is allowed here
+  }
+  {
+    \set Timing.measureLength = #(ly:make-moment 4 4)
+    a2 a |
+  }
+}
+g1 |
+@end lilypond
+
+The @code{measureLength} property is described in @ref{Time
+administration}.
 
 @cindex repeats with ties
 @cindex alternative endings with ties
@@ -157,7 +210,7 @@ Ties may be added to a second ending:
 
 @lilypond[verbatim,quote,relative=2]
 c1
-\repeat volta 2 { c4 d e f ~ }
+\repeat volta 2 { c4 d e f~ }
 \alternative {
   { f2 d }
   { f2\repeatTie f, }
@@ -180,7 +233,8 @@ Music Glossary:
 
 Notation Reference:
 @ref{Bar lines},
-@ref{Modifying context plug-ins}.
+@ref{Modifying context plug-ins},
+@ref{Time administration}.
 
 Snippets:
 @rlsr{Repeats}.
@@ -204,6 +258,16 @@ Internals Reference:
 @cindex repeat and slur
 @cindex slur and repeat
 
+Slurs that span from a @code{\repeat} block into an
+@code{\alternative} block will only work for the first alternate
+ending.  Also, slurs cannot wrap around from the end of one
+alternative back to the beginning of the repeat.
+
+If a repeat that begins with an incomplete measure has an
+@code{\alternative} block that contains modifications to the
+@code{measureLength} property, using @code{\unfoldRepeats} will
+result in wrongly-placed bar lines and bar check warnings.
+
 A nested repeat like
 
 @example
@@ -217,12 +281,6 @@ is ambiguous, since it is not clear to which @code{\repeat} the
 @code{\alternative} belongs.  This ambiguity is resolved by always
 having the @code{\alternative} belong to the inner @code{\repeat}.
 For clarity, it is advisable to use braces in such situations.
-
-Timing information is not remembered at the start of an alternative,
-so after a repeat timing information must be reset by hand; for
-example, by setting @code{Score.measurePosition} or entering
-@code{\partial}.  Similarly, slurs are also not repeated.
-
 
 
 @node Manual repeat marks
@@ -555,8 +613,4 @@ Snippets:
 
 @cindex tremolo, cross-staff
 @cindex cross-staff tremolo
-
-@knownissues
-
-Cross-staff tremolos do not work well.
 

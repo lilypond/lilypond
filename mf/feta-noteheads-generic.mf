@@ -41,6 +41,7 @@ fet_beginfont ("feta", design_size, "fetaMusic");
 
 if test = 0:
 	input feta-noteheads;
+        input feta-flags;
 else:
 	input feta-noteheads-test-generic.mf;
 fi

@@ -178,19 +178,23 @@ AC_DEFUN(STEPMAKE_COMPILE_BEFORE, [
     pipe_b=yes
 
     AC_ARG_ENABLE(debugging,
-    [  --enable-debugging      compile with debugging info.  Default: on],
+    [AS_HELP_STRING([--enable-debugging],
+                    [compile with debugging info.  Default: on])],
     [debug_b=$enableval])
 
     AC_ARG_ENABLE(optimising,
-    [  --enable-optimising     compile with optimising.  Default: on],
+    [AS_HELP_STRING([--enable-optimising],
+                    [compile with optimising.  Default: on])],
     [optimise_b=$enableval])
 
     AC_ARG_ENABLE(profiling, 
-    [  --enable-profiling      compile with gprof support.  Default: off],
+    [AS_HELP_STRING([--enable-profiling],
+                    [compile with gprof support.  Default: off])],
     [profile_b=$enableval])
     
     AC_ARG_ENABLE(pipe, 
-    [  --enable-pipe           compile with -pipe.  Default: on],
+    [AS_HELP_STRING([--enable-pipe],
+                    [compile with -pipe.  Default: on])],
     [pipe_b=$enableval])
 
     if test "$optimise_b" = yes; then
@@ -258,7 +262,6 @@ AC_DEFUN(STEPMAKE_COMPILE, [
 ])
 
 AC_DEFUN(STEPMAKE_CXX, [
-    AC_LANG([C++])
     AC_PROG_CXX
     STEPMAKE_OPTIONAL_REQUIRED(CXX, c++, $1)
 
@@ -452,7 +455,6 @@ AC_DEFUN(STEPMAKE_FLEXLEXER, [
     fi
     # check for yyFlexLexer.yy_current_buffer,
     # in 2.5.4 <= flex < 2.5.29
-    AC_LANG_PUSH(C++)
     AC_CACHE_CHECK([for yyFlexLexer.yy_current_buffer],
 	[stepmake_cv_flexlexer_yy_current_buffer],
 	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
@@ -472,7 +474,6 @@ class yy_flex_lexer: public yyFlexLexer
     if test $stepmake_cv_flexlexer_yy_current_buffer = yes; then
 	AC_DEFINE(HAVE_FLEXLEXER_YY_CURRENT_BUFFER, 1, [Define to 1 if yyFlexLexer has yy_current_buffer.])
     fi
-    AC_LANG_POP(C++)
 ])
   
 
@@ -511,24 +512,8 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
     
     AC_SUBST(localedir)
     AC_DEFINE_UNQUOTED(LOCALEDIR, ["${LOCALEDIR}"])
-    # ouch.  autoconf <= 2.57's gettext check fails for
-    # g++ >= 3.3 (with -std=gnu++98, the default).
-    # While the check is OK for g++ -std=c++98,
-    # LilyPond needs GNU g++, so who is to blame here?
-    # Use a workaround until this is resolved:
-    # for g++ >= 3.3, select C language.
-    GCC_UNSUPPORTED=
-    STEPMAKE_CHECK_VERSION_UNSUPPORTED(CXX, GCC_UNSUPPORTED, 3.3)
-    if test -n "$GCC_UNSUPPORTED"; then
-	AC_MSG_WARN([autoconf <= 2.59 with g++ >= 3.3 gettext test broken.])
-	AC_MSG_WARN([Trying gcc, cross fingers.])
-	AC_LANG_PUSH(C)
-    fi
     AC_CHECK_LIB(intl, gettext)
     AC_CHECK_FUNCS(gettext)
-    if test -n "$GCC_UNSUPPORTED"; then
-	AC_LANG_POP(C)
-    fi
 ])
 
 
@@ -643,7 +628,6 @@ AC_DEFUN(STEPMAKE_GXX, [
 
 AC_DEFUN(STEPMAKE_INIT, [
 
-    AC_PREREQ(2.50)
     . $srcdir/VERSION
     FULL_VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL
     MICRO_VERSION=$PATCH_LEVEL
@@ -765,8 +749,9 @@ AC_DEFUN(STEPMAKE_INIT, [
 
     CONFIGSUFFIX=
     AC_ARG_ENABLE(config,
-    [  --enable-config=CONF    put settings in config-CONF.make and config-CONF.h;
-                            do `make conf=CONF' to get output in ./out-CONF],
+    [AS_HELP_STRING([--enable-config=CONF],
+                    [put settings in config-CONF.make and config-CONF.h;
+		    do `make conf=CONF' to get output in ./out-CONF])],
     [CONFIGURATION=$enableval])
 
     ##'`#
@@ -857,12 +842,14 @@ AC_DEFUN(STEPMAKE_LOCALE, [
 
     # with/enable ??
     AC_ARG_WITH(localedir,
-    [  --with-localedir=DIR    location of locales.  Default: PREFIX/share/locale ],
+    [AS_HELP_STRING([--with-localedir=DIR],
+                    [location of locales.  Default: PREFIX/share/locale])],
     localedir=$with_localedir,
     localedir='${prefix}/share/locale')
 
     AC_ARG_WITH(lang,
-    [  --with-lang=LANG        use LANG as language to emit messages],
+    [AS_HELP_STRING([--with-lang=LANG],
+                    [use LANG as language to emit messages])],
     language=$with_lang,
     language=English)
 
@@ -966,23 +953,24 @@ AC_DEFUN(STEPMAKE_PYTHON, [
 
 AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
     AC_ARG_WITH(python-include,
-	[  --with-python-include=DIR
-	                  location of the python include dir],[
-	    if test "$withval" = "yes" -o "$withval" = "no"; then
-		AC_MSG_WARN(Usage: --with-python-include=includedir)
-	    else
-		PYTHON_CFLAGS="-I${withval}"
-	    fi
-	    ])
+	[AS_HELP_STRING([--with-python-include=DIR],
+	                [location of the python include dir])],[
+	if test "$withval" = "yes" -o "$withval" = "no"; then
+	    AC_MSG_WARN(Usage: --with-python-include=includedir)
+	else
+	    PYTHON_CFLAGS="-I${withval}"
+	fi
+    ])
     
     AC_ARG_WITH(python-lib,
-	[  --with-python-lib=NAME  name of the python lib],[
-	    if test "$withval" = "yes" -o "$withval" = "no"; then
-		AC_MSG_WARN(Usage: --with-python-lib=name)
-	    else
-		LDFLAGS="$LDFLAGS -l${withval}"
-	    fi
-	    ])
+	[AS_HELP_STRING([--with-python-lib=NAME],
+	                [name of the python lib])],[
+	if test "$withval" = "yes" -o "$withval" = "no"; then
+	    AC_MSG_WARN(Usage: --with-python-lib=name)
+	else
+	    LDFLAGS="$LDFLAGS -l${withval}"
+	fi
+    ])
     
     AC_CHECK_PROGS(PYTHON_CONFIG, python-config, no)
 
@@ -1017,7 +1005,6 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
 
 
 AC_DEFUN(STEPMAKE_STL_DATA_METHOD, [
-    AC_LANG_PUSH(C++)
     AC_CACHE_CHECK([for stl.data () method],
 	[stepmake_cv_stl_data_method],
 	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
@@ -1031,7 +1018,6 @@ void *p = v.data ();
     if test $stepmake_cv_stl_data_method = yes; then
 	AC_DEFINE(HAVE_STL_DATA_METHOD, 1, [define if stl classes have data () method])
     fi
-    AC_LANG_POP(C++)
 ])
 
 
@@ -1043,7 +1029,6 @@ AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
 AC_DEFUN(STEPMAKE_TEXMF, [
     STEPMAKE_PROGS(METAFONT, mf-nowin mf mfw mfont, $1)
     STEPMAKE_PROGS(METAPOST, mpost, $1)
-    # STEPMAKE_PROGS(INIMETAFONT, inimf inimfont "$METAFONT -ini", $1)
 
     AC_MSG_CHECKING(for working metafont mode)
     modelist='ljfour lj4 lj3 lj2 ljet laserjet'
@@ -1135,28 +1120,6 @@ AC_DEFUN(STEPMAKE_FREETYPE2, [
 	# UGR
      	#r="lib$1-dev or $1-devel"
      	r="libfreetype6-dev or freetype?-devel"
-     	ver="`pkg-config --modversion $1`"
-     	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
-    fi
-])
-
-AC_DEFUN(STEPMAKE_GTK2, [
-    PKG_CHECK_MODULES(GTK2, $1 >= $3, have_gtk2=yes, true)
-    if test "$have_gtk2" = yes ; then
-	AC_DEFINE(HAVE_GTK2)
-	# Do not pollute user-CPPFLAGS with configure-CPPFLAGS
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-	CPPFLAGS="$GTK2_CFLAGS $CPPFLAGS"
-	LIBS="$GTK2_LIBS $LIBS"
-	AC_SUBST(GTK2_CFLAGS)
-	AC_SUBST(GTK2_LIBS)
-	CPPFLAGS="$save_CPPFLAGS"
-	LIBS="$save_LIBS"
-    else
-	# UGR
-     	# r="lib$1-dev or $1-devel"
-     	r="libgtk2.0-dev or gtk2-devel"
      	ver="`pkg-config --modversion $1`"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi

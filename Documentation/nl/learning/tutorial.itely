@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 @ignore
-    Translation of GIT committish: f0968c08c70e954c1d928feadf94006504ac4de1
+    Translation of GIT committish: 66dd932f6519b7913400a838c5efbc5407e06cd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,6 +25,7 @@ LilyPond.
 @menu
 * Het compileren van een bestand::
 * Het schrijven van invoerbestanden::
+* Omgaan met foutmeldingen::
 * Het lezen van de handleidingen::
 @end menu
 
@@ -89,7 +90,7 @@ voorbeelden worden afgebeeld in deze handleiding, zie
 @ref{Het lezen van de handleidingen}.}
 
 LilyPond-invoer is @strong{hoofdlettergevoelig}.
-@w{@code{@{ c d e @}}} is geldige invoer; @w{@code{@{ C D E
+@w{@samp{@{ c d e @}}} is geldige invoer; @w{@samp{@{ C D E
 @}}} zal een foutmelding geven.
 
 
@@ -255,8 +256,8 @@ voorbeeld is de eerste noot -- de @code{d} -- de
 dichtstbijzijnde D bij de centrale C.
 
 Door het toevoegen (of weghalen) van apostrofs @code{'} of
-komma's @code{,} van het @code{@w{\relative c'
-@{}}-commando, kunnen we het beginoctaaf veranderen:
+komma's @code{,} van het @q{@w{@code{@bs{}\relative
+c'}}}-commando, kunnen we het beginoctaaf veranderen:
 
 @lilypond[verbatim,quote]
 % één octaaf boven de centrale C
@@ -312,8 +313,6 @@ Voor het veranderen van een noot met twee (of meer!) octaven
 gebruiken we meerdere @code{''} of @code{,,} -- maar let op
 dat je twee enkele apostrofs of aanhalingstekens gebruikt
 @code{''} en niet één dubbel aanhalingsteken @code{"}@tie{}!
-De beginwaarde in @code{@w{\relative c'}} kan ook op deze
-manier worden veranderd.
 @c " - keeps quotes in order for context-sensitive editor -td
 
 @subheading Nootlengten (ritmen)
@@ -356,7 +355,7 @@ altijd ook met een getal).
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  a a a4. a8
+  a4 a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -374,7 +373,7 @@ naam @code{r}@tie{}:
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  a r r2
+  a4 r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -423,13 +422,13 @@ commando:
 
 @lilypond[verbatim,quote]
 \relative c' {
-  \clef treble
+  \clef "treble"
   c1
-  \clef alto
+  \clef "alto"
   c1
-  \clef tenor
+  \clef "tenor"
   c1
-  \clef bass
+  \clef "bass"
   c1
 }
 @end lilypond
@@ -442,10 +441,13 @@ toont:
 
 @lilypond[verbatim,quote]
 \relative c, {
+  \clef "bass"
   \time 3/4
-  \clef bass
-  c2 e8 c' g'2.
-  f4 e d c4 c, r4
+  \clef "bass"
+  c2 e8 c'
+  g'2.
+  f4 e d
+  c4 c, r
 }
 @end lilypond
 
@@ -483,8 +485,8 @@ LilyPond-invoerbestanden lijken op broncodebestanden van de
 meest gebruikte programmeertalen.  Ze bevatten een
 versie-uitdrukking, zijn hoofdlettergevoelig, en witruimte
 wordt grotendeels genegeerd.  Expressies worden gevormd met
-accolades @{ @}, en commentaren worden aangegeven met
-@code{%} of @w{@code{%@{ ... %@}}}.
+accolades @w{@code{@{ @}}}, en commentaren worden aangegeven met
+@code{%} of @w{@code{%@{ @dots{} %@}}}@tie{}.
 
 Als de vorige alinea totale onzin lijkt, geen probleem!  We
 leggen hieronder uit wat al deze termen betekenen:
@@ -520,30 +522,30 @@ het compileren van het bestand.
 @strong{Hoofdlettergevoelig}:
 het maakt uit of je een letter als kleine letter typt (bijv.
 @w{@code{a, b, s, t}}) of als hoofdletter (bijv. @w{@code{A,
-B, S, T}}).  Noten zijn met een kleine letter: @w{@code{@{ c
-d e @}}} is geldige invoer; @w{@code{@{ C D E @}}} geeft een
+B, S, T}}).  Noten zijn met een kleine letter: @w{@samp{@{ c
+d e @}}} is geldige invoer; @w{@samp{@{ C D E @}}} geeft een
 foutmelding.
 
 @item
 @strong{Witeruimteongevoelig}:
 het maakt niet uit hoeveel spaties (of tabs of nieuwe
-regels) je invoegt.  @w{@code{@{ c d e @}}} betekent
-hetzelfde als @w{@code{@{ c @tie{}} @tie{} @tie{} d e @}} en
+regels) je invoegt.  @w{@samp{@{ c d e @}}} betekent
+hetzelfde als @w{@samp{@{ c @tie{}} @tie{} @tie{} d e @}} en
 als:
 
 @example
-@{ c                        d
+@{ c4                       d
                    e   @}
 @end example
 
 @noindent
 Het laatste voorbeeld leest natuurlijk erg lastig.  Een
-goede vuistregel is om blokken code in te springen met een
-tab of twee spaties:
+goede vuistregel is om blokken code in te springen met twee
+spaties:
 
 @example
 @{
-  c d e
+  c4 d e
 @}
 @end example
 
@@ -557,7 +559,7 @@ bijvoorbeeld, voor en na elke accolade.
 
 @item
 @strong{Uitdrukkingen}:
-om elk stuk LilyPond-invoer moeten @strong{@{ accolades @}}
+om elk stuk LilyPond-invoer moeten @strong{@{@tie{}accolades@tie{}@}}
 heen staan.  Deze haakjes vertellen LilyPond dat de invoer
 een enkele muziekuitdrukking is, net als de haakjes
 @code{()} bij wiskunde.  De accolades moeten altijd los
@@ -565,8 +567,8 @@ staan, d.w.z. omgeven zijn door witruimte, of aan het begin
 of einde van een regel staan om ambiguïteiten te voorkomen.
 
 Een LilyPond-commando gevolgd door een enkele uitdrukking
-tussen accolades (zoals @w{@code{\relative @{ @}}}) telt ook
-als een enkele muziekuitdrukking.
+tussen accolades (zoals @q{@w{@code{@bs{}relative c' @{
+@dots{} @}}}}) telt ook als een enkele muziekuitdrukking.
 
 @cindex commentaren
 @cindex regercommentaar
@@ -604,11 +606,51 @@ toont het gebruik van commentaren:
   Deze regel, en de noten hieronder worden genegeerd,
   omdat ze in een blokcommentaar staan.
 
-  f f e e d d c2
+  f4 f e e d d c2
 %@}
 @end example
 
 @end itemize
+
+@node Omgaan met foutmeldingen
+@section Omgaan met foutmeldingen
+@translationof Dealing with errors
+
+@cindex problemen oplossen
+@cindex oplossen van problemen
+
+Soms produceert LilyPond niet de uitvoer die je verwachtte.
+Deze paragraaf geeft enkele verwijzingen om je te helpen met
+het oplossen van problemen die je tegen zou kunnen komen.
+
+@menu
+* Algemene tips voor het oplossen van problemen::
+* Enkele algemene fouten::
+@end menu
+
+@node Algemene tips voor het oplossen van problemen
+@subsection Algemene tips voor het oplossen van problemen
+@node General troubleshooting tips
+
+Het oplossen van LilyPond-problemen kan een uitdaging als je
+gewend bent aan een grafische gebruikers interface, omdat
+ongeldige invoerbestanden kunnen worden gemaakt.  Zodra dit
+gebeurt, is een logische aanpak de beste manier om het
+probleem te identificeren en op te lossen.  Enkele
+richtlijnen om je te helpen dit te leren, worden gegeven in
+@rprogram{Troubleshooting}.
+
+@node Enkele algemene fouten
+@subsection Enkele algemene fouten
+@translationof Some common errors
+
+@cindex algemene fouten
+@cindex fouten, algemene
+
+Er zijn een paar algemene fouten die moeilijk op te lossen
+zijn als je alleen afgaat op de foutmelding die wordt
+getoond.  Deze fouten worden beschreven in @rprogram{Common
+errors}.
 
 
 @node Het lezen van de handleidingen
@@ -641,39 +683,39 @@ functies die beschikbaar zijn in de online-versie.
 @cindex bouwen van bestanden, tips
 @cindex bestanden, tips om te maken
 
-LilyPond-invoer moet tussen @{ @}-tekens of
-@code{@w{\relative c'' @{ ... @}}} staan, zoals we gezien
-hebben in @ref{Werken met invoerbestanden}.  Vanaf nu zullen
-we dit weglaten uit de meeste voorbeelden in de handleiding.
-Als je die voorbeelden wilt gebruiken, kun je you de
-getoonde invoer kopiëren en plakken, maar je @strong{moet}
-zelf wel @code{@w{\relative c'' @{ @}}} toevoegen, dus:
+LilyPond-invoer moet tussen @code{@{ @}}-tekens of
+@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} staan, zoals
+we gezien hebben in @ref{Werken met invoerbestanden}.  Vanaf
+nu zullen we dit weglaten uit de meeste voorbeelden in de
+handleiding.  Als je die voorbeelden wilt gebruiken, kun je
+you de getoonde invoer kopiëren en plakken, maar je
+@strong{moet} zelf wel @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
+toevoegen, dus:
 
 @example
 \relative c'' @{
-  ... plak hier het voorbeeld ...
+  @dots{}plak hier het voorbeeld@dots{}
 @}
 @end example
 
 Waarom laten we die accolades weg?  De meeste voorbeelden in
 deze handleiding kunnen midden in een langer stuk muziek
 worden ingevoegd.  Bij zulke voorbeelden is het onzinnig om
-@code{@w{\relative c'' @{ @}}} toe te voegen -- je moet een
-@code{\relative} niet binnen een ander @code{\relative}
-zetten!  Als we @code{@w{\relative c'' @{ @}}} om elk
-voorbeeld heen zouden zetten, zou je een klein
-documentatievoorbeeld niet zomaar kunnen kopiëren en in een
-langer stuk kunnen plakken.  De meeste mensen willen
-materiaal toevoegen aan een bestaand stuk, dus zorgen we dat
-de handleiding daarvoor het meest geschikt is.
+@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} toe te voegen
+-- je moet een @code{\relative} niet binnen een ander
+@code{\relative} zetten!  Als we @q{@w{@code{@bs{}relative
+c'' @{ @dots{} @}}}} om elk voorbeeld heen zouden zetten,
+zou je een klein documentatievoorbeeld niet zomaar kunnen
+kopiëren en in een langer stuk kunnen plakken.  De meeste
+mensen willen materiaal toevoegen aan een bestaand stuk, dus
+zorgen we dat de handleiding daarvoor het meest geschikt is.
 
 Verder moet elk LilyPond-bestand eigenlijk ook een
-@code{@bs{}version}-uitdrukking hebben.  Omdat de
-voorbeelden in de handleidingen fragmenten zijn, en geen
-volledige bestanden, wordt de
-@code{@bs{}version}-uitdrukking weggelaten.  Maar je zou er
-een gewoonte van moeten maken ze in je bestanden op te
-nemen.
+@code{\version}-uitdrukking hebben.  Omdat de voorbeelden in
+de handleidingen fragmenten zijn, en geen volledige
+bestanden, wordt de @code{\version}-uitdrukking weggelaten.
+Maar je zou er een gewoonte van moeten maken ze in je
+bestanden op te nemen.
 
 @node Klikbare voorbeelden
 @translationof Clickable examples
@@ -692,7 +734,7 @@ afbeelding:
 @c no verbatim here
 @lilypond[quote]
 \relative c'' {
-  c-\markup { \bold \huge { Klik hier. } }
+  c4-\markup { \bold \huge { Klik hier. } }
 }
 @end lilypond
 

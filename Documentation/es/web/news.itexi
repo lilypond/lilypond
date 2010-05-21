@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 237c057a35d03a9f9114665d8dee9d8ec4b8c251
+    Translation of GIT committish: df39e475847bd077d66943cb0b61721259cc2cc6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -33,6 +33,19 @@ NOTE:
   * don't duplicate entries from news-front.itexi
 @end ignore
 
+
+@newsItem
+@subsubheading El Informe LilyPond, número 17.  @emph{1 de marzo de 2010}
+
+Viva, vuelve el Informe, con un equipo nuevo! Dicen que dos cabezas es
+mejor que una: ¿valdrá también para los diarios?  Léalo y ¡díganos qué
+le parece!  En esta edición hablaremos de páginas web y poesía, ranas
+y bichos, ¡por no mencionar una extensa reseña del editor Frescobaldi!
+
+¿A qué espera?  Acérquese y
+¡@uref{http://news.lilynet.net/The-LilyPond-Report-17, lea el Informe
+LilyPond número 17} (en inglés) ahora mismo!
+@newsEnd
 
 @newsItem
 @subsubheading LilyPond 2.13.14 released!  @emph{February 27, 2010}

@@ -2,7 +2,7 @@
 @c This file is part of web/download.itexi and
 @c learning/tutorial.itely
 @ignore
-    Translation of GIT committish: 20858c6c9809c521d03576443dc8fa125e6f583b
+    Translation of GIT committish: e776d5bb2a48191d2c7ccd60b160211462701b2e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,7 +44,7 @@ Dans le menu, sélectionnez
 
 @sourceimage{Learning_Macos_Typeset_menu,,,}
 
-Une nouvelle fenêtre s'ouvre dans laquelle s'affiche les journal de
+Une nouvelle fenêtre s'ouvre dans laquelle s'affiche le journal de
 compilation du fichier que vous venez de sauvegarder.
 
 @sourceimage{Learning_Macos_Compiling_log,,,}
@@ -75,8 +75,8 @@ Pensez à toujours enregistrer votre travail avant de lancer l'option
 @w{@code{Compile > Tyepset}} du menu.  Si le PDF n'apparaît pas,
 vérifiez que la fenêtre @qq{log} ne comporte pas d'erreur.
 
-Si vous n'utilisez pas le lecteur de PDF par défaut de Mac@tie{OS} et
-qu'un fichier résultant d'un précédente compilation est encore ouvert
+Si vous n'utilisez pas le lecteur de PDF par défaut de Mac@tie{}OS et
+qu'un fichier résultant d'une précédente compilation est encore ouvert
 dans votre lecteur, la régénération de ce PDF peut bloquer tant que vous
 ne fermez pas le fichier ouvert.
 
@@ -113,7 +113,6 @@ Affectez un nom à votre fichier, comme par exemple @file{test.ly}.
 @subsubheading Étape 2a. Compilation par glisser-déposer
 
 Selon votre préférence, vous pouvez compiler votre fichier
-
 en le faisant glisser puis en le déposant sur l'icone LilyPond
 
 @sourceimage{Learning_Win7_Open_Dragndrop,,,}
@@ -150,7 +149,7 @@ Pour créer un nouveau fichier, sélectionnez @w{@code{Fichier > Nouveau}}
 @sourceimage{Learning_Win7_New_Menu,,,}
 
 @noindent
-ou bien @w{@code{Fichier > Ouvrir}} pour reprendre un fichier sauvegeardé.
+ou bien @w{@code{Fichier > Ouvrir}} pour reprendre un fichier sauvegardé.
 
 @sourceimage{Learning_Win7_Open_Menu,,,}
 
@@ -230,7 +229,7 @@ non.
 
 @subsubheading Étape 3. Visualisation du résultat
 
-Vous pouez à présent visualiser ou imprimer @file{test.pdf}.
+Vous pouvez à présent visualiser ou imprimer @file{test.pdf}.
 
 @end macro
 

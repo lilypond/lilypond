@@ -125,9 +125,7 @@
     (if (eq? PLATFORM 'windows)
 	(begin
 	  (set! cmd (string-regexp-substitute "=" "#" cmd))
-	  (set! cmd (string-regexp-substitute "-dSAFER " "" cmd))
-	  (if (access? pdf-name W_OK)
-	      (delete-file pdf-name))))
+	  (set! cmd (string-regexp-substitute "-dSAFER " "" cmd))))
 
     (ly:message (_ "Converting to `~a'...") pdf-name)
     (ly:progress "\n")

@@ -588,6 +588,7 @@ if ($Texi2HTML::Config::SPLIT eq 'section' or
   $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
 }
 
+$Texi2HTML::Config::anchor  = \&lilypond_anchor;
 $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
 $default_print_element_header = $Texi2HTML::Config::print_element_header;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
@@ -657,10 +658,13 @@ sub lc_last($)
 {
   my $href = shift;
   my @hrefsplit = split('/', $href);
-  # change the last portion (the filename), if it exists
+  # change the last portion (the filename), if it exists;
+  # if it is a plain filename with no path, change the string as a whole
   if ($#hrefsplit > 0) {
     @hrefsplit[$#hrefsplit] = lc( @hrefsplit[$#hrefsplit] );
     $href = join("/", @hrefsplit);
+  } else {
+    $href = lc($href);
   }
   return $href;
 }
@@ -904,6 +908,39 @@ sub lilypond_normalise_node($)
     return $norm;
 }
 
+# This function produces an anchor.
+#
+# arguments:
+# $name           :   anchor name
+# $href           :   anchor href
+# text            :   text displayed
+# extra_attribs   :   added to anchor attributes list
+sub lilypond_anchor($;$$$)
+{
+    my $name = shift;
+    my $href = shift;
+    my $text = shift;
+    my $attributes = shift;
+    $href = remove_unneeded_anchor($href);
+    if (!defined($attributes) or ($attributes !~ /\S/))
+    {
+        $attributes = '';
+    }
+    else
+    {
+        $attributes = ' ' . $attributes;
+    }
+    $name = '' if (!defined($name) or ($name !~ /\S/));
+    $href = '' if (!defined($href) or ($href !~ /\S/));
+    $text = '' if (!defined($text));
+    return $text if (($name eq '') and ($href eq ''));
+    $name = "name=\"$name\"" if ($name ne '');
+    $href = "href=\"$href\"" if ($href ne '');
+    $href = ' ' . $href if (($name ne '') and ($href ne ''));
+    return "<a ${name}${href}${attributes}>$text</a>";
+}
+
+
 sub lilypond_element_target_name($$$)
 {
   my $element = shift;
@@ -931,12 +968,9 @@ sub lilypond_element_target_name($$$)
   #       the sections, change this back to ($id, $target)
   # I don't understand this comment, so I'm reluctant to delete it -gp
   $target = lc_last($target);
-  if ($target eq lc_last($id)) {
-    $id = "";
-  } else {
-    $id = substr($id, 0, - 2); # remove the "-1"
-  }
-  return ($id, $target);
+  $id = lc($target);
+# $id =~ s/-1$//i; # remove any trailing "-1"
+  return ($target, $id);
 }
 
 
@@ -1053,7 +1087,7 @@ sub lilypond_external_href($$$)
 {
   my $node = shift;
   my $node_id = shift;
-  my $node_hxmlt_id = shift;
+  my $node_xhtml_id = shift;
   my $file = shift;
 
   # 1) Keep a hash of book->section_map
@@ -1079,15 +1113,15 @@ sub lilypond_external_href($$$)
     my $section_name_map = $translated_books{$map_name};
     my $node_text = main::remove_texi($node);
     if (defined($section_name_map->{$node_text})) {
-      ($node_id, $node_hxmlt_id) = @{$section_name_map->{$node_text}};
+      ($node_id, $node_xhtml_id) = @{$section_name_map->{$node_text}};
     } else {
       print STDERR "WARNING: Unable to find node '$node_text' in book $map_name.\n";
     }
   }
 
   if (defined $file) {
-    $href = &$default_external_href($node, $node_id, $node_hxmlt_id, lc_last($file));
-    remove_unneeded_anchor($href);
+    $href = &$default_external_href($node, $node_id, $node_xhtml_id, lc_last($file));
+    $href = remove_unneeded_anchor($href);
 
     # TODO: very yucky, but will be fixed in issue 1004
     if ($web_manual) {
@@ -1099,22 +1133,22 @@ sub lilypond_external_href($$$)
 
     return $href;
   } else {
-    $href = &$default_external_href($node, $node_id, $node_hxmlt_id);
-    remove_unneeded_anchor($href);
+    $href = &$default_external_href($node, $node_id, $node_xhtml_id);
+    $href = remove_unneeded_anchor($href);
     return $href;
   }
 }
 
 sub remove_unneeded_anchor($)
 {
-  my $ref = shift;
+  my $href = shift;
   my @hrefsplit = split("/", $href);
   for ($i = 0; $i < @hrefsplit; $i++) {
     $item = @hrefsplit[$i];
     if ($item =~ /#/) {
-      @splitted = split("#", $item);
-      if (@splitted[0] == @splitted[1]) {
-        @hrefsplit[$i] = @splitted[0]
+      @splitted = split(".html#", $item);
+      if (@splitted[0] eq @splitted[1]) {
+        @hrefsplit[$i] = @splitted[0] . ".html";
       }
     }
   }

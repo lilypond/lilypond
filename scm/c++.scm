@@ -74,4 +74,8 @@
   (type-name (match-predicate obj type-p-name-alist)))
 
 (define-public (type-name predicate)
-  (assoc-get predicate type-p-name-alist "unknown"))
+  (let ((entry (assoc predicate type-p-name-alist)))
+    (if (pair? entry) (cdr entry)
+        (string-trim-right
+         (symbol->string (procedure-name predicate))
+         #\?))))

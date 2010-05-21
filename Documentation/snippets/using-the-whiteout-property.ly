@@ -2,12 +2,12 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.10
-\version "2.13.18"
+\version "2.13.20"
 
 \header {
-%% Translation of GIT committish: ee2fdacf2ff3acd7e6fb7c4005dfe698b1cc4eed
+%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
 
-  texidoc = "
+  texidoces = "
 
 Se puede imprimir cualquier objeto gráfico sobre un fondo blanco para
 enmascarar parte de los objetos que están por debajo.  Esto puede ser
@@ -28,7 +28,7 @@ enmascarada.
 
 "
 
-  doctitle = "Uso de la propiedad whiteout"
+  doctitlees = "Uso de la propiedad whiteout"
 
   lsrtags = "expressive-marks, editorial-annotations"
   texidoc = "

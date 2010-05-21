@@ -4,68 +4,39 @@
 @c when you add a new item, consider moving the lowest item(s)
 @c into news-old.itexi.
 
+@c keep two blank lines between news entries
+
 @c FIXME: fill in number
 @c used for news about the upcoming release; see CG x.y
-@c DO NOT WRITE BETWEEN THESE LINES
-@c DO NOT WRITE BETWEEN THESE LINES
 
 @newsItem
-@subsubheading LilyPond 2.13.19 released!  @emph{April 24, 2010}
+@subsubheading LilyPond 2.13.21 released!  @emph{May 12, 2010}
 
-We are happy to announce the release of LilyPond 2.13.19.  This
-release contains the usual number of bugfixes.  However, 11
-critical issues still remain, so this release is intended for
+We are happy to announce the release of LilyPond 2.13.21.  This
+release contains the usual number of bugfixes.  However, a number
+of critical issues still remain, so this release is intended for
 developers only.
+
+This release should be of particular interest to package
+maintainers: we have made a few changes to the configure script
+and the required libraries.  Barring any urgent bug reports, this
+is the build system and libraries that will be used for the next
+stable release.
 @newsEnd
 
-@newsItem
-@subsubheading LilyPond 2.13.18 released!  @emph{April 16, 2010}
-
-We are happy to announce the release of LilyPond 2.13.18.  This
-release contains the usual number of bugfixes, along with improved
-website translations.  However, 14 critical issues still remain,
-so this release is intended for developers only.
-@newsEnd
 
 @newsItem
-@subsubheading LilyPond 2.13.17 released!  @emph{April 2, 2010}
+@subsubheading LilyPond Report #18.  @emph{May 11, 2010}
 
-We are happy to announce the release of LilyPond 2.13.17.  This
-release includes bugfixes for 4 critical issues.  However, 15
-critical issues still remain, so this release is intended for
-developers only.
-@newsEnd
+The @emph{LilyPond Report} is back, with its two
+@qq{grumpy-and-fluffy} editors! This issue will be filled
+with emotion and coolness, paper bags and zigzag-ending
+staves, plus the usual Frogs and Bugs.
 
-@newsItem
-@subsubheading LilyPond 2.13.16 released!  @emph{March 15, 2010}
-
-We are happy to announce the release of LilyPond 2.13.16.  This
-release is intended for developers only, and includes the usual
-round of bugfixes.
-@newsEnd
-
-@newsItem
-@subsubheading LilyPond 2.13.15 released!  @emph{March 4, 2010}
-
-We are happy to announce the release of LilyPond 2.13.15.  This
-release is intended for developers only, and includes a few
-updates to the binary build process in addition to the usual round
-of bugfixes.
-@newsEnd
-
-@newsItem
-@subsubheading LilyPond Report #17.  @emph{March 1, 2010}
-
-Yay, the Report is back, with a new team! It has been said that
-two heads are better than one — does it apply to newsletters as
-well? Read on and let us know! In this issue we’ll talk about
-websites and poetry, frogs and bugs, not to mention an extensive
-review of the Frescobaldi editor!
-
-What are you waiting for?  Come
-@uref{http://news.lilynet.net/The-LilyPond-Report-17, read
-LilyPond Report 17} now!
-
+Come
+@uref{http://news.lilynet.net/The-LilyPond-Report-18, read
+LilyPond Report 18} now; comments and contributions are
+warmly encouraged!
 @newsEnd
 
 
