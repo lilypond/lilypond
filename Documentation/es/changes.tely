@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: bf5e2a2a8feba1a38d620049d426b4f26bd55bb6
+    Translation of GIT committish: 49ba9efe2d297534621c36304f37d56fda842872
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -72,6 +72,17 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+
+@item
+Se ha girado la clave de sol 1.5 grados a la derecha para mejorar su
+equilibrio.  Se pueden comparar las versiones antigua y moderna a
+partir de la documentación:
+@uref{http://lilypond.org/doc/v2.12/Documentation/user/lilypond/The-Feta-font.html#Clef-glyphs,
+versión antigua},
+@uref{http://lilypond.org/doc/v2.13/Documentation/notation/the-feta-font.html#Clef-glyphs,
+versión nueva}.
+
 
 @item
 Los elementos de extensión de reguladores de texto ahora se pueden
