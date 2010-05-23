@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-	Translation of GIT committish: 7343fa0420aefbc1f55c516a01d3879bd1474451
+	Translation of GIT committish: a042d99cd2251b2b9121e1b8ad30307c4ce28863
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3405,7 +3405,8 @@ lhMusic = \relative c' {
 
 @menu
 * Autres utilisations des retouches::       
-* Utilisation de variables dans les retouches::  
+* Utilisation de variables dans les retouches:: 
+* Feuilles de style:: 
 * Autres sources de documentation::  
 * Options ralentissant le traitement::  
 * Retouches avancées avec Scheme::  
@@ -3623,6 +3624,270 @@ VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and p
   >>
 }
 @end lilypond
+
+
+@node Feuilles de style
+@subsection Feuilles de style
+@translationof Style sheets
+
+La sortie que produit LilyPond peut être largement modifiée -- voir
+@ref{Retouche de partition} pour plus de détails.  Mais que faire si
+vous avez beaucoup de fichiers auxquels vous souhaitez appliquer vos
+retouches ?  Ou si vous souhaitez simplement séparer les retouches de
+la musique elle-même@tie{}?  Rien de plus facile.
+
+Prenons un exemple.  Ne vous inquiétez pas si vous ne comprenez pas
+les parties avec tous les @code{#()}.  Celles-ci sont expliquées dans
+@ref{Retouches avancées avec Scheme}.
+
+@lilypond[quote,verbatim,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+Il y a quelques problèmes de chevauchement ; nous allons arranger
+cela en utilisant les techniques de @ref{Déplacement d'objets}.  On peut 
+aussi faire quelque chose pour les définitions de @code{mpdolce}
+et @code{inst}.  Elles produisent le résultat que nous désirons,
+mais nous pourrions aussi vouloir les utiliser dans une autre pièce.
+Il suffirait de les copier et coller au début de chaque
+fichier, mais c'est fastidieux.  De plus, cela laisse les définitions
+dans nos fichiers de musique, et je trouve personnellement tous ces
+@code{#()} assez laids.  Stockons-les dans un autre fichier@tie{}:
+
+@example
+%%% enregistrez ceci dans un fichier nommé "definitions.ily"
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+@end example
+
+Nous rappellerons ce fichier par une simple commande @code{\include} au
+début de notre fichier de musique.  Lui attribuer l'extension
+@code{.ily} nous permet de distinguer aisément qu'il s'agit d'un fichier
+voué à être inclus dans un fichier maître@tie{}; il n'est pas destiné à
+être compilé isolément.
+Maintenant, modifions notre musique (enregistrez ce fichier
+sous @code{musique.ly}).
+
+@c  We have to do this awkward example/lilypond-non-verbatim
+@c  because we can't do the \include stuff in the manual.
+
+@example
+\include "definitions.ily"
+
+\relative c'' @{
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+C'est mieux, mais effectuons encore quelques retouches.  Le glissando
+est peu visible, c'est pourquoi nous allons l'épaissir et le
+rapprocher des têtes de note.  Déplaçons l'indication métronomique
+au-dessus de la clef, au lieu de la laisser au-dessus de la première
+note.  Et pour finir, mon professeur de composition déteste les
+chiffrages de mesure en @qq{C}, nous allons donc le transformer en
+@qq{4/4}. 
+
+Cependant, ne changez pas le fichier @file{musique.ly}.  Remplacez le
+fichier @file{definitions.ily} par ceci@tie{}:
+
+@example
+%%%  definitions.ily
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\layout@{
+  \context @{ \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{ \Staff
+    \override TimeSignature #'style = #'numbered
+  @}
+  \context @{ \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\layout{
+  \context { \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context { \Staff
+    \override TimeSignature #'style = #'numbered
+  }
+  \context { \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+C'est encore mieux !  Mais supposons maintenant que je veuille publier
+cette pièce.  Mon professeur de composition n'aime pas les chiffrages
+de mesure en @qq{C}, mais moi je les aime bien.  Copions l'actuel
+@file{definitions.ily} dans le fichier @file{publication-web.ily}, et
+modifions ce dernier.  Puisque la musique est destinée à produire un
+fichier PDF affiché sur écran, nous allons aussi augmenter la taille
+globale de police.
+
+@example
+%%%  definitions.ily
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+#(set-global-staff-size 23)
+\layout@{
+  \context @{ \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{ \Staff
+  @}
+  \context @{ \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+#(set-global-staff-size 23)
+\layout{
+  \context { \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context { \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+Il ne nous reste plus qu'à remplacer @code{\include "definitions.ily"}
+par @code{\include "publication-web.ily"} dans notre fichier de musique.
+
+Il est possible, bien sûr, de rendre cela encore plus pratique.  Nous
+pourrions créer un fichier @file{definitions.ily} qui ne contiendrait
+que les définitions de @code{mpdolce} et de @code{inst}, un
+fichier @file{publication-web.ily} qui ne contiendrait que la section
+@code{layout} décrite ci-dessus et un fichier @file{universite.ily} qui
+ne contiendrait que les retouches pour produire le résultat que mon
+professeur préfère.  Le début du fichier @file{musique.ly} ressemblerait
+alors à
+
+@example
+\include "definitions.ily"
+
+%%%  Décommentez seulement une de ces deux lignes !
+\include "publication-web.ily"
+%\include "universite.ily"
+@end example
+
+Cette approche peut être utile même si vous ne produisez qu'un seul
+jeu de partitions.  J'utilise personnellement une demi-douzaine de
+fichiers de @qq{feuille de style} pour mes projets.  Je commence
+chaque fichier de musique par @code{\include "../global.ily"} qui
+contient@tie{}:
+
+@example
+%%%   global.ily
+\version @w{"@version{}"}
+#(ly:set-option 'point-and-click #f)
+\include "../init/init-defs.ly"
+\include "../init/init-mise-en-page.ly"
+\include "../init/init-en-tetes.ly"
+\include "../init/init-papier.ly"
+@end example
 
 
 @node Autres sources de documentation
