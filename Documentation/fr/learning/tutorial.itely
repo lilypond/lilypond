@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a042d99cd2251b2b9121e1b8ad30307c4ce28863
+   Translation of GIT committish: 4e85fe18924c40296828a906576cf891d84bdbf7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -622,12 +622,12 @@ pistes à suivre pour vous aider à éviter de telles déconvenues.
 
 
 @menu
-* General troubleshooting tips::
+* Quand ça ne fonctionne pas::
 * Erreurs courantes::
 @end menu
 
-@node General troubleshooting tips
-@subsection General troubleshooting tips
+@node Quand ça ne fonctionne pas
+@subsection Quand ça ne fonctionne pas
 @translationof General troubleshooting tips
 
 Résoudre les problèmes rencontrés avec LilyPond est une gageure pour
@@ -635,9 +635,7 @@ ceux qui ne connaissent que des interfaces graphiques puisque rien
 n'empèche de créer du code erroné.  En pareil cas, il suffit souvent d'un
 peu de logique pour être en mesure d'identifier les causes du problème
 et le résoudre simplement.  Le chapitre 
-@c ToBeTranslated
-@rprogram{Troubleshooting}
-liste quelques directives à ce propos.
+@rprogram{Résolution de problèmes} liste quelques directives à ce propos.
 
 
 @node Erreurs courantes
