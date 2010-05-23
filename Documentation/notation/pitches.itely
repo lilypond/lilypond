@@ -2689,6 +2689,14 @@ Internals Reference:
 @cindex sacred harp note heads
 @cindex note heads, Southern Harmony
 @cindex Southern Harmony note heads
+@cindex Funk shape note heads
+@cindex note heads, Funk
+@cindex note heads, Harmonica Sacra
+@cindex Harmonica Sacra note heads
+@cindex Christian Harmony note heads
+@cindex note heads, Christian Harmony
+@cindex Walker shape note heads
+@cindex note heads, Walker
 
 @funindex \aikenHeads
 @funindex aikenHeads
@@ -2696,12 +2704,16 @@ Internals Reference:
 @funindex sacredHarpHeads
 @funindex \southernHarmonyHeads
 @funindex southernHarmonyHeads
+@funindex \funkHeads
+@funindex funkHeads
+@funindex \walkerHeads
+@funindex walkerHeads
 
 In shape note head notation, the shape of the note head
 corresponds to the harmonic function of a note in the scale.  This
 notation was popular in nineteenth-century American song books.
 Shape note heads can be produced in Sacred Harp, Southern Harmony,
-and Aiken (Christian Harmony) styles:
+Funk (Harmonica Sacra), Walker, and Aiken (Christian Harmony) styles:
 
 @lilypond[verbatim,quote,relative=2]
 \aikenHeads
@@ -2709,6 +2721,10 @@ c, d e f g2 a b1 c \break
 \sacredHarpHeads
 c,4 d e f g2 a b1 c \break
 \southernHarmonyHeads
+c,4 d e f g2 a b1 c \break
+\funkHeads
+c,4 d e f g2 a b1 c \break
+\walkerHeads
 c,4 d e f g2 a b1 c \break
 @end lilypond
 
@@ -2720,6 +2736,10 @@ c,4 d e f g2 a b1 c \break
 @funindex sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
 @funindex southernHarmonyHeadsMinor
+@funindex \funkHeadsMinor
+@funindex funkHeadsMinor
+@funindex \walkerHeadsMinor
+@funindex walkerHeadsMinor
 
 Shapes are typeset according to the step in the scale, where the base
 of the scale is determined by the @code{\key} command.  When writing
@@ -2736,16 +2756,25 @@ a,4 b c d e2 f g1 a \break
 a,2 b c d \break
 \southernHarmonyHeadsMinor
 a2 b c d \break
+\funkHeadsMinor
+a2 b c d \break
+\walkerHeadsMinor
+a2 b c d \break
+
 @end lilypond
 
 
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
+@code{\funkHeads},
+@code{\funkHeadsMinor},
 @code{\sacredHarpHeads},
 @code{\sacredHarpHeadsMinor},
 @code{\southernHarmonyHeads},
-@code{\southernHarmonyHeadsMinor}.
+@code{\southernHarmonyHeadsMinor},
+@code{\walkerHeads},
+@code{\walkerHeadsMinor}.
 @endpredefined
 
 
