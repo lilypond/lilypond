@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e9755d4dc717866f8578d08589427ae5e5fa4d39
+    Translation of GIT committish: 6ee1c53e30a461d9b36fe5045e23815a57e1e819
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 
 @node Exécution de LilyPond
-@chapter Exécution de LilyPond
+@chapter Exécution de @command{lilypond}
 @translationof Running LilyPond
 
 @untranslated
@@ -20,9 +20,7 @@
 * Utilisation habituelle::
 * Utilisation en ligne de commande::
 * Messages d'erreur::
-* Pourquoi la syntaxe change-t-elle?::
-* Mise à jour des fichiers avec convert-ly::
-* Rapport de bogue::
+* Quelques erreurs des plus courantes::
 @end menu
 
 @node Utilisation habituelle
@@ -43,25 +41,33 @@
 * Lancement de lilypond::
 * Options en ligne de commande::
 * Variables d'environnement::
+* Exécution de LilyPond en mode protégé::
 @end menu
 
 @node Lancement de lilypond
-@subsection Lancement de lilypond
+@unnumberedsubsec Lancement de @command{lilypond}
 @translationof Invoking lilypond
 
 @untranslated
 
 
 @node Options en ligne de commande
-@subsection Options en ligne de commande
+@unnumberedsubsec Options en ligne de commande pour @command{lilypond}
 @translationof Command line options
 
 @untranslated
 
 
 @node Variables d'environnement
-@subsection Variables d'environnement
+@unnumberedsubsec Variables d'environnement
 @translationof Environment variables
+
+@untranslated
+
+
+@node Exécution de LilyPond en mode protégé
+@unnumberedsubsec Exécution de LilyPond en mode protégé
+@translationof LilyPond in chroot jail
 
 @untranslated
 
@@ -72,35 +78,153 @@
 
 @untranslated
 
-@node Pourquoi la syntaxe change-t-elle?
-@section Pourquoi la syntaxe change-t-elle?
-@translationof Why does the syntax change?
-@untranslated
-
-@node Mise à jour des fichiers avec convert-ly
-@section Mise à jour avec @command{convert-ly}
-@translationof Updating files with convert-ly
-
-@untranslated
 
 
-@subsection Options en ligne de commande
+@node Quelques erreurs des plus courantes
+@section Quelques erreurs des plus courantes
+@translationof Common errors
+
+Les conditions amenant aux erreurs qui suivent sont fréquentes, bien
+qu'elles ne soient pas évidentes ni facilement localisables.  Nous
+espérons que ces explications vous aideront à les résoudre plus
+facilement. 
+
+
 @menu
-* Limitations de convert-ly::
+* La musique déborde de la page::
+* Apparition d'une portée supplémentaire::
+* Erreur renvoyant à ../ly/init.ly::
+* Message d'erreur Unbound variable %::
+* Message d'erreur FT_Get_Glyph_Name::
 @end menu
 
-@node Limitations de convert-ly
-@subsection Limitations de @command{convert-ly}
-@translationof Problems with convert-ly
+@node La musique déborde de la page
+@unnumberedsubsec La musique déborde de la page
+@translationof Music runs off the page
 
-@untranslated
+Lorsque la musique s'épanche au delà de la marge droite ou bien semble
+anormalement comprimée, la raison en est le plus souvent une note à la
+durée erronée ; cela finit par provoquer le débordement de la dernière
+note d'une mesure.  Rien ne s'oppose à ce que la dernière note d'une
+mesure ne s'arrête avant la barre de mesure ; on considère simplement
+qu'elle se prolonge sur la mesure suivante.  Des débordements à
+répétition finissent par générer une musique comprimée ou qui sort de la
+page, pour la simple et bonne raison que les sauts de ligne automatiques
+ne peuvent intervenir qu'à la fin d'une mesure complète, autrement dit
+lorsque toutes les notes sont terminées avant la fin de la mesure.
+
+@warning{Une durée erronée peut empêcher les sauts de ligne, ce qui
+conduit à une musique compressée, voire à un débordement de la page.}
+
+Une erreur de durée sera bien plus facilement localisable si vous
+positionnez régulièrement des contrôles de barre de mesure -- voir 
+@ruser{Vérification des limites et numéros de mesure}.
+
+Si vous tenez absolument à enchainer de tels débordements, vous devrez
+insérer des barres de mesure invisibles là où vous souhaitez positionner
+un saut de ligne.  Consultez le chapitre @ruser{Barres de mesure} pour
+plus de détails. 
 
 
-@node Rapport de bogue
-@section Rapport de bogue
-@translationof Reporting bugs
+@node Apparition d'une portée supplémentaire
+@unnumberedsubsec Apparition d'une portée supplémentaire
+@translationof An extra staff appears
 
-@untranslated
+Lorsque les contextes ne sont pas créés explicitement par la commande
+@code{\new}, ils le seront si la commande à exécuter n'est pas censée
+s'appliquer au contexte en cours.  Pour des partitions simples, les fait
+que les contextes soient automatiquement créés rend bien des services,
+et c'est d'ailleurs le cas pour la majorité des exemples contenus dans
+les manuels de LilyPond.  Cependant, la création implicite d'un contexte
+peut aboutir à l'apparition d'une portée @qq{parasite}.  On s'attend par
+exemple, en lisant le code qui suit, à ce que toutes les têtes de notes
+soient en rouge, alors que le résultat nous présente deux portées et que
+les notes, placées sur la portée inférieure, restent en noir.
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.NoteHead #'color = #red
+\new Staff { a }
+@end lilypond
+
+Étant donné qu'aucun contexte @code{Staff} n'existe lorsque la
+dérogation est introduite, LilyPond le crée implicitement pour lui
+appliquer la directive considérée.  Survient alors la commande
+@w{@code{\new Staff}} qui, à son tour, crée une nouvelle portée pour
+contenir les notes qui suivent.  Voici la syntaxe correcte pour obtenir
+ces notes en rouge :
+
+@lilypond[quote,verbatim,relative=2]
+\new Staff {
+  \override Staff.NoteHead #'color = #red
+  a
+}
+@end lilypond
+
+Autre exemple : la présence d'une commande @code{\relative} à
+l'intérieur d'une section @code{\repeat} génèrera obligatoirement une
+portée intempestive.  Cela tient au fait que la commande @code{\repeat}
+va créer deux blocs @code{\relative} qui, chacun à leur tour, créeront
+implicitement un bloc @code{Staff} assorti d'un bloc @code{Voice}.
+
+@lilypond[quote,verbatim]
+\repeat unfold 2 \relative { c d e f }
+@end lilypond
+
+La manière adéquate de procéder consiste à inverser les commandes
+@code{\repeat} et @code{\relative}, comme ceci :
+
+@lilypond[quote,verbatim]
+\relative {
+  \repeat unfold 2 { c d e f }
+}
+@end lilypond
 
 
+@node Erreur renvoyant à ../ly/init.ly
+@unnumberedsubsec Erreur renvoyant à @code{../ly/init.ly}
+@translationof Apparent error in ../ly/init.ly
+
+Certains messages d'erreur relatifs à une erreur de syntaxe dans le
+fichier @code{../ly/init.ly} peuvent survenir lorsque le fichier est mal
+formaté.  Cela se produit notamment lors d'un défaut de parité de
+bornages ou de guillemets.
+
+L'erreur la plus courante est la simple omission d'une accolade
+fermante (@code{@}} à la fin du bloc @code{Score}.  La solution est
+évidente en pareil cas : il suffit de vérifier que le bloc @code{Score}
+est bien clôturé.  La structure des fichiers LilyPond est abordée plus
+en détails au chapitre @ref{Organisation des fichiers LilyPond}.  C'est la
+raison pour laquelle nous vous invitons à utiliser un éditeur de texte
+qui prenne en charge le contrôle de parité des parenthèses, crochets et
+accolades afin de vous éviter de telles erreurs.
+
+Lorsqu'il s'agit d'un guillemet fermant (@code{"}) omis, le message
+d'erreur devrait vous indiquer un numéro de ligne avoisinant.  L'erreur
+se situe la plupart du temps une ou deux lignes au-dessus de celle
+indiquée. 
+
+
+@node Message d'erreur Unbound variable %
+@unnumberedsubsec Message d'erreur « Unbound variable % »
+@translationof Error message Unbound variable %
+
+Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
+fichier journal, est associé à un message du type @qq{GUILE a signalé
+une erreur @dots{}}, survient à chaque fois qu'un commentaire
+@emph{LilyPond} est indûment placé dans une routine @emph{Scheme}.
+
+Un commentaire LilyPond est introduit par le signe pourcent (@code{%})
+et ne doit en aucun cas se trouver dans une routine Scheme.  En Scheme,
+les commentaires s'introduisent par un point-virgule (@code{;}).
+
+
+@node Message d'erreur FT_Get_Glyph_Name
+@unnumberedsubsec Message d'erreur « FT_Get_Glyph_Name »
+@translationof Error message FT_Get_Glyph_Name
+
+Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
+fichier journal, survient lorsqu'un fichier source contient des
+caractères non ASCII et qu'il n'a pas été enregistré avec un encodage
+UTF-8.  Pour plus dde détails, reportez-vous au chapitre 
+@ruser{Codage du texte}.
 
