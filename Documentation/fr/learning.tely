@@ -54,7 +54,6 @@ Copyright @copyright{} 1999--2010 par les auteurs.
 * Bases de notation musicale::     débuter avec la notation musicale courante.
 * Concepts fondamentaux::          concepts de base de LilyPond.
 * Retouche de partition::          introduction aux retouches de mise en forme.
-@c * Travail sur des projets LilyPond::   traite de l'utilisation quotidienne.
 
 Annexes
 
@@ -78,7 +77,6 @@ Annexes
 @include learning/common-notation.itely
 @include learning/fundamental.itely
 @include learning/tweaks.itely
-@c include learning/working.itely déplacé dans usage/suggestions
 
 @include learning/templates.itely
 @include fdl.itexi
