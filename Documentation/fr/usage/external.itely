@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 6ee1c53e30a461d9b36fe5045e23815a57e1e819
+    Translation of GIT committish: e14222fd558e0d44a73be5e31b644a3e4d51db0f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -559,8 +559,9 @@ indiqué à la page @rweb{Facilités d'édition}.
 @section Insertion de partition LilyPond dans d'autres programmes
 @translationof LilyPond output in other programs
 
-This section shows methods to integrate text and music, different than
-the automated method with @command{lilypond-book}.
+Nous allons nous intéresser ici à différents moyens pour associer texte
+et musique, en laissant de côté l'automatisation grâce à
+@command{lilypond-book}.
 
 @menu
 * Extraction de plusieurs fragments d'une grande partition::
@@ -572,8 +573,10 @@ the automated method with @command{lilypond-book}.
 @unnumberedsubsec Extraction de plusieurs fragments d'une grande partition
 @translationof Many quotes from a large score
 
-If you need to quote many fragments from a large score, you can also use
-the clip systems feature, see @ruser{Extraction de fragments musicaux}.
+Si d'aventure vous deviez recopier un certain nombre d'extraits d'une
+même partition, vous pouvez recourrir à @qq{l'emporte pièce} -- la
+fonction @emph{clip systems} -- comme indiqué au chapitre
+@ruser{Extraction de fragments musicaux}.
 
 
 @node Insertion du résultat de LilyPond dans OpenOffice.org
@@ -582,22 +585,23 @@ the clip systems feature, see @ruser{Extraction de fragments musicaux}.
 
 @cindex OpenOffice.org
 
-LilyPond notation can be added to OpenOffice.org with
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
+@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond} permet
+d'insérer directement des partitions LilyPond dans OpenOffice.org.
 
 
 @node Insertion du résultat de LilyPond dans d'autres programmes
 @unnumberedsubsec Insertion du résultat de LilyPond dans d'autres programmes
 @translationof Inserting LilyPond output into other programs
 
-To insert LilyPond output in other programs, use @code{lilypond}
-instead of @code{lilypond-book}.  Each example must be created
-individually and added to the document; consult the documentation for
-that program.  Most programs will be able to insert LilyPond output in
-@file{PNG}, @file{EPS}, or @file{PDF} formats.
+Dans le cas où vous cherchez à insérer le résultat de LilyPond dans
+d'autres programmes, utilisez @code{lilypond} plutôt que
+@code{lilypond-book}.  Chaque extrait devra être généré séparément avant
+d'être inséré dans votre document.  De très nombreux programmes sont
+capables de contenir le résultat de LilyPond, que ce soit au format
+@file{PNG}, @file{EPS}, ou @file{PDF}.
 
-To reduce the white space around your LilyPond score, use
-the following options
+Les options suivantes vous permettront de réduire notablement les
+contours de l'image LilyPond@tie{}:
 
 @example
 \paper@{
@@ -612,13 +616,16 @@ the following options
 @{ c1 @}
 @end example
 
-To produce a useful @file{EPS} file, use
+En procédant comme ci-après, vous obtiendrez un fichier @file{EPS}@tie{}:
 
 @example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts monfichier.ly
+@end example
 
-@file{PNG}:
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
+ou @file{PNG} :
+
+@example
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png monfichier.ly
 @end example
 
 
@@ -626,10 +633,11 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
 @section Inclusion du travail des autres
 @translationof Independent includes
 
-Some people have written large (and useful!) code that can be
-shared between projects.  This code might eventually make its way
-into LilyPond itself, but until that happens, you must download
-and @code{\include} them manually.
+Certains ont écrit des lignes et des lignes de code -- souvent bien
+utiles -- qui peuvent servir à différents projets.  En attandant le jour
+où elles pourraient faire partie intégrante de LilyPond, vous pouvez
+toujours les télécharger et les utiliser avec la commande
+@code{\include}.
 
 
 @menu
@@ -641,28 +649,29 @@ and @code{\include} them manually.
 @subsection MIDI et articulations
 @translationof MIDI articulation
 
-LilyPond can be used to produce MIDI output, for
-@qq{proof-hearing} what has been written.  However, only dynamics,
-explicit tempo markings, and the notes and durations themselves
-are produced in the output.
+LilyPond sait produire des fichiers MIDI, principalement dans le but de
+@qq{contrôle-qualité} -- heureux détenteurs d'une oreille absolue -- de
+ce qui a été saisi.  Ne seront toutefois reproduits, en plus des notes
+et durées, que les nuances et tempi explicites.
 
-The @emph{articulate} project is one attempt to get more of the
-information in the score into he MIDI.  It works by shortening
-notes not under slurs, to @q{articulate} the notes.  The amount of
-shortening depends on any articulation markings attached to a
-note: staccato halves the note value, tenuto gives a note its full
-duration, and so on.  The script also realises trills and turns,
-and could be extended to expand other ornaments such as mordents.
+Le projet @emph{articulate} (site en anglais) s'est donné pour objectif
+de reproduire plus d'informations dans le MIDI.  Les notes qui ne sont
+pas liées sont ainsi raccourcies dans le but @qq{d'articuler}.  Ce
+raccourcissement dépend de l'articulation appliquée à la note@tie{}: un
+@emph{staccato} raccourcira la note de moitié, un @emph{tenuto} lui
+gardera sa durée entière@dots{}  Ce script réalise aussi les trilles et
+@emph{grupettos} et compte bien traiter d'autres ornements tels que les
+mordants.
 
 @example
 @uref{http://@/www@/.nicta@/.com@/.au/@/people/@/chubbp/@/articulate}
 @end example
 @noindent
-site en anglais.
+
 @knownissues
 
-Its main limitation is that it can only affect things it knows
-about: anything that is merely textual markup (instead of a note
-property) is still ignored.
+Ce projet ne peut traiter que ce qu'il connaît@tie{}: tout ce qui peut
+ressembler à un @emph{markup} -- et donc pas à la propriété d'une note
+-- sera ignoré.
 
 
