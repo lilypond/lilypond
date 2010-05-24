@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 60c59602bb30b60154a2310ebf0c88036eca71b2
+    Translation of GIT committish: a042d99cd2251b2b9121e1b8ad30307c4ce28863
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3093,7 +3093,7 @@ padText =
 
 Utiliser des identificateurs est aussi un bon moyen pour vous épargner
 du travail si la syntaxe de LilyPond change un jour -- voir
-@rprogram{Mise à jour d'anciens fichiers}.  Si vous avez une seule
+@rprogram{Mise à jour d'anciens avec convert-ly}.  Si vous avez une seule
 définition, par exemple @code{\dolce}, pour tous vos fichiers (voir
 @ref{Feuilles de style}), et que la syntaxe change, alors vous n'aurez
 qu'à mettre à jour votre seule définition @code{\dolce}, au lieu de

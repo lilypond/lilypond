@@ -19,27 +19,27 @@
 @lilypondfile[quote]{fretted-headword.ly}
 
 Dieser Abschnitt erklärt bestimmte Eigenheiten der Notation für
-gebundene Saiteninstrumente.
+Saiteninstrumente mit Bünden.
 
 @cindex Tabulatur
 @cindex Gitarrentabulatur
 @cindex Banjo-Tabulatur
 
 @menu
-* Übliche Notation für gebundene Saiteninstrumente::
+* Übliche Notation für Saiteninstrumente mit Bünden::
 * Gitarre::
 * Banjo::
 @end menu
 
-@node Übliche Notation für gebundene Saiteninstrumente
-@subsection Übliche Notation für gebundene Saiteninstrumente
+@node Übliche Notation für Saiteninstrumente mit Bünden
+@subsection Übliche Notation für Saiteninstrumente mit Bünden
 @translationof Common notation for fretted strings
 
 Dieser Abschnitt zeigt Besonderheiten der Notation, die allen
-gebundenen Saiteninstrumenten eigen ist.
+Bundinstrumenten eigen ist.
 
 @menu
-* Referenz für gebundene Saiteninstrumente::
+* Referenz für Saiteninstrumente mit Bünden::
 * Seitennummerbezeichnung::
 * Standardtabulaturen::
 * Angepasste Tabulaturen::
@@ -49,11 +49,11 @@ gebundenen Saiteninstrumenten eigen ist.
 * Fingersatz der rechten Hand::
 @end menu
 
-@node Referenz für gebundene Saiteninstrumente
-@unnumberedsubsubsec Referenz für gebundene Saiteninstrumente
+@node Referenz für Saiteninstrumente mit Bünden
+@unnumberedsubsubsec Referenz für Saiteninstrumente mit Bünden
 @translationof References for fretted strings
 
-Noten für gebundene Saiteninstrumente wird normalerweise auf
+Noten für Bundinstrumente wird normalerweise auf
 einem einzelnen System notiert, entweder als traditionelles
 Notensystem oder in Tabulaturform.  Manchmal werden beide
 Arten miteinander verbunden, und besonders in populärer
@@ -61,8 +61,8 @@ Musik ist es üblich, über dem traditionellen System Griffsymbole
 zu setzen.  Gitarre und Banjo sind transponierende Instrumente,
 die eine Oktave tiefer klingen als sie notiert werden.  Partituren
 für diese Instrumente sollten den @qq{Tenorschlüssel}
-(@code{"treble_8"}) benutzen.  Einige Spezifika für gebundene
-Instrumente sind an anderer Stelle erklärt:
+(@code{"treble_8"}) benutzen.  Einige Spezifika für
+Instrumente mit Bünden sind an anderer Stelle erklärt:
 
 @itemize
 @item Fingersatz kann notiert werden, siehe
@@ -98,9 +98,9 @@ Notationsreferenz:
 @translationof String number indications
 
 @cindex Saitenzahl
-@cindex Zahl von Saite
+@cindex Zahl von Saiten
 @cindex Fingersatz versus Saitenzahl
-@cindex Nummerierung von Saite
+@cindex Nummerierung von Saiten
 
 Die Nummer der Saite, auf der gespielt werden soll, kann
 angezeigt werden, indem @code{\@var{Zahl}} an eine Note
@@ -273,6 +273,7 @@ Slide.
 @cindex Tabulatur, Mandoline
 @cindex Tabulatur, Bassgitarre
 @cindex Saitenstimmung für Bundinstrumente
+@cindex bundierte Saiteninstrumente, Saitenstimmung
 @cindex Bundinstrumente, Saitenstimmung
 @cindex Tabulatur, Saitenstimmung
 
@@ -311,7 +312,7 @@ Die Standardstimmung ist die Gitarrenstimmung (@code{guitar-tuning})
 in der EADGHE-Stimmung.  Andere vordefinierte Stimmung sind:
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} und
 @code{banjo-open-g-tuning}.  Die vordefinierten Stimmungen finden
-sich in @code{scm/output-lib.scm}.
+sich in @code{scm/tablature.scm}.
 
 Die Stimmung ist eine Scheme-Liste von Tonhöhen der Saiten,
 eine für jede Saite, geordnet von Saitennummer 1 bis n, wobei 1
@@ -355,7 +356,7 @@ mynotes = {
 
 @seealso
 Installierte Dateien:
-@file{scm/@/output@/-lib@/.scm}.
+@file{scm/@/tablature@/.scm}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -370,6 +371,7 @@ Referenz der Interna:
 @translationof Fret diagram markups
 
 @cindex Fret (Bunddiagramme)
+@cindex Griffsymbole, bundierte Saiteninstrumente
 @cindex Griffsymbole, Bundinstrumente
 @cindex Gitarrengriffsymbole
 @cindex Akkordtabulatur
@@ -408,9 +410,9 @@ angezeigt werden.
 >>
 @end lilypond
 
-@cindex Barre, Gitarre
+@cindex Barré, Gitarre
 
-Barre kann hinzugefügt werden:
+Barré kann hinzugefügt werden:
 
 @lilypond[quote, verbatim]
 <<
@@ -541,7 +543,7 @@ offene Saiten sowie Bundnummern können angezeigt werden.
 >>
 @end lilypond
 
-Barre kann im knappen Modus auch angezeigt werden:
+Barré kann im knappen Modus auch angezeigt werden:
 
 @lilypond[quote, verbatim]
 <<
@@ -626,7 +628,7 @@ dass im Bunddiagramm gesetzt werden soll.
 >>
 @end lilypond
 
-Fingersatz und Barre kann im ausführlichen Modus notiert werden.
+Fingersatz und Barré kann im ausführlichen Modus notiert werden.
 Nur im ausführlichen Modus kann ein Capo angezeigt werden, das auf
 dem Bunddiagramm plaziert wird.  Die Capo-Anzeige ist ein dicker
 Strich, der alle Saiten bedeckt.  Der Bund mit dem Capo ist der
@@ -931,7 +933,9 @@ mychords = \chordmode{
 >>
 @end lilypond
 
+@cindex bundierte Saiteninstrumente, Akkordformen
 @cindex Bundinstrumente, Akkordformen
+@cindex Akkordformen für bundierte Saiteninstrumente
 @cindex Akkordformen für Bundinstrumente
 
 @funindex \addChordShape
@@ -1178,8 +1182,11 @@ Referenz der Interna:
 @unnumberedsubsubsec Fingersatz der rechten Hand
 @translationof Right-hand fingerings
 
+@cindex bundierte Saiteninstrumente, Fingersatz der rechten Hand
 @cindex Bundinstrumente, Fingersatz der rechten Hand
-@cindex Fingersatz der rechten Hand, Bundinstrumente
+@cindex Fingersatz der rechten Hand, bundierte Saiteninstrumente
+cindex Fingersatz der rechten Hand, Bundinstrumente
+@cindex rechte Hand, Fingersatz für bundierte Saiteninstrumente
 @cindex rechte Hand, Fingersatz für Bundinstrumente
 
 @funindex rightHandFinger
@@ -1242,19 +1249,22 @@ Satzprogramm wie GuitarTeX (für erfahrende Benutzer) eingesetzt
 werden.
 
 @menu
-* Position und Barret anzeigen::
+* Position und Barré anzeigen::
 * Flageolett und gedämpfte Noten::
 @end menu
 
-@node Position und Barret anzeigen
-@unnumberedsubsubsec Position und Barret anzeigen
+@node Position und Barré anzeigen
+@unnumberedsubsubsec Position und Barré anzeigen
 @translationof Indicating position and barring
 
-@cindex Position und Barret für Bundinstrumente
-@cindex Bundinstrumente, Position und Barret anzeigen
-@cindex Barret, anzeigen für Bundinstrumente
+@cindex Position und Barré für bundierte Saiteninstrumente
+@cindex Position und Barré für Bundinstrumente
+@cindex bundierte Saiteninstrumente, Position und Barré anzeigen
+@cindex Bundinstrumente, Position und Barré anzeigen
+@cindex Barré, anzeigen für bundierte Saiteninstrumente
+@cindex Barré, anzeigen für Bundinstrumente
 
-Das Beispiel zeigt, wie man Griff- und Barreposition
+Das Beispiel zeigt, wie man Griff- und Barréposition
 notieren kann.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=0]
@@ -1281,10 +1291,15 @@ Schnipsel:
 @unnumberedsubsubsec Flageolett und gedämpfte Noten
 @translationof Indicating harmonics and dampened notes
 
+@cindex bundierte Saiteninstrumente, gedämpfte Noten
 @cindex Bundinstrumente, gedämpfte Noten
+@cindex bundierte Saiteninstrumente, Flageolett
 @cindex Bundinstrumente, Flageolett
+@cindex Dämpfung, bundierte Saiteninstrumente
 @cindex Dämpfung, Bundinstrumente
+@cindex gedämpfte Noten, bundierte Saiteninstrumente
 @cindex gedämpfte Noten, Bundinstrumente
+@cindex Flageolett, bundierte Saiteninstrumente
 @cindex Flageolett, Bundinstrumente
 
 Besondere Notenköpfe können eingesetzt werden, um gedämpfte Noten
@@ -1374,4 +1389,4 @@ Schnipsel:
 @rlsr{Fretted strings}.
 
 Installierte Dateien:
-@file{scm/@/output@/-lib@/.scm} enthält vordefinierte Banjo-Stimmungen.
+@file{scm/@/tablature@/.scm} enthält vordefinierte Banjo-Stimmungen.

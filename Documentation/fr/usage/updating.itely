@@ -1,0 +1,280 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: 6ee1c53e30a461d9b36fe5045e23815a57e1e819
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Jean-Charles Malahieude
+@c Translation checkers: 
+
+@node Mise à jour avec convert-ly
+@chapter Mise à jour avec @command{convert-ly}
+@translationof Updating files with convert-ly
+
+@cindex mise à jour de fichiers LilyPond
+@cindex convert-ly
+
+La syntaxe des fichiers LilyPond évolue avec le temps, que ce soit dans
+le but de la simplifier ou pour l'améliorer.  Il en résulte que
+l'interpréteur de LilyPond se retrouve incapable de traîter d'anciens
+fichiers.  L'utilitaire @command{convert-ly} permet cependant de
+mettre ces fichiers en conformité au fur et à mesure que de nouvelles
+versions de LilyPond sont disponibles.
+
+@menu
+* LilyPond une langue vivante::
+* Exécution de convert-ly::
+* Options en ligne de commande pour convert-ly::
+* Problèmes d'exécution de convert-ly::
+* Conversions manuelles::
+@end menu
+
+
+@node LilyPond une langue vivante
+@section LilyPond, une langue vivante
+@translationof Why does the syntax change?
+
+@cindex convert-ly
+@cindex mise à jour d'anciens fichiers
+
+La syntaxe de LilyPond change de temps en temps.  Ces changements de
+syntaxe (le langage d'entrée) accompagnent les améliorations du
+logiciel.  Ces changements sont parfois destinés à rendre les fichiers
+plus faciles à lire et à écrire, ou permettent d'intégrer de nouvelles
+fonctionnalités.
+
+Par exemple, tous les noms des propriétés de @code{\paper} et
+@code{\layout} devaient étre étaient libellées sous la forme 
+@code{@w{premier-deuxième-troisième}}.  Nous avons constaté, une fois la
+version 2.11.60 mise à disposition, que la propriété
+@code{printallheaders} ne respectait pas cette convention.  Aurions-nous
+du la laisser telle que, au risque de dérouter les nouveaux utilisateurs
+par cette exception de formatage, ou bien la modifier -- ce qui allait
+obliger ceux qui l'avaient déjà utilisée à se mettre en chasse@tie{}?
+Pour ce cas d'espèce, nous avons décidé de changer pour
+@code{print-all-headers}.  Cette modification peut heureusement être
+automatisée par notre utilitaire @command{convert-ly}.
+
+Malheureusement, @command{convert-ly} ne peut pas réaliser toutes les
+modifications.  Par exemple, dans les versions 2.4 et antérieures de
+LilyPond, les accents et les lettres non anglaises étaient entrées en
+utilisant LaTeX -- par exemple, @code{No\"el}.  À partir de la version
+2.6, le caratère @code{ë} doit être entré directement dans le fichier
+LilyPond comme caractère UTF-8.  @code{convert-ly} ne peut pas changer
+tous les caractères LaTeX en caractères UTF-8@tie{}; vous devez mettre à
+jour vos vieux fichiers LilyPond manuellement.
+
+
+@node Exécution de convert-ly
+@section Exécution de @command{convert-ly}
+@translationof Invoking convert-ly
+
+@command{convert-ly} utilise les mentions de @code{\version} -- que vous
+n'avez sûrement pas oublié de porter dans vos fichiers --  pour
+déterminer le numéro de l'ancienne version.  Mettre à jour votre fichier
+ne vous demande que de lancer
+
+@example
+convert-ly -e monfichier.ly
+@end example
+
+@noindent
+dans le dossier où il se trouve.  @code{monfichier.ly} sera mis à jour,
+et vous aurez une copie de l'original@tie{}: @code{monfichier.ly~}.
+
+@warning{@command{convert-ly} effectuera les conversions jusqu'aux
+modifications de syntaxe les plus récentes qu'il contient.  C'est la
+raison pour laquelle le numéro de @code{@bs{}version} modifié est la
+plupart du temps inférieur au propre numéro de version de
+@command{convert-ly}.}
+
+Vous pouvez convertir tous les fichiers d'un dossier en lançant
+
+@example
+convert-ly -e *.ly
+@end example
+
+Vous pouvez aussi affecter un autre nom au fichier mis à jour et
+conserver votre fichier original en l'état@tie{}:
+
+@example
+convert-ly monfichier.ly > monnouveaufichier.ly
+@end example
+
+Le programme affichera les numéros de version correspondant aux
+différentes conversions effectuées.  Si aucun numéro de version
+n'apparaît, considérez que le fichier ne comporte pas de syntaxe
+obsolète.
+
+Les utilisateurs de MacOS@tie{}X disposent d'une entrée spécifique dans
+le menu@tie{}: @code{Compile > Update syntax}.
+
+Si vous utilisez windows, ouvrez un interpréteur de commande en faisant
+@code{Démarrer > Accessoires > Interpréteur de commmandes}.
+
+
+@node Options en ligne de commande pour convert-ly
+@section Options en ligne de commande pour @command{convert-ly}
+@translationof Command line options for convert-ly
+
+L'utilitaire @command{convert-ly} se lance de la manière suivante@tie{}:
+
+@example
+convert-ly [@var{option}]@dots{} @var{fichier}@dots{}
+@end example
+
+Vous pouvez utiliser les options@tie{}:
+
+@table @code
+@item -e,--edit
+pour éditer directement le fichier d'origine.
+
+@item -f,--from=@var{from-patchlevel}
+pour définir le numéro de version à partir duquel vous voulez effectuer
+les conversions.  Lorsque cette option n'est pas activée,
+@command{convert-ly} tentera de le déterminer sur la foi de la mention
+de @code{\version} contenue dans le fichier.  Cette option s'utilise
+sous la forme@tie{}: @code{--from=2.10.25}
+
+@item -n,--no-version
+Normalement, @command{convert-ly} ajoutera une indication de
+@code{\version} à votre fichier s'il n'en comporte pas.  Cette option
+permet de passer outre.
+
+@item -s, --show-rules
+pour afficher les conversions applicables. 
+
+@item --to=@var{to-patchlevel}
+pour n'appliquer les conversions que jusqu'à une version déterminée.  Il
+s'agit par défaut de la dernière version disponible.  Cette option
+s'utilise sous la forme@tie{}: @code{--to=2.12.2}
+
+
+@item -h, --help
+visualiser l'aide et quitter.
+@end table
+
+Lorsqu'il s'agit de fragments inclus dans un fichier texinfo, il
+vous faudra lancer
+
+@example
+convert-ly --from=... --to=... --no-version *.itely
+@end example
+
+Lorsque vous désirez savoir quels changements de syntaxe sont intervenus
+entre deux versions de LilyPond, lancez
+
+@example
+convert-ly --from=@var{ancienne} --to=@var{récente} -s
+@end example
+
+
+@node Problèmes d'exécution de convert-ly
+@section Problèmes d'exécution de @code{convert-ly}
+@translationof Problems running convert-ly
+
+Sous Windows, lorsque le nom du fichier original ou le chemin qui y mène
+comporte des espaces, l'interpréteur de commande requiert qu'il soit
+entouré de triples guillemets comme ci-dessous@tie{}:
+
+@example
+convert-ly """D:/Mes Partitions/Ode.ly""" > "D:/Mes Partitions/nouveau Ode.ly"
+@end example
+
+Lorsque la commande @command{convert-ly -e *.ly} échoue parce que
+son expansion dépasse la taille maximale d'une ligne, vous pouvez lancer
+@command{convert-ly} dans une boucle.  L'exemple suivant permet, sous
+Unix, de convertir tous les fichiers @code{.ly} d'un même
+répertoire@tie{}:
+
+@example
+for f in *.ly; do convert-ly -e $f; done;
+@end example
+
+Avec l'interpréteur de commandes de Windows, la syntaxe consacrée
+est@tie{}:
+
+@example
+for %x in (*.ly) do convert-ly -e """%x"""
+@end example
+
+Toutes les évolutions du langage ne sont pas forcément prises en charge.
+@command{convert-ly} ne tolère qu'une seule option de sortie à la fois.
+La mise à jour automatique du code Scheme inclus dans les fichiers
+LilyPond est plus qu'hasardeuse@tie{}; atendez-vous à devoir mettre les
+mains dans le cambouis.
+
+
+@node Conversions manuelles
+@section Conversions manuelles
+@translationof Manual conversions
+
+En théorie, un programme tel que @command{convert-ly} devrait pouvoir
+traîter n'importe quel changement de syntaxe.  En effet, si un programme
+informatique sait interpréter aussi bien une version que l'autre, un
+autre programme informatique doit alors être capable de traduire un
+fichier donné
+@footnote{At least, this is possible in any LilyPond file which does not
+contain scheme.  If there is scheme in the file, then the LilyPond file
+contains a Turing-complete language, and we run into problems with the
+famous @qq{Halting Problem} in computer science.}.
+
+Le projet LilyPond ne dispose cependant que de ressources
+limitées@tie{}: les conversions ne sont pas toutes automatisées.  Voici
+une liste de problèmes clairement identifiés@tie{}:
+
+
+@verbatim
+1.6->2.0:
+ Doesn't always convert figured bass correctly, specifically things like {<
+>}.  Mats' comment on working around this:
+   To be able to run convert-ly
+   on it, I first replaced all occurrences of '{<' to some dummy like '{#'
+   and similarly I replaced '>}' with '&}'.  After the conversion, I could
+   then change back from '{ #' to '{ <' and from '& }' to '> }'.
+ Doesn't convert all text markup correctly.  In the old markup syntax,
+ it was possible to group a number of markup commands together within
+parentheses, e.g.
+   -#'((bold italic) "string")
+   This will incorrectly be converted into
+   -\markup{{\bold italic} "string"}
+   instead of the correct
+   -\markup{\bold \italic "string"}
+2.0->2.2:
+ Doesn't handle \partcombine
+ Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple
+stanzas.
+2.0->2.4:
+ \magnify isn't changed to \fontsize.
+    - \magnify #m => \fontsize #f, where f = 6ln(m)/ln(2)
+ remove-tag isn't changed.
+    - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
+ first-page-number isn't changed.
+    - first-page-number no => print-first-page-number = ##f
+ Line breaks in header strings aren't converted.
+    - \\\\  as line break in \header strings => \markup \center-align <
+      "First Line" "Second Line" >
+ Crescendo and decrescendo terminators aren't converted.
+    - \rced => \!
+    - \rc => \!
+2.2->2.4:
+ \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly
+converted.
+2.4.2->2.5.9
+ \markup{ \center-align <{ ... }> } should be converted to:
+ \markup{ \center-align {\line { ... }} }
+ but now, \line is missing.
+2.4->2.6
+ Special LaTeX characters such as $~$ in text are not converted to UTF8.
+2.8
+ \score{} must now begin with a music expression.  Anything else
+ (particularly \header{}) must come after the music.
+@end verbatim
+
+

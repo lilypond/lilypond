@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3dd9b13331489a191d0e901245cc98476e5fcac1
+    Translation of GIT committish: 9cb0f67cda719b296b698a8c25b2559b4f427148
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -114,6 +114,11 @@ unas hermosas partituras impresas!
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
+
+@appendixsubsec Estrofa para solista y estribillo a dos voces
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template-with-verse-and-refrain.ly}
 
 
 @node Plantillas orquestales
