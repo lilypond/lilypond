@@ -1516,7 +1516,7 @@ To create a MIDI output file from a LilyPond input file, add a
 
 If there is a @code{\midi} block in a @code{\score} with no
 @code{\layout} block, only MIDI output will be produced.  When
-notation is needed too, a @code{\layout} block must be also be
+notation is needed too, a @code{\layout} block must also be
 present.
 
 @example
