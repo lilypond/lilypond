@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: cec6b24809cf3ffbb594f70c9823365501ccc2b4
+    Translation of GIT committish: 0a8cfef9d285775b5587218e57ffaa9bbf134359
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -354,7 +354,7 @@ especificar de forma explícita (es decir: mediante un número).
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  a a a4. a8
+  a4 a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -373,7 +373,7 @@ nombre @code{r}@tie{}:
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  a r r2
+  a4 r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -427,13 +427,13 @@ La @notation{clave} se puede establecer utilizando la orden
 
 @lilypond[verbatim,quote]
 \relative c' {
-  \clef treble
+  \clef "treble"
   c1
-  \clef alto
+  \clef "alto"
   c1
-  \clef tenor
+  \clef "tenor"
   c1
-  \clef bass
+  \clef "bass"
   c1
 }
 @end lilypond
@@ -446,10 +446,12 @@ juntos:
 
 @lilypond[verbatim,quote]
 \relative c, {
+  \clef "bass"
   \time 3/4
-  \clef bass
-  c2 e8 c' g'2.
-  f4 e d c4 c, r4
+  c2 e8 c'
+  g'2.
+  f4 e d
+  c4 c, r
 }
 @end lilypond
 
@@ -528,12 +530,12 @@ produciría un mensaje de error.
 
 @item
 @strong{Insensible al número de espacios}: no importa cuántos espacios
-(o saltos de línea o de tabulación) añada.  @w{@samp{@{ c d e @}}}
-significa lo mismo que @w{@samp{@{ c @tie{} @tie{} @tie{} d e @}}} y
-que
+(o saltos de línea o de tabulación) añada.
+@w{@samp{@{ c4 d e @}}} significa lo mismo que
+@w{@samp{@{ c4 @tie{} @tie{} @tie{} d e @}}} y que
 
 @example
-@{ c                        d
+@{ c4                       d
                    e   @}
 @end example
 
@@ -544,7 +546,7 @@ tabulación, o bien con dos espacios:
 
 @example
 @{
-  c d e
+  c4 d e
 @}
 @end example
 
@@ -603,7 +605,7 @@ fragmento muestra algunos posibles usos para los comentarios:
   se ignoran, por estar dentro de un
   comentario de bloque.
 
-  f f e e d d c2
+  f4 f e e d d c2
 %@}
 @end example
 
@@ -728,7 +730,7 @@ sobre esta imagen:
 @c KEEP LY
 @lilypond[quote]
 \relative c'' {
-  c-\markup { \bold \huge { Haga clic aquí. } }
+  c4-\markup { \bold \huge { Haga clic aquí. } }
 }
 @end lilypond
 
