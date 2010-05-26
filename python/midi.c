@@ -41,7 +41,7 @@ each track is an EVENTLIST, where EVENT is
 #include <Python.h>
 
 char *
-itoa (int i)
+compat_itoa (int i)
 {
   static char buffer[9];
   snprintf (buffer, 8, "%d", i);
@@ -318,7 +318,7 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
   debug_print ("track end: %p\n", track + track_len);
   
   if (track_len > track_size)
-    return midi_error (__FUNCTION__,  ": track length corrupt: ", itoa (track_len));
+    return midi_error (__FUNCTION__,  ": track length corrupt: ", compat_itoa (track_len));
 
   pytrack = PyList_New (0);
 
@@ -361,7 +361,7 @@ pymidi_parse_track (PyObject *self, PyObject *args)
     return 0;
 
   if (track_size < 0)
-    return midi_error (__FUNCTION__,   ": negative track size: ", itoa (track_size));
+    return midi_error (__FUNCTION__,   ": negative track size: ", compat_itoa (track_size));
 
   track_end = track + track_size;
   
@@ -383,13 +383,13 @@ midi_parse (unsigned char **midi,unsigned  char *midi_end)
   header_len = get_number (midi, *midi + 4, 4);
   
   if (header_len < 6)
-    return midi_error (__FUNCTION__,  ": header too short: ", itoa (header_len));
+    return midi_error (__FUNCTION__,  ": header too short: ", compat_itoa (header_len));
     
   format = get_number (midi, *midi + 2, 2);
   tracks = get_number (midi, *midi + 2, 2);
 
   if (tracks > 32)
-    return midi_error (__FUNCTION__,  ": too many tracks: ", itoa (tracks));
+    return midi_error (__FUNCTION__,  ": too many tracks: ", compat_itoa (tracks));
   
   division = get_number (midi, *midi + 2, 2) * 4;
 
