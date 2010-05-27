@@ -38,6 +38,15 @@ of different versions to see when bugs appeared.
 
 @TODO: To be checked and completed -vv
 
+Regression tests (@qq{regtests}) are available in two ways: either
+in a compiled form, for instance on the website, or as source code
+that needs to be compiled locally, using the most recent LilyPond
+binary as possible.  The latter is recommended, although more
+technically involved.
+
+
+@subheading Precompiled regtests
+
 The easiest way to see the @q{current} regtest output (meaning,
 the ouput of the latest stable or development version) is
 to look at the precompiled regtest
@@ -50,6 +59,9 @@ features, bugfixes... or new bugs that may have been introduced!
 
 Therefore, if you have an appropriate environment to build LilyPond
 yourself, it is recommended that you compile the software yourself.
+
+
+@subheading Compiling regtests
 
 The first step is to download the latest available source code,
 as explained in @ref{Working with source code}.  Then you will need
