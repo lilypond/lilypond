@@ -19,7 +19,7 @@ They have fixed size. Their formatting can be tuned with
   <c e g>\laissezVibrer r4
   <c f g>\laissezVibrer r
   <c d f g>\laissezVibrer r
-  <c d f g>4.\laissezVibrer r
+  <c d f g>4.\laissezVibrer r8
 
   <c d e f>4\laissezVibrer r
   \override LaissezVibrerTieColumn #'tie-configuration
