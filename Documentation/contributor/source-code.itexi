@@ -6,7 +6,6 @@
 
 
 @menu
-* Downloading the source code as an archive::
 * Using lily-git::
 * Starting with Git::
 * Basic Git procedures::
@@ -15,29 +14,6 @@
 * Repository directory structure::
 * Other Git documentation::
 @end menu
-
-
-@node Downloading the source code as an archive
-@section Downloading the source code as an archive
-
-
-An easy way to get the complete source code is to download it
-as a @qq{tarball} archive, that can be extracted on any operating
-system (Windows users may have to download and install the free-software
-@uref{http://www.7-zip.org, 7zip archiver} to extract it.
-
-Such a tarball is directly available on the LilyPond website: see
-@rweb{Source}.  This source code matches the proposed binaries on
-the same page (i.e. the latest stable or development release).
-
-Another way to retrieve the latest LilyPond snapshot from its
-GNU Savannah Git server is to click on the following link:
-@uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git;a=snapshot}.
-
-However, please note that this will not allow you to submit your
-modifications to the code in a proper way.  Therefore the recommended
-way of getting the source code (alongside with its complete history log)
-is by using Git, as explained in this section.
 
 
 @node Using lily-git
@@ -887,7 +863,7 @@ that looks like this:
 # Changes to be committed:
 #   (use "git reset HEAD <file>..." to unstage)
 #
-# modified:   working.itexi
+#	modified:   working.itexi
 #
 @end example
 
