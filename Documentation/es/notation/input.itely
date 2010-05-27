@@ -1298,7 +1298,7 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative  {
+\relative c' {
   c2 d e f g f e
 }
 \addlyrics { \bulgarian }
@@ -1535,12 +1535,11 @@ LilyPond:
 
 @subsubheading Instrucciones de instalación para MacOS
 
-Descargue y extraiga el archivo zip. Copie
-la carpeta @code{lilyfonts} a
-@file{@var{SHARE_DIR}/lilypond/current}; para más información, consulte
-@rlearning{Otras fuentes de información}.
-Mueva la carpeta @code{fonts} existente a @code{fonts_orig} y mueva la
-carpeta @code{lilyfonts} a @code{fonts}.  Sencillamente vuelva a mover
+Descargue y extraiga el archivo zip. Copie la carpeta @code{lilyfonts}
+a @file{@var{SHARE_DIR}/lilypond/current}; para más información,
+consulte @rlearning{Otras fuentes de información}.  Mueva la carpeta
+@code{fonts} existente a @code{fonts_orig} y mueva la carpeta
+@code{lilyfonts} a @code{fonts}.  Sencillamente vuelva a mover
 @code{fonts_orig} a @code{fonts} para volver a la fuente Feta.
 
 @seealso
