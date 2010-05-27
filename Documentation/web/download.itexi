@@ -566,7 +566,7 @@ download site}.
 @divClass{column-right-bottom}
 @subheading Compiling instructions
 
-Instructions are listed in @rcontrib{Compiling LilyPond}.
+Instructions are listed in @rcontrib{Compiling}.
 
 @divEnd
 
