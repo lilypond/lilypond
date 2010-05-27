@@ -277,30 +277,29 @@ Create a beam with the specified parameters.
 (define-markup-command (underline layout props arg)
   (markup?)
   #:category font
-  #:properties ((thickness 1))
+  #:properties ((thickness 1) (offset 2))
   "
 @cindex underlining text
 
 Underline @var{arg}.  Looks at @code{thickness} to determine line
-thickness and y-offset.
+thickness, and @code{offset} to determine line y-offset.
 
 @lilypond[verbatim,quote]
-\\markup {
-  default
-  \\hspace #2
-  \\override #'(thickness . 2)
-  \\underline {
-    underline
-  }
+\\markup \\fill-line {
+  \\underline "underlined"
+  \\override #'(offset . 5) \\override #'(thickness . 1) \\underline
+"underlined"
+  \\override #'(offset . 1) \\override #'(thickness . 5) \\underline
+"underlined"
 }
 @end lilypond"
-  (let* ((thick (* (ly:output-def-lookup layout 'line-thickness)
-                   thickness))
+  (let* ((thick (ly:output-def-lookup layout 'line-thickness))
+         (underline-thick (* thickness thick))
          (markup (interpret-markup layout props arg))
          (x1 (car (ly:stencil-extent markup X)))
          (x2 (cdr (ly:stencil-extent markup X)))
-         (y (* thick -2))
-         (line (make-line-stencil thick x1 y x2 y)))
+         (y (* thick (- offset)))
+         (line (make-line-stencil underline-thick x1 y x2 y)))
     (ly:stencil-add markup line)))
 
 (define-markup-command (box layout props arg)
