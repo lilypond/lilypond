@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 97a27c707de72468d690426755eb4e42b3a9dbf4
+    Translation of GIT committish: eb98dcb8ece687486640a5dc3ec3aa2395ec31cf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -47,10 +47,10 @@ and just before
 * Glosario técnico::
 * Todas las propiedades de contexto::
 * Propiedades de disposición::
-* Identificadores::
+* Funciones musicales disponibles::
+* Predicados de tipo predefinidos::
 * Funciones de Scheme::
 @end menu
-
 
 
 @node Cuadro de nombres de acordes
@@ -600,34 +600,34 @@ por ejemplo @code{g^\markup @{\musicglyph #"scripts.segno" @}} ó
 consulte @ref{Formatear el texto}.
 
 @menu
-* Clef glyphs::
-* Time Signature glyphs::
-* Number glyphs::
-* Accidental glyphs::
-* Default Notehead glyphs::
-* Special Notehead glyphs::
-* Shape-note Notehead glyphs::
-* Rest glyphs::
-* Flag glyphs::
-* Dot glyphs::
-* Dynamic glyphs::
-* Script glyphs::
-* Arrowhead glyphs::
-* Bracket-tip glyphs::
-* Pedal glyphs::
-* Accordion glyphs::
-* Vaticana glyphs::
-* Medicaea glyphs::
-* Hufnagel glyphs::
-* Mensural glyphs::
-* Neomensural glyphs::
-* Petrucci glyphs::
-* Solesmes glyphs::
+* Glifos de clave::
+* Glifos de indicación de compás::
+* Glifos de cifras::
+* Glifos de alteraciones::
+* Glifos de las cabezas de nota predeterminadas::
+* Glifos de las cabezas de nota especiales::
+* Glifos de las cabezas de nota con formas::
+* Glifos de silencios::
+* Glifos de corchetes::
+* Glifos de puntillos::
+* Glifos de matices dinámicos::
+* Grifos de inscripciones::
+* Glifos de flechas::
+* Glifos de puntas de corchete::
+* Glifos de pedal::
+* Glifos de acordeón::
+* Glifos de vaticana::
+* Glifos de medicea::
+* Glifos de Hufnagel::
+* Glifos de mensural::
+* Glifos de neomensural::
+* Glifos de Petrucci::
+* Glifos de Solesmes::
 @end menu
 
 
-@node Clef glyphs
-@unnumberedsubsec Clef glyphs
+@node Glifos de clave
+@unnumberedsubsec Glifos de clave
 @translationof Clef glyphs
 
 @lilypond[quote]
@@ -637,8 +637,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Time Signature glyphs
-@unnumberedsubsec Time Signature glyphs
+@node Glifos de indicación de compás
+@unnumberedsubsec Glifos de indicación de compás
 @translationof Time Signature glyphs
 
 @lilypond[quote]
@@ -648,8 +648,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Number glyphs
-@unnumberedsubsec Number glyphs
+@node Glifos de cifras
+@unnumberedsubsec Glifos de cifras
 @translationof Number glyphs
 
 @lilypond[quote]
@@ -659,8 +659,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Accidental glyphs
-@unnumberedsubsec Accidental glyphs
+@node Glifos de alteraciones
+@unnumberedsubsec Glifos de alteraciones
 @translationof Accidental glyphs
 
 @lilypond[quote]
@@ -670,8 +670,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Default Notehead glyphs
-@unnumberedsubsec Default Notehead glyphs
+@node Glifos de las cabezas de nota predeterminadas
+@unnumberedsubsec Glifos de las cabezas de nota predeterminadas
 @translationof Default Notehead glyphs
 
 @lilypond[quote]
@@ -681,8 +681,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Special Notehead glyphs
-@unnumberedsubsec Special Notehead glyphs
+@node Glifos de las cabezas de nota especiales
+@unnumberedsubsec Glifos de las cabezas de nota especiales
 @translationof Special Notehead glyphs
 
 @lilypond[quote]
@@ -692,8 +692,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Shape-note Notehead glyphs
-@unnumberedsubsec Shape-note Notehead glyphs
+@node Glifos de las cabezas de nota con formas
+@unnumberedsubsec Glifos de las cabezas de nota con formas
 @translationof Shape-note Notehead glyphs
 
 @lilypond[quote]
@@ -703,8 +703,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Rest glyphs
-@unnumberedsubsec Rest glyphs
+@node Glifos de silencios
+@unnumberedsubsec Glifos de silencios
 @translationof Rest glyphs
 
 @lilypond[quote]
@@ -714,8 +714,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Flag glyphs
-@unnumberedsubsec Flag glyphs
+@node Glifos de corchetes
+@unnumberedsubsec Glifos de corchetes
 @translationof Flag glyphs
 
 @lilypond[quote]
@@ -725,8 +725,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Dot glyphs
-@unnumberedsubsec Dot glyphs
+@node Glifos de puntillos
+@unnumberedsubsec Glifos de puntillos
 @translationof Dot glyphs
 
 @lilypond[quote]
@@ -736,8 +736,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Dynamic glyphs
-@unnumberedsubsec Dynamic glyphs
+@node Glifos de matices dinámicos
+@unnumberedsubsec Glifos de matices dinámicos
 @translationof Dynamic glyphs
 
 @lilypond[quote]
@@ -747,8 +747,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Script glyphs
-@unnumberedsubsec Script glyphs
+@node Grifos de inscripciones
+@unnumberedsubsec Grifos de inscripciones
 @translationof Script glyphs
 
 @lilypond[quote]
@@ -758,8 +758,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Arrowhead glyphs
-@unnumberedsubsec Arrowhead glyphs
+@node Glifos de flechas
+@unnumberedsubsec Glifos de flechas
 @translationof Arrowhead glyphs
 
 @lilypond[quote]
@@ -769,8 +769,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Bracket-tip glyphs
-@unnumberedsubsec Bracket-tip glyphs
+@node Glifos de puntas de corchete
+@unnumberedsubsec Glifos de puntas de corchete
 @translationof Bracket-tip glyphs
 
 @lilypond[quote]
@@ -780,8 +780,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Pedal glyphs
-@unnumberedsubsec Pedal glyphs
+@node Glifos de pedal
+@unnumberedsubsec Glifos de pedal
 @translationof Pedal glyphs
 
 @lilypond[quote]
@@ -791,8 +791,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Accordion glyphs
-@unnumberedsubsec Accordion glyphs
+@node Glifos de acordeón
+@unnumberedsubsec Glifos de acordeón
 @translationof Accordion glyphs
 
 @lilypond[quote]
@@ -802,8 +802,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Vaticana glyphs
-@unnumberedsubsec Vaticana glyphs
+@node Glifos de vaticana
+@unnumberedsubsec Glifos de vaticana
 @translationof Vaticana glyphs
 
 @lilypond[quote]
@@ -813,8 +813,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Medicaea glyphs
-@unnumberedsubsec Medicaea glyphs
+@node Glifos de medicea
+@unnumberedsubsec Glifos de medicea
 @translationof Medicaea glyphs
 
 @lilypond[quote]
@@ -824,8 +824,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Hufnagel glyphs
-@unnumberedsubsec Hufnagel glyphs
+@node Glifos de Hufnagel
+@unnumberedsubsec Glifos de Hufnagel
 @translationof Hufnagel glyphs
 
 @lilypond[quote]
@@ -835,8 +835,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Mensural glyphs
-@unnumberedsubsec Mensural glyphs
+@node Glifos de mensural
+@unnumberedsubsec Glifos de mensural
 @translationof Mensural glyphs
 
 @lilypond[quote]
@@ -846,8 +846,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Neomensural glyphs
-@unnumberedsubsec Neomensural glyphs
+@node Glifos de neomensural
+@unnumberedsubsec Glifos de neomensural
 @translationof Neomensural glyphs
 
 @lilypond[quote]
@@ -857,8 +857,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Petrucci glyphs
-@unnumberedsubsec Petrucci glyphs
+@node Glifos de Petrucci
+@unnumberedsubsec Glifos de Petrucci
 @translationof Petrucci glyphs
 
 @lilypond[quote]
@@ -868,8 +868,8 @@ consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Solesmes glyphs
-@unnumberedsubsec Solesmes glyphs
+@node Glifos de Solesmes
+@unnumberedsubsec Glifos de Solesmes
 @translationof Solesmes glyphs
 
 @lilypond[quote]
@@ -951,7 +951,7 @@ Se pueden usar los siguientes estilos para las cabezas de las notas.
 @cindex varcoda
 @cindex verylongfermata
 
-Las siguientes inscripciones setán disponibles en la tipografía Feta y
+Las siguientes inscripciones están disponibles en la tipografía Feta y
 se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
 
 @c Articulations and ornamentations
@@ -966,11 +966,11 @@ se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
 
 @menu
 * Indicaciones de articulación::
-* Indicaciones de adrornos::
+* Indicaciones de adornos::
 * Indicaciones de calderón::
 * Indicaciones específicas de ciertos instrumentos::
 * Indicaciones de repetición::
-* Inidicaciones antiguas::
+* Indicaciones antiguas::
 @end menu
 
 
@@ -983,8 +983,8 @@ se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
 \new RhythmicStaff { \scriptStaff #articulations }
 @end lilypond
 
-@node Indicaciones de adrornos
-@unnumberedsubsec Indicaciones de adrornos
+@node Indicaciones de adornos
+@unnumberedsubsec Indicaciones de adornos
 @translationof Ornament scripts
 
 @lilypond[quote]
@@ -1019,8 +1019,8 @@ se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
 \new RhythmicStaff { \scriptStaff #repeats }
 @end lilypond
 
-@node Inidicaciones antiguas
-@unnumberedsubsec Inidicaciones antiguas
+@node Indicaciones antiguas
+@unnumberedsubsec Indicaciones antiguas
 @translationof Ancient scripts
 
 @lilypond[quote]
@@ -1047,163 +1047,266 @@ manuales, en las listas de distribución de correo o en el código
 fuente.
 
 @menu
-* alist::
+* alist (lista-A)::
 * callback::
-* closure::
-* glyph::
-* grob::
-* immutable::
-* interface::
-* lexer::
+* closure (cerradura)::
+* glifo::
+* grob (objeto gráfico)::
+* inmutable::
+* interfaz::
+* lexer (analizador léxico)::
 * mutable::
-* output-def::
-* parser::
-* parser variable::
-* prob::
-* simple closure::
-* smob::
-* stencil::
+* output-def (definición de salida)::
+* parser (analizador sintáctico)::
+* variable del analizador sintáctico::
+* prob (objeto de propiedades)::
+* cerradura simple::
+* smob (objeto de Scheme)::
+* stencil (sello)::
 @end menu
 
-@node alist
-@unnumberedsubsec alist
+@node alist (lista-A)
+@unnumberedsubsec alist (lista-A)
+@translationof alist
 
+@cindex lista-A
+@cindex lista de asociación
 @cindex alist
-@cindex association list
 
-@untranslated
+Una lista asociativa o abreviadamente una @strong{lista-A} (alist en
+inglés) es una pareja de Scheme que asocia un valor con una clave:
+@w{@code{(clave . valor)}}.  Por ejemplo, en @file{scm/lily.scm}, la
+lista-A @w{@qq{type-p-name-alist}} asocia ciertos predicadps de tipo
+(p.ej.@tie{}@code{ly:music?})  con nombres (p.ej.@tie{}@qq{music}) de
+forma que se pueda informar de los fallos de comprobación de tipo con
+un mensaje de consola que incluye el nombre del predicado de tipo
+esperado.
 
 @node callback
 @unnumberedsubsec callback
+@translationof callback
 
 @cindex callback
 
-@untranslated
+Una @strong{callback} es una rutina, función o método cuya referencia
+se pasa como argumento en una llamada a otra rutina, permitiendo así
+que la runtina llamada invoque a aquélla.  La técnica permite que una
+capa de software de nivel más bajo llame a una función definida en una
+capa de nivel más alto.  Las funciones de callback se usan ampliamente
+en LilyPond para permitir al código de Scheme del nivel de usuario
+definir cuántas acciones de bajo nivel se llevan a cabo.
 
-@node closure
-@unnumberedsubsec closure
 
-@cindex closure
-@cindex simple closure
+@node closure (cerradura)
+@unnumberedsubsec closure (cerradura)
+@translationof closure
 
-@untranslated
+@cindex cerradura
+@cindex cerradura simple
 
-@node glyph
-@unnumberedsubsec glyph
+En Scheme, se crea una @strong{cerradura} cuando una función, por lo
+general una expresión lambda, se pasa como variable.  La cerradura
+contiene el codigo de la función y referencias a las ligaduras léxicas
+de las variables libres de la función (es decir, las variables que se
+usan en la expresión pero se definen fuera de ella).  Cuando más tarde
+se aplica esta función a diferentes argumentos, las ligaduras de
+variables libres que se capturaron dentro de la cerradura se utilizan
+para obtener los valores de las variables libres que se usarán en el
+cálculo.  Una propiedad útil de las cerraduras es la retención de los
+valores internos de las variables de una invocación a otra,
+permitiendo así que se pueda mantener un estado.
 
-@cindex glyph
-@cindex font
-@cindex typeface
+Una @strong{cerradura simple} es una cerradura cuya expresión no tiene
+variables libres y por ello no tiene ligaduras de variables libres.
 
-@untranslated
+Una cerradura simple se representa en LilyPond mediante un @q{smob}
+que contiene la expresión y un método para aplicar la expresión a la
+lista de argumentos que se le pasa.
+
+
+@node glifo
+@unnumberedsubsec glifo
+@translationof glyph
+
+@cindex glifo
+@cindex fuente tipográfica
+@cindex tipografía
+
+Un @strong{glifo} es una representación gráfica particular de un
+carácter tipográfico, o una combinación de dos caracteres que forman
+una ligadura.  Un conjunto de glifos con un estilo y forma uniformes
+forman una fuente tipográfica, y un conjunto de fuentes tipográficas
+que abarcan varios estilos forman un tipo.
+
 
 @seealso
 Referencia de la notación:
-@ref{Fonts},
-@ref{Text encoding}.
+@ref{Tipografías},
+@ref{Codificación del texto}.
 
 
-@node grob
-@unnumberedsubsec grob
+@node grob (objeto gráfico)
+@unnumberedsubsec grob (objeto gráfico)
+@translationof grob
 
 @cindex grob
-@cindex layout objects
-@cindex graphical objects
+@cindex objetos de presentación
+@cindex objetos gráficos
 
-@untranslated
+Los objetos de LilyPond que representan elementos de la notación en la
+salida impresa tales como la cabeza y la plica de las notas, ligaduras
+de unión y de expresión, digitaciones, claves, et. se denominan
+@q{objetos de presentación}, a menudo conocidos como @q{OBjetos
+GRáficos}, o abreviadamente @strong{grobs}.  Se representan mediante
+instancias de la clase @code{Grob}.
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Objects and interfaces},
-@rlearning{Naming conventions of objects and properties},
-@rlearning{Properties of layout objects}.
+@rlearning{Objetos e interfaces},
+@rlearning{Convenciones de nombres de objetos y propiedades},
+@rlearning{Propiedades de los objetos de presentación}.
 
 Referencia de funcionamiento interno:
 @rinternals{grob-interface},
 @rinternals{All layout objects}.
 
 
-@node immutable
-@unnumberedsubsec immutable
+@node inmutable
+@unnumberedsubsec inmutable
+@translationof immutable
 
-@cindex immutable objects
-@cindex immutable properties
-@cindex shared properties
+@cindex objetos inmutables
+@cindex propiedades inmutables
+@cindex propiedades compartidas
 
-@untranslated
+Un objeto @strong{inmutable} es aquél cuyo estado no se puede
+modificar después de su creación, en contraste con los objetos
+mutables, que se pueden modificar después de su creación.
+
+En LilyPond, las propiedades inmutables o compartidas definen el
+estilo y comportamiento predeterminados de los grobs.  Se comparten
+por parte de muchos objetos.  En aparente contradicción con su nombre,
+se pueden cambiar utilizando @code{\override} y @code{\revert}.
 
 @seealso
 Referencia de la notación:
 @ref{mutable}.
 
-@node interface
-@unnumberedsubsec interface
+@node interfaz
+@unnumberedsubsec interfaz
+@translationof interface
 
-@cindex interface
-@cindex grob-interface
-@cindex graphical object interfaces
+@cindex interfaz
+@cindex interfaz de grob
+@cindex interfaces de objetos gráficos
 
-@untranslated
+Las acciones y propiedades comunes a un conjunto de grobs se agrupan
+en un objeto denominado @code{interfaz de grob (grob-inerface)}, o
+abreviadamente @q{interfaz}.
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Objects and interfaces},
-@rlearning{Naming conventions of objects and properties},
-@rlearning{Properties found in interfaces}.
+@rlearning{Objetos e interfaces},
+@rlearning{Convenciones de nombres de objetos y propiedades},
+@rlearning{Propiedades de los interfaces}.
 
 Referencia de la notación:
-@ref{Layout interfaces}.
+@ref{Interfaces de la presentación}.
 
 Referencia de funcionamiento interno:
 @rinternals{Graphical Object Interfaces}.
 
 
-@node lexer
-@unnumberedsubsec lexer
+@node lexer (analizador léxico)
+@unnumberedsubsec lexer (analizador léxico)
+@translationof lexer
 
 @cindex lexer
+@cindex analizador léxico
 @cindex Flex
 
-@untranslated
+Un @strong{lexer} o analizador léxico es un programa que convierte una
+secuencia de caracteres en una secuencia de elementos o tokens, en un
+proceso que se llama análisis léxico.  El analizador léxico de
+LilyPond convierte el flujo obtenido a partir de un archivo de entrada
+@file{.ly} en un flujo descompuesto en tokens más apto para la
+siguiente fase del procesado: el análisis sintáctico, véase
+@ref{parser (analizador sintáctico)}.  El analizador léxico de
+LilyPond lexer está construido con la herramienta Flex a partir del
+archivo de lexer @file{lily/lexer.ll} que contiene las reglas léxicas.
+Este archivo es parte del código fuente y no se incluye dentro de la
+instalación binaria de LilyPond.
+
 
 @node mutable
 @unnumberedsubsec mutable
+@translationof mutable
 
-@cindex mutable objects
-@cindex mutable properties
+@cindex objetos mutables
+@cindex propiedades mutables
 
-@untranslated
+Un objeto @strong{mutable} es aquél cuyo estado se puede modificar
+después de su creación, en contraste con un objeto inmutable, cuyo
+estado se fija en el momento de la creación.
+
+En LilyPond, las propiedades mutables contienen valores específicos de
+un grob.  Por lo general, las listas de otros objetos o los resultados
+de los cálculos se almacenan en propiedades mutables.
 
 @seealso
 Referencia de la notación:
-@ref{immutable}.
+@ref{inmutable}.
 
-@node output-def
-@unnumberedsubsec output-def
+@node output-def (definición de salida)
+@unnumberedsubsec output-def (definición de salida)
+@translationof output-def
 
 @cindex output-def
+@cindex definición de salida
 
-@untranslated
+Una instancia de la clase @code{Output-def} contiene los métodos y
+estructuras de datos asociados con un bloque de salida.  Se crean
+instancias parra los bloques midi, layout y paper.
 
-@node parser
-@unnumberedsubsec parser
+
+@node parser (analizador sintáctico)
+@unnumberedsubsec parser (analizador sintáctico)
+@translationof parser
 
 @cindex parser
+@cindex analizador sintáctico
 @cindex Bison
-@cindex grammar for LilyPond
+@cindex gramática de LilyPond
 @cindex BNF
 
-@untranslated
+Un @strong{parser} o analizador sintáctico analiza la secuencia de
+tokens o elementos léxicos producida por un analizador léxico para
+determinar su estructura gramatical, agrupando los elementos léxicos
+en conjuntos mayores según las reglas de la gramática.  Si la
+secuencia de elementos léxicos es válida, el producto final es un
+árbol de tokens cuya raíz es el símbolo inicial de la gramática.  Si
+no se puede conseguir esto, el archivo es inválido y se produce un
+mensaje de error adecuado.  Las agrupaciones sintácticas y las reglas
+para construir estas agrupaciones a partir de sus elementos
+constituyentes para la sintaxis de LilyPond están definidas en
+@file{lily/parser.yy} y se muestran en la forma normal de Backus (BNF)
+dentro de @ref{Gramática de LilyPond}.  Este archivo se usa para
+construir el analizador sintáctico durante la compilación del programa
+por parte del generador de analizadores sintácticos, Bison.  Es parte
+del código fuente y no se incluye dentro de la instalación binaria de
+LilyPond.
 
-@node parser variable
-@unnumberedsubsec parser variable
 
-@cindex parser variable
-@cindex Scheme variable
-@cindex global variable
+@node variable del analizador sintáctico
+@unnumberedsubsec variable del analizador sintáctico
+@translationof parser variable
+
+@cindex variable del analizador sintáctico
+@cindex variable de Scheme
+@cindex variable global
 @cindex afterGraceFraction
 @cindex musicQuotes
-@cindex mode
+@cindex modo
 @cindex output-count
 @cindex output-suffix
 @cindex parseStringResult
@@ -1214,36 +1317,94 @@ Referencia de la notación:
 @cindex showLastLength
 @cindex showFirstLength
 
-@untranslated
+Son variables definidas directamente dentro de Scheme.  Su uso directo
+por parte de los usuarios está fuertemente desaconsejado, porque su
+semántica de ámbito puede ser confusa.
 
-@node prob
-@unnumberedsubsec prob
+Cuando el valor de una de estas variables se modifica dentro de un
+archivo @code{.ly}, el cambio es global, y a no ser que se revierta
+explícitamente, el nuevo valor persistirá hasta el final del archivo,
+afectando a todos los bloques @code{\score} así como a los archivos
+externos añadidos con la instrucción @code{\include}.  Esto puede
+conducir a consecuencias imprevistas y en proyectos de composición
+tipográfica complejos puede ser difícil de rastrear.
 
+LilyPond utiliza las siguientes variables del analizador sintáctico:
+
+@itemize
+@item afterGraceFraction
+@item musicQuotes
+@item mode
+@item output-count
+@item output-suffix
+@item parseStringResult
+@item partCombineListener
+@item pitchnames
+@item toplevel-bookparts
+@item toplevel-scores
+@item showLastLength
+@item showFirstLength
+@end itemize
+
+
+@node prob (objeto de propiedades)
+@unnumberedsubsec prob (objeto de propiedades)
+@translationof prob
+
+@cindex objeto de propiedades
 @cindex prob
-@cindex property object
 
-@untranslated
+Los OBjetos de PRopiedades, o abreviadamente @strong{probs}, son
+instancias de la clase @code{Prob}, que es una sencilla clase básica
+que tiene listas-A de propiedades mutables e inmutables y los métodos
+para manipularlas.  Las clases @code{Music} y @code{Stream_event}
+derivan de @code{Prob}.  También se crean instancias de la clase
+@code{Prob} para almacenar el contenido formateado de los grobs del
+sistema y los bloques de títulos durante el proceso de disposición de
+la página.
 
-@node simple closure
-@unnumberedsubsec simple closure
 
-Véase @ref{closure}.
+@node cerradura simple
+@unnumberedsubsec cerradura simple
+@translationof simple closure
+
+Véase @ref{closure (cerradura)}.
 
 
-@node smob
-@unnumberedsubsec smob
+@node smob (objeto de Scheme)
+@unnumberedsubsec smob (objeto de Scheme)
+@translationof smob
 
 @cindex smob
-@cindex Scheme object
+@cindex objeto de Scheme
 
-@untranslated
+Los @strong{Smobs}, u OBjetos de ScheMe, forman parte del mecanismo
+utilizado por Guile para exportar objetos de C y de C++ al código de
+Scheme.  En LilyPond, se crean smobs a partir de objetos de C++ por
+medio de macros.  Hay dos tipos de objetos smob: los smobs simples,
+orientados a objetos inmutables simples como números, y los smobs
+complejos, usados para objetos con identidades.  Si tiene acceso a las
+fuentes de LilyPond sources, encontrará más información en
+@file{lily/includes/smob.hh}.
 
-@node stencil
-@unnumberedsubsec stencil
+@node stencil (sello)
+@unnumberedsubsec stencil (sello)
+@translationof stenci
 
 @cindex stencil
+@cindex sello
 
-@untranslated
+Las instancias de la clase @strong{stencil} contienen la información
+necesaria para imprimir un objeto tipográfico.  Es un smob simple que
+contiene una caja de confinamiento, que a su vez define las
+dimensiones vertical y horizontal del objeto, y una expresión de
+Scheme que imprime el objeto cuendo se evalúa.  Los stencils o sellos
+se pueden combinar para formar sellos más complejos definidos por un
+árbol de expresiones de Scheme formado a partir de las expresiones de
+Scheme de los sellos que lo componen.
+
+La propiedad @code{stencil}, que conecta a un grob con su sello, se
+define dentro del interfaz @code{grob-interface}.
 
 @seealso
 Referencia de funcionamiento interno:
@@ -1264,11 +1425,18 @@ Referencia de funcionamiento interno:
 @include layout-properties.tely
 
 
-@node Identificadores
-@appendixsec Identificadores
-@translationof Identifiers
+@node Funciones musicales disponibles
+@appendixsec Funciones musicales disponibles
+@translationof Available music functions
 
 @include identifiers.tely
+
+
+@node Predicados de tipo predefinidos
+@appendixsec Predicados de tipo predefinidos
+@translationof Predefined type predicates
+
+@include type-predicates.tely
 
 
 @node Funciones de Scheme
