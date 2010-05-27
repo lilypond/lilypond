@@ -36,7 +36,7 @@ of different versions to see when bugs appeared.
 @section Current regtest output
 
 
-@TODO: To be checked and completed -vv
+TODO: To be checked and completed -vv
 
 Regression tests (@qq{regtests}) are available in two ways: either
 in a compiled form, for instance on the website, or as source code
