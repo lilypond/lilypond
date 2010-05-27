@@ -234,8 +234,14 @@ repository.  Setting up a local Git repository is explained in
 @subheading Downloading a source tarball
 
 Packagers are encouraged to use source tarballs for compiling.
+
 The tarball for the latest stable release is available on the
 @rweb{Source} page.
+
+@noindent
+The latest
+@uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git;a=snapshot, source code snapshot}
+is also available as a tarball from the GNU Savannah Git server.
 
 @noindent
 All tagged releases (including legacy stable
@@ -264,6 +270,10 @@ tar -xzf lilypond-@var{x.y.z}.tar.gz
 This creates a subdirectory within the current directory called
 @file{lilypond-@var{x.y.z}/}.  Once unpacked, the source files
 occupy about 40 MB of disk space.
+
+Windows users wanting to look at the source code may have to
+download and install the free-software
+@uref{http://www.7-zip.org, 7zip archiver} to extract the tarball.
 
 
 @node Configuring @command{make}
