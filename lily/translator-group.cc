@@ -153,17 +153,19 @@ Translator_group::create_child_translator (SCM sev)
   for (SCM s = trans_names; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM definition = scm_car (s);
-      bool is_scheme = true;
 
       Translator *type = 0;
+      Translator *instance = type;
       if (ly_is_symbol (definition))
 	{
 	  type = get_translator (definition);
-          is_scheme = false;
+	  instance = type->clone ();
 	}
       else if (ly_is_pair (definition))
 	{
 	  type = get_translator (ly_symbol2scm ("Scheme_engraver"));
+	  instance = type->clone ();
+	  dynamic_cast<Scheme_engraver*> (instance)->init_from_scheme (definition);
 	}
       else if (ly_is_procedure (definition))
 	{
@@ -172,16 +174,14 @@ Translator_group::create_child_translator (SCM sev)
 	  // definition.
 	  SCM def = scm_call_1 (definition, cs);
 	  type = get_translator (ly_symbol2scm ("Scheme_engraver"));
+	  instance = type->clone ();
+	  dynamic_cast<Scheme_engraver*> (instance)->init_from_scheme (def);
 	}
 	 
       if (!type)
 	warning (_f ("cannot find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
       else
 	{
-          Translator *instance = type->clone ();
-          if (is_scheme)
-            dynamic_cast<Scheme_engraver*> (instance)->init_from_scheme (definition);
-
 	  SCM str = instance->self_scm ();
 
 	  if (instance->must_be_last ())
