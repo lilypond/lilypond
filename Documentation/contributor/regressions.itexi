@@ -84,7 +84,7 @@ make test
 
 However, as there are many snippets to compile, if you have a multi-core
 machine it is highly recommended to use the @option{-j} option, as
-described in @ref{Saving time with the @option{-j} option}.  Another
+described in @ref{Saving time with the -j option}.  Another
 useful optimization is to set the @var{CPU_COUNT} variable; for a
 quad-core processor the complete command would look like
 
