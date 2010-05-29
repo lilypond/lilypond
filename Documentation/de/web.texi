@@ -212,7 +212,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @macro docLinkSplit{name,base,webLink}
 @ifclear web_version
-  @uref{../\base\/index.html, \name\ (aufgeteilt, HTML)}
+  @uref{../\base\/index.html, \name\ (aufgeteilt HTML)}
 @end ifclear
 @ifset web_version
   \webLink\

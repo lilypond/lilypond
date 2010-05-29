@@ -666,7 +666,8 @@ textuales:
 
 @lilypond[quote,verbatim,relative=2]
 \textLengthOn
-cis1_\markup \concat \vcenter { [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
+cis1_\markup \concat \vcenter {
+  [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
 c!1_\markup \concat \vcenter {
   [ C \natural ] }
 @end lilypond

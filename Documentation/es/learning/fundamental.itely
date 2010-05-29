@@ -475,10 +475,10 @@ siguiente:
     r4 g8 g c4 c8 d |
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main" }
-      { f8 f c }
+        alignAboveContext = #"main"
+      } { f8 f c }
     >>
     r4 |
   }
@@ -560,7 +560,7 @@ antes de una barra insertada manualmente, y acabar antes de que acabe
 la barra (algo que quizá no sea muy musical, pero es posible):
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
- { g8\( a b[ c b\) a] }
+ { g8\( a b[ c b\) a] g4 }
 @end lilypond
 
 En general, los distintos tipos de corchete, y los implicados en

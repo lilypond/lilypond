@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f503d7a55b76504c18dd273209c9d67ecd60f7a4
+    Translation of GIT committish: 380ce183918917b3ece3ed16ecee580683f4a95d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -752,7 +752,7 @@ están en @url{http://lilypond.org}}
 @translationof Publications
 
 @divClass{column-center-top}
-@subheading Lo que nosotros hemos escrito
+@subheading Lo que nosotros hemos escrito sobre LilyPond
 
 @divClass{keep-bullets}
 @itemize
@@ -783,103 +783,16 @@ Musical Informatics (XIV CIM 2003), Florencia, Italia, mayo de 2003.
 
 @divClass{column-center-bottom}
 
-@subheading Lo que otros han escrito
+@subheading Lo que otros han hecho con LilyPond
 
 @divClass{keep-bullets}
 @itemize
 
 @item
-Septiembre de 2009
-
-La revista LinuxUser alemana publicó un
-@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
-artículo sobre lilypond}.
-
-
-@item
-Febrero de 2008
-
-En @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html, artículos
-en su página personal}, Andrew Hawryluk compara a Finale con LilyPond
-en términos generales, y evalúa en detalle las posibilidades de grabado
-musical de los dos programas.  El segundo artículo es un instructivo
-análisis de la edición del Preludio para piano número 6 de
-Rachmaninoff, incluyendo comparaciones con una edición de referencia
-grabada a mano.
-
-@item
-Junio de 2006
-
-@uref{http://distrowatch.com,DistroWatch} premia a  LilyPond y
-@uref{http://distrowatch.com/weekly.php?issue=20060605,escribe}
-@qq{Damas y caballeros, nos complace anunciar que, basándonos
-en la demanda de los lectores, la donación de DistroWatch de mayo de 2006 ha sido
-concedida a LilyPond (190.00 @euro{}) y a Lua (US$250.00).}
-@item
-Diciembre de 2005
-
-Linux Journal publica un artículo titulado
-@uref{http://www.linuxjournal.com/article/8364, Elabore fantásticos
-gráficos de Schenker con GNU LilyPond}.  Es un artículo destacado,
-profundo pero práctico con atractivos gráficos de LilyPond.  El autor,
-Kris Shaffer, destaca: @qq{GNU LilyPond genera unos gráficos preciosos
-que hace a las alternativas comerciales parecer de segunda fila.}
-
-@item
-20 de agosto de 2005
-
-El diario belga De Standaard investiga qué empuja a los autores de
-Software Libre en un artículo titulado
-@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
-Delen van KENNIS zonder WINSTBEJAG} (Compartir el conocimiento sin
-ánimo de lucro) en su @q{DS2 bijlage}.  LilyPond se usa como ejemplo y
-el artículo está salpicado de citas procedentes de una entrevista por
-e-mail con Jan Nieuwenhuizen.  Esto marca la primera aparición de
-LilyPond en la prensa escrita de importancia.
-
-@item
-Junio de 2005
-
-Un artículo en francés sobre el lanzamiento de LilyPond 2.6 apareció
-en @uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
-
-@item
-Octubre de 2004
-
-Los editores de Computer!Totaal, una revista holandesa de informática,
-@uref{http://lilypond.org/web/images/computer-totaal.jpeg, describen a
-LilyPond} en la edición de octubre de 2004 como: @qq{Maravilloso
-software libre (de código abierto) (...) Las partituras producidas por
-LilyPond son excepcionalmente bonitas (...) un sistema muy potente que
-puede hacer casi cualquier cosa.}
-
-@item
-Julio/agosto de 2004
-
-Dave Phillips escribió un artículo introductorio para Linux Journal At
-the sounding edge: LilyPond,
-@uref{http://www.linuxjournal.com/article/7657, primera} y
-@uref{http://www.linuxjournal.com/article/7719, segunda} parte.
-
-@item
-Marzo de 2004
-
-Chris Cannam entrevistó a Han-Wen Nienhuys y a Jan Nieuwenhuizen en
-linuxmusician.com (una página ahora desaparecida). Esta entrevista se
-reseñó también en una
-@uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=,
-historia de slashdot}.
-
-@item
-Febrero de 2004
-
-El cantante de jazz Gail Selkirk escribe sobre
-@uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
-Sumergirse en el estanque de los nenúfares (Lily Pond)}.
-@qq{... puede hacer hojas guía de acordes o partes orquestales
-completas, y el resultado puede ser increíble.}
-@uref{http://www.computermusic.co.uk/, Computer Music Special}, número
-CMS06.
+Graham Percival, Tosten Anders y George Tzanetakis,
+@emph{Generating Targeted Rhythmic Exercises for Music Students
+with Constraint Satisfaction Programming}, International Computer
+Music Conference 2008.
 
 @end itemize
 

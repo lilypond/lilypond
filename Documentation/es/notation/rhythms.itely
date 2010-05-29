@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 27a4d9354effb09c696925881ec4df007da8a0db
+    Translation of GIT committish: 4571bd964ac07971726595c4fe1beb1112cbbbf8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -231,7 +231,7 @@ Los grupos pueden anidarse unos dentro de otros:
 
 @lilypond[quote,verbatim,relative=2]
 \autoBeamOff
-c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4 |
+c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4
 @end lilypond
 
 La modificación de los grupos especiales anidados que comienzan en el
@@ -268,6 +268,9 @@ grupo especial, véase @ref{Escalar las duraciones}.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {non-default-tuplet-numbers.ly}
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{controlling-tuplet-bracket-visibility.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
@@ -1715,13 +1718,15 @@ Se aplican las siguientes reglas, en orden de prioridad, para
 determinara el aspecto de las barras:
 
 @itemize
-@item Si una barra manual está especificada con @code{[..]} establecer
+@item
+Si una barra manual está especificada con @code{[..]} establecer
 la barra tal y como está especificado; en caso contrario:
 
 @item
 si está en vigor @code{\autoBeamOff} no poner barras; en caso contrario:
 
-@item si está definida alguna regla de fin de barra para el tipo de barra en
+@item
+si está definida alguna regla de fin de barra para el tipo de barra en
 este tipo de compás, usarla para determinar los lugares válidos en que
 las barras pueden terminar; en caso contrario
 
@@ -1753,8 +1758,7 @@ predeterminados de @code{beamSettings} están precisados en
 @file{scm/@/beam@/-settings@/.scm}.  Las entradas de
 @code{beamSettings} están clasificadas por tipo de compás y tipo de regla.
 
-EL tipo de compás debe ser una dupla de Scheme, p.ej. @code{#'(4
-. 4)}.
+EL tipo de compás debe ser una dupla de Scheme, p.ej. @code{#'(4 . 4)}.
 
 El tipo de regla debe ser @code{#'end} para finales de barra.
 
@@ -2968,6 +2972,9 @@ El tiempo está administrado por el @code{Timing_translator}, que de
 forma predeterminada vive en el contexto de @code{Score}.  Se añade un
 alias, @code{Timing}, al contexto en que se coloca el
 @code{Timing_translator}.
+Para asegurar que está disponible el alias @code{Timing}, quizá
+tenga que crear explícitamente una instancia del contexto
+contenedor (como @code{Voice} o @code{Staff}).
 
 Se usan las siguientes propiedades de @code{Timing} para seguir la
 pista del tiempo dentro de la partitura.
@@ -3007,14 +3014,16 @@ tercer compás, la posición @code{measurePosition} se adelanta en 1/8
 hasta 5/8, acortando ese compás en 1/8.  Entonces, la siguiente línea
 divisoria cae en 9/8 en vez de hacerlo en 5/4.
 
-@lilypond[quote,verbatim,relative=1]
-\set Score.measureLength = #(ly:make-moment 5 4)
-c1 c4
-c1 c4
-c4 c4
-\set Score.measurePosition = #(ly:make-moment 5 8)
-b4 b4 b8
-c4 c1
+@lilypond[quote,verbatim]
+\new Voice \relative c' {
+  \set Timing.measureLength = #(ly:make-moment 5 4)
+  c1 c4 |
+  c1 c4 |
+  c4 c
+  \set Timing.measurePosition = #(ly:make-moment 5 8)
+  b4 b b8 |
+  c4 c1 |
+}
 @end lilypond
 
 @noindent
