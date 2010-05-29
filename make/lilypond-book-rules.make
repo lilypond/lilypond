@@ -17,3 +17,6 @@ $(outdir)/%.tex:  %.latex
 
 $(outdir)/%.pdf:  $(outdir)/%.tex
 	cd $(outdir) && pdflatex $(notdir $<)
+
+$(outdir)/%.xml:  %.lyxml
+	$(LILYPOND_BOOK_COMMAND) -o $(outdir) $<
