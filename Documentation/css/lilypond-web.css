@@ -512,10 +512,7 @@ a[name="Unstable"] + h4 {
 
 div#footer {
   clear: both;
-  position: relative;
   width: 100%;
-  /* FIXME: may need to be adjusted */
-  margin-top: 7em;
 }
 
 div#language {
@@ -539,12 +536,30 @@ div#language {
   margin: 0.25em 0 0 0;
 }
 
+/* used on website; not certain about the above ones.
+    see Issue 1105 */
+p#languages {
+/*
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 30%;
+*/
+  float: left;
+  width: 45%;
+  margin: 3em 0;
+  text-align: left;
+}
+
 #verifier_texinfo {
+/*
   position: relative;
   bottom: 0;
   right: 0;
   left: 50%;
-  width: 50%;
+*/
+  float: right;
+  width: 48%;
 }
 
 #verifier_texinfo h3 {
