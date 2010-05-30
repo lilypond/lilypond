@@ -452,6 +452,7 @@ printing of a single line of lyrics."
 
 RemoveEmptyStaves = \with {
   \remove "Axis_group_engraver"
+  \remove "Hara_kiri_engraver"
   \consists "Hara_kiri_engraver"
   \override Beam #'auto-knee-gap = #'()
   \override VerticalAxisGroup #'remove-empty = ##t
