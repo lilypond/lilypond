@@ -34,9 +34,9 @@
       harmonic-event hyphen-event laissez-vibrer-event mark-event
       multi-measure-text-event note-grouping-event 
       pes-or-flexa-event repeat-tie-event spacing-section-event
-      layout-instruction-event completize-extender-event))
+      layout-instruction-event completize-extender-event break-span-event))
     
-    (layout-instruction-event . (apply-output-event ))
+    (layout-instruction-event . (apply-output-event))
     (script-event . (articulation-event text-script-event))
     (part-combine-event . (solo-one-event solo-two-event unisono-event))
     (break-event . (line-break-event page-break-event page-turn-event))
@@ -46,6 +46,7 @@
 			 text-span-event trill-span-event tremolo-span-event 
 			 tuplet-span-event))
     (span-dynamic-event . (decrescendo-event crescendo-event))
+    (break-span-event . (break-dynamic-span-event))
     (pedal-event . (sostenuto-event sustain-event una-corda-event))
     (rhythmic-event . (lyric-event melodic-event multi-measure-rest-event
 				   percent-event
@@ -95,10 +96,11 @@
 	root)))
 
 ;; All leaf event classes that no translator listens to
-;; directly. Avoids printing a warning.
+;; directly.  Avoids printing a warning.
 (define unlistened-music-event-classes
   '(harmonic-event line-break-event page-break-event page-turn-event label-event
-		   solo-one-event solo-two-event skip-event unisono-event))
+		   solo-one-event solo-two-event skip-event unisono-event
+		   break-dynamic-span-event))
 
 ;; produce neater representation of music event tree.
 ;; TODO: switch to this representation for the event-classes list?
@@ -174,4 +176,3 @@
 
 (define-public (ly:simplify-scheme e)
   (list 'quasiquote (simplify e)))
-
