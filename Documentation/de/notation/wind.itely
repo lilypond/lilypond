@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
+    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -112,7 +112,7 @@ Notationsreferenz:
 @ref{Besondere Notenköpfe},
 
 Schnipsel:
-@rlsr{Winds}
+@rlsr{Winds}.
 
 
 @node Fingersatz
@@ -122,7 +122,18 @@ Schnipsel:
 Alle Blasinstrumente außer der Posaune benötigen mehrere Finger, um
 verschiedene Tonhöhen zu produzieren.
 
-TBC
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{fingering-symbols-for-wind-instruments.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{recorder-fingering-chart.ly}
+
+@seealso
+
+Snippets:
+@rlsr{Winds}.
 
 
 @node Dudelsack
@@ -195,7 +206,7 @@ bzw. @code{fflat}.  Gleicherweise kann das piobaireachd hohe g als
 
 @seealso
 Schnipsel:
-@rlsr{Winds}
+@rlsr{Winds}.
 
 
 @node Dudelsack-Beispiele
@@ -244,4 +255,4 @@ Dudelsack notiert.
 
 @seealso
 Schnipsel:
-@rlsr{Winds}
+@rlsr{Winds}.

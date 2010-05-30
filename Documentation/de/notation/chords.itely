@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 3d7ffa1f82bb44673134b28becf7898482fe7316
+    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -540,6 +540,10 @@ mit der @code{noChordSymbol}-Beschriftung darstellt.
 @end lilypond
 
 @snippets
+
+@c Keep index entries with following snippet
+@cindex Akkorde, Unterdrückung wiederholt
+@funindex chordChanges
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {showing-chords-at-changes.ly}

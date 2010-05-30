@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 3d7ffa1f82bb44673134b28becf7898482fe7316
+    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -71,6 +71,48 @@ Ausdrucksbezeichnungen zu erstellen.
 @cindex Varcoda
 @cindex D'al Segno
 
+@funindex \accent
+@funindex \marcato
+@funindex \staccatissimo
+@funindex \espressivo
+@funindex \staccato
+@funindex \tenuto
+@funindex \portato
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \thumb
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \open
+@funindex \halfopen
+@funindex \stopped
+@funindex \snappizzicato
+@funindex \turn
+@funindex \reverseturn
+@funindex \trill
+@funindex \prall
+@funindex \mordent
+@funindex \prallprall
+@funindex \prallmordent
+@funindex \upprall
+@funindex \downprall
+@funindex \upmordent
+@funindex \downmordent
+@funindex \pralldown
+@funindex \prallup
+@funindex \lineprall
+@funindex \signumcongruentiae
+@funindex \shortfermata
+@funindex \fermata
+@funindex \longfermata
+@funindex \verylongfermata
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
+
 @funindex -
 
 Eine Vielfalt an Symbolen kann über und unter den Noten erscheinen, 
@@ -109,15 +151,24 @@ and @notation{portato}.  Die ihnen entsprchenden Symbole
 werden also folgendermaßen notiert:
 
 @lilypond[verbatim,quote,relative=2]
-c4-^  c-+  c--  c-|
-c4->  c-.  c2-_
+c4-^ c-+ c-- c-|
+c4-> c-. c2-_
 @end lilypond
 
 Die Regeln für die standardmäßige Platzierung von
 Artikulationszeichen werden in der Datei @file{scm/@/script@/.scm}
-definiert.  Artikulationszeichen und Onrnamente können manuell
+definiert.  Artikulationszeichen und Ornamente können manuell
 über oder unter dem System gesetzt werden, siehe
 @ref{Richtung und Platzierung}.
+
+Artikulationszeichen sind @code{Script}-Objekte.  Ihre Eigenschaften
+werden ausführlich in @rinternals{Script} beschrieben.
+
+Zusätzlich zu den Artikulationszeichen können auch Text und Beschriftung
+an Noten angehängt werden.  Siehe auch @ref{Textarten}.
+
+Zu weiterer Information über die Reihenfolge von Scripten und
+TextScripten, die an Noten angehängt werden, siehe @rlearning{Positionierung von Objekten}.
 
 @snippets
 
@@ -138,7 +189,11 @@ Glossar:
 @rglos{staccato},
 @rglos{portato}.
 
+Handbuch zum Lernen:
+@rlearning{Positionierung von Objekten}.
+
 Notationsreferenz:
+@ref{Textarten},
 @ref{Richtung und Platzierung},
 @ref{Liste der Arktikulationszeichen},
 @ref{Triller}.
@@ -184,6 +239,8 @@ Referenz der Interna:
 @funindex fff
 @funindex \ffff
 @funindex ffff
+@funindex \fffff
+@funindex fffff
 @funindex \fp
 @funindex fp
 @funindex \sf
@@ -288,9 +345,9 @@ g1\espressivo
 Crescendo und Decrescendo kann auch mit Text anstelle der
 Klammern angezeigt werden.  Gestrichelte Linien werden ausgegeben,
 um die Dauer des Crescendos oder Decrescendos anzuzeigen.  Die
-vorgegebenen Befehle, mit denen dieses Verhalten erreicht
-werden kann, sind @code{\crescTextCresc}, @code{\dimTextDecresc},
-@code{\dimTextDecr} und @code{\dimTextDim}.  Die entsprechenden
+vorgegebenen Befehle @code{\crescTextCresc}, @code{\dimTextDecresc},
+@code{\dimTextDecr} und @code{\dimTextDim} weisen LilyPond an,
+Text-Anweisungen anstatt der spitzen Klammern zu setzen.  Die entsprechenden
 Befehle @code{\crescHairpin} und @code{\dimHairpin} stellen
 wieder die spitzen Klammern ein:
 
@@ -415,7 +472,8 @@ für den Textbeschriftungsmodus wird erklärt in
 @ref{Text formatieren}.
 
 @lilypond[verbatim,quote]
-roundF = \markup { \center-align \concat { \bold { \italic ( }
+roundF = \markup {
+    \center-align \concat { \bold { \italic ( }
            \dynamic f \bold { \italic ) } } }
 boxF = \markup { \bracket { \dynamic f } }
 \relative c' {
@@ -464,15 +522,15 @@ mfEspressDynamic = #(make-dynamic-script mfEspress)
 \relative c' {
   c4_\roundFdynamic\< d e f
   g,1~_\boxFdynamic\>
-  g
-  g'~\mfEspressDynamic
-  g
+  g1
+  g1'~\mfEspressDynamic
+  g1
 }
 @end lilypond
 
 Anstelle dessen kann auch die Scheme-Form des Beschriftungs-Modus
 verwendet werden.  Seine Syntax ist erklärt in
-@ref{Beschriftungskonstruktionen in Scheme}.
+@rextend{Beschriftungskonstruktionen in Scheme}.
 
 @lilypond[verbatim,quote]
 moltoF = #(make-dynamic-script
@@ -492,12 +550,15 @@ Die Auswahl von Schriftarten in Textbeschriftungen ist erklärt in
 Notationsreferenz:
 @ref{Text formatieren},
 @ref{Überblick über die wichtigsten Textbeschriftungsbefehle},
-@ref{Beschriftungskonstruktionen in Scheme},
 @ref{Was geht in die MIDI-Ausgabe},
 @ref{MIDI-Lautstärke kontrollieren}.
 
 Schnipsel:
 @rlsr{Expressive marks}.
+
+Erweitert:
+@ref{Beschriftungskonstruktionen in Scheme}.
+
 
 
 @node Bögen
@@ -825,6 +886,13 @@ Atemzeichen werden mit dem Befehl @code{\breathe} eingegeben.
 c2. \breathe d4
 @end lilypond
 
+Ein Atemzeichen bezeichnet gleichzeitig das Ende eines automatischen
+Balkens.  Um das Verhalten zu verändern siehe @ref{Manuelle Balken}.
+
+@lilypond[verbatim,quote,relative=2]
+c8 \breathe d e f g2
+@end lilypond
+
 Musikalische Zeichen für Atemzeichen in Alter Notation, auch
 Divisiones genannt, sind unterstützt.  Für Einzelheiten siehe
 @ref{Divisiones}.
@@ -852,8 +920,9 @@ Schnipsel:
 @rlsr{Expressive marks}.
 
 Referenz der Interna:
-@rinternals{BreathingSign}.
-
+@rinternals{BreathingEvent},
+@rinternals{BreathingSign},
+@rinternals{Breathing_sign_engraver}.
 
 
 @node Glissando zu unbestimmter Tonhöhe
@@ -879,6 +948,8 @@ der Note erstreckt.
 @lilypond[verbatim,quote,relative=2]
 c2-\bendAfter #+4
 c2-\bendAfter #-4
+c2-\bendAfter #+6.5
+c2-\bendAfter #-6.5
 c2-\bendAfter #+8
 c2-\bendAfter #-8
 @end lilypond
