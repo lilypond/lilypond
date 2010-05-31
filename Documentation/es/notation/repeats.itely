@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: e776d5bb2a48191d2c7ccd60b160211462701b2e
+    Translation of GIT committish: 4571bd964ac07971726595c4fe1beb1112cbbbf8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -126,30 +126,87 @@ c1
 @cindex anacrusa en repeticiones
 @funindex \partial
 
-Las repeticiones con anacrusa se pueden introducir de dos formas:
 
-@lilypond[verbatim,quote,relative=2]
-\partial 4
-e |
-\repeat volta 4 { c2 d | e2 f | }
-\alternative {
-  { g4 g g e }
-  { a4 a a a | b2. }
+Si una repetición comienza en medio de un compás y no tiene finales
+alternativos (primera y segunda vez), normalmente el final de la
+repetición también caerá en el medio de un compás, de forma que el
+comienzo y el final formen un compás completo.  En tales casos, los
+signos de repetición no son verdaderas líneas divisorias.  No utilice
+instrucciones @code{\partial} o comprobaciones de compás en los
+lugares en que se imprimen estos símbolos de repetición:
+
+@lilypond[verbatim,quote,relative=1]
+% no \partial here
+c4 e g  % no bar check here
+% no \partial here
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  % no \partial here
+  g4 g g  % no bar check here
 }
+% no \partial here
+g4 |
+a2 a |
+g1 |
 @end lilypond
 
-@noindent
-o bien
+De forma similar, si una repetición compienza con el compás de
+anacrusa inicial de una partitura y no tiene finales alternativos, se
+dan las mismas condiciones que en el ejemplo anterior, excepto que en
+este caso se necesita la instrucción @code{\partial} al principio de
+la partitura:
 
-@lilypond[verbatim,quote,relative=2]
-\partial 4
-\repeat volta 4 { e4 | c2 d | e2 f | }
-\alternative {
-  { \partial 4*3 g4 g g }
-  { a4 a a a | b2. }
+@lilypond[verbatim,quote,relative=1]
+\partial 4  % required
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  % no \partial here
+  g4 g g  % no bar check here
 }
+% no \partial here
+g4 |
+a2 a |
+g1 |
 @end lilypond
 
+Cuando se añaden primera y segunda vez a una repetición que comienza
+con un compás incompleto, se hace necesario establecer la propiedad de
+contexto @code{Timing.measureLength} manualmente, en los siguiente
+lugares específicos:
+
+@itemize
+@item
+en el comienzo de los complases incompletos del bloque
+@code{\alternative}, que normalmente se producen al final de cada
+final alternativo, excepto (en la mayoría de los casos) el último de
+ellos.
+
+@item
+en el comienzo de cada uno de los finales alternativos, excepto el
+primero.
+@end itemize
+
+@lilypond[verbatim,quote,relative=1]
+\partial 4
+\repeat volta 2 { e4 | c2 e | }
+\alternative {
+  {
+    f2 d |
+    \set Timing.measureLength = #(ly:make-moment 3 4)
+    g4 g g  % optional bar check is allowed here
+  }
+  {
+    \set Timing.measureLength = #(ly:make-moment 4 4)
+    a2 a |
+  }
+}
+g1 |
+@end lilypond
+
+La propiedad @code{measureLength} se describe en @ref{Gestión del
+tiempo}.
 
 @cindex repeticiones con ligaduras
 @cindex primera y segunda vez con ligaduras
@@ -157,12 +214,11 @@ o bien
 @cindex ligaduras en primera y segunda vez
 @funindex \repeatTie
 
-
 Se pueden añadir ligaduras de unión al segundo final:
 
 @lilypond[verbatim,quote,relative=2]
 c1
-\repeat volta 2 { c4 d e f ~ }
+\repeat volta 2 { c4 d e f~ }
 \alternative {
   { f2 d }
   { f2\repeatTie f, }
@@ -185,7 +241,8 @@ Glosario musical:
 
 Referencia de la notación:
 @ref{Barras de compás},
-@ref{Modificar los complementos (plug-ins) de contexto}.
+@ref{Modificar los complementos (plug-ins) de contexto},
+@ref{Gestión del tiempo}.
 
 Fragmentos de código:
 @rlsr{Repeats}.
@@ -210,6 +267,18 @@ Referencia de funcionamiento interno:
 @cindex repetición y ligadura de expresión
 @cindex ligaduras de expresión y repeticiones
 
+Las ligaduras de expresión que abarcan desde un bloque @code{\repeat}
+hasta un bloque @code{\alternative} sólo funcionan para la casilla de
+primera vez.  Asimismo, no es posible hacer que las ligaduras de
+expresión se replieguen desde el final de una alternativa hasta el
+comienzo de la repetición.
+
+Si una repetición que comienza con un compás incompleto tiene un
+bloque @code{\alternative} que contiene modificaciones a la propiedad
+@code{measureLength}, la utilización de @code{\unfoldRepeats} dará
+lugar a líneas divisorias erróneamente colocadas y advertencias de
+comprobación de compás.
+
 Una repetición anidada como
 
 @example
@@ -224,14 +293,6 @@ es ambigua porque no está claro a qué @code{\repeat} pertenece la
 @code{\alternative} pertenezca siempre a la @code{\repeat} más
 interna.  Para más claridad, se recomienda usar llaves en tales
 situaciones.
-
-La información del contador de tiempo no se recuerda al comienzo de
-una alternativa, por ello después de una repetición la información de
-la cuenta de tiempo se debe reajustar manualmente; por ejemplo,
-estableciendo el valor de @code{Score.measurePosition} o introduciendo
-@code{\partial}.  De forma similar, las ligaduras de expresión tampoco
-se repiten.
-
 
 
 @node Marcas de repetición manual
@@ -287,7 +348,6 @@ d4 e f g
 c1
 @end lilypond
 
-
 @item (volta @var{number}) ... (volta #f)
 Crear una nueva casilla de repetición con el número que se especifica.
 El corchete de vez se debe terminar de forma explícita, pues en caso
@@ -336,6 +396,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
   \set Score.repeatCommands = #'((volta #f))
 }
 @end lilypond
+
 
 @snippets
 
@@ -570,22 +631,15 @@ c2:8 c:32
 c: c:
 @end lilypond
 
-
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
 
+
 @seealso
 Fragmentos de código:
 @rlsr{Repeats}.
 
-
 @cindex trémolos de pentagrama cruzado
 @cindex pentagrama cruzado, trémolo de
-
-
-@knownissues
-
-Los trémolos de pentagrama cruzado no funcionan bien.
-
