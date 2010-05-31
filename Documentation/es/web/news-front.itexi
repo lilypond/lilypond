@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: df39e475847bd077d66943cb0b61721259cc2cc6
+    Translation of GIT committish: 3c939a92666a567ab68eabb0cfed9ae892f7519a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -13,10 +13,27 @@
 @c into news-old.itexi.
 
 @c Translators: Francisco Vila
+@c keep two blank lines between news entries
+
 @c FIXME: fill in number
 @c used for news about the upcoming release; see CG x.y
-@c DO NOT WRITE BETWEEN THESE LINES
-@c DO NOT WRITE BETWEEN THESE LINES
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.21!  @emph{12 de mayo de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.20.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+
+Esta versión debiera ser de especial interés
+para los mantenedores de paquetes: hemos hecho algunos
+cambios en el guión de configuración y en las bibliotecas
+requeridas.  Aparte de algún posible informe urgente de fallo,
+éstos son el sistema de montaje y las bibliotecas que se van
+a utilizar en la próxima edición estable.
+@newsEnd
+
 
 @newsItem
 @subsubheading El Informe LilyPond, número 18.  @emph{11 de mayo de 2010}
@@ -29,63 +46,6 @@ secciones habituales Ranas y Bichos.
 Acérquese al @uref{http://news.lilynet.net/The-LilyPond-Report-18,
 Informe LilyPond 18} y léalo ahora mismo; ¡animamos calurosamente a
 todos a que hagan sus comentarios y contribuciones!
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.20!  @emph{5 de mayo de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.20.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.  Sin
-embargo, aún quedan algunos problemas críticos, por lo que esta
-versión está orientada solamente a los desarrolladores.
-
-Hay un pequeño cambio de sintaxis: las instrucciones no documentadas
-@code{\cresc} y @code{\decresc} han cambiado.  Además, el bloque de
-[opciones] para el modo LaTeX de @code{lilypond-book} viene ahora
-después del @code{@{lilypond@}}, según la práctica normal de LaTeX.
-Como siempre, consulte el documento Cambios para ver más información.
 @newsEnd
 
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.19!  @emph{24 de abril de 2010}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.13.19.  Esta
-edición contiene unas cuantas correcciones de fallos, como es usual.
-Sin embargo, aún quedan 11 fallos críticos, por lo que esta versión
-está orientada solamente a los desarrolladores.
-@newsEnd
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.18!  @emph{16 de abril de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.18.  Esta
-edición contiene el número usual de correcciones de fallos, junto a
-unas traducciones de la página web mejoradas.  Sin embargo, aún quedan
-14 fallos críticos, por lo que esta versión está orientada solamente a
-los desarrolladores.
-@newsEnd
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.17!  @emph{2 de abril de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.17.  Esta
-versión incluye la corrección de 4 fallos críticos.  Sin embargo, aún
-permanecen 15 fallos críticos, por lo que esta versión está orientada
-solamente a los desarrolladores.
-@newsEnd
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.16!  @emph{15 de marzo de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.16.  Está
-orientado solamente a los desarrolladores, e incluye la ronda usual de
-corrección de fallos.
-@newsEnd
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.15!  @emph{4 de marzo de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.15.  Está
-orientado solamente a los desarrolladores, e incluye algunas
-actualizaciones del proceso de construcción del binario además de la
-ronda usual de corrección de fallos.
-@newsEnd
