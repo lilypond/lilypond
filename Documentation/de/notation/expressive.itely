@@ -523,7 +523,7 @@ mfEspressDynamic = #(make-dynamic-script mfEspress)
   c4_\roundFdynamic\< d e f
   g,1~_\boxFdynamic\>
   g1
-  g1'~\mfEspressDynamic
+  g'1~\mfEspressDynamic
   g1
 }
 @end lilypond
