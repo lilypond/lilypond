@@ -219,9 +219,12 @@ ahead, but this is not recommended.
 @node Adding issues to the tracker
 @section Adding issues to the tracker
 
-This should only be done by the Bug Squad or experienced
+@warning{This should only be done by the Bug Squad or experienced
 developers.  Normal users should not do this; instead, they should
-follow the guidelines for @rweb{Bug reports}.
+follow the guidelines for @rweb{Bug reports}.}
+
+In order to assign labels to issues, Bug Squad members should log
+in to their google account before adding an item.
 
 @subsubheading Normal issues
 
