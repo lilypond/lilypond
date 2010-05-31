@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 7d4f38dff496e4cb06b3d241ced1d35108dedf9f
+    Translation of GIT committish: 8350ebcd996773355a5b37b06d72207e7f2f0966
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -36,7 +36,7 @@ sus colegas usuarios.
 
 @item
 Informar de fallos: ayude a los usuarios a crear @ref{Informes de
-fallos} adecuados, y asista al Equipo de Fallos en el manejo de los
+fallos} adecuados, y asista al Escuadrón de Fallos en el manejo de los
 @rcontribnamed{Issues,Problemas}.
 
 @item
@@ -61,7 +61,7 @@ prueba de nuevas funcionalidades.  ¡Contribuya a estas discusiones!
 @warning{En general, estos trabajos requieren que usted tenga los
 archivos de código fuente del programa y la documentación, pero no
 requieren un entorno de desarrollo completo.  Consulte
-@rcontribnamed{Starting with Git,Comenzar con Git}.}
+@rcontribnamed{Working with source code,Trabajar con el código fuente}.}
 
 @itemize
 @item
@@ -87,11 +87,12 @@ the website,Traducir la página web}.
 
 @warning{En general, estos trabajos requieren que usted tenga el
 código fuente y sea capaz de compilar LilyPond.  Consulte
-@rcontribnamed{Starting with Git,Comenzar con Git} y
-@rcontribnamed{Compiling LilyPond,Compilación de LilyPond}.}
+@rcontribnamed{Working with source code,Trabajar con el código fuente} y
+@rcontribnamed{Compiling,Compilación de LilyPond}.}
 
-Sugerimos que los colaboradores nuevos que sean usuarios de Windows
-utilicen una máquina virtual para ejecutar @emph{lilybuntu}.  Consulte
+Sugerimos a los colaboradores nuevos que sean usuarios de Windows
+o de MacOS X que @strong{no} traten de montar un entorno de desarrollo
+por ellos mismos; en su lugar, consulte
 @rcontribnamed{Using a Virtual Machine to Compile LilyPond,Utilización
 de una máquina virtual para la compilación de LilyPond}.
 

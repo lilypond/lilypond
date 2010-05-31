@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: eb98dcb8ece687486640a5dc3ec3aa2395ec31cf
+Translation of GIT committish: ec23f3d2ccd1c99afe60f694cc46f0c2c50e0081
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3179,15 +3179,15 @@ propiedades especiales que se encuentran en
 de ensayo sobre dichos objetos.
 
 @menu
-* Establecer directamente @code{X-offset} y @code{Y-offset}::
-* Uso del @code{side-position-interface}::
-* Uso del @code{self-alignment-interface}::
-* Uso del @code{break-alignable-interface}::
+* Establecer directamente X-offset e Y-offset::
+* Uso del side-position-interface::
+* Uso del self-alignment-interface::
+* Uso del break-alignable-interface::
 @end menu
 
-@node Establecer directamente @code{X-offset} y @code{Y-offset}
+@node Establecer directamente X-offset e Y-offset
 @unnumberedsubsubsec Establecer directamente @code{X-offset} y @code{Y-offset}
-@translationof Setting @code{X-offset} and @code{Y-offset} directly
+@translationof Setting X-offset and Y-offset directly
 
 Se pueden dar valores numéricos a las propiedades @code{X-offset} y
 @code{Y-offset} de muchos objetos.  El ejemplo siguiente muestra tres
@@ -3208,9 +3208,9 @@ a
 
 @c TODO write more
 
-@node Uso del @code{side-position-interface}
+@node Uso del side-position-interface
 @unnumberedsubsubsec Uso del @code{side-position-interface}
-@translationof Using the @code{side-position-interface}
+@translationof Using the side-position-interface
 
 Un objeto que contempla el @code{side-position-interface} se puede
 colocar junto a su objeto padre de forma que los bordes especificados
@@ -3250,9 +3250,9 @@ situar el objeto encima o debajo del padre de acuerdo con el valor de
 
 @c TODO Add examples
 
-@node Uso del @code{self-alignment-interface}
+@node Uso del self-alignment-interface
 @unnumberedsubsubsec Uso del @code{self-alignment-interface}
-@translationof Using the @code{self-alignment-interface}
+@translationof Using the self-alignment-interface
 
 @emph{Auto-alineación horizontal de los objetos}
 
@@ -3353,9 +3353,9 @@ example shows the difference:
 @c TODO The align-interface, BassFigureAlignment and VerticalAlignment
 
 
-@node Uso del @code{break-alignable-interface}
+@node Uso del break-alignable-interface
 @unnumberedsubsubsec Uso del @code{break-alignable-interface}
-@translationof Using the @code{break-alignable-interface}
+@translationof Using the break-alignable-interface
 
 @cindex alineación a objetos
 @cindex break-align-symbols
