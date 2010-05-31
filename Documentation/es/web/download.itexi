@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 335d0e8adacbc2c31909aa51d705519718c58e2a
+    Translation of GIT committish: a692ecc3437da86a7c4f9875dab1df1806ecf3a7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -308,7 +308,7 @@ Borre la carpeta LilyPond.app.
 @divEnd
 
 @divClass{column-right-top}
-@subheading Compiling a file
+@subheading Compilar un archivo
 
 @lilypadOSX
 
@@ -467,7 +467,7 @@ elija la opción de desinstalar/quitar programa.  Pulse el botón
 
 
 @divClass{column-right-top}
-@subheading Compiling a file
+@subheading Compilar un archivo
 
 @lilypadWindows
 
@@ -565,7 +565,7 @@ de descarga}.
 @subheading Instrucciones de compilación
 
 Las instrucciones se encuentran desarrolladas dentro de
-@rcontribnamed{Compiling LilyPond,Compilación de LilyPond}.
+@rcontribnamed{Compiling,Compilación de LilyPond}.
 
 @divEnd
 
