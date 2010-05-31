@@ -29,6 +29,7 @@ OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table) \
 	     $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg)
+WOFF_FILES = $(OTF_FILES:%.otf=%.woff)
 
 FC_FIND = $(shell $(FCLIST) --verbose 'Century Schoolbook L:style=$(1)' \
 		  | grep 'file:' \
@@ -59,8 +60,9 @@ $(outdir)/emmentaler-brace.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gt
 # 2. are not included with teTeX
 #
 
-$(outdir)/emmentaler-%.otf \
-$(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe \
+$(outdir)/emmentaler-%.otf\
+ $(outdir)/emmentaler-%.svg\
+ $(outdir)/emmentaler-%.woff: $(outdir)/emmentaler-%.pe \
 			    $(outdir)/feta%.pfb \
 			    $(outdir)/feta-noteheads%.pfb \
 			    $(outdir)/feta-alphabet%.pfb \
@@ -69,8 +71,9 @@ $(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe \
 			    $(outdir)/feta%.otf-gtable
 	cd $(outdir) && $(FONTFORGE) -script $(notdir $(basename ,$@).pe)
 
-$(outdir)/emmentaler-brace.otf \
-$(outdir)/emmentaler-brace.svg: $(outdir)/emmentaler-brace.pe \
+$(outdir)/emmentaler-brace.otf\
+ $(outdir)/emmentaler-brace.svg\
+ $(outdir)/emmentaler-brace.woff: $(outdir)/emmentaler-brace.pe \
 		       $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfb) \
 		       $(outdir)/emmentaler-brace.otf-table $(outdir)/emmentaler-brace.otf-gtable
 	cd $(outdir) && $(FONTFORGE) -script emmentaler-brace.pe
@@ -123,8 +126,9 @@ $(outdir)/emmentaler-brace.otf: $(outdir)/emmentaler-brace.subfonts \
 				$(outdir)/emmentaler-brace.otf-gtable \
 				$(outdir)/emmentaler-brace.pe
 
-$(outdir)/emmentaler-brace.otf \
-$(outdir)/emmentaler-brace.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfb)
+$(outdir)/emmentaler-brace.otf\
+ $(outdir)/emmentaler-brace.svg\
+ $(outdir)/emmentaler-brace.woff: $(BRACES:%=$(outdir)/feta-braces-%.pfb)
 
 $(outdir)/emmentaler-brace.fontname:
 	echo -n 'emmentaler-brace' > $@
@@ -148,7 +152,8 @@ ALL_GEN_FILES = $(LOG_FILES) \
 		$(OTF_TABLES) \
 		$(NCSB_OTFS) \
 		$(OTF_FILES) \
-		$(SVG_FILES)
+		$(SVG_FILES) \
+		$(WOFF_FILES)
 
 # PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 
@@ -162,7 +167,7 @@ INSTALLATION_OUT_FILES1 = $(OTF_FILES) \
 			  $(NCSB_OTFS)
 
 INSTALLATION_OUT_DIR2 = $(local_lilypond_datadir)/fonts/svg
-INSTALLATION_OUT_FILES2 = $(SVG_FILES)
+INSTALLATION_OUT_FILES2 = $(SVG_FILES) $(WOFF_FILES)
 
 export MFINPUTS := .:$(MFINPUTS)
 

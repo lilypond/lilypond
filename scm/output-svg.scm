@@ -285,11 +285,29 @@
 	(cache-font font-file scaled-size glyph)
 	(ly:warning (_ "cannot find SVG font ~S") font-file))))
 
+(define embedded #f)
+
+(define (woff-font-smob-to-text font expr)
+  (let* ((name-style (font-name-style font))
+	 (scaled-size (modified-font-metric-font-scaling font))
+	 (font-file (ly:find-file (string-append name-style ".woff")))
+	 (charcode (ly:font-glyph-name-to-charcode font expr))
+	 (text (format #f "&#~S;" charcode)))
+  (define alist '())
+  (define (set-attribute attr val)
+    (set! alist (assoc-set! alist attr val)))
+  (set-attribute 'font-family name-style)
+  (set-attribute 'font-size scaled-size)
+  (apply entity 'text text (reverse! alist))))
+  
+(define font-smob-to-text
+  (if (not (ly:get-option 'svg-woff))
+      font-smob-to-path woff-font-smob-to-text))
 
 (define (fontify font expr)
   (if (string? font)
       (pango-description-to-text font expr)
-      (font-smob-to-path font expr)))
+      (font-smob-to-text font expr)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters
@@ -352,7 +370,7 @@
 (define (embedded-svg string)
   string)
 
-(define (glyph-string font size cid glyphs)
+(define (embedded-glyph-string font size cid glyphs)
   (define path "")
   (if (= 1 (length glyphs))
       (set! path (music-string-to-path font size (car glyphs)))
@@ -367,6 +385,12 @@
 			     (ec 'g)))))
   (set! next-horiz-adv 0.0)
   path)
+
+(define (woff-glyph-string font size cid glyphs)
+  (named-glyph font glyphs))
+
+(define glyph-string
+  (if (not (ly:get-option 'svg-woff)) embedded-glyph-string woff-glyph-string))
 
 (define (grob-cause offset grob)
   "")

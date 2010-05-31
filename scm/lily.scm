@@ -165,8 +165,11 @@ second.  Dump results to `FILE.stacks' and
 `FILE.graph'.")
     (trace-scheme-coverage #f
 "Record coverage of Scheme files in `FILE.cov'.")
-    (show-available-fonts #f
+    ; `'"
+(show-available-fonts #f
 "List available font names.")
+    (svg-woff #f
+"Use woff font files in SVG backend.")
     (verbose ,(ly:command-line-verbose?)
 "Value of the --verbose flag (read-only).")
     (warning-as-error #f

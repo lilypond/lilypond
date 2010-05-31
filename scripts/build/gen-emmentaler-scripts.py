@@ -75,6 +75,7 @@ LoadTableFromFile("LILY", "feta%(design_size)d.otf-gtable");
 
 Generate("%(filename)s-%(design_size)d.otf");
 Generate("%(filename)s-%(design_size)d.svg");
+Generate("%(filename)s-%(design_size)d.woff");
 ''' % vars()
 
     basename = '%s-%d' % (filename, design_size)

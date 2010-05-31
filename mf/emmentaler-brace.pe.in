@@ -82,3 +82,4 @@ LoadTableFromFile("LILY", "emmentaler-brace.otf-gtable")
 
 Generate("emmentaler-brace.otf");
 Generate("emmentaler-brace.svg");
+Generate("emmentaler-brace.woff");
