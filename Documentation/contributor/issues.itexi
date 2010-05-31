@@ -24,17 +24,19 @@ TODOs, so the term @qq{bug} wouldn't be accurate.
 
 Second, the classification of what counts as a bug vs. feature
 request, and the priorities assigned to bugs, are a matter of
-concern @strong{for developers only}.  The Bug Squad will classify
-issues according to the guidelines given by developers.
+concern @strong{for developers only}.  The Bug Squad should
+classify issues according to the guidelines given by developers.
 
-If you are curious about the classification, read on, but please
-don't complain that your particular issue should have higher
-priority or counts as a bug rather than a feature request.
+@warning{Unless otherwise specified, all the tasks in this chapter
+are @qq{simple} tasks: they can be done by a normal user with
+nothing more than a web browser, email, and lilypond.}
 
 
 @node Issue classification
 @section Issue classification
 
+Every issue should have a Status and Type; the other fields are
+optional.
 
 @subheading Status
 
@@ -210,6 +212,9 @@ Performance: might potentially be used.
 
 @end itemize
 
+If you particularly want to add an label not in the list, go
+ahead, but this is not recommended.
+
 
 @node Adding issues to the tracker
 @section Adding issues to the tracker
@@ -217,6 +222,61 @@ Performance: might potentially be used.
 This should only be done by the Bug Squad or experienced
 developers.  Normal users should not do this; instead, they should
 follow the guidelines for @rweb{Bug reports}.
+
+@subsubheading Normal issues
+
+@itemize
+
+@item
+Check if the issue already exists in the tracker.
+
+@item
+If the initial bug report contains lilypond examples which do not
+follow the guidelines in @rweb{Tiny examples}, either ask the
+reporter to create such an example, or make one yourself.
+
+If you are willing to spend the effort, we would prefer it if the
+Bug Squad member created a tiny example themselves instead of
+asking the user to do so.
+
+@item
+Add the issue and classify it according to the guidelines in
+@ref{Issue classification}.  In particular, the item should have a
+@code{Status}, @code{Type-}, and @code{Priority-}.
+
+@item
+After adding the issue, please send a response email to the same
+group(s) that the initial patch was sent to.  If the initial email
+was sent to multiple mailing lists (such as both @code{user} and
+@code{bugs}), then reply to all those mailing lists as well.  The
+email should contain a link to the issue you just added.
+
+@end itemize
+
+
+@subsubheading Patch reminders
+
+There is a special category of issues: reminders of an existing
+patch.  These should be added if a patch has been sent to a
+lilypond mailing list (generally @code{lilypond-devel}, but they
+sometimes appear on @code{bug-lilypond} as well) and has had no
+discussion for at least @strong{3 days}.  Do not add issues for
+patches under active discussion.
+
+Before adding a patch-reminder issue, do a quick check to see if
+it was pushed without sending any email.  This can be checked for
+searching for relevant terms (from the patch subject or commit
+message) on the webgit page:
+
+@example
+@uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
+@end example
+
+After adding the issue, please send a response email to the same
+group(s) that the initial patch was sent to.  If the initial email
+was sent to multiple mailing lists (such as both @code{bugs} and
+@code{devel}), then reply to all those mailing lists as well.  The
+email should contain a link to the issue you just added.
 
 
 @node Checking and verifying issues
@@ -241,6 +301,11 @@ Once every two weeks or so:
 @itemize
 
 @item
+Check for any incorrectly-classified items in the tracker.  This
+generally just means looking at the grid to see any items without
+a Type or Priority.
+
+@item
 Check for any items with @code{label:patch}.  If it's been more
 than a week since the last action on the issue, send an email to
 -devel to remind them about it.  If the patch was withdrawn for
@@ -252,7 +317,8 @@ more work, then remove the @code{patch} label.
 
 @end itemize
 
-Once every year or so:
+Once every year or two: (yes, these are large tasks; gathering
+more volunteers to help is definitely recommended)
 
 @itemize
 
@@ -267,7 +333,7 @@ Checking all issues: we try to mark each Issue @q{fixed} when we
 fix it, but occasionally one or two issues will slip through the
 cracks.  It is therefore good to check all Issues. If you see the
 same (broken) output as the initial report, then simply post a
-"Problem still exists in 2.x.y" message to the issue.
+@qq{Problem still exists in 2.x.y} message to the issue.
 
 @end itemize
 
@@ -297,8 +363,12 @@ else about LilyPond development.
 @uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Frog&mode=grid&y=Priority&x=Type&cells=ids}
 @end example
 
+
 @node Finding the cause of a regression
 @section Finding the cause of a regression
+
+@warning{This is not a @qq{simple} task; it requires a fair amount
+of technical knowledge.}
 
 Git has special functionality to help tracking down the exact
 commit which causes a problem.  See the git manual page for
@@ -307,11 +377,12 @@ although it requires familiarity with git, ability to compile
 LilyPond, and generally a fair amount of technical knowledge.
 
 Even if you are not familiar with git or are not able to compile
-LilyPond you can still help to narrow down the cause of a regression
-simply by downloading the binary releases of different LilyPond
-versions and testing them for the regression.  Knowing which version
-of LilyPond first exhibited the regression is helpful to a developer
-as it shortens the @code{git bisect} procedure described above.
+LilyPond you can still help to narrow down the cause of a
+regression simply by downloading the binary releases of different
+LilyPond versions and testing them for the regression.  Knowing
+which version of LilyPond first exhibited the regression is
+helpful to a developer as it shortens the @code{git bisect}
+procedure described above.
 
 Once a problematic commit is identified, the programmers' job is
 much easier.  In fact, for most regression bugs, the majority of

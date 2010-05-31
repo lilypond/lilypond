@@ -360,7 +360,6 @@ Here is an example of a good bug report:
 %% change the output at all!
 
 \version "2.10.0"
-\paper@{ ragged-right=##t @}
 \relative c''' @{
   c1
   #(set-octavation 1)
