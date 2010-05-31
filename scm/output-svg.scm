@@ -114,10 +114,10 @@
   (make-regexp "^(<[a-z]+ transform=\")(scale.[-0-9. ]+,[-0-9. ]+.\" .*>)"))
 
 (define pango-description-regexp-comma
-  (make-regexp ",( Bold)?( Italic)?( Small-Caps)? ([0-9.]+)$"))
+  (make-regexp ",( Bold)?( Italic)?( Small-Caps)?[ -]([0-9.]+)$"))
 
 (define pango-description-regexp-nocomma
-  (make-regexp "( Bold)?( Italic)?( Small-Caps)? ([0-9.]+)$"))
+  (make-regexp "( Bold)?( Italic)?( Small-Caps)?[ -]([0-9.]+)$"))
 
 (define (pango-description-to-text str expr)
   (define alist '())
@@ -285,14 +285,17 @@
 	(cache-font font-file scaled-size glyph)
 	(ly:warning (_ "cannot find SVG font ~S") font-file))))
 
-(define embedded #f)
-
 (define (woff-font-smob-to-text font expr)
   (let* ((name-style (font-name-style font))
 	 (scaled-size (modified-font-metric-font-scaling font))
 	 (font-file (ly:find-file (string-append name-style ".woff")))
 	 (charcode (ly:font-glyph-name-to-charcode font expr))
-	 (text (format #f "&#~S;" charcode)))
+	 (char-lookup (format #f "&#~S;" charcode))
+	 (glyph-by-name (eoc 'altglyph `(glyphname . ,expr)))
+	 (apparently-broken
+	  (comment "FIXME: how to select glyph by name, altglyph is broken?"))
+	 (text (string-regexp-substitute "\n" ""
+		(string-append glyph-by-name apparently-broken char-lookup))))
   (define alist '())
   (define (set-attribute attr val)
     (set! alist (assoc-set! alist attr val)))
@@ -387,7 +390,9 @@
   path)
 
 (define (woff-glyph-string font size cid glyphs)
-  (named-glyph font glyphs))
+  (if (list? glyphs)
+      (named-glyph font (last (car glyphs)))
+      (named-glyph font glyphs)))
 
 (define glyph-string
   (if (not (ly:get-option 'svg-woff)) embedded-glyph-string woff-glyph-string))

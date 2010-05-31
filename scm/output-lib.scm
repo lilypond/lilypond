@@ -890,3 +890,24 @@ between the two text elements."
 ;;
 (define-public (laissez-vibrer::print grob)
  (ly:tie::print grob))
+
+(define-public (define-fonts paper define-font)
+  "Return a string of all fonts used in PAPER, invoking the function
+DEFINE-FONT for procuding the actual font definition."
+
+  (define font-list (ly:paper-fonts paper))
+
+  (define (font-load-command font)
+    (let* ((font-name (ly:font-name font))
+	   (designsize (ly:font-design-size font))
+	   (magnification (* (ly:font-magnification font)))
+	   (ops (ly:output-def-lookup paper 'output-scale))
+	   (scaling (* ops magnification designsize)))
+      (if (equal? font-name "unknown")
+	  (display (list font font-name)))
+      (define-font font font-name scaling)))
+
+  (apply string-append
+	 (map (lambda (x) (font-load-command x))
+	      (filter (lambda (x) (not (ly:pango-font? x)))
+		      font-list))))

@@ -48,37 +48,12 @@
 	"%" "_" name)))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify)))))))
 
-(define (define-fonts paper)
-  (define font-list (ly:paper-fonts paper))
-
-  (define (define-font command fontname scaling)
-    (string-append
-      "/" command
-      " { /" fontname
-      " " (ly:number->string scaling) " output-scale div selectfont }"
-      " bind def\n"))
-
-  (define (font-load-command font)
-    (let* ((specced-font-name (ly:font-name font))
-	   (fontname (if specced-font-name
-			 specced-font-name
-			 (ly:font-file-name font)))
-	   (command (ps-font-command font))
-
-	   ;; FIXME -- see (ps-font-command)
-	   (plain (ps-font-command font))
-	   (designsize (ly:font-design-size font))
-	   (magnification (* (ly:font-magnification font)))
-	   (ops (ly:output-def-lookup paper 'output-scale))
-	   (scaling (* ops magnification designsize)))
-      (if (equal? fontname "unknown")
-	  (display (list font fontname)))
-      (define-font plain fontname scaling)))
-
-  (apply string-append
-	 (map (lambda (x) (font-load-command x))
-	      (filter (lambda (x) (not (ly:pango-font? x)))
-		      font-list))))
+(define (ps-define-font font font-name scaling)
+  (string-append
+   "/" (ps-font-command font)
+   " { /" font-name
+   " " (ly:number->string scaling) " output-scale div selectfont }"
+   " bind def\n"))
 
 ;; FIXME: duplicated in other output backends
 ;; FIXME: silly interface name
@@ -202,7 +177,7 @@
 (define (setup-variables paper)
   (string-append
    "\n"
-   (define-fonts paper)
+   (define-fonts paper ps-define-font)
    (output-variables paper)))
 
 (define (cff-font? font)

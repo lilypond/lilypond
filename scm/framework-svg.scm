@@ -58,27 +58,36 @@
 (define (svg-end)
   (ec 'svg))
 
-(define (woff-header)
+(define (svg-define-font font font-name scaling)
+  (string-append
+   "@font-face {
+font-family: '"
+   font-name
+"';
+font-weight: normal;
+font-style: normal;
+src: url('"
+   (string-downcase font-name)
+   ".woff');
+}
+"))
+
+(define (woff-header paper)
   "TODO:
-      * dynamically add fonts based on usage
       * add (ly:version) to font name
       * copy woff font with version alongside svg output
 "
   (string-append
    (eo 'defs)
    (eo 'style '(text . "style/css"))
-   "      <![CDATA[
-        @font-face {
-          font-family: 'emmentaler-20';
-          font-weight: normal;
-          font-style: normal;
-          src: url('emmentaler-20.woff');
-        }
-      ]]>
-   "
+   "<![CDATA[
+"
+   (define-fonts paper svg-define-font)
+   "]]>
+"
    (ec 'style)
    (ec 'defs)))
-  
+
 (define (dump-page paper filename page page-number page-count)
   (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") 'svg))
 	 (dump (lambda (str) (display str (ly:outputter-port outputter))))
@@ -93,7 +102,7 @@
     (dump (svg-begin page-width page-height
 		     0 0 device-width device-height))
     (if (ly:get-option 'svg-woff)
-	(dump (woff-header)))
+	(dump (woff-header paper)))
     (dump (comment (format "Page: ~S/~S" page-number page-count)))
     (ly:outputter-output-scheme outputter
 				`(begin (set! lily-unit-length ,unit-length)
@@ -120,7 +129,7 @@
     (dump (svg-begin svg-width svg-height
 		     left-x (- top-y) device-width device-height))
     (if (ly:get-option svg-woff)
-	(dump (woff-header)))
+	(dump (woff-header paper)))
     (ly:outputter-output-scheme outputter
 				`(begin (set! lily-unit-length ,unit-length)
 					""))
