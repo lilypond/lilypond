@@ -36,11 +36,119 @@ of different versions to see when bugs appeared.
 @section Current regtest output
 
 
+TODO: To be checked and completed -vv
+
+Regression tests (@qq{regtests}) are available in two ways: either
+in a compiled form, for instance on the website, or as source code
+that needs to be compiled locally, using the most recent LilyPond
+binary as possible.  The latter is recommended, although more
+technically involved.
+
+
+@subheading Precompiled regtests
+
+The easiest way to see the @q{current} regtest output (meaning,
+the ouput of the latest stable or development version) is
+to look at the online compiled regtest page:
+
+@example
+@uref{http://lilypond.org/doc/latest/input/regression/collated-files.html}
+@end example
+
+However, depending on how many changes have been made to the code
+since the latest release, this page may not reflect the latest
+features, bugfixes... or new bugs that may have been introduced!
+
+Therefore, if you have an appropriate environment to build LilyPond
+yourself, it is recommended that you compile the software yourself.
+
+
+@subheading Compiling regtests
+
+The first step is to download the latest available source code,
+as explained in @ref{Working with source code}.  Then you will need
+to build the LilyPond binary: see
+@ref{Compiling LilyPond}.
+
+@noindent
+(Uninstalling the previous LilyPond version is not necessary, nor is
+running @code{make install}, since the tests will automatically be
+compiled with the LilyPond binary you have just built in your source
+directory.)
+
+From this point, compiling the regtests is as simple as running
+
+@example
+make test
+@end example
+
+However, as there are many snippets to compile, if you have a multi-core
+machine it is highly recommended to use the @option{-j} option, as
+described in @ref{Saving time with the -j option}.  Another
+useful optimization is to set the @var{CPU_COUNT} variable; for a
+quad-core processor the complete command would look like
+
+@example
+make -j5 CPU_COUNT=4 test
+@end example
+
+The regtest output will then be available in one of the
+@file{input/regression/out-*} directories, depending on the
+exact command you used.  See @ref{Testing LilyPond} for
+more information.
+
+
 @node Comparison regtest output
 @section Comparison regtest output
+
+
+Regtests are an useful way to compare what has changed between two
+versions of LilyPond, or to verify on a fine-grained level if a
+particular change may have unwanted side-effects, such as introducing
+a bug or breaking existing features.
+
+For such cases, LilyPond's build system provides an automated way of
+comparing regtests output.
+
+
+@subheading Comparing regtests for two development releases
+
+Each time a new development version is released, a set of regtests is
+compiled and compared with the previous release.  The result of these
+comparisons is archived online, and may be seen at the following address:
+
+@example
+@uref{http://lilypond.org/test/}
+@end example
+
+@noindent
+Checking these pages is a very important task for the LilyPond project.  
+You are invited to report anything that looks broken, or any case
+where the output quality is not on par with the previous release,
+either to the Bug Squad, following our guidelines for
+@rweb{Bug reports}, or directly in the bug tracker, as explained in
+@ref{Issues}.
+
+
+@subheading Comparing regtests when modifying the source code
+
+When changing any piece of code, developers are asked to verify that the
+regtests still compile successfuly (i.e., not only without error, but
+with an output quality equivalent or superior).  This may be done as
+described in @ref{Testing LilyPond}.
 
 
 @node MusicXML tests
 @section MusicXML tests
 
+
+LilyPond comes with a fairly complete set of regtests for the
+@uref{http://www.musicxml.org/,MusicXML} language.  These tests may
+be seen online at the following address:
+
+@example
+@uref{http://lilypond.org/doc/latest/input/regression/musicxml/collated-files}
+@end example
+
+TBC
 

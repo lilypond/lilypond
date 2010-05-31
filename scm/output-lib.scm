@@ -882,3 +882,11 @@ between the two text elements."
 	(begin
 	  (ly:grob-suicide! grob)
 	  (list)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  laissez-vibrer tie
+;;
+;;  needed so we can make laissez-vibrer a pure print
+;;
+(define-public (laissez-vibrer::print grob)
+ (ly:tie::print grob))

@@ -4,6 +4,11 @@
 @node Working with source code
 @chapter Working with source code
 
+New contributors should only read @ref{Using lily-git}.  Please
+ignore the rest of this chapter.
+
+Advanced contributors will find the rest of this material quite
+useful, particularly if they are working on major new features.
 
 @menu
 * Using lily-git::
@@ -19,15 +24,33 @@
 @node Using lily-git
 @section Using lily-git
 
+@subsubheading Install and Configuration
 
-If you haven't already, download and install Git.  Go to
-@uref{http://git-scm.com/download}, and in the @qq{Binaries}
-section, select the appropriate package for your operating system.
-Windows users should visit
-@uref{http://code.google.com/p/msysgit/downloads/list} and
-download the @file{.exe} file labeled @qq{Full installer for
-official Git}.
+@enumerate
+@item
+If you haven't already, download and install Git.
 
+@itemize
+
+@item Windows users: download the @code{.exe} file labeled
+@qq{Full installer for official Git} from:
+
+@example
+@uref{http://code.google.com/p/msysgit/downloads/list}
+@end example
+
+@item Other operating systems: either install @command{git} with
+your package manager, or download it from the @qq{Binaries}
+section of:
+
+@example
+@uref{http://git-scm.com/download}
+@end example
+
+@end itemize
+
+
+@item
 Download the lily-git script from:
 
 @c don't change the cgit link below to gitweb; gitweb uses
@@ -37,6 +60,7 @@ Download the lily-git script from:
 @uref{http://git.sv.gnu.org/cgit/lilypond.git/plain/scripts/auxiliar/lily-git.tcl}
 @end example
 
+@item
 To run the program from the command line, navigate to the
 directory containing @file{lily-git.tcl} and enter:
 
@@ -44,12 +68,14 @@ directory containing @file{lily-git.tcl} and enter:
 wish lily-git.tcl
 @end example
 
+@end enumerate
 
-@subsubheading Get source / Update source
+
+@subsubheading 1. Get source / Update source
 
 When you click the @qq{Get source} button, @command{lily-git} will
 create a directory called @file{lilypond-git/} within your home
-directory, and will download the complete source code into that
+directory, and will download the source code into that
 directory (around 55Mb).  When the process is finished, the
 @qq{Command output} window will display @qq{Done}, and the button
 label will change to say @qq{Update source}.
@@ -58,17 +84,17 @@ Navigate to the @file{lilypond-git/} directory to view the source
 files.  You should now be able to modify the source files using
 your normal text editor.
 
-@knownissues
+@quotation
+Advanced note: The @qq{Get source} button does not fetch the
+entire history of the git repository, so utilities like
+@command{gitk} will only be able to display the most recent
+additions.  As you continue to work with @command{lily-git}, the
+@qq{Update source} button will take any new additions and add it
+to whatever is currently in your repository's history.
+@end quotation
 
-The @qq{Get source} button does not fetch the entire history of
-the git repository, so utilities like @command{gitk} will only
-be able to display the most recent additions.  As you continue to
-work with @command{lily-git}, the @qq{Update source} button will take
-any new additions and add it to whatever is currently in your repository's
-history.
 
-
-@subsubheading New local commit
+@subsubheading 2a. New local commit
 
 A single commit typically represents one logical set of related
 changes (such as a bug-fix), and may incorporate changes to
@@ -84,7 +110,7 @@ After entering a commit message, click @qq{OK} to finalize the
 commit.
 
 
-@subsubheading Amend previous commit
+@subsubheading 2b. Amend previous commit
 
 You can go back and make changes to the most recent commit with
 the @qq{Amend previous commit} button.  This is useful if a
@@ -103,7 +129,7 @@ patch file will not be saved, but will be replaced by the new one
 after you click on @qq{Make patch set}.
 
 
-@subsubheading Make patch set
+@subsubheading 3. Make patch set
 
 Before making a patch set from any commits, you should click the
 @qq{Update source} button to make sure the commits are based on

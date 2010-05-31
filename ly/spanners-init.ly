@@ -104,3 +104,5 @@ sostenutoOff = #(make-span-event 'SostenutoEvent STOP)
 %dim = \set crescendoText = "dim."
 
 newSpacingSection = #(make-event-chord (list (make-music 'SpacingSectionEvent)))
+
+breakDynamicSpan = #(make-music 'BreakDynamicSpanEvent)

@@ -3136,13 +3136,13 @@ found in the @code{break-aligned-interface} for positioning rehearsal
 marks on such objects.
 
 @menu
-* Setting @code{X-offset} and @code{Y-offset} directly::
-* Using the @code{side-position-interface}::
-* Using the @code{self-alignment-interface}::
-* Using the @code{break-alignable-interface}::
+* Setting X-offset and Y-offset directly::
+* Using the side-position-interface::
+* Using the self-alignment-interface::
+* Using the break-alignable-interface::
 @end menu
 
-@node Setting @code{X-offset} and @code{Y-offset} directly
+@node Setting X-offset and Y-offset directly
 @unnumberedsubsubsec Setting @code{X-offset} and @code{Y-offset} directly
 
 Numerical values may be given to the @code{X-offset} and @code{Y-offset}
@@ -3164,7 +3164,7 @@ a
 
 @c TODO write more
 
-@node Using the @code{side-position-interface}
+@node Using the side-position-interface
 @unnumberedsubsubsec Using the @code{side-position-interface}
 
 An object which supports the @code{side-position-interface} can be
@@ -3205,7 +3205,7 @@ to value of @code{direction}.
 
 @c TODO Add examples
 
-@node Using the @code{self-alignment-interface}
+@node Using the self-alignment-interface
 @unnumberedsubsubsec Using the @code{self-alignment-interface}
 
 @emph{Self-aligning objects horizontally}
@@ -3306,7 +3306,7 @@ example shows the difference:
 
 @c TODO The align-interface, BassFigureAlignment and VerticalAlignment
 
-@node Using the @code{break-alignable-interface}
+@node Using the break-alignable-interface
 @unnumberedsubsubsec Using the @code{break-alignable-interface}
 
 @cindex align to objects

@@ -192,11 +192,11 @@ LilyPond.
 @c mechanical look, which makes them unpleasant to play from.
 
 @menu
-* Music fonts::                 
-* Optical spacing::             
-* Ledger lines::                
-* Optical sizing::              
-* Why work so hard?::           
+* Music fonts::
+* Optical spacing::
+* Ledger lines::
+* Optical sizing::
+* Why work so hard?::
 @end menu
 
 @node Music fonts
@@ -305,7 +305,7 @@ corrections.  Which do you prefer?
 }
 
 music = {
-   c'4 e''4 e'4 b'4 |
+   c'4 e''4 e'4 b'4
    \stemDown
    b'8[ e'' a' e'']
    \stemNeutral
@@ -367,7 +367,7 @@ the upper two measures, however, form down-stem/@/up-stem clumps of
 notes.  A master engraver would adjust the spacing as needed to please
 the eye.
 
-The spacing algorthims in LilyPond even take the barlines into account,
+The spacing algorithms in LilyPond even take the barlines into account,
 which is why the final up-stem in the properly spaced example has been
 given a little more space before the barline to keep it from looking
 crowded. A down-stem would not need this adjustment.
@@ -485,14 +485,16 @@ global = {
     \new Staff \relative c {
       \global
       \clef "bass"
-      << {
-        \once \override DynamicText #'X-offset = #-3
-        <ees g c>2.~->^\f
-        <ees g c>4.~ <ees g c>8
-      } \\ {
-        <c g c,>2.~
-        <c g c,>4.~ <c g c,>8
-      } >>
+      <<
+        {
+          \once \override DynamicText #'X-offset = #-3
+          <ees g c>2.~->^\f
+          <ees g c>4.~ <ees g c>8
+        } \\ {
+          <c g c,>2.~
+          <c g c,>4.~ <c g c,>8
+        }
+      >>
       r8 r16 <f, c' aes'>16
       <f c' aes'>4.-> <c' g'>8 r r
     }
@@ -545,9 +547,9 @@ layout of engraved scores: a method of describing good layouts to the
 computer and a lot of detailed comparisons with real engravings.
 
 @menu
-* Beauty contests::             
-* Improvement by benchmarking::  
-* Getting things right::        
+* Beauty contests::
+* Improvement by benchmarking::
+* Getting things right::
 @end menu
 
 @node Beauty contests
@@ -558,12 +560,12 @@ of the three configurations should we choose for the following slur?
 
 @lilypond
 \relative c {
-    \clef bass
-    \once \override Slur #'positions = #'(1.5 . 1)
-    e8[( f] g[ a b d,)] r4
-    \once \override Slur #'positions = #'(2 . 3)
-    e8[( f] g[ a b d,)] r4
-    e8[( f] g[ a b d,)] r4
+  \clef bass
+  \once \override Slur #'positions = #'(1.5 . 1)
+  e8[( f] g[ a b d,)] r4
+  \once \override Slur #'positions = #'(2 . 3)
+  e8[( f] g[ a b d,)] r4
+  e8[( f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -598,9 +600,9 @@ has given each one a score in @q{ugly points}. The first example gets
 
 @lilypond
 \relative c {
-    \clef bass
-    \once \override Slur #'positions = #'(1.5 . 1)
-    e8[(_"15.39" f] g[ a b d,)] r4
+  \clef bass
+  \once \override Slur #'positions = #'(1.5 . 1)
+  e8[(_"15.39" f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -612,9 +614,9 @@ descends for a total of 13.08 ugly points:
 
 @lilypond
 \relative c {
-    \clef bass
-    \once \override Slur #'positions = #'(2 . 3)
-    e8[(_"13.08" f] g[ a b d,)] r4
+  \clef bass
+  \once \override Slur #'positions = #'(2 . 3)
+  e8[(_"13.08" f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -625,8 +627,8 @@ selects this one:
 
 @lilypond
 \relative c {
-    \clef bass
-    e8[(_"12.04" f] g[ a b d,)] r4
+  \clef bass
+  e8[(_"12.04" f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -703,17 +705,21 @@ from the current version of LilyPond (@version{}):
   \key d \minor
   \time 3/4
   \mergeDifferentlyDottedOn
-  << {\slurDashed d8.-\flageolet( e16) e4.-\trill( d16 e)}
-     \\ {d4_2 a2}
+  <<
+    { \slurDashed d8.-\flageolet( e16) e4.-\trill( d16 e) }
+     \\
+    { d4_2 a2 }
   >>
   \slurDashed
   <f' a, d,>4. e8( d c)
   \slurSolid
-  bes g' f e16( f g_1 a_2 bes_3 d,_2)
+  bes8 g' f e16( f g_1 a_2 bes_3 d,_2)
   \slurDashed
   cis4.-\trill b8_3( a g)
-  << {\slurDashed d'8.( e16) e4.-\trill( d16 e)}
-     \\ {<f, a>4 a2}
+  <<
+    { \slurDashed d'8.( e16) e4.-\trill( d16 e) }
+     \\
+    { <f, a>4 a2 }
   >>
 }
 @end lilypond
@@ -769,7 +775,7 @@ measures 28--29, as shown here with Finale first and LilyPond second:
 @end ifnottex
 
 @lilypond[staffsize=19.5,line-width=14\cm]
-global = {\key g \minor}
+global = { \key g \minor }
 
 partI = \relative c' {
   \voiceOne
@@ -804,8 +810,8 @@ partIV = \relative c {
         \new Voice = "voiceI" { \partI }
         \new Voice = "voiceII" { \partII }
       >>
-
-      \new Staff = "LH" <<
+      \new Staff = "LH"
+      <<
         \clef "bass"
         \global
         \new Voice = "voiceIII" { \partIII }
@@ -844,8 +850,8 @@ collide = \once \override NoteColumn #'force-hshift = #0
   \new Voice = "sample" \relative c''{
     \key g \minor
     <<
-      {\voiceOne g4 \collide g4}
-      \new Voice {\voiceTwo bes \collide bes}
+      { \voiceOne g4 \collide g4 }
+      \new Voice { \voiceTwo bes \collide bes }
     >>
   }
   \new Lyrics \lyricsto "sample" \lyricmode { "good " " bad" }
@@ -893,10 +899,10 @@ engraving error.
 If you are interested in examining these examples in more detail, the
 full seven-measure excerpt can be found at the end of this essay along
 with four different published engravings. Close examination reveals that
-there is some acceptible variation among the hand-engravings, but that
-LilyPond compares reasonably well to that acceptible range. There are
+there is some acceptable variation among the hand-engravings, but that
+LilyPond compares reasonably well to that acceptable range. There are
 still some shortcomings in the LilyPond output, for example, it appears
-a bit too agressive in shortening some of the stems, so there is room
+a bit too aggressive in shortening some of the stems, so there is room
 for further development and fine-tuning.
 
 Of course, typography relies on human judgment of appearance, so people
@@ -1020,21 +1026,21 @@ components: parsing and representation take up less than 10% of
 the source code.
 
 When designing the structures used in LilyPond, we made some different
-decisions than are apparent in other software. Consider the heirarchical
+decisions than are apparent in other software. Consider the hierarchical
 nature of music notation:
 
 @lilypond[quote,fragment]
 <<
-\new Staff \relative c'' {
-  \key g \major
-  \time 3/4
-  d4 g,8 a b c d4 g, g
-}
-\new Staff \relative c' {
-  \clef "bass"
-  \key g \major
-  <g b d>2 a4 b2.
-}
+  \new Staff \relative c'' {
+    \key g \major
+    \time 3/4
+    d4 g,8 a b c d4 g, g
+  }
+  \new Staff \relative c' {
+    \clef "bass"
+    \key g \major
+    <g b d>2 a4 b2.
+  }
 >>
 @end lilypond
 
@@ -1074,7 +1080,7 @@ consider a more complicated musical example:
     \new Voice = "I" \relative c''' {
       \time 3/4
       \voiceOne
-      \times 6/7 {g8 g g g g g g}
+      \times 6/7 { g8 g g g g g g }
       \oneVoice
       r4 <b,, fis' g bes> r4\fermata
     }
@@ -1104,7 +1110,7 @@ consider a more complicated musical example:
 
 In this example, staves start and stop at will, voices jump around
 between staves, and the staves have different time signatures.  Many
-software packages would struggle with reporducing this example because
+software packages would struggle with reproducing this example because
 they are built on the nested box structure.  With LilyPond, on the other
 hand, we have tried to keep the input format and the structure as
 flexbile as possible.
@@ -1563,7 +1569,7 @@ output files.  Another example is the third-party OOoLilyPond extension
 for OpenOffice.org, which makes it extremely easy to embed musical
 examples in documents.
 
-For more examples of LilyPond in action, full documentaion, and the
+For more examples of LilyPond in action, full documentation, and the
 software itself, see our main website: www.lilypond.org.
 
 @page

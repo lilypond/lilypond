@@ -977,7 +977,7 @@
 		    (height-limit . 1.0)))
 	(direction . ,ly:tie::calc-direction)
 	(head-direction . ,LEFT)
-	(stencil  . ,ly:tie::print)
+	(stencil  . ,laissez-vibrer::print)
 	(thickness . 1.0)
 	(meta . ((class . Item)
 		 (interfaces . (semi-tie-interface))))))
@@ -2350,6 +2350,7 @@
    fret-board::calc-stencil
    note-head::brew-ez-stencil
    print-circled-text-callback
+   laissez-vibrer::print
    lyric-text::print
    ly:bar-line::print
    ly:mensural-ligature::brew-ligature-primitive
@@ -2399,6 +2400,7 @@
 (define pure-functions
   (list
    parenthesize-elements
+   laissez-vibrer::print
    ly:rest::y-offset-callback
    ly:staff-symbol-referencer::callback
    ly:staff-symbol::height))

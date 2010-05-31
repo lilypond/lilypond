@@ -25,7 +25,7 @@ Mailing list support: answer questions from fellow users.
 
 @item
 Bug reporting: help users create proper @rweb{Bug reports}, and
-aid the Bug Team in handling @rcontrib{Issues}.
+aid the Bug Squad in handling @rcontrib{Issues}.
 
 @item
 Documentation: small changes can be proposed by following the
@@ -46,7 +46,8 @@ testing new features.  Please contribute to these discussions!
 
 @warning{These jobs generally require that you have the program
 and documentation source files, but do not require a full
-development environment.  See @rcontrib{Starting with Git}.}
+development environment.  See
+@rcontrib{Working with source code}.}
 
 @itemize
 @item
@@ -69,12 +70,15 @@ Translations: see @rcontrib{Translating the documentation}, and
 @subheading Complex tasks
 
 @warning{These jobs generally require that you have the source
-code and can compile LilyPond.  See @rcontrib{Starting with Git},
-and @rcontrib{Compiling LilyPond}.}
-
-We suggest that new contributors using Windows use a virtual
-machine to run @emph{lilybuntu}.  See
+code and can compile LilyPond.  See
+@rcontrib{Working with source code},
+and @rcontrib{Compiling}.
+@*@*
+We suggest that new contributors using Windows or MacOS X do
+@strong{not} attempt to set up their own development environment;
+instead, see
 @rcontrib{Using a Virtual Machine to Compile LilyPond}.
+}
 
 @itemize
 @item
