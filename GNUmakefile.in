@@ -214,6 +214,8 @@ $(tree-share-prefix)/mf-link-tree link-mf-tree: $(tree-share-prefix)/lilypond-fo
 		ln -s ../../../../../mf/$(outconfbase)/fonts.conf .
 	-cd $(tree-share-prefix)/fonts/svg && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.svg .
+	-cd $(tree-share-prefix)/fonts/svg && \
+		ln -s ../../../../../../mf/$(outconfbase)/*.woff .
 	-cd $(tree-share-prefix)/fonts/tfm && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.tfm .
 	-cd $(tree-share-prefix)/fonts/type1 && \

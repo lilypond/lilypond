@@ -58,31 +58,50 @@
 (define (svg-end)
   (ec 'svg))
 
+(define (mkdirs dir-name mode)
+  (let loop ((dir-name (string-split dir-name #\/)) (root ""))
+    (if (pair? dir-name)
+	(let ((dir (string-append root (car dir-name))))
+	  (if (not (file-exists? dir))
+	      (mkdir dir mode))
+	  (loop (cdr dir-name) (string-append dir "/"))))))
+   
+(define output-dir #f)
+
 (define (svg-define-font font font-name scaling)
-  (let* ((file-name (if (list? font) (pango-pf-file-name font)
-			(ly:font-file-name font)))
+  (let* ((base-file-name (basename (if (list? font) (pango-pf-file-name font)
+				       (ly:font-file-name font)) ".otf"))
+	 (woff-file-name (string-regexp-substitute "([.]otf)?$" ".woff"
+						    base-file-name))
+	 (woff-file (or (ly:find-file woff-file-name) "/no-such-file.woff"))
+	 (url (string-append output-dir "/fonts/" (lilypond-version) "/"
+			     (basename woff-file-name)))
 	 (lower-name (string-downcase font-name)))
-    ;; only embed emmentaler for now
-    (if (equal? (substring lower-name 0 (min (string-length lower-name) 10)) "emmentaler")
-	(string-append
-	 "@font-face {
-font-family: '"
-	 font-name
-	 "';
+    (if (file-exists? woff-file)
+	(begin
+	  (if (not (file-exists? url))
+	      (begin
+		(ly:message (_ "Updating font into: ~a") url)
+		(mkdirs (string-append output-dir "/" (dirname url)) #o700)
+		(copy-file woff-file url)
+		(ly:progress "\n")))
+	  (ly:format
+	   "@font-face {
+font-family: '~a';
 font-weight: normal;
 font-style: normal;
-src: url('"
-   (string-downcase font-name)
-   ".woff');
+src: url('~a');
 }
-")
+"
+	   font-name url))
 	"")))
 
-(define (woff-header paper)
+(define (woff-header paper dir)
   "TODO:
       * add (ly:version) to font name
       * copy woff font with version alongside svg output
 "
+  (set! output-dir dir)
   (string-append
    (eo 'defs)
    (eo 'style '(text . "style/css"))
@@ -110,7 +129,7 @@ src: url('"
     (dump (svg-begin page-width page-height
 		     0 0 device-width device-height))
     (if (ly:get-option 'svg-woff)
-	(dump (woff-header paper)))
+	(dump (woff-header paper (dirname filename))))
     (dump (comment (format "Page: ~S/~S" page-number page-count)))
     (ly:outputter-output-scheme outputter
 				`(begin (set! lily-unit-length ,unit-length)
@@ -139,7 +158,7 @@ src: url('"
     (dump (svg-begin svg-width svg-height
 		     left-x (- top-y) device-width device-height))
     (if (ly:get-option svg-woff)
-	(dump (woff-header paper)))
+	(dump (woff-header paper (dirname filename))))
     (ly:outputter-output-scheme outputter
 				`(begin (set! lily-unit-length ,unit-length)
 					""))
