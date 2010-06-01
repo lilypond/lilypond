@@ -66,6 +66,11 @@ which scares away people.
 
 @end ignore
 
+@item
+The SVG backend has optional support for
+@uref{http://www.w3.org/Submission/WOFF, WOFF fonts}.  Using the Scheme
+option @code{-d svg-woff} together with the SVG backend selection
+@code{-d backend=svg}, produces SVG output with CSS WOFF font selection.
 
 @item
 The LilyPond G clef has been rotated 1.5 degrees clockwise for improved
