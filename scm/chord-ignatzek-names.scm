@@ -23,14 +23,14 @@
 ;; jazz-part 2
 ;;
 ;; after Klaus Ignatzek,   Die Jazzmethode fuer Klavier 1.
-;; 
+;;
 ;; The idea is: split chords into
-;;  
+;;
 ;;  ROOT PREFIXES MAIN-NAME ALTERATIONS SUFFIXES ADDITIONS
 ;;
 ;; and put that through a layout routine.
-;; 
-;; the split is a procedural process, with lots of set!. 
+;;
+;; the split is a procedural process, with lots of set!.
 ;;
 
 
@@ -44,7 +44,7 @@
   (if (null? ps)
       #f
       (if (= (- x 1) (ly:pitch-steps (car ps)))
-	  (car ps) 
+	  (car ps)
 	  (get-step x (cdr ps)))))
 
 (define (replace-step p ps)
@@ -77,21 +77,21 @@
 	(if (< (ly:pitch-steps (car ps)) (- x 1))
 	    (remove-uptil-step x (cdr ps))
 	    ps)))
-  
+
   (define name-root (ly:context-property context 'chordRootNamer))
-  (define name-note 
+  (define name-note
     (let ((nn (ly:context-property context 'chordNoteNamer)))
       (if (eq? nn '())
 	  ;; replacing the next line with name-root gives guile-error...? -rz
 
 	  ;; apparently sequence of defines is equivalent to let, not let* ? -hwn
-	  (ly:context-property context 'chordRootNamer)	  
+	  (ly:context-property context 'chordRootNamer)
 	  ;; name-root
 	  nn)))
 
   (define (is-natural-alteration? p)
     (= (natural-chord-alteration p) (ly:pitch-alteration p)))
-  
+
   (define (ignatzek-format-chord-name
 	   root
 	   prefix-modifiers
@@ -104,7 +104,7 @@
 
     "Format for the given (lists of) pitches. This is actually more
 work than classifying the pitches."
-    
+
     (define (filter-main-name p)
       "The main name: don't print anything for natural 5 or 3."
       (if
@@ -116,29 +116,29 @@ work than classifying the pitches."
        (list (name-step p))))
 
     (define (glue-word-to-step word x)
-      (make-line-markup 
+      (make-line-markup
        (list
 	(make-simple-markup word)
 	(name-step x))))
-    
+
     (define (suffix-modifier->markup mod)
       (if (or (= 4 (pitch-step mod))
 	      (= 2 (pitch-step mod)))
 	  (glue-word-to-step "sus" mod)
 	  (glue-word-to-step "huh" mod)))
-    
+
     (define (prefix-modifier->markup mod)
       (if (and (= 3 (pitch-step mod))
 	       (= FLAT (ly:pitch-alteration mod)))
 	  (make-simple-markup (if lowercase-root? "" "m"))
 	  (make-simple-markup "huh")))
-    
+
     (define (filter-alterations alters)
       "Filter out uninteresting (natural) pitches from ALTERS."
-      
+
       (define (altered? p)
 	(not (is-natural-alteration? p)))
-      
+
       (if
        (null? alters)
        '()
@@ -164,7 +164,7 @@ work than classifying the pitches."
 			    (list (ly:context-property context 'majorSevenSymbol))
 			    args)
 			(cons (accidental->markup (step-alteration pitch)) args))))
-	
+
 	(make-line-markup total)))
 
     (let* ((sep (ly:context-property context 'chordNameSeparator))
@@ -183,7 +183,7 @@ work than classifying the pitches."
 				 suffixes
 				 add-markups) sep))
 	   (base-stuff (if (ly:pitch? bass-pitch)
-			   (list sep (name-note bass-pitch))
+			   (list sep (name-note bass-pitch #f))
 			   '())))
 
       (set! base-stuff
@@ -207,7 +207,7 @@ work than classifying the pitches."
      `(
        ,(name-root root lowercase-root?)
        ,exception-markup
-       . 
+       .
        ,(if (ly:pitch? bass-pitch)
 	    (list (ly:context-property context 'chordNameSeparator)
 		  (name-note bass-pitch #f))
@@ -230,10 +230,10 @@ work than classifying the pitches."
 	      inversion
 	      bass))
 	 (alterations '()))
-    
+
     (if exception
 	(ignatzek-format-exception root exception bass-note lowercase-root?)
-	
+
 	(begin
 	  ;; no exception.
 	  ;; handle sus4 and sus2 suffix: if there is a 3 together with
@@ -253,7 +253,7 @@ work than classifying the pitches."
 	  (if (and (get-step 3 pitches)
 		   (= (ly:pitch-alteration (get-step 3 pitches)) FLAT))
 	      (set! prefixes (cons (get-step 3 pitches) prefixes)))
-	  
+
 	  ;; lazy bum. Should write loop.
 	  (cond
 	   ((get-step 7 pitches) (set! main-name (get-step 7 pitches)))
