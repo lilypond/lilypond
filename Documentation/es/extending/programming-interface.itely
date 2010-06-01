@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 4c8bedcc234393e8ca02726bf677de707858261b
+    Translation of GIT committish: 9c31e340ad9e67bf74f75b9a28d57e432268e2fd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -31,70 +31,73 @@ Scheme, @ref{Tutorial de Scheme}.
 @section Funciones musicales
 @translationof Music functions
 
-Las funciones musicales son funciones de Scheme que se utilizan para
-crear automáticamente expresiones musicales.  Se pueden usar para
-simplificar enormemente el archivo de entrada.
+Las @emph{funciones musicales} son procedimientos de Scheme
+que pueden crear automáticamente expresiones musicales, y se
+pueden usar para simplificar enormemente el archivo de entrada.
 
 @menu
 * Sintaxis de las funciones musicales::
 * Funciones de sustitución sencillas::
 * Funciones de sustitución intermedias::
 * Matemáticas dentro de las funciones::
-* Funciones vacías::
 * Funciones sin argumentos::
+* Funciones vacías::
 @end menu
 
 @node Sintaxis de las funciones musicales
 @subsection Sintaxis de las funciones musicales
 @translationof Music function syntax
 
-La sintaxis general de una función musical es:
+La forma general de una función musical es:
 
 @example
-miFuncion =
-#(define-music-function (parser location @var{var_1} @var{var_2}...@var{var_n})
-                        (@var{var_1-type?} @var{var_2-type?}...@var{var_n-type?})
-    @var{...expresión musical válida...})
+funcion =
+#(define-music-function
+     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{type1?} @var{type2?} @dots{})
+   @var{música})
 @end example
 
 @noindent
 donde
 
 @multitable @columnfractions .33 .66
-@item @var{var_i}         @tab @var{i}-ésima variable
-@item @var{var_i-type?}   @tab tipo de la @var{i}-ésima variable
-@item @var{...expresión musical válida...}  @tab expresión que devuelve
-música válida, generalmente en la forma de una expresión de Scheme.
-También hay una sintaxis especial que permite la existencia de código
-de entrada de LilyPond dentro de esta expresión musical.
+@item @code{@var{argN}}
+@tab @var{n}-ésimo argumento
+
+@item @code{@var{typeN?}}
+@tab un @emph{predicado de tipo} de Scheme para el que @code{@var{argN}}
+deve devolver @code{#t}.
+
+@item @code{@var{música}}
+@tab una expresión musical, opcionalmente escrita en Scheme, con
+el código de LilyPond que pudiera tener, encerrado entre llaves
+con almohadilla
+(@tie{}@w{@code{#@{@dots{}#@}}}@tie{}).  Dentro de los bloques
+de código de LilyPond, use @code{$} para referenciar a los argumentos
+de la función (p. ej. @samp{$arg1})
+o para iniciar una expresión en línea de Scheme
+que contenga argumentos de función
+(p.ej., @w{@samp{$(cons arg1 arg2)}}).
+
 @end multitable
 
-Los comprobadores de tipo de variable son procedimientos de Scheme que
-devuelven @code{#t} si una variable es de un tipo dado.  Se muestran
-algunos tipos comunes en la tabla de abajo.  Hay más tipos en los
-archivos @file{lily/music-scheme.cc} y @file{scm/c++.scm}.  La lista
-completa de los comprobadores de tipo con nombre para LilyPond está en
-la lista @var{type-p-name-alist} de @file{scm/lily.scm}.
+@noindent
+Para ver una lista de los predicados de tipo disponibles, consulte
+@ruser{Predicados de tipo predefinidos}.
+También se permiten predicados de tipo definidos por el usuario.
 
-@c TODO -- automatically document type-p-name-alist
 
-@multitable @columnfractions .33 .66
-@headitem Tipo de entrada          @tab notación de @var{vari-type?}
-@item Entero                  @tab @code{integer?}
-@item Flotante (número decimal)  @tab @code{number?}
-@item Cadena de texto         @tab @code{string?}
-@item Marcado                 @tab @code{markup?}
-@item Expresión musical       @tab @code{ly:music?}
-@item Pareja de variables     @tab @code{pair?}
-@end multitable
 
-Los argumentos @code{parser} y @code{location} son obligatorios.  El
-argumento @code{parser} se usa en el cuerpo de la función para tener
-acceso al valor de otra variable de LilyPond.  El argumento
-@code{location} se usa para establecer el @q{origen} de la expresión
-musical que se construye por parte de la función musical, de forma que
-en caso de un error de sintaxis LilyPond pueda comunicar al usuario el
-lugar adecuado del archivo de entrada en que buscar.
+@seealso
+
+Referencia de la notación:
+@ruser{Predicados de tipo predefinidos}.
+
+Archivos de inicio:
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
 
 
 @node Funciones de sustitución sencillas
@@ -102,70 +105,18 @@ lugar adecuado del archivo de entrada en que buscar.
 @translationof Simple substitution functions
 
 Una función de sustitución sencilla es una función musical cuya
-expresión musical de salida está escrita en código de LilyPond, pero
-con una variable de entrada sustituida en el código de LilyPond.  La
-forma general de estas funciones es:
-
-@example
-miFuncion =
-#(define-music-function (parser location @var{var1})
-                        (@var{var1-type?})
-  #@{
-    @emph{... código de entrada de LilyPond con} @code{#$var1} @emph{para sustituir ...}
-  #@})
-@end example
-
-Observe que los caracteres especiales @code{#@{} y @code{#@}}
-encierran la música de LilyPond.
-
-@multitable @columnfractions .33 .66
-@item @var{vari}         @tab @var{i}-ésima variable
-@item @var{vari-type?}   @tab tipo de la @var{i}-ésima variable
-@item @var{...música...}  @tab código de entrada normal de LilyPond, que utiliza variables como @code{#$var1}, etc.
-@end multitable
-
-Por ejemplo, se puede definir una función que simplifique el
-establecimiento de un relleno para un guión de texto TextScript:
-
-@lilypond[quote,verbatim,ragged-right]
-padText = #(define-music-function (parser location padding) (number?)
-  #{
-    \once \override TextScript #'padding = #$padding
-  #})
-
-\relative c''' {
-  c4^"piu mosso" b a b
-  \padText #1.8
-  c4^"piu mosso" d e f
-  \padText #2.6
-  c4^"piu mosso" fis a g
-}
-@end lilypond
-
-Además de números, podemos usar expresiones musicales, como por
-ejemplo notas, como argumentos de las funciones musicales:
-
-@lilypond[quote,verbatim,ragged-right]
-custosNote = #(define-music-function (parser location note)
-                                     (ly:music?)
-  #{
-    \once \override Voice.NoteHead #'stencil =
-      #ly:text-interface::print
-    \once \override Voice.NoteHead #'text =
-      \markup \musicglyph #"custodes.mensural.u0"
-    \once \override Voice.Stem #'stencil = ##f
-    $note
-  #})
-@end lilypond
+expresión musical de salida está escrita en código de LilyPond
+y contiene argumentos de la función en la expresión de salida.
+Están descritas en @ruser{Ejemplos de funciones de sustitución}.
 
 
 @node Funciones de sustitución intermedias
 @subsection Funciones de sustitución intermedias
 @translationof Intermediate substitution functions
 
-Algo más complicadas que las funciones de sustitución sencillas, las
-funciones de sustitución intermedias contienen una mezcla de código de
-Scheme y de LilyPond dentro de la expresión musical que se devuelve.
+Las funciones de sustitución intermedias contienen una
+mezcla de código de Scheme y de LilyPond
+dentro de la expresión musical que se devuelve.
 
 Algunas instrucciones @code{\override} requieren un argumento que
 consiste en una pareja de números (llamada una @code{célula cons} en
@@ -174,20 +125,19 @@ Scheme).
 La pareja se puede pasar directamente dentro de la función musical,
 usando una variable @code{pair?}:
 
-@quotation
 @example
 barraManual =
-#(define-music-function (parser location principio-final)
-                        (pair?)
-#@{
-  \once \override Beam #'positions = #$principio-final
-#@})
+#(define-music-function
+     (parser location principio-final)
+     (pair?)
+   #@{
+     \once \override Beam #'positions = $principio-final
+   #@})
 
 \relative c' @{
   \barraManual #'(3 . 6) c8 d e f
 @}
 @end example
-@end quotation
 
 De forma alternativa, los números que componen la pareja se pueden
 pasar como argumentos separados, y el código de Scheme que se ha usado
@@ -195,11 +145,12 @@ para crear la pareja se puede incluir dentro de la expresión musical:
 
 @lilypond[quote,verbatim,ragged-right]
 manualBeam =
-#(define-music-function (parser location beg end)
-                        (number? number?)
-#{
-  \once \override Beam #'positions = #(cons $beg $end)
-#})
+#(define-music-function
+     (parser location beg end)
+     (number? number?)
+   #{
+     \once \override Beam #'positions = $(cons beg end)
+   #})
 
 \relative c' {
   \manualBeam #3 #6 c8 d e f
@@ -215,18 +166,25 @@ Las funciones musicales pueden contar con programación de Scheme
 además de la simple sustitución:
 
 @lilypond[quote,verbatim,ragged-right]
-AltOn = #(define-music-function (parser location mag) (number?)
-  #{ \override Stem #'length = #$(* 7.0 mag)
+AltOn =
+#(define-music-function
+     (parser location mag)
+     (number?)
+   #{
+     \override Stem #'length = $(* 7.0 mag)
      \override NoteHead #'font-size =
-       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag))) #})
+       $(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+   #})
 
 AltOff = {
   \revert Stem #'length
   \revert NoteHead #'font-size
 }
 
-{ c'2 \AltOn #0.5 c'4 c'
-  \AltOn #1.5 c' c' \AltOff c'2 }
+\relative c' {
+  c2 \AltOn #0.5 c4 c
+  \AltOn #1.5 c c \AltOff c2
+}
 @end lilypond
 
 @noindent
@@ -234,17 +192,56 @@ Este ejemplo se puede reescribir de forma que pase expresiones
 musicales:
 
 @lilypond[quote,verbatim,ragged-right]
-withAlt = #(define-music-function (parser location mag music) (number? ly:music?)
-  #{ \override Stem #'length = #$(* 7.0 mag)
+withAlt =
+#(define-music-function
+     (parser location mag music)
+     (number? ly:music?)
+   #{
+     \override Stem #'length = $(* 7.0 mag)
      \override NoteHead #'font-size =
-       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+       $(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
      $music
      \revert Stem #'length
-     \revert NoteHead #'font-size #})
+     \revert NoteHead #'font-size
+   #})
 
-{ c'2 \withAlt #0.5 {c'4 c'}
-  \withAlt #1.5 {c' c'} c'2 }
+\relative c' {
+  c2 \withAlt #0.5 { c4 c }
+  \withAlt #1.5 { c c } c2
+}
 @end lilypond
+
+
+@node Funciones sin argumentos
+@subsection Funciones sin argumentos
+@translationof Functions without arguments
+
+En casi todos los casos, una función sin argumentos se debe escribir
+con una variable:
+
+@example
+dolce = \markup@{ \italic \bold dolce @}
+@end example
+
+Sin embargo, en raras ocasiones puede ser de utilidad crear una
+función musical sin argumentos:
+
+@example
+mostrarNumeroDeCompas =
+#(define-music-function
+     (parser location)
+     ()
+   (if (eq? #t (ly:get-option 'display-bar-numbers))
+       #@{ \once \override Score.BarNumber #'break-visibility = ##f #@}
+       #@{#@}))
+@end example
+
+Para la impresión real de los números de compás donde se llama a esta
+función, invoque a @command{lilypond} con
+
+@example
+lilypond -d display-bar-numbers ARCHIVO.ly
+@end example
 
 
 @node Funciones vacías
@@ -270,36 +267,6 @@ noApuntarYPulsar =
    (make-music 'SequentialMusic 'void #t))
 ...
 \noApuntarYPulsar   % desactivar la funcionalidad Apuntar y Pulsar.
-@end example
-
-
-@node Funciones sin argumentos
-@subsection Funciones sin argumentos
-@translationof Functions without arguments
-
-En casi todos los casos, una función sin argumentos se debe escribir
-con una variable:
-
-@example
-dolce = \markup@{ \italic \bold dolce @}
-@end example
-
-Sin embargo, en raras ocasiones puede ser de utilidad crear una
-función musical sin argumentos:
-
-@example
-mostrarNumeroDeCompas =
-#(define-music-function (parser location) ()
-   (if (eq? #t (ly:get-option 'display-bar-numbers))
-       #@{ \once \override Score.BarNumber #'break-visibility = ##f #@}
-       #@{#@}))
-@end example
-
-Para la impresión real de los números de compás donde se llama a esta
-función, invoque a @command{lilypond} con
-
-@example
-lilypond -d display-bar-numbers ARCHIVO.ly
 @end example
 
 
@@ -470,10 +437,6 @@ Si la instrucción utiliza propiedades de los argumentos @var{props},
 se puede usar la palabra clave @code{#:properties} para especificar
 qué propiedades se usan, y sus valores predeterminados.
 
-@knownissues
-Existen algunas restricciones sobre los argumentos posibles de una
-instrucción de marcado.
-
 Los argumentos se distinguen según su tipo:
 @itemize
 @item un marcado, que corresponde al predicado de tipo @code{markup?};
@@ -483,49 +446,20 @@ Los argumentos se distinguen según su tipo:
 @code{list?}, @code{number?}, @code{boolean?}, etc.
 @end itemize
 
-Actualmente las combinaciones de argumentos que hay disponibles
-(después de los argumentos estándar @var{layout} y @var{props}) para
-una instrucción de marcado definida con @code{define-markup-command}
-se limitan a la siguiente lista:
+No existe ninguna limitación en el orden de los argumentos (después de
+los argumentos estándar @var{layout} y @var{props}).  Sin embargo, las
+funciones de marcado que toman un elemento de marcado como su último
+argumento son un poco especiales porque podemos aplicarlas a una lista
+de marcados y el resultado es una lista de marcados donde la función
+de marcado (con los argumentos antecedentes especificados) se ha
+aplicado a todos los elementos de la lista de marcados original.
 
-@table @asis
-@item (sin argumentos)
-@itemx @var{markup-list}
-@itemx @var{markup}
-@itemx @var{markup markup}
-@itemx @var{scheme}
-@itemx @var{scheme markup}
-@itemx @var{scheme scheme}
-@itemx @var{scheme scheme markup}
-@itemx @var{scheme scheme markup markup}
-@itemx @var{scheme markup markup}
-@itemx @var{scheme scheme scheme}
-@end table
-
-@noindent
-Esto significa que no es posible definir con p.ej. tres argumentos de
-Scheme y un argumento de marcado, como:
-
-@example
-#(define-markup-command (fulanito layout props
-                         num1    num2    lista  marcado)
-                        (number? number? list?  markup?)
-  ...)
-@end example
-
-@noindent
-Si la aplicamos como, digamos,
-
-@example
-\markup \fulanito #1 #2 #'(mengano zutano) Loquesea
-@end example
-
-@cindex firma de Scheme
-@cindex Scheme, firma de
-@noindent
-@command{lilypond} protesta diciendo que no puede analizar
-@code{fulanito} debido a su firma de Scheme desconocida.
-
+Dado que la replicación de los argumentos precedentes para aplicar una
+función de marcado a una lista de marcados es poco costosa
+principalmente por los argumentos de Scheme, se evitan las caídas de
+reindimiento simplemente mediante la utilización de argumentos de
+Scheme para los argumentos antecedentes de las funciones de marcado
+que toman un marcado como su último argumento.
 
 @node Acerca de las propiedades
 @unnumberedsubsubsec Acerca de las propiedades

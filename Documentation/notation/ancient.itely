@@ -935,7 +935,7 @@ Horizontal spacing of ligatures is poor.
 * Gregorian accidentals and key signatures::
 * Divisiones::
 * Gregorian articulation signs::
-* Augmentum dots (@emph{morae})::
+* Augmentum dots (morae)::
 * Gregorian square neume ligatures::
 @end menu
 
@@ -1311,7 +1311,7 @@ Some articulations are vertically placed too closely to the
 corresponding note heads.
 
 
-@node Augmentum dots (@emph{morae})
+@node Augmentum dots (morae)
 @unnumberedsubsubsec Augmentum dots (@emph{morae})
 
 Augmentum dots, also called @emph{morae}, are added with the music

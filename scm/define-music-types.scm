@@ -80,7 +80,7 @@ Syntax: @var{note}@code{-\\arpeggio}")
 
 Syntax: @var{note}@code{x}@code{y}, where @code{x} is a direction
 (@code{^} for up or @code{_} for down), or LilyPond's choice
-(no direction specified)), and where @code{y} is an articulation
+(no direction specified), and where @code{y} is an articulation
 (such as @code{-.}, @code{->}, @code{\\tenuto}, @code{\\downbow}).
 See the Notation Reference for details.")
 	(types . (general-music event articulation-event script-event))
@@ -117,6 +117,11 @@ Syntax for manual control: @code{c8-[ c c-] c8}")
     (BeamForbidEvent
      . ((description . "Specify that a note may not auto-beamed.")
 	(types . (general-music event beam-forbid-event))
+	))
+
+    (BreakDynamicSpanEvent
+     . ((description . "End an alignment spanner for dynamics here.")
+	(types . (general-music break-span-event break-dynamic-span-event event))
 	))
 
     (BendAfterEvent

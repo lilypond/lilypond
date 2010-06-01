@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Sun May  2 18:05:56 UTC 2010
+@emph{最終更新日 Mon May 31 11:22:22 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,7 +84,7 @@ partially
 @item
 1 チュートリアル
 @*
-2508
+2504
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -111,7 +111,7 @@ partially
 @item
 2 一般的な記譜法
 @*
-4035
+4191
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -138,7 +138,7 @@ partially
 @item
 3 基礎となるコンセプト
 @*
-11149
+10838
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -155,7 +155,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">partially</span>
+<span style="background-color: #a5ff31">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ partially
 @item
 4 出力を調整する
 @*
-15619
+15621
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -182,7 +182,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially</span>
+<span style="background-color: #68ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -192,7 +192,7 @@ partially
 @item
 A テンプレート
 @*
-201
+209
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -209,7 +209,7 @@ A テンプレート
 @ifhtml
 
 @html
-<span style="background-color: #b2fe32">partially</span>
+<span style="background-color: #b9ff33">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -463,7 +463,7 @@ partially
 @item
 導入部
 @*
-3803
+4289
 @tab Yoshiki Sawada
 @*
 Yoshinobu Ishizaki
@@ -492,7 +492,7 @@ partially
 @item
 ダウンロード
 @*
-1174
+1173
 @tab Yoshiki Sawada
 @*
 Yoshinobu Ishizaki

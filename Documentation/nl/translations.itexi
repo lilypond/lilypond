@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Sun May  2 18:05:56 UTC 2010
+@emph{Meest recente update Mon May 31 11:22:22 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,34 +84,34 @@ ja
 @item
 1 Leerboek
 @*
-2508
+2504
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">gedeeltelijk (80 %)</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk (80 %)
+ja
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">gedeeltelijk</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+ja
 @end ifnothtml
 @tab voor-GDP
 @item
 2 Algemene muzieknotatie
 @*
-4035
+4191
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -138,18 +138,18 @@ ja
 @item
 3 Fundamentele concepten
 @*
-11149
+10838
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">gedeeltelijk (9 %)</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk (9 %)
+ja
 @end ifnothtml
 @tab 
 @ifhtml
@@ -194,11 +194,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">gedeeltelijk</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+ja
 @end ifnothtml
 @tab na-GDP
 @item
@@ -231,7 +231,7 @@ ja
 @item
 Inleiding
 @*
-3803
+4289
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -258,7 +258,7 @@ gedeeltelijk
 @item
 Download
 @*
-1174
+1173
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 

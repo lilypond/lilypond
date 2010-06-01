@@ -178,8 +178,11 @@ for file in html_files:
 	        langlink = addLangExt(link[:-4], lang, "pdf")
                 line = line.replace(link, langlink)
         ### add language selection footer
-        if (line.find("<!-- FOOTER -->") >= 0):
+        if (line.find("<div id=\"verifier_texinfo\">") >= 0):
+            outfile.write("<div id=\"footer\">\n")
             outfile.write( lang_footer )
+        if (line.find("</body") >= 0):
+            outfile.write("</div>\n")
         outfile.write(line)
     outfile.close()
 

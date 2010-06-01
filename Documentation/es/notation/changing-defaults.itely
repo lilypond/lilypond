@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: e90fa9a8a1d71251a2c047e69798be05938a1241
+Translation of GIT committish: ec23f3d2ccd1c99afe60f694cc46f0c2c50e0081
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3179,15 +3179,15 @@ propiedades especiales que se encuentran en
 de ensayo sobre dichos objetos.
 
 @menu
-* Establecer directamente @code{X-offset} y @code{Y-offset}::
-* Uso del @code{side-position-interface}::
-* Uso del @code{self-alignment-interface}::
-* Uso del @code{break-alignable-interface}::
+* Establecer directamente X-offset e Y-offset::
+* Uso del side-position-interface::
+* Uso del self-alignment-interface::
+* Uso del break-alignable-interface::
 @end menu
 
-@node Establecer directamente @code{X-offset} y @code{Y-offset}
+@node Establecer directamente X-offset e Y-offset
 @unnumberedsubsubsec Establecer directamente @code{X-offset} y @code{Y-offset}
-@translationof Setting @code{X-offset} and @code{Y-offset} directly
+@translationof Setting X-offset and Y-offset directly
 
 Se pueden dar valores numéricos a las propiedades @code{X-offset} y
 @code{Y-offset} de muchos objetos.  El ejemplo siguiente muestra tres
@@ -3208,9 +3208,9 @@ a
 
 @c TODO write more
 
-@node Uso del @code{side-position-interface}
+@node Uso del side-position-interface
 @unnumberedsubsubsec Uso del @code{side-position-interface}
-@translationof Using the @code{side-position-interface}
+@translationof Using the side-position-interface
 
 Un objeto que contempla el @code{side-position-interface} se puede
 colocar junto a su objeto padre de forma que los bordes especificados
@@ -3250,9 +3250,9 @@ situar el objeto encima o debajo del padre de acuerdo con el valor de
 
 @c TODO Add examples
 
-@node Uso del @code{self-alignment-interface}
+@node Uso del self-alignment-interface
 @unnumberedsubsubsec Uso del @code{self-alignment-interface}
-@translationof Using the @code{self-alignment-interface}
+@translationof Using the self-alignment-interface
 
 @emph{Auto-alineación horizontal de los objetos}
 
@@ -3353,9 +3353,9 @@ example shows the difference:
 @c TODO The align-interface, BassFigureAlignment and VerticalAlignment
 
 
-@node Uso del @code{break-alignable-interface}
+@node Uso del break-alignable-interface
 @unnumberedsubsubsec Uso del @code{break-alignable-interface}
-@translationof Using the @code{break-alignable-interface}
+@translationof Using the break-alignable-interface
 
 @cindex alineación a objetos
 @cindex break-align-symbols
@@ -3630,15 +3630,14 @@ una en el mismo momento musical, ni siquiera usando la instrucción
 
 Dondequiera que se necesite reutilizar trucos con distintas
 expresiones musicales, con frecuencia conviene hacer que el truco
-forme parte de una función musical.  En esta sección estudiaremos
-solamente las funciones de @emph{sustitución}, en las que el objeto es
-sustituir una variable dentro de un fragmento de código de entrada de
-LilyPond.  Se describen otras funciones más complejas en
-@rextend{Music functions}.
+forme parte de una @emph{función musical}.  En esta sección
+estudiaremos solamente las funciones de @emph{sustitución}, en las que
+el objeto es sustituir una variable dentro de un fragmento de código
+de entrada de LilyPond.  Se describen otras funciones más complejas en
+@rextend{Funciones musicales}.
 
 @menu
 * Sintaxis de las funciones de sustitución::
-* Tipos de argumento comunes::
 * Ejemplos de funciones de sustitución::
 @end menu
 
@@ -3651,29 +3650,29 @@ de LilyPond.  La forma general de estas funciones es
 
 @example
 funcion =
-#(define-music-function (parser location @var{var1} @var{var2}...@var{vari}... )
-                        (@var{tipo-de-var1?} @var{tipo-de-var2?}...@var{tipo-de-vari?}...)
-  #@{
-    @emph{...música...}
-  #@})
+#(define-music-function
+     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{type1?} @var{type2?} @dots{})
+   #@{
+     @var{@dots{}música@dots{}}
+   #@})
 @end example
 
 @noindent
 donde
 
 @multitable @columnfractions .33 .66
-@item @var{vari}         @tab @var{i}-ésima variable
-@item @var{tipo-de-vari?}   @tab tipo de la variable  @var{i}-ésima
-@item @var{...música...}  @tab entrada de LilyPond normal, que utiliza variables como @code{#$var1}, etc.
+@item @code{@var{argN}}
+@tab @var{n}-ésimo argumento
+
+@item @code{@var{typeN?}}
+@tab @emph{predicado de tipo} de Scheme para el que @code{@var{argN}}
+debe devolver @code{#t}.
+
+@item @code{@var{@dots{}música@dots{}}}
+@tab entrada de LilyPond normal, que utiliza @code{$} para
+referenciar argumentos (p.ej. @samp{$arg1}).
 @end multitable
-
-Los tipos de variable comunes se describen en @ref{Tipos de argumento
-comunes}.  Hay una descripción más completa de los tipos de variable
-en @rextend{Music function syntax}.  La lista completa de los tipos de
-variable definidos está en el elemento @var{type-p-name-alist} de
-@file{scm/lily.scm}.
-
-@c TODO -- find an automatic way of documenting the type-p-name-alist
 
 
 Los argumentos @code{parser} y @code{location} son necesarios, y se
@@ -3681,47 +3680,39 @@ utilizan en algunas situaciones avanzadas como se encuentra descrito
 en @rextend{Music function syntax}.  Para las funciones de
 sustitución, tan sólo hemos de asegurarnos de incluirlos.
 
+También es necesaria la lista de predicados de tipo.  Algunos de los
+predicados de tipo más comunes que se utilizan en las funciones
+musicales son:
+
+@example
+boolean?
+cheap-list?  @emph{(utilizar en lugar de }@q{list?}@emph{ para un procesado más rápido)}
+ly:music?
+markup?
+number?
+pair?
+string?
+symbol?
+@end example
+
+@noindent
+Para ver una lista de los predicados de tipo disponibles, consulte
+@ref{Predicados de tipo predefinidos}.  También se permiten los
+predicados de tipo definidos por el usuario.
+
+
 @seealso
 
 Referencia de la notación:
 @ref{Tipos de argumento comunes}.
 
 Expansión de LilyPond:
-@rextend{Music function syntax}.
-
-@node Tipos de argumento comunes
-@subsection Tipos de argumento comunes
-@translationof Common argument types
-
-Para hacer posible la comprobación de errores, se debe definir el tipo
-de cada argumento que se pasa a una función musical.  Algunos de los
-tipos de variable comunes están relacionados en la tabla que aparece
-más abajo.
-
-Los siguientes tipos de entrada se pueden utilizar como variables
-dentro de una función musical.  La lista no es exhaustiva; hay más
-información sobre los posibles tipos de variable en
-@rextendnamed{Music function syntax,Sintaxis de las funciones
-musicales}.
-
-@multitable @columnfractions .33 .66
-@headitem Tipo de entrada       @tab notación de @var{tipo-de-vari?}
-@item Entero                    @tab @code{integer?}
-@item Flotante (número decimal) @tab @code{number?}
-@item Cadena de caracteres      @tab @code{string?}
-@item Marcado                   @tab @code{markup?}
-@item Expresión musical         @tab @code{ly:music?}
-@item Dupla de Scheme           @tab @code{pair?}
-@end multitable
-
-@seealso
-
-Expansión de LilyPond:
-@rextend {Music function syntax}.
+@rextend{Sintaxis de las funciones musicales}.
 
 Archivos instalados:
 @file{lily/music-scheme.cc},
-@file{scm/c++.scm}.
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
 
 
 @node Ejemplos de funciones de sustitución
@@ -3736,10 +3727,13 @@ En el primer ejemplo se define una función que simplifica el ajuste
 del relleno de un elemento de inscripción de texto TextScript:
 
 @lilypond[quote,verbatim,ragged-right]
-padText = #(define-music-function (parser location padding) (number?)
-  #{
-    \once \override TextScript #'padding = #$padding
-  #})
+padText =
+#(define-music-function
+     (parser location padding)
+     (number?)
+   #{
+     \once \override TextScript #'padding = $padding
+   #})
 
 \relative c''' {
   c4^"piu mosso" b a b
@@ -3754,29 +3748,33 @@ Además de números, podemos usar expresiones musicales, como notas,
 para los argumentos de las funciones musicales:
 
 @lilypond[quote,verbatim,ragged-right]
-custosNote = #(define-music-function (parser location note)
-                                     (ly:music?)
-  #{
-    \once \override Voice.NoteHead #'stencil =
-      #ly:text-interface::print
-    \once \override Voice.NoteHead #'text =
-      \markup \musicglyph #"custodes.mensural.u0"
-    \once \override Voice.Stem #'stencil = ##f
-    $note
-  #})
+custosNote =
+#(define-music-function
+     (parser location note)
+     (ly:music?)
+   #{
+     \once \override Voice.NoteHead #'stencil =
+       #ly:text-interface::print
+     \once \override Voice.NoteHead #'text =
+       \markup \musicglyph #"custodes.mensural.u0"
+     \once \override Voice.Stem #'stencil = ##f
+     $note
+   #})
 
-{ c' d' e' f' \custosNote g' }
+\relative c' { c4 d e f \custosNote g }
 @end lilypond
 
-Se pueden definir funciones de sustitución con varios argumentos:
+Substitution functions with multiple arguments can be defined:
 
 @lilypond[quote,verbatim,ragged-right]
-tempoPadded = #(define-music-function (parser location padding tempotext)
-  (number? string?)
-#{
-  \once \override Score.MetronomeMark #'padding = $padding
-  \tempo \markup { \bold $tempotext }
-#})
+tempoPadded =
+#(define-music-function
+     (parser location padding tempotext)
+     (number? string?)
+   #{
+     \once \override Score.MetronomeMark #'padding = $padding
+     \tempo \markup { \bold $tempotext }
+   #})
 
 \relative c'' {
   \tempo \markup { "Low tempo" }

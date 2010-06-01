@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 882a9b5f97bb267cb2ed4d28db8188b8f470d576
+    Translation of GIT committish: ec23f3d2ccd1c99afe60f694cc46f0c2c50e0081
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -961,7 +961,7 @@ El espaciado horizontal de las ligaduras es pobre.
 * Alteraciones y armaduras de canto gregoriano::
 * Divisiones::
 * Articulaciones del canto gregoriano::
-* Puntos de aumentación (@emph{morae})::
+* Puntos de aumentación (morae)::
 * Ligaduras de neumas cuadrados gregorianos::
 @end menu
 
@@ -1355,9 +1355,9 @@ el extremo derecho de la línea episemática se encuentra a menudo
 demasiado lejos hacia la derecha.
 
 
-@node Puntos de aumentación (@emph{morae})
+@node Puntos de aumentación (morae)
 @unnumberedsubsubsec Puntos de aumentación (@emph{morae})
-@translationof Augmentum dots (@emph{morae})
+@translationof Augmentum dots (morae)
 
 Los puntos de aumentación, llamados también @emph{morae}, se escriben
 con la función musical @code{\augmentum}.  Observe que

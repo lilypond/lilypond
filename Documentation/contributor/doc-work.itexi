@@ -229,11 +229,25 @@ level.  Sections are created with
 
 @itemize
 @item
-Please leave two blank lines above a @@node; this makes it
+Please leave two blank lines above a @code{@@node}; this makes it
 easier to find sections in texinfo.
 
 @item
-If a heading is desired without creating a node, please use
+Do not use any @code{@@} commands for a @code{@@node}.  They may be
+used for any @code{@@sub...} sections or headings however.
+
+@example
+not:
+@@node @@code@{Foo@} Bar
+@@subsection @@code@{Foo@} Bar
+
+but instead:
+@@node Foo Bar
+@@subsection @@code@{Foo@} Bar
+@end example
+
+@item
+If a heading is desired without creating a @code{@@node}, please use
 the following:
 
 @example
@@ -241,9 +255,9 @@ the following:
 @end example
 
 @item
-Sectioning commands (@@node and @@section) must not appear
-inside an @@ignore.  Separate those commands with a space, ie
-@@n@tie{}ode.
+Sectioning commands (@code{@@node} and @code{@@section}) must not appear
+inside an @code{@@ignore}.  Separate those commands with a space, ie
+@code{@@n}@tie{}@code{ode}.
 
 @end itemize
 
@@ -359,10 +373,32 @@ Comments should go on their own line, and be placed before
 the line(s) to which they refer.
 
 @item
-Add extra spaces around @{ @} marks; ie
+For clarity, always use @{ @} marks even if they are not technically
+required; ie
 
 @example
-not:          \chordmode @{c e g@}
+not:
+
+\context Voice \repeat unfold 2 \relative c' @{
+  c2 d
+@}
+
+but instead:
+
+\context Voice @{
+  \repeat unfold 2 @{
+    \relative c' @{
+      c2 d
+    @}
+  @}
+@}
+@end example
+
+@item
+Add a space around @{ @} marks; ie
+
+@example
+not:          \chordmode@{c e g@}
 but instead:  \chordmode @{ c e g @}
 @end example
 

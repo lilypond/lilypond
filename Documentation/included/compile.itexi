@@ -12,7 +12,7 @@
 * Overview of compiling::
 * Requirements::
 * Getting the source code::
-* Configuring @command{make}::
+* Configuring make::
 * Compiling LilyPond::
 * Post-compilation options::
 * Problems::
@@ -234,8 +234,14 @@ repository.  Setting up a local Git repository is explained in
 @subheading Downloading a source tarball
 
 Packagers are encouraged to use source tarballs for compiling.
+
 The tarball for the latest stable release is available on the
 @rweb{Source} page.
+
+@noindent
+The latest
+@uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git;a=snapshot, source code snapshot}
+is also available as a tarball from the GNU Savannah Git server.
 
 @noindent
 All tagged releases (including legacy stable
@@ -265,18 +271,22 @@ This creates a subdirectory within the current directory called
 @file{lilypond-@var{x.y.z}/}.  Once unpacked, the source files
 occupy about 40 MB of disk space.
 
+Windows users wanting to look at the source code may have to
+download and install the free-software
+@uref{http://www.7-zip.org, 7zip archiver} to extract the tarball.
 
-@node Configuring @command{make}
+
+@node Configuring make
 @section Configuring @command{make}
 
 
 @menu
-* Running @command{./autogen.sh}::
-* Running @command{./configure}::
+* Running ./autogen.sh::
+* Running ./configure::
 @end menu
 
 
-@node Running @command{./autogen.sh}
+@node Running ./autogen.sh
 @subsection Running @command{./autogen.sh}
 
 After you unpack the tarball (or download the Git repository), the
@@ -301,7 +311,7 @@ configuration, such as @file{configure}, @file{README.txt}, etc.
 @end enumerate
 
 
-@node Running @command{./configure}
+@node Running ./configure
 @subsection Running @command{./configure}
 
 @menu
@@ -416,14 +426,14 @@ mkdir lily-build && cd lily-build
 
 
 @menu
-* Using @command{make}::
-* Saving time with the @option{-j} option::
+* Using make::
+* Saving time with the -j option::
 * Compiling for multiple platforms::
-* Useful @command{make} variables::
+* Useful make variables::
 @end menu
 
 
-@node Using @command{make}
+@node Using make
 @subsection Using @command{make}
 
 LilyPond is compiled with the @command{make} command.  Assuming
@@ -443,7 +453,7 @@ make help
 TODO: Describe what @command{make} actually does.
 
 
-@node Saving time with the @option{-j} option
+@node Saving time with the -j option
 @subsection Saving time with the @option{-j} option
 
 If your system has multiple CPUs, you can speed up compilation by
@@ -496,7 +506,7 @@ make conf=prof install
 @ref{Installing LilyPond from a local build}
 
 
-@node Useful @command{make} variables
+@node Useful make variables
 @subsection Useful @command{make} variables
 
 If a less verbose build output if desired, the variable
@@ -557,7 +567,8 @@ re-install.  See @ref{Configuring target directories}.
 @menu
 * Documentation editor's edit/compile cycle::
 * Building documentation::
-* Saving time with @code{CPU_COUNT}::
+* Saving time with CPU_COUNT::
+* AJAX search::
 * Installing documentation::
 * Building documentation without compiling::
 @end menu
@@ -672,7 +683,7 @@ indiscriminately---it is more efficient to @command{touch} only
 the affected files.
 
 
-@node Saving time with @code{CPU_COUNT}
+@node Saving time with CPU_COUNT
 @unnumberedsubsubsec Saving time with @code{CPU_COUNT}
 
 The most time consuming task for building the documentation is
@@ -699,6 +710,23 @@ problems with @samp{make doc} (this applies to both @option{-j}
 and @option{CPU_COUNT}).  For example, with a quad-core processor,
 it is possible for @samp{make -j5 CPU_COUNT=5 doc} to work
 consistently even if @samp{make -j5} rarely succeeds.
+
+
+@node AJAX search
+@unnumberedsubsubsec AJAX search
+
+To build the documentation with interactive searching, use:
+
+@example
+make doc AJAX_SEARCH=1
+@end example
+
+This requires PHP, and you must view the docs via a http
+connection (you cannot view them on your local filesystem).
+
+@warning{Due to potential security or load issues, this option is
+not enabled in the official documentation builds.  Enable at your
+own risk.}
 
 
 @node Installing documentation
