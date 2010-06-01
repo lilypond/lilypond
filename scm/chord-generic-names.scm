@@ -21,6 +21,10 @@
 ;;;; Naming of the base chord (steps 1-5) is handled by exceptions only
 ;;;; see input/test/chord-names-dpnj.ly
 
+
+(define (default-note-namer pitch)
+ (note-name->markup pitch #f))
+
 (define (markup-or-empty-markup markup)
   "Return MARKUP if markup, else empty-markup"
   (if (markup? markup) markup empty-markup))
@@ -108,16 +112,16 @@ input/test/dpncnt.ly).
 	 (list (ly:context-property context 'majorSevenSymbol))
 	 (list (accidental->markup (step-alteration pitch))
 	       (make-simple-markup (number->string (step-nr pitch)))))))
-	
+
   ;; tja, kennok
   (define (make-sub->markup step->markup)
     (lambda (pitch)
       (make-line-markup (list (make-simple-markup "no")
 			      (step->markup pitch)))))
-			
+
   (define (step-based-sub->markup step->markup pitch)
     (make-line-markup (list (make-simple-markup "no") (step->markup pitch))))
-			
+
   (define (get-full-list pitch)
     (if (<= (step-nr pitch) (step-nr (last pitches)))
 	(cons pitch (get-full-list (next-third pitch)))
@@ -173,7 +177,7 @@ input/test/dpncnt.ly).
 	 ;; (all pitches)
 	 (all (append (take full (length partial-pitches))
 		      (drop pitches (length partial-pitches))))
-	
+
 	 (highest (last all))
 	 (missing (list-minus full (map pitch-unalter all)))
 	 (consecutive (get-consecutive 1 all))
@@ -181,7 +185,7 @@ input/test/dpncnt.ly).
 	 (altered (filter step-even-or-altered? all))
 	 (cons-alt (filter step-even-or-altered? consecutive))
 	 (base (list-minus consecutive altered)))
-	
+
 
     (if #f (begin
 	     (write-me "full:" full)
@@ -203,7 +207,7 @@ input/test/dpncnt.ly).
        ;;    + subs:missing
 
        (let* ((root->markup (assoc-get
-			      'root->markup options note-name->markup))
+			      'root->markup options default-note-namer))
 	      (step->markup (assoc-get
 			     'step->markup options step->markup-plusminus))
 	      (sub->markup (assoc-get
@@ -212,11 +216,11 @@ input/test/dpncnt.ly).
 			      (step-based-sub->markup step->markup x))))
 	      (sep (assoc-get
 		    'separator options (make-simple-markup "/"))))
-	
+
 	 (if
 	  (pair? full-markup)
 	  (make-line-markup (list (root->markup root) full-markup))
-	
+
 	  (make-line-markup
 	   (list
 	    (root->markup root)
@@ -241,7 +245,7 @@ input/test/dpncnt.ly).
        ;;    + 'add'
        ;;    + steps:rest
        (let* ((root->markup (assoc-get
-			      'root->markup options note-name->markup))
+			      'root->markup options default-note-namer))
 	      (step->markup
 	       (assoc-get
 		;; FIXME: ignatzek
@@ -251,11 +255,11 @@ input/test/dpncnt.ly).
 		    'separator options (make-simple-markup " ")))
 	      (add-prefix (assoc-get 'add-prefix options
 					     (make-simple-markup " add"))))
-	
+
 	 (if
 	  (pair? full-markup)
 	  (make-line-markup (list (root->markup root) full-markup))
-	
+
 	  (make-line-markup
 	   (list
 	    (root->markup root)
@@ -263,11 +267,11 @@ input/test/dpncnt.ly).
 	    (make-normal-size-super-markup
 	     (make-line-markup
 	      (list
-	
+
 	       ;; kludge alert: omit <= 5
 	       ;;(markup-join (map step->markup
 	       ;;			 (cons (last base) cons-alt)) sep)
-	
+
 	       ;; This fixes:
 	       ;;  c     C5       -> C
 	       ;;  c:2   C5 2     -> C2
@@ -279,7 +283,7 @@ input/test/dpncnt.ly).
   				   (if (> (step-nr tb) 5)
   				       (cons tb cons-alt)
   				       cons-alt))) sep)
-	
+
 	       (if (pair? rest)
 		   add-prefix
 		   empty-markup)
