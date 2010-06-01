@@ -99,6 +99,12 @@ Paper_outputter::scheme_to_string (SCM scm)
   return scm_eval (scm, output_module_);
 }
 
+SCM
+Paper_outputter::module () const
+{
+  return output_module_;
+}
+
 void
 Paper_outputter::output_scheme (SCM scm)
 {

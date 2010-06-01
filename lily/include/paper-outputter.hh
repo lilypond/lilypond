@@ -40,13 +40,15 @@ public:
   DECLARE_SMOBS (Paper_outputter);
 
 public:
-  SCM file () const;
-  SCM dump_string (SCM);
-  void output_scheme (SCM scm);
   Paper_outputter (SCM port, string format);
-  SCM scheme_to_string (SCM);
-  void output_stencil (Stencil);
+
   void close ();
+  SCM dump_string (SCM);
+  SCM file () const;
+  SCM module () const;
+  void output_scheme (SCM scm);
+  void output_stencil (Stencil);
+  SCM scheme_to_string (SCM);
 };
 
 Paper_outputter *get_paper_outputter (string, string);

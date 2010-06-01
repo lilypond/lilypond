@@ -108,3 +108,13 @@ LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme",
 
   return SCM_UNSPECIFIED;
 }
+
+LY_DEFINE (ly_outputter_module, "ly:outputter-module",
+	   1, 0, 0, (SCM outputter),
+	   "Return output module of @var{outputter}.")
+{
+  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
+
+  Paper_outputter *po = unsmob_outputter (outputter);
+  return po->module ();
+}

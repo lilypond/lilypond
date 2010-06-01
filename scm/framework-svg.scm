@@ -59,18 +59,24 @@
   (ec 'svg))
 
 (define (svg-define-font font font-name scaling)
-  (string-append
-   "@font-face {
+  (let* ((file-name (if (list? font) (pango-pf-file-name font)
+			(ly:font-file-name font)))
+	 (lower-name (string-downcase font-name)))
+    ;; only embed emmentaler for now
+    (if (equal? (substring lower-name 0 (min (string-length lower-name) 10)) "emmentaler")
+	(string-append
+	 "@font-face {
 font-family: '"
-   font-name
-"';
+	 font-name
+	 "';
 font-weight: normal;
 font-style: normal;
 src: url('"
    (string-downcase font-name)
    ".woff');
 }
-"))
+")
+	"")))
 
 (define (woff-header paper)
   "TODO:
@@ -82,7 +88,7 @@ src: url('"
    (eo 'style '(text . "style/css"))
    "<![CDATA[
 "
-   (define-fonts paper svg-define-font)
+   (define-fonts paper svg-define-font svg-define-font)
    "]]>
 "
    (ec 'style)
@@ -99,6 +105,8 @@ src: url('"
 	 (page-width (* output-scale device-width))
 	 (page-height (* output-scale device-height)))
 
+    (if (ly:get-option 'svg-woff)
+	(module-define! (ly:outputter-module outputter) 'paper paper))
     (dump (svg-begin page-width page-height
 		     0 0 device-width device-height))
     (if (ly:get-option 'svg-woff)
@@ -126,6 +134,8 @@ src: url('"
 	 (svg-width (* output-scale device-width))
 	 (svg-height (* output-scale device-height)))
 
+    (if (ly:get-option 'svg-woff)
+	(module-define! (ly:outputter-module outputter) 'paper paper))
     (dump (svg-begin svg-width svg-height
 		     left-x (- top-y) device-width device-height))
     (if (ly:get-option svg-woff)

@@ -19,6 +19,12 @@
 (define-module (scm output-svg))
 (define this-module (current-module))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; globals
+
+;;; set by framework-gnome.scm
+(define paper #f)
+  
 (use-modules
   (guile)
   (ice-9 regex)
@@ -389,10 +395,40 @@
   (set! next-horiz-adv 0.0)
   path)
 
-(define (woff-glyph-string font size cid glyphs)
-  (if (list? glyphs)
-      (named-glyph font (last (car glyphs)))
-      (named-glyph font glyphs)))
+(define (woff-glyph-string font-name size cid? w-x-y-named-glyphs)
+  (let* ((name-style (font-name-style font-name))
+	 (family-designsize (regexp-exec (make-regexp "(.*)-([0-9]*)")
+					 font-name))
+	 (family (if (regexp-match? family-designsize)
+		     (match:substring family-designsize 1)
+		     font-name))
+	 (design-size (if (regexp-match? family-designsize)
+			  (match:substring family-designsize 2)
+			  #f))
+	 (scaled-size (/ size lily-unit-length))
+	 (font (ly:paper-get-font paper `(((font-family . ,family)
+					   ,(if design-size
+						`(design-size . design-size)))))))
+    (define (glyph-spec w x y g)
+      (let* ((charcode (ly:font-glyph-name-to-charcode font g))
+	     (char-lookup (format #f "&#~S;" charcode))
+	     (glyph-by-name (eoc 'altglyph `(glyphname . ,g)))
+	     (apparently-broken
+	      (comment "XFIXME: how to select glyph by name, altglyph is broken?")))
+	;; what is W?
+	(ly:format
+	 "<text~a font-family=\"~a\" font-size=\"~a\">~a</text>"
+	 (if (or (> (abs x) 0.00001)
+		 (> (abs y) 0.00001))
+	     (ly:format " transform=\"translate(~4f,~4f)\"" x y)
+	     " ")
+	 name-style scaled-size
+	 (string-regexp-substitute
+	  "\n" ""
+	  (string-append glyph-by-name apparently-broken char-lookup)))))
+
+    (string-join (map (lambda (x) (apply glyph-spec x))
+		      (reverse w-x-y-named-glyphs)) "\n")))
 
 (define glyph-string
   (if (not (ly:get-option 'svg-woff)) embedded-glyph-string woff-glyph-string))

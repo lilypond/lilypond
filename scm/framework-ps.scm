@@ -48,6 +48,9 @@
 	"%" "_" name)))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify)))))))
 
+(define (ps-define-pango-pf pango-pf font-name scaling)
+  "")
+
 (define (ps-define-font font font-name scaling)
   (string-append
    "/" (ps-font-command font)
@@ -177,7 +180,7 @@
 (define (setup-variables paper)
   (string-append
    "\n"
-   (define-fonts paper ps-define-font)
+   (define-fonts paper ps-define-font ps-define-pango-pf)
    (output-variables paper)))
 
 (define (cff-font? font)
