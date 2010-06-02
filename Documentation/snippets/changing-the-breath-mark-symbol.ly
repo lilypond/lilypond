@@ -15,7 +15,6 @@ sobreescribiendo la propiedad de texto del objeto de presentación
 "
   doctitlees = "Cambiar el símbolo de la marca de respiración"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Das Schriftzeichen für das Atemzeichen kann verändert werden, indem
@@ -24,7 +23,6 @@ beliebigen Textbeschriftung definiert wird.
 
 "
   doctitlede = "Das Atemzeichen-Symbol verändern"
-
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 On peut choisir le glyphe imprimé par cette commande, en modifiant la

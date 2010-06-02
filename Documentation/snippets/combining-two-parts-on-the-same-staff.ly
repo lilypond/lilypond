@@ -9,7 +9,7 @@
 %% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 
-La herramienta de combinación de partes ( instrucción
+La herramienta de combinación de partes (instrucción
 @code{\\partcombine}) permite la combinación de varias partes
 diferentes sobre el mismo pentagrama.  Las indicaciones textuales
 tales como @qq{solo} o @qq{a2} se añaden de forma predeterminada; para
@@ -27,7 +27,6 @@ textos.
 
 "
   doctitlees = "Combinar dos partes sobre el mismo pentagrama"
-
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
@@ -48,7 +47,6 @@ kombinieren: Standardpolyphonie, @code{\\partcombine} ohne Text und
 
 "
   doctitlede = "Zwei Stimmen auf einem System kombinieren"
-
 %% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
   texidocfr = "
 L'outil de combinaison de parties (la commande @code{\\partcombine})

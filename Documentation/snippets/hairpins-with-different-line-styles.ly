@@ -4,6 +4,16 @@
 \version "2.13.16"
 
 \header {
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+Los reguladores pueden imprimirse en uno cualquiera de los estilos de
+@code{line-interface}: discontinuo, punteado, línea, trino o zig-zag.
+
+"
+  doctitlees = "Reguladores con distintos estilos de línea"
+
+
+
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
   texidoc = "

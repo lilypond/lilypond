@@ -19,7 +19,6 @@ adecuadamente la propiedad @code{direction} de
   doctitlees = "Impresión de indicaciones metronómicas y letras de ensayo debajo del pentagrama"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Normalerweise werden Metronom- und Übungszeichen über dem Notensystem ausgegeben.
@@ -28,7 +27,6 @@ von @code{MetronomeMark} oder @code{RehearsalMark} entsprechend verändert werde
 
 "
   doctitlede = "Metronom- und Übungszeichen unter das System setzen"
-
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Les indications de tempo et les marques de repère s'impriment par défaut

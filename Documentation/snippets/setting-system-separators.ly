@@ -4,6 +4,18 @@
 \version "2.13.16"
 
 \header {
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+Se pueden insertar separadores sistema entre los sistemas de una
+página.  Se puede usar cualquier elemento de marcado, pero
+@code{\\slashSeparator} está disponible como una elección
+predeterminada adecuada.
+
+"
+  doctitlees = "Fijar un separador entre los sistemas"
+
+
+
   lsrtags = "tweaks-and-overrides, paper-and-layout"
 
   texidoc = "

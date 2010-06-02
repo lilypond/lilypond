@@ -41,7 +41,6 @@ tiene nada que ver con el @code{\\set} de dos notas por detrás.)
   doctitlees = "Corchetes rectos y extremos de barra sueltos"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Gerade Fähnchen an einzelnen Noten und überstehende Balkenenden bei
@@ -70,7 +69,6 @@ Beispiel haben nichts mit dem @code{\\set}-Befehl zwei Noten vorher zu tun.)
 
 "
   doctitlede = "Gerade Fähnchen und überstehende Balkenenden"
-
 
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b

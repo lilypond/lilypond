@@ -25,7 +25,6 @@ Para ver una lista de los tipos de evento, consulte la sección
 "
   doctitlees = "Citar otra voz"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die @code{quotedEventTypes}-Eigenschaft bestimmt die
@@ -39,7 +38,6 @@ sich @code{rest-event} nicht in @code{quotedEventTypes} befindet.
 "
 
   doctitlede = "Eine andere Stimme zitieren"
-
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Les types d'événement pris en charge pour la citation peuvent se régler

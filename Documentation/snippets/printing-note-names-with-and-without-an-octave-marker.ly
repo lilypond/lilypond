@@ -4,6 +4,17 @@
 \version "2.13.16"
 
 \header {
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+Se puede usar el contexto @code{NoteNames} para imprimir el valor
+textual de las notas.  La propiedad @code{printOctaveNames} activa o
+desactiva la representación de la octava de las notas.
+
+"
+  doctitlees = "Impresión de los nombres de las notas con o sin indicación de la octava"
+
+
+
   lsrtags = "tweaks-and-overrides"
 
   texidoc = "

@@ -4,6 +4,19 @@
 \version "2.13.16"
 
 \header {
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+
+Se pueden imprimir estilos alternativos del corchete o gancho de las
+corcheas y figuras menores, mediante la sobreescritura de la propiedad
+@code{flag} del objeto @code{Stem}.  Son valores válidos
+@code{modern-straight-flag} y @code{old-straight-flag}.
+
+"
+  doctitlees = "Uso de estilos alternativos para los corchetes"
+
+
+
   lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "

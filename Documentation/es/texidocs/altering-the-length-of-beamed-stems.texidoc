@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+Se puede variar la longitud de las plicas de las figuras unidas por
+una barra mediante la sobreescritura de la propiedad
+@code{beamed-lengths} de los detalles (@code{details}) del objeto
+@code{Stem}.  Si se utiliza un solo valor como argumento, la longitud
+se aplica a todas las plicas.  Si se usan varios argumentos, el
+primero se aplica a las corcheas, el sgundo a las semicorcheas y así
+sucesivamente.  El último argumento también se aplica a todas las
+figuras que son mmás cortas que la longitud de la figura del último
+argumento.  También se pueden usar argumentos no enteros.
+
+"
+
+doctitlees = "Alterar la longitud de las plicas unidas por una barra"
+
+

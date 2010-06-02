@@ -15,7 +15,6 @@ un contexto @code{StaffGroup} o @code{ChoirStaffGroup}.
 "
   doctitlees = "Uso del corchete recto al comienzo de un grupo de pentagramas"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Klammer zu Beginn von Systemgruppen kann auch in eine eckige Klammer
@@ -24,7 +23,6 @@ im @code{StaffGroup}- oder @code{ChoirStaffGroup}-Kontext setzt.
 
 "
   doctitlede = "Eine eckige Klammer zu Beginn von Systemgruppen benutzen"
-
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Un regroupement de portées sera indiqué par un simple rectangle

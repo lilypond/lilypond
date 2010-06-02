@@ -17,7 +17,6 @@ sólo dura un compás, que corresponde a una duración de 3/4.
 "
   doctitlees = "Shortening volta brackets"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Volta-Klammern werden normalerweise über alle Noten der Klammer gezogen, aber
@@ -27,7 +26,6 @@ es ist möglich sie zu verkürzen.  Hierzu muss
 
 "
   doctitlede = "Volta-Klammern verkürzen"
-
 %% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
   texidocfr = "
 Les crochets indiquant les fins alternatives s'étalent tout au long ce

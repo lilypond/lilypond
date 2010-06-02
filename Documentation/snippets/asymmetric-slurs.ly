@@ -4,6 +4,16 @@
 \version "2.13.16"
 
 \header {
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+Se puede hacer que una ligadura de expresión sea asimétrica para
+adaptarse mejor a un patrón asimétrico de notas.
+
+"
+  doctitlees = "Ligaduras asimétricas"
+
+
+
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
   texidoc = "

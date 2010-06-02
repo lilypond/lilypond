@@ -15,7 +15,6 @@ símbolos modificando los argumentos de @code{\\raise}.
 "
   doctitlees = "Símbolos de acordeón discanto"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Symbole für Akkordeon-Diskantregister"
   texidocde = "

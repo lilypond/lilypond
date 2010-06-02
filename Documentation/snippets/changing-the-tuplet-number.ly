@@ -18,7 +18,6 @@ del grupo, o eliminar el número.
 
 "
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Standardmäßig wird nur der Zähler des N-tolen-Bruchs über der Klammer
@@ -28,7 +27,6 @@ vollständig unterdrücken.
 
 "
   doctitlede = "Die Zahl der N-tole verändern"
-
 
 
 %% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685

@@ -4,6 +4,19 @@
 \version "2.13.16"
 
 \header {
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+Se puede usar @code{Staff.pedalSustainStrings} para fijar el texto de
+las indicaciones de pisar pedal y levantar pedal.  Observe que las
+únicas cadenas válidas son las que están en la lista de glifos de
+pedal: los valores que aparecen en este fragmento de código son una
+relación exhaustiva.
+
+"
+  doctitlees = "Modificar el texto de las indicaciones de pedal"
+
+
+
   lsrtags = "keyboards, tweaks-and-overrides"
 
   texidoc = "

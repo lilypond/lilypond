@@ -13,7 +13,6 @@ Se puede añadir un ámbito por cada voz. En este caso, el ámbito se
 debe desplazar manualmente para evitar colisiones.
 
 "
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Ambitus können pro Stimme gesetzt werden. In diesem Fall müssen sie
@@ -21,7 +20,6 @@ manual verschoben werden, um Zusammenstöße zu verhindern.
 
 "
 doctitlede = "Ambitus pro Stimme hinzufügen"
-
 %% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
   texidocfr = "
 L'@code{ambitus} peut être individualisé par voix.  Il faut en pareil

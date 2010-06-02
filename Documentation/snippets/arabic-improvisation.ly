@@ -18,7 +18,6 @@ cómo podría ser el comienzo de una improvisación @emph{hijaz}:
 "
 doctitlees = "Improvisación de música árabe"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Bei Improvisation oder @emph{taqasim}, die zeitlich frei gespielt

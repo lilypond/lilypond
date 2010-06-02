@@ -22,7 +22,6 @@ lugar.
 "
   doctitlees = "Controlar la ordenación vertical de las inscripciones"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Die vertikale Anordnung von Beschriftungen wird mit der
@@ -37,7 +36,6 @@ anhand ihres Auftretens in der Quelldatei entschieden.
 
 "
   doctitlede = "Die vertikale Anordnung von Beschriftungen kontrollieren"
-
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Les symboles s'ordonnent verticalement suivant la propriété

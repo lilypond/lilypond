@@ -4,6 +4,17 @@
 \version "2.13.16"
 
 \header {
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+De forma predeterminada, las líneas divisorias en los grupos
+StaffGroup, PianoStaff o GrandStaff se conectan entre los pentagramas.
+Se puede alterar este comportamiento pentagrama a pentagrama.
+
+"
+  doctitlees = "Quitar las barras de compás entre los pentagramas de un StaffGroup PianoStaff o GrandStaff"
+
+
+
   lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "

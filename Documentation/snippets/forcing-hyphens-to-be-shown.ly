@@ -4,6 +4,18 @@
 \version "2.13.16"
 
 \header {
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+  texidoces = "
+
+Si LilyPond no cree que haya sitio suficiente para un guión separador
+de sílabas, lo omitirá.  Se puede sobreescribir este comportamiento
+con la propiedad @code{minimum-distance} de @code{LyricHyphen}.
+
+"
+  doctitlees = "Forzar la visibilidad de los guiones separadores de sílabas"
+
+
+
   lsrtags = "vocal-music"
 
   texidoc = "

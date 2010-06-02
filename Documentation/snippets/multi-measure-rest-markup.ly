@@ -25,7 +25,6 @@ longitud del texto, éste aparecerá centrado.
 
 doctitlees = "Marcado de silencios multicompás"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "Textbeschriftungen, die an Mehrtaktpausen gehängt wird,
 wird über oder unter der Pause zentriert.  Lange Beschriftungen
@@ -41,7 +40,6 @@ bestimmt wird, sieht es so aus, als ob der Text zentriert gesetzt
 ist."
 
   doctitlede = "Textbeschriftung und Mehrtaktpausen"
-
 
 
 %% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685

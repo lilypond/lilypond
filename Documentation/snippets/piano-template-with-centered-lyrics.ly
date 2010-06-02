@@ -14,19 +14,16 @@ se puede centrar entre los pentagramas de un sistema de piano.
 "
   doctitlees = "Plantilla de piano con letra centrada"
 
-
 %% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 旋律と歌詞のための譜表を持つ代わりに、歌詞をピアノ譜の 2 つの譜の間に置くことができます。
 "
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Anstatt ein eigenes System für Melodie und Text zu schreiben, können
 Sie den Text auch zwischen die beiden Klaviersysteme schreiben
 (und damit das zusätzliche System für die Gesangstimme auslassen).
 "
-
 
 %% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "

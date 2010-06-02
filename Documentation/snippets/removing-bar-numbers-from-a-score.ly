@@ -17,7 +17,6 @@ grabador @code{Bar_number_engraver} del contexto de @code{Score}.
   doctitlees = "Suprimir los números de compás de toda la partitura"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Taktnummern können vollkommen aus den Noten entfernt werden, indem
@@ -26,7 +25,6 @@ entfernt.
 
 "
   doctitlede = "Entfernung von Taktnummern in einer Partitur"
-
 
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b

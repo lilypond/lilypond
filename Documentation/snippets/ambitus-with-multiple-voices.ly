@@ -15,7 +15,6 @@ pentagramas con varias voces.
 
 "
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Indem man den @code{Ambitus_engraver} im @code{Staff}-Kontext
@@ -23,7 +22,6 @@ hinzufügt, erhält man einen einzigen Ambitus pro System, auch in dem
 Fall, dass mehrere Stimmen sich im gleichen System befinden.
 "
   doctitlede = "Ambitus mit vielen Stimmen"
-
 %% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
   texidocfr = "
 Si plusieurs voix se trouvent sur une même portée, on peut attribuer le

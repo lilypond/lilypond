@@ -21,7 +21,6 @@ largo de su línea de base.
 "
   doctitlees = "Indicaciones dinámicas y textuales alineadas verticalmente"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Indem man die @code{'Y-extent}-Eigenschaft auf einen passenden Wert setzt,
@@ -36,7 +35,6 @@ Grundlinie auszurichten.
 
 "
   doctitlede = "Vertikale Ausrichtung von Dynamik und Textbeschriftung beeinflussen"
-
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Vous pourrez, en jouant sur la propriété @code{'Y-extent}, aligner les

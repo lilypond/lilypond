@@ -22,7 +22,6 @@ distinta, como se ve en el segundo sistema del ejemplo.
   doctitlees = "Mostrar corchete o llave en grupos de un solo pentagrama"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Wenn nur ein System einer Systemgruppe vom Typ @code{ChoirStaff} oder
@@ -36,7 +35,6 @@ wie das zweite Beispiel zeigt.
 
 "
   doctitlede = "Klammer anzeigen wenn nur ein System gesetzt wird"
-
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Lorsque, dans des regoupements de type @code{ChoirStaff} ou
