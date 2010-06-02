@@ -49,7 +49,7 @@ der @code{set-time-signature}-Funktion als das dritte Argument mitgegeben:
   texidocfr = "
 Les règles de ligature par mesure sont gérées par la propriété
 @code{beamSettings}.  Elles peuvent être modifiées par la commande
-@code{\\overrideBeamSettings}.  
+@code{\\overrideBeamSettings}.
 Il existe des options qui permettent de grouper les ligatures au sein
 d'une mesure, grâce à la fonction Scheme @code{set-time-signature}.
 Celle-ci prend trois arguments : le nombre de pulsations, la durée de la

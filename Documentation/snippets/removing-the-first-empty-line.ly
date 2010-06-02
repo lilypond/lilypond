@@ -47,7 +47,7 @@ système, vous devrez activer la propriété @code{remove-first} du
 cette commande agira de manière globale.  Pour qu'elle ne soit effective
 que pour une portée individuelle, vous devrez également spécifier le
 contexte (@code{Staff} pour qu'il ne concerne que la portée en cours) en
-préfixe de la propriété. 
+préfixe de la propriété.
 
 La première ligne inférieure du deuxième @code{StaffGroup} est bien
 présente, pour la simple raison que le réglage en question ne s'applique

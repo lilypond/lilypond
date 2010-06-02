@@ -27,7 +27,7 @@ Noten auszugeben, kann die Metronombezeichnung unsichtbar gemacht werden:
   texidocfr = "
 Vous pouvez indiquer un changement de tempo pour le fichier MIDI sans
 pour autant l'imprimer.  Il suffit alors de le rendre invisible aux
-interprètes. 
+interprètes.
 
 "
   doctitlefr = "Changement de tempo sans indication sur la partition"

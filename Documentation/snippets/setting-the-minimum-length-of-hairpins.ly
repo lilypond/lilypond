@@ -25,7 +25,7 @@ verändert wird.
   doctitlede = "Die Mindestlänge von Crescendo-Klammern bestimmen"
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
-Si un soufflet est trop court, il suffit d'ajuster la propriété 
+Si un soufflet est trop court, il suffit d'ajuster la propriété
 @code{minimum-length} de l'objet @code{Hairpin} pour l'allonger.
 
 "

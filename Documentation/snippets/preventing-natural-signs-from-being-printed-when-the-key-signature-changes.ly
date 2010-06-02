@@ -32,7 +32,7 @@ im @code{Staff}-Kontext auf \"false\" gesetzt wird.
 Après un changement de tonalité, un bécarre est imprimé pour annuler
 toute altération précédente.  Ceci peut être supprimé en réglant à
 @code{\"false\"} la propriété @code{printKeyCancellation} du contexte
-@code{Staff}. 
+@code{Staff}.
 
 "
 

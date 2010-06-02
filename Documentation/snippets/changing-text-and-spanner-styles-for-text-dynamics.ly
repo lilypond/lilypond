@@ -35,7 +35,7 @@ und @code{'dotted-line}.
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Le texte par défaut des crescendos et decrescendos se change en
-modifiant les propriétés de contexte @code{crescendoText} et 
+modifiant les propriétés de contexte @code{crescendoText} et
 @code{decrescendoText}. L'aspect de la ligne d'extension est fonction
 de la propriété @code{'style} du @code{DynamicTextSpanner}.  Sa valeur
 par défaut est @code{'hairpin}, mais d'autres valeurs sont disponibles,

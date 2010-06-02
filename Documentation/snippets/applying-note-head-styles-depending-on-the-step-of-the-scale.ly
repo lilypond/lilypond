@@ -55,18 +55,18 @@ harmonischen Funktionen und dem Notenstil verloren geht.
   texidocfr = "
 La propriété @code{shapeNoteStyles} permet d'affecter un profil
 particulier à chaque degré de la gamme -- à partir de l'armure ou
-de la propriété @code{tonic}.  Ses valeurs sont constituées d'une liste 
+de la propriété @code{tonic}.  Ses valeurs sont constituées d'une liste
 de symboles, qu'il s'agisse de formes géométriques (@code{triangle},
 @code{cross}, ou @code{xcircle}) ou basés sur la tradition des graveurs
 américains (avec quelques noms de note latins).
 
 LilyPond dispose de deux raccourcis, @code{\aikenHeads} et
 @code{\sacredHarpHeads}, permettant de reproduire déanciens recueils de
-chansons américaines. 
+chansons américaines.
 
 L'exemple suivant montre plusieurs manières de profiler les têtes de
 note, ainsi que la capacité de trnsposer tout en respectant la fonction
-harmonique de chaque note dans la gamme. 
+harmonique de chaque note dans la gamme.
 
 "
   doctitlefr = "Profilage des notes selon leur degré dans la gamme"

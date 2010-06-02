@@ -28,7 +28,7 @@ im @code{StaffGroup}- oder @code{ChoirStaffGroup}-Kontext setzt.
 Un regroupement de portées sera indiqué par un simple rectangle
 -- @code{SystemStartSquare} -- en début de ligne dès lors que vous le
 mentionnerez explicitement au sein d'un contexte @code{StaffGroup} ou
-@code{ChoirStaffGroup}. 
+@code{ChoirStaffGroup}.
 
 "
   doctitlefr = "Indication de regroupement de portées par un rectangle"

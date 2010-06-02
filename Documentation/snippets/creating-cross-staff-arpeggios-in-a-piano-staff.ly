@@ -26,7 +26,7 @@ in den @code{Score}-Kontext eingefügt wird.
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Dans une double portée pour piano (@code{PianoStaff}), un arpège peut
-s'étendre sur les deux portées grâce à la propriété 
+s'étendre sur les deux portées grâce à la propriété
 @code{PianoStaff.connectArpeggios}.
 
 "

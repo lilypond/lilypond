@@ -34,7 +34,7 @@ D'ordinaire, le graveur @code{Volta_engraver} réside dans le contexte
 @code{Score} ; les crochets précédant une reprise s'impriment donc
 seulement au-dessus de la portée du haut.  On peut ajuster cela en
 déplaçant ce graveur vers les contextes de portée (@code{Staff}) qui
-doivent comporter ces crochets. 
+doivent comporter ces crochets.
 
 "
   doctitlefr = "Ajout du crochet de reprise à d'autres portées"

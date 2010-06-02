@@ -38,8 +38,8 @@ Obtenir un @emph{grupetto} retardé et dans lequel la note la plus basse
 est altérée requiert quelques surcharges.  La propriété
 @w{@code{outside-staff-priority}} doît être désactivée (@code{#f}) pour
 éviter qu'elle prenne le pas sur la propriété @w{@code{avoid-slur}}.  La
-valeur assignée à @code{halign} permet de gérer horizonalement le 
-@w{« retard »}. 
+valeur assignée à @code{halign} permet de gérer horizonalement le
+@w{« retard »}.
 
 "
 

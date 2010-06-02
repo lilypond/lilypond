@@ -61,12 +61,12 @@ peut être formée de traits discontinus variables.
 @code{dash-definition} se compose d'une liste de
 @code{segments-discontinus} (@emph{dash-elements}).  Chaque
 @code{segment-discontinu} contient une liste de paramètres qui
-déterminent le comportement du trait pour une section de la liaison.  
+déterminent le comportement du trait pour une section de la liaison.
 
 Cette liaison se définit selon le paramètre de Bézier @code{t} qui est
 compris entre 0 (l'extrémité gauche de la liaison) et 1 (l'extrémité
 droite de la liaison).  Chaque @code{segment-discontinu} se composera
-selon la liste @code{(t-début t-fin segment-style segment-taille)}.   
+selon la liste @code{(t-début t-fin segment-style segment-taille)}.
 La portion de liaison allant de @code{t-début} à @code{t-fin} aura un
 trait @code{segment-style} de longueur @code{segment-taille}.
 @code{segment-taille} est exprimé en espace de portée ; un

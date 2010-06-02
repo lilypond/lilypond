@@ -26,7 +26,7 @@ Fall, dass mehrere Stimmen sich im gleichen System befinden.
   texidocfr = "
 Si plusieurs voix se trouvent sur une même portée, on peut attribuer le
 graveur @code{Ambitus_engraver} au contexte @code{Staff} afin d'obtenir
-l'ambitus de toutes les voix cumulées, non d'une seule des voix actives. 
+l'ambitus de toutes les voix cumulées, non d'une seule des voix actives.
 
 "
   doctitlefr = "Ambitus sur plusieurs voix"

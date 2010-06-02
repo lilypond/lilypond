@@ -31,7 +31,7 @@ in diesem Fall werden alle Noten (auch die zitierten) transponiert.
   doctitlede = "Eine Stimme mit Transposition zitieren"
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
-Les citations tiennent compte de la transposition, aussi bien celle de 
+Les citations tiennent compte de la transposition, aussi bien celle de
 l'instrument d'origine que celle de la partie où elle intervient.  Dans
 l'exemple suivant, tous les instruments sont en tonalité de concert et
 seront repris par un instrument en fa.  Le destinataire de la citation
