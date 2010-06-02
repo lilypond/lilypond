@@ -1,16 +1,16 @@
-%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
+%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 Grâce à la propriété @code{dash-definition}, une liaison d'articulation
 peut être formée de traits discontinus variables.
 @code{dash-definition} se compose d'une liste de
 @code{segments-discontinus} (@emph{dash-elements}).  Chaque
 @code{segment-discontinu} contient une liste de paramètres qui
-déterminent le comportement du trait pour une section de la liaison.  
+déterminent le comportement du trait pour une section de la liaison.
 
 Cette liaison se définit selon le paramètre de Bézier @code{t} qui est
 compris entre 0 (l'extrémité gauche de la liaison) et 1 (l'extrémité
 droite de la liaison).  Chaque @code{segment-discontinu} se composera
-selon la liste @code{(t-début t-fin segment-style segment-taille)}.   
+selon la liste @code{(t-début t-fin segment-style segment-taille)}.
 La portion de liaison allant de @code{t-début} à @code{t-fin} aura un
 trait @code{segment-style} de longueur @code{segment-taille}.
 @code{segment-taille} est exprimé en espace de portée ; un
