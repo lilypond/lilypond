@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4571bd964ac07971726595c4fe1beb1112cbbbf8
+    Translation of GIT committish: 4e70a2dd784a2be0d9fc9b9040986d76a84a5d1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -307,7 +307,12 @@ Cuando la primera nota de un pentagrama es una nota de adorno (un
 mordente de una nota) seguida de un grupo de valoración especial, la
 nota de adorno se debe situar antes de la instrucción @code{\times}
 para evitar errores.  En cualquier otro lugar, las notas de adorno sí
-se pueden colocar dentro de los corchetes de grupo especial.
+se pueden colocar dentro de los corchetes de grupo especial.  Si se
+escribe un grupo de valoración especial al principio de una pieza que
+tiene una indicación de @code{\tempo}, debe añadir una instrucción
+@code{\new Voice} explícita tal y como se explica en @rlearning{Las
+voces contienen música}.
+
 
 
 @node Escalar las duraciones
