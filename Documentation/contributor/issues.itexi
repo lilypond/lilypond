@@ -6,7 +6,7 @@ This chapter deals with defects, feature requests, and
 miscellaneous development tasks.
 
 @menu
-* Introduction to issues::
+* Introduction to issues and the Bug Squad::
 * Issue classification::
 * Adding issues to the tracker::
 * Checking and verifying issues::
@@ -15,30 +15,63 @@ miscellaneous development tasks.
 @end menu
 
 
-@node Introduction to issues
-@section Introduction to issues
-
-First, @qq{issue} isn't just a politically-correct term for
-@qq{bug}.  We use the same tracker for feature requests and code
-TODOs, so the term @qq{bug} wouldn't be accurate.
-
-Second, the classification of what counts as a bug vs. feature
-request, and the priorities assigned to bugs, are a matter of
-concern @strong{for developers only}.  The Bug Squad should
-classify issues according to the guidelines given by developers.
+@node Introduction to issues and the Bug Squad
+@section Introduction to issues and the Bug Squad
 
 @warning{Unless otherwise specified, all the tasks in this chapter
 are @qq{simple} tasks: they can be done by a normal user with
 nothing more than a web browser, email, and lilypond.}
 
+@qq{Issues} isn't just a politically-correct term for @qq{bug}.
+We use the same tracker for feature requests and code TODOs, so
+the term @qq{bug} wouldn't be accurate.  Despite the difference
+between @qq{issue} and @qq{bug}, we call our team of contributors
+who organize issues the @emph{Bug Squad}.
+
+The Bug Squad is mainly composed of non-programmers -- their job
+is to @emph{organize} issues, not solve them.  Their duties
+include removing false bug reports, ensuring that any real bug
+report contains enough information for developers, and checking
+that a developer's fix actually resolves the problem.
+
+Every email to the bug list should be handled within @strong{24
+hours} in one of four ways:
+
+@enumerate
+
+@item
+If the behaviour is expected, the user should be told to read the
+documentation, or asked to clarify how he misread the docs and how
+the docs could be improved.
+
+@item
+If the issue already exists in the tracker, send an email to that
+effect.
+
+@item
+Ask the user for more information, such as lilypond version number
+(if not given) and operating system (if this is a suspected cause
+of the problem).
+
+@item
+Accept the report as described in
+@ref{Adding issues to the tracker}.
+
+@end enumerate
+
 
 @node Issue classification
 @section Issue classification
 
-Every issue should have a Status and Type; the other fields are
-optional.
+The classification of what counts as a bug vs. feature request,
+and the priorities assigned to bugs, are a matter of concern
+@strong{for developers only}.  The Bug Squad should classify
+issues according to the guidelines given by developers.
 
-@subheading Status
+Every issue should have a Status, Type, and Priority; the other
+fields are optional.
+
+@subheading Status (mandatory)
 
 Open issues:
 
@@ -80,15 +113,14 @@ Verified: Bug Squad has confirmed that the issue is closed.
 @end itemize
 
 
-@subheading Owner
+@subheading Owner (optional)
 
 Newly-added issues should have @emph{no owner}.  When a
 contributor indicates that he has Started or Fixed an item, he
 should become the owner.
 
 
-
-@subheading Type
+@subheading Type (mandatory)
 
 The issue's Type should be the first relevant item in this list.
 
@@ -125,7 +157,7 @@ Type-Other: anything else.
 @end itemize
 
 
-@subheading Priority
+@subheading Priority (mandatory)
 
 Currently, only Critical items will block a stable release.
 
@@ -164,12 +196,12 @@ and won't complain if somebody picks a @q{wrong} value for
 Medium/Low.
 
 
-@subheading Opsys
+@subheading Opsys (optional)
 
 Issues that only affect specific operating systems.
 
 
-@subheading Other items
+@subheading Other items (optional)
 
 Other labels:
 
@@ -244,8 +276,8 @@ asking the user to do so.
 
 @item
 Add the issue and classify it according to the guidelines in
-@ref{Issue classification}.  In particular, the item should have a
-@code{Status}, @code{Type-}, and @code{Priority-}.
+@ref{Issue classification}.  In particular, the item should have
+@code{Status}, @code{Type-}, and @code{Priority-} labels.
 
 @item
 After adding the issue, please send a response email to the same
@@ -377,7 +409,8 @@ Git has special functionality to help tracking down the exact
 commit which causes a problem.  See the git manual page for
 @code{git bisect}.  This is a job that non-programmers can do,
 although it requires familiarity with git, ability to compile
-LilyPond, and generally a fair amount of technical knowledge.
+LilyPond, and generally a fair amount of technical knowledge.  An
+in-depth explanation of this process will not be given here.
 
 Even if you are not familiar with git or are not able to compile
 LilyPond you can still help to narrow down the cause of a
