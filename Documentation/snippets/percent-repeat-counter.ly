@@ -6,7 +6,7 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Las repeticiones de compases completos mayores de dos repeticiones
 pueden llevar un contador si se activa la propiedad adecuada, como se
@@ -15,6 +15,7 @@ ve en este ejemplo:
 "
   doctitlees = "Percent repeat counter"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Ganztaktwiederholungen mit mehr als zwei Wiederholungen erhalten einen
@@ -22,6 +23,7 @@ Zähler, wenn man die entsprechende Eigenschaft einsetzt:
 
 "
   doctitlede = "Prozent-Wiederholungen zählen"
+
 %% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
   texidocfr = "
 Les répétitions de plus de 2 mesures sont surmontées d'un compteur,

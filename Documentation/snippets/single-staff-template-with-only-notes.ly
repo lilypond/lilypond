@@ -6,7 +6,7 @@
 \header {
   lsrtags = "template"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Esta plantilla simple prepara un pentagrama con notas, adecuado para
 un instrumento solista o un fragmento melódico. Córtelo y péguelo en
@@ -15,11 +15,13 @@ un archivo, escriba las notas y ¡ya está!
 "
   doctitlees = "Plantilla de un solo pentagrama con notas únicamente"
 
+
 %% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 これは音符を持つ譜表を提供するとても簡単なテンプレートであり、ソロの楽器や旋律に適しています。@c
 これをファイルにカット＆ペーストして、音符を付け加えれば完了です！
 "
+
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
@@ -30,6 +32,7 @@ eine vollständige Notationsdatei.
 "
 
   doctitlede = "Vorlage für ein Notensystem"
+
 
 %% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "

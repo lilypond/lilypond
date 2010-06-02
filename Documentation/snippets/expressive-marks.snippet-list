@@ -1,6 +1,7 @@
 adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rhythms.ly
 adding-parentheses-around-an-expressive-mark-or-chordal-note.ly
 adjusting-the-shape-of-falls-and-doits.ly
+asymmetric-slurs.ly
 breathing-signs.ly
 broken-crescendo-hairpin.ly
 caesura-railtracks-with-fermata.ly
@@ -24,6 +25,7 @@ creating-text-spanners.ly
 double-glissando.ly
 dynamics-custom-text-spanner-postfix.ly
 dynamics-text-spanner-postfix.ly
+hairpins-with-different-line-styles.ly
 hiding-the-extender-line-for-text-dynamics.ly
 horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly
 inserting-a-caesura.ly
@@ -31,7 +33,9 @@ laissez-vibrer-ties.ly
 line-arrows.ly
 making-slurs-with-complex-dash-structure.ly
 modifying-default-values-for-articulation-shorthand-notation.ly
+moving-slur-positions-vertically.ly
 piano-template-with-centered-dynamics.ly
+positioning-arpeggios.ly
 positioning-text-markups-inside-slurs.ly
 printing-hairpins-using-al-niente-notation.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "keyboards"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Un corchete de arpegio puede indicar que se tienen que tocar con la
 misma mano notas que están en dos pentagramas distintos. Para hacerlo,
@@ -18,6 +18,7 @@ configurar a la forma de corchete en el contexto de @code{PianoStaff}.
 
 "
   doctitlees = "Indicar acordes de pentagrama cruzado con corchetes de arpegio"
+
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "

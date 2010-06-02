@@ -6,13 +6,14 @@
 \header {
   lsrtags = "editorial-annotations"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Se puede cambiar el aspecto de las líneas de rejilla
 sobreescribiendo algunas de sus propiedades.
 
 "
   doctitlees = "Líneas de rejilla: modificar su aspecto"
+
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
@@ -21,6 +22,7 @@ geändert werden.
 
 "
   doctitlede = "Gitternetzlinien: Aussehen verändern"
+
 %% Translation of GIT committish: 9ccf7f0f5e52e074f3b7852416ad5b78718395c8
   texidocfr = "
 Modifier certaines des propriétés du cadrillage temporel aura pour effet

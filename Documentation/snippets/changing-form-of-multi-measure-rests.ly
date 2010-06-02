@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
  doctitlees = "Cambiar la forma de los silencios multicompás"
  texidoces = "
 Si hay diez compases de silencio o menos, se imprime en el pentagrama
@@ -17,6 +17,7 @@ puede cambiar sobreescribiendo la propiedad @code{expand-limit}:
 
 "
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Wenn zehn oder weniger Pausentakte vorkommen, wird eine Reihe von Longa-
@@ -26,6 +27,7 @@ zehn kann geändert werden, indem man die @code{expand-limit}-Eigenschaft
 setzt:
 "
   doctitlede = "Die Erscheinung von Pausentakten ändern"
+
 
 
 %% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685

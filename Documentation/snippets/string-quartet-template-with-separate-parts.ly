@@ -6,7 +6,7 @@
 \header {
   lsrtags = "unfretted-strings, template"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 El fragmento de código @qq{Plantilla de cuarteto de cuerda} produce un
 resultado satisfactorio para el cuarteto, pero ¿y si tenemos que
@@ -27,6 +27,7 @@ los archivos independientes!
 "
   doctitlees = "Plantilla de cuarteto de cuerda con particellas independientes"
 
+
 %% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 \"弦楽四重奏テンプレート\" は適切な弦楽四重奏の楽譜を作り出しますが、個々の@c
@@ -41,6 +42,7 @@ los archivos independientes!
 
 別々のファイルに分ける場合は、指定されたコメントを外すことを忘れないでください！
 "
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Mit diesem Beispiel können Sie ein schönes Streichquartett notieren,
@@ -59,6 +61,7 @@ zugewiesen, auf den zurückgegriffen werden kann.
 "
 
   doctitlede = "Vorlage für Streichquartett mit einzelnen Stimmen"
+
 
 %% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "

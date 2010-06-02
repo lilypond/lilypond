@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
 doctitlees = "Evitar que se impriman becuadros cuando cambia la armadura"
 
 texidoces = "
@@ -18,6 +18,7 @@ propiedad @code{printKeyCancellation} del contexto @code{Staff}.
 
 "
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 doctitlede = "Auflösungzeichen nicht setzen wenn die Tonart wechselt"
 
@@ -27,6 +28,7 @@ um Versetzungszeichen der vorherigen Tonart aufzulösen.  Das kann
 verhindert werden, indem die @code{printKeyCancellation}-Eigenschaft
 im @code{Staff}-Kontext auf \"false\" gesetzt wird.
 "
+
 %% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
   texidocfr = "
 Après un changement de tonalité, un bécarre est imprimé pour annuler

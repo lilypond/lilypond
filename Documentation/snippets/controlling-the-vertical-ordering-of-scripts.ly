@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 El orden vertical que ocupan las inscripciones gráficas está
 controlado con la propiedad @code{'script-priority}. Cuanto más
@@ -22,6 +22,7 @@ lugar.
 "
   doctitlees = "Controlar la ordenación vertical de las inscripciones"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Die vertikale Anordnung von Beschriftungen wird mit der
@@ -36,6 +37,7 @@ anhand ihres Auftretens in der Quelldatei entschieden.
 
 "
   doctitlede = "Die vertikale Anordnung von Beschriftungen kontrollieren"
+
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Les symboles s'ordonnent verticalement suivant la propriété

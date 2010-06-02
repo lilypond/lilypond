@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
  doctitlees = "Grabado manual de las ligaduras"
  texidoces = "
 Se pueden grabar a mano las ligaduras modificando la propiedad
@@ -16,6 +16,7 @@ espacios de pentagrama, y el segundo número indica la dirección (1 =
 hacia arriba, -1 = hacia abajo).
 
 "
+
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
@@ -27,6 +28,7 @@ Notensystemabständen an, die zweite Zahl zeigt die Richtung an (1 = nach oben,
 
 "
   doctitlede = "Bindebögen manuell setzen"
+
 
 
 %% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685

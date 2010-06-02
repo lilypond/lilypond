@@ -6,13 +6,14 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Algunos compositores escriben dos ligaduras cuando quieren acordes
 legato.  Esto se puede conseguir estableciendo @code{doubleSlurs}.
 
 "
   doctitlees = "Utilizar ligaduras dobles para acordes legato"
+
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
@@ -21,6 +22,7 @@ werden.  Das kann mit der Eigenschaft @code{doubleSlurs} erreicht werden.
 
 "
   doctitlede = "Doppelte Bögen für Legato-Akkorde benutzen"
+
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Certains auteurs utilisent deux liaisons lorsqu'ils veulent

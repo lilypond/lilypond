@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Son posibles tanto los corchetes rectos sobre notas sueltas como
 extremos de barra sueltos en figuras unidas, con una combinación de
@@ -41,6 +41,7 @@ tiene nada que ver con el @code{\\set} de dos notas por detrás.)
   doctitlees = "Corchetes rectos y extremos de barra sueltos"
 
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Gerade Fähnchen an einzelnen Noten und überstehende Balkenenden bei
@@ -69,6 +70,7 @@ Beispiel haben nichts mit dem @code{\\set}-Befehl zwei Noten vorher zu tun.)
 
 "
   doctitlede = "Gerade Fähnchen und überstehende Balkenenden"
+
 
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b

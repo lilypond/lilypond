@@ -6,13 +6,14 @@
 \header {
   lsrtags = "repeats, tweaks-and-overrides"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Se puede imprimir una línea divisoria de la forma @code{|:} al
 principio de la pieza, sobreescribiendo la propiedad correspondiente:
 
 "
   doctitlees = "Imprimir puntos de repetición al prinicpio de la pieza"
+
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
@@ -21,6 +22,7 @@ man die entsprechende Eigenschaft verändert:
 
 "
   doctitlede = "Ein Wiederholungszeichen zu Beginn eines Stückes ausgeben"
+
 %% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
   texidocfr = "
 Bien qu'allant à l'encontre des usages en matière de gravure, vous

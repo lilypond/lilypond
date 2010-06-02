@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, expressive-marks, staff-notation, tweaks-and-overrides"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 De forma predeterminada, las indicaciones metronómicas y las
 letras de ensayo se imprimen encima del pentagrama.  Para
@@ -19,6 +19,7 @@ adecuadamente la propiedad @code{direction} de
   doctitlees = "Impresión de indicaciones metronómicas y letras de ensayo debajo del pentagrama"
 
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Normalerweise werden Metronom- und Übungszeichen über dem Notensystem ausgegeben.
@@ -27,6 +28,7 @@ von @code{MetronomeMark} oder @code{RehearsalMark} entsprechend verändert werde
 
 "
   doctitlede = "Metronom- und Übungszeichen unter das System setzen"
+
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Les indications de tempo et les marques de repère s'impriment par défaut

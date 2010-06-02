@@ -6,7 +6,7 @@
 \header {
   lsrtags = "unfretted-strings, template"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Esta plantilla muestra un cuarteto de cuerda normal. También utiliza
 una sección @code{\\global} para el compás y la armadura
@@ -14,11 +14,13 @@ una sección @code{\\global} para el compás y la armadura
 "
   doctitlees = "Plantilla de cuarteto de cuerda (sencilla)"
 
+
 %% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 これは簡単な弦楽四重奏のためのテンプレートです。これは拍子記号と調号のために
 @code{@bs{}global} セクションを使っています。
 "
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Dieses Beispiel demonstriert die Partitur für ein Streichquartett. Hier
@@ -27,6 +29,7 @@ Vorzeichen benutzt.
 "
 
   doctitlede = "Vorlage für Streichquartett (einfach)"
+
 
 %% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
 doctitlees = "Evitar que se añadan becuadros adicionales automáticamente"
 
 texidoces = "
@@ -19,6 +19,7 @@ dentro del contexto de @code{Staff}.
 
 "
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Verhindern, dass zusätzliche Auflösungszeichen automatisch
 hinzugefügt werden"
@@ -29,6 +30,7 @@ ein vorheriges Versetzungszeichen der gleichen Note aufgehoben werden
 soll.  Um dieses Verhalten zu ändern, muss die Eigenschaft
 @code{extraNatural} im @code{Staff}-Kontext auf \"false\" gesetzt werden.
 "
+
 %% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
   texidocfr = "
 En accord avec les règles standards de l'écriture musicale, on grave

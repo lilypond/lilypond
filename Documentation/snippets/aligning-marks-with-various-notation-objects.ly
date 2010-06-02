@@ -6,7 +6,7 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Si están especificadas, las marcas de texto se pueden alinear con
 objetos de notación distintos a las líneas divisorias.  Entre estos
@@ -21,6 +21,7 @@ debe hacer este ajuste para todos los pentagramas).
 
 "
   doctitlees = "Alinear marcas con varios objetos de notación"
+
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
@@ -38,6 +39,7 @@ diese Einstellung für alle Systeme gemacht werden.
 "
 
   doctitlede = "Zeichen an verschiedenen Notationsobjekten ausrichten"
+
 %% Translation of GIT committish: 548ef200973bd3d46ea75c5498461d9e5f168334
   texidocfr = "
 Les indications textuelles peuvent s'aligner par rapport à d'autres

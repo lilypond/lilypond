@@ -1,5 +1,6 @@
 adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rhythms.ly
 adding-drum-parts.ly
+adjusting-grace-note-spacing.ly
 aligning-bar-numbers.ly
 automatic-beam-subdivisions.ly
 avoiding-collisions-with-chord-fingerings.ly
@@ -28,9 +29,11 @@ making-slurs-with-complex-dash-structure.ly
 manually-controlling-beam-positions.ly
 merging-multi-measure-rests-in-a-polyphonic-part.ly
 modifying-tuplet-bracket-length.ly
+moving-dotted-notes-in-polyphony.ly
 multi-measure-rest-markup.ly
 non-default-tuplet-numbers.ly
 permitting-line-breaks-within-beamed-tuplets.ly
+positioning-grace-note-beams-at-the-height-of-normal-note-beams.ly
 positioning-grace-notes-with-floating-space.ly
 positioning-multi-measure-rests.ly
 printing-bar-numbers-at-regular-intervals.ly
@@ -40,6 +43,7 @@ printing-music-with-different-time-signatures.ly
 printing-the-bar-number-for-the-first-measure.ly
 redefining-grace-note-global-defaults.ly
 removing-bar-numbers-from-a-score.ly
+removing-connecting-bar-lines-on-staffgroup,-pianostaff,-or-grandstaff.ly
 rest-styles.ly
 reverting-default-beam-endings.ly
 rhythmic-slashes.ly
@@ -50,5 +54,6 @@ sub-dividing-beams.ly
 three-sided-box.ly
 time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly
 tweaking-grace-layout-within-music.ly
+using-alternative-flag-styles.ly
 using-grace-note-slashes-with-normal-heads.ly
 using-ties-with-arpeggios.ly

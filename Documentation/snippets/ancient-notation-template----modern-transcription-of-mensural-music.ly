@@ -6,7 +6,7 @@
 \header {
   lsrtags = "ancient-notation, template"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Al transcribir música mensural, es útil un «incipit» al compienzo
 de la pieza para indicar la tonalidad y el tempo
@@ -21,6 +21,7 @@ encima de ellos.
 "
   doctitlees = "Plantilla de notación de música antigua (transcripción moderna de música mensural)"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Bei der Transkription von Mensuralmusik ist es oft erwünscht, ein
@@ -34,6 +35,7 @@ zwischen den Systemen geschrieben.
 "
 
 doctitlede = "Vorlage für Alte Notation -- moderne Transkription von Mensuralmusik"
+
 
 %% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
   texidocfr = "

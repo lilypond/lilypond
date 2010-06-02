@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Puede ser necesario trucar la propiedad
 @code{shortest-duration-space} para poder ajustar el tamaño de las
@@ -15,6 +15,7 @@ caídas y subidas de tono («falls» y «doits»).
 "
   doctitlees = "Ajustar la forma de las subidas y caídas de tono"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Die @code{shortest-duration-space}-Eigenschaft kann verändert werden, um
@@ -22,6 +23,7 @@ das Aussehen von unbestimmten Glissandi anzupassen.
 
 "
   doctitlede = "Das Aussehen von unbestimmten Glissandi anpassen"
+
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 La propriété @code{shortest-duration-space} peut devoir être retouchée
@@ -42,8 +44,8 @@ adjust the shape of falls and doits.
 \relative c'' {
   \override Score.SpacingSpanner #'shortest-duration-space = #4.0
   c2-\bendAfter #5
-  c2-\bendAfter #-3
-  c2-\bendAfter #8
+  c2-\bendAfter #-4.75
+  c2-\bendAfter #8.5
   c2-\bendAfter #-6
 }
 
