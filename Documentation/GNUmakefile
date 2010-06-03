@@ -98,7 +98,7 @@ $(XREF_MAPS_DIR)/web.xref-map: XREF_MAP_FLAGS += --split=node
 ### AJAX scripts
 JS_FILES = $(call src-wildcard,*.js)
 PHP_FILES = $(call src-wildcard,*.php)
-EXTRA_DIST_FILES += $(JS_FILES)
+EXTRA_DIST_FILES += $(JS_FILES) $(PHP_FILES)
 
 OUT_JS_FILES = $(JS_FILES:%.js=$(outdir)/%.js)
 OUT_PHP_FILES = $(PHP_FILES:%.php=$(outdir)/%.php)
