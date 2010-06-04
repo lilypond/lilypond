@@ -34,10 +34,21 @@ include removing false bug reports, ensuring that any real bug
 report contains enough information for developers, and checking
 that a developer's fix actually resolves the problem.
 
-Every email to the bug list should be handled within @strong{24
-hours} in one of four ways:
+
+@subsubheading Email checklist
+
+Every email to @code{bug-lilypond} should be handled within
+@strong{24 hours} in the first method which is applicable:
 
 @enumerate
+
+@item
+If the email is a question about how to use LilyPond, direct them
+politely to @code{lilypond-user}.
+
+@item
+If a bug report is not in the form of a Tiny example, direct the
+user to resubmit the report after reading @rweb{Tiny examples}.
 
 @item
 If the behaviour is expected, the user should be told to read the
@@ -63,13 +74,9 @@ Accept the report as described in
 @node Issue classification
 @section Issue classification
 
-The classification of what counts as a bug vs. feature request,
-and the priorities assigned to bugs, are a matter of concern
-@strong{for developers only}.  The Bug Squad should classify
-issues according to the guidelines given by developers.
-
-Every issue should have a Status, Type, and Priority; the other
-fields are optional.
+The Bug Squad should classify issues according to the guidelines
+given by developers.  Every issue should have a Status, Type, and
+Priority; the other fields are optional.
 
 @subheading Status (mandatory)
 
@@ -260,19 +267,14 @@ in to their google account before adding an item.
 
 @subsubheading Normal issues
 
-@itemize
+@enumerate
 
 @item
-Check if the issue already exists in the tracker.
-
-@item
-If the initial bug report contains lilypond examples which do not
-follow the guidelines in @rweb{Tiny examples}, either ask the
-reporter to create such an example, or make one yourself.
-
-If you are willing to spend the effort, we would prefer it if the
-Bug Squad member created a tiny example themselves instead of
-asking the user to do so.
+Check if the issue falls into any previous category given on
+@ref{Introduction to issues and the Bug Squad}.  If in doubt, add
+a new issue for a report.  We would prefer to have some
+incorrectly-added issues rather than lose information that should
+have been added.
 
 @item
 Add the issue and classify it according to the guidelines in
@@ -286,7 +288,7 @@ was sent to multiple mailing lists (such as both @code{user} and
 @code{bugs}), then reply to all those mailing lists as well.  The
 email should contain a link to the issue you just added.
 
-@end itemize
+@end enumerate
 
 
 @subsubheading Patch reminders
