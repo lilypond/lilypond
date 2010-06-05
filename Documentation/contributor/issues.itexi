@@ -51,7 +51,7 @@ If a bug report is not in the form of a Tiny example, direct the
 user to resubmit the report after reading @rweb{Tiny examples}.
 
 @item
-If the behaviour is expected, the user should be told to read the
+If the behavior is expected, the user should be told to read the
 documentation, or asked to clarify how he misread the docs and how
 the docs could be improved.
 
@@ -152,7 +152,6 @@ includes the makefiles, stepmake, python scripts, and GUB.
 @item
 Type-Scripts: problem or desired feature in the non-build-system
 scripts.  Mostly used for convert-ly, lilypond-book, etc.
-
 @item
 Type-Enhancement: a feature request for the core program.  The
 distinction between enhancement and defect isn't extremely clear;
