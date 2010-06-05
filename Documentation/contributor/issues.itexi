@@ -233,7 +233,8 @@ Maintainability: hinders developent of LilyPond.  For example,
 improvements to the build system, or @qq{helper} python scripts.
 
 @item
-Bounty: somebody is willing to pay for the fix.
+Bounty: somebody is willing to pay for the fix.  Only add this tag
+if somebody has offered an exact figure in US dollars or euros.
 
 @item
 Warning: graphical output is fine, but lilypond prints a
