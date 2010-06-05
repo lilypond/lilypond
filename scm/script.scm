@@ -296,9 +296,11 @@
     ("thumb"
      . (
 	(script-stencil . (feta . ("thumb"  . "thumb")))
-	(avoid-slur . inside)
-	(padding . 0.20)
-	(direction . ,UP)))
+	(avoid-slur . around)
+	(padding . 0.50)
+	(direction . ,UP)
+	(slur-padding . 0.2)
+	(staff-padding . 0.5)))
     ("trill"
      . (
 	(script-stencil . (feta . ("trill" . "trill")))
