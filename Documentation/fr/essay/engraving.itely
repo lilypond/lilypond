@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3b1c477ab2212f124f865c46df350c5a1c1f2412
+    Translation of GIT committish: 541f77187b475f4ea84ca36485d2255dd7db0437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -30,7 +30,7 @@ Ce chapitre traite des objectifs et de l'architecture de LilyPond.
 * La gravure en détails::       de l'homme à la machine
 * La gravure automatisée::      de la machine à l'homme
 * De la théorie à la pratique:: qui fait quoi
-* Démonstration par l'exemple::        
+* Démonstration par l'exemple:: LilyPond à l'œuvre       
 * Comparatif (BWV 861)::                    
 @end menu
 
@@ -222,8 +222,8 @@ quoi LilyPond devait porter ses efforts.
 Les images ci-dessous mettent en évidence certaines différences entre
 l'art du graveur traditionnel et le résultat habituel sorti d'un
 ordinateur.  L'image de gauche est un @emph{fac simile} d'un bémol tiré
-d'une édition Bärenreiter traditionnelle ; celle de droite est issue de
-la même partition, éditée en 2000.  Bien que toutes deux soient
+d'une édition Bärenreiter traditionnelle@tie{}; celle de droite est
+issue de la même partition, éditée en 2000.  Bien que toutes deux soient
 imprimées avec le même encrage, la version @qq{ancienne} paraît plus
 noire : les lignes de la portée y sont plus épaisses et le galbe du
 bémol de Bärenreiter est à la limite de la volupté.  Sur l'autre image,
@@ -516,14 +516,16 @@ global = {
     \new Staff \relative c {
       \global
       \clef "bass"
-      << {
-        \once \override DynamicText #'X-offset = #-3
-        <ees g c>2.~->^\f
-        <ees g c>4.~ <ees g c>8
-      } \\ {
-        <c g c,>2.~
-        <c g c,>4.~ <c g c,>8
-      } >>
+      <<
+        {
+          \once \override DynamicText #'X-offset = #-3
+          <ees g c>2.~->^\f
+          <ees g c>4.~ <ees g c>8
+        } \\ {
+          <c g c,>2.~
+          <c g c,>4.~ <c g c,>8
+        }
+      >>
       r8 r16 <f, c' aes'>16
       <f c' aes'>4.-> <c' g'>8 r r
     }
@@ -657,11 +659,11 @@ pour l'effleurement de la tête de note.
 
 La liaison ci-dessous reste à une distance uniforme des notes, mais il
 faut tenir compte du fait qu'elle n'est pas rattachée aux première et
-dernière notes. Ceci nous fait 1,71 points pour le début de la
+dernière notes. Ceci nous fait 1,71@tie{}points pour le début de la
 liaison et 9,37 pour la terminaison -- qui est beaucoup plus éloignée de
 la dernière note.  Par ailleurs, la liaison monte alors que la mélodie
-redescend, ce qui entraîne une pénalité de 2 points.  Ceci nous fait un
-total de 13,08 points de laideur.
+redescend, ce qui entraîne une pénalité de 2@tie{}points.  Ceci nous
+fait un total de 13,08@tie{}points de laideur.
 
 @lilypond
 \relative c {
@@ -672,7 +674,7 @@ total de 13,08 points de laideur.
 @end lilypond
 
 Quant à la liaison qui suit, seule la terminaison reste éloignée de la
-dernière note, ce qui donne 10,04 points de laideur auxquels nous
+dernière note, ce qui donne 10,04@tie{}points de laideur auxquels nous
 ajoutons 2 autres points pour la pente ascendante.  Cette configuration
 étant la moins laide, ou plutôt la version la plus satisfaisante, nous
 la sélectionnons.
@@ -763,8 +765,10 @@ par la version la plus récente de LilyPond (@version{}).
   \key d \minor
   \time 3/4
   \mergeDifferentlyDottedOn
-  << {\slurDashed d8.-\flageolet( e16) e4.-\trill( d16 e)}
-     \\ {d4_2 a2}
+  <<
+    {\slurDashed d8.-\flageolet( e16) e4.-\trill( d16 e)}
+     \\
+    {d4_2 a2}
   >>
   \slurDashed
   <f' a, d,>4. e8( d c)
@@ -772,8 +776,10 @@ par la version la plus récente de LilyPond (@version{}).
   bes g' f e16( f g_1 a_2 bes_3 d,_2)
   \slurDashed
   cis4.-\trill b8_3( a g)
-  << {\slurDashed d'8.( e16) e4.-\trill( d16 e)}
-     \\ {<f, a>4 a2}
+  <<
+    {\slurDashed d'8.( e16) e4.-\trill( d16 e)}
+     \\
+    {<f, a>4 a2}
   >>
 }
 @end lilypond
@@ -866,7 +872,6 @@ partIV = \relative c {
         \new Voice = "voiceI" { \partI }
         \new Voice = "voiceII" { \partII }
       >>
-
       \new Staff = "LH" <<
         \clef "bass"
         \global
@@ -1813,6 +1818,3 @@ partIV = \relative c {
   }
 }
 @end lilypond
-
-
-
