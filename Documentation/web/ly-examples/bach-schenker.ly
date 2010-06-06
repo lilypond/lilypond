@@ -8,9 +8,7 @@
   enteredby = "Kris Shaffer"
 }
 
-%%
-%% See http://www.shaffermusic.com/doc/schenker/index.html for more information
-%%
+% See http://kris.shaffermusic.com/tech.html. for more information
 
 I = \once \override NoteColumn #'ignore-collision = ##t
 
@@ -19,9 +17,8 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 staffPiano = \new PianoStaff {
   \set Score.timing = ##f
   \set PianoStaff.followVoice = ##t
-
   <<
-    \new Staff = "RH" {  % Right hand
+    \new Staff = "RH" { % Right hand
       \clef treble
       \key g \major
       \relative c'' {
@@ -34,22 +31,22 @@ staffPiano = \new PianoStaff {
 	    \override NoteHead #'duration-log = #1
 	    s1 b8[^\markup {
 	      \override #'(baseline-skip . 0.5)
-	      \column { \small {^ 3} }
+	      \column { \small { ^ 3 } }
 	    }
 	    s4. s1 a8^\markup {
 	      \override #'(baseline-skip . 0.5)
-	      \column { \small {^ 2} }
+	      \column { \small { ^ 2 } }
 	    }
 	    s4. s2 g8]^\markup {
 	      \override #'(baseline-skip . 0.5)
-	      \column { \small {^ 1} }
+	      \column { \small { ^ 1 } }
 	    }
 	    s4.
 	    \revert Beam #'positions
 	    \revert NoteHead #'transparent
 	    \revert NoteHead #'duration-log
 	  }
-	  \\
+	\\
 	  {
 	    \override Stem #'transparent = ##t
 	    s1
@@ -63,27 +60,26 @@ staffPiano = \new PianoStaff {
 	    \once \override Slur #'extra-offset = #'(.75 . 0)
 	    a2_( s4
 	    \once \override NoteHead #'transparent = ##t
-	    a)
-	    g2
+	    a4) g2
 	    \revert Stem #'transparent
 	  }
-	  \\
+	\\
 	  \override Staff.NoteCollision
 	  #'merge-differently-headed = ##t
 	  {
 	    \override Beam #'positions = #'(4 . -3.25)
 	    \stemUp
 	    g8[ s s4 s2
-	      \stemDown
-	      \once \override NoteHead #'transparent = ##t
-	      \I b8] s8
+	    \stemDown
+	    \once \override NoteHead #'transparent = ##t
+	    \I b8] s8
 	    \override Beam #'positions = #'(3 . -2.25)
 	    \stemUp
 	    a8[ s s4
-	      \stemDown
-	      c8] s s2 s s
+	    \stemDown
+	    c8] s s2 s s
 	  }
-	  \\
+	\\
 	  {
 	    \override Stem #'transparent = ##t
 	    \override Stem #'length = #0
@@ -102,7 +98,7 @@ staffPiano = \new PianoStaff {
 	    c4^\( b_(_\markup { \tiny P } a)\) s2
 	    \revert Stem #'length
 	  }
-	  \\
+	\\
 	  {
 	    \override Stem #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
@@ -114,7 +110,7 @@ staffPiano = \new PianoStaff {
 	    \revert NoteHead #'transparent
 	    \revert Stem #'length
 	  }
-	  \\
+	\\
 	  {
 	    \override Stem #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
@@ -132,7 +128,7 @@ staffPiano = \new PianoStaff {
       }
     }
 
-    \new Staff = "LH" {  % Left hand
+    \new Staff = "LH" { % Left hand
       \clef bass
       \key g \major
       \relative c' {
@@ -144,12 +140,12 @@ staffPiano = \new PianoStaff {
 	    \override NoteHead #'transparent = ##t
 	    \stemDown
 	    \I g8[_\markup { \bold I } s4. s1 s s2
-	      \I d8_\markup { \bold V } s4.
-	      \I g,8]_\markup { \bold I } s4.
+	    \I d8_\markup { \bold V } s4.
+	    \I g,8]_\markup { \bold I } s4.
 	    \revert Beam #'positions
 	    \revert NoteHead #'transparent
 	  }
-	  \\
+	\\
 	  {
 	    \override Stem #'transparent = ##t
 	    \stemDown
@@ -157,7 +153,7 @@ staffPiano = \new PianoStaff {
 	    \I g'2 s1 s s2 \I d2 g,2
 	    \revert Stem #'transparent
 	  }
-	  \\
+	\\
 	  {
 	    \override Stem #'transparent = ##t
 	    \once \override NoteHead #'transparent = ##t
@@ -168,8 +164,7 @@ staffPiano = \new PianoStaff {
 	    fis4^(^\markup { \tiny P } e)
 	    \once \override NoteHead #'transparent = ##t
 	    \once \override Slur #'height-limit = #1.5
-	    c4^(
-	    d)^\markup { \tiny N }
+	    c4^( d)^\markup { \tiny N }
 	    \once \override NoteHead #'transparent = ##t
 	    \once \override Slur #'extra-offset = #'(0 . 0.5)
 	    \I fis,4_(
@@ -185,7 +180,7 @@ staffPiano = \new PianoStaff {
 	    \once \override NoteHead #'transparent = ##t
 	    \I d4^( d,4) s2
 	  }
-	  \\
+	\\
 	  {
 	    \override Stem #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
@@ -195,18 +190,18 @@ staffPiano = \new PianoStaff {
 	    \override Beam #'positions = #'(-4 . 1)
 	    \stemDown
 	    c,8[ s s4
-	      \stemUp
-	      fis,8] s
+	    \stemUp
+	    fis,8] s
 	    \override Beam #'positions = #'(1 . -4)
 	    g8[ s
-	      \stemDown
-	      b8] s
+	    \stemDown
+	    b8] s
 	    \revert Beam #'positions
 	    \override Stem #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
 	    c4^( s d4) s s2
 	  }
-	  \\
+	\\
 	  {
 	    \override Stem #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
@@ -218,7 +213,7 @@ staffPiano = \new PianoStaff {
 	    \revert Stem #'transparent
 	    \revert NoteHead #'transparent
 	  }
-	  \\
+	\\
 	  {
 	    \override Stem #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
@@ -237,22 +232,13 @@ staffPiano = \new PianoStaff {
   >>
 }
 
-
 \score {
   <<
     \staffPiano
   >>
-
-%  \midi {
-%  }
-
   \layout {
     indent = 0.0
     ragged-right = ##f
     \context { \Staff \remove "Time_signature_engraver" }
   }
-}
-
-
-\paper {
 }
