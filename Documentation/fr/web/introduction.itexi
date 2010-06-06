@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 20c486ef2a4e98030fa128052d7257b66bc1599c
+    Translation of GIT committish: 541f77187b475f4ea84ca36485d2255dd7db0437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -309,7 +309,10 @@ LilyPond en fonction des hauteurs de notes.
 @subsubheading Diagrammes de Schenker
 
 La notation musicale standard peut être grandement personnalisée, au
-point de créer un diagramme d'analyse schenkérienne comme celui-ci.
+point de créer un diagramme d'analyse schenkérienne comme celui-ci, créé
+par Kris Schaffer pour un article du
+@uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.  Les
+couleurs ont été ajoutés pour plus de visibilité.
 
 @exampleImage{bach-schenker}
 @newsEnd
