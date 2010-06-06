@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides, breaks"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 El primer pentagrama vacío también se puede suprimir de la
 partitura estableciendo la propiedad @code{remove-first} de
@@ -47,7 +47,7 @@ système, vous devrez activer la propriété @code{remove-first} du
 cette commande agira de manière globale.  Pour qu'elle ne soit effective
 que pour une portée individuelle, vous devrez également spécifier le
 contexte (@code{Staff} pour qu'il ne concerne que la portée en cours) en
-préfixe de la propriété. 
+préfixe de la propriété.
 
 La première ligne inférieure du deuxième @code{StaffGroup} est bien
 présente, pour la simple raison que le réglage en question ne s'applique

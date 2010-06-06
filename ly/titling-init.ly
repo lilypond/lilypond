@@ -70,33 +70,36 @@ scoreTitleMarkup = \markup { \column {
 }
 
 %% Book first page and last page predicates
-#(define (first-page layout props arg)
-  (define (ancestor layout)
-    "Return the topmost layout ancestor"
-    (let ((parent (ly:output-def-parent layout)))
+#(define (book-first-page? layout props)
+   "Return #t iff the current page number, got from @code{props}, is the
+book first one."
+   (define (ancestor layout)
+     "Return the topmost layout ancestor"
+     (let ((parent (ly:output-def-parent layout)))
        (if (not (ly:output-def? parent))
            layout
            (ancestor parent))))
-  (if (= (chain-assoc-get 'page:page-number props -1)
-         (ly:output-def-lookup (ancestor layout) 'first-page-number))
+   (= (chain-assoc-get 'page:page-number props -1)
+      (ly:output-def-lookup (ancestor layout) 'first-page-number)))
+
+#(define (book-last-page? layout props)
+   "Return #t iff the current page number, got from @code{props}, is the
+book last one."
+   (and (chain-assoc-get 'page:is-bookpart-last-page props #f)
+        (chain-assoc-get 'page:is-last-bookpart props #f)))
+
+#(define (first-page layout props arg)
+  (if (book-first-page? layout props)
       (interpret-markup layout props arg)
       empty-stencil))
 
 #(define (last-page layout props arg)
-  (if (and (chain-assoc-get 'page:is-bookpart-last-page props #f)
-           (chain-assoc-get 'page:is-last-bookpart props #f))
+  (if (book-last-page? layout props)
       (interpret-markup layout props arg)
       empty-stencil))
 
 #(define (not-first-page layout props arg)
-  (define (ancestor layout)
-    "Return the topmost layout ancestor"
-    (let ((parent (ly:output-def-parent layout)))
-       (if (not (ly:output-def? parent))
-           layout
-           (ancestor parent))))
-  (if (not (= (chain-assoc-get 'page:page-number props -1)
-              (ly:output-def-lookup (ancestor layout) 'first-page-number)))
+  (if (not (book-first-page? layout props))
       (interpret-markup layout props arg)
       empty-stencil))
 
@@ -126,8 +129,7 @@ scoreTitleMarkup = \markup { \column {
    empty-stencil))
 
 #(define (print-page-number-check-first layout props arg)
-  (if (or (not (= (chain-assoc-get 'page:page-number props -1) 
-                  (ly:output-def-lookup layout 'first-page-number)))
+  (if (or (not (book-first-page? layout props))
           (eq? (ly:output-def-lookup layout 'print-first-page-number) #t))
    (create-page-number-stencil layout props arg)
    empty-stencil))

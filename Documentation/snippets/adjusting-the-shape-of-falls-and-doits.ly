@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Puede ser necesario trucar la propiedad
 @code{shortest-duration-space} para poder ajustar el tamaño de las
@@ -42,8 +42,8 @@ adjust the shape of falls and doits.
 \relative c'' {
   \override Score.SpacingSpanner #'shortest-duration-space = #4.0
   c2-\bendAfter #5
-  c2-\bendAfter #-3
-  c2-\bendAfter #8
+  c2-\bendAfter #-4.75
+  c2-\bendAfter #8.5
   c2-\bendAfter #-6
 }
 

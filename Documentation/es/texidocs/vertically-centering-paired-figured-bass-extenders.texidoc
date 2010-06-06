@@ -1,0 +1,12 @@
+%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+  texidoces = "
+Allí donde se utilicen líneas extensoras para el bajo cifrado mediante
+el establecimiento de @code{useBassFigureExtenders} al valor
+verdadero, las parejas de líneas extensoras congruentes se centran
+verticalmente si el valor de @code{figuredBassCenterContinuations}
+tiene el valor verdadero.
+
+"
+  doctitlees = "Centrado vertical de las líneas de bajo cifrado emparejadas"
+
+

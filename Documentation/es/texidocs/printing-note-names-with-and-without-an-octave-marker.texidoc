@@ -1,0 +1,10 @@
+%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+  texidoces = "
+Se puede usar el contexto @code{NoteNames} para imprimir el valor
+textual de las notas.  La propiedad @code{printOctaveNames} activa o
+desactiva la representación de la octava de las notas.
+
+"
+  doctitlees = "Impresión de los nombres de las notas con o sin indicación de la octava"
+
+

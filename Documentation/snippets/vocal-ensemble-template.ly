@@ -6,7 +6,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 He aquí una partitura vocal estándar para cuatro voces SATB. Con
 grupos mayores, suele ser útil incluir una sección que aparezca en

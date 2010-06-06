@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
 
   texidocfr = "
 La liste des diagrammes standards prédéfinis pour la guitare peut être
- augmentée d'autres définitions spécifiques à d'autres instruments.
+augmentée d'autres définitions spécifiques à d'autres instruments.
 Voici comment définir un nouvel accordage ainsi que quelques diagrammes
 prédéfinis pour le @qq{cuatro vénézuélien}.
 

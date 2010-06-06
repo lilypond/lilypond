@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
 doctitlees = "Transportar música con el menor número de alteraciones"
 texidoces = "
 Este ejemplo utiliza código de Scheme para forzar las
@@ -69,7 +69,7 @@ Variante gewählt.
 %% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
   texidocfr = "
 Cet exemple, grâce à un peu de code Scheme, donne la priorité aux
-enharmoniques  afin de limiter le nombre d'altérations supplémentaires.  
+enharmoniques  afin de limiter le nombre d'altérations supplémentaires.
 La règle appliquable est :
 
 @itemize

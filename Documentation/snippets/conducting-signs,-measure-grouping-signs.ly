@@ -5,7 +5,7 @@
 \version "2.13.20"
 
 \header {
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 La agrupación de pulsos dentro de un compás está controlada por la
 agrupación predeterminada que se establece en @code{beamSettings}.
@@ -49,7 +49,7 @@ der @code{set-time-signature}-Funktion als das dritte Argument mitgegeben:
   texidocfr = "
 Les règles de ligature par mesure sont gérées par la propriété
 @code{beamSettings}.  Elles peuvent être modifiées par la commande
-@code{\\overrideBeamSettings}.  
+@code{\\overrideBeamSettings}.
 Il existe des options qui permettent de grouper les ligatures au sein
 d'une mesure, grâce à la fonction Scheme @code{set-time-signature}.
 Celle-ci prend trois arguments : le nombre de pulsations, la durée de la

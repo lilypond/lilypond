@@ -8,8 +8,8 @@
 
 %% Translation of GIT committish: 548ef200973bd3d46ea75c5498461d9e5f168334
   texidocfr = "
-Les indications textuelles peuvent être imprimées à la fin d'une ligne 
-plutôt qu'en tête de la suivante.  Pensez alors à aligner l'extrémité 
+Les indications textuelles peuvent être imprimées à la fin d'une ligne
+plutôt qu'en tête de la suivante.  Pensez alors à aligner l'extrémité
 droite de l'indication sur la barre de mesure.
 
 "

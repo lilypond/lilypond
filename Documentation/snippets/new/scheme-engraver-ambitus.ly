@@ -3,8 +3,8 @@
 \header {
 
   lsrtags = "contexts-and-engravers"
-  
-  
+
+
   texidoc = "This example demonstrates how the ambitus engraver may be
   defined on the user side, with a Scheme engraver.
 

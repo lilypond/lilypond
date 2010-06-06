@@ -5,7 +5,7 @@
 \version "2.13.20"
 
 \header {
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 
 Las ligaduras de expresión se pueden construir con patrones de
@@ -61,12 +61,12 @@ peut être formée de traits discontinus variables.
 @code{dash-definition} se compose d'une liste de
 @code{segments-discontinus} (@emph{dash-elements}).  Chaque
 @code{segment-discontinu} contient une liste de paramètres qui
-déterminent le comportement du trait pour une section de la liaison.  
+déterminent le comportement du trait pour une section de la liaison.
 
 Cette liaison se définit selon le paramètre de Bézier @code{t} qui est
 compris entre 0 (l'extrémité gauche de la liaison) et 1 (l'extrémité
 droite de la liaison).  Chaque @code{segment-discontinu} se composera
-selon la liste @code{(t-début t-fin segment-style segment-taille)}.   
+selon la liste @code{(t-début t-fin segment-style segment-taille)}.
 La portion de liaison allant de @code{t-début} à @code{t-fin} aura un
 trait @code{segment-style} de longueur @code{segment-taille}.
 @code{segment-taille} est exprimé en espace de portée ; un

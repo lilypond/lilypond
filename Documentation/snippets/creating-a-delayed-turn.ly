@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
 texidoces = "
 La creación de un grupeto circular de anticipación entre dos notas,
 donde la nota inferior del grupeto utiliza una alteración, requiere
@@ -38,8 +38,8 @@ Obtenir un @emph{grupetto} retardé et dans lequel la note la plus basse
 est altérée requiert quelques surcharges.  La propriété
 @w{@code{outside-staff-priority}} doît être désactivée (@code{#f}) pour
 éviter qu'elle prenne le pas sur la propriété @w{@code{avoid-slur}}.  La
-valeur assignée à @code{halign} permet de gérer horizonalement le 
-@w{« retard »}. 
+valeur assignée à @code{halign} permet de gérer horizonalement le
+@w{« retard »}.
 
 "
 

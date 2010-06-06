@@ -2,6 +2,8 @@
 @setfilename lilypond-changes.info
 @settitle LilyPond Changes
 
+@include macros.itexi
+
 @ifhtml
 @macro inputfileref{DIR,NAME}
 @uref{../../\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c

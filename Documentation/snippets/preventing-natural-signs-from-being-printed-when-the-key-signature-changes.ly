@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
 doctitlees = "Evitar que se impriman becuadros cuando cambia la armadura"
 
 texidoces = "
@@ -32,7 +32,7 @@ im @code{Staff}-Kontext auf \"false\" gesetzt wird.
 Après un changement de tonalité, un bécarre est imprimé pour annuler
 toute altération précédente.  Ceci peut être supprimé en réglant à
 @code{\"false\"} la propriété @code{printKeyCancellation} du contexte
-@code{Staff}. 
+@code{Staff}.
 
 "
 

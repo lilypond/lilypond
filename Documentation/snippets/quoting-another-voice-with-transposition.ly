@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches, staff-notation"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Los pasajes citados tienen en cuenta la transposición de la fuente
 tanto como la del destino.  En este ejemplo, todos los
@@ -31,7 +31,7 @@ in diesem Fall werden alle Noten (auch die zitierten) transponiert.
   doctitlede = "Eine Stimme mit Transposition zitieren"
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
-Les citations tiennent compte de la transposition, aussi bien celle de 
+Les citations tiennent compte de la transposition, aussi bien celle de
 l'instrument d'origine que celle de la partie où elle intervient.  Dans
 l'exemple suivant, tous les instruments sont en tonalité de concert et
 seront repris par un instrument en fa.  Le destinataire de la citation

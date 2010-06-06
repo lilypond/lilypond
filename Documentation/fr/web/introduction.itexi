@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 2e721618e38f34eba5d5e53956ce4b5644a689f3
+    Translation of GIT committish: 541f77187b475f4ea84ca36485d2255dd7db0437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -309,7 +309,10 @@ LilyPond en fonction des hauteurs de notes.
 @subsubheading Diagrammes de Schenker
 
 La notation musicale standard peut être grandement personnalisée, au
-point de créer un diagramme d'analyse schenkérienne comme celui-ci.
+point de créer un diagramme d'analyse schenkérienne comme celui-ci, créé
+par Kris Schaffer pour un article du
+@uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.  Les
+couleurs ont été ajoutés pour plus de visibilité.
 
 @exampleImage{bach-schenker}
 @newsEnd
@@ -531,7 +534,8 @@ mentionnons que quelques-uns.
 @itemize
 
 @item
-@emph{Affaire Étrangère}, un opéra de Valentin Villenave, livret
+@emph{Affaire Étrangère}, un opéra de
+@uref{http://valentin.villenave.net/,Valentin Villenave}, livret
 de @uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
 dont la première a eu lieu le 1er@tie{}février@tie{}2009 à 
 @uref{http://www.orchestre-montpellier.com/, l'Opéra de Montpellier}.
@@ -604,7 +608,119 @@ sous forme de texte}.
 
 @node Témoignages
 @unnumberedsec Témoignages
-@translationof Testimonials
+@translationof Reviews
+
+@divClass{column-left-top}
+@subheading Revue de presse
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Septembre 2009
+
+Le magazine allemand LinuxUser publie un 
+@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+article au sujet de LilyPond}.
+
+@item
+Février 2008
+
+Sur @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html,
+son site personnel}, Andrew Hawryluk propose une comparaison entre 
+Finale et LilyPond, tant au niveau de leurs caractéristiques générales
+que de leurs capacités respectives en matière de gravure.  Un second
+article analyse la gravure du sixième prélude pour piano de
+Rachmaninoff, se basant sur une édition de grande qualité gravée à la
+main.
+
+@item
+Juin 2006
+
+@uref{http://distrowatch.com,DistroWatch} récompense LilyPond et
+@uref{http://distrowatch.com/weekly.php?issue=20060605,écrit}@tie{}:
+@qq{Mesdames et Messieurs, nous avons l'immense plaisir de vous annoncer
+que, à la demande de nombreux lecteurs, les récompenses du DistroWatch de
+mai@tie{}2006 sont attribuées à LilyPond (190@tie{}@euro{}) et Lua
+(250@tie{}US$).} 
+
+@item
+Décembre 2005
+
+@uref{http://linuxjournal.com,Linux Journal} publie un article sur de
+stupéfiants graphiques [d'analyse Schenkerienne] avec GNU LilyPond (
+@uref{http://www.linuxjournal.com/article/8364,(Stunning [Schenker]
+Graphics with GNU LilyPond)}, cité en couverture. Il s'agit d'un article
+détaillé mais pratique, proposant des extraits musicaux édités avec
+LilyPond.  Son auteur, Kris Shaffer, note que @qq{GNU LilyPond génère
+des beaux graphiques, reléguant au second plan ses alternatives
+commerciales.}
+
+@item
+20 août 2005
+
+Le journal belge De Standaard enquête sur les motivations des auteurs de
+logiciels libres dans un article intitulé
+@uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+Delen van KENNIS zonder WINSTBEJAG} (Libre partage des connaissances)
+dans son @qq{DS2 bijlage}.  L'exemple de LilyPond illustre cet article,
+qui cite également des extraits d'un entretien par courriel avec Jan
+Nieuwenhuizen. Il s'agit de la première citation de LilyPond dans la
+presse généraliste. 
+
+@item
+Juin 2005
+
+Un article français sur LilyPond 2.6 est paru sur
+@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
+
+@item
+Octobre 2004
+
+Les éditeurs de @emph{Computer!Totaal}, magazine informatique
+hollandais, @uref{http://lilypond.org/web/images/computer-totaal.jpeg,
+décrivent LilyPond} dans leur numéro d'octobre 2004 comme@tie{}: @qq{un
+merveilleux logiciel libre [@dots{}]  Les partitions qu'il génère sont
+extrêmement belles [@dots{}]  Un système très puissant permettant presque
+tout.} 
+
+@item
+Juillet--août 2004
+
+Dave Phillips a écrit un article d'introduction à LilyPond pour le
+@uref{http://linuxjournal.com,Linux Journal}@tie{}: @emph{At the
+sounding edge: LilyPond}, 
+@uref{http://www.linuxjournal.com/article/7657, première} et
+@uref{http://www.linuxjournal.com/article/7719, deuxième} partie.
+
+@item
+Mars 2004
+
+Chris Cannam
+@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,
+s'est entretenu avec Han-Wen Nienhuys et Jan Nieuwenhuizen} sur
+linuxmusician.com (site aujourd'hui disparu). Cette interview a
+également été citée sur
+@uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=, slashdot story}.
+
+@item
+Février 2004
+
+La chanteuse de Jazz Gail Selkirk a écrit sur son
+@uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
+plongeon dans la Mare-aux-Nénuphars}@tie{}: @qq{@dots{} vous pouvez
+créer des conducteurs et du matériel pour orchestre, et le résultat peut
+être étonnant.} @uref{http://www.computermusic.co.uk/, Computer Music Special},
+issue CMS06.
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Des utilisateurs
 
 @divClass{testimonial-item}
 @imageFloat{carter-brey,jpg, right}
@@ -738,6 +854,7 @@ investissement@tie{}!}
   amis sur son potentiel.}
 @divEnd
 
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading Et ensuite ?

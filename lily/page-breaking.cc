@@ -1137,6 +1137,7 @@ Page_breaking::pack_systems_on_least_pages (vsize configuration, vsize first_pag
   Page_spacing space (page_height (first_page_num, false), this);
 
   cache_line_details (configuration);
+  compute_line_heights ();
   for (vsize line = 0; line < cached_line_details_.size (); line++)
     {
       Real prev_force = space.force_;

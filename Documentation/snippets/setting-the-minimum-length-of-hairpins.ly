@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   texidoces = "
 Si los reguladores son demasiado cortos, se pueden alargar
 modificando la propiedad @code{minimum-length} del objeto
@@ -25,7 +25,7 @@ verändert wird.
   doctitlede = "Die Mindestlänge von Crescendo-Klammern bestimmen"
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
-Si un soufflet est trop court, il suffit d'ajuster la propriété 
+Si un soufflet est trop court, il suffit d'ajuster la propriété
 @code{minimum-length} de l'objet @code{Hairpin} pour l'allonger.
 
 "

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches, vocal-music"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   doctitlees = "Ámbitos con varias voces"
   texidoces = "
 La adición del grabador @code{Ambitus_engraver} al contexto de
@@ -26,7 +26,7 @@ Fall, dass mehrere Stimmen sich im gleichen System befinden.
   texidocfr = "
 Si plusieurs voix se trouvent sur une même portée, on peut attribuer le
 graveur @code{Ambitus_engraver} au contexte @code{Staff} afin d'obtenir
-l'ambitus de toutes les voix cumulées, non d'une seule des voix actives. 
+l'ambitus de toutes les voix cumulées, non d'une seule des voix actives.
 
 "
   doctitlefr = "Ambitus sur plusieurs voix"

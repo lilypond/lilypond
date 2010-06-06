@@ -468,6 +468,9 @@ make -j3
 If you get errors using the @option{-j} option, and @samp{make}
 succeeds without it, try lowering the @code{@var{X}} value.
 
+Because multiple jobs run in parallel when @option{-j} is used, it can
+be difficult to determine the source of an error when one occurs.  In
+that case, running @samp{make} without the @option{-j} is advised.
 
 @node Compiling for multiple platforms
 @subsection Compiling for multiple platforms

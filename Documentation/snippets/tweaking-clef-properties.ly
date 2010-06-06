@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
 
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   doctitlees = "Trucaje de las propiedades de clave"
   texidoces = "
 La instrucción @code{\\clef \"treble_8\"} equivale a un ajuste de
@@ -79,7 +79,7 @@ La commande @code{\\clef \"treble_8\"} équivaut à définir @code{clefGlyph},
 @code{clefPosition} -- qui contrôle la position verticale de la clé --
 @code{middleCPosition} et @code{clefOctavation}.  Une clé est imprimée
 lorsque l'une de ces propriétés, hormis @code{middleCPosition}, est
-modifiée. 
+modifiée.
  Les exemples suivant font
 apparaître des possibilités de réglage manuel de ces propriétés.
 
@@ -95,11 +95,11 @@ une autre valeur.
 
 Lorsqu'un changement de clef intervient en même temps qu'un saut de
 ligne, la nouvelle clef est imprimer à la fois en fin de ligne et au
-début de la suivante.  Vous pouvez toujours supprimer cette « clef de 
+début de la suivante.  Vous pouvez toujours supprimer cette « clef de
 précaution » en affectant la valeur @code{end-of-line-invisible} à la
 propriété @code{explicitClefVisibility} du contexte @code{Staff}.  Le
-comportement par défaut sera réactivé par 
-@w{@code{\\unset@tie{}Staff.explicitClefVisibility}}. 
+comportement par défaut sera réactivé par
+@w{@code{\\unset@tie{}Staff.explicitClefVisibility}}.
 
 
 Les exemples qui suivent illustrent les différentes possibilités de

@@ -5,7 +5,7 @@
 \version "2.13.21"
 
 \header {
-%% Translation of GIT committish: 22d889f4d27469864c31db81445e9de49774ae23
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
 
   texidoces = "
 Esta plantilla crea una partitura que comienza con una estrofa para

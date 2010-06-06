@@ -5,7 +5,7 @@
 \version "2.13.20"
 
 \header {
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   doctitlees = "Marca de pizzicato de chasquido (`pizzicato de Bartók')"
   texidoces = "
 El pizzicato de chasquido (también llamado @q{Pizzicato de Bartók}) es un

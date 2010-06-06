@@ -293,7 +293,9 @@ Internals Reference:
 When the first note on a staff is a grace note followed by a
 tuplet the grace note must be placed before the @code{\times}
 command to avoid errors.  Anywhere else, grace notes may be
-placed within tuplet brackets.
+placed within tuplet brackets.  When using a tuplet at the beginning
+of a piece with a @code{\tempo} mark, you must add an explicit
+@code{\new Voice} as discussed in @rlearning{Voices contain music}.
 
 
 @node Scaling durations

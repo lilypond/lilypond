@@ -5,7 +5,7 @@
 \version "2.13.20"
 
 \header {
-%% Translation of GIT committish: d2119a9e5e951c6ae850322f41444ac98d1ed492
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
   doctitlees = "Armaduras de tonalidad no tradicionales"
   texidoces = "
 
@@ -59,7 +59,7 @@ Hier ein Beispiel einer möglichen Tonart für eine Ganztonleiter:
 
 %% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
   texidocfr = "
-La commande @code{\\key} détermine la propriété @code{keySignature} d'un 
+La commande @code{\\key} détermine la propriété @code{keySignature} d'un
 contexte @code{Staff}.
 
 Des armures inhabituelles peuvent être spécifiées en modifiant
@@ -67,14 +67,14 @@ directement cette propriété. Il s'agit en l'occurence de définir une
 liste :
 
 @code{\\set Staff.keySignature = #`(((octave . pas) . altération) ((octave
-. pas) . altération) @dots{})} 
+. pas) . altération) @dots{})}
 
-dans laquelle, et pour chaque élément, 
+dans laquelle, et pour chaque élément,
 @code{octave} spécifie l'octave (0@tie{}pour celle allant du
 do@tie{}médium au si supérieur), @code{pas} la note dans cette octave
 (0@tie{}pour@tie{}do et 6@tie{}pour@tie{}si), et @code{altération} sera
 @code{,SHARP ,FLAT ,DOUBLE-SHARP} etc.  (attention à la virgule en
-préfixe). 
+préfixe).
 
 Une formulation abrégée -- @code{(pas . altération)} -- signifie que
 l'altération de l'élément en question sera valide quel que soit l'octave.
