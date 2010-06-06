@@ -6,17 +6,17 @@ This chapter deals with defects, feature requests, and
 miscellaneous development tasks.
 
 @menu
-* Introduction to issues and the Bug Squad::
+* Introduction to issues::
+* Bug Squad checklists::
 * Issue classification::
 * Adding issues to the tracker::
-* Checking and verifying issues::
 * Summary of project status::
 * Finding the cause of a regression::
 @end menu
 
 
-@node Introduction to issues and the Bug Squad
-@section Introduction to issues and the Bug Squad
+@node Introduction to issues
+@section Introduction to issues
 
 @warning{Unless otherwise specified, all the tasks in this chapter
 are @qq{simple} tasks: they can be done by a normal user with
@@ -35,9 +35,23 @@ report contains enough information for developers, and checking
 that a developer's fix actually resolves the problem.
 
 
-@subsubheading Email checklist
+@node Bug Squad checklists
+@section Bug Squad checklists
 
-Every email to @code{bug-lilypond} should be handled within
+We highly recommend that you configure your email client to put
+messages from:
+
+@example
+@@googlecode.com
+@end example
+
+@noindent
+into a separate folder than emails to @code{bug-lilypond}.
+
+
+@subsubheading New emails to @code{bug-lilypond}
+
+Every new email to @code{bug-lilypond} should be handled within
 @strong{24 hours} in the first method which is applicable:
 
 @enumerate
@@ -69,6 +83,104 @@ Accept the report as described in
 @ref{Adding issues to the tracker}.
 
 @end enumerate
+
+
+@subheading Updates / discussion about issues
+
+We try to keep discussions about issues on the tracker, but
+sometimes it spills over onto email.  If discussion has ended with
+no patch / resolution and at least @strong{3 days} have passed,
+then either:
+
+@itemize
+
+@item
+Summarize the recent discussion on the tracker, and add a link to
+the original discussion.
+
+@item
+Add the comment @qq{there was some technical discussion which I
+could not understand}, and include a link to the original
+discussion.
+
+We do not expect Bug Squad members to be programmers, or even to
+be moderately-skilled users.  Your job is to keep track of issue
+reports; it is @emph{perfectly acceptable} to not understand
+discussions between advanced users and/or developers.
+
+@end itemize
+
+
+@subheading Regular maintenance
+
+After @strong{every release} (both stable and unstable):
+
+@itemize
+
+@item
+Regression test comparison: if anything has changed suspiciously,
+ask if it was deliberate.  The official comparison is online, at:
+
+@example
+@uref{http://lilypond.org/test/}
+@end example
+
+@item
+Issues to verify: try to reproduce the bug with the latest
+version; if you cannot reproduce the bug, mark the item
+@qq{Verified} (i.e. @qq{the fix has been verified to work}).
+
+@example
+@uref{http://code.google.com/p/lilypond/issues/list?can=7}
+@end example
+
+@end itemize
+
+Once every @strong{two weeks} or so:
+
+@itemize
+
+@item
+Check for any incorrectly-classified items in the tracker.  This
+generally just means looking at the grid to see any items without
+a Type or Priority.
+
+@item
+Check for any items with @code{label:patch}.  If it's been more
+than a week since the last action on the issue, send an email to
+-devel to remind them about it.  If the patch was withdrawn for
+more work, then remove the @code{patch} label.
+
+@example
+@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:patch}
+@end example
+
+@end itemize
+
+@subheading Irregular maintenance
+
+@warning{These tasks are a lot of work; gathering more volunteers
+to help is definitely recommended.  However, the Bug Squad should
+handle the organization and training of new volunteers.}
+
+Once every year or two:
+
+@itemize
+
+@item
+Checking all regtests: although we have a system for checking the
+regtests between two versions, occasionally a bug will slip
+through the cracks.  It is therefore good to manually examine all
+the regtests (compare the images to the text description).
+
+@item
+Checking all issues: we try to mark each Issue @q{fixed} when we
+fix it, but occasionally one or two issues will slip through the
+cracks.  It is therefore good to check all Issues. If you see the
+same (broken) output as the initial report, then simply post a
+@qq{Problem still exists in 2.x.y} message to the issue.
+
+@end itemize
 
 
 @node Issue classification
@@ -270,9 +382,9 @@ in to their google account before adding an item.
 @enumerate
 
 @item
-Check if the issue falls into any previous category given on
-@ref{Introduction to issues and the Bug Squad}.  If in doubt, add
-a new issue for a report.  We would prefer to have some
+Check if the issue falls into any previous category given on the
+relevant checklists in @ref{Bug Squad checklists}.  If in doubt,
+add a new issue for a report.  We would prefer to have some
 incorrectly-added issues rather than lose information that should
 have been added.
 
@@ -292,6 +404,9 @@ email should contain a link to the issue you just added.
 
 
 @subsubheading Patch reminders
+
+@warning{This is not a Bug Squad responsibility; we have a
+separate person handling this task.}
 
 There is a special category of issues: reminders of an existing
 patch.  These should be added if a patch has been sent to a
@@ -315,64 +430,6 @@ was sent to multiple mailing lists (such as both @code{bugs} and
 @code{devel}), then reply to all those mailing lists as well.  The
 email should contain a link to the issue you just added.
 
-
-@node Checking and verifying issues
-@section Checking and verifying issues
-
-After each release (both stable and unstable):
-
-@itemize
-
-@item
-Regression test comparison: check the relevant version in
-@uref{http://lilypond.org/test/}.
-
-@item
-Issues to verify:
-@uref{http://code.google.com/p/lilypond/issues/list?can=7}.
-
-@end itemize
-
-Once every two weeks or so:
-
-@itemize
-
-@item
-Check for any incorrectly-classified items in the tracker.  This
-generally just means looking at the grid to see any items without
-a Type or Priority.
-
-@item
-Check for any items with @code{label:patch}.  If it's been more
-than a week since the last action on the issue, send an email to
--devel to remind them about it.  If the patch was withdrawn for
-more work, then remove the @code{patch} label.
-
-@example
-@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:patch}
-@end example
-
-@end itemize
-
-Once every year or two: (yes, these are large tasks; gathering
-more volunteers to help is definitely recommended)
-
-@itemize
-
-@item
-Checking all regtests: although we have a system for checking the
-regtests between two versions, occasionally a bug will slip
-through the cracks.  It is therefore good to manually examine all
-the regtests (compare the images to the text description).
-
-@item
-Checking all issues: we try to mark each Issue @q{fixed} when we
-fix it, but occasionally one or two issues will slip through the
-cracks.  It is therefore good to check all Issues. If you see the
-same (broken) output as the initial report, then simply post a
-@qq{Problem still exists in 2.x.y} message to the issue.
-
-@end itemize
 
 
 @node Summary of project status
