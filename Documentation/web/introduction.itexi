@@ -1014,7 +1014,7 @@ are actively working to bring it up to our present stable version, 2.12.}
 @divEnd
 
 @divClass{column-center-top}
-@subheading Text environment: Emacs and Vim
+@subheading Emacs and Vim
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
