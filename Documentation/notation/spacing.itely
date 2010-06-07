@@ -1618,14 +1618,14 @@ the variables to control spacing between systems are set in the
 variables are @var{between-system-spacing},
 @var{between-scores-system-spacing}, @var{after-title-spacing},
 @var{before-title-spacing}, @var{between-title-spacing},
-@var{top-system-spacing}, @var{top-system-spacing},
-@var{top-title-spacing} and @var{bottom-system-spacing}.  Note that
-these variables ignore non-staff lines.  For example,
-@var{between-system-spacing} controls the spacing from the middle staff
-line of the bottom staff from one system to the middle staff line of the
-top staff of the next system, whether or not there are lyrics below the
-upper system.  See @ref{Vertical dimensions} for a description of each
-of these variables.
+@var{top-system-spacing}, @var{top-title-spacing} and
+@var{bottom-system-spacing}.  Note that these variables ignore non-staff
+lines.  For example, @var{between-system-spacing} controls the spacing
+from the middle staff line of the bottom staff from one system to
+the middle staff line of the top staff of the next system, whether
+or not there are lyrics below the upper system.
+See @ref{Vertical dimensions} for a description of each of these
+variables.
 
 There are two more @code{\paper} block variables that affect vertical
 spacing: if @var{ragged-bottom} is set to @code{##t} then no pages will
