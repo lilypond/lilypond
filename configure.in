@@ -137,7 +137,7 @@ STEPMAKE_PYTHON_DEVEL(REQUIRED)
 
 STEPMAKE_PATH_PROG(GHOSTSCRIPT, gs, OPTIONAL, 8.60)
 
-STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20090923)
+STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20050624)
 # For svg woff fonts to work, version 20100501 is required but
 # the build does not break; leave optional until distros ship it.
 STEPMAKE_PATH_PROG(FONTFORGE, fontforge, OPTIONAL, 20100501)
