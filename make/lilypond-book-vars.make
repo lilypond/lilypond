@@ -20,9 +20,9 @@ LILYBOOK_OUT_XML_FILES = ${LILYBOOK_XML_FILES:%.xml=$(outdir)/%.html}
 LILYBOOK_OUT_LYTEX_FILES = ${LILYBOOK_LYTEX_FILES:%.lytex=$(outdir)/%.pdf}
 LILYBOOK_OUT_LATEX_FILES = ${LILYBOOK_LATEX_FILES:%.latex=$(outdir)/%.pdf}
 LILYBOOK_OUT_TEX_FILES = ${LILYBOOK_TEX_FILES:%.tex=$(outdir)/%.pdf}
-LILYBOOK_OUT_TEXI_FILES = ${LILYBOOK_TEXI_FILES:%.texi=$(outdir)/%.texi}
-LILYBOOK_OUT_TELY_FILES = ${LILYBOOK_TELY_FILES:%.tely=$(outdir)/%.texi}
-LILYBOOK_OUT_DOCBOOK_FILES = ${LILYBOOK_DOCBOOK_FILES:%.lyxml=$(outdir)/%.xml}
+LILYBOOK_OUT_TEXI_FILES = ${LILYBOOK_TEXI_FILES:%.texi=$(outdir)/%.html}
+LILYBOOK_OUT_TELY_FILES = ${LILYBOOK_TELY_FILES:%.tely=$(outdir)/%.html}
+LILYBOOK_OUT_DOCBOOK_FILES = ${LILYBOOK_DOCBOOK_FILES:%.lyxml=$(outdir)/%.pdf}
 
 LILYBOOK_OUT_FILES = $(sort $(LILYBOOK_OUT_HTML_FILES) \
                             $(LILYBOOK_OUT_XML_FILES) \
@@ -31,10 +31,10 @@ LILYBOOK_OUT_FILES = $(sort $(LILYBOOK_OUT_HTML_FILES) \
                             $(LILYBOOK_OUT_TEX_FILES) \
                             $(LILYBOOK_OUT_TEXI_FILES) \
                             $(LILYBOOK_OUT_TELY_FILES) \
-                            $(LILYBOOK_OUT_DOOCBOOK_FILES)) \
+                            $(LILYBOOK_OUT_DOCBOOK_FILES))
 
 EXTRA_DIST_FILES += $(LILYBOOK_HTML_FILES) $(LILYBOOK_XML_FILES) \
                     $(LILYBOOK_LYTEX_FILES) $(LILYBOOK_LATEX_FILES) \
-                    $(LILYBOOK_TEX_FILES) $(LILYBOOK_TEXI_FILES)
+                    $(LILYBOOK_TEX_FILES) $(LILYBOOK_TEXI_FILES) \
                     $(LILYBOOK_TELY_FILES) $(LILYBOOK_DOCBOOK_FILES)
 
