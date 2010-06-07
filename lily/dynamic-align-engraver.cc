@@ -100,7 +100,17 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
   Stream_event *cause = info.event_cause ();
   create_line_spanner (cause);
   if (Spanner::has_interface (info.grob ()))
-    started_.push_back (info.spanner ());
+    {
+      started_.push_back (info.spanner ());
+      /*
+	If we are using text spans instead of hairpins and the line
+	is hidden, end the alignment spanner early: this allows dynamics
+	to be spaced individually instead of being linked together.
+      */
+      if (info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-text-spanner-interface"))
+	  && (info.grob ()->get_property ("style") == ly_symbol2scm ("none")))
+	early_end_ = true;
+    }
   else if (info.item ())
     scripts_.push_back (info.item ());
   else
