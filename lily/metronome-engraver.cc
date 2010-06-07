@@ -28,7 +28,6 @@ using namespace std;
 #include "item.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
-#include "time-signature.hh"
 
 #include "translator.icc"
 
@@ -74,8 +73,12 @@ void
 Metronome_mark_engraver::acknowledge_break_aligned (Grob_info inf)
 {
   Grob *s = inf.grob ();
-  if (text_ && Time_signature::has_interface (s))
-    support_ = s;
+  if (text_
+      && (s->get_property_data ("break-align-symbol")
+	  == text_->get_property_data ("break-align-symbol")))
+    {
+      support_ = s;
+    }
 }
 
 void
