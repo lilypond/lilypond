@@ -5,6 +5,9 @@
 $(outdir)/%.html:  %.html
 	$(LILYPOND_BOOK_COMMAND) -o $(outdir) $<
 
+$(outdir)/%.html:  %.htmly
+	$(LILYPOND_BOOK_COMMAND) -o $(outdir) $<
+
 $(outdir)/%.html:  %.xml
 	$(LILYPOND_BOOK_COMMAND) -o $(outdir) $<
 
