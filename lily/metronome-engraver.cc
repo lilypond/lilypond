@@ -28,6 +28,7 @@ using namespace std;
 #include "item.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
+#include "time-signature.hh"
 
 #include "translator.icc"
 
@@ -35,16 +36,16 @@ class Metronome_mark_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Metronome_mark_engraver);
+
 protected:
   Item *text_;
-  Grob *bar_line_;
+  Grob *support_;
 
   SCM last_duration_;
   SCM last_count_;
   SCM last_text_;
 
   DECLARE_ACKNOWLEDGER (break_aligned);
-  DECLARE_ACKNOWLEDGER (break_alignment);
   
 protected:
   virtual void derived_mark () const;
@@ -55,6 +56,7 @@ protected:
 Metronome_mark_engraver::Metronome_mark_engraver ()
 {
   text_ = 0;
+  support_ = 0;
   last_duration_ = SCM_EOL;
   last_count_ = SCM_EOL;
   last_text_ = SCM_EOL;
@@ -72,42 +74,31 @@ void
 Metronome_mark_engraver::acknowledge_break_aligned (Grob_info inf)
 {
   Grob *s = inf.grob ();
-  if (text_
-      && !text_->get_parent (X_AXIS)
-      && dynamic_cast<Item *> (s)
-      && (s->get_property_data ("break-align-symbol")
-	  == text_->get_property_data ("break-align-symbol")))
-    text_->set_parent (s, X_AXIS);
+  if (text_ && Time_signature::has_interface (s))
+    support_ = s;
 }
-
-void
-Metronome_mark_engraver::acknowledge_break_alignment (Grob_info inf)
-{
-  Grob *s = inf.grob ();
-  if (text_
-      && dynamic_cast<Item *> (s))
-    {
-      text_->set_parent (s, X_AXIS);
-    }
-}
-
 
 void
 Metronome_mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      /*
-	Problem: how to set musical columns as parent
-	when there's no breakable object of interest nearby?
-	We don't want metronome marks aligned to paper columns.
-       
-	Grob *mc = unsmob_grob (get_property ("currentMusicalColumn"));
-	text_->set_parent (mc, X_AXIS);
-      */
+      if (!support_)
+	{
+	  /*
+	    Gardner Read "Music Notation", p.278
+
+	    Align the metronome mark over the time signature (or the
+	    first notational element of the measure if no time
+	    signature is present in that measure).
+	  */
+	  Grob *mc = unsmob_grob (get_property ("currentMusicalColumn"));
+	  text_->set_parent (mc, X_AXIS);
+	}
       text_->set_object ("side-support-elements",
 			 grob_list_to_grob_array (get_property ("stavesFound")));
       text_ = 0;
+      support_ = 0;
     }
 }
 
@@ -144,7 +135,6 @@ Metronome_mark_engraver::process_music ()
 
 
 ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_aligned);
-ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_alignment);
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
 		/* doc */
