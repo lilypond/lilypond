@@ -1155,6 +1155,7 @@
     (MetronomeMark
      . (
 	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+	(break-visibility . ,end-of-line-invisible)
 	(direction . ,UP)
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-priority . 1000)
@@ -1170,7 +1171,7 @@
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(self-alignment-X . -1)
 	(break-align-symbol . time-signature)
-	(break-align-symbols . (time-signature))
+	(break-align-symbols . (time-signature multi-measure-rest))
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				metronome-mark-interface
@@ -1180,6 +1181,7 @@
 
     (MultiMeasureRest
      . (
+	(break-align-symbol . multi-measure-rest)
 	(expand-limit . 10)
 	(hair-thickness . 2.0)
 	(padding . 1)

@@ -45,7 +45,8 @@ protected:
   SCM last_text_;
 
   DECLARE_ACKNOWLEDGER (break_aligned);
-  
+  DECLARE_ACKNOWLEDGER (grob);
+
 protected:
   virtual void derived_mark () const;
   void stop_translation_timestep ();
@@ -70,14 +71,31 @@ Metronome_mark_engraver::derived_mark () const
 }
 
 void
-Metronome_mark_engraver::acknowledge_break_aligned (Grob_info inf)
+Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
 {
-  Grob *s = inf.grob ();
+  Grob *g = info.grob ();
   if (text_
-      && (s->get_property_data ("break-align-symbol")
+      && !support_
+      && (g->get_property_data ("break-align-symbol")
 	  == text_->get_property_data ("break-align-symbol")))
     {
-      support_ = s;
+      support_ = g;
+      text_->set_parent (g, X_AXIS);
+    }
+}
+
+void
+Metronome_mark_engraver::acknowledge_grob (Grob_info info)
+{
+  Grob *g = info.grob ();
+
+  if (text_
+      && !support_
+      && scm_member (g->get_property_data ("break-align-symbol"),
+		     text_->get_property_data ("break-align-symbols"))
+      != SCM_BOOL_F)
+    {
+      text_->set_parent (g, X_AXIS);
     }
 }
 
@@ -95,8 +113,10 @@ Metronome_mark_engraver::stop_translation_timestep ()
 	    first notational element of the measure if no time
 	    signature is present in that measure).
 	  */
-	  Grob *mc = unsmob_grob (get_property ("currentMusicalColumn"));
-	  text_->set_parent (mc, X_AXIS);
+	  if (Grob *mc = unsmob_grob (get_property ("currentMusicalColumn")))
+	    text_->set_parent (mc, X_AXIS);
+	  else if (Grob *cc = unsmob_grob (get_property ("currentCommandColumn")))
+	    text_->set_parent (cc, X_AXIS);
 	}
       text_->set_object ("side-support-elements",
 			 grob_list_to_grob_array (get_property ("stavesFound")));
@@ -138,6 +158,7 @@ Metronome_mark_engraver::process_music ()
 
 
 ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_aligned);
+ADD_ACKNOWLEDGER (Metronome_mark_engraver, grob);
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
 		/* doc */
