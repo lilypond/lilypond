@@ -19,11 +19,11 @@
 
 #include "line-interface.hh"
 
-#include "staff-symbol-referencer.hh"
+#include "font-interface.hh"
+#include "grob.hh"
 #include "lookup.hh"
 #include "output-def.hh"
-#include "grob.hh"
-#include "font-interface.hh"
+#include "staff-symbol-referencer.hh"
 
 Stencil
 Line_interface::make_arrow (Offset begin, Offset end,
@@ -48,7 +48,7 @@ Line_interface::make_trill_line (Grob *me,
 				 Offset from,
 				 Offset to)
 {
-  Offset dz = (to-from);
+  Offset dz = (to - from);
 
   Font_metric *fm = Font_interface::get_default_font (me);
 
@@ -82,7 +82,7 @@ Line_interface::make_zigzag_line (Grob *me,
 				  Offset from,
 				  Offset to)
 {
-  Offset dz = to -from;
+  Offset dz = to - from;
 
   Real thick = Staff_symbol_referencer::line_thickness (me);
   thick *= robust_scm2double (me->get_property ("thickness"), 1.0); // todo: staff sym referencer? 
@@ -203,11 +203,11 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 
   SCM type = me->get_property ("style");
   if (type == ly_symbol2scm ("zigzag"))
-    {
-      return make_zigzag_line (me, from, to);
-    }
+    return make_zigzag_line (me, from, to);
   else if (type == ly_symbol2scm ("trill"))
     return make_trill_line (me, from, to);
+  else if (type == ly_symbol2scm ("none"))
+    return Stencil ();
   
   Stencil stencil;
 
@@ -226,7 +226,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       if (period <= 0)
 	return Stencil ();
 
-      Real len = (to-from).length ();
+      Real len = (to - from).length ();
       
       int n = (int) rint ((len - period * fraction) / period);
       n = max (0, n);
@@ -236,7 +236,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 	    TODO: figure out something intelligent for really short
 	    sections.
 	   */
-	  period = ((to-from).length () - period * fraction) / n;
+	  period = ((to - from).length () - period * fraction) / n;
 	}
       stencil = make_dashed_line (thick, from, to, period, fraction);
     }
@@ -249,21 +249,20 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 ADD_INTERFACE (Line_interface,
 	       "Generic line objects.  Any object using lines supports this."
 	       "  The property @code{style} can be @code{line},"
-	       " @code{dashed-line}, @code{trill}, @code{dotted-line} or"
-	       " @code{zigzag}.\n"
+	       " @code{dashed-line}, @code{trill}, @code{dotted-line},"
+	       " @code{zigzag} or @code{none} (a transparent line).\n"
 	       "\n"
 	       "For @code{dashed-line}, the length of the dashes is tuned"
 	       " with @code{dash-fraction}.  If the latter is set to@tie{}0, a"
-	       " dotted line is produced.  If @code{dash-period} is negative,"
-	       " the line is made transparent.",
+	       " dotted line is produced.",
 
 	       /* properties */
-	       "dash-period "
+	       "arrow-length "
+	       "arrow-width "
 	       "dash-fraction "
-	       "thickness "
+	       "dash-period "
 	       "style "
+	       "thickness "
 	       "zigzag-length "
 	       "zigzag-width "
-	       "arrow-length "
-	       "arrow-width ")
-
+	       );

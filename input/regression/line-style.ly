@@ -1,10 +1,7 @@
+\version "2.13.24"
+
 \header {
-  texidoc = "Cover all line styles available"
-  
-}
-\version "2.12.0"
-\paper {
-  ragged-right = ##T
+  texidoc = "Cover all line styles available."  
 }
 
 \relative c'' {
@@ -16,9 +13,12 @@
   d,2 \glissando d'2
   \override Glissando #'style = #'dotted-line
   d,2 \glissando d'2
-
+  
   \override Glissando #'style = #'zigzag
   d,2 \glissando d'2
   \override Glissando #'style = #'trill
+  d,2 \glissando d'2
+  
+  \override Glissando #'style = #'none
   d,2 \glissando d'2
 }
