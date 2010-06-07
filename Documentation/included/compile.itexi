@@ -524,7 +524,7 @@ command line, or in @file{local.make} at top of the build tree.
 @menu
 * Installing LilyPond from a local build::
 * Generating documentation::
-* Testing LilyPond::
+* Testing LilyPond binary::
 @end menu
 
 
@@ -853,93 +853,25 @@ exec /opt/local/bin/pngtopnm "$@"
 @end verbatim
 
 
-@node Testing LilyPond
-@subsection Testing LilyPond
+@node Testing LilyPond binary
+@subsection Testing LilyPond binary
 
 
 LilyPond comes with an extensive suite that exercises the entire
-program. This suite can be used to automatically check the impact
-of a change.
+program.   This suite can be used to test that the binary has
+been built correctly.
 
-@menu
-* Developer's edit/compile/test cycle::
-* Other tests::
-@end menu
+The test suite can be executed with:
 
-@node Developer's edit/compile/test cycle
-@unnumberedsubsubsec Developer's edit/compile/test cycle
+@verbatim
+make test
+@end verbatim
 
-TODO: is @code{[-j@var{X} CPU_COUNT=@var{X}]} useful for
-@code{test-baseline}, @code{check}, @code{clean},
-@code{test-redo}?
+If the test suite completes successfully, the LilyPond binary
+has been verified.
 
-@itemize
-@item
-Initial test:
-
-@example
-make [-j@var{X}]
-make test-baseline
-make [-j@var{X} CPU_COUNT=@var{X}] check
-@end example
-
-@item
-Edit/compile/test cycle:
-
-@example
-@emph{## edit source files, then...}
-
-make clean                    @emph{## only if needed (see below)}
-make [-j@var{X}]                    @emph{## only if needed (see below)}
-make test-redo                @emph{## redo files differing from baseline}
-make [-j@var{X} CPU_COUNT=@var{X}] check  @emph{## CPU_COUNT here?}
-@end example
-
-@item
-Reset:
-
-@example
-make test-clean
-@end example
-@end itemize
-
-If you modify any source files that have to be compiled (such as
-@file{.cc} or @file{.hh} files in @file{flower/} or @file{lily/}),
-then you must run @command{make} before @command{make test-redo},
-so @command{make} can compile the modified files and relink all
-the object files.  If you only modify files which are interpreted,
-like those in the @file{scm/} and @file{ly/} directories, then
-@command{make} is not needed before @command{make test-redo}.
-
-Also, if you modify any font definitions in the @file{mf/}
-directory then you must run @command{make clean} and
-@command{make} before running @command{make test-redo}.  This will
-recompile everything, whether modified or not, and takes a lot
-longer.
-
-Running @command{make@tie{}check} will leave an HTML page
-@file{out/test-results/index.html}.  This page shows all the
-important differences that your change introduced, whether in the
-layout, MIDI, performance or error reporting.
-
-
-@node Other tests
-@unnumberedsubsubsec Other tests
-
-For tracking memory usage as part of this test, you will need
-GUILE CVS; especially the following patch:
-@uref{http://www.lilypond.org/vc/old/gub.darcs/patches/guile-1.9-gcstats.patch}.
-
-For checking the coverage of the test suite, do the following
-
-@example
-./scripts/auxiliar/build-coverage.sh
-@emph{# uncovered files, least covered first}
-./scripts/auxiliar/coverage.py  --summary out-cov/*.cc
-@emph{# consecutive uncovered lines, longest first}
-./scripts/auxiliar/coverage.py  --uncovered out-cov/*.cc
-@end example
-
+More information on the regression test suite is found at
+@rcontrib{Regression tests}.
 
 @node Problems
 @section Problems

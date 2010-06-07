@@ -4,8 +4,10 @@
 
 @menu
 * Introduction to regression tests::
-* Current regtest output::
-* Comparison regtest output::
+* Precompiled regression tests::
+* Compiling regression tests::
+* Identifying code regressions::
+* Memory and coverage tests::
 * MusicXML tests::
 @end menu
 
@@ -23,132 +25,210 @@ LilyPond.  They are also added when bugs are identified.  The
 snippet that causes the bug becomes a regression test to verify
 that the bug has been fixed.
 
-The regression tests are automatically compiled using special @code{make}
-targets.  The output of the regression tests is also automatically
-checked to identify changes in LilyPond output.
+The regression tests are compiled using special @code{make}
+targets.  There are three primary uses for the regression
+tests.  First, successful completion of the regression tests means
+that LilyPond has been properly built.  Second, the output of the
+regression tests can be manually checked to ensure that
+the graphical output matches the description of the intended
+output.  Third, the regression test output from two different
+versions of LilyPond can be automatically compared to identify
+any differences.  These differences should then be manually
+checked to ensure that the differences are intended.
 
-The output of the regression tests is available on the website
-for every stable version of LilyPond.  This allows the comparison
-of different versions to see when bugs appeared.
-
-
-@node Current regtest output
-@section Current regtest output
-
-
-TODO: To be checked and completed -vv
-
-Regression tests (@qq{regtests}) are available in two ways: either
-in a compiled form, for instance on the website, or as source code
-that needs to be compiled locally, using the most recent LilyPond
-binary as possible.  The latter is recommended, although more
-technically involved.
+Regression tests (@qq{regtests}) are available in precompiled form
+as part of the documentation.  Regtests can also be compiled
+on any machine that has a properly configured LilyPond build
+system.
 
 
-@subheading Precompiled regtests
+@node Precompiled regression tests
+@section Precompiled regression tests
 
-The easiest way to see the @q{current} regtest output (meaning,
-the ouput of the latest stable or development version) is
-to look at the online compiled regtest page:
+@subheading Regression test output
+
+As part of the release process, the regression tests are run
+for every LilyPond release.  Full regression test output is
+available for every stable version and the most recent development
+version.
+
+Regression test output is available in HTML and PDF format.  Links
+to the regression test output are available at the developer's
+resources page for the version of interest.
+
+The latest stable version of the regtests is found at:
+
+@example
+@uref{http://lilypond.org/doc/stable/input/regression/collated-files.html}
+@end example
+
+The latest development version of the regtests is found at:
 
 @example
 @uref{http://lilypond.org/doc/latest/input/regression/collated-files.html}
 @end example
 
-However, depending on how many changes have been made to the code
-since the latest release, this page may not reflect the latest
-features, bugfixes... or new bugs that may have been introduced!
 
-Therefore, if you have an appropriate environment to build LilyPond
-yourself, it is recommended that you compile the software yourself.
+@subheading Regression test comparison
 
-
-@subheading Compiling regtests
-
-The first step is to download the latest available source code,
-as explained in @ref{Working with source code}.  Then you will need
-to build the LilyPond binary: see
-@ref{Compiling LilyPond}.
-
-@noindent
-(Uninstalling the previous LilyPond version is not necessary, nor is
-running @code{make install}, since the tests will automatically be
-compiled with the LilyPond binary you have just built in your source
-directory.)
-
-From this point, compiling the regtests is as simple as running
-
-@example
-make test
-@end example
-
-However, as there are many snippets to compile, if you have a multi-core
-machine it is highly recommended to use the @option{-j} option, as
-described in @ref{Saving time with the -j option}.  Another
-useful optimization is to set the @var{CPU_COUNT} variable; for a
-quad-core processor the complete command would look like
-
-@example
-make -j5 CPU_COUNT=4 test
-@end example
-
-The regtest output will then be available in one of the
-@file{input/regression/out-*} directories, depending on the
-exact command you used.  See @ref{Testing LilyPond} for
-more information.
-
-
-@node Comparison regtest output
-@section Comparison regtest output
-
-
-Regtests are an useful way to compare what has changed between two
-versions of LilyPond, or to verify on a fine-grained level if a
-particular change may have unwanted side-effects, such as introducing
-a bug or breaking existing features.
-
-For such cases, LilyPond's build system provides an automated way of
-comparing regtests output.
-
-
-@subheading Comparing regtests for two development releases
-
-Each time a new development version is released, a set of regtests is
-compiled and compared with the previous release.  The result of these
-comparisons is archived online, and may be seen at the following address:
+Each time a new version is released, the regtests are
+compiled and the output is automatically compared with the
+output of the previous release.  The result of these
+comparisons is archived online:
 
 @example
 @uref{http://lilypond.org/test/}
 @end example
 
-@noindent
-Checking these pages is a very important task for the LilyPond project.  
+The test comparison shows all of the changes that occured between
+the current release and the prior release.  Each test that has
+a significant difference in output is displayed, with the old
+version on the left and the new version on the right.  Blurs
+in the regression tests for the new version show the approximate
+location of elements in the old version.
+
+Regression tests whose output is the same for both versions are not
+shown in the test comparison.
+
+Checking these pages is a very important task for the LilyPond project.
 You are invited to report anything that looks broken, or any case
 where the output quality is not on par with the previous release,
-either to the Bug Squad, following our guidelines for
-@rweb{Bug reports}, or directly in the bug tracker, as explained in
-@ref{Issues}.
+as described in @rweb{Bug reports}.
+
+@warning{
+The automatic comparison of the regtests checks the
+LilyPond bounding boxes and the log files.  This means that
+Ghostscript changes and changes in
+lyrics or text are not found.  However, errors and warnings that
+are printed to the log file but
+do not change the graphical layout are also identified.
+
+Periodic manual checking of the
+complete regtest output should be performed to catch anything
+missed by the automatic comparison.}
+
+@node Compiling regression tests
+@section Compiling regression tests
+
+Developers may wish to see the output of the complete regression
+test suite for the current version of the source repository
+between releases.  Current source code is available; see
+@ref{Working with source code}.  Then you will need
+to build the LilyPond binary; see @ref{Compiling LilyPond}.
+
+Uninstalling the previous LilyPond version is not necessary, nor is
+running @code{make install}, since the tests will automatically be
+compiled with the LilyPond binary you have just built in your source
+directory.
+
+From this point, the regtests are compiled with:
+
+@example
+make test
+@end example
+
+If you have a multi-core machine you may want to use the @option{-j}
+option and @var{CPU_COUT} variable, as
+described in @ref{Saving time with CPU_COUNT}.
+For a quad-core processor the complete command would be:
+
+@example
+make -j5 CPU_COUNT=5 test
+@end example
+
+The regtest output will then be available in
+@file{input/regression/out-test}.
+@file{input/regression/out-test/collated-examples.html}
+contains a listing of all the regression tests that were run,
+but none of the images are included.  Individual images are
+also available in this directory.
+
+The primary use of @samp{make@tie{}test} is to verify that the
+regression tests all run without error.  The regression test
+page that is part of the documentation is created only when the
+documentation is built, as described in @ref{Generating documentation}.
+Note that building the documentation requires more installed components
+than building the source code, as described in
+@ref{Requirements for building documentation}.
 
 
-@subheading Comparing regtests when modifying the source code
+@node Identifying code regressions
+@section Identifying code regressions
 
-When changing any piece of code, developers are asked to verify that the
-regtests still compile successfuly (i.e., not only without error, but
-with an output quality equivalent or superior).  This may be done as
-described in @ref{Testing LilyPond}.
+Before modified code is committed to master, a regression test
+comparision must be completed to ensure that the changes have
+not caused problems with previously working code.  The comparison
+is made automatically upon compiling the regression test suite
+twice.
+
+Before making changes, a baseline should be established by running:
+
+@example
+make test-baseline
+@end example
+
+After making the changes, the code should be checked by running:
+
+@example
+make check
+@end example
+
+After @samp{make@tie{}check} is complete, a regression test comparison
+will be available at @file{out/test-results/index.html}.
+For each regression test that differs between the baseline and the
+changed code, a regression test entry will displayed.  Ideally, the
+only changes would be the changes that you were working on.  If
+regressions are introduced, they must be fixed before committing the
+code.
+
+@warning{
+The special regression test @file{test-output-distance.ly} will always
+show up as a regression.  This test changes each time it is run, and
+serves to verify that the regression tests have, in fact, run.}
+
+@node Memory and coverage tests
+@section Memory and coverage tests
+
+In addition to the graphical output of the regression tests, it is
+possible to test memory usage and to determine how much of the source
+code has been exercised by the tests.
+
+@subheading Memory usage
+
+For tracking memory usage as part of this test, you will need
+GUILE CVS; especially the following patch:
+@uref{http://www.lilypond.org/vc/old/gub.darcs/patches/guile-1.9-gcstats.patch}.
+
+@subheading Code coverage
+
+For checking the coverage of the test suite, do the following
+
+@example
+./scripts/auxiliar/build-coverage.sh
+@emph{# uncovered files, least covered first}
+./scripts/auxiliar/coverage.py  --summary out-cov/*.cc
+@emph{# consecutive uncovered lines, longest first}
+./scripts/auxiliar/coverage.py  --uncovered out-cov/*.cc
+@end example
 
 
 @node MusicXML tests
 @section MusicXML tests
 
 
-LilyPond comes with a fairly complete set of regtests for the
-@uref{http://www.musicxml.org/,MusicXML} language.  These tests may
-be seen online at the following address:
+LilyPond comes with a complete set of regtests for the
+@uref{http://www.musicxml.org/,MusicXML} language.  Originally
+developed to test @samp{musicxml2ly}, these regression tests
+can be used to test any MusicXML implementation.
+
+The MusicXML regression tests are found at
+@file{input/regression/musicxml/}.
+
+The output resulting from running these tests
+through @samp{muscxml2ly} followed by @samp{lilypond} is
+available in the LilyPond documentation:
 
 @example
 @uref{http://lilypond.org/doc/latest/input/regression/musicxml/collated-files}
 @end example
-
-TBC
 
