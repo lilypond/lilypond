@@ -1,0 +1,19 @@
+\documentclass[a4paper, 12pt]{article}
+
+\begin{document}
+
+\section{Using lilypond-book's fragment option}
+
+If a snippet is not a fully valid LilyPond file, you have
+to use the \verb|fragment| option:
+
+\begin{lilypond}[fragment]
+c d e
+\end{lilypond}
+
+% TODO: \verb does not yet work!!!
+There is also a shorthand version %\verb|\lilypond[fragment]{c' e' g'}|:
+
+\lilypond[fragment]{c' e' g'}
+
+\end{document}

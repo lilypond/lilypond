@@ -1,0 +1,11 @@
+\documentclass[a4paper, 12pt]{article}
+
+\begin{document}
+\section{LilyPond snippets in a footnote}
+
+Test for snippets in a footnote\footnote{Here's the footnote:
+\lilypond[fragment]{c' e' g'} }:
+\marginpar{ Yes, even as marginpar
+\lilypond[fragment]{c' d' e'} }
+
+\end{document}
