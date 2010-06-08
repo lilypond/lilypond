@@ -34,7 +34,7 @@ public:
   static bool read_spacing_spec (SCM spec, Real* dest, SCM sym);
   static bool is_spaceable (Grob *g);
   static SCM get_details (Grob *g);
-  static SCM get_spacing_spec (Grob *before, Grob *after);
+  static SCM get_spacing_spec (Grob *before, Grob *after, bool pure, int start, int end);
 
 protected:
   void append_system (System*, Spring const&, Real padding);

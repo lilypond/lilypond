@@ -27,7 +27,7 @@ class Staff_grouper_interface
 public:
   DECLARE_GROB_INTERFACE ();
 
-  static Grob *get_last_grob (Grob *);
+  static Grob *get_maybe_pure_last_grob (Grob *, bool, int, int);
 };
 
 #endif /* STAFF_GROUPER_INTERFACE_HH */

@@ -191,6 +191,26 @@ Grob::internal_get_property (SCM sym) const
   return val;
 }
 
+/* Unlike internal_get_property, this function does no caching. Use it, therefore, with caution. */
+SCM
+Grob::internal_get_pure_property (SCM sym, int start, int end) const
+{
+  SCM val = internal_get_property_data (sym);
+  if (ly_is_procedure (val))
+    return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
+  if (is_simple_closure (val))
+    return evaluate_with_simple_closure (self_scm (),
+					 simple_closure_expression (val),
+					 true, start, end);
+  return val;
+}
+
+SCM
+Grob::internal_get_maybe_pure_property (SCM sym, bool pure, int start, int end) const
+{
+  return pure ? internal_get_pure_property (sym, start, end) : internal_get_property (sym);
+}
+
 SCM
 Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
 {      

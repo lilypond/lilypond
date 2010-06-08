@@ -473,7 +473,7 @@ Page_layout_problem::distribute_loose_lines (vector<Grob*> const &loose_lines,
   Simple_spacer spacer;
   for (vsize i = 0; i + 1 < loose_lines.size (); ++i)
     {
-      SCM spec = get_spacing_spec (loose_lines[i], loose_lines[i+1]);
+      SCM spec = get_spacing_spec (loose_lines[i], loose_lines[i+1], false, 0, INT_MAX);
       Spring spring (1.0, 0.0);
       alter_spring_from_spacing_spec (spec, &spring);
       spring.ensure_min_distance (min_distances[i]);
@@ -645,7 +645,7 @@ const double HUGE_STRETCH = 10e7;
 
 // Returns the spacing spec connecting BEFORE to AFTER.
 SCM
-Page_layout_problem::get_spacing_spec (Grob *before, Grob *after)
+Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure, int start, int end)
 {
   // If there are no spacing wishes, return a very flexible spring.
   // This will occur, for example, if there are lyrics at the bottom of
@@ -657,38 +657,41 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after)
   if (is_spaceable (before))
     {
       if (is_spaceable (after))
-	return before->get_property ("next-staff-spacing");
+	return before->get_maybe_pure_property ("next-staff-spacing", pure, start, end);
       else
 	{
-	  Direction affinity = to_dir (after->get_property ("staff-affinity"));
+	  Direction affinity = to_dir (after->get_maybe_pure_property ("staff-affinity", pure, start, end));
 	  return (affinity == DOWN)
-	    ? add_stretchability (after->get_property ("non-affinity-spacing"), LARGE_STRETCH)
-	    : after->get_property ("inter-staff-spacing");
+	    ? add_stretchability (after->get_maybe_pure_property ("non-affinity-spacing", pure, start, end),
+				  LARGE_STRETCH)
+	    : after->get_maybe_pure_property ("inter-staff-spacing", pure, start, end);
 	}
     }
   else
     {
       if (is_spaceable (after))
 	{
-	  Direction affinity = to_dir (before->get_property ("staff-affinity"));
+	  Direction affinity = to_dir (before->get_maybe_pure_property ("staff-affinity", pure, start, end));
 	  return (affinity == UP)
-	    ? add_stretchability (before->get_property ("non-affinity-spacing"), LARGE_STRETCH)
-	    : before->get_property ("inter-staff-spacing");
+	    ? add_stretchability (before->get_maybe_pure_property ("non-affinity-spacing", pure, start, end),
+				  LARGE_STRETCH)
+	    : before->get_maybe_pure_property ("inter-staff-spacing", pure, start, end);
 	}
       else
 	{
-	  Direction before_affinity = to_dir (before->get_property ("staff-affinity"));
-	  Direction after_affinity = to_dir (after->get_property ("staff-affinity"));
+	  Direction before_affinity = to_dir (before->get_maybe_pure_property ("staff-affinity", pure, start, end));
+	  Direction after_affinity = to_dir (after->get_maybe_pure_property ("staff-affinity", pure, start, end));
 	  if (after_affinity > before_affinity)
 	    {
 	      warning (_ ("staff-affinities should only decrease"));
 	      after_affinity = before_affinity;
 	    }
 	  if (before_affinity != UP)
-	    return before->get_property ("inter-loose-line-spacing");
+	    return before->get_maybe_pure_property ("inter-loose-line-spacing", pure, start, end);
 	  else if (after_affinity != DOWN)
-	    return before->get_property ("inter-loose-line-spacing");
-	  return add_stretchability (before->get_property ("non-affinity-spacing"), LARGE_STRETCH);
+	    return before->get_maybe_pure_property ("inter-loose-line-spacing", pure, start, end);
+	  return add_stretchability (before->get_maybe_pure_property ("non-affinity-spacing", pure, start, end),
+				     LARGE_STRETCH);
 	}
     }
 

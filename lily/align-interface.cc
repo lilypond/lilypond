@@ -177,7 +177,7 @@ Align_interface::get_minimum_translations (Grob *me,
 	  down_skyline.merge (skylines[j-1][stacking_dir]);
 	  dy = down_skyline.distance (skylines[j][-stacking_dir]);
 
-	  SCM spec = Page_layout_problem::get_spacing_spec (elems[j-1], elems[j]);
+	  SCM spec = Page_layout_problem::get_spacing_spec (elems[j-1], elems[j], pure, start, end);
 	  Page_layout_problem::read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
 
 	  Real min_distance = 0;
@@ -189,7 +189,7 @@ Align_interface::get_minimum_translations (Grob *me,
 	      // Spaceable staves may have min-distance and padding
 	      // constraints coming from the previous spaceable staff
 	      // as well as from the previous staff.
-	      spec = Page_layout_problem::get_spacing_spec (last_spaceable_element, elems[j]);
+	      spec = Page_layout_problem::get_spacing_spec (last_spaceable_element, elems[j], pure, start, end);
 	      Real spaceable_padding = 0;
 	      Page_layout_problem::read_spacing_spec (spec,
 						      &spaceable_padding,
