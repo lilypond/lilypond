@@ -92,13 +92,16 @@ for opt in options:
 
 texi_file_re = re.compile ('.*\.i?te(ly|xi)$')
 html_file_re = re.compile ('.*\.i?htm(l)?$')
+xml_file_re = re.compile ('.*\.i?xml$')
+tex_file_re = re.compile ('.*\.i?(la)?tex$')
 pdf_file_re = re.compile ('.*\.i?pdf$')
 
 def name2line (n):
     if texi_file_re.match (n):
         # We have a texi include file, simply include it:
         s = r"@include %s" % os.path.basename (n)
-    elif html_file_re.match (n) or pdf_file_re.match (n):
+    elif (html_file_re.match (n) or pdf_file_re.match (n) or
+          xml_file_re.match (n) or tex_file_re.match (n)):
         s = r"""
 @ifhtml
 @html

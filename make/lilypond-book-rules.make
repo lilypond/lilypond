@@ -20,9 +20,11 @@ $(outdir)/%.tex:  %.tex
 $(outdir)/%.tex:  %.latex
 	$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<
 
+# Add the tex => pdf rule only if we have dblatex
+ifeq (,$(findstring pdflatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf:  $(outdir)/%.tex
-	cd $(outdir) && pdflatex $(notdir $<)
-
+	cd $(outdir) && $(PDFLATEX) $(notdir $<)
+endif
 
 ############## Texinfo ######################
 
@@ -44,5 +46,8 @@ $(outdir)/%.texi:  %.tely
 $(outdir)/%.xml:  %.lyxml
 	$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<
 
+# Add the xml => pdf rule only if we have dblatex
+ifeq (,$(findstring dblatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf:  $(outdir)/%.xml
-	cd $(outdir) && dblatex $(notdir $<)
+	cd $(outdir) && $(DBLATEX) $(notdir $<)
+endif
