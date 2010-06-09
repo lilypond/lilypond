@@ -267,7 +267,10 @@
   (list-ref pango-pf 2))
 
 (define (pango-font-name pango-font)
-  (pango-pf-font-name (car (ly:pango-font-physical-fonts pango-font))))
+  (let ((pf-fonts (ly:pango-font-physical-fonts pango-font)))
+    (if (pair? pf-fonts)
+	(pango-pf-font-name (car pf-fonts))
+	"")))
 
 (define-public (define-fonts paper define-font define-pango-pf)
   "Return a string of all fonts used in PAPER, invoking the functions
@@ -293,7 +296,8 @@ DEFINE-FONT DEFINE-PANGO-PF for producing the actual font definition."
       (define-font font font-name scaling)))
 
   (define (pango-font-load-command pango-font)
-    (let* ((pango-pf (car (ly:pango-font-physical-fonts pango-font)))
+    (let* ((pf-fonts (ly:pango-font-physical-fonts pango-font))
+	   (pango-pf (if (pair? pf-fonts) (car pf-fonts) '("" "" 0)))
 	   (font-name (pango-pf-font-name pango-pf))
 	   (scaling (ly:output-def-lookup paper 'output-scale)))
       (if (equal? font-name "unknown")
