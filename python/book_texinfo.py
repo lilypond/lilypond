@@ -251,7 +251,7 @@ class BookTexinfoOutputFormat (BookBase.BookOutputFormat):
 #                str += ('@html\n' + self.output_html () + '\n@end html\n')
 
         if QUOTE in snippet.option_dict:
-            str = self.output[QUOTE] % rep
+            str = self.output[QUOTE] % {'str': str}
 
         # need par after image
         str += '\n'

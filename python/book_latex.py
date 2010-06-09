@@ -255,8 +255,7 @@ class BookLatexOutputFormat (BookBase.BookOutputFormat):
             str += "".ljust (breaks, "\n").replace ("\n","%\n")
 
         if QUOTE in snippet.option_dict:
-            rep['str'] = str
-            str = self.output[QUOTE] % rep
+            str = self.output[QUOTE] % {'str': str}
         return str
 
 

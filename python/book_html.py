@@ -123,7 +123,7 @@ class BookHTMLOutputFormat (BookBase.BookOutputFormat):
             rep['verb'] = BookBase.verbatim_html (snippet.verb_ly ())
             str += self.output[VERBATIM] % rep
         if QUOTE in snippet.option_dict:
-            str = self.output[QUOTE] % rep
+            str = self.output[QUOTE] % {'str': str}
 
         str += self.output[BEFORE] % rep
         for image in snippet.get_images ():
