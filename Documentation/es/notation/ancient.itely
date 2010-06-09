@@ -2345,7 +2345,7 @@ arbitrario.
 * Disposición tipo «Mensurstriche»::
 * Transcripción de canto gregoriano::
 * Antigua y moderna desde la misma fuente::
-* Anotaciones editoriales::
+* Marcado editorial::
 @end menu
 
 El trabajo con música antigua implica con frecuencia tareas
@@ -2590,8 +2590,8 @@ Continuará...
 
 
 
-@node Anotaciones editoriales
-@unnumberedsubsubsec Anotaciones editoriales
+@node Marcado editorial
+@unnumberedsubsubsec Marcado editorial
 @translationof Editorial markings
 
 Continuará...
