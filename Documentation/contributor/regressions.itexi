@@ -102,6 +102,7 @@ Ghostscript changes and changes in
 lyrics or text are not found.  However, errors and warnings that
 are printed to the log file but
 do not change the graphical layout are also identified.
+}
 
 Periodic manual checking of the
 complete regtest output should be performed to catch anything
