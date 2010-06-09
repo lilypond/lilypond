@@ -104,10 +104,6 @@ are printed to the log file but
 do not change the graphical layout are also identified.
 }
 
-Periodic manual checking of the
-complete regtest output should be performed to catch anything
-missed by the automatic comparison.}
-
 @node Compiling regression tests
 @section Compiling regression tests
 
