@@ -46,7 +46,7 @@ messages from:
 @end example
 
 @noindent
-into a separate folder than emails to @code{bug-lilypond}.
+into a separate folder than other emails to @code{bug-lilypond}.
 
 
 @subsubheading New emails to @code{bug-lilypond}
@@ -65,6 +65,16 @@ If a bug report is not in the form of a Tiny example, direct the
 user to resubmit the report after reading @rweb{Tiny examples}.
 
 @item
+If anything is unclear, ask the user for more information.
+
+How does the graphical output differ from what the user expected?
+What version of lilypond was used (if not given) and operating
+system (if this is a suspected cause of the problem)?  In short,
+if you cannot understand what the problem is, ask the user to
+explain more.  It is the user's responsibility to explain the
+problem, not your reponsibility to understand it.
+
+@item
 If the behavior is expected, the user should be told to read the
 documentation, or asked to clarify how he misread the docs and how
 the docs could be improved.
@@ -74,15 +84,17 @@ If the issue already exists in the tracker, send an email to that
 effect.
 
 @item
-Ask the user for more information, such as lilypond version number
-(if not given) and operating system (if this is a suspected cause
-of the problem).
-
-@item
 Accept the report as described in
 @ref{Adding issues to the tracker}.
 
 @end enumerate
+
+All emails should be CC'd to the @code{bug-lilypond} list so that
+other Bug Squad members know that you have processed the email.
+
+@warning{There is no option for @qq{ignore the bug report} -- if
+you cannot find a reason to reject the report, you must accept
+it.}
 
 
 @subheading Updates / discussion about issues
@@ -121,9 +133,14 @@ After @strong{every release} (both stable and unstable):
 Regression test comparison: if anything has changed suspiciously,
 ask if it was deliberate.  The official comparison is online, at:
 
+@c NOTE: leave this here.  In this case, it's worth duplicating
+@c       the link.  -gp
 @example
 @uref{http://lilypond.org/test/}
 @end example
+
+More information is available from in
+@ref{Precompiled regression tests}.
 
 @item
 Issues to verify: try to reproduce the bug with the latest
@@ -171,7 +188,9 @@ Once every year or two:
 Checking all regtests: although we have a system for checking the
 regtests between two versions, occasionally a bug will slip
 through the cracks.  It is therefore good to manually examine all
-the regtests (compare the images to the text description).
+the regtests (compare the images to the text description).  More
+information is available from in @ref{Regression tests}.
+
 
 @item
 Checking all issues: we try to mark each Issue @q{fixed} when we
@@ -227,7 +246,10 @@ Squad should check the fix with the next official binary release
 that contributor.
 
 @item
-Verified: Bug Squad has confirmed that the issue is closed.
+Verified: Bug Squad has confirmed that the issue is closed.  This
+means that nobody should ever need look at the report again -- if
+there is any information in the issue that should be kept, open a
+new issue for that info.
 
 @end itemize
 
@@ -482,4 +504,6 @@ procedure described above.
 Once a problematic commit is identified, the programmers' job is
 much easier.  In fact, for most regression bugs, the majority of
 the time is spent simply finding the problematic commit.
+
+More information is in @ref{Regression tests}.
 
