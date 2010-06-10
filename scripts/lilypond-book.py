@@ -2010,6 +2010,8 @@ def do_file (input_filename, included=False):
             input_fullname = os.popen ('kpsewhich ' + input_filename).read()[:-1]
         else:
             input_fullname = find_file (input_filename)
+        # Normalize path to absolute path, since we will change cwd to the output dir!
+        input_fullname = os.path.abspath (input_fullname)
 
         note_input_file (input_fullname)
         in_handle = file (input_fullname)
