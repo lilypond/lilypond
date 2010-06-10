@@ -51,6 +51,7 @@ import re
 import stat
 import sys
 import tempfile
+import imp
 from optparse import OptionGroup
 
 
@@ -162,6 +163,11 @@ def get_option_parser ():
                   metavar=_ ("DIR"),
                   action='store', dest='lily_output_dir',
                   default=None)
+
+    p.add_option ('--load-custom-package', help=_ ("Load the additional python PACKAGE (containing e.g. a custom output format)"),
+                  metavar=_ ("PACKAGE"),
+                  action='append', dest='custom_packages',
+                  default=[])
 
     p.add_option ("-o", '--output', help=_ ("write output to DIR"),
                   metavar=_ ("DIR"),
@@ -576,6 +582,14 @@ def do_options ():
     global_options.information = {'program_version': ly.program_version, 'program_name': ly.program_name }
 
     global_options.include_path =  map (os.path.abspath, global_options.include_path)
+
+    # Load the python packages (containing e.g. custom formatter classes)
+    # passed on the command line
+    nr = 0
+    for i in global_options.custom_packages:
+        nr += 1
+        print imp.load_source ("book_custom_package%s" % nr, i)
+
 
     if global_options.warranty:
         warranty ()
