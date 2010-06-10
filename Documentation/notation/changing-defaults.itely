@@ -3322,20 +3322,27 @@ By default, rehearsal marks and bar numbers will be horizontally
 centered above the object:
 
 @lilypond[verbatim,quote,relative=1]
-e1
-% the RehearsalMark will be centered above the Clef
+% The rehearsal mark will be centered above the Clef
 \override Score.RehearsalMark #'break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
-e
-% the RehearsalMark will be centered above the TimeSignature
+e1
+% The rehearsal mark will be centered above the Time Signature
 \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
 \mark "↓"
 e2.
+% The rehearsal mark will be centered above the Breath Mark
+\override Score.RehearsalMark #'break-align-symbols = #'(breathing-sign)
+\key a \major
+\clef treble
+\time 4/4
+e1
+\breathe
+\mark "↓"
 @end lilypond
 
 A list of possible target alignment objects may be specified.  If
@@ -3348,20 +3355,27 @@ line is invisible the object is aligned to the place where the bar
 line would be.
 
 @lilypond[verbatim,quote,relative=1]
-e1
-% the RehearsalMark will be centered above the Key Signature
+% The rehearsal mark will be centered above the Key Signature
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
-e
-% the RehearsalMark will be centered above the Clef
+e1
+% The rehearsal mark will be centered above the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
-\key a \minor
+\key a \major
 \clef bass
 \mark "↓"
-e,
+gis,,1
+% The rehearsal mark will be centered above the Bar Line
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\set Staff.explicitClefVisibility = #all-invisible
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef treble
+\mark "↓"
+e''1
 @end lilypond
 
 The alignment of the rehearsal mark relative to the notation object
@@ -3369,44 +3383,51 @@ can be changed, as shown in the following example.  In a score with
 multiple staves, this setting should be done for all the staves.
 
 @lilypond[verbatim,quote,relative=1]
-% The RehearsalMark will be centered above the KeySignature
+% The RehearsalMark will be centered above the Key Signature
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e1
-% The RehearsalMark will be aligned with the left edge of the KeySignature
+% The RehearsalMark will be aligned with the left edge of the Key Signature
 \once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
 \mark "↓"
 \key a \major
-e
-% The RehearsalMark will be aligned with the right edge of the KeySignature
+e1
+% The RehearsalMark will be aligned with the right edge of the Key Signature
 \once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
 \key a \major
 \mark "↓"
-e
+e1
 @end lilypond
 
-The rehearsal mark can also be offset to the right or left of the left edge
-by an arbitrary amount.  The units are staff-spaces:
+The rehearsal mark can also be offset to the right or left of the left
+edge by an arbitrary amount.  The units are staff-spaces:
 
 @lilypond[verbatim,quote,relative=1]
-% The RehearsalMark will be aligned with the left edge of the KeySignature
+% The RehearsalMark will be aligned with the left edge of the Key Signature
 % and then shifted right by 3.5 staff-spaces
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
 \once \override Score.KeySignature #'break-align-anchor = #3.5
 \key a \major
 \mark "↓"
-e
-% The RehearsalMark will be aligned with the left edge of the KeySignature
+e1
+% The RehearsalMark will be aligned with the left edge of the Key Signature
 % and then shifted left by 2 staff-spaces
 \once \override Score.KeySignature #'break-align-anchor = #-2
 \key a \major
 \mark "↓"
-e
+e1
 @end lilypond
 
+@knownissues
+Overriding the @code{#'X-offset} property to a fixed value causes
+the @code{#'self-alignment-X} property to be disregarded.  Therefore,
+it is recommended to override it with a callback to
+@code{ly:self-alignment-interface::x-aligned-on-self}, similarly to
+its default definition.  This method is described in
+@rextend{Callback functions}
 
 @node Vertical grouping of grobs
 @subsection Vertical grouping of grobs
