@@ -3421,13 +3421,6 @@ e1
 e1
 @end lilypond
 
-@knownissues
-Overriding the @code{#'X-offset} property to a fixed value causes
-the @code{#'self-alignment-X} property to be disregarded.  Therefore,
-it is recommended to override it with a callback to
-@code{ly:self-alignment-interface::x-aligned-on-self}, similarly to
-its default definition.  This method is described in
-@rextend{Callback functions}
 
 @node Vertical grouping of grobs
 @subsection Vertical grouping of grobs
