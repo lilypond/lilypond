@@ -2,8 +2,8 @@
 
 \header{
   texidoc="
-The tempo command supports text markup and/or duration=count. Using the
-Score.hideTempoNote, one can hide the duration=count in the tempo mark.
+The tempo command supports text markup and/or duration=count.  Using
+@code{Score.tempoHideNote}, one can hide the duration=count in the tempo mark.
 "
 }
 
@@ -37,3 +37,4 @@ Score.hideTempoNote, one can hide the duration=count in the tempo mark.
   % Unsetting the count using only text
   \tempo "no note (text-only)" c1
 }
+
