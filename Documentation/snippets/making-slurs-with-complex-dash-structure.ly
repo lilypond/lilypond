@@ -5,7 +5,7 @@
 \version "2.13.20"
 
 \header {
-%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
   texidoces = "
 
 Las ligaduras de expresión se pueden construir con patrones de
@@ -54,7 +54,7 @@ gesetzt.
   doctitlede = "Legatobögen mit kompliziertem Strichelmuster
   definieren"
 
-%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
+%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 Grâce à la propriété @code{dash-definition}, une liaison d'articulation
 peut être formée de traits discontinus variables.
