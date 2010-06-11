@@ -63,7 +63,8 @@
 	(script-stencil . (feta . ("downbow" . "downbow")))
 	(padding . 0.20)
 	(avoid-slur . around)
-	(direction . ,UP)))
+	(direction . ,UP)
+	(script-priority . 150)))
     ("downmordent"
      . (
 	(script-stencil . (feta . ("downmordent" . "downmordent")))
@@ -321,7 +322,8 @@
 	(script-stencil . (feta . ("upbow" . "upbow")))
 	(avoid-slur . around)
 	(padding . 0.20)
-	(direction . ,UP)))
+	(direction . ,UP)
+	(script-priority . 150)))
     ("upmordent"
      . (
 	(script-stencil . (feta . ("upmordent" . "upmordent")))
