@@ -36,23 +36,6 @@ using namespace std;
 #include "grob.hh"
 #include "warn.hh"
 
-MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback, 1);
-SCM
-Rest_collision::force_shift_callback (SCM smob)
-{
-  Grob *them = unsmob_grob (smob);
-  if (Note_column::has_rests (them))
-    {
-      Grob *collision = unsmob_grob (them->get_object ("rest-collision"));
-
-      if (collision)
-	{
-	  (void) collision->get_property ("positioning-done");
-	}
-    }
-  return scm_from_double (0.0);
-}
-
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2, 1, "");
 SCM
 Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
@@ -67,8 +50,13 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
   if (scm_is_number (offset))
     rest_grob->translate_axis (scm_to_double (offset), Y_AXIS);
   
-  if (Note_column::has_interface (parent))
-    force_shift_callback (parent->self_scm ());
+  if (Note_column::has_interface (parent) && Note_column::has_rests (parent))
+    {
+      Grob *collision = unsmob_grob (parent->get_object ("rest-collision"));
+
+      if (collision)
+	(void) collision->get_property ("positioning-done");
+    }
 
   return scm_from_double (0.0);
 }
@@ -78,13 +66,6 @@ Rest_collision::add_column (Grob *me, Grob *p)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), p);
 
-  /*
-    only add callback for the rests, since we don't move anything
-    else.
-
-    (not?)
-  */
-  add_offset_callback (p, Rest_collision::force_shift_callback_proc, Y_AXIS);
   p->set_object ("rest-collision", me->self_scm ());
 
   Grob *rest = unsmob_grob (p->get_object ("rest"));

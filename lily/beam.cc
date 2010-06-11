@@ -1468,12 +1468,8 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 
   Grob *common_y = rest->common_refpoint (beam, Y_AXIS);
 
-  /*
-    TODO: this is dubious, because this call needs the info we're
-    computing right now.
-   */
-  Interval rest_extent = rest->extent (common_y, Y_AXIS);
-  rest_extent.translate (offset);
+  Interval rest_extent = rest->extent (rest, Y_AXIS);
+  rest_extent.translate (offset + rest->get_parent (Y_AXIS)->relative_coordinate (common_y, Y_AXIS));
 
   Real rest_dim = rest_extent[d];
   Real minimum_distance
