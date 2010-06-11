@@ -328,6 +328,9 @@ class LilypondSnippet (Snippet):
         self.do_options (os, self.type)
 
 
+    def snippet_options (self):
+        return [];
+
     def verb_ly_gettext (self, s):
         lang = self.formatter.document_language
         if not lang:
@@ -529,7 +532,7 @@ left-margin-default right-margin-default)"
                     found = 1
                     break
 
-            if not found and key not in simple_options:
+            if not found and key not in simple_options and key not in self.snippet_options ():
                 warning (_ ("ignoring unknown ly option: %s") % key)
 
         # URGS
