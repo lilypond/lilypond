@@ -83,6 +83,7 @@ def mark_verbatim_section (ly_code):
 lsr_comment_re = re.compile (r'\s*%+\s*LSR.*')
 begin_header_re = re.compile (r'\\header\s*{', re.M)
 ly_new_version_re = re.compile (r'\\version\s*"(.+?)"')
+strip_white_spaces_re = re.compile (r'[ \t]+(?=\n)')
 
 # add tags to ly files from LSR
 def add_tags (ly_code, tags):
@@ -136,6 +137,7 @@ def copy_ly (srcdir, name, tags):
 
     s = mark_verbatim_section (s)
     s = lsr_comment_re.sub ('', s)
+    s = strip_white_spaces_re.sub ('', s)
     open (dest, 'w').write (s)
 
     e = os.system ("convert-ly -e '%s'" % dest)
