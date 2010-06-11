@@ -238,6 +238,17 @@ class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
 			       " ".join (option._long_opts),
 			       metavar)
 
+    # Only use one level of indentation (even for groups and nested groups),
+    # since we don't indent the headeings, either
+    def indent(self):
+        self.current_indent = self.indent_increment
+        self.level += 1
+    def dedent(self):
+        self.level -= 1
+        if self.level <= 0:
+            self.current_indent = ''
+            self.level = 0;
+
     def format_usage(self, usage):
         return _("Usage: %s") % usage + '\n'
 
