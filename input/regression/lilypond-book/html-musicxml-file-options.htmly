@@ -1,0 +1,6 @@
+<html>
+<body>
+Including a MusicXML file:
+<musicxmlfile language="deutsch" absolute no-beaming printfilename>include.xml</musicxmlfile>
+</body>
+</html>

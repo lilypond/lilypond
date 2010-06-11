@@ -79,7 +79,7 @@ Docbook_output = {
 
     PRINTFILENAME: r'''<textobject>
   <simpara>
-    <ulink url="%(base)s.ly">
+    <ulink url="%(base)s%(ext)s">
       <filename>
         %(filename)s
       </filename>

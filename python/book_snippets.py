@@ -659,6 +659,11 @@ printing diff against existing file." % filename)
                 os.makedirs (dst_path)
             os.link (src, dst)
 
+    def additional_files_to_consider (self, base, full):
+        return []
+    def additional_files_required (self, base, full):
+        return []
+
 
     def all_output_files (self, output_dir, output_dir_files):
         """Return all files generated in lily_output_dir, a set.
@@ -681,8 +686,7 @@ printing diff against existing file." % filename)
 
         # UGH - junk self.global_options
         skip_lily = self.global_options.skip_lilypond_run
-        for required in [base + '.ly',
-                         base + '.txt']:
+        for required in [base + '.ly']:
             require_file (required)
         if not skip_lily:
             require_file (base + '-systems.count')
@@ -722,6 +726,8 @@ printing diff against existing file." % filename)
             if 'ddump-signature' in self.global_options.process_cmd:
                 consider_file (systemfile + '.signature')
 
+        map (consider_file, self.additional_files_to_consider (base, full))
+        map (require_file, self.additional_files_required (base, full))
 
         return (result, missing)
 
@@ -808,7 +814,9 @@ re_end_verbatim = re.compile (r'\s+%.*?end verbatim.*$', re.M)
 class LilypondFileSnippet (LilypondSnippet):
     def __init__ (self, type, match, formatter, line_number, global_options):
         LilypondSnippet.__init__ (self, type, match, formatter, line_number, global_options)
-        self.contents = file (BookBase.find_file (self.substring ('filename'), global_options.include_path)).read ()
+        self.filename = self.substring ('filename')
+        self.ext = os.path.splitext (os.path.basename (self.filename))[1]
+        self.contents = file (BookBase.find_file (self.filename, global_options.include_path)).read ()
 
     def get_snippet_code (self):
         return self.contents;
@@ -824,16 +832,108 @@ class LilypondFileSnippet (LilypondSnippet):
         return s
 
     def ly (self):
-        name = self.substring ('filename')
+        name = self.filename
         return ('\\sourcefilename \"%s\"\n\\sourcefileline 0\n%s'
                 % (name, self.contents))
 
     def final_basename (self):
         if self.global_options.use_source_file_names:
-            base = os.path.splitext (os.path.basename (self.substring ('filename')))[0]
+            base = os.path.splitext (os.path.basename (self.filename))[0]
             return base
         else:
             return self.basename ()
+
+
+class MusicXMLFileSnippet (LilypondFileSnippet):
+    def __init__ (self, type, match, formatter, line_number, global_options):
+        LilypondFileSnippet.__init__ (self, type, match, formatter, line_number, global_options)
+        self.compressed = False
+        self.converted_ly = None
+        self.musicxml_options_dict = {
+	    'verbose': '--verbose',
+	    'lxml': '--lxml',
+	    'compressed': '--compressed',
+	    'relative': '--relative',
+	    'absolute': '--absolute',
+	    'no-articulation-directions': '--no-articulation-directions',
+	    'no-rest-positions': '--no-rest-positions',
+	    'no-page-layout': '--no-page-layout',
+	    'no-beaming': '--no-beaming',
+	    'language': '--language',
+	 }
+
+    def snippet_options (self):
+        return self.musicxml_options_dict.keys ()
+
+    def convert_from_musicxml (self):
+        name = self.filename
+        option_list = []
+        for (key, value) in self.option_dict.items ():
+            cmd_key = self.musicxml_options_dict.get (key, None)
+            if cmd_key == None:
+                continue
+            if value == None:
+                option_list.append (cmd_key)
+            else:
+                option_list.append (cmd_key + '=' + value)
+        if ('.mxl' in name) and ('--compressed' not in option_list):
+            option_list.append ('--compressed')
+            self.compressed = True
+        opts = " ".join (option_list)
+
+        ly_code = self.filter_pipe (self.contents, 'musicxml2ly %s --out=- - ' % opts)
+        return ly_code
+
+    def ly (self):
+        if self.converted_ly == None:
+            self.converted_ly = self.convert_from_musicxml ()
+        name = self.filename
+        return ('\\sourcefilename \"%s\"\n\\sourcefileline 0\n%s'
+                % (name, self.converted_ly))
+
+    def additional_files_required (self, base, full):
+        result = [];
+        if self.compressed:
+            result.append (base + '.mxl')
+        else:
+            result.append (base + '.xml')
+        return result
+
+    def write_ly (self):
+        base = self.basename ()
+        path = os.path.join (self.global_options.lily_output_dir, base)
+        directory = os.path.split(path)[0]
+        if not os.path.isdir (directory):
+            os.makedirs (directory)
+
+        # First write the XML to a file (so we can link it!)
+        if self.compressed:
+            xmlfilename = path + '.mxl'
+        else:
+            xmlfilename = path + '.xml'
+        if os.path.exists (xmlfilename):
+            diff_against_existing = self.filter_pipe (self.contents, 'diff -u %s - ' % xmlfilename)
+            if diff_against_existing:
+                warning ("%s: duplicate filename but different contents of orginal file,\n\
+printing diff against existing file." % xmlfilename)
+                ly.stderr_write (diff_against_existing)
+        else:
+            out = file (xmlfilename, 'w')
+            out.write (self.contents)
+            out.close ()
+
+        # also write the converted lilypond
+        filename = path + '.ly'
+        if os.path.exists (filename):
+            diff_against_existing = self.filter_pipe (self.full_ly (), 'diff -u %s -' % filename)
+            if diff_against_existing:
+                warning ("%s: duplicate filename but different contents of converted lilypond file,\n\
+printing diff against existing file." % filename)
+                ly.stderr_write (diff_against_existing)
+        else:
+            out = file (filename, 'w')
+            out.write (self.full_ly ())
+            out.close ()
 
 
 class LilyPondVersionString (Snippet):
@@ -851,4 +951,5 @@ snippet_type_to_class = {
     'lilypond': LilypondSnippet,
     'include': IncludeSnippet,
     'lilypondversion': LilyPondVersionString,
+    'musicxml_file': MusicXMLFileSnippet,
 }

@@ -58,6 +58,15 @@ TexInfo_snippet_res = {
             .*?
            @end\s+ignore))\s''',
 
+    'musicxml_file': r'''(?mx)
+          ^(?P<match>
+          @musicxmlfile\s*(
+          \[
+           \s*(?P<options>.*?)\s*
+          \])?\s*{
+           (?P<filename>\S+)
+          })''',
+
     'singleline_comment': r'''(?mx)
           ^.*
           (?P<match>
@@ -103,7 +112,7 @@ TexInfo_output = {
 @end ifinfo
 @html
 <p>
- <a href="%(base)s.ly">
+ <a href="%(base)s%(ext)s">
   <img align="middle"
        border="0"
        src="%(image)s"
@@ -115,7 +124,7 @@ TexInfo_output = {
 
     PRINTFILENAME: '''
 @html
-<a href="%(base)s.ly">
+<a href="%(base)s%(ext)s">
 @end html
 @file{%(filename)s}
 @html
