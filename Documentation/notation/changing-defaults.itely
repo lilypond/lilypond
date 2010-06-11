@@ -3097,43 +3097,46 @@ Internals Reference:
 @node Aligning objects
 @subsection Aligning objects
 
-Graphical objects which support the @code{self-alignment-interface} and/or
-the @code{side-position-interface} can be
-aligned to a previously placed object in a variety of ways.  For a list of these objects, see
+Graphical objects which support the @code{self-alignment-interface}
+and/or the @code{side-position-interface} can be aligned to a previously
+placed object in a variety of ways.  For a list of these objects, see
 @rinternals{self-alignment-interface} and @rinternals{side-position-interface}.
 
 All graphical objects have a reference point, a horizontal extent and a
 vertical extent.  The horizontal extent is a pair of numbers
 giving the displacements from the reference point of the left and
-right edges, displacements to the left being negative.  The
-vertical extent is a pair of numbers giving the displacement from
-the reference point to the bottom and top edges, displacements down
-being negative.
+right edges, displacements to the left being negative.  The vertical
+extent is a pair of numbers giving the displacement from the reference
+point to the bottom and top edges, displacements down being negative.
 
 An object's position on a staff is given by the values of the
 @code{X-offset} and @code{Y-offset} properties.  The value of
-@code{X-offset} gives the displacement from the x coordinate of
+@code{X-offset} gives the displacement from the X coordinate of
 the reference point of the parent object, and the value of
 @code{Y-offset} gives the displacement from the center line of the
-staff.   The values of @code{X-offset} and
-@code{Y-offset} may be set directly or may be set to be calculated
-by procedures in order to achieve alignment with the parent object
-in several ways.
+staff.  The values of @code{X-offset} and @code{Y-offset} may
+be set directly or may be set to be calculated by procedures in order
+to achieve alignment with the parent object.
 
 @warning{Many objects have special positioning considerations which
 cause any setting of @code{X-offset} or @code{Y-offset} to be
 ignored or modified, even though the object supports the
-@code{self-alignment-interface}.}
+@code{self-alignment-interface}.  Overriding the @code{X-offset}
+or @code{Y-offset} properties to a fixed value causes the respective
+@code{self-alignment} property to be disregarded.}
 
-For example, an accidental can be repositioned
-vertically by setting @code{Y-offset} but any changes to
-@code{X-offset} have no effect.
+For example, an accidental can be repositioned vertically by setting
+@code{Y-offset} but any changes to @code{X-offset} have no effect.
 
-Rehearsal marks may be aligned with
-breakable objects such as bar lines, clef symbols, time signature
-symbols and key signatures.  There are special properties to be
-found in the @code{break-aligned-interface} for positioning rehearsal
-marks on such objects.
+Rehearsal marks may be aligned with breakable objects such as bar
+lines, clef symbols, time signature symbols and key signatures.  There
+are special properties to be found in the @code{break-aligned-interface}
+for positioning rehearsal marks on such objects.
+@ruser{Using the break-alignable-interface}
+
+@seealso
+@ruser{Using the break-alignable-interface},
+@rextend{Callback functions}.
 
 @menu
 * Setting X-offset and Y-offset directly::
