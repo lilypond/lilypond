@@ -46,7 +46,7 @@ following way:
 
 \relative c'' {
   \override DynamicTextSpanner #'dash-period = #-1.0
-  \deprecatedcrescTextCresc
+  \crescTextCresc
   c1\< | d | b | c\!
 }
 
