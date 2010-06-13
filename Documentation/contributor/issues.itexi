@@ -34,6 +34,9 @@ include removing false bug reports, ensuring that any real bug
 report contains enough information for developers, and checking
 that a developer's fix actually resolves the problem.
 
+New volunteers for the Bug Squad should contact the
+@ref{Meisters, Bug Meister}.
+
 
 @node Bug Squad checklists
 @section Bug Squad checklists
