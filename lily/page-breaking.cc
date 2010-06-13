@@ -99,7 +99,16 @@ compress_lines (const vector<Line_details> &orig)
 	{
 	  Line_details const &old = ret.back ();
 	  Line_details compressed = orig[i];
-	  Real padding = orig[i].title_ ? old.title_padding_ : old.padding_;
+	  /*
+	    "padding" is the padding below the current line.  The padding below
+	    "old" (taking into account whether "old" is a title) is already
+	    accounted for in the extent of the compressed line.  The padding
+	    below the compressed line, therefore, should depend on whether its
+	    bottom-most line is a title or not.
+	  */
+	  Real padding = 0;
+	  if (!orig[i].tight_spacing_)
+	    padding = orig[i].title_ ? old.title_padding_ : old.padding_;
 
 	  compressed.shape_ = old.shape_.piggyback (orig[i].shape_, padding);
 	  compressed.space_ += old.space_;
@@ -879,9 +888,10 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
       Real ext_len;
       if (cur_rod_height > 0)
         {
-          padding = cached_line_details_[i].title_ ?
-            cached_line_details_[i-1].title_padding_ :
-            cached_line_details_[i-1].padding_;
+          if (!cached_line_details_[i].tight_spacing_)
+            padding = (cached_line_details_[i].title_
+		       ? cached_line_details_[i - 1].title_padding_
+		       : cached_line_details_[i - 1].padding_);
           ext_len = cached_line_details_[i].tallness_;
         }
       else
