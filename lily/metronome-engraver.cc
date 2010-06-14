@@ -74,10 +74,12 @@ void
 Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
 {
   Grob *g = info.grob ();
+
   if (text_
       && !support_
-      && (g->get_property_data ("break-align-symbol")
-	  == text_->get_property_data ("break-align-symbol")))
+      && scm_member (g->get_property_data ("break-align-symbol"),
+		     text_->get_property_data ("break-align-symbols"))
+      != SCM_BOOL_F)
     {
       support_ = g;
       text_->set_parent (g, X_AXIS);
