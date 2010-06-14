@@ -39,6 +39,7 @@ public:
 protected:
   Item *text_;
   Grob *support_;
+  Grob *bar_;
 
   SCM last_duration_;
   SCM last_count_;
@@ -57,6 +58,7 @@ Metronome_mark_engraver::Metronome_mark_engraver ()
 {
   text_ = 0;
   support_ = 0;
+  bar_ = 0;
   last_duration_ = SCM_EOL;
   last_count_ = SCM_EOL;
   last_text_ = SCM_EOL;
@@ -76,10 +78,14 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
   Grob *g = info.grob ();
 
   if (text_
-      && !support_
-      && scm_member (g->get_property_data ("break-align-symbol"),
-		     text_->get_property_data ("break-align-symbols"))
-      != SCM_BOOL_F)
+      && g->get_property_data ("break-align-symbol")
+      == ly_symbol2scm ("staff-bar"))
+      bar_ = g;
+  else if (text_
+	   && !support_
+	   && scm_member (g->get_property_data ("break-align-symbol"),
+			  text_->get_property_data ("break-align-symbols"))
+	   != SCM_BOOL_F)
     {
       support_ = g;
       text_->set_parent (g, X_AXIS);
@@ -99,13 +105,10 @@ Metronome_mark_engraver::acknowledge_grob (Grob_info info)
   Grob *g = info.grob ();
 
   if (text_
-      && !support_
       && scm_member (grob_name_scm (g),
 		     text_->get_property_data ("non-break-align-symbols"))
       != SCM_BOOL_F)
-    {
       text_->set_parent (g, X_AXIS);
-    }
 }
 
 void
@@ -113,7 +116,11 @@ Metronome_mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      if (!support_)
+      if (text_->get_parent (X_AXIS)
+	  && text_->get_parent (X_AXIS)->internal_has_interface (ly_symbol2scm ("multi-measure-rest-interface"))
+	  && bar_)
+	text_->set_parent (bar_, X_AXIS);
+      else if (!support_)
 	{
 	  /*
 	    Gardner Read "Music Notation", p.278
@@ -131,6 +138,7 @@ Metronome_mark_engraver::stop_translation_timestep ()
 			 grob_list_to_grob_array (get_property ("stavesFound")));
       text_ = 0;
       support_ = 0;
+      bar_ = 0;
     }
 }
 
