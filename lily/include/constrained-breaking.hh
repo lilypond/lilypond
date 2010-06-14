@@ -49,6 +49,8 @@ struct Line_details {
   Real padding_;  /* compulsory space after this system (if we're not
 		     last on a page) */
   Real title_padding_;
+  Real min_distance_;
+  Real title_min_distance_;
   Real bottom_padding_;
   Real space_;    /* spring length */
   Real inverse_hooke_;
@@ -72,6 +74,7 @@ struct Line_details {
   bool last_markup_line_;
   bool first_markup_line_;
   bool tight_spacing_;
+  Real first_refpoint_offset_;
 
   Line_details ()
   {
@@ -80,6 +83,8 @@ struct Line_details {
     padding_ = 0;
     title_padding_ = 0;
     bottom_padding_ = 0;
+    min_distance_ = 0;
+    title_min_distance_ = 0;
     space_ = 0;
     inverse_hooke_ = 1;
     tight_spacing_ = false;
@@ -95,6 +100,7 @@ struct Line_details {
     last_markup_line_ = false;
     first_markup_line_ = false;
     tallness_ = 0;
+    first_refpoint_offset_ = 0;
   }
 
   Line_details (Prob *pb, Output_def *paper);
@@ -150,9 +156,14 @@ private:
   vsize systems_;
   bool ragged_right_;
   bool ragged_last_;
-  Real between_system_space_;
-  Real before_title_padding_;
+
+  Real between_system_min_distance_;
   Real between_system_padding_;
+  Real between_system_space_;
+  Real between_scores_system_min_distance_;
+  Real between_scores_system_padding_;
+  Real before_title_min_distance_;
+  Real before_title_padding_;
 
   /* the (i,j)th entry is the configuration for breaking between
     columns i and j */
