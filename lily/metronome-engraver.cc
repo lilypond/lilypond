@@ -84,6 +84,13 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
     }
 }
 
+SCM
+grob_name_scm (Grob *g)
+{
+  SCM name_pair = scm_assq (ly_symbol2scm ("name"), g->get_property ("meta"));
+  return scm_is_pair (name_pair) ? scm_cdr (name_pair) : SCM_EOL;
+}
+
 void
 Metronome_mark_engraver::acknowledge_grob (Grob_info info)
 {
@@ -91,8 +98,8 @@ Metronome_mark_engraver::acknowledge_grob (Grob_info info)
 
   if (text_
       && !support_
-      && scm_member (g->get_property_data ("break-align-symbol"),
-		     text_->get_property_data ("break-align-symbols"))
+      && scm_member (grob_name_scm (g),
+		     text_->get_property_data ("non-break-align-symbols"))
       != SCM_BOOL_F)
     {
       text_->set_parent (g, X_AXIS);

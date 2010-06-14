@@ -1171,7 +1171,8 @@
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(self-alignment-X . -1)
 	(break-align-symbol . time-signature)
-	(break-align-symbols . (time-signature multi-measure-rest))
+	(break-align-symbols . (time-signature))
+	(non-break-align-symbols . (MultiMeasureRest))
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				metronome-mark-interface
@@ -1181,7 +1182,6 @@
 
     (MultiMeasureRest
      . (
-	(break-align-symbol . multi-measure-rest)
 	(expand-limit . 10)
 	(hair-thickness . 2.0)
 	(padding . 1)
