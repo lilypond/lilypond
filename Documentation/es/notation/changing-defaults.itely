@@ -3704,7 +3704,7 @@ predicados de tipo definidos por el usuario.
 @seealso
 
 Referencia de la notación:
-@ref{Tipos de argumento comunes}.
+@ref{Predicados de tipo predefinidos}.
 
 Expansión de LilyPond:
 @rextend{Sintaxis de las funciones musicales}.
