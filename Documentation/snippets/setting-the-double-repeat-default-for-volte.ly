@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.26
-\version "2.13.26"
+\version "2.13.29"
 \header {
   lsrtags = "repeats"
   texidoc = "There are three different styles of double repeats for

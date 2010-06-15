@@ -1,12 +1,12 @@
-\version "2.13.4"
+\version "2.13.29"
 
 \header {
   lsrtags = "rhythms"
   texidoc = "
-There are no default automatic beam groupings specified for 7/8 time,
-so if automatic beams are required the grouping must be specified.  For
-example, to group all beams 2-3-2 in 7/8 time, specify beam endings at
-2/8 and 5/8:
+There is no default beat structure specified for 7/8 time,
+so if automatic beams are required the structure must be specified.  For
+example, to group all beams 2-3-2 in 7/8 time, specify the
+beat structure to be (2 3 2):
 "
   doctitle = "Beam grouping in 7/8 time"
 }
@@ -15,7 +15,6 @@ example, to group all beams 2-3-2 in 7/8 time, specify beam endings at
   \time 7/8
   % rhythm 2-3-2
   a8 a a a a a a
-  \overrideBeamSettings #'Score #'(7 . 8) #'end
-    #'((* . (2 3 2)))
+  \set Score.beatStructure = #'(2 3 2)
   a8 a a a a a a
 }

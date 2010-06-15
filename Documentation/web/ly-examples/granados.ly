@@ -1,4 +1,4 @@
-\version "2.12.0"
+\version "2.13.29"
 \include "example-header.ily"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -14,7 +14,7 @@
 }
 
 
-csh = \change Staff = "high" 
+csh = \change Staff = "high"
 csm = \change Staff = "middle"
 csl = \change Staff = "low"
 
@@ -33,27 +33,28 @@ global = {
 upperVoiceOne = \relative c'' {
   \voiceOne
   \override TupletBracket #'transparent = ##t
-  <aes f'>8\([ \times 4/5{g'32( aes g f g]) } 
+  <aes f'>8\([ \times 4/5{g'32( aes g f g]) }
     <es aes>8[ \times 4/5{<d bes'>32( c' bes aes bes]) }
     <es, aes es'>8 <d fis b d>\) | % end m. 1
   %--------------------------------------------------%
-  <c g' c>4\( \voiceTwo <bes es bes'\arpeggio>\) 
+  <c g' c>4\( \voiceTwo <bes es bes'\arpeggio>\)
     \slurUp <aes aes'>16( <bes bes'> <g g'>8) % end m. 2
   %--------------------------------------------------%
   \noBreak
-  \voiceOne 
+  \voiceOne
   <f aes d f>8\([ \times 4/5{<g g'>32( aes' g f g]) }
   \set subdivideBeams = ##t
-  \set beatLength = #(ly:make-moment 1 8)
-    <aes, aes'>16 <c f> \times 4/5{ bes'32( c bes aes bes]) }
-    \set subdivideBeams = ##f
-    \ottava #1 <es es'>16 <f f'> <d d'> \appoggiatura f8 <es es'>16\)
+  \set baseMoment = #(ly:make-moment 1 8)
+  \set beatStructure = #'(2 2 2)
+  <aes, aes'>16 <c f> \times 4/5{ bes'32( c bes aes bes]) }
+  \set subdivideBeams = ##f
+  \ottava #1 <es es'>16 <f f'> <d d'> \appoggiatura f8 <es es'>16\)
 }
 
 upperVoiceTwo = \relative c'' {
   \voiceTwo
   s8 c8\< <bes, f'>[ <bes aes'> c' <bes, d fis>\!]
-  s32 s32_\appassmolto s8. \voiceOne r8 <bes'' es bes'>-> s4 
+  s32 s32_\appassmolto s8. \voiceOne r8 <bes'' es bes'>-> s4
   \override Stem #'cross-staff = ##t
   \override Stem #'length = #28
   \override Stem #'flag-style = #'no-flag
@@ -88,8 +89,9 @@ lowerVoiceOne = \relative c, {
   bes8 \csm \stemDown <bes'' c es>8 s2
   \csl \stemUp
   \set subdivideBeams = ##t
-  \set beatLength = #(ly:make-moment 1 16)
-  s8 \hideNotes \slurUp \stemDown 
+  \set baseMoment = #(ly:make-moment 1 16)
+  \set beatStructure = #'(4 4 4)
+  s8 \hideNotes \slurUp \stemDown
     es,,64( bes'' s64 \unHideNotes \stemUp g64[ bes c d c]) s2
   \set subdivideBeams = ##f
   bes,,8 \csm \stemDown <bes'' c es>8 s2
@@ -97,15 +99,15 @@ lowerVoiceOne = \relative c, {
 
 lowerVoiceTwo = \relative c, {
   \voiceTwo
-  bes2. 
+  bes2.
   \csh
   \once \override Beam #'damping = #+inf.0
-  <bes'' es g>8 \csl \slurUp 
-  %\once\override Slur #'extra-offset = #'(0 . 4) 
-  es,,64 bes' es g s32. 
+  <bes'' es g>8 \csl \slurUp
+  %\once\override Slur #'extra-offset = #'(0 . 4)
+  es,,64 bes' es g s32.
     c64
     s4 <bes des>
-  bes,,2. 
+  bes,,2.
 }
 
 
@@ -113,18 +115,18 @@ lowerVoiceTwo = \relative c, {
   \new PianoStaff <<
     \set PianoStaff.connectArpeggios = ##t
 %    \override PianoStaff.Arpeggio #'stencil = #ly:arpeggio::brew-chord-bracket
-    \new Staff = "high" << 	
+    \new Staff = "high" <<
       \global
       \context Voice = "upperVoiceOne" { \upperVoiceOne }
       \context Voice = "upperVoiceTwo" { \upperVoiceTwo }
     >>
-    \new Staff = "middle" << 
+    \new Staff = "middle" <<
       \global
       \context Voice = "middleVoiceOne" { \middleVoiceOne }
       \context Voice = "middleVoiceTwo" { \middleVoiceTwo }
     >>
-    \new Staff = "low" << 	
-      \clef bass 
+    \new Staff = "low" <<
+      \clef bass
       \global
       \context Voice = "lowerVoiceOne" { \lowerVoiceOne }
       \context Voice = "lowerVoiceTwo" { \lowerVoiceTwo }

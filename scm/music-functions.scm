@@ -521,8 +521,8 @@ OTTAVATION to `8va', or whatever appropriate."
 ;;; Used for calls that include beat-grouping setting
 (define-public (set-time-signature num den . rest)
   "Set properties for time signature @var{num/den}.
-If @var{rest} is present, it is used to make a default
-@code{beamSetting} rule."
+If @var{rest} is present, it is used to set
+@code{beatStructure}."
  (ly:export (apply make-beam-rule-time-signature-set
                     (list num den rest))))
 
@@ -530,30 +530,32 @@ If @var{rest} is present, it is used to make a default
   "Implement settings for new time signature.  Can be
 called from either make-time-signature-set (used by \time
 in parser) or set-time-signature (called from scheme code
-included in .ly file."
+included in .ly file)."
 
-  (define (make-default-beaming-rule context)
-   (override-property-setting
-    context
-    'beamSettings
-    (list (cons num den) 'end)
-    (list (cons '* (car rest)))))
+  (let ((m (make-music 'ApplyContext)))
+    (define (make-time-settings context)
+      (let* ((fraction (cons num den))
+             (time-signature-settings (ly:context-property context 'timeSignatureSettings))
+             (my-base-fraction (base-fraction fraction time-signature-settings))
+             (my-beat-structure (if (null? rest)
+                                    (beat-structure my-base-fraction
+                                                    fraction
+                                                    time-signature-settings)
+                                    (car rest)))
+             (beaming-exception
+               (beam-exceptions fraction time-signature-settings))
+	     (new-measure-length (ly:make-moment num den)))
+         (ly:context-set-property! context 'timeSignatureFraction fraction)
+         (ly:context-set-property!
+           context 'baseMoment (fraction->moment my-base-fraction))
+         (ly:context-set-property! context 'beatStructure my-beat-structure)
+         (ly:context-set-property! context 'beamExceptions beaming-exception)
+         (ly:context-set-property! context 'measureLength new-measure-length)))
+     (set! (ly:music-property m 'procedure) make-time-settings)
+     (descend-to-context
+      (context-spec-music m 'Timing)
+      'Score)))
 
-  (let* ((set1 (make-property-set 'timeSignatureFraction (cons num den)))
-	 (beat (ly:make-moment 1 den))
-	 (len  (ly:make-moment num den))
-	 (set2 (make-property-set 'beatLength beat))
-	 (set3 (make-property-set 'measureLength len))
-         (beaming-rule
-          (if (null? rest)
-              '()
-              (list (make-apply-context make-default-beaming-rule))))
-         (output (cons* set1 set2 set3 beaming-rule)))
-    (descend-to-context
-     (context-spec-music
-      (make-sequential-music output)
-       'Timing)
-     'Score)))
 
 (define-public (make-mark-set label)
   "Make the music for the \\mark command."

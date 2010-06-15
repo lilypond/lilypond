@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.13.10"
+\version "2.13.27"
 
 \context {
   \name "Global"
@@ -552,9 +552,19 @@ automatically when an output definition (a @code{\score} or
 
   repeatCountVisibility = #all-repeat-counts-visible
 
-  beamSettings = #default-beam-settings
+  timeSignatureSettings = #default-time-signature-settings
+  timeSignatureFraction = #'(4 . 4)
+
+%% These defaults should be the same as the rules established in
+%%   scm/time-signature-settings.scm for 4/4 time
+  measureLength = #(ly:make-moment 4 4)
+  baseMoment = #(ly:make-moment 1  4)
+  beatStructure = #'(1 1 1 1)
+  beamExceptions = #'((end . (((1 . 8) . (4 4))
+                              ((1 . 12) . (3 3 3 3)))))
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
+
   scriptDefinitions = #default-script-alist
 
   pedalSustainStrings = #'("Ped." "*Ped." "*")

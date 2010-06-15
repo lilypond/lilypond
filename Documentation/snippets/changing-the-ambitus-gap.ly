@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.26
-\version "2.13.26"
+\version "2.13.29"
 \header {
   lsrtags = "pitches"
   texidoc = "It is possible to change the default gap setting for

@@ -59,7 +59,7 @@ Timing_translator::initialize ()
   */
   context ()->set_property ("measureLength",
 			    Moment (Rational (1)).smobbed_copy ());
-  context ()->set_property ("beatLength",
+  context ()->set_property ("baseMoment",
 			    Moment (Rational (1, 4)).smobbed_copy ());
 }
 
@@ -151,7 +151,10 @@ ADD_TRANSLATOR (Timing_translator,
 		"measurePosition ",
 
 		/* write */
-		"internalBarNumber "
+		"baseMoment "
 		"currentBarNumber "
+		"internalBarNumber "
+		"measureLength "
 		"measurePosition "
+		"timeSignatureFraction "
 		);

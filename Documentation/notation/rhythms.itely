@@ -1044,6 +1044,72 @@ changed to a numeric style:
 Mensural time signatures are covered in
 @ref{Mensural time signatures}.
 
+@cindex time signature default settings
+@cindex autobeaming properties for time signatures
+@cindex beaming, time signature default properties
+@funindex \overrideTimeSignatureSettings
+
+In addition to setting the printed time signature, the @code{\time}
+command also sets time-signature-based default values for the properties
+@code{baseMoment}, @code{beatStructure}, and @code{beamExceptions}.  The
+predefined default values for these properties can be found in
+@file{scm/time-signature-settings.scm}.  The existing default values can
+be changed, or new default values can be added:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c' {
+    \overrideTimeSignatureSettings
+      #'Score
+      #'(4 . 4)  % time signature fraction
+      #'(1 . 4)  % base moment fraction
+      #'(3 1)    % beatStructure
+      #'()       % beamExceptions
+    \time 4/4
+    \repeat unfold 8 c8 |
+  }
+}
+@end lilypond
+
+@code{\overrideTimeSignatureSettings} takes five arguments:
+context, time signature fraction, base moment, beat structure, and
+beaming exception.  The context is a Scheme symbol that describes
+the context to which the default setting will apply.  The
+time signature fraction is a Scheme pair describing the time signature.
+The base moment is a Scheme pair containing the
+numerator and denominator of the basic timing unit for the
+time signature.  The beat structure is a Scheme list indicating
+the structure of the beats in the measure, in units of the base moment.
+The beaming exception is an alist containing any beaming rules for the
+time signature that go beyond ending at every beat,
+as described in @ref{Setting automatic beam behavior}.
+
+@cindex time signature properties, restoring default values
+@cindex restoring default properties for time signatures
+@funindex \revertTimeSignatureSettings
+
+Changed values of default time signature properties can be restored
+to the original values:
+
+@lilypond[quote,verbatim]
+
+\score{
+  \relative c' {
+    \repeat unfold 8 c8 |
+    \overrideTimeSignatureSettings
+      #'Score
+      #'(4 . 4)
+      #'(1 . 4)
+      #'(3 1)
+      #'((end . (((1 . 8) . (3 1)))))
+    \time 4/4
+    \repeat unfold 8 c8 |
+    \revertTimeSignatureSettings #'Score #'(4 . 4)
+    \time 4/4
+    \repeat unfold 8 c8 |
+  }
+}
+@end lilypond
 
 @predefined
 @code{\numericTimeSignature},
@@ -1661,19 +1727,18 @@ Beams can collide with note heads and accidentals in other voices.
 @cindex lyrics and beaming
 
 @funindex autoBeaming
-@funindex beamSettings
+@funindex baseMoment
+@funindex beamExceptions
+@funindex beatStructure
 @funindex measureLength
-@funindex beatLength
 @funindex \time
 @funindex time
 @funindex \set
 @funindex set
 
-The placement of automatic beams is determined by the time signature.
-Three types of rules are used for determining the end of automatic
-beams: @emph{default} rules
-for the time signature, @emph{explicit} rules for the beam in the time
-signature, and the @emph{beatLength} for the time signature.
+The placement of automatic beams is determined by the context properties
+@code{baseMoment}, @code{beatStructure}, @code{beamExceptions},
+and @code{autoBeaming}.
 
 The following rules, in order of priority, apply when determining
 the appearance of beams:
@@ -1687,38 +1752,47 @@ as specified, otherwise
 if @code{\autoBeamOff} is in force do not beam, otherwise
 
 @item
-if an explicit beam-ending rule is defined for the beam type
-in the time signature, use it to determine the valid
-places where beams may end, otherwise
+if a beam-ending rule is defined in @code{beamExceptions}
+for the beam type, use it to determine the valid places where
+beams may end, otherwise
 
 @item
-if a default beam-ending rule is defined in the time signature,
-use it to group notes with beams, otherwise
+if a beam-ending rule is defined in @code{beamExceptions}
+for a larger beam-type, use it to determined the valid places
+where beams may end, otherwise
 
 @item
-use the value of @code{beatLength} to group notes with beams
+use the values of @code{baseMoment} and @code{beatStructure} to
+determine the ends of the beats in the measure, and
+end beams at the end of beats.
 
 @end itemize
 
+The beam type is the duration of the shortest note in the beamed group.
+If no beam-ending rule is defined for a beam type, the rule for the
+smallest beam-type larger than the current beam is used.
+
 @i{@strong{Modifying the grouping of beats}}
 
-By default @code{beatLength} is
-derived from the time signature set by the @code{\time} command.
-The @code{beatLength} is set to be one over the denominator
-of the time signature.
+By default @code{baseMoment} is set by the @code{\time} command,
+normally to one over the denominator of the time signature.
+Any exceptions to this default
+can be found in @file{scm/@/time@/-signature@/-settings@/.scm}.
+Changing the default value of @code{baseMoment} for a given
+time signature is described in @ref{Time signature}.
 
-@code{beatLength} is a @i{moment},
+@code{baseMoment} is a @i{moment},
 a unit of musical duration.  A quantity of type @i{moment} is
 created by the scheme function @code{ly:make-moment}.  For more
 information about this function, see @ref{Time administration}.
 
-Autobeam settings are stored in the
-@code{beamSettings} property.  Default values of @code{beamSettings}
-are determined in @file{scm/@/beam@/-settings@/.scm}.  Entries in
-@code{beamSettings} are indexed by time signature and
-rule type.
-
-Time signature should be a scheme pair , e.g. @code{#'(4 . 4)}.
+Special (i.e., other than at the end of the beat) autobeam settings
+are stored in the
+@code{beamExceptions} property.  Default values of @code{beamExceptions}
+are established by the @code{\time} command.  Default values of
+@code{beamExceptions} for a time signature
+are determined in @file{scm/@/time@/-signature@/-settings@/.scm}.
+Entries in @code{beamExceptions} are indexed by rule type and beam type.
 
 Rule type should be @code{#'end} for beam ending.
 
@@ -1734,37 +1808,33 @@ beam type.
    (beam-type3 . grouping-3))
 @end example
 
-Beam type is either a scheme pair indicating the duration
-of the beam, e.g. @code{(1 . 16)}, or @code{*} to indicate a
-default rule, which applies to all beams if no explicit rule is
-defined.
+Beam type is a scheme pair indicating the duration
+of the beam, e.g., @code{(1 . 16)}.
 
 Grouping is a scheme list indicating the grouping to be applied to
-the beam.  For default rules (where beam type is
-@code{*}, the grouping is in units of @code{beatLength}.
-For explicit rules, the grouping is in units of the beam type.
+the beam.  The grouping is in units of the beam type.
 
 For reference, the default beaming rules are found in
-@file{scm/beam-settings.scm}.
+@file{scm/time-signature-settings.scm}.
 
-Beam settings are changed with
-@code{\overrideBeamSettings} and @code{\revertBeamSettings}.
+Alternate values for @code{beamExceptions}
+can be defined using the @code{\set} command.
 
 @warning{
-The ending settings must be
-@emph{complete} rules.  That is, every rule that should apply to
-the current time signature must be included in the setting.
-It is not possible to change the grouping of only one beam type
-for a given time signature.  While this may seem cumbersome,
+A @code{beamExceptions} value must be
+@emph{complete} exceptions list.  That is, every exception that should
+be applied must be included in the setting.
+It is not possible to add, remove, or change only one of the exceptions.
+While this may seem cumbersome,
 it means that the current beaming settings need not be known
 in order to specify a new beaming pattern.}
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
 c8^"beats" c16 c8 |
-\overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (2 3)))
+\set beatStructure = #'(2 3)
 c8^"(2+3)" c16 c8
-\overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (3 2)))
+\set beatStructure = #'(3 2)
 c8^"(3+2)" c16 c8
 @end lilypond
 
@@ -1773,22 +1843,24 @@ setting is included in a lower-level context, the setting of the
 enclosing context will apply.
 
 @lilypond[quote, verbatim,relative=1]
-\new Staff <<
+\new Staff {
   \time 7/8
-  \new Voice = one {
-    \relative c'' {
-      \overrideBeamSettings #'Staff #'(7 . 8) #'end #'((* . (2 3 2)))
+  \set Staff.beatStructure = #'(2 3 2)
+  <<
+    \new Voice = one {
+      \relative c'' {
         a8 a a a a a a
+      }
     }
-  }
-  \new Voice  = two {
-    \relative c' {
-      \voiceTwo
-      \overrideBeamSettings #'Voice #'(7 . 8) #'end #'((* . (1 3 3)))
-      f8 f f f f f f
+    \new Voice = two {
+      \relative c' {
+        \voiceTwo
+        \set Voice.beatStructure = #'(1 3 3)
+        f8 f f f f f f
+      }
     }
-  }
->>
+  >>
+}
 @end lilypond
 
 When multiple voices are used the @code{Staff} context must be
@@ -1800,43 +1872,28 @@ staff:
 % rhythm 3-1-1-2
 % Context Voice specified --  does not work correctly
 % Because of autogenerated voices, all beating will
-% be at beatLength (1 . 8)
-\overrideBeamSettings #'Voice #'(7 . 8) #'end #'((* . (3 1 1 2)))
+% be at baseMoment (1 . 8)
+\set beatStructure = #'(3 1 1 2)
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 
 % Works correctly with context Staff specified
-\overrideBeamSettings #'Staff #'(7 . 8) #'end #'((* . (3 1 1 2)))
+\set Staff.beatStructure = #'(3 1 1 2)
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 @end lilypond
 
-@funindex revertBeamSettings
-
-Beam settings can be reverted to get back to default behavior.  This
-is accomplished by using @code{\revertBeamSettings}.  The arguments
-are the same as for @code{\overrideBeamSettings}, except no value
-for @var{grouping} is given:
-
-@example
-\revertBeamSettings context time-signature rule-type
-@end example
-
+Beam settings can be set back to default behavior.  This
+is accomplished by setting the time signature.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
 \repeat unfold 8 {a8}
-% set default rule for (1 1 1 1) grouping
-\overrideBeamSettings #'Score #'(4 . 4) #'end #'((* . (1 1 1 1)))
+% eliminate beam exception that groups beats 1, 2 and 3, 4
+\set Timing.beamExceptions = #'()
 \repeat unfold 8 {a8}
-% revert the new rule
-\revertBeamSettings #'Score #'(4 . 4) #'end
+% go back to default behavior
+\time 4/4
 \repeat unfold 8 {a8}
 @end lilypond
-
-
-@predefined
-@code{\overrideBeamSettings},
-@code{\revertBeamSettings}.
-@endpredefined
 
 
 @snippets
@@ -1844,7 +1901,7 @@ for @var{grouping} is given:
 @cindex beams, subdividing
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{sub-dividing-beams.ly}
+{subdividing-beams.ly}
 
 @cindex measure groupings
 @cindex beats, grouping

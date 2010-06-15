@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.13.29"
 
 \header {
   lsrtags = "rhythms"
@@ -24,8 +24,7 @@ database.)
 \relative c' {
   \override Staff.TimeSignature #'stencil = #(compound-time "2" "3" "8")
   \time 5/8
-  \overrideBeamSettings #'Staff #'(5 . 8) #'end
-    #'((* . (2 3)))
+  \set Staff.beatStructure = #'(2 3)
   c8 d e fis gis
   c8 fis, gis e d
   c8 d e4 gis8
