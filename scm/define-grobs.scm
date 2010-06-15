@@ -2386,16 +2386,17 @@
 (define pure-conversions-alist
   `(
     (,ly:accidental-interface::height . ,ly:accidental-interface::pure-height)
-    (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
-    (,ly:stem::height . ,ly:stem::pure-height)
-    (,ly:rest::height . ,ly:rest::pure-height)
+    (,ly:axis-group-interface::calc-next-staff-spacing . ,ly:axis-group-interface::calc-pure-next-staff-spacing)
+    (,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
     (,ly:grob::stencil-height . ,pure-stencil-height)
+    (,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
+    (,ly:rest::height . ,ly:rest::pure-height)
     (,ly:self-alignment-interface::y-aligned-on-self . ,ly:self-alignment-interface::pure-y-aligned-on-self)
     (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
-    (,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
-    (,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
+    (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
     (,ly:slur::height . ,ly:slur::pure-height)
-    (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)))
+    (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
+    (,ly:stem::height . ,ly:stem::pure-height)))
 
 (define pure-functions
   (list

@@ -1293,8 +1293,72 @@ get help from a Linux or OSX developer to do the make tests.
 @subsection Verify regression tests
 
 In order to avoid breaking LilyPond, it is important to verify that
-the regression tests all succeed.  This process is described in
-@ref{Regression tests}.
+the regression tests succeed, and that no unwanted changes are
+introduced into the output.  This process is described in
+@ref{Identifying code regressions}.
+
+@subheading Typical developer's edit/compile/test cycle
+
+TODO: is @code{[-j@var{X} CPU_COUNT=@var{X}]} useful for
+@code{test-baseline}, @code{check}, @code{clean},
+@code{test-redo}?  Neil Puttock says it is useful for
+everything but @code{clean}, which is disk-limited.
+Need to check formally.
+
+@itemize
+@item
+Initial test:
+
+@example
+make [-j@var{X}]
+make test-baseline
+make [-j@var{X} CPU_COUNT=@var{X}] check
+@end example
+
+@item
+Edit/compile/test cycle:
+
+@example
+@emph{## edit source files, then...}
+
+make clean                    @emph{## only if needed (see below)}
+make [-j@var{X}]                    @emph{## only if needed (see below)}
+make test-redo                @emph{## redo files differing from baseline}
+make [-j@var{X} CPU_COUNT=@var{X}] check  @emph{## CPU_COUNT here?}
+@end example
+
+@item
+Reset:
+
+@example
+make test-clean
+@end example
+@end itemize
+
+If you modify any source files that have to be compiled (such as
+@file{.cc} or @file{.hh} files in @file{flower/} or @file{lily/}),
+then you must run @command{make} before @command{make test-redo},
+so @command{make} can compile the modified files and relink all
+the object files.  If you only modify files which are interpreted,
+like those in the @file{scm/} and @file{ly/} directories, then
+@command{make} is not needed before @command{make test-redo}.
+
+TODO:  Fix the following paragraph.  You can do @command{rm mf/out/*}
+instead of make clean, and you can probably do
+@command{make -C  mf/ clean} as well, but I haven't checked it -- cds
+
+Also, if you modify any font definitions in the @file{mf/}
+directory then you must run @command{make clean} and
+@command{make} before running @command{make test-redo}.  This will
+recompile everything, whether modified or not, and takes a lot
+longer.
+
+Running @command{make@tie{}check} will leave an HTML page
+@file{out/test-results/index.html}.  This page shows all the
+important differences that your change introduced, whether in the
+layout, MIDI, performance or error reporting.
+
+
 
 
 @node Post patch for comments

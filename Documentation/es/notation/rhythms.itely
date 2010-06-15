@@ -23,7 +23,7 @@ barras y los compases.
 * Escritura de silencios::
 * Impresión de las duraciones::
 * Barras::
-* Barras de compás::
+* Compases::
 * Asuntos rítmicos especiales::
 @end menu
 
@@ -33,14 +33,14 @@ barras y los compases.
 @translationof Writing rhythms
 
 @menu
-* Duraciones::
+* Duración de las notas::
 * Grupos especiales::
 * Escalar las duraciones::
 * Ligaduras de unión::
 @end menu
 
-@node Duraciones
-@unnumberedsubsubsec Duraciones
+@node Duración de las notas
+@unnumberedsubsubsec Duración de las notas
 @translationof Durations
 
 @cindex duración de las notas
@@ -2088,8 +2088,8 @@ musicales muy breves, y cuando los números de la fracción son
 pequeños.
 
 
-@node Barras de compás
-@subsection Barras de compás
+@node Compases
+@subsection Compases
 @translationof Bars
 
 @menu

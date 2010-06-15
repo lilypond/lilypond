@@ -62,6 +62,9 @@ the main portion of NR 1+2) may also seem counter-intuitive, but
 they also stem from attempting to find the most effective use of
 limited documentation help.
 
+Before undertaking any large documentation work, contributors are
+encouraged to contact the @ref{Meisters, Documentation Meister}.
+
 
 @node Documentation suggestions
 @section Documentation suggestions
@@ -1392,6 +1395,9 @@ translate the documentation.  However, if you have enough time and
 motivation and a suitable system, it can be very useful to build at
 least the documentation so that you can check the output yourself and
 more quickly; if you are interested, see @ref{Compiling}.
+
+Before undertaking any large translation work, contributors are
+encouraged to contact the @ref{Meisters, Translation Meister}.
 
 
 @node Which documentation can be translated

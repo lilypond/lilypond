@@ -575,6 +575,20 @@ The effect is demonstrated here:
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
+
+@funindex chordNameLowercaseMinor
+
+German songbooks may indicate minor chords as lowercase letters,
+without any @var{m} suffix.  This can be obtained by setting the
+@code{chordNameLowercaseMinor} property:
+
+@lilypond[verbatim,quote,ragged-right, relative=1]
+\chords {
+  \set chordNameLowercaseMinor = ##t
+  c2 d:m e:m f
+}
+@end lilypond
+
 If none of the existing settings give the desired output, the chord
 name display can be tuned through the following properties.
 

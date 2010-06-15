@@ -91,6 +91,8 @@ public:
   SCM get_property_alist_chain (SCM) const;
   SCM internal_get_property (SCM symbol) const;
   SCM internal_get_property_data (SCM symbol) const;
+  SCM internal_get_pure_property (SCM symbol, int start, int end) const;
+  SCM internal_get_maybe_pure_property (SCM symbol, bool pure, int start, int end) const;
   SCM internal_get_non_callback_marker_property_data (SCM symbol) const;
   SCM internal_get_object (SCM symbol) const;
   void internal_set_object (SCM sym, SCM val);

@@ -971,6 +971,7 @@ selects the output format based on the input filename's extension.
 @item @strong{extension} @tab @strong{output format}
 @item
 @item @file{.html} @tab HTML
+@item @file{.htmly} @tab HTML
 @item @file{.itely} @tab Texinfo
 @item @file{.latex} @tab @LaTeX{}
 @item @file{.lytex} @tab @LaTeX{}

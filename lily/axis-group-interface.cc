@@ -693,22 +693,40 @@ Axis_group_interface::print (SCM smob)
   return ret.smobbed_copy ();
 }
 
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_next_staff_spacing, 3)
+SCM
+Axis_group_interface::calc_pure_next_staff_spacing (SCM smob, SCM start, SCM end)
+{
+  return calc_maybe_pure_next_staff_spacing (unsmob_grob (smob),
+					     true,
+					     scm_to_int (start),
+					     scm_to_int (end));
+}
+
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_next_staff_spacing, 1)
 SCM
 Axis_group_interface::calc_next_staff_spacing (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  return calc_maybe_pure_next_staff_spacing (unsmob_grob (smob),
+					     false,
+					     0,
+					     INT_MAX);
+}
+
+SCM
+Axis_group_interface::calc_maybe_pure_next_staff_spacing (Grob *me, bool pure, int start, int end)
+{
   Grob *grouper = unsmob_grob (me->get_object ("staff-grouper"));
 
   if (grouper)
     {
-      Grob *last_in_group = Staff_grouper_interface::get_last_grob (grouper);
+      Grob *last_in_group = Staff_grouper_interface::get_maybe_pure_last_grob (grouper, pure, start, end);
       if (me == last_in_group)
-	return grouper->get_property ("after-last-staff-spacing");
+	return grouper->get_maybe_pure_property ("after-last-staff-spacing", pure, start, end);
       else
-	return grouper->get_property ("between-staff-spacing");
+	return grouper->get_maybe_pure_property ("between-staff-spacing", pure, start, end);
     }
-  return me->get_property ("default-next-staff-spacing");
+  return me->get_maybe_pure_property ("default-next-staff-spacing", pure, start, end);
 }
 
 Real

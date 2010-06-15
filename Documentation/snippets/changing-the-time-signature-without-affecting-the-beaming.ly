@@ -5,7 +5,7 @@
 \version "2.13.20"
 
 \header {
-%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
   texidoces = "
 La instrucción @code{\\time} establece las propiedades
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping} y
@@ -33,11 +33,11 @@ Taktart ausgegeben, ohne die anderen Eigenschaften zu beeinflussen:
 
 
 
-%% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685
+%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 La commande @code{\\time} gère les propriétés
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
-et @code{measureLength} dans le contexte @code{Timing}, normallement
+et @code{measureLength} dans le contexte @code{Timing}, normalement
 rattaché à @code{Score}.  Le fait de modifier la valeur de
 @code{timeSignatureFraction} aura pour effet de changer l'apparence du
 symbole affiché sans pour autant affecter les autres propriétés de la

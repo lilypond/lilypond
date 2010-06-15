@@ -189,23 +189,25 @@ Completion_heads_engraver::process_music ()
   Duration note_dur;
   Duration *orig = 0;
   if (left_to_do_)
-    note_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
+    {
+      /*
+	note that note_dur may be strictly less than left_to_do_
+	(say, if left_to_do_ == 5/8)
+      */
+      note_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
+    }
   else
     {
       orig = unsmob_duration (note_events_[0]->get_property ("duration"));
       note_dur = *orig;
       factor_ = note_dur.factor ();
+      left_to_do_ = orig->get_length ();
     }
   Moment nb = next_barline_moment ();
   if (nb.main_part_ && nb < note_dur.get_length ())
-    {
-      note_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
+    note_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
 
-      do_nothing_until_ = now.main_part_ + note_dur.get_length ();
-    }
-
-  if (orig)
-    left_to_do_ = orig->get_length ();
+  do_nothing_until_ = now.main_part_ + note_dur.get_length ();
 
   for (vsize i = 0; left_to_do_ && i < note_events_.size (); i++)
     {

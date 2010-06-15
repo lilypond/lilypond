@@ -196,6 +196,10 @@ void ly_check_name (string cxx, string fname);
 			  VAR, ARGLIST, DOCSTRING)
 
 #define get_property(x) internal_get_property (ly_symbol2scm (x))
+#define get_pure_property(x,y,z) \
+  internal_get_pure_property (ly_symbol2scm (x), y, z)
+#define get_maybe_pure_property(w,x,y,z) \
+  internal_get_maybe_pure_property (ly_symbol2scm (w), x, y, z)
 #define get_property_data(x) internal_get_property_data (ly_symbol2scm (x))
 #define get_object(x) internal_get_object (ly_symbol2scm (x))
 #define set_object(x, y) internal_set_object (ly_symbol2scm (x), y)

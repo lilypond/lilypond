@@ -107,6 +107,20 @@ send to lilypond-user with gmane}
 
 @warning{When asking questions, please use @ref{Tiny examples}!}
 
+@subsubheading LilyPond Snippet Repository
+
+The LilyPond Snippet Repository is a large collection of
+user-submitted examples, which can freely be copied and used
+in your owm works.  See what other people have written,
+and add your own!
+
+@example
+@uref{http://lsr.dsi.unimi.it}
+@end example
+
+Particularly instructive examples from LSR are included in our
+official documentation, in @ref{Snippets}.
+
 
 @subsubheading IRC
 

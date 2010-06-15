@@ -3119,7 +3119,7 @@ que hacer cambios en cada uno de los archivos @code{.ly}.
 
 
 @node Partituras y particellas
-@section Partituras y particellas
+@subsection Partituras y particellas
 @translationof Scores and parts
 
 En música orquestal, todas las notas se imprimen dos veces.  Una vez

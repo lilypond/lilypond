@@ -5,7 +5,7 @@
 \version "2.13.20"
 
 \header {
-%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
   texidoces = "
 Se puede hacer que los diagramas de posiciones se muestren sólo
 cuando el acorde cambia o al comienzo de una nueva línea.

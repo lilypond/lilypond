@@ -20,7 +20,7 @@ Este capítulo ofrece una introducción básica al trabajo con LilyPond.
 
 @menu
 * Compilación del archivo::
-* Escritura del código de entrada::
+* Cómo escribir archivos de entrada::
 * Tratar con los errores::
 * Cómo leer los manuales::
 @end menu

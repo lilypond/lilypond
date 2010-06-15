@@ -62,24 +62,27 @@ una voz sobre un pentagrama único.
 @end menu
 
 
-@node Bar checks
-@subsection Bar checks
+@node Comprobaciones de compás
+@subsection Comprobaciones de compás
+@translationof Bar checks
 
-Though not strictly necessary, @emph{bar checks} should be
-used in the input code to show where bar lines are expected
-to fall.  They are entered using the bar symbol, @code{|}.
-With bar checks, the program can verify that you've entered
-durations that make each measure add up to the correct
-length.  Bar checks also make your input code easier to
-read, since they help to keep things organized.
+Aunque no es estrictamente necesario, es coneniente utilizar
+@emph{comprobaciones de compás} dentro del código de entrada para
+indicar dónde se supone que van las líneas divisorias.  Se introducen
+mediante el caráter de barra vertical, @code{|} (AltGr - 1 en el
+teclado español).  Con las comprobaciones de compás, el programa puede
+verificar que hemos introducido las duraciones que completan los
+compases correctamente.  Las comprobaciones de compás también hacen
+que el código de entrada sea más fácil de leer, porque ayudan a
+organizar el material.
 
 @lilypond[verbatim,quote,relative=2]
 g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
 @end lilypond
 
 @seealso
-Notation Reference:
-@ruser{Bar and bar number checks}.
+Referencia de la notación:
+@ruser{Comprobación de compás y de número de compás}.
 
 
 @node Alteraciones accidentales y armaduras

@@ -3007,7 +3007,7 @@ def main ():
     # Allow the user to leave out the .xml or xml on the filename
     basefilename = args[0].decode('utf-8')
     if basefilename == "-": # Read from stdin
-        basefilename = "-"
+        filename = "-"
     else:
         filename = get_existing_filename_with_extension (basefilename, "xml")
         if not filename:

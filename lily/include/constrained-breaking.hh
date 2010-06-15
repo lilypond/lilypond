@@ -71,6 +71,7 @@ struct Line_details {
   int compressed_nontitle_lines_count_;
   bool last_markup_line_;
   bool first_markup_line_;
+  bool tight_spacing_;
 
   Line_details ()
   {
@@ -81,6 +82,7 @@ struct Line_details {
     bottom_padding_ = 0;
     space_ = 0;
     inverse_hooke_ = 1;
+    tight_spacing_ = false;
     break_permission_ = ly_symbol2scm ("allow");
     page_permission_ = ly_symbol2scm ("allow");
     turn_permission_ = ly_symbol2scm ("allow");

@@ -63,7 +63,8 @@
 	(script-stencil . (feta . ("downbow" . "downbow")))
 	(padding . 0.20)
 	(avoid-slur . around)
-	(direction . ,UP)))
+	(direction . ,UP)
+	(script-priority . 150)))
     ("downmordent"
      . (
 	(script-stencil . (feta . ("downmordent" . "downmordent")))
@@ -296,9 +297,11 @@
     ("thumb"
      . (
 	(script-stencil . (feta . ("thumb"  . "thumb")))
-	(avoid-slur . inside)
-	(padding . 0.20)
-	(direction . ,UP)))
+	(avoid-slur . around)
+	(padding . 0.50)
+	(direction . ,UP)
+	(slur-padding . 0.2)
+	(staff-padding . 0.5)))
     ("trill"
      . (
 	(script-stencil . (feta . ("trill" . "trill")))
@@ -319,7 +322,8 @@
 	(script-stencil . (feta . ("upbow" . "upbow")))
 	(avoid-slur . around)
 	(padding . 0.20)
-	(direction . ,UP)))
+	(direction . ,UP)
+	(script-priority . 150)))
     ("upmordent"
      . (
 	(script-stencil . (feta . ("upmordent" . "upmordent")))

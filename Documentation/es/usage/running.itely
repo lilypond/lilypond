@@ -746,7 +746,7 @@ explícitamente:
 
 
 @node Error aparente en ../ly/init.ly
-@unnumberedsubsubsec Error aparente en @code{../ly/init.ly}
+@unnumberedsubsec Error aparente en @code{../ly/init.ly}
 @translationof Apparent error in ../ly/init.ly
 
 Pueden aparecer varios mensajes de error extraños acerca de errores de
@@ -778,7 +778,7 @@ general una o dos líneas por encima.
 
 
 @node Mensaje de error Unbound variable %
-@unnumberedsubsubsec Mensaje de error Unbound variable %
+@unnumberedsubsec Mensaje de error Unbound variable %
 @translationof Error message Unbound variable %
 
 Este mensaje de error aparece al final de los mensajes de la consola o
