@@ -284,14 +284,7 @@ construct.  These are easily constructed with automatic tools; see
 @itemize
 
 @item
-Use two spaces for indentation in lilypond examples.  (no
-tabs)
-
-@item
-All text strings should be prefaced with #.  LilyPond does
-not strictly require this, but it is helpful to get users
-accustomed to this scheme construct.  ie @code{\set
-Staff.instrumentName = #"cello"}
+Use two spaces for indentation in lilypond examples (no tabs).
 
 @item
 All engravers should have double-quotes around them:
@@ -300,8 +293,22 @@ All engravers should have double-quotes around them:
 \consists "Spans_arpeggio_engraver"
 @end example
 
-Again, LilyPond does not strictly require this, but it is a useful
-standard to follow.
+LilyPond does not strictly require this, but it is a useful
+convention to follow.
+
+@item
+All context or layout object strings should be prefaced with @code{#}.
+Again, LilyPond does not strictly require this, but it is helpful
+to get users accustomed to this scheme construct.  i.e. @code{\set
+Staff.instrumentName = #"cello"}
+
+@item
+Try to avoid using @code{#'} or @code{#`} within when describing
+context or layout properties outside of an @code{@@example} or @code{@@lilypond}, unless
+the description explicitly requires it.
+
+ie @qq{...setting the @code{transparent} property leaves the object where it
+is, but makes it invisible.}
 
 @item
 If possible, only write one bar per line.
