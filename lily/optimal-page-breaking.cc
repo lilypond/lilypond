@@ -47,11 +47,10 @@ extern bool debug_page_breaking_scoring;
 // ENDth \pageBreak.
 // Returns a vector of systems per page for the pages within this chunk.
 vector<vsize>
-Optimal_page_breaking::solve_chunk (vsize end)
+Optimal_page_breaking::solve_chunk (vsize end, SCM forced_page_count)
 {
   vsize max_sys_count = max_system_count (end-1, end);
   vsize first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
-  SCM forced_page_count = book_->paper_->c_variable ("page-count");
 
   set_to_ideal_line_configuration (end-1, end);
 
@@ -198,10 +197,36 @@ Optimal_page_breaking::solve ()
 {
   vector<vsize> systems_per_page;
 
+  SCM forced_page_counts = book_->paper_->c_variable ("page-count");
+  if (scm_is_integer (forced_page_counts))
+    forced_page_counts = scm_list_1 (forced_page_counts);
+
+  bool is_forced_page_counts = false;
+  if (scm_to_bool (scm_list_p (forced_page_counts)))
+    {
+      int len = scm_to_int (scm_length (forced_page_counts));
+      if (len != (int)last_break_position ())
+	{
+	  warning (_f ("page-count has length %d, but it should have length %d "
+                       "(one more than the number of forced page breaks)",
+		       len, (int)last_break_position ()));
+        }
+      else
+	is_forced_page_counts = true;
+    }
+
+
   message (_f ("Solving %d page-breaking chunks...", last_break_position ()));
   for (vsize end = 1; end <= last_break_position (); ++end)
     {
-      vector<vsize> chunk_systems = solve_chunk (end);
+      SCM page_count = SCM_EOL;
+      if (is_forced_page_counts)
+	{
+	  page_count = scm_car (forced_page_counts);
+	  forced_page_counts = scm_cdr (forced_page_counts);
+	}
+
+      vector<vsize> chunk_systems = solve_chunk (end, page_count);
       systems_per_page.insert (systems_per_page.end (), chunk_systems.begin (), chunk_systems.end ());
     }
 

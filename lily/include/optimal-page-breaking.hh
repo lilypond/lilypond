@@ -32,7 +32,7 @@ public:
   virtual ~Optimal_page_breaking ();
 
 private:
-  vector<vsize> solve_chunk (vsize);
+  vector<vsize> solve_chunk (vsize, SCM);
 };
 
 #endif /* OPTIMAL_PAGE_BREAKING_HH */
