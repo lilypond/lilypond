@@ -27,9 +27,9 @@
 #include "system.hh"
 
 static bool
-is_break (Grob *g)
+is_break (Grob *)
 {
-  return g->get_property ("page-break-permission") == ly_symbol2scm ("force");
+  return false;
 }
 
 Optimal_page_breaking::Optimal_page_breaking (Paper_book *pb)
@@ -43,18 +43,17 @@ Optimal_page_breaking::~Optimal_page_breaking ()
 
 extern bool debug_page_breaking_scoring;
 
-// Solves the subproblem betwen the (END-1)th \pageBreak and the
-// ENDth \pageBreak.
-// Returns a vector of systems per page for the pages within this chunk.
-vector<vsize>
-Optimal_page_breaking::solve_chunk (vsize end, SCM forced_page_count)
+SCM
+Optimal_page_breaking::solve ()
 {
-  vsize max_sys_count = max_system_count (end-1, end);
+  vsize end = last_break_position ();
+  vsize max_sys_count = max_system_count (0, end);
   vsize first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
 
-  set_to_ideal_line_configuration (end-1, end);
+  set_to_ideal_line_configuration (0, end);
 
   Page_spacing_result best;
+  SCM forced_page_count = book_->paper_->c_variable ("page-count");
   vsize page_count = robust_scm2int (forced_page_count, 1);
   Line_division ideal_line_division = current_configuration (0);
   Line_division best_division = ideal_line_division;
@@ -63,6 +62,9 @@ Optimal_page_breaking::solve_chunk (vsize end, SCM forced_page_count)
   
   if (!scm_is_integer (forced_page_count))
     {
+      /* find out the ideal number of pages */
+      message (_ ("Finding the ideal number of pages..."));
+  
       if (systems_per_page () > 0)
 	best = space_systems_with_fixed_number_per_page (0, first_page_num);
       else
@@ -87,17 +89,19 @@ Optimal_page_breaking::solve_chunk (vsize end, SCM forced_page_count)
       min_sys_count = page_count;
     }
 
-  if (page_count == 1 || scm_is_integer (forced_page_count))
-    progress_indication (_f ("[%d: %d pages]", (int) end, (int) page_count));
+  if (page_count == 1)
+    message (_ ("Fitting music on 1 page..."));
+  else if (scm_is_integer (forced_page_count))
+    message (_f ("Fitting music on %d pages...", (int)page_count));
   else
-    progress_indication (_f ("[%d: %d or %d pages]", (int) end, (int) page_count-1, (int)page_count));
+    message (_f ("Fitting music on %d or %d pages...", (int)page_count-1, (int)page_count));
 
   /* try a smaller number of systems than the ideal number for line breaking */
   Line_division bound = ideal_line_division;
   for (vsize sys_count = ideal_sys_count; --sys_count >= min_sys_count;)
     {
       Page_spacing_result best_for_this_sys_count;
-      set_current_breakpoints (end-1, end, sys_count, Line_division (), bound);
+      set_current_breakpoints (0, end, sys_count, Line_division (), bound);
 
       if (debug_page_breaking_scoring)
 	message (_f ("trying %d systems", (int)sys_count));
@@ -152,7 +156,7 @@ Optimal_page_breaking::solve_chunk (vsize end, SCM forced_page_count)
   for (vsize sys_count = ideal_sys_count+1; sys_count <= max_sys_count; sys_count++)
     {
       Real best_demerits_for_this_sys_count = infinity_f;
-      set_current_breakpoints (end-1, end, sys_count, bound);
+      set_current_breakpoints (0, end, sys_count, bound);
 
       if (debug_page_breaking_scoring)
 	message (_f ("trying %d systems", (int)sys_count));
@@ -187,51 +191,10 @@ Optimal_page_breaking::solve_chunk (vsize end, SCM forced_page_count)
 	&& !(best.system_count_status_ & SYSTEM_COUNT_TOO_FEW))
 	break;
     }
-  break_into_pieces (end-1, end, best_division);
-
-  return best.systems_per_page_;
-}
-
-SCM
-Optimal_page_breaking::solve ()
-{
-  vector<vsize> systems_per_page;
-
-  SCM forced_page_counts = book_->paper_->c_variable ("page-count");
-  if (scm_is_integer (forced_page_counts))
-    forced_page_counts = scm_list_1 (forced_page_counts);
-
-  bool is_forced_page_counts = false;
-  if (scm_to_bool (scm_list_p (forced_page_counts)))
-    {
-      int len = scm_to_int (scm_length (forced_page_counts));
-      if (len != (int)last_break_position ())
-	{
-	  warning (_f ("page-count has length %d, but it should have length %d "
-                       "(one more than the number of forced page breaks)",
-		       len, (int)last_break_position ()));
-        }
-      else
-	is_forced_page_counts = true;
-    }
-
-
-  message (_f ("Solving %d page-breaking chunks...", last_break_position ()));
-  for (vsize end = 1; end <= last_break_position (); ++end)
-    {
-      SCM page_count = SCM_EOL;
-      if (is_forced_page_counts)
-	{
-	  page_count = scm_car (forced_page_counts);
-	  forced_page_counts = scm_cdr (forced_page_counts);
-	}
-
-      vector<vsize> chunk_systems = solve_chunk (end, page_count);
-      systems_per_page.insert (systems_per_page.end (), chunk_systems.begin (), chunk_systems.end ());
-    }
 
   message (_ ("Drawing systems..."));
+  break_into_pieces (0, end, best_division);
   SCM lines = systems ();
-  return make_pages (systems_per_page, lines);
+  return make_pages (best.systems_per_page_, lines);
 }
 

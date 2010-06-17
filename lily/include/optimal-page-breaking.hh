@@ -30,9 +30,6 @@ public:
 
   Optimal_page_breaking (Paper_book *pb);
   virtual ~Optimal_page_breaking ();
-
-private:
-  vector<vsize> solve_chunk (vsize, SCM);
 };
 
 #endif /* OPTIMAL_PAGE_BREAKING_HH */
