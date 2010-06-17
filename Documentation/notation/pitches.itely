@@ -966,21 +966,23 @@ c2 c
 @cindex tenor clef, choral
 
 By adding@tie{}@code{_8} or@tie{}@code{^8} to the clef name, the
-clef is transposed one octave down or up, respectively,
+clef is transposed one octave down or up respectively,
 and@tie{}@code{_15} and@tie{}@code{^15} transpose by two octaves.
-Clef names containing non-alphabetic characters must be enclosed
-in quotes.
+Other integers can be used if required.  Clef names containing
+non-alphabetic characters must be enclosed in quotes
 
 @lilypond[verbatim,quote,relative=1]
 \clef treble
 c2 c
 \clef "treble_8"
 c2 c
-\clef "G_8"
-c2 c
 \clef "bass^15"
 c2 c
-\clef "F^15"
+\clef "alto_2"
+c2 c
+\clef "G_8"
+c2 c
+\clef "F^5"
 c2 c
 @end lilypond
 
