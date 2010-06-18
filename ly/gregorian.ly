@@ -138,6 +138,7 @@ finalis = {
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
   \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'extra-spacing-height = #'(-0.5 . 0.5)
 
   \breathe
 }
