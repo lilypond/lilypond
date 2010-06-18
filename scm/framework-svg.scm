@@ -129,6 +129,8 @@ src: url('~a');
     (dump (svg-begin page-width page-height
 		     0 0 device-width device-height))
     (if (ly:get-option 'svg-woff)
+	(module-remove! (ly:outputter-module outputter) 'paper))
+    (if (ly:get-option 'svg-woff)
 	(dump (woff-header paper (dirname filename))))
     (dump (comment (format "Page: ~S/~S" page-number page-count)))
     (ly:outputter-output-scheme outputter
@@ -157,7 +159,9 @@ src: url('~a');
 	(module-define! (ly:outputter-module outputter) 'paper paper))
     (dump (svg-begin svg-width svg-height
 		     left-x (- top-y) device-width device-height))
-    (if (ly:get-option svg-woff)
+    (if (ly:get-option 'svg-woff)
+	(module-remove! (ly:outputter-module outputter) 'paper))
+    (if (ly:get-option 'svg-woff)
 	(dump (woff-header paper (dirname filename))))
     (ly:outputter-output-scheme outputter
 				`(begin (set! lily-unit-length ,unit-length)
