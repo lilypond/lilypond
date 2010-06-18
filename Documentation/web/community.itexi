@@ -362,9 +362,9 @@ free to add more information to that report.}
 If you have discovered a bug which is not listed, please help us
 by creating a bug report.
 
-@warning{We only accept bug reports in the form of @ref{Tiny
-examples}.  We have very limited resources to deal with bug
-reports, so any non-minimal example will be rejected.  Almost
+@warning{We only accept bug reports in the form of
+@ref{Tiny examples}.  We have very limited resources to deal with
+bug reports, so any non-minimal example will be rejected.  Almost
 every bug can be demonstrated in four notes or less!}
 
 Here is an example of a good bug report:
@@ -404,10 +404,11 @@ To avoid this, please add
 Post with the gmane lilypond.bugs interface}, or send an email to
 @uref{mailto:bug-lilypond@@gnu.prg, bug-lilypond@@gnu.org}.
 
-Once your bug has been sent to the list, our Bug Meister will
-examine the report.  He may ask you for more information, or may
-add the report to the tracker and let you know what the issue
-number is.
+Once your bug has been sent to the list, our Bug Squad will
+examine the report.  Please allow up to 24 hours, as we have a
+limited number of volunteers for this task.  They may ask you for
+more information, or may add the report to the tracker and let you
+know what the issue number is.
 
 You may mark the bug so that you automatically receive emails when
 any activity on the bug occurs.  This requires you have a google
