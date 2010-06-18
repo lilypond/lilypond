@@ -183,6 +183,8 @@ object property.  This syntax is described in @ref{Line styles}.
 @code{\textSpannerNeutral}.
 @endpredefined
 
+@knownissues
+LilyPond is only able to handle one text spanner per voice.
 
 @seealso
 Notation Reference:
