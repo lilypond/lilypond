@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3dd9b13331489a191d0e901245cc98476e5fcac1
+    Translation of GIT committish: 92a62616ff89ab626457d607a3d5ecc81fcd3b81
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -91,26 +91,24 @@ Para reducir el tecleo, se puede usar una abreviatura de repetición
 del acorde anterior.  El símbolo de repetición de acordes es @code{q}:
 
 @lilypond[verbatim,quote,relative=1]
-<c e g> q q q
+<c e g>4 q q q
 @end lilypond
 
 Como en los acordes normales, el símbolo de repetición de acordes
-puede ir seguido de una duración y unas articulaciones.  Sólo se
-duplican las alturas del acorde anterior; las articulaciones, matices,
-etc., no se repiten.
+puede usarse con duraciones, articulaciones, elementos de marcado, ligaduras
+de expresión, barras, etc., pues sólo se duplican las notas del acorde precedente.
 
 @lilypond[verbatim,quote,relative=1]
-<c e g>8\p q q4-| q8.^"text" q16 q4-|
+<c e g>4\p q^"text"( q8)[-| q8.] q16-1-2-3
 @end lilypond
 
-Las notas de los acordes (introducidos utilizando ángulos de apertura
-y cierre) sólo se memorizan para ser repetidos por parte de @code{q}:
-es posible repetir un acorde incluso si, por ejemplo, una sola nota
-(sin ángulos de apertura y cierre) o un silencio se han producido
-mientras tanto.
+El símbolo de repetición de acordes
+siempre recuerda la última ocurrencia de un acorde,
+por lo que es posible repetir el acorde más reciente
+incluso si se han escrito en medio otras notas que no están en un acorde, o silencios.
 
 @lilypond[verbatim,quote,relative=1]
-<c e g>8 c' q c r4 q
+<c e g>8 c'4 q r8 q
 @end lilypond
 
 @seealso

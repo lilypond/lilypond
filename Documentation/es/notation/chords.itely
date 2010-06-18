@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ed748ad93c3b4aebee28dbc078d3f8c388db5cce
+    Translation of GIT committish: ec64184cf863f8565cfedd6dfe91198ce843526e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -593,6 +593,20 @@ variables predefinidas @code{\germanChords}, @code{\semiGermanChords},
 estas variables.  El efecto se muestra aquí:
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
+
+
+@funindex chordNameLowercaseMinor
+
+Algunos cancioneros alemanes indican los acordes menores como letras
+minúsculas, sin el sufijo @var{m}.  Esto se puede conseguir
+estableciendo la propiedad @code{chordNameLowercaseMinor}:
+
+@lilypond[verbatim,quote,ragged-right, relative=1]
+\chords {
+  \set chordNameLowercaseMinor = ##t
+  c2 d:m e:m f
+}
+@end lilypond
 
 Si ninguno de los ajustes predeterminados proporciona el resultado
 deseado, se puede afinar la presentación de los nombres de acorde a

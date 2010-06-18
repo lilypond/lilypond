@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: ec23f3d2ccd1c99afe60f694cc46f0c2c50e0081
+Translation of GIT committish: 08a099c3829fea6b8192a1073347aee4ef07519f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3370,20 +3370,27 @@ De forma predeterminada, las letras de ensayo y los números de compás
 se centran horizontalmente sobre el objeto:
 
 @lilypond[verbatim,quote,relative=1]
-e1
-% the RehearsalMark will be centered above the Clef
+% The rehearsal mark will be centered above the Clef
 \override Score.RehearsalMark #'break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
-e
-% the RehearsalMark will be centered above the TimeSignature
+e1
+% The rehearsal mark will be centered above the Time Signature
 \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
 \mark "↓"
 e2.
+% The rehearsal mark will be centered above the Breath Mark
+\override Score.RehearsalMark #'break-align-symbols = #'(breathing-sign)
+\key a \major
+\clef treble
+\time 4/4
+e1
+\breathe
+\mark "↓"
 @end lilypond
 
 Se puede especificar una lista de posibles objetos para la alineación.
@@ -3396,20 +3403,27 @@ divisoria.  Si la línea divisoria es invisible, el objeto se alinea
 con el punto en el que se encontraría la línea divisoria.
 
 @lilypond[verbatim,quote,relative=1]
-e1
-% the RehearsalMark will be centered above the Key Signature
+% The rehearsal mark will be centered above the Key Signature
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
-e
-% the RehearsalMark will be centered above the Clef
+e1
+% The rehearsal mark will be centered above the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
-\key a \minor
+\key a \major
 \clef bass
 \mark "↓"
-e,
+gis,,1
+% The rehearsal mark will be centered above the Bar Line
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\set Staff.explicitClefVisibility = #all-invisible
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef treble
+\mark "↓"
+e''1
 @end lilypond
 
 La alineación de la letra de ensayo con relación al objeto de notación
@@ -3418,23 +3432,23 @@ partitura con varios pentagramas, este ajuste se debe hacer para todos
 los pentagramas.
 
 @lilypond[verbatim,quote,relative=1]
-% The RehearsalMark will be centered above the KeySignature
+% The RehearsalMark will be centered above the Key Signature
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e1
-% The RehearsalMark will be aligned with the left edge of the KeySignature
+% The RehearsalMark will be aligned with the left edge of the Key Signature
 \once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
 \mark "↓"
 \key a \major
-e
-% The RehearsalMark will be aligned with the right edge of the KeySignature
+e1
+% The RehearsalMark will be aligned with the right edge of the Key Signature
 \once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
 \key a \major
 \mark "↓"
-e
+e1
 @end lilypond
 
 La letra de ensayo también se puede desplazar al borde derecho o
@@ -3442,19 +3456,19 @@ izquierdo en una medida arbitraria.  Las unidades son espacios de
 pentagrama:
 
 @lilypond[verbatim,quote,relative=1]
-% The RehearsalMark will be aligned with the left edge of the KeySignature
+% The RehearsalMark will be aligned with the left edge of the Key Signature
 % and then shifted right by 3.5 staff-spaces
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
 \once \override Score.KeySignature #'break-align-anchor = #3.5
 \key a \major
 \mark "↓"
-e
-% The RehearsalMark will be aligned with the left edge of the KeySignature
+e1
+% The RehearsalMark will be aligned with the left edge of the Key Signature
 % and then shifted left by 2 staff-spaces
 \once \override Score.KeySignature #'break-align-anchor = #-2
 \key a \major
 \mark "↓"
-e
+e1
 @end lilypond
 
 

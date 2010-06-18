@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4e70a2dd784a2be0d9fc9b9040986d76a84a5d1d
+    Translation of GIT committish: 397228a452fdce0a1bedb6d5b5d3b0c9717153cd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -303,16 +303,18 @@ Referencia de funcionamiento interno:
 @cindex adorno, notas de, dentro de corchetes de grupo especial
 
 @knownissues
-Cuando la primera nota de un pentagrama es una nota de adorno (un
-mordente de una nota) seguida de un grupo de valoración especial, la
-nota de adorno se debe situar antes de la instrucción @code{\times}
-para evitar errores.  En cualquier otro lugar, las notas de adorno sí
-se pueden colocar dentro de los corchetes de grupo especial.  Si se
-escribe un grupo de valoración especial al principio de una pieza que
-tiene una indicación de @code{\tempo}, debe añadir una instrucción
-@code{\new Voice} explícita tal y como se explica en @rlearning{Las
-voces contienen música}.
+Las notas de adorno se pueden escribir dentro de los corchetes de
+grupo especial, @emph{excepto} cuando un pentagrama comienza por una
+nota de adorno seguida de un grupo de valoración especial.  En este
+caso concreto, se debe poner la nota de adorno antes de la instrucción
+@code{\times} para evitar errores.
 
+@cindex indicaciones de tempo dentro de corchetes de grupo especial
+
+Cuando se utiliza un grupo de valoreción especial al comienzo de una
+pieza con una indicación de @code{\tempo}, la música se debe escribir
+explícitamente dentro de un bloque @code{\new Voice}, tal y como se
+explica en @rlearning{Las voces contienen música}.
 
 
 @node Escalar las duraciones
