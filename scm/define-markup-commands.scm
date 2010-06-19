@@ -620,6 +620,137 @@ grestore
 		 str))
    '(0 . 0) '(0 . 0)))
 
+(define-markup-command (path layout props thickness commands) (number? list?)
+  #:category graphic
+  #:properties ((line-cap-style 'round)
+		(line-join-style 'round)
+		(filled #f))
+  "
+@cindex paths, drawing
+@cindex drawing paths
+Draws a path with line thickness @var{thickness} according to the
+directions given in @var{commands}.  @var{commands} is a list of
+lists where the @code{car} of each sublist is a drawing command and
+the @code{cdr} comprises the associated arguments for each command.
+
+Line-cap styles and line-join styles may be customized by
+overriding the @code{line-cap-style} and @code{line-join-style}
+properties, respectively.  Available line-cap styles are
+@code{'butt}, @code{'round}, and @code{'square}.  Available
+line-join styles are @code{'miter}, @code{'round}, and
+@code{'bevel}.
+
+The property @code{filled} specifies whether or not the path is
+filled with color.
+
+There are seven commands available to use in the list
+@code{commands}: @code{moveto}, @code{rmoveto}, @code{lineto},
+@code{rlineto}, @code{curveto}, @code{rcurveto}, and
+@code{closepath}.  Note that the commands that begin with @emph{r}
+are the relative variants of the other three commands.
+
+The commands @code{moveto}, @code{rmoveto}, @code{lineto}, and
+@code{rlineto} take 2 arguments; they are the X and Y coordinates
+for the destination point.
+
+The commands @code{curveto} and @code{rcurveto} create cubic
+Bézier curves, and take 6 arguments; the first two are the X and Y
+coordinates for the first control point, the second two are the X
+and Y coordinates for the second control point, and the last two
+are the X and Y coordinates for the destination point.
+
+The @code{closepath} command takes zero arguments and closes the
+current subpath in the active path.
+
+Note that a sequence of commands @emph{must} begin with a
+@code{moveto} or @code{rmoveto} to work with the SVG output.
+
+@lilypond[verbatim,quote]
+samplePath =
+  #'((moveto 0 0)
+     (lineto -1 1)
+     (lineto 1 1)
+     (lineto 1 -1)
+     (curveto -5 -5 -5 5 -1 0)
+     (closepath))
+
+\\markup {
+  \\path #0.25 #samplePath
+}
+@end lilypond"
+  (let* ((half-thickness (/ thickness 2))
+	 (current-point '(0 . 0))
+	 (set-point (lambda (lst) (set! current-point lst)))
+	 (relative? (lambda (x)
+		      (string-prefix? "r" (symbol->string (car x)))))
+	 ;; For calculating extents, we want to modify the command
+	 ;; list so that all coordinates are absolute.
+	 (new-commands (map (lambda (x)
+			      (cond
+				;; for rmoveto, rlineto
+				((and (relative? x) (eq? 3 (length x)))
+				 (let ((cp (cons
+					     (+ (car current-point)
+						(second x))
+					     (+ (cdr current-point)
+						(third x)))))
+				   (set-point cp)
+				   (list (car cp)
+					 (cdr cp))))
+				;; for rcurveto
+				((and (relative? x) (eq? 7 (length x)))
+				 (let* ((old-cp current-point)
+					(cp (cons
+					      (+ (car old-cp)
+						 (sixth x))
+					      (+ (cdr old-cp)
+						 (seventh x)))))
+				   (set-point cp)
+				   (list (+ (car old-cp) (second x))
+					 (+ (cdr old-cp) (third x))
+					 (+ (car old-cp) (fourth x))
+					 (+ (cdr old-cp) (fifth x))
+					 (car cp)
+					 (cdr cp))))
+				;; for moveto, lineto
+				((eq? 3 (length x))
+				 (set-point (cons (second x)
+						  (third x)))
+				 (drop x 1))
+				;; for curveto
+				((eq? 7 (length x))
+				 (set-point (cons (sixth x)
+						  (seventh x)))
+				 (drop x 1))
+				;; keep closepath for filtering;
+				;; see `without-closepath'.
+				(else x)))
+			    commands))
+	 ;; connected-shape-min-max does not accept 0-arg lists,
+	 ;; and since closepath does not affect extents, filter
+	 ;; out those commands here.
+	 (without-closepath (filter (lambda (x)
+				      (not (equal? 'closepath (car x))))
+				    new-commands))
+	 (extents (connected-shape-min-max
+		    ;; set the origin to the first moveto
+		    (list (list-ref (car without-closepath) 0)
+			  (list-ref (car without-closepath) 1))
+		    without-closepath))
+	 (X-extent (cons (list-ref extents 0) (list-ref extents 1)))
+	 (Y-extent (cons (list-ref extents 2) (list-ref extents 3)))
+	 (command-list (fold-right append '() commands)))
+
+    ;; account for line thickness
+    (set! X-extent (interval-widen X-extent half-thickness))
+    (set! Y-extent (interval-widen Y-extent half-thickness))
+
+    (ly:make-stencil
+      `(path ,thickness `(,@',command-list)
+	     ',line-cap-style ',line-join-style ,filled)
+      X-extent
+      Y-extent)))
+
 (define-markup-command (score layout props score)
   (ly:score?)
   #:category music
