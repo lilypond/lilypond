@@ -2758,25 +2758,28 @@ figured bass notation.
   (slashed-digit-internal layout props num #f font-size thickness))
 
 ;; eyeglasses
-(define eyeglassesps
-     "0.15 setlinewidth
-      -0.9 0 translate
-      1.1 1.1 scale
-      1.2 0.7 moveto
-      0.7 0.7 0.5 0 361 arc
-      stroke
-      2.20 0.70 0.50 0 361 arc
-      stroke
-      1.45 0.85 0.30 0 180 arc
-      stroke
-      0.20 0.70 moveto
-      0.80 2.00 lineto
-      0.92 2.26 1.30 2.40 1.15 1.70 curveto
-      stroke
-      2.70 0.70 moveto
-      3.30 2.00 lineto
-      3.42 2.26 3.80 2.40 3.65 1.70 curveto
-      stroke")
+(define eyeglassespath
+  '((moveto 0.42 0.77)
+    (rcurveto 0 0.304 -0.246 0.55 -0.55 0.55)
+    (rcurveto -0.304 0 -0.55 -0.246 -0.55 -0.55)
+    (rcurveto 0 -0.304 0.246 -0.55 0.55 -0.55)
+    (rcurveto 0.304 0 0.55 0.246 0.55 0.55)
+    (closepath)
+    (moveto 2.07 0.77)
+    (rcurveto 0 0.304 -0.246 0.55 -0.55 0.55)
+    (rcurveto -0.304 0 -0.55 -0.246 -0.55 -0.55)
+    (rcurveto 0 -0.304 0.246 -0.55 0.55 -0.55)
+    (rcurveto 0.304 0 0.55 0.246 0.55 0.55)
+    (closepath)
+    (moveto 1.025 0.935)
+    (rcurveto 0 0.182 -0.148 0.33 -0.33 0.33)
+    (rcurveto -0.182 0 -0.33 -0.148 -0.33 -0.33)
+    (moveto -0.68 0.77)
+    (rlineto 0.66 1.43)
+    (rcurveto 0.132 0.286 0.55 0.44 0.385 -0.33)
+    (moveto 2.07 0.77)
+    (rlineto 0.66 1.43)
+    (rcurveto 0.132 0.286 0.55 0.44 0.385 -0.33)))
 
 (define-markup-command (eyeglasses layout props)
   ()
@@ -2786,8 +2789,8 @@ figured bass notation.
 \\markup { \\eyeglasses }
 @end lilypond"
   (interpret-markup layout props
-    (make-with-dimensions-markup '(-0.61 . 3.22) '(0.2 . 2.41)
-      (make-postscript-markup eyeglassesps))))
+    (make-override-markup '(line-cap-style . butt)
+      (make-path-markup 0.15 eyeglassespath))))
 
 (define-markup-command (left-brace layout props size)
   (number?)
