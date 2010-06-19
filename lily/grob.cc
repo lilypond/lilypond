@@ -123,7 +123,9 @@ Grob::get_print_stencil () const
   if (Stencil *m = unsmob_stencil (stil))
     {
       retval = *m;
-      if (to_boolean (get_property ("transparent")))
+      bool transparent = to_boolean (get_property ("transparent"));
+
+      if (transparent)
 	retval = Stencil (m->extent_box (), SCM_EOL);
       else
 	{
@@ -156,7 +158,8 @@ Grob::get_print_stencil () const
 	}
 
       /* process whiteout */
-      if (to_boolean (get_property ("whiteout")))
+      /* a grob has to be visible, otherwise the whiteout property has no effect */
+      if (!transparent && to_boolean (get_property ("whiteout")))
         {
           /* Call the scheme procedure stencil-whiteout in scm/stencils.scm */
           /* to add a round-filled-box stencil to the stencil list */
