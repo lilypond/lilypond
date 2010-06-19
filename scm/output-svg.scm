@@ -29,6 +29,7 @@
   (guile)
   (ice-9 regex)
   (ice-9 format)
+  (ice-9 optargs)
   (lily)
   (srfi srfi-1)
   (srfi srfi-13))
@@ -548,7 +549,7 @@
 			x-max y-min
 			x-max 0)))))
 
-(define (path thick commands)
+(define* (path thick commands #:optional (cap 'round) (join 'round) (fill? #f))
   (define (convert-path-exps exps)
     (if (pair? exps)
 	(let*
@@ -576,10 +577,10 @@
 
   (entity 'path ""
 	  `(stroke-width . ,thick)
-	  '(stroke-linejoin . "round")
-	  '(stroke-linecap . "round")
+	  `(stroke-linejoin . ,(symbol->string join))
+	  `(stroke-linecap . ,(symbol->string cap))
 	  '(stroke . "currentColor")
-	  '(fill . "none")
+	  `(fill . ,(if fill? "currentColor" "none"))
 	  `(d . ,(apply string-append (convert-path-exps commands)))))
 
 (define (placebox x y expr)

@@ -29,6 +29,7 @@
 
 (use-modules (guile)
 	     (ice-9 regex)
+	     (ice-9 optargs)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
 	     (scm framework-ps)
@@ -284,7 +285,7 @@
 	     (cdr y)
 	     url))
 
-(define (path thickness exps)
+(define* (path thickness exps #:optional (cap 'round) (join 'round) (fill? #f))
   (define (convert-path-exps exps)
     (if (pair? exps)
 	(let*
@@ -307,8 +308,14 @@
 		(convert-path-exps (drop rest arity))))
 	'()))
 
-
-  (ly:format
-   "gsave currentpoint translate 1 setlinecap ~a setlinewidth\n~l stroke grestore"
-   thickness
-   (convert-path-exps exps)))
+  (let ((cap-numeric (case cap ((butt) 0) ((round) 1) ((square) 2)))
+	(join-numeric (case join ((miter) 0) ((round) 1) ((bevel) 2))))
+    (ly:format
+     "gsave currentpoint translate
+~a setlinecap ~a setlinejoin ~a setlinewidth
+~l gsave stroke grestore ~a grestore"
+     cap-numeric
+     join-numeric
+     thickness
+     (convert-path-exps exps)
+     (if fill? "fill" ""))))
