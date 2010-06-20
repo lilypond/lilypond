@@ -3134,7 +3134,7 @@ are special properties to be found in the @code{break-aligned-interface}
 for positioning rehearsal marks on such objects.
 
 @seealso
-@ruser{Using the break-alignable-interface},
+@ref{Using the break-alignable-interface},
 @rextend{Callback functions}.
 
 @menu
