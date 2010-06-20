@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 22b6ca7247b6f0d596934d38aa2c75d5e45206eb
+    Translation of GIT committish: eac9638a00559bc59f7137087e3cc568f02f49ef
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,7 +18,7 @@
 
 @lilypondfile[quote]{pitches-headword.ly}
 
-Cette section détaille la façon d'indiquer les hauteurs de notes, sous
+Cette section détaille la façon d'indiquer la hauteur des notes, sous
 trois aspects@tie{}: la saisie des hauteurs, la modification des
 hauteurs et les options de gravure.
 
@@ -77,8 +77,8 @@ d e f g
 
 L'octave peut être précisée sous forme d'une série
 d'apostrophes@tie{}@code{'} ou d'une série de virgules@tie{}@code{,}.
-Chaque@tie{}@code{'} hausse la note d'une octave, chaque@tie{}@code{,}
-baisse la note d'une octave.
+Chaque@tie{}@code{'} hausse la note d'une octave@tie{};
+chaque@tie{}@code{,} baisse la note d'une octave.
 
 @lilypond[verbatim,quote,fragment]
 \clef treble
@@ -111,21 +111,21 @@ Morceaux choisis :
 @funindex \transpose
 @funindex transpose
 
-On spécifie les octaves en ajoutant@tie{}@code{'} et@tie{}@code{,} aux
-noms de hauteurs.  En recopiant de la musique, on a vite fait de mettre
-une note à la mauvaise octave, et ce genre d'erreur est difficile à
+On spécifie les octaves en ajoutant@tie{}@code{'} ou@tie{}@code{,} aux
+noms de hauteur.  En recopiant de la musique, on a vite fait de mettre
+une note à la mauvaise octave@tie{}; ce genre d'erreur est difficile à
 retrouver.  Le mode d'écriture en octave relative prévient ces erreurs
 dans la mesure où elles deviennent beaucoup plus évidentes@tie{}: une
 seule erreur décale le reste de la pièce à une mauvaise octave.
 
 
 @example
-\relative @var{hauteur_de_référence} @var{musicexpr}
+\relative @var{hauteur_de_référence} @var{expression_musicale}
 @end example
 
 En mode relatif, chaque note est considérée comme étant le plus proche
 possible de celle qui la précède.  L'octave des notes mentionnées dans
-@var{musicexpr} va être calculée de la manière suivante@tie{}:
+@var{expression_musicale} va être calculée de la manière suivante@tie{}:
 
 @itemize
 @item
@@ -146,7 +146,7 @@ Ces signes de changement d'octave peuvent être multipliés.  Par exemple,
 Lorsque l'on entre en mode @code{\relative}, une hauteur absolue de
 départ peut être spécifiée, et agira dès lors comme si elle précédait la
 première note de @var{musicexpr}.  Nous vous recommandons de faire
-référence à un @code{c} (do).
+référence à un do (@code{c}).
 
 @end itemize
 
@@ -252,7 +252,7 @@ particulièrement le positionnement des do.
 @end lilypond
 
 Comme nous l'avons vu, l'octaviation est déterminée sans tenir compte
-des altérations.  Ainsi un mi double-dièse après un si naturel sera
+des altérations.  Ainsi un mi double-dièse qui suit un si naturel sera
 placé au-dessus de celui-ci, alors qu'un fa double-bémol se retrouvera
 en dessous.  En d'autres termes, une quarte doublement augmentée
 demeure considérée comme un intervalle plus petit qu'une quinte
@@ -298,9 +298,9 @@ Référence des propriétés internes :
 des altérations et de l'armure.  Pour LilyPond, une hauteur n'est que du
 matériau brut@tie{}; l'armure et la clef ne feront que déterminer
 comment ce matériau sera retranscrit.  Un simple@tie{}@code{c} signifie
-tout bonnement @w{@qq{do naturel}} quels que soient l'armure et la clef
+tout bonnement @w{@qq{do naturel}} quelles que soient l'armure et la clef
 en question. Pour plus d'information, reportez-vous au chapitre
- @rlearning{Altérations et armure}.}
+@rlearning{Altérations et armure}.}
 
 @cindex noms de note, hollandais
 @cindex noms de note, par défaut
@@ -315,9 +315,9 @@ en question. Pour plus d'information, reportez-vous au chapitre
 Dans la notation par défaut, un @notation{dièse} est formé en ajoutant
 @code{is} après le nom de note, un @notation{bémol} en ajoutant
 @code{es}.  Les @notation{double-dièses} et @notation{double-bémols}
-sont obtenus en ajoutant @code{isis} ou @code{eses} au nom de note.
-Ce sont les noms de note hollandais.  Pour les autres langues, consultez 
-@ref{Noms de note dans d'autres langues}.
+sont obtenus en ajoutant respectivement @code{isis} ou @code{eses} au
+nom de note.  Ce sont les noms de note hollandais.  Pour les autres
+langues, consultez @ref{Noms de note dans d'autres langues}.
 
 @lilypond[verbatim,quote,relative=2]
 ais1 aes aisis aeses
@@ -624,7 +624,7 @@ altérations, le suffixe à utiliser, ainsi que la fraction de ton entier
 @end multitable
 @end quotation
 
-Por plus d'information sur la musique classique turque et les
+Pour plus d'information sur la musique classique turque et les
 makamlar, reportez-vous au chapitre @ref{Musique classique turque}.
 
 
@@ -683,7 +683,7 @@ imprimée, ayant pour syntaxe
 @code{\octaveCheck}@tie{}@var{hauteur_référence} --
 @var{hauteur_référence} étant spécifiée en mode absolu.  Cette commande
 vérifie que l'intervalle entre la note qui précède et
-@var{hauteur_référence} est inférieure à la quinte comme il se doît en
+@var{hauteur_référence} est inférieur à la quinte comme il se doît en
 mode relatif.  Dans le cas contraire, un message sera émis et la note
 précédente ne sera pas modifiée.  Les notes suivantes seront, par
 contre, positionnées relativement à @var{hauteur_référence}.
@@ -736,14 +736,15 @@ Une expression musicale peut être transposée avec @code{\transpose}.
 Voici la syntaxe@tie{}:
 
 @example
-\transpose @var{note_de_départ} @var{note_d_arrivée} @var{musicexpr}
+\transpose @var{note_de_départ} @var{note_d_arrivée} @var{expression_musicale}
 @end example
 
 @noindent
-Cela signifie que @var{musicexpr} est transposé de l'intervalle séparant
-@var{note_de_départ} et @var{note_d_arrivée}@tie{}: toute note dont la
-hauteur était @code{note_de_départ} est changée en @code{note_d_arrivée}
-et les autres notes seront changées selon le même intervalle.
+Cela signifie que @var{expression_musicale} est transposé de
+l'intervalle séparant @var{note_de_départ} et
+@var{note_d_arrivée}@tie{}: toute note dont la hauteur était
+@code{note_de_départ} est changée en @code{note_d_arrivée}@tie{}; les
+autres notes seront changées selon le même intervalle.
 
 @warning{La musique contenue dans un bloc @code{@bs{}transpose} est en
 octaves absolus, sauf à inclure dans ce même bloc une clause
@@ -751,7 +752,7 @@ octaves absolus, sauf à inclure dans ce même bloc une clause
 
 Prenons comme exemple une pièce écrite en ré majeur.  Si cette pièce est
 un peu trop basse pour l'interprète, elle peut être transposée en mi
-majeur.  Vous noterez que l'armure est modifiée automatiquement.
+majeur.  Vous noterez que l'armure est automatiquement modifiée.
 
 @lilypond[verbatim,quote]
 \transpose d e {
@@ -786,8 +787,8 @@ imprimée que dans la mesure où elle est explicitement mentionnée.
 
 @code{\transpose} fait la distinction entre les notes enharmoniques@tie{}:
 @w{@code{\transpose c cis}} et @w{@code{\transpose c des}} transposeront
-la pièce un demi-ton plus haut.  Mais la première version écrira des
-dièses et la deuxième des bémols.
+la pièce un demi-ton plus haut, au détail près que la première version
+écrira des dièses et la deuxième des bémols.
 
 @lilypond[verbatim,quote]
 music = \relative c' { c d e f }
@@ -800,8 +801,8 @@ music = \relative c' { c d e f }
 On peut aussi utiliser @code{\transpose} pour entrer des notes écrites
 pour un instrument transpositeur.  Normalement, les hauteurs dans
 LilyPond sont écrites en ut, c'est à dire en sons réels, mais elles
-peuvent être écrites dans un autre ton.  Quand, par exemple, on écrit
-pour une trompette en si bémol, commençant sur un ré à l'oreille, on
+peuvent être écrites dans un autre ton.  Prenons l'exemple d'un morceau
+pour trompette en si bémol commençant sur un ré à l'oreille@tie{}; on
 pourrait écrire 
 
 @example
@@ -1000,7 +1001,7 @@ Référence des propriétés internes :
 des altérations et de l'armure.  Pour LilyPond, une hauteur n'est que du
 matériau brut ; l'armure et la clef ne feront que déterminer comment ce
 matériau sera retranscrit.  Un simple@tie{}@code{c} signifie tout
-bonnement @w{@qq{do naturel}} quels que soient l'armure et la clef en
+bonnement @w{@qq{do naturel}} quelles que soient l'armure et la clef en
 question.  Pour plus d'information, reportez-vous au chapitre
 @rlearning{Altérations et armure}.} 
 
@@ -1423,7 +1424,7 @@ sur la portée (contexte @code{Staff}).  Avec cette règle, cependant, les
 altérations sont indépendantes pour chacune des voix tout en obéissant
 à la règle @code{default}.
 
-De ce fait, les altérations d'une voix sont ignorées dans les autres
+Les altérations d'une voix sont de fait ignorées dans les autres
 voix, ce qui peut donner lieu à un résultat malencontreux.  Dans
 l'exemple suivant, il est difficile de dire si le deuxième @notation{la}
 est dièse ou naturel.  La règle @code{voice} n'est donc à envisager que
@@ -1551,9 +1552,9 @@ musicB = {
 
 Cette règle est équivalente à @code{modern}, mais les bécarres de
 précaution (absents dans la règle @code{default}) sont imprimés de façon
-particulière@tie{}: soit plus petits, soit (par défaut) entre parenthèses.
-Il est possible de le définir au moyen de la propriété
-@code{cautionary-style} pour l'objet @code{AccidentalSuggestion}. 
+particulière@tie{}: soit plus petit, soit (par défaut) entre parenthèses
+-- il est possible de le définir au moyen de la propriété
+@code{cautionary-style} de l'objet @code{AccidentalSuggestion}. 
 
 @lilypond[quote]
 musicA = {
@@ -1616,7 +1617,7 @@ musicB = {
 Cette règle sert aux altérations dans de la musique polyphonique destinée
 autant à des musiciens différents qu'à quelqu'un qui lirait l'ensemble
 des voix.  Les altérations sont imprimées voix par voix, mais les autres
-voix, dans le même contexte @code{Staff}, en @emph{tiennent compte}
+voix d'un même contexte @code{Staff} en @emph{tiennent compte}
 cette fois.  C'est pourquoi le @notation{la} de la dernière mesure est
 affublé d'un bécarre bien qu'il y en ait déjà eu un dans la mesure
 précédente, et que le ré de la main gauche en ait un alors qu'il avait
@@ -1742,7 +1743,7 @@ XXe siècle.  Très similaire à @code{modern} de par son comportement,
 elle s'en distingue en ce que les altérations tiennent compte des autre
 portées du contexte @code{GrandStaff} ou @code{PianoStaff}.
 
-Cette règle s'applique par défaut dans un @code{GrandStaff} ou dans un
+Cette règle s'applique par défaut dans un @code{GrandStaff} et dans un
 @code{PianoStaff}. 
 
 @lilypond[quote]
@@ -2033,7 +2034,7 @@ musicB = {
 @funindex neo-modern-voice-cautionary
 
 Cette règle est indentique à @code{neo-modern-voice},
-mais les altérations de précautions sont imprimées,
+mais les altérations de précaution sont imprimées
 soit entre parenthèses (par défaut), soit en plus petit.
 
 @lilypond[quote]
@@ -2270,10 +2271,10 @@ musicB = {
 @funindex forget
 
 Tout le contraire de @code{no-reset}@tie{}: l'effet des altérations
-cesse aussitôt, et de ce fait, toutes les altérations, quelque soit leur
-place dans la mesure, sont imprimées en fonction de l'éventuelle armure.
-À l'inverse du style @code{dodecaphonic}, aucun bécarre ne sera ici
-imprimé. 
+cesse aussitôt@tie{}; toutes les altérations, quelque soit leur place
+dans la mesure, sont de ce fait imprimées en fonction de l'éventuelle
+armure.  À l'inverse du style @code{dodecaphonic}, aucun bécarre ne sera
+ici imprimé.
 
 @lilypond[quote]
 musicA = {
@@ -2351,8 +2352,8 @@ Référence des propriétés internes :
 
 Les notes simultanées sont considérées comme des évènements séquentiels. 
 Ceci implique que, dans un accord, les altérations accidentelles
-seront imprimées comme si les notes de l'accord apparaissaient une par
-une, en fonction de l'ordre dans lequel elles ont été saisies -- ce qui
+seront imprimées comme si les notes de l'accord apparaissaient l'une après
+l'autre, en fonction de l'ordre dans lequel elles ont été saisies -- ce qui
 peut poser problème lorsqu'au sein d'un accord certaines altérations
 dépendent les unes des autres.  
 Ce problème est à résoudre manuellement, en insérant des@tie{}@code{!}
@@ -2565,7 +2566,6 @@ Manuel de notation :
 @ref{Notes en accords},
 @ref{Indication des harmoniques et notes étouffées}.
 
-@seealso
 Référence des propriétés internes : 
 @rinternals{note-event},
 @rinternals{Note_heads_engraver},
