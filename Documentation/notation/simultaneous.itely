@@ -507,7 +507,7 @@ below.  Here the note heads on beat 1 of bar 1 are now merged:
 >>
 @end lilypond
 
-Note heads with different dots as shown in beat 2 of bar 1 may be
+Note heads with different dots as shown in beat 3 of bar 1 may be
 also be merged:
 
 @lilypond[quote,relative=2,verbatim]
