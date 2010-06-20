@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  e9bfcb4ffbd7eab2aa453c8b8d4ddd4c43f99ac2
+    Translation of GIT committish:  64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -38,6 +38,11 @@
 
 @copying
 Copyright @copyright{} 2009--2010 by the authors.
+
+@c next line is necessary for broken pre-4.13 texinfo's
+@c install-info, so leave it there until we officially
+@c bump the required version.  -gp
+Diese Datei dokumentiert den Internetauftritt von LilyPond.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this
@@ -175,27 +180,26 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
   * List all commands in direntry.
 
-@c  * lilypond: (lilypond-application)Running LilyPond.      Invoking the
-@c    LilyPond  program.
 @end ignore
 
 @c Info files are no longer installed in a subdirectory, images are
 @c expected to be found in lilypond/ subdirectory.
 @dircategory GNU LilyPond --- the music typesetter
 @direntry
-* LilyPond Learning Manual: (lilypond-learning).  Hier beginnen.
-* Music Glossary: (music-glossary).               Begriffsübersetzungen von Englisch in andere Sprachen.
-* LilyPond: (lilypond-notation).                           LilyPond Notationshandbuch.
-* LilyPond Snippets: (lilypond-snippets).         Viele Tricks, Tipps und Beispiele.
-* LilyPond Internals Reference: (lilypond-internals).  Definitionen zum Einstellen.
-* LilyPond Application Usage: (lilypond-application). Programme installieren und benutzen.
-* LilyPond Website: (lilypond-general).    Vorschau der neuen Webseite.
-* abc2ly: (lilypond-application)abc2ly starten.      ABC-Notation importieren.
-* convert-ly: (lilypond-application)Dateien mit convert-ly aktualisieren. Ältere LilyPond-Versionen
-* etf2ly: (lilypond-application)Invoking etf2ly.      Finale-Dateien importieren.
-* lilypond-book: (lilypond-application)LilyPond-book. Text und Musik integrieren.
-* midi2ly: (lilypond-application)Invoking midi2ly.    MIDI importieren.
-* musicxml2ly: (lilypond-application) musicxml2ly starten.  MusicXML-Dateien importieren.
+* LilyPond Handbuch zum Lernen: (lilypond-learning).  Hier beginnen.
+* Glossar: (music-glossary).               Begriffsübersetzungen von Englisch in andere Sprachen.
+* LilyPond Notationshandbuch: (lilypond-notation).                           LilyPond Notationshandbuch.
+* LilyPond Schnipsel: (lilypond-snippets).         Viele Tricks, Tipps und Beispiele.
+* LilyPond Referenz der Interna: (lilypond-internals).  Definitionen zum Einstellen.
+* LilyPond Application Usage: (lilypond-usage). Programme installieren und benutzen.
+* LilyPond Webseite: (lilypond-web).    Vorschau der neuen Webseite.
+* lilypond: (lilypond-usage)LilyPond starten.  Das LilyPond-Programm aufrufen.
+* abc2ly: (lilypond-usage)abc2ly starten.      ABC-Notation importieren.
+* convert-ly: (lilypond-usage)Dateien mit convert-ly aktualisieren. Ältere LilyPond-Versionen
+* etf2ly: (lilypond-usage)etf2ly starten.      Finale-Dateien importieren.
+* lilypond-book: (lilypond-usage)LilyPond-book. Text und Musik integrieren.
+* midi2ly: (lilypond-usage)midi2ly starten.    MIDI importieren.
+* musicxml2ly: (lilypond-usage)musicxml2ly starten.  MusicXML-Dateien importieren.
 @end direntry
 
 

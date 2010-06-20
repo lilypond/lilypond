@@ -3132,10 +3132,9 @@ Rehearsal marks may be aligned with breakable objects such as bar
 lines, clef symbols, time signature symbols and key signatures.  There
 are special properties to be found in the @code{break-aligned-interface}
 for positioning rehearsal marks on such objects.
-@ruser{Using the break-alignable-interface}
 
 @seealso
-@ruser{Using the break-alignable-interface},
+@ref{Using the break-alignable-interface},
 @rextend{Callback functions}.
 
 @menu

@@ -59,8 +59,8 @@
   %% Note: these are not scaled; they are in staff-spaces.
   between-system-spacing = #'((space . 12) (minimum-distance . 8) (padding . 1))
   between-scores-system-spacing = #'((space . 14) (minimum-distance . 8) (padding . 1))
-  after-title-spacing = #'((space . 2) (padding . 0.5))
-  before-title-spacing = #'((space . 5) (padding . 0.5))
+  after-title-spacing = #'((space . 5) (padding . 0.5))
+  before-title-spacing = #'((space . 12) (padding . 0.5))
   between-title-spacing = #'((space . 1) (padding . 0.5))
   top-system-spacing = #'((space . 1) (padding . 1) (minimum-distance . 0))
   top-title-spacing = #'((space . 0) (padding . 1) (minimum-distance . 0))

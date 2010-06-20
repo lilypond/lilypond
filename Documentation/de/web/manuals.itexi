@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  e9bfcb4ffbd7eab2aa453c8b8d4ddd4c43f99ac2
+    Translation of GIT committish:  64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -606,11 +606,32 @@ erhältlich.
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
 LilyPond 2.12 Dokumentation} (auf deutsch)
 
+@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
+LilyPond 2.11 Documentation}
+
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
 LilyPond 2.10 Dokumentation} (auf englisch)
 
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 Dokumentation} (auf englisch)
+
+@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
++LilyPond 2.6 Documentation}
++
++@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
++LilyPond 2.4 Documentation}
++
++@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
++LilyPond 2.2 Documentation}
++
++@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
++LilyPond 2.0 Documentation}
++
++@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
++LilyPond 1.8 Documentation}
++
++@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
++LilyPond 1.6 Documentation}
 
 
 @end itemize

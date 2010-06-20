@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 20df663611b8664f6e2d574e7dfe085172c1bda0
+    Translation of GIT committish: 37fad23ed3941fc55f118b1c4e96dae40d458f24
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1032,6 +1032,7 @@ salida basándose en la extensión del nombre del archivo de entrada.
 @item @strong{extensión} @tab @strong{formato de salida}
 @item
 @item @file{.html} @tab HTML
+@item @file{.htmly} @tab HTML
 @item @file{.itely} @tab Texinfo
 @item @file{.latex} @tab @LaTeX{}
 @item @file{.lytex} @tab @LaTeX{}

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 119073f232bac1d756e2b3d3dc00c53fac40e9dd
+    Translation of GIT committish: a38419855cec926de8a197b1a275d78bc12da8ea
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -196,6 +196,13 @@ que la altura de un pentagrama no tiene ningún efecto sobre la
 aplicación de @var{minimum-distance} (mientras que la altura del
 pentagrama es crucial para @var{padding}).
 @end itemize
+
+Por ejemplo, los valores predeterminados son:
+
+@example
+after-title-spacing = #'((space . 2) (padding . 0.5))
+@end example
+
 
 Si una página tiene la parte de abajo no ajustada, @var{space} no se
 ensancha.  Concretamente, la distancia que resulta sobre esta página
@@ -1673,14 +1680,13 @@ hacerlo como propiedades de grob.  Estas variables del bloque paper
 son @var{between-system-spacing}, @var{between-scores-system-spacing},
 @var{after-title-spacing}, @var{before-title-spacing},
 @var{between-title-spacing}, @var{top-system-spacing},
-@var{top-system-spacing}, @var{top-title-spacing} y
-@var{bottom-system-spacing}.  Observe que estas variables ignoran las
-líneas que nos son pautas.  Por ejemplo, @var{between-system-spacing}
-controla el espaciado desde la línea media del pentagrama inferior de
-un sistema hasta la línea del pentagrama superior del sistema
-siguiente, tanto si hay letra debajo del sistema superior como si no.
-Consulte @ref{Dimensiones verticales} para ver una descripción de cada
-una de dichas variables.
+@var{top-title-spacing} y @var{bottom-system-spacing}.  Observe que
+estas variables ignoran las líneas que nos son pautas.  Por ejemplo,
+@var{between-system-spacing} controla el espaciado desde la línea
+media del pentagrama inferior de un sistema hasta la línea del
+pentagrama superior del sistema siguiente, tanto si hay letra debajo
+del sistema superior como si no.  Consulte @ref{Dimensiones
+verticales} para ver una descripción de cada una de dichas variables.
 
 Aún hay otras dos variables del bloque @code{\paper} que afectan al
 espaciado vertical: si @var{ragged-bottom} está ajustado a @code{##t},

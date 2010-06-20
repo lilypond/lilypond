@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: cf3ba390e237d1df96f2969f5c672defda1962fa
+    Translation of GIT committish: a4d7a0103cff1c2bc140aaac66041a4b3137da40
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -180,8 +180,12 @@ e,\stopTextSpan
 @end lilypond
 
 El estilo de la línea, así como la cadena de texto, se pueden definir
-como una propiedad de objeto.  Esta sintaxis se describe en @ref{Estilos de línea}.
+como una propiedad de objeto.  Esta sintaxis se describe en
+@ref{Estilos de línea}.
 
+@knownissues
+LilyPond sólo puede manejar un objeto de extensión de texto por cada
+voz.
 
 
 @funindex \textSpannerUp
