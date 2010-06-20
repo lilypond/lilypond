@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 08a099c3829fea6b8192a1073347aee4ef07519f
+Translation of GIT committish: 5bfe6a7cc623f289518da554f384dc8f092ea424
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3155,18 +3155,21 @@ negativos los desplazamientos hacia abajo.
 
 La posición de un objeto sobre el pentagrama viene dada por los
 valores de las propiedades @code{X-offset} e @code{Y-offset}.  El
-valor de @code{X-offset} da el desplazamiento desde la coordenada x
+valor de @code{X-offset} da el desplazamiento desde la coordenada X
 del punto de referencia del objeto padre, y el valor de
 @code{Y-offset} da el desplazamiento a partir de la línea central del
 pentagrama.  Los valores de @code{X-offset} y @code{Y-offset} se
 pueden establecer directamente o se puede dejar que se calculen por
 parte de procedimientos para conseguir una alineación con el objeto
-padre de distintas maneras.
+padre.
 
 @warning{Muchos objetos tienen consideraciones de posicionamiento
 especiales que hacen que se ignore o se modifique cualquier ajuste
 realizado a @code{X-offset} o a @code{Y-offset}, a pesar de que el
-objeto contemple el interface @code{self-alignment-interface}.}
+objeto contemple el interface @code{self-alignment-interface}.  La
+sobreescritura de las propiedades @code{X-offset} ó @code{Y-offset} a
+un valor fijo hace que se descarte la respectiva propiedad
+@code{self-alignment}.}
 
 Por ejemplo, una alteración accidental se puede reposicionar
 verticalmente estableciendo @code{Y-offset} pero los cambios a
@@ -3177,6 +3180,10 @@ líneas divisorias, claves, armaduras e indicaciones de compás.  Hay
 propiedades especiales que se encuentran en
 @code{break-aligned-interface} para el posicionamiento de las letras
 de ensayo sobre dichos objetos.
+
+@seealso
+@ref{Uso del break-alignable-interface},
+@rextend{Funciones de callback}.
 
 @menu
 * Establecer directamente X-offset e Y-offset::

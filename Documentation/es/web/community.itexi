@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: ebaf1b9c170e883ffec9ec376d48b6664be11078
+    Translation of GIT committish: f3d0521a757c041544d4c8a4a0d450a9bdeadce3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -411,10 +411,11 @@ evitarlo, escriba
 Envíelo mediante el interfaz de lilypond.bugs de gmane}, o envíe un
 mensaje a @uref{mailto:bug-lilypond@@gnu.prg, bug-lilypond@@gnu.org}.
 
-Una vez que su fallo se ha enviado a la lista, nuestro Maestro al
-cargo de los fallos examinará el informe.  Puede que le pida más
-información, o que añada el informe al sistema de seguimiento y le
-comunique qué número se ha asignado al problema.
+Una vez que su fallo se ha enviado a la lista, nuestro Escuadrón de
+Fallos examinará el informe.  Déles un tiempo de unas 24 horas, pues
+disponemos de un número limitado de voluntarios para esta tarea.
+Puede que le pidan más información, o que añadan el informe al sistema
+de seguimiento y le comuniquen qué número se ha asignado al problema.
 
 Puede marcar el bug de forma que reciba mensajes automáticamente
 cuando se produce cualquier actividad sobre él.  Ello requiere que
