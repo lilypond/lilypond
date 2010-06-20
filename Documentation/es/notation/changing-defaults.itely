@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: ec23f3d2ccd1c99afe60f694cc46f0c2c50e0081
+Translation of GIT committish: 5bfe6a7cc623f289518da554f384dc8f092ea424
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3155,18 +3155,21 @@ negativos los desplazamientos hacia abajo.
 
 La posición de un objeto sobre el pentagrama viene dada por los
 valores de las propiedades @code{X-offset} e @code{Y-offset}.  El
-valor de @code{X-offset} da el desplazamiento desde la coordenada x
+valor de @code{X-offset} da el desplazamiento desde la coordenada X
 del punto de referencia del objeto padre, y el valor de
 @code{Y-offset} da el desplazamiento a partir de la línea central del
 pentagrama.  Los valores de @code{X-offset} y @code{Y-offset} se
 pueden establecer directamente o se puede dejar que se calculen por
 parte de procedimientos para conseguir una alineación con el objeto
-padre de distintas maneras.
+padre.
 
 @warning{Muchos objetos tienen consideraciones de posicionamiento
 especiales que hacen que se ignore o se modifique cualquier ajuste
 realizado a @code{X-offset} o a @code{Y-offset}, a pesar de que el
-objeto contemple el interface @code{self-alignment-interface}.}
+objeto contemple el interface @code{self-alignment-interface}.  La
+sobreescritura de las propiedades @code{X-offset} ó @code{Y-offset} a
+un valor fijo hace que se descarte la respectiva propiedad
+@code{self-alignment}.}
 
 Por ejemplo, una alteración accidental se puede reposicionar
 verticalmente estableciendo @code{Y-offset} pero los cambios a
@@ -3177,6 +3180,10 @@ líneas divisorias, claves, armaduras e indicaciones de compás.  Hay
 propiedades especiales que se encuentran en
 @code{break-aligned-interface} para el posicionamiento de las letras
 de ensayo sobre dichos objetos.
+
+@seealso
+@ref{Uso del break-alignable-interface},
+@rextend{Funciones de callback}.
 
 @menu
 * Establecer directamente X-offset e Y-offset::
@@ -3370,20 +3377,27 @@ De forma predeterminada, las letras de ensayo y los números de compás
 se centran horizontalmente sobre el objeto:
 
 @lilypond[verbatim,quote,relative=1]
-e1
-% the RehearsalMark will be centered above the Clef
+% The rehearsal mark will be centered above the Clef
 \override Score.RehearsalMark #'break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
-e
-% the RehearsalMark will be centered above the TimeSignature
+e1
+% The rehearsal mark will be centered above the Time Signature
 \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
 \mark "↓"
 e2.
+% The rehearsal mark will be centered above the Breath Mark
+\override Score.RehearsalMark #'break-align-symbols = #'(breathing-sign)
+\key a \major
+\clef treble
+\time 4/4
+e1
+\breathe
+\mark "↓"
 @end lilypond
 
 Se puede especificar una lista de posibles objetos para la alineación.
@@ -3396,20 +3410,27 @@ divisoria.  Si la línea divisoria es invisible, el objeto se alinea
 con el punto en el que se encontraría la línea divisoria.
 
 @lilypond[verbatim,quote,relative=1]
-e1
-% the RehearsalMark will be centered above the Key Signature
+% The rehearsal mark will be centered above the Key Signature
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
-e
-% the RehearsalMark will be centered above the Clef
+e1
+% The rehearsal mark will be centered above the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
-\key a \minor
+\key a \major
 \clef bass
 \mark "↓"
-e,
+gis,,1
+% The rehearsal mark will be centered above the Bar Line
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\set Staff.explicitClefVisibility = #all-invisible
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef treble
+\mark "↓"
+e''1
 @end lilypond
 
 La alineación de la letra de ensayo con relación al objeto de notación
@@ -3418,23 +3439,23 @@ partitura con varios pentagramas, este ajuste se debe hacer para todos
 los pentagramas.
 
 @lilypond[verbatim,quote,relative=1]
-% The RehearsalMark will be centered above the KeySignature
+% The RehearsalMark will be centered above the Key Signature
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e1
-% The RehearsalMark will be aligned with the left edge of the KeySignature
+% The RehearsalMark will be aligned with the left edge of the Key Signature
 \once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
 \mark "↓"
 \key a \major
-e
-% The RehearsalMark will be aligned with the right edge of the KeySignature
+e1
+% The RehearsalMark will be aligned with the right edge of the Key Signature
 \once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
 \key a \major
 \mark "↓"
-e
+e1
 @end lilypond
 
 La letra de ensayo también se puede desplazar al borde derecho o
@@ -3442,19 +3463,19 @@ izquierdo en una medida arbitraria.  Las unidades son espacios de
 pentagrama:
 
 @lilypond[verbatim,quote,relative=1]
-% The RehearsalMark will be aligned with the left edge of the KeySignature
+% The RehearsalMark will be aligned with the left edge of the Key Signature
 % and then shifted right by 3.5 staff-spaces
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
 \once \override Score.KeySignature #'break-align-anchor = #3.5
 \key a \major
 \mark "↓"
-e
-% The RehearsalMark will be aligned with the left edge of the KeySignature
+e1
+% The RehearsalMark will be aligned with the left edge of the Key Signature
 % and then shifted left by 2 staff-spaces
 \once \override Score.KeySignature #'break-align-anchor = #-2
 \key a \major
 \mark "↓"
-e
+e1
 @end lilypond
 
 

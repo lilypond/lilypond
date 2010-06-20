@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: af91ca2fdfabb65f70b11d1b5a0c6aa715445c4e
+    Translation of GIT committish: 42d36ea50b7ba80ea326e4d17bb1af02ad9f994f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -975,20 +975,23 @@ c2 c
 
 Al añadir @code{_8} o @code{^8} al nombre de la clave, la clave se
 transpone una octava hacia abajo o hacia arriba, respectivamente, y
-@code{_15} y @code{^15} la transpone dos octavas.  El argumento
+@code{_15} y @code{^15} la transpone dos octavas.  Si es necesario
+se pueden usar otros números enteros.  El argumento
 @var{nombre_de_clave} se debe encerrar entre comillas si contiene
-caracteres no alfabéticos.
+caracteres no alfabéticos:
 
 @lilypond[verbatim,quote,relative=1]
 \clef treble
 c2 c
 \clef "treble_8"
 c2 c
-\clef "G_8"
-c2 c
 \clef "bass^15"
 c2 c
-\clef "F^15"
+\clef "alto_2"
+c2 c
+\clef "G_8"
+c2 c
+\clef "F^5"
 c2 c
 @end lilypond
 

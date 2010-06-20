@@ -1,0 +1,605 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: afdfd9e608370743933d8dfdaa03a682053c33c9
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@include included/generating-output.itexi
+
+@macro warningTextBased
+@warning{LilyPond è un compositore tipografico musicale @strong{basato su testo}; è
+più simile a un linguaggio di programmazione che a un editor grafico di
+spartiti.  Prima di scaricare LilyPond, dovresti informarti sul
+nostro @ref{Input testuale}.}
+@end macro
+
+@node Download
+@unnumbered Download
+
+@divClass{heading-center}
+@ifclear web_version
+  @c yes, we want verisonDevel here, since the online links
+  @c for @version won't be up yet!
+  @heading Download per LilyPond @versionDevel
+
+@warning{I link alla versione stabile di LilyPond si possono trovare su
+@uref{http://lilypond.org, lilypond.org}}
+@end ifclear
+@ifset web_version
+  @heading Download per LilyPond @versionStable
+@end ifset
+
+@warningTextBased
+
+@divEnd
+
+@divClass{column-left-top}
+@subheading Per gli utenti
+
+@itemize
+
+@item
+@c TODO: duplicate to avoid underlined refs in HTML?  icky.
+@ref{Unix, @sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}}
+@ref{Unix, Unix (Linux e FreeBSD)}
+
+@item
+@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, MacOS X}
+
+@item
+@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, Microsoft Windows}
+
+@end itemize
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading Per gli sviluppatori
+
+@itemize
+
+@item
+@ref{Sorgente}:
+per i responsabili dei pacchetti
+
+@item
+@ref{Vecchi download}:
+versioni precedenti
+
+@item @ref{Sviluppo}:
+ultima versione non stabile
+
+@end itemize
+@divEnd
+
+
+@divClass{column-center-bottom}
+
+@subheading Licenza software
+
+LilyPond è distribuito secondo la
+@ref{GPL, GNU General Public License}.
+@divEnd
+
+
+@divClass{color1}
+
+@subheading Sponsor
+
+Un ringraziamento a @uref{http://www.vt.edu/, Virgina Tech} e
+@uref{http://www.linuxaudio.org/, linuxaudio.org} per la sponsorizzazione della
+ banda.
+
+@sourceimage{VTlogo_ITF,,,}
+@sourceimage{lao_banner_06_on_white_demo,,,}
+
+@subheading Legalese
+
+@divClass{legal}
+Si riconoscono il copyright e i marchi di tutti i loghi e le
+immagini dei prodotti.
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+@divEnd
+
+
+@divClass{hide}
+@menu
+* Unix::
+* MacOS X::
+* Windows::
+* Sorgente::
+* Vecchi download::
+* GPL::
+@end menu
+@divEnd
+
+
+@node Unix
+@unnumberedsec Unix
+
+@divClass{heading-center}
+@warningTextBased
+@divEnd
+
+@divClass{column-center-top}
+@subheading Pacchetti generici o pacchetti specifici di una distribuzione?
+
+Molte distribuzioni includono LilyPond nel loro sistema di pacchetti.
+Queste versioni sono più facili da installare e disinstallare rispetto
+ai pacchetti generici, ma potrebbero non essere recenti.  Se preferisci usare
+i nostri pacchetti generici, disinstalla la versione ufficiale dal tuo
+sistema usando il gestore di pacchetti della tua distribuzione.
+Leggi la documentazione della tua distribuzione per sapere come usare
+il gestore di pacchetti.
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Pacchetti generici
+
+@subsubheading Download
+
+@itemize
+
+@item
+@sourceimage{logo-linux,,,}
+@ifclear web_version
+  @downloadDevelLinuxNormal
+@end ifclear
+@ifset web_version
+  @downloadStableLinuxNormal
+@end ifset
+
+(se non sei sicuro, usa questo)
+
+@item
+@sourceimage{logo-linux,,,}
+@downloadStableLinuxBig
+
+@item
+@sourceimage{logo-linux,,,}
+@downloadStableLinuxPPC
+
+@item
+@sourceimage{logo-freebsd,,,}
+@downloadStableFreeBSDNormal
+
+@item
+@sourceimage{logo-freebsd,,,}
+@downloadStableFreeBSDBig
+
+@end itemize
+
+
+@subsubheading Installazione
+
+Digita in un terminale:
+
+@example
+cd PERCORSO-ALLA-DIRECTORY-DI-DOWNLOAD
+sh lilypond-@versionStable{}-SISTEMA-OPERATIVO.sh
+@end example
+
+@subsubheading Disinstallazione
+
+Digita in un terminale:
+
+@example
+uninstall-lilypond
+@end example
+
+@divEnd
+
+
+
+@divClass{column-right-top}
+@subheading Compilare un file
+
+@lilypadCommandLine
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Pacchetti specifici di una distribuzione
+
+Usa il gestore pacchetti della tua distribuzione per istallare o
+aggiornare a queste versioni.
+
+@itemize
+
+@item
+@sourceimage{logo-fedora,,,}
+@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
+Fedora: LilyPond 2.12.3}
+
+@item
+@sourceimage{logo-ubuntu,,,}
+@uref{http://packages.ubuntu.com/search?keywords=lilypond,
+Ubuntu: LilyPond 2.12.2}
+
+@item
+@sourceimage{logo-slackware,,,}
+@uref{http://www.johannes-schoepfer.de/lilypond/,
+Slackware: LilyPond 2.12.3}
+
+@item
+@sourceimage{logo-debian,,,}
+@uref{http://packages.debian.org/search?keywords=lilypond,
+Debian: LilyPond 2.12.2}
+
+@item
+@sourceimage{logo-suse,,,}
+@uref{http://software.opensuse.org/search?baseproject=openSUSE%3A11.2&p=1&q=lilypond,
+openSUSE: LilyPond 2.12.3}
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Legalese
+
+@divClass{legal}
+Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodotti.
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@divEnd
+@divEnd
+
+
+@node MacOS X
+@unnumberedsec MacOS X
+
+@divClass{heading-center}
+@warningTextBased
+@divEnd
+
+@divClass{column-left-top}
+@subheading Pacchetti
+
+@subsubheading Download
+
+@itemize
+
+@item
+@sourceimage{logo-macosx,,,}
+@downloadStableDarwinNormal
+Per processori Intel (se hai dei dubbi, usa questo).
+
+@item
+@sourceimage{logo-macosx,,,}
+@downloadStableDarwinPPC
+Per le CPU G3 e G4 (vecchi computer Apple).
+
+@end itemize
+
+@subsubheading Installazione
+
+Clicca due volte sul file scaricato, poi trascinalo dove preferisci.
+
+@subsubheading Disinstallazione
+
+Elimina la cartella LilyPond.app.
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading Compilare un file
+
+@lilypadOSX
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Esecuzione da linea di comando
+
+@warning{Se ti trovi bene con l'interfaccia grafica, puoi ignorare
+queste istruzioni.}
+
+@subsubheading MacOS X su linea di comando
+
+Il modo più comodo di eseguire script lilypond è impostare dei propri
+script d' @qq{aiuto}.
+
+@enumerate
+
+@item
+Crea una directory dove salvare questi script,
+
+@example
+mkdir -p ~/bin
+cd ~/bin
+@end example
+
+
+@item
+Crea un file chiamato @command{lilypond} che contiene
+
+@help obvious css issue to be dealt with.  :(
+@c we need a small font here to fit.  -gp
+@smallexample
+exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
+@end smallexample
+
+@warning{@var{DIR} si trova generalmente in @code{/Applications/}}
+
+
+@item
+Crea file simili @command{lilypond-book},
+@command{convert-ly}, e un qualsiasi altro script tu voglia usare,
+sostituendo @command{bin/lilypond} con @command{bin/convert-ly}
+(o il nome di un altro programma).
+
+
+@item
+Rendi eseguibile il file,
+
+@example
+chmod u+x lilypond
+@end example
+
+
+@item
+Ora, aggiungi questa directory alla tua variabile path.  Modifica (o crea) un file
+chiamato @code{.profile} nella tua home in modo che contenga
+
+@example
+export PATH=$PATH:~/bin
+@end example
+
+Questo file deve finire con una linea bianca.
+
+@end enumerate
+
+
+@subsubheading Lanciare i singoli script
+
+Gli script --- come @command{lilypond-book}, @command{convert-ly},
+@command{abc2ly}, e anche @command{lilypond} stesso --- sono inclusi
+nel file @code{.app} per MacOS@tie{}X.
+
+Gli script possono essere eseguiti dalla linea di comando anche lanciandoli
+direttamente:
+
+@example
+@var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
+@end example
+
+Lo stesso vale per tutti gli altri script in quella directory, come
+@command{lilypond-book} e @command{convert-ly}.
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Legalese
+
+@divClass{legal}
+Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodotti.
+
+@logoLegalMacOSX
+
+@divEnd
+@divEnd
+
+
+
+@node Windows
+@unnumberedsec Windows
+
+@divClass{heading-center}
+@warningTextBased
+@divEnd
+
+@divClass{column-left-top}
+@subheading Pacchetti
+
+@subsubheading Download
+
+@itemize
+
+@item
+@sourceimage{logo-windows,,,}
+@downloadStableWindows
+Per Windows ME, NT, 2000, XP, Vista, e Windows 7.
+
+@end itemize
+
+@subsubheading Installazione
+
+@enumerate
+
+@item
+Trova il file scaricato e clicca due volte su di esso per avviare
+l'installer. Segui le istruzioni fornite dall'installer;
+Ti consigliamo di lasciare tutte le opzioni di installazione attivate e
+e di usare il percorso di installazione predefinito. Clicca sul bottone @q{Finito}
+quando l'installer è terminato. LilyPond è ora installato.
+
+@end enumerate
+
+@subsubheading Disinstallazione
+
+Per disinstallare LilyPond:
+
+@enumerate
+
+@item
+Trova la cartella LilyPond dal menu @q{Start} e clicca sull'icona
+@q{Disinstalla}. Clicca il bottone @q{Finito} quando la disinstallazione
+è terminata.
+
+@item
+Oppure dal Pannello di Controllo, trova e seleziona LilyPond e poi
+scegli l'opzione per disinstallare/rimuovere il software. Clicca il
+bottone @q{Finish} quando la disinstallazione è terminata.
+
+@end enumerate
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Compilare un file
+
+@lilypadWindows
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Esecuzione da linea di comando
+
+@warning{Se ti trovi bene con l'interfaccia grafica, puoi ignorare
+queste istruzioni.}
+
+@subsubheading Windows da linea di comando
+
+@ignore
+CHECK: check the following descriptions.
+I don't have English version of Windows.
+@end ignore
+
+Il modo più comodo per eseguire LilyPond è aggiungere la cartella
+che contiene i file eseguibili di LilyPond alla variabile d'ambiente
+@qq{Path}.
+
+
+@enumerate
+@item
+Apri il @qq{Sistema} nel Panello di Controllo,
+seleziona la linguetta Avanzate e clicca il bottone Variabili d'Ambiente.
+
+@item
+Seleziona la variabile @qq{Path} dalla lista delle variabili d'ambiente
+e clicca il bottone Modifica.
+Apparirà una finestra intitolata @qq{Modifica il Sistema delle Variabili};
+attacca al @qq{valore della variabile} il nome della cartella
+che contiene i file eseguibili di LilyPond, in questo modo:
+
+@example
+[@var{pre-set paths}];@var{DIR}\LilyPond\usr\bin
+@end example
+
+@warning{@var{DIR} generalmente è @code{C:\Program Files}.}
+
+@noindent
+e clicca il bottone @qq{OK} per chiudere la finestra.
+
+@end enumerate
+
+@subsubheading Lanciare singoli file eseguibili
+
+I file eseguibili di LilyPond
+-- come lilypond, lilypond-book, convert-ly, etc. --
+possono essere eseguiti dalla linea di comando lanciandoli:
+
+@example
+lilypond test.ly
+@end example
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Legalese
+
+@divClass{legal}
+Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodotti.
+
+@logoLegalWindows
+
+@divEnd
+@divEnd
+
+
+
+@node Sorgente
+@unnumberedsec Sorgente
+@translationof Source
+
+@divClass{heading-center}
+@warningTextBased
+@divEnd
+
+@warning{Noi @strong{non} ti consigliamo di cercare di compilare
+LilyPond; le necessità di quasi tutti gli utenti sono meglio soddisfatte
+dalla versione precompilata.}
+
+@divClass{column-left-bottom}
+@subheading Codice sorgente
+
+@downloadStableSource{}
+
+Per un vasto elenco di tutte le versioni (vecchie e nuove), si veda il
+nostro @uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D,
+sito di download}.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Istruzioni per la compilazione
+
+Le istruzioni sono elencate in @rcontrib{Compiling LilyPond}.
+
+@divEnd
+
+
+@node Vecchi download
+@unnumberedsec Vecchi download
+@translationof Old downloads
+
+@divClass{heading-center}
+@warningTextBased
+@divEnd
+
+@divClass{column-center-top}
+@subheading Tutte le versioni
+
+Per un vasto elenco di tutte le versioni (vecchie e nuove), si veda
+il nostro @uref{http://download.linuxaudio.org/lilypond/binaries/, sito
+di download}.
+
+@divEnd
+
+
+@node GPL
+@unnumberedsec GPL
+
+@divClass{column-center-top}
+@subheading Licenza Software
+
+GNU LilyPond è distribuito secondo la GNU General Public License.
+Un'introduzione a questa licenza, e le ragioni per cui l'abbiamo scelta,
+si trovano in @ref{Freedom}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading GNU General Public License
+
+@include gpl.itexi
+
+@divEnd

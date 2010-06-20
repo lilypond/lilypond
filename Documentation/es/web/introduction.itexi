@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 77b5a11faca0966ffd0bf9c80bbfcbe0fcc0daa5
+    Translation of GIT committish: 9b4bc840bfa328cd3a7969e529efa61e51e5edaa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -301,7 +301,8 @@ de las notas que se escriben para el pentagrama normal.
 La salida estándar se puede modificar de forma muy profunda.  He aquí
 un impresionante análisis schenkeriano creado por Kris Schaffer, para
 un artículo de la revista
-@uref{http://www.linuxjournal.com/article/8364 , Linux Journal}
+@uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.  Se
+han añadido algunos colores para mejorar la visibilidad.
 
 @exampleImage{bach-schenker}
 @newsEnd
@@ -1058,7 +1059,7 @@ activamente para actualizarlo a nuestra versión estable actual, 2.12.}
 @divEnd
 
 @divClass{column-center-top}
-@divEnd@subheading Entornos de edición de texto: Emacs y Vim
+@divEnd@subheading Emacs y Vim
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}

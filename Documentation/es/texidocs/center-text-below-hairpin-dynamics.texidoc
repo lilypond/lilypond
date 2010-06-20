@@ -1,4 +1,4 @@
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Este ejemplo proporciona una función para tipografiar un regulador con
 texto por debajo, como @qq{molto} o @qq{poco}. El ejemplo ilustra
