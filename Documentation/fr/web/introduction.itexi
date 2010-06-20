@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: fb65882ca80dc336938757d8d7feb5142c1eaf83
+    Translation of GIT committish: 22b6ca7247b6f0d596934d38aa2c75d5e45206eb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1121,6 +1121,8 @@ svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
 @divEnd
 @end ignore
 
+
+
 @divClass{column-center-top}
 @subheading Autres programmes qui exportent du code LilyPond
 
@@ -1169,6 +1171,9 @@ composition musicale @qq{highly expressive constraint-based}.
 qui permet de générer de la notation à partir de logiciels de musique.
 
 @end itemize
+@divEnd
+
+@divClass{column-center-top}
 
 
 @subheading Autres programmes dont le développement est peu actif
