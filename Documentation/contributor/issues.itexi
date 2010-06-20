@@ -7,6 +7,7 @@ miscellaneous development tasks.
 
 @menu
 * Introduction to issues::
+* Bug Squad setup::
 * Bug Squad checklists::
 * Issue classification::
 * Adding issues to the tracker::
@@ -38,34 +39,173 @@ New volunteers for the Bug Squad should contact the
 @ref{Meisters, Bug Meister}.
 
 
-@node Bug Squad checklists
-@section Bug Squad checklists
+@node Bug Squad setup
+@section Bug Squad setup
 
-We highly recommend that you configure your email client to put
-messages from:
-
-@example
-@@googlecode.com
-@end example
-
-@noindent
-into a separate folder than other emails to @code{bug-lilypond}.
-
-
-@subsubheading New emails to @code{bug-lilypond}
-
-Every new email to @code{bug-lilypond} should be handled within
-@strong{24 hours} in the first method which is applicable:
+We highly recommend that you configure your email to use effective
+sorting; this can reduce your workload @emph{immensely}.  The
+email folders names were chosen specifically to make them work if
+you sort your folders alphabetically.
 
 @enumerate
 
 @item
-If the email is a question about how to use LilyPond, direct them
-politely to @code{lilypond-user}.
+Skim through every section of this chapter, @ref{Issues}.  Read in
+detail any sections called @qq{Bug Squad...}, or any page linked
+from @ref{Bug Squad checklists}.
+
+@item
+If you do not have one already, create a gmail account and send
+the email address to the @ref{Meisters, Bug Meister}.
+
+@item
+Configure your google code account:
+
+@enumerate
+
+@item
+Log in to:
+
+@example
+@uref{http://code.google.com}
+@end example
+
+@item
+Go to your @qq{Profile}, and select @qq{Settings}.
+
+@item
+Scroll down to @qq{Issue change notification}, and make sure that
+you have @emph{selected} @qq{If I starred the issue}.
+
+@end enumerate
+
+@item
+Configure your email client:
+
+@enumerate
+
+@item
+Any email sent with your gmail address in the @code{To:} or
+@code{CC:} fields should go to a @code{bug-answers} folder.
+
+@item
+Any other email either from, or CC'd to,
+
+@example
+lilypond@@googlecode.com
+@end example
+
+@noindent
+should go into a separate @code{bug-ignore} folder.  Alternately,
+you may automatically delete these emails.
+
+You will @strong{not read} these emails as part of your Bug Squad
+duties.  If you are curious, go ahead and read them later, but it
+does @strong{not} count as Bug Squad work.
+
+@item
+Any other email sent to (or CC'd to):
+
+@example
+bug-lilypond
+@end example
+
+@noindent
+should go into a separate @code{bug-current} folder.
+
+@end enumerate
+
+@end enumerate
+
+
+@node Bug Squad checklists
+@section Bug Squad checklists
+
+When you do Bug Squad work, start at the top of this page and work
+your way down.  Stop when you've done 15 minutes.
+
+Please use the email sorting described in @ref{Bug Squad setup}.
+This means that (as Bug Squad members) you will only ever respond
+to emails sent or CC'd to the @code{bug-lilypond} mailing list.
+
+
+@subsubheading Emails to you personally
+
+You are not expected to work on Bug Squad matters outside of your
+15 minutes, but sometimes a confused user will send a bug report
+(or an update to a report) to you personally.  If that happens,
+please forward such emails to the @code{bug-lilypond} list so that
+the currently-active Bug Squad member(s) can handle the message.
+
+
+@subsubheading Daily schedule
+
+@example
+Sunday: Valentin
+Monday: Dmytro
+Tuesday: James Bailey
+Wednesday: Ralph
+Thursday: Phil Holmes
+Friday: Urs Liska, Patrick
+Saturday: Kieren
+@end example
+
+
+@subsubheading Emails to @code{bug-answers}
+
+Some of these emails will be comments on issues that you added to
+the tracker.
+
+@itemize
+If they are asking for more information, give the additional
+information.
+
+@item
+If the email says that the issue was classified in some other
+manner, read the rationale given and take that into account for
+the next issue you add.
+
+@item
+Otherwise, move them to your @code{bug-ignore} folder.
+
+@end itemize
+
+Some of these emails will be discussions about Bug Squad work;
+read those.
+
+
+@subsubheading Emails to @code{bug-current}
+
+Dealing with these emails is your main task.  Your job is to get
+rid of these emails in the first method which is applicable:
+
+@enumerate
+@item
+If the email has already been handled by a Bug Squad member (i.e.
+check to see who else has replied to it), delete it.
+
+@item
+If the email is a question about how to use LilyPond, reply with
+this reponse:
+
+@example
+For questions about how to use LilyPond, please read our
+documentation available from:
+  @uref{http://lilypond.org/website/manuals.html}
+or ask the lilypond-user mailing list.
+@end example
 
 @item
 If a bug report is not in the form of a Tiny example, direct the
-user to resubmit the report after reading @rweb{Tiny examples}.
+user to resubmit the report with this response:
+
+@example
+I'm sorry, but due to our limited resources for handling bugs, we
+can only accept reports in the form of Tiny examples.  Please see
+step 2 in our bug reporting guidelines:
+  @uref{http://lilypond.org/website/bug-reports.html}
+@end example
+
 
 @item
 If anything is unclear, ask the user for more information.
@@ -79,12 +219,28 @@ problem, not your reponsibility to understand it.
 
 @item
 If the behavior is expected, the user should be told to read the
-documentation, or asked to clarify how he misread the docs and how
-the docs could be improved.
+documentation:
+
+@example
+I believe that this is the expected behaviour -- please read our
+documentation about this topic.  If you think that it really is a
+mistake, please explain in more detail.  If you think that the
+docs are unclear, please suggest an improvement as described by
+@qq{Simple tasks -- Documentation} on:
+  @uref{http://lilypond.org/website/help-us.html}
+@end example
 
 @item
 If the issue already exists in the tracker, send an email to that
-effect.
+effect:
+
+@example
+This issue has already been reported; you can follow the
+discussion and be notified about fixes here:
+@end example
+
+@noindent
+(copy+paste the google code issue URL)
 
 @item
 Accept the report as described in
@@ -99,6 +255,9 @@ other Bug Squad members know that you have processed the email.
 you cannot find a reason to reject the report, you must accept
 it.}
 
+
+@ignore
+@c Try omitting this from Bug Squad duties
 
 @subheading Updates / discussion about issues
 
@@ -124,6 +283,7 @@ reports; it is @emph{perfectly acceptable} to not understand
 discussions between advanced users and/or developers.
 
 @end itemize
+@end ignore
 
 
 @subheading Regular maintenance
@@ -145,6 +305,7 @@ ask if it was deliberate.  The official comparison is online, at:
 More information is available from in
 @ref{Precompiled regression tests}.
 
+
 @item
 Issues to verify: try to reproduce the bug with the latest
 version; if you cannot reproduce the bug, mark the item
@@ -155,6 +316,10 @@ version; if you cannot reproduce the bug, mark the item
 @end example
 
 @end itemize
+
+
+@ignore
+@c try omitting from daily tasks for now. -gp
 
 Once every @strong{two weeks} or so:
 
@@ -176,6 +341,7 @@ more work, then remove the @code{patch} label.
 @end example
 
 @end itemize
+
 
 @subheading Irregular maintenance
 
@@ -203,6 +369,8 @@ same (broken) output as the initial report, then simply post a
 @qq{Problem still exists in 2.x.y} message to the issue.
 
 @end itemize
+
+@end ignore
 
 
 @node Issue classification

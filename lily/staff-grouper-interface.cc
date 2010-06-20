@@ -20,6 +20,7 @@
 #include "staff-grouper-interface.hh"
 
 #include "hara-kiri-group-spanner.hh"
+#include "page-layout-problem.hh"
 #include "pointer-group-interface.hh"
 
 Grob*
@@ -27,8 +28,9 @@ Staff_grouper_interface::get_maybe_pure_last_grob (Grob *me, bool pure, int star
 {
   extract_grob_set (me, "elements", elts);
   for (vsize i = elts.size (); i--;)
-    if ((pure && !Hara_kiri_group_spanner::request_suicide (me, start, end))
-	|| (!pure && elts[i]->is_live ()))
+    if (Page_layout_problem::is_spaceable (elts[i])
+	&& ((pure && !Hara_kiri_group_spanner::request_suicide (me, start, end))
+	    || (!pure && elts[i]->is_live ())))
       return elts[i];
 
   return 0;

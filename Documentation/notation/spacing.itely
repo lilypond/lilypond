@@ -222,6 +222,13 @@ the application of @var{minimum-distance} (whereas the height of a
 staff is crucial for @var{padding}).
 @end itemize
 
+For example, the default is:
+
+@example
+after-title-spacing = #'((space . 2) (padding . 0.5))
+@end example
+
+
 If a page has a ragged bottom, @var{space} is not stretched. In particular, the
 resulting distance on such a page is the largest of
 @itemize @bullet

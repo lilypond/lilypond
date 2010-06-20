@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 541f77187b475f4ea84ca36485d2255dd7db0437
+    Translation of GIT committish: 22b6ca7247b6f0d596934d38aa2c75d5e45206eb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,7 +20,7 @@
 
 @imageFloat{flat-design,png,right}
 
-L'inspiration pour LilyPond provint de deux musiciens qui s'étaient
+L'inspiration pour LilyPond provient de deux musiciens qui s'étaient
 lassés de l'aspect fade et ennuyeux des partitions musicales produites
 avec un ordinateur.  Tous les musiciens préfèrent lire de belles
 partitions de musique, pourquoi donc les programmeurs ne
@@ -34,7 +34,7 @@ amis et collègues avec des partitions soignées@tie{}!
 @divEnd
 
 @divClass{column-left-top}
-@subheading Pourquoi utiliser LilyPond ?
+@subheading Ce que LilyPond sait faire
 
 @itemize
 
@@ -54,7 +54,7 @@ amis et collègues avec des partitions soignées@tie{}!
 @divEnd
 
 @divClass{column-right-top}
-@subheading Qui l'utilise ?
+@subheading Ceux qui utilisent LilyPond
 
 @itemize
 
@@ -68,7 +68,7 @@ amis et collègues avec des partitions soignées@tie{}!
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Pourquoi utiliser LilyPond ?
+@subheading LilyPond en action
 
 @itemize
 
@@ -154,7 +154,7 @@ ce que l'on a déjà réussi à faire.
 Introduisez des fragments de partition musicale sans avoir besoin de
 copier-coller manuellement des images. Intégrez de façon transparente
 des partitions dans un document @LaTeX{} ou HTML, ou ajoutez des
-partitions dans un document OpenOffice.org avec OOoLilyPond.
+partitions dans un document OpenOffice.org.
 
 
 @subsubheading Accessibilité
@@ -208,7 +208,7 @@ anglophone et la liste francophone, tandis que l'équipe de développement
 assure une prompte résolution des problèmes.
 
 
-@subsubheading Enhanced editors
+@subsubheading Éditeurs avancés
 
 Plusieurs développeurs, eux-même utilisateurs de LilyPond, ont créé des
 outils spécifiques dans le but de travailler plus rapidement et avec
@@ -537,7 +537,7 @@ mentionnons que quelques-uns.
 @emph{Affaire Étrangère}, un opéra de
 @uref{http://valentin.villenave.net/,Valentin Villenave}, livret
 de @uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
-dont la première a eu lieu le 1er@tie{}février@tie{}2009 à 
+dont la première a eu lieu le 1er@tie{}février@tie{}2009 en France à
 @uref{http://www.orchestre-montpellier.com/, l'Opéra de Montpellier}.
 
 @item
@@ -922,7 +922,7 @@ Ajoutez des accords et des paroles pour obtenir une chanson :
 
 
 
-@subsubheading Pièces orchestrales
+@subsubheading Matériel d'orcheste
 
 Le fichier source contient les notes de la pièce.  Le conducteur et les
 parties séparées peuvent être réalisés à partir de la même source@tie{};
@@ -993,8 +993,49 @@ d'édition}.
 @unnumberedsec Facilités d'édition
 @translationof Easier editing
 
+
 @divClass{column-center-top}
-@subheading Environnement graphique : Denemo
+@subheading LilyPondTool
+
+@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
+  (cliquez pour agrandir),lilypondtool-2.12-screenshot,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://lilypondtool.organum.hu}
+
+Greffon de l'éditeur de texte @uref{http://www.jedit.org,jEdit},
+LilyPondTool est l'un des outils d'édition en mode texte le plus riche
+pour éditer des partitions LilyPond.  Ses fonctionnalités comprennent un
+assistant de création de partition avec prise en charge des paroles,
+pour commencer plus facilement à saisir des partitions, et une
+visonneuse de PDF intégrée avec un excellent pointer-cliquer.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Frescobaldi
+
+@imageClickable{frescobaldi-lilypond-editor-small,png,
+  (cliquez pour agrandir),frescobaldi-lilypond-editor,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+
+@uref{http://www.frescobaldi.org}
+
+Frescobaldi est un éditeur de texte dédié à LilyPond, avec visionneuse
+PDF intégrée, un assistant de création de partition et beaucoup de
+fonctionnalités d'édition.  Il repose sur les bibliothèques KDE@tie{}4 et
+fonctionne actuellement sur toutes les variantes d'Unix dont GNU/Linux.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Denemo
 
 @imageClickable{screenshot-denemo-small,png,
   (cliquez pour agrandir),screenshot-denemo,png,right}
@@ -1014,47 +1055,7 @@ même temps que la vue graphique.
 @divEnd
 
 @divClass{column-center-top}
-@subheading Environment intégré : LilyPondTool
-
-@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
-  (cliquez pour agrandir),lilypondtool-2.12-screenshot,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://lilypondtool@/.organum@/.hu}
-
-Greffon de l'éditeur de texte @uref{http://www.jedit.org,jEdit},
-LilyPondTool est l'un des outils d'édition en mode texte le plus riche
-pour éditer des partitions LilyPond.  Ses fonctionnalités comprennent un
-assistant de création de partition avec prise en charge des paroles,
-pour commencer plus facilement à saisir des partitions, et une
-visonneuse de PDF intégrée avec un excellent pointer-cliquer.
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading Environnement intégré : Frescobaldi
-
-@imageClickable{frescobaldi-lilypond-editor-small,png,
-  (cliquez pour agrandir),frescobaldi-lilypond-editor,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-
-@uref{http://www.frescobaldi.org}
-
-Frescobaldi est un éditeur de texte dédié à LilyPond, avec visionneuse
-PDF intégrée, un assistant de création de partition et beaucoup de
-fonctionnalités d'édition.  Il repose sur les bibliothèques KDE@tie{}4 et
-fonctionne actuellement sur toutes les variantes d'Unix dont GNU/Linux.
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading Environments texte : Emacs et Vim
+@subheading Emacs et Vim
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -1068,7 +1069,8 @@ un grand nombre de langages de programmation et de documents.  C'est un
 éditeur très extensible, qui peut être utilisé comme un environnement de
 développement intégré (IDE).  Il existe un @emph{mode LilyPond} qui offre
 quelques fonctionnalités spécifiques pour travailler avec des fichiers
-source LilyPond.
+source LilyPond.  L'un des développeurs a même écrit un mode majeur pour
+Emacs, @uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}.
 
 @uref{http://www.vim.org}
 
@@ -1079,12 +1081,18 @@ En règle générale, si vous n'êtes pas déjà familier avec Emacs ou Vim,
 alors vous préfèrerez peut-être utiliser un autre éditeur pour
 travailler sur des fichiers source LilyPond.
 
+Vous trouverez plus d'information quant au paramétrage d'Emacs et Vim au
+chapitre @rprogram{LilyPond et les éditeurs de texte}.
+
 @divEnd
+
+@ignore these may not need to be here at all, as they are purely
+MacOS scripts.
 
 @divClass{column-center-top}
 @subheading Autres
 
-@subsubheading Environnement texte : TexShop
+@subsubheading TexShop
 
 @sourceimage{logo-macosx,,,}
 
@@ -1111,12 +1119,15 @@ svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
 @end example
 
 @divEnd
+@end ignore
+
+
 
 @divClass{column-center-top}
 @subheading Autres programmes qui exportent du code LilyPond
 
 
-@subsubheading Environnements graphiques
+@subsubheading Éditeurs de partition, tablature et MIDI
 
 @itemize
 @item
@@ -1142,23 +1153,27 @@ mais est encore au stade de développement beta.  Les testeurs sont les
 bienvenus.
 
 @item
-@uref{http://strasheela.sourceforge.net, Strasheela} est un système de
-composition musicale @qq{highly expressive constraint-based}.
-
-@end itemize
-
-@subsubheading Outils en ligne de commande
-
-@itemize
-@item
 @uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, un
 convertisseur monophonique temps-réel MIDI vers LilyPond.
 
+@end itemize
+
+@subsubheading Générateurs de code
+
+@itemize
+
 @item
-@uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}, un mode
-majeur pour Emacs.
+@uref{http://strasheela.sourceforge.net, Strasheela} est un système de
+composition musicale @qq{highly expressive constraint-based}.
+
+@item
+@uref{http://common-lisp.net/project/fomus/,FOMUS}, bibliothèque LISP
+qui permet de générer de la notation à partir de logiciels de musique.
 
 @end itemize
+@divEnd
+
+@divClass{column-center-top}
 
 
 @subheading Autres programmes dont le développement est peu actif
@@ -1176,10 +1191,6 @@ KDE@tie{}4.1.
 @uref{http://www.musicxml.com/xml.html,MusicXML}, s'est scindé en
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 et @uref{http://canorus.org,Canorus}.
-
-@item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, constitue
-une bibliothèque LISP de génération de notation musicale.
 
 @item
 @uref{http://lilycomp.sourceforge.net, LilyComp} permet de saisir

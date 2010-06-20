@@ -501,6 +501,7 @@
 			(next-note . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))))
 	(stencil . ,ly:clef::print)
+	(extra-spacing-height . (-0.5 . 0.5))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -581,6 +582,7 @@
 	(dot-count . ,dots::calc-dot-count)
 	(staff-position . ,dots::calc-staff-position)
 	(stencil . ,ly:dots::print)
+	(extra-spacing-height . (-0.5 . 0.5))
 	(meta . ((class . Item)
 		 (interfaces . (dots-interface
 				font-interface
@@ -979,6 +981,7 @@
 	(head-direction . ,LEFT)
 	(stencil  . ,laissez-vibrer::print)
 	(thickness . 1.0)
+	(extra-spacing-height . (-0.5 . 0.5))
 	(meta . ((class . Item)
 		 (interfaces . (semi-tie-interface))))))
 
@@ -1486,6 +1489,7 @@
 	(head-direction . ,RIGHT)
 	(stencil  . ,ly:tie::print)
 	(thickness . 1.0)
+	(extra-spacing-height . (-0.5 . 0.5))
 	(meta . ((class . Item)
 		 (interfaces . (semi-tie-interface))))))
 
@@ -2357,6 +2361,7 @@
    ly:note-head::print
    ly:dots::print
    ly:clef::print
+   ly:percent-repeat-item-interface::beat-slash
    ly:text-interface::print
    ly:script-interface::print))
 

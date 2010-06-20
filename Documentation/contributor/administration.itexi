@@ -30,9 +30,6 @@ Do not change (other than spelling mistakes) without discussion:
 @item
 @ref{Working with source code}
 
-@item
-@ref{Issues}
-
 @end itemize
 
 Please dump info in an appropriate @@section within these manuals,
@@ -45,6 +42,9 @@ but discuss any large-scale reorganization:
 
 @item
 @ref{Documentation work}
+
+@item
+@ref{Issues}
 
 @item
 @ref{Regression tests}

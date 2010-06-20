@@ -128,7 +128,7 @@ Dot_column::calc_positioning_done (SCM smob)
 	stems.insert (stem);
     }
 
-  for (set<Grob*>::const_iterator i(stems.begin());
+  for (set<Grob*>::const_iterator i (stems.begin());
        i != stems.end (); i++)
     {
       Grob *stem = (*i);
@@ -148,8 +148,13 @@ Dot_column::calc_positioning_done (SCM smob)
 	      
   vector_sort (dots, position_less);
   for (vsize i = dots.size (); i--;)
-    if (!dots[i]->is_live ())
-      dots.erase (dots.begin () + i);
+    {
+      if (!dots[i]->is_live ())
+	dots.erase (dots.begin () + i);
+      else
+	// Undo any fake translations that were done in add_head.
+	dots[i]->translate_axis (-dots[i]->relative_coordinate (me, X_AXIS), X_AXIS);
+    }
 
   Dot_formatting_problem problem (boxes, base_x);
 
@@ -210,9 +215,14 @@ Dot_column::add_head (Grob *me, Grob *head)
 
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("dots"), d);
       d->set_property ("Y-offset", Grob::x_parent_positioning_proc);
-      // Dot formatting requests the Y-offset, -which- for rests may
-      // trigger post-linebreak callbacks.
-      if (!Rest::has_interface (head))
+      // Dot formatting requests the Y-offset, which for rests may
+      // trigger post-linebreak callbacks.  On the other hand, we need the
+      // correct X-offset of the dots for horizontal collision avoidance.
+      // The translation here is undone in calc_positioning_done, where we
+      // do the X-offset properly.
+      if (Rest::has_interface (head))
+	d->translate_axis (head->extent (head, X_AXIS).length (), X_AXIS);
+      else
 	d->set_property ("X-offset", Grob::x_parent_positioning_proc);
       Axis_group_interface::add_element (me, d);
     }

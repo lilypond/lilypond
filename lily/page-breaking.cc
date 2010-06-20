@@ -1287,6 +1287,7 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
 	p1.systems_per_page_.push_back (p2.systems_per_page_[0]);
 	p1.force_.push_back (p2.force_[0]);
 	p1.penalty_ += p2.penalty_ - cached_line_details_[i].turn_penalty_;
+	p1.system_count_status_ |= p2.system_count_status_;
 	return p1;
       }
 

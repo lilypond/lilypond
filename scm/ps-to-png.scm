@@ -124,10 +124,11 @@
 	  (output-file (if multi-page? pngn png1))
 
 	  (gs-variable-options
-	   (if multi-page?
-	       (format #f "-dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f"
-		       page-width page-height)
-	       "-dEPSCrop"))
+	    ;; ps-page-count returns 0 for EPS files
+	    (if (zero? page-count)
+		"-dEPSCrop"
+		(format #f "-dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f"
+			page-width page-height)))
 	  (cmd (ly:format "~a\
  ~a\
  ~a\

@@ -183,6 +183,31 @@ The special regression test @file{test-output-distance.ly} will always
 show up as a regression.  This test changes each time it is run, and
 serves to verify that the regression tests have, in fact, run.}
 
+Once @samp{make@tie{}test-baseline} and @samp{make@tie{}check} have been
+run, the files that differ between @samp{test-baseline} and @samp{check}
+can be repeatedly examined by doing:
+
+@example
+make test-redo
+@end example
+
+This updates the regression list at @file{out/test-results/index.html}.
+It does @emph{not} redo @file{test-output-distance.ly}.
+
+When all regressions have been resolved, the output list will be empty.
+
+Once all regressions have been resolved, a final check should be completed
+by running:
+
+@example
+make test-clean
+make check
+@end example
+
+This cleans the results of the previous @samp{make@tie{}check}, then does the
+automatic regression comparison again.  
+
+
 @node Memory and coverage tests
 @section Memory and coverage tests
 
