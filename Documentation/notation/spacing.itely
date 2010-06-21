@@ -607,13 +607,14 @@ may cause pages to be overfilled if it is made too large. This is
 currently supported only by the @code{ly:optimal-breaking} algorithm.
 Default: unset.
 
-@item page-breaking-between-system-padding
-@funindex page-breaking-between-system-padding
+@item page-breaking-between-system-spacing
+@funindex page-breaking-between-system-spacing
 
 Tricks the page breaker into thinking that
-@code{between-system-padding} is set to something different than
-it really is.  For example, if this variable is set to something
-substantially larger than @code{between-system-padding}, then the
+@code{between-system-spacing} is set to something different than
+it really is.  For example, if
+@code{page-breaking-between-system-spacing #'padding} is set to something
+substantially larger than @code{between-system-spacing #'padding}, then the
 page-breaker will put fewer systems on each page.  Default: unset.
 
 @item page-count
