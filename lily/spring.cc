@@ -51,9 +51,11 @@ Spring::update_blocking_force ()
     blocking_force_ = (min_distance_ - distance_) / inverse_compress_strength_;
 
   // If the spring is fixed, it's not clear what the natural value
-  // of blocking_force_ would be. -infinity_f works fine for now.
+  // of blocking_force_ would be (because it always blocks).
+  // -infinity_f works fine for now.
+  // If inverse_stretch_strength > 0, the spring is not fixed (because it can stretch).
   if (isnan (blocking_force_) || blocking_force_ == infinity_f)
-    blocking_force_ = -infinity_f;
+    blocking_force_ = (inverse_stretch_strength_ > 0) ? 0.0 : -infinity_f;
 
   if (blocking_force_ >= 0)
     inverse_compress_strength_ = 0;
