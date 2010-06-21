@@ -575,13 +575,27 @@
 		(convert-path-exps (drop rest arity))))
 	'()))
 
-  (entity 'path ""
-	  `(stroke-width . ,thick)
-	  `(stroke-linejoin . ,(symbol->string join))
-	  `(stroke-linecap . ,(symbol->string cap))
-	  '(stroke . "currentColor")
-	  `(fill . ,(if fill? "currentColor" "none"))
-	  `(d . ,(apply string-append (convert-path-exps commands)))))
+  (let* ((line-cap-styles '(butt round square))
+	 (line-join-styles '(miter round bevel))
+	 (cap-style (if (not (memv cap line-cap-styles))
+			(begin
+			  (ly:warning (_ "unknown line-cap-style: ~S")
+				      (symbol->string cap))
+			  'round)
+			cap))
+	 (join-style (if (not (memv join line-join-styles))
+			 (begin
+			   (ly:warning (_ "unknown line-join-style: ~S")
+				       (symbol->string join))
+			   'round)
+			 join)))
+    (entity 'path ""
+	    `(stroke-width . ,thick)
+	    `(stroke-linejoin . ,(symbol->string join-style))
+	    `(stroke-linecap . ,(symbol->string cap-style))
+	    '(stroke . "currentColor")
+	    `(fill . ,(if fill? "currentColor" "none"))
+	    `(d . ,(apply string-append (convert-path-exps commands))))))
 
 (define (placebox x y expr)
   (if (string-null? expr)
