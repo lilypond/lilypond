@@ -534,7 +534,8 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
     {
       if (system_specs_[i].pscore_)
 	{
-	  vector<Grob*> cols;
+	  vector<Grob*> cols = system_specs_[i].pscore_->root_system ()->used_columns ();
+	  vector<Grob*> forced_line_break_cols;
 
 	  SCM system_count = system_specs_[i].pscore_->layout ()->c_variable ("system-count");
 	  if (scm_is_number (system_count))
@@ -545,19 +546,26 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 	      Constrained_breaking breaking (system_specs_[i].pscore_);
 	      vector<Line_details> details = breaking.line_details (0, VPOS, scm_to_int (system_count));
 
-	      cols.push_back (system_specs_[i].pscore_->root_system ()->used_columns ()[0]);
 	      for (vsize j = 0; j < details.size (); j++)
-		cols.push_back (details[j].last_column_);
+		forced_line_break_cols.push_back (details[j].last_column_);
 	    }
-	  else
-	    cols = system_specs_[i].pscore_->root_system ()->used_columns ();
 
-	  int last_chunk_idx = 0;
+	  int last_forced_line_break_idx = 0;
+	  vsize forced_line_break_idx = 0;
 	  vector<vsize> line_breaker_columns;
 	  line_breaker_columns.push_back (0);
 
 	  for (vsize j = 1; j < cols.size (); j++)
 	    {
+	      if (forced_line_break_cols.size ())
+		{
+		  if (forced_line_break_idx >= forced_line_break_cols.size ()
+		      || forced_line_break_cols[forced_line_break_idx] != cols[j])
+		    continue;
+		  else
+		    forced_line_break_idx++;
+		}
+
 	      bool last = (j == cols.size () - 1);
 	      bool break_point = is_break (cols[j]);
 	      bool chunk_end = cols[j]->get_property ("page-break-permission") == force_sym;
@@ -573,14 +581,14 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 	      // since it mixes Break_positions from breaks_ and
 	      // chunks_.
 	      if (scm_is_number (system_count))
-		cur_pos.forced_line_count_ = j - last_chunk_idx;
+		cur_pos.forced_line_count_ = forced_line_break_idx - last_forced_line_break_idx;
 
 	      if (break_point || (i == system_specs_.size () - 1 && last))
 		breaks_.push_back (cur_pos);
 	      if (chunk_end || last)
 		{
 		  chunks_.push_back (cur_pos);
-		  last_chunk_idx = j;
+		  last_forced_line_break_idx = forced_line_break_idx;
 		}
 
 	      if ((break_point || chunk_end) && !last)
