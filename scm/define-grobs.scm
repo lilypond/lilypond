@@ -1175,12 +1175,14 @@
 	(self-alignment-X . ,LEFT)
 	(break-align-symbol . metronome-mark)
 	(break-align-symbols . (key-signature time-signature metronome-mark))
-	(non-break-align-symbols . (MultiMeasureRest))
+	(non-break-align-symbols . (multi-measure-rest))
 	(meta . ((class . Item)
-		 (interfaces . (font-interface
+		 (interfaces . (break-alignable-interface
+				break-aligned-interface
+				font-interface
 				metronome-mark-interface
+				self-alignment-interface
 				side-position-interface
-				break-alignable-interface
 				text-interface))))))
 
     (MultiMeasureRest

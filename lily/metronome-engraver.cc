@@ -26,6 +26,7 @@ using namespace std;
 #include "duration.hh"
 #include "grob-array.hh"
 #include "item.hh"
+#include "music.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
 
@@ -96,7 +97,9 @@ SCM
 grob_name_scm (Grob *g)
 {
   SCM name_pair = scm_assq (ly_symbol2scm ("name"), g->get_property ("meta"));
-  return scm_is_pair (name_pair) ? scm_cdr (name_pair) : SCM_EOL;
+  return (scm_is_pair (name_pair)
+	  ? ly_camel_case_2_lisp_identifier (scm_cdr (name_pair))
+	  : SCM_EOL);
 }
 
 void
