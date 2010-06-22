@@ -59,15 +59,18 @@ If you do not have one already, create a gmail account and send
 the email address to the @ref{Meisters, Bug Meister}.
 
 @item
+Subscribe your gmail account to @code{bug-lilypond}.
+
+@item
 Configure your google code account:
 
 @enumerate
 
 @item
-Log in to:
+Sign in to google code by clicking in the top-right corner of:
 
 @example
-@uref{http://code.google.com}
+@uref{http://code.google.com/p/lilypond/issues/list}
 @end example
 
 @item
@@ -314,6 +317,11 @@ version; if you cannot reproduce the bug, mark the item
 @example
 @uref{http://code.google.com/p/lilypond/issues/list?can=7}
 @end example
+
+A few (approximately 10%) of these fixed issues relate to the
+build system or fundamental architecture changes; there is no way
+for you to verify these.  Leave those issues alone; somebody else
+will handle them.
 
 @end itemize
 
