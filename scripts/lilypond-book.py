@@ -533,7 +533,8 @@ def do_file (input_filename, included=False):
         source = in_handle.read ()
         progress ('\n')
 
-        global_options.formatter.init_default_snippet_options (source)
+        if not included:
+            global_options.formatter.init_default_snippet_options (source)
 
 
         progress (_ ("Dissecting..."))
