@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl; fill-column: 60 -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 66dd932f6519b7913400a838c5efbc5407e06cd8
+    Translation of GIT committish: 303c4023fce97de0cfb2d27a7e689d1ad7c4752b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -35,7 +35,7 @@ volgens de beste tratities van klassieke muziekgravure.
 @divEnd
 
 @divClass{column-left-top}
-@subheading Waarom LilyPond gebruiken?
+@subheading Wat LilyPond doet
 
 @itemize
 
@@ -55,7 +55,7 @@ volgens de beste tratities van klassieke muziekgravure.
 @divEnd
 
 @divClass{column-right-top}
-@subheading Wie gebruikt het?
+@subheading LilyPond in gebruik
 
 @itemize
 
@@ -69,7 +69,7 @@ volgens de beste tratities van klassieke muziekgravure.
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Waarom zou je geen LilyPond gebruiken?
+@subheading Hoe LilyPond werkt
 
 @itemize
 
@@ -304,8 +304,12 @@ noten die voor de vijf-lijns notenbalk zijn ingevoerd.
 @newsItem
 @subsubheading Schenker-diagrammen
 
-De standaard uitvoer kan ingrijpend worden veranderd.  Hier
-heeft iemand een indrukwekkende Schenker-analyse gemaakt.
+De standaard uitvoer kan ingrijpend worden veranderd.  Dit
+is een indrukwekkende Schenker-analyse, gemaakt door Kris
+Schaffer, voor een artikel in in
+@uref{http://www.linuxjournal.com/article/8364 , Linux
+Journal.}.  Voor de duidelijkheid zijn hier kleuren
+toegevoegd.
 
 @exampleImage{bach-schenker}
 @newsEnd
@@ -1003,6 +1007,50 @@ Lees over @ref{Eenvoudiger bewerken}.
 
 
 @divClass{column-center-top}
+@subheading LilyPondTool
+
+@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
+  (klik om te vergroten),lilypondtool-2.12-screenshot,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://lilypondtool.organum.hu}
+
+Gemaakt als een plugin voor de
+@uref{http://www.jedit.org,jEdit} teksteditor, is
+LilyPondTool één van de tekstgebaseerde gereedschappen met
+de meeste functies voor het bewerken van
+LilyPond-partituren.  Functies omvatten een Document-wizard
+met liedtekstondersteuning om documenten eenvoudiger op te
+stellen, en geïntegreerde PDF-viewer met geavanceerde
+point-and-click ondersteuning.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Frescobaldi
+
+@imageClickable{frescobaldi-lilypond-editor-small,png,
+  (klik om te vergroten),frescobaldi-lilypond-editor,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+
+@uref{http://www.frescobaldi.org}
+
+Frescobaldi is een muziek- en teksteditor speciaal voor
+LilyPond met een ingebouwde PDF-viewer, een krachtige
+partituur wizard en vele bewerkingsfuncties.  Het is
+gebaseerd op de KDE4 bibliotheken en draait momenteel op
+alle soorten Linux en andere UNIX-achtige operating
+systemen.
+
+@divEnd
+
+@divClass{column-center-top}
 @subheading Grafische omgeving: Denemo
 
 @imageClickable{screenshot-denemo-small,png,
@@ -1033,50 +1081,6 @@ ondersteunin van onze huidige stabiele 2.12-versie.}
 @divEnd
 
 @divClass{column-center-top}
-@subheading Gecombineerde omgeving: LilyPondTool
-
-@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
-  (klik om te vergroten),lilypondtool-2.12-screenshot,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://lilypondtool.organum.hu}
-
-Gemaakt als een plugin voor de
-@uref{http://www.jedit.org,jEdit} teksteditor, is
-LilyPondTool één van de tekstgebaseerde gereedschappen met
-de meeste functies voor het bewerken van
-LilyPond-partituren.  Functies omvatten een Document-wizard
-met liedtekstondersteuning om documenten eenvoudiger op te
-stellen, en geïntegreerde PDF-viewer met geavanceerde
-point-and-click ondersteuning.
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading Gecombineerde omgeving: Frescobaldi
-
-@imageClickable{frescobaldi-lilypond-editor-small,png,
-  (klik om te vergroten),frescobaldi-lilypond-editor,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-
-@uref{http://www.frescobaldi.org}
-
-Frescobaldi is een muziek- en teksteditor speciaal voor
-LilyPond met een ingebouwde PDF-viewer, een krachtige
-partituur wizard en vele bewerkingsfuncties.  Het is
-gebaseerd op de KDE4 bibliotheken en draait momenteel op
-alle soorten Linux en andere UNIX-achtige operating
-systemen.
-
-@divEnd
-
-@divClass{column-center-top}
 @subheading Tekst omgeving: Emacs en Vim
 
 @sourceimage{logo-linux,,,}
@@ -1091,7 +1095,10 @@ veel verschillende computertalen.  Emacs is een in hoge mate
 uitbreidbare editor en kan gebruikt worden als een
 Geïntegreerde Ontwikkel Omgeving (IDE).  Er is een
 @q{lilypond mode} die de taaldefinities voor het werken met
-LilyPond-broncodebestanden levert.
+LilyPond-broncodebestanden levert.  Verder heeft een van
+onze ontwikkelaars @uref{http://nicolas.sceaux.free.fr/
+lilypond/lyqi.html,lyqi} geschreven, een Emacs major mode.
+
 
 @uref{http://www.vim.org}
 
@@ -1104,7 +1111,13 @@ bent met Emacs of Vim, je waarschijnlijk liever een andere
 editor verkiest voor het schrijven van
 LilyPond-invoerbestanden.
 
+Meer informatie over instellingen voor Emacs en Vim is te
+vinden in @rprogram{Text editor support}.
+
 @divEnd
+
+@ignore these may not need to be here at all, as they are purely
+MacOS scripts.
 
 @divClass{column-center-top}
 @subheading Andere programma's
@@ -1127,11 +1140,12 @@ van de uitbreidingen die beschikbaar zijn op:
 @subsubheading TextMate
 
 @divEnd
+@end ignore
 
 @divClass{column-center-top}
 @subheading Andere programma's die LilyPond-code kunnen exporteren
 
-@subsubheading Grafische omgevingen:
+@subsubheading Score, tab en MIDI-editors:
 
 @itemize
 @item
@@ -1158,24 +1172,28 @@ LilyPond-export maar wordt actief ontwikkeld.
 LilyPond, maar is nog beta-software.  Testers zijn welkom.
 
 @item
-@uref{http://strasheela.sourceforge.net, Strasheela} is
-@qq{een hoog-expressief constraint-gebaseerd muziek
-componeer systeem}.
+@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor},
+een realtime monofonische MIDI naar LilyPond-vertaler.
 
 @end itemize
 
 @subsubheading Gereedschappen voor de commandoregel
 
 @itemize
-@item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor},
-een realtime monofonische MIDI naar LilyPond-vertaler.
 
 @item
-@uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}, een
-major moder voor Emacs.
+@uref{http://strasheela.sourceforge.net, Strasheela} is
+@qq{een hoog-expressief constraint-gebaseerd muziek
+componeer systeem}.
+
+@item
+@uref{http://common-lisp.net/project/fomus/,FOMUS}, een LISP-bibliotheek
+voor het genereren van muzieknotatie.
 
 @end itemize
+@divEnd
+
+@divClass{column-center-top}
 
 @subheading Andere programma's die niet actief worden ontwikkeld
 
@@ -1192,10 +1210,6 @@ LilyKDE3 voor KDE 3.5 en lilypond-KDE4 voor KDE 4.1.
 in
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 en @uref{http://canorus.org,Canorus}.
-
-@item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, een LISP-bibliotheek
-voor het genereren van muzieknotatie.
 
 @item
 @uref{http://lilycomp.sourceforge.net, LilyComp} is een grafisch

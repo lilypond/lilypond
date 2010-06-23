@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 @ignore
-    Translation of GIT committish: 11a5e9f4121198c2bcd3558a691f277c9607551c
+    Translation of GIT committish: 303c4023fce97de0cfb2d27a7e689d1ad7c4752b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -583,8 +583,7 @@ download site}.
 @divClass{column-right-bottom}
 @subheading Compileerinstructies
 
-Instructies worden beschreven in @rcontrib{Compiling
-LilyPond}.
+Instructies worden beschreven in @rcontrib{Compiling}.
 
 @divEnd
 
