@@ -402,7 +402,7 @@ To avoid this, please add
 
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
 Post with the gmane lilypond.bugs interface}, or send an email to
-@uref{mailto:bug-lilypond@@gnu.prg, bug-lilypond@@gnu.org}.
+@uref{mailto:bug-lilypond@@gnu.org, bug-lilypond@@gnu.org}.
 
 Once your bug has been sent to the list, our Bug Squad will
 examine the report.  Please allow up to 24 hours, as we have a
