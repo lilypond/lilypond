@@ -1,4 +1,5 @@
 TITLE=LYs Doc
+AUTHOR=Han-Wen Nienhuys and Jan Nieuwenhuizen
 
 
 ifeq ($(COLLATED_FILES),)

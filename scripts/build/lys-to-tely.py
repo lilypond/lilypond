@@ -27,6 +27,7 @@ Options:
    options
  -o, --output=NAME              write tely doc to NAME
  -t, --title=TITLE              set tely doc title TITLE
+ -a, --author=AUTHOR            set tely author AUTHOR
      --template=TEMPLATE        use TEMPLATE as Texinfo template file,
    instead of standard template; TEMPLATE should contain a command
    '%(include_snippets)s' to tell where to insert LY-FILEs.  When this
@@ -38,10 +39,11 @@ def help (text):
     sys.exit (0)
 
 (options, files) = getopt.getopt (sys.argv[1:], 'f:hn:t:',
-                     ['fragment-options=', 'help', 'name=', 'title=', 'template='])
+                     ['fragment-options=', 'help', 'name=', 'title=', 'author=', 'template='])
 
 name = "ly-doc"
 title = "Ly Doc"
+author = "Han-Wen Nienhuys and Jan Nieuwenhuizen"
 template = '''\input texinfo
 @setfilename %%(name)s.info
 @settitle %%(title)s
@@ -55,7 +57,7 @@ template = '''\input texinfo
 
 @c fool ls-latex
 @ignore
-@author Han-Wen Nienhuys and Jan Nieuwenhuizen
+@author %%(author)s
 @title %%(title)s
 @end ignore
 
@@ -71,14 +73,16 @@ for opt in options:
     o = opt[0]
     a = opt[1]
     if o == '-h' or o == '--help':
-        # We can't use vars () inside a function, as that only contains all 
-        # local variables and none of the global variables! Thus we have to 
+        # We can't use vars () inside a function, as that only contains all
+        # local variables and none of the global variables! Thus we have to
         # generate the help text here and pass it to the function...
         help (help_text % vars ())
     elif o == '-n' or o == '--name':
         name = a
     elif o == '-t' or o == '--title':
         title = a
+    elif o == '-a' or o == '--author':
+        author = a
     elif o == '-f' or o == '--fragment-options':
         fragment_options = a
     elif o == '--template':
