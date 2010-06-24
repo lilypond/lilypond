@@ -26,4 +26,4 @@ endif
 zip: $(outdir)/MusicXML-TestSuite-$(TEST_SUITE_VERSION).zip
 
 $(outdir)/MusicXML-TestSuite-$(TEST_SUITE_VERSION).zip: $(MUSICXML_FILES) $(MUSICMXL_FILES) LICENSE
-	$(ZIP) -r $@ $(addprefix $(src-dir)/,$(MUSICXML_FILES)) $(addprefix $(src-dir)/,$(MUSICMXL_FILES)) LICENSE
+	$(ZIP) -q -r $@ $(addprefix $(src-dir)/,$(MUSICXML_FILES)) $(addprefix $(src-dir)/,$(MUSICMXL_FILES)) LICENSE
