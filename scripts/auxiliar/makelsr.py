@@ -59,6 +59,14 @@ if len (sys.argv) >= 2:
 else:
     in_dir = ''
 
+# which convert-ly to use
+if os.path.isfile("out/bin/convert-ly"):
+    conv_path='out/bin/'
+else:
+    conv_path=''
+convert_ly=conv_path+'convert-ly'
+print 'using '+convert_ly
+
 unsafe = []
 unconverted = []
 notags_files = []
@@ -140,7 +148,7 @@ def copy_ly (srcdir, name, tags):
     s = strip_white_spaces_re.sub ('', s)
     open (dest, 'w').write (s)
 
-    e = os.system ("convert-ly -e '%s'" % dest)
+    e = os.system (convert_ly+(" -e '%s'" % dest))
     if e:
         unconverted.append (dest)
     if os.path.exists (dest + '~'):
