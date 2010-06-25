@@ -177,6 +177,17 @@ for file in html_files:
             if (link.endswith(".pdf")):
 	        langlink = addLangExt(link[:-4], lang, "pdf")
                 line = line.replace(link, langlink)
+        ### add google tracker header
+        if (line.find("</head>") >= 0):
+            outfile.write("""<!-- Google tracking !-->
+<script src="http://www.google-analytics.com/urchin.js"
+type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-68969-1";
+urchinTracker();
+</script>
+""");
         ### add language selection footer
         if (line.find("<div id=\"verifier_texinfo\">") >= 0):
             outfile.write("<div id=\"footer\">\n")
