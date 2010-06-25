@@ -64,7 +64,7 @@ saved previously.
 @sourceimage{Learning_Macos_Open_menu,,,}
 
 You must save any new edits you make to your file before you
-@w{@code{Compile > Tyepset}} and if the PDF file is not displayed
+@w{@code{Compile > Typeset}} and if the PDF file is not displayed
 check the window with the progress log for any errors.
 
 If you are not using the default Preview PDF viewer that comes
