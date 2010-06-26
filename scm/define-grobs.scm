@@ -2388,6 +2388,11 @@
 	  (else
 	   '(0 . 0)))))
 
+;; Sometimes, a pure callback will be chained to a non-pure callback via
+;; chain_offset_callback, in which case this provides a default by simply
+;; passing through the value from the pure callback.
+(define (pure-chain-offset-callback grob start end prev-offset) prev-offset)
+
 (define pure-conversions-alist
   `(
     (,ly:accidental-interface::height . ,ly:accidental-interface::pure-height)
@@ -2395,6 +2400,7 @@
     (,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
     (,ly:grob::stencil-height . ,pure-stencil-height)
     (,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
+    (,ly:rest-collision::force-shift-callback-rest . ,pure-chain-offset-callback)
     (,ly:rest::height . ,ly:rest::pure-height)
     (,ly:self-alignment-interface::y-aligned-on-self . ,ly:self-alignment-interface::pure-y-aligned-on-self)
     (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
