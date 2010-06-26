@@ -534,6 +534,7 @@ Lookup::triangle (Interval iv, Real thick, Real protrude)
   points.push_back (Offset (iv[LEFT], 0));
   points.push_back (Offset (iv[RIGHT], 0));
   points.push_back (Offset (iv.center (), protrude));
+  points.push_back (Offset (iv[LEFT], 0));  // close triangle
 
   return points_to_line_stencil (thick, points);
 
