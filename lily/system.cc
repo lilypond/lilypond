@@ -583,7 +583,7 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
   vector<Real> offsets = Align_interface::get_minimum_translations (alignment, staves, Y_AXIS, true, start, end);
 
   Interval ret;
-  for (vsize i = 0; i < staves.size (); ++i)
+  for (vsize i = 0; i < staves.size(); ++i)
     {
       Interval iv = begin?
         Axis_group_interface::begin_of_line_pure_height (staves[i], start) :
@@ -591,22 +591,6 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
       if (i<offsets.size())
         iv.translate (offsets[i]);
       ret.unite (iv);
-    }
-
-  extract_grob_set (this, "elements", elts);
-  for (vsize i = 0; i < elts.size (); ++i)
-    {
-      Grob *g = elts[i];
-      if (!dynamic_cast<Paper_column *> (g) && !Axis_group_interface::has_interface (g))
-	{
-	  Interval iv = g->pure_height (this, start, end);
-	  Item *it = dynamic_cast<Item*> (g);
-	  Grob *col = it ? it->get_column () : 0;
-	  bool item_at_beginning = col && (Paper_column::get_rank (col) == (int) start);
-
-	  if (g->is_live () && begin == item_at_beginning)
-	    ret.unite (iv);
-	}
     }
   return ret;
 }
