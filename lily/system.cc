@@ -585,13 +585,19 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
   Interval ret;
   for (vsize i = 0; i < staves.size(); ++i)
     {
-      Interval iv = begin?
+      Interval iv = begin ?
         Axis_group_interface::begin_of_line_pure_height (staves[i], start) :
         Axis_group_interface::rest_of_line_pure_height (staves[i], start, end);
       if (i<offsets.size())
         iv.translate (offsets[i]);
       ret.unite (iv);
     }
+
+  Interval other_elements = begin ?
+    Axis_group_interface::begin_of_line_pure_height (this, start) :
+    Axis_group_interface::rest_of_line_pure_height (this, start, end);
+
+  ret.unite (other_elements);
 
   return ret;
 }
@@ -606,6 +612,54 @@ Interval
 System::rest_of_line_pure_height (vsize start, vsize end)
 {
   return part_of_line_pure_height (start, end, false);
+}
+
+// This differs from Axis_group_interface::calc_pure_relevant_grobs
+// because here, we are only interested in those few elements that aren't
+// descended from VerticalAlignment (ie. things like RehearsalMark, BarLine).
+MAKE_SCHEME_CALLBACK (System, calc_pure_relevant_grobs, 1);
+SCM
+System::calc_pure_relevant_grobs (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  extract_grob_set (me, "elements", elts);
+  vector<Grob*> relevant_grobs;
+  SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
+
+  for (vsize i = 0; i < elts.size (); ++i)
+    {
+      if (!Axis_group_interface::has_interface (elts[i])
+	  && to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
+	relevant_grobs.push_back (elts[i]);
+    }
+
+  SCM grobs_scm = Grob_array::make_array ();
+
+  unsmob_grob_array (grobs_scm)->set_array (relevant_grobs);
+  return grobs_scm;
+}
+
+MAKE_SCHEME_CALLBACK (System, height, 1);
+SCM
+System::height (SCM smob)
+{
+  return Axis_group_interface::height (smob);
+}
+
+MAKE_SCHEME_CALLBACK (System, calc_pure_height, 3);
+SCM
+System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
+{
+  System *me = dynamic_cast<System*> (unsmob_grob (smob));
+  int start = scm_to_int (start_scm);
+  int end = scm_to_int (end_scm);
+
+  Interval begin = me->begin_of_line_pure_height (start, end);
+  Interval rest = me->rest_of_line_pure_height (start, end);
+  begin.unite (rest);
+
+  return ly_interval2scm (begin);
 }
 
 ADD_INTERFACE (System,

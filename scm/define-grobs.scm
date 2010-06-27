@@ -1885,9 +1885,9 @@
 	(axes . (,X ,Y))
 	(vertical-skylines . ,ly:axis-group-interface::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
-	(Y-extent . ,ly:axis-group-interface::height)
+	(Y-extent . ,ly:system::height)
 	(meta . ((class . System)
-		 (object-callbacks . ((pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
+		 (object-callbacks . ((pure-relevant-grobs . ,ly:system::calc-pure-relevant-grobs)
 				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
 				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)
 				      (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)))
@@ -2478,7 +2478,8 @@
     (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
     (,ly:slur::height . ,ly:slur::pure-height)
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
-    (,ly:stem::height . ,ly:stem::pure-height)))
+    (,ly:stem::height . ,ly:stem::pure-height)
+    (,ly:system::height . ,ly:system::calc-pure-height)))
 
 (define pure-functions
   (list

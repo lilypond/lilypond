@@ -170,6 +170,12 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
       int start = Paper_column::get_rank (cols[breaks[i]]);
       int end = Paper_column::get_rank (cols[breaks[i+1]]);
 
+      // Take grobs that are visible with respect to a slightly longer line.
+      // Otherwise, we will never include grobs at breakpoints which aren't
+      // end-of-line-visible.
+      int visibility_end = i + 2 < breaks.size () ?
+	Paper_column::get_rank (cols[breaks[i+2]]) : end;
+
       Interval begin_line_iv;
       Interval mid_line_iv;
 
@@ -178,7 +184,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 	  Item *it = dynamic_cast<Item*> (items[j]);
 	  int rank = it->get_column ()->get_rank ();
 
-	  if (rank <= end && it->pure_is_visible (start, end)
+	  if (rank <= end && it->pure_is_visible (start, visibility_end)
 	      && !to_boolean (it->get_property ("cross-staff")))
 	    {
 	      Interval dims = items[j]->pure_height (common, start, end);
@@ -203,7 +209,11 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 	      Interval dims = spanners[j]->pure_height (common, start, end);
 
 	      if (!dims.is_empty ())
-		mid_line_iv.unite (dims);
+		{
+		  mid_line_iv.unite (dims);
+		  if (rank_span[LEFT] <= start)
+		    begin_line_iv.unite (dims);
+		}
 	    }
 	}
 

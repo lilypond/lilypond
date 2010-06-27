@@ -48,6 +48,10 @@ public:
   SCM get_paper_systems ();
   SCM get_broken_system_grobs ();
 
+  DECLARE_SCHEME_CALLBACK (calc_pure_relevant_grobs, (SCM));
+  DECLARE_SCHEME_CALLBACK (height, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_pure_height, (SCM, SCM, SCM));
+
   System (SCM);
   System (System const &);
 
