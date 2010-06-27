@@ -951,6 +951,8 @@ for this column.")
      (note-heads ,ly:grob-array? "An array of note head grobs.")
      (pedal-text ,ly:grob? "A pointer to the text of a mixed-style piano
 pedal.")
+     (pure-relevant-grobs ,ly:grob-array? "All the grobs (items and spanners)
+that are relevant for finding the @code{pure-Y-extent}")
      (pure-relevant-items ,ly:grob-array? "A subset of elements that are
 relevant for finding the @code{pure-Y-extent}.")
      (pure-relevant-spanners ,ly:grob-array? "A subset of elements that are

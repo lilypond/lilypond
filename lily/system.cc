@@ -592,6 +592,7 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
         iv.translate (offsets[i]);
       ret.unite (iv);
     }
+
   return ret;
 }
 

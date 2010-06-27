@@ -40,6 +40,10 @@ struct Axis_group_interface
   DECLARE_SCHEME_CALLBACK (adjacent_pure_heights, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_next_staff_spacing, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_next_staff_spacing, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (calc_pure_relevant_grobs, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_pure_relevant_items, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_pure_relevant_spanners, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_pure_y_common, (SCM));
   static Interval relative_group_extent (vector<Grob*> const &list,
 					 Grob *common, Axis);
   static Interval relative_pure_height (Grob *me, int start, int end);
@@ -48,7 +52,6 @@ struct Axis_group_interface
   static Interval begin_of_line_pure_height (Grob *me, int);
   static Interval rest_of_line_pure_height (Grob *me, int, int);
 
-  static Grob *calc_pure_elts_and_common (Grob*);
   static Skyline_pair skyline_spacing (Grob *me, vector<Grob*> elements);
   static void add_element (Grob *me, Grob *);
   static void set_axes (Grob *, Axis, Axis);

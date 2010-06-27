@@ -153,7 +153,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  Grob *common = calc_pure_elts_and_common (me);
+  Grob *common = unsmob_grob (me->get_object ("pure-Y-common"));
   extract_grob_set (me, "pure-relevant-items", items);
   extract_grob_set (me, "pure-relevant-spanners", spanners);
 
@@ -169,6 +169,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
     {
       int start = Paper_column::get_rank (cols[breaks[i]]);
       int end = Paper_column::get_rank (cols[breaks[i+1]]);
+
       Interval begin_line_iv;
       Interval mid_line_iv;
 
@@ -228,7 +229,7 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
   if (p && Align_interface::has_interface (p))
     return Axis_group_interface::cached_pure_height (me, start, end);
 
-  Grob *common = calc_pure_elts_and_common (me);
+  Grob *common = unsmob_grob (me->get_object ("pure-Y-common"));
   extract_grob_set (me, "pure-relevant-items", items);
   extract_grob_set (me, "pure-relevant-spanners", spanners);
 
@@ -380,56 +381,94 @@ Axis_group_interface::staff_extent (Grob *me, Grob *refp, Axis ext_a, Grob *staf
 }
 
 
-Grob *
-Axis_group_interface::calc_pure_elts_and_common (Grob *me)
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_grobs, 1);
+SCM
+Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 {
-  if (Grob *c = unsmob_grob (me->get_object ("pure-Y-common")))
-    return c;
+  Grob *me = unsmob_grob (smob);
   
   extract_grob_set (me, "elements", elts);
 
-  vector<Grob*> relevant_items;
-  vector<Grob*> relevant_spanners;
+  vector<Grob*> relevant_grobs;
   SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
 
   for (vsize i = 0; i < elts.size (); i++)
     {
       if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
-	{
-	  if (dynamic_cast<Item*> (elts[i]))
-	    relevant_items.push_back (elts[i]);
-	  else if (dynamic_cast<Spanner*> (elts[i]))
-	    relevant_spanners.push_back (elts[i]);
-	}
-	    
+	relevant_grobs.push_back (elts[i]);
 
-      Item *it = dynamic_cast<Item*> (elts[i]);
-      Direction d = LEFT;
-      if (it)
-	do
-	  {
-	    Item *piece = it->find_prebroken_piece (d);
-	    if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
-	      relevant_items.push_back (piece);
-	  }
-	while (flip (&d) != LEFT);
+      if (Item *it = dynamic_cast<Item*> (elts[i]))
+	{
+	  Direction d = LEFT;
+	  do
+	    {
+	      Item *piece = it->find_prebroken_piece (d);
+	      if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
+		relevant_grobs.push_back (piece);
+	    }
+	  while (flip (&d) != LEFT);
+	}
     }
+
+  SCM grobs_scm = Grob_array::make_array ();
+  unsmob_grob_array (grobs_scm)->set_array (relevant_grobs);
+
+  return grobs_scm;
+}
+
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_items, 1);
+SCM
+Axis_group_interface::calc_pure_relevant_items (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  extract_grob_set (me, "pure-relevant-grobs", elts);
+
+  vector<Grob*> relevant_items;
+  for (vsize i = 0; i < elts.size (); i++)
+    if (Item *it = dynamic_cast<Item*> (elts[i]))
+      relevant_items.push_back (it);
+
   vector_sort (relevant_items, Item::less);
 
-  Grob *common = common_refpoint_of_array (relevant_items, me, Y_AXIS);
-  common = common_refpoint_of_array (relevant_spanners, common, Y_AXIS);
-
-  me->set_object ("pure-Y-common", common->self_scm ());
-  
   SCM items_scm = Grob_array::make_array ();
-  SCM spanners_scm = Grob_array::make_array ();
-
   unsmob_grob_array (items_scm)->set_array (relevant_items);
-  unsmob_grob_array (spanners_scm)->set_array (relevant_spanners);
-  me->set_object ("pure-relevant-items", items_scm);
-  me->set_object ("pure-relevant-spanners", spanners_scm);
+  return items_scm;
+}
 
-  return common;
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_spanners, 1);
+SCM
+Axis_group_interface::calc_pure_relevant_spanners (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  extract_grob_set (me, "pure-relevant-grobs", elts);
+
+  vector<Grob*> relevant_spanners;
+  for (vsize i = 0; i < elts.size (); i++)
+    if (dynamic_cast<Spanner*> (elts[i]))
+      relevant_spanners.push_back (elts[i]);
+
+  SCM spanners_scm = Grob_array::make_array ();
+  unsmob_grob_array (spanners_scm)->set_array (relevant_spanners);
+  return spanners_scm;
+}
+
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_y_common, 1);
+SCM
+Axis_group_interface::calc_pure_y_common (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  extract_grob_set (me, "pure-relevant-grobs", elts);
+  Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
+  if (!common)
+    {
+      me->programming_error ("No common parent found in calc_pure_y_common.");
+      return SCM_EOL;
+    }
+
+  return common->self_scm ();
 }
 
 SCM
@@ -442,7 +481,7 @@ Axis_group_interface::calc_common (Grob *me, Axis axis)
       me->programming_error ("No common parent found in calc_common axis.");
       return SCM_EOL;
     }
-  
+
   return common->self_scm ();
 }
 
@@ -464,8 +503,13 @@ Axis_group_interface::calc_y_common (SCM grob)
 Interval
 Axis_group_interface::pure_group_height (Grob *me, int start, int end)
 {
-  Grob *common = calc_pure_elts_and_common (me);
-	
+  Grob *common = unsmob_grob (me->get_object ("pure-Y-common"));
+
+  if (!common)
+    {
+      programming_error ("no pure Y common refpoint");
+      return Interval ();
+    }
   Real my_coord = me->relative_coordinate (common, Y_AXIS);
   Interval r (relative_pure_height (me, start, end));
 
@@ -762,6 +806,7 @@ ADD_INTERFACE (Axis_group_interface,
 	       "next-staff-spacing "
 	       "no-alignment "
 	       "pure-Y-common "
+	       "pure-relevant-grobs "
 	       "pure-relevant-items "
 	       "pure-relevant-spanners "
 	       "staff-affinity "

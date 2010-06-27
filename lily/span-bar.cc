@@ -244,5 +244,9 @@ ADD_INTERFACE (Span_bar,
 	       /* properties */
 	       "glyph-name "
 	       "elements "
+	       "pure-Y-common "
+	       "pure-relevant-grobs "
+	       "pure-relevant-items "
+	       "pure-relevant-spanners "
 	       );
 
