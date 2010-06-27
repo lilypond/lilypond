@@ -87,7 +87,7 @@ Slur_score_state::slur_direction () const
 {
   Grob *left_neighbor = slur_->broken_neighbor (LEFT);
 
-  if (left_neighbor && Slur::has_interface (left_neighbor))
+  if (left_neighbor && left_neighbor->is_live ())
     return get_grob_direction (left_neighbor);
 
   Direction dir = get_grob_direction (slur_);
