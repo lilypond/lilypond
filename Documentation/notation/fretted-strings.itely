@@ -424,7 +424,9 @@ Guitar special effects are limited to harmonics and slides.
 @cindex tablatures, custom
 @cindex tablature, banjo
 @cindex tablature, mandolin
+@cindex tablature, guitar
 @cindex tablature, bass guitar
+@cindex tablature, ukulele
 @cindex tablature, predefined string tunings
 @cindex fretted instruments, predefined string tunings
 @cindex predefined string tunings for fretted instruments
@@ -489,8 +491,8 @@ of @code{a''},  @code{d''},  @code{g'}, and @code{c'}:
 
 @lilypond[quote,verbatim]
 mynotes = {
-    c'4 e' g' c'' |
-    e'' g'' b'' c'''
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
 }
 
 <<
@@ -514,7 +516,7 @@ A modern tab clef can also be used.
 
 @lilypond[quote,ragged-right,verbatim]
 \new TabStaff {
- \clef moderntab
+  \clef moderntab
   <a, e a>1
   \break
   \clef tab
@@ -601,6 +603,7 @@ the fret-diagram markup string.
 @end lilypond
 
 @cindex fret-diagram markup
+@cindex ukulele
 
 @funindex fret-diagram
 @funindex \fret-diagram
@@ -916,6 +919,7 @@ Internals Reference:
 
 
 @cindex fret diagrams
+@cindex fret diagrams, ukulele
 @cindex chord diagrams
 
 @funindex FretBoards
