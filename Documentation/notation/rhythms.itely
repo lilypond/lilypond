@@ -1900,6 +1900,7 @@ r4 r8[ g' a r8] r8 g[ | a] r8
 @end lilypond
 
 @cindex manual beams, direction shorthand for
+@cindex manual beams, grace notes
 
 Beaming direction can be set manually using direction indicators:
 
@@ -1916,6 +1917,17 @@ from being beamed:
 @lilypond[quote,verbatim,relative=2]
 \time 2/4
 c8 c\noBeam c c
+@end lilypond
+
+Grace note beams and normal note beams can occur simultaneously.
+Unbeamed grace notes are not put into normal note beams.
+
+@lilypond[quote,verbatim,relative=2]
+c4 d8[
+\grace { e32[ d c d] }
+e8] e8[ e
+\grace { f16 }
+e8 e]
 @end lilypond
 
 @funindex stemLeftBeamCount
@@ -1954,7 +1966,8 @@ g16 a]
 
 @seealso
 Notation Reference:
-@ref{Direction and placement}.
+@ref{Direction and placement},
+@ref{Grace notes}.
 
 Snippets:
 @rlsr{Rhythms}.
@@ -2779,6 +2792,9 @@ Music Glossary:
 @rglos{grace notes},
 @rglos{acciaccatura},
 @rglos{appoggiatura}.
+
+Notation Reference:
+@ref{Manual beams}.
 
 Installed Files:
 @file{ly/@/grace@/-init@/.ly}.
