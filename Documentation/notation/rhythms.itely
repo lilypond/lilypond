@@ -112,6 +112,11 @@ Some durations cannot be represented with just binary durations
 and dots; they can be represented only by tying two or more
 notes together.  For details, see @ref{Ties}.
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{dot-count-override.ly}
+
 For ways of specifying durations for the syllables of lyrics and
 ways of aligning lyrics to notes, see @ref{Vocal music}.
 
