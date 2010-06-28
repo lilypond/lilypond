@@ -759,6 +759,7 @@ Other fret diagram properties must be adjusted using @code{\override} when using
 the fret-diagram-terse markup.
 
 @cindex fret-diagram-verbose markup
+@cindex capo
 
 @funindex fret-diagram-verbose
 @funindex \fret-diagram-verbose
