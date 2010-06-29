@@ -60,7 +60,7 @@ Fonts, bug squasher
 Translation meister
 
 @item Patrick McCarty:
-SVG guru, bug squasher, text handling
+SVG guru, bug squad member, bug squasher, text handling
 
 @item Joe Neeman:
 Core developer
@@ -184,7 +184,11 @@ Patrick Schmidt
 @macro bugsquadCurrent
 
 Dmytro O. Redchuk,
-James E. Bailey
+James E. Bailey,
+Ralph Palmer,
+Phil Holmes,
+Urs Liska,
+Kieren MacMillan
 
 @c no comma for last entry
 
