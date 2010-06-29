@@ -794,10 +794,12 @@ sub lilypond_css_lines ($$)
     $Texi2HTML::THISDOC{'CSS_LINES'} .=
 	"<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
   }
-  # FIXME: the website doesn't use ie7-specific fixes; do the
-  # docs still need this?  -gp
-  $Texi2HTML::THISDOC{'CSS_LINES'} .=
-      "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+
+  # The ie-fixes stylesheet is needed for the docs, but not the website.
+  if (not ($web_manual)) {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .=
+	"<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+  }
 
   if ($ENV{'AJAX_SEARCH'} == 1) {
     # Add the JavaScript file only if we have an index.
