@@ -43,7 +43,7 @@
 LilyPond is een @strong{tekstgebaseerd} muzieknotatieprogramma.  Lees
 dit eerst!
 
-@item @ifWebLinks{@manualStableLearningSplitNoName-nl,@rlearningnamed{Top,Beginnen}}
+@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Beginnen}}
 een @qq{onmisbare} gebruiksvriendelijke inleiding in LilyPond.
 @details{Beginnen}
 
@@ -52,7 +52,7 @@ een @qq{onmisbare} gebruiksvriendelijke inleiding in LilyPond.
 muziektermen en vertalingen.
 @details{Terminologie}
 
-@item @ifWebLinks{@manualStableEssaySplitNoName-nl,@ressaynamed{Top,Essay}}
+@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
 @emph{(optioneel te lezen)}
 achtergrondinformatie over muzieknotatie dmv de computer.
 @details{Essay}
@@ -67,15 +67,15 @@ achtergrondinformatie over muzieknotatie dmv de computer.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName-nl,@rusernamed{Top,Notatie}}
+@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notatie}}
 syntax handleiding.
 @details{Notatie}
 
-@item @ifWebLinks{@manualStableUsageSplitNoName-nl,@rprogramnamed{Top,Gebruik}}
+@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Gebruik}}
 het draaien van alle programma's.
 @details{Gebruik}
 
-@item @ifWebLinks{@manualStableSnippetsSplitNoName-nl,@rlsrnamed{Top,Snippers}}
+@item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippers}}
 handige trucs en tips.
 @details{Snippers}
 
@@ -96,15 +96,15 @@ Veel gestelde vragen.
 dit document.
 @details{Web}
 
-@item @ifWebLinks{@manualStableChangesSplitNoName-nl,@rchangesnamed{Top,Veranderingen}}
+@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Veranderingen}}
 wat is nieuw?
 @details{Veranderingen}
 
-@item @ifWebLinks{@manualStableExtendingSplitNoName-nl,@rextendnamed{Top,Uitbreidingen}}
+@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Uitbreidingen}}
 specialistische verfraaiingen (tweaks).
 @details{Uitbreidingen}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName-nl,@rinternalsnamed{Top,Internals}}
+@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
 tweaks-handleiding.
 @details{Internals}
 
@@ -186,9 +186,9 @@ informatie.
 
 @docLinks{Beginnen, learning,
   @rlearningnamed{Top,Learning},
-  @manualStableLearningSplit-nl,
-  @manualStableLearningBig-nl, 1.5 MB,
-  @manualStableLearningPdf-nl, 3 MB}
+  @manualStableLearningSplit,
+  @manualStableLearningBig, 1.5 MB,
+  @manualStableLearningPdf, 3 MB}
 
 @divEnd
 
@@ -240,9 +240,9 @@ resolutie.}
 
 @docLinks{Essay, essay,
   @ressaynamed{Top,Essay},
-  @manualStableEssaySplit-nl,
-  @manualStableEssayBig-nl, 2 MB,
-  @manualStableEssayPdf-nl, 2.5 MB}
+  @manualStableEssaySplit,
+  @manualStableEssayBig, 2 MB,
+  @manualStableEssayPdf, 2.5 MB}
 
 @divEnd
 
@@ -268,9 +268,9 @@ terminologielijst.}
 
 @docLinks{Notatie-handleiding, notation,
   @rusernamed{Top,Notation},
-  @manualStableNotationSplit-nl,
-  @manualStableNotationBig-nl, 7 MB,
-  @manualStableNotationPdf-nl, 18 MB}
+  @manualStableNotationSplit,
+  @manualStableNotationBig, 7 MB,
+  @manualStableNotationPdf, 18 MB}
 
 @divEnd
 
@@ -294,9 +294,9 @@ lectuur indien je een groot project wilt beginnen.
 
 @docLinks{Gebruik, usage,
   @rprogramnamed{Top,Usage},
-  @manualStableUsageSplit-nl,
-  @manualStableUsageBig-nl, 300 KB,
-  @manualStableUsagePdf-nl, 400 KB}
+  @manualStableUsageSplit,
+  @manualStableUsageBig, 300 KB,
+  @manualStableUsagePdf, 400 KB}
 
 @divEnd
 
@@ -328,9 +328,9 @@ zijn ook gekoppeld vanuit het @strong{Zie ook} gedeelte.
 
 @docLinks{Snippers, snippets,
   @rlsrnamed{Top,Snippets},
-  @manualStableSnippetsSplit-nl,
-  @manualStableSnippetsBig-nl, 2.5 MB,
-  @manualStableSnippetsPdf-nl, 8 MB}
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 2.5 MB,
+  @manualStableSnippetsPdf, 8 MB}
 
 @divEnd
 
@@ -430,9 +430,9 @@ nieuwe functies in LilyPond sinds de vorige stabiele versie.
 
 @docLinks{Veranderingen, changes,
   @rchangesnamed{Top,Changes},
-  @manualStableChangesSplit-nl,
-  @manualStableChangesBig-nl, 6 KB,
-  @manualStableChangesPdf-nl, 200 KB}
+  @manualStableChangesSplit,
+  @manualStableChangesBig, 6 KB,
+  @manualStableChangesPdf, 200 KB}
 
 @divEnd
 
@@ -453,9 +453,9 @@ LilyPond.
 
 @docLinks{Uitbreidingen, extending,
   @rextendnamed{Top,Extending},
-  @manualStableExtendingSplit-nl,
-  @manualStableExtendingBig-nl, 200 KB,
-  @manualStableExtendingPdf-nl, 400 KB}
+  @manualStableExtendingSplit,
+  @manualStableExtendingBig, 200 KB,
+  @manualStableExtendingPdf, 400 KB}
 
 @divEnd
 
@@ -487,9 +487,9 @@ dat verwijst naar deze gegenereerde documentatie.
 
 @docLinks{Internals, internals,
   @rinternalsnamed{Top,Internals},
-  @manualStableInternalsSplit-nl,
-  @manualStableInternalsBig-nl, 2.5 MB,
-  @manualStableInternalsPdf-nl, 2.8 MB}
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
 
 @divEnd
 
