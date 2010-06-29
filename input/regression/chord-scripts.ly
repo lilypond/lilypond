@@ -13,7 +13,7 @@ texidoc = "Scripts can also be attached to chord elements."
   < c^^  > 4
   < c_^  > 4
   < c_^ e^^ > 4
-  < c_^ e^^ > 4
+  < c^^ e_^ > 4
 
 
 }
