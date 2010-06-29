@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 20c486ef2a4e98030fa128052d7257b66bc1599c
+    Translation of GIT committish: 3c3484ad3caf94656ee05aa601cb041426530d57
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -48,7 +48,7 @@ vous ne savez pas du tout ce que ça veut dire, lisez tout d'abord ceci !
 une introduction pas-à-pas à LilyPond.
 @details{Initiation}
 
-@item @ifWebLinks{@manualStableGlossarySplitNoName-fr,@rglosnamed{Top,Glossaire}}
+@item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossaire}}
 @emph{(lecture optionnelle)}
 répertoire de définition et de traduction de termes musicaux, utile en
 particulier pour connaître les termes musicaux en anglais.
@@ -103,15 +103,15 @@ ce document.
 @details{Web}
 
 @item 
-@ifWebLinks{@manualStableChangesSplitNoName-fr,@rchangesnamed{Top,Nouveautés}}
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Nouveautés}}
 changements depuis la dernière version stable.
 @details{Nouveautés}
 
-@item @ifWebLinks{@manualStableExtendingSplitNoName-fr,@rextendnamed{Top,Extension}}
+@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extension}}
 programmation avancée d'ajustements et retouches dans LilyPond.
 @details{Extension}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName-fr,@rinternalsnamed{Top,Propriétés internes}}
+@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Propriétés internes}}
 information sur les structures internes de LilyPond, nécessaire en
 particulier pour élaborer des retouches.
 @details{Propriétés internes}
@@ -218,9 +218,9 @@ documentation.
 
 @docLinks{Glossaire musical, music-glossary,
   @rglosnamed{Top,Glossaire musical},
-  @manualStableGlossarySplit-fr,
-  @manualStableGlossaryBig-fr, 1 MB,
-  @manualStableGlossaryPdf-fr, 1.5 MB}
+  @manualStableGlossarySplit,
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
 
 @divEnd
 
@@ -336,9 +336,9 @@ manuel de notation est accessible par des liens dans le paragraphe
 
 @docLinks{Morceaux choisis, snippets,
   @rlsrnamed{Top, Morceaux choisis},
-  @manualStableSnippetsSplit-fr,
-  @manualStableSnippetsBig-fr, 2.5 MB,
-  @manualStableSnippetsPdf-fr, 8 MB}
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 2.5 MB,
+  @manualStableSnippetsPdf, 8 MB}
 
 @divEnd
 
@@ -436,9 +436,9 @@ nouvelles fonctionnalités de LilyPond depuis la dernière version stable.
 
 @docLinks{Nouveautés, changes,
   @rglosnamed{Top,Nouveautés},
-  @manualStableChangesSplit-fr,
-  @manualStableChangesBig-fr, 6 KB,
-  @manualStableChangesPdf-fr, 200 KB}
+  @manualStableChangesSplit,
+  @manualStableChangesBig, 6 KB,
+  @manualStableChangesPdf, 200 KB}
 
 @divEnd
 
@@ -492,9 +492,9 @@ renvoie à la documentation générée automatiquement.
 
 @docLinks{Référence des propriétés internes, internals,
   @rinternalsnamed{Top,Référence des propriétés internes},
-  @manualStableInternalsSplit-fr,
-  @manualStableInternalsBig-fr, 2.5 MB,
-  @manualStableInternalsPdf-fr, 2.8 MB}
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
 
 @divEnd
 

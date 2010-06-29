@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 20c486ef2a4e98030fa128052d7257b66bc1599c
+    Translation of GIT committish: 3c3484ad3caf94656ee05aa601cb041426530d57
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -679,9 +679,6 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @node Auteurs
 @unnumberedsec Auteurs
 @translationof Authors
-
-@help{En cours d'élaboration ; cette liste demande à être affinée !}
-
 
 @divClass{column-left-top}
 @subheading Équipe actuelle de développement
