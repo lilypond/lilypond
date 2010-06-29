@@ -513,6 +513,7 @@ a[name="Unstable"] + h4 {
 div#footer {
   clear: both;
   width: 100%;
+  border-top: 10px solid #5b7f64;
 }
 
 div#language {
@@ -539,50 +540,39 @@ div#language {
 /* used on website; not certain about the above ones.
     see Issue 1105 */
 p#languages {
-/*
-  position: relative;
-  bottom: 0;
-  left: 0;
-  right: 30%;
-*/
   float: left;
   width: 45%;
-  margin: 3em 0;
+  padding: 0.7em;
+  margin: 0;
   text-align: left;
 }
 
 #verifier_texinfo {
-/*
-  position: relative;
-  bottom: 0;
-  right: 0;
-  left: 50%;
-*/
+  font-size: 0.8em;
   float: right;
   width: 48%;
+  padding: 0.5em;
 }
 
 #verifier_texinfo h3 {
+  position: relative;
+  height: 0;
   text-indent: -9999em;
   padding: 0;
-  border-bottom: 10px solid #5b7f64;
-  margin: 0 0 0.25em 0;
+  margin: 0;
 }
 
 #verifier_texinfo img {
-/*
-  float: right;
-*/
+  vertical-align: middle;
   padding: 0;
-  margin: 0 0.5em 0 0;
+  margin: 0 0 0 0.5em;
 }
 
 #verifier_texinfo p {
   clear: right;
   text-align: right;
-  font-size: 0.8em;
   padding: 0;
-  margin: 0 0.5em;
+  margin: 0;
 }
 
 h1.unnumbered, h2.unnumberedsec, h3.unnumberedsubsec {
