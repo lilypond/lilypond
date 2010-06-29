@@ -10,6 +10,25 @@
 @c used for news about the upcoming release; see CG x.y
 
 @newsItem
+@subsubheading Testing our new website!  @emph{June 29, 2010}
+
+We're testing our new website!  For the next 24 hours, the new
+website will be the default website; after that, we will switch
+back to the old website while we examine feedback and make
+improvements to the new website.
+
+Please send feedback to @code{lilypond-user}; you can find more
+information on our page about @ref{Contact}.
+
+@warning{There are a few known problems with translations.  If you
+are a non-English speaker, you may prefer to view the old lilypond
+website at:
+@uref{http://lilypond.org/web/}}
+
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond 2.13.26 released!  @emph{June 26, 2010}
 
 We are happy to announce the release of LilyPond 2.13.26.  This
