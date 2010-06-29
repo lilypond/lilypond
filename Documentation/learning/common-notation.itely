@@ -155,7 +155,7 @@ a1 |
 
 Music Glossary: @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
-@rglos{transposition}.
+@rglos{transposition}, @rglos{Pitch names}.
 
 To determine whether to print an @notation{accidental}, LilyPond
 examines the pitches and the @notation{key signature}.  The key
@@ -214,9 +214,6 @@ Notation Reference:
 @ruser{Accidentals},
 @ruser{Automatic accidentals},
 @ruser{Key signature}.
-
-Music Glossary:
-@rglos{Pitch names}.
 
 
 @node Ties and slurs
@@ -821,14 +818,14 @@ Notation Reference:
 @node Combining notes into chords
 @subsection Combining notes into chords
 
+Music Glossary: @rglos{chord}
+
 @cindex chords
 @cindex note durations in chords
 
 @funindex <
 @funindex >
 @funindex < ... >
-
-Music Glossary: @rglos{chord}.
 
 We saw earlier how notes can be combined into @notation{chords} by
 indicating they are simultaneous by enclosing them in double angle
@@ -848,9 +845,14 @@ brackets.  For example, you can combine markings like beams and
 ties with chords.  They must be placed outside the angle brackets.
 
 @lilypond[verbatim,quote,relative=2]
-r4 <c e g>8[ <c f a>]~ <c f a>2 |
-r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!) |
+r4 <c e g>~ <c f a>2 |
+<c e g>8[ <c f a> <c e g> <c f a>] <c e g>\>[ <c f a> <c f a> <c e g>]\! |
+r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
+
+@seealso
+Notation Reference:
+@ruser{Chorded notes}.
 
 
 @node Single staff polyphony
@@ -931,13 +933,12 @@ separating each syllable with a space.
 >>
 @end lilypond
 
-Note the curly brackets delimiting both the music and the lyrics.
-It is essential that the final syllable is separated from the
-terminating curly bracket by a space or a newline, or it will be
+@warning{It is essential that the final syllable is separated from
+the terminating curly bracket by a space or a newline, or it will be
 assumed to be part of the syllable, giving rise to an obscure
-error, see @rprogram{Apparent error in ../ly/init.ly}.
+error, see @rprogram{Apparent error in ../ly/init.ly}.}
 
-Note also the double angle brackets @w{@code{<< ... >>}} around the
+Note the double angle brackets @w{@code{<< ... >>}} around the
 whole piece to show that the music and lyrics are to occur at the
 same time.
 
