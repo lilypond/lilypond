@@ -16,6 +16,7 @@ chant-or-psalms-notation.ly
 compound-time-signatures.ly
 conducting-signs,-measure-grouping-signs.ly
 controlling-tuplet-bracket-visibility.ly
+dot-count-override.ly
 engraving-ties-manually.ly
 engraving-tremolos-with-floating-beams.ly
 entering-several-tuplets-using-only-one--times-command.ly

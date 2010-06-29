@@ -22,6 +22,7 @@ creating-real-parenthesized-dynamics.ly
 creating-simultaneous-rehearsal-marks.ly
 creating-slurs-across-voices.ly
 creating-text-spanners.ly
+dot-count-override.ly
 double-glissando.ly
 dynamics-custom-text-spanner-postfix.ly
 dynamics-text-spanner-postfix.ly
