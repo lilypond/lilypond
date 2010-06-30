@@ -389,20 +389,33 @@ Here is an example of a good bug report:
 Once you have verified that the issue is not already known and
 created a bug report, please send it to us!
 
-Unfortunately there is a strict @qq{no top-posting} check on the
-bug list, which is often incorrectly triggered by lilypond files.
-To avoid this, please add
+@divClass{keep-bullets}
+@itemize
+
+@item
+If you are subscribed to the @uref{mailto:bug-lilypond@@gnu.org,
+bug-lilypond@@gnu.org} mailing list, send an email like normal.
+
+@item
+If you are not subscribed, you can still post a bug report with
+the
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
+gmane lilypond.bugs web interface}.
+
+However, there is a strict @qq{no top-posting} check on the bug
+list, which is often incorrectly triggered by lilypond files.  To
+avoid this, please add:
 
 @example
 > I'm not top posting.
 @end example
 
 @noindent
-(you must include the @code{>} ) to the top of your bug report.
+(you @emph{must} include the @code{>} ) to the top of your bug
+report.
 
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-Post with the gmane lilypond.bugs interface}, or send an email to
-@uref{mailto:bug-lilypond@@gnu.org, bug-lilypond@@gnu.org}.
+@end itemize
+@divEnd
 
 Once your bug has been sent to the list, our Bug Squad will
 examine the report.  Please allow up to 24 hours, as we have a
