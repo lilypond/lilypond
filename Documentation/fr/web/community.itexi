@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 3c3484ad3caf94656ee05aa601cb041426530d57
+    Translation of GIT committish: 68cf70682a542701a918f8bfff50f2b8b85f84e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -391,21 +391,35 @@ Voici ce à quoi devrait ressembler tout signalement de bogue@tie{}:
 Après avoir vérifié que votre problème n'est pas déjà répertorié et
 rédigé votre rapport de bogue, n'hésitez pas à nous le transmettre.
 
-Nous tenons à préciser que la liste dédiées aux bogues est soumise à une
-politique stricte de @qq{no top-posting} bien souvent mise en défaut par
-les fichiers LilyPond.  Aussi nous vous prions de bien vouloir ajouter
-une ligne
+@divClass{keep-bullets}
+@itemize
+
+@item
+Si vous êtes déjà inscrit à la liste de diffusion
+@uref{mailto:bug-lilypond@@gnu.org,bug-lilypond@@gnu.org}, envoyez un
+courriel comme à l'accoutumée.
+
+@item
+Si vous néavez pas souscrit à la liste de diffusion, vous pouvez
+cependant transmettre votre rapport de bogue au travers de
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
+l'interface gmane de lilypond.bugs}.
+
+Nous tenons à préciser que l'interface gmane applique une politique
+stricte de @qq{no top-posting} bien souvent mise en défaut par les
+fichiers LilyPond.  Aussi nous vous prions de bien vouloir ajouter une
+ligne
 
 @example
 > I'm not top posting.
 @end example
 
 @noindent
-(sans oublier le @code{>} ) au tout début de votre message.
+sans oublier le @code{>} au tout début de votre message@tie{}; c'est
+@strong{impératif}.
 
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-Postez à lilypond.bugs par l'interface gmane}, ou envoyez un courriel à
-@uref{mailto:bug-lilypond@@gnu.prg, bug-lilypond@@gnu.org}.
+@end itemize
+@divEnd
 
 Une fois le message reçu, notre @qq{responsable des bogues} analysera
 votre rapport et vous demandera peut-être des informations
@@ -803,9 +817,6 @@ musicale (XIV CIM 2003), Florence, Itale, mai@tie{}2003.
 
 @subheading Ce que certains ont fait avec LilyPond
 
-@help{Yeah, this doesn't look bad at all... there's 20-50 papers
-out there that cite lilypond; somebody should find at least 3 or 4
-of them, so that it doesn't look so graham-specific.}
 
 @divClass{keep-bullets}
 @itemize
@@ -815,6 +826,26 @@ Graham Percival, Tosten Anders et George Tzanetakis,
 @emph{Generating Targeted Rhythmic Exercises for Music Students
 with Constraint Satisfaction Programming}, International Computer
 Music Conference 2008.
+
+@item
+A. Passos, M. Silva, P. Kroger, et G. Cidra,
+@emph{Functional Harmonic Analysis and Computational Musicology
+in Rameau}, Proceedings of the 12th Brazilian Symposium on Compute
+Music, 2009, p. 207-210.
+
+@item
+Alberto Simões, Anália Lourenço et José João Almeida,
+@emph{Using Text Mining Techniques for Classical Music Scores Analysis},
+New Trends in Artificial Intelligence, 2007 J. Neves et al ed.
+
+@item
+
+Kevin C. Baird 2005.
+@emph{Real-time generation of music notation via audience interaction using
+python and GNU lilypond}. Proceedings of the 2005 Conference on New interfaces
+For Musical Expression (Vancouver, Canada, May 26 - 28, 2005).
+New Interfaces For Musical Expression. National University of Singapore,
+Singapore, 240-241.
 
 @end itemize
 

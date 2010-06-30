@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: dee4f5842abe7e7f638485b7b36e9e0dffa56b3e
+    Translation of GIT committish: 68cf70682a542701a918f8bfff50f2b8b85f84e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -98,7 +98,7 @@ LilyPond est publié selon les termes de la
 
 @subheading Sponsors
 
-Nous remercions @uref{http://www.vt.edu/, Virgina Tech} et
+Nous remercions @uref{http://www.vt.edu/, Virginia Tech} et
 @uref{http://www.linuxaudio.org/, linuxaudio.org} qui sponsorisent notre
 bande passante.
 
