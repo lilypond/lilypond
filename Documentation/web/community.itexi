@@ -402,9 +402,9 @@ the
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
 gmane lilypond.bugs web interface}.
 
-However, there is a strict @qq{no top-posting} check on the bug
-list, which is often incorrectly triggered by lilypond files.  To
-avoid this, please add:
+However, there is a strict @qq{no top-posting} check on the gmane
+interface, which is often incorrectly triggered by lilypond files.
+To avoid this, please add:
 
 @example
 > I'm not top posting.
