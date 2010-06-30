@@ -139,6 +139,7 @@ Bug meister
 @c use commas not colons
 
 Pál Benkő,
+@c @email{benkop@@freestart.hu},
 Frédéric Bron,
 Hajo Dezelski,
 Richard Gay,
@@ -235,8 +236,6 @@ Erlend Aasland,
 Maximilian Albert,
 Guido Amoruso,
 Kristof Bastiaensen,
-Pal Benko,
-@c @email{benkop@@freestart.hu},
 Juliusz Chroboczek,
 @c @email{jch@@pps.jussieu.fr},
 Angelo Contardi,
