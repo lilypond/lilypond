@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 541f77187b475f4ea84ca36485d2255dd7db0437
+   Translation of GIT committish: 68cf70682a542701a918f8bfff50f2b8b85f84e2
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -171,7 +171,7 @@ a
 Glossaire musicologique :
 @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
-@rglos{transposition}.
+@rglos{transposition}, @rglos{Pitch names}.
 
 La combinaison de l'@notation{armure} et des hauteurs de note -- y
 compris les altérations -- permet à LilyPond de déterminer dans quel
@@ -197,7 +197,7 @@ Dans cet exemple,
 
 @lilypond[verbatim,quote,relative=2]
 \key d \major
-d cis fis
+cis4 d e fis
 @end lilypond
 
 @noindent
@@ -212,11 +212,11 @@ accidentel@tie{}:
 
 @lilypond[verbatim,quote,relative=2]
 \key aes \major
-b
+aes4 c b c
 @end lilypond
 
 Prenons un autre exemple@tie{}: imaginez-vous devant un piano@tie{}; dès
-lors que vous coulez enfoncer l'une des touches noires, il vous faudra
+lors que vous voulez enfoncer l'une des touches noires, il vous faudra
 @strong{ajouter} un @code{-is} ou un @code{-es} au nom de la note.
 
 Ajouter explicitement toutes les altérations demande un peu plus
@@ -234,9 +234,6 @@ Manuel de notation :
 @ruser{Altérations},
 @ruser{Altérations accidentelles automatiques},
 @ruser{Armure}.
-
-Glossaire musicologique :
-@rglos{Pitch names}.
 
 
 @node Liaisons
@@ -915,9 +912,14 @@ accord@tie{}: il faut ajouter ces indications après les hauteurs et la
 durée, donc @emph{à l'extérieur} des chevrons.
 
 @lilypond[verbatim,quote,relative=2]
-r4 <c e g>8[ <c f a>]~ <c f a>2 |
-r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!) |
+r4 <c e g>~ <c f a>2 |
+<c e g>8[ <c f a> <c e g> <c f a>] <c e g>\>[ <c f a> <c   f a> <c e g>]\! | 
+r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
+
+@seealso
+Manuel de notation :
+@ruser{Notes en accords}.
 
 
 @node Polyphonie sur une portée
@@ -1002,14 +1004,13 @@ séparant chaque syllable par une espace@tie{}:
 >>
 @end lilypond
 
-Remarquez les accolades embrassant la musique et celles embrassant les
-paroles.  Il est d'ailleurs primordial de séparer l'accolade fermant les
+@warning{Il est primordial de séparer l'accolade fermant les
 paroles de la dernière syllabe -- par une espace ou un saut de ligne --
 au risque de voir apparaître une 
-@rprogram{Erreur renvoyant à ../ly/init.ly}.
+@rprogram{Erreur renvoyant à ../ly/init.ly}.}
 
 
-Notez aussi les doubles chevrons @w{@code{<< ... >>}} encadrant
+Notez les doubles chevrons @w{@code{<< ... >>}} encadrant
 toute la pièce@tie{}; ils indiquent simplement que la musique et les
 paroles se produisent en même temps.
 
