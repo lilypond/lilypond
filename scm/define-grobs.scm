@@ -1565,6 +1565,7 @@
 
     (Script
      . (
+	(add-stem-support . #t)
 	(cross-staff . ,ly:script-interface::calc-cross-staff)
 	(direction . ,ly:script-interface::calc-direction)
 	(font-encoding . fetaMusic)

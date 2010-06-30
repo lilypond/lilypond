@@ -20,17 +20,16 @@
 #include "engraver.hh"
 
 #include "international.hh"
+#include "item.hh"
 #include "rhythmic-head.hh"
 #include "script-interface.hh"
 #include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
 #include "stem.hh"
 #include "stream-event.hh"
-#include "item.hh"
 #include "warn.hh"
 
 #include "translator.icc"
-
 
 
 struct Finger_tuple
@@ -64,7 +63,7 @@ class New_fingering_engraver : public Engraver
   vector<Finger_tuple> articulations_;
   vector<Finger_tuple> string_numbers_;
 
-  vector<Grob*> heads_;
+  vector<Grob *> heads_;
   Grob *stem_;
 
   void position_all ();
@@ -145,7 +144,11 @@ New_fingering_engraver::add_script (Grob *head,
 			  event->get_property ("articulation-type"), 0);
   ft.script_ = g;
   ft.script_->set_parent (head, X_AXIS);
-  
+
+  SCM forced_dir = event->get_property ("direction");
+  if (to_dir (forced_dir))
+    ft.script_->set_property ("direction", forced_dir);
+
   articulations_.push_back (ft);
 }
 
@@ -160,8 +163,7 @@ New_fingering_engraver::add_fingering (Grob *head,
 
   ft.script_ = internal_make_item (grob_sym, event->self_scm (),
 				   ly_symbol2string (grob_sym).c_str (),
-				   __FILE__, __LINE__, __FUNCTION__
-				   );
+				   __FILE__, __LINE__, __FUNCTION__);
 
   Side_position_interface::add_support (ft.script_, head);
 
@@ -266,7 +268,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
       else if (unsmob_grob (ft.head_->get_object ("dot")))
 	Side_position_interface::add_support (f,
 					      unsmob_grob (ft.head_->get_object ("dot")));
-					      
+
       Self_alignment_interface::set_align_self (f, Y_AXIS);
       Self_alignment_interface::set_center_parent (f, Y_AXIS);
       Side_position_interface::set_axis (f, X_AXIS);
@@ -290,7 +292,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
 	  Self_alignment_interface::set_align_self (f, X_AXIS);
 	  Self_alignment_interface::set_center_parent (f, X_AXIS);
 	  Side_position_interface::set_axis (f, Y_AXIS);
-      
+
 	  f->set_property ("direction", scm_from_int (d));
 	}
     }
@@ -304,7 +306,6 @@ New_fingering_engraver::stop_translation_timestep ()
   stem_ = 0;
   heads_.clear ();
 }
-
 
 void
 New_fingering_engraver::position_all ()
@@ -329,7 +330,7 @@ New_fingering_engraver::position_all ()
 			&stroke_fingerings_);
       stroke_fingerings_.clear ();
     }
-  
+
   for (vsize i = articulations_.size (); i--;)
     {
       Grob *script = articulations_[i].script_;
@@ -351,7 +352,6 @@ New_fingering_engraver::New_fingering_engraver ()
   stem_ = 0;
 }
 
-
 ADD_ACKNOWLEDGER (New_fingering_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (New_fingering_engraver, stem);
 
@@ -372,7 +372,7 @@ ADD_TRANSLATOR (New_fingering_engraver,
 		"harmonicDots "
 		"strokeFingerOrientations "
 		"stringNumberOrientations ",
-		
+
 		/* write */
 		""
 		);
