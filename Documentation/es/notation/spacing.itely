@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a38419855cec926de8a197b1a275d78bc12da8ea
+    Translation of GIT committish: da06c726ee905a6a2fa476a37fc4db715692d0dc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -594,15 +594,16 @@ las páginas se llenen en exceso si se establece a un valor grande.
 Por el momento solamente está contemplado por parte del algoritmo
 @code{ly:optimal-breaking}.  Predeterminado: no establecido.
 
-@item page-breaking-between-system-padding
-@funindex page-breaking-between-system-padding
+@item page-breaking-between-system-spacing
+@funindex page-breaking-between-system-spacing
 
 Engaña al divisor de páginas para que crea que
-@code{between-system-padding} está establecido a algo distinto de lo
-que está realmente.  Por ejemplo, si esta variable se establece a algo
-mucho mayor que @code{between-system-padding}, entonces el divisor de
-páginas colocará menos sistemas en cada página.  Predeterminado: no
-establecido.
+@code{between-system-spacing} está establecido a algo distinto de lo
+que está realmente.  Por ejemplo, si
+@code{page-breaking-between-system-spacing #'padding} se establece a algo
+mucho mayor que @code{between-system-spacing #'padding}, entonces
+el divisor de páginas colocará menos sistemas en cada página.
+Predeterminado: no establecido.
 
 @item page-count
 @funindex page-count

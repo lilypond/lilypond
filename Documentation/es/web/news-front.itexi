@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: e8e41c363154f9b13549ebafdf2e7c02c0c8868a
+    Translation of GIT committish: bfd2f9b876b209255fcb8b063261db6953bb5181
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -17,6 +17,44 @@
 
 @c FIXME: fill in number
 @c used for news about the upcoming release; see CG x.y
+
+@newsItem
+@subsubheading ¡Probando nuestra nueva página!  @emph{29 de junio de 2010}
+
+¡Estamos probando nuestras nuevas páginas!  Durante las próximas
+24 horas, las páginas predeterminadas serán las de nuestro nuevo sitio;
+después, cambiaremos de nuevo al sitio antiguo mientras
+examinamos el retorno de los usuarios y efectuamos algunas
+mejoras a las nuevas páginas.
+
+Envíe sus comentarios a @code{lilypond-user}; encontrará
+más información en nuestra página de @ref{Contacto}.
+
+@warning{Existen algunos problemas conocidos con las traducciones.
+Si no domina el inglés, quizá prefiera ver el sitio web anterior
+de LilyPond en: @uref{http://lilypond.org/web/}}
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.26!  @emph{26 de junio de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.26.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+@newsEnd
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.25!  @emph{20 de junio de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.25.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+@newsEnd
+
 
 @newsItem
 @subsubheading ¡Lanzado LilyPond 2.13.24!  @emph{14 de junio de 2010}

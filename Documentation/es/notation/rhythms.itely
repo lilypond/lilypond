@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 397228a452fdce0a1bedb6d5b5d3b0c9717153cd
+    Translation of GIT committish: 8d0379b60d9e6bf497a45a6b03ae1937acd32adc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -149,6 +149,12 @@ pauta; véase @ref{Dirección y posición}.
 @code{\dotsDown},
 @code{\dotsNeutral}.
 @endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{dot-count-override.ly}
 
 
 @seealso
@@ -1954,6 +1960,7 @@ r4 r8[ g' a r8] r8 g[ | a] r8
 @end lilypond
 
 @cindex barras manuales, abreviatura de dirección
+@cindex barras manuales, notas de adorno
 
 La dirección de las barras se puede establecer manualmente utilizando
 indicadores de dirección:
@@ -1969,7 +1976,21 @@ Se pueden marcar notas individuales con @code{\noBeam} para evitar que
 resulten unidas por una barra:
 
 @lilypond[quote,verbatim,relative=2]
-\time 2/4 c8 c\noBeam c c
+\time 2/4
+c8 c\noBeam c c
+@end lilypond
+
+Se pueden producir al mismo tiempo barras de notas
+de adorno y barras normales.
+Las notas de adorno sin barra no se colocan dentro
+de las barras de notas normales.
+
+@lilypond[quote,verbatim,relative=2]
+c4 d8[
+\grace { e32[ d c d] }
+e8] e8[ e
+\grace { f16 }
+e8 e]
 @end lilypond
 
 @funindex stemLeftBeamCount
@@ -2008,7 +2029,8 @@ g16 a]
 
 @seealso
 Referencia de la notación:
-@ref{Dirección y posición}.
+@ref{Dirección y posición},
+@ref{Notas de adorno}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -2860,6 +2882,9 @@ Glosario musical:
 @rglos{grace notes},
 @rglos{acciaccatura},
 @rglos{appoggiatura}.
+
+Referencia de la notación:
+@ref{Barras manuales}.
 
 Archivos de inicio:
 @file{ly/@/grace@/-init@/.ly}.

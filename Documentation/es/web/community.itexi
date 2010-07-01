@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f3d0521a757c041544d4c8a4a0d450a9bdeadce3
+    Translation of GIT committish: 68cf70682a542701a918f8bfff50f2b8b85f84e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -395,21 +395,33 @@ He aquí un ejemplo de un buen informe de fallo:
 Una vez que ha verificado que el problema no es conocido ya, y ha
 creado el informe, ¡puede enviárnoslo!
 
-Desgraciadamente, existe una comprobación muy estricta de que no hay
-@qq{top-posting} (contestar por encima) en la lista de fallos, que se
-dispara con frecuencia a causa de los archivos de lilypond.  Para
-evitarlo, escriba
+@divClass{keep-bullets}
+@itemize
+
+@item
+Si está suscrito a la lista de correo
+@uref{mailto:bug-lilypond@@gnu.org,bug-lilypond@@gnu.org},
+envíe un mensaje de la forma habitual.
+
+@item
+Si no está suscrito, aún puede enviar un informe de fallo con el
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
+interfaz web de gmane para lilypond.bugs}.
+
+Sin embargo, existe una comprobación muy estricta de que no hay
+@qq{top-posting} (contestar por encima) en el interfaz de gmane, que se
+dispara incorrectamente con frecuencia a causa de los archivos de lilypond.
+Para evitarlo, escriba:
 
 @example
 > I'm not top posting.
 @end example
 
 @noindent
-(debe escribir el ángulo @code{>} ) al principio de su informe.
+(@emph{debe} escribir el ángulo @code{>} ) al principio de su informe.
 
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-Envíelo mediante el interfaz de lilypond.bugs de gmane}, o envíe un
-mensaje a @uref{mailto:bug-lilypond@@gnu.prg, bug-lilypond@@gnu.org}.
+@end itemize
+@divEnd
 
 Una vez que su fallo se ha enviado a la lista, nuestro Escuadrón de
 Fallos examinará el informe.  Déles un tiempo de unas 24 horas, pues
@@ -674,9 +686,6 @@ están en @url{http://lilypond.org}}
 @unnumberedsec Autores
 @translationof Authors
 
-@c @hel p{Under construction; this is not an accurate list!}
-
-
 @divClass{column-left-top}
 @subheading Equipo de desarrollo actual
 
@@ -806,6 +815,25 @@ Graham Percival, Tosten Anders y George Tzanetakis,
 @emph{Generating Targeted Rhythmic Exercises for Music Students
 with Constraint Satisfaction Programming}, International Computer
 Music Conference 2008.
+
+@item
+A. Passos, M. Silva, P. Kroger, y G. Cidra,
+@emph{Functional Harmonic Analysis and Computational Musicology
+in Rameau}, Proceedings of the 12th Brazilian Symposium on Compute
+Music, 2009, pp. 207-210.
+
+@item
+Alberto Simões, Anália Lourenço y José João Almeida,
+@emph{Using Text Mining Techniques for Classical Music Scores Analysis},
+New Trends in Artificial Intelligence, 2007 J. Neves et al ed.
+
+@item
+
+Kevin C. Baird 2005.
+@emph{Real-time generation of music notation via audience interaction using
+python and GNU lilypond}. Proceedings of the 2005 Conference on New interfaces
+For Musical Expression (Vancouver, Canadá, May 26 - 28, 2005).
+New Interfaces For Musical Expression. Universidad Nacional de Singapur, Singapur, 240-241.
 
 @end itemize
 

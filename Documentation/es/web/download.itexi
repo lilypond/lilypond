@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: a692ecc3437da86a7c4f9875dab1df1806ecf3a7
+    Translation of GIT committish: 77af5c6014addc929dfa818be21d2093d4b1028a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -93,7 +93,7 @@ LilyPond está publicado bajo la
 
 @subheading Patrocinadores
 
-Nuestro agradecimiento a @uref{http://www.vt.edu/, Virgina Tech} y a
+Nuestro agradecimiento a @uref{http://www.vt.edu/, Virginia Tech} y a
 @uref{http://www.linuxaudio.org/, linuxaudio.org} por patrocinar
 nuestro ancho de banda.
 
@@ -428,7 +428,7 @@ e imágenes de productos.
 @item
 @sourceimage{logo-windows,,,}
 @downloadStableWindows
-Para Windows ME, NT, 2000, XP, Vista y Windows 7.
+Para Windows 2000, XP, Vista y Windows 7.
 
 @end itemize
 

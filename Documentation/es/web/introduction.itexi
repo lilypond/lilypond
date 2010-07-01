@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 9b4bc840bfa328cd3a7969e529efa61e51e5edaa
+    Translation of GIT committish: d5bf9d0cec254701a31ecae4587c52c147d08635
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -611,6 +611,14 @@ La revista LinuxUser alemana publicó un
 @uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
 artículo sobre lilypond}.
 
+
+@item
+Agosto de 2009
+
+Ann Drinan, en la página
+@uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org},
+presenta algunos comentarios de dos archiveros de orquesta que
+charlan acerca del uso de software para el mantenimiento de sus bibliotecas.
 
 @item
 Febrero de 2008

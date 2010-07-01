@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 3c939a92666a567ab68eabb0cfed9ae892f7519a
+    Translation of GIT committish: b4203b795d1842ec846a480a85af4044ada8a506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -108,6 +108,7 @@ y bichos, ¡por no mencionar una extensa reseña del editor Frescobaldi!
 LilyPond número 17} (en inglés) ahora mismo!
 @newsEnd
 
+
 @newsItem
 @subsubheading ¡Lanzado LilyPond 2.13.13!  @emph{13 de febrero de 2010}
 
@@ -115,6 +116,7 @@ Nos complace anunciar el lanzamiento de LilyPond 2.13.14.  Esta
 versión está orientada solamente a los desarrolladores, e incluye una
 amplia actualización de las traducciones, además de la ronda usual de
 correcciones de fallos.
+
 
 @newsItem
 @subsubheading ¡Lanzado LilyPond 2.13.13!  @emph{13 de febrero de 2010}
