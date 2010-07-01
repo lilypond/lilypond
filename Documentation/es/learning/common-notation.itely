@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: bb3052f000e2e511369bec5e15361e0a5c3c8b9f
+    Translation of GIT committish: 4268b63145907f404cd77ed48f901877d00680a3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -177,7 +177,8 @@ Glosario musical:
 @rglos{flat},
 @rglos{natural},
 @rglos{sharp},
-@rglos{transposition}.
+@rglos{transposition},
+@rglos{Pitch names}.
 
 Para determinar si hay que imprimir una @notation{alteración
 accidental}, LilyPond examina las notas y la @notation{armadura de la
@@ -239,9 +240,6 @@ Referencia de la notación:
 @ruser{Alteraciones accidentales},
 @ruser{Alteraciones accidentales automáticas},
 @ruser{Armadura de la tonalidad}.
-
-Glosario musical:
-@rglos{Pitch names}.
 
 
 @node Ligaduras de unión y de expresión
@@ -882,15 +880,15 @@ Referencia de la notación:
 @subsection Combinar notas para formar acordes
 @translationof Combining notes into chords
 
+Glosario musical:
+@rglos{chord}.
+
 @cindex acordes
 @cindex duraciones de notas en acordes
 
 @funindex <
 @funindex >
 @funindex < ... >
-
-Glosario musical:
-@rglos{chord}.
 
 Hemos visto con anterioridad cómo se pueden combinar las notas
 formando @notation{acordes} que indican que son simultáneas,
@@ -913,10 +911,14 @@ con acordes.  Tan sólo debe recordar que se escriben por fuera de los
 ángulos.
 
 @lilypond[verbatim,quote,relative=2]
-r4 <c e g>8[ <c f a>]~ <c f a>2 |
-r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!) |
+r4 <c e g>~ <c f a>2 |
+<c e g>8[ <c f a> <c e g> <c f a>] <c e g>\>[ <c f a> <c f a> <c e g>]\! |
+r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
 
+@seealso
+Referencia de la notación:
+@ruser{Notas en acorde}.
 
 @node Polifonía en un solo pentagrama
 @subsection Polifonía en un solo pentagrama
@@ -1002,13 +1004,13 @@ cada sílaba mediante un espacio.
 >>
 @end lilypond
 
-Observe las llaves rodeando tanto la música como la letra.  Es
+@warning{Es
 esencial que la última sílaba esté separada de la llave de cierre por
 un silencio o línea en blanco, pues en caso contrario se tomará como
 parte de la sílaba, dando lugar a un extraño error, véase
-@rprogram{Apparent error in ../ly/init.ly}.
+@rprogram{Apparent error in ../ly/init.ly}.}
 
-Observe también los
+Observe los
 ángulos dobles @w{@code{<< ... >>}} alrededor del fragmento entero
 para expresar que la música y la letra han de suceder al mismo tiempo.
 

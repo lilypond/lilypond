@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 541f77187b475f4ea84ca36485d2255dd7db0437
+    Translation of GIT committish: 5752ef148b614ee0611b3ce300692e1426886785
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -75,6 +75,12 @@ which scares away people.
 
 @end ignore
 
+@item
+El @q{backend} de SVG contempla opcionalmente las fuentes tipográficas
+@uref{http://www.w3.org/Submission/WOFF, WOFF}.  Utilizar la opción de
+Scheme @code{-d svg-woff} junto a la selección del backend SVG
+@code{-d backend=svg} produce una salida SVG con selección CSS de la
+fuente WOFF.
 
 @item
 Se ha girado la clave de sol 1.5 grados a la derecha para mejorar su

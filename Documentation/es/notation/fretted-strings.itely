@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b8b5ffaddd82471fdcf076b3931d59c0fc54b1a9
+    Translation of GIT committish: 7eb30f2765732f58f88a5d5ebb3c2586758b02e9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -443,7 +443,9 @@ Los efectos especiales de guitarra se limitan a armónicos y @emph{slides}.
 @cindex tablaturas personalizadas
 @cindex tablatura de banjo
 @cindex tablatura de mandolina
+@cindex tablatura de guitarra
 @cindex tablatura de bajo
+@cindex tablatura de ukelele
 @cindex tablatura, afinaciones predefinidas de
 @cindex trastes, instrumentos con, afinaciones predefinidas
 @cindex predefinidas, afinaciones, para instrumentos de traste
@@ -508,8 +510,8 @@ con las alturas @code{a''}, @code{d''}, @code{g'} y @code{c'}:
 
 @lilypond[quote,verbatim]
 mynotes = {
-    c'4 e' g' c'' |
-    e'' g'' b'' c'''
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
 }
 
 <<
@@ -533,7 +535,7 @@ También se puede usar una clave moderna de tablatura.
 
 @lilypond[quote,ragged-right,verbatim]
 \new TabStaff {
- \clef moderntab
+  \clef moderntab
   <a, e a>1
   \break
   \clef tab
@@ -624,6 +626,7 @@ la cadena de marcado del diagrama de trastes.
 @end lilypond
 
 @cindex fret-diagram, marcado con
+@cindex ukelele
 
 @funindex fret-diagram
 @funindex \fret-diagram
@@ -785,6 +788,7 @@ Otras propiedades de los diagramas de trastes se deben ajustar usando
 fret-diagram-terse.
 
 @cindex fret-diagram-verbose, marcado con
+@cindex capo
 
 @funindex fret-diagram-verbose
 @funindex \fret-diagram-verbose
@@ -948,8 +952,9 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Diagramas predefinidos de trastes
 @translationof Predefined fret diagrams
 
-@cindex fret diagrams
-@cindex chord diagrams
+@cindex diagramas de posiciones
+@cindex diagramas de posiciones de ukelele
+@cindex diagramas de acordes
 
 @funindex FretBoards
 @funindex stringTunings

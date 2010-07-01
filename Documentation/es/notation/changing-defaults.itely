@@ -3785,7 +3785,7 @@ custosNote =
 \relative c' { c4 d e f \custosNote g }
 @end lilypond
 
-Substitution functions with multiple arguments can be defined:
+Se pueden definir funciones de sustitución con más de un argumento:
 
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded =
