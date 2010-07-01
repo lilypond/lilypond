@@ -211,7 +211,7 @@ Rest_collision::calc_positioning_done (SCM smob)
       Grob *rest = Note_column::get_rest (rcol);
       Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
 
-      Interval restdim = rcol->extent (common, Y_AXIS);
+      Interval restdim = rest->extent (common, Y_AXIS);
       if (restdim.is_empty ())
 	return SCM_BOOL_T;
 
