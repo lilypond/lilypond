@@ -6,7 +6,7 @@
 \header {
   lsrtags = "simultaneous-notes"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
  doctitlees = "Voces adicionales para evitar colisiones"
  texidoces = "
 En ciertos casos de polifonía compleja, se necesitan voces adicionales
@@ -15,7 +15,6 @@ voces paralelas, las voces adicionales se añaden definiendo una
 variable que utiliza la función de Scheme @code{context-spec-music}.
 
 "
-
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
@@ -27,7 +26,6 @@ Stimmen definiert werden, indem eine Variable mit der Funktion
 
 "
   doctitlede = "Zusätzliche Stimmen um Zusammenstöße zu vermeiden"
-
 %% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
   texidocfr = "
 Dans certains cas de musique polyphonie complexe, une voix

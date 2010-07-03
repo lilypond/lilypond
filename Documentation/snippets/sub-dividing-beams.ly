@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Las barras de semicorcheas (o notas más breves) seguidas no se
 subdividen de forma predeterminada.  Esto es: las tres (o más)
@@ -26,7 +26,6 @@ da la duración el subgrupo de barras utilizando la función
 "
   doctitlees = "Subdivisión de las barras de semicorchea"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Balken von aufeinanderfolgenden Sechszehnteln (oder kürzeren Notenwerten)
@@ -39,7 +38,6 @@ Standardwert für @code{beatLength} ist 1 / Zähler des aktuellen Taktes.
 
 "
   doctitlede = "Balken in Untergruppen teilen"
-
 
 
 %% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60

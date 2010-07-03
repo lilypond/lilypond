@@ -379,7 +379,7 @@ Accidentals on tied notes are only printed at the beginning of a
 new system:
 
 @lilypond[verbatim,quote,relative=2]
-cis1 ~ cis ~
+cis1~ cis~
 \break
 cis
 @end lilypond
@@ -387,9 +387,11 @@ cis
 
 @snippets
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle,ragged-right]
+{accidental-tie-overridden.ly}
+
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
-
 
 @seealso
 Music Glossary:

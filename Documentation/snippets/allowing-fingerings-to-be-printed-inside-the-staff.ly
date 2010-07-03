@@ -6,7 +6,7 @@
 \header {
   lsrtags = "editorial-annotations, fretted-strings, spacing"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
 
   texidoces = "
 Las cifras de digitación orientadas verticalmente se colocan de forma
@@ -18,7 +18,6 @@ aunque sea una sola nota.
 "
   doctitlees = "Permitir que las digitaciones se impriman dentro del pentagrama"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Normalerweise werden vertikal orientierte Fingersatzzahlen außerhalb des Systems
@@ -26,7 +25,6 @@ gesetzt.  Das kann aber verändert werden.
 
 "
   doctitlede = "Fingersatz auch innerhalb des Systems setzen"
-
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 L'empilement des indications de doigté se fait par défaut à l'extérieur

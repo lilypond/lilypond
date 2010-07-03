@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Si hay un solo pentagrama en un de los tipos de sistema
 @code{ChoirStaff} o @code{StaffGroup}, el comportamiento
@@ -22,7 +22,6 @@ distinta, como se ve en el segundo sistema del ejemplo.
   doctitlees = "Mostrar corchete o llave en grupos de un solo pentagrama"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Wenn nur ein System einer Systemgruppe vom Typ @code{ChoirStaff} oder
@@ -36,7 +35,6 @@ wie das zweite Beispiel zeigt.
 
 "
   doctitlede = "Klammer anzeigen wenn nur ein System gesetzt wird"
-
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Lorsque, dans des regoupements de type @code{ChoirStaff} ou

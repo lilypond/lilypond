@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, contexts-and-engravers, tweaks-and-overrides"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Se puede utilizar la propiedad
 @code{systemStartDelimiterHierarchy} para crear grupos de
@@ -24,7 +24,6 @@ todos los pentagramas. Las posibilidades son
 "
   doctitlees = "Anidado de grupos de pentagramas"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Eigenschaft @code{systemStartDelimiterHierarchy} kann eingesetzt
@@ -40,7 +39,6 @@ die gesamte Gruppe.  Die Möglichkeiten der Anfangsklammer sind: @code{SystemSta
 
 "
   doctitlede = "Systeme schachteln"
-
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 La propriété @code{systemStartDelimiterHierarchy} permet de créer des

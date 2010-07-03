@@ -5,7 +5,7 @@
 \version "2.13.20"
 
 \header {
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Para tipografiar las barras agrupadas en la forma @code{3-4-3-2}
 en 12/8, en primer lugar tenemos que sobreescribir los finales de

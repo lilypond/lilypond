@@ -6,7 +6,7 @@
 \header {
   lsrtags = "keyboards, template"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Presentamos a continuación una plantilla de piano sencilla con algunas
 notas.
@@ -14,14 +14,12 @@ notas.
 "
   doctitlees = "Plantilla de piano (sencilla)"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Hier ein einfaches Klaviersystem.
 
 "
   doctitlede = "Vorlage für einfache Klaviernotation"
-
 %% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
   texidocfr = "
 Voici une simple partition pour piano avec quelques notes.

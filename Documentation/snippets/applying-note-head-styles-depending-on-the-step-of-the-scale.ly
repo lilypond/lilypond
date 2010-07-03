@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches, editorial-annotations"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
   texidoces = "
 La propiedad @code{shapeNoteStyles} se puede usar para definir varios
@@ -30,7 +30,6 @@ nota.
 
 "
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Notenkopfstile basierend auf der Tonleiterstufe erstellen"
   texidocde = "
@@ -52,7 +51,6 @@ eine Melodie transponieren kann, ohne dass das Verhältnis zwischen den
 harmonischen Funktionen und dem Notenstil verloren geht.
 
 "
-
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 La propriété @code{shapeNoteStyles} permet d'affecter un profil

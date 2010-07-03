@@ -6,7 +6,7 @@
 \header {
   lsrtags = "tweaks-and-overrides, spacing"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Mediante el establecimiento de la propiedad @code{'Y-extent} a un valor
 adecuado, todos los objetos @code{DynamicLineSpanner} (reguladores e
@@ -20,7 +20,6 @@ largo de su línea de base.
 
 "
   doctitlees = "Indicaciones dinámicas y textuales alineadas verticalmente"
-
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
@@ -36,7 +35,6 @@ Grundlinie auszurichten.
 
 "
   doctitlede = "Vertikale Ausrichtung von Dynamik und Textbeschriftung beeinflussen"
-
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Vous pourrez, en jouant sur la propriété @code{'Y-extent}, aligner les

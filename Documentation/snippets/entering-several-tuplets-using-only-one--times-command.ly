@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
  doctitlees = "Escribir varios grupos especiales usando una sola instrucción \\times"
  texidoces = "
 La propiedad @code{tupletSpannerDuration} establece cuánto debe durar
@@ -24,7 +24,6 @@ correspondiente del manual de Referencia de la Notación.
 
 "
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Eigenschaft @code{tupletSpannerDuration} bestimmt, wie lange jede
@@ -39,7 +38,6 @@ Mehr Information über @code{make-moment} gibt es in \"Verwaltung der Zeiteinhei
 
 "
   doctitlede = "Mehrere Triolen notieren aber nur einmal \\times benutzen"
-
 
 
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "world-music"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Para las improvisaciones o @emph{taqasim} que son libres durante unos
 momentos, se puede omitir la indicación de compás y se puede usar
@@ -17,7 +17,6 @@ cómo podría ser el comienzo de una improvisación @emph{hijaz}:
 
 "
 doctitlees = "Improvisación de música árabe"
-
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "

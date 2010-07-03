@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 
 La disposición de las expresiones de adorno se puede cambiar a lo
@@ -22,7 +22,6 @@ cabezas a aspas.
   doctitlees = "Trucar la disposición de las notas de adorno dentro de la música"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Das Layout von Verzierungsausdrücken kann in der Musik verändert
@@ -33,7 +32,6 @@ Hälse nicht immer nach unten zeigen, und ändert den Standardnotenkopf
 in ein Kreuz.
 "
   doctitlede = "Veränderung des Layouts von Verzierungen innerhalb der Noten"
-
 
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b

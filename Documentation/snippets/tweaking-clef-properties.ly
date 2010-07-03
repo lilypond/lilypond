@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   doctitlees = "Trucaje de las propiedades de clave"
   texidoces = "
 La instrucción @code{\\clef \"treble_8\"} equivale a un ajuste de
@@ -41,7 +41,6 @@ cambios manuales preservan el posicionamiento relativo estándar de
 las claves y las notas, pero no lo hacen en la segunda línea.
 "
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Eigenschaften des Schlüssels optimieren"
   texidocde = "
@@ -74,7 +73,6 @@ Eigenschaften manuell setzt.  Auf der ersten Zeile erhalten die manuellen
 Änderungen die ursprüngliche relative Positionierung von Schlüssel und
 Noten, auf der zweiten Zeile nicht.
 "
-
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 La commande @code{\\clef \"treble_8\"} équivaut à définir @code{clefGlyph},

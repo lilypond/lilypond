@@ -6,7 +6,7 @@
 \header {
   lsrtags = "vocal-music, chords, template"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Esta plantilla facilita la preparación de una canción con melodía,
 letra y acordes.
@@ -14,12 +14,10 @@ letra y acordes.
 "
   doctitlees = "Plantilla de pentagrama único con música letra y acordes"
 
-
 %% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 これは旋律、単語、コードを持つ歌曲の楽譜のためのテンプレートです。
 "
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Mit diesem Beispiel können Sie einen Song mit Melodie,
@@ -27,7 +25,6 @@ Text und Akkorden schreiben.
 "
 
   doctitlede = "Vorlage für eine Notenzeile mit Noten Text und Akkorden"
-
 
 %% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
   texidocfr = "

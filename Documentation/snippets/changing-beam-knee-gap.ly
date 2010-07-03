@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Se insertan automáticamente barras en ángulo cuando se detecta un
 intervalo muy grande entre las notas.  Se puede hacer un ajuste
@@ -20,7 +20,6 @@ establecido a 5.5 espacios de pentagrama.
 "
   doctitlees = "Cambiar el salto de las barras en ángulo"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Balken mit Hälsen in unterschiedliche Richtungen werden automatisch
@@ -33,7 +32,6 @@ Standardwert von @code{auto-knee-gap} ist 5.5 Notensystemabstände.
 
 "
   doctitlede = "Balken für weit auseinander liegende Noten ändern"
-
 
 
 %% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60
