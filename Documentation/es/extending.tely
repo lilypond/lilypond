@@ -8,7 +8,7 @@
 @end ignore
 
 @setfilename lilypond-extending.info
-@settitle Extending LilyPond
+@settitle Extender LilyPond
 @documentencoding UTF-8
 @documentlanguage es
 @afourpaper
@@ -39,7 +39,7 @@ Copyright @copyright{} 2003--2010 por los autores.
 @end ignore
 
 
-@lilyTitlePage{Extending}
+@lilyTitlePage{Extender}
 
 
 @c TOC -- non-tex
