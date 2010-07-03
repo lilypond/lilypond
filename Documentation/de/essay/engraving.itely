@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 88b16bead0a1fbd13c5ebae6f3acb6a042ef89f0
+    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
 
     When revising a translation, copy the HEAD committish of the
@@ -112,7 +112,7 @@ einem starren Gitter aus musikalischen Zeichen verschwindet.
 
 Es gibt noch weitere Unterschiede: in der handgestochenen Version
 sind die vertikalen Linien stärker, die Bögen liegen dichter an den
-Notenköpfen und es gibt mehr Vielfalt in der Platzierung der
+Notenköpfen und es gibt mehr Abweichungen in der Steigung der
 Balken.  Auch wenn derartige Details als Haarspalterei erscheinen,
 haben wir trotzdem als Ergebnis einen Satz, der einfacher zu lesen
 ist.  In der Computerausgabe ist jede Zeile fast identisch mit den
@@ -802,7 +802,7 @@ der das Thema als dreistimmige Engführung in den Schlussabschnitt
 überleitet.  In der Finale-Version haben wir der Versuchung
 widerstanden, jedwede Anpassungen abweichend vom Standard vorzunehmen,
 weil wir zeigen wollen, welche Dinge von den beiden Programmen
-ohne Hilfeleistung richtig gemacht werden.  Die einzigen hauptsächlichen
+ohne Hilfeleistung richtig gemacht werden.  Die einzigen größeren
 Änderungen, die wir vorgenommen haben, war die Anpassung der
 Seitengröße an die Seitengröße dieses Aufsatzes und die Begrenzung
 der Noten auf zwei Systeme, um den Vergleich einfacher zu machen.
@@ -882,6 +882,7 @@ partIV = \relative c {
 Einige der Mängel des nicht editierten Finale-Satzes beinhalten:
 
 @itemize @bullet
+
 @item Die meisten Balken sind zu weit vom Notensystem entfernt.
 Ein Balken, der zum Zentrum des Systems zeigt, sollte etwa die
 Länge einer Oktave haben, aber Notensetzer verkürzen die Länge,
@@ -889,6 +890,7 @@ wenn der Balken in polyphonen Situationen aus dem System
 herauszeigt.  Die Bebalkung von Finale kann einfach mit ihrem
 Patterson Beams-Plugin verbessert werden, aber wir haben diesen
 Schritt für dieses Beispiel ausgelassen.
+
 @item Finale passt die Position von ineinander greifenden Notenköpfen
 nicht an, sodass die Noten sehr schwer lesbar werden, wenn
 die untere und obere Stimme zeitweise ausgetauscht werden:
@@ -920,15 +922,14 @@ Finale ihm gönnt.
 @end itemize
 
 Dieses Beispiel soll nicht suggerieren, dass man mit Finale nicht
-Notensatz in Publikationsqualität erstellen könnte.  Das Programm ist dazu fähig,
-wenn ein erfahrener Benutzer genug Zeit und Fähigkeit mitbringt.
+Notensatz in Publikationsqualität erstellen könnte.  Das Programm ist
+durchaus dazu fähig, wenn ein erfahrener Benutzer genug Zeit und Fähigkeit mitbringt.
 Einer der fundamentalen Unterschiede zwischen LilyPond und kommerziellen
 Notensatzprogrammen ist, dass LilyPond versucht, den Aufwand an
 menschlicher Intervention auf ein absolutes Minimum zu reduzieren,
 während andere Programme versuchen, ein attraktives Programmfenster
 zu bieten, in dem die Anpassungen vorgenommen werden können.
 
-Z. 859
 Einen besonders hervorstechenden Mangel von Finale
 ist ein fehlendes b-Vorzeichen in Takt 33:
 
@@ -952,7 +953,7 @@ Notensatzfehler die Probe unnötig unterbricht.
 
 Wenn Sie diese Beispiel noch detaillierter betrachten wollen,
 können Sie den vollen siebentaktigen Ausschnitt am Ende dieses
-Aufsatzes als Notensatz von Finale und LilyPond sowie in vier
+Aufsatzes als Notensatz in vier unterschiedlichen
 publizierten Editionen finden.  Nähere Betrachtung zeigt, dass
 es einige akzeptable Variationen zwischen den handgestochenen
 Beispielen gibt, dass LilyPond aber ziemlich guten Notensatz
@@ -1400,6 +1401,7 @@ die Programmierer festgelegt war. Das stellte sich aus einer Reihe von Gründen
 als unzureichend heraus:
 
 @itemize @bullet
+
 @item Wenn LilyPond Fehler macht, muss der Benutzer die
 Einstellungen ändern können. Er muss also Zugang zur 
 Formatierungsmaschinerie haben.  Deshalb können die Regeln und 
@@ -1526,24 +1528,6 @@ die Notenköpfe gezeichnet werden, während des Ausschnitts verändert.
 @node LilyPond die Arbeit überlassen
 @section LilyPond die Arbeit überlassen
 @translationof Putting LilyPond to work
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@node Beispielanwendung
-@unnumberedsubsec Beispielanwendung
-@translationof Example applications
 
 @cindex einfaches Beispiel
 @cindex Beispiel, einfach
