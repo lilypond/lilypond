@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 940a3955254888e14a8c5ef7e835225e5cc3852c
+    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -258,11 +258,11 @@ zu ändern:
 @cindex Notenkopf, Beispiel für Veränderung
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c d
+c4 d
 \override NoteHead #'color = #red
-e f g
+e4 f |
 \override NoteHead #'color = #green
-a b c
+g4 a b c |
 @end lilypond
 
 
@@ -295,13 +295,13 @@ wieder auf den Standardwert für die letzten zwei Noten gesetzt.
 @cindex Notenkopf, Beispiel für Veränderung
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c d
+c4 d
 \override NoteHead #'color = #red
-e f g
+e4 f |
 \override NoteHead #'color = #green
-a
+g4 a
 \revert NoteHead #'color
-b c
+b4 c |
 @end lilypond
 
 @strong{\once-Präfix}
@@ -322,11 +322,11 @@ geändert werden:
 @cindex Notenkopf, Beispiel für Veränderung
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c d
+c4 d
 \once \override NoteHead #'color = #red
-e f g
+e4 f |
 \once \override NoteHead #'color = #green
-a b c
+g4 a b c |
 @end lilypond
 
 
@@ -369,10 +369,10 @@ werden. Schauen wir zuerst, was wir mit
 @cindex Notenkopf, Beispiel für Veränderung
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-  <c e g>4
-  \once \override NoteHead #'font-size = #-3
-  <c e g>
-  <c e g>
+<c e g>4
+\once \override NoteHead #'font-size = #-3
+<c e g>4
+<c e g>4
 @end lilypond
 
 Wie man sehen kann, beeinflusst @code{override} @emph{alle} 
@@ -402,8 +402,8 @@ mittlere Note eines Akkordes auf diese Weise ändern:
 @cindex @code{\tweak}-Beispiel
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-  <c e g>4
-  <c \tweak #'font-size #-3 e g>4
+<c e g>4
+<c \tweak #'font-size #-3 e g>4
 @end lilypond
 
 Beachten Sie, dass die Syntax des @code{\tweak}-Befehls sich
@@ -426,9 +426,9 @@ Beispiel zu sehen ist.
 @cindex @code{\tweak}-Beispiel
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a ^Black
-  -\tweak #'color #red ^Red
-  -\tweak #'color #green _Green
+a4^"Black"
+  -\tweak #'color #red ^"Red"
+  -\tweak #'color #green _"Green"
 @end lilypond
 
 @noindent
@@ -467,9 +467,9 @@ gesetzt wird.
 \tweak #'direction #up
 \times 4/3 {
   \tweak #'color #red
-  \times 2/3 { c8[ c8 c8] }
-  \times 2/3 { c8[ c8 c8] }
-  \times 2/3 { c8[ c8 c8] }
+  \times 2/3 { c8[ c c] }
+  \times 2/3 { c8[ c c] }
+  \times 2/3 { c8[ c c] }
 }
 @end lilypond
 
@@ -491,11 +491,11 @@ beginnen, kann ihr Aussehen auf die übliche Art mit dem
 \once \override TupletNumber
   #'text = #tuplet-number::calc-fraction-text
 \times 2/3 {
-  c[ c]
-  c[ c]
+  c8[ c]
+  c8[ c]
   \once \override TupletNumber #'transparent = ##t
   \times 2/3 { c8[ c c] }
-\times 2/3 { c8[ c c] }
+  \times 2/3 { c8[ c c] }
 }
 @end lilypond
 
@@ -567,16 +567,19 @@ die englischen Begriffe in viele andere Sprachen übersetzt sind.
 Das Vorgehen soll an einem konkreten Beispiel einer echten
 Komposition demonstriert werden. Hier das Beispiel:
 
+@c Mozart, Die Zauberflöte Nr. 7 Duett
+
 @lilypond[quote,verbatim,relative=2]
 {
+  \key es \major
   \time 6/8
   {
-    r4 b8 b[( g]) g
-    g4[( e]) e d[( f]) a
-    a4 g
+    r4 bes8 bes[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -671,16 +674,17 @@ Legatobogen und nahe bei ihm.} Also etwa so:
 
 @lilypond[quote,verbatim,relative=2]
 {
+  \key es \major
   \time 6/8
   {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    r4 b8 b[( g]) g
-    g4[( e]) e d[( f]) a
-    a4 g
+    r4 bes8 bes[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -746,15 +750,16 @@ muss also wie folgt positioniert werden:
 {
   \time 6/8
   {
-    r4 b8
+    \key es \major
+    r4 bes8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b4[( g]) g
-    g4[( e]) e d[( f]) a
-    a4 g
+    bes8[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -785,19 +790,20 @@ Note gestellt, an welcher der Bogen beginnt:
 
 @lilypond[quote,verbatim,relative=2]
 {
+  \key es \major
   \time 6/8
   {
-    r4 b8
+    r4 bes8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b4[( g]) g
+    bes[( g]) g |
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    g4[( e]) e d[( f]) a
-    a4 g
+    g8[( es]) es d[( f]) as |
+    as8 g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -812,20 +818,21 @@ dessen später den @code{\revert}-Befehl einsetzen, um die
 
 @lilypond[quote,verbatim,relative=2]
 {
+  \key es \major
   \time 6/8
   {
-    r4 b8
+    r4 bes8
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    b4[( g]) g
-    g4[( e])
+    bes[( g]) g |
+    g8[( es]) es
     % Revert thickness of all following slurs to default of 1.2
     \revert Slur #'thickness
-    e4 d[( f]) a
-    a4 g
+    d8[( f]) as |
+    as8 g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -941,15 +948,16 @@ bezieht, etwa so:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
+  \key es \major
   \time 6/8
   {
-    r4 b8 b[( g]) g
-    g4[( e]) e d[( f]) a
-    a4 g
+    r4 bes8 bes[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
   }
   \addlyrics {
     \override LyricText #'font-shape = #'italic
-    The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -1148,7 +1156,7 @@ auslassen:
   \time 12/16
   \override BarLine #'stencil = ##f
   c4 b8 c d16 c d8
-  g,8 a16 b8 c d4 e16
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1197,9 +1205,9 @@ den Stencil auf ein Objekt mit der Größe Null setzt:
 
 @lilypond[quote,verbatim,relative=2]
 {
-  c c
+  c4 c
   \once \override NoteHead #'stencil = #point-stencil
-  c c
+  c4 c
 }
 @end lilypond
 
@@ -1230,8 +1238,8 @@ den Wert in einem @code{\override}-Befehl anzuführen.
 {
   \time 12/16
   \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
-  c4 b8 c d16 c d8
-  g,8 a16 b8 c d4 e16
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1266,8 +1274,8 @@ machen, ist also:
 {
   \time 12/16
   \override Staff.TimeSignature #'transparent = ##t
-  c4 b8 c d16 c d8
-  g,8 a16 b8 c d4 e16
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1288,8 +1296,8 @@ gesetzt werden:
 {
   \time 12/16
   \override Staff.TimeSignature #'stencil = ##f
-  c4 b8 c d16 c d8
-  g,8 a16 b8 c d4 e16
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1332,8 +1340,8 @@ weiß zu setzen, können Sie schreiben:
 {
   \time 12/16
   \override Staff.BarLine #'color = #white
-  c4 b8 c d16 c d8
-  g,8 a16 b8 c d4 e16
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1367,8 +1375,8 @@ in interne Werte konvertiert:
 {
   \time 12/16
   \override Staff.BarLine #'color = #(x11-color 'white)
-  c4 b8 c d16 c d8
-  g,8 a16 b8 c d4 e16
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1397,8 +1405,8 @@ würde sein: @code{(rgb-color 1 1 1)}.
 {
   \time 12/16
   \override Staff.BarLine #'color = #(rgb-color 1 1 1)
-  c4 b8 c d16 c d8
-  g,8 a16 b8 c d4 e16
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1432,8 +1440,8 @@ verschiede Grauschattierungen erhalten:
   \override Voice.NoteHead      #'color = #(x11-color 'grey85)
   \override Voice.Stem          #'color = #(x11-color 'grey85)
   \override Staff.BarLine       #'color = #(x11-color 'grey10)
-  c4 b8 c d16 c d8
-  g,8 a16 b8 c d4 e16
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1987,11 +1995,11 @@ die Wirkung von @code{DOWN} (runter) und @code{UP}
 @cindex direction-Eigenschaft, Beispiel
 
 @lilypond[quote,verbatim,relative=2]
-c-5 a-3 f-1 c'-5
+c4-5 a-3 f-1 c'-5
 \override Fingering #'direction = #DOWN
-c-5 a-3 f-1 c'-5
+c4-5 a-3 f-1 c'-5
 \override Fingering #'direction = #UP
-c-5 a-3 f-1 c'-5
+c4-5 a-3 f-1 c'-5
 @end lilypond
 
 Eine Beeinflussung der @code{direction}-Eigenschaft ist jedoch 
@@ -2003,9 +2011,9 @@ zu benutzen.  Hier das vorherigen Beispiel mit dieser Methode:
 @cindex Fingersatz-Beispiel
 
 @lilypond[quote,verbatim,relative=2]
-c-5 a-3 f-1 c'-5
-c_5 a_3 f_1 c'_5
-c^5 a^3 f^1 c'^5
+c4-5 a-3 f-1 c'-5
+c4_5 a_3 f_1 c'_5
+c4^5 a^3 f^1 c'^5
 @end lilypond
 
 Die @code{direction}-Eigenschaft wirkt sich nicht auf
@@ -2016,9 +2024,9 @@ Standardmäßig wird der Fingersatz automatisch entweder
 @cindex Fingersatz-Beispiel
 
 @lilypond[quote,verbatim,relative=2]
-<c-5 g-3>
-<c-5 g-3 e-2>
-<c-5 g-3 e-2 c-1>
+<c-5 g-3>4
+<c-5 g-3 e-2>4
+<c-5 g-3 e-2 c-1>4
 @end lilypond
 
 @noindent
@@ -2028,9 +2036,9 @@ nach oben oder unten zu zwingen:
 @cindex Fingersatz-Beispiel
 
 @lilypond[quote,verbatim,relative=2]
-<c-5 g-3 e-2 c-1>
-<c^5 g_3 e_2 c_1>
-<c^5 g^3 e^2 c_1>
+<c-5 g-3 e-2 c-1>4
+<c^5 g_3 e_2 c_1>4
+<c^5 g^3 e^2 c_1>4
 @end lilypond
 
 Noch bessere Kontrolle über die Positionierung von Fingersatz für
@@ -2072,19 +2080,19 @@ Hier ein paar Beispiele:
 
 @lilypond[quote,verbatim,relative=1]
 \set fingeringOrientations = #'(left)
-<f-2>
+<f-2>4
 <c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(left)
-<f-2>
+<f-2>4
 <c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left down)
-<f-2>
+<f-2>4
 <c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left)
-<f-2>
+<f-2>4
 <c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(right)
-<f-2>
+<f-2>4
 <c-1  e-2 g-3 b-5>4
 @end lilypond
 
@@ -2098,19 +2106,19 @@ er ist @code{-5}, versuchen wir es also mit @code{-7}.
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \override Fingering #'font-size = #-7
 \set fingeringOrientations = #'(left)
-<f-2>
+<f-2>4
 <c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(left)
-<f-2>
+<f-2>4
 <c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left down)
-<f-2>
+<f-2>4
 <c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left)
-<f-2>
+<f-2>4
 <c-1  e-2 g-3 b-5>4
 \set fingeringOrientations = #'(right)
-<f-2>
+<f-2>4
 <c-1  e-2 g-3 b-5>4
 @end lilypond
 
@@ -2279,7 +2287,7 @@ erstellt wird:
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp
-%Place following Ottava Bracket below Text Spanners
+% Place following Ottava Bracket below Text Spanners
 \once \override Staff.OttavaBracket #'outside-staff-priority = #340
 % Start Ottava Bracket
 \ottava #1
@@ -2315,13 +2323,13 @@ Außersystem-Objekten anhand dieses Wertes gesetzt wird.
 Hier ein Beispiel, das die beiden Möglichkeiten veranschaulicht:
 
 @lilypond[quote,verbatim,relative=2]
-c4( c^\markup { \tiny\sharp } d4.) c8
+c4( c^\markup { \tiny \sharp } d4.) c8
 c4(
 \once \override TextScript #'avoid-slur = #'inside
 \once \override TextScript #'outside-staff-priority = ##f
-c4^\markup { \tiny\sharp } d4.) c8
+c4^\markup { \tiny \sharp } d4.) c8
 \once \override Slur #'outside-staff-priority = #500
-c4( c^\markup\tiny\sharp d4.) c8
+c4( c^\markup { \tiny \sharp } d4.) c8
 @end lilypond
 
 Eine Änderung der @code{outside-staff-priority} kann auch dazu
@@ -2339,10 +2347,10 @@ Tabelle oben festgestellt werden und dann die Priorität für
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
-c2^"Text2"
+c2^"Text2" |
 \once \override TextScript #'outside-staff-priority = #500
 c2^"Text3"
-c2^"Text4"
+c2^"Text4" |
 @end lilypond
 
 Damit wird zwar @qq{Text3} ganz richtig über @qq{Text4}
@@ -2371,9 +2379,9 @@ die Breite des Textes es erfordert:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \textLengthOn  % Cause notes to space out to accommodate text
 c2^"Text1"
-c2^"Text2"
+c2^"Text2" |
 c2^"Text3"
-c2^"Text4"
+c2^"Text4" |
 @end lilypond
 
 Dieses Verhalten wird mit dem @code{\textLengthOff}-Befehl 
@@ -2396,23 +2404,23 @@ eine Textbeschriftung mit diesen Noten reagiert:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 % This markup is short enough to fit without collision
-c2^"Tex"
-c''2
-R1
+c2^"Tex" c'' |
+R1 |
+
 % This is too long to fit, so it is displaced upwards
-c,,2^"Text"
-c''2
-R1
+c,,2^"Text" c'' |
+R1 |
+
 % Turn off collision avoidance
 \once \override TextScript #'outside-staff-priority = ##f
-c,,2^"Long Text   "
-c''2
-R1
+c,,2^"Long Text   " c'' |
+R1 |
+
 % Turn off collision avoidance
 \once \override TextScript #'outside-staff-priority = ##f
-\textLengthOn  % and turn on textLengthOn
+\textLengthOn        % and turn on textLengthOn
 c,,2^"Long Text   "  % Spaces at end are honored
-c''2
+c''2 |
 @end lilypond
 
 
@@ -2447,7 +2455,7 @@ etwas gewollten Beispiel zu sehen ist:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-a4\f b\mf c\mp b\p
+a4\f b\mf c\mp b\p |
 @end lilypond
 
 @noindent
@@ -2858,11 +2866,11 @@ b2\fermata
 % This will not work, see below
 \override MetronomeMark #'padding = #3
 \tempo 4=120
-c1
+c1 |
 % This works
 \override Score.MetronomeMark #'padding = #3
 \tempo 4=80
-d1
+d1 |
 @end lilypond
 
 Im zweiten Beispiel können Sie sehen, wie wichtig es ist den richtigen
@@ -3096,8 +3104,7 @@ verschwindet auch die etwas unschöne Form:
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
 \once \override PhrasingSlur #'positions = #'(-4 . -3)
-\acciaccatura
-e8\( d8 c~ c d c d\)
+\acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
 Hier noch ein weiteres Beispiel aus der Einleitung von Chopins
@@ -3106,9 +3113,9 @@ stößt der Balken mit den oberen Noten zusammen:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-\clef "bass"
-<< { b,8 ais, b, g, } \\ { e, g e, g } >>
-<< { b,8 ais, b, g, } \\ { e, g e, g } >>
+  \clef "bass"
+  << { b,8 ais, b, g, } \\ { e, g e, g } >>
+  << { b,8 ais, b, g, } \\ { e, g e, g } >>
 }
 @end lilypond
 
@@ -3153,11 +3160,13 @@ gebracht:
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\
-    { aes2 f4 fes   } \\
-    { \voiceFour
-      <ees c>2
-      des2
+    { c2 aes4. bes8 }
+    \\
+    { aes2 f4 fes }
+    \\
+    {
+      \voiceFour
+      <ees c>2 des
     }
   >> |
   <c ees aes c>1 |
@@ -3187,11 +3196,16 @@ Hier das Endergebnis:
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\
-    { aes2 f4 fes   } \\
-    { \voiceFour
-      \once \override NoteColumn #'force-hshift = #0 <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5 des2
+    { c2 aes4. bes8 }
+    \\
+    { aes2 f4 fes }
+    \\
+    {
+      \voiceFour
+      \once \override NoteColumn #'force-hshift = #0
+      <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
     }
   >> |
   <c ees aes c>1 |
@@ -3221,28 +3235,33 @@ zu kompliziert zu machen.
 @c This example should not be indexed
 @lilypond[quote,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2
-  c4.\( g8 |
+  r2 c4.\( g8 |
   \once \override Tie #'staff-position = #3.5
   bes1~ |
   \bar "||"
   \time 6/4
   \mergeDifferentlyHeadedOn
   \mergeDifferentlyDottedOn
-  bes2.^\markup {\bold "Moderato"} r8
+  bes2.^\markup { \bold "Moderato"} r8
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a | }
   \\
-    % Reposition the c2 to the right of the merged note
-    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
-    % Move the c2 out of the main note column so the merge will work
-    \shiftOnn c2}
+    {
+      % Reposition the c2 to the right of the merged note
+      c,8~ \once \override NoteColumn #'force-hshift = #1.0
+      % Move the c2 out of the main note column so the merge will work
+      \shiftOnn c2
+    }
   \\
-    % Stem on the d2 must be down to permit merging
-    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+    {
+      % Stem on the d2 must be down to permit merging
+      s8 \stemDown
+      \once \override Stem #'transparent = ##t
+      d2
+    }
   \\
-    {s4 fis4.}
-  >>
+    { s4 fis4.}
+  >> |
   \mergeDifferentlyHeadedOff
   \mergeDifferentlyDottedOff
   g2.\)
@@ -3293,15 +3312,15 @@ rhMusic = \relative c'' {
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a | }
   \\
-    {c,8~ c2 | }
+    { c,8~ c2 | }
   \\
-    {s8 d2 | }
+    { s8 d2 | }
   \\
-    {s4 fis4. | }
-  >>
-  g2.
+    { s4 fis4. | }
+  >> |
+  g2. |
 }
 
 lhMusic = \relative c' {
@@ -3347,15 +3366,15 @@ rhMusic = \relative c'' {
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a | }
   \\
-    {c,8~ c2 | }
+    { c,8~ c2 | }
   \\
-    {s8 d2 | }
+    { s8 d2 | }
   \\
-    {s4 fis4. | }
-  >>
-  g2.\)
+    { s4 fis4. | }
+  >> |
+  g2.\) |
 }
 
 lhMusic = \relative c' {
@@ -3416,15 +3435,15 @@ rhMusic = \relative c'' {
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a | }
   \\
-    {c,8~ c2 | }
+    { c,8~ c2 | }
   \\
-    {s8 d2 | }
+    { s8 d2 | }
   \\
-    {s4 fis4. | }
-  >>
-  g2.\)
+    { s4 fis4. | }
+  >> |
+  g2.\) |
 }
 
 lhMusic = \relative c' {
@@ -3489,22 +3508,22 @@ rhMusic = \relative c'' {
   bes1~ |
   \bar "||"
   \time 6/4
-  bes2.^\markup {\bold "Moderato"} r8
+  bes2.^\markup { \bold "Moderato"} r8
   \mergeDifferentlyHeadedOn
   \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a | }
   \\
-    {c,8~ c2 | }
+    { c,8~ c2 | }
   \\
-    {s8 d2 | }
+    { s8 d2 | }
   \\
-    {s4 fis4. | }
-  >>
+    { s4 fis4. | }
+  >> |
   \mergeDifferentlyHeadedOff
   \mergeDifferentlyDottedOff
-  g2.\)
+  g2.\) |
 }
 
 lhMusic = \relative c' {
@@ -3555,24 +3574,28 @@ rhMusic = \relative c'' {
   bes1~ |
   \bar "||"
   \time 6/4
-  bes2.^\markup {\bold "Moderato"} r8
+  bes2.^\markup { \bold "Moderato"} r8
   \mergeDifferentlyHeadedOn
   \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes a | }
   \\
-    % Move the c2 out of the main note column so the merge will work
-    {c,8~ \shiftOnn c2 | }
+    {
+      % Move the c2 out of the main note column so the merge will work
+      c,8~ \shiftOnn c2
+    }
   \\
-    % Stem on the d2 must be down to permit merging
-    {s8 \stemDown d2 | }
+    {
+      % Stem on the d2 must be down to permit merging
+      s8 \stemDown d2
+    }
   \\
-    {s4 fis4. | }
-  >>
+    { s4 fis4. }
+  >> |
   \mergeDifferentlyHeadedOff
   \mergeDifferentlyDottedOff
-  g2.\)
+  g2.\) |
 }
 
 lhMusic = \relative c' {
@@ -3612,31 +3635,34 @@ wir durchsichtig und das C verschieben wir mit der
 
 @lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2
-  c4.\( g8 |
+  r2 c4.\( g8 |
   \once \override Tie #'staff-position = #3.5
   bes1~ |
   \bar "||"
   \time 6/4
-  bes2.^\markup {\bold "Moderato"} r8
+  bes2.^\markup { \bold "Moderato"} r8
   \mergeDifferentlyHeadedOn
   \mergeDifferentlyDottedOn
   <<
-    {c,8 d fis bes a | }
+    { c,8 d fis bes 
+      % Reposition the c2 to the right of the merged note
+      c,8~ \once \override NoteColumn #'force-hshift = #1.0
+      % Move the c2 out of the main note column so the merge will work
+      \shiftOnn c2
+    }
   \\
-    % Reposition the c2 to the right of the merged note
-    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
-    % Move the c2 out of the main note column so the merge will work
-    \shiftOnn c2}
-  \\
-    % Stem on the d2 must be down to permit merging
-    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+    {
+      % Stem on the d2 must be down to permit merging
+      s8 \stemDown
+      \once \override Stem #'transparent = ##t
+      d2
+    }
   \\
     {s4 fis4.}
-  >>
+  >> |
   \mergeDifferentlyHeadedOff
   \mergeDifferentlyDottedOff
-  g2.\)
+  g2.\) |
 }
 
 lhMusic = \relative c' {
@@ -3669,6 +3695,7 @@ lhMusic = \relative c' {
 @menu
 * Andere Benutzung von Optimierungen::
 * Variablen für Optimierungen einsetzen::
+* Globale Formatierung::
 * Mehr Information::
 * Vermeiden von Optimierungen durch langsamere Übersetzung::
 * Fortgeschrittene Optimierungen mit Scheme::
@@ -3699,9 +3726,7 @@ man zwei Stimmen benutzt, wobei die überbundenen Noten
 sich in der selben befinden,
 
 @lilypond[quote,fragment,relative=2]
-<< { b8~ b8\noBeam }
-\\ { b[ g8] }
->>
+<< { b8~ b8\noBeam } \\ { b[ g8] } >>
 @end lilypond
 
 @noindent
@@ -3717,10 +3742,10 @@ den Stimmen stattfindet:
 <<
   {
     \once \override Stem #'transparent = ##t
-    b8~ b8\noBeam
+    b8~ b\noBeam
   }
 \\
-  { b[ g8] }
+  { b8[ g] }
 >>
 @end lilypond
 
@@ -3734,7 +3759,7 @@ gesetzt wird:
   {
     \once \override Stem #'transparent = ##t
     \once \override Stem #'length = #8
-    b8~ b8\noBeam
+    b8~ b\noBeam
   }
 \\
   { b[ g8] }
@@ -3779,10 +3804,10 @@ einem entfernten Objekt gezeigt:
     \once \override Score.MetronomeMark #'transparent = ##t
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
-    a\fermata
+    a4\fermata
     % New tempo for next section
     \tempo 4=100
-    a a a a
+    a4 a a a
   }
   \layout { }
   \midi { }
@@ -3798,10 +3823,10 @@ einem entfernten Objekt gezeigt:
     \once \override Score.MetronomeMark #'stencil = ##f
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
-    a\fermata
+    a4\fermata
     % New tempo for next section
     \tempo 4=100
-    a a a a
+    a4 a a a
   }
   \layout { }
   \midi { }
@@ -3874,15 +3899,28 @@ normal = {
   \revert Lyrics.LyricText #'font-series
 }
 
-global = { \time 4/4 \partial 4 \key c \major}
-SopranoMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
-AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
-TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
-BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
-VerseOne   = \lyrics { E -- | ter -- nal \emphasize Fa -- ther, \normal | strong to save, }
-VerseTwo   = \lyricmode { O | \emphasize Christ, \normal whose voice the | wa -- ters heard, }
-VerseThree = \lyricmode { O | \emphasize Ho -- ly Spi -- rit, \normal | who didst brood }
-VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and pow'r }
+global = { \key c \major \time 4/4 \partial 4 }
+
+SopranoMusic = \relative c' { c4 | e4. e8 g4 g    | a4   a   g  }
+AltoMusic    = \relative c' { c4 | c4. c8 e4 e    | f4   f   e  }
+TenorMusic   = \relative c  { e4 | g4. g8 c4.  b8 | a8 b c d e4 }
+BassMusic    = \relative c  { c4 | c4. c8 c4 c    | f8 g a b c4 }
+
+VerseOne = \lyrics {
+  E -- | ter -- nal \emphasize Fa -- ther, | \normal strong to save,
+}
+
+VerseTwo = \lyricmode {
+  O | \emphasize Christ, \normal whose voice the | wa -- ters heard,
+}
+
+VerseThree = \lyricmode {
+  O | \emphasize Ho -- ly Spi -- rit, | \normal who didst brood
+}
+
+VerseFour = \lyricmode {
+  O | \emphasize Tri -- ni -- ty \normal of | love and pow'r
+}
 
 \score {
   \new ChoirStaff <<
@@ -3890,19 +3928,352 @@ VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and p
       \clef "treble"
       \new Voice = "Soprano"  { \voiceOne \global \SopranoMusic }
       \new Voice = "Alto" { \voiceTwo \AltoMusic }
-      \new Lyrics \lyricsto "Soprano" { \VerseOne   }
-      \new Lyrics \lyricsto "Soprano" { \VerseTwo   }
+      \new Lyrics \lyricsto "Soprano" { \VerseOne }
+      \new Lyrics \lyricsto "Soprano" { \VerseTwo }
       \new Lyrics \lyricsto "Soprano" { \VerseThree }
-      \new Lyrics \lyricsto "Soprano" { \VerseFour  }
+      \new Lyrics \lyricsto "Soprano" { \VerseFour }
     >>
     \new Staff <<
       \clef "bass"
       \new Voice = "Tenor" { \voiceOne \TenorMusic }
-      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic }
     >>
   >>
 }
 @end lilypond
+
+
+@node Globale Formatierung
+@subsection Globale Formatierung
+@translationof Style sheets
+
+Die Ausgabe von LilyPond kann sehr stark verändert werden, siehe
+zu Einzelheiten @ref{Die Ausgabe verändern}.  Aber was ist,
+wenn man mehrere Eingabedateien hat, die die gleichen Anpassungen
+erfahren sollen?  Oder wenn Sie einfach nur die Anpassungen von
+der eigentlichen Musik trennen wollen?  Das lässt sich recht einfach
+erreichen.
+
+Schauen wir uns ein Beispiel an.  Sorgen Sie sich nicht, wenn Sie
+den Abschnitt mit den vielen @code{#()} nicht verstehen.  Das wird
+erklärt in @ref{Fortgeschrittene Optimierungen mit Scheme}.
+
+@lilypond[quote,verbatim,ragged-right]
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
+}
+@end lilypond
+
+Es gibt einige Probleme mit sich überschneidender Ausgabe, die wird
+zurechtgerückt mit den Techniken von @ref{Verschieben von Objekten}.
+Aber jetzt zu den Definitionen von @code{mpdolce} und @code{inst}.
+Sie erstellen die gewünschte Ausgabe, aber wir wollen sie vielleicht
+auch in einem anderen Stück verwenden.  Wir könnten sie immer wieder
+kopieren und oben in jedes Stück einfügen, aber das ist sehr aufwändig.
+Dadurch werden die Definitionen auch in der Eingabedatei belassen,
+und ich finde diese @code{#()} irgendwie hässlich.  Verstecken
+wir sie also:
+
+@example
+%%% in Datei "definitions.ily" speichern
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+@end example
+
+Diese Datei wir mit dem @code{\include}-Befehl ziemlich weit oben
+in der Datei eingefügt.  (Die Erweiterung @code{.ily} wird benutzt,
+um diese Datei als eine eingefügte, inkludierte zu kennzeichnen, die
+man nicht alleinstehend kompilieren kann.)  Jetzt ändern wir die
+Noten (in der Datei @file{"music.ly"}).
+
+@c  We have to do this awkward example/lilypond-non-verbatim
+@c  because we can't do the \include stuff in the manual.
+
+@example
+\include "definitions.ily"
+
+\relative c'' @{
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
+}
+@end lilypond
+
+Das sieht schon besser aus, aber einige Änderungen könnten wir noch vornehmen.
+Das Glissando ist kaum sichtbar, machen wir es also etwas dicker und
+näher an den Notenkopf.  Die Metronombezeichnung soll über dem
+Schlüssel stehen, anstatt über der ersten Note.  Und schließlich
+mag mein Kompositionsprofessor keine @qq{C}-Taktangaben, das ändern
+wir also in @qq{4/4}.
+
+Ändern Sie jetzt jedoch nicht @file{music.ly}.  Ändern Sie die
+@file{definitions.ily} mit dem Folgenden:
+
+@example
+%%%  definitions.ily
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\layout@{
+  \context @{
+    \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{
+    \Staff
+    \override TimeSignature #'style = #'numbered
+  @}
+  \context @{
+    \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+\layout{
+  \context {
+    \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context {
+    \Staff
+    \override TimeSignature #'style = #'numbered
+  }
+  \context {
+    \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
+}
+@end lilypond
+
+Das sieht besser aus!  Aber nehmen wir an, Ich will dieses Stück publizieren.
+Mein Professor mag die @qq{C}-Taktangabe nicht, mir gefällt sie aber sehr
+gut.  Kopieren wir also die Datei @file{definitions.ily} nach
+@file{web-publish.ily} und verändern diese.  Weil die Noten als PDF
+auf dem Monitor dargestellt werden sollen, wird auch die Notengröße
+global geändert.
+
+@example
+%%%  definitions.ily
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+#(set-global-staff-size 23)
+
+\layout@{
+  \context @{
+    \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{
+    \Staff
+  @}
+  \context @{
+    \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
+
+#(set-global-staff-size 23)
+
+\layout{
+  \context { \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context { \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
+}
+@end lilypond
+
+In der Eingabedatei muss jetzt nur noch die Zeile
+@code{\include "definitions.ily"} mit
+@code{\include "web-publish.ily"} ersetzt werden.  Das könnte
+man natürlich noch besser machen.  Es könnte eine Datei 
+@file{definitions.ily} mit allen Definitionen (also
+@code{mpdolce} und @code{inst}) geben, eine Datei
+@file{web-publish.ily}, die nur die @code{\layout}-Veränderung
+enthält und eine Datei @file{university.ily}, die nur die
+Prozedur enthält, die Ausgabe meinem Professor angenehm zu  machen.
+Der Anfang von @file{music.ly} würde dann folgendermaßen aussehen:
+
+@example
+\include "definitions.ily"
+
+%%%  nur eine der zwei Zeilen auskommentieren!
+\include "web-publish.ily"
+%\include "university.ily"
+@end example
+
+Diese Herangehensweise kann auch schon nützlich sein, wenn man
+nur ein paar Stimmen schreiben will.  Ich habe eine ganze Anzahl
+an @qq{Stylesheets} für meine Projekte.  Ich fange jede Datei mit
+der Zeile @code{\include "../global.ily"} an, die etwa folgendes
+einbindet:
+
+@example
+%%%   global.ily
+\version @w{"@version{}"}
+
+#(ly:set-option 'point-and-click #f)
+
+\include "../init/init-defs.ly"
+\include "../init/init-layout.ly"
+\include "../init/init-headers.ly"
+\include "../init/init-paper.ly"
+@end example
+
 
 
 @node Mehr Information
@@ -4095,28 +4466,24 @@ zu ihrer Position innerhalb der Tonleiter gesetzt.
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (color-notehead grob)
-  "Color the notehead according to its position on the staff."
-  (let ((mod-position (modulo (ly:grob-property grob 'staff-position) 7)))
-    (case mod-position
-      ;;   Return rainbow colors
-      ((1) (x11-color 'red    ))  ; for C
-      ((2) (x11-color 'orange ))  ; for D
-      ((3) (x11-color 'yellow ))  ; for E
-      ((4) (x11-color 'green  ))  ; for F
-      ((5) (x11-color 'blue   ))  ; for G
-      ((6) (x11-color 'purple ))  ; for A
-      ((0) (x11-color 'violet ))  ; for B
-    )
-  )
-)
+   "Color the notehead according to its position on the staff."
+   (let ((mod-position (modulo (ly:grob-property grob 'staff-position)
+                               7)))
+     (case mod-position
+       ;;   Return rainbow colors
+       ((1) (x11-color 'red    ))  ; for C
+       ((2) (x11-color 'orange ))  ; for D
+       ((3) (x11-color 'yellow ))  ; for E
+       ((4) (x11-color 'green  ))  ; for F
+       ((5) (x11-color 'blue   ))  ; for G
+       ((6) (x11-color 'purple ))  ; for A
+       ((0) (x11-color 'violet ))  ; for B
+       )))
 
 \relative c' {
   % Arrange to obtain color from color-notehead procedure
   \override NoteHead #'color = #color-notehead
-  a2 b |
-  c2 d |
-  e2 f |
-  g2 a |
+  a2 b | c2 d | e2 f | g2 a |
 }
 @end lilypond
 

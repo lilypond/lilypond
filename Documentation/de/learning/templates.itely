@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 940a3955254888e14a8c5ef7e835225e5cc3852c
+    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -125,6 +125,11 @@ schönen Notenbild erfreuen!
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
+
+@appendixsubsec Sologesang und zweistimmiger Refrain
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template-with-verse-and-refrain.ly}
 
 
 @node Orchestervorlage

@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: a6039d8aa56d66e91952a3b92ca7878d342e6ebe
+    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -51,6 +51,7 @@ Dieses Kapitel lehrt grundlegende Bestandteile der Notation,
 die für eine Stimme auf einem System gebraucht werden.
 
 @menu
+* Taktüberprüfung
 * Versetzungszeichen und Tonartbezeichnung (Vorzeichen)::
 * Bindebögen und Legatobögen::
 * Artikulationszeichen und Lautstärke::
@@ -58,6 +59,27 @@ die für eine Stimme auf einem System gebraucht werden.
 * Automatische und manuelle Balken::
 * Zusätzliche rhythmische Befehle::
 @end menu
+
+
+@node Taktüberprüfung
+@subsection Taktüberprüfung
+@translationof Bar checks
+
+Wenn sie auch nicht zwingend vorgeschrieben sind, so sollten Taktüberprüfungen
+in der Eingabedatei benutzt werden, um zu zeigen, wo Taktstriche
+normalerweise sein sollten.  Sie werden mit dem @qq{Pipe}-Symbol
+( @code{|}) notiert (Taste AltGr + <).  Mithilfe der Taktüberprüfungen
+kann das Programm sicherstellen, dass die eingegebenen Notenlängen auch
+volle Takte an den richtigen Stellen ergeben.  Taktüberprüfungen erleichtern
+auch das Lesen des Eingabetextes, weil sie Ordnung in den Text bringen.
+
+@lilypond[verbatim,quote,relative=2]
+g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
+@end lilypond
+
+@seealso
+Notationsreferenz:
+@ruser{Takt- und Taktzahlüberprüfung}.
 
 
 @node Versetzungszeichen und Tonartbezeichnung (Vorzeichen)
@@ -96,7 +118,7 @@ deutsche Benutzer kein Problem. Es ist aber möglich, die Namen für die
 Sprachen zu benutzen, siehe @ruser{Notenbezeichnungen in anderen Sprachen}.
 
 @lilypond[verbatim,quote,relative=2]
-cis1 ees fisis, aeses
+cis4 ees fisis, aeses
 @end lilypond
 
 
@@ -127,9 +149,9 @@ Befehl @code{\key}, gefolgt von einer Notenbezeichnung und
 
 @lilypond[verbatim,quote,relative=2]
 \key d \major
-a1
+a1 |
 \key c \minor
-a
+a1 |
 @end lilypond
 
 @smallspace
@@ -164,7 +186,7 @@ In diesem Beispiel
 
 @lilypond[verbatim,quote,relative=2]
 \key d \major
-d cis fis
+cis4 d e fis
 @end lilypond
 
 @noindent
@@ -180,7 +202,7 @@ In der Tonart As-Dur @emph{bekommt} sie ein Versetzungszeichen:
 
 @lilypond[verbatim,quote,relative=2]
 \key aes \major
-b
+aes4 c b c
 @end lilypond
 
 Alle diese Versetzungszeichen ausdrücklich zu schreiben, bedeutet vielleicht
@@ -195,7 +217,8 @@ anhand von unterschiedlichen Regeln ausgegeben werden können.
 @seealso
 Notationsreferenz:
 @ruser{Notenbezeichnungen in anderen Sprachen},
-@ruser{Versetzungszeichen}, @ruser{Automatische Versetzungszeichen},
+@ruser{Versetzungszeichen},
+@ruser{Automatische Versetzungszeichen},
 @ruser{Tonartbezeichnung}.
 
 Glossar:
@@ -225,8 +248,7 @@ Ein @notation{Bindebogen} wird geschrieben, indem man eine Tilde @code{~}
 an die erste der zu verbindenden Noten hängt.
 
 @lilypond[verbatim,quote,relative=2]
-g4~ g c2~
-c4~ c8 a8~ a2
+g4~ g c2~ | c4~ c8 a~ a2
 @end lilypond
 
 
@@ -254,7 +276,7 @@ als jeweils einen Legato- und einen Phrasierungsbogen gleichzeitig
 geben.
 
 @lilypond[verbatim,quote,relative=2]
-a8(\( ais b c) cis2 b'2 a4 cis,\)
+g4\( g8( a) b( c) b4\)
 @end lilypond
 
 @sp 1
@@ -272,7 +294,7 @@ für größere Notengruppen gesetzt werden. Binde- und Legatobögen können
 geschachtelt werden.
 
 @lilypond[verbatim,quote,relative=2]
-c2~( c8 fis fis4~ fis2 g2)
+c4~( c8 d~ d4 e)
 @end lilypond
 
 
@@ -300,7 +322,8 @@ Glossar:
 (@q{-}) und einem entsprechenden Zeichen eingegeben werden:
 
 @lilypond[verbatim,quote,relative=2]
-c-. c-- c-> c-^ c-+ c-_
+c4-^ c-+ c-- c-|
+c4-> c-. c2-_
 @end lilypond
 
 @subheading Fingersatz
@@ -316,7 +339,7 @@ Auf gleiche Weise können Fingersatzbezeichnungen hinzugefügt
 werden, indem nach dem Minus (@q{-}) eine Zahl geschrieben wird:
 
 @lilypond[verbatim,quote,relative=2]
-c-3 e-5 b-2 a-1
+c4-3 e-5 b-2 a-1
 @end lilypond
 
 Artikulationszeichen und Fingersätze werden normalerweise
@@ -328,7 +351,7 @@ gehängt werden. Meistens findet aber LilyPond alleine die beste
 Möglichkeit, wie die Artikulationen platziert werden sollen.
 
 @lilypond[verbatim,quote,relative=2]
-c_-^1 d^. f^4_2-> e^-_+
+c4_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
 @subheading Dynamik
@@ -361,7 +384,7 @@ die Markierungen (mit einem Backslash) an
 die Note hängt:
 
 @lilypond[verbatim,quote,relative=2]
-c\ff c\mf c\p c\pp
+c4\ff c\mf c\p c\pp
 @end lilypond
 
 @notation{Crescendi} und @notation{Decrescendi} werden mit dem 
@@ -371,7 +394,7 @@ Dynamik-Zeichen, etwa @code{\f}, beendet das (De)Crescendo.
 Auch mit dem Befehl @code{\!} kann es explizit beendet werden.
 
 @lilypond[verbatim,quote,relative=2]
-c2\< c2\ff\> c2 c2\!
+c4\< c\ff\> c c\!
 @end lilypond
 
 
@@ -398,15 +421,15 @@ Notationsreferenz:
 Text können Sie auf folgende Art in die Partitur einfügen:
 
 @lilypond[verbatim,quote,relative=2]
-c1^"espr" a_"legato"
+c2^"espr" a_"legato"
 @end lilypond
 
 Zusätzliche Formatierung kann eingesetzt werden, wenn Sie den
 @code{\markup}-Befehl benutzen:
 
 @lilypond[verbatim,quote,relative=2]
-c1^\markup{ \bold espr }
-a1_\markup{
+c2^\markup { \bold espr }
+a2_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 @end lilypond
@@ -448,7 +471,7 @@ anfängt, ein @q{[} (AltGr+8) und die, an der er enden soll, ein
 @q{]} (AltGr+9).
 
 @lilypond[verbatim,quote,relative=2]
-a8[ ais] d[ ees r d] a b
+a8[ ais] d[ ees r d] c16 b a8
 @end lilypond
 
 Wenn Sie die automatischen Balken vollständig oder für 
@@ -458,9 +481,9 @@ und @code{\autoBeamOn}, um sie wieder einzuschalten.
 
 @lilypond[verbatim,quote,relative=2]
 \autoBeamOff
-a8 c b4 d8. c16 b4
+a8 c b4 d8. c16 b4 |
 \autoBeamOn
-a8 c b4 d8. c16 b4
+a8 c b4 d8. c16 b4 |
 @end lilypond
 
 
@@ -485,8 +508,8 @@ eingegeben. Darauf folgt die Länge des Auftaktes: @code{\partial 4}
 heißt eine Viertelnote Auftakt und @code{\partial 8} eine Achtelnote.
 
 @lilypond[verbatim,quote,relative=2]
-\partial 8
-f8 c2 d
+\partial 8 f8 |
+c2 d |
 @end lilypond
 
 
@@ -510,7 +533,7 @@ also hat eine Triole 2/3 als Bruch:
 
 @lilypond[verbatim,quote,relative=2]
 \times 2/3 { f8 g a }
-\times 2/3 { c r c }
+\times 2/3 { c8 r c }
 \times 2/3 { f,8 g16[ a g a] }
 \times 2/3 { d4 a8 }
 @end lilypond
@@ -536,9 +559,9 @@ eingegeben, Vorhalte durch den Befehl @code{\appoggiatura}
 und Vorschläge mit @code{\acciaccatura}.
 
 @lilypond[verbatim,quote,relative=2]
-c2 \grace { a32[ b] } c2
-c2 \appoggiatura b16 c2
-c2 \acciaccatura b16 c2
+c2 \grace { a32[ b] } c2 |
+c2 \appoggiatura b16 c2 |
+c2 \acciaccatura b16 c2 |
 @end lilypond
 
 
@@ -603,7 +626,7 @@ Gruppe nach der anderen gesetzt wird. Das Resultat ist ein neuer
 musikalischer Ausdruck.
 
 @lilypond[verbatim,quote,relative=2]
-{ { a4 g } f g }
+{ { a4 g } f4 g }
 @end lilypond
 
 
@@ -666,9 +689,9 @@ musikalische Ausdrücke kombiniert, indem man sie mit @code{<<} und
 @lilypond[verbatim,quote]
 \relative c'' {
   <<
-    { a4 g }
-    { f e }
-    { d b }
+    { a2 g }
+    { f2 e }
+    { d2 b }
   >>
 }
 @end lilypond
@@ -697,8 +720,8 @@ folgende Beispiel beginnt mit einer Note:
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  c2 <<c e>>
-  << { e f } { c <<b d>> } >>
+  c2 <<c e>> |
+  << { e f } { c <<b d>> } >> |
 }
 @end lilypond
 
@@ -737,8 +760,8 @@ werden dann parallel angeordnet mit den @code{<<} und
 @lilypond[verbatim,quote]
 \relative c'' {
   <<
-    \new Staff { \clef treble c }
-    \new Staff { \clef bass c,, }
+    \new Staff { \clef "treble" c4 }
+    \new Staff { \clef "bass" c,,4 }
   >>
 }
 @end lilypond
@@ -776,8 +799,8 @@ als Partituren mit unterschiedlichen Taktarten.
 @lilypond[verbatim,quote]
 \relative c'' {
   <<
-    \new Staff { \clef treble \key d \major \time 3/4 c }
-    \new Staff { \clef bass c,, }
+    \new Staff { \clef "treble" \key d \major \time 3/4 c4 }
+    \new Staff { \clef "bass" c,,4 }
   >>
 }
 @end lilypond
@@ -824,8 +847,8 @@ Hier ein kleines Beispiel:
 @lilypond[verbatim,quote]
 \relative c'' {
   \new PianoStaff <<
-    \new Staff { \time 2/4 c4 e g g, }
-    \new Staff { \clef bass c,, c' e c }
+    \new Staff { \time 2/4 c4 e | g g, | }
+    \new Staff { \clef "bass" c,,4 c' | e c | }
   >>
 }
 @end lilypond
@@ -869,7 +892,7 @@ dass alle Noten eines Akkordes die gleiche Dauer haben müssen, und
 diese Dauer wird nach der schließenden Klammer geschrieben.
 
 @lilypond[verbatim,quote,relative=2]
-r4 <c e g>4 <c f a>2
+r4 <c e g> <c f a>2
 @end lilypond
 
 Akkorde sind im Grunde gleichwertig mit einfachen Noten:
@@ -880,8 +903,8 @@ den Akkorden kombiniert werden. Sie müssen jedoch außerhalb der
 spitzen Klammern gesetzt werden.
 
 @lilypond[verbatim,quote,relative=2]
-r4 <c e g>8[ <c f a>]~ <c f a>2
-r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
+r4 <c e g>8[ <c f a>]~ <c f a>2 |
+r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!) |
 @end lilypond
 
 
@@ -955,7 +978,7 @@ Hier ist der Beginn eines einfachen Kinderliedes,
 \relative c'' {
   \key g \major
   \time 6/8
-  d4 b8 c4 a8 d4 b8 g4
+  d4 b8 c4 a8 | d4 b8 g4
 }
 @end lilypond
 
@@ -968,10 +991,10 @@ wird eingegeben, indem jede Silbe durch ein Leerzeichen getrennt wird.
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
+    d4 b8 c4 a8 | d4 b8 g4
   }
   \addlyrics {
-    Girls and boys come out to play,
+    Girls and boys come | out to play,
   }
 >>
 @end lilypond
@@ -1006,37 +1029,48 @@ notiert aus:
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c b a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c b a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
   }
 >>
 @end lilypond
 
-Die zusätzlichen Noten sind nicht korrekt an den Noten 
-positioniert. Das Wort @notation{shine} sollte eigentlich zu 
-zwei Noten gesungen werden, nicht nur zu einer. Das wird als 
-@notation{Melisma} bezeichnet, wenn eine Silbe zu mehreren 
-Noten gesungen wird. Es gibt mehrere Möglichkeiten, eine 
-Silbe über mehrere Noten zu erweitern. Die einfachste ist,
-einen Legatobogen über die 
-betroffenen Noten zu notieren, zu Einzelheiten siehe 
-@ref{Bindebögen und Legatobögen}.
+Wenn dieser Code des obrigen Beispiels kompiliert wird, sollten derartige
+Warnungen in der Ausgabe auf der Konsole/in der Log-Datei auftauchen:
+
+@example
+test.ly:10:29: Warnung: Taktüberprüfung gescheitert bei: 5/8
+    The | moon doth shine as 
+                             | bright as day; |
+test.ly:10:46: Warnung: Taktüberprüfung gescheitert bei: 3/8
+    The | moon doth shine as | bright as day; 
+                                              |
+@end example
+
+Das ist ein gutes Beispiel für den Nutzen von Taktüberprüfungen.  Wenn man
+sich die Noten genauer anschaut, wird klar, dass die neue Textzeile nicht
+korrekt an den Noten ausgerichtet ist.  Das Wort @notation{shine} sollte
+zu zwei Noten gesungen werden, nicht nur zu einer.  Das nennt man ein
+@notation{Melisma}, eine Silbe Text zu mehreren Noten.  Es gibt mehrere
+Möglichkeiten, eine Silbe über mehrere Noten zu verlängern.  Die einfachste
+ist es, einen Legatobogen um die betroffenen Noten zu setzen, zu
+Einzelheiten siehe @ref{Bindebögen und Legatobögen}.
 
 @lilypond[verbatim,quote]
 <<
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c( b) a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c( b) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
   }
 >>
 @end lilypond
@@ -1054,12 +1088,12 @@ für Gesang entspricht. Für Einzelheiten siehe
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c([ b]) a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c([ b]) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
   }
 >>
 @end lilypond
@@ -1073,12 +1107,12 @@ für jede Note, die übersprungen werden soll, ein Unterstrich
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c[ b] a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c[ b] a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine _ as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine _ as | bright as day; |
   }
 >>
 @end lilypond
@@ -1096,12 +1130,12 @@ aus Purcells @notation{Dido and Æneas}:
   \relative c'' {
     \key g \minor
     \time 3/2
-    g2 a bes bes( a)
-    b c4.( bes8 a4. g8 fis4.) g8 fis1
+    g2 a bes | bes2( a) b2 |
+    c4.( bes8 a4. g8 fis4.) g8 | fis1
   }
   \addlyrics {
-    When I am laid,
-    am laid __ in earth,
+    When I am | laid,
+    am | laid __ in | earth,
   }
 >>
 @end lilypond
@@ -1122,12 +1156,12 @@ zeigt, mit denen Text an den Noten ausgerichtet werden kann:
     \key g \major
     \time 3/4
     \partial 4
-    d4 g4 g a8( b) g4 g4
-    b8( c) d4 d e4 c2
+    d4 | g4 g a8( b) | g4 g b8( c) |
+    d4 d e | c2
   }
   \addlyrics {
-    A -- way in a __ man -- ger,
-    no __ crib for a bed, __
+    A -- | way in a __ | man -- ger,
+    no __ | crib for a | bed, __
   }
 >>
 @end lilypond
@@ -1147,13 +1181,13 @@ in Figaros Arie @notation{Largo al factotum} gesungen werden mus.
 @lilypond[verbatim,quote,noragged-right]
 <<
   \relative c' {
-    \clef bass
+    \clef "bass"
     \key c \major
     \time 6/8
-    c4.~ c8 d b c([ d]) b c d b c
+    c4.~ c8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
-    Lar -- go_al fac -- to -- tum del -- la cit -- tà
+    Lar -- go_al fac -- | to -- tum del -- la cit -- | tà
   }
 >>
 @end lilypond
@@ -1181,19 +1215,19 @@ aus Händels @notation{Judas Maccabäus}:
     \key f \major
     \time 6/8
     \partial 8
-    c8 c([ bes]) a a([ g]) f f'4. b, c4.~ c4
+    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ c4
   }
   \addlyrics {
-    Let flee -- cy flocks the hills a -- dorn, __
+    Let | flee -- cy flocks the | hills a -- | dorn, __
   }
   \relative c' {
     \key f \major
     \time 6/8
     \partial 8
-    r8 r4. r4 c8 a'([ g]) f f([ e]) d e([ d]) c bes'4
+    r8 | r4. r4 c8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
   }
   \addlyrics {
-    Let flee -- cy flocks the hills a -- dorn,
+    Let | flee -- cy flocks the | hills a -- dorn,
   }
 >>
 @end lilypond
@@ -1264,7 +1298,7 @@ Geige = \new Staff
 }
 Cello = \new Staff
   { \relative c {
-    \clef bass
+    \clef "bass"
     e2 d
   }
 }
@@ -1293,7 +1327,7 @@ trioleA = \times 2/3 { c,8 e g }
 TaktA = { \trioleA \trioleA \trioleA \trioleA }
 
 \relative c'' {
- \TaktA \TaktA
+  \TaktA \TaktA
 }
 @end lilypond
 
@@ -1315,6 +1349,7 @@ Benutzung der eben definierten Bezeichner:
   \aFünfPapier
   line-width = \Breite
 @}
+
 @{ 
   c4^\Name 
 @}
@@ -1341,6 +1376,7 @@ außerhalb der musikalischen Ausdrücke, meistens wird die
 
 @example
 \version @w{"@version{}"}
+
 \header @{
   title = "Symphony"
   composer = "Ich"
@@ -1379,9 +1415,9 @@ Note auf der letzten Linie im Bass-Schlüssel.
 
 @lilypond[verbatim,quote]
 {
-  \clef bass
-  c' b g, g,
-  g, f, f c'
+  \clef "bass"
+  c'4 b g, g, |
+  g,4 f, f c' |
 }
 @end lilypond
 
@@ -1389,16 +1425,16 @@ Hier eine Tonleiter über vier Oktaven:
 
 @lilypond[verbatim,quote]
 {
-  \clef bass
-  c, d, e, f,
-  g, a, b, c
-  d e f g
-  a b c' d'
-  \clef treble
-  e' f' g' a'
-  b' c'' d'' e''
-  f'' g'' a'' b''
-  c'''1
+  \clef "bass"
+  c,4 d, e, f, |
+  g,4 a, b, c |
+  d4 e f g |
+  a4 b c' d' |
+  \clef "treble"
+  e'4 f' g' a' |
+  b'4 c'' d'' e'' |
+  f''4 g'' a'' b'' |
+  c'''1 |
 }
 @end lilypond
 
@@ -1410,8 +1446,8 @@ Fragment von Mozart:
 {
   \key a \major
   \time 6/8
-  cis''8. d''16 cis''8 e''4 e''8
-  b'8. cis''16 b'8 d''4 d''8
+  cis''8. d''16 cis''8 e''4 e''8 |
+  b'8. cis''16 b'8 d''4 d''8 |
 }
 @end lilypond
 
@@ -1423,8 +1459,8 @@ sehr viel einfacher zu lesen:
 \relative c'' {
   \key a \major
   \time 6/8
-  cis8. d16 cis8 e4 e8
-  b8. cis16 b8 d4 d8
+  cis8. d16 cis8 e4 e8 |
+  b8. cis16 b8 d4 d8 |
 }
 @end lilypond
 

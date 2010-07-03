@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: e18531db1f79fb685fbd16d6a2a67bf4b6c09915
+    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -90,7 +90,9 @@ Ein grundlegendes Beispiel einer Eingabedatei für LilyPond lautet:
 
 @example
 \version @w{"@version{}"}
+
 \header @{ @}
+
 \score @{
   @var{...zusammengesetzter Musik-Ausdruck...}  % Die gesamten Noten kommen hier hin!
   \layout @{ @}
@@ -272,7 +274,7 @@ Nähere Details finden sich im Abschnitt @ruser{Mehrere Partituren in einem Buch
 @cindex Variablen
 @cindex Bezeichner
 
-Eine gute Möglichkeit zur Vereinfachung sind selbst definierte Variablen, wie auch gezeigt in @ref{Organizing pieces with variables}.
+Eine gute Möglichkeit zur Vereinfachung sind selbst definierte Variablen, wie auch gezeigt in @ref{Stücke durch Bezeichner organisieren}.
 Alle Vorlagen verwenden diese Möglichkeit:
 
 @example
@@ -289,15 +291,14 @@ Wenn LilyPond diese Datei analysiert, nimmt es den Inhalt
 von @code{melodie} (alles nach dem Gleichheitszeichen) und 
 fügt ihn immer dann ein, wenn ein @code{\melodie} 
 vorkommt.  Die Namen sind frei wählbar, die Variable kann genauso
-gut  @code{melodie}, @code{GLOBAL},
-@code{rechteHandklavier}, oder @code{foofoobarbaz} heißen.  Für mehr
-Information siehe
-@ref{Tipparbeit sparen durch Bezeichner und Funktionen}.
+gut  @code{melodie}, @code{GLOBAL}, @code{rechteHandKlavier},
+oder @code{foofoobarbaz} heißen.
 Als Variablenname kann fast jeder beliebige Name benutzt werden,
 allerdings dürfen nur Buchstaben vorkommen (also keine Zahlen, Unterstriche,
 Sonderzeichen, etc.) und er darf nicht wie ein LilyPond-Befehl
-lauten.  Die genauen Einschränkungen sind beschrieben in 
-@ruser{Die Dateistruktur}.
+lauten.  Für mehr Information siehe
+@ref{Tipparbeit durch Variablen und Funktionen ersparen}.  Die genauen
+Einschränkungen sind beschrieben in @ruser{Die Dateistruktur}.
 
 
 @seealso
@@ -378,6 +379,7 @@ hier also erstmal nur ein paar Platzhalternoten und Text.  Wenn
 Sie sich nicht erinnern, wie man Gesangstext notiert, lesen
 Sie noch einmal @code{\addlyrics} in @ref{Setting simple songs}.
 
+@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
 \score {
   <<
@@ -433,11 +435,12 @@ verfügtbar, siehe @ruser{Input modes}.)
 Also haben wir, wenn wir ein paar Noten und einen Bassschlüssel
 für die linke Hand hinzufügen, folgendes Beispiel:
 
+@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
 melodie = \relative c'' { r4 d8\noBeam g, c4 r }
 text    = \lyricmode { And God said, }
 oben    = \relative c'' { <g d g,>2~ <g d g,> }
-unten   = \relative c { b2 e2 }
+unten   = \relative c { b2 e }
 
 \score {
   <<
@@ -491,7 +494,7 @@ werden kann:
     r4 g8 g c4 c8 d |
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff {
         f8 f c
       }
@@ -513,16 +516,17 @@ Notenschlüssel, die innerhalb einer Notenzeile gesetzt werden.
 Der Ossia-Abschnitt kann auch oberhalb der Hauptnotenzeile
 gesetzt werden:
 
+@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
 \new Staff = "Hauptzeile" {
   \relative g' {
     r4 g8 g c4 c8 d |
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"Hauptzeile" }
-      { f8 f c }
+        alignAboveContext = #"Hauptzeile"
+      }{ f8 f c }
     >>
     r4 |
   }
@@ -608,7 +612,7 @@ Dies mag zwar musikalisch wenig Sinn ergeben, ist aber in LilyPond
 auch möglich:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
- { g8\( a b[ c b\) a] }
+ { g8\( a b[ c b\) a] g4 }
 @end lilypond
 
 Im Allgemeinen können die verschiedenen Klammerarten,
@@ -622,10 +626,10 @@ Phrasierungsbogen, der in einer Triole beginnt (Zeilen 3 und 4).
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-  r16[ g16 \times 2/3 {r16 e'8] }
-  g16( a \times 2/3 {b d) e' }
-  g8[( a \times 2/3 {b d') e'~]}
-  \times 4/5 {e'32\( a b d' e'} a'4.\)
+  r16[ g \times 2/3 { r16 e'8] }
+  g16( a \times 2/3 { b16 d) e' }
+  g8[( a \times 2/3 { b8 d') e'~] } |
+  \times 4/5 { e'32\( a b d' e' } a'4.\)
 }
 @end lilypond
 
@@ -720,8 +724,8 @@ und zur Durchgangsnote noch ein Bogen hinzugefügt wird:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key g \major
-%    Voice "1"                  Voice "2"
-<< { g4 fis8( g) a4 g }  \\  { d4 d d d }  >>
+%    Voice "1"               Voice "2"
+<< { g4 fis8( g) a4 g } \\ { d4 d d d }  >>
 @end lilypond
 
 Beachte, dass die Hälse der zweiten Stimme nun nach unten zeigen.
@@ -769,9 +773,9 @@ usw. entsprechend ausgerichtet.
 \new Staff \relative c' {
   % Main voice
   c16 d e f
-  %    Voice "1"     Voice "2"                 Voice "3"
-  << { g4 f e } \\ { r8 e4 d c8 ~ } >>
-  << { d2 e2 }  \\ { c8 b16 a b8 g ~ g2 } \\ { s4 b4 c2 } >>
+  %    Voice "1"     Voice "2"                Voice "3"
+  << { g4 f e } \\ { r8 e4 d c8~ } >> |
+  << { d2 e }   \\ { c8 b16 a b8 g~ g2 } \\ { s4 b c2 } >> |
 }
 @end lilypond
 
@@ -794,7 +798,7 @@ hier an der blauen Dreieckstimme gezeigt.
 \new Staff \relative c' {
   % Main voice
   c16 d e f
-  <<  % Bar 1
+  <<   % Bar 1
     {
       \voiceOneStyle
       g4 f e
@@ -804,19 +808,19 @@ hier an der blauen Dreieckstimme gezeigt.
       \voiceTwoStyle
       r8 e4 d c8~
     }
-  >>
+  >> |
   <<  % Bar 2
      % Voice 1 continues
-    { d2 e2 }
+    { d2 e }
   \\
      % Voice 2 continues
-    { c8 b16 a b8 g ~ g2 }
+    { c8 b16 a b8 g~ g2 }
   \\
     {
       \voiceThreeStyle
-      s4 b4 c2
+      s4 b c2
     }
-  >>
+  >> |
 }
 @end lilypond
 
@@ -843,7 +847,7 @@ können.  Siehe auch @ref{Sichtbarkeit und Farbe von Objekten} und
 @cindex relativer Notationsmodus und Polyphonie
 
 Polyphonie ändert nicht die Verhältnisse der Noten innerhalb eines
-@code{\relative @{ @}}-Blocks.  Jede Note wird weiterhin relativ zu 
+@code{\relative}-Blocks.  Jede Note wird weiterhin relativ zu 
 der vorherigen Note errechnet, oder relativ zur ersten Note des vorigen
 Akkords.  So ist etwa hier
 
@@ -961,9 +965,9 @@ die drei Stimmen des ersten Taktes notieren:
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des2 }
-  >>
-  <c ees aes c>1
+    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des }
+  >> |
+  <c ees aes c>1 |
 }
 @end lilypond
 
@@ -990,10 +994,10 @@ indem noch ein Paar @code{\\}-Stimmen hinzugefügt wird.
   <<  % erste Stimme
     { c2 aes4. bes8 }
   \\  % zweite Stimme
-    { aes2 f4 fes   }
+    { aes2 f4 fes }
   \\  % Stimme drei auslassen
   \\  % vierte Stimme
-    { <ees c>2 des2 }
+    { <ees c>2 des }
   >>
   <c ees aes c>1
 }
@@ -1092,27 +1096,27 @@ die Befehle @code{\oneVoice}, @code{\voiceOne} und @code{voiceTwo}
 mit Text, Bögen und Dynamikbezeichnung anstellen:
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c'{
+\relative c' {
   % Default behavior or behavior after \oneVoice
-  c d8~ d e4( f g a) b-> c
+  c4 d8~ d e4( f | g4 a) b-> c |
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c'{
+\relative c' {
   \voiceOne
-  c d8~ d e4 (f g a) b-> c
+  c4 d8~ d e4( f | g4 a) b-> c |
   \oneVoice
-  c, d8~ d e4 (f g a) b-> c
+  c,4 d8~ d e4( f | g4 a) b-> c |
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c'{
+\relative c' {
   \voiceTwo
-  c d8~ d e4 (f g a) b-> c
+  c4 d8~ d e4( f | g4 a) b-> c |
   \oneVoice
-  c, d8~ d e4 (f g a) b-> c
+  c,4 d8~ d e4( f | g4 a) b-> c |
 }
 @end lilypond
 
@@ -1137,7 +1141,7 @@ Phrasierungsbogen ober sie gesetzt werden.
   % Start simultaneous section of three voices
   <<
     % Continue the main voice in parallel
-    { g4 f e | d2 e2) | }
+    { g4 f e | d2 e) | }
     % Initiate second voice
     \new Voice {
       % Set stems, etc., down
@@ -1175,10 +1179,10 @@ sein, Noten zu setzen:
       \voiceTwo
       r8 e4 d c8~
       <<
-        { c8 b16 a b8 g~ g2 }
+        { c8 b16 a b8 g~ g2 | }
         \new Voice {
           \voiceThree
-          s4 b4 c2
+          s4 b4 c2 |
         }
       >>
     }
@@ -1202,7 +1206,7 @@ an denen die Stimme nicht auftaucht, wie etwa hier:
   % Initiate first voice
   \new Voice {
     \voiceOne
-    c16^( d e f g4 f e | d2 e2) |
+    c16^( d e f g4 f e | d2 e) |
   }
   % Initiate second voice
   \new Voice {
@@ -1214,7 +1218,7 @@ an denen die Stimme nicht auftaucht, wie etwa hier:
   \new Voice {
     % Set stems, etc, up
     \voiceThree
-    s1 | s4 b4 c2 |
+    s1 | s4 b c2 |
   }
 >>
 @end lilypond
@@ -1305,13 +1309,15 @@ Bezeichnung der Stimme benutzt wird.
 
 @lilypond[quote,verbatim,fragment]
 <<
-  \new Voice = "one" \relative c'' {
-    \autoBeamOff
-    \time 2/4
-    c4 b8. a16 g4. f8 e4 d c2
+  \new Voice = "one" {
+    \relative c'' {
+      \autoBeamOff
+      \time 2/4
+      c4 b8. a16 | g4. f8 | e4 d | c2 |
+    }
   }
   \new Lyrics \lyricsto "one" {
-    No more let sins and sor -- rows grow.
+    No more let | sins and | sor -- rows | grow. |
   }
 >>
 @end lilypond
@@ -1352,15 +1358,20 @@ eine Chorpartiturklammer hinzugefügt.  Der Gesangtext muss mit
 nicht als Noten interpretiert werden kann.
 
 @lilypond[quote,verbatim]
-global = { \time 6/8 \partial 8 \key f \major}
+global = { \key f \major \time 6/8 \partial 8 }
+
 SopOneMusic = \relative c'' {
-  c8 | c([ bes)] a a([ g)] f | f'4. b, | c4.~ c4 | }
-SopTwoMusic = \relative c' {
-  r8 | r4. r4 c8 | a'([ g)] f f([ e)] d | e([ d)] c bes' | }
+  c8 | c8([ bes)] a a([ g)] f | f'4. b, | c4.~ c4
+}
 SopOneLyrics = \lyricmode {
-  Let | flee -- cy flocks the | hills a -- dorn, __ | }
+  Let | flee -- cy flocks the | hills a -- dorn, __
+}
+SopTwoMusic = \relative c' {
+  r8 | r4. r4 c8 | a'8([ g)] f f([ e)] d | e8([ d)] c bes'
+}
 SopTwoLyrics = \lyricmode {
-  Let | flee -- cy flocks the | hills a -- dorn, | }
+  Let | flee -- cy flocks the | hills a -- dorn,
+}
 
 \score {
   \new ChoirStaff <<
@@ -1410,25 +1421,27 @@ aufzunehmen, nämlich Taktart und Tonart.  Solch eine
 Variable wird oft auch mit @qq{global} bezeichnet.
 
 @lilypond[quote,verbatim]
-TimeKey = { \time 4/4 \partial 4 \key c \major}
-SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g | }
-AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e | }
-TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 | }
-BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 | }
-VerseOne   = \lyricmode {
-  E -- | ter -- nal fa -- ther, | strong to save, | }
-VerseTwo   = \lyricmode {
-  O | Christ, whose voice the | wa -- ters heard, | }
-VerseThree = \lyricmode {
-  O | Ho -- ly Spi -- rit, | who didst brood | }
-VerseFour  = \lyricmode {
-  O | Tri -- ni -- ty of | love and pow'r | }
+keyTime = { \key c \major \time 4/4 \partial 4 }
+
+SopMusic   = \relative c' { c4 | e4. e8 g4  g    | a4   a   g  }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e    | f4   f   e  }
+TenorMusic = \relative c  { e4 | g4. g8 c4.   b8 | a8 b c d e4 }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c    | f8 g a b c4 }
+
+VerseOne =
+  \lyricmode { E -- | ter -- nal fa -- ther, | strong to save, }
+VerseTwo   =
+  \lyricmode { O | Christ, whose voice the | wa -- ters heard, }
+VerseThree =
+  \lyricmode { O | Ho -- ly Spi -- rit, | who didst brood }
+VerseFour  =
+  \lyricmode { O | Tri -- ni -- ty of | love and pow'r }
 
 \score {
   \new ChoirStaff <<
     \new Staff <<
       \clef "treble"
-      \new Voice = "Sop"  { \voiceOne \TimeKey \SopMusic }
+      \new Voice = "Sop"  { \voiceOne \keyTime \SopMusic }
       \new Voice = "Alto" { \voiceTwo \AltoMusic }
       \new Lyrics \lyricsto "Sop" { \VerseOne   }
       \new Lyrics \lyricsto "Sop" { \VerseTwo   }
@@ -1437,208 +1450,8 @@ VerseFour  = \lyricmode {
     >>
     \new Staff <<
       \clef "bass"
-      \new Voice = "Tenor" { \voiceOne \TimeKey \TenorMusic }
+      \new Voice = "Tenor" { \voiceOne \keyTime \TenorMusic }
       \new Voice = "Bass"  { \voiceTwo \BassMusic }
-    >>
-  >>
-}
-@end lilypond
-
-@cindex Strophe und Refrain
-@cindex Refrain
-
-Dieser Abschnitt schließt mit einem Beispiel, das eine Solo-Strophe
-mit anschließendem zweistimmigem Refrain auf zwei Systemen zeigt.
-Die Positionierung des einstimmigen Abschnitss und der mehrstimmigen
-Stelle ist etwas kompliziert; es braucht etwas Aufmerksamkeit,
-um der Erklärung folgen zu können.
-
-Beginnen wir mit einer @code{score}-Umgebung, in der eine
-Chorpartitur (@code{ChoirStaff}) gesetzt wird.  Die Partitur soll
-schließlich mit der eckigen Klammer beginnen.
-Normalerweise bräuchten wir spitze Klammern im Quelltext
-nach dem @code{\new ChoirStaff}, damit die Systeme paralell
-gesetzt werden, aber hier wollen wir diese Parallelsierung
-ja erst nach dem Solo.  Also benutzen wir geschweifte Klammern.
-Innerhalb der Chorpartitur erstellen wir zuerst das System, 
-das die Strophe enthält.  Es braucht Noten und Text parallel,
-also setzen wir hier die spitzen Klammern um @code{\new Voice} 
-und @code{\new Lyrics}.
-
-@lilypond[quote,verbatim,ragged-right]
-versenotes = \relative c'' {
-  \clef "treble"
-  \key g \major
-  \time 3/4
-  g g g | b b b |
-}
-versewords = \lyricmode {
-  One two three four five six
-}
-\score {
-  \new ChoirStaff {
-    \new Staff <<
-      \new Voice = "verse" {
-        \versenotes \break
-      }
-      \new Lyrics \lyricsto verse {
-        \versewords
-      }
-    >>
-  }
-}
-@end lilypond
-
-@noindent
-Damit erhalten wir die Strophe.
-
-Jetzt soll @notation{refrainA} auf dem selben System gesetzt
-werden, während gleichzeitig in einem neuen System darunter 
-@notation{refrainB} gesetzt wird.  Damit die Oberstimme das
-gleiche System benutzt, muss alles direkt auf den Zeilenumbruchbefehl
-(@code{\break} folgen, innerhalb der @notation{verse}-Stimme.
-Ja, tatsächlich, @emph{innerhalb} der @notation{verse}-Stimme.
-Hier haben wir diese parallele Stelle isoliert.  Weitere Systeme
-könnten auf die gleiche Weise hinzugefügt werden.
-
-@example
-<<
-  \refrainnotesA
-  \new Lyrics \lyricsto verse @{
-    \refrainwordsA
-  @}
-  \new Staff <<
-    \new Voice = "refrainB" @{
-      \refrainnotesB
-    @}
-    \new Lyrics \lyricsto "refrainB" @{
-      \refrainwordsB
-    @}
-  >>
->>
-@end example
-
-Nun schließlich das Resultat mit zwei Systemen für den Refrain,
-man kann gut sehen, wie sich die parallele Stelle innherhalb
-der @notation{verse}-Stimme befindet.
-
-@lilypond[quote,verbatim, ragged-right]
-versenotes = \relative c'' {
-  \clef "treble"
-  \key g \major
-  \time 3/4
-  g g g | b b b |
-}
-refrainnotesA = \relative c'' {
-  \time 2/4
-  c c | g g \bar "|."
-}
-refrainnotesB = \relative c {
-  \clef "bass"
-  \key g \major
-  c e | d d |
-}
-versewords = \lyricmode {
-  One two three four five six
-}
-refrainwordsA = \lyricmode {
-  la la la la
-}
-refrainwordsB = \lyricmode {
-  dum dum dum dum
-}
-\score {
-  \new ChoirStaff {
-    \new Staff <<
-      \new Voice = "verse" {
-        \versenotes \break
-        <<
-          \refrainnotesA
-          \new Lyrics \lyricsto "verse" {
-            \refrainwordsA
-          }
-          \new Staff <<
-            \new Voice = "refrainB" {
-              \refrainnotesB
-            }
-            \new Lyrics \lyricsto "refrainB" {
-              \refrainwordsB
-            }
-          >>
-        >>
-      }
-      \new Lyrics \lyricsto "verse" {
-        \versewords
-      }
-    >>
-  }
-}
-@end lilypond
-
-@cindex book, Benutzung von
-@funindex \book
-@funindex book
-
-Dies ist zwar eine interessante und nützliche Übung um zu
-verstehen, wie sequentielle und parallele Notationsumgebungen
-funktionieren, in der Praxis würde man diesen Code aber
-vielleicht eher in zwei @code{\score}-Umgebungen trennnen
-und diese dann innerhalb einer @code{\book}-Umgebung
-einsetzen, wie im folgenden Beispiel demonstriert:
-
-@lilypond[quote,verbatim,ragged-right]
-versenotes = \relative c'' {
-  \clef "treble"
-  \key g \major
-  \time 3/4
-  g g g | b b b |
-}
-refrainnotesA = \relative c'' {
-  \time 2/4
-  c c | g g \bar "|."
-}
-refrainnotesB = \relative c {
-  \clef "bass"
-  \key g \major
-  c e | d d |
-}
-versewords = \lyricmode {
-  One two three four five six
-}
-refrainwordsA = \lyricmode {
-  la la la la
-}
-refrainwordsB = \lyricmode {
-  dum dum dum dum
-}
-\score {
-  \new Staff <<
-    \new Voice = "verse" {
-      \versenotes
-    }
-    \new Lyrics \lyricsto "verse" {
-      \versewords
-    }
-  >>
-}
-
-\score {
-  \new ChoirStaff <<
-    \new Staff <<
-      \new Voice = "refrainA" {
-        \refrainnotesA
-      }
-      \new Lyrics \lyricsto "refrainA" {
-        \refrainwordsA
-      }
-    >>
-    \new Staff <<
-      \new Voice = "refrainB" {
-        \refrainnotesB
-      }
-      \new Lyrics \lyricsto "refrainB" {
-        \refrainwordsB
-      }
     >>
   >>
 }
@@ -1679,7 +1492,7 @@ die im Quellcode gar nicht explizit vorkommen.  Vergleichen Sie
 etwa den Quellcode und die Notenausgabe des folgenden Beispiels:
 
 @lilypond[quote,verbatim,relative=2,fragment]
-cis4 cis2. g4
+cis4 cis2. | a4 a2. |
 @end lilypond
 
 Der Quellcode ist sehr kurz und knapp, während in der
@@ -1814,8 +1627,8 @@ werden, hier ein kommentiertes Beispiel aus dem richtigen Leben:
   <<  % start of simultaneous staves section
     \time 2/4
     \new Staff {  % create RH staff
-      \key g \minor
       \clef "treble"
+      \key g \minor
       \new Voice {  % create voice for RH notes
         \relative c'' {  % start of RH notes
           d4 ees16 c8.
@@ -1824,8 +1637,8 @@ werden, hier ein kommentiertes Beispiel aus dem richtigen Leben:
       }  % end of RH voice
     }  % end of RH staff
     \new Staff <<  % create LH staff; needs two simultaneous voices
-      \key g \minor
       \clef "bass"
+      \key g \minor
       \new Voice {  % create LH voice one
         \voiceOne
         \relative g {  % start of LH voice one notes
@@ -2088,11 +1901,11 @@ nicht, weil der Kontext ausgelassen wurde.
 <<
   \new Staff \relative c'' {
     \set Staff.instrumentName = #"Soprano"
-    c4 c
+    c2 c
  }
   \new Staff \relative c' {
-  \set instrumentName = #"Alto"  % Wrong!
-  d4 d
+    \set instrumentName = #"Alto"  % Wrong!
+    d2 d
  }
 >>
 @end lilypond
@@ -2135,12 +1948,12 @@ ausgeschaltet sind:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais4 aes
- }
+    ais2 aes
+  }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
-    ais4 aes
- }
+    ais2 aes
+  }
 >>
 @end lilypond
 
@@ -2150,11 +1963,11 @@ während das dazu dient, sie in allen Systemen auszuschalten:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais4 aes
+    ais2 aes
   }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
-    ais4 aes
+    ais2 aes
   }
 >>
 @end lilypond
@@ -2179,16 +1992,16 @@ auf die Notenköpfe auswirkt.  Die Änderung bezieht sich immer auf den Standard
 nicht vom letzten gesetzten Wert.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
-c4
+c4 d
 % make note heads smaller
 \set fontSize = #-4
-d e
+e4 f |
 % make note heads larger
 \set fontSize = #2.5
-f g
+g4 a
 % return to default size
 \unset fontSize
-a b
+b4 c |
 @end lilypond
 
 Wir haben jetzt gesehen, wie sich die Werte von unterschiedlichen
@@ -2227,12 +2040,13 @@ etwa so:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff
-  \relative c'' {
-    gis ges aes ais
-  }
-  \new Staff \with { extraNatural = ##f }
-  \relative c'' {
-    gis ges aes ais
+    \relative c'' {
+      gis4 ges aes ais
+    }
+  \new Staff \with { extraNatural = ##f } {
+    \relative c'' {
+      gis ges aes ais
+    }
   }
 >>
 @end lilypond
@@ -2246,12 +2060,12 @@ direkt an ein @code{\new Score} gehängt werden, wie etwa hier:
   \new Score \with { extraNatural = ##f } <<
     \new Staff {
       \relative c'' {
-        gis ges aes ais
+        gis4 ges aes ais
       }
     }
     \new Staff {
       \relative c'' {
-        gis ges aes ais
+        gis4 ges aes ais
       }
     }
   >>
@@ -2367,13 +2181,13 @@ erstellt werden.
   \remove Staff_symbol_engraver
 }
 \relative c' {
-  c4
+  c4 d
   \set fontSize = #-4  % make note heads smaller
-  d e
+  e4 f |
   \set fontSize = #2.5  % make note heads larger
-  f g
+  g4 a
   \unset fontSize  % return to default size
-  a b
+  b4 c |
 }
 @end lilypond
 
@@ -2401,15 +2215,17 @@ und zeigt ihn an:
 \new Staff <<
   \new Voice \with {
     \consists Ambitus_engraver
+  } {
+    \relative c'' {
+      \voiceOne
+      c4 a b g
+    }
   }
-  \relative c'' {
-    \voiceOne
-    c a b g
-  }
-  \new Voice
-  \relative c' {
-    \voiceTwo
-    c e d f
+  \new Voice {
+    \relative c' {
+      \voiceTwo
+      c4 e d f
+    }
   }
 >>
 @end lilypond
@@ -2421,18 +2237,20 @@ Stimmen in diesem Notensystem errechnet:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
-    \consists Ambitus_engraver
+  \consists Ambitus_engraver
+}
+<<
+  \new Voice {
+    \relative c'' {
+      \voiceOne
+      c4 a b g
+    }
   }
-  <<
-  \new Voice
-  \relative c'' {
-    \voiceOne
-    c a b g
-  }
-  \new Voice
-  \relative c' {
-    \voiceTwo
-    c e d f
+  \new Voice {
+    \relative c' {
+      \voiceTwo
+      c4 e d f
+    }
   }
 >>
 @end lilypond
@@ -2454,28 +2272,28 @@ mit vier Systemen anzeigen wollen, könnte das so aussehen:
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
-    \new Staff <<
+    \new Staff {
       \relative c'' {
-       c a b g
+        c4 a b g
       }
-    >>
-    \new Staff <<
+    }
+    \new Staff {
       \relative c' {
-       c a b g
+        c4 a b g
       }
-    >>
-    \new Staff <<
+    }
+    \new Staff {
       \clef "G_8"
       \relative c' {
-       c a b g
+        c4 a b g
       }
-    >>
-    \new Staff <<
+    }
+    \new Staff {
       \clef "bass"
       \relative c {
-       c a b g
+        c4 a b g
       }
-    >>
+    }
   >>
   \layout {
     \context {
@@ -2537,7 +2355,7 @@ Fall könnten Sie mit der Vorlage @qq{Noten und Text}
 @example
 \version @w{"@version{}"}
 melody = \relative c' @{
-  \clef treble
+  \clef "treble"
   \key c \major
   \time 4/4
   a4 b c d
@@ -2565,8 +2383,9 @@ Beispiel @qq{Nur Noten} an:
 
 @example
 \version @w{"@version{}"}
+
 melody = \relative c' @{
-  \clef treble
+  \clef "treble"
   \key c \major
   \time 4/4
   a4 b c d
@@ -2608,8 +2427,9 @@ Wir ändern auch die Noten etwas ab.
 
 @example
 \version @w{"@version{}"}
+
 SopranNoten = \relative c' @{
-  \clef treble
+  \clef "treble"
   \key c \major
   \time 4/4
   a4 b c d
@@ -2620,7 +2440,7 @@ SoprText = \lyricmode @{
 @}
 
 CelloNoten = \relative c @{
-  \clef bass
+  \clef "bass"
   \key c \major
   \time 4/4
   d4 g fis8 e d4
@@ -2682,7 +2502,7 @@ Hier also die gesamte Vorlage für Sopran und Cello:
 
 @lilypond[quote,verbatim,ragged-right,addversion]
 sopranoMusic = \relative c' {
-  \clef treble
+  \clef "treble"
   \key c \major
   \time 4/4
   a4 b c d
@@ -2693,7 +2513,7 @@ sopranoLyrics = \lyricmode {
 }
 
 celloMusic = \relative c {
-  \clef bass
+  \clef "bass"
   \key c \major
   \time 4/4
   d4 g fis8 e d4
@@ -2741,12 +2561,13 @@ notiert wird.  Hier ein Beispiel aus Händels @notation{Messias}:
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
 global = { \key d \major \time 4/4 }
+
 sopranoMusic = \relative c'' {
   \clef "treble"
   r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
 sopranoWords = \lyricmode {
-  Wor -- thy is the lamb that was slain
+  Wor -- thy | is the lamb | that was slain |
 }
 altoMusic = \relative a' {
   \clef "treble"
@@ -2856,48 +2677,48 @@ zu den Systemen hinzu.
 Damit erhalten wir folgenden @code{ChoirStaff}:
 
 @example
-    \new ChoirStaff <<
-      \new Staff = "sopranos" <<
-        \set Staff.instrumentName = #"Sopran"
-        \new Voice = "sopranos" @{
-          \global
-          \SopranNoten
-        @}
-      >>
-      \new Lyrics \lyricsto "sopranos" @{
-        \SopranText
-      @}
-      \new Staff = "altos" <<
-        \set Staff.instrumentName = #"Alt"
-        \new Voice = "altos" @{
-          \global
-          \AltNoten
-        @}
-      >>
-      \new Lyrics \lyricsto "altos" @{
-        \AltText
-      @}
-      \new Staff = "tenors" <<
-        \set Staff.instrumentName = #"Tenor"
-        \new Voice = "tenors" @{
-          \global
-          \TenorNoten
-        @}
-      >>
-      \new Lyrics \lyricsto "tenors" @{
-        \TenorText
-      @}
-      \new Staff = "basses" <<
-        \set Staff.instrumentName = #"Bass"
-        \new Voice = "basses" @{
-          \global
-          \BassNoten
-        @}
-      >>
-      \new Lyrics \lyricsto "basses" @{
-        \BassText
-      @}
-    >>  % Ende ChoirStaff
+\new ChoirStaff <<
+  \new Staff = "sopranos" <<
+    \set Staff.instrumentName = #"Sopran"
+    \new Voice = "sopranos" @{
+      \global
+      \sopranoMusic
+    @}
+  >>
+  \new Lyrics \lyricsto "sopranos" @{
+    \sopranoWords
+  @}
+  \new Staff = "altos" <<
+    \set Staff.instrumentName = #"Alt"
+    \new Voice = "altos" @{
+      \global
+      \altoMusic
+    @}
+  >>
+  \new Lyrics \lyricsto "altos" @{
+    \altoWords
+  @}
+  \new Staff = "tenors" <<
+    \set Staff.instrumentName = #"Tenor"
+    \new Voice = "tenors" @{
+      \global
+      \tenorMusic
+    @}
+  >>
+  \new Lyrics \lyricsto "tenors" @{
+    \tenorWords
+  @}
+  \new Staff = "basses" <<
+    \set Staff.instrumentName = #"Bass"
+    \new Voice = "basses" @{
+      \global
+      \bassMusic
+    @}
+  >>
+  \new Lyrics \lyricsto "basses" @{
+    \bassWords
+  @}
+>>  % end ChoirStaff
 @end example
 
 Als nächstes müssen wir das Klaviersystem bearbeiten.
@@ -2984,7 +2805,7 @@ sopranoMusic = \relative c'' {
   r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
 sopranoWords = \lyricmode {
-  Wor -- thy is the lamb that was slain
+  Wor -- thy | is the lamb | that was slain |
 }
 altoMusic = \relative a' {
   \clef "treble"
@@ -3112,10 +2933,7 @@ Taktart und Tonart zu definieren.
   title = "Jesu, meine Freude"
   composer = "J. S. Bach"
 @}
-TimeKey = @{
-  \time 4/4
-  \key c \minor
-@}
+keyTime = @{ \key c \minor \time 4/4 @}
 ManualOneVoiceOneMusic = @{ s1 @}
 ManualOneVoiceTwoMusic = @{ s1 @}
 ManualTwoMusic = @{ s1 @}
@@ -3142,21 +2960,21 @@ Das erste Manualsystem braucht zwei Stimmen,
 das zweite nur eine.
 
 @example
-  \new PianoStaff <<
-    \new Staff = "ManualOne" <<
-      \new Voice @{
-        \ManualOneVoiceOneMusic
-      @}
-      \new Voice @{
-        \ManualOneVoiceTwoMusic
-      @}
-    >>  % end ManualOne Staff context
-    \new Staff = "ManualTwo" <<
-      \new Voice @{
-        \ManualTwoMusic
-      @}
-    >>  % end ManualTwo Staff context
-  >>  % end PianoStaff context
+\new PianoStaff <<
+  \new Staff = "ManualOne" <<
+    \new Voice @{
+      \ManualOneVoiceOneMusic
+    @}
+    \new Voice @{
+      \ManualOneVoiceTwoMusic
+    @}
+  >>  % Ende ManualOne Systemkontext
+  \new Staff = "ManualTwo" <<
+    \new Voice @{
+      \ManualTwoMusic
+    @}
+  >>  % Ende ManualTwo Systemkontext
+>>  % Ende PianoStaff Kontext
 @end example
 
 Als nächstes soll das System für das Pedal hinzugefügt
@@ -3217,14 +3035,14 @@ Hälse und Bögen in den Stimmen des oberen Systems
 kontrollieren, indem die obere Stimme ein
 @code{\voiceOne}, die untere dagegen ein @code{\voiceTwo}
 erhält.  Die Taktart und Tonart werden mit unserer fertigen
-Variable @code{\TimeKey} eingefügt.
+Variable @code{\keyTime} eingefügt.
 
 @example
 \score @{
   <<  % PianoStaff and Pedal Staff must be simultaneous
     \new PianoStaff <<
       \new Staff = "ManualOne" <<
-        \TimeKey  % set time signature and key
+        \keyTime  % set time signature and key
         \clef "treble"
         \new Voice @{
           \voiceOne
@@ -3236,7 +3054,7 @@ Variable @code{\TimeKey} eingefügt.
         @}
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" <<
-        \TimeKey
+        \keyTime
         \clef "bass"
         \new Voice @{
           \ManualTwoMusic
@@ -3244,7 +3062,7 @@ Variable @code{\TimeKey} eingefügt.
       >>  % end ManualTwo Staff context
     >>  % end PianoStaff context
     \new Staff = "PedalOrgan" <<
-      \TimeKey
+      \keyTime
       \clef "bass"
       \new Voice @{
         \PedalOrganMusic
@@ -3265,32 +3083,29 @@ die Variablen mit einem Backslash in die Partitur einbauen.
   title = "Jesu, meine Freude"
   composer = "J S Bach"
 }
-TimeKey = {
-  \time 4/4
-  \key c \minor
-}
+keyTime = { \key c \minor \time 4/4 }
 ManualOneVoiceOneMusic = \relative g' {
-  g4 g f ees
-  d2 c2
+  g4 g f ees |
+  d2 c2 |
 }
 ManualOneVoiceTwoMusic = \relative c' {
-  ees16 d ees8~ ees16 f ees d c8 d~ d c~
-  c c4 b8 c8. g16 c b c d
+  ees16 d ees8~ ees16 f ees d c8 d~ d c~ |
+  c8 c4 b8 c8. g16 c b c d |
 }
 ManualTwoMusic = \relative c' {
-  c16 b c8~ c16 b c g a8 g~ g16 g aes ees
-  f ees f d g aes g f ees d e8~ ees16 f ees d
+  c16 b c8~ c16 b c g a8 g~ g16 g aes ees |
+  f16 ees f d g aes g f ees d e8~ ees16 f ees d |
 }
 PedalOrganMusic = \relative c {
-  r8 c16 d ees d ees8~ ees16 a, b g c b c8
-  r16 g ees f g f g8 c,2
+  r8 c16 d ees d ees8~ ees16 a, b g c b c8 |
+  r16 g ees f g f g8 c,2 |
 }
 
 \score {
   <<  % PianoStaff and Pedal Staff must be simultaneous
     \new PianoStaff <<
       \new Staff = "ManualOne" <<
-        \TimeKey  % set time signature and key
+        \keyTime  % set time signature and key
         \clef "treble"
         \new Voice {
           \voiceOne
@@ -3302,7 +3117,7 @@ PedalOrganMusic = \relative c {
         }
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" <<
-        \TimeKey
+        \keyTime
         \clef "bass"
         \new Voice {
           \ManualTwoMusic
@@ -3310,7 +3125,7 @@ PedalOrganMusic = \relative c {
       >>  % end ManualTwo Staff context
     >>  % end PianoStaff context
     \new Staff = "PedalOrgan" <<
-      \TimeKey
+      \keyTime
       \clef "bass"
       \new Voice {
         \PedalOrganMusic
@@ -3331,6 +3146,7 @@ Bis jetzt wurde immer derartige Notation vorgestellt:
 
 @lilypond[quote,verbatim,ragged-right]
 hornNotes = \relative c'' { c4 b dis c }
+
 \score {
   {
     \hornNotes
@@ -3345,11 +3161,10 @@ Musik sehr nützlich sein könnte:
 fragmentA = \relative c'' { a4 a8. b16 }
 fragmentB = \relative c'' { a8. gis16 ees4 }
 violin = \new Staff {
-  \fragmentA
-  \fragmentA
-  \fragmentB
-  \fragmentA
+  \fragmentA \fragmentA |
+  \fragmentB \fragmentA |
 }
+
 \score {
   {
     \violin
@@ -3365,7 +3180,10 @@ werden:
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
 padText = { \once \override TextScript #'padding = #5.0 }
-fthenp=_\markup { \dynamic f \italic \small { 2nd } \hspace #0.1 dynamic p }
+fthenp=_\markup {
+    \dynamic f \italic \small { 2nd } \hspace #0.1 dynamic p
+}
+
 violin = \relative c'' {
   \repeat volta 2 {
     c4._\dolce b8 a8 g a b
@@ -3374,11 +3192,12 @@ violin = \relative c'' {
     c,4.\fthenp b8 c4 c-.
   }
 }
+
 \score {
   {
     \violin
   }
-\layout{ragged-right=##t}
+  \layout{ragged-right=##t}
 }
 @end lilypond
 
@@ -3394,8 +3213,10 @@ violin = \relative c'' @{
     c4._\markup @{ \italic \bold dolce @} b8 a8 g a b
     \once \override TextScript #'padding = #5.0
     c4.^"hi there!" d8 e' f g d
-    c,4.\markup @{ \dynamic f \italic \small @{ 2nd @}
-      \hspace #0.1 \dynamic p @} b8 c4 c-.
+    c,4.\markup @{
+      \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p
+    @}
+    b8 c4 c-. |
   @}
 @}
 @end example
@@ -3413,17 +3234,19 @@ kann sie sich als Funktionen vorstellen.
 
 @lilypond[quote,verbatim,ragged-right]
 padText =
-#(define-music-function (parser location padding) (number?)
-  #{
-    \once \override TextScript #'padding = #$padding
-  #})
+#(define-music-function
+     (parser location padding)
+     (number?)
+   #{
+     \once \override TextScript #'padding = $padding
+   #})
 
 \relative c''' {
-  c4^"piu mosso" b a b
+  c4^"piu mosso" b a b |
   \padText #1.8
-  c4^"piu mosso" d e f
+  c4^"piu mosso" d e f |
   \padText #2.6
-  c4^"piu mosso" fis a g
+  c4^"piu mosso" fis a g |
 }
 @end lilypond
 
@@ -3455,7 +3278,7 @@ Noten eines Horn/@/Fagott-Duos enthält:
 @example
 hornNotes = \relative c @{
   \time 2/4
-  r4 f8 a cis4 f e d
+  r4 f8 a | cis4 f | e4 d |
 @}
 @end example
 
@@ -3465,6 +3288,7 @@ Datei schreibt:
 
 @example
 \include "horn-music.ly"
+
 \header @{
   instrument = "Horn in F"
 @}
@@ -3492,7 +3316,7 @@ kann in folgender Notenausgabe gesehen werden:
 @lilypond[quote,ragged-right]
 \transpose f c' \relative c {
   \time 2/4
-  r4 f8 a cis4 f e d
+  r4 f8 a | cis4 f | e4 d |
 }
 @end lilypond
 
@@ -3523,8 +3347,8 @@ Beispiel:
 \transpose f c' \relative c {
   \time 2/4
   \set Score.skipBars = ##t
-  R2*3
-  r4 f8 a cis4 f e d
+  R2*3 |
+  r4 f8 a | cis4 f | e4 d |
 }
 @end lilypond
 
@@ -3544,19 +3368,21 @@ Paritur erstellt mit:
 @end example
 
 @noindent
-leading to
+woraus sich ergibt:
 
 @lilypond[quote,ragged-right]
 \relative c <<
   \new Staff {
+    \clef "treble"
     \time 2/4
-    R2*3
-    r4 f8 a cis4 f e d
+    R2*3 |
+    r4 f8 a | cis4 f | e4 d |
   }
   \new Staff {
-    \clef bass
-    r4 d,8 f | gis4 c | b bes |
-    a8 e f4 | g d | gis f |
+    \clef "bass"
+    \time 2/4
+    r4 d,8 f | gis4 c | b4 bes |
+    a8 e f4 | g4 d | gis4 f |
   }
 >>
 @end lilypond

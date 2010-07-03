@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: a6039d8aa56d66e91952a3b92ca7878d342e6ebe
+    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -24,6 +24,7 @@ vor.
 @menu
 * Eine Quelldatei übersetzen::
 * Arbeiten an Eingabe-Dateien::
+* Mit Fehlern umgehen::
 * Wie soll das Handbuch gelesen werden::
 @end menu
 
@@ -95,8 +96,8 @@ Mehr Informationen zu der Darstellung der Beispiele in diesem
 Handbuch gibt der Abschnitt @ref{Wie soll das Handbuch gelesen werden}.}
 
 Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
-@w{@code{ @{ c d e @}}} ist zulässiger Code,
-@w{@code{ @{ C D E @}}} dagegen resultiert in einer Fehlermeldung.
+@w{@samp{ @{ c d e @}}} ist zulässiger Code,
+@w{@samp{ @{ C D E @}}} dagegen resultiert in einer Fehlermeldung.
 
 @smallspace
 
@@ -336,9 +337,7 @@ direkt hinter dem Notennamen wird die Oktave um eins erhöht, mit einem Komma @c
 Um eine Notenhöhe um zwei (oder mehr!) Oktaven zu verändern,
 werden sukzessive @code{''} oder @code{,,} benutzt -- es muss
 sich dabei wirklich um zwei einzelne Apostrophen und nicht um das
-Anführungszeichen @code{"}@tie{} (Taste Shift+2) handeln! Auch
-die Anfangsoktave für einen @code{@w{\relative c'}}-Abschnitt kann so
-verändert werden.
+Anführungszeichen @code{"}@tie{} (Taste Shift+2) handeln!
 
 
 @subheading Tondauern (Rhythmen)
@@ -380,7 +379,7 @@ angegeben werden.
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  a a a4. a8
+  a4 a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -397,7 +396,7 @@ Bezeichnung ist @code{r}@tie{}:
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  a r r2
+  a4 r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -445,13 +444,13 @@ gesetzt werden:
 
 @lilypond[verbatim,quote]
 \relative c' {
-  \clef treble
+  \clef "treble"
   c1
-  \clef alto
+  \clef "alto"
   c1
-  \clef tenor
+  \clef "tenor"
   c1
-  \clef bass
+  \clef "bass"
   c1
 }
 @end lilypond
@@ -463,10 +462,12 @@ Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 
 @lilypond[verbatim,quote]
 \relative c, {
+  \clef "bass"
   \time 3/4
-  \clef bass
-  c2 e8 c' g'2.
-  f4 e d c4 c, r4
+  c2 e8 c'
+  g'2.
+  f4 e d
+  c4 c, r4
 }
 @end lilypond
 
@@ -500,9 +501,9 @@ LilyPonds Quelldateien ähneln Dateien in den meisten
 Programmiersprachen: Sie enthalten eine Versionsbezeichnung,
 es ist auf Groß- und Kleinschreibung
 zu achten und Leerzeichen werden ignoriert. Ausdrücke werden 
-mit geschweiften Klammern @{ @} eingeklammert und Kommentare 
+mit geschweiften Klammern @w{@code{@{ @}}} eingeklammert und Kommentare 
 mit dem Prozentzeichen @code{%} auskommentiert
-oder mit @code{%@{ ... %@}} umgeben.
+oder mit @w{@code{%@{ @dots{} %@}}} umgeben.
 
 Wenn das jetzt unverständlich erscheint, sind hier die  Erklärungen:
 
@@ -535,25 +536,25 @@ eine Warnung während der Kompilation der Datei aus.
 Die Bedeutung eines Zeichens verändert sich, je
 nachdem, ob es groß (@w{@code{A, B, S, T}}) oder klein
  (@w{@code{a, b, s, t}}) geschrieben wird. Noten müssen
-immer klein geschrieben werden,  @w{@code{@{ c d e @}}} funktioniert,
-während @w{@code{@{ C D E @}}} einen Fehler produziert.
+immer klein geschrieben werden,  @w{@samp{@{ c d e @}}} funktioniert,
+während @w{@samp{@{ C D E @}}} einen Fehler produziert.
 
 @item @strong{Leerzeichen:}
 Es spielt keine Rolle, wie viele Leerzeichen oder Tabulatoren oder
 leere Zeilen sich zwischen den Zeichen der Quelldatei befinden.
-@w{@code{@{ c d e @}}} bedeutet das Gleiche wie
-@w{@code{@{ c @ @ @ @ @  d e @}}} oder
+@w{@samp{@{ c d e @}}} bedeutet das Gleiche wie
+@w{@samp{@{ c @ @ @ @ @  d e @}}} oder
 @example
-@{ c                        d
+@{ c4                        d
                      e @}
 @end example
 
 @noindent
 Natürlich ist das letzte Beispiel etwas schwer zu lesen. Eine gute Daumenregel
-ist es, Code-Blöcke mit der Tab-Taste oder zwei Leerzeichen einzurücken:
+ist es, Code-Blöcke mit zwei Leerzeichen einzurücken:
 @example
 @{
-  c d e
+  c4 d e
 @}
 @end example
 
@@ -566,14 +567,15 @@ Element, etwa vor und nach geschweiften Kklammern, einzufügen.
 
 @item @strong{Ausdrücke:}
 Auch der kleinste Abschnitt an LilyPond-Code muss in
-@strong{@{ geschweifte Klammern @}} eingeschlossen werden. Diese
+@strong{@{@tie{}geschweifte@tie{}Klammern@tie{}@}} eingeschlossen werden. Diese
 Klammern zeigen LilyPond an, dass es sich um einen zusammengehörenden
 musikalischen Ausdruck handelt, genauso wie Klammern @q{()} in der Mathematik.
 Die Klammern sollten von jeweils einem Leerzeichen umgeben sein, um
 Zweideutigkeiten auszuschließen, es sei denn, sie
 befinden sich am Anfang oder Ende einer Zeile.
+
 Ein LilyPond-Befehl gefolgt von einem einfachen Ausdruck
-in Klammern (wie etwa @code{\relative @{ @}}) 
+in Klammern (wie etwa @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}}) 
 wird auch als ein einzelner Musikausdruck gewertet.
 
 @cindex Kommentare
@@ -616,11 +618,51 @@ mögliche Anwendung von Kommentaren:
     ignoriert, weil sie sich in einem Block-Kommentar
     befinden.
 
-    f f e e d d c2
+    f4 f e e d d c2
 %@}
 @end example
 
 @end itemize
+
+
+@node Mit Fehlern umgehen
+@section Mit Fehlern umgehen
+@translationof Dealing with errors
+
+@cindex Fehlerlösung
+
+Manchmal erstellt LlilyPond nicht das Notenbild, das Sie erwarten.  Dieser
+Abschnitt stellt einige Links zur Verfügung, um Ihnen bei der Problemlösung
+möglicher Schwierigkeiten zu helfen.
+
+
+@menu
+* Allgemeine Fehlerlösungstipps::
+* Einige häufige Fehler::
+@end menu
+
+@node Allgemeine Fehlerlösungstipps
+@subsection Allgemeine Fehlerlösungstipps
+@translationof General troubleshooting tips
+
+Fehlerlösung für LilyPond-Probleme kann eine große Herausforderung für Menschen
+darstellen, die an eine graphische Benutzeroberfläche gewohnt sind, weil
+ungültige Eingabedateien erstellt werden können.  Wenn das geschieht, ist
+eine logische Herangehensweise der beste Weg, das Problem zu identifizieren
+und zu lsöen.  Einige Richtlinien, wie Sie diese Problemlösung erlernen
+können, finden sich in @rprogram{Troubleshooting}.
+
+
+@node Einige häufige Fehler
+@subsection Einige häufige Fehler
+@translationof Some common errors
+
+@cindex häufige Fehler
+@cindex Fehler, häufige
+
+Es gibt einige übliche Fehler, die schwierig zu lösen sind, wenn man nur die
+Fehlermeldungen der Log-Datei hat.  Sie werden näher erklärt in
+@rprogram{Common errors}.
 
 
 
@@ -654,29 +696,29 @@ der Online-Version.
 @cindex Konstruieren von Dateien, Hinweise
 @cindex Hinweise zur Konstruktion von Dateien
 
-LilyPond-Code muss immer von  @{ @} Zeichen oder einem 
-@code{@w{\relative c'' @{ ... @}}} umgeben sein, wie
+LilyPond-Code muss immer von @code{@{ @}} Zeichen oder einem 
+@w{@code{@bs{}relative c'' @{ @dots{} @}}} umgeben sein, wie
 gezeigt in @ref{Arbeiten an Eingabe-Dateien}.
 Im Rest dieses Handbuchs werden die meisten Beispiel allerdings darauf
 verzichten. Um sie zu reproduzieren, können Sie den entsprechenden 
 Quellcode kopieren und in eine Textdatei einfügen, aber Sie 
 @strong{müssen} dabei
-@code{@w{\relative c'' @{ @}}} einfügen, wie hier gezeigt:
+@w{@code{@bs{}relative c'' @{ @dots{} @}}} einfügen, wie hier gezeigt:
 
 @example
 \relative c'' @{
-  ... hier das Beispiel ...
+  @dots{}hier das Beispiel@dots{}
 @}
 @end example
 
 Warum werden die Klammern hier meist weggelassen?  Die meisten
 der Beispiele können in ein längeres Musikstück hineinkopiert
 werden, und dann ist es natürlich nicht sinnvoll, wenn auch noch
-@code{@w{\relative c'' @{ @}}} dazukommt; ein @code{\relative} darf
+@w{@code{@bs{}relative c'' @{ @dots{} @}}} dazukommt; ein @code{\relative} darf
 nicht innerhalb eines anderen @code{\relative} gesetzt werden,
 deshalb wird es hier weggelassen, damit die Beispiele auch innerhalb
 eines anderen Kontextes funktionieren.  Wenn bei jedem 
-Beispiel @code{@w{\relative c'' @{ @}}} eingesetzt würde,
+Beispiel @w{@code{@bs{}relative c'' @{ @dots{} @}}} eingesetzt würde,
 könnten Sie die kleinen Beispiele der Dokumentation
 nicht einfach zu Ihrem eigenen Notentext hinzufügen. 
 Die meisten Benutzer wollen 
@@ -685,9 +727,10 @@ hinzufügen, deshalb wurde der relative Modus für die Beispiele
 im Handbuch weggelassen.
 
 Denken Sie auch daran, dass jede LilyPond-Datei eine Versionsbezeichnung
-haben sollte.  Weil die Beispiele in den Handbüchern Schnipsel
-und keine vollständigen Dateien sind, fehlt hier die Versionsbezeichnung.
-Sie sollten sie aber immer in Ihre eigenen Dateien einfügen.
+mit dem @code{\version}-Befehl haben sollte.  Weil die Beispiele in den
+Handbüchern Schnipsel und keine vollständigen Dateien sind, fehlt hier
+die Versionsbezeichnung. Sie sollten sie aber immer in Ihre eigenen
+Dateien einfügen.
 
 
 @node Anklickbare Beispiele
@@ -707,7 +750,7 @@ Abbildung:
 @c KEEP LY
 @lilypond[quote]
 \relative c'' {
-  c-\markup { \bold \huge { Hier klicken! } }
+  c4-\markup { \bold \huge { Hier klicken! } }
 }
 @end lilypond
 
