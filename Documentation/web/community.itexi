@@ -808,7 +808,7 @@ with Constraint Satisfaction Programming}, International Computer
 Music Conference 2008.
 
 @item
-A. Passos, M. Silva, P. Kroger, and G. Cidra,
+Alexandre Tachard Passos, Marcos Sampaio, Pedro Kröger, Givaldo de Cidra,
 @emph{Functional Harmonic Analysis and Computational Musicology
 in Rameau}, Proceedings of the 12th Brazilian Symposium on Compute
 Music, 2009, pp. 207-210.
@@ -820,11 +820,11 @@ New Trends in Artificial Intelligence, 2007 J. Neves et al ed.
 
 @item
 
-Kevin C. Baird 2005.
+Kevin C. Baird 2005,
 @emph{Real-time generation of music notation via audience interaction using
 python and GNU lilypond}. Proceedings of the 2005 Conference on New interfaces
 For Musical Expression (Vancouver, Canada, May 26 - 28, 2005).
-New Interfaces For Musical Expression. National University of Singapore, Singapore, 240-241.
+
 
 @end itemize
 
