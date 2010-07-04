@@ -488,7 +488,7 @@ FI: accelerando, kiihdyttäen.
 
 [Italian: @q{speed up, accelerate}]
 
-Increase tempo
+An increase in the tempo, abbreviated @notation{accel.}
 
 @seealso
 No cross-references.
@@ -6621,7 +6621,7 @@ DK: rallentando,
 S: rallentando,
 FI: rallerdando, hidastuen.
 
-[Italian] A performance indication, abbreviated @notation{rall.}.
+[Italian] A performance indication, abbreviated @notation{rall.}
 
 @seealso
 @ref{ritardando}.
