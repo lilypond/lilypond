@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 22b6ca7247b6f0d596934d38aa2c75d5e45206eb
+    Translation of GIT committish: 7c9a0da142b6037180d557f12ba1ada366226606
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -584,8 +584,7 @@ partitions de musique sacrée de grande qualité, disponibles
 immédiatement en téléchargement ou sous forme de partition imprimable.
 
 @item
-@uref{http://theshadylanepublishing.com/, The Shady Lane
-Publishing},
+@uref{http://http://www.shadylane.fr/, The Shady Lane Publishing},
 est un @qq{micro-éditeur de partitions musicales} qui a pour but de
 promouvoir une nouvelle forme de pratique économique, plus proche des
 musiciens et amoureux de la musique.
