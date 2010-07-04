@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+
+  texidocde = "
+Diese Vorlage zeigt die Benutzung von geschachtelten
+@code{StaffGroup}- und @code{GrandStaff}-Kontexte, um
+Instrumente in Untergruppen zu unterteilen, und die
+Benutzung von @code{\\transpose} für transponierende
+Instrumente.  Alle Noten werden in C geschrieben.  Noten
+können in C eingegeben werden, oder auch in der Tonart
+des Instrumentes: dann müssen sie zuerst nach C transponiert
+werden, bevor sie einer Variable zugewiesen werden.
+
+"
+  doctitlede = "Orchester, Chor und Klavier"
