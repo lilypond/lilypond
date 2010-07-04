@@ -11,6 +11,7 @@ changing--flageolet-mark-size.ly
 changing-text-and-spanner-styles-for-text-dynamics.ly
 changing-the-appearance-of-a-slur-from-solid-to-dotted-or-dashed.ly
 changing-the-breath-mark-symbol.ly
+changing-the-number-of-augmentation-dots-per-note.ly
 combining-dynamics-with-markup-texts.ly
 contemporary-glissando.ly
 controlling-spanner-visibility-after-a-line-break.ly
@@ -23,7 +24,6 @@ creating-real-parenthesized-dynamics.ly
 creating-simultaneous-rehearsal-marks.ly
 creating-slurs-across-voices.ly
 creating-text-spanners.ly
-dot-count-override.ly
 double-glissando.ly
 dynamics-custom-text-spanner-postfix.ly
 dynamics-text-spanner-postfix.ly

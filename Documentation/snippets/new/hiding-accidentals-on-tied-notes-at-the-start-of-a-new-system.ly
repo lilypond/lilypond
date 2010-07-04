@@ -3,7 +3,7 @@
   lsrtags = "pitches"
   texidoc = "This shows how to hide accidentals on tied notes at the beginning of a
 new system."
-  doctitle = "Hiding accidentals on tied notes at the beginning of a new system."
+  doctitle = "Hiding accidentals on tied notes at the beginning of a new system"
 }
 
 \relative c'' {
