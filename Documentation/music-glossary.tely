@@ -2337,7 +2337,7 @@ S: crescendo,
 FI: cresendo, voimistuen.
 
 Increasing volume.  Indicated by a rightwards opening horizontal wedge
-(hairpin) or the abbreviation @notation{cresc.}.
+(hairpin) or the abbreviation @notation{cresc.}
 
 @lilypond[quote,relative=2]
 \key g \major
@@ -2449,7 +2449,7 @@ DK: da capo,
 S: da capo,
 FI: da capo, alusta.
 
-Abbreviated @notation{D.C.}.  Indicates that the piece is to be repeated from
+Abbreviated @notation{D.C.}  Indicates that the piece is to be repeated from
 the beginning to the end or to a certain place marked @emph{fine}.
 
 @seealso
@@ -2487,7 +2487,7 @@ DK: dal segno,
 S: dal segno,
 FI: dal segno, lähtien merkistä.
 
-Abbreviated @notation{D.S.}.  Repetition, not from the beginning, but from
+Abbreviated @notation{D.S.}  Repetition, not from the beginning, but from
 another place frequently near the beginning marked by a sign
 (@notation{segno}):
 
@@ -2520,7 +2520,7 @@ S: decrescendo,
 FI: decresendo, hiljentyen.
 
 Decreasing tone volume.  Indicated by a leftwards opening horizontal
-wedge (hairpin) or the abbreviation @notation{decresc.}.
+wedge (hairpin) or the abbreviation @notation{decresc.}
 
 @lilypond[quote,relative=2]
 \key g \major
