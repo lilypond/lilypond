@@ -7,4 +7,6 @@ COLLATED_FILES = $(OUT_FILES)
 
 include $(depth)/make/stepmake.make
 
+EXTRA_DIST_FILES = suffix-texinfo.texinfo
+
 TITLE=lilypond-book Test Suite
