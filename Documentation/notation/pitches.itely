@@ -388,7 +388,7 @@ cis
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle,ragged-right]
-{accidental-tie-overridden.ly}
+{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}

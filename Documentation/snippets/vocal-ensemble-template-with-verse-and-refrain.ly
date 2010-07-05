@@ -26,7 +26,7 @@ use of spacer rests within the @code{\global} variable to define
 meter changes (and other elements common to all parts) throughout
 the entire score.
 "
-  doctitle = "Solo verse and two-part refrain"
+  doctitle = "Vocal ensemble template with verse and refrain"
 } % begin verbatim
 
 

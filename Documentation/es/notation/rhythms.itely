@@ -154,7 +154,7 @@ pauta; véase @ref{Dirección y posición}.
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{dot-count-override.ly}
+{changing-the-number-of-augmentation-dots-per-note.ly}
 
 
 @seealso
