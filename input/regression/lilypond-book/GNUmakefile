@@ -8,6 +8,7 @@ LILYBOOK_OUT_FILES = ""
 endif
 
 COLLATED_FILES = $(LILYBOOK_OUT_FILES)
+EXTRA_DIST_FILES = suffix-texinfo.texinfo
 
 include $(depth)/make/stepmake.make
 
