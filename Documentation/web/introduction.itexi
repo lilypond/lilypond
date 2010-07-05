@@ -1020,7 +1020,7 @@ are actively working to bring it up to our present stable version, 2.12.}
 @divEnd
 
 @divClass{column-center-top}
-@subheading Emacs and Vim
+@subheading Text editors
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -1049,19 +1049,7 @@ writing LilyPond input files.
 More information on setting up Emacs and Vim can be found in
 @rprogram{Text editor support}.
 
-@divEnd
-
-@ignore these may not need to be here at all, as they are purely
-MacOS scripts.
-
-@divClass{column-center-top}
-@subheading Other
-
-
-@subsubheading Text environment: TexShop
-
 @sourceimage{logo-macosx,,,}
-
 @uref{http://www.uoregon.edu/~koch/texshop}
 
 The TexShop editor for MacOS@tie{}X can be extended to run LilyPond,
@@ -1072,21 +1060,18 @@ using the extensions available at:
 @uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
 @end example
 
-@subsubheading TextMate
-
 @sourceimage{logo-macosx,,,}
-
-There is a LilyPond bundle for TextMate.  It may be installed by
-running:
+There is a LilyPond bundle for TextMate, a commercial editor for MacOS.
+It may be installed by running:
 
 @example
 mkdir -p /Library/Application\ Support/TextMate/Bundles
 cd /Library/Application\ Support/TextMate/Bundles
-svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
+git clone http://github.com/textmate/lilypond.tmbundle.git
+
 @end example
 
 @divEnd
-@end ignore
 
 @divClass{column-center-top}
 @subheading Other programs can export LilyPond code
