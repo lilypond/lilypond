@@ -13,6 +13,7 @@ LYTEX_FILES = $(call src-wildcard,*.lytex)
 LATEX_FILES = $(call src-wildcard,*.latex)
 TEX_FILES = $(call src-wildcard,*.tex)
 TEXI_FILES = $(call src-wildcard,*.texi)
+TEXINFO_FILES = $(call src-wildcard,*.texinfo)
 TELY_FILES = $(call src-wildcard,*.tely)
 DOCBOOK_FILES = $(call src-wildcard,*.lyxml)
 
@@ -30,6 +31,7 @@ OUT_LATEX_FILES = ${LATEX_FILES:%.latex=$(outdir)/%.tex}
 OUT_TEX_FILES = ${TEX_FILES:%.tex=$(outdir)/%.tex}
 endif
 OUT_TEXI_FILES = ${TEXI_FILES:%.texi=$(outdir)/%.html}
+OUT_TEXINFO_FILES = ${TEXINFO_FILES:%.texinfo=$(outdir)/%.html}
 OUT_TELY_FILES = ${TELY_FILES:%.tely=$(outdir)/%.html}
 # If we have dblatex, create the pdf, otherwise only the .xml file!
 ifeq (,$(findstring dblatex,$(MISSING_OPTIONAL)))
@@ -45,6 +47,7 @@ OUT_FILES = $(sort $(OUT_HTML_FILES) \
                             $(OUT_LATEX_FILES) \
                             $(OUT_TEX_FILES) \
                             $(OUT_TEXI_FILES) \
+                            $(OUT_TEXINFO_FILES) \
                             $(OUT_TELY_FILES) \
                             $(OUT_DOCBOOK_FILES))
 
@@ -55,4 +58,5 @@ ALL_SOURCES +=\
  $(LYTEX_FILES)\
  $(LATEX_FILES)\
  $(TEX_FILES)\
+ $(TEXINFO_FILES)\
  $(DOCBOOK_FILES)
