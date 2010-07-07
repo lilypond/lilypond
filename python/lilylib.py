@@ -258,4 +258,5 @@ class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
 def get_option_parser (*args, **kwargs):
     p = optparse.OptionParser (*args, **kwargs)
     p.formatter = NonDentedHeadingFormatter ()
+    p.formatter.set_parser (p)
     return p
