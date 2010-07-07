@@ -752,16 +752,16 @@ printing diff against existing file." % filename)
             status = 0
             output = stdout.read ()
             status = stdout.close ()
-            error = stderr.read ()
+            err = stderr.read ()
 
         if not status:
             status = 0
         signal = 0x0f & status
-        if status or (not output and error):
+        if status or (not output and err):
             exit_status = status >> 8
             ly.error (_ ("`%s' failed (%d)") % (cmd, exit_status))
             ly.error (_ ("The error log is as follows:"))
-            ly.stderr_write (error)
+            ly.stderr_write (err)
             ly.stderr_write (stderr.read ())
             exit (status)
 
