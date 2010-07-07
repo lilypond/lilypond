@@ -3,6 +3,8 @@ altering-the-length-of-beamed-stems.ly
 ambitus-with-multiple-voices.ly
 ambitus.ly
 applying-note-head-styles-depending-on-the-step-of-the-scale.ly
+changing-the-interval-of-lines-on-the-stave.ly
+clefs-can-be-transposed-by-arbitrary-amounts.ly
 coloring-notes-depending-on-their-pitch.ly
 creating-a-sequence-of-notes-on-various-pitches.ly
 dodecaphonic-style-accidentals-for-each-note-including-naturals.ly
