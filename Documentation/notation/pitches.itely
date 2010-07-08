@@ -2482,6 +2482,9 @@ printed if they are not part of the key signature.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {ambitus-with-multiple-voices.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{change-ambitus-gap.ly}
+
 
 @seealso
 Music Glossary:

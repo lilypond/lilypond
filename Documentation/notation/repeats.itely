@@ -84,13 +84,9 @@ The syntax for a normal repeat is
 @end example
 
 @noindent
-where @var{musicexpr} is a music expression.  Alternate endings can be
-produced using @code{\alternative}.  In order to delimit the alternate
-endings, the group of alternatives must be enclosed in a set of
-braces.  If there are more repeats than there are alternate endings,
-the earliest repeats are given the first alternative.
+where @var{musicexpr} is a music expression.
 
-Normal repeats without alternate endings:
+A single repeat without an alternate ending:
 
 @lilypond[verbatim,quote,relative=2]
 \repeat volta 2 { c4 d e f }
@@ -98,13 +94,52 @@ c2 d
 \repeat volta 2 { d4 e f g }
 @end lilypond
 
-Normal repeats with alternate endings:
+Alternative endings can be produced using @code{\alternative}.  Each
+group of alternatives must be themselves, enclosed in a set of braces.
+
+@example
+\repeat volta @var{repeatcount} @var{musicexpr}
+\alternative @{
+  @{ @var{musicexpr} @}
+@}
+@end example
+
+@noindent
+where @var{musicexpr} is a music expression.
+
+If there are more repeats than there are alternate endings, the earliest
+repeats are given the first alternative.
+
+A single repeat with one alternate ending:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 2 { c4 d e f }
+\alternative {
+  { c2 e }
+  { f2 g }
+}
+c1
+@end lilypond
+
+A single repeat with more than one alternate ending:
 
 @lilypond[verbatim,quote,relative=2]
 \repeat volta 4 { c4 d e f }
 \alternative {
-  { d2 e }
+  { c2 e }
   { f2 g }
+}
+c1
+@end lilypond
+
+Multiple repeats with more than one alternate ending:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 3 { c4 d e f }
+\alternative {
+  { c2 e }
+  { f2 g }
+  { a2 g }
 }
 c1
 @end lilypond
@@ -225,6 +260,8 @@ c1
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{set-double-repeat-default-volta.ly}
 
 @seealso
 Music Glossary:
