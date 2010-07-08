@@ -452,5 +452,97 @@ fet_beginchar ("accOldEE", "accOldEE")
 	fi;
 fet_endchar;
 
+fet_beginchar ("Accordion push", "push");
+	save width, height;
+
+	height# := 2.0 staff_space# + 3.0 stafflinethickness#;
+	width# := 0.4 height#;
+
+	define_pixels(height, width);
+
+	save linewidth;
+
+	linewidth# := stafflinethickness# + .05 staff_space#;
+	define_whole_blacker_pixels (linewidth);
+
+	set_char_box (width#, 0,
+	              0, height#);
+
+	pickup pencircle scaled linewidth;
+
+	lft x1 = -width;
+	top y1 = height;
+
+	rt x2 = 0;
+	y2 = 0.5 * (y1+y3);
+
+	x3= x1;
+	bot y3 = 0;
+
+	save pat;
+
+	path pat;
+
+	pat = z1 -- z2 -- z3;
+
+	draw pat;
+
+fet_endchar;
+
+fet_beginchar ("Accordion pull", "pull");
+	save width, height;
+
+	height# := 2.0 staff_space# + 3.0 stafflinethickness#;
+	width# := 0.4 height#;
+
+	define_pixels(height, width);
+
+	save linewidth;
+
+	linewidth# := stafflinethickness# + .05 staff_space#;
+	define_whole_blacker_pixels (linewidth);
+
+	set_char_box (width# - linewidth#, linewidth#,
+	              0, height#);
+
+	pickup pencircle scaled linewidth;
+
+	save penradius;
+	penradius := linewidth / 2;
+
+	rt x1 = linewidth;
+	bot y1 = 0;
+
+        x2 = x1;
+	top y2 = height;
+
+	lft x3= -width + linewidth;
+	y3 = y2;
+
+	x4 = x3;
+	y4 = y2 - linewidth;
+
+	x5 = x1;
+	y5 = y4;
+
+	save pat;
+
+	path pat;
+
+	pat = z1 + penradius * right {up} --
+	      z2 + penradius * right {up} ..
+	      z2 + penradius * up {left} --
+	      z3 + penradius * up {left} ..
+	      z3 + penradius * left {down} --
+	      z4 + penradius * left {down} ..
+	      z4 + penradius * down {right} --
+	      z5 + penradius * (down + left) --
+	      z1 + penradius * left {down} ..
+	      z1 + penradius * down {right} ..
+	      cycle;
+
+	fill pat;
+
+fet_endchar;
 
 fet_endgroup ("accordion");
