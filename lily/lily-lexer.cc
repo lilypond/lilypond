@@ -109,7 +109,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
   chord_repetition_ = Chord_repetition ();
   smobify_self ();
 
-  add_scope (ly_make_anonymous_module (false));
+  add_scope (ly_make_module (false));
   push_note_state (scm_c_make_hash_table (0));
   chordmodifier_tab_ = scm_make_vector (scm_from_int (1), SCM_EOL);
 }
@@ -136,7 +136,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
   SCM *tail = &scopes;
   for (SCM s = src.scopes_; scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM newmod = ly_make_anonymous_module (false);
+      SCM newmod = ly_make_module (false);
       ly_module_copy (newmod, scm_car (s));
       *tail = scm_cons (newmod, SCM_EOL);
       tail = SCM_CDRLOC (*tail);

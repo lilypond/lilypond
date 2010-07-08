@@ -94,7 +94,7 @@ Score::Score (Score const &s)
   error_found_ = s.error_found_;
 
   smobify_self ();
-  input_location_ = make_input (*s.origin ()); 
+  input_location_ = make_input (*s.origin ());
 
   Music *m = unsmob_music (s.music_);
   if (m)
@@ -111,7 +111,7 @@ Score::Score (Score const &s)
       defs_.push_back (copy);
       copy->unprotect ();
     }
-  header_ = ly_make_anonymous_module (false);
+  header_ = ly_make_module (false);
   if (ly_is_module (s.header_))
     ly_module_copy (header_, s.header_);
 }

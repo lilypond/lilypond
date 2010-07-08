@@ -23,36 +23,9 @@
 #include "std-string.hh"
 #include "protected-scm.hh"
 
-#ifdef MODULE_GC_KLUDGE
-Protected_scm anonymous_modules = SCM_EOL;
-bool perform_gc_kludge;
-#endif
-
-void
-clear_anonymous_modules ()
-{
-#ifdef MODULE_GC_KLUDGE
-  for (SCM s = anonymous_modules;
-       scm_is_pair (s);
-       s = scm_cdr (s))
-    {
-      SCM module = scm_car (s);
-      SCM closure = SCM_MODULE_EVAL_CLOSURE (module);
-      SCM prop = scm_procedure_property (closure, ly_symbol2scm ("module"));
-
-      if (ly_is_module (prop))
-	{
-	  scm_set_procedure_property_x (closure, ly_symbol2scm ("module"),
-					SCM_BOOL_F);
-	}
-    }
-
-  anonymous_modules = SCM_EOL;
-#endif
-}
 
 SCM
-ly_make_anonymous_module (bool safe)
+ly_make_module (bool safe)
 {
   SCM mod = SCM_EOL;
   if (!safe)
@@ -74,10 +47,6 @@ ly_make_anonymous_module (bool safe)
       mod = scm_call_0 (proc);
     }
 
-#ifdef MODULE_GC_KLUDGE
-  if (perform_gc_kludge)
-    anonymous_modules = scm_cons (mod, anonymous_modules);
-#endif
 
   return mod;
 }
