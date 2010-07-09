@@ -208,6 +208,24 @@ Staff_symbol::on_line (Grob *me, int pos)
     return ((abs (pos + line_count (me)) % 2) == 1);
 }
 
+Interval
+Staff_symbol::line_span (Grob *me)
+{
+  SCM line_positions = me->get_property ("line-positions");
+  Interval iv;
+
+  if (scm_is_pair (line_positions))
+    for (SCM s = line_positions; scm_is_pair (s); s = scm_cdr (s))
+      iv.add_point (scm_to_double (scm_car (s)));
+  else
+    {
+      int count = line_count (me);
+      return Interval (-count + 1, count - 1);
+    }
+
+  return iv;
+}
+
 ADD_INTERFACE (Staff_symbol,
 	       "This spanner draws the lines of a staff.  A staff symbol"
 	       " defines a vertical unit, the @emph{staff space}.  Quantities"

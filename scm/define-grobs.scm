@@ -1295,6 +1295,7 @@
     (NoteHead
      . (
 	(duration-log . ,note-head::calc-duration-log)
+	(extra-spacing-height . ,ly:note-head::include-ledger-line-height)
 	(glyph-name . ,note-head::calc-glyph-name)
 	(stem-attachment . ,ly:note-head::calc-stem-attachment)
 	(stencil . ,ly:note-head::print)
