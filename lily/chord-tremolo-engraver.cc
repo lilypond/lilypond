@@ -54,10 +54,10 @@ class Chord_tremolo_engraver : public Engraver
 protected:
   Stream_event *repeat_;
 
-  // current direction of beam (first RIGHT, then LEFT)
-  Direction beam_dir_;
-
   Spanner *beam_;
+  // Store the pointer to the previous stem, so we can create a beam if
+  // necessary and end the spanner
+  Grob *previous_stem_;
 
 protected:
   virtual void finalize ();
@@ -70,7 +70,7 @@ Chord_tremolo_engraver::Chord_tremolo_engraver ()
 {
   beam_ = 0;
   repeat_ = 0;
-  beam_dir_ = CENTER;
+  previous_stem_ = 0;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Chord_tremolo_engraver, tremolo_span);
@@ -80,18 +80,15 @@ Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
   Direction span_dir = to_dir (ev->get_property ("span-direction"));
   if (span_dir == START)
     {
-      if (ASSIGN_EVENT_ONCE (repeat_, ev))
-	{
-	  beam_dir_ = RIGHT;
-	}
+      ASSIGN_EVENT_ONCE (repeat_, ev);
     }
   else if (span_dir == STOP)
     {
       if (!repeat_)
-	ev->origin ()->warning (_ ("No tremolo to end"));
+        ev->origin ()->warning (_ ("No tremolo to end"));
       repeat_ = 0;
       beam_ = 0;
-      beam_dir_ = CENTER;
+      previous_stem_ = 0;
     }
 }
 
@@ -126,17 +123,26 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
       int gap_count = min (flags, intlog2 (repeat_count) + 1);
 
       Grob *s = info.grob ();
-      Stem::set_beaming (s, flags, beam_dir_);
+      if (previous_stem_)
+        {
+          // FIXME: We know that the beam has ended only in listen_tremolo_span
+          //        but then it is too late for Spanner_break_forbid_engraver
+          //        to allow a line break... So, as a nasty hack, announce the
+          //        spanner's end after each note except the first. The only
+          //        "drawback" is that for multi-note tremolos a break would
+          //        theoretically be allowed after the second note (but since
+          //        that note is typically not at a barline, I don't think
+          //        anyone will ever notice!)
+          announce_end_grob (beam_, previous_stem_->self_scm ());
+          // Create the whole beam between previous and current note
+          Stem::set_beaming (previous_stem_, flags, RIGHT);
+          Stem::set_beaming (s, flags, LEFT);
+        }
 
       if (Stem::duration_log (s) != 1)
-	beam_->set_property ("gap-count", scm_from_int (gap_count));
+        beam_->set_property ("gap-count", scm_from_int (gap_count));
 
-      if (beam_dir_ == RIGHT)
-	{
-	  beam_dir_ = LEFT;
-	  announce_end_grob (beam_, s->self_scm ());
-	}
-      
+
       if (info.ultimate_event_cause ()->in_event_class ("rhythmic-event"))
 	Beam::add_stem (beam_, s);
       else
@@ -147,6 +153,9 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 	  else
 	    ::warning (s);
 	}
+      // Store current grob, so we can possibly end the spanner here (and
+      // reset the beam direction to RIGHT)
+      previous_stem_ = s;
     }
 }
 

@@ -40,11 +40,6 @@ Chord_tremolo_iterator::get_music_list () const
 
   int elt_count = body_is_sequential ? scm_ilength (body->get_property ("elements")) : 1;
 
-  if (body_is_sequential &&
-      (elt_count != 2
-       && elt_count != 1))
-    mus->origin ()->warning (_f ("expect 2 elements for chord tremolo, found %d", elt_count));
-
   if (elt_count <= 0)
     elt_count = 1;
 
@@ -57,7 +52,7 @@ Chord_tremolo_iterator::get_music_list () const
       return scm_list_2 (ev->unprotect (), body->self_scm ());
     }
   else
-    { 
+    {
       SCM tremolo_symbol = ly_symbol2scm ("TremoloSpanEvent");
       SCM start_event_scm = scm_call_2 (ly_lily_module_constant ("make-span-event"), tremolo_symbol, scm_from_int (START));
       unsmob_music (start_event_scm)->set_spot (*origin);

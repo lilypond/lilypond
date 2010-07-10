@@ -265,9 +265,14 @@ through MUSIC."
     (set! (ly:music-property r 'element) main)
     (set! (ly:music-property r 'repeat-count) (max times 1))
     (set! (ly:music-property r 'elements) talts)
-    (if (equal? name "tremolo")
-	(let* ((dots (1- (logcount times)))
-	       (mult (/ (* times (ash 1 dots)) (1- (ash 2 dots))))
+    (if (and (equal? name "tremolo") (> (length (ly:music-property main 'elements)) 0))
+	;; This works for single-note and multi-note tremolos!
+	(let* ((children (length (ly:music-property main 'elements)))
+	       ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
+	       (dots (1- (logcount (* times children))))
+	       ;; The remaining missing multiplicator to scale the notes by 
+	       ;; times * children
+	       (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
 	       (shift (- (ly:intlog2 (floor mult))))
 	       (note-duration (first-note-duration r))
 	       (duration-log (if (ly:duration? note-duration)
@@ -277,20 +282,11 @@ through MUSIC."
 	  (set! (ly:music-property r 'tremolo-type) tremolo-type)
 	  (if (not (integer?  mult))
               (ly:warning (_ "invalid tremolo repeat count: ~a") times))
-	  (if (memq 'sequential-music (ly:music-property main 'types))
-	      ;; \repeat "tremolo" { c4 d4 }
-	      (let ((children (length (ly:music-property main 'elements))))
-
-		;; fixme: should be more generic.
-		(if (and (not (= children 2))
-			 (not (= children 1)))
-		    (ly:warning (_ "expecting 2 elements for chord tremolo, found ~a") children))
-		(ly:music-compress r (ly:make-moment 1 children))
-		(shift-duration-log r
-				    (if (= children 2)  (1- shift) shift)
-				    dots))
-	      ;; \repeat "tremolo" c4
-	      (shift-duration-log r shift dots)))
+	  ;; \repeat tremolo n c4
+	  ;; Adjust the time of the notes
+	  (ly:music-compress r (ly:make-moment 1 children))
+	  ;; Adjust the displayed note durations
+	  (shift-duration-log r shift dots))
 	r)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
