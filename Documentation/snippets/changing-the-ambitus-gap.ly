@@ -6,18 +6,18 @@
 \header {
   lsrtags = "pitches"
   texidoc = "It is possible to change the default gap setting for
-Ambitus."
+ambitus."
 
-  doctitle = "change-ambitus-gap.ly"
-} % begin verbatim
+  doctitle = "Changing the ambitus gap"
+}
+
 
 
 \layout {
   \context {
     \Voice
     \consists "Ambitus_engraver"
-  } % begin verbatim
-
+  }
 }
 
 \new Staff {

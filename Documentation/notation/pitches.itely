@@ -2483,7 +2483,7 @@ printed if they are not part of the key signature.
 {ambitus-with-multiple-voices.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{change-ambitus-gap.ly}
+{changing-the-ambitus-gap.ly}
 
 
 @seealso

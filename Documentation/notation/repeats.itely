@@ -261,7 +261,7 @@ c1
 {adding-volta-brackets-to-additional-staves.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{set-double-repeat-default-volta.ly}
+{setting-the-double-repeat-default-for-volte.ly}
 
 @seealso
 Music Glossary:
