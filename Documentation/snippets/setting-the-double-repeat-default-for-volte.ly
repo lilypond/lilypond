@@ -9,7 +9,7 @@
 volte, that can be set using @code{doubleRepeatType}."
 
   doctitle = "Setting the double repeat default for volte"
-}
+} % begin verbatim
 
 
 

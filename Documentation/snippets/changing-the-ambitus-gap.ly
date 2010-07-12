@@ -9,7 +9,7 @@
 ambitus."
 
   doctitle = "Changing the ambitus gap"
-}
+} % begin verbatim
 
 
 
