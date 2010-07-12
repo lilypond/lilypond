@@ -502,9 +502,11 @@ correction and @code{1} for full correction.")
 ;; l
 ;;
      (labels ,list? "List of labels (symbols) placed on a column.")
-     (layer ,integer? "The output layer (a value between 0
-and@tie{}2): Layers define the order of printing objects.  Objects in
-lower layers are overprinted by objects in higher layers.")
+     (layer ,integer? "An integer which determines the order of printing
+objects.  Objects with the lowest value of layer are drawn first, then
+objects with progressively higher values are drawn, so objects with
+higher values overwrite objects with lower values.  By default most
+objects are assigned a layer value of 1.")
      (ledger-line-thickness ,number-pair? "The thickness of ledger
 lines.  It is the sum of 2@tie{}numbers: The first is the factor for
 line thickness, and the second for staff space.  Both contributions
@@ -991,7 +993,7 @@ objects.")
      (adjacent-pure-heights ,pair? "A pair of vectors.  Used by a
 @code{VerticalAxisGroup} to cache the @code{Y-extent}s of different column
 ranges.")
-     
+
      (bar-extent ,number-pair? "The Y-extent of the actual bar line.
 This may differ from @code{Y-extent} because it does not include the dots in
 a repeat bar line.")
