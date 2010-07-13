@@ -265,9 +265,14 @@ through MUSIC."
     (set! (ly:music-property r 'element) main)
     (set! (ly:music-property r 'repeat-count) (max times 1))
     (set! (ly:music-property r 'elements) talts)
-    (if (and (equal? name "tremolo") (> (length (ly:music-property main 'elements)) 0))
+    (if (and (equal? name "tremolo")
+	     (pair? (ly:music-property main 'elements)))
 	;; This works for single-note and multi-note tremolos!
-	(let* ((children (length (ly:music-property main 'elements)))
+	(let* ((children (if (music-is-of-type? main 'sequential-music)
+			     ;; \repeat tremolo n { ... }
+			     (length (ly:music-property main 'elements))
+			     ;; \repeat tremolo n c4
+			     1))
 	       ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
 	       (dots (1- (logcount (* times children))))
 	       ;; The remaining missing multiplicator to scale the notes by 
@@ -282,7 +287,6 @@ through MUSIC."
 	  (set! (ly:music-property r 'tremolo-type) tremolo-type)
 	  (if (not (integer?  mult))
               (ly:warning (_ "invalid tremolo repeat count: ~a") times))
-	  ;; \repeat tremolo n c4
 	  ;; Adjust the time of the notes
 	  (ly:music-compress r (ly:make-moment 1 children))
 	  ;; Adjust the displayed note durations
