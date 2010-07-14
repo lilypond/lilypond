@@ -76,6 +76,14 @@ Rest_collision::add_column (Grob *me, Grob *p)
     }
 }
 
+static bool
+rest_shift_less (Grob *const &r1, Grob *const &r2)
+{
+  Grob *col1 = r1->get_parent (X_AXIS);
+  Grob *col2 = r2->get_parent (X_AXIS);
+  return Note_column::shift_less (col1, col2);
+}
+
 /*
   TODO: look at horizontal-shift to determine ordering between rests
   for more than two voices.
@@ -133,14 +141,14 @@ Rest_collision::calc_positioning_done (SCM smob)
 
 	  Direction d = get_grob_direction (r);
 	  if (d)
-	    ordered_rests[d].push_back (rests[i]);
+	    ordered_rests[d].push_back (r);
 	  else
 	    rests[d]->warning (_ ("cannot resolve rest collision: rest direction not set"));
 	}
 
       Direction d = LEFT;
       do
-	vector_sort (ordered_rests[d], Note_column::shift_less);
+	vector_sort (ordered_rests[d], rest_shift_less);
       while (flip (&d) != LEFT)
 	;
 
@@ -167,23 +175,23 @@ Rest_collision::calc_positioning_done (SCM smob)
 	{
 	  int amount_down = (int) ceil (diff / 2);
 	  diff -= amount_down;
-	  Note_column::translate_rests (ordered_rests[DOWN].back (),
-					-2 * amount_down);
+	  Rest::translate (ordered_rests[DOWN].back (),
+			   -2 * amount_down);
 	  if (diff > 0)
-	    Note_column::translate_rests (ordered_rests[UP].back (),
-					  2 * int (ceil (diff)));
+	    Rest::translate (ordered_rests[UP].back (),
+			     2 * int (ceil (diff)));
 	}
 
       do
 	{
-	  for (vsize i = ordered_rests[d].size () -1; i-- > 0;)
+	  for (vsize i = ordered_rests[d].size () - 1; i-- > 0;)
 	    {
 	      Real last_y = ordered_rests[d][i + 1]->extent (common, Y_AXIS)[d];
 	      Real y = ordered_rests[d][i]->extent (common, Y_AXIS)[-d];
 
 	      Real diff = d * ((last_y - y) / staff_space);
 	      if (diff > 0)
-		Note_column::translate_rests (ordered_rests[d][i], d * (int) ceil (diff) * 2);
+		Rest::translate (ordered_rests[d][i], d * (int) ceil (diff) * 2);
 	    }
 	}
       while (flip (&d) != LEFT);
@@ -262,7 +270,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 	  discrete_y = dir * int (ceil (dir * discrete_y / 2.0) * 2.0);
 	}
 
-      Note_column::translate_rests (rcol, discrete_y);
+      Rest::translate (rest, discrete_y);
     }
   return SCM_BOOL_T;
 }

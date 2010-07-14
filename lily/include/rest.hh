@@ -33,6 +33,7 @@ public:
   static string glyph_name (Grob *, int, string, bool);
   static SCM brew_internal_stencil (Grob*, bool);
   static SCM generic_extent_callback (Grob*, Axis);
+  static void translate (Grob *me, int dy);
   DECLARE_SCHEME_CALLBACK (polyphonic_offset_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
