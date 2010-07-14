@@ -2921,7 +2921,7 @@ dynamics, fingering and pedalling.
 @c The following should appear as music without code
 @c This example should not be indexed
 @c line-width ensures no break
-@lilypond[quote,ragged-right,line-width=5.5\in]
+@lilypond[quote,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
@@ -3002,7 +3002,7 @@ the staff structure in a score block, and seeing what LilyPond
 produces by default:
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4. g8 |
@@ -3059,7 +3059,7 @@ easily add the left hand slur and the right hand phrasing slur,
 since these were all covered in the Tutorial.  Doing this gives:
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
@@ -3129,7 +3129,7 @@ to 3.5 half staff spaces above the center line:
 This completes bar two, giving:
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
@@ -3208,7 +3208,7 @@ to the start of that section and
 to the end, giving:
 
 @c line-width ensures no break
-@lilypond[quote,ragged-right,line-width=5.5\in]
+@lilypond[quote,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
@@ -3282,7 +3282,7 @@ Applying these changes gives:
 @cindex staff-position property, example
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
@@ -3351,7 +3351,7 @@ the @code{force-hshift} property.  Here's the final result:
 @cindex transparent property, example
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
