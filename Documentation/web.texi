@@ -64,11 +64,11 @@ License''.
 * LilyPond Internals Reference: (lilypond-internals).  Definitions for tweaking.
 * LilyPond Application Usage: (lilypond-usage). Installing and running applications.
 * LilyPond Website: (lilypond-web).    Preview of new website.
-* lilypond: (lilypond-usage)Running LilyPond.      Invoking the LilyPond program.
+* lilypond: (lilypond-usage)Running lilypond.      Invoking the LilyPond program.
 * abc2ly: (lilypond-usage)Invoking abc2ly.      Importing ABC.
 * convert-ly: (lilypond-usage)Updating files with convert-ly. Older LilyPond versions.
 * etf2ly: (lilypond-usage)Invoking etf2ly.      Importing Finale.
-* lilypond-book: (lilypond-usage)LilyPond-book. Integrating text and music.
+* lilypond-book: (lilypond-usage)lilypond-book. Integrating text and music.
 * midi2ly: (lilypond-usage)Invoking midi2ly.    Importing MIDI.
 * musicxml2ly: (lilypond-usage)Invoking musicxml2ly.  Importing MusicXML.
 @end direntry
