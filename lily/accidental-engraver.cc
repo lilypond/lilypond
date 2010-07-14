@@ -437,6 +437,7 @@ Accidental_engraver::stop_translation_timestep ()
 
   accidental_placement_ = 0;
   accidentals_.clear ();
+  note_columns_.clear ();
   left_objects_.clear ();
   right_objects_.clear ();
 }
