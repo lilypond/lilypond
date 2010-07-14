@@ -405,7 +405,10 @@ printing of a single line of lyrics."
   \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'staff-affinity = #UP
   \override VerticalAxisGroup #'inter-staff-spacing = #'((space . 5.5) (stretchability . 1) (padding . 0.5))
-  \override VerticalAxisGroup #'inter-loose-line-spacing = #'((space . 0) (stretchability . 0) (padding . 0.2))
+  \override VerticalAxisGroup #'inter-loose-line-spacing = #'((space . 0)
+							      (stretchability . 0)
+							      (padding . 0.2)
+							      (minimum-distance . 2.8))
   \override VerticalAxisGroup #'non-affinity-spacing #'padding = #1.0
   \override InstrumentName #'self-alignment-Y = ##f
 
