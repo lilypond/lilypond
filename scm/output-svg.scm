@@ -676,4 +676,8 @@
    (ec 'a)))
 
 (define (utf-8-string pango-font-description string)
-  (dispatch `(fontify ,pango-font-description ,(entity 'tspan string))))
+  (let ((escaped-string (string-regexp-substitute
+			  "<" "&lt;"
+			  (string-regexp-substitute "&" "&amp;" string))))
+  (dispatch `(fontify ,pango-font-description
+		      ,(entity 'tspan escaped-string)))))
