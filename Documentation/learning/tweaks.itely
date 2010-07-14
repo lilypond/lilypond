@@ -2923,36 +2923,44 @@ dynamics, fingering and pedalling.
 @c line-width ensures no break
 @lilypond[quote,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  bes2.^\markup { \bold "Moderato" } r8
-  <<
-    { c,8 d fis bes a }
-  \\
-    {
-      % Reposition the c2 to the right of the merged note
-      c,8~ \once \override NoteColumn #'force-hshift = #1.0
-      % Move the c2 out of the main note column so the merge will work
-      \shiftOnn c2
-    }
-  \\
-    {
-      % Stem on the d2 must be down to permit merging
-      s8 \stemDown
-      \once \override Stem #'transparent = ##t
-      d2
-    }
-  \\
-    { s4 fis4. }
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\)
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    bes2.^\markup { \bold "Moderato" } r8
+    <<
+      { c,8 d fis bes a }
+      \new Voice {
+        \voiceTwo
+        c,8~
+        % Reposition the c2 to the right of the merged note
+        \once \override NoteColumn #'force-hshift = #1.0
+        % Move the c2 out of the main note column so the merge will work
+        \shiftOnn
+        c2
+      }
+      \new Voice {
+        \voiceThree
+        s8
+        % Stem on the d2 must be down to permit merging
+        \stemDown
+        % Stem on the d2 should be invisible
+        \once \override Stem #'transparent = ##t
+        d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)
+  }
 }
 
 lhMusic = \relative c' {
@@ -2982,31 +2990,43 @@ requires four voices.  These are the five beamed eighth notes,
 the tied C, the half-note D which is merged with the eighth note
 D, and the dotted quarter note F-sharp, which is also merged with
 the eighth note at the same pitch.  Everything else is in a single
-voice, so the easiest way is to introduce these four voices
+voice, so the easiest way is to introduce these extra three voices
 temporarily at the time they are needed.  If you have forgotten
-how to do this, look at @ref{I'm hearing Voices}.  Let us begin
-by entering the notes as two variables and setting up the staff
-structure in a score block, and see what LilyPond produces by
-default:
+how to do this, look at @ref{I'm hearing Voices} and @ref{Explicitly
+instantiating voices}.  Here we choose to use explicitly instantiated
+voices for the polyphonic passage, as LilyPond is better able to
+avoid collisions if all voices are explicitly instantiated.
+
+So let us begin by entering the notes as two variables, setting up
+the staff structure in a score block, and seeing what LilyPond
+produces by default:
 
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4. g8 |
-  bes1~ |
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a }
-  \\
-    { c,8~ c2 }
-  \\
-    { s8 d2 }
-  \\
-    { s4 fis4. }
-  >> |
-  g2. |
+  \new Voice {
+    r2 c4. g8 |
+    bes1~ |
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3032,7 +3052,7 @@ lhMusic = \relative c' {
 @end lilypond
 
 All the notes are right, but the appearance is far from
-satisfactory.  The tie clashes with the change in time signature,
+satisfactory.  The tie collides with the change in time signature,
 the notes are not merged together, and several notation elements
 are missing.  Let's first deal with the easier things.  We can
 easily add the left hand slur and the right hand phrasing slur,
@@ -3041,21 +3061,29 @@ since these were all covered in the Tutorial.  Doing this gives:
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  bes1~ |
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a }
-  \\
-    { c,8~ c2 }
-  \\
-    { s8 d2 }
-  \\
-    { s4 fis4. }
-  >> |
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    bes1~ |
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3103,23 +3131,31 @@ This completes bar two, giving:
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a }
-  \\
-    { c,8~ c2 }
-  \\
-    { s8 d2 }
-  \\
-    { s4 fis4. }
-  >> |
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3174,27 +3210,35 @@ to the end, giving:
 @c line-width ensures no break
 @lilypond[quote,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup { \bold "Moderato" } r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a }
-  \\
-    { c,8~ c2 }
-  \\
-    { s8 d2 }
-  \\
-    { s4 fis4. }
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3240,33 +3284,37 @@ Applying these changes gives:
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup { \bold "Moderato" } r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a }
-  \\
-    {
-      % Move the c2 out of the main note column so the merge will work
-      c,8~ \shiftOnn c2
-    }
-  \\
-    {
-      % Stem on the d2 must be down to permit merging
-      s8 \stemDown d2
-    }
-  \\
-    { s4 fis4. }
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        % Move the c2 out of the main note column so the merge will work
+        c,8~ \shiftOnn c2
+      }
+      \new Voice {
+        \voiceThree
+        % Stem on the d2 must be down to permit merging
+        s8 \stemDown d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3305,36 +3353,45 @@ the @code{force-hshift} property.  Here's the final result:
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup { \bold "Moderato" } r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  <<
-    { c,8 d fis bes a }
-  \\
-    {
-      % Reposition the c2 to the right of the merged note
-      c,8~ \once \override NoteColumn #'force-hshift = #1.0
-      % Move the c2 out of the main note column so the merge will work
-      \shiftOnn c2
-    }
-  \\
-    {
-      % Stem on the d2 must be down to permit merging
-      s8 \stemDown
-      \once \override Stem #'transparent = ##t
-      d2
-    }
-  \\
-    { s4 fis4. }
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~
+        % Reposition the c2 to the right of the merged note
+        \once \override NoteColumn #'force-hshift = #1.0
+        % Move the c2 out of the main note column so the merge will work
+        \shiftOnn
+        c2
+      }
+      \new Voice {
+        \voiceThree
+        s8
+        % Stem on the d2 must be down to permit merging
+        \stemDown
+        % Stem on the d2 should be invisible
+        \once \override Stem #'transparent = ##t
+        d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
