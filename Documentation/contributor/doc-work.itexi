@@ -535,7 +535,9 @@ command ;)
 @unnumberedsubsubsec Cross references
 
 Enter the exact @code{@@node} name of the target reference between
-the brackets (eg.@tie{}@w{@samp{@@ref@{Syntax survey@}}}).
+the brackets (eg.@tie{}@w{@samp{@@ref@{Syntax survey@}}}).  Do not
+split a cross-reference across two lines -- this causes the
+cross-reference to be rendered incorrectly in html documents.
 
 @itemize
 @item
