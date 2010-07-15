@@ -2908,7 +2908,7 @@ We end this section on Tweaks by showing the steps to be taken to
 deal with a tricky example which needs several tweaks to produce
 the desired output.  The example has been deliberately chosen to
 illustrate the use of the Notation Reference to resolve unusual
-problems with notation.  It is not representative of more usual
+problems with notation.  It is not representative of the more usual
 engraving process, so please do not let these difficulties put
 you off!  Fortunately, difficulties like these are not very common!
 
@@ -2995,7 +2995,8 @@ temporarily at the time they are needed.  If you have forgotten
 how to do this, look at @ref{I'm hearing Voices} and @ref{Explicitly
 instantiating voices}.  Here we choose to use explicitly instantiated
 voices for the polyphonic passage, as LilyPond is better able to
-avoid collisions if all voices are explicitly instantiated.
+avoid collisions if all voices are instantiated explicitly in this
+way.
 
 So let us begin by entering the notes as two variables, setting up
 the staff structure in a score block, and seeing what LilyPond
@@ -3053,7 +3054,7 @@ lhMusic = \relative c' {
 
 All the notes are right, but the appearance is far from
 satisfactory.  The tie collides with the change in time signature,
-the notes are not merged together, and several notation elements
+some notes are not merged together, and several notation elements
 are missing.  Let's first deal with the easier things.  We can
 easily add the left hand slur and the right hand phrasing slur,
 since these were all covered in the Tutorial.  Doing this gives:
@@ -3118,8 +3119,8 @@ produced by the @code{\bar "||"} command.  That's easily done.  We
 next need to correct the collision of the tie with the time signature.
 This is best done by moving the tie upwards.  Moving objects was
 covered earlier in @ref{Moving objects}, which says that objects
-positioned relative to the staff can be moved by overriding their
-@code{staff-position} property, which is specified in half staff
+positioned relative to the staff can be moved vertically by overriding
+their @code{staff-position} property, which is specified in half staff
 spaces relative to the center line of the staff.  So the following
 override placed just before the first tied note would move the tie up
 to 3.5 half staff spaces above the center line:
@@ -3182,14 +3183,14 @@ lhMusic = \relative c' {
 
 On to bar three and the start of the Moderato section.  The tutorial
 showed how to add embolded text with the @code{\markup} command, so
-adding @q{Moderato} in bold is easy.  But how do we merge notes in
+adding @qq{Moderato} in bold is easy.  But how do we merge notes in
 different voices together?  This is where we need to turn again to
 the Notation Reference for help.  A search for @qq{merge} in the
 Notation Reference index quickly leads us to the commands for merging
-differently headed and differently dotted notes in @ruser{Collision
-resolution}.  In our example we need to merge both types of note for
-the duration of the polyphonic section in bar 3, so using the
-information we find in the Notation Reference we add
+differently headed and differently dotted notes in
+@ruser{Collision resolution}.  In our example we need to merge both 
+types of note for the duration of the polyphonic section in bar 3,
+so using the information we find in the Notation Reference we add
 
 @example
 \mergeDifferentlyHeadedOn
