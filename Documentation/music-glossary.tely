@@ -2755,6 +2755,8 @@ DK: diminuendo,
 S: diminuendo,
 FI: diminuendo, hiljentyen.
 
+Abbreviated @emph{dim.} It indicates a decrease in tone volume.
+
 @seealso
 @ref{decrescendo}.
 
