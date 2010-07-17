@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 3568f0b55d035210982cf2d5844b23e249c15ad3
+    Translation of GIT committish: a02ca233bc1a2af11980d8eab1e874c559cdff09
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -113,6 +113,7 @@ et aborderons la manière de générer vos propres signes.
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
+@funindex \fermataMarkup
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -160,6 +161,21 @@ indiqué au chapitre @ref{Direction et positionnement}.
 Les articulations sont des objets de type @code{script}@tie{}; les
 propriétés de ces objets sont abordées plus en détail au chapitre
 @rinternals{Script}.
+
+Une articulation peut se rattacher aussi bien à un silence qu'à une
+note, mais @strong{pas à un silence multi-mesures}.  Il existe cependant
+un cas particulier@tie{}: le point d'orgue -- ou point d'arrêt --
+attaché à un silence valant l'intégralité de la mesure.  LilyPond
+dispose à cet effet de la commande @code{\fermataMarkup}, qui créera un
+objet @code{MultiMeasureRestText} rattaché à ce @qq{silence
+multi-mesures}. 
+
+@lilypond[verbatim,quote,relative=2]
+\override Script #'color = #red
+\override MultiMeasureRestText #'color = #blue
+a2\fermata r\fermata
+R1\fermataMarkup
+@end lilypond
 
 En dehors des articulations habituelles, vous pouvez adjoindre du texte
 -- avec ou sans mise en forme -- à n'importe quelle note.  Voir à ce
@@ -279,7 +295,7 @@ c2_\spp c^\ff
 @funindex decr
 
 Un crescendo est délimité par @code{\<} et @code{\!}, ou peut se
-terminer par une commande de nuance explicite, ou bien decrescendo ou un
+terminer par une commande de nuance explicite, ou bien un decrescendo ou un
 nouveau crescendo.  Il en va de même pour un diminuendo.  Au lieu de @code{\<}
 et @code{\>}, vous pouvez utiliser @code{\cr} et @code{\decr}, auquele
 cas LilyPond n'imprimera pas de @emph{soufflet}. 
@@ -887,7 +903,7 @@ c2. \breathe d4
 @end lilypond
 
 Un signe de respiration interrompt obligatoirement les ligatures, même
-automatiques.  Pour passer outre ce ofnctionnement, voir
+automatiques.  Pour passer outre ce fonctionnement, voir
 @ref{Ligatures manuelles}.
 
 @lilypond[verbatim,quote,relative=2]
@@ -1096,7 +1112,7 @@ Des crochets indiquent que l'accord devra être plaqué et non arpégé@tie{}:
 <c e g c>2\arpeggio
 @end lilypond
 
-Les indication d'arpeggio peuvent se présenter sous la forme de ligne
+Les indications d'arpeggio peuvent se présenter sous la forme de ligne
 discontinue à l'aide de la propriété  @code{'dash-details}.  Pour plus
 de détails à ce propos, consultez @ref{Liaisons d'articulation}.
 
