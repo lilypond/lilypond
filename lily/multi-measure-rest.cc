@@ -19,34 +19,38 @@
 
 #include "multi-measure-rest.hh"
 
-#include "warn.hh"
+#include "font-interface.hh"
+#include "lookup.hh"
+#include "misc.hh"
 #include "output-def.hh"
 #include "paper-column.hh" // urg
-#include "font-interface.hh"
+#include "percent-repeat-item.hh"
 #include "rest.hh"
-#include "misc.hh"
+#include "separation-item.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "system.hh"
 #include "text-interface.hh"
-#include "percent-repeat-item.hh"
-#include "lookup.hh"
-#include "separation-item.hh"
+#include "warn.hh"
 
 Interval
 Multi_measure_rest::bar_width (Spanner *me)
 {
+  SCM spacing_pair = me->get_property ("spacing-pair");
   Interval iv;
   Direction d = LEFT;
   do
     {
       Item *col = me->get_bound (d)->get_column ();
-
-      Interval coldim = Paper_column::break_align_width (col);
+      SCM align_sym
+	= (scm_is_pair (spacing_pair)
+	   ? index_get_cell (spacing_pair, d)
+	   : ly_symbol2scm ("staff-bar"));
+      Interval coldim = Paper_column::break_align_width (col, align_sym);
 
       iv[d] = coldim[-d];
     }
-  while ((flip (&d)) != LEFT);
+  while (flip (&d) != LEFT);
 
   return iv;
 }
@@ -291,7 +295,7 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
   if (! (sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
     {
       programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
-      return ;
+      return;
     }
 
   Item *li = sp->get_bound (LEFT)->get_column ();
@@ -334,9 +338,9 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
   calculate_spacing_rods (me, sym_width);
 
-  return SCM_UNSPECIFIED;  
+  return SCM_UNSPECIFIED;
 }
-  
+
 MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_text_rods, 1);
 SCM
 Multi_measure_rest::set_text_rods (SCM smob)
@@ -357,12 +361,12 @@ ADD_INTERFACE (Multi_measure_rest,
 	       "A rest that spans a whole number of measures.",
 
 	       /* properties */
+	       "bound-padding "
 	       "expand-limit "
-	       "measure-count "
 	       "hair-thickness "
+	       "measure-count "
+	       "minimum-length "
+	       "spacing-pair "
 	       "thick-thickness "
 	       "use-breve-rest "
-	       "bound-padding "
-	       "minimum-length "
 	       );
-

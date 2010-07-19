@@ -755,6 +755,16 @@ there.")
      (spacing-increment ,number? "Add this much space for a doubled
 duration.  Typically, the width of a note head.  See also
 @rinternals{spacing-spanner-interface}.")
+     (spacing-pair ,pair? "A pair of alignment symbols which set an object's
+spacing relative to its left and right @code{BreakAlignment}s.
+
+For example, a @code{MultiMeasureRest} will ignore prefatory items at its
+bounds (i.e., clefs, key signatures and time signatures) using the following
+override:
+
+@example
+\\override MultiMeasureRest #'spacing-pair = #'(staff-bar . staff-bar)
+@end example")
      (springs-and-rods ,boolean? "Dummy variable for triggering
 spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")

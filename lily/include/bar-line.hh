@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BAR_HH
-#define BAR_HH
+#ifndef BAR_LINE_HH
+#define BAR_LINE_HH
 
 #include "lily-proto.hh"
 #include "grob-interface.hh"
@@ -33,10 +33,11 @@ public:
   static Stencil compound_barline (Grob *, string, Real height, bool rounded);
   static Stencil simple_barline (Grob *, Real wid, Real height, bool rounded);
   static Interval bar_y_extent (Grob *, Grob *);
+  static bool non_empty_barline (Grob *me);
+
   DECLARE_SCHEME_CALLBACK (calc_bar_extent, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_bar_size, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_anchor, (SCM));
 };
-#endif // BAR_HH
-
+#endif // BAR_LINE_HH
