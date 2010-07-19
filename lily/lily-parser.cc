@@ -165,6 +165,12 @@ Lily_parser::parse_string (string ly_code)
 }
 
 void
+Lily_parser::include_string (string ly_code)
+{
+  lexer_->add_string_include (ly_code);
+}
+
+void
 Lily_parser::clear ()
 {
   if (lexer_)
