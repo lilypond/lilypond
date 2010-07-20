@@ -502,9 +502,11 @@ correction and @code{1} for full correction.")
 ;; l
 ;;
      (labels ,list? "List of labels (symbols) placed on a column.")
-     (layer ,integer? "The output layer (a value between 0
-and@tie{}2): Layers define the order of printing objects.  Objects in
-lower layers are overprinted by objects in higher layers.")
+     (layer ,integer? "An integer which determines the order of printing
+objects.  Objects with the lowest value of layer are drawn first, then
+objects with progressively higher values are drawn, so objects with
+higher values overwrite objects with lower values.  By default most
+objects are assigned a layer value of 1.")
      (ledger-line-thickness ,number-pair? "The thickness of ledger
 lines.  It is the sum of 2@tie{}numbers: The first is the factor for
 line thickness, and the second for staff space.  Both contributions
@@ -753,6 +755,16 @@ there.")
      (spacing-increment ,number? "Add this much space for a doubled
 duration.  Typically, the width of a note head.  See also
 @rinternals{spacing-spanner-interface}.")
+     (spacing-pair ,pair? "A pair of alignment symbols which set an object's
+spacing relative to its left and right @code{BreakAlignment}s.
+
+For example, a @code{MultiMeasureRest} will ignore prefatory items at its
+bounds (i.e., clefs, key signatures and time signatures) using the following
+override:
+
+@example
+\\override MultiMeasureRest #'spacing-pair = #'(staff-bar . staff-bar)
+@end example")
      (springs-and-rods ,boolean? "Dummy variable for triggering
 spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")
@@ -991,7 +1003,7 @@ objects.")
      (adjacent-pure-heights ,pair? "A pair of vectors.  Used by a
 @code{VerticalAxisGroup} to cache the @code{Y-extent}s of different column
 ranges.")
-     
+
      (bar-extent ,number-pair? "The Y-extent of the actual bar line.
 This may differ from @code{Y-extent} because it does not include the dots in
 a repeat bar line.")

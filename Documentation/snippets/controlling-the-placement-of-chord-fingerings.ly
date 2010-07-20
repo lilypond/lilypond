@@ -6,7 +6,7 @@
 \header {
   lsrtags = "editorial-annotations, chords, keyboards, fretted-strings"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Se puede controlar con precisión la colocación de los números de
 digitación.  Para que se tenga en cuenta la orientación de las
@@ -18,14 +18,12 @@ sea una sola nota.
   doctitlees = "Controlar la colocación de las digitaciones de acordes"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Position von Fingersatzzahlen kann exakt kontrolliert werden.
 
 "
   doctitlede = "Position von Fingersatz in Akkorden kontrollieren"
-
 %% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
 
   texidocfr = "

@@ -3005,6 +3005,31 @@ def conv (str):
     str = re.sub (r'\\(cresc|dim|endcresc|enddim)\b', r'\\deprecated\1', str)
     return str
 
+@rule ((2, 13, 29),
+       _ ("Eliminate beamSettings, beatLength, \setBeatGrouping, \overrideBeamSettings and \revertBeamSettings"))
+def conv(str):
+    if re.search(r'overrideBeamSettings', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % _("\overrideBeamSettings.  Use \set beamExceptions or \overrideTimeSignatureSettings.\n"))
+        stderr_write(UPDATE_MANUALLY)
+    if re.search(r'revertBeamSettings', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % _("\revertBeamSettings. Use \set beamExceptions or \revertTimeSignatureSettings.\n"))
+        stderr_write(UPDATE_MANUALLY)
+    if re.search(r'beamSettings', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % _("beamSettings. Use baseMoment, beatStructure, and beamExceptions.\n"))
+        stderr_write(UPDATE_MANUALLY)
+    if re.search(r'beatLength', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % _("beatLength. Use baseMoment and beatStructure.\n"))
+        stderr_write(UPDATE_MANUALLY)
+    if re.search(r'setBeatGrouping', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % _("setbeatGrouping. Use baseMoment and beatStructure.\n"))
+        stderr_write(UPDATE_MANUALLY)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

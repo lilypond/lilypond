@@ -62,7 +62,7 @@ protected:
 
   Beaming_options beaming_options_;
   Beaming_options finished_beaming_options_;
-  
+
   void typeset_beam ();
   void set_melisma (bool);
 
@@ -167,7 +167,7 @@ Beam_engraver::process_music ()
   if (stop_ev_ && beam_)
     {
       announce_end_grob (beam_, stop_ev_->self_scm ());
-      
+
     }
 }
 
@@ -212,7 +212,7 @@ Beam_engraver::stop_translation_timestep ()
       finished_beam_ = beam_;
       finished_beam_info_ = beam_info_;
       finished_beaming_options_ = beaming_options_;
-      
+
       stop_ev_ = 0;
       beam_ = 0;
       beam_info_ = 0;
@@ -251,7 +251,7 @@ Beam_engraver::acknowledge_stem (Grob_info info)
 {
   if (!beam_)
     return;
-  
+
   Moment now = now_mom ();
   if (!valid_start_point ())
     return;
@@ -259,7 +259,7 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   Item *stem = dynamic_cast<Item *> (info.grob ());
   if (Stem::get_beam (stem))
     return;
-  
+
   Stream_event *ev = info.ultimate_event_cause ();
   if (!ev->in_event_class ("rhythmic-event"))
     {
@@ -298,13 +298,14 @@ ADD_TRANSLATOR (Beam_engraver,
 		/* doc */
 		"Handle @code{Beam} events by engraving beams.  If omitted,"
 		" then notes are printed with flags instead of beams.",
-		
+
 		/* create */
 		"Beam ",
 
 		/* read */
+                "baseMoment "
 		"beamMelismaBusy "
-		"beatLength "
+		"beatStructure "
 		"subdivideBeams ",
 
 		/* write */
@@ -317,7 +318,7 @@ public:
   TRANSLATOR_DECLARATIONS (Grace_beam_engraver);
 
   DECLARE_TRANSLATOR_LISTENER (beam);
-  
+
 protected:
   virtual bool valid_start_point ();
   virtual bool valid_end_point ();
@@ -365,13 +366,14 @@ ADD_TRANSLATOR (Grace_beam_engraver,
 		"Handle @code{Beam} events by engraving beams.  If omitted,"
 		" then notes are printed with flags instead of beams.  Only"
 		" engraves beams when we are at grace points in time.",
-		
+
 		/* create */
 		"Beam ",
 
 		/* read */
+                "baseMoment "
 		"beamMelismaBusy "
-		"beatLength "
+		"beatStructure "
 		"subdivideBeams ",
 
 		/* write */

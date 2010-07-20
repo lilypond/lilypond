@@ -6,14 +6,13 @@
 \header {
   lsrtags = "staff-notation"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Se pueden crear indicaciones metronómicas nuevas en modo de
 marcado, pero no cambian el tempo en la salida MIDI.
 
 "
   doctitlees = "Crear indicaciones metronómicas en modo de marcado"
-
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
@@ -23,7 +22,6 @@ aber sie ändern nicht das Tempo für die MIDI-Ausgabe.
 "
 
   doctitlede = "Eine Metronombezeichnung als Textbeschriftung erstellen"
-
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Vous pouvez créer des indications de tempo sous la forme d'étiquettes

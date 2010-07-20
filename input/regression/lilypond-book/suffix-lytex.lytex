@@ -1,0 +1,7 @@
+\documentclass{article}
+\begin{document}
+Testing lilypond-book tex mode with .lytex file suffix.
+\begin[fragment,relative=2]{lilypond}
+\key c \minor c4 es d2
+\end{lilypond}
+\end{document}

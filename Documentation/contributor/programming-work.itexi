@@ -1983,6 +1983,69 @@ argument,
 where around-central-C is some function that is called from
 make-autochange-music.
 
+@subheading More on context and music properties
+
+From Neil Puttock, in response to a question about transposition:
+
+Context properties (using \set & \unset) are tied to engravers: they
+provide information relevant to the generation of graphical objects.
+
+Since transposition occurs at the music interpretation stage, it has
+no direct connection with engravers: the pitch of a note is fixed
+before a notehead is created.  Consider the following minimal snippet:
+
+@example
+@{ c' @}
+@end example
+
+This generates (simplified) a NoteEvent, with its pitch and duration
+as event properties,
+
+@example
+(make-music
+  'NoteEvent
+  'duration
+  (ly:make-duration 2 0 1 1)
+  'pitch
+  (ly:make-pitch 0 0 0)
+@end example
+
+which the Note_heads_engraver hears.  It passes this information on to
+the NoteHead grob it creates from the event, so the head's correct
+position and duration-log can be determined once it's ready for
+printing.
+
+If we transpose the snippet,
+
+@example
+\transpose c d @{ c' @}
+@end example
+
+the pitch is changed before it reaches the engraver (in fact, it
+happens just after the parsing stage with the creation of a
+TransposedMusic music object):
+
+@example
+(make-music
+ 'NoteEvent
+ 'duration
+ (ly:make-duration 2 0 1 1)
+ 'pitch
+ (ly:make-pitch 0 1 0)
+@end example
+
+You can see an example of a music property relevant to transposition:
+untransposable.
+
+@example
+\transpose c d @{ c'2 \withMusicProperty #'untransposable ##t c' @}
+@end example
+
+-> the second c' remains untransposed.
+
+Take a look at lily/music.cc to see where the transposition takes place.
+
+
 @subheading How do I tell about the execution environment?
 
 I get lost figuring out what environment the code I'm looking at is in when it

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
  doctitlees = "Uso de ligaduras en los arpegios"
  texidoces = "
 En ocasiones se usan ligaduras de unión para escribir los arpegios.
@@ -18,7 +18,6 @@ en principio también se puede usar para notas normales consecutivas.
 
 "
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
  texidocde = "
  Überbindungen werden teilweise benutzt, um Arpeggios zu notieren.  In
@@ -29,7 +28,6 @@ ein Tremolo mit einem Akkord zu überbinden, kann aber prinzipiell auch
 für normale Überbindungen eingesetzt werden
 "
   doctitlede = "Überbingungen für Arpeggio genutzen"
-
 
 
 %% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685

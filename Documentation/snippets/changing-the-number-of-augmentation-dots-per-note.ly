@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.26
-\version "2.13.26"
+\version "2.13.29"
 \header {
   lsrtags = "rhythms,expressive-marks"
   texidoc = "This code demonstrates how to change the number of

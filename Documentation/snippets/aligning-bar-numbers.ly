@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 
 Los números de compás se alinean de forma predeterminada por la
@@ -20,7 +20,6 @@ alineados por la izquierda con ella.
 
   doctitlees = "Alineación de los números de compás"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Taktnummern sind standardmäßig links an ihrem Ursprungsobjet
@@ -32,7 +31,6 @@ Taktstrich gesetzt werden.
 
 "
   doctitlede = "Taktnummern ausrichten"
-
 
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b

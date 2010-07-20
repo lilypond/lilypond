@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 
 Los números de compás también se pueden imprimir dentro de rectángulos o de circunferencias.
@@ -15,14 +15,12 @@ Los números de compás también se pueden imprimir dentro de rectángulos o de 
   doctitlees = "Imprimir números de compás dentro de rectángulos o circunferencias"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Taktnummern können auch in Boxen oder Kreisen gesetzt werden.
 
 "
   doctitlede = "Setzen von Taktnummern in Kästen oder Kreisen"
-
 
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b

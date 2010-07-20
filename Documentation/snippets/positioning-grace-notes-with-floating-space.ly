@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 
 Al establecer la propiedad @code{'strict-grace-spacing} hacemos que
@@ -21,7 +21,6 @@ columnas musicales de las notas principales.
   doctitlees = "Posicionamiento de las notas de adorno con espacio flotante"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Wenn man die Eigenschaft @code{'strict-grace-spacing} aktiviert,
@@ -32,7 +31,6 @@ Hauptnote gesetzt.
 
 "
   doctitlede = "Positionierung von Verzierungen mit verschiebbarem Platz"
-
 
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b

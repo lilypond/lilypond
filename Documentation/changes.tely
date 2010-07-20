@@ -67,6 +67,16 @@ which scares away people.
 @end ignore
 
 @item
+The autobeaming settings syntax has been changed.  beatLength,
+beatGrouping, beamSettings, and measureGrouping have all been eliminated.
+Autobeaming is now controlled by baseMoment, beatStructure, and
+beamExceptions.  Default settings for each of these properties can be
+stored for any time signature in time-signature-settings, so that
+when the time signature is changed, the autobeaming will automatically
+change.  The new syntax should be much easier and require fewer
+overrides.
+
+@item
 The SVG backend has optional support for
 @uref{http://www.w3.org/Submission/WOFF, WOFF fonts}.  Using the Scheme
 option @code{-d svg-woff} together with the SVG backend selection

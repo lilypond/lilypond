@@ -1095,7 +1095,7 @@ con Vim, probablemente prefiera utilizar un editor distinto para
 escribir archivos de entrada de LilyPond.
 
 Hay más información sobre la configuración de Emacs y de Vim en
-@rprogram{Text editor support}.
+@rprogram{Apoyo respecto de los editores de texto}.
 
 @divEnd
 

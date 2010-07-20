@@ -1,0 +1,22 @@
+\documentclass[a4paper]{article}
+
+\begin{document}
+
+Documents for \verb+lilypond-book+ may freely mix music and text. The music
+snippets will be properly line-broken. For example,
+
+\begin{lilypond}
+\relative c' {
+  c2 g'2 \times 2/3 { f8 e d } c'2 g4
+  c,2 g'2 \times 2/3 { f8 e d } c'2 g4
+  c,2 g'2 \times 2/3 { f8 e d } c'2 g4
+  c,2 g'2 \times 2/3 { f8 e d } c'2 g4
+  c,2 g'2 \times 2/3 { f8 e d } c'2 g4
+  c,2 g'2 \times 2/3 { f8 e d } c'2 g4
+  c,2 g'2 \times 2/3 { f8 e d } c'2 g4
+  c,2 g'2 \times 2/3 { f8 e d } c'2 g4
+}
+\end{lilypond}
+
+
+\end{document}

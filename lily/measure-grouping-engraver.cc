@@ -22,7 +22,6 @@
 #include "global-context.hh"
 #include "engraver.hh"
 #include "spanner.hh"
-#include "beam-settings.hh"
 
 #include "translator.icc"
 
@@ -73,27 +72,18 @@ Measure_grouping_engraver::process_music ()
   if (now.grace_part_)
     return;
 
-  SCM settings = get_property ("beamSettings");
-  SCM grouping = SCM_EOL;
-  if (scm_is_pair (settings))
-    {
-      SCM time_signature_fraction = get_property ("timeSignatureFraction");
-      grouping = ly_beam_grouping (settings,
-                                   time_signature_fraction,
-                                   ly_symbol2scm ("end"),
-                                   ly_symbol2scm ("*"));
-    }
+  SCM grouping = get_property ("beatStructure");
   if (scm_is_pair (grouping))
     {
       Moment *measpos = unsmob_moment (get_property ("measurePosition"));
       Rational mp = measpos->main_part_;
 
-      Moment *beatlen_mom = unsmob_moment (get_property ("beatLength"));
-      Rational beat_length = beatlen_mom->main_part_;
+      Moment *base_mom = unsmob_moment (get_property ("baseMoment"));
+      Rational base_moment = base_mom->main_part_;
 
       Rational where (0);
       for (SCM s = grouping; scm_is_pair (s);
-	   where += Rational ((int) scm_to_int (scm_car (s))) * beat_length,
+	   where += Rational ((int) scm_to_int (scm_car (s))) * base_moment,
 	     s = scm_cdr (s))
 	{
 	  int grouplen = scm_to_int (scm_car (s));
@@ -109,7 +99,7 @@ Measure_grouping_engraver::process_music ()
 	         grouping_ = make_spanner ("MeasureGrouping", SCM_EOL);
 	         grouping_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
 
-	         stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * beat_length;
+	         stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * base_moment;
 	         get_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
 
 	         if (grouplen == 3)
@@ -138,10 +128,10 @@ ADD_TRANSLATOR (Measure_grouping_engraver,
 		"MeasureGrouping ",
 
 		/* read */
-		"beatLength "
+                "baseMoment "
+		"beatStructure "
 		"currentMusicalColumn "
-		"measurePosition "
-		"beamSettings ",
+		"measurePosition ",
 
 		/* write */
 		""

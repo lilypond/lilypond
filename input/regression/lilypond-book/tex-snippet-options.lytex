@@ -1,0 +1,38 @@
+\documentclass[a4paper, 12pt]{article}
+
+\begin{document}
+
+\section{Snippet options}
+
+Fragment:
+\begin{lilypond}[fragment]
+c d e %\score
+\end{lilypond}
+
+This shows the verbatim option:
+\begin{lilypond}[fragment,verbatim]
+c' d' e'
+\end{lilypond}
+
+printfilename:
+\lilypondfile[printfilename]{include.ly}
+
+staffsize:
+\begin{lilypond}[staffsize=7,fragment]
+\context Voice <<c' e' g'>>
+\end{lilypond}
+\lilypond[fragment,staffsize=7]{\context Voice <<c' es' g'>>}
+
+relative:
+\lilypond[relative=1]{ c4 f b e }
+
+quote:
+\lilypond[quote,fragment]{\relative c' c1 }
+
+fragment, quote, staffsize=26, verbatim:
+\begin{lilypond}[fragment,quote,staffsize=26,verbatim]
+  c'4 f16
+\end{lilypond}
+
+
+\end{document}

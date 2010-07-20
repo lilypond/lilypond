@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
  doctitlees = "Posicionar los silencios multicompás"
  texidoces = "
 A diferencia de los silencios normales, no existe una instrucción
@@ -19,7 +19,6 @@ colocación de los silencios multicompás se puede controlar como se
 ve a continuación:
 
 "
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Anders als bei normalen Pausen gibt es keinen direkten Befehl, um die
@@ -30,7 +29,6 @@ unterschieden.  Die Position von Ganztaktpausen kann wie folgt verändert
 werden:
  "
   doctitlede = "Positionierung von Ganztaktpausen"
-
 
 
 %% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685

@@ -383,23 +383,32 @@ Constrained_breaking::initialize ()
   /* NOTE: currently, we aren't using the space_ field of a
      Line_details for anything.  That's because the approximations
      used for scoring a page configuration don't actually space things
-     properly (for speed reasong) using springs anchored at the staff
+     properly (for speed reasons) using springs anchored at the staff
      refpoints.  Rather, the "space" is placed between the extent
      boxes.  To get a good result, therefore, the "space" value for
      page breaking needs to be much smaller than the "space" value for
-     page layout.  Currently, we just make it zero always.
+     page layout.  Currently, we just make it zero always, which means
+     that we will always prefer a tighter vertical layout.
   */
   between_system_space_ = 0;
   between_system_padding_ = 0;
+  between_system_min_distance_ = 0;
+  between_scores_system_padding_ = 0;
+  between_scores_system_min_distance_ = 0;
   before_title_padding_ = 0;
+  before_title_min_distance_ = 0;
 
   Output_def *l = pscore_->layout ();
 
   SCM spacing_spec = l->c_variable ("between-system-spacing");
+  SCM between_scores_spec = l->c_variable ("between-scores-system-spacing");
   SCM title_spec = l->c_variable ("before-title-spacing");
   SCM page_breaking_spacing_spec = l->c_variable ("page-breaking-between-system-spacing");
   Page_layout_problem::read_spacing_spec (spacing_spec,
 					  &between_system_padding_,
+					  ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (between_scores_spec,
+					  &between_scores_system_padding_,
 					  ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
 					  &between_system_padding_,
@@ -407,6 +416,18 @@ Constrained_breaking::initialize ()
   Page_layout_problem::read_spacing_spec (title_spec,
 					  &before_title_padding_,
 					  ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (between_scores_spec,
+					  &between_scores_system_min_distance_,
+					  ly_symbol2scm ("minimum-distance"));
+  Page_layout_problem::read_spacing_spec (spacing_spec,
+					  &between_system_min_distance_,
+					  ly_symbol2scm ("minimum-distance"));
+  Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
+					  &between_system_min_distance_,
+					  ly_symbol2scm ("minimum-distance"));
+  Page_layout_problem::read_spacing_spec (title_spec,
+					  &before_title_min_distance_,
+					  ly_symbol2scm ("minimum-distance"));
 
   Interval first_line = line_dimensions_int (pscore_->layout (), 0);
   Interval other_lines = line_dimensions_int (pscore_->layout (), 1);
@@ -460,6 +481,7 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
   System *sys = pscore_->root_system ();
   Interval begin_of_line_extent = sys->begin_of_line_pure_height (start_rank, end_rank);
   Interval rest_of_line_extent = sys->rest_of_line_pure_height (start_rank, end_rank);
+  bool last = (end == breaks_.size () - 1);
 
   Grob *c = all_[breaks_[end]];
   out->last_column_ = c;
@@ -486,8 +508,10 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
 			 || isnan (rest_of_line_extent[RIGHT]))
     ? Interval (0, 0) : rest_of_line_extent;
   out->shape_ = Line_shape (begin_of_line_extent, rest_of_line_extent);
-  out->padding_ = between_system_padding_;
+  out->padding_ = last ? between_scores_system_padding_ : between_system_padding_;
   out->title_padding_ = before_title_padding_;
+  out->min_distance_ = last ? between_scores_system_min_distance_ : between_system_min_distance_;
+  out->title_min_distance_ = before_title_min_distance_;
   out->space_ = between_system_space_;
   out->inverse_hooke_ = out->full_height () + between_system_space_;
 }
@@ -509,6 +533,8 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   title_padding_ = 0;
   Page_layout_problem::read_spacing_spec (spec, &padding_, ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (title_spec, &title_padding_, ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (spec, &min_distance_, ly_symbol2scm ("minimum-distance"));
+  Page_layout_problem::read_spacing_spec (title_spec, &title_min_distance_, ly_symbol2scm ("minimum-distance"));
 
   last_column_ = 0;
   force_ = 0;
@@ -532,6 +558,7 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   SCM first_scm = pb->get_property ("first-markup-line");
   first_markup_line_ = to_boolean (first_scm);
   tight_spacing_ = to_boolean (pb->get_property ("tight-spacing"));
+  first_refpoint_offset_ = 0;
 }
 
 Real

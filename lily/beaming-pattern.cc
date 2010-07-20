@@ -18,7 +18,6 @@
 */
 
 #include "context.hh"
-#include "beam-settings.hh"
 #include "beaming-pattern.hh"
 
 /*
@@ -174,10 +173,10 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
       if (infos_[i].start_moment_ == measure_pos)
 	infos_[i].rhythmic_importance_ = -2;
 
-      // Mark the start of each beat up to the end of this beat group.
-      for (int beat = 1; beat <= count; beat++)
+      // Mark the start of each unit up to the end of this beat group.
+      for (int unit = 1; unit <= count; unit++)
 	{
-	  Moment next_measure_pos = measure_pos + options.beat_length_;
+	  Moment next_measure_pos = measure_pos + options.base_moment_;
 
 	  while (i < infos_.size () && infos_[i].start_moment_ < next_measure_pos)
 	    {
@@ -190,7 +189,7 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
 	      // in an 8th-note triplet with a quarter-note beat, 1/3 of a beat should be
 	      // more important than 1/2.
 	      if (infos_[i].rhythmic_importance_ >= 0)
-		infos_[i].rhythmic_importance_ = (dt / options.beat_length_).den ();
+		infos_[i].rhythmic_importance_ = (dt / options.base_moment_).den ();
 
 	      i++;
 	    }
@@ -293,10 +292,12 @@ Beaming_pattern::split_pattern (int i)
 void
 Beaming_options::from_context (Context *context)
 {
-  grouping_ = ly_beat_grouping (context->self_scm ());
+  grouping_ = context->get_property ("beatStructure");
   subdivide_beams_ = to_boolean (context->get_property ("subdivideBeams"));
-  beat_length_ = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));
-  measure_length_ = robust_scm2moment (context->get_property ("measureLength"), Moment (4, 4));
+  base_moment_ = robust_scm2moment (context->get_property ("baseMoment"),
+                                    Moment (1, 4));
+  measure_length_ = robust_scm2moment (context->get_property ("measureLength"),
+                                       Moment (4, 4));
 }
 
 Beaming_options::Beaming_options ()

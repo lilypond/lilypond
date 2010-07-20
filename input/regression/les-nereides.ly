@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.13.29"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -235,9 +235,8 @@ middleDynamics = {
 theScore = \score{
     \context PianoStaff <<
         \new Staff = "treble" <<
-            \overrideBeamSettings #'Score #'(4 . 4) #'end
-              #'((* . (1 1 1 1))
-                 ((1 . 32) (4 4 4 4 4 4 4 4)))
+            \set beamExceptions = #'((end . (((1 . 8) . (2 2 2 2))
+                                           ((1 . 32) . (4 4 4 4 4 4 4 4)))))
 	    \treble
 	    \trebleTwo
         >>

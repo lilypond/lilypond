@@ -19,26 +19,20 @@
 
 #include "note-spacing.hh"
 
+#include "accidental-placement.hh"
 #include "bar-line.hh"
 #include "directional-element-interface.hh"
 #include "grob-array.hh"
-#include "paper-column.hh"
 #include "moment.hh"
 #include "note-column.hh"
-#include "warn.hh"
-#include "stem.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
+#include "pointer-group-interface.hh"
 #include "separation-item.hh"
 #include "spacing-interface.hh"
 #include "staff-spacing.hh"
-#include "accidental-placement.hh"
-#include "output-def.hh"
-#include "pointer-group-interface.hh"
-
-static bool
-non_empty_barline (Grob *me)
-{
-  return Bar_line::has_interface (me) && !me->extent (me, X_AXIS).is_empty ();
-}
+#include "stem.hh"
+#include "warn.hh"
 
 /*
   TODO: detect hshifts due to collisions, and account for them in
@@ -49,29 +43,29 @@ Spring
 Note_spacing::get_spacing (Grob *me, Item *right_col,
 			   Real base_space, Real increment)
 {
-  vector<Item*> note_columns = Spacing_interface::left_note_columns (me);
+  vector<Item *> note_columns = Spacing_interface::left_note_columns (me);
   Real left_head_end = 0;
 
   for (vsize i = 0; i < note_columns.size (); i++)
     {
-       SCM r = note_columns[i]->get_object ("rest");
-       Grob *g = unsmob_grob (r);
-       Grob *col = note_columns[i]->get_column ();
+      SCM r = note_columns[i]->get_object ("rest");
+      Grob *g = unsmob_grob (r);
+      Grob *col = note_columns[i]->get_column ();
 
-       if (!g)
-	 g = Note_column::first_head (note_columns[i]);
+      if (!g)
+	g = Note_column::first_head (note_columns[i]);
 
-       /*
-	 Ugh. If Stem is switched off, we don't know what the
-	 first note head will be.
-       */
-       if (g)
-	 {
-	   if (g->common_refpoint (col, X_AXIS) != col)
-	     programming_error ("Note_spacing::get_spacing (): Common refpoint incorrect");
-	   else
-	     left_head_end = g->extent (col, X_AXIS)[RIGHT];
-	 }
+      /*
+	Ugh. If Stem is switched off, we don't know what the
+	first note head will be.
+      */
+      if (g)
+	{
+	  if (g->common_refpoint (col, X_AXIS) != col)
+	    programming_error ("Note_spacing::get_spacing (): Common refpoint incorrect");
+	  else
+	    left_head_end = g->extent (col, X_AXIS)[RIGHT];
+	}
     }
 
   /*
@@ -97,7 +91,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     {
       Grob *bar = Pointer_group_interface::find_grob (right_col,
 						      ly_symbol2scm ("elements"),
-						      non_empty_barline);
+						      Bar_line::non_empty_barline);
 
       if (bar)
 	{
@@ -125,7 +119,7 @@ knee_correction (Grob *note_spacing, Grob *right_stem, Real increment)
 {
   Real note_head_width = increment;
   Grob *head = right_stem ? Stem::support_head (right_stem) : 0;
-  Grob *rcolumn = dynamic_cast<Item*> (head)->get_column ();
+  Grob *rcolumn = dynamic_cast<Item *> (head)->get_column ();
 
   Interval head_extent;
   if (head)
@@ -170,44 +164,43 @@ same_direction_correction (Grob *note_spacing, Drul_array<Interval> head_posns)
 {
   /*
     Correct for the following situation:
-    
+
     X      X
     |      |
     |      |
     |   X  |
     |  |   |
     ========
-    
+
     ^ move the center one to the left.
-    
-    
+
+
     this effect seems to be much more subtle than the
     stem-direction stuff (why?), and also does not scale with the
     difference in stem length.
-    
+
   */
 
   Interval hp = head_posns[LEFT];
   hp.intersect (head_posns[RIGHT]);
   if (!hp.is_empty ())
     return 0;
-  
+
   Direction lowest
     = (head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
-  
+
   Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP];
   Real corr = robust_scm2double (note_spacing->get_property ("same-direction-correction"), 0);
-  
+
   return (delta > 1) ? -lowest * corr : 0;
 }
 
-
 /*
-   Correct for optical illusions. See [Wanske] p. 138. The combination
-   up-stem + down-stem should get extra space, the combination
-   down-stem + up-stem less.
+  Correct for optical illusions. See [Wanske] p. 138. The combination
+  up-stem + down-stem should get extra space, the combination
+  down-stem + up-stem less.
 
-   TODO: have to check whether the stems are in the same staff.
+  TODO: have to check whether the stems are in the same staff.
 */
 void
 Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
@@ -235,12 +228,12 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   Grob *bar = Spacing_interface::extremal_break_aligned_grob (me, RIGHT,
 							      rcolumn->break_status_dir (),
 							      &bar_xextent);
-  if (bar && dynamic_cast<Item*> (bar)->get_column () == rcolumn)
+  if (bar && dynamic_cast<Item *> (bar)->get_column () == rcolumn)
     bar_yextent = Staff_spacing::bar_y_positions (bar);
 
   do
     {
-      vector<Grob*> const &items (ly_scm2link_array (props [d]));
+      vector<Grob *> const &items (ly_scm2link_array (props [d]));
       for (vsize i = 0; i < items.size (); i++)
 	{
 	  Item *it = dynamic_cast<Item *> (items[i]);
@@ -252,8 +245,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	  /*
 	    Find accidentals which are sticking out of the right side.
 	  */
-	 if (d == RIGHT)
-            acc_right = acc_right || Note_column::accidentals (it);
+	  if (d == RIGHT)
+	    acc_right = acc_right || Note_column::accidentals (it);
 
 	  Grob *stem = Note_column::get_stem (it);
 
@@ -286,8 +279,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 		can't look at stem-end-position, since that triggers
 		beam slope computations.
 	      */
-	      Real stem_end = hp[stem_dir] +
-		stem_dir * robust_scm2double (stem->get_property ("length"), 7);
+	      Real stem_end = hp[stem_dir]
+		+ stem_dir * robust_scm2double (stem->get_property ("length"), 7);
 
 	      stem_posns[d] = Interval (min (chord_start, stem_end),
 					max (chord_start, stem_end));

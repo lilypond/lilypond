@@ -6,7 +6,7 @@
 \header {
   lsrtags = "pitches, staff-notation"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Los pasajes citados tienen en cuenta la transposición de la fuente
 tanto como la del destino.  En este ejemplo, todos los
@@ -19,7 +19,6 @@ se transportan todas las notas (incluidas las citadas).
 
 doctitlees = "Citar otra voz con transposición"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Zitate berücksichtigen sowohl die Transposition der Quelle als auch
@@ -30,7 +29,6 @@ in diesem Fall werden alle Noten (auch die zitierten) transponiert.
 
 "
   doctitlede = "Eine Stimme mit Transposition zitieren"
-
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 Les citations tiennent compte de la transposition, aussi bien celle de

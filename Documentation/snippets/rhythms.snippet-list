@@ -9,6 +9,7 @@ beam-grouping-in-7-8-time.ly
 beams-across-line-breaks.ly
 changing-beam-knee-gap.ly
 changing-form-of-multi-measure-rests.ly
+changing-the-number-of-augmentation-dots-per-note.ly
 changing-the-time-signature-without-affecting-the-beaming.ly
 changing-the-tuplet-number.ly
 changing-time-signatures-inside-a-polymetric-section-using--scaledurations.ly
@@ -16,7 +17,6 @@ chant-or-psalms-notation.ly
 compound-time-signatures.ly
 conducting-signs,-measure-grouping-signs.ly
 controlling-tuplet-bracket-visibility.ly
-dot-count-override.ly
 engraving-ties-manually.ly
 engraving-tremolos-with-floating-beams.ly
 entering-several-tuplets-using-only-one--times-command.ly
@@ -51,7 +51,7 @@ rhythmic-slashes.ly
 skips-in-lyric-mode-2.ly
 skips-in-lyric-mode.ly
 stemlets.ly
-sub-dividing-beams.ly
+subdividing-beams.ly
 three-sided-box.ly
 time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly
 tweaking-grace-layout-within-music.ly

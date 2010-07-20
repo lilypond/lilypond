@@ -6,7 +6,7 @@
 \header {
   lsrtags = "chords"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Las alteraciones y los signos «más» pueden aparecer antes o
 después de los números, según el valor de las propiedades
@@ -15,7 +15,6 @@ después de los números, según el valor de las propiedades
 
 "
   doctitlees = "Cambiar las posiciones de las alteraciones del bajo cifrado"
-
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "

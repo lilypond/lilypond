@@ -6,7 +6,7 @@
 \header {
   lsrtags = "ancient-notation"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Aquí se muestran muchos de (¿o quizá todos?) los símbolos que
 están contemplados por la capacidad de LilyPond para la música
@@ -14,7 +14,6 @@ antigua.
 "
 
   doctitlees = "Tipografía de música antigua"
-
 
 %% Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
   texidocfr ="

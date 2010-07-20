@@ -100,17 +100,17 @@ compress_lines (const vector<Line_details> &orig)
 	  Line_details const &old = ret.back ();
 	  Line_details compressed = orig[i];
 	  /*
-	    "padding" is the padding below the current line.  The padding below
-	    "old" (taking into account whether "old" is a title) is already
-	    accounted for in the extent of the compressed line.  The padding
-	    below the compressed line, therefore, should depend on whether its
-	    bottom-most line is a title or not.
+	    We must account for the padding between the lines that we are compressing.
+	    The padding values come from "old," which is the upper system here. Note
+	    the meaning of tight-spacing: if a system has tight-spacing, then the padding
+	    _before_ it is ignored.
 	  */
 	  Real padding = 0;
 	  if (!orig[i].tight_spacing_)
 	    padding = orig[i].title_ ? old.title_padding_ : old.padding_;
 
 	  compressed.shape_ = old.shape_.piggyback (orig[i].shape_, padding);
+	  compressed.first_refpoint_offset_ += compressed.shape_.rest_[UP] - old.shape_.rest_[UP];
 	  compressed.space_ += old.space_;
 	  compressed.inverse_hooke_ += old.inverse_hooke_;
 
@@ -858,19 +858,38 @@ Page_breaking::compute_line_heights ()
   Real prev_hanging = 0;
   Real prev_hanging_begin = 0;
   Real prev_hanging_rest = 0;
+  Real prev_refpoint_hanging = 0;
   for (vsize i = 0; i < cached_line_details_.size (); i++)
     {
       Line_shape shape = cached_line_details_[i].shape_;
       Real a = shape.begin_[UP];
       Real b = shape.rest_[UP];
-      Real midline_hanging = max (prev_hanging_begin + a, prev_hanging_rest + b);
-      Real hanging_begin = midline_hanging - shape.begin_[DOWN];
-      Real hanging_rest = midline_hanging - shape.rest_[DOWN];
+      bool title = cached_line_details_[i].title_;
+      Real refpoint_hanging = max (prev_hanging_begin + a, prev_hanging_rest + b);
+
+      if (i > 0)
+	{
+	  Real padding = 0;
+	  if (!cached_line_details_[i].tight_spacing_)
+	    padding = title
+	      ? cached_line_details_[i-1].title_padding_
+	      : cached_line_details_[i-1].padding_;
+	  Real min_dist = title
+	    ? cached_line_details_[i-1].title_min_distance_
+	    : cached_line_details_[i-1].min_distance_;
+	  refpoint_hanging = max (refpoint_hanging + padding,
+				  prev_refpoint_hanging + min_dist
+				  + cached_line_details_[i].first_refpoint_offset_);
+	}
+
+      Real hanging_begin = refpoint_hanging - shape.begin_[DOWN];
+      Real hanging_rest = refpoint_hanging - shape.rest_[DOWN];
       Real hanging = max (hanging_begin, hanging_rest);
       cached_line_details_[i].tallness_ = hanging - prev_hanging;
       prev_hanging = hanging;
       prev_hanging_begin = hanging_begin;
       prev_hanging_rest = hanging_rest;
+      prev_refpoint_hanging = refpoint_hanging;
     }
 }
 
@@ -892,21 +911,13 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 
   for (vsize i = 0; i < cached_line_details_.size (); i++)
     {
-      Real padding = 0;
       Real ext_len;
       if (cur_rod_height > 0)
-        {
-          if (!cached_line_details_[i].tight_spacing_)
-            padding = (cached_line_details_[i].title_
-		       ? cached_line_details_[i - 1].title_padding_
-		       : cached_line_details_[i - 1].padding_);
-          ext_len = cached_line_details_[i].tallness_;
-        }
+	ext_len = cached_line_details_[i].tallness_;
       else
-        {
-          ext_len = cached_line_details_[i].full_height();
-        }
-      Real next_rod_height = cur_rod_height + ext_len + padding;
+	ext_len = cached_line_details_[i].full_height();
+
+      Real next_rod_height = cur_rod_height + ext_len;
       Real next_spring_height = cur_spring_height + cached_line_details_[i].space_;
       Real next_height = next_rod_height + (ragged () ? next_spring_height : 0)
 	+ min_whitespace_at_bottom_of_page (cached_line_details_[i]);

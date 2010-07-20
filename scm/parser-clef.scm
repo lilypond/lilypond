@@ -113,7 +113,7 @@
   (let ((e '())
 	(c0 0)
 	(oct 0)
-	(match (string-match "^(.*)([_^])([0-9]+)$" clef-name)))
+	(match (string-match "^(.*)([_^])([1-9][0-9]*)$" clef-name)))
     (if match
 	(begin
 	  (set! clef-name (match:substring match 1))

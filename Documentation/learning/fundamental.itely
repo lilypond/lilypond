@@ -2819,6 +2819,79 @@ signature to each staff using our predefined variable, @code{\keyTime}.
 @}  % end Score context
 @end example
 
+@cindex stretchability of staves
+@cindex staves, stretchability
+
+The above layout of the organ staves is almost perfect; however,
+there is a slight defect which is not visible by looking at just a
+single system: The distance of the pedal staff to the left hand staff
+should behave approximately the same as the right hand staff to the
+left hand staff.  In particular, the stretchability of staves in a
+@code{PianoStaff} context is limited (so that the distance between
+the staves for the left and right hand can't become too large), and
+the pedal staff should behave similarly.
+
+@cindex sub-properties
+@cindex properties, sub-properties
+@cindex graphical objects
+@cindex objects, graphical
+@cindex grobs
+
+Stretchability of staves can be controlled with the
+@code{next-staff-spacing} property of the @code{VerticalAxisGroup}
+@q{graphical object} (commonly called @q{grob}s within the lilypond
+documentation) -- don't worry about the details right now; this is
+fully explained later.  For the curious, have a look at
+@ruser{Overview of modifying properties}.  Currently, it is not
+possible to modify the @code{stretchability} sub-property only, we
+thus have to copy the other sub-properties also.  Again, for the
+curious, you can find the default values in file
+@file{scm/@/define-grobs@/.scm} by looking up the definition of the
+@code{VerticalAxisGroup} grob.  The value for @code{stretchability}
+is taken from the definition of the @code{PianoStaff} context (in
+file @file{ly/@/engraver-init@/.ly}) so that the values are
+identical.
+
+@example
+\score @{
+  <<  % PianoStaff and Pedal Staff must be simultaneous
+    \new PianoStaff <<
+      \new Staff = "ManualOne" <<
+        \keyTime  % set key and time signature
+        \clef "treble"
+        \new Voice @{
+          \voiceOne
+          \ManualOneVoiceOneMusic
+        @}
+        \new Voice @{
+          \voiceTwo
+          \ManualOneVoiceTwoMusic
+        @}
+      >>  % end ManualOne Staff context
+      \new Staff = "ManualTwo" \with @{
+        \override VerticalAxisGroup
+          #'next-staff-spacing = #'((space . 9)
+                                    (minimum-distance . 8)
+                                    (padding . 1)
+                                    (stretchability . 5))
+      @} <<
+        \keyTime
+        \clef "bass"
+        \new Voice @{
+          \ManualTwoMusic
+        @}
+      >>  % end ManualTwo Staff context
+    >>  % end PianoStaff context
+    \new Staff = "PedalOrgan" <<
+      \keyTime
+      \clef "bass"
+      \new Voice @{
+        \PedalOrganMusic
+      @}
+    >>  % end PedalOrgan Staff
+  >>
+@}  % end Score context
+@end example
 That completes the structure.  Any three-staff organ music
 will have a similar structure, although the number of voices
 may vary.  All that remains now
@@ -2862,7 +2935,13 @@ PedalOrganMusic = \relative c {
           \ManualOneVoiceTwoMusic
         }
       >>  % end ManualOne Staff context
-      \new Staff = "ManualTwo" <<
+      \new Staff = "ManualTwo" \with {
+        \override VerticalAxisGroup
+          #'next-staff-spacing = #'((space . 9)
+                                    (minimum-distance . 8)
+                                    (padding . 1)
+                                    (stretchability . 5))
+      } <<
         \keyTime
         \clef "bass"
         \new Voice {

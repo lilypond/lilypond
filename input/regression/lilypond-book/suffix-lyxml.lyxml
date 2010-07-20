@@ -1,0 +1,14 @@
+<book id="lyxml_suffix_test">
+    <title></title>
+    <chapter id="lyxml_test">
+        <title>Suffix test for lyxml</title>
+        <para>Testing lilypond-book DocBook mode with .lyxml file suffix.</para>
+        <inlinemediaobject>
+          <textobject>
+            <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
+              \key c \minor c4 es g2
+            </programlisting>
+          </textobject>
+        </inlinemediaobject>
+    </chapter>
+</book>

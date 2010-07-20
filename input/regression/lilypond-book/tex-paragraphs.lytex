@@ -1,0 +1,30 @@
+\documentclass[a4paper, 12pt]{article}
+
+\begin{document}
+
+
+\section{Paragraphs and line spacing}
+
+Testing of spacing. The next music is surrounded by an empty line.
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+
+\begin{lilypond}
+\score{ \relative c'{ c d e f g a b c} }
+\end{lilypond}
+
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+
+Next has no empty lines.
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+\begin{lilypond}
+\score{ \relative c'{ c d e f g a b c} }
+\end{lilypond}
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+
+\end{document}

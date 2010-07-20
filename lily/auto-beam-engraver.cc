@@ -147,7 +147,7 @@ Auto_beam_engraver::Auto_beam_engraver ()
   forbid_ = 0;
   process_acknowledged_count_ = 0;
   stems_ = 0;
-  shortest_mom_ = Moment (Rational (1, 8));
+  shortest_mom_ = Moment (Rational (1, 4));
   finished_beam_ = 0;
   finished_grouping_ = 0;
   grouping_ = 0;
@@ -167,7 +167,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment dur)
   return scm_call_4 (get_property ("autoBeamCheck"),
 		     context ()->self_scm (),
 		     scm_from_int (dir),
-                     test_mom.smobbed_copy(),
+                     test_mom.smobbed_copy (),
 		     dur.smobbed_copy ())
     != SCM_BOOL_F;
 }
@@ -253,7 +253,7 @@ Auto_beam_engraver::junk_beam ()
   grouping_ = 0;
   beam_settings_ = SCM_EOL;
 
-  shortest_mom_ = Moment (Rational (1, 8));
+  shortest_mom_ = Moment (Rational (1, 4));
 }
 
 void
@@ -277,7 +277,7 @@ Auto_beam_engraver::end_beam ()
       beam_settings_ = SCM_EOL;
     }
 
-  shortest_mom_ = Moment (Rational (1, 8));
+  shortest_mom_ = Moment (Rational (1, 4));
 }
 
 void
@@ -393,8 +393,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   if (bool (beam_start_location_.grace_part_) != bool (now.grace_part_))
     return;
 
-  Moment ev_dur = unsmob_duration (ev->get_property ("duration"))->get_length ();
-  Moment dur = Rational (1, ev_dur.den ());
+  Moment dur = unsmob_duration (ev->get_property ("duration"))->get_length ();
   Moment measure_now = measure_position (context ());
   bool recheck_needed = false;
 
@@ -506,7 +505,6 @@ Auto_beam_engraver::process_acknowledged ()
     {
       Moment measure_now = measure_position (context ());
       consider_end (measure_now, shortest_mom_);
-      consider_begin (measure_now, shortest_mom_);
     }
   else if (process_acknowledged_count_ > 1)
     {
@@ -529,23 +527,25 @@ ADD_ACKNOWLEDGER (Auto_beam_engraver, beam);
 ADD_ACKNOWLEDGER (Auto_beam_engraver, breathing_sign);
 ADD_ACKNOWLEDGER (Auto_beam_engraver, rest);
 ADD_TRANSLATOR (Auto_beam_engraver,
-		/* doc */
-		"Generate beams based on measure characteristics and observed"
-		" Stems.  Uses @code{beatLength}, @code{measureLength}, and"
-		" @code{measurePosition} to decide when to start and stop a"
-		" beam.  Overriding beaming is done through"
-		" @ref{Stem_engraver} properties @code{stemLeftBeamCount} and"
-		" @code{stemRightBeamCount}.",
+                /* doc */
+                "Generate beams based on measure characteristics and observed"
+                " Stems.  Uses @code{baseMoment}, @code{beatStructure},"
+                " @code{beamExceptions}, @code{measureLength}, and"
+                " @code{measurePosition} to decide when to start and stop a"
+                " beam.  Overriding beaming is done through"
+                " @ref{Stem_engraver} properties @code{stemLeftBeamCount} and"
+                " @code{stemRightBeamCount}.",
 
-		/* create */
-		"Beam ",
+                /* create */
+                "Beam ",
 
-		/* read */
-		"autoBeaming "
-		"beamSettings "
-		"beatLength "
-		"subdivideBeams ",
+                /* read */
+                "autoBeaming "
+                "baseMoment "
+                "beamExceptions "
+                "beatStructure "
+                "subdivideBeams ",
 
-		/* write */
-		""
-		);
+                /* write */
+                ""
+                );

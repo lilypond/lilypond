@@ -488,7 +488,7 @@ FI: accelerando, kiihdyttäen.
 
 [Italian: @q{speed up, accelerate}]
 
-Increase tempo
+An increase in the tempo, abbreviated @notation{accel.}
 
 @seealso
 No cross-references.
@@ -680,7 +680,7 @@ Since one does not crescendo @emph{to} nothing, it is not correct to use
 ES: alla breve,
 I: ?,
 F: alla breve, à la brève,
-D: ?,
+D: Allabreve, alla breve
 NL: ?,
 DK: ?,
 S: ?,
@@ -688,7 +688,7 @@ FI: ?.
 
 [Italian: @q{on the breve}]  Twice as fast as the notation indicates.
 
-Also called @notation{in cut-time}.  The name derives from mensural
+Also called @notation{in cut time}.  The name derives from mensural
 notation, where the @notation{tactus} (or beat) is counted on the semibreve
 (the modern whole note).  Counting @q{on the breve} shifts the tactus to the
 next longest note value, which (in modern usage) effectively halves all note
@@ -1381,7 +1381,8 @@ FI: vaskisoitin.
 
 A family of blown musical instruments made of brass, all using a cup
 formed mouth piece.  The brass instruments commonly used in a symphony
-orchestra are trumpet, trombone, french horn, and tuba.
+orchestra are trumpet, trombone, french horn, and tuba.  In marching bands,
+sousaphones and contrabass bugles are common.
 
 @seealso
 No cross-references.
@@ -2336,7 +2337,7 @@ S: crescendo,
 FI: cresendo, voimistuen.
 
 Increasing volume.  Indicated by a rightwards opening horizontal wedge
-(hairpin) or the abbreviation @notation{cresc.}.
+(hairpin) or the abbreviation @notation{cresc.}
 
 @lilypond[quote,relative=2]
 \key g \major
@@ -2448,7 +2449,7 @@ DK: da capo,
 S: da capo,
 FI: da capo, alusta.
 
-Abbreviated @notation{D.C.}.  Indicates that the piece is to be repeated from
+Abbreviated @notation{D.C.}  Indicates that the piece is to be repeated from
 the beginning to the end or to a certain place marked @emph{fine}.
 
 @seealso
@@ -2486,7 +2487,7 @@ DK: dal segno,
 S: dal segno,
 FI: dal segno, lähtien merkistä.
 
-Abbreviated @notation{D.S.}.  Repetition, not from the beginning, but from
+Abbreviated @notation{D.S.}  Repetition, not from the beginning, but from
 another place frequently near the beginning marked by a sign
 (@notation{segno}):
 
@@ -2519,7 +2520,7 @@ S: decrescendo,
 FI: decresendo, hiljentyen.
 
 Decreasing tone volume.  Indicated by a leftwards opening horizontal
-wedge (hairpin) or the abbreviation @notation{decresc.}.
+wedge (hairpin) or the abbreviation @notation{decresc.}
 
 @lilypond[quote,relative=2]
 \key g \major
@@ -2753,6 +2754,8 @@ NL: diminuendo,
 DK: diminuendo,
 S: diminuendo,
 FI: diminuendo, hiljentyen.
+
+Abbreviated @emph{dim.} It indicates a decrease in tone volume.
 
 @seealso
 @ref{decrescendo}.
@@ -5136,7 +5139,7 @@ Two mensuration signs have survived to the present day: the C-shaped sign,
 which originally designated @notation{tempus imperfectum} and
 @notation{prolatio minor} now stands for @notation{common time}; and the
 slashed C, which designated the same with @notation{diminution} now stands
-for @notation{cut-time} (essentially, it has not lost its original meaning).
+for @notation{cut time} (essentially, it has not lost its original meaning).
 
 @seealso
 @ref{diminution}, @ref{proportion}, @ref{time signature}.
@@ -5748,7 +5751,7 @@ As used in mensural notation, this fraction was more flexible: it could also
 be one-third the higher note value.  Composers indicated which proportions
 to use with various signs—two of which survive to the present day: the
 C-shaped sign for @notation{common time}, and the slashed C for
-@notation{alla breve} or @notation{cut-time}.
+@notation{alla breve} or @notation{cut time}.
 
 @c TODO -- add maxima to this example, in a way that doesn't break it.
 
@@ -6620,7 +6623,7 @@ DK: rallentando,
 S: rallentando,
 FI: rallerdando, hidastuen.
 
-[Italian] A performance indication, abbreviated @notation{rall.}.
+[Italian] A performance indication, abbreviated @notation{rall.}
 
 @seealso
 @ref{ritardando}.

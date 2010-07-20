@@ -64,7 +64,7 @@ Lily_parser::Lily_parser (Lily_parser const &src)
     {
       lexer_ = new Lily_lexer (*src.lexer_, this);
     }
-  
+
   lexer_->unprotect ();
 }
 
@@ -97,7 +97,7 @@ Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 void
 Lily_parser::parse_file (string init, string name, string out_name)
 {
-  // TODO: use $parser 
+  // TODO: use $parser
   lexer_->set_identifier (ly_symbol2scm ("parser"), self_scm ());
   output_basename_ = out_name;
 
@@ -142,12 +142,12 @@ Lily_parser::parse_file (string init, string name, string out_name)
 void
 Lily_parser::parse_string (string ly_code)
 {
-  // TODO: use $parser 
+  // TODO: use $parser
   lexer_->set_identifier (ly_symbol2scm ("parser"),
 			  self_scm ());
 
   lexer_->main_input_name_ = "<string>";
-  lexer_->is_main_input_ = true; 
+  lexer_->is_main_input_ = true;
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
 
   SCM mod = lexer_->set_current_scope ();
@@ -165,6 +165,12 @@ Lily_parser::parse_string (string ly_code)
 }
 
 void
+Lily_parser::include_string (string ly_code)
+{
+  lexer_->add_string_include (ly_code);
+}
+
+void
 Lily_parser::clear ()
 {
   if (lexer_)
@@ -173,7 +179,7 @@ Lily_parser::clear ()
 	lexer_->remove_scope ();
     }
 
-  lexer_ = 0;  
+  lexer_ = 0;
 }
 
 char const *
@@ -204,7 +210,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Lily_parser);
 
 
 /****************************************************************
-  OUTPUT-DEF 
+  OUTPUT-DEF
  ****************************************************************/
 
 Output_def *
@@ -214,7 +220,7 @@ get_layout (Lily_parser *parser)
   Output_def *layout = unsmob_output_def (id);
   layout = layout ? layout->clone () : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-layout"), SCM_BOOL_T);
-    
+
   return layout;
 }
 
@@ -288,13 +294,13 @@ get_header (Lily_parser *parser)
       ly_module_copy (nid, id);
       id = nid;
     }
-  
+
   return id;
 }
 
-SCM 
+SCM
 Lily_parser::make_scope () const
 {
-  SCM module = ly_make_anonymous_module (be_safe_global);
-  return module;    
+  SCM module = ly_make_module (be_safe_global);
+  return module;
 }

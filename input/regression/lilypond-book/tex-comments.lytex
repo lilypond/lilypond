@@ -1,0 +1,28 @@
+\documentclass[a4paper, 12pt]{article}
+
+\begin{document}
+
+
+\subsection{LaTeX comments}
+This is a line with lilypond code
+after the comment char % \lilypond{\context Voice <<c' e' g'>>}
+% \lilypond{\context Voice <<c' e' g'>>}
+
+If you do not see any music above
+this line, then lilypond-book is handling latex comments pretty well :-)
+
+The following snippet is preceded by a comment that would start a lilypond
+environment
+
+%%\begin{lilypond}
+\begin{lilypond}[11pt,fragment]
+\context Voice <<c' e' g'>>
+\end{lilypond}
+
+A single-line comment inside a fragment does not confuse lilypond-book:
+
+\begin{lilypond}[fragment]
+c d e %\score
+\end{lilypond}
+
+\end{document}

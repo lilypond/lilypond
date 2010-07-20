@@ -28,7 +28,7 @@ struct Beaming_options
 {
   SCM grouping_;
   bool subdivide_beams_;
-  Moment beat_length_;
+  Moment base_moment_;
   Moment measure_length_;
 
   Beaming_options ();

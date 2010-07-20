@@ -51,6 +51,7 @@ using namespace std;
 #include "interval.hh"
 #include "lily-guile.hh"
 #include "lily-lexer.hh"
+#include "lily-parser.hh"
 #include "lilypond-version.hh"
 #include "main.hh"
 #include "music.hh"
@@ -366,6 +367,11 @@ BOM_UTF8	\357\273\277
 		yylval.scm = unpack_identifier(sval);
 		return identifier_type (yylval.scm);
 	}
+
+	for (size_t i = 0; i < pending_string_includes_.size (); i++)
+		new_input ("<included string>", pending_string_includes_[i],
+			   parser_->sources_);
+	pending_string_includes_.clear ();
 		
 	yylval.scm = sval;
 	return SCM_TOKEN;

@@ -1,0 +1,45 @@
+\documentclass[a4paper, 12pt]{article}
+
+\begin{document}
+
+\section{verb and verbatim}
+
+This file should not contain (and produce) any lilypond images!
+
+Snippets inside a verbatim environment or a comment are not run through
+lilypond, but left as is.
+
+% TODO: These do not yet work, as \verb is explicitly disabled in lilypond-book for now!
+% \verb|\lilypond[fragment]{c' d' e'}|
+%
+% and
+
+\begin{verbatim}
+\begin{lilypond}
+c d e
+\end{lilypond}
+\end{verbatim}
+
+
+As you can see, the begin/end lilypond commands inside
+do not confuse lilypond-book.
+
+% TODO: These do not yet work, as \verb is explicitly disabled in lilypond-book for now!
+% \verb|\begin{lilypond}[fragment]c d e\end{lilypond}|
+
+% \verb+\lilypondfile[quote,noindent]{screech-boink.ly}+
+
+Neither does a verbatim inside verb:
+
+\verb|\begin{verbatim}\begin{lilypond}[fragment]c d e\end{lilypond}\end{verbatim}|
+
+or verb inside verbatim:
+
+\begin{verbatim}
+\verb|\begin{lilypond}[fragment]c d e\end{lilypond}|
+\end{verbatim}
+
+But these are just to stress \verb|lilypond-book|.
+
+
+\end{document}

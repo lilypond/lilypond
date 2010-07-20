@@ -6,7 +6,7 @@
 \header {
   lsrtags = "editorial-annotations"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 La dirección predeterminada de las plicas sobre la tercera línea
 del pentagrama está determinada por la propiedad
@@ -14,7 +14,6 @@ del pentagrama está determinada por la propiedad
 
 "
   doctitlees = "Dirección predeterminada de las plicas sobre la tercera línea del pentagrama"
-
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "

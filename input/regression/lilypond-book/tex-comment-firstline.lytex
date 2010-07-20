@@ -1,0 +1,17 @@
+% A comment on the first line should not confuse lilypond-book's format
+% detection
+\documentclass[a4paper, 12pt]{article}
+
+\begin{document}
+
+\section{A coment on the first line of the file}
+
+This should not confuse the auto-detection of lilypond-book...
+
+\begin{lilypond}
+\score{
+  \relative c'{c d e f g a b c}
+}
+\end{lilypond}
+
+\end{document}

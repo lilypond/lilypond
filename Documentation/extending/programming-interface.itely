@@ -958,33 +958,36 @@ of the broken tie is repositioned.
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (my-callback grob)
-  (let* (
-         ; have we been split?
-         (orig (ly:grob-original grob))
+   (let* (
+          ;; have we been split?
+          (orig (ly:grob-original grob))
 
-         ; if yes, get the split pieces (our siblings)
-         (siblings (if (ly:grob? orig)
-                     (ly:spanner-broken-into orig) '() )))
+          ;; if yes, get the split pieces (our siblings)
+          (siblings (if (ly:grob? orig)
+                        (ly:spanner-broken-into orig)
+                        '())))
 
-   (if (and (>= (length siblings) 2)
-             (eq? (car (last-pair siblings)) grob))
-     (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
+     (if (and (>= (length siblings) 2)
+              (eq? (car (last-pair siblings)) grob))
+         (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
 \relative c'' {
   \override Tie #'after-line-breaking =
   #my-callback
-  c1 ~ \break c2 ~ c
+  c1 ~ \break
+  c2 ~ c
 }
 @end lilypond
 
 @noindent
 When applying this trick, the new @code{after-line-breaking} callback
-should also call the old one @code{after-line-breaking}, if there is
-one.  For example, if using this with @code{Hairpin},
-@code{ly:hairpin::after-line-breaking} should also be called.
+should also call the old one, if such a default exists.  For example,
+if using this with @code{Hairpin}, @code{ly:spanner::kill-zero-spanned-time}
+should also be called.
 
 
-@item Some objects cannot be changed with @code{\override} for
+@item
+Some objects cannot be changed with @code{\override} for
 technical reasons.  Examples of those are @code{NonMusicalPaperColumn}
 and @code{PaperColumn}.  They can be changed with the
 @code{\overrideProperty} function, which works similar to @code{\once

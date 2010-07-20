@@ -6,7 +6,7 @@
 \header {
   lsrtags = "fretted-strings, tweaks-and-overrides"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Se pueden establecer las propiedades de los diagramas de
 posiciones a través de @code{'fret-diagram-details}.  Para los
@@ -15,7 +15,6 @@ diagramas de posiciones de marcado, se pueden aplicar overrides
 
 "
  doctitlees = "Personalizar diagramas de posiciones de marcado"
-
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
@@ -26,7 +25,6 @@ Beschriftung vorgenommen werden.
 
 "
   doctitlede = "Anpassung von Beschriftungs-Bunddiagrammen"
-
 %% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
 
   texidocfr = "

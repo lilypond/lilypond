@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 
 De forma predeterminada se suprime el número del primer compás de una
@@ -21,7 +21,6 @@ líinea divisoria vacía antes de la primera nota.
   doctitlees = "Imprimir el número de compás en el primer compás"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Standardmäßig wird die erste Taktzahl einer Paritur nicht gesetzt,
@@ -33,7 +32,6 @@ werden, damit das funktioniert.
 
 "
   doctitlede = "Setzen der Taktnummer für den ersten Takt"
-
 
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b

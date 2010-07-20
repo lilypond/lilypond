@@ -6,7 +6,7 @@
 \header {
   lsrtags = "simultaneous-notes, text"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 
 La herramienta de combinación de partes (instrucción
@@ -28,7 +28,6 @@ textos.
 "
   doctitlees = "Combinar dos partes sobre el mismo pentagrama"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Funktion, die Stimmen kombiniert (also der @code{\\partcombine}-Befehl)
@@ -48,7 +47,6 @@ kombinieren: Standardpolyphonie, @code{\\partcombine} ohne Text und
 
 "
   doctitlede = "Zwei Stimmen auf einem System kombinieren"
-
 %% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
   texidocfr = "
 L'outil de combinaison de parties (la commande @code{\\partcombine})

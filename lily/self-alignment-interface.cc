@@ -19,9 +19,9 @@
 
 #include "self-alignment-interface.hh"
 
-#include "warn.hh"
-#include "paper-column.hh"
 #include "grob.hh"
+#include "paper-column.hh"
+#include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, y_aligned_on_self, 1);
 SCM
@@ -63,13 +63,11 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int star
 }
 
 
-
 SCM
 Self_alignment_interface::centered_on_object (Grob *him, Axis a)
 {
   return scm_from_double (robust_relative_extent (him, him, a).center ());
 }
-
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_x_parent, 1);
 SCM
@@ -78,14 +76,12 @@ Self_alignment_interface::centered_on_x_parent (SCM smob)
   return centered_on_object (unsmob_grob (smob)->get_parent (X_AXIS), X_AXIS);
 }
 
-
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_y_parent, 1);
 SCM
 Self_alignment_interface::centered_on_y_parent (SCM smob)
 {
   return centered_on_object (unsmob_grob (smob)->get_parent (Y_AXIS), Y_AXIS);
 }
-
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, x_centered_on_y_parent, 1);
 SCM
@@ -114,7 +110,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
   Grob *him = me->get_parent (a);
   if (Paper_column::has_interface (him))
     return scm_from_double (0.0);
-    
+
   Interval he = him->extent (him, a);
 
   SCM sym = (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X")
@@ -143,7 +139,7 @@ void
 Self_alignment_interface::set_center_parent (Grob *me, Axis a)
 {
   add_offset_callback (me,
-		       (a==X_AXIS) ? centered_on_x_parent_proc : centered_on_y_parent_proc,
+		       (a == X_AXIS) ? centered_on_x_parent_proc : centered_on_y_parent_proc,
 		       a);
 }
 
@@ -151,7 +147,7 @@ void
 Self_alignment_interface::set_align_self (Grob *me, Axis a)
 {
   add_offset_callback (me,
-		       (a==X_AXIS) ? x_aligned_on_self_proc : y_aligned_on_self_proc,
+		       (a == X_AXIS) ? x_aligned_on_self_proc : y_aligned_on_self_proc,
 		       a);
 }
 
@@ -173,4 +169,3 @@ ADD_INTERFACE (Self_alignment_interface,
 	       "self-alignment-X "
 	       "self-alignment-Y "
 	       );
-

@@ -21,11 +21,11 @@
 
 #include "all-font-metrics.hh"
 #include "font-interface.hh"
+#include "line-interface.hh"
 #include "lookup.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "staff-symbol-referencer.hh"
-#include "line-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Bar_line, calc_bar_extent, 1)
 SCM
@@ -40,7 +40,7 @@ Bar_line::calc_bar_extent (SCM smob)
     return ly_interval2scm (Interval ());
 
   Real h = scm_to_double (size);
-  return ly_interval2scm (Interval (-h/2, h/2));
+  return ly_interval2scm (Interval (-h / 2, h / 2));
 }
 
 Interval
@@ -50,6 +50,12 @@ Bar_line::bar_y_extent (Grob *me, Grob *refpoint)
 
   iv.translate (me->relative_coordinate (refpoint, Y_AXIS));
   return iv;
+}
+
+bool
+Bar_line::non_empty_barline (Grob *me)
+{
+  return has_interface (me) && !me->extent (me, X_AXIS).is_empty ();
 }
 
 MAKE_SCHEME_CALLBACK (Bar_line, print, 1);
@@ -121,7 +127,7 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
 
   if (str == "")
     {
-      Stencil empty =  Lookup::blank (Box (Interval (0, 0), Interval (-h / 2, h / 2)));
+      Stencil empty = Lookup::blank (Box (Interval (0, 0), Interval (-h / 2, h / 2)));
       empty.translate_axis (center, Y_AXIS);
       return empty;
     }
@@ -171,7 +177,6 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
       m.add_at_edge (X_AXIS, LEFT, colon, kern);
       m.add_at_edge (X_AXIS, RIGHT, thin, kern);
       m.add_at_edge (X_AXIS, RIGHT, colon, kern);
-
     }
   else if (str == ":|.:")
     {
@@ -196,8 +201,8 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
       /*
 	should align to other side? this never appears
 	on the system-start?
-      m.add_at_edge (X_AXIS, RIGHT, thin, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);
+	m.add_at_edge (X_AXIS, RIGHT, thin, 0);
+	m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);
       */
       m.add_at_edge (X_AXIS, LEFT, thin, thinkern);
       m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);
@@ -211,42 +216,40 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
       segno.add_stencil (Font_interface::get_default_font (me)->find_by_name ("scripts.varsegno"));
 
       if (str == "S")
-        {
-          m.add_stencil (segno);
-        }
+	m.add_stencil (segno);
       else if (str == "S|:" || str == ".S|:")
-        {
-          m.add_at_edge (X_AXIS, RIGHT, thick, 0);
-          m.add_at_edge (X_AXIS, RIGHT, thin, kern);
-          m.add_at_edge (X_AXIS, RIGHT, colon, kern);
-          m.add_at_edge (X_AXIS, LEFT, segno, thinkern);
-        }
+	{
+	  m.add_at_edge (X_AXIS, RIGHT, thick, 0);
+	  m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+	  m.add_at_edge (X_AXIS, RIGHT, colon, kern);
+	  m.add_at_edge (X_AXIS, LEFT, segno, thinkern);
+	}
       else if (str == ":|S" || str == ":|S.")
-        {
-          m.add_at_edge (X_AXIS, LEFT, thick, 0);
-          m.add_at_edge (X_AXIS, LEFT, thin, kern);
-          m.add_at_edge (X_AXIS, LEFT, colon, kern);
-          m.add_at_edge (X_AXIS, RIGHT, segno, thinkern);
-        }
+	{
+	  m.add_at_edge (X_AXIS, LEFT, thick, 0);
+	  m.add_at_edge (X_AXIS, LEFT, thin, kern);
+	  m.add_at_edge (X_AXIS, LEFT, colon, kern);
+	  m.add_at_edge (X_AXIS, RIGHT, segno, thinkern);
+	}
       else if (str == ":|S|:" || str == ":|S.|:")
-        {
-          m.add_at_edge (X_AXIS, LEFT, thick, 0);
-          m.add_at_edge (X_AXIS, LEFT, thin, kern);
-          m.add_at_edge (X_AXIS, LEFT, colon, kern);
-          m.add_at_edge (X_AXIS, RIGHT, segno, thinkern);
-          m.add_at_edge (X_AXIS, RIGHT, thick, thinkern);
-          m.add_at_edge (X_AXIS, RIGHT, thin, kern);
-          m.add_at_edge (X_AXIS, RIGHT, colon, kern);
-        }
+	{
+	  m.add_at_edge (X_AXIS, LEFT, thick, 0);
+	  m.add_at_edge (X_AXIS, LEFT, thin, kern);
+	  m.add_at_edge (X_AXIS, LEFT, colon, kern);
+	  m.add_at_edge (X_AXIS, RIGHT, segno, thinkern);
+	  m.add_at_edge (X_AXIS, RIGHT, thick, thinkern);
+	  m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+	  m.add_at_edge (X_AXIS, RIGHT, colon, kern);
+	}
       else if (str == "|._.|") // :|S|: or :|S.|: without segno and colon
-        {
-          // get the width of the segno sign
-          Real segno_width = segno.extent (X_AXIS).length ();
-          m.add_at_edge (X_AXIS, LEFT, thick, 0);
-          m.add_at_edge (X_AXIS, LEFT, thin, kern);
-          m.add_at_edge (X_AXIS, RIGHT, thick, segno_width + 2 * thinkern);
-          m.add_at_edge (X_AXIS, RIGHT, thin, kern);
-        }
+	{
+	  // get the width of the segno sign
+	  Real segno_width = segno.extent (X_AXIS).length ();
+	  m.add_at_edge (X_AXIS, LEFT, thick, 0);
+	  m.add_at_edge (X_AXIS, LEFT, thin, kern);
+	  m.add_at_edge (X_AXIS, RIGHT, thick, segno_width + 2 * thinkern);
+	  m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+	}
       // end varsegno block
     }
   else if (str == ":")
@@ -263,13 +266,9 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
 	}
     }
   else if (str == "dashed")
-    {
-      m = dashed_bar_line (me, h, hair);
-    }
+    m = dashed_bar_line (me, h, hair);
   else if (str == "'")
-    {
-      m = tick_bar_line (me, h, rounded);
-    }
+    m = tick_bar_line (me, h, rounded);
 
   m.translate_axis (center, Y_AXIS);
   return m;
@@ -302,9 +301,8 @@ Bar_line::tick_bar_line (Grob *me, Real h, bool rounded)
     : 0.0;
 
   return Lookup::round_filled_box (Box (Interval (0, line_thick),
-                                        Interval (h / 2 - th, h / 2 + th)), blot);
+					Interval (h / 2 - th, h / 2 + th)), blot);
 }
-
 
 MAKE_SCHEME_CALLBACK (Bar_line, calc_bar_size, 1);
 SCM
@@ -319,7 +317,6 @@ Bar_line::calc_bar_size (SCM smob)
   return scm_from_int (0);
 }
 
-
 Stencil
 Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
 {
@@ -329,25 +326,25 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
     this is a tad complex for what we want to achieve, but with a
     simple line, the round blotting interferes with staff line
     connections.
-      */
+  */
   Real ss = Staff_symbol_referencer::staff_space (me);
   int count = Staff_symbol_referencer::line_count (me);
-      Real line_thick = Staff_symbol_referencer::line_thickness (me);
+  Real line_thick = Staff_symbol_referencer::line_thickness (me);
 
-  if (fabs (line_thick + (count -1) * ss - h) <   0.1) // ugh.
+  if (fabs (line_thick + (count -1) * ss - h) < 0.1) // ugh.
     {
-      Real blot =
-	me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+      Real blot
+	= me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
-      Real half_space = ss/2;
+      Real half_space = ss / 2;
       Stencil bar;
 
-      for (int i = (count-1); i >= -(count-1); i -= 2)
+      for (int i = (count - 1); i >= -(count - 1); i -= 2)
 	{
 	  Real top_y = min ((i + dash_size) * half_space,
-			    (count-1) * half_space +  line_thick / 2);
+			    (count - 1) * half_space + line_thick / 2);
 	  Real bot_y = max ((i - dash_size) * half_space,
-			    -(count-1) * half_space - line_thick/2);
+			    -(count - 1) * half_space - line_thick / 2);
 
 	  bar.add_stencil (Lookup::round_filled_box (Box (Interval (0, thick),
 							  Interval (bot_y, top_y)),
@@ -360,7 +357,7 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
       /*
 	We have to scale the dashing so it starts and ends with half a
 	dash exactly.
-       */
+      */
       int dashes = int (rint (h / ss));
       Real total_dash_size = h / dashes;
       Real factor = (dash_size - thick) / ss;
@@ -368,7 +365,7 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
       SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
 			   scm_from_double (thick),
 			   scm_from_double (factor * total_dash_size),
-			   scm_from_double ((1-factor) * total_dash_size),
+			   scm_from_double ((1 - factor) * total_dash_size),
 			   scm_from_double (0),
 			   scm_from_double (h),
 			   scm_from_double (factor * total_dash_size * 0.5),
@@ -379,7 +376,7 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
       box.add_point (Offset (0, h));
 
       Stencil s (box, at);
-      s.translate (Offset (thick/2, -h/2));
+      s.translate (Offset (thick / 2, -h / 2));
       return s;
     }
   return Stencil ();
