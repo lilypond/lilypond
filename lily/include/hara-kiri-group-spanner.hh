@@ -34,6 +34,7 @@ public:
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   DECLARE_GROB_INTERFACE();
   static bool request_suicide (Grob *me, int start, int end);
+  static bool request_suicide_alone (Grob *me, int start, int end);
   static void consider_suicide (Grob *me);
   static void add_interesting_item (Grob *me, Grob *n);
 };
