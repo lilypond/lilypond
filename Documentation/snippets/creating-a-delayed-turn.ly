@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
 texidoces = "
 La creación de un grupeto circular de anticipación entre dos notas,
 donde la nota inferior del grupeto utiliza una alteración, requiere
@@ -21,7 +21,6 @@ grupeto horizontalmente.
 doctitlees = "Crear un grupeto de anticipación"
 
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Einen Doppelschlag mit Vorhalt zu erstellen, wobei die untere Note das
@@ -33,7 +32,6 @@ wird benutzt, um den Doppelschlag horizontal zu positionieren.
 "
 
   doctitlede = "Einen  Doppelschlag mit Vorhalt erstellen"
-
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 Obtenir un @emph{grupetto} retardé et dans lequel la note la plus basse

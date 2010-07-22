@@ -61,13 +61,13 @@ Book::Book (Book const &s)
       paper_ = s.paper_->clone ();
       paper_->unprotect ();
     }
-  
+
   input_location_ = make_input (*s.origin ());
 
-  header_ = ly_make_anonymous_module (false);
+  header_ = ly_make_module (false);
   if (ly_is_module (s.header_))
     ly_module_copy (header_, s.header_);
-  
+
   SCM *t = &scores_;
   for (SCM p = s.scores_; scm_is_pair (p); p = scm_cdr (p))
     {
@@ -112,7 +112,7 @@ Book::mark_smob (SCM s)
   scm_gc_mark (book->scores_);
   scm_gc_mark (book->bookparts_);
   scm_gc_mark (book->input_location_);
-  
+
   return book->header_;
 }
 
@@ -141,7 +141,7 @@ Book::set_parent (Book *parent)
   /* Copy the header block of the parent */
   if (ly_is_module (parent->header_))
     {
-      SCM tmp_header = ly_make_anonymous_module (false);
+      SCM tmp_header = ly_make_module (false);
       ly_module_copy (tmp_header, parent->header_);
       if (ly_is_module (header_))
         ly_module_copy (tmp_header, header_);
@@ -158,7 +158,7 @@ Book::add_scores_to_bookpart ()
 {
   if (scm_is_pair (scores_))
     {
-      /* If scores have been added to this book, add them to a child 
+      /* If scores have been added to this book, add them to a child
        * book part */
       Book *part = new Book;
       part->set_parent (this);
@@ -185,7 +185,7 @@ Book::error_found ()
     if (Score *score = unsmob_score (scm_car (s)))
       if (score->error_found_)
 	return true;
-  
+
   for (SCM part = bookparts_; scm_is_pair (part); part = scm_cdr (part))
     if (Book *bookpart = unsmob_book (scm_car (part)))
       if (bookpart->error_found ())
@@ -228,11 +228,11 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
     {
       SCM outputs = score
 	->book_rendering (output_paper_book->paper_, layout);
-	      
+
       while (scm_is_pair (outputs))
 	{
 	  Music_output *output = unsmob_music_output (scm_car (outputs));
-		  
+
 	  if (Performance *perf = dynamic_cast<Performance *> (output))
 	    output_paper_book->add_performance (perf->self_scm ());
 	  else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output))
@@ -241,7 +241,7 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
 		output_paper_book->add_score (score->get_header ());
 	      output_paper_book->add_score (pscore->self_scm ());
 	    }
-		  
+
 	  outputs = scm_cdr (outputs);
 	}
     }
@@ -250,7 +250,7 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
     output_paper_book->add_score (scm_car (s));
   else
     assert (0);
-    
+
 }
 
 /* Concatenate all score or book part outputs into a Paper_book

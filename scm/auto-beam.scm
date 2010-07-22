@@ -15,36 +15,51 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-;;  Determine end moment for auto beaming (or begin moment, but mostly
-;;  0== anywhere).  We only consider the current time signature.
-;;  In order of decreasing priority:
+;;  Determine whether an auto beam should be extended to the right
+;;  of the current stem.  We start anywhere except on the last note
+;;  of a beat.  We end according to the follwing rules, in order
+;;  of decreasing priority:
 ;;
 ;;  1. end <type>
-;;  2. end   *
-;;  3. if 1-2 not specified, begin anywhere, end at beatLength intervals
+;;  2. end <greater type>
+;;  3. if 1-2 not specified,  end at beatStructure intervals
 ;;
 ;;  Rationale:
 ;;
 ;;  [user override]
 ;;  1. override for specific duration type
-;;  2. override for all duration types in a time signature.
+;;  2. overrides apply to shorter durations
 ;;
-;;  defined in scm/beam-settings.scm:
+;;  defined in scm/time-signature-settings.scm:
 ;;  1. Default grouping for common time signatures
-;;  2. exceptions for specific time signature, for specific duration type
-
 
 (define-public (default-auto-beam-check context dir measure-pos test-beam)
   (define (get name default)
     (let ((value (ly:context-property context name)))
       (if (not (null? value)) value default)))
 
-  (define (ending-moments group-list start-beat beat-length)
+  (define (beaming<? a b)
+    (ly:moment<? (fraction->moment (car a))
+                 (fraction->moment (car b))))
+
+  (define (ending-moments group-list start-beat base-moment)
     (if (null? group-list)
         '()
         (let ((new-start (+ start-beat (car group-list))))
-          (cons (ly:moment-mul (ly:make-moment new-start 1) beat-length)
-                (ending-moments (cdr group-list) new-start beat-length)))))
+          (cons (ly:moment-mul (ly:make-moment new-start 1) base-moment)
+                (ending-moments (cdr group-list) new-start base-moment)))))
+
+  (define (larger-setting test-beam sorted-alist)
+   (if (null? sorted-alist)
+       '()
+       (let* ((first-key (caar sorted-alist))
+              (first-moment (fraction->moment first-key)))
+         (if (moment<=? test-beam first-moment)
+             (car sorted-alist)
+             (larger-setting test-beam (cdr sorted-alist))))))
+
+  (define (beat-end? moment beat-structure)
+    (pair? (member moment beat-structure)))  ;; member returns a list if found, not #t
 
   ;; Start of actual auto-beam test routine
   ;;
@@ -53,46 +68,53 @@
   (if (and (!= (ly:moment-grace-numerator (ly:context-now context)) 0)
            (= dir START))
       #f
-      (if (= dir START)
-          ;; start anywhere is currently implemented
-          #t
-          (let* ((beat-length (get 'beatLength (ly:make-moment 1 4)))
-                 (measure-length (get 'measureLength (ly:make-moment 1 1)))
-                 (time-signature-fraction
-                   (get 'timeSignatureFraction '(4 . 4)))
-                 (settings (get 'beamSettings '()))
-                 (function (if (= dir START) 'begin 'end))
-                 (type (cons (ly:moment-main-numerator test-beam)
-                             (ly:moment-main-denominator test-beam)))
-                 (pos (if (>= (ly:moment-main-numerator measure-pos) 0)
-                        measure-pos
-                        (ly:moment-add measure-length measure-pos)))
-                 (type-grouping (ly:beam-grouping
-                                  settings
-                                  time-signature-fraction
-                                  function
-                                  type))
-                 (default-grouping (ly:beam-grouping
-                                     settings
-                                     time-signature-fraction
-                                     function
-                                     '*))
-                 (beat-grouping (if (null? type-grouping)
-                                  default-grouping
-                                  type-grouping))
-                 (grouping-moment (if (null? type-grouping)
-                                    beat-length
-                                    test-beam))
-                 (grouping-moments (ending-moments
-                                      beat-grouping 0 grouping-moment)))
-           (if (null? beat-grouping)
-               ;; no rule applies, so end at beatLength
-               (= (ly:moment-main-denominator
-                   (ly:moment-div pos beat-length)) 1)
-               ;; otherwise, end at beginning of measure or
-               ;; at specified moment
-               (or
-                ;; start/end at beginning of measure
-                (= (ly:moment-main-numerator pos) 0)
-                ;; end if measure-pos matches a specified ending moment
-                (member pos grouping-moments)))))))
+      (let* ((base-moment (get 'baseMoment (ly:make-moment 1 4)))
+             (measure-length (get 'measureLength (ly:make-moment 1 1)))
+             (time-signature-fraction
+               (get 'timeSignatureFraction '(4 . 4)))
+             (beat-structure (get 'beatStructure '(1 1 1 1)))
+             (beat-endings (ending-moments beat-structure 0 base-moment))
+             (exceptions (sort (assoc-get 'end
+                                          (get 'beamExceptions '())
+                                          '())
+                               beaming<?))
+             (function (if (= dir START) 'begin 'end))
+             (type (moment->fraction test-beam))
+             (non-grace (ly:make-moment
+                          (ly:moment-main-numerator measure-pos)
+                          (ly:moment-main-denominator measure-pos)))
+             (pos (if (ly:moment<? non-grace ZERO-MOMENT)
+                      (ly:moment-add measure-length non-grace)
+                      non-grace))
+             (type-grouping (assoc-get type exceptions '()))
+             (default-rule (if (null? type-grouping)
+                               (larger-setting test-beam exceptions)
+                               '()))
+             (default-grouping (if (pair? default-rule)
+                                   (cdr default-rule)
+                                   '()))
+             (default-beat-length (if (pair? default-rule)
+                                      (car default-rule)
+                                      '()))
+             (exception-grouping (if (null? type-grouping)
+                                default-grouping
+                                type-grouping))
+             (grouping-moment (if (null? type-grouping)
+                                  (fraction->moment default-beat-length)
+                                  test-beam))
+             (exception-moments (ending-moments
+                                  exception-grouping 0 grouping-moment)))
+
+        (if (= dir START)
+            ;; Start rules
+            (or (not (equal? time-signature-fraction '(3 . 4))) ;; start anywher if not 3/4
+                (beat-end? pos beat-endings)  ;; are we at start of beat?
+                (and (not (equal? test-beam base-moment)) ;; is beat split?
+                     (not (beat-end? (ly:moment-add pos test-beam)
+                                     beat-endings))))  ;; will this note end the beat
+            ;; End rules
+            (or (= (ly:moment-main-numerator pos) 0) ;; end at measure beginning
+                (if (null? exception-grouping)
+                    (beat-end? pos beat-endings) ;; no exception, so check beat ending
+                    (member pos exception-moments))))))) ;; check exception rule
+

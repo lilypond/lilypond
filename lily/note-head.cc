@@ -27,9 +27,11 @@ using namespace std;
 
 #include "directional-element-interface.hh"
 #include "font-interface.hh"
-#include "international.hh"
-#include "warn.hh"
 #include "grob.hh"
+#include "international.hh"
+#include "staff-symbol.hh"
+#include "staff-symbol-referencer.hh"
+#include "warn.hh"
 
 static Stencil
 internal_print (Grob *me, string *font_char)
@@ -104,6 +106,31 @@ Note_head::print (SCM smob)
 
   string idx;
   return internal_print (me, &idx).smobbed_copy ();
+}
+
+MAKE_SCHEME_CALLBACK (Note_head, include_ledger_line_height, 1);
+SCM
+Note_head::include_ledger_line_height (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+
+  if (staff)
+    {
+      Real ss = Staff_symbol::staff_space (staff);
+      Interval lines = Staff_symbol::line_span (staff) * (ss / 2.0);
+      Real my_pos = Staff_symbol_referencer::get_position (me) * ss / 2.0;
+      Interval my_ext = me->extent (me, Y_AXIS) + my_pos;
+
+      // The +1 and -1 come from the fact that we only want to add
+      // the interval between the note and the first ledger line, not
+      // the whole interval between the note and the staff.
+      Interval iv (min (0.0, lines[UP] - my_ext[DOWN] + 1),
+		   max (0.0, lines[DOWN] - my_ext[UP] - 1));
+      return ly_interval2scm (iv);
+    }
+
+  return ly_interval2scm (Interval (0, 0));
 }
 
 Real

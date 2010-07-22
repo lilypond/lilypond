@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 
 Es posible aplicar la barrita que cruza la barra de las
@@ -15,7 +15,6 @@ acciaccaturas, en otras situaciones.
 "
 
   doctitlees = "Utilizar la barra que tacha las notas de adorno con notas normales"
-
 
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b

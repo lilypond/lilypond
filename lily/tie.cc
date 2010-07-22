@@ -74,12 +74,18 @@ Tie::head (Grob *me, Direction d)
 int
 Tie::get_column_rank (Grob *me, Direction d)
 {
+  Grob *col = 0;
   Spanner *span = dynamic_cast<Spanner *> (me);
-  Grob *h = head (me, d);
-  if (!h)
-    h = span->get_bound (d);
+  if (!span)
+    col = dynamic_cast<Item *> (me)->get_column ();
+  else
+    {
+      Grob *h = head (me, d);
+      if (!h)
+        h = span->get_bound (d);
 
-  Grob *col = dynamic_cast<Item *> (h)->get_column ();
+      col = dynamic_cast<Item *> (h)->get_column ();
+    }
   return Paper_column::get_rank (col);
 }
 

@@ -1174,6 +1174,7 @@
 	(expand-limit . 10)
 	(hair-thickness . 2.0)
 	(padding . 1)
+	(spacing-pair . (break-alignment . staff-bar))
 	(springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
 	(staff-position . 0)
 	(stencil . ,ly:multi-measure-rest::print)
@@ -1295,6 +1296,7 @@
     (NoteHead
      . (
 	(duration-log . ,note-head::calc-duration-log)
+	(extra-spacing-height . ,ly:note-head::include-ledger-line-height)
 	(glyph-name . ,note-head::calc-glyph-name)
 	(stem-attachment . ,ly:note-head::calc-stem-attachment)
 	(stencil . ,ly:note-head::print)
@@ -1413,6 +1415,7 @@
 	(dot-negative-kern . 0.75)
 	(font-encoding . fetaMusic)
 	(slope . 1.0)
+	(spacing-pair . (break-alignment . staff-bar))
 	(springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
 	(stencil . ,ly:multi-measure-rest::percent)
 	(thickness . 0.48)

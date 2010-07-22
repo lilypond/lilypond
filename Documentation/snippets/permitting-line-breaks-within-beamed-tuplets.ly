@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
  doctitlees = "Permitir saltos de línea dentro de grupos especiales con barra"
  texidoces = "
 Este ejemplo artificial muestra cómo se pueden permitir tanto los
@@ -15,7 +15,6 @@ valoración especial unido por una barra.  Observe que estos grupos
 sincopados se deben barrar manualmente.
 
 "
-
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
@@ -26,7 +25,6 @@ gesetzt werden.
 
 "
   doctitlede = "Zeilenumbrüche bei N-tolen mit Balken erlauben"
-
 
 
 %% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685

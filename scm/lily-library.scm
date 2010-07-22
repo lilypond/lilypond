@@ -66,6 +66,15 @@
   (or (equal? a b)
       (ly:moment<? a b)))
 
+(define-public (fraction->moment fraction)
+  (if (null? fraction)
+      ZERO-MOMENT
+      (ly:make-moment (car fraction) (cdr fraction))))
+
+(define-public (moment->fraction moment)
+  (cons (ly:moment-main-numerator moment)
+        (ly:moment-main-denominator moment)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; arithmetic
 (define-public (average x . lst)

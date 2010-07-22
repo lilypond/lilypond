@@ -121,6 +121,8 @@ each note.")
      (barNumberVisibility ,procedure? "A Procedure that takes an
 integer and returns whether the corresponding bar number should be
 printed.")
+     (baseMoment ,ly:moment? "Smallest unit of time that will stand on its
+own as a subdivided section.")
      (bassFigureFormatFunction ,procedure? "A procedure that is
 called to produce the formatting for a @code{BassFigure} grob.  It
 takes a list of @code{BassFigureEvent}s, a context, and the grob to
@@ -128,13 +130,10 @@ format.")
      (bassStaffProperties ,list? "An alist of property settings to
 apply for the down staff of @code{PianoStaff}.  Used by
 @code{\\autochange}.")
-     (beamSettings ,list? "Specifies when automatically generated
-beams should begin and end, as well as beam subdivision behavior.
-See @ruser{Setting automatic beam
-behavior} for more information.")
-     (beatLength ,ly:moment? "The length of one beat in this time
-signature.")
-
+     (beamExceptions ,list? "An alist of exceptions to autobeam rules
+that normally end on beats.")
+     (beatStructure ,list? "List of @code{baseMoment}s that are combined
+to make beats.")
 
      (chordChanges ,boolean? "Only show changes in chords scheme?")
      (chordNameExceptions ,list? "An alist of chord exceptions.
@@ -442,7 +441,7 @@ one).")
      (strokeFingerOrientations ,list? "See
 @code{fingeringOrientations}.")
      (subdivideBeams ,boolean? "If set, multiple beams will be
-subdivided at beat positions by only drawing one beam over the beat.")
+subdivided at @code{baseMoment} positions by only drawing one beam over the beat.")
      (suggestAccidentals ,boolean? "If set, accidentals are typeset as
 cautionary suggestions over the note.")
      (systemStartDelimiter ,symbol? "Which grob to make for the start
@@ -470,6 +469,10 @@ arpeggios.")
      (timeSignatureFraction ,number-pair? "A pair of numbers,
 signifying the time signature.  For example, @code{#'(4 . 4)} is a
 4/4 time signature.")
+     (timeSignatureSettings ,cheap-list? "A nested alist of settings for
+time signatures.  Contains elements for various time signatures.  The
+element for each time signature contains entries for @code{baseMoment},
+@code{beatStructure}, and @code{beamExceptions}.")
      (timing ,boolean? "Keep administration of measure length,
 position, bar number, etc.?  Switch off for cadenzas.")
      (tonic ,ly:pitch? "The tonic of the current scale.")

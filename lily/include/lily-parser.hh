@@ -63,6 +63,7 @@ public:
   void clear ();
   void do_init_file ();
   void do_yyparse ();
+  void include_string (string ly_code);
   void parse_file (string init, string name, string out_name);
   void parse_string (string ly_code);
   void parser_error (string);

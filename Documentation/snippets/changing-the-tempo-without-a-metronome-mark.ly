@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, midi"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Para cambiar el tempo en la salida MIDI sin
 imprimir nada, hacemos invisible la indicación metronómica:
@@ -14,7 +14,6 @@ imprimir nada, hacemos invisible la indicación metronómica:
 "
 
   doctitlees = "Cambiar el tempo sin indicación metronómica"
-
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
@@ -24,7 +23,6 @@ Noten auszugeben, kann die Metronombezeichnung unsichtbar gemacht werden:
 "
 
   doctitlede = "Das Tempo ohne Metronom-Angabe verändern"
-
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 Vous pouvez indiquer un changement de tempo pour le fichier MIDI sans

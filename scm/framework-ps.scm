@@ -593,9 +593,8 @@ fonts inline."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public (convert-to-pdf book name)
-  (let* ((defs (ly:paper-book-paper book))
-	 (landscape (ly:output-def-lookup defs 'landscape))
+(define (output-width-height defs)
+  (let* ((landscape (ly:output-def-lookup defs 'landscape))
 	 (output-scale (ly:output-def-lookup defs 'output-scale))
 	 (convert (lambda (x)
 		    (* x output-scale (/ (ly:bp 1)))))
@@ -603,25 +602,35 @@ fonts inline."
 	 (paper-height (convert (ly:output-def-lookup defs 'paper-height)))
 	 (w (if landscape paper-height paper-width))
 	 (h (if landscape paper-width paper-height)))
-    (if (equal? (basename name ".ps") "-")
-	(set! name (string-append "./" name)))
-    (postscript->pdf w h name)))
+    (cons w h)))
+
+(define (output-resolution defs)
+  (let ((defs-resolution (ly:output-def-lookup defs 'pngresolution)))
+    (if (number? defs-resolution)
+	defs-resolution
+	(ly:get-option 'resolution))))
+
+(define (output-filename name)
+  (if (equal? (basename name ".ps") "-")
+      (string-append "./" name)
+      name))
+
+(define-public (convert-to-pdf book name)
+  (let* ((defs (ly:paper-book-paper book))
+	 (width-height (output-width-height defs))
+	 (width (car width-height))
+	 (height (cdr width-height))
+	 (filename (output-filename name)))
+    (postscript->pdf width height filename)))
 
 (define-public (convert-to-png book name)
   (let* ((defs (ly:paper-book-paper book))
-	 (defs-resolution (ly:output-def-lookup defs 'pngresolution))
-	 (resolution (if (number? defs-resolution)
-			 defs-resolution
-			 (ly:get-option 'resolution)))
-	 (paper-width (ly:output-def-lookup defs 'paper-width))
-	 (paper-height (ly:output-def-lookup defs 'paper-height))
-	 (output-scale (ly:output-def-lookup defs 'output-scale)))
-    (if (equal? (basename name ".ps") "-")
-	(set! name (string-append "./" name)))
-    (postscript->png resolution
-		     (* paper-width output-scale (/ (ly:bp 1)))
-		     (* paper-height output-scale (/ (ly:bp 1)))
-		     name)))
+	 (resolution (output-resolution defs))
+	 (width-height (output-width-height defs))
+	 (width (car width-height))
+	 (height (cdr width-height))
+	 (filename (output-filename name)))
+    (postscript->png resolution width height filename)))
 
 (define-public (convert-to-ps book name)
   #t)

@@ -6,13 +6,12 @@
 \header {
   lsrtags = "text, titles"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Con algo de código de Scheme, se puede añadir fácilmente la fecha
 actual a una partitura.
 "
   doctitlees = "Añadir la fecha actual a una partitura"
-
 
 %% Translation of GIT committish: 05624d5147843d2fcbd6e4e126f1fd43142ac6e5
   texidocfr = "

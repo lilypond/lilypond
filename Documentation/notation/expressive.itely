@@ -108,6 +108,7 @@ Methods to create new dynamic markings are also discussed.
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
+@funindex \fermataMarkup
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -158,6 +159,19 @@ may be manually placed above or below the staff; see
 
 Articulations are @code{Script} objects.  Their properties are
 described more fully in @rinternals{Script}.
+
+Articulations can be attached to rests as well as notes but they
+cannot be attached to multi-measure rests.  A special predefined
+command, @code{\fermataMarkup}, is available for attaching a fermata
+to a multi-measure rest (and only a multi-measure rest).  This
+creates a @code{MultiMeasureRestText} object.
+
+@lilypond[verbatim,quote,relative=2]
+\override Script #'color = #red
+\override MultiMeasureRestText #'color = #blue
+a2\fermata r\fermata
+R1\fermataMarkup
+@end lilypond
 
 In addition to articulations, text and markups can be attached to
 notes.  See @ref{Text scripts}.
@@ -1147,26 +1161,50 @@ cross-staff arpeggios.
 @funindex \stopTrillSpan
 @funindex stopTrillSpan
 
-Short @notation{trills} without an extender line are printed with
+Short trills without an extender line are printed with
 @code{\trill}; see @ref{Articulations and ornamentations}.
 
 Longer trills with an extender line are made with
 @code{\startTrillSpan} and @code{\stopTrillSpan}:
 
 @lilypond[verbatim,quote,relative=2]
-d1~\startTrillSpan
+d1\startTrillSpan
 d1
-c2\stopTrillSpan r2
+c2\stopTrillSpan
+r2
 @end lilypond
 
-In the following example, a trill is combined with grace notes.
-The syntax of this construct and the method to precisely position
-the grace notes are described in @ref{Grace notes}.
+A trill spanner crossing a line break will restart exactly above
+the first note on the new line.
+
+@lilypond[ragged-right,verbatim,quote,relative=2]
+d1\startTrillSpan
+\break
+d1
+c2\stopTrillSpan
+r2
+@end lilypond
+
+Consecutive trill spans will work without explicit
+@code{\stopTrillSpan} commands, since successive trill spanners will
+automatically become the right bound of the previous trill.
 
 @lilypond[verbatim,quote,relative=2]
-c1 \afterGrace
+d1\startTrillSpan
+d1
+b1\startTrillSpan
+d2\stopTrillSpan
+r2
+@end lilypond
+
+Trills can also be combined with grace notes.  The syntax of this
+construct and the method to precisely position the grace notes are
+described in @ref{Grace notes}.
+
+@lilypond[verbatim,quote,relative=2]
+d1~\afterGrace
 d1\startTrillSpan { c32[ d]\stopTrillSpan }
-e2 r2
+c2 r2
 @end lilypond
 
 @cindex pitched trills
@@ -1179,29 +1217,34 @@ be typeset with the @code{\pitchedTrill} command.  The first
 argument is the main note, and the second is the @emph{trilled}
 note, printed as a stemless note head in parentheses.
 
-@lilypond[verbatim,quote,relative=1]
-\pitchedTrill e2\startTrillSpan fis
-d\stopTrillSpan
+@lilypond[verbatim,quote,relative=2]
+\pitchedTrill
+d2\startTrillSpan fis
+d2
+c2\stopTrillSpan
+r2
 @end lilypond
 
-@cindex pitched trill with forced accidental
-@cindex trill, pitched with forced accidental
-@cindex accidental, forced for pitched trill
+@cindex pitched trill with accidental
+@cindex trill with accidental
 
-In the following example, the second pitched trill is ambiguous;
-the accidental of the trilled note is not printed.  As a
-workaround, the accidentals of the trilled notes can be forced.
-The second measure illustrates this method:
+Subsequent accidentals of the same note in the same measure will need
+to be added manually.  Only the accidental of the first pitched trill
+in a measure is printed.
 
 @lilypond[verbatim,quote,relative=2]
-\pitchedTrill eis4\startTrillSpan fis
-g\stopTrillSpan
-\pitchedTrill eis4\startTrillSpan fis
-g\stopTrillSpan
-\pitchedTrill eis4\startTrillSpan fis
-g\stopTrillSpan
-\pitchedTrill eis4\startTrillSpan fis!
-g\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan fis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan cis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan fis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan fis!
+eis4\stopTrillSpan
 @end lilypond
 
 
@@ -1209,7 +1252,6 @@ g\stopTrillSpan
 @code{\startTrillSpan},
 @code{\stopTrillSpan}.
 @endpredefined
-
 
 @seealso
 Music Glossary:

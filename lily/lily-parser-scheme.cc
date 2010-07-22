@@ -205,6 +205,20 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",
+	   2, 0, 0, (SCM parser_smob, SCM ly_code),
+	   "Include the string @var{ly-code} into the input stream"
+	   " for @var{parser-smob}.")
+{
+  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
+  Lily_parser *parser = unsmob_lily_parser (parser_smob);
+  LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
+
+  parser->include_string (ly_scm2string (ly_code));
+
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
 	   2, 0, 0, (SCM parser, SCM names),
 	   "Replace current note names in @var{parser}."

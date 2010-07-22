@@ -56,8 +56,7 @@ Page_spacing::append_system (const Line_details &line)
       rod_height_ += line.full_height ();
       first_line_ = line;
     }
-  if (!line.tight_spacing_)
-    rod_height_ += line.title_ ? last_line_.title_padding_ : last_line_.padding_;
+
   spring_len_ += line.space_;
   inverse_spring_k_ += line.inverse_hooke_;
 
@@ -69,9 +68,7 @@ Page_spacing::append_system (const Line_details &line)
 void
 Page_spacing::prepend_system (const Line_details &line)
 {
-  if (rod_height_ && !first_line_.tight_spacing_)
-    rod_height_ += first_line_.title_ ? line.title_padding_ : line.padding_;
-  else
+  if (!rod_height_)
     last_line_ = line;
 
   rod_height_ -= first_line_.full_height ();

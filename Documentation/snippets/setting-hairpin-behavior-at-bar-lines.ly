@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Si la nota que da fin a un regulador cae sobre la primera parte de
 un compás, el regulador se detiene en la línea divisoria
@@ -16,7 +16,6 @@ sobreescribiendo la propiedad @code{'to-barline}.
 "
   doctitlees = "Establecer el comportamiento de los reguladores en las barras de compás"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Wenn die Note, an welcher eine Crescendo-Klammer endet, die erste Note
@@ -25,7 +24,6 @@ beendet.  Dieses Verhalten kann auch mit der Eigenschaft
 @code{'to-barline} geändert werden:
 "
   doctitlede = "Das Verhalten von Crescendo-Klammern an Taktlinien beeinflussen"
-
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 En principe, un soufflet -- (de)crescendo imprimé sous forme graphique --

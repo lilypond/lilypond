@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.13.10"
+\version "2.13.27"
 
 \context {
   \name "Global"
@@ -405,7 +405,10 @@ printing of a single line of lyrics."
   \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'staff-affinity = #UP
   \override VerticalAxisGroup #'inter-staff-spacing = #'((space . 5.5) (stretchability . 1) (padding . 0.5))
-  \override VerticalAxisGroup #'inter-loose-line-spacing = #'((space . 0) (stretchability . 0) (padding . 0.2))
+  \override VerticalAxisGroup #'inter-loose-line-spacing = #'((space . 0)
+							      (stretchability . 0)
+							      (padding . 0.2)
+							      (minimum-distance . 2.8))
   \override VerticalAxisGroup #'non-affinity-spacing #'padding = #1.0
   \override InstrumentName #'self-alignment-Y = ##f
 
@@ -549,9 +552,19 @@ automatically when an output definition (a @code{\score} or
 
   repeatCountVisibility = #all-repeat-counts-visible
 
-  beamSettings = #default-beam-settings
+  timeSignatureSettings = #default-time-signature-settings
+  timeSignatureFraction = #'(4 . 4)
+
+%% These defaults should be the same as the rules established in
+%%   scm/time-signature-settings.scm for 4/4 time
+  measureLength = #(ly:make-moment 4 4)
+  baseMoment = #(ly:make-moment 1  4)
+  beatStructure = #'(1 1 1 1)
+  beamExceptions = #'((end . (((1 . 8) . (4 4))
+                              ((1 . 12) . (3 3 3 3)))))
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
+
   scriptDefinitions = #default-script-alist
 
   pedalSustainStrings = #'("Ped." "*Ped." "*")

@@ -6,7 +6,7 @@
 \header {
   lsrtags = "rhythms, expressive-marks"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 La sintaxis de LilyPond puede implicar muchas colocaciones poco
 comunes para los paréntesis, corchetes, etc, que a veces se tienen

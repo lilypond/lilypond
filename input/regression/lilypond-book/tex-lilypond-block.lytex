@@ -1,0 +1,15 @@
+\documentclass[a4paper, 12pt]{article}
+
+\begin{document}
+
+\section{Simple lilypond blocks}
+
+A simple scale:
+
+\begin{lilypond}
+\score{
+  \relative c' { c d e f g a b c }
+}
+\end{lilypond}
+
+\end{document}

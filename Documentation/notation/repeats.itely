@@ -84,13 +84,9 @@ The syntax for a normal repeat is
 @end example
 
 @noindent
-where @var{musicexpr} is a music expression.  Alternate endings can be
-produced using @code{\alternative}.  In order to delimit the alternate
-endings, the group of alternatives must be enclosed in a set of
-braces.  If there are more repeats than there are alternate endings,
-the earliest repeats are given the first alternative.
+where @var{musicexpr} is a music expression.
 
-Normal repeats without alternate endings:
+A single repeat without an alternate ending:
 
 @lilypond[verbatim,quote,relative=2]
 \repeat volta 2 { c4 d e f }
@@ -98,13 +94,52 @@ c2 d
 \repeat volta 2 { d4 e f g }
 @end lilypond
 
-Normal repeats with alternate endings:
+Alternative endings can be produced using @code{\alternative}.  Each
+group of alternatives must be themselves, enclosed in a set of braces.
+
+@example
+\repeat volta @var{repeatcount} @var{musicexpr}
+\alternative @{
+  @{ @var{musicexpr} @}
+@}
+@end example
+
+@noindent
+where @var{musicexpr} is a music expression.
+
+If there are more repeats than there are alternate endings, the earliest
+repeats are given the first alternative.
+
+A single repeat with one alternate ending:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 2 { c4 d e f }
+\alternative {
+  { c2 e }
+  { f2 g }
+}
+c1
+@end lilypond
+
+A single repeat with more than one alternate ending:
 
 @lilypond[verbatim,quote,relative=2]
 \repeat volta 4 { c4 d e f }
 \alternative {
-  { d2 e }
+  { c2 e }
   { f2 g }
+}
+c1
+@end lilypond
+
+Multiple repeats with more than one alternate ending:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 3 { c4 d e f }
+\alternative {
+  { c2 e }
+  { f2 g }
+  { a2 g }
 }
 c1
 @end lilypond
@@ -225,6 +260,8 @@ c1
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{setting-the-double-repeat-default-for-volte.ly}
 
 @seealso
 Music Glossary:
@@ -301,7 +338,7 @@ For clarity, it is advisable to use braces in such situations.
 
 @warning{These methods are only used for displaying unusual repeat
 constructs, and may produce unexpected behavior.  In most cases,
-repeats should be created using the standard @code{\\repeat} command
+repeats should be created using the standard @code{@bs{}repeat} command
 or by printing the relevant bar lines.  For more information, see
 @ref{Bar lines}.}
 
@@ -425,24 +462,63 @@ where @var{musicexpr} is a music expression and @var{repeatcount} is
 the number of times @var{musicexpr} is repeated.
 
 @lilypond[verbatim,quote,relative=2]
-c1
 \repeat unfold 2 { c4 d e f }
 c1
 @end lilypond
 
-Unfold repeats can be made with alternate endings.  If there are
-more repeats than there are alternate endings, the first
-alternative ending is applied to the earliest endings.
+Unfold repeats can be made with alternate endings.
 
 @lilypond[verbatim,quote,relative=2]
-c1
-\repeat unfold 2 { g4 f e d }
-  \alternative {
-    { cis2 g' }
-    { cis,2 b }
-  }
+\repeat unfold 2 { c4 d e f }
+\alternative {
+  { c2 g' }
+  { c,2 b }
+}
 c1
 @end lilypond
+
+If there are more repeats than there are alternate endings, the first
+alternative is applied multiple times until the remaining alternatives
+make up the total number of repeats.
+
+@lilypond[verbatim,quote,relative=2]
+\repeat unfold 4 { c4 d e f }
+\alternative {
+  { c2 g' }
+  { c,2 b }
+  { e2 d }
+ }
+c1
+@end lilypond
+
+If there are more alternate endings than repeats then the first
+alternatives are applied, LilyPond will ignore the remaining
+alternatives which will not be printed.
+
+@lilypond[verbatim,quote,relative=2]
+\repeat unfold 2 { c4 d e f }
+\alternative {
+  { c2 g' }
+  { c,2 b }
+  { e2 d }
+}
+c1
+@end lilypond
+
+It is also possible to nest multiple @code{unfold} functions (with or
+without alternate endings).
+
+@lilypond[verbatim,quote,relative=2]
+\repeat unfold 2 {
+  \repeat unfold 2 { c4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+  }
+}
+c1
+@end lilypond
+
 
 @warning{If you include @code{@bs{}relative} inside a
 @code{@bs{}repeat} without explicitly instantiating the
@@ -463,8 +539,8 @@ Internals Reference:
 @subsection Short repeats
 
 This section discusses how to input short repeats.  Short repeats can
-take two basic forms: repeats of a single note to two measures,
-represented by slashes or percent signs; and tremolos.
+take two forms: slashes or percent signs to represent repeats of a
+single note, a single measure or two measures, and tremelos otherwise.
 
 @menu
 * Percent repeats::
@@ -482,10 +558,10 @@ represented by slashes or percent signs; and tremolos.
 @funindex \repeat percent
 @funindex percent
 
-Repeated short patterns of notes are supported.  The music is printed
-once, and the pattern is replaced with a special sign.  Patterns that
-are shorter than one measure are replaced by slashes, and patterns of
-one or two measures are replaced by percent-like signs.  The syntax is
+Repeated short patterns are printed once, and the repeated pattern
+is replaced with a special sign.
+
+The syntax is
 
 @example
 @code{\repeat percent @var{number} @var{musicexpr}}
@@ -494,10 +570,23 @@ one or two measures are replaced by percent-like signs.  The syntax is
 @noindent
 where @var{musicexpr} is a music expression.
 
+Patterns that are shorter than one measure are replaced by slashes.
+
 @lilypond[verbatim,quote,relative=2]
+\repeat percent 4 { c8 d }
 \repeat percent 4 { c4 }
-\repeat percent 2 { b4 a g f }
-\repeat percent 2 { c2 es | f4 fis g c | }
+\repeat percent 2 { c2 }
+@end lilypond
+
+Patterns of one or two measures are replaced by percent-like signs.
+
+@lilypond[verbatim,quote,relative=2]
+\repeat percent 3 { c4 d e f }
+\repeat percent 4 { c2 d }
+@end lilypond
+
+@lilypond[verbatim,quote,relative=2]
+\repeat percent 3 { c4 d e f | c2 g' }
 @end lilypond
 
 @snippets

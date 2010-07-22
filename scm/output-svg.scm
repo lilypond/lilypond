@@ -384,8 +384,7 @@
                 (* (* x-radius x-radius)
                    (* (sin angle) (sin angle)))))))
   (let*
-    ((dummy (format #t "INFO XR ~a YR ~a SA ~a EA ~a\n" x-radius y-radius start-angle end-angle))
-     (new-start-angle (* PI-OVER-180 (angle-0-360 start-angle)))
+    ((new-start-angle (* PI-OVER-180 (angle-0-360 start-angle)))
      (start-radius (make-ellipse-radius x-radius y-radius new-start-angle))
      (new-end-angle (* PI-OVER-180 (angle-0-360 end-angle)))
      (end-radius (make-ellipse-radius x-radius y-radius new-end-angle))
@@ -393,8 +392,7 @@
      (x-end (- (* end-radius (cos new-end-angle))
                (* start-radius (cos new-start-angle))))
      (y-end (- (* end-radius (sin new-end-angle))
-               (* start-radius (sin new-start-angle))))
-     (dummy (format #t "INFO NSA ~a SR ~a NEA ~a ER ~a\n" new-start-angle start-radius new-end-angle end-radius)))
+               (* start-radius (sin new-start-angle)))))
    (if (and (< (abs x-end) epsilon) (< (abs y-end) epsilon))
     (entity
       'ellipse ""
@@ -678,4 +676,8 @@
    (ec 'a)))
 
 (define (utf-8-string pango-font-description string)
-  (dispatch `(fontify ,pango-font-description ,(entity 'tspan string))))
+  (let ((escaped-string (string-regexp-substitute
+			  "<" "&lt;"
+			  (string-regexp-substitute "&" "&amp;" string))))
+  (dispatch `(fontify ,pango-font-description
+		      ,(entity 'tspan escaped-string)))))

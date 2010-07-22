@@ -165,7 +165,7 @@ compoundMeter =
 \set Timing.measureLength = $mlen
 \set Timing.timeSignatureFraction = #(cons (ly:moment-main-numerator $mlen)
                                            (ly:moment-main-denominator $mlen))
-\set Timing.beatLength = $beat
+\set Timing.baseMoment = $beat
 
 % TODO: Implement beatGrouping and auto-beam-settings!!!
 #} ))

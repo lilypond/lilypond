@@ -6,7 +6,7 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Se puede trazar un símbolo de arpegio entre notas de distintas
 voces que están sobre el mismo pentagrama si el grabador
@@ -16,7 +16,6 @@ voces que están sobre el mismo pentagrama si el grabador
 "
   doctitlees = "Crear arpegios entre notas de voces distintas"
 
-
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Ein Arpeggio kann zwischen Noten aus unterschidlichen Stimmen auf demselben
@@ -25,7 +24,6 @@ System gezogen werden, wenn der @code{Span_arpeggio_engraver} in den
 
 "
   doctitlede = "Arpeggios zwischen unterschiedlichen Stimmen erzeugen"
-
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Affecter le graveur @code{Span_arpeggio_engraver} au contexte de la

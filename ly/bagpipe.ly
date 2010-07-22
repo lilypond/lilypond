@@ -1,15 +1,15 @@
 %{
   Bagpipe music settings for LilyPond.
   This file builds on work by Andrew McNabb (http://www.mcnabbs.org/andrew/)
-  
-  Substantial changes and additions made by 
+
+  Substantial changes and additions made by
   Sven Axelsson, the Murray Pipes & Drums of Gothenburg
   (http://www.murrays.nu)
-  
+
   $Id: bagpipe.ly,v 1.12 2006/03/16 14:39:46 hanwen Exp $
 %}
 
-\version "2.12.0"
+\version "2.13.29"
 
 % Notes of the scale of the Great Highland Bagpipe. Extra high notes for bombarde.
 % Flat notes used mainly in some modern music.
@@ -69,22 +69,20 @@ showKeySignature = {
 % Sets the autobeamer to span quarter notes only. Use for fast music.
 % TODO: Needs more tweaking
 quarterBeaming = {
-  \overrideBeamSettings #'Staff #'(4 . 4) #'end
-    #'((* . (1 1 1 1)) ; could omit this and use beatLength
-       ((1 . 32) . (4 4 4 4 4 4 4 4)))
-  \overrideBeamSettings #'Staff #'(2 . 4) #'end
-    #'((* . (1 1))
-       ((1 . 32) . (4 4 4 4)))
+  \set Staff.beamExceptions = #'()
 }
+
 halfBeaming = {
-  \overrideBeamSettings #'Staff #'(2 . 2) #'end
-    #'((* . (1 1))) % could omit this and use beatLength
+  \set Staff.beamExceptions = #'((end . (((1 . 8) . (4 4))
+                                         ((1 . 12) . (3 3)))))
 }
+
 % Reels are in allabreve time with half note beaming.
 reelTime = {
   \time 2/2
   \halfBeaming
 }
+
 % 4/4 marches are written with numerical time signature and with quarter beaming.
 marchTime = {
   \time 4/4
@@ -266,12 +264,12 @@ pthrwd  = { \grace { \small G16[ d32 c] } }
 darodo  = { \grace { \small G32[ d G c G] } }
 Gdarodo = { \grace { \small d32[ G c G] } }
 % Non-gracenote piobaireachd markup.
-trebling = \markup { 
+trebling = \markup {
   \override #'(baseline-skip . 0.3)
-  \column { 
-    \musicglyph #"scripts.tenuto" 
-    \musicglyph #"scripts.tenuto" 
-    \musicglyph #"scripts.tenuto" 
+  \column {
+    \musicglyph #"scripts.tenuto"
+    \musicglyph #"scripts.tenuto"
+    \musicglyph #"scripts.tenuto"
   }
 }
 % Abbreviated notation common in piobaireachd scores.

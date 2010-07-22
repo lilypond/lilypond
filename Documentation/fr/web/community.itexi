@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 68cf70682a542701a918f8bfff50f2b8b85f84e2
+    Translation of GIT committish: 7c9a0da142b6037180d557f12ba1ada366226606
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -828,9 +828,9 @@ with Constraint Satisfaction Programming}, International Computer
 Music Conference 2008.
 
 @item
-A. Passos, M. Silva, P. Kroger, et G. Cidra,
+Alexandre Tachard Passos, Marcos Sampaio, Pedro Kröger, Givaldo de Cidra,
 @emph{Functional Harmonic Analysis and Computational Musicology
-in Rameau}, Proceedings of the 12th Brazilian Symposium on Compute
+in Rameau}, Proceedings of the 12th Brazilian Symposium on Computer
 Music, 2009, p. 207-210.
 
 @item
@@ -840,7 +840,7 @@ New Trends in Artificial Intelligence, 2007 J. Neves et al ed.
 
 @item
 
-Kevin C. Baird 2005.
+Kevin C. Baird 2005,
 @emph{Real-time generation of music notation via audience interaction using
 python and GNU lilypond}. Proceedings of the 2005 Conference on New interfaces
 For Musical Expression (Vancouver, Canada, May 26 - 28, 2005).

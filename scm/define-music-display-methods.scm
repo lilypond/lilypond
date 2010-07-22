@@ -1001,7 +1001,7 @@ Otherwise, return #f.  Note: default grouping is not available."
     (> (length ?elts) 2)
     (with-music-match ((cadr ?elts)
                        (music 'PropertySet
-                              symbol 'beatLength))
+                              symbol 'baseMoment))
        #t)
     (with-music-match ((caddr ?elts)
                        (music 'PropertySet

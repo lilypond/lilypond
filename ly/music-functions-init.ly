@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.12.0"
+\version "2.13.29"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -409,29 +409,19 @@ ottava =
    (_i "Set the octavation.")
    (make-ottava-set octave))
 
-overrideBeamSettings =
+overrideTimeSignatureSettings =
 #(define-music-function
-   (parser location context time-signature rule-type grouping-rule)
-   (symbol? pair? symbol? pair?)
+   (parser location context time-signature base-moment beat-structure beam-exceptions)
+   (symbol? pair? pair? cheap-list? cheap-list?)
 
-   (_i "Override beamSettings in @var{context}
-for time signatures of @var{time-signature} and rules of type
-@var{rule-type} to have a grouping rule alist
-@var{grouping-rule}.
-@var{rule-type} can be @code{end} or @code{subdivide},
-with a potential future value of @code{begin}.
-@var{grouping-rule} is an alist of @var{(beam-type . grouping)}
-entries.  @var{grouping} is in units of @var{beam-type}.  If
-@var{beam-type} is @code{*}, grouping is in units of the denominator
-of @var{time-signature}.")
+   (_i "Override @code{timeSignatureSettings} in @var{context}
+for time signatures of @var{time-signature} to have settings
+of @var{base-moment}, @var{beat-structure}, and @var{beam-exceptions}.")
 
    ;; TODO -- add warning if largest value of grouping is
    ;;	    greater than time-signature.
-
-   #{
-     #(override-beam-setting
-       $time-signature $rule-type $grouping-rule $context)
-   #})
+  (let ((setting (make-setting base-moment beat-structure beam-exceptions)))
+    (override-time-signature-setting time-signature setting context)))
 
 overrideProperty =
 #(define-music-function (parser location name property value)
@@ -675,18 +665,14 @@ resetRelativeOctave =
 
      reference-note))
 
-revertBeamSettings =
+revertTimeSignatureSettings =
 #(define-music-function
-   (parser location context time-signature rule-type)
-   (symbol? pair? symbol?)
+   (parser location context time-signature)
+   (symbol? pair?)
 
-   (_i "Revert beam settings in @var{context} for time signatures of
-@var{time-signature} and groups of type
-@var{group-type}.  @var{group-type} can be @code{end}
-or @code{subdivide}.")
-   #{
-     #(revert-beam-setting $time-signature $rule-type $context)
-   #})
+   (_i "Revert @code{timeSignatureSettings} in @var{context}
+for time signatures of @var{time-signature}.")
+     (revert-time-signature-setting time-signature context))
 
 rightHandFinger =
 #(define-music-function (parser location finger) (number-or-string?)
@@ -709,26 +695,6 @@ scaleDurations =
    (_i "Multiply the duration of events in @var{music} by @var{fraction}.")
    (ly:music-compress music
 		      (ly:make-moment (car fraction) (cdr fraction))))
-
-setBeatGrouping =
-#(define-music-function (parser location grouping) (pair?)
-   (_i "Set the beat grouping in the current time signature to
-@var{grouping}.")
-   (define (default-group-setting c)
-     (let* ((context-time-signature
-	     (ly:context-property c 'timeSignatureFraction))
-	    (time-signature (if (null? context-time-signature)
-				'(4 . 4)
-				context-time-signature)))
-       (override-property-setting
-	c
-	'beamSettings
-	(list time-signature 'end)
-	(list (cons '* grouping)))))
-
-   (context-spec-music
-    (make-apply-context default-group-setting)
-    'Score))
 
 shiftDurations =
 #(define-music-function (parser location dur dots arg)

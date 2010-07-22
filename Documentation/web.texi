@@ -53,6 +53,27 @@ License''.
 @end copying
 
 
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond --- the music typesetter
+@direntry
+* LilyPond Learning Manual: (lilypond-learning).  Start here.
+* Music Glossary: (music-glossary).               For non-English users.
+* LilyPond: (lilypond-notation).                           LilyPond Notation Reference.
+* LilyPond Snippets: (lilypond-snippets).         Short tricks, tips, and examples.
+* LilyPond Internals Reference: (lilypond-internals).  Definitions for tweaking.
+* LilyPond Application Usage: (lilypond-usage). Installing and running applications.
+* LilyPond Website: (lilypond-web).    Preview of new website.
+* lilypond: (lilypond-usage)Running lilypond.      Invoking the LilyPond program.
+* abc2ly: (lilypond-usage)Invoking abc2ly.      Importing ABC.
+* convert-ly: (lilypond-usage)Updating files with convert-ly. Older LilyPond versions.
+* etf2ly: (lilypond-usage)Invoking etf2ly.      Importing Finale.
+* lilypond-book: (lilypond-usage)lilypond-book. Integrating text and music.
+* midi2ly: (lilypond-usage)Invoking midi2ly.    Importing MIDI.
+* musicxml2ly: (lilypond-usage)Invoking musicxml2ly.  Importing MusicXML.
+@end direntry
+
+
 @c TITLE PAGE
 @ifnottex
 @node Top
@@ -181,27 +202,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
   * List all commands in direntry.
 
 @end ignore
-
-@c Info files are no longer installed in a subdirectory, images are
-@c expected to be found in lilypond/ subdirectory.
-@dircategory GNU LilyPond --- the music typesetter
-@direntry
-* LilyPond Learning Manual: (lilypond-learning).  Start here.
-* Music Glossary: (music-glossary).               For non-English users.
-* LilyPond: (lilypond-notation).                           LilyPond Notation Reference.
-* LilyPond Snippets: (lilypond-snippets).         Short tricks, tips, and examples.
-* LilyPond Internals Reference: (lilypond-internals).  Definitions for tweaking.
-* LilyPond Application Usage: (lilypond-usage). Installing and running applications.
-* LilyPond Website: (lilypond-web).    Preview of new website.
-* lilypond: (lilypond-usage)Running LilyPond.      Invoking the LilyPond program.
-* abc2ly: (lilypond-usage)Invoking abc2ly.      Importing ABC.
-* convert-ly: (lilypond-usage)Updating files with convert-ly. Older LilyPond versions.
-* etf2ly: (lilypond-usage)Invoking etf2ly.      Importing Finale.
-* lilypond-book: (lilypond-usage)LilyPond-book. Integrating text and music.
-* midi2ly: (lilypond-usage)Invoking midi2ly.    Importing MIDI.
-* musicxml2ly: (lilypond-usage)Invoking musicxml2ly.  Importing MusicXML.
-@end direntry
-
 
 @c FIXME: this still doesn't solve the broken links in pdf and big
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp

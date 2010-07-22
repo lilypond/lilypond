@@ -2,10 +2,10 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.21
-\version "2.13.21"
+\version "2.13.29"
 
 \header {
-%% Translation of GIT committish: e0aa246e0ed1a86dc41a99ab79bff822d3320aa7
+%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
 
   texidoces = "
 Esta plantilla crea una partitura que comienza con una estrofa para
@@ -26,7 +26,7 @@ use of spacer rests within the @code{\global} variable to define
 meter changes (and other elements common to all parts) throughout
 the entire score.
 "
-  doctitle = "Solo verse and two-part refrain"
+  doctitle = "Vocal ensemble template with verse and refrain"
 } % begin verbatim
 
 

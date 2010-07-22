@@ -1,0 +1,10 @@
+\documentclass[a4paper, 12pt]{article}
+
+\begin{document}
+
+Version: \lilypondversion
+
+A digit immediately after the version: \lilypondversion9
+A formula immediately after the version: \lilypondversion$x_k$
+
+\end{document}

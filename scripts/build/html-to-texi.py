@@ -53,7 +53,7 @@ body = re.sub ('(?ms)<DD>(.*?)(</DD>)', r'\1', body)
 body = re.sub ('(?ms)<STRONG>(.*?)(</STRONG>)', r'@strong{\1}', body)
 body = re.sub ('(?ms)<EM>(.*?)(</EM>)', r'@emph{\1}', body)
 
-body = re.sub ('(?ms)&nbsp', r'@tie{}', body)
+body = re.sub ('(?ms)&nbsp;', r'@tie{}', body)
 
 body = re.sub ('(?ms)\cite{(.*?)}', r'[\1]', body)
 body = re.sub ('(?ms)\cite{(.*?)}', r'[\1]', body)

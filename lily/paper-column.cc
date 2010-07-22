@@ -20,6 +20,7 @@
 #include "paper-column.hh"
 
 #include "axis-group-interface.hh"
+#include "bar-line.hh"
 #include "break-align-interface.hh"
 #include "font-interface.hh"
 #include "grob-array.hh"
@@ -96,20 +97,20 @@ Paper_column::Paper_column (Paper_column const &src)
 }
 
 int
-Paper_column::compare (Grob * const &a,
-		       Grob * const &b)
+Paper_column::compare (Grob *const &a,
+		       Grob *const &b)
 {
-  return sign (dynamic_cast<Paper_column*> (a)->rank_
-	       - dynamic_cast<Paper_column*> (b)->rank_);
+  return sign (dynamic_cast<Paper_column *> (a)->rank_
+	       - dynamic_cast<Paper_column *> (b)->rank_);
 }
 
 bool
 Paper_column::less_than (Grob *const &a,
 			 Grob *const &b)
 {
-  Paper_column *pa = dynamic_cast<Paper_column*> (a);
-  Paper_column *pb = dynamic_cast<Paper_column*> (b);
-  
+  Paper_column *pa = dynamic_cast<Paper_column *> (a);
+  Paper_column *pb = dynamic_cast<Paper_column *> (b);
+
   return pa->rank_ < pb->rank_;
 }
 
@@ -142,7 +143,7 @@ Paper_column::is_used (Grob *me)
   extract_grob_set (me, "bounded-by-me", bbm);
   if (bbm.size ())
     return true;
-  
+
   if (Paper_column::is_breakable (me))
     return true;
 
@@ -160,7 +161,7 @@ Paper_column::is_breakable (Grob *me)
 Real
 Paper_column::minimum_distance (Grob *left, Grob *right)
 {
-  Drul_array<Grob*> cols (left, right);
+  Drul_array<Grob *> cols (left, right);
   Drul_array<Skyline> skys = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
 
   Direction d = LEFT;
@@ -178,18 +179,37 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
 }
 
 Interval
-Paper_column::break_align_width (Grob *me)
+Paper_column::break_align_width (Grob *me, SCM align_sym)
 {
   Grob *p = me->get_parent (X_AXIS);
 
   if (is_musical (me))
     {
-      me->programming_error ("tried to get break-align-width of a non-musical column");
+      me->programming_error ("tried to get break-align-width of a musical column");
       return Interval (0, 0) + me->relative_coordinate (p, X_AXIS);
     }
 
-  Grob *align = Pointer_group_interface::find_grob (me, ly_symbol2scm ("elements"),
-						    Break_alignment_interface::has_interface);
+  Grob *align = 0;
+  if (align_sym == ly_symbol2scm ("staff-bar")
+      || align_sym == ly_symbol2scm ("break-alignment"))
+    align
+      = Pointer_group_interface::find_grob (me, ly_symbol2scm ("elements"),
+					    (align_sym == ly_symbol2scm ("staff-bar")
+					     ? Bar_line::non_empty_barline
+					     : Break_alignment_interface::has_interface));
+  else
+    {
+      extract_grob_set (me, "elements", elts);
+      for (vsize i = 0; i < elts.size (); i++)
+	{
+	  if (elts[i]->get_property ("break-align-symbol") == align_sym)
+	    {
+	      align = elts[i];
+	      break;
+	    }
+	}
+    }
+
   if (!align)
     return Interval (0, 0) + me->relative_coordinate (p, X_AXIS);
 
@@ -203,7 +223,7 @@ MAKE_SCHEME_CALLBACK (Paper_column, print, 1);
 SCM
 Paper_column::print (SCM p)
 {
-  Paper_column *me = dynamic_cast<Paper_column*> (unsmob_grob (p));
+  Paper_column *me = dynamic_cast<Paper_column *> (unsmob_grob (p));
 
   string r = to_string (Paper_column::get_rank (me));
 
@@ -226,11 +246,11 @@ Paper_column::print (SCM p)
 
   Stencil l = Lookup::filled_box (Box (Interval (-0.01, 0.01),
 				       Interval (-2, -1)));
-  
+
   SCM small_letters = scm_cons (scm_acons (ly_symbol2scm ("font-size"),
 					   scm_from_int (-6), SCM_EOL),
 				properties);
-  
+
   int j = 0;
   for (SCM s = me->get_object ("ideal-distances");
        scm_is_pair (s); s = scm_cdr (s))
@@ -239,7 +259,7 @@ Paper_column::print (SCM p)
       if (!unsmob_grob (scm_cdar (s))
 	  || !unsmob_grob (scm_cdar (s))->get_system ())
 	continue;
-      
+
       j++;
       Real y = -j * 1 -3;
       vector<Offset> pts;
@@ -247,30 +267,30 @@ Paper_column::print (SCM p)
 
       Offset p2 (sp->distance (), y);
       pts.push_back (p2);
-      
+
       Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
       Stencil head (musfont->find_by_name ("arrowheads.open.01"));
 
       SCM distance_stc = Text_interface::interpret_markup (me->layout ()->self_scm (),
 							   small_letters,
 							   ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
-      
-      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (sp->distance ()/3, y+1)));
+
+      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (sp->distance () / 3, y + 1)));
       id_stencil.add_stencil (head.translated (p2));
       id_stencil = id_stencil.in_color (0,0,1);
       l.add_stencil (id_stencil);
     }
-   
+
   for (SCM s = me->get_object ("minimum-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
       Real dist = scm_to_double (scm_cdar (s));
-      Grob *other =  unsmob_grob (scm_caar (s));
+      Grob *other = unsmob_grob (scm_caar (s));
       if (!other || other->get_system () != me->get_system ())
 	continue;
 
       j++;
-      
+
       Real y = -j * 1.0 -3.5;
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
@@ -287,10 +307,9 @@ Paper_column::print (SCM p)
 							   small_letters,
 							   ly_string2scm (String_convert::form_string ("%5.2lf",
 												       dist)));
-          
-      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (dist/3, y-1)));
- 
-       
+
+      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (dist / 3, y - 1)));
+
       id_stencil = id_stencil.in_color (1,0,0);
       l.add_stencil (id_stencil);
     }
@@ -317,7 +336,7 @@ Paper_column::before_line_breaking (SCM grob)
   if (!ga)
     return SCM_UNSPECIFIED;
 
-  vector<Grob*> &array (ga->array_reference ());
+  vector<Grob *> &array (ga->array_reference ());
 
   for (vsize i = array.size (); i--;)
     {
@@ -351,13 +370,12 @@ Paper_column::is_extraneous_column_from_ligature (Grob *me)
       if (Rhythmic_head::has_interface (elts[i]))
 	{
 	  has_notehead = true;
-	  if (dynamic_cast<Item*> (elts[i])->get_column () == me)
+	  if (dynamic_cast<Item *> (elts[i])->get_column () == me)
 	    return false;
 	}
     }
   return has_notehead;
 }
-
 
 ADD_INTERFACE (Paper_column,
 	       "@code{Paper_column} objects form the top-most X@tie{}parents"
@@ -392,6 +410,5 @@ ADD_INTERFACE (Paper_column,
 	       "shortest-starter-duration "
 	       "spacing "
 	       "used "
-	       "when "
-	       );
+	       "when ");
 

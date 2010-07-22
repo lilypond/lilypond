@@ -375,7 +375,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     "part-combiner.scm"
     "autochange.scm"
     "define-music-properties.scm"
-    "beam-settings.scm"
+    "time-signature-settings.scm"
     "auto-beam.scm"
     "chord-name.scm"
     "bezier-tools.scm"
@@ -682,7 +682,7 @@ PIDs or the number of the process."
   (eval-string (ly:command-line-code))
   (if (ly:get-option 'help)
       (begin (ly:option-usage)
-	     (ly:exit 0 #t )))
+	     (ly:exit 0 #t)))
   (if (ly:get-option 'show-available-fonts)
       (begin (ly:font-config-display-fonts)
 	     (ly:exit 0 #t)))
@@ -798,7 +798,6 @@ PIDs or the number of the process."
 	 (for-each (lambda (s)
 		     (ly:set-option (car s) (cdr s)))
 		   all-settings)
-	 (ly:clear-anonymous-modules)
 	 (ly:set-option 'debug-gc-assert-parsed-dead #t)
 	 (gc)
 	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
