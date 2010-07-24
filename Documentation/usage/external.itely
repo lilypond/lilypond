@@ -165,34 +165,34 @@ along with syntax coloring tools.  A Vim mode for entering music and
 running LilyPond is contained in the source archive in @code{$VIM}
 directory.
 
-The LilyPond file type is detected if the file
-@file{~/.vim/filetype.vim} has the following content
+To enable the Vim mode, locate the @file{filetype.vim} file and find
+the first section which looks like
 
 @example
-if exists("did_load_filetypes")
-  finish
-endif
-augroup filetypedetect
-  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
+au filegroup detect
+(many lines here)
 augroup END
 @end example
 
-Please include this path by appending the following line to your
-@file{~/.vimrc}
+then insert the following lines in the section, which is generally in
+alphabetic order
+
+@example
+: LilyPond
+  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
+@end example
+
+The next step is to append the following line to your @file{vimrc}
 
 @example
 set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
 @end example
 
 @noindent
-where $@{LILYPOND_VERSION@} is your LilyPond version.  If LilyPond was not
-installed in @file{/usr/local/}, then change this path accordingly.
-The path may differ significantly. In Fedora the path leads to the
-current version of Vim instead of Lilypond:
-
-@example
-set runtimepath+=/usr/share/vim/vim72/
-@end example
+where $@{LILYPOND_VERSION@} is your LilyPond version.  If your LilyPond
+is installed in a different location, the path should be modified to suit.
+To locate the @file{filetype.vim} and @file{.vimrc} files being used in
+your install of Vim, use the @code{":version"} in a Vim session.
 
 
 @node Other editors
