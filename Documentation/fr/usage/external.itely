@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e14222fd558e0d44a73be5e31b644a3e4d51db0f
+    Translation of GIT committish: 4578dfbfdab5704ffc5317adfb252cb242f30115
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -186,20 +186,26 @@ un fichier @file{vimrc} qui gère la coloration synthaxique.  Le
 répertoire @code{$VIM} inclus dans les sources contient aussi un
 mode pour saisir la musique et lancer LilyPond.
 
-Le type de fichier LilyPond sera reconnu si votre
-@file{~/.vim/filetype.vim} contient
+Le mode spécifique à Vim doît être indiqué dans le fichier
+@file{filetype.vim}.  Localisez ce fichier, ouvrez-le puis trouvez la
+première section qui ressemble à
 
 @example
-if exists("did_load_filetypes")
-  finish
-endif
-augroup filetypedetect
-  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
+au filegroup detect
+@emph{un paquet de lignes}
 augroup END
 @end example
 
-N'oubliez pas d'inclure ce chemin en ajoutant à votre @file{~/.vimrc} la
-ligne suivante@tie{}:
+Insérez dans cette section, habituellement rangée par ordre
+alphabétique, les lignes suivantes@tie{}:
+
+@example
+: LilyPond
+  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
+@end example
+
+N'oubliez pas ensuite d'inclure ce chemin en ajoutant à votre
+@file{vimrc} la ligne suivante@tie{}:
 
 @example
 set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
@@ -207,13 +213,10 @@ set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
 
 @noindent
 où $@{LILYPOND_VERSION@} correspond à votre version de LilyPond.  Si
-LilyPond n'est pas installé dans @file{/usr/local/}, modifiez ce chemin
-en conséquence.  À titre d'exemple, si vous avez une Fedora, le chemin
-mène à la version de Vim au lieu de LilyPond@tie{}:
-
-@example
-set runtimepath+=/usr/share/vim/vim72/
-@end example
+LilyPond est installé dans un autre répertoire, modifiez ce chemin
+en conséquence.  La commande @code{":version"} lancée dans une session
+Vim permet de localiser les fichiers @file{filetype.vim} et
+@file{.vimrc} utilisés par votre installation de Vim.
 
 
 @node Autres éditeurs
