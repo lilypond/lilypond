@@ -656,7 +656,7 @@ commande @code{\repeat} suivie du style trémolo@tie{}:
 La syntaxe de @code{\repeat tremolo} requiert espressément deux notes
 encadrées par des accolades, et le nombre de répétitions exprimé en
 durée d'une note (pointée ou non).  Ainsi, dans l'exemple ci-dessus,
-@code{\repeat@tie{}tremolo@tie{}7}} est valide car correspond à une note
+@code{\repeat@tie{}tremolo@tie{}7} est valide car correspond à une note
 doublement pointée, à l'inverse de @code{\repeat@tie{}tremolo@tie{}9}.
 
 La durée d'un trémolo est égale à la durée de l'expression entre
