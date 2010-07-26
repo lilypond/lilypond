@@ -19,17 +19,14 @@ setlocal shiftwidth=2
 "
 " some handy key mappings
 "
-" <F4>  save & make and play midi
+" <F4>  save & make and play midi with timidity
 map <buffer> <F4> :w<Return>:se makeprg=lilypond\ -m\ %<<Return>:make<Return>:!timidity %<.midi<Return>
 "
-" <F5>  save & make dvi, midi, ps
+" <F5>  save & make
 map <buffer> <F5> :w<Return>:se makeprg=lilypond\ %<<Return>:make<Return>
 "
-" <F6>  view ps
+" <F6>  view ps with ghostview
 map <buffer> <F6> :!gv --watch %<.ps &<Return>
-"
-" <S-F6>  view dvi
-map <buffer> <S-F6> :!xdvi %<.dvi &<Return>
 "
 " <F7>  prev error
 map <buffer> <F7> :cp<Return>
