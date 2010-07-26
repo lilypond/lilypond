@@ -981,8 +981,6 @@ relevant for finding the @code{pure-Y-extent}.")
      (side-support-elements ,ly:grob-array? "The side support, an array of
 grobs.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
-     (spaceable-staves ,ly:grob-array? "Objects to be spaced during page
-layout.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")

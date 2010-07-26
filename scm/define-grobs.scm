@@ -2300,8 +2300,7 @@
 				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
 
 		 (interfaces . (axis-group-interface
-				hara-kiri-group-spanner-interface
-				vertically-spaceable-interface))))))
+				hara-kiri-group-spanner-interface))))))
 
     (VoiceFollower
      . (

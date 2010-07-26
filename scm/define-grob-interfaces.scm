@@ -220,12 +220,6 @@ with @code{breakable=##t}."
  '(breakable))
 
 (ly:add-interface
- 'vertically-spaceable-interface
- "Objects that should be kept at constant vertical distances.  Typically:
-@rinternals{VerticalAxisGroup} objects of @rinternals{Staff} contexts."
- '())
-
-(ly:add-interface
  'volta-interface
  "A volta repeat."
  '())
