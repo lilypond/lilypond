@@ -52,6 +52,11 @@ syn match lilySpecial	"\\[<!>\\]"
 " c--\mf c^^\mf c__\mf
 syn match lilyArticulation	"[-_^][-_^+|>.]"
 
+" Include Scheme syntax highlighting, where appropriate
+syn include @embeddedScheme syntax/scheme.vim
+unlet b:current_syntax
+syn region lilyScheme matchgroup=Delimiter start="#(" matchgroup=Delimiter end=")" contains=@embeddedScheme
+
 " Rest of syntax highlighting rules start here
 "
 " " Define the default highlighting.
