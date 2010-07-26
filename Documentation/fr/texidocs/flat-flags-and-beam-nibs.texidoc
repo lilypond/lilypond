@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 
+%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
   texidocfr = "
 En combinant @code{stemLeftBeamCount}, @code{stemRightBeamCount} et des
 paires de @code{[]}, vous pourrez obtenir des crochets rectilignes et

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 
+%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
   texidocfr = "
 Les règles de ligature par mesure sont gérées par la propriété
 @code{beatStructure}.  Ses valeurs par défaut sont répertoriées, par
