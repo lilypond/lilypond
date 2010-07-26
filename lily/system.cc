@@ -672,6 +672,5 @@ ADD_INTERFACE (System,
 	       "columns "
 	       "labels "
 	       "pure-Y-extent "
-	       "skyline-distance "
 	       "skyline-horizontal-padding "
 	       );
