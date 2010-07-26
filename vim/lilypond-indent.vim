@@ -38,10 +38,15 @@ function GetLilyPondIndent()
     let ind = ind - &sw
   endif
 
-  " Check if the previous line is a `lilyScheme' region, and if
-  " so, use lisp-style indentation for the current line.
-  " TODO: only works in version 7.1.215 or later, though it should
-  " silently fail in older versions.
+  " Check if the first character from the previous line is within
+  " a `lilyScheme' region, and if so, use lisp-style indentation
+  " for the current line.
+  "
+  " TODO:
+  "   - Only works in version 7.1.215 or later, though it should
+  "     silently fail in older versions.
+  "   - We should support `lilyScheme' regions that begin in the
+  "     middle of the line, too.
   for id in synstack(lnum, 1)
     if synIDattr(id, "name") == "lilyScheme"
       let ind = lispindent(v:lnum)
