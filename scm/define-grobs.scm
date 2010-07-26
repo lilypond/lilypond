@@ -2478,7 +2478,6 @@
     (,ly:rest::height . ,ly:rest::pure-height)
     (,ly:self-alignment-interface::y-aligned-on-self . ,ly:self-alignment-interface::pure-y-aligned-on-self)
     (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
-    (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
     (,ly:slur::height . ,ly:slur::pure-height)
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
     (,ly:stem::height . ,ly:stem::pure-height)
