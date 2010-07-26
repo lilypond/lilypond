@@ -22,6 +22,11 @@
 #(define book-filename #f)
 #(define book-output-suffix #f)
 #(use-modules (scm clip-region))
+
+#(if (ly:get-option 'include-settings)
+  (ly:parser-include-string parser
+    (format "\\include \"~a\"" (ly:get-option 'include-settings))))
+
 \maininput
 %% there is a problem at the end of the input file
 
