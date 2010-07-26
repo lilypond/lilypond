@@ -416,19 +416,28 @@ was suggested by Patrick McCarty.  It should be saved in
 
 @verbatim
 " Additional Guile-specific 'forms'
-syn keyword schemeSyntax define-public define* define-safe-public
+syn keyword schemeSyntax define-public define*-public
+syn keyword schemeSyntax define* lambda* let-keywords*
+syn keyword schemeSyntax defmacro defmacro* define-macro
+syn keyword schemeSyntax defmacro-public defmacro*-public
 syn keyword schemeSyntax use-modules define-module
-syn keyword schemeSyntax defmacro-public define-macro
-syn keyword schemeSyntax define-markup-command
-syn keyword schemeSyntax define-markup-list-command
-syn keyword schemeSyntax let-keywords* lambda* define*-public
-syn keyword schemeSyntax defmacro* defmacro*-public
+syn keyword schemeSyntax define-method define-class
+
+" Additional LilyPond-specific 'forms'
+syn keyword schemeSyntax define-markup-command define-markup-list-command
+syn keyword schemeSyntax define-safe-public define-music-function
+syn keyword schemeSyntax def-grace-function
 
 " All of the above should influence indenting too
-set lw+=define-public,define*,define-safe-public,use-modules,define-module
-set lw+=defmacro-public,define-macro
+set lw+=define-public,define*-public
+set lw+=define*,lambda*,let-keywords*
+set lw+=defmacro,defmacro*,define-macro
+set lw+=defmacro-public,defmacro*-public
+set lw+=use-modules,define-module
+set lw+=define-method,define-class
 set lw+=define-markup-command,define-markup-list-command
-set lw+=let-keywords*,lambda*,define*-public,defmacro*,defmacro*-public
+set lw+=define-safe-public,define-music-function
+set lw+=def-grace-function
 
 " These forms should not influence indenting
 set lw-=if
