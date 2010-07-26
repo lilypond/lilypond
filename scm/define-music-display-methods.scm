@@ -512,6 +512,9 @@ Otherwise, return #f."
 (define-display-method SkipMusic (skip parser)
   (format #f "\\skip ~a" (duration->lily-string (ly:music-property skip 'duration) #:force-duration #t)))
 
+(define-display-method OttavaMusic (ottava parser)
+  (format #f "\\ottava #~a" (ly:music-property ottava 'ottava-number)))
+
 ;;;
 ;;; Notes, rests, skips...
 ;;;
