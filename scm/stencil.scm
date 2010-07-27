@@ -366,15 +366,39 @@ respectively."
 
   ;; a connected shape path must begin at point '(0 . 0)
   (let* ((origin (list 0 0))
-	 (boundlist (connected-shape-min-max origin pointlist)))
+	 (boundlist (connected-shape-min-max origin pointlist))
+	 ;; modify pointlist to scale the coordinates
+	 (path (map (lambda (x)
+		      (apply
+			(if (eq? 6 (length x))
+			    (lambda (x1 x2 x3 x4 x5 x6)
+			      (list 'curveto
+				    (* x1 x-scale)
+				    (* x2 y-scale)
+				    (* x3 x-scale)
+				    (* x4 y-scale)
+				    (* x5 x-scale)
+				    (* x6 y-scale)))
+			    (lambda (x1 x2)
+			      (list 'lineto
+				    (* x1 x-scale)
+				    (* x2 y-scale))))
+			x))
+		    pointlist))
+	 ;; a path must begin with a `moveto'
+	 (prepend-origin (apply list (cons 'moveto origin) path))
+	 ;; if this shape is connected, add closepath to the end
+	 (final-path (if connect
+			 (append prepend-origin (list 'closepath))
+			 prepend-origin))
+	 (command-list (fold-right append '() final-path)))
+
   (ly:make-stencil
-    `(connected-shape
-      ',pointlist
-      ',thickness
-      ',x-scale
-      ',y-scale
-      ',connect
-      ',fill)
+    `(path ,thickness
+	   `(,@',command-list)
+	   'round
+	   'round
+	   ,(if fill #t #f))
     (coord-translate
       ((if (< x-scale 0) reverse-interval identity)
         (cons (* x-scale (list-ref boundlist 0))
