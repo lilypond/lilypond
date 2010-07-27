@@ -53,7 +53,6 @@
     (AccidentalPlacement
      . (
 	(direction .  ,LEFT)
-	(left-padding . 0.2)
 	(positioning-done . ,ly:accidental-placement::calc-positioning-done)
 
 	;; this is quite small, but it is very ugly to have

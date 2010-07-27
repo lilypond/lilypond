@@ -514,7 +514,7 @@ are added.")
      (left-bound-info ,list? "An alist of properties for determining
 attachments of spanners to edges.")
      (left-padding ,ly:dimension? "The amount of space that is put
-left to an object (e.g., a group of accidentals).")
+left to an object (e.g., a lyric extender).")
      (length ,ly:dimension? "User override for the stem length of
 unbeamed stems.")
      (length-fraction ,number? "Multiplier for lengths.  Used for
