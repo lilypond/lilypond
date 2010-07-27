@@ -90,9 +90,10 @@ Snippets:
 
 @knownissues
 
-When chord mode and note mode are mixed in sequential music, and
-chord mode comes first, the note mode will create a new @code{Staff}
-context.
+Predefined shorthands for articulations and ornaments cannot be used
+on notes in chord mode @ref{Articulations and ornamentations}.  When
+chord mode and note mode are mixed in sequential music, and chord mode
+comes first, the note mode will create a new @code{Staff} context.
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \chordmode { c2 f }
