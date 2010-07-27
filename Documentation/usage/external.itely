@@ -160,39 +160,21 @@ your @var{load-path} by appending the following line (as modified) to your
 @node Vim mode
 @unnumberedsubsec Vim mode
 
-For @uref{http://@/www@/.vim@/.org,VIM}, a @file{vimrc} is supplied,
-along with syntax coloring tools.  A Vim mode for entering music and
-running LilyPond is contained in the source archive in @code{$VIM}
-directory.
-
-To enable the Vim mode, locate the @file{filetype.vim} file and find
-the first section which looks like
+For @uref{http://@/www@/.vim@/.org,Vim}, a filetype plugin, indent
+mode, and syntax-highlighting mode are available to use with
+LilyPond.  To enable all of these features, create (or modify)
+your @file{$HOME/.vimrc} to contain these three lines, in order:
 
 @example
-au filegroup detect
-(many lines here)
-augroup END
-@end example
-
-then insert the following lines in the section, which is generally in
-alphabetic order
-
-@example
-: LilyPond
-  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
-@end example
-
-The next step is to append the following line to your @file{vimrc}
-
-@example
-set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
+filetype off
+set runtimepath+=/usr/local/share/lilypond/current/vim/
+filetype on
 @end example
 
 @noindent
-where $@{LILYPOND_VERSION@} is your LilyPond version.  If your LilyPond
-is installed in a different location, the path should be modified to suit.
-To locate the @file{filetype.vim} and @file{.vimrc} files being used in
-your install of Vim, use the @code{":version"} in a Vim session.
+If LilyPond is not installed in the @file{/usr/local/} directory,
+change the path appropriately.  This topic is discussed in
+@rlearning{Other sources of information}.
 
 
 @node Other editors
