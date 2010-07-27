@@ -223,7 +223,7 @@ build_apes (SCM accs)
 
 static void
 set_ape_skylines (Accidental_placement_entry *ape,
-		  Grob **common)
+		  Grob **common, Real padding)
 {
   vector<Grob *> accs (ape->grobs_);
   vector_sort (accs, &acc_less);
@@ -248,7 +248,7 @@ set_ape_skylines (Accidental_placement_entry *ape,
       if (i == accs.size () - 1 || p->get_octave () != last_octave)
 	{
 	  last_offset = 0;
-	  offset = a->extent (a, X_AXIS)[LEFT] - 0.2;
+	  offset = a->extent (a, X_AXIS)[LEFT] - padding;
 	}
       else if (p->get_alteration () == last_alteration)
 	a->translate_axis (last_offset, X_AXIS);
@@ -257,9 +257,8 @@ set_ape_skylines (Accidental_placement_entry *ape,
 	  Real this_offset = offset - a->extent (a, X_AXIS)[RIGHT];
 	  a->translate_axis (this_offset, X_AXIS);
 
-	  /* FIXME: read the padding from the AccidentalPlacement grob */
 	  last_offset = this_offset;
-	  offset -= a->extent (a, X_AXIS).length () + 0.2;
+	  offset -= a->extent (a, X_AXIS).length () + padding;
 	}
 
       vector<Box> boxes = Accidental_interface::accurate_boxes (a, common);
@@ -463,9 +462,10 @@ Accidental_placement::calc_positioning_done (SCM smob)
   common[Y_AXIS] = common_refpoint_of_accidentals (apes, Y_AXIS);
   common[Y_AXIS] = common_refpoint_of_array (heads_and_stems, common[Y_AXIS], Y_AXIS);
   common[X_AXIS] = common_refpoint_of_array (heads_and_stems, me, X_AXIS);
+  Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
 
   for (vsize i = apes.size (); i--;)
-    set_ape_skylines (apes[i], common);
+    set_ape_skylines (apes[i], common, padding);
   Skyline heads_skyline = build_heads_skyline (heads_and_stems, common);
 
   stagger_apes (&apes);
