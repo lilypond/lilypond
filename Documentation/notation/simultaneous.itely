@@ -83,7 +83,7 @@ they will not print.
 
 Relative mode can be used for pitches in chords.  The first note of
 each chord is always relative to the first note of the chord that
-came before it, or in the case where no preceding chord exists; the
+came before it, or in the case where no preceding chord exists, the
 pitch of the last note that came before the chord.  All remaining notes
 in the chord are relative to the note that came before it
 @emph{within the same chord}.
