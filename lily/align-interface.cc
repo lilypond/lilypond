@@ -264,34 +264,16 @@ Real
 Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, int end)
 {
   extract_grob_set (me, "elements", all_grobs);
-  SCM dy_scm = me->get_property ("forced-distance");
+  vector<Real> translates = get_minimum_translations (me, all_grobs, Y_AXIS, true, start, end);
 
-  if (scm_is_number (dy_scm))
+  if (translates.size ())
     {
-      Real dy = scm_to_double (dy_scm) * robust_scm2dir (me->get_property ("stacking-dir"), DOWN);
-      Real pos = 0;
       for (vsize i = 0; i < all_grobs.size (); i++)
-	{
-	  if (all_grobs[i] == ch)
-	    return pos;
-	  if (!Hara_kiri_group_spanner::has_interface (all_grobs[i])
-	      || !Hara_kiri_group_spanner::request_suicide (all_grobs[i], start, end))
-	    pos += dy;
-	}
+	if (all_grobs[i] == ch)
+	  return translates[i];
     }
   else
-    {
-      vector<Real> translates = get_minimum_translations (me, all_grobs, Y_AXIS, true, start, end);
-
-      if (translates.size ())
-	{
-	  for (vsize i = 0; i < all_grobs.size (); i++)
-	    if (all_grobs[i] == ch)
-	      return translates[i];
-	}
-      else
-	return 0;
-    }
+    return 0;
 
   programming_error ("tried to get a translation for something that is no child of mine");
   return 0;

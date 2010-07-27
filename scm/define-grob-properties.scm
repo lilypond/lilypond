@@ -485,9 +485,6 @@ has affinity.  See @var{next-staff-spacing} for the format of this list.")
 ;;
 ;; k
 ;;
-     (keep-fixed-while-stretching ,boolean? "A grob with this property
-set to true is fixed relative to the staff above it when systems are
-stretched.")
      (keep-inside-line ,boolean? "If set, this column cannot have
 objects sticking into the margin.")
      (kern ,ly:dimension? "Amount of extra white space to add.  For
