@@ -599,6 +599,28 @@ that they share a staff.")
    (make-part-combine-music parser
                             (list part1 part2)))
 
+#(define (symbol-or-boolean? x) (or (symbol? x) (boolean? x)))
+partcombineForce =
+#(define-music-function (location parser type once) (symbol-or-boolean? boolean?)
+   (_i "Override the part-combiner.")
+   (make-music 'EventChord
+	       'elements (list (make-music 'PartCombineForceEvent
+					   'forced-type type
+					   'once once))))
+partcombineApart = \partcombineForce #'apart ##f
+partcombineApartOnce = \partcombineForce #'apart ##t
+partcombineChords = \partcombineForce #'chords ##f
+partcombineChordsOnce = \partcombineForce #'chords ##t
+partcombineUnisono = \partcombineForce #'unisono ##f
+partcombineUnisonoOnce = \partcombineForce #'unisono ##t
+partcombineSoloI = \partcombineForce #'solo1 ##f
+partcombineSoloIOnce = \partcombineForce #'solo1 ##t
+partcombineSoloII = \partcombineForce #'solo2 ##f
+partcombineSoloIIOnce = \partcombineForce #'solo2 ##t
+partcombineAutomatic = \partcombineForce ##f ##f
+partcombineAutomaticOnce = \partcombineForce ##f ##t
+
+
 pitchedTrill =
 #(define-music-function
    (parser location main-note secondary-note)

@@ -67,6 +67,14 @@ which scares away people.
 @end ignore
 
 @item
+The part-combiner's decision to combine/not combine notes can now be customized
+@lilypond[quote,relative=2]
+\partcombine
+\relative c' { c2 \partcombineApart c | \partcombineChordsOnce e' e }
+\relative c' { c2 \partcombineApart c | c c }
+@end lilypond
+
+@item
 Tablature staves show fret numbers only by default. To get the
 former style, @code{\tabFullNotation} is provided.
 
