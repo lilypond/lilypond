@@ -35,10 +35,10 @@ vertical placement of the symbols can be tweaked by changing the
 } % begin verbatim
 
 discant = \markup {
-  \musicglyph #"accordion.accDiscant"
+  \musicglyph #"accordion.discant"
 }
 dot = \markup {
-  \musicglyph #"accordion.accDot"
+  \musicglyph #"accordion.dot"
 }
 
 \layout { ragged-right = ##t }

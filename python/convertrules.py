@@ -3006,8 +3006,22 @@ def conv (str):
     return str
 
 @rule ((2, 13, 29),
-       _ ("Eliminate beamSettings, beatLength, \setBeatGrouping, \overrideBeamSettings and \revertBeamSettings"))
+       _ ("Eliminate beamSettings, beatLength, \setBeatGrouping, \overrideBeamSettings and \revertBeamSettings\n\
+\"accordion.accEtcbase\" -> \"accordion.etcbass\""))
 def conv(str):
+    def sub_acc (m):
+	d = {
+            'Dot': 'dot',
+            'Discant': 'discant',
+            'Bayanbase': 'bayanbass',
+            'Stdbase': 'stdbass',
+            'Freebase': 'freebass',
+            'OldEE': 'oldEE'
+            }
+	return '"accordion.%s"' %  d[m.group (1)]
+
+    str = re.sub (r'"accordion\.acc([a-zA-Z]+)"',
+		  sub_acc, str)
     if re.search(r'overrideBeamSettings', str):
         stderr_write("\n")
         stderr_write(NOT_SMART % _("\overrideBeamSettings.  Use \set beamExceptions or \overrideTimeSignatureSettings.\n"))

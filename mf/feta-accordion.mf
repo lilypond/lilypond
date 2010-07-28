@@ -30,7 +30,7 @@ accreg_lh# := 1.0 staff_space#;
 define_pixels (accreg_dot_size, accreg_linethickness, accreg_lh);
 
 
-fet_beginchar ("accDiscant", "accDiscant")
+fet_beginchar ("accordion register discant", "discant")
 	save r, pat, lh, lt;
 	path pat;
 
@@ -101,7 +101,7 @@ fet_beginchar ("accDiscant", "accDiscant")
 fet_endchar;
 
 
-fet_beginchar ("accDot", "accDot")
+fet_beginchar ("accordion register dot", "dot")
 	set_char_box (accreg_dot_size# / 2, accreg_dot_size# / 2,
 		      accreg_dot_size# / 2, accreg_dot_size# / 2);
 
@@ -114,7 +114,7 @@ fet_beginchar ("accDot", "accDot")
 fet_endchar;
 
 
-fet_beginchar ("accFreebase", "accFreebase")
+fet_beginchar ("accordion register freebass", "freebass")
 	save r, lh, lt;
 
 	r# = accreg_lh#;
@@ -171,7 +171,7 @@ fet_beginchar ("accFreebase", "accFreebase")
 fet_endchar;
 
 
-fet_beginchar ("accStdbase", "accStdbase")
+fet_beginchar ("accordion register stdbass", "stdbass")
 	save r, p, lh, lt;
 	path pat;
 
@@ -244,7 +244,7 @@ fet_beginchar ("accStdbase", "accStdbase")
 fet_endchar;
 
 
-fet_beginchar ("accBayanbase", "accBayanbase")
+fet_beginchar ("accordion register bayanbass", "bayanbass")
 	save lh, lt;
 
 	lh = vround accreg_lh;
@@ -372,7 +372,7 @@ def def_some_vars =
 enddef;
 
 
-fet_beginchar ("accOldEE", "accOldEE")
+fet_beginchar ("accordion oldEE", "oldEE")
 	save r, pp, ir, lh, lt, stroke_width;
 
 	r# = staff_space#;
@@ -452,7 +452,7 @@ fet_beginchar ("accOldEE", "accOldEE")
 	fi;
 fet_endchar;
 
-fet_beginchar ("Accordion push", "push");
+fet_beginchar ("accordion push", "push");
 	save width, height;
 
 	height# := 2.0 staff_space# + 3.0 stafflinethickness#;
@@ -489,7 +489,7 @@ fet_beginchar ("Accordion push", "push");
 
 fet_endchar;
 
-fet_beginchar ("Accordion pull", "pull");
+fet_beginchar ("accordion pull", "pull");
 	save width, height;
 
 	height# := 2.0 staff_space# + 3.0 stafflinethickness#;
