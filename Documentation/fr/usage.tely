@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 6ee1c53e30a461d9b36fe5045e23815a57e1e819
+    Translation of GIT committish: d7c0f4263534307616c82d9b2ce6fdef9472456f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -55,8 +55,8 @@ Copyright @copyright{} 1999--2010 par les auteurs.
 @menu
 * Exécution de LilyPond::       mode d'emploi.
 * Mise à jour avec convert-ly:: mise à jour d'anciens fichiers.
-* LilyPond-book::               intégration de texte et musique.
-* Programmes externes::         Mixing LilyPond and other programs.
+* lilypond-book::               intégration de texte et musique.
+* Programmes externes::         associer LilyPond à d'autres programmes.
 * Suggestions pour la saisie de fichiers LilyPond::  comment agencer un fichier.
 
 Annexes
