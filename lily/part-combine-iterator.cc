@@ -32,7 +32,7 @@ typedef enum Outlet_type
     CONTEXT_NULL, NUM_OUTLETS
   };
 
-static const char *outlet_names_[NUM_OUTLETS] = 
+static const char *outlet_names_[NUM_OUTLETS] =
   {"one", "two", "shared", "solo", "null"};
 
 class Part_combine_iterator : public Music_iterator
@@ -57,20 +57,20 @@ private:
   DECLARE_LISTENER (set_busy);
   bool busy_;
   bool notice_busy_;
-  
+
   bool try_process (Music_iterator *i, Moment m);
-  
+
   Music_iterator *first_iter_;
   Music_iterator *second_iter_;
   Moment start_moment_;
 
   SCM split_list_;
 
-  Stream_event *unisono_event_; 
+  Stream_event *unisono_event_;
   Stream_event *solo_one_event_;
   Stream_event *solo_two_event_;
-  Stream_event *mmrest_event_; 
-  
+  Stream_event *mmrest_event_;
+
   enum Status
     {
       APART,
@@ -201,7 +201,7 @@ Part_combine_iterator::chords_together ()
 void
 Part_combine_iterator::kill_mmrest (int in)
 {
-  
+
   if (!mmrest_event_)
     {
       mmrest_event_ = new Stream_event (ly_symbol2scm ("multi-measure-rest-event"));
@@ -290,7 +290,7 @@ Part_combine_iterator::unisono (bool silent)
 	      unisono_event_ = new Stream_event (ly_symbol2scm ("unisono-event"));
 	      unisono_event_->unprotect ();
 	    }
-	  
+
 
 	  Context *out = (last_playing_ == SOLO2 ? second_iter_ : first_iter_)
 	    ->get_outlet ();
@@ -319,7 +319,7 @@ Part_combine_iterator::solo2 ()
 	      solo_two_event_ = new Stream_event (ly_symbol2scm ("solo-two-event"));
 	      solo_two_event_->unprotect ();
 	    }
-	  
+
 	  second_iter_->get_outlet ()->event_source ()->broadcast (solo_two_event_);
 	  playing_state_ = SOLO2;
 	}
@@ -415,7 +415,7 @@ Part_combine_iterator::try_process (Music_iterator *i, Moment m)
   notice_busy_ = true;
 
   i->process (m);
-  
+
   notice_busy_ = false;
   return busy_;
 }
