@@ -119,7 +119,7 @@ or something like:
 make LILYPOND_BRANCH=stable/2.12 lilypond
 @end example
 
-@item Check the regtest comparison in @file{uploads/webtest/} for
+@item Check the regtest comparison in @file{uploads/@/webtest/} for
 any unintentional breakage.  More info in
 @ref{Precompiled regression tests}
 
@@ -137,8 +137,8 @@ dangerously, and don't tell anybody anything.
 @enumerate
 
 @item If you're not right user on the webserver, remove the "t"
-from the rsync command in @file{test-lily/rsync-lily-doc.py} and
-@file{test-lily/rsync-test.py}
+from the rsync command in @file{test@/-lily/@/rsync@/-lily@/-doc@/.py} and
+@file{test@/-lily/@/rsync@/-test@/.py}
 
 @code{graham} owns v2.13; @code{han-wen} owns v2.12.
 

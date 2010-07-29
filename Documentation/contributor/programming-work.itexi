@@ -1066,10 +1066,10 @@ The executable code of LilyPond must be rebuilt from scratch:
 make -C lily clean && make -C lily
 @end example
 
-@item Create a graphviz-compatible .ly file
+@item Create a graphviz-compatible @file{.ly} file
 
-In order to use the graphviz utility, the .ly file must include
-@file{ly/graphviz-init.ly}, and should then specify the
+In order to use the graphviz utility, the @file{.ly} file must include
+@file{ly/@/graphviz@/-init@/.ly}, and should then specify the
 grobs and symbols that should be tracked.  An example of this
 is found in @file{input/regression/graphviz.ly}.
 
@@ -1363,7 +1363,7 @@ recompile everything, whether modified or not, and takes a lot
 longer.
 
 Running @command{make@tie{}check} will leave an HTML page
-@file{out/test-results/index.html}.  This page shows all the
+@file{out/@/test@/-results/@/index@/.html}.  This page shows all the
 important differences that your change introduced, whether in the
 layout, MIDI, performance or error reporting.
 

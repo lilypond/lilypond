@@ -600,7 +600,7 @@ Include output with the first applicable method:
 
 @item
 If the issue has a notation example which fits in one system,
-generate a small @file{bug.preview.png} file with:
+generate a small @file{bug@/.preview@/.png} file with:
 
 @example
 lilypond -dpreview bug.ly
@@ -608,7 +608,7 @@ lilypond -dpreview bug.ly
 
 @item
 If the issue has an example which requires more than one system
-(i.e. a spacing bug), generate a @file{bug.png} file with:
+(i.e. a spacing bug), generate a @file{bug@/.png} file with:
 
 @example
 lilypond --png bug.ly
@@ -616,7 +616,7 @@ lilypond --png bug.ly
 
 @item
 If the issue requires multi-page output, then generate a
-@file{bug.pdf} file with the normal:
+@file{bug@/.pdf} file with the normal:
 
 @example
 lilypond --png bug.ly
