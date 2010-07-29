@@ -1,10 +1,10 @@
 " LilyPond filetype plugin
 " Language:     LilyPond (ft=ly)
 " Maintainer:   Heikki Junes <hjunes@cc.hut.fi>
-" Last Change:  2004 March 1
+" Last Change:  2010 Jul 26
 "
 " Installed As:	vim/ftplugin/lilypond.vim
-" Uses Generated File:	vim/syntax/lilypond-words.el
+" Uses Generated File:	vim/syntax/lilypond-words.vim
 "
 " Only do this when not done yet for this buffer
 if exists("b:did_ftplugin")
@@ -19,17 +19,14 @@ setlocal shiftwidth=2
 "
 " some handy key mappings
 "
-" <F4>  save & make and play midi
+" <F4>  save & make and play midi with timidity
 map <buffer> <F4> :w<Return>:se makeprg=lilypond\ -m\ %<<Return>:make<Return>:!timidity %<.midi<Return>
 "
-" <F5>  save & make dvi, midi, ps
+" <F5>  save & make
 map <buffer> <F5> :w<Return>:se makeprg=lilypond\ %<<Return>:make<Return>
 "
-" <F6>  view ps
+" <F6>  view ps with ghostview
 map <buffer> <F6> :!gv --watch %<.ps &<Return>
-"
-" <S-F6>  view dvi
-map <buffer> <S-F6> :!xdvi %<.dvi &<Return>
 "
 " <F7>  prev error
 map <buffer> <F7> :cp<Return>

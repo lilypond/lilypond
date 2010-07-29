@@ -161,6 +161,21 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
   return out.smobbed_copy ();
 }
 
+/**
+   translate the rest vertically by amount DY, but only if
+   it doesn't have staff-position set.
+*/
+void
+Rest::translate (Grob *me, int dy)
+{
+  if (!scm_is_number (me->get_property ("staff-position")))
+    {
+      me->translate_axis (dy * Staff_symbol_referencer::staff_space (me) / 2.0, Y_AXIS);
+      Grob *p = me->get_parent (Y_AXIS);
+      p->flush_extent_cache (Y_AXIS);
+    }
+}
+
 SCM
 Rest::print (SCM smob)
 {

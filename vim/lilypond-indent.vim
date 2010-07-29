@@ -1,7 +1,7 @@
 " LilyPond indent file
 " Language:     LilyPond
 " Maintainer:   Heikki Junes <hjunes@cc.hut.fi>
-" Last Change:  2004 Mar 01
+" Last Change:  2010 Jul 26
 "
 " Installed As:	vim/indent/lilypond.vim
 "
@@ -37,6 +37,21 @@ function GetLilyPondIndent()
   if getline(v:lnum) =~ '^\s*\(}\|>>\)'
     let ind = ind - &sw
   endif
+
+  " Check if the first character from the previous line is within
+  " a `lilyScheme' region, and if so, use lisp-style indentation
+  " for the current line.
+  "
+  " TODO:
+  "   - Only works in version 7.1.215 or later, though it should
+  "     silently fail in older versions.
+  "   - We should support `lilyScheme' regions that begin in the
+  "     middle of the line, too.
+  for id in synstack(lnum, 1)
+    if synIDattr(id, "name") == "lilyScheme"
+      let ind = lispindent(v:lnum)
+    endif
+  endfor
 
   return ind
 endfunction

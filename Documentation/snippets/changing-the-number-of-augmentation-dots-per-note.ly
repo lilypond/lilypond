@@ -4,6 +4,15 @@
 %% Note: this file works from version 2.13.26
 \version "2.13.29"
 \header {
+%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
+
+  texidocfr = "Voici comment modifier le nombre de points d'augmentation
+affectés à une note en particulier.
+
+"
+  doctitlefr = "Spécification du nombre de points d'augmentation d'une note"
+
+
   lsrtags = "rhythms,expressive-marks"
   texidoc = "This code demonstrates how to change the number of
 augmentation dots on a single note."

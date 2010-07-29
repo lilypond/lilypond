@@ -997,7 +997,10 @@ class Beam (Music_xml_spanner):
     def get_type (self):
 	return self.get_text ()
     def is_primary (self):
-        return self.number == "1"
+        if hasattr (self, 'number'):
+            return self.number == "1"
+        else:
+            return True
 
 class Wavy_line (Music_xml_spanner):
     pass

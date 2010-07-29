@@ -32,6 +32,24 @@ to be used by the sequential-iterator"
 	  (make-music 'BarCheck
 		      'origin location))))
 
+(define (make-ottava-set music)
+  "Set context properties for an ottava bracket."
+  (let ((octavation (ly:music-property music 'ottava-number)))
+
+    (list (context-spec-music
+	   (make-apply-context
+	    (lambda (context)
+	      (let ((offset (* -7 octavation))
+		    (string (assoc-get octavation '((2 . "15ma")
+						    (1 . "8va")
+						    (0 . #f)
+						    (-1 . "8vb")
+						    (-2 . "15mb")))))
+		(set! (ly:context-property context 'middleCOffset) offset)
+		(set! (ly:context-property context 'ottavation) string)
+		(ly:set-middle-C! context))))
+	   'Staff))))
+
 (define-public music-descriptions
   `(
     (AbsoluteDynamicEvent
@@ -334,6 +352,13 @@ Note the explicit font switch.")
     (NoteGroupingEvent
      . ((description . "Start or stop grouping brackets.")
 	(types . (general-music event note-grouping-event))
+	))
+
+    (OttavaMusic
+     . ((description . "Start or stop an ottava bracket.")
+	(iterator-ctor . ,ly:sequential-iterator::constructor)
+	(elements-callback . ,make-ottava-set)
+	(types . (general-music ottava-music))
 	))
 
     (OverrideProperty

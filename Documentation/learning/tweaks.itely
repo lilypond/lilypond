@@ -2370,11 +2370,9 @@ This has already been covered in some detail -- see
 @ref{Within-staff objects}.
 
 @item
-@code{padding}, @code{left-padding},
-@code{right-padding}, @code{staff-padding}
+@code{padding}, @code{right-padding}, @code{staff-padding}
 
 @cindex padding
-@cindex left-padding property
 @cindex padding property
 @cindex right-padding property
 @cindex staff-padding property
@@ -2389,15 +2387,14 @@ applied to all objects which support the
 @code{side-position-interface}.
 
 Instead of @code{padding}, the placement of groups of accidentals
-is controlled by @code{left-padding} and @code{right-padding}.
-These properties are to be found in the @code{AccidentalPlacement}
-object which, note, lives in the @strong{staff} context.  In the
-type-setting process the note heads are type-set first and then
-the accidentals, if any, are added to the left of the note heads
-using the @code{right-padding} property to determine the separation
-from the note heads. So only the @code{right-padding} property of the
-@code{AccidentalPlacement} object has any effect on the placement
-of the accidentals.
+is controlled by @code{right-padding}.  This property is to be found
+in the @code{AccidentalPlacement} object which, note, lives in the
+@strong{Staff} context.  In the typesetting process the note heads
+are typeset first and then the accidentals, if any, are added to the
+left of the note heads using the @code{right-padding} property to determine
+the separation from the note heads and between individual accidentals.
+So only the @code{right-padding} property of the @code{AccidentalPlacement}
+object has any effect on the placement of the accidentals.
 
 The @code{staff-padding} property is closely related to the
 @code{padding} property: @code{padding} controls the minimum amount of
@@ -2589,11 +2586,11 @@ b2\fermata
 @lilypond[quote,fragment,relative=1,verbatim]
 % This will not work, see below
 \override MetronomeMark #'padding = #3
-\tempo 4=120
+\tempo 4 = 120
 c1 |
 % This works
 \override Score.MetronomeMark #'padding = #3
-\tempo 4=80
+\tempo 4 = 80
 d1 |
 @end lilypond
 
@@ -2609,9 +2606,8 @@ their @code{outside-staff-priority}, then that object and all
 objects outside it are moved.
 
 
-@subheading left-padding and right-padding
+@subheading right-padding
 
-@cindex left-padding property
 @cindex right-padding property
 
 The @code{right-padding} property affects the spacing between the

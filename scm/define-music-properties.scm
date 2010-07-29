@@ -115,6 +115,7 @@ For chord inversions, this is negative.")
      (origin ,ly:input-location? "Where was this piece of music defined?")
      (original-chord ,ly:music? "Original chord of a repeated chord.
 Used by repeated chords in \\relative mode, to determine the first note octave")
+     (ottava-number ,integer? "The octavation for @code{\\ottava}.")
 
      (page-break-permission ,symbol? "When the music is at top-level,
 whether to allow, forbid or force a page break.")

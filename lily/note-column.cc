@@ -137,22 +137,6 @@ Note_column::add_head (Grob *me, Grob *h)
     Axis_group_interface::add_element (me, h);
 }
 
-/**
-   translate the rest symbols vertically by amount DY, but only if
-   they have no staff-position set.
-*/
-void
-Note_column::translate_rests (Grob *me, int dy)
-{
-  Grob *r = unsmob_grob (me->get_object ("rest"));
-  if (r && !scm_is_number (r->get_property ("staff-position")))
-    {
-      r->translate_axis (dy * Staff_symbol_referencer::staff_space (r) / 2.0, Y_AXIS);
-      Grob *p = r->get_parent (Y_AXIS);
-      p->flush_extent_cache (Y_AXIS);
-    }
-}
-
 Grob *
 Note_column::first_head (Grob *me)
 {

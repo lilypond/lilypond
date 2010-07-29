@@ -405,9 +405,10 @@ octaveCheck =
 	       'pitch (pitch-of-note pitch-note)))
 
 ottava =
-#(define-music-function (parser location octave) (number?)
+#(define-music-function (parser location octave) (integer?)
    (_i "Set the octavation.")
-   (make-ottava-set octave))
+   (make-music 'OttavaMusic
+	       'ottava-number octave))
 
 overrideTimeSignatureSettings =
 #(define-music-function

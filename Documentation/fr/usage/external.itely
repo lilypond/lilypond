@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e14222fd558e0d44a73be5e31b644a3e4d51db0f
+    Translation of GIT committish: 82e0b415a5345281fb58f4e3ddfdda73da06407a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,7 +23,7 @@ manières.
 * Pointer-cliquer::
 * LilyPond et les éditeurs de texte::
 * Conversion à partir d'autres formats::
-* Insertion du résultat de LilyPond dans d'autres programmes::
+* Inclusion du résultat de LilyPond dans d'autres programmes::
 * Inclusion du travail des autres::
 @end menu
 
@@ -181,39 +181,22 @@ propre répertoire (par exemple @file{~/site-lisp/}) à votre
 @unnumberedsubsec Mode Vim
 @translationof Vim mode
 
-En ce qui concerne @uref{http://@/www@/.vim@/.org,VIM}, LilyPond fournit
-un fichier @file{vimrc} qui gère la coloration synthaxique.  Le
-répertoire @code{$VIM} inclus dans les sources contient aussi un
-mode pour saisir la musique et lancer LilyPond.
-
-Le type de fichier LilyPond sera reconnu si votre
-@file{~/.vim/filetype.vim} contient
+En ce qui concerne @uref{http://@/www@/.vim@/.org,Vim}, LilyPond fournit
+tout le nécessaire pour gérer la coloration synthaxique et
+l'indentation.  Le mode spécifique à Vim doît être indiqué dans le
+fichier @file{$HOME/.vimrc}.  Localisez ce fichier, ou créez-le, et
+ajoutez-y les trois lignes suivantes@tie{}:
 
 @example
-if exists("did_load_filetypes")
-  finish
-endif
-augroup filetypedetect
-  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
-augroup END
-@end example
-
-N'oubliez pas d'inclure ce chemin en ajoutant à votre @file{~/.vimrc} la
-ligne suivante@tie{}:
-
-@example
-set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
+filetype off
+set runtimepath+=/usr/local/share/lilypond/current/vim/
+filetype on
 @end example
 
 @noindent
-où $@{LILYPOND_VERSION@} correspond à votre version de LilyPond.  Si
-LilyPond n'est pas installé dans @file{/usr/local/}, modifiez ce chemin
-en conséquence.  À titre d'exemple, si vous avez une Fedora, le chemin
-mène à la version de Vim au lieu de LilyPond@tie{}:
-
-@example
-set runtimepath+=/usr/share/vim/vim72/
-@end example
+Si LilyPond est installé dans un autre répertoire que
+@file{/usr/local/}, modifiez ce chemin en conséquence.  Pour de plus
+amples détails, consultez
 
 
 @node Autres éditeurs
@@ -556,7 +539,7 @@ indiqué à la page @rweb{Facilités d'édition}.
 
 
 @node Inclusion de partition LilyPond dans d'autres programmes
-@section Insertion de partition LilyPond dans d'autres programmes
+@section Inclusion de partition LilyPond dans d'autres programmes
 @translationof LilyPond output in other programs
 
 Nous allons nous intéresser ici à différents moyens pour associer texte
