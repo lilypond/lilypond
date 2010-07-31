@@ -656,8 +656,8 @@ _f ("cannot find character number: %d", i)
 
 @item
 Think about translation issues. In a lot of cases, it is better to
-translate a whole message. The English grammar must not be imposed
-on the translator. So, instead of
+translate a whole message. English grammar must not be imposed on the
+translator. So, instead of
 
 @example
 stem at  + moment.str () +  does not fit in beam
@@ -1687,7 +1687,7 @@ TODO -- This is a placeholder for a tutorial on callback functions.
 @node LilyPond scoping
 @section LilyPond scoping
 
-The Lilypond language has a concept of scoping, ie you can do
+The Lilypond language has a concept of scoping, i.e. you can do
 
 @example
 foo = 1

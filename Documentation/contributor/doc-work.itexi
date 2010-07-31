@@ -307,7 +307,7 @@ Try to avoid using @code{#'} or @code{#`} within when describing
 context or layout properties outside of an @code{@@example} or @code{@@lilypond}, unless
 the description explicitly requires it.
 
-ie @qq{...setting the @code{transparent} property leaves the object where it
+i.e. @qq{...setting the @code{transparent} property leaves the object where it
 is, but makes it invisible.}
 
 @item
@@ -384,7 +384,7 @@ the line(s) to which they refer.
 
 @item
 For clarity, always use @{ @} marks even if they are not technically
-required; ie
+required; i.e.
 
 @example
 not:
@@ -405,7 +405,7 @@ but instead:
 @end example
 
 @item
-Add a space around @{ @} marks; ie
+Add a space around @{ @} marks; i.e.
 
 @example
 not:          \chordmode@{c e g@}
@@ -413,7 +413,7 @@ but instead:  \chordmode @{ c e g @}
 @end example
 
 @item
-Use @{ @} marks for additional @code{\markup} format commands; ie
+Use @{ @} marks for additional @code{\markup} format commands; i.e.
 
 @example
 not:          c^\markup \tiny\sharp
@@ -421,7 +421,7 @@ but instead:  c^\markup @{ \tiny \sharp @}
 @end example
 
 @item
-Remove any space around @code{<} @code{>} marks; ie
+Remove any space around @code{<} @code{>} marks; i.e.
 
 @example
 not:           < c e g > 4
@@ -665,7 +665,7 @@ so the example above would be coded as
 
 @item
 @code{@@example} --- Use for examples of program code.  Do not add
-extraneous indentation (ie. don't start every line with
+extraneous indentation (i.e. don't start every line with
 whitespace).  Use the following layout (notice the use of blank
 lines).  Omit the @code{@@noindent} if the text following the
 example starts a new paragraph:
@@ -848,9 +848,9 @@ must be duplicated in the @code{@@seealso} section at the bottom.
 Introducing examples must be done with
 
 @example
-. (ie finish the previous sentence/paragraph)
-: (ie `in this example:')
-, (ie `may add foo with the blah construct,')
+. (i.e. finish the previous sentence/paragraph)
+: (i.e. `in this example:')
+, (i.e. `may add foo with the blah construct,')
 @end example
 
 The old @qq{sentence runs directly into the example} method is not
@@ -1062,10 +1062,10 @@ manual.
 @file{ly/@/*-init@/.ly}
 
 @item
-Do not include any real info in second-level sections (ie 1.1
+Do not include any real info in second-level sections (i.e. 1.1
 Pitches).  A first-level section may have introductory material,
 but other than that all material goes into third-level sections
-(ie 1.1.1 Writing Pitches).
+(i.e. 1.1.1 Writing Pitches).
 
 @end itemize
 
@@ -1354,17 +1354,16 @@ to work on them, please ask for help.
 The mailing list @code{translations@@lilynet.net} is dedicated to
 LilyPond web site and documentation translation; on this list, you will
 get support from the Translations Meister and experimented translators,
-and we regularly discuss translations issues common to all languages.
+and we regularly discuss translation issues common to all languages.
 All people interested in LilyPond translations are invited to subscribe
 to this list regardless of the amount of their contribution, by sending
 an email to @code{translations-request@@lilynet.net} with subject
-@code{subscribe} and an empty message body.  Unless mentioned explicitly
+@code{subscribe} and an empty message body.  Unless mentioned explicitly,
 or except if a translations coordinator contacts you privately, you
-should send questions, remarks, patches to this list
-@code{translations@@lilynet.net}; especially note that the traffic is so
-high on English-speaking list @code{lilypond-user@@gnu.org} that it may
-take months before your request or contribution is handled if you send a
-email to these lists.
+should send questions, remarks and patches to the list
+@code{translations@@lilynet.net}. Please note that traffic is high
+on the English-speaking list @code{lilypond-user@@gnu.org}, so it may
+take some time before your request or contribution is handled.
 
 @menu
 * Getting started with documentation translation::
