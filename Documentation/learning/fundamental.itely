@@ -667,7 +667,7 @@ separately, like this:
 @cindex voices, naming
 @cindex voices crossing brackets
 @cindex slurs crossing brackets
-@cindex ties crossing brackest
+@cindex ties crossing brackets
 
 This example has just two voices, but the same construct may be
 used to encode three or more voices by adding more back-slash

@@ -92,7 +92,7 @@ include $(depth)/make/stepmake.make
 OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
 
-### Web site idiosyncrases
+### Web site idiosyncrasies
 $(XREF_MAPS_DIR)/web.xref-map: XREF_MAP_FLAGS += --split=node
 
 ### AJAX scripts
@@ -239,7 +239,7 @@ $(outdir)/%/source:
 	ln -sf $(depth)/.. $(@)
 
 
-## Snippets rules idiosyncrases
+## Snippets rules idiosyncrasies
 $(outdir)/%.itely: snippets/%-intro.itely snippets/%.snippet-list
 	xargs $(LYS_TO_TELY) -f doctitle,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
 

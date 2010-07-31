@@ -1,10 +1,10 @@
 \version "2.12.0"
 \header  {
     texidoc = "@cindex Chord Names German
-The english naming of chords (default) can be changed to german 
-(@code{\germanChords} replaces B and Bes to H and B), semi-german 
-(@code{\semiGermanChords} replaces B and Bes to H and Bb), italian
-(@code{\italianChords} uses Do Re Mi Fa Sol La Si), or french
+The English naming of chords (default) can be changed to German 
+(@code{\germanChords} replaces B and Bes to H and B), semi-German 
+(@code{\semiGermanChords} replaces B and Bes to H and Bb), Italian
+(@code{\italianChords} uses Do Re Mi Fa Sol La Si), or French
 (@code{\frenchChords} replaces Re to Ré).
 
 " }

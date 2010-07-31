@@ -1028,7 +1028,7 @@ copy and paste the committish.
 
 A @emph{branch} is nothing more than a pointer to a particular
 commit, which is called the @emph{head} of the branch; when
-referring to a branch, one often acutally thinks about its head
+referring to a branch, one often actually thinks about its head
 and the ancestor commits of the head.
 
 Now we will explain the two last commands you used to get the
@@ -1180,7 +1180,7 @@ repository.
 
 
 The commands above don't only bring you the latest version of the
-sources, but also the full history of revisions (revisons, also
+sources, but also the full history of revisions (revisions, also
 called commits, are changes made to the sources), stored in the
 @file{.git} directory.  You can browse this history with
 
@@ -1371,7 +1371,7 @@ where @var{user} is your username on Savannah.
 
 
 @item
-After your membership has been activated and you’ve configured Git
+After your membership has been activated and you've configured Git
 to use SSH, test the connection with:
 
 @example
@@ -1530,7 +1530,7 @@ paragraphs next to analogous Unix instructions? -mp
 
 Git is a system for tracking the changes made to source files by a
 distributed set of editors.  It is designed to work without a
-master repository, but we have chosen to have a master respository
+master repository, but we have chosen to have a master repository
 for LilyPond files.  Editors hold a local copy of the master
 repository together with any changes they have made locally.
 Local changes are held in a local @q{branch}, of which there may

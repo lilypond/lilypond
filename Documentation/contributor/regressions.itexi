@@ -80,7 +80,7 @@ comparisons is archived online:
 @uref{http://lilypond.org/test/}
 @end example
 
-The test comparison shows all of the changes that occured between
+The test comparison shows all of the changes that occurred between
 the current release and the prior release.  Each test that has
 a significant difference in output is displayed, with the old
 version on the left and the new version on the right.  Blurs
@@ -153,7 +153,7 @@ than building the source code, as described in
 @section Identifying code regressions
 
 Before modified code is committed to master, a regression test
-comparision must be completed to ensure that the changes have
+comparison must be completed to ensure that the changes have
 not caused problems with previously working code.  The comparison
 is made automatically upon compiling the regression test suite
 twice.

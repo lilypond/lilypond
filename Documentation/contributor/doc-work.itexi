@@ -128,7 +128,7 @@ unless we are certain that the new version is an improvement.
 @enumerate
 
 @item
-Ask on the lilypond-devel maillist if such a rewrite is necessary;
+Ask on the lilypond-devel mailing list if such a rewrite is necessary;
 somebody else might already be working on this issue!
 
 @item
@@ -142,7 +142,7 @@ Please prepare a formal git patch.
 
 Once you have followed these guidelines, please send a message to
 lilypond-devel with your documentation submissions. Unfortunately
-there is a strict “no top-posting” check on the mailist; to avoid
+there is a strict “no top-posting” check on the mailing list; to avoid
 this, add:
 
 > I'm not top posting.
@@ -299,7 +299,7 @@ convention to follow.
 @item
 All context or layout object strings should be prefaced with @code{#}.
 Again, LilyPond does not strictly require this, but it is helpful
-to get users accustomed to this scheme construct.  i.e. @code{\set
+to get users accustomed to this scheme construct, i.e. @code{\set
 Staff.instrumentName = #"cello"}
 
 @item
@@ -413,7 +413,7 @@ but instead:  \chordmode @{ c e g @}
 @end example
 
 @item
-Use @{ @} marks for additional @code{\markup} format comands; ie
+Use @{ @} marks for additional @code{\markup} format commands; ie
 
 @example
 not:          c^\markup \tiny\sharp
@@ -574,7 +574,7 @@ cross-reference to be rendered incorrectly in html documents.
 @code{@@ruser@{@dots{}@}} --- link to Notation Reference.
 
 @item
-@code{@@rweb@{@dots{}@}} --- link to General Informaion.
+@code{@@rweb@{@dots{}@}} --- link to General Information.
 @end itemize
 
 
@@ -848,7 +848,7 @@ must be duplicated in the @code{@@seealso} section at the bottom.
 Introducing examples must be done with
 
 @example
-. (ie finish the previous sentence/paragaph)
+. (ie finish the previous sentence/paragraph)
 : (ie `in this example:')
 , (ie `may add foo with the blah construct,')
 @end example
@@ -1354,7 +1354,7 @@ to work on them, please ask for help.
 The mailing list @code{translations@@lilynet.net} is dedicated to
 LilyPond web site and documentation translation; on this list, you will
 get support from the Translations Meister and experimented translators,
-and we regularly discuss translations issues common to all languagues.
+and we regularly discuss translations issues common to all languages.
 All people interested in LilyPond translations are invited to subscribe
 to this list regardless of the amount of their contribution, by sending
 an email to @code{translations-request@@lilynet.net} with subject
@@ -1557,7 +1557,7 @@ everything in some Texinfo files, and you may take distance from the
 original text; for instance, in the translation of the web site section
 Community, you may take this into account depending on what you know the
 community in your language is willing to support, which is possible only
-if you personnally assume this support, or there exists a public forum
+if you personally assume this support, or there exists a public forum
 or mailing list listed in Community for LilyPond in your language:
 
 @itemize
@@ -1790,7 +1790,7 @@ or to update a single file
 make CHECKED_FILES=@var{MY_LANGUAGE/@var{manual}/foo.itely} update-translation
 @end example
 
-For each file to be udpated, @code{update-translation} will open your
+For each file to be updated, @code{update-translation} will open your
 text editor with this file and a diff of the file in English; if the
 diff cannot be generated or is bigger than the file in English itself,
 the full file in English will be opened instead.
@@ -1940,7 +1940,7 @@ macros.itexi until the documentation translation has been updated and
 no longer uses this macro.
 
 @item Update @file{*.tely} files completely with
-@command{make check-translation} -- you may want to redirect ouptput
+@command{make check-translation} -- you may want to redirect output
 to a file because of overwhelming output, or call check-translation.py
 on individual files, see @ref{Check state of translation}.
 
@@ -2018,7 +2018,7 @@ make ISOLANG=@var{YOUR-LANGUAGE} fix-xrefs
 @end example
 
 @noindent
-This step requires a sucessful documentation build (with @command{make
+This step requires a successful documentation build (with @command{make
 doc}).  Some cross-references are broken because they point to a node
 that exists in the documentation in English, which has not been added
 to the translation; in this case, do not fix the cross-reference but
@@ -2077,11 +2077,11 @@ its documentation, and in this case they should be pushed to
 
 @item @code{lilypond/translation} Git branch may be merged into
 master only if LilyPond (@command{make all}) and documentation
-(@command{make doc}) compile succesfully.
+(@command{make doc}) compile successfully.
 
 @item @code{master} Git branch may be merged into
 @code{lilypond/translation} whenever @command{make} and @command{make
-doc} are succesful (in order to ease documentation compilation by
+doc} are successful (in order to ease documentation compilation by
 translators), or when significant changes had been made in
 documentation in English in master branch.
 

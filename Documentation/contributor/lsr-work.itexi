@@ -182,7 +182,7 @@ followed to fix it reliably.
 @item
 Look up the snippet filename @file{@var{foo}@/.ly} in the error output
 or log, then fix the file @file{Documentation/@/snippets/@/@var{foo}@/.ly} to make the
-documentation build succesfully.
+documentation build successfully.
 
 @item
 Determine where it comes from by looking at its first line, e.g. run

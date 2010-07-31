@@ -104,7 +104,7 @@ Notation Reference:
 @unnumberedsubsubsec Spoken music
 @cindex parlato
 @cindex Sprechgesang
-Such effects as @q{parlato} or @q{Sprechgesang} require perfomers to speak
+Such effects as @q{parlato} or @q{Sprechgesang} require performers to speak
 without pitch but still with rhythm; these are notated by cross
 note heads, as demonstrated in @ref{Special note heads}.
 
@@ -651,7 +651,7 @@ for every extra note that has to be added to the melisma.
 
 @c verbose! --FV
 @c duplicated: TODO fix
-Additionaly, you can make an extender line to be typeset to indicate
+Additionally, you can make an extender line to be typeset to indicate
 the melisma in the score, writing a double underscore next to the
 first syllable of the melisma. This example shows the three elements
 that are used for this purpose (all of them surrounded by spaces):

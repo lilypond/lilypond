@@ -634,7 +634,7 @@ can be changed in the fret-diagram markup string.
 >>
 @end lilypond
 
-The number of strings in a fret diagram can be changed to accomodate
+The number of strings in a fret diagram can be changed to accommodate
 different instruments such as banjos and ukuleles with the fret-diagram
 markup string.
 
@@ -1154,13 +1154,13 @@ mychords = \chordmode {
 @cindex chord shapes for fretted instruments
 
 @funindex \addChordShape
-@funindex add ChordShape
+@funindex addChordShape
 @funindex storePredefinedDiagram
 @funindex \storePredefinedDiagram
 
 In addition to fret diagrams, LilyPond stores an internal list of chord
 shapes.  The chord shapes are fret diagrams that can be shifted along
-the neck to different posistions to provide different chords.  Chord
+the neck to different positions to provide different chords.  Chord
 shapes can be added to the internal list and then used to define
 predefined fret diagrams.  Because they can be moved to various
 positions on the neck, chord shapes will normally not contain
@@ -1535,7 +1535,7 @@ music = \relative c' {
 >>
 @end lilypond
 
-Another playing technique (especially used on electic guitars) is
+Another playing technique (especially used on electric guitars) is
 called @notation{palm mute}. The string is hereby partly muted by the
 palm of the striking hand (hence the name). Lilypond supports
 the notation of palm mute-style notes by changing the note head to a

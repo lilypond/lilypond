@@ -44,7 +44,7 @@ tonguing:
 @item Breathing can be specified by rests or @ref{Breath marks}.
 @item Legato playing is indicated by @ref{Slurs}.
 @item Different types of tonguings, ranging from legato to non-legato to
-stacatto are usually shown by articulation marks, sometimes combined
+staccato are usually shown by articulation marks, sometimes combined
 with slurs, see @ref{Articulations and ornamentations} and @ref{List of
 articulations}.
 @item Flutter tonguing is usually indicated by placing a tremolo mark
@@ -55,7 +55,7 @@ There are also other aspects of musical notation that can apply to wind
 instruments:
 
 @itemize
-@item Many wind instruments are transposing intruments, see
+@item Many wind instruments are transposing instruments, see
 @ref{Instrument transpositions}.
 @item The slide glissando are characteristic of the trombone, but other
 winds may perform keyed or valved glissandi. See @ref{Glissando}.

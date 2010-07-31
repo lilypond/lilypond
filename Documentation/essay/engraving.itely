@@ -1113,7 +1113,7 @@ between staves, and the staves have different time signatures.  Many
 software packages would struggle with reproducing this example because
 they are built on the nested box structure.  With LilyPond, on the other
 hand, we have tried to keep the input format and the structure as
-flexbile as possible.
+flexible as possible.
 
 @node What symbols to engrave?
 @unnumberedsubsec What symbols to engrave?

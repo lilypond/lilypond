@@ -1540,7 +1540,7 @@ with the @code{\tempo} command within the music notation.  These
 are reflected in tempo changes in the MIDI output.  This command
 will normally result in the metronome mark being printed, but this
 can be suppressed, see @ref{Metronome marks}.  An alternative way
-of specifying the inital or overall MIDI tempo is described below,
+of specifying the initial or overall MIDI tempo is described below,
 see @ref{MIDI block}.
 
 Due to some limitations on Windows, the default extension for

@@ -131,12 +131,12 @@ METAFONT tutorial page}.
 PostScript is used to generate graphical output.  A brief PostScript tutorial
 is @uref{http://local.wasp.uwa.edu.au/~pbourke/dataformats/postscript/,
 available online}.  The
-@uref{http://www.adobe.com/devnet/postscript/pdfs/PLRM.pdf, PostScript Lanugage
+@uref{http://www.adobe.com/devnet/postscript/pdfs/PLRM.pdf, PostScript Language
 Reference} is available online in PDF format.
 
 @subsection Python
 
-Python is used for XML2ly and is used for buillding the documentation and the
+Python is used for XML2ly and is used for building the documentation and the
 website.
 
 Python documentation is available at @uref{http://www.python.org/doc/,
@@ -200,7 +200,7 @@ describes a process for finding interesting code.
 @subsection Using the ROADMAP
 
 The file ROADMAP is located in the main directory of the lilypond source.
-ROADMAP lists all of the directories in the LilPond source tree, along
+ROADMAP lists all of the directories in the LilyPond source tree, along
 with a brief description of the kind of files found in each directory.
 This can be a very helpful tool for deciding which directories to search
 when looking for a function.
@@ -406,7 +406,7 @@ set number
 autocmd BufWritePre * :%s/\s\+$//e
 @end verbatim
 
-With this .vimrc, files can be reindented automatically by highlihting
+With this .vimrc, files can be reindented automatically by highlighting
 the lines to be indented in visual mode (use V to enter visual mode)
 and pressing =.
 
@@ -656,7 +656,7 @@ _f ("cannot find character number: %d", i)
 
 @item
 Think about translation issues. In a lot of cases, it is better to
-translate a whole message. The english grammar must not be imposed
+translate a whole message. The English grammar must not be imposed
 on the translator. So, instead of
 
 @example
@@ -699,7 +699,7 @@ _f ("Huh?  Not a Request: `%s'.  Ignoring.", request)
 
 @item
 Do not modularize too much; words frequently cannot be translated
-without context. It is probably safe to treat most occurences of
+without context. It is probably safe to treat most occurrences of
 words like stem, beam, crescendo as separately translatable words.
 
 @item
@@ -792,7 +792,7 @@ out/bin/lilypond
 
 This is important as you will need to let gdb know where to find the
 image containing the symbol tables.  You can invoke gdb from the
-command line usinga the following:
+command line using the following:
 
 @example
 gdb out/bin/lilypond
@@ -1055,7 +1055,7 @@ number of different platforms:
 
 In order for the Graphviz tool to work, config.make must be modified.
 It is probably a good idea to first save a copy of config.make under
-a different name.  Then, edit config.make by removing every occurence
+a different name.  Then, edit config.make by removing every occurrence
 of @code{-DNDEBUG}.
 
 @item Rebuilding LilyPond
@@ -1086,7 +1086,7 @@ lilypond graphviz.ly 2> graphviz.log
 
 The logfile has standard lilypond output, as well as the Graphviz
 output data.  Delete everything from the beginning of the file
-up to but not including the first occurence of @code{digraph}.
+up to but not including the first occurrence of @code{digraph}.
 
 @item Process the logfile with @code{dot}
 
@@ -1124,7 +1124,7 @@ for feature addition and modification.
 * Write the code::
 * Write regression tests::
 * Write convert-ly rule::
-* Automaticaly update auxiliary information::
+* Automatically update auxiliary information::
 * Manually update auxiliary information::
 * Edit changes.tely::
 * Verify successful build::
@@ -1178,7 +1178,7 @@ rule will simply point out to the user that the feature needs
 manual correction.
 
 
-@node Automaticaly update auxiliary information
+@node Automatically update auxiliary information
 @subsection Automatically update auxiliary information
 
 convert-ly should be used to update the documentation, the snippets,
@@ -1435,7 +1435,7 @@ with the modified branch checked out.
 
 Sometimes in response to comments on revisions, the best way to
 work may require creation of a new branch in git.  In order to
-associate the new branch with an existing Reitveld issue,
+associate the new branch with an existing Rietveld issue,
 the following command can be used:
 
 @example
@@ -1785,7 +1785,7 @@ Spanners (derived class) -slurs, beams- or Items (also a derived
 class) -notes, clefs, etc.
 
 There are two other derived classes System (derived from Spanner,
-contaning a "line of music") and Paper_column (derived from Item, it
+containing a "line of music") and Paper_column (derived from Item, it
 contains all items that happen at the same moment). They are separate
 classes because they play a special role in the linebreaking process.
 
@@ -2114,7 +2114,7 @@ finds out about the breakpoint.
 
 Han-Wen answered as follows:
 
-You can see the defintion by doing
+You can see the definition by doing
 
 @example
 #(display conditionalMark)

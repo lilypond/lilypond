@@ -16,7 +16,7 @@
 MACRO DEFINITIONS GUIDELINES
 ****************************
 
-This file should contain macro defintions which are common to all
+This file should contain macro definitions which are common to all
 languages, i.e. all macro definitions which do not contain text that
 should be translated (namely text visible in the output).
 

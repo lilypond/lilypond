@@ -284,7 +284,7 @@ The commands to define rules in a makefile differ
 according to platform; for instance the various forms of Linux and
 MacOS use @code{bash}, while Windows uses @code{cmd}. Note that on
 MacOS X, you need to configure the system to use the command-line
-intepreter. Here are some example makefiles, with versions for both
+interpreter. Here are some example makefiles, with versions for both
 Linux/MacOS and Windows.
 
 The first example is for an orchestral work in four

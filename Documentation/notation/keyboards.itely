@@ -592,7 +592,7 @@ Some common characteristics of harp music are covered elsewhere:
 
 @itemize
 
-@item The glissando is the most characterisic harp technique,
+@item The glissando is the most characteristic harp technique,
 @ref{Glissando}.
 
 @item A @notation{bisbigliando} is written as a tremelo @ref{Tremolo
@@ -644,7 +644,7 @@ c!1_\markup { \harp-pedal #"^o--|vv-^" }
 
 The @code{\harp-pedal} command accepts a string of characters, where
 @code{^} is the highest pedal position (flattened pitch), @code{-} is
-the middle pedal postion (natural pitch), @code{v} is the lowest pedal
+the middle pedal position (natural pitch), @code{v} is the lowest pedal
 position (sharpened pitch), and @code{|} is the divider. A prefixed
 @code{o} will circle the following pedal symbol.
 

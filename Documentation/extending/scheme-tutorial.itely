@@ -1135,7 +1135,7 @@ Now we examine the input,
 @end example
 
 So in our function, we need to clone this expression (so that we
-have two notes to build the sequence), add @code{SlurEvents} to the
+have two notes to build the sequence), add a @code{SlurEvent} to the
 @code{'elements} property of each one, and finally make a
 @code{SequentialMusic} with the two @code{EventChords}.
 

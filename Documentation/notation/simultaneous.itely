@@ -344,7 +344,7 @@ required to define the settings of each voice.
 The @code{<< @{...@} \\ @{...@} >>} construct, where the two (or
 more) expressions are separated by double backslashes, behaves
 differently to the similar construct without the double backslashes:
-@emph{all} the expressions within this contruct are assigned
+@emph{all} the expressions within this construct are assigned
 to new @code{Voice} contexts.  These new @code{Voice} contexts
 are created implicitly and are given the fixed names @code{"1"},
 @code{"2"}, etc.

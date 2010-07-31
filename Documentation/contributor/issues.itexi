@@ -189,7 +189,7 @@ check to see who else has replied to it), delete it.
 
 @item
 If the email is a question about how to use LilyPond, reply with
-this reponse:
+this response:
 
 @example
 For questions about how to use LilyPond, please read our
@@ -218,7 +218,7 @@ What version of lilypond was used (if not given) and operating
 system (if this is a suspected cause of the problem)?  In short,
 if you cannot understand what the problem is, ask the user to
 explain more.  It is the user's responsibility to explain the
-problem, not your reponsibility to understand it.
+problem, not your responsibility to understand it.
 
 @item
 If the behavior is expected, the user should be told to read the
@@ -542,7 +542,7 @@ Frog: the fix is believed to be suitable for a new contributor
 issue should also have an estimated time in a comment.
 
 @item
-Maintainability: hinders developent of LilyPond.  For example,
+Maintainability: hinders development of LilyPond.  For example,
 improvements to the build system, or @qq{helper} python scripts.
 
 @item

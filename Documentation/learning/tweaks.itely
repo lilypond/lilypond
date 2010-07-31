@@ -3178,7 +3178,7 @@ lhMusic = \relative c' {
 @end lilypond
 
 On to bar three and the start of the Moderato section.  The tutorial
-showed how to add embolded text with the @code{\markup} command, so
+showed how to add bold text with the @code{\markup} command, so
 adding @qq{Moderato} in bold is easy.  But how do we merge notes in
 different voices together?  This is where we need to turn again to
 the Notation Reference for help.  A search for @qq{merge} in the

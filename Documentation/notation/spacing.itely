@@ -37,7 +37,7 @@ distance between
 staff lines accordingly."
 
 Actually I found, that the @internalsref{StaffSymbol} at line 481
-sends to an uncomplete
+sends to an incomplete
 documentation. The property staff-space is not explained here. I
 thought Y-extent might be of
 help, but it is in turn explained by x-space which again is
@@ -1090,7 +1090,7 @@ book parts.
   @}
   \paper @{
      %% In a part consisting mostly of text,
-     %% ly:minimal-breaking may be prefered
+     %% ly:minimal-breaking may be preferred
      #(define page-breaking ly:minimal-breaking)
   @}
   \markup @{ @dots{} @}
