@@ -2401,7 +2401,7 @@ a
 For some layout objects, the @code{minimum-length} property becomes
 effective only if the @code{set-spacing-rods} procedure is called
 explicitly.  To do this, the @code{springs-and-rods} property should
-be set to @code{ly:spanner::set-spacing-rods}.   For example,
+be set to @code{ly:spanner::set-spacing-rods}.  For example,
 the minimum length of a glissando has no effect unless the
 @code{springs-and-rods} property is set:
 

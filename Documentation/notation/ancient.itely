@@ -699,7 +699,7 @@ scope for mensural notation).
 @cindex rests, ancient
 
 Use the @code{style} property of grob @code{Rest} to select
-ancient rests.   Supported styles are @code{classical},
+ancient rests.  Supported styles are @code{classical},
 @code{neomensural}, and @code{mensural}.  @code{classical} differs
 from the @code{default} style only in that the quarter rest looks
 like a horizontally mirrored 8th rest.  The @code{mensural} and

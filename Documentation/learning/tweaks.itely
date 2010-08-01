@@ -2518,7 +2518,7 @@ affecting anything else.
 @cindex positions property
 
 This is most useful for manually adjusting the slope and height
-of beams, slurs, and tuplets.   It takes a pair of numbers
+of beams, slurs, and tuplets.  It takes a pair of numbers
 giving the position of the left and right ends of the beam, slur,
 etc. relative to the center line of the staff.  Units are
 staff-spaces.  Note, though, that slurs and phrasing slurs cannot

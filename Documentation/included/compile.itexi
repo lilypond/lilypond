@@ -858,7 +858,7 @@ exec /opt/local/bin/pngtopnm "$@"
 
 
 LilyPond comes with an extensive suite that exercises the entire
-program.   This suite can be used to test that the binary has
+program.  This suite can be used to test that the binary has
 been built correctly.
 
 The test suite can be executed with:
