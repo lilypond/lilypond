@@ -1144,8 +1144,8 @@ Contributor's Guide}.
 
 @item To retrieve the Lilypond source code from @code{git},
 copy-and-paste each command from the CG @qq{Main source code}
-section into the terminal. (paste into the terminal with keystroke
-@code{CTRL+SHIFT+V})
+section into the terminal (paste into the terminal with keystroke
+@code{CTRL+SHIFT+V}).
 
 @item Prepare to build Lilypond by running the configuration script.
 Type

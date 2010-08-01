@@ -1894,15 +1894,15 @@ A Music + Music_output_def object leads to a Global_context object (see
 ly_run_translator ())
 
 During interpreting, Global_context + Music leads to a bunch of
-Contexts. (see Global_translator::run_iterator_on_me () )
+Contexts (see Global_translator::run_iterator_on_me ()).
 
 After interpreting, Global_context contains a Score_context (which
 contains staves, lyrics etc.) as a child. Score_context::get_output ()
 spews a Music_output object (either a Paper_score object for notation
 or Performance object for MIDI).
 
-The Music_output object is the entry point for the backend. (see
-ly_render_output () )
+The Music_output object is the entry point for the backend (see
+ly_render_output ()).
 
 The main steps of the backend itself are in
 

@@ -231,7 +231,7 @@ Before release:
 
 * write preface section for manual.
 
-* submit pots for translation : send url of tarball to
+* submit pots for translation: send url of tarball to
 translation@@iro.umontreal.ca, mentioning lilypond-VERSION.pot
 
 * Check reg test
