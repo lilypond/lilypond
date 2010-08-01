@@ -48,7 +48,7 @@ staccato are usually shown by articulation marks, sometimes combined
 with slurs, see @ref{Articulations and ornamentations} and @ref{List of
 articulations}.
 @item Flutter tonguing is usually indicated by placing a tremolo mark
-and a text markup on the note. See @ref{Tremolo repeats}.
+and a text markup on the note.  See @ref{Tremolo repeats}.
 @end itemize
 
 There are also other aspects of musical notation that can apply to wind
@@ -58,7 +58,7 @@ instruments:
 @item Many wind instruments are transposing instruments, see
 @ref{Instrument transpositions}.
 @item The slide glissando are characteristic of the trombone, but other
-winds may perform keyed or valved glissandi. See @ref{Glissando}.
+winds may perform keyed or valved glissandi.  See @ref{Glissando}.
 @item Harmonic series glissandi, which are possible on all brass
 instruments but common for French Horns, are usually written out as
 @ref{Grace notes}.
@@ -66,11 +66,11 @@ instruments but common for French Horns, are usually written out as
 and doits}.
 @item Key slaps or valve slaps are often shown by the @code{cross} style
 of @ref{Special note heads}.
-@item Woodwinds can overblow low notes to sound harmonics. These are
-shown by the @code{flageolet} articulation. See @ref{List of articulations}.
+@item Woodwinds can overblow low notes to sound harmonics.  These are
+shown by the @code{flageolet} articulation.  See @ref{List of articulations}.
 @item The use of brass mutes is usually indicated by a text markup, but
 where there are many rapid changes it is better to use the
-@code{stopped} and @code{open} articulations. See @ref{Articulations and
+@code{stopped} and @code{open} articulations.  See @ref{Articulations and
 ornamentations} and @ref{List of articulations}.
 @item Stopped horns are indicated by the @code{stopped} articulation.
 See @ref{Articulations and ornamentations}.

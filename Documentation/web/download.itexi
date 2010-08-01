@@ -437,10 +437,10 @@ For Windows 2000, XP, Vista and Windows 7.
 
 @item
 Locate the downloaded file and double-click on it to start the
-installer. Follow the instructions given to you by the installer;
+installer.  Follow the instructions given to you by the installer;
 we recommend that you leave all the install options checked and
-use the default installation location. Click the @q{Finish} button
-when the installer has completed. LilyPond is now installed.
+use the default installation location.  Click the @q{Finish} button
+when the installer has completed.  LilyPond is now installed.
 
 @end enumerate
 
@@ -452,12 +452,12 @@ To uninstall LilyPond either:
 
 @item
 Locate the LilyPond folder from the @q{Start} menu and click on the
-@q{Uninstall} icon. Click the @q{Finish} button when the uninstaller
+@q{Uninstall} icon.  Click the @q{Finish} button when the uninstaller
 has completed.
 
 @item
 Or from within the Control Panel, locate and select LilyPond and then
-choose the option to uninstall/remove the software. Click the @q{Finish}
+choose the option to uninstall/remove the software.  Click the @q{Finish}
 button when the uninstaller has completed.
 
 @end enumerate

@@ -372,7 +372,7 @@ information is available from in @ref{Regression tests}.
 @item
 Checking all issues: we try to mark each Issue @q{fixed} when we
 fix it, but occasionally one or two issues will slip through the
-cracks.  It is therefore good to check all Issues. If you see the
+cracks.  It is therefore good to check all Issues.  If you see the
 same (broken) output as the initial report, then simply post a
 @qq{Problem still exists in 2.x.y} message to the issue.
 

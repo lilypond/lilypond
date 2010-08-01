@@ -91,7 +91,7 @@ Double-click the LilyPond icon on your desktop, an example file will open.
 @sourceimage{Learning_Win7_Welcome_File_Whole,,,}
 
 From the menus that appear along the top of the example file,
-select @w{@code{File > Save as}}. Do not use the @w{@code{File > Save}}
+select @w{@code{File > Save as}}.  Do not use the @w{@code{File > Save}}
 for the example file as this will not work until you have given it a
 valid LilyPond file name.
 
@@ -124,7 +124,7 @@ Or simply double-click the @file{test.ly}.
 @subsubheading Step 3. View output
 
 During the compilation of the @file{test.ly} file, a command window
-will, very briefly open and then close. Three additional files will
+will, very briefly open and then close.  Three additional files will
 have been created during this process.
 
 @sourceimage{Learning_Win7_All_Files_Created,,,}
@@ -156,7 +156,7 @@ during the compilation attempt, for any errors.
 This log file is overwritten each time you compile your LilyPond file.
 
 The PS file is used internally by LilyPond to create the PDF file and
-can be ignored. It also gets overwritten each time you compile your
+can be ignored.  It also gets overwritten each time you compile your
 file.
 
 If you are viewing your file in a PDF viewer, then you must close the

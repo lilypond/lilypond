@@ -530,8 +530,8 @@ It would be nice to make the @code{double-box} command customizable:
 here, the @code{box-padding} values are hard coded, and cannot be
 changed by the user.  Also, it would be better to distinguish the
 padding between the two boxes, from the padding between the inner box
-and the text. So we will introduce a new property,
-@code{inter-box-padding}, for the padding between the two boxes. The
+and the text.  So we will introduce a new property,
+@code{inter-box-padding}, for the padding between the two boxes.  The
 @code{box-padding} will be used for the inner padding.  The new code is
 now as follows:
 

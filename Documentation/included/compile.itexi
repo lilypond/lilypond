@@ -906,7 +906,7 @@ been tested using OS X 10.5 (Leopard).
 First, install the relevant dependencies using MacPorts.
 
 Next, add the following to your relevant shell initialization
-files. This is @code{~/.profile} by default. You should create
+files.  This is @code{~/.profile} by default.  You should create
 this file if it does not exist.
 
 @example
@@ -928,7 +928,7 @@ FLEXLEXER_FILE = /opt/local/include/FlexLexer.h
 @end example
 
 At this point, you should verify that you have the appropriate
-fonts installed with your ghostscript installation. Check @code{ls
+fonts installed with your ghostscript installation.  Check @code{ls
 /opt/local/share/ghostscript/fonts} for: 'c0590*' files (.pfb,
 .pfb and .afm).  If you don't have them, run the following
 commands to grab them from the ghostscript SVN server and install
@@ -940,7 +940,7 @@ sudo mv urw-fonts-1.0.7pre44/* /opt/local/share/ghostscript/fonts/
 rm -rf urw-fonts-1.07pre44
 @end example
 
-Now run the @code{./configure} script. To avoid complications with
+Now run the @code{./configure} script.  To avoid complications with
 automatic font detection, add
 
 @example
@@ -1024,9 +1024,9 @@ installation directory structure.
 
 
 It can be useful to have both the stable and the development versions
-of Lilypond available at once. One way to do this on GNU/Linux is to
+of Lilypond available at once.  One way to do this on GNU/Linux is to
 install the stable version using the precompiled binary, and run the
-development version from the source tree. After running @command{make
+development version from the source tree.  After running @command{make
 all} from the top directory of the Lilypond source files, there will
 be a binary called @code{lilypond} in the @code{out} directory:
 
@@ -1035,7 +1035,7 @@ be a binary called @code{lilypond} in the @code{out} directory:
 @end example
 
 This binary can be run without actually doing the @code{make
-install} command. The advantage to this is that you can have all
+install} command.  The advantage to this is that you can have all
 of the latest changes available after pulling from git and running
 @code{make all}, without having to uninstall the old version and
 reinstall the new.
@@ -1082,8 +1082,8 @@ TODO: rewrite for lily-git.tcl !!!  do before GOP!  -gp
 
 Since it is not possible to compile Lilypond on Windows, some
 developers may find it useful to install a GNU/Linux virtual
-machine. A disk image with a special remix of @strong{Ubuntu}
-has been created for this purpose. It has all of the Lilypond
+machine.  A disk image with a special remix of @strong{Ubuntu}
+has been created for this purpose.  It has all of the Lilypond
 build dependencies in place, so that once installed, it is
 ready to compile both Lilypond and the Documentation.
 The @code{lilybuntu} remix is available for download here:
@@ -1095,7 +1095,7 @@ The @code{lilybuntu} remix is available for download here:
 We do not necessarily recommend any one virtualization tool,
 however the @code{lilybuntu} remix is known to work well on
 @uref{http://www.virtualbox.org/wiki/Downloads, Sun VirtualBox},
-which is a free download. Consult your virtualization software's
+which is a free download.  Consult your virtualization software's
 documentation for instructions on setting up the software and
 for general instructions on installing a virtual machine.
 
@@ -1104,10 +1104,10 @@ Steps to setting up @code{lilybuntu} in a virtual machine:
 @enumerate
 @item Download the @code{lilybuntu} disk image.
 
-@item Install @code{lilybuntu}. You will use the @code{.iso}
-file as the boot disk. It should not be necessary to burn it
+@item Install @code{lilybuntu}.  You will use the @code{.iso}
+file as the boot disk.  It should not be necessary to burn it
 to a DVD, but consult the documentation for your virtualization
-software for specific instructions. If possible, use at least
+software for specific instructions.  If possible, use at least
 the recommended amount of RAM for the virtual machine (384 MB on
 VirtualBox), and use a dynamically expanding virtual hard drive.
 A virtual hard drive with 6 GB will be enough to compile LilyPond,
@@ -1166,7 +1166,7 @@ Type:
 Edit local.make for local Makefile overrides.
 @end example
 
-@item First type @code{make all} to build Lilypond. This will take
+@item First type @code{make all} to build Lilypond.  This will take
 a while.
 
 @item When Lilypond is finished building, build the documentation

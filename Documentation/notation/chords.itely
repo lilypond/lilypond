@@ -63,7 +63,7 @@ found at @ref{Input modes}.
 Chords entered using chord mode are music elements, and can be
 transposed just like chords entered using simultaneous music.
 @code{\chordmode} is absolute, as @code{\relative} has no effect
-on @code{chordmode} blocks. However, in @code{\chordmode} the
+on @code{chordmode} blocks.  However, in @code{\chordmode} the
 absolute pitches are one octave higher than in note mode.
 
 Chord mode and note mode can be mixed in sequential music:
@@ -612,7 +612,7 @@ this property.
 @item majorSevenSymbol
 
 This property contains the markup object used to follow the output
-of @code{chordRootNamer} to identify a major 7 chord. Predefined
+of @code{chordRootNamer} to identify a major 7 chord.  Predefined
 options are @code{whiteTriangleMarkup} and
 @code{blackTriangleMarkup}.
 
@@ -623,7 +623,7 @@ options are @code{whiteTriangleMarkup} and
 When the chord name contains additional pitches other than the root
 (e.g., an added bass note), this function is used to print the
 additional pitch.  By default the pitch is printed using
-@code{chordRootNamer}. The @code{chordNoteNamer} property can be set
+@code{chordRootNamer}.  The @code{chordNoteNamer} property can be set
 to a specialized function to change this behavior.  For example, the
 bass note can be printed in lower case.
 

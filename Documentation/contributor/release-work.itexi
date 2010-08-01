@@ -226,7 +226,7 @@ A @qq{major release} means an update of @code{x} in @code{2.x.0}.
 
 Before release:
 
-* write release notes. note: stringent size requirements for
+* write release notes.  note: stringent size requirements for
  various websites, so be brief.
 
 * write preface section for manual.

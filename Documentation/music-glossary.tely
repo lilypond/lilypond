@@ -818,7 +818,7 @@ S: upptakt,
 FI: kohotahti.
 
 An anacrusis (also known as pickup or upbeat) is an incomplete measure
-of music before a section of music. It also refers to the initial
+of music before a section of music.  It also refers to the initial
 note(s) of a melody occurring in that incomplete measure.
 
 @lilypond[quote,relative=1]
@@ -1081,7 +1081,7 @@ FI: käsinkirjoitettu nuotti.
 
 @item Music prepared for photoreproduction by freehand drawing, with
 the aid of a straightedge ruler and T-square only, which attempts to
-emulate engraving. This required more skill than did engraving.
+emulate engraving.  This required more skill than did engraving.
 
 @end itemize
 
@@ -1235,7 +1235,7 @@ DK: bjælke,
 S: balk,
 FI: palkki.
 
-Line connecting a series of notes (shorter than a quarter note). The
+Line connecting a series of notes (shorter than a quarter note).  The
 number of beams determines the note value of the connected notes.
 
 @lilypond[quote,notime,relative=2,line-width=13\cm]
@@ -1602,9 +1602,9 @@ S: ackord,
 FI: sointu.
 
 Three or more tones sounding simultaneously.  In traditional European music
-the base chord is a @emph{triad} consisting of two thirds. @emph{Major}
+the base chord is a @emph{triad} consisting of two thirds.  @emph{Major}
 (major + minor third) as well as @emph{minor} (minor + major third) chords
-may be extended with more thirds. Four-tone @emph{seventh chords} and
+may be extended with more thirds.  Four-tone @emph{seventh chords} and
 five-tone @emph{ninth} major chords are most often used as dominants
 (functional harmony).  Chords having no third above the lower notes to
 define their mood are a special case called @q{open chords}.  The lack of
@@ -1792,7 +1792,7 @@ the top line high F:
 
 Staves of five lines are usually used, and the clef superimposed on them
 indicates which five lines have been selected from this @notation{grand
-staff}. For example, the treble or G clef indicates that the top five lines
+staff}.  For example, the treble or G clef indicates that the top five lines
 have been selected:
 
 @lilypond[quote]
@@ -2562,7 +2562,7 @@ DK: diatonisk skala,
 S: diatonisk skala,
 FI: diatoninen asteikko.
 
-A scale consisting of 5@w{ }whole tones and 2@w{ }semitones (S). Scales
+A scale consisting of 5@w{ }whole tones and 2@w{ }semitones (S).  Scales
 played on the white keys of a piano keyboard are diatonic.  These scales
 are sometimes called, somewhat inaccurately, @q{church modes}).
 
@@ -4411,28 +4411,28 @@ S: ?,
 FI: käännös.
 
 When a chord sounds with a bass note that differs from the root of the
-chord, it is said to be @emph{inverted}. The number of inversions that a
+chord, it is said to be @emph{inverted}.  The number of inversions that a
 chord can have is one fewer than the number of constituent notes.  For
 example, triads (which have three constituent notes) can have three
 positions, two of which are inversions:
 
 @table @dfn
 @item Root position
-The root note is in the bass, and above that are the third and the fifth. A
+The root note is in the bass, and above that are the third and the fifth.  A
 triad built on the first scale degree, for example, is marked @notation{I}.
 
 @item First inversion
-The third is in the bass, and above it are the fifth and the root. This
+The third is in the bass, and above it are the fifth and the root.  This
 creates an interval of a sixth and a third above the bass note, and so is
-marked in figured Roman notation as @notation{6/3}. This is commonly
+marked in figured Roman notation as @notation{6/3}.  This is commonly
 abbreviated to @notation{I6} (or @notation{Ib}) since the sixth is the
 characteristic interval of the inversion, and so always implies
 @notation{6/3}.
 
 @item Second inversion
-The fifth is in the bass, and above it are the root and the third. This
+The fifth is in the bass, and above it are the root and the third.  This
 creates an interval of a sixth and a fourth above the bass note, and so is
-marked as @notation{I6/4} or @notation{Ic}. Second inversion is the most
+marked as @notation{I6/4} or @notation{Ic}.  Second inversion is the most
 unstable chord position.
 @end table
 
@@ -4534,7 +4534,7 @@ S: ?,
 FI: antaa väristä.
 
 [French: @q{Let vibrate}]  Most frequently associated with harp
-parts. Marked @notation{l.v.} in the score.
+parts.  Marked @notation{l.v.} in the score.
 
 @seealso
 No cross-references.
@@ -4553,7 +4553,7 @@ S: largo,
 FI: largo, hitaasti, leveästi.
 
 [Italian: @q{wide}.] Very slow in tempo, usually combined with great
-expressiveness. @emph{Larghetto} is less slow than largo.
+expressiveness.  @emph{Larghetto} is less slow than largo.
 
 
 @node leading note
@@ -5603,7 +5603,7 @@ FI: usean tahdin mittainen tauko.
 Multi-measure rests are conventionally typeset with a combination of
 longa, breve and whole rests for shorter and a long horizontal bar for
 longer spans of rest, with a number above to indicate the duration (in
-measures) of the rest. The former style is called @q{Kirchenpausen} in
+measures) of the rest.  The former style is called @q{Kirchenpausen} in
 German, as a reminiscence of its use in Renaissance vocal polyphony.
 
 @lilypond[quote,relative=2]
@@ -6318,7 +6318,7 @@ of a more or less pronounced individuality.
 [Italian: past participle of @emph{portare}, @q{to carry}]
 
 A stroke in which each of several notes is separated slightly within a slur,
-without changing the bow's direction. It is used for passages of a
+without changing the bow's direction.  It is used for passages of a
 @notation{cantabile} character.
 
 @seealso
@@ -6506,7 +6506,7 @@ The quality of a triad is determined by the precise arrangement of its
 intervals.  Tertian triads can be described as a series of three notes.  The
 first element is the root note (or simply @q{root}) of the chord, the second
 note is the @q{third} of the chord, and the last note is the @q{fifth} of
-the chord. These are described below:
+the chord.  These are described below:
 
 @multitable {Chord name} {Component intervals} {Example} {C, CM, Cma, Cmaj, CΔ}
 @headitem Chord name
@@ -6530,9 +6530,9 @@ the chord. These are described below:
 There are various types of seventh chords depending on the quality of the
 original chord and the quality of the seventh added.
 
-Five common types of seventh chords have standard symbols. The chord quality
+Five common types of seventh chords have standard symbols.  The chord quality
 indications are sometimes superscripted and sometimes not (e.g. Dm7, Dm^7,
-and D^m7 are all identical). The last three chords are not commonly used
+and D^m7 are all identical).  The last three chords are not commonly used
 except in jazz.
 
 @seealso

@@ -21,8 +21,8 @@
 
 \section{LilyPond-book + LaTeX}
 
-This is an examplefile for mixing LilyPond and Latex. It is also
-used to test lilypond-book. View the source to see how it is done.
+This is an examplefile for mixing LilyPond and Latex.  It is also
+used to test lilypond-book.  View the source to see how it is done.
 
 A simple scale:
 
@@ -33,7 +33,7 @@ A simple scale:
 \end{lilypond}
 
 LilyPond-book search for the \verb|\score| command when it decides
-if the code is only a fragment. Thus, in the following code, you have
+if the code is only a fragment.  Thus, in the following code, you have
 to use \verb|fragment| option, because the comment confuses lilypond-book.
 
 \begin{lilypond}[fragment]
@@ -116,9 +116,9 @@ c' e'
 \end{lilypond}
 
 has also the \verb|eps| options, but is not floating because there
-are an empty line before and after the lilypond block. That is
+are an empty line before and after the lilypond block.  That is
 correct behaviour because it follows La\TeX{} convention that an
-empty line signals a new paragraph. The \verb|eps| option
+empty line signals a new paragraph.  The \verb|eps| option
 is not necessary when you want the music in a paragraph on its own.
 
 \subsection{More examples}
@@ -155,7 +155,7 @@ Tables\footnote{ and footnote:
 
 \pagebreak
 
-Testing of spacing. The next music is surrounded by an empty line.
+Testing of spacing.  The next music is surrounded by an empty line.
 text text text text text text text text text text text text
 text text text text text text text text text text text text
 

@@ -403,7 +403,7 @@ A comment is in tracker waiting for response ---FV
 
 
 Be careful when defining a variable with lyrics that creates a new
-context, for example, using the deprecated @code{\lyrics} command. See
+context, for example, using the deprecated @code{\lyrics} command.  See
 the next erroneous example:
 
 @example
@@ -653,12 +653,12 @@ for every extra note that has to be added to the melisma.
 @c duplicated: TODO fix
 Additionally, you can make an extender line to be typeset to indicate
 the melisma in the score, writing a double underscore next to the
-first syllable of the melisma. This example shows the three elements
+first syllable of the melisma.  This example shows the three elements
 that are used for this purpose (all of them surrounded by spaces):
 double hyphens to separate syllables in a word, underscores to add
 notes to a melisma, and a double underscore to put an extender line.
 
-@c wrong: extender line only on last syllable of a word. Change example
+@c wrong: extender line only on last syllable of a word.  Change example
 @lilypond[relative=1,verbatim,fragment,quote]
 { \set melismaBusyProperties = #'()
  c d( e) f f( e) e e  }
@@ -897,7 +897,7 @@ lyr = \lyricmode { I like my cat! }
 
 This method is recommended only if the music in the @code{Devnull}
 context does not contain melismata.  Melismata are defined by the
-@code{Voice} context. Connecting lyrics to a @code{Devnull} context
+@code{Voice} context.  Connecting lyrics to a @code{Devnull} context
 makes the voice/lyrics links to get lost, and so does the info on
 melismata.  Therefore, if you link lyrics to a @code{Devnull} context,
 the implicit melismata get ignored.

@@ -257,10 +257,10 @@ Another very useful debugging technique is constructing
 @cindex make
 
 Pretty well all the platforms Lilypond can run on support a software
-facility called @code{make}. This software reads a special file called a
+facility called @code{make}.  This software reads a special file called a
 @code{Makefile} that defines what files depend on what others and what
 commands you need to give the operating system to produce one file from
-another. For example the makefile would spell out how to produce
+another.  For example the makefile would spell out how to produce
 @code{ballad.pdf} and @code{ballad.midi} from @code{ballad.ly} by
 running Lilypond.
 
@@ -271,9 +271,9 @@ This is true for very large projects with many included files and
 different output options (e.g. full score, parts, conductor's
 score, piano reduction, etc.), or for projects that
 require difficult commands to build them (such as
-@code{lilypond-book} projects). Makefiles vary greatly in
+@code{lilypond-book} projects).  Makefiles vary greatly in
 complexity and flexibility, according to the needs and skills of
-the authors. The program GNU Make comes installed on GNU/Linux
+the authors.  The program GNU Make comes installed on GNU/Linux
 distributions and on MacOS X, and it is also available for Windows.
 
 See the @strong{GNU Make Manual} for full details on using
@@ -282,9 +282,9 @@ can do.
 
 The commands to define rules in a makefile differ
 according to platform; for instance the various forms of Linux and
-MacOS use @code{bash}, while Windows uses @code{cmd}. Note that on
+MacOS use @code{bash}, while Windows uses @code{cmd}.  Note that on
 MacOS X, you need to configure the system to use the command-line
-interpreter. Here are some example makefiles, with versions for both
+interpreter.  Here are some example makefiles, with versions for both
 Linux/MacOS and Windows.
 
 The first example is for an orchestral work in four
@@ -332,10 +332,10 @@ files in the @code{Notes} directory:
 
 The makefile will have targets of @code{score} (entire piece in
 full score), @code{movements} (individual movements in full score),
-and @code{parts} (individual parts for performers). There
+and @code{parts} (individual parts for performers).  There
 is also a target @code{archive} that will create a tarball of
-the source files, suitable for sharing via web or email. Here is
-the makefile for GNU/Linux or MacOS X. It should be saved with the
+the source files, suitable for sharing via web or email.  Here is
+the makefile for GNU/Linux or MacOS X.  It should be saved with the
 name @code{Makefile} in the top directory of the project:
 
 @warning{When a target or pattern rule is defined, the
@@ -433,12 +433,12 @@ archive:
 @end example
 
 
-There are special complications on the Windows platform. After
+There are special complications on the Windows platform.  After
 downloading and installing GNU Make for Windows, you must set the
 correct path in the system's environment variables so that the
-DOS shell can find the Make program. To do this, right-click on
+DOS shell can find the Make program.  To do this, right-click on
 "My Computer," then choose @code{Properties} and
-@code{Advanced}. Click @code{Environment Variables}, and then
+@code{Advanced}.  Click @code{Environment Variables}, and then
 in the @code{System Variables} pane, highlight @code{Path}, click
 @code{edit}, and add the path to the GNU Make executable file, which
  will look something like this:
@@ -449,7 +449,7 @@ C:\Program Files\GnuWin32\bin
 
 The makefile itself has to be altered to handle different shell
 commands and to deal with spaces that are present
-in some default system directories. The @code{archive} target
+in some default system directories.  The @code{archive} target
 is eliminated since Windows does not have the @code{tar} command,
 and Windows also has a different default extension for midi files.
 
@@ -525,8 +525,8 @@ all: score parts movements
 
 
 The next Makefile is for a @command{lilypond-book} document done in
-LaTeX. This project has an index, which requires that the
-@command{latex} command be run twice to update links. Output files are
+LaTeX.  This project has an index, which requires that the
+@command{latex} command be run twice to update links.  Output files are
 all stored in the @code{out} directory for .pdf output and in the
 @code{htmlout} directory for the html output.
 
@@ -581,11 +581,11 @@ archive:
 
 TODO: make this thing work on Windows
 
-The previous makefile does not work on Windows. An alternative
+The previous makefile does not work on Windows.  An alternative
 for Windows users would be to create a simple batch file
-containing the build commands. This will not
+containing the build commands.  This will not
 keep track of dependencies the way a makefile does, but it at
-least reduces the build process to a single command. Save the
+least reduces the build process to a single command.  Save the
 following code as @command{build.bat} or @command{build.cmd}.
 The batch file can be run at the DOS prompt or by simply
 double-clicking its icon.

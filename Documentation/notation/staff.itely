@@ -88,7 +88,7 @@ For details, see @ref{Percussion staves}.
 
 @code{RhythmicStaff} creates a single-line staff that only
 displays the rhythmic values of the input.  Real durations are
-preserved. For details, see @ref{Showing melody rhythms}.
+preserved.  For details, see @ref{Showing melody rhythms}.
 
 @lilypond[verbatim,quote,relative=2]
 \new RhythmicStaff { c4 d e f }

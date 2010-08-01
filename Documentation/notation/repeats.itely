@@ -640,7 +640,7 @@ durations, are supported.
 @funindex tremolo
 
 Tremolos can take two forms: alternation between two chords or two
-notes, and rapid repetition of a single note or chord. Tremolos
+notes, and rapid repetition of a single note or chord.  Tremolos
 consisting of an alternation are indicated by adding beams between the
 notes or chords being alternated, while tremolos consisting of the
 rapid repetition of a single note are indicated by adding beams or

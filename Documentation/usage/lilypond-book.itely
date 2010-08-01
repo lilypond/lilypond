@@ -488,7 +488,7 @@ of lilypond.
 
 For inserting LilyPond snippets it is good to keep the conformity of our
 DocBook document, thus allowing us to use DocBook editors, validation
-etc. So we don't use custom tags, only specify a convention based on the
+etc.  So we don't use custom tags, only specify a convention based on the
 standard DocBook elements.
 
 @subheading Common conventions
@@ -618,7 +618,7 @@ Since this is the default, @code{nofragment} is redundant normally.
 
 @item indent=@var{size}\@var{unit}
 Set indentation of the first music system to @var{size}, using
-@var{unit} as units. @var{unit} is one of the following strings:
+@var{unit} as units.  @var{unit} is one of the following strings:
 @code{cm}, @code{mm}, @code{in}, or @code{pt}.  This option affects
 LilyPond, not the text layout.
 
@@ -847,7 +847,7 @@ See the documentation of Texinfo for further details.
 Specify the document type to process: @code{html}, @code{latex},
 @code{texi} (the default) or @code{docbook}.  If this option is missing,
 @command{lilypond-book} tries to detect the format automatically, see
-@ref{Filename extensions}. Currently, @code{texi} is the same as
+@ref{Filename extensions}.  Currently, @code{texi} is the same as
 @code{texi-html}.
 
 @c This complicated detail is not implemented, comment it out -jm
@@ -915,7 +915,7 @@ useful if your document is processed with @command{xelatex}, for
 example.
 
 @itemx --left-padding=@var{amount}
-Pad EPS boxes by this much. @var{amount} is measured in millimeters,
+Pad EPS boxes by this much.  @var{amount} is measured in millimeters,
 and is 3.0 by default.  This option should be used if the lines of
 music stick out of the right margin.
 
@@ -1127,7 +1127,7 @@ and so on.
 
 The fonts of snippets set with LilyPond will have to be set from
 inside
-of the snippet. For this you should read the AU on how to use
+of the snippet.  For this you should read the AU on how to use
 lilypond-book.
 
 \selectlanguage{ngerman}

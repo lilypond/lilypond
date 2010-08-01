@@ -76,7 +76,7 @@ For additions to the documentation,
 @enumerate
 
 @item
-Tell us where the addition should be placed. Please include both
+Tell us where the addition should be placed.  Please include both
 the section number and title (i.e. "LM 2.13 Printing lyrics").
 
 @item
@@ -84,7 +84,7 @@ Please write exact changes to the text.
 
 @item
 A formal patch to the source code is @emph{not} required; we can
-take care of the technical details. Here is an example of a
+take care of the technical details.  Here is an example of a
 perfect documentation report:
 
 @verbatim
@@ -122,7 +122,7 @@ Helpful User
 @subheading Larger contributions
 
 To replace large sections of the documentation, the guidelines are
-stricter. We cannot remove parts of the current documentation
+stricter.  We cannot remove parts of the current documentation
 unless we are certain that the new version is an improvement.
 
 @enumerate
@@ -141,7 +141,7 @@ Please prepare a formal git patch.
 @end enumerate
 
 Once you have followed these guidelines, please send a message to
-lilypond-devel with your documentation submissions. Unfortunately
+lilypond-devel with your documentation submissions.  Unfortunately
 there is a strict “no top-posting” check on the mailing list; to avoid
 this, add:
 
@@ -369,7 +369,7 @@ excepted in Templates, where `doctitle' may be omitted.
 
 @item
 Avoid long stretches of input code.  Nobody is going to read
-them in print.  Create small examples. However, this does not mean
+them in print.  Create small examples.  However, this does not mean
 it has be minimal.
 
 @item
@@ -1361,7 +1361,7 @@ an email to @code{translations-request@@lilynet.net} with subject
 @code{subscribe} and an empty message body.  Unless mentioned explicitly,
 or except if a translations coordinator contacts you privately, you
 should send questions, remarks and patches to the list
-@code{translations@@lilynet.net}. Please note that traffic is high
+@code{translations@@lilynet.net}.  Please note that traffic is high
 on the English-speaking list @code{lilypond-user@@gnu.org}, so it may
 take some time before your request or contribution is handled.
 
@@ -1527,7 +1527,7 @@ should at least write the node definition (that is, the @code{@@node
 @@@var{section_commmand} @@translationof} trio mentioned above) in the
 expected source file and define all its parent nodes; for each node you
 have defined this way but have not translated, insert a line that
-contains @code{@@untranslated}. That is, you should end up
+contains @code{@@untranslated}.  That is, you should end up
 for each untranslated node with something like
 
 @example
@@ -1577,7 +1577,7 @@ from the direct translation of a piece of English translation, using
 comments i.e. lines starting with @q{@code{@@c}}.
 
 Finally, press in Emacs @key{C-c C-u C-a} to update or generate
-menus. This process should be made easier in the future, when the helper
+menus.  This process should be made easier in the future, when the helper
 script @command{texi-langutils.py} and the makefile target are updated.
 
 Some pieces of text manipulated by build scripts that appear in the
