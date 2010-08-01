@@ -485,9 +485,6 @@ has affinity.  See @var{next-staff-spacing} for the format of this list.")
 ;;
 ;; k
 ;;
-     (keep-fixed-while-stretching ,boolean? "A grob with this property
-set to true is fixed relative to the staff above it when systems are
-stretched.")
      (keep-inside-line ,boolean? "If set, this column cannot have
 objects sticking into the margin.")
      (kern ,ly:dimension? "Amount of extra white space to add.  For
@@ -514,7 +511,7 @@ are added.")
      (left-bound-info ,list? "An alist of properties for determining
 attachments of spanners to edges.")
      (left-padding ,ly:dimension? "The amount of space that is put
-left to an object (e.g., a group of accidentals).")
+left to an object (e.g., a lyric extender).")
      (length ,ly:dimension? "User override for the stem length of
 unbeamed stems.")
      (length-fraction ,number? "Multiplier for lengths.  Used for
@@ -981,8 +978,6 @@ relevant for finding the @code{pure-Y-extent}.")
      (side-support-elements ,ly:grob-array? "The side support, an array of
 grobs.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
-     (spaceable-staves ,ly:grob-array? "Objects to be spaced during page
-layout.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
@@ -1056,8 +1051,6 @@ quanting.")
 acts as an index for looking up a @code{Stencil} object.")
      (shorten ,ly:dimension? "The amount of space that a stem is shortened.
 Internally used to distribute beam shortening over stems.")
-     (skyline-distance ,number? "The distance between this staff and the
-next one, as determined by a skyline algorithm.")
      (stem-info ,pair? "A cache of stem parameters.")
      (system-Y-offset ,number? "The Y-offset (relative to the bottom of the
 top-margin of the page) of the system to which this staff belongs.")

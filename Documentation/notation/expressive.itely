@@ -824,7 +824,7 @@ g4\( e c2\)
 @funindex phrasingSlurDashPattern
 @cindex phrasing slur, defining dash patterns
 @cindex slur, phrasing, defining dash patterns
-@cindex slur, definind dash patterns for phrasing
+@cindex slur, defining dash patterns for phrasing
 
 Custom dash patterns for phrasing slurs can be defined:
 

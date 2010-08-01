@@ -27,11 +27,11 @@ sich auf alle Systeme aus, können aber auf @code{Staff}- und
 
 
 
-%% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b
+%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
   texidocfr = "
 Les règles de ligatures définies au niveau du contexte @code{Score}
 s'appliqueront à toutes les portées.  Il est toutefois possible de
-moduler au niveau @code{Staff} ou @code{Voice} :
+moduler au niveau @code{Staff} ou @code{Voice}@tie{}:
 
 "
   doctitlefr = "Définition de règles de ligature pour la partition"

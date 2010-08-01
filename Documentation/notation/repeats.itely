@@ -540,7 +540,7 @@ Internals Reference:
 
 This section discusses how to input short repeats.  Short repeats can
 take two forms: slashes or percent signs to represent repeats of a
-single note, a single measure or two measures, and tremelos otherwise.
+single note, a single measure or two measures, and tremolos otherwise.
 
 @menu
 * Percent repeats::

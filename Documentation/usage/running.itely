@@ -231,7 +231,7 @@ the output format to use for the back-end.  Choices for @code{format} are
 
 @item eps
 
-@cindex Postscript, encapulated
+@cindex Postscript, encapsulated
 @cindex EPS (Encapsulated PostScript)
 
  for encapsulated PostScript.  This dumps every page (system) as a separate

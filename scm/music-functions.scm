@@ -48,6 +48,10 @@
   (make-procedure-with-setter ly:prob-property
 			      ly:prob-set-property!))
 
+(define-public ly:context-property
+  (make-procedure-with-setter ly:context-property
+			      ly:context-set-property!))
+
 (define-public (music-map function music)
   "Apply @var{function} to @var{music} and all of the music it contains.
 
@@ -486,32 +490,6 @@ i.e.  this is not an override"
 (define-public (make-property-unset sym)
   (make-music 'PropertyUnset
 	      'symbol sym))
-
-(define-public (make-ottava-set octavation)
-  (let ((m (make-music 'ApplyContext)))
-    (define (ottava-modify context)
-      "Either reset middleCPosition to the stored original, or remember
-old middleCPosition, add OCTAVATION to middleCPosition, and set
-OTTAVATION to `8va', or whatever appropriate."
-      (if (number? (ly:context-property	 context 'middleCOffset))
-	  (let ((where (ly:context-property-where-defined context 'middleCOffset)))
-	    (ly:context-unset-property where 'middleCOffset)
-	    (ly:context-unset-property where 'ottavation)))
-
-      (let* ((offset (* -7 octavation))
-	     (string (assoc-get octavation '((2 . "15ma")
-					     (1 . "8va")
-					     (0 . #f)
-					     (-1 . "8vb")
-					     (-2 . "15mb")))))
-	(ly:context-set-property! context 'middleCOffset offset)
-	(ly:context-set-property! context 'ottavation string)
-	(ly:set-middle-C! context)))
-    (set! (ly:music-property m 'procedure) ottava-modify)
-    (context-spec-music m 'Staff)))
-
-(define-public (set-octavation ottavation)
-  (ly:export (make-ottava-set ottavation)))
 
 ;;; Need to keep this definition for \time calls from parser
 (define-public (make-time-signature-set num den)

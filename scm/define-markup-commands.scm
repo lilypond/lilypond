@@ -477,6 +477,7 @@ Create a box of the same height as the space in the current font."
 (define-markup-command (hspace layout props amount)
   (number?)
   #:category align
+  #:properties ((word-space))
   "
 @cindex creating horizontal spaces in text
 
@@ -491,9 +492,10 @@ Create an invisible object taking up horizontal space @var{amount}.
   three
 }
 @end lilypond"
-  (if (> amount 0)
-      (ly:make-stencil "" (cons 0 amount) '(0 . 0))
-      (ly:make-stencil "" (cons amount amount) '(0 . 0))))
+  (let ((corrected-space (- amount word-space)))
+    (if (> corrected-space 0)
+	(ly:make-stencil "" (cons 0 corrected-space) '(0 . 0))
+	(ly:make-stencil "" (cons corrected-space corrected-space) '(0 . 0)))))
 
 ;; todo: fix negative space
 (define-markup-command (vspace layout props amount)

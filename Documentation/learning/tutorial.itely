@@ -372,6 +372,33 @@ command:
 }
 @end lilypond
 
+@subheading Tempo marks
+
+@cindex tempo marks
+@cindex metronome marks
+
+@funindex \tempo
+@funindex tempo
+
+Music Glossary: @rglos{tempo indication}, @rglos{metronome}.
+
+The @notation{tempo indication} and @notation{metronome mark} can be
+set with the @code{\tempo} command:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \time 3/4
+  \tempo "Andante"
+  a4 a a
+  \time 6/8
+  \tempo 4. = 96
+  a4. a
+  \time 4/4
+  \tempo  "Presto" 4 = 120
+  a4 a a a
+}
+@end lilypond
+
 
 @subheading Clef
 
@@ -410,6 +437,7 @@ Here is a small example showing all these elements together:
 \relative c, {
   \clef "bass"
   \time 3/4
+  \tempo "Andante" 4 = 120
   c2 e8 c'
   g'2.
   f4 e d

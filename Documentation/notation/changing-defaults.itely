@@ -2320,7 +2320,7 @@ are collectively called @qq{spanners}, and have special properties to control
 their appearance and behaviour.  Some of these properties are common
 to all spanners; others are restricted to a sub-set of the spanners.
 
-All spanners support the @code{spanner-interface}.  A few, esentially
+All spanners support the @code{spanner-interface}.  A few, essentially
 those that draw a straight line between the two objects, support in
 addition the @code{line-spanner-interface}.
 
@@ -2448,7 +2448,7 @@ a \< a a a a \! a a a
 @end lilypond
 
 This property is not effective for all spanners.  For example,
-seting it to @code{#t} has no effect on slurs or phrasing slurs
+setting it to @code{#t} has no effect on slurs or phrasing slurs
 or on other spanners for which terminating on the bar line would
 not be meaningful.
 

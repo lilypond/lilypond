@@ -21,7 +21,7 @@ our @ref{Text input}.}
 
 @divClass{heading-center}
 @ifclear web_version
-  @c yes, we want verisonDevel here, since the online links
+  @c yes, we want versionDevel here, since the online links
   @c for @version won't be up yet!
   @heading Downloads for LilyPond @versionDevel
 
@@ -456,7 +456,7 @@ Locate the LilyPond folder from the @q{Start} menu and click on the
 has completed.
 
 @item
-Or from witin the Control Panel,locate and select LilyPond and then
+Or from within the Control Panel, locate and select LilyPond and then
 choose the option to uninstall/remove the software. Click the @q{Finish}
 button when the uninstaller has completed.
 
@@ -514,9 +514,9 @@ and click @qq{OK} button to close the window.
 
 @end enumerate
 
-@subsubheading Invoking individual excecutable files
+@subsubheading Invoking individual executable files
 
-LilyPond excecutable files
+LilyPond executable files
 -- such as lilypond, lilypond-book, convert-ly, and so on --
 can be run from the command-line by invoking them:
 

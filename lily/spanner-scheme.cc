@@ -28,8 +28,21 @@ LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
 {
   LY_ASSERT_TYPE (unsmob_spanner, spanner, 1);
   LY_ASSERT_TYPE (is_direction, dir, 2);
-  
-  return unsmob_spanner (spanner)->get_bound (to_dir (dir))->self_scm ();
+  Item *bound = unsmob_spanner (spanner)->get_bound (to_dir (dir));
+  return bound ? bound->self_scm () : SCM_EOL;
+}
+
+LY_DEFINE (ly_spanner_set_bound_x, "ly:spanner-set-bound!",
+	   3, 0, 0, (SCM spanner, SCM dir, SCM item),
+	   "Set grob @var{item} as bound in direction @var{dir} for"
+	   " @var{spanner}.")
+{
+  LY_ASSERT_TYPE (unsmob_spanner, spanner, 1);
+  LY_ASSERT_TYPE (is_direction, dir, 2);
+  LY_ASSERT_TYPE (unsmob_item, item, 3);
+
+  unsmob_spanner (spanner)->set_bound (to_dir (dir), unsmob_item (item));
+  return SCM_UNSPECIFIED;
 }
 
 /* TODO: maybe we should return a vector -- random access is more

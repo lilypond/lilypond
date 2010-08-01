@@ -128,7 +128,7 @@ unless we are certain that the new version is an improvement.
 @enumerate
 
 @item
-Ask on the lilypond-devel maillist if such a rewrite is necessary;
+Ask on the lilypond-devel mailing list if such a rewrite is necessary;
 somebody else might already be working on this issue!
 
 @item
@@ -142,7 +142,7 @@ Please prepare a formal git patch.
 
 Once you have followed these guidelines, please send a message to
 lilypond-devel with your documentation submissions. Unfortunately
-there is a strict “no top-posting” check on the mailist; to avoid
+there is a strict “no top-posting” check on the mailing list; to avoid
 this, add:
 
 > I'm not top posting.
@@ -193,18 +193,18 @@ to do anything fancy, discuss it on @code{lilypond-devel} first.}
 All manuals live in @file{Documentation/}.
 
 In particular, there are four user manuals, their respective master
-source files are @file{learning.tely} (LM, Learning Manual),
-@file{notation.tely} (NR, Notation Reference),
-@file{music-glossary.tely} (MG, Music Glossary), and
-@file{lilypond-program} (AU).  Each chapter is written in a separate
+source files are @file{learning@/.tely} (LM, Learning Manual),
+@file{notation@/.tely} (NR, Notation Reference),
+@file{music@/-glossary@/.tely} (MG, Music Glossary), and
+@file{lilypond@/-program} (AU).  Each chapter is written in a separate
 file, ending in @file{.itely} for files containing lilypond code, and
 @file{.itexi} for files without lilypond code, located in a subdirectory
-associated to the manual (@file{learning/} for @file{learning.tely}, and
+associated to the manual (@file{learning/} for @file{learning@/.tely}, and
 so on); list the subdirectory of each manual to determine the filename
 of the specific chapter you wish to modify.
 
 Developer manuals live in @file{Documentation/} too.  Currently there is
-only one: the Contributor's Guide @file{contrib-guide.texi} you are
+only one: the Contributor's Guide @file{contrib@/-guide@/.texi} you are
 reading.
 
 Snippet files are part of documentation, and the Snippet List (SL) lives
@@ -299,7 +299,7 @@ convention to follow.
 @item
 All context or layout object strings should be prefaced with @code{#}.
 Again, LilyPond does not strictly require this, but it is helpful
-to get users accustomed to this scheme construct.  i.e. @code{\set
+to get users accustomed to this scheme construct, i.e. @code{\set
 Staff.instrumentName = #"cello"}
 
 @item
@@ -307,7 +307,7 @@ Try to avoid using @code{#'} or @code{#`} within when describing
 context or layout properties outside of an @code{@@example} or @code{@@lilypond}, unless
 the description explicitly requires it.
 
-ie @qq{...setting the @code{transparent} property leaves the object where it
+i.e. @qq{...setting the @code{transparent} property leaves the object where it
 is, but makes it invisible.}
 
 @item
@@ -384,7 +384,7 @@ the line(s) to which they refer.
 
 @item
 For clarity, always use @{ @} marks even if they are not technically
-required; ie
+required; i.e.
 
 @example
 not:
@@ -405,7 +405,7 @@ but instead:
 @end example
 
 @item
-Add a space around @{ @} marks; ie
+Add a space around @{ @} marks; i.e.
 
 @example
 not:          \chordmode@{c e g@}
@@ -413,7 +413,7 @@ but instead:  \chordmode @{ c e g @}
 @end example
 
 @item
-Use @{ @} marks for additional @code{\markup} format comands; ie
+Use @{ @} marks for additional @code{\markup} format commands; i.e.
 
 @example
 not:          c^\markup \tiny\sharp
@@ -421,7 +421,7 @@ but instead:  c^\markup @{ \tiny \sharp @}
 @end example
 
 @item
-Remove any space around @code{<} @code{>} marks; ie
+Remove any space around @code{<} @code{>} marks; i.e.
 
 @example
 not:           < c e g > 4
@@ -574,7 +574,7 @@ cross-reference to be rendered incorrectly in html documents.
 @code{@@ruser@{@dots{}@}} --- link to Notation Reference.
 
 @item
-@code{@@rweb@{@dots{}@}} --- link to General Informaion.
+@code{@@rweb@{@dots{}@}} --- link to General Information.
 @end itemize
 
 
@@ -665,7 +665,7 @@ so the example above would be coded as
 
 @item
 @code{@@example} --- Use for examples of program code.  Do not add
-extraneous indentation (ie. don't start every line with
+extraneous indentation (i.e. don't start every line with
 whitespace).  Use the following layout (notice the use of blank
 lines).  Omit the @code{@@noindent} if the text following the
 example starts a new paragraph:
@@ -848,9 +848,9 @@ must be duplicated in the @code{@@seealso} section at the bottom.
 Introducing examples must be done with
 
 @example
-. (ie finish the previous sentence/paragaph)
-: (ie `in this example:')
-, (ie `may add foo with the blah construct,')
+. (i.e. finish the previous sentence/paragraph)
+: (i.e. `in this example:')
+, (i.e. `may add foo with the blah construct,')
 @end example
 
 The old @qq{sentence runs directly into the example} method is not
@@ -1059,13 +1059,13 @@ manual.
 
 @item
 @@predefined ... @@endpredefined is for commands in
-@file{ly/*-init.ly}
+@file{ly/@/*-init@/.ly}
 
 @item
-Do not include any real info in second-level sections (ie 1.1
+Do not include any real info in second-level sections (i.e. 1.1
 Pitches).  A first-level section may have introductory material,
 but other than that all material goes into third-level sections
-(ie 1.1.1 Writing Pitches).
+(i.e. 1.1.1 Writing Pitches).
 
 @end itemize
 
@@ -1341,7 +1341,7 @@ This also updates translated documentation.
 
 Material in the Internals reference is generated automatically
 from our source code.  Any doc work on Internals therefore
-requires modifying files in @file{scm/*.scm}.  Texinfo is allowed
+requires modifying files in @file{scm/@/*.scm}.  Texinfo is allowed
 in these docstrings.
 
 Most documentation writers never touch these, though.  If you want
@@ -1354,17 +1354,16 @@ to work on them, please ask for help.
 The mailing list @code{translations@@lilynet.net} is dedicated to
 LilyPond web site and documentation translation; on this list, you will
 get support from the Translations Meister and experimented translators,
-and we regularly discuss translations issues common to all languagues.
+and we regularly discuss translation issues common to all languages.
 All people interested in LilyPond translations are invited to subscribe
 to this list regardless of the amount of their contribution, by sending
 an email to @code{translations-request@@lilynet.net} with subject
-@code{subscribe} and an empty message body.  Unless mentioned explicitly
+@code{subscribe} and an empty message body.  Unless mentioned explicitly,
 or except if a translations coordinator contacts you privately, you
-should send questions, remarks, patches to this list
-@code{translations@@lilynet.net}; especially note that the traffic is so
-high on English-speaking list @code{lilypond-user@@gnu.org} that it may
-take months before your request or contribution is handled if you send a
-email to these lists.
+should send questions, remarks and patches to the list
+@code{translations@@lilynet.net}. Please note that traffic is high
+on the English-speaking list @code{lilypond-user@@gnu.org}, so it may
+take some time before your request or contribution is handled.
 
 @menu
 * Getting started with documentation translation::
@@ -1465,7 +1464,7 @@ make ISOLANG=@var{MY-LANGUAGE} new-lang
 where @var{MY-LANGUAGE} is the ISO 639 language code.
 
 Finally, add a language definition for your language in
-@file{python/langdefs.py}.
+@file{python/@/langdefs@/.py}.
 
 
 @node Documentation translation details
@@ -1557,7 +1556,7 @@ everything in some Texinfo files, and you may take distance from the
 original text; for instance, in the translation of the web site section
 Community, you may take this into account depending on what you know the
 community in your language is willing to support, which is possible only
-if you personnally assume this support, or there exists a public forum
+if you personally assume this support, or there exists a public forum
 or mailing list listed in Community for LilyPond in your language:
 
 @itemize
@@ -1583,19 +1582,19 @@ script @command{texi-langutils.py} and the makefile target are updated.
 
 Some pieces of text manipulated by build scripts that appear in the
 output are translated in a @file{.po} file -- just like LilyPond output
-messages -- in @file{Documentation/po}.  The Gettext domain is named
+messages -- in @file{Documentation/@/po}.  The Gettext domain is named
 @code{lilypond-doc}, and unlike @code{lilypond} domain it is not managed
 through the Free Translation Project.
 
 
 Take care of using typographic rules for your language, especially in
-@file{macros.itexi}.
+@file{macros@/.itexi}.
 
 If you wonder whether a word, phrase or larger piece of text should be
 translated, whether it is an argument of a Texinfo command or a small
 piece sandwiched between two Texinfo commands, try to track whether and
 where it appears in PDF and/or HTML output as visible text.  This piece
-of advice is especially useful for translating @file{macros.itexi}.
+of advice is especially useful for translating @file{macros@/.itexi}.
 
 Please keep verbatim copies of music snippets (in @code{@@lilypond}
 blocs).  However, some music snippets containing text that shows in
@@ -1621,15 +1620,15 @@ When you encounter
 @end example
 
 @noindent
-in the source, open @file{Documentation/snippets/@var{filename}.ly},
+in the source, open @file{Documentation/@/snippets/@/@var{filename}@/.ly},
 translate the @code{texidoc} header field it contains, enclose it with
 @code{texidoc@var{MY-LANGUAGE} = "} and @code{"}, and write it into
-@file{Documentation/@var{MY-LANGUAGE}/texidocs/@var{filename}.texidoc}.
-Additionnally, you may translate the snippet's title in @code{doctitle}
+@file{Documentation/@/@var{MY-LANGUAGE}/@/texidocs/@/@var{filename}@/.texidoc}.
+Additionally, you may translate the snippet's title in @code{doctitle}
 header field, in case @code{doctitle} is a fragment option used in
 @code{@@lilypondfile}; you can do this exactly the same way as
 @code{texidoc}.  For instance,
-@file{Documentation/@var{MY-LANGUAGE}/texidocs/@var{filename}.texidoc}
+@file{Documentation/@/@var{MY-LANGUAGE}/@/texidocs/@/@var{filename}@/.texidoc}
 may contain
 
 @example
@@ -1641,7 +1640,7 @@ Spanish translation blah
 
 @noindent
 Then, you should get these translated strings into compiled snippets in
-@file{Documentation/snippets}, see @q{General guidelines} in @ref{Adding
+@file{Documentation/@/snippets}, see @q{General guidelines} in @ref{Adding
 and editing snippets}.
 
 @code{@@example} blocks need not be verbatim copies, e.g. variable
@@ -1756,7 +1755,7 @@ to make your translation up to date.
 @seeCommittishesUpdate
 
 Global state of the translation is recorded in
-@file{Documentation/translations.itexi}, which is used to generate
+@file{Documentation/@/translations@/.itexi}, which is used to generate
 Translations status page.  To update that page, do from
 @file{Documentation/}
 
@@ -1764,7 +1763,7 @@ Translations status page.  To update that page, do from
 make translation-status
 @end example
 
-This will also leave @file{out/translations-status.txt}, which contains
+This will also leave @file{out/@/translations@/-status@/.txt}, which contains
 up-to-dateness percentages for each translated file, and update word
 counts of documentation files in this Guide.
 
@@ -1790,7 +1789,7 @@ or to update a single file
 make CHECKED_FILES=@var{MY_LANGUAGE/@var{manual}/foo.itely} update-translation
 @end example
 
-For each file to be udpated, @code{update-translation} will open your
+For each file to be updated, @code{update-translation} will open your
 text editor with this file and a diff of the file in English; if the
 diff cannot be generated or is bigger than the file in English itself,
 the full file in English will be opened instead.
@@ -1806,8 +1805,8 @@ that such files should be updated, run from @file{Documentation/}
 make ISOLANG=@var{MY_LANGUAGE} skeleton-update
 @end example
 
-@file{.po} message catalogs in @file{Documentation/po/} may be updated
-by issuing from @file{Documentation/} or @file{Documentation/po/}
+@file{.po} message catalogs in @file{Documentation/@/po/} may be updated
+by issuing from @file{Documentation/} or @file{Documentation/@/po/}
 
 @example
 make po-update
@@ -1828,8 +1827,8 @@ make ISOLANG=@var{MY_LANGUAGE} snippet-update
 @end example
 
 This script overwrites music snippets in
-@file{@var{MY_LANGUAGE/foo/every.itely}} with music snippets from
-@file{@var{foo/every.itely}}.  It ignores skeleton files, and keeps
+@file{@var{MY_LANGUAGE/@/foo/@/every@/.itely}} with music snippets from
+@file{@var{foo/@/every@/.itely}}.  It ignores skeleton files, and keeps
 intact music snippets preceded with a line starting with @code{@@c
 KEEP LY}; it reports an error for each @file{.itely} that has not the
 same music snippet count in both languages.  Always use this script
@@ -1839,8 +1838,8 @@ don't do so, some @code{@@lilypond} snippets might be broken or make
 no sense in their context.
 
 When you have updated texidocs in
-@file{Documentation/@var{MY-LANGUAGE}/texidocs}, you can get these
-changes into compiled snippets in @file{Documentation/snippets}, see
+@file{Documentation/@/@var{MY-LANGUAGE}/@/texidocs}, you can get these
+changes into compiled snippets in @file{Documentation/@/snippets}, see
 @q{General guidelines} in @ref{Adding and editing snippets}.
 
 Finally, a command runs the three update processes above for all
@@ -1878,12 +1877,12 @@ git rev-list HEAD |head -1
 @end example
 
 A special case is updating Snippet documentation strings in
-@file{Documentation/@var{MY-LANGUAGE}/texidocs}.  For these to be
+@file{Documentation/@/@var{MY-LANGUAGE}/@/texidocs}.  For these to be
 correctly marked as up-to-date, first run @code{makelsr.py} as
 explained in @ref{Adding and editing snippets}, and commit the
-resulting compiled snippets left in @file{Documentation/snippets/}.
+resulting compiled snippets left in @file{Documentation/@/snippets/}.
 Say the SHA1 ID code of this commit is <C>.  Now edit again your
-translated files in @file{Documentation/@var{MY-LANGUAGE}/texidocs}
+translated files in @file{Documentation/@/@var{MY-LANGUAGE}/@/texidocs}
 adjusting the 40-digit committish that appears in the text to be <C>;
 finally, commit these updated files.  Not doing so would result in
 changes made both to your updates and original snippets to
@@ -1940,7 +1939,7 @@ macros.itexi until the documentation translation has been updated and
 no longer uses this macro.
 
 @item Update @file{*.tely} files completely with
-@command{make check-translation} -- you may want to redirect ouptput
+@command{make check-translation} -- you may want to redirect output
 to a file because of overwhelming output, or call check-translation.py
 on individual files, see @ref{Check state of translation}.
 
@@ -2018,7 +2017,7 @@ make ISOLANG=@var{YOUR-LANGUAGE} fix-xrefs
 @end example
 
 @noindent
-This step requires a sucessful documentation build (with @command{make
+This step requires a successful documentation build (with @command{make
 doc}).  Some cross-references are broken because they point to a node
 that exists in the documentation in English, which has not been added
 to the translation; in this case, do not fix the cross-reference but
@@ -2077,11 +2076,11 @@ its documentation, and in this case they should be pushed to
 
 @item @code{lilypond/translation} Git branch may be merged into
 master only if LilyPond (@command{make all}) and documentation
-(@command{make doc}) compile succesfully.
+(@command{make doc}) compile successfully.
 
 @item @code{master} Git branch may be merged into
 @code{lilypond/translation} whenever @command{make} and @command{make
-doc} are succesful (in order to ease documentation compilation by
+doc} are successful (in order to ease documentation compilation by
 translators), or when significant changes had been made in
 documentation in English in master branch.
 
@@ -2100,7 +2099,7 @@ without updating translations}.
 
 A number of Python scripts handle a part of the documentation
 translation process.  All scripts used to maintain the translations
-are located in @file{scripts/auxiliar/}.
+are located in @file{scripts/@/auxiliar/}.
 
 @itemize
 @item @file{check_translation.py}  -- show diff to update a translation,
@@ -2116,21 +2115,21 @@ in the sources; WARNING only use this script once for each file, when support fo
 "makeinfo --html" has been dropped.
 @end itemize
 
-Other scripts are used in the build process, in @file{scripts/build/}:
+Other scripts are used in the build process, in @file{scripts/@/build/}:
 
 @itemize
 @item @file{mass-link.py} -- link or symlink files between English documentation
 and documentation in other languages.
 @end itemize
 
-Python modules used by scripts in @file{scripts/auxiliar/} or @file{scripts/build/} (but
-not by installed Python scripts) are located in @file{python/auxiliar/}:
+Python modules used by scripts in @file{scripts/@/auxiliar/} or @file{scripts/@/build/} (but
+not by installed Python scripts) are located in @file{python/@/auxiliar/}:
 @itemize
 @item @file{manuals_definitions.py} -- define manual names and name of
 cross-reference Texinfo macros,
 @item @file{buildlib.py} -- common functions (read piped output
 of a shell command, use Git),
-@item @file{postprocess_html.py} (module imported by @file{www_post.py}) -- add footer and
+@item @file{postprocess_html.py} (module imported by @file{www_post@/.py}) -- add footer and
 tweak links in HTML pages.
 @end itemize
 

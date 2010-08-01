@@ -227,10 +227,16 @@ New_dynamic_engraver::acknowledge_note_column (Grob_info info)
   if (script_ && !script_->get_parent (X_AXIS))
     {
       extract_grob_set (info.grob (), "note-heads", heads);
-      if (heads.size ())
+      /*
+	Spacing constraints may require dynamics to be aligned on rests,
+	so check for a rest if this note column has no note heads.
+      */
+      Grob *x_parent = (heads.size ()
+			? heads[0]
+			: unsmob_grob (info.grob ()->get_object ("rest")));
+      if (x_parent)
 	{
-	  Grob *head = heads[0];
-	  script_->set_parent (head, X_AXIS);
+	  script_->set_parent (x_parent, X_AXIS);
 	  Self_alignment_interface::set_center_parent (script_, X_AXIS);
 	}
     }
@@ -244,10 +250,7 @@ New_dynamic_engraver::acknowledge_note_column (Grob_info info)
 ADD_ACKNOWLEDGER (New_dynamic_engraver, note_column);
 ADD_TRANSLATOR (New_dynamic_engraver,
 		/* doc */
-		"Create hairpins, dynamic texts, and their vertical"
-		" alignments.  The symbols are collected onto a"
-		" @code{DynamicLineSpanner} grob which takes care of vertical"
-		" positioning.",
+		"Create hairpins, dynamic texts and dynamic text spanners.",
 
 		/* create */
 		"DynamicTextSpanner "

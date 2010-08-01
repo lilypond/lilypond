@@ -478,7 +478,6 @@ automatically when an output definition (a @code{\score} or
 @code{\layout} block) is processed."
 
   \consists "Paper_column_engraver"
-  \consists "Vertically_spaced_contexts_engraver"
   \consists "Repeat_acknowledge_engraver"
   \consists "Staff_collecting_engraver"
 
@@ -672,7 +671,6 @@ automatically when an output definition (a @code{\score} or
     tuplet-span-event)
   instrumentTransposition = #(ly:make-pitch 0 0 0)
 
-  verticallySpacedContexts = #'(Staff)
   topLevelAlignment = ##t
 
   timing = ##t

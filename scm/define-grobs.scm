@@ -53,7 +53,6 @@
     (AccidentalPlacement
      . (
 	(direction .  ,LEFT)
-	(left-padding . 0.2)
 	(positioning-done . ,ly:accidental-placement::calc-positioning-done)
 
 	;; this is quite small, but it is very ugly to have
@@ -2300,8 +2299,7 @@
 				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
 
 		 (interfaces . (axis-group-interface
-				hara-kiri-group-spanner-interface
-				vertically-spaceable-interface))))))
+				hara-kiri-group-spanner-interface))))))
 
     (VoiceFollower
      . (
@@ -2478,7 +2476,6 @@
     (,ly:rest-collision::force-shift-callback-rest . ,pure-chain-offset-callback)
     (,ly:rest::height . ,ly:rest::pure-height)
     (,ly:self-alignment-interface::y-aligned-on-self . ,ly:self-alignment-interface::pure-y-aligned-on-self)
-    (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
     (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
     (,ly:slur::height . ,ly:slur::pure-height)
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)

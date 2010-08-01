@@ -810,7 +810,6 @@ ADD_INTERFACE (Axis_group_interface,
 	       "elements "
 	       "inter-loose-line-spacing "
 	       "inter-staff-spacing "
-	       "keep-fixed-while-stretching "
 	       "max-stretch "
 	       "non-affinity-spacing "
 	       "next-staff-spacing "

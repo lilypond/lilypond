@@ -304,7 +304,7 @@ command to avoid errors.
 @cindex tempo marks within tuplet brackets
 
 When using a tuplet at the beginning of a piece with a @code{\tempo}
-mark, the music must be explicitely entered in a @code{\new Voice}
+mark, the music must be explicitly entered in a @code{\new Voice}
 block, as discussed in @rlearning{Voices contain music}.
 
 
@@ -894,7 +894,7 @@ setting, resulting bar-check warnings may not be displayed.
 @funindex \textLengthOn
 @funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLenthOff
+@funindex textLengthOff
 @funindex \fermataMarkup
 @funindex fermataMarkup
 @funindex \compressFullBarRests

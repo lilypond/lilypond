@@ -80,7 +80,7 @@ comparisons is archived online:
 @uref{http://lilypond.org/test/}
 @end example
 
-The test comparison shows all of the changes that occured between
+The test comparison shows all of the changes that occurred between
 the current release and the prior release.  Each test that has
 a significant difference in output is displayed, with the old
 version on the left and the new version on the right.  Blurs
@@ -134,8 +134,8 @@ make -j5 CPU_COUNT=5 test
 @end example
 
 The regtest output will then be available in
-@file{input/regression/out-test}.
-@file{input/regression/out-test/collated-examples.html}
+@file{input/@/regression/@/out@/-test}.
+@file{input/@/regression/@/out@/-test/@/collated@/-examples@/.html}
 contains a listing of all the regression tests that were run,
 but none of the images are included.  Individual images are
 also available in this directory.
@@ -153,7 +153,7 @@ than building the source code, as described in
 @section Identifying code regressions
 
 Before modified code is committed to master, a regression test
-comparision must be completed to ensure that the changes have
+comparison must be completed to ensure that the changes have
 not caused problems with previously working code.  The comparison
 is made automatically upon compiling the regression test suite
 twice.
@@ -171,7 +171,7 @@ make check
 @end example
 
 After @samp{make@tie{}check} is complete, a regression test comparison
-will be available at @file{out/test-results/index.html}.
+will be available at @file{out/@/test@/-results/@/index@/.html}.
 For each regression test that differs between the baseline and the
 changed code, a regression test entry will displayed.  Ideally, the
 only changes would be the changes that you were working on.  If
@@ -179,7 +179,7 @@ regressions are introduced, they must be fixed before committing the
 code.
 
 @warning{
-The special regression test @file{test-output-distance.ly} will always
+The special regression test @file{test@/-output@/-distance@/.ly} will always
 show up as a regression.  This test changes each time it is run, and
 serves to verify that the regression tests have, in fact, run.}
 
@@ -191,8 +191,8 @@ can be repeatedly examined by doing:
 make test-redo
 @end example
 
-This updates the regression list at @file{out/test-results/index.html}.
-It does @emph{not} redo @file{test-output-distance.ly}.
+This updates the regression list at @file{out/@/test@/-results/@/index@/.html}.
+It does @emph{not} redo @file{test@/-output@/-distance@/.ly}.
 
 When all regressions have been resolved, the output list will be empty.
 
@@ -244,7 +244,7 @@ developed to test @samp{musicxml2ly}, these regression tests
 can be used to test any MusicXML implementation.
 
 The MusicXML regression tests are found at
-@file{input/regression/musicxml/}.
+@file{input/@/regression/@/musicxml/}.
 
 The output resulting from running these tests
 through @samp{muscxml2ly} followed by @samp{lilypond} is

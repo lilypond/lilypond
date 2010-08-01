@@ -679,5 +679,5 @@
   (let ((escaped-string (string-regexp-substitute
 			  "<" "&lt;"
 			  (string-regexp-substitute "&" "&amp;" string))))
-  (dispatch `(fontify ,pango-font-description
-		      ,(entity 'tspan escaped-string)))))
+    (dispatch `(fontify ,pango-font-description
+			,(entity 'tspan escaped-string)))))

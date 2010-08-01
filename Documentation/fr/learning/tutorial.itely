@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4e85fe18924c40296828a906576cf891d84bdbf7
+   Translation of GIT committish: 7ae8371e16d414819ac7d9a4d0abd8370c5f3d8f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -22,13 +22,13 @@
 
 Ce tutoriel est une introduction au langage musical utilisé
 par LilyPond, qui vous permettra de faire fonctionner le logiciel pour
-produire une partition.  
+produire une partition.
 
 @menu
-* Compilation d'un fichier::    
-* Composition d'un fichier source::  
+* Compilation d'un fichier::
+* Composition d'un fichier source::
 * Gestion des erreurs::
-* Bien lire le manuel::         
+* Bien lire le manuel::
 @end menu
 
 
@@ -59,7 +59,7 @@ Pour créer une partition avec LilyPond, on écrit un fichier texte,
 appelé fichier source, qui décrit la notation musicale. La
 @emph{compilation} de ce fichier source par LilyPond produit un
 fichier graphique imprimable, et si on le désire un fichier MIDI qui
-peut être joué par un séquenceur.  
+peut être joué par un séquenceur.
 
 Voici un premier exemple simple de fichier source LilyPond.
 
@@ -82,7 +82,7 @@ l'image ci-dessous.
 @end lilypond
 
 @c DIV specific
-Il est aussi possible d'utiliser les noms de notes français @qq{@w{do 
+Il est aussi possible d'utiliser les noms de notes français @qq{@w{do
 re mi fa sol la si}}, en insérant au début du fichier la ligne
 @w{@code{\include@tie{}"italiano.ly"}}.
 @c END DIV
@@ -224,7 +224,7 @@ explicitement.
 @funindex '
 @funindex ,
 
-Glossaire musical : @rglos{pitch}, @rglos{interval},
+Glossaire musicologique : @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
 @rglos{accidental}.
 
@@ -332,7 +332,7 @@ peut modifier la valeur de départ de @w{@code{\relative c'}}.
 @cindex note pointée
 @cindex spécification des durées
 
-Glossaire musical : @rglos{beam}, @rglos{duration},
+Glossaire musicologique : @rglos{beam}, @rglos{duration},
 @rglos{whole note}, @rglos{half note}, @rglos{quarter note},
 @rglos{dotted note}.
 
@@ -371,7 +371,7 @@ la durée de base.
 @cindex silences
 @cindex notation des silences
 
-Glossaire musical : @rglos{rest}.
+Glossaire musicologique : @rglos{rest}.
 
 On saisit un @notation{silence} tout comme une note, mais avec la
 lettre @code{r} (pour @emph{rest}).
@@ -392,7 +392,7 @@ lettre @code{r} (pour @emph{rest}).
 @funindex \time
 @funindex time
 
-Glossaire musical : @rglos{time signature}.
+Glossaire musicologique : @rglos{time signature}.
 
 La @notation{métrique}, aussi appelée @notation{chiffre de mesure},
 peut être définie à l'aide de la commande @code{\time}@tie{}:
@@ -409,6 +409,36 @@ peut être définie à l'aide de la commande @code{\time}@tie{}:
 @end lilypond
 
 
+@subheading Indication de tempo
+
+@cindex tempo, indication
+@cindex indication du tempo
+@cindex métronome, indication
+@cindex indication métronomique
+
+@funindex \tempo
+@funindex tempo
+
+Glossaire musicologique : @rglos{tempo indication}, @rglos{metronome}.
+
+La commande @code{\tempo} permet de stipuler aussi bien le @emph{tempo}
+que le métronome@tie{}:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \time 3/4
+  \tempo "Andante"
+  a4 a a
+  \time 6/8
+  \tempo 4. = 96
+  a4. a
+  \time 4/4
+  \tempo  "Presto" 4 = 120
+  a4 a a a
+}
+@end lilypond
+
+
 @subheading Clefs
 
 @cindex clef
@@ -420,7 +450,7 @@ peut être définie à l'aide de la commande @code{\time}@tie{}:
 @funindex \clef
 @funindex clef
 
-Glossaire musical : @rglos{clef}.
+Glossaire musicologique : @rglos{clef}.
 
 La @notation{clef} peut être définie à l'aide de la commande
 @code{\clef}@tie{}:
@@ -489,7 +519,7 @@ Le traitement des fichiers source de LilyPond est semblable à celui du
 code de nombreux langages de programmation.  La casse est prise
 en compte, et les caractères considérés comme espaces ont généralement
 peu d'importance.  Les expressions sont délimitées par des accolades
-@w{@code{@{ @}}}, et les commentaires par @code{%} ou 
+@w{@code{@{ @}}}, et les commentaires par @code{%} ou
 @w{@code{%@{ @dots{} @}}}@tie{}.
 
 Si cette phrase vous paraît incompréhensible, ne vous en faites pas@tie{}!
@@ -520,7 +550,7 @@ pour pouvoir compiler votre fichier.
 Si vous ne le mentionnez pas, Lilypond vous rappellera à l'ordre durant
 la compilation.
 
-@item 
+@item
 @strong{La casse} :
 LilyPond est sensible à la casse, c'est à dire qu'une lettre capitale
 n'a pas la même valeur qu'une lettre minuscule.  Les notes, par
@@ -531,7 +561,7 @@ d'erreur.
 @item
 @strong{Les espaces multiples} :
 LilyPond ne tient pas compte du nombre d'espaces, de tabulations ou de
-retours à la ligne.  @w{@code{@{ c d e @}}} a le même sens que 
+retours à la ligne.  @w{@code{@{ c d e @}}} a le même sens que
 @w{@code{@{ c @tie{} @tie{} d @tie{} e @}}} ou que
 
 @example
@@ -634,7 +664,7 @@ Résoudre les problèmes rencontrés avec LilyPond est une gageure pour
 ceux qui ne connaissent que des interfaces graphiques puisque rien
 n'empèche de créer du code erroné.  En pareil cas, il suffit souvent d'un
 peu de logique pour être en mesure d'identifier les causes du problème
-et le résoudre simplement.  Le chapitre 
+et le résoudre simplement.  Le chapitre
 @rprogram{Résolution de problèmes} liste quelques directives à ce propos.
 
 
@@ -647,7 +677,7 @@ et le résoudre simplement.  Le chapitre
 
 Il peut arriver qu'un message d'erreur ne soit pas suffisamment
 explicite pour solutionner le problème.  Quelques cas des plus courants
-sont répertoriés au chapitre 
+sont répertoriés au chapitre
 @rprogram{Quelques erreurs des plus courantes}.
 
 
@@ -687,7 +717,7 @@ code LilyPond doit être encadré par des accolades @{@tie{}@} ou bien par
 manuel, la plupart des exemples ne feront pas apparaître ces signes.
 
 Pour reproduire les exemples, vous pouvez copier et coller le code
-affiché, mais @strong{à condition} d'ajouter 
+affiché, mais @strong{à condition} d'ajouter
 @code{@w{\relative c'' @{ @}}} de la façon suivante@tie{}:
 
 @example
@@ -755,7 +785,7 @@ complètement perdu lorsque vous aborderez d'autres parties.}
 @strong{Avant de vous lancer dans @emph{quoi que ce soit}}, lisez le
 @ref{Tutoriel} contenu dans le manuel d'initiation ainsi que les
 @ref{Bases de notation musicale}.  Si vous y trouvez des termes que vous
-ne connaissez pas, n'hésitez pas à consulter le 
+ne connaissez pas, n'hésitez pas à consulter le
 @rglosnamed{Top, Glossaire}.
 
 @item

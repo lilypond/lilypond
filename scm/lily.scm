@@ -149,27 +149,26 @@ the included file relative to the current file
 (instead of the root file)")
     (safe #f
 "Run in safer mode.")
+    (separate-log-files #f
+"For input files `FILE1.ly', `FILE2.ly', ...
+output log data to files `FILE1.log',
+`FILE2.log', ...")
+    (show-available-fonts #f
+"List available font names.")
     (strict-infinity-checking #f
 "Force a crash on encountering Inf and NaN
 floating point exceptions.")
     (strip-output-dir #t
 "Don't use directories from input files while
 constructing output file names.")
-    (separate-log-files #f
-"For input files `FILE1.ly', `FILE2.ly', ...
-output log data to files `FILE1.log',
-`FILE2.log', ...")
+    (svg-woff #f
+"Use woff font files in SVG backend.")
     (trace-memory-frequency #f
 "Record Scheme cell usage this many times per
 second.  Dump results to `FILE.stacks' and
 `FILE.graph'.")
     (trace-scheme-coverage #f
 "Record coverage of Scheme files in `FILE.cov'.")
-    ; `'"
-(show-available-fonts #f
-"List available font names.")
-    (svg-woff #f
-"Use woff font files in SVG backend.")
     (verbose ,(ly:command-line-verbose?)
 "Value of the --verbose flag (read-only).")
     (warning-as-error #f

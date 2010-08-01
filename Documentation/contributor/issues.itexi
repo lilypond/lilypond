@@ -189,7 +189,7 @@ check to see who else has replied to it), delete it.
 
 @item
 If the email is a question about how to use LilyPond, reply with
-this reponse:
+this response:
 
 @example
 For questions about how to use LilyPond, please read our
@@ -218,7 +218,7 @@ What version of lilypond was used (if not given) and operating
 system (if this is a suspected cause of the problem)?  In short,
 if you cannot understand what the problem is, ask the user to
 explain more.  It is the user's responsibility to explain the
-problem, not your reponsibility to understand it.
+problem, not your responsibility to understand it.
 
 @item
 If the behavior is expected, the user should be told to read the
@@ -542,7 +542,7 @@ Frog: the fix is believed to be suitable for a new contributor
 issue should also have an estimated time in a comment.
 
 @item
-Maintainability: hinders developent of LilyPond.  For example,
+Maintainability: hinders development of LilyPond.  For example,
 improvements to the build system, or @qq{helper} python scripts.
 
 @item
@@ -600,7 +600,7 @@ Include output with the first applicable method:
 
 @item
 If the issue has a notation example which fits in one system,
-generate a small @file{bug.preview.png} file with:
+generate a small @file{bug@/.preview@/.png} file with:
 
 @example
 lilypond -dpreview bug.ly
@@ -608,7 +608,7 @@ lilypond -dpreview bug.ly
 
 @item
 If the issue has an example which requires more than one system
-(i.e. a spacing bug), generate a @file{bug.png} file with:
+(i.e. a spacing bug), generate a @file{bug@/.png} file with:
 
 @example
 lilypond --png bug.ly
@@ -616,7 +616,7 @@ lilypond --png bug.ly
 
 @item
 If the issue requires multi-page output, then generate a
-@file{bug.pdf} file with the normal:
+@file{bug@/.pdf} file with the normal:
 
 @example
 lilypond --png bug.ly

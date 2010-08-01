@@ -43,25 +43,54 @@ This section discusses simultaneous notes inside the same voice.
 
 @cindex chords
 @cindex brackets, angle
-@cindex angle brackets
-@cindex relative pitch in chords
 
 @funindex <
 @funindex >
 @funindex <...>
 
 A chord is formed by enclosing a set of pitches between @code{<}
-and @code{>}.  A chord may be followed by a duration and/or a set
-of articulations, just like simple notes:
+and @code{>}.  A chord may be followed by a duration just like simple
+notes.
 
-@lilypond[verbatim,quote,relative=1]
-<c e g>2 <c f a>4-> <e g c>-.
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
 @end lilypond
 
-Relative mode can be used for pitches in chords. The octave of each
-pitch is chosen using the preceding pitch as a reference except in
-the case of the first pitch in a chord: the reference for the first
-pitch is the @emph{first} pitch of the preceding chord.
+Chords may also be followed by articulations, again just like simple
+notes.
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^| <g c e>16-.
+@end lilypond
+
+The notes within the chord themselves can also be followed by articulation
+and ornamentation.
+
+@lilypond[verbatim,quote,relative=2]
+<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4 <a-+ c-->8. <g\fermata c e\turn>16
+@end lilypond
+
+However some notation, such as dynamics, hairpins and slurs must be
+attached to the chord, rather than notes within the chord, otherwise
+they will not print.
+
+@lilypond[verbatim,quote,relative=2]
+<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+@end lilypond
+
+@cindex relative pitch, chords
+@cindex chords, relative pitch
+
+Relative mode can be used for pitches in chords.  The first note of
+each chord is always relative to the first note of the chord that
+came before it, or in the case where no preceding chord exists, the
+pitch of the last note that came before the chord.  All remaining notes
+in the chord are relative to the note that came before it
+@emph{within the same chord}.
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+@end lilypond
 
 For more information about chords, see @ref{Chord notation}.
 
@@ -73,7 +102,9 @@ Learning Manual:
 @rlearning{Combining notes into chords}.
 
 Notation Reference:
-@ref{Chord notation}.
+@ref{Chord notation},
+@ref{Articulations and ornamentations},
+@ref{Relative octave entry}.
 
 Snippets:
 @rlsr{Simultaneous notes}.
@@ -85,27 +116,38 @@ Snippets:
 In order to save typing, a shortcut can be used to repeat the preceding
 chord.  The chord repetition symbol is @code{q}:
 
-@lilypond[verbatim,quote,relative=1]
-<c e g>4 q q q
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 q <f a c>2 q
 @end lilypond
 
 As with regular chords, the chord repetition symbol can be used with
 durations, articulations, markups, slurs, beams, etc. as only the
 pitches of the previous chord are duplicated.
 
-@lilypond[verbatim,quote,relative=1]
-<c e g>4\p q^"text"( q8)[-| q8.] q16-1-2-3
+@lilypond[verbatim,quote,relative=2]
+<a c e>1\p^"text" q2\<( q8)[-| q8.]\! q16-1-2-3 q8\prall
 @end lilypond
 
 The chord repetition symbol always remembers the last instance of
 a chord so it is possible to repeat the most recent chord even if
 other non-chorded notes or rests have been added since.
 
-@lilypond[verbatim,quote,relative=1]
-<c e g>8 c'4 q r8 q
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 c4 q2 r8 q8
+@end lilypond
+
+However, the chord repetition symbol does not retain any dynamics,
+articulation or ornamentation within, or attached to the previous chord.
+
+@lilypond[verbatim,quote,relative=2]
+<a-. c\prall e>1\sfz c4 q2 r8 q8
 @end lilypond
 
 @seealso
+Notation Reference:
+@ref{Chord notation},
+@ref{Articulations and ornamentations}.
+
 Installed Files:
 @file{ly/@/chord-repetition-init@/.ly}.
 
@@ -302,7 +344,7 @@ required to define the settings of each voice.
 The @code{<< @{...@} \\ @{...@} >>} construct, where the two (or
 more) expressions are separated by double backslashes, behaves
 differently to the similar construct without the double backslashes:
-@emph{all} the expressions within this contruct are assigned
+@emph{all} the expressions within this construct are assigned
 to new @code{Voice} contexts.  These new @code{Voice} contexts
 are created implicitly and are given the fixed names @code{"1"},
 @code{"2"}, etc.
@@ -555,7 +597,6 @@ then works properly.
     s1
     e8 a b c d2
   }
-
 >>
 @end lilypond
 

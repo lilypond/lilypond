@@ -503,9 +503,6 @@ setting this property, you can make brackets last shorter.
      (useBassFigureExtenders ,boolean? "Whether to use extender lines
 for repeated bass figures.")
 
-     (verticallySpacedContexts ,list? "List of symbols, containing
-context names whose vertical axis groups should be taken into account
-for vertical spacing of systems.")
      (vocalName ,markup? "Name of a vocal line.")
      (voltaSpannerDuration ,ly:moment? "This specifies the maximum
 duration to use for the brackets printed for @code{\\alternative}.

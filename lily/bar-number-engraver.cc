@@ -37,7 +37,6 @@ protected:
   Item *text_;
 protected:
   void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (break_aligned);
   DECLARE_ACKNOWLEDGER (break_alignment);
   void process_music ();
   void create_items ();
@@ -73,28 +72,6 @@ Bar_number_engraver::Bar_number_engraver ()
   text_ = 0;
 }
 
-
-/*
-  see rehearsal mark comments.
- */
-void
-Bar_number_engraver::acknowledge_break_aligned (Grob_info inf)
-{
-  Grob *s = inf.grob ();
-  if (text_
-      && !text_->get_parent (X_AXIS)
-      && dynamic_cast<Item *> (s)
-      && (s->get_property_data ("break-align-symbol")
-	  == text_->get_property_data ("break-align-symbol")))
-    {
-      /*
-	By default this would land on the Paper_column -- so why
-	doesn't it work when you leave this out?  */
-      text_->set_parent (s, X_AXIS);
-    }
-}
-
-
 void
 Bar_number_engraver::acknowledge_break_alignment (Grob_info inf)
 {
@@ -127,7 +104,6 @@ Bar_number_engraver::create_items ()
 }
 
 
-ADD_ACKNOWLEDGER (Bar_number_engraver, break_aligned);
 ADD_ACKNOWLEDGER (Bar_number_engraver, break_alignment);
 
 ADD_TRANSLATOR (Bar_number_engraver,

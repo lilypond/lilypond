@@ -233,6 +233,8 @@ stderr of this run."
 \test "" ##[ \cueDuring #"foo" #1 { c d } #]
 \test "" ##[ \quoteDuring #"foo" { c d } #]
 
+%% \ottava
+\test "" ##[ \ottava #1 #] % OttavaMusic
 
 %% end test.
 

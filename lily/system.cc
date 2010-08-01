@@ -119,7 +119,7 @@ System::derived_mark () const
 }
 
 static void
-fixup_refpoints (vector<Grob*> const &grobs)
+fixup_refpoints (vector<Grob *> const &grobs)
 {
   for (vsize i = grobs.size (); i--;)
     grobs[i]->fixup_refpoint ();
@@ -183,7 +183,7 @@ System::do_break_substitution_and_fixup_refpoints ()
      that no duplicates are in the list.  */
   for (vsize i = 0; i < broken_intos_.size (); i++)
     {
-      System *child = dynamic_cast<System*> (broken_intos_[i]);
+      System *child = dynamic_cast<System *> (broken_intos_[i]);
       child->all_elements_->remove_duplicates ();
       for (vsize j = 0; j < child->all_elements_->size (); j++)
 	{
@@ -234,7 +234,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       System *system = dynamic_cast<System *> (clone ());
       system->rank_ = broken_intos_.size ();
 
-      vector<Grob*> c (breaking[i].cols_);
+      vector<Grob *> c (breaking[i].cols_);
       pscore_->typeset_system (system);
 
       int st = Paper_column::get_rank (c[0]);
@@ -255,7 +255,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 	    system_labels = scm_append (scm_list_2 (col_labels, system_labels));
 	}
       system->set_property ("labels", system_labels);
-      
+
       set_loose_columns (system, &breaking[i]);
       broken_intos_.push_back (system);
     }
@@ -324,8 +324,8 @@ System::post_processing ()
      This might seem inefficient, but Stencils are cached per grob
      anyway. */
 
-  vector<Grob*> all_elts_sorted (all_elements_->array ());
-  vector_sort (all_elts_sorted, std::less<Grob*> ());
+  vector<Grob *> all_elts_sorted (all_elements_->array ());
+  vector_sort (all_elts_sorted, std::less<Grob *> ());
   uniq (all_elts_sorted);
   this->get_stencil ();
   for (vsize i = all_elts_sorted.size (); i--;)
@@ -348,7 +348,6 @@ operator< (Layer_entry  const &a,
   return a.layer_ < b.layer_;
 }
 
-
 SCM
 System::get_paper_system ()
 {
@@ -363,8 +362,8 @@ System::get_paper_system ()
       Layer_entry e;
       e.grob_ = all_elements_->grob (j);
       e.layer_ = robust_scm2int (e.grob_->get_property ("layer"), 1);
-      
-      entries.push_back (e); 
+
+      entries.push_back (e);
     }
 
   vector_sort (entries, std::less<Layer_entry> ());
@@ -375,7 +374,7 @@ System::get_paper_system ()
 
       if (st.expr () == SCM_EOL)
 	continue;
-      
+
       Offset o;
       for (int a = X_AXIS; a < NO_AXES; a++)
 	o[Axis (a)] = g->relative_coordinate (this, Axis (a));
@@ -429,26 +428,30 @@ System::get_paper_system ()
   pl->set_property ("page-turn-penalty", right_bound->get_property ("page-turn-penalty"));
 
   Interval staff_refpoints;
-  extract_grob_set (this, "spaceable-staves", staves);
-  for (vsize i = 0; i < staves.size (); i++)
-    if (staves[i]->is_live ())
-      staff_refpoints.add_point (staves[i]->relative_coordinate (this, Y_AXIS));
+  if (Grob *align = get_vertical_alignment ())
+    {
+      extract_grob_set (align, "elements", staves);
+      for (vsize i = 0; i < staves.size (); i++)
+	if (staves[i]->is_live ()
+	    && Page_layout_problem::is_spaceable (staves[i]))
+	  staff_refpoints.add_point (staves[i]->relative_coordinate (this,
+								     Y_AXIS));
+    }
 
   pl->set_property ("staff-refpoint-extent", ly_interval2scm (staff_refpoints));
-  pl->set_property ("system-grob", this->self_scm ()); 
+  pl->set_property ("system-grob", this->self_scm ());
 
   return pl->unprotect ();
 }
 
-vector<Item*>
+vector<Item *>
 System::broken_col_range (Item const *left, Item const *right) const
 {
-  vector<Item*> ret;
+  vector<Item *> ret;
 
   left = left->get_column ();
   right = right->get_column ();
 
-  
   extract_grob_set (this, "columns", cols);
 
   vsize i = Paper_column::get_rank (left);
@@ -468,10 +471,9 @@ System::broken_col_range (Item const *left, Item const *right) const
   return ret;
 }
 
-
 /** Return all columns, but filter out any unused columns , since they might
     disrupt the spacing problem. */
-vector<Grob*>
+vector<Grob *>
 System::used_columns () const
 {
   extract_grob_set (this, "columns", ro_columns);
@@ -484,7 +486,7 @@ System::used_columns () const
 	break;
     }
 
-  vector<Grob*> columns;
+  vector<Grob *> columns;
   for (int i = 0; i <= last_breakable; i++)
     {
       if (Paper_column::is_used (ro_columns[i]))
@@ -500,11 +502,11 @@ System::column (vsize which) const
   extract_grob_set (this, "columns", columns);
   if (which >= columns.size ())
     return 0;
-  
-  return dynamic_cast<Paper_column*> (columns[which]);
+
+  return dynamic_cast<Paper_column *> (columns[which]);
 }
 
-Paper_score*
+Paper_score *
 System::paper_score () const
 {
   return pscore_;
@@ -517,14 +519,14 @@ System::get_rank () const
 }
 
 System *
-get_root_system (Grob *me) 
+get_root_system (Grob *me)
 {
   Grob *system_grob = me;
-  
+
   while (system_grob->get_parent (Y_AXIS))
     system_grob = system_grob->get_parent (Y_AXIS);
 
-  return dynamic_cast<System*> (system_grob); 
+  return dynamic_cast<System *> (system_grob);
 }
 
 Grob *
@@ -575,27 +577,25 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
 {
   Grob *alignment = get_vertical_alignment ();
   if (!alignment)
-    {
-      programming_error("system does not have a vertical alignment");
-      return Interval();
-    }
+    return Interval ();
+
   extract_grob_set (alignment, "elements", staves);
   vector<Real> offsets = Align_interface::get_minimum_translations (alignment, staves, Y_AXIS, true, start, end);
 
   Interval ret;
-  for (vsize i = 0; i < staves.size(); ++i)
+  for (vsize i = 0; i < staves.size (); ++i)
     {
-      Interval iv = begin ?
-        Axis_group_interface::begin_of_line_pure_height (staves[i], start) :
-        Axis_group_interface::rest_of_line_pure_height (staves[i], start, end);
-      if (i<offsets.size())
-        iv.translate (offsets[i]);
+      Interval iv = begin
+	? Axis_group_interface::begin_of_line_pure_height (staves[i], start)
+	: Axis_group_interface::rest_of_line_pure_height (staves[i], start, end);
+      if (i < offsets.size ())
+	iv.translate (offsets[i]);
       ret.unite (iv);
     }
 
-  Interval other_elements = begin ?
-    Axis_group_interface::begin_of_line_pure_height (this, start) :
-    Axis_group_interface::rest_of_line_pure_height (this, start, end);
+  Interval other_elements = begin
+    ? Axis_group_interface::begin_of_line_pure_height (this, start)
+    : Axis_group_interface::rest_of_line_pure_height (this, start, end);
 
   ret.unite (other_elements);
 
@@ -624,7 +624,7 @@ System::calc_pure_relevant_grobs (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   extract_grob_set (me, "elements", elts);
-  vector<Grob*> relevant_grobs;
+  vector<Grob *> relevant_grobs;
   SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
 
   for (vsize i = 0; i < elts.size (); ++i)
@@ -651,7 +651,7 @@ MAKE_SCHEME_CALLBACK (System, calc_pure_height, 3);
 SCM
 System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
-  System *me = dynamic_cast<System*> (unsmob_grob (smob));
+  System *me = dynamic_cast<System *> (unsmob_grob (smob));
   int start = scm_to_int (start_scm);
   int end = scm_to_int (end_scm);
 
@@ -672,7 +672,5 @@ ADD_INTERFACE (System,
 	       "columns "
 	       "labels "
 	       "pure-Y-extent "
-	       "spaceable-staves "
-	       "skyline-distance "
 	       "skyline-horizontal-padding "
-	       )
+	       );

@@ -1,9 +1,7 @@
 " LilyPond syntax file
 " Language:	LilyPond
 " Maintainer:	Heikki Junes <hjunes@cc.hut.fi>
-" Created:      Oct 17, 2002
-" Last Change:	Aug 30, 2009
-" Version:	6.1-1
+" Last Change:	2010 Jul 26
 "
 " Installed As:	vim/syntax/lilypond.vim
 " Uses Generated File:	vim/syntax/lilypond-words.vim
@@ -33,7 +31,7 @@ setlocal mps+=<:>
 " Case matters
 syn case match
 
-syn cluster lilyMatchGroup	contains=lilyMatcher,lilyString,lilyComment,lilyStatement,lilyNumber,lilyEquation,lilySlur,lilySpecial,lilyNote,lilyKeyword,lilyArticulation,lilyReservedWord
+syn cluster lilyMatchGroup	contains=lilyMatcher,lilyString,lilyComment,lilyStatement,lilyNumber,lilySlur,lilySpecial,lilyNote,lilyKeyword,lilyArticulation,lilyReservedWord,lilyScheme
 
 syn region lilyMatcher	matchgroup=Delimiter start="{" skip="\\\\\|\\[<>]"	end="}"	contains=@lilyMatchGroup fold
 syn region lilyMatcher	matchgroup=Delimiter start="\["		end="]"	contains=@lilyMatchGroup fold
@@ -44,13 +42,17 @@ syn region lilyComment	start="%{" skip="%$" end="%}"
 syn region lilyComment	start="%\([^{]\|$\)" end="$"
 
 syn match lilyNumber	"[-_^.]\?\d\+[.]\?"
-syn match lilyEquation	"\(#['`]\)\?\(\a*[-]\)*\a*\s*=\s*\(#[#'`]\?\)\?\a*"
 syn match lilySlur	"[(~)]"
 syn match lilySlur	"\\[()]"
 syn match lilySpecial	"\\[<!>\\]"
 " avoid highlighting the extra character in situations like
 " c--\mf c^^\mf c__\mf
 syn match lilyArticulation	"[-_^][-_^+|>.]"
+
+" Include Scheme syntax highlighting, where appropriate
+syn include @embeddedScheme syntax/scheme.vim
+unlet b:current_syntax
+syn region lilyScheme matchgroup=Delimiter start="#['`]\?(" matchgroup=Delimiter end=")" contains=@embeddedScheme
 
 " Rest of syntax highlighting rules start here
 "

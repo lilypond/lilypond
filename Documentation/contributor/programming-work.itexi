@@ -131,12 +131,12 @@ METAFONT tutorial page}.
 PostScript is used to generate graphical output.  A brief PostScript tutorial
 is @uref{http://local.wasp.uwa.edu.au/~pbourke/dataformats/postscript/,
 available online}.  The
-@uref{http://www.adobe.com/devnet/postscript/pdfs/PLRM.pdf, PostScript Lanugage
+@uref{http://www.adobe.com/devnet/postscript/pdfs/PLRM.pdf, PostScript Language
 Reference} is available online in PDF format.
 
 @subsection Python
 
-Python is used for XML2ly and is used for buillding the documentation and the
+Python is used for XML2ly and is used for building the documentation and the
 website.
 
 Python documentation is available at @uref{http://www.python.org/doc/,
@@ -200,7 +200,7 @@ describes a process for finding interesting code.
 @subsection Using the ROADMAP
 
 The file ROADMAP is located in the main directory of the lilypond source.
-ROADMAP lists all of the directories in the LilPond source tree, along
+ROADMAP lists all of the directories in the LilyPond source tree, along
 with a brief description of the kind of files found in each directory.
 This can be a very helpful tool for deciding which directories to search
 when looking for a function.
@@ -406,7 +406,7 @@ set number
 autocmd BufWritePre * :%s/\s\+$//e
 @end verbatim
 
-With this .vimrc, files can be reindented automatically by highlihting
+With this .vimrc, files can be reindented automatically by highlighting
 the lines to be indented in visual mode (use V to enter visual mode)
 and pressing =.
 
@@ -416,19 +416,28 @@ was suggested by Patrick McCarty.  It should be saved in
 
 @verbatim
 " Additional Guile-specific 'forms'
-syn keyword schemeSyntax define-public define* define-safe-public
+syn keyword schemeSyntax define-public define*-public
+syn keyword schemeSyntax define* lambda* let-keywords*
+syn keyword schemeSyntax defmacro defmacro* define-macro
+syn keyword schemeSyntax defmacro-public defmacro*-public
 syn keyword schemeSyntax use-modules define-module
-syn keyword schemeSyntax defmacro-public define-macro
-syn keyword schemeSyntax define-markup-command
-syn keyword schemeSyntax define-markup-list-command
-syn keyword schemeSyntax let-keywords* lambda* define*-public
-syn keyword schemeSyntax defmacro* defmacro*-public
+syn keyword schemeSyntax define-method define-class
+
+" Additional LilyPond-specific 'forms'
+syn keyword schemeSyntax define-markup-command define-markup-list-command
+syn keyword schemeSyntax define-safe-public define-music-function
+syn keyword schemeSyntax def-grace-function
 
 " All of the above should influence indenting too
-set lw+=define-public,define*,define-safe-public,use-modules,define-module
-set lw+=defmacro-public,define-macro
+set lw+=define-public,define*-public
+set lw+=define*,lambda*,let-keywords*
+set lw+=defmacro,defmacro*,define-macro
+set lw+=defmacro-public,defmacro*-public
+set lw+=use-modules,define-module
+set lw+=define-method,define-class
 set lw+=define-markup-command,define-markup-list-command
-set lw+=let-keywords*,lambda*,define*-public,defmacro*,defmacro*-public
+set lw+=define-safe-public,define-music-function
+set lw+=def-grace-function
 
 " These forms should not influence indenting
 set lw-=if
@@ -647,8 +656,8 @@ _f ("cannot find character number: %d", i)
 
 @item
 Think about translation issues. In a lot of cases, it is better to
-translate a whole message. The english grammar must not be imposed
-on the translator. So, instead of
+translate a whole message. English grammar must not be imposed on the
+translator. So, instead of
 
 @example
 stem at  + moment.str () +  does not fit in beam
@@ -690,7 +699,7 @@ _f ("Huh?  Not a Request: `%s'.  Ignoring.", request)
 
 @item
 Do not modularize too much; words frequently cannot be translated
-without context. It is probably safe to treat most occurences of
+without context. It is probably safe to treat most occurrences of
 words like stem, beam, crescendo as separately translatable words.
 
 @item
@@ -783,7 +792,7 @@ out/bin/lilypond
 
 This is important as you will need to let gdb know where to find the
 image containing the symbol tables.  You can invoke gdb from the
-command line usinga the following:
+command line using the following:
 
 @example
 gdb out/bin/lilypond
@@ -1046,7 +1055,7 @@ number of different platforms:
 
 In order for the Graphviz tool to work, config.make must be modified.
 It is probably a good idea to first save a copy of config.make under
-a different name.  Then, edit config.make by removing every occurence
+a different name.  Then, edit config.make by removing every occurrence
 of @code{-DNDEBUG}.
 
 @item Rebuilding LilyPond
@@ -1057,10 +1066,10 @@ The executable code of LilyPond must be rebuilt from scratch:
 make -C lily clean && make -C lily
 @end example
 
-@item Create a graphviz-compatible .ly file
+@item Create a graphviz-compatible @file{.ly} file
 
-In order to use the graphviz utility, the .ly file must include
-@file{ly/graphviz-init.ly}, and should then specify the
+In order to use the graphviz utility, the @file{.ly} file must include
+@file{ly/@/graphviz@/-init@/.ly}, and should then specify the
 grobs and symbols that should be tracked.  An example of this
 is found in @file{input/regression/graphviz.ly}.
 
@@ -1077,7 +1086,7 @@ lilypond graphviz.ly 2> graphviz.log
 
 The logfile has standard lilypond output, as well as the Graphviz
 output data.  Delete everything from the beginning of the file
-up to but not including the first occurence of @code{digraph}.
+up to but not including the first occurrence of @code{digraph}.
 
 @item Process the logfile with @code{dot}
 
@@ -1115,7 +1124,7 @@ for feature addition and modification.
 * Write the code::
 * Write regression tests::
 * Write convert-ly rule::
-* Automaticaly update auxiliary information::
+* Automatically update auxiliary information::
 * Manually update auxiliary information::
 * Edit changes.tely::
 * Verify successful build::
@@ -1169,7 +1178,7 @@ rule will simply point out to the user that the feature needs
 manual correction.
 
 
-@node Automaticaly update auxiliary information
+@node Automatically update auxiliary information
 @subsection Automatically update auxiliary information
 
 convert-ly should be used to update the documentation, the snippets,
@@ -1354,7 +1363,7 @@ recompile everything, whether modified or not, and takes a lot
 longer.
 
 Running @command{make@tie{}check} will leave an HTML page
-@file{out/test-results/index.html}.  This page shows all the
+@file{out/@/test@/-results/@/index@/.html}.  This page shows all the
 important differences that your change introduced, whether in the
 layout, MIDI, performance or error reporting.
 
@@ -1426,7 +1435,7 @@ with the modified branch checked out.
 
 Sometimes in response to comments on revisions, the best way to
 work may require creation of a new branch in git.  In order to
-associate the new branch with an existing Reitveld issue,
+associate the new branch with an existing Rietveld issue,
 the following command can be used:
 
 @example
@@ -1678,7 +1687,7 @@ TODO -- This is a placeholder for a tutorial on callback functions.
 @node LilyPond scoping
 @section LilyPond scoping
 
-The Lilypond language has a concept of scoping, ie you can do
+The Lilypond language has a concept of scoping, i.e. you can do
 
 @example
 foo = 1
@@ -1776,7 +1785,7 @@ Spanners (derived class) -slurs, beams- or Items (also a derived
 class) -notes, clefs, etc.
 
 There are two other derived classes System (derived from Spanner,
-contaning a "line of music") and Paper_column (derived from Item, it
+containing a "line of music") and Paper_column (derived from Item, it
 contains all items that happen at the same moment). They are separate
 classes because they play a special role in the linebreaking process.
 
@@ -2105,7 +2114,7 @@ finds out about the breakpoint.
 
 Han-Wen answered as follows:
 
-You can see the defintion by doing
+You can see the definition by doing
 
 @example
 #(display conditionalMark)

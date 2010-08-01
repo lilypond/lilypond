@@ -1195,7 +1195,7 @@ We currently use make and stepmake, which is complicated and only
 used by us.  Hopefully this will change in the future.
 
 
-@subsubheading Version-specific texinfo macors
+@subsubheading Version-specific texinfo macros
 
 @itemize
 

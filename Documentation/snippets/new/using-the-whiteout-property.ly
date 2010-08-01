@@ -3,7 +3,7 @@
 \header {
   lsrtags = "expressive-marks, editorial-annotations"
   texidoc = "
-Any graphical object can be printed over a white backgound to
+Any graphical object can be printed over a white background to
 mask parts of objects that lie beneath.  This can be useful to
 improve the appearance of collisions in complex situations when
 repositioning objects is impractical.  It is necessary to explicitly

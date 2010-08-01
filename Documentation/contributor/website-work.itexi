@@ -60,16 +60,16 @@ scripts are examined and copied to
 @subheading Initial setup
 
 You should symlink your own @file{~/lilypond/} to
-@file{~graham/lilypond/}
+@file{~graham/@/lilypond/}
 
 If this directory does not exist, make it.  Git master should go
-in @file{~/lilypond/lilypond-git/} but make sure you enable:
+in @file{~/lilypond/@/lilypond@/-git/} but make sure you enable:
 
 @example
 git config core.filemode false
 @end example
 
-If you have created any files in @file{~graham/lilypond/} then
+If you have created any files in @file{~graham/@/lilypond/} then
 please run:
 
 @example
@@ -153,10 +153,10 @@ Cronjob to automate the trusted portions:
 
 
 To reduce the CPU burden on the shared host (as well as some
-security concerns), the @file{Documentation/pictures/} and
-@file{Documentation/web/ly-examples/} directories are @strong{not}
+security concerns), the @file{Documentation/@/pictures/} and
+@file{Documentation/@/web/@/ly-examples/} directories are @strong{not}
 compiled.  If you modify any files in those directories, a user in
-the @code{lilypond} group must upload them to @file{~graham/media}
+the @code{lilypond} group must upload them to @file{~graham/@/media}
 on the host.
 
 Upload latest pictures/ and ly-examples/ (local script):
@@ -178,7 +178,7 @@ rsync -a $EXAMPLES graham@lilypond.org:ly-examples
 @subsubheading Additional information
 
 Some information about the website is stored in
-@file{~graham/lilypond/*.txt}; this information should not be
+@file{~graham/@/lilypond/@/*.txt}; this information should not be
 shared with people without trusted access to the server.
 
 
@@ -204,7 +204,7 @@ make website
 however, please note that this command is not designed for being
 run multiple times.  If you see unexpected output (mainly the page
 footers getting all messed up), then delete your
-@file{out-website} directory and run @code{make website} again.
+@file{out@/-website} directory and run @code{make website} again.
 
 @item
 Some of the translation infrastructure is defined in python files;
@@ -218,7 +218,7 @@ scripts/build/website_post.py
 @item
 Translations are not included by default in @code{make website}.
 To test your translation, edit the @code{WEB_LANGS} line in
-@file{make/website.make}.  Do not submit a patch to add your language
+@file{make/@/website@/.make}.  Do not submit a patch to add your language
 to this file unless @code{make website} completes with less than 5
 warnings.
 

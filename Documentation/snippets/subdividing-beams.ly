@@ -5,6 +5,26 @@
 \version "2.13.29"
 
 \header {
+%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
+  texidocfr = "
+Les ligatures d'une succession de notes de durée inférieure à la croche
+ne sont pas subdivisées par défaut.  Autrement dit, tous les traits de
+ligature ( deux ou plus) seront continus.  Ce comportement peut être
+modifié afin de diviser la ligature en sous-groupes grâce à la propriété
+@code{subdivideBeams}.  Lorsqu'elle est activée, les ligatures seront
+subdivisées selon un intervalle défini par @code{baseMoment}@tie{}; il n'y
+aura alors plus qu'un seul trait de ligature entre chaque sous-groupe.
+Par défaut, @code{baseMoment} fixe la valeur de référence par rapport à
+la métrique en vigueur.  Il faudra donc lui fournir, à l'aide de la
+fonction @code{ly:make-moment}, une fraction correspondant à la durée du
+sous-groupe désiré comme dans l'exemple ci-dessous.  Gardez à l'esprit
+que, si vous venez à modifier @code{baseMoment}, vous devrez
+probablement adapter @code{beatStrusture} afin qu'il reste en adéquation
+avec les nouvelles valeurs de @code{baseMoment}.
+
+"
+  doctitlefr = "Subdivision des ligatures"
+
   lsrtags = "rhythms"
 
   texidoc = "
