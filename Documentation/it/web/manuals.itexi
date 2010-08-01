@@ -265,8 +265,8 @@ musicali inglesi presentati nel Glossario.}
 @divEnd
 
 
-@node Utilizzo
-@unnumberedsec Utilizzo
+@node Uso
+@unnumberedsec Uso
 @translationof Usage
 
 @divClass{column-left-top}
@@ -529,7 +529,6 @@ Documentazione di LilyPond 2.10}
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
 Documentazione di LilyPond 2.8}
 
-@help anybody want to write this stuff?
 
 @end itemize
 
@@ -556,3 +555,8 @@ per cui l'abbiamo scelta, è disponibile in @ref{Libertà}.
 @include fdl.itexi
 
 @divEnd
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Web-it: add italian translation
