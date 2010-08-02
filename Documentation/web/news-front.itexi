@@ -6,13 +6,12 @@
 
 @c keep two blank lines between news entries
 
-@c FIXME: fill in number
-@c used for news about the upcoming release; see CG x.y
+@c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading LilyPond 2.13.29 released!  @emph{July 13, 2010}
+@subsubheading LilyPond 2.13.28 released!  @emph{July 13, 2010}
 
-We are happy to announce the release of LilyPond 2.13.29.  This
+We are happy to announce the release of LilyPond 2.13.28.  This
 release contains the usual number of bugfixes.  However, a number
 of critical issues still remain, so this release is intended for
 developers only.
@@ -22,6 +21,7 @@ lilypad editor.  Windows users should not be using this release
 because it is intended for developers only, but you ignore these
 warnings and try it anyway, use extra caution.
 @newsEnd
+
 
 @newsItem
 @subsubheading LilyPond 2.13.27 released!  @emph{July 5, 2010}
