@@ -132,7 +132,7 @@ analizzati.  In seguito, LilyPond sarà molto più veloce!}
 
 @warning{Queste istruzioni partono dal presupposto che tu stia usando l'editor
 LilyPad incluso nel pacchetto.  Se stai usando uno dei programmi descritti in
-@rgeneral{Alternate input}, consulta la documentazione di questi
+@rprogram{Alternate input}, consulta la documentazione di questi
 programmi nel caso tu abbia qualche problema a compilare un file.}
 
 Cliccando due volte su @command{LilyPond.app}, il programma si aprirà con
@@ -151,7 +151,7 @@ l'elaborazione viene segnalato un errore, controlla la finestra dei log.
 
 @warning{Queste istruzioni partono dal presupposto che tu stia usando l'editor
 LilyPad incluso nel pacchetto.  Se stai usando uno dei programmi descritti in
-@rgeneral{Alternate input}, consulta la documentazione di questi
+@rprogram{Alternate input}, consulta la documentazione di questi
 programmi nel caso tu abbia qualche problema a compilare un file.}
 
 In Windows, se fai un doppio clic sull'icona di LilyPond presente sulla
@@ -184,7 +184,7 @@ questo file.
 
 @warning{Queste istruzioni partono dal presupposto che tu stia usando i comuni
 programmi unix a linea di comando.  Se stai usando uno dei programmi
-descritti in @rgeneral{Alternate input}, consulta la documentazione per
+descritti in @rprogram{Alternate input}, consulta la documentazione per
 questi programmi in caso tu abbia problemi a compilare un file.}
 
 
