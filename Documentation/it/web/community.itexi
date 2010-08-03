@@ -59,7 +59,7 @@ quando si discute di LilyPond.
 @ref{Pubblicazioni}: cosa abbiamo scritto, e cosa è stato scritto su di noi.
 
 @item
-@ref{Vecchie notizie}: un archivio.
+@ref{Notizie vecchie}: un archivio.
 
 @end itemize
 @divEnd
@@ -74,7 +74,7 @@ quando si discute di LilyPond.
 * Sviluppo::
 * Autori::
 * Pubblicazioni::
-* Vecchie notizie::
+* Notizie vecchie::
 @end menu
 @divEnd
 
@@ -890,3 +890,8 @@ numero CMS06.
 @include web/news-front.itexi
 
 @include web/news.itexi
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Web-it: add italian translation

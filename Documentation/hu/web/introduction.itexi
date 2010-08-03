@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 8ae92df5b752659c05ddb78806b7abb0ac60ee4d
+    Translation of GIT committish: fccfadac594c5a7f98250e75ee927359cf993d57
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -759,7 +759,47 @@ szerkesztőprogramokkal!
 @translationof Easier editing
 
 @divClass{column-center-top}
-@subheading Grafikus környezet: Denemo
+@subheading LilyPondTool
+
+@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
+  (Kattints a képre a nagyításhoz),lilypondtool-2.12-screenshot,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://lilypondtool@/.organum@/.hu}
+
+A magyar fejlesztésű LilyPondTool a @uref{http://@/www@/.jedit@/.org@/,jEdit}
+szövegszerkesztő bővítménye, és a legtöbbet tudó integrált LilyPond-környezet.
+Sokrétű funkciói közül megemlítendő a beépített PDF-nézegető, mely támogatja
+a kottáról forráskódra és visszafelé történő ugrást, ill. a kottaelemek
+grafikus pozicionálását; az Új kotta varázsló, amely megkönnyíti
+nagy művek létrehozását; valamint az automatikus elválasztás dalszövegek
+gyors begépeléséhez.
+@divEnd
+
+@divClass{column-center-top}
+@subheading Frescobaldi
+
+@imageClickable{frescobaldi-lilypond-editor-small,png,
+  (Kattints a képre a nagyításhoz),frescobaldi-lilypond-editor,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+
+@uref{http://www.frescobaldi.org}
+
+A Frescobaldi egy dedikált LilyPond-szerkesztő beépített PDF-előnézettel,
+jól konfigurálható Új kotta varázslóval és sok szerkesztési funkcióval.
+A KDE4 könyvtárakat használja, így minden Linuxon és UNIX-szerű operációs
+rendszeren fut.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Denemo
 
 @imageClickable{screenshot-denemo-small,png,
   (Kattints a képre a nagyításhoz),screenshot-denemo,png,right}
@@ -783,47 +823,7 @@ Export: Lilypond, MIDI, ABC, CSound Score File, PDF
 @divEnd
 
 @divClass{column-center-top}
-@subheading Integrált környezet: LilyPondTool
-
-@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
-  (Kattints a képre a nagyításhoz),lilypondtool-2.12-screenshot,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://lilypondtool@/.organum@/.hu}
-
-A magyar fejlesztésű LilyPondTool a @uref{http://@/www@/.jedit@/.org@/,jEdit}
-szövegszerkesztő bővítménye, és a legtöbbet tudó integrált LilyPond-környezet.
-Sokrétű funkciói közül megemlítendő a beépített PDF-nézegető, mely támogatja
-a kottáról forráskódra és visszafelé történő ugrást, ill. a kottaelemek
-grafikus pozicionálását; az Új kotta varázsló, amely megkönnyíti
-nagy művek létrehozását; valamint az automatikus elválasztás dalszövegek
-gyors begépeléséhez.
-@divEnd
-
-@divClass{column-center-top}
-@subheading Integrált környezet: Frescobaldi
-
-@imageClickable{frescobaldi-lilypond-editor-small,png,
-  (Kattints a képre a nagyításhoz),frescobaldi-lilypond-editor,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-
-@uref{http://www.frescobaldi.org}
-
-A Frescobaldi egy dedikált LilyPond-szerkesztő beépített PDF-előnézettel,
-jól konfigurálható Új kotta varázslóval és sok szerkesztési funkcióval.
-A KDE4 könyvtárakat használja, így minden Linuxon és UNIX-szerű operációs
-rendszeren fut.
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading Szöveges környezet: Emacs és Vim
+@subheading Emacs és Vim
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -849,7 +849,7 @@ szerkesztéséhez.
 @divClass{column-center-top}
 @subheading Egyéb
 
-@subsubheading Integrált környezet: LilyKDE
+@subsubheading LilyKDE
 
 @imageClickable{lilykde-screenshot-small,png,
   (Kattints a képre a nagyításhoz),lilykde-screenshot,png,right}
@@ -868,7 +868,7 @@ A @uref{http://www.volny.cz/smilauer/rumor/,Rumor}t használja,
 Hasznos funkciója többek között, hogy a KDE fájlkezelőjéből több fájlt le
 lehet fordítani egyszerre a segítségével.
 
-@subsubheading Integrált környezet: TexShop
+@subsubheading TexShop
 
 @sourceimage{logo-macosx,,,}
 
@@ -886,8 +886,8 @@ TODO: ask somebody to sponsor/check these.  -gp
 
 @sourceimage{logo-macosx,,,}
 
-There is a LilyPond bundle for TextMate.  It may be installed by
-running:
+A TextMate szövegszerkesztőhöz is létezik LilyPond csomag. A következő
+parancsok futtatásával telepíthető:
 
 @example
 mkdir -p /Library/Application\ Support/TextMate/Bundles

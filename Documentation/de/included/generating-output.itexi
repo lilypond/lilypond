@@ -3,11 +3,11 @@
 @c learning/tutorial.itely
 
 @ignore
-    Translation of GIT committish: 6235465503c3adde476120e78514fc3feef14ef2
+    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c This is about "compiling" a lilypond file
@@ -40,7 +40,7 @@ Wählen Sie einen Namen für die Datei, etwa @file{test.ly}.
 
 @subsubheading 2. Schritt: Kompilieren (mit LilyPad)
 
-Aus den selben Menüs wählen Sie jetzt @w{@code{Compile > Tyepset}}.
+Aus den selben Menüs wählen Sie jetzt @w{@code{Compile > Typeset}}.
 
 @sourceimage{Learning_Macos_Typeset_menu,,,}
 
