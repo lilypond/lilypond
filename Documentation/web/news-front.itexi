@@ -9,6 +9,19 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading LilyPond 2.13.29 released!  @emph{Aug 4, 2010}
+
+We are happy to announce the release of LilyPond 2.13.29.  This
+release contains the usual number of bugfixes.  However, a number
+of critical issues still remain, so this release is intended for
+developers only.
+
+This release radically changes the autobeaming rules, so use extra
+caution and expect breakage.
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond 2.13.28 released!  @emph{July 13, 2010}
 
 We are happy to announce the release of LilyPond 2.13.28.  This
