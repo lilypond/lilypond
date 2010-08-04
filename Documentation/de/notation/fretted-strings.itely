@@ -86,10 +86,10 @@ Notationsreferenz:
 @ref{Fingersatzanweisungen},
 @ref{Bindebögen},
 @ref{Auflösung von Zusammenstößen},
-@ref{Instrumentenbezeichnungn},
+@ref{Instrumentenbezeichnungen},
 @ref{Musik parallel notieren},
 @ref{Arpeggio},
-@ref{Liste der Arktikulationszeichen},
+@ref{Liste der Artikulationszeichen},
 @ref{Notenschlüssel}.
 
 
@@ -323,7 +323,7 @@ aufgrund der Tonhöhe angeordnet.
 
 Eine Tonhöhe in der Liste der Saitenstimmungen ist der Unterschied
 der entsprechenden Tonhöhe zum eingestrichenen C gemessen in
-Halbtönen.  Die Tonöhe muss eine Ganzzahl sein.  LilyPond
+Halbtönen.  Die Tonhöhe muss eine Ganzzahl sein.  LilyPond
 errechnet die Tonhöhe einer Saite, indem die Tonhöhe der
 Saitenstimmung zu der Tonhöhe von c' hinzugerechnet wird.
 
@@ -385,7 +385,7 @@ hinzugefügt werden.  Die Beschriftung enthält Information zu dem
 gewünschten Bunddiagramm.  Es gibt drei unterschiedliche
 Darstellungsarten: normal, knapp und ausführlich.  Die drei
 Arten erzeugen die gleiche Ausgabe, aber mit jeweils mehr oder
-weniger Einzelheiten.  Einzelheiten zu Textbeschriftunsbefehlen
+weniger Einzelheiten.  Einzelheiten zu Textbeschriftungsbefehlen
 findet sich in @ref{Text markup commands}.
 
 Die Standard-Bunddiagrammbeschriftung beinhaltet die Saitennummer
@@ -724,7 +724,7 @@ and color of dots.
 @funindex fret-diagram-interface
 
 Die graphische Erscheinung eines Bunddiagramms kann den Wünschen
-des Notensetzers angepassen werden.  Hierzu werden die Eigenschaften
+des Notensetzers angepasst werden.  Hierzu werden die Eigenschaften
 des @code{fret-diagram-interface} (Bunddiagramm-Schnittstelle)
 eingesetzt.  Einzelheiten hierzu
 in @rinternals{fret-diagram-interface}.  Die Eigenschaften der
@@ -777,7 +777,7 @@ Die vordefinierten Diagramme sind in der Datei
 basierend auf der Tonhöhe eines Akkordes und dem Wert von
 @code{stringTunings} (Saitenstimmung), der gerade benutzt wird,
 gespeichert.  @code{predefined-guitar-fretboards.ly} beinhaltet
-vordefinierte Diagramme für die Gitarrenstimmtung (@code{guitar-tuning}).
+vordefinierte Diagramme für die Gitarrenstimmung (@code{guitar-tuning}).
 Anhand der Beispiele in dieser Datei können auch für andere
 Instrumente oder Stimmungen Diagramme definiert werden.
 
@@ -986,7 +986,7 @@ mychords = \chordmode{
 
 Die graphische Form eines Bunddiagramms kann entsprechend den
 eigenen Wünschen verändert werden, indem man die Eigenschaften
-der @code{fret-diagram-interface}-Schnittstellt verändert.
+der @code{fret-diagram-interface}-Schnittstelle verändert.
 Einzelheiten hierzu in @rinternals{fret-diagram-interface}.  Die
 Schnittstelleneigenschaften eines vordefinierten Bunddiagrammes
 gehören dem @code{FretBoards.FretBoard}-Kontext an.
@@ -1031,7 +1031,7 @@ Referenz der Interna:
 
 Bunddiagramme können automatisch aus notierten Noten erstellt werden.
 Hierzu wird der @code{FretBoards}-Kontext eingesetzt.  Wenn keine
-vordefinierten Diagramme für die ensprechenden Noten mit
+vordefinierten Diagramme für die entsprechenden Noten mit
 der aktiven Saitenstimmung (@code{stringTunings}) vorhanden sind,
 errechnet der Kontext Saiten und Bünde die benutzt werden können,
 um die Noten zu spielen.
@@ -1097,7 +1097,7 @@ Manchmal kann die Berechnungsfunktion für Bunddiagramme kein
 passendes Diagramm finden.  Das kann oft umgangen werden, indem
 man manuell einer Note eine bestimmte Saite zuweist.  In vielen
 Fällen muss nur eine Note derart gekennzeichnet werden, der
-Rest wird dann ensprechend durch den @code{FretBoards}-Kontext
+Rest wird dann entsprechend durch den @code{FretBoards}-Kontext
 behandelt.
 
 @cindex Bunddiagramme, Fingersatz
@@ -1149,11 +1149,11 @@ FretBoard-Kontext zu errechnen, kann mit der
 @end lilypond
 
 Die Saiten und Bünde des @code{FretBoards}-Kontextes hängen von
-der @code{stringTunings}-Eigesnchaft ab, die die gleiche Bedeitung
+der @code{stringTunings}-Eigenschaft ab, die die gleiche Bedeutung
 wie im TabStaff-Kontext hat.  Siehe auch @ref{Angepasste Tabulaturen}
 zu Information über die @code{stringTunings}Eigenschaft.
 
-Die graphische Erscheindung eines Bunddiagrammes kann den
+Die graphische Erscheinung eines Bunddiagrammes kann den
 Bedürfnissen angepasst werden, indem Eigenschaften der
 @code{fret-diagram-interface}-Schnittstelle verändert werden.
 Einzelheiten finden sich in @rinternals{fret-diagram-interface}.
@@ -1243,8 +1243,8 @@ allgemeinen Abschnitt behandelt, aber es gibt noch einige, die
 hier gezeigt werden sollen.  Teilweise soll ein Lead-sheet nur
 die Akkordsymbole und den Gesangstext enthalten.  Da LilyPond
 ein Notensatzprogramm ist, wird es nicht für derartige
-Projekte empfohlen, die keine eigentliche Notation beinahlten.
-Anstattdessen sollte ein Textbearbeitungsprogramm, oder ein
+Projekte empfohlen, die keine eigentliche Notation beinhalten.
+Anstatt dessen sollte ein Textbearbeitungsprogramm oder ein
 Satzprogramm wie GuitarTeX (für erfahrende Benutzer) eingesetzt
 werden.
 

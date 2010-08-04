@@ -20,7 +20,7 @@
 {unfretted-headword.ly}
 
 @cindex Streicher
-@cindex Orcherster, Streicher
+@cindex Orchester, Streicher
 @cindex Notation für Streicher
 
 Dieser Abschnitt stellt Information und Referenzen zur Verfügung, die
@@ -51,7 +51,7 @@ Divisi-Stellen erforderlich sein.
 @unnumberedsubsubsec Hinweise für bundlose Saiteninstrumente
 @translationof References for unfretted strings
 
-Die meisten Notationseigenschaften, die für Orchersterstreicher eingesetzt
+Die meisten Notationseigenschaften, die für Orchesterstreicher eingesetzt
 werden, sind an anderer Stelle beschrieben:
 
 @itemize
@@ -146,7 +146,7 @@ Flageolett-Töne können auf verschiedene Arten notiert werden.
 ein Ton angezeigt werde, bei dem die Saite berührt wird, wo sie
 sonst abgegriffen würde.
 
-@warning{Flageolett-Töne @strong{müssem} innerhalb von Akkorden
+@warning{Flageolett-Töne @strong{müssen} innerhalb von Akkorden
 definiert werden, auch wenn nur eine einzelne Note vorhanden ist.}
 
 @lilypond[verbatim,quote,relative=2]

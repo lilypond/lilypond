@@ -79,7 +79,7 @@ wie @code{#$var1} usw. benutzt werden.
 
 Die folgenden Eingabetypen können als Variablen in einer musikalischen
 Funktion benutzt werden.  Diese Liste ist nicht vollständig -- siehe
-auch andere Dokumentationen überScheme für weitere Variablenarten.
+auch andere Dokumentationen über Scheme für weitere Variablenarten.
 
 @multitable @columnfractions .33 .66
 @headitem Eingabetyp           @tab @var{vari-type?}-Notation
@@ -355,7 +355,7 @@ angeordnet sind.
 
 Sowohl Variablen als auch Geltungsbereiche sind in Form des
 GUILE-Modulsystems implementiert.  Ein anonymes Scheme-Modul
-wird an jeden Geltunsbereich angehängt.  Eine Zuweisung der form
+wird an jeden Geltungsbereich angehängt.  Eine Zuweisung der Form
 
 @example
 traLaLa = @{ c'4 d'4 @}
@@ -373,7 +373,7 @@ umgewandelt.
 
 Das bedeutet, dass Eingabe- und Scheme-Variablen frei vermischt
 werden können.  Im nächsten Beispiel wird ein Notenfragment in
-der Variable @code{traLaLa} gespeichert und mithilfe von Schme
+der Variable @code{traLaLa} gespeichert und mithilfe von Scheme
 dupliziert.  Das Ergebnis wird in eine @code{\score}-Umgebung
 mit der zweiten Variable @code{twice} integriert:
 
@@ -394,7 +394,7 @@ traLaLa = { c'4 d'4 }
 In diesem Beispiel geschieht die Zuweisung, nachdem der Parser
 festgestellt hat, dass nichts interessantes mehr nach
 @code{traLaLa = @{ ... @}} vorkommt.  Ohne die Pseudovariable
-in dem Beispiel würde die @code{newLa}-Devinition ausgeführt
+in dem Beispiel würde die @code{newLa}-Definition ausgeführt
 werden, bevor @code{traLaLa} definiert ist, was zu einem
 Syntax-Fehler führen würde.
 
@@ -747,7 +747,7 @@ gleiche wie die normale Befehlsform @code{\variable} in
 @noindent
 in LilyPond nicht funktioniert.  Das Problem könnte vermieden
 werden, indem das Artikulationszeichen an eine Pseudonote
-gehängtwird:
+gehängt wird:
 
 @example
 @{ << \music s1*0-.-> @}
@@ -793,10 +793,10 @@ Ausgabe examiniert:
 Dabei ist zu sehen, dass eine Note (@code{c4}) als @code{EventChord}
 repräsentiert ist, mit einem @code{NoteEvent}-Ausdruck in ihrer
 Elementenliste.  Um eine Marcato-Artikulation hinzuzufügen, muss
-ein @code{ArticulationEvent}-Ausdrcuk zu der Elementeigenschaft
+ein @code{ArticulationEvent}-Ausdruck zu der Elementeigenschaft
 des @code{EventChord}-Ausdrucks hinzugefügt werden.
 
-Um diese Funktion zu bauen, wird folgerndermaßen begonnen:
+Um diese Funktion zu bauen, wird folgendermaßen begonnen:
 
 @example
 (define (add-marcato event-chord)
@@ -841,7 +841,7 @@ den @code{EventChord}, der als Argument gegeben wurde, nicht zu
 verändern, weil er woanders benutzt werden könnte.
 
 Jetzt gibt es @code{result-event-chord}, wobei es sich um einen
-@code{NoteEventChord}-Ausdruck handelt, welcher gleichzeigt eine Kopie
+@code{NoteEventChord}-Ausdruck handelt, welcher gleichzeitig eine Kopie
 von @code{event-chord} ist.  Das Makro wird seiner Eigenschaftsliste
 hinzugefügt:
 
@@ -860,7 +860,7 @@ Was in diesem Fall @qq{gesetzt} werden soll (@qq{place}) ist die
 Eigenschaften erreicht werden können (die @code{'elements},
 @code{'duration}, @code{'pitch} usw., die in der Ausgabe von
 @code{\displayMusic} weiter oben angezeigt werden).  Der neue
-Wert ist, was ehemals die Elemtneigenschaft war, mit einem
+Wert ist, was ehemals die Elementeigenschaft war, mit einem
 zusätzlichen Element: dem @code{ArticulationEvent}-Ausdruck,
 der aus der Ausgabe von
 @code{\displayMusic} kopiert werden kann:
@@ -878,7 +878,7 @@ Funktion tun soll:  die gleiche Liste, aber mit dem neuen
 der Elementeeigenschaft ist hier nicht relevant.
 
 Wenn schließlich die Marcato-Artikulation zu der entsprechenden
-@code{elements}-Eigenschaft hinzuzugefügt ist, kann
+@code{elements}-Eigenschaft hinzugefügt ist, kann
 @code{result-event-chord} ausgegeben werden, darum die letzte Zeile
 der Funktion.
 
@@ -1025,7 +1025,7 @@ wir die @code{raise-markup}-Funktion folgendermaßen aufgerufen:
        @var{die "Textbeispiel"-Beschriftung})
 @end example
 
-Die @code{raise-markup}-Funktion erstellt zunächt den Stencil für die
+Die @code{raise-markup}-Funktion erstellt zunächst den Stencil für die
 @code{Textbeispiel}-Beschriftung und verschiebt dann diesen Stencil
 um 0.5 Notenlinienzwischenräume nach oben.  Das ist ein einfaches
 Beispiel.  Weitere, kompliziertere Beispiele finden sich nachfolgend
@@ -1070,10 +1070,10 @@ folgendermaßen auswählen:
 
 @noindent
 Damit wird die Kapitälchenschriftart ausgewählt, indem die
-@code{font-shape}-Eigesnchaft auf @code{#'caps} gesetzt wird,
+@code{font-shape}-Eigenschaft auf @code{#'caps} gesetzt wird,
 während @code{Text-in-caps} interpretiert wird.
 
-Damit diese Funkion als @code{\smallcaps}-Befehl zur Verfügung
+Damit diese Funktion als @code{\smallcaps}-Befehl zur Verfügung
 gestellt werden kann, muss eine Funktion mit @code{define-markup-command}
 definiert werden.  Der Befehl braucht ein Argument vom Typ @code{markup}.
 Darum sollte der Beginn der Funktion lauten:
@@ -1250,7 +1250,7 @@ Wenn es folgendermaßen eingesetzt wird:
 @cindex Scheme signature
 @cindex Signatur, Scheme
 @noindent
-beschwert sich @command{lilypond}, dass @code{foo} wegen einer ungekannten
+beschwert sich @command{lilypond}, dass @code{foo} wegen einer unbekannten
 Scheme Signatur nicht analysiert werden kann.
 
 
@@ -1264,7 +1264,7 @@ sich ähnlich verhält wie das
 @code{define-markup-command}-Makro, das schon beschrieben
 wurde in @ref{Neue Definitionen von Beschriftungsbefehlen}.  Ein Unterschied
 ist, dass bei diesem Listen-Makro eine ganze Liste an
-Stecils ausgegeben wird.
+Stencils ausgegeben wird.
 
 Im folgenden Beispiel wird ein @code{\paragraph}-Beschriftungslistenbefehl
 definiert, welcher eine Liste von Zeilen im Blocksatz ausgibt, von
@@ -1344,7 +1344,7 @@ modifiziert werden.  Die Syntax hierfür ist
 @var{function} sollte eine Scheme-Funktion sein, die ein
 einziges Argument braucht, welches der Kontext ist, auf den
 sie ausgeführt werden soll.  Der folgende Code schreibt
-die aktuelle Taktzahlshould in die Standardausgabe
+die aktuelle Taktzahl in die Standardausgabe
 während der Kompilation.
 
 @example
@@ -1430,16 +1430,16 @@ c b a g b a g b
 @end lilypond
 
 @noindent
-In diesem Fall wird die Prozedur ausgeführt, sobal der Wert der
+In diesem Fall wird die Prozedur ausgeführt, sobald der Wert der
 Eigenschaft während das Formatierungsprozesses angefordert wird.
 
-Der größte Teil der Satzmaschinierie funtioniert mit derartigen
+Der größte Teil der Satzmaschinierie funktioniert mit derartigen
 Callbacks.  Eigenschaften, die üblicherweise Callbacks
 benutzen, sind u. A.:
 
 @table @code
 @item stencil
-  Die Druckfunktion, die eine Ausgabe des Symbols ervorruft
+  Die Druckfunktion, die eine Ausgabe des Symbols hervorruft
 @item X-offset
   Die Funktion, die die horizontale Position setzt
 @item X-extent
@@ -1627,7 +1627,7 @@ und @code{PaperColumn}.  Sie können mit der
 @end example
 
 Es sollte angemerkt werden, dass @code{\override}, wenn man es auf
-@code{NonMusicalPaperColumn} und @code{PaperColumn} anwendet, immernoch
+@code{NonMusicalPaperColumn} und @code{PaperColumn} anwendet, immer noch
 innerhalb der @code{\context}-Umgebung funktioniert.
 
 @end itemize

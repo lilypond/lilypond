@@ -23,7 +23,7 @@ LilyPond unterstützt folgende Arten von Wiederholungen:
 
 @table @code
 @item volta (Wiederholungsklammer)
-Die wiederholte Musik wird nicht geschreiben, sondern zwischen
+Die wiederholte Musik wird nicht geschrieben, sondern zwischen
 zwei Wiederholungstaktstrichen eingeschlossen. Wenn die Wiederholung
 am Anfang eines Stückes beginnt, wird nur am Ende der Wiederholung
 eine Wiederholungstaktlinie gesetzt.  Alternative Schlüsse (Volta)
@@ -33,7 +33,7 @@ Standardnotationspraxis für Wiederholungen mit alternativen Schlüssen.
 @item unfold (aufklappen)
 Die wiederholte Musik wird ausgeschrieben, so oft, wie es durch
 @var{Wiederholungszähler} definiert wird.  Das erspart Arbeit,
-wenn repititive Musik notiert wird.
+wenn repetitive Musik notiert wird.
 
 @item percent (Prozent-Wiederholung)
 Das sind Noten- oder Taktwiederholungen, sie sehen aus wie ein
@@ -266,7 +266,7 @@ d4 e f g
 c1
 @end lilypond
 
-Der Notensatzpraxis folgend werden Wiederholungstaktstrichen nicht zu
+Der Notensatzpraxis folgend werden Wiederholungstaktstriche nicht zu
 Beginn eines Stückes gesetzt.
 
 @item end-repeat
@@ -357,7 +357,7 @@ Referenz der Interna:
 @cindex ausgeschriebene Wiederholungen
 @cindex wiederholte Musik
 @cindex Wiederholungen, ausgeschrieben
-@cindex repitetive Musik
+@cindex repetitive Musik
 @cindex Wiederholung, aufklappen
 @cindex Noten wiederholt schreiben
 @cindex Aufklappen von wiederholten Noten
@@ -365,10 +365,10 @@ Referenz der Interna:
 @funindex unfold
 
 Mit dem @code{unfold}-Befehl können Wiederholungen eingesetzt werden,
-um repitetive Musik zu notieren.  Die Syntax ist
+um repetitive Musik zu notieren.  Die Syntax ist
 
 @example
-\repeat unfold @var{Wiederholgunszähler} @var{musikAusdr}
+\repeat unfold @var{Wiederholungszähler} @var{musikAusdr}
 @end example
 
 @noindent

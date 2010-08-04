@@ -664,7 +664,7 @@ Referenz der Interna:
 @cindex Analyse
 @cindex musikwissenschaftliche Analyse
 @cindex Notengruppenklammer
-@cindex horizontale Kklammer
+@cindex horizontale Klammer
 @cindex Musikanalyse
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup

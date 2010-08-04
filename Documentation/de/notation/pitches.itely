@@ -342,7 +342,7 @@ und Doppel-Bs werden durch Hinzufügen von @code{-isis} und
 @code{-eses} hinter die Notenbezeichnung erzeugt. Diese
 Syntax leitet sich von den holländischen Notenbezeichnungen
 ab. Um andere Bezeichnungen für Versetzungszeichen zu
-benutzung, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
+benutzen, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
 
 @lilypond[verbatim,quote,relative=2]
 ais1 aes aisis aeses
@@ -643,7 +643,7 @@ korrigieren. Sie geben eine Warnung aus und korrigieren
 die Oktave, wenn eine Note in einer unerwarteten Oktave
 gefunden wird.
 
-Um die Oktave einer Note zu überprfüfen, muss die absolute
+Um die Oktave einer Note zu überprüfen, muss die absolute
 Oktave nach dem @code{=}-Symbol angegeben werden.  Im
 folgenden Beispiel wird eine Warnung (und eine Tonhöhenänderung)
 generiert, weil die zweite Note als absolute Oktave
@@ -748,7 +748,7 @@ werden auch die Vorzeichen entsprechend angepasst:
 Wenn eine Stimme, die in C notiert ist, von einer A-Klarinette
 gespielt werden soll (für die A als C notiert wird,
 aber eine kleine Terz tiefer erklingt als es notiert
-ist), kann die entpsrechende Stimme wie folgt erstellt
+ist), kann die entsprechende Stimme wie folgt erstellt
 werden:
 
 @lilypond[verbatim,quote]
@@ -1039,7 +1039,7 @@ Die Tonart kann geändert werden:
 Der Wert @var{Modus} sollte entweder @code{\major} oder @code{\minor} 
 sein, um Moll oder Dur der @var{Tonhöhe} zu erhalten. Es können auch 
 Modusbezeichnungen für Kirchentonarten verwendet werden: @code{\ionian} 
-(Ionisch), @code{\locrian} (Locrisch), @code{\aeolian} (Aeolisch), 
+(Ionisch), @code{\locrian} (Lokrisch), @code{\aeolian} (Aeolisch), 
 @code{\mixolydian} (Mixolydisch), @code{\lydian} (Lydisch),
 @code{\phrygian} (Phrygisch) und @code{\dorian} (Dorisch).
 
@@ -1199,7 +1199,7 @@ spielen unisono.
 @end lilypond
 
 Die @code{\transposition} kann während eines Stückes
-geändert werden.  Ein Klarinetist zum Beispiel kann
+geändert werden.  Ein Klarinettist zum Beispiel kann
 zwischen B- und A-Klarinette wechseln.
 
 @lilypond[verbatim,quote,relative=2]
@@ -1263,7 +1263,7 @@ die weiter unten erklärt werden).  Die Funktion kann aber
 auch ein zweites Argument erhalten, mit der spezifiziert
 wird, auf welchen Bereich sich der neue Stil erstreckt.
 Um etwa den neuen Stil in allen Systemen einer
-Stimmbruppe (@code{StaffGroup}) zu benutzen, müsste der Befehl so aussehen:
+Stimmgruppe (@code{StaffGroup}) zu benutzen, müsste der Befehl so aussehen:
 
 @example
 #(set-accidental-style 'voice 'StaffGroup)
@@ -1547,7 +1547,7 @@ musicB = {
 
 @cindex Versetzungszeichen, moderner Stil mit Warnungen
 @cindex moderner Versetzungszeichenstil
-@cindex moderner Verseztungszeichenstil mit Warnungen
+@cindex moderner Versetzungszeichenstil mit Warnungen
 
 @funindex modern-cautionary
 
@@ -1605,7 +1605,7 @@ musicB = {
 }
 @end lilypond
 
-@item modern-voice (Modern für Stimmeen)
+@item modern-voice (Modern für Stimmen)
 
 @cindex Versetzungszeichenstil, modern
 @cindex Versetzungszeichen pro Stimme
@@ -1622,7 +1622,7 @@ Stimme gesetzt, aber sie @emph{werden} über die Stimme hinweg
 aufgelöst innerhalb des selben Notensystems.  Das @code{a} im letzten
 Takt ist also aufgelöst, weil die vorigen Auflösung in einer anderen
 Stimme stattgefunden hatte, und das @code{d} im unteren System ist
-aufgelöst wegen eines Versetzunszeichens in einer anderen Stimme im
+aufgelöst wegen eines Versetzungszeichens in einer anderen Stimme im
 vorigen Takt:
 
 @lilypond[quote]
@@ -1674,7 +1674,7 @@ musicB = {
 
 @cindex Versetzungszeichenstil, modern mit Warnung für Stimmen
 @cindex Stimmen, Versetzungszeichenstil mit Warnung für Stimmen
-@cindex moderner Versetzungszeichensitl mit Warnungen für Stimmen
+@cindex moderner Versetzungszeichenstil mit Warnungen für Stimmen
 
 @funindex modern-voice-cautionary
 
@@ -1973,7 +1973,7 @@ musicB = {
 @end lilypond
 
 
-@item neo-modern-voice (neo-modern für Stimmeen)
+@item neo-modern-voice (neo-modern für Stimmen)
 
 @funindex neo-modern-voice
 
@@ -2358,7 +2358,7 @@ Gleichzeitig erklingende Noten müssen im sequenziellen Modus eingegeben
 werden.  Das bedeutet, dass die Versetzungszeichen von Noten in
 Akkorden so gesetzt werden, als ob die Noten nacheinander auftreten,
 in der Reihenfolge, in der sie im Quelltext erscheinen.  Das ist ein
-Problem, wenn Versetzungzeichen in einem AKkord voneinander abhängen,
+Problem, wenn Versetzungszeichen in einem Akkord voneinander abhängen,
 was im Standard-Stil nicht vorkommt.  Das Problem kann gelöst werden,
 indem man manuell@tie{}@code{!} oder@tie{}@code{?} für die problematischen
 Noten schreibt.
@@ -2578,7 +2578,7 @@ Referenz der Interna:
 @funindex sacredHarpHeads
 
 In dieser Notation haben die Notenköpfe eine Form, die ihrer
-harmonischen Funktion innherhalb der Tonleiter entspricht.  Die
+harmonischen Funktion innerhalb der Tonleiter entspricht.  Die
 Notation war sehr beliebt in amerikanischen Liederbüchern des
 19. Jahrhunderts.  Auf diese Weise können die Formen benutzt
 werden:

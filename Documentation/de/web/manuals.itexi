@@ -155,7 +155,7 @@ License herausgegeben.
 @divClass{column-left-top}
 @subheading Handbuch zum Lernen
 
-Dieses Buch erklärt, wie man beginen sollte, LilyPond zu erlernen.
+Dieses Buch erklärt, wie man beginnen sollte, LilyPond zu erlernen.
 Hier werden auch einige Schlüsselkonzepte und einfache Begriffe
 erklärt.  Sie sollte diese Kapitel von vorne bis hinten lesen.
 
@@ -217,7 +217,7 @@ Ein Vergleich von LilyPond mit anderen Notensatzprogrammen wird
 auch vorgenommen.
 
 @warning{Die detailierten typographischen Beispiele lassen sich
-inder PDF-Version einfacher analysieren, weil sie eine höhere
+in der PDF-Version einfacher analysieren, weil sie eine höhere
 Auflösung hat.}
 
 @divEnd
@@ -306,7 +306,7 @@ Entwicklungsversion zeigt, extra hinzugefügt werden muss.  Diese
 Schipsel sind in der Datei @file{Documentation/snippets/new/} im
 Quellverzeichnis von LilyPond gespeichert.
 
-Die Schnipsel-Listen für jeden Abschnitt der Notationsrefenz
+Die Schnipsel-Listen für jeden Abschnitt der Notationsreferenz
 sind auch verlinkt vom @strong{Siehe auch}-Absatz.
 @divEnd
 
@@ -328,7 +328,7 @@ sind auch verlinkt vom @strong{Siehe auch}-Absatz.
 @divClass{column-center-top}
 @subheading Einleitende Fragen
 
-@subsubheading Wo sind die graphischen Menüs, Wertzeugleisten und Notenblatt?
+@subsubheading Wo sind die graphischen Menüs, Werkzeugleisten und Notenblatt?
 
 LilyPond erfordert es, dass Noten als Text eingegeben werden.
 Lesen Sie bitte über unsere @ref{Text-Eingabe}.
@@ -454,7 +454,7 @@ Dieses Handbuch erklärt, wie man Erweiterungen für LilyPond schreibt.
 @divClass{column-left-top}
 @subheading Handbuch der Interna
 
-Hierbei handelt es sich um eine Anzahl sehr start verlinkter
+Hierbei handelt es sich um eine Anzahl sehr stark verlinkter
 Seiten, welche alle klitzekleinen Details von jeder einzigen
 LilyPond-Klasse, jedem Objekt und jeder Funktion dokumentieren.
 Das Dokument wird direkt aus den Formatanweisungen des
@@ -462,7 +462,7 @@ Quellcodes erstellt und ist nur auf Englisch erhältlich.
 
 Fast alle Formatierungsfunktionen, die intern benutzt werden,
 stehen auch direkt dem Benutzer zur Verfügung.  Beispielsweise
-die meisten Variablen, die Dickewerte, Entfernungn usw. kontrollieren,
+die meisten Variablen, die Dickewerte, Entfernungen usw. kontrollieren,
 können in der Eingabedatei verändert werden.  Es gibt eine große
 Anzahl von Formatierungsoptionen und alle sind in diesem Dokument
 erklärt.  Jeder Abschnitt der Notationsreferenz hat einen

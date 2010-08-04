@@ -97,7 +97,7 @@ LilyPond wird under der
 
 Vielen Dank an @uref{http://www.vt.edu/, Virgina Tech} und
 @uref{http://www.linuxaudio.org/, linuxaudio.org}, die unsere
-Bandweite bezahlen.
+Bandbreite bezahlen.
 
 @sourceimage{VTlogo_ITF,,,}
 @sourceimage{lao_banner_06_on_white_demo,,,}
@@ -148,7 +148,7 @@ auch wieder zu entfernen als die generischen Pakete, aber sie können
 älter sein.  Wenn Sie unsere generischen Pakete benutzen wollen,
 entfernen Sie zunächst die offizielle Version aus ihrem System mit
 dem Paketmanager Ihrer Distribution.  Lesen Sie die Dokumentation
-Ihrer Distrubution, wie Sie den Paketmanager einsetzen.
+Ihrer Distribution, wie Sie den Paketmanager einsetzen.
 
 @divEnd
 
@@ -286,7 +286,7 @@ Alle Logos und Produktabbildungen erkennen Copyright und Trademark an.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Für Intel-Prozessoren (wenn Sie Zweifel haben, benutzes Sie diese Version).
+Für Intel-Prozessoren (wenn Sie Zweifel haben, benutzen Sie diese Version).
 
 @item
 @sourceimage{logo-macosx,,,}

@@ -666,7 +666,7 @@ werden. Das wird benötigt für komplexe Musik mit vielen Stimmen.
 @cindex Mehrstimmigkeit
 @cindex parallele Ausdrücke
 @cindex Ausdrücke, parallel
-@cindex relative Noten und simulatane Musik
+@cindex relative Noten und simultane Musik
 @cindex gleichzeitige Noten und relativer Modus
 
 @funindex <<
@@ -882,7 +882,7 @@ Notationsreferenz:
 
 Glossar: @rglos{chord}.
 
-Wir haben schon weiter oben gesehen, wie Akkorde ersetellt
+Wir haben schon weiter oben gesehen, wie Akkorde erstellt
 werden können, indem sie mit spitzen Klammern eingeschlossen
 und somit als gleichzeitig erklingend markiert werden.
 Die normale Art, Akkorde zu notieren, ist aber, sie in
@@ -925,7 +925,7 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!) |
 @funindex >>
 
 Polyphone Notation in LilyPond ist nicht schwer, benutzt aber bestimmte
-Konzepte, die hier noch nicht behandelt woren sind und hier
+Konzepte, die hier noch nicht behandelt worden sind und hier
 nicht erklärt werden sollten. Anstelle dessen führen die folgenden
 Abschnitte in diese Konzepte ein und erklären sie ausführlich.
 
@@ -1174,7 +1174,7 @@ dürfen sich keine Leerzeichen befinden, oder indem man die
 relevanten Silben in Anführungszeichen @code{"} setzt.
 Hier ein Beispiel aus dem @notation{Figaro} von Rossini, wo die Silbe 
 @notation{al} auf der selben Note wie @notation{go} des Wortes @notation{Largo} 
-in Figaros Arie @notation{Largo al factotum} gesungen werden mus.
+in Figaros Arie @notation{Largo al factotum} gesungen werden muss.
 
 @c no ragged-right here because otherwise the hyphens get lost,
 @c but the example is long enough to avoid looking strange.

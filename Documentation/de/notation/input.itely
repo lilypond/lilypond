@@ -64,7 +64,7 @@ von geschweiften Klammern umgeben sein.}
 
 Dieser einzelne musikalische Ausdruck kann beliebige Größe annehmen und
 andere musikalische Ausdrücke von beliebiger Komplexität beinhalten.
-Alle diese Beispielse sind musikalische Ausdrücke:
+Alle diese Beispiele sind musikalische Ausdrücke:
 
 @example
 @{ c'4 c' c' c' @}
@@ -238,8 +238,8 @@ einem Titel innerhalb einer @code{\header}-Umgebung beginnen.
 @cindex Eingabedatei, Struktur
 @cindex Quelldatei, Struktur
 
-Eine @code{.ly}-Datei kann eine belibige Anzahl an Ausdrücken
-auf der obersten Ebene beinhalten, wobei ein Ausdrück der obersten
+Eine @code{.ly}-Datei kann eine beliebige Anzahl an Ausdrücken
+auf der obersten Ebene beinhalten, wobei ein Ausdruck der obersten
 Ebene einer der folgenden sein kann:
 
 @itemize @bullet
@@ -247,7 +247,7 @@ Ebene einer der folgenden sein kann:
 Eine Ausgabedefinition, wie @code{\paper}, @code{\midi} und
 @code{\layout}.  Derartige Definitionen auf oberster Ebene verändern
 die globalen Einstellungen für das ganze @qq{Buch}.  Wenn mehr
-als eine derarte Definition desselben Typs angegeben wird, hat
+als eine derartige Definition desselben Typs angegeben wird, hat
 die spätere Vorrang.
 
 @item
@@ -319,7 +319,7 @@ beinhaltet, wird übersetzt zu
 @end example
 
 Dieses Verhalten kann verändert werden, indem die Variable
-@code{toplevel-music-handler} auf der oberseten Ebene gesetzt
+@code{toplevel-music-handler} auf der obersten Ebene gesetzt
 wird.  Die Definition des Standards findet sich in der Datei
 @file{../scm/@/lily@/.scm}.
 
@@ -343,7 +343,7 @@ foo = @{ c4 d e d @}
 @end example
 
 Sie kann dann später in der Datei eingesetzt werden, indem @code{\foo}
-geschrieben wird.  Die Beizeichnung der Variable darf nur aus
+geschrieben wird.  Die Bezeichnung der Variable darf nur aus
 alphabetischen Zeichen bestehen, keine Zahlen, Unter- oder Bindestriche.
 
 @end itemize
@@ -410,7 +410,7 @@ und vor dem gesamten Befehl geschrieben werden.
 @end itemize
 
 @seealso
-Hanbuch zum Lernen:
+Handbuch zum Lernen:
 @rlearning{Wie eine LilyPond-Eingabe-Datei funktioniert}.
 
 
@@ -469,7 +469,7 @@ Auch oben auf der Seite zentriert (andere als erste Seite).
 
 @funindex composer
 @item composer
-Name des Komponisten, rechtsbüngig unter dem Unteruntertitel.
+Name des Komponisten, rechtsbündig unter dem Unteruntertitel.
 
 @funindex meter
 @item meter
@@ -491,7 +491,7 @@ Bezeichnung des Opus, rechtsbündig unter dem Bearbeiter.
 @funindex breakbefore
 
 @item breakbefore
-Hiermit beginnt der Titel auf einer neuen Steite. (Kann die Werte
+Hiermit beginnt der Titel auf einer neuen Seite. (Kann die Werte
 ##t (wahr) oder ##f (falsch) haben.)
 
 @funindex copyright
@@ -595,7 +595,7 @@ vor @code{\header} gesetzt werden.
 
 @noindent
 Dieses Verhalten kann verändert werden (sodass alle Angaben aus der
-überschrift gesetzt werden, wenn sich @code{\header} innerhalb von
+Überschrift gesetzt werden, wenn sich @code{\header} innerhalb von
 @code{\score} befindet), indem man schreibt:
 
 @example
@@ -647,7 +647,7 @@ wird hier der Komponist und die Überschrift des Werkes genannt.
 
 @item scoreTitleMarkup
 Das ist die Überschrift, die vor jede @code{\score}-Umgebung gesetzt wird.
-Überlicherweise wird hier etwa die Bezeichnung eines Satzes notiert
+Üblicherweise wird hier etwa die Bezeichnung eines Satzes notiert
 (im @code{piece}-Feld).
 
 @funindex oddHeaderMarkup
@@ -741,7 +741,7 @@ Der @code{\page-ref}-Textbeschriftungsbefehl braucht drei Argumente:
 
 @item die Marke, ein Scheme-Symbol, etwa @code{#'ErstePartitur},
 @item eine Beschriftung, die als Platzhalter benutzt wird, um die Breite des Verweisen zu schätzen,
-@item eine Beschriftung, die anstelle der Seitenzahl gesetzt wird, wenn die Marke unbekann ist.
+@item eine Beschriftung, die anstelle der Seitenzahl gesetzt wird, wenn die Marke unbekannt ist.
 @end enumerate
 
 Der Grund, warum ein Platzhalter benötigt wird, ist dass zu dem Zeitpunkt,
@@ -910,7 +910,7 @@ Installierte Dateien: @file{../ly/@/toc@/-init@/.ly}.
 @cindex einfügen  von Dateien
 @cindex Dateien einfügen
 
-Ein größeres Projekt kann in einzelne Dateien aufteteilt werden.
+Ein größeres Projekt kann in einzelne Dateien aufgeteilt werden.
 Um eine andere Datei einzubinden, kann der Befehl
 
 @example
@@ -1000,9 +1000,9 @@ So werden auch die Sprachdateien wie etwa @file{deutsch.ly} eingefügt.
 
 LilyPond lädt eine Anzahl an Dateien, wenn das Programm aufgerufen wird.
 Diese Dateien sind für den Benutzer nicht ersichtlich, aber die Dateien
-können identifiziert werden, indem LilyPond auf der Komandozeile mit
+können identifiziert werden, indem LilyPond auf der Kommandozeile mit
 Option aufgerufen wird: @code{lilypond --verbose}.  Hiermit wird
-neben anderer Information auch eine Liste and Pfaden und Dateien
+neben anderer Information auch eine Liste von Pfaden und Dateien
 aufgeführt, die LilyPond benutzt.  Die wichtigeren Dateien werden
 im Abschnitt @rlearning{Mehr Information} besprochen.
 Diese Dateien können verändert werden, aber Änderungen gehen verloren,
@@ -1036,7 +1036,7 @@ verschiedene Weise zu kombinieren.  Tag-Marken dagegen werden am
 besten eingesetzt, wenn eine von mehreren kurzen alternativen
 Notenabschnitten ausgewählt werden soll.  Egal welche Methode am
 Ende eingesetzt wird: Es erleichtert die Arbeit in jedem Fall, wenn
-die eigentlichen Noten und die Struktur der Paritur voneinander
+die eigentlichen Noten und die Struktur der Partitur voneinander
 getrennt notiert werden -- so kann die Struktur geändert werden,
 ohne dass man Änderungen an den Noten vornehmen muss.
 
@@ -1450,7 +1450,7 @@ mit der Schere bestimmte Regionen ausschneidet.
 
 Es wird erreicht, indem man die Takte, die ausgeschnitten werden sollen
 (engl. to clip = ausschneiden), extra definiert.  Mit folgender
-Defintion beispielsweise
+Definition beispielsweise
 
 @verbatim
 \layout {
@@ -1608,7 +1608,7 @@ Das Anfangstempo und spätere Tempoänderungen können mit dem
 bewirkt Tempoänderungen auch in der MIDI-Datei.  Der Befehl setzt
 gleichzeitig auch eine Tempobezeichnung in die Noten, welches aber
 auch unterdrückt werden kann, siehe @ref{Metronomangabe}.  Eine
-andere möglichkeit, ein eigenes MIDI-Tempo anzugeben, wird weiter
+andere Möglichkeit, ein eigenes MIDI-Tempo anzugeben, wird weiter
 unten gezeigt, siehe @ref{Der MIDI-Block}.
 
 Aufgrund einiger Einschränkungen auf Windows ist auf Windows-Systemen
@@ -1631,7 +1631,7 @@ Als Alternative kann man diese Option auch als Kommandozeilenparameter
 lilypond … -dmidi-extension=midi lilyDatei.ly
 @end example
 
-@unnumberedsubsubsec Instrumentenbezeichnungn
+@unnumberedsubsubsec Instrumentenbezeichnungen
 
 @cindex Instrumentbezeichnungen
 
@@ -1657,7 +1657,7 @@ in der dort definierten Schreibweise notiert werden.
 @end example
 
 Wenn die Schreibweise nicht genau einem definierten Instrument aus
-der Liste entpsricht, wird ein Piano-Klang benutzt (@code{"acoustic grand"}).
+der Liste entspricht, wird ein Piano-Klang benutzt (@code{"acoustic grand"}).
 
 @snippets
 
@@ -1787,12 +1787,12 @@ Spieler benötigt, der Tonhöhen verändern kann.)
 
 @unnumberedsubsubsec In MIDI nicht unterstützt
 
-Folgende Notationselemente werden nicht in die MIDI-Ausgabe einbeozogen:
+Folgende Notationselemente werden nicht in die MIDI-Ausgabe einbezogen:
 
 @itemize
 @item Rhythmus, der als Anmerkung notiert wird, bspw. Swing
 @item Tempoveränderungen, die als Anmerkung ohne Tempobezeichnung notiert werden
-@item Staccato und andere Artikultationen und Ornamente
+@item Staccato und andere Artikulationen und Ornamente
 @item Legato- und Phrasierungsbögen
 @item Crescendi, decrescendi zu einer einzelnen Note
 @item Tremolo, notiert mit @q{@code{:}[@var{number}]}
@@ -1810,7 +1810,7 @@ Folgende Notationselemente werden nicht in die MIDI-Ausgabe einbeozogen:
 
 @funindex \unfoldRepeats
 
-Mit einigen Veränderungungen im Notentext können alle Wiederholungstypen
+Mit einigen Veränderungen im Notentext können alle Wiederholungstypen
 auch in der MIDI-Ausgabe wiedergegeben werden.  Das wird erreicht, indem
 die @code{\unfoldRepeats}-Funktion eingesetzt wird.  Diese Funktion
 verändert alle Wiederholungen in ausgeschriebene Noten.
@@ -1912,7 +1912,7 @@ gemacht werden kann.
 
 Die generellen Mindest- und Höchstwerte für die Lautstärke der MIDI-Datei
 wird kontrolliert, indem die Eigenschaften @code{midiMinimumVolume}
-unde @code{midiMaximumVolume} auf der @code{Score}-Ebene gesetzt
+und @code{midiMaximumVolume} auf der @code{Score}-Ebene gesetzt
 werden.  Diese Eigenschaften haben nur Einfluss auf Dynamikzeichen, sodass
 ein Dynamikzeichen direkt an den Anfang der Partitur gestellt werden muss,
 wenn diese Einstellung von Anfang an Wirkung zeigen soll.  Der Bruch,
@@ -2014,7 +2014,7 @@ diese Einstellung korrekt funktioniert.
 @end lilypond
 
 
-@unnumberedsubsubsec Verschidene Instrumente angleichen (ii)
+@unnumberedsubsubsec Verschiedene Instrumente angleichen (ii)
 
 Wenn Mindest- und Höchstwerte für die Lautstärke der MIDI-Datei
 nicht vorgegeben werden, nimmt LilyPond standardmäßig einige
@@ -2027,7 +2027,7 @@ Dieser grundlegende Equalizer kann ersetzt werden, indem die
 Funktion @code{instrumentEqualizer} im @code{Score}-Kontext auf
 eine neue Scheme-Funktion gesetzt wird, die MIDI-Instrumentbezeichnungen
 als einziges Argument akzeptiert und ein Zahlenpaar ausgibt, das
-den Höchst- und Mindestwert für die Lautstärke des entpsrechenden
+den Höchst- und Mindestwert für die Lautstärke des entsprechenden
 Instruments darstellt.  Die Ersetzung der Standardfunktion wird
 auf gleiche Weise vorgenommen, wie es schon für die
 @code{dynamicAbsoluteVolumeFunction} zu Beginn dieses Abschnittes
@@ -2105,7 +2105,7 @@ Einige Instrumente, die keine diskreten Tonhöhen haben, können nicht
 einem normalen @code{Staff}-Kontext notiert werden.  Es handelt sich
 um @code{melodic tom, taiko drum, synth drum} usw.
 
-Viele Schlagzeuginstrumnete sind nicht in den MIDI-Standard aufgenommen,
+Viele Schlagzeuginstrumente sind nicht in den MIDI-Standard aufgenommen,
 z. B. Kastagnetten.  Die einfachste Methode, derartige Instrumente
 zu ersetzen, ist, einen Klang auszuwählen, der ihnen halbwegs ähnlich
 kommt.

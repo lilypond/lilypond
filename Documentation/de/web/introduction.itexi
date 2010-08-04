@@ -119,7 +119,7 @@ elegante Aussehen wie die besten gestochenen klassischen
 Partituren.  Dazu mehr in unserem @ref{Aufsatz}.
 
 
-@subsubheading Effektie Layout-Einstellungen
+@subsubheading Effektive Layout-Einstellungen
 
 Verbringen Sie weniger Zeit damit, den Notensatz nachträglich zu
 verändern: LilyPond formatiert die Noten von Anfang an richtig.
@@ -178,7 +178,7 @@ mit graphisch-basierten Notationsprogrammen.
 
 @subsubheading Erweiterbares Design
 
-Alle Einstellungn können verändert werden, um Ihrem persönlichen
+Alle Einstellungen können verändert werden, um Ihrem persönlichen
 typographischen Geschmack zu entsprechen.  Wenn das Ihnen immer
 noch nicht reicht, gibt es immer noch die eingebaute Scriptsprache
 Scheme, ein Dialekt des mächtigen LISP.  Einstellungen, Variablen
@@ -245,7 +245,7 @@ LilyPond ist ist ein sehr mächtiges und flexibles Werkzeug, dass Notensatz der 
 @subsubheading Klassische Musik
 
 Dieses Orgelpräludium von J. S. Bach ist ein recht typisches
-Notensatzprojetz mit LilyPond.
+Notensatzprojekt mit LilyPond.
 
 @exampleImage{bach-bwv610}
 @newsEnd
@@ -254,7 +254,7 @@ Notensatzprojetz mit LilyPond.
 @subsubheading Komplexe Notation
 
 Dieses Beispiel aus @emph{Goyescas} von Enrique Granados zeigt
-einige der vorgeschrittenen Notensatzfunktionen, unter Anderem
+einige der fortgeschrittenen Notensatzfunktionen, unter Anderem
 Balken zwischen Notenzeilen, Hälse über die Notenzeilen hinweg und
 Stimmfolgestriche.
 
@@ -328,7 +328,7 @@ Anforderungen.  Die Tenorstimme ist in einer anderen Taktart als
 die anderen Stimmen geschrieben, wird aber an den anderen Stimmen
 ausgerichtet, als ob sie die gleiche Taktart hätte.  LilyPond
 kann damit sehr elegant umgehen.  Beachten Sie auch die Incipite
-mit Schlüsseln im Vaticana-Stil, durchstrichene Notenhälse für
+mit Schlüsseln im Vaticana-Stil, durchgestrichene Notenhälse für
 plicierte Noten und Ligaturklammern über bestimmten Notengruppen.
 
 @exampleImage{aucun-snippet}
@@ -429,7 +429,7 @@ geschieht dann mit den elektronischen Noten, die von ihren
 Programmen abhängen?  Diese Sorge brauchen Sie nicht mit LilyPond
 haben: auch wenn das gesamte Entwicklerteam auf einmal aufhören
 würde (was sehr unwahrscheinlich ist), gibt es das Programm doch
-immernoch legal im Internet, um es weiterzubenutzen, zu verändern
+immer noch legal im Internet, um es weiterzubenutzen, zu verändern
 oder zu kopieren.
 
 
@@ -593,7 +593,7 @@ direkten Download als auch auf Papier erhältlich.
 @uref{http://theshadylanepublishing.com/, The Shady Lane
 Publishing},
 ein @qq{Mikro-Notenverlag}, der es sich zum Ziel gesetzt hat,
-eine neue Musikökonomie zu unterstüzen, die den Musikern und
+eine neue Musikökonomie zu unterstützen, die den Musikern und
 Musikliebhabern näher steht.
 
 @end itemize
@@ -1071,7 +1071,7 @@ UNIX-artigen Betriebssystemen.
 
 Denemo ist ein graphischer Editor, welcher LilyPond-Dateien
 produzieren kann (mit Eingabeformat der Version 2.8.7) und auch Audioplayback erlaubt.  Hiermit kann die LilyPond-Datei
-paralell zum graphischen Notenbild betrachtet werden.  Zusätzliche
+parallel zum graphischen Notenbild betrachtet werden.  Zusätzliche
 Veränderungen und Anpassungen können an die Objekte angehängt
 werden -- sie werden mit der Denemo-Datei gespeichert, sodass der
 Benutzer graphisch weiterarbeiten kann.
@@ -1178,7 +1178,7 @@ hat experimentelle Unterstützung für LilyPond-Export.
 Verfügung und kann nach LilyPond exportieren.
 
 @item
-@uref{http://musescore.org,MuseScore} hat unvollständingen Export für LilyPond,
+@uref{http://musescore.org,MuseScore} hat unvollständigen Export für LilyPond,
 wird aber aktiv entwickelt.
 
 @item
@@ -1198,7 +1198,7 @@ highly expressive constraint-based music composition system}.
 
 @item
 @uref{http://common-lisp.net/project/fomus/,FOMUS}, eine LISP-Bibliothek,
-mit der Notation für Computermususik-Programmumgebungen generiert wrid.
+mit der Notation für Computermusik-Programmumgebungen generiert wird.
 
 @end itemize
 @divEnd
@@ -1220,7 +1220,7 @@ LilyKDE3 für KDE 3.5 und lilypond-KDE4 für KDE 4.1.
 @uref{http://www.musicxml.com/xml.html,MusicXML} importieren kann, wird
 als Fork unter
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
-und @uref{http://canorus.org,Canorus} weiterentickelt.
+und @uref{http://canorus.org,Canorus} weiterentwickelt.
 
 
 @item
@@ -1242,7 +1242,7 @@ Sind Sie noch immer nicht überzeugt?  Viele Komponisten, Musiker
 und Dirigenten haben gelernt, wie man Noten in unserem Eingabeformat
 schreibt.  Erfahrene Benutzer haben sogar berichtet, dass sie
 eine volle Partitur in LilyPond schneller notieren können als mit
-Klaviertastuatur oder Maus plus GUI!  Vielleicht wollen Sie noch
+Klaviertastatur oder Maus plus GUI!  Vielleicht wollen Sie noch
 einmal schauen, welche @ref{Eigenschaften}, @ref{Beispiele} oder
 @ref{Freiheit} LilyPond ermöglicht oder über die @ref{Produktionen}
 und @ref{Rezensionen} unserer Benutzer lesen.  Zusätzlich

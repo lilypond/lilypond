@@ -167,7 +167,7 @@ Referenz der Interna:
 @knownissues
 
 Cluster sehen nur gut aus, wenn sie wenigstens über zwei Akkorde
-reichen -- anderfalls sind sie zu schmal.
+reichen -- andernfalls sind sie zu schmal.
 
 Cluster haben keine Hälse und können auch selber keine Dauern
 darstellen, aber die Länge des gesetzten Clusters wird erschlossen
@@ -236,9 +236,9 @@ Stimmen werden automatisch verschoben, um Zusammenstöße zu
 vermeiden.  Der @code{\oneVoice}-Befehl stellt das Standardverhalten
 mit neutralen Halsrichtungen wieder her.
 
-@strong{@i{Vorrübergehende polyphone Passagen}}
+@strong{@i{Vorübergehende polyphone Passagen}}
 
-Ein vorrübergehender polyphoner Abschnitt kann mit folgender
+Ein vorübergehender polyphoner Abschnitt kann mit folgender
 Konstruktion erstellt werden:
 
 @example
@@ -290,7 +290,7 @@ Backslash-Zeichen (Taste AltGr+ß) getrennt werden, verhält
 sich anderes als die ähnliche Konstruktion ohne die doppelten
 Schrägstriche:  @emph{alle} Ausdrücke innerhalb der eckigen
 Klammern werden in diesem Fall jeweils neuen @code{Voice}-Kontexten
-zugeordnet.  diese neuen @code{Voice}-Kontexte werden implizit
+zugeordnet.  Diese neuen @code{Voice}-Kontexte werden implizit
 erstellt und haben die festen Bezeichnungen @code{"1"},
 @code{"2"} usw.
 
@@ -305,7 +305,7 @@ Das erste Beispiel könnte also auch wie folgt notiert werden:
 @end lilypond
 
 Diese Syntax kann benutzt werden, wenn es keine Rolle spielt,
-ob vorrübergehend Stimmen erstellt werden und dann wieder
+ob vorübergehend Stimmen erstellt werden und dann wieder
 verworfen werden.  Diese implizit erstellten Stimmen erhalten
 die Einstellungen, die in den Befehlen
 @code{\voiceOne} ... @code{\voiceFour} enthalten sind, in
@@ -333,7 +333,7 @@ Stücken explizite Stimmenkontexte zu erstellen, wie erklärt in@rlearning{Konte
 
 @strong{@i{Identische Rhythmen}}
 
-Wenn paralelle Abschnitte gesetzt werden sollen,
+Wenn parallele Abschnitte gesetzt werden sollen,
 die identischen Rhythmus haben, kann man die Ausdrücke in 
 einen einzigen @code{Voice}-Kontext parallel kombinieren, sodass
 sich Akkorde ergeben.  Um das zu erreichen, müssen sie einfach
@@ -526,7 +526,7 @@ fehlerhaft verschmolzen, weil @code{\mergeDifferentlyHeadedOn}
 (Unterschiedliche Köpfe Verschmelzen An) nicht richtig arbeiten
 kann, wenn drei oder mehr Noten zur gleichen Zeit auftreten --
 in diesem Fall wird eine Warnung ausgegeben.  Damit die
-Verschmlezung richtig funktionieren kann, muss ein @code{\shift}
+Verschmelzung richtig funktionieren kann, muss ein @code{\shift}
 (Verschiebung) der Note hinzugefügt werden, die nicht mit
 verschmolzen werden soll.  In diesem Fall wurde
 @code{\shiftOn} gesetzt, um das oberste @notation{g} aus der
@@ -562,7 +562,7 @@ ein @code{\shiftOn} eingestellt haben (Verschiebung an).  Die
 Befehle @code{\shiftOnn} und @code{\shiftOnnn} stellen weitere
 Verschiebungesebenen dar.
 
-Noten werden nur verschmolzen, wenn ihre Hälse in gegengesetzte
+Noten werden nur verschmolzen, wenn ihre Hälse in entgegengesetzte
 Richtungen zeigen (also etwa wie @code{Voice} 1 und 2).
 
 
@@ -725,7 +725,7 @@ Referenz der Interna:
 @code{\partcombine} kann nur zwei Stimmen bearbeiten.
 
 Wenn @code{printPartCombineTexts} (drucke Stimmenkombinationstext)
-gesetzt ist und die Stimmen die gleichen Noten wiederholgt
+gesetzt ist und die Stimmen die gleichen Noten wiederholt
 spielen, kann @code{a2} in einem Takt mehrmals gesetzt werden.
 
 @code{\partcombine} kann nicht innerhalb von @code{\times} benutzt
@@ -793,10 +793,10 @@ die Takte müssen die gleiche Länge haben.}
 
 Der relative Modus kann auch benutzt werden.  Beachten Sie, dass
 der @code{\relative}-Befehl nicht innerhalb von
-@code{\parallelMusic} benutzt wird.  Die Noten sind paralell
+@code{\parallelMusic} benutzt wird.  Die Noten sind parallel
 zu der vorherigen Note der gleichen Stimme , nicht zu der
 vorherigen Note in der Quelldatei.  Anders gesagt ignorieren
-realtive Noten von @code{voiceA} die Noten von @code{voiceB}.
+relative Noten von @code{voiceA} die Noten von @code{voiceB}.
 
 @lilypond[quote,verbatim]
 \parallelMusic #'(voiceA voiceB voiceC) {

@@ -79,7 +79,7 @@ können angepasst werden, wie behandelt in
 @item Zusätzliche Taktarten können erstellt werden, siehe
 @ref{Tonartbezeichnung}.
 
-@item Komplexe Taktarten erfordern evtl., dass Noten manual gruppiert
+@item Komplexe Taktarten erfordern evtl., dass Noten manuell gruppiert
 werden, wie gezeigt in
 @ref{Manuelle Balken}.
 
@@ -132,7 +132,7 @@ Das Symbol für das Halb-B sieht anders aus als das Symbol, was
 @code{\dwn}-Symbol, das in der Datei @code{arabic.ly} definiert
 ist, kann als ein Workaround eingesetzt werden, wenn es notwendig
 ist, das arabische Symbol zu benutzen.  Das Aussehen des
-Halb-Bs in den Vorzeichen kann mit dieser methode nicht verändert
+Halb-Bs in den Vorzeichen kann mit dieser Methode nicht verändert
 werden.
 
 @lilypond[quote,verbatim]

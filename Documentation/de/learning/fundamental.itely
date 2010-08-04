@@ -149,7 +149,7 @@ der vollständige Code, der hier gemeint ist, eigentlich:
 Mit anderen Worten:  Wenn die Eingabedatei einen einfachen Musik-Ausdruck
 enthält, wird LilyPond die Datei so interpretieren, als ob dieser
 Ausdruck in den oben gezeigten Befehlen eingegeben wurde.  Diese nötige 
-Stuktur wird automatisch im Speicher beim Aufruf von LilyPond erzeugt, 
+Struktur wird automatisch im Speicher beim Aufruf von LilyPond erzeugt, 
 ohne dass der Benutzer davon etwas bemerkt.
 
 @cindex Implizite Kontexte
@@ -167,7 +167,7 @@ die entsprechenden Kontexte in diesem Fall explizit zu erzeugen,
 siehe @ref{Kontexte und Engraver}.
 
 @warning{Wenn mehr als ein paar Zeilen an Musik eingegeben werden,
-empfielt es sich, die Notenzeilen und die Stimmen immer explizit
+empfiehlt es sich, die Notenzeilen und die Stimmen immer explizit
 mit @code{\new Staff} und @code{\new Voice} zu erzeugen.}
 
 Im Moment wollen wir aber zu unserem ersten Beispiel zurückkehren und
@@ -240,7 +240,7 @@ Benutzerhandbuch -- @ruser{Partiturlayout} und
 
 Ihr LilyPond Code kann auch mehrere @code{\score}-Blöcke enthalten. 
 Jeder davon wird als eigenständige Partitur interpretiert, die 
-allerdings alle in dieselbe Ausgabedatei plaziert weden.
+allerdings alle in dieselbe Ausgabedatei plaziert werden.
 Ein @code{\book}-Befehl ist nicht explizit notwendig -- er wird 
 implizit erzeugt.  Wenn jedoch für jeden @code{\score}-Block in einer 
 einzigen @code{.ly}-Datei eine eigene Ausgabe-Datei erzeugt werden soll,
@@ -430,7 +430,7 @@ interpretiert wird, wird ihm @code{\lyricmode} vorangesetzt.  Wie
 gewechselt. Ohne diesen Befehl würde LilyPond versuchen, den Inhalt
 der Variable als Noten zu interpretieren und dabei eine Menge
 Fehler produzieren. (Einige andere Eingabemodi sind außerdem noch
-verfügtbar, siehe @ruser{Input modes}.)
+verfügbar, siehe @ruser{Input modes}.)
 
 Also haben wir, wenn wir ein paar Noten und einen Bassschlüssel
 für die linke Hand hinzufügen, folgendes Beispiel:
@@ -483,8 +483,8 @@ Benutzerhandbuch: @ruser{Struktur einer Partitur}.
 
 Notenzeilen (die @q{Staff}-Kontexte) müssen nicht unbedingt gleich
 zu Beginn erzeugt werden -- sie können auch zu einem späteren
-Zeitpunkt eingeführt weden.  Das ist vor allem nützlichm um 
-@rglosnamed{ossia,Ossias} zu erzeugen.  Hier folgt ein kures Beispiel,
+Zeitpunkt eingeführt weden.  Das ist vor allem nützlich, um 
+@rglosnamed{ossia,Ossias} zu erzeugen.  Hier folgt ein kurzes Beispiel,
 wie eine zusätzliche temporäre Notenzeile für nur drei Noten erzeugt 
 werden kann:
 
@@ -542,7 +542,7 @@ standardmäßig unterhalb.
 
 
 @seealso
-Ossia werden oft ohne Notenschlüssel und Taktangabe gedruck, meist 
+Ossia werden oft ohne Notenschlüssel und Taktangabe gedruckt, meist 
 auch etwas kleiner als die anderen Notenzeilen.  Dies ist natürlich 
 auch in LilyPond möglich, benötigt aber Befehle, die bisher noch 
 nicht vorgestellt wurden.  Siehe @ref{Größe von Objekten}
@@ -666,7 +666,7 @@ von LilyPond.
 @cindex Akkorde versus Stimmen
 @cindex Noten gleichzeitig
 
-Die grundegendsten und innersten Ebenen ein einer LilyPond-Partitur
+Die grundlegendsten und innersten Ebenen ein einer LilyPond-Partitur
 werden @qq{Voice context} (Stimmenkontext) oder auch nur @qq{Voice}
 (Stimme) genannt.  Stimmen werden in anderen Notationsprogrammen
 manchmal auch als @qq{layer} (Ebene) bezeichnet.
@@ -678,12 +678,12 @@ gezeigt.  Manche Instrumente wie etwa die Oboe können nur eine
 Note gleichzeitig spielen.  Noten für solche Instrumente sind
 monophon und brauchen nur eine einzige Stimme.  Instrumente, die
 mehrere Noten gleichzeitig spielen können, wie das Klavier, brauchen
-dagegeben oft mehrere Stimmen, um die verschiedenen gleichzeitig
+dagegen oft mehrere Stimmen, um die verschiedenen gleichzeitig
 erklingenden Noten mit oft unterschiedlichen Rhythmen darstellen 
 zu können.
 
 Eine einzelne Stimme kann natürlich auch vielen Noten in einem Akkord
-enhalten -- wann also braucht man dann mehrere Stimmen? Schauen wir
+enthalten -- wann also braucht man dann mehrere Stimmen? Schauen wir
 uns zuerst dieses Beispiel mit vier Akkorden an:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
@@ -924,7 +924,7 @@ geschrieben werden, denn sie beginnen auf der gleichen Taktzeit.  Dieser
 Taktabschnitt benötigt drei Stimmen, und normalerweise schreibt man
 drei Stimmen für den ganzen Takt, wie im Beispiel unten zu sehen ist;
 hier sind unterschiedliche Köpfe und Farben für die verschiedenen Stimmen
-eingesetzt.  Nocheinmal: der Quellcode für dieses Beispiel wird später 
+eingesetzt.  Noch einmal: der Quellcode für dieses Beispiel wird später 
 erklärt werden, deshalb ignorieren Sie alles, was Sie hier nicht 
 verstehen können.
 
@@ -1243,7 +1243,7 @@ an denen die Stimme nicht auftaucht, wie etwa hier:
 
 Dicht notierte Noten in einem Akkord, oder Noten auf der gleichen
 Taktzeit aber in unterschiedlichen Stimmen, werden in zwei, manchmal
-auch mehreren Kolumnen getzt, um die Noten am Überschneiden zu 
+auch mehreren Kolumnen gesetzt, um die Noten am Überschneiden zu 
 hindern.  Wir bezeichnen sie als Notenkolumnen.  Jede Stimme hat
 eine eigene Kolumne, und ein stimmenabhängiger Verschiebunsbefehl (engl.
 shift) wird eingesetzt, wenn eine Kollision auftreten könnte.  
@@ -1530,7 +1530,7 @@ zu erzwingen, bestimmte Notationsobjekte zu erstellen und
 verbundene Elemente zu ordnen.  Der @code{Voice}-Kontext
 zum Beispiel kann eine Vorzeichenregel einführen und der
 @code{Staff}-Kontext hält diese Regel dann aufrecht, um
-einzuordenen, ob ein Versetzungszeichen gesetzt werden
+einzuordnen, ob ein Versetzungszeichen gesetzt werden
 muss oder nicht.
 
 Ein anderes Beispiel: die Synchronisation der Taktlinien ist
@@ -1602,7 +1602,7 @@ vorangestellt, etwa so:
 @noindent
 wobei @var{Typ} eine Kontextbezeichnung (wie etwa @code{Staff} oder
 @code{Voice}) ist.  Dieser Befehl erstellt einen neuen Kontext und
-beginnt, den @var{muskalischen Ausdruck} innherhalb dieses
+beginnt, den @var{muskalischen Ausdruck} innerhalb dieses
 Kontexts auszuwerten.
 
 (Beachten Sie, dass man normalerweise keinen @code{\new Score}-Befehl
@@ -1676,7 +1676,7 @@ nur einen einzigen musikalischen Ausdruck und ist deshalb
 von geschweiften Klammern umschlossen.)
 
 @cindex Kontexte, Benennung
-@cindex Bennenung von Kontexten
+@cindex Benennung von Kontexten
 
 Der @code{\new}-Befehl kann einem Kontext auch einen
 Namen zur Identifikation geben, um ihn von anderen Kontexten des
@@ -1869,9 +1869,9 @@ Kontext-Eigenschaften.  Es gibt sehr viel mehr.
 @end multitable
 
 @noindent
-Ein boolischer Wert ist entweder wahr  (@code{#t}) 
+Ein boolescher Wert ist entweder wahr  (@code{#t}) 
 oder falsch (@code{#f}),
-ein Integer eine positive ganze Zahl, eine reale Zahl eine positive
+ein Integer eine positive ganze Zahl, ein Real (reelle Zahl) eine positive
 oder negative Dezimalzahl, und Text wird in doppelte
 Anführungszeichen (Shift+2) eingeschlossen.  Beachten Sie
 das Vorkommen des Rautenzeichens
@@ -1915,7 +1915,7 @@ zweiten @code{\set}-Befehl wird also die Eigenschaft @code{instrumentName}
 im @code{Voice}-Kontext auf @qq{Alto}, gesetzt, aber weil LilyPond diese
 Eigenschaft nicht im @code{Voice}-Kontext vermutet, passiert einfach
 gar nichts.  Das ist kein Fehler, und darum wird auch keine Fehlermeldung
-prodziert.
+produziert.
 
 Ebenso gibt es keine Fehlermeldung, wenn die Kontext-Bezeichnung
 falsch geschrieben wird und die Änderung also nicht ausgeführt werden
@@ -1933,7 +1933,7 @@ Bezeichnungen in der Interna-Referenz zu überprüfen: siehe
 @rinternals{Contexts}.
 
 Die Eigenschaft @code{instrumentName} wird erst aktiv, wenn sie
-ineinem @code{Staff}-Kontext gesetzt wird, aber manche Eigenschaften
+in einem @code{Staff}-Kontext gesetzt wird, aber manche Eigenschaften
 können in mehr als einem Kontext benutzt werden.  Als Beispiel mag die
 @code{extraNatural}-Eigenschaft dienen, die zusätzliche Erniedrigungszeichen
 setzt.  Die Standardeinstellung ist ##t (wahr) in allen Systemen.
@@ -2005,13 +2005,13 @@ b4 c |
 @end lilypond
 
 Wir haben jetzt gesehen, wie sich die Werte von unterschiedlichen
-Eigenschaften ändern lassen.  Beachten Sie, dass Integre und
+Eigenschaften ändern lassen.  Beachten Sie, dass Integer und
 Zahlen immer mit einem Rautenzeichen beginnen, während
 die Werte wahr und falsch (mit @code{##t} und @code{##f}
 notiert) immer mit zwei Rauten beginnen.  Eine Eigenschaft, die
 aus Text besteht, muss in doppelte Anführungsstriche gesetzt werden,
 auch wenn wir später sehen werden, dass Text auf eine sehr viel
-allgmeinere und mächtigere Art mit dem @code{\markup}-Befehl
+allgemeinere und mächtigere Art mit dem @code{\markup}-Befehl
 eingegeben werden kann.
 
 @subsubheading Kontexteigenschaften mit @code{\with} setzen
@@ -2052,7 +2052,7 @@ etwa so:
 @end lilypond
 
 Oder, wenn das @code{\override} für die Eigenschaft auf alle
-Notensysteme innerhalt der Partitur gelten soll, kann es auch
+Notensysteme innerhalb der Partitur gelten soll, kann es auch
 direkt an ein @code{\new Score} gehängt werden, wie etwa hier:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -2096,14 +2096,14 @@ wird, kann dieser neue Standardwert mit dem Befehl
 Die Werte von Kontext-Eigenschaften können in @emph{allen} Kontexten
 eines bestimmten Typs (etwa alle @code{Staff}-Kontexte) 
 gleichzeitig mit einem Befehl gesetzt werden.  Der Kontext wird
-spezifieziert, indem seine Bezeichnung benutzt wird, also etwa 
+spezifiziert, indem seine Bezeichnung benutzt wird, also etwa 
 @code{Staff}, mit einem Backslash davor: @code{\Staff}.  Der Befehl
 für die Eigenschaft ist der gleiche, wie er auch in der 
 @code{\with}-Konstruktion benutzt wird, wie oben gezeigt.  Er wird in
 eine @code{\context}-Umgebung eingebettet, welche wiederum innerhalb
 von einer @code{\layout}-Umgebung steht.  Jede @code{\context}-Umgebung
 wirkt sich auf alle Kontexte dieses Types aus, welche sich in der
-aktuellen Partitur befinden (d. h. innherhalb einer @code{\score}-
+aktuellen Partitur befinden (d. h. innerhalb einer @code{\score}-
 oder @code{\book}-Umgebung.  Hier ist ein Beispiel, wie man diese
 Funktion anwendet:
 
@@ -2124,7 +2124,7 @@ Funktion anwendet:
 @end lilypond
 
 @noindent
-Kontext-Eigenschaften, die auf diese Weise gestzt werden, können für 
+Kontext-Eigenschaften, die auf diese Weise gesetzt werden, können für 
 bestimmten Kontexte überschrieben werden, indem die 
 @code{\with}-Konstruktion eingesetzt wird, oder mit @code{\set}-Befehlen
 innerhalb der aktuellen Noten.
@@ -2739,7 +2739,7 @@ und @code{unten} hinzu.
 
 Das Chorsystem und das Pianosystem müssen mit
 spitzen Klammern kombiniert werden, damit beide
-übereinandern erscheinen:
+übereinander erscheinen:
 
 @example
 <<  % ChoirStaff und PianoStaff parallel kombinieren
@@ -3022,7 +3022,7 @@ nur eine Stimme.  Andererseits schadet es nichts, sie
 zu schreiben, und es ist eine gute Angewohnheit, immer
 die spitzen Klammern nach einem @code{\new Staff} zu
 schreiben, wenn mehr als eine Stimme vorkommen könnten.
-Für Stimmen (@code{Voice}) dagegengilt genau das
+Für Stimmen (@code{Voice}) dagegen gilt genau das
 Gegenteil: eine neue Stimme sollte immer von 
 geschweiften Klammern (@code{@{ .. @}}) gefolgt
 werden, falls Sie ihre Noten in mehrere Variable aufteilen,
@@ -3269,7 +3269,7 @@ in einer Stimme für die Spieler, und einmal ein der Partitur
 für den Dirigenten.  Variablen können benutzen, um sich doppelte
 Arbeit zu ersparen.  Die Noten werden nur einmal eingegeben und
 in einer Variable abgelegt.  Der Inhalt der Variable wird dann
-benutzt um sowohl die Stimme als auch die Paritur zu erstellen.
+benutzt um sowohl die Stimme als auch die Partitur zu erstellen.
 
 Es bietet sich an, die Noten in einer extra Datei abzulegen.
 Nehmen wir an, dass die Datei @file{horn-music.ly} folgende
@@ -3331,7 +3331,7 @@ in einem 2/4-Takt:
 R2*3
 @end example
 
-Wenn die Stimme gesetzt wird, werden Mehrtaktpausen komprimiert.  Das schieht, indem man folgendes in die Datei
+Wenn die Stimme gesetzt wird, werden Mehrtaktpausen komprimiert.  Das geschieht, indem man folgendes in die Datei
 schreibt:
 
 @example
@@ -3355,7 +3355,7 @@ Beispiel:
 Die Partitur wird erstellt, indem man alle Noten kombiniert.
 Angenommen, die andere Stimme ist in @code{bassoonNotes}
 in der Datei @file{bassoon-music.ly} definiert, würde eine
-Paritur erstellt mit:
+Partitur erstellt mit:
 
 @example
 \include "bassoon-music.ly"

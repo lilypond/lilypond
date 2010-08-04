@@ -181,7 +181,7 @@ Text verwendet wird, um Notationssymbole darzustellen.  Für
 die Notation von Gesangstext muss also sichergestellt sein,
 dass ein Buchstabe, etwa@tie{}@code{d}, nicht als Note, sondern
 als Buchstabe @qq{d} interpretiert wird.  Darum gibt es einen
-besonderen Modus, in dem Gesangstext geschreiben werden kann,
+besonderen Modus, in dem Gesangstext geschrieben werden kann,
 den @qq{Lyric}-Modus (engl. lyrics = Gesangstext).
 
 Der Gesangstextmodus kann mit der Umgebung @code{\lyricmode}
@@ -243,7 +243,7 @@ sondern
 @funindex _
 @cindex Leerzeichen, Gesangstext
 @cindex Bindestriche, Gesangstext
-@cindex Gedanktenstriche, Gesangstext
+@cindex Gedankenstriche, Gesangstext
 
 Um mehr als eine Silbe einer einzelnen Note zuzuweisen, kann
 man die Silben mit geraden Anführungszeichen umgeben (Shift+2)
@@ -292,8 +292,8 @@ Eine Silbe im Gesangstextmodus beginnt mit: einem alphabetischen Zeichen,
 @code{_}, @code{?}, @code{!}, @code{:}, @code{'}, den Kontrollzeichen @code{^A}
 bis @code{^F}, @code{^Q} bis @code{^W}, @code{^Y}, @code{^^},
 einem beliebigen 8-Bit-Zeichen mit ASCII über 127, oder
-Zeichenkombinationen, in denen ein Backslas mit @code{`}, @code{'},
-@code{"} oder @code{^} kommbiniert wird.
+Zeichenkombinationen, in denen ein Backslash mit @code{`}, @code{'},
+@code{"} oder @code{^} kombiniert wird.
 
 @c " to balance double quotes for not-so-bright context-sensitive editors
 
@@ -357,7 +357,7 @@ weitere @code{\addlyrics}-Abschnitte erstellt werden:
 @end lilypond
 
 Der Befehl @code{\addlyrics} funktioniert nicht in polyphonen 
-Situationen.  In diesem Fall solte man @code{\lyricsto} in Kombination
+Situationen.  In diesem Fall sollte man @code{\lyricsto} in Kombination
 mit @code{\lyricmode} benutzen, wie erklärt in
 @ref{Was ist Gesangtext}.
 
@@ -392,7 +392,7 @@ stropheEins = \lyricmode @{ Joy to the world the Lord is come @}
 @}
 @end example
 
-Für eine andere Anordnung oder kompliziertere Sitationen bietet
+Für eine andere Anordnung oder kompliziertere Situationen bietet
 es sich an, zuerst Systeme und Gesangstextumgebungen zu definieren
 
 @example
@@ -468,7 +468,7 @@ wenn die Dauern der Silben angegeben werden, kann man sie auch manuell
 ausrichten.  Die Ausrichtung kann angepasst werden mit leeren Noten
 (mit @code{\skip} oder @code{_}), Trennungsstrichen und Fülllinien.
 
-Gesantstext wird gesetzt, wenn er sich in dem Kontext @code{Lyrics}
+Gesangstext wird gesetzt, wenn er sich in dem Kontext @code{Lyrics}
 befindet:
 
 @example
@@ -488,7 +488,7 @@ Definition der Silbendauer innerhalb von @code{\lyricmode}.
 
 Der @code{Voice}-Kontext mit der Melodie, an die der Text
 angehängt werden soll, darf nicht @qq{gestorben} sein, ansonsten
-werden die Silben danach nicht mehr desetzt.  Das kann passieren,
+werden die Silben danach nicht mehr gesetzt.  Das kann passieren,
 wenn die Stimme für einige Zeit nichts zu tun hat.   Für Methoden,
 wie der Kontext am Leben gehalten werden kann, siehe
 @ref{Kontexte am Leben halten}.
@@ -577,7 +577,7 @@ bedeutet das Gleiche wie
 @unnumberedsubsubsec Manuelle Silbendauer
 @translationof Manual syllable durations
 
-Gesangstext kann auch ohne @code{\addlyrics} bezw. @code{\lyricsto}
+Gesangstext kann auch ohne @code{\addlyrics} bzw. @code{\lyricsto}
 notiert werden.  In diesem Fall werden die Silben wie Noten notiert
 -- indem die Tonhöhen durch den Text der Silbe ersetzt werden -- und
 die Dauer jeder Silbe muss angegeben werden.  Beispielsweise so:
@@ -599,7 +599,7 @@ Das Argument dieser Eigenschaft (hier @code{"lala"}) muss die Bezeichnung
 der entsprechenden Stimme sein.  Ohne diese Einstellung werden 
 Fülllinien nicht richtig formatiert.
 
-Hier ein Beispiel, dass die manuale Ausrichtung von Gesangstext zeigt:
+Hier ein Beispiel, dass die manuelle Ausrichtung von Gesangstext zeigt:
 
 @lilypond[relative=1,ragged-right,verbatim,fragment,quote]
 << \new Voice = "melody" {
@@ -743,7 +743,7 @@ sich in
 @knownissues
 
 Melismen werde nicht automatisch erkannt, und Fülllinien müssen
-manuell gestzt werden.
+manuell gesetzt werden.
 
 
 @node Noten überspringen
@@ -894,7 +894,7 @@ In sehr komplexer Vokalmusik ist es manchmal erforderlich,
 den Gesangstext vollständig unabhängig von den Noten zu
 setzen.  Das Beispiel unten zeigt das Vorgehen: die
 Noten, die für @code{lyricrhythm} definiert sind, verschwinden
-im @code{Devnull}-Kontext, während ihre Dauern immernoch
+im @code{Devnull}-Kontext, während ihre Dauern immer noch
 gültig sind, um die Silben daran auszurichten.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -1330,7 +1330,7 @@ Zurück zu der alten Stimme kommt man, indem wieder
 @translationof Printing stanzas at the end
 
 Manchmal soll nur eine Strophe mit der Melodie gesetzt
-werden und die weiteren Strophen als Text under den Noten
+werden und die weiteren Strophen als Text unter den Noten
 hinzugefügt werden.  Dazu wird der Text in einer
 @code{markup}-Umgebung außerhalb der @code{\score}-Umgebung
 gesetzt.  Es gibt zwei Arten, die Zeilen auszurichten,

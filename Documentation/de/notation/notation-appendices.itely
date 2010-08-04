@@ -31,7 +31,7 @@ and they should go just after
 * Notenkopfstile::
 
 and just before
-* Liste der Arktikulationszeichen::
+* Liste der Artikulationszeichen::
 @end ignore
 
 @menu
@@ -44,7 +44,7 @@ and just before
 * Notenkopfstile::            
 * Text markup commands::        
 * Text markup list commands::   
-* Liste der Arktikulationszeichen::
+* Liste der Artikulationszeichen::
 * Schlagzeugnoten::   
 * Alle Kontexteigenschaften::
 * Technisches Glossar::   
@@ -613,7 +613,7 @@ zu (bspw. @code{g^\markup @{
 * Pfeilkopf-Glyphen::
 * Klammerspitzen-Glyphen::
 * Pedal-Glyphen::
-* Akkordion-Glyphen::
+* Akkordeon-Glyphen::
 * Vaticana-Glyphen::
 * Medicaea-Glyphen::
 * Hufnagel-Glyphen::
@@ -789,8 +789,8 @@ zu (bspw. @code{g^\markup @{
 @end lilypond
 
 
-@node Akkordion-Glyphen
-@unnumberedsubsec Akkordion-Glyphen
+@node Akkordeon-Glyphen
+@unnumberedsubsec Akkordeon-Glyphen
 @translationof Accordion glyphs
 
 @lilypond[quote]
@@ -894,8 +894,8 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 
 @include markup-list-commands.tely
 
-@node Liste der Arktikulationszeichen
-@appendixsec Liste der Arktikulationszeichen
+@node Liste der Artikulationszeichen
+@appendixsec Liste der Artikulationszeichen
 @translationof List of articulations
 
 @cindex Akzent

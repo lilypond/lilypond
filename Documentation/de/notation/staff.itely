@@ -225,7 +225,7 @@ geschweiften Klammer und die Taktlinien sind durchgezogen.
 Der @code{PianoStaff}-(Klaviersystem)-Kontext ist identisch mit dem
 @code{GrandStaff}-Kontext, aber es ermöglicht zusätzlich direkt
 die Angabe einer Instrumentbezeichnung.  Zu Einzelheiten siehe
-@ref{Instrumentenbezeichnungn}.
+@ref{Instrumentenbezeichnungen}.
 
 @lilypond[verbatim,quote,relative=2]
 \new PianoStaff <<
@@ -271,7 +271,7 @@ Glossar:
 @rglos{grand staff}.
 
 Notationsreferenz:
-@ref{Instrumentenbezeichnungn},
+@ref{Instrumentenbezeichnungen},
 @ref{Neue Kontexte definieren}.
 
 Schnipsel:
@@ -336,7 +336,7 @@ Neue geschachtelte Systemgruppen können definiert werden.  Zu Einzelheiten sieh
 @seealso
 Notationsreferenz:
 @ref{Systeme gruppieren},
-@ref{Instrumentenbezeichnungn},
+@ref{Instrumentenbezeichnungen},
 @ref{Neue Kontexte definieren}.
 
 Schnipsel:
@@ -356,7 +356,7 @@ Referenz der Interna:
 @translationof Modifying single staves
 
 Dieser Abschnitt zeigt, wie man bestimmte Eigenschaften eines Systems
-ändert -- etwa die Anzahld der Notenlinien oder die Größe des Systems.
+ändert -- etwa die Anzahl der Notenlinien oder die Größe des Systems.
 Es werden auch Methoden dargestellt, ein System zu beginnen und zu
 beenden sowie eine Methode, Ossia-Systeme zu erstellen.
 
@@ -838,7 +838,7 @@ formatieren.
 
 @menu
 * Metronomangabe::
-* Instrumentenbezeichnungn::
+* Instrumentenbezeichnungen::
 * Stichnoten::
 * Stichnoten formatieren::
 @end menu
@@ -931,8 +931,8 @@ Referenz der Interna:
 @rinternals{MetronomeMark}.
 
 
-@node Instrumentenbezeichnungn
-@unnumberedsubsubsec Instrumentenbezeichnungn
+@node Instrumentenbezeichnungen
+@unnumberedsubsubsec Instrumentenbezeichnungen
 @translationof Instrument names
 
 @cindex Instrumentenbezeichnungen
@@ -1026,7 +1026,7 @@ hinzuzufügen, muss der @code{Instrument_name_engraver} dem
 entsprechenden Kontext hinzugefügt werden.  Zu Einzelheiten
 siehe @ref{Umgebungs-Plugins verändern}.
 
-@cindex Ändern von Instrumentenbezeichnungn
+@cindex Ändern von Instrumentenbezeichnungen
 @cindex Instrumentenbezeichnungen, wechseln
 @cindex Wechseln von Instrumentenbezeichnungen
 
@@ -1057,11 +1057,11 @@ Wenn das Instrument gewechselt werden soll, kann der Befehl
 @code{\instrumentSwitch} benutzt werden, um eine detaillierte
 Auflistung aller notwendigen Änderungen für den Wechsel zu
 definieren.  Der @code{\addInstrumentDefinition}-Befehl hat
-zwei Argumente: eine Identifikation und eine Assosiationsliste
+zwei Argumente: eine Identifikation und eine Assoziationsliste
 von Kontexteigenschaften und Werten, die für dieses Instrument
 benutzt werden müssen.  Der Befehl muss sich auf der höchsten
 Ebene in der Eingabedatei befinden.  @code{\instrumentSwitch}
-wird dann benutzt, um den Wechsel vorzunhemen:
+wird dann benutzt, um den Wechsel vorzunehmen:
 
 @lilypond[verbatim,quote,ragged-right]
 \addInstrumentDefinition #"contrabassoon"
@@ -1122,7 +1122,7 @@ Es kommt sehr oft vor, dass eine Orchesterstimme die gleichen
 Noten wie eine andere spielt.  So können etwa die ersten und
 zweiten Geigen für eine Passage die gleichen Noten haben.  In
 LilyPond kann man das erreichen, indem eine Stimme von der
-anderen @emph{zitiert}, sodass man die Noten nicht nocheinmal
+anderen @emph{zitiert}, sodass man die Noten nicht noch einmal
 eingeben muss.
 
 Bevor eine Stimme zitiert werden kann, muss der
@@ -1335,7 +1335,7 @@ wieder rückgängig gemacht werden.  Das kann mit den Befehlen
 @code{\addInstrumentDefinition} und @code{\instrumentSwitch}
 vorgenommen werden.  Ein Beispiel und mehr Information findet
 sich in
-@ref{Instrumentenbezeichnungn}.
+@ref{Instrumentenbezeichnungen}.
 
 Der @code{\killCues}-Befehl entfernt Stichnoten aus einem
 musikalischen Ausdruck.  Das kann nützlich sein, wenn die
@@ -1396,7 +1396,7 @@ vorgestellt in
 @seealso
 Notationsreferenz:
 @ref{Transposition von Instrumenten},
-@ref{Instrumentenbezeichnungn},
+@ref{Instrumentenbezeichnungen},
 @ref{Marken benutzen}.
 
 Schnipsel:

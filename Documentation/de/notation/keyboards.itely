@@ -29,7 +29,7 @@ keine Tasten aufweisen.
 @menu
 * Übliche Notation für Tasteninstrumente::  
 * Klavier::                       
-* Akkordion::                   
+* Akkordeon::                   
 * Harfe::
 @end menu
 
@@ -91,7 +91,7 @@ Takt notiert werden, wie gezeigt in
 
 @item Orgelpedal-Zeichen werden als Artikulationszeichen notiert,
 siehe
-@ref{Liste der Arktikulationszeichen}.
+@ref{Liste der Artikulationszeichen}.
 
 @item Vertikale Rasterlinien können erstellt werden, siehe
 @ref{Gitternetzlinien}.
@@ -132,11 +132,11 @@ Handbuch zum Lernen:
 
 Notationsreferenz:
 @ref{Systeme gruppieren},
-@ref{Instrumentenbezeichnungn},
+@ref{Instrumentenbezeichnungen},
 @ref{Auflösung von Zusammenstößen},
 @ref{Musik parallel notieren},
 @ref{Fingersatzanweisungen},
-@ref{Liste der Arktikulationszeichen},
+@ref{Liste der Artikulationszeichen},
 @ref{Gitternetzlinien},
 @ref{Bindebögen},
 @ref{Arpeggio},
@@ -288,7 +288,7 @@ Ein @code{\relative}-Abschnitt, der sich außerhalb des
 @code{\autochange}-Abschnittes befindet, hat keinen Einfluss auf die 
 Notenhöhen.
 
-Wenn individuelle Kontrolle über die einzelen Systeme benötigt
+Wenn individuelle Kontrolle über die einzelnen Systeme benötigt
 wird, können sie manuell mit den Bezeichnungen  @code{"up"} und
 @code{"down"} erstellt werden.  Der @code{\autochange}-Befehl
 wechselt dann die Stimme zwischen den Systemen.
@@ -335,11 +335,11 @@ Referenz der Interna:
 
 @cindex Akkorde, zwischen Systemen mit \autochange
 
-Die Auteilung auf die Systeme geschieht nicht unbedingt an optimaler
+Die Aufteilung auf die Systeme geschieht nicht unbedingt an optimaler
 Stelle.  Für bessere Qualität müssen die Wechsel manuell eingestellt
 werden.
 
-Akkrode werde nicht über die Systeme verteilt, sie werden dem
+Akkorde werde nicht über die Systeme verteilt, sie werden dem
 System zugewiesen, auf dem sich ihre erste Note befinden würde.
 
 
@@ -535,7 +535,7 @@ d\sustainOff\sustainOn g, c2
 @end lilypond
 
 Die Platzierung der Befehle entspricht der Bewegung der Pedale
-während des Spielens.  Um das Pedal bis zur letzten Tatklinie zu
+während des Spielens.  Um das Pedal bis zur letzten Taktlinie zu
 halten, muss der letzte Pedal-hoch-Befehl weggelassen werden.
 
 @seealso
@@ -559,8 +559,8 @@ Referenz der Interna:
 @rinternals{Piano_pedal_engraver}.
 
 
-@node Akkordion
-@subsection Akkordion
+@node Akkordeon
+@subsection Akkordeon
 @translationof Accordion
 
 @cindex Akkordeon

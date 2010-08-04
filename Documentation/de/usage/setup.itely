@@ -47,7 +47,7 @@ Dieser Abschnitt erklärt zusätzliche Einstellungen für bestimmte Betriebssyst
 Das LilyPond-Programmpaket für MacOS X stellt Python nicht zur
 Verfügung, aber Python 2.4 oder höher wird benötigt, um
 Skripte wie @command{convert-ly} zu benutzen.  Wenn Sie MaxOS
-10.3 oder 10.4 besitzen, müssen Sie eine neurere Python-Version
+10.3 oder 10.4 besitzen, müssen Sie eine neuere Python-Version
 von @uref{http://python.org/download/} installieren und dann
 die erste Zeile von @command{convert-ly} und @command{lilypond-book}
 auf folgende Weise ändern: Wenn sich das installierte Python-Programm

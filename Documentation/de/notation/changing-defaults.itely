@@ -51,7 +51,7 @@ LilyPond-Quelldatei mit einer Raute @code{#} begonnen (siehe auch
 @menu
 * Interpretationskontexte::
 * Die Referenz der Programminterna erklärt::
-* Eignschaften verändern::
+* Eigenschaften verändern::
 * Nützliche Konzepte und Eigenschaften::
 * Fortgeschrittene Optimierungen::
 @end menu
@@ -180,7 +180,7 @@ Ein Kontext zur Notation von Perkussion.  Er kann
 
 @strong{@emph{VaticanaStaff}}
 
-Entspricht @code{Staff}, aber eignet sich besondert zum Notensatz des
+Entspricht @code{Staff}, aber eignet sich besonders zum Notensatz des
 Gregorianischen Chorals.
 
 @strong{@emph{MensuralStaff}}
@@ -362,12 +362,12 @@ arts = { s4-. s4-> }
 @end lilypond
 
 Durch diesen Mechanismus ist es möglich eine Urtextausgabe zu
-erstellen, mit der optionalen Möglichkeit, besimmte zusätzliche
+erstellen, mit der optionalen Möglichkeit, bestimmte zusätzliche
 Artikulationszeichen zu den gleichen Noten hinzuzufügen und so
 eine editierte Ausgabe zu erhalten.
 
 @item
-Der dritte Befehl, um Kontexe zu erstellen, ist:
+Der dritte Befehl, um Kontexte zu erstellen, ist:
 
 @example
 \context @var{Kontext} @var{musik. Ausdruck}
@@ -375,7 +375,7 @@ Der dritte Befehl, um Kontexe zu erstellen, ist:
 
 @noindent
 Dies entspricht dem @code{\context} mit @code{= @var{ID}}, aber hier
-wird ein belieber Kontext des Typs @var{Kontext} gesucht und der
+wird ein beliebiger Kontext des Typs @var{Kontext} gesucht und der
 musikalische Ausdruck darin ausgewertet, unabhängig von der Bezeichnung,
 die dem Kontext gegeben wurde.
 
@@ -418,7 +418,7 @@ usw.  Das kann Schwierigkeiten ergeben, wenn auf frühere
 Kontexte verwiesen werden soll, die in der Zwischenzeit schon
 gestorben sind, beispielsweise wenn man Systemwechsel mit
 @code{\change}-Befehlen vornimmt, wenn Gesangstext einer
-Stimme mit dem @code{\lyricsto}-Befehl zu gewiesen wird oder
+Stimme mit dem @code{\lyricsto}-Befehl zugewiesen wird oder
 wenn weitere musikalische Ereignisse zu einem früheren Kontext
 hinzugefügt werden sollen.
 
@@ -576,7 +576,7 @@ Eine vollständige Erklärung jedes Plugins findet sich in
 @rinternals{Engravers and Performers}.
 @end ifhtml
 @ifnothtml
-Refernz der Interna: @expansion{} Translation @expansion{} Engravers.
+Referenz der Interna: @expansion{} Translation @expansion{} Engravers.
 @end ifnothtml
 Alle Kontexte sind erklärt in
 @ifhtml
@@ -636,7 +636,7 @@ mit denen Objekte unsichtbar gemacht werden können, finden sich in
 @rlearning{Sichtbarkeit und Farbe von Objekten}.
 
 Das nächste Beispiel zeigt eine Anwendung in der Praxis.  Taktstriche
-und Taktart werden normalerweise in einer Paritur synchronisiert.  Das
+und Taktart werden normalerweise in einer Partitur synchronisiert.  Das
 geschieht durch @code{Timing_translator} und @code{Default_bar_line_engraver}.
 Diese Plugins sorgen sich um die Verwaltung der Taktzeiten und die
 Stelle innerhalb des Taktes, zu dem eine Note erscheint usw.  Indem
@@ -736,7 +736,7 @@ Variable aufruft.
 Der Befehl @code{\RemoveEmptyStaffContext} überschreibt die
 aktuellen Einstellungen für @code{Staff}.  Wenn die Einstellungen
 für Systeme verändert werden sollen, die @code{\RemoveEmptyStaffContext}
-benutzen, muüssen die Veränderungen gemacht werden, nachdem
+benutzen, müssen die Veränderungen gemacht werden, nachdem
 @code{\RemoveEmptyStaffContext} aufgerufen wurde, etwa:
 
 @example
@@ -1041,7 +1041,7 @@ In der Dokumentation über Fingersatz (
 @quotation
 @strong{Siehe auch:}
 
-Referez der Interna: @rinternals{Fingering}.
+Referenz der Interna: @rinternals{Fingering}.
 
 @end quotation
 
@@ -1100,13 +1100,13 @@ die benutzt und verändert werden können.
 @translationof Layout interfaces
 
 @cindex Layout-Schnittstelle
-@cindex Schnittstellt, Layout-
+@cindex Schnittstelle, Layout-
 @cindex Grob
 
 Die HTML-Seite, die im vorigen Abschnitt betrachtet wurde,
 beschreibt ein Layoutobjekt mit der Bezeichnung
 @code{Fingering}.  Ein derartiges Objekt ist ein Symbol
-in der Paritur.  Es hat Eigenschaften, die bestimmte
+in der Partitur.  Es hat Eigenschaften, die bestimmte
 Zahlen speichern (wie etwa Dicke und Richtung), aber auch
 Weiser auf verwandte Objekte.  Ein Layoutobjekt wird auch
 als @qq{Grob} bezeichnet, die Abkürzung für @emph{Gr}aphisches
@@ -1132,7 +1132,7 @@ beispielsweise hat folgende Aspekte:
 
 @itemize
 @item
-Seine Größe is unabhängig von der horizontalen Platzaufteilung,
+Seine Größe ist unabhängig von der horizontalen Platzaufteilung,
 anders als etwa bei Legatobögen.
 
 @item
@@ -1310,8 +1310,8 @@ folgen bestimmten Regeln:
 @end itemize
 
 
-@node Eignschaften verändern
-@section Eignschaften verändern
+@node Eigenschaften verändern
+@section Eigenschaften verändern
 @translationof Modifying properties
 
 @menu
@@ -1345,8 +1345,8 @@ wie @code{Stem} (Hals) oder @code{NoteHead} (Notenkopf), und
 (eine @qq{Grob-Eigenschaft} oder @qq{Layout-Eigenschaft}).  Diese
 Eigenschaft ist ein Symbol, muss also mit einem Anführungsstrich
 versehen werden.  Wie die Felder @var{Bezeichnung}, @var{Eigenschaft}
-und @var{Wert} richtig gefüllt werden, zeigt der Abscnitt
-@ref{Eignschaften verändern}.  Hier wird nur die Funktionalität des
+und @var{Wert} richtig gefüllt werden, zeigt der Abschnitt
+@ref{Eigenschaften verändern}.  Hier wird nur die Funktionalität des
 Befehls betrachtet.
 
 Der Befehl
@@ -1461,7 +1461,7 @@ oder einen Absturz des Programms hervorrufen.
 @funindex \set
 @funindex set
 
-Jeder Kontext kann unterschiedliche @emph{Eigenschafte} besitzen,
+Jeder Kontext kann unterschiedliche @emph{Eigenschaften} besitzen,
 Variablen, die in diesem Kontext definiert sind.  Sie können
 während der Interpretation des Kontextes verändert werden.  Hierzu
 wird der @code{\set}-Befehl eingesetzt:
@@ -1482,7 +1482,7 @@ Mit diesem Befehl werden Takte übersprungen, die keine Noten
 haben.  Als Resultat werden Ganztaktpausentakte komprimiert.
 Der Wert, der der Eigenschaft zugewiesen wird, ist ein
 Scheme-Objekt.  In diesem Fall ist es @code{#t}, der
-Boolsche Wert für @qq{wahr}.
+Boolesche Wert für @qq{wahr}.
 
 Wenn das @var{Kontext}-Argument ausgelassen wird, bezieht sich
 der Befehl auf den gerade aktiven unterstmöglichen Kontext,
@@ -1753,7 +1753,7 @@ die folgende Weise verändert werden:
 c-\tweak #'thickness #5 ( d e f)
 @end lilypond
 
-Mehrere @code{\tweak}-Befehle können vor ein Notatioselement
+Mehrere @code{\tweak}-Befehle können vor ein Notationselement
 gesetzt werden und alle werden interpretiert:
 
 @lilypond[verbatim,quote,relative=1]
@@ -1995,7 +1995,7 @@ enge Auswahl begrenzt: Notenhälse beispielsweise können entweder nach
 oben oder nach unten zeigen, Gesangstext, Dynamikzeichen und andere
 Ausdrucksbezeichnungen können über oder unter dem System gesetzt werden,
 Text kann rechts, links oder mittig ausgerichtet werden usw.  Die meisten
-dieser Eintscheidungen können LilyPond direkt überlassen werden; in
+dieser Entscheidungen können LilyPond direkt überlassen werden; in
 einigen Fällen kann es allerdings nötig sein, eine bestimmte Richtung
 oder eine Position zu erzwingen.
 
@@ -2019,7 +2019,7 @@ benutzen) normalerweise weggelassen werden.  In diesem Fall wird
 @item @code{\markup}-(Textbeschriftungs-)Befehlen
 @item @code{\tag}-Befehlen
 @item Textbeschriftungen in reiner Textform, wie etwa @code{-"string"}
-@item Fingersagzanweisungen: @code{-1}
+@item Fingersatzanweisungen: @code{-1}
 @item Abkürzungen von Artikulationen, wie @code{-.}, @code{->}, @code{--}
 @end itemize
 
@@ -2090,7 +2090,7 @@ in der Eingabedatei auftreten.  Wenn Kontexte verschachtelt sind,
 enthält der äußere Kontext die inneren geschachtelten Kontexte,
 wie in der Eingabedatei angegeben, vorausgesetzt die inneren
 Kontexte befinden sich in der @qq{accepts}-Liste des äußeren
-Kontextes.  Verschachtelte kontexte, die nicht in dieser Liste
+Kontextes.  Verschachtelte Kontexte, die nicht in dieser Liste
 auftauchen, werden neu unter den äußeren Kontext angeordnet, anstatt
 dass sie innerhalb dieses Kontextes gesetzt werden.
 
@@ -2187,7 +2187,7 @@ Notationsreferenz:
 @cindex Veränderung des Notensystems
 
 Die vertikale Position der Notenlinien und die Anzahl der
-Notenlinien kann gleichzeit definiert werden.  Wie das
+Notenlinien kann gleichzeitig definiert werden.  Wie das
 folgende Beispiel zeigt, werden Notenpositionen nicht
 durch die Position der Notenlinien verändert:
 
@@ -2204,7 +2204,7 @@ die Anzahl der Elemente in der Liste der Werte von
 { a4 e' f b | d1 }
 @end lilypond
 
-Die Breite eines Notensystes kann verändert werden.  Die Einheit
+Die Breite eines Notensystems kann verändert werden.  Die Einheit
 ist in Notenlinienabständen.  Die Abstände von Objekten
 in diesem Notensystem wird durch diese Einstellung nicht
 beeinflusst.
@@ -2457,7 +2457,7 @@ die Matrize (engl. stencil) einfach am Endpunkt des Streckers,
 auf seiner Mittellinie (wie durch @code{X} und @code{Y}
 definiert) zentriert, ausgegeben.  Wenn entweder
 @code{stencil-align-dir-y} oder @code{stencil-offset}
-gesetzt werden, wird das Symbol am Rand vertiakl entsprechend
+gesetzt werden, wird das Symbol am Rand vertikal entsprechend
 des Endpunktes der Linie verschoben:
 
 @lilypond[relative=1,fragment,verbatim]
@@ -2633,7 +2633,7 @@ Das kann man vermeiden, indem man die Satzreihenfolge der Objekte
 verändert.  Alle Layout-Objekte haben eine @code{layer}-Eigenschaft,
 die auf eine ganze Zahl gesetzt sein muss.  Objekte mit der
 niedrigsten Zahl in der @code{layer}-Eigenschaft werden zuerst
-gesetzt, dann die nächstne Objekte in ansteigender Ordnung.  Objekte
+gesetzt, dann die nächsten Objekte in ansteigender Ordnung.  Objekte
 mit höheren Werten überschneiden also Objekte mit niedrigeren
 Werten.  Die meisten Objekte bekommen den Wert @code{1} zugewiesen,
 einige wenige Objekte, unter die auch @code{StaffSymbol} (die
@@ -2684,16 +2684,16 @@ Dieses Verhalten wird von der @code{break-visibility}-Eigenschaft
 kontrolliert, die erklärt wird in
 @c Leave this ref on a newline - formats incorrectly otherwise -td
 @rlearning{Sichtbarkeit und Farbe von Objekten}.  Die Eigenschaft
-bruacht einen Vektor von drei Boolschen Werten, die in ihrer
+braucht einen Vektor von drei Booleschen Werten, die in ihrer
 Reihenfolge bestimmte, ob das Objekt a) zu Ende der Zeile,
 b) innerhalb einer Zeile oder c) zu Beginn einer Zeile gesetzt
 wird.  Oder, genauer gesagt, vor einem Zeilenumbruch, an Stellen,
 wo kein Zeilenumbruch auftritt oder nach einem Zeilenumbruch.
 
 Die acht möglichen Kombinationen können auch durch vordefinierte
-Funktionen besetimmt werden, welche in der Datei @file{scm/@/output@/-lib@/.scm}
+Funktionen bestimmt werden, welche in der Datei @file{scm/@/output@/-lib@/.scm}
 definiert sind.  Die letzten drei Spalten der folgenden Tabelle
-zeigen an, ob das Layout-Objekt an einer besetimmten Position
+zeigen an, ob das Layout-Objekt an einer bestimmten Position
 sichtbar sein wird oder nicht:
 
 @multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {ja} {ja} {ja}
@@ -2768,7 +2768,7 @@ werden, außer wenn er nicht 1 ist.
 oder alle unterdrückt.  Mit @code{begin-of-line-invisible} werden
 sie ausgegeben, mit @code{all-invisible} unterdrückt.
 @item Tonart -- siehe unten.
-@item Oktavieruns-Acht -- siehe unten.
+@item Oktavierungs-Acht -- siehe unten.
 @end itemize
 
 
@@ -2809,7 +2809,7 @@ Die Sichtbarkeit derartiger expliziter Tonart- und Schlüsseländerungen
 wird von den @code{explicitKeySignatureVisibility}- und
 @code{explicitClefVisibility}-Eigenschaften kontrolliert.  Sie
 entsprechen der @code{break-visibility}-Eigenschaft und beide
-brauchen drei Boolsche Werte bzw. die oben aufgelisteten vordefinierten
+brauchen drei Boolesche Werte bzw. die oben aufgelisteten vordefinierten
 Funktionen als Argument, genau wie @code{break-visibility}.
 Beide sind Eigenschaft des @code{Staff}-Kontextes, nicht der
 Layout-Objekte selber, weshalb sie mit dem Befehl @code{\set}
@@ -2940,7 +2940,7 @@ e2 \glissando f
 
 Der Wert von @code{Y} wird für den rechten Endpunkt auf
 @code{-2} gesetzt.  Die linke Seite kann ähnlich angepasst
-werden, indem man @code{left} antelle von @code{right} angibt.
+werden, indem man @code{left} anstelle von @code{right} angibt.
 
 Wenn @code{Y} nicht gesetzt ist, wird der Wert ausgehend von
 der vertikalen Position der linken und rechten Anbindepunkte
@@ -3045,7 +3045,7 @@ Handbuch zum Lernen:
 
 Notationsreferenz:
 @ref{Die Referenz der Programminterna erklärt},
-@ref{Eignschaften verändern},
+@ref{Eigenschaften verändern},
 @ref{Schnittstellen für Programmierer}.
 
 Installierte Dateien:
@@ -3073,7 +3073,7 @@ Ausdehnung und eine vertikale Ausdehnung.  Die horizontale Ausdehnung ist
 ein Zahlenpaar, mit dem die Verschiebung der rechten und linken Ecken
 ausgehend vom Referenzpunkt angegeben werden, wobei Verschiebungen
 nach links mit negativen Zahlen notiert werden.  Die vertikale Ausdehnung
-ist ein Zahlenparr, das die Verschiebung der unteren und oberen
+ist ein Zahlenpaar, das die Verschiebung der unteren und oberen
 Ränder vom Referenzpunkt ausgehend angibt, wobei Verschiebungen nach
 unten mit negativen Zahlen notiert werden.
 
@@ -3100,7 +3100,7 @@ von @code{Y-offset} verschoben werden, aber Änderungen von
 Übungszeichen können an trennbaren Objekten (wie Taktstrichen,
 Schlüsseln, Taktarten und Tonartvorzeichen) ausgerichtet werden.
 In @code{break-aligned-interface} finden sich besondere Eigenschaften,
-mit denen Übungszeichen an derartigen objekten ausgerichtet werden können.
+mit denen Übungszeichen an derartigen Objekten ausgerichtet werden können.
 
 
 @menu
@@ -3114,7 +3114,7 @@ mit denen Übungszeichen an derartigen objekten ausgerichtet werden können.
 @unnumberedsubsubsec @code{X-offset} und @code{Y-offset} direkt setzen
 @translationof Setting @code{X-offset} and @code{Y-offset} directly
 
-Numereische Werte können den @code{X-offset}- und @code{Y-offset}-Eigesnchaften
+Numerische Werte können den @code{X-offset}- und @code{Y-offset}-Eigenschaften
 vieler Objekte zugewiesen werden.  Das folgende Beispiel zeigt
 drei Noten mit der Standardposition von Fingersatzanweisungen
 und die Positionen, wenn @code{X-offset} und @code{Y-offset}
@@ -3138,7 +3138,7 @@ a
 @unnumberedsubsubsec Das @code{side-position-interface} benutzen
 @translationof Using the @code{side-position-interface}
 
-Ein Objekt, das die @code{side-position-interface}-Schnittstellt
+Ein Objekt, das die @code{side-position-interface}-Schnittstelle
 unterstützt, kann neben sein Elternobjekt gesetzt werden,
 sodass zwei definierte Enden der Objekte sich berühren.
 Das Objekt kann über, unter, rechts oder links vom
@@ -3244,7 +3244,7 @@ werden.
 
 @emph{Automatische Ausrichtung in beide Richtungen}
 
-Indem sowohl @code{X-offset} als auch @code{Y-offset} eingestllt
+Indem sowohl @code{X-offset} als auch @code{Y-offset} eingestellt
 werden, kann ein Objekt gleichzeitig in beiden Richtungen ausgerichtet
 werden.
 
@@ -3390,7 +3390,7 @@ jedes Notensystem, Gesangstext usw. hat eine eigene
 
 Alle Layout-Objekte haben eine @code{stencil}-(Stempel-)Eigenschaft,
 die ein Teil von @code{grob-interface} ist.  Diese Eigenschaft
-ist normalerweise als eine Funktion definiert, die auf das jweilige
+ist normalerweise als eine Funktion definiert, die auf das jeweilige
 Objekt angepasst ist und das Symbol erstellt, dass dann im Druckbild
 erscheint.  Beispielsweise die Standardeinstellung für die
 @code{stencil}-Eigenschaft von @code{MultiMeasureRest}
@@ -3508,7 +3508,7 @@ zu schätzen und dann die zwei Zwischenpunkte zu erraten.
 Die optimalen Werte können nur durch Ausprobieren gefunden
 werden.
 
-Es lohnt sich daran zu denken, dass eine symmtrische Kurve
+Es lohnt sich daran zu denken, dass eine symmetrische Kurve
 symmetrische Kontrollpunkte benötigt, und dass Bézierkurven
 die nützliche Eigenschaft haben, dass eine Transformation
 der Kurve wie eine Übersetzung, Drehung oder Skalierung

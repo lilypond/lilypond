@@ -87,7 +87,7 @@ c\longa c\breve c1 c2
 c4 c8 c16 c32 c64 c64
 @end lilypond
 
-Eine Note mit der vierfacheen Dauer einer Brevis kann mit dem
+Eine Note mit der vierfachen Dauer einer Brevis kann mit dem
 Befehl @code{\maxima} eingegeben werden, aber ihre Darstellung
 ist nur für die Alte Musiknotation unterstützt.  Zu Einzelheiten
 siehe @ref{Notation von alter Musik}.
@@ -119,7 +119,7 @@ Manche Notenlängen können nicht mit binären Dauern und Punkten
 dargestellt werden, sie können nur erreicht werden, indem man
 Noten überbindet.  Für Einzelheiten siehe @ref{Bindebögen}.
 
-Wie den Silben von Gesangtext eigene Dauern zu gewiesen werden
+Wie den Silben von Gesangtext eigene Dauern zugewiesen werden
 können und wie man sie an den Noten ausrichtet ist erklärt in
 @ref{Notation von Gesang}.
 
@@ -500,7 +500,7 @@ Die vertikale Position von Bindebögen kann kontrolliert werden,
 siehe die vordefinierten Befehle unten oder für Einzelheiten
 @ref{Richtung und Platzierung}.
 
-@cindex Bindebögen, Ausehen
+@cindex Bindebögen, Aussehen
 @cindex Bindebögen, gestrichelt
 @cindex Bindebögen, gepunktet
 @cindex Bindebögen, durchgehend
@@ -690,7 +690,7 @@ Referenz der Interna:
 @knownissues
 
 @c Deliberately duplicated in Durations and Rests.  -gp
-Es gibt keine gundlegende Grenze für die Dauer von Pausen (sowohl
+Es gibt keine grundlegende Grenze für die Dauer von Pausen (sowohl
 kürzer als auch länger), aber die Anzahl von Symbolen ist
 begrenzt: Es gibt Zeichen für Pausen von einer 128 bis zu einer
 Maxima (8 Ganze).
@@ -828,7 +828,7 @@ In den Standardeinstellungen werden mehrtaktige Pausen
 ausgeschrieben gesetzt, sodass sie die entsprechende Anzahl von
 Takten einnehmen.  Alternativ kann die mehrtaktige Pause
 aber auch nur in einem Takt angezeigt werden, der ein
-Mehrtaktpausensymbol geinhaltet, wobei die Anzahl der Takte
+Mehrtaktpausensymbol beinhaltet, wobei die Anzahl der Takte
 der Pausendauer über dem Pausenzeichen ausgegeben wird:
 
 @lilypond[quote,fragment,verbatim]
@@ -893,7 +893,7 @@ Taktprüfungswarnungen nicht angezeigt.
 @funindex \textLengthOn
 @funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLenthOff
+@funindex textLengthOff
 @funindex \fermataMarkup
 @funindex fermataMarkup
 @funindex \compressFullBarRests
@@ -1137,7 +1137,7 @@ Das wird intern übersetzt nach:
 
 Die Eigenschaft @code{measurePosition} (Takt-Position) enthält
 eine rationale Zahl,
-die anezigt, wie groß der Abstand zum Taktanfang ist. Deshalb ist
+die anzeigt, wie groß der Abstand zum Taktanfang ist. Deshalb ist
 sie eine negative Zahl; @code{\partial 4} wird also intern übersetzt
 zu: @qq{Eine Viertel bleibt übrig vom ganzen Takt.}
 
@@ -1177,7 +1177,7 @@ auftreten.
 @translationof Unmetered music
 
 @cindex Kadenz
-@cindex Taktlinen, ausschalten
+@cindex Taktlinien, ausschalten
 @cindex Taktnummern, ausschalten
 @cindex Noten ohne Takt
 @cindex Taktart, Noten ohne
@@ -1375,14 +1375,14 @@ Glossar:
 @rglos{polymetric time signature},
 @rglos{meter}.
 
-Notationreferenz:
+Notationsreferenz:
 @ref{Taktangabe},
 @ref{Tondauern skalieren}.
 
 Schnipsel:
 @rlsr{Rhythms}.
 
-Referenz der Intera:
+Referenz der Interna:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
 @rinternals{Default_bar_line_engraver},
@@ -1390,7 +1390,7 @@ Referenz der Intera:
 
 @knownissues
 
-Wenn unterschiedliche Taktarten paralell benutzt werden, werden
+Wenn unterschiedliche Taktarten parallel benutzt werden, werden
 Noten auf demselben musikalischen Moment horizontal auf die
 gleiche Position gesetzt.  Die unterschiedlichen Taktlinien
 führen allerdings dazu, dass die Noten nicht ganz so regelmäßig
@@ -1675,7 +1675,7 @@ der Taktart entschieden.  Drei Arten von Regeln werden eingesetzt,
 um die Endpunkte der automatischen Balken zu bestimmen:
 @emph{Standardregeln} für die Taktart, @emph{ausdrückliche}
 Regeln für einen Balken in einer Taktart und die
-Eigenschaft @emph{beatLenght} (Schlagdauer) der Taktart.
+Eigenschaft @emph{beatLength} (Schlagdauer) der Taktart.
 
 Die folgenden Regeln, in der Reihenfolge ihrer Priorität, gelten, wenn das Aussehen der Balken bestimmt wird:
 
@@ -1849,7 +1849,7 @@ wie für @code{overrideBeamSettings}, außer das kein Wert für
 @knownissues
 
 Wenn eine Partitur endet, während ein automatischer Balken noch
-nicht beendet wurde und weiterhin Notenerwartet, wird dieser
+nicht beendet wurde und weiterhin Noten erwartet, wird dieser
 letzte Balken nicht ausgegeben.  Das Gleiche gilt auch für
 polyphone Stimmen, die mit der @code{<<
 @dots{} \\ @dots{} >>}-Konstruktion notiert wurden.  Wenn eine
@@ -1947,7 +1947,7 @@ oder Accelerando, wie es die Spreizung angibt, reflektieren soll,
 müssen die Noten als ein musikalischer Ausdruck notiert werden,
 der von geschweiften Klammern umgeben ist und dem ein
 @code{featheredDurations}-(gespreizteDauern)-Befehl vorangestellt
-ist, der das Verhaltnis der ersten und letzten Dauer definiert.
+ist, der das Verhältnis der ersten und letzten Dauer definiert.
 
 Die eckigen Klammern geben die Reichweite des Balkens an und die
 geschweiften Klammern zeigen, auf welche Noten sich die Veränderung
@@ -2008,7 +2008,7 @@ Snippets:
 @cindex Taktlinien
 @cindex Taktstriche
 @cindex Doppellinie
-@cindex schließende Taktstricheche
+@cindex schließende Taktstriche
 @cindex Taktstriche, schließend
 @cindex Doppelter Taktstrich
 @cindex Taktstrich, doppelt
@@ -2022,7 +2022,7 @@ um Wiederholungen anzuzeigen. Normalerweise werden sie automatisch
 nach Vorgabe der aktuellen Taktart eingefügt.
 
 Die einfachen, automatisch eingefügten Taktstriche können mit dem
-@code{\bar}-Befehl geändert werden.  Eine doppelter Tatkstrich etwa
+@code{\bar}-Befehl geändert werden.  Eine doppelter Taktstrich etwa
 wird normalerweise am Ende eines Stückes gesetzt:
 
 @lilypond[quote,relative=1,verbatim]
@@ -2066,7 +2066,7 @@ Zeilenumbruch zu erzwingen, siehe
 
 @cindex manuelle Taktstriche
 @cindex Taktstriche, manuell
-@cindex Taktlinene, manuell
+@cindex Taktlinie, manuell
 
 Diese Art von Taktstrichen und auch andere besondere Taktstriche
 können manuell an jeder Stelle in der Partitur eingefügt werden.
@@ -2111,12 +2111,12 @@ Choral eingesetzt, und es wird empfohlen, anstatt dessen
 Auch wenn die Taktlinien, die Wiederholungen angeben, manuell
 eingefügt werden können, wird die Wiederholung dadurch nicht von
 LilyPond erkannt.  Wiederholte Stellen werden besser notiert, indem
-man die Wiederholguns-Befehle einsetzt, die automatische die
+man die Wiederholungs-Befehle einsetzt, die automatische die
 richtigen Taktlinien setzen.  Das ist beschrieben in@ref{Wiederholungszeichen}.
 
 Zusätzlich kann noch @code{"||:"} verwendet werden, dass sich
 genauso wie @code{"|:"} verhält, außer bei Zeilenumbrüchen, wo ein
-doppeltre Taktstrich am Ende der Zeile ausgegeben wird und ein
+doppelter Taktstrich am Ende der Zeile ausgegeben wird und ein
 öffnender Wiederholungsstrich am Anfang der nächsten Zeile.
 
 @lilypond[quote,relative=2,verbatim]
@@ -2167,7 +2167,7 @@ Taktstrich dieses Typs erzeugt.
 
 Der automatisch erzeugte Taktstrich ist @code{"|"}.  Das kann
 jederzeit durch den Befehl @code{\set Timing.defaultBarType = }
-@var{Takstrichart} geändert werden.
+@var{Taktstrichart} geändert werden.
 
 @seealso
 Notationsreferenz:
@@ -2191,7 +2191,7 @@ properties).
 @translationof Bar numbers
 
 @cindex Taktnummern
-@cindex Nummierung von Takten
+@cindex Nummerierung von Takten
 @cindex Zahl eines Taktes
 @cindex Taktzahlen
 
@@ -2221,7 +2221,7 @@ Beginn von Systemen ausgegeben werden.  Das wird mit der
 Eigenschaft @code{break-visibility} von @code{BarNumber} vorgenommen.
 Sie braucht drei Werte, die auf @code{#t} (wahr) oder @code{#f}
 (falsch) gestellt werden können, womit angegeben wird, ob die
-Taktnummer an der entprechenden Stelle sichtbar ist.  Die
+Taktnummer an der entsprechenden Stelle sichtbar ist.  Die
 Reihenfolge der Werte ist: @var{Ende der Zeile}, @var{Mitte
 der Zeile} und @var{Beginn der Zeile}.  Im folgenden
 Beispiel werden die Taktlinien überall ausgegeben:
@@ -2325,7 +2325,7 @@ Taktüberprüfung erreicht wird.
 Das geschieht, indem man der Pipe (@code{pipeSymbol} einen musikalischen
 Ausdruck zuweist.  Im nächsten Beispiel wird @code{|} dazu
 verwendet, eine doppelte Taktlinie auszugeben, woimmer man
-das Zeichen auchsetzt.  Gleichzeitig hört das Zeichen auf,
+das Zeichen auch setzt.  Gleichzeitig hört das Zeichen auf,
 als Taktüberprüfung zu funktionieren.
 
 @lilypond[quote,verbatim]

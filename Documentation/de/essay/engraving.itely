@@ -83,14 +83,14 @@ die neuere Edition kalt und mechanisch erscheint.
 
 Es ist schwer, sofort die Unterschiede zur neueren Edition auszumachen.
 Alles sieht sauber und fein aus, möglicherweise sogar @qq{besser},
-weil es eher komputerkonform und einheitlich wirkt.  Das hat uns
+weil es eher computerkonform und einheitlich wirkt.  Das hat uns
 tatsächlich für eine ganze Weile beschäftigt.  Wir wollten die
 Computernotation verbessern, aber wir mussten erst verstehen, was
 eigentlich falsch mit ihr war.
 
 Die Antwort findet sich in der präzisen, mathematischen Gleichheit
 der neueren Edition.  Suchen Sie die Taktstriche in der Mitte jeder
-Zeiel: im handgestochenen Satz hat die Position dieser Taktstriche
+Zeile: im handgestochenen Satz hat die Position dieser Taktstriche
 sozusagen natürliche Variation, während die neuere Version sie
 fast immer perfekt in die Mitte setzt.  Das zeigen diese vereinfachten
 Diagramme des Seitenlayouts vom handgestochenen (links) und
@@ -182,7 +182,7 @@ beherrschen.
 @end ifnottex
 @end quotation
 
-LilyPond wurd von den handgestochenen traditionellen Noten
+LilyPond wurde von den handgestochenen traditionellen Noten
 inspiriert, die in der ersten Hälfte des 20. Jahrhunderts von
 europäischen Notenverlagen herausgegeben wurden (insbesondere
 Bärenreiter, Duhem, Durand, Hofmeister, Peters und Scott).  Sie
@@ -219,7 +219,7 @@ hingegen ein Symbol aus einer 2000 herausgegebenen Edition
 der selben Noten.  Obwohl beide Bilder mit der gleichen
 Tintenfarbe gedruckt sind, wird die frühere Version dunkler: die
 Notenlinien sind dicker und das Bärenreiter-b hat ein rundliches,
-beihnahe sinnliches Aussehen.  Der rechte Scan hingegen hat
+beinahe sinnliches Aussehen.  Der rechte Scan hingegen hat
 dünnere Linien und eine gerade Form mit scharfen Ecken und Kanten.
 
 @multitable @columnfractions .25 .25 .25 .25
@@ -265,7 +265,7 @@ Als wir uns entschlossen hatten, ein Programm zu schreiben, das
 die Typographie des Notensatzes beherrscht, gab es keine freien
 Musikschriftarten, die unserem geplanten eleganten Notenbild passen
 würden.  Unbeirrt schufen wir eine Schriftart und dazu einen
-Coputerfont mit den musikalischen Symbolen, wobei wir uns an den
+Computerfont mit den musikalischen Symbolen, wobei wir uns an den
 schönen Musikdrucken der handgestochenen Noten orientierten.  Ohne
 diese Erfahrung hätten wir nie verstanden, wie hässlich die
 Schriftarten waren, die wir zuerst bewunderten.
@@ -288,7 +288,7 @@ wodurch sie einfacher zu lesen sind.  Feine Enden, wie etwa die
 Seiten der Viertelpause, sollten nicht als scharfe Spitzen enden,
 sondern etwas abgerundet.  Das liegt daran, dass scharfe Enden
 der Stempel sehr fragil sind und sich schnell durch die Verwendung
-abnutzen.  Zusammengefasst muss die Schärze der Schriftart sehr
+abnutzen.  Zusammengefasst muss die Schwärze der Schriftart sehr
 vorsichtig mit der Schwärze von Notenlinien, Balken und Bögen
 abgeglichen werden, um ein starkes, aber doch ausgewogenes Gesamtbild
 zu ergeben.
@@ -402,10 +402,10 @@ erhält, damit sie nicht gedrängt wirkt. Ein Hals nach unten würde diesen Ausg
 Hilfslinien stellen eine typographische Herausforderung dar: sie
 machen es schwerer, die Notensymbole dicht anzuordnen und sie müssen
 klar genug sein, dass sich die Tonhöhe mit einem schnellen Blick
-erkennen lässt.  Im Beispeil unten können wir sehen, dass
+erkennen lässt.  Im Beispiel unten können wir sehen, dass
 Hilfslinien dicker als normale Notenlinien sein sollten und dass
 ein gelernter Notenstecher eine Hilfslinie verkürzt, um dichteres
-Platzzieren von Versetzungszeichen zu erlauben.  Wir haben diese
+Platzieren von Versetzungszeichen zu erlauben.  Wir haben diese
 Eigenschaft in den Notensatz von LilyPond eingebaut.
 
 @multitable @columnfractions .25 .25 .25 .25
@@ -471,7 +471,7 @@ vorige erscheint:
 
 @noindent
 Bei kleineren Größen benutzt LilyPond proportional dickere
-Notenlinien, sodass das Notenbild immernoch gut zu lesen ist.
+Notenlinien, sodass das Notenbild immer noch gut zu lesen ist.
 
 @ignore
 Dadurch können auch Notensysteme unterschiedlicher Größe
@@ -730,10 +730,10 @@ den Formatierungsdetails:
 
 @noindent
 (Es gibt auch zwei fehlende Notenköpfe, verschiedene editorische
-Anweisungen, die fehler und eine falsche Tonhöhe!)
+Anweisungen, die Fehler und eine falsche Tonhöhe!)
 
 Indem die Layoutregeln und das Design der Schriftarten angepasst
-wurde, hat sich die Ausgabe sehr starkt verbessert.  Vergleichen
+wurde, hat sich die Ausgabe sehr stark verbessert.  Vergleichen
 Sie das gleiche Referenzbeispiel und die Ausgabe der aktuellen
 LilyPond-Version (@version{}):
 
@@ -979,7 +979,7 @@ geplant.
 @translationof Building software
 
 Dieser Abschnitt beschreibt einige der Entscheidungen,
-die wir während des Programierens für das Design von LilyPond
+die wir während des Programmierens für das Design von LilyPond
 getroffen haben.
 
 @menu

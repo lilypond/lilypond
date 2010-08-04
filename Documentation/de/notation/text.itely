@@ -516,7 +516,7 @@ f1 d2 r
 Die Größe von Buchstaben kann auf verschiedene Arten verändert werden:
 @itemize
 @item
-die Schriftgröße kann auf bestimmte deinierte Standardgrößen gesetzt werden,
+die Schriftgröße kann auf bestimmte definierte Standardgrößen gesetzt werden,
 
 @item
 die Schriftgröße kann mit einem absoluten Wert gesetzt werden,
@@ -618,7 +618,7 @@ dem Befehl @code{\concat} zu einem Element verschmolzen werden:
 Eine ausführliche Liste der unterschiedlichen Befehl zur Beeinflussung
 der Schriftarten findet sich in @ref{Font}.
 
-Es ist auch möglich, eigene Schriftfamlien zu definieren, wie erklärt in
+Es ist auch möglich, eigene Schriftfamilien zu definieren, wie erklärt in
 @ref{Schriftarten}.
 
 
@@ -716,7 +716,7 @@ Objekte als eine Einheit anzusprechen und zu bewegen, wie
 gezeigt in @ref{Textartige Zeichen}.
 
 @cindex Text, vertikale Ausrichtung
-@cindex vertickale Ausrichtung von Text
+@cindex vertikale Ausrichtung von Text
 @funindex \raise
 @funindex \lower
 
@@ -1312,7 +1312,7 @@ mit Serifen (Standard ist New Century Schoolbook), mit @code{sans}
 eine serifenlose (gerade) Schriftart und mit @code{typewriter} eine
 Schreibmaschinenschrift, in welcher die Buchstaben alle die gleiche
 Weite haben.  Die aktuelle Schriftart von @code{sans} und
-@code{tpyewriter} wird durch Pango entspechend den Systemvorgaben
+@code{typewriter} wird durch Pango entsprechend den Systemvorgaben
 gewählt.
 
 Jede Familie kann verschiedene Schriftschnitte besitzen. Im Englischen
@@ -1360,7 +1360,7 @@ erklärt wurden in
 }
 @end lilypond
 
-Auch wenn es einfach ist, zwischen den vorefinierten Schriftarten
+Auch wenn es einfach ist, zwischen den vordefinierten Schriftarten
 umzuschalten, kann man auch eigene Schriftarten verwenden, wie erklärt
 in folgenden Abschnitten: @ref{Schriftarten für einen Eintrag} und
 @ref{Schriftart des gesamten Dokuments}.

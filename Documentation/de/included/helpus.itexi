@@ -71,7 +71,7 @@ Entwicklungsumgebung.  Siehe
 @item
 Dokumentation: siehe
 @rcontribnamed{Documentation work,Arbeit an der Dokumentation} und
-@rcontribnamed{Building documentation without compiling,Kompilieren der Dokumenation ohne LilyPond zu kompilieren}.
+@rcontribnamed{Building documentation without compiling,Kompilieren der Dokumentation ohne LilyPond zu kompilieren}.
 
 @item
 Website: die Website wird aus der Quelle der Dokumentation
@@ -94,7 +94,7 @@ und LilyPond kompilieren können.  Siehe
 und @rcontribnamed{Compiling LilyPond,LilyPond kompilieren}.}
 
 Wir empfehlen, dass neue Mithelfer, die Windows benutzen, eine
-virtuale Maschine einsezten, um @emph{lilybuntu} zu benutzen.  Siehe
+virtuelle Maschine einsetzen, um @emph{lilybuntu} zu benutzen.  Siehe
 @rcontribnamed{Using a Virtual Machine to Compile LilyPond,Ein virtuelles Betriebssystem (VM) einsetzen um LilyPond zu kompilieren}.
 
 @itemize

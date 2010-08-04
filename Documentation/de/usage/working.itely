@@ -112,7 +112,7 @@ ist es weitaus komplizierter, die Dateistruktur ohne Kommentare zu
 verstehen, als wenn Sie sie rechtzeitig eingefügt hätten.
 
 @item @strong{Schreiben Sie Klammern mit Einrückung}.  Viele 
-Probleme entstehen durch ungerade Anzahl von  @code{@{} and 
+Probleme entstehen durch ungerade Anzahl von  @code{@{} und 
 @code{@}}-Klammern.
 
 @item @strong{Schreiben Sie Tondauerangaben} am Anfang von 

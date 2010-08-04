@@ -55,9 +55,9 @@ siehe @ref{Atemzeichen}.
 @ref{Legatobögen}.
 @item Unterschiedliche Artikulationen, Legato, Portato, Staccato,
 werden normalerweise mit Artikulationszeichen angemerkt, teilweise
-auch in Verbindung mit Legatobögen, siehe @ref{Artikulationszeichen und Verzierungen} und @ref{Liste der Arktikulationszeichen}.
+auch in Verbindung mit Legatobögen, siehe @ref{Artikulationszeichen und Verzierungen} und @ref{Liste der Artikulationszeichen}.
 @item Flatterzunge wird angezeigt, indem ein Tremolozeichen und eine
-Anmerkung für die ensprechende Note gesetzt wird. Siehe @ref{Tremolo-Wiederholung}.
+Anmerkung für die entsprechende Note gesetzt wird. Siehe @ref{Tremolo-Wiederholung}.
 @end itemize
 
 Es gibt auch noch weitere Aspekte der Notation, die für Blasinstrumente
@@ -80,13 +80,13 @@ dargestellt, siehe
 @ref{Besondere Notenköpfe}.
 @item Holzbläser können tiefe Noten überblasen.  Derartige Noten
 werden als @code{flageolet}-Artikulation notiert. Siehe
-@ref{Liste der Arktikulationszeichen}.
+@ref{Liste der Artikulationszeichen}.
 @item Die Benutzung von Dämpfern für Blechblasinstrumente wird meistens
 durch Text gefordert, aber bei schnellem Wechsel bietet es sich an,
 die Artikulationszeichen @code{stopped} und @code{open} zu benutzen.
 Siehe
 @ref{Artikulationszeichen und Verzierungen} und
-@ref{Liste der Arktikulationszeichen}.
+@ref{Liste der Artikulationszeichen}.
 @item Gestopfte Hörner werden mit dem @code{stopped}-Artikulationszeichen
 notiert. Siehe
 @ref{Artikulationszeichen und Verzierungen}.
@@ -103,7 +103,7 @@ Notationsreferenz:
 @ref{Atemzeichen},
 @ref{Legatobögen},
 @ref{Artikulationszeichen und Verzierungen},
-@ref{Liste der Arktikulationszeichen},
+@ref{Liste der Artikulationszeichen},
 @ref{Tremolo-Wiederholung},
 @ref{Transposition von Instrumenten},
 @ref{Glissando},
@@ -143,13 +143,13 @@ Snippets:
 Dieser Abschnitt beinhaltet Information zur Notation von Dudelsackmusik.
 
 @menu
-* Dudelsack-Defintionen::
+* Dudelsack-Definitionen::
 * Dudelsack-Beispiele::
 @end menu
 
 
-@node Dudelsack-Defintionen
-@unnumberedsubsubsec Dudelsack-Defintionen
+@node Dudelsack-Definitionen
+@unnumberedsubsubsec Dudelsack-Definitionen
 @translationof Bagpipe definitions
 
 @cindex Dudelsack
