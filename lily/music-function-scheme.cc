@@ -19,8 +19,8 @@ LY_DEFINE (ly_music_function_extract, "ly:music-function-extract", 1, 0, 0,
 LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
 	   (SCM signature, SCM func),
 	   "Make a function to process music, to be used for the"
-	   " parser.  @code{func} is the function, and @code{signature}"
-	   " describes its arguments.  @code{signature} is a list"
+	   " parser.  @var{func} is the function, and @var{signature}"
+	   " describes its arguments.  @var{signature} is a list"
 	   " containing either @code{ly:music?} predicates or other type"
 	   " predicates.")
 {

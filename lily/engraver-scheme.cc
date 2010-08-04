@@ -22,10 +22,10 @@
 
 LY_DEFINE (ly_engraver_make_grob, "ly:engraver-make-grob",
 	   3, 0, 0, (SCM engraver, SCM grob_name, SCM cause),
-	   "Creates a grob originating from given engraver instance, "
-	   "with give @code{grob_name}, a symbol.  "
-	   "@code{cause} should either be another grob "
-	   "or a music event.")
+	   "Create a grob originating from given @var{engraver} instance,"
+	   " with given @var{grob_name}, a symbol."
+	   "  @var{cause} should either be another grob"
+	   " or a music event.")
 {
   LY_ASSERT_TYPE (unsmob_engraver, engraver, 1);
   LY_ASSERT_TYPE (ly_is_symbol, grob_name, 2);

@@ -146,8 +146,8 @@ LY_DEFINE (ly_programming_error, "ly:programming-error",
 
 LY_DEFINE (ly_success, "ly:success",
 	   1, 0, 1, (SCM str, SCM rest),
-	   "A Scheme callable function to issue a success message @code{str}."
-	   "  The message is formatted with @code{format} and @code{rest}.")
+	   "A Scheme callable function to issue a success message @var{str}."
+	   "  The message is formatted with @code{format} and @var{rest}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -157,8 +157,8 @@ LY_DEFINE (ly_success, "ly:success",
 }
 LY_DEFINE (ly_warning, "ly:warning",
 	   1, 0, 1, (SCM str, SCM rest),
-	   "A Scheme callable function to issue the warning @code{str}."
-	   "  The message is formatted with @code{format} and @code{rest}.")
+	   "A Scheme callable function to issue the warning @var{str}."
+	   "  The message is formatted with @code{format} and @var{rest}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -574,8 +574,8 @@ format_single_argument (SCM arg, int precision, bool escape = false)
 
 LY_DEFINE (ly_format, "ly:format",
 	   1, 0, 1, (SCM str, SCM rest),
-	   "LilyPond specific format, supporting @code{~a} and @code{~[0-9]f}. "
-	   "Basic support for @code{~s} is also provided.")
+	   "LilyPond specific format, supporting @code{~a} and @code{~[0-9]f}."
+	   "  Basic support for @code{~s} is also provided.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 
@@ -644,7 +644,7 @@ LY_DEFINE (ly_format, "ly:format",
 
   if (scm_is_pair (rest))
     programming_error (string (__FUNCTION__)
-		       + ": too many  arguments");
+		       + ": too many arguments");
 
   vsize len = 0;
   for (vsize i = 0; i < results.size (); i++)
