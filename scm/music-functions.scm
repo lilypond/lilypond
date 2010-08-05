@@ -279,7 +279,7 @@ through MUSIC."
 			     1))
 	       ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
 	       (dots (1- (logcount (* times children))))
-	       ;; The remaining missing multiplicator to scale the notes by 
+	       ;; The remaining missing multiplicator to scale the notes by
 	       ;; times * children
 	       (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
 	       (shift (- (ly:intlog2 (floor mult))))
@@ -494,15 +494,19 @@ i.e.  this is not an override"
 ;;; Need to keep this definition for \time calls from parser
 (define-public (make-time-signature-set num den)
   "Set properties for time signature NUM/DEN."
-  (make-beam-rule-time-signature-set num den '()))
+  (make-music 'TimeSignatureMusic
+              'time-signature-arguments
+              (list num den '())))
 
 ;;; Used for calls that include beat-grouping setting
 (define-public (set-time-signature num den . rest)
   "Set properties for time signature @var{num/den}.
 If @var{rest} is present, it is used to set
 @code{beatStructure}."
- (ly:export (apply make-beam-rule-time-signature-set
-                    (list num den rest))))
+  (ly:export
+    (make-music 'TimeSignatureMusic
+                'time-signature-arguments
+                (list num den (if (null? rest) rest (car rest))))))
 
 (define-public (make-beam-rule-time-signature-set num den rest)
   "Implement settings for new time signature.  Can be

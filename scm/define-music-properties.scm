@@ -170,6 +170,7 @@ a @code{StringNumberEvent}.")
 in a part.")
      (tempo-unit ,ly:duration? "The unit for the metronome count.")
      (text ,markup? "Markup expression to be printed.")
+     (time-signature-arguments ,list? "The arguments to a time-signature call.")
      (to-relative-callback ,procedure? "How to transform a piece of music
 to relative pitches.")
      (tonic ,ly:pitch? "Base of the scale.")

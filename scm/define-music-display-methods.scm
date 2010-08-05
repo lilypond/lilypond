@@ -883,6 +883,21 @@ Otherwise, return #f."
 		properties)
 	    (new-line->lily-string))))
 
+(define-display-method TimeSignatureMusic (expr parser)
+  (let* ((arguments (ly:music-property expr 'time-signature-arguments))
+         (num (car arguments))
+         (den (cadr arguments))
+         (rest (caddr arguments)))
+    (if (null? rest)
+        (format #f
+                "\\time ~a/~a~a"
+                num den
+                (new-line->lily-string))
+        (format #f
+                "#(set-time-signature ~a ~a ~a)~a"
+                num den rest
+                (new-line->lily-string)))))
+
 ;;; \melisma and \melismaEnd
 (define-extra-display-method ContextSpeccedMusic (expr parser)
   "If expr is a melisma, return \"\\melisma\", otherwise, return #f."
@@ -988,39 +1003,39 @@ Otherwise, return #f."
 	  #f))))
 
 ;;; \time
-(define-extra-display-method ContextSpeccedMusic (expr parser)
-  "If `expr' is a time signature set, return \"\\time ...\".
-Otherwise, return #f.  Note: default grouping is not available."
-  (with-music-match
-   (expr (music
-           'ContextSpeccedMusic
-	   element (music
-	            'ContextSpeccedMusic
-		    context-type 'Timing
-		    element (music
-			     'SequentialMusic
-			     elements ?elts))))
-   (and
-    (> (length ?elts) 2)
-    (with-music-match ((cadr ?elts)
-                       (music 'PropertySet
-                              symbol 'baseMoment))
-       #t)
-    (with-music-match ((caddr ?elts)
-                       (music 'PropertySet
-                              symbol 'measureLength))
-       #t)
-    (with-music-match ((car ?elts)
-                       (music 'PropertySet
-                              value ?num+den
-                              symbol 'timeSignatureFraction))
-       (if (eq? (length ?elts) 3)
-           (format
-             #f "\\time ~a/~a~a"
-             (car ?num+den) (cdr ?num+den) (new-line->lily-string))
-           (format
-             #f "#(set-time-signature ~a ~a '(<grouping-specifier>))~a"
-             (car ?num+den) (cdr ?num+den)  (new-line->lily-string)))))))
+;(define-extra-display-method ContextSpeccedMusic (expr parser)
+;  "If `expr' is a time signature set, return \"\\time ...\".
+;Otherwise, return #f.  Note: default grouping is not available."
+;  (with-music-match
+;   (expr (music
+;           'ContextSpeccedMusic
+;	   element (music
+;	            'ContextSpeccedMusic
+;		    context-type 'Timing
+;		    element (music
+;			     'SequentialMusic
+;			     elements ?elts))))
+;   (and
+;    (> (length ?elts) 2)
+;    (with-music-match ((cadr ?elts)
+;                       (music 'PropertySet
+;                              symbol 'baseMoment))
+;       #t)
+;    (with-music-match ((caddr ?elts)
+;                       (music 'PropertySet
+;                              symbol 'measureLength))
+;       #t)
+;    (with-music-match ((car ?elts)
+;                       (music 'PropertySet
+;                              value ?num+den
+;                              symbol 'timeSignatureFraction))
+;       (if (eq? (length ?elts) 3)
+;           (format
+;             #f "\\time ~a/~a~a"
+;             (car ?num+den) (cdr ?num+den) (new-line->lily-string))
+;           (format
+;             #f "#(set-time-signature ~a ~a '(<grouping-specifier>))~a"
+;             (car ?num+den) (cdr ?num+den)  (new-line->lily-string)))))))
 
 ;;; \bar
 (define-extra-display-method ContextSpeccedMusic (expr parser)
