@@ -597,11 +597,12 @@ left-margin-default right-margin-default)"
             os.makedirs (directory)
         filename = path + '.ly'
         if os.path.exists (filename):
-            diff_against_existing = self.filter_pipe (self.full_ly (), 'diff -u %s -' % filename)
-            if diff_against_existing:
+            existing = open (filename, 'r').read ()
+
+            if self.relevant_contents (existing) != self.relevant_contents (self.full_ly ()):
                 warning ("%s: duplicate filename but different contents of orginal file,\n\
 printing diff against existing file." % filename)
-                ly.stderr_write (diff_against_existing)
+                ly.stderr_write (self.filter_pipe (self.full_ly (), 'diff -u %s -' % filename))
         else:
             out = file (filename, 'w')
             out.write (self.full_ly ())
@@ -734,8 +735,8 @@ printing diff against existing file." % filename)
         signal = 0x0f & status
         if status or (not output and error):
             exit_status = status >> 8
-            error (_ ("`%s' failed (%d)") % (cmd, exit_status))
-            error (_ ("The error log is as follows:"))
+            ly.error (_ ("`%s' failed (%d)") % (cmd, exit_status))
+            ly.error (_ ("The error log is as follows:"))
             ly.stderr_write (error)
             ly.stderr_write (stderr.read ())
             exit (status)
