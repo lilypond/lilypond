@@ -339,11 +339,11 @@ cd ~/bin
 @item
 Create a file called @command{lilypond} which contains
 
-@help obvious css issue to be dealt with.  :(
-@c we need a small font here to fit.  -gp
-@smallexample
+@divClass{h-scroll-auto}
+@example
 exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
-@end smallexample
+@end example
+@divEnd
 
 @warning{@var{DIR} will generally be @code{/Applications/}}
 
@@ -386,9 +386,11 @@ inside the @code{.app} file for MacOS@tie{}X.
 Scripts can also be run from the command line by invoking them
 directly:
 
+@divClass{h-scroll-auto}
 @example
 @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
 @end example
+@divEnd
 
 The same is true for all other scripts in that directory, such as
 @command{lilypond-book} and @command{convert-ly}.
@@ -606,6 +608,3 @@ is given in @ref{Freedom}.
 @include gpl.itexi
 
 @divEnd
-
-
-

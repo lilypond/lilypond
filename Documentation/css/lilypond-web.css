@@ -891,6 +891,18 @@ div.color4 h3 {
   line-height: 0.8;
 }
 
+.example {
+  position: relative;
+  left: -3em;
+}
+
+.h-scroll-auto {
+  position: relative;
+  left: 1em;
+  width: 240px;
+  overflow: auto;
+}
+
 .warning {
   background: #eef;
   text-align: left;
