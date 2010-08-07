@@ -941,6 +941,10 @@ div.color4 h3 {
   font-size: 0.6em;
 }
 
+.strong-link a {
+  font-weight: bold;
+}
+
 .detail {
   font-size: 0.8em;
 }

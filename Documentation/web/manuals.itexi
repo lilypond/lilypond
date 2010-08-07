@@ -10,10 +10,9 @@
 @node Manuals
 @unnumbered Manuals
 
+@c ugh! don't put a newline within this span - it generates a <p> tag!-td
 @macro details{reference}
-@spanClass{detail}
-(@ref{\reference\, details of \reference\})
-@spanEnd
+@spanClass{detail} (@ref{\reference\, details of \reference\}) @spanEnd
 @end macro
 
 
@@ -27,31 +26,34 @@
 
 @divEnd
 
-@c TODO: do we want these links to be in larger text / bold ?   CSS.
-
 @divClass{column-center-top}
 @subheading Introduction
 
 @itemize
 
-@item @ref{Text input}:
-LilyPond is a @strong{text-based} music engraver.  Read this
-first!
+@c ugh! don't put a newline after spanEnd - it generates a <p> tag! -td
+@item
+@spanClass{strong-link}
+@ref{Text input}:
+@spanEnd LilyPond is a @strong{text-based} music engraver.  Read this first!
 
-@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
-a @qq{must-read} gentle introduction to LilyPond.
+@item
+@spanClass{strong-link}
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
+@spanEnd a @qq{must-read} gentle introduction to LilyPond.
 @details{Learning}
 
-@item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
-@emph{(optional reading)}
-musical terms and translations.
+@item
+@spanClass{strong-link}
+@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
+@spanEnd @emph{(optional reading)} musical terms and translations.
 @details{Glossary}
 
-@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
-@emph{(optional reading)}
-background information about computer engraving.
+@item
+@spanClass{strong-link}
+@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
+@spanEnd @emph{(optional reading)} background information about computer engraving.
 @details{Essay}
-
 
 @end itemize
 
@@ -62,16 +64,22 @@ background information about computer engraving.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
-syntax reference.
+@item
+@spanClass{strong-link}
+@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
+@spanEnd syntax reference.
 @details{Notation}
 
-@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
-running the programs.
+@item
+@spanClass{strong-link}
+@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
+@spanEnd running the programs.
 @details{Usage}
 
-@item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
-short tricks and tips.
+@item
+@spanClass{strong-link}
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
+@spanEnd short tricks and tips.
 @details{Snippets}
 
 @end itemize
@@ -84,23 +92,33 @@ short tricks and tips.
 
 @itemize
 
-@item @ref{FAQ}:
-Frequently Asked Questions.
+@item
+@spanClass{strong-link}
+@ref{FAQ}:
+@spanEnd Frequently Asked Questions.
 
-@item @ref{Top, Web}:
-this document.
+@item
+@spanClass{strong-link}
+@ref{Top, Web}:
+@spanEnd this document.
 @details{Web}
 
-@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
-what's new?
+@item
+@spanClass{strong-link}
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
+@spanEnd what's new?
 @details{Changes}
 
-@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
-fancy tweaks.
+@item
+@spanClass{strong-link}
+@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
+@spanEnd fancy tweaks.
 @details{Extending}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
-tweaks reference.
+@item
+@spanClass{strong-link}
+@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
+@spanEnd tweaks reference.
 @details{Internals}
 
 @end itemize
@@ -113,18 +131,25 @@ tweaks reference.
 
 @itemize
 
-@item @ref{Translated}:
-translation status for non-English readers.
+@item
+@spanClass{strong-link}
+@ref{Translated}:
+@spanEnd translation status for non-English readers.
 
-@item @ref{All}:
-downloadable and old manuals.
+@item
+@spanClass{strong-link}
+@ref{All}:
+@spanEnd downloadable and old manuals.
 
-@item @ref{Development}:
-manuals for the unstable version.
+@item
+@spanClass{strong-link}
+@ref{Development}:
+@spanEnd manuals for the unstable version.
 
-@item @ref{FDL}:
-these manuals are published under the GNU Free Documentation
-License.
+@item
+@spanClass{strong-link}
+@ref{FDL}:
+@spanEnd these manuals are published under the GNU Free Documentation License.
 
 @end itemize
 
@@ -559,5 +584,3 @@ reasons for choosing it, is given in @ref{Freedom}.
 @include fdl.itexi
 
 @divEnd
-
-
