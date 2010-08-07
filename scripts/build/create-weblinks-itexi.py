@@ -376,24 +376,35 @@ def make_manual_links(name, version, lang):
                 "http://lilypond.org",
                 mshort+getTrans(" (did not exist in 2.12)",lang))
             continue
-        make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
-                  url + '.pdf',
-                  getTrans(manual.capitalize(),lang) + '.pdf')
-        make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
-                  url + '/index.html',
-                  getTrans(manual.capitalize(),lang) +
-                  getTrans(' (split HTML)',lang))
-        make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
-                  url + '-big-page.html',
-                  getTrans(manual.capitalize(),lang) +
-                  getTrans(' (big HTML)',lang))
 	# this is stupid and I shouldn't have bothered trying
 	# to support the 2.12 docs and it will be deleted once
 	# 2.14 is out and the website won't be visible to users
         # until 2.14 is out.  -gp
         if (url.endswith('.html')):
+            make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
+                      url,
+                      getTrans(manual.capitalize(),lang) + '.pdf')
+            make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
+                      url,
+                      getTrans(manual.capitalize(),lang) +
+                      getTrans(' (split HTML)',lang))
+            make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
+                      url,
+                      getTrans(manual.capitalize(),lang) +
+                      getTrans(' (big HTML)',lang))
             newurl = url
         else:
+            make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
+                      url + '.pdf',
+                      getTrans(manual.capitalize(),lang) + '.pdf')
+            make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
+                      url + '/index.html',
+                      getTrans(manual.capitalize(),lang) +
+                      getTrans(' (split HTML)',lang))
+            make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
+                      url + '-big-page.html',
+                      getTrans(manual.capitalize(),lang) +
+                      getTrans(' (big HTML)',lang))
             newurl = url + '/index.html'
         make_ver_link(macroLang("manual"+name+mshort+'SplitNoName',lang),
                   newurl,
