@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 68cf70682a542701a918f8bfff50f2b8b85f84e2
+    Translation of GIT committish: 7e4dc7d03c5bc354f343550f313a10f857367556
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -77,7 +77,7 @@ pour les empaqueteurs
 @ref{Anciennes versions} :
 versions antérieures
 
-@item 
+@item
 @ref{Development} :
 version instable la plus récente
 
@@ -348,11 +348,11 @@ cd ~/bin
 @item
 Créez un fichier @command{lilypond} qui contiendra
 
-@help défaut évident de css à régler.  :(
-@c we need a small font here to fit.  -gp
-@smallexample
+@divClass{h-scroll-auto}
+@example
 exec @var{RÉP}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
-@end smallexample
+@end example
+@divEnd
 
 @warning{@var{RÉP} sera en règle générale @code{/Applications/}}
 
@@ -394,9 +394,11 @@ fichier @code{.app} pour MacOS@tie{}X.
 
 Ces scripts peuvent se lancer directement en ligne de commande :
 
+@divClass{h-scroll-auto}
 @example
 @var{chemin/vers}/LilyPond.app/Contents/Resources/bin/lilypond
 @end example
+@divEnd
 
 Il en va de même pour les autres scripts de ce répertoire, tels que
 @command{lilypond-book} et @command{convert-ly}.
@@ -567,7 +569,7 @@ utilisateur a besoin.}
 
 L'intégralité des versions, récentes ou non, est accessible sur notre
 @uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D, site de
-téléchargement}. 
+téléchargement}.
 
 @divEnd
 
@@ -605,7 +607,7 @@ téléchargement}.
 @subheading Licence logicielle
 @translationof GPL
 
-GNU LilyPond est distribué selon la 
+GNU LilyPond est distribué selon la
 @ref{GPL,Licence Publique Générale GNU GPL}.  Pour une introduction à
 cette licence, et les raisons qui nous ont fait l'adopter, lisez
 @ref{Liberté}.

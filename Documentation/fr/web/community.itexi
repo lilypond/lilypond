@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 7c9a0da142b6037180d557f12ba1ada366226606
+    Translation of GIT committish: 7e4dc7d03c5bc354f343550f313a10f857367556
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -103,9 +103,9 @@ utilisateurs pour discuter et s'entraider.
 page de souscription à lilypond-user}
 
 @uref{http://lists.gnu.org/archive/html/lilypond-user/,
-archive1 de la liste}, 
+archive1 de la liste},
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
-archive2}, 
+archive2},
 @uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.general,
 archive3}.
 
@@ -115,6 +115,22 @@ poster sur lilypond-user à l'aide de gmane}
 
 @warning{Lorsque vous posez une question, merci de fournir des
 @ref{Exemples minimaux}@tie{}!}
+
+
+@subsubheading LilyPond Snippet Repository
+
+Le LilyPond Snippet Repository regroupe des exemples de situations
+particulières auxquelles ont été confontés les utilisateurs de LilyPond.
+Ils sont librement réutilisables dans vos propres travaux.  N'hésitez
+pas à apporter votre concours à cette banque de trucs et astuces@tie{}!
+
+@example
+@uref{http://lsr.dsi.unimi.it}
+@end example
+
+Un certain nombre d'exemples issus du LSR et particulièrement pertinents
+sont directement inclus dans la documentation, volume
+@ref{Morceaux choisis}.
 
 
 @subsubheading IRC
@@ -421,11 +437,12 @@ sans oublier le @code{>} au tout début de votre message@tie{}; c'est
 @end itemize
 @divEnd
 
-Une fois le message reçu, notre @qq{responsable des bogues} analysera
-votre rapport et vous demandera peut-être des informations
-supplémentaires avant de l'ajouter au traceur.  Il vous transmettra
-ensuite le numéro de référence de votre signalement une fois qu'il
-l'aura ajouté.
+Une fois le message reçu, nos @qq{exterminateurs de bogues} analyseront
+votre rapport et vous demanderont peut-être des informations
+supplémentaires avant de l'ajouter au traceur.  Dans la mesure où
+l'équipe est réduite, merci de leur laisser une bonne journée avant
+qu'ils ne vous transmettent le numéro de référence de votre signalement
+une fois qu'il aura été ajouté à la base.
 
 Vous serez automatiquement notifié du traitement apporté à ce bogue, dès
 lors que vous avez une compte chez google.
@@ -543,7 +560,7 @@ sur la planète, il n'est pas prévu que ce document soit un jour
 traduit@dots{}}
 
 @docLinksBare{Guide du contributeur, contributor,
-  @rcontribnamed{Top,Guide du Contributeur},
+  @rcontribnamed{Top,Guide du contributeur},
   @manualDevelContributorSplit,
   @manualDevelContributorBig, 500 kB,
   @manualDevelContributorPdf, 2.8 MB}
@@ -559,6 +576,7 @@ traduit@dots{}}
 
 @ifclear web_version
 
+@itemize
 @item
 @uref{../../input/regression/collated-files.html, Tests de régression}
 relatifs à ce niveau de mise à jour
@@ -570,21 +588,54 @@ relatifs à ce niveau de mise à jour
 (@uref{../../input/regression/musicxml/collated-files.pdf, version pdf}).
 @end ifclear
 
+@item
+@uref{../../input/regression/abc2ly/collated-files.html, Test de abc2ly}
+relatifs à ce niveau de mise à jour
+(@uref{../../input/regression/abc2ly/collated-files.pdf, version pdf}).
+
+@item
+@uref{../../input/regression/lilypond-book/collated-files.html,
+Test de lilypond-book} relatifs à ce niveau de mise à jour
+(@uref{../../input/regression/lilypond-book/collated-files.pdf, versionpdf}).
+@end itemize
+
+@end ifclear
+
 @ifset web_version
+@subsubheading Version de développement
+
+@itemize
 @item @regtestDevel (@regtestDevelPdf{})
 
 @item @regtestDevelXml (@regtestDevelXmlPdf{})
 
+@item @regtestDevelAbc (@regtestDevelAbcPdf{})
+
+@item @regtestDevelLilypondBook (@regtestDevelLilypondBookPdf{})
+@end itemize
+
+@subsubheading Version stable
+
+@itemize
 @item @regtestStable (@regtestStablePdf{})
 
 @item @regtestStableXml (@regtestStableXmlPdf{})
+
+@item @regtestStableAbc (@regtestStableAbcPdf{})
+
+@item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
+@end itemize
 @end ifset
 
 
+@subsubheading Toutes versions
+
+@itemize
 @item @uref{http://lilypond.org/test, Archives des tests de régression} :
 Comparaisons entre différentes versions.
 
 @end itemize
+
 @divEnd
 @divEnd
 
@@ -804,7 +855,7 @@ PDF 750k})
 @item
 Han-Wen Nienhuys et Jan Nieuwenhuizen, @emph{LilyPond, un système de
 gravure musicale automatisée}.  Actes du 14e Colloque d'informatique
-musicale (XIV CIM 2003), Florence, Itale, mai@tie{}2003. 
+musicale (XIV CIM 2003), Florence, Itale, mai@tie{}2003.
 (@uref{ http://lilypond.org/web/images/xivcim.pdf, PDF 95k})
 
 @end itemize
