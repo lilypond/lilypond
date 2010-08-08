@@ -1027,22 +1027,6 @@ A distance between a starting lower note and a higher ending note.
 No cross-references.
 
 
-@node augmented interval
-@section augmented interval
-
-ES: intervalo aumentado,
-I: intervallo aumentato,
-F: intervalle augmenté,
-D: übermäßiges Intervall,
-NL: overmatig interval,
-DK: forstørret interval,
-S: överstigande intervall,
-FI: ylinouseva intervalli.
-
-@seealso
-@ref{interval}.
-
-
 @node augmentation
 @section augmentation
 
@@ -1061,6 +1045,22 @@ This is a placeholder for augmentation (wrt mensural notation).
 
 @seealso
 @ref{diminution}, @ref{mensural notation}.
+
+
+@node augmented interval
+@section augmented interval
+
+ES: intervalo aumentado,
+I: intervallo aumentato,
+F: intervalle augmenté,
+D: übermäßiges Intervall,
+NL: overmatig interval,
+DK: forstørret interval,
+S: överstigande intervall,
+FI: ylinouseva intervalli.
+
+@seealso
+@ref{interval}.
 
 
 @node autograph
