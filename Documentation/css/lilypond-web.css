@@ -941,7 +941,7 @@ div.color4 h3 {
   font-size: 0.6em;
 }
 
-.strong-link a {
+.manuals a {
   font-weight: bold;
 }
 
@@ -949,6 +949,9 @@ div.color4 h3 {
   font-size: 0.8em;
 }
 
+.detail a {
+  font-weight: normal;
+}
 
 /* kill title, probably best done in the init file, though */
 h1.settitle {

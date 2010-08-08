@@ -15,6 +15,7 @@
 @spanClass{detail} (@ref{\reference\, details of \reference\}) @spanEnd
 @end macro
 
+@divClass{manuals}
 
 @divClass{heading-center}
 @ifclear web_version
@@ -33,26 +34,22 @@
 
 @c ugh! don't put a newline after spanEnd - it generates a <p> tag! -td
 @item
-@spanClass{strong-link}
 @ref{Text input}:
-@spanEnd LilyPond is a @strong{text-based} music engraver.  Read this first!
+LilyPond is a @strong{text-based} music engraver.  Read this first!
 
 @item
-@spanClass{strong-link}
 @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
-@spanEnd a @qq{must-read} gentle introduction to LilyPond.
+a @qq{must-read} gentle introduction to LilyPond.
 @details{Learning}
 
 @item
-@spanClass{strong-link}
 @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
-@spanEnd @emph{(optional reading)} musical terms and translations.
+@emph{(optional reading)} musical terms and translations.
 @details{Glossary}
 
 @item
-@spanClass{strong-link}
 @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
-@spanEnd @emph{(optional reading)} background information about computer engraving.
+@emph{(optional reading)} background information about computer engraving.
 @details{Essay}
 
 @end itemize
@@ -65,21 +62,18 @@
 @itemize
 
 @item
-@spanClass{strong-link}
 @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
-@spanEnd syntax reference.
+syntax reference.
 @details{Notation}
 
 @item
-@spanClass{strong-link}
 @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
-@spanEnd running the programs.
+running the programs.
 @details{Usage}
 
 @item
-@spanClass{strong-link}
 @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
-@spanEnd short tricks and tips.
+short tricks and tips.
 @details{Snippets}
 
 @end itemize
@@ -93,32 +87,27 @@
 @itemize
 
 @item
-@spanClass{strong-link}
 @ref{FAQ}:
-@spanEnd Frequently Asked Questions.
+Frequently Asked Questions.
 
 @item
-@spanClass{strong-link}
 @ref{Top, Web}:
-@spanEnd this document.
+this document.
 @details{Web}
 
 @item
-@spanClass{strong-link}
 @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
-@spanEnd what's new?
+what's new?
 @details{Changes}
 
 @item
-@spanClass{strong-link}
 @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
-@spanEnd fancy tweaks.
+fancy tweaks.
 @details{Extending}
 
 @item
-@spanClass{strong-link}
 @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
-@spanEnd tweaks reference.
+tweaks reference.
 @details{Internals}
 
 @end itemize
@@ -132,24 +121,20 @@
 @itemize
 
 @item
-@spanClass{strong-link}
 @ref{Translated}:
-@spanEnd translation status for non-English readers.
+translation status for non-English readers.
 
 @item
-@spanClass{strong-link}
 @ref{All}:
-@spanEnd downloadable and old manuals.
+downloadable and old manuals.
 
 @item
-@spanClass{strong-link}
 @ref{Development}:
-@spanEnd manuals for the unstable version.
+manuals for the unstable version.
 
 @item
-@spanClass{strong-link}
 @ref{FDL}:
-@spanEnd these manuals are published under the GNU Free Documentation License.
+these manuals are published under the GNU Free Documentation License.
 
 @end itemize
 
@@ -173,6 +158,8 @@
 * All::                 All manuals.
 * FDL::                     Licence.
 @end menu
+
+@divEnd
 
 @divEnd
 
