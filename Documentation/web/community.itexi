@@ -538,10 +538,10 @@ stable, we have written a manual for development tasks.
 @subheading Regression tests
 
 @divClass{keep-bullets}
-@itemize
 
 @ifclear web_version
 
+@itemize
 @item
 @uref{../../input/regression/collated-files.html, Regression tests}:
 This release's regtests.
@@ -551,23 +551,54 @@ This release's regtests.
 @uref{../../input/regression/musicxml/collated-files.html, MusicXML tests}:
 This release's musicXML tests.
 (@uref{../../input/regression/musicxml/collated-files.pdf, pdf version})
+
+@item
+@uref{../../input/regression/abc2ly/collated-files.html, abc2ly tests}:
+This release's abc2ly tests.
+(@uref{../../input/regression/abc2ly/collated-files.pdf, pdf version})
+
+@item
+@uref{../../input/regression/lilypond-book/collated-files.html, lilypond-book tests}:
+This release's lilypond-book tests.
+(@uref{../../input/regression/lilypond-book/collated-files.pdf, pdf version})
+@end itemize
+
 @end ifclear
 
 @ifset web_version
+@subsubheading Development version
+
+@itemize
 @item @regtestDevel (@regtestDevelPdf{})
 
 @item @regtestDevelXml (@regtestDevelXmlPdf{})
 
+@item @regtestDevelAbc (@regtestDevelAbcPdf{})
+
+@item @regtestDevelLilypondBook (@regtestDevelLilypondBookPdf{})
+@end itemize
+
+@subsubheading Stable version
+
+@itemize
 @item @regtestStable (@regtestStablePdf{})
 
 @item @regtestStableXml (@regtestStableXmlPdf{})
+
+@item @regtestStableAbc (@regtestStableAbcPdf{})
+
+@item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
+@end itemize
 @end ifset
 
 
+@subsubheading All versions
+
+@itemize
 @item @uref{http://lilypond.org/test, Archive of regression tests}:
 Comparisons between versions.
-
 @end itemize
+
 @divEnd
 @divEnd
 

@@ -424,9 +424,21 @@ def make_regtest_links(name, version, lang):
     make_ver_link(macroLang("regtest"+name+"Xml", lang),
         url+"musicxml/collated-files.html",
         getTrans("MusicXML Regression tests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"Abc", lang),
+        url+"abc2ly/collated-files.html",
+        getTrans("abc2ly Regression tests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"LilypondBook", lang),
+        url+"lilypond-book/collated-files.html",
+        getTrans("lilypond-book Regression tests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"XmlPdf", lang),
          url+"musicxml/collated-files.html",
         getTrans("PDF of MusicXML regtests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"AbcPdf", lang),
+         url+"abc2ly/collated-files.html",
+        getTrans("PDF of abc2ly regtests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"LilypondBookPdf", lang),
+         url+"lilypond-book/collated-files.html",
+        getTrans("PDF of lilypond-book regtests for ", lang)+version)
 
 def make_doctarball_links(name, version, lang):
     url = depth + "download/binaries/documentation/lilypond-"
