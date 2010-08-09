@@ -93,7 +93,7 @@ Any email sent with your gmail address in the @code{To:} or
 
 When setting up your filtering rules, be aware that Google Code
 might use different versions of your email address, such as ones
-ending in @code{@googlemail.com} or @code{gmail.com}.
+ending in @code{googlemail.com} or @code{gmail.com}.
 
 @item
 Any other email either from, or CC'd to,
