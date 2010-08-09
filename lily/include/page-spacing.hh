@@ -53,6 +53,7 @@ class Page_spacer
 public:
   Page_spacer (vector<Line_details> const &lines, vsize first_page_num, Page_breaking const*);
   Page_spacing_result solve (vsize page_count);
+  Page_spacing_result solve ();
 
 private:
   struct Page_spacing_node
@@ -64,19 +65,27 @@ private:
       penalty_ = infinity_f;
       prev_ = VPOS;
       system_count_status_ = SYSTEM_COUNT_OK;
+      page_ = 0;
     }
 
     Real demerits_;
     Real force_;
     Real penalty_;
     vsize prev_;
+    vsize page_;
     int system_count_status_;
   };
 
   Page_breaking const *breaker_;
   vsize first_page_num_;
   vector<Line_details> lines_;
+
+  // If a page-count is requested, we use state_, which
+  // is indexed by page*system, for our dynamic programming
+  // intermediate storage.  Otherwise, we use simple_state_,
+  // which is indexed only by system.
   Matrix<Page_spacing_node> state_;
+  vector<Page_spacing_node> simple_state_;
   vsize max_page_count_;
 
   bool ragged_;

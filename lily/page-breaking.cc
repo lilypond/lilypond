@@ -802,6 +802,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
 	    }
 	}
       cached_line_details_ = compress_lines (uncompressed_line_details_);
+      compute_line_heights ();
     }
 }
 
@@ -904,7 +905,6 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
   int line_count = 0;
 
   cache_line_details (configuration);
-  compute_line_heights ();
 
   if (cached_line_details_.size ())
     cur_page_height -= min_whitespace_at_top_of_page (cached_line_details_[0]);
@@ -1088,21 +1088,10 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
 Page_spacing_result
 Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_page_num)
 {
-  vsize min_p_count = min_page_count (configuration, first_page_num);
-
   cache_line_details (configuration);
   Page_spacer ps (cached_line_details_, first_page_num, this);
-  Page_spacing_result best = ps.solve (min_p_count);
 
-  for (vsize i = min_p_count+1; i <= cached_line_details_.size (); i++)
-    {
-      Page_spacing_result cur = ps.solve (i);
-      if (cur.demerits_ < best.demerits_)
-	best = cur;
-    }
-
-  Page_spacing_result ret = finalize_spacing_result (configuration, best);
-  return ret;
+  return finalize_spacing_result (configuration, ps.solve ());
 }
 
 Page_spacing_result
@@ -1166,7 +1155,6 @@ Page_breaking::pack_systems_on_least_pages (vsize configuration, vsize first_pag
   Page_spacing space (page_height (first_page_num, false), this);
 
   cache_line_details (configuration);
-  compute_line_heights ();
   for (vsize line = 0; line < cached_line_details_.size (); line++)
     {
       Real prev_force = space.force_;
