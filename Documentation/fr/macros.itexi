@@ -432,12 +432,12 @@ Pour LilyPond version @version{}
 
 @macro rcontrib{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,contributor,Guide des contributeurs}
+@ref{\TEXT\,,,contributor,Guide du contributeur}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,contributor,Guide des contributeurs}
+@ref{\TEXT\,,\DISPLAY\,contributor,Guide du contributeur}
 @end macro
 
 @macro rweb{TEXT}
@@ -544,12 +544,12 @@ Pour LilyPond version @version{}
 
 @macro rcontrib{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-contributor,Guide des contributeurs}
+@ref{\TEXT\,,,lilypond-contributor,Guide du contributeur}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Guide des contributeurs}
+@ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Guide du contributeur}
 @end macro
 
 @macro rweb{TEXT}
@@ -673,12 +673,12 @@ Pour LilyPond version @version{}
 
 @macro rcontrib{TEXT}
 @vindex{\TEXT\}
-@ref{\TEXT\,,,contributor,Guide des contributeurs}
+@ref{\TEXT\,,,contributor,Guide du contributeur}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
 @vindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,contributor,Guide des contributeurs}
+@ref{\TEXT\,,\DISPLAY\,contributor,Guide du contributeur}
 @end macro
 
 @macro rweb{TEXT}

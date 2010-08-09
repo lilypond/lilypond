@@ -89,6 +89,7 @@ aujourd'hui.
 @unnumberedsec Contact
 @translationof Contact
 
+
 @divClass{column-left-bottom}
 @subheading Discuter entre utilisateurs et demander de l'aide
 @translationof Discussions and Help
@@ -572,7 +573,6 @@ traduit@dots{}}
 @subheading Tests de régression
 
 @divClass{keep-bullets}
-@itemize
 
 @ifclear web_version
 
@@ -586,7 +586,6 @@ relatifs à ce niveau de mise à jour
 @uref{../../input/regression/musicxml/collated-files.html, Tests de MusicXML}
 relatifs à ce niveau de mise à jour
 (@uref{../../input/regression/musicxml/collated-files.pdf, version pdf}).
-@end ifclear
 
 @item
 @uref{../../input/regression/abc2ly/collated-files.html, Test de abc2ly}
@@ -890,7 +889,6 @@ Alberto Simões, Anália Lourenço et José João Almeida,
 New Trends in Artificial Intelligence, 2007 J. Neves et al ed.
 
 @item
-
 Kevin C. Baird 2005,
 @emph{Real-time generation of music notation via audience interaction using
 python and GNU lilypond}. Proceedings of the 2005 Conference on New interfaces
