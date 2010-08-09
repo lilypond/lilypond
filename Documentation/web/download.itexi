@@ -42,7 +42,7 @@ our @ref{Text input}.}
 @itemize
 
 @item
-@c TODO: duplicate to avoid underlined refs in HTML?  icky.
+@c ref is duplicated to avoid underlining ref as image.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
 @ref{Unix, Unix (Linux and FreeBSD)}
