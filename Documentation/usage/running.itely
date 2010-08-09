@@ -289,10 +289,14 @@ Show a summary of usage.
 @item -H,--header=@var{FIELD}
 Dump a header field to file @file{BASENAME.@var{FIELD}}.
 
-@item --include, -I=@var{directory}
-Add @var{directory} to the search path for input files.
 @cindex file searching
 @cindex search path
+@item --include, -I=@var{directory}
+Add @var{directory} to the search path for input files.
+
+Multiple -I options may be given.  The search will start in the
+first defined directory, and if the file to be included is not
+found the search will continue in subsequent directories.
 
 @item -i,--init=@var{file}
 Set init file to @var{file} (default: @file{init.ly}).
