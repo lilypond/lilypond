@@ -23,14 +23,8 @@
 #include "page-spacing.hh"
 #include "paper-book.hh"
 
-static bool
-is_break (Grob *)
-{
-  return false;
-}
-
 Minimal_page_breaking::Minimal_page_breaking (Paper_book *pb)
-  : Page_breaking (pb, is_break)
+  : Page_breaking (pb, 0, 0)
 {
 }
 

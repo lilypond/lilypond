@@ -173,7 +173,7 @@ Page_breaking::next_system (Break_position const &break_pos) const
   return sys + 1; /* this page starts with a new System_spec */
 }
 
-Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
+Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_break_predicate prob_break)
 {
   book_ = pb;
   system_count_ = 0;
@@ -196,7 +196,7 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
     }
 
   create_system_list ();
-  find_chunks_and_breaks (is_break);
+  find_chunks_and_breaks (is_break, prob_break);
 }
 
 Page_breaking::~Page_breaking ()
@@ -523,7 +523,7 @@ Page_breaking::create_system_list ()
 }
 
 void
-Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
+Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_predicate prob_is_break)
 {
   SCM force_sym = ly_symbol2scm ("force");
 
@@ -567,7 +567,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 		}
 
 	      bool last = (j == cols.size () - 1);
-	      bool break_point = is_break (cols[j]);
+	      bool break_point = is_break && is_break (cols[j]);
 	      bool chunk_end = cols[j]->get_property ("page-break-permission") == force_sym;
 	      Break_position cur_pos = Break_position (i,
 						       line_breaker_columns.size (),
@@ -598,8 +598,8 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 	}
       else
 	{
-	  /* TODO: we want some way of applying Break_p to a prob? */
-	  if (i == system_specs_.size () - 1)
+	  bool break_point = prob_is_break && prob_is_break (system_specs_[i].prob_);
+	  if (break_point || i == system_specs_.size () - 1)
 	    breaks_.push_back (Break_position (i));
 
 	  chunks_.push_back (Break_position (i));

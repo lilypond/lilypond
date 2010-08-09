@@ -29,8 +29,9 @@
 #include "system.hh"
 #include "warn.hh"
 
+template<typename T>
 static bool
-is_break (Grob *g)
+is_break (T *g)
 {
   bool turnable = scm_is_symbol (g->get_property ("page-turn-permission"));
 
@@ -46,7 +47,7 @@ is_break (Grob *g)
 }
 
 Page_turn_page_breaking::Page_turn_page_breaking (Paper_book *pb)
-  : Page_breaking (pb, is_break)
+  : Page_breaking (pb, is_break<Grob>, is_break<Prob>)
 {
 }
 

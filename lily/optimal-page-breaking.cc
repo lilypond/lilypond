@@ -26,14 +26,8 @@
 #include "prob.hh"
 #include "system.hh"
 
-static bool
-is_break (Grob *)
-{
-  return false;
-}
-
 Optimal_page_breaking::Optimal_page_breaking (Paper_book *pb)
-  : Page_breaking (pb, is_break)
+  : Page_breaking (pb, 0, 0)
 {
 }
 

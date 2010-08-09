@@ -99,6 +99,7 @@ class Page_breaking
 {
 public:
   typedef bool (*Break_predicate) (Grob *);
+  typedef bool (*Prob_break_predicate) (Prob *);
   typedef vector<vsize> Line_division;
   
   /*
@@ -109,7 +110,7 @@ public:
    */
   virtual SCM solve () = 0;
 
-  Page_breaking (Paper_book *pb, Break_predicate);
+  Page_breaking (Paper_book *pb, Break_predicate, Prob_break_predicate);
   virtual ~Page_breaking ();
 
   bool ragged () const;
@@ -213,7 +214,7 @@ private:
   Page_spacing_result space_systems_on_2_pages (vsize configuration_index, vsize first_page_num);
   Page_spacing_result finalize_spacing_result (vsize configuration_index, Page_spacing_result);
   void create_system_list ();
-  void find_chunks_and_breaks (Break_predicate);
+  void find_chunks_and_breaks (Break_predicate, Prob_break_predicate);
   SCM make_page (int page_num, bool last) const;
   SCM get_page_configuration (SCM systems, int page_num, bool ragged, bool last);
   SCM draw_page (SCM systems, SCM config, int page_num, bool last);
