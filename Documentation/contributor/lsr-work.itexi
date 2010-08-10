@@ -8,6 +8,7 @@
 * Approving snippets::
 * LSR to Git::
 * Fixing snippets in LilyPond sources::
+* Renaming a snippet::
 * Updating LSR to a new version::
 @end menu
 
@@ -217,6 +218,31 @@ In any case, commit all changes to Git.
 
 @end enumerate
 
+
+@node Renaming a snippet
+@section Renaming a snippet
+
+Due to the potential duality of snippets (i.e. they may exist both
+in the LSR database, and in @code{Documentation/snippets/new/}),
+this process is a bit more involved than we might like.
+
+@enumerate
+@item
+Send an email LSR editor, requesting the renaming.
+
+@item
+The LSR editor does the renaming (or debates the topic with you),
+then warns the LSR-to-git person (wanted: better title) about the
+renaming.
+
+@item
+LSR-to-git person does his normal job, but then also renames any
+copies of the snippets in @code{Documentation/snippets/new/}, and
+any instances of the snippet name in the documentation.
+
+@code{git grep} is highly recommended for this task.
+
+@end enumerate
 
 
 @node Updating LSR to a new version
