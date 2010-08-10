@@ -893,13 +893,13 @@ div.color4 h3 {
 
 .example {
   position: relative;
-  left: -3em;
+  left: -2.5em;
 }
 
 .h-scroll-auto {
   position: relative;
   left: 1em;
-  width: 240px;
+  width: 250px;
   overflow: auto;
 }
 
