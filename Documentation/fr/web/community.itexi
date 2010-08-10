@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 7e4dc7d03c5bc354f343550f313a10f857367556
+    Translation of GIT committish: 0ab366a101ef8c3439dd8d6ff6c634f70fa5f63b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -17,6 +17,8 @@
 @node Communauté
 @unnumbered Communauté
 @translationof Community
+
+@divClass{link-headings}
 
 @divClass{column-center-top}
 @subheading Échanger avec la communauté
@@ -70,6 +72,7 @@ aujourd'hui.
 @end itemize
 @divEnd
 
+@divEnd
 
 @divClass{hide}
 @menu
@@ -909,5 +912,4 @@ Singapore, 240-241.
 @include web/news-front.itexi
 
 @include web/news.itexi
-
 
