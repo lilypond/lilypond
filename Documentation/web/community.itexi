@@ -13,6 +13,7 @@
 @node Community
 @unnumbered Community
 
+@divClass{link-headings}
 
 @divClass{column-center-top}
 @subheading Interacting with the community
@@ -63,6 +64,7 @@ discussing LilyPond.
 @end itemize
 @divEnd
 
+@divEnd
 
 @divClass{hide}
 @menu
@@ -869,5 +871,3 @@ For Musical Expression (Vancouver, Canada, May 26 - 28, 2005).
 @include web/news-front.itexi
 
 @include web/news.itexi
-
-

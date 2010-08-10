@@ -36,6 +36,8 @@ our @ref{Text input}.}
 
 @divEnd
 
+@divClass{link-headings}
+
 @divClass{column-left-top}
 @subheading For users
 
@@ -78,6 +80,7 @@ latest unstable version
 @end itemize
 @divEnd
 
+@divEnd
 
 @divClass{column-center-bottom}
 

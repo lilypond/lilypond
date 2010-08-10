@@ -10,12 +10,11 @@
 @node Manuals
 @unnumbered Manuals
 
-@c ugh! don't put a newline within this span - it generates a <p> tag!-td
 @macro details{reference}
-@spanClass{detail} (@ref{\reference\, details of \reference\}) @spanEnd
+@spanClass{detail}
+(@ref{\reference\, details of \reference\})
+@spanEnd
 @end macro
-
-@divClass{manuals}
 
 @divClass{heading-center}
 @ifclear web_version
@@ -27,12 +26,13 @@
 
 @divEnd
 
+@divClass{link-headings}
+
 @divClass{column-center-top}
 @subheading Introduction
 
 @itemize
 
-@c ugh! don't put a newline after spanEnd - it generates a <p> tag! -td
 @item
 @ref{Text input}:
 LilyPond is a @strong{text-based} music engraver.  Read this first!
@@ -140,6 +140,8 @@ these manuals are published under the GNU Free Documentation License.
 
 @divEnd
 
+@divEnd
+
 
 @divClass{hide}
 @menu
@@ -158,8 +160,6 @@ these manuals are published under the GNU Free Documentation License.
 * All::                 All manuals.
 * FDL::                     Licence.
 @end menu
-
-@divEnd
 
 @divEnd
 

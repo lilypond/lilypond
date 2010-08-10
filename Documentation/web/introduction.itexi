@@ -27,6 +27,8 @@ traditions of classical music engraving.
 
 @divEnd
 
+@divClass{link-headings}
+
 @divClass{column-left-top}
 @subheading What LilyPond does
 
@@ -71,6 +73,8 @@ traditions of classical music engraving.
 @ref{Easier editing}: Other ways of working with LilyPond.
 
 @end itemize
+@divEnd
+
 @divEnd
 
 @c TRANSLATORS, translations are not yet compiled in Info format, so
