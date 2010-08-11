@@ -301,9 +301,15 @@ found the search will continue in subsequent directories.
 @item -i,--init=@var{file}
 Set init file to @var{file} (default: @file{init.ly}).
 
-@item -o,--output=@var{FILE}
-Set the default output file to @var{FILE}.  The appropriate
-suffix will be added (e.g. @code{.pdf} for pdf)
+@cindex folder, directing output to
+@cindex output filename, setting
+
+@item -o,--output=@var{FILE} or @var{FOLDER}
+Set the default output file to @var{FILE} or, if a folder with
+that name exists, direct the output to @var{FOLDER}, taking the
+file name from the input file.  The appropriate suffix will be
+added (e.g. @code{.pdf} for pdf) in both cases.
+
 
 @cindex PostScript output
 
