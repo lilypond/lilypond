@@ -200,7 +200,11 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
 
-  parser->parse_string (ly_scm2string (ly_code));
+  if (!parser->lexer_->is_clean ())
+    parser->parser_error (_ ("ly:parser-parse-string is only valid with a new parser."
+			     "  Use ly:parser-include-string instead."));
+  else
+    parser->parse_string (ly_scm2string (ly_code));
 
   return SCM_UNSPECIFIED;
 }

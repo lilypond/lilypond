@@ -391,3 +391,9 @@ Lily_lexer::print_smob (SCM s, SCM port, scm_print_state*)
   scm_puts (" >", port);
   return 1;
 }
+
+bool
+Lily_lexer::is_clean () const
+{
+  return include_stack_.empty ();
+}
