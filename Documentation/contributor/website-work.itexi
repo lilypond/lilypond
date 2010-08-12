@@ -77,6 +77,32 @@ chgrp lilypond ~graham/lilypond/ -R
 chmod 775 ~graham/lilypond/ -R
 @end example
 
+To reduce the CPU burden on the shared host (as well as some
+security concerns), the @file{Documentation/@/pictures/} and
+@file{Documentation/@/web/@/ly-examples/} directories are
+@strong{not} compiled.  You need to upload them, and if they ever
+change, a user in the @code{lilypond} group must upload them to
+@file{~graham/@/media} on the host.
+
+Upload latest pictures/ and ly-examples/ (local script):
+
+@warning{You may need to change a number of items in the below
+script.}
+
+@verbatim
+### upload-lily-web-media.sh
+#!/bin/sh
+BUILD_DIR=$HOME/src/build-lilypond
+
+PICS=$BUILD_DIR/Documentation/pictures/out-www/
+EXAMPLES=$BUILD_DIR/Documentation/web/ly-examples/out-www/
+
+cd $BUILD_DIR
+rsync -a $PICS graham@lilypond.org:media/pictures
+rsync -a $EXAMPLES graham@lilypond.org:ly-examples
+@end verbatim
+
+
 
 @subheading Normal maintenance
 
@@ -149,29 +175,6 @@ Cronjob to automate the trusted portions:
 # website-rebuild.cron
 11 * * * * $HOME/lilypond/trusted-scripts/update-git.sh >/dev/null 2>&1
 22 * * * * $HOME/lilypond/trusted-scripts/make-website.sh >/dev/null 2>&1
-@end verbatim
-
-
-To reduce the CPU burden on the shared host (as well as some
-security concerns), the @file{Documentation/@/pictures/} and
-@file{Documentation/@/web/@/ly-examples/} directories are @strong{not}
-compiled.  If you modify any files in those directories, a user in
-the @code{lilypond} group must upload them to @file{~graham/@/media}
-on the host.
-
-Upload latest pictures/ and ly-examples/ (local script):
-
-@verbatim
-### upload-lily-web-media.sh
-#!/bin/sh
-BUILD_DIR=$HOME/src/build-lilypond
-
-PICS=$BUILD_DIR/Documentation/pictures/out-www/
-EXAMPLES=$BUILD_DIR/Documentation/web/ly-examples/out-www/
-
-cd $BUILD_DIR
-rsync -a $PICS graham@lilypond.org:media/pictures
-rsync -a $EXAMPLES graham@lilypond.org:ly-examples
 @end verbatim
 
 
