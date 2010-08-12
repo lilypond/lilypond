@@ -402,3 +402,20 @@ LY_DEFINE (ly_grob_common_refpoint_of_array, "ly:grob-common-refpoint-of-array",
   Grob *refp = common_refpoint_of_array (ga->array (), gr, Axis (scm_to_int (axis)));
   return refp ? refp->self_scm () : SCM_BOOL_F;
 }
+
+LY_DEFINE (ly_grob_chain_callback, "ly:grob-chain-callback",
+	   3, 0, 0, (SCM grob, SCM proc, SCM sym),
+	   "Find the callback that is stored as property"
+	   " @var{sym} of grob @var{grob} and chain @var{proc}"
+	   " to the head of this, meaning that it is called"
+	   " using @var{grob} and the previous callback's result.")
+{
+  Grob *gr = unsmob_grob (grob);
+
+  LY_ASSERT_SMOB (Grob, grob, 1);
+  LY_ASSERT_TYPE (ly_is_procedure, proc, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 3);
+
+  chain_callback (gr, proc, sym);
+  return SCM_UNSPECIFIED;
+}
