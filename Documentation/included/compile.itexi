@@ -1107,9 +1107,9 @@ Steps to setting up @code{lilybuntu} in a virtual machine:
 @item Install @code{lilybuntu}.  You will use the @code{.iso}
 file as the boot disk.  It should not be necessary to burn it
 to a DVD, but consult the documentation for your virtualization
-software for specific instructions.  If possible, use at least
-the recommended amount of RAM for the virtual machine (384 MB on
-VirtualBox), and use a dynamically expanding virtual hard drive.
+software for specific instructions.  If possible, use at least 500
+MB of RAM (1GB would be better!) for the virtual machine, and use
+a dynamically expanding virtual hard drive.
 A virtual hard drive with 6 GB will be enough to compile LilyPond,
 but if you intend to build the docs and run the regression tests
 the virtual hard drive should be at least 10 GB.
