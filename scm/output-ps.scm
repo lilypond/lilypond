@@ -103,30 +103,6 @@
 	  (- x2 x1) (- y2 y1)
 	  x1 y1 thick))
 
-(define (connected-shape pointlist thick x-scale y-scale connect fill)
-  (ly:format "~a~4f ~4f ~4f ~4f ~a ~a draw_connected_shape"
-    (string-concatenate
-      (map (lambda (x)
-             (apply (if (eq? (length x) 6)
-                        (lambda (x1 x2 x3 x4 x5 x6)
-                          (ly:format "~4f ~4f ~4f ~4f ~4f ~4f 6 "
-                                     x1
-                                     x2
-                                     x3
-                                     x4
-                                     x5
-                                     x6))
-                        (lambda (x1 x2)
-                           (ly:format "~4f ~4f 2 " x1 x2)))
-                    x))
-           (reverse pointlist)))
-      (length pointlist)
-      x-scale
-      y-scale
-      thick
-      (if connect "true" "false")
-      (if fill "true" "false")))
-
 (define (partial-ellipse x-radius y-radius start-angle end-angle thick connect fill)
   (ly:format "~a ~a ~4f ~4f ~4f ~4f ~4f draw_partial_ellipse"
         (if fill "true" "false")

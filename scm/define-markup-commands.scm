@@ -726,13 +726,13 @@ samplePath =
 				;; see `without-closepath'.
 				(else x)))
 			    commands))
-	 ;; connected-shape-min-max does not accept 0-arg lists,
+	 ;; path-min-max does not accept 0-arg lists,
 	 ;; and since closepath does not affect extents, filter
 	 ;; out those commands here.
 	 (without-closepath (filter (lambda (x)
 				      (not (equal? 'closepath (car x))))
 				    new-commands))
-	 (extents (connected-shape-min-max
+	 (extents (path-min-max
 		    ;; set the origin to the first moveto
 		    (list (list-ref (car without-closepath) 0)
 			  (list-ref (car without-closepath) 1))

@@ -291,7 +291,7 @@ the more angular the shape of the parenthesis."
       (cons (min-max-crawler min cddr possible-extrema)
             (min-max-crawler max cddr possible-extrema)))))
 
-(define (connected-shape-min-max origin pointlist)
+(define (path-min-max origin pointlist)
 
   (define (line-part-min-max x1 x2)
     (list (min x1 x2) (max x1 x2)))
@@ -356,17 +356,17 @@ the more angular the shape of the parenthesis."
 	      (append (list origin)
 		      (reverse (cdr (reverse pointlist)))) pointlist))))
 
-(define-public (make-connected-shape-stencil pointlist thickness
-					      x-scale y-scale connect fill)
-  "Make a connected shape described by the list @var{pointlist}, with
+(define-public (make-connected-path-stencil pointlist thickness
+					    x-scale y-scale connect fill)
+  "Make a connected path described by the list @var{pointlist}, with
 thickness @var{thickness}, and scaled by @var{x-scale} in the X direction
 and @var{y-scale} in the Y direction.  @var{connect} and @var{fill} are
-boolean arguments that specify if the shape should be connected or filled,
+boolean arguments that specify if the path should be connected or filled,
 respectively."
 
-  ;; a connected shape path must begin at point '(0 . 0)
+  ;; paths using this routine are designed to begin at point '(0 . 0)
   (let* ((origin (list 0 0))
-	 (boundlist (connected-shape-min-max origin pointlist))
+	 (boundlist (path-min-max origin pointlist))
 	 ;; modify pointlist to scale the coordinates
 	 (path (map (lambda (x)
 		      (apply
@@ -387,7 +387,7 @@ respectively."
 		    pointlist))
 	 ;; a path must begin with a `moveto'
 	 (prepend-origin (apply list (cons 'moveto origin) path))
-	 ;; if this shape is connected, add closepath to the end
+	 ;; if this path is connected, add closepath to the end
 	 (final-path (if connect
 			 (append prepend-origin (list 'closepath))
 			 prepend-origin))

@@ -431,38 +431,6 @@
                            (- (* start-radius (sin new-start-angle))))
                 "")))))))
 
-(define (connected-shape pointlist thick x-scale y-scale connect fill)
-  (entity
-    'path ""
-    `(fill . ,(if fill "currentColor" "none"))
-    `(stroke . "currentColor")
-    `(stroke-width . ,thick)
-    '(stroke-linejoin . "round")
-    '(stroke-linecap . "round")
-    (cons
-      'd
-      (ly:format
-        "M0 0~a ~a"
-        (string-concatenate
-          (map (lambda (x)
-                 (apply
-                   (if (eq? (length x) 6)
-                       (lambda (x1 x2 x3 x4 x5 x6)
-                         (ly:format "C~4f ~4f ~4f ~4f ~4f ~4f"
-                                    (* x1 x-scale)
-                                    (- (* x2 y-scale))
-                                    (* x3 x-scale)
-                                    (- (* x4 y-scale))
-                                    (* x5 x-scale)
-                                    (- (* x6 y-scale))))
-                       (lambda (x1 x2)
-                         (ly:format "L~4f ~4f"
-                                    (* x-scale x1)
-                                    (- (* y-scale x2)))))
-                   x))
-               pointlist))
-        (if connect "z " "")))))
-
 (define (embedded-svg string)
   string)
 
