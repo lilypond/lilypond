@@ -97,6 +97,30 @@ will output @var{base}@file{-violin.pdf} and
 @var{base}@file{-cello-1.pdf}.
 
 
+@unnumberedsubsubsec Standard shell commands
+
+If your shell (i.e. command window) supports normal redirects,
+then you might find it useful to use the following commands to
+redirect console output to a file:
+
+@itemize
+
+@item
+@code{lilypond file.ly 1>stdout.log} to redirect normal output
+
+@item
+@code{lilypond file.ly 2>stderr.log} to redirect error messages
+
+@item
+@code{lilypond file.ly &>all.log} to redirect all output
+
+@end itemize
+
+Consult the documentation for your shell to see if it supports these
+options, or if the syntax is different.  Note that these are shell
+commands and have nothing to do with lilypond.
+
+
 @node Command line options for lilypond
 @unnumberedsubsec Command line options for @command{lilypond}
 
@@ -536,6 +560,7 @@ for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh" "/bin/rm
       /$lilyprefix/bin/lilypond -jlily,lily,/mnt/lilyloop,/lilyhome test.ly
 @end example
 
+@c " keep quote signs balanced for context-sensitive editors
 
 @node Error messages
 @section Error messages
