@@ -286,11 +286,13 @@ thickness, and @code{offset} to determine line y-offset.
 
 @lilypond[verbatim,quote]
 \\markup \\fill-line {
-  \\underline "underlined"
-  \\override #'(offset . 5) \\override #'(thickness . 1) \\underline
-"underlined"
-  \\override #'(offset . 1) \\override #'(thickness . 5) \\underline
-"underlined"
+  \\underline \"underlined\"
+  \\override #'(offset . 5)
+  \\override #'(thickness . 1)
+  \\underline \"underlined\"
+  \\override #'(offset . 1)
+  \\override #'(thickness . 5)
+  \\underline \"underlined\"
 }
 @end lilypond"
   (let* ((thick (ly:output-def-lookup layout 'line-thickness))
