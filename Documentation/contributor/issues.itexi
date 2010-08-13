@@ -147,13 +147,15 @@ the currently-active Bug Squad member(s) can handle the message.
 
 @subsubheading Daily schedule
 
+The Bug Meister is omitted from the daily schedule.
+
 @example
 Sunday: Valentin
 Monday: Dmytro
 Tuesday: James Bailey
 Wednesday: Ralph
-Thursday: Phil Holmes
-Friday: Urs Liska, Patrick
+Thursday: Patrick
+Friday: Urs
 Saturday: Kieren
 @end example
 
