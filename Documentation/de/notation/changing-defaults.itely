@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 0767b19c9139922e6d4f7fc569e1f5ffa016b7ac
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -54,6 +54,7 @@ LilyPond-Quelldatei mit einer Raute @code{#} begonnen (siehe auch
 * Eigenschaften verändern::
 * Nützliche Konzepte und Eigenschaften::
 * Fortgeschrittene Optimierungen::
+* Musikfunktionen benutzen::
 @end menu
 
 
@@ -98,14 +99,14 @@ Referenz der Interna:
 Kontexte sind hierarchisch geordnet:
 
 @menu
-* Score - der Vater aller Kontexte::
+* Score -- der Vater aller Kontexte::
 * Oberste Kontexte -- Container für Systeme::
 * Mittlere Kontexte -- Systeme::
 * Unterste Kontexte -- Stimmen::
 @end menu
 
-@node Score - der Vater aller Kontexte
-@unnumberedsubsubsec Score - der Vater aller Kontexte
+@node Score -- der Vater aller Kontexte
+@unnumberedsubsubsec Score -- der Vater aller Kontexte
 @translationof Score - the master of all contexts
 
 @code{Score} (Partitur) ist der höchste Notationskontext.  Kein anderer Kontext
@@ -238,7 +239,7 @@ benutzt.  Er wird normalerweise implizit erstellt.
 
 Ein Stimmenkontext, der Noten in reduzierter Größe ausgibt und
 vor allem dazu da ist, Stichnoten zu setzen.  Siehe auch
-@ref{Formatting cue notes}.  Wird normalerweise implizit erstellt,
+@ref{Stichnoten formatieren}.  Wird normalerweise implizit erstellt,
 wenn Stichnoten gesetzt werden.
 
 
@@ -365,6 +366,8 @@ Durch diesen Mechanismus ist es möglich eine Urtextausgabe zu
 erstellen, mit der optionalen Möglichkeit, bestimmte zusätzliche
 Artikulationszeichen zu den gleichen Noten hinzuzufügen und so
 eine editierte Ausgabe zu erhalten.
+
+@cindex Kontexte erstellen
 
 @item
 Der dritte Befehl, um Kontexte zu erstellen, ist:
@@ -580,11 +583,12 @@ Referenz der Interna: @expansion{} Translation @expansion{} Engravers.
 @end ifnothtml
 Alle Kontexte sind erklärt in
 @ifhtml
-@rinternals{Contexts}
+@rinternals{Contexts},
 @end ifhtml
 @ifnothtml
-Referenz der Interna: @expansion{} Translation @expansion{} Context.
+Referenz der Interna: @expansion{} Translation @expansion{} Context,
 @end ifnothtml
+wobei die in diesem Kontext vorkommenden Engraver aufgelistet sind.
 
 Es kann teilweise nötig sein, diese Engraver umzupositionieren.  Das
 geschieht, indem man einen neuen Kontext mit @code{\new} oder
@@ -753,6 +757,22 @@ benutzen, müssen die Veränderungen gemacht werden, nachdem
 @node Neue Kontexte definieren
 @subsection Neue Kontexte definieren
 @translationof Defining new contexts
+
+@cindex Kontexte, neue definieren
+@cindex Engraver, in Kontexte einfügen
+
+@funindex \alias
+@funindex alias
+@funindex \name
+@funindex name
+@funindex \type
+@funindex type
+@funindex \consists
+@funindex consists
+@funindex \accepts
+@funindex accepts
+@funindex \denies
+@funindex denies
 
 Bestimme Kontexte, wie @code{Staff} oder @code{Voice}, werden
 erstellt, indem man sie mit einer Musikumgebung aufruft.  Es ist
@@ -1035,7 +1055,7 @@ c-2
 f
 @end lilypond
 
-In der Dokumentation über Fingersatz (
+In der Dokumentation über Fingersatz (in
 @ref{Fingersatzanweisungen}) gibt es folgenden Abschnitt:
 
 @quotation
@@ -1044,6 +1064,15 @@ In der Dokumentation über Fingersatz (
 Referenz der Interna: @rinternals{Fingering}.
 
 @end quotation
+
+@c all ignored text just left out
+
+@ifnothtml
+Die Referenz der Interna gibt es als HTML-Dokument.  Sie sollten sie als
+HTML-Dokument lesen, entweder online oder indem Sie die HTML-Dokumentation
+herunterladen.  Dieser Abschnitt ist sehr viel schwieriger zu verstehen,
+wenn Sie die PDF-Version verwenden.
+@end ifnothtml
 
 Gehen Sie über diesen Link zum Abschnitt @rinternals{Fingering}.
 Oben auf der Seite findet sich:
@@ -1070,6 +1099,7 @@ Music event type @code{fingering-event} is in Music expressions named
 @rinternals{FingeringEvent}
 @end itemize
 
+@c translation of the above
 Fingersatz-Objekte werden also durch den @code{Fingering_engraver}
 erstellt, welcher folgende Musikereignistypen akzeptiert:
 @code{fingering-event}.  Ein Musikereignis vom Typ
@@ -1081,6 +1111,7 @@ Wirkungsweise: er beginnt bei der graphischen Ausgabe und
 arbeitet sich voran zur Eingabe.  Man könnte auch mit einem
 Eingabe-Ereignis starten und dann die Links zurückverfolgen,
 bis man zum Ausgabe-Objekt gelangt.
+
 
 Die Referenz der Interna kann auch wie ein normales Dokument
 durchsucht werden.  Sie enthält Kapitel über
@@ -1309,13 +1340,15 @@ folgen bestimmten Regeln:
     Engraver:  Großbuchstabe_gefolgt_von_kleinbuchstaben_mit_unterstrichen
 @end itemize
 
+@c todos left out
+
 
 @node Eigenschaften verändern
 @section Eigenschaften verändern
 @translationof Modifying properties
 
 @menu
-* Überblick über verändernde Eigenschaften::
+* Grundlagen zum Verändern von Eigenschaften::
 * Der set-Befehl::
 * Der override-Befehl::
 * Der tweak-Befehl::
@@ -1323,8 +1356,8 @@ folgen bestimmten Regeln:
 @end menu
 
 
-@node Überblick über verändernde Eigenschaften
-@subsection Überblick über verändernde Eigenschaften
+@node Grundlagen zum Verändern von Eigenschaften
+@subsection Grundlagen zum Verändern von Eigenschaften
 @translationof Overview of modifying properties
 
 Jeder Kontext ist verantwortlich für die Erstellung bestimmter
@@ -1332,6 +1365,18 @@ graphischer Objekte.  Die Einstellungen für diese Objekte werden
 auch in dem Kontext gespeichert.  Wenn man diese Einstellungen
 verändert, kann die Erscheinung der Objekte geändert werden.
 
+Es gibt zwei unterschiedliche Eigenschaftenarten, die in Kontexten
+gespeichert werden: Kontexteigenschaften und Grob-Eigenschaften.
+Kontexteigenschaften sind Eigenschaften, die sich auf den gesamten Kontext
+beziehen und seine Darstellung beinflussen.  Grob-Eigenschaften dagegen
+wirken sich nur auf bestimmte graphische Objekte aus, die in einem
+Kontext dargestellt werden.
+
+Die @code{\set}- und @code{\unset}-Befehle werden benutzt, um die Werte
+von Kontexteigenschaften zu ändern.  Die Befehle @code{\override} und
+@code{\revert} hingegen verändern die Werte von Grob-Eigenschaften.
+
+@ignore
 Die Syntax hierzu lautet:
 
 @example
@@ -1432,7 +1477,7 @@ wie beispielsweise
 @example
 \override Stem #'(details beamed-lengths) = #'(4 4 3)
 @end example
-
+@end ignore
 
 @seealso
 Referenz der Interna:
@@ -1458,6 +1503,7 @@ oder einen Absturz des Programms hervorrufen.
 
 @cindex Eigenschaften
 @cindex Verändern von Eigenschaften
+
 @funindex \set
 @funindex set
 
@@ -1470,7 +1516,21 @@ wird der @code{\set}-Befehl eingesetzt:
 \set @var{Kontext}.@var{Eigenschaft} = #@var{Wert}
 @end example
 
-Das kann beispielsweise so aussehen:
+@var{Wert} ist ein Scheme-Objekt, weshalb ihm @code{#} vorangestellt
+werden muss.
+
+Kontexteigenschaften werden üblicherweise mit @code{kleinGroßbuchstabe}
+benannt.  Sie kontrollieren vor allem die Übersetzung von Musik in
+Notation, wie etwa @code{localKeySignature}, welche bestimmt, wann
+ein Taktstrich gesetzt werden muss.  Kontexteigenschaften können
+ihren Wert mit der Zeit ändern, während eine Notationsdatei interpretiert
+wird.  Ein gutes Beispiel dafür ist @code{measurePosition}, was die
+Position der Noten im Takt angibt.  Kontexteigenschaften werden mit dem
+@code{\set}-Befehl verändert.
+
+Mehrtaktpausen etwa können in einen Takt zusammengefasst werden, wenn die
+Kontexteigenschaft @code{skipBars} (Takte überspringen) auf @code{#t}
+(wahr) gesetzt wird:
 
 @lilypond[quote,verbatim,relative=2,fragment]
 R1*2
@@ -1478,28 +1538,28 @@ R1*2
 R1*2
 @end lilypond
 
-Mit diesem Befehl werden Takte übersprungen, die keine Noten
-haben.  Als Resultat werden Ganztaktpausentakte komprimiert.
-Der Wert, der der Eigenschaft zugewiesen wird, ist ein
-Scheme-Objekt.  In diesem Fall ist es @code{#t}, der
-Boolesche Wert für @qq{wahr}.
-
 Wenn das @var{Kontext}-Argument ausgelassen wird, bezieht sich
 der Befehl auf den gerade aktiven unterstmöglichen Kontext,
 üblicherweise @code{ChordNames}, @code{Voice} oder
-@code{Lyrics}.  In diesem Beispiel:
+@code{Lyrics}.
 
 @lilypond[quote,verbatim,relative=2,fragment]
-c8 c c c
-\set autoBeaming = ##f
-c8 c c c
+\set Score.autoBeaming = ##f
+<<
+  {
+    e8 e e e
+    \set autoBeaming = ##t
+    e8 e e e
+  } \\ {
+    c8 c c c c8 c c c
+  }
+>>
 @end lilypond
 
-@noindent
-wurde das @var{Kontext}-Argument für den @code{\set}-Befehl
-ausgelassen, sodass automatische Bebalkung für die aktuelle
-Stimme (@code{Voice}-Kontext) abgeschaltet wird.  Dabei
-gilt zu beachten, dass der unterste Kontext nicht immer die
+Die Änderung wird zur Laufzeit während der Musik interpretiert, sodass
+diese Einstellung sich nur auf die zweite Gruppe von Achteln auswirkt.
+
+Dabei gilt zu beachten, dass der unterste Kontext nicht immer die
 Eigenschaft enthält, die verändert werden soll.  Wenn man
 beispielsweise @code{skipBars} aus dem oberen Beispiel
 ohne Angabe des Kontextes zu verändern sucht, hat der Befehl
@@ -1516,9 +1576,7 @@ R1*2
 Kontexte sind hierarchisch angeordnet.  Wenn ein übergeordneter
 Kontext angegeben wird, etwa @code{Staff}, dann beziehen sich
 die Änderungen auf alle Stimmen (@code{Voice}), die in diesem
-Kontext enthalten sind.  Da der Befehl zu dem Zeitpunkt gültig
-wird, an dem er im Quelltext auftritt, wird im Bebalkungsbeispiel
-oben die Einstellung erst für die zweite Achtelgruppe wirksam.
+Kontext enthalten sind.
 
 @funindex \unset
 @funindex unset
@@ -1535,38 +1593,30 @@ entfernt werden.  Dieser Befehl macht nur Einstellungen im richtigen
 Kontext rückgängig.  Wenn also im @code{Staff}-Kontext die
 Bebalkung ausgeschaltet wird:
 
-@example
-\set Staff.autoBeaming = ##f
-@end example
+@lilypond[quote,verbatim,relative=2,fragment]
+\set Score.autoBeaming = ##t
+<<
+  {
+    \unset autoBeaming
+    e8 e e e
+    \unset Score.autoBeaming
+    e8 e e e
+  } \\ {
+    c8 c c c c8 c c c
+  }
+>>
+@end lilypond
 
-@noindent
-bezieht sich das auch auf die in dem @code{Staff} enthaltenen Stimmen.
-Der Befehl
-
-@example
-\unset Voice.autoBeaming
-@end example
-
-@noindent
-ist jedoch ungültig und bewirkt nichts.  Damit die Einstellung richtig
-rückgängig gemacht werden kann, muss der Befehl auf der gleichen
-Kontextebene ausgeführt werden wie der ursprüngliche @code{\set}-Befehl.
-Hier braucht man also den Befehl:
-
-@example
-\unset Staff.autoBeaming
-@end example
-
-Genauso wie für @code{\set}, muss auch für @code{\unset} der unterste
-Kontext nicht angegeben werden, die zwei Befehle
+Wie für @code{\set} muss das @var{Kontext}-Argument für den untersten
+Kontext nicht mitangegeben werden.  Die zwei Versionen
 
 @example
 \set Voice.autoBeaming = ##t
 \set autoBeaming = ##t
 @end example
 
-@noindent
-bedeuten also das Gleiche.
+verhalten sich gleich, wenn die gegenwärtige Basis der
+@code{Voice}-Kontext ist.
 
 @funindex \once
 @funindex once
@@ -1581,13 +1631,8 @@ c4
 c4
 @end lilypond
 
-@noindent
-Damit wirkt sich die Änderung der Schriftgröße nur auf die zweite
-Note aus und wird automatisch wieder rückgängig gemacht.
-
 Eine vollständige Beschreibung aller vorhandenen Kontexteigenschaften
 findet sich in der Referenz der Interna, siehe
-
 @ifhtml
 @rinternals{Tunable context properties}.
 @end ifhtml
@@ -1595,41 +1640,144 @@ findet sich in der Referenz der Interna, siehe
 @qq{Translation @expansion{} Tunable context properties}.
 @end ifnothtml
 
+@seealso
+
+Internals Reference:
+
+@rinternals{Tunable context properties}.
+
 
 
 @node Der override-Befehl
-@subsection Der \override-Befehl
+@subsection Der @code{\override}-Befehl
 @translationof The override command
 
-Befehle, die die Ausgabe grundlegend verändern, haben folgende
-Form:
+@cindex Grob-Eigenschaften
+@cindex Eigenschaften von Grob
+@cindex graphische Objekte, Eigenschaften
+
+@funindex \override
+@funindex override
+
+Es gibt eine besondere Art von Kontexteigenschaft: die Grob-Beschreibung.
+Grob-Beschreibungen werden mit @code{GroßGroßbuchstabe} benannt.  Sie
+enthalten @qq{Standardeinstellungen} für ein bestimmtes Grob als eine
+assoziative Liste.  Siehe @file{scm/@/define@/-grobs@/.scm} für die
+Einstellungen aller Grob-Beschreibungen.  Grob-Beschreibungen werden
+mit @code{\override} verändert.
+
+@code{\override} ist eigentlich eine Kurzform, der Befehl
 
 @example
+\override @var{Kontext}.@var{GrobBezeichnung} #'@var{Eigenschaft} = #@var{Wert}
+@end example
+
+ist äquivalent zu
+
+@example
+\set @var{Kontext}.@var{GrobBezeichnung}  =
+  #(cons (cons '@var{Eigenschaft} @var{Wert})
+         <vorheriger Wert von @var{Kontext}.@var{GrobBezeichnung}>)
+@end example
+
+Der Wert von @code{Kontext}.@code{GrobBezeichnung} (die assoz. Liste @qq{alist}) wird benutzt um die Eigenschaften von individuellen Grobs
+zu initialisieren.  Grobs haben Eigenschaften, die im Scheme-Stil mit
+@code{bindestrich-wörtern} benannt sind.  Diese Werte der Grob-Eigenschaften
+verändern sich während des Notensetzens:  LilyPonds Notensatz heißt im
+Grunde, die Eigenschaften mit Callback-Fuktionen auszurechnen.
+
+Beispielsweise kann die Dicke eines Notenhalses verändert werden, indem
+man die @code{thickness}-Eigenschaft des @code{Stem}-Objekts verändert:
+
+@lilypond[quote, verbatim, relative=2, fragment]
+c4 c
 \override Voice.Stem #'thickness = #3.0
-@end example
+c4 c
+@end lilypond
 
-@noindent
-Um derartige Einstellungen vorzunehmen, müssen folgende Informationen
-bekannt sein:
+Wenn kein Kontext angegeben wird, wird der tiefste aktuelle Kontext
+benutzt:
 
-@itemize
-@item der Kontext: in diesem Fall @code{Voice}.
-@item das Layout-Objekt: in diesem Fall @code{Stem}.
-@item die Layout-Eigenschaft: in diesem Fall @code{thickness}.
-@item ein vernünftiger Wert: in diesem Fall @code{3.0}.
-@end itemize
+@lilypond[quote, verbatim, relative=2, fragment]
+{ \override Staff.Stem #'thickness = #3.0
+  <<
+    {
+      e4 e
+      \override Stem #'thickness = #0.5
+      e4 e
+    } \\ {
+      c4 c c c
+    }
+  >>
+}
+@end lilypond
 
-Einige veränderbare Optionen werden als Untereigenschaften (engl.
-subproperties) bezeichnet und befinden sich innerhalb der Eigenschaften.
-Um sie zu verändern, werden Befehl in der Form
+@cindex rückgängig machen von Kontextveränderungen
+@cindex Kontextveränderungen rückgängig machen
+@cindex override rückgängig machen
+@cindex \override rückgängig machen
 
-@example
-\override Stem #'(details beamed-lengths) = #'(4 4 3)
-@end example
+@funindex \revert
+@funindex revert
 
-@noindent
-eingesetzt.
+Die Auswirkungen von @code{\override} können mit @code{\revert} wieder
+rückgängig gemacht werden:
 
+@lilypond[quote, verbatim, relative=2, fragment]
+c4
+\override Voice.Stem #'thickness = #3.0
+c4 c
+\revert Voice.Stem #'thickness
+c4
+@end lilypond
+
+Die Auswirkungen von @code{\override} und @code{\revert} wirken sich auf alle
+Grobs im entsprechenden Kontext aber der Stelle aus, an der sie gesetzt werden:
+
+@lilypond[quote, verbatim, relative=2, fragment]
+{
+  <<
+    {
+      e4
+      \override Staff.Stem #'thickness = #3.0
+      e4 e e
+    } \\ {
+      c4 c c
+      \revert Staff.Stem #'thickness
+      c4
+    }
+  >>
+}
+@end lilypond
+
+@cindex Veränderung von Kontexten nur einmal
+@cindex Einmal verändern von Kontexten
+@cindex Kontexte, einmal verändern
+@cindex \override, nur einmal
+
+@funindex \once
+@funindex once
+
+@code{\once} kann zusammen mit @code{\override} benutzt werden,
+um nur den aktuellen Zeitwert zu verändern:
+
+@lilypond[quote, verbatim, relative=2, fragment]
+{
+  <<
+    {
+      \override Stem #'thickness = #3.0
+      e4 e e e
+    } \\ {
+      c4
+      \once \override Stem #'thickness = #3.0
+      c4 c c
+    }
+  >>
+}
+@end lilypond
+
+
+@ignore
 @cindex Referenz der Interna
 @cindex Grafische Objekte, Finden
 @cindex Finden von graphischen Objekten
@@ -1647,6 +1795,12 @@ sie enthalten, ausgeschaltet werden, indem man sie als @qq{falsch}
 (@code{##f}) definiert.  Dadurch wird diese Eigenschaft von LilyPond
 ignoriert.  Das ist insbesondere nützlich, wenn man Grob-Eigenschaften
 ausschalten will, die Probleme verursachen.
+@end ignore
+
+@seealso
+
+Referenz der Interna:
+@rinternals{Backend}.
 
 
 @node Der tweak-Befehl
@@ -1658,6 +1812,20 @@ ausschalten will, die Probleme verursachen.
 
 @cindex Optimieren
 
+Wenn man Grob-Eigenschaften mit @code{\override} verändert, verändern sich
+alle fraglichen Objekte zu dem gegebenen musikalischen Moment.  Manchmal
+will man allerdings nur ein Grob verändern, anstatt allen Grobs des
+aktuellen Kontextes.  Das kann mit dem @code{\tweak}-Befehl erreicht
+werden, mit dem man Optimierungen vornehmen kann:
+
+@example
+\tweak #'@code{grob-eigenschaft} #@code{Wert}
+@end example
+
+Der @code{\tweak}-Befehl wirkt sich auf das Objekt aus, dass direkt auf
+@code{Wert} folgt.
+
+@ignore
 In einigen Fällen ist es möglich, mit einem abgekürzten Befehl
 graphische Objekte zu verändern.  Wenn Objekte direkt von einem
 Element des Quelltextes erstellt werden, kann der @code{\tweak}-Befehl
@@ -1715,6 +1883,10 @@ und das nicht:
 \tweak #'color #red c4
 @end lilypond
 
+@end ignore
+
+Eine Einleitung der Syntax und Benutzungen des @code{\tweak}-(Optimierungs)-Befehls findet sich in @rlearning{Optimierungsmethoden}.
+
 Wenn mehrere gleichartige Elemente zum gleichen musikalischen
 Moment auftreten, kann der @code{\override}-Befehl nicht
 benutzt werden, um nur einen von ihnen zu verändern: hier braucht
@@ -1731,27 +1903,50 @@ gleichen musikalischen Moment auftreten können sind unter Anderem:
 
 @c TODO add examples of these
 
-@noindent
-@code{\tweak} kann eingesetzt werden, um ein einzelnes Element aus der Gruppe
-zu verändern.
+@cindex Akkord, eine Noten verändern
 
-Der @code{\tweak}-Befehl kann @emph{nicht} eingesetzt werden, um
-Hälse, Balken oder Versetzungszeichen zu verändern, weil diese
-später durch den Notenkopf erstellt werden und nicht direkt durch
-den Quelltext.  @code{\tweak} kann auch nicht verwendet werden,
-um Schlüssel oder Taktarten zu verändern, denn sie werden von
-dem @code{\tweak}-Befehl während der Interpretation durch
-automatisches Einfügen von zusätzlichen Kontextelementen getrennt.
+In diesem Beispiel wird die Farbe eines Notenkopfes und die Art eines
+anderen Notenkopfes innerhalb eines Akkordes verändert:
 
-Der @code{\tweak}-Befehl @emph{kann} aber als Alternative des
-@code{\override}-Befehls eingesetzt werden, wenn die zu verändernden
-Elemente keine zusätzlichen impliziten Elemente während der
-Interpretation hinzufügen.  Legatobögen können also auch auf
-die folgende Weise verändert werden:
+@lilypond[relative=2,verbatim,quote]
+< c
+  \tweak #'color #red
+  d
+  g
+  \tweak #'duration-log #1
+  a
+> 4
+@end lilypond
+
+@code{\tweak} kann auch benutzt werden, um Bögen zu verändern:
 
 @lilypond[verbatim,quote,relative=1]
 c-\tweak #'thickness #5 ( d e f)
 @end lilypond
+
+Damit der @code{\tweak}-Befehl funktioniert, muss er direkt vor dem
+Objekt stehen, auf das er sich bezieht.  Manchmal kommt es vor, dass
+LilyPond während der Kompilierung der Datei zusätzliche Elemente
+einfügt, die dann zwischen der Optimierung und dem Objekt stehen.
+Noten, auch einzlene Noten, werden beispielsweise intern von LilyPond
+immer wie Akkorde behandelt, sodass auch ein @code{\tweak}-Befehl
+für eine einzelne Note innerhalb von Akkordzeichen notiert werden
+muss:
+
+@lilypond[relative=2,verbatim,quote]
+\tweak #'color #red c4
+<\tweak #'color #red c>4
+@end lilypond
+
+Der @code{\tweak}-Befehl kann @emph{nicht} eingesetzt werden, um
+Elemente zu verändern, die sich nicht direkt im Notentext befinden.
+Insbesondere Hälse, Balken oder Versetzungszeichen lassen sich nicht
+beeinflussen, weil diese später durch den Notenkopf erstellt werden
+und nicht direkt durch
+den Quelltext.  @code{\tweak} kann auch nicht verwendet werden,
+um Schlüssel oder Taktarten zu verändern, denn sie werden von
+dem @code{\tweak}-Befehl während der Interpretation durch
+automatisches Einfügen von zusätzlichen Kontextelementen getrennt.
 
 Mehrere @code{\tweak}-Befehle können vor ein Notationselement
 gesetzt werden und alle werden interpretiert:
@@ -1777,13 +1972,14 @@ verändert werden kann.
 Handbuch zum Lernen:
 @rlearning{Optimierungsmethoden}.
 
-Notationsreferenz:
-@ref{Musikalische Funktionen darstellen}.
+Erweitern:
+@rextend{Musikalische Funktionen darstellen}.
 
 @knownissues
 
 @cindex tweak-Befehl in einer Variable
 @cindex Variable, tweak-Befehl benutzen
+@cindex Optimierung innerhalb einer Variable
 
 Der @code{\tweak}-Befehl kann nicht innerhalb von einer Variable eingesetzt werden.
 
@@ -1805,6 +2001,9 @@ wird der erste Bogen verändert, der in der Eingabedatei auftritt.
 @subsection @code{\set} versus @code{\override}
 @translationof set versus override
 
+TODO: überflüssig?
+
+@ignore
 Es wurden zwei unterschiedliche Methoden vorgestellt, mit denen
 Eigenschaften verändert werden können: @code{\set} und
 @code{\override}.  Im Grunde genommen gibt es auch zwei
@@ -1857,6 +2056,7 @@ Callback-Funktionen eingesetzt werden.
 @code{\override ... #'font-size} für alle möglichen Objekte.
 Weil es sich hier um eine globale Änderung handelt, wurde
 die spezielle Form (die mit @code{\set} verändert wird) erstellt.
+@end ignore
 
 
 @node Nützliche Konzepte und Eigenschaften
@@ -1871,7 +2071,7 @@ die spezielle Form (die mit @code{\set} verändert wird) erstellt.
 * Eigenschaften des Staff-Symbols::
 * Strecker::
 * Sichtbarkeit von Objekten::
-* Zeilenstile::
+* Linienstile::
 * Drehen von Objekten::
 @end menu
 
@@ -2065,6 +2265,7 @@ bedeutet @code{-1} oder @code{LEFT} @qq{auf der linken Seite}
 und @code{1} oder @code{RIGHT} @qq{auf der rechten Seite}.  @code{0}
 oder @code{CENTER} bedeutet @qq{benutze Standardausrichtung}.
 
+@c ignore left out
 Diese Ausrichtungsanzeigen wirken sich auf alle Noten aus, bis sie
 rückgängig gemacht werden:
 
@@ -2554,7 +2755,7 @@ Abschnitt behandelt.
 
 
 @node Einen stencil entfernen
-@unnumberedsubsubsec Einen stencil entfernen
+@unnumberedsubsubsec Einen @code{stencil} entfernen
 @translationof Removing the stencil
 
 @cindex stencil, entfernen
@@ -2656,10 +2857,11 @@ a1
 
 
 @node break-visibility (unsichtbar machen) benutzen
-@unnumberedsubsubsec break-visibility (unsichtbar machen) benutzen
+@unnumberedsubsubsec @code{break-visibility} (unsichtbar machen) benutzen
 @translationof Using break-visibility
 
 @funindex break-visibility
+
 @cindex break-visibility
 
 Die meisten Layout-Objekte werden nur einmal gesetzt, aber
@@ -2760,15 +2962,27 @@ Layout-Objekt, und einige Kombinationen können sogar
 Fehler hervorrufen.  Es gelten die folgenden Einschränkungen:
 
 @itemize @bullet
-@item Taktstriche können nicht zu Beginn einer Zeile gesetzt werden.
-@item Eine Taktzahl kann nicht zu Beginn der ersten Zeile gesetzt
+@item
+Taktstriche können nicht zu Beginn einer Zeile gesetzt werden.
+
+@item
+Eine Taktzahl kann nicht zu Beginn der ersten Zeile gesetzt
 werden, außer wenn er nicht 1 ist.
-@item Schlüssel -- siehe unten.
-@item Doppel-Prozent-Wiederholungen werden entweder alle ausgegeben
+
+@item
+Schlüssel -- siehe unten.
+
+@item
+Doppel-Prozent-Wiederholungen werden entweder alle ausgegeben
 oder alle unterdrückt.  Mit @code{begin-of-line-invisible} werden
 sie ausgegeben, mit @code{all-invisible} unterdrückt.
-@item Tonart -- siehe unten.
-@item Oktavierungs-Acht -- siehe unten.
+
+@item
+Tonart -- siehe unten.
+
+@item
+Oktavierungs-Acht -- siehe unten.
+
 @end itemize
 
 
@@ -2894,8 +3108,8 @@ Handbuch zum Lernen:
 @rlearning{Sichtbarkeit und Farbe von Objekten}
 
 
-@node Zeilenstile
-@subsection Zeilenstile
+@node Linienstile
+@subsection Linienstile
 @translationof Line styles
 
 Einige Aufführungsanweisungen (z. B. @i{rallentando} und
@@ -3079,19 +3293,20 @@ unten mit negativen Zahlen notiert werden.
 
 Die Position eines Objektes auf dem Notensystem wird mit Werten
 von @code{X-offset} und @code{Y-offset} angegeben.  Der Wert von
-@code{X-offset} gibt die Verschiebung von der x-Koordinate des
+@code{X-offset} gibt die Verschiebung von der X-Koordinate des
 Referenzpunkts des Elternobjektes an, der Wert von @code{Y-offset}
 die Verschiebung ausgehend von der Mittellinie des Notensystemes.
 Die Werte von @code{X-offset} und @code{Y-offset} können direkt
 bestimmt werden oder durch Prozeduren errechnet werden, sodass
-eine Ausrichtung mit dem Elternobjekt auf verschiedene Weise
-erreicht werden kann.
+eine Ausrichtung mit dem Elternobjekt erreicht werden kann.
 
 @warning{Viele Objekte brauchen besondere Überlegungen zu ihrer
 Position, weshalb in manchen Fällen manuell gesetzte Werte von
 @code{X-offset} oder @code{Y-offset} ignoriert oder verändert
 werden können, obwohl das Objekt das
-@code{self-alignment-interface} unterstützt.}
+@code{self-alignment-interface} unterstützt.  Wenn man @code{X-offset}
+oder @code{Y-offset} auf einen festen Wert setzt, wird die entsprechende
+@code{self-alignment}-Eigenschaft ignoriert.}
 
 Ein Versetzungszeichen beispielsweise kann vertikal durch Veränderung
 von @code{Y-offset} verschoben werden, aber Änderungen von
@@ -3102,17 +3317,25 @@ Schlüsseln, Taktarten und Tonartvorzeichen) ausgerichtet werden.
 In @code{break-aligned-interface} finden sich besondere Eigenschaften,
 mit denen Übungszeichen an derartigen Objekten ausgerichtet werden können.
 
+@seealso
+
+Notationshandbuch:
+@ref{Benutzung des break-alignable-interface}.
+
+Erweitern:
+@rextend{Callback functions}.
+
 
 @menu
-* @code{X-offset} und @code{Y-offset} direkt setzen::
-* Das @code{side-position-interface} benutzen::
-* Das @code{self-alignment-interface} benutzen::
-* Benutzung des @code{break-aligned-interface}::
+* X-offset und Y-offset direkt setzen::
+* Das side-position-interface benutzen::
+* Das self-alignment-interface benutzen::
+* Benutzung des break-alignable-interface::
 @end menu
 
-@node @code{X-offset} und @code{Y-offset} direkt setzen
+@node X-offset und Y-offset direkt setzen
 @unnumberedsubsubsec @code{X-offset} und @code{Y-offset} direkt setzen
-@translationof Setting @code{X-offset} and @code{Y-offset} directly
+@translationof Setting X-offset and Y-offset directly
 
 Numerische Werte können den @code{X-offset}- und @code{Y-offset}-Eigenschaften
 vieler Objekte zugewiesen werden.  Das folgende Beispiel zeigt
@@ -3134,9 +3357,9 @@ a
 
 
 
-@node Das @code{side-position-interface} benutzen
+@node Das side-position-interface benutzen
 @unnumberedsubsubsec Das @code{side-position-interface} benutzen
-@translationof Using the @code{side-position-interface}
+@translationof Using the side-position-interface
 
 Ein Objekt, das die @code{side-position-interface}-Schnittstelle
 unterstützt, kann neben sein Elternobjekt gesetzt werden,
@@ -3180,9 +3403,9 @@ angeordnet wird, entsprechend dem Wert der @code{direction}-Eigenschaft.
 
 
 
-@node Das @code{self-alignment-interface} benutzen
+@node Das self-alignment-interface benutzen
 @unnumberedsubsubsec Das @code{self-alignment-interface} benutzen
-@translationof Using the @code{self-alignment-interface}
+@translationof Using the self-alignment-interface
 
 @emph{Selbstausrichtende Objekte horizontal}
 
@@ -3262,9 +3485,9 @@ a
 
 
 
-@node Benutzung des @code{break-aligned-interface}
-@unnumberedsubsubsec Benutzung des @code{break-aligned-interface}
-@translationof Using the @code{break-alignable-interface}
+@node Benutzung des break-alignable-interface}
+@unnumberedsubsubsec Benutzung des @code{break-alignable-interface}
+@translationof Using the break-alignable-interface
 
 @cindex Ausrichtung an Objekten
 
@@ -3280,20 +3503,27 @@ Standardmäßig werden Übungszeichen und Taktzahlen horizontal
 über dem Objekt zentriert:
 
 @lilypond[verbatim,quote,relative=1]
-e1
-% the RehearsalMark will be centered above the Clef
+% The RehearsalMark will be centered above the Clef
 \override Score.RehearsalMark #'break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
-e
-% the RehearsalMark will be centered above the TimeSignature
+e1
+% The RehearsalMark will be centered above the TimeSignature
 \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
 \mark "↓"
 e2.
+% The rehearsal mark will be centered above the Breath Mark
+\override Score.RehearsalMark #'break-align-symbols = #'(breathing-sign)
+\key a \major
+\clef treble
+\time 4/4
+e1
+\breathe
+\mark "↓"
 @end lilypond
 
 Eine Liste von möglichen Objekten zur Ausrichtung kann definiert
@@ -3307,20 +3537,28 @@ Wenn der Taktstrich unsichtbar ist, wird das Objekt an der Stelle
 ausgerichtet, an der sich der Taktstrich befinden würde.
 
 @lilypond[verbatim,quote,relative=1]
-e1
-% the RehearsalMark will be centered above the Key Signature
+% The RehearsalMark will be centered above the Key Signature
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
-e
-% the RehearsalMark will be centered above the Clef
+e1
+% The RehearsalMark will be centered above the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
-\key a \minor
+\key a \major
 \clef bass
 \mark "↓"
-e,
+gis,,1
+% The rehearsal mark will be centered above the Bar Line
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\set Staff.explicitClefVisibility = #all-invisible
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef treble
+\mark "↓"
+e''1
+
 @end lilypond
 
 Die Ausrichtung des Übungszeichen relativ zum Notationsobjekt kann
@@ -3340,12 +3578,12 @@ e1
 \once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
 \mark "↓"
 \key a \major
-e
+e1
 % The RehearsalMark will be aligned with the right edge of the KeySignature
 \once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
 \key a \major
 \mark "↓"
-e
+e1
 @end lilypond
 
 Das Übungszeichen kann auch nach rechts oder links um einen beliebigen Wert
@@ -3358,13 +3596,13 @@ verschoben werden.  Die Einheiten sind in Notenlinienzwischenräumen:
 \once \override Score.KeySignature #'break-align-anchor = #3.5
 \key a \major
 \mark "↓"
-e
+e1
 % The RehearsalMark will be aligned with the left edge of the KeySignature
 % and then shifted left by 2 staff-spaces
 \once \override Score.KeySignature #'break-align-anchor = #-2
 \key a \major
 \mark "↓"
-e
+e1
 @end lilypond
 
 
@@ -3468,7 +3706,6 @@ dritter Ordnung gezeichnet.  Wenn die Form eines automatischen
 Bogens nicht optimal ist, kann sie manuell verändert werdne,
 indem man die vier erforderlichen Kontrollpunkte angibt.
 
-
 Bézierkurven dritter Ordnung (auch als quadratische Bézierkurven
 bezeichnet) werden durch vier Kontrollpunkte definiert.  Der
 erste und vierte Kontrollpunkt geben Beginn und Ende der Kurve
@@ -3541,6 +3778,172 @@ auftritt, nicht einmal mit dem @code{\tweak}-Befehl.
 
 
 
+@node Musikfunktionen benutzen
+@section Musikfunktionen benutzen
+@translationof Using music functions
 
+@c TODO -- add @seealso, etc. to these subsections
+
+Wenn Optimierungen von unterschiedlichen musikalischen Ausdrücken
+wiederverwendet werden sollen, bietet es sich oft an, den
+@qq{Optimierungsanteil} einer @emph{musikalischen Funktion} zu
+erstellen.  In diesem Abschnitt sollen nur @emph{Ersetzungen}
+erklärt werden, wo es darum geht, eine Variable mit einem Stück
+LilyPond-Code zu ersetzen.  Andere komplexere Funktionen werden
+beschrieben in @rextend{Musikalische Funktionen}.
+
+@menu
+* Syntax der Ersetzungsfunktion::
+* Beispiele der Ersetzungsfunktion::
+@end menu
+
+@node Syntax der Ersetzungsfunktion
+@subsection Syntax der Ersetzungsfunktion
+@translationof Substitution function syntax
+
+Es ist einfach eine Funktion zu erstellen, die eine Variable
+in LilyPond-Code umwandelt.  Die generelle Form dieser
+Funktionen ist:
+
+@example
+Funktion =
+#(define-music-function
+     (parser location @var{Arg1} @var{Arg2} @dots{})
+     (@var{Typ1?} @var{Typ2?} @dots{})
+   #@{
+     @var{@dots{}Noten@dots{}}
+   #@})
+@end example
+
+@noindent
+wobei
+
+@multitable @columnfractions .33 .66
+@item @code{@var{ArgN}}
+@tab @var{n}tes Argument
+
+@item @code{@var{TypN?}}
+@tab ein Scheme @emph{Typenprädikat}, für das @code{@var{ArgN}}
+den Wert @code{#t} ausgibt.
+
+@item @code{@var{@dots{}Noten@dots{}}}
+@tab normale LilyPond-Eingab, wobei @code{$} benutzt wird, um
+Argumente zu referenzieren (etwa @samp{$Arg1}).
+@end multitable
+
+
+Die @code{parser} und @code{location}-Argumente sind zwingend und
+werden in einigen fortgeschrittenen Situationen benutzt, wie sie
+im @qq{Erweitern}-Handbuch beschrieben werden (siehe
+@rextend{Musikalische Funktionen}).  In Ersetzungsfunktionen
+gehen Sie einfach sicher, dass sie die beiden Wörter auch mit
+aufnehmen.
+
+Die Liste der Typenprädikate ist auch notwendig.  Einige der
+häufigsten Typenprädikate, die in musikalischen Funktionen
+benutzt werden, sind:
+
+@example
+boolean?
+cheap-list?  @emph{(benutze anstelle von }@q{list?}@emph{ für schnelleres Kompilieren)}
+ly:music?
+markup?
+number?
+pair?
+string?
+symbol?
+@end example
+
+@noindent
+Eine Liste aller Typprädikate findet sich unter
+@ref{Vordefinierte Typprädikate}.  Eigene Typprädikate
+sind auch erlaubt.
+
+
+@seealso
+
+Notationsreferenz:
+@ref{Vordefinierte Typprädikate}.
+
+Erweitern:
+@rextend{Musikalische Funktionen}.
+
+Installierte Dateien:
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
+
+
+@node Beispiele der Ersetzungsfunktionen
+@subsection Beispiele der Ersetzungsfunktionen 
+@translationof Substitution function examples
+
+Dieser Abschnitt zeigt einige Beispiele von Ersetzungsfunktionen.
+Sie sind nicht vollständig, sondern sollen einige der
+Möglichkeiten von einfachen Ersetzungsfunktionen aufzeigen.
+
+Im ersten Beispiel wird eine Funktione definiert, die
+das Verschieben von @code{TextScript} erleichtert:
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function
+     (parser location padding)
+     (number?)
+   #{
+     \once \override TextScript #'padding = $padding
+   #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+Neben Zahlen können auch musikalische Ausdrücke wie Noten
+als Argumente für musikalische Funktionen eingesetzt werden:
+
+@c TODO: use a better example (the music argument is redundant).
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote =
+#(define-music-function
+     (parser location note)
+     (ly:music?)
+   #{
+     \once \override Voice.NoteHead #'stencil =
+       #ly:text-interface::print
+     \once \override Voice.NoteHead #'text =
+       \markup \musicglyph #"custodes.mensural.u0"
+     \once \override Voice.Stem #'stencil = ##f
+     $note
+   #})
+
+\relative c' { c4 d e f \custosNote g }
+@end lilypond
+
+Ersetzungsfunktionen mit mehrfachen Argumenten können definiert
+werden:
+
+@lilypond[quote,verbatim,ragged-right]
+tempoPadded =
+#(define-music-function
+     (parser location padding tempotext)
+     (number? string?)
+   #{
+     \once \override Score.MetronomeMark #'padding = $padding
+     \tempo \markup { \bold $tempotext }
+   #})
+
+\relative c'' {
+  \tempo \markup { "Low tempo" }
+  c4 d e f g1
+  \tempoPadded #4.0 #"High tempo"
+  g4 f e d c1
+}
+@end lilypond
 
 
