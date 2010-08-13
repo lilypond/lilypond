@@ -80,28 +80,46 @@ comparisons is archived online:
 @uref{http://lilypond.org/test/}
 @end example
 
-The test comparison shows all of the changes that occurred between
-the current release and the prior release.  Each test that has
-a significant difference in output is displayed, with the old
-version on the left and the new version on the right.  Blurs
-in the regression tests for the new version show the approximate
-location of elements in the old version.
-
-Regression tests whose output is the same for both versions are not
-shown in the test comparison.
-
 Checking these pages is a very important task for the LilyPond project.
 You are invited to report anything that looks broken, or any case
 where the output quality is not on par with the previous release,
 as described in @rweb{Bug reports}.
 
+@subheading What to look for
+
+The test comparison shows all of the changes that occurred between
+the current release and the prior release.  Each test that has a
+significant difference in output is displayed, with the old
+version on the left and the new version on the right.
+
+Regression tests whose output is the same for both versions are
+not shown in the test comparison.
+
+@itemize
+@item
+Images: green blurs in the new version show the approximate
+location of elements in the old version.
+
+There are often minor adjustments in spacing which do not indicate
+any problem.
+
+@item
+Log files: show the difference in command-line output.
+
+The main thing to examine are any changes in page counts -- if a
+file used to fit on 1 page but now requires 4 or 5 pages,
+something is suspicious!
+
+@item
+Profile files: give information about
+TODO?  I don't know what they're for.
+
+@end itemize
+
 @warning{
-The automatic comparison of the regtests checks the
-LilyPond bounding boxes and the log files.  This means that
-Ghostscript changes and changes in
-lyrics or text are not found.  However, errors and warnings that
-are printed to the log file but
-do not change the graphical layout are also identified.
+The automatic comparison of the regtests checks the LilyPond
+bounding boxes.  This means that Ghostscript changes and changes
+in lyrics or text are not found.
 }
 
 @node Compiling regression tests
