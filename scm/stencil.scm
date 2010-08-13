@@ -291,7 +291,7 @@ the more angular the shape of the parenthesis."
       (cons (min-max-crawler min cddr possible-extrema)
             (min-max-crawler max cddr possible-extrema)))))
 
-(define (connected-shape-min-max pointlist)
+(define (connected-shape-min-max origin pointlist)
 
   (define (line-part-min-max x1 x2)
     (list (min x1 x2) (max x1 x2)))
@@ -353,7 +353,7 @@ the more angular the shape of the parenthesis."
 	       (apply line-min-max x)))
 	 (map (lambda (x y)
 		(append (list (cadr (reverse x)) (car (reverse x))) y))
-	      (append (list (list 0 0))
+	      (append (list origin)
 		      (reverse (cdr (reverse pointlist)))) pointlist))))
 
 (define-public (make-connected-shape-stencil pointlist thickness
@@ -364,7 +364,9 @@ and @var{y-scale} in the Y direction.  @var{connect} and @var{fill} are
 boolean arguments that specify if the shape should be connected or filled,
 respectively."
 
-  (let* ((boundlist (connected-shape-min-max pointlist)))
+  ;; a connected shape path must begin at point '(0 . 0)
+  (let* ((origin (list 0 0))
+	 (boundlist (connected-shape-min-max origin pointlist)))
   (ly:make-stencil
     `(connected-shape
       ',pointlist
