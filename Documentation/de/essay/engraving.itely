@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
 
     When revising a translation, copy the HEAD committish of the
@@ -200,11 +200,11 @@ imitieren wollten.
 @c langweilig und mechanisch aus, was es erschwert, von ihnen zu spielen.
 
 @menu
-* Notenschriftarten::                 
-* Optischer Ausgleich::             
-* Hilfslinien::                
-* Optische Größen::              
-* Warum der große Aufwand?::           
+* Notenschriftarten::
+* Optischer Ausgleich::
+* Hilfslinien::
+* Optische Größen::
+* Warum der große Aufwand?::
  @end menu
 
 @node Notenschriftarten
@@ -322,7 +322,7 @@ spricht Sie mehr an?
 }
 
 music = {
-   c'4 e''4 e'4 b'4 |
+   c'4 e''4 e'4 b'4
    \stemDown
    b'8[ e'' a' e'']
    \stemNeutral
@@ -597,12 +597,12 @@ den folgenden Bogen ausgewählt werden?
 
 @lilypond
 \relative c {
-    \clef bass
-    \once \override Slur #'positions = #'(1.5 . 1)
-    e8[( f] g[ a b d,)] r4
-    \once \override Slur #'positions = #'(2 . 3)
-    e8[( f] g[ a b d,)] r4
-    e8[( f] g[ a b d,)] r4
+  \clef bass
+  \once \override Slur #'positions = #'(1.5 . 1)
+  e8[( f] g[ a b d,)] r4
+  \once \override Slur #'positions = #'(2 . 3)
+  e8[( f] g[ a b d,)] r4
+  e8[( f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -640,9 +640,9 @@ Notenköpfe angeschnitten wird:
 
 @lilypond
 \relative c {
-    \clef bass
-    \once \override Slur #'positions = #'(1.5 . 1)
-    e8[(_"15.39" f] g[ a b d,)] r4
+  \clef bass
+  \once \override Slur #'positions = #'(1.5 . 1)
+  e8[(_"15.39" f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -654,9 +654,9 @@ Insgesamt also 13.08 Punkte:
 
 @lilypond
 \relative c {
-    \clef bass
-    \once \override Slur #'positions = #'(2 . 3)
-    e8[(_"13.08" f] g[ a b d,)] r4
+  \clef bass
+  \once \override Slur #'positions = #'(2 . 3)
+  e8[(_"13.08" f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -666,8 +666,8 @@ der drei Varianten, sodass LilyPond ihn auswählt:
 
 @lilypond
 \relative c {
-    \clef bass
-    e8[(_"12.04" f] g[ a b d,)] r4
+  \clef bass
+  e8[(_"12.04" f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -750,17 +750,21 @@ LilyPond-Version (@version{}):
   \key d \minor
   \time 3/4
   \mergeDifferentlyDottedOn
-  << {\slurDashed d8.-\flageolet( e16) e4.-\trill( d16 e)}
-     \\ {d4_2 a2}
+  <<
+    { \slurDashed d8.-\flageolet( e16) e4.-\trill( d16 e) }
+     \\
+    { d4_2 a2 }
   >>
   \slurDashed
   <f' a, d,>4. e8( d c)
   \slurSolid
-  bes g' f e16( f g_1 a_2 bes_3 d,_2)
+  bes8 g' f e16( f g_1 a_2 bes_3 d,_2)
   \slurDashed
   cis4.-\trill b8_3( a g)
-  << {\slurDashed d'8.( e16) e4.-\trill( d16 e)}
-     \\ {<f, a>4 a2}
+  <<
+    { \slurDashed d'8.( e16) e4.-\trill( d16 e) }
+     \\
+    { <f, a>4 a2 }
   >>
 }
 @end lilypond
@@ -822,7 +826,7 @@ Version von LilyPond:
 @end ifnottex
 
 @lilypond[staffsize=19.5,line-width=14\cm]
-global = {\key g \minor}
+global = { \key g \minor }
 
 partI = \relative c' {
   \voiceOne
@@ -852,7 +856,8 @@ partIV = \relative c {
     \set Score.currentBarNumber = #28
     \bar ""
     \new PianoStaff <<
-      \new Staff = "RH" <<
+      \new Staff = "RH"
+      <<
         \global
         \new Voice = "voiceI" { \partI }
         \new Voice = "voiceII" { \partII }
@@ -901,8 +906,8 @@ collide = \once \override NoteColumn #'force-hshift = #0
   \new Voice = "sample" \relative c''{
     \key g \minor
     <<
-      {\voiceOne g4 \collide g4}
-      \new Voice {\voiceTwo bes \collide bes}
+      { \voiceOne g4 \collide g4 }
+      \new Voice { \voiceTwo bes \collide bes }
     >>
   }
   \new Lyrics \lyricsto "sample" \lyricmode { "good " " bad" }
@@ -1090,16 +1095,16 @@ Nehmen wir etwa die hierarchische Natur der Musiknotation:
 
 @lilypond[quote,fragment]
 <<
-\new Staff \relative c'' {
-  \key g \major
-  \time 3/4
-  d4 g,8 a b c d4 g, g
-}
-\new Staff \relative c' {
-  \clef "bass"
-  \key g \major
-  <g b d>2 a4 b2.
-}
+  \new Staff \relative c'' {
+    \key g \major
+    \time 3/4
+    d4 g,8 a b c d4 g, g
+  }
+  \new Staff \relative c' {
+    \clef "bass"
+    \key g \major
+    <g b d>2 a4 b2.
+  }
 >>
 @end lilypond
 
@@ -1139,7 +1144,7 @@ Beispiel heranzieht:
     \new Voice = "I" \relative c''' {
       \time 3/4
       \voiceOne
-      \times 6/7 {g8 g g g g g g}
+      \times 6/7 { g8 g g g g g g }
       \oneVoice
       r4 <b,, fis' g bes> r4\fermata
     }

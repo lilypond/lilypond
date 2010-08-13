@@ -2,7 +2,7 @@
 @c This file is part of community.itexi and ../topdocs/AUTHORS.itexi
 
 @ignore
-    Translation of GIT committish:  64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish:  4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -56,6 +56,10 @@ Assistant documentation editor
 @uref{http://reinhold.kainhofer.com},
 Music2xml wrangler, bug squasher
 
+@item David Kastrup:
+@email{dak@@gnu.org}
+Code worrier, support fighter, accordionist
+
 @item Jonathan Kulp:
 Assistant documentation editor
 
@@ -68,7 +72,7 @@ Fonts, bug squasher
 Translation meister
 
 @item Patrick McCarty:
-SVG guru, bug squasher, text handling
+SVG guru, bug squad member, bug squasher, text handling
 
 @item Joe Neeman:
 Core developer
@@ -149,7 +153,6 @@ Richard Gay,
 Andrew Hawryluk,
 Ian Hulin,
 Michael Käppler,
-David Kastrup,
 Marek Klein,
 Kieren MacMillan,
 Thomas Morgan,
@@ -192,7 +195,11 @@ Patrick Schmidt
 @macro bugsquadCurrent
 
 Dmytro O. Redchuk,
-James E. Bailey
+James E. Bailey,
+Ralph Palmer,
+Phil Holmes,
+Urs Liska,
+Kieren MacMillan
 
 @c no comma for last entry
 
@@ -236,7 +243,7 @@ Erlend Aasland,
 Maximilian Albert,
 Guido Amoruso,
 Kristof Bastiaensen,
-Pal Benko,
+Pál Benkő,
 @c @email{benkop@@freestart.hu},
 Juliusz Chroboczek,
 @c @email{jch@@pps.jussieu.fr},
