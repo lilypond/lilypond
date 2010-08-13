@@ -43,6 +43,7 @@ this @code{\\lyricsto} section.")
 (back-slashed number).")
 
      (bass ,boolean? "Set if this note is a bass note in a chord.")
+     (beat-structure ,list? "A beatStructure to be used in autobeaming.")
      (bracket-start ,boolean? "Start a bracket here.
 
 TODO: Use SpanEvents?")
@@ -170,7 +171,6 @@ a @code{StringNumberEvent}.")
 in a part.")
      (tempo-unit ,ly:duration? "The unit for the metronome count.")
      (text ,markup? "Markup expression to be printed.")
-     (time-signature-arguments ,list? "The arguments to a time-signature call.")
      (to-relative-callback ,procedure? "How to transform a piece of music
 to relative pitches.")
      (tonic ,ly:pitch? "Base of the scale.")

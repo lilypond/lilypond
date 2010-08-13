@@ -54,10 +54,9 @@ to be used by the sequential-iterator"
 
 (define (make-time-signature-set music)
   "Set context properties for a time signature."
-  (let* ((arguments (ly:music-property music 'time-signature-arguments))
-         (num (car arguments))
-         (den (cadr arguments))
-         (rest (caddr arguments))
+  (let* ((num (ly:music-property music 'numerator))
+         (den (ly:music-property music 'denominator))
+         (structure (ly:music-property music 'beat-structure))
          (fraction (cons num den)))
     (list (descend-to-context
             (context-spec-music
@@ -68,11 +67,11 @@ to be used by the sequential-iterator"
                          (my-base-fraction
                            (base-fraction fraction time-signature-settings))
                          (my-beat-structure
-                           (if (null? rest)
+                           (if (null? structure)
                                (beat-structure my-base-fraction
                                                fraction
                                                time-signature-settings)
-                               rest))
+                               structure))
                          (beaming-exception
                            (beam-exceptions fraction time-signature-settings))
                          (new-measure-length (ly:make-moment num den)))
