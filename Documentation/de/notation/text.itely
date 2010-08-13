@@ -166,7 +166,7 @@ e,\stopTextSpan
 @end lilypond
 
 Auch der Stil der Linie kann ähnlich wie der Text mit den Objekteigenschaften
-geändert werden.  Diese Syntax ist beschrieben in @ref{Zeilenstile}.
+geändert werden.  Diese Syntax ist beschrieben in @ref{Linienstile}.
 
 
 @predefined
@@ -181,7 +181,7 @@ geändert werden.  Diese Syntax ist beschrieben in @ref{Zeilenstile}.
 
 @seealso
 Notationsreferenz:
-@ref{Zeilenstile},
+@ref{Linienstile},
 @ref{Dynamik}.
 
 Schnipsel:

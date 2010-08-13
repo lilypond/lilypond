@@ -1003,7 +1003,7 @@ c2\glissando c,
 @end lilypond
 
 Verschiedene Glissando-Stile sind möglich.  Für Einzelheiten siehe
-@ref{Zeilenstile}.
+@ref{Linienstile}.
 
 @snippets
 
@@ -1016,7 +1016,7 @@ Glossar:
 @rglos{glissando}.
 
 Notationsreferenz:
-@ref{Zeilenstile}.
+@ref{Linienstile}.
 
 Schnipsel:
 @rlsr{Expressive marks}.
