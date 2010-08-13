@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish:  4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -115,6 +115,20 @@ mit gmaine an lilypond-user schicken}
 @warning{Wenn Sie Fragen stellen (immer auf Englisch) benutzen
 Sie bitte @ref{Minimalbeispiele}!}
 
+
+@subsubheading LilyPond-Schnipsel-Depot
+
+Das LilyPond-Schnipsel-Depot (LSR) ist eine große Sammlung durch die Benutzer
+erstellter Beispiele, die frei kopiert und in eigenen Werken benutzt werden
+dürfen.  Schauen Sie, was andere Leute konstruiert haben und schreiben Sie
+eigene Beispiele!
+
+@example
+@uref{http://lsr.dsi.unimi.it}
+@end example
+
+Besonders lehrreiche Beispiele aus dem LSR werden in unsere offizielle
+Dokumentation eingefügt, in @ref{Schnipsel}.
 
 @subsubheading IRC
 
@@ -363,7 +377,7 @@ Wenn Sie einen Fehler entdeckt haben, der nicht aufgelistet ist,
 helfen Sie uns bitte, indem Sie einen Fehlerbericht (bug report)
 erstellen.
 
-@warning{Wir akzeptieren bug reports nur in Form von
+@warning{Wir akzeptieren Fehlerberichte nur als
 @ref{Minimalbeispiele}.  Wir haben sehr begrenzte Ressourcen,
 um Fehlerberichte zu bearbeiten, weshalb jedes nicht-Minimalbeispiel
 zurückgewiesen wird.  Fast jeder Fehler kann mit vier oder sogar
@@ -376,7 +390,6 @@ Hier ein Beispiel eines guten bug reports:
 %% change the output at all!
 
 \version "2.10.0"
-\paper@{ ragged-right=##t @}
 \relative c''' @{
   c1
   #(set-octavation 1)
@@ -393,7 +406,21 @@ Wenn Sie sichergestellt haben, dass der Fehler noch nicht
 bekannt ist und einen Fehlerbericht erstellt haben, senden sie
 ihn bitte uns zu!
 
-Leider gibt es ein genaue Überprüfung auf der Liste, die verhindert,
+@divClass{keep-bullets}
+@itemize
+
+@item
+Wenn Sie die Emailliste @uref{mailto:bug-lilypond@@gnu.org,
++bug-lilypond@@gnu.org} bereits abonniert haben, können Sie
+ganz gewöhnlich eine E-Mail schicken.
+
+@item
+Wenn Sie nicht Mitglied der Liste sind, können Sie trotzdem
+einen Fehlerbericht über die 
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
+gmane lilypond.bugs web interface} schicken.
+
+Es gibt jedoch eine genaue Überprüfung auf der Liste, die verhindert,
 dass man top-posted.  Diese Überprüfung wird häufig inkorrekt
 von LilyPond-Dateien alarmiert.  Darum fügen Sie
 
@@ -402,18 +429,17 @@ von LilyPond-Dateien alarmiert.  Darum fügen Sie
 @end example
 
 @noindent
-(Sie müssen das @code{>} mit einfügen) zu Anfang ihres
+(Sie @emph{müssen} das @code{>} mit einfügen) zu Anfang ihres
 Fehlerberichtes hinzu.
 
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-Schreiben Sie mit der gmane lilypond.bugs-Schnittstelle}
-oder schicken Sie eine E-Mail an
-@uref{mailto:bug-lilypond@@gnu.prg, bug-lilypond@@gnu.org}.
+@end itemize
+@divEnd
 
 Wenn Ihr Fehlerbericht an die Liste versandt wurde, untersucht
-unser Bug meister den Bericht.  Er wird Sie eventuell nach mehr
-Information fragen oder er fügt den Bericht zum Tracker hinzu und
-lässt Sie wissen, welche Nummer er bekommen hat.
+unser Fehlerbeseitiger (engl. bug squad) den Bericht.  Warten Sie
+bitte 24 Stunden, da uns nur eine geringe Zahl an Helfern zur Verfügung stehen.  Sie werden eventuell nach mehr Information gefragt oder
+der Bericht wird zum Tracker hinzugefügt und Sie werden informiert,
+welche Nummer er bekommen hat.
 
 Sie können den Fehler so markieren, dass Sie immer eine E-Mail
 erhalten, wenn Aktivität für diesen Fehler vorkommt.  Hierzu müssen
@@ -672,9 +698,6 @@ Handbücher finden sich auf @url{http://lilypond.org}.}
 @unnumberedsec Autoren
 @translationof Authors
 
-@help{Under construction; this is not an accurate list!}
-
-
 @divClass{column-left-top}
 @subheading Current Development Team
 
@@ -805,6 +828,24 @@ Graham Percival, Tosten Anders und George Tzanetakis,
 @emph{Generating Targeted Rhythmic Exercises for Music Students
 with Constraint Satisfaction Programming}, International Computer
 Music Conference 2008.
+
+@item
+Alexandre Tachard Passos, Marcos Sampaio, Pedro Kröger, Givaldo de Cidra,
+@emph{Functional Harmonic Analysis and Computational Musicology
+in Rameau}, Proceedings of the 12th Brazilian Symposium on Computer
+Music, 2009, pp. 207-210.
+
+@item
+Alberto Simões, Anália Lourenço and José João Almeida,
+@emph{Using Text Mining Techniques for Classical Music Scores Analysis},
+New Trends in Artificial Intelligence, 2007 J. Neves et al ed.
+
+@item
+Kevin C. Baird 2005,
+@emph{Real-time generation of music notation via audience interaction using
+python and GNU lilypond}. Proceedings of the 2005 Conference on New interfaces
+For Musical Expression (Vancouver, Canada, May 26 - 28, 2005).
+
 
 @end itemize
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish:  4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -314,6 +314,7 @@ die man für das fünflinige Notensystem notiert hat.
 
 Das Standardnotenbild kann sehr stark verändert werden.  Hier eine eindrucksvolle Schenker-Analyse, von Kris Schaffer mit LilyPond erstellt
 für einen Artikel im @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
+Die Farben wurden zur Verdeutlichung hinzugefügt.
 
 @exampleImage{bach-schenker}
 @newsEnd
@@ -590,7 +591,7 @@ qualitativ hochwertige Partituren von Kirchenmusik, sowohl zum
 direkten Download als auch auf Papier erhältlich.
 
 @item
-@uref{http://theshadylanepublishing.com/, The Shady Lane
+@uref{http://shadylane.fr/, The Shady Lane
 Publishing},
 ein @qq{Mikro-Notenverlag}, der es sich zum Ziel gesetzt hat,
 eine neue Musikökonomie zu unterstützen, die den Musikern und
@@ -632,6 +633,13 @@ Die deutsche LinuxUser-Zeitschrift schrieb einen
 @uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
 Artikel über LilyPond}.
 
+@item
+August 2009
+
+Ann Drinan präsentiert auf der
+@uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org}-Webseite
+Kommentare von zwei Orchsterbibliothekaren, die sich über die Benutzung von
+Software zur Unterhaltung ihrer Bibliotheken unterhalten.
 
 @item
 Februar 2008
@@ -1083,7 +1091,7 @@ Textansicht markiert, wenn man von dort aus druckt.
 @divEnd
 
 @divClass{column-center-top}
-@subheading Textumgebung: Emacs und Vim
+@subheading Texteditoren
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -1113,19 +1121,8 @@ Vim vertraut sind.
 Weiter Information zum Einstellen von Emacs und Vim findet sich unter
 @rprogram{Text editor support}.
 
-@divEnd
-
-
-@ignore these may not need to be here at all, as they are purely MacOS scripts.
-
-@divClass{column-center-top}
-@subheading Andere
-
-
-@subsubheading Textumgebung: TexShop
 
 @sourceimage{logo-macosx,,,}
-
 @uref{http://www.uoregon.edu/~koch/texshop}
 
 Der TexShop-Editor für MacOS@tie{}X kann erweitert werden, sodass
@@ -1138,22 +1135,20 @@ eingesetzt, die man hier erhält:
 @end example
 
 
-
-@subsubheading TextMate
-
 @sourceimage{logo-macosx,,,}
-
-Es gibt ein LilyPond-Paket für TeXMate.  Es kann installiert
+Es gibt ein LilyPond-Paket für TeXMate, ein kommerzieller Editor für
+MacOS.  Es kann installiert
 werden, indem man folgendes auf der Kommandozeile ausführt:
 
 @example
 mkdir -p /Library/Application\ Support/TextMate/Bundles
 cd /Library/Application\ Support/TextMate/Bundles
-svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
+git clone http://github.com/textmate/lilypond.tmbundle.git
+
 @end example
 
 @divEnd
-@end ignore
+
 
 @divClass{column-center-top}
 @subheading Andere Programme können LilyPond-Doce exportieren
