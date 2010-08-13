@@ -13,7 +13,6 @@ myPath =
 
 \markup {
   \column {
-    \null
     \override #'(line-join-style . bevel) {
       \path #1 #myPath
     }
