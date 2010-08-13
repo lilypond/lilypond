@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2608,10 +2608,8 @@ Das wurde schon detailliert behandelt, siehe
 @ref{within-staff (Objekte innerhalb des Notensystems)}.
 
 @item
-@code{padding}, @code{left-padding},
-@code{right-padding}, @code{staff-padding} (Verschiebung)
+@code{padding}, @code{right-padding}, @code{staff-padding} (Verschiebung)
 
-@cindex left-padding-Eigenschaft
 @cindex Padding-Eigenschaft
 @cindex right-padding-Eigenschaft
 @cindex staff-padding-Eigenschaft
@@ -2632,17 +2630,16 @@ allen Objekten hinzugefügt werden, die das
 
 Anstelle von @code{padding} wird die Position von
 Versetzungszeichengruppen durch die Eigenschaften
-@code{left-padding} und @code{right-padding} bestimmt.
-Diese Eigenschaften werden im
+@code{right-padding} bestimmt. Diese Eigenschaft wird im
 @code{AccidentalPlacement}-(Versetzungszeichen-Positionierungs)-Objekt
 gefunden, das sich innerhalb des @strong{Staff}-Kontexts
 befindet.  Während des Notensatzes werden die Notenköpfe
 zuerst gesetzt und dann die Versetzungszeichen, wenn denn
-welche gesetzt werden,  durch die @code{right-padding}-Eigenschaft
+welche gesetzt werden, durch die @code{right-padding}-Eigenschaft
 auf die linke Seite der Notenköpfe positioniert, um die Entfernung
-von den Notenköpfen zu bestimmen.  Also nur die
-@code{right-padding}-(Verschiebung nach rechts)-Eigenschaft des
-@code{AccidentalPlacement}-Objekts hat Einfluss auf die
+von den Notenköpfen und zwischen den einzelnen Versetzungszeichen zu
+bestimmen.  Also nur die @code{right-padding}-(Verschiebung nach rechts)-Eigenschaft
+des @code{AccidentalPlacement}-Objekts hat Einfluss auf die
 Positionierung der Versetzungszeichen.
 
 Die @code{staff-padding}-(Verschiebung zum System)-Eigenschaft
@@ -2865,11 +2862,11 @@ b2\fermata
 @lilypond[quote,fragment,relative=1,verbatim]
 % This will not work, see below
 \override MetronomeMark #'padding = #3
-\tempo 4=120
+\tempo 4 = 120
 c1 |
 % This works
 \override Score.MetronomeMark #'padding = #3
-\tempo 4=80
+\tempo 4 = 80
 d1 |
 @end lilypond
 
@@ -2885,10 +2882,9 @@ Außersystempriorität (@code{outside-staff-priority}) positioniert werden,
 werden das Objekt und alle,  die sich außerhalb davon befinden,
 entsprechend verschoben.
 
-@subheading left-padding (Verschieben nach rechts) und right-padding (Verschieben nach links)
+@subheading right-padding (Verschieben nach links)
 
-@cindex left-padding-Eigenschaft (Verschiebung nach links)
-@cindex Verschiebung nach rechts oder links
+@cindex Verschiebung nach rechts
 @cindex right-padding-Eigenschaft (Verschiebung nach rechts)
 
 Die @code{right-padding}-Eigenschaft wirkt sich auf den Abstand
@@ -3233,38 +3229,46 @@ Dynamik, Fingersatz und Pedalbezeichnung, um das Beispiel nicht
 zu kompliziert zu machen.
 
 @c This example should not be indexed
-@lilypond[quote,ragged-right,line-width=5.5\in]
+@lilypond[quote,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  bes2.^\markup { \bold "Moderato"} r8
-  <<
-    { c,8 d fis bes a | }
-  \\
-    {
-      % Reposition the c2 to the right of the merged note
-      c,8~ \once \override NoteColumn #'force-hshift = #1.0
-      % Move the c2 out of the main note column so the merge will work
-      \shiftOnn c2
-    }
-  \\
-    {
-      % Stem on the d2 must be down to permit merging
-      s8 \stemDown
-      \once \override Stem #'transparent = ##t
-      d2
-    }
-  \\
-    { s4 fis4.}
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\)
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    bes2.^\markup { \bold "Moderato" } r8
+    <<
+      { c,8 d fis bes a }
+      \new Voice {
+        \voiceTwo
+        c,8~
+        % Reposition the c2 to the right of the merged note
+        \once \override NoteColumn #'force-hshift = #1.0
+        % Move the c2 out of the main note column so the merge will work
+        \shiftOnn
+        c2
+      }
+      \new Voice {
+        \voiceThree
+        s8
+        % Stem on the d2 must be down to permit merging
+        \stemDown
+        % Stem on the d2 should be invisible
+        \once \override Stem #'transparent = ##t
+        d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)
+  }
 }
 
 lhMusic = \relative c' {
@@ -3295,32 +3299,45 @@ Achtelnoten mit Balken, das übergebundene C, die Halbe D, die
 mit der Achtel D verschmolzen ist, und die punktierte Viertel
 Fis, die auch mit einer Achtelnote verschmolzen ist.  Alles
 andere ist eine einzige Stimme, es ist also am einfachsten, die
-Stimmen nur zeitweise zu erstellen, wenn sie auftreten.  Wenn
-Sie vergessen haben, wie man das anstellt, schauen Sie sich
-nochmal den Abschnitt @ref{Ich höre Stimmen} an.  Wir
-wollen anfange, indem wir die Noten in zwei Variablen
+zusätzlichen drei Stimmen nur zeitweise zu erstellen, wenn sie
+auftreten.  Wenn Sie vergessen haben, wie man das anstellt,
+schauen Sie sich nochmal den Abschnitt @ref{Ich höre Stimmen}
+und @ref{Stimmen explizit beginnen} an.  Hier wollen wir explizit
+begonnene Stimmen für die polyphone Stelle benutzen, weil LilyPond
+Kollisionen besser vermeidet, wenn alle Stimmen auf diese Weise
+explizit begonnen werden.
+
+
+Wir wollen anfange, indem wir die Noten in zwei Variablen
 notieren und dann die Systemstruktur in einer
 @code{\score}-Umgebung erstellen.  Das ist, was LilyPond
 erstellt:
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4. g8 |
-  bes1~ |
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a | }
-  \\
-    { c,8~ c2 | }
-  \\
-    { s8 d2 | }
-  \\
-    { s4 fis4. | }
-  >> |
-  g2. |
+  \new Voice {    r2 c4. g8 |
+    bes1~ |
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3346,9 +3363,8 @@ lhMusic = \relative c' {
 @end lilypond
 
 Alle Noten sind richtig, aber die Positionierung sehr
-verbesserungsbedürftig.  Der Bindebogen stößt mit
-der veränderten Taktart zusammen, die Balkung im
-dritten Takt ist falsch, die Noten werden nicht 
+verbesserungsbedürftig.  Der Bindebogen kollidiert mit
+der veränderten Taktart zusammen, einige Noten werden nicht 
 verschmolzen und einige Notationselemente fehlen ganz.
 Behandeln wir zunächst die einfacheren Dinge.  Der
 Balken kann durch eine manuelle Begrenzung einfach
@@ -3358,23 +3374,31 @@ sind schnell gesetzt, denn sie wurden schon in der
 Übung erklärt.  Damit haben wir folgendes Notenbild:
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  bes1~ |
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a | }
-  \\
-    { c,8~ c2 | }
-  \\
-    { s8 d2 | }
-  \\
-    { s4 fis4. | }
-  >> |
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    bes1~ |
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3412,8 +3436,7 @@ muss der Zusammenstoß des Bindebogens mit der Taktartbezeichnung
 gelöst werden.  Das geht am besten, indem wir den Bogen nach
 oben verschieben.  Wie man Objekte verschiebt wurde schon
 behandelt in @ref{Verschieben von Objekten}, wo stand, dass Objekte
-die
-relativ zum System positioniert werden, verschoben werden 
+die relativ zum System positioniert werden, vertikal verschoben werden 
 können, indem ihre @code{staff-position}-Eigenschaft
 geändert wird, die in halben Notenlinienabständen relativ
 zur Mittellinie angegeben wird.  Dieser @code{\override}-Befehl
@@ -3425,25 +3448,33 @@ den Bindebogen (@code{tie}) 3,5 halbe Notenlinienabstände
 
 Damit ist auch der zweite Takt vollständig:
 
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a | }
-  \\
-    { c,8~ c2 | }
-  \\
-    { s8 d2 | }
-  \\
-    { s4 fis4. | }
-  >> |
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3471,12 +3502,12 @@ lhMusic = \relative c' {
 In Takt drei beginnt der Moderato-Abschnitt.  In der
 Übung wurde behandelt, wie man fetten Text mit dem
 @code{\markup}-Befehl eingibt, es ist also einfach, das
-@qq{Moderato} hinzuzufügen.  Wie aber werden Noten
+@qq{Moderato} in fetter Schrift hinzuzufügen.  Wie aber werden Noten
 verschmolzen?  Hier nehmen wir wieder die Notationsreferenz
 zu Hilfe.  Die Suche nach @qq{Verschmelzen} (engl. merge)
-im Index führt uns zu den Befehlen um Noten mit
+im Index führt uns zu den Befehlen, um Noten mit
 unterschiedlichen Köpfen und unterschiedlichen Punkten
-zu verschmelzen in @ruser{Auflösung von Zusammenstößen}.  In unserem
+zu verschmelzen, in @ruser{Auflösung von Zusammenstößen}.  In unserem
 Beispiel müssen sowohl unterschiedliche Köpfe also auch
 unterschiedliche Punktierung verschmolzen werden, wir
 brauchen also die Befehle
@@ -3501,29 +3532,37 @@ um das Verhalten wieder auszuschalten. Das sieht so aus:
 @cindex Bindebogen, Beispiel zur Veränderung
 @cindex staff-position-Eigenschaft, Beispiel
 
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup { \bold "Moderato"} r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a | }
-  \\
-    { c,8~ c2 | }
-  \\
-    { s8 d2 | }
-  \\
-    { s4 fis4. | }
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3567,35 +3606,39 @@ Stufe weiter verschoben werden mit @code{\shiftOnn}, damit
 es die Verschmelzung der Ds nicht stört.  Das sieht jetzt so
 aus:
 
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup { \bold "Moderato"} r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a | }
-  \\
-    {
-      % Move the c2 out of the main note column so the merge will work
-      c,8~ \shiftOnn c2
-    }
-  \\
-    {
-      % Stem on the d2 must be down to permit merging
-      s8 \stemDown d2
-    }
-  \\
-    { s4 fis4. }
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        % Move the c2 out of the main note column so the merge will work
+        c,8~ \shiftOnn c2
+      }
+      \new Voice {
+        \voiceThree
+        % Stem on the d2 must be down to permit merging
+        s8 \stemDown d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3611,7 +3654,7 @@ lhMusic = \relative c' {
       \key g \minor
       \rhMusic
     >>
-    \new Staff = "LH" <<
+   \new Staff = "LH" <<
       \key g \minor
       \clef "bass"
       \lhMusic
@@ -3633,36 +3676,47 @@ wir durchsichtig und das C verschieben wir mit der
 @cindex Notenhals, Beispiel zur Veränderung
 @cindex transparent-Eigenschaft, Beispiel
 
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup { \bold "Moderato"} r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  <<
-    { c,8 d fis bes 
-      % Reposition the c2 to the right of the merged note
-      c,8~ \once \override NoteColumn #'force-hshift = #1.0
-      % Move the c2 out of the main note column so the merge will work
-      \shiftOnn c2
-    }
-  \\
-    {
-      % Stem on the d2 must be down to permit merging
-      s8 \stemDown
-      \once \override Stem #'transparent = ##t
-      d2
-    }
-  \\
-    {s4 fis4.}
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~
+        % Reposition the c2 to the right of the merged note
+        \once \override NoteColumn #'force-hshift = #1.0
+        % Move the c2 out of the main note column so the merge will work
+        \shiftOnn
+        c2
+      }
+      \new Voice {
+        \voiceThree
+        s8
+        % Stem on the d2 must be down to permit merging
+        \stemDown
+        % Stem on the d2 should be invisible
+        \once \override Stem #'transparent = ##t
+        d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {

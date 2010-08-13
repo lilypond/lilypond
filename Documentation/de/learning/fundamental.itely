@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3072,6 +3072,81 @@ Variable @code{\keyTime} eingefügt.
 @}  % end Score context
 @end example
 
+@cindex Spreizbarkeit von Systemen
+@cindex Dehnung von Systemen, vertikal
+@cindex Systeme, vertikales Dehnen
+
+Das Layout des Orgelsystems oben ist fast perfekt, es hat jedoch einen kleinen
+Fehler, den man nicht bemerken kann, wenn man nur ein einzelnes System
+betrachtet:  Der Abstand des Pedalsystems zum System der linken Hand
+sollte in etwa der gleiche sein wie der Abstand zwischen den Systemen
+der linken und rechten Hand.  Die Dehnbarkeit von Systemen in einem
+Klaviersystem (@code{PianoStaff})-Kontext ist beschränkt (sodass der
+Abstand zwischen den Systemen der linken und rechten Hand nicht zu groß
+wird), und das Pedalsystem sollte sich genauso verhalten.
+
+@cindex Untereigenschaft
+@cindex sub-properties
+@cindex graphische Objekte
+@cindex Grobs
+@cindex Objekte, graphische
+
+Die Spreizbarkeit von Systemen kann mit der @code{nex-staff-spacing}-Eigenschaft
+des @code{VerticalAxisGroup}-@qq{graphischen Objekts} (üblicherweise als
+@qq{Grob} innerhalb der LilyPond-Dokumentation bezeichnet) kontrolliert
+werden.  An dieser Stelle brauchen Sie sich um die Details nicht zu
+sorgen, sie werden später erklärt.  Sehr neugierigen können sich den
+Abschnitt @ruser{Overview of modifying properties} anschauen.  Im Moment
+kann man nicht nur die @code{strechability}-Untereigenschaft verändern,
+darum müssen hier auch die anderen Untereigenschaften kopiert werden.  Die
+Standardeinstellungen dieser Untereigenschaften finden sich in der Datei
+@file{scm/@/define-grobs@/.scm} in den Definitionen für den
+@code{VerticalAxisGroup}-Grob.  Der Wert für @code{strechability} wird aus
+der Definition für das Klaviersystem (@code{PianoStaff}) entnommen
+(in der Datei @file{ly/@/engraver-init@/.ly}) sodass die Werte identisch
+sind.
+
+@example
+\score @{
+  <<  % PianoStaff and Pedal Staff must be simultaneous
+    \new PianoStaff <<
+      \new Staff = "ManualOne" <<
+        \keyTime  % set key and time signature
+        \clef "treble"
+        \new Voice @{
+          \voiceOne
+          \ManualOneVoiceOneMusic
+        @}
+        \new Voice @{
+          \voiceTwo
+          \ManualOneVoiceTwoMusic
+        @}
+      >>  % end ManualOne Staff context
+      \new Staff = "ManualTwo" \with @{
+        \override VerticalAxisGroup
+          #'next-staff-spacing = #'((space . 9)
+                                    (minimum-distance . 8)
+                                    (padding . 1)
+                                    (stretchability . 5))
+      @} <<
+        \keyTime
+        \clef "bass"
+        \new Voice @{
+          \ManualTwoMusic
+        @}
+      >>  % end ManualTwo Staff context
+    >>  % end PianoStaff context
+    \new Staff = "PedalOrgan" <<
+      \keyTime
+      \clef "bass"
+      \new Voice @{
+        \PedalOrganMusic
+      @}
+    >>  % end PedalOrgan Staff
+  >>
+@}  % end Score context
+@end example
+
 Damit ist das Grundgerüst fertig.  Jede Orgelmusik mit drei
 Systemen hat die gleiche Struktur, auch wenn die Anzahl der Stimmen
 in einem System sich ändern kann.  Jetzt müssen wir nur noch
@@ -3116,7 +3191,13 @@ PedalOrganMusic = \relative c {
           \ManualOneVoiceTwoMusic
         }
       >>  % end ManualOne Staff context
-      \new Staff = "ManualTwo" <<
+      \new Staff = "ManualTwo" \with {
+        \override VerticalAxisGroup
+          #'next-staff-spacing = #'((space . 9)
+                                    (minimum-distance . 8)
+                                    (padding . 1)
+                                    (stretchability . 5))
+      } <<
         \keyTime
         \clef "bass"
         \new Voice {
