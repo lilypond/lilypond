@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 3d7ffa1f82bb44673134b28becf7898482fe7316
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -46,10 +46,11 @@ and just before
 * Text markup list commands::   
 * Liste der Artikulationszeichen::
 * Schlagzeugnoten::   
-* Alle Kontexteigenschaften::
 * Technisches Glossar::   
+* Alle Kontexteigenschaften::
 * Eigenschaften des Layouts::           
-* Bezeichner::                 
+* Erhältliche Musikfunktionen::
+* Vordefinierte Typprädikate::                 
 * Scheme-Funktionen::            
 @end menu
 
@@ -265,7 +266,7 @@ Dominantsept, große None
 @end lilypond
 
 @item
-Dur None
+Dur-None
 @tab
 Große None, große Septime
 @tab
@@ -278,7 +279,7 @@ Große None, große Septime
 @end lilypond
 
 @item
-Moll None
+Moll-None
 @tab
 Große None, kleine Septime
 @tab
@@ -419,6 +420,9 @@ Die Tabelle zeigt alle vordefinierten Bunddiagramme.
 
 @lilypondfile{display-predefined-fretboards.ly}
 
+Die folgende Tabelle zeigt vordefinierte Bunddiagramme für Ukulele.
+
+@lilypondfile{display-predefined-ukulele-fretboards.ly}
 
 
 @node MIDI-Instrumente
@@ -426,7 +430,8 @@ Die Tabelle zeigt alle vordefinierten Bunddiagramme.
 @translationof MIDI instruments
 
 Hier eine Liste von Musikinstrumentenbezeichnungen, die als Name für 
-@code{midiInstrument} benutzt werden können.
+@code{midiInstrument} benutzt werden können.  Die Anordnung der
+Instrumente entspricht den 128 Prgrammnummern des MIDI-Standards.
 @c Todo: translate music instrument's names to German
 
 @cindex MIDI-Instrumentenbezeichnungen
@@ -925,7 +930,72 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 @cindex Coda
 @cindex Varcoda
 
-@lilypondfile[quote,texidoc]{script-chart.ly}
+Die Skripte unten sind in der Feta-Schriftart definiert und können
+an Noten angehängt werden (etwa @samp{c\accent}).
+
+@menu
+* Artikulationsskripte::
+* Ornamentale Skripte::
+* Fermatenskripte::
+* Instrumentenspezifische Skripte::
+* Wiederholungszeichensrkipte::
+* Skripte der alten Notation::
+@end menu
+
+@node Artikulationsskripte
+@unnumberedsubsec Artikulationsskripte
+@translationof Articulation scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #articulations }
+@end lilypond
+
+@node Ornamentale Skripte
+@unnumberedsubsec Ornamentale Skripte
+@translationof Ornament scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #ornaments }
+@end lilypond
+
+@node Fermatenskripte
+@unnumberedsubsec Fermatenskripte
+@translationof Fermata scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #fermatas }
+@end lilypond
+
+@node Instrumentenspezifische Skripte
+@unnumberedsubsec Instrumentenspezifische Skripte
+@translationof Instrument-specific scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #instrument-specific }
+@end lilypond
+
+@node Wiederholungszeichensrkipte
+@unnumberedsubsec Wiederholungszeichensrkipte
+@translationof Repeat sign scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #repeats }
+@end lilypond
+
+@node Skripte der alten Notation
+@unnumberedsubsec Ancient scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\include "gregorian.ly"
+\new VaticanaStaff { \scriptStaffAncient #ancient }
+@end lilypond
+
 
 
 @node Schlagzeugnoten
@@ -940,22 +1010,44 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 @translationof Technical glossary
 
 Ein Glossar der technischen Ausdrücke und Konzepte, die von
-LilyPond intern benutzt werden.
+LilyPond intern benutzt werden.  Die Ausdrücke kommen in den
+Handbüchern, auf den Mailinglisten oder im Quellcode vor.
 
 @menu
+* alist::
 * callback::
-* glyph (Glyphe)::
-* grob (Grob)::
-* interface (Schnittstelle)::
+* closure::
+* glyph::
+* grob::
+* immutable::
+* interface::
 * lexer::
+* mutable::
 * output-def::
-* parser (Syntaxanalysierer)::
+* parser::
 * parser variable::
 * prob::
 * simple-closure::
 * smob::
 * stencil::
 @end menu
+
+@node alist
+@unnumberedsubsec alist
+@translationof alist
+
+@cindex alist
+@cindex assoziative Liste
+
+Eine assoziative Liste oder @strong{alist} in kurz ist ein
+Scheme-Paar, das einen Wert mit einem Schlüssel assoziiert:
+@w{@code{(Schlüssel . Wert)}}.  In der Datei @file{scm/lily.scm}
+beispielsweise assoziiert die alist @w{@qq{type-p-name-alist}}
+bestimmte Prädikate (etwa@tie{}@code{ly:music?}) mit
+Bezeichnungen (wie@tie{}@qq{music}) sodass Fehler der
+Typüberprüfung über eine Konsolennachricht mitgeteilt werden
+können, die auch die Bezeichnung des erwarteten Typprädikats
+mitteilt.
 
 @node callback
 @unnumberedsubsec callback
@@ -973,8 +1065,38 @@ Callbacks werden sehr ausgiebig in LilyPond eingesetzt, um
 es Scheme-Code auf der Benutzerebene zu erlauben, wie viele
 Funktionen der niedrigeren Ebene ausgeführt werden sollen.
 
-@node glyph (Glyphe)
-@unnumberedsubsec glyph (Glyphe)
+@node closure
+@unnumberedsubsec closure
+@translationof closure
+
+@cindex closure
+@cindex einfache closure
+
+In Scheme entsteht ein @strong{closure} (Abschluss), wenn eine
+Funktion, normalerweise ein Lambda-Ausdruck, als Variable
+weitergegeben wird.  Das closure enthält den Code der Funktion
+plus Verweise zu den lexikalischen Verknüpfungen der
+freien Variablen der Funktion (also die Variablen, die in
+Ausdrücken benutzt werden, aber außerhalb von ihnen definiert
+werden).  Wenn diese Funktion später einem anderen Argument
+zugewiesen wird, werden die freien Variabel-Verknüpfungend, die
+in das closure eingeschlossen sind, benutzt um die Werte der
+freien Variablen, die in der Rechnung benutzt werden sollen,
+zu errechnen.  Eine nützliche Eigenschaft von closures ist,
+dass man interne variable Werte zwischen den Aufrufen
+wiederverwerten kann, sodass ein Status erhalten bleiben kann.
+
+Ein @strong{simple closure} (einfacher Abschluss) ist ein
+closure, dessen Ausdruck keine freien Variablen und auch keine
+freien Variablel-Verknüpfungen hat.
+
+Ein simple closure wird in LilyPond von einem smob dargestellt,
+der den Ausdruck und eine Methode, wie der Ausdruck auf eine
+Liste von Argumenten angewendet werden soll, enthält.
+
+
+@node glyph
+@unnumberedsubsec glyph
 @translationof glyph
 
 @cindex glyph
@@ -983,7 +1105,7 @@ Funktionen der niedrigeren Ebene ausgeführt werden sollen.
 @cindex typeface
 @cindex Schriftfamilie
 
-Ein @strong{glyph} ist eine bestimmte graphische Repräsentation
+Ein @strong{glyph} (Glyphe) ist eine bestimmte graphische Repräsentation
 eines typographischen Charakters oder einer Kombination von
 zwei oder mehr Charakteren, die dann eine Ligatur bilden.  Eine
 Gruppe an Glyphen des gleichen Stils bilden ein Font, und
@@ -997,8 +1119,8 @@ Notationsreferenz:
 @ref{Text encoding}.
 
 
-@node grob (Grob)
-@unnumberedsubsec grob (Grob)
+@node grob
+@unnumberedsubsec grob
 @translationof grob
 
 @cindex grob
@@ -1023,8 +1145,30 @@ Referenz der Interna:
 @rinternals{All layout objects}.
 
 
-@node interface (Schnittstelle)
-@unnumberedsubsec interface (Schnittstelle)
+@node immutable
+@unnumberedsubsec immutable
+@translationof immutable
+
+@cindex immutable-Objekte
+@cindex immutable-Eigenschaften
+
+Ein @strong{immutable} (unberührbares) Objekt ist ein, dessen Status nach der Erstellung
+nicht mehr verändert werden kann, entgegen einem mutable Objekt, das
+nach der Erstellung noch verändert werden kann.
+
+In LilyPond sind unberührbare oder geteilte Eigenschaften das
+Standardverhalten von Grobs.  Sie werden zwischen vielen Objekten
+geteilt.  Entgegen ihrer Bezeichnung können sie jedoch mit
+@code{\override} und @code{\revert} verändert werden.
+
+@seealso
+Notationsreferenz:
+@ref{mutable}.
+
+
+
+@node interface
+@unnumberedsubsec interface
 @translationof interface
 
 @cindex interface
@@ -1039,12 +1183,12 @@ oder auch @qq{Schnittstelle} (engl. interface) bezeichnet wird.
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{Objects and interfaces},
-@rlearning{Naming conventions of objects and properties},
-@rlearning{Properties found in interfaces}.
+@rlearning{Objekte und Schnittstellen},
+@rlearning{Regeln zur Benennung von Objekten und Eigenschaften},
+@rlearning{Eigenschaften, die Schnittstellen besitzen können}.
 
 Notationsreferenz:
-@ref{Layout interfaces}.
+@ref{Layout-Schnittstellen}.
 
 Referenz der Interna:
 @rinternals{Graphical Object Interfaces}.
@@ -1063,6 +1207,28 @@ eine Eingabedatei (@code{.ly} in eine Datei mit Tokens, die sich
 besser für den nächsten Schritt der Verarbeitung, nämlich das
 Parsen, eignet.  Siehe @ref{parser}.
 
+
+@node mutable
+@unnumberedsubsec mutable
+@translationof mutable
+
+@cindex mutable-Objekte
+@cindex veränderbare (mutable) Objekte
+
+Ein @strong{mutable} (veränderbares) Objekt ist ein Objekt, dessen
+Status verändert werden kann, im Gegenteil zu einem immutable
+Objekt, dessen Status zur Entstehungszeit festgelegt ist.
+
+In LilyPond enthalten mutable Eigenschaften Werte, die nur für
+einen Grob gelten.  Normalerweise werden Listen von anderen
+Objekten oder Resultate einer Berechnung in mutablen Eigenschaften
+gespeichert.
+
+@seealso
+Notationsreferenz:
+@ref{immutable}.
+
+
 @node output-def
 @unnumberedsubsec output-def
 @translationof output-def
@@ -1075,15 +1241,30 @@ Instanzen werden für @code{midi}, @code{layout} und @code{paper}-Umgebungen
 erstellt.
 
 
-@node parser (Syntaxanalysierer)
-@unnumberedsubsec parser (Syntaxanalysierer)
+@node parser
+@unnumberedsubsec parser
 @translationof parser
 
 @cindex parser
+@cindex Grammatik von LilyPond
+@cindex Bison
+@cindex BNF
 
-Ein @strong{parser} analysiert die Tokensequenzen, die von einem
+Ein @strong{parser} (Syntaxanalysierer) analysiert die Tokensequenzen, die von einem
 Lexer erstellt wurden, um deren grammatikalische Struktur zu entschlüsseln,
-wie sie von den Regeln des Eingabeformates vorgegeben werden.
+wie sie von den Regeln des Eingabeformates vorgegeben werden.  Dabei werden
+die Sequenzen in immer größere Gruppen entsprechend den grammatischen
+Regeln zusammengefasst.  Wenn die Kette der Tokens gültig ist, ist das
+Endprodukt ein Token-Baum, dessen Wurzel das Startsymbol der Grammatik ist.
+Wenn dies nicht erreicht werden kann, ist die Datei nicht korrekt und
+ensprechende Fehlermeldungen werden ausgegeben.  Die syntaktischen Gruppierungen
+und die Regeln, nach welchen die Gruppen aus ihren Einzelteilen nach der
+LilyPond-Syntax erstellt werden, finden sich in der Datei @file{lily/parser.yy}
+und werden in der Backus Normal Form (BNF) in @ref{LilyPond-Grammatik}
+gezeigt.  Diese Datei wird benutzt, um den Parser während der Programmkompilation
+zu erstellen.  Hierzu wird der Parser-Ersteller Bison verwendet.  Er ist
+Teil des Quellcodes und nicht in die binäre Installation von LilyPond
+integriert.
 
 
 @node parser variable
@@ -1125,22 +1306,59 @@ LilyPond benutzt folgende Parser-Variablen:
 @node prob
 @unnumberedsubsec prob
 @translationof prob
-TODO
+
+Property OBjects, also Eigenschaftsobjekte, oder kurz @strong{Prob},
+sind Mitglieder der @code{Prob}-Klasse, eine einfache Basisklasse für
+Objekte, die mutable oder immutable alists haben und die Methoden,
+mit denen sie verändert werden können.  Die @code{Music}- und
+@code{Stream_event}-Klassen stammen von @code{Prob} ab.  Verkörperungen
+der @code{Prob}-Klasse werden auch erstellt, um formatierte Inhalte von
+Systemgrobs und Titelblöcken während der Erstellung des Seitenlayouts zu
+speichern.
 
 @node simple-closure
 @unnumberedsubsec simple-closure
 @translationof simple-closure
-TODO
+
+Siehe @ref{closure}.
 
 @node smob
 @unnumberedsubsec smob
 @translationof smob
-TODO
+
+@cindex smob
+@cindex Scheme objekt
+
+@strong{Smobs} sind ScheMe-OBjekte, Teile des Mechanismus von Guile, um
+C- und C++-Ojekte in Scheme-Code zu exportieren.  In LilyPond werden
+Smobs von C++-Objekten mithilfe von Makros erstellt.  Es gibt zwei
+Arten von Smob-Objekten: einfache Smobs, die da sind für einfach
+immutable Objekte wie Nummern, und komplexe Smobs, benutzt für Objekte
+mit einer Identität.  Wenn Sie auf die LilyPond-Quellen zurückgreifen
+können, findet sich mehr Information hierzu in @file{lily/includes/smob.hh}.
 
 @node stencil
 @unnumberedsubsec stencil
 @translationof stencil
-TODO
+
+@cindex stencil
+@cindex Matrize (stencil)
+
+Eine Einheit der @strong{stencil}-Klasse enthält die Information,
+die benötigt wird um ein typographisches Objekt zu setzen.  Es handelt
+sich um einen sehr einfachen Smob, der eine begrenzende Box enthält,
+welche die vertikale und horizontale Ausdehnung des Objekt beschreibt,
+und einen Scheme-Ausdruck, der das Objekt ausgibt, nachdem es ausgewertet
+wurde.  Stencil-Objekte können kombiniert werden, um komplexere
+Stencil zu bilden, die aus einem Baum von Scheme-Ausdrücken des Typs
+Stencil bestehen.
+
+Die @code{stencil}-Eigenschaft, die einen Grob mit seinem Stencil
+verbindet, ist in der @code{grob-interface}-Schnittstelle definiert.
+
+@seealso
+Referenz der Interna:
+@rinternals{grob-interface}.
 
 
 @node Alle Kontexteigenschaften
@@ -1156,12 +1374,19 @@ TODO
 
 @include layout-properties.tely
 
-
-@node Bezeichner
-@appendixsec Bezeichner
-@translationof Identifiers
+@node Erhältliche Musikfunktionen
+@appendixsec Erhältliche Musikfunktionen
+@translationof Available music functions
 
 @include identifiers.tely
+
+
+@node Vordefinierte Typprädikate
+@appendixsec Vordefinierte Typprädikate
+@translationof Predefined type predicates
+
+@include type-predicates.tely
+
 
 
 @node Scheme-Funktionen
