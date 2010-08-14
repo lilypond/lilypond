@@ -85,6 +85,12 @@ You are invited to report anything that looks broken, or any case
 where the output quality is not on par with the previous release,
 as described in @rweb{Bug reports}.
 
+@warning{ The special regression test
+@file{test@/-output@/-distance@/.ly} will always show up as a
+regression.  This test changes each time it is run, and serves to
+verify that the regression tests have, in fact, run.}
+
+
 @subheading What to look for
 
 The test comparison shows all of the changes that occurred between
