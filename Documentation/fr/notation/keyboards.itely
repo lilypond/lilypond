@@ -27,10 +27,10 @@ parlerons ici de @qq{clavier} bien que le recours à des portées multiples
 concerne aussi des instruments qui en sont dépourvus.
 
 @menu
-* Vue d'ensemble des claviers::  
-* Piano::                       
-* Accordéon::                   
-* Harpe::                        
+* Vue d'ensemble des claviers::
+* Piano::
+* Accordéon::
+* Harpe::
 @end menu
 
 @node Vue d'ensemble des claviers
@@ -41,11 +41,11 @@ Nous allons examiner ici les problèmes qui peuvent survenir en matière
 de notation pour la plupart des instrument à cordes multiples.
 
 @menu
-* Généralités sur les instruments à clavier::    
-* Changement de portée manuel::     
-* Changement de portée automatique::  
-* Lignes de changement de portée::          
-* Hampes et changements de portée::           
+* Généralités sur les instruments à clavier::
+* Changement de portée manuel::
+* Changement de portée automatique::
+* Lignes de changement de portée::
+* Hampes et changements de portée::
 @end menu
 
 @node Généralités sur les instruments à clavier
@@ -70,7 +70,7 @@ sous la forme d'un système pour piano, autrement dit deux portées
 normales ou plus réunies par une accolade. Cette notation sert également
 à la harpe ou à d'autres instruments à clés.  L'organiste, quant à lui,
 lira une partition composée de deux portées au sein d'un système
-pianistique auquel vient s'adjoindre une portée normale pour le pédalier. 
+pianistique auquel vient s'adjoindre une portée normale pour le pédalier.
 
 Les portées sont largement autonomes, mais il arrive que des voix
 passent de l'une à l'autre.  Le contexte @code{PianoStaff} est
@@ -78,7 +78,7 @@ précisément conçu pour gérer la notation spécifique au piano et autres
 instruments à clavier, notamment ces croisements.
 
 Certaines particularités de la notation pour claviers sont abordées dans
-d'autres chapitres :
+d'autres chapitres@tie{}:
 
 @itemize
 
@@ -88,8 +88,8 @@ nombre peut varier. voir à ce sujet @ref{Résolution des collisions}.
 @item On peut écrire la musique pour claviers de façon parallèle, comme
 l'explique @ref{Saisie de musique en parallèle}.
 
-@item Les indications de doigté sont abrodées dans 
-@ref{Doigtés}. 
+@item Les indications de doigté sont abrodées dans
+@ref{Doigtés}.
 
 @item Les indications en matière de pédalier d'orgue sont traitées comme
 des articulations. Voir à ce sujet @ref{List of articulations}.
@@ -110,7 +110,7 @@ chapitre @ref{Répétitions en trémolo}.
 abordées au chapitre @rlearning{Exemple concret}.
 
 @item Des notes fantômes permettent d'introduire des liaisons de tenue
-qui passent d'une voix à l'autre, comme le montre 
+qui passent d'une voix à l'autre, comme le montre
 @rlearning{Autres utilisations des retouches}.
 
 @end itemize
@@ -151,9 +151,9 @@ Exemples de code :
 
 Les nuances ne sont pas automatiquement centrées verticalement, mais il
 existe des astuces.  Voir à ce sujet le modèle @qq{alignement des
-nuances au piano} au chapitre @rlearning{Modèles pour claviers} ; une autre
+nuances au piano} au chapitre @rlearning{Modèles pour claviers}@tie{}; une autre
 solution consiste à augmenter le décalage des nuances par rapport à la
-portée (@code{staff-pagging}) comme l'indique 
+portée (@code{staff-pagging}) comme l'indique
 @rlearning{Déplacement d'objets}.
 
 
@@ -183,14 +183,14 @@ La valeur @var{nomDeLaPortee} est le nom de la portée sur laquelle va se
 déplacer la voix courante.  Pour des raisons pratiques, on nomme la portée
 supérieure @code{"haut"} et la portée inférieure @code{"bas"}, donc
 @var{nomDeLaPortee} désigne habituellement @code{"haut"}, @code{"bas"},
-@code{"MD"} ou @code{"MG"}.  
+@code{"MD"} ou @code{"MG"}.
 
 Dans tous les cas, le contexte de portée ainsi utilisé doit exister au
-préalable.  Le cas échéant, vous devrez qq{garder actives} certaines
+préalable.  Le cas échéant, vous devrez @qq{garder actives} certaines
 portées -- voir @ref{Conservation d'un contexte} à ce propos.
 
 Pour ligaturer automatiquement des notes entre deux portées, procédez
-ainsi : 
+ainsi@tie{}:
 
 @lilypond[verbatim,quote]
 \new PianoStaff <<
@@ -216,7 +216,7 @@ Si les ligatures demandaient à être retouchées, commencez par
 modifier la direction des hampes.  L'emplacement des ligatures sera
 alors calculé à partir du centre de la portée la plus proche -- voir
 @rlearning{Correction des collisions d'objets} pour un exemple de retouche sur
-des ligatures. 
+des ligatures.
 
 
 @seealso
@@ -248,7 +248,7 @@ Référence des propriétés internes :
 @funindex PianoStaff
 
 Les voix peuvent passer automatiquement d'une portée à l'autre, au moyen
-de la syntaxe suivante :
+de la syntaxe suivante@tie{}:
 
 @example
 \autochange @dots{}@var{musique}@dots{}
@@ -256,11 +256,11 @@ de la syntaxe suivante :
 
 @noindent
 Deux portées seront alors créées au sein du contexte @code{PianoStaff},
-nommées respectivement @code{"up"} et @code{"down"}.  La portée du bas 
+nommées respectivement @code{"up"} et @code{"down"}.  La portée du bas
 sera par défaut en clé de fa.  La commande @code{\autochange} bascule
 les notes d'une portée à l'autre en fonction de leur hauteur (le do du
 milieu servant de pivot), et place les silences en fonction des notes
-qui les suivront. Ainsi : 
+qui les suivront. Ainsi@tie{}:
 
 @lilypond[quote,verbatim]
 \new PianoStaff {
@@ -283,12 +283,12 @@ Une section en mode @code{\relative} se situant en dehors de la commande
 @code{\relative} @strong{après} @code{\autochange}.
 
 Lorsque des contrôles particuliers doivent s'appliquer aux portées,
-mieux vaut les nommer explicitement -- attention : sous peine
+mieux vaut les nommer explicitement -- attention@tie{}: sous peine
 d'effet indésirable quant au résultat, la portée supérieure doit
-s'appeler @code{"up"} et l'inférieure @code{"down"} ; @emph{ceci est à
+s'appeler @code{"up"} et l'inférieure @code{"down"}@tie{}; @emph{ceci est à
 notre connaissance le seul cas où ces noms de variable sont figés}.
 Cette procédure sert, entre autres, à indiquer l'armure sur la portée
-inférieure :
+inférieure@tie{}:
 
 @c Keep Ly needed, otherwise 'up' and 'down' get
 @c incorrectly translated in verbatim output
@@ -313,13 +313,13 @@ inférieure :
 
 
 @seealso
-Dans ce même manuel : 
+Dans ce même manuel :
 @ref{Changement de portée manuel}.
 
 Exemples de code :
 @rlsr{Keyboards}.
 
-Référence des propriétés internes : 
+Référence des propriétés internes :
 @rinternals{AutoChangeMusic}.
 
 
@@ -331,9 +331,9 @@ Les changements de portée automatiques n'interviennent pas toujours à
 l'endroit le plus opportun.  Pour un résultat de meilleure qualité, il
 vaut mieux indiquer soi-même ces changements.
 
-Un accord ne peut se répartir sur plusieurs portées ; sa portée
+Un accord ne peut se répartir sur plusieurs portées@tie{}; sa portée
 d'affectation sera déterminée par la première hauteur mentionnée dans la
-construction de cet accord.  
+construction de cet accord.
 
 @code{\autochange} ne peut intervenir à l'intérieur d'une commande
 @code{\times}.
@@ -355,7 +355,7 @@ construction de cet accord.
 
 Lorsqu'une voix change de portée, il est possible d'imprimer
 automatiquement une ligne reliant les notes, en faisant appel à la
-commande @code{\showStaffSwitch} :
+commande @code{\showStaffSwitch}@tie{}:
 
 @lilypond[quote,verbatim,relative=1]
 \new PianoStaff <<
@@ -383,7 +383,7 @@ commande @code{\showStaffSwitch} :
 Extraits de code :
 @rlsr{Keyboards}.
 
-Référence des propriétés internes : 
+Référence des propriétés internes :
 @rinternals{Note_head_line_engraver},
 @rinternals{VoiceFollower}.
 
@@ -450,10 +450,10 @@ Référence des propriétés internes :
 @subsection Piano
 @translationof Piano
 
-Ce chapitre traîte des aspects de la notation directement liés au piano.  
+Ce chapitre traîte des aspects de la notation directement liés au piano.
 
 @menu
-* Pédales de piano::                
+* Pédales de piano::
 @end menu
 
 @node Pédales de piano
@@ -486,11 +486,11 @@ Ce chapitre traîte des aspects de la notation directement liés au piano.
 
 
 Le piano possède deux pédales, parfois trois, permettant de modifier
-l'émission du son : une pédale de @notation{tenue} (@emph{sustain}),
+l'émission du son@tie{}: une pédale de @notation{tenue} (@emph{sustain}),
 une pédale de @notation{sourdine} (@emph{una corda} ou @emph{U.C.}) et
 une pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}).  La
 pédale @emph{sustain} se rencontre aussi sur les vibraphones et
-celestas.  
+celestas.
 
 @lilypond[quote,verbatim,relative=2]
 c4\sustainOn d e g
@@ -514,7 +514,7 @@ c4\unaCorda d e g
 @funindex text
 
 Trois styles sont à votre disposition pour imprimer les indications de
-pédale : sous forme de texte, de crochet, ou une combinaison des deux.  
+pédale@tie{}: sous forme de texte, de crochet, ou une combinaison des deux.
 @code{text} est le style de notation par défaut pour les pédales de
 tenue ou de sourdine --- le traditionnel @q{*Ped.}.  La pédale tonale,
 en revanche, utilise @code{mixed} par défaut.
@@ -533,7 +533,7 @@ d\sustainOff\sustainOn g, c2
 Le placement des commandes de pédale correspond au mouvement de la
 pédale de tenue pendant le jeu.  Garder une pédale enclanchée jusqu'à la
 barre finale s'obtient tout simplement en omettant la commande de
-relacher. 
+relacher.
 
 
 @seealso
@@ -562,7 +562,7 @@ Référence des propriétés internes :
 @translationof Accordion
 
 @menu
-* Symboles de jeux::             
+* Symboles de jeux::
 @end menu
 
 @node Symboles de jeux
@@ -612,14 +612,14 @@ This section discusses notation issues that are unique to the harp.
 @cindex bisbigliando
 
 Certaines caractéritiques de la musique pour harpes sont abordées dans
-d'autres chapitres, telles que :
+d'autres chapitres, telles que@tie{}:
 
 @itemize
 
 @item Les glissandos, l'une des techniques spécifique à la harpe,
 @ref{Glissando}.
 
-@item Le @notation{bisbigliando}, qui s'écrit comme un trémolo, 
+@item Le @notation{bisbigliando}, qui s'écrit comme un trémolo,
 @ref{Répétitions en trémolo}.
 
 @item Les harmoniques naturelles sont présentées dans @ref{Harmoniques}.
@@ -648,10 +648,10 @@ Les harpes comportent sept cordes par octave qui peuvent sonner
 naturel, dièse ou bémol.  Si chacune des cordes de la harpe celtique
 (@emph{lever harp}) est accordée individuellement, celles d'une harpe à
 pédalier ayant la même note de base sont contrôlées par une seule
-pédale.  De gauche à droite, elles correspondent aux notes ré, do, si, 
+pédale.  De gauche à droite, elles correspondent aux notes ré, do, si,
 et mi, fa, sol, la pour la grande harpe. Les trois premières pédales sont
 réservées au pied gauche, les quatre dernières au pied droit.  Leur
-position peut être indiquée par une marque textuelle : 
+position peut être indiquée par une marque textuelle@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
 \textLengthOn

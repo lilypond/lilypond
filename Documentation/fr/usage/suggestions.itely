@@ -45,11 +45,11 @@ faciliter leur mise à jour.
 @end itemize
 
 @menu
-* Suggestions générales::         
-* Gravure de musique existante::  
-* Projets d'envergure::              
+* Suggestions générales::
+* Gravure de musique existante::
+* Projets d'envergure::
 * Résolution de problèmes::
-* De la commande make et des fichiers Makefile::             
+* De la commande make et des fichiers Makefile::
 @end menu
 
 @node Suggestions générales
@@ -68,7 +68,7 @@ de se rappeler quelle version de LilyPond on utilisait quelques
 années auparavant.  L'utilitaire @command{convert-ly} demande que vous
 spécifiiez la version de LilyPond vous utilisiez alors.
 
-@item @strong{Ajoutez des contrôles} : @ruser{Vérifications d'octave}
+@item @strong{Ajoutez des contrôles}@tie{}: @ruser{Vérifications d'octave}
 et @ruser{Vérification des limites et numéros de mesure}.  Si vous avez
 ajouté des contrôles de loin en loin, et que vous faites une erreur,
 vous pourrez la retrouver plus rapidement.  @qq{De loin en loin},
@@ -100,7 +100,7 @@ variable.  Si vous saisissez @code{c4 d e} au début d'une phrase, vous
 vous épargnerez des problèmes si, plus tard, vous modifiez votre musique.
 
 @item @strong{Séparez les affinages de mise en forme} de la musique
-elle-même.  Voyez 
+elle-même.  Voyez
 @ref{Économie de saisie grâce aux identificateurs et fonctions} et
 @ref{Feuilles de style}.
 
@@ -120,19 +120,19 @@ c'est-à-dire de la musique déjà écrite,
 à la fois -- mais toujours une seule mesure par ligne de texte --,
 et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
 utiliser les commandes @code{showLastLength} et @code{showFirstLength}
-pour accélérer la compilation -- voir 
-@ruser{Ignorer des passages de la partition} ;
+pour accélérer la compilation -- voir
+@ruser{Ignorer des passages de la partition}@tie{};
 
 @item définissez @code{mBreak = @{\break @}} et insérez
 @code{\mBreak} dans le fichier d'entrée pour obtenir des sauts de
 ligne identiques à la partition originale.  Cela facilite la
-comparaison entre la partition originale et la partition de 
+comparaison entre la partition originale et la partition de
 LilyPond.  Lorsque vous avez fini de relire votre musique, vous pouvez
 définir @code{mBreak = @{ @}} pour enlever tous ces sauts de ligne, et
 laisser LilyPond placer les sauts de ligne selon son propre algorithme.
 
 @item encadrez les notes d'une partie pour instrument transpositeur
-dans un 
+dans un
 
 @example
 \transpose c @var{tonalité-naturelle} @{...@}
@@ -182,7 +182,7 @@ g4 c'8. e16
 @end example
 
 @item @strong{Séparez les retouches} des définitions de
-musique.  Nous vous avons déjà invité à adopter une telle pratique, qui 
+musique.  Nous vous avons déjà invité à adopter une telle pratique, qui
 par ailleurs devient vitale pour des projets d'importance.  Nous
 pouvons avoir besoin de changer la définition de
 @code{fpuisp}, mais dans ce cas nous n'aurons besoin de le faire
@@ -201,7 +201,7 @@ g4\fpuisp c'8. e16
 @end itemize
 
 
-@node Résolution de problèmes 
+@node Résolution de problèmes
 @section Résolution de problèmes
 @translationof Troubleshooting
 
@@ -273,7 +273,7 @@ spécial, nommé de @code{Makefile}, qui contient tout ce qu'il
 faut -- les dépendances entre certains fichiers, les instructions
 successives à traiter par le système -- pour aboutir au fichier que
 vous désirez obtenir.  Il pourrait par exemple contenir tout ce qu'il
-faut pour produire @code{ballade.pdf} et @code{ballade.midi} à partir de 
+faut pour produire @code{ballade.pdf} et @code{ballade.midi} à partir de
 @code{ballade.ly} en lançant LilyPond.
 
 La création d'un @code{Makefile} peut se révéler pertinente pour
@@ -290,21 +290,21 @@ les besoin et les aptitudes de celui qui les crée.  Le programme GNU Make
 est installé par défaut sur les distributions Linux et sur MacOS@tie{}X,
 et il en existe une version pour les environnements Windows.
 
-Consultez le @strong{GNU Make Manual} pour plus de détails sur ce dont 
+Consultez le @strong{GNU Make Manual} pour plus de détails sur ce dont
 @code{make} est capable -- vous pourrez même en trouver des versions
 françaises à l'aide des moteurs de recherche --, dans la mesure où ce
 qui suit ne donne qu'un bref apperçu de ses possibilités.
 
 Les commandes permettant de définir les règles diffèrent selon la
-plate-forme : si les différents Linux et MacOS@tie{}X utilisent
+plate-forme@tie{}: si les différents Linux et MacOS@tie{}X utilisent
 @code{bash}, Windows utilise @code{cmd}.  Dans le cas de MacOS@tie{}X,
 vous devrez toutefois configurer votre système de telle sorte qu'il
 utilise l'interpréteur en ligne de commande.  Voici quelques exemples de
 fichier @emph{Makefile}, avec une version pour Linux ou MacOS et une
 pour Windows.
 
-Pour commencer, une pièce à quatre mouvements pour orchestre et dont les 
-fichiers sont répartis selon l'arborescence suivante :
+Pour commencer, une pièce à quatre mouvements pour orchestre et dont les
+fichiers sont répartis selon l'arborescence suivante@tie{}:
 
 @example
 Symphonie/
@@ -338,7 +338,7 @@ Symphonie/
 
 Les fichiers @code{.ly} des répertoires @code{Partitions} et
 @code{Pupitres} récupèreront la notation des fichiers @code{.ily}
-contenus dans le répertoire @code{Notes} :
+contenus dans le répertoire @code{Notes}@tie{}:
 
 @example
 %%% début du fichier "symphone-cello.ly"
@@ -461,7 +461,7 @@ choisissez @code{Propriétés} puis @code{Avancées}.  Cliquez sur
 @code{Variables d'environnement} puis, dans l'onglet @w{@code{Variables
 système}}, mettez @code{path} en surbrillance et cliquez sur
 @code{Modifier}.  Ajoutez alors le chemin d'accès complet à l'exécutable
-de GNU Make, qui devrait ressembler à :
+de GNU Make, qui devrait ressembler à@tie{}:
 
 @example
 C:\Program Files\GnuWin32\bin
@@ -612,7 +612,7 @@ réduire le nombre de processus à lancer dans une seule commande.  Vous
 devrez enregistrer les lignes suivantes dans un fichier
 @code{construire.bat} ou @code{construire.cmd}.  Ce fichier pourra être
 exécuté soit en ligne de commande, soit par un double clic sur son
-icone. 
+icone.
 
 @example
 lilypond-book --output=out --pdf monprojet.lytex
@@ -628,4 +628,4 @@ copy out\monprojet.pdf MonProjet.pdf
 @seealso
 Manuel d'utilisation :
 @ref{Utilisation en ligne de commande},
-@ref{LilyPond-book}
+@ref{lilypond-book}

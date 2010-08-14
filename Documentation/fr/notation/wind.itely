@@ -36,7 +36,7 @@ instruments à vent.
 
 @menu
 * Références en matière d'instruments à vent::
-* Doigtéspour vents::
+* Doigtés pour vents::
 @end menu
 
 @node Références en matière d'instruments à vent
@@ -50,12 +50,12 @@ Ce qui caractérise les partitions pour instruments à vent a trait
 principalement à la respiration et à l'attaque :
 
 @itemize
-@item Les respirations s'indiquent par des silences ou des 
-@ref{Signes de respiration}. 
+@item Les respirations s'indiquent par des silences ou des
+@ref{Signes de respiration}.
 @item Un jeu @emph{legato} s'indique par des @ref{Liaisons d'articulation}.
 @item Les différents types d'attaque -- @emph{legato}, détaché ou piqué
 -- s'indiquent en principe par des signes d'articulation, parfois
-agrémentés de liaisons.  Voir à ce sujet 
+agrémentés de liaisons.  Voir à ce sujet
 @ref{Articulations et ornements} et @ref{Liste des signes d'articulation}.
 @item Un @emph{Flatterzunge} (trémolo dental ou trémolo en roulant les
 r) s'indique par une marque de trémolo et une étiquette textuelle
@@ -66,7 +66,7 @@ D'autres aspects de la notation s'appliquent aussi aux instruments à
 vent :
 
 @itemize
-@item De nombreux instruments à vent sont transpositeurs ; voir 
+@item De nombreux instruments à vent sont transpositeurs ; voir
 @ref{Instruments transpositeurs}.
 @item Les glissandos sont l'une des caractéristiques du trombone à
 coulisse, bien que d'autres instruments puisssent y parvenir en jouant
@@ -78,7 +78,7 @@ sont traditionnellement indiqués par des @ref{Notes d'ornement}.
 @item Les @qq{bruitages} de clé ou de piston s'indiquent souvent par le
 style @code{cross} ou des @ref{Têtes de note spécifiques}.
 @item Les bois peuvent émettre des harmoniques dans le bas de leur
-registre.  On les indique avec un @code{flageolet} -- voir 
+registre.  On les indique avec un @code{flageolet} -- voir
 @ref{Liste des signes d'articulation}.
 @item En ce qui concerne les cuivres, la sourdine s'indique en pricipe
 par une étiquette textuelle.  Cependant, lorsque les changements sont
