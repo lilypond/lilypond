@@ -37,38 +37,395 @@ and just before
 @menu
 * Table des noms d'accord::
 * Modificateurs d'accord usuels::
-* Tablatures prédéfinies::
+* Diagrammes d'accord prédéfinis::
 * Instruments MIDI::
 * Liste des couleurs::
 * La fonte Feta::
 * Styles de tête de note::
 * Text markup commands::
 * Text markup list commands::
-* Liste des signes d'articulation::       
+* Liste des signes d'articulation::
 * Notes utilisées en percussion::
-* Liste des propriétés de contexte::      
-* Propriétés de mise en forme::           
-* Variables::                 
-* Fonctions Scheme::            
+* Glossaire technique::
+* Liste des propriétés de contexte::
+* Propriétés de mise en forme::
+* Fonctions musicales::
+* Types de prédicats prédéfinis::
+* Fonctions Scheme::
 @end menu 
+
 
 @node Table des noms d'accord
 @appendixsec Table des noms d'accord
 @translationof Chord name chart
 
-@untranslated
+La liste suivante répertorie les noms des accords selon les deux types
+les plus répandus, ainsi que ce qu'ils représentent.
+
+@lilypondfile{chord-names-jazz.ly}
+
 
 @node Modificateurs d'accord usuels
 @appendixsec Modificateurs d'accord usuels
 @translationof Common chord modifiers
 
-@untranslated
+Le tableau suivant indique les différents modificateurs utilisables en
+mode accords (@code{\chordmode}) qui permettent d'obtenir les structures
+habituelles d'un certain nombre d'accords.
 
-@node Tablatures prédéfinies
-@appendixsec Tablatures prédéfinies
+@multitable @columnfractions .2 .3 .2 .2
+
+@item
+@b{Type d'accord}
+@tab
+@b{Intervalles}
+@tab
+@b{Modificateur(s)}
+@tab
+@b{Exemple}
+
+
+@item
+Majeur
+@tab
+Tierce mejeure et quinte juste
+@tab
+@code{5} ou rien
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:5
+}
+@end lilypond
+
+@item
+Mineur
+@tab
+Tierce minaure et quinte juste
+@tab
+@code{m} ou @code{m5}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m
+}
+@end lilypond
+
+@item
+Augmenté
+@tab
+Tierce majeure et quinte augmentée
+@tab
+@code{aug}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:aug
+}
+@end lilypond
+
+@item
+Diminué
+@tab
+Tierce mineure et quinte diminuée
+@tab
+@code{dim}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim
+}
+@end lilypond
+
+@item
+Septième de dominante
+@tab
+Triton majeur et septième mineure
+@tab
+@code{7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:7
+}
+@end lilypond
+
+@item
+Septième majeure
+@tab
+Triton majeur et septième majeure
+@tab
+@code{maj7} or @code{maj}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj7
+}
+@end lilypond
+
+@item
+Septième mineure
+@tab
+Triton mineur et septième mineure
+@tab
+@code{m7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m7
+}
+@end lilypond
+
+@item
+Septième diminuée
+@tab
+Triton diminué et septième diminuée
+@tab
+@code{dim7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim7
+}
+@end lilypond
+
+@item
+Septième augmentée
+@tab
+Triton augmenté et septième mineure
+@tab
+@code{aug7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:aug7
+}
+@end lilypond
+
+@item
+Septième semi-diminuée
+@tab
+Triton diminué et septième mineure
+@tab
+@code{m7.5-}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m7.5-
+}
+@end lilypond
+
+@item
+Accord mineur avec septième majeure
+@tab
+Triton mineur et septième majeure
+@tab
+@code{maj7.3-}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj7.3-
+}
+@end lilypond
+
+@item
+Sixte majeure
+@tab
+Triton majeur et sixte
+@tab
+@code{6}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:6
+}
+@end lilypond
+
+@item
+Sixte mineure
+@tab
+Triton mineur et sixte
+@tab
+@code{m6}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m6
+}
+@end lilypond
+
+@item
+Neuvième de dominante
+@tab
+Septième de dominante et neuvième majeure
+@tab
+@code{9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:9
+}
+@end lilypond
+
+@item
+Neuvième majeure
+@tab
+Septième majeure et neuvième majeure
+@tab
+@code{maj9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj9
+}
+@end lilypond
+
+@item
+Neuvième mineure
+@tab
+Septième mineure et neuvième majeure
+@tab
+@code{m9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m9
+}
+@end lilypond
+
+@item
+Onzième de dominante
+@tab
+Neuvième de dominante et onzième juste
+@tab
+@code{11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:11
+}
+@end lilypond
+
+@item
+Onzième majeure
+@tab
+Neuvième majeure et onzième juste
+@tab
+@code{maj11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj11
+}
+@end lilypond
+
+@item
+Onzième mineure
+@tab
+Neuvième mineure et onzième juste
+@tab
+@code{m11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m11
+}
+@end lilypond
+
+@item
+Trézième de dominante
+@tab
+Neuvième de dominante et trézième majeure
+@tab
+@code{13}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:13
+}
+@end lilypond
+
+@item
+Trézième de dominante
+@tab
+Onzième de dominante et trézième majeure
+@tab
+@code{13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:13.11
+}
+@end lilypond
+
+@item
+Trézième majeure
+@tab
+Onzième majeure et trézième majeure
+@tab
+@code{maj13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj13.11
+}
+@end lilypond
+
+@item
+Trézième mineure
+@tab
+Onzièmem mineure et trézième majeure
+@tab
+@code{m13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m13.11
+}
+@end lilypond
+
+@item
+Seconde suspendue
+@tab
+Seconde majeure et quinte juste
+@tab
+@code{sus2}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:sus2
+}
+@end lilypond
+
+@item
+Quarte suspendue
+@tab
+Quarte juste et quqinte juste
+@tab
+@code{sus4}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:sus4
+}
+@end lilypond
+
+
+@end multitable
+
+
+@node Diagrammes d'accord prédéfinis
+@appendixsec Diagrammes d'accord prédéfinis
 @translationof Predefined fretboard diagrams
 
-@untranslated
+La liste suivante répertorie les tablatures prédéfinies pour la guitare.
+
+@lilypondfile{display-predefined-fretboards.ly}
+
+La liste suivante répertorie les tablatures prédéfinies pour le ukulele.
+
+@lilypondfile{display-predefined-ukulele-fretboards.ly}
+
 
 @node Instruments MIDI
 @appendixsec Instruments MIDI
@@ -128,27 +485,413 @@ cello                     lead 6 (voice)
 @appendixsec Liste des couleurs
 @translationof List of colors
 
-@untranslated
-
 @subsubheading Couleurs de base
+
+La syntaxe appropriée à la gestion des couleurs est traitée au chapitre
+@ref{Coloration d'objets}.
+
+@cindex Liste des couleurs
+@cindex Couleurs, liste
+
+@verbatim
+black       white          red         green
+blue        cyan           magenta     yellow
+grey        darkred        darkgreen   darkblue
+darkcyan    darkmagenta    darkyellow
+@end verbatim
+
+
 @subsubheading Noms de couleur X
+
+Les noms de couleur X peuvent s'employer de différentes manières.
+
+Un nom de couleur peut s'écrire sous la forme d'un mot composé et sans
+espace auquel chaque élément prend un initiale capitalisée (p.ex.
+@code{LightSlateBlue}).  Il peut aussi s'exprimer sous la forme d'une
+suite de mots, auquel cas les initiales ne sont pas capitalisées
+(p.ex. @code{light@tie{}slate@tie{}blue}).
+
+Le @emph{gris} accepte aussi bien l'orthographe @qq{grey} que 
+@qq{gray} (p.ex. @code{DarkSlateGray}).
+
+Certains noms peuvent prendre un suffixe numérique, comme
+@code{LightSalmon4}.
+
+
 @subsubheading Noms de couleur sans suffixe numérique
+
+@verbatim
+snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
+OldLace		linen		AntiqueWhite	PapayaWhip	BlanchedAlmond
+bisque		PeachPuff	NavajoWhite	moccasin	cornsilk
+ivory		LemonChiffon	seashell	honeydew	MintCream
+azure		AliceBlue	lavender	LavenderBlush	MistyRose
+white		black		DarkSlateGrey	DimGrey		SlateGrey
+LightSlateGrey	grey		LightGrey	MidnightBlue	navy
+NavyBlue	CornflowerBlue	DarkSlateBlue	SlateBlue	MediumSlateBlue
+LightSlateBlue	MediumBlue	RoyalBlue	blue		DodgerBlue
+DeepSkyBlue	SkyBlue		LightSkyBlue	SteelBlue	LightSteelBlue
+LightBlue	PowderBlue	PaleTurquoise	DarkTurquoise	MediumTurquoise
+turquoise	cyan		LightCyan	CadetBlue	MediumAquamarine
+aquamarine	DarkGreen	DarkOliveGreen	DarkSeaGreen	SeaGreen
+MediumSeaGreen	LightSeaGreen	PaleGreen	SpringGreen	LawnGreen
+green		chartreuse	MediumSpringGreen	GreenYellow	LimeGreen
+YellowGreen	ForestGreen	OliveDrab	DarkKhaki	khaki
+PaleGoldenrod	LightGoldenrodYellow	LightYellow	yellow	gold
+LightGoldenrod	goldenrod	DarkGoldenrod	RosyBrown	IndianRed
+SaddleBrown	sienna		peru		burlywood	beige
+wheat		SandyBrown	tan		chocolate	firebrick
+brown		DarkSalmon	salmon		LightSalmon	orange
+DarkOrange	coral		LightCoral	tomato		OrangeRed
+red		HotPink		DeepPink	pink		LightPink
+PaleVioletRed	maroon		MediumVioletRed	VioletRed	magenta
+violet		plum		orchid		MediumOrchid	DarkOrchid
+DarkViolet	BlueViolet	purple		MediumPurple	thistle
+DarkGrey	DarkBlue	DarkCyan	DarkMagenta	DarkRed
+LightGreen
+@end verbatim
+
+
 @subsubheading Noms de couleur avec suffixe numérique
+
+Les couleurs suivantes acceptent un suffixe numérique @var{N} compris
+entre 1 et 4.
+
+@verbatim
+snowN		seashellN	AntiqueWhiteN	bisqueN		PeachPuffN
+NavajoWhiteN	LemonChiffonN	cornsilkN	ivoryN		honeydewN
+LavenderBlushN	MistyRoseN	azureN		SlateBlueN	RoyalBlueN
+blueN		DodgerBlueN	SteelBlueN	DeepSkyBlueN	SkyBlueN
+LightSkyBlueN	LightSteelBlueN	LightBlueN	LightCyanN	PaleTurquoiseN
+CadetBlueN	turquoiseN	cyanN		aquamarineN	DarkSeaGreenN
+SeaGreenN	PaleGreenN	SpringGreenN	greenN		chartreuseN
+OliveDrabN	DarkOliveGreenN	khakiN		LightGoldenrodN	LightYellowN
+yellowN		goldN		goldenrodN	DarkGoldenrodN	RosyBrownN
+IndianRedN	siennaN		burlywoodN	wheatN		tanN
+chocolateN	firebrickN	brownN		salmonN		LightSalmonN
+orangeN		DarkOrangeN	coralN		tomatoN		OrangeRedN
+redN		DeepPinkN	HotPinkN	pinkN		LightPinkN
+PaleVioletRedN	maroonN		VioletRedN	magentaN	orchidN
+plumN		MediumOrchidN	DarkOrchidN	purpleN		MediumPurpleN
+thistleN
+@end verbatim
+
+
 @subsubheading Échelle de gris
+
+Une échelle de gris s'obtient en utilisant
+
+@example
+greyN
+@end example
+
+@noindent
+où @var{N} est compris entre 0 et 100.
+
 
 @node La fonte Feta
 @appendixsec La fonte Feta
 @translationof The Feta font
 
-@untranslated
+@cindex Feta font
+@cindex Font, Feta
+
+Voici, regroupés par type, les différents symboles de la fonte
+Emmentaler qui peuvent s'inclure directement dans un objet
+@emph{markup}.  Pour ce faire, il suffit d'employer le nom du glyphe,
+comme dans @code{g^\markup @{\musicglyph #"scripts.segno" @}} ou
+@code{\markup @{\musicglyph #"five"@}}.  Pour de plus amples
+informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
+
+
+@menu
+* Glyphes de clef::
+* Glyphes de métrique::
+* Glyphes de chiffre::
+* Glyphes d'altération::
+* Glyphes de tête de note par défaut::
+* Glyphes de tête de note spéciale::
+* Glyphes de tête de note à forme variable::
+* Glyphes de silence::
+* Glyphes de crochet de croche::
+* Glyphes de point::
+* Glyphes de nuance::
+* Glyphes de script::
+* Glyphes de flèche::
+* Glyphes d'extrémité d'accolade::
+* Glyphes de pédale::
+* Glyphes d'accordéon::
+* Glyphes de style vaticana::
+* Glyphes de style medicaea::
+* Glyphes de style Hufnagel::
+* Glyphes de style mensural::
+* Glyphes de style néomensural::
+* Glyphes de style Petrucci::
+* Glyphes de style Solesmes::
+@end menu
+
+
+@node Glyphes de clef
+@unnumberedsubsec Glyphes de clef
+@translationof Clef glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #clefs
+@end lilypond
+
+
+@node Glyphes de métrique
+@unnumberedsubsec Glyphes de métrique
+@translationof Time Signature glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #timesig
+@end lilypond
+
+
+@node Glyphes de chiffre
+@unnumberedsubsec Glyphes de chiffre
+@translationof Number glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #numbers
+@end lilypond
+
+
+@node Glyphes d'altération
+@unnumberedsubsec Glyphes d'altération
+@translationof Accidental glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #accidentals
+@end lilypond
+
+
+@node Glyphes de tête de note par défaut
+@unnumberedsubsec Glyphes de tête de note par défaut
+@translationof Default Notehead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #default-noteheads
+@end lilypond
+
+
+@node Glyphes de tête de note spéciale
+@unnumberedsubsec Glyphes de tête de note spéciale
+@translationof Special Notehead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #special-noteheads
+@end lilypond
+
+
+@node Glyphes de tête de note à forme variable
+@unnumberedsubsec Glyphes de tête de note à forme variable
+@translationof Shape-note Notehead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #shape-note-noteheads
+@end lilypond
+
+
+@node Glyphes de silence
+@unnumberedsubsec Glyphes de silence
+@translationof Rest glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #rests
+@end lilypond
+
+
+@node Glyphes de crochet de croche
+@unnumberedsubsec Glyphes de crochet de croche
+@translationof Flag glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #flags
+@end lilypond
+
+
+@node Glyphes de point
+@unnumberedsubsec Glyphes de point
+@translationof Dot glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #dots
+@end lilypond
+
+
+@node Glyphes de nuance
+@unnumberedsubsec Glyphes de nuance
+@translationof Dynamic glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #dynamics
+@end lilypond
+
+
+@node Glyphes de script
+@unnumberedsubsec Glyphes de script
+@translationof Script glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #scripts
+@end lilypond
+
+
+@node Glyphes de flèche
+@unnumberedsubsec Glyphes de flèche
+@translationof Arrowhead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #arrowheads
+@end lilypond
+
+
+@node Glyphes d'extrémité d'accolade
+@unnumberedsubsec Glyphes d'extrémité d'accolade
+@translationof Bracket-tip glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #brackettips
+@end lilypond
+
+
+@node Glyphes de pédale
+@unnumberedsubsec Glyphes de pédale
+@translationof Pedal glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #pedal
+@end lilypond
+
+
+@node Glyphes d'accordéon
+@unnumberedsubsec Glyphes d'accordéon
+@translationof Accordion glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #accordion
+@end lilypond
+
+
+@node Glyphes de style vaticana
+@unnumberedsubsec Glyphes de style vaticana
+@translationof Vaticana glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #vaticana
+@end lilypond
+
+
+@node Glyphes de style medicaea
+@unnumberedsubsec Glyphes de style medicaea
+@translationof Medicaea glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #medicaea
+@end lilypond
+
+
+@node Glyphes de style Hufnagel
+@unnumberedsubsec Glyphes de style Hufnagel
+@translationof Hufnagel glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #hufnagel
+@end lilypond
+
+
+@node Glyphes de style mensural
+@unnumberedsubsec Glyphes de style mensural
+@translationof Mensural glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #mensural
+@end lilypond
+
+
+@node Glyphes de style néomensural
+@unnumberedsubsec Glyphes de style néomensural
+@translationof Neomensural glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #neomensural
+@end lilypond
+
+
+@node Glyphes de style Petrucci
+@unnumberedsubsec Glyphes de style Petrucci
+@translationof Petrucci glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #petrucci
+@end lilypond
+
+
+@node Glyphes de style Solesmes
+@unnumberedsubsec Glyphes de style Solesmes
+@translationof Solesmes glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #solesmes
+@end lilypond
+
 
 @node Styles de tête de note
 @appendixsec Styles de tête de note
 @translationof Note head styles 
 
-Voici les différents styles de tête de note disponible.
+Voici les différents styles de tête de note disponibles.
 
 @lilypondfile[noindent]{note-head-style.ly}
+
 
 Les commandes suivantes peuvent être utilisées dans un bloc
 @code{\markup @{ @}}.
@@ -195,7 +938,80 @@ bloc @code{\markuplines @{ @}}.
 
 Voici la liste exhaustive des symboles prédéfinis :
 
-@lilypondfile[quote]{script-chart.ly}
+@c Articulations and ornamentations
+@c Fingering instructions (for "thumb")
+@c Common notation for unfretted strings
+@c   Bowing indications
+@c   Harmonics
+@c   Snap (Bartók) pizzicato
+@c Custom percussion staves (for "halfopen" -- not yet funindexed)
+@c References for wind instruments (for "open"/"stopped" -- not yet funindexed)
+
+
+@menu
+* Scripts d'articulation::
+* Scripts d'ornement::
+* Scripts de point d'orgue et point d'arrêt::
+* Scripts spécifiques à certains instruments::
+* Scripts de reprise et de répétition::
+* Scripts pour musique ancienne::
+@end menu
+
+
+@node Scripts d'articulation
+@unnumberedsubsec Scripts d'articulation
+@translationof Articulation scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #articulations }
+@end lilypond
+
+@node Scripts d'ornement
+@unnumberedsubsec Scripts d'ornement
+@translationof Ornament scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #ornaments }
+@end lilypond
+
+@node Scripts de point d'orgue et point d'arrêt
+@unnumberedsubsec Scripts de point d'orgue et point d'arrêt
+@translationof Fermata scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #fermatas }
+@end lilypond
+
+@node Scripts spécifiques à certains instruments
+@unnumberedsubsec Scripts spécifiques à certains instruments
+@translationof Instrument-specific scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #instrument-specific }
+@end lilypond
+
+@node Scripts de reprise et de répétition
+@unnumberedsubsec Scripts de reprise et de répétition
+@translationof Repeat sign scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\new RhythmicStaff { \scriptStaff #repeats }
+@end lilypond
+
+@node Scripts pour musique ancienne
+@unnumberedsubsec Scripts pour musique ancienne
+@translationof Ancient scripts
+
+@lilypond[quote]
+\include "script-chart.ly"
+\include "gregorian.ly"
+\new VaticanaStaff { \scriptStaffAncient #ancient }
+@end lilypond
 
 
 @node Notes utilisées en percussion
@@ -230,25 +1046,32 @@ Voici la liste exhaustive des symboles prédéfinis :
 @appendixsec Liste des propriétés de contexte
 @translationof All context properties
 
-@untranslated
+@include context-properties.tely
 
 
 @node Propriétés de mise en forme
 @appendixsec Propriétés de mise en forme
 @translationof Layout properties
 
-@untranslated
+@include layout-properties.tely
 
 
-@node Variables
-@appendixsec Variables
-@translationof Identifiers
+@node Fonctions mucicales
+@appendixsec Fonctions mucicales
+@translationof Available music functions
 
-@untranslated
+@include identifiers.tely
+
+
+@node Types de prédicats prédéfinis
+@appendixsec Types de prédicats prédéfinis
+@translationof Predefined type predicates
+
+@include type-predicates.tely
 
 
 @node Fonctions Scheme
 @appendixsec Fonctions Scheme
 @translationof Scheme functions
 
-@untranslated
+@include scheme-functions.tely
