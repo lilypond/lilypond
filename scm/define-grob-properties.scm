@@ -411,6 +411,7 @@ typeset.  Valid choices depend on the function that is reading this
 property.")
      (glyph-name ,string? "The glyph name within the font.")
      (glyph-name-alist ,list? "An alist of key-string pairs.")
+     (graphical ,boolean? "Display in graphical (vs. text) form.")
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
 
 

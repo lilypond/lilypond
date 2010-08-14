@@ -1863,13 +1863,16 @@
   (key-list-loop key-list)))
 
 (define-markup-command
-  (woodwind-diagram layout props instrument input-list)
+  (woodwind-diagram layout props instrument user-draw-commands)
   (symbol? list?)
   #:category instrument-specific-markup ; markup category
+  #:properties ((size 1)
+                (thickness 0.1)
+                (graphical #t))
   "Make a woodwind-instrument diagram.  For example, say
 
 @example
-\\markup \\woodwind-diagram #'oboe #'(1.4 0.1 #t ((lh . (d ees)) (cc . (five3qT1q)) (rh . (gis))))
+\\markup \\woodwind-diagram #'oboe #'((lh . (d ees)) (cc . (five3qT1q)) (rh . (gis)))
 @end example
 
 @noindent
@@ -1944,44 +1947,43 @@ Lastly, substituting an empty list for the pressed-key alist will result in
 a diagram with all of the keys drawn but none filled. ie...
 
 @example
-\\markup \\woodwind-diagram #'oboe #'(1.4 0.1 #t ())
+\\markup \\woodwind-diagram #'oboe #'()
 @end example"
-  (let*  ((radius (car input-list))
-    (thick (cadr input-list))
-    (display-graphic (caddr input-list))
-    (xy-stretch `(1.0 . 2.5))
-    (chosen-instrument (assoc-get instrument woodwind-data-alist))
-    (chosen-instrument
-      (if (not chosen-instrument)
-          (ly:error "~a is not a valid woodwind instrument."
-                    instrument)
-          chosen-instrument))
-    (stencil-info
-      (assoc-get
-        (if display-graphic 'graphical-commands 'text-commands)
-        chosen-instrument))
-    (user-draw-commands (cadddr input-list))
-    (pressed-info
-      (if (null? user-draw-commands)
-        (uniform-draw-instructions (assoc-get 'keys chosen-instrument))
-        (translate-draw-instructions
-          (append '((hd . ())) user-draw-commands)
-          (assoc-get 'keys chosen-instrument))))
-    (draw-info
-      (function-chain
-        pressed-info
-        (assoc-get 'draw-instructions stencil-info)))
-    (extra-offset-info
-      (function-chain
-        pressed-info
-        (assoc-get 'extra-offset-instructions stencil-info))))
-   (assemble-stencils
-     (assoc-get 'stencil-alist stencil-info)
-     (assoc-get 'keys chosen-instrument)
-     draw-info
-     extra-offset-info
-     radius
-     thick
-     xy-stretch
-     layout
-     props)))
+  (let*  ((radius size)
+          (thick (* size thickness))
+          (display-graphic graphical)
+          (xy-stretch `(1.0 . 2.5))
+          (chosen-instrument (assoc-get instrument woodwind-data-alist))
+          (chosen-instrument
+            (if (not chosen-instrument)
+                (ly:error "~a is not a valid woodwind instrument."
+                          instrument)
+                chosen-instrument))
+          (stencil-info
+            (assoc-get
+              (if display-graphic 'graphical-commands 'text-commands)
+              chosen-instrument))
+          (pressed-info
+            (if (null? user-draw-commands)
+                (uniform-draw-instructions (assoc-get 'keys chosen-instrument))
+                (translate-draw-instructions
+                  (append '((hd . ())) user-draw-commands)
+                  (assoc-get 'keys chosen-instrument))))
+          (draw-info
+            (function-chain
+              pressed-info
+              (assoc-get 'draw-instructions stencil-info)))
+          (extra-offset-info
+            (function-chain
+              pressed-info
+              (assoc-get 'extra-offset-instructions stencil-info))))
+    (assemble-stencils
+      (assoc-get 'stencil-alist stencil-info)
+      (assoc-get 'keys chosen-instrument)
+      draw-info
+      extra-offset-info
+      radius
+      thick
+      xy-stretch
+      layout
+      props)))

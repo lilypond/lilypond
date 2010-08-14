@@ -90,7 +90,7 @@ note)."
 (ly:add-interface
  'instrument-specific-markup-interface
  "Instrument-specific markup (like fret boards or harp pedal diagrams)."
- '(fret-diagram-details harp-pedal-details size thickness))
+ '(fret-diagram-details graphical harp-pedal-details size thickness))
 
 (ly:add-interface
  'key-cancellation-interface

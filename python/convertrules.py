@@ -3044,6 +3044,14 @@ def conv(str):
         stderr_write(UPDATE_MANUALLY)
     return str
 
+@rule ((2, 13, 31),
+    _ ("Woodwind diagrams: Move size, thickness, and graphic from argument list to properties."))
+def conv(str):
+    if re.search(r'woodwind-diagram', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % _("woodwind-diagrams.  Move size, thickness, and graphic to properties.  Argument should be just the key list.\n"))
+        stderr_write(UPDATE_MANUALLY)
+    return str
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
