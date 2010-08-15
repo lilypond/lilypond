@@ -13,18 +13,38 @@
 @node Development phases
 @section Development phases
 
-There are 2.5 states of development for LilyPond.
+There are 2 states of development on @code{master}:
 
-@itemize
+@enumerate
 
-@item @strong{Stable phase}:
-Starting from the release of a new major version @code{2.x.0}, the
-following patches @strong{MAY NOT} be merged with master:
+@item @strong{Normal development}:
+Any commits are fine.
+
+@item @strong{Build-frozen}:
+Do not require any additional or updated libraries or make
+non-trivial changes to the build process.  Any such patch (or
+branch) may not be merged with master during this period.
+
+This should occur approximately 1 month before any alpha version
+of the next stable release, and ends when the next unstable branch
+begins.
+
+@end enumerate
+
+
+After announcing a beta release, branch @code{stable/2.x}.  There
+are 2 states of development for this branch:
+
+@enumerate
+@item @strong{Normal maintenance}:
+The following patches @strong{MAY NOT} be merged with this branch:
 
 @itemize
 @item Any change to the input syntax.  If a file compiled with a
-previous @code{2.x} version, then it must compile in the new
-version.
+previous @code{2.x} (beta) version, then it must compile in the
+new version.
+
+Exception: any bugfix to a Critical issue.
 
 @item New features with new syntax @emph{may be committed},
 although once committed that syntax cannot change during the
@@ -38,38 +58,10 @@ version.
 
 @end itemize
 
-@item @strong{Development phase}:
-Any commits are fine.  Readers may be familiar with the term
-@qq{merge window} from following Linux kernel news.
+@item @strong{Release prep}:
+Only translation updates and important bugfixes are allowed.
 
-
-@item @strong{Release prep phase}:
-TODO: I don't like that name.
-
-A new git branch @code{stable/2.x} is created, and a major release
-is made in two weeks.
-
-@itemize
-
-@item @code{stable/2.x branch}:
-Only translation updates and important bugfixes are allows.
-
-@item @code{master}:
-Normal @qq{stable phase} development occurs.
-
-@end itemize
-
-If we discover the need to change the syntax or build system, we
-will apply it and re-start the release prep phase.
-
-@end itemize
-
-This marks a radical change from previous practice in LilyPond.
-However, this setup is not intended to slow development -- as a
-rule of thumb, the next development phase will start within a
-month of somebody wanting to commit something which is not
-permitted during the stable phase.
-
+@end enumerate
 
 
 @node Minor release checklist
@@ -99,9 +91,6 @@ git commit -m "Release: update news." Documentation/web/
 git push origin
 @end example
 
-@item (optional) Check that lilypond builds from scratch in an
-out-of-tree build.
-
 @item
 If you do not have the previous release test-output tarball, download
 it and put it in @code{regtests/}
@@ -121,13 +110,13 @@ make LILYPOND_BRANCH=stable/2.12 lilypond
 
 @item Check the regtest comparison in @file{uploads/@/webtest/} for
 any unintentional breakage.  More info in
-@ref{Precompiled regression tests}
+@ref{Precompiled regression tests}.
 
 @item If any work was done on GUB since the last release, upload
 binaries to a temporary location, ask for feedback, and wait a day
-or two in case there's any major problems.  Or live dangerously
-and just add a sentence to the release notes.  Or live even more
-dangerously, and don't tell anybody anything.
+or two in case there's any major problems.
+
+@warning{Always do this for a stable release.}
 
 @end enumerate
 
@@ -136,24 +125,25 @@ dangerously, and don't tell anybody anything.
 
 @enumerate
 
-@item If you're not right user on the webserver, remove the "t"
-from the rsync command in @file{test@/-lily/@/rsync@/-lily@/-doc@/.py} and
+@item If you're not the right user on the webserver, remove the
+"t" from the rsync command in
+@file{test@/-lily/@/rsync@/-lily@/-doc@/.py} and
 @file{test@/-lily/@/rsync@/-test@/.py}
 
 @code{graham} owns v2.13; @code{han-wen} owns v2.12.
 
 @item Upload GUB by running:
 
-@example
+@smallexample
 make lilypond-upload LILYPOND_BRANCH=release/unstable LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git
-@end example
+@end smallexample
 
 @noindent
 or something like:
 
-@example
+@smallexample
 make lilypond-upload LILYPOND_BRANCH=stable/2.12 LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git
-@end example
+@end smallexample
 
 @end enumerate
 
@@ -221,32 +211,46 @@ rsync -a $EXAMPLES graham@@lilypond.org:media/ly-examples
 
 A @qq{major release} means an update of @code{x} in @code{2.x.0}.
 
-- happens when we have 0 Critical issues for two weeks (14 days).
+@subheading Main requirements
 
+It happens when we have 0 Critical issues for two weeks (14 days)
+after the latest release candidate.
 
-Before release:
+@subheading Housekeeping requirements
 
-* write release notes.  note: stringent size requirements for
- various websites, so be brief.
+Before the release:
 
+@itemize
+@item
+write release notes.  note: stringent size requirements for
+various websites, so be brief.
+
+@item
 * write preface section for manual.
 
+@item
 * submit pots for translation: send url of tarball to
 translation@@iro.umontreal.ca, mentioning lilypond-VERSION.pot
 
+@item
 * Check reg test
 
+@item
 * Check all 2ly scripts.
 
+@item
 * Run convert-ly on all files, bump parser minimum version.
 
+@item
 * update links to distros providing lilypond packages?  link in
 Documentation/web/download.itexi .  This has nothing to do with
 the release, but I'm dumping this here so I'll find it when I
 reorganize this list later.  -gp
 
+@item
 * Make FTP directories on lilypond.org
 
+@item
 * website:
   - Make new table in download.html
 
@@ -271,6 +275,7 @@ Disallow: /doc/v2.PREVIOUS-STABLE/
 Disallow: /doc/v2.CURRENT-DEVELOPMENT/
 @end example
 
+@item
 - check for emergencies the docs:
 
 @example
@@ -278,6 +283,7 @@ grep FIXME --exclude "misc/*" --exclude "*GNUmakefile" \
   --exclude "snippets/*" ????*/*
 @end example
 
+@item
 - check for altered regtests, and document as necessary.  (update
   tags as appropriate)
 
@@ -286,16 +292,21 @@ git diff -u -r release/2.12.0-1 -r release/2.13.13-1 input/regression/
 @end example
 
 
+@item
 News:
 
+@example
         comp.music.research
         comp.os.linux.announce
 
         comp.text.tex
         rec.music.compose
+@end example
 
+@item
 Mail:
 
+@example
         info-lilypond@@gnu.org
 
 linux-audio-announce@@lists.linuxaudio.org
@@ -315,9 +326,12 @@ linux-audio-dev@@lists.linuxaudio.org
         gmane.linux.audio.users
         gmane.linux.audio.announce
         gmane.comp.audio.rosegarden.devel
+@end example
 
+@item
 Web:
 
+@example
         lilypond.org
         freshmeat.net
         linuxfr.com
@@ -327,6 +341,9 @@ Web:
         hitsquad.com [auto]
         http://www.svgx.org
         https://savannah.gnu.org/news/submit.php?group_id=1673  @c => planet.gnu.org
+@end example
+
+@end itemize
 
 
 @node Release extra notes
@@ -346,7 +363,7 @@ take lilypond-book and any related makefile updates from the
 latest git.
 
 @item
-- configure; make; make test
+configure; make; make test
 
 @item
 tar -cjf lilypond-X.Y.Z-A.test-output.tar.bz2 input/regression/out-test/
