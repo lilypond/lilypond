@@ -110,17 +110,14 @@ where:
 				  body (cdr body))))
               `(define-public (,command-name ,@args)
                  ,@documentation
-                 (let ,(filter identity
-                               (map (lambda (prop-spec)
-                                      (if (pair? prop-spec)
-                                          (let ((prop (car prop-spec))
-                                                (default-value (if (null? (cdr prop-spec))
-                                                                   #f
-                                                                   (cadr prop-spec)))
-                                                (props (cadr args)))
-                                            `(,prop (chain-assoc-get ',prop ,props ,default-value)))
-                                          #f))
-                                    properties))
+                 (let ,(map (lambda (prop-spec)
+			      (let ((prop (car prop-spec))
+				    (default-value (if (null? (cdr prop-spec))
+						       #f
+						       (cadr prop-spec)))
+				    (props (cadr args)))
+				`(,prop (chain-assoc-get ',prop ,props ,default-value))))
+			    (filter pair? properties))
                    ,@real-body)))
             (let ((args (gensym "args"))
                   (markup-command (car body)))
@@ -140,21 +137,21 @@ where:
 	      (if (list? category) category (list category)))
        ;; Used properties, for markup documentation
        (hashq-set! markup-functions-properties
-                   ,command-name
-                   (list ,@(map (lambda (prop-spec)
-                                  (cond ((symbol? prop-spec)
-                                         prop-spec)
-                                         ((not (null? (cdr prop-spec)))
-                                          `(list ',(car prop-spec) ,(cadr prop-spec)))
-                                         (else
-                                          `(list ',(car prop-spec)))))
-                                (if (pair? args)
-                                    properties
-                                    (list)))))
+		   ,command-name
+		   (list ,@(map (lambda (prop-spec)
+				  (cond ((symbol? prop-spec)
+					 prop-spec)
+					 ((not (null? (cdr prop-spec)))
+					  `(list ',(car prop-spec) ,(cadr prop-spec)))
+					 (else
+					  `(list ',(car prop-spec)))))
+				(if (pair? args)
+				    properties
+				    (list)))))
        ;; define the make-COMMAND-markup function
        (define-public (,make-markup-name . args)
-         (let ((sig (list ,@signature)))
-           (make-markup ,command-name ,(symbol->string make-markup-name) sig args))))))
+	 (let ((sig (list ,@signature)))
+	   (make-markup ,command-name ,(symbol->string make-markup-name) sig args))))))
 
 (defmacro*-public define-markup-list-command
   (command-and-args signature #:key (properties '()) #:rest body)
@@ -177,17 +174,14 @@ interpreted, returns a list of stencils instead os a single one"
 				  body (cdr body))))
               `(define-public (,command-name ,@args)
                  ,@documentation
-                 (let ,(filter identity
-                               (map (lambda (prop-spec)
-                                      (if (pair? prop-spec)
-                                          (let ((prop (car prop-spec))
-                                                (default-value (if (null? (cdr prop-spec))
-                                                                   #f
-                                                                   (cadr prop-spec)))
-                                                (props (cadr args)))
-                                            `(,prop (chain-assoc-get ',prop ,props ,default-value)))
-                                          #f))
-                                    properties))
+                 (let ,(map (lambda (prop-spec)
+			      (let ((prop (car prop-spec))
+				    (default-value (if (null? (cdr prop-spec))
+						       #f
+						       (cadr prop-spec)))
+				    (props (cadr args)))
+				`(,prop (chain-assoc-get ',prop ,props ,default-value))))
+			    (filter pair? properties))
                    ,@real-body)))
             (let ((args (gensym "args"))
                   (markup-command (car body)))
@@ -199,40 +193,40 @@ interpreted, returns a list of stencils instead os a single one"
        (hashq-set! markup-list-functions ,command-name #t)
        ;; Used properties, for markup documentation
        (hashq-set! markup-functions-properties
-                   ,command-name
-                   (list ,@(map (lambda (prop-spec)
-                                  (cond ((symbol? prop-spec)
-                                         prop-spec)
-                                         ((not (null? (cdr prop-spec)))
-                                          `(list ',(car prop-spec) ,(cadr prop-spec)))
-                                         (else
-                                          `(list ',(car prop-spec)))))
-                                (if (pair? args)
-                                    properties
-                                    (list)))))
+		   ,command-name
+		   (list ,@(map (lambda (prop-spec)
+				  (cond ((symbol? prop-spec)
+					 prop-spec)
+					 ((not (null? (cdr prop-spec)))
+					  `(list ',(car prop-spec) ,(cadr prop-spec)))
+					 (else
+					  `(list ',(car prop-spec)))))
+				(if (pair? args)
+				    properties
+				    (list)))))
        ;; it's a markup-list command:
        (set-object-property! ,command-name 'markup-list-command #t)
        ;; define the make-COMMAND-markup-list function
        (define-public (,make-markup-name . args)
-         (let ((sig (list ,@signature)))
-           (list (make-markup ,command-name
-                              ,(symbol->string make-markup-name) sig args)))))))
+	 (let ((sig (list ,@signature)))
+	   (list (make-markup ,command-name
+			      ,(symbol->string make-markup-name) sig args)))))))
 
 (define-public (make-markup markup-function make-name signature args)
   " Construct a markup object from MARKUP-FUNCTION and ARGS. Typecheck
 against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
 "
   (let* ((arglen (length args))
-         (siglen (length signature))
-         (error-msg (if (and (> siglen 0) (> arglen 0))
-                        (markup-argument-list-error signature args 1)
-                        #f)))
+	 (siglen (length signature))
+	 (error-msg (if (and (> siglen 0) (> arglen 0))
+			(markup-argument-list-error signature args 1)
+			#f)))
     (if (or (not (= arglen siglen)) (< siglen 0) (< arglen 0))
-        (ly:error (string-append make-name ": "
-                   (_ "Wrong number of arguments.  Expect: ~A, found ~A: ~S"))
+	(ly:error (string-append make-name ": "
+		   (_ "Wrong number of arguments.  Expect: ~A, found ~A: ~S"))
 		  siglen arglen args))
     (if error-msg
-        (ly:error
+	(ly:error
 	 (string-append
 	  make-name ": "
 	  (_ "Invalid argument in position ~A.  Expect: ~A, found: ~S."))
