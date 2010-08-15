@@ -1224,7 +1224,7 @@ automatisch die rechte Begrenzung des vorhergehenden beendet.
 @lilypond[verbatim,quote,relative=2]
 d1\startTrillSpan
 d1
-1\startTrillSpan
+d1\startTrillSpan
 d2\stopTrillSpan
 r2
 @end lilypond
