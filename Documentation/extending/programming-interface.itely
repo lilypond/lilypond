@@ -415,8 +415,8 @@ a type predicate for the i@var{th} argument
 @end table
 
 If the command uses properties from the @var{props} arguments, the
-@code{#:properties} keyword can be used, to specify which properties are
-used, and their default values.
+@code{#:properties} keyword can be used to specify which properties are
+used along with their default values.
 
 Arguments are distinguished according to their type:
 @itemize
