@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 3d7aec6a2b5f3910f8d5a43e58cb5c741d3fcc77
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -72,8 +72,8 @@ Alle diese Beispiele sind musikalische Ausdrücke:
 
 @lilypond[verbatim,quote]
 {
-  { c'4 c' c' c'}
-  { d'4 d' d' d'}
+  { c'4 c' c' c' }
+  { d'4 d' d' d' }
 }
 @end lilypond
 
@@ -266,7 +266,7 @@ zusammen mit anderen vorkommenden @code{\score}-Umgebungen gesammelt
 und in ein @code{\book} zusammengefasst.  Dieses Verhalten kann
 verändert werden, indem die Variable @code{toplevel-score-handler}
 auf höchster Ebene gesetzt wird.  Die Definition des Standards findet sich
-in der Datei @file{../scm/@/lily@/.scm}.
+in der Datei @file{../@/scm/@/lily@/.scm}.
 
 @item
 Eine @code{\book}-Umgebung fasst mehrere Sätze (d. h. mehrere
@@ -282,7 +282,7 @@ muss, wenn mehr als eine @code{\score}- oder @code{\markup}-Umgebung
 im gleichen Beispiel angezeigt werden soll.  Dieses Verhalten
 kann verändert werden, indem die Variable @code{toplevel-book-handler}
 auf höchster Ebene gesetzt wird.  Die Definition des Standards
-findet sich in der Datei @file{../scm/@/lily@/.scm}.
+findet sich in der Datei @file{../@/scm/@/lily@/.scm}.
 
 @item
 Eine @code{\bookpart}-Umgebung.  Ein Buch (@code{\book}) kann in
@@ -321,7 +321,7 @@ beinhaltet, wird übersetzt zu
 Dieses Verhalten kann verändert werden, indem die Variable
 @code{toplevel-music-handler} auf der obersten Ebene gesetzt
 wird.  Die Definition des Standards findet sich in der Datei
-@file{../scm/@/lily@/.scm}.
+@file{../@/scm/@/lily@/.scm}.
 
 @item
 Eine Textbeschriftung, eine Strophe etwa:
@@ -632,7 +632,7 @@ falsch gesetzt wird:
 
 Kompliziertere Anpassungen können vorgenommen werden, indem die
 folgenden Variablen innerhalb der @code{\paper}-Umgebung geändert
-werden.  Die Init-Datei @file{../ly/titling-init.ly} enthält das
+werden.  Die Init-Datei @file{../@/ly/@/titling@/-init@/.ly} enthält das
 Standardverhalten.
 
 @table @code
@@ -724,7 +724,7 @@ von @code{\markup}).
     {
       c'1
       \pageBreak \mark A \label #'ZeichenA
-      c'
+      c'1
     }
   }
 
@@ -780,16 +780,16 @@ kann.
 \tocItem \markup "Erste Partitur"
 \score {
   {
-    c'  % ...
+    c'4  % ...
     \tocItem \markup "Ein bestimmter Punkt innerhalb der ersten Partitur"
-    d'  % ...
+    d'4  % ...
   }
 }
 
 \tocItem \markup "zweite Partitur"
 \score {
   {
-    e' % ...
+    e'4 % ...
   }
 }
 @end verbatim
@@ -879,7 +879,7 @@ tocAct =
 
 
 @seealso
-Installierte Dateien: @file{../ly/@/toc@/-init@/.ly}.
+Installierte Dateien: @file{../@/ly/@/toc@/-init@/.ly}.
 
 @funindex \table-of-contents
 @funindex \tocItem
@@ -1062,7 +1062,7 @@ System kombiniert werden, siehe @ref{Automatische Kombination von Stimmen}.
 Hier ein Beispiel:
 
 @lilypond[verbatim,quote]
-sopranoMusic = \relative c'' { a4 b c b8( a)}
+sopranoMusic = \relative c'' { a4 b c b8( a) }
 altoMusic = \relative g' { e4 e e f }
 tenorMusic = \relative c' { c4 b e d8( c) }
 bassMusic = \relative c' { a4 gis a d, }
@@ -1166,8 +1166,8 @@ zeigt Triller in normaler Notation, die andere zeigt sie ausgeschrieben:
 @lilypond[verbatim,quote]
 music = \relative g' {
   g8. c32 d
-  \tag #'trills {d8.\trill }
-  \tag #'expand {\repeat unfold 3 {e32 d} }
+  \tag #'trills { d8.\trill }
+  \tag #'expand { \repeat unfold 3 { e32 d } }
   c32 d
  }
 
@@ -1186,8 +1186,8 @@ erfordert manchmal weniger Schreibarbeit:
 @lilypond[verbatim,quote]
 music = \relative g' {
   g8. c32 d
-  \tag #'trills {d8.\trill }
-  \tag #'expand {\repeat unfold 3 {e32 d} }
+  \tag #'trills { d8.\trill }
+  \tag #'expand { \repeat unfold 3 { e32 d } }
   c32 d
  }
 
@@ -1223,8 +1223,8 @@ notiert werden:
 
 @lilypond[quote,verbatim]
 music = \relative c'' {
-  \tag #'a \tag #'both { a a a a }
-  \tag #'b \tag #'both { b b b b }
+  \tag #'a \tag #'both { a4 a a a }
+  \tag #'b \tag #'both { b4 b b b }
 }
 <<
 \keepWithTag #'a \music
@@ -1239,10 +1239,10 @@ markierte Abschnitte aus dem Druckbild zu entfernen.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-\tag #'A { a a a a }
-\tag #'B { b b b b }
-\tag #'C { c c c c }
-\tag #'D { d d d d }
+\tag #'A { a4 a a a }
+\tag #'B { b4 b b b }
+\tag #'C { c4 c c c }
+\tag #'D { d4 d d d }
 }
 {
 \removeWithTag #'B
@@ -1341,7 +1341,7 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative  {
+\relative c' {
   c2 d e f g f e
 }
 \addlyrics { \bulgarian }
@@ -1357,7 +1357,9 @@ hexadezimale Zahl und @code{ddd} die entsprechende dezimale Zahl
 für das erforderliche Zeichen.  Nullen zu Beginn können ausgelassen werden,
 aber normalerweise werden alle vier Zeichen der hexadezimalen Notation
 notiert. (Achten Sie darauf, dass Sie @emph{nicht} UTF-8-Codepunkte
-einsetzen, weil UTF-8 zusätzliche Bits enthält, die die Nummer der Oktets bezeichnet.)
+einsetzen, weil UTF-8 zusätzliche Bits enthält, die die Nummer der Oktets bezeichnet.)  Unicode-Tabellen und ein Verzeichnis der Zeichenbezeichnungen
+mit einer hexadezimalen Verweiszahl finden sich auf der Internetseite
+des Unicode Consortiums: @uref{http://www.unicode.org/}.
 
 Mit @code{\char ##x03BE} und @code{\char #958} wird
 beispielsweise das Unicode-Zeichen U+03BE notiert, welches die
@@ -1379,7 +1381,7 @@ im Gesangstext und als normaler Text außerhalb der Partitur.
     c1 \mark \markup { \char ##x03EE }
     c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
   }
-  \addlyrics { O \markup { \concat{ Ph \char ##x0153 be! } } }
+  \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
 \markup { "Copyright 2008--2010" \char ##x00A9 }
 @end lilypond
@@ -1402,11 +1404,11 @@ Um das Copyright-Zeichen zu notieren, kann folgender Code eingesetzt werden:
 @funindex \displayLilyMusic
 
 Ein musikalischer Ausdruck in LilyPond-Notation kann mit der Funktion
-@code{\displayMusic} angezeigt werden.  Der Code
+@code{\displayLilyMusic} angezeigt werden.  Der Code
 
 @example
 @{
-  \displayLilyMusic \transpose c a, @{ c e g a bes @}
+  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
 @}
 @end example
 
@@ -1414,15 +1416,14 @@ Ein musikalischer Ausdruck in LilyPond-Notation kann mit der Funktion
 etwa wird ausgeben:
 
 @example
-@{ a, cis e fis g @}
+@{ a,4 cis e fis g @}
 @end example
 
 Normalerweise werden diese Zeilen zusammen mit allen anderen
-Nachrichten auf der Kommandozeile ausgegeben.  Um sie separat zu
-speichern und das Ergebnis von @code{\displayMusic} weiterzubenutzen,
+Kompilations-Nachrichten auf der Kommandozeile ausgegeben.
+Um sie separat zu speichern und das Ergebnis von @code{\displayLilyMusic}
+weiterzubenutzen,
 kann die Ausgabe mit folgendem Befehl in eine Datei umgeleitet werden:
-
-@c TODO What happens under Windows?
 
 @example
 lilypond file.ly >display.txt
@@ -1437,6 +1438,8 @@ lilypond file.ly >display.txt
 @menu
 * Notationsfragmente extrahieren::
 * Korrigierte Musik überspringen::
+* Alternative Ausgabeformate::
+* Die Notationsschriftart verändern::
 @end menu
 
 
@@ -1522,14 +1525,76 @@ achten, dass nichts unerwartetes geschieht.
 \relative c'' {
   c8 d
   \set Score.skipTypesetting = ##t
-  e e e e e e e e
+  e8 e e e e e e e
   \set Score.skipTypesetting = ##f
-  c d b bes a g c2 }
+  c8 d b bes a g c2
+}
 @end lilypond
 
 In polyphoner Notation wirkt sich @code{Score.skipTypesetting} auf
 alle Stimmen und Systeme aus, sodass noch mehr Zeit bei der
 Übersetzung der Datei gespart wird.
+
+
+@node Alternative Ausgabeformate
+@subsection Alternative Ausgabeformate
+@translationof Alternative output formats
+
+@cindex scalable vector graphics output
+@cindex skalierbare Vektorgraphik-Ausgabe
+@cindex SVG-Ausgabe
+@cindex encapsulated postscript output
+@cindex EPS-Ausgabe
+@cindex PNG-Ausgabe
+
+Das Standardausgabeformat für gedruckte Partituren ist PDF (Portable
+Document Forma) und PS (PostScript).  SVG (Scalable Vector
+Graphics), EPS (Encapsulated PostScript) und PNG (Portable
+Network Graphics) gibt es auch als Ausgabeformate über die
+Kommandozeile.  Siehe @rprogram{Optionen von lilypond auf der Kommandozeile}.
+
+
+@node Die Notationsschriftart verändern
+@subsection Die Notationsschriftart verändern
+@translationof Replacing the notation font
+
+Gonville ist eine Alternative zu der Feta-Schriftart, die in LilyPond
+eingesetzt wird und kann unter der Adresse
+@example
+@uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
+@end example
+
+@noindent
+heruntergeladen werden.  Hier einige Takte Noten mit der Gonville-Schriftart:
+
+@c NOTE: these images are a bit big, but that's important
+@c       for the font comparison.  -gp
+@sourceimage{Gonville_after,,,}
+
+Und hier einige Beispieltakte in der Feta-Schriftart:
+
+@sourceimage{Gonville_before,,,}
+
+@subsubheading Installationsanweisungen für MacOS
+
+Laden Sie die Datei herunter und entpacken Sie die ZIP-Datei.
+Kopieren Sie das @code{lilyfonts}-Verzeichnis nach
+@file{@var{SHARE_DIR}/lilypond/current}; für mehr Information
+siehe @rlearning{Mehr Information}.
+Benennen Sie das existierende @code{fonts}-Verzeichnis in
+@code{fonts_orig} um und benennen Sie das Verzeichnis
+@code{lilyfonts} in @code{fonts}.  Das alte Verzeichnis
+@code{fonts_orig} können Sie einfach in @code{fonts}
+zurückbenennen, um wieder nach Feta zu wechseln.
+
+@seealso
+Handbuch zum Lernen: @rlearning{Mehr Information}.
+
+@knownissues
+
+Gonville kann nicht verwendet werden, um Alte Notation zu setzen.
+Bitte lesen Sie die Webseite des Autoren zu mehr Information hierzu
+und zu anderen Einzelheiten, wie auch der Lizenz von Gonville.
 
 
 @node MIDI-Ausgabe
@@ -1719,7 +1784,7 @@ Kontextdefinitionen des @code{\midi}-Kontextes entsprechen
 der Syntax, wie sie in der @code{\layout}-Umgebung benutzt
 wird.  Klangübersetzungsmodule werden @code{performer}
 genannt.  Die Kontexte für die MIDI-Ausgabe sind in der
-Datei @file{../ly/@/performer@/-init@/.ly} definiert, siehe
+Datei @file{../@/ly/@/performer@/-init@/.ly} definiert, siehe
 @rlearning{Mehr Information}.  Um beispielsweise
 die Auswirkung von Dynamikzeichen aus der MIDI-Ausgabe zu
 entfernen, müssen folgende Zeilen eingefügt werden:
@@ -1817,18 +1882,19 @@ verändert alle Wiederholungen in ausgeschriebene Noten.
 
 @lilypond[quote,verbatim]
 \unfoldRepeats {
-  \repeat tremolo 8 {c'32 e' }
+  \repeat tremolo 8 { c'32 e' }
   \repeat percent 2 { c''8 d'' }
-  \repeat volta 2 {c'4 d' e' f'}
+  \repeat volta 2 { c'4 d' e' f' }
   \alternative {
     { g' a' a' g' }
-    {f' e' d' c' }
+    { f' e' d' c' }
   }
 }
 \bar "|."
 @end lilypond
 
-Wenn eine Partitur mit diesem Befehl erstellt wird, ist er notwendig,
+Wenn eine Partitur mit diesem @code{\unfoldRepeats}-Befehl erstellt
+wird, ist er notwendig,
 zwei @code{\score}-Umgebungen einzurichten: in der einen werden die
 Wiederholungen ausgeschrieben und nur eine MIDI-Ausgabe produziert,
 in der anderen werden die Wiederholungen notiert und als Partitur
@@ -1860,12 +1926,11 @@ relative Lautstärke von einzelnen Instrumenten einzustellen.
 
 @unnumberedsubsubsec Dynamik-Zeichen
 
-
 Dynamikanweisungen werden als ein bestimmter Bruch der insgesamt
 zur Verfügung stehenden MIDI-Lautstärke notiert.  Die Standardbrüche
 reichen von 0,25 für @notation{ppppp} bis hin zu 0,95 für
 @notation{fffff}.  Diese Anweisung befinden sich in der Datei
-@file{../scm/midi.scm}, siehe auch @rlearning{Mehr Information}.
+@file{../@/scm/@/midi.scm}, siehe auch @rlearning{Mehr Information}.
 Diese Brüche können nach Belieben geändert oder erweitert werden, indem
 eine Funktion erstellt wird, die ein Dynamikzeichen als Argument
 nimmt und den erforderlichen Bruch ausgibt; schließlich muss noch
@@ -1890,9 +1955,9 @@ Standardanweisungen auf:
     \set Staff.midiInstrument = #"cello"
     \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
     \new Voice {
-       \relative c'' {
-         a\pp b c-\rfz
-       }
+      \relative c'' {
+        a4\pp b c-\rfz
+      }
     }
   }
   \layout {}
@@ -1903,7 +1968,7 @@ Standardanweisungen auf:
 Alternativ, insbesondere wenn die gesamte Tabelle der MIDI-Lautstärken
 umdefiniert werden soll, ist es besser, die
 @notation{default-dynamic-absolute-volume}-Prozedur in der Datei
-@file{../scm/midi.scm} und die hiermit verknüpfte Tabelle als Modell
+@file{../@/scm/@/midi.scm} und die hiermit verknüpfte Tabelle als Modell
 zu benutzen.  Das letzte Beispiel dieses Abschnittes zeigt, wie das
 gemacht werden kann.
 
@@ -1935,8 +2000,8 @@ auf den Bereich zwischen 0.2 und 0.5 eingeschränkt.
       \time 2/2
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
-        r2 g\mp g fis ~
-        fis4 g8 fis e2 ~
+        r2 g\mp g fis~
+        fis4 g8 fis e2~
         e4 d8 cis d2
       }
     }
@@ -1950,7 +2015,7 @@ auf den Bereich zwischen 0.2 und 0.5 eingeschränkt.
       }
     }
   >>
-  \layout { }
+  \layout {}
   \midi {
     \context {
       \Score
@@ -1986,8 +2051,8 @@ diese Einstellung korrekt funktioniert.
       \set Staff.midiMinimumVolume = #0.7
       \set Staff.midiMaximumVolume = #0.9
       \new Voice \relative c''' {
-        r2 g\mp g fis ~
-        fis4 g8 fis e2 ~
+        r2 g\mp g fis~
+        fis4 g8 fis e2~
         e4 d8 cis d2
       }
     }
@@ -2003,7 +2068,7 @@ diese Einstellung korrekt funktioniert.
       }
     }
   >>
-  \layout { }
+  \layout {}
   \midi {
     \context {
       \Score
@@ -2021,7 +2086,7 @@ nicht vorgegeben werden, nimmt LilyPond standardmäßig einige
 Anpassungen für die Lautstärken bestimmter Instrumente vor.
 Diese Instrumente und ihre entsprechende Veränderung lassen
 sich aus der Tabelle @notation{instrument-equalizer-alist}
-in der Datei @file{../scm/midi.scm} entnehmen.
+in der Datei @file{../@/scm/@/midi.scm} entnehmen.
 
 Dieser grundlegende Equalizer kann ersetzt werden, indem die
 Funktion @code{instrumentEqualizer} im @code{Score}-Kontext auf
@@ -2033,7 +2098,7 @@ auf gleiche Weise vorgenommen, wie es schon für die
 @code{dynamicAbsoluteVolumeFunction} zu Beginn dieses Abschnittes
 gezeigt wurde.  Der Standard-Equalizer,
 @notation{default-instrument-equalizer} in der Datei
-@file{../scm/midi.scm} zeigt, wie solche eine Funktion erstellt werden
+@file{../@/scm/@/midi.scm} zeigt, wie solche eine Funktion erstellt werden
 kann.
 
 Das folgende Beispiel definiert für die Flöte und Klarinette relative
@@ -2062,8 +2127,8 @@ Lautstärkewerte, die denen des vorigen Beispiels entsprechen.
       \set Score.instrumentEqualizer = #my-instrument-equalizer
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
-        r2 g\mp g fis ~
-        fis4 g8 fis e2 ~
+        r2 g\mp g fis~
+        fis4 g8 fis e2~
         e4 d8 cis d2
       }
     }
@@ -2102,8 +2167,9 @@ eine richtige MIDI-Ausgabe erreichen.
 
 Einige Instrumente, die keine diskreten Tonhöhen haben, können nicht
 über den MIDI-Kanal@tie{}10 erreicht werden und müssen deshalb in
-einem normalen @code{Staff}-Kontext notiert werden.  Es handelt sich
-um @code{melodic tom, taiko drum, synth drum} usw.
+einem normalen @code{Staff}-Kontext mit passenden normalen Tonhöhen
+notiert werden.  Es handelt sich
+um @code{melodic tom, taiko drum, synth drum} u. A.
 
 Viele Schlagzeuginstrumente sind nicht in den MIDI-Standard aufgenommen,
 z. B. Kastagnetten.  Die einfachste Methode, derartige Instrumente
