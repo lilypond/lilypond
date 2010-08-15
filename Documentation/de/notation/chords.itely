@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -97,6 +97,10 @@ Schnipsel:
 
 
 @knownissues
+
+Vordefinierte Abkürzung für Artikulationen und Ornamente können mit Noten
+im Akkordmodus nicht benutzt werden, siehe auch
+@ref{Artikulationenszeichen und Verzierungen}.
 
 Wenn Akkord- und Notenmodus in linearer Musik abwechseln eingesetzt
 werden und der Akkordmodus am Anfang steht, erstellt der
@@ -613,6 +617,20 @@ setzen diese Variablen. Die Auswirkungen werden im nächsten Beispiel
 gezeigt.
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
+
+@funindex chordNameLowercaseMinor
+
+Deutsche Liederbücher zeigen Mollakkorde oft durch die Verwendung von
+Kleinbuchstaben an, ohne die Endung @var{m}.  Dieses Verhalten kann
+erreicht werden, indem man die @code{chordNameLowercaseMinor}-Eigenschaft
+setzt:
+
+@lilypond[verbatim,quote,ragged-right, relative=1]
+\chords {
+  \set chordNameLowercaseMinor = ##t
+  c2 d:m e:m f
+}
+@end lilypond
 
 Wenn keine der definierten Einstellungen zum gewünschten Ergebnis
 führt, kann die Anzeige des Akkordsymbols durch die folgenden
