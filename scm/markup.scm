@@ -76,11 +76,6 @@ Syntax:
                                  [ #:properties properties ]
     \"documentation string\"
     ...command body...)
- or:
-  (define-markup-command COMMAND
-                                 argument-types
-                                 [ #:category category ]
-                                 function)
 
 where:
   `argument-types' is a list of type predicates for arguments
@@ -107,37 +102,31 @@ that this markup command is called by the newly defined command,
 adding its properties to the documented properties of the new
 command.  There is no protection against circular definitions.
 "
-  (let* ((command (if (pair? command-and-args) (car command-and-args) command-and-args))
-         (args (if (pair? command-and-args) (cdr command-and-args) '()))
+  (let* ((command (car command-and-args))
+         (args (cdr command-and-args))
          (command-name (string->symbol (format #f "~a-markup" command)))
          (make-markup-name (string->symbol (format #f "make-~a-markup" command))))
     (while (and (pair? body) (keyword? (car body)))
 	   (set! body (cddr body)))
     `(begin
        ;; define the COMMAND-markup function
-       ,(if (pair? args)
-            (let* ((documentation (if (string? (car body))
-				      (list (car body))
-				      '()))
-		   (real-body (if (or (null? documentation)
-				      (null? (cdr body)))
-				  body (cdr body))))
-              `(define-public (,command-name ,@args)
-                 ,@documentation
-                 (let ,(map (lambda (prop-spec)
-			      (let ((prop (car prop-spec))
-				    (default-value (if (null? (cdr prop-spec))
-						       #f
-						       (cadr prop-spec)))
-				    (props (cadr args)))
-				`(,prop (chain-assoc-get ',prop ,props ,default-value))))
-			    (filter pair? properties))
-                   ,@real-body)))
-            (let ((args (gensym "args"))
-                  (markup-command (car body)))
-              `(define-public (,command-name . ,args)
-                 ,(format #f "Copy of the ~a command." markup-command)
-                 (apply ,markup-command ,args))))
+       ,(let* ((documentation (if (string? (car body))
+				  (list (car body))
+				  '()))
+	       (real-body (if (or (null? documentation)
+				  (null? (cdr body)))
+			      body (cdr body))))
+	  `(define-public (,command-name ,@args)
+	     ,@documentation
+	     (let ,(map (lambda (prop-spec)
+			  (let ((prop (car prop-spec))
+				(default-value (if (null? (cdr prop-spec))
+						   #f
+						   (cadr prop-spec)))
+				(props (cadr args)))
+			    `(,prop (chain-assoc-get ',prop ,props ,default-value))))
+			(filter pair? properties))
+	       ,@real-body)))
        (set! (markup-command-signature ,command-name) (list ,@signature))
        ;; Register the new function, for markup documentation
        ,@(map (lambda (category)
@@ -171,37 +160,31 @@ command.  There is no protection against circular definitions.
   (command-and-args signature #:key (properties '()) #:rest body)
   "Same as `define-markup-command', but defines a command that, when
 interpreted, returns a list of stencils instead of a single one"
-  (let* ((command (if (pair? command-and-args) (car command-and-args) command-and-args))
-         (args (if (pair? command-and-args) (cdr command-and-args) '()))
+  (let* ((command (car command-and-args))
+         (args (cdr command-and-args))
          (command-name (string->symbol (format #f "~a-markup-list" command)))
          (make-markup-name (string->symbol (format #f "make-~a-markup-list" command))))
     (while (and (pair? body) (keyword? (car body)))
 	   (set! body (cddr body)))
     `(begin
        ;; define the COMMAND-markup-list function
-       ,(if (pair? args)
-            (let* ((documentation (if (string? (car body))
-				      (list (car body))
-				      '()))
-		   (real-body (if (or (null? documentation)
-				      (null? (cdr body)))
-				  body (cdr body))))
-              `(define-public (,command-name ,@args)
-                 ,@documentation
-                 (let ,(map (lambda (prop-spec)
-			      (let ((prop (car prop-spec))
-				    (default-value (if (null? (cdr prop-spec))
-						       #f
-						       (cadr prop-spec)))
-				    (props (cadr args)))
-				`(,prop (chain-assoc-get ',prop ,props ,default-value))))
-			    (filter pair? properties))
-                   ,@real-body)))
-            (let ((args (gensym "args"))
-                  (markup-command (car body)))
-            `(define-public (,command-name . ,args)
-               ,(format #f "Copy of the ~a command." markup-command)
-               (apply ,markup-command ,args))))
+       ,(let* ((documentation (if (string? (car body))
+				  (list (car body))
+				  '()))
+	       (real-body (if (or (null? documentation)
+				  (null? (cdr body)))
+			      body (cdr body))))
+	  `(define-public (,command-name ,@args)
+	     ,@documentation
+	     (let ,(map (lambda (prop-spec)
+			  (let ((prop (car prop-spec))
+				(default-value (if (null? (cdr prop-spec))
+						   #f
+						   (cadr prop-spec)))
+				(props (cadr args)))
+			    `(,prop (chain-assoc-get ',prop ,props ,default-value))))
+			(filter pair? properties))
+	       ,@real-body)))
        (set! (markup-command-signature ,command-name) (list ,@signature))
        ;; add the command to markup-list-function-list, for markup documentation
        (hashq-set! markup-list-functions ,command-name #t)
