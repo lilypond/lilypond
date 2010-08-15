@@ -218,7 +218,7 @@ Kleine MollSept
 @tab
 Molldreiklang, große Septime
 @tab
-@code{maj7.5-}
+@code{maj7.3-}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
@@ -416,7 +416,7 @@ perfekte Quarte, perfekte Quinte
 @appendixsec Vordefinierte Bund-Diagramme
 @translationof Predefined fretboard diagrams
 
-Die Tabelle zeigt alle vordefinierten Bunddiagramme.
+Die Tabelle zeigt alle vordefinierten Bunddiagramme für Gitarre.
 
 @lilypondfile{display-predefined-fretboards.ly}
 
@@ -905,10 +905,12 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 
 @cindex Akzent
 @cindex Marcato
-@cindex Staccatissimo
+@cindex Accentus
+@cindex Circulus
 @cindex Espressivo
 @cindex Fermate
 @cindex Gedämpft
+@cindex Ictus
 @cindex Staccato
 @cindex Portato
 @cindex Tenuto
@@ -929,6 +931,8 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 @cindex Segno
 @cindex Coda
 @cindex Varcoda
+@cindex Semicirculus
+@cindex signum congruentiae
 
 Die Skripte unten sind in der Feta-Schriftart definiert und können
 an Noten angehängt werden (etwa @samp{c\accent}).
@@ -1027,7 +1031,7 @@ Handbüchern, auf den Mailinglisten oder im Quellcode vor.
 * parser::
 * parser variable::
 * prob::
-* simple-closure::
+* simple closure::
 * smob::
 * stencil::
 @end menu
@@ -1316,9 +1320,9 @@ der @code{Prob}-Klasse werden auch erstellt, um formatierte Inhalte von
 Systemgrobs und Titelblöcken während der Erstellung des Seitenlayouts zu
 speichern.
 
-@node simple-closure
-@unnumberedsubsec simple-closure
-@translationof simple-closure
+@node simple closure
+@unnumberedsubsec simple closure
+@translationof simple closure
 
 Siehe @ref{closure}.
 
