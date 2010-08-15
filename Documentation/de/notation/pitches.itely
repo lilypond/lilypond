@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 31ced88e51af0ae6248a0d0761224031f1e95870
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,8 +18,7 @@
 @lilypondfile[quote]{pitches-headword.ly}
 
 Dieser Abschnitt zeigt, wie man die Tonhöhe notieren kann.
-Es gibt drei Stufen in diesem Prozess: Eingabe,
-Veränderung und Ausgabe.
+Es gibt drei Stufen in diesem Prozess: Eingabe, Veränderung und Ausgabe.
 
 @menu
 * Tonhöhen setzen::
@@ -43,7 +42,8 @@ Modus besser.
 * Absolute Oktavenbezeichnung::       
 * Relative Oktavenbezeichnung::       
 * Versetzungszeichen::                 
-* Notenbezeichnungen in anderen Sprachen::  
+* Notenbezeichnungen in anderen Sprachen:: 
+* Nichteuropäische Notenbezeichnungen und Versetzungszeichen:: 
 @end menu
 
 @node Absolute Oktavenbezeichnung
@@ -55,6 +55,7 @@ Modus besser.
 @cindex Absolute Spezifikation von Oktaven
 @cindex Angabe der Oktave: absolut
 
+@c some extra explanation for German users
 Tonhöhenbezeichnungen werden durch Kleinbuchstaben
 von@tie{}@code{a} bis@tie{}@code{g} angegeben.  Dabei
 wird ein aus dem Englischen entlehntes Modell benutzt, das sich
@@ -295,8 +296,6 @@ Referenz der Interna:
 @funindex chordmode
 @funindex relative
 
-@knownissues
-
 @c DEPRECATED
 Wenn keine @var{Anfangstonhöhe} für @code{\relative} angegeben
 wird, wird@tie{}@code{c'} angenommen.  Das ist aber eine
@@ -348,17 +347,11 @@ benutzen, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
 ais1 aes aisis aeses
 @end lilypond
 
-@noindent
 Auch die deutschen Varianten @code{as} für @code{aes} und
 @code{es} für @code{ees} sind erlaubt. Im Unterschied zum 
 Deutschen ist aber @code{bes} die einzige Version für den Ton
 B, während his als @code{bis} geschrieben werden muss. Das kann
 aber auch verändert werden, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
-
-
-@lilypond[verbatim,quote,relative=2]
-a4 aes a2
-@end lilypond
 
 Ein Auflösungszeichen macht die Wirkung eines Kreuzes oder Bs
 rückgängig. Diese Auflösungszeichen werden jedoch nicht 
@@ -366,7 +359,7 @@ als Suffix einer Tonhöhenbezeichnung eingegeben, sondern
 sie ergeben sich (automatisch) aus dem Kontext, wenn die 
 nicht alterierte Notenbezeichnung eingegeben wird.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 a4 aes a2
 @end lilypond
 
@@ -418,18 +411,19 @@ Versetzungzeichen von übergebundenen Noten werden nur
 dann gesetzt, wenn ein neues System begonnen wird:
 
 @lilypond[verbatim,quote,relative=2]
-cis1 ~ cis ~
+cis1~ cis~
 \break
 cis
 @end lilypond
 
+
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{preventing-extra-naturals-from-being-automatically-added.ly}
+{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{makam-example.ly}
+{preventing-extra-naturals-from-being-automatically-added.ly}
 
 @seealso
 Glossar:
@@ -528,8 +522,8 @@ und die dazugehörigen Versetzungszeichen-Endungen:
 
 @quotation
 @multitable {@file{nederlands.ly}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
-@headitem Sprachdatei
-  @tab Kreuz @tab B @tab Doppelkreuz @tab Doppel-B
+@headitem Language File
+  @tab sharp @tab flat @tab double sharp @tab double flat
 @item @file{nederlands.ly}
   @tab -is @tab -es @tab -isis @tab -eses
 @item @file{arabic.ly}
@@ -542,7 +536,7 @@ und die dazugehörigen Versetzungszeichen-Endungen:
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
 @item @file{espanol.ly}
-  @tab -s @tab -b @tab -ss @tab -bb
+  @tab -s @tab -b @tab -ss/-x @tab -bb
 @item @file{italiano.ly}
   @tab -d @tab -b @tab -dd @tab -bb
 @item @file{norsk.ly}
@@ -610,6 +604,69 @@ Glossar:
 
 Schnipsel:
 @rlsr{Pitches}.
+
+
+@node Nichteuropäische Notenbezeichnungen und Versetzungszeichen
+@unnumberedsubsubsec Nichteuropäische Notenbezeichnungen und Versetzungszeichen
+@translationof Non-Western note names and accidentals
+
+Viele nicht-europäische Musik (und auch manche europäische Volksmusik)
+benutzt alternative oder erweiterte Skalen (Tonleitern), die man
+nicht mit der normalen westlichen Notation notieren kann.
+
+In einigen Fällen wird die klassische Notation dennoch benutzt,
+wobei man die Tonhöhenunterschiede implizit mitliest.  Beispielsweise
+arabische Musik wird mit normalen Halb- und Vierteltonversetzungszeichen
+notiert und die exakte Tonhöhe (die etwas von der notierten abeweichen
+kann) dann aus dem Kontext erschlossen.  Andere Tonsysteme brauchen
+erweiterte odert vollständige andere Notation.
+
+Die klassische Musik der Türkei, oder ottomanische Musik, benutzt
+melodische Formen, die als @notation{makamlar} bekannt sind und
+deren Intervalle auf 1/9-Bruchteilen des Ganztones beruhen.  Die
+moderne nationale Lösung ist es, die normale europäische Notation
+auf dem System mit normalen Noten zu benutzen und ihnen spezielle
+türkische Versetzungszeichen hinzuzufügen.  Diese Versetzungszeichen
+sind in der Datei @file{makam.ly} definiert.  (Wie Sie diese Datei
+finden können, wird erklärt in @rlearning{Mehr Information}.  Die
+folgende Tabelle zeigt ihre Bezeichnungen, die Versetzungszeichen-Endung,
+die an die Noten gefügt werden müssen und die Tonhöhenveränderung
+in einem Bruchteil eines Ganztones.
+
+@c TODO: can we include the actual accidentals in this table?
+@quotation
+@multitable {@b{büyük mücenneb (sharp)}} {@b{suffix}} {@b{pitch alteration}}
+@headitem Bezeichnung
+  @tab Endung @tab Tonhöhenveränderung
+
+@item büyük mücenneb (sharp)
+  @tab -bm @tab +8/9
+@item kücük mücenneb (sharp)
+  @tab -k @tab +5/9
+@item bakiye (sharp)
+  @tab -b @tab +4/9
+@item koma (sharp)
+  @tab -c @tab +1/9
+
+@item koma (flat)
+  @tab -fc @tab -1/9
+@item bakiye (flat)
+  @tab -fb @tab -4/9
+@item kücük mücenneb (flat)
+  @tab -fk @tab -5/9
+@item büyük mücenneb (flat)
+  @tab -fbm @tab -8/9
+@end multitable
+@end quotation
+
+Zu mehr Information über die klassische türkische Musik und
+makamlar, siehe @ref{{Türkische klassische Musik}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{makam-example.ly}
 
 
 @node Viele Tonhöhen gleichzeitig verändern
@@ -745,6 +802,9 @@ werden auch die Vorzeichen entsprechend angepasst:
 }
 @end lilypond
 
+@cindex transponierende Instrumente
+@cindex Instrumente, transponierende
+
 Wenn eine Stimme, die in C notiert ist, von einer A-Klarinette
 gespielt werden soll (für die A als C notiert wird,
 aber eine kleine Terz tiefer erklingt als es notiert
@@ -779,9 +839,6 @@ music = \relative c' { c d e f }
 }
 @end lilypond
 
-@cindex transponierende Instrumente
-@cindex Instrumente, transponierende
-
 @code{\transpose} kann auch benutzt werden, um die geschriebenen 
 Noten eines transponierenden Instruments zu notieren. Im vorigen Beispiel wurde die Tonhöhen so eingegeben,
 wie sie erklingen (also in C), aber man kann genauso
@@ -800,8 +857,7 @@ musicInBflat = @{ e4 @dots{} @}
 @noindent
 Um die Noten dann in F zu setzen (um sie etwa für ein
 Horn zu arrangieren), könnte man die schon geschriebenen
-Noten wieder mit einem weiteren @code{\transpose}
-umgeben:
+Noten wieder mit einem weiteren @code{\transpose} umgeben:
 
 @example
 musicInBflat = @{ e4 @dots{} @}
@@ -923,12 +979,16 @@ c2 c
 c2 c
 \clef percussion
 c2 c
-\clef tab
+
+\break
+
+\clef G   % synonym for treble
+c2 c
+\clef F   % synonym for bass
+c2 c
+\clef C   % synonym for alto
 c2 c
 @end lilypond
-
-Weitere unterstützte Schlüssel sind beschrieben in @ref{Mensurale Schlüssel}
-und @ref{Gregorianische Schlüssel}.
 
 @cindex transponierende Schlüssel
 @cindex Schlüssel, transponierend
@@ -938,18 +998,29 @@ und @ref{Gregorianische Schlüssel}.
 
 Indem @code{_8} oder @code{^8} an die jeweilige Schlüsselbezeichnung 
 angehängt wird, wird der Schlüssel um eine Oktave nach oben oder unten 
-transponiert, mit @code{_15} oder @code{^15} um zwei Oktaven. 
+transponiert, mit @code{_15} oder @code{^15} um zwei Oktaven.  Auch
+andere Ganzzahlen können verwendet werden, wenn es gewünscht wird.
 Die Schlüsselbezeichnung muss in Anführungszeichen gesetzt werden, 
-wenn sie Unterstriche oder Zahlen enthält, siehe Beispiel:
+wenn nicht-alphabetische Zeichen enthält, siehe Beispiel:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
 \clef treble
 c2 c
 \clef "treble_8"
 c2 c
 \clef "bass^15"
 c2 c
+\clef "alto_2"
+c2 c
+\clef "G_8"
+c2 c
+\clef "F^5"
+c2 c
 @end lilypond
+
+Weitere unterstützte Schlüssel sind beschrieben in @ref{Mensurale Schlüssel},
+@ref{Gregorianische Schlüssel}, @ref{Standardtabulaturen} und
+@ref{Angepasste Tabulaturen}.
 
 @snippets
 
@@ -959,7 +1030,10 @@ c2 c
 
 @seealso
 Notationsreferenz:
-@ref{Mensurale Schlüssel}, @ref{Gregorianische Schlüssel}.
+@ref{Mensurale Schlüssel}, 
+@ref{Gregorianische Schlüssel}
+@ref{Standardtabulaturen},
+@ref{Angepasste Tabulaturen}.
 
 Schnipsel:
 @rlsr{Pitches}.
@@ -1036,6 +1110,7 @@ Die Tonart kann geändert werden:
 @cindex Lydisch
 @cindex Phrygisch
 
+@noindent
 Der Wert @var{Modus} sollte entweder @code{\major} oder @code{\minor} 
 sein, um Moll oder Dur der @var{Tonhöhe} zu erhalten. Es können auch 
 Modusbezeichnungen für Kirchentonarten verwendet werden: @code{\ionian} 
@@ -1098,18 +1173,18 @@ Referenz der Interna:
 Transposition von einer Oktave an:
 
 @lilypond[verbatim,quote,relative=2]
-a'2 b
-\ottava #1
-a b
+a2 b
+\ottava #-2
+a2 b
+\ottava #-1
+a2 b
 \ottava #0
-a b
+a2 b
+\ottava #1
+a2 b
+\ottava #2
+a2 b
 @end lilypond
-
-Die @code{ottava}-(Oktavierungs)-Funktion kann auch die
-Werte -1 (für 8va bassa),
-2@tie{}(für 15ma), und -2 (für 15ma bassa) als Argumente
-haben.
-
 
 @snippets
 
