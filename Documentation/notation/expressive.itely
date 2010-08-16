@@ -332,7 +332,11 @@ ends.
 c1\< | c4 a c\mf a | c1\< | c4 a c\ffff a
 @end lilypond
 
+@cindex multiple dynamic marks on one note
+@cindex dynamic marks, multiple on one note
 Spacer rests are needed to engrave multiple marks on one note.
+This is particularly useful when adding a @notation{crescendo} and
+@notation{decrescendo} to the same note:
 
 @lilypond[verbatim,quote,relative=2]
 c4\< c\! d\> e\!
@@ -345,7 +349,8 @@ c4\< c\! d\> e\!
 @funindex espressivo
 
 The @code{\espressivo} command can be used to indicate a crescendo
-and decrescendo on the same note:
+and decrescendo on the same note.  However, be warned that this is
+implemented as an articulation, not a dynamic.
 
 @lilypond[verbatim,quote,relative=2]
 c2 b4 a
