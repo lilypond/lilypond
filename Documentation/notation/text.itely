@@ -167,6 +167,8 @@ e,\stopTextSpan
 
 The line style, as well as the text string, can be defined as an
 object property.  This syntax is described in @ref{Line styles}.
+Text spanners are part of the @code{Dynamics} context; see
+@rinternals{Dynamics}.
 
 
 @funindex \textSpannerUp
@@ -186,16 +188,26 @@ object property.  This syntax is described in @ref{Line styles}.
 @knownissues
 LilyPond is only able to handle one text spanner per voice.
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{dynamics-text-spanner-postfix.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{dynamics-custom-text-spanner-postfix.ly}
+
 @seealso
 Notation Reference:
 @ref{Line styles},
 @ref{Dynamics}.
 
 Snippets:
-@rlsr{Text}.
+@rlsr{Text},
+@rlsr{Expressive marks}.
 
 Internals Reference:
-@rinternals{TextSpanner}.
+@rinternals{TextSpanner},
+@rinternals{Dynamics}.
 
 
 @node Text marks

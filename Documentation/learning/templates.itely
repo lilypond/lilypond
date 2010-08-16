@@ -115,6 +115,11 @@ beautiful printed scores!
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-verse-and-refrain.ly}
 
+@appendixsubsec Hymn tunes
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{hymn-template.ly}
+
 
 @node Orchestral templates
 @appendixsec Orchestral templates
