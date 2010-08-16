@@ -81,11 +81,16 @@ When adding a file to this directory, please start the file with
 @example
 \version "2.x.y"
 \header @{
-  lsrtags = "rhythms,expressive-marks"  % use existing LSR tags other than
-%   'docs'; see makelsr.py for the list of tags used to sort snippets.
-  texidoc = "This code demonstrates ..."  % this will be formated by Texinfo
-  doctitle = "Snippet title"  % please put this at the end so that
-    the '% begin verbatim' mark is added correctly by makelsr.py.
+% Use existing LSR tags other than 'docs'; see makelsr.py for
+% the list of tags used to sort snippets.  E.g.:
+  lsrtags = "rhythms,expressive-marks"
+% This texidoc string will be formatted by Texinfo
+  texidoc = "
+This code demonstrates ...
+"
+% Please put doctitle last so that the '% begin verbatim'
+% mark will be added correctly by makelsr.py.
+  doctitle = "Snippet title"
 @}
 @end example
 
