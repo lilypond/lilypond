@@ -1277,13 +1277,14 @@ Die @code{\transposition} kann während eines Stückes
 geändert werden.  Ein Klarinettist zum Beispiel kann
 zwischen B- und A-Klarinette wechseln.
 
+@c KEEP LY
 @lilypond[verbatim,quote,relative=2]
 \set Staff.instrumentName = #"Cl (A)"
 \key a \major
 \transposition a
 c d e f
 \textLengthOn
-s1*0^\markup { Switch to B\flat clarinet }
+s1*0^\markup { B-Klarinette benutzen }
 R1
 
 \key bes \major
@@ -1298,7 +1299,8 @@ Glossar:
 @rglos{transposing instrument}.
 
 Notationsreferenz:
-@ref{Stichnoten}, @ref{Transposition}.
+@ref{Stichnoten},
+@ref{Transposition}.
 
 Schnipsel:
 @rlsr{Pitches}.
@@ -2055,6 +2057,13 @@ musicB = {
 @cindex neo-moderner Versetzungszeichenstil pro Stimme
 @cindex Versetzungszeichenstil, neo-modern-voice
 
+Diese Regel wird für für Versetzungszeichen in mehreren Stimmen
+eingesetzt, wenn die Noten sowohl von Musikern gelesen werden, die
+nur eine Stimme lesen, als auch von Musikern, die alle Stimmen
+lesen.  Versetzungszeichen werden für jede Stimme so wie mit der
+@code{neo-modern}-Regel gesetzt, aber innerhalb des gesamten
+Notensystems mit Auflösungszeichen versehen.
+
 @lilypond[quote]
 musicA = {
   <<
@@ -2108,6 +2117,10 @@ musicB = {
 
 @cindex neo-moderner Versetzungszeichenstil pro Stimme mit Warnungen
 @cindex Versetzungszeichenstil, neo-modern-voice-cautionary
+
+Diese Regel ähnelt @code{neo-modern-voice}, aber die zusätzlichen
+Versetzungszeichen werden hier als warnende Versetzungszeichen
+gesetzt.
 
 @lilypond[quote]
 musicA = {
@@ -2230,7 +2243,6 @@ am  @code{modern}-Stil, aber die Alterationen, die sich durch die
 Tonart ergeben, werden zusätzlich als Warnungsversetzungszeichen
 gesetzt.  Eine Ausnahme sind direkt wiederholte Noten.
 
-@lilypond[quote]
 musicA = {
   <<
     \relative c' {
@@ -2413,7 +2425,7 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{Accidental},
 @rinternals{Accidental_engraver},
-@rinternals{GrandStaff} and
+@rinternals{GrandStaff},
 @rinternals{PianoStaff},
 @rinternals{Staff},
 @rinternals{AccidentalSuggestion},
@@ -2437,6 +2449,49 @@ Problem, wenn Versetzungszeichen in einem Akkord voneinander abhängen,
 was im Standard-Stil nicht vorkommt.  Das Problem kann gelöst werden,
 indem man manuell@tie{}@code{!} oder@tie{}@code{?} für die problematischen
 Noten schreibt.
+
+Die warndenden Auflösungzeichen werden gesetzt, indem die vorangegangenen
+Takte betrachtet werden.  In der zweiten oder einer weiteren
+Wiederholungsklammer erwartet man jedoch, dass die Auflösungszeichen sich
+aus dem letzten @emph{gespielten} und nicht dem letzten @emph{gesetzten}
+Takt ergeben.  Im folgenden Beispiel bräuchte das @code{c} in der zweiten
+Klammer kein Auflösungszeichen:
+
+@lilypond[quote]
+{
+  #(set-accidental-style 'modern)
+  \time 2/4
+  \repeat volta 2 {
+    c'2
+  }
+  \alternative {
+     cis'
+     c'
+  }
+}
+@end lilypond
+
+Die folgende Notlösung kann benutzt werden: Man definiert eine Funktion,
+die den Versetzungszeichenstil kurzzeitig auf @code{forget} umschaltet:
+
+@lilypond[verbatim,quote]
+forget = #(define-music-function (parser location music) (ly:music?) #{
+  #(set-accidental-style 'forget)
+  $music
+  #(set-accidental-style 'modern)
+#})
+{
+  #(set-accidental-style 'modern)
+  \time 2/4
+  \repeat volta 2 {
+    c'2
+  }
+  \alternative {
+     cis'
+     \forget c'
+  }
+}
+@end lilypond
 
 
 @node Tonumfang
@@ -2480,6 +2535,9 @@ Tonart definiert werden.
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {ambitus-with-multiple-voices.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-ambitus-gap.ly}
 
 
 @seealso
@@ -2541,23 +2599,62 @@ Dieser Abschnitt zeigt, wie man Notenköpfe ändern kann.
 Notenköpfe können verändert werden:
 
 @lilypond[verbatim,quote,relative=2]
-c4 b a b
+c4 b
 \override NoteHead #'style = #'cross
-c4 b a b
+c4 b
+\revert NoteHead #'style
+a b
+\override NoteHead #'style = #'harmonic
+a b
 \revert NoteHead #'style
 c4 d e f
 @end lilypond
 
-Es gibt einen definierten Befehl für die Raute, der nur innerhalb
+Für alle Notenkopfstile siehe @ref{Notenkopfstile}
+
+Der Kreuz-(@code{cross) Stil wird mit unterschiedlichen
+musikalischen Absichten eingesetzt.  Die folgenden
+vordefinierten Befehle verändern die Notenköpfe sowohl
+in Notensystemen als auch in Tabulaturen und können
+benutzt werden, um alle musikalischen Bedeutungen zu
+notieren:
+
+@lilypond[verbatim,quote,relative=2]
+c4 b
+\xNotesOn
+ a b c4 b
+\xNotesOff
+c4 d
+@end lilypond
+
+Die Form als musikalische Funktion dieses Befehls kann innerhalb
+und außerhalb von Akkorden benutzt werden, um Notenköpfe mit Kreuzen
+in normalen und Tabulatursystemen zu erstellen:
+
+@lilypond[verbatim,quote,relative=2]
+c4 b
+\xNote { e f }
+c b < g \xNote c f > b
+@end lilypond
+
+Als Synonym für @code{\xNote}, @code{\xNotesOn} und @code{\xNotesOff}
+kann @code{\deadNote}, @code{\deadNotesOn} und @code{\deadNotesOff}
+benutzt werden.  Der Begriff @notation{dean note} (engl. tote Note)
+wird regelmäßig von Gitaristen benutzt.
+
+Es gibt auch einen Kurzbefehl für die Rautenform, der nur innerhalb
 von Akkorden benutzt werden kann:
 
 @lilypond[verbatim,quote,relative=2]
 <c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
 @end lilypond
 
-@noindent
-Alle möglichen Notenkopf-Stile finden sich in
-@ref{Notenkopfstile}.
+@predefined
+@code{\harmonic},
+@code{\xNotesOn},
+@code{\xNotesOff},
+@code{\xNote}.
+@endpredefined
 
 @seealso
 Schnipsel:
@@ -2565,7 +2662,8 @@ Schnipsel:
 
 Notationsreferenz:
 @ref{Notenkopfstile},
-@ref{Noten mit Akkorden}.
+@ref{Noten mit Akkorden}
+@ref{Flageolett und gedämpfte Noten}.
 
 Referenz der Interna:
 @rinternals{note-event},
@@ -2620,6 +2718,11 @@ sich in @ref{Die Notensystemgröße einstellen}.
 @code{\easyHeadsOff}.
 @endpredefined
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{numbers-as-easy-note-heads.ly}
+
 @seealso
 Notationsreferenz:
 @ref{Die Notensystemgröße einstellen}.
@@ -2644,13 +2747,14 @@ Referenz der Interna:
 @cindex Form-Notenköpfe
 @cindex Aiken-Notenköpfe
 @cindex sacred harp-Notenköpfe
+@cindex Southern-Harmony-Notenköpfe
 
-@funindex \key
 @funindex \aikenHeads
 @funindex \sacredHarpHeads
-@funindex key
 @funindex aikenHeads
 @funindex sacredHarpHeads
+@funindex \southernHarmonyHeads
+@funindex southernHarmonyHeads
 
 In dieser Notation haben die Notenköpfe eine Form, die ihrer
 harmonischen Funktion innerhalb der Tonleiter entspricht.  Die
@@ -2660,18 +2764,46 @@ werden:
 
 @lilypond[verbatim,quote,relative=2]
 \aikenHeads
-c, d e f g a b c
+c, d e f g2 a b1 c \break
 \sacredHarpHeads
-c, d e f g a b c
+c,4 d e f g2 a b1 c \break
+\southernHarmonyHeads
+c,4 d e f g2 a b1 c \break
 @end lilypond
+
+@funindex \key
+@funindex key
+@funindex \aikenHeadsMinor
+@funindex aikenHeadsMinor
+@funindex \sacredHarpHeadsMinor
+@funindex sacredHarpHeadsMinor
+@funindex \southernHarmonyHeadsMinor
+@funindex southernHarmonyHeadsMinor
 
 Die unterschiedlichen Formen richten sich nach der Stufe in der
 Skala, wobei der Grundton der Skala aus dem @code{\key}-Befehl
-entnommen wird.
+entnommen wird.  Wenn man eine Moll-Skala benutzt, ergibt sich
+die Form der Notenköpfe aus der parallelen Dur-Tonleiter:
+
+@lilypond[verbatim,quote,relative=2]
+\key a \minor
+\aikenHeads
+a b c d e2 f g1 a \break
+\aikenHeadsMinor
+a,4 b c d e2 f g1 a \break
+\sacredHarpHeadsMinor
+a,2 b c d \break
+\southernHarmonyHeadsMinor
+a2 b c d \break
+@end lilypond
 
 @predefined
 @code{\aikenHeads},
-@code{\sacredHarpHeads}.
+@code{\aikenHeadsMinor},
+@code{\sacredHarpHeads},
+@code{\sacredHarpHeadsMinor},
+@code{\southernHarmonyHeads},
+@code{\southernHarmonyHeadsMinor}.
 @endpredefined
 
 @snippets
@@ -2679,7 +2811,7 @@ entnommen wird.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
-@noindent
+
 Alle Notenkopfstile finden sich in @ref{Notenkopfstile}.
 
 @seealso
