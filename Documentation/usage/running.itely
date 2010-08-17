@@ -551,15 +551,21 @@ cp -L /usr/bin/convert /usr/bin/gs usr/bin
 cp -L /usr/share/fonts/truetype usr/share/fonts
 
 # Now the library copying magic
-for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh" "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done | sh -s
+for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
+  "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=>  \
+    \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed  \
+      's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
+        | sed '/.*=>.*/d'; done | sh -s
 
 # The shared files for ghostscript...
       cp -L -r /usr/share/ghostscript usr/share
 # The shared files for ImageMagick
       cp -L -r /usr/lib/ImageMagick* usr/lib
 
-### Now, assuming that you have test.ly in /mnt/lilyloop/lilyhome, you should be able to run:
-### Note that /$lilyprefix/bin/lilypond is a script, which sets the LD_LIBRARY_PATH - this is crucial
+### Now, assuming that you have test.ly in /mnt/lilyloop/lilyhome,
+### you should be able to run:
+### Note that /$lilyprefix/bin/lilypond is a script, which sets the
+### LD_LIBRARY_PATH - this is crucial
       /$lilyprefix/bin/lilypond -jlily,lily,/mnt/lilyloop,/lilyhome test.ly
 @end example
 
