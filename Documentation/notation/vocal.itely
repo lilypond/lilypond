@@ -1355,6 +1355,15 @@ Notation Reference:
 @node Choral
 @subsection Choral
 
+@cindex anthems
+@cindex part songs
+@cindex oratorio
+@cindex SATB
+
+This section discusses notation issues that relate most directly
+to choral music.  This includes anthems, part songs, oratorio,
+etc.
+
 @menu
 * References for choral::
 * Score layouts::
@@ -1363,14 +1372,65 @@ Notation Reference:
 @node References for choral
 @unnumberedsubsubsec References for choral
 
-@c TODO templates, divisi lyrics, shape noteheads (etc)
+Choral music is usually notated on two, three or four staves within
+a @code{ChoirStaff} group.  Accompaniment, if required, is placed
+beneath in a @code{PianoStaff} group, which is usually reduced in
+size for @emph{a capella} choral works.  The notes for each vocal
+part are placed in a @code{Voice} context, with each either on a
+staff of its own or grouped in pairs on a single staff.
 
-TBC
+Words are placed in @code{Lyrics} contexts, either underneath each
+corresponding music staff, or one above and one below the music
+staff if this contains the music for two parts.
+
+Several common topics in choral music are described fully elsewhere:
+
+@itemize
+
+@item
+An introduction to creating an SATB vocal score can be found in
+the Learning Manual, see @rlearning{Four-part SATB vocal score}.
+
+@item
+Several templates suitable for various styles of choral music can
+also be found in the Learning Manual, see
+@rlearning{Vocal ensembles}.
+
+@item
+For information about @code{ChoirStaff} and @code{PianoStaff} see
+@ref{Grouping staves}.
+
+@item
+General information about entering the words (i.e. @qq{lyrics}) to
+vocal music is described in sections 2.1.2 to 2.1.5 of this manual.
+All these sections are relevant to choral music.
+
+@item
+Shape noteheads, as used in Sacred Harp and similar notation, are
+described in @ref{Shape note heads}.
+
+@end itemize
+
+@seealso
+Learning Manual:
+@rlearning{Four-part SATB vocal score},
+@rlearning{Vocal ensembles}.
+
+Notation Reference:
+@ref{Grouping staves},
+@ref{Context layout order},
+@ref{Shape note heads}.
+
+Internals Reference:
+@rinternals{ChoirStaff},
+@rinternals{Lyrics},
+@rinternals{PianoStaff}.
 
 @node Score layouts
 @unnumberedsubsubsec Score layouts
 
 @c TODO 2-stave and 4-stave, accompaniment, SATB, different lyrics
+@c fitting 2 systems on a page
 
 TBC
 
