@@ -1642,9 +1642,7 @@ command_element:
 		$$ = scm_apply_2   (proc, scm_car ($2), scm_cdr ($2), SCM_EOL);
 	}
 	| MARK scalar {
-		SCM proc = ly_lily_module_constant ("make-mark-set");
-
-		$$ = scm_call_1 (proc, $2);
+		$$ = MAKE_SYNTAX ("make-mark-set", @$, $2);
 	}
 	;
 

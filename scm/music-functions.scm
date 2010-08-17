@@ -505,24 +505,10 @@ i.e.  this is not an override"
 If @var{rest} is present, it is used to set
 @code{beatStructure}."
   (ly:export
-    (make-music 'TimeSignatureMusic
-              'numerator num
-              'denominator den
-              'beat-structure (if (null? rest) rest (car rest)))))
-
-(define-public (make-mark-set label)
-  "Make the music for the \\mark command."
-  (let* ((set (if (integer? label)
-		  (context-spec-music (make-property-set 'rehearsalMark label)
-				      'Score)
-		  #f))
-	 (ev (make-music 'MarkEvent))
-	 (ch (make-event-chord (list ev))))
-    (if set
-	(make-sequential-music (list set ch))
-	(begin
-	  (set! (ly:music-property ev 'label) label)
-	  ch))))
+   (make-music 'TimeSignatureMusic
+	       'numerator num
+	       'denominator den
+	       'beat-structure (if (null? rest) rest (car rest)))))
 
 (define-safe-public (make-articulation name)
   (make-music 'ArticulationEvent

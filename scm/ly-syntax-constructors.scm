@@ -232,3 +232,18 @@ into a @code{MultiMeasureTextEvent}."
 					 'origin loc)))
 			 addlyrics-list)))
     (make-simultaneous-music (cons voice lyricstos))))
+
+(define-ly-syntax (make-mark-set parser location label)
+  "Make the music for the \\mark command."
+  (let* ((set (and (integer? label)
+		   (context-spec-music (make-property-set 'rehearsalMark label)
+				      'Score)))
+	 (ev (make-music 'MarkEvent))
+	 (ch (make-event-chord (list ev))))
+
+    (set! (ly:music-property ev 'origin) location)
+    (if set
+	(make-sequential-music (list set ch))
+	(begin
+	  (set! (ly:music-property ev 'label) label)
+	  ch))))
