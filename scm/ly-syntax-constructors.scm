@@ -247,3 +247,13 @@ into a @code{MultiMeasureTextEvent}."
 	(begin
 	  (set! (ly:music-property ev 'label) label)
 	  ch))))
+
+(define-ly-syntax-simple (partial dur)
+  "Make a partial measure."
+  (let ((mom (ly:moment-sub ZERO-MOMENT (ly:duration-length dur))))
+
+    ;; We use `descend-to-context' here instead of `context-spec-music' to
+    ;; ensure \partial still works if the Timing_translator is moved
+    (descend-to-context
+     (context-spec-music (make-property-set 'measurePosition mom) 'Timing)
+     'Score)))
