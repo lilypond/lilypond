@@ -1,10 +1,10 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 3d7ffa1f82bb44673134b28becf7898482fe7316
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -87,14 +87,9 @@ Die Syntax für normale Wiederholungen ist
 @end example
 
 @noindent
-wobei @var{musikAusdr} ein musikalischer Ausdruck ist.  Alternative
-Schlüsse können mit @code{\alternative} gesetzt werden.  Damit die
-alternativen Schlüsse von den wiederholten Noten abgegrenzt werden,
-müssen sie in geschweiften Klammern zusammengefasst werden.  Wenn
-es mehr Wiederholungen gibt, als Alternativen angegeben sind, erhalten
-die ersten Wiederholungen den ersten Schluss.
+wobei @var{musikAusdr} ein musikalischer Ausdruck ist.
 
-Normale Wiederholungen ohne alternative Schlüsse:
+Wiederholung ohne alternativen Schluß:
 
 @lilypond[verbatim,quote,relative=2]
 \repeat volta 2 { c4 d e f }
@@ -102,49 +97,134 @@ c2 d
 \repeat volta 2 { d4 e f g }
 @end lilypond
 
-Normale Wiederholungen mit alternativen Schlüssen:
+Alternative
+Schlüsse können mit @code{\alternative} gesetzt werden.  Damit die
+alternativen Schlüsse von den wiederholten Noten abgegrenzt werden,
+müssen sie in geschweiften Klammern zusammengefasst werden.
+
+@example
+\repeat volta @var{Wiederholungszähler} @var{musikAusdr}
+\alternative @{
+  @{ @var{musikAusdr} @}
+@}
+@end example
+
+@noindent
+wobei @var{musikAusdr} ein musikalischer Ausdruck ist.
+
+Wenn
+es mehr Wiederholungen gibt, als Alternativen angegeben sind, erhalten
+die ersten Wiederholungen den ersten Schluss.
+
+Eine einfache Wiederholung mit einer Alternative:
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 4 { c4 d e f }
+\repeat volta 2 { c4 d e f }
 \alternative {
-  { d2 e }
+  { c2 e }
   { f2 g }
 }
 c1
 @end lilypond
 
-@warning{@code{@bs{}relative} darf nicht innerhalb von @code{@bs{}repeat}
-gesetzt werden.  Das würde dazu führen, dass ungewollte Notensysteme
-erscheinen.  Siehe auch @rlearning{An extra staff appears}.}
+Eine einfache Wiederholung mit mehr als einer Alternative:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 3 { c4 d e f }
+\alternative {
+  { c2 e }
+  { f2 g }
+  { a2 g }
+}
+c1
+@end lilypond
+
+@warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
+notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
+zusätzliche (ungewollte) Systeme.  Sie auch @rprogram{An extra Staff appears}}
 
 
 @cindex Wiederholung mit Auftakt
 @cindex Auftakt in Wiederholung
+
 @funindex \partial
 
-Normale Wiederholungen mit Auftakt können auf zwei Arten notiert werden:
+Wenn eine Wiederholung mitten in einem Takt beginnt und keine
+Alternativen hat, fällt normalerweise auch das Ende der Wiederholung
+mitten in einen Takt, sodass beide unvollständigen Takt einen
+vollständigen Takt ergeben.  In diesem Fall bezeichnen die
+Wiederholungsstriche keine richtigen Taktstriche.  Benutzen Sie
+nicht @code{\partial}-Befehle oder Taktüberprüfung, wo die
+Wiederholungslinien gesetzt werden:
 
-@lilypond[verbatim,quote,relative=2]
-\partial 4
-e |
-\repeat volta 4 { c2 d | e2 f | }
-\alternative {
-  { g4 g g e }
-  { a4 a a a | b2. }
+@lilypond[verbatim,quote,relative=1]
+% no \partial here
+c4 e g  % no bar check here
+% no \partial here
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  % no \partial here
+  g4 g g  % no bar check here
 }
+% no \partial here
+g4 |
+a2 a |
+g1 |
 @end lilypond
 
-@noindent
-oder
+Ähnlich ist es, wenn eine Wiederholung mit einem Auftakt beginnt und
+keine Alternativen hat.  In diesem Fall muss man aber den
+@code{\partial}-Befehl zu Beginn der Partitur setzen:
 
-@lilypond[verbatim,quote,relative=2]
-\partial 4
-\repeat volta 4 { e4 | c2 d | e2 f | }
-\alternative {
-  { \partial 4*3 g4 g g }
-  { a4 a a a | b2. }
+@lilypond[verbatim,quote,relative=1]
+\partial 4  % required
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  % no \partial here
+  g4 g g  % no bar check here
 }
+% no \partial here
+g4 |
+a2 a |
+g1 |
 @end lilypond
+
+Wenn alternative Endungen zu einer Wiederholung hinzugefügt werden,
+die mit einem Auftakt beginnt, muss die @code{Timing.measureLength}-Eigenschaft
+manuell gesetzt werden, und an folgenden Stellen:
+
+@itemize
+@item
+am Beginn eines unvollständigen Taktes innerhalb der
+@code{\alternative}-Umgebung, die normalerweise am Ende
+jeder Alternative auftreten, außer (in den meisten Fällen) in
+der letzten.
+
+@item
+zu Beginn jeder Alternative außer der ersten.
+@end itemize
+
+@lilypond[verbatim,quote,relative=1]
+\partial 4
+\repeat volta 2 { e4 | c2 e | }
+\alternative {
+  {
+    f2 d |
+    \set Timing.measureLength = #(ly:make-moment 3 4)
+    g4 g g  % optional bar check is allowed here
+  }
+  {
+    \set Timing.measureLength = #(ly:make-moment 4 4)
+    a2 a |
+  }
+}
+g1 |
+@end lilypond
+
+Die @code{measureLength}-Eigenschaft ist beschrieben in
+@ref{Verwaltung der Zeiteinheiten}.
 
 @cindex Wiederholungen mit Überbindung
 @cindex Alternative Schlüsse mit Bindebogen
@@ -157,7 +237,7 @@ Bindebögen können auch an eine zweite Klammer angefügt werden:
 
 @lilypond[verbatim,quote,relative=2]
 c1
-\repeat volta 2 { c4 d e f ~ }
+\repeat volta 2 { c4 d e f~ }
 \alternative {
   { f2 d }
   { f2\repeatTie f, }
@@ -172,6 +252,8 @@ c1
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{setting-the-double-repeat-default-for-volte.ly}
 
 @seealso
 Glossar:
@@ -180,7 +262,8 @@ Glossar:
 
 Notationsreferenz:
 @ref{Taktstriche},
-@ref{Umgebungs-Plugins verändern}.
+@ref{Umgebungs-Plugins verändern},
+@ref{Verwaltung der Zeiteinheiten}.
 
 Schnipsel:
 @rlsr{Repeats}.
@@ -202,6 +285,18 @@ Referenz der Interna:
 @cindex Bindebogen und Wiederholung
 @cindex Wiederholung, mehrdeutig
 
+Bindebögen, die von einer @code{\repeat}-Umgebung in eine
+@code{\alternative}-Umgebung ragen, funktionieren nur in der
+ersten Klammer.  Bindebögen können auch nicht von der Ende einer
+Wiederholungsklammer auf den Anfang der Wiederholung
+verweisen.
+
+Wenn eine Wiederholung innerhalt eines unvollständigen Taktes
+beginnt und eine @code{\alternative}-Umgebung mit einer
+Veränderung von @code{measureLength} enghält, führt
+die Verwendung von @code{\unfoldRepeats} zu falsch gesetzten
+Taktstrichen und Taktüberprüfungswarnungen.
+
 Eine ineinandergeschachtelte Wiederholung wie 
 
 @example
@@ -216,13 +311,6 @@ die @code{\alternative}-Endung gehört.  Diese Mehrdeutigkeit wird von
 LilyPond aufgelöst, indem die alternative Endung immer zu der innersten 
 Wiederholung gehört.  Um Klarheit zu schaffen, bietet es sich an, in solchen 
 Situationen Klammern zu benutzen.
-
-Die Taktposition wird bei einer alternativen Endung nicht mitgeteilt, so 
-dass nach einer Wiederholung diese Information manuell angegeben werden 
-muss, 
-entweder durch setzen von @code{Score.measurePosition} oder indem der 
-Befehl @code{\partial} benutzt wird.  Gleichermaßen werden auch
-Bindebögen nicht wiederholt.
 
 
 @node Manuelle Wiederholungszeichen
@@ -248,7 +336,7 @@ Bindebögen nicht wiederholt.
 @warning{Diese Methoden werden nur verwendet, um ungewöhnliche
 Wiederholungskonstruktionen darzustellen und können sich unerwünscht
 verhalten.  In den meisten Fällen sollten Wiederholungen mit dem
-Befehl @code{\\repeat} erstellt werden oder indem die entsprechenden
+Befehl @code{@bs{}repeat} erstellt werden oder indem die entsprechenden
 Taktstriche eingegeben werden.  Mehr Information in @ref{Taktstriche}.}
 
 Die Eigenschaft @code{repeatCommands} kann verwendet werden, um das 
@@ -377,25 +465,69 @@ wobei @var{musikAusdr} ein musikalischer Ausdruck ist und
 @var{musikAusdr} wiederholt wird.
 
 @lilypond[verbatim,quote,relative=2]
-c1
 \repeat unfold 2 { c4 d e f }
 c1
 @end lilypond
 
-Ausgeschriebene Wiederholungen können auch alternative Schlüsse
-haben.  Wenn mehr Wiederholungen als alternative Schlüsse
-notiert werden, wird der erste Schluss für die ersten
-Wiederholungen benutzt.
+Repititive Wiederholungen können auch mit mehreren Klammern
+notiert werden:
 
 @lilypond[verbatim,quote,relative=2]
-c1
-\repeat unfold 2 { g4 f e d }
-  \alternative {
-    { cis2 g' }
-    { cis,2 b }
-  }
+\repeat unfold 2 { c4 d e f }
+\alternative {
+  { c2 g' }
+  { c,2 b }
+}
 c1
 @end lilypond
+
+Wenn es mehr Wiederholungen als Alternativen gibt, wird die erste
+Alternative so oft eingesetzt, bis sich zusammen mit den
+restlichen Alternativen die Gesamtanzahl der Wiederholungen
+ergeben.
+
+@lilypond[verbatim,quote,relative=2]
+\repeat unfold 4 { c4 d e f }
+\alternative {
+  { c2 g' }
+  { c,2 b }
+  { e2 d }
+ }
+c1
+@end lilypond
+
+Wenn es mehr Alternativen als Wiederholungen gibt, werden die
+ersten Alternativen ausgegeben und die restlichen Alternativen
+ignoriert.
+
+@lilypond[verbatim,quote,relative=2]
+\repeat unfold 2 { c4 d e f }
+\alternative {
+  { c2 g' }
+  { c,2 b }
+  { e2 d }
+}
+c1
+@end lilypond
+
+Es ist auch möglich, mehrere @code{unfold}-Wiederholungen (allerdings
+ohne Alternativen) ineinander zu verschachteln:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat unfold 2 {
+  \repeat unfold 2 { c4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+  }
+}
+c1
+@end lilypond
+
+@warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
+notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
+zusätzliche (ungewollte) Systeme.  Sie auch @rprogram{An extra Staff appears}}
+
 
 @seealso
 Schnipsel:
@@ -406,13 +538,12 @@ Referenz der Interna:
 @rinternals{UnfoldedRepeatedMusic}.
 
 
-
 @node Kurze Wiederholungen
 @subsection Kurze Wiederholungen
 @translationof Short repeats
 
 Dieser Abschnitt zeigt, wie man kurze Wiederholungen notiert.
-Kurze Wiederholungen haben zwei grundlegende Formen: Wiederholungen
+Kurze Wiederholungen haben zwei Formen: Wiederholungen
 von einer Note bis zu zwei Takten, die mit Schrägstrichen oder
 Prozentzeichen dargestellt werden, und Tremolos.
 
@@ -433,13 +564,10 @@ Prozentzeichen dargestellt werden, und Tremolos.
 @funindex \repeat percent
 @funindex percent
 
-Kurze wiederholte Musikphrasen werden unterstützt. Dabei werden
-die Noten einmal gedruckt und dann durch 
-ein spezielles Zeichen ersetzt. Phrasen, 
-die kürzer als ein Takt sind, durch einen Schrägstrich dargestellt,
-Phrasen von ein oder zwei Takten Dauer 
-werden durch ein dem Prozentzeichen ähnlichen Zeichen markiert. 
-Die Syntax lautet
+Kurze wiederholte Muster werden einmal gesetzt und das wiederholte
+Muster wird durch ein besonderes Zeichen ersetzt.
+
+Die Syntax lautet:
 
 @example
 @code{\repeat percent @var{Wiederholungszahl} @var{musikAusdr}}
@@ -448,10 +576,25 @@ Die Syntax lautet
 @noindent
 wobei @var{musikAusdr} ein musikalischer Ausdruck ist.
 
+Muster, die kürzer als ein Takt sind, werden mit Schrägstrichen
+ersetzt:
+
 @lilypond[verbatim,quote,relative=2]
+\repeat percent 4 { c8 d }
 \repeat percent 4 { c4 }
-\repeat percent 2 { b4 a g f }
-\repeat percent 2 { c2 es | f4 fis g c | }
+\repeat percent 2 { c2 }
+@end lilypond
+
+Muster von einem oder zwei Takten Dauer werden mit prozentartigen
+Zeichen ersetzt:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat percent 3 { c4 d e f }
+\repeat percent 4 { c2 d }
+@end lilypond
+
+@lilypond[verbatim,quote,relative=2]
+\repeat percent 3 { c4 d e f | c2 g' }
 @end lilypond
 
 @snippets
@@ -492,7 +635,6 @@ gedruckt, der zwei ganze Takte darstellt.  Weder können mehrere
 Schrägstriche für Taktwiederholungen von Sechzehntelnoten dargestellt
 werden, noch zwei Striche mit Punkten für nur einen Takt, der aus
 unterschiedlichen Notenwerten besteht.
-
 
 
 @node Tremolo-Wiederholung
@@ -543,6 +685,7 @@ eingeklammert:
 @end lilypond
 
 @cindex Tremolozeichen
+
 @funindex tremoloFlags
 @funindex :
 
@@ -570,7 +713,3 @@ Schnipsel:
 @cindex Tremolo über Systeme
 @cindex Systeme, Tremolo zwischen
 @cindex Zwischensystem-Tremolo
-
-@knownissues
-
-Tremolo über Notensysteme hinweg funktioniert nicht gut.
