@@ -1294,6 +1294,65 @@ the difficulty.
 @node Scripts to ease doc work
 @section Scripts to ease doc work
 
+@subheading Building only one section of the documentation
+
+In order to save build time, a script is available to build only
+one section of the documentation in English with a default html
+appearance.
+
+The script is available as:
+
+@example
+scripts/auxiliar/doc-section.sh
+@end example
+
+This script will require customization for your site if your
+LilyPond git repository is anyplace but @code{$HOME/lilypond}.
+
+Assuming that no customization is required, you can setup the
+single section build with:
+
+@example
+mkdir $HOME/lilypond/tempdocs
+cp $HOME/lilypond/Documentation/out/version.itexi $HOME/lilypond/tempdocs
+@end example
+
+You can then build a section of the documentation with:
+
+@example
+scripts/auxiliar/doc-section.sh MANUAL SECTION
+@end example
+
+@noindent
+where @code{SECTION} is the name of the file containing the section
+to be build, and @code{MANUAL} isc replaced by the name of the directory
+containing the section.  So, for example, to build section 1.1 of the
+Notation Reference, use the command:
+
+@example
+scripts/auxiliar/doc-section.sh notation pitches
+@end example
+
+This script will not work for building sections of the
+Contributors' guide.  For building sections of the Contributors'
+Guide, use:
+
+@example
+scripts/auxiliar/cg-section.sh SECTION
+@end example
+
+@noindent
+where @code{SECTION} is the name of the file containing the sections
+to be built.  For example, to build section 4 of the Contributors' guide,
+use:
+
+@example
+scripts/auxiliar/cg-section.sh doc-work
+@end example
+
+Like @code{doc-section.sh}, @code{cg-section.sh} may need to be customized
+for your installation.
+
 @subheading Stripping whitespace
 
 @c TODO: should this be documented elsewhere?  It's useful for

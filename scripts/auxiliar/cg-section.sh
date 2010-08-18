@@ -1,16 +1,13 @@
 #!/bin/sh
 
-#  Build html versions of sections of lilypond documentation
+#  Build html versions of sections of lilypond Contributors' Guide
 #
-#  Usage:  doc-section.sh MANUAL SECTION
+#  Usage:  cg-section.sh SECTION
 #
-#   where MANUAL is the manual and SECTION is the section to be built.
+#   where SECTION is the section to be built.
 #
-#   For example, NR 1.2 would be built by
-#       doc-section.sh notation rhythms
-#
-#     and LM 1 would be built by
-#       doc-section.sh learning tutorial
+#   For example, CG 4 would be built by
+#       cg-section.sh doc-work
 #
 #   At the end of the run, the user is prompted whether or not to remove files
 #
@@ -24,7 +21,6 @@
 #
 #     * Doesn't use website css files
 #     * Bitmap images aren't loaded properly
-#     * Won't build Contributors' Guide; see scripts/auxiliar/cg-section.sh
 #
 
 #
@@ -32,13 +28,11 @@
 #
 FROMDIR="$HOME/lilypond"
 DOCDIR="$HOME/lilypond/tempdocs"
-TODIR=$DOCDIR/$NAME
-LILYPONDBOOK="lilypond-book"
+TODIR="$DOCDIR/contributor"
 TEXI2HTML="texi2html"
 REFCHECK="$FROMDIR/scripts/auxiliar/ref_check.py"
 
-DIRECTORY=$1
-NAME=$2
+NAME=$1
 
 if test ! -d $TODIR; then
   mkdir $TODIR
@@ -59,35 +53,18 @@ if test -e $TODIR/out/$NAME.texi; then
   rm $TODIR/out/$NAME.texi
 fi
 
-echo "Running lilypond-book"
-$LILYPONDBOOK \
-        -f texi-html \
-        -I $FROMDIR/Documentation/snippets \
-        -I $FROMDIR/Documentation/snippets/new \
-        -I $FROMDIR/input/manual \
-        -I $FROMDIR/Documentation \
-        -I $FROMDIR/Documentation/included  \
-        -o $TODIR/out \
-        $FROMDIR/Documentation/$DIRECTORY/$NAME.itely
-BOOKRC=$?
-if [ $BOOKRC != 0 ]; then
-  echo "Lilypond-book returned code $BOOKRC"
-  exit $BOOKRC
-fi
-
 echo Running RefCheck
 python $REFCHECK
 
 cd $DOCDIR
-if test -f $TODIR/out/$NAME.texi; then
-  echo Running texi2html
-  cat $DOCDIR/macros.itexi $TODIR/out/$NAME.texi > $TODIR/$NAME.texi
-  $TEXI2HTML \
-    --no-validate \
-    --output=$TODIR/out/$NAME.html \
-    --I=$TODIR/out \
-    $TODIR/$NAME.texi
-fi
+echo Running texi2html
+cat $DOCDIR/macros.itexi $FROMDIR/Documentation/contributor/$NAME.itexi > $TODIR/$NAME.texi
+$TEXI2HTML \
+  --no-validate \
+  --output=$TODIR/out/$NAME.html \
+  --I=$FROMDIR/Documentation \
+  --I=$TODIR/out \
+  $TODIR/$NAME.texi
 
 read -p "delete files? (y/n): "
 if [ "$REPLY" = "y" ]; then
