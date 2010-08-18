@@ -126,24 +126,31 @@ or two in case there's any major problems.
 @enumerate
 
 @item If you're not the right user on the webserver, remove the
-"t" from the rsync command in
-@file{test@/-lily/@/rsync@/-lily@/-doc@/.py} and
-@file{test@/-lily/@/rsync@/-test@/.py}
+@code{t} from the rsync command in:
+
+@example
+test-lily/rsync-lily-doc.py
+test-lily/rsync-test.py
+@end example
 
 @code{graham} owns v2.13; @code{han-wen} owns v2.12.
 
 @item Upload GUB by running:
 
-@smallexample
-make lilypond-upload LILYPOND_BRANCH=release/unstable LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git
-@end smallexample
+@example
+make lilypond-upload \
+  LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git \
+  LILYPOND_BRANCH=release/unstable
+@end example
 
 @noindent
 or something like:
 
-@smallexample
-make lilypond-upload LILYPOND_BRANCH=stable/2.12 LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git
-@end smallexample
+@example
+make lilypond-upload \
+  LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git \
+  LILYPOND_BRANCH=stable/2.12
+@end example
 
 @end enumerate
 
@@ -213,8 +220,45 @@ A @qq{major release} means an update of @code{x} in @code{2.x.0}.
 
 @subheading Main requirements
 
-It happens when we have 0 Critical issues for two weeks (14 days)
-after the latest release candidate.
+This is the current official guidelines.
+
+@itemize
+@item
+0 Critical issues for two weeks (14 days) after the latest release
+candidate.
+
+@end itemize
+
+
+@subheading Potential requirements
+
+These might become official guidelines in the future.
+
+@itemize
+@item
+Check reg test
+
+@item
+Check all 2ly scripts
+
+@item
+Check for emergencies the docs:
+
+@example
+grep FIXME --exclude "misc/*" --exclude "*GNUmakefile" \
+  --exclude "snippets/*" ????*/*
+@end example
+
+@item
+Check for altered regtests, and document as necessary.  (update
+numbers in the following command as appropriate)
+
+@example
+git diff -u -r release/2.12.0-1 -r release/2.13.13-1 input/regression/
+@end example
+
+@end itemize
+
 
 @subheading Housekeeping requirements
 
@@ -226,121 +270,98 @@ write release notes.  note: stringent size requirements for
 various websites, so be brief.
 
 @item
-* write preface section for manual.
+Run convert-ly on all files, bump parser minimum version.
 
 @item
-* submit pots for translation: send url of tarball to
-translation@@iro.umontreal.ca, mentioning lilypond-VERSION.pot
+Make FTP directories on lilypond.org
 
 @item
-* Check reg test
+Website:
+
+@itemize
+@item
+make a link from the old unstable to the next stable in
+lilypond.org's /doc/ dir.  Keep all previous unstable->stable doc
+symlinks.
 
 @item
-* Check all 2ly scripts.
+doc auto redirects  to v2.LATEST-STABLE
 
 @item
-* Run convert-ly on all files, bump parser minimum version.
-
-@item
-* update links to distros providing lilypond packages?  link in
-Documentation/web/download.itexi .  This has nothing to do with
-the release, but I'm dumping this here so I'll find it when I
-reorganize this list later.  -gp
-
-@item
-* Make FTP directories on lilypond.org
-
-@item
-* website:
-  - Make new table in download.html
-
-  - add to documentation list
-
-  - revise examples tour.html/howto.html
-
-  - add to front-page quick links
-
-  - change all links to the stable documentation
-
-  - make a link from the old unstable to the next stable in
-    lilypond.org's /doc/ dir.  Keep all previous unstable->stable
-    doc symlinks.
-
-  - doc auto redirects  to v2.LATEST-STABLE
-
-  - add these two lines to http://www.lilypond.org/robots.txt:
+add these two lines to http://www.lilypond.org/robots.txt:
 
 @example
 Disallow: /doc/v2.PREVIOUS-STABLE/
 Disallow: /doc/v2.CURRENT-DEVELOPMENT/
 @end example
 
+@end itemize
+
+@end itemize
+
+@subheading Unsorted
+
+@itemize
 @item
-- check for emergencies the docs:
-
-@example
-grep FIXME --exclude "misc/*" --exclude "*GNUmakefile" \
-  --exclude "snippets/*" ????*/*
-@end example
-
-@item
-- check for altered regtests, and document as necessary.  (update
-  tags as appropriate)
-
-@example
-git diff -u -r release/2.12.0-1 -r release/2.13.13-1 input/regression/
-@end example
-
+submit pots for translation: send url of tarball to
+translation@@iro.umontreal.ca, mentioning lilypond-VERSION.pot
 
 @item
+update links to distros providing lilypond packages?  link in:
+@file{Documentation@/web@/download.itexi}
+
+This has nothing to do with the release, but it's a "periodic
+maintenance" task that might make sense to include with releases.
+
+@item
+Send announcements to...
+
 News:
 
 @example
-        comp.music.research
-        comp.os.linux.announce
+comp.music.research
+comp.os.linux.announce
 
-        comp.text.tex
-        rec.music.compose
+comp.text.tex
+rec.music.compose
 @end example
 
-@item
 Mail:
 
 @example
-        info-lilypond@@gnu.org
+info-lilypond@@gnu.org
 
 linux-audio-announce@@lists.linuxaudio.org
 linux-audio-user@@lists.linuxaudio.org
 linux-audio-dev@@lists.linuxaudio.org
 
-        tex-music@@icking-music-archive.org
+tex-music@@icking-music-archive.org
 
-   --- non-existant?
-        abcusers@@blackmill.net
+--- non-existant?
+abcusers@@blackmill.net
 
-        rosegarden-user@@lists.sourceforge.net
-        info-gnu@@gnu.org
-        noteedit-user@@berlios.de
+rosegarden-user@@lists.sourceforge.net
+info-gnu@@gnu.org
+noteedit-user@@berlios.de
 
-        gmane.comp.audio.fomus.devel
-        gmane.linux.audio.users
-        gmane.linux.audio.announce
-        gmane.comp.audio.rosegarden.devel
+gmane.comp.audio.fomus.devel
+gmane.linux.audio.users
+gmane.linux.audio.announce
+gmane.comp.audio.rosegarden.devel
 @end example
 
-@item
 Web:
 
 @example
-        lilypond.org
-        freshmeat.net
-        linuxfr.com
-        http://www.apple.com/downloads
-        harmony-central.com (news@@harmony-central.com)
-        versiontracker.com [auto]
-        hitsquad.com [auto]
-        http://www.svgx.org
-        https://savannah.gnu.org/news/submit.php?group_id=1673  @c => planet.gnu.org
+lilypond.org
+freshmeat.net
+linuxfr.com
+http://www.apple.com/downloads
+harmony-central.com (news@@harmony-central.com)
+versiontracker.com [auto]
+hitsquad.com [auto]
+http://www.svgx.org
+https://savannah.gnu.org/news/submit.php?group_id=1673  @c => planet.gnu.org
 @end example
 
 @end itemize
