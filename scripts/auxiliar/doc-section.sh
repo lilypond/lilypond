@@ -23,7 +23,8 @@
 #  Known limitations:
 #
 #     * Doesn't use website css files
-#     * bitmap images aren't loaded properly
+#     * Bitmap images aren't loaded properly
+#     * Won't build Contributors' Guide
 #
 
 #
@@ -49,10 +50,6 @@ fi
 cp $FROMDIR/Documentation/common-macros.itexi $TODIR/common-macros.itexi
 cp $FROMDIR/Documentation/macros.itexi $DOCDIR/macros.itexi
 cp $DOCDIR/version.itexi $TODIR/version.itexi
-
-if test -e cp_$NAME.sh; then
-  cp_$NAME.sh $FROMDIR $TODIR
-fi
 
 if test -e $TODIR/$NAME.html; then
   rm $TODIR/$NAME.html
