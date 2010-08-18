@@ -10,7 +10,7 @@ def usage ():
 
 (options, files) = getopt.getopt (sys.argv[1:], 's:o:', [])
 
-output = 'bib.html'
+output = 'bib.itexi'
 style = 'long'
 
 for (o,a) in options:
@@ -45,13 +45,13 @@ for f in files:
 
 files = ','.join (nf)
 
-tmpfile = tempfile.mkstemp ('bib2html')[1]
+tmpfile = tempfile.mkstemp ('bib2texi')[1]
 
 open (tmpfile + '.aux', 'w').write (r'''
-\relax 
+\relax
 \citation{*}
-\bibstyle{html-%(style)s}
-\bibdata{%(files)s}''' % vars ()) 
+\bibstyle{texi-%(style)s}
+\bibdata{%(files)s}''' % vars ())
 
 tmpdir = tempfile.gettempdir ()
 
@@ -63,7 +63,7 @@ if stat <> 0:
     sys.exit(1)
 
 
-#TODO: do tex -> html on output 
+#TODO: do tex -> itexi on output
 
 bbl = open (tmpfile + '.bbl').read ()
 

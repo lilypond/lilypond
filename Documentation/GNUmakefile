@@ -111,24 +111,25 @@ $(outdir)/ROADMAP:
 $(outdir)/contributor.texi: $(outdir)/ROADMAP
 
 ### bad hack for badly-integrated bibliography
-$(outdir)/engravingbib.itexi:
-	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2html \
-		-o $(outdir)/colorado.html \
+$(outdir)/colorado.itexi:
+	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+		-o $(outdir)/colorado.itexi \
 		$(src-dir)/essay/colorado.bib
-	$(buildscript-dir)/html-to-texi \
-		< $(outdir)/colorado.html > $(outdir)/colorado.itexi
-	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2html \
-		-o $(outdir)/computer-notation.html \
-		$(src-dir)/essay/computer-notation.bib
-	$(buildscript-dir)/html-to-texi \
-		< $(outdir)/computer-notation.html > $(outdir)/computer-notation.itexi
-	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2html \
-		-o $(outdir)/engravingbib.html \
-		$(src-dir)/essay/engravingbib.bib
-	$(buildscript-dir)/html-to-texi \
-		< $(outdir)/engravingbib.html > $(outdir)/engravingbib.itexi
 
-$(outdir)/essay.texi: $(outdir)/engravingbib.itexi
+$(outdir)/computer-notation.itexi:
+	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+		-o $(outdir)/computer-notation.itexi \
+		$(src-dir)/essay/computer-notation.bib
+
+$(outdir)/engravingbib.itexi:
+	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
+		-o $(outdir)/engravingbib.itexi \
+		$(src-dir)/essay/engravingbib.bib
+
+$(outdir)/essay.texi: \
+  $(outdir)/colorado.itexi \
+  $(outdir)/computer-notation.itexi \
+  $(outdir)/engravingbib.itexi
 
 
 ###########
