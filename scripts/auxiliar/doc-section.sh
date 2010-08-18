@@ -32,13 +32,13 @@
 #
 FROMDIR="$HOME/lilypond"
 DOCDIR="$HOME/lilypond/tempdocs"
-TODIR=$DOCDIR/$NAME
 LILYPONDBOOK="lilypond-book"
 TEXI2HTML="texi2html"
 REFCHECK="$FROMDIR/scripts/auxiliar/ref_check.py"
 
 DIRECTORY=$1
 NAME=$2
+TODIR=$DOCDIR/$NAME
 
 if test ! -d $TODIR; then
   mkdir $TODIR
