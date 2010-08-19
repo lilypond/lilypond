@@ -20,6 +20,7 @@ establecido a 5.5 espacios de pentagrama.
 "
   doctitlees = "Cambiar el salto de las barras en ángulo"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Balken mit Hälsen in unterschiedliche Richtungen werden automatisch
@@ -32,6 +33,7 @@ Standardwert von @code{auto-knee-gap} ist 5.5 Notensystemabstände.
 
 "
   doctitlede = "Balken für weit auseinander liegende Noten ändern"
+
 
 
 %% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60

@@ -23,6 +23,7 @@ truco se aplique a toda la partitura.
 "
   doctitlees = "Añadir un bajo cifrado encima o debajo de las notas"
 
+
 %% Translation of GIT committish: 05624d5147843d2fcbd6e4e126f1fd43142ac6e5
   doctitlefr = "Ajout d'une basse chiffrée au-dessus ou au-dessous des notes"
 

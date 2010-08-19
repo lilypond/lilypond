@@ -14,6 +14,7 @@ nombre de un acorde para que sea cualquier elemento de marcado.
 "
   doctitlees = "Modificación del separador de acordes"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Der Trenner zwischen unterschiedlichen Teilen eines Akkordsymbols kann

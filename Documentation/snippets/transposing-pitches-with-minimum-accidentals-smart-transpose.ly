@@ -37,6 +37,7 @@ naturales.
 
 "
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Noten mit minimaler Anzahl an Versetzungszeichen transponieren."
   texidocde = "Dieses Beispiel benutzt Scheme-Code, um enharmonische
@@ -65,6 +66,7 @@ Fes -> E
 Auf diese Art werden am meisten natürliche Tonhöhen als enharmonische
 Variante gewählt.
 "
+
 
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "

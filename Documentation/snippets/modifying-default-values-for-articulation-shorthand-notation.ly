@@ -21,6 +21,7 @@ semitrino en lugar del símbolo predeterminado +, asigne el valor
 "
   doctitlees = "Modificar los valores predeterminados para la notación abreviada de las articulaciones"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
  texidocde = "
 Die Abkürzungen sind in der Datei @samp{ly/script-init.ly} definiert, wo
@@ -34,6 +35,7 @@ assoziieren, muss der Wert @code{trill} der Variable
 
 "
   doctitlede = "Die Standardwerte der Abkürzungen von Artikulationen verändern"
+
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Les raccourcis sont répertoriés dans le fichier

@@ -15,6 +15,7 @@ controlar la posición de la letra y los compases de ossia.
 "
   doctitlees = "Alineación vertical de la letra y los compases de ossia"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Dieser Schnipsel zeigt, wie man die Kontexteigenschaften
@@ -23,6 +24,7 @@ die Positionierung von Gesangstext und Ossia-Abschnitten zu kontrollieren.
 
 "
   doctitlede = "Gesangstext und Ossia vertikal ausrichten"
+
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 Cet exemple illustre la manière de positionner une portée d'ossia et

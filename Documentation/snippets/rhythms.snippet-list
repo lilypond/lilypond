@@ -33,6 +33,7 @@ modifying-tuplet-bracket-length.ly
 moving-dotted-notes-in-polyphony.ly
 multi-measure-rest-markup.ly
 non-default-tuplet-numbers.ly
+partcombine-and-autobeamoff.ly
 permitting-line-breaks-within-beamed-tuplets.ly
 positioning-grace-note-beams-at-the-height-of-normal-note-beams.ly
 positioning-grace-notes-with-floating-space.ly

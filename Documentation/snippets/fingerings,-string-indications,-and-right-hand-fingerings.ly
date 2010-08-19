@@ -15,6 +15,7 @@ derecha.
 "
   doctitlees = "Digitaciones - indicación del número de cuerda y digitaciones de mano derecha"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Dieses Beispiel kombiniert Fingersatz für die linke Hand, Saitennummern
@@ -22,6 +23,7 @@ und Fingersatz für die rechte Hand.
 
 "
   doctitlede = "Fingersatz Saitennummern und Fingersatz für die rechte Hand"
+
 %% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
 
   texidocfr = "

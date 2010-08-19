@@ -17,6 +17,7 @@ comentario la línea correspondiente.
 "
   doctitlees = "Plantilla de pentagrama único don notas y letra"
 
+
 %% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 この小さなテンプレートは歌詞を持つ簡単な旋律を表しています。カット＆ペーストして、音符@c
@@ -24,6 +25,7 @@ comentario la línea correspondiente.
 います。これはボーカル パートでは一般的なことです。自動ビームを使用するには、対応する@c
 行を変更するか、コメント アウトしてください。
 "
+
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
@@ -37,6 +39,7 @@ entsprechende Zeile entweder ändern oder auskommentieren.
 "
 
   doctitlede = "Vorlage für ein Notensystem mit Noten und Gesangstext"
+
 
 %% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
 

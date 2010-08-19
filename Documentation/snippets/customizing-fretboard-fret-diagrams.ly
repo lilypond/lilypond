@@ -19,6 +19,7 @@ sobreescritura de propiedades.
 "
   doctitlees = "Personalizar los diagramas de posiciones"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Eigenschaften von Bunddiagrammen können in

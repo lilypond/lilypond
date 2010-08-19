@@ -17,6 +17,7 @@ destacar, utilizando la propiedad @code{line-positions} del objeto
 "
   doctitlees = "Hacer unas líneas del pentagrama más gruesas que las otras"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Für den pädagogischen Einsatz kann eine Linie des Notensystems dicker
@@ -27,6 +28,7 @@ herangezogen.
 
 "
   doctitlede = "Eine Linie des Notensystems dicker als die anderen machen"
+
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 Vous pourriez avoir envie, dans un but pédagogique, de rendre certaines

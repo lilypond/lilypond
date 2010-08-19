@@ -18,6 +18,7 @@ también el fragmento de código @qq{Volta multi staff}.
 "
   doctitlees = "Añadir corchetes de primera y segunda vez a más pentagramas"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Der @code{Volta_engraver} befindet sich im @code{Score}-Kontext und Klammern
@@ -28,6 +29,7 @@ das \"Volta multi staff\"-Schnipsel.
 
 "
   doctitlede = "Volta-Klammern zu zusätzlichen Systemen hinzufügen"
+
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 D'ordinaire, le graveur @code{Volta_engraver} réside dans le contexte

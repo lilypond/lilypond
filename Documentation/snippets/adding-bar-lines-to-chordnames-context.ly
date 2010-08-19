@@ -15,6 +15,7 @@ los nombres de acorde @code{ChordNames}, incluya el grabador
 "
   doctitlees = "Añadir barras de compás al contexto de nombres de acorde (ChordNames)"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Um Taktstriche in einem @code{ChordNames}-Kontext anzeigen zu lassen, muss der

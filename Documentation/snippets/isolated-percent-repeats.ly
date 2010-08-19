@@ -15,6 +15,7 @@ impresión distinta:
 "
   doctitlees = "Símbolos de porcentaje sueltos"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Isolierte Prozentwiederholungen können auch ausgegeben werden.  Das wird
@@ -23,6 +24,7 @@ erreicht, indem man eine Ganztaktpause notiert und ihre Ausgabeform
 
 "
   doctitlede = "Isolierte Prozentwiederholungen"
+
 %% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
   texidocfr = "
 Des symboles de pourcentage isolés peuvent aussi être obtenus, au

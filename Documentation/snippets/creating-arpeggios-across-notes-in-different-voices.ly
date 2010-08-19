@@ -16,6 +16,7 @@ voces que están sobre el mismo pentagrama si el grabador
 "
   doctitlees = "Crear arpegios entre notas de voces distintas"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Ein Arpeggio kann zwischen Noten aus unterschidlichen Stimmen auf demselben
@@ -24,6 +25,7 @@ System gezogen werden, wenn der @code{Span_arpeggio_engraver} in den
 
 "
   doctitlede = "Arpeggios zwischen unterschiedlichen Stimmen erzeugen"
+
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Affecter le graveur @code{Span_arpeggio_engraver} au contexte de la

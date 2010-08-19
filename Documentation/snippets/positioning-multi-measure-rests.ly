@@ -19,6 +19,7 @@ colocación de los silencios multicompás se puede controlar como se
 ve a continuación:
 
 "
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Anders als bei normalen Pausen gibt es keinen direkten Befehl, um die
@@ -29,6 +30,7 @@ unterschieden.  Die Position von Ganztaktpausen kann wie folgt verändert
 werden:
  "
   doctitlede = "Positionierung von Ganztaktpausen"
+
 
 
 %% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685

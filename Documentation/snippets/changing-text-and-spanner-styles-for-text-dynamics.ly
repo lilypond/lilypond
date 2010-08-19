@@ -21,6 +21,7 @@ valores posibles se encuentran @code{'line} (línea),
 "
   doctitlees = "Cambiar el texto y los estilos de objeto de extensión para las indicaciones dinámicas textuales"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Der Text, der für Crescendo und Decrescendo gestzt wird, kann geändert
@@ -32,6 +33,7 @@ geändert werden, indem die @code{'style}-Eigenschaft des
 und @code{'dotted-line}.
 "
   doctitlede = "Text und Strecker-Stile für Dynamik-Texte ändern"
+
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 Le texte par défaut des crescendos et decrescendos se change en

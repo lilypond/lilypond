@@ -25,6 +25,7 @@ de las cuerdas.  Hay planes para corregir esto en un futuro.
 "
   doctitlees = "Definición de posiciones predefinidas para otros instrumentos"
 
+
 %% Translation of GIT committish: f23429bc5cfa9d141ef7b4509afc46c140308a1e
   texidocde = "
 Vordefinierte Bunddiagramme können für neue Instrumente hinzugefügt werden
@@ -42,6 +43,7 @@ enthalten.  Das soll in der Zukunft verbessert werden.
 
 "
   doctitlede = "Eigene vordefinierte Bunddiagramme für andere Instrumente erstellen"
+
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
 
   texidocfr = "

@@ -22,6 +22,7 @@ cabezas a aspas.
   doctitlees = "Trucar la disposición de las notas de adorno dentro de la música"
 
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Das Layout von Verzierungsausdrücken kann in der Musik verändert
@@ -32,6 +33,7 @@ Hälse nicht immer nach unten zeigen, und ändert den Standardnotenkopf
 in ein Kreuz.
 "
   doctitlede = "Veränderung des Layouts von Verzierungen innerhalb der Noten"
+
 
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b

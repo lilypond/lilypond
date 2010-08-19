@@ -15,6 +15,7 @@ modificando la propiedad @code{minimum-length} del objeto
 "
   doctitlees = "Ajustar la longitud mínima de los reguladores"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Wenn Crescendo-Klammern zu kurz sind, können sie verlängert werden, indem
@@ -23,6 +24,7 @@ verändert wird.
 
 "
   doctitlede = "Die Mindestlänge von Crescendo-Klammern bestimmen"
+
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 Si un soufflet est trop court, il suffit d'ajuster la propriété

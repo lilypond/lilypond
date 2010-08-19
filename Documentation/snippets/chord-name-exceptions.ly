@@ -15,6 +15,7 @@ específicos.
 "
   doctitlees = "Excepciones para los nombres de acorde"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die Eigenschaft @code{chordNameExceptions} kann benutzt werden, um eine

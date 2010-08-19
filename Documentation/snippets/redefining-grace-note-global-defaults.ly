@@ -22,6 +22,7 @@ efectos.
   doctitlees = "Redefinición de los valores globales predeterminados para notas de adorno"
 
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Die globalen Standardeinstellungen für Verzierungsnoten werden in
@@ -34,6 +35,7 @@ werden.
 
 "
   doctitlede = "Globale Umdefinition von Verzierungsnoten"
+
 
 
 %% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b

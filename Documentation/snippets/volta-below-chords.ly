@@ -16,6 +16,7 @@ segunda vez debajo de los acordes.
   doctitlees = "Corchetes de primera y segunda vez debajo de los acordes"
 
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Indem man den @code{Volta_engraver} zu dem entsprechenden Notensystem

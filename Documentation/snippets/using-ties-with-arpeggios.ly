@@ -18,6 +18,7 @@ en principio también se puede usar para notas normales consecutivas.
 
 "
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
  texidocde = "
  Überbindungen werden teilweise benutzt, um Arpeggios zu notieren.  In
@@ -28,6 +29,7 @@ ein Tremolo mit einem Akkord zu überbinden, kann aber prinzipiell auch
 für normale Überbindungen eingesetzt werden
 "
   doctitlede = "Überbingungen für Arpeggio genutzen"
+
 
 
 %% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685

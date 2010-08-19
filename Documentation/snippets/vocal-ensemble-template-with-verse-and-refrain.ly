@@ -18,6 +18,18 @@ todas las partes) a lo largo de toda la partitura.
 
   doctitlees = "Estrofa para solista y estribillo a dos voces"
 
+%% Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+
+  texidocde = "
+Diese Vorlage erstellt eine Partitur, die mit Sologesang beginnt und einen
+Refrain für zwei Stimmen enthält.  Sie zeigt auch die Benutzung von
+Platzhalter-Pausen innerhalb der @code{\global}-Variable, um Taktwechsel
+(und andere Elemente, die für alle Stimmen gleich sind) für das gesamte
+Stück zu definieren.
+
+"
+  doctitlede = "Sologesang und zweistimmiger Refrain"
+
   lsrtags = "vocal-music, contexts-and-engravers, template"
   texidoc = "
 This template creates a score which starts with a solo verse and

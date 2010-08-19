@@ -15,10 +15,12 @@ melodía y acordes?  ¡No busque más!
 
 doctitlees = "Plantilla de pentagrama único con música y acordes"
 
+
 %% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
   texidocja = "
 旋律とコードを持つリード譜を欲しくはありませんか？他を見る必要はありません！
 "
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Wollen Sie ein Liedblatt mit Melodie und Akkorden schreiben?  Hier ist
@@ -26,6 +28,7 @@ das richtige Beispiel für Sie!
 "
 
   doctitlede = "Vorlage für eine Notenzeile mit Akkorden"
+
 
 %% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
   texidocfr = "

@@ -22,6 +22,7 @@ debe hacer este ajuste para todos los pentagramas).
 "
   doctitlees = "Alinear marcas con varios objetos de notación"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Wenn angegeben, können Textzeichen auch an anderen Objekten als Taktstrichen
@@ -38,6 +39,7 @@ diese Einstellung für alle Systeme gemacht werden.
 "
 
   doctitlede = "Zeichen an verschiedenen Notationsobjekten ausrichten"
+
 %% Translation of GIT committish: 548ef200973bd3d46ea75c5498461d9e5f168334
   texidocfr = "
 Les indications textuelles peuvent s'aligner par rapport à d'autres

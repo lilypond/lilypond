@@ -18,6 +18,7 @@ propiedad @code{transparent}.
 
   doctitlees = "Disposición Mensurstriche (líneas divisorias entre pentagramas)"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Das Mensurstiche-Layout, in welchem die Taktlinien nicht auf den Systemen,
@@ -27,6 +28,7 @@ Systemen werden mit der the @code{transparent}-Eigenschaft ausgelöscht.
 
 "
   doctitlede = "Mensurstriche-Layout (Taktstriche zwischen den Systemen"
+
 %% Translation of GIT committish: 99dc90bbc369722cf4d3bb9f30b7288762f2167f6
   texidocfr = "
 En musique mensurale, les barres de mesure ne traversent pas les

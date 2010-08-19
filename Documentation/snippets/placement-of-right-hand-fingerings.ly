@@ -16,6 +16,7 @@ se debe usar una construcción de acorde.
 "
   doctitlees = "Posicionamiento de digitaciones de mano derecha"
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Man kann die Positionierung von Fingersatz der rechten Hand besser
@@ -24,6 +25,7 @@ das folgende Beispiel zeigt:
 
 "
   doctitlede = "Positionierung von Fingersatz der rechten Hand"
+
 %% Translation of GIT committish: ac6297e4fa174ac5759cc450ad085c2fac9ba00b
 
   texidocfr = "

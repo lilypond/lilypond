@@ -30,6 +30,7 @@ nota.
 
 "
 
+
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   doctitlede = "Notenkopfstile basierend auf der Tonleiterstufe erstellen"
   texidocde = "
@@ -51,6 +52,7 @@ eine Melodie transponieren kann, ohne dass das Verhältnis zwischen den
 harmonischen Funktionen und dem Notenstil verloren geht.
 
 "
+
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "
 La propriété @code{shapeNoteStyles} permet d'affecter un profil
