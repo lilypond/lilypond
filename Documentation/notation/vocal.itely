@@ -1366,7 +1366,7 @@ etc.
 
 @menu
 * References for choral::
-* Score layouts::
+* Score layouts for choral::
 @end menu
 
 @node References for choral
@@ -1426,8 +1426,8 @@ Internals Reference:
 @rinternals{Lyrics},
 @rinternals{PianoStaff}.
 
-@node Score layouts
-@unnumberedsubsubsec Score layouts
+@node Score layouts for choral
+@unnumberedsubsubsec Score layouts for choral
 
 Choral music containing four staves, with or without piano
 accompaniment, is usually laid out with two systems per page.
