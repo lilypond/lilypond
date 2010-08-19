@@ -2436,7 +2436,8 @@
    ly:clef::print
    ly:percent-repeat-item-interface::beat-slash
    ly:text-interface::print
-   ly:script-interface::print))
+   ly:script-interface::print
+   ly:sustain-pedal::print))
 
 ;; Sometimes we have grobs with (Y-extent . ,ly:grob::stencil-height)
 ;; and the print function is not pure, but there is a easy way to
