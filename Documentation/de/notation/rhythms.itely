@@ -793,7 +793,7 @@ Handbuch zum lernen:
 
 Notationsreferenz:
 @ref{Unsichtbare Noten},
-Sichtbarkeit von Objekten}.
+@ref{Sichtbarkeit von Objekten}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -2039,7 +2039,7 @@ Manuell definierte Balken werden mit den Zeichen @code{[} und
 
 Die Richtung von Balken kann mit den Richtungszeichen verändert werden:
 
-lilypond[quote,relative=2,verbatim]
+@lilypond[quote,relative=2,verbatim]
 c8^[ d e] c,_[ d e f g]
 @end lilypond
 

@@ -601,7 +601,7 @@ fehlerhaft verschmolzen, weil die automatische Verschmelzung
 nicht richtig arbeiten
 kann, wenn drei oder mehr Noten zur gleichen Zeit auftreten --
 und in diesem Fall ist der verschmolzene Notenkopf nicht richtig.
-Um das Verschmelzen zuzulassen, muss ein @code{\shift} (Verschiebung}
+Um das Verschmelzen zuzulassen, muss ein @code{\shift} (Verschiebung)
 auf die Note angewendet werden, die nicht verschmolzen werden soll.
 In diesem Fall wurde
 @code{\shiftOn} gesetzt, um das oberste @notation{g} aus der

@@ -2243,6 +2243,7 @@ am  @code{modern}-Stil, aber die Alterationen, die sich durch die
 Tonart ergeben, werden zusätzlich als Warnungsversetzungszeichen
 gesetzt.  Eine Ausnahme sind direkt wiederholte Noten.
 
+@lilypond[quote]
 musicA = {
   <<
     \relative c' {
@@ -2612,7 +2613,7 @@ c4 d e f
 
 Für alle Notenkopfstile siehe @ref{Notenkopfstile}
 
-Der Kreuz-(@code{cross) Stil wird mit unterschiedlichen
+Der Kreuz-(@code{cross}) Stil wird mit unterschiedlichen
 musikalischen Absichten eingesetzt.  Die folgenden
 vordefinierten Befehle verändern die Notenköpfe sowohl
 in Notensystemen als auch in Tabulaturen und können
