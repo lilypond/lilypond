@@ -1468,8 +1468,30 @@ may be activated with
 @}
 @end example
 
+@noindent
 For details of this and other page formatting properties, see
 @ref{Page formatting}.
+
+Dynamic markings by default are placed below the staff, but in
+choral music they are often placed above the staff in order to
+avoid the lyrics.  The predefined command @code{\dynamicUp} does
+this for the dynamic markings in a single @code{Voice} context.
+To place all dynamic markings in the score above their respective
+staves use the following in a @code{\layout} block within the
+@code{\score} block:
+
+@example
+\layout @{
+  \context @{
+    \Score
+    \override DynamicText #'direction = #UP
+    \override DynamicLineSpanner #'direction = #UP
+  @}
+@}
+@end example
+
+@predefined
+@code{\dynamicUp}.
 
 @seealso
 Notation Reference:
