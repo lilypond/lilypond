@@ -1429,10 +1429,62 @@ Internals Reference:
 @node Score layouts
 @unnumberedsubsubsec Score layouts
 
-@c TODO 2-stave and 4-stave, accompaniment, SATB, different lyrics
-@c fitting 2 systems on a page
+Choral music containing four staves, with or without piano
+accompaniment, is usually laid out with two systems per page.
+Depending on the page size, achieving this may require changes
+to several default settings.  The following settings should be
+considered:
 
-TBC
+@itemize
+
+@item
+The global staff size can be modified to change the overall size
+of the elements of the score.  See @ref{Setting the staff size}.
+
+@item
+The distances between the systems, the staves and the lyrics can
+all be adjusted independently.  See @ref{Vertical spacing}.
+
+@item
+Setting @code{annotate-spacing = ##t} in the layout block will
+display the dimensions of the vertical layout variables.  This
+may help in adjusting them.  For details, see
+@ref{Displaying spacing}.
+
+@item
+Other possibilities for fitting the music onto fewer pages are
+described in @ref{Changing spacing}.
+
+@end itemize
+
+If the number of systems per page changes from one to two it is
+customary to indicate this with a system separator mark between
+the two systems.  By default the system separator is blank.  It
+may be activated with
+
+@example
+\paper @{
+  system-separator-markup = \slashSeparator
+@}
+@end example
+
+For details of this and other page formatting properties, see
+@ref{Page formatting}.
+
+@seealso
+Notation Reference:
+@ref{Setting the staff size},
+@ref{Vertical spacing},
+@ref{Displaying spacing},
+@ref{Changing spacing},
+@ref{Score layout},
+@ref{Using an extra voice for breaks},
+@ref{Page formatting}.
+
+Internals Reference:
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
+
 
 @node Opera and stage musicals
 @subsection Opera and stage musicals
