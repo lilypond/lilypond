@@ -131,6 +131,21 @@ $(outdir)/essay.texi: \
   $(outdir)/computer-notation.itexi \
   $(outdir)/engravingbib.itexi
 
+$(outdir)/others-did.itexi:
+	BSTINPUTS=$(src-dir)/web/ $(buildscript-dir)/bib2texi \
+		-s web \
+		-o $(outdir)/others-did.itexi \
+		$(src-dir)/web/others-did.bib
+
+$(outdir)/we-wrote.itexi:
+	BSTINPUTS=$(src-dir)/web/ $(buildscript-dir)/bib2texi \
+		-s web \
+		-o $(outdir)/we-wrote.itexi \
+		$(src-dir)/web/we-wrote.bib
+
+# duplicate (without ly-examples) of later www-only definition
+$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi
+
 
 ###########
 ### Targets
@@ -207,7 +222,7 @@ $(outdir)/pictures:
 	$(MAKE) -C pictures WWW-1
 	ln -sf ../pictures/$(outdir) $@
 
-$(outdir)/web.texi: $(outdir)/ly-examples
+$(outdir)/web.texi: $(outdir)/ly-examples $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi
 
 $(outdir)/ly-examples:
 	$(MAKE) -C web/ly-examples
