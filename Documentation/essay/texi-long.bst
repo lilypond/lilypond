@@ -290,7 +290,7 @@ FUNCTION {format.authors}
 FUNCTION {format.editors}
 { editor empty$
     { "" }
-    { editor format.names
+    { editor format.names author.title.purify
       editor num.names$ #1 >
 	{ ", editors" * }
 	{ ", editor" * }
