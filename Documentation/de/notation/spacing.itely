@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -152,6 +152,11 @@ Schnipsel:
 Ränder, Kopf- und Fußzeilen und andere Layoutvariablen werden
 entsprechend dem Papierformat automatisch gesetzt.
 
+Standardwerte für Ränder finden sich in der Datei
+@file{ly/@/paper@/-defaults@/-init@/.ly}.  Sie gelten
+für die normale Papiergröße (A4, wenn nicht anders angegeben)
+und sind entsprechend skaliert für andere Papiergrößen.
+
 Dieser Abschnitt zeigt einige der Papiervariablen, die geändert
 werden können.
 
@@ -184,10 +189,43 @@ auf einer Seite zu produzieren:
 
 @table @code
 
-@item after-title-space
+@item after-title-spacing
 
-Die Größe des Abstands zwischen der Überschrift und dem ersten
-Notensystem.  Standard: @code{5\mm}.
+@funindex after-title-spacing
+
+Gibt an, wie der Abstand zwischen Titel (oder der obersten Beschriftung) und
+dem darauffolgenden Notensystem berechnet wird.  Das ist eine assoziative
+Liste mit fünf Einrägen:
+
+@itemize @bullet
+@item
+@var{Platz} -- Die Größe an dehnbarem Platz zwischen der Grundlinie eines
+Titels und dem Mittelpunkt des folgenden Notensystems.
+
+@item
+@var{Verschiebung (padding)} -- Der minimale weiße Platz, der zwischen einem
+System und der Überschrift erhalten bleiben muss.
+
+@item
+@var{Dehnbarkeit} -- Wie leicht der Platz zwischen Titel und erstem System
+geweitet wird, wenn eine Seite gedehnt wird.
+Wenn der Wert von @var{Dehnbarkeit} Null ist, dann wird der Abstand zum
+nächsten System überhaupt nicht gedehnt.  Das hat den Unterschied zu
+@var{Verschiebung}, dass die Höhe eines Systems keinen Einfluss auf die
+Anwendung von @var{minimum-distance} (minimaler Abstand) hat (während die Höhe
+eines Systems ausdrücklich für @var{Verschiebung} verlangt wird.
+
+@end itemize
+
+Der Standard beispielsweise ist:
+
+@example
+after-title-spacing = #'((space . 2) padding . 0.5))
+@end example
+
+
+
+
 
 @item before-title-space
 
