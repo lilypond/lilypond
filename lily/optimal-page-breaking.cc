@@ -102,13 +102,12 @@ Optimal_page_breaking::solve ()
 
       for (vsize i = 0; i < current_configuration_count (); i++)
 	{
-	  vsize min_p_count = min_page_count (i, first_page_num);
 	  Page_spacing_result cur;
 
-	  if (min_p_count == page_count || scm_is_integer (forced_page_count))
+	  if (scm_is_integer (forced_page_count))
 	    cur = space_systems_on_n_pages (i, page_count, first_page_num);
 	  else
-	    cur = space_systems_on_n_or_one_more_pages (i, page_count-1, first_page_num, 0);
+	    cur = space_systems_on_best_pages (i, first_page_num);
 
 	  if (cur.demerits_ < best_for_this_sys_count.demerits_)
 	    {
@@ -162,8 +161,10 @@ Optimal_page_breaking::solve ()
 
 	  if (min_p_count > page_count)
 	    continue;
-	  else
+	  else if (scm_is_integer (forced_page_count))
 	    cur = space_systems_on_n_pages (i, page_count, first_page_num);
+	  else
+	    cur = space_systems_on_best_pages (i, first_page_num);
 
 	  if (cur.demerits_ < best.demerits_)
 	    {
