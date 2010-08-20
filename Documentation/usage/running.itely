@@ -662,6 +662,7 @@ are easily handled.
 * Apparent error in ../ly/init.ly::
 * Error message Unbound variable %::
 * Error message FT_Get_Glyph_Name::
+* Warning staff affinities should only decrease::
 @end menu
 
 @node Music runs off the page
@@ -795,4 +796,17 @@ an input file contains a non-ASCII character and was not saved in
 UTF-8 encoding.  For details, see @ruser{Text encoding}.
 
 
+@node Warning staff affinities should only decrease
+@unnumberedsubsec Warning staff affinities should only decrease
+This warning can appear if there are no staves in the printed
+output, for example if there are just a @code{ChordName} context
+and a @code{Lyrics} context as in a lead sheet.  The warning
+messages can be avoided by making one of the contexts behave as a
+staff by inserting
 
+@example
+\override VerticalAxisGroup #'staff-affinity = ##f
+@end example
+
+@noindent
+at its start.  For details, see @ruser{Spacing of non-staff lines}.
