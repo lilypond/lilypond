@@ -11,9 +11,6 @@ of all staves disappearing does not happen in practice.)
 
 Any staff brackets and braces are removed, both in the single staff
 and no staff case.
-
-This example was done with a pianostaff, which has fixed distance
-alignment; this should not confuse the mechanism.
 "
 	  
 }
@@ -27,7 +24,7 @@ alignment; this should not confuse the mechanism.
 }
 
 \transpose c c''
-\context PianoStaff <<
+\context GrandStaff <<
   \new Staff {  c4 c c c \break s1 \break c4 c c c \break c c c c}
   \new Staff {  d4 d d d        s1        s1              s1 }
   \new Staff {  e4 e e e        s1        e4 e e e        s1 }
