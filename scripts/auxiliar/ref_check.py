@@ -94,7 +94,11 @@ class File:
     """ Process File """
 
     skip = False
-    myfile = open(self.fullFileName, 'r')
+    try:
+      myfile = open(self.fullFileName, 'r')
+    except IOError:
+      print "File ", self.fullFileName, " referenced in ", File.CurrentManualName, " but not found"
+      return
     remainderLine = ""
     lineNo = 0
     for line in myfile:
