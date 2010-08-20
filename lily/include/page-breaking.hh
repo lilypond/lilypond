@@ -196,6 +196,9 @@ private:
   vector<Line_details> cached_line_details_;
   vector<Line_details> uncompressed_line_details_;
 
+  mutable vector<Real> page_height_cache_;
+  mutable vector<Real> last_page_height_cache_;
+
   vector<Break_position> chunk_list (vsize start, vsize end);
   Line_division system_count_bounds (vector<Break_position> const &chunks, bool min);
   void line_breaker_args (vsize i,

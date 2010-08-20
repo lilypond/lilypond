@@ -368,13 +368,33 @@ Page_breaking::make_page (int page_num, bool last) const
 Real
 Page_breaking::page_height (int page_num, bool last) const
 {
-  SCM mod = scm_c_resolve_module ("scm page");
-  SCM page = make_page (page_num, last);
-  SCM calc_height = scm_c_module_lookup (mod, "calc-printable-height");
-  calc_height = scm_variable_ref (calc_height);
+  // The caches allow us to store the page heights for any
+  // non-negative page numbers.  We use a negative value in the
+  // cache to signal that that position has not yet been initialized.
+  // This means that we won't cache properly if page_num is negative or
+  // if calc_height returns a negative number.  But that's likely to
+  // be rare, so it shouldn't affect performance.
+  vector<Real>& cache = last ? last_page_height_cache_ : page_height_cache_;
+  if (page_num >= 0 && (int) cache.size () > page_num && cache[page_num] >= 0)
+    return cache[page_num];
+  else
+    {
+      SCM mod = scm_c_resolve_module ("scm page");
+      SCM page = make_page (page_num, last);
+      SCM calc_height = scm_c_module_lookup (mod, "calc-printable-height");
+      calc_height = scm_variable_ref (calc_height);
 
-  SCM height = scm_apply_1 (calc_height, page, SCM_EOL);
-  return scm_to_double (height);
+      SCM height_scm = scm_apply_1 (calc_height, page, SCM_EOL);
+      Real height = scm_to_double (height_scm);
+
+      if (page_num >= 0)
+	{
+	  if ((int) cache.size () <= page_num)
+	    cache.resize (page_num + 1, -1);
+	  cache[page_num] = height;
+	}
+      return height;
+    }
 }
 
 SCM
