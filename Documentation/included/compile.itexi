@@ -188,6 +188,8 @@ LilyPond}
 
 @item @uref{http://netpbm.sourceforge.net/, Netpbm}
 
+@item @uref{http://gzip.org/, gzip}
+
 @item @uref{http://rsync.samba.org/, rsync}
 
 @item @uref{http://www.nongnu.org/texi2html/, Texi2HTML} (1.82)
