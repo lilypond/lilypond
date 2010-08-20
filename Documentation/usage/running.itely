@@ -809,4 +809,5 @@ staff by inserting
 @end example
 
 @noindent
-at its start.  For details, see @ruser{Spacing of non-staff lines}.
+at its start.  For details, see @qq{Spacing of non-staff lines} in
+@ruser{Vertical spacing inside a system}.
