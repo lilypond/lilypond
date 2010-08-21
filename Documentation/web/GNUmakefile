@@ -1,5 +1,8 @@
 depth = ../..
-LOCALSTEPMAKE_TEMPLATES = ly
+
+STEPMAKE_TEMPLATES=tex documentation
+LOCALSTEPMAKE_TEMPLATES = lilypond ly
+
 SUBDIRS = ly-examples server
 include $(depth)/make/stepmake.make
 
