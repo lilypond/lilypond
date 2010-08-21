@@ -1623,12 +1623,15 @@ Notation reference:
 @node Setting a chant
 @unnumberedsubsubsec Setting a chant
 
+Some approaches to setting a chant are shown in the following
+snippets.
+
+@snippets
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
-@c TODO add this snippet when available
-@c @l ilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-@c {Ancient notation template -- modern transcription of gregorian music.ly}
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
 @node Pointing a psalm
