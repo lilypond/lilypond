@@ -3045,12 +3045,16 @@ def conv(str):
     return str
 
 @rule ((2, 13, 31),
-    _ ("Woodwind diagrams: Move size, thickness, and graphic from argument list to properties."))
+    _ ("Woodwind diagrams: Move size, thickness, and graphic from argument list to properties.\n\
+Deprecate negative dash-period for hidden lines: use #'style = #'none instead."))
 def conv(str):
     if re.search(r'woodwind-diagram', str):
         stderr_write("\n")
         stderr_write(NOT_SMART % _("woodwind-diagrams.  Move size, thickness, and graphic to properties.  Argument should be just the key list.\n"))
         stderr_write(UPDATE_MANUALLY)
+    str = re.sub (r"dash-period\s+=\s*#\s*-[0-9.]+",
+                  r"style = #'none",
+                  str);
     return str
 # Guidelines to write rules (please keep this at the end of this file)
 #
