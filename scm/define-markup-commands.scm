@@ -885,14 +885,16 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
   (make-simple-markup ""))
 
 ;; helper for justifying lines.
-(define (get-fill-space word-count line-width text-widths)
+(define (get-fill-space word-count line-width word-space text-widths)
   "Calculate the necessary paddings between each two adjacent texts.
-	The lengths of all texts are stored in @var{text-widths}.
-	The normal formula for the padding between texts a and b is:
-	padding = line-width/(word-count - 1) - (length(a) + length(b))/2
-	The first and last padding have to be calculated specially using the
-	whole length of the first or last text.
-	Return a list of paddings."
+  The lengths of all texts are stored in @var{text-widths}.
+  The normal formula for the padding between texts a and b is:
+  padding = line-width/(word-count - 1) - (length(a) + length(b))/2
+  The first and last padding have to be calculated specially using the
+  whole length of the first or last text.
+  All paddings are checked to be at least word-space, to ensure that
+  no texts collide.
+  Return a list of paddings."
   (cond
    ((null? text-widths) '())
 
@@ -901,23 +903,27 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
     (cons
      (- (- (/ line-width (1- word-count)) (car text-widths))
 	(/ (car (cdr text-widths)) 2))
-     (get-fill-space word-count line-width (cdr text-widths))))
+     (get-fill-space word-count line-width word-space (cdr text-widths))))
    ;; special case last padding
    ((= (length text-widths) 2)
     (list (- (/ line-width (1- word-count))
 	     (+ (/ (car text-widths) 2) (car (cdr text-widths)))) 0))
    (else
-    (cons
-     (- (/ line-width (1- word-count))
-	(/ (+ (car text-widths) (car (cdr text-widths))) 2))
-     (get-fill-space word-count line-width (cdr text-widths))))))
+    (let ((default-padding
+            (- (/ line-width (1- word-count))
+               (/ (+ (car text-widths) (car (cdr text-widths))) 2))))
+      (cons
+       (if (> word-space default-padding)
+           word-space
+           default-padding)
+       (get-fill-space word-count line-width word-space (cdr text-widths)))))))
 
 (define-markup-command (fill-line layout props args)
   (markup-list?)
   #:category align
   #:properties ((text-direction RIGHT)
-		(word-space 1)
-		(line-width #f))
+                (word-space 0.6)
+                (line-width #f))
   "Put @var{markups} in a horizontal line of width @var{line-width}.
 The markups are spaced or flushed to fill the entire line.
 If there are no arguments, return an empty stencil.
@@ -940,55 +946,58 @@ If there are no arguments, return an empty stencil.
 }
 @end lilypond"
   (let* ((orig-stencils (interpret-markup-list layout props args))
-	 (stencils
-	  (map (lambda (stc)
-		 (if (ly:stencil-empty? stc)
-		     point-stencil
-		     stc)) orig-stencils))
-	 (text-widths
-	  (map (lambda (stc)
-		 (if (ly:stencil-empty? stc)
-		     0.0
-		     (interval-length (ly:stencil-extent stc X))))
-	       stencils))
-	 (text-width (apply + text-widths))
-	 (word-count (length stencils))
-	 (line-width (or line-width (ly:output-def-lookup layout 'line-width)))
-	 (fill-space
-	 	(cond
-			((= word-count 1)
-				(list
-					(/ (- line-width text-width) 2)
-					(/ (- line-width text-width) 2)))
-			((= word-count 2)
-				(list
-					(- line-width text-width)))
-			(else
-				(get-fill-space word-count line-width text-widths))))
-	 (fill-space-normal
-	  (map (lambda (x)
-		 (if (< x word-space)
-		     word-space
-		     x))
-	       fill-space))
+         (stencils
+          (map (lambda (stc)
+                 (if (ly:stencil-empty? stc)
+                     point-stencil
+                     stc)) orig-stencils))
+         (text-widths
+          (map (lambda (stc)
+                 (if (ly:stencil-empty? stc)
+                     0.0
+                     (interval-length (ly:stencil-extent stc X))))
+               stencils))
+         (text-width (apply + text-widths))
+         (word-count (length stencils))
+         (line-width (or line-width (ly:output-def-lookup layout 'line-width)))
+         (fill-space
+          (cond
+           ((= word-count 1)
+            (list
+             (/ (- line-width text-width) 2)
+             (/ (- line-width text-width) 2)))
+           ((= word-count 2)
+            (list
+             (- line-width text-width)))
+           (else
+            (get-fill-space word-count line-width word-space text-widths))))
 
-	 (line-stencils (if (= word-count 1)
-			    (list
-			     point-stencil
-			     (car stencils)
-			     point-stencil)
-			    stencils)))
-
-    (if (= text-direction LEFT)
-	(set! line-stencils (reverse line-stencils)))
+         (line-contents (if (= word-count 1)
+                            (list
+                             point-stencil
+                             (car stencils)
+                             point-stencil)
+                            stencils)))
 
     (if (null? (remove ly:stencil-empty? orig-stencils))
-	empty-stencil
-	(ly:stencil-translate-axis
-	  (stack-stencils-padding-list X
-				       RIGHT fill-space-normal line-stencils)
-	  (- (car (ly:stencil-extent (car stencils) X)))
-	  X))))
+        empty-stencil
+        (begin
+          (if (= text-direction LEFT)
+              (set! line-contents (reverse line-contents)))
+          (set! line-contents
+                (stack-stencils-padding-list
+                 X RIGHT fill-space line-contents))
+          (if (> word-count 1)
+              ;; shift s.t. stencils align on the left edge, even if
+              ;; first stencil had negative X-extent (e.g. center-column)
+              ;; (if word-count = 1, X-extents are already normalized in
+              ;; the definition of line-contents)
+              (set! line-contents
+                    (ly:stencil-translate-axis
+                     line-contents
+                     (- (car (ly:stencil-extent (car stencils) X)))
+                     X)))
+          line-contents))))
 
 (define-markup-command (line layout props args)
   (markup-list?)
