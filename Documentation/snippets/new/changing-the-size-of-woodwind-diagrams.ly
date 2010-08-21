@@ -1,7 +1,7 @@
 \version "2.13.31"
 
 \header {
-  lsrtags="Winds"
+  lsrtags="winds"
   texidoc="
 The size and thickness of woodwind diagrams can be changed.
 "

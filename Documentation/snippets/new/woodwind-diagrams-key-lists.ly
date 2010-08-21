@@ -1,7 +1,7 @@
 \version "2.13.24"
 
 \header {
-  lsrtags = "Winds"
+  lsrtags = "winds"
 
   texidoc="
 The snippet below produces a list of all possible keys and key

@@ -5,7 +5,7 @@
 \version "2.13.31"
 
 \header {
-  lsrtags="Winds"
+  lsrtags="winds"
   texidoc="
 The following music shows all of the woodwind diagrams currently
 defined in LilyPond.

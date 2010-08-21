@@ -1,7 +1,7 @@
 \version "2.13.31"
 
 \header {
-  lsrtags="Winds"
+  lsrtags="winds"
   texidoc="
 In may cases, the keys other than the central column can be
 displayed by key name as well as by graphical means.
