@@ -143,9 +143,6 @@ $(outdir)/we-wrote.itexi:
 		-o $(outdir)/we-wrote.itexi \
 		$(src-dir)/web/we-wrote.bib
 
-# duplicate (without ly-examples) of later www-only definition
-$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi
-
 
 ###########
 ### Targets
@@ -222,12 +219,18 @@ $(outdir)/pictures:
 	$(MAKE) -C pictures WWW-1
 	ln -sf ../pictures/$(outdir) $@
 
-$(outdir)/web.texi: $(outdir)/ly-examples $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi
-
 $(outdir)/ly-examples:
 	$(MAKE) -C web/ly-examples
 	ln -sf ../web/ly-examples/$(outdir) $@
 endif
+
+ifeq ($(out),www)
+$(outdir)/web.texi: $(outdir)/ly-examples $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi
+else
+# duplicate (without ly-examples)
+$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi
+endif
+
 
 # Ugh, using '%' twice not possible
 $(outdir)/notation/notation.xml: $(outdir)/notation.texi
