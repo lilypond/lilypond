@@ -6,7 +6,11 @@ global _;_=ly._
 import re
 import os
 import copy
-from subprocess import Popen, PIPE
+# TODO: We are using os.popen3, which has been deprecated since python 2.6. The
+# suggested replacement is the Popen function of the subprocess module.
+# Unfortunately, on windows this needs the msvcrt module, which doesn't seem
+# to be available in GUB?!?!?!
+# from subprocess import Popen, PIPE
 
 progress = ly.progress
 warning = ly.warning
@@ -717,10 +721,10 @@ printing diff against existing file." % filename)
         if self.global_options.verbose:
             progress (_ ("Opening filter `%s'\n") % cmd)
 
-        #(stdin, stdout, stderr) = os.popen3 (cmd)
-
-        p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, close_fds=True)
-        (stdin, stdout, stderr) = (p.stdin, p.stdout, p.stderr)
+        # TODO: Use Popen once we resolve the problem with msvcrt in Windows:
+        (stdin, stdout, stderr) = os.popen3 (cmd)
+        # p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, close_fds=True)
+        # (stdin, stdout, stderr) = (p.stdin, p.stdout, p.stderr)
         stdin.write (input)
         status = stdin.close ()
 
