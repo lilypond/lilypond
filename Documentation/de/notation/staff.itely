@@ -1,10 +1,10 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: c22425cf1fafa6b8940c19fabee28abe1622a101
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -628,10 +628,7 @@ Stücke setzt.
 Man kann auch den @code{\RemoveEmptyStaffContext}-Befehl einsetzen,
 um Ossia-Systeme zu erstellen.  Diese Methode eignet sich am
 besten, wenn nach dem Ossia sofort ein Zeilenumbruch erfolgt.
-In diesem Fall müssen auch keine unsichtbaren Pausen eingesetzt
-werden; es reicht, @code{\startStaff} und @code{\stopStaff}
-einzusetzen.  Mehr Information zu @code{\RemoveEmptyStaffContext}
-findet sich in
+Mehr Information zu @code{\RemoveEmptyStaffContext} findet sich in
 @ref{Systeme verstecken}.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -642,17 +639,15 @@ findet sich in
     fontSize = #-3
     \override StaffSymbol #'staff-space = #(magstep -3)
     \override StaffSymbol #'thickness = #(magstep -3)
+  } \relative c'' {
+    R1*3
+    c4 e8 d c2
   }
   \new Staff \relative c' {
     c4 b c2
     e4 f e2
     g4 a g2 \break
-    <<
-      { c4 b c2 }
-      \context Staff = ossia {
-        c4 e8 d c2 \stopStaff
-      }
-    >>
+    c4 b c2
     g4 a g2
     e4 d c2
   }
@@ -796,9 +791,15 @@ leere Takte in einem
 Glossar:
 @rglos{Frenched staff}.
 
+Handbuch zum Lernen:
+@rlearning{Sichtbarkeit und Farbe von Objekten}.
+
 Notationsreferenz:
+@ref{Die Standardeinstellungen von Kontexten ändern},
 @ref{Das Notensystem},
-@ref{Ossia-Systeme}.
+@ref{Ossia-Systeme},
+@ref{Unsichtbare Noten},
+@ref{Sichtbarkeit von Objekten}.
 
 Schnipsel:
 @rlsr{Staff notation}.
@@ -825,6 +826,8 @@ den Engraver zu entfernen:
 \override NoteHead #'no-ledgers = ##t
 @end example
 
+Zu den bekannten Fehlern und Warnungen, die mit @code{\RemoveEmptyStaffContext}
+zusammenhängen, siehe @ref{Die Standardeinstellungen von Kontexten ändern}.
 
 
 @node Orchesterstimmen erstellen
@@ -1031,7 +1034,9 @@ siehe @ref{Umgebungs-Plugins verändern}.
 @cindex Wechseln von Instrumentenbezeichnungen
 
 Instrumentenbezeichnungen können mitten in einer Partitur
-geändert werden:
+geändert werden.  Dabei muss jedoch beachtet werden, dass
+@code{instrumentName} nicht mitten im Stück angezeigt wird,
+denn es wird nur für das erste Notensystem ausgegeben:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \set Staff.instrumentName = #"First"
@@ -1144,12 +1149,13 @@ Argumente: die Bezeichnung der zitierten Stimme, wie vorher mit
 @code{\addQuote} definiert, und einen musikalischen Ausdruck,
 der Angibt, wie lange das Zitat dauern soll; normalerweise
 Ganztaktpausen oder unsichtbare Noten.  Die entsprechenden
-Noten der zitierten Stimme wird an der Stelle in die aktuelle
+Noten der zitierten Stimme (inklusive aller Artikulationszeichen,
+Dynamik, Beschriftung usw.) wird an der Stelle in die aktuelle
 Stimme eingefügt:
 
 @lilypond[verbatim,quote]
 flute = \relative c'' {
-  a4 gis g gis
+  a4 gis g->\f gis^\markup{quoted}
 }
 \addQuote "flute" { \flute }
 
@@ -1198,6 +1204,25 @@ Weise zu verarbeiten.  Einzelheiten zu diesem Vorgehen werden
 vorgestellt in
 @ref{Marken benutzen}.
 
+Es ist auch möglich, welche Objekte der originalen Stimme zitiert
+werden sollen, indem man die @code{quotedEventTypes}-Eigenschaft
+verändert.  Standardmäßig ist ihr Wert @code{#'(StreamEvent)},
+was bedeutet, dass alles zitiert wird.  Wenn man sie beispielsweise
+auf den Wert @code{#'(note-event rest-event tie-event)} setzt, werden
+nur Noten, Pausen und Bindebögen zitiert, jedoch keine Artikulationszeichen,
+Dynamik oder Beschriftung.
+
+@lilypond[verbatim,quote]
+clarinet = \relative c'' {
+  a4 gis g->\f gis^\markup{quoted}
+}
+\addQuote "clarinet" { \clarinet }
+
+\relative c' {
+  \set Score.quotedEventTypes = #'(note-event rest-event tie-event)
+  c4 cis \quoteDuring #"clarinet" { s2 }
+}
+@end lilypond
 
 @snippets
 
@@ -1210,6 +1235,7 @@ vorgestellt in
 @cindex rest-event
 
 @funindex quotedEventTypes
+@funindex quotedCueEventTypes
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {quoting-another-voice.ly}
@@ -1272,7 +1298,7 @@ Stichnoten zu einer Stimme hinzuzufügen.  Seine Syntax lautet:
 \cueDuring #@var{Stimmenbezeichnung} #@var{Stimme} @var{Noten}
 @end example
 
-Dieser Befehl kopiert die entsprechenden Takte von
+Dieser Befehl kopiert nur die Noten und Pausen der entsprechenden Takte von
 @var{Stimmenbezeichnung} in einen @code{CueVoice}-Kontext.  Eine
 @code{CueVoice} (Stichnoten-Stimme) wird implizit erstellt
 und erscheint simultan mit @var{Noten}, wobei folglich eine
@@ -1283,7 +1309,7 @@ eingefügt werden sollen; @code{UP} entspricht der ersten Stimme,
 
 @lilypond[verbatim,quote]
 oboe = \relative c'' {
-  r2 r8 d16 f e g f a
+  r2 r8 d16(\f f e g f a)
   g8 g16 g g2.
 }
 \addQuote "oboe" { \oboe }
@@ -1298,6 +1324,30 @@ oboe = \relative c'' {
 In diesem Beispiel muss der @code{Voice}-Kontext explizit
 begonnen werden, damit nicht der gesamte musikalische Ausdruck
 als Stichnoten-Stimme formatiert wird.
+
+Es ist möglich anzupassen, welche Objekte der Notation von
+@code{\cueDuring} zitiert werden, indem man die
+@code{quotedCueEventTypes}-Eigenschaft verändert.  Ihr
+Standardwert ist  @code{#'(note-event rest-event tie-event beam-event
++tuplet-span-event)}; somit werden also nur Noten, Pausen, Bindebögen,
+Balken und N-tolen zitiert, nicht aber Artikulationen, Dynamik,
+Beschriftung usw.
+
+@lilypond[verbatim,quote]
+oboe = \relative c'' {
+  r2 r8 d16(\f f e g f a)
+  g8 g16 g g2.
+}
+\addQuote "oboe" { \oboe }
+
+\new Voice \relative c'' {
+  \set Score.quotedCueEventTypes = #'(note-event rest-event tie-event
+                                      beam-event tuplet-span-event
+                                      dynamic-event slur-event)
+  \cueDuring #"oboe" #UP { R1 }
+  g2 c,
+}
+@end lilypond
 
 Die Bezeichnung des Instruments, von dem die Stichnoten genommen
 werden, kann auch ausgegeben werden, wenn die Eigenschaft
@@ -1391,6 +1441,28 @@ Es ist möglich, Zitate mit eindeutigen Bezeichnungen zu versehen
 Weise zu verarbeiten.  Einzelheiten zu diesem Vorgehen werden
 vorgestellt in
 @ref{Marken benutzen}.
+
+@cindex Noten, kleiner
+@cindex kleinere Noten
+@cindex Noten verkleinern
+
+Ein @code{CueVoice}-Kontext kann auch explizit erstellt werden,
+wenn man kleiner Noten einsetzen will. Damit kann beispielsweise eine
+alternative Sequenz für hohe und tiefe Stimme gesetzt werden:
+
+@lilypond[verbatim,relative=2]
+\time 12/8
+\key ees \major
+g4 ees8 f4 g8
+\stemDown
+<<
+  { d4. bes4 c8 }
+  \new CueVoice
+  { g'4. f4 ees8 }
+>>
+\stemUp
+d2. d2.
+@end lilypond
 
 
 @seealso
