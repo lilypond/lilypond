@@ -432,7 +432,7 @@ Standard: @code{10\mm}.
 @funindex line-width
 
 Die Breite der Notensystems. Standard: @code{paper-width} minus
-@code{left-margin} und @code{right}-margin}.
+@code{left-margin} und @code{right-margin}.
 
 @item outer-margin
 
@@ -490,7 +490,7 @@ aber sie müssen nicht vollständig definiert werden.
 @end example
 
 In diesem Beispiel wird nur @code{left-margin} definiert.  Der Wert
-für @code{right}margin} bleibt bei dem Standardwert, @code{line-width}
+für @code{right-margin} bleibt bei dem Standardwert, @code{line-width}
 wird automatisch errechnet.
 
 @example
