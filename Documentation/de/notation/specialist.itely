@@ -1,10 +1,10 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -26,6 +26,7 @@ bestimmtes Instrument oder einen Stil eingesetzt wird.
 * Schlagzeug::
 * Blasinstrumente::
 * Notation von Akkorden::
+* Zeitgenössische Musik::
 * Notation von alter Musik::
 * Weltmusik::
 @end menu
@@ -37,5 +38,6 @@ bestimmtes Instrument oder einen Stil eingesetzt wird.
 @include notation/percussion.itely
 @include notation/wind.itely
 @include notation/chords.itely
+@include notation/contemporary.itely
 @include notation/ancient.itely
 @include notation/world.itely
