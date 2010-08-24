@@ -415,6 +415,7 @@ tabFullNotation = {
   \revert NoteColumn #'ignore-collision
   % beams, dots
   \revert TabVoice.Beam #'stencil
+  \revert TabVoice.StemTremolo #'stencil
   \revert TabVoice.Dots #'stencil
   \revert TabVoice.Tie #'stencil
   \revert TabVoice.Tie #'after-line-breaking
