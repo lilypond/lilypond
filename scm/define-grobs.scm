@@ -430,7 +430,6 @@
 			       key-cancellation
 			       key-signature
 			       time-signature
-			       metronome-mark
 			       custos)
 
 			      ;; unbroken
@@ -443,7 +442,6 @@
 			       key-cancellation
 			       key-signature
 			       time-signature
-			       metronome-mark
 			       custos)
 
 			      ;; begin of line
@@ -456,7 +454,6 @@
 			       key-signature
 			       staff-bar
 			       time-signature
-			       metronome-mark
 			       custos)))
 	(non-musical . #t)
 	(positioning-done . ,ly:break-alignment-interface::calc-positioning-done)
@@ -1173,12 +1170,11 @@
 			,(ly:make-simple-closure
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(self-alignment-X . ,LEFT)
-	(break-align-symbol . metronome-mark)
-	(break-align-symbols . (key-signature time-signature metronome-mark))
+	(break-align-symbols . (key-signature time-signature))
 	(non-break-align-symbols . (multi-measure-rest))
+	(non-musical . #t)
 	(meta . ((class . Item)
 		 (interfaces . (break-alignable-interface
-				break-aligned-interface
 				font-interface
 				metronome-mark-interface
 				self-alignment-interface

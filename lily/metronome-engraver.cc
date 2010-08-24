@@ -73,20 +73,26 @@ Metronome_mark_engraver::derived_mark () const
   scm_gc_mark (last_text_);
 }
 
+static bool
+safe_is_member (SCM scm, SCM lst)
+{
+  return scm_list_p (lst) == SCM_BOOL_T
+    && scm_member (scm, lst) != SCM_BOOL_F;
+}
+
 void
 Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
 {
   Grob *g = info.grob ();
 
   if (text_
-      && g->get_property_data ("break-align-symbol")
+      && g->get_property ("break-align-symbol")
       == ly_symbol2scm ("staff-bar"))
       bar_ = g;
   else if (text_
 	   && !support_
-	   && scm_member (g->get_property_data ("break-align-symbol"),
-			  text_->get_property_data ("break-align-symbols"))
-	   != SCM_BOOL_F)
+	   && safe_is_member (g->get_property ("break-align-symbol"),
+			      text_->get_property ("break-align-symbols")))
     {
       support_ = g;
       text_->set_parent (g, X_AXIS);
@@ -108,10 +114,9 @@ Metronome_mark_engraver::acknowledge_grob (Grob_info info)
   Grob *g = info.grob ();
 
   if (text_
-      && scm_member (grob_name_scm (g),
-		     text_->get_property_data ("non-break-align-symbols"))
-      != SCM_BOOL_F)
-      text_->set_parent (g, X_AXIS);
+      && safe_is_member (grob_name_scm (g),
+			 text_->get_property ("non-break-align-symbols")))
+    text_->set_parent (g, X_AXIS);
 }
 
 void
