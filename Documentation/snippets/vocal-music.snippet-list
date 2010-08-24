@@ -3,6 +3,7 @@ adding-indicators-to-staves-which-get-split-after-a-break.ly
 adjusting-lyrics-vertical-spacing.ly
 ambitus-with-multiple-voices.ly
 ambitus.ly
+ancient-notation-template----modern-transcription-of-gregorian-music.ly
 changing-stanza-fonts.ly
 chant-or-psalms-notation.ly
 forcing-hyphens-to-be-shown.ly
@@ -12,11 +13,13 @@ hymn-template.ly
 lyrics-alignment.ly
 marking-notes-of-spoken-parts-with-a-cross-on-the-stem.ly
 piano-template-with-melody-and-lyrics.ly
+satb-choir-template---four-staves.ly
 single-staff-template-with-notes,-lyrics,-and-chords.ly
 single-staff-template-with-notes,-lyrics,-chords-and-frets.ly
 single-staff-template-with-notes-and-lyrics.ly
 skips-in-lyric-mode-2.ly
 skips-in-lyric-mode.ly
+using-arpeggiobracket-to-make-divisi-more-visible.ly
 vertically-aligning-ossias-and-lyrics.ly
 vertically-centered-common-lyrics.ly
 vocal-ensemble-template-with-automatic-piano-reduction.ly
