@@ -39,6 +39,12 @@ subsections or subsubsections.
 link to any pieces of automatically generated documentation, like
 the IR or certain NR appendices.
 
+@item
+The bibliography in Community->Publications is generated automatically
+from @file{.bib} files; formatting is done automatically by
+@file{texi-web.bst}.
+
+@item
 @dots{}
 
 @item
