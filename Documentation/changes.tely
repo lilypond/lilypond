@@ -67,6 +67,14 @@ which scares away people.
 @end ignore
 
 @item
+New option @code{-dinclude-settings=INCLUDEFILE.ly}, which causes lilypond
+to include the given file before the score is processed. This allows the
+user to change global settings without the need to change the score itself.
+That way, several different editions/version (e.g. different page sizes)
+can be generated from a file without having to modify the score for each 
+version.
+
+@item
 The autobeaming settings syntax has been changed.  beatLength,
 beatGrouping, beamSettings, and measureGrouping have all been eliminated.
 Autobeaming is now controlled by baseMoment, beatStructure, and
