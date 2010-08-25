@@ -121,6 +121,7 @@ public:
   int max_systems_per_page () const;
   int min_systems_per_page () const;
   Real page_height (int page_number, bool last) const;
+  Real paper_height () const;
   vsize system_count () const;
   Real line_count_penalty (int line_count) const;
   int line_count_status (int line_count) const;
@@ -196,6 +197,7 @@ private:
   vector<Line_details> cached_line_details_;
   vector<Line_details> uncompressed_line_details_;
 
+  Real paper_height_;
   mutable vector<Real> page_height_cache_;
   mutable vector<Real> last_page_height_cache_;
 

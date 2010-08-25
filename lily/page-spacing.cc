@@ -247,6 +247,7 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
   // we need to look ahead a few systems in order to find the best solution.  But
   // we won't, because we stop once we overfill the page with the large header.
   vsize page_num = page == VPOS ? 0 : page;
+  Real paper_height = breaker_->paper_height ();
   Page_spacing space (breaker_->page_height (page_num + first_page_num_, last),
 		      breaker_);
   Page_spacing_node &cur = page == VPOS ? simple_state_[line] : state_.at (line, page);
@@ -272,13 +273,16 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 
       space.prepend_system (lines_[page_start]);
 
+      bool overfull = (space.rod_height_ > paper_height
+		       || (ragged
+			   && (space.rod_height_ + space.spring_len_ > paper_height)));
       // This 'if' statement is a little hard to parse. It won't consider this configuration
       // if it is overfull unless the current configuration is the first one with this start
       // point. We also make an exception (and consider this configuration) if the previous
       // configuration we tried had fewer lines than min-systems-per-page.
       if (!breaker_->too_few_lines (line_count)
 	  && page_start < line
-	  && (isinf (space.force_) || (space.force_ < 0 && ragged)))
+	  && overfull)
 	break;
 
       line_count += lines_[page_start].compressed_nontitle_lines_count_;

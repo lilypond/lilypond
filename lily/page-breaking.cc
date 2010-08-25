@@ -177,6 +177,7 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
 {
   book_ = pb;
   system_count_ = 0;
+  paper_height_ = robust_scm2double (pb->paper_->c_variable ("paper-height"), 1.0);
   ragged_ = to_boolean (pb->paper_->c_variable ("ragged-bottom"));
   ragged_last_ = to_boolean (pb->paper_->c_variable ("ragged-last-bottom"));
   systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("systems-per-page"), 0));
@@ -363,6 +364,15 @@ Page_breaking::make_page (int page_num, bool last) const
 				  ly_symbol2scm ("is-last-bookpart"), scm_from_bool (last_part),
 				  ly_symbol2scm ("is-bookpart-last-page"), scm_from_bool (last),
 				  SCM_UNDEFINED));
+}
+
+// Returns the total height of the paper, including margins and
+// space for the header/footer.  This is an upper bound on
+// page_height, and it doesn't depend on the current page.
+Real
+Page_breaking::paper_height () const
+{
+  return paper_height_;
 }
 
 Real
