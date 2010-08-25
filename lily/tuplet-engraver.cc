@@ -152,7 +152,7 @@ Tuplet_engraver::process_music ()
 				     stopped_tuplets_[i].bracket_->get_bound (LEFT));
 		}
 	      else
-		programming_error ("stopped tuplet bracket has left nor right bound.");
+		programming_error ("stopped tuplet bracket has neither left nor right bound");
 	    }	  
 	  // todo: scrap last_tuplets_, use stopped_tuplets_ only.
 	  // clear stopped_tuplets_ at start_translation_timestep
