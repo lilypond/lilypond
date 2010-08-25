@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the lilypond package.
 #
 # John Mandereau <john.mandereau@free.fr>, 2006-2008,
-# Jean-Charles Malahieude <lilyfan@orange.fr>, 2006-2009.
+# Jean-Charles Malahieude <lilyfan@orange.fr>, 2006-2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-13 12:25+0200\n"
-"PO-Revision-Date: 2010-04-13 12:30+0200\n"
+"PO-Revision-Date: 2010-06-28 19:32+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan-AT-orange-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -137,23 +137,21 @@ msgstr "post-GDP"
 
 #. -*- coding: utf-8 -*-
 #. Documentation/changes.tely:69 (variable)
-#, fuzzy
 msgid "coloredheads"
-msgstr "Têtes de note"
+msgstr "tetescolorisees"
 
 #. Documentation/changes.tely:70 (variable)
-#, fuzzy
 msgid "noclef"
-msgstr "clef"
+msgstr "sansclef"
 
 #. @node in Documentation/changes.tely
 #. @node in Documentation/macros.itexi
 msgid "Top"
-msgstr ""
+msgstr "Accueil"
 
 #. @top in Documentation/changes.tely
 msgid "New features in 2.13 since 2.12"
-msgstr ""
+msgstr "Modifications depuis la version 2.12"
 
 #. @node in Documentation/essay.tely
 #. @appendix in Documentation/essay.tely
@@ -170,7 +168,7 @@ msgstr "Index de LilyPond"
 
 #. @top in Documentation/macros.itexi
 msgid "LilyPond --- \\\\TITLE\\\\"
-msgstr ""
+msgstr "LilyPond -- \\\\TITLE\\\\"
 
 #. @subsubheading in Documentation/macros.itexi
 msgid "Predefined commands"
@@ -190,77 +188,68 @@ msgstr "Problèmes connus et avertissements"
 
 #. @node in Documentation/essay/engraving.itely
 #. @chapter in Documentation/essay/engraving.itely
-#, fuzzy
 msgid "Music engraving"
-msgstr "Gravure"
+msgstr "La gravure musicale"
 
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
-#, fuzzy
 msgid "The LilyPond story"
-msgstr "Test de LilyPond"
+msgstr "L'histoire de LilyPond"
 
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
-#, fuzzy
 msgid "Engraving details"
-msgstr "Gravure"
+msgstr "La gravure en détails"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
-#, fuzzy
 msgid "Music fonts"
-msgstr "Fonctions musicales"
+msgstr "Fontes et polices"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
-#, fuzzy
 msgid "Optical spacing"
-msgstr "Espacement vertical"
+msgstr "Espacement"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
-#, fuzzy
 msgid "Ledger lines"
-msgstr "ligne supplémentaire"
+msgstr "Lignes supplémentaires"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
-#, fuzzy
 msgid "Optical sizing"
-msgstr "Espacement vertical"
+msgstr "Tailles"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
 msgid "Why work so hard?"
-msgstr ""
+msgstr "La raison de tous ces efforts"
 
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
 msgid "Automated engraving"
-msgstr "Gravure automatisée"
+msgstr "La gravure automatisée"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
-#, fuzzy
 msgid "Beauty contests"
-msgstr "Création d'un contexte"
+msgstr "Concours de beauté"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
 msgid "Improvement by benchmarking"
-msgstr ""
+msgstr "Modélisation et banc d'essai"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
 msgid "Getting things right"
-msgstr ""
+msgstr "Règles de formatage"
 
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
-#, fuzzy
 msgid "Building software"
-msgstr "Masquage de portées"
+msgstr "De la théorie à la pratique"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
@@ -270,51 +259,45 @@ msgstr "Représentation de la musique"
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
 msgid "What symbols to engrave?"
-msgstr "Gravure des symboles musicaux"
+msgstr "Les constituants de la gravure"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
-#, fuzzy
 msgid "Flexible architecture"
-msgstr "Structure de fichier"
+msgstr "Flexibilité architecturale"
 
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
-#, fuzzy
 msgid "Putting LilyPond to work"
-msgstr "Test de LilyPond"
+msgstr "Démonstration par l'exemple"
 
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
 msgid "Engraved examples (BWV 861)"
-msgstr ""
+msgstr "Comparatif (BWV 861)"
 
 #. @node in Documentation/essay/literature.itely
 #. @chapter in Documentation/essay/literature.itely
 msgid "Literature list"
-msgstr "Bibliographie"
+msgstr "Références bibliographiques"
 
 #. @node in Documentation/essay/literature.itely
 #. @section in Documentation/essay/literature.itely
-#, fuzzy
 msgid "Short literature list"
-msgstr "Bibliographie"
+msgstr "Bibliographie succinte"
 
 #. @node in Documentation/essay/literature.itely
 #. @section in Documentation/essay/literature.itely
-#, fuzzy
 msgid "Long literature list"
-msgstr "Bibliographie"
+msgstr "Bibliographie développée"
 
 #. @subheading in Documentation/essay/literature.itely
-#, fuzzy
 msgid "Colorado"
-msgstr "couleur"
+msgstr "Colorado"
 
 #. @subheading in Documentation/essay/literature.itely
-#, fuzzy
 msgid "Computer notation"
-msgstr "Notation des accords"
+msgstr "Notation informatisée"
 
 #. @subheading in Documentation/essay/literature.itely
 msgid "Engraving"
@@ -371,111 +354,94 @@ msgstr "Tutoriel Scheme"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @section in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Introduction to Scheme"
-msgstr "Introduction aux retouches"
+msgstr "Introduction à Scheme"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Scheme sandbox"
-msgstr "Fonctions Scheme"
+msgstr "Scheme : le bac à sable"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Scheme variables"
-msgstr "Tutoriel Scheme"
+msgstr "Scheme et les variables"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Scheme simple data types"
-msgstr "Types de répétitions"
+msgstr "Types de données simples"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
 msgid "Scheme compound data types"
-msgstr ""
+msgstr "Types de données composites"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Pairs"
-msgstr "Barres de mesure"
+msgstr "Paires"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Lists"
-msgstr "instr"
+msgstr "Listes"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Association lists (alists)"
-msgstr "Liste des associations de hauteur à une couleur"
+msgstr "Liste associatives (alists)"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
 msgid "Hash tables"
-msgstr ""
+msgstr "Tables de hachage"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Calculations in Scheme"
-msgstr "Construction Scheme d'un marqueur"
+msgstr "Scheme et les calculs"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Scheme procedures"
-msgstr "Utilisation de procédures Scheme en tant que propriétés"
+msgstr "Scheme et les procédures"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Defining procedures"
-msgstr "Modification de propriétés"
+msgstr "Définition d'une procédure"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Predicates"
-msgstr "discantus"
+msgstr "Prédicats"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Return values"
-msgstr "valeur d'une note"
+msgstr "Valeurs de retour"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Scheme conditionals"
-msgstr "Fonctions Scheme"
+msgstr "Scheme et les conditions"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
 msgid "if"
-msgstr ""
+msgstr "if"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "cond"
-msgstr "accord"
+msgstr "cond"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @section in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Scheme in LilyPond"
-msgstr "Test de LilyPond"
+msgstr "Scheme et LilyPond"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "LilyPond Scheme syntax"
-msgstr "Index des commandes LilyPond"
+msgstr "Syntaxe Scheme dans du code LilyPond"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "LilyPond variables"
-msgstr "Utilisation de variables"
+msgstr "Variables LilyPond"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
@@ -484,24 +450,21 @@ msgstr "Variables d'entrée et Scheme"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Object properties"
-msgstr "Propriétés de la musique"
+msgstr "Propriétés des objets"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "LilyPond compound variables"
-msgstr "Index des commandes LilyPond"
+msgstr "LilyPond et les variables composites"
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
 msgid "Offsets"
 msgstr ""
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
-#, fuzzy
 msgid "Extents"
-msgstr "tenors"
+msgstr ""
 
 #. @subheading in Documentation/extending/scheme-tutorial.itely
 msgid "Property alists"
@@ -553,16 +516,16 @@ msgstr "LigatureManuelle"
 #. Documentation/extending/programming-interface.itely:212 (variable)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:192 (variable)
 msgid "AltOn"
-msgstr "ZoomOui"
+msgstr "AltOui"
 
 #. Documentation/extending/programming-interface.itely:217 (variable)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:198 (variable)
 msgid "AltOff"
-msgstr "ZoomNon"
+msgstr "AltNon"
 
 #. Documentation/extending/programming-interface.itely:230 (variable)
 msgid "withAlt"
-msgstr "Zoome"
+msgstr "avecAlt"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @chapter in Documentation/extending/programming-interface.itely
@@ -576,9 +539,8 @@ msgstr "Fonctions musicales"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "Music function syntax"
-msgstr "Fonctions musicales"
+msgstr "Syntaxe des fonctions musicales"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
@@ -587,9 +549,8 @@ msgstr "Fonctions de substitution simple"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "Intermediate substitution functions"
-msgstr "Fonctions de substitution par paire"
+msgstr "Fonctions de substitution intermédiaires"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
@@ -608,9 +569,8 @@ msgstr "Fonctions dépourvues d'argument"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "Markup functions"
-msgstr "Fonctions musicales"
+msgstr "Fonctions « Markup »"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
@@ -629,27 +589,23 @@ msgstr "Définition d'une nouvelle commande de marqueur"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @unnumberedsubsubsec in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "Markup command definition syntax"
-msgstr "Définition d'une nouvelle commande de marqueur"
+msgstr "Syntaxe de définition d'une commande de marqueur"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @unnumberedsubsubsec in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "On properties"
-msgstr "Propriétés de la musique"
+msgstr "Les propriétés « On »"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @unnumberedsubsubsec in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "A complete example"
-msgstr "Exemples cliquables"
+msgstr "Exemple exhaustif"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @unnumberedsubsubsec in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "Adapting builtin commands"
-msgstr "Commandes rythmiques avancées"
+msgstr "Adaptation des commandes préétablies"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
@@ -673,14 +629,13 @@ msgstr "Application d'une fonction à tous les objets de mise en forme"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "Callback functions"
-msgstr "Fonctions musicales"
+msgstr "Fonctions « callback »"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
 msgid "Inline Scheme code"
-msgstr ""
+msgstr "Code Scheme au sein d'un fichier LilyPond"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
@@ -689,9 +644,8 @@ msgstr "Retouches complexes"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @chapter in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "LilyPond Scheme interfaces"
-msgstr "Interfaces de rendu"
+msgstr "Interfaces entre LilyPond et Scheme"
 
 #. Documentation/learning/tutorial.itely:209 (comment)
 msgid "set the starting point to middle C"
@@ -737,14 +691,12 @@ msgstr "Compilation d'un fichier"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
-#, fuzzy
 msgid "Entering input"
-msgstr "Saisie des paroles"
+msgstr "Saisie de la musique"
 
 #. @subheading in Documentation/learning/tutorial.itely
-#, fuzzy
 msgid "Producing output"
-msgstr "Contrôle des sorties"
+msgstr ""
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
@@ -758,15 +710,13 @@ msgstr "Windows"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
-#, fuzzy
 msgid "Command-line"
-msgstr "Utilisation en ligne de commande"
+msgstr "Ligne de commande"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @section in Documentation/learning/tutorial.itely
-#, fuzzy
 msgid "How to write input files"
-msgstr "Travail sur des fichiers texte"
+msgstr "Composition d'un fichier source"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
@@ -886,10 +836,9 @@ msgstr "Clefs"
 msgid "clef"
 msgstr "clef"
 
-# bof
 #. @subheading in Documentation/learning/tutorial.itely
 msgid "All together"
-msgstr "Assemblage"
+msgstr ""
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
@@ -898,14 +847,13 @@ msgstr "Travail sur les fichiers d'entrée"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @section in Documentation/learning/tutorial.itely
-#, fuzzy
 msgid "How to read the manuals"
-msgstr "Bien lire le manuel"
+msgstr "Bien lire les manuels"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
 msgid "Omitted material"
-msgstr ""
+msgstr "Matériel incomplet"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
@@ -914,9 +862,8 @@ msgstr "Exemples cliquables"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
-#, fuzzy
 msgid "Overview of manuals"
-msgstr "Aperçu des fonctions musicales"
+msgstr "Vue d'ensemble des manuels"
 
 #. Documentation/learning/common-notation.itely:1185 (variable)
 #. Documentation/learning/fundamental.itely:3084 (variable)
@@ -947,9 +894,8 @@ msgstr "toto"
 
 #. @node in Documentation/learning/common-notation.itely
 #. @chapter in Documentation/learning/common-notation.itely
-#, fuzzy
 msgid "Common notation"
-msgstr "Notation des accords"
+msgstr "Bases de notation"
 
 #. @node in Documentation/learning/common-notation.itely
 #. @section in Documentation/learning/common-notation.itely
@@ -1425,19 +1371,19 @@ msgstr "principal"
 
 #. Documentation/learning/fundamental.itely:629 (comment)
 msgid "Voice \\\"1\\\"                  Voice \\\"2\\\""
-msgstr "Voix \\\"1\\\"                   Voix \\\"2\\\""
+msgstr "Voix  \\\"1\\\"                   Voix \\\"2\\\""
 
 #. Documentation/learning/fundamental.itely:639 (comment)
 msgid "Voice \\\"1\\\"             Voice \\\"2\\\""
-msgstr "Voix \\\"1\\\"              Voix \\\"2\\\""
+msgstr "Voix  \\\"1\\\"              Voix \\\"2\\\""
 
 #. Documentation/learning/fundamental.itely:654 (comment)
 msgid "Voice \\\"1\\\""
-msgstr "Voix \\\"1\\\""
+msgstr "Voix  \\\"1\\\""
 
 #. Documentation/learning/fundamental.itely:659 (comment)
 msgid "Voice \\\"2\\\""
-msgstr "Voix \\\"2\\\""
+msgstr "Voix  \\\"2\\\""
 
 #. Documentation/learning/fundamental.itely:682 (comment)
 #. Documentation/learning/fundamental.itely:706 (comment)
@@ -1446,7 +1392,7 @@ msgstr "Voix principale"
 
 #. Documentation/learning/fundamental.itely:684 (comment)
 msgid "Voice \\\"1\\\"     Voice \\\"2\\\"                 Voice \\\"3\\\""
-msgstr "Voix \\\"1\\\"       Voix \\\"2\\\"                   Voix \\\"3\\\""
+msgstr "Voix  \\\"1\\\"      Voix \\\"2\\\"                  Voix \\\"3\\\""
 
 #. Documentation/learning/fundamental.itely:708 (comment)
 msgid "Bar 1"
@@ -1474,7 +1420,7 @@ msgstr "Voix deux"
 
 #. Documentation/learning/fundamental.itely:902 (comment)
 msgid "Omit Voice three"
-msgstr "Pas de Voix trois"
+msgstr "Pas de voix trois"
 
 #. Documentation/learning/fundamental.itely:903 (comment)
 msgid "Voice four"
@@ -1502,7 +1448,6 @@ msgid "Initiate second voice"
 msgstr "Initialisation de la seconde voix"
 
 #. Documentation/learning/fundamental.itely:1048 (comment)
-#, fuzzy
 msgid "Set stems, etc., down"
 msgstr "Hampes et autres attributs iront vers le bas"
 
@@ -1899,7 +1844,7 @@ msgstr "basses"
 
 #. Documentation/learning/fundamental.itely:2822 (comment)
 msgid "end ChoirStaff"
-msgstr "fin du ChoirStaff (système pour chÅÂur)"
+msgstr "fin du ChoirStaff (système pour chœur)"
 
 #. Documentation/learning/fundamental.itely:3010 (variable)
 msgid "ManualOneVoiceOneMusic"
@@ -2068,14 +2013,12 @@ msgid "Modifying context properties"
 msgstr "Modification des propriétés d'un contexte"
 
 #. @subsubheading in Documentation/learning/fundamental.itely
-#, fuzzy
 msgid "Setting context properties with @code{\\\\with}"
-msgstr "Définition des propriétés de contexte avec @code{\\with}"
+msgstr "Définition des propriétés de contexte avec @code{\\\\with}"
 
 #. @subsubheading in Documentation/learning/fundamental.itely
-#, fuzzy
 msgid "Setting context properties with @code{\\\\context}"
-msgstr "Définition des propriétés de contexte avec @code{\\context}"
+msgstr "Définition des propriétés de contexte avec @code{\\\\context}"
 
 #. @node in Documentation/learning/fundamental.itely
 #. @subsection in Documentation/learning/fundamental.itely
@@ -2174,9 +2117,8 @@ msgid "Start Ottava Bracket"
 msgstr "Début du crochet d'octaviation"
 
 #. Documentation/learning/tweaks.itely:1998 (comment)
-#, fuzzy
 msgid "Add Dynamic Text and hairpin"
-msgstr "Ajout d'une nuance textuelle"
+msgstr "Ajout d'une nuance textuelle au soufflet"
 
 #. Documentation/learning/tweaks.itely:2001 (comment)
 #. Documentation/learning/tweaks.itely:2073 (comment)
@@ -2184,9 +2126,8 @@ msgid "Add Text Script"
 msgstr "Ajout d'un commentaire textuel"
 
 #. Documentation/learning/tweaks.itely:2004 (comment)
-#, fuzzy
 msgid "Add Dynamic Text and terminate hairpin"
-msgstr "Ajout d'une nuance graphique"
+msgstr "Ajout d'une nuance textuelle et terminaison du soufflet"
 
 #. Documentation/learning/tweaks.itely:2006 (comment)
 #. Documentation/learning/tweaks.itely:2078 (comment)
@@ -2204,7 +2145,7 @@ msgstr "Ajout d'une nuance textuelle"
 
 #. Documentation/learning/tweaks.itely:2071 (comment)
 msgid "Add Dynamic Line Spanner"
-msgstr "Ajout d'une nuance graphique"
+msgstr "Ajout d'une ligne d'extension pour la nuance"
 
 #. Documentation/learning/tweaks.itely:2153 (comment)
 msgid "Cause notes to space out to accommodate text"
@@ -2236,28 +2177,24 @@ msgid "Extend width by 1 staff space"
 msgstr "Élargissement d'un espace"
 
 #. Documentation/learning/tweaks.itely:2582 (comment)
-#, fuzzy
 msgid "This will not work, see below"
 msgstr "La commande suivante est sans résultat ; voir plus loin."
 
 #. Documentation/learning/tweaks.itely:2586 (comment)
-#, fuzzy
 msgid "This works"
 msgstr "Celle-ci produit le résultat escompté"
 
 #. Documentation/learning/tweaks.itely:2623 (variable)
-#, fuzzy
 msgid "sesquisharp"
-msgstr "dièse"
+msgstr "dieseetdemi"
 
 #. Documentation/learning/tweaks.itely:2626 (comment)
 msgid "This prints a sesquisharp but the spacing is too small"
-msgstr ""
+msgstr "Le dièse et demi s'imprime, mais l'espace est rop resserré"
 
 #. Documentation/learning/tweaks.itely:2631 (comment)
-#, fuzzy
 msgid "This improves the spacing"
-msgstr "ceci est sans effet"
+msgstr "Amélioration des espacements"
 
 #. Documentation/learning/tweaks.itely:2671 (comment)
 msgid "Extend width by 1 unit"
@@ -2504,9 +2441,8 @@ msgid "Outside-staff objects"
 msgstr "Objets hors de la portée"
 
 #. @subheading in Documentation/learning/tweaks.itely
-#, fuzzy
 msgid "\\\\textLengthOn"
-msgstr "\\textLengthOn"
+msgstr "\\\\textLengthOn"
 
 #. @subheading in Documentation/learning/tweaks.itely
 msgid "Grob sizing"
@@ -2671,15 +2607,15 @@ msgstr "Ensemble vocal"
 
 #. @appendixsubsec in Documentation/learning/templates.itely
 msgid "SATB vocal score"
-msgstr "Partition pour chÅÂur à quatre voix mixtes"
+msgstr "Partition pour chœur à quatre voix mixtes"
 
 #. @appendixsubsec in Documentation/learning/templates.itely
 msgid "SATB vocal score and automatic piano reduction"
-msgstr "Partition pour chÅÂur SATB avec réduction pour piano"
+msgstr "Partition pour chœur SATB avec réduction pour piano"
 
 #. @appendixsubsec in Documentation/learning/templates.itely
 msgid "SATB with aligned contexts"
-msgstr "Partition pour chÅÂur SATB avec alignement des contextes"
+msgstr "Partition pour chœur SATB avec alignement des contextes"
 
 #. @node in Documentation/learning/templates.itely
 #. @appendixsec in Documentation/learning/templates.itely
@@ -2688,7 +2624,7 @@ msgstr "Modèles pour orchestre"
 
 #. @appendixsubsec in Documentation/learning/templates.itely
 msgid "Orchestra, choir and piano"
-msgstr "Orchestre, chÅÂur et piano"
+msgstr "Orchestre, chœur et piano"
 
 #. @node in Documentation/learning/templates.itely
 #. @appendixsec in Documentation/learning/templates.itely
@@ -2705,9 +2641,8 @@ msgstr "Transcription du grégorien"
 
 #. @node in Documentation/learning/templates.itely
 #. @appendixsec in Documentation/learning/templates.itely
-#, fuzzy
 msgid "Other templates"
-msgstr "Modèles pour orchestre"
+msgstr "Autre modèles"
 
 #. @appendixsubsec in Documentation/learning/templates.itely
 msgid "Jazz combo"
@@ -2716,7 +2651,7 @@ msgstr "Symboles de jazz"
 #. @node in Documentation/music-glossary.tely
 #. @chapter in Documentation/music-glossary.tely
 msgid "Musical terms A-Z"
-msgstr ""
+msgstr "Termes musicaux -- ordre alphabétique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -2734,9 +2669,8 @@ msgstr "a due"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "accelerando"
-msgstr "accBandon"
+msgstr "accelerando"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -2745,14 +2679,13 @@ msgstr "accent"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "accessory"
-msgstr "accBasson"
+msgstr "accessoire"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "adagio"
-msgstr ""
+msgstr "adagio"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -2761,9 +2694,8 @@ msgstr "al niente"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "alla breve"
-msgstr "brève"
+msgstr "à la brève"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -2772,33 +2704,29 @@ msgstr "allegro"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "alteration"
-msgstr "durée"
+msgstr "altération"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 #. Documentation/snippets/jazz-combo-template.ly:111 (variable)
 msgid "alto"
-msgstr ""
+msgstr "alto"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "alto clef"
-msgstr "clef"
+msgstr "clef d'alto"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "ancient minor scale"
-msgstr "Clefs anciennes"
+msgstr "gamme mineure ancienne"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "andante"
-msgstr "date"
+msgstr "andante"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -2807,26 +2735,23 @@ msgstr "arpège"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "ascending interval"
-msgstr "intervalle"
+msgstr "intervalle ascendant"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "augmented interval"
-msgstr "intervalle"
+msgstr "intervalle augmenté"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "augmentation"
-msgstr "Notation simple"
+msgstr "augmentation"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "autograph"
-msgstr ""
+msgstr "manuscript"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -2838,21 +2763,18 @@ msgstr "B"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "backfall"
-msgstr "chute"
+msgstr ""
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "bar"
-msgstr "mesureA"
+msgstr "mesure"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "bar line"
-msgstr "Barres de mesure"
+msgstr "barre de mesure"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -2861,9 +2783,8 @@ msgstr "baryton"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "baritone clef"
-msgstr "baryton"
+msgstr "clef de baryton"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -2876,26 +2797,23 @@ msgstr "basse"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "bass clef"
-msgstr "basses"
+msgstr "clef de basse"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "beat"
-msgstr "barre de ligature"
+msgstr "temps"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "beat repeat"
-msgstr "répétition en pourcent"
+msgstr ""
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "bind"
-msgstr ""
+msgstr "liaison"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -2904,15 +2822,13 @@ msgstr "crochet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "brass"
-msgstr "basse"
+msgstr "cuivre"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "breath mark"
-msgstr "Signes de respiration"
+msgstr "signe de respiration"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -2922,17 +2838,15 @@ msgstr "brève"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "C"
-msgstr ""
+msgstr "do"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "C clef"
-msgstr "Clefs"
+msgstr "clef d'ut"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "cadence"
 msgstr "cadence"
 
@@ -2949,31 +2863,28 @@ msgstr "césure"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "canon"
-msgstr "accBandon"
+msgstr "canon"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "cent"
-msgstr "accent"
+msgstr "centième"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "central C"
-msgstr "altération"
+msgstr "do médium"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "chromatic scale"
-msgstr ""
+msgstr "gamme chromatique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "chromaticism"
-msgstr ""
+msgstr "chromatisme"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -2988,13 +2899,12 @@ msgstr "cluster"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "comma"
-msgstr ""
+msgstr "comma"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "common meter"
-msgstr "Quelques erreurs des plus courantes"
+msgstr "mesure à 4/4"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3003,26 +2913,23 @@ msgstr ""
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "complement"
-msgstr "accompagnement"
+msgstr "complément"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "compound interval"
-msgstr "intervalle"
+msgstr "intervalle composé"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "compound meter"
-msgstr ""
+msgstr "métrique composée"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "compound time"
-msgstr "accompagnement"
+msgstr "temps composé"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3032,48 +2939,42 @@ msgstr "tonalité de concert"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "conjunct movement"
-msgstr ""
+msgstr "mouvement conjoint"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "consonance"
-msgstr ""
+msgstr "consonnance"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "contralto"
-msgstr "bécarre"
+msgstr "contralto"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "copying music"
-msgstr "Musique parlée"
+msgstr "copie de musique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "counterpoint"
-msgstr "tonalité de concert"
+msgstr "contrepoint"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "countertenor"
-msgstr "continuo"
+msgstr "haute contre"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "cue-notes"
-msgstr "Notes d'ornement"
+msgstr "notes d'ornement"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "custos"
-msgstr "guidonNote"
+msgstr "guidon"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3083,84 +2984,77 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "D"
-msgstr ""
+msgstr "ré"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "da capo"
-msgstr ""
+msgstr "da capo"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "dal niente"
-msgstr "al niente"
+msgstr "dal niente"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "dal segno"
-msgstr "allegro"
+msgstr "dal segno"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "descending interval"
-msgstr ""
+msgstr "intervalle descendant"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "diatonic scale"
-msgstr ""
+msgstr "gamme diatonique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "didymic comma"
-msgstr "Commandes rythmiques avancées"
+msgstr "comma didymique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "diminished interval"
-msgstr ""
+msgstr "intervalle diminué"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "diminuendo"
-msgstr ""
+msgstr "diminuendo"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "diminution"
-msgstr "durée"
+msgstr "diminution"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "direct"
-msgstr "correct"
+msgstr "direct"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "disjunct movement"
-msgstr ""
+msgstr "mouvement disjoint"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "dissonance"
-msgstr ""
+msgstr "dissonnance"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "dissonant interval"
-msgstr "intervalle"
+msgstr "intervalle dissonnant"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "divisio"
-msgstr "Divisions"
+msgstr "division"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3169,141 +3063,123 @@ msgstr "saut"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "dominant"
-msgstr "saut"
+msgstr "dominante"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "dominant ninth chord"
-msgstr "Combinaison de notes en accords"
+msgstr "accord de neuvième de dominante"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "dominant seventh chord"
-msgstr "Combinaison de notes en accords"
+msgstr "accord de septième de dominante"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "dorian mode"
-msgstr "Mode accords"
+msgstr "mode dorien"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "dot (augmentation dot)"
-msgstr ""
+msgstr "point (d'augmentation)"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "double appoggiatura"
-msgstr "appoggiature"
+msgstr "appoggiature double"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "double bar line"
-msgstr "après la barre de mesure"
+msgstr "double barre"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "double dotted note"
-msgstr "note pointée"
+msgstr "note doublement pointée"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "double time signature"
-msgstr "métrique"
+msgstr "métrique double"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "double trill"
-msgstr "double bémol"
+msgstr "double trille"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "duple meter"
-msgstr "métrique"
+msgstr "métrique binaire"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "duplet"
-msgstr "nolet"
+msgstr "duolet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "E"
-msgstr ""
+msgstr "mi"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "ecclesiastical mode"
-msgstr ""
+msgstr "mode d'église"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "eighth note"
-msgstr "Notes fantômes"
+msgstr "croche"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "eighth rest"
-msgstr "huit mesures"
+msgstr "demi-soupir"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "elision"
-msgstr ""
+msgstr "élision"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "embellishment"
-msgstr "mélisme"
+msgstr "ornementation"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "engraving"
-msgstr "Gravure"
+msgstr "gravure"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "enharmonic"
-msgstr "harmoniques"
+msgstr "enharmonique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "equal temperament"
-msgstr ""
+msgstr "tempérament égal"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "expression mark"
-msgstr "Signes d'interprétation"
+msgstr "signe d'interprétation"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "F"
-msgstr ""
+msgstr "fa"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "F clef"
-msgstr "clef"
+msgstr "clef de fa"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3312,14 +3188,13 @@ msgstr "chute"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "feathered beam"
-msgstr "Liens de croches en soufflet"
+msgstr "lien de croches en soufflet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "fermata"
-msgstr ""
+msgstr "point d'arrêt"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3333,38 +3208,33 @@ msgstr "basse chiffrée"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "flag"
-msgstr "bémol"
+msgstr "crochet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "flageolet"
-msgstr "petitFlageolet"
+msgstr "flageolet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "forefall"
-msgstr "chute"
-
-#. @node in Documentation/music-glossary.tely
-#. @section in Documentation/music-glossary.tely
-#, fuzzy
-msgid "forte"
-msgstr "flute"
-
-#. @node in Documentation/music-glossary.tely
-#. @section in Documentation/music-glossary.tely
-msgid "fourth"
 msgstr ""
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
+msgid "forte"
+msgstr "forte"
+
+#. @node in Documentation/music-glossary.tely
+#. @section in Documentation/music-glossary.tely
+msgid "fourth"
+msgstr "quarte"
+
+#. @node in Documentation/music-glossary.tely
+#. @section in Documentation/music-glossary.tely
 msgid "Frenched score"
-msgstr "Portée à la française"
+msgstr "Partition à la française"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3373,15 +3243,13 @@ msgstr "Portée à la française"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "Frenched staves"
-msgstr "Portée à la française"
+msgstr "Portées à la française"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "fugue"
-msgstr "flute"
+msgstr "fugue"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3391,13 +3259,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "G"
-msgstr ""
+msgstr "sol"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "G clef"
-msgstr "clef"
+msgstr "clef de sol"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3411,20 +3278,18 @@ msgstr "système"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "grave"
-msgstr "accolade"
+msgstr "grave"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "gruppetto"
-msgstr ""
+msgstr "gruppetto"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "H"
-msgstr "MD"
+msgstr "si"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3433,15 +3298,13 @@ msgstr "soufflet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "half rest"
-msgstr "blanche"
+msgstr "demi-pause"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "harmonic cadence"
-msgstr "harmoniques"
+msgstr "cadence harmonique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3450,56 +3313,48 @@ msgstr "harmoniques"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "harmony"
-msgstr "harmoniques"
+msgstr "harmonie"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "hemiola"
-msgstr "viola"
+msgstr "hémiole"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "homophony"
-msgstr "polyphonie"
+msgstr "homophonie"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "hook"
-msgstr "houm"
+msgstr "crochet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "hymn meter"
-msgstr "métrique"
+msgstr ""
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "inversion"
-msgstr "doigté"
+msgstr "inversion"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "inverted interval"
-msgstr "intervalle"
+msgstr "intervalle renversé"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "just intonation"
-msgstr "Notation musicale générale"
+msgstr "intonation juste"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "key"
-msgstr ""
+msgstr "tonalité"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3508,15 +3363,13 @@ msgstr "laissez vibrer"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "largo"
-msgstr "arpège"
+msgstr "largo"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "leading note"
-msgstr "refrainnotesA"
+msgstr ""
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3525,9 +3378,8 @@ msgstr "ligne supplémentaire"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "legato"
-msgstr "allegro"
+msgstr "legato"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3536,21 +3388,18 @@ msgstr ""
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "leger line"
 msgstr "ligne supplémentaire"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "ligature"
-msgstr "Ligatures"
+msgstr "ligature"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "lilypond"
-msgstr "Lancement de lilypond"
+msgstr "lilypond"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3560,13 +3409,12 @@ msgstr "ligne"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "loco"
-msgstr ""
+msgstr "loco"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "long appoggiatura"
-msgstr "appoggiature"
+msgstr "appoggiature longue"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3575,15 +3423,13 @@ msgstr "longue"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "lyric tie"
-msgstr "paroles"
+msgstr "liaison de paroles"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "major interval"
-msgstr "intervalle"
+msgstr "intervalle majeur"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3597,45 +3443,38 @@ msgstr ""
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "measure"
-msgstr "deux mesures"
+msgstr "mesure"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "measure repeat"
-msgstr "Répétitions de mesure"
+msgstr "répétition de mesure"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "mediant"
-msgstr "melodie"
+msgstr "médiante"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "melisma line"
-msgstr "mélisme"
+msgstr "trait d'union"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "melodic cadence"
-msgstr "melodie"
+msgstr "cadence mélodique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "mensural notation"
-msgstr "Notation musicale générale"
+msgstr "notation ancienne"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "mensuration sign"
-msgstr "Métriques mensurales"
+msgstr "indicateur de mensuration"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3660,59 +3499,52 @@ msgstr "indication métronomique"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "mezzo"
-msgstr ""
+msgstr "mezzo"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "mezzo-soprano"
-msgstr "soprani"
+msgstr "mezzo-soprano"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "minor interval"
-msgstr "intervalle"
+msgstr "intervalle mineur"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "mixolydian mode"
-msgstr ""
+msgstr "mode mixolydien"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "mode"
-msgstr "Mode Vim"
+msgstr "mode"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "modulation"
-msgstr "durée"
+msgstr "modulation"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "mordent"
-msgstr "Notes en accords"
+msgstr "mordant"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "motif"
-msgstr ""
+msgstr "motif"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "motive"
-msgstr "octave"
+msgstr "motif"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "movement"
-msgstr "femmes"
+msgstr "mouvement"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3722,36 +3554,32 @@ msgstr "silence multi-mesures"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "neighbor tones"
-msgstr ""
+msgstr "tons voisins"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "ninth"
-msgstr "instr"
+msgstr "neuvième"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "non-legato"
-msgstr ""
+msgstr "détaché"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "note"
-msgstr "mesnotes"
+msgstr "note"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "note head"
-msgstr "Têtes de note"
+msgstr "tête de note"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "note names"
-msgstr "Noms de note arabes"
+msgstr "noms de note"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3760,27 +3588,23 @@ msgstr "octaviation"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "octave mark"
-msgstr "octave"
+msgstr "marque d'octave"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "octave marking"
 msgstr "octaviation"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "octave sign"
-msgstr "octave"
+msgstr "signe d'octave"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "ornament"
-msgstr "fragment"
+msgstr "ornement"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3791,15 +3615,13 @@ msgstr "partie"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "pause"
-msgstr "japonais"
+msgstr "pause"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "pennant"
-msgstr "répétition"
+msgstr "crochet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3808,38 +3630,33 @@ msgstr "répétition en pourcent"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "percussion"
-msgstr "Percussions"
+msgstr "percussions"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "perfect interval"
-msgstr "intervalle"
+msgstr "intervalle juste"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "phrase"
-msgstr "phrasé"
+msgstr "phrase"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "pickup"
-msgstr "piuF"
+msgstr "levée"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "pizzicato"
-msgstr ""
+msgstr "pizzicato"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "polymeter"
-msgstr "polymétrique"
+msgstr "polymétrie"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3858,37 +3675,33 @@ msgstr "portato"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "presto"
-msgstr "silence"
+msgstr "presto"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "proportion"
-msgstr "transposition"
+msgstr "proportion"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "Pythagorean comma"
-msgstr ""
+msgstr "comma pytagoricien"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "quadruplet"
-msgstr "nolet"
+msgstr "quartolet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "quality"
-msgstr ""
+msgstr "qualité"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "quarter rest"
-msgstr "noire"
+msgstr "soupir"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3897,20 +3710,18 @@ msgstr "quart de ton"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "quintuplet"
-msgstr "nolet"
+msgstr "quintolet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "rallentando"
-msgstr ""
+msgstr "rallentando"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "relative key"
-msgstr "Octaves relatives"
+msgstr "tonalité relative"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3927,18 +3738,17 @@ msgstr "rythme"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "ritardando"
-msgstr ""
+msgstr "ritardando"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "ritenuto"
-msgstr "tenuto"
+msgstr "ritenuto"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "scale degree"
-msgstr ""
+msgstr "degré de la gamme"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3947,20 +3757,18 @@ msgstr "scordatura"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "score"
-msgstr "score.ly"
+msgstr "partition"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "second"
-msgstr ""
+msgstr "seconde"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "semibreve"
-msgstr "brève"
+msgstr "semibrève"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3970,25 +3778,22 @@ msgstr "demi-ton"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "seventh"
-msgstr ""
+msgstr "septième"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "sextolet"
-msgstr "demi-ton"
+msgstr "sextolet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "sextuplet"
-msgstr "nolet"
+msgstr "sextolet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "shake"
-msgstr "partage"
+msgstr "tremblement"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3997,72 +3802,63 @@ msgstr "simile"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "simple meter"
-msgstr "accord de ré simple"
+msgstr "métrique simple"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "sixteenth note"
-msgstr "Dictée à trous"
+msgstr "double croche"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "sixteenth rest"
-msgstr "Silences anciens"
+msgstr "quart de soupir"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "sixth"
-msgstr "hauteur"
+msgstr "sixte"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "sixty-fourth note"
-msgstr ""
+msgstr "quadruple croche"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "sixty-fourth rest"
-msgstr ""
+msgstr "seizième de soupir"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "slash repeat"
-msgstr "répétition"
+msgstr "barre de répétition"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "solmization"
-msgstr "Compilation"
+msgstr "psalmodie"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "sonata"
-msgstr "scordatura"
+msgstr "sonate"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "sonata form"
-msgstr ""
+msgstr "forme sonate"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "song texts"
-msgstr "Ajout de texte"
+msgstr "texte et chanson"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "soprano"
-msgstr "soprani"
+msgstr "soprano"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4081,87 +3877,78 @@ msgstr "portées"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "stem"
-msgstr "hampeOui"
+msgstr "hampe"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "stringendo"
-msgstr "chanteur"
+msgstr "stringendo"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "strings"
-msgstr "chanteur"
+msgstr "cordes"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "strong beat"
-msgstr "Répétition d'un long passage"
+msgstr "temps fort"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "subdominant"
-msgstr ""
+msgstr "sous-dominanate"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "submediant"
-msgstr ""
+msgstr "sous-médiante"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "subtonic"
-msgstr "voixInferieur"
+msgstr "sous-tonique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "sul G"
-msgstr ""
+msgstr "sul G"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "superdominant"
-msgstr ""
+msgstr "sus-dominante"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "supertonic"
-msgstr ""
+msgstr "sus-tonique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "symphony"
-msgstr "polyphonie"
+msgstr "symphonie"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "syncopation"
-msgstr "Compilation"
+msgstr "syncope"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "syntonic comma"
-msgstr ""
+msgstr "comma syntonique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "system"
-msgstr "hampeOui"
+msgstr "système"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "temperament"
-msgstr "fragment"
+msgstr "tempérament"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4170,15 +3957,13 @@ msgstr "indication du tempo"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "tenor"
-msgstr "tenors"
+msgstr "tenor"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "tenth"
-msgstr "tenuto"
+msgstr "dixième"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4187,43 +3972,38 @@ msgstr "tenuto"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "third"
-msgstr "accord"
+msgstr "tierce"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "thirty-second note"
-msgstr "note pointée"
+msgstr "triple croche"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "thirty-second rest"
-msgstr ""
+msgstr "huitième de soupir"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "thorough bass"
-msgstr ""
+msgstr "basse continue"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "time"
-msgstr "liaison de prolongation"
+msgstr "temps"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "tone"
-msgstr "un"
+msgstr "ton"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "tonic"
-msgstr "voixSuperieur"
+msgstr "tonique"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4233,19 +4013,17 @@ msgstr "instrument transpositeur"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "treble clef"
-msgstr ""
+msgstr "clé de sol"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "tremolo"
-msgstr "moltoF"
+msgstr "tremolo"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "triad"
-msgstr "Tutoriel"
+msgstr "triade"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4254,20 +4032,18 @@ msgstr "trille"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "triple meter"
-msgstr "triolet"
+msgstr "mesure ternaire"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "tritone"
-msgstr "baryton"
+msgstr "triton"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "tuning fork"
-msgstr ""
+msgstr "diapason"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4276,20 +4052,18 @@ msgstr "nolet"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "turn"
-msgstr "melodie"
+msgstr "gruppetto"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "unison"
-msgstr ""
+msgstr "unisson"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "upbeat"
-msgstr "Levées"
+msgstr "levée"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4304,24 +4078,22 @@ msgstr "volta"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "weak beat"
-msgstr ""
+msgstr "temps faible"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "whole rest"
-msgstr "ronde"
+msgstr "pause"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
-#, fuzzy
 msgid "whole tone"
-msgstr "ronde"
+msgstr "ton"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "woodwind"
-msgstr ""
+msgstr "bois"
 
 #. @node in Documentation/music-glossary.tely
 #. @chapter in Documentation/music-glossary.tely
@@ -4330,9 +4102,8 @@ msgstr "Noms des notes et silences selon leur durée"
 
 #. @node in Documentation/music-glossary.tely
 #. @appendix in Documentation/music-glossary.tely
-#, fuzzy
 msgid "Literature used"
-msgstr "Bibliographie"
+msgstr "Sources"
 
 #. @node in Documentation/notation.tely
 #. @appendix in Documentation/notation.tely
@@ -4481,15 +4252,13 @@ msgstr "Ignorer des passages de la partition"
 
 #. @node in Documentation/notation/input.itely
 #. @subsection in Documentation/notation/input.itely
-#, fuzzy
 msgid "Alternative output formats"
-msgstr "Signes de note alternatifs"
+msgstr "Autres formats de sortie"
 
 #. @node in Documentation/notation/input.itely
 #. @subsection in Documentation/notation/input.itely
-#, fuzzy
 msgid "Replacing the notation font"
-msgstr "Indication de la taille de fonte musicale"
+msgstr "Changement de fonte musicale"
 
 #. @node in Documentation/notation/input.itely
 #. @section in Documentation/notation/input.itely
@@ -4572,31 +4341,31 @@ msgstr "le saut de ligne est maintenant autorisé"
 
 #. Documentation/notation/spacing.itely:1441 (comment)
 msgid "Since space is small and there is no minimum-distance, the distance"
-msgstr ""
+msgstr "L'espace est réduit et minimum-distance non déterminé ; la distance"
 
 #. Documentation/notation/spacing.itely:1442 (comment)
 msgid "between this staff and the next will be determined by padding."
-msgstr ""
+msgstr "entre cette portée et la suivante s'effectuera par décallage."
 
 #. Documentation/notation/spacing.itely:1448 (comment)
 msgid "Since space is small and nothing sticks out very far, the distance"
-msgstr ""
+msgstr "L'espace est réduit et rien ne dépasse vraiment ; la distance"
 
 #. Documentation/notation/spacing.itely:1449 (comment)
 msgid "between this staff and the next will be determined by minimum-distance."
-msgstr ""
+msgstr "entre cette portée et la suivante sera déterminée par minimum-distance."
 
 #. Documentation/notation/spacing.itely:1455 (comment)
 msgid "By setting padding to a negative value, staves can be made to collide."
-msgstr ""
+msgstr "Définir le décallage à une valeur négative peut engendrer un chevauchement des portées."
 
 #. Documentation/notation/spacing.itely:1551 (comment)
 msgid "By default, Lyrics are placed close together. Here, we allow them to"
-msgstr ""
+msgstr "Par défaut, les lignes de paroles sont placées au plus près les unes des autres."
 
 #. Documentation/notation/spacing.itely:1552 (comment)
 msgid "be stretched more widely."
-msgstr ""
+msgstr "Nous leur allouons ici plus d'expace."
 
 #. Documentation/notation/spacing.itely:1905 (comment)
 msgid "this time the text will be closer to the staff"
@@ -4723,14 +4492,12 @@ msgid "Vertical spacing inside a system"
 msgstr "Espacement vertical au sein d'un système"
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "Spacing between staves"
-msgstr "Espacement vertical entre les systèmes"
+msgstr "Espacement entre les portées"
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-#, fuzzy
 msgid "Spacing of non-staff lines"
-msgstr "Espacement des syllabes"
+msgstr "Espacement de lignes autres que des portées"
 
 #. @node in Documentation/notation/spacing.itely
 #. @subsection in Documentation/notation/spacing.itely
@@ -5020,36 +4787,32 @@ msgid "The set command"
 msgstr "La commande de fixation (set)"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "The @code{@bs{}set} command"
-msgstr "La commande @code{\\set}"
+msgstr "La commande @code{@bs{}set}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 msgid "The override command"
 msgstr "La commande de dérogation (@emph{override})"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "The @code{\\\\override} command"
-msgstr "La commande @code{\\override}"
+msgstr "La commande @code{\\\\override}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 msgid "The tweak command"
 msgstr "La commande d'affinage (@emph{tweak})"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "The @code{\\\\tweak} command"
-msgstr "La commande @code{\\tweak}"
+msgstr "La commande @code{\\\\tweak}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 msgid "set versus override"
 msgstr "set ou override"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "@code{\\\\set} vs. @code{\\\\override}"
-msgstr "@code{\\set} ou @code{\\override}"
+msgstr "@code{\\\\set} ou @code{\\\\override}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @section in Documentation/notation/changing-defaults.itely
@@ -5068,9 +4831,8 @@ msgstr "Direction et positionnement"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Context layout order"
-msgstr "Contextes pour programmeurs"
+msgstr "Ordre des contextes de mise en formre"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
@@ -5205,26 +4967,23 @@ msgstr "Modification des liaisons"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @section in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Using music functions"
-msgstr "Fonctions musicales"
+msgstr "Utilisation de fonctions musicales"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Substitution function syntax"
-msgstr "Fonctions de substitution simple"
+msgstr "Syntaxe des fonctions de substitution"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
 msgid "Common argument types"
-msgstr ""
+msgstr "Types d'argument usuels"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
 msgid "Substitution function examples"
-msgstr "Fonctions de substitution simple"
+msgstr "Exemples de fonctions de substitution"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendix in Documentation/notation/notation-appendices.itely
@@ -5284,126 +5043,117 @@ msgstr "La fonte Feta"
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Clef glyphs"
-msgstr ""
+msgstr "Glyphes de clef"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Time Signature glyphs"
-msgstr "Métrique"
+msgstr "Glyphes de métrique"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Number glyphs"
-msgstr ""
+msgstr "Glyphes numériques"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Accidental glyphs"
-msgstr "Altérations"
+msgstr "Glyphes d'altération"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Default Notehead glyphs"
-msgstr ""
+msgstr "Glyphes de tête de note par défaut"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Special Notehead glyphs"
-msgstr "Têtes de note spécifiques"
+msgstr "Glyphes de têtes de note spécifiques"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Shape-note Notehead glyphs"
-msgstr "Têtes de note à forme variable"
+msgstr "Glyphes de têtes de note à forme variable"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Rest glyphs"
-msgstr "Silences"
+msgstr "Glyphes de silence"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Flag glyphs"
-msgstr ""
+msgstr "Glyphes de crochet"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Dot glyphs"
-msgstr ""
+msgstr "Glyphes de point"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Dynamic glyphs"
-msgstr "Nuances"
+msgstr "Glyphes de nuance"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Script glyphs"
-msgstr ""
+msgstr "Glyphes de script"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Arrowhead glyphs"
-msgstr ""
+msgstr "Glyphes de flêche"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Bracket-tip glyphs"
-msgstr ""
+msgstr "Gkyphes d'extrémité d'accolade"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Pedal glyphs"
-msgstr ""
+msgstr "Glyphes de pédale"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Accordion glyphs"
-msgstr "Accordéon"
+msgstr "Glyphes d'accordéon"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Vaticana glyphs"
-msgstr ""
+msgstr "Glyphes vaticana"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Medicaea glyphs"
-msgstr ""
+msgstr "Glyphes medicaea"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Hufnagel glyphs"
-msgstr ""
+msgstr "Glyphes Hufnagel"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Mensural glyphs"
-msgstr "Clefs mensurales"
+msgstr "Glyphes mensurales"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Neomensural glyphs"
-msgstr "Clefs mensurales"
+msgstr "Glyphes néomensurales"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Petrucci glyphs"
-msgstr ""
+msgstr "Glyphes Petrucci"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Solesmes glyphs"
-msgstr ""
+msgstr "Glyphes Solesmes"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
@@ -5417,39 +5167,33 @@ msgstr "Liste des signes d'articulation"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Articulation scripts"
-msgstr "Articulations"
+msgstr "Scripts d'articulation"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Ornament scripts"
-msgstr "Commentaires textuels"
+msgstr "Scripts d'ornement"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Fermata scripts"
-msgstr "Commentaires textuels"
+msgstr "Scripts de point d'arrêt"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Instrument-specific scripts"
-msgstr "Instructions spécifiques à certains formats"
+msgstr "Scripts spécifiques à certains instruments"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Repeat sign scripts"
-msgstr "Commentaires textuels"
+msgstr "Scripts de répétition"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Ancient scripts"
-msgstr "Silences anciens"
+msgstr "Scripts de musique ancienne"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
@@ -5459,91 +5203,82 @@ msgstr "Notes utilisées en percussion"
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
 msgid "Technical glossary"
-msgstr ""
+msgstr "Glossaire technique"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "alist"
-msgstr "instr"
+msgstr "alist"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "callback"
-msgstr ""
+msgstr "callback"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "closure"
-msgstr "couleur"
+msgstr "fermeture"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "glyph"
-msgstr ""
+msgstr "glyphe"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "grob"
-msgstr "global"
+msgstr "grob"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "immutable"
-msgstr ""
+msgstr "immuable"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "interface"
-msgstr "intervalle"
+msgstr "interface"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "lexer"
-msgstr "inferieur"
+msgstr "lexer (analyseur lexical)"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "mutable"
-msgstr ""
+msgstr "cangeant"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "output-def"
-msgstr "Résultat"
+msgstr "output-def (définition de sortie)"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "parser"
-msgstr "parentF"
+msgstr "parser (analyseur syntaxique)"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "parser variable"
-msgstr "Utilisation de variables"
+msgstr "variables d'analyseur syntaxique"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "prob"
-msgstr ""
+msgstr "prob (objet de propriété)"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "simple closure"
-msgstr "accord de ré simple"
+msgstr "closur simple"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "smob"
-msgstr ""
+msgstr "smob (objet Scheme)"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
@@ -5557,9 +5292,8 @@ msgstr "Propriétés de mise en forme"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
-#, fuzzy
 msgid "Available music functions"
-msgstr "Liste des fonctions musicales prédéfinies"
+msgstr "Fonctions musicales prédéfinies"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
@@ -5575,15 +5309,13 @@ msgstr "Aide-mémoire"
 #. @node in Documentation/snippets.tely
 #. @unnumberedsec in Documentation/snippets.tely
 msgid "\\\\TEXT\\\\"
-msgstr ""
+msgstr "\\\\TEXT\\\\"
 
 #. @node in Documentation/usage/running.itely
-#, fuzzy
 msgid "Running lilypond"
 msgstr "Exécution de LilyPond"
 
 #. @chapter in Documentation/usage/running.itely
-#, fuzzy
 msgid "Running @command{lilypond}"
 msgstr "Lancement de @command{lilypond}"
 
@@ -5636,7 +5368,7 @@ msgstr "La musique déborde de la page"
 #. @node in Documentation/usage/running.itely
 #. @unnumberedsubsec in Documentation/usage/running.itely
 msgid "An extra staff appears"
-msgstr ""
+msgstr "Apparition intempestive d'une portée"
 
 #. @node in Documentation/usage/running.itely
 msgid "Apparent error in ../ly/init.ly"
@@ -5654,7 +5386,7 @@ msgstr "Message d'erreur « Unbound variable % »"
 #. @node in Documentation/usage/running.itely
 #. @unnumberedsubsec in Documentation/usage/running.itely
 msgid "Error message FT_Get_Glyph_Name"
-msgstr ""
+msgstr "Messag d'erreur « FT_Get_Glyph_Name »"
 
 #. @node in Documentation/usage/updating.itely
 msgid "Updating files with convert-ly"
@@ -5667,7 +5399,7 @@ msgstr "Mise à jour des fichiers avec @command{convert-ly}"
 #. @node in Documentation/usage/updating.itely
 #. @section in Documentation/usage/updating.itely
 msgid "Why does the syntax change?"
-msgstr ""
+msgstr "LilyPond, une langue vivante"
 
 #. @node in Documentation/usage/updating.itely
 msgid "Invoking convert-ly"
@@ -5686,28 +5418,23 @@ msgid "Command line options for @command{convert-ly}"
 msgstr "Options en ligne de commande pour @command{convert-ly}"
 
 #. @node in Documentation/usage/updating.itely
-#, fuzzy
 msgid "Problems running convert-ly"
-msgstr "Limitations de convert-ly"
+msgstr "Problèmes d'exécution de convert-ly"
 
 #. @section in Documentation/usage/updating.itely
-#, fuzzy
 msgid "Problems running @code{convert-ly}"
-msgstr "Limitations de @command{convert-ly}"
+msgstr "Problèmes d'exécution de @command{convert-ly}"
 
 #. @node in Documentation/usage/updating.itely
 #. @section in Documentation/usage/updating.itely
-#, fuzzy
 msgid "Manual conversions"
-msgstr "Conventions de nommage"
+msgstr "Conversions manuelles"
 
 #. @node in Documentation/usage/lilypond-book.itely
-#, fuzzy
 msgid "lilypond-book"
-msgstr "LilyPond-book"
+msgstr "lilypond-book"
 
 #. @chapter in Documentation/usage/lilypond-book.itely
-#, fuzzy
 msgid "Running @command{lilypond-book}"
 msgstr "Utilisation de @command{lilypond-book}"
 
@@ -5808,9 +5535,8 @@ msgid "lilypond-book templates"
 msgstr "Squelettes pour lilypond-book"
 
 #. @subsection in Documentation/usage/lilypond-book.itely
-#, fuzzy
 msgid "html"
-msgstr "rythme"
+msgstr "html"
 
 #. @subsection in Documentation/usage/lilypond-book.itely
 msgid "xelatex"
@@ -5826,9 +5552,8 @@ msgstr "Autres méthodes d'association texte-musique"
 
 #. @node in Documentation/usage/external.itely
 #. @chapter in Documentation/usage/external.itely
-#, fuzzy
 msgid "External programs"
-msgstr "Interfaces pour les programmeurs"
+msgstr "Programmes externes"
 
 #. @node in Documentation/usage/external.itely
 #. @section in Documentation/usage/external.itely
@@ -5852,9 +5577,8 @@ msgstr "Mode Vim"
 
 #. @node in Documentation/usage/external.itely
 #. @unnumberedsubsec in Documentation/usage/external.itely
-#, fuzzy
 msgid "Other editors"
-msgstr "Autres informations"
+msgstr "Autres éditeurs"
 
 #. @node in Documentation/usage/external.itely
 #. @section in Documentation/usage/external.itely
@@ -5895,15 +5619,13 @@ msgstr "Utilisation de @command{etf2ly}"
 
 #. @node in Documentation/usage/external.itely
 #. @subsection in Documentation/usage/external.itely
-#, fuzzy
 msgid "Other formats"
-msgstr "Autres types de répétition"
+msgstr "Autres formats"
 
 #. @node in Documentation/usage/external.itely
 #. @section in Documentation/usage/external.itely
-#, fuzzy
 msgid "LilyPond output in other programs"
-msgstr "Insertion du résultat de LilyPond dans d'autres programmes"
+msgstr "Insertion de partition LilyPond dans d'autres programmes"
 
 #. @node in Documentation/usage/external.itely
 #. @unnumberedsubsec in Documentation/usage/external.itely
@@ -5922,7 +5644,7 @@ msgstr "Insertion du résultat de LilyPond dans d'autres programmes"
 
 #. @node in Documentation/usage/external.itely
 msgid "Independent includes"
-msgstr ""
+msgstr "Inclusion du travail des autres"
 
 #. @section in Documentation/usage/external.itely
 msgid "Independent @code{include}s"
@@ -5930,15 +5652,13 @@ msgstr ""
 
 #. @node in Documentation/usage/external.itely
 #. @subsection in Documentation/usage/external.itely
-#, fuzzy
 msgid "MIDI articulation"
-msgstr "articulation"
+msgstr "MIDI et articulations"
 
 #. @node in Documentation/usage/suggestions.itely
 #. @chapter in Documentation/usage/suggestions.itely
-#, fuzzy
 msgid "Suggestions for writing files"
-msgstr "Suggestions de saisie des fichiers LilyPond"
+msgstr "Suggestions pour la saisie de fichiers LilyPond"
 
 #. @node in Documentation/usage/suggestions.itely
 #. @section in Documentation/usage/suggestions.itely
@@ -5958,7 +5678,7 @@ msgstr "Projets d'envergure"
 #. @node in Documentation/usage/suggestions.itely
 #. @section in Documentation/usage/suggestions.itely
 msgid "Troubleshooting"
-msgstr ""
+msgstr "Résolution de problèmes"
 
 #. @node in Documentation/usage/suggestions.itely
 #. @section in Documentation/usage/suggestions.itely
@@ -6082,11 +5802,11 @@ msgstr "troisQuatre"
 
 #. Documentation/snippets/adding-indicators-to-staves-which-get-split-after-a-break.ly:36 (variable)
 msgid "splitStaffBarLineMarkup"
-msgstr ""
+msgstr "divisionapresBarreMarque"
 
 #. Documentation/snippets/adding-indicators-to-staves-which-get-split-after-a-break.ly:42 (variable)
 msgid "splitStaffBarLine"
-msgstr ""
+msgstr "divisionapresBarre"
 
 #. Documentation/snippets/adding-the-current-date-to-a-score.ly:32 (comment)
 msgid "first, define a variable to hold the formatted date:"
@@ -6238,11 +5958,11 @@ msgstr "cantus"
 
 #. Documentation/snippets/ancient-headword.ly:36 (comment)
 msgid "Verse 1 — Salve, Regína"
-msgstr ""
+msgstr "Vers 1 — Salve, Regína"
 
 #. Documentation/snippets/ancient-headword.ly:47 (comment)
 msgid "Verse 2 — Vita, dulcédo"
-msgstr ""
+msgstr "Vers 2 — Vita, dulcédo"
 
 #. Documentation/snippets/ancient-headword.ly:48 (comment)
 msgid "a\\melisma \\[ a \\flexa g \\pes a\\melismaEnd \\] d"
@@ -6282,31 +6002,31 @@ msgstr ""
 
 #. Documentation/snippets/ancient-headword.ly:57 (comment)
 msgid "Verse 3 — Ad te clamámus"
-msgstr ""
+msgstr "Vers 3 — Ad te clamámus"
 
 #. Documentation/snippets/ancient-headword.ly:66 (comment)
 msgid "Verse 4 — Ad te suspirámus"
-msgstr ""
+msgstr "Vers 4 — Ad te suspirámus"
 
 #. Documentation/snippets/ancient-headword.ly:79 (comment)
 msgid "Verse 5 — Eia ergo, Advocáta nostra"
-msgstr ""
+msgstr "Vers 5 — Eia ergo, Advocáta nostra"
 
 #. Documentation/snippets/ancient-headword.ly:95 (comment)
 msgid "Verse 6 — Et Jesum"
-msgstr ""
+msgstr "Vers 6 — Et Jesum"
 
 #. Documentation/snippets/ancient-headword.ly:109 (comment)
 msgid "Verse 7 ad finem — O clemens: O pia: O dulcis Virgo María"
-msgstr ""
+msgstr "Vers 7 ad finem — O clemens: O pia: O dulcis Virgo María"
 
 #. Documentation/snippets/ancient-headword.ly:127 (comment)
 msgid "Vi- ta, dul- cé- do, et spes no- stra, sal- ve."
-msgstr ""
+msgstr "Vi- ta, dul- cé- do, et spes no- stra, sal- ve."
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly:51 (variable)
 msgid "chant"
-msgstr "Chant"
+msgstr "chant"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly:58 (variable)
 msgid "verba"
@@ -6361,7 +6081,7 @@ msgstr "à la première mesure suivant l'incipit. Idem pour forceClef."
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:96 (comment)
 msgid "Therefore, we need an extra \\skip."
-msgstr "C'est pourquoi nous ajooutons un \\skip."
+msgstr "C'est pourquoi nous ajoutons un \\skip."
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:101 (comment)
 #. Documentation/snippets/incipit.ly:75 (comment)
@@ -6514,7 +6234,7 @@ msgstr "pas de liaison"
 #. Documentation/snippets/incipit.ly:278 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:286 (comment)
 msgid "Comment in the below \\\"\\remove\\\" command to allow line"
-msgstr "Décommenter la commande \"\\remove\" qui suit permet d'insérer"
+msgstr "Décommenter la commande \\\"\\remove\\\" qui suit permet d'insérer"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:282 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:287 (comment)
@@ -6593,9 +6313,8 @@ msgid "Syntax: \\bbarre #\\\"text\\\" { notes } - text = any number of box"
 msgstr ""
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:42 (variable)
-#, fuzzy
 msgid "bbarre"
-msgstr "mesureA"
+msgstr ""
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:77 (comment)
 msgid "uncomment this line for make full barred"
@@ -6641,31 +6360,31 @@ msgstr "subdivision 2-3-2"
 
 #. Documentation/snippets/book-parts.ly:22 (comment)
 msgid "book paper, which is inherited by all children bookparts"
-msgstr ""
+msgstr "Section paper de l'ouvrage ; elle est répercutée sur toutes les parties"
 
 #. Documentation/snippets/book-parts.ly:25 (comment)
 msgid "Page footer: add a different part-tagline at part last page"
-msgstr ""
+msgstr "Pied de page : création d'un part-tagline pour la dernière page d'une partie"
 
 #. Documentation/snippets/book-parts.ly:29 (comment)
 msgid "Copyright header field only on book first page."
-msgstr ""
+msgstr "Champ copyright seulement sur la première page de l'ouvrage"
 
 #. Documentation/snippets/book-parts.ly:33 (comment)
 msgid "Part tagline header field only on each part last page."
-msgstr ""
+msgstr "Champ part-tagline seulement en dernière page des parties"
 
 #. Documentation/snippets/book-parts.ly:37 (comment)
 msgid "Tagline header field only on book last page."
-msgstr ""
+msgstr "Champ tagline seulement sur la dernière page de l'ouvrage"
 
 #. Documentation/snippets/book-parts.ly:44 (comment)
 msgid "book header, which is inherited by the first bookpart"
-msgstr ""
+msgstr "Entête de l'ouvrage, transmise à la première partie"
 
 #. Documentation/snippets/book-parts.ly:53 (comment)
 msgid "a different page breaking function may be used on each part"
-msgstr ""
+msgstr "on peut opter pour une gestion des sauts de page différente selon la partie"
 
 #. Documentation/snippets/breathing-signs.ly:20 (comment)
 msgid "this bar contains no \\breathe"
@@ -6723,7 +6442,7 @@ msgstr "souffletPlus"
 
 #. Documentation/snippets/centering-markup-on-note-heads-automatically.ly:23 (variable)
 msgid "textScriptCenterOnNote"
-msgstr ""
+msgstr "texteScriptCentreSurNote"
 
 #. Documentation/snippets/changing--flageolet-mark-size.ly:42 (variable)
 #. Documentation/snippets/showing-the-same-articulation-above-and-below-a-note-or-chord.ly:29 (variable)
@@ -6744,7 +6463,7 @@ msgstr "si vous ne voulez pas les imprimer."
 
 #. Documentation/snippets/changing-the-default-text-font-family.ly:18 (comment)
 msgid "change for other default global staff size."
-msgstr ""
+msgstr "définition de la taille par défaut des portées"
 
 #. Documentation/snippets/changing-the-default-text-font-family.ly:20 (comment)
 #. Documentation/snippets/engravers-one-by-one.ly:183 (comment)
@@ -6807,22 +6526,18 @@ msgstr "lesAccords"
 
 #. Documentation/snippets/chords-headword.ly:31 (comment)
 #. Documentation/snippets/pitches-headword.ly:141 (comment)
-#, fuzzy
 msgid "\\break"
-msgstr "Sauts"
+msgstr "\\break"
 
 #. Documentation/snippets/chords-headword.ly:35 (variable)
-#, fuzzy
 msgid "verseOne"
 msgstr "CoupletUn"
 
 #. Documentation/snippets/chords-headword.ly:42 (variable)
-#, fuzzy
 msgid "verseTwo"
 msgstr "CoupletDeux"
 
 #. Documentation/snippets/chords-headword.ly:81 (context id)
-#, fuzzy
 msgid "sop"
 msgstr "Sop"
 
@@ -6832,19 +6547,19 @@ msgstr ""
 
 #. Documentation/snippets/clip-systems.ly:56 (comment)
 msgid "Each clip-region is a (START . END) pair"
-msgstr ""
+msgstr "Chaque coupure est contituée d'un couple (DÉBUT . FIN)"
 
 #. Documentation/snippets/clip-systems.ly:57 (comment)
 msgid "where both are rhythmic-locations."
-msgstr ""
+msgstr "dont les membres sont des instants rythmiques (rythmic-locations)."
 
 #. Documentation/snippets/clip-systems.ly:59 (comment)
 msgid "(make-rhythmic-locations BAR-NUMBER NUM DEN)"
-msgstr ""
+msgstr "(make-rhythmic-locations NUMÉRO_MES NUM DÉN)"
 
 #. Documentation/snippets/clip-systems.ly:60 (comment)
 msgid "means NUM/DEN whole-notes into bar numbered BAR-NUMBER"
-msgstr ""
+msgstr "signifie NUM/DÉN rondes dans la mesure numéro NUMÉRO_MES"
 
 #. Documentation/snippets/coloring-notes-depending-on-their-pitch.ly:18 (comment)
 msgid "Association list of pitches to colors."
@@ -6852,7 +6567,7 @@ msgstr "Liste des associations de hauteur à une couleur"
 
 #. Documentation/snippets/coloring-notes-depending-on-their-pitch.ly:38 (comment)
 msgid "Compare pitch and alteration (not octave)."
-msgstr ""
+msgstr "Comparaison hauteur et altération (sans tenir compte de l'octave)"
 
 #. Documentation/snippets/combining-dynamics-with-markup-texts.ly:27 (variable)
 msgid "piuF"
@@ -6867,19 +6582,16 @@ msgid "musicDown"
 msgstr "musiqueBas"
 
 #. Documentation/snippets/controlling-spanner-visibility-after-a-line-break.ly:30 (comment)
-#, fuzzy
 msgid "show hairpin"
-msgstr "soufflet"
+msgstr "soufflet visible"
 
 #. Documentation/snippets/controlling-spanner-visibility-after-a-line-break.ly:32 (comment)
-#, fuzzy
 msgid "hide text span"
-msgstr "Dans la portée"
+msgstr "extension de texte invisible"
 
 #. Documentation/snippets/controlling-spanner-visibility-after-a-line-break.ly:36 (comment)
-#, fuzzy
 msgid "show glissando"
-msgstr "glissando"
+msgstr "glissando visible"
 
 #. Documentation/snippets/creating-real-parenthesized-dynamics.ly:45 (variable)
 msgid "parenF"
@@ -6887,11 +6599,11 @@ msgstr "parentF"
 
 #. Documentation/snippets/creating-simultaneous-rehearsal-marks.ly:44 (comment)
 msgid "the hidden measure and bar line"
-msgstr ""
+msgstr "la mesure vide et sa barre"
 
 #. Documentation/snippets/creating-simultaneous-rehearsal-marks.ly:45 (comment)
 msgid "\\cadenzaOn turns off automatic calculation of bar numbers"
-msgstr ""
+msgstr "\\cadenzaOn désactive le calcul automatique des numéros de mesure"
 
 #. Documentation/snippets/cross-staff-tremolos.ly:31 (context id)
 #. Documentation/snippets/jazz-combo-template.ly:254 (variable)
@@ -6987,11 +6699,11 @@ msgstr "accord de ré simple"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:115 (comment)
 msgid "larger dots, centered dots, fewer frets"
-msgstr ""
+msgstr "points plus gros et centrés, moins de frets"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:116 (comment)
 msgid "label below string"
-msgstr ""
+msgstr "étiquette sous la corde"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:82 (comment)
 msgid "add FretBoards for the Cuatro"
@@ -7063,7 +6775,7 @@ msgstr ""
 
 #. Documentation/snippets/displaying-grob-ancestry.ly:127 (comment)
 msgid "\\\" (make-string 36 #\\-))"
-msgstr ""
+msgstr "\\\" (make-string 36 #\\-))"
 
 #. Documentation/snippets/double-glissando.ly:21 (comment)
 msgid "new voice ( = \\voiceOne), hidden"
@@ -7084,56 +6796,50 @@ msgstr "attacher le glissando au la et au do"
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:17 (comment)
 msgid ""
 "Two functions for (de)crescendo spanners where you can explicitly give the"
-msgstr ""
+msgstr "Ces fonctions pour (de)crescendo permettent de composer librement"
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:18 (comment)
-#, fuzzy
 msgid "spanner text."
-msgstr "Texte indépendant"
+msgstr "le texte à prolonger"
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:19 (variable)
-#, fuzzy
 msgid "mycresc"
-msgstr "mesaccords"
+msgstr "moncresc"
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:25 (variable)
-#, fuzzy
 msgid "mydecresc"
-msgstr "decrescendo"
+msgstr "mondecresc"
 
 #. Documentation/snippets/dynamics-text-spanner-postfix.ly:18 (comment)
 msgid "Some sample text dynamic spanners, to be used as postfix operators"
-msgstr ""
+msgstr "Exemples de nuance textuelle avec extension, à utiliser en postposition"
 
 #. Documentation/snippets/dynamics-text-spanner-postfix.ly:19 (variable)
 msgid "crpoco"
-msgstr ""
+msgstr "crpoco"
 
 #. Documentation/snippets/dynamics-text-spanner-postfix.ly:24 (comment)
 msgid ""
 "Redefine the existing \\cresc, \\dim and \\decresc commands to use postfix "
 "syntax"
-msgstr ""
+msgstr "Redéfinition des commandes \\cresc, \\dim et \\decresc pour pouvoir les mettre en postposition"
 
 #. Documentation/snippets/dynamics-text-spanner-postfix.ly:25 (variable)
-#, fuzzy
 msgid "cresc"
-msgstr "crescendo"
+msgstr "cresc"
 
 #. Documentation/snippets/dynamics-text-spanner-postfix.ly:30 (variable)
 #. Documentation/snippets/fretted-headword.ly:56 (variable)
 msgid "dim"
-msgstr ""
+msgstr "dim"
 
 #. Documentation/snippets/dynamics-text-spanner-postfix.ly:35 (variable)
-#, fuzzy
 msgid "decresc"
-msgstr "decrescendo"
+msgstr "decresc"
 
 #. Documentation/snippets/editorial-headword.ly:30 (comment)
-#, fuzzy
 msgid "NR 1.7 Editorial annotations"
-msgstr "Notation éditoriale"
+msgstr ""
 
 #. Documentation/snippets/editorial-headword.ly:32 (comment)
 msgid "Beethoven, Op. 31, No. 3"
@@ -7151,17 +6857,15 @@ msgstr ""
 #. Documentation/snippets/expressive-headword.ly:37 (comment)
 #. Documentation/snippets/pitches-headword.ly:38 (comment)
 #. Documentation/snippets/rhythms-headword.ly:39 (comment)
-#, fuzzy
 msgid "RH Staff"
-msgstr "MaPortee"
+msgstr "Portée MD"
 
 #. Documentation/snippets/editorial-headword.ly:76 (comment)
 #. Documentation/snippets/expressive-headword.ly:169 (comment)
 #. Documentation/snippets/pitches-headword.ly:111 (comment)
 #. Documentation/snippets/rhythms-headword.ly:128 (comment)
-#, fuzzy
 msgid "LH Staff"
-msgstr "MaPortee"
+msgstr "Portée MG"
 
 #. Documentation/snippets/embedding-native-postscript-in-a--markup-block.ly:25 (comment)
 msgid "PostScript is a registered trademark of Adobe Systems Inc."
@@ -7200,7 +6904,6 @@ msgid "MyStaff"
 msgstr "MaPortee"
 
 #. Documentation/snippets/engravers-one-by-one.ly:140 (comment)
-#, fuzzy
 msgid "explicitly set instrumentName, so we don't get"
 msgstr "définition explicite de l'instrument, pour éviter"
 
@@ -7248,9 +6951,8 @@ msgid "\\context {"
 msgstr ""
 
 #. Documentation/snippets/expressive-headword.ly:29 (comment)
-#, fuzzy
 msgid "\\Score"
-msgstr "correct"
+msgstr ""
 
 #. Documentation/snippets/expressive-headword.ly:30 (comment)
 msgid "\\override SpacingSpanner #'base-shortest-duration ="
@@ -7277,35 +6979,29 @@ msgid "Coded by Neil Puttock; modified by Carl Sorensen"
 msgstr ""
 
 #. Documentation/snippets/figured-bass-headword.ly:36 (variable)
-#, fuzzy
 msgid "extendOn"
-msgstr "ligne de prolongation"
+msgstr "prolongeOui"
 
 #. Documentation/snippets/figured-bass-headword.ly:37 (variable)
-#, fuzzy
 msgid "extendOff"
-msgstr "hampeNon"
+msgstr "prolongeNon"
 
 #. Documentation/snippets/figured-bass-headword.ly:45 (context id)
-#, fuzzy
 msgid "violinoI"
-msgstr "violon"
+msgstr "violonI"
 
 #. Documentation/snippets/figured-bass-headword.ly:63 (context id)
-#, fuzzy
 msgid "violinoII"
-msgstr "violon"
+msgstr "violonII"
 
 #. Documentation/snippets/figured-bass-headword.ly:81 (context id)
-#, fuzzy
 msgid "violone"
-msgstr "violon"
+msgstr "violons"
 
 #. Documentation/snippets/fingering-symbols-for-wind-instruments.ly:17 (variable)
 #. Documentation/snippets/recorder-fingering-chart.ly:19 (variable)
-#, fuzzy
 msgid "centermarkup"
-msgstr "semppMarque"
+msgstr "markupcentre"
 
 #. Documentation/snippets/flamenco-notation.ly:54 (comment)
 msgid "Cut here ----- Start 'flamenco.ly'"
@@ -7448,9 +7144,8 @@ msgid "slap"
 msgstr "slap"
 
 #. Documentation/snippets/forcing-measure-width-to-adapt-to-metronomemarks-width.ly:20 (variable)
-#, fuzzy
 msgid "example"
-msgstr "Exemple 1"
+msgstr "exemple"
 
 #. Documentation/snippets/formatting-lyrics-syllables.ly:17 (comment)
 msgid ""
@@ -7525,17 +7220,15 @@ msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:35 (comment)
 msgid "shortcuts"
-msgstr ""
+msgstr "raccourcis"
 
 #. Documentation/snippets/fretted-headword.ly:36 (comment)
-#, fuzzy
 msgid "fingering orientations"
-msgstr "Doigtés"
+msgstr "positionnement des doigtés"
 
 #. Documentation/snippets/fretted-headword.ly:37 (variable)
-#, fuzzy
 msgid "sfol"
-msgstr "solo"
+msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:38 (variable)
 msgid "sfor"
@@ -7550,18 +7243,16 @@ msgid "sfou"
 msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:42 (comment)
-#, fuzzy
 msgid "string number orientations"
-msgstr "Indications du numéro de corde"
+msgstr "positionnement du numéro de corde"
 
 #. Documentation/snippets/fretted-headword.ly:43 (variable)
-#, fuzzy
 msgid "ssnol"
-msgstr "solo"
+msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:43 (comment)
 msgid "(down right up)"
-msgstr ""
+msgstr "(bas droite haut)"
 
 #. Documentation/snippets/fretted-headword.ly:44 (variable)
 msgid "ssnou"
@@ -7572,9 +7263,8 @@ msgid "ssnod"
 msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:46 (variable)
-#, fuzzy
 msgid "ssnor"
-msgstr "mineur"
+msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:48 (comment)
 msgid "define fingering offset"
@@ -7585,14 +7275,12 @@ msgid "FO"
 msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:54 (comment)
-#, fuzzy
 msgid "markups"
-msgstr "sMarque"
+msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:55 (variable)
-#, fuzzy
 msgid "rit"
-msgstr "triolet"
+msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:57 (variable)
 msgid "andantino"
@@ -7603,9 +7291,8 @@ msgid "benmarcato"
 msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:59 (variable)
-#, fuzzy
 msgid "pdolce"
-msgstr "mpdolce"
+msgstr "pdolce"
 
 #. Documentation/snippets/fretted-headword.ly:61 (comment)
 msgid "THE MUSIC %%%"
@@ -7636,9 +7323,8 @@ msgid "m. 5"
 msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:89 (comment)
-#, fuzzy
 msgid "end of m. 6"
-msgstr "fin des notes de MD"
+msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:92 (comment)
 #. Documentation/snippets/fretted-headword.ly:131 (comment)
@@ -7650,14 +7336,12 @@ msgid "beg of m. 8"
 msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:96 (comment)
-#, fuzzy
 msgid "end of m. 8"
-msgstr "fin des notes de MD"
+msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:98 (comment)
-#, fuzzy
 msgid "end of m. 9"
-msgstr "fin des notes de MD"
+msgstr ""
 
 #. Documentation/snippets/fretted-headword.ly:100 (comment)
 #. Documentation/snippets/fretted-headword.ly:138 (comment)
@@ -7866,9 +7550,8 @@ msgid "Drawback: One needs to set DynamicText #'X-offset!"
 msgstr ""
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:108 (comment)
-#, fuzzy
 msgid "Drawback: Aligned at the right edge of the additional text,"
-msgstr "Pour aligner le repère sur le coin droit de l'armure"
+msgstr ""
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:109 (comment)
 msgid "not at the center of pp"
@@ -8339,9 +8022,8 @@ msgid "chorale at measures 34 - 40+"
 msgstr ""
 
 #. Documentation/snippets/pitches-headword.ly:41 (comment)
-#, fuzzy
 msgid "RH Voice 1"
-msgstr "Voix \\\"1\\\""
+msgstr "MD Voix 1"
 
 #. Documentation/snippets/pitches-headword.ly:69 (comment)
 msgid "("
@@ -8352,23 +8034,20 @@ msgid ")"
 msgstr ""
 
 #. Documentation/snippets/pitches-headword.ly:78 (comment)
-#, fuzzy
 msgid "RH Voice 2"
-msgstr "Voix \\\"2\\\""
+msgstr "MD Voix 2"
 
 #. Documentation/snippets/polyphony-in-tablature.ly:57 (context id)
 msgid "tab"
 msgstr ""
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:58 (comment)
-#, fuzzy
 msgid "MMR - Multi-Measure Rest"
-msgstr "silence multi-mesures"
+msgstr "SMM : silence multi-mesure"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:59 (comment)
-#, fuzzy
 msgid "MMRs by default are set under the fourth line"
-msgstr "Les silences multi-mesures se placent sous la quatrième ligne"
+msgstr "Les SMM se placent par défaut sous la quatrième ligne"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:61 (comment)
 msgid "They can be moved with an override"
@@ -8383,13 +8062,10 @@ msgid "the following trick moves the rest to the center line"
 msgstr "la dérogation qui suit repositionne le silence sur la ligne médiane"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:68 (comment)
-#, fuzzy
 msgid "MMRs in odd-numbered voices are under the top line"
-msgstr ""
-"Les silences multi-mesures des voix impaires sont attachés à la ligne du haut"
+msgstr "Les silences multi-mesures des voix impaires sont attachés à la ligne du haut"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:70 (comment)
-#, fuzzy
 msgid "MMRs in even-numbered voices are under the bottom line"
 msgstr ""
 "Les silences multi-mesures des voix paires sont attachés à la ligne du bas"
@@ -8569,9 +8245,8 @@ msgid "Draw a circle round the following bar number(s)"
 msgstr "Numéros de mesure encadrés dans un cercle"
 
 #. Documentation/snippets/printing-metronome-and-rehearsal-marks-below-the-staff.ly:53 (comment)
-#, fuzzy
 msgid "Metronome marks below the staff"
-msgstr "Indications métronimiques sous la portée"
+msgstr "Indications métronomiques sous la portée"
 
 #. Documentation/snippets/printing-metronome-and-rehearsal-marks-below-the-staff.ly:58 (comment)
 msgid "Rehearsal marks below the staff"
@@ -8689,9 +8364,8 @@ msgid ""
 msgstr ""
 
 #. Documentation/snippets/scheme-engraver-ambitus.ly:63 (comment)
-#, fuzzy
 msgid "Ambitus data structure"
-msgstr "Structure de fichier"
+msgstr ""
 
 #. Documentation/snippets/scheme-engraver-ambitus.ly:66 (comment)
 msgid "The <ambitus> class holds the various grobs that are created"
@@ -8706,9 +8380,8 @@ msgid "- ambitus-group: the grob that groups all the components of an ambitus"
 msgstr ""
 
 #. Documentation/snippets/scheme-engraver-ambitus.ly:69 (comment)
-#, fuzzy
 msgid "(Ambitus grob);"
-msgstr "Ambitus"
+msgstr ""
 
 #. Documentation/snippets/scheme-engraver-ambitus.ly:70 (comment)
 msgid "- ambitus-line: the vertical line between the upper and lower ambitus"
@@ -8751,9 +8424,8 @@ msgid "is used to determine if accidentals shall be printed next to ambitus"
 msgstr ""
 
 #. Documentation/snippets/scheme-engraver-ambitus.ly:80 (comment)
-#, fuzzy
 msgid "notes."
-msgstr "mesnotes"
+msgstr ""
 
 #. Documentation/snippets/scheme-engraver-ambitus.ly:94 (comment)
 msgid "Accessor for the lower and upper note data of an ambitus"
@@ -8784,9 +8456,8 @@ msgid "Moreover:"
 msgstr ""
 
 #. Documentation/snippets/scheme-engraver-ambitus.ly:108 (comment)
-#, fuzzy
 msgid "- pitch is the absolute pitch of the note"
-msgstr "augmentation de la longueur de la liaison"
+msgstr ""
 
 #. Documentation/snippets/scheme-engraver-ambitus.ly:109 (comment)
 msgid "- cause is the note event that causes this ambitus note, i.e. the lower"
@@ -8797,9 +8468,8 @@ msgid "or upper note of the considered music sequence."
 msgstr ""
 
 #. Documentation/snippets/scheme-engraver-ambitus.ly:123 (comment)
-#, fuzzy
 msgid "Ambitus engraving logics"
-msgstr "Gravure automatisée"
+msgstr ""
 
 #. Documentation/snippets/scheme-engraver-ambitus.ly:125 (comment)
 msgid "Rewrite of the code from @file{lily/ambitus-engraver.cc}."
@@ -8810,9 +8480,8 @@ msgid "Ambitus engraver definition"
 msgstr ""
 
 #. Documentation/snippets/scheme-engraver-ambitus.ly:319 (comment)
-#, fuzzy
 msgid "Example"
-msgstr "Exemple 1"
+msgstr "Exemple"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:70 (variable)
 msgid "NoStem"
@@ -8977,9 +8646,8 @@ msgid "<f' bes'>2 r8 }"
 msgstr ""
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:133 (variable)
-#, fuzzy
 msgid "AccordionTab"
-msgstr "Accordéon"
+msgstr "AccordeonTab"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:134 (comment)
 msgid "1. Place a copy of the piano melody above"
@@ -9020,9 +8688,8 @@ msgid "staffVoice"
 msgstr ""
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:166 (context id)
-#, fuzzy
 msgid "astaffvoice"
-msgstr "portée"
+msgstr ""
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:180 (variable)
 msgid "staffAccordionMel"
@@ -9049,9 +8716,8 @@ msgid "staffBassRhytm"
 msgstr ""
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:207 (context id)
-#, fuzzy
 msgid "staffbass"
-msgstr "portée"
+msgstr ""
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:208 (comment)
 msgid ""
@@ -9089,14 +8755,12 @@ msgid "all articulations will be printed above, so you have to tweak"
 msgstr ""
 
 #. Documentation/snippets/showing-the-same-articulation-above-and-below-a-note-or-chord.ly:43 (comment)
-#, fuzzy
 msgid "the direction."
-msgstr "indication du tempo"
+msgstr ""
 
 #. Documentation/snippets/simultaneous-headword.ly:30 (comment)
-#, fuzzy
 msgid "NR 1.5 Simultaneous notes"
-msgstr "Notes simultanées"
+msgstr "NR 1.5 Notes simultanées"
 
 #. Documentation/snippets/simultaneous-headword.ly:32 (comment)
 msgid "L. v. Beethoven, Op. 111"
@@ -9115,24 +8779,20 @@ msgid "measures 108 - 118"
 msgstr ""
 
 #. Documentation/snippets/simultaneous-headword.ly:47 (variable)
-#, fuzzy
 msgid "trillFlat"
-msgstr "trille"
+msgstr "trilleBemol"
 
 #. Documentation/snippets/simultaneous-headword.ly:67 (comment)
-#, fuzzy
 msgid "RH voice 1"
-msgstr "voix"
+msgstr "MD voix 1"
 
 #. Documentation/snippets/simultaneous-headword.ly:144 (comment)
-#, fuzzy
 msgid "RH voice 2"
-msgstr "voix"
+msgstr "MD voix 2"
 
 #. Documentation/snippets/simultaneous-headword.ly:219 (comment)
-#, fuzzy
 msgid "LH staff"
-msgstr "portée"
+msgstr "portée MG"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:26 (variable)
 msgid "verseI"
@@ -9179,9 +8839,8 @@ msgid "footer = \\\"Mutopia-2006/12/22-896\\\""
 msgstr ""
 
 #. Documentation/snippets/staff-headword.ly:38 (variable)
-#, fuzzy
 msgid "trompette"
-msgstr "triolet"
+msgstr "trompette"
 
 #. Documentation/snippets/staff-headword.ly:50 (variable)
 #. Documentation/snippets/staff-headword.ly:98 (context id)
@@ -9194,19 +8853,16 @@ msgid "tambourinMidi"
 msgstr ""
 
 #. Documentation/snippets/staff-headword.ly:102 (context id)
-#, fuzzy
 msgid "prima"
-msgstr "piano"
+msgstr ""
 
 #. Documentation/snippets/staff-headword.ly:104 (context id)
-#, fuzzy
 msgid "uppera"
-msgstr "superieur"
+msgstr ""
 
 #. Documentation/snippets/staff-headword.ly:105 (context id)
-#, fuzzy
 msgid "lowera"
-msgstr "inferieur"
+msgstr ""
 
 #. Documentation/snippets/stemlets.ly:36 (comment)
 msgid "N.B. use Score.Stem to set for the whole score."
@@ -9347,14 +9003,12 @@ msgid "Piano sonata 31"
 msgstr ""
 
 #. Documentation/snippets/text-headword.ly:33 (comment)
-#, fuzzy
 msgid "measures 1 - 7"
-msgstr "deux mesures"
+msgstr "mesures 1 à 7"
 
 #. Documentation/snippets/text-headword.ly:45 (comment)
-#, fuzzy
 msgid "RH staff"
-msgstr "portée"
+msgstr "portée MD"
 
 #. Documentation/snippets/three-sided-box.ly:17 (comment)
 msgid "New command to add a three sided box, with sides north, west and south"
@@ -9385,7 +9039,6 @@ msgid "Change the style permanently"
 msgstr ""
 
 #. Documentation/snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly:31 (comment)
-#, fuzzy
 msgid "Revert to default style:"
 msgstr "Retour au style par défaut"
 
@@ -9467,9 +9120,8 @@ msgid "Return to the normal clef:"
 msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:40 (comment)
-#, fuzzy
 msgid "Abreviations"
-msgstr "Articulations"
+msgstr "Abréviations"
 
 #. Documentation/snippets/unfretted-headword.ly:43 (variable)
 msgid "db"
@@ -9500,19 +9152,16 @@ msgid "fermaTa"
 msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:53 (variable)
-#, fuzzy
 msgid "accel"
-msgstr "accent"
+msgstr "accel"
 
 #. Documentation/snippets/unfretted-headword.ly:54 (variable)
-#, fuzzy
 msgid "ritar"
-msgstr "Guitare"
+msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:60 (comment)
-#, fuzzy
 msgid "Strings"
-msgstr "Chansons"
+msgstr "Cordes"
 
 #. Documentation/snippets/unfretted-headword.ly:63 (variable)
 msgid "svib"
@@ -9527,29 +9176,24 @@ msgid "mvib"
 msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:66 (variable)
-#, fuzzy
 msgid "sulp"
-msgstr "slap"
+msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:67 (variable)
-#, fuzzy
 msgid "norm"
-msgstr "normal"
+msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:69 (variable)
-#, fuzzy
 msgid "quatre"
-msgstr "noire"
+msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:73 (comment)
-#, fuzzy
 msgid "Shifting Notes"
-msgstr "Saut de notes"
+msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:76 (variable)
-#, fuzzy
 msgid "shift"
-msgstr "quinte"
+msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:77 (variable)
 msgid "shifta"
@@ -9560,101 +9204,84 @@ msgid "shiftb"
 msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:82 (comment)
-#, fuzzy
 msgid "Hairpin"
-msgstr "soufflet"
+msgstr "Soufflet"
 
 #. Documentation/snippets/unfretted-headword.ly:85 (comment)
 msgid "aniente        = \\\"a niente\\\""
 msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:86 (variable)
-#, fuzzy
 msgid "aniente"
-msgstr "al niente"
+msgstr "aniente"
 
 #. Documentation/snippets/unfretted-headword.ly:93 (variable)
-#, fuzzy
 msgid "tupletbp"
-msgstr "nolet"
+msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:97 (comment)
 msgid "Flag [Note Head - Stem]"
 msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:100 (variable)
-#, fuzzy
 msgid "noflag"
-msgstr "bémol"
+msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:103 (comment)
-#, fuzzy
 msgid "Functions"
-msgstr "Fonctions fantômes"
+msgstr "Fonctions"
 
 #. Documentation/snippets/unfretted-headword.ly:118 (comment)
-#, fuzzy
 msgid "Instruments"
-msgstr "Noms d'instrument"
+msgstr "Instruments"
 
 #. Documentation/snippets/unfretted-headword.ly:121 (variable)
-#, fuzzy
 msgid "ViolinSolo"
-msgstr "Violonun"
+msgstr "ViolonSolo"
 
 #. Documentation/snippets/unfretted-headword.ly:131 (comment)
-#, fuzzy
 msgid "Measure 1"
-msgstr "Répétitions de mesure"
+msgstr "Mesure 1"
 
 #. Documentation/snippets/unfretted-headword.ly:141 (comment)
-#, fuzzy
 msgid "Measure 2"
-msgstr "Répétitions de mesure"
+msgstr "Mesure 2"
 
 #. Documentation/snippets/unfretted-headword.ly:151 (comment)
-#, fuzzy
 msgid "Measure 3"
-msgstr "Répétitions de mesure"
+msgstr "Mesure 3"
 
 #. Documentation/snippets/unfretted-headword.ly:159 (comment)
-#, fuzzy
 msgid "Measure 4"
-msgstr "Répétitions de mesure"
+msgstr "Mesure 4"
 
 #. Documentation/snippets/unfretted-headword.ly:168 (comment)
-#, fuzzy
 msgid "Measure 5"
-msgstr "Répétitions de mesure"
+msgstr "Mesure 5"
 
 #. Documentation/snippets/unfretted-headword.ly:176 (comment)
-#, fuzzy
 msgid "Measure 6"
-msgstr "Répétitions de mesure"
+msgstr "Mesure 6"
 
 #. Documentation/snippets/unfretted-headword.ly:178 (comment)
 msgid "\\featherDurations #(ly:make-moment 2 3)"
 msgstr ""
 
 #. Documentation/snippets/unfretted-headword.ly:185 (comment)
-#, fuzzy
 msgid "Measure 7"
-msgstr "Répétitions de mesure"
+msgstr "Mesure 7"
 
 #. Documentation/snippets/unfretted-headword.ly:194 (comment)
-#, fuzzy
 msgid "Measure 8"
-msgstr "Répétitions de mesure"
+msgstr "Mesure 8"
 
 #. Documentation/snippets/unfretted-headword.ly:199 (comment)
-#, fuzzy
 msgid "Measure 9"
-msgstr "Répétitions de mesure"
+msgstr "Mesure 9"
 
 #. Documentation/snippets/unfretted-headword.ly:210 (comment)
-#, fuzzy
 msgid "Score"
-msgstr "correct"
+msgstr "Partition"
 
 #. Documentation/snippets/using-ly-grob-object-to-access-grobs-with--tweak.ly:73 (comment)
 msgid "display grobs for each note head:"
@@ -9717,9 +9344,8 @@ msgid "portuguese"
 msgstr "portugais"
 
 #. Documentation/snippets/vertical-line-as-a-baroque-articulation-mark.ly:19 (variable)
-#, fuzzy
 msgid "upline"
-msgstr "ligne"
+msgstr ""
 
 #. Documentation/snippets/vertically-centered-common-lyrics.ly:20 (variable)
 msgid "leftbrace"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,7 +20,7 @@
 
 Akkorde können entweder als normale Noten oder im Akkordmodus
 notiert werden; bei letztere Eingabemethode können unterschiedliche
-europäische Akkordbezeichnungsstile eingesetzt werden.  Akkordbzeichnungen
+europäische Akkordbezeichnungsstile eingesetzt werden.  Akkordbezeichnungen
 und Generalbass können auch angezeigt werden.
 
 @menu
@@ -98,9 +98,13 @@ Schnipsel:
 
 @knownissues
 
+Vordefinierte Abkürzung für Artikulationen und Ornamente können mit Noten
+im Akkordmodus nicht benutzt werden, siehe auch
+@ref{Artikulationenszeichen und Verzierungen}.
+
 Wenn Akkord- und Notenmodus in linearer Musik abwechseln eingesetzt
 werden und der Akkordmodus am Anfang steht, erstellt der
-Notenmodus ein neues Notensyste:
+Notenmodus ein neues Notensystem:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \chordmode { c2 f }
@@ -271,7 +275,7 @@ Akkordstrukturen können im Akkordmodus beliebig komplex konstruiert
 werden.  Die Modifikatoren können benutzt werden, um den Akkord zu
 erweitern, bestimmte Stufen hinzuzufügen oder zu entfernen, Stufen
 zu erhöhen oder zu erniedrigen und Bassnoten hinzuzufügen bzw.
-Umgkehrungen zu erzeugen.
+Umkehrungen zu erzeugen.
 
 Die erste Zahl, die auf den Doppelpunkt folgt, wird als @qq{Bereich}
 des Akkordes interpretiert: Terzen werden auf dem Grundton
@@ -293,7 +297,7 @@ Endton des Bereichs wird hinzugefügt.  Der größtmögliche Wert ist
 @end lilypond
 
 @noindent
-Sowhohl @code{c:5} als auch @code{c} erzeugen einen D-Dur-Dreiklang.
+Sowohl @code{c:5} als auch @code{c} erzeugen einen D-Dur-Dreiklang.
 
 Da eine unveränderte 11 nicht gut klingt, wenn sie mit einer
 unveränderten 13 zusammenklingt, wird die 11 von einem @code{:13}-Akkord
@@ -378,7 +382,7 @@ einer @code{4} die vierte Stufe hinzugefügt.  @code{sus} entspricht
 }
 @end lilypond
 
-@cindex Umgekehrungen
+@cindex Umkehrungen
 @cindex Bassnote in Akkorden
 
 @funindex /
@@ -476,7 +480,7 @@ notiert.
 
 Die Akkorde können entweder als simultane Noten oder unter Einsatz
 des Akkordmodus (@code{chordmode}) notiert werden.  Der angezeigte
-Akkord ist der gleiche, es sei denn, Umgkehrungen oder zusätzliche
+Akkord ist der gleiche, es sei denn, Umkehrungen oder zusätzliche
 Basstöne werden notiert:
 
 @lilypond[verbatim,quote,relative=1]
@@ -614,6 +618,20 @@ gezeigt.
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
+@funindex chordNameLowercaseMinor
+
+Deutsche Liederbücher zeigen Mollakkorde oft durch die Verwendung von
+Kleinbuchstaben an, ohne die Endung @var{m}.  Dieses Verhalten kann
+erreicht werden, indem man die @code{chordNameLowercaseMinor}-Eigenschaft
+setzt:
+
+@lilypond[verbatim,quote,ragged-right, relative=1]
+\chords {
+  \set chordNameLowercaseMinor = ##t
+  c2 d:m e:m f
+}
+@end lilypond
+
 Wenn keine der definierten Einstellungen zum gewünschten Ergebnis
 führt, kann die Anzeige des Akkordsymbols durch die folgenden
 Eigenschaften verändert werden:
@@ -739,7 +757,7 @@ Akkordsymbole werden von den Tonhöhenbezeichnungen innerhalb des
 Akkordes und der Information über die Akkordstruktur, die innerhalb
 von @code{\chordmode} notiert wurde, bestimmt. Wenn der direkte
 Notenmodus benutzt wird, stammen unerwünschte Bezeichnungen daher,
-dass Umgkehrungen und zustätzliche Bassnoten nicht richtig
+dass Umkehrungen und zusätzliche Bassnoten nicht richtig
 interpretiert werden.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -832,7 +850,7 @@ auf den Zahlenmodus umzustellen.  Mehr Information zu unterschiedlichen
 Eingabemodi findet sich in @ref{Eingabe-Modi}.
 
 Im Zahlenmodus wird eine Gruppe von Bassziffern mit den Zeichen
-@code{<} and @code{>} begrenzt. Die Dauer wird nach dem @code{>}-Zeichen
+@code{<} und @code{>} begrenzt. Die Dauer wird nach dem @code{>}-Zeichen
 eingegeben.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
@@ -1019,7 +1037,7 @@ den meisten anderen @code{Staff}-Kontexten dargestellt werden.
 
 Wenn die Ziffern im @code{FiguredBass}-Kontext dargestellt werden,
 ist die vertikale Position der Ziffern unabhängig von den Noten
-des paralellen Systems.
+des parallelen Systems.
 
 @lilypond[verbatim,ragged-right,fragment,quote]
 <<

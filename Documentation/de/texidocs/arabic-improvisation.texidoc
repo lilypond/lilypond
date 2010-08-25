@@ -5,7 +5,7 @@ werden, kann die Taktart ausgelassen werden und @code{\cadenzaOn}
 kann eingesetzt werden.  Es kann nötig sein, den Versetzungszeichenstil
 anzupassen, weil sonst die Versetzungszeichen nur einmal ausgegeben
 werden, da keine Taktlinien gesetzt sind.  Hier ein Beispiel, wie
-der Begin einer @emph{hijaz}-Improvisation aussehen könnte:
+der Beginn einer @emph{hijaz}-Improvisation aussehen könnte:
 
 "
 

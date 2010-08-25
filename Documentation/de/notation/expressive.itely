@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -109,6 +109,7 @@ Ausdrucksbezeichnungen zu erstellen.
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
+@funindex \fermataMarkup
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -124,7 +125,7 @@ Hierzu wird folgende Syntax benutzt:
 @end example
 
 Die möglichen Werte für @var{Bezeichnung} sind aufgelistet in
-@ref{Liste der Arktikulationszeichen}.  Ein Beispiel:
+@ref{Liste der Artikulationszeichen}.  Ein Beispiel:
 
 @lilypond[verbatim,quote,relative=2]
 c4\staccato c\mordent b2\turn
@@ -143,11 +144,11 @@ Einige dieser Artikulationszeichen haben eine Abkürzung, damit
 es einfacher ist, sie zu schreiben.  Die Abkürzung wird an die
 Notenbezeichnung gehängt, wobei ihre Syntax aus einem Minuszeichen
 @code{-} besteht, gefolgt von dem Symbol, das dem
-Artikultationszeichen zugeordnet ist.  Es gibt diese Abkürzungen
+Artikulationszeichen zugeordnet ist.  Es gibt diese Abkürzungen
 für @notation{marcato},
 @notation{stopped} (gedämpft), @notation{tenuto},
 @notation{staccatissimo}, @notation{accent}, @notation{staccato},
-and @notation{portato}.  Die ihnen entsprchenden Symbole
+und @notation{portato}.  Die ihnen entsprechenden Symbole
 werden also folgendermaßen notiert:
 
 @lilypond[verbatim,quote,relative=2]
@@ -163,6 +164,19 @@ definiert.  Artikulationszeichen und Ornamente können manuell
 
 Artikulationszeichen sind @code{Script}-Objekte.  Ihre Eigenschaften
 werden ausführlich in @rinternals{Script} beschrieben.
+
+Artikulationen können neben Noten auch an Pausen gehängt werden, aber
+sie können nicht an Mehrtaktpausen gehängt werden.  Ein besonderer
+Befehl, @code{fermataMarkup}, wurde definiert, damit man eine Fermate
+an eine Mehrtaktpause anfügen kann (und nur hieran).  Damit wird ein
+@code{MultiMeasureRestText}-Objekt erstellt.
+
+@lilypond[verbatim,quote,relative=2]
+\override Script #'color = #red
+\override MultiMeasureRestText #'color = #blue
+a2\fermata r\fermata
+R1\fermataMarkup
+@end lilypond
 
 Zusätzlich zu den Artikulationszeichen können auch Text und Beschriftung
 an Noten angehängt werden.  Siehe auch @ref{Textarten}.
@@ -195,7 +209,7 @@ Handbuch zum Lernen:
 Notationsreferenz:
 @ref{Textarten},
 @ref{Richtung und Platzierung},
-@ref{Liste der Arktikulationszeichen},
+@ref{Liste der Artikulationszeichen},
 @ref{Triller}.
 
 Installierte Dateien:
@@ -286,7 +300,7 @@ c2_\spp c^\ff
 @funindex decr
 
 Eine @notation{Crescendo}-Klammer wird mit dem Befehl
-@code{\<} begonnen und mit @code{\!}, einem absoluten Dynamikbefehl oder einer weiteren Crescento- oder
+@code{\<} begonnen und mit @code{\!}, einem absoluten Dynamikbefehl oder einer weiteren Crescendo- oder
 Decrescendo-Klammer beendet.  Ein @notation{Decrescendo}
 beginnt mit @code{\>} und wird auch beendet mit @code{\!},
 einem absoluten Dynamikbefehl oder einem weiteren
@@ -446,7 +460,7 @@ Referenz der Interna:
 @cindex eigene Dynamikzeichen
 @cindex Dynamikzeichen, eigene
 
-Die einfachste ARt, eigene Dynamikbezeichnungen zu erstellen,
+Die einfachste Art, eigene Dynamikbezeichnungen zu erstellen,
 ist die Benutzung von @code{\markup}-(Textbeschriftungs)-Objekten.
 
 @lilypond[verbatim,quote]
@@ -499,7 +513,7 @@ Allgemein gesagt kann @code{make-dynamic-script} jegliches
 Textbeschriftungsobjekt als Argument haben.    Die
 Schriftart für Dynamikzeichen enthält nur die Buchstaben
 @code{f,m,p,r,s} sowie @code{z}; ein Dynamikzeichen, das
-anderen Text oder satzzeichen enthalten soll, benötigt
+anderen Text oder Satzzeichen enthalten soll, benötigt
 Textbeschriftungsbefehle, die die normale Schriftart
 einschalten, etwa @code{\normal-text}.  Die Funktion
 @code{make-dynamic-script} sollte anstelle einer normalen
@@ -637,7 +651,7 @@ können zwei Bögen gleichzeitig ausgegeben werden.  Siehe auch
 @funindex \slurSolid
 @funindex slurSolid
 
-Legatobögen können durchgehend, gepunket oder gestrichelt dargestellt
+Legatobögen können durchgehend, gepunktet oder gestrichelt dargestellt
 werden.  Standard ist der durchgehende Bogen:
 
 @lilypond[verbatim,quote,relative=1]
@@ -787,7 +801,7 @@ erlaubt.
 @cindex Phrasierungsbögen, gepunktet
 @cindex gepunkteter Phrasierungsbogen
 
-Phrasierungsbögen können durchgehend, gepunket oder gestrichelt dargestellt
+Phrasierungsbögen können durchgehend, gepunktet oder gestrichelt dargestellt
 werden.  Standard ist der durchgehende Bogen:
 
 @lilypond[verbatim,quote,relative=1]
@@ -804,6 +818,7 @@ funindex phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfSolid
 @funindex phrasingSlurHalfSolid
+
 @cindex Phrasierungsbogen, halb durchgehend, halb gestrichelt
 @cindex Bogen, halb durchgehend, halb gestrichelt
 
@@ -977,7 +992,7 @@ Schnipsel:
 @translationof Lines
 
 Dieser Abschnitt zeigt, wie man verschiedene Ausdrucksbezeichnungen
-erstellt, die sich linear erstrecken: Glissando, Arppegio und
+erstellt, die sich linear erstrecken: Glissando, Arpeggio und
 Triller.
 
 @menu
@@ -1003,7 +1018,7 @@ c2\glissando c,
 @end lilypond
 
 Verschiedene Glissando-Stile sind möglich.  Für Einzelheiten siehe
-@ref{Zeilenstile}.
+@ref{Linienstile}.
 
 @snippets
 
@@ -1016,7 +1031,7 @@ Glossar:
 @rglos{glissando}.
 
 Notationsreferenz:
-@ref{Zeilenstile}.
+@ref{Linienstile}.
 
 Schnipsel:
 @rlsr{Expressive marks}.
@@ -1175,7 +1190,7 @@ mehrere Notensysteme.
 @funindex \stopTrillSpan
 @funindex stopTrillSpan
 
-Kurze @notation{Triller} ohne eine Dauer werden nmit dem Befehl
+Kurze Triller ohne eine Dauer werden mit dem Befehl
 @code{\trill} notiert, siehe auch
 @ref{Artikulationszeichen und Verzierungen}.
 
@@ -1184,20 +1199,44 @@ Längere Triller mit einer Dauer werden mit den Befehlen
 Beginn und @code{\stopTrillSpan} am Ende erstellt.
 
 @lilypond[verbatim,quote,relative=2]
-d1~\startTrillSpan
+d1\startTrillSpan
 d1
-c2\stopTrillSpan r2
+c2\stopTrillSpan
+r2
 @end lilypond
 
-Das nächste Beispiel zeigt Triller in Kombination mit einem
-Vorschlag.  Die Syntax dieser Konstruktion und die Methode,
-wie man die Vorschläge genau positioniert, ist beschrieben in
-@ref{Verzierungen}.
+Ein Triller-Strekcer, der über einen Zeilenumbruch geht,
+beginnt genau über der ersten Note auf der neue Zeile erneut.
+
+
+@lilypond[ragged-right,verbatim,quote,relative=2]
+d1\startTrillSpan
+\break
+d1
+c2\stopTrillSpan
+r2
+@end lilypond
+
+Aufeinanderfolgende Trillerstrecker funktieren ohne einen
++@code{\stopTrillSpan}-Befehl, weil ein folgender Strecker
+automatisch die rechte Begrenzung des vorhergehenden beendet.
 
 @lilypond[verbatim,quote,relative=2]
-c1 \afterGrace
+d1\startTrillSpan
+d1
+d1\startTrillSpan
+d2\stopTrillSpan
+r2
+@end lilypond
+
+Triller können auch mit Vorschlägen kombiniert werden.  Die Syntax
+für diese Konstruktion und die Methode, um die Position der Vorschläge
+präzise zu positionieren, wird gezeigt in @ref{Verzierungen}.
+
+@lilypond[verbatim,quote,relative=2]
+d1~\afterGrace
 d1\startTrillSpan { c32[ d]\stopTrillSpan }
-e2 r2
+c2 r2
 @end lilypond
 
 @cindex Triller mit Tonhöhe
@@ -1211,28 +1250,34 @@ mit dem Befehl @code{pitchedTrill} notiert werden.  Das erste
 Argument ist die Hauptnote, das zweite die Note, auf der getrillert
 wird.  Sie wird als Note ohne Hals in Klammern ausgegeben.
 
-@lilypond[verbatim,quote,relative=1]
-\pitchedTrill e2\startTrillSpan fis
-d\stopTrillSpan
+@lilypond[verbatim,quote,relative=2]
+\pitchedTrill
+d2\startTrillSpan fis
+d2
+c2\stopTrillSpan
+r2
 @end lilypond
 
-@cindex Triller mit Tonhöhe und erzwungenem Versetzungszeichen
-@cindex Versetzungszeichen, erzwungen für Triller
+@cindex Triller mit Tonhöhe und Versetzungszeichen
+@cindex Versetzungszeichen, für Triller
 
-Im nächsten Beispiel ist der zweite Triller nicht eindeutig
-notiert, denn das Versetzungszeichen der Trillernote ist
-nicht ausgegeben.  Man kann das Versetzungszeichen erzwingen.
-Der zweite Takt zeigt diese Methode:
+Aufeinanderfolgende Versetzungszeichen der selben Note im selben
+Takt müssen selbst hinzugefügt werden.  Nur das Versetzungszeichen
+des ersten Trillers mit Tonhöhe innerhalb eines Taktes wird ausgegeben.
 
 @lilypond[verbatim,quote,relative=2]
-\pitchedTrill eis4\startTrillSpan fis
-g\stopTrillSpan
-\pitchedTrill eis4\startTrillSpan fis
-g\stopTrillSpan
-\pitchedTrill eis4\startTrillSpan fis
-g\stopTrillSpan
-\pitchedTrill eis4\startTrillSpan fis!
-g\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan fis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan cis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan fis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan fis!
+eis4\stopTrillSpan
 @end lilypond
 
 @predefined

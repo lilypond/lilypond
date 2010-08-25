@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
 
     When revising a translation, copy the HEAD committish of the
@@ -83,14 +83,14 @@ die neuere Edition kalt und mechanisch erscheint.
 
 Es ist schwer, sofort die Unterschiede zur neueren Edition auszumachen.
 Alles sieht sauber und fein aus, möglicherweise sogar @qq{besser},
-weil es eher komputerkonform und einheitlich wirkt.  Das hat uns
+weil es eher computerkonform und einheitlich wirkt.  Das hat uns
 tatsächlich für eine ganze Weile beschäftigt.  Wir wollten die
 Computernotation verbessern, aber wir mussten erst verstehen, was
 eigentlich falsch mit ihr war.
 
 Die Antwort findet sich in der präzisen, mathematischen Gleichheit
 der neueren Edition.  Suchen Sie die Taktstriche in der Mitte jeder
-Zeiel: im handgestochenen Satz hat die Position dieser Taktstriche
+Zeile: im handgestochenen Satz hat die Position dieser Taktstriche
 sozusagen natürliche Variation, während die neuere Version sie
 fast immer perfekt in die Mitte setzt.  Das zeigen diese vereinfachten
 Diagramme des Seitenlayouts vom handgestochenen (links) und
@@ -182,7 +182,7 @@ beherrschen.
 @end ifnottex
 @end quotation
 
-LilyPond wurd von den handgestochenen traditionellen Noten
+LilyPond wurde von den handgestochenen traditionellen Noten
 inspiriert, die in der ersten Hälfte des 20. Jahrhunderts von
 europäischen Notenverlagen herausgegeben wurden (insbesondere
 Bärenreiter, Duhem, Durand, Hofmeister, Peters und Scott).  Sie
@@ -200,11 +200,11 @@ imitieren wollten.
 @c langweilig und mechanisch aus, was es erschwert, von ihnen zu spielen.
 
 @menu
-* Notenschriftarten::                 
-* Optischer Ausgleich::             
-* Hilfslinien::                
-* Optische Größen::              
-* Warum der große Aufwand?::           
+* Notenschriftarten::
+* Optischer Ausgleich::
+* Hilfslinien::
+* Optische Größen::
+* Warum der große Aufwand?::
  @end menu
 
 @node Notenschriftarten
@@ -219,7 +219,7 @@ hingegen ein Symbol aus einer 2000 herausgegebenen Edition
 der selben Noten.  Obwohl beide Bilder mit der gleichen
 Tintenfarbe gedruckt sind, wird die frühere Version dunkler: die
 Notenlinien sind dicker und das Bärenreiter-b hat ein rundliches,
-beihnahe sinnliches Aussehen.  Der rechte Scan hingegen hat
+beinahe sinnliches Aussehen.  Der rechte Scan hingegen hat
 dünnere Linien und eine gerade Form mit scharfen Ecken und Kanten.
 
 @multitable @columnfractions .25 .25 .25 .25
@@ -265,7 +265,7 @@ Als wir uns entschlossen hatten, ein Programm zu schreiben, das
 die Typographie des Notensatzes beherrscht, gab es keine freien
 Musikschriftarten, die unserem geplanten eleganten Notenbild passen
 würden.  Unbeirrt schufen wir eine Schriftart und dazu einen
-Coputerfont mit den musikalischen Symbolen, wobei wir uns an den
+Computerfont mit den musikalischen Symbolen, wobei wir uns an den
 schönen Musikdrucken der handgestochenen Noten orientierten.  Ohne
 diese Erfahrung hätten wir nie verstanden, wie hässlich die
 Schriftarten waren, die wir zuerst bewunderten.
@@ -288,7 +288,7 @@ wodurch sie einfacher zu lesen sind.  Feine Enden, wie etwa die
 Seiten der Viertelpause, sollten nicht als scharfe Spitzen enden,
 sondern etwas abgerundet.  Das liegt daran, dass scharfe Enden
 der Stempel sehr fragil sind und sich schnell durch die Verwendung
-abnutzen.  Zusammengefasst muss die Schärze der Schriftart sehr
+abnutzen.  Zusammengefasst muss die Schwärze der Schriftart sehr
 vorsichtig mit der Schwärze von Notenlinien, Balken und Bögen
 abgeglichen werden, um ein starkes, aber doch ausgewogenes Gesamtbild
 zu ergeben.
@@ -322,7 +322,7 @@ spricht Sie mehr an?
 }
 
 music = {
-   c'4 e''4 e'4 b'4 |
+   c'4 e''4 e'4 b'4
    \stemDown
    b'8[ e'' a' e'']
    \stemNeutral
@@ -402,10 +402,10 @@ erhält, damit sie nicht gedrängt wirkt. Ein Hals nach unten würde diesen Ausg
 Hilfslinien stellen eine typographische Herausforderung dar: sie
 machen es schwerer, die Notensymbole dicht anzuordnen und sie müssen
 klar genug sein, dass sich die Tonhöhe mit einem schnellen Blick
-erkennen lässt.  Im Beispeil unten können wir sehen, dass
+erkennen lässt.  Im Beispiel unten können wir sehen, dass
 Hilfslinien dicker als normale Notenlinien sein sollten und dass
 ein gelernter Notenstecher eine Hilfslinie verkürzt, um dichteres
-Platzzieren von Versetzungszeichen zu erlauben.  Wir haben diese
+Platzieren von Versetzungszeichen zu erlauben.  Wir haben diese
 Eigenschaft in den Notensatz von LilyPond eingebaut.
 
 @multitable @columnfractions .25 .25 .25 .25
@@ -471,7 +471,7 @@ vorige erscheint:
 
 @noindent
 Bei kleineren Größen benutzt LilyPond proportional dickere
-Notenlinien, sodass das Notenbild immernoch gut zu lesen ist.
+Notenlinien, sodass das Notenbild immer noch gut zu lesen ist.
 
 @ignore
 Dadurch können auch Notensysteme unterschiedlicher Größe
@@ -597,12 +597,12 @@ den folgenden Bogen ausgewählt werden?
 
 @lilypond
 \relative c {
-    \clef bass
-    \once \override Slur #'positions = #'(1.5 . 1)
-    e8[( f] g[ a b d,)] r4
-    \once \override Slur #'positions = #'(2 . 3)
-    e8[( f] g[ a b d,)] r4
-    e8[( f] g[ a b d,)] r4
+  \clef bass
+  \once \override Slur #'positions = #'(1.5 . 1)
+  e8[( f] g[ a b d,)] r4
+  \once \override Slur #'positions = #'(2 . 3)
+  e8[( f] g[ a b d,)] r4
+  e8[( f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -640,9 +640,9 @@ Notenköpfe angeschnitten wird:
 
 @lilypond
 \relative c {
-    \clef bass
-    \once \override Slur #'positions = #'(1.5 . 1)
-    e8[(_"15.39" f] g[ a b d,)] r4
+  \clef bass
+  \once \override Slur #'positions = #'(1.5 . 1)
+  e8[(_"15.39" f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -654,9 +654,9 @@ Insgesamt also 13.08 Punkte:
 
 @lilypond
 \relative c {
-    \clef bass
-    \once \override Slur #'positions = #'(2 . 3)
-    e8[(_"13.08" f] g[ a b d,)] r4
+  \clef bass
+  \once \override Slur #'positions = #'(2 . 3)
+  e8[(_"13.08" f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -666,8 +666,8 @@ der drei Varianten, sodass LilyPond ihn auswählt:
 
 @lilypond
 \relative c {
-    \clef bass
-    e8[(_"12.04" f] g[ a b d,)] r4
+  \clef bass
+  e8[(_"12.04" f] g[ a b d,)] r4
 }
 @end lilypond
 
@@ -730,10 +730,10 @@ den Formatierungsdetails:
 
 @noindent
 (Es gibt auch zwei fehlende Notenköpfe, verschiedene editorische
-Anweisungen, die fehler und eine falsche Tonhöhe!)
+Anweisungen, die Fehler und eine falsche Tonhöhe!)
 
 Indem die Layoutregeln und das Design der Schriftarten angepasst
-wurde, hat sich die Ausgabe sehr starkt verbessert.  Vergleichen
+wurde, hat sich die Ausgabe sehr stark verbessert.  Vergleichen
 Sie das gleiche Referenzbeispiel und die Ausgabe der aktuellen
 LilyPond-Version (@version{}):
 
@@ -750,17 +750,21 @@ LilyPond-Version (@version{}):
   \key d \minor
   \time 3/4
   \mergeDifferentlyDottedOn
-  << {\slurDashed d8.-\flageolet( e16) e4.-\trill( d16 e)}
-     \\ {d4_2 a2}
+  <<
+    { \slurDashed d8.-\flageolet( e16) e4.-\trill( d16 e) }
+     \\
+    { d4_2 a2 }
   >>
   \slurDashed
   <f' a, d,>4. e8( d c)
   \slurSolid
-  bes g' f e16( f g_1 a_2 bes_3 d,_2)
+  bes8 g' f e16( f g_1 a_2 bes_3 d,_2)
   \slurDashed
   cis4.-\trill b8_3( a g)
-  << {\slurDashed d'8.( e16) e4.-\trill( d16 e)}
-     \\ {<f, a>4 a2}
+  <<
+    { \slurDashed d'8.( e16) e4.-\trill( d16 e) }
+     \\
+    { <f, a>4 a2 }
   >>
 }
 @end lilypond
@@ -822,7 +826,7 @@ Version von LilyPond:
 @end ifnottex
 
 @lilypond[staffsize=19.5,line-width=14\cm]
-global = {\key g \minor}
+global = { \key g \minor }
 
 partI = \relative c' {
   \voiceOne
@@ -852,7 +856,8 @@ partIV = \relative c {
     \set Score.currentBarNumber = #28
     \bar ""
     \new PianoStaff <<
-      \new Staff = "RH" <<
+      \new Staff = "RH"
+      <<
         \global
         \new Voice = "voiceI" { \partI }
         \new Voice = "voiceII" { \partII }
@@ -901,8 +906,8 @@ collide = \once \override NoteColumn #'force-hshift = #0
   \new Voice = "sample" \relative c''{
     \key g \minor
     <<
-      {\voiceOne g4 \collide g4}
-      \new Voice {\voiceTwo bes \collide bes}
+      { \voiceOne g4 \collide g4 }
+      \new Voice { \voiceTwo bes \collide bes }
     >>
   }
   \new Lyrics \lyricsto "sample" \lyricmode { "good " " bad" }
@@ -979,7 +984,7 @@ geplant.
 @translationof Building software
 
 Dieser Abschnitt beschreibt einige der Entscheidungen,
-die wir während des Programierens für das Design von LilyPond
+die wir während des Programmierens für das Design von LilyPond
 getroffen haben.
 
 @menu
@@ -1090,16 +1095,16 @@ Nehmen wir etwa die hierarchische Natur der Musiknotation:
 
 @lilypond[quote,fragment]
 <<
-\new Staff \relative c'' {
-  \key g \major
-  \time 3/4
-  d4 g,8 a b c d4 g, g
-}
-\new Staff \relative c' {
-  \clef "bass"
-  \key g \major
-  <g b d>2 a4 b2.
-}
+  \new Staff \relative c'' {
+    \key g \major
+    \time 3/4
+    d4 g,8 a b c d4 g, g
+  }
+  \new Staff \relative c' {
+    \clef "bass"
+    \key g \major
+    <g b d>2 a4 b2.
+  }
 >>
 @end lilypond
 
@@ -1139,7 +1144,7 @@ Beispiel heranzieht:
     \new Voice = "I" \relative c''' {
       \time 3/4
       \voiceOne
-      \times 6/7 {g8 g g g g g g}
+      \times 6/7 { g8 g g g g g g }
       \oneVoice
       r4 <b,, fis' g bes> r4\fermata
     }

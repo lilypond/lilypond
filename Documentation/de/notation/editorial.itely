@@ -269,12 +269,12 @@ e4(\p f)--
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{Visibility and color of objects}.
+@rlearning{Sichtbarkeit und Farbe von Objekten}.
 
 Notationsreferenz:
-@ref{Invisible rests},
-@ref{Visiblity of objects},
-@ref{Hiding staves}.
+@ref{Unsichtbare Pausen},
+@ref{Sichtbarkeit von Objekten},
+@ref{Systeme verstecken}.
 
 Schnipsel:
 @rlsr{Editorial annotations}.
@@ -664,7 +664,7 @@ Referenz der Interna:
 @cindex Analyse
 @cindex musikwissenschaftliche Analyse
 @cindex Notengruppenklammer
-@cindex horizontale Kklammer
+@cindex horizontale Klammer
 @cindex Musikanalyse
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup

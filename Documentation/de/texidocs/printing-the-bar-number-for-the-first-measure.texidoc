@@ -1,6 +1,6 @@
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
-Standardmäßig wird die erste Taktzahl einer Paritur nicht gesetzt,
+Standardmäßig wird die erste Taktzahl einer Partitur nicht gesetzt,
 wenn sie weniger oder gleich '1' ist.  Indem man @code{barNumberVisibility}
 auf @code{all-bar-numbers-visible} setzt, kann eine beliebige
 Taktzahl für den ersten und die folgenden Takte gesetzt werden.

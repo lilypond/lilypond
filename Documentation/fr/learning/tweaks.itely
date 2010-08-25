@@ -1,6 +1,6 @@
 r@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-	Translation of GIT committish: 26375d5016d8d180fc914bfd07cf76f4168f2e37
+	Translation of GIT committish: 11b44eeed204540f7a4e638f12afe5a9f5466ca8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -85,7 +85,7 @@ et les structures du programme LilyPond.  Nous allons donc, pour
 commencer, présenter certains termes qui servent à décrire ces
 opérations internes et ces structures.
 
-Le terme d'@qq{Objet} est un terme générique qui fait référence à
+Le terme @qq{Objet} est un terme générique qui fait référence à
 une multitude de structures internes mises en place par LilyPond
 durant la compilation d'un fichier d'entrée.  Ainsi, quand une
 commande du type @code{\new Staff} apparaît, un nouvel objet
@@ -97,14 +97,14 @@ Certains objets peuvent contenir les propriétés de tous les autres
 contextes, comme les objets @code{Voice}, les objets @code{Score},
 les objets @code{Lyrics}@tie{}; d'autres se rapportent à tous les
 éléments de notation, comme les barres de mesure, les liaisons, les
-nuances, etc.  Chaque objet dispose de son propre échantillon de valeurs
+nuances, etc. Chaque objet dispose de son propre échantillon de valeurs
 pour le réglage des propriétés.
 
 Certains types d'objet portent des noms spécifiques.  Les objets qui se
 rapportent à des éléments de notation sur le fichier de sortie, comme les
 notes, les hampes, les liaisons de phrasé ou de prolongation, les doigtés,
 les clefs, etc. sont appelés @qq{Objets de rendu}@tie{}; ils sont aussi
-connus  sous le nom d'@qq{Objets graphiques} (en anglais@tie{}:
+connus sous le nom d'@qq{Objets graphiques} (en anglais@tie{}:
 @emph{Graphical objects} ou @emph{Grobs} pour faire court).  Ce sont
 bien des objets au sens générique ci-dessus, et, en tant que tels, ils
 reçoivent des propriétés qui leur sont associées, comme leur position,
@@ -177,8 +177,8 @@ Les autres caractères sont à prendre tels qu'ils se présentent.
 
 Comme nous le verrons bientôt, les propriétés des différents
 types d'objet sont modifiées par des commandes différentes, si bien
-qu'il est bon de savoir reconnaître le type d'un objet en fonction du nom
-de ses propriétés.
+qu'il est bon de savoir reconnaître le type d'un objet en fonction du
+nom de ses propriétés.
 
 @node Méthodes de retouche
 @subsection Méthodes de retouche
@@ -204,13 +204,13 @@ importantes.
 
 La commande pour changer les propriétés des @strong{objets de rendu}
 est @code{\override}.  Du fait que cette commande modifie en profondeur
-les propriétés internes de LilyPond, sa syntaxe n'est pas aussi simple que
-pour les commandes vues précédemment.  Elle a besoin de savoir avec
+les propriétés internes de LilyPond, sa syntaxe n'est pas aussi simple
+que pour les commandes vues précédemment.  Elle a besoin de savoir avec
 précision quelle est la propriété à modifier, pour quel objet et dans
 quel  contexte, et quelle doit être sa nouvelle valeur.  Voyons de quoi
 il retourne.
 
-La syntaxe générale de cette commande est :
+La syntaxe générale de cette commande est@tie{}:
 
 @example
 \override @var{Contexte}.@var{ObjetDeRendu} #'@var{propriété-rendu} = #@var{valeur}
@@ -246,11 +246,11 @@ notes@tie{}:
 @cindex NoteHead, exemple de dérogation
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c d
+c4 d
 \override NoteHead #'color = #red
-e f g
+e4 f |
 \override NoteHead #'color = #green
-a b c
+g4 a b c |
 @end lilypond
 
 @strong{La commande \revert}
@@ -260,13 +260,13 @@ a b c
 @funindex \revert
 @funindex revert
 
-Une fois qu'elle a été modifiée, la propriété conserve sa nouvelle valeur
-jusqu'à ce qu'elle soit à nouveau modifiée ou qu'elle rencontre la
-commande @code{\revert}.  La commande @code{\revert} obéit à
+Une fois qu'elle a été modifiée, la propriété conserve sa nouvelle
+valeur jusqu'à ce qu'elle soit à nouveau modifiée ou qu'elle rencontre
+la commande @code{\revert}.  La commande @code{\revert} obéit à
 la syntaxe ci-dessous et ramène la valeur de la propriété à sa valeur
-d'origine.  Attention@tie{}: dans le cas où plusieurs @code{\override} ont
-été employés, il ne s'agit pas de la valeur précédente mais bien de la
-valeur par défaut.
+d'origine.  Attention@tie{}: dans le cas où plusieurs @code{\override}
+ont été employés, il ne s'agit pas de la valeur précédente mais bien de
+la valeur par défaut.
 
 @example
 \revert @var{Contexte}.@var{ObjetDeRendu} #'@var{propriété-de-rendu}
@@ -281,13 +281,13 @@ couleur des deux dernières notes à leur valeur par défaut@tie{}:
 @cindex NoteHead, exemple de dérogation
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c d
+c4 d
 \override NoteHead #'color = #red
-e f g
+e4 f |
 \override NoteHead #'color = #green
-a
+g4 a
 \revert NoteHead #'color
-b c
+b4 c |
 @end lilypond
 
 @strong{Le préfixe \once}
@@ -306,11 +306,11 @@ possible de ne changer la couleur que d'une seule note@tie{}:
 @cindex NoteHead, exemple de dérogation
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c d
+c4 d
 \once \override NoteHead #'color = #red
-e f g
+e4 f |
 \once \override NoteHead #'color = #green
-a b c
+g4 a b c |
 @end lilypond
 
 @strong{La commande \overrideProperty}
@@ -351,8 +351,8 @@ d'abord ce que donnerait @code{\once \override}@tie{}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 <c e g>4
 \once \override NoteHead #'font-size = #-3
-<c e g>
-<c e g>
+<c e g>4
+<c e g>4
 @end lilypond
 
 Nous voyons que @code{\override} modifie @emph{toutes} les têtes
@@ -370,8 +370,8 @@ des articulations@tie{}; des objets comme les hampes ou les
 altérations accidentelles sont créés ultérieurement et ne peuvent
 être retouchés de cette manière.  En outre, quand la retouche porte
 sur une tête de note, celle-ci @emph{doit} appartenir à un accord,
-c'est-à-dire être comprise à l'intérieur de chevrons gauche/droite.  Pour
-retoucher une note isolée, il faut donc placer la commande
+c'est-à-dire être comprise à l'intérieur de chevrons gauche/droite.
+Pour retoucher une note isolée, il faut donc placer la commande
 @code{\tweak} avec la note à l'intérieur des chevrons gauche/droite.
 
 Pour reprendre notre exemple, la taille de la note du milieu d'un
@@ -403,9 +403,9 @@ une série d'articulations, n'en modifier qu'une seule.  Ainsi@tie{}:
 @cindex @code{\tweak}, exemple
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a ^Black
-	-\tweak #'color #red ^Red
-	-\tweak #'color #green _Green
+a4^"Black"
+  -\tweak #'color #red ^"Red"
+  -\tweak #'color #green _"Green"
 @end lilypond
 
 @noindent
@@ -438,10 +438,10 @@ premier crochet de triolet court.
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \tweak #'direction #up
 \times 4/3 {
-	\tweak #'color #red
-	\times 2/3 { c8[ c8 c8] }
-	\times 2/3 { c8[ c8 c8] }
-	\times 2/3 { c8[ c8 c8] }
+  \tweak #'color #red
+  \times 2/3 { c8[ c c] }
+  \times 2/3 { c8[ c c] }
+  \times 2/3 { c8[ c c] }
 }
 @end lilypond
 
@@ -457,15 +457,15 @@ avec la commande @code{\override}@tie{}:
 @c NOTE Tuplet brackets collide if notes are high on staff
 @c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\times 2/3 { c8[ c c]}
+\times 2/3 { c8[ c c] }
 \once \override TupletNumber
-	#'text = #tuplet-number::calc-fraction-text
+  #'text = #tuplet-number::calc-fraction-text
 \times 2/3 {
-	c[ c]
-	c[ c]
-	\once \override TupletNumber #'transparent = ##t
-	\times 2/3 { c8[ c c] }
-\times 2/3 { c8[ c c]}
+  c8[ c]
+  c8[ c]
+  \once \override TupletNumber #'transparent = ##t
+  \times 2/3 { c8[ c c] }
+  \times 2/3 { c8[ c c] }
 }
 @end lilypond
 
@@ -524,16 +524,19 @@ suffit d'un peu de pratique.
 
 Prenons un exemple concret tiré d'un morceau de musique connu@tie{}:
 
+@c Mozart, Die Zauberflöte Nr.7 Duett
+
 @lilypond[quote,verbatim,relative=2]
 {
+  \key es \major
   \time 6/8
   {
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 bes8 bes[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -541,8 +544,9 @@ Prenons un exemple concret tiré d'un morceau de musique connu@tie{}:
 Admettons que nous voulions rendre les traits de liaison plus épais.
 Est-ce possible@tie{}?  Une liaison est assurément un objet de rendu, si
 bien que la question est @qq{Existe-t-il une propriété attachée aux
-liaisons et qui en contrôle l'épaisseur@tie{}? } Pour y répondre, nous
-consultons la Référence des propriétés internes (ou RPI pour faire court).
+liaisons et qui en contrôle l'épaisseur@tie{}?} Pour y répondre, nous
+consultons la Référence des propriétés internes (ou RPI pour faire
+court).
 
 Vous trouverez sur le site de LilyPond @uref{http://lilypond.org} la
 RPI correspondant à votre version du programme.  Allez sur la page
@@ -552,8 +556,8 @@ et non la @qq{page unique en anglais} ou le PDF.  Durant la lecture
 des prochains paragraphes, il vous est conseillé de vous y reporter
 réellement afin que les explications prennent tout leur sens.
 
-En dessous du bandeau d'en-tête figurent cinq liens.  Cliquez sur le lien
-vers le @emph{Backend}, où se trouvent les informations sur les
+En dessous du bandeau d'en-tête figurent cinq liens.  Cliquez sur le
+lien vers le @emph{Backend}, où se trouvent les informations sur les
 objets de rendu.  En dessous du titre @strong{Backend}, choisissez
 alors le lien vers @emph{Tous les objets de rendu}.  La page qui s'ouvre
 énumère, dans l'ordre alphabétique, tous les objets utilisés dans votre
@@ -573,7 +577,7 @@ l'ordre alphabétique.  Il faut donc les parcourir en entier pour trouver
 la propriété susceptible de contrôler l'épaisseur des traits de liaison.
 
 @example
-@code{thickness} (number)
+@code{thickness} (nombre)
      @code{1.2}
      Épaisseur de ligne, généralement mesurée en @code{line-thickness}
 @end example
@@ -614,16 +618,17 @@ proche d'elle.}  Essayons@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
 {
+  \key es \major
   \time 6/8
   {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 bes8 bes[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -668,15 +673,15 @@ en train de saisir des notes, on peut ici ne pas le mentionner.
 @funindex \once
 @funindex once
 
-Dans le dernier exemple ci-dessus, @emph{toutes} les liaisons étaient plus
-épaisses.  Et si on veut épaissir uniquement la première liaison@tie{}?
-On recourt alors à la commande @code{\once}.  Placée juste avant la
-commande @code{\override}, elle lui indique de ne changer que la liaison
-commençant avec la note @strong{juste après}.  Si la note juste après
-n'ouvre pas une liaison, la commande sera sans aucun effet -- elle ne
-reste pas en mémoire jusqu'à la prochaine liaison, elle est purement et
-simplement ignorée.  Il faut donc que la commande introduite par
-@code{\once} soit insérée comme suit@tie{}:
+Dans le dernier exemple ci-dessus, @emph{toutes} les liaisons étaient
+plus épaisses.  Et si on veut épaissir uniquement la première
+liaison@tie{}?  On recourt alors à la commande @code{\once}.  Placée
+juste avant la commande @code{\override}, elle lui indique de ne changer
+que la liaison commençant avec la note @strong{juste après}.  Si la note
+juste après n'ouvre pas une liaison, la commande sera sans aucun effet
+-- elle ne reste pas en mémoire jusqu'à la prochaine liaison, elle est
+purement et simplement ignorée.  Il faut donc que la commande introduite
+par @code{\once} soit insérée comme suit@tie{}:
 
 
 @cindex Slur, exemple de dérogation
@@ -686,17 +691,18 @@ simplement ignorée.  Il faut donc que la commande introduite par
 
 @lilypond[quote,verbatim,relative=2]
 {
+  \key es \major
   \time 6/8
   {
-    r4 b8
+    r4 bes8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    bes8[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -711,6 +717,7 @@ La commande @code{\once} peut aussi être utilisée devant la commande
 @subheading Rétablissement
 
 @cindex revert
+@cindex rétablissement
 @cindex retour
 @cindex défaut, retour aux propriétés par
 
@@ -730,19 +737,20 @@ débute la liaison@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
 {
+  \key es \major
   \time 6/8
   {
-    r4 b8
+    r4 bes8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g |
+    bes[( g]) g |
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    g[( e]) e d[( f]) a |
-    a g
+    g8[( es]) es d[( f]) as |
+    as8 g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -750,7 +758,7 @@ débute la liaison@tie{}:
 @noindent
 mais on peut aussi, au lieu de la commande @code{\once}, utiliser après
 la seconde liaison la commande @code{\revert}, qui ramène la propriété
-@code{thickness} à sa valeur par défaut .
+@code{thickness} à sa valeur par défaut@tie{}:
 
 @cindex Slur, exemple de dérogation
 @cindex thickness, exemple d'utilisation de la propriété
@@ -759,20 +767,21 @@ la seconde liaison la commande @code{\revert}, qui ramène la propriété
 
 @lilypond[quote,verbatim,relative=2]
 {
+  \key es \major
   \time 6/8
   {
-    r4 b8
+    r4 bes8
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    b[( g]) g |
-    g[( e])
+    bes[( g]) g |
+    g8[( es]) es
     % Revert thickness of all following slurs to default of 1.2
     \revert Slur #'thickness
-    e d[( f]) a |
-    a g
+    d8[( f]) as |
+    as8 g
   }
   \addlyrics {
-  The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -821,7 +830,7 @@ la liste des interfaces qui concernent LyricText.  Cette liste comporte
 plusieurs entrées, dont @code{font-interface}.  En cliquant dessus, nous
 voyons apparaître les différentes propriétés associées à cette
 interface, qui sont en même temps les propriétés de tous les objets qui
-s'y rapportent, parmi lesquels  LyricText.
+s'y rapportent, parmi lesquels LyricText.
 
 Nous avons alors sous les yeux tous les réglages des propriétés qui
 contrôlent les polices de caractères, et notamment
@@ -829,11 +838,11 @@ contrôlent les polices de caractères, et notamment
 @code{upright}, @code{italics} ou @code{caps}.
 
 Vous remarquerez que @code{font-series} et @code{font-size} figurent
-aussi dans la liste.  La question qui ne manque pas de se poser est@tie{}:
-@qq{Comment se fait-il que les propriétés @code{font-series} et
-@code{font-size} se retrouvent à la fois dans @code{LyricText} et dans
-l'interface @code{font-interface} alors que ce n'est pas le cas pour
-@code{font-shape}@tie{}?}  La réponse est que lorsqu'un objet
+aussi dans la liste.  La question qui ne manque pas de se poser
+est@tie{}: @qq{Comment se fait-il que les propriétés @code{font-series}
+et @code{font-size} se retrouvent à la fois dans @code{LyricText} et
+dans l'interface @code{font-interface} alors que ce n'est pas le cas
+pour @code{font-shape} ?}  La réponse est que lorsqu'un objet
 @code{LyricText} est créé, les valeurs globales par défaut de
 @code{font-series} et @code{font-size} sont modifiées, mais pas celles
 de @code{font-shape}.  Les possibilités de modification dans
@@ -852,13 +861,13 @@ puisque les valeurs de @code{font-shape} se présentent sous forme de
 symboles, elles doivent être précédées d'une simple apostrophe,
 @code{'}.  C'est pour cette raison qu'il fallait une apostrophe devant
 @code{thickness} dans l'exemple précédent, et qu'il en faut une devant
-@code{font-shape}. Ce sont à chaque fois des symboles, qui sont
+@code{font-shape}.  Ce sont à chaque fois des symboles, qui sont
 interprétés comme tels par LilyPond.  Certains symboles peuvent être des
 noms de propriété, comme @code{thickness} ou @code{font-shape},
 d'autres sont des valeurs à attribuer aux propriétés, comme
-@code{italic}. À ne pas confondre avec les chaînes de caractères libres,
-qui se présentent comme @code{"un texte libre"}@tie{}; pour plus de
-détails sur les symboles et les chaînes de caractères, voir
+@code{italic}.  À ne pas confondre avec les chaînes de caractères
+libres, qui se présentent comme @code{"un texte libre"}@tie{}; pour plus
+de détails sur les symboles et les chaînes de caractères, voir le
 @rextendnamed{Scheme tutorial,Tutoriel Scheme}.
 
 Ainsi, la commande @code{\override} pour mettre les paroles en italique
@@ -879,15 +888,16 @@ comme ceci@tie{}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
+  \key es \major
   \time 6/8
   {
-    r4 b8 b[( g]) g |
-    g[( e]) e d[( f]) a |
-    a g
+    r4 bes8 bes[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
   }
   \addlyrics {
     \override LyricText #'font-shape = #'italic
-    The man who feels love's sweet e -- mo -- tion
+    The man who | feels love's sweet e -- | mo -- tion
   }
 }
 @end lilypond
@@ -903,14 +913,14 @@ et voilà les paroles en italiques.
 Lorsqu'il s'agit de paroles et qu'on cherche à préciser le contexte
 sur le modèle de ce qui a été fait précédemment, la commande échoue.
 Car une syllabe saisie en mode Paroles (lyricmode) se termine
-obligatoirement par une espace, un saut de ligne ou un nombre. Tout
-autre caractère compte comme un élément de la syllabe. C'est pourquoi il
-faut une espace ou un saut de ligne avant le @code{@}} final, pour
-éviter qu'il ne soit assimilé à la dernière syllabe. De même, il faut
+obligatoirement par une espace, un saut de ligne ou un nombre.  Tout
+autre caractère compte comme un élément de la syllabe.  C'est pourquoi
+il faut une espace ou un saut de ligne avant le @code{@}} final, pour
+éviter qu'il ne soit assimilé à la dernière syllabe.  De même, il faut
 insérer des espaces avant et après le point, @qq{.}, qui sépare le nom
 de contexte du nom de l'objet, faute de quoi les deux noms seront joints
-et l'interpréteur ne pourra pas les reconnaître. La formulation correcte
-est donc@tie{}:
+et l'interpréteur ne pourra pas les reconnaître.  La formulation
+correcte est donc@tie{}:
 
 @example
 \override Lyrics . LyricText #'font-shape = #'italic
@@ -923,7 +933,8 @@ espace entre la dernière syllabe et l'accolade fermante.}
 autour du point qui sépare le nom de contexte du nom d'objet.}
 
 @seealso
-Manuel d'extension : @rextendnamed{Scheme tutorial,Tutoriel Scheme}.
+Manuel d'extension :
+@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
 
 
 @node Types de propriétés
@@ -940,8 +951,8 @@ règles liées à ce type.  Le type de propriété est toujours donné entre
 parenthèses après le nom de propriété dans la RPI.  Voici une liste des
 différents types de propriétés, avec les règles qui les régissent et
 quelques exemples d'utilisation.  Il faut, bien sûr, toujours ajouter un
-symbole hash, @code{#}, devant ces valeurs lors de la saisie de la
-commande @code{\override}.
+symbole @emph{hash}, @code{#}, devant ces valeurs lors de la saisie de
+la commande @code{\override}.
 
 @multitable @columnfractions .2 .45 .35
 @headitem Type de propriété
@@ -949,7 +960,7 @@ commande @code{\override}.
   @tab Exemples
 @item Booléenne (@emph{Boolean} en anglais)
   @tab Vrai (@emph{true} en anglais) ou Faux (@emph{false} en anglais),
-       sous la forme #t  ou #f
+       sous la forme @code{#t} ou @code{#f}
   @tab @code{#t}, @code{#f}
 @item Dimension (en lignes de portée)
   @tab Un nombre positif décimal (en unités de lignes de portée)
@@ -993,7 +1004,8 @@ précédés par apostrophe-hash, @code{'#}
 
 
 @seealso
-Manuel d'extension : @rextendnamed{Scheme tutorial,Tutoriel Scheme}.
+Manuel d'extension :
+@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
 
 
 @node Apparence des objets
@@ -1018,8 +1030,8 @@ montrent l'utilisation des différentes méthodes de retouche.
 Dans un but pédagogique, on peut être amené à masquer certains éléments
 d'une partition, que les élèves doivent ensuite compléter.  Imaginons,
 par exemple, un exercice dans lequel il faudrait rétablir les barres de
-mesure dans un morceau de musique. En temps normal, les barres de mesure
-s'insèrent automatiquement.  Comment faire pour les effacer de la
+mesure dans un morceau de musique.  En temps normal, les barres de
+mesure s'insèrent automatiquement.  Comment faire pour les effacer de la
 partition@tie{}?
 
 Avant de nous y attaquer, souvenons-nous que les propriétés d'objets
@@ -1039,13 +1051,13 @@ trouver les informations sur les @emph{grobs}.  Nous procédons de la
 même manière et consultons la RPI pour connaître l'objet chargé
 d'imprimer les barres de mesure.  En cliquant sur @emph{Backend} puis
 sur @emph{Tous les objets de rendu}, nous trouvons un objet appelé
-@code{BarLine}.  Parmi  ses propriétés, deux d'entre elles déterminent
+@code{BarLine}.  Parmi ses propriétés, deux d'entre elles déterminent
 son aspect visuel@tie{}: @code{break-visibility} et @code{stencil}.
 L'objet @code{BarLine} est également lié à plusieurs interfaces, dont la
 @code{grob-interface} où figurent les propriétés @code{transparent} et
 @code{color}.  Toutes peuvent modifier l'aspect visuel des barres de
 mesure -- et de beaucoup d'autres objets, bien sûr.  Examinons chacune
-d'elles tour à tour.
+d'elles tour à tour. 
 
 @subheading stencil
 
@@ -1065,14 +1077,14 @@ encore, le contexte concerné (@code{Voice} en l'occurrence)@tie{}:
   \time 12/16
   \override BarLine #'stencil = ##f
   c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
 
 Les barres de mesure sont encore là@tie{}!  Pourquoi@tie{}?  Retournons
 à la RPI et regardons de nouveau la page qui traite des propriétés de
-BarLine. En haut de la page, il est précisé que @qq{Les objets BarLine
+BarLine.  En haut de la page, il est précisé que @qq{Les objets BarLine
 sont créés par le graveur Bar_engraver}.  Allons à la page de
 @code{Bar_engraver}.  Tout en bas se trouve la liste des contextes dans
 lesquels fonctionne ce graveur.  Tous sont du type @code{Staff}, de
@@ -1091,12 +1103,28 @@ bon contexte@tie{}:
   \time 12/16
   \override Staff.BarLine #'stencil = ##f
   c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
 
 Cette fois, les barres de mesure ont disparu.
+
+Vous remarquerez que l'affectation de la valeur @code{#f} à la propriété
+@code{stencil} déclechera une erreur dès lors que l'objet en question se
+doit d'avoir des dimensions pour les nécessités du traitement.  Ce sera
+le cas, par exemple, si vous effacez le @code{stencil} d'un objet
+@code{NoteHead}.  Il vaut mieux, en pareil caas, utiliser la fonction
+@code{point-stencil} qui, quant à elle, attribue à l'objet une taille à
+zero@tie{}:
+
+@lilypond[quote,verbatim,relative=2]
+{
+  c4 c
+  \once \override NoteHead #'stencil = #point-stencil
+  c4 c
+}
+@end lilypond
 
 @subheading visibilité des barres (break-visibility)
 
@@ -1108,7 +1136,7 @@ boléens.  Ceux-ci indiquent respectivement si les barres de mesure
 doivent être imprimées ou non à la fin de la ligne, à l'intérieur de la
 ligne et au début de la ligne.  Dans notre cas, nous voulons que toutes
 les barres soient supprimées, si bien que la valeur dont nous avons
-besoin est @code{'#(#f@tie{}#f@tie{}#f)}. Essayons, sans oublier
+besoin est @code{'#(#f@tie{}#f@tie{}#f)}.  Essayons, sans oublier
 d'ajouter le contexte @code{Staff}.  Vous remarquerez que, en plus de
 cette valeur, nous ajoutons @code{#'#} devant la parenthèse ouvrante.
 Le @code{'#} est nécessaire car il fait partie intégrante de la valeur
@@ -1123,7 +1151,7 @@ la commande @code{\override}, pour introduire la valeur elle-même.
   \time 12/16
   \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
   c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1157,7 +1185,7 @@ pour rendre la métrique transparente est@tie{}:
   \time 12/16
   \override Staff.TimeSignature #'transparent = ##t
   c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1177,7 +1205,7 @@ attribuons plutôt au stencil des métriques la valeur @code{#f}@tie{}:
   \time 12/16
   \override Staff.TimeSignature #'stencil = ##f
   c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1217,7 +1245,7 @@ Pour mettre les barres de mesure en blanc, on écrit@tie{}:
   \time 12/16
   \override Staff.BarLine #'color = #white
   c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1251,7 +1279,7 @@ comme ceci@tie{}:
   \time 12/16
   \override Staff.BarLine #'color = #(x11-color 'white)
   c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1282,13 +1310,13 @@ Ainsi, pour choisir la couleur rouge, la valeur serait
   \time 12/16
   \override Staff.BarLine #'color = #(rgb-color 1 1 1)
   c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
 
 Enfin, il existe une échelle de gris parmi les possibilités de couleurs
-X11.  Elle va du noir, @code{'grey0}, au blanc, @code{'grey100}, avec
+X11.  Elle va du noir (@code{'grey0}) au blanc (@code{'grey100}), avec
 un pas de 1.  Essayons de l'utiliser en attribuant à tous les objets de
 notre exemple différentes nuances de gris@tie{}:
 
@@ -1311,7 +1339,7 @@ notre exemple différentes nuances de gris@tie{}:
   \override Voice.Stem          #'color = #(x11-color 'grey85)
   \override Staff.BarLine       #'color = #(x11-color 'grey10)
   c4 b8 c d16 c d8 |
-  g, a16 b8 c d4 e16 |
+  g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
@@ -1344,22 +1372,22 @@ nouvelle portée temporaire, du type @rglos{ossia}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-       \relative g' {
-         r4 g8 g c4 c8 d |
-         e4 r8
-         <<
-           { f c c }
-           \new Staff \with {
-             alignAboveContext = #"main" }
-           { f8 f c }
-         >>
-         r4 |
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main" }
+      { f8 f c }
+    >>
+    r4 |
   }
 }
 @end lilypond
 
-Normalement, les ossias ne comportent ni clef ni indication de mesure, et
-elles sont imprimées légèrement plus petit que la portée principale.
+Normalement, les ossias ne comportent ni clef ni indication de mesure,
+et elles sont imprimées légèrement plus petit que la portée principale.
 Nous avons déjà appris à enlever la clef et la métrique -- il suffit de
 régler le stencil de chacun sur @code{#f}, comme ceci@tie{}:
 
@@ -1375,7 +1403,7 @@ régler le stencil de chacun sur @code{#f}, comme ceci@tie{}:
     r4 g8 g c4 c8 d |
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
       }
@@ -1437,7 +1465,7 @@ Remplaçons donc l'exemple ci-dessus par celui-ci@tie{}:
     r4 g8 g c4 c8 d |
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         % Don't print clefs in this staff
@@ -1445,7 +1473,7 @@ Remplaçons donc l'exemple ci-dessus par celui-ci@tie{}:
         % Don't print time signatures in this staff
         \override TimeSignature #'stencil = ##f
       }
-        { f8 f c }
+      { f8 f c }
     >>
     r4 |
   }
@@ -1487,7 +1515,7 @@ dans une clause @code{\with} (mais alors sans le @code{\set}).
 
 Chacune de ces méthodes réduira la taille de police de deux points par
 rapport à sa valeur précédente, sachant que chaque point réduit ou
-augmente la taille d'environ 12 %.
+augmente la taille d'environ 12@tie{}%.
 
 Essayons sur l'exemple d'ossia :
 
@@ -1503,7 +1531,7 @@ Essayons sur l'exemple d'ossia :
     r4 g8 g c4 c8 d |
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         \override Clef #'stencil = ##f
@@ -1511,7 +1539,7 @@ Essayons sur l'exemple d'ossia :
         % Reduce all font sizes by ~24%
         fontSize = #-2
       }
-        { f8 f c }
+      { f8 f c }
     >>
     r4 |
   }
@@ -1543,11 +1571,11 @@ portée -- plus rarement, il est question de demi-intervalles de lignes.
 Les propriétés d'épaisseur (@code{thickness}), quant à elles, sont
 généralement mesurées en unités d'une propriété interne appelée
 @qq{épaisseur de ligne} (@code{line-thickness}).  Par exemple, les
-lignes de crescendo/decrescendo présentent par défaut une épaisseur de 1
-unité de @code{line-thickness}, alors que l'épaisseur d'une hampe est de
-1,3.  Toutefois, certaines propriétés d'épaisseur sont
-différentes@tie{}: par exemple, l'épaisseur des ligature se mesure en
-espaces de portée.
+lignes de crescendo/decrescendo présentent par défaut une épaisseur de
+1@tie{}unité de @code{line-thickness}, alors que l'épaisseur d'une hampe
+est de 1,3.  Toutefois, certaines propriétés d'épaisseur sont
+différentes@tie{}: par exemple, l'épaisseur des ligature --
+@code{beam-thickness} -- se mesure en espaces de portée.
 
 Dans ces conditions, comment ajuster les longueurs à la taille des
 polices de caractères@tie{}?  La solution consiste à utiliser une
@@ -1573,7 +1601,7 @@ objets en question.  Voici comment elle s'utilise@tie{}:
     r4 g8 g c4 c8 d |
     e4 r8
     <<
-      { f c c }
+      { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
         \override Clef #'stencil = ##f
@@ -1582,7 +1610,7 @@ objets en question.  Voici comment elle s'utilise@tie{}:
         % Reduce stem length and line spacing to match
         \override StaffSymbol #'staff-space = #(magstep -2)
       }
-        { f8 f c }
+      { f8 f c }
     >>
     r4 |
   }
@@ -1679,9 +1707,9 @@ en-dessous de @code{Text2}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
-c^"Text2"
-c^"Text3"
-c^"Text4"
+c2^"Text2" |
+c2^"Text3"
+c2^"Text4" |
 @end lilypond
 
 Les portées aussi sont positionnées, par défaut, le plus près possible
@@ -1693,10 +1721,10 @@ chevauchement.
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Staff {
-    \relative c' { c a, }
+    \relative c' { c4 a, }
   }
   \new Staff {
-    \relative c'''' { c a, }
+    \relative c'''' { c4 a, }
   }
 >>
 @end lilypond
@@ -1741,13 +1769,13 @@ notes de nouveau avec le comportement par défaut.
 @cindex direction, exemple d'utilisation de la propriété
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a4 g c a
+a4 g c a |
 \override Stem #'direction = #DOWN
-a g c a
+a4 g c a |
 \override Stem #'direction = #UP
-a g c a
+a4 g c a |
 \revert Stem #'direction
-a g c a
+a4 g c a |
 @end lilypond
 
 Nous utilisons ici les directions @code{DOWN} et @code{UP}.  Elles
@@ -1833,11 +1861,11 @@ les deux suivantes montrent l'effet lorsqu'on indique @code{DOWN} et
 @cindex direction, exemple d'utilisation de la propriété
 
 @lilypond[quote,verbatim,relative=2]
-c-5 a-3 f-1 c'-5
+c4-5 a-3 f-1 c'-5 |
 \override Fingering #'direction = #DOWN
-c-5 a-3 f-1 c'-5
+c4-5 a-3 f-1 c'-5 |
 \override Fingering #'direction = #UP
-c-5 a-3 f-1 c'-5
+c4-5 a-3 f-1 c'-5 |
 @end lilypond
 
 Le fait d'intervenir sur la propriété @code{direction} n'est sûrement
@@ -1849,9 +1877,9 @@ l'exemple précédent avec cette méthode@tie{}:
 @cindex doigtés, exemple
 
 @lilypond[quote,verbatim,relative=2]
-c-5 a-3 f-1 c'-5
-c_5 a_3 f_1 c'_5
-c^5 a^3 f^1 c'^5
+c4-5 a-3 f-1 c'-5 |
+c4_5 a_3 f_1 c'_5 |
+c4^5 a^3 f^1 c'^5 |
 @end lilypond
 
 La propriété @code{direction} ne fonctionne pas pour les accords alors
@@ -1862,9 +1890,9 @@ au-dessous des notes d'un accord, comme ceci@tie{}:
 @cindex doigtés, exemple
 
 @lilypond[quote,verbatim,relative=2]
-<c-5 g-3>
-<c-5 g-3 e-2>
-<c-5 g-3 e-2 c-1>
+<c-5 g-3>4
+<c-5 g-3 e-2>4
+<c-5 g-3 e-2 c-1>4
 @end lilypond
 
 @noindent
@@ -1874,9 +1902,9 @@ le placement de tous ou certains chiffres de doigté, comme ceci@tie{}:
 @cindex doigtés, exemple
 
 @lilypond[quote,verbatim,relative=2]
-<c-5 g-3 e-2 c-1>
-<c^5 g_3 e_2 c_1>
-<c^5 g^3 e^2 c_1>
+<c-5 g-3 e-2 c-1>4
+<c^5 g_3 e_2 c_1>4
+<c^5 g^3 e^2 c_1>4
 @end lilypond
 
 On peut aller encore plus loin dans le positionnement des doigtés pour
@@ -1889,8 +1917,8 @@ est@tie{}:
 @end example
 
 @noindent
-On utilise @code{\set} car @code{fingeringOrientations} est une propriété
-du contexte @code{Voice}, créée et utilisée par le graveur
+On utilise @code{\set} car @code{fingeringOrientations} est une
+propriété du contexte @code{Voice}, créée et utilisée par le graveur
 @code{New_fingering_engraver}.
 
 On peut attribuer à cette propriété une liste composée de une à trois
@@ -1916,20 +1944,20 @@ Voici quelques exemples :
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \set fingeringOrientations = #'(left)
-<f-2>
-< c-1  e-2 g-3 b-5 > 4
+<f-2>4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(left)
-<f-2>
-< c-1  e-2 g-3 b-5 > 4
+<f-2>4
+<c-1 e-2 g-3 b-5>4 |
 \set fingeringOrientations = #'(up left down)
-<f-2>
-< c-1  e-2 g-3 b-5 > 4
+<f-2>4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left)
-<f-2>
-< c-1  e-2 g-3 b-5 > 4
+<f-2>4
+<c-1 e-2 g-3 b-5>4 |
 \set fingeringOrientations = #'(right)
-<f-2>
-< c-1  e-2 g-3 b-5 > 4
+<f-2>4
+<c-1 e-2 g-3 b-5>4
 @end lilypond
 
 @noindent
@@ -1941,20 +1969,20 @@ par défaut donnée dans la RPI à la page de l'objet
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \override Fingering #'font-size = #-7
 \set fingeringOrientations = #'(left)
-<f-2>
-< c-1  e-2 g-3 b-5 > 4
+<f-2>4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(left)
-<f-2>
-< c-1  e-2 g-3 b-5 > 4
+<f-2>4
+<c-1 e-2 g-3 b-5>4 |
 \set fingeringOrientations = #'(up left down)
-<f-2>
-< c-1  e-2 g-3 b-5 > 4
+<f-2>4
+<c-1 e-2 g-3 b-5>4
 \set fingeringOrientations = #'(up left)
-<f-2>
-< c-1  e-2 g-3 b-5 > 4
+<f-2>4
+<c-1 e-2 g-3 b-5>4 |
 \set fingeringOrientations = #'(right)
-<f-2>
-< c-1  e-2 g-3 b-5 > 4
+<f-2>4
+<c-1 e-2 g-3 b-5>4
 @end lilypond
 
 
@@ -1975,6 +2003,23 @@ Le tableau suivant montre la valeur numérique par défaut pour
 quelques-uns des objets extérieurs à la portée les plus courants qui
 sont placés, par défaut, dans les contextes @code{Staff} ou
 @code{Voice}.
+
+@cindex spanners
+@cindex bandeaux
+
+Vous noterez au passage certaines particularités quant au nom des
+objets.  En effet, des objets à extension sont automatiquement créés
+dans le but de pouvoir contrôler le positionnement vertical des
+extrémités d'un @emph{grob} qui commencerait et se terminerait à des
+instants musicaux différents.  C'est la raison pour laquelle modifier le
+@code{outside-staff-priority} du @emph{grob} sous-jacent n'aura aucun
+effet.  C'est par exemple le cas lorsque vous modifiez l'alignement d'un
+objet @code{Hairpin} à l'aide de @code{outside-staff-priority}@tie{};
+puique le soufflet est associé à un objet @code{DynamicLineSpanner},
+c'est sur celui-ci que doit porter l'effet de
+@code{outside-staff-priority}.  L'instruction dérogatoire se place au
+début du bandeau qui constitue une ligne de base susceptible de contenir
+plusieurs soufflets ou indications de nuance.
 
 @multitable @columnfractions .3 .3 .3
 @headitem Objet de rendu
@@ -2019,29 +2064,28 @@ d'entre eux.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
-\override TextSpanner #'bound-details #'left #'text
+\override TextSpanner #'(bound-details left text)
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp
 % Start Ottava Bracket
 \ottava #1
-c' \startTextSpan
-% Add Dynamic Text
-c\pp
-% Add Dynamic Line Spanner
-c\<
+c'4 \startTextSpan
+% Add Dynamic Text and hairpin
+c4\pp\<
+c4
 % Add Text Script
-c^Text
-c c
-% Add Dynamic Text
-c\ff c \stopTextSpan
+c4^Text |
+c4 c
+% Add Dynamic Text and terminate hairpin
+c4\ff c \stopTextSpan |
 % Stop Ottava Bracket
 \ottava #0
-c, c c c
+c,4 c c c |
 @end lilypond
 
 Cet exemple montre comment créer des extensions de texte (@emph{Text
-Spanners} en anglais ) -- texte avec des longues lignes au-dessus d'un
+Spanners} en anglais) -- texte avec des longues lignes au-dessus d'un
 passage musical.  L'extension s'étend depuis la commande
 @code{\startTextSpan} jusqu'à la commande @code{\stopTextSpan} et le
 format de texte est défini par la commande @code{\override TextSpanner}.
@@ -2078,7 +2122,7 @@ contexte @code{Staff}.  Après quoi ces marques porteront les valeurs de
 @end multitable
 
 Si les valeurs de @code{outside-staff-priority} par défaut ne donnent
-pas les résultats que vous attendez, il suffit de modifier la priorité
+pas les résultats escomptés, il suffit de modifier la priorité
 de l'un de ces objets.  Supposons que vous vouliez placer l'indication
 d'octaviation sous le bandeau de texte, dans l'exemple précédent.  Tout
 ce que nous devons faire, c'est regarder la priorité de
@@ -2092,27 +2136,27 @@ gardant à l'esprit que @code{OttavaBracket} est créé dans le contexte
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
-\override TextSpanner #'bound-details #'left #'text
+\override TextSpanner #'(bound-details left text)
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp
-%Place following Ottava Bracket below Text Spanners
+% Place following Ottava Bracket below Text Spanners
 \once \override Staff.OttavaBracket #'outside-staff-priority = #340
 % Start Ottava Bracket
 \ottava #1
-c' \startTextSpan
+c'4 \startTextSpan
 % Add Dynamic Text
-c\pp
+c4\pp
 % Add Dynamic Line Spanner
-c\<
+c4\<
 % Add Text Script
-c^Text
-c c
+c4^Text |
+c4 c
 % Add Dynamic Text
-c\ff c \stopTextSpan
+c4\ff c \stopTextSpan |
 % Stop Ottava Bracket
 \ottava #0
-c, c c c
+c,4 c c c |
 @end lilypond
 
 @cindex liaisons et outside-staff-priority
@@ -2135,13 +2179,13 @@ liaison dans le but de regrouper la liaison avec les objets externes.
 L'exemple suivant illustre ces deux différentes méthodes.
 
 @lilypond[quote,verbatim,relative=2]
-c4( c^\markup\tiny\sharp d4.) c8
+c4( c^\markup { \tiny \sharp } d4.) c8 |
 c4(
 \once \override TextScript #'avoid-slur = #'inside
 \once \override TextScript #'outside-staff-priority = ##f
-c^\markup\tiny\sharp d4.) c8
+c4^\markup { \tiny \sharp } d4.) c8 |
 \once \override Slur #'outside-staff-priority = #500
-c4( c^\markup\tiny\sharp d4.) c8
+c4( c^\markup { \tiny \sharp } d4.) c8 |
 @end lilypond
 
 Le fait de changer la @code{outside-staff-priority} peut aussi servir à
@@ -2158,10 +2202,10 @@ valeur très haute@tie{}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
-c^"Text2"
+c2^"Text2" |
 \once \override TextScript #'outside-staff-priority = #500
-c^"Text3"
-c^"Text4"
+c2^"Text3"
+c2^"Text4" |
 @end lilypond
 
 S'il est vrai que cela place @qq{Text3} au-dessus de @qq{Text4}, ça le
@@ -2191,9 +2235,9 @@ texte@tie{}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \textLengthOn  % Cause notes to space out to accommodate text
 c2^"Text1"
-c^"Text2"
-c^"Text3"
-c^"Text4"
+c2^"Text2" |
+c2^"Text3"
+c2^"Text4" |
 @end lilypond
 
 La commande qui permet de revenir au comportement par défaut est
@@ -2216,23 +2260,23 @@ de note.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 % This markup is short enough to fit without collision
-c2^"Tex"
-c''2
-R1
+c2^"Tex" c'' |
+R1 |
+
 % This is too long to fit, so it is displaced upwards
-c,,2^"Text"
-c''2
-R1
+c,,2^"Text" c'' |
+R1 |
+
 % Turn off collision avoidance
 \once \override TextScript #'outside-staff-priority = ##f
-c,,2^"Long Text   "
-c''2
-R1
+c,,2^"Long Text   " c'' |
+R1 |
+
 % Turn off collision avoidance
 \once \override TextScript #'outside-staff-priority = ##f
-\textLengthOn  % and turn on textLengthOn
+\textLengthOn        % and turn on textLengthOn
 c,,2^"Long Text   "  % Spaces at end are honored
-c''2
+c''2 |
 @end lilypond
 
 
@@ -2290,7 +2334,7 @@ point du @emph{grob} est placé à une distance horizontale,
 parent.  L'étendue horizontale de l'objet est fixée par une paire de
 nombres, @code{X-extent}, qui donnent la position du coin
 gauche et du coin droit par rapport au point de référence.  De
-même, l'étendue verticale est fixée par une paire de nombre,
+même, l'amplitude verticale est fixée par une paire de nombres,
 @code{Y-extent}.  Ce sont des propriétés communes à tous les
 @emph{grobs} et que gère la @code{grob-interface}.
 
@@ -2298,14 +2342,14 @@ même, l'étendue verticale est fixée par une paire de nombre,
 
 Par défaut, la largeur des objets extérieurs à la portée est donnée
 comme étant nulle, si bien qu'ils peuvent se chevaucher
-horizontalement. Pour reméfier à cela, on a ajouté l'infini à
+horizontalement.  Pour remédier à cela, on a ajouté l'infini à
 l'extension gauche et moins l'infini à l'extension droite, en
 attribuant à @code{extra-spacing-width} la valeur
-@w{@code{'(+inf.0 . -inf.0)}}. Pour être sûr que les objets ne se
-chevaucheront pas horizontalement, nous devons donc corriger
-cette valeur de @code{extra-spacing-width} en @w{@code{'(0 . 0)}},
-afin que leur vraie largeur se manifeste. La commande pour y
-parvenir avec des indications de nuances est@tie{}:
+@code{'(+inf.0@tie{}.@tie{}-inf.0)}. Pour être sûr que les objets ne se
+chevaucheront pas horizontalement, nous devons donc corriger cette
+valeur de @code{extra-spacing-width} en @w{@code{'(0 . 0)}}, afin que
+leur vraie largeur se manifeste. La commande pour y parvenir avec des
+indications de nuances est@tie{}:
 
 @example
 \override DynamicText #'extra-spacing-width = #'(0 . 0)
@@ -2320,17 +2364,17 @@ Voyons si ça marche sur notre exemple précédent@tie{}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 \override DynamicText #'extra-spacing-width = #'(0 . 0)
-a4\f b\mf c\mp b\p
+a4\f b\mf c\mp b\p |
 @end lilypond
 
 @noindent
 Bon, cela a mis un terme aux déplacements verticaux des
-nuances mais il reste deux problèmes. Il faudrait que les
+nuances mais il reste deux problèmes.  Il faudrait que les
 nuances soient un peu plus écartées et ce serait mieux si
-elles étaient toutes à la même distance de la portée. Le
-premier problème est simple à résoudre. Au lieu d'attribuer
+elles étaient toutes à la même distance de la portée.  Le
+premier problème est simple à résoudre.  Au lieu d'attribuer
 à @code{extra-spacing-width} la valeur zéro, nous pourrions
-mettre un peu plus. L'unité est la distance entre deux lignes
+mettre un peu plus.  L'unité est la distance entre deux lignes
 de portée, donc en écartant le bord gauche d'une demi-unité
 et le bord droit d'une demi-unité, on obtient@tie{}:
 
@@ -2347,7 +2391,7 @@ a4\f b\mf c\mp b\p
 @noindent
 C'est mieux mais nous voulons peut-être aligner les indications de
 nuance sur une même ligne plutôt que de les voir monter et
-descendre avec les notes. La propriété qui gère cela est
+descendre avec les notes.  La propriété qui gère cela est
 @code{staff-padding}@tie{}; la section suivante lui est consacrée.
 
 
@@ -2373,7 +2417,7 @@ descendre avec les notes. La propriété qui gère cela est
 
 Aussi surprenant que cela puisse paraître, LilyPond n'est pas parfait.
 Certains éléments sur la partition peuvent se chevaucher, ce qui est
-regrettable mais, le plus souvent, facile à corriger. En général, quand
+regrettable mais, le plus souvent, facile à corriger.  En général, quand
 on déplace des objets, c'est pour des raisons de lisibilité ou
 d'esthétique -- ils rendraient mieux avec un peu plus ou un peu moins
 d'espace autour d'eux.
@@ -2389,7 +2433,7 @@ plus haut à propos des objets de portée (voir
 @ref{Objets inclus dans la portée}).
 Les queues de note, les liaisons de phrasé et de prolongation, les
 crochets, les nuances et les nolets peuvent facilement être repositionnés
-de cette manière. En contrepartie, vous n'avez le choix qu'entre deux
+de cette manière.  En contrepartie, vous n'avez le choix qu'entre deux
 positions, sans personnalisation possible.
 
 @item
@@ -2409,18 +2453,16 @@ Ce point a déjà été traité en détails -- voir
 @ref{Objets inclus dans la portée}.
 
 @item
-@code{padding}, @code{left-padding},
-@code{right-padding}, @code{staff-padding}
+@code{padding}, @code{right-padding}, @code{staff-padding}
 
 @cindex décalage (padding)
-@cindex left-padding, propriété
 @cindex padding, propriété
 @cindex right-padding, propriété
 @cindex staff-padding, propriété
 
 Au moment de positionner un objet, la valeur de sa propriété
 @code{padding} détermine l'espace à laisser libre entre celui-ci et le
-coin le plus proche de l'objet à côté duquel il est placé. Vous
+coin le plus proche de l'objet à côté duquel il est placé.  Vous
 remarquerez que c'est la valeur @code{padding} de l'objet @strong{à
 placer} qui compte@tie{}; la valeur @code{padding} de l'objet déjà placé
 est ignorée.  Les espaces libres déterminés par @code{padding}
@@ -2428,13 +2470,13 @@ s'appliquent à tous les objets associés à la
 @code{side-position-interface}.
 
 Le positionnement de groupes d'altérations est contrôlé par
-@code{left-padding} et @code{right-padding}, et non plus @code{padding}.
-Ces propriétés appartiennent à l'objet @code{AccidentalPlacement}, qui,
-vous le remarquerez, prend place dans le contexte @strong{Staff}.  Dans
-le processus de composition, les têtes de notes sont composées en
-premier, puis les altérations, s'il y en a, sont ajoutées à gauche des
-têtes de notes suivant la propriété @code{right-padding} qui détermine
-l'espacement par rapport aux têtes de note. C'est pourquoi seule la
+@code{right-padding}, et non plus @code{padding}.  Cette propriété
+appartient à l'objet @code{AccidentalPlacement} qui, vous le
+remarquerez, prend place dans le contexte @strong{Staff}.  Dans le
+processus de composition, les têtes de notes sont disposées en premier,
+puis les altérations, s'il y en a, sont ajoutées à gauche des têtes de
+note suivant la propriété @code{right-padding} qui détermine
+l'espacement par rapport aux têtes de note.  C'est pourquoi seule la
 propriété @code{right-padding} de l'objet @code{AccidentalPlacement}
 joue sur le positionnement des altérations.
 
@@ -2445,8 +2487,8 @@ proche (généralement une note ou une ligne de portée)@tie{};
 @code{staff-padding} ne s'applique qu'aux objets qui sont toujours
 placés en-dehors de la portée -- il contrôle l'espace minimum à insérer
 entre l'objet et la portée.  Attention@tie{}: par défaut,
-@code{staff-padding} concerne les objets positionnés par rapport à la
-portée et n'a aucun effet sur les objets qui sont positionnés par
+@code{staff-padding} concerne les objets positionnés par rapport 
+à la portée et n'a aucun effet sur les objets qui sont positionnés par
 rapport à une note@tie{}; il est toutefois possible de le régler pour
 fonctionner avec ces derniers.
 
@@ -2471,17 +2513,19 @@ petit).
 Cette propriété sert à aligner les objets sur la gauche, sur la droite
 ou à les centrer par rapport au point de référence des objets parents.
 Elle peut être utilisée avec tous les objets qui acceptent la
-@code{self-alignment-interface}. Il s'agit, en général, des objets qui
-contiennent du texte. Les valeurs admises sont @code{LEFT}, @code{RIGHT}
-et @code{CENTER}.  On peut aussi attribuer à la place une valeur
-numérique entre @code{-1} et @code{+1}, où @code{-1} signifie alignement
-sur la gauche, @code{+1} alignement sur la droite, et les nombres
-intermédiaires déplacent progressivement le texte de la gauche vers la
-droite.  Des valeurs numériques supérieures à @code{1} sont également
-admises pour déplacer le texte encore plus loin vers la gauche, ou des
-valeurs inférieures à @code{-1} pour déplacer le texte encore plus loin
-vers la droite.  Un écart de @code{1} en valeur correspond à un
-déplacement de la moitié de la longueur du texte.
+@code{self-alignment-interface}.  Il s'agit, en général, des objets qui
+contiennent du texte.  Les valeurs admises sont @code{LEFT},
+@code{RIGHT} et @code{CENTER}.  On peut aussi attribuer à
+la place une valeur numérique entre @code{-1} et @code{+1},
+où @code{-1} signifie alignement sur la gauche, @code{+1}
+alignement sur la droite, et les nombres intermédiaires déplacent
+progressivement le texte de la gauche vers la droite.  Des valeurs
+numériques supérieures à @code{1} sont également admises
+pour déplacer le texte encore plus loin vers la gauche, ou des
+valeurs inférieures à @code{-1} pour déplacer le texte encore
+plus loin vers la droite.  Un écart de @code{1} en valeur
+correspond à un déplacement de la moitié de la longueur du
+texte.
 
 @item
 @code{extra-spacing-width}
@@ -2490,12 +2534,12 @@ déplacement de la moitié de la longueur du texte.
 
 Cette propriété est utilisée pour tous les objets qui acceptent la
 @code{item-interface}.  Elle reçoit deux nombres, le premier étant
-ajouté au bord gauche et le second au bord droit.  Des nombres négatifs
-déplacent le coin vers la gauche, des nombres positifs vers la droite,
-si bien que pour élargir un objet, le premier nombre doit être négatif
-et le second positif.  Attention@tie{}: tous les objets n'acceptent pas
-forcément les deux nombres.  Par exemple, l'objet @code{Accidental} ne
-retient que le premier nombre (coin gauche).
+ajouté au bord gauche et le second au bord droit.  Des nombres
+négatifs déplacent le coin vers la gauche, des nombres positifs
+vers la droite, si bien que pour élargir un objet, le premier nombre
+doit être négatif et le second positif.  Attention@tie{}: tous les
+objets n'acceptent pas forcément les deux nombres.  Par exemple, l'objet
+@code{Accidental} ne retient que le premier nombre (coin gauche).
 
 
 @item
@@ -2527,13 +2571,13 @@ réalité à la @code{note-column-interface}).  Le fait de la modifier
 permet de déplacer un empilement selon l'unité appropriée aux colonnes
 de notes, à savoir la largeur des têtes de note de la première voix.
 Son utilisation est réservée à des situations complexes dans lesquelles
-les commandes habituelles @code{\shiftOn} (voir @ref{Instanciation
-explicite des voix}) ne suffisent plus à résoudre les conflits.  Elle
-est alors préférable à l'utilisation de la propriété
-@code{extra-offset}, dans la mesure où on n'a pas besoin d'exprimer la
-distance en espaces de portée et où le fait de déplacer les notes à
-l'intérieur ou à l'extérieur d'une @code{NoteColumn} affecte
-d'autres actions comme les fusionnements de notes.
+les commandes habituelles @code{\shiftOn}
+(voir @ref{Instanciation explicite des voix}) ne suffisent plus à
+résoudre les conflits.  Elle est alors préférable à l'utilisation de la
+propriété @code{extra-offset}, dans la mesure où on n'a pas besoin
+d'exprimer la distance en espaces de portée et où le fait de déplacer
+les notes à l'intérieur ou à l'extérieur d'une @code{NoteColumn} affecte
+d'autres actions comme les fusions de notes.
 
 @end itemize
 
@@ -2543,13 +2587,13 @@ possible de repositionner verticalement les objets à la main par rapport
 à la ligne médiane de la portée, ou en les déplaçant à une distance
 donnée vers une nouvelle position.  Les inconvénients sont qu'il faut
 individuellement, pour chaque objet, trouver les valeurs correctes de
-repositionnement souvent par tâtonnement, et que, puisque le mouvement
-est opéré après que LilyPond a placé tous les autres objets, c'est à
-l'utilisateur de résoudre tous les problèmes de collision qui pourraient
-survenir.  Et le pire avec cette méthode est que, le jour où la musique
-est modifiée, il faut de nouveau rechercher les valeurs de
-repositionnement.  Les propriétés à utiliser pour ce type de
-repositionnement manuel sont@tie{}:
+repositionnement souvent par tâtonnement, et que, puisque le
+mouvement est opéré après que LilyPond a placé tous les autres
+objets, c'est à l'utilisateur de résoudre tous les problèmes de
+collision qui pourraient survenir.  Et le pire avec cette méthode est
+que, le jour où la musique est modifiée, il faut de nouveau rechercher
+les valeurs de repositionnement.  Les propriétés à utiliser pour ce type
+de repositionnement manuel sont@tie{}:
 
 
 @table @code
@@ -2571,7 +2615,7 @@ perturber quoi que ce soit.
 @cindex positions, propriété
 
 Cette propriété est très utile pour ajuster manuellement l'inclinaison
-et la hauteur des barres de ligature, des liaisons et des nolets. Elle
+et la hauteur des barres de ligature, des liaisons et des nolets.  Elle
 est suivie de deux nombres qui donnent la position des bords gauche et
 droit des barres, liaisons, etc. par rapport à la ligne médiane de la
 portée.  L'unité de référence est l'intervalle de lignes de portée.
@@ -2642,11 +2686,11 @@ b2\fermata
 % This will not work, see below:
 \override MetronomeMark #'padding = #3
 \tempo 4=120
-c1
+c1 |
 % This works:
 \override Score.MetronomeMark #'padding = #3
 \tempo 4=80
-d1
+d1 |
 @end lilypond
 
 Vous remarquerez dans le second exemple à quel point il est important de
@@ -2660,9 +2704,8 @@ fait partie d'un ensemble d'objets positionnés en fonction de leur
 @code{outside-staff-priority}, cet objet sera déplacé, ainsi que tous
 les autres objets du groupe.
 
-@subheading left-padding et right-padding
+@subheading right-padding
 
-@cindex left-padding, propriété
 @cindex right-padding, propriété
 
 La propriété @code{right-padding} joue sur l'espacement entre une
@@ -2682,18 +2725,18 @@ comme ceci@tie{}:
 @lilypond[quote,ragged-right,verbatim]
 sesquisharp = \markup { \sesquisharp }
 \relative c'' {
-  c
+  c4
   % This prints a sesquisharp but the spacing is too small
   \once \override Accidental
     #'stencil = #ly:text-interface::print
   \once \override Accidental #'text = #sesquisharp
-  cis c
+  cis4 c
   % This improves the spacing
   \once \override Score.AccidentalPlacement #'right-padding = #0.6
   \once \override Accidental
     #'stencil = #ly:text-interface::print
   \once \override Accidental #'text = #sesquisharp
-  cis
+  cis4 |
 }
 @end lilypond
 
@@ -2713,7 +2756,7 @@ note par la retouche de @code{right-padding}.
 @cindex objets, alignement sur une ligne de base
 
 @code{staff-padding} sert à aligner des objets tels que des nuances
-sur une ligne fictive à une hauteur donnée par rapport à la portée,
+sur une ligne fictive à une hauteur donnée par rapport à la portée
 plutôt qu'à une hauteur qui varie en fonction de la position de la note
 sur laquelle porte l'objet.  Ce n'est pas une propriété de
 @code{DynamicText} mais de @code{DynamicLineSpanner}, car la ligne
@@ -2749,9 +2792,9 @@ de référence de la note parente@tie{}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
 \voiceOne
-< a \2 >
+<a\2>
 \once \override StringNumber #'self-alignment-X = #RIGHT
-< a \2 >
+<a\2>
 @end lilypond
 
 @subheading la propriété staff-position
@@ -2761,20 +2804,20 @@ de référence de la note parente@tie{}:
 Dans une voix, un silence valant une mesure entière peut chevaucher les
 notes d'une autre voix.  Vu que ces silences sont centrés entre les deux
 barres de mesure, il serait très compliqué de programmer LilyPond pour
-repérer ces risques de collision, dans la mesure où, normalement, toutes
+repérer ces risques de collision dans la mesure où, normalement, toutes
 les collisions entre notes ou entre notes et silences se produisent sur
 des notes et silences simultanés. Voici un exemple de collision de ce
 type@tie{}:
 
 @lilypond[quote,verbatim,fragment,ragged-right, relative=1]
-<< {c c c c} \\ {R1} >>
+<< { c4 c c c } \\ { R1 } >>
 @end lilypond
 
 Ici, la meilleure solution consiste à déplacer le symbole de pause vers
 le bas -- puisque cette pause appartient à la voix deux.  Par défaut,
 dans la @code{\voiceTwo} (c'est-à-dire dans la seconde voix d'une
-construction  @w{@code{<<@{...@} \\ @{...@}>>}}), la propriété
-@code{staff-position} est réglée sur @code{-4} pour les
+construction @code{<<@{@dots{}@}@tie{}\\@tie{}@{@dots{}@}>>}), la
+propriété @code{staff-position} est réglée sur @code{-4} pour les
 @code{MultiMeasureRest}@tie{}; nous avons donc besoin de la déplacer,
 disons, de quatre demi-intervalles vers le bas, ce qui donne @code{-8}.
 
@@ -2784,10 +2827,10 @@ disons, de quatre demi-intervalles vers le bas, ce qui donne @code{-8}.
 
 @lilypond[quote,verbatim,fragment,ragged-right, relative=1]
 <<
-  {c c c c}
-\\
+  { c4 c c c }
+  \\
   \override MultiMeasureRest #'staff-position = #-8
-  {R1}
+  { R1 }
 >>
 @end lilypond
 
@@ -2815,10 +2858,9 @@ bas@tie{}:
 
 @lilypond[quote,fragment,relative=1,verbatim]
 \stemUp
-f-5
-\once \override Fingering
-    #'extra-offset = #'(-0.3 . -1.8)
-f-5
+f4-5
+\once \override Fingering #'extra-offset = #'(-0.3 . -1.8)
+f4-5
 @end lilypond
 
 
@@ -2838,7 +2880,7 @@ phrasé -- horrible pour avoir tenté de contourner la liaison de
 l'acciaccature.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4  \acciaccatura e8\( d8 c ~c d c d\)
+r4 \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
 @noindent
@@ -2848,7 +2890,7 @@ des notes, et ce serait la meilleure solution@tie{}:
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
 \phrasingSlurUp
-\acciaccatura e8\( d8 c ~c d c d\)
+\acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
 @noindent
@@ -2864,19 +2906,19 @@ disgracieuse de la liaison.
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
 \once \override PhrasingSlur #'positions = #'(-4 . -3)
-\acciaccatura
-e8\( d8 c ~c d c d\)
+\acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
-Voici un autre exemple, tiré du début de la partie de main gauche du
-Prélude de Chopin, Op. 28, No 2. Comme nous pouvons le constater, les
-barres de ligature chevauchent les notes les plus hautes@tie{}:
+Voici un autre exemple, tiré du début de la partie de main gauche
+du Prélude de Chopin, Op. 28, No 2. Comme nous pouvons le
+constater, les barres de ligature chevauchent les notes les plus
+hautes@tie{}:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
-\clef "bass"
-<< {b,8 ais, b, g,} \\ {e, g e, g} >>
-<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+  \clef "bass"
+  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
+  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
 }
 @end lilypond
 
@@ -2893,23 +2935,20 @@ de la ligne médiane mais, disons, à 3@tie{}:
   \clef "bass"
   <<
     \override Beam #'positions = #'(3 . 3)
-    {b,8 ais, b, g,}
+    { b,8 ais, b, g, }
   \\
-    {e, g e, g}
+    { e,8 g e, g }
   >>
-  << {b,8 ais, b, g,} \\ {e, g e, g} >>
+  << { b,8 ais, b, g, } \\ { e,8 g e, g } >>
 }
 @end lilypond
 
 @noindent
-Vous remarquerez que la retouche continue à s'appliquer au
+Vous remarquerez que la retouche continue de s'appliquer au
 second bloc de croches de la première voix mais qu'il ne s'applique
 à aucune barre de la deuxième voix.
 
 @subheading la propriété force-hshift
-
-@c FIXME: formatting stuff  (ie not important right now IMO)
-@c @a nchor Chopin finally corrected TODOgp
 
 Maintenant, nous sommes prêts à appliquer les dernières corrections  à
 l'exemple de Chopin présenté à la fin de @ref{J'entends des Voix}, que
@@ -2919,11 +2958,13 @@ nous avions laissé dans cet état@tie{}:
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\
-    { aes2 f4 fes   } \\
-    { \voiceFour
-      <ees c>2
-      des2
+    { c2 aes4. bes8 }
+    \\
+    { aes2 f4 fes }
+    \\
+    {
+      \voiceFour
+      <ees c>2 des
     }
   >> |
   <c ees aes c>1 |
@@ -2935,10 +2976,10 @@ Les deux plus basses notes du premier accord (c'est-à-dire celles de la
 troisième voix) ne devraient pas être décalées de l'empilement des deux
 plus hautes notes.  Pour y remédier, nous réglons le @code{force-hshift}
 -- qui est une propriété de @code{NoteColumn} -- de ces notes sur zéro.
-Ensuite, la note la plus basse du second accord serait mieux à droite des
-notes plus hautes.  Pour cela, nous réglons le @code{force-hshift} de
-cette note sur 0,5 -- c'est-à-dire la moitié de la largeur d'une tête de
-note vers la droite de la colonne des notes plus hautes.
+Ensuite, la note la plus basse du second accord serait mieux à droite
+des notes plus hautes.  Pour cela, nous réglons le @code{force-hshift}
+de cette note sur 0,5 -- c'est-à-dire la moitié de la largeur d'une tête
+de note vers la droite de la colonne des notes plus hautes.
 
 Et voici le résultat final :
 
@@ -2949,11 +2990,16 @@ Et voici le résultat final :
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\
-    { aes2 f4 fes   } \\
-    { \voiceFour
-      \once \override NoteColumn #'force-hshift = #0 <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5 des2
+    { c2 aes4. bes8 }
+    \\
+    { aes2 f4 fes }
+    \\
+    {
+      \voiceFour
+      \once \override NoteColumn #'force-hshift = #0
+      <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
     }
   >> |
   <c ees aes c>1 |
@@ -2984,33 +3030,47 @@ pas fait apparaître les indications de nuance, de doigté ni de pédale.
 
 @c The following should appear as music without code
 @c This example should not be indexed
-@lilypond[quote,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2
-  c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  bes2.^\markup {\bold "Moderato"} r8
-  <<
-    {c,8[ d fis bes a] | }
-  \\
-    % Reposition the c2 to the right of the merged note
-    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
-    % Move the c2 out of the main note column so the merge will work
-    \shiftOnn c2}
-  \\
-    % Stem on the d2 must be down to permit merging
-    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
-  \\
-    {s4 fis4.}
-  >>
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\)
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    bes2.^\markup { \bold "Moderato" } r8
+    <<
+      { c,8 d fis bes a }
+      \new Voice {
+        \voiceTwo
+        c,8~
+        % Reposition the c2 to the right of the merged note
+        \once \override NoteColumn #'force-hshift = #1.0
+        % Move the c2 out of the main note column so the merge will work
+        \shiftOnn
+        c2
+      }
+      \new Voice {
+        \voiceThree
+        s8
+        % Stem on the d2 must be down to permit merging
+        \stemDown
+        % Stem on the d2 should be invisible
+        \once \override Stem #'transparent = ##t
+        d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)
+  }
 }
 
 lhMusic = \relative c' {
@@ -3036,7 +3096,7 @@ lhMusic = \relative c' {
 @end lilypond
 
 Nous constatons tout d'abord que, dans la troisième mesure, la main
-droite compte quatre voix. Ce sont les cinq croches avec une barre,
+droite compte quatre voix.  Ce sont les cinq croches avec une barre,
 le do avec liaison, le ré blanche qui se fond avec le ré croche, et le
 fa dièse noire pointée qui se fond lui aussi avec la croche de même
 hauteur.  Tout le reste se réduit à une seule voix.  Le plus simple est
@@ -3044,26 +3104,35 @@ donc de créer temporairement ces quatre voix au moment opportun.
 Si vous avez oublié comment faire, reportez-vous à
 @ref{J'entends des Voix}.  Commençons par saisir les notes comme
 appartenant à deux variables, mettons en place l'ossature des
-portées dans un bloc score et voyons ce que LilyPond propose par
+portées dans un bloc @code{\Score} et voyons ce que LilyPond propose par
 défaut@tie{}:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4. g8 |
-  bes1~ |
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    {c,8 d fis bes a | }
-  \\
-    {c,8~ c2 | }
-  \\
-    {s8 d2 | }
-  \\
-    {s4 fis4. | }
-  >>
-  g2.
+  \new Voice {
+    r2 c4. g8 |
+    bes1~ |
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3098,23 +3167,32 @@ nous pouvons facilement ajouter les limites droite et gauche de la
 liaison de phrasé, puisque tout cela a déjà été traité dans le tutoriel.
 Voici le résultat@tie{}:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  bes1~ |
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    {c,8[ d fis bes a] | }
-  \\
-    {c,8~ c2 | }
-  \\
-    {s8 d2 | }
-  \\
-    {s4 fis4. | }
-  >>
-  g2.\)
+  \new Voice {
+    r2 c4.\( g8 |
+    bes1~ |
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3145,41 +3223,50 @@ cela n'a pas été traité dans le Manuel d'initiation@tie{}?  C'est alors
 qu'il faut nous reporter au Manuel de notation.  Quand on cherche
 @qq{arpège} et @qq{barre de mesure} dans l'index, on voit aisément qu'il
 faut ajouter @code{\arpeggio} à un accord pour produire un arpège et
-qu'une double barre est le résultat de la commande @code{\bar "||"}.
-Rien de plus facile@tie{}!  Nous devons ensuite corriger la collision
-entre la liaison et  l'indication de mesure.  Le mieux est de déplacer
-la liaison vers le haut.  La méthode pour déplacer les objets a déjà été
-présentée dans @ref{Déplacement d'objets}, et l'on sait que, pour des
-objets positionnés par rapport à la portée, il nous faut modifier leur
-propriété @code{staff-position}, exprimée en demi-intervalles de lignes
-par rapport à la ligne médiane de la portée.  Voici donc la retouche à
-insérer juste devant la première note liée@tie{}; elle est censée
-déplacer la liaison vers le haut de 3,5 demi-intervalles de lignes
-au-dessus de la ligne médiane@tie{}:
+qu'une double barre est le résultat de la commande
+@code{\bar@tie{}"||"}.  Rien de plus facile@tie{}!  Nous devons ensuite
+corriger la collision entre la liaison et l'indication de mesure.  Le
+mieux est de déplacer la liaison vers le haut.  La méthode pour déplacer
+les objets a déjà été présentée dans @ref{Déplacement d'objets}, et l'on
+sait que, pour des objets positionnés par rapport à la portée, il nous
+faut modifier leur propriété @code{staff-position}, exprimée en
+demi-intervalles de lignes par rapport à la ligne médiane de la portée.
+Voici donc la retouche à insérer juste devant la première note
+liée@tie{}; elle est censée déplacer la liaison vers le haut de 3,5
+demi-intervalles de lignes au-dessus de la ligne médiane@tie{}:
 
 @code{\once \override Tie #'staff-position = #3.5}
 
 Cela s'adjoint à la deuxième mesure, pour donner@tie{}:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    {c,8[ d fis bes a] | }
-  \\
-    {c,8~ c2 | }
-  \\
-    {s8 d2 | }
-  \\
-    {s4 fis4. | }
-  >>
-  g2.\)
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3209,12 +3296,12 @@ Dans le Tutoriel, il est indiqué comment insérer du texte en gras à
 l'aide de la commande @code{\markup}@tie{}; pas de problème, du coup,
 pour ajouter @qq{Moderato} en gras.  Mais comment faire pour fusionner
 les notes de différentes voix@tie{}?  C'est là que le Manuel de notation
-peut nous veniren aide.  Une recherche sur @qq{fusionnement de notes}
+peut nous venir en aide.  Une recherche sur @qq{fusionnement de notes}
 dans l'index nous renvoie au chapitre @ruser{Résolution des collisions},
 et plus précisément aux commandes permettant de fusionner des notes en
-fonction de leur type et selon qu'elles sont pointées ou non.  Dans notre
-exemple, pour la durée de la polyphonie de la troisième mesure, nous
-avons besoin de fusionner deux types de notes@tie{}; grâce aux
+fonction de leur type et selon qu'elles sont pointées ou non.  Dans
+notre exemple, pour la durée de la polyphonie de la troisième mesure,
+nous avons besoin de fusionner deux types de notes@tie{}; grâce aux
 informations trouvées dans le Manuel de notation, nous ajoutons
 
 @example
@@ -3233,29 +3320,38 @@ au début de cette section et
 @noindent
 à la fin, ce qui donne :
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup {\bold "Moderato"} r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  % Start polyphonic section of four voices
-  <<
-    {c,8[ d fis bes a] | }
-  \\
-    {c,8~ c2 | }
-  \\
-    {s8 d2 | }
-  \\
-    {s4 fis4. | }
-  >>
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\)
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3299,31 +3395,40 @@ Voici ce que donnent ces modifications@tie{}:
 @cindex Tie, exemple de dérogation
 @cindex staff-position, exemple d'utilisation de la propriété
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup {\bold "Moderato"} r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  % Start polyphonic section of four voices
-  <<
-    {c,8[ d fis bes a] | }
-  \\
-    % Move the c2 out of the main note column so the merge will work
-    {c,8~ \shiftOnn c2 | }
-  \\
-    % Stem on the d2 must be down to permit merging
-    {s8 \stemDown d2 | }
-  \\
-    {s4 fis4. | }
-  >>
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\)
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        % Move the c2 out of the main note column so the merge will work
+        c,8~ \shiftOnn c2
+      }
+      \new Voice {
+        \voiceThree
+        % Stem on the d2 must be down to permit merging
+        s8 \stemDown d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3348,45 +3453,60 @@ lhMusic = \relative c' {
 }
 @end lilypond
 
-Pas loin.  Il ne reste plus que deux problèmes@tie{}: les ré une fois
-fusionnés ne devraient plus avoir de hampe vers le bas, et le do serait
-mieux à la droite des ré.  Nous savons remédier à ces deux problèmes
-grâce aux retouches précédentes@tie{}: nous allons rendre la hampe
-transparente et déplacer le do avec la propriété @code{force-hshift}.
-Et voici le résultat final@tie{}:
+Pas loin@tie{}!  Il ne reste plus que deux problèmes@tie{}: les ré une
+fois fusionnés ne devraient plus avoir de hampe vers le bas, et le do
+serait mieux à la droite des ré.  Nous savons remédier à ces deux
+problèmes grâce aux retouches précédentes@tie{}: nous allons rendre la
+hampe transparente et déplacer le do avec la propriété
+@code{force-hshift}.  Et voici le résultat final@tie{}:
 
 @cindex NoteColumn, exemple de dérogation
 @cindex force-hshift, exemple d'utilisation de la propriété
 @cindex Stem, exemple de dérogation
 @cindex transparent, exemple d'utilisation de la propriété
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2
-  c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup {\bold "Moderato"} r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  <<
-    {c,8[ d fis bes a] | }
-  \\
-    % Reposition the c2 to the right of the merged note
-    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
-    % Move the c2 out of the main note column so the merge will work
-    \shiftOnn c2}
-  \\
-    % Stem on the d2 must be down to permit merging
-    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
-  \\
-    {s4 fis4.}
-  >>
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\)
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~
+        % Reposition the c2 to the right of the merged note
+        \once \override NoteColumn #'force-hshift = #1.0
+        % Move the c2 out of the main note column so the merge will work
+        \shiftOnn
+        c2
+      }
+      \new Voice {
+        \voiceThree
+        s8
+        % Stem on the d2 must be down to permit merging
+        \stemDown
+        % Stem on the d2 should be invisible
+        \once \override Stem #'transparent = ##t
+        d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3409,7 +3529,6 @@ lhMusic = \relative c' {
     >>
   >>
 }
-
 @end lilypond
 
 
@@ -3449,9 +3568,7 @@ peuvent être ainsi liées.  La solution consiste à utiliser deux voix,
 dont l'une avec les notes liées
 
 @lilypond[quote,fragment,relative=2]
-<< { b8~ b8\noBeam }
-\\ { b[ g8] }
->>
+<< { b8~ b8\noBeam } \\ { b[ g8] } >>
 @end lilypond
 
 @noindent
@@ -3465,10 +3582,10 @@ on a alors l'impression que la liaison couvre les deux voix.
 <<
   {
     \once \override Stem #'transparent = ##t
-    b8~ b8\noBeam
+    b8~ b\noBeam
   }
 \\
-  { b[ g8] }
+  { b8[ g] }
 >>
 @end lilypond
 
@@ -3494,7 +3611,7 @@ réglant la longueur (@code{length}) sur @code{8},
 @cindex point d'orgue, rendu en MIDI
 
 En ce qui concerne les objets extérieurs à la portée, quand on veut les
-faire disparaître de la partition imprimée , il est généralement
+faire disparaître de la partition imprimée, il est généralement
 préférable de modifier leur propriété @code{stencil} plutôt que leur
 propriété @code{transparent}.  Le fait d'attribuer à la propriété
 @code{stencil} d'un objet la valeur @code{#f} supprimera entièrement
@@ -3521,10 +3638,10 @@ Nous montrons ci-dessous le résultat des deux méthodes@tie{}:
     \once \override Score.MetronomeMark #'transparent = ##t
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
-    a\fermata
+    a4\fermata |
     % New tempo for next section
     \tempo 4=100
-    a a a a
+    a4 a a a |
   }
   \layout { }
   \midi { }
@@ -3543,10 +3660,10 @@ Nous montrons ci-dessous le résultat des deux méthodes@tie{}:
     \once \override Score.MetronomeMark #'stencil = ##f
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
-    a\fermata
+    a4\fermata |
     % New tempo for next section
     \tempo 4=100
-    a a a a
+    a4 a a a |
   }
   \layout { }
   \midi { }
@@ -3578,8 +3695,8 @@ définir des variables qui les contiennent.
 Imaginons que nous voulions accentuer certains mots dans des paroles en
 les mettant en italique.  Au lieu des commandes @code{\italic} et
 @code{\bold}, qui ne fonctionnent dans les paroles que si elles sont
-enchâssées dans un @code{\markup}, ce qui les rend pénibles à saisir,
-pouvons-nous employer les commandes @code{\override} et
+enchâssées dans un @code{\markup} -- ce qui les rend pénibles à saisir
+-- pouvons-nous employer les commandes @code{\override} et
 @code{\revert}@tie{}?
 
 @example
@@ -3592,9 +3709,12 @@ pouvons-nous employer les commandes @code{\override} et
 
 Là encore, ce serait extrêmement pénible à saisir, surtout s'il y avait
 beaucoup de mots à retoucher de cette façon.  Plutôt que cette
-solution, nous déclarons ces commandes comme étant deux variables
-et les utilisons comme suit -- quoique on choisirait sans doute pour
-les variables des noms plus courts pour simplifier la frappe@tie{}:
+solution, nous déclarons ces commandes comme étant deux variables,
+et les utilisons comme ci-après -- quoique on choisirait sans doute pour
+les variables des noms plus courts pour simplifier la frappe.  Par
+ailleurs, le fait de recourir à une variable ne nous expose plus à
+l'oubli des espaces entourant les points lorsqu'explicités au beau
+milieu d'un bloc @code{\lyriqcmode}@tie{}!
 
 @cindex LyricText, exemple de dérogation
 @cindex font-shape, exemple d'utilisation de la propriété
@@ -3602,23 +3722,37 @@ les variables des noms plus courts pour simplifier la frappe@tie{}:
 
 @lilypond[quote,verbatim]
 emphasize = {
-  \override Lyrics . LyricText #'font-shape = #'italic
-  \override Lyrics . LyricText #'font-series = #'bold
-}
-normal = {
-  \revert Lyrics . LyricText #'font-shape
-  \revert Lyrics . LyricText #'font-series
+  \override Lyrics.LyricText #'font-shape = #'italic
+  \override Lyrics.LyricText #'font-series = #'bold
 }
 
-global = { \time 4/4 \partial 4 \key c \major}
-SopranoMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
-AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
-TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
-BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
-VerseOne   = \lyrics { E -- | ter -- nal \emphasize Fa -- ther, \normal | strong to save, }
-VerseTwo   = \lyricmode { O | \emphasize Christ, \normal whose voice the | wa -- ters heard, }
-VerseThree = \lyricmode { O | \emphasize Ho -- ly Spi -- rit, \normal | who didst brood }
-VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and pow'r }
+normal = {
+  \revert Lyrics.LyricText #'font-shape
+  \revert Lyrics.LyricText #'font-series
+}
+
+global = { \key c \major \time 4/4 \partial 4 }
+
+SopranoMusic = \relative c' { c4 | e4. e8 g4 g    | a4   a   g  }
+AltoMusic    = \relative c' { c4 | c4. c8 e4 e    | f4   f   e  }
+TenorMusic   = \relative c  { e4 | g4. g8 c4.  b8 | a8 b c d e4 }
+BassMusic    = \relative c  { c4 | c4. c8 c4 c    | f8 g a b c4 }
+
+VerseOne = \lyrics {
+  E -- | ter -- nal \emphasize Fa -- ther, | \normal strong to save,
+}
+
+VerseTwo = \lyricmode {
+  O | \emphasize Christ, \normal whose voice the | wa -- ters heard,
+}
+
+VerseThree = \lyricmode {
+  O | \emphasize Ho -- ly Spi -- rit, | \normal who didst brood
+}
+
+VerseFour = \lyricmode {
+  O | \emphasize Tri -- ni -- ty \normal of | love and pow'r
+}
 
 \score {
   \new ChoirStaff <<
@@ -3626,15 +3760,15 @@ VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and p
       \clef "treble"
       \new Voice = "Soprano"  { \voiceOne \global \SopranoMusic }
       \new Voice = "Alto" { \voiceTwo \AltoMusic }
-      \new Lyrics \lyricsto "Soprano" { \VerseOne   }
-      \new Lyrics \lyricsto "Soprano" { \VerseTwo   }
+      \new Lyrics \lyricsto "Soprano" { \VerseOne }
+      \new Lyrics \lyricsto "Soprano" { \VerseTwo }
       \new Lyrics \lyricsto "Soprano" { \VerseThree }
-      \new Lyrics \lyricsto "Soprano" { \VerseFour  }
+      \new Lyrics \lyricsto "Soprano" { \VerseFour }
     >>
     \new Staff <<
       \clef "bass"
       \new Voice = "Tenor" { \voiceOne \TenorMusic }
-      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic }
     >>
   >>
 }
@@ -3656,20 +3790,29 @@ les parties avec tous les @code{#()}.  Celles-ci sont expliquées dans
 @ref{Retouches avancées avec Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
-  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
 
-inst = #(define-music-function (parser location string) (string?)
-  (make-music
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
     'TextScriptEvent
     'direction UP
     'text (markup #:bold (#:box string))))
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
 }
 @end lilypond
 
@@ -3685,11 +3828,18 @@ dans nos fichiers de musique, et je trouve personnellement tous ces
 
 @example
 %%% enregistrez ceci dans un fichier nommé "definitions.ily"
-mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
-  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
 
-inst = #(define-music-function (parser location string) (string?)
-  (make-music
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
     'TextScriptEvent
     'direction UP
     'text (markup #:bold (#:box string))))
@@ -3711,27 +3861,38 @@ sous @code{musique.ly}).
 
 \relative c'' @{
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
 @}
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
-  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
 
-inst = #(define-music-function (parser location string) (string?)
-  (make-music
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
     'TextScriptEvent
     'direction UP
     'text (markup #:bold (#:box string))))
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
 }
 @end lilypond
 
@@ -3748,24 +3909,34 @@ fichier @file{definitions.ily} par ceci@tie{}:
 
 @example
 %%%  definitions.ily
-mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
-  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
 
-inst = #(define-music-function (parser location string) (string?)
-  (make-music
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
     'TextScriptEvent
     'direction UP
     'text (markup #:bold (#:box string))))
 
 \layout@{
-  \context @{ \Score
+  \context @{
+    \Score
     \override MetronomeMark #'extra-offset = #'(-9 . 0)
     \override MetronomeMark #'padding = #'3
   @}
-  \context @{ \Staff
+  \context @{
+    \Staff
     \override TimeSignature #'style = #'numbered
   @}
-  \context @{ \Voice
+  \context @{
+    \Voice
     \override Glissando #'thickness = #3
     \override Glissando #'gap = #0.1
   @}
@@ -3773,24 +3944,34 @@ inst = #(define-music-function (parser location string) (string?)
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
-  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
 
-inst = #(define-music-function (parser location string) (string?)
-  (make-music
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
     'TextScriptEvent
     'direction UP
     'text (markup #:bold (#:box string))))
 
 \layout{
-  \context { \Score
+  \context {
+    \Score
     \override MetronomeMark #'extra-offset = #'(-9 . 0)
     \override MetronomeMark #'padding = #'3
   }
-  \context { \Staff
+  \context {
+    \Staff
     \override TimeSignature #'style = #'numbered
   }
-  \context { \Voice
+  \context {
+    \Voice
     \override Glissando #'thickness = #3
     \override Glissando #'gap = #0.1
   }
@@ -3798,9 +3979,11 @@ inst = #(define-music-function (parser location string) (string?)
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
 }
 @end lilypond
 
@@ -3814,24 +3997,35 @@ aussi augmenter la taille globale de police.
 
 @example
 %%%  definitions.ily
-mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
-  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
 
-inst = #(define-music-function (parser location string) (string?)
-  (make-music
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
     'TextScriptEvent
     'direction UP
     'text (markup #:bold (#:box string))))
 
 #(set-global-staff-size 23)
+
 \layout@{
-  \context @{ \Score
+  \context @{
+    \Score
     \override MetronomeMark #'extra-offset = #'(-9 . 0)
     \override MetronomeMark #'padding = #'3
   @}
-  \context @{ \Staff
+  \context @{
+    \Staff
   @}
-  \context @{ \Voice
+  \context @{
+    \Voice
     \override Glissando #'thickness = #3
     \override Glissando #'gap = #0.1
   @}
@@ -3839,16 +4033,24 @@ inst = #(define-music-function (parser location string) (string?)
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
-  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+mpdolce =
+#(make-dynamic-script
+  (markup #:hspace 0
+          #:translate '(5 . 0)
+          #:line (#:dynamic "mp"
+                  #:text #:italic "dolce")))
 
-inst = #(define-music-function (parser location string) (string?)
-  (make-music
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   (make-music
     'TextScriptEvent
     'direction UP
     'text (markup #:bold (#:box string))))
 
 #(set-global-staff-size 23)
+
 \layout{
   \context { \Score
     \override MetronomeMark #'extra-offset = #'(-9 . 0)
@@ -3862,14 +4064,18 @@ inst = #(define-music-function (parser location string) (string?)
 
 \relative c'' {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
   \inst "Clarinet"
-  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
 }
 @end lilypond
 
-Il ne nous reste plus qu'à remplacer @code{\include "definitions.ily"}
-par @code{\include "publication-web.ily"} dans notre fichier de musique.
+Il ne nous reste plus qu'à remplacer
+@code{\include@tie{}"definitions.ily"} par
+@code{\include@tie{}"publication-web.ily"} dans notre fichier de
+musique.
 
 Il est possible, bien sûr, de rendre cela encore plus pratique.  Nous
 pourrions créer un fichier @file{definitions.ily} qui ne contiendrait
@@ -3897,7 +4103,9 @@ contient@tie{}:
 @example
 %%%   global.ily
 \version @w{"@version{}"}
+
 #(ly:set-option 'point-and-click #f)
+
 \include "../init/init-defs.ly"
 \include "../init/init-mise-en-page.ly"
 \include "../init/init-en-tetes.ly"
@@ -3909,7 +4117,7 @@ contient@tie{}:
 @subsection Autres sources de documentation
 @translationof Other sources of information
 
-Le Manuel d'utilisation des programmes contient beaucoup d'informations
+La référence des propriétés internes contient beaucoup d'informations
 sur LilyPond.  Cependant vous pouvez en découvrir encore plus en
 consultant les fichiers internes de LilyPond.  Pour cela, il vous faut
 d'abord connaître le répertoire @emph{ad hoc} sur votre système.
@@ -3956,8 +4164,8 @@ Dans ce répertoire, deux sous-répertoires sont particulièrement
 intéressants@tie{}:
 
 @itemize
-@item @code{ly/} --- contient les fichiers en format LilyPond
-@item @code{scm/} --- contient les fichiers en format Scheme
+@item @code{ly/} -- contient les fichiers en format LilyPond
+@item @code{scm/} -- contient les fichiers en format Scheme
 @end itemize
 
 Commençons par examiner quelques fichiers contenus dans @code{ly/}.
@@ -4002,7 +4210,7 @@ Les autres réglages (comme les définitions de commandes @emph{markup})
 sont conservés comme fichiers @code{.scm} (Scheme).  Le langage de
 programmation Scheme offre une interface programmable dans le
 processus interne de LilyPond.  De plus amples explications sur ces
-fichiers dépasseraient le cadre de ce manuel, dans la mesure où elles
+fichiers dépasseraient le cadre de ce manuel dans la mesure où elles
 requièrent la connaissance du langage Scheme.  Les utilisateurs qui
 souhaiteraient comprendre le fonctionnement de ces fichiers de
 configuration doivent être avertis que des connaissances techniques
@@ -4041,14 +4249,14 @@ sont@tie{}:
 LilyPond peut effectuer des vérifications supplémentaires lors du
 traitement des fichiers@tie{}; cependant, le rendu nécessitera alors
 plus de temps.  En contrepartie, il y aura moins d'ajustements manuels à
-réaliser.  Si une indication textuelle ou des paroles  débordent dans la
-marge, ces vérifications auront pour effet de serrer la ligne
+réaliser.  Si une indication textuelle ou des paroles débordent dans la
+marge, ces vérifications auront pour effet de resserrer la ligne
 suffisamment pour faire tenir le texte entre les marges.
 
 Pour pouvoir fonctionner en toutes circonstances, ces vérifications
 doivent être activées@tie{}; il faut pour cela placer les retouches dans
-un bloc @code{Score \with}, plutôt qu'à l'intérieur du fragment musical,
-comme ceci@tie{}:
+un bloc @code{Score@tie{}\with}, plutôt qu'à l'intérieur du fragment
+musical, comme ceci@tie{}:
 
 @example
 \new Score \with @{
@@ -4091,31 +4299,24 @@ fonction de leur position sur la portée.
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (color-notehead grob)
-  "Color the notehead according to its position on the staff."
-  (let ((mod-position (modulo (ly:grob-property grob 'staff-position) 7)))
-    (case mod-position
-      ;;   Return rainbow colors
-      ((1) (x11-color 'red    ))  ; for C
-      ((2) (x11-color 'orange ))  ; for D
-      ((3) (x11-color 'yellow ))  ; for E
-      ((4) (x11-color 'green  ))  ; for F
-      ((5) (x11-color 'blue   ))  ; for G
-      ((6) (x11-color 'purple ))  ; for A
-      ((0) (x11-color 'violet ))  ; for B
-    )
-  )
-)
+   "Color the notehead according to its position on the staff."
+   (let ((mod-position (modulo (ly:grob-property grob 'staff-position)
+                               7)))
+     (case mod-position
+       ;;   Return rainbow colors
+       ((1) (x11-color 'red    ))  ; for C
+       ((2) (x11-color 'orange ))  ; for D
+       ((3) (x11-color 'yellow ))  ; for E
+       ((4) (x11-color 'green  ))  ; for F
+       ((5) (x11-color 'blue   ))  ; for G
+       ((6) (x11-color 'purple ))  ; for A
+       ((0) (x11-color 'violet ))  ; for B
+       )))
 
 \relative c' {
   % Arrange to obtain color from color-notehead procedure
   \override NoteHead #'color = #color-notehead
-  c2 c' |
-  b4 g8 a b4 c |
-  c,2 a' |
-  g1 |
-}
-\addlyrics {
-  Some -- where o -- ver the Rain -- bow, way up high,
+  a2 b | c2 d | e2 f | g2 a |
 }
 @end lilypond
 

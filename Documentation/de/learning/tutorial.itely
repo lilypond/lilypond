@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -426,6 +426,34 @@ Die @notation{Taktart} kann mit dem
 @end lilypond
 
 
+@subheading Tempobezeichnung
+
+@cindex Tempobezeichnung
+@cindex Metronom-Angabe
+
+@funindex \tempo
+@funindex tempo
+
+Glossar: @rglos{tempo indication}, @rglos{metronome}.
+
+Die @notation{Tempobezeichnung} und die @notation{Metronom-Angabe} können
+mit dem @code{\tempo}-Befehl gesetzt werden:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \time 3/4
+  \tempo "Andante"
+  a4 a a
+  \time 6/8
+  \tempo 4. = 96
+  a4. a
+  \time 4/4
+  \tempo  "Presto" 4 = 120
+  a4 a a a
+}
+@end lilypond
+
+
 @subheading Notenschlüssel
 
 @cindex Schlüssel
@@ -464,6 +492,7 @@ Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 \relative c, {
   \clef "bass"
   \time 3/4
+  \tempo "Andante" 4 = 120
   c2 e8 c'
   g'2.
   f4 e d
@@ -561,9 +590,9 @@ ist es, Code-Blöcke mit zwei Leerzeichen einzurücken:
 Leerzeichen @emph{sind} jedoch nötig, um viele syntaktische Elemente
 voneinander zu trennen.  Leerzeichen können also immer @emph{hinzugefügt}
 werden, aber sie dürfen nicht @emph{entfernt} werden.  Da fehlende
-Leerzeichen sehr seltsame Fehlermeldungen hervorrrufen können, wird
+Leerzeichen sehr seltsame Fehlermeldungen hervorrufen können, wird
 es nahe gelegt, immer ein Leerzeichen vor und nach jedem syntaktischen
-Element, etwa vor und nach geschweiften Kklammern, einzufügen.
+Element, etwa vor und nach geschweiften Klammern, einzufügen.
 
 @item @strong{Ausdrücke:}
 Auch der kleinste Abschnitt an LilyPond-Code muss in
@@ -670,7 +699,7 @@ Fehlermeldungen der Log-Datei hat.  Sie werden näher erklärt in
 @section Wie die Handbücher gelesen werden sollen
 @translationof How to read the manuals
 
-Dieser Abschnitt zeigt, wie die Dokumenation effizient gelesen
+Dieser Abschnitt zeigt, wie die Dokumentation effizient gelesen
 werden kann und erklärt auch einige nützliche Interaktionseigenschaften
 der Online-Version.
 
@@ -784,7 +813,7 @@ Es wird gegenwärtig an dieser Funktion gearbeitet.
 
 Es gibt sehr viele Dokumentation für LilyPond. Neue Benutzer sind
 oft verwirrt, welche Teile davon sie lesen sollen, und so kommt
-es vor, dass machnmal wichtige Abschnitte nicht gelesen werden.
+es vor, dass manchmal wichtige Abschnitte nicht gelesen werden.
 
 @warning{Bitte überspringen Sie keine wichtigen Teile der
 Dokumentation.  Sonst wird es Ihnen später sehr viel schwerer

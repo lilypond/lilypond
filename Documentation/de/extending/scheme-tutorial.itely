@@ -36,9 +36,9 @@ unter @uref{http://www.gnu.org/software/guile/}.  Der
 @uref{http://www.schemers.org/Documents/Standards/R5RS/}.
 
 Die LilyPond-Installation enthält gleichzeitig auch die
-Guile-Implemenation von Scheme.  Auf den meisten Systemen kann
+Guile-Implementation von Scheme.  Auf den meisten Systemen kann
 man in einer Scheme-sandbox experimentieren, indem man ein
-Kommandozeilen-Fenster öffnet und @code{guile} auffruft.  Unter
+Kommandozeilen-Fenster öffnet und @code{guile} aufruft.  Unter
 einigen Systemen, insbesondere unter Windows, muss man evtl.
 die Umgebungsvariable @code{GUILE_LOAD_PATH} auf das Verzeichnis
 @code{../usr/shr/guile/1.8} innerhalb des LilyPond-Installationsverzeichnisses
@@ -117,7 +117,7 @@ werden wie folgt notiert:
 !#
 +@end example
 
-Merere aufeinander folgende Scheme-Ausdrücke in einer Notationsdatei
+Mehrere aufeinander folgende Scheme-Ausdrücke in einer Notationsdatei
 können kombiniert werden, wenn man @code{begin} einsetzt.  Das
 erlaubt es, die Anzahl an Rauten auf eins zu begrenzen.
 
@@ -162,7 +162,7 @@ wie @code{(* 3 4)} wird durch seinen Wert @code{12} ersetzt. Ähnlich
 verhält es sich mit Variablen. Nachdem eine Variable definiert ist:
 
 @example
-zwoefl = #12
+zwoelf = #12
 @end example
 
 @noindent

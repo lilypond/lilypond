@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 3d7ffa1f82bb44673134b28becf7898482fe7316
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -61,7 +61,8 @@ Musik ist es üblich, über dem traditionellen System Griffsymbole
 zu setzen.  Gitarre und Banjo sind transponierende Instrumente,
 die eine Oktave tiefer klingen als sie notiert werden.  Partituren
 für diese Instrumente sollten den @qq{Tenorschlüssel}
-(@code{"treble_8"}) benutzen.  Einige Spezifika für
+(@code{"treble_8"} bzw. @code{\transposition c}) benutzen, um
+korrekte MIDI-Dateien zu erhalten.  Einige Spezifika für
 Instrumente mit Bünden sind an anderer Stelle erklärt:
 
 @itemize
@@ -86,11 +87,12 @@ Notationsreferenz:
 @ref{Fingersatzanweisungen},
 @ref{Bindebögen},
 @ref{Auflösung von Zusammenstößen},
-@ref{Instrumentenbezeichnungn},
+@ref{Instrumentenbezeichnungen},
 @ref{Musik parallel notieren},
 @ref{Arpeggio},
-@ref{Liste der Arktikulationszeichen},
-@ref{Notenschlüssel}.
+@ref{Liste der Artikulationszeichen},
+@ref{Notenschlüssel}
+@ref{Transposition von Instrumenten}.
 
 
 @node Seitennummerbezeichnung
@@ -152,23 +154,72 @@ Referenz der Interna:
 @funindex TabStaff
 @funindex TabVoice
 
-Tabulatur-Notation wird für die Notation von Zupfinstrumenten benutzt.
-Tonhöhen werden hier nicht durch Notenköpfe, sondern durch Zahlen
-notiert.  Diese Zahlen zeigen an, auf welcher Saite und welchem Bund
-der Ton gespielt werden soll.  LilyPond bringt beschränkte Unterstützung
-für Tabulaturen mit.
+Musik für gezupfte Saiteninstrumente wird oft notiert, indem man eine
+Finger/Berührungsnotation bzw. Tabulatur benutzt.  Im Gegensatz zur
+traditionellen Notation werden hier Tonhöhen nicht mit Notenköpfen
+notiert, sondern mit Zahlen (oder Buchstabenartigen Symbolen in
+historischen Tabulaturen).  Die Zahlen zeigen an, welche Saite und
+welcher Bund für eine Note gespielt werden muss.  Die Zahlen werden
+übereinander geschrieben, wenn sie gleichzeitig gespielt werden sollen.
 
-Die Saitennummer, die mit einer Note assoziiert ist, wird durch einen
-Backslash, gefolgt von einer Zahl, notiert.  In der Standardeinstellung ist
-die erste Saite die höchste Saite und als Stimmung wird die übliche
-Gitarrenstimmung auf sechs Saiten angenommen.  Die Noten werden in
-einer Tabulatur gesetzt, indem @rinternals{TabStaff} und
-@rinternals{TabVoice}-Kontexte verwendet werden.
+Standardmäßig ist Saite 1 die höchste Saite und die voreingestellte
+Saitenstimmung ist die normale Gitarrenstimmung (mit 6 Saiten).  Die
+Noten werden als Tabulatur ausgegeben, wenn man den @code{TabStaff}-Kontext
+und darin den @code{TabVoice}-Kontext benutzt.  Ein kalligraphischer
+Tabulaturschlüssel wird automatisch hinzugefügt.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-\new TabStaff {
-  a,4\5 c'\2 a\3 e'\1
-  e\4 c'\2 a\3 e'\1
+@lilypond[quote,ragged-right,verbatim]
+\new TabStaff \relative c' {
+  a,8 a' <c e> a
+  d,8 a' <d f> a
+}
+@end lilypond
+
+Standard-Tabulaturen haben weder Symbole, die Notendauern anzeigen,
+noch andere musikalische Symbole wie etwa Ausdrucksbezeichnungen.
+
+@lilypond[quote,ragged-right,verbatim]
+symbols = {
+  \time 3/4
+  c4-.^"Allegro" d( e)
+  f4-.\f g a^\fermata
+  \mark \default
+  c8_.\<\( c16 c~ c2\!
+  c'2.\prall\)
+}
+
+\score {
+  <<
+    \new Staff { \clef "G_8" \symbols }
+    \new TabStaff { \symbols }
+  >>
+}
+@end lilypond
+
+@funindex \tabFullNotation
+@funindex tabFullNotation
+
+Wenn alle musikalischen Symbole, die in der traditionellen Notation
+eingesetzt werden, auch in der Tabulatur gedruckt werden sollen, muss
+man den Befehl @code{\tabFullNotation} in einem @code{TabStaff}-Kontext
+hinzufügen.  Dabei ist zu beachten, dass halbe Noten in einer Tabulatur
+mit zwei Hälsen dargestellt werden, um sie von Viertelnoten zu unterscheiden.
+
+@lilypond[quote,ragged-right,verbatim]
+symbols = {
+  \time 3/4
+  c4-.^"Allegro" d( e)
+  f4-.\f g a^\fermata
+  \mark \default
+  c8_.\<\( c16 c~ c2\!
+  c'2.\prall\)
+}
+
+\score {
+  \new TabStaff {
+    \tabFullNotation
+    \symbols
+  }
 }
 @end lilypond
 
@@ -176,24 +227,138 @@ einer Tabulatur gesetzt, indem @rinternals{TabStaff} und
 
 @cindex Bund
 
-Wenn keine Saite für eine Note angegeben wird, wird die Note der
-Saite zugeordnet, welche die Note auf einem Bund erzeugen kann,
-der größer oder gleich als der Wert von @code{minimumFret}
-ist.  Der Standardwert für @code{minimumFret} beträgt 0.
+Normalerweise werden Tonhöhen der tiefstmöglichen Spielposition auf
+dem Bundbrett zugewiesen (erste Lage).  Offene Saiten werden automatisch
+bevorzugt.  Wenn Sie eine bestimmte Tonhöhe auf einer bestimmten Saite
+gespielt haben wollen, können Sie eine Saitennummeranweisung zur
+Tonhöhe hinzufügen.  Wenn Sie Tonhöhe und Saitenzahlanweisung nicht
+innerhalb einer Akkord-Konstruktion (@code{<>}) notieren, erscheint
+die Saitenzahlanweisung nicht in der traditionellen Notation.  Es ist
+jedoch sehr viel bequemer, die Spielposition unter Benutzung von
+@code{minimumFret} zu definieren.  Der Standardwert von @code{minimumFret}
+beträgt 0.
 
 @lilypond[quote,ragged-right,verbatim]
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
+     \time 2/4
      c16 d e f g4
+     c,16\5 d\5 e\4 f\4 g4\4
      c,16 d e f g4
    }
    \new TabStaff \relative c {
      c16 d e f g4
+     c,16\5 d\5 e\4 f\4 g4\4
      \set TabStaff.minimumFret = #5
      c,16 d e f g4
    }
 >>
+@end lilypond
+
+@funindex \tabChordRepetition
+
+Akkord-Konstruktionen können mit dem Akkord-Wiederholungssymbol @code{q}
+wiederholt werden.  Um diese Eigenschaft in einer Tabulatur benutzen
+zu können, gibt es den Befehl @code{\tabChordRepetition}.  Er speichert
+die Saiteninformationen, die innerhalb von Akkord-Konstruktionen gegeben
+werden, sodass wiederholte Akkorde identische Darstellungen erhalten.
+
+@lilypond[quote,verbatim]
+\tabChordRepetition
+
+guitar = \relative c' {
+  r8 <gis\4 cis\3 b\2>~ q4 q8~ q q4
+}
+
+\new StaffGroup <<
+  \new Staff {
+    \clef "treble_8"
+    \override Voice.StringNumber #'transparent = ##t
+    \guitar
+  }
+  \new TabStaff {
+    \guitar
+  }
+>>
+@end lilypond
+
+Bindestriche über einen Zeilenumbruch werden normalerweise in Klammern
+gesetzt.  Das gilt auch für die zweite Klammer einer Wiederholung.
+
+@lilypond[quote,ragged-right,verbatim]
+ties = \relative c' {
+  \repeat volta 2 {
+    e2. f4~
+    f2 g2~
+  }
+  \alternative {
+     { g4 f2. }
+     { g4\repeatTie c,2. }
+  }
+  b1~
+  \break
+  b1
+  \bar "|."
+}
+
+\score {
+  <<
+    \new StaffGroup  <<
+      \context Staff {
+        \clef "treble_8"
+        \ties
+      }
+      \context TabStaff {
+        \ties
+      }
+    >>
+  >>
+  \layout {
+  indent = #0
+  ragged-right = ##t
+  }
+}
+@end lilypond
+
+@funindex \hideSplitTiedTabNotes
+
+Der Befehl @code{\hideSplitTiedTabNotes} hebt das Verhalten auf, dass
+Bundnummern in Klammern gesetzt werden:
+
+@lilypond[quote,ragged-right,verbatim]
+ties = \relative c' {
+  \repeat volta 2 {
+    e2. f4~
+    f2 g2~ }
+  \alternative {
+    { g4 f2. }
+    { g4\repeatTie c,2. }
+  }
+  b1~
+  \break
+  b1
+  \bar "|."
+}
+
+\score {
+  <<
+    \new StaffGroup  <<
+      \context Staff {
+        \clef "treble_8"
+        \ties
+      }
+      \context TabStaff {
+      \hideSplitTiedTabNotes
+        \ties
+      }
+    >>
+  >>
+  \layout {
+  indent = #0
+  ragged-right = ##t
+  }
+}
 @end lilypond
 
 @cindex Flageolett in Tabulaturen
@@ -205,10 +370,10 @@ ist.  Der Standardwert für @code{minimumFret} beträgt 0.
 Flageolett und Gleiten (Slide) kann zur Tabulatur hinzugefügt
 werden:
 
-@lilypond[fragment, verbatim, quote, relative=1]
+@lilypond[verbatim, quote, relative=1]
 \new TabStaff {
   \new TabVoice {
-    <c g'\harmonic> d\2\glissando e\2
+    <c g'\harmonic>4 d\2\glissando e\2
   }
 }
 @end lilypond
@@ -247,7 +412,7 @@ müssen speziell erstellte Stimmen innerhalb des Tabulatursystems
 (@code{TabStaff}) benutzt werden:
 
 @lilypond[quote,ragged-right,verbatim]
-melodia = \partcombine { e4 g g g }{ e4 e e e }
+melodia = \partcombine { e4 g g g } { e4 e e e }
 <<
   \new TabStaff <<
     \new TabVoice = "one" s1
@@ -272,6 +437,8 @@ Slide.
 @cindex Tabulatur, Banjo
 @cindex Tabulatur, Mandoline
 @cindex Tabulatur, Bassgitarre
+@cindex Tabulatur, Gitarre
+@cindex Tabulatur, Ukulele
 @cindex Saitenstimmung für Bundinstrumente
 @cindex bundierte Saiteninstrumente, Saitenstimmung
 @cindex Bundinstrumente, Saitenstimmung
@@ -284,8 +451,8 @@ der Saite, zu welcher der Ton zugeordnet ist.  Um das tun zu können,
 muss die Stimmung der Saiten angegeben werden.  Die Stimmung wird
 in der @code{StringTunings}-Eigenschaften bestimmt.
 
-LilyPond hat vordefinierte Stimmungen für Banjo, Mandoline, Gitarre
-und Bassgitarre.  Für diese Stimmungen wird automatisch die
+LilyPond hat vordefinierte Stimmungen für Banjo, Mandoline, Gitarre,
+Bassgitarre und Ukulele.  Für diese Stimmungen wird automatisch die
 richtige Transposition eingesetzt.  Das nächste Beispiel ist für
 Bassgitarre, welche eine Oktave niedriger erklingt, als sie
 geschrieben ist:
@@ -323,7 +490,7 @@ aufgrund der Tonhöhe angeordnet.
 
 Eine Tonhöhe in der Liste der Saitenstimmungen ist der Unterschied
 der entsprechenden Tonhöhe zum eingestrichenen C gemessen in
-Halbtönen.  Die Tonöhe muss eine Ganzzahl sein.  LilyPond
+Halbtönen.  Die Tonhöhe muss eine Ganzzahl sein.  LilyPond
 errechnet die Tonhöhe einer Saite, indem die Tonhöhe der
 Saitenstimmung zu der Tonhöhe von c' hinzugerechnet wird.
 
@@ -337,8 +504,8 @@ so definiert werden:
 
 @lilypond[quote,verbatim]
 mynotes = {
-    c'4 e' g' c'' |
-    e'' g'' b'' c'''
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
 }
 
 <<
@@ -353,6 +520,25 @@ mynotes = {
 >>
 @end lilypond
 
+@cindex Schlüssel, modern, Tabulatur
+@cindex Tabulatur, moderner Schlüssel
+@cindex moderner Tabulatur-Schlüssel
+
+@funindex moderntab
+
+Auch ein moderner Tabulatur-Schlüssel kann verwendet werden:
+
+@lilypond[quote,ragged-right,verbatim]
+\new TabStaff {
+  \clef moderntab
+  <a, e a>1
+  \break
+  \clef tab
+  <a, e a>1
+}
+@end lilypond
+
+Der moderne Tabulatur-Schlüssel unterstützt Tabulaturen von 4 bis 7 Saiten.
 
 @seealso
 Installierte Dateien:
@@ -364,6 +550,10 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{Tab_note_heads_engraver}.
 
+@knownissues
+Automatische Tabulatur-Berechnung funktioniert in den meisten Fällen nicht
+korrekt bei Instrumenten, deren Saitenstimmung nicht monotonisch
+fortschreitet, wie etwa Ukulele.
 
 
 @node Bund-Diagramm-Beschriftung
@@ -385,7 +575,7 @@ hinzugefügt werden.  Die Beschriftung enthält Information zu dem
 gewünschten Bunddiagramm.  Es gibt drei unterschiedliche
 Darstellungsarten: normal, knapp und ausführlich.  Die drei
 Arten erzeugen die gleiche Ausgabe, aber mit jeweils mehr oder
-weniger Einzelheiten.  Einzelheiten zu Textbeschriftunsbefehlen
+weniger Einzelheiten.  Einzelheiten zu Textbeschriftungsbefehlen
 findet sich in @ref{Text markup commands}.
 
 Die Standard-Bunddiagrammbeschriftung beinhaltet die Saitennummer
@@ -396,16 +586,18 @@ angezeigt werden.
 @lilypond[quote, verbatim]
 <<
   \context ChordNames {
-     \chordmode {
-       c1 d:m
-     }
+    \chordmode {
+      c1 d:m
+    }
   }
   \context Staff {
     \clef "treble_8"
-    < c e g c' e' > 1 ^\markup
+    <c e g c' e'>1^\markup {
       \fret-diagram #"6-x;5-3;4-2;3-o;2-1;1-o;"
-    < d a d' f'> ^\markup
+    }
+    <d a d' f'>1^\markup {
       \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-1;"
+    }
   }
 >>
 @end lilypond
@@ -423,16 +615,19 @@ Barré kann hinzugefügt werden:
   }
   \context Staff {
     \clef "treble_8"
-    < f, c f a c' f'>1 ^\markup
+    <f, c f a c' f'>1^\markup {
       \fret-diagram #"c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
-    < g, d g b d' g'> ^\markup
+    }
+    <g, d g b d' g'>1^\markup {
       \fret-diagram #"c:6-1-3;6-3;5-5;4-5;3-4;2-3;1-3;"
+    }
   }
 >>
 @end lilypond
 
-@cindex Bunddiagramme, normaler Stil
+@cindex Bunddiagramm-Beschriftung
 @cindex fret (Bunddiagramme)
+@cindex Ukulele
 
 @funindex fret-diagram
 @funindex \fret-diagram
@@ -449,27 +644,31 @@ kann geändert werden:
   }
   \context Staff {
     \clef "treble_8"
-    < f, c f a c' f'>1 ^\markup
+    <f, c f a c' f'>1^\markup {
       \fret-diagram #"s:1.5;c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
-    < g, b, d g b g'> ^\markup
+    }
+    <g, b, d g b g'>1^\markup {
       \fret-diagram #"h:6;6-3;5-2;4-o;3-o;2-o;1-3;"
+    }
   }
 >>
 @end lilypond
 
-Die Anzahl der Saiten kann geändert werden, um sie für andere
-Instrumente anzupassen, wie etwas Banjo oder Ukulele.
+Die Anzahl der Saiten in einem Bunddiagramm kann geändert werden,
+um sie für andere Instrumente anzupassen, wie etwas Banjo oder Ukulele.
 
 @lilypond[quote, verbatim]
 <<
   \context ChordNames {
-     \chordmode {
-       a1
-     }
+    \chordmode {
+      a1
+    }
   }
   \context Staff {
-        %% A chord for ukulele
-    a'1 ^\markup \fret-diagram #"w:4;4-2-2;3-1-1;2-o;1-o;"
+    % An 'A' chord for ukulele
+    a'1^\markup {
+      \fret-diagram #"w:4;4-2-2;3-1-1;2-o;1-o;"
+    }
   }
 >>
 @end lilypond
@@ -480,16 +679,18 @@ Fingersatzzahlen kann kontrolliert werden.
 @lilypond[quote, verbatim]
 <<
   \context ChordNames {
-     \chordmode {
-       c1 d:m
-     }
+    \chordmode {
+      c1 d:m
+    }
   }
   \context Staff {
     \clef "treble_8"
-    < c e g c' e' > 1 ^\markup
+    <c e g c' e'>1^\markup {
       \fret-diagram #"f:1;6-x;5-3-3;4-2-2;3-o;2-1-1;1-o;"
-    < d a d' f'> ^\markup
+    }
+    <d a d' f'>1^\markup {
       \fret-diagram #"f:2;6-x;5-x;4-o;3-2-2;2-3-3;1-1-1;"
+    }
   }
 >>
 @end lilypond
@@ -499,16 +700,18 @@ Die Größe und Position der Punkte kann geändert werden:
 @lilypond[quote, verbatim]
 <<
   \context ChordNames {
-     \chordmode {
-       c1 d:m
-     }
+    \chordmode {
+      c1 d:m
+    }
   }
   \context Staff {
     \clef "treble_8"
-    < c e g c' e' > 1 ^\markup
+    <c e g c' e'>1^\markup {
       \fret-diagram #"d:0.35;6-x;5-3;4-2;3-o;2-1;1-o;"
-    < d a d' f'> ^\markup
+    }
+    <d a d' f'>1^\markup {
       \fret-diagram #"p:0.2;6-x;5-x;4-o;3-2;2-3;1-1;"
+    }
   }
 >>
 @end lilypond
@@ -529,16 +732,18 @@ offene Saiten sowie Bundnummern können angezeigt werden.
 @lilypond[quote, verbatim]
 <<
   \context ChordNames {
-     \chordmode {
-       c1 d:m
-     }
+    \chordmode {
+      c1 d:m
+    }
   }
   \context Staff {
     \clef "treble_8"
-    < c e g c' e' > 1 ^\markup
+    <c e g c' e'>1^\markup {
       \fret-diagram-terse #"x;3;2;o;1;o;"
-    < d a d' f'> ^\markup
+    }
+    <d a d' f'>1^\markup {
       \fret-diagram-terse #"x;x;o;2;3;1;"
+    }
   }
 >>
 @end lilypond
@@ -548,16 +753,18 @@ Barré kann im knappen Modus auch angezeigt werden:
 @lilypond[quote, verbatim]
 <<
   \context ChordNames {
-     \chordmode {
-       f1 g
-     }
+    \chordmode {
+      f1 g
+    }
   }
   \context Staff {
     \clef "treble_8"
-    < f, c f a c' f'>1 ^\markup
+    <f, c f a c' f'>1^\markup {
       \fret-diagram-terse #"1-(;3;3;2;1;1-);"
-    < g, d g b d' g'> ^\markup
+    }
+    <g, d g b d' g'>1^\markup {
       \fret-diagram-terse #"3-(;5;5;4;3;3-);"
+    }
   }
 >>
 @end lilypond
@@ -568,18 +775,20 @@ Fingersatz kann im knappen Modus hinzugefügt werden:
 @lilypond[quote, verbatim]
 <<
   \context ChordNames {
-     \chordmode {
-       c1 d:m
-     }
+    \chordmode {
+      c1 d:m
+    }
   }
   \context Staff {
     \override Voice.TextScript
       #'(fret-diagram-details finger-code) = #'below-string
     \clef "treble_8"
-    < c e g c' e' > 1 ^\markup
+    <c e g c' e'>1^\markup {
       \fret-diagram-terse #"x;3-3;2-2;o;1-1;o;"
-    < d a d' f'> ^\markup
+    }
+    <d a d' f'>1^\markup {
       \fret-diagram-terse #"x;x;o;2-2;3-3;1-1;"
+    }
   }
 >>
 @end lilypond
@@ -589,6 +798,8 @@ mit @code{\override}-Befehlen angegeben werden.
 
 @cindex fret-diagram-verbose-Markup
 @cindex Bunddiagramme, ausführlicher Stil
+@cindex Kapo
+@cindex Capo
 
 @funindex fret-diagram-verbose
 @funindex \fret-diagram-verbose
@@ -599,14 +810,15 @@ Form eine  Scheme-Liste.  Jedes Element stellt ein Element dar,
 dass im Bunddiagramm gesetzt werden soll.
 
 @lilypond[quote, verbatim]
-<<  \context ChordNames {
-     \chordmode {
-       c1 d:m
-     }
-  }
+<<
+    \context ChordNames {
+      \chordmode {
+        c1 d:m
+      }
+    }
   \context Staff {
     \clef "treble_8"
-    < c e g c' e' > 1 ^\markup
+    <c e g c' e'>1^\markup {
       \fret-diagram-verbose #'(
         (mute 6)
         (place-fret 5 3)
@@ -615,7 +827,8 @@ dass im Bunddiagramm gesetzt werden soll.
         (place-fret 2 1)
         (open 1)
       )
-    < d a d' f'> ^\markup
+    }
+    <d a d' f'>1^\markup {
       \fret-diagram-verbose #'(
         (mute 6)
         (mute 5)
@@ -624,6 +837,7 @@ dass im Bunddiagramm gesetzt werden soll.
         (place-fret 2 3)
         (place-fret 1 1)
       )
+    }
   }
 >>
 @end lilypond
@@ -647,7 +861,7 @@ unterste Bund im Diagramm.
     \override Voice.TextScript
       #'(fret-diagram-details finger-code) = #'below-string
 
-    < f, c f a c' f'>1 ^\markup
+    <f, c f a c' f'>1^\markup {
       \fret-diagram-verbose #'(
         (place-fret 6 1)
         (place-fret 5 3)
@@ -657,7 +871,8 @@ unterste Bund im Diagramm.
         (place-fret 1 1)
         (barre 6 1 1)
       )
-    < g, b, d g b g'> ^\markup
+    }
+    <g, b, d g b g'>1^\markup {
       \fret-diagram-verbose #'(
         (place-fret 6 3 2)
         (place-fret 5 2 1)
@@ -666,7 +881,8 @@ unterste Bund im Diagramm.
         (open 2)
         (place-fret 1 3 3)
       )
-    < c e g c' e'> ^\markup
+    }
+    <c e g c' e'>1^\markup {
       \fret-diagram-verbose #'(
         (capo 3)
         (mute 6)
@@ -674,7 +890,8 @@ unterste Bund im Diagramm.
         (place-fret 3 5 2)
         (place-fret 2 5 3)
       )
-   }
+    }
+  }
 >>
 @end lilypond
 
@@ -692,27 +909,33 @@ and color of dots.
 @lilypond[verbatim,ragged-right,quote]
 \new Voice {
   \clef "treble_8"
-  d^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
-  d d d
-  fis^\markup \override #'(size . 0.75) {
-    \override #'(finger-code . below-string) {
-      \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
-                               (place-fret 5 4 3)
-                               (place-fret 4 4 4)
-                               (place-fret 3 3 2)
-                               (place-fret 2 2 1)
-                               (place-fret 1 2 1))
-    }
+  d4^\markup {
+    \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
   }
-  fis fis fis
-  c^\markup \override #'(dot-radius . 0.35) {
-    \override #'(finger-code . in-dot) {
-      \override #'(dot-color . white) {
-        \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
+  d4 d d
+  fis^\markup {
+    \override #'(size . 0.75) {
+      \override #'(finger-code . below-string) {
+        \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
+                                 (place-fret 5 4 3)
+                                 (place-fret 4 4 4)
+                                 (place-fret 3 3 2)
+                                 (place-fret 2 2 1)
+                                 (place-fret 1 2 1))
       }
     }
   }
-  c c c
+  fis4 fis fis
+  c^\markup {
+    \override #'(dot-radius . 0.35) {
+      \override #'(finger-code . in-dot) {
+        \override #'(dot-color . white) {
+          \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
+        }
+      }
+    }
+  }
+  c4 c c
 }
 @end lilypond
 @end ignore
@@ -724,7 +947,7 @@ and color of dots.
 @funindex fret-diagram-interface
 
 Die graphische Erscheinung eines Bunddiagramms kann den Wünschen
-des Notensetzers angepassen werden.  Hierzu werden die Eigenschaften
+des Notensetzers angepasst werden.  Hierzu werden die Eigenschaften
 des @code{fret-diagram-interface} (Bunddiagramm-Schnittstelle)
 eingesetzt.  Einzelheiten hierzu
 in @rinternals{fret-diagram-interface}.  Die Eigenschaften der
@@ -733,8 +956,10 @@ Schnittstelle gehören dem @code{Voice.TextScript}-Kontext an.
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-fret-orientations.ly}
+ 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
-
 
 @seealso
 Notationsreferenz:
@@ -755,6 +980,7 @@ Referenz der Interna:
 
 @cindex Bunddiagramme
 @cindex Akkord-Diagramme
+@cindex Bunddiagramme, Ukulele
 
 @funindex FretBoards
 @funindex stringTunings
@@ -777,9 +1003,27 @@ Die vordefinierten Diagramme sind in der Datei
 basierend auf der Tonhöhe eines Akkordes und dem Wert von
 @code{stringTunings} (Saitenstimmung), der gerade benutzt wird,
 gespeichert.  @code{predefined-guitar-fretboards.ly} beinhaltet
-vordefinierte Diagramme für die Gitarrenstimmtung (@code{guitar-tuning}).
+vordefinierte Diagramme für die Gitarrenstimmung (@code{guitar-tuning}).
 Anhand der Beispiele in dieser Datei können auch für andere
 Instrumente oder Stimmungen Diagramme definiert werden.
+
+Bunddiagramme für die Ukulele finden sich in der Datei
+@code{predefined-ukulele-fretboards.ly}.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-ukulele-fretboards.ly"
+
+myChords = \chordmode { a1 a:m a:aug }
+
+\new ChordNames {
+  \myChords
+}
+
+\new FretBoards {
+  \set stringTunings = #ukulele-tuning
+  \myChords
+}
+@end lilypond
 
 Tonhöhen von Akkorden können entweder als Akkordkonstrukte
 oder im Akkordmodus notiert werden (siehe auch
@@ -788,7 +1032,7 @@ oder im Akkordmodus notiert werden (siehe auch
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
 \context FretBoards {
-  \chordmode {c1}
+  \chordmode { c1 }
   <c' e' g'>1
 }
 @end lilypond
@@ -837,7 +1081,7 @@ mychords = \chordmode{
 
 mychordlist = {
   \mychords
-  \transpose c e { \mychords}
+  \transpose c e { \mychords }
 }
 <<
   \context ChordNames {
@@ -849,9 +1093,12 @@ mychordlist = {
 >>
 @end lilypond
 
-Die Tabelle der vordefinierten Bunddiagramme enthält sieben
-Akkorde (Dur, Moll, übermäßig, vermindert, Dominantseptakkord,
-große Septime und kleine Septime) für alle 17 Tonarten.  Eine
+Die Tabelle der vordefinierten Bunddiagramme für Gitarre enthält
+acht Akkorde (Dur, Moll, übermäßig, vermindert, Dominantseptakkord,
+große Septime, kleine Septime und Dominantnonenakkord) für alle 17
+Tonarten.  Die Tabelle der vortdefinierten Bunddiagramme für
+Ukulele enthält neben diesen Akkorden noch zusätzlich drei
+weitere (große Sext, Sekundakkord und Quartakkort).  Eine
 vollständige Liste der vordefinierten Bunddiagramme findet sich
 in @ref{Vordefinierte Bund-Diagramme}.  Wenn in der Tabelle für
 einen Akkord kein Wert steht, wird ein Bunddiagramm vom
@@ -862,7 +1109,7 @@ Bunddiagrammfunktion zu Anwendung kommt. Siehe hierzu
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 mychords = \chordmode{
-  c1 c:9
+  c1 c:maj9
 }
 
 <<
@@ -888,12 +1135,12 @@ kann entweder eine @code{fret-diagram-terse}-Definition oder eine
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram \chordmode {c:9}
+\storePredefinedDiagram \chordmode { c:maj9 }
                         #guitar-tuning
-                        #"x;3-2;2-1;3-3;3-4;x;"
+                        #"x;3-2;o;o;o;o;"
 
-mychords = \chordmode{
-  c1 c:9
+mychords = \chordmode {
+  c1 c:maj9
 }
 
 <<
@@ -915,11 +1162,11 @@ die für transponierende Bunddiagramme eingesetzt wird.
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram \chordmode {c''}
+\storePredefinedDiagram \chordmode { c'' }
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'bes guitar-tuning))
 
-mychords = \chordmode{
+mychords = \chordmode {
   c1 c''
 }
 
@@ -939,7 +1186,7 @@ mychords = \chordmode{
 @cindex Akkordformen für Bundinstrumente
 
 @funindex \addChordShape
-@funindex add ChordShape
+@funindex addChordShape
 @funindex storePredefinedDiagram
 @funindex \storePredefinedDiagram
 
@@ -957,16 +1204,16 @@ oder als @code{fret-diagram-verbose}-Liste erstellt werden.
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-% add a new chord shape
+% Add a new chord shape
 
 \addChordShape #'powerf #guitar-tuning #"1-1;3-3;3-4;x;x;x;"
 
 % add some new chords based on the power chord shape
 
-\storePredefinedDiagram \chordmode {f''}
+\storePredefinedDiagram \chordmode { f'' }
                         #guitar-tuning
                         #(chord-shape 'powerf guitar-tuning)
-\storePredefinedDiagram \chordmode {g''}
+\storePredefinedDiagram \chordmode { g'' }
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
@@ -986,7 +1233,7 @@ mychords = \chordmode{
 
 Die graphische Form eines Bunddiagramms kann entsprechend den
 eigenen Wünschen verändert werden, indem man die Eigenschaften
-der @code{fret-diagram-interface}-Schnittstellt verändert.
+der @code{fret-diagram-interface}-Schnittstelle verändert.
 Einzelheiten hierzu in @rinternals{fret-diagram-interface}.  Die
 Schnittstelleneigenschaften eines vordefinierten Bunddiagrammes
 gehören dem @code{FretBoards.FretBoard}-Kontext an.
@@ -1031,7 +1278,7 @@ Referenz der Interna:
 
 Bunddiagramme können automatisch aus notierten Noten erstellt werden.
 Hierzu wird der @code{FretBoards}-Kontext eingesetzt.  Wenn keine
-vordefinierten Diagramme für die ensprechenden Noten mit
+vordefinierten Diagramme für die entsprechenden Noten mit
 der aktiven Saitenstimmung (@code{stringTunings}) vorhanden sind,
 errechnet der Kontext Saiten und Bünde die benutzt werden können,
 um die Noten zu spielen.
@@ -1039,18 +1286,18 @@ um die Noten zu spielen.
 @lilypond[quote,ragged-right,verbatim]
 <<
   \context ChordNames {
-     \chordmode {
-       f1 g
-     }
+    \chordmode {
+      f1 g
+    }
   }
   \context FretBoards {
-    < f, c f a c' f'>1
-    < g,\6 b, d g b g'>
+    <f, c f a c' f'>1
+    <g,\6 b, d g b g'>1
   }
   \context Staff {
     \clef "treble_8"
-    < f, c f a c' f'>1
-    < g, b, d g b' g'>
+    <f, c f a c' f'>1
+    <g, b, d g b' g'>1
   }
 >>
 @end lilypond
@@ -1073,22 +1320,22 @@ werden.
                         #"x;3-1-(;5-2;5-3;5-4;3-1-1);"
 <<
   \context ChordNames {
-     \chordmode {
-       c1 c c
-     }
+    \chordmode {
+      c1 c c
+    }
   }
   \context FretBoards {
     <c e g c' e'>1
     \predefinedFretboardsOff
-    <c e g c' e'>
+    <c e g c' e'>1
     \predefinedFretboardsOn
-    <c e g c' e'>
+    <c e g c' e'>1
   }
   \context Staff {
     \clef "treble_8"
     <c e g c' e'>1
-    <c e g c' e'>
-    <c e g c' e'>
+    <c e g c' e'>1
+    <c e g c' e'>1
   }
 >>
 @end lilypond
@@ -1097,7 +1344,7 @@ Manchmal kann die Berechnungsfunktion für Bunddiagramme kein
 passendes Diagramm finden.  Das kann oft umgangen werden, indem
 man manuell einer Note eine bestimmte Saite zuweist.  In vielen
 Fällen muss nur eine Note derart gekennzeichnet werden, der
-Rest wird dann ensprechend durch den @code{FretBoards}-Kontext
+Rest wird dann entsprechend durch den @code{FretBoards}-Kontext
 behandelt.
 
 @cindex Bunddiagramme, Fingersatz
@@ -1108,18 +1355,18 @@ Fingersatz kann zu FretBoard-Bunddiagrammen hinzugefügt werden.
 @lilypond[quote, verbatim]
 <<
   \context ChordNames {
-     \chordmode {
-       c1 d:m
-     }
+    \chordmode {
+      c1 d:m
+    }
   }
   \context FretBoards {
-    < c-3 e-2 g c'-1 e' > 1
-    < d a-2 d'-3 f'-1>
+    <c-3 e-2 g c'-1 e'>1
+    <d a-2 d'-3 f'-1>1
   }
   \context Staff {
     \clef "treble_8"
-    < c e g c' e' > 1
-    < d a d' f'>
+    <c e g c' e'>1
+    <d a d' f'>1
   }
 >>
 @end lilypond
@@ -1131,29 +1378,29 @@ FretBoard-Kontext zu errechnen, kann mit der
 @lilypond[quote, verbatim]
 <<
   \context ChordNames {
-     \chordmode {
-       d1:m d:m
-     }
+    \chordmode {
+      d1:m d:m
+    }
   }
   \context FretBoards {
-    < d a d' f'>
+    <d a d' f'>1
     \set FretBoards.minimumFret = #5
-    < d a d' f'>
+    <d a d' f'>1
   }
   \context Staff {
     \clef "treble_8"
-    < d a d' f'>
-    < d a d' f'>
+    <d a d' f'>1
+    <d a d' f'>1
   }
 >>
 @end lilypond
 
 Die Saiten und Bünde des @code{FretBoards}-Kontextes hängen von
-der @code{stringTunings}-Eigesnchaft ab, die die gleiche Bedeitung
+der @code{stringTunings}-Eigenschaft ab, die die gleiche Bedeutung
 wie im TabStaff-Kontext hat.  Siehe auch @ref{Angepasste Tabulaturen}
 zu Information über die @code{stringTunings}Eigenschaft.
 
-Die graphische Erscheindung eines Bunddiagrammes kann den
+Die graphische Erscheinung eines Bunddiagrammes kann den
 Bedürfnissen angepasst werden, indem Eigenschaften der
 @code{fret-diagram-interface}-Schnittstelle verändert werden.
 Einzelheiten finden sich in @rinternals{fret-diagram-interface}.
@@ -1177,6 +1424,10 @@ Schnipsel:
 Referenz der Interna:
 @rinternals {fret-diagram-interface}.
 
+@knownissues
+Automatische Bundberechnung funktioniert nicht richtig für Instrumente
+mit nicht-monotonischer Stimmung.
+
 
 @node Fingersatz der rechten Hand
 @unnumberedsubsubsec Fingersatz der rechten Hand
@@ -1198,7 +1449,8 @@ Bezeichnungen @var{p-i-m-a} notiert werden.  Er muss innerhalb
 eines Akkord-Konstruktes notiert werden.
 
 
-@warning{Nach der Note @strong{muss} ein Minuszeichen gesetzt
+@warning{Vor dem @code{@bs{}rightHandFinger} @strong{muss} ein
+Minuszeichen gesetzt
 werden und ein Leerzeichen nach dem schließenden @code{>}.}
 
 @lilypond[quote,verbatim,relative=0]
@@ -1243,8 +1495,8 @@ allgemeinen Abschnitt behandelt, aber es gibt noch einige, die
 hier gezeigt werden sollen.  Teilweise soll ein Lead-sheet nur
 die Akkordsymbole und den Gesangstext enthalten.  Da LilyPond
 ein Notensatzprogramm ist, wird es nicht für derartige
-Projekte empfohlen, die keine eigentliche Notation beinahlten.
-Anstattdessen sollte ein Textbearbeitungsprogramm, oder ein
+Projekte empfohlen, die keine eigentliche Notation beinhalten.
+Anstatt dessen sollte ein Textbearbeitungsprogramm oder ein
 Satzprogramm wie GuitarTeX (für erfahrende Benutzer) eingesetzt
 werden.
 
@@ -1306,16 +1558,61 @@ Besondere Notenköpfe können eingesetzt werden, um gedämpfte Noten
 oder Flageoletttöne anzuzeigen.  Flageoletttöne werden normalerweise
 mit einem Text erklärt.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \relative c' {
   \clef "treble_8"
-  \override Staff.NoteHead #'style = #'cross
-  g8 a b c b4
   \override Staff.NoteHead #'style = #'harmonic-mixed
   d^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
 }
 @end lilypond
 
+Gedämpfte oder gestoppte Noten werden in normalen und Tabulatur-Systemen
+unterstützt:
+
+@lilypond[quote,ragged-right,verbatim]
+music = \relative c' {
+  < a\3 \deadNote c\2 a'\1 >4
+  < b\3 \deadNote d\2 b'\1 >
+  < c\3 \deadNote e\2 c'\1 >
+  \deadNotesOn
+  \times 2/3 { g8 b e }
+  \deadNotesOff
+  < a,\3 c\2 e\1 >1
+}
+\new StaffGroup <<
+  \new Staff {
+    \clef "treble_8"
+    \music
+  }
+  \new TabStaff {
+    \music
+  }
+>>
+@end lilypond
+
+Eine andere Spieltechnik (insbesondere bei elektrischen Gitarren
+benutzt) ist @notation{palm mute}.  Hierbei wird die Saite teilweise
+durch die Handfläche der Schlaghand gedämpft.  LilyPond unterstützt
+die Notation dieser Art von Technik, indem die Notenköpfe der
+so gedämpften Noten durch Dreiecke ersetzt werden.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice { % Warning: explicit Voice instantiation is
+             %    required to have palmMuteOff work properly
+             %    when palmMuteOn comes at the beginning of
+             %    the piece.
+  \relative c, {
+    \clef "G_8"
+    \palmMuteOn
+    e8^\markup { \musicglyph #"noteheads.u2do"  = palm mute }
+    < e b' e > e
+    \palmMuteOff
+    e e  \palmMute e e e |
+    e8 \palmMute { e e e } e e e e |
+    < \palmMute e b' e >8 \palmMute { e e e } < \palmMute e b' e >2
+  }
+}
+@end lilypond
 
 @seealso
 Notationsreferenz:

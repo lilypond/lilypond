@@ -18,7 +18,7 @@
 @include macros.itexi
 
 @macro manualIntro
-Dieser Aufsatz disskutiert den automatischen Musiksatz von
+Dieser Aufsatz diskutiert den automatischen Musiksatz von
 LilyPond Version @version{}.
 @end macro
 

@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish:  6235465503c3adde476120e78514fc3feef14ef2
+    Translation of GIT committish:  4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -37,18 +37,18 @@ anderen Benutzern.
 
 @item
 Fehlerberichte: helfen Sie anderen Benutzern, richtige
-@ref{Fehlerberichte} zu erstellen und helfen Sie dem
-Fehlerteam bei der Verwaltung der @rcontribnamed{Issues,Probleme}.
+@ref{Fehlerberichte} zu erstellen und/oder schließen Sie sich dem
+Fehlerteam an, um die @rcontribnamed{Issues,Probleme} zu verwalten.
 
 @item
 Dokumentation: kleine Änderungen (immer zuerst auf Englisch)
-können vorgeschlagen werden, wenn man die Richtlinien
+können vorgeschlagen werden, wenn die Richtlinien
 von @rcontribnamed{Documentation suggestions,Vorschläge für die Dokumentation}
-beachtet.
+beachtet werden.
 
 @item
 Das LilyPond-Schnipsel-Depot (LSR): erstellen und reparieren Sie
-Schnipsel.  Siehe
+Schnipsel nach den Richtlinien in
 @rcontribnamed{Adding and editing snippets,Hinzufügen und Bearbeiten von Schnipseln.}.
 
 @item
@@ -65,13 +65,13 @@ diesen Diskussionen teil!
 @warning{Diese Aufgaben setzen voraus, dass Sie die Quellen
 von Programm und Dokumentation haben; Sie brauchen aber keine volle
 Entwicklungsumgebung.  Siehe
-@rcontribnamed{Starting with Git,Mit Git beginnen}.}
+@rcontribnamed{Working with source code,Mit Quellcode arbeiten}.}
 
 @itemize
 @item
 Dokumentation: siehe
 @rcontribnamed{Documentation work,Arbeit an der Dokumentation} und
-@rcontribnamed{Building documentation without compiling,Kompilieren der Dokumenation ohne LilyPond zu kompilieren}.
+@rcontribnamed{Building documentation without compiling,Kompilieren der Dokumentation ohne LilyPond zu kompilieren}.
 
 @item
 Website: die Website wird aus der Quelle der Dokumentation
@@ -90,11 +90,12 @@ zusätzlich @rcontribnamed{Website work,Arbeit an der Webseite}.
 
 @warning{Diese Aufgaben erfordern, dass Sie die Quellen haben
 und LilyPond kompilieren können.  Siehe
-@rcontribnamed{Starting with Git,Mit Git beginnen}
-und @rcontribnamed{Compiling LilyPond,LilyPond kompilieren}.}
-
-Wir empfehlen, dass neue Mithelfer, die Windows benutzen, eine
-virtuale Maschine einsezten, um @emph{lilybuntu} zu benutzen.  Siehe
+@rcontribnamed{Working with source code,Mit Quellcode arbeiten}
+und @rcontribnamed{Compiling,Kompilieren}.}
+@*@*
+Wir empfehlen, dass neue Mithelfer, die Windows oder MacOS X benutzen,
+@strong{keine} eigene Kompilierungsumgebung einrichtigen; anstelle
+dessen siehe
 @rcontribnamed{Using a Virtual Machine to Compile LilyPond,Ein virtuelles Betriebssystem (VM) einsetzen um LilyPond zu kompilieren}.
 
 @itemize
@@ -114,7 +115,11 @@ anzuschließen. Siehe auch
 
 @subsubheading Frogs
 
-Website und Mailing-Liste: @uref{http://frogs.lilynet.net}
+Website und Mailing-Liste:
+
+@example
+@uref{http://frogs.lilynet.net}
+@end example
 
 Die Frogs sind normale LilyPond-Benutzer, die beschlossen haben,
 an der Software-Entwicklung ihres Lieblingsprogrammes teilzunehmen.
@@ -129,7 +134,11 @@ Wenn Sie hieran interessiert sind, dann heißt es:
 
 @subsubheading Das GLISS-Projekt (Grand LilyPond Input Syntax Standardization)
 
-Webseite: @uref{http://lilypond.org/~graham/gliss}
+Webseite:
+
+@example
+@uref{http://lilypond.org/~graham/gliss}
+@end example
 
 GLISS soll die Syntax des Eingabecodes (ohne eigene Anpassungen)
 für die kommende LilyPond-Version 3.0 standardisieren.  Nachdem
@@ -144,7 +153,11 @@ die endgültigen Eingabespezifikationen festgelegt werden können.
 
 @subsubheading GOP (Grand Organizing Project)
 
-Webseite: @uref{http://lilypond.org/~graham/gop}
+Webseite:
+
+@example
+@uref{http://lilypond.org/~graham/gop}
+@end example
 
 GOP wird unsere große Aktion, mit welcher wir neue Interessenten
 zu eigenen Beiträgen zum Programm werben.  Die Entwicklungsarbeit

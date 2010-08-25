@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -20,7 +20,7 @@
 {unfretted-headword.ly}
 
 @cindex Streicher
-@cindex Orcherster, Streicher
+@cindex Orchester, Streicher
 @cindex Notation für Streicher
 
 Dieser Abschnitt stellt Information und Referenzen zur Verfügung, die
@@ -51,7 +51,7 @@ Divisi-Stellen erforderlich sein.
 @unnumberedsubsubsec Hinweise für bundlose Saiteninstrumente
 @translationof References for unfretted strings
 
-Die meisten Notationseigenschaften, die für Orchersterstreicher eingesetzt
+Die meisten Notationseigenschaften, die für Orchesterstreicher eingesetzt
 werden, sind an anderer Stelle beschrieben:
 
 @itemize
@@ -138,6 +138,10 @@ Notation Reference:
 @strong{@i{Natürliches Flageolett}}
 
 @cindex Flageolett
+@cindex harmonische Obertöne (Flageolett)
+@cindex Notenköpfe, rautenförmig
+@cindex rautenförmige Notenköpfe
+
 @funindex \harmonic
 @funindex harmonic
 
@@ -146,13 +150,13 @@ Flageolett-Töne können auf verschiedene Arten notiert werden.
 ein Ton angezeigt werde, bei dem die Saite berührt wird, wo sie
 sonst abgegriffen würde.
 
-@warning{Flageolett-Töne @strong{müssem} innerhalb von Akkorden
-definiert werden, auch wenn nur eine einzelne Note vorhanden ist.}
-
 @lilypond[verbatim,quote,relative=2]
-<d\harmonic>4 <e\harmonic>2.
-\set harmonicDots = ##t
-<d\harmonic>4 <e\harmonic>2.
+d4 e4.
+\harmonicsOn
+d8 e e
+d4 e4.
+\harmonicsOff
+d8 e e
 @end lilypond
 
 Alternativ kann auch eine normale Noten die Tonhöhe anzeigen, die
@@ -175,8 +179,14 @@ Fingers angibt, während die andere in Rautenform die Position des
 leicht aufgesetzten Fingers anzeigt.
 
 @lilypond[verbatim,quote,relative=1]
-<e a\harmonic>2  <c g'\harmonic>
+<e a\harmonic>2.  <c g'\harmonic>4
+\set harmonicDots = ##t
+<e a\harmonic>2.  <c g'\harmonic>4
 @end lilypond
+
+@warning{@code{@bs{}harmonic} @strong{muss} innerhalb einer Akkordkonstruktion
+gesetzt werden, auch wenn nur eine Note gesetzt wird.  Normalerweise würde
+@code{@bs{}harmonicsOn} in dieser Situation benutzt.}
 
 @seealso
 Glossar:

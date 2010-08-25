@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 8dd920d2143611a60bdaf82831613aae6342d2aa
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -95,7 +95,7 @@ hier quadratisch und ebenmäßig geformt sind.
 @cindex Ratisbona, Editio
 @cindex Medicaea, Editio
 
-@item Der @emph{Hufnagel}- oder @emph{gothische} Stil ahmt
+@item Der @emph{Hufnagel}- oder @emph{gotische} Stil ahmt
 den Stil der Schreiber bestimmter Manuskripte aus dem Deutschland
 und Mitteleuropa des Mittelalters nach.  Er ist nach der
 Form der wichtigsten Note (der @emph{Virga}) benannt, die wie
@@ -149,7 +149,7 @@ Versetzungszeichen.
 
 Jedes Notationselement kann unabhängig von den anderen
 verändert werden, sodass man gut mensurale Fähnchen,
-Petrucci-Notenköpfe, klassiche Pausen und Vatikana-Schlüssel
+Petrucci-Notenköpfe, klassische Pausen und Vatikana-Schlüssel
 nebeneinander benutzen kann, wenn das gewünscht ist.
 
 
@@ -170,8 +170,8 @@ nebeneinander benutzen kann, wenn das gewünscht ist.
 @unnumberedsubsubsec Vordefinierte Umgebungen
 @translationof Pre-defined contexts
 
-Für den grogorianischen Choral und die Mensuralnotation gibt
-es vorgedifinierte Stimm- und Systemkontexte, die all die
+Für den gregorianischen Choral und die Mensuralnotation gibt
+es vordefinierte Stimm- und Systemkontexte, die all die
 Notationszeichen auf Werte setzen, die diesem Stil angemessen
 sind.  Wenn man mit den Werten zufrieden ist, kann man sofort
 mit der Notation beginnen, ohne sich um die Einzelheiten von
@@ -397,9 +397,9 @@ beliebige Nummer erzwingen, wie es im Abschnitt @ref{Notenschlüssel} beschriebe
 wird. Die Note, die rechts von jedem Schlüssel
 gesetzt ist, zeigt das @code{c'} in Bezug zu dem jeweiligen Schlüssel.
 
-Petrucci hat C-Schlüssel benutzt, die interschiedlich ausbalancierte
+Petrucci hat C-Schlüssel benutzt, die unterschiedlich ausbalancierte
 vertikale Balken auf der linken Seite hatten, je nachdem, auf welcher
-Notelinie er sich befand.
+Notenlinie er sich befand.
 
 @multitable @columnfractions .4 .4 .2
 @item
@@ -751,7 +751,7 @@ Notationsreferenz:
 @translationof Mensural accidentals and key signatures
 
 @cindex Versetzungszeichen, Mensuralnotation
-@cindex Vorzeuchen, Mensuralnotation
+@cindex Vorzeichen, Mensuralnotation
 @cindex Tonart, Mensuralnotation
 
 Der @code{mensural}-Stil stellt ein Kreuz und ein B zur Verfügung,
@@ -1473,7 +1473,7 @@ Einzelne Noten-Neumen:
 @itemize
 @item Das @emph{punctum} ist die grundlegende Notenform (im
 @emph{Vaticana}-Stil: ein Quadrat mit gebogenen Ober- und
-Unterkanten).  Zusäztlich gibt es auch noch das oblique
+Unterkanten).  Zusätzlich gibt es auch noch das oblique
 @emph{punctum inclinatum}, das mit dem Präfix @code{\inclinatum}
 erstellt wird.  Das normale @emph{punctum} kann durch
 @code{\cavum} verändert werden, wodurch eine hohle Note
@@ -2394,11 +2394,11 @@ dargestellt werden.  Dabei handelt es sich um:
 @itemize
 @item wie man Incipite in modernen Editionen von Mensuralnotation
 notieren kann (d.h. ein kleiner Abschnitt
-vor der eigentlichen Paritur, der die Originalnotenformen
+vor der eigentlichen Partitur, der die Originalnotenformen
 darstellt),
 @item wie man @emph{Mensurstriche} einstellt, mit denen
 oft moderne Transkriptionen polyphoner Musik notiert werden,
-@item wie man den gregorianischen Choral mit morderner Notation
+@item wie man den gregorianischen Choral mit moderner Notation
 darstellt und
 @item wie man sowohl ein Mensuralnotationsbild als auch eine
 moderne Edition aus der selben Quelle erstellt.
@@ -2428,7 +2428,7 @@ in dem die Taktlinien nicht auf den Systemen, sondern nur
 zwischen Systemen gezogen werden.  Damit soll signalisiert
 werden, dass das Original keine Takteinteilung besessen hat
 und etwa Synkopen nicht über Taktlinien hinweg aufgeteilt 
-werden müssen, während mann sich dennoch an den Taktlinien
+werden müssen, während man sich dennoch an den Taktlinien
 rhythmisch orientieren kann.
 
 @lilypondfile[verbatim,lilyquote,texidoc]
@@ -2465,7 +2465,7 @@ entfernt:
 @end example
 
 In einigen Transkriptionsstilen werden jedoch teilweise
-Hälse einesetzt, um etwa den Übergang von einem Einton-Rezitativ
+Hälse eingesetzt, um etwa den Übergang von einem Einton-Rezitativ
 zu einer melodischen Geste anzuzeigen.  In diesem Fall können
 Hälse entweder mit @code{\override Stem #'transparent = ##t}
 unsichtbar gemacht werden oder mit
@@ -2480,7 +2480,7 @@ Der @code{Time_signature_engraver} kann aus dem @code{Staff}-Kontext
 entfernt werden, ohne dass es negative Seiteneffekte gäbe.
 Alternativ kann er durchsichtig gemacht werden, dabei entsteht
 aber ein leerer Platz zu Beginn der Noten an der Stelle, wo
-normalerweise die Taktnagabe stehen würde.
+normalerweise die Taktangabe stehen würde.
 
 In vielen Fällen ergibt @code{\set Score.timing = ##f} gute
 Ergebnisse.  Eine andere Möglichkeit ist es, @code{\CadenzaOn}

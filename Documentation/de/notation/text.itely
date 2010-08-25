@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -98,25 +98,43 @@ a8^"pizz." g f e
 a4_"scherzando" f
 @end lilypond
 
+Neben Textbeschriftungen können auch Artikulationen an Noten angehängt
+werden.  Siehe auch @ref{Artikulationszeichen und Verzierungen}.
+
+Zu weiterer Information zu der relativen Anordnung von Textbeschriftungen
+und Artikulationen, siehe @rlearning{Positionierung von Objekten}.
+
+@funindex \textLengthOn
+@funindex \textLengthOff
+@funindex textLengthOn
+@funindex textLengthOff
 
 @predefined
-@funindex \textLengthOn
 @code{\textLengthOn},
-@funindex \textLengthOff
 @code{\textLengthOff}.
 @endpredefined
 
 
 @seealso
+Handbuch zum Lernen:
+@rlearning{Positionierung von Objekten}.
+
 Notationsreferenz:
 @ref{Text formatieren},
-@ref{Richtung und Platzierung}.
+@ref{Richtung und Platzierung},
+@ref{Artikulationszeichen und Verzierungen}.
 
 Schnipsel:
 @rlsr{Text}.
 
 Referenz der Interna:
 @rinternals{TextScript}.
+
+@cindex Text außerhalb des Randes
+@cindex Rand, überhängender Text
+@cindex Seitenrand, überhängender Text
+@cindex Gesangstext, innerhalb des Randes behalten
+@cindex Text, innerhalb des Randes behalten
 
 @knownissues
 
@@ -152,6 +170,10 @@ b1\startTextSpan
 e,\stopTextSpan
 @end lilypond
 
+@cindex Textstrecker, Formatierung
+@cindex Formatierung von Textstreckern
+@cindex Strecker, Text-, Formatierung
+
 @noindent
 Der Text wird durch Objekteigenschaften beeinflusst.  In den
 Standardeinstellungen wird er kursiv ausgegeben, aber eine andere
@@ -166,22 +188,25 @@ e,\stopTextSpan
 @end lilypond
 
 Auch der Stil der Linie kann ähnlich wie der Text mit den Objekteigenschaften
-geändert werden.  Diese Syntax ist beschrieben in @ref{Zeilenstile}.
+geändert werden.  Diese Syntax ist beschrieben in @ref{Linienstile}.
 
+@funindex textSpannerUp
+@funindex textSpannerDown
+@funindex textSpannerNeutral
+@funindex \textSpannerUp
+@funindex \textSpannerDown
+@funindex \textSpannerNeutral
 
 @predefined
-@funindex textSpannerUp
 @code{\textSpannerUp},
-@funindex textSpannerDown
 @code{\textSpannerDown},
-@funindex textSpannerNeutral
 @code{\textSpannerNeutral}.
 @endpredefined
 
 
 @seealso
 Notationsreferenz:
-@ref{Zeilenstile},
+@ref{Linienstile},
 @ref{Dynamik}.
 
 Schnipsel:
@@ -190,18 +215,29 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{TextSpanner}.
 
+@knownissues
+LilyPond kann nur einen Textstrecker pro Stimme verarbeiten.
+
 
 
 @node Textartige Zeichen
 @unnumberedsubsubsec Textartige Zeichen
 @translationof Text marks
 
-@cindex Coda an Taktlinie
-@cindex Segno an Taktlinie
-@cindex Fermate an Taktlinie
-@cindex Taktlinie, Symbole anfügen
-@cindex Symbole auf der Taktlinie
+@cindex Textzeichen
+@cindex textartige Zeichen
+@cindex Zeichen, textartige
+@cindex Text am Taktstrich
+@cindex Coda am Taktstrich
+@cindex Segno an Taktstrich
+@cindex Fermate an Taktstrich
+@cindex Taktstrich, Symbole anfügen
+@cindex Symbole auf der Taktstrich
+
 @funindex \mark
+@funindex mark
+@funindex \markup
+@funindex markup
 
 Verschiedene Textelemente können der Partitur hinzugefügt werden,
 indem man die Syntax für Zeichen einsetzen, wie beschrieben in
@@ -282,6 +318,11 @@ Referenz der Interna:
 @rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
 
+@knownissues
+Wenn ein Zeichen am Ende des letzten Taktes einer Partitur gesetzt wird
+(wenn also keine nächste Zeile mehr kommt), wird das Zeichen nicht
+ausgegeben.
+
 
 
 @node Separater Text
@@ -291,12 +332,15 @@ Referenz der Interna:
 @cindex separater Text
 @cindex Text alleine
 @cindex nur Text
+@cindex Text, oberste Ebene
+@cindex oberste Ebene, Text
 
 @funindex \markup
+@funindex markup
 
 Eine @code{\markup}-Umgebung kann auch für sich alleine existieren,
 außerhalb einer @code{\score}-Umgebung, als ein Ausdruck auf der
-höchsten Ebene.
+höchsten Ebene.  Diese Syntax ist beschrieben in @ref{Dateistruktur}.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
@@ -329,10 +373,13 @@ dass man Textdokumente oder Bücher ausschließlich mit LilyPond
 setzen kann.  Einzelheiten zu den vielfältigen Möglichkeiten finden
 sich in @ref{Textbeschriftung über mehrere Seiten}.
 
+@funindex \markuplines
+@funindex \markup
+@funindex markuplines
+@funindex markup
 
 @predefined
 @code{\markup},
-@funindex \markuplines
 @code{\markuplines}.
 @endpredefined
 
@@ -382,6 +429,8 @@ Formatierung von Text, wobei der Textbeschriftungsmodus
 @cindex Textbeschriftung
 @cindex Beschriftung, Text
 @cindex Setzen von Text
+
+@funindex markup
 @funindex \markup
 
 Eine @code{\markup}-Umgebung wird benutzt, um Text mit einer
@@ -391,6 +440,7 @@ zu setzen.
 @cindex Textbeschriftungs-Ausdrücke
 @cindex Text, Syntax
 @cindex markup, Syntax
+@cindex Ausdrück, Text
 
 Die Syntax für Textbeschriftungen ähnelt der normalen Syntax von
 LilyPond: ein @code{\markup}-Ausdruck wird in geschweifte Klammern
@@ -419,6 +469,9 @@ c
 @cindex besondere Zeichen, Text
 @cindex Text mit Sonderzeichen
 @cindex Anführungsstriche im Text
+@cindex Drucken von Sonderzeichen
+@cindex Setzen von Sonderzeichen
+@cindex Beschriftung, Sonderzeichen
 
 Eine @code{\markup}-Umgebung kann auch Text in
 Anführungszeichen beinhalten.  Derartige Zeichenketten werden als
@@ -477,7 +530,6 @@ Schnipsel:
 Installierte Dateien:
 @file{scm/@/markup@/.scm}.
 
-
 @knownissues
 
 Syntaxfehler im Textbeschriftungsmodus können sehr verwirrend sein.
@@ -488,9 +540,15 @@ Syntaxfehler im Textbeschriftungsmodus können sehr verwirrend sein.
 @translationof Selecting font and font size
 
 @cindex Schriftschnitt verändern
+@cindex Schriftart verändern
+@cindex Verändern der Schriftart
+
 @funindex \italic
 @funindex \bold
 @funindex \underline
+@funindex italic
+@funindex bold
+@funindex underline
 
 Einfache Änderungen des Schriftartschnitts können im Textbeschriftungsmodus
 vorgenommen werden:
@@ -508,15 +566,20 @@ f1 d2 r
 @cindex Schriftgröße
 @cindex Textgröße
 @cindex Größe der Schriftart
+
 @funindex \fontsize
 @funindex \smaller
 @funindex \larger
 @funindex \magnify
+@funindex fontsize
+@funindex smaller
+@funindex larger
+@funindex magnify
 
 Die Größe von Buchstaben kann auf verschiedene Arten verändert werden:
 @itemize
 @item
-die Schriftgröße kann auf bestimmte deinierte Standardgrößen gesetzt werden,
+die Schriftgröße kann auf bestimmte definierte Standardgrößen gesetzt werden,
 
 @item
 die Schriftgröße kann mit einem absoluten Wert gesetzt werden,
@@ -549,8 +612,11 @@ d c2 r8 c bes a g1
 
 @cindex hochgestellt
 @cindex tiefergestellt
+
 @funindex \super
+@funindex super
 @funindex \sub
+@funindex sub
 
 Text kann auch hoch- bzw. tiefgestellt gesetzt werden.  Die so markierten
 Buchstaben werden automatisch in einer kleineren Schriftgröße gesetzt,
@@ -618,26 +684,34 @@ dem Befehl @code{\concat} zu einem Element verschmolzen werden:
 Eine ausführliche Liste der unterschiedlichen Befehl zur Beeinflussung
 der Schriftarten findet sich in @ref{Font}.
 
-Es ist auch möglich, eigene Schriftfamlien zu definieren, wie erklärt in
+Es ist auch möglich, eigene Schriftfamilien zu definieren, wie erklärt in
 @ref{Schriftarten}.
 
+@funindex \teeny
+@funindex \tiny
+@funindex \small
+@funindex \normalsize
+@funindex \large
+@funindex \huge
+@funindex \smaller
+@funindex \larger
+@funindex teeny
+@funindex tiny
+@funindex small
+@funindex normalsize
+@funindex large
+@funindex huge
+@funindex smaller
+@funindex larger
 
 @predefined
-@funindex \teeny
 @code{\teeny},
-@funindex \tiny
 @code{\tiny},
-@funindex \small
 @code{\small},
-@funindex \normalsize
 @code{\normalsize},
-@funindex \large
 @code{\large},
-@funindex \huge
 @code{\huge},
-@funindex \smaller
 @code{\smaller},
-@funindex \larger
 @code{\larger}.
 @endpredefined
 
@@ -665,6 +739,8 @@ Installierte Dateien:
 
 @cindex Text, Ausrichtung
 @cindex Ausrichtung von Text
+@cindex Textbeschriftung ausrichten
+@cindex Beschriftung ausrichten
 
 Dieser Abschnitt zeigt, wie man Text im Textbeschriftungsmodus
 eingibt.  Textobjekte können auch als eine Einheit verschoben
@@ -675,9 +751,13 @@ werden, wie beschrieben in @rlearning{Verschieben von Objekten}.
 
 @cindex Text, horizontale Ausrichtung
 @cindex horizontale Ausrichtung von Text
+
 @funindex \left-align
 @funindex \center-align
 @funindex \right-align
+@funindex left-align
+@funindex center-align
+@funindex right-align
 
 Textbeschriftungsobjekte können auf verschiedene Weise ausgerichtet
 werden.  Standardmäßig wird ein Textobjekt an seiner linken Ecke
@@ -695,6 +775,7 @@ d-\markup { \right-align poco }
 @end lilypond
 
 @funindex \halign
+@funindex halign
 
 Die horizontale Ausrichtung kann mit einer Zahl auf einen exakten
 Wert festgelegt werden:
@@ -716,9 +797,14 @@ Objekte als eine Einheit anzusprechen und zu bewegen, wie
 gezeigt in @ref{Textartige Zeichen}.
 
 @cindex Text, vertikale Ausrichtung
-@cindex vertickale Ausrichtung von Text
+@cindex vertikale Ausrichtung von Text
+
 @funindex \raise
 @funindex \lower
+@funindex \null
+@funindex raise
+@funindex lower
+@funindex null
 
 Die vertikale Ausrichtung ist etwas schwieriger.  Textelemente
 können komplett verschoben werden, es ist aber auch möglich, nur
@@ -748,6 +834,9 @@ a'4 a g2 a
 @funindex \general-align
 @funindex \translate
 @funindex \translate-scaled
+@funindex general-align
+@funindex translate
+@funindex translate-scaled
 
 Einige Befehle können sowohl die horizontale als auch die vertikale
 Ausrichtung von Textobjekten beeinflussen.  Jedes Objekt, das auf
@@ -771,13 +860,17 @@ d,^\markup {
 a'4 a g2 a
 @end lilypond
 
-@funindex \column
-@funindex \center-column
-
 @cindex mehrzeiliger Text
 @cindex Text, mehrere Zeilen
 @cindex Blöcke, Text
 @cindex Textblöcke
+@cindex Beschriftung, mehrzeilig
+@cindex Textbeschriftung, mehrzeilig
+
+@funindex \column
+@funindex \center-column
+@funindex column
+@funindex center-column
 
 Ein Textbeschriftungsobjekt kann mehrere Zeilen beinhalten.  Im folgenden
 Beispiel wird jeder Ausdruck innerhalb von @code{\markup} auf einer
@@ -799,10 +892,14 @@ eigenen Zeile gesetzt, entweder linksbündig oder zentriert:
 }
 @end lilypond
 
-@funindex \fill-line
+
 
 @cindex Text auf der Seite zentrieren
 @cindex Zentrieren von Text auf der Seite
+@cindex Beschriftung, Zentrieren auf der Seite
+
+@funindex \fill-line
+@funindex fill-line
 
 Eine Anzahl an Ausdrücken innerhalb von @code{\markup} kann auch
 gestreckt werden, so dass die gesamte Seitenbreite benutzt wird.  Wenn
@@ -827,12 +924,16 @@ beinhalten.
 }
 @end lilypond
 
-@funindex \wordwrap
-@funindex \justify
-
 @cindex Umbruch von Text
 @cindex Blocksatz, Text
 @cindex Text, Blocksatz
+@cindex Beschriftung, Blocksatz
+@cindex Textbeschriftung, Blocksatz
+
+@funindex \wordwrap
+@funindex \justify
+@funindex wordwrap
+@funindex justify
 
 Längere Texte können auch automatisch umgebrochen werden, wobei es
 möglich ist, die Zeilenbreite zu bestimmen.  Der Text ist entweder
@@ -864,6 +965,11 @@ linksbündig oder im Blocksatz, wie das nächste Beispiel illustriert:
 }
 @end lilypond
 
+@cindex Textausrichtungsbefehle
+@cindex Textausrichtung, Befehle
+@cindex Befehle zur Textausrichtung
+@cindex Ausrichtung von Text, Befehle
+
 Eine vollständige Liste der Textausrichtungsbefehle findet sich in
 @ref{Align}.
 
@@ -878,11 +984,11 @@ Notationsreferenz:
 Schnipsel:
 @rlsr{Text}.
 
-Installierte Dateien:
-@file{scm/@/define@/-markup@/-commands@/.scm}.
-
 Referenz der Interna:
 @rinternals{TextScript}.
+
+Installierte Dateien:
+@file{scm/@/define@/-markup@/-commands@/.scm}.
 
 
 
@@ -894,15 +1000,11 @@ Referenz der Interna:
 @cindex Illustrationen im Text
 @cindex Zeichnen im Text
 @cindex Abbildungen im Text
+@cindex Objekte, Graphik im Text
+@cindex eingebundene Graphik im Text
 
 Verschiedene graphische Objekte können im Textbeschriftungsmodus
 eingefügt werden.
-
-@funindex \box
-@funindex \circle
-@funindex \rounded-box
-@funindex \bracket
-@funindex \hbracket
 
 @cindex Kasten, Graphik
 @cindex gerundeter Kasten, Graphik
@@ -910,6 +1012,17 @@ eingefügt werden.
 @cindex Text verzieren
 @cindex Text einrahmen
 @cindex Rahmen, Text
+
+@funindex \box
+@funindex \circle
+@funindex \rounded-box
+@funindex \bracket
+@funindex \hbracket
+@funindex box
+@funindex circle
+@funindex rounded-box
+@funindex bracket
+@funindex hbracket
 
 Mit bestimmten Textbeschriftungsbefehlen kann man Textelementen
 Graphik hinzufügen, wie das nächste Beispiel zeigt:
@@ -931,15 +1044,19 @@ Graphik hinzufügen, wie das nächste Beispiel zeigt:
 }
 @end lilypond
 
-@funindex \pad-markup
-@funindex \pad-x
-@funindex \pad-to-box
-@funindex \pad-around
-
 @cindex Platz um Text
 @cindex Rand um Text
 @cindex Füllung um Text
 @cindex Text, Rand außen
+
+@funindex \pad-markup
+@funindex \pad-x
+@funindex \pad-to-box
+@funindex \pad-around
+@funindex pad-markup
+@funindex pad-x
+@funindex pad-to-box
+@funindex pad-around
 
 Es kann nötig sein, einem Text mehr Platz einzuräumen.  Das geschieht mit
 verschiedenen Befehlen, wie das folgende Beispiel zeigt.  Eine ausführliche
@@ -967,15 +1084,23 @@ Flute quartet keeps very uneven time."
 }
 @end lilypond
 
+@cindex Graphische Notation
+@cindex Symbole, nicht musikalische
+@cindex Notation, graphische
+@cindex nichtmusikalische Symbole
+
 @funindex \combine
 @funindex \draw-circle
 @funindex \filled-box
 @funindex \triangle
 @funindex \draw-line
 @funindex \arrow-head
-
-@cindex Graphische Notation
-@cindex Symbole, nicht Musik-
+@funindex combine
+@funindex draw-circle
+@funindex filled-box
+@funindex triangle
+@funindex draw-line
+@funindex arrow-head
 
 Andere graphische Elemente oder Symbole können gesetzt werden, ohne dass
 man Text benötigt.  Wie mit allen Textbeschriftungen können Objekte
@@ -997,13 +1122,15 @@ innerhalb von @code{\markup} kombiniert werden.
 }
 @end lilypond
 
-@funindex \epsfile
-@funindex \postscript
-
 @cindex Einbinden von Graphik
 @cindex Bilder einbinden
 @cindex Graphik einbinden
 @cindex Postscript, Graphik
+
+@funindex \epsfile
+@funindex \postscript
+@funindex epsfile
+@funindex postscript
 
 Fortgeschrittene graphische Möglichkeiten bietet unter Anderem eine
 Funktion, mit der man externe Graphiken im 
@@ -1059,6 +1186,8 @@ Installierte Dateien:
 @cindex Notationsobjekte, Einfügen
 @cindex Einfügen von Notationsobjekten
 @cindex Musikobjekte, Einfügen
+@cindex Beschriftung, Notationsobjekte einfügen
+@cindex Textbeschriftung, Notationsobjekte einfügen
 
 Auch Musikobjekte können innerhalb der Textbeschriftungsumgebung gesetzt
 werden.
@@ -1106,8 +1235,7 @@ d-\markup {
 Allgemeiner gesagt kann jedes verfügbare Notationssymbol unabhängig
 von der Notation als ein Textbeschriftungsobjekt eingefügt werden, wie
 unten gezeigt.  Eine vollständige Liste der verfügbaren Symbole findet
-sich in
-@ref{Die Feta-Schriftart}.
+sich in @ref{Die Feta-Schriftart}.
 
 @lilypond[quote,verbatim,relative=2]
 c2
@@ -1148,6 +1276,12 @@ c^\markup {
 @noindent
 Derartige Digramme sind dokumentiert in @ref{Instrument Specific Markup}.
 
+@cindex Notation innerhalb von Beschriftung
+@cindex Notation innerhalb von Text
+@cindex Text, Notation innerhalb
+@cindex Beschriftung, Notation einfügen
+@cindex Notensysteme in Text einfügen
+
 Sogar eine ganze Partitur kann in ein Textbeschriftungsobjekt eingefügt
 werden.  In diesem Fall muss die eingefügte @code{\score}-Umgebung
 eine @code{\layout}-Umgebung haben, wie in diesem Beispiel:
@@ -1163,8 +1297,7 @@ e f |
 c d e f
 @end lilypond
 
-Eine vollständige Liste der Musiksymbol-Befehle findet sich in
-@ref{Music}.
+Eine vollständige Liste der Musiksymbol-Befehle findet sich in @ref{Music}.
 
 @seealso
 Notationsreferenz:
@@ -1188,6 +1321,18 @@ Installierte Dateien:
 @node Textbeschriftung über mehrere Seiten
 @unnumberedsubsubsec Textbeschriftung über mehrere Seiten
 @translationof Multi-page markup
+
+@cindex Textbeschriftung über mehrere Seiten
+@cindex Beschriftung über mehrere Seiten
+@cindex Text über mehrere Seiten
+@cindex mehrseitiger Text
+
+@funindex \markuplines
+@funindex markuplines
+@funindex \justified-lines
+@funindex justified-lines
+@funindex \wordwrap-lines
+@funindex wordwrap-lines
 
 Normale Textbeschriftungsobjekte können nicht getrennt werden, aber mit
 einer spezifischen Umgebung ist es möglich, Text auch über mehrere Seiten
@@ -1223,20 +1368,24 @@ Eine vollständige Liste der Beschriftungslistenbefehle findet sich in
 
 @seealso
 Notationsreferenz:
-@ref{Text markup list commands},
-@ref{Neue Definitionen von Beschriftungsbefehlen für Listen}.
+@ref{Text markup list commands}.
 
 Schnipsel:
 @rlsr{Text}.
 
-Referenz der Interna: @rinternals{TextScript}.
+Erweitern:
+@rextend{Neue Definitionen von Beschriftungsbefehlen für Listen}.
+
+Referenz der Interna:
+@rinternals{TextScript}.
 
 Installierte Dateien:
 @file{scm/@/define@/-markup@/-commands@/.scm}.
 
+@funindex \markuplines
+@funindex markuplines
 
 @predefined
-@funindex \markuplines
 @code{\markuplines}.
 @endpredefined
 
@@ -1261,6 +1410,9 @@ wie man sie in Partituren ändern kann.
 @cindex Pango
 @cindex Schriftarten, Hintergrundinformation
 @cindex Klammern, unterschiedliche Größen
+@cindex Schriftarten, Nicht-Text in Beschriftung
+@cindex Nicht-Textschriftarten in Beschriftung
+
 @funindex font-interface
 
 Schriftarten werden von mehreren Bibliotheken verwaltet. FontConfig wird
@@ -1279,10 +1431,8 @@ a1^\markup {
   \vcenter {
     \override #'(font-encoding . fetaBraces)
     \lookup #"brace120"
-    \override #'(font-encoding . fetaNumber)
-    \column { 1 3 }
-    \override #'(font-encoding . fetaDynamic)
-    sf
+    \override #'(font-encoding . fetaText)
+    \column { 1 3 sf }
     \override #'(font-encoding . fetaMusic)
     \lookup #"noteheads.s0petrucci"
   }
@@ -1312,7 +1462,7 @@ mit Serifen (Standard ist New Century Schoolbook), mit @code{sans}
 eine serifenlose (gerade) Schriftart und mit @code{typewriter} eine
 Schreibmaschinenschrift, in welcher die Buchstaben alle die gleiche
 Weite haben.  Die aktuelle Schriftart von @code{sans} und
-@code{tpyewriter} wird durch Pango entspechend den Systemvorgaben
+@code{typewriter} wird durch Pango entsprechend den Systemvorgaben
 gewählt.
 
 Jede Familie kann verschiedene Schriftschnitte besitzen. Im Englischen
@@ -1360,7 +1510,7 @@ erklärt wurden in
 }
 @end lilypond
 
-Auch wenn es einfach ist, zwischen den vorefinierten Schriftarten
+Auch wenn es einfach ist, zwischen den vordefinierten Schriftarten
 umzuschalten, kann man auch eigene Schriftarten verwenden, wie erklärt
 in folgenden Abschnitten: @ref{Schriftarten für einen Eintrag} und
 @ref{Schriftart des gesamten Dokuments}.
@@ -1382,7 +1532,7 @@ FontConfig erkannt wird, kann in einer Partitur eingefügt werden.  Dazu
 verwendet man folgende Syntax:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.TimeSignature #'font-name = #"Charter"
+\override Staff.TimeSignature #'font-name = #"Bitstream Charter"
 \override Staff.TimeSignature #'font-size = #2
 \time 3/4
 
@@ -1391,6 +1541,12 @@ a1_\markup {
     { Vera Bold }
 }
 @end lilypond
+
+@cindex Schriftarten, Liste zum Auswählen
+@cindex Schriftarten, vorhandene auflisten
+@cindex vorhandene Schriftarten auflisten
+@cindex Liste der vorhandenen Schriftarten
+@cindex verwendbare Schriftarten auflisten
 
 @funindex show-available-fonts
 
@@ -1401,10 +1557,6 @@ des Betriebssystems:
 lilypond -dshow-available-fonts x
 @end example
 
-@noindent
-Das letzte Argument kann ein beliebiges Zeichen sein, aber es darf nicht
-fehlen.
-
 @seealso
 Notationsreferenz:
 @ref{Was sind Schriftarten},
@@ -1412,10 +1564,6 @@ Notationsreferenz:
 
 Schnipsel:
 @rlsr{Text}.
-
-Installierte Dateien:
-@file{lily/@/font@/-config@/-scheme@/.cc}.
-
 
 
 @node Schriftart des gesamten Dokuments
@@ -1428,7 +1576,10 @@ In diesem Fall müssen die Familien @code{roman},
 entsprechend der Syntax unten definiert werden.  Einzelheiten zu
 Schriftarten in @ref{Was sind Schriftarten}.
 
-@cindex Schriftartenfamilien, Definieren
+@cindex Schriftartenfamilien, definieren
+@cindex Schriftarten, für das gesamte Dokument ändern
+@cindex Ändern von Schriftarten für das gesamte Dokument
+
 @funindex make-pango-font-tree
 
 @lilypond[verbatim,quote]

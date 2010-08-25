@@ -1,10 +1,10 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -37,6 +37,7 @@ derselben Stimme.
 
 @menu
 * Noten mit Akkorden::
+* Akkord-Wiederholungen::
 * Gleichzeitige Ausdrücke::                  
 * Cluster::                    
 @end menu
@@ -49,26 +50,53 @@ derselben Stimme.
 @cindex Akkorde
 @cindex Klammern, spitze
 @cindex spitze Klammern
-@cindex relative Tonhöhe in Akkorden
 @funindex <
 @funindex >
 @funindex <...>
 
 Ein Akkord wird notiert, indem die zu ihm gehörenden Tonhöhen 
 zwischen spitze Klammern (@code{<} und @code{>}) gesetzt werden.
-Auf einen Akkord kann eine Dauer-Angabe und/oder eine Anzahl
-an Artikulationsbezeichnungen folgen, genauso wie bei 
+Auf einen Akkord kann eine Dauer-Angabe folgen, genauso wie bei 
 einfachen Noten.
 
-@lilypond[verbatim,quote,relative=1]
-<c e g>2 <c f a>4-> <e g c>-.
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
 @end lilypond
 
-Der relative Modus kann auch für Tonhöhen in Akkorden benutzt
-werden.  Die Oktave jeder Tonhöhe wird relativ zur vorhergehenden
-Tonhöhe bestimmt.  Eine Ausnahme bildet die erste Tonhöhe in einem
-Akkord: ihre Oktave wird bestimmt relativ zur @emph{ersten}
-Tonhöhe des vorherigen Akkords.
+Akkorde können auch von Artikulationen gefolgt werden, genau wie
+auch einfache Noten.
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^| <g c e>16-.
+@end lilypond
+
+Die Noten innerhalb der Akkorde konnen auch von Artikulationen oder
+Ornamenten gefolgt werden.
+
+@lilypond[verbatim,quote,relative=2]
+<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4 <a-+ c-->8. <g\fermata c e\turn>16
+@end lilypond
+
+Manche Notationselemente, wie etwa Dynamik, Crescendo-Klammern und
+Legatobögen müssen an den gesamten Akkord gehängt werden und nicht
+an einzelne Noten, damit sie ausgegeben werden.
+
+@lilypond[verbatim,quote,relative=2]
+<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+@end lilypond
+
+@cindex relative Tonhöhe, Akkorde
+@cindex Akkorde, relative Tonhöhe
+
+Der relative Modus kann auch für Tonhöhen in Akkorden eingesetzt werden.
+Die erste Note eines Akkordes ist immer relativ zur ersten Note des
+vorherigen Akkordes, oder mit der Tonhöhe der letzten Note vor dem
+Akkord (wenn kein Akkord vorhergeht).  Alle anderen Noten innerhalb
+des Akkordes sind relativ zu der Note vorher innerhalb des selben Akkordes.
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+@end lilypond
 
 Mehr Information über Akkorden findet sich in @ref{Notation von Akkorden}.
 
@@ -80,10 +108,49 @@ Handbuch zum Lernen:
 @rlearning{Noten zu Akkorden verbinden}.
 
 Notationsreferenz:
-@ref{Notation von Akkorden}.
+@ref{Notation von Akkorden},
+@ref{Artikulationszeichen und Verzierungen},
+@ref{Relative Oktavenbezeichnung}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
+
+
+@node Akkord-Wiederholungen
+@unnumberedsubsubsec Akkord-Wiederholungen
+@translationof Chord repetition
+
+Um Schreibarbeit zu ersparen, kann ein Zeichen benutzt werden, um den
+vorhergehenden Akkord zu wiederholen.  Das Symbol hierzu ist @code{q}:
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 q <f a c>2 q
+@end lilypond
+
+Genauso wie normale Akkorde kann auch das Akkord-Wiederholungssymbol
+in Verbindung mit Tondauern, Artikulationen, Beschriftungen, Legatobögen,
+Balken usw. benutzt werden, weil nur die Tonhöhen des vorangehenden
+Akkordes wiederholgt werden.
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1\p^"text" q2\<( q8)[-| q8.]\! q16-1-2-3 q8\prall
+@end lilypond
+
+Das Akkord-Wiederholungssymbol behält keine Dynamikzeichen, Artikulationen
+oder Ornamente, die in oder an den vorhergehenden Akkord gehängt waren.
+
+@lilypond[verbatim,quote,relative=2]
+<a-. c\prall e>1\sfz c4 q2 r8 q8
+@end lilypond
+
+@seealso
+Notationsreferenz:
+@ref{Notation von Akkorden},
+@ref{Artikulationszeichen und Verzierungen}.
+
+Installierte Dateien:
+@file{ly/@/chord-repetition-init@/.ly}.
+
 
 @node Gleichzeitige Ausdrücke
 @unnumberedsubsubsec Gleichzeitige Ausdrücke
@@ -167,7 +234,7 @@ Referenz der Interna:
 @knownissues
 
 Cluster sehen nur gut aus, wenn sie wenigstens über zwei Akkorde
-reichen -- anderfalls sind sie zu schmal.
+reichen -- andernfalls sind sie zu schmal.
 
 Cluster haben keine Hälse und können auch selber keine Dauern
 darstellen, aber die Länge des gesetzten Clusters wird erschlossen
@@ -226,6 +293,7 @@ ist im Beispiel unten dargestellt:
 >>
 @end lilypond
 
+@noindent
 Stimmen werden hier explizit erstellt und erhalten Bezeichnungen
 zugewiesen.  Die @code{\voiceOne} ... @code{\voiceFour}-Befehle
 stellen die Stimmen so ein, dass für die erste und dritte Stimme
@@ -236,9 +304,9 @@ Stimmen werden automatisch verschoben, um Zusammenstöße zu
 vermeiden.  Der @code{\oneVoice}-Befehl stellt das Standardverhalten
 mit neutralen Halsrichtungen wieder her.
 
-@strong{@i{Vorrübergehende polyphone Passagen}}
+@strong{@i{Vorübergehende polyphone Passagen}}
 
-Ein vorrübergehender polyphoner Abschnitt kann mit folgender
+Ein vorübergehender polyphoner Abschnitt kann mit folgender
 Konstruktion erstellt werden:
 
 @example
@@ -247,6 +315,7 @@ Konstruktion erstellt werden:
 >> \oneVoice
 @end example
 
+@noindent
 Der erste Ausdruck innerhalb des polyphonen Abschnitts wird in
 den @code{Voice}-Kontext gestellt, der unmittelbar vor dem
 polyphonen Abschnitt aktiv war, und der gleiche @code{Voice}-Kontext
@@ -278,6 +347,7 @@ vor, während und nach dem polyphonen Abschnitt zuweisen:
 >>
 @end lilypond
 
+@noindent
 Hierbei sind die Befehle @code{\voiceOne} und @code{\voiceTwo} notwendig, um die Einstellungen für jede Stimme zu
 initialisieren.
 
@@ -290,7 +360,7 @@ Backslash-Zeichen (Taste AltGr+ß) getrennt werden, verhält
 sich anderes als die ähnliche Konstruktion ohne die doppelten
 Schrägstriche:  @emph{alle} Ausdrücke innerhalb der eckigen
 Klammern werden in diesem Fall jeweils neuen @code{Voice}-Kontexten
-zugeordnet.  diese neuen @code{Voice}-Kontexte werden implizit
+zugeordnet.  Diese neuen @code{Voice}-Kontexte werden implizit
 erstellt und haben die festen Bezeichnungen @code{"1"},
 @code{"2"} usw.
 
@@ -305,7 +375,7 @@ Das erste Beispiel könnte also auch wie folgt notiert werden:
 @end lilypond
 
 Diese Syntax kann benutzt werden, wenn es keine Rolle spielt,
-ob vorrübergehend Stimmen erstellt werden und dann wieder
+ob vorübergehend Stimmen erstellt werden und dann wieder
 verworfen werden.  Diese implizit erstellten Stimmen erhalten
 die Einstellungen, die in den Befehlen
 @code{\voiceOne} ... @code{\voiceFour} enthalten sind, in
@@ -333,7 +403,7 @@ Stücken explizite Stimmenkontexte zu erstellen, wie erklärt in@rlearning{Konte
 
 @strong{@i{Identische Rhythmen}}
 
-Wenn paralelle Abschnitte gesetzt werden sollen,
+Wenn parallele Abschnitte gesetzt werden sollen,
 die identischen Rhythmus haben, kann man die Ausdrücke in 
 einen einzigen @code{Voice}-Kontext parallel kombinieren, sodass
 sich Akkorde ergeben.  Um das zu erreichen, müssen sie einfach
@@ -462,7 +532,10 @@ Tonhöhe, demselben Notenkopf und den Hälsen in entgegengesetzte
 Richtungen werden automatisch verschmolzen, aber Noten mit
 unterschiedlichen Köpfen oder den Hälsen in die selbe Richtung
 werden nicht verschmolzen.  Pausen, die einem Hals in einer
-anderen Stimme gegenüberstehen, werden vertikal verschoben.
+anderen Stimme gegenüberstehen, werden vertikal verschoben.  Das
+folgende Beispiel zeigt drei unterschiedliche Situationen, auf
+Taktposition 1 und 3 in Takt 1 und Taktposition 1 in Takt 2, wo das
+automatische Verschmelzen nicht funktioniert.
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -481,7 +554,9 @@ anderen Stimme gegenüberstehen, werden vertikal verschoben.
 @end lilypond
 
 Noten mit unterschiedlichen Notenköpfen können verschmolzen
-werden, mit der Ausnahme von Halben- und Viertelnotenköpfen:
+werden, mit der Ausnahme von Halben- und Viertelnotenköpfen, wie
+im Beispiel unten gezeigt.  Hier werden die Notenköpfe auf Taktposition
+1 im ersten Takt verschmolzen:
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -500,8 +575,8 @@ werden, mit der Ausnahme von Halben- und Viertelnotenköpfen:
 >>
 @end lilypond
 
-Auch Köpfe mit unterschiedlichen Punktierungen können verschmolzen
-werden:
+Auch Köpfe mit unterschiedlichen Punktierungen wie auf Taktposition
+3 im ersten Takt können verschmolzen werden:
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -522,16 +597,17 @@ werden:
 @end lilypond
 
 Die Halbe und die Achtel am Anfang des zweiten Taktes werden
-fehlerhaft verschmolzen, weil @code{\mergeDifferentlyHeadedOn}
-(Unterschiedliche Köpfe Verschmelzen An) nicht richtig arbeiten
+fehlerhaft verschmolzen, weil die automatische Verschmelzung
+nicht richtig arbeiten
 kann, wenn drei oder mehr Noten zur gleichen Zeit auftreten --
-in diesem Fall wird eine Warnung ausgegeben.  Damit die
-Verschmlezung richtig funktionieren kann, muss ein @code{\shift}
-(Verschiebung) der Note hinzugefügt werden, die nicht mit
-verschmolzen werden soll.  In diesem Fall wurde
+und in diesem Fall ist der verschmolzene Notenkopf nicht richtig.
+Um das Verschmelzen zuzulassen, muss ein @code{\shift} (Verschiebung)
+auf die Note angewendet werden, die nicht verschmolzen werden soll.
+In diesem Fall wurde
 @code{\shiftOn} gesetzt, um das oberste @notation{g} aus der
 Kolumne zu entfernen.  Jetzt funktioniert
-@code{\mergeDifferentlyHeadedOn} so wie es soll.
+@code{\mergeDifferentlyHeadedOn} (verschmelze Noten mit unterschiedlichen
+Köpfen) so wie es soll.
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -549,7 +625,6 @@ Kolumne zu entfernen.  Jetzt funktioniert
     s1
     e8 a b c d2
   }
-
 >>
 @end lilypond
 
@@ -562,8 +637,10 @@ ein @code{\shiftOn} eingestellt haben (Verschiebung an).  Die
 Befehle @code{\shiftOnn} und @code{\shiftOnnn} stellen weitere
 Verschiebungesebenen dar.
 
-Noten werden nur verschmolzen, wenn ihre Hälse in gegengesetzte
-Richtungen zeigen (also etwa wie @code{Voice} 1 und 2).
+Noten werden nur verschmolzen, wenn ihre Hälse in entgegengesetzte
+Richtungen zeigen (also etwa wie @code{Voice} 1 und 2 in den
+Standardeinstellungen oder wenn die Hälse explizit in unterschiedliche
+Richtungen gedreht sind).
 
 
 @predefined
@@ -592,7 +669,7 @@ Musikglossar:
 Handbuch zum Lernen:
 @rlearning{Mehrere Noten auf einmal},
 @rlearning{Voice enthält Noten},
-@rlearning{Kollision von Objekten}.
+@rlearning{Beispiele aus dem Leben}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
@@ -725,7 +802,7 @@ Referenz der Interna:
 @code{\partcombine} kann nur zwei Stimmen bearbeiten.
 
 Wenn @code{printPartCombineTexts} (drucke Stimmenkombinationstext)
-gesetzt ist und die Stimmen die gleichen Noten wiederholgt
+gesetzt ist und die Stimmen die gleichen Noten wiederholt
 spielen, kann @code{a2} in einem Takt mehrmals gesetzt werden.
 
 @code{\partcombine} kann nicht innerhalb von @code{\times} benutzt
@@ -793,10 +870,10 @@ die Takte müssen die gleiche Länge haben.}
 
 Der relative Modus kann auch benutzt werden.  Beachten Sie, dass
 der @code{\relative}-Befehl nicht innerhalb von
-@code{\parallelMusic} benutzt wird.  Die Noten sind paralell
+@code{\parallelMusic} benutzt wird.  Die Noten sind parallel
 zu der vorherigen Note der gleichen Stimme , nicht zu der
 vorherigen Note in der Quelldatei.  Anders gesagt ignorieren
-realtive Noten von @code{voiceA} die Noten von @code{voiceB}.
+relative Noten von @code{voiceA} die Noten von @code{voiceB}.
 
 @lilypond[quote,verbatim]
 \parallelMusic #'(voiceA voiceB voiceC) {

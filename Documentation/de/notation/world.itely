@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 9a65042d49324f2e3dff18c4b0858def81232eea
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c Translators: Till Paala
@@ -23,6 +23,7 @@ zu notieren.
 
 @menu
 * Arabische Musik::
+* Türkische klassische Musik::
 @end menu
 
 @node Arabische Musik
@@ -39,7 +40,7 @@ werden kann.
 * Arabische Tonarten::
 * Arabische Taktarten::
 * Arabische Notenbeispiele::
-* Weitere Literatur::
+* Weitere Literatur zur arabischen Musik::
 @end menu
 
 @node Referenz für arabische Musik
@@ -79,7 +80,7 @@ können angepasst werden, wie behandelt in
 @item Zusätzliche Taktarten können erstellt werden, siehe
 @ref{Tonartbezeichnung}.
 
-@item Komplexe Taktarten erfordern evtl., dass Noten manual gruppiert
+@item Komplexe Taktarten erfordern evtl., dass Noten manuell gruppiert
 werden, wie gezeigt in
 @ref{Manuelle Balken}.
 
@@ -132,7 +133,7 @@ Das Symbol für das Halb-B sieht anders aus als das Symbol, was
 @code{\dwn}-Symbol, das in der Datei @code{arabic.ly} definiert
 ist, kann als ein Workaround eingesetzt werden, wenn es notwendig
 ist, das arabische Symbol zu benutzen.  Das Aussehen des
-Halb-Bs in den Vorzeichen kann mit dieser methode nicht verändert
+Halb-Bs in den Vorzeichen kann mit dieser Methode nicht verändert
 werden.
 
 @lilypond[quote,verbatim]
@@ -176,6 +177,7 @@ notiert:
 \key re \bayati
 @end example
 
+@noindent
 @var{re} ist die Tonhöhe für den @qq{muhayer}-Maqam und @var{bayati}
 ist die Bezeichnung des Basismaqams der Gruppe.
 
@@ -352,17 +354,17 @@ etwa Zwischenintervalle und ungewöhnliche Modi, zu illustrieren.
 
 @seealso
 Schnipsel:
-@rlsr{World music}
+@rlsr{World music}.
 
 
-@node Weitere Literatur
-@unnumberedsubsubsec Weitere Literatur
-@translationof Further reading
+@node Weitere Literatur zur arabischen Musik
+@unnumberedsubsubsec Weitere Literatur zur arabischen Musik
+@translationof Further reading for Arabic music
 
 @enumerate
 
 @item
-The Music of the Arabs von Habib Hassan Touma (Amadeus Press, 1996)
+@emph{The Music of the Arabs} von Habib Hassan Touma (Amadeus Press, 1996)
 enthält eine Beschreibung von Maqams und Methoden zu ihrer
 Gruppierung.
 
@@ -386,8 +388,8 @@ bestimmte Maqams angegeben werden sollen.  Oft wird eine
 Vorzeichenart für eine ganze Maqam-Gruppe verwendet, anstatt
 dass jeder Maqam eigene Vorzeichen hätte.
 
-Oud-Lehrbücher folgender Autoren enthalten Beispiele vor
-allem türkischer und arabischer Kompositionen:
+Lehrbücher für @emph{Oud}, die arabische Laute, folgender Autoren
+enthalten Beispiele vor allem türkischer und arabischer Kompositionen:
 
 @itemize @bullet
 @item
@@ -398,3 +400,70 @@ George Farah
 Ibrahim Ali Darwish Al-masri
 @end itemize
 @end enumerate
+
+
+@node Türkische klassische Musik
+@subsection Türkische klassische Musik
+@translationof Turkish classical music
+
+Dieser Abschnitt zeigt Probleme, die bei der Notation von klassischer
+türkischer Musik auftreten können.
+
+@menu
+* Verweise für türkische klassische Musik::
+* Türkische Notenbezeichnungen::
+@end menu
+
+
+@node Verweise für türkische klassische Musik
+@unnumberedsubsubsec Verweise für türkische klassische Musik
+@translationof References for Turkish classical music
+
+@cindex Türkische Musik
+@cindex Osmanische Musik
+@cindex Komma-Intervalle
+@cindex makam
+@cindex makamlar
+
+Türkische klassische Musik wurde im Osmanischen Reich während einer Periode
+entwickelt, die ungefähr zur gleichen Zeit der westlichen klassischen Musik
+stattfand.  Diese lebendige und starke Tradition wird bis heute mit ihren
+eigenen kompositorischen Formen, Musiktheorie und Aufführungsstilen weitergeführt.
+Unter den Eigenheiten dieser Tradition befinden sich die Benutzung von
+Mikrointervallen basierend auf @qq{Kommas} von 1/9-Tönen, aus denen melodische
+Formen konstruiert werden, welche man als @notation{makam} (Pl. @notation{makamlar})
+bezeichnet.
+
+Einige Probleme der Notation türkischer klassischer Musik sind woanders behandelt:
+
+@itemize
+@item
+Notenbezeichnungen und Versetzungszeichen finden sich in
+@ref{Nichteuropäische Notenbezeichnungen und Versetzungszeichen}.
+
+@end itemize
+
+
+@node Türkische Notenbezeichnungen
+@unnumberedsubsubsec Türkische Notenbezeichnungen
+@translationof Turkish note names
+
+@cindex türkische Notenbezeichnungen
+@cindex makam
+
+Tonhöhen der türkischen klassischen Musik haben traditionell einmalige
+Bezeichnungen, und weil die Tonhöhen auf 1/9-Tönen basieren, unterscheiden
+sich die Intervalle von makamlar deutlich von den Intervallen westlicher
+klassischer Musik: @notation{koma} (1/9 eines Ganztons),
+@notation{eksik bakiye} (3/9), @notation{bakiye} (4/9),
+@notation{kücük mücenneb} (5/9), @notation{büyük mücenneb}
+(8/9), @notation{tanîni} (ein Ganzton) und
+@notation{artık ikili} (12/9 oder 13/9 eines Ganztons).
+
+Es bietet sich an, die normalen westlichen Noten auf dem Notensystem zu
+benutzen (also c, d, e @dots) angrereichert mit besonderen Versetzungszeichen,
+die die Noten um 1/9, 4/9, 5/9 und 8/9 eines Ganztons erhöhen oder
+erniedrigen.  Diese Versetzungszeichen sind definiert in der Datei
+@file{makam.ly}.  (Um die Datei auf Ihrem System zu finden, lesen Sie bitte
+@rlearning{Mehr Information}.)  Eine ausführlichere Erklärung findet sich in
+@ref{Nichteuropäische Notenbezeichnungen und Versetzungszeichen}.

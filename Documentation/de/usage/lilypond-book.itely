@@ -324,7 +324,7 @@ kpsewhich feta20.tex
 @snippets
 
 Manchmal ist es nötig, Musikelemente wie Halte- oder Bindebögen so darzustellen,
-als ob sie am Ende des Musikausschnitten noch weitergehen würden. Eine solche
+als ob sie am Ende des Musikausschnittes noch weitergehen würden. Eine solche
 Ausgabe kann erreicht werden, indem ein Zeilenumbruch in die Notenzeile
 eingefügt wird und die Ausgabe der folgenden Notenzeile unterdrückt wird.
 
@@ -906,7 +906,7 @@ version, the format @code{texi-html} must be used instead.
 @itemx --filter=@var{Filter}
 Leitet die Musikfragmente durch das Programm @var{filter} anstatt sie
 mit Lilypond zu einer Grafik zu verarbeiten. @option{--filter} und 
-@option{--process} kann nicht gleichzeigt benutzt werden. Beispielaufruf:
+@option{--process} kann nicht gleichzeitig benutzt werden. Beispielaufruf:
 
 @example
 lilypond-book --filter='convert-ly --from=2.0.0 -' Mein-Buch.tely
@@ -970,7 +970,7 @@ wie etwa @command{xelatex} verarbeitet werden soll.
 @itemx --left-padding=@var{Einrückung}
 Fügt @var{Einrückung} als zusätzlichen Einzug in die EPS-Box ein.
 @var{Einrückung} wird in Millimetern angegeben, die Standardeinstellung
-is 3.0 Millimeter. Diese Option kann benutzt werden, wenn die Notenzeilen
+ist 3.0 Millimeter. Diese Option kann benutzt werden, wenn die Notenzeilen
 über den Rand des Dokuments hinausstehen.
 
 Die Breite eines eng ausgeschnittenen Notensystems kann variieren 

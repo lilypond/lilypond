@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 3d7ffa1f82bb44673134b28becf7898482fe7316
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -102,8 +102,18 @@ Notenbezeichnungen für Schlagzeug findet sich in @ref{Schlagzeugnoten}.
 
 Beachten Sie, dass normale Tonhöhen (wie @code{cis4}) in einem
 @code{DrumStaff}-Kontext eine Fehlernachricht erzielen.  Schlüssel für
-Schlagzeug werden automatisch hinzugefügt, aber andere Schlüssel können
-auch benutzt werden.
+Schlagzeug werden automatisch hinzugefügt, aber sie können auch explizit
+gesetzt Werden.  Auch andere Schlüssel können benutzt werden.
+
+@lilypond[quote,ragged-right,verbatim]
+\drums {
+  \clef treble
+  hh4 hh hh hh
+  \break
+  \clef percussion
+  bd4 bd bd bd
+}
+@end lilypond
 
 Es gibt einige Probleme mit der MIDI-Unterstützung für Schlagzeuginstrumente.
 Details finden sich in @ref{Schlagzeug in MIDI}.
@@ -209,13 +219,10 @@ down = \drummode {
 
 Das Beispiel zeigt ausdrücklich definierte mehrstimmige Notation. Die 
 Kurznotation für mehrstimmige Musik, wie sie im Abschnitt 
-@rlearning{Ich höre Stimmen} beschrieben wird, kann auch verwendet werden, 
-wenn die Stimmen am Anfang explizit initialisiert werden.
+@rlearning{Ich höre Stimmen} beschrieben wird, kann auch verwendet werden.
 
 @lilypond[quote,verbatim]
 \new DrumStaff <<
-  \new DrumVoice = "1" { s1*2 }
-  \new DrumVoice = "2" { s1*2 }
   \drummode {
     bd4 sn4 bd4 sn4
     << {
@@ -416,7 +423,7 @@ woodstaff = {
   % It also defines the positions of the two lines.
   \override Staff.StaffSymbol #'line-positions = #'(-2 3)
 
-  % This is neccessary; if not entered, the barline would be too short!
+  % This is necessary; if not entered, the barline would be too short!
   \override Staff.BarLine #'bar-size = #3
 }
 

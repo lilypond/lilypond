@@ -1,10 +1,10 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.12.0"
@@ -50,8 +50,6 @@ von Vokalmusik und einige spezifische Vokalmusikstile.
 @unnumberedsubsubsec Referenz für Vokalmusik und Gesangstext
 @translationof References for vocal music and lyrics
 
-@c TODO: split this section in two parts? -vv
-
 Viele Probleme können auftreten, wenn man Vokalmusik setzt.  Einige
 davon werden in diesem Abschnitt behandelt, während weitere sich
 in anderen Abschnitten befinden:
@@ -92,7 +90,6 @@ Alte Vokalmusik ist unterstützt, Einzelheiten hierzu in @ref{Notation von alter
 @c TODO
 TBC
 
-@c add characters names snippet -vv
 
 
 @node Liederhefte
@@ -181,7 +178,7 @@ Text verwendet wird, um Notationssymbole darzustellen.  Für
 die Notation von Gesangstext muss also sichergestellt sein,
 dass ein Buchstabe, etwa@tie{}@code{d}, nicht als Note, sondern
 als Buchstabe @qq{d} interpretiert wird.  Darum gibt es einen
-besonderen Modus, in dem Gesangstext geschreiben werden kann,
+besonderen Modus, in dem Gesangstext geschrieben werden kann,
 den @qq{Lyric}-Modus (engl. lyrics = Gesangstext).
 
 Der Gesangstextmodus kann mit der Umgebung @code{\lyricmode}
@@ -243,7 +240,7 @@ sondern
 @funindex _
 @cindex Leerzeichen, Gesangstext
 @cindex Bindestriche, Gesangstext
-@cindex Gedanktenstriche, Gesangstext
+@cindex Gedankenstriche, Gesangstext
 
 Um mehr als eine Silbe einer einzelnen Note zuzuweisen, kann
 man die Silben mit geraden Anführungszeichen umgeben (Shift+2)
@@ -292,8 +289,8 @@ Eine Silbe im Gesangstextmodus beginnt mit: einem alphabetischen Zeichen,
 @code{_}, @code{?}, @code{!}, @code{:}, @code{'}, den Kontrollzeichen @code{^A}
 bis @code{^F}, @code{^Q} bis @code{^W}, @code{^Y}, @code{^^},
 einem beliebigen 8-Bit-Zeichen mit ASCII über 127, oder
-Zeichenkombinationen, in denen ein Backslas mit @code{`}, @code{'},
-@code{"} oder @code{^} kommbiniert wird.
+Zeichenkombinationen, in denen ein Backslash mit @code{`}, @code{'},
+@code{"} oder @code{^} kombiniert wird.
 
 @c " to balance double quotes for not-so-bright context-sensitive editors
 
@@ -323,7 +320,7 @@ Referenz der Interna:
 @rinternals{LyricText},
 @rinternals{LyricSpace}.
 
-@c FIXME: this title has to be changed (possible confusion with LM) -vv
+@c TODO: this title has to be changed (possible confusion with LM) -vv
 @node Einfache Lieder setzen
 @unnumberedsubsubsec Einfache Lieder setzen
 @translationof Setting simple songs
@@ -357,7 +354,7 @@ weitere @code{\addlyrics}-Abschnitte erstellt werden:
 @end lilypond
 
 Der Befehl @code{\addlyrics} funktioniert nicht in polyphonen 
-Situationen.  In diesem Fall solte man @code{\lyricsto} in Kombination
+Situationen.  In diesem Fall sollte man @code{\lyricsto} in Kombination
 mit @code{\lyricmode} benutzen, wie erklärt in
 @ref{Was ist Gesangtext}.
 
@@ -392,7 +389,7 @@ stropheEins = \lyricmode @{ Joy to the world the Lord is come @}
 @}
 @end example
 
-Für eine andere Anordnung oder kompliziertere Sitationen bietet
+Für eine andere Anordnung oder kompliziertere Situationen bietet
 es sich an, zuerst Systeme und Gesangstextumgebungen zu definieren
 
 @example
@@ -415,7 +412,7 @@ und erst dann die entsprechenden Stimmen mit den dem Text zu kombinieren
 
 
 @ignore
-@c FIXME
+@c TODO
 http://code.google.com/p/lilypond/issues/detail?id=329
 The problem cannot be reproduced.
 The following has no sense, because the issue seems to be fixed.
@@ -461,14 +458,14 @@ Referenz der Interna:
 @funindex \addlyrics
 @funindex \lyricsto
 
-@c FIXME: this stuff is to be rewritten. -vv
+@c TODO: this stuff is to be rewritten. -vv
 
 Gesangstext kann an einer Melodie automatisch ausgerichtet werden, aber
 wenn die Dauern der Silben angegeben werden, kann man sie auch manuell
 ausrichten.  Die Ausrichtung kann angepasst werden mit leeren Noten
 (mit @code{\skip} oder @code{_}), Trennungsstrichen und Fülllinien.
 
-Gesantstext wird gesetzt, wenn er sich in dem Kontext @code{Lyrics}
+Gesangstext wird gesetzt, wenn er sich in dem Kontext @code{Lyrics}
 befindet:
 
 @example
@@ -480,15 +477,15 @@ beeinflussen kann:
 
 @itemize
 @item
-Automatische Ausrichtung mit @code{\addlyrics} oder @code{\lyricsto}.
+Automatische Ausrichtung mit @code{\addlyrics} oder @code{\lyricsto}
 
 @item
-Definition der Silbendauer innerhalb von @code{\lyricmode}.
+Definition der Silbendauer innerhalb von @code{\lyricmode}
 @end itemize
 
 Der @code{Voice}-Kontext mit der Melodie, an die der Text
 angehängt werden soll, darf nicht @qq{gestorben} sein, ansonsten
-werden die Silben danach nicht mehr desetzt.  Das kann passieren,
+werden die Silben danach nicht mehr gesetzt.  Das kann passieren,
 wenn die Stimme für einige Zeit nichts zu tun hat.   Für Methoden,
 wie der Kontext am Leben gehalten werden kann, siehe
 @ref{Kontexte am Leben halten}.
@@ -521,6 +518,7 @@ Melodie zugewiesen wird:
 \new Lyrics \lyricsto @var{Bezeichnung} @dots{}
 @end example
 
+@noindent
 Hiermit werden die Silben an den Noten eines @code{Voice}-Kontexts
 mit der Bezeichnung @var{Bezeichnung} ausgerichtet.  Dieser Kontext
 muss schon vorher definiert sein, damit er aufgerufen werden kann.
@@ -540,7 +538,7 @@ kann:
     c4 b8. a16 g4. f8 e4 d c2
   }
 
-% not recommended: left aligns syllables
+% not recommended: left-aligned syllables
   \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
 
 % wrong: durations needed
@@ -577,7 +575,7 @@ bedeutet das Gleiche wie
 @unnumberedsubsubsec Manuelle Silbendauer
 @translationof Manual syllable durations
 
-Gesangstext kann auch ohne @code{\addlyrics} bezw. @code{\lyricsto}
+Gesangstext kann auch ohne @code{\addlyrics} bzw. @code{\lyricsto}
 notiert werden.  In diesem Fall werden die Silben wie Noten notiert
 -- indem die Tonhöhen durch den Text der Silbe ersetzt werden -- und
 die Dauer jeder Silbe muss angegeben werden.  Beispielsweise so:
@@ -596,10 +594,10 @@ Die Ausrichtung an einer Melodie kann mit der
 
 @noindent
 Das Argument dieser Eigenschaft (hier @code{"lala"}) muss die Bezeichnung
-der entsprechenden Stimme sein.  Ohne diese Einstellung werden 
-Fülllinien nicht richtig formatiert.
+der entsprechenden Stimme (also von einem @code{Voice}-Kontext) sein.  Ohne
+diese Einstellung werden Fülllinien nicht richtig formatiert.
 
-Hier ein Beispiel, dass die manuale Ausrichtung von Gesangstext zeigt:
+Hier ein Beispiel, dass die manuelle Ausrichtung von Gesangstext zeigt:
 
 @lilypond[relative=1,ragged-right,verbatim,fragment,quote]
 << \new Voice = "melody" {
@@ -617,15 +615,16 @@ Notationsreferenz:
 @ref{Kontexte am Leben halten}.
 
 Referenz der Interna:
-@rinternals{Lyrics}.
+@rinternals{Lyrics},
+@rinternals{Voice}.
 
 
 @node Mehrere Silben zu einer Note
 @unnumberedsubsubsec Mehrere Silben zu einer Note
 @translationof Multiple syllables to one note
 
-
 @funindex _
+
 @cindex Bindebogen, Gesangstext
 
 Um mehr als eine Silbe zu einer Note zuzuordnen, können die Silben
@@ -647,9 +646,6 @@ die das entsprechende Symbol (U+203F) beinhaltet, wie etwa DejaVuLGC.
 Referenz der Interna:
 @rinternals{LyricCombineMusic}.
 
-@c Here come the section which used to be "Melismata"
-@c the new title might be more self-explanatory
-
 
 @node Mehrere Noten zu einer Silbe
 @unnumberedsubsubsec Mehrere Noten zu einer Silbe
@@ -668,7 +664,7 @@ Melismen können direkt im Gesangstext definiert werden, indem
 ein Unterstrich (@code{_}) für jede Note notiert wird, die
 übersprungen werden soll.
 
-@c FIXME: clarify: __ is used to crate a lyric extender,
+@c TODO: clarify: __ is used to crate a lyric extender,
 @c _ is used to add a note to a melisma, so both __ and _ are needed.
 
 @c verbose! --FV
@@ -721,14 +717,28 @@ Zusätzlich werden Noten als Melisma erachtet, wenn man sie manuell
 zu einer Balkengruppe verbindet und die automatische Bebalkung
 gleichzeitig ausgeschaltet ist.  Siehe auch @ref{Einstellung von automatischen Balken}.
 
-@c FIXME: this now links to LM -vv
+@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+<<
+  \new Voice = "lala" {
+    \time 3/4
+    \autoBeamOff
+    f4 g8[ f e f]
+    e2
+  }
+  \new Lyrics \lyricsto "lala" {
+    la di __ daah
+  }
+>>
+@end lilypond
+
+@c TODO: this now links to LM -vv
+@c   umm, yeah... so what?  -gp
 
 @cindex SATB
 @cindex choral score
 
 Ein vollständiges Beispiel für einen SATB-Chorsatz findet
-sich in
-@rlearning{Vokalensemble}.
+sich in @rlearning{Vokalensemble}.
 
 
 @predefined
@@ -737,13 +747,13 @@ sich in
 @funindex \melisma
 @endpredefined
 
-@seealso
+@c seealso
 @c @lsr{vocal,lyric@/-combine.ly}.
 
 @knownissues
 
 Melismen werde nicht automatisch erkannt, und Fülllinien müssen
-manuell gestzt werden.
+manuell gesetzt werden.
 
 
 @node Noten überspringen
@@ -805,7 +815,7 @@ andere Werte erhalten.
 @seealso
 Referenz der Interna:
 @rinternals{LyricExtender},
-@rinternals{LyricHyphen}
+@rinternals{LyricHyphen}.
 
 
 @node Gesangtext und Wiederholungen
@@ -820,7 +830,7 @@ TBC
 @subsection Besonderheiten der Gesangtextnotation
 @translationof Specific uses of lyrics
 
-@c FIXME This whole section is to be reorganized. -vv
+@c TODO This whole section is to be reorganized. -vv
 
 In vielen Fällen werden unterschiedliche Strophen mit einer
 Liedmelodie angeordnet, wobei kleine Schwankungen in der
@@ -894,7 +904,7 @@ In sehr komplexer Vokalmusik ist es manchmal erforderlich,
 den Gesangstext vollständig unabhängig von den Noten zu
 setzen.  Das Beispiel unten zeigt das Vorgehen: die
 Noten, die für @code{lyricrhythm} definiert sind, verschwinden
-im @code{Devnull}-Kontext, während ihre Dauern immernoch
+im @code{Devnull}-Kontext, während ihre Dauern immer noch
 gültig sind, um die Silben daran auszurichten.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -939,8 +949,7 @@ ignoriert.
 @cindex Abstand vergrößern, Gesangstext
 
 Um den Abstand zwischen Silben zu vergrößern, kann die
-@code{minimum-distance}-Eigenschaft des
-@code{LyricSpace}-Objekts gesetzt werden:
+@code{minimum-distance}-Eigenschaft des @code{LyricSpace}-Objekts gesetzt werden:
 
 @lilypond[relative,verbatim,fragment,quote,ragged-right]
 {
@@ -954,6 +963,7 @@ Um den Abstand zwischen Silben zu vergrößern, kann die
 }
 @end lilypond
 
+@noindent
 Damit diese Einstellung für alle Gesangtextzeilen in einer Partitur
 wirkt, muss sie im @code{layout}-Block vorgenommen werden.
 
@@ -1305,7 +1315,7 @@ der Befehl
 eingesetzt.  @code{alternative} ist die Bezeichnung der Stimme, die
 die Triole enthält.
 
-@c FIXME: make this easier to understand -vv
+@c TODO: make this easier to understand -vv
 Dieser Befehl muss eine Silbe vor der Note notiert werden, auf die er
 sich auswirken soll, also vor @qq{Ty} in diesem Fall.
 
@@ -1330,7 +1340,7 @@ Zurück zu der alten Stimme kommt man, indem wieder
 @translationof Printing stanzas at the end
 
 Manchmal soll nur eine Strophe mit der Melodie gesetzt
-werden und die weiteren Strophen als Text under den Noten
+werden und die weiteren Strophen als Text unter den Noten
 hinzugefügt werden.  Dazu wird der Text in einer
 @code{markup}-Umgebung außerhalb der @code{\score}-Umgebung
 gesetzt.  Es gibt zwei Arten, die Zeilen auszurichten,

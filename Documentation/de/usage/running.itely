@@ -99,7 +99,7 @@ Datei globale Änderungen von Scheme aus durchgeführt werden.}
 Falls @file{Dateiname.ly} mehr als einen @code{\score}-Block enthält,
 werden die weiteren Stücke in durchnummerierte Dateien der Form
 @file{Dateiname-1.pdf} ausgegeben.  Zusätzlich wird der Wert der
-Variable @code{output-suffix} zwischen den ursprünglichen Dateienamen
+Variable @code{output-suffix} zwischen den ursprünglichen Dateinamen
 und der Zahl eingefügt.  Eine Lilypond-Datei @var{Dateiname.ly} mit dem Inhalt
 
 @example
@@ -354,7 +354,7 @@ Führt @command{lilypond} in einem chroot-Jail aus.
 
 Die @code{--jail} Option ist eine flexiblere Alternative zu @code{--safe}, wenn
 LilyPond über das Internet verfügbar gemacht wird oder LilyPond-Quelldateien
-von Dritten automatisch vararbeitet werden.
+von Dritten automatisch verarbeitet werden.
 
 Sie funktioniert dergestalt, dass das Wurzelverzeichnis von 
 @command{lilypond} auf @var{Jail-Verzeichnis} gesetzt wird, bevor die
@@ -488,7 +488,7 @@ die Schriftarten nicht korrekt installiert.
 Fehler, die während der Ausführung von Scheme-Code auftreten, werden
 vom Scheme-Interpreter aufgefangen und an der Kommandozeile ausgegeben.
 Wenn Sie LilyPond mit der @code{--verbose} Option (auch @code{-V})
-ausführen, wird der sogennante @q{Call trace} ausgegeben, der die
+ausführen, wird der sogenannte @q{Call trace} ausgegeben, der die
 aufgerufenen Funktionen zur Zeit des Fehlers angibt.
 
 @item Programmierfehler
