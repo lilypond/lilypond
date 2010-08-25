@@ -227,8 +227,8 @@ explicitement.
 Glossaire musicologique :
 @rglosnamed{pitch,hauteur},
 @rglosnamed{interval,intervalle},
-@rglos{scale,gamme},
-@rglos{middle C,do central},
+@rglosnamed{scale,gamme},
+@rglosnamed{middle C,do central},
 @rglos{octave},
 @rglosnamed{accidental,altération}.
 
