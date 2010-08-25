@@ -120,6 +120,11 @@ beautiful printed scores!
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {hymn-template.ly}
 
+@appendixsubsec Psalms
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{anglican-psalm-template.ly}
+
 
 @node Orchestral templates
 @appendixsec Orchestral templates
