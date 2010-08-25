@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7ae8371e16d414819ac7d9a4d0abd8370c5f3d8f
+   Translation of GIT committish: 26375d5016d8d180fc914bfd07cf76f4168f2e37
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -224,9 +224,13 @@ explicitement.
 @funindex '
 @funindex ,
 
-Glossaire musicologique : @rglos{pitch}, @rglos{interval},
-@rglos{scale}, @rglos{middle C}, @rglos{octave},
-@rglos{accidental}.
+Glossaire musicologique :
+@rglosnamed{pitch,hauteur},
+@rglosnamed{interval,intervalle},
+@rglos{scale,gamme},
+@rglos{middle C,do central},
+@rglos{octave},
+@rglosnamed{accidental,altération}.
 
 Le moyen le plus simple d'entrer des notes est d'utiliser le mode
 d'octaves relatives, ou mode @code{\relative}.  Dans ce mode, l'octave
@@ -332,9 +336,13 @@ peut modifier la valeur de départ de @w{@code{\relative c'}}.
 @cindex note pointée
 @cindex spécification des durées
 
-Glossaire musicologique : @rglos{beam}, @rglos{duration},
-@rglos{whole note}, @rglos{half note}, @rglos{quarter note},
-@rglos{dotted note}.
+Glossaire musicologique :
+@rglosnamed{beam,ligature},
+@rglosnamed{duration,durée},
+@rglosnamed{whole note,ronde},
+@rglosnamed{half note,blanche},
+@rglosnamed{quarter note,noire},
+@rglosnamed{dotted note,note pointée}.
 
 La @notation{durée} d'une note est indiquée par un nombre qui suit sa
 hauteur@tie{}: @code{1} pour une @notation{ronde}, @code{2} pour une
@@ -371,7 +379,8 @@ la durée de base.
 @cindex silences
 @cindex notation des silences
 
-Glossaire musicologique : @rglos{rest}.
+Glossaire musicologique :
+@rglosnamed{rest,silence}.
 
 On saisit un @notation{silence} tout comme une note, mais avec la
 lettre @code{r} (pour @emph{rest}).
@@ -392,7 +401,7 @@ lettre @code{r} (pour @emph{rest}).
 @funindex \time
 @funindex time
 
-Glossaire musicologique : @rglos{time signature}.
+Glossaire musicologique : @rglosnamed{time signature,métrique}.
 
 La @notation{métrique}, aussi appelée @notation{chiffre de mesure},
 peut être définie à l'aide de la commande @code{\time}@tie{}:
@@ -419,7 +428,9 @@ peut être définie à l'aide de la commande @code{\time}@tie{}:
 @funindex \tempo
 @funindex tempo
 
-Glossaire musicologique : @rglos{tempo indication}, @rglos{metronome}.
+Glossaire musicologique :
+@rglosnamed{tempo indication,indication de tempo},
+@rglosnamed{metronome,métronome}.
 
 La commande @code{\tempo} permet de stipuler aussi bien le @emph{tempo}
 que le métronome@tie{}:
@@ -489,7 +500,7 @@ vus@tie{}:
 @seealso
 Manuel de notation : @ruser{Écriture des hauteurs de note},
 @ruser{Écriture du rythme}, @ruser{Écriture des silences},
-@ruser{Métrique}, @ruser{Clefs}.
+@ruser{Gravure du rythme}, @ruser{Gravure des hauteurs}.
 
 
 @node Travail sur les fichiers d'entrée

@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+r@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-	Translation of GIT committish: a042d99cd2251b2b9121e1b8ad30307c4ce28863
+	Translation of GIT committish: 26375d5016d8d180fc914bfd07cf76f4168f2e37
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -22,12 +22,12 @@ LilyPond offre de nombreuses possibilités de réglages, permettant
 théoriquement de modifier chaque élément de votre partition.
 
 @menu
-* Retouches élémentaires::             
-* Le manuel des références internes::  
-* Apparence des objets::       
-* Positionnement des objets::        
-* Collisions d'objets::       
-* Autres retouches::            
+* Retouches élémentaires::
+* Le manuel des références internes::
+* Apparence des objets::
+* Positionnement des objets::
+* Collisions d'objets::
+* Autres retouches::
 @end menu
 
 @node Retouches élémentaires
@@ -35,10 +35,10 @@ théoriquement de modifier chaque élément de votre partition.
 @translationof Tweaking basics
 
 @menu
-* Introduction aux retouches::      
-* Objets et interfaces::      
-* Conventions de nommage des objets et propriétés::  
-* Méthodes de retouche::            
+* Introduction aux retouches::
+* Objets et interfaces::
+* Conventions de nommage des objets et propriétés::
+* Méthodes de retouche::
 @end menu
 
 @node Introduction aux retouches
@@ -46,24 +46,24 @@ théoriquement de modifier chaque élément de votre partition.
 @translationof Introduction to tweaks
 
 LilyPond regroupe sous le terme de @qq{retouches} (@emph{tweaks} en
-anglais) les différents moyens dont dispose l'utilisateur pour 
-intervenir sur l'interprétation du fichier d'entrée et pour modifier 
-l'apparence du fichier de sortie.  Certaines retouches sont très 
-simples à mettre en œuvre ; d'autres sont plus complexes.  Mais 
+anglais) les différents moyens dont dispose l'utilisateur pour
+intervenir sur l'interprétation du fichier d'entrée et pour modifier
+l'apparence du fichier de sortie.  Certaines retouches sont très
+simples à mettre en œuvre@tie{}; d'autres sont plus complexes.  Mais
 à elles toutes, elles permettent d'obtenir tout ce qu'on veut en matière
 de musique imprimée.
 
 Dans ce chapitre, nous traitons des concepts de base nécessaires
-pour comprendre l'art de la retouche.  Puis nous présentons de 
-nombreuses commandes déjà prêtes, qu'il suffit de recopier pour 
-obtenir un résultat identique dans vos partitions ; nous en profitons
-pour expliquer comment ces commandes ont été construites, si bien 
-que vous pouvez apprendre par la même occasion à développer 
+pour comprendre l'art de la retouche.  Puis nous présentons de
+nombreuses commandes déjà prêtes, qu'il suffit de recopier pour
+obtenir un résultat identique dans vos partitions@tie{}; nous en
+profitons pour expliquer comment ces commandes ont été construites, si
+bien que vous pouvez apprendre par la même occasion à développer
 vos propres retouches.
 
 Avant de vous lancer dans ce chapitre, il peut être utile de revoir la
 section @ref{Contextes et graveurs}, dans la mesure où les contextes,
-graveurs et autres propriétés qui y sont décrits, sont indispensables 
+graveurs et autres propriétés qui y sont décrits, sont indispensables
 pour comprendre et construire les retouches.
 
 @node Objets et interfaces
@@ -80,44 +80,44 @@ pour comprendre et construire les retouches.
 @cindex objet de rendu
 @cindex rendu, objets de
 
-Toute retouche implique que l'on modifie les opérations internes 
+Toute retouche implique que l'on modifie les opérations internes
 et les structures du programme LilyPond.  Nous allons donc, pour
 commencer, présenter certains termes qui servent à décrire ces
 opérations internes et ces structures.
 
-Le terme d'@qq{Objet} est un terme générique qui fait référence à 
-une multitude de structures internes mises en place par LilyPond 
-durant la compilation d'un fichier d'entrée.  Ainsi, quand une 
-commande du type @code{\new Staff} apparaît, un nouvel objet 
-du type @code{Staff} est créé.  Cet objet @code{Staff} contient 
+Le terme d'@qq{Objet} est un terme générique qui fait référence à
+une multitude de structures internes mises en place par LilyPond
+durant la compilation d'un fichier d'entrée.  Ainsi, quand une
+commande du type @code{\new Staff} apparaît, un nouvel objet
+du type @code{Staff} est créé.  Cet objet @code{Staff} contient
 alors toutes les propriétés associées à cette portée, par exemple son
-nom et son armure, ainsi que le détail des graveurs qui ont été 
-désignés pour fonctionner dans ce contexte de portée.  
-Certains objets peuvent contenir les propriétés de tous les autres 
+nom et son armure, ainsi que le détail des graveurs qui ont été
+désignés pour fonctionner dans ce contexte de portée.
+Certains objets peuvent contenir les propriétés de tous les autres
 contextes, comme les objets @code{Voice}, les objets @code{Score},
-les objets @code{Lyrics} ; d'autres se rapportent à tous les éléments de
-notation, comme les barres de mesure, les liaisons, les nuances, etc. 
-Chaque objet dispose de son propre échantillon de valeurs pour le 
-réglage des propriétés.
+les objets @code{Lyrics}@tie{}; d'autres se rapportent à tous les
+éléments de notation, comme les barres de mesure, les liaisons, les
+nuances, etc.  Chaque objet dispose de son propre échantillon de valeurs
+pour le réglage des propriétés.
 
-Certains types d'objet portent des noms spécifiques.  Les objets qui se 
-rapportent à des éléments de notation sur le fichier de sortie, comme les 
-notes, les hampes, les liaisons de phrasé ou de prolongation, les doigtés, 
-les clefs, etc. sont appelés @qq{Objets de rendu} ; ils sont aussi connus 
-sous le nom d'@qq{Objets graphiques} (en anglais : @emph{Graphical
-objects} ou @emph{Grobs} pour faire court).  Ce sont bien des objets au
-sens générique ci-dessus, et, en tant que tels, ils reçoivent des
-propriétés qui leur sont associées, comme leur position, leur taille,
-leur couleur, etc. 
+Certains types d'objet portent des noms spécifiques.  Les objets qui se
+rapportent à des éléments de notation sur le fichier de sortie, comme les
+notes, les hampes, les liaisons de phrasé ou de prolongation, les doigtés,
+les clefs, etc. sont appelés @qq{Objets de rendu}@tie{}; ils sont aussi
+connus  sous le nom d'@qq{Objets graphiques} (en anglais@tie{}:
+@emph{Graphical objects} ou @emph{Grobs} pour faire court).  Ce sont
+bien des objets au sens générique ci-dessus, et, en tant que tels, ils
+reçoivent des propriétés qui leur sont associées, comme leur position,
+leur taille, leur couleur, etc.
 
-Certains objets de rendu, comme les liaisons de phrasé, les soufflets 
-de crescendo, les marques d'octaviation et beaucoup d'autres @emph{grobs}, 
+Certains objets de rendu, comme les liaisons de phrasé, les soufflets
+de crescendo, les marques d'octaviation et beaucoup d'autres @emph{grobs},
 ont pour particularité de ne pas se situer à un seul et unique endroit
 -- ils ont un point de départ, un point d'arrivée, et éventuellement
 d'autres propriétés relatives à leur forme.  Ces objets avec une forme
 étendue sont appelés des bandeaux (@emph{Spanners} en anglais).
 
-Il reste à expliquer ce que sont les @qq{interfaces}.  De nombreux objets, 
+Il reste à expliquer ce que sont les @qq{interfaces}.  De nombreux objets,
 qui peuvent être très différents les uns des autres, ont pour point commun
 de devoir être compilés simultanément.  Par exemple, tous les
 @emph{grobs} ont une couleur, une taille, une position, etc., et toutes
@@ -128,10 +128,10 @@ ces actions et propriétés communes sont regroupées en un objet appelé
 propriétés communes dans le genre de celui-ci, chacun portant un nom qui
 se termine par @code{interface}.  En tout, on en compte plus d'une
 centaine.  Nous verrons plus loin en quoi c'est intéressant et utile
-pour l'utilisateur. 
+pour l'utilisateur.
 
-Ainsi s'achève le tour des principaux termes relatifs aux objets et 
-que nous serons amenés à utiliser dans ce chapitre. 
+Ainsi s'achève le tour des principaux termes relatifs aux objets et
+que nous serons amenés à utiliser dans ce chapitre.
 
 @node Conventions de nommage des objets et propriétés
 @subsection Conventions de nommage des objets et propriétés
@@ -142,17 +142,17 @@ que nous serons amenés à utiliser dans ce chapitre.
 @cindex objets, conventions de nommage des
 @cindex propriétés, conventions de nommage des
 
-Nous avons eu un aperçu, dans @ref{Contextes et graveurs}, de 
-la façon de nommer les objets.  Voici maintenant une liste de 
-référence des types d'objets et de propriétés les plus courants, 
-avec leurs conventions de nommage et quelques exemples 
-de cas concrets.  La lettre @var{A} représente n'importe quel 
-caractère alphabétique majuscule, et les lettres @var{aaa} 
-un nombre indéterminé de caractères alphabétiques minuscules.  
+Nous avons eu un aperçu, dans @ref{Contextes et graveurs}, de
+la façon de nommer les objets.  Voici maintenant une liste de
+référence des types d'objets et de propriétés les plus courants,
+avec leurs conventions de nommage et quelques exemples
+de cas concrets.  La lettre @var{A} représente n'importe quel
+caractère alphabétique majuscule, et les lettres @var{aaa}
+un nombre indéterminé de caractères alphabétiques minuscules.
 Les autres caractères sont à prendre tels qu'ils se présentent.
 
 @multitable @columnfractions .33 .33 .33
-@headitem Type d'objet/propriété           
+@headitem Type d'objet/propriété
 	@tab Convention de nommage
 	@tab Exemples
 @item Contextes
@@ -166,7 +166,7 @@ Les autres caractères sont à prendre tels qu'ils se présentent.
 	@tab Clef_engraver, Note_heads_engraver
 @item Interfaces
 	@tab aaa-aaa-interface
-	@tab grob-interface, break-aligned-interface 
+	@tab grob-interface, break-aligned-interface
 @item Propriétés de contexte
 	@tab aaa ou aaaAaaaAaaa
 	@tab alignAboveContext, skipBars
@@ -175,10 +175,10 @@ Les autres caractères sont à prendre tels qu'ils se présentent.
 	@tab direction, beam-thickness
 @end multitable
 
-Comme nous le verrons bientôt, les propriétés des différents 
-types d'objet sont modifiées par des commandes différentes, si bien 
+Comme nous le verrons bientôt, les propriétés des différents
+types d'objet sont modifiées par des commandes différentes, si bien
 qu'il est bon de savoir reconnaître le type d'un objet en fonction du nom
-de ses propriétés. 
+de ses propriétés.
 
 @node Méthodes de retouche
 @subsection Méthodes de retouche
@@ -195,22 +195,22 @@ de ses propriétés.
 @funindex \override
 @funindex override
 
-Dans @ref{Modification des propriétés d'un contexte} et dans 
+Dans @ref{Modification des propriétés d'un contexte} et dans
 @ref{Ajout et suppression de graveurs}, nous avons déjà rencontré les
 commandes @code{\set} et @code{\with}, qui servent à changer les
 propriétés des @strong{contextes} et à supprimer ou ajouter des
 @strong{graveurs}.  Voici maintenant d'autres commandes plus
-importantes. 
+importantes.
 
-La commande pour changer les propriétés des @strong{objets de rendu} 
-est @code{\override}.  Du fait que cette commande modifie en profondeur 
-les propriétés internes de LilyPond, sa syntaxe n'est pas aussi simple que 
-pour les commandes vues précédemment.  Elle a besoin de savoir avec 
+La commande pour changer les propriétés des @strong{objets de rendu}
+est @code{\override}.  Du fait que cette commande modifie en profondeur
+les propriétés internes de LilyPond, sa syntaxe n'est pas aussi simple que
+pour les commandes vues précédemment.  Elle a besoin de savoir avec
 précision quelle est la propriété à modifier, pour quel objet et dans
 quel  contexte, et quelle doit être sa nouvelle valeur.  Voyons de quoi
 il retourne.
 
-La syntaxe générale de cette commande est : 
+La syntaxe générale de cette commande est :
 
 @example
 \override @var{Contexte}.@var{ObjetDeRendu} #'@var{propriété-rendu} = #@var{valeur}
@@ -218,29 +218,29 @@ La syntaxe générale de cette commande est :
 
 @noindent
 Elle attribue à la propriété appelée @var{propriété-rendu}, associée à
-l'objet @var{ObjetDeRendu}, appartenant lui-même au contexte 
+l'objet @var{ObjetDeRendu}, appartenant lui-même au contexte
 @var{Contexte}, une valeur @var{valeur}.
 
-Le contexte @var{Contexte} peut être omis (c'est généralement 
-le cas) quand il n'y a pas d'ambiguïté et qu'il s'agit d'un contexte 
-de très bas niveau, comme @code{Voice}, @code{ChordNames} 
-ou @code{Lyrics}.  Dans les exemples qui suivent, le contexte sera 
+Le contexte @var{Contexte} peut être omis (c'est généralement
+le cas) quand il n'y a pas d'ambiguïté et qu'il s'agit d'un contexte
+de très bas niveau, comme @code{Voice}, @code{ChordNames}
+ou @code{Lyrics}.  Dans les exemples qui suivent, le contexte sera
 très souvent omis.  Nous verrons plus tard dans quelles
 circonstances il doit impérativement être indiqué.
 
-Les sections ci-dessous traitent largement des propriétés et de leurs 
-valeurs mais, pour illustrer la mise en forme et l'utilisation de ces 
+Les sections ci-dessous traitent largement des propriétés et de leurs
+valeurs mais, pour illustrer la mise en forme et l'utilisation de ces
 commandes, nous nous limiterons à n'employer que quelques propriétés et
 valeurs simples, facilement compréhensibles.
 
-Nous ne parlerons dans l'immédiat ni du @code{#'}, qui précède 
-toujours la propriété, ni du @code{#}, qui précède toujours la 
-valeur.  Ces deux éléments doivent obligatoirement être 
-présents sous cette forme.  Voici la commande la plus fréquente 
-pour faire des retouches, et pratiquement tout le reste de ce 
-chapitre aura pour but montrer, à travers des exemples, comment 
-l'utiliser.  L'exemple ci-dessous change la couleur des têtes de 
-notes :
+Nous ne parlerons dans l'immédiat ni du @code{#'}, qui précède
+toujours la propriété, ni du @code{#}, qui précède toujours la
+valeur.  Ces deux éléments doivent obligatoirement être
+présents sous cette forme.  Voici la commande la plus fréquente
+pour faire des retouches, et pratiquement tout le reste de ce
+chapitre aura pour but montrer, à travers des exemples, comment
+l'utiliser.  L'exemple ci-dessous change la couleur des têtes de
+notes@tie{}:
 
 @cindex couleur,exemple d'utilisation de la propriété
 @cindex NoteHead, exemple de dérogation
@@ -260,22 +260,22 @@ a b c
 @funindex \revert
 @funindex revert
 
-Une fois qu'elle a été modifiée, la propriété conserve sa nouvelle valeur 
-jusqu'à ce qu'elle soit à nouveau modifiée ou qu'elle rencontre la 
-commande @code{\revert}.  La commande @code{\revert} obéit à 
-la syntaxe ci-dessous et ramène la valeur de la propriété à sa valeur 
-d'origine.  Attention : dans le cas où plusieurs @code{\override} ont 
-été employés, il ne s'agit pas de la valeur précédente mais bien de la 
-valeur par défaut. 
+Une fois qu'elle a été modifiée, la propriété conserve sa nouvelle valeur
+jusqu'à ce qu'elle soit à nouveau modifiée ou qu'elle rencontre la
+commande @code{\revert}.  La commande @code{\revert} obéit à
+la syntaxe ci-dessous et ramène la valeur de la propriété à sa valeur
+d'origine.  Attention@tie{}: dans le cas où plusieurs @code{\override} ont
+été employés, il ne s'agit pas de la valeur précédente mais bien de la
+valeur par défaut.
 
 @example
 \revert @var{Contexte}.@var{ObjetDeRendu} #'@var{propriété-de-rendu}
 @end example
 
-Tout comme pour la commande @code{\override}, la mention du 
-@var{Contexte} est souvent facultative.  Elle sera omise dans de 
-nombreux exemples ci-dessous.  Voici un exemple qui ramène la 
-couleur des deux dernières notes à leur valeur par défaut :
+Tout comme pour la commande @code{\override}, la mention du
+@var{Contexte} est souvent facultative.  Elle sera omise dans de
+nombreux exemples ci-dessous.  Voici un exemple qui ramène la
+couleur des deux dernières notes à leur valeur par défaut@tie{}:
 
 @cindex couleur,exemple d'utilisation de la propriété
 @cindex NoteHead, exemple de dérogation
@@ -295,12 +295,12 @@ b c
 @funindex \once
 @funindex once
 
-Les commandes @code{\override} et @code{\set} peuvent supporter  
-toutes les deux le préfixe @code{\once}.  Celui-ci a pour fonction de 
+Les commandes @code{\override} et @code{\set} peuvent supporter
+toutes les deux le préfixe @code{\once}.  Celui-ci a pour fonction de
 n'appliquer la commande @code{\override} ou @code{\set} qu'à
-l'instant musical en cours, avant que la propriété ne reprenne 
+l'instant musical en cours, avant que la propriété ne reprenne
 sa valeur par défaut.  Toujours à partir du même exemple, il est
-possible de ne changer la couleur que d'une seule note :
+possible de ne changer la couleur que d'une seule note@tie{}:
 
 @cindex couleur,exemple d'utilisation de la propriété
 @cindex NoteHead, exemple de dérogation
@@ -320,10 +320,10 @@ a b c
 @funindex \overrideProperty
 @funindex overrideProperty
 
-Il existe une autre forme de commande @code{\override}, 
+Il existe une autre forme de commande @code{\override},
 @code{\overrideProperty}, qui est parfois utile.  Nous la mentionnons
-ici par souci d'exhaustivité ; pour le détail, voir 
-@ruser{Retouches complexes}. 
+ici par souci d'exhaustivité@tie{}; pour le détail, voir
+@ruser{Retouches complexes}.
 
 @c Maybe explain in a later iteration  -td
 
@@ -334,16 +334,16 @@ ici par souci d'exhaustivité ; pour le détail, voir
 @funindex \tweak
 @funindex tweak
 
-La dernière commande disponible pour les retouches est 
+La dernière commande disponible pour les retouches est
 @code{\tweak}.  Elle sert à changer les propriétés d'objets qui
-surviennent simultanément dans la musique, comme par exemple les 
+surviennent simultanément dans la musique, comme par exemple les
 notes d'un accord.  La commande @code{\override} modifierait toutes
 les notes de l'accord, tandis que @code{\tweak} permet de ne modifier
 que l'élément suivant dans la chaîne de saisie.
 
-Voici un exemple.  Supposons que nous voulions changer la taille de 
-la tête de note du milieu (le mi) dans un accord de do majeur.  Voyons 
-d'abord ce que donnerait @code{\once \override} :
+Voici un exemple.  Supposons que nous voulions changer la taille de
+la tête de note du milieu (le mi) dans un accord de do majeur.  Voyons
+d'abord ce que donnerait @code{\once \override}@tie{}:
 
 @cindex font-size, exemple d'utilisation de la propriété
 @cindex NoteHead, exemple de dérogation
@@ -355,27 +355,27 @@ d'abord ce que donnerait @code{\once \override} :
 <c e g>
 @end lilypond
 
-Nous voyons que @code{\override} modifie @emph{toutes} les têtes 
-de notes de l'accord, car toutes les notes de l'accord surviennent au 
-même @emph{instant musical} et que la fonction de @code{\once} 
-est de faire porter la modification sur tous les objets du type spécifié 
-qui surviennent au même instant musical, comme le fait la commande 
-@code{\override} elle-même. 
+Nous voyons que @code{\override} modifie @emph{toutes} les têtes
+de notes de l'accord, car toutes les notes de l'accord surviennent au
+même @emph{instant musical} et que la fonction de @code{\once}
+est de faire porter la modification sur tous les objets du type spécifié
+qui surviennent au même instant musical, comme le fait la commande
+@code{\override} elle-même.
 
-La commande @code{\tweak} opère différemment.  Elle agit 
+La commande @code{\tweak} opère différemment.  Elle agit
 sur l'élément immédiatement suivant dans la chaîne de saisie.  Elle ne
-fonctionne toutefois que sur des objets créés directement à partir de 
+fonctionne toutefois que sur des objets créés directement à partir de
 la chaîne de saisie, c'est-à-dire essentiellement des têtes de notes et
-des articulations ; des objets comme les hampes ou les 
-altérations accidentelles sont créés ultérieurement et ne peuvent 
-être retouchés de cette manière.  En outre, quand la retouche porte 
-sur une tête de note, celle-ci @emph{doit} appartenir à un accord, 
-c'est-à-dire être comprise à l'intérieur de chevrons gauche/droite.  Pour 
-retoucher une note isolée, il faut donc placer la commande 
+des articulations@tie{}; des objets comme les hampes ou les
+altérations accidentelles sont créés ultérieurement et ne peuvent
+être retouchés de cette manière.  En outre, quand la retouche porte
+sur une tête de note, celle-ci @emph{doit} appartenir à un accord,
+c'est-à-dire être comprise à l'intérieur de chevrons gauche/droite.  Pour
+retoucher une note isolée, il faut donc placer la commande
 @code{\tweak} avec la note à l'intérieur des chevrons gauche/droite.
 
-Pour reprendre notre exemple, la taille de la note du milieu d'un 
-accord peut être modifiée de cette manière : 
+Pour reprendre notre exemple, la taille de la note du milieu d'un
+accord peut être modifiée de cette manière@tie{}:
 
 @cindex font-size, exemple d'utilisation de la propriété
 @cindex @code{\tweak}, exemple
@@ -385,19 +385,19 @@ accord peut être modifiée de cette manière :
 <c \tweak #'font-size #-3 e g>4
 @end lilypond
 
-Vous noterez que la syntaxe de @code{\tweak} est différente de 
-celle de la commande @code{\override}.  Ni le contexte, 
-ni l'objet n'ont besoin d'être spécifiés ; au contraire, cela 
+Vous noterez que la syntaxe de @code{\tweak} est différente de
+celle de la commande @code{\override}.  Ni le contexte,
+ni l'objet n'ont besoin d'être spécifiés@tie{}; au contraire, cela
 produirait une erreur si on le faisait.  Tous deux sont sous-entendus
-par l'élément suivant dans la chaîne de saisie.  La syntaxe générale 
-de la commande @code{\tweak} est donc, tout simplement :
+par l'élément suivant dans la chaîne de saisie.  La syntaxe générale
+de la commande @code{\tweak} est donc, tout simplement@tie{}:
 
 @example
 \tweak #'@var{propriété-de-rendu} = #@var{valeur}
 @end example
 
-La commande @code{\tweak} est aussi utilisée quand on veut, dans 
-une série d'articulations, n'en modifier qu'une seule.  Ainsi :
+La commande @code{\tweak} est aussi utilisée quand on veut, dans
+une série d'articulations, n'en modifier qu'une seule.  Ainsi@tie{}:
 
 @cindex couleur, exemple d'utilisation de la propriété
 @cindex @code{\tweak}, exemple
@@ -409,7 +409,7 @@ a ^Black
 @end lilypond
 
 @noindent
-Attention : la commande @code{\tweak} doit être précédée d'une 
+Attention@tie{}: la commande @code{\tweak} doit être précédée d'une
 marque d'articulation, comme si elle-même était une articulation.
 
 @cindex nolets imbriqués
@@ -420,16 +420,16 @@ marque d'articulation, comme si elle-même était une articulation.
 
 @funindex TupletBracket
 
-Quand plusieurs nolets sont imbriqués et commencent au même instant 
-musical, c'est encore la commande @code{\tweak} qui est utilisée pour 
+Quand plusieurs nolets sont imbriqués et commencent au même instant
+musical, c'est encore la commande @code{\tweak} qui est utilisée pour
 changer l'apparence de l'un d'entre eux.  Dans l'exemple suivant, le
 long crochet de nolet et le premier des trois crochets courts commencent
-au même instant musical ; une commande @code{\override} s'appliquerait 
-donc à la fois aux deux.  En revanche, @code{\tweak} permet  
-de les dissocier.  La première commande @code{\tweak} indique que 
-le long crochet doit être placé au-dessus des notes, et la seconde 
-indique que le coefficient de nolet doit être imprimé en rouge sur le 
-premier crochet de triolet court. 
+au même instant musical@tie{}; une commande @code{\override}
+s'appliquerait donc à la fois aux deux.  En revanche, @code{\tweak}
+permet de les dissocier.  La première commande @code{\tweak} indique que
+le long crochet doit être placé au-dessus des notes, et la seconde
+indique que le coefficient de nolet doit être imprimé en rouge sur le
+premier crochet de triolet court.
 
 @cindex @code{\tweak}, exemple
 @cindex direction, exemple d'utilisation de la propriété
@@ -445,9 +445,9 @@ premier crochet de triolet court.
 }
 @end lilypond
 
-Si les nolets imbriqués ne commencent pas au même moment, 
-leur apparence peut alors être modifiée de la façon habituelle, 
-avec la commande @code{\override} :
+Si les nolets imbriqués ne commencent pas au même moment,
+leur apparence peut alors être modifiée de la façon habituelle,
+avec la commande @code{\override}@tie{}:
 
 @cindex texte, exemple d'utilisation de la propriété
 @cindex tuplet-number, exemple de fonction
@@ -481,9 +481,9 @@ Manuel de notation :
 @cindex Références internes
 
 @menu
-* Propriétés des objets de rendu::  
-* Propriétés listées par interface::  
-* Types de propriétés::         
+* Propriétés des objets de rendu::
+* Propriétés listées par interface::
+* Types de propriétés::
 @end menu
 
 @node Propriétés des objets de rendu
@@ -496,33 +496,33 @@ Manuel de notation :
 @cindex objets de rendu, propriétés
 @cindex Manuel des références internes
 
-Imaginons que votre partition contienne une liaison trop fine à votre 
-goût et que vous vouliez la rendre plus épaisse.  Comment vous y 
-prendre ?  Vous êtes convaincu, avec tout ce qui a été dit sur la 
-souplesse de LilyPond, qu'une telle retouche est réalisable et 
-vous vous dites qu'elle fera sans doute intervenir la commande 
-@code{\override}.  Mais existe-t-il une propriété lourde qui s'applique 
-à une liaison et, dans l'affirmative, comment faire pour la modifier ? 
-C'est là qu'intervient la Référence des propriétés internes. 
-Elle contient toutes les informations dont vous avez besoin pour 
-construire n'importe quelle commande @code{\override}.
+Imaginons que votre partition contienne une liaison trop fine à votre
+goût et que vous vouliez la rendre plus épaisse.  Comment vous y
+prendre@tie{}?  Vous êtes convaincu, avec tout ce qui a été dit sur la
+souplesse de LilyPond, qu'une telle retouche est réalisable et
+vous vous dites qu'elle fera sans doute intervenir la commande
+@code{\override}.  Mais existe-t-il une propriété lourde qui s'applique
+à une liaison et, dans l'affirmative, comment faire pour la
+modifier@tie{}?  C'est là qu'intervient la Référence des propriétés
+internes.  Elle contient toutes les informations dont vous avez besoin
+pour construire n'importe quelle commande @code{\override}.
 
-Avant de nous plonger dans la Référence des propriétés 
-internes, un mot d'avertissement.  Il s'agit d'un document de 
-@strong{références}, de sorte qu'il ne contient pas ou peu 
-d'explications : son but est de présenter les informations de 
-façon précise et concise.  Cela peut paraître décourageant 
-à première vue.  Pas d'inquiétude !  Les conseils et les explications 
-fournis ici vous permettent de retrouver par vous-même les 
-informations dans la Référence des propriétés internes.  Il 
-suffit d'un peu de pratique. 
+Avant de nous plonger dans la Référence des propriétés
+internes, un mot d'avertissement.  Il s'agit d'un document de
+@strong{références}, de sorte qu'il ne contient pas ou peu
+d'explications@tie{}: son but est de présenter les informations de
+façon précise et concise.  Cela peut paraître décourageant
+à première vue.  Pas d'inquiétude@tie{}!  Les conseils et les
+explications fournis ici vous permettent de retrouver par vous-même les
+informations dans la Référence des propriétés internes.  Il
+suffit d'un peu de pratique.
 
 @cindex override, exemple
 @cindex dérogation, exemple
 @cindex Références internes, exemple d'utilisation
 @cindex @code{\addlyrics} -- exemple
 
-Prenons un exemple concret tiré d'un morceau de musique connu :
+Prenons un exemple concret tiré d'un morceau de musique connu@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
 {
@@ -538,39 +538,39 @@ Prenons un exemple concret tiré d'un morceau de musique connu :
 }
 @end lilypond
 
-Admettons que nous voulions rendre les traits de liaison plus épais. 
-Est-ce possible ?  Une liaison est assurément un objet de rendu, si bien 
-que la question est @qq{Existe-t-il une propriété attachée aux liaisons 
-et qui en contrôle l'épaisseur ? } Pour y répondre, nous consultons la 
-Référence des propriétés internes (ou RPI pour faire court).
+Admettons que nous voulions rendre les traits de liaison plus épais.
+Est-ce possible@tie{}?  Une liaison est assurément un objet de rendu, si
+bien que la question est @qq{Existe-t-il une propriété attachée aux
+liaisons et qui en contrôle l'épaisseur@tie{}? } Pour y répondre, nous
+consultons la Référence des propriétés internes (ou RPI pour faire court).
 
 Vous trouverez sur le site de LilyPond @uref{http://lilypond.org} la
-RPI correspondant à votre version du programme.  Allez sur la page 
-Documentation et cliquez sur Référence des propriétés internes. 
-Pour l'apprentissage, mieux vaut utiliser la version HTML standard, 
-et non la @qq{page unique en anglais} ou le PDF.  Durant la lecture 
-des prochains paragraphes, il vous est conseillé de vous y reporter 
+RPI correspondant à votre version du programme.  Allez sur la page
+Documentation et cliquez sur Référence des propriétés internes.
+Pour l'apprentissage, mieux vaut utiliser la version HTML standard,
+et non la @qq{page unique en anglais} ou le PDF.  Durant la lecture
+des prochains paragraphes, il vous est conseillé de vous y reporter
 réellement afin que les explications prennent tout leur sens.
 
-En dessous du bandeau d'en-tête figurent cinq liens.  Cliquez sur le lien 
-vers le @emph{Backend}, où se trouvent les informations sur les 
-objets de rendu.  En dessous du titre @strong{Backend}, choisissez 
-alors le lien vers @emph{Tous les objets de rendu}.  La page qui s'ouvre 
-énumère, dans l'ordre alphabétique, tous les objets utilisés dans votre 
-version de LilyPond.  Cliquez sur Liaisons (@emph{Slurs} en anglais), 
-et les propriétés des liaisons apparaîtront. 
+En dessous du bandeau d'en-tête figurent cinq liens.  Cliquez sur le lien
+vers le @emph{Backend}, où se trouvent les informations sur les
+objets de rendu.  En dessous du titre @strong{Backend}, choisissez
+alors le lien vers @emph{Tous les objets de rendu}.  La page qui s'ouvre
+énumère, dans l'ordre alphabétique, tous les objets utilisés dans votre
+version de LilyPond.  Cliquez sur Liaisons (@emph{Slurs} en anglais),
+et les propriétés des liaisons apparaîtront.
 
-Il existe un autre moyen de trouver cette page, à partir du Manuel de 
-notation.  Une des pages qui traitent des liaisons contient un lien vers 
-la Référence des propriétés internes, qui mène directement à cette 
-page.  Mais lorsque vous connaissez le nom de l'objet à retoucher, le 
-plus simple est de consulter la RPI. 
+Il existe un autre moyen de trouver cette page, à partir du Manuel de
+notation.  Une des pages qui traitent des liaisons contient un lien vers
+la Référence des propriétés internes, qui mène directement à cette
+page.  Mais lorsque vous connaissez le nom de l'objet à retoucher, le
+plus simple est de consulter la RPI.
 
-La page de la RPI sur les liaisons commence par préciser que les objets 
-Liaison sont créés par le graveur Slur_engraver.  Vient ensuite la liste 
-des réglages standard.  Attention : ceux-ci @strong{ne suivent pas} l'ordre 
-alphabétique.  Il faut donc les parcourir en entier pour trouver la propriété 
-susceptible de contrôler l'épaisseur des traits de liaison.
+La page de la RPI sur les liaisons commence par préciser que les objets
+Liaison sont créés par le graveur Slur_engraver.  Vient ensuite la liste
+des réglages standard.  Attention@tie{}: ceux-ci @strong{ne suivent pas}
+l'ordre alphabétique.  Il faut donc les parcourir en entier pour trouver
+la propriété susceptible de contrôler l'épaisseur des traits de liaison.
 
 @example
 @code{thickness} (number)
@@ -579,35 +579,35 @@ susceptible de contrôler l'épaisseur des traits de liaison.
 @end example
 
 Voilà qui semble approprié pour changer l'épaisseur (@emph{thickness} en
-anglais).  On apprend que la valeur de @code{thickness} 
-est un simple nombre (@emph{number}), qu'elle est par défaut définie 
-à 1,2 et que l'unité de mesure est fixée par une autre propriété 
+anglais).  On apprend que la valeur de @code{thickness}
+est un simple nombre (@emph{number}), qu'elle est par défaut définie
+à 1,2 et que l'unité de mesure est fixée par une autre propriété
 appelée @code{line-thickness}.
 
-Comme il a été indiqué, on ne trouve que peu, voire pas du tout 
-d'explication dans la RPI, mais nous en savons assez pour essayer 
-de changer l'épaisseur de la liaison.  Comme nous l'avons vu, le 
-nom de l'objet est @code{Slur}, le nom de la propriété à changer 
-est @code{thickness} et la nouvelle valeur sera un nombre supérieur 
+Comme il a été indiqué, on ne trouve que peu, voire pas du tout
+d'explication dans la RPI, mais nous en savons assez pour essayer
+de changer l'épaisseur de la liaison.  Comme nous l'avons vu, le
+nom de l'objet est @code{Slur}, le nom de la propriété à changer
+est @code{thickness} et la nouvelle valeur sera un nombre supérieur
 à @code{1.2} si l'on veut augmenter l'épaisseur du trait.
 
-Pour construire la commande @code{\override}, il suffit donc de 
-remplacer les valeurs que nous avons trouvées en guise de noms, en 
+Pour construire la commande @code{\override}, il suffit donc de
+remplacer les valeurs que nous avons trouvées en guise de noms, en
 laissant de côté le contexte.  Commençons par une valeur très élevée
-dans un premier temps, pour nous assurer que la commande fonctionne. 
-Nous obtenons :
+dans un premier temps, pour nous assurer que la commande fonctionne.
+Nous obtenons@tie{}:
 
 @example
 \override Slur #'thickness = #5.0
 @end example
 
-N'oublions pas le @code{#'} qui doit précéder le nom de la propriété et 
+N'oublions pas le @code{#'} qui doit précéder le nom de la propriété et
 le @code{#} qui doit précéder la nouvelle valeur.
 
-La dernière question est : @qq{Où placer cette commande ?}  
+La dernière question est@tie{}: @qq{Où placer cette commande@tie{}?}
 Tant qu'on n'est pas sûr de soi, la meilleure réponse est @qq{À
 l'intérieur de l'expression musicale, avant la première liaison et
-proche d'elle.}  Essayons :
+proche d'elle.}  Essayons@tie{}:
 
 @cindex Slur, exemple de dérogation
 @cindex thickness, exemple d'utilisation de la propriété
@@ -626,16 +626,16 @@ proche d'elle.}  Essayons :
     The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
 et nous constatons que le trait de liaison est beaucoup plus épais.
 
-Telle est la façon normale de construire les commandes 
-@code{\override}.  Comme nous aurons l'occasion de le voir 
-par la suite, le problème est parfois plus complexe.  Dans 
-l'immédiat, nous en savons assez pour construire nos propres 
-commandes -- mais il faut encore s'exercer.  Les exemples 
+Telle est la façon normale de construire les commandes
+@code{\override}.  Comme nous aurons l'occasion de le voir
+par la suite, le problème est parfois plus complexe.  Dans
+l'immédiat, nous en savons assez pour construire nos propres
+commandes -- mais il faut encore s'exercer.  Les exemples
 suivants sont là dans cette intention.
 
 @subheading Détermination du contexte adéquat
@@ -643,21 +643,21 @@ suivants sont là dans cette intention.
 @cindex contexte, détermination du
 @cindex contexte, identification correcte du
 
-Tout d'abord, de quoi avions-nous besoin pour préciser le 
-contexte ?  À quoi devait-il ressembler ?  Gageons que les 
-liaisons appartiennent au contexte Voix, dans la mesure où 
-elles sont étroitement liées à une ligne mélodique, mais 
-comment en être sûr ?  Pour répondre à cette question, 
-revenons en haut de la page de la RPI consacrée aux liaisons ; 
-il est écrit : @qq{Les objets Liaison sont créés par le graveur 
-Slur_engraver}.  Ainsi les liaisons seront créées dans n'importe 
-quel contexte où se trouve le @code{Slur_engraver}.  Suivons 
-le lien vers la page @code{Slur_engraver}.  Tout en bas, on 
-lit que le @code{Slur_engraver} est un élément appartenant 
-à cinq contextes Voix, dont le contexte de voix 
-standard, @code{Voice}.  Notre hypothèse était donc juste. 
-Et parce que @code{Voice} est un contexte de très bas 
-niveau, qu'il est activé sans ambiguïté par le fait que l'on est 
+Tout d'abord, de quoi avions-nous besoin pour préciser le
+contexte@tie{}?  À quoi devait-il ressembler@tie{}?  Gageons que les
+liaisons appartiennent au contexte Voix, dans la mesure où
+elles sont étroitement liées à une ligne mélodique, mais
+comment en être sûr@tie{}?  Pour répondre à cette question,
+revenons en haut de la page de la RPI consacrée aux liaisons@tie{};
+il est écrit@tie{}: @qq{Les objets Liaison sont créés par le graveur
+Slur_engraver}.  Ainsi les liaisons seront créées dans n'importe
+quel contexte où se trouve le @code{Slur_engraver}.  Suivons
+le lien vers la page @code{Slur_engraver}.  Tout en bas, on
+lit que le @code{Slur_engraver} est un élément appartenant
+à cinq contextes Voix, dont le contexte de voix
+standard, @code{Voice}.  Notre hypothèse était donc juste.
+Et parce que @code{Voice} est un contexte de très bas
+niveau, qu'il est activé sans ambiguïté par le fait que l'on est
 en train de saisir des notes, on peut ici ne pas le mentionner.
 
 @subheading Redéfinition pour une seule occurence
@@ -668,15 +668,15 @@ en train de saisir des notes, on peut ici ne pas le mentionner.
 @funindex \once
 @funindex once
 
-Dans le dernier exemple ci-dessus, @emph{toutes} les liaisons étaient plus 
-épaisses.  Et si on veut épaissir uniquement la première liaison ?  On
-recourt alors à la commande @code{\once}.  Placée juste avant la commande 
-@code{\override}, elle lui indique de ne changer que la liaison commençant 
-avec la note @strong{juste après}.  Si la note juste après n'ouvre pas une 
-liaison, la commande sera sans aucun effet -- elle ne reste pas en mémoire 
-jusqu'à la prochaine liaison, elle est purement et simplement ignorée.
-Il faut donc que la commande introduite par @code{\once} soit insérée
-comme suit : 
+Dans le dernier exemple ci-dessus, @emph{toutes} les liaisons étaient plus
+épaisses.  Et si on veut épaissir uniquement la première liaison@tie{}?
+On recourt alors à la commande @code{\once}.  Placée juste avant la
+commande @code{\override}, elle lui indique de ne changer que la liaison
+commençant avec la note @strong{juste après}.  Si la note juste après
+n'ouvre pas une liaison, la commande sera sans aucun effet -- elle ne
+reste pas en mémoire jusqu'à la prochaine liaison, elle est purement et
+simplement ignorée.  Il faut donc que la commande introduite par
+@code{\once} soit insérée comme suit@tie{}:
 
 
 @cindex Slur, exemple de dérogation
@@ -699,14 +699,14 @@ comme suit :
     The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
 Alors seule la première liaison est rendue plus épaisse.
 
-La commande @code{\once} peut aussi être utilisée devant la commande 
+La commande @code{\once} peut aussi être utilisée devant la commande
 @code{\set}.
- 
+
 
 @subheading Rétablissement
 
@@ -717,10 +717,10 @@ La commande @code{\once} peut aussi être utilisée devant la commande
 @funindex \revert
 @funindex revert
 
-Et si l'on voulait que les deux premières liaisons soient plus épaisses ? 
-On pourrait bien sûr utiliser deux commandes, chacune précédée de 
-@code{\once}, et placées juste avant la note par laquelle débute la 
-liaison :
+Et si l'on voulait que les deux premières liaisons soient plus
+épaisses@tie{}?  On pourrait bien sûr utiliser deux commandes, chacune
+précédée de @code{\once}, et placées juste avant la note par laquelle
+débute la liaison@tie{}:
 
 
 @cindex Slur, exemple de dérogation
@@ -745,11 +745,11 @@ liaison :
     The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
-mais on peut aussi, au lieu de la commande @code{\once}, utiliser après 
-la seconde liaison la commande @code{\revert}, qui ramène la propriété 
+mais on peut aussi, au lieu de la commande @code{\once}, utiliser après
+la seconde liaison la commande @code{\revert}, qui ramène la propriété
 @code{thickness} à sa valeur par défaut .
 
 @cindex Slur, exemple de dérogation
@@ -778,18 +778,18 @@ la seconde liaison la commande @code{\revert}, qui ramène la propriété
 @end lilypond
 
 @noindent
-N'importe quelle propriété modifiée par @code{\override} peut ainsi 
-être ramenée, grâce à la commande @code{\revert}, à sa valeur par 
-défaut. 
+N'importe quelle propriété modifiée par @code{\override} peut ainsi
+être ramenée, grâce à la commande @code{\revert}, à sa valeur par
+défaut.
 
-Ici s'achève notre introduction à la RPI et aux retouches 
-simples.  Vous trouverez d'autres exemples dans les prochaines 
-sections de ce chapitre ; ils vous permettront, d'une part, 
-d'apprendre à connaître un peu mieux la RPI et, d'autre part, de 
-vous entraîner un peu plus à y chercher les informations.  Ces 
-exemples seront progressivement accompagnés d'explications et 
+Ici s'achève notre introduction à la RPI et aux retouches
+simples.  Vous trouverez d'autres exemples dans les prochaines
+sections de ce chapitre@tie{}; ils vous permettront, d'une part,
+d'apprendre à connaître un peu mieux la RPI et, d'autre part, de
+vous entraîner un peu plus à y chercher les informations.  Ces
+exemples seront progressivement accompagnés d'explications et
 introduiront des termes nouveaux.
- 
+
 @node Propriétés listées par interface
 @subsection Propriétés listées par interface
 @translationof Properties found in interfaces
@@ -798,20 +798,21 @@ introduiront des termes nouveaux.
 @cindex interfaces, propriétés des
 @cindex propriétés des interfaces
 
-Supposons maintenant que nous voulions imprimer des paroles en italique.  
-Quelle formulation de la commande @code{\override} allons-nous utiliser ? 
-Nous consultons en premier lieu, comme précédemment, la page de la RPI 
-qui contient la liste @qq{Tous les objets de rendu}, et recherchons 
-un objet qui contrôle les paroles.  Nous trouvons @code{LyricText}, qui 
-semble approprié.  Nous cliquons dessus et nous voyons apparaître les 
-différentes propriétés des paroles, parmi lesquelles @code{font-series} 
-et @code{font-size}.  Mais aucune ne propose l'italique.  Car la mise 
-en forme des caractères est une propriété commune à tous les objets 
-d'écriture, si bien que, au lieu de figurer dans tous les objets de rendu, 
-elle est regroupée avec d'autres propriétés semblables et placée dans une 
-@strong{Interface}, la @code{font-interface}.
+Supposons maintenant que nous voulions imprimer des paroles en italique.
+Quelle formulation de la commande @code{\override} allons-nous
+utiliser@tie{}?  Nous consultons en premier lieu, comme précédemment, la
+page de la RPI qui contient la liste @qq{Tous les objets de rendu}, et
+recherchons un objet qui contrôle les paroles.  Nous trouvons
+@code{LyricText}, qui semble approprié.  Nous cliquons dessus et nous
+voyons apparaître les différentes propriétés des paroles, parmi
+lesquelles @code{font-series} et @code{font-size}.  Mais aucune ne
+propose l'italique.  Car la mise en forme des caractères est une
+propriété commune à tous les objets d'écriture, si bien que, au lieu de
+figurer dans tous les objets de rendu, elle est regroupée avec d'autres
+propriétés semblables et placée dans une @strong{Interface}, la
+@code{font-interface}.
 
-Il nous faut donc apprendre à trouver les propriétés des interfaces 
+Il nous faut donc apprendre à trouver les propriétés des interfaces
 et découvrir les objets qui utilisent les propriétés de ces interfaces.
 
 Retournons à la page de la RPI qui traite des paroles
@@ -822,28 +823,29 @@ voyons apparaître les différentes propriétés associées à cette
 interface, qui sont en même temps les propriétés de tous les objets qui
 s'y rapportent, parmi lesquels  LyricText.
 
-Nous avons alors sous les yeux tous les réglages des propriétés qui 
-contrôlent les polices de caractères, et notamment 
-@code{font-shape(symbole)}, où @code{symbole} peut prendre la valeur 
+Nous avons alors sous les yeux tous les réglages des propriétés qui
+contrôlent les polices de caractères, et notamment
+@code{font-shape(symbole)}, où @code{symbole} peut prendre la valeur
 @code{upright}, @code{italics} ou @code{caps}.
 
-Vous remarquerez que @code{font-series} et @code{font-size} figurent 
-aussi dans la liste.  La question qui ne manque pas de se poser est : 
-@qq{Comment se fait-il que les propriétés @code{font-series} et 
-@code{font-size} se retrouvent à la fois dans @code{LyricText} et dans 
-l'interface @code{font-interface} alors que ce n'est pas le cas pour 
-@code{font-shape} ?}  La réponse est que lorsqu'un objet @code{LyricText} 
-est créé, les valeurs globales par défaut de @code{font-series} et 
-@code{font-size} sont modifiées, mais pas celles de @code{font-shape}. 
-Les possibilités de modification dans @code{LyricText} ne concernent 
-donc que les valeurs à appliquer à @code{LyricText}.  Les autres objets qui 
-dépendent de @code{font-interface} fixeront leurs propriétés différemment 
-lorsqu'ils seront créés.
+Vous remarquerez que @code{font-series} et @code{font-size} figurent
+aussi dans la liste.  La question qui ne manque pas de se poser est@tie{}:
+@qq{Comment se fait-il que les propriétés @code{font-series} et
+@code{font-size} se retrouvent à la fois dans @code{LyricText} et dans
+l'interface @code{font-interface} alors que ce n'est pas le cas pour
+@code{font-shape}@tie{}?}  La réponse est que lorsqu'un objet
+@code{LyricText} est créé, les valeurs globales par défaut de
+@code{font-series} et @code{font-size} sont modifiées, mais pas celles
+de @code{font-shape}.  Les possibilités de modification dans
+@code{LyricText} ne concernent donc que les valeurs à appliquer à
+@code{LyricText}.  Les autres objets qui dépendent de
+@code{font-interface} fixeront leurs propriétés différemment lorsqu'ils
+seront créés.
 
-Voyons maintenant si nous sommes en mesure de formuler la commande 
-@code{\override} pour mettre les paroles en italique.  L'objet est 
-@code{LyricText}, la propriété est @code{font-shape} et la valeur est 
-@code{italic}.  Comme auparavant, nous laissons de côté le contexte. 
+Voyons maintenant si nous sommes en mesure de formuler la commande
+@code{\override} pour mettre les paroles en italique.  L'objet est
+@code{LyricText}, la propriété est @code{font-shape} et la valeur est
+@code{italic}.  Comme auparavant, nous laissons de côté le contexte.
 
 Signalons rapidement -- même si cette remarque est importante -- que,
 puisque les valeurs de @code{font-shape} se présentent sous forme de
@@ -855,19 +857,20 @@ interprétés comme tels par LilyPond.  Certains symboles peuvent être des
 noms de propriété, comme @code{thickness} ou @code{font-shape},
 d'autres sont des valeurs à attribuer aux propriétés, comme
 @code{italic}. À ne pas confondre avec les chaînes de caractères libres,
-qui se présentent comme @code{"un texte libre"} ; pour plus de détails
-sur les symboles et les chaînes de caractères, voir @ref{Tutoriel Scheme}. 
+qui se présentent comme @code{"un texte libre"}@tie{}; pour plus de
+détails sur les symboles et les chaînes de caractères, voir
+@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
 
-Ainsi, la commande @code{\override} pour mettre les paroles en italique 
-est : 
+Ainsi, la commande @code{\override} pour mettre les paroles en italique
+est@tie{}:
 
 @example
 \override LyricText #'font-shape = #'italic
 @end example
 
 @noindent
-et doit être placée juste devant et tout près des paroles à modifier, 
-comme ceci :
+et doit être placée juste devant et tout près des paroles à modifier,
+comme ceci@tie{}:
 
 @cindex font-shape, exemple d'utilisation de la propriété
 @cindex italic, exemple
@@ -897,17 +900,17 @@ et voilà les paroles en italiques.
 @cindex contexte, spécification en mode lyrique
 @cindex mode lyrique, spécification de contexte en
 
-Lorsqu'il s'agit de paroles et qu'on cherche à préciser le contexte 
-sur le modèle de ce qui a été fait précédemment, la commande échoue. 
-Car une syllabe saisie en mode Paroles (lyricmode) se termine 
-obligatoirement par une espace, un saut de ligne ou un nombre. Tout 
-autre caractère compte comme un élément de la syllabe. C'est pourquoi 
-il faut une espace ou un saut de ligne avant le @code{@}} final, pour 
-éviter qu'il ne soit assimilé à la dernière syllabe. De même, il faut insérer 
-des espaces avant et après le point, @qq{.}, qui sépare le nom de 
-contexte du nom de l'objet, faute de quoi les deux noms seront joints et 
-l'interpréteur ne pourra pas les reconnaître. La formulation correcte est 
-donc : 
+Lorsqu'il s'agit de paroles et qu'on cherche à préciser le contexte
+sur le modèle de ce qui a été fait précédemment, la commande échoue.
+Car une syllabe saisie en mode Paroles (lyricmode) se termine
+obligatoirement par une espace, un saut de ligne ou un nombre. Tout
+autre caractère compte comme un élément de la syllabe. C'est pourquoi il
+faut une espace ou un saut de ligne avant le @code{@}} final, pour
+éviter qu'il ne soit assimilé à la dernière syllabe. De même, il faut
+insérer des espaces avant et après le point, @qq{.}, qui sépare le nom
+de contexte du nom de l'objet, faute de quoi les deux noms seront joints
+et l'interpréteur ne pourra pas les reconnaître. La formulation correcte
+est donc@tie{}:
 
 @example
 \override Lyrics . LyricText #'font-shape = #'italic
@@ -916,11 +919,11 @@ donc :
 @warning{Dans la saisie des paroles, pensez à toujours laisser une
 espace entre la dernière syllabe et l'accolade fermante.}
 
-@warning{Lorsqu'on retouche des paroles, toujours placer des espaces 
+@warning{Lorsqu'on retouche des paroles, toujours placer des espaces
 autour du point qui sépare le nom de contexte du nom d'objet.}
 
 @seealso
-Manuel d'initiation : @ref{Tutoriel Scheme}.
+Manuel d'extension : @rextendnamed{Scheme tutorial,Tutoriel Scheme}.
 
 
 @node Types de propriétés
@@ -930,7 +933,7 @@ Manuel d'initiation : @ref{Tutoriel Scheme}.
 
 @cindex propriété, types de
 
-Nous avons vu jusqu'à maintenant deux types de propriétés :
+Nous avons vu jusqu'à maintenant deux types de propriétés@tie{}:
 @code{nombre} et @code{symbole}.  Pour pouvoir fonctionner, la valeur
 associée à une propriété doit correspondre au type attendu et suivre les
 règles liées à ce type.  Le type de propriété est toujours donné entre
@@ -938,10 +941,10 @@ parenthèses après le nom de propriété dans la RPI.  Voici une liste des
 différents types de propriétés, avec les règles qui les régissent et
 quelques exemples d'utilisation.  Il faut, bien sûr, toujours ajouter un
 symbole hash, @code{#}, devant ces valeurs lors de la saisie de la
-commande @code{\override}. 
+commande @code{\override}.
 
 @multitable @columnfractions .2 .45 .35
-@headitem Type de propriété 
+@headitem Type de propriété
   @tab Règles
   @tab Exemples
 @item Booléenne (@emph{Boolean} en anglais)
@@ -960,7 +963,7 @@ commande @code{\override}.
   @tab @code{3}, @code{1}
 @item Liste
   @tab Plusieurs valeurs séparées par une espace, encadrées par des
-parenthèses et prédédées par une apostrophe 
+parenthèses et prédédées par une apostrophe
   @tab @code{'(left-edge staff-bar)}, @code{'(1)}, @code{'(1.0 0.25 0.5)}
 @item Markup (ou étiquette)
   @tab Toute commande @code{\markup} valide
@@ -972,7 +975,7 @@ parenthèses et prédédées par une apostrophe
   @tab Une valeur décimale positive ou négative
   @tab @code{3.5}, @code{-2.45}
 @item Paire (de nombres)
-  @tab Deux nombres séparées par @qq{espace point espace}, encadrés 
+  @tab Deux nombres séparées par @qq{espace point espace}, encadrés
 par des parenthèses et précédés par une apostrophe
   @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
 @item Symbole
@@ -980,7 +983,7 @@ par des parenthèses et précédés par une apostrophe
 apostrophe
   @tab @code{'italic}, @code{'inside}
 @item Inconnu (@emph{Unknown} en anglais)
-  @tab Un processus, ou @code{#f} pour empêcher toute action 
+  @tab Un processus, ou @code{#f} pour empêcher toute action
   @tab @code{bend::print}, @code{ly:text-interface::print}, @code{#f}
 @item Vecteur
   @tab Une liste de trois éléments encadrés par des parenthèses et
@@ -990,7 +993,7 @@ précédés par apostrophe-hash, @code{'#}
 
 
 @seealso
-Manuel d'initiation : @ref{Tutoriel Scheme}.
+Manuel d'extension : @rextendnamed{Scheme tutorial,Tutoriel Scheme}.
 
 
 @node Apparence des objets
@@ -998,13 +1001,13 @@ Manuel d'initiation : @ref{Tutoriel Scheme}.
 @translationof Appearance of objects
 
 Il est temps de mettre en pratique les notions apprises précédemment
-pour modifier l'allure de la partition ; les exemples qui suivent
-montrent l'utilisation des différentes méthodes de retouche.  
+pour modifier l'allure de la partition@tie{}; les exemples qui suivent
+montrent l'utilisation des différentes méthodes de retouche.
 
 @menu
-* Visibilité et couleur des objets::  
-* Taille des objets::             
-* Longueur et épaisseur des objets::  
+* Visibilité et couleur des objets::
+* Taille des objets::
+* Longueur et épaisseur des objets::
 @end menu
 
 
@@ -1017,7 +1020,7 @@ d'une partition, que les élèves doivent ensuite compléter.  Imaginons,
 par exemple, un exercice dans lequel il faudrait rétablir les barres de
 mesure dans un morceau de musique. En temps normal, les barres de mesure
 s'insèrent automatiquement.  Comment faire pour les effacer de la
-partition ?  
+partition@tie{}?
 
 Avant de nous y attaquer, souvenons-nous que les propriétés d'objets
 sont parfois groupées dans ce qu'on appelle des @emph{interfaces} --
@@ -1028,30 +1031,31 @@ objet, elle s'appliquera à tous les autres.  Certains objets tirent
 alors leurs propriétés de telle ou telle interface, d'autres objets de
 telle ou telle autre interface.  La liste des interfaces qui contiennent
 les propriétés liées à un objet graphique (@emph{grob}) figure dans la
-RPI, en bas de la page de description du @emph{grob} ; pour voir ces
-propriétés, il faut aller voir ces interfaces.  
+RPI, en bas de la page de description du @emph{grob}@tie{}; pour voir
+ces propriétés, il faut aller voir ces interfaces.
 
-Nous avons vu, dans @ref{Propriétés des objets de rendu}, comment trouver 
-les informations sur les @emph{grobs}.  Nous procédons de la même manière
-et consultons la RPI pour connaître l'objet chargé d'imprimer les barres
-de mesure.  En cliquant sur @emph{Backend} puis sur @emph{Tous les
-objets de rendu}, nous trouvons un objet appelé @code{BarLine}.  Parmi 
-ses propriétés, deux d'entre elles déterminent son aspect visuel : 
-@code{break-visibility} et @code{stencil}.  L'objet @code{BarLine} 
-est également lié à plusieurs interfaces, dont la @code{grob-interface} 
-où figurent les propriétés @code{transparent} et @code{color}.  Toutes
-peuvent modifier l'aspect visuel des barres de mesure -- et de beaucoup
-d'autres objets, bien sûr.  Examinons chacune d'elles tour à tour.
+Nous avons vu, dans @ref{Propriétés des objets de rendu}, comment
+trouver les informations sur les @emph{grobs}.  Nous procédons de la
+même manière et consultons la RPI pour connaître l'objet chargé
+d'imprimer les barres de mesure.  En cliquant sur @emph{Backend} puis
+sur @emph{Tous les objets de rendu}, nous trouvons un objet appelé
+@code{BarLine}.  Parmi  ses propriétés, deux d'entre elles déterminent
+son aspect visuel@tie{}: @code{break-visibility} et @code{stencil}.
+L'objet @code{BarLine} est également lié à plusieurs interfaces, dont la
+@code{grob-interface} où figurent les propriétés @code{transparent} et
+@code{color}.  Toutes peuvent modifier l'aspect visuel des barres de
+mesure -- et de beaucoup d'autres objets, bien sûr.  Examinons chacune
+d'elles tour à tour.
 
 @subheading stencil
 
 @cindex stencil, propriété
 
-Cette propriété contrôle l'apparence des barres de mesure en précisant 
-le type de symbole (glyphe) à imprimer.  Comme pour de nombreuses 
+Cette propriété contrôle l'apparence des barres de mesure en précisant
+le type de symbole (glyphe) à imprimer.  Comme pour de nombreuses
 autres propriétés, on peut lui indiquer de ne rien imprimer en lui
 attribuant la valeur @code{#f}.  Essayons en laissant de côté, une fois
-encore, le contexte concerné (@code{Voice} en l'occurrence) : 
+encore, le contexte concerné (@code{Voice} en l'occurrence)@tie{}:
 
 @cindex BarLine, exemple de dérogation
 @cindex stencil, exemple d'utilisation de la propriété
@@ -1066,17 +1070,18 @@ encore, le contexte concerné (@code{Voice} en l'occurrence) :
 }
 @end lilypond
 
-Les barres de mesure sont encore là !  Pourquoi ?  Retournons à la RPI
-et regardons de nouveau la page qui traite des propriétés de BarLine.
-En haut de la page, il est précisé que @qq{Les objets BarLine sont créés
-par le graveur Bar_engraver}.  Allons à la page de @code{Bar_engraver}. 
-Tout en bas se trouve la liste des contextes dans lesquels fonctionne ce 
-graveur.  Tous sont du type @code{Staff}, de sorte que, si la commande 
-@code{\override} n'a pas fonctionné comme prévu, c'est parce que 
-@code{Barline} n'appartient pas au contexte par défaut, @code{Voice}. 
-Si le contexte spécifié est erroné, la commande ne fonctionne pas.  Cela 
-n'entraîne pas de message d'erreur, et rien n'apparaît dans le fichier log. 
-Essayons de corriger en mentionnant le bon contexte : 
+Les barres de mesure sont encore là@tie{}!  Pourquoi@tie{}?  Retournons
+à la RPI et regardons de nouveau la page qui traite des propriétés de
+BarLine. En haut de la page, il est précisé que @qq{Les objets BarLine
+sont créés par le graveur Bar_engraver}.  Allons à la page de
+@code{Bar_engraver}.  Tout en bas se trouve la liste des contextes dans
+lesquels fonctionne ce graveur.  Tous sont du type @code{Staff}, de
+sorte que, si la commande @code{\override} n'a pas fonctionné comme
+prévu, c'est parce que @code{Barline} n'appartient pas au contexte par
+défaut, @code{Voice}.  Si le contexte spécifié est erroné, la commande
+ne fonctionne pas.  Cela n'entraîne pas de message d'erreur, et rien
+n'apparaît dans le fichier log.  Essayons de corriger en mentionnant le
+bon contexte@tie{}:
 
 @cindex BarLine, exemple de dérogation
 @cindex stencil, exemple d'utilisation de la propriété
@@ -1108,7 +1113,7 @@ d'ajouter le contexte @code{Staff}.  Vous remarquerez que, en plus de
 cette valeur, nous ajoutons @code{#'#} devant la parenthèse ouvrante.
 Le @code{'#} est nécessaire car il fait partie intégrante de la valeur
 contenant un vecteur, et le premier @code{#} est là, comme toujours avec
-la commande @code{\override}, pour introduire la valeur elle-même. 
+la commande @code{\override}, pour introduire la valeur elle-même.
 
 @cindex BarLine, exemple de dérogation
 @cindex break-visibility exemple d'utilisation de la propriété
@@ -1123,7 +1128,7 @@ la commande @code{\override}, pour introduire la valeur elle-même.
 }
 @end lilypond
 
-Comme on peut le constater, cette solution-là aussi supprime les barres 
+Comme on peut le constater, cette solution-là aussi supprime les barres
 de mesure.
 
 @subheading transparence
@@ -1142,7 +1147,7 @@ cherchons les propriétés de l'objet @code{TimeSignature}.  Celui-ci est
 géré par le graveur @code{Time_signature_engraver} qui, comme vous
 pouvez le constater, appartient au contexte @code{Staff} et peut se
 rattacher à la @code{grob-interface}.  Dans ces conditions, la commande
-pour rendre la métrique transparente est : 
+pour rendre la métrique transparente est@tie{}:
 
 @cindex TimeSignature, exemple de dérogation
 @cindex transparent, exemple d'utilisation de la propriété
@@ -1162,7 +1167,7 @@ La métrique a bien disparu mais la commande a laissé un blanc en lieu et
 place du chiffrage.  Ce peut être souhaitable dans le cadre d'un
 exercice, afin que les élèves aient la place pour compléter, mais dans
 d'autres circonstances, ce peut être gênant.  Pour y remédier,
-attribuons plutôt au stencil des métriques la valeur @code{#f} : 
+attribuons plutôt au stencil des métriques la valeur @code{#f}@tie{}:
 
 @cindex TimeSignature, exemple de dérogation
 @cindex stencil, exemple d'utilisation de la propriété
@@ -1178,9 +1183,9 @@ attribuons plutôt au stencil des métriques la valeur @code{#f} :
 @end lilypond
 
 @noindent
-La différence est flagrante : le fait d'attribuer au stencil la valeur
-@code{#f} supprime totalement l'objet, tandis que le fait de le rendre
-@code{transparent} le laisse en place, mais de façon invisible. 
+La différence est flagrante@tie{}: le fait d'attribuer au stencil la
+valeur @code{#f} supprime totalement l'objet, tandis que le fait de le
+rendre @code{transparent} le laisse en place, mais de façon invisible.
 
 @subheading couleur
 
@@ -1194,15 +1199,15 @@ produire, sans qu'on le sache à l'avance.  Les explications de ce
 phénomène et les solutions pour y remédier sont exposées dans
 @ruser{Blanchiment des objets}.  Pour le moment, acceptons cet
 inconvénient et concentrons-nous sur l'apprentissage de la gestion des
-couleurs. 
+couleurs.
 
 La @code{grob-interface} indique que la valeur de la propriété
 @code{color} est une liste, sans plus d'explication.  En fait, cette
-liste est une liste de valeurs en unités internes ; pour éviter d'avoir
-à chercher ce qu'il faut y mettre, il existe différents moyens
+liste est une liste de valeurs en unités internes@tie{}; pour éviter
+d'avoir à chercher ce qu'il faut y mettre, il existe différents moyens
 d'indiquer la couleur.  Le premier moyen consiste à utiliser l'une des
-couleurs @emph{normales} de la première @ruser{Liste des couleurs}.  Pour
-mettre les barres de mesure en blanc, on écrit :  
+couleurs @emph{normales} de la première @ruser{Liste des couleurs}.
+Pour mettre les barres de mesure en blanc, on écrit@tie{}:
 
 @cindex BarLine, exemple de dérogation
 @cindex color, exemple d'utilisation de la propriété
@@ -1219,13 +1224,13 @@ mettre les barres de mesure en blanc, on écrit :
 
 @noindent
 et nous constatons que les barres de mesure sont une fois de plus
-invisibles.  Attention : aucune apostrophe ne précède @code{white} -- il
-ne s'agit pas d'un symbole mais d'une @strong{fonction}.  Quand on
+invisibles.  Attention@tie{}: aucune apostrophe ne précède @code{white}
+-- il ne s'agit pas d'un symbole mais d'une @strong{fonction}.  Quand on
 l'invoque, elle fournit une liste de valeurs internes requises pour
 changer la couleur en blanc.  Les autres couleurs aussi, dans la
 @qq{liste normale}, sont des fonctions.  Pour en être certain, vous
 pouvez faire l'essai en choisissant une autre fonction de la liste en
-guise de couleur. 
+guise de couleur.
 
 @cindex couleur X11
 @cindex X11, couleurs
@@ -1236,7 +1241,7 @@ Le deuxième moyen de changer la couleur consiste à utiliser la deuxième
 @ruser{Liste des couleurs}, dite noms de couleurs X11.  Ceux-ci doivent
 obligatoirement être précédés d'une autre fonction, qui convertit les
 noms de couleurs X11 en une liste de valeurs internes, @code{x11-color},
-comme ceci : 
+comme ceci@tie{}:
 
 @cindex BarLine, exemple de dérogation
 @cindex color, exemple d'utilisation de la propriété
@@ -1253,8 +1258,8 @@ comme ceci :
 
 @noindent
 Vous noterez que, dans ce cas, la fonction @code{x11-color} admet un
-symbole comme argument ; il faut donc placer une apostrophe devant le
-symbole et insérer les deux à l'intérieur de parenthèses.  
+symbole comme argument@tie{}; il faut donc placer une apostrophe devant
+le symbole et insérer les deux à l'intérieur de parenthèses.
 
 @cindex rgb, couleur
 @cindex couleurs rgb
@@ -1265,9 +1270,9 @@ Il existe une troisième fonction, écrite pour convertir les valeurs RVB
 en couleurs internes -- la fonction @code{rgb-color}.  Elle comporte
 trois arguments, donnant respectivement l'intensité du rouge, du vert et
 du bleu.  Ces arguments prennent des valeurs comprises entre 0 et 1.
-Ainsi, pour choisir la couleur rouge, la valeur serait 
-@code{(rgb-color 1 0 0)} ; pour le blanc, ce serait 
-@code{(rgb-color 1 1 1)} : 
+Ainsi, pour choisir la couleur rouge, la valeur serait
+@code{(rgb-color 1 0 0)}@tie{}; pour le blanc, ce serait
+@code{(rgb-color 1 1 1)}@tie{}:
 
 @cindex BarLine, exemple de dérogation
 @cindex color, exemple d'utilisation de la propriété
@@ -1285,7 +1290,7 @@ Ainsi, pour choisir la couleur rouge, la valeur serait
 Enfin, il existe une échelle de gris parmi les possibilités de couleurs
 X11.  Elle va du noir, @code{'grey0}, au blanc, @code{'grey100}, avec
 un pas de 1.  Essayons de l'utiliser en attribuant à tous les objets de
-notre exemple différentes nuances de gris : 
+notre exemple différentes nuances de gris@tie{}:
 
 @cindex StaffSymbol, exemple de dérogation
 @cindex TimeSignature, exemple de dérogation
@@ -1316,9 +1321,9 @@ Vous remarquerez le contexte associé à chacun des objets.  Une erreur
 sur ce point empêcherait la commande de fonctionner.  Souvenez-vous que
 le contexte est celui dans lequel est placé le graveur approprié.  Pour
 chaque graveur, on peut trouver son contexte par défaut en partant de
-l'objet lui-même, puis en cherchant le graveur qui le produit ; la page
-du graveur dans la RPI nous indique alors le contexte dans lequel le
-graveur se trouve normalement. 
+l'objet lui-même, puis en cherchant le graveur qui le produit@tie{}; la
+page du graveur dans la RPI nous indique alors le contexte dans lequel
+le graveur se trouve normalement.
 
 
 @node Taille des objets
@@ -1330,9 +1335,9 @@ graveur se trouve normalement.
 @cindex objets, taille
 @cindex objets, modification de taille
 
-Pour commencer, reprenons l'exemple qui se trouvait dans 
+Pour commencer, reprenons l'exemple qui se trouvait dans
 @ref{Expressions musicales imbriquées}, qui montrait comment créer une
-nouvelle portée temporaire, du type @rglos{ossia}. 
+nouvelle portée temporaire, du type @rglos{ossia}.
 
 @cindex alignAboveContext, exemple d'utilisation de la propriété
 @cindex @code{\with}, exemple
@@ -1356,7 +1361,7 @@ nouvelle portée temporaire, du type @rglos{ossia}.
 Normalement, les ossias ne comportent ni clef ni indication de mesure, et
 elles sont imprimées légèrement plus petit que la portée principale.
 Nous avons déjà appris à enlever la clef et la métrique -- il suffit de
-régler le stencil de chacun sur @code{#f}, comme ceci : 
+régler le stencil de chacun sur @code{#f}, comme ceci@tie{}:
 
 @cindex alignAboveContext, exemple d'utilisation de la propriété
 @cindex @code{\with}, exemple
@@ -1389,37 +1394,37 @@ régler le stencil de chacun sur @code{#f}, comme ceci :
 La paire d'accolades ajoutée après la clause @code{\with} est nécessaire
 pour être sûr que les retouches (@code{\override}) ainsi que la musique
 qui se trouvent à l'intérieur soient bien appliquées à la portée
-d'ossia. 
+d'ossia.
 
 Mais alors, quelle différence y a-t-il à modifier le contexte de portée
 au moyen de @code{\with} ou à modifier les stencils de la clef et de la
-métrique  avec @code{\override} ?  La principale différence est que les
-changements opérés dans une clause @code{\with} sont réalisés au moment
-où le contexte est créé et restent par la suite les valeurs @strong{par
-défaut} aussi longtemps que ce contexte existe, tandis que les commandes
-@code{\set} ou @code{\override} insérées dans la musique sont dynamiques
--- elles provoquent des changements synchronisés avec un point
-particulier de la musique.  Si les changements sont annulés ou
+métrique  avec @code{\override}@tie{}?  La principale différence est que
+les changements opérés dans une clause @code{\with} sont réalisés au
+moment où le contexte est créé et restent par la suite les valeurs
+@strong{par défaut} aussi longtemps que ce contexte existe, tandis que
+les commandes @code{\set} ou @code{\override} insérées dans la musique
+sont dynamiques -- elles provoquent des changements synchronisés avec un
+point particulier de la musique.  Si les changements sont annulés ou
 désactivés par @code{\unset} ou @code{\revert}, les réglages reprennent
 leurs valeurs par défaut, c'est-à-dire celles qui ont été fixées dans la
 clause @code{\with}, ou, en l'absence de celle-ci, les valeurs par
-défaut normales. 
+défaut normales.
 
 Certaines propriétés de contexte ne peuvent être modifiées que dans une
 clause @code{\with}.  Il s'agit des propriétés qu'on ne peut évidemment
-plus changer après que le contexte a été créé.  C'est le cas de 
-@code{alignAboveContext} et de son pendant, @code{alignBelowContext} 
+plus changer après que le contexte a été créé.  C'est le cas de
+@code{alignAboveContext} et de son pendant, @code{alignBelowContext}
 -- une fois que la portée a été créée, son alignement est décidé et cela
-n'aurait aucun sens de vouloir le modifier par la suite. 
+n'aurait aucun sens de vouloir le modifier par la suite.
 
 Dans une clause @code{\with}, on peut aussi régler les valeurs par
-défaut des propriétés d'un objet.  Il suffit d'utiliser la commande 
-@code{\override} normale, sans s'occuper du nom de contexte 
-puisqu'il ne fait pas de doute qu'il s'agit du contexte en cours de 
-modification par la clause @code{\with}.  Il se produirait même une 
+défaut des propriétés d'un objet.  Il suffit d'utiliser la commande
+@code{\override} normale, sans s'occuper du nom de contexte
+puisqu'il ne fait pas de doute qu'il s'agit du contexte en cours de
+modification par la clause @code{\with}.  Il se produirait même une
 erreur si le contexte était précisé.
 
-Remplaçons donc l'exemple ci-dessus par celui-ci :
+Remplaçons donc l'exemple ci-dessus par celui-ci@tie{}:
 
 @cindex alignAboveContext, exemple d'utilisation de la propriété
 @cindex @code{\with}, exemple
@@ -1461,27 +1466,27 @@ auxquels ils sont rattachés, de sorte qu'on ne doit pas avoir à les
 redimensionner à la main.  D'autres propriétés, comme la hauteur des
 hampes et des barres de mesure, l'épaisseur des ligatures et d'autres
 lignes, et l'écartement des lignes de portée, doivent encore être
-modifiées de façon particulière. 
+modifiées de façon particulière.
 
 Si l'on revient à l'exemple d'ossia, commençons par changer la taille de
 police.  Nous pouvons employer deux méthodes.  Soit nous changeons la
-taille de police de chaque type d'objet avec des commandes comme 
-celle-ci pour les têtes de notes (@code{NoteHead}) :
+taille de police de chaque type d'objet avec des commandes comme
+celle-ci pour les têtes de notes (@code{NoteHead})@tie{}:
 
 @example
 \override NoteHead #'font-size = #-2
 @end example
 
-soit nous changeons la taille de toutes les polices à la fois grâce à la 
-propriété @code{fontSize}, en utilisant @code{\set} ou en l'insérant 
+soit nous changeons la taille de toutes les polices à la fois grâce à la
+propriété @code{fontSize}, en utilisant @code{\set} ou en l'insérant
 dans une clause @code{\with} (mais alors sans le @code{\set}).
 
 @example
 \set fontSize = #-2
 @end example
 
-Chacune de ces méthodes réduira la taille de police de deux points par 
-rapport à sa valeur précédente, sachant que chaque point réduit ou 
+Chacune de ces méthodes réduira la taille de police de deux points par
+rapport à sa valeur précédente, sachant que chaque point réduit ou
 augmente la taille d'environ 12 %.
 
 Essayons sur l'exemple d'ossia :
@@ -1515,9 +1520,9 @@ Essayons sur l'exemple d'ossia :
 
 Ce n'est pas encore parfait.  Les têtes de notes et les crochets sont
 plus petits mais, proportionnellement, les hampes sont trop longues et
-les lignes de la portée trop espacées.  Il faut donc les réduire dans les
-mêmes proportions que les polices de caractères.  La prochaine
-sous-section montrera comment faire. 
+les lignes de la portée trop espacées.  Il faut donc les réduire dans
+les mêmes proportions que les polices de caractères.  La prochaine
+sous-section montrera comment faire.
 
 @node Longueur et épaisseur des objets
 @subsection Longueur et épaisseur des objets
@@ -1534,22 +1539,23 @@ sous-section montrera comment faire.
 Dans LilyPond, les écartements et longueurs sont généralement mesurés en
 @qq{intervalles de lignes} (@emph{staff-spaces} en anglais),
 c'est-à-dire l'écartement qui sépare deux lignes adjacentes dans la
-portée -- plus rarement, il est question de demi-intervalles de lignes.  
+portée -- plus rarement, il est question de demi-intervalles de lignes.
 Les propriétés d'épaisseur (@code{thickness}), quant à elles, sont
 généralement mesurées en unités d'une propriété interne appelée
 @qq{épaisseur de ligne} (@code{line-thickness}).  Par exemple, les
 lignes de crescendo/decrescendo présentent par défaut une épaisseur de 1
 unité de @code{line-thickness}, alors que l'épaisseur d'une hampe est de
-1,3.  Toutefois, certaines propriétés d'épaisseur sont différentes : par
-exemple, l'épaisseur des ligature se mesure en espaces de portée. 
+1,3.  Toutefois, certaines propriétés d'épaisseur sont
+différentes@tie{}: par exemple, l'épaisseur des ligature se mesure en
+espaces de portée.
 
-Dans ces conditions, comment ajuster les longueurs à la taille des 
-polices de caractères ?  La solution consiste à utiliser une fonction 
-spéciale appelée @code{magstep} -- pseudo facteur de zoom --, créée
-précisément dans ce but.  Elle comporte un argument, le changement de
-taille de police (#-2 dans l'exemple précédent), à partir duquel elle
+Dans ces conditions, comment ajuster les longueurs à la taille des
+polices de caractères@tie{}?  La solution consiste à utiliser une
+fonction spéciale appelée @code{magstep} -- pseudo facteur de zoom --,
+créée précisément dans ce but.  Elle comporte un argument, le changement
+de taille de police (#-2 dans l'exemple précédent), à partir duquel elle
 applique un facteur de mise à l'échelle qui réduit, ou augmente, les
-objets en question.  Voici comment elle s'utilise : 
+objets en question.  Voici comment elle s'utilise@tie{}:
 
 @cindex alignAboveContext, exemple d'utilisation de la propriété
 @cindex @code{\with}, exemple
@@ -1586,37 +1592,37 @@ objets en question.  Voici comment elle s'utilise :
 @noindent
 Puisque la longueur des hampes et plusieurs autres propriétés de
 longueur sont calculées par rapport à la valeur de la propriété
-@code{staff-space}, elles sont automatiquement mises à l'échelle.  Vous 
+@code{staff-space}, elles sont automatiquement mises à l'échelle.  Vous
 remarquerez que cela n'affecte que la dimension verticale de l'ossia --
 la dimension horizontale étant déterminée par les objets de la portée
 principale de façon à rester synchronisée vis-à-vis d'elle, elle n'est
 pas affectée par tous ces changements de taille.  Bien sûr, si l'échelle
 de toute la portée principale était modifiée, tout le placement
 horizontal s'en trouverait affecté.  Il en sera question plus bas dans
-cette section. 
+cette section.
 
-Voilà qui complète la création d'une ossia. Les tailles et longueurs de tous 
-les objets peuvent être modifiées de manière analogue.
+Voilà qui complète la création d'une ossia. Les taille et longueur de
+tous les objets peuvent être modifiées de manière analogue.
 
 Pour de petits changements d'échelle, comme dans l'exemple ci-dessus, il
 n'est généralement pas utile d'ajuster l'épaisseur des différentes
 lignes telles que les barres de mesure, les ligatures, les soufflets de
 crescendo/decrescendo, les liaisons, etc.  Si l'épaisseur d'un objet en
 particulier doit être ajustée, le mieux est de modifier sa propriété
-@code{thickness}.  Nous avons vu plus haut, dans 
+@code{thickness}.  Nous avons vu plus haut, dans
 @ref{Propriétés des objets de rendu}, un exemple de modification de
 l'épaisseur des liaisons.  L'épaisseur de tous les objets tracés
 (c'est-à-dire ceux qui ne proviennent pas d'une police de caractère)
-peut être changée de la même manière. 
+peut être changée de la même manière.
 
 @node Positionnement des objets
 @section Positionnement des objets
 @translationof Placement of objects
 
  @menu
-* Comportement automatique::          
-* Objets inclus dans la portée::        
-* Objets hors de la portée::       
+* Comportement automatique::
+* Objets inclus dans la portée::
+* Objets hors de la portée::
 @end menu
 
 @node Comportement automatique
@@ -1628,13 +1634,13 @@ peut être changée de la même manière.
 @cindex portée, objets de la
 @cindex portée, objets extérieurs à la
 
-Dans la notation musicale, il y a des objets qui appartiennent à la 
-portée et d'autres qui sont placés à l'extérieur de la portée. On les 
+Dans la notation musicale, il y a des objets qui appartiennent à la
+portée et d'autres qui sont placés à l'extérieur de la portée. On les
 appelle respectivement les @qq{objets de la portée} (@emph{within-staff
 objects} en anglais) et les @qq{objets extérieurs à la portée}
-(@emph{outside-staff objects} en anglais). 
+(@emph{outside-staff objects} en anglais).
 
-Les objets de la portée sont ceux qui sont placés sur la portée 
+Les objets de la portée sont ceux qui sont placés sur la portée
 -- les têtes de notes et les hampes, les altérations, etc.  Leur
 position est généralement déterminée par la musique elle-même -- ils
 sont placés verticalement sur des lignes spécifiques ou sont liés à
@@ -1642,7 +1648,7 @@ d'autres objets placés de cette manière.  Normalement, les collisions
 entre les têtes et queues de notes et les altérations dans des accords
 proches sont évitées automatiquement.  Comme nous le verrons rapidement,
 il existe des commandes et des possibilités de retouche qui permettent
-de modifier ce comportement automatique. 
+de modifier ce comportement automatique.
 
 Parmi les objets extérieurs à la portée, on compte des éléments comme
 les marques de reprise, les indications de texte ou de nuances.  Dans
@@ -1650,11 +1656,11 @@ LilyPond, la règle est de placer verticalement ces objets extérieurs à
 la portée le plus près possible de la portée, tout en évitant la
 collision avec d'autres objets.  LilyPond utilise la propriété
 @code{outside-staff-priority} pour déterminer l'ordre selon lequel
-placer ces objets, de la manière suivante : 
+placer ces objets, de la manière suivante@tie{}:
 
 D'abord, LilyPond dresse la liste de tous les objets extérieurs à la
 portée.  Puis ceux-ci sont classés suivant leur
-@code{outside-staff-priority}.  Enfin, ils sont pris un par un, en 
+@code{outside-staff-priority}.  Enfin, ils sont pris un par un, en
 commençant par les objets avec la @code{outside-staff-priority} la plus
 basse, et placés de façon à ne pas entrer en collision avec d'autres
 objets déjà placés.  Cela signifie que, si deux @emph{grobs} extérieurs
@@ -1662,12 +1668,12 @@ objets déjà placés.  Cela signifie que, si deux @emph{grobs} extérieurs
 @code{outside-staff-priority} la plus basse qui est placé le plus près
 de la portée.  Et si deux objets ont la même
 @code{outside-staff-priority}, le premier rencontré sera placé le plus
-près de la portée.  
+près de la portée.
 
-Dans l'exemple suivant, tous les @emph{markup} ont la même priorité, 
+Dans l'exemple suivant, tous les @emph{markup} ont la même priorité,
 dans la mesure où rien n'est indiqué explicitement.  Vous remarquerez
 que @code{Text3} est également positionné près de la portée, juste
-en-dessous de @code{Text2}. 
+en-dessous de @code{Text2}.
 
 @cindex markup, exemple
 
@@ -1678,11 +1684,11 @@ c^"Text3"
 c^"Text4"
 @end lilypond
 
-Les portées aussi sont positionnées, par défaut, le plus près possible 
+Les portées aussi sont positionnées, par défaut, le plus près possible
 les unes des autres, en ménageant tout de même une certaine séparation.
 Si des notes se rapprochent nettement d'une portée adjacente, elles ne
 forceront les portées à s'écarter que s'il y a un risque de
-chevauchement.  
+chevauchement.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -1693,42 +1699,43 @@ chevauchement.
     \relative c'''' { c a, }
   }
 >>
-@end lilypond 
+@end lilypond
 
 
 @node Objets inclus dans la portée
 @subsection Objets inclus dans la portée
 @translationof Within-staff objects
 
-Nous avons vu que les commandes @code{\voiceXXX} jouent sur la 
-direction des liaisons, des doigtés et sur toute autre chose liée à 
-l'orientation des hampes. Ces commandes sont essentielles dans 
-la musique polyphonique pour distinguer des lignes mélodiques 
-entremêlées.  Mais il arrive qu'on ait besoin de modifier ce comportement 
-automatique.  On peut le faire pour toutes les parties de la musique ou 
-juste pour une note.  La propriété qui contrôle ce comportement est la 
-propriété @code{direction} de chaque objet.  Expliquons d'abord ce 
-qu'elle fait, puis nous présenterons un certain nombre de commandes 
-déjà prêtes qui évitent, pour les modifications les plus courantes, 
-d'avoir à encoder les retouches. 
+Nous avons vu que les commandes @code{\voiceXXX} jouent sur la
+direction des liaisons, des doigtés et sur toute autre chose liée à
+l'orientation des hampes. Ces commandes sont essentielles dans
+la musique polyphonique pour distinguer des lignes mélodiques
+entremêlées.  Mais il arrive qu'on ait besoin de modifier ce
+comportement automatique.  On peut le faire pour toutes les parties de
+la musique ou juste pour une note.  La propriété qui contrôle ce
+comportement est la propriété @code{direction} de chaque objet.
+Expliquons d'abord ce qu'elle fait, puis nous présenterons un certain
+nombre de commandes déjà prêtes qui évitent, pour les modifications les
+plus courantes, d'avoir à encoder les retouches.
 
-Certains objets comme les traits des liaisons se recourbent tantôt 
-vers le haut, tantôt vers le bas ; d'autres encore, comme les hampes 
-et les crochets, peuvent se décaler vers la gauche ou vers la droite 
-selon qu'ils pointent vers le haut ou vers le bas.  Ce comportement est 
-géré automatiquement dès lors que @code{direction} est activé. 
+Certains objets comme les traits des liaisons se recourbent tantôt
+vers le haut, tantôt vers le bas@tie{}; d'autres encore, comme les
+hampes et les crochets, peuvent se décaler vers la gauche ou vers la
+droite selon qu'ils pointent vers le haut ou vers le bas.  Ce
+comportement est géré automatiquement dès lors que @code{direction} est
+activé.
 
 @cindex down
 @cindex up
 @cindex center
 @cindex neutral
 
-L'exemple ci-dessous montre dans la première mesure le comportement par 
+L'exemple ci-dessous montre dans la première mesure le comportement par
 défaut des hampes -- celles des notes les plus hautes pointant vers le
-bas et celles des notes les plus basses pointant vers le haut ; viennent
-ensuite quatre notes avec les hampes forcées vers le bas, puis quatre
-autres avec les hampes forcées vers le haut, et pour finir quatre notes
-de nouveau avec le comportement par défaut. 
+bas et celles des notes les plus basses pointant vers le haut@tie{};
+viennent ensuite quatre notes avec les hampes forcées vers le bas, puis
+quatre autres avec les hampes forcées vers le haut, et pour finir quatre
+notes de nouveau avec le comportement par défaut.
 
 @cindex Stem, exemple de dérogation
 @cindex direction, exemple d'utilisation de la propriété
@@ -1743,18 +1750,18 @@ a g c a
 a g c a
 @end lilypond
 
-Nous utilisons ici les directions @code{DOWN} et @code{UP}.  Elles 
-correspondent respectivement aux valeurs @code{-1} et @code{+1}, 
-que l'on peut utiliser à la place.  La valeur @code{0} peut aussi être 
-utilisée dans certains cas.  Elle est interprétée comme un @code{UP} 
+Nous utilisons ici les directions @code{DOWN} et @code{UP}.  Elles
+correspondent respectivement aux valeurs @code{-1} et @code{+1},
+que l'on peut utiliser à la place.  La valeur @code{0} peut aussi être
+utilisée dans certains cas.  Elle est interprétée comme un @code{UP}
 pour les hampes, et comme un @qq{centré} pour d'autres objets.  Il
 existe une direction, @code{CENTER}, qui correspond à la valeur
-@code{0}. 
+@code{0}.
 
 Quoi qu'il en soit, ces retouches manuelles sont rarement utilisées car
 il existe des équivalents sous forme de commandes prédéfinies.  Voici un
 tableau des plus courantes.  Lorsque ce n'est pas évident, leur
-signification est précisée. 
+signification est précisée.
 
 @multitable @columnfractions .2 .2 .25 .35
 @headitem Bas/Gauche
@@ -1776,7 +1783,7 @@ signification est précisée.
 @item @code{\phrasingSlurDown}
   @tab @code{\phrasingSlurUp}
   @tab @code{\phrasingSlurNeutral}
-  @tab Attention : à distinguer des commandes de liaison ci-dessous
+  @tab Attention@tie{}: à distinguer des commandes de liaison ci-dessous
 @item @code{\slurDown}
   @tab @code{\slurUp}
   @tab @code{\slurNeutral}
@@ -1803,7 +1810,7 @@ Attention : ces commandes prédéfinies @strong{ne doivent pas} être
 précédées de @code{\once}.  Pour limiter l'effet à une seule note, il
 faut soit utiliser la commande équivalente @code{\once \override}, soit
 utiliser la commande prédéfinie, suivie, après la note à modifier, de la
-commande @code{\xxxNeutral} correspondante. 
+commande @code{\xxxNeutral} correspondante.
 
 @subheading Doigtés
 
@@ -1815,12 +1822,12 @@ par la propriété @code{direction}, mais le changement de
 @code{direction} n'a pas d'effet sur les accords.  Comme nous le
 verrons, il existe des commandes qui permettent de contrôler le doigté
 sur chaque note d'un accord, en plaçant l'indication de doigté
-au-dessus, en dessous, à gauche ou à droite de chaque note. 
+au-dessus, en dessous, à gauche ou à droite de chaque note.
 
 Tout d'abord, voici l'effet de @code{direction} sur le doigté lié à une
 note simple.  La première mesure montre le comportement par défaut, et
 les deux suivantes montrent l'effet lorsqu'on indique @code{DOWN} et
-@code{UP} : 
+@code{UP}@tie{}:
 
 @cindex doigtés, exemple de dérogation
 @cindex direction, exemple d'utilisation de la propriété
@@ -1835,9 +1842,9 @@ c-5 a-3 f-1 c'-5
 
 Le fait d'intervenir sur la propriété @code{direction} n'est sûrement
 pas la façon la plus simple de placer manuellement les doigtés au-dessus
-ou en dessous des notes ; mieux vaut utiliser @code{_} ou @code{^}
+ou en dessous des notes@tie{}; mieux vaut utiliser @code{_} ou @code{^}
 devant le chiffre de doigté plutôt que @code{-}.  Voici ce que donne
-l'exemple précédent avec cette méthode : 
+l'exemple précédent avec cette méthode@tie{}:
 
 @cindex doigtés, exemple
 
@@ -1850,7 +1857,7 @@ c^5 a^3 f^1 c'^5
 La propriété @code{direction} ne fonctionne pas pour les accords alors
 que les préfixes de direction, @code{_} et @code{^}, fonctionnent.  Par
 défaut, le doigté est placé automatiquement à la fois au-dessus et
-au-dessous des notes d'un accord, comme ceci : 
+au-dessous des notes d'un accord, comme ceci@tie{}:
 
 @cindex doigtés, exemple
 
@@ -1861,8 +1868,8 @@ au-dessous des notes d'un accord, comme ceci :
 @end lilypond
 
 @noindent
-mais il est possible de forcer manuellement vers le haut ou vers le bas le 
-placement de tous ou certains chiffres de doigté, comme ceci :
+mais il est possible de forcer manuellement vers le haut ou vers le bas
+le placement de tous ou certains chiffres de doigté, comme ceci@tie{}:
 
 @cindex doigtés, exemple
 
@@ -1875,18 +1882,18 @@ placement de tous ou certains chiffres de doigté, comme ceci :
 On peut aller encore plus loin dans le positionnement des doigtés pour
 chacune des notes d'un accord grâce à la commande
 @code{\set@tie{}fingeringOrientations}.  La syntaxe de cette commande
-est : 
+est@tie{}:
 
 @example
 @code{\set fingeringOrientations = #'([up] [left/right] [down])}
 @end example
 
 @noindent
-On utilise @code{\set} car @code{fingeringOrientations} est une propriété 
-du contexte @code{Voice}, créée et utilisée par le graveur 
+On utilise @code{\set} car @code{fingeringOrientations} est une propriété
+du contexte @code{Voice}, créée et utilisée par le graveur
 @code{New_fingering_engraver}.
 
-On peut attribuer à cette propriété une liste composée de une à trois 
+On peut attribuer à cette propriété une liste composée de une à trois
 valeurs.  Celles-ci déterminent si l'indication de doigté doit être
 placée au-dessus (lorsque @code{up} apparaît dans la liste), au-dessous
 (lorsque @code{down} apparaît), à gauche (lorsque @code{left} apparaît)
@@ -1895,13 +1902,13 @@ n'est pas dans la liste, aucun doigté n'ira à cet emplacement.  LilyPond
 garde ces contraintes en mémoire et recherche le meilleur emplacement
 pour le doigté des notes des accords suivants.  Vous remarquerez que
 @code{left} et @code{right} s'excluent l'un l'autre -- l'indication de
-doigté ne peut être placée que d'un côté ou de l'autre, pas des deux. 
+doigté ne peut être placée que d'un côté ou de l'autre, pas des deux.
 
 @warning{Pour contrôler à l'aide de cette commande le placement du
 doigté sur une note simple, il faut la saisir comme un accord composé
 d'une note unique, en l'encadrant de chevrons.}
 
-Voici quelques exemples : 
+Voici quelques exemples :
 
 @cindex doigtés, exemple
 @cindex @code{\set}, exemple d'utilisation
@@ -1926,10 +1933,10 @@ Voici quelques exemples :
 @end lilypond
 
 @noindent
-Si les indications de doigtés paraissent un peu serrées, on peut 
-toujours réduire la taille de police (@code{font-size}).  La valeur 
-par défaut donnée dans la RPI à la page de l'objet 
-@code{Fingering} étant @code{-5}, essayons @code{-7} :
+Si les indications de doigtés paraissent un peu serrées, on peut
+toujours réduire la taille de police (@code{font-size}).  La valeur
+par défaut donnée dans la RPI à la page de l'objet
+@code{Fingering} étant @code{-5}, essayons @code{-7}@tie{}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \override Fingering #'font-size = #-7
@@ -1960,22 +1967,22 @@ Les objets extérieurs à la portée sont placés automatiquement de façon à
 propriété @code{outside-staff-priority} sont placés au plus près de la
 portée, tandis que les autres sont écartés autant qu'il faut pour éviter
 les collisions.  La @code{outside-staff-priority} est définie dans la
-@code{grob-interface} ; elle est donc une propriété commune à tous les
-objets de rendu.  Par défaut, elle est réglée sur @code{#f} pour tous
-les objets de la portée, et porte une valeur numérique appropriée à
+@code{grob-interface}@tie{}; elle est donc une propriété commune à tous
+les objets de rendu.  Par défaut, elle est réglée sur @code{#f} pour
+tous les objets de la portée, et porte une valeur numérique appropriée à
 chacun des objets extérieurs à la portée, à mesure qu'ils sont créés.
 Le tableau suivant montre la valeur numérique par défaut pour
 quelques-uns des objets extérieurs à la portée les plus courants qui
 sont placés, par défaut, dans les contextes @code{Staff} ou
-@code{Voice}. 
+@code{Voice}.
 
 @multitable @columnfractions .3 .3 .3
 @headitem Objet de rendu
-  @tab Priorité 
+  @tab Priorité
   @tab Contrôle la position de :
 @item @code{MultiMeasureRestText}
   @tab @code{450}
-  @tab Texte sur les silences qui couvrent des mesures entières 
+  @tab Texte sur les silences qui couvrent des mesures entières
 @item @code{TextScript}
   @tab @code{450}
   @tab Texte des @emph{markup} (ou étiquettes)
@@ -1996,7 +2003,7 @@ sont placés, par défaut, dans les contextes @code{Staff} ou
   @tab Bandeau de trille
 @end multitable
 
-Voici un exemple qui montre le placement par défaut de certains 
+Voici un exemple qui montre le placement par défaut de certains
 d'entre eux.
 
 @cindex extension de texte
@@ -2038,7 +2045,8 @@ Spanners} en anglais ) -- texte avec des longues lignes au-dessus d'un
 passage musical.  L'extension s'étend depuis la commande
 @code{\startTextSpan} jusqu'à la commande @code{\stopTextSpan} et le
 format de texte est défini par la commande @code{\override TextSpanner}.
-Pour de plus amples détails, voir @ruser{Extensions de texte}.
+Pour de plus amples détails, voir
+@ruser{Indications textuelles et lignes d’extension}.
 
 Il montre aussi comment créer des marques d'octaviation.
 
@@ -2059,8 +2067,8 @@ répétition conformément à la valeur de leur
 @code{outside-staff-priority}, il vous faudra retirer respectivement le
 @code{Bar_number_engraver}, le @code{Metronome_mark_engraver} ou le
 @code{Mark_engraver} du contexte @code{Score} et les placer en tête du
-contexte @code{Staff}.  Après quoi ces marques porteront les valeurs de 
-@code{outside-staff-priority} par défaut suivantes : 
+contexte @code{Staff}.  Après quoi ces marques porteront les valeurs de
+@code{outside-staff-priority} par défaut suivantes@tie{}:
 
 @multitable @columnfractions .3 .3
 @headitem Objet de rendu          @tab Priorité
@@ -2077,7 +2085,7 @@ ce que nous devons faire, c'est regarder la priorité de
 @code{OttavaBracket} dans la RPI ou dans le tableau plus haut, et la
 ramener à une valeur plus basse que celle de @code{TextSpanner}, en
 gardant à l'esprit que @code{OttavaBracket} est créé dans le contexte
-@code{Staff} : 
+@code{Staff}@tie{}:
 
 @cindex TextSpanner, exemple de dérogation
 @cindex bound-details, exemple d'utilisation de la propriété
@@ -2143,7 +2151,7 @@ placer @qq{Text3} au-dessus de @qq{Text4} dans l'exemple de la section
 @ref{Comportement automatique}, plus haut.  Il nous suffit pour cela de
 regarder dans la RPI ou dans le tableau plus haut la priorité de
 @code{TextScript}, et d'augmenter la priorité de @qq{Text3} jusqu'à une
-valeur très haute :  
+valeur très haute@tie{}:
 
 @cindex TextScript, exemple de dérogation
 @cindex outside-staff-priority, exemple d'utilisation de la propriété
@@ -2162,7 +2170,7 @@ Ce n'est peut-être pas si bien que ça.  En fait, ce que nous aimerions
 faire, c'est placer toutes les annotations à égale distance de la
 portée.  Pour cela, nous avons besoin d'espacer horizontalement les
 notes pour laisser plus de place au texte.  C'est possible grâce à la
-commande @code{textLengthOn}. 
+commande @code{textLengthOn}.
 
 @subheading \textLengthOn
 
@@ -2177,7 +2185,8 @@ Par défaut, l'espacement horizontal d'un texte produit sous forme de
 @emph{markup} (ou d'étiquette) n'est pas pris en compte, dans la mesure
 où ce qui est concerné n'entre pas dans la musique.  La commande
 @code{\textLengthOn} inverse ce comportement, faisant en sorte que les
-notes soient espacées autant qu'il le faut pour s'adapter au texte :  
+notes soient espacées autant qu'il le faut pour s'adapter au
+texte@tie{}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \textLengthOn  % Cause notes to space out to accommodate text
@@ -2185,12 +2194,12 @@ c2^"Text1"
 c^"Text2"
 c^"Text3"
 c^"Text4"
-@end lilypond  
+@end lilypond
 
-La commande qui permet de revenir au comportement par défaut est 
-@code{\textLengthOff}.  Rappelez-vous que @code{\once} ne 
-fonctionne qu'avec @code{\override}, @code{\set}, @code{\revert} ou 
-@code{\unset}, et donc ne peut pas être utilisé avec 
+La commande qui permet de revenir au comportement par défaut est
+@code{\textLengthOff}.  Rappelez-vous que @code{\once} ne
+fonctionne qu'avec @code{\override}, @code{\set}, @code{\revert} ou
+@code{\unset}, et donc ne peut pas être utilisé avec
 @code{\textLengthOn}.
 
 @cindex étiquette de texte et collision
@@ -2200,7 +2209,7 @@ s'échappent au-dessus de la portée.  Si ce n'est pas notre souhait, il
 est possible de supprimer ce déplacement automatique vers le haut en
 attribuant à la priorité la valeur @code{#f}.  Voici un exemple qui
 montre comment les textes des @emph{markup} interagissent avec ces types
-de note. 
+de note.
 
 @cindex TextScript, exemple de dérogation
 @cindex outside-staff-priority, exemple d'utilisation de la propriété
@@ -2237,7 +2246,7 @@ peut les placer au-dessus avec la commande @code{dynamicUp}.  Elles se
 positionnent verticalement par rapport à la note à laquelle elles sont
 liées et se décalent vers le bas (ou le haut) en fonction des objets de
 la portée comme les liaisons de phrasé ou les numéros de mesure.  Cela
-peut donner d'assez bons résultats, comme le montre cet exemple : 
+peut donner d'assez bons résultats, comme le montre cet exemple@tie{}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \clef "bass"
@@ -2248,10 +2257,11 @@ bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
 ees,2.~\)\mf ees4 r8 |
 @end lilypond
 
-De toute façon, si les notes et les nuances qui leur sont liées sont 
-trop proches, le positionnement automatique évitera les collisions en  
-déplaçant davantage les nuances suivantes, mais le résultat peut ne 
-pas être très satisfaisant, comme le montre cet exemple artificiel : 
+De toute façon, si les notes et les nuances qui leur sont liées sont
+trop proches, le positionnement automatique évitera les collisions en
+déplaçant davantage les nuances suivantes, mais le résultat peut ne
+pas être très satisfaisant, comme le montre cet exemple
+artificiel@tie{}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
@@ -2265,44 +2275,44 @@ indications de nuance puissent toutes se situer à la même distance de la
 portée.  Il était possible de faire cela pour les textes de
 @emph{markup} grâce à la commande @code{\textLengthOn} mais il n'existe
 pas d'équivalent pour les indications de nuance.  Il nous faut donc
-chercher à faire cela avec la commande @code{\override}. 
+chercher à faire cela avec la commande @code{\override}.
 
 @subheading Dimensionnement des objets graphiques
 
 @cindex grob, dimensionnement
 @cindex dimensionnement des grobs
 
-Tout d'abord, nous devons apprendre ce qui détermine la dimension des 
+Tout d'abord, nous devons apprendre ce qui détermine la dimension des
 @emph{grobs}. Tous les @emph{grobs} portent en eux un point de référence
 qui est utilisé pour les positionner par rapport à leur objet parent. Ce
 point du @emph{grob} est placé à une distance horizontale,
 @code{X-offset}, et à une distance verticale, @code{Y-offset}, de son
-parent.  L'étendue horizontale de l'objet est fixée par une paire de 
-nombres, @code{X-extent}, qui donnent la position du coin 
-gauche et du coin droit par rapport au point de référence.  De 
-même, l'étendue verticale est fixée par une paire de nombre, 
-@code{Y-extent}.  Ce sont des propriétés communes à tous les 
+parent.  L'étendue horizontale de l'objet est fixée par une paire de
+nombres, @code{X-extent}, qui donnent la position du coin
+gauche et du coin droit par rapport au point de référence.  De
+même, l'étendue verticale est fixée par une paire de nombre,
+@code{Y-extent}.  Ce sont des propriétés communes à tous les
 @emph{grobs} et que gère la @code{grob-interface}.
 
 @cindex @code{extra-spacing-width}
 
-Par défaut, la largeur des objets extérieurs à la portée est donnée 
-comme étant nulle, si bien qu'ils peuvent se chevaucher 
-horizontalement. Pour reméfier à cela, on a ajouté l'infini à 
-l'extension gauche et moins l'infini à l'extension droite, en 
+Par défaut, la largeur des objets extérieurs à la portée est donnée
+comme étant nulle, si bien qu'ils peuvent se chevaucher
+horizontalement. Pour reméfier à cela, on a ajouté l'infini à
+l'extension gauche et moins l'infini à l'extension droite, en
 attribuant à @code{extra-spacing-width} la valeur
-@w{@code{'(+inf.0 . -inf.0)}}. Pour être sûr que les objets ne se 
-chevaucheront pas horizontalement, nous devons donc corriger 
-cette valeur de @code{extra-spacing-width} en @w{@code{'(0 . 0)}}, 
-afin que leur vraie largeur se manifeste. La commande pour y 
-parvenir avec des indications de nuances est : 
+@w{@code{'(+inf.0 . -inf.0)}}. Pour être sûr que les objets ne se
+chevaucheront pas horizontalement, nous devons donc corriger
+cette valeur de @code{extra-spacing-width} en @w{@code{'(0 . 0)}},
+afin que leur vraie largeur se manifeste. La commande pour y
+parvenir avec des indications de nuances est@tie{}:
 
 @example
 \override DynamicText #'extra-spacing-width = #'(0 . 0)
 @end example
 
 @noindent
-Voyons si ça marche sur notre exemple précédent :
+Voyons si ça marche sur notre exemple précédent@tie{}:
 
 @cindex DynamicText, exemple de dérogation
 @cindex extra-spacing-width, exemple d'utilisation de la propriété
@@ -2314,15 +2324,15 @@ a4\f b\mf c\mp b\p
 @end lilypond
 
 @noindent
-Bon, cela a mis un terme aux déplacements verticaux des 
-nuances mais il reste deux problèmes. Il faudrait que les 
-nuances soient un peu plus écartées et ce serait mieux si 
-elles étaient toutes à la même distance de la portée. Le 
-premier problème est simple à résoudre. Au lieu d'attribuer 
-à @code{extra-spacing-width} la valeur zéro, nous pourrions 
-mettre un peu plus. L'unité est la distance entre deux lignes 
-de portée, donc en écartant le bord gauche d'une demi-unité 
-et le bord droit d'une demi-unité, on obtient : 
+Bon, cela a mis un terme aux déplacements verticaux des
+nuances mais il reste deux problèmes. Il faudrait que les
+nuances soient un peu plus écartées et ce serait mieux si
+elles étaient toutes à la même distance de la portée. Le
+premier problème est simple à résoudre. Au lieu d'attribuer
+à @code{extra-spacing-width} la valeur zéro, nous pourrions
+mettre un peu plus. L'unité est la distance entre deux lignes
+de portée, donc en écartant le bord gauche d'une demi-unité
+et le bord droit d'une demi-unité, on obtient@tie{}:
 
 @cindex DynamicText, exemple de dérogation
 @cindex extra-spacing-width, exemple d'utilisation de la propriété
@@ -2335,10 +2345,10 @@ a4\f b\mf c\mp b\p
 @end lilypond
 
 @noindent
-C'est mieux mais nous voulons peut-être aligner les indications de 
-nuance sur une même ligne plutôt que de les voir monter et 
-descendre avec les notes. La propriété qui gère cela est 
-@code{staff-padding} ; la section suivante lui est consacrée.
+C'est mieux mais nous voulons peut-être aligner les indications de
+nuance sur une même ligne plutôt que de les voir monter et
+descendre avec les notes. La propriété qui gère cela est
+@code{staff-padding}@tie{}; la section suivante lui est consacrée.
 
 
 @node Collisions d'objets
@@ -2346,9 +2356,9 @@ descendre avec les notes. La propriété qui gère cela est
 @translationof Collisions of objects
 
 @menu
-* Déplacement d'objets::              
-* Correction des collisions d'objets::  
-* Exemple concret::          
+* Déplacement d'objets::
+* Correction des collisions d'objets::
+* Exemple concret::
 @end menu
 
 @node Déplacement d'objets
@@ -2362,41 +2372,41 @@ descendre avec les notes. La propriété qui gère cela est
 @cindex grobs, évitement des collisions
 
 Aussi surprenant que cela puisse paraître, LilyPond n'est pas parfait.
-Certains éléments sur la partition peuvent se chevaucher, ce qui est 
-regrettable mais, le plus souvent, facile à corriger. En général, quand 
-on déplace des objets, c'est pour des raisons de lisibilité ou 
-d'esthétique -- ils rendraient mieux avec un peu plus ou un peu moins 
-d'espace autour d'eux. 
+Certains éléments sur la partition peuvent se chevaucher, ce qui est
+regrettable mais, le plus souvent, facile à corriger. En général, quand
+on déplace des objets, c'est pour des raisons de lisibilité ou
+d'esthétique -- ils rendraient mieux avec un peu plus ou un peu moins
+d'espace autour d'eux.
 
-Il y a trois façons de résoudre les problèmes de chevauchement.  Il est 
-préférable de les aborder dans l'ordre suivant :
+Il y a trois façons de résoudre les problèmes de chevauchement.  Il est
+préférable de les aborder dans l'ordre suivant@tie{}:
 
 @enumerate
 @item
-L'@strong{orientation} d'un objet qui en chevauche un autre peut être 
-changée grâce aux commandes prédéfinies dont la liste a été donnée 
-plus haut à propos des objets de portée (voir 
-@ref{Objets inclus dans la portée}). 
-Les queues de note, les liaisons de phrasé et de prolongation, les 
-crochets, les nuances et les nolets peuvent facilement être repositionnés 
-de cette manière. En contrepartie, vous n'avez le choix qu'entre deux 
+L'@strong{orientation} d'un objet qui en chevauche un autre peut être
+changée grâce aux commandes prédéfinies dont la liste a été donnée
+plus haut à propos des objets de portée (voir
+@ref{Objets inclus dans la portée}).
+Les queues de note, les liaisons de phrasé et de prolongation, les
+crochets, les nuances et les nolets peuvent facilement être repositionnés
+de cette manière. En contrepartie, vous n'avez le choix qu'entre deux
 positions, sans personnalisation possible.
 
 @item
-Les @strong{propriétés d'objet}, auxquelles LilyPond a recours pour 
-positionner les objets, sont modifiables avec @code{\override}.  Il y a deux 
-avantages à changer ces propriétés : (a) d'autres objets pourront être 
-déplacés automatiquement si nécessaire pour faire de la place, et (b) 
-la même retouche peut s'appliquer à toutes les occurrences du même 
-type d'objet.  Ces propriétés sont :
+Les @strong{propriétés d'objet}, auxquelles LilyPond a recours pour
+positionner les objets, sont modifiables avec @code{\override}.  Il y a
+deux avantages à changer ces propriétés@tie{}: (a) d'autres objets
+pourront être déplacés automatiquement si nécessaire pour faire de la
+place, et (b) la même retouche peut s'appliquer à toutes les occurrences
+du même type d'objet.  Ces propriétés sont@tie{}:
 
 @itemize
 
 @item
 @code{direction}
 
-Ce point a déjà été traité en détails -- voir 
-@ref{Objets inclus dans la portée}. 
+Ce point a déjà été traité en détails -- voir
+@ref{Objets inclus dans la portée}.
 
 @item
 @code{padding}, @code{left-padding},
@@ -2408,46 +2418,49 @@ Ce point a déjà été traité en détails -- voir
 @cindex right-padding, propriété
 @cindex staff-padding, propriété
 
-Au moment de positionner un objet, la valeur de sa propriété 
-@code{padding} détermine l'espace à laisser libre entre celui-ci et le 
-coin le plus proche de l'objet à côté duquel il est placé. Vous remarquerez 
-que c'est la valeur @code{padding} de l'objet @strong{à placer} qui 
-compte ; la valeur @code{padding} de l'objet déjà placé est ignorée. 
-Les espaces libres déterminés par @code{padding} s'appliquent à tous 
-les objets associés à la @code{side-position-interface}.
+Au moment de positionner un objet, la valeur de sa propriété
+@code{padding} détermine l'espace à laisser libre entre celui-ci et le
+coin le plus proche de l'objet à côté duquel il est placé. Vous
+remarquerez que c'est la valeur @code{padding} de l'objet @strong{à
+placer} qui compte@tie{}; la valeur @code{padding} de l'objet déjà placé
+est ignorée.  Les espaces libres déterminés par @code{padding}
+s'appliquent à tous les objets associés à la
+@code{side-position-interface}.
 
-Le positionnement de groupes d'altérations est contrôlé par 
+Le positionnement de groupes d'altérations est contrôlé par
 @code{left-padding} et @code{right-padding}, et non plus @code{padding}.
-Ces propriétés appartiennent à l'objet @code{AccidentalPlacement}, qui, 
-vous le remarquerez, prend place dans le contexte @strong{Staff}. Dans le 
-processus de composition, les têtes de notes sont composées en premier, 
-puis les altérations, s'il y en a, sont ajoutées à gauche des têtes de notes 
-suivant la propriété @code{right-padding} qui détermine l'espacement par 
-rapport aux têtes de note. C'est pourquoi seule la propriété 
-@code{right-padding} de l'objet @code{AccidentalPlacement} joue sur le 
-positionnement des altérations. 
+Ces propriétés appartiennent à l'objet @code{AccidentalPlacement}, qui,
+vous le remarquerez, prend place dans le contexte @strong{Staff}.  Dans
+le processus de composition, les têtes de notes sont composées en
+premier, puis les altérations, s'il y en a, sont ajoutées à gauche des
+têtes de notes suivant la propriété @code{right-padding} qui détermine
+l'espacement par rapport aux têtes de note. C'est pourquoi seule la
+propriété @code{right-padding} de l'objet @code{AccidentalPlacement}
+joue sur le positionnement des altérations.
 
-La propriété @code{staff-padding} est très proche de la propriété 
-@code{padding} : @code{padding} contrôle l'espace minimum entre un 
-objet qui accepte la @code{side-position-interface} et l'objet le plus 
-proche (généralement une note ou une ligne de portée) ; @code{staff-padding} 
-ne s'applique qu'aux objets qui sont toujours placés en-dehors de la portée -- 
-il contrôle l'espace minimum à insérer entre l'objet et la portée. Attention : 
-par défaut, @code{staff-padding} concerne les objets positionnés par rapport 
-à la portée et n'a aucun effet sur les objets qui sont positionnés par
-rapport à une note ; il est toutefois possible de le régler pour
-fonctionner avec ces derniers. 
+La propriété @code{staff-padding} est très proche de la propriété
+@code{padding}@tie{}: @code{padding} contrôle l'espace minimum entre un
+objet qui accepte la @code{side-position-interface} et l'objet le plus
+proche (généralement une note ou une ligne de portée)@tie{};
+@code{staff-padding} ne s'applique qu'aux objets qui sont toujours
+placés en-dehors de la portée -- il contrôle l'espace minimum à insérer
+entre l'objet et la portée.  Attention@tie{}: par défaut,
+@code{staff-padding} concerne les objets positionnés par rapport à la
+portée et n'a aucun effet sur les objets qui sont positionnés par
+rapport à une note@tie{}; il est toutefois possible de le régler pour
+fonctionner avec ces derniers.
 
-Pour trouver quelle propriété @code{padding} employer pour l'objet que vous 
-cherchez à repositionner, il vous faut consulter les propriétés de l'objet dans 
-la RPI. Prenez garde que les propriétés @code{padding} ne sont pas forcément 
-traitées dans l'objet en question ; il faut alors regarder les objets
-qui semblent s'en rapprocher. 
+Pour trouver quelle propriété @code{padding} employer pour l'objet que
+vous cherchez à repositionner, il vous faut consulter les propriétés de
+l'objet dans la RPI.  Prenez garde que les propriétés @code{padding} ne
+sont pas forcément traitées dans l'objet en question@tie{}; il faut
+alors regarder les objets qui semblent s'en rapprocher.
 
-Toutes les valeurs @code{padding} sont exprimées en espaces de portée. 
+Toutes les valeurs @code{padding} sont exprimées en espaces de portée.
 Pour la plupart des objets, la valeur par défaut est aux alentours de
 1,0 et parfois moins (cela dépend de chaque objet).  Il est possible de
-la modifier lorsqu'on a besoin d'un espace vide plus grand (ou plus petit).
+la modifier lorsqu'on a besoin d'un espace vide plus grand (ou plus
+petit).
 
 
 @item
@@ -2455,36 +2468,34 @@ la modifier lorsqu'on a besoin d'un espace vide plus grand (ou plus petit).
 
 @cindex self-alignment-X,  propriété
 
-Cette propriété sert à aligner les objets sur la gauche, sur la droite ou 
-à les centrer par rapport au point de référence des objets parents. 
-Elle peut être utilisée avec tous les objets qui acceptent la 
-@code{self-alignment-interface}. Il s'agit, en général, des objets qui 
-contiennent du texte. Les valeurs admises sont @code{LEFT}, 
-@code{RIGHT} et @code{CENTER}. On peut aussi attribuer à 
-la place une valeur numérique entre @code{-1} et @code{+1}, 
-où @code{-1} signifie alignement sur la gauche, @code{+1} 
-alignement sur la droite, et les nombres intermédiaires déplacent 
-progressivement le texte de la gauche vers la droite. Des valeurs 
-numériques supérieures à @code{1} sont également admises 
-pour déplacer le texte encore plus loin vers la gauche, ou des 
-valeurs inférieures à @code{-1} pour déplacer le texte encore 
-plus loin vers la droite. Un écart de @code{1} en valeur 
-correspond à un déplacement de la moitié de la longueur du 
-texte.
+Cette propriété sert à aligner les objets sur la gauche, sur la droite
+ou à les centrer par rapport au point de référence des objets parents.
+Elle peut être utilisée avec tous les objets qui acceptent la
+@code{self-alignment-interface}. Il s'agit, en général, des objets qui
+contiennent du texte. Les valeurs admises sont @code{LEFT}, @code{RIGHT}
+et @code{CENTER}.  On peut aussi attribuer à la place une valeur
+numérique entre @code{-1} et @code{+1}, où @code{-1} signifie alignement
+sur la gauche, @code{+1} alignement sur la droite, et les nombres
+intermédiaires déplacent progressivement le texte de la gauche vers la
+droite.  Des valeurs numériques supérieures à @code{1} sont également
+admises pour déplacer le texte encore plus loin vers la gauche, ou des
+valeurs inférieures à @code{-1} pour déplacer le texte encore plus loin
+vers la droite.  Un écart de @code{1} en valeur correspond à un
+déplacement de la moitié de la longueur du texte.
 
 @item
 @code{extra-spacing-width}
 
 @cindex extra-spacing-width, propriété
 
-Cette propriété est utilisée pour tous les objets qui acceptent la 
-@code{item-interface}. Elle reçoit deux nombres, le premier étant 
-ajouté au bord gauche et le second au bord droit.  Des nombres 
-négatifs déplacent le coin vers la gauche, des nombres positifs 
-vers la droite, si bien que pour élargir un objet, le premier nombre 
-doit être négatif et le second positif.  Attention : tous les objets 
-n'acceptent pas forcément les deux nombres.  Par exemple, l'objet 
-@code{Accidental} ne retient que le premier nombre (coin gauche).
+Cette propriété est utilisée pour tous les objets qui acceptent la
+@code{item-interface}.  Elle reçoit deux nombres, le premier étant
+ajouté au bord gauche et le second au bord droit.  Des nombres négatifs
+déplacent le coin vers la gauche, des nombres positifs vers la droite,
+si bien que pour élargir un objet, le premier nombre doit être négatif
+et le second positif.  Attention@tie{}: tous les objets n'acceptent pas
+forcément les deux nombres.  Par exemple, l'objet @code{Accidental} ne
+retient que le premier nombre (coin gauche).
 
 
 @item
@@ -2492,12 +2503,12 @@ n'acceptent pas forcément les deux nombres.  Par exemple, l'objet
 
 @cindex staff-position, propriété
 
-@code{staff-position} est une propriété de la 
-@code{staff-symbol-referencer-interface}, qui s'applique aux objets 
-positionnés par rapport à la portée. Elle indique, en demi-espaces de 
-portée, la position verticale des objets par rapport à la ligne médiane 
-de la portée. C'est bien pratique pour résoudre des problèmes de 
-collision entre des objets comme les silences valant mesure entière, 
+@code{staff-position} est une propriété de la
+@code{staff-symbol-referencer-interface}, qui s'applique aux objets
+positionnés par rapport à la portée.  Elle indique, en demi-espaces de
+portée, la position verticale des objets par rapport à la ligne médiane
+de la portée.  C'est bien pratique pour résoudre des problèmes de
+collision entre des objets comme les silences valant mesure entière,
 les liaisons et les notes de différentes voix.
 
 @item
@@ -2505,40 +2516,40 @@ les liaisons et les notes de différentes voix.
 
 @cindex force-hshift, propriété
 
-Des notes très proches dans un accord, ou des notes simultanées dans 
-différentes voix, peuvent être disposées sur deux colonnes, rarement 
-plus, pour éviter que les têtes de notes ne se chevauchent. On parle 
+Des notes très proches dans un accord, ou des notes simultanées dans
+différentes voix, peuvent être disposées sur deux colonnes, rarement
+plus, pour éviter que les têtes de notes ne se chevauchent.  On parle
 alors de colonnes (ou empilement) de notes et un objet appelé
 @code{NoteColumn} est créé pour placer les notes sur la colonne.
 
-La propriété @code{force-hshift} appartient à @code{NoteColumn} (en 
-réalité à la @code{note-column-interface}). Le fait de la modifier permet 
-de déplacer un empilement selon l'unité appropriée aux colonnes 
+La propriété @code{force-hshift} appartient à @code{NoteColumn} (en
+réalité à la @code{note-column-interface}).  Le fait de la modifier
+permet de déplacer un empilement selon l'unité appropriée aux colonnes
 de notes, à savoir la largeur des têtes de note de la première voix.
 Son utilisation est réservée à des situations complexes dans lesquelles
-les commandes habituelles @code{\shiftOn} 
-(voir @ref{Instanciation explicite des voix}) ne suffisent plus à
-résoudre les conflits.  Elle est alors préférable à l'utilisation de la
-propriété @code{extra-offset}, dans la mesure où on n'a pas besoin
-d'exprimer la distance en espaces de portée et où le fait de déplacer
-les notes à l'intérieur ou à l'extérieur d'une @code{NoteColumn} affecte
+les commandes habituelles @code{\shiftOn} (voir @ref{Instanciation
+explicite des voix}) ne suffisent plus à résoudre les conflits.  Elle
+est alors préférable à l'utilisation de la propriété
+@code{extra-offset}, dans la mesure où on n'a pas besoin d'exprimer la
+distance en espaces de portée et où le fait de déplacer les notes à
+l'intérieur ou à l'extérieur d'une @code{NoteColumn} affecte
 d'autres actions comme les fusionnements de notes.
 
 @end itemize
 
 @item
-Pour terminer, quand toutes les autres méthodes ont échoué, il est 
-possible de repositionner verticalement les objets à la main par rapport 
-à la ligne médiane de la portée, ou en les déplaçant à une distance 
+Pour terminer, quand toutes les autres méthodes ont échoué, il est
+possible de repositionner verticalement les objets à la main par rapport
+à la ligne médiane de la portée, ou en les déplaçant à une distance
 donnée vers une nouvelle position.  Les inconvénients sont qu'il faut
-individuellement, pour chaque objet, trouver les valeurs correctes de 
-repositionnement souvent par tâtonnement, et que, puisque le 
-mouvement est opéré après que LilyPond a placé tous les autres 
-objets, c'est à l'utilisateur de résoudre tous les problèmes de
-collision qui pourraient survenir.  Et le pire avec cette méthode est
-que, le jour où la musique est modifiée, il faut de nouveau rechercher
-les valeurs de repositionnement.  Les propriétés à utiliser pour ce type
-de repositionnement manuel sont :
+individuellement, pour chaque objet, trouver les valeurs correctes de
+repositionnement souvent par tâtonnement, et que, puisque le mouvement
+est opéré après que LilyPond a placé tous les autres objets, c'est à
+l'utilisateur de résoudre tous les problèmes de collision qui pourraient
+survenir.  Et le pire avec cette méthode est que, le jour où la musique
+est modifiée, il faut de nouveau rechercher les valeurs de
+repositionnement.  Les propriétés à utiliser pour ce type de
+repositionnement manuel sont@tie{}:
 
 
 @table @code
@@ -2553,16 +2564,16 @@ nombres négatifs déplacent l'objet vers la gauche ou vers la droite.
 L'unité utilisée est l'espace de portée.  Le déplacement supplémentaire
 intervient une fois que la composition des objets est achevée, si bien
 qu'un objet peut être repositionné à n'importe quel endroit sans
-perturber quoi que ce soit.  
+perturber quoi que ce soit.
 
 @item positions
 
 @cindex positions, propriété
 
-Cette propriété est très utile pour ajuster manuellement l'inclinaison et 
-la hauteur des barres de ligature, des liaisons et des nolets. Elle est  
-suivie de deux nombres qui donnent la position des bords gauche et 
-droit des barres, liaisons, etc. par rapport à la ligne médiane de la 
+Cette propriété est très utile pour ajuster manuellement l'inclinaison
+et la hauteur des barres de ligature, des liaisons et des nolets. Elle
+est suivie de deux nombres qui donnent la position des bords gauche et
+droit des barres, liaisons, etc. par rapport à la ligne médiane de la
 portée.  L'unité de référence est l'intervalle de lignes de portée.
 Attention toutefois au fait que les liaisons et phrasés ne peuvent pas
 être repositionnés n'importe où.  LilyPond commence par dresser la liste
@@ -2574,11 +2585,11 @@ retenue dans la liste.
 
 @end enumerate
 
-Il est possible qu'un objet ne dispose pas de toutes ces propriétés.  Il 
-est donc nécessaire de consulter la RPI pour vérifier quelles sont les 
-propriétés disponibles pour l'objet en question. 
+Il est possible qu'un objet ne dispose pas de toutes ces propriétés.  Il
+est donc nécessaire de consulter la RPI pour vérifier quelles sont les
+propriétés disponibles pour l'objet en question.
 
-Voici une liste d'objets les plus couramment impliqués dans les 
+Voici une liste d'objets les plus couramment impliqués dans les
 collisions, avec le nom de l'objet à consulter dans la RPI afin de
 trouver les propriétés à retoucher pour obtenir un déplacement.
 
@@ -2588,7 +2599,7 @@ trouver les propriétés à retoucher pour obtenir un déplacement.
 @item Articulations                 @tab @code{Script}
 @item Barres de ligature            @tab @code{Beam}
 @item Doigté                        @tab @code{Fingering}
-@item Liaisons de phrasé            @tab @code{Slur}	
+@item Liaisons de phrasé            @tab @code{Slur}
 @item Liaisons de prolongation      @tab @code{Tie}
 @item Nolets                        @tab @code{TupletBracket}
 @item Nuances (verticalement)       @tab @code{DynamicLineSpanner}
@@ -2602,8 +2613,8 @@ trouver les propriétés à retoucher pour obtenir un déplacement.
 @subsection Correction des collisions d'objets
 @translationof Fixing overlapping notation
 
-Voyons maintenant comment les propriétés décrites dans la section 
-précédente peuvent nous aider à résoudre les collisions. 
+Voyons maintenant comment les propriétés décrites dans la section
+précédente peuvent nous aider à résoudre les collisions.
 
 @subheading la propriété padding
 
@@ -2611,9 +2622,9 @@ précédente peuvent nous aider à résoudre les collisions.
 @cindex résolution des chevauchements de notation
 @cindex chevauchement de notation
 
-En jouant sur la propriété @code{padding} (littéralement 
-@qq{rembourrage}), on augmente (ou on diminue) la distance entre 
-des symboles qui sont imprimés au-dessus ou en dessous des notes. 
+En jouant sur la propriété @code{padding} (littéralement
+@qq{rembourrage}), on augmente (ou on diminue) la distance entre
+des symboles qui sont imprimés au-dessus ou en dessous des notes.
 
 @cindex Script, exemple de dérogation
 @cindex padding, exemple d'utilisation de la propriété
@@ -2638,29 +2649,29 @@ c1
 d1
 @end lilypond
 
-Vous remarquerez dans le second exemple à quel point il est important de 
-préciser le nom du contexte qui contient l'objet.  Puisque l'objet 
-@code{MetronomeMark} appartient au contexte @code{Score}, le fait de 
-modifier la propriété dans le contexte @code{Voice} passera inaperçu. 
+Vous remarquerez dans le second exemple à quel point il est important de
+préciser le nom du contexte qui contient l'objet.  Puisque l'objet
+@code{MetronomeMark} appartient au contexte @code{Score}, le fait de
+modifier la propriété dans le contexte @code{Voice} passera inaperçu.
 Pour plus de détails, voir @ruser{Modification de propriétés}.
 
-Si on augmente la propriété @code{padding} d'un objet alors que celui-ci 
-fait partie d'un ensemble d'objets positionnés en fonction de leur 
+Si on augmente la propriété @code{padding} d'un objet alors que celui-ci
+fait partie d'un ensemble d'objets positionnés en fonction de leur
 @code{outside-staff-priority}, cet objet sera déplacé, ainsi que tous
-les autres objets du groupe. 
+les autres objets du groupe.
 
 @subheading left-padding et right-padding
 
 @cindex left-padding, propriété
 @cindex right-padding, propriété
 
-La propriété @code{right-padding} joue sur l'espacement entre une 
+La propriété @code{right-padding} joue sur l'espacement entre une
 altération et la note sur laquelle elle porte.  On ne l'utilise pas
 souvent, mais l'espacement par défaut peut se révéler inadéquat avec
 certaines altérations ou certains glyphes utilisés en musique
 microtonale.  Le stencil de l'altération devra alors être construit sous
 la forme d'un @code{markup} qui contiendra le ou les symboles requis,
-comme ceci : 
+comme ceci@tie{}:
 
 @cindex Accidental, exemple de dérogation
 @cindex text, exemple d'utilisation de la propriété
@@ -2687,12 +2698,12 @@ sesquisharp = \markup { \sesquisharp }
 @end lilypond
 
 @noindent
-Cette méthode utilise, pour le stencil des altérations, une retouche 
+Cette méthode utilise, pour le stencil des altérations, une retouche
 qui ne sera pas reprise par la suite.  Le type de stencil est
 obligatoirement une procédure, qui consiste ici à imprimer le contenu de
 la propriété @code{text} de @code{Accidental}, déclaré comme étant un
 signe sesqui-dièse.  Celui-ci est ensuite repoussé devant la tête de
-note par la retouche de @code{right-padding}. 
+note par la retouche de @code{right-padding}.
 
 @noindent
 
@@ -2701,7 +2712,7 @@ note par la retouche de @code{right-padding}.
 @cindex alignement d'objets sur une ligne de base
 @cindex objets, alignement sur une ligne de base
 
-@code{staff-padding} sert à aligner des objets tels que des nuances 
+@code{staff-padding} sert à aligner des objets tels que des nuances
 sur une ligne fictive à une hauteur donnée par rapport à la portée,
 plutôt qu'à une hauteur qui varie en fonction de la position de la note
 sur laquelle porte l'objet.  Ce n'est pas une propriété de
@@ -2710,7 +2721,7 @@ fictive est destinée à s'appliquer autant à @strong{toutes} les nuances,
 notamment celles qui sont créées comme des bandeaux en longueur (en
 anglais @emph{Spanners}).  Tel est donc le moyen d'aligner les
 indications de nuance, comme dans cet exemple repris de la section
-précédente : 
+précédente@tie{}:
 
 @cindex DynamicText, exemple de dérogation
 @cindex extra-spacing-width, exemple d'utilisation de la propriété
@@ -2731,7 +2742,7 @@ a4\f b\mf c\mp b\p
 
 L'exemple suivant montre comment résoudre une collision entre une
 indication de corde et une hampe, en alignant le coin droit sur le point
-de référence de la note parente :
+de référence de la note parente@tie{}:
 
 @cindex StringNumber, exemple de dérogation
 @cindex self-alignment-X, exemple d'utilisation de la propriété
@@ -2747,13 +2758,13 @@ de référence de la note parente :
 
 @cindex collision d'objets à l'intérieur d'une portée
 
-Dans une voix, un silence valant une mesure entière peut chevaucher les  
-notes d'une autre voix.  Vu que ces silences sont centrés entre les deux  
-barres de mesure, il serait très compliqué de programmer LilyPond pour 
-repérer ces risques de collision, dans la mesure où, normalement, toutes 
-les collisions entre notes ou entre notes et silences se produisent sur 
+Dans une voix, un silence valant une mesure entière peut chevaucher les
+notes d'une autre voix.  Vu que ces silences sont centrés entre les deux
+barres de mesure, il serait très compliqué de programmer LilyPond pour
+repérer ces risques de collision, dans la mesure où, normalement, toutes
+les collisions entre notes ou entre notes et silences se produisent sur
 des notes et silences simultanés. Voici un exemple de collision de ce
-type : 
+type@tie{}:
 
 @lilypond[quote,verbatim,fragment,ragged-right, relative=1]
 << {c c c c} \\ {R1} >>
@@ -2764,8 +2775,8 @@ le bas -- puisque cette pause appartient à la voix deux.  Par défaut,
 dans la @code{\voiceTwo} (c'est-à-dire dans la seconde voix d'une
 construction  @w{@code{<<@{...@} \\ @{...@}>>}}), la propriété
 @code{staff-position} est réglée sur @code{-4} pour les
-@code{MultiMeasureRest} ; nous avons donc besoin de la déplacer, disons,
-de quatre demi-intervalles vers le bas, ce qui donne @code{-8}.
+@code{MultiMeasureRest}@tie{}; nous avons donc besoin de la déplacer,
+disons, de quatre demi-intervalles vers le bas, ce qui donne @code{-8}.
 
 
 @cindex MultiMeasureRest, exemple de dérogation
@@ -2780,9 +2791,9 @@ de quatre demi-intervalles vers le bas, ce qui donne @code{-8}.
 >>
 @end lilypond
 
-C'est mieux que d'utiliser, par exemple, @code{extra-offset}, 
-car la ligne supplémentaire au-dessus du silence est insérée 
-automatiquement. 
+C'est mieux que d'utiliser, par exemple, @code{extra-offset},
+car la ligne supplémentaire au-dessus du silence est insérée
+automatiquement.
 
 @subheading la propriété extra-offset
 
@@ -2791,12 +2802,13 @@ automatiquement.
 @cindex objets, positionnement
 @cindex grobs, positionnement
 
-La propriété @code{extra-offset} offre la possibilité de contrôler 
-entièrement le placement d'un objet, aussi bien horizontalement que 
-verticalement. 
+La propriété @code{extra-offset} offre la possibilité de contrôler
+entièrement le placement d'un objet, aussi bien horizontalement que
+verticalement.
 
-Dans l'exemple suivant, la seconde indication de doigté est déplacée 
-légèrement vers la gauche et de 1,8 intervalle de lignes vers le bas :
+Dans l'exemple suivant, la seconde indication de doigté est déplacée
+légèrement vers la gauche et de 1,8 intervalle de lignes vers le
+bas@tie{}:
 
 @cindex Fingering, exemple de dérogation
 @cindex extra-offset, exemple d'utilisation de la propriété
@@ -2819,19 +2831,19 @@ f-5
 @cindex phrasés, gestion manuelle
 @cindex ligatures, gestion manuelle
 
-La propriété @code{positions} permet de contrôler manuellement la 
+La propriété @code{positions} permet de contrôler manuellement la
 position et l'inclinaison des nolets, coulés, liaisons de phrasé et
 barres de ligature.  Voici un exemple avec une horrible liaison de
 phrasé -- horrible pour avoir tenté de contourner la liaison de
-l'acciaccature. 
+l'acciaccature.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4  \acciaccatura e8\( d8 c ~c d c d\)
 @end lilypond
 
 @noindent
-Nous pourrions tout simplement déplacer la liaison de phrasé au-dessus des
-notes, et ce serait la meilleure solution :
+Nous pourrions tout simplement déplacer la liaison de phrasé au-dessus
+des notes, et ce serait la meilleure solution@tie{}:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
@@ -2840,10 +2852,10 @@ r4
 @end lilypond
 
 @noindent
-Mais si, pour une quelconque raison, cette solution n'était pas 
-envisageable, l'autre solution consiste à déplacer légèrement vers le 
-bas l'extrémité gauche de la liaison de phrasé, grâce à la propriété 
-@code{positions}.  Cela corrige en même temps la forme plutôt 
+Mais si, pour une quelconque raison, cette solution n'était pas
+envisageable, l'autre solution consiste à déplacer légèrement vers le
+bas l'extrémité gauche de la liaison de phrasé, grâce à la propriété
+@code{positions}.  Cela corrige en même temps la forme plutôt
 disgracieuse de la liaison.
 
 @cindex PhrasingSlur, exemple de dérogation
@@ -2856,9 +2868,9 @@ r4
 e8\( d8 c ~c d c d\)
 @end lilypond
 
-Voici un autre exemple, tiré du début de la partie de main gauche 
-du Prélude de Chopin, Op. 28, No 2. Comme nous pouvons le 
-constater, les barres de ligature chevauchent les notes les plus hautes :
+Voici un autre exemple, tiré du début de la partie de main gauche du
+Prélude de Chopin, Op. 28, No 2. Comme nous pouvons le constater, les
+barres de ligature chevauchent les notes les plus hautes@tie{}:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
@@ -2869,9 +2881,9 @@ constater, les barres de ligature chevauchent les notes les plus hautes :
 @end lilypond
 
 @noindent
-On peut y remédier en déplaçant manuellement vers le haut les deux 
-extrémités des ligatures de croches, non plus à 2 intervalles au-dessus 
-de la ligne médiane mais, disons, à 3 :
+On peut y remédier en déplaçant manuellement vers le haut les deux
+extrémités des ligatures de croches, non plus à 2 intervalles au-dessus
+de la ligne médiane mais, disons, à 3@tie{}:
 
 @cindex Beam, exemple de dérogation
 @cindex positions, exemple d'utilisation de la propriété
@@ -2890,8 +2902,8 @@ de la ligne médiane mais, disons, à 3 :
 @end lilypond
 
 @noindent
-Vous remarquerez que la retouche continue à s'appliquer au 
-second bloc de croches de la première voix mais qu'il ne s'applique 
+Vous remarquerez que la retouche continue à s'appliquer au
+second bloc de croches de la première voix mais qu'il ne s'applique
 à aucune barre de la deuxième voix.
 
 @subheading la propriété force-hshift
@@ -2900,8 +2912,8 @@ second bloc de croches de la première voix mais qu'il ne s'applique
 @c @a nchor Chopin finally corrected TODOgp
 
 Maintenant, nous sommes prêts à appliquer les dernières corrections  à
-l'exemple de Chopin présenté à la fin de @ref{J'entends des Voix}, que 
-nous avions laissé dans cet état :
+l'exemple de Chopin présenté à la fin de @ref{J'entends des Voix}, que
+nous avions laissé dans cet état@tie{}:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 \new Staff \relative c'' {
@@ -2919,11 +2931,11 @@ nous avions laissé dans cet état :
 @end lilypond
 
 @noindent
-Les deux plus basses notes du premier accord (c'est-à-dire celles de la 
-troisième voix) ne devraient pas être décalées de l'empilement des deux 
-plus hautes notes.  Pour y remédier, nous réglons le @code{force-hshift}  
--- qui est une propriété de @code{NoteColumn} -- de ces notes sur zéro. 
-Ensuite, la note la plus basse du second accord serait mieux à droite des 
+Les deux plus basses notes du premier accord (c'est-à-dire celles de la
+troisième voix) ne devraient pas être décalées de l'empilement des deux
+plus hautes notes.  Pour y remédier, nous réglons le @code{force-hshift}
+-- qui est une propriété de @code{NoteColumn} -- de ces notes sur zéro.
+Ensuite, la note la plus basse du second accord serait mieux à droite des
 notes plus hautes.  Pour cela, nous réglons le @code{force-hshift} de
 cette note sur 0,5 -- c'est-à-dire la moitié de la largeur d'une tête de
 note vers la droite de la colonne des notes plus hautes.
@@ -2953,20 +2965,21 @@ Et voici le résultat final :
 @subsection Exemple concret
 @translationof Real music example
 
-Pour terminer ce chapitre consacré aux retouches, voici, étape par 
-étape, la mise en forme d'un exemple concret nécessitant un certain 
+Pour terminer ce chapitre consacré aux retouches, voici, étape par
+étape, la mise en forme d'un exemple concret nécessitant un certain
 nombre de retouches jusqu'à l'obtention du résultat attendu.  Cet
 exemple a été choisi en raison des problèmes inhabituels de notation
 qu'il soulevait et pour vous apprendre à les résoudre grâce au Manuel de
-notation.  Il n'est pas représentatif d'une opération normale de gravure ;
-que ces difficultés ne vous découragent donc pas ! Des difficultés comme
-celles-ci ne sont, heureusement, pas courantes ! 
+notation.  Il n'est pas représentatif d'une opération normale de
+gravure@tie{}; que ces difficultés ne vous découragent donc pas@tie{}!
+Des difficultés comme celles-ci ne sont, heureusement, pas
+courantes@tie{}!
 
-Cet exemple est tiré de la Première Ballade de Chopin, Op. 23, mesures 
-6 à 9 ; cela correspond à la transition entre le Lento d'ouverture et le 
-Moderato.  Voici, pour commencer, ce à quoi nous voulons que la 
-partition ressemble ; pour limiter les complications, nous n'avons pas 
-fait apparaître les indications de nuance, de doigté ni de pédale.
+Cet exemple est tiré de la Première Ballade de Chopin, Op. 23, mesures
+6 à 9@tie{}; cela correspond à la transition entre le Lento d'ouverture
+et le Moderato.  Voici, pour commencer, ce à quoi nous voulons que la
+partition ressemble@tie{}; pour limiter les complications, nous n'avons
+pas fait apparaître les indications de nuance, de doigté ni de pédale.
 
 
 @c The following should appear as music without code
@@ -3022,17 +3035,17 @@ lhMusic = \relative c' {
 }
 @end lilypond
 
-Nous constatons tout d'abord que, dans la troisième mesure, la main 
-droite compte quatre voix. Ce sont les cinq croches avec une barre, 
-le do avec liaison, le ré blanche qui se fond avec le ré croche, et le 
-fa dièse noire pointée qui se fond lui aussi avec la croche de même 
-hauteur.  Tout le reste se réduit à une seule voix.  Le plus simple est 
-donc de créer temporairement ces quatre voix au moment opportun. 
-Si vous avez oublié comment faire, reportez-vous à 
-@ref{J'entends des Voix}.  Commençons par saisir les notes comme 
-appartenant à deux variables, mettons en place l'ossature des 
-portées dans un bloc score et voyons ce que LilyPond propose par 
-défaut : 
+Nous constatons tout d'abord que, dans la troisième mesure, la main
+droite compte quatre voix. Ce sont les cinq croches avec une barre,
+le do avec liaison, le ré blanche qui se fond avec le ré croche, et le
+fa dièse noire pointée qui se fond lui aussi avec la croche de même
+hauteur.  Tout le reste se réduit à une seule voix.  Le plus simple est
+donc de créer temporairement ces quatre voix au moment opportun.
+Si vous avez oublié comment faire, reportez-vous à
+@ref{J'entends des Voix}.  Commençons par saisir les notes comme
+appartenant à deux variables, mettons en place l'ossature des
+portées dans un bloc score et voyons ce que LilyPond propose par
+défaut@tie{}:
 
 @lilypond[quote,verbatim,ragged-right]
 rhMusic = \relative c'' {
@@ -3075,14 +3088,15 @@ lhMusic = \relative c' {
 }
 @end lilypond
 
-Toutes les notes sont correctes mais l'allure générale est loin d'être 
-satisfaisante.  La liaison se heurte à l'indication de mesure lors du 
-changement de métrique, la ligature des croches n'est pas bonne dans la 
-troisième mesure, les notes ne sont pas fusionnées et il manque plusieurs 
-éléments de notation.  Commençons par le plus simple.  Nous pouvons 
-corriger la ligature des croches en la créant manuellement et nous pouvons 
-facilement ajouter les limites droite et gauche de la liaison de phrasé, 
-puisque tout cela a déjà été traité dans le tutoriel.  Voici le résultat :
+Toutes les notes sont correctes mais l'allure générale est loin d'être
+satisfaisante.  La liaison se heurte à l'indication de mesure lors du
+changement de métrique, la ligature des croches n'est pas bonne dans la
+troisième mesure, les notes ne sont pas fusionnées et il manque
+plusieurs éléments de notation.  Commençons par le plus simple.  Nous
+pouvons corriger la ligature des croches en la créant manuellement et
+nous pouvons facilement ajouter les limites droite et gauche de la
+liaison de phrasé, puisque tout cela a déjà été traité dans le tutoriel.
+Voici le résultat@tie{}:
 
 @lilypond[quote,verbatim,ragged-right]
 rhMusic = \relative c'' {
@@ -3127,25 +3141,25 @@ lhMusic = \relative c' {
 
 La première mesure est maintenant correcte.  La seconde contient un
 arpège et doit se terminer par une double barre.  Comment faire, puisque
-cela n'a pas été traité dans le Manuel d'initiation ?  C'est alors qu'il
-faut nous reporter au Manuel de notation.  Quand on cherche @qq{arpège}
-et @qq{barre de mesure} dans l'index, on voit aisément qu'il faut ajouter
-@code{\arpeggio} à un accord pour produire un arpège et qu'une double
-barre est le résultat de la commande @code{\bar "||"}.  Rien de plus
-facile !  Nous devons ensuite corriger la collision entre la liaison et 
-l'indication de mesure.  Le mieux est de déplacer la liaison vers le
-haut.  La méthode pour déplacer les objets a déjà été présentée dans
-@ref{Déplacement d'objets}, et l'on sait que, pour des objets
-positionnés par rapport à la portée, il nous faut modifier leur
+cela n'a pas été traité dans le Manuel d'initiation@tie{}?  C'est alors
+qu'il faut nous reporter au Manuel de notation.  Quand on cherche
+@qq{arpège} et @qq{barre de mesure} dans l'index, on voit aisément qu'il
+faut ajouter @code{\arpeggio} à un accord pour produire un arpège et
+qu'une double barre est le résultat de la commande @code{\bar "||"}.
+Rien de plus facile@tie{}!  Nous devons ensuite corriger la collision
+entre la liaison et  l'indication de mesure.  Le mieux est de déplacer
+la liaison vers le haut.  La méthode pour déplacer les objets a déjà été
+présentée dans @ref{Déplacement d'objets}, et l'on sait que, pour des
+objets positionnés par rapport à la portée, il nous faut modifier leur
 propriété @code{staff-position}, exprimée en demi-intervalles de lignes
 par rapport à la ligne médiane de la portée.  Voici donc la retouche à
-insérer juste devant la première note liée ; elle est censée déplacer la
-liaison vers le haut de 3,5 demi-intervalles de lignes au-dessus de la
-ligne médiane : 
+insérer juste devant la première note liée@tie{}; elle est censée
+déplacer la liaison vers le haut de 3,5 demi-intervalles de lignes
+au-dessus de la ligne médiane@tie{}:
 
 @code{\once \override Tie #'staff-position = #3.5}
 
-Cela s'adjoint à la deuxième mesure, pour donner :
+Cela s'adjoint à la deuxième mesure, pour donner@tie{}:
 
 @lilypond[quote,verbatim,ragged-right]
 rhMusic = \relative c'' {
@@ -3190,18 +3204,18 @@ lhMusic = \relative c' {
 }
 @end lilypond
 
-Venons-en à la troisième mesure et au début de la section Moderato.  Dans 
-le Tutoriel, il est indiqué comment insérer du texte en gras à l'aide de
-la commande @code{\markup} ; pas de problème, du coup, pour ajouter 
-@qq{Moderato} en gras.  Mais comment faire pour fusionner les notes de 
-différentes voix ?  C'est là que le Manuel de notation peut nous venir
-en aide.  Une recherche sur @qq{fusionnement de notes} dans l'index nous 
-renvoie au chapitre @ruser{Résolution des collisions}, et plus
-précisément aux commandes permettant de fusionner des notes en fonction
-de leur type et selon qu'elles sont pointées ou non.  Dans notre
+Venons-en à la troisième mesure et au début de la section Moderato.
+Dans le Tutoriel, il est indiqué comment insérer du texte en gras à
+l'aide de la commande @code{\markup}@tie{}; pas de problème, du coup,
+pour ajouter @qq{Moderato} en gras.  Mais comment faire pour fusionner
+les notes de différentes voix@tie{}?  C'est là que le Manuel de notation
+peut nous veniren aide.  Une recherche sur @qq{fusionnement de notes}
+dans l'index nous renvoie au chapitre @ruser{Résolution des collisions},
+et plus précisément aux commandes permettant de fusionner des notes en
+fonction de leur type et selon qu'elles sont pointées ou non.  Dans notre
 exemple, pour la durée de la polyphonie de la troisième mesure, nous
-avons besoin de fusionner deux types de notes ; grâce aux informations
-trouvées dans le Manuel de notation, nous ajoutons  
+avons besoin de fusionner deux types de notes@tie{}; grâce aux
+informations trouvées dans le Manuel de notation, nous ajoutons
 
 @example
 \mergeDifferentlyHeadedOn
@@ -3217,7 +3231,7 @@ au début de cette section et
 @end example
 
 @noindent
-à la fin, ce qui donne : 
+à la fin, ce qui donne :
 
 @lilypond[quote,verbatim,ragged-right]
 rhMusic = \relative c'' {
@@ -3266,21 +3280,21 @@ lhMusic = \relative c' {
 }
 @end lilypond
 
-Ces retouches ont permis de fusionner les deux fa dièse mais pas les 
-deux ré.  Pourquoi ?  La réponse se trouve dans la même section du 
-Manuel de notation : les notes à fusionner doivent avoir des hampes dans 
-des directions opposées et deux notes ne peuvent pas être fusionnées
-s'il y a une troisième note dans la même colonne.  Ici, les deux ré ont 
-leur hampe orientée vers le haut et il y a une troisième note, do.  Nous 
-savons changer l'orientation de la hampe avec @code{\stemDown} et 
-le Manuel de notation nous indique également comment déplacer le do 
--- en produisant un décalage grâce à l'une des commandes @code{\shift}.
-Mais laquelle ?  Le do appartient à la deuxième voix et n'est pas décalé ; 
-les deux ré appartiennent respectivement à la première et à la troisième 
-voix, et l'un n'est pas décalé tandis que l'autre l'est.  Il nous faut
-donc décaler largement le do avec la commande @code{\shiftOnn} pour 
-éviter une interférence avec les deux ré.  Voici ce que donnent ces 
-modifications : 
+Ces retouches ont permis de fusionner les deux fa dièse mais pas les
+deux ré.  Pourquoi@tie{}?  La réponse se trouve dans la même section du
+Manuel de notation@tie{}: les notes à fusionner doivent avoir des hampes
+dans des directions opposées et deux notes ne peuvent pas être
+fusionnées s'il y a une troisième note dans la même colonne.  Ici, les
+deux ré ont leur hampe orientée vers le haut et il y a une troisième
+note, do.  Nous savons changer l'orientation de la hampe avec
+@code{\stemDown} et le Manuel de notation nous indique également comment
+déplacer le do -- en produisant un décalage grâce à l'une des commandes
+@code{\shift}.  Mais laquelle@tie{}?  Le do appartient à la deuxième
+voix et n'est pas décalé@tie{}; les deux ré appartiennent respectivement
+à la première et à la troisième voix, et l'un n'est pas décalé tandis
+que l'autre l'est.  Il nous faut donc décaler largement le do avec la
+commande @code{\shiftOnn} pour éviter une interférence avec les deux ré.
+Voici ce que donnent ces modifications@tie{}:
 
 @cindex Tie, exemple de dérogation
 @cindex staff-position, exemple d'utilisation de la propriété
@@ -3334,12 +3348,12 @@ lhMusic = \relative c' {
 }
 @end lilypond
 
-Pas loin.  Il ne reste plus que deux problèmes : les ré une fois
+Pas loin.  Il ne reste plus que deux problèmes@tie{}: les ré une fois
 fusionnés ne devraient plus avoir de hampe vers le bas, et le do serait
 mieux à la droite des ré.  Nous savons remédier à ces deux problèmes
-grâce aux retouches précédentes : nous allons rendre la hampe
+grâce aux retouches précédentes@tie{}: nous allons rendre la hampe
 transparente et déplacer le do avec la propriété @code{force-hshift}.
-Et voici le résultat final : 
+Et voici le résultat final@tie{}:
 
 @cindex NoteColumn, exemple de dérogation
 @cindex force-hshift, exemple d'utilisation de la propriété
@@ -3404,12 +3418,12 @@ lhMusic = \relative c' {
 @translationof Further tweaking
 
 @menu
-* Autres utilisations des retouches::       
-* Utilisation de variables dans les retouches:: 
-* Feuilles de style:: 
-* Autres sources de documentation::  
-* Options ralentissant le traitement::  
-* Retouches avancées avec Scheme::  
+* Autres utilisations des retouches::
+* Utilisation de variables dans les retouches::
+* Feuilles de style::
+* Autres sources de documentation::
+* Options ralentissant le traitement::
+* Retouches avancées avec Scheme::
 @end menu
 
 @node Autres utilisations des retouches
@@ -3428,10 +3442,10 @@ lhMusic = \relative c' {
 
 @subheading Liaison entre plusieurs voix
 
-Voici un exemple qui montre comment créer une liaison de 
-prolongation entre des notes appartenant à des voix différentes.  En 
-temps normal, seules deux notes appartenant à une même voix 
-peuvent être ainsi liées.  La solution consiste à utiliser deux voix, 
+Voici un exemple qui montre comment créer une liaison de
+prolongation entre des notes appartenant à des voix différentes.  En
+temps normal, seules deux notes appartenant à une même voix
+peuvent être ainsi liées.  La solution consiste à utiliser deux voix,
 dont l'une avec les notes liées
 
 @lilypond[quote,fragment,relative=2]
@@ -3441,7 +3455,7 @@ dont l'une avec les notes liées
 @end lilypond
 
 @noindent
-et à rendre transparente la première hampe de cette voix ; 
+et à rendre transparente la première hampe de cette voix@tie{};
 on a alors l'impression que la liaison couvre les deux voix.
 
 @cindex Stem, exemple de dérogation
@@ -3458,8 +3472,8 @@ on a alors l'impression que la liaison couvre les deux voix.
 >>
 @end lilypond
 
-Pour être sûr que la hampe que nous avons rendue transparente 
-n'empiète pas trop sur le trait de liaison, nous pouvons l'allonger en 
+Pour être sûr que la hampe que nous avons rendue transparente
+n'empiète pas trop sur le trait de liaison, nous pouvons l'allonger en
 réglant la longueur (@code{length}) sur @code{8},
 
 @lilypond[quote,fragment,relative=2,verbatim]
@@ -3479,21 +3493,21 @@ réglant la longueur (@code{length}) sur @code{8},
 @cindex stencil, utilisation de la propriété
 @cindex point d'orgue, rendu en MIDI
 
-En ce qui concerne les objets extérieurs à la portée, quand on veut les 
+En ce qui concerne les objets extérieurs à la portée, quand on veut les
 faire disparaître de la partition imprimée , il est généralement
 préférable de modifier leur propriété @code{stencil} plutôt que leur
 propriété @code{transparent}.  Le fait d'attribuer à la propriété
 @code{stencil} d'un objet la valeur @code{#f} supprimera entièrement
 celui-ci de la partition.  Il ne risquera donc pas de gêner le placement
-d'autres objets. 
+d'autres objets.
 
-Par exemple, si nous voulons changer le réglage de métronome pour 
-simuler un point d'orgue dans le fichier MIDI, nous ne voulons surtout 
-pas que cette indication métronomique apparaisse sur la partition ni 
-qu'elle influence l'espacement entre les deux systèmes ou la position 
-des annotations voisines sur la portée.  Le fait d'attribuer à la propriété 
-@code{stencil} la valeur @code{#f} est donc la bonne solution.  Nous 
-montrons ci-dessous le résultat des deux méthodes : 
+Par exemple, si nous voulons changer le réglage de métronome pour
+simuler un point d'orgue dans le fichier MIDI, nous ne voulons surtout
+pas que cette indication métronomique apparaisse sur la partition ni
+qu'elle influence l'espacement entre les deux systèmes ou la position
+des annotations voisines sur la portée.  Le fait d'attribuer à la
+propriété @code{stencil} la valeur @code{#f} est donc la bonne solution.
+Nous montrons ci-dessous le résultat des deux méthodes@tie{}:
 
 @cindex MetronomeMark, exemple de dérogation
 @cindex transparent, exemple d'utilisation de la propriété
@@ -3545,7 +3559,7 @@ allonge le point d'orgue de la partition, et toutes deux modifient le
 rythme MIDI comme souhaité  mais, dans la première, l'indication
 métronomique transparente repousse vers le haut l'indication de tempo,
 contrairement à la seconde (avec le stencil désactivé) qui la laisse à
-sa place. 
+sa place.
 
 
 @node Utilisation de variables dans les retouches
@@ -3556,16 +3570,17 @@ sa place.
 @cindex utilisation de variables dans les retouches
 @cindex retouches et utilisation de variables
 
-Les commandes de retouche sont souvent longues et pénibles à 
-taper, et ne tolèrent pas la moindre erreur.  Lorsqu'on a besoin de 
-faire plusieurs fois les mêmes retouches, il est préférable de 
-définir des variables qui les contiennent. 
+Les commandes de retouche sont souvent longues et pénibles à
+taper, et ne tolèrent pas la moindre erreur.  Lorsqu'on a besoin de
+faire plusieurs fois les mêmes retouches, il est préférable de
+définir des variables qui les contiennent.
 
-Imaginons que nous voulions accentuer certains mots dans des paroles en 
+Imaginons que nous voulions accentuer certains mots dans des paroles en
 les mettant en italique.  Au lieu des commandes @code{\italic} et
 @code{\bold}, qui ne fonctionnent dans les paroles que si elles sont
 enchâssées dans un @code{\markup}, ce qui les rend pénibles à saisir,
-pouvons-nous employer les commandes @code{\override} et @code{\revert} ?
+pouvons-nous employer les commandes @code{\override} et
+@code{\revert}@tie{}?
 
 @example
 @code{\override Lyrics . LyricText #'font-shape = #'italic}
@@ -3575,11 +3590,11 @@ pouvons-nous employer les commandes @code{\override} et @code{\revert} ?
 @code{\revert Lyrics . LyricText #'font-series}
 @end example
 
-Là encore, ce serait extrêmement pénible à saisir, surtout s'il y avait 
-beaucoup de mots à retoucher de cette façon.  Plutôt que cette 
-solution, nous déclarons ces commandes comme étant deux variables 
+Là encore, ce serait extrêmement pénible à saisir, surtout s'il y avait
+beaucoup de mots à retoucher de cette façon.  Plutôt que cette
+solution, nous déclarons ces commandes comme étant deux variables
 et les utilisons comme suit -- quoique on choisirait sans doute pour
-les variables des noms plus courts pour simplifier la frappe : 
+les variables des noms plus courts pour simplifier la frappe@tie{}:
 
 @cindex LyricText, exemple de dérogation
 @cindex font-shape, exemple d'utilisation de la propriété
@@ -3633,8 +3648,8 @@ VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and p
 La sortie que produit LilyPond peut être largement modifiée -- voir
 @ref{Retouche de partition} pour plus de détails.  Mais que faire si
 vous avez beaucoup de fichiers auxquels vous souhaitez appliquer vos
-retouches ?  Ou si vous souhaitez simplement séparer les retouches de
-la musique elle-même@tie{}?  Rien de plus facile.
+retouches@tie{}?  Ou si vous souhaitez simplement séparer les retouches
+de la musique elle-même@tie{}?  Rien de plus facile.
 
 Prenons un exemple.  Ne vous inquiétez pas si vous ne comprenez pas
 les parties avec tous les @code{#()}.  Celles-ci sont expliquées dans
@@ -3658,8 +3673,8 @@ inst = #(define-music-function (parser location string) (string?)
 }
 @end lilypond
 
-Il y a quelques problèmes de chevauchement ; nous allons arranger
-cela en utilisant les techniques de @ref{Déplacement d'objets}.  On peut 
+Il y a quelques problèmes de chevauchement@tie{}; nous allons arranger
+cela en utilisant les techniques de @ref{Déplacement d'objets}.  On peut
 aussi faire quelque chose pour les définitions de @code{mpdolce}
 et @code{inst}.  Elles produisent le résultat que nous désirons,
 mais nous pourrions aussi vouloir les utiliser dans une autre pièce.
@@ -3684,7 +3699,7 @@ Nous rappellerons ce fichier par une simple commande @code{\include} au
 début de notre fichier de musique.  Lui attribuer l'extension
 @code{.ily} nous permet de distinguer aisément qu'il s'agit d'un fichier
 voué à être inclus dans un fichier maître@tie{}; il n'est pas destiné à
-être compilé isolément.
+être compilé isolément.@*
 Maintenant, modifions notre musique (enregistrez ce fichier
 sous @code{musique.ly}).
 
@@ -3726,7 +3741,7 @@ rapprocher des têtes de note.  Déplaçons l'indication métronomique
 au-dessus de la clef, au lieu de la laisser au-dessus de la première
 note.  Et pour finir, mon professeur de composition déteste les
 chiffrages de mesure en @qq{C}, nous allons donc le transformer en
-@qq{4/4}. 
+@qq{4/4}.
 
 Cependant, ne changez pas le fichier @file{musique.ly}.  Remplacez le
 fichier @file{definitions.ily} par ceci@tie{}:
@@ -3789,13 +3804,13 @@ inst = #(define-music-function (parser location string) (string?)
 }
 @end lilypond
 
-C'est encore mieux !  Mais supposons maintenant que je veuille publier
-cette pièce.  Mon professeur de composition n'aime pas les chiffrages
-de mesure en @qq{C}, mais moi je les aime bien.  Copions l'actuel
-@file{definitions.ily} dans le fichier @file{publication-web.ily}, et
-modifions ce dernier.  Puisque la musique est destinée à produire un
-fichier PDF affiché sur écran, nous allons aussi augmenter la taille
-globale de police.
+C'est encore mieux@tie{}!  Mais supposons maintenant que je veuille
+publier cette pièce.  Mon professeur de composition n'aime pas les
+chiffrages de mesure en @qq{C}, mais moi je les aime bien.  Copions
+l'actuel @file{definitions.ily} dans le fichier
+@file{publication-web.ily}, et modifions ce dernier.  Puisque la musique
+est destinée à produire un fichier PDF affiché sur écran, nous allons
+aussi augmenter la taille globale de police.
 
 @example
 %%%  definitions.ily
@@ -3876,7 +3891,7 @@ alors à
 Cette approche peut être utile même si vous ne produisez qu'un seul
 jeu de partitions.  J'utilise personnellement une demi-douzaine de
 fichiers de @qq{feuille de style} pour mes projets.  Je commence
-chaque fichier de musique par @code{\include "../global.ily"} qui
+chaque fichier de musique par @code{\include@tie{}"../global.ily"} qui
 contient@tie{}:
 
 @example
@@ -3902,8 +3917,8 @@ L'emplacement du répertoire dépend (a) du fait que, pour vous procurer
 LilyPond, vous avez téléchargé un paquet précompilé sur lilypond.org, ou
 vous l'avez installé grâce à votre gestionnaire de paquetages
 (c'est-à-dire distribué avec Linux ou installé avec fink ou cygwin), ou
-encore vous l'avez compilé directement à partir des sources ; et (b) du
-système d'exploitation sur lequel il tourne. 
+encore vous l'avez compilé directement à partir des sources@tie{}; et
+(b) du système d'exploitation sur lequel il tourne.
 
 @strong{Téléchargé depuis lilypond.org}
 
@@ -3915,8 +3930,8 @@ système d'exploitation sur lequel il tourne.
 @item MacOS X
 
 @code{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current/}
-Pour accéder à ce dossier, deux possibilités : soit, dans un Terminal,
-taper @code{cd} suivi du chemin complet ci-dessus ; soit
+Pour accéder à ce dossier, deux possibilités@tie{}: soit, dans un Terminal,
+taper @code{cd} suivi du chemin complet ci-dessus@tie{}; soit
 Control-cliquer (ou clic droit) sur l'application LilyPond
 et sélectionner @qq{Afficher le contenu du paquet}.
 
@@ -3928,17 +3943,17 @@ Dans l'Explorateur Windows, voir
 @end itemize
 
 @strong{Installé par un gestionnaire de paquetages ou compilé d'après
-les sources} 
+les sources}
 
 @code{@var{PREFIX}/share/lilypond/@var{X.Y.Z}/}, où
 @var{PREFIX} est déterminé par votre gestionnaire de paquetages ou par
 le script @code{configure}, et @var{X.Y.Z} est le numéro de version de
-LilyPond. 
+LilyPond.
 
 @smallspace
 
 Dans ce répertoire, deux sous-répertoires sont particulièrement
-intéressants : 
+intéressants@tie{}:
 
 @itemize
 @item @code{ly/} --- contient les fichiers en format LilyPond
@@ -3947,13 +3962,13 @@ intéressants :
 
 Commençons par examiner quelques fichiers contenus dans @code{ly/}.
 Nous ouvrons @code{ly/property-init.ly} dans un éditeur de texte --
-celui que vous avez l'habitude d'utiliser pour les fichiers @code{.ly} 
-fera très bien l'affaire.  Ce fichier contient les définitions de toutes 
-les commandes standard prédéfinies de LilyPond, comme @code{\stemUp} et  
-@code{\slurDotted}.  Vous pouvez constater que ce n'est rien d'autre 
-que des définitions de variables composées d'un ou plusieurs groupes 
-de commandes @code{\override}.  Par exemple, @code{\tieDotted} 
-est défini comme :
+celui que vous avez l'habitude d'utiliser pour les fichiers @code{.ly}
+fera très bien l'affaire.  Ce fichier contient les définitions de toutes
+les commandes standard prédéfinies de LilyPond, comme @code{\stemUp} et
+@code{\slurDotted}.  Vous pouvez constater que ce n'est rien d'autre
+que des définitions de variables composées d'un ou plusieurs groupes
+de commandes @code{\override}.  Par exemple, @code{\tieDotted}
+est défini comme@tie{}:
 
 @example
 tieDotted = @{
@@ -3962,11 +3977,11 @@ tieDotted = @{
 @}
 @end example
 
-Si vous n'aimez pas les valeurs par défaut, les commandes prédéfinies 
+Si vous n'aimez pas les valeurs par défaut, les commandes prédéfinies
 peuvent être facilement redéfinies, comme n'importe quelle autre
 variable, en tête de votre fichier d'entrée.
 
-Voici les fichiers les plus utiles dans le répertoire @code{ly/} :
+Voici les fichiers les plus utiles dans le répertoire @code{ly/}@tie{}:
 
 @multitable @columnfractions .4 .6
 @headitem Nom de fichier
@@ -3980,21 +3995,22 @@ Voici les fichiers les plus utiles dans le répertoire @code{ly/} :
 @item @code{ly/property-init.ly}
   @tab Définitions de toutes les commandes prédéfinies courantes
 @item @code{ly/spanner-init.ly}
-  @tab Définitions des commandes prédéfinies pour les bandeaux 
+  @tab Définitions des commandes prédéfinies pour les bandeaux
 @end multitable
 
 Les autres réglages (comme les définitions de commandes @emph{markup})
-sont conservés comme fichiers @code{.scm} (Scheme).  Le langage de 
-programmation Scheme offre une interface programmable dans le 
-processus interne de LilyPond.  De plus amples explications sur ces 
-fichiers dépasseraient le cadre de ce manuel, dans la mesure où elles 
-requièrent la connaissance du langage Scheme.  Les utilisateurs qui 
-souhaiteraient comprendre le fonctionnement de ces fichiers de 
-configuration doivent être avertis que des connaissances techniques 
-substantielles et beaucoup de temps sont nécessaires (voir le 
-@ref{Tutoriel Scheme}).
+sont conservés comme fichiers @code{.scm} (Scheme).  Le langage de
+programmation Scheme offre une interface programmable dans le
+processus interne de LilyPond.  De plus amples explications sur ces
+fichiers dépasseraient le cadre de ce manuel, dans la mesure où elles
+requièrent la connaissance du langage Scheme.  Les utilisateurs qui
+souhaiteraient comprendre le fonctionnement de ces fichiers de
+configuration doivent être avertis que des connaissances techniques
+substantielles et beaucoup de temps sont nécessaires (voir le
+@rextendnamed{Scheme tutorial,Tutoriel Scheme}).
 
-Si c'est votre cas, les fichiers Scheme les plus utiles à connaître sont :
+Si c'est votre cas, les fichiers Scheme les plus utiles à connaître
+sont@tie{}:
 
 @multitable @columnfractions .4 .6
 @headitem Nom de fichier
@@ -4022,21 +4038,21 @@ Si c'est votre cas, les fichiers Scheme les plus utiles à connaître sont :
 @subsection Options ralentissant le traitement
 @translationof Avoiding tweaks with slower processing
 
-LilyPond peut effectuer des vérifications supplémentaires lors du 
-traitement des fichiers ; cependant, le rendu nécessitera alors plus de  
-temps.  En contrepartie, il y aura moins d'ajustements manuels à
-réaliser.  Si une indication textuelle ou des paroles  débordent dans la 
+LilyPond peut effectuer des vérifications supplémentaires lors du
+traitement des fichiers@tie{}; cependant, le rendu nécessitera alors
+plus de temps.  En contrepartie, il y aura moins d'ajustements manuels à
+réaliser.  Si une indication textuelle ou des paroles  débordent dans la
 marge, ces vérifications auront pour effet de serrer la ligne
-suffisamment pour faire tenir le texte entre les marges.  
+suffisamment pour faire tenir le texte entre les marges.
 
 Pour pouvoir fonctionner en toutes circonstances, ces vérifications
-doivent être activées ; il faut pour cela placer les retouches dans un
-bloc @code{Score \with}, plutôt qu'à l'intérieur du fragment musical,
-comme ceci : 
+doivent être activées@tie{}; il faut pour cela placer les retouches dans
+un bloc @code{Score \with}, plutôt qu'à l'intérieur du fragment musical,
+comme ceci@tie{}:
 
 @example
 \new Score \with @{
-  % Pour s'assurer que les indications textuelles et paroles 
+  % Pour s'assurer que les indications textuelles et paroles
   % seront à l'intérieur des marges de la page.
   \override PaperColumn #'keep-inside-line = ##t
   \override NonMusicalPaperColumn #'keep-inside-line = ##t
@@ -4050,23 +4066,23 @@ comme ceci :
 @subsection Retouches avancées avec Scheme
 @translationof Advanced tweaks with Scheme
 
-Nous avons vu à quel point le résultat obtenu avec LilyPond peut 
-être largement personnalisé à l'aide de commandes comme 
-@code{\override} et @code{\tweak}.  Et pourtant l'utilisation de 
+Nous avons vu à quel point le résultat obtenu avec LilyPond peut
+être largement personnalisé à l'aide de commandes comme
+@code{\override} et @code{\tweak}.  Et pourtant l'utilisation de
 Scheme ouvre des possibilités encore plus grandes.
-Le code écrit dans le langage de programmation Scheme peut être 
-intégré directement dans le processus interne de LilyPond.  Bien sûr, 
-il faut pour cela connaître un minimum de programmation en langage 
-Scheme.  Pour des explications complètes là-dessus, consultez le 
-@ref{Tutoriel Scheme}.
+Le code écrit dans le langage de programmation Scheme peut être
+intégré directement dans le processus interne de LilyPond.  Bien sûr,
+il faut pour cela connaître un minimum de programmation en langage
+Scheme.  Pour des explications complètes là-dessus, consultez le
+@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
 
-En guise d'illustration -- et ce n'est qu'une possibilité parmi tant 
-d'autres -- nous allons attribuer à une propriété non pas une valeur 
-préétablie mais une procédure Scheme qui sera lancée à chaque 
-utilisation de la propriété par LilyPond.  De cette façon, nous obtenons  
-un réglage dynamique de la propriété par le simple fait d'invoquer la 
+En guise d'illustration -- et ce n'est qu'une possibilité parmi tant
+d'autres -- nous allons attribuer à une propriété non pas une valeur
+préétablie mais une procédure Scheme qui sera lancée à chaque
+utilisation de la propriété par LilyPond.  De cette façon, nous obtenons
+un réglage dynamique de la propriété par le simple fait d'invoquer la
 procédure.  Dans cet exemple, nous colorons les têtes de notes en
-fonction de leur position sur la portée. 
+fonction de leur position sur la portée.
 
 
 @cindex x11-color, exemple d'utilisaation de la fonction
@@ -4103,6 +4119,7 @@ fonction de leur position sur la portée.
 }
 @end lilypond
 
-Vous trouverez dans @ref{Scheme et les retouches} d'autres exemples
-d'utilisation de ces interfaces programmables. 
+Vous trouverez dans @rextendnamed{Callback functions,les fonctions
+callback} d'autres exemples d'utilisation de ces interfaces
+programmables.
 
