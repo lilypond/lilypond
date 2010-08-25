@@ -104,7 +104,11 @@ Snippets:
 @unnumberedsubsubsec Fingerings
 
 All wind instruments other than the trombone require the use of several
-fingers to produce each pitch.
+fingers to produce each pitch.  Some fingering helps are shown in
+the snippets below.
+
+Woodwind diagrams can be produced and are described in
+@ref{Woodwind diagrams}.
 
 @snippets
 
@@ -115,6 +119,9 @@ fingers to produce each pitch.
 {recorder-fingering-chart.ly}
 
 @seealso
+
+Notation Reference:
+@ref{Woodwind diagrams}.
 
 Snippets:
 @rlsr{Winds}.
