@@ -1623,21 +1623,82 @@ Notation reference:
 @node Setting a chant
 @unnumberedsubsubsec Setting a chant
 
+Chants in the Anglican tradition are usually either single, with 7
+bars of music, or double, with two lots of 7 bars.  Each group of 7
+bars is divided into two halves, corresponding to the two halves of
+each verse, usually separated by a double bar line.  Only whole and
+half notes are used.  The 1st bar in each half always contains a
+single chord of whole notes.  This is the @qq{reciting note}.
+
 Some approaches to setting a chant are shown in the following
 snippets.
 
 @snippets
+
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
+Canticles and other liturgical texts may be set more freely, and
+may use notational elements from ancient music.  Often the words
+are shown underneath and aligned with the notes.
+
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+
+@seealso
+Notation Reference:
+@ref{Typesetting Gregorian chant}.
 
 
 @node Pointing a psalm
 @unnumberedsubsubsec Pointing a psalm
 
-TBC
+The words to a Anglican psalm are usually printed in separate
+verses underneath the chant.  See the Anglican psalm template in
+the Learning Manual to see how to use mark-up to center the chant
+and place the verses centered underneath.  Marks are inserted
+in the words to show how they should be fitted to the chant.
+Single chants (with 7 bars) are repeated for every verse.  Double
+chants (with 14 bars) are repeated for every pair of verses.
+
+Each verse is divided into two halves.  An asterisk or a colon
+is frequently used to indicate this division.  This corresponds
+to the double bar line in the music.  The words before the colon
+are sung to the first 3 bars of music; the words after the colon
+are sung to the last four bars.
+
+Single bar lines (or in some psalters an inverted comma or similar
+symbol) are inserted between words to indicate where the bar lines
+in the music fall.  In markup mode a single bar line can be entered
+with the bar check symbol, @code{|}.  Other symbols may require
+glyphs from the @code{fetaMusic} fonts.  For details, see
+@ref{Fonts}.
+
+Where there is one whole note in a bar all the words corresponding
+to that bar are recited on that one note in speech rhythm.  Where
+there are two notes in a bar there will usually be only one or two
+corresponding syllables.  If there are more that two syllables a
+dot is usually inserted to indicate where the change in note occurs.
+
+In some psalters an asterisk is used to indicate a break in a
+recited section instead of a comma, and stressed or slightly
+lengthened syllables are indicated in bold text.  Others use an
+accent over the syllable to indicate stress.
+
+The use of markup to center text, and arrange lines in columns is
+described in @ref{Formatting text}.
+
+Most of these elements are shown in one or other of the two verses
+in the template, see @qq{Psalms} in @rlearning{Vocal ensembles}.
+
+@seealso
+Learning Manual:
+@rlearning{Vocal ensembles}.
+
+Notation Reference:
+@ref{Fonts},
+@ref{Formatting text}.
+
 
 @node Partial measures in hymn tunes
 @unnumberedsubsubsec Partial measures in hymn tunes
