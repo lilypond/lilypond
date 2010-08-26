@@ -1367,6 +1367,7 @@ etc.
 @menu
 * References for choral::
 * Score layouts for choral::
+* Divided voices::
 @end menu
 
 @node References for choral
@@ -1506,6 +1507,19 @@ Notation Reference:
 Internals Reference:
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+
+
+@node Divided voices
+@unnumberedsubsubsec Divided voices
+
+@cindex voices, divided
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{using-arpeggiobracket-to-make-divisi-more-visible.ly}
+
+@seealso
+Notation Reference:
+@ref{Lines}.
 
 
 @node Opera and stage musicals
