@@ -851,17 +851,17 @@ Page_breaking::line_divisions_rec (vsize system_count,
 				   Line_division *cur_division)
 {
   vsize my_index = cur_division->size ();
-  vsize others_min = 0;
-  vsize others_max = 0;
+  int others_min = 0;
+  int others_max = 0;
 
   for (vsize i = my_index + 1; i < min_sys.size (); i++)
     {
       others_min += min_sys[i];
       others_max += max_sys[i];
     }
-  others_max = min (others_max, system_count);
-  vsize real_min = max (min_sys[my_index], system_count - others_max);
-  vsize real_max = min (max_sys[my_index], system_count - others_min);
+  others_max = min (others_max, (int) system_count);
+  int real_min = max ((int) min_sys[my_index], (int) system_count - others_max);
+  int real_max = min ((int) max_sys[my_index], (int) system_count - others_min);
 
   if (real_min > real_max || real_min <= 0)
     {
@@ -872,7 +872,7 @@ Page_breaking::line_divisions_rec (vsize system_count,
       return;
     }
 
-  for (vsize i = real_min; i <= real_max; i++)
+  for (int i = real_min; i <= real_max; i++)
     {
       cur_division->push_back (i);
       if (my_index == min_sys.size () - 1)
