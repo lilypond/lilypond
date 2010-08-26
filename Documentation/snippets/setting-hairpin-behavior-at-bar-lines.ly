@@ -20,7 +20,7 @@ sobreescribiendo la propiedad @code{'to-barline}.
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Wenn die Note, an welcher eine Crescendo-Klammer endet, die erste Note
-eines Taktes ist, wird die Klammer an der vorhergehenden Tatklinie
+eines Taktes ist, wird die Klammer an der vorhergehenden Taktlinie
 beendet.  Dieses Verhalten kann auch mit der Eigenschaft
 @code{'to-barline} geändert werden:
 "

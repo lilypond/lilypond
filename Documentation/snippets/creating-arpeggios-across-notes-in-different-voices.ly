@@ -19,7 +19,7 @@ voces que están sobre el mismo pentagrama si el grabador
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
-Ein Arpeggio kann zwischen Noten aus unterschidlichen Stimmen auf demselben
+Ein Arpeggio kann zwischen Noten aus unterschiedlichen Stimmen auf demselben
 System gezogen werden, wenn der @code{Span_arpeggio_engraver} in den
 @code{Staff}-Kontext verschoben wird:
 

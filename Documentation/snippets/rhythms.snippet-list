@@ -22,6 +22,7 @@ engraving-tremolos-with-floating-beams.ly
 entering-several-tuplets-using-only-one--times-command.ly
 flat-flags-and-beam-nibs.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
+generating-custom-flags.ly
 grouping-beats.ly
 guitar-strum-rhythms.ly
 heavily-customized-polymetric-time-signatures.ly

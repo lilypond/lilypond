@@ -27,11 +27,11 @@ distinta, como se ve en el segundo sistema del ejemplo.
   texidocde = "
 Wenn nur ein System einer Systemgruppe vom Typ @code{ChoirStaff} oder
 @code{StaffGroup} angezeigt wird, wird die Klammer zu Beginn normalerweise
-nicht gesetzt.  Das kann verändert werden, indem man die ensprechende
-Eigenschaft veränder.
+nicht gesetzt.  Das kann verändert werden, indem man die entsprechende
+Eigenschaft verändert.
 
 Bei Systemen wie @code{PianoStaff} und @code{GrandStaff}, die mit einer
-geschweiften Klammer beginne, muss eine andere Eigenschaft verändt werden,
+geschweiften Klammer beginne, muss eine andere Eigenschaft verändert werden,
 wie das zweite Beispiel zeigt.
 
 "

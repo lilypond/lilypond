@@ -19,7 +19,7 @@ Esta línea se puede suprimir de la siguiente manera:
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Dynamik-Texte (wie cresc. und dim.) werden mit einer gestrichelten Linie
-gesetzt, die ihre Dauer anzeigt.  Diese Linie kann auf foldenge Weise
+gesetzt, die ihre Dauer anzeigt.  Diese Linie kann auf folgende Weise
 unterdrückt werden:
 
 "

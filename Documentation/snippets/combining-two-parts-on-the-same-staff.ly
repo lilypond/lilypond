@@ -33,10 +33,10 @@ textos.
   texidocde = "
 Die Funktion, die Stimmen kombiniert (also der @code{\\partcombine}-Befehl)
 ermöglicht die Kombination unterschiedlicher Stimmen auf einem
-System.  Textanweisungen wie \"solo\" or \"a2\" werden automatisch
+System.  Textanweisungen wie \"solo\" oder \"a2\" werden automatisch
 hinzugefügt.  Wenn man sie entfernen will, muss man die Eigenschaft
-@code{printPartCombineTexts} auf flasch setzen.  Für Klavierauszüge
-muss natürlich kein \"solo\"/\"a2\" usw. hinzugefügt werdne, man
+@code{printPartCombineTexts} auf falsch setzen.  Für Klavierauszüge
+muss natürlich kein \"solo\"/\"a2\" usw. hinzugefügt werden, man
 sollte sie also ausschalten.  Wenn aber Solo-Stellen in einem
 Klavierauszug oder einer Chorpartitur angezeigt werden, ist es besser,
 normale Polyphonie zu verwenden, weil so die Solostellen angezeigt

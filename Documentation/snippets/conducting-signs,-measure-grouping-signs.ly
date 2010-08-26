@@ -41,7 +41,7 @@ der @code{set-time-signature}-Funktion als das dritte Argument mitgegeben:
 @code{'(2 2 2 3)}:
 
 "
-  doctitlede = "Dirigirzeichen Taktgruppenzeichen"
+  doctitlede = "Dirigierzeichen Taktgruppenzeichen"
 
 
 

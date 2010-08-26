@@ -24,7 +24,7 @@ propiedad @code{transparent}.
 Das Mensurstiche-Layout, in welchem die Taktlinien nicht auf den Systemen,
 sondern zwischen den Systemen gesetzt werden, kann mit einer @code{StaffGroup}
 anstelle von @code{ChoirStaff} erreicht werden.  Die Taktlinien auf den
-Systemen werden mit der the @code{transparent}-Eigenschaft ausgelöscht.
+Systemen werden mit der @code{transparent}-Eigenschaft ausgelöscht.
 
 "
   doctitlede = "Mensurstriche-Layout (Taktstriche zwischen den Systemen"

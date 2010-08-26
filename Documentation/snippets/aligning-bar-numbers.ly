@@ -23,7 +23,7 @@ alineados por la izquierda con ella.
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
-Taktnummern sind standardmäßig links an ihrem Ursprungsobjet
+Taktnummern sind standardmäßig links an ihrem Ursprungsobjekt
 ausgerichtet.  Das ist normalerweise die linke Ecke einer Linie oder,
 wenn die Nummern innerhalb einer Zeile gesetzt werden, auf der
 linken Seite eines Taktstrichs.  Die Nummern können auch

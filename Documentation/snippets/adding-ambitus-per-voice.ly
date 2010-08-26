@@ -17,7 +17,7 @@ debe desplazar manualmente para evitar colisiones.
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
 texidocde = "
 Ambitus können pro Stimme gesetzt werden. In diesem Fall müssen sie
-manual verschoben werden, um Zusammenstöße zu verhindern.
+manuell verschoben werden, um Zusammenstöße zu verhindern.
 
 "
 doctitlede = "Ambitus pro Stimme hinzufügen"

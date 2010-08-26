@@ -31,10 +31,10 @@ doctitlees = "Marcado de silencios multicompás"
 wird über oder unter der Pause zentriert.  Lange Beschriftungen
 lassen den Takt nicht breiter werden.  Um eine Mehrtaktpause einer
 Beschriftung anzupassen, muss eine unsichtbare Pause mit der
-Beschriftung direkt vor der Mehrtkatpause eingesetzt werden.
+Beschriftung direkt vor der Mehrtaktpause eingesetzt werden.
 
 Man sollte beachten, dass unsichtbare Pausen automatische Taktstriche
-nach sich ziehen.  Text, der an eine unsichtbare Pause gehänt wird,
+nach sich ziehen.  Text, der an eine unsichtbare Pause gehängt wird,
 ist links ausgerichtet an der Position, wo die Pause erscheinen
 würde.  Wenn aber die Länge des Taktes durch die Länge des Textes
 bestimmt wird, sieht es so aus, als ob der Text zentriert gesetzt

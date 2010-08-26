@@ -17,11 +17,11 @@ además de las notas de la melodía, acordes y diagramas de posiciones.
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
-In Guitarrennotation kann neben Melodie, Akkordbezeichnungen und
+In Gitarrennotation kann neben Melodie, Akkordbezeichnungen und
 Bunddiagrammen auch der Schlagrhythmus angegeben werden.
 
 "
-  doctitlede = "Schlagrhythmus für Guitarren"
+  doctitlede = "Schlagrhythmus für Gitarren"
 
 
 
