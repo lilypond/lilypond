@@ -111,6 +111,10 @@ Page_spacer::solve ()
     }
 
   Page_spacing_result ret;
+  ret.penalty_ = simple_state_.back ().penalty_
+    + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
+  ret.system_count_status_ = simple_state_.back ().system_count_status_;
+
   vsize system = lines_.size () - 1;
   while (system != VPOS)
     {
@@ -176,6 +180,7 @@ Page_spacer::solve (vsize page_count)
 
   ret.force_.resize (page_count);
   ret.systems_per_page_.resize (page_count);
+  ret.system_count_status_ = state_.at (system, page_count-1).system_count_status_;
   ret.penalty_ = state_.at (system, page_count-1).penalty_
     + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
 
