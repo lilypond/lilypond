@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ddf2c9d0e18c6ada1d14d5554f3adb8d972d84d5
+    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,17 +11,19 @@
 
 @c \version "2.12.0"
 
+@c Translators: Jean-Charles Malahieude
+
 @node Notations anciennes
 @section Notations anciennes
 @translationof Ancient notation
 
 @menu
-* Introduction aux notations anciennes::  
-* Signes de note alternatifs::      
-* Signes de note supplémentaires::       
-* Contextes prédéfinis::        
-* Transcription de musique mensurale::  
-* Notation éditoriale::          
+* Introduction aux notations anciennes::
+* Signes de note alternatifs::
+* Signes de note supplémentaires::
+* Contextes prédéfinis::
+* Transcription de musique mensurale::
+* Notation éditoriale::
 @end menu
 
 @node Introduction aux notations anciennes
@@ -62,7 +64,8 @@ grobs à une forme de notation particulière, ce qui évite la création de
 nouveaux concepts de notation.
 
 En plus des signes d'articulation standards décrits à la section
-@ref{Articulations et ornements}, la notation ancienne dispose de signes particuliers.
+@ref{Articulations et ornements}, la notation ancienne dispose de signes
+particuliers.
 
 @itemize @bullet
 @item
@@ -105,11 +108,11 @@ harmonie et en analyse.
 @ref{Basse chiffrée}
 @end itemize
 
-Voici les points que nous allons aborder :
+Voici les points que nous allons aborder@tie{}:
 
 
 @menu
-* Formes de notation ancienne prises en charge::  
+* Formes de notation ancienne prises en charge::
 @end menu
 
 @node Formes de notation ancienne prises en charge
@@ -128,12 +131,12 @@ Voici les points que nous allons aborder :
 
 
 @menu
-* Têtes de note anciennes::          
-* Altérations anciennes::         
-* Silences anciens::               
-* Clefs anciennes::               
-* Crochets anciens::               
-* Métriques anciennes::     
+* Têtes de note anciennes::
+* Altérations anciennes::
+* Silences anciens::
+* Clefs anciennes::
+* Crochets anciens::
+* Métriques anciennes::
 @end menu
 
 @node Têtes de note anciennes
@@ -154,8 +157,8 @@ ronde sont en forme de losange, et les hampes centrées sur la tête.  Ce
 style est particulièrement adapté à la transcription de la musique
 mesurée dans les incipits.  Le style @code{mensural} permet de
 reproduire les têtes de note telles qu'imprimées au XVIe siècle.  Enfin,
-le style @code{petrucci} imite des partitions historiques, bien
-qu'il utilise de plus grosses têtes de note.
+le style @code{petrucci} imite des partitions historiques, bien qu'il
+utilise de plus grosses têtes de note.
 
 L'exemple suivant illustre le style @code{neomensural}.
 
@@ -168,7 +171,7 @@ a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 
 Si vous écrivez en notation grégorienne, le
 @rinternals{Vaticana_ligature_engraver} se chargera de sélectionner
-les têtes de note appropriées ; il est donc inutile de spécifier le
+les têtes de note appropriées@tie{}; il est donc inutile de spécifier le
 style à utiliser.  Vous pouvez cependant spécifier par exemple le style
 @code{vaticana_punctum} pour obtenir des neumes punctums.  De même,
 c'est le @rinternals{Mensural_ligature_engraver} qui se chargera des
@@ -177,8 +180,8 @@ comment fonctionnent les graveurs de ligature.
 
 
 @seealso
-Pour un aperçu de toutes les possibilités,
-consultez @ref{Têtes de note}.
+Manuel de notation :
+@ref{Têtes de note}.
 
 
 
@@ -238,17 +241,21 @@ altération indisponible dans le style utilisé.
 
 À l'instar des altérations accidentelles, le style d'armure est géré
 par la propriété @code{glyph-name-alist} de l'objet
-@rinternals{KeySignature}. 
+@rinternals{KeySignature}.
 
 
 @seealso
-Dans ce manuel : @ref{Hauteurs}, @ref{Altérations}, et
-@ref{Altérations accidentelles automatiques}, pour les principes généraux d'utilisation
-des altérations ; @ref{Armure} pour les armures.
+Manuel de notation:
+@ref{Hauteurs},
+@ref{Altérations},
+@ref{Altérations accidentelles automatiques},
+@c r ef{Armure}.
 
-Référence du programme : @rinternals{KeySignature}.
+Référence des propriétés internes :
+@rinternals{KeySignature}.
 
-Exemples : @rlsr{Ancient notation}.
+Morceaux choisis :
+@rlsrnamed{Ancient notation,Notations anciennes}.
 
 
 @node Silences anciens
@@ -275,17 +282,17 @@ r\longa r\breve r1 r2 r4 r8 r16
 @end lilypond
 
 Les styles @code{mensural} et @code{neomensural} ne disposent pas des 8e
-et 16e de soupir ; LilyPond utilise dans de tels cas le style par
+et 16e de soupir@tie{}; LilyPond utilise dans de tels cas le style par
 défaut.  Voici une liste des styles de silences disponibles.
 
 @lilypondfile[quote,verbatim,ragged-right]{rest-styles.ly}
 
-Les silences sont absents de la notation grégorienne ; par contre, cette
-notation utilise des @ref{Divisions}.
+Les silences sont absents de la notation grégorienne@tie{}; par contre,
+cette notation utilise des @ref{Divisions}.
 
 
 @seealso
-Dans ce manuel : les principes généraux sur l'utilisation des silences
+Manuel de notation : les principes généraux sur l'utilisation des silences
 sont exposés dans @ref{Silences}.
 
 
@@ -509,7 +516,7 @@ Clé combinée ut/fa, style historique Hufnagel
 contemporaines de musique mesurée.}
 
 @emph{Petrucci} signifie @qq{inspiré des éditions réalisées par le
-maître graveur Petrucci (1466-1539).}
+maître graveur vénitien Petrucci (1466-1539).}
 
 @emph{Historique} signifie @qq{gravé comme dans les éditions
 historiques, manuscrites ou non, autres que celles de Petrucci.}
@@ -522,7 +529,8 @@ leur ligne de rattachement.
 
 
 @seealso
-Dans ce manuel : voir @ref{Clefs}.
+Manuel de notation :
+@ref{Clefs}.
 
 
 @knownissues
@@ -583,7 +591,7 @@ Les chiffrages de métrique mensurale sont partiellement pris en charge.
 Les glyphes ne font que représenter des métriques particulières.  En
 d'autres termes, pour obtenir le glyphe correspondant à une métrique
 mensurale particulière à l'aide de la commande @code{\time n/m}, vous
-devez choisir la paire @code{(n,m)} parmi les valeurs suivantes :
+devez choisir la paire @code{(n,m)} parmi les valeurs suivantes@tie{}:
 
 @lilypond[quote,ragged-right]
 \layout {
@@ -637,7 +645,7 @@ ci-dessus le style @code{neomensural}, particulièrement utilisé pour
 l'incipit des transcriptions.  Le style @code{mensural} imite l'aspect
 de certaines éditions du XVIe siècle.
 
-Voici les différences entre les styles :
+Voici les différences entre les styles@tie{}:
 
 @lilypond[ragged-right,fragment,relative=1,quote]
 {
@@ -673,7 +681,8 @@ l'utilisation des indications de métrique.
 
 Les équivalences de durées de note ne sont pas modifiées par un
 changement de métrique.  Par exemple, l'équivalence 1 brève pour 3
-semi-brèves (tempus perfectum) doit s'effectuer à la main en entrant :
+semi-brèves (@emph{tempus perfectum}) doit s'effectuer à la main en
+entrant@tie{}:
 
 @example
 breveTP = #(ly:make-duration -1 0 3 2)
@@ -685,7 +694,7 @@ breveTP = #(ly:make-duration -1 0 3 2)
 Ce qui définira @code{breveTP} à 3/2 fois 2 = 3 fois une ronde.
 
 Le symbole @code{old6/8alt} --- symbole alternatif pour la métrique 6/8
---- ne peut être utilisé grâce à une commande @code{\time}.  Utilisez
+-- ne peut être utilisé grâce à une commande @code{\time}.  Utilisez
 plutôt un @code{\markup}.
 
 
@@ -698,12 +707,12 @@ plutôt un @code{\markup}.
 
 
 @menu
-* Articulations anciennes::       
-* Guidons::                    
-* Divisions::                  
-* Ligatures::                   
-* Ligatures mensurales::    
-* Neumes ligaturés grégoriens::  
+* Articulations anciennes::
+* Guidons::
+* Divisions::
+* Ligatures::
+* Ligatures mensurales::
+* Neumes ligaturés grégoriens::
 @end menu
 
 @node Articulations anciennes
@@ -713,8 +722,9 @@ plutôt un @code{\markup}.
 @cindex articulations
 
 En plus des signes d'articulation standards décrits à la section
-@ref{Articulations et ornements}, LilyPond fournit des articulations pour la musique
-ancienne.  Elles sont spécifiquement destinées au style Editio Vaticana.
+@ref{Articulations et ornements}, LilyPond fournit des articulations
+pour la musique ancienne.  Elles sont spécifiquement destinées au style
+Editio Vaticana.
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
@@ -792,7 +802,7 @@ Le résultat ressemblera à
 
 Le glyphe du guidon est déterminé par la propriété @code{style}.  Les
 styles disponibles sont @code{vaticana}, @code{medicaea},
-@code{hufnagel} et @code{mensural}.  En voici un aperçu :
+@code{hufnagel} et @code{mensural}.  En voici un aperçu@tie{}:
 
 @lilypond[quote,ragged-right,fragment]
 \new Lyrics \lyricmode {
@@ -817,9 +827,11 @@ styles disponibles sont @code{vaticana}, @code{medicaea},
 
 
 @seealso
-Référence du programme : @rinternals{Custos}.
+Référence des propriétés internes :
+@rinternals{Custos}.
 
-Exemples : @rlsr{Ancient notation}.
+Morceaux choisis :
+@rlsrnamed{Ancient notation,Notations anciennes}.
 
 
 @node Divisions
@@ -830,20 +842,20 @@ Exemples : @rlsr{Ancient notation}.
 @cindex divisiones
 @cindex finalis
 
-Une division --- @emph{divisio}, pluriel @emph{divisiones} en latin ---
+Une division -- @emph{divisio}, pluriel @emph{divisiones} en latin --
 est un symbole ajouté à la portée et utilisé en chant grégorien pour
 séparer les phrases ou parties.  @emph{Divisio minima}, @emph{divisio
 maior} et @emph{divisio maxima} peuvent respectivement s'interpréter
 comme une pauses courte, moyenne ou longue, à l'image des marques de
-respiration --- cf. @ref{Signes de respiration}.  Le signe @emph{finalis} n'est
-pas uniquement une marque de fin de chant ; il sert aussi à indiquer la
-fin de chaque partie dans une structure verset/répons.
+respiration -- cf. @ref{Signes de respiration}.  Le signe @emph{finalis}
+n'est pas uniquement une marque de fin de chant@tie{}; il sert aussi à
+indiquer la fin de chaque partie dans une structure verset/répons.
 
 Les divisions sont disponibles après inclusion du fichier
 @file{gregorian@/-init@/.ly}.  Ce fichier définit les commandes
 @code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima} et
 @code{\finalis}.  Certaines éditions utilisent @emph{virgula} ou
-@emph{caesura} en lieu et place de @emph{divisio minima} ; c'est
+@emph{caesura} en lieu et place de @emph{divisio minima}@tie{}; c'est
 pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
 @code{\caesura}.
 
@@ -897,12 +909,15 @@ pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
 
 
 @seealso
-Dans ce manuel : @ref{Signes de respiration}.
+Manuel de notation :
+@ref{Signes de respiration}.
 
-Référence du programme : @rinternals{BreathingSign}.
+Référence des propriétés internes :
+@rinternals{BreathingSign}.
 
 @c FIXME: add breathing-signs.ly directly
-Exemples : @rlsr{Winds}.
+Morceaux choisis :
+@rlsrnamed{Winds,Instruments à vent}.
 
 
 @node Ligatures
@@ -919,11 +934,11 @@ moins deux notes.  Les ligatures ont commencé à apparaître dans les
 manuscrits de chant grégorien, pour indiquer des suites ascendantes ou
 descendantes de notes.
 
-Les ligatures s'indiquent par une inclusion entre @code{\[} et 
+Les ligatures s'indiquent par une inclusion entre @code{\[} et
 @code{\]}.  Certains styles de ligature peuvent demander un complément
 de syntaxe spécifique.  Par défaut, le graveur
 @rinternals{LigatureBracket} place un simple crochet au dessus de
-la ligature :
+la ligature@tie{}:
 
 @lilypond[quote,ragged-right,verbatim]
 \transpose c c' {
@@ -944,19 +959,20 @@ blanches, avec quelques limitations.
 La gestion de l'espacement spécifique aux ligatures n'est à ce jour
 pas implémentée.  En conséquence, les ligatures sont trop espacées les
 unes des autres et les sauts de ligne mal ajustés. De plus, les
-paroles ne s'alignent pas de manière satisfaisante en présence de ligatures.
+paroles ne s'alignent pas de manière satisfaisante en présence de
+ligatures.
 
 Les altérations ne pouvant être imprimées à l'intérieur d'une
 ligature, il faut les rassembler et les imprimer juste avant.
 
 La syntaxe utilisée correspond à l'ancienne convention de préfixage
-@code{\[ expr. musicale\]}.  Pour des raisons d'uniformité, nous
-opterons probablement pour le style en suffixe (postfix)  @code{note\[
-... note\]}. 
+@code{\[@tie{}expr_musicale\]}.  Pour des raisons d'uniformité, nous
+opterons probablement pour le style en suffixe (postfix)
+@code{note\[@tie{}@dots{}@tie{}note\]}.
 En attendant, vous pouvez inclure le fichier
-@file{gregorian@/-init@/.ly}, qui fournit une fonction Scheme 
+@file{gregorian@/-init@/.ly}, qui fournit une fonction Scheme
 @example
-\ligature @var{expr. musicale}
+\ligature @var{expr_musicale}
 @end example
 qui produit le même résultat, et dont la pérennité est assurée.
 
@@ -977,7 +993,7 @@ limitations.
 La gravure des ligatures mensurales blanches s'obtient après avoir
 ajouté le @rinternals{Mensural_ligature_engraver} et enlevé le
 @rinternals{Ligature_bracket_engraver} dans le contexte
-@rinternals{Voice}, comme ici :
+@rinternals{Voice}, comme ici@tie{}:
 
 @example
 \layout @{
@@ -1595,13 +1611,14 @@ Deminutae}
 
 Contrairement à la majorité des autres systèmes de notation neumatique,
 la manière de saisir les neumes n'a rien à voir avec leur apparence
-typographique ; elle se concentre plutôt sur le sens musical.  Ainsi,
-@code{\[ a \pes b \flexa g \]} produit un @emph{torculus} constitué de
-trois @emph{punctums}, alors que @code{\[ a \flexa g \pes b \]} produit
-un @emph{porrectus} avec une flexe incurvée et un seul @emph{punctum}.
+typographique@tie{}; elle se concentre plutôt sur le sens musical.
+Ainsi, @w{@code{\[ a \pes b \flexa g \]}} produit un @emph{torculus}
+constitué de trois @emph{punctums}, alors que @w{@code{\[ a \flexa g
+\pes b \]}} produit un @emph{porrectus} avec une flexe incurvée et un
+seul @emph{punctum}.
 Il n'existe pas de commande à proprement parler qui permette de
-spécifier la courbe d'une flexe ; c'est la source musicale qui va le
-déterminer.  Le fondement d'une telle approche réside dans la
+spécifier la courbe d'une flexe@tie{}; c'est la source musicale qui va
+le déterminer.  Le fondement d'une telle approche réside dans la
 distinction que nous faisons entre les aspects musicaux de la source et
 le style de notation que nous voulons obtenir.  De ce fait, la même
 source pourra être utilisée pour imprimer dans un autre style de
@@ -1960,7 +1977,7 @@ c} ou @code{\augmentum @{\virga c@}}.  Par ailleurs, l'expression
 
 
 @predefined
-LilyPond dispose des préfixes suivants :
+LilyPond dispose des préfixes suivants@tie{}:
 @funindex \virga
 @code{\virga},
 @funindex \stropha
@@ -2005,8 +2022,8 @@ des points d'augmentum.
 
 Lorsqu'un @code{\augmentum} apparaît dans une ligature en fin de
 portée, son placement vertical peut être erroné.  Pour y remédier,
-ajoutez un silence invisible, @code{s8} par exemple, comme dernière note de
-cette portée.
+ajoutez un silence invisible, @code{s8} par exemple, comme dernière note
+de cette portée.
 
 L'@code{\augmentum} devrait être implémenté en tant que préfixe plutôt
 qu'en tant que fonction unaire, afin qu'@code{\augmentum} puisse
@@ -2023,8 +2040,8 @@ s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 
 
 @menu
-* Contextes du chant grégorien::    
-* Les contextes de la musique mensurale::           
+* Contextes du chant grégorien::
+* Les contextes de la musique mensurale::
 @end menu
 
 @node Contextes du chant grégorien
@@ -2039,7 +2056,7 @@ Les contextes @code{VaticanaVoiceContext} et
 dans le style des éditions vaticanes.  Ces contextes initialisent
 les propriétés de tous les autres contextes et objets graphiques à des
 valeurs adéquates, de telle sorte que vous pouvez tout de suite vous
-lancer dans la saisie de votre chant, comme ci-dessous :
+lancer dans la saisie de votre chant, comme ci-dessous@tie{}:
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
@@ -2073,11 +2090,11 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 @cindex MensuralStaffContext
 
 Les contextes @code{MensuralVoiceContext} et
-@code{MensuralStaffContext} permettent de graver des chants
-dans le style mesuré.  Ces contextes initialisent
-les propriétés de tous les autres contextes et objets graphiques à des
-valeurs adéquates, de telle sorte que vous pouvez tout de suite vous
-lancer dans la saisie de votre chant comme ci-après :
+@code{MensuralStaffContext} permettent de graver des chants dans le
+style mesuré.  Ces contextes initialisent les propriétés de tous les
+autres contextes et objets graphiques à des valeurs adéquates, de telle
+sorte que vous pouvez tout de suite vous lancer dans la saisie de votre
+chant comme ci-après@tie{}:
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
@@ -2108,10 +2125,10 @@ lancer dans la saisie de votre chant comme ci-après :
 @untranslated
 
 @menu
-* Différentes éditions à partir d'une même source::  
-* Des incipits::                    
-* Mise en forme de la musique mensurale::        
-* Transcription de chant grégorien::  
+* Différentes éditions à partir d'une même source::
+* Des incipits::
+* Mise en forme de la musique mensurale::
+* Transcription de chant grégorien::
 @end menu
 
 @node Différentes éditions à partir d'une même source
@@ -2147,8 +2164,8 @@ lancer dans la saisie de votre chant comme ci-après :
 @untranslated
 
 @menu
-* Altérations accidentelles suggérées::    
-* Notation du rythme dans la musique baroque::   
+* Altérations accidentelles suggérées::
+* Notation du rythme dans la musique baroque::
 @end menu
 
 @node Altérations accidentelles suggérées
@@ -2164,7 +2181,7 @@ Les contextes @code{MensuralVoiceContext} et
 dans le style mesuré.  Ces contextes initialisent
 les propriétés de tous les autres contextes et objets graphiques à des
 valeurs adéquates, de telle sorte que vous pouvez tout de suite vous
-lancer dans la saisie de votre chant comme ci-après :
+lancer dans la saisie de votre chant comme ci-après@tie{}:
 
 @lilypond[quote,ragged-right,verbatim]
 \score {

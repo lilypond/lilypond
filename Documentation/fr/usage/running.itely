@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0bc0ff1a281477487016b052eb699ebbd685d3e0
+    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -568,7 +568,10 @@ You can use @code{sed} to create the necessary copy commands for a given
 executable:
 
 @example
-for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
+for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
+  do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\&  \
+    cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p  \
+      \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
 @end example
 
 @end itemize
@@ -609,7 +612,11 @@ cp -L /usr/bin/convert /usr/bin/gs usr/bin
 cp -L /usr/share/fonts/truetype usr/share/fonts
 
 # la formule magique de recopie des biblothèques
-for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh" "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done | sh -s
+for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
+  "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=>  \
+    \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed  \
+      's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
+        | sed '/.*=>.*/d'; done | sh -s
 
 # les fichiers partagés pour ghostscript...
       cp -L -r /usr/share/ghostscript usr/share

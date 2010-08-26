@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 98f5cb86133b03c2c4739cab384d48021e5d11df
+    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.12.0"
 
 @c Translators: Valentin Villenave
-@c Translation checkers: Gilles Thibault
+@c Translation checkers: Gilles Thibault, Jean-Charles Malahieude
 
 
 @node Interfaces pour les programmeurs
@@ -251,8 +251,8 @@
 @section Utilisation de code Scheme au lieu de @code{\tweak}
 @translationof Using Scheme code instead of tweak
 
-L'inconvénient principal de la commande @code{\tweak} est la rigidité de sa
-syntaxe.  Par exemple, le code suivant produit une erreur.
+L'inconvénient principal de la commande @code{\tweak} est la rigidité de
+sa syntaxe.  Par exemple, le code suivant produit une erreur.
 
 @example
 F = \tweak #'font-size #-3 -\flageolet
@@ -263,12 +263,14 @@ F = \tweak #'font-size #-3 -\flageolet
 @end example
 
 @noindent
-En d'autres termes, @code{\tweak} ne se comporte pas comme une articulation :
-il ne peut notamment pas être accolé avec les symboles @samp{^} ou @samp{_}.
+En d'autres termes, @code{\tweak} ne se comporte pas comme une
+articulation@tie{}: il ne peut notamment pas être accolé avec les
+symboles @samp{^} ou @samp{_}.
 
-C'est en se servant du langage Scheme que l'on peut résoudre ce problème.
-Dans cet exemple, on a recours aux méthodes décrites dans @ref{Exemple : ajouter une articulation à plusieurs notes}, en particulier quant à l'emploi de
-@code{\displayMusic}.
+C'est en se servant du langage Scheme que l'on peut résoudre ce
+problème.  Dans cet exemple, on a recours aux méthodes décrites dans
+@ref{Exemple : ajouter une articulation à plusieurs notes}, en
+particulier quant à l'emploi de @code{\displayMusic}.
 
 @example
 F = #(let ((m (make-music 'ArticulationEvent
@@ -288,9 +290,9 @@ Ici les propriétés @code{tweak} de l'objet flageolet nommé
 @samp{m} (créé au moyen de @code{make-music}) sont extraites par
 @code{ly:music-property}, une nouvelle valeur de la taille de fonte
 est ajoutée à la liste de ses propriétés (grâce à la fonction Scheme
-@code{acons}), et le résultat de cette opération est renvoyé par @code{set!}.
-Le dernier élément, dans ce bloc @code{let}, est la valeur finale de
-@samp{m} lui-même.
+@code{acons}), et le résultat de cette opération est renvoyé par
+@code{set!}.  Le dernier élément, dans ce bloc @code{let}, est la valeur
+finale de @samp{m} lui-même.
 
 
 @node Retouches complexes
@@ -303,20 +305,23 @@ Certains réglages sont plus délicats que d'autres.
 
 
 @item
-L'un d'entre eux est l'apparence des objets dits @q{spanner}, qui s'étendent
-horizontalement, tels que les liaisons.  Si, en principe, un seul de ces objets
-est créé à la fois et peut donc être modifié de façon habituelle, lorsque ces
-objets doivent enjamber un changement de ligne, ils sont dupliqués au début
-du ou des systèmes suivants.  Comme ces objets sont des clones de l'objet d'origine,
-ils en héritent toutes les propriétés, y compris les éventuelles commandes @code{\override}.
+L'un d'entre eux est l'apparence des objets dits @qq{spanner}, qui
+s'étendent horizontalement, tels que les liaisons.  Si, en principe, un
+seul de ces objets est créé à la fois et peut donc être modifié de façon
+habituelle, lorsque ces objets doivent enjamber un changement de ligne,
+ils sont dupliqués au début du ou des systèmes suivants.  Comme ces
+objets sont des clones de l'objet d'origine, ils en héritent toutes les
+propriétés, y compris les éventuelles commandes @code{\override}.
 
 
-En d'autres termes, une commande @code{\override} affecte toujours les deux extrémités
-d'un objet @q{spanner}.  Pour ne modifier que la partie précédant ou suivant le changement
-de ligne, il faut intervenir directement dans le processus de mise en page.
-La fonction de rappel @code{after-line-breaking} contient toute l'opération Scheme
-effectuée lorsque les sauts de lignes ont été déterminés, et que des objets graphiques
-ont été divisés sur des systèmes différents.
+En d'autres termes, une commande @code{\override} affecte toujours les
+deux extrémités d'un objet @q{spanner}.  Pour ne modifier que la partie
+précédant ou suivant le changement de ligne, il faut intervenir
+directement dans le processus de mise en page.
+La fonction de rappel @code{after-line-breaking} contient toute
+l'opération Scheme effectuée lorsque les sauts de lignes ont été
+déterminés, et que des objets graphiques ont été divisés sur des
+systèmes différents.
 
 Dans l'exemple suivant, on définit une nouvelle opération nommée
 @code{my-callback}.  Cette opération
@@ -327,13 +332,15 @@ détermine si l'objet a été divisé à l'occasion d'un changement de ligne
 @item
 si oui, recherche les différents morceaux de l'objet
 @item
-vérifie si l'objet considéré est bien la deuxième moitié d'un objet divisé
+vérifie si l'objet considéré est bien la deuxième moitié d'un objet
+divisé
 @item
 si oui, applique un espacement supplémentaire (@code{extra-offset}).
 @end itemize
 
 On ajoute cette procédure à l'objet @rinternals{Tie} (liaison de tenue),
-de façon à ce que le deuxième morceau d'une liaison divisée soit rehaussé.
+de façon à ce que le deuxième morceau d'une liaison divisée soit
+rehaussé.
 
 @c KEEP LY
 @lilypond[quote,verbatim,ragged-right]
@@ -358,17 +365,19 @@ de façon à ce que le deuxième morceau d'une liaison divisée soit rehaussé.
 @end lilypond
 
 @noindent
-Lorsque cette astuce va être appliquée, notre nouvelle fonction de rappel
-@code{after-line-breaking} devra également appeler celle d'origine
-(@code{after-line-breaking}), si elle existe.
-Ainsi, pour l'utiliser dans le cas d'un crescendo (objet @code{Hairpin}),
-il faudra appeler également @code{ly:hairpin::after-line-breaking}.
+Lorsque cette astuce va être appliquée, notre nouvelle fonction de
+rappel @code{after-line-breaking} devra également appeler celle
+d'origine (@code{after-line-breaking}), si elle existe.
+Ainsi, pour l'utiliser dans le cas d'un crescendo (objet
+@code{Hairpin}), il faudra appeler également
+@code{ly:hairpin::after-line-breaking}.
 
 
-@item Pour des raisons d'ordre technique, certains objets ne peuvent être modifiés par
-@code{\override}.  Parmi ceux-là, les objets @code{NonMusicalPaperColumn}
-et @code{PaperColumn}.  La commande @code{\overrideProperty} sert à les modifier, de
-façon similaire à @code{\once \override}, mais avec une syntaxe différente :
+@item Pour des raisons d'ordre technique, certains objets ne peuvent
+être modifiés par @code{\override}.  Parmi ceux-là, les objets
+@code{NonMusicalPaperColumn} et @code{PaperColumn}.  La commande
+@code{\overrideProperty} sert à les modifier, de façon similaire à
+@code{\once \override}, mais avec une syntaxe différente@tie{}:
 
 @example
 \overrideProperty
@@ -377,7 +386,8 @@ façon similaire à @code{\once \override}, mais avec une syntaxe différente :
 #'((next-padding . 20))         % valeur
 @end example
 
-Notez cependant que la commande @code{\override} peut tout de même être appliquée
-à @code{NonMusicalPaperColumn} et @code{PaperColumn} dans un bloc @code{\context}.
+Notez cependant que la commande @code{\override} peut tout de même être
+appliquée à @code{NonMusicalPaperColumn} et @code{PaperColumn} dans un
+bloc @code{\context}.
 
 @end itemize

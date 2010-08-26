@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 22b6ca7247b6f0d596934d38aa2c75d5e45206eb
+    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -47,7 +47,7 @@ les insérer directement dans votre fichier LilyPond.  Ce fichier devra
 
 @menu
 * Commentaires textuels::                
-* Indications textuelles et lignes d'extension::      
+* Indication textuelle avec ligne d'extension::      
 * Indications textuelles::               
 * Texte indépendant::                  
 @end menu
@@ -141,8 +141,8 @@ Vous pouvez cependant l'y forcer en définissant
 @end example
 
 
-@node Indications textuelles et lignes d'extension
-@unnumberedsubsubsec Indications textuelles et lignes d'extension
+@node Indication textuelle avec extension
+@unnumberedsubsubsec Indication textuelle avec extension
 @translationof Text spanners
 
 @cindex texte et extenseur
@@ -150,7 +150,7 @@ Vous pouvez cependant l'y forcer en définissant
 @cindex extenseur
 
 Certaines indications d'interprétation comme @i{rallentando}, 
-@i{accelerando} ou @i{trilles}, s'incrivent textuellement et se
+@i{accelerando} ou @i{trilles}, s'inscrivent textuellement et se
 prolongent sur plusieurs notes à l'aide d'une ligne pleine, pointillée
 ou ondulée.  Ces objets, que l'on appelle @qq{extenseurs}, se dessinent
 entre deux notes à l'aide de la syntaxe suivante@tie{}:

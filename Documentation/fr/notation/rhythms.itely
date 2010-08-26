@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
+    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,7 +19,7 @@
 
 @lilypondfile[quote]{rhythms-headword.ly}
 
-Cette section traite du rythme : durées, silences, barres de ligature
+Cette section traite du rythme@tie{}: durées, silences, barres de ligature
 et de mesure.
 
 @menu
@@ -164,8 +164,8 @@ Glossaire musicologique :
 @rglos{breve},
 @rglos{longa},
 @rglos{maxima},
-@rglos{note value},
-@rglos{Duration names notes and rests}.
+@rglosnamed{note value,valeur des notes},
+@rglosnamed{Duration names notes and rests,Noms de durée (notes et silences)}.
 
 Manuel de notation :
 @ref{Barres de ligature automatiques},
@@ -178,7 +178,7 @@ Manuel de notation :
 @ref{Notation proportionnelle}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
 @rinternals{Dots},
@@ -237,7 +237,7 @@ Des commandes prédéfinies permettent de déroger au positionnement
 automatique du crochet en surplomb ou au-dessous des notes -- voir le
 chapitre @ref{Direction et positionnement}.
 
-Les nolets peuvent être imbriqués ; par exemple,
+Les nolets peuvent être imbriqués@tie{}; par exemple,
 
 @lilypond[quote,verbatim,relative=2]
 \autoBeamOff
@@ -287,9 +287,9 @@ comme indiqué au chapitre @ref{Changement d'échelle des durées}.
 
 @seealso
 Glossaire musicologique :
-@rglos{triplet},
-@rglos{tuplet},
-@rglos{polymetric}.
+@rglosnamed{triplet,triolet},
+@rglosnamed{tuplet,nolet},
+@rglosnamed{polymetric,polymétrie}.
 
 Manuel d'initiation :
 @rlearning{Méthodes de retouche}.
@@ -301,7 +301,7 @@ Manuel de notation :
 @ref{Notation polymétrique}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Références des propriétés internes :
 @rinternals{TupletBracket},
@@ -397,7 +397,7 @@ Manuel de notation :
 @ref{Notation polymétrique}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 
 @node Liaisons de prolongation
@@ -531,7 +531,7 @@ c2 ~ c
 c2 ~ c
 @end lilypond
 
-Il est même possible d'en personnaliser l'allure :
+Il est même possible d'en personnaliser l'allure@tie{}:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
@@ -571,7 +571,7 @@ plus amples détails à ce sujet, reportez-vous au chapitre
 
 @seealso
 Glossaire musical :
-@rglos{tie},
+@rglosnamed{tie,liaison de tenue},
 @rglos{laissez vibrer}.
 
 Manuel de notation :
@@ -579,7 +579,7 @@ Manuel de notation :
 @ref{Découpage automatique des notes}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence dezs propriétés internes :
 @rinternals{LaissezVibrerTie},
@@ -688,7 +688,7 @@ Manuel de notation :
 @ref{Silences valant une mesure}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
 @rinternals{Rest}.
@@ -781,14 +781,14 @@ rien du tout, pas même un symbole transparent.
 
 @seealso
 Manuel d'initiation :
-@rlearning{Visibility and color of objects}.
+@rlearning{Visibilité et couleur des objets}.
 
 Manuel de notation :
 @ref{Dictée à trous},
-@ref{Visibilité des objet}.
+@ref{Visibilité des objets}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
 @rinternals{SkipMusic}.
@@ -961,7 +961,7 @@ numéros de mesure.
 
 @seealso
 Glossaire musicologique :
-@rglos{multi-measure rest}.
+@rglosnamed{multi-measure rest,silence multi-mesures}.
 
 Manuel de notation :
 @ref{Durées},
@@ -970,7 +970,7 @@ Manuel de notation :
 @ref{Commentaires textuels}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
 @rinternals{MultiMeasureRest}.
@@ -1172,14 +1172,14 @@ métrique@tie{}:
 
 @seealso
 Glossaire musicologique :
-@rglos{time signature}
+@rglosnamed{time signature,métrique}.
 
 Manuel de notation :
 @ref{Métriques anciennes},
 @ref{Gestion du temps}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Références des propriétés internes :
 @rinternals{TimeSignature},
@@ -1229,7 +1229,7 @@ Le programme traduit cette commande en
 \set Timing.measurePosition = -@var{durée}
 @end example
 
-Par exemple, @code{\partial 8*3} es traduit en :
+Par exemple, @code{\partial 8*3} es traduit en@tie{}:
 
 @example
 \set Timing.measurePosition = #(ly:make-moment -3 8)
@@ -1242,13 +1242,13 @@ le programme@tie{}: @qq{Dans cette mesure, il reste juste une noire}.
 
 @seealso
 Glossaire musicologique :
-@rglos{anacrusis}.
+@rglosnamed{anacrusis,anacrouse}.
 
 Manuel de notation :
 @ref{Notes d'ornement}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Références des propriétés internes :
 @rinternals{Timing_translator}.
@@ -1320,14 +1320,14 @@ de la partition, même si vous ne les placez que dans un simple contexte
 
 @seealso
 Glossaire musicologique :
-@rglos{cadenza}.
+@rglosnamed{cadenza,cadence}.
 
 Manuel de notation :
 @ref{Visibilité des objets},
 @ref{Notation polymétrique}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 
 @cindex cadence et saut de ligne
@@ -1487,16 +1487,16 @@ parviendrez en déplaçant le @code{Timing_translator} et le
 
 @seealso
 Glossaire musicologique :
-@rglos{polymetric},
-@rglos{polymetric time signature},
-@rglos{meter}.
+@rglosnamed{polymetric,polymétrie},
+@rglosnamed{polymetric time signature,métrique composite},
+@rglosnamed{meter,métrique}.
 
 Manuel de notation :
 @ref{Métrique},
 @ref{Changement d'échelle des durées}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Références des propriétés internes :
 @rinternals{TimeSignature},
@@ -1545,14 +1545,14 @@ montrent exactement la durée des décalages de mesure.
 
 @seealso
 Glossaire musicologique :
-@rglos{tie}
+@rglosnamed{tie,liaison de tenue}.
 
 Manuel d'initiation :
 @rlearning{Tout savoir sur les graveurs},
 @rlearning{Ajout et suppression de graveurs}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Références des propriétés internes :
 @rinternals{Note_heads_engraver},
@@ -1651,7 +1651,7 @@ grille d'accords@tie{}:
 
 @seealso
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
 @rinternals{RhythmicStaff}.
@@ -1749,7 +1749,7 @@ Fichiers installés :
 @file{scm/@/auto@/-beam@/.scm}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Références des propriétés internes :
 @rinternals{Auto_beam_engraver},
@@ -1808,7 +1808,7 @@ ligature@tie{}; sinon
 
 @item si une règle explicite de terminaison a été définie grâce à la
 propriété @code{beamExceptions} pour un type de ligature spécifique dans
-la métrique en cours, c'est elle qui s'appliquera@tie{}; sinon 
+la métrique en cours, c'est elle qui s'appliquera@tie{}; sinon
 
 @item si une règle explicite de terminaison a été définie grâce à la
 propriété @code{beamExceptions} pour un type de ligature plus large,
@@ -1971,7 +1971,7 @@ Fichiers d'initialisation :
 @file{scm/beam-settings.scm}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
 @rinternals{Auto_beam_engraver},
@@ -2084,7 +2084,7 @@ Manuel de notation :
 @ref{Notes d'ornement}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
 @rinternals{Beam},
@@ -2153,7 +2153,7 @@ approximative, la sortie MIDI sera quant à elle parfaitement
 
 @seealso
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 
 
@@ -2394,7 +2394,7 @@ les portées d'un @code{StaffGroup}, d'un @code{PianoStaff} ou d'un
 La commande @code{\bar }@var{type_de_barre} sert de raccourci pour
 @code{\set@tie{}Timing.whichBar@tie{}=@tie{}}@var{type_de_barre}.  Dès
 que l'on définit @code{whichBar}, une barre de mesure est créée selon le
-style défini. 
+style défini.
 
 Le type de barre de mesure par défaut utilisé pour l'insertion
 automatique est @code{"|"}.  Vous pouvez en changer à tout moment grâce
@@ -2408,7 +2408,7 @@ Manuel de notation :
 @ref{Regroupement de portées}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
 @rinternals{BarLine} (faisant partie du contexte @code{Staff}),
@@ -2491,7 +2491,7 @@ c1 | c | c | c
 
 @seealso
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence des pripriétés internes :
 @rinternals{BarNumber},
@@ -2587,7 +2587,7 @@ point (variable @code{currentBarNumber}) n'est pas 123.
 
 @seealso
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 
 @node Indications de repère
@@ -2724,7 +2724,7 @@ la @code{break-alignable-interface}.
 
 
 @seealso
-Dans ce manuel :
+Manuel de notation :
 @ref{La fonte Feta},
 @ref{Mise en forme du texte},
 @ref{Alignement des objets}.
@@ -2735,7 +2735,7 @@ Fichiers d'initialisation :
 source d'inspiration pour d'autres fonctions de formatage.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
 @rinternals{MarkEvent},
@@ -2892,15 +2892,15 @@ désactivés dans cette même expression.
 
 @seealso
 Glossaire musicologique :
-@rglos{grace notes},
-@rglos{acciaccatura},
-@rglos{appoggiatura}.
+@rglosnamed{grace notes,ornements},
+@rglosnamed{acciaccatura,acciacature},
+@rglosnamed{appoggiatura,appogiature}.
 
 Fichiers d'initialisation :
 @file{ly/@/grace@/-init@/.ly}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
 @rinternals{GraceMusic},
@@ -2996,7 +2996,7 @@ Glossaire musicologique :
 @rglos{cadenza}.
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 
 @node Gestion du temps
@@ -3080,7 +3080,7 @@ Manuel de notation :
 @ref{Musique sans métrique}
 
 Morceaux choisis :
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Rythme}.
 
 Références des propriétés internes :
 @rinternals{Timing_translator},

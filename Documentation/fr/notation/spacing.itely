@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 8ee380b77e6bebd71f5241b6e795a70fae37aa4b
+    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -254,14 +254,14 @@ Les notes peuvent s'espacer proportionnellement en assignant une durée
 
 Manipuler cette propriété affectera l'espacement idéal uniquement pour
 des notes consécutives.  Pour obtenir une véritable notation
-proportionnelle, vous devrez tenir compte des réglages suivants :
+proportionnelle, vous devrez tenir compte des réglages suivants@tie{}:
 
 @itemize @bullet
 
 @item La véritable notation proportionnelle exige que des symboles
 puissent en écraser d'autres.  Pour y parvenir, il faut retirer le
 @rinternals{Separating_line_group_engraver} du contexte
-@rinternals{Staff}. 
+@rinternals{Staff}.
 
 @item L'influence en matière d'espacement induite par le formatage
 (clés, barres de mesure, etc) s'annule en assignant
@@ -269,13 +269,14 @@ puissent en écraser d'autres.  Pour y parvenir, il faut retirer le
 l'objet @rinternals{SpacingSpanner}.
 
 @item Les affinages optiques se règlent en assignant @emph{vrai} à la
-propriété @code{uniform-stretching} du @rinternals{SpacingSpanner}. 
+propriété @code{uniform-stretching} du @rinternals{SpacingSpanner}.
 
 @end itemize
 
 
 @seealso
-Exemples : @rlsr{Spacing}.
+Morceaux choisis :
+@rlsrnamed{Spacing,Espacements}.
 
 Le fichier @file{input/proportional.ly} illustre la notation
 proportionnelle stricte.
@@ -301,19 +302,19 @@ proportionnelle stricte.
 @subsection Modification de l'espacement
 @translationof Changing spacing
 
-Parfois, une partition peut se terminer avec seulement 
+Parfois, une partition peut se terminer avec seulement
 un ou deux systèmes sur la dernière page. Ceci peut être ennuyeux
 surtout si vous constatez, en regardant les pages précédentes, qu'il
 reste encore beaucoup de place sur celles-ci.
 
 Si vous vous intéressez aux problèmes de mise en page,
 @code{annotate-spacing} peut alors être un outil d'une valeur
-inestimable.  Cette commande imprime les valeurs 
-de nombreuses commandes d'espacement concernant la mise en page.  
-Consultez @ref{Mise en évidence de l'espacement} pour de plus amples informations.  À l'aide 
-des informations données par @code{annotate-spacing}, on peut 
-voir quelles marges il est souhaitable de modifier afin de résoudre le
-problème.
+inestimable.  Cette commande imprime les valeurs
+de nombreuses commandes d'espacement concernant la mise en page.
+Consultez @ref{Mise en évidence de l'espacement} pour de plus amples
+informations.  À l'aide des informations données par
+@code{annotate-spacing}, on peut voir quelles marges il est souhaitable
+de modifier afin de résoudre le problème.
 
 
 En plus d'agir sur les marges, il existe d'autres possibilités
@@ -321,7 +322,7 @@ qui permettent de gagner de la place.
 
 @itemize
 @item
-Demander à LilyPond de placer les systèmes aussi 
+Demander à LilyPond de placer les systèmes aussi
 près que possible les uns des autres (pour en disposer autant
 que possible sur une page), tout en répartissant les systèmes afin
 de ne pas laisser de blanc en bas de la dernière page.
@@ -336,9 +337,9 @@ de ne pas laisser de blanc en bas de la dernière page.
 @end example
 
 @item
-Obliger LilyPond à mettre un certain nombre de systèmes
-par page.  Par exemple, si LilyPond veut placer onze systèmes dans une page,
-vous pouvez l'obliger à n'en mettre que dix.
+Obliger LilyPond à mettre un certain nombre de systèmes par page.  Par
+exemple, si LilyPond veut placer onze systèmes dans une page, vous
+pouvez l'obliger à n'en mettre que dix.
 
 @example
 \paper @{
@@ -347,13 +348,14 @@ vous pouvez l'obliger à n'en mettre que dix.
 @end example
 
 @item
-Supprimer (ou réduire) les objets qui augmentent la hauteur du
-système.  C'est le cas en particulier de certaines reprises (avec des 
-alternatives) qui placent des crochets au dessus des portées. Si ces crochets 
-de reprise se poursuivent sur deux systèmes, ils prendront plus de
-place que s'ils sont regroupés sur un même système.
+Supprimer (ou réduire) les objets qui augmentent la hauteur du système.
+C'est le cas en particulier de certaines reprises (avec des
+alternatives) qui placent des crochets au dessus des portées. Si ces
+crochets de reprise se poursuivent sur deux systèmes, ils prendront plus
+de place que s'ils sont regroupés sur un même système.
 
-Un autre exemple : déplacer les nuances qui @qq{débordent} d'un système.
+Un autre exemple@tie{}: déplacer les nuances qui @qq{débordent} d'un
+système.
 
 @lilypond[verbatim,quote,fragment]
 \relative c' {
@@ -365,8 +367,9 @@ Un autre exemple : déplacer les nuances qui @qq{débordent} d'un système.
 @end lilypond
 
 @item
-Modifier l'espacement vertical avec @code{SpacingSpanner}.  Reportez-vous à
-@ref{Modification de l'espacement horizontal} pour plus de détails.
+Modifier l'espacement vertical avec @code{SpacingSpanner}.
+Reportez-vous à @ref{Modification de l'espacement horizontal} pour plus
+de détails.
 
 @lilypond[verbatim,quote]
 \score {

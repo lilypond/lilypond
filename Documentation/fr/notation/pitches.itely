@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: eac9638a00559bc59f7137087e3cc568f02f49ef
+    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -43,7 +43,7 @@ fichier source au clavier de l'ordinateur.
 * Hauteurs avec octave absolue::       
 * Octaves relatives::       
 * Altérations::                 
-* Noms de note dans d'autres langues:: 
+* Nom des notes dans d'autres langues:: 
 * Noms de note et altérations non-occidentaux::
 @end menu
 
@@ -92,10 +92,10 @@ d,, d, d c
 
 @seealso
 Glossaire musicologique :
-@rglos{Pitch names}.
+@rglosnamed{Pitch names,Noms des notes}.
 
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 
 @node Octaves relatives
@@ -271,15 +271,15 @@ et la quinte diminuée de seulement six demi-tons.
 
 @seealso
 Glossaire musicologique :
-@rglos{fifth},
-@rglos{interval},
-@rglos{Pitch names}.
+@rglosnamed{fifth,quinte},
+@rglosnamed{interval,intervalle},
+@rglosnamed{Pitch names,nom des notes}.
 
 Manuel de notation :
 @ref{Vérifications d'octave}.
 
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{RelativeOctaveMusic}.
@@ -317,7 +317,7 @@ Dans la notation par défaut, un @notation{dièse} est formé en ajoutant
 @code{es}.  Les @notation{double-dièses} et @notation{double-bémols}
 sont obtenus en ajoutant respectivement @code{isis} ou @code{eses} au
 nom de note.  Ce sont les noms de note hollandais.  Pour les autres
-langues, consultez @ref{Noms de note dans d'autres langues}.
+langues, consultez @ref{Nom des notes dans d'autres langues}.
 
 @lilypond[verbatim,quote,relative=2]
 ais1 aes aisis aeses
@@ -388,12 +388,12 @@ cis
 
 @seealso
 Glossaire musicologique :
-@rglos{sharp},
-@rglos{flat},
-@rglos{double sharp},
-@rglos{double flat},
-@rglos{Pitch names},
-@rglos{quarter tone}.
+@rglosnamed{sharp,dièse},
+@rglosnamed{flat,bémol},
+@rglosnamed{double sharp,double dièse},
+@rglosnamed{double flat,double bémol},
+@rglosnamed{Pitch names,Nom des notes},
+@rglosnamed{quarter tone,quart de ton}.
 
 Manuel d'initiation :
 @rlearning{Altérations et armure}.
@@ -401,10 +401,10 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Altérations accidentelles automatiques},
 @ref{Altérations accidentelles suggérées},
-@ref{Noms de note dans d'autres langues}.
+@ref{Nom des notes dans d'autres langues}.
 
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Références internes du programme :
 @rinternals{Accidental_engraver},
@@ -424,8 +424,8 @@ LilyPond n'est donc conforme à aucun standard.
 
 
 
-@node Noms de note dans d'autres langues
-@unnumberedsubsubsec Noms de note dans d'autres langues
+@node Nom des notes dans d'autres langues
+@unnumberedsubsubsec Nom des notes dans d'autres langues
 @translationof Note names in other languages
 
 @cindex notes, noms selon la langue
@@ -564,10 +564,10 @@ suédois, le catalan et l'espagnol.
 
 @seealso
 Glossaire musicologique :
-@rglos{Pitch names}.
+@rglosnamed{Pitch names,Nom des notes}.
 
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 
 
@@ -716,7 +716,7 @@ Dans les deux mesures qui suivent, les premier et troisième
 
 @seealso
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{RelativeOctaveCheck}.
@@ -837,7 +837,7 @@ Manuel de notation :
 @ref{Instruments transpositeurs}.
 
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriété internes :
 @rinternals{TransposedMusic}.
@@ -960,7 +960,7 @@ c2 c
 
 Il existe d'autres clefs, destinées à un usage particulier.  Voir à ce
 sujet
-@c ref{Mensural clefs}, @c ref{Gregorian clefs},
+@c r ef{Mensural clefs}, @c r ef{Gregorian clefs},
 @ref{Tablatures par défaut} et @ref{Tablatures personnalisées}.
 
 
@@ -972,13 +972,13 @@ sujet
 
 @seealso
 Manuel de notation :
-@ref{Mensural clefs},
-@ref{Gregorian clefs},
+@c r ef{Mensural clefs},
+@c r ef{Gregorian clefs},
 @ref{Tablatures par défaut},
 @ref{Tablatures personnalisées}.
 
 Morceaux choisis:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{Clef_engraver},
