@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 3d7ffa1f82bb44673134b28becf7898482fe7316
+    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,6 +11,7 @@
 @c \version "2.12.0"
 
 @c Translators: Reinhold Kainhofer, Till Paala
+@c Translation checkers: Till Paala
 
 @node lilypond starten
 @chapter @command{lilypond} starten
@@ -23,6 +24,7 @@ Dieses Kapitel behandelt die technischen Details, wie Lilypond ausgeführt werde
 * Übliche Programmbenutzung::
 * Benutzung auf der Kommandozeile::
 * Fehlermeldungen::
+* Häufige Fehlermeldungen::
 @end menu
 
 @node Übliche Programmbenutzung
@@ -30,10 +32,9 @@ Dieses Kapitel behandelt die technischen Details, wie Lilypond ausgeführt werde
 @translationof Normal usage
 
 Die meisten Benutzer führen LilyPond von einer graphischen Benutzeroberfläche
-aus. Siehe
-FIXME
-@c @rlearning{Erste Schritte},
- falls Sie dies nicht bereits getan haben.
+aus. Siehe @rlearning{Übung}, falls Sie dies nicht bereits getan haben.  Wenn
+Sie einen alternativen Editor für Ihre LilyPond-Dateien verwenden, lesen Sie
+bitte die Dokumentation dieses Editors.
 
 
 @node Benutzung auf der Kommandozeile
@@ -50,10 +51,8 @@ Unter @q{Kommandozeile} verstehen wir die Kommandozeile des jeweiligen
 Betriebssystems. Windows Benutzern ist sie vielleicht eher unter den
 englischen Begriffen @q{DOS shell} oder @q{command shell} bekannt.
 MacOS@tie{}X Benutzer kennen sie eher unter @q{Terminal} oder @q{Konsole}.
-Sie sollten auch den Abschnitt 
-FIXME
-@c @ref{Einrichtung für MacOS X}
-konsultieren.
+Einige zusätzliche Einrichtungsarbeiten werden unter MacOS@tie{}X,
+siehe @rweb{MacOS X}.
 
 Wie die Kommandozeile im jeweiligen Betriebssystem benutzt werden kann,
 soll in diesem Handbuch nicht näher beschrieben werden. Sehen Sie bitte
@@ -65,6 +64,7 @@ Internet, wenn Sie mit der Kommandozeile nicht vertraut sind.
 * lilypond aufrufen::
 * Optionen von lilypond auf der Kommandozeile::
 * Umgebungsvariablen::
+* LilyPond in chroot-Kerker::
 @end menu
 
 @node lilypond aufrufen
@@ -96,7 +96,7 @@ werden.@footnote{Der Zustand von GUILE wird allerdings nicht nach
 jeder Datei zurückgesetzt, sodass Achtung geboten ist, wenn in einer
 Datei globale Änderungen von Scheme aus durchgeführt werden.}
 
-Falls @file{Dateiname.ly} mehr als einen @code{\score}-Block enthält,
+Falls @file{Dateiname.ly} mehr als eine @code{\book}-Umgebung enthält,
 werden die weiteren Stücke in durchnummerierte Dateien der Form
 @file{Dateiname-1.pdf} ausgegeben.  Zusätzlich wird der Wert der
 Variable @code{output-suffix} zwischen den ursprünglichen Dateinamen
@@ -120,6 +120,11 @@ erzeugt daher die Dateien @var{Dateiname}@file{-Geige.pdf} und
 @translationof Command line options for lilypond
 
 Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
+
+@cindex @command{lilypond} auf der Kommandozeile
+@cindex Kommandozeile, @command{lilypond} aufrufen
+@cindex Optionen, Kommandozeile
+@cindex Terminal, @command{lilypond} aufrufen
 
 @table @code
 
@@ -235,6 +240,8 @@ Musikfragmente von LilyPond verarbeitet werden. Die @code{--jail} Option ist
 eine sicherere Alternative, benötigt allerdings auch mehr Aufwand zur 
 Einrichtung.
 
+@cindex Ausgabeformat, Definition von
+
 @item backend
 Gibt an, welches Ausgabeformat das LilyPond Backend benutzt. Mögliche Werte
 für diese Option sind:
@@ -291,12 +298,13 @@ Keine Partitur wird ausgegeben, hat gleichen Effekt wie @code{-dno-print-pages}.
 
 Beispiel: @code{lilypond -dbackend=svg @var{Dateiname}.ly}
 
-@cindex Ausgabeformat
 @cindex Vorschau
 
 @item preview
 Erzeugt eine Ausgabedatei, die nur die Titelzeilen und das erste System 
-enthält.
+enthält.  Wenn @code{\bookpart}-Umgebungen benutzt werden, erscheinen die
+Titel und ersten Systeme jedes @code{\bookpart}-Abschnitts in der Datei.
+Die Backends @code{ps}, @code{eps} und @code{svg} unterstützen diese Option.
 
 @item print-pages
 Erzeugt vollständige Seiten (Standardeinstellung).  @code{-dno-print-pages} 
@@ -344,7 +352,7 @@ werden durch
 @end example
 
 @cindex PDF-Ausgabe
-@cindex Portable Document (PDF)
+@cindex Portable Document Format (PDF)
 
 @item --pdf
 Erzeugt PDF-Dateien. Dies impliziert @code{--ps}.
@@ -430,6 +438,8 @@ Zeigt die Garantiebedingungen an, unter denen GNU LilyPond steht. (Es besteht
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
+@cindex Variablen, Umgebungs-
+@cindex Umgebungsvariablen
 
 @command{lilypond} erkennt und benützt die folgenden Umgebungsvariablen:
 @table @code
@@ -452,17 +462,130 @@ benötigt.  Voreinstellung ist ein Wert von @code{70}.
 @end table
 
 
+
+@node LilyPond in chroot-Kerker
+@unnumberedsubsec LilyPond in chroot-Kerker
+@translationof LilyPond in chroot jail
+
+Einen Server einzurichten, der LilyPond in einem chroot-Kerker bedient, ist
+recht kompliziert.  Die einzelnen Schritten finden sich unten aufgeliestet.
+Beispiele sind für Ubuntu Linux und erfordern evtl. die Benutzung von
+@code{sudo} an den entsprechenden Stellen.
+
+@itemize
+
+@item Installieren Sie die nötigen Pakete: LilyPond, GhostScript und ImageMagick.
+
+@item Erstellen Sie einen neuen Benutzer mit dem Namen @code{lily}:
+
+@example
+adduser lily
+@end example
+
+@noindent
+Hierdurch wird auch eine Gruppe @code{lily} und ein Heimat-Ordner
+@code{/home/lily} für den neuen Benutzer erstellt.
+
+@item Im Heimat-Ordner des Benutzers @code{lily} erstellen Sie eine Datei, die als
+eigenes Dateisystem eingesetzt wird:
+
+@example
+dd if=/dev/zero of=/home/lily/loopfile bs=1k count= 200000
+@end example
+
+@noindent
+In diesem Beispiel wird eine 200-MB-Datei als Kerker-Dateisystem erstellt.
+
+@item Erstellen Sie ein loop device, erstellen Sie ein Dateisystem und
+mounten Sie es, dann erstellen Sie dort einen Ordner, in dem der Benutzer
+@code{lily} Schreibrechte hat:
+
+@example
+mkdir /mnt/lilyloop
+losetup /dev/loop0 /home/lily/loopfile
+mkfs -t ext3 /dev/loop0 200000
+mount -t ext3 /dev/loop0 /mnt/lilyloop
+mkdir /mnt/lilyloop/lilyhome
+chown lily /mnt/lilyloop/lilyhome
+@end example
+
+@item In der Konfiguration des Servers ist der Kerker (JAIL) @code{/mnt/lilyloop}
+und das Verzeichnis (DIR) @code{/lilyhome}.
+
+@item Erstellen Sie einen großen Verzeichnisbaum in dem Kerker, indem Sie die
+notwendigen Dateien dorthin kopiert, wie das Beispielskript unten zeigt.
+
+Sie könne @code{sed} benutzen, um die notwendigen Kopierbefehle für ein
+bestimmtes Programm zu erstellen:
+
+@example
+for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
+@end example
+
+@end itemize
+
+@subheading Beispiel-Skript für 32-bit Ubuntu 8.04
+
+@example
+#!/bin/sh
+## defaults set here
+
+username=lily
+home=/home
+loopdevice=/dev/loop0
+jaildir=/mnt/lilyloop
+# the prefix (without the leading slash!)
+lilyprefix=usr/local
+# the directory where lilypond is installed on the system
+lilydir=/$lilyprefix/lilypond/
+
+userhome=$home/$username
+loopfile=$userhome/loopfile
+adduser $username
+dd if=/dev/zero of=$loopfile bs=1k count=200000
+mkdir $jaildir
+losetup $loopdevice $loopfile
+mkfs -t ext3 $loopdevice 200000
+mount -t ext3 $loopdevice $jaildir
+mkdir $jaildir/lilyhome
+chown $username $jaildir/lilyhome
+cd $jaildir
+
+mkdir -p bin usr/bin usr/share usr/lib usr/share/fonts $lilyprefix tmp
+chmod a+w tmp
+
+cp -r -L $lilydir $lilyprefix
+cp -L /bin/sh /bin/rm bin
+cp -L /usr/bin/convert /usr/bin/gs usr/bin
+cp -L /usr/share/fonts/truetype usr/share/fonts
+
+# Now the library copying magic
+for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh" "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done | sh -s
+
+# The shared files for ghostscript...
+      cp -L -r /usr/share/ghostscript usr/share
+# The shared files for ImageMagick
+      cp -L -r /usr/lib/ImageMagick* usr/lib
+
+### Now, assuming that you have test.ly in /mnt/lilyloop/lilyhome, you should be able to run:
+### Note that /$lilyprefix/bin/lilypond is a script, which sets the LD_LIBRARY_PATH - this is crucial
+      /$lilyprefix/bin/lilypond -jlily,lily,/mnt/lilyloop,/lilyhome test.ly
+@end example
+
+
 @node Fehlermeldungen
 @section Fehlermeldungen
 @translationof Error messages
 
 @cindex error messages
+@cindex Fehlermeldungen
+
 Während der Verarbeitung einer Dateien können diverse Meldungen an der
 Kommandozeile auftreten:
 
 @table @emph
 
-@item Warnung
+@item Warnung (Warning)
 @cindex Warnung
 Irgendetwas ist verdächtig.  Wenn Sie etwas Ungewöhnliches in Ihrer
 Datei durchführen, dann werden Sie die Meldung verstehen und können
@@ -470,19 +593,19 @@ sie gegebenenfalls ignorieren.  Im Normalfall jedoch bedeutet eine
 Warnung, dass mit Ihrer Datei etwas nicht stimmt, LilyPond jedoch
 trotzdem versucht, die Datei soweit wie möglich korrekt zu übersetzen.
 
-@item Fehler
+@item Fehler (Error)
 @cindex Fehler
 Irgendetwas stimmt definitiv nicht.  Der aktuelle Bearbeitungsschritt
 (Einlesen, Interpretieren oder Formatieren der Datei) wird noch fertig
 ausgeführt, danach bricht die Bearbeitung aber ab.
 
-@item Fataler Fehler
+@item Fataler Fehler (Fatal error)
 @cindex Fataler Fehler
 Irgendetwas stimmt definitiv nicht und LilyPond kann nicht weiter
 ausgeführt werden.  Dies ist nur sehr selten der Fall, meist sind
 die Schriftarten nicht korrekt installiert.
 
-@item Scheme Fehler
+@item Scheme Fehler (Scheme error)
 @cindex Fehlerprotokoll, Scheme
 @cindex Scheme Fehler
 Fehler, die während der Ausführung von Scheme-Code auftreten, werden
@@ -491,7 +614,7 @@ Wenn Sie LilyPond mit der @code{--verbose} Option (auch @code{-V})
 ausführen, wird der sogenannte @q{Call trace} ausgegeben, der die
 aufgerufenen Funktionen zur Zeit des Fehlers angibt.
 
-@item Programmierfehler
+@item Programmierfehler (Programming error)
 @cindex Programmierfehler
 Eine interne Inkonsistenz ist aufgetreten.  Diese Fehlermeldungen
 sollen den Programmierern die Fehlersuche erleichtern und
@@ -532,3 +655,162 @@ Stelle zwar noch problemlos verarbeiten, ein paar Zeilen später wirkt
 sich der Fehler aber dann doch noch aus.  In solchen Fällen, wo Sie in
 der angegebenen Zeile keinen Fehler erkennen, sollten Sie auch die Zeilen
 oberhalb der angegebenen Stelle genauer unter die Lupe nehmen.
+
+Mehr Information darüber findet sich in @ref{Häufige Fehlermeldungen}.
+
+
+
+@node Häufige Fehlermeldungen
+@section Häufige Fehlermeldungen
+@translationof Common errors
+
+Die Fehlermeldungen, die unten beschrieben werden, treten of auf,
+es ist jedoch nicht immer einfach, die Urache zu finden.  Wenn
+der Fehler einmal verstanden ist, kann er einfach behoben werden.
+
+
+@menu
+* Noten laufen aus der Seite heraus::
+* Ein zusätzliches System erscheint::
+* Offensichtlicher Fehler in ../ly/init.ly::
+* Fehlermeldung Ungebundene Variable %::
+* Fehlermeldung FT_Get_Glyph_Name::
+@end menu
+
+@node Noten laufen aus der Seite heraus
+@unnumberedsubsec Noten laufen aus der Seite heraus
+@translationof Music runs off the page
+
+Noten, die rechts aus der Seite herauslaufen oder sehr komprimiert
+aussehen, liegen in fast allen Fällen an einer falschen Notendauer
+einer Note, die dazu fürt, dass die letzte Note im Takt über die
+Taktgrenze hinwegdauert.  Es ist nicht falsch, wenn die letzte
+Note eines Taktes über den Takt hinausdauert, weil einfach angenommen
+wird, dass sie im nächsten Takt fortgesetzt wird.  Aber wenn eine
+längere Sequenz dieser überhängenden Noten auftritt, können die
+Noten sehr gedrängt aussehen oder über den Seitenrand fließen, weil
+die automatische Zeilenumbruchsfunktion einen Umbruch nur am Ende
+eines vollständigen Taktes einfügen kann, also wenn alle Noten
+zum Ende des Taktstriches auch wirklich aufhören.
+
+@warning{Eine falsche Dauer kann dazu führen, dass Zeilenumbrüche
+nicht möglich sein und die Zeile entweder sehr gedrängt dargestllt
+wird oder über den Seitenrand fließt.}
+
+Die falsche Dauer kann einfach gefunden werden, wenn Taktstrichüberprüfung
+eingesetzt wird, siehe @ruser{Takt- und Taktzahlüberprüfung}.
+
+If you actually intend to have a series of such carry-over measures
+you will need to insert an invisible bar line where you want the
+line to break.  For details, see @ruser{Taktstriche}.
+
+
+@node Ein zusätzliches System erscheint
+@unnumberedsubsec Ein zusätzliches System erscheint
+@translationof An extra staff appears
+
+Wenn Kontext nicht explizit mit @code{\new} oder
+@code{\context} erstellt werden, werden sie vom Programm erstellt,
+sobald ein Befehl angetroffen wird, der im aktuellen Kontext nicht
+funktioniert.  In einfachen Partituren ist diese automatische
+Erstellung sehr nützlich und die meisten Beispiele der LilyPond-Handbücher
+benutzen diese Schreiberleicherterung.  Manchmal jedoch kann es
+vorkommen, dass durch die automatische Erstellung von Systemen aufeinmal
+unerwartete Notensysteme erstellt werden.  Beispielsweise könnte man
+annehmen, dass folgendes Beispiel alle Notenköpfe in dem Notensystem
+rot macht, aber als Resultat hat man zwei Systeme, während die
+Notenköpfe immernoch schwarz im unteren System erscheinen.
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.NoteHead #'color = #red
+\new Staff { a }
+@end lilypond
+
+Das liegt daran, dass kein @code{Staff}-Kontext existiert, wenn
+der @code{\override}-Befehl verarbeitet wird, sodass ein System
+für diesen Befehl erstellt wird.  Dann aber erstellt @code{\new Staff}
+noch ein zusätzliches System, wo die Noten gesetzt werden.  Die
+richtige Schreibweise wäre:
+
+@lilypond[quote,verbatim,relative=2]
+\new Staff {
+  \override Staff.NoteHead #'color = #red
+  a
+}
+@end lilypond
+
+Ein zweites Beispiel zeigt, dass ein @code{\relative}-Befehl innerhalb
+von @code{\repeat} zwei Systeme erstellt, wobei der zweite etwas verschoben
+ist.  Das liegt daran, dass @code{\repeat} zwei @code{\relative}-Umgebungen
+erstellt, die jede implizit einen @code{Staff}- und @code{Voice}-Kontext
+erstellen.
+
+@lilypond[quote,verbatim]
+\repeat unfold 2 {
+  \relative c' { c4 d e f }
+}
+@end lilypond
+
+Indem man die @code{Voice}-Kontexte explizit erstellt, kann das Problem
+umgangen werden.
+
+@lilypond[quote,verbatim]
+\new Voice {
+  \repeat unfold 2 {
+    \relative c' { c4 d e f }
+  }
+}
+@end lilypond
+
+
+@node Offensichtlicher Fehler in ../ly/init.ly
+@unnumberedsubsec Offensichtlicher Fehler in ../ly/init.ly
+@translationof Apparent error in @code{../ly/init.ly}
+
+Verschiedene seltsame Fehlermeldungen können über Syntax-Fehler in
+@code{../ly/init.ly} auftauchen, wenn die Eingabedatei nicht richtig
+formuliert ist, wenn sie etwa nicht richtig passende Klammerpaare
+oder Anführungszeichen enthält.
+
+Der üblichste Fehler ist das Fehlen einer geschweiften Klammer
+(@code{@}}) am Ende der @code{score}-Umbgebung.  Die Lösung ist hier
+klar: überprüfen Sie, ob die @code{score}-Umgebung richtig beendet
+wurde.  Die richtige Struktur einer Eingabedatei wird beschrieben
+in @rlearning{Wie eine LilyPond-Eingabe-Datei funktioniert}.
+Ein Editor, der die Klammerpaare automatisch anzeigt, ist sehr
+hilfreich, um derartige Fehler zu vermeiden.
+
+Eine weitere übliche Fehlerquelle ist kein Leerzeichen zwischen der
+letzten Silbe einer @code{lyrics}-Umgebung und der schließenden
+Klammer (@code{@}}).  Ohne diese Trennung wird die Klammer als
+Teil der Silbe gewertet.  Es bietet sich immer an, Leerzeichen vor
+und hinter @emph{jede} Klammer zu setzen.  Wie wichtig das ist, wenn
+Gesangstext eingesetzt wird, siehe @ruser{Was ist Gesangtext}.
+
+Diese Fehlermeldung kann auch mit einem fehlenden schließenden Anführungszeichen
+(@code{"}) auftreten.  In diesem Fall sollte die begleitende Fehlermeldung
+eine Zeilenzahl angeben, die dicht am Fehler liegt.  Die nicht paarigen
+Anführungszeichen sind meistens ein oder zwei Zeilen darüber.
+
+
+@node Fehlermeldung Ungebundene Variable %
+@unnumberedsubsec Fehlermeldung Ungebundene Variable %
+@translationof Error message Unbound variable %
+
+Diese Fehlermeldung erscheint am Ende der Kommandozeilenausgabe oder in der
+Log-Datei mit einer Meldung @qq{GUILE signalled an error ...}
+jedes Mal, wenn eine Scheme-Routine aufgerufen wird, die
+(falscherweise) ein @emph{LilyPond}-Kommentar und kein
+@emph{Scheme}-Kommentar enthält.
+
+LilyPond-Kommentare befginnen mit dem Prozent-Zeichen (@code{%}) und
+dürfen nicht in Scheme-Routinen benutzt werden.  Scheme-Kommentare beginnen
+mit einem Semikolon (@code{;}).
+
+@node Fehlermeldung FT_Get_Glyph_Name
+@unnumberedsubsec Fehlermeldung FT_Get_Glyph_Name
+@translationof Error message FT_Get_Glyph_Name
+
+Diese Fehlermeldung erscheint in der Kommandozeilenausgabe, wenn die
+Datei ein Zeichen enthält, das nicht zu ASCII gehört und die Datei
+nicht in UTF-8-Kodierung gespeichert wurd.  Sie auch @ruser{Zeichenkodierung}.

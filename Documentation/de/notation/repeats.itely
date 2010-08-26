@@ -141,7 +141,7 @@ c1
 
 @warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
 notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
-zusätzliche (ungewollte) Systeme.  Sie auch @rprogram{An extra Staff appears}}
+zusätzliche (ungewollte) Systeme.  Sie auch @rprogram{Ein zusätzliches System erscheint}.}
 
 
 @cindex Wiederholung mit Auftakt
@@ -526,7 +526,7 @@ c1
 
 @warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
 notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
-zusätzliche (ungewollte) Systeme.  Sie auch @rprogram{An extra Staff appears}}
+zusätzliche (ungewollte) Systeme.  Sie auch @rprogram{Ein zusätzliches System erscheint}.}
 
 
 @seealso
