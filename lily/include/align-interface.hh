@@ -32,7 +32,8 @@ struct Align_interface
   static void align_elements_to_ideal_distances(Grob *);
   static vector<Real> get_minimum_translations (Grob *, vector<Grob*> const&,
 						Axis a,
-						bool safe, int start, int end);
+						bool include_fixed_spacing,
+						bool pure, int start, int end);
   static void set_ordered (Grob *);
   static Axis axis (Grob *);
   static void add_element (Grob *, Grob *);
