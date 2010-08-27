@@ -381,6 +381,7 @@ ADD_INTERFACE (Break_alignable_interface,
 
 	       /* properties */
 	       "break-align-symbols "
+	       "non-break-align-symbols "
 	       );
 
 ADD_INTERFACE (Break_aligned_interface,
