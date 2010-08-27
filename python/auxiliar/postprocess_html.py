@@ -347,7 +347,8 @@ def process_html_files (package_name = '',
             s = add_header (s, prefix)
             # make the "return to doc index" work with the online website.
             if target == 'online':
-                if 'Documentation/contributor' in prefix:
+                if (('Documentation/contributor' in prefix) or
+                    (int (versiontup[1]) %  2)):
                     s = s.replace (
                         'href=\"../..//Documentation/web/manuals.html\"',
                         'href=\"../../../../website/development.html\"')
