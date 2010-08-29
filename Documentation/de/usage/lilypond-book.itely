@@ -13,15 +13,15 @@
 @c Translators: Reinhold Kainhofer
 @c Translation checkers: Till Paala
 
-
-@node LilyPond-book
-@chapter @command{lilypond-book}: Noten in den Text integrieren
-@translationof LilyPond-book
+@c Note: keep this node named so that `info lilypond-book' brings you here.
+@node lilypond-book
+@chapter @command{lilypond-book} aufrufen
+@translationof lilypond-book
 
 Wenn Sie in ein Dokument Grafiken Ihres Musiksatzes einfügen möchten, so
-können Sie genauso machen, wie Sie andere Grafiken einfügen würden: Die
+können Sie genauso vorgehen, wie Sie andere Grafiken einfügen würden: Die
 Bilder werden getrennt vom Dokument im PostScript- oder PNG-Format erstellt
-und können dann in @LaTeX{} oder HTML inkludiert werden.
+und können dann in @LaTeX{} oder HTML eingefügt werden.
 
 @command{lilypond-book} automatisiert diesen Prozess: Dieses
 Programm extrahiert Musik-Schnipsel aus Ihrem Dokument, 
@@ -33,9 +33,7 @@ werden dabei Ihrem Dokument angepasst.
 üblicherweise von der Kommandozeile aufgerufen. Nähere Informationen
 hierzu finden sich in @ref{Benutzung auf der Kommandozeile}.  Wenn Sie MacOS 10.3
 oder 10.4 benutzen und Probleme mit @code{lilypond-book} haben, lesen
-Sie
-Einrichtung für MacOS X
-@c @ref{Einrichtung für MacOS X}.
+Sie @rweb{MacOS X}.
 
 Dieses Vorgehen kann bei @LaTeX{}, HTML, Texinfo oder DocBook Dokumenten
 angewendet werden.
@@ -46,11 +44,11 @@ angewendet werden.
 @cindex texi
 @cindex html
 @cindex docbook
-@cindex Dokument, Musik einfügen in
-@cindex HTML, Musik in
-@cindex Texinfo, Musik in
-@cindex DocBook, Musik in
-@cindex @LaTeX{}, Musik in
+@cindex Dokument, Noten einfügen in
+@cindex HTML, Noten in
+@cindex Texinfo, Noten in
+@cindex DocBook, Noten in
+@cindex @LaTeX{}, Noten in
 
 
 @menu
@@ -59,6 +57,7 @@ angewendet werden.
 * Die Musikfragment-Optionen::
 * lilypond-book aufrufen::
 * Dateiendungen::
+* lilypond-book-Vorlagen::
 * Alternative Methoden, Text und Musik zu kombinieren::
 @end menu
 
@@ -120,7 +119,7 @@ Datei im selben Verzeichnis wie diese Datei ersetzt werden.)
 
 @subheading Verarbeitung
 
-Speichern Sie den obigen @LaTeX{} Quellcode in eine Datei @file{lilybook.lytex}
+Speichern Sie den obigen @LaTeX{}-Quellcode in eine Datei @file{lilybook.lytex}
 und führen Sie dann in der Kommandozeile folgende Befehle aus:
 
 @c keep space after @version{} so TeX doesn't choke
@@ -142,7 +141,7 @@ zahlreiche temporäre Dateien, die das Arbeitsverzeichnis unnötig
 vollstopfen würden. Daher empfiehlt sich die Benutzung der @code{--output=@var{dir}}
 Option, wodurch die Dateien im Unterverzeichnis @file{dir} erzeugt werden.
 
-Das Endresultat des obigen @LaTeX{} Beispiels ist im nächsten Abschnitt
+Das Endresultat des obigen @LaTeX{}-Beispiels ist im nächsten Abschnitt
 zu sehen.@footnote{Da dieses Handbuch mit Texinfo erzeugt wurde,
 kann sich das Aussehen des Beispiels leicht von dem mit @LaTeX{} 
 erzeugten unterscheiden.}
@@ -183,7 +182,6 @@ und dann mit @code{\lilypondfile} eingebunden werden.
 In diesem Abschnitt soll die Integration von LilyPond mit den 
 verschiedenen Dateiformaten detailliert erläutert werden.
 
-
 @menu
 * LaTeX::
 * Texinfo::
@@ -208,7 +206,7 @@ Musikbeispiele können eingegeben werden als
 
 @example
 \begin@{lilypond@}[Optionen,kommen,hierhin]
-  IHR LILYPOND QUELLCODE
+  IHR LILYPOND-QUELLCODE
 \end@{lilypond@}
 @end example
 
@@ -223,7 +221,7 @@ oder
 oder
 
 @example
-\lilypond@{ IHR LILYPOND QUELLCODE @}
+\lilypond@{ IHR LILYPOND-QUELLCODE @}
 @end example
 
 Zusätzlich kann mit @code{\lilypondversion} die benutzte Versionsnummer
@@ -259,11 +257,11 @@ erzeugt
 @noindent
 Innerhalb des @code{\lilypond@{@}} Befehls dürfen keine geschwungenen
 Klammern @code{@{} oder @code{@}} vorkommen, weshalb dieser Befehl 
-nur mit der @code{fragment} Option Sinn macht.
+nur mit der @code{fragment}-Option Sinn macht.
 
 Die Standardzeilenlänge wird bestimmt, indem die Angaben in der Dokumentpräambel,
 also dem Teil der @LaTeX{} Datei vor dem @code{\begin@{document@}}, 
-analysiert werden. Der @command{lilypond-book} Befehl sendet diese
+analysiert werden. Der @command{lilypond-book}-Befehl sendet diese
 Angaben an @LaTeX{}, um herauszufinden, wie breit der Text tatsächlich 
 ist. Die Breite der Notenzeilen wird dann an diese Textbreite angepasst.
 Ein derartig heuristischer Algorithmus kann natürlich auch versagen,
@@ -271,8 +269,8 @@ wobei man in diesem Fall die Breite auch explizit durch die
 @code{line-width} Option des @code{\lilypond@{@}} oder @code{\begin@{lilypond@}}
 Befehls angeben kann.
 
-@cindex titling and lilypond-book
-@cindex \header in @LaTeX{} documents
+@cindex Titel und lilypond-book
+@cindex \header in @LaTeX{}-Dokumenten
 
 Jedes Musikbeispiele ruft die folgenden Makros auf, wenn sie vom Benutzer
 definiert wurden:
@@ -404,7 +402,7 @@ In der Eingabedatei wir Musik eingegeben als
 
 @example
 @@lilypond[Optionen,kommen,hier]
-  IHR LILYPOND QUELLCODE
+  IHR LILYPOND-QUELLCODE
 @@end lilypond
 @end example
 
@@ -412,7 +410,7 @@ In der Eingabedatei wir Musik eingegeben als
 oder
 
 @example
-@@lilypond[Optionen,kommen,hier]@{ IHR LILYPOND QUELLCODE @}
+@@lilypond[Optionen,kommen,hier]@{ IHR LILYPOND-QUELLCODE @}
 @end example
 
 @noindent
@@ -424,6 +422,7 @@ oder
 
 Zusätzlich kann mit @code{@@lilypondversion} die aktuelle Versionsnummer
 von LilyPond angezeigt werden.
+
 Wenn @command{lilypond-book} eine derartige Datei verarbeitet, 
 wird eine Texinfo-Datei mit der Erweiterung @file{.texi} erzeugt,
 die @code{@@image} Befehle für die Ausgabe nach HTML, Info und PDF 
@@ -465,7 +464,7 @@ im Fließtext, sondern setzt sie immer in einen eigenen Absatz.
 @subsection HTML
 @translationof HTML
 
-Musik wird eingegeben als
+Noten werden eingegeben als
 
 @example
 <lilypond fragment relative=2>
@@ -577,17 +576,17 @@ vorgenommen werden.
 @section Die Musikfragment-Optionen
 @translationof Music fragment options
 
-Im Folgenden meint @q{LilyPond-Kommando} ein beliebiges in den vorgehenden
-Abschnitten beschriebenes Kommando, welches ein LilyPond-Fragment in eine Datei
+Im Folgenden meint @q{LilyPond-Befehl} einen beliebigen in den vorgehenden
+Abschnitten beschriebenen Befehl, der ein LilyPond-Fragment in eine Datei
 einfügt und von @command{lilypond-book} verarbeitet wird. Der Einfachheit
-halber werden hier alle LilyPond-Kommandos in der Syntax von @LaTeX{} 
+halber werden hier alle LilyPond-Befehle in der Syntax von @LaTeX{} 
 dargestellt.
 
-Zu beachten ist, dass die Optionen eines LilyPond-Kommandos von links
+Zu beachten ist, dass die Optionen eines LilyPond-Befehls von links
 nach rechts verarbeitet werden. Wenn eine Option also mehrfach angegeben
 wird, wird nur die letzte benutzt.
 
-Die folgenden Optionen können für LilyPond-Kommandos benutzt werden:
+Die folgenden Optionen können für LilyPond-Befehle benutzt werden:
 
 @table @code
 @item staffsize=@var{ht}
@@ -596,8 +595,9 @@ Setzt die Höhe einer Notenzeile auf @var{ht}, angegeben in Punkten.
 @item ragged-right
 Erzeugt Notenzeilen im Flattersatz mit natürlichem Abstand der Noten. In
 anderen Worten: @code{ragged-right = ##t} wird in das Musikfragment 
-eingefügt. Dies ist die Standardeinstellung für das @code{\lilypond@{@}}
-Kommando, wenn die Option @code{line-width} nicht angegeben wird.
+eingefügt. Dies ist die Standardeinstellung für den
+@code{\lilypond@{@}}-Befehl,
+wenn die Option @code{line-width} nicht angegeben wird.
 Ebenso ist dies die Standardeinstellung für die @code{lilypond}-Umgebung,
 wenn die Option @code{fragment}, aber keine Zeilenlänge 
 explizit angegeben ist.
@@ -618,9 +618,9 @@ Wird diese Option ohne einen Wert angegeben, wird die Zeilenbreite auf
 einen Standardwert gesetzt, der durch einen heuristischen Algorithmus 
 bestimmt wird.
 
-Wenn die @code{line-width} Option nicht angegeben wird, versucht
+Wenn die @code{line-width}-Option nicht angegeben wird, versucht
 @command{lilypond-book} einen geeigneten Standardwert für alle 
-@code{lilypond}-Umgebungen zu finden, die die @code{ragged-right} Option 
+@code{lilypond}-Umgebungen zu finden, die die @code{ragged-right}-Option 
 nicht benutzen.
 
 @item notime
@@ -674,6 +674,7 @@ Sinn in Verbindung mit der @code{fragment} Option, weshalb @code{fragment}
 automatisch durch die Angabe der @code{relative} Option impliziert wird. 
 Eine explizite Angabe der @code{(no)fragment} Option hat keinen Effekt.
 @end table
+
 
 LilyPond benutzt zur Erzeugung seiner eigenen Dokumentation ebenfalls
 @command{lilypond-book}. Zu diesem Zweck stehen noch zahlreiche
@@ -828,7 +829,7 @@ kann eine Datei entweder von PDF@LaTeX{} oder von @LaTeX{} nicht korrekt
 verarbeitet werden, weshalb hier beide Methoden beschrieben werden.} Welche
 Methode auch immer benutzt wird, die Konvertierung zwischen PostScript und
 PDF kann leicht mit Hilfsprogrammen wie @command{ps2pdf} und @command{pdf2ps} 
-(aus dem Ghostscript Paket) erfolgen.
+(aus dem Ghostscript-Paket) erfolgen.
 
 Um eine PDF-Datei mittels PDF@LaTeX{} zu erzeugen, kann folgendermaßen 
 vorgegangen werden:
@@ -842,6 +843,7 @@ pdflatex Ihre_Datei.tex
 @cindex Type1 Schriften
 @cindex dvips
 @cindex Aufruf von dvips
+
 Um eine PDF-Datei mittels @LaTeX{}/@command{dvips}/@command{ps2pdf} zu
 erhalten, sind folgende Befehle nötig:
 
@@ -862,7 +864,7 @@ Der Aufruf von @command{dvips} kann einige Warnungen über fehlende
 Schriftarten ausgeben. Auch dies ist in Ordnung und kann ignoriert werden.
 
 Wenn Sie in der @LaTeX{}-Datei das Papierformat auf Querformat eingestellt
-haben, vergessen Sie nicht auf die @code{-t landscape} Option beim 
+haben, vergessen Sie nicht die @code{-t landscape}-Option beim 
 Aufruf von @command{dvips}.
 
 
@@ -980,11 +982,11 @@ verkürzt die Notenzeile und verschiebt sie um denselben Betrag nach
 rechts.
 
 
-@item -P @var{Kommando}
-@itemx --process=@var{Kommando}
-Verarbeitet LilyPond-Fragmente mit @var{Kommando} anstelle des
+@item -P @var{Befehl}
+@itemx --process=@var{Befehl}
+Verarbeitet LilyPond-Fragmente mit @var{Befehl} anstelle des
 Standardbefehls @code{lilypond}. @code{--filter} und @code{--process}
-können nicht gleichzeitig angegeben werden.
+können nicht mit dieser Option benutzt werden.
 
 @item --pdf
 Erzeugt PDF-Dateien mit PDF@LaTeX{}.
@@ -1045,77 +1047,152 @@ Programm in diesem Fall mit einer Fehlermeldung wie @qq{Fehler: Ausgabe
 würde Eingabedatei überschreiben; verwenden Sie --output.} abbricht.
 
 
+@node lilypond-book-Vorlagen
+@section @command{lilypond-book}-Vorlagen
+@translationof lilypond-book templates
+
+Diese Vorlagen sollen mit @code{lilypond-book} benutzt werden.  Wenn Sie sich
+mit dem Programm nicht auskennen, lesen Sie bitte
+@ref{lilypond-book}.
+
+@subsection LaTeX
+
+Sie können LilyPond-Fragmente in ein LaTeX-Dokument einfügen:
+
+@example
+\documentclass[]@{article@}
+
+\begin@{document@}
+
+Normaler LaTeX-Text.
+
+\begin@{lilypond@}
+\relative c'' @{
+  a4 b c d
+@}
+\end@{lilypond@}
+
+Weiterer LaTeX-Text und Optionen in eckigen Klammern.
+
+\begin@{lilypond@}[fragment,relative=2,quote,staffsize=26,verbatim]
+d4 c b a
+\end@{lilypond@}
+\end@{document@}
+@end example
+
+@subsection Texinfo
+
+LilyPond-Fragmente können in Texinfo-Dokumente eingefügt werden: dieses gesamte
+Handbuch wurde in Texinfo geschrieben.
+
+@example
+\input texinfo @c -*-texinfo-*-
+@@node Top
+@@top
+
+Texinfo-Text
+
+@@lilypond
+\relative c' @{
+  a4 b c d
+@}
+@@end lilypond
+
+Weiterer Texinfo-Text und Optionen in Klammern.
+
+@@lilypond[verbatim,fragment,ragged-right]
+d4 c b a
+@@end lilypond
+
+@@bye
+@end example
+
+
+@subsection html
+
+@example
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- header_tag -->
+<HTML>
+<body>
+
+<p>
+Dokumente für lilypond-book können Noten und Text frei kombinieren. Zum
+Beispiel
+<lilypond>
+\relative c'' @{
+  a4 b c d
+@}
+</lilypond>
+</p>
+
+<p>
+Noch etwas LilyPond, mit Optionen:
+
+<lilypond fragment quote staffsize=26 verbatim>
+a4 b c d
+</lilypond>
+</p>
+
+</body>
+</html>
+
+
+@end example
+
+@subsection xelatex
+
+@verbatim
+\documentclass{article}
+\usepackage{ifxetex}
+\ifxetex
+%xetex specific stuff
+\usepackage{xunicode,fontspec,xltxtra}
+\setmainfont[Numbers=OldStyle]{Times New Roman}
+\setsansfont{Arial}
+\else
+%This can be empty if you are not going to use pdftex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}%Times
+\usepackage{helvet}%Helvetica
+\fi
+%Here you can insert all packages that pdftex also understands
+\usepackage[ngerman,finnish,english]{babel}
+\usepackage{graphicx}
+
+\begin{document}
+\title{A short document with LilyPond and xelatex}
+\maketitle
+
+Normal \textbf{font} commands inside the \emph{text} work,
+because they \textsf{are supported by \LaTeX{} and XeteX.}
+If you want to use specific commands like \verb+\XeTeX+, you
+should include them again in a \verb+\ifxetex+ environment.
+You can use this to print the \ifxetex \XeTeX{} command \else
+XeTeX command \fi which is not known to normal \LaTeX .
+
+In normal text you can easily use LilyPond commands, like this:
+
+\begin{lilypond}
+{a2 b c'8 c' c' c'}
+\end{lilypond}
+
+\noindent
+and so on.
+
+The fonts of snippets set with LilyPond will have to be set from
+inside
+of the snippet. For this you should read the AU on how to use
+lilypond-book.
+\end{document}
+@end verbatim
+
+
 @node Alternative Methoden, Text und Musik zu kombinieren
 @section Alternative Methoden, Text mit Musik zu kombinieren
 @translationof Alternate methods of mixing text and music
 
-Dieser Abschnitt stellt Methoden vor, wie Text und Musik auf andere 
-Weise kombiniert werden können als dies durch @command{lilypond-book}
-automatisiert geschieht.
-
-
-@menu
-* Viele Zitate aus einer langen Partitur::
-* LilyPond-Noten in OpenOffice.org integrieren::
-* LilyPond-Noten in andere Programme integrieren::
-@end menu
-
-@node Viele Zitate aus einer langen Partitur
-@subsection Viele Zitate aus einer langen Partitur
-@translationof Many quotes from a large score
-
-Wenn aus einer großen Partitur viele kleine Fragmente eingefügt 
-werden sollen, kann dazu das @q{clip systems} Feature benutzt werden. 
-Siehe @ruser{Notationsfragmente extrahieren}.
-
-
-@node LilyPond-Noten in OpenOffice.org integrieren
-@subsection LilyPond-Noten in OpenOffice.org integrieren
-@translationof Inserting LilyPond output into OpenOffice.org
-
-Musik im LilyPond-Format kann in OpenOffice.org eingefügt werden mittels
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
-
-
-@node LilyPond-Noten in andere Programme integrieren
-@subsection LilyPond-Noten in andere Programme integrieren
-@translationof Inserting LilyPond output into other programs
-
-Im die Ausgabe von LilyPond in anderen Programmen einzufügen,
-sollte @code{lilypond} benutzt werden. Jedes Beispiel muss 
-getrennt manuell erzeugt und ins Dokument eingefügt werden; 
-für letzteres schlagen Sie bitte im Handbuch Ihrer 
-Textverarbeitungs-Software nach. Die meisten Programme 
-unterstützen das Einfügen von Grafiken im @file{PNG}-, @file{EPS}- 
-oder @file{PDF}-Format.
-
-Um den leeren Rand um die Notenzeilen zu verringern, können folgende 
-Einstellungen benutzt werden:
-
-@example
-\paper@{
-  indent=0\mm
-  line-width=120\mm
-  oddFooterMarkup=##f
-  oddHeaderMarkup=##f
-  bookTitleMarkup = ##f
-  scoreTitleMarkup = ##f
-@}
-
-@{ c1 @}
-@end example
-
-Eine @file{EPS}-Datei kann mit folgendem Befehl erzeugt werden:
-
-@example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   Dateiname.ly
-@end example
-
-@noindent
-eine @file{PNG}-Datei mittels:
-
-@example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png Dateiname.ly
-@end example
-
-
+Andere Methoden, Text und Noten miteinander zu kombinieren (ohne
+@command{lilypond-book} zu benutzen) werden beschrieben in
+@ref{LilyPond-Ausgabe in anderen Programmen}.
