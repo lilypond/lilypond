@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
+    Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -145,8 +145,8 @@ Ces signes de changement d'octave peuvent être multipliés.  Par exemple,
 @item
 Lorsque l'on entre en mode @code{\relative}, une hauteur absolue de
 départ peut être spécifiée, et agira dès lors comme si elle précédait la
-première note de @var{musicexpr}.  Nous vous recommandons de faire
-référence à un do (@code{c}).
+première note de @var{expression_musicale}.  Nous vous recommandons de
+faire référence à un do (@code{c}).
 
 @end itemize
 
@@ -382,6 +382,9 @@ cis
 
 @snippets
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle,ragged-right]
+{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
+
 @lilypondfile[verbatim,lilyquote,texidoc, doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
@@ -406,7 +409,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
 
-Références internes du programme :
+Références des propriétés internes :
 @rinternals{Accidental_engraver},
 @rinternals{Accidental},
 @rinternals{AccidentalCautionary},
@@ -733,7 +736,7 @@ Référence des propriétés internes :
 @funindex transpose
 
 Une expression musicale peut être transposée avec @code{\transpose}.
-Voici la syntaxe@tie{}:
+En voici la syntaxe@tie{}:
 
 @example
 \transpose @var{note_de_départ} @var{note_d_arrivée} @var{expression_musicale}
@@ -744,7 +747,8 @@ Cela signifie que @var{expression_musicale} est transposé de
 l'intervalle séparant @var{note_de_départ} et
 @var{note_d_arrivée}@tie{}: toute note dont la hauteur était
 @code{note_de_départ} est changée en @code{note_d_arrivée}@tie{}; les
-autres notes seront changées selon le même intervalle.
+autres notes seront changées selon le même intervalle.  Les deux
+hauteurs s'expriment en octave absolue.
 
 @warning{La musique contenue dans un bloc @code{@bs{}transpose} est en
 octaves absolus, sauf à inclure dans ce même bloc une clause
@@ -813,7 +817,7 @@ musiqueEnSiBemol = @{ e4 @dots{} @}
 @noindent
 Pour imprimer cette musique en fa -- et de ce fait produire une partie
 de cor au lieu d'un conducteur en notes réelles -- on utilisera un
-deuxième @code{transpose}@tie{}:
+deuxième @code{\transpose}@tie{}:
 
 @example
 musiqueEnSiBemol = @{ e4 @dots{} @}
@@ -999,15 +1003,16 @@ Référence des propriétés internes :
 @c duplicated in Key signature and in Accidentals
 @warning{Les nouveaux utilisateurs sont parfois déroutés par la gestion
 des altérations et de l'armure.  Pour LilyPond, une hauteur n'est que du
-matériau brut ; l'armure et la clef ne feront que déterminer comment ce
-matériau sera retranscrit.  Un simple@tie{}@code{c} signifie tout
-bonnement @w{@qq{do naturel}} quelles que soient l'armure et la clef en
-question.  Pour plus d'information, reportez-vous au chapitre
+matériau brut@tie{}; l'armure et la clef ne feront que déterminer
+comment ce matériau sera retranscrit.  Un simple@tie{}@code{c} signifie
+tout bonnement @w{@qq{do naturel}} quelles que soient l'armure et la
+clef en question.  Pour plus d'information, reportez-vous au chapitre
 @rlearning{Altérations et armure}.} 
 
 L'armure indique la tonalité dans laquelle la pièce doit être jouée.
 Elle comprend un ensemble d'altérations (dièses ou bémols) à la clef,
-c'est-à-dire au début de la portée.
+c'est-à-dire au début de la portée.  Elle peut varier en cours de
+morceau.
 
 On définit ou modifie l'armure avec la commande @code{\key}
 
@@ -1048,8 +1053,8 @@ On définit ou modifie l'armure avec la commande @code{\key}
 
 @noindent
 Ici, @var{mode} doit être @code{\major} ou @code{\minor} afin d'avoir
-respectivement @var{hauteur}-majeur ou @var{hauteur}-mineur.  Vous pouvez
-aussi avoir recours aux modes anciens que sont @code{\ionian},
+respectivement @var{hauteur}-majeur ou @var{hauteur}-mineur.  Vous
+pouvez aussi avoir recours aux modes anciens que sont @code{\ionian},
 @code{\locrian}, @code{\aeolian}, @code{\mixolydian}, @code{\lydian},
 @code{\phrygian} et @code{\dorian}.
 
@@ -1072,14 +1077,14 @@ fis
 
 @seealso
 Glossaire musicologique :
-@rglos{church mode},
+@rglosnamed{church mode,mode d'église},
 @rglos{scordatura}.
 
 Manuel d'initiation :
 @rlearning{Altérations et armure}.
 
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{KeyChangeEvent},
@@ -1131,10 +1136,10 @@ a2 b
 
 @seealso
 Glossarire musicologique :
-@rglos{octavation}.
+@rglosnamed{octavation,octaviation}.
 
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{Ottava_spanner_engraver},
@@ -1226,15 +1231,15 @@ c2 g
 
 @seealso
 Glossaire musicologique :
-@rglos{concert pitch},
-@rglos{transposing instrument}.
+@rglosnamed{concert pitch,tonalité de concert},
+@rglosnamed{transposing instrument,instrument transpositeur}.
 
 Manuel de notation :
 @ref{Citation d'autres voix},
 @ref{Transposition}.
 
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 
 @node Altérations accidentelles automatiques
@@ -1620,8 +1625,8 @@ des voix.  Les altérations sont imprimées voix par voix, mais les autres
 voix d'un même contexte @code{Staff} en @emph{tiennent compte}
 cette fois.  C'est pourquoi le @notation{la} de la dernière mesure est
 affublé d'un bécarre bien qu'il y en ait déjà eu un dans la mesure
-précédente, et que le ré de la main gauche en ait un alors qu'il avait
-auparavant concerné la main droite.
+précédente, et que le @notation{ré} de la main gauche en ait un alors
+qu'il avait auparavant concerné la main droite.
 
 @lilypond[quote]
 musicA = {
@@ -1858,7 +1863,7 @@ musicB = {
 
 Cette règle suit les pratiques de la musique contemporaine@tie{}: les
 altérations accidentelles apparaîssent comme dans le style
-@code{modern}, à ceci près qu'elles sont répétées dans la même mesure -- 
+@code{modern}, à ceci près qu'elles sont répétées dans la même mesure --
 sauf si elles concernent deux notes consécutives.
 
 @lilypond[quote]
@@ -2093,7 +2098,7 @@ musicB = {
 
 Cette règle reproduit ce que certains compositeurs du début du XXe
 siècle ont introduit dans leur désir d'abolir la distinction entre les
-notes naturelles ou non.  Ainsi, @emph{chaque} note est affublée d'une
+notes naturelles ou non.  Ainsi, @strong{chaque} note est affublée d'une
 altération, même si elle est naturelle.
 
 @lilypond[quote]
@@ -2331,6 +2336,9 @@ musicB = {
 
 
 @seealso
+Snippets:
+@rlsrnamed{Pitches,Hauteurs}.
+
 Référence des propriétés internes : 
 @rinternals{Accidental}, 
 @rinternals{Accidental_engraver},
@@ -2350,12 +2358,12 @@ Référence des propriétés internes :
 
 @knownissues
 
-Les notes simultanées sont considérées comme des évènements séquentiels. 
+Les notes simultanées sont considérées comme des évènements séquentiels.
 Ceci implique que, dans un accord, les altérations accidentelles
-seront imprimées comme si les notes de l'accord apparaissaient l'une après
-l'autre, en fonction de l'ordre dans lequel elles ont été saisies -- ce qui
-peut poser problème lorsqu'au sein d'un accord certaines altérations
-dépendent les unes des autres.  
+seront imprimées comme si les notes de l'accord apparaissaient l'une
+après l'autre, en fonction de l'ordre dans lequel elles ont été saisies
+-- ce qui peut poser problème lorsqu'au sein d'un accord certaines
+altérations dépendent les unes des autres.
 Ce problème est à résoudre manuellement, en insérant des@tie{}@code{!}
 et des@tie{}@code{?} après les notes concernées.
 
@@ -2444,13 +2452,16 @@ notes représentant la hauteur la plus basse et la plus haute.  Les
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {ambitus-with-multiple-voices.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-ambitus-gap.ly}
+
 
 @seealso
 Glossaire musicologique :
 @rglos{ambitus}.
 
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes : 
 @rinternals{Ambitus_engraver},
@@ -2515,8 +2526,8 @@ Pour une liste exhaustive des styles de tête de note, consultez
 @ref{Styles de tête de note}.
 
 Certains instruments utilisent des têtes de note différentes à des
-fins spécifiques -- des croix pour le @emph{parlato} des chanteurs ou les
-notes étouffées des guitares@tie{}:
+fins spécifiques -- des croix (style @code{cross}) pour le
+@emph{parlato} des chanteurs ou les notes étouffées des guitares@tie{}:
 
 @lilypond[verbatim,quote,relative=2]
 c4 b
@@ -2559,7 +2570,7 @@ harmoniques des cordes@tie{}:
 
 @seealso
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Manuel de notation :
 @ref{Styles de tête de note},
@@ -2624,7 +2635,7 @@ Manuel de notation :
 @ref{Définition de la taille de portée}.
 
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamaed{Pitches,Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{note-event},
@@ -2648,10 +2659,16 @@ Référence des propriétés internes :
 @funindex key
 @funindex \aikenHeads
 @funindex aikenHeads
+@funindex \aikenHeadsMinor
+@funindex aikenHeadsMinor
 @funindex \sacredHarpHeads
 @funindex sacredHarpHeads
+@funindex \sacredHarpHeadsMinor
+@funindex sacredHarpHeadsMinor
 @funindex \southernHarmonyHeads
 @funindex southernHarmonyHeads
+@funindex \southernHarmonyHeadsMinor
+@funindex southernHarmonyHeadsMinor
 
 En notation profilée, le profil d'une tête de note correspond à la
 fonction harmonique de cette note dans la gamme.  Ce style de notation
@@ -2706,7 +2723,7 @@ Pour une liste exhaustive des styles de tête de note, consultez
 
 @seealso
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Manuel de notation :
 @ref{Styles de tête de note}.
@@ -2760,7 +2777,7 @@ créées ainsi@tie{}:
 
 @seealso
 Morceaux choisis :
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{Pitch_squash_engraver},
