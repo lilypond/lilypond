@@ -541,7 +541,8 @@ mfEspressDynamic = #(make-dynamic-script mfEspress)
 @end lilypond
 
 La constrution d'une indication de nuance personnalisée peut aussi se
-faire en langage Scheme@tie{}; voir @ref{Construction Scheme d'un marqueur}
+faire en langage Scheme@tie{}; voir
+@rextendnamed{Markup construction in Scheme,Construction Scheme d'un marqueur}
 pour en connaître les modalités.
 
 @lilypond[verbatim,quote]
@@ -569,7 +570,7 @@ Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
 
 Manuel d'extension :
-@rextend{Construction Scheme d'un marqueur},
+@rextend{Markup construction in Scheme,Construction Scheme d'un marqueur}.
 
 
 @node Courbes

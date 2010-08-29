@@ -2635,7 +2635,7 @@ Manuel de notation :
 @ref{Définition de la taille de portée}.
 
 Morceaux choisis :
-@rlsrnamaed{Pitches,Hauteurs}.
+@rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{note-event},

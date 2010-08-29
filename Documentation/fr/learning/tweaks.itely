@@ -323,7 +323,7 @@ g4 a b c |
 Il existe une autre forme de commande @code{\override},
 @code{\overrideProperty}, qui est parfois utile.  Nous la mentionnons
 ici par souci d'exhaustivité@tie{}; pour le détail, voir
-@ruser{Retouches complexes}.
+@rextendnamed{Difficult tweaks,Retouches complexes}.
 
 @c Maybe explain in a later iteration  -td
 
@@ -2090,7 +2090,7 @@ passage musical.  L'extension s'étend depuis la commande
 @code{\startTextSpan} jusqu'à la commande @code{\stopTextSpan} et le
 format de texte est défini par la commande @code{\override TextSpanner}.
 Pour de plus amples détails, voir
-@ruser{Indications textuelles et lignes d’extension}.
+@ruser{Indication textuelle avec ligne d’extension}.
 
 Il montre aussi comment créer des marques d'octaviation.
 

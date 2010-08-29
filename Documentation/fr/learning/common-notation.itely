@@ -129,7 +129,7 @@ français au lieu des noms hollandais, il faudra ajouter un @code{d} pour
 obtenir un dièse, et un @code{b} pour un bémol.  Le double dièse et le
 double bémol s'obtiennent en ajoutant respectivement @code{dd} et
 @code{bb}.  Pour en savoir plus sur les autres langues disponibles,
-consultez @ruser{Noms de note dans d'autres langues}.
+consultez @ruser{Nom des notes dans d'autres langues}.
 @c END DIV
 
 @lilypond[verbatim,quote,relative=2]
@@ -232,7 +232,7 @@ peuvent être imprimées, consultez
 
 @seealso
 Manuel de notation :
-@ruser{Noms de note dans d'autres langues},
+@ruser{Nom des notes dans d'autres langues},
 @ruser{Altérations},
 @ruser{Altérations accidentelles automatiques},
 @ruser{Armure}.
