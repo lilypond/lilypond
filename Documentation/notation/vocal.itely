@@ -1525,6 +1525,45 @@ Notation Reference:
 @node Opera and stage musicals
 @subsection Opera and stage musicals
 
+The music, lyrics and dialogue to opera and stage musicals are
+usually set out in one or more of the following forms:
+
+@itemize
+
+@item
+A @emph{Conductors' Score} containing the full orchestral and vocal
+parts, together with libretto cues if there are spoken passages.
+
+@item
+@emph{Orchestral Parts} containing the music for the individual
+instruments of the orchestra or band.
+
+@item
+A @emph{Vocal Score} containing all vocal parts with piano
+accompaniment.  The accompaniment is usually an orchestral
+reduction, and if so the name of the original orchestral instrument
+is often indicated.  Vocal scores sometimes includes stage
+directions and libretto cues.
+
+@item
+A @emph{Vocal Book} containing just the vocal parts
+(no accompaniment), sometimes combined with the libretto.
+
+@item
+A @emph{Libretto} containing the extended passages of spoken
+dialogue usually found in musicals, together with the words to the
+sung parts.  Stage directions are usually included.  LilyPond can
+be used to typeset libretti but as they contain no music
+alternative methods may be preferable.
+
+@end itemize
+
+The sections in the LilyPond documentation which cover the topics
+needed to create scores in the styles commonly found in opera and
+musicals are indicated in the References below.  This is followed
+by sections covering those techniques which are peculiar to
+typesetting opera and musical scores.
+
 @menu
 * References for opera and stage musicals::
 * Spoken music::
@@ -1534,11 +1573,71 @@ Notation Reference:
 @node References for opera and stage musicals
 @unnumberedsubsubsec References for opera and stage musicals
 
-@c TODO Choral, cues, character names, French staves
-@c vocal/conductor scores
-@c add characters names snippet -vv
+@itemize
 
-TBC
+@item
+A conductors' score contains many grouped staves and lyrics.  Ways
+of grouping staves is shown in @ref{Grouping staves}.  To nest
+groups of staves see @ref{Nested staff groups}.
+
+@item
+The printing of empty staves in conductors' scores and vocal scores
+is often suppressed.  To create such a @qq{Frenched score} see
+@ref{Hiding staves}.
+
+@item
+Writing orchestral parts is covered in @ref{Writing parts}.
+Other sections in the Specialist notation chapter may be relevant,
+depending on the orchestration used.  Many instruments are
+transposing instruments, see @ref{Instrument transpositions}.
+
+@item
+Character names are usually shown to the left of the staff when the
+staff is dedicated to that character alone.  The instrument name can
+be used for this purpose.  See @ref{Instrument names}.
+
+@item
+When two or more characters share a staff the character's name is
+usually printed above the staff at the start of every section
+applying to that character.  This can be done with markup.  The use
+of markup is covered fully in @ref{Text}.  Often a specific font is
+used for this purpose, see @ref{Selecting font and font size}.
+
+@item
+Musical cues can be inserted with the @code{\cueDuring} predefined
+command.  For details of its use see @ref{Formatting cue notes}.
+
+@item
+Dialogue cues and stage directions can be inserted with markup.
+See @ref{Text}.  Extensive stage directions can be inserted with
+a section of stand-alone markup between two @code{\score} blocks.
+See @ref{Separate text}.
+
+@end itemize
+
+@predefined
+@code{\cueDuring},
+@code{\quoteDuring}.
+
+@seealso
+Musical Glossary:
+@rglos{cue-notes},
+@rglos{Frenched score},
+@rglos{Frenched staves},
+@rglos{transposing instrument}.
+
+Notation Manual:
+@ref{Grouping staves},
+@ref{Hiding staves},
+@ref{Instrument names},
+@ref{Instrument transpositions},
+@ref{Nested staff groups},
+@ref{Selecting font and font size},
+@ref{Text},
+@ref{Transpose},
+@ref{Writing parts},
+@ref{Writing text}.
+
 
 @node Spoken music
 @unnumberedsubsubsec Spoken music
