@@ -1,15 +1,17 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 20858c6c9809c521d03576443dc8fa125e6f583b
+    Translation of GIT committish: 2fd29d6224d27c989d9bfab126dd7220fa4f0647
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@documentencoding UTF-8
 @setfilename lilypond-notation.info
 @settitle GNU LilyPond -- Manuel de notation
+@documentencoding UTF-8
+@documentlanguage fr
+@afourpaper
 
 @macro manualIntro
 Ce document constitue le manuel de notation de GNU LilyPond
@@ -53,19 +55,21 @@ Copyright @copyright{} 1999--2010 par les auteurs.
 @ifnottex
 
 @menu
-* Notation musicale générale::               notation générale.
-* Notation spécialisée::            notation à usage spécifique.
-* Généralités en matière d'entrée et sortie::       généralités sur les fichiers sources et les sorties.
-* Gestion de l'espace::                 mise en page de la musique sur le papier.
-* Modification des réglages prédéfinis::              ajustement de la gravure.
-* Interfaces pour les programmeurs::     utilisation avancée.
+* Notation musicale générale::                notation générale.
+* Notation spécialisée::                      notation à usage spécifique.
+* Généralités en matière d'entrée et sortie:: généralités sur les
+  fichiers sources et les sorties. 
+* Gestion de l'espace::                       mise en page de la musique
+  sur le papier.
+* Modification des réglages prédéfinis::      ajustement de la gravure.
 
 Annexes
 
-* Tables du manuel de notation::         tables et diagrammes.
-* Aide-mémoire::                    résumé de la syntaxe de LilyPond.
-* Grammaire de LilyPond::               diagramme syntaxique pour l'analyseur de LilyPond
-* GNU Free Documentation License:: licence de ce document.
+* Tables du manuel de notation::              tables et diagrammes.
+* Aide-mémoire::                              résumé de la syntaxe de LilyPond.
+* Grammaire de LilyPond::                     diagramme syntaxique pour
+  l'analyseur de LilyPond.
+* GNU Free Documentation License::            licence de ce document.
 * Index des commandes LilyPond::
 * Index de LilyPond::
 @end menu
@@ -84,7 +88,6 @@ Annexes
 @include notation/spacing.itely
 
 @include notation/changing-defaults.itely
-@include notation/programming-interface.itely
 
 
 @include notation/notation-appendices.itely
@@ -107,9 +110,9 @@ ressort de l'analyseur syntaxique.
 
 Cet index recense toutes les commandes et mots réservés de LilyPond,
 sous forme de lien vers les endroits du manuel où ils sont abordés.
-Chaque lien est constitué de deux parties : la première pointe
+Chaque lien est constitué de deux parties@tie{}: la première pointe
 directement là où la commande ou le terme apparaît, la seconde au début
-de la section où la commande ou le terme est abordé. 
+de la section où la commande ou le terme est abordé.
 
 @printindex ky
 
@@ -119,9 +122,9 @@ de la section où la commande ou le terme est abordé.
 
 En plus des commandes et mots réservés de LilyPond, cet index recense
 les termes musicaux qui s'y rapportent.  Tout comme dans l'index des
-commandes, chaque lien est constitué de deux parties : la première
+commandes, chaque lien est constitué de deux parties@tie{}: la première
 pointe directement là où la commande ou le terme apparaît, la seconde au
-début de la section où la commande ou le terme est abordé. 
+début de la section où la commande ou le terme est abordé.
 
 @printindex cp
 
