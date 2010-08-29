@@ -608,7 +608,7 @@ staff is crucial for @var{padding}).
 @code{VerticalAlignment}; rather, place it using its own
 @code{Y-offset} callback.")
      (non-break-align-symbols ,list? "A list of symbols that determine
-which NON-break-aligned grobs to align this to.")
+which NON-break-aligned interfaces to align this to.")
      (no-ledgers ,boolean? "If set, don't draw ledger lines on this
 object.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not

@@ -99,24 +99,17 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
     }
 }
 
-SCM
-grob_name_scm (Grob *g)
-{
-  SCM name_pair = scm_assq (ly_symbol2scm ("name"), g->get_property ("meta"));
-  return (scm_is_pair (name_pair)
-	  ? ly_camel_case_2_lisp_identifier (scm_cdr (name_pair))
-	  : SCM_EOL);
-}
-
 void
 Metronome_mark_engraver::acknowledge_grob (Grob_info info)
 {
   Grob *g = info.grob ();
 
-  if (text_
-      && safe_is_member (grob_name_scm (g),
-			 text_->get_property ("non-break-align-symbols")))
-    text_->set_parent (g, X_AXIS);
+  if (text_)
+    for (SCM s = text_->get_property ("non-break-align-symbols");
+	 scm_is_pair (s);
+	 s = scm_cdr (s))
+      if (g->internal_has_interface (scm_car (s)))
+	text_->set_parent (g, X_AXIS);
 }
 
 void

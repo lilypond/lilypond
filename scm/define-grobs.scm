@@ -1171,7 +1171,7 @@
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(self-alignment-X . ,LEFT)
 	(break-align-symbols . (key-signature time-signature))
-	(non-break-align-symbols . (multi-measure-rest))
+	(non-break-align-symbols . (multi-measure-rest-interface))
 	(non-musical . #t)
 	(meta . ((class . Item)
 		 (interfaces . (break-alignable-interface
