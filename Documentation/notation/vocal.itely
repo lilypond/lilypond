@@ -19,8 +19,6 @@ that the lyrics will be aligned with the notes of their melody.
 
 @menu
 * Common notation for vocal music::
-* Entering lyrics::
-* Aligning lyrics to a melody::
 * Techniques specific to lyrics::
 * Stanzas::
 * Songs::
@@ -35,17 +33,23 @@ that the lyrics will be aligned with the notes of their melody.
 @node Common notation for vocal music
 @subsection Common notation for vocal music
 
-This section and sections 2.1.2 to 2.1.5 discuss issues common to
-all types of vocal music.  Issues specific to certain types of
-vocal music are covered in section 2.1.6 on.
+This section discusses issues common to most types of vocal music.
 
 @menu
-* Common references for vocal music::
+* References for vocal music::
+* Entering lyrics::
+* Aligning lyrics to a melody::
+* Automatic syllable durations::
+* Manual syllable durations::
+* Multiple syllables to one note::
+* Multiple notes to one syllable::
+* Skipping notes::
+* Extenders and hyphens::
 @end menu
 
 
-@node Common references for vocal music
-@unnumberedsubsubsec Common references for vocal music
+@node References for vocal music
+@unnumberedsubsubsec References for vocal music
 
 This section indicates where to find details of notation issues
 that may arise in any type of vocal music.
@@ -62,26 +66,20 @@ for lyrics of for other text elements (character's names, etc.).
 This syntax is described in @ref{Text markup introduction}.
 
 @item
-@q{Ambitus} may be added at the beginning of vocal staves, as explained
+@notation{Ambitus} may be added at the beginning of vocal staves, as explained
 in @ref{Ambitus}.
 
 @end itemize
 
+@seealso
+Music Glossary:
+@rglos{ambitus}.
 
 @node Entering lyrics
-@subsection Entering lyrics
+@unnumberedsubsubsec Entering lyrics
 
 Lyrics are entered in lyric mode.  This section explains how this
 done.
-
-@menu
-* Lyrics explained::
-* Working with lyrics and variables::
-@end menu
-
-
-@node Lyrics explained
-@unnumberedsubsubsec Lyrics explained
 
 @cindex lyrics
 @funindex \lyricmode
@@ -234,102 +232,8 @@ Internals Reference:
 @rinternals{LyricSpace}.
 
 
-@node Working with lyrics and variables
-@unnumberedsubsubsec Working with lyrics and variables
-
-@cindex lyrics, variables
-
-To define variables containing lyrics, the function @code{\lyricmode}
-must be used.  You do not have to enter durations though, if you add
-@code{\addlyrics} or @code{\lyricsto}
-when invoking your variable.
-
-@example
-verseOne = \lyricmode @{ Joy to the world the Lord is come @}
-\score @{
- <<
-   \new Voice = "one" \relative c'' @{
-     \autoBeamOff
-     \time 2/4
-     c4 b8. a16 g4. f8 e4 d c2
-   @}
-   \addlyrics @{ \verseOne @}
- >>
-@}
-@end example
-
-For different or more complex orderings, the best way is to set up the
-hierarchy of staves and lyrics first, e.g.,
-@example
-\new ChoirStaff <<
-  \new Voice = "soprano" @{ @emph{music} @}
-  \new Lyrics = "sopranoLyrics" @{ s1 @}
-  \new Lyrics = "tenorLyrics" @{ s1 @}
-  \new Voice = "tenor" @{ @emph{music} @}
->>
-@end example
-
-@noindent
-and then combine the appropriate melodies and lyric lines
-
-@example
-\context Lyrics = sopranoLyrics \lyricsto "soprano"
-@emph{the lyrics}
-@end example
-
-@noindent
-The final input would resemble
-
-@example
-<<\new ChoirStaff << @emph{setup the music} >>
- \lyricsto "soprano" @emph{etc}
- \lyricsto "alto" @emph{etc}
-@emph{etc}
->>
-@end example
-
-@ignore
-@c TODO
-http://code.google.com/p/lilypond/issues/detail?id=329
-The problem cannot be reproduced.
-The following has no sense, because the issue seems to be fixed.
-A comment is in tracker waiting for response ---FV
-
-
-Be careful when defining a variable with lyrics that creates a new
-context, for example, using the deprecated @code{\lyrics} command.  See
-the next erroneous example:
-
-@example
-words = \lyrics{ %warning: this creates a new context
- one two
-}
-<<
-  \new Voice = "sop" { c1 }
-  \new Lyrics \lyricsto "sop" { \words }
-  \new Voice = "alt" { c2 c }
-  \new Lyrics \lyricsto "alt" { \words }
->>
-@end example
-
-the problem is that \lyricsto will try to connect the "sop" melody with the context
-created by "\new Lyrics".
-
-Then \lyrics in \words creates another context, and the original "\new Lyrics" one
-remains empty.
-
-@end ignore
-
-
-@seealso
-@c TODO: document \new Staff << Voice \lyricsto >> bug
-Internals Reference:
-@rinternals{LyricCombineMusic},
-@rinternals{Lyrics}.
-
-
 @node Aligning lyrics to a melody
-@subsection Aligning lyrics to a melody
+@unnumberedsubsubsec Aligning lyrics to a melody
 
 @funindex \lyricmode
 @funindex \addlyrics
@@ -370,20 +274,10 @@ voice has nothing to do.  For methods of keeping contexts alive, see
 @ref{Keeping contexts alive}.
 
 
-@menu
-* Automatic syllable durations::
-* Manual syllable durations::
-* Multiple syllables to one note::
-* Multiple notes to one syllable::
-* Skipping notes::
-* Extenders and hyphens::
-* Lyrics and repeats::
-@end menu
-
 @node Automatic syllable durations
 @unnumberedsubsubsec Automatic syllable durations
 
-@cindex automatic syllable durations
+@cindex syllable durations, automatic
 @cindex lyrics and melodies
 
 The lyrics can be aligned under a given melody
@@ -713,29 +607,121 @@ Internals Reference:
 @rinternals{LyricHyphen}.
 
 
-@node Lyrics and repeats
-@unnumberedsubsubsec Lyrics and repeats
-
-@c TODO New section.  Add text
-TBC
-
-
 @node Techniques specific to lyrics
 @subsection Techniques specific to lyrics
 
 @c TODO This whole section is to be reorganized. -vv
 
-Often, different stanzas of one song are put to one melody in slightly
-differing ways.  Such variations can still be captured with
-@code{\lyricsto}.
-
 @menu
+* Working with lyrics and variables::
+* Lyrics and repeats::
 * Divisi lyrics::
 * Lyrics independent of notes::
 * Spacing out syllables::
 * Placement of lyrics between staves::
 @end menu
 
+
+
+@node Working with lyrics and variables
+@unnumberedsubsubsec Working with lyrics and variables
+
+@cindex lyrics, variables
+
+To define variables containing lyrics, the function @code{\lyricmode}
+must be used.  You do not have to enter durations though, if you add
+@code{\addlyrics} or @code{\lyricsto}
+when invoking your variable.
+
+@example
+verseOne = \lyricmode @{ Joy to the world the Lord is come @}
+\score @{
+ <<
+   \new Voice = "one" \relative c'' @{
+     \autoBeamOff
+     \time 2/4
+     c4 b8. a16 g4. f8 e4 d c2
+   @}
+   \addlyrics @{ \verseOne @}
+ >>
+@}
+@end example
+
+For different or more complex orderings, the best way is to set up the
+hierarchy of staves and lyrics first, e.g.,
+@example
+\new ChoirStaff <<
+  \new Voice = "soprano" @{ @emph{music} @}
+  \new Lyrics = "sopranoLyrics" @{ s1 @}
+  \new Lyrics = "tenorLyrics" @{ s1 @}
+  \new Voice = "tenor" @{ @emph{music} @}
+>>
+@end example
+
+@noindent
+and then combine the appropriate melodies and lyric lines
+
+@example
+\context Lyrics = sopranoLyrics \lyricsto "soprano"
+@emph{the lyrics}
+@end example
+
+@noindent
+The final input would resemble
+
+@example
+<<\new ChoirStaff << @emph{setup the music} >>
+ \lyricsto "soprano" @emph{etc}
+ \lyricsto "alto" @emph{etc}
+@emph{etc}
+>>
+@end example
+
+@ignore
+@c TODO
+http://code.google.com/p/lilypond/issues/detail?id=329
+The problem cannot be reproduced.
+The following has no sense, because the issue seems to be fixed.
+A comment is in tracker waiting for response ---FV
+
+
+Be careful when defining a variable with lyrics that creates a new
+context, for example, using the deprecated @code{\lyrics} command.  See
+the next erroneous example:
+
+@example
+words = \lyrics{ %warning: this creates a new context
+ one two
+}
+<<
+  \new Voice = "sop" { c1 }
+  \new Lyrics \lyricsto "sop" { \words }
+  \new Voice = "alt" { c2 c }
+  \new Lyrics \lyricsto "alt" { \words }
+>>
+@end example
+
+the problem is that \lyricsto will try to connect the "sop" melody with the context
+created by "\new Lyrics".
+
+Then \lyrics in \words creates another context, and the original "\new Lyrics" one
+remains empty.
+
+@end ignore
+
+
+@seealso
+@c TODO: document \new Staff << Voice \lyricsto >> bug
+Internals Reference:
+@rinternals{LyricCombineMusic},
+@rinternals{Lyrics}.
+
+
+@node Lyrics and repeats
+@unnumberedsubsubsec Lyrics and repeats
+
+@c TODO New section.  Add text
+TBC
 
 
 @node Divisi lyrics
@@ -1036,6 +1022,10 @@ the line, just like instrument names.  They are created by setting
 
 @node Stanzas with different rhythms
 @unnumberedsubsubsec Stanzas with different rhythms
+
+Often, different stanzas of one song are put to one melody in slightly
+differing ways.  Such variations can still be captured with
+@code{\lyricsto}.
 
 @subsubheading Ignoring melismata
 
@@ -1400,11 +1390,6 @@ also be found in the Learning Manual, see
 @item
 For information about @code{ChoirStaff} and @code{PianoStaff} see
 @ref{Grouping staves}.
-
-@item
-General information about entering the words (i.e. @qq{lyrics}) to
-vocal music is described in sections 2.1.2 to 2.1.5 of this manual.
-All these sections are relevant to choral music.
 
 @item
 Shape noteheads, as used in Sacred Harp and similar notation, are
