@@ -496,6 +496,9 @@ def do_file (input_filename, included=False):
         else:
             input_fullname = global_options.formatter.input_fullname (input_filename)
         # Normalize path to absolute path, since we will change cwd to the output dir!
+        # Otherwise, "lilypond-book -o out test.tex" will complain that it is
+        # overwriting the input file (which it is actually not), since the
+        # input filename is relative to the CWD...
         input_fullname = os.path.abspath (input_fullname)
 
         note_input_file (input_fullname)
