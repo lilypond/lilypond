@@ -1367,8 +1367,9 @@ Choral music is usually notated on two, three or four staves within
 a @code{ChoirStaff} group.  Accompaniment, if required, is placed
 beneath in a @code{PianoStaff} group, which is usually reduced in
 size for @emph{a capella} choral works.  The notes for each vocal
-part are placed in a @code{Voice} context, with each either on a
-staff of its own or grouped in pairs on a single staff.
+part are placed in a @code{Voice} context, with each staff
+being given either a single vocal part (i.e., one @code{Voice}) or
+a pair of vocal parts (i.e., two @code{Voice}s).
 
 Words are placed in @code{Lyrics} contexts, either underneath each
 corresponding music staff, or one above and one below the music
@@ -1395,7 +1396,17 @@ For information about @code{ChoirStaff} and @code{PianoStaff} see
 Shape noteheads, as used in Sacred Harp and similar notation, are
 described in @ref{Shape note heads}.
 
+@item
+When two vocal parts share a staff the stems, ties, slurs, etc., of
+the higher part will be directed up and those of the lower part
+down.  To do this, use @code{\voiceOne} and @code{\voiceTwo}.  See
+@ref{Single-staff polyphony}.
+
 @end itemize
+
+@predefined
+@code{\voiceOne},
+@code{\voiceTwo}.
 
 @seealso
 Learning Manual:
@@ -1403,9 +1414,10 @@ Learning Manual:
 @rlearning{Vocal ensembles}.
 
 Notation Reference:
-@ref{Grouping staves},
 @ref{Context layout order},
-@ref{Shape note heads}.
+@ref{Grouping staves},
+@ref{Shape note heads},
+@ref{Single-staff polyphony}.
 
 Internals Reference:
 @rinternals{ChoirStaff},
