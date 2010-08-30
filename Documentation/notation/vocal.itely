@@ -360,7 +360,7 @@ More stanzas can be added by adding more
 
 The command @code{\addlyrics} cannot handle polyphony settings.
 For these cases you should use @code{\lyricsto} and
-@code{\lyricmode}, for details see@ref{Lyrics explained}.
+@code{\lyricmode}, for details see @ref{Entering lyrics}.
 
 @node Manual syllable durations
 @unnumberedsubsubsec Manual syllable durations
