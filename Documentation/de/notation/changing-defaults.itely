@@ -1498,7 +1498,7 @@ oder einen Absturz des Programms hervorrufen.
 
 
 @node Der set-Befehl
-@subsection Der @code{\set}-Befehl
+@subsection Der @code{@bs{}set}-Befehl
 @translationof The set command
 
 @cindex Eigenschaften
@@ -1649,7 +1649,7 @@ Internals Reference:
 
 
 @node Der override-Befehl
-@subsection Der @code{\override}-Befehl
+@subsection Der @code{\\override}-Befehl
 @translationof The override command
 
 @cindex Grob-Eigenschaften
@@ -1804,7 +1804,7 @@ Referenz der Interna:
 
 
 @node Der tweak-Befehl
-@subsection Der @code{\tweak}-Befehl
+@subsection Der @code{\\tweak}-Befehl
 @translationof The tweak command
 
 @funindex \tweak
@@ -1998,7 +1998,7 @@ wird der erste Bogen verändert, der in der Eingabedatei auftritt.
 
 
 @node set versus override
-@subsection @code{\set} versus @code{\override}
+@subsection @code{\\set} versus @code{\\override}
 @translationof set versus override
 
 TODO: überflüssig?
