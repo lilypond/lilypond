@@ -29,6 +29,7 @@
 
 (use-modules (guile)
 	     (ice-9 regex)
+	     (ice-9 optargs)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
 	     (scm framework-ps)
@@ -101,30 +102,6 @@
   (ly:format "~4f ~4f ~4f ~4f ~4f draw_line"
 	  (- x2 x1) (- y2 y1)
 	  x1 y1 thick))
-
-(define (connected-shape pointlist thick x-scale y-scale connect fill)
-  (ly:format "~a~4f ~4f ~4f ~4f ~a ~a draw_connected_shape"
-    (string-concatenate
-      (map (lambda (x)
-             (apply (if (eq? (length x) 6)
-                        (lambda (x1 x2 x3 x4 x5 x6)
-                          (ly:format "~4f ~4f ~4f ~4f ~4f ~4f 6 "
-                                     x1
-                                     x2
-                                     x3
-                                     x4
-                                     x5
-                                     x6))
-                        (lambda (x1 x2)
-                           (ly:format "~4f ~4f 2 " x1 x2)))
-                    x))
-           (reverse pointlist)))
-      (length pointlist)
-      x-scale
-      y-scale
-      thick
-      (if connect "true" "false")
-      (if fill "true" "false")))
 
 (define (partial-ellipse x-radius y-radius start-angle end-angle thick connect fill)
   (ly:format "~a ~a ~4f ~4f ~4f ~4f ~4f draw_partial_ellipse"
@@ -284,7 +261,7 @@
 	     (cdr y)
 	     url))
 
-(define (path thickness exps)
+(define* (path thickness exps #:optional (cap 'round) (join 'round) (fill? #f))
   (define (convert-path-exps exps)
     (if (pair? exps)
 	(let*
@@ -307,8 +284,22 @@
 		(convert-path-exps (drop rest arity))))
 	'()))
 
-
-  (ly:format
-   "gsave currentpoint translate 1 setlinecap ~a setlinewidth\n~l stroke grestore"
-   thickness
-   (convert-path-exps exps)))
+  (let ((cap-numeric (case cap ((butt) 0) ((round) 1) ((square) 2)
+		       (else (begin
+			       (ly:warning (_ "unknown line-cap-style: ~S")
+					   (symbol->string cap))
+			       1))))
+	(join-numeric (case join ((miter) 0) ((round) 1) ((bevel) 2)
+			(else (begin
+				(ly:warning (_ "unknown line-join-style: ~S")
+					    (symbol->string join))
+				1)))))
+    (ly:format
+     "gsave currentpoint translate
+~a setlinecap ~a setlinejoin ~a setlinewidth
+~l gsave stroke grestore ~a grestore"
+     cap-numeric
+     join-numeric
+     thickness
+     (convert-path-exps exps)
+     (if fill? "fill" ""))))

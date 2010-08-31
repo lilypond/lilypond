@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 20c486ef2a4e98030fa128052d7257b66bc1599c
+    Translation of GIT committish: 7e4dc7d03c5bc354f343550f313a10f857367556
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -54,6 +54,26 @@ included in the section entitled ``GNU Free Documentation
 License''.
 @end quotation
 @end copying
+
+
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond -- le typographe de musique
+@direntry
+* Manuel d'initiation à LilyPond: (lilypond-learning).        Les premiers pas.
+* Glossaire musicologique: (music-glossary).                  Pour l'utilisateur non anglophone.
+* Manuel de notation: (lilypond-notation).                    Gravure de musique avec LilyPond.
+* Morceaux choisis de LilyPond: (lilypond-snippets).          Petits trucs, astuces et exemples.
+* Références des propriétés internes: (lilypond-internals).   Définitions pour les retouches.
+* Utilisation des programmes: (lilypond-usage).               Installation et exécution des programmes.
+* LilyPond Website: (lilypond-web).                           Prévisualisation du site.
+* abc2ly: (lilypond-usage) Lancement de abc2ly.               Import de fichier ABC.
+* convert-ly: (lilypond-usage) Mise à jour de fichiers.       Pour d'anciens fichiers LilyPond.
+* etf2ly: (lilypond-usage) Lancement de etf2ly.               Import de fichier Finale.
+* lilypond-book: (lilypond-usage) LilyPond-book.              Association musique-texte.
+* midi2ly: (lilypond-usage) Lancement de midi2ly.             Import de fichier MIDI.
+* musicxml2ly: (lilypond-usage) Lancement de musicxml2ly.     Import de fichier MusicXML.
+@end direntry
 
 
 @c TITLE PAGE
@@ -185,29 +205,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
   * List all commands in direntry.
 
-@c  * lilypond: (lilypond-application)Running LilyPond.      Invoking the
-@c    LilyPond  program.
 @end ignore
-
-@c Info files are no longer installed in a subdirectory, images are
-@c expected to be found in lilypond/ subdirectory.
-@dircategory GNU LilyPond -- le typographe de musique
-@direntry
-* Manuel d'initiation à LilyPond: (lilypond-learning).        Les premiers pas.
-* Glossaire musicologique: (music-glossary).                  Pour l'utilisateur non anglophone.
-* Manuel de notation: (lilypond-notation).                    Gravure de musique avec LilyPond.
-* Morceaux choisis de LilyPond: (lilypond-snippets).          Petits trucs, astuces et exemples.
-* Références des propriétés internes: (lilypond-internals).   Définitions pour les retouches.
-* Utilisation des programmes: (lilypond-application).         Installation et exécution des programmes.
-* LilyPond Website: (lilypond-general).                       Prévisualisation du site.
-* abc2ly: (lilypond-application)lancement de abc2ly.          Import de fichier ABC.
-* convert-ly: (lilypond-application)Mise à jour de fichiers.  Pour d'anciens fichiers LilyPond.
-* etf2ly: (lilypond-application)Lancement de etf2ly.          Import de fichier Finale.
-* lilypond-book: (lilypond-application)LilyPond-book.         Association musique-texte.
-* midi2ly: (lilypond-application)Lancement de midi2ly.        Import de fichier MIDI.
-* musicxml2ly: (lilypond-application)Lancement de musicxml2ly.  Import de fichier MusicXML.
-@end direntry
-
 
 @c FIXME: this still doesn't solve the broken links in pdf and big
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp

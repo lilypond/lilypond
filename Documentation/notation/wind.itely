@@ -20,6 +20,7 @@ writing for winds.
 @menu
 * Common notation for wind instruments::
 * Bagpipes::
+* Woodwinds::
 @end menu
 
 @node Common notation for wind instruments
@@ -48,7 +49,7 @@ staccato are usually shown by articulation marks, sometimes combined
 with slurs, see @ref{Articulations and ornamentations} and @ref{List of
 articulations}.
 @item Flutter tonguing is usually indicated by placing a tremolo mark
-and a text markup on the note. See @ref{Tremolo repeats}.
+and a text markup on the note.  See @ref{Tremolo repeats}.
 @end itemize
 
 There are also other aspects of musical notation that can apply to wind
@@ -58,7 +59,7 @@ instruments:
 @item Many wind instruments are transposing instruments, see
 @ref{Instrument transpositions}.
 @item The slide glissando are characteristic of the trombone, but other
-winds may perform keyed or valved glissandi. See @ref{Glissando}.
+winds may perform keyed or valved glissandi.  See @ref{Glissando}.
 @item Harmonic series glissandi, which are possible on all brass
 instruments but common for French Horns, are usually written out as
 @ref{Grace notes}.
@@ -66,11 +67,11 @@ instruments but common for French Horns, are usually written out as
 and doits}.
 @item Key slaps or valve slaps are often shown by the @code{cross} style
 of @ref{Special note heads}.
-@item Woodwinds can overblow low notes to sound harmonics. These are
-shown by the @code{flageolet} articulation. See @ref{List of articulations}.
+@item Woodwinds can overblow low notes to sound harmonics.  These are
+shown by the @code{flageolet} articulation.  See @ref{List of articulations}.
 @item The use of brass mutes is usually indicated by a text markup, but
 where there are many rapid changes it is better to use the
-@code{stopped} and @code{open} articulations. See @ref{Articulations and
+@code{stopped} and @code{open} articulations.  See @ref{Articulations and
 ornamentations} and @ref{List of articulations}.
 @item Stopped horns are indicated by the @code{stopped} articulation.
 See @ref{Articulations and ornamentations}.
@@ -103,7 +104,11 @@ Snippets:
 @unnumberedsubsubsec Fingerings
 
 All wind instruments other than the trombone require the use of several
-fingers to produce each pitch.
+fingers to produce each pitch.  Some fingering helps are shown in
+the snippets below.
+
+Woodwind diagrams can be produced and are described in
+@ref{Woodwind diagrams}.
 
 @snippets
 
@@ -114,6 +119,9 @@ fingers to produce each pitch.
 {recorder-fingering-chart.ly}
 
 @seealso
+
+Notation Reference:
+@ref{Woodwind diagrams}.
 
 Snippets:
 @rlsr{Winds}.
@@ -233,3 +241,170 @@ notation.
 
 @seealso
 @rlsr{Winds}.
+
+@node Woodwinds
+@subsection Woodwinds
+
+This section describes notation specifically for woodwinds.
+
+@menu
+* Woodwind diagrams::
+@end menu
+
+@node Woodwind diagrams
+@subsubsection Woodwind diagrams
+
+Woodwind diagrams can be used to indicate the fingering to be used
+to play specific notes.  Woodwind diagrams are available for most woodwind
+instruments.
+
+Woodwind diagrams are available for the following instruments:
+
+@itemize
+@item piccolo
+@item flute
+@item oboe
+@item clarinet
+@item bass clarinet
+@item saxophone
+@item basson
+@item contrabassoon
+@end itemize
+
+@noindent
+The diagrams and the scheme instrument names are shown in the snippet below.
+
+Woodwind diagrams are created as markups:
+
+
+@lilypond[verbatim, quote, relative=2]
+c1^ \markup \woodwind-diagram #'piccolo #'((lh . (gis))
+                                           (cc . (one three))
+                                           (rh . (ees)))
+@end lilypond
+
+Keys can be open, partially-covered, ring-depressed, or fully covered:
+
+@lilypond [verbatim, quote, relative=2]
+\textLengthOn
+c1^ \markup \center-column {
+  "one quarter"
+  \woodwind-diagram #'flute #'((cc . (one1q))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "one half"
+  \woodwind-diagram #'flute #'((cc . (one1h))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "three quarter"
+  \woodwind-diagram #'flute #'((cc . (one3q))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "ring"
+  \woodwind-diagram #'flute #'((cc . (oneR))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "full"
+  \woodwind-diagram #'flute #'((cc . (oneF two))
+                                  (lh . ())
+                                  (rh . ()))
+}
+@end lilypond
+
+Trills are indicated in the woodwind diagrams as shaded keys:
+
+@lilypond [verbatim, quote, relative=2]
+c1^ \markup \woodwind-diagram #'bass-clarinet
+                              #'((cc . (threeT four))
+                                 (lh . ())
+                                 (rh . (b fis)))
+@end lilypond
+
+A variety of trills can be displayed:
+
+@lilypond [verbatim, quote, relative=2]
+\textLengthOn
+c1^ \markup \center-column {
+  "one quarter to ring"
+  \woodwind-diagram #'flute #'((cc . (one1qTR))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "ring to shut"
+  \woodwind-diagram #'flute #'((cc . (oneTR))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "ring to open"
+  \woodwind-diagram #'flute #'((cc . (oneRT))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "open to shut"
+  \woodwind-diagram #'flute #'((cc . (oneT))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "one quarter to three quarters"
+  \woodwind-diagram #'flute #'((cc . (one1qT3q))
+                                  (lh . ())
+                                  (rh . ()))
+}
+@end lilypond
+
+The list of all possible keys and settings for a given instrument
+can be displayed on the console or in the log file, although they
+will not show up in the music output:
+
+@lilypond[verbatim, quote]
+
+#(print-keys-verbose 'flute)
+
+@end lilypond
+
+New diagrams can be created by following the patterns in
+@file{scm/define-woodwind-diagrams.scm} and
+@file{scm/display-woodwind-diagrams.scm}.  However, this will
+require Scheme ability and may not be accessible to all users.
+
+@predefined
+@endpredefined
+
+@snippets
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{woodwind-diagrams-listing.ly}
+
+@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+{graphical-and-text-woodwind-diagrams.ly}
+
+@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+{changing-the-size-of-woodwind-diagrams.ly}
+
+@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+{woodwind-diagrams-key-lists.ly}
+
+@seealso
+
+Installed Files:
+@file{scm/define-woodwind-diagrams.scm},
+@file{scm/display-woodwind-diagrams.scm}.
+
+Snippets: @rlsr{Winds}.
+
+Internals Reference:
+@rinternals{TextScript},
+@rinternals{instrument-specific-markup-interface}.
+
+@knownissues

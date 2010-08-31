@@ -242,8 +242,8 @@ ADD_END_ACKNOWLEDGER (Scheme_engraver, grob);
 
 ADD_TRANSLATOR (Scheme_engraver,
 		/* doc */
-		"Implement engravers in Scheme.  Interprets arguments to @code{\\consists} "
-		"as callbacks. ",
+		"Implement engravers in Scheme.  Interprets arguments to"
+		" @code{\\consists} as callbacks.",
 
 		/* create */
 		"",

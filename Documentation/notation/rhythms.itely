@@ -1666,6 +1666,9 @@ c16 c8
 automatic beaming should be switched off with @code{\autoBeamOff}
 and the beams indicated manually.}
 
+@warning{Using @code{@bs{}partcombine} with @code{@bs{}autoBeamOff} can
+produce unintended results.  See the snippet below for more information.}
+
 Beaming patterns that differ from the automatic defaults can be
 created; see @ref{Setting automatic beam behavior}.
 
@@ -1678,6 +1681,7 @@ created; see @ref{Setting automatic beam behavior}.
 
 @snippets
 
+
 @cindex line breaks and beams
 @cindex beams and line breaks
 
@@ -1688,6 +1692,13 @@ created; see @ref{Setting automatic beam behavior}.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
+
+@cindex \partcombine and \autoBeamOff
+@cindex \autoBeamOff and \partcombine
+
+
+@lilypondfile [verbatim, lilyquote, ragged-right, texidoc, doctitle]
+{partcombine-and-autobeamoff.ly}
 
 
 @seealso
@@ -2726,7 +2737,7 @@ Internals Reference:
 @funindex \grace
 @funindex grace
 
-Grace notes are ornaments that are written out. Grace notes
+Grace notes are ornaments that are written out.  Grace notes
 are printed in a smaller font and take up no logical time
 in a measure.
 
@@ -2795,7 +2806,7 @@ finally at 1/2 of the main note.
 @end lilypond
 
 The space between the main note and the grace note may also be
-specified using spacers. The following example places the grace
+specified using spacers.  The following example places the grace
 note after a space lasting 7/8 of the main note.
 
 @lilypond[quote,verbatim,relative=2]

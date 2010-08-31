@@ -531,6 +531,8 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   SCM title_spec = paper->c_variable ("between-title-spacing");
   padding_ = 0;
   title_padding_ = 0;
+  min_distance_ = 0;
+  title_min_distance_ = 0;
   Page_layout_problem::read_spacing_spec (spec, &padding_, ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (title_spec, &title_padding_, ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (spec, &min_distance_, ly_symbol2scm ("minimum-distance"));

@@ -411,6 +411,7 @@ typeset.  Valid choices depend on the function that is reading this
 property.")
      (glyph-name ,string? "The glyph name within the font.")
      (glyph-name-alist ,list? "An alist of key-string pairs.")
+     (graphical ,boolean? "Display in graphical (vs. text) form.")
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
 
 
@@ -949,6 +950,9 @@ in addition to notes and stems.")
 
      (items-worth-living ,ly:grob-array? "An array of interesting items.  If
 empty in a particular staff, then that staff is erased.")
+
+     (keep-alive-with ,ly:grob-array? "An array of other
+@code{VerticalAxisGroup}s.  If any of them are alive, then we will stay alive.")
 
      (left-items ,ly:grob-array? "DOCME")
      (left-neighbor ,ly:grob? "The right-most column that has a spacing-wish

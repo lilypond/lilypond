@@ -1409,7 +1409,7 @@ def musicxml_accordion_to_markup (mxl_event):
     if high:
         commandname += "H"
         command += """\\combine
-          \\raise #2.5 \\musicglyph #\"accordion.accDot\"
+          \\raise #2.5 \\musicglyph #\"accordion.dot\"
           """
     middle = mxl_event.get_maybe_exist_named_child ('accordion-middle')
     if middle:
@@ -1423,32 +1423,32 @@ def musicxml_accordion_to_markup (mxl_event):
         if txt == 3:
             commandname += "MMM"
             command += """\\combine
-          \\raise #1.5 \\musicglyph #\"accordion.accDot\"
+          \\raise #1.5 \\musicglyph #\"accordion.dot\"
           \\combine
-          \\raise #1.5 \\translate #(cons 1 0) \\musicglyph #\"accordion.accDot\"
+          \\raise #1.5 \\translate #(cons 1 0) \\musicglyph #\"accordion.dot\"
           \\combine
-          \\raise #1.5 \\translate #(cons -1 0) \\musicglyph #\"accordion.accDot\"
+          \\raise #1.5 \\translate #(cons -1 0) \\musicglyph #\"accordion.dot\"
           """
         elif txt == 2:
             commandname += "MM"
             command += """\\combine
-          \\raise #1.5 \\translate #(cons 0.5 0) \\musicglyph #\"accordion.accDot\"
+          \\raise #1.5 \\translate #(cons 0.5 0) \\musicglyph #\"accordion.dot\"
           \\combine
-          \\raise #1.5 \\translate #(cons -0.5 0) \\musicglyph #\"accordion.accDot\"
+          \\raise #1.5 \\translate #(cons -0.5 0) \\musicglyph #\"accordion.dot\"
           """
         elif not txt <= 0:
             commandname += "M"
             command += """\\combine
-          \\raise #1.5 \\musicglyph #\"accordion.accDot\"
+          \\raise #1.5 \\musicglyph #\"accordion.dot\"
           """
     low = mxl_event.get_maybe_exist_named_child ('accordion-low')
     if low:
         commandname += "L"
         command += """\\combine
-          \\raise #0.5 \musicglyph #\"accordion.accDot\"
+          \\raise #0.5 \musicglyph #\"accordion.dot\"
           """
 
-    command += "\musicglyph #\"accordion.accDiscant\""
+    command += "\musicglyph #\"accordion.discant\""
     command = "\\markup { \\normalsize %s }" % command
     # Define the newly built command \accReg[H][MMM][L]
     additional_definitions[commandname] = "%s = %s" % (commandname, command)

@@ -173,7 +173,7 @@ Page_breaking::next_system (Break_position const &break_pos) const
   return sys + 1; /* this page starts with a new System_spec */
 }
 
-Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
+Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_break_predicate prob_break)
 {
   book_ = pb;
   system_count_ = 0;
@@ -196,7 +196,7 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
     }
 
   create_system_list ();
-  find_chunks_and_breaks (is_break);
+  find_chunks_and_breaks (is_break, prob_break);
 }
 
 Page_breaking::~Page_breaking ()
@@ -368,13 +368,33 @@ Page_breaking::make_page (int page_num, bool last) const
 Real
 Page_breaking::page_height (int page_num, bool last) const
 {
-  SCM mod = scm_c_resolve_module ("scm page");
-  SCM page = make_page (page_num, last);
-  SCM calc_height = scm_c_module_lookup (mod, "calc-printable-height");
-  calc_height = scm_variable_ref (calc_height);
+  // The caches allow us to store the page heights for any
+  // non-negative page numbers.  We use a negative value in the
+  // cache to signal that that position has not yet been initialized.
+  // This means that we won't cache properly if page_num is negative or
+  // if calc_height returns a negative number.  But that's likely to
+  // be rare, so it shouldn't affect performance.
+  vector<Real>& cache = last ? last_page_height_cache_ : page_height_cache_;
+  if (page_num >= 0 && (int) cache.size () > page_num && cache[page_num] >= 0)
+    return cache[page_num];
+  else
+    {
+      SCM mod = scm_c_resolve_module ("scm page");
+      SCM page = make_page (page_num, last);
+      SCM calc_height = scm_c_module_lookup (mod, "calc-printable-height");
+      calc_height = scm_variable_ref (calc_height);
 
-  SCM height = scm_apply_1 (calc_height, page, SCM_EOL);
-  return scm_to_double (height);
+      SCM height_scm = scm_apply_1 (calc_height, page, SCM_EOL);
+      Real height = scm_to_double (height_scm);
+
+      if (page_num >= 0)
+	{
+	  if ((int) cache.size () <= page_num)
+	    cache.resize (page_num + 1, -1);
+	  cache[page_num] = height;
+	}
+      return height;
+    }
 }
 
 SCM
@@ -523,7 +543,7 @@ Page_breaking::create_system_list ()
 }
 
 void
-Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
+Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_predicate prob_is_break)
 {
   SCM force_sym = ly_symbol2scm ("force");
 
@@ -567,7 +587,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 		}
 
 	      bool last = (j == cols.size () - 1);
-	      bool break_point = is_break (cols[j]);
+	      bool break_point = is_break && is_break (cols[j]);
 	      bool chunk_end = cols[j]->get_property ("page-break-permission") == force_sym;
 	      Break_position cur_pos = Break_position (i,
 						       line_breaker_columns.size (),
@@ -598,8 +618,8 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 	}
       else
 	{
-	  /* TODO: we want some way of applying Break_p to a prob? */
-	  if (i == system_specs_.size () - 1)
+	  bool break_point = prob_is_break && prob_is_break (system_specs_[i].prob_);
+	  if (break_point || i == system_specs_.size () - 1)
 	    breaks_.push_back (Break_position (i));
 
 	  chunks_.push_back (Break_position (i));
@@ -802,6 +822,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
 	    }
 	}
       cached_line_details_ = compress_lines (uncompressed_line_details_);
+      compute_line_heights ();
     }
 }
 
@@ -904,7 +925,6 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
   int line_count = 0;
 
   cache_line_details (configuration);
-  compute_line_heights ();
 
   if (cached_line_details_.size ())
     cur_page_height -= min_whitespace_at_top_of_page (cached_line_details_[0]);
@@ -1088,21 +1108,10 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
 Page_spacing_result
 Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_page_num)
 {
-  vsize min_p_count = min_page_count (configuration, first_page_num);
-
   cache_line_details (configuration);
   Page_spacer ps (cached_line_details_, first_page_num, this);
-  Page_spacing_result best = ps.solve (min_p_count);
 
-  for (vsize i = min_p_count+1; i <= cached_line_details_.size (); i++)
-    {
-      Page_spacing_result cur = ps.solve (i);
-      if (cur.demerits_ < best.demerits_)
-	best = cur;
-    }
-
-  Page_spacing_result ret = finalize_spacing_result (configuration, best);
-  return ret;
+  return finalize_spacing_result (configuration, ps.solve ());
 }
 
 Page_spacing_result
@@ -1166,7 +1175,6 @@ Page_breaking::pack_systems_on_least_pages (vsize configuration, vsize first_pag
   Page_spacing space (page_height (first_page_num, false), this);
 
   cache_line_details (configuration);
-  compute_line_heights ();
   for (vsize line = 0; line < cached_line_details_.size (); line++)
     {
       Real prev_force = space.force_;

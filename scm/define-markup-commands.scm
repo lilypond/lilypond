@@ -277,30 +277,31 @@ Create a beam with the specified parameters.
 (define-markup-command (underline layout props arg)
   (markup?)
   #:category font
-  #:properties ((thickness 1))
+  #:properties ((thickness 1) (offset 2))
   "
 @cindex underlining text
 
 Underline @var{arg}.  Looks at @code{thickness} to determine line
-thickness and y-offset.
+thickness, and @code{offset} to determine line y-offset.
 
 @lilypond[verbatim,quote]
-\\markup {
-  default
-  \\hspace #2
-  \\override #'(thickness . 2)
-  \\underline {
-    underline
-  }
+\\markup \\fill-line {
+  \\underline \"underlined\"
+  \\override #'(offset . 5)
+  \\override #'(thickness . 1)
+  \\underline \"underlined\"
+  \\override #'(offset . 1)
+  \\override #'(thickness . 5)
+  \\underline \"underlined\"
 }
 @end lilypond"
-  (let* ((thick (* (ly:output-def-lookup layout 'line-thickness)
-                   thickness))
+  (let* ((thick (ly:output-def-lookup layout 'line-thickness))
+         (underline-thick (* thickness thick))
          (markup (interpret-markup layout props arg))
          (x1 (car (ly:stencil-extent markup X)))
          (x2 (cdr (ly:stencil-extent markup X)))
-         (y (* thick -2))
-         (line (make-line-stencil thick x1 y x2 y)))
+         (y (* thick (- offset)))
+         (line (make-line-stencil underline-thick x1 y x2 y)))
     (ly:stencil-add markup line)))
 
 (define-markup-command (box layout props arg)
@@ -620,6 +621,137 @@ grestore
 		 str))
    '(0 . 0) '(0 . 0)))
 
+(define-markup-command (path layout props thickness commands) (number? list?)
+  #:category graphic
+  #:properties ((line-cap-style 'round)
+		(line-join-style 'round)
+		(filled #f))
+  "
+@cindex paths, drawing
+@cindex drawing paths
+Draws a path with line thickness @var{thickness} according to the
+directions given in @var{commands}.  @var{commands} is a list of
+lists where the @code{car} of each sublist is a drawing command and
+the @code{cdr} comprises the associated arguments for each command.
+
+Line-cap styles and line-join styles may be customized by
+overriding the @code{line-cap-style} and @code{line-join-style}
+properties, respectively.  Available line-cap styles are
+@code{'butt}, @code{'round}, and @code{'square}.  Available
+line-join styles are @code{'miter}, @code{'round}, and
+@code{'bevel}.
+
+The property @code{filled} specifies whether or not the path is
+filled with color.
+
+There are seven commands available to use in the list
+@code{commands}: @code{moveto}, @code{rmoveto}, @code{lineto},
+@code{rlineto}, @code{curveto}, @code{rcurveto}, and
+@code{closepath}.  Note that the commands that begin with @emph{r}
+are the relative variants of the other three commands.
+
+The commands @code{moveto}, @code{rmoveto}, @code{lineto}, and
+@code{rlineto} take 2 arguments; they are the X and Y coordinates
+for the destination point.
+
+The commands @code{curveto} and @code{rcurveto} create cubic
+Bézier curves, and take 6 arguments; the first two are the X and Y
+coordinates for the first control point, the second two are the X
+and Y coordinates for the second control point, and the last two
+are the X and Y coordinates for the destination point.
+
+The @code{closepath} command takes zero arguments and closes the
+current subpath in the active path.
+
+Note that a sequence of commands @emph{must} begin with a
+@code{moveto} or @code{rmoveto} to work with the SVG output.
+
+@lilypond[verbatim,quote]
+samplePath =
+  #'((moveto 0 0)
+     (lineto -1 1)
+     (lineto 1 1)
+     (lineto 1 -1)
+     (curveto -5 -5 -5 5 -1 0)
+     (closepath))
+
+\\markup {
+  \\path #0.25 #samplePath
+}
+@end lilypond"
+  (let* ((half-thickness (/ thickness 2))
+	 (current-point '(0 . 0))
+	 (set-point (lambda (lst) (set! current-point lst)))
+	 (relative? (lambda (x)
+		      (string-prefix? "r" (symbol->string (car x)))))
+	 ;; For calculating extents, we want to modify the command
+	 ;; list so that all coordinates are absolute.
+	 (new-commands (map (lambda (x)
+			      (cond
+				;; for rmoveto, rlineto
+				((and (relative? x) (eq? 3 (length x)))
+				 (let ((cp (cons
+					     (+ (car current-point)
+						(second x))
+					     (+ (cdr current-point)
+						(third x)))))
+				   (set-point cp)
+				   (list (car cp)
+					 (cdr cp))))
+				;; for rcurveto
+				((and (relative? x) (eq? 7 (length x)))
+				 (let* ((old-cp current-point)
+					(cp (cons
+					      (+ (car old-cp)
+						 (sixth x))
+					      (+ (cdr old-cp)
+						 (seventh x)))))
+				   (set-point cp)
+				   (list (+ (car old-cp) (second x))
+					 (+ (cdr old-cp) (third x))
+					 (+ (car old-cp) (fourth x))
+					 (+ (cdr old-cp) (fifth x))
+					 (car cp)
+					 (cdr cp))))
+				;; for moveto, lineto
+				((eq? 3 (length x))
+				 (set-point (cons (second x)
+						  (third x)))
+				 (drop x 1))
+				;; for curveto
+				((eq? 7 (length x))
+				 (set-point (cons (sixth x)
+						  (seventh x)))
+				 (drop x 1))
+				;; keep closepath for filtering;
+				;; see `without-closepath'.
+				(else x)))
+			    commands))
+	 ;; path-min-max does not accept 0-arg lists,
+	 ;; and since closepath does not affect extents, filter
+	 ;; out those commands here.
+	 (without-closepath (filter (lambda (x)
+				      (not (equal? 'closepath (car x))))
+				    new-commands))
+	 (extents (path-min-max
+		    ;; set the origin to the first moveto
+		    (list (list-ref (car without-closepath) 0)
+			  (list-ref (car without-closepath) 1))
+		    without-closepath))
+	 (X-extent (cons (list-ref extents 0) (list-ref extents 1)))
+	 (Y-extent (cons (list-ref extents 2) (list-ref extents 3)))
+	 (command-list (fold-right append '() commands)))
+
+    ;; account for line thickness
+    (set! X-extent (interval-widen X-extent half-thickness))
+    (set! Y-extent (interval-widen Y-extent half-thickness))
+
+    (ly:make-stencil
+      `(path ,thickness `(,@',command-list)
+	     ',line-cap-style ',line-join-style ,filled)
+      X-extent
+      Y-extent)))
+
 (define-markup-command (score layout props score)
   (ly:score?)
   #:category music
@@ -753,14 +885,16 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
   (make-simple-markup ""))
 
 ;; helper for justifying lines.
-(define (get-fill-space word-count line-width text-widths)
+(define (get-fill-space word-count line-width word-space text-widths)
   "Calculate the necessary paddings between each two adjacent texts.
-	The lengths of all texts are stored in @var{text-widths}.
-	The normal formula for the padding between texts a and b is:
-	padding = line-width/(word-count - 1) - (length(a) + length(b))/2
-	The first and last padding have to be calculated specially using the
-	whole length of the first or last text.
-	Return a list of paddings."
+  The lengths of all texts are stored in @var{text-widths}.
+  The normal formula for the padding between texts a and b is:
+  padding = line-width/(word-count - 1) - (length(a) + length(b))/2
+  The first and last padding have to be calculated specially using the
+  whole length of the first or last text.
+  All paddings are checked to be at least word-space, to ensure that
+  no texts collide.
+  Return a list of paddings."
   (cond
    ((null? text-widths) '())
 
@@ -769,23 +903,27 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
     (cons
      (- (- (/ line-width (1- word-count)) (car text-widths))
 	(/ (car (cdr text-widths)) 2))
-     (get-fill-space word-count line-width (cdr text-widths))))
+     (get-fill-space word-count line-width word-space (cdr text-widths))))
    ;; special case last padding
    ((= (length text-widths) 2)
     (list (- (/ line-width (1- word-count))
 	     (+ (/ (car text-widths) 2) (car (cdr text-widths)))) 0))
    (else
-    (cons
-     (- (/ line-width (1- word-count))
-	(/ (+ (car text-widths) (car (cdr text-widths))) 2))
-     (get-fill-space word-count line-width (cdr text-widths))))))
+    (let ((default-padding
+            (- (/ line-width (1- word-count))
+               (/ (+ (car text-widths) (car (cdr text-widths))) 2))))
+      (cons
+       (if (> word-space default-padding)
+           word-space
+           default-padding)
+       (get-fill-space word-count line-width word-space (cdr text-widths)))))))
 
 (define-markup-command (fill-line layout props args)
   (markup-list?)
   #:category align
   #:properties ((text-direction RIGHT)
-		(word-space 1)
-		(line-width #f))
+                (word-space 0.6)
+                (line-width #f))
   "Put @var{markups} in a horizontal line of width @var{line-width}.
 The markups are spaced or flushed to fill the entire line.
 If there are no arguments, return an empty stencil.
@@ -808,55 +946,58 @@ If there are no arguments, return an empty stencil.
 }
 @end lilypond"
   (let* ((orig-stencils (interpret-markup-list layout props args))
-	 (stencils
-	  (map (lambda (stc)
-		 (if (ly:stencil-empty? stc)
-		     point-stencil
-		     stc)) orig-stencils))
-	 (text-widths
-	  (map (lambda (stc)
-		 (if (ly:stencil-empty? stc)
-		     0.0
-		     (interval-length (ly:stencil-extent stc X))))
-	       stencils))
-	 (text-width (apply + text-widths))
-	 (word-count (length stencils))
-	 (line-width (or line-width (ly:output-def-lookup layout 'line-width)))
-	 (fill-space
-	 	(cond
-			((= word-count 1)
-				(list
-					(/ (- line-width text-width) 2)
-					(/ (- line-width text-width) 2)))
-			((= word-count 2)
-				(list
-					(- line-width text-width)))
-			(else
-				(get-fill-space word-count line-width text-widths))))
-	 (fill-space-normal
-	  (map (lambda (x)
-		 (if (< x word-space)
-		     word-space
-		     x))
-	       fill-space))
+         (stencils
+          (map (lambda (stc)
+                 (if (ly:stencil-empty? stc)
+                     point-stencil
+                     stc)) orig-stencils))
+         (text-widths
+          (map (lambda (stc)
+                 (if (ly:stencil-empty? stc)
+                     0.0
+                     (interval-length (ly:stencil-extent stc X))))
+               stencils))
+         (text-width (apply + text-widths))
+         (word-count (length stencils))
+         (line-width (or line-width (ly:output-def-lookup layout 'line-width)))
+         (fill-space
+          (cond
+           ((= word-count 1)
+            (list
+             (/ (- line-width text-width) 2)
+             (/ (- line-width text-width) 2)))
+           ((= word-count 2)
+            (list
+             (- line-width text-width)))
+           (else
+            (get-fill-space word-count line-width word-space text-widths))))
 
-	 (line-stencils (if (= word-count 1)
-			    (list
-			     point-stencil
-			     (car stencils)
-			     point-stencil)
-			    stencils)))
-
-    (if (= text-direction LEFT)
-	(set! line-stencils (reverse line-stencils)))
+         (line-contents (if (= word-count 1)
+                            (list
+                             point-stencil
+                             (car stencils)
+                             point-stencil)
+                            stencils)))
 
     (if (null? (remove ly:stencil-empty? orig-stencils))
-	empty-stencil
-	(ly:stencil-translate-axis
-	  (stack-stencils-padding-list X
-				       RIGHT fill-space-normal line-stencils)
-	  (- (car (ly:stencil-extent (car stencils) X)))
-	  X))))
+        empty-stencil
+        (begin
+          (if (= text-direction LEFT)
+              (set! line-contents (reverse line-contents)))
+          (set! line-contents
+                (stack-stencils-padding-list
+                 X RIGHT fill-space line-contents))
+          (if (> word-count 1)
+              ;; shift s.t. stencils align on the left edge, even if
+              ;; first stencil had negative X-extent (e.g. center-column)
+              ;; (if word-count = 1, X-extents are already normalized in
+              ;; the definition of line-contents)
+              (set! line-contents
+                    (ly:stencil-translate-axis
+                     line-contents
+                     (- (car (ly:stencil-extent (car stencils) X)))
+                     X)))
+          line-contents))))
 
 (define-markup-command (line layout props args)
   (markup-list?)
@@ -2627,25 +2768,28 @@ figured bass notation.
   (slashed-digit-internal layout props num #f font-size thickness))
 
 ;; eyeglasses
-(define eyeglassesps
-     "0.15 setlinewidth
-      -0.9 0 translate
-      1.1 1.1 scale
-      1.2 0.7 moveto
-      0.7 0.7 0.5 0 361 arc
-      stroke
-      2.20 0.70 0.50 0 361 arc
-      stroke
-      1.45 0.85 0.30 0 180 arc
-      stroke
-      0.20 0.70 moveto
-      0.80 2.00 lineto
-      0.92 2.26 1.30 2.40 1.15 1.70 curveto
-      stroke
-      2.70 0.70 moveto
-      3.30 2.00 lineto
-      3.42 2.26 3.80 2.40 3.65 1.70 curveto
-      stroke")
+(define eyeglassespath
+  '((moveto 0.42 0.77)
+    (rcurveto 0 0.304 -0.246 0.55 -0.55 0.55)
+    (rcurveto -0.304 0 -0.55 -0.246 -0.55 -0.55)
+    (rcurveto 0 -0.304 0.246 -0.55 0.55 -0.55)
+    (rcurveto 0.304 0 0.55 0.246 0.55 0.55)
+    (closepath)
+    (moveto 2.07 0.77)
+    (rcurveto 0 0.304 -0.246 0.55 -0.55 0.55)
+    (rcurveto -0.304 0 -0.55 -0.246 -0.55 -0.55)
+    (rcurveto 0 -0.304 0.246 -0.55 0.55 -0.55)
+    (rcurveto 0.304 0 0.55 0.246 0.55 0.55)
+    (closepath)
+    (moveto 1.025 0.935)
+    (rcurveto 0 0.182 -0.148 0.33 -0.33 0.33)
+    (rcurveto -0.182 0 -0.33 -0.148 -0.33 -0.33)
+    (moveto -0.68 0.77)
+    (rlineto 0.66 1.43)
+    (rcurveto 0.132 0.286 0.55 0.44 0.385 -0.33)
+    (moveto 2.07 0.77)
+    (rlineto 0.66 1.43)
+    (rcurveto 0.132 0.286 0.55 0.44 0.385 -0.33)))
 
 (define-markup-command (eyeglasses layout props)
   ()
@@ -2655,8 +2799,8 @@ figured bass notation.
 \\markup { \\eyeglasses }
 @end lilypond"
   (interpret-markup layout props
-    (make-with-dimensions-markup '(-0.61 . 3.22) '(0.2 . 2.41)
-      (make-postscript-markup eyeglassesps))))
+    (make-override-markup '(line-cap-style . butt)
+      (make-path-markup 0.15 eyeglassespath))))
 
 (define-markup-command (left-brace layout props size)
   (number?)

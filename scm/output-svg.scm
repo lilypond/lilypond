@@ -29,6 +29,7 @@
   (guile)
   (ice-9 regex)
   (ice-9 format)
+  (ice-9 optargs)
   (lily)
   (srfi srfi-1)
   (srfi srfi-13))
@@ -430,38 +431,6 @@
                            (- (* start-radius (sin new-start-angle))))
                 "")))))))
 
-(define (connected-shape pointlist thick x-scale y-scale connect fill)
-  (entity
-    'path ""
-    `(fill . ,(if fill "currentColor" "none"))
-    `(stroke . "currentColor")
-    `(stroke-width . ,thick)
-    '(stroke-linejoin . "round")
-    '(stroke-linecap . "round")
-    (cons
-      'd
-      (ly:format
-        "M0 0~a ~a"
-        (string-concatenate
-          (map (lambda (x)
-                 (apply
-                   (if (eq? (length x) 6)
-                       (lambda (x1 x2 x3 x4 x5 x6)
-                         (ly:format "C~4f ~4f ~4f ~4f ~4f ~4f"
-                                    (* x1 x-scale)
-                                    (- (* x2 y-scale))
-                                    (* x3 x-scale)
-                                    (- (* x4 y-scale))
-                                    (* x5 x-scale)
-                                    (- (* x6 y-scale))))
-                       (lambda (x1 x2)
-                         (ly:format "L~4f ~4f"
-                                    (* x-scale x1)
-                                    (- (* y-scale x2)))))
-                   x))
-               pointlist))
-        (if connect "z " "")))))
-
 (define (embedded-svg string)
   string)
 
@@ -548,7 +517,7 @@
 			x-max y-min
 			x-max 0)))))
 
-(define (path thick commands)
+(define* (path thick commands #:optional (cap 'round) (join 'round) (fill? #f))
   (define (convert-path-exps exps)
     (if (pair? exps)
 	(let*
@@ -574,13 +543,27 @@
 		(convert-path-exps (drop rest arity))))
 	'()))
 
-  (entity 'path ""
-	  `(stroke-width . ,thick)
-	  '(stroke-linejoin . "round")
-	  '(stroke-linecap . "round")
-	  '(stroke . "currentColor")
-	  '(fill . "none")
-	  `(d . ,(apply string-append (convert-path-exps commands)))))
+  (let* ((line-cap-styles '(butt round square))
+	 (line-join-styles '(miter round bevel))
+	 (cap-style (if (not (memv cap line-cap-styles))
+			(begin
+			  (ly:warning (_ "unknown line-cap-style: ~S")
+				      (symbol->string cap))
+			  'round)
+			cap))
+	 (join-style (if (not (memv join line-join-styles))
+			 (begin
+			   (ly:warning (_ "unknown line-join-style: ~S")
+				       (symbol->string join))
+			   'round)
+			 join)))
+    (entity 'path ""
+	    `(stroke-width . ,thick)
+	    `(stroke-linejoin . ,(symbol->string join-style))
+	    `(stroke-linecap . ,(symbol->string cap-style))
+	    '(stroke . "currentColor")
+	    `(fill . ,(if fill? "currentColor" "none"))
+	    `(d . ,(apply string-append (convert-path-exps commands))))))
 
 (define (placebox x y expr)
   (if (string-null? expr)

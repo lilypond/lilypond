@@ -271,7 +271,7 @@ set_column_rods (vector<Grob*> const &cols, Real padding)
 	      bool touches = right_stickout - left_stickout + cur_dist[d] < 0.0;
 	      Real dist = 0.0;
 
-	      /* we set a distance for the line-starter column even if it's non-broken counterpart
+	      /* we set a distance for the line-starter column even if its non-broken counterpart
 		 doesn't touch the right column. */
 	      if (lb)
 		Separation_item::set_distance (lb, r_col, padding);
@@ -285,6 +285,7 @@ set_column_rods (vector<Grob*> const &cols, Real padding)
 	      if (j == i-1)
 		cur_dist[d] = distances[j];
 
+	      cur_dist[d] = max (cur_dist[d], dist);
 	      done = done && !touches;
 	    }
 	  while (flip (&d) != LEFT && rb);

@@ -16,7 +16,6 @@
 @spanEnd
 @end macro
 
-
 @divClass{heading-center}
 @ifclear web_version
   @heading Manuals for LilyPond @version
@@ -27,31 +26,31 @@
 
 @divEnd
 
-@c TODO: do we want these links to be in larger text / bold ?   CSS.
+@divClass{link-headings}
 
 @divClass{column-center-top}
 @subheading Introduction
 
 @itemize
 
-@item @ref{Text input}:
-LilyPond is a @strong{text-based} music engraver.  Read this
-first!
+@item
+@ref{Text input}:
+LilyPond is a @strong{text-based} music engraver.  Read this first!
 
-@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
+@item
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
 a @qq{must-read} gentle introduction to LilyPond.
 @details{Learning}
 
-@item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
-@emph{(optional reading)}
-musical terms and translations.
+@item
+@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
+@emph{(optional reading)} musical terms and translations.
 @details{Glossary}
 
-@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
-@emph{(optional reading)}
-background information about computer engraving.
+@item
+@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
+@emph{(optional reading)} background information about computer engraving.
 @details{Essay}
-
 
 @end itemize
 
@@ -62,15 +61,18 @@ background information about computer engraving.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
+@item
+@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notation}}
 syntax reference.
 @details{Notation}
 
-@item @ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
+@item
+@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
 running the programs.
 @details{Usage}
 
-@item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
+@item
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
 short tricks and tips.
 @details{Snippets}
 
@@ -84,22 +86,27 @@ short tricks and tips.
 
 @itemize
 
-@item @ref{FAQ}:
+@item
+@ref{FAQ}:
 Frequently Asked Questions.
 
-@item @ref{Top, Web}:
+@item
+@ref{Top, Web}:
 this document.
 @details{Web}
 
-@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
+@item
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
 what's new?
 @details{Changes}
 
-@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
+@item
+@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
 fancy tweaks.
 @details{Extending}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
+@item
+@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
 tweaks reference.
 @details{Internals}
 
@@ -113,20 +120,25 @@ tweaks reference.
 
 @itemize
 
-@item @ref{Translated}:
+@item
+@ref{Translated}:
 translation status for non-English readers.
 
-@item @ref{All}:
+@item
+@ref{All}:
 downloadable and old manuals.
 
-@item @ref{Development}:
+@item
+@ref{Development}:
 manuals for the unstable version.
 
-@item @ref{FDL}:
-these manuals are published under the GNU Free Documentation
-License.
+@item
+@ref{FDL}:
+these manuals are published under the GNU Free Documentation License.
 
 @end itemize
+
+@divEnd
 
 @divEnd
 
@@ -559,5 +571,3 @@ reasons for choosing it, is given in @ref{Freedom}.
 @include fdl.itexi
 
 @divEnd
-
-

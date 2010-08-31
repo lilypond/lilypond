@@ -43,6 +43,7 @@ this @code{\\lyricsto} section.")
 (back-slashed number).")
 
      (bass ,boolean? "Set if this note is a bass note in a chord.")
+     (beat-structure ,list? "A beatStructure to be used in autobeaming.")
      (bracket-start ,boolean? "Start a bracket here.
 
 TODO: Use SpanEvents?")

@@ -16,10 +16,10 @@ The website is @emph{not} written directly in HTML;
 instead, the source is Texinfo, which is then generated into HTML,
 PDF, and Info formats.  The sources are
 
-@verbatim
+@example
 Documentation/web.texi
 Documentation/web/*.texi
-@end verbatim
+@end example
 
 Unless otherwise specified, follow the instructions and policies
 given in @ref{Documentation work}.  That chapter also contains a
@@ -43,7 +43,7 @@ the IR or certain NR appendices.
 
 @item
 For anything not listed here, just follow the same style as the
-existing texinfo files.
+existing website texinfo files.
 
 @end itemize
 
@@ -77,6 +77,32 @@ chgrp lilypond ~graham/lilypond/ -R
 chmod 775 ~graham/lilypond/ -R
 @end example
 
+To reduce the CPU burden on the shared host (as well as some
+security concerns), the @file{Documentation/@/pictures/} and
+@file{Documentation/@/web/@/ly-examples/} directories are
+@strong{not} compiled.  You need to upload them, and if they ever
+change, a user in the @code{lilypond} group must upload them to
+@file{~graham/@/media} on the host.
+
+Upload latest pictures/ and ly-examples/ (local script):
+
+@warning{You may need to change a number of items in the below
+script.}
+
+@verbatim
+### upload-lily-web-media.sh
+#!/bin/sh
+BUILD_DIR=$HOME/src/build-lilypond
+
+PICS=$BUILD_DIR/Documentation/pictures/out-www/
+EXAMPLES=$BUILD_DIR/Documentation/web/ly-examples/out-www/
+
+cd $BUILD_DIR
+rsync -a $PICS graham@lilypond.org:media/pictures
+rsync -a $EXAMPLES graham@lilypond.org:ly-examples
+@end verbatim
+
+
 
 @subheading Normal maintenance
 
@@ -104,6 +130,7 @@ diff -u $DEST/create-version-itexi.py $GIT/scripts/build/create-version-itexi.py
 diff -u $DEST/create-weblinks-itexi.py $GIT/scripts/build/create-weblinks-itexi.py
 diff -u $DEST/mass-link.py $GIT/scripts/build/mass-link.py
 diff -u $DEST/website_post.py $GIT/scripts/build/website_post.py
+diff -u $DEST/bib2texi.py $GIT/scripts/build/bib2texi.py
 diff -u $DEST/lilypond.org.htaccess $GIT/Documentation/web/server/lilypond.org.htaccess
 diff -u $DEST/website-dir.htaccess $GIT/Documentation/web/server/website-dir.htaccess
 @end verbatim
@@ -122,6 +149,7 @@ cp $GIT/scripts/build/create-version-itexi.py $DEST/create-version-itexi.py
 cp $GIT/scripts/build/create-weblinks-itexi.py $DEST/create-weblinks-itexi.py
 cp $GIT/scripts/build/mass-link.py $DEST/mass-link.py
 cp $GIT/scripts/build/website_post.py $DEST/website_post.py
+cp $GIT/scripts/build/bib2texi.py $DEST/bib2texi.py
 cp $GIT/Documentation/web/server/lilypond.org.htaccess $DEST/lilypond.org.htaccess
 cp $GIT/Documentation/web/server/website-dir.htaccess $DEST/website-dir.htaccess
 @end verbatim
@@ -149,29 +177,6 @@ Cronjob to automate the trusted portions:
 # website-rebuild.cron
 11 * * * * $HOME/lilypond/trusted-scripts/update-git.sh >/dev/null 2>&1
 22 * * * * $HOME/lilypond/trusted-scripts/make-website.sh >/dev/null 2>&1
-@end verbatim
-
-
-To reduce the CPU burden on the shared host (as well as some
-security concerns), the @file{Documentation/@/pictures/} and
-@file{Documentation/@/web/@/ly-examples/} directories are @strong{not}
-compiled.  If you modify any files in those directories, a user in
-the @code{lilypond} group must upload them to @file{~graham/@/media}
-on the host.
-
-Upload latest pictures/ and ly-examples/ (local script):
-
-@verbatim
-### upload-lily-web-media.sh
-#!/bin/sh
-BUILD_DIR=$HOME/src/build-lilypond
-
-PICS=$BUILD_DIR/Documentation/pictures/out-www/
-EXAMPLES=$BUILD_DIR/Documentation/web/ly-examples/out-www/
-
-cd $BUILD_DIR
-rsync -a $PICS graham@lilypond.org:media/pictures
-rsync -a $EXAMPLES graham@lilypond.org:ly-examples
 @end verbatim
 
 

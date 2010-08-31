@@ -27,6 +27,8 @@ traditions of classical music engraving.
 
 @divEnd
 
+@divClass{link-headings}
+
 @divClass{column-left-top}
 @subheading What LilyPond does
 
@@ -71,6 +73,8 @@ traditions of classical music engraving.
 @ref{Easier editing}: Other ways of working with LilyPond.
 
 @end itemize
+@divEnd
+
 @divEnd
 
 @c TRANSLATORS, translations are not yet compiled in Info format, so
@@ -139,7 +143,7 @@ simply save a file for later reference.
 
 Put fragments of music into texts without cutting and pasting
 pictures.  Integrate music into @LaTeX{} or HTML seamlessly, or add
-music to OpenOffice.org with OOoLilyPond. Plugins are also available
+music to OpenOffice.org with OOoLilyPond.  Plugins are also available
 to allow LilyPond code in various blogs and wikis, making online
 collaboration possible.
 
@@ -195,7 +199,7 @@ team makes sure that problems are solved quickly.
 
 Several developers, themselves active LilyPond users, have also
 written tools specifically aimed at making the process of editing
-LilyPond files faster and more effective. For some examples, see
+LilyPond files faster and more effective.  For some examples, see
 @ref{Easier editing}.
 
 @divEnd
@@ -213,7 +217,7 @@ already decided to try LilyPond, first read about our
 @unnumberedsec Examples
 
 LilyPond is a powerful and flexible tool for engraving tasks of
-all kinds. Please browse our gallery of examples and be inspired!
+all kinds.  Please browse our gallery of examples and be inspired!
 
 
 @newsItem
@@ -285,7 +289,7 @@ staff.
 @newsItem
 @subsubheading Schenker Graphs
 
-Standard output can be modified heavily. Here is an impressive
+Standard output can be modified heavily.  Here is an impressive
 Schenkerian analysis, created by Kris Schaffer, for an article
 in @uref{http://www.linuxjournal.com/article/8364 , Linux Journal.}.
 The colors have been added for better visibility.
@@ -631,7 +635,7 @@ Software authors in an article titled
 Delen van KENNIS zonder WINSTBEJAG} (Non-profit sharing of
 knowlegde) in its @q{DS2 bijlage}.  LilyPond is used as an example
 and the article is interspersed with quotes from an email
-interview with Jan Nieuwenhuizen. This marks LilyPond's first
+interview with Jan Nieuwenhuizen.  This marks LilyPond's first
 appearance in mainstream printed press.
 
 @item
@@ -1006,7 +1010,7 @@ systems.
 
 Denemo is a graphical editor which generates LilyPond source code,
 and also allows audio playback.  It allows users to view the
-LilyPond source code in parallel to the graphical view. Extra
+LilyPond source code in parallel to the graphical view.  Extra
 LilyPond tweaks can be attached to notes, chords etc. and are stored
 with the Denemo file, so that users can continue to edit graphically.
 
@@ -1015,7 +1019,7 @@ view, and any syntax errors in your LilyPond tweaks are highlighted in
 the text view when printed from there.
 
 @warning{Denemo officially supports an outdated Lilypond version 2.8.7,
-which lacks many of the features added since then. The Denemo developers
+which lacks many of the features added since then.  The Denemo developers
 are actively working to bring it up to our present stable version, 2.12.}
 @divEnd
 
@@ -1033,9 +1037,10 @@ Emacs is a text editor with language-sensitive capabilities for
 many different computer languages.  Emacs is a highly extensible
 editor and can be used as an Integrated Development Environment.
 There is a @q{lilypond mode} which supplies the language
-definitions for working with LilyPond source files. As well, one of
-our developers has written @uref{http://nicolas.sceaux.free.fr/
-lilypond/lyqi.html,lyqi}, an Emacs major mode.
+definitions for working with LilyPond source files.  As well, one of
+our developers has written
+@uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}, an
+Emacs major mode.
 
 @uref{http://www.vim.org}
 
@@ -1101,7 +1106,7 @@ export but is being actively developed.
 
 @item
 @uref{http://canorus.org,Canorus} can also export to LilyPond, but
-is still beta-software. Testers are welcome, though.
+is still beta-software.  Testers are welcome, though.
 
 @item
 @uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, a realtime

@@ -23,7 +23,6 @@
 	    page-prev
 	    page-printable-height
 	    layout->page-init
-	    page-lines
 	    page-force
 	    page-penalty
 	    page-configuration

@@ -21,36 +21,37 @@ that the lyrics will be aligned with the notes of their melody.
 * Common notation for vocal music::
 * Entering lyrics::
 * Aligning lyrics to a melody::
-* Specific uses of lyrics::
+* Techniques specific to lyrics::
 * Stanzas::
+* Songs::
+* Choral::
+* Opera and stage musicals::
+* Chants psalms and hymns::
+* Ancient vocal music::
+
 @end menu
 
 
 @node Common notation for vocal music
 @subsection Common notation for vocal music
 
-This section discusses issues related to vocal music in general, and
-to some particular styles of vocal music.
+This section and sections 2.1.2 to 2.1.5 discuss issues common to
+all types of vocal music.  Issues specific to certain types of
+vocal music are covered in section 2.1.6 on.
 
 @menu
-* References for vocal music and lyrics::
-* Opera::
-* Song books::
-* Spoken music::
-* Chants::
-* Ancient vocal music::
+* Common references for vocal music::
 @end menu
 
 
-@node References for vocal music and lyrics
-@unnumberedsubsubsec References for vocal music and lyrics
+@node Common references for vocal music
+@unnumberedsubsubsec Common references for vocal music
 
-@c TODO: split this section in two parts? -vv
-
-Various issues may arise when engraving vocal music.  Some of these
-are discussed in this section, while others are explained elsewhere:
+This section indicates where to find details of notation issues
+that may arise in any type of vocal music.
 
 @itemize
+
 @item
 Most styles of vocal music use written text as lyrics.  An introduction
 to this notation is to be found in @rlearning{Setting simple songs}.
@@ -61,88 +62,20 @@ for lyrics of for other text elements (character's names, etc.).
 This syntax is described in @ref{Text markup introduction}.
 
 @item
-Lead sheets may be printed by combining vocal parts and @q{chord mode};
-this syntax is explained in @ref{Chord notation}.
-
-@item
 @q{Ambitus} may be added at the beginning of vocal staves, as explained
 in @ref{Ambitus}.
 
-@item
-Vocal parts may be printed using traditional clefs, as shown in @ref{Clef}.
-
-@item
-Ancient vocal music is supported, as explained in @ref{Ancient notation}.
 @end itemize
-
-
-@node Opera
-@unnumberedsubsubsec Opera
-
-@c TODO
-TBC
-
-@c add characters names snippet -vv
-
-@node Song books
-@unnumberedsubsubsec Song books
-
-@c TODO
-TBC
-
-@snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
-
-
-@seealso
-Notation Reference:
-@ref{Chord notation}.
-
-
-@node Spoken music
-@unnumberedsubsubsec Spoken music
-@cindex parlato
-@cindex Sprechgesang
-Such effects as @q{parlato} or @q{Sprechgesang} require performers to speak
-without pitch but still with rhythm; these are notated by cross
-note heads, as demonstrated in @ref{Special note heads}.
-
-@c TODO add "marking-notes-on-spoken-parts" snippet -vv
-@c add "showing the rhythm of a melody" snip
-@c add "one staff-line notation"
-@c add "improvisation" ref
-@c add "lyrics independents of notes" ref
-
-@node Chants
-@unnumberedsubsubsec Chants
-
-@c TODO Add text from lsr and -user
-TBC
-
-@node Ancient vocal music
-@unnumberedsubsubsec Ancient vocal music
-
-@c TODO
-TBC
-
-@c Add "Printing both the ancient and the modern clef in vocal music" snippet,
-@c and "Transcription of Ancient music with incipit" snippet. -vv
-
-
-@seealso
-Notation Reference:
-@ref{Ancient notation}.
 
 
 @node Entering lyrics
 @subsection Entering lyrics
 
-@c TODO add one sentence here. -vv
+Lyrics are entered in lyric mode.  This section explains how this
+done.
 
 @menu
 * Lyrics explained::
-* Setting simple songs::
 * Working with lyrics and variables::
 @end menu
 
@@ -301,45 +234,6 @@ Internals Reference:
 @rinternals{LyricSpace}.
 
 
-@c TODO: this title has to be changed (possible confusion with LM) -vv
-@node Setting simple songs
-@unnumberedsubsubsec Setting simple songs
-
-@cindex \addlyrics
-
-The easiest way to add lyrics to a melody is to append
-
-@example
-\addlyrics @{ @var{the lyrics} @}
-@end example
-
-@noindent
-to a melody.  Here is an example,
-
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative c' { c2 e4 g2. }
-\addlyrics { play the game }
-@end lilypond
-
-More stanzas can be added by adding more
-@code{\addlyrics} sections
-
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative c' { c2 e4 g2. }
-\addlyrics { play the game }
-\addlyrics { speel het spel }
-\addlyrics { joue le jeu }
-@end lilypond
-
-The command @code{\addlyrics} cannot handle polyphony settings.  For these
-cases you should use @code{\lyricsto} and @code{\lyricmode}, as will be
-introduced in @ref{Lyrics explained}.
-
-@c TODO: one additional section may be needed here,
-@c such as "advanced lyric syntax" or whatever -vv
-
 @node Working with lyrics and variables
 @unnumberedsubsubsec Working with lyrics and variables
 
@@ -403,7 +297,7 @@ A comment is in tracker waiting for response ---FV
 
 
 Be careful when defining a variable with lyrics that creates a new
-context, for example, using the deprecated @code{\lyrics} command. See
+context, for example, using the deprecated @code{\lyrics} command.  See
 the next erroneous example:
 
 @example
@@ -532,6 +426,8 @@ The following example uses different commands for entering lyrics.
 The second stanza is not properly aligned because the durations
 were not specified.  A solution for that would be to use @code{\lyricsto}.
 
+@cindex \addlyrics
+
 The @code{\addlyrics} command is actually just a convenient way
 to write a more complicated LilyPond structure that sets up the
 lyrics.
@@ -548,6 +444,29 @@ is the same as
 \new Voice = "blah" @{ music @}
 \new Lyrics \lyricsto "blah" @{ LYRICS @}
 @end example
+
+Here is an example,
+
+@lilypond[ragged-right,verbatim,fragment,quote]
+\time 3/4
+\relative c' { c2 e4 g2. }
+\addlyrics { play the game }
+@end lilypond
+
+More stanzas can be added by adding more
+@code{\addlyrics} sections
+
+@lilypond[ragged-right,verbatim,fragment,quote]
+\time 3/4
+\relative c' { c2 e4 g2. }
+\addlyrics { play the game }
+\addlyrics { speel het spel }
+\addlyrics { joue le jeu }
+@end lilypond
+
+The command @code{\addlyrics} cannot handle polyphony settings.
+For these cases you should use @code{\lyricsto} and
+@code{\lyricmode}, for details see@ref{Lyrics explained}.
 
 @node Manual syllable durations
 @unnumberedsubsubsec Manual syllable durations
@@ -653,12 +572,12 @@ for every extra note that has to be added to the melisma.
 @c duplicated: TODO fix
 Additionally, you can make an extender line to be typeset to indicate
 the melisma in the score, writing a double underscore next to the
-first syllable of the melisma. This example shows the three elements
+first syllable of the melisma.  This example shows the three elements
 that are used for this purpose (all of them surrounded by spaces):
 double hyphens to separate syllables in a word, underscores to add
 notes to a melisma, and a double underscore to put an extender line.
 
-@c wrong: extender line only on last syllable of a word. Change example
+@c wrong: extender line only on last syllable of a word.  Change example
 @lilypond[relative=1,verbatim,fragment,quote]
 { \set melismaBusyProperties = #'()
  c d( e) f f( e) e e  }
@@ -801,8 +720,8 @@ Internals Reference:
 TBC
 
 
-@node Specific uses of lyrics
-@subsection Specific uses of lyrics
+@node Techniques specific to lyrics
+@subsection Techniques specific to lyrics
 
 @c TODO This whole section is to be reorganized. -vv
 
@@ -814,7 +733,7 @@ differing ways.  Such variations can still be captured with
 * Divisi lyrics::
 * Lyrics independent of notes::
 * Spacing out syllables::
-* Centering lyrics between staves::
+* Placement of lyrics between staves::
 @end menu
 
 
@@ -897,7 +816,7 @@ lyr = \lyricmode { I like my cat! }
 
 This method is recommended only if the music in the @code{Devnull}
 context does not contain melismata.  Melismata are defined by the
-@code{Voice} context. Connecting lyrics to a @code{Devnull} context
+@code{Voice} context.  Connecting lyrics to a @code{Devnull} context
 makes the voice/lyrics links to get lost, and so does the info on
 melismata.  Therefore, if you link lyrics to a @code{Devnull} context,
 the implicit melismata get ignored.
@@ -992,10 +911,11 @@ To make lyrics avoid bar lines as well, use
 @end ignore
 
 
-@node Centering lyrics between staves
-@unnumberedsubsubsec Centering lyrics between staves
+@node Placement of lyrics between staves
+@unnumberedsubsubsec Placement of lyrics between staves
 
 @c TODO Add text from -user
+@c TODO Add new spacing properties, centering lyrics, etc
 TBC
 
 @node Stanzas
@@ -1401,6 +1321,350 @@ text = \lyricmode {
 Internals Reference:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
+
+
+@node Songs
+@subsection Songs
+
+@menu
+* References for songs::
+* Lead sheets::
+@end menu
+
+@node References for songs
+@unnumberedsubsubsec References for songs
+
+@c TODO chords, setting simple songs (LM), stanzas
+TBC
+
+@node Lead sheets
+@unnumberedsubsubsec Lead sheets
+
+Lead sheets may be printed by combining vocal parts and @q{chord mode};
+this syntax is explained in @ref{Chord notation}.
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{simple-lead-sheet.ly}
+
+@seealso
+Notation Reference:
+@ref{Chord notation}.
+
+
+@node Choral
+@subsection Choral
+
+@cindex anthems
+@cindex part songs
+@cindex oratorio
+@cindex SATB
+
+This section discusses notation issues that relate most directly
+to choral music.  This includes anthems, part songs, oratorio,
+etc.
+
+@menu
+* References for choral::
+* Score layouts for choral::
+@end menu
+
+@node References for choral
+@unnumberedsubsubsec References for choral
+
+Choral music is usually notated on two, three or four staves within
+a @code{ChoirStaff} group.  Accompaniment, if required, is placed
+beneath in a @code{PianoStaff} group, which is usually reduced in
+size for @emph{a capella} choral works.  The notes for each vocal
+part are placed in a @code{Voice} context, with each either on a
+staff of its own or grouped in pairs on a single staff.
+
+Words are placed in @code{Lyrics} contexts, either underneath each
+corresponding music staff, or one above and one below the music
+staff if this contains the music for two parts.
+
+Several common topics in choral music are described fully elsewhere:
+
+@itemize
+
+@item
+An introduction to creating an SATB vocal score can be found in
+the Learning Manual, see @rlearning{Four-part SATB vocal score}.
+
+@item
+Several templates suitable for various styles of choral music can
+also be found in the Learning Manual, see
+@rlearning{Vocal ensembles}.
+
+@item
+For information about @code{ChoirStaff} and @code{PianoStaff} see
+@ref{Grouping staves}.
+
+@item
+General information about entering the words (i.e. @qq{lyrics}) to
+vocal music is described in sections 2.1.2 to 2.1.5 of this manual.
+All these sections are relevant to choral music.
+
+@item
+Shape noteheads, as used in Sacred Harp and similar notation, are
+described in @ref{Shape note heads}.
+
+@end itemize
+
+@seealso
+Learning Manual:
+@rlearning{Four-part SATB vocal score},
+@rlearning{Vocal ensembles}.
+
+Notation Reference:
+@ref{Grouping staves},
+@ref{Context layout order},
+@ref{Shape note heads}.
+
+Internals Reference:
+@rinternals{ChoirStaff},
+@rinternals{Lyrics},
+@rinternals{PianoStaff}.
+
+@node Score layouts for choral
+@unnumberedsubsubsec Score layouts for choral
+
+Choral music containing four staves, with or without piano
+accompaniment, is usually laid out with two systems per page.
+Depending on the page size, achieving this may require changes
+to several default settings.  The following settings should be
+considered:
+
+@itemize
+
+@item
+The global staff size can be modified to change the overall size
+of the elements of the score.  See @ref{Setting the staff size}.
+
+@item
+The distances between the systems, the staves and the lyrics can
+all be adjusted independently.  See @ref{Vertical spacing}.
+
+@item
+Setting @code{annotate-spacing = ##t} in the layout block will
+display the dimensions of the vertical layout variables.  This
+may help in adjusting them.  For details, see
+@ref{Displaying spacing}.
+
+@item
+Other possibilities for fitting the music onto fewer pages are
+described in @ref{Changing spacing}.
+
+@end itemize
+
+If the number of systems per page changes from one to two it is
+customary to indicate this with a system separator mark between
+the two systems.  By default the system separator is blank.  It
+may be activated with
+
+@example
+\paper @{
+  system-separator-markup = \slashSeparator
+@}
+@end example
+
+@noindent
+For details of this and other page formatting properties, see
+@ref{Page formatting}.
+
+Dynamic markings by default are placed below the staff, but in
+choral music they are often placed above the staff in order to
+avoid the lyrics.  The predefined command @code{\dynamicUp} does
+this for the dynamic markings in a single @code{Voice} context.
+To place all dynamic markings in the score above their respective
+staves use the following in a @code{\layout} block within the
+@code{\score} block:
+
+@example
+\layout @{
+  \context @{
+    \Score
+    \override DynamicText #'direction = #UP
+    \override DynamicLineSpanner #'direction = #UP
+  @}
+@}
+@end example
+
+@predefined
+@code{\dynamicUp}.
+
+@seealso
+Notation Reference:
+@ref{Setting the staff size},
+@ref{Vertical spacing},
+@ref{Displaying spacing},
+@ref{Changing spacing},
+@ref{Score layout},
+@ref{Using an extra voice for breaks},
+@ref{Page formatting}.
+
+Internals Reference:
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
+
+
+@node Opera and stage musicals
+@subsection Opera and stage musicals
+
+@menu
+* References for opera and stage musicals::
+* Spoken music::
+* Dialogue over music::
+@end menu
+
+@node References for opera and stage musicals
+@unnumberedsubsubsec References for opera and stage musicals
+
+@c TODO Choral, cues, character names, French staves
+@c vocal/conductor scores
+@c add characters names snippet -vv
+
+TBC
+
+@node Spoken music
+@unnumberedsubsubsec Spoken music
+
+@cindex parlato
+@cindex Sprechgesang
+Such effects as @q{parlato} or @q{Sprechgesang} require performers to speak
+without pitch but still with rhythm; these are notated by cross
+note heads, as demonstrated in @ref{Special note heads}.
+
+@c TODO add "marking-notes-on-spoken-parts" snippet -vv
+@c add "showing the rhythm of a melody" snip
+@c add "one staff-line notation"
+@c add "improvisation" ref
+@c add "lyrics independents of notes" ref
+
+@node Dialogue over music
+@unnumberedsubsubsec Dialogue over music
+
+TBC
+
+
+@node Chants psalms and hymns
+@subsection Chants psalms and hymns
+
+@cindex chants
+@cindex psalms
+@cindex hymns
+@cindex religious music
+
+The music and words for chants, psalms and hymns usually follow a
+well-established format in any particular church.  Although the
+formats may differ from church to church the type-setting problems
+which arise are broadly similar, and are covered in this section.
+
+@menu
+* References for chants and psalms::
+* Setting a chant::
+* Pointing a psalm::
+* Partial measures in hymn tunes::
+@end menu
+
+@node References for chants and psalms
+@unnumberedsubsubsec References for chants and psalms
+
+Typesetting Gregorian chant in various styles of ancient notation
+is described in @ref{Ancient notation}.
+
+Modern chant settings use modern notation with varying numbers of
+elements taken from ancient notation.  Some of the elements and
+methods to consider are these:
+
+@itemize
+
+@item
+Chants often use quarter notes without stems to indicate the pitch,
+with the rhythm being taken from the spoken rhythm of the words.  To
+remove the stem set the @code{transparent} property of the
+@code{Stem} grob to @code{#t}.  See
+@rlearning{Visibility and color of objects} and
+@ref{Visibility of objects}.  An alternative is set the
+@code{length} property to @code{0}.
+
+@item
+Chants usually omit the bar lines or use shortened or dotted bar
+lines to indicate pauses in the music.  To omit bar lines
+completely use @code{\cadenzaOn} or remove the @code{Bar_engraver}.
+See @ref{Unmetered music} and @ref{Modifying context plug-ins}.
+
+@item
+To use modified bar lines see the @emph{Bar lines} section in
+@ref{Bars}.  Alternatively, the correct Gregorian chant notation
+for pauses or rests in the music are described in @emph{Divisiones}
+in @ref{Typesetting Gregorian chant}.
+
+@item
+Chants usually omit the time signature and often omit the clef too.
+To omit these remove the @code{Time_signature_engraver} and
+@code{Clef_engraver} from the @code{Staff} context respectively.
+For details, see @ref{Modifying context plug-ins}.
+
+@end itemize
+
+@seealso
+Learning Manual:
+@rlearning{Visibility and color of objects}.
+
+Notation reference:
+@ref{Ancient notation},
+@ref{Visibility of objects},
+@ref{Bars},
+@ref{Unmetered music},
+@ref{Modifying context plug-ins},
+@ref{Typesetting Gregorian chant}.
+
+@node Setting a chant
+@unnumberedsubsubsec Setting a chant
+
+Some approaches to setting a chant are shown in the following
+snippets.
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{chant-or-psalms-notation.ly}
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+
+
+@node Pointing a psalm
+@unnumberedsubsubsec Pointing a psalm
+
+TBC
+
+@node Partial measures in hymn tunes
+@unnumberedsubsubsec Partial measures in hymn tunes
+
+Hymn tunes frequently start and end every line of music with
+partial measures so that each line of music corresponds exactly
+with a line of text.  This requires a @code{\partial} command at
+the start of the music and @code{\bar "|"} or @code{\bar "||"}
+commands at the end of each line.
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{hymn-template.ly}
+
+
+@node Ancient vocal music
+@subsection Ancient vocal music
+
+Ancient vocal music is supported, as explained in @ref{Ancient notation}.
+
+@c TODO
+
+@c Add "Printing both the ancient and the modern clef in vocal music" snippet,
+@c and "Transcription of Ancient music with incipit" snippet. -vv
+
+@seealso
+Notation Reference:
+@ref{Ancient notation}.
 
 
 

@@ -210,6 +210,7 @@ def update_ly_in_place (snippet_path):
                                               snippet_path,
                                               visited_languages),
          contents)
+    need_line_break_workaround = False
     for language_code in langdefs.LANGDICT:
         if not language_code in visited_languages:
             base = os.path.splitext (os.path.basename (snippet_path))[0]
@@ -219,7 +220,16 @@ def update_ly_in_place (snippet_path):
                 texidoc_translation = open (texidoc_path).read ()
                 texidoc_translation = texidoc_translation.replace ('\\', '\\\\')
                 contents = begin_header_re.sub ('\\g<0>\n' + texidoc_translation, contents, 1)
+        else:
+            need_line_break_workaround = True
     contents = doctitle_re.sub (doctitle_sub, contents)
+    # workaround for a bug in the regex's that I'm not smart
+    # enough to figure out.  -gp
+    if need_line_break_workaround:
+        first_translated = contents.find('%% Translation of')
+        keep = contents[:first_translated+5]
+        contents = keep + contents[first_translated+5:].replace('%% Translation of', '\n%% Translation of')
+
     open (snippet_path, 'w').write (contents)
 
 if in_dir:

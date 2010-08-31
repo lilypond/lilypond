@@ -104,6 +104,8 @@ a log file.")
 "Include book titles in preview images.")
     (include-eps-fonts #t
 "Include fonts in separate-system EPS files.")
+    (include-settings #f
+"Include file for global settings, included before the score is processed.")
     (job-count #f
 "Process in parallel, using the given number of
 jobs.")
@@ -362,6 +364,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
   '("lily-library.scm"
     "file-cache.scm"
     "define-event-classes.scm"
+    "define-music-callbacks.scm"
     "define-music-types.scm"
     "output-lib.scm"
     "c++.scm"

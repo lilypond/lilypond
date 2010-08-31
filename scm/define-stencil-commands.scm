@@ -27,7 +27,6 @@ defined in the output modules (output-*.scm)"
     bracket
     char
     circle
-    connected-shape
     dashed-line
     dashed-slur
     dot

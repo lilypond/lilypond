@@ -643,7 +643,7 @@ Here's another simple example:
 @end lilypond
 
 It is not necessary to use a separate @code{<< \\ >>} construct
-for each bar. For music with few notes in each bar this layout
+for each bar.  For music with few notes in each bar this layout
 can help the legibility of the code, but if there are many
 notes in each bar it may be better to split out each voice
 separately, like this:
@@ -889,7 +889,7 @@ odd-numbered voices taking upward stems and the even-numbered
 voices downward ones.  The stems for voices 1 and 2 are right,
 but the stems in voice 3 should go down in this particular piece
 of music.  We can correct this by skipping voice three
-and placing the music in voice four. This is done by simply
+and placing the music in voice four.  This is done by simply
 adding another pair of @code{\\}.
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -916,7 +916,7 @@ voices to occupy the same vertical note column provided the stems are
 in opposite directions, but the notes from the third and fourth voices
 are displaced, if necessary, to avoid the note heads colliding.  This
 usually works well, but in this example the notes of the lowest voice
-are clearly not well placed by default. LilyPond provides several ways
+are clearly not well placed by default.  LilyPond provides several ways
 to adjust the horizontal placing of notes.  We are not quite ready yet
 to see how to correct this, so we shall leave this problem until a
 later section --- see the @code{force-hshift} property in @ref{Fixing
@@ -1149,7 +1149,7 @@ relative to the other notes.
 The @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn}, and
 @code{\shiftOff} commands specify the degree to which notes and
 chords of the voice should be shifted if a collision
-would otherwise occur. By default, the outer voices (normally
+would otherwise occur.  By default, the outer voices (normally
 voices one and two) have @code{\shiftOff} specified, while the
 inner voices (three and four) have @code{\shiftOn} specified.
 When a shift is applied, voices one and three are shifted to

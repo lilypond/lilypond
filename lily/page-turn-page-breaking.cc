@@ -29,8 +29,9 @@
 #include "system.hh"
 #include "warn.hh"
 
+template<typename T>
 static bool
-is_break (Grob *g)
+is_break (T *g)
 {
   bool turnable = scm_is_symbol (g->get_property ("page-turn-permission"));
 
@@ -46,7 +47,7 @@ is_break (Grob *g)
 }
 
 Page_turn_page_breaking::Page_turn_page_breaking (Paper_book *pb)
-  : Page_breaking (pb, is_break)
+  : Page_breaking (pb, is_break<Grob>, is_break<Prob>)
 {
 }
 
@@ -213,8 +214,8 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
       if (start == 0 && end == 1
 	  && this_start_best.first_page_number_ == 1
 	  && this_start_best.page_count_ > 1)
-	warning (_ ("cannot fit the first page turn onto a single page.  "
-		    "Consider setting first-page-number to an even number."));
+	warning (_ ("cannot fit the first page turn onto a single page."
+		    "  Consider setting first-page-number to an even number."));
 
       if (this_start_best.demerits_ < best.demerits_)
 	best = this_start_best;

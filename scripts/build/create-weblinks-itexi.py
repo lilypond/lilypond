@@ -376,24 +376,35 @@ def make_manual_links(name, version, lang):
                 "http://lilypond.org",
                 mshort+getTrans(" (did not exist in 2.12)",lang))
             continue
-        make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
-                  url + '.pdf',
-                  getTrans(manual.capitalize(),lang) + '.pdf')
-        make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
-                  url + '/index.html',
-                  getTrans(manual.capitalize(),lang) +
-                  getTrans(' (split HTML)',lang))
-        make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
-                  url + '-big-page.html',
-                  getTrans(manual.capitalize(),lang) +
-                  getTrans(' (big HTML)',lang))
 	# this is stupid and I shouldn't have bothered trying
 	# to support the 2.12 docs and it will be deleted once
 	# 2.14 is out and the website won't be visible to users
         # until 2.14 is out.  -gp
         if (url.endswith('.html')):
+            make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
+                      url,
+                      getTrans(manual.capitalize(),lang) + '.pdf')
+            make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
+                      url,
+                      getTrans(manual.capitalize(),lang) +
+                      getTrans(' (split HTML)',lang))
+            make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
+                      url,
+                      getTrans(manual.capitalize(),lang) +
+                      getTrans(' (big HTML)',lang))
             newurl = url
         else:
+            make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
+                      url + '.pdf',
+                      getTrans(manual.capitalize(),lang) + '.pdf')
+            make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
+                      url + '/index.html',
+                      getTrans(manual.capitalize(),lang) +
+                      getTrans(' (split HTML)',lang))
+            make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
+                      url + '-big-page.html',
+                      getTrans(manual.capitalize(),lang) +
+                      getTrans(' (big HTML)',lang))
             newurl = url + '/index.html'
         make_ver_link(macroLang("manual"+name+mshort+'SplitNoName',lang),
                   newurl,
@@ -413,9 +424,21 @@ def make_regtest_links(name, version, lang):
     make_ver_link(macroLang("regtest"+name+"Xml", lang),
         url+"musicxml/collated-files.html",
         getTrans("MusicXML Regression tests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"Abc", lang),
+        url+"abc2ly/collated-files.html",
+        getTrans("abc2ly Regression tests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"LilypondBook", lang),
+        url+"lilypond-book/collated-files.html",
+        getTrans("lilypond-book Regression tests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"XmlPdf", lang),
          url+"musicxml/collated-files.html",
         getTrans("PDF of MusicXML regtests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"AbcPdf", lang),
+         url+"abc2ly/collated-files.html",
+        getTrans("PDF of abc2ly regtests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"LilypondBookPdf", lang),
+         url+"lilypond-book/collated-files.html",
+        getTrans("PDF of lilypond-book regtests for ", lang)+version)
 
 def make_doctarball_links(name, version, lang):
     url = depth + "download/binaries/documentation/lilypond-"

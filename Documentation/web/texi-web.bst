@@ -1,5 +1,9 @@
+% 18/aug/2010:
+%    - changed into texi-long.bst by Graham Percival for GNU LilyPond
+%    - only a minimum of changes were made; some html remains in
+%      this file, but it does not appear in our output
 % BibTeX bibliography style `html-long'
-%   spits out HTML-formatted bibliography in place of bbl output
+%   spits out texinfo-formatted bibliography in place of bbl output
 % by David Kotz dfk@cs.dartmouth.edu
 % $Id: html-long.bst,v 1.4 2005/07/21 21:29:50 hjunes Exp $
 %    modified from
@@ -95,19 +99,18 @@ FUNCTION {output.check}
 }
 
 % DFK changed to use cite$ for the label
-% DFK changed to HTML, and use URL to make cite key a link
+% DFK changed to texinfo, and use URL to make cite key a link
 FUNCTION {output.bibitem}
 { newline$
   URL empty$
-    { "<DT> <A NAME=" quote$ * cite$ * quote$ * 
-	"> " * cite$ * ":</A> </DT>" * write$
+    { "@item " write$
     }
-    { "<DT><A NAME=" quote$ * cite$ * quote$ * " HREF=" * quote$ * 
+    { "" quote$ * cite$ * quote$ * " HREF=" * quote$ *
 	URL * quote$ * "> " * cite$ * ":</A></DT>" * write$
     }
   if$
   newline$
-  "<DD>" write$ newline$
+%  "" write$ newline$
   ""
   before.all 'output.state :=
 }
@@ -131,7 +134,7 @@ FUNCTION {fin.entry}
 		">" * later * "</A>." * write$ newline$
 	}
   if$
-  "</DD>" write$ newline$
+%  "" write$ newline$
 }
 
 FUNCTION {new.block}
@@ -209,19 +212,19 @@ FUNCTION {field.or.null}
   if$
 }
 
-% DFK changed to HTML
+% DFK changed to texinfo
 FUNCTION {emphasize}
 { duplicate$ empty$
     { pop$ "" }
-    { "<EM>" swap$ * "</EM>" * }
+    { "@emph{" swap$ * "}" * }
   if$
 }
 
-% DFK added for HTML strong emphasis
+% DFK added for texinfo strong emphasis
 FUNCTION {strong}
 { duplicate$ empty$
     { pop$ "" }
-    { "<STRONG>" swap$ * "</STRONG>" * }
+    { "@strong{" swap$ * "}" * }
   if$
 }
 
@@ -234,14 +237,14 @@ FUNCTION {author.title.purify}
 { 't :=
   ""
     { t empty$ not }
-    { t #1 #1 substring$ "{" = 
+    { t #1 #1 substring$ "{" =
       t #1 #1 substring$ "}" = or
-      	'skip$
+	'skip$
 	{ t #1 #1 substring$ "~" =
-    	    { " " * }
-    	    { t #1 #1 substring$ * }
-    	if$
-    	}
+	    { " " * }
+	    { t #1 #1 substring$ * }
+	if$
+	}
       if$
       t #2 global.max$ substring$ 't :=
     }
@@ -287,7 +290,7 @@ FUNCTION {format.authors}
 FUNCTION {format.editors}
 { editor empty$
     { "" }
-    { editor format.names
+    { editor format.names author.title.purify
       editor num.names$ #1 >
 	{ ", editors" * }
 	{ ", editor" * }
@@ -617,12 +620,12 @@ FUNCTION {format.quotedParagraph}
 % DFK added, to support comment, private, keyword, etc
 % next-to-top is field name (eg, "Comment")
 % top is field value (eg, value of comment)
-% both are popped; resulting top is either empty, 
+% both are popped; resulting top is either empty,
 %    or string describing field
 FUNCTION {format.dfkfield}
 { duplicate$ empty$
 	{ pop$ pop$ "" }
-	{ swap$ 
+	{ swap$
           "<strong> " swap$ * ":</strong> " * swap$ * }
   if$
 }
@@ -1348,13 +1351,10 @@ ITERATE {forward.pass}
 REVERSE {reverse.pass}
 
 % DFK removed code about et.al.char
-% DFK changed to HTML
+% DFK changed to texinfo
 FUNCTION {begin.bib}
-{ "<HTML>" write$ newline$
-  "<HEAD><TITLE> Bibliography </TITLE>" write$ newline$
-  "</HEAD>" write$ newline$
-  "<BODY BGCOLOR=#EEEEEE>" write$ newline$
-  "<DL>" write$ newline$
+{ "@c bib -> itexi intro" write$ newline$
+  "@itemize" write$ newline$
 }
 
 EXECUTE {begin.bib}
@@ -1363,12 +1363,11 @@ EXECUTE {init.state.consts}
 
 ITERATE {call.type$}
 
-% DFK changed to HTML
+% DFK changed to texinfo
 FUNCTION {end.bib}
 { newline$
-  "</DL>" write$ newline$
-  "</BODY>" write$ newline$
-  "</HTML>" write$ newline$
+  "@end itemize" write$ newline$
+  "@c bib -> itexi end" write$ newline$
 }
 
 EXECUTE {end.bib}

@@ -34,6 +34,8 @@ these files end with @code{.ly}.
 @menu
 * Structure of a score::
 * Multiple scores in a book::
+* Multiple output files from one input file::
+* Output file names::
 * File structure::
 @end menu
 
@@ -100,6 +102,16 @@ input file.  They may be placed inside or outside a @code{\score}
 block, and inside or outside the single music expression within a
 @code{\score} block.
 
+Remember that even in a file containing only a @code{\score} block, it
+is implicitly enclosed in a \book block.  A \book block in a source
+file produces at least one output file, and by default the name of the
+output file produced is derived from the name of the input file, so
+@file{fandangoforelephants.ly} will produce
+@file{fandangoforelephants.pdf}.
+
+(For more details  about @code{\book} blocks, see
+@ref{Multiple scores in a book},
+@ref{Multiple output files from one input file} @ref{File structure}.)
 
 @seealso
 Learning Manual:
@@ -149,12 +161,7 @@ will normally be typeset in the form of a single output file.
 @}
 @end example
 
-However, if you want multiple output files from the same @code{.ly}
-file, then you can add multiple @code{\book} blocks, where each such
-@code{\book} block will result in a separate output.  If you do not
-specify any @code{\book} block in the file, LilyPond will implicitly
-treat the full file as a single @code{\book} block, see @ref{File
-structure}.  One important exception is within lilypond-book documents,
+One important exception is within lilypond-book documents,
 where you explicitly have to add a @code{\book} block, otherwise only
 the first @code{\score} or @code{\markup} will appear in the output.
 
@@ -209,6 +216,122 @@ title, like the book itself, by specifying a @code{\header} block.
 @}
 @end example
 
+@node Multiple output files from one input file
+@subsection Multiple output files from one input file
+
+If you want multiple output files from the same .ly file, then you can
+add multiple @code{\book} blocks, where each such \book block will
+result in a separate output file. If you do not specify any
+@code{\book} block in the input file, LilyPond will implicitly treat
+the whole file as a single \book block, see @ref{File structure}.
+
+When producing multiple files from a single source file, Lilypond
+ensures that none of the output files from any @code{\book} block
+overwrites the output file produced by a preceding @code{\book} from
+the same input file.
+
+It does this by adding a suffix to the output name for each
+@code{\book} which uses the default output file name derived from the
+input source file.
+
+The default behaviour is to append a version-number suffix for each
+name which may clash, so
+
+@example
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+in source file @file{eightminiatures.ly}
+will produce
+
+@itemize
+@item
+@file{eightminiatures.pdf},
+@item
+@file{eightminiatures-1.pdf} and
+@item
+@file{eightminiatures-2.pdf}.
+@end itemize
+
+@node Output file names
+@subsection Output file names
+
+@funindex \bookOutputSuffix
+@funindex \bookOutputName
+
+Lilypond provides facilities to allow you to control what file names
+are used by the various back-ends when producing output files.
+
+In the previous section, we saw how Lilypond prevents name-clashes when
+producing several ouputs from a single source file.  You also have the
+ability to specify your own suffixes for each @code{\book} block, so
+for example you can produce files called
+@file{eightminiatures-Romanze.pdf}, @file{eightminiatures-Menuetto.pdf}
+and @file{eightminiatures-Nocturne.pdf} by adding a
+@code{\bookOutputSuffix} declaration inside each @code{\book} block.
+
+@example
+\book @{
+  \bookOutputSuffix "Romanze"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Menuetto"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Nocturne"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+You can also specify a different output filename for @code{book} block,
+by using @code{\bookOutputName} declarations
+
+@example
+\book @{
+  \bookOutputName "Romanze"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Menuetto"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Nocturne"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+The file above will produce these output files:
+
+@itemize
+@item
+@file{Romanze.pdf},
+@item
+@file{Menuetto.pdf} and
+@item
+@file{Nocturne.pdf}.
+@end itemize
+
+
 @node File structure
 @subsection File structure
 
@@ -223,7 +346,7 @@ title, like the book itself, by specifying a @code{\header} block.
 A @code{.ly} file may contain any number of toplevel expressions, where a
 toplevel expression is one of the following:
 
-@itemize @bullet
+@itemize
 @item
 An output definition, such as @code{\paper}, @code{\midi}, and
 @code{\layout}.  Such a definition at the toplevel changes the default
@@ -876,13 +999,13 @@ statements of their own.  By default, these second-level
 @code{\include} statements are not interpreted until they have
 been brought into the main file, so the file names they specify
 must all be relative to the directory containing the main file,
-not the directory containing the included file. However,
+not the directory containing the included file.  However,
 this behavior can be changed by passing the option
 @code{-drelative-includes} option at the command line
 (or by adding @code{#(ly:set-option 'relative-includes #t)}
-at the top of the main input file). With @code{relative-includes}
+at the top of the main input file).  With @code{relative-includes}
 set, the path for each @code{\include} command will be taken
-relative to the file containing that command. This behavior is
+relative to the file containing that command.  This behavior is
 recommended and it will become the default behavior in a future
 version of lilypond.
 
@@ -1544,8 +1667,8 @@ of specifying the initial or overall MIDI tempo is described below,
 see @ref{MIDI block}.
 
 Due to some limitations on Windows, the default extension for
-MIDI files on Windows is @code{.mid}. Other operating systems still
-use the extension @code{.midi}. If a different extension is preferred,
+MIDI files on Windows is @code{.mid}.  Other operating systems still
+use the extension @code{.midi}.  If a different extension is preferred,
 insert the following line at the top-level of the input file,
 before the start of any @code{\book}, @code{\bookpart} or @code{\score} blocks:
 
@@ -1719,7 +1842,7 @@ The following items of notation are reflected in the MIDI output:
 
 @itemize
 @item Pitches
-@item Microtones (See @ref{Accidentals}. Rendering needs a
+@item Microtones (See @ref{Accidentals}.  Rendering needs a
 player that supports pitch bend.)
 @item Chords entered as chord names
 @item Rhythms entered as note durations, including tuplets

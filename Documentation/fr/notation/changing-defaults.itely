@@ -431,8 +431,10 @@ de ce fait interrompre, ou faire planter le programme -- ou bien les deux.
 @subsection Modification des réglages par défaut d'un contexte
 @translationof Changing context default settings
 
-Les réglages montrés dans les sous-sections @ref{La commande de fixation (set)}, @ref{Modification des greffons de contexte} et
-@ref{Retouches de mise en forme au sein des contextes} peuvent également être saisis indépendamment
+Les réglages montrés dans les sous-sections @ref{La commande de fixation
+ (set)}, @ref{Modification des greffons de contexte}
+ et @c r ef{Retouches de mise en forme au sein des contextes} 
+peuvent également être saisis indépendamment
 de la musique dans le bloc @code{\layout}, au moyen de la commande @code{\context} :
 
 @example
@@ -1300,7 +1302,8 @@ pas directement rendue ; c'est pourquoi le code suivant ne sera d'aucun effet :
 @end example
 
 @noindent
-Voir pour plus de détails @ref{Affichage d'expressions musicales}.
+Voir pour plus de détails
+@rextendnamed{Displaying music expressions,Affichage d'expressions musicales}.
 
 
 @node set ou override

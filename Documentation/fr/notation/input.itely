@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: dd41d8981e1e7c4255ae155f03822f893048c55d
+    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,15 +20,15 @@
 
 
 @menu
-* Structure de fichier::             
+* Agencement du code::             
 * Titres et entêtes::          
 * Travail sur des fichiers texte::    
 * Contrôle des sorties::          
 * Sortie MIDI::                 
 @end menu
 
-@node Structure de fichier
-@section Structure de fichier
+@node Agencement du code
+@section Agencement du code
 @translationof Input structure
 
 @untranslated

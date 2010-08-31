@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 82e0b415a5345281fb58f4e3ddfdda73da06407a
+    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,7 +23,7 @@ manières.
 * Pointer-cliquer::
 * LilyPond et les éditeurs de texte::
 * Conversion à partir d'autres formats::
-* Inclusion du résultat de LilyPond dans d'autres programmes::
+* Inclusion de partition LilyPond dans d'autres programmes::
 * Inclusion du travail des autres::
 @end menu
 

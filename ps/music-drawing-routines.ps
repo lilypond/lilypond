@@ -232,24 +232,6 @@ bind def
   grestore
 } bind def
 
-/draw_connected_shape
-{
-  gsave
-  currentpoint translate
-  /filled exch def
-  /connect exch def
-  /savematrix matrix currentmatrix def
-  setlinewidth
-  scale
-  /arlen exch def
-  arlen {
-    /shlen exch def
-    shlen { } repeat shlen 2 eq { lineto } { curveto } ifelse
-  } repeat connect { closepath } if
-  savematrix setmatrix filled { stroke_and_fill } { stroke } ifelse
-  grestore
-} bind def
-
 /draw_line % dx dy x1 y1 thickness draw_line
 {
 	setlinewidth % dx dy x1 y1

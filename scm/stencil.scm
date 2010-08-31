@@ -291,63 +291,55 @@ the more angular the shape of the parenthesis."
       (cons (min-max-crawler min cddr possible-extrema)
             (min-max-crawler max cddr possible-extrema)))))
 
-(define-public
-  (make-connected-shape-stencil pointlist
-                                thickness
-                                x-scale
-                                y-scale
-                                connect
-                                fill)
+(define (path-min-max origin pointlist)
 
-  (define (connected-shape-min-max pointlist)
+  (define (line-part-min-max x1 x2)
+    (list (min x1 x2) (max x1 x2)))
 
-    (define (line-part-min-max x1 x2)
-      (list (min x1 x2) (max x1 x2)))
-
-    (define (bezier-part-min-max x1 x2 x3 x4)
-      ((lambda (x) (list (reduce min 10000 x) (reduce max -10000 x)))
-        (map
-          (lambda (x)
-            (+ (* x1 (expt (- 1 x) 3))
-               (+ (* 3 (* x2 (* (expt (- 1 x) 2) x)))
-                  (+ (* 3 (* x3 (* (- 1 x) (expt x 2))))
-                     (* x4 (expt x 3))))))
-          (if (< (+ (expt x2 2) (+ (expt x3 2) (* x1 x4)))
-                 (+ (* x1 x3) (+ (* x2 x4) (* x2 x3))))
-              (list 0.0 1.0)
-              (filter
-                (lambda (x) (and (>= x 0) (<= x 1)))
-                (append
-                  (list 0.0 1.0)
-                  (map (lambda (op)
-                         (if (not (eqv? 0.0
-                                        (- (+ x1 (* 3 x3)) (+ x4 (* 3 x2)))))
-                             ;; Zeros of the bezier curve
-                             (/ (+ (- x1 (* 2 x2))
-                                   (op x3
-                                       (sqrt (- (+ (expt x2 2)
-                                                   (+ (expt x3 2) (* x1 x4)))
-                                                (+ (* x1 x3)
-                                                   (+ (* x2 x4) (* x2 x3)))))))
-                                (- (+ x1 (* 3 x3)) (+ x4 (* 3 x2))))
-                             ;; Apply L'hopital's rule to get the zeros if 0/0
-                             (* (op 0 1)
-                                (/ (/ (- x4 x3) 2)
-                                   (sqrt (- (+ (* x2 x2)
-                                               (+ (* x3 x3) (* x1 x4)))
-                                            (+ (* x1 x3)
-                                               (+ (* x2 x4) (* x2 x3)))))))))
-                       (list + -))))))))
+  (define (bezier-part-min-max x1 x2 x3 x4)
+    ((lambda (x) (list (reduce min 10000 x) (reduce max -10000 x)))
+      (map
+	(lambda (x)
+	  (+ (* x1 (expt (- 1 x) 3))
+	     (+ (* 3 (* x2 (* (expt (- 1 x) 2) x)))
+		(+ (* 3 (* x3 (* (- 1 x) (expt x 2))))
+		   (* x4 (expt x 3))))))
+	(if (< (+ (expt x2 2) (+ (expt x3 2) (* x1 x4)))
+	       (+ (* x1 x3) (+ (* x2 x4) (* x2 x3))))
+	    (list 0.0 1.0)
+	    (filter
+	      (lambda (x) (and (>= x 0) (<= x 1)))
+	      (append
+		(list 0.0 1.0)
+		(map (lambda (op)
+		       (if (not (eqv? 0.0
+				      (- (+ x1 (* 3 x3)) (+ x4 (* 3 x2)))))
+			   ;; Zeros of the bezier curve
+			   (/ (+ (- x1 (* 2 x2))
+				 (op x3
+				     (sqrt (- (+ (expt x2 2)
+						 (+ (expt x3 2) (* x1 x4)))
+					      (+ (* x1 x3)
+						 (+ (* x2 x4) (* x2 x3)))))))
+			      (- (+ x1 (* 3 x3)) (+ x4 (* 3 x2))))
+			   ;; Apply L'hopital's rule to get the zeros if 0/0
+			   (* (op 0 1)
+			      (/ (/ (- x4 x3) 2)
+				 (sqrt (- (+ (* x2 x2)
+					     (+ (* x3 x3) (* x1 x4)))
+					  (+ (* x1 x3)
+					     (+ (* x2 x4) (* x2 x3)))))))))
+		     (list + -))))))))
 
   (define (bezier-min-max x1 y1 x2 y2 x3 y3 x4 y4)
     (map (lambda (x)
-           (apply bezier-part-min-max x))
-         `((,x1 ,x2 ,x3 ,x4) (,y1 ,y2 ,y3 ,y4))))
+	   (apply bezier-part-min-max x))
+	 `((,x1 ,x2 ,x3 ,x4) (,y1 ,y2 ,y3 ,y4))))
 
   (define (line-min-max x1 y1 x2 y2)
     (map (lambda (x)
-           (apply line-part-min-max x))
-         `((,x1 ,x2) (,y1 ,y2))))
+	   (apply line-part-min-max x))
+	 `((,x1 ,x2) (,y1 ,y2))))
 
   ((lambda (x)
      (list
@@ -356,23 +348,57 @@ the more angular the shape of the parenthesis."
        (reduce min +inf.0 (map caadr x))
        (reduce max -inf.0 (map cadadr x))))
     (map (lambda (x)
-           (if (eq? (length x) 8)
-               (apply bezier-min-max x)
-               (apply line-min-max x)))
-         (map (lambda (x y)
-                (append (list (cadr (reverse x)) (car (reverse x))) y))
-              (append (list (list 0 0))
-                      (reverse (cdr (reverse pointlist)))) pointlist))))
+	   (if (eq? (length x) 8)
+	       (apply bezier-min-max x)
+	       (apply line-min-max x)))
+	 (map (lambda (x y)
+		(append (list (cadr (reverse x)) (car (reverse x))) y))
+	      (append (list origin)
+		      (reverse (cdr (reverse pointlist)))) pointlist))))
 
-  (let* ((boundlist (connected-shape-min-max pointlist)))
+(define-public (make-connected-path-stencil pointlist thickness
+					    x-scale y-scale connect fill)
+  "Make a connected path described by the list @var{pointlist}, with
+thickness @var{thickness}, and scaled by @var{x-scale} in the X direction
+and @var{y-scale} in the Y direction.  @var{connect} and @var{fill} are
+boolean arguments that specify if the path should be connected or filled,
+respectively."
+
+  ;; paths using this routine are designed to begin at point '(0 . 0)
+  (let* ((origin (list 0 0))
+	 (boundlist (path-min-max origin pointlist))
+	 ;; modify pointlist to scale the coordinates
+	 (path (map (lambda (x)
+		      (apply
+			(if (eq? 6 (length x))
+			    (lambda (x1 x2 x3 x4 x5 x6)
+			      (list 'curveto
+				    (* x1 x-scale)
+				    (* x2 y-scale)
+				    (* x3 x-scale)
+				    (* x4 y-scale)
+				    (* x5 x-scale)
+				    (* x6 y-scale)))
+			    (lambda (x1 x2)
+			      (list 'lineto
+				    (* x1 x-scale)
+				    (* x2 y-scale))))
+			x))
+		    pointlist))
+	 ;; a path must begin with a `moveto'
+	 (prepend-origin (apply list (cons 'moveto origin) path))
+	 ;; if this path is connected, add closepath to the end
+	 (final-path (if connect
+			 (append prepend-origin (list 'closepath))
+			 prepend-origin))
+	 (command-list (fold-right append '() final-path)))
+
   (ly:make-stencil
-    `(connected-shape
-      ',pointlist
-      ',thickness
-      ',x-scale
-      ',y-scale
-      ',connect
-      ',fill)
+    `(path ,thickness
+	   `(,@',command-list)
+	   'round
+	   'round
+	   ,(if fill #t #f))
     (coord-translate
       ((if (< x-scale 0) reverse-interval identity)
         (cons (* x-scale (list-ref boundlist 0))

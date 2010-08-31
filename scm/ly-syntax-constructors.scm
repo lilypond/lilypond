@@ -121,16 +121,17 @@
   (make-repeat type num body alts))
 
 (define (script-to-mmrest-text music)
-  "Extract 'direction and 'text from SCRIPT-MUSIC, and transform MultiMeasureTextEvent"
+  "Extract @code{'direction} and @code{'text} from @var{music}, and transform
+into a @code{MultiMeasureTextEvent}."
 
   (if (memq 'script-event (ly:music-property music 'types))
-      
-      (let*
-	  ((dir (ly:music-property music 'direction))
-	   (tags (ly:music-property music 'tags))
-	   (p   (make-music 'MultiMeasureTextEvent
-			     'tags tags
-			     'text (ly:music-property music 'text))))
+      (let* ((location (ly:music-property music 'origin))
+	     (dir (ly:music-property music 'direction))
+	     (tags (ly:music-property music 'tags))
+	     (p (make-music 'MultiMeasureTextEvent
+			    'origin location
+			    'tags tags
+			    'text (ly:music-property music 'text))))
 	(if (ly:dir? dir)
 	    (set! (ly:music-property p 'direction) dir))
 	p)
@@ -231,3 +232,28 @@
 					 'origin loc)))
 			 addlyrics-list)))
     (make-simultaneous-music (cons voice lyricstos))))
+
+(define-ly-syntax (make-mark-set parser location label)
+  "Make the music for the \\mark command."
+  (let* ((set (and (integer? label)
+		   (context-spec-music (make-property-set 'rehearsalMark label)
+				      'Score)))
+	 (ev (make-music 'MarkEvent))
+	 (ch (make-event-chord (list ev))))
+
+    (set! (ly:music-property ev 'origin) location)
+    (if set
+	(make-sequential-music (list set ch))
+	(begin
+	  (set! (ly:music-property ev 'label) label)
+	  ch))))
+
+(define-ly-syntax-simple (partial dur)
+  "Make a partial measure."
+  (let ((mom (ly:moment-sub ZERO-MOMENT (ly:duration-length dur))))
+
+    ;; We use `descend-to-context' here instead of `context-spec-music' to
+    ;; ensure \partial still works if the Timing_translator is moved
+    (descend-to-context
+     (context-spec-music (make-property-set 'measurePosition mom) 'Timing)
+     'Score)))

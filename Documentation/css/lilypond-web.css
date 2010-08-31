@@ -891,6 +891,18 @@ div.color4 h3 {
   line-height: 0.8;
 }
 
+.example {
+  position: relative;
+  left: -2.5em;
+}
+
+.h-scroll-auto {
+  position: relative;
+  left: 1em;
+  width: 250px;
+  overflow: auto;
+}
+
 .warning {
   background: #eef;
   text-align: left;
@@ -929,10 +941,17 @@ div.color4 h3 {
   font-size: 0.6em;
 }
 
+.link-headings a {
+  font-weight: bold;
+}
+
 .detail {
   font-size: 0.8em;
 }
 
+.detail a {
+  font-weight: normal;
+}
 
 /* kill title, probably best done in the init file, though */
 h1.settitle {

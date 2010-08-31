@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-	Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
+	Translation of GIT committish: 11b44eeed204540f7a4e638f12afe5a9f5466ca8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -323,7 +323,7 @@ g4 a b c |
 Il existe une autre forme de commande @code{\override},
 @code{\overrideProperty}, qui est parfois utile.  Nous la mentionnons
 ici par souci d'exhaustivité@tie{}; pour le détail, voir
-@ruser{Retouches complexes}.
+@rextendnamed{Difficult tweaks,Retouches complexes}.
 
 @c Maybe explain in a later iteration  -td
 
@@ -868,7 +868,7 @@ d'autres sont des valeurs à attribuer aux propriétés, comme
 @code{italic}.  À ne pas confondre avec les chaînes de caractères
 libres, qui se présentent comme @code{"un texte libre"}@tie{}; pour plus
 de détails sur les symboles et les chaînes de caractères, voir le
-@rextend{Scheme tutorial}.
+@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
 
 Ainsi, la commande @code{\override} pour mettre les paroles en italique
 est@tie{}:
@@ -934,7 +934,7 @@ autour du point qui sépare le nom de contexte du nom d'objet.}
 
 @seealso
 Manuel d'extension :
-@rextend{Scheme tutorial}.
+@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
 
 
 @node Types de propriétés
@@ -1005,7 +1005,7 @@ précédés par apostrophe-hash, @code{'#}
 
 @seealso
 Manuel d'extension :
-@rextend{Scheme tutorial}.
+@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
 
 
 @node Apparence des objets
@@ -1629,8 +1629,8 @@ de toute la portée principale était modifiée, tout le placement
 horizontal s'en trouverait affecté.  Il en sera question plus bas dans
 cette section.
 
-Voilà qui complète la création d'une ossia. Les tailles et longueurs de tous
-les objets peuvent être modifiées de manière analogue.
+Voilà qui complète la création d'une ossia. Les taille et longueur de
+tous les objets peuvent être modifiées de manière analogue.
 
 Pour de petits changements d'échelle, comme dans l'exemple ci-dessus, il
 n'est généralement pas utile d'ajuster l'épaisseur des différentes
@@ -1811,7 +1811,7 @@ signification est précisée.
 @item @code{\phrasingSlurDown}
   @tab @code{\phrasingSlurUp}
   @tab @code{\phrasingSlurNeutral}
-  @tab Attention : à distinguer des commandes de liaison ci-dessous
+  @tab Attention@tie{}: à distinguer des commandes de liaison ci-dessous
 @item @code{\slurDown}
   @tab @code{\slurUp}
   @tab @code{\slurNeutral}
@@ -2089,7 +2089,8 @@ Spanners} en anglais) -- texte avec des longues lignes au-dessus d'un
 passage musical.  L'extension s'étend depuis la commande
 @code{\startTextSpan} jusqu'à la commande @code{\stopTextSpan} et le
 format de texte est défini par la commande @code{\override TextSpanner}.
-Pour de plus amples détails, voir @ruser{Extensions de texte}.
+Pour de plus amples détails, voir
+@ruser{Indication textuelle avec ligne d’extension}.
 
 Il montre aussi comment créer des marques d'octaviation.
 
@@ -2355,7 +2356,7 @@ indications de nuances est@tie{}:
 @end example
 
 @noindent
-Voyons si ça marche sur notre exemple précédent :
+Voyons si ça marche sur notre exemple précédent@tie{}:
 
 @cindex DynamicText, exemple de dérogation
 @cindex extra-spacing-width, exemple d'utilisation de la propriété
@@ -2923,7 +2924,7 @@ hautes@tie{}:
 
 @noindent
 On peut y remédier en déplaçant manuellement vers le haut les deux
-extrémités des ligatures de croche, non plus à 2 intervalles au-dessus
+extrémités des ligatures de croches, non plus à 2 intervalles au-dessus
 de la ligne médiane mais, disons, à 3@tie{}:
 
 @cindex Beam, exemple de dérogation
@@ -3236,7 +3237,7 @@ demi-intervalles de lignes au-dessus de la ligne médiane@tie{}:
 
 @code{\once \override Tie #'staff-position = #3.5}
 
-Cela s'adjoint à la deuxième mesure, pour donner :
+Cela s'adjoint à la deuxième mesure, pour donner@tie{}:
 
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
@@ -3848,7 +3849,7 @@ Nous rappellerons ce fichier par une simple commande @code{\include} au
 début de notre fichier de musique.  Lui attribuer l'extension
 @code{.ily} nous permet de distinguer aisément qu'il s'agit d'un fichier
 voué à être inclus dans un fichier maître@tie{}; il n'est pas destiné à
-être compilé isolément.
+être compilé isolément.@*
 Maintenant, modifions notre musique (enregistrez ce fichier
 sous @code{musique.ly}).
 
@@ -4124,8 +4125,8 @@ L'emplacement du répertoire dépend (a) du fait que, pour vous procurer
 LilyPond, vous avez téléchargé un paquet précompilé sur lilypond.org, ou
 vous l'avez installé grâce à votre gestionnaire de paquetages
 (c'est-à-dire distribué avec Linux ou installé avec fink ou cygwin), ou
-encore vous l'avez compilé directement à partir des sources@tie{}; et (b) du
-système d'exploitation sur lequel il tourne.
+encore vous l'avez compilé directement à partir des sources@tie{}; et
+(b) du système d'exploitation sur lequel il tourne.
 
 @strong{Téléchargé depuis lilypond.org}
 
@@ -4214,7 +4215,7 @@ requièrent la connaissance du langage Scheme.  Les utilisateurs qui
 souhaiteraient comprendre le fonctionnement de ces fichiers de
 configuration doivent être avertis que des connaissances techniques
 substantielles et beaucoup de temps sont nécessaires (voir le
-@rextend{Scheme tutorial}).
+@rextendnamed{Scheme tutorial,Tutoriel Scheme}).
 
 Si c'est votre cas, les fichiers Scheme les plus utiles à connaître
 sont@tie{}:
@@ -4281,7 +4282,7 @@ Le code écrit dans le langage de programmation Scheme peut être
 intégré directement dans le processus interne de LilyPond.  Bien sûr,
 il faut pour cela connaître un minimum de programmation en langage
 Scheme.  Pour des explications complètes là-dessus, consultez le
-@rextend{Scheme tutorial}.
+@rextendnamed{Scheme tutorial,Tutoriel Scheme}.
 
 En guise d'illustration -- et ce n'est qu'une possibilité parmi tant
 d'autres -- nous allons attribuer à une propriété non pas une valeur
@@ -4319,6 +4320,7 @@ fonction de leur position sur la portée.
 }
 @end lilypond
 
-Vous trouverez dans @rextend{Callback functions} d'autres exemples
-d'utilisation de ces interfaces programmables.
+Vous trouverez dans @rextendnamed{Callback functions,les fonctions
+callback} d'autres exemples d'utilisation de ces interfaces
+programmables.
 

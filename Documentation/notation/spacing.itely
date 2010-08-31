@@ -38,10 +38,10 @@ staff lines accordingly."
 
 Actually I found, that the @internalsref{StaffSymbol} at line 481
 sends to an incomplete
-documentation. The property staff-space is not explained here. I
+documentation.  The property staff-space is not explained here.  I
 thought Y-extent might be of
 help, but it is in turn explained by x-space which again is
-missing from the list. Who has the
+missing from the list.  Who has the
 knowledge to fix this?
 
 
@@ -216,7 +216,7 @@ present between a title and the staff that follows it;
 space increases when a page is stretched.
 If this is zero, the distance to the next staff will not stretch at all;
 @item @var{minimum-distance} -- the minimum distance to place between
-the baseline of a title and the center of the staff that follows it. This differs
+the baseline of a title and the center of the staff that follows it.  This differs
 from @var{padding} in that the height of a staff has no effect on
 the application of @var{minimum-distance} (whereas the height of a
 staff is crucial for @var{padding}).
@@ -229,7 +229,7 @@ after-title-spacing = #'((space . 2) (padding . 0.5))
 @end example
 
 
-If a page has a ragged bottom, @var{space} is not stretched. In particular, the
+If a page has a ragged bottom, @var{space} is not stretched.  In particular, the
 resulting distance on such a page is the largest of
 @itemize @bullet
 @item @var{space},
@@ -249,7 +249,7 @@ the baseline of the title that follows it.  See @var{after-title-spacing}.
 @funindex between-scores-system-spacing
 
 Specifies the spacing between two systems if they are in different scores, but
-there is no title between them. See @var{after-title-spacing}.
+there is no title between them.  See @var{after-title-spacing}.
 
 @item between-system-spacing
 @funindex between-system-spacing
@@ -466,7 +466,7 @@ first system.  Default: @code{0}.
 
 @end table
 
-If some values are not set, defaults will be taken. Their exact
+If some values are not set, defaults will be taken.  Their exact
 value is adjusted, depending on the paper size specified.  Currently,
 the following values are affected by this scaling:
 
@@ -587,7 +587,7 @@ never consider blank pages in the middle of a score.  Default:
 @funindex check-consistency
 
 If set to true, check whether @code{left-margin}, @code{right-margin} and
-@code{line-width} fit each other. Also make sure that their combination
+@code{line-width} fit each other.  Also make sure that their combination
 does not exceed the available @code{paper-width}.  Default: @code{##t}.
 
 @item first-page-number
@@ -597,13 +597,13 @@ The value of the page number on the first page.  Default:
 @code{#1}.
 
 @item max-systems-per-page
-The maximum number of systems that will be placed on a page. This
+The maximum number of systems that will be placed on a page.  This
 is currently supported only by the @code{ly:optimal-breaking} algorithm.
 Default: unset.
 
 @item min-systems-per-page
-The minimum number of systems that will be placed on a page. This
-may cause pages to be overfilled if it is made too large. This is
+The minimum number of systems that will be placed on a page.  This
+may cause pages to be overfilled if it is made too large.  This is
 currently supported only by the @code{ly:optimal-breaking} algorithm.
 Default: unset.
 
@@ -930,11 +930,11 @@ Snippets:
 @cindex line breaks
 @cindex breaking lines
 
-Line breaks are normally determined automatically. They are chosen
+Line breaks are normally determined automatically.  They are chosen
 so that lines look neither cramped nor loose, and consecutive
 lines have similar density.  Occasionally you might want to
 override the automatic breaks; you can do this by specifying
-@code{\break}. This will force a line break at this point.  However,
+@code{\break}.  This will force a line break at this point.  However,
 line breaks can only occur at the end of @q{complete} bars, i.e.,
 where there are no notes or tuplets left @q{hanging} over the bar
 line.  If you want to have a line break where there is no bar line,
@@ -946,13 +946,13 @@ The opposite command, @code{\noBreak}, forbids a line break at the
 bar line where it is inserted.
 
 The most basic settings influencing line spacing are @code{indent}
-and @code{line-width}. They are set in the @code{\layout} block.
+and @code{line-width}.  They are set in the @code{\layout} block.
 They control the indentation of the first line of music, and the
 lengths of the lines.
 
 If @code{ragged-right} is set to true in the @code{\layout} block,
 then systems end at their natural horizontal length, instead of
-being spread horizontally to fill the whole line. This is useful
+being spread horizontally to fill the whole line.  This is useful
 for short fragments, and for checking how tight the natural
 spacing is.
 
@@ -1559,7 +1559,7 @@ to which it does not belong.
 \layout {
   \context {
     \Lyrics
-    % By default, Lyrics are placed close together. Here, we allow them to
+    % By default, Lyrics are placed close together.  Here, we allow them to
     % be stretched more widely.
     \override VerticalAxisGroup
       #'inter-loose-line-spacing #'stretchability = #1000
@@ -1638,7 +1638,7 @@ variables.
 There are two more @code{\paper} block variables that affect vertical
 spacing: if @var{ragged-bottom} is set to @code{##t} then no pages will
 be stretched (which means that neither the space between systems nor the
-space within systems will be stretched). If @var{ragged-last-bottom}
+space within systems will be stretched).  If @var{ragged-last-bottom}
 is set to @code{##t} then the last page will not be stretched.
 
 @seealso
@@ -2480,14 +2480,14 @@ timeline or graphic if we want.
 
 Note that the LilyPond's proportional notation package expects
 that all proportional scores set the SpacingSpanner's
-'uniform-stretching attribute to ##t. Setting
+'uniform-stretching attribute to ##t.  Setting
 proportionalNotationDuration without also setting the
 SpacingSpanner's 'uniform-stretching attribute to ##t will, for
 example, cause Skips to consume an incorrect amount of horizontal
 space.
 
 The SpacingSpanner is an abstract grob that lives in the Score
-context. As with our settings of proportionalNotationDuration,
+context.  As with our settings of proportionalNotationDuration,
 overrides to the SpacingSpanner can occur in any of three
 different places in our input file – in the Score \with block, in
 a Score \context block, or in note entry directly.
@@ -2578,14 +2578,14 @@ property of @code{SpacingSpanner}.  Compare the two scores below:
 @end lilypond
 
 Both scores are proportional, but the spacing in the first score
-is too loose because of the clef change. The spacing of the second
+is too loose because of the clef change.  The spacing of the second
 score remains strict, however, because strict-note-spacing is
 turned on.  Turning on strict-note-spacing causes the width of
 time signatures, key signatures, clefs and accidentals to play no
 part in the spacing algorithm.
 
 In addition to the settings given here, there are other settings
-that frequently appear in proportional scores. These include:
+that frequently appear in proportional scores.  These include:
 
 @itemize
 @item @code{\override SpacingSpanner #'strict-grace-spacing = ##t}
@@ -2654,7 +2654,7 @@ All layout dimensions are displayed in staff-spaces, regardless
 of the units specified in the @code{\paper} or @code{\layout} block.
 In the above example, @code{paper-height} has a value of 59.75
 @code{staff-spaces}, and the @code{staff-size} is 20 points (the
-default value). Note that:
+default value).  Note that:
 
 @multitable {1 staff-space} {staff-size)/4 * (25.4/72.27) mm}
 
@@ -2670,7 +2670,7 @@ default value). Note that:
 
 @noindent
 In this case, one @code{staff-space} is approximately equal to
-1.757mm. Thus the @code{paper-height} measurement of 59.75
+1.757mm.  Thus the @code{paper-height} measurement of 59.75
 @code{staff-spaces} is equivalent to 105 millimeters, the height
 of @code{a6} paper in landscape orientation.  The pairs
 (@var{a},@var{b}) are intervals, where @var{a} is the lower
@@ -2714,7 +2714,7 @@ setting a value, even the same value as the number of systems
 being typeset by default, will sometimes cause more systems to
 be fitted onto each page, as an estimation step is then bypassed,
 giving a more accurate fit to each page.  Also, forcing an actual
-reduction in the number of systems may save a further page. For
+reduction in the number of systems may save a further page.  For
 example, if the default layout has 11 systems, the following
 assignment will force a layout with 10 systems.
 

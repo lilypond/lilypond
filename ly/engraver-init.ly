@@ -316,6 +316,7 @@ instrument names at the start of each system."
 
   \consists "Instrument_name_engraver"
   \consists "Vertical_align_engraver"
+  \consists "Keep_alive_together_engraver"
   topLevelAlignment = ##f
 
   \override StaffGrouper #'between-staff-spacing #'stretchability = #5

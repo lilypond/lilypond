@@ -33,10 +33,12 @@ modifying-tuplet-bracket-length.ly
 moving-dotted-notes-in-polyphony.ly
 multi-measure-rest-markup.ly
 non-default-tuplet-numbers.ly
+partcombine-and-autobeamoff.ly
 permitting-line-breaks-within-beamed-tuplets.ly
 positioning-grace-note-beams-at-the-height-of-normal-note-beams.ly
 positioning-grace-notes-with-floating-space.ly
 positioning-multi-measure-rests.ly
+preventing-final-mark-from-removing-final-tuplet.ly
 printing-bar-numbers-at-regular-intervals.ly
 printing-bar-numbers-inside-boxes-or-circles.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly

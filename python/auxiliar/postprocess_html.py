@@ -345,6 +345,16 @@ def process_html_files (package_name = '',
             s = s.replace ('%', '%%')
             s = hack_urls (s, prefix)
             s = add_header (s, prefix)
+            # make the "return to doc index" work with the online website.
+            if target == 'online':
+                if 'Documentation/contributor' in prefix:
+                    s = s.replace (
+                        'href=\"../..//Documentation/web/manuals.html\"',
+                        'href=\"../../../../website/development.html\"')
+                else:
+                    s = s.replace (
+                        'href=\"../..//Documentation/web/manuals.html\"',
+                        'href=\"../../../../website/manuals.html\"')
 
             ### add footer
             if footer_tag_re.search (s) == None:

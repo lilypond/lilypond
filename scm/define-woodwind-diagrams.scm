@@ -101,7 +101,7 @@
   (reduce + 0 (map (lambda (x) (if x 1 0)) input-list)))
 
 (define (bezier-head-for-stencil bezier cut-point)
-  "Prepares a split-bezier to be used in a connected shape stencil."
+  "Prepares a split-bezier to be used in a connected path stencil."
   (list-tail (flatten-list (car (split-bezier bezier cut-point))) 2))
 
 ;; Translators for keys
@@ -134,8 +134,8 @@
 (define (gray-colorize stencil)
   (apply ly:stencil-in-color (cons stencil (x11-color 'grey))))
 
-; A connected shape stencil that is surrounded by proc
-(define (rich-mcs-stencil ls x-stretch y-stretch proc)
+; A connected path stencil that is surrounded by proc
+(define (rich-path-stencil ls x-stretch y-stretch proc)
   (lambda (radius thick fill layout props)
     (let*
       ((fill-translate (key-fill-translate fill))
@@ -143,7 +143,7 @@
      (ly:stencil-add
       ((if gray? gray-colorize identity)
       (proc
-        (make-connected-shape-stencil
+        (make-connected-path-stencil
         ls
         thick
         (* x-stretch radius)
@@ -152,16 +152,16 @@
         (if gray? #t fill-translate))))
       (if (not gray?)
           empty-stencil
-          ((rich-mcs-stencil ls x-stretch y-stretch proc)
+          ((rich-path-stencil ls x-stretch y-stretch proc)
            radius
            thick
            1
            layout
            props))))))
 
-; A connected shape stencil without a surrounding proc
-(define (standard-mcs-stencil ls x-stretch y-stretch)
-  (rich-mcs-stencil ls x-stretch y-stretch identity))
+; A connected path stencil without a surrounding proc
+(define (standard-path-stencil ls x-stretch y-stretch)
+  (rich-path-stencil ls x-stretch y-stretch identity))
 
 ; An ellipse stencil that is surrounded by a proc
 (define (rich-pe-stencil x-stretch y-stretch start end proc)
@@ -416,7 +416,7 @@
   (let*
    ((xmove (lambda (x) (+ tailw (+ 0.2 (* bodyw (- x 0.2))))))
     (ymove (lambda (x) (+ (- tailh) (+ -0.05 (* bodyh (+ x 0.05)))))))
-  (standard-mcs-stencil
+  (standard-path-stencil
     `((,(xmove 0.7)
        ,(ymove -0.2)
        ,(xmove 1.0)
@@ -558,7 +558,7 @@
 ;;; Flute family stencils
 
 (define flute-lh-b-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0 1.3)
       (0 1.625 -0.125 1.75 -0.25 1.75)
       (-0.55 1.75 -0.55 0.95 -0.25 0.7)
@@ -567,7 +567,7 @@
     1.55))
 
 (define flute-lh-bes-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0 1.3)
       (0 1.625 -0.125 1.75 -0.25 1.75)
       (-0.55 1.75 -0.55 0.95 -0.25 0.7)
@@ -576,7 +576,7 @@
     1.3))
 
 (define (flute-lh-gis-rh-bes-key-stencil deg)
-  (rich-mcs-stencil
+  (rich-path-stencil
     '((0.1 0.1 0.2 0.4 0.3 0.6)
       (0.3 1.0 0.8 1.0 0.8 0.7)
       (0.8 0.3 0.5 0.3 0 0))
@@ -593,7 +593,7 @@
 (define flute-rh-dis-key-stencil little-elliptical-key-stencil)
 
 (define flute-rh-ees-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0.8 0) (1.1 0 1.1 0.75 0.7 0.75) (0.5 0.75) (0.15 0.75 0.1 0.2 0 0))
     -2.38
     1.4))
@@ -614,25 +614,25 @@
 (define flute-lower-row-stretch 1.4)
 
 (define flute-rh-cis-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0 0.75) (-0.8 0.75 -0.8 0 0 0))
     flute-lower-row-stretch
     flute-lower-row-stretch))
 
 (define flute-rh-c-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0 0.75) (0.4 0.75) (0.4 0) (0 0))
     flute-lower-row-stretch
     flute-lower-row-stretch))
 
 (define flute-rh-b-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0 0.75) (0.25 0.75) (0.25 0) (0 0))
     flute-lower-row-stretch
     flute-lower-row-stretch))
 
 (define flute-rh-gz-key-stencil
-  (rich-mcs-stencil
+  (rich-path-stencil
       '((0.1 0.1 0.4 0.2 0.6 0.3)
         (1.0 0.3 1.0 0.8 0.7 0.8)
         (0.3 0.8 0.3 0.5 0 0))
@@ -658,7 +658,7 @@
            `((,x . 0.0) (,x . ,(- y)) (0.0 . ,(- y)) (0.0 . 0.0))
            0.2))))
     (if gis?
-      (standard-mcs-stencil
+      (standard-path-stencil
         (append
           (append
             `((0.25 ,(/ y -2) 0.75 ,(/ y -2) 1.0 0.0))
@@ -674,7 +674,7 @@
           `((0.75 ,(/ y -2) 0.25 ,(/ y -2) 0.0 0.0)))
         scaling-factor
         scaling-factor)
-      (standard-mcs-stencil
+      (standard-path-stencil
         (map (lambda (l)
                (flatten-list
                  (map (lambda (x)
@@ -691,7 +691,7 @@
 (define oboe-lh-low-b-key-stencil (oboe-lh-gis-lh-low-b-key-stencil #f))
 
 (define (oboe-lh-ees-lh-bes-key-stencil ees?)
-  (standard-mcs-stencil
+  (standard-path-stencil
     `((0 1.5)
       (0 1.625 -0.125 1.75 -0.25 1.75)
       (-0.5 1.75 -0.5 0.816 -0.25 0.5)
@@ -708,7 +708,7 @@
 
 (define (oboe-lh-octave-key-stencil long?)
   (let* ((h (if long? 1.4 1.2)))
-    (standard-mcs-stencil
+    (standard-path-stencil
     `((-0.4 0 -0.4 1.0 -0.1 1.0)
       (-0.1 ,h)
       (0.1 ,h)
@@ -740,7 +740,7 @@
 (define oboe-rh-f-key-stencil little-elliptical-key-stencil)
 
 (define (oboe-rh-c-rh-ees-key-stencil c?)
-  (rich-mcs-stencil
+  (rich-path-stencil
     '((1.0 0.0 1.0 0.70 1.5 0.70)
       (2.25 0.70 2.25 -0.4 1.5 -0.4)
       (1.0 -0.4 1.0 0 0 0)
@@ -754,7 +754,7 @@
 (define oboe-rh-c-key-stencil (oboe-rh-c-rh-ees-key-stencil #t))
 
 (define oboe-rh-cis-key-stencil
-  (rich-mcs-stencil
+  (rich-path-stencil
     '((0.6 0.0 0.6 0.50 1.25 0.50)
       (2.25 0.50 2.25 -0.4 1.25 -0.4)
       (0.6 -0.4 0.6 0 0 0))
@@ -774,7 +774,7 @@
     (height (*
       halfbase
       (/ (sin (/ (* 4 PI) 10)) (cos (/ (* 4 PI) 10))))))
-   (standard-mcs-stencil
+   (standard-path-stencil
       `(
         (0 ,(/ -4.0 3.0) -2.0 ,(/ -4.0 3.0) -2.0 0.0)
         (-1.5 ,(* 0.5 height) -1.25 ,(* 0.75 height) -1.0 ,height)
@@ -805,7 +805,7 @@
 (define clarinet-lh-d-key-stencil (standard-e-stencil 1.0 0.4))
 
 (define clarinet-rh-low-c-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0.0 1.5)
       (0.0 2.5 -1.0 2.5 -1.0 0.75)
       (-1.0 0.1 0.0 0.25 0.0 0.3)
@@ -814,7 +814,7 @@
     0.8))
 
 (define clarinet-rh-low-cis-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0.0 1.17)
       (0.0 1.67 -1.0 1.67 -1.0 0.92)
       (-1.0 0.47 0.0 0.52 0.0 0.62)
@@ -823,7 +823,7 @@
     0.8))
 
 (define clarinet-rh-low-d-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0.0 1.05)
       (0.0 1.55 -1.0 1.55 -1.0 0.8)
       (-1.0 0.35 0.0 0.4 0.0 0.5)
@@ -852,7 +852,7 @@
 ; changes, all change...
 
 (define clarinet-rh-fis-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     `(,(bezier-head-for-stencil
         '((0.0 . 0.0) (0.0 . -1.0) (1.0 . -1.0) (1.0 . 0.0))
         0.5)
@@ -864,13 +864,13 @@
       CL-RH-V-STRETCH))
 
 (define clarinet-rh-e-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0.0 1.0 1.0 1.0 1.0 0.0) (1.0 -1.0 0.0 -1.0 0.0 0.0))
     CL-RH-H-STRETCH
     CL-RH-V-STRETCH))
 
 (define clarinet-rh-ees-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     `(,(bezier-head-for-stencil
         '((0.0 .  0.0) (0.0 . -1.0) (1.0 . -1.0) (1.0 . 0.0))
         0.5)
@@ -889,7 +889,7 @@
 (define clarinet-rh-gis-key-stencil clarinet-rh-e-key-stencil)
 
 (define bass-clarinet-rh-f-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     `(,(bezier-head-for-stencil
         '((0.0 . 0.0) (0.0 . -1.0) (1.0 . -1.0) (1.0 . 0.0))
         0.5)
@@ -919,7 +919,7 @@
 (define saxophone-lh-T-key-stencil (standard-e-stencil 0.75 0.75))
 
 (define saxophone-lh-gis-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0.0 0.4)
       (0.0 0.8 3.0 0.8 3.0 0.4)
       (3.0 0.0)
@@ -928,7 +928,7 @@
     0.8))
 
 (define (saxophone-lh-b-cis-key-stencil flip?)
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((0.0 1.0)
       (0.4 1.0 0.8 0.9 1.35 0.8)
       (1.35 0.0)
@@ -941,13 +941,13 @@
 (define saxophone-lh-b-key-stencil (saxophone-lh-b-cis-key-stencil #f))
 
 (define saxophone-lh-low-bes-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((3.0 0.0) (3.0 -1.5 0.0 -1.5 0.0 0.0))
     0.8
     0.8))
 
 (define (saxophone-rh-side-key-stencil width height)
-  (standard-mcs-stencil
+  (standard-path-stencil
     `((0.0 ,height)
     (0.05 ,(+ height 0.05) 0.1 ,(+ height 0.1) 0.15 ,(+ height 0.15))
     (,(- width 0.15) ,(+ height 0.15))
@@ -971,7 +971,7 @@
 (define saxophone-rh-bes-key-stencil (saxophone-rh-side-key-stencil 0.9 0.45))
 
 (define saxophone-rh-high-fis-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     (append
       '((0.0 1.0) (0.0 1.4 0.6 1.4 0.6 1.0) (0.6 0.0))
       (map (lambda (l)
@@ -990,7 +990,7 @@
 (define saxophone-rh-ees-key-stencil (standard-e-stencil 1.2 0.5))
 
 (define saxophone-rh-low-c-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((3.0 0.0) (3.0 -1.5 0.0 -1.5 0.0 0.0))
     0.8
     0.8))
@@ -1080,7 +1080,7 @@
    (second-bezier (cadr info-list))
    (slope-offset1 (caddr info-list))
    (slope-offset2 (cadddr info-list)))
-  (rich-mcs-stencil
+  (rich-path-stencil
     (append
       `((0.0 ,(+ height gap))
       ,(list-tail first-bezier 2))
@@ -1129,7 +1129,7 @@
   (rich-pe-stencil 1.0 1.0 135 315 identity))
 
 (define bassoon-lh-ld-key-stencil
-  (standard-mcs-stencil
+  (standard-path-stencil
     '((-0.8 4.0 1.4 4.0 0.6 0.0)
       (0.5 -0.5 0.5 -0.8 0.6 -1.0)
       (0.7 -1.2 0.8 -1.3 0.8 -1.8)
@@ -1141,7 +1141,7 @@
 
 (define bassoon-lh-d-flick-key-stencil
   (let ((height 3.0))
-    (standard-mcs-stencil
+    (standard-path-stencil
       `((0.0 ,height)
        (0.2 ,(+ height 1.6) 0.8 ,(+ height 1.8) 1.0 ,(+ height 1.8))
        (1.4 ,(+ height 1.8) 1.9 ,(+ height 1.3) 1.9 ,(+ height 1.0))
@@ -1154,7 +1154,7 @@
 
 (define bassoon-lh-c-flick-key-stencil
   (let ((height 3.0))
-    (standard-mcs-stencil
+    (standard-path-stencil
       `((0.0 ,height)
          (0.0 ,(+ height 1.6) 0.4 ,(+ height 1.8) 0.5 ,(+ height 1.8))
          (0.7 ,(+ height 1.8) 0.9 ,(+ height 1.3) 0.9 ,(+ height 1.0))
@@ -1196,7 +1196,7 @@
     (second-bezier (cadr info-list))
     (slope-offset1 (caddr info-list))
     (slope-offset2 (cadddr info-list)))
-  (standard-mcs-stencil
+  (standard-path-stencil
     (append
       (map
         (lambda (l)

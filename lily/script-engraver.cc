@@ -110,8 +110,8 @@ make_script_from_event (Grob *p,  Context *tg,
   if (art == SCM_BOOL_F)
     {
       /* FIXME: */
-      warning (_ ("do not know how to interpret articulation: "));
-      warning (_ ("scheme encoding: "));
+      warning (_ ("do not know how to interpret articulation:"));
+      warning (_ (" scheme encoding: "));
       scm_write (art_type, scm_current_error_port ());
       message ("");
       return;

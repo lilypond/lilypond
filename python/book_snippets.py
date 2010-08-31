@@ -6,7 +6,11 @@ global _;_=ly._
 import re
 import os
 import copy
-from subprocess import Popen, PIPE
+# TODO: We are using os.popen3, which has been deprecated since python 2.6. The
+# suggested replacement is the Popen function of the subprocess module.
+# Unfortunately, on windows this needs the msvcrt module, which doesn't seem
+# to be available in GUB?!?!?!
+# from subprocess import Popen, PIPE
 
 progress = ly.progress
 warning = ly.warning
@@ -597,11 +601,12 @@ left-margin-default right-margin-default)"
             os.makedirs (directory)
         filename = path + '.ly'
         if os.path.exists (filename):
-            diff_against_existing = self.filter_pipe (self.full_ly (), 'diff -u %s -' % filename)
-            if diff_against_existing:
+            existing = open (filename, 'r').read ()
+
+            if self.relevant_contents (existing) != self.relevant_contents (self.full_ly ()):
                 warning ("%s: duplicate filename but different contents of orginal file,\n\
 printing diff against existing file." % filename)
-                ly.stderr_write (diff_against_existing)
+                ly.stderr_write (self.filter_pipe (self.full_ly (), 'diff -u %s -' % filename))
         else:
             out = file (filename, 'w')
             out.write (self.full_ly ())
@@ -716,10 +721,10 @@ printing diff against existing file." % filename)
         if self.global_options.verbose:
             progress (_ ("Opening filter `%s'\n") % cmd)
 
-        #(stdin, stdout, stderr) = os.popen3 (cmd)
-
-        p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, close_fds=True)
-        (stdin, stdout, stderr) = (p.stdin, p.stdout, p.stderr)
+        # TODO: Use Popen once we resolve the problem with msvcrt in Windows:
+        (stdin, stdout, stderr) = os.popen3 (cmd)
+        # p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, close_fds=True)
+        # (stdin, stdout, stderr) = (p.stdin, p.stdout, p.stderr)
         stdin.write (input)
         status = stdin.close ()
 
@@ -734,8 +739,8 @@ printing diff against existing file." % filename)
         signal = 0x0f & status
         if status or (not output and error):
             exit_status = status >> 8
-            error (_ ("`%s' failed (%d)") % (cmd, exit_status))
-            error (_ ("The error log is as follows:"))
+            ly.error (_ ("`%s' failed (%d)") % (cmd, exit_status))
+            ly.error (_ ("The error log is as follows:"))
             ly.stderr_write (error)
             ly.stderr_write (stderr.read ())
             exit (status)

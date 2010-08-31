@@ -91,6 +91,10 @@ Configure your email client:
 Any email sent with your gmail address in the @code{To:} or
 @code{CC:} fields should go to a @code{bug-answers} folder.
 
+When setting up your filtering rules, be aware that Google Code
+might use different versions of your email address, such as ones
+ending in @code{@@googlemail.com} or @code{@@gmail.com}.
+
 @item
 Any other email either from, or CC'd to,
 
@@ -143,13 +147,15 @@ the currently-active Bug Squad member(s) can handle the message.
 
 @subsubheading Daily schedule
 
+The Bug Meister is omitted from the daily schedule.
+
 @example
 Sunday: Valentin
 Monday: Dmytro
 Tuesday: James Bailey
 Wednesday: Ralph
-Thursday: Phil Holmes
-Friday: Urs Liska, Patrick
+Thursday: Patrick
+Friday: Urs
 Saturday: Kieren
 @end example
 
@@ -372,7 +378,7 @@ information is available from in @ref{Regression tests}.
 @item
 Checking all issues: we try to mark each Issue @q{fixed} when we
 fix it, but occasionally one or two issues will slip through the
-cracks.  It is therefore good to check all Issues. If you see the
+cracks.  It is therefore good to check all Issues.  If you see the
 same (broken) output as the initial report, then simply post a
 @qq{Problem still exists in 2.x.y} message to the issue.
 

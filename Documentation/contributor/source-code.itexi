@@ -883,7 +883,7 @@ that looks like this:
 
 @example
 
-# Please enter the commit message for your changes. Lines starting
+# Please enter the commit message for your changes.  Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
 # On branch master
 # Changes to be committed:
@@ -1637,7 +1637,7 @@ clicking on the usual Windows close-window widget.
 @subsection Git GUI
 
 Almost all subsequent work will use the Git Graphical User
-Interface, which avoids having to type command line commands. To
+Interface, which avoids having to type command line commands.  To
 start Git GUI first start the Git bash shell by clicking on the
 desktop icon, and type
 

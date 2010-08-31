@@ -83,9 +83,9 @@ and movement, and it feels like a living, breathing piece of music,
 while the newer edition seems cold and mechanical.
 
 It is hard to immediately see what makes the difference with the newer
-edition. Everything looks neat and tiny, possibly even @qq{better}
-because it looks more computerized and uniform. This really puzzled us
-for quite a while. We wanted to improve computer notation, but we first
+edition.  Everything looks neat and tiny, possibly even @qq{better}
+because it looks more computerized and uniform.  This really puzzled us
+for quite a while.  We wanted to improve computer notation, but we first
 had to figure out what was wrong with it.
 
 The answer lies in the precise, mathematical uniformity of the newer
@@ -112,9 +112,9 @@ into a rigid grid of musical markings.
 
 There are other differences as well: in the hand-engraved edition the
 vertical lines are all stronger, the slurs lie closer to the note heads,
-and there is more variety in the slopes of the beams. Although such
+and there is more variety in the slopes of the beams.  Although such
 details may seem like nitpicking, the result is a score that is easier
-to read. In the computer-generated output, each line is nearly identical
+to read.  In the computer-generated output, each line is nearly identical
 and if the musician looks away for a moment she will be lost on the
 page.
 
@@ -370,7 +370,7 @@ the eye.
 The spacing algorithms in LilyPond even take the barlines into account,
 which is why the final up-stem in the properly spaced example has been
 given a little more space before the barline to keep it from looking
-crowded. A down-stem would not need this adjustment.
+crowded.  A down-stem would not need this adjustment.
 
 @node Ledger lines
 @unnumberedsubsec Ledger lines
@@ -595,7 +595,7 @@ for each possible configuration we compute an ugliness score and we
 choose the least ugly configuration.
 
 For example, here are three possible slur configurations, and LilyPond
-has given each one a score in @q{ugly points}. The first example gets
+has given each one a score in @q{ugly points}.  The first example gets
 15.39 points for grazing one of the noteheads:
 
 @lilypond
@@ -757,10 +757,10 @@ We made our comparison by engraving the last seven measures of the piece
 the subject returns in a three-part stretto and leads into the closing
 section.  In the Finale version, we have resisted the temptation to make
 any adjustments to the default output because we are trying to show the
-things that each software package gets right without assistance. The
+things that each software package gets right without assistance.  The
 only major edits that we made were adjusting the page size to match this
 essay and forcing the music onto two systems to make the comparison
-easier. By default Finale would have engraved two systems of three
+easier.  By default Finale would have engraved two systems of three
 measures each and a final, full-width system containing a single
 measure.
 
@@ -869,8 +869,8 @@ collision than Finale does.
 @end itemize
 
 This example is not intended to suggest that Finale cannot be used to
-produce publication-quality output. On the contrary, in the hands of a
-skilled user it can and does, but it requires skill and time. One of the
+produce publication-quality output.  On the contrary, in the hands of a
+skilled user it can and does, but it requires skill and time.  One of the
 fundamental differences between LilyPond and commercial scorewriters is
 that LilyPond hopes to reduce the amount of human intervention to an
 absolute minimum, while other packages try to provide an attractive
@@ -898,9 +898,9 @@ engraving error.
 
 If you are interested in examining these examples in more detail, the
 full seven-measure excerpt can be found at the end of this essay along
-with four different published engravings. Close examination reveals that
+with four different published engravings.  Close examination reveals that
 there is some acceptable variation among the hand-engravings, but that
-LilyPond compares reasonably well to that acceptable range. There are
+LilyPond compares reasonably well to that acceptable range.  There are
 still some shortcomings in the LilyPond output, for example, it appears
 a bit too aggressive in shortening some of the stems, so there is room
 for further development and fine-tuning.
@@ -1026,7 +1026,7 @@ components: parsing and representation take up less than 10% of
 the source code.
 
 When designing the structures used in LilyPond, we made some different
-decisions than are apparent in other software. Consider the hierarchical
+decisions than are apparent in other software.  Consider the hierarchical
 nature of music notation:
 
 @lilypond[quote,fragment]

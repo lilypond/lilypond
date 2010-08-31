@@ -18,7 +18,7 @@
 Note for editors and translators: In the following menu, two entries
 are needed to link to a pair of automatically generated sections.
 Please keep them and, if using emacs, do not run
-texinfo-all-menus-update without manually restoring them back. These
+texinfo-all-menus-update without manually restoring them back.  These
 menu entries are:
 
 * Text markup commands::

@@ -101,6 +101,34 @@ Page_spacer::Page_spacer (vector<Line_details> const &lines, vsize first_page_nu
 }
 
 Page_spacing_result
+Page_spacer::solve ()
+{
+  if (simple_state_.empty ())
+    {
+      simple_state_.resize (lines_.size ());
+      for (vsize i = 0; i < lines_.size (); ++i)
+	calc_subproblem (VPOS, i);
+    }
+
+  Page_spacing_result ret;
+  vsize system = lines_.size () - 1;
+  while (system != VPOS)
+    {
+      Page_spacing_node const& cur = simple_state_[system];
+      vsize system_count = (cur.prev_ == VPOS) ? system + 1 : system - cur.prev_;
+
+      ret.force_.push_back (cur.force_);
+      ret.systems_per_page_.push_back (system_count);
+      ret.demerits_ += cur.force_ * cur.force_;
+      system = cur.prev_;
+    }
+
+  reverse (ret.force_);
+  reverse (ret.systems_per_page_);
+  return ret;
+}
+
+Page_spacing_result
 Page_spacer::solve (vsize page_count)
 {
   if (page_count > max_page_count_)
@@ -203,19 +231,44 @@ Page_spacer::resize (vsize page_count)
 // we have previously called calc_subproblem(page-1, k) for every k < LINE.
 //
 // This algorithm is similar to the constrained-breaking algorithm.
+//
+// If page == VPOS, we act on simple_state_ instead of state_.  This is useful if
+// we don't want to constrain the number of pages that the solution has.  In this
+// case, the algorithm looks more like the page-turn-page-breaking algorithm.  But
+// the subproblems look similar for both, so we reuse this method.
 bool
 Page_spacer::calc_subproblem (vsize page, vsize line)
 {
   bool last = line == lines_.size () - 1;
-  Page_spacing space (breaker_->page_height (page + first_page_num_, last),
+
+  // Note: if page == VPOS then we don't actually know yet which page number we're
+  // working on, so we have to recalculate the page height in the loop.  In that case,
+  // the algorithm may not be optimal: if our page has a very large header then perhaps
+  // we need to look ahead a few systems in order to find the best solution.  But
+  // we won't, because we stop once we overfill the page with the large header.
+  vsize page_num = page == VPOS ? 0 : page;
+  Page_spacing space (breaker_->page_height (page_num + first_page_num_, last),
 		      breaker_);
-  Page_spacing_node &cur = state_.at (line, page);
+  Page_spacing_node &cur = page == VPOS ? simple_state_[line] : state_.at (line, page);
   bool ragged = ragged_ || (ragged_last_ && last);
   int line_count = 0;
 
-  for (vsize page_start = line+1; page_start > page && page_start--;)
+  for (vsize page_start = line+1; page_start > page_num && page_start--;)
     {
-      Page_spacing_node const *prev = page > 0 ? &state_.at (page_start-1, page-1) : 0;
+      Page_spacing_node const *prev = 0;
+
+      if (page == VPOS)
+	{
+	  if (page_start > 0)
+	    {
+	      prev = &simple_state_[page_start-1];
+	      space.resize (breaker_->page_height (prev->page_ + 1, last));
+	    }
+	  else
+	    space.resize (breaker_->page_height (first_page_num_, last));
+	}
+      else if (page > 0)
+	prev = &state_.at (page_start-1, page-1);
 
       space.prepend_system (lines_[page_start]);
 
@@ -270,6 +323,7 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 	      cur.system_count_status_ = breaker_->line_count_status (line_count)
 		| (prev ? prev->system_count_status_ : 0);
 	      cur.prev_ = page_start - 1;
+	      cur.page_ = prev ? prev->page_ + 1 : first_page_num_;
 	    }
 	}
 

@@ -205,8 +205,8 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
 {
   if (!primitives.size ())
     {
-      programming_error ("Vaticana_ligature: "
-			 "empty ligature [ignored]");
+      programming_error ("Vaticana_ligature:"
+			 " empty ligature [ignored]");
       return 0.0;
     }
 
@@ -330,8 +330,8 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
 	{
 	  if (!prev_primitive)
 	    {
-	      primitive->programming_error ("vaticana ligature: add-join: "
-					    "missing previous primitive");
+	      primitive->programming_error ("Vaticana ligature: add-join:"
+					    " missing previous primitive");
 	    }
 	  else
 	    {
@@ -397,8 +397,9 @@ Vaticana_ligature_engraver::check_for_prefix_loss (Item *primitive)
   if (prefix_set & ~PES_OR_FLEXA)
     {
       string prefs = Gregorian_ligature::prefixes_to_str (primitive);
-      primitive->warning (_f ("ignored prefix (es) `%s' of this head according "
-			      "to restrictions of the selected ligature style",
+      primitive->warning (_f ("ignored prefix(es) `%s' of this head"
+			      " according to restrictions of the selected"
+			      " ligature style",
 			      prefs.c_str ()));
     }
 }
@@ -462,9 +463,9 @@ Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Grob_info primitive)
       if (pitch == new_pitch)
 	{
 	  primitive.grob ()->
-	    warning ("Ambiguous use of dots in ligature: there are "
-		     "multiple dotted notes with the same pitch.  "
-		     "The ligature should be split.");
+	    warning ("Ambiguous use of dots in ligature: there are"
+		     " multiple dotted notes with the same pitch."
+		     "  The ligature should be split.");
 	  return; // supress multiple identical warnings
 	}
     }
@@ -520,10 +521,10 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	}
       else if (augmented_primitives_.size () > 0)
 	{
-	  primitive->warning ("This ligature has a dotted head followed by "
-			      "a non-dotted head.  The ligature should be "
-			      "split after the last dotted head before "
-			      "this head.");
+	  primitive->warning ("This ligature has a dotted head followed by"
+			      " a non-dotted head.  The ligature should be"
+			      " split after the last dotted head before"
+			      " this head.");
 	}
 
       if (is_stacked_head (prefix_set, context_info))
@@ -732,8 +733,8 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
      voices/staves also may want to set this property. */
   Item *first_primitive = dynamic_cast<Item *> (primitives[0].grob ());
   Paper_column *paper_column = first_primitive->get_column ();
-  paper_column->warning (_f ("Vaticana_ligature_engraver: "
-			     "setting `spacing-increment = %f': ptr =%ul",
+  paper_column->warning (_f ("Vaticana_ligature_engraver:"
+			     " setting `spacing-increment = %f': ptr =%ul",
 			     ligature_width, paper_column));
   paper_column->
     set_property ("forced-spacing", scm_from_double (ligature_width));
@@ -744,7 +745,8 @@ ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, rest);
 ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, note_head);
 ADD_TRANSLATOR (Vaticana_ligature_engraver,
 		/* doc */
-		"Handle ligatures by glueing special ligature heads together.",
+		"Handle ligatures by glueing special ligature heads"
+		" together.",
 
 		/* create */
 		"VaticanaLigature "

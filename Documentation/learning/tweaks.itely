@@ -562,7 +562,7 @@ should find
      Line thickness, generally measured in @code{line-thickness}
 @end example
 
-This looks a good bet to change the heaviness. It tells us that
+This looks a good bet to change the heaviness.  It tells us that
 the value of @code{thickness} is a simple @emph{number},
 that the default value is 1.2, and that the units are
 in another property called @code{line-thickness}.
@@ -1632,7 +1632,7 @@ Then it sorts the outside-staff objects according to their
 @code{outside-staff-priority}.  The outside-staff objects are
 taken one by one, beginning with the object with the lowest
 @code{outside-staff-priority}, and placed so that they do not
-collide with any objects that have already been placed. That is,
+collide with any objects that have already been placed.  That is,
 if two outside-staff grobs are competing for the same space, the
 one with the lower @code{outside-staff-priority} will be placed
 closer to the staff.  If two objects have the same
@@ -2033,7 +2033,7 @@ It also shows how ottava brackets are created.
 @cindex rehearsal marks, tweaking placement
 
 Note that bar numbers, metronome marks and rehearsal marks are not
-shown. By default these are created in the @code{Score} context and
+shown.  By default these are created in the @code{Score} context and
 their @code{outside-staff-priority} is ignored relative to the layout
 objects which are created in the @code{Staff} context.  If you wish to
 place bar numbers, metronome marks or rehearsal marks in accordance
@@ -2518,7 +2518,7 @@ affecting anything else.
 @cindex positions property
 
 This is most useful for manually adjusting the slope and height
-of beams, slurs, and tuplets.   It takes a pair of numbers
+of beams, slurs, and tuplets.  It takes a pair of numbers
 giving the position of the left and right ends of the beam, slur,
 etc. relative to the center line of the staff.  Units are
 staff-spaces.  Note, though, that slurs and phrasing slurs cannot
@@ -3720,7 +3720,7 @@ inst =
 @end example
 
 We will refer to this file using the @code{\include} command near
-the top of the music file. (The extension @code{.ily} is used to
+the top of the music file.  (The extension @code{.ily} is used to
 distinguish this included file, which is not meant to be compiled
 on its own, from the main file.)
 Now let's modify our music (let's save this file as @file{"music.ly"}).

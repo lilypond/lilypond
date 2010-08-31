@@ -167,6 +167,8 @@ e,\stopTextSpan
 
 The line style, as well as the text string, can be defined as an
 object property.  This syntax is described in @ref{Line styles}.
+Text spanners are part of the @code{Dynamics} context; see
+@rinternals{Dynamics}.
 
 
 @funindex \textSpannerUp
@@ -186,16 +188,26 @@ object property.  This syntax is described in @ref{Line styles}.
 @knownissues
 LilyPond is only able to handle one text spanner per voice.
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{dynamics-text-spanner-postfix.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{dynamics-custom-text-spanner-postfix.ly}
+
 @seealso
 Notation Reference:
 @ref{Line styles},
 @ref{Dynamics}.
 
 Snippets:
-@rlsr{Text}.
+@rlsr{Text},
+@rlsr{Expressive marks}.
 
 Internals Reference:
-@rinternals{TextSpanner}.
+@rinternals{TextSpanner},
+@rinternals{Dynamics}.
 
 
 @node Text marks
@@ -607,7 +619,7 @@ or dynamics, do not provide all characters, as mentioned in @ref{New
 dynamic marks} and @ref{Manual repeat marks}.
 
 @c \concat is actually documented in Align (it is not
-@c a font-switching command). But we need it here. -vv
+@c a font-switching command).  But we need it here. -vv
 
 When used inside a word, some font-switching or formatting commands
 may produce an unwanted blank space.  This can easily be solved by
@@ -892,7 +904,7 @@ as shown in the following example.
     \line \bold { Acto I }
     \wordwrap \italic {
       (La escena representa el corral de una casa de
-      gitanos en el Albaicín de Granada. Al fondo una
+      gitanos en el Albaicín de Granada.  Al fondo una
       puerta por la que se ve el negro interior de
       una Fragua, iluminado por los rojos resplandores
       del fuego.)
@@ -902,7 +914,7 @@ as shown in the following example.
     \line \bold { Acto II }
     \override #'(line-width . 50)
     \justify \italic {
-      (Calle de Granada. Fachada de la casa de Carmela
+      (Calle de Granada.  Fachada de la casa de Carmela
       y su hermano Manuel con grandes ventanas abiertas
       a través de las que se ve el patio
       donde se celebra una alegre fiesta)

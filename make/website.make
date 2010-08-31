@@ -45,6 +45,7 @@ CREATE_VERSION=python $(script-dir)/create-version-itexi.py
 CREATE_WEBLINKS=python $(script-dir)/create-weblinks-itexi.py
 MASS_LINK=python $(script-dir)/mass-link.py
 WEB_POST=python $(script-dir)/website_post.py
+WEB_BIBS=python $(script-dir)/bib2texi.py
 
 SERVER_FILES=$(top-src-dir)/Documentation/web/server/
 
@@ -81,9 +82,18 @@ website-xrefs: website-version
 		done; \
 	done;
 
+website-bibs: website-version
+	BSTINPUTS=$(top-src-dir)/Documentation/web/ \
+		$(WEB_BIBS) -s web \
+		-o $(OUT)/others-did.itexi \
+		$(top-src-dir)/Documentation/web/others-did.bib
+	BSTINPUTS=$(top-src-dir)/Documentation/web/ \
+		$(WEB_BIBS) -s web \
+		-o $(OUT)/we-wrote.itexi \
+		$(top-src-dir)/Documentation/web/we-wrote.bib
 
 
-website-texinfo: website-version website-xrefs
+website-texinfo: website-version website-xrefs website-bibs
 	for l in '' $(WEB_LANGS); do \
 	        if test -n "$$l"; then \
 			langopt=--lang="$$l"; \

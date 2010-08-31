@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d7c0f4263534307616c82d9b2ce6fdef9472456f
+    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1202,7 +1202,7 @@ maîtrisez pas lilypond-book.
 
 \selectlanguage{ngerman}
 Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle anderen
-seltsamen Zeichen: ß, æ, ______, wenn sie von der Schriftart unterstützt
+seltsamen Zeichen: ß, æ, ł, ã, č, wenn sie von der Schriftart unterstützt
 werden.
 
 \end{document}
@@ -1215,5 +1215,5 @@ werden.
 
 D'autres moyens de mélanger musique et texte sans recourrir à
 @command{lilypond-book} sont abordés au chapitre
-@ref{Inclusion du résultat de LilyPond dans d'autres programmes}.
+@ref{Inclusion de partition LilyPond dans d'autres programmes}.
 

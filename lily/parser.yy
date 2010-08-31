@@ -1631,9 +1631,7 @@ command_element:
 
 	}
 	| PARTIAL duration_length	{
-		Moment m = - unsmob_duration ($2)->get_length ();
-		$$ = MAKE_SYNTAX ("property-operation", @$, SCM_BOOL_F, ly_symbol2scm ("Timing"), ly_symbol2scm ("PropertySet"), ly_symbol2scm ("measurePosition"), m.smobbed_copy ());
-		$$ = MAKE_SYNTAX ("context-specification", @$, ly_symbol2scm ("Score"), SCM_BOOL_F, $$, SCM_EOL, SCM_BOOL_F);
+		$$ = MAKE_SYNTAX ("partial", @$, $2);
 	}
 
 	| TIME_T fraction  {
@@ -1642,9 +1640,7 @@ command_element:
 		$$ = scm_apply_2   (proc, scm_car ($2), scm_cdr ($2), SCM_EOL);
 	}
 	| MARK scalar {
-		SCM proc = ly_lily_module_constant ("make-mark-set");
-
-		$$ = scm_call_1 (proc, $2);
+		$$ = MAKE_SYNTAX ("make-mark-set", @$, $2);
 	}
 	;
 

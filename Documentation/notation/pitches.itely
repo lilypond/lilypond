@@ -916,7 +916,7 @@ This section discusses how to alter the output of pitches.
 @funindex \clef
 @funindex clef
 
-The clef may be altered.  Middle C is shown in every example. The
+The clef may be altered.  Middle C is shown in every example.  The
 following clef names can (but do not need to) be enclosed in quotes.
 
 @lilypond[verbatim,quote,relative=1]
@@ -2625,7 +2625,6 @@ Internals Reference:
 @cindex practice note heads
 @cindex note heads, easy notation
 @cindex easy notation
-@cindex Hal Leonard
 @cindex beginners' music
 @cindex music, beginners'
 @cindex easy play note heads

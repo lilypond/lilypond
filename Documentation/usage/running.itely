@@ -97,6 +97,30 @@ will output @var{base}@file{-violin.pdf} and
 @var{base}@file{-cello-1.pdf}.
 
 
+@unnumberedsubsubsec Standard shell commands
+
+If your shell (i.e. command window) supports normal redirects,
+then you might find it useful to use the following commands to
+redirect console output to a file:
+
+@itemize
+
+@item
+@code{lilypond file.ly 1>stdout.log} to redirect normal output
+
+@item
+@code{lilypond file.ly 2>stderr.log} to redirect error messages
+
+@item
+@code{lilypond file.ly &>all.log} to redirect all output
+
+@end itemize
+
+Consult the documentation for your shell to see if it supports these
+options, or if the syntax is different.  Note that these are shell
+commands and have nothing to do with lilypond.
+
+
 @node Command line options for lilypond
 @unnumberedsubsec Command line options for @command{lilypond}
 
@@ -289,17 +313,27 @@ Show a summary of usage.
 @item -H,--header=@var{FIELD}
 Dump a header field to file @file{BASENAME.@var{FIELD}}.
 
-@item --include, -I=@var{directory}
-Add @var{directory} to the search path for input files.
 @cindex file searching
 @cindex search path
+@item --include, -I=@var{directory}
+Add @var{directory} to the search path for input files.
+
+Multiple -I options may be given.  The search will start in the
+first defined directory, and if the file to be included is not
+found the search will continue in subsequent directories.
 
 @item -i,--init=@var{file}
 Set init file to @var{file} (default: @file{init.ly}).
 
-@item -o,--output=@var{FILE}
-Set the default output file to @var{FILE}.  The appropriate
-suffix will be added (e.g. @code{.pdf} for pdf)
+@cindex folder, directing output to
+@cindex output filename, setting
+
+@item -o,--output=@var{FILE} or @var{FOLDER}
+Set the default output file to @var{FILE} or, if a folder with
+that name exists, direct the output to @var{FOLDER}, taking the
+file name from the input file.  The appropriate suffix will be
+added (e.g. @code{.pdf} for pdf) in both cases.
+
 
 @cindex PostScript output
 
@@ -389,7 +423,7 @@ Be verbose: show full paths of all files read, and give timing
 information.
 
 @item -w,--warranty
-Show the warranty with which GNU LilyPond comes. (It comes with
+Show the warranty with which GNU LilyPond comes.  (It comes with
 @strong{NO WARRANTY}!)
 @end table
 
@@ -473,7 +507,10 @@ You can use @code{sed} to create the necessary copy commands for a given
 executable:
 
 @example
-for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
+for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
+  do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\&  \
+    cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p  \
+      \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
 @end example
 
 @end itemize
@@ -514,18 +551,25 @@ cp -L /usr/bin/convert /usr/bin/gs usr/bin
 cp -L /usr/share/fonts/truetype usr/share/fonts
 
 # Now the library copying magic
-for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh" "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done | sh -s
+for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
+  "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=>  \
+    \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed  \
+      's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
+        | sed '/.*=>.*/d'; done | sh -s
 
 # The shared files for ghostscript...
       cp -L -r /usr/share/ghostscript usr/share
 # The shared files for ImageMagick
       cp -L -r /usr/lib/ImageMagick* usr/lib
 
-### Now, assuming that you have test.ly in /mnt/lilyloop/lilyhome, you should be able to run:
-### Note that /$lilyprefix/bin/lilypond is a script, which sets the LD_LIBRARY_PATH - this is crucial
+### Now, assuming that you have test.ly in /mnt/lilyloop/lilyhome,
+### you should be able to run:
+### Note that /$lilyprefix/bin/lilypond is a script, which sets the
+### LD_LIBRARY_PATH - this is crucial
       /$lilyprefix/bin/lilypond -jlily,lily,/mnt/lilyloop,/lilyhome test.ly
 @end example
 
+@c " keep quote signs balanced for context-sensitive editors
 
 @node Error messages
 @section Error messages
@@ -618,6 +662,7 @@ are easily handled.
 * Apparent error in ../ly/init.ly::
 * Error message Unbound variable %::
 * Error message FT_Get_Glyph_Name::
+* Warning staff affinities should only decrease::
 @end menu
 
 @node Music runs off the page
@@ -751,4 +796,18 @@ an input file contains a non-ASCII character and was not saved in
 UTF-8 encoding.  For details, see @ruser{Text encoding}.
 
 
+@node Warning staff affinities should only decrease
+@unnumberedsubsec Warning staff affinities should only decrease
+This warning can appear if there are no staves in the printed
+output, for example if there are just a @code{ChordName} context
+and a @code{Lyrics} context as in a lead sheet.  The warning
+messages can be avoided by making one of the contexts behave as a
+staff by inserting
 
+@example
+\override VerticalAxisGroup #'staff-affinity = ##f
+@end example
+
+@noindent
+at its start.  For details, see @qq{Spacing of non-staff lines} in
+@ruser{Vertical spacing inside a system}.

@@ -188,6 +188,13 @@ _uacct = "UA-68969-1";
 urchinTracker();
 </script>
 """);
+        #### add google tracker goals
+        if (line.find("href=\"http://download.linuxaudio.org") >= 0):
+            # TODO: more ugly hardcoding to make releases hard. :(
+            if (line.find('2.12') >= 0):
+                line = line.replace('a href=', 'a onClick=\"javascript:urchinTracker(\'/download/v2.12\');\" href=')
+            elif (line.find('2.13') >= 0):
+                line = line.replace('a href=', 'a onClick=\"javascript:urchinTracker(\'/download/v2.13\');\" href=')
         ### add language selection footer
         if (line.find("<div id=\"verifier_texinfo\">") >= 0):
             outfile.write("<div id=\"footer\">\n")

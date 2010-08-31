@@ -226,7 +226,7 @@ If you would like a certain pitch to be played on a specific string
 you can add a string number indication to the pitch name.  If you
 define pitch names and string numbers without a chord construct
 (@code{<>}) the string number indications do not appear in traditional
-notation. It is much more comfortable to define the playing position
+notation.  It is much more comfortable to define the playing position
 by using the value of @code{minimumFret}.  The default value for
 minimumFret is 0.
 
@@ -1536,8 +1536,8 @@ music = \relative c' {
 @end lilypond
 
 Another playing technique (especially used on electric guitars) is
-called @notation{palm mute}. The string is hereby partly muted by the
-palm of the striking hand (hence the name). Lilypond supports
+called @notation{palm mute}.  The string is hereby partly muted by the
+palm of the striking hand (hence the name).  Lilypond supports
 the notation of palm mute-style notes by changing the note head to a
 triangle shape.
 

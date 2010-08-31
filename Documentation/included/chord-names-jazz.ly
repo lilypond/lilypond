@@ -2,7 +2,7 @@
 \header {
 
 texidoc = " Chord names are generated from a list pitches.  The
-functions which construct these names can be customised. Here are shown
+functions which construct these names can be customised.  Here are shown
 Jazz chords, following Ignatzek (pp. 17-18, 1995) and
 an alternative Jazz  chord notation.
 

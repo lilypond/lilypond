@@ -3006,8 +3006,22 @@ def conv (str):
     return str
 
 @rule ((2, 13, 29),
-       _ ("Eliminate beamSettings, beatLength, \setBeatGrouping, \overrideBeamSettings and \revertBeamSettings"))
+       _ ("Eliminate beamSettings, beatLength, \setBeatGrouping, \overrideBeamSettings and \revertBeamSettings\n\
+\"accordion.accEtcbase\" -> \"accordion.etcbass\""))
 def conv(str):
+    def sub_acc (m):
+	d = {
+            'Dot': 'dot',
+            'Discant': 'discant',
+            'Bayanbase': 'bayanbass',
+            'Stdbase': 'stdbass',
+            'Freebase': 'freebass',
+            'OldEE': 'oldEE'
+            }
+	return '"accordion.%s"' %  d[m.group (1)]
+
+    str = re.sub (r'"accordion\.acc([a-zA-Z]+)"',
+		  sub_acc, str)
     if re.search(r'overrideBeamSettings', str):
         stderr_write("\n")
         stderr_write(NOT_SMART % _("\overrideBeamSettings.  Use \set beamExceptions or \overrideTimeSignatureSettings.\n"))
@@ -3030,6 +3044,18 @@ def conv(str):
         stderr_write(UPDATE_MANUALLY)
     return str
 
+@rule ((2, 13, 31),
+    _ ("Woodwind diagrams: Move size, thickness, and graphic from argument list to properties.\n\
+Deprecate negative dash-period for hidden lines: use #'style = #'none instead."))
+def conv(str):
+    if re.search(r'woodwind-diagram', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % _("woodwind-diagrams.  Move size, thickness, and graphic to properties.  Argument should be just the key list.\n"))
+        stderr_write(UPDATE_MANUALLY)
+    str = re.sub (r"dash-period\s+=\s*#\s*-[0-9.]+",
+                  r"style = #'none",
+                  str);
+    return str
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

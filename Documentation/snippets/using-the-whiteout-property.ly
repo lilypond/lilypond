@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.10
-\version "2.13.29"
+\version "2.13.31"
 
 \header {
 %% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
@@ -32,7 +32,7 @@ enmascarada.
 
   lsrtags = "expressive-marks, editorial-annotations"
   texidoc = "
-Any graphical object can be printed over a white backgound to
+Any graphical object can be printed over a white background to
 mask parts of objects that lie beneath.  This can be useful to
 improve the appearance of collisions in complex situations when
 repositioning objects is impractical.  It is necessary to explicitly

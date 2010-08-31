@@ -105,8 +105,8 @@ internal_brew_primitive (Grob *me)
   SCM primitive_scm = me->get_property ("primitive");
   if (primitive_scm == SCM_EOL)
     {
-      programming_error ("Mensural_ligature: "
-			 "undefined primitive -> ignoring grob");
+      programming_error ("Mensural_ligature:"
+			 " undefined primitive -> ignoring grob");
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
   int primitive = scm_to_int (primitive_scm);
@@ -149,8 +149,8 @@ internal_brew_primitive (Grob *me)
       out = brew_flexa (me, delta_pitch, false, width, thickness);
       break;
     default:
-      programming_error (_ ("Mensural_ligature: "
-			    "unexpected case fall-through"));
+      programming_error (_ ("Mensural_ligature:"
+			    " unexpected case fall-through"));
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
 

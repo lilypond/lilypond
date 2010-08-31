@@ -28,9 +28,9 @@ Scheme.  If you want to know more about Scheme, see
 @uref{http://@/www@/.schemers@/.org}.
 
 LilyPond uses the GNU Guile implementation of Scheme, which is
-based on the Scheme @qq{R5RS} standard. If you are learning Scheme
+based on the Scheme @qq{R5RS} standard.  If you are learning Scheme
 to use with LilyPond, working with a different implementation (or
-referring to a different standard) is not recommended. Information
+referring to a different standard) is not recommended.  Information
 on guile can be found at @uref{http://www.gnu.org/software/guile/}.
 The @qq{R5RS} Scheme standard is located at
 @uref{http://www.schemers.org/Documents/Standards/R5RS/}.
@@ -68,7 +68,7 @@ Scheme.  On most systems you can experiment in a Scheme sandbox by
 opening a terminal window and typing @q{guile}.  On some systems,
 notably Windows, you may need to set the environment variable
 @code{GUILE_LOAD_PATH} to the directory @code{../usr/shr/guile/1.8}
-in the LilyPond installation. For the full path to this directory
+in the LilyPond installation.  For the full path to this directory
 see @rlearning{Other sources of information}.  Alternatively, Windows
 users may simply choose @q{Run} from the Start menu and enter
 @q{guile}.

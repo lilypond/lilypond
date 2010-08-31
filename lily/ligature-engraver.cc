@@ -155,8 +155,9 @@ Ligature_engraver::stop_translation_timestep ()
     {
       if (!finished_primitives_.size ())
 	{
-	  finished_ligature_->programming_error ("Ligature_engraver::stop_translation_timestep (): "
-						 "junking empty ligature");
+	  finished_ligature_->programming_error (
+	    "Ligature_engraver::stop_translation_timestep ():"
+	    " junking empty ligature");
 	}
       else
 	{

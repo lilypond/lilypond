@@ -77,6 +77,20 @@ bool find_in_range (SCM vector, int low, int hi, int min, int max)
 bool
 Hara_kiri_group_spanner::request_suicide (Grob *me, int start, int end)
 {
+  if (!request_suicide_alone (me, start, end))
+    return false;
+
+  extract_grob_set (me, "keep-alive-with", friends);
+  for (vsize i = 0; i < friends.size (); ++i)
+    if (friends[i]->is_live () && !request_suicide_alone (friends[i], start, end))
+      return false;
+
+  return true;
+}
+
+bool
+Hara_kiri_group_spanner::request_suicide_alone (Grob *me, int start, int end)
+{
   if (!to_boolean (me->get_property ("remove-empty")))
     return false;
 
@@ -172,6 +186,7 @@ ADD_INTERFACE (Hara_kiri_group_spanner,
 	       /* properties */
 	       "items-worth-living "
 	       "important-column-ranks "
+	       "keep-alive-with "
 	       "remove-empty "
 	       "remove-first "
 	       );

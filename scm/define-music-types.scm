@@ -18,38 +18,6 @@
 
 ;; TODO: should link back into user manual.
 
-(define (mm-rest-child-list music)
-  "Generate events for multimeasure rests,
-to be used by the sequential-iterator"
-  (let ((location (ly:music-property music 'origin))
-	(duration (ly:music-property music 'duration)))
-    (list (make-music 'BarCheck
-		      'origin location)
-	  (make-event-chord (cons (make-music 'MultiMeasureRestEvent
-					      'origin location
-					      'duration duration)
-				  (ly:music-property music 'articulations)))
-	  (make-music 'BarCheck
-		      'origin location))))
-
-(define (make-ottava-set music)
-  "Set context properties for an ottava bracket."
-  (let ((octavation (ly:music-property music 'ottava-number)))
-
-    (list (context-spec-music
-	   (make-apply-context
-	    (lambda (context)
-	      (let ((offset (* -7 octavation))
-		    (string (assoc-get octavation '((2 . "15ma")
-						    (1 . "8va")
-						    (0 . #f)
-						    (-1 . "8vb")
-						    (-2 . "15mb")))))
-		(set! (ly:context-property context 'middleCOffset) offset)
-		(set! (ly:context-property context 'ottavation) string)
-		(ly:set-middle-C! context))))
-	   'Staff))))
-
 (define-public music-descriptions
   `(
     (AbsoluteDynamicEvent
@@ -622,6 +590,13 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
 	(iterator-ctor . ,ly:tuplet-iterator::constructor)
 	(types . (time-scaled-music music-wrapper-music general-music))
 	))
+
+    (TimeSignatureMusic
+     . ((description . "Set a new time signature")
+        (iterator-ctor . ,ly:sequential-iterator::constructor)
+        (elements-callback . ,make-time-signature-set)
+        (types . (general-music time-signature-music))
+        ))
 
     (TransposedMusic
      . ((description . "Music that has been transposed.")

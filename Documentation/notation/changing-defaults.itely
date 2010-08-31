@@ -123,8 +123,8 @@ Contexts are arranged hierarchically:
 @node Score - the master of all contexts
 @unnumberedsubsubsec Score - the master of all contexts
 
-This is the top level notation context. No other context can
-contain a Score context. By default the Score context handles
+This is the top level notation context.  No other context can
+contain a Score context.  By default the Score context handles
 the administration of time signatures and makes sure that items
 such as clefs, time signatures, and key-signatures are aligned
 across staves.
@@ -140,7 +140,7 @@ executed.
 @strong{@emph{StaffGroup}}
 
 Groups staves while adding a bracket on the left side, grouping
-the staves together. The bar lines of the contained staves are
+the staves together.  The bar lines of the contained staves are
 connected vertically.  @code{StaffGroup} only consists of a collection
 of staves, with a bracket in front and spanning bar lines.
 
@@ -2401,7 +2401,7 @@ a
 For some layout objects, the @code{minimum-length} property becomes
 effective only if the @code{set-spacing-rods} procedure is called
 explicitly.  To do this, the @code{springs-and-rods} property should
-be set to @code{ly:spanner::set-spacing-rods}.   For example,
+be set to @code{ly:spanner::set-spacing-rods}.  For example,
 the minimum length of a glissando has no effect unless the
 @code{springs-and-rods} property is set:
 

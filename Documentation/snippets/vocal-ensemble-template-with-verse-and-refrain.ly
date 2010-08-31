@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.21
-\version "2.13.29"
+\version "2.13.31"
 
 \header {
 %% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
@@ -17,6 +17,18 @@ todas las partes) a lo largo de toda la partitura.
 "
 
   doctitlees = "Estrofa para solista y estribillo a dos voces"
+
+%% Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+
+  texidocde = "
+Diese Vorlage erstellt eine Partitur, die mit Sologesang beginnt und einen
+Refrain für zwei Stimmen enthält.  Sie zeigt auch die Benutzung von
+Platzhalter-Pausen innerhalb der @code{\global}-Variable, um Taktwechsel
+(und andere Elemente, die für alle Stimmen gleich sind) für das gesamte
+Stück zu definieren.
+
+"
+  doctitlede = "Sologesang und zweistimmiger Refrain"
 
   lsrtags = "vocal-music, contexts-and-engravers, template"
   texidoc = "

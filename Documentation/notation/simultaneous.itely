@@ -283,7 +283,7 @@ voices in a single staff is illustrated in the following example:
 @end lilypond
 
 @noindent
-Here, voices are instantiated explicitly and are given names. The
+Here, voices are instantiated explicitly and are given names.  The
 @code{\voiceOne} ... @code{\voiceFour} commands set up the voices
 so that first and third voices get stems up, second and fourth
 voices get stems down, third and fourth voice note heads are
@@ -791,7 +791,7 @@ be ignored.  Likewise, partcombining isn't designed to work with lyrics;
 when one of the voices is explicitly named in order to attach lyrics to
 it, the partcombining stops working.
 
-@code{\partcombine} only observes onset times of notes. It cannot
+@code{\partcombine} only observes onset times of notes.  It cannot
 determine whether a previously started note is playing or not, leading
 to various problems.
 

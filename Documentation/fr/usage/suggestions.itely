@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 6ee1c53e30a461d9b36fe5045e23815a57e1e819
+   Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -101,8 +101,8 @@ vous épargnerez des problèmes si, plus tard, vous modifiez votre musique.
 
 @item @strong{Séparez les affinages de mise en forme} de la musique
 elle-même.  Voyez
-@ref{Économie de saisie grâce aux identificateurs et fonctions} et
-@ref{Feuilles de style}.
+@rlearning{Économie de saisie grâce aux identificateurs et fonctions} et
+@rlearning{Feuilles de style}.
 
 @end itemize
 
