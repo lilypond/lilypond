@@ -11,6 +11,7 @@ help LilyPond.
 @menu
 * Help us::
 * Overview of work flow::
+* Lilybuntu::
 * Mentors::
 @end menu
 
@@ -96,6 +97,71 @@ email to @email{lilypond-devel@@gnu.org}.  You can subscribe to
 the developers' mailing list here:
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel}.
 
+@warning{Contributors on Windows or MacOS X wishing to compile
+code or documentation are strongly advised to use @ref{Lilybuntu}
+instead of trying to install all software dependencies
+themselves.}
+
+
+@node Lilybuntu
+@section Lilybuntu
+
+It is not possible to compile LilyPond on Windows, and extremely
+difficulty to compile it on MacOS X.  We have therefore made a
+@q{remix} of Ubuntu which includes all necessary dependencies to
+compile both LilyPond and the documentation.  This can be run
+inside a virtual machine without disturbing your main operating
+system.
+
+@enumerate
+@item
+Install some virtualization software.
+
+Any virtualization tool can be used, but we recommend VirtualBox
+Open Source Edition (lower half of the linked page):
+
+@example
+@uref{http://@/www.virtualbox.org/@/wiki/@/Downloads}
+@end example
+
+In virtualization terminology, your main operating system is the
+@qq{host}.
+
+@item
+Download the @file{lilybuntu.iso} disk image.
+
+@example
+@uref{http://@/files.lilynet.net/@/lilybuntu.iso}
+@end example
+
+@item
+Install @file{lilybuntu.iso} as the @qq{client} operating system
+on your virtualized system.
+
+The latest version of lilybuntu is based on Ubuntu 9.04; if you
+encounter any difficulties installing it, search for one of the
+many tutorials for installing Ubuntu 9.04 as a client operating
+system.
+
+If possible, use at least 700 MB of RAM (1GB would be better) for
+the virtual machine, and use a dynamically expanding virtual hard
+drive.  A complete compile of everything (code, docs, regression
+tests) can reach 10 GB.
+
+@item
+Do any extra configuration for your virtualization software.
+
+VirtualBox has extra @qq{guest additions} which can make the
+virtualization easier to use (full-screen, easy file sharing
+between host and client operating systems, shared clipboards,
+etc).  Follow the normal procedures for your virtualization
+software with Ubuntu 9.04 as the client.
+
+@end enumerate
+
+Follow instructions for Linux when reading instructions about
+@ref{Working with source code}, or @ref{Compiling}.
+
 
 @node Mentors
 @section Mentors
@@ -177,6 +243,5 @@ patch to -devel, it's your responsibility to pester people to get
 comments for it, or at very least add it to the google tracker.
 
 @end enumerate
-
 
 

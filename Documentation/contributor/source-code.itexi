@@ -32,6 +32,9 @@ If you haven't already, download and install Git.
 
 @itemize
 
+@item
+Lilybuntu users: git has already been installed for you.
+
 @item Windows users: download the @code{.exe} file labeled
 @qq{Full installer for official Git} from:
 

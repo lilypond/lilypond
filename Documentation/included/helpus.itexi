@@ -78,7 +78,7 @@ and @rcontrib{Compiling}.
 We suggest that new contributors using Windows or MacOS X do
 @strong{not} attempt to set up their own development environment;
 instead, see
-@rcontrib{Using a Virtual Machine to Compile LilyPond}.
+@rcontrib{Lilybuntu}.
 }
 
 @itemize
