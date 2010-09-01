@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -113,6 +113,31 @@ und der Zahl eingefügt.  Eine Lilypond-Datei @var{Dateiname.ly} mit dem Inhalt
 erzeugt daher die Dateien @var{Dateiname}@file{-Geige.pdf} und
 @var{Dateiname}@file{-Cello-1.pdf}.
 
+
+
+@unnumberedsubsubsec Häufige Kommandozeilenbefehle
+
+Wenn Ihre Kommandozeile normale Weiterleitungen unterstützt, können
+Sie es nützlich finden, mit folgenden Befehlen die Ausgabe der
+Kommandozeile in eine Datei zu leiten:
+
+@itemize
+
+@item
+@code{lilypond file.ly 1>stdout.log} um normale Ausgabe zu erhalten
+@item
+@code{lilypond file.ly 2>stderr.log} um Fehlermeldungen zu erhalten
+
+@item
+@code{lilypond file.ly &>all.log} um alle Meldungen zu erhalten
+
+@end itemize
+
+Wenden Sie sich an die Dokumentation für Ihre Kommandozeile, um
+zu sehen, ob derartige Optionen unterstützt werden oder die Syntax
+unterschiedlich ist.  Beachten Sie, dass es sich hier um
+reine Verwaltungsprogramme handelt, die nichts mit LilyPond zu tun
+haben.
 
 
 @node Optionen von lilypond auf der Kommandozeile
@@ -323,16 +348,26 @@ Gibt den Inhalt eines Feldes aus dem @code{\header}-Block in die Datei
 
 @item --include, -I=@var{Verzeichnis}
 Fügt @var{Verzeichnis} zur Liste der Suchpfade hinzu.
+
 @cindex Dateisuche
 @cindex Suchpfad
+
+Mehrere -I-Optionen können angegeben werden.  Die Suche beginnt mit dem
+ersten definierten Verzeichnis und setzt in den weiteren Verzeichnissen
+fort, wenn die gesuchte Datei nicht in dem Verzeichnis gefunden wird.
 
 @item -i,--init=@var{Initialisierungsdatei}
 Benutzt @var{Initialisierungsdatei} zur gesamten Programminitialisierung. Der 
 Standardwert ist @file{init.ly}.
 
+@cindex Verzeichnis, Ausgabe speichern in
+@cindex Ausgabedateiname
+
 @item -o,--output=@var{DATEI}
 Schreibt das Ergebnis der Verarbeitung mit LilyPond in die Ausgabedatei
-@var{DATEI}. Die entsprechende Dateinamenserweiterung wird angehängt (z.B. 
+@var{DATEI}.  Wenn ein Verzeichnis mit dem Namen existiert, werden die Ausgabedateien
+in dieses Verzeichnis gespeichert, wobei der Dateiname der Eingabedatei
+benutzt wird.  Die entsprechende Dateinamenserweiterung wird angehängt (z.B. 
 @code{.pdf} für pdf).
 
 @cindex PostScript-Ausgabe
@@ -519,7 +554,10 @@ Sie könne @code{sed} benutzen, um die notwendigen Kopierbefehle für ein
 bestimmtes Programm zu erstellen:
 
 @example
-for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
+for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
+  do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\&  \
+    cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p  \
+      \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
 @end example
 
 @end itemize
@@ -560,15 +598,21 @@ cp -L /usr/bin/convert /usr/bin/gs usr/bin
 cp -L /usr/share/fonts/truetype usr/share/fonts
 
 # Now the library copying magic
-for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh" "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done | sh -s
+for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
+  "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=>  \
+    \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed  \
+      's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
+        | sed '/.*=>.*/d'; done | sh -s
 
 # The shared files for ghostscript...
       cp -L -r /usr/share/ghostscript usr/share
 # The shared files for ImageMagick
       cp -L -r /usr/lib/ImageMagick* usr/lib
 
-### Now, assuming that you have test.ly in /mnt/lilyloop/lilyhome, you should be able to run:
-### Note that /$lilyprefix/bin/lilypond is a script, which sets the LD_LIBRARY_PATH - this is crucial
+### Now, assuming that you have test.ly in /mnt/lilyloop/lilyhome,
+### you should be able to run:
+### Note that /$lilyprefix/bin/lilypond is a script, which sets the
+### LD_LIBRARY_PATH - this is crucial
       /$lilyprefix/bin/lilypond -jlily,lily,/mnt/lilyloop,/lilyhome test.ly
 @end example
 
@@ -675,6 +719,7 @@ der Fehler einmal verstanden ist, kann er einfach behoben werden.
 * Offensichtlicher Fehler in ../ly/init.ly::
 * Fehlermeldung Ungebundene Variable %::
 * Fehlermeldung FT_Get_Glyph_Name::
+* Warnung, dass staff affinities nur absteigen sollten::
 @end menu
 
 @node Noten laufen aus der Seite heraus
@@ -814,3 +859,21 @@ mit einem Semikolon (@code{;}).
 Diese Fehlermeldung erscheint in der Kommandozeilenausgabe, wenn die
 Datei ein Zeichen enthält, das nicht zu ASCII gehört und die Datei
 nicht in UTF-8-Kodierung gespeichert wurd.  Sie auch @ruser{Zeichenkodierung}.
+
+
+@node Warnung, dass staff affinities nur absteigen sollten
+@unnumberedsubsec Warnung, dass staff affinities nur absteigen sollten
+@translationof Warning staff affinities should only decrease
+
+Diese Warnung erscheint, wenn keine Notensysteme in der Ausgabe vorhanden
+sind, wenn etwa nur @code{ChordName}-Kontext und @code{Lyrics}-Kontext
+in einem Liedblatt vorhanden sind.  Die Warnungen können vermieden werden,
+indem man einen der Kontexte als System erscheinen lässt, indem man ihm
+zu Beginn hinzufügt:
+ 
+@example
+\override VerticalAxisGroup #'staff-affinity = ##f
+@end example
+
+Zu Einzelheiten siehe @qq{Abstand von Nicht-Notensystem-Zeilen} in
+@ruser{Vertikale Abstände innerhalb eines Systems}.
