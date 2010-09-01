@@ -95,18 +95,6 @@
                           (sort markup-functions markup-function<?)))
               "\n@end table"))))
 
-(define (markup-list-doc-string)
-  (string-append
-   "@table @asis"
-   (apply string-append
-          (map doc-markup-function
-               (sort (hash-fold (lambda (markup-list-function dummy functions)
-				  (cons markup-list-function functions))
-				'()
-				markup-list-functions)
-		     markup-function<?)))
-   "\n@end table"))
-
 (define (markup-doc-node)
   (make <texi-node>
     #:appendix #t
@@ -125,11 +113,16 @@
                                                   raw-categories))))
                  (map markup-category-doc-node categories))))
 
-(define (markup-list-doc-node)
-  (make <texi-node>
-    #:appendix #t
-    #:name "Text markup list commands"
-    #:desc ""
-    #:text (string-append
-            "The following commands can all be used with @code{\\markuplines}.\n"
-            (markup-list-doc-string))))
+(define (markup-list-doc-string)
+  (string-append
+   "@table @asis"
+   (apply string-append
+	  (map doc-markup-function
+	       (sort (hash-fold (lambda (markup-list-function dummy functions)
+				  (cons markup-list-function functions))
+				'()
+				markup-list-functions)
+		     markup-function<?)))
+   "\n@end table"))
+
+
