@@ -1119,7 +1119,7 @@ greifen werden, wenn Sie nicht schon von Anfang an mit Emacs oder
 Vim vertraut sind.
 
 Weiter Information zum Einstellen von Emacs und Vim findet sich unter
-@rprogram{Text editor support}.
+@rprogram{Unterstützung von Texteditoren}.
 
 
 @sourceimage{logo-macosx,,,}
