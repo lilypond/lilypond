@@ -436,6 +436,7 @@ tabFullNotation = {
   \revert TabVoice.Rest #'stencil
   \revert TabVoice.MultiMeasureRest #'stencil
   \revert TabVoice.MultiMeasureRestNumber #'transparent
+  \revert TabVoice.MultiMeasureRestText #'transparent
   % markups etc.
   \revert TabVoice.Script #'stencil
   \revert TabVoice.TextScript #'stencil

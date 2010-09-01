@@ -757,6 +757,7 @@ context."
   \override Rest #'stencil = ##f
   \override MultiMeasureRest #'stencil = ##f
   \override MultiMeasureRestNumber #'transparent = ##t
+  \override MultiMeasureRestText #'transparent = ##t
   %% ... all kinds of ties/slurs
   \override Tie  #'stencil = ##f
   \override RepeatTie #'stencil = ##f
