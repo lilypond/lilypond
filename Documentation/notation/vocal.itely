@@ -1444,62 +1444,100 @@ The distances between the systems, the staves and the lyrics can
 all be adjusted independently.  See @ref{Vertical spacing}.
 
 @item
-Setting @code{annotate-spacing = ##t} in the layout block will
-display the dimensions of the vertical layout variables.  This
-may help in adjusting them.  For details, see
-@ref{Displaying spacing}.
-
-@item
-Other possibilities for fitting the music onto fewer pages are
-described in @ref{Changing spacing}.
+The dimensions of the vertical layout variables can be displayed as
+an aid to adjusting the vertical spacing.  This and other
+possibilities for fitting the music onto fewer pages are described
+in @ref{Fitting music onto fewer pages}.
 
 @end itemize
 
+@c TODO change the following to a ref when system-separator-markup
+@c is well-documented elsewhere
+
 If the number of systems per page changes from one to two it is
 customary to indicate this with a system separator mark between
-the two systems.  By default the system separator is blank.  It
-may be activated with
+the two systems.  By default the system separator is blank.  In
+this example the @code{system-separator-markup} in the @code{\paper}
+block is changed:
 
-@example
-\paper @{
-  system-separator-markup = \slashSeparator
-@}
-@end example
+@lilypond[verbatim,quote]
+#(set-default-paper-size "a6" 'landscape)
+\book {
+  \score {
+    \new ChoirStaff <<
+      \new Staff {
+        \relative c'' {
+          \repeat unfold 8 { c4 }
+          \break
+          \repeat unfold 8 { c4 }
+        }
+      }
+      \new Staff {
+        \relative c'' {
+          \repeat unfold 8 { g4 }
+          \break
+          \repeat unfold 8 { g4 }
+        }
+      }
+    >>
+  }
+  \paper {
+    indent = 0\mm
+    system-separator-markup = \slashSeparator
+  }
+}
+@end lilypond
 
 @noindent
-For details of this and other page formatting properties, see
+For details of other page formatting properties, see
 @ref{Page formatting}.
 
 Dynamic markings by default are placed below the staff, but in
-choral music they are often placed above the staff in order to
+choral music they are usually placed above the staff in order to
 avoid the lyrics.  The predefined command @code{\dynamicUp} does
 this for the dynamic markings in a single @code{Voice} context.
-To place all dynamic markings in the score above their respective
-staves use the following in a @code{\layout} block within the
-@code{\score} block:
+If there are many @code{Voice} contexts this predefined command
+would have to be placed in every one.  Alternatively its expanded
+form can be used to place all dynamic markings in the entire score
+above their respective staves, as shown here:
 
-@example
-\layout @{
-  \context @{
-    \Score
-    \override DynamicText #'direction = #UP
-    \override DynamicLineSpanner #'direction = #UP
-  @}
-@}
-@end example
+@lilypond[verbatim,quote]
+\score {
+  \new ChoirStaff <<
+    \new Staff {
+      \new Voice {
+        \relative c'' { g4\f g g g }
+      }
+    }
+    \new Staff {
+      \new Voice {
+        \relative c' { d4 d d\p d }
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override DynamicText #'direction = #UP
+      \override DynamicLineSpanner #'direction = #UP
+    }
+  }
+}
+@end lilypond
 
 @predefined
-@code{\dynamicUp}.
+@code{\dynamicUp}, @code{\dynamicDown}, @code{\dynamicNeutral}.
 
 @seealso
 Notation Reference:
-@ref{Setting the staff size},
-@ref{Vertical spacing},
-@ref{Displaying spacing},
 @ref{Changing spacing},
+@ref{Displaying spacing},
+@ref{Fitting music onto fewer pages},
+@ref{Page formatting},
 @ref{Score layout},
+@ref{Setting the staff size},
 @ref{Using an extra voice for breaks},
-@ref{Page formatting}.
+@ref{Vertical spacing}.
 
 Internals Reference:
 @rinternals{VerticalAxisGroup},
