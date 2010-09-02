@@ -54,7 +54,7 @@ Copyright @copyright{} 1999--2010 bei den Autoren.
 * Dateien mit convert-ly aktualisieren:: Eingabedateien aktualisieren.
 * lilypond-book::                  Text und Noten integrieren.
 * Externe Programme::              LilyPond mit anderen Programmen verbinden.
-* Hinweise zum Schreiben von Dateien::  Hinweise zur effizienten Benutzung und effektiven Fehlerbeseitigung.
+* Vorschläge zum Schreiben von LilyPond-Eingabe-Dateien::  Hinweise zur effizienten Benutzung und effektiven Fehlerbeseitigung.
 
 Anhänge
 
