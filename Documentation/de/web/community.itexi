@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish:  ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,6 +16,7 @@
 @unnumbered Gemeinschaft
 @translationof Community
 
+@divClass{link-headings}
 
 @divClass{column-center-top}
 @subheading Zusammenarbeit mit der Gemeinschaft
@@ -67,6 +68,8 @@ uns geschrieben wurde.
 @ref{Ältere Neuigkeiten}: ein Archiv.
 
 @end itemize
+@divEnd
+
 @divEnd
 
 
@@ -559,10 +562,10 @@ geschrieben (nur auf Englisch).
 @subheading Regressionsteste
 
 @divClass{keep-bullets}
-@itemize
 
 @ifclear web_version
 
+@itemize
 @item
 @uref{../../input/regression/collated-files.html, Regressionsteste}:
 Die Regressionsteste dieser Version.
@@ -572,23 +575,56 @@ Die Regressionsteste dieser Version.
 @uref{../../input/regression/musicxml/collated-files.html, MusicXML-Teste}:
 musicXML-Regressionsteste dieser Version.
 (@uref{../../input/regression/musicxml/collated-files.pdf, PDF-Version})
+
+@item
+@uref{../../input/regression/abc2ly/collated-files.html, abc2ly-Teste}:
+abc2ly-Teste dieser Version.
+(@uref{../../input/regression/abc2ly/collated-files.pdf, PDF-Version})
+
+@item
+@uref{../../input/regression/lilypond-book/collated-files.html, lilypond-book-Teste}:
+lilypond-book-Teste dieser Version.
+(@uref{../../input/regression/lilypond-book/collated-files.pdf, PDF-Version})
+@end itemize
+
 @end ifclear
 
 @ifset web_version
+@subsubheading Entwicklungsversion
+
+@itemize
 @item @regtestDevel (@regtestDevelPdf{})
 
 @item @regtestDevelXml (@regtestDevelXmlPdf{})
 
+@item @regtestDevelAbc (@regtestDevelAbcPdf{})
+
+@item @regtestDevelLilypondBook (@regtestDevelLilypondBookPdf{})
+@end itemize
+
+@subsubheading Stabile Version
+
+@itemize
 @item @regtestStable (@regtestStablePdf{})
 
 @item @regtestStableXml (@regtestStableXmlPdf{})
+
+@item @regtestStableAbc (@regtestStableAbcPdf{})
+
+@item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
+@end itemize
+
 @end ifset
 
 
+
+@subsubheading Alle Versionen
+
+@itemize
 @item @uref{http://lilypond.org/test, Archiv der Regressionsteste}:
 Vergleiche zweier Versionen.
-
 @end itemize
+
 @divEnd
 @divEnd
 
@@ -789,28 +825,8 @@ Handbücher finden sich auf @url{http://lilypond.org}.}
 @subheading Was wir über LilyPond geschrieben haben
 
 @divClass{keep-bullets}
-@itemize
 
-@item
-Han-Wen Nienhuys, @emph{LilyPond, Automated music formatting and
-the Art of Shipping}.  Forum Internacional Software Livre 2006
-(FISL7.0) (@uref{http://lilypond.org/web/images/FISL7-slides.pdf,
-PDF 1095k})
-
-@item
-Erik Sandberg, @emph{Separating input language and formatter in
-GNU LilyPond}. Master's Thesis, Uppsala University, Department of
-Information Technology March 2006.
-(@uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf,
-PDF 750k})
-
-@item
-Han-Wen Nienhuys and Jan Nieuwenhuizen, @emph{LilyPond, a system
-for automated music engraving}.  Proceedings of the XIV Colloquium
-on Musical Informatics (XIV CIM 2003), Firenze, Italy, May 2003.
-(@uref{ http://lilypond.org/web/images/xivcim.pdf, PDF 95k})
-
-@end itemize
+@include we-wrote.itexi
 
 @divEnd
 @divEnd
@@ -821,33 +837,8 @@ on Musical Informatics (XIV CIM 2003), Firenze, Italy, May 2003.
 @subheading Was andere mit LilyPond gemacht haben
 
 @divClass{keep-bullets}
-@itemize
 
-@item
-Graham Percival, Tosten Anders und George Tzanetakis,
-@emph{Generating Targeted Rhythmic Exercises for Music Students
-with Constraint Satisfaction Programming}, International Computer
-Music Conference 2008.
-
-@item
-Alexandre Tachard Passos, Marcos Sampaio, Pedro Kröger, Givaldo de Cidra,
-@emph{Functional Harmonic Analysis and Computational Musicology
-in Rameau}, Proceedings of the 12th Brazilian Symposium on Computer
-Music, 2009, pp. 207-210.
-
-@item
-Alberto Simões, Anália Lourenço and José João Almeida,
-@emph{Using Text Mining Techniques for Classical Music Scores Analysis},
-New Trends in Artificial Intelligence, 2007 J. Neves et al ed.
-
-@item
-Kevin C. Baird 2005,
-@emph{Real-time generation of music notation via audience interaction using
-python and GNU lilypond}. Proceedings of the 2005 Conference on New interfaces
-For Musical Expression (Vancouver, Canada, May 26 - 28, 2005).
-
-
-@end itemize
+@include others-did.itexi
 
 @divEnd
 @divEnd
@@ -860,5 +851,3 @@ For Musical Expression (Vancouver, Canada, May 26 - 28, 2005).
 @include web/news-front.itexi
 
 @include web/news.itexi
-
-

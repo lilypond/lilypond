@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish:  ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -27,6 +27,8 @@ um Notensatz professioneller Qualität zu erstellen, welche nach
 dem ganzen Erfahrungsschatz und den Traditionen des klassischen
 Notensatzes gesetzt werden.
 @divEnd
+
+@divClass{link-headings}
 
 @divClass{column-left-top}
 @subheading Die Fähigkeiten von LilyPond
@@ -74,6 +76,8 @@ Notensatzes gesetzt werden.
 @ref{Leichteres Editieren}: Andere Möglichkeiten, mit LilyPond zu arbeiten.
 
 @end itemize
+@divEnd
+
 @divEnd
 
 @c TRANSLATORS, translations are not yet compiled in Info format, so
@@ -1106,8 +1110,8 @@ erweiterbarer Editor, welcher auch als Integrierte
 Entwicklungsumgebung benutzt werden kann.  Es gibt einen
 @qq{lilypond}-Modus, der die Sprachdefinitionen für das Arbeiten
 mit LilyPond-Dateien zur Verfügung stellt.  Einer unserer Entwickler
-hat auch einen Hauptmodus für Emacs, @uref{http://nicolas.sceaux.free.fr/
-+lilypond/lyqi.html,lyqi} geschrieben.
+hat auch einen Hauptmodus für Emacs,
+@uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi} geschrieben.
 
 @uref{http://www.vim.org}
 

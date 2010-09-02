@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish:  ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -39,13 +39,14 @@ Links für die stabile Version von LilyPond finden sich auf
 
 @divEnd
 
+@divClass{link-headings}
+
 @divClass{column-left-top}
 @subheading Für Benutzer
 
 @itemize
 
 @item
-@c TODO: duplicate to avoid underlined refs in HTML?  icky.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
 @ref{Unix, Unix (Linux und FreeBSD)}
@@ -79,6 +80,8 @@ alte Versionen
 die letze unstabile Version
 
 @end itemize
+@divEnd
+
 @divEnd
 
 
@@ -342,11 +345,11 @@ cd ~/bin
 Erstellen Sie eine Datei mit der Bezeichnung @command{lilypond} und
 dem Inhalt:
 
-@help obvious css issue to be dealt with.  :(
-@c we need a small font here to fit.  -gp
-@smallexample
-exec @var{VERZ}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
-@end smallexample
+@divClass{h-scroll-auto}
+@example
+exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
+@end example
+@divEnd
 
 @warning{@var{VERZ} ist üblicherweise @code{/Applications/}}
 
@@ -389,9 +392,11 @@ einer @code{.app}-Datei für MacOS@tie{}X enthalten.
 Skripte können auch von der Kommandozeile aus aufgerufen werden,
 indem man sie direkt aufruft:
 
+@divClass{h-scroll-auto}
 @example
-@var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
+@var{Pfad/zur}/LilyPond.app/Contents/Resources/bin/lilypond
 @end example
+@divEnd
 
 Das gilt auch für alle anderen Skripte in diesem Verzeichnis, wie
 @command{lilypond-book} und @command{convert-ly}.
@@ -604,6 +609,3 @@ finden Sie in @ref{Freiheit}.
 @include gpl.itexi
 
 @divEnd
-
-
-
