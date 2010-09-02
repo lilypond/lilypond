@@ -1441,6 +1441,8 @@ patch set will be posted to Rietveld.
 You should then announce the patch by sending
 an email to lilypond-devel, with a subject line
 starting with PATCH:, asking for comments on the patch.
+Alternately, you may Publish + Mail a (bogus) comment, in order
+to send an email to lilypond-devel.
 
 As revisions are made in response to comments, successive patch sets
 for the same issue can be uploaded by reissuing the git-cl command
