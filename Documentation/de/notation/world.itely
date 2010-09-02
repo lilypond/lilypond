@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -36,7 +36,7 @@ werden kann.
 
 @menu
 * Referenz für arabische Musik::
-* Arabic note names ::
+* Arabische Notenbezeichnungen::
 * Arabische Tonarten::
 * Arabische Taktarten::
 * Arabische Notenbeispiele::
@@ -44,7 +44,7 @@ werden kann.
 @end menu
 
 @node Referenz für arabische Musik
-@unnumberedsubsubsec References for Arabic music 
+@unnumberedsubsubsec Referenz für arabische Musik
 @translationof References for Arabic music
 
 @cindex arabische Musik
@@ -101,8 +101,8 @@ Schnipsel:
 @rlsr{World music}.
 
 
-@node Arabic note names 
-@unnumberedsubsubsec Arabic note names 
+@node Arabische Notenbezeichnungen 
+@unnumberedsubsubsec Arabische Notenbezeichnungen
 @translationof Arabic note names 
 
 @cindex arabische Notenbezeichnungen
@@ -154,7 +154,7 @@ Schnipsel:
 
 
 @node Arabische Tonarten
-@unnumberedsubsubsec Arabic key signatures 
+@unnumberedsubsubsec Arabische Tonarten
 @translationof Arabic key signatures
 
 @cindex arabische Tonarten
@@ -273,7 +273,7 @@ Schnipsel:
 
 
 @node Arabische Taktarten
-@unnumberedsubsubsec Arabic time signatures 
+@unnumberedsubsubsec Arabische Taktarten
 @translationof Arabic time signatures
 
 @cindex Arabische Taktarten
@@ -318,7 +318,7 @@ Schnipsel:
 
 
 @node Arabische Notenbeispiele
-@unnumberedsubsubsec Arabic music example 
+@unnumberedsubsubsec Arabische Notenbeispiele
 @translationof Arabic music example
 
 @cindex Beispiel der arabischen Musik

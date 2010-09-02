@@ -1,0 +1,13 @@
+%%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+
+  texidocde = "Die \cresc, \dim und \decresc Strecker können umdefiniert werden,
+um nachgestellt zu funktionieren und einen Textstrecker zu produzieren.  Eigene
+Strecker können auch einfach definiert werden.  Klammer- und Textcrescendi können
+einfach vermischt werden.  \< und \> erstellen normalerweise Klammern, \cresc
+usw. dagegen normalerweise Textspanner.
+
+"
+  doctitlede = "Dynamiktextstrecker nachgestellt"
+
+

@@ -1,0 +1,11 @@
+%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+  texidocde = "
+Dieses Beispiel zeigt eine Möglichkeit, eine Hymnusmelodie zu setzen, in
+der jede Zeiel mit einem Auftakt beginnt und einem unvollständigen
+Takt abschließt.  Es zeigt auch, wie man die Strophen als allein stehenden
+Text unter die Noten hinzufügt.
+
+"
+  doctitlede = "Hymnus-Vorlage"
+

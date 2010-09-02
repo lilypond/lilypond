@@ -1,0 +1,11 @@
+%%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+
+  texidocde = "Die Nachstellung funktioniert für eigene Crescendo-Textstrecker.
+Die Strecker sollten an der ersten Note eines Taktes beginnen.  Man muss
+-\mycresc benutzen, sonst wird der Beginn des Streckers der nächsten Note
+zugewiesen.
+
+"
+  doctitlede = "Eigene Dynamiktextspanner nachgestellt"
+

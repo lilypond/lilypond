@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -39,6 +39,8 @@ versehen.
 @menu
 * Struktur einer Partitur::
 * Mehrere Partituren in einem Buch::
+* Mehrere Ausgabedateien aus einer Eingabedatei::
+* Dateinamen der Ausgabedateien::
 * Die Dateistruktur::
 @end menu
 
@@ -107,12 +109,29 @@ können innerhalb oder außerhalb der @code{\score}-Umgebung vorkommen,
 und innerhalb oder außerhalb des einzelnen musikalischen Ausdrucks
 innerhalb der @code{\score}-Umgebung.
 
+Denken Sie daran, dass auch eine Datei, die nur eine @code{\score}-Umgebung
+enhält, implizit in eine @code{\book}-Umgebung eingeschlossen wird.  Eine
+@code{\book}-Umgebung in einer Eingabdatei produziert wenigstens eine
+Ausgabedatei, und standardmäßig wird der Name der Ausagabedatei aus dem
+Namen der Eingabedatei abgeleitet.  @file{fandangoforelephants.ly} produziert
+also @file{fandangoforelephants.pdf}.
+
+Zu weiteren Einzelheiten zu @code{\book}-Umgebungen siehe
+@ref{Mehrere Partituren in einem Buch},
+@ref{Mehrere Ausgabedateien aus einer Eingabedatei} und
+@ref{Dateistruktur}.
+
 
 @seealso
 Handbuch zum Lernen:
 @rlearning{Arbeiten an Eingabe-Dateien},
 @rlearning{Musikalische Ausdrücke erklärt},
 @rlearning{Score ist ein (einziger)  zusammengesetzter musikalischer Ausdruck}.
+
+Notationsreferenz:
+@ref{Mehrere Partituren in einem Buch},
+@ref{Mehrere Ausgabedateien aus einer Eingabedatei} und
+@ref{Dateistruktur}.
 
 
 @node Mehrere Partituren in einem Buch
@@ -159,11 +178,7 @@ werden normalerweise in eine einzige Ausgabedatei gesetzt.
 @}
 @end example
 
-Wenn Sie aber mehrere Ausgabedateien aus einer einzigen @code{.ly}-Datei
-erstellen wollen, können Sie mehrere @code{\book}-Umgebungen notieren.
-Wenn Sie keine @code{\book}-Umgebung in Ihrer Datei angeben, interpretiert
-LilyPond die gesamte Datei als eine große @code{\book}-Umgebung (siehe
-auch @ref{Die Dateistruktur}.  Eine wichtige Ausnahme stellen Dokumente dar,
+Eine wichtige Ausnahme stellen Dokumente dar,
 die mit lilypond-book erstellt werden, für die Sie explizit
 @code{\book}-Umgebungen notieren müssen, weil sonst nur die erste
 @code{\score}- bzw. @code{\markup}-Umgebung angezeigt wird.
@@ -221,6 +236,128 @@ einem Titel innerhalb einer @code{\header}-Umgebung beginnen.
 @}
 @end example
 
+
+@node Mehrere Ausgabedateien aus einer Eingabedatei
+@subsection Mehrere Ausgabedateien aus einer Eingabedatei
+@translationof Multiple output files from one input file
+
+Wenn Sie mehrere Ausgabedateien aus derselben @code{.ly}-Datei haben
+wollen, können Sie mehrere @code{\book}-Umgebungen hinzufügen, wobei
+jede Umgebung eine neue Ausgabedatei produziert.  Wenn Sie keine
+@code{\book}-Umgebung in der Eingabedatei angeben, wird die Datei von
+LilyPond implizit als eine große @code{\book}-Umgebung behandelt, siehe
+auch @ref{Dateistruktur}.
+
+Wenn man mehrere Dateien aus einer einzigen Eingabedatei erstellt, stellt
+LilyPond sicher, dass keine der Ausgabedateien der vorhandenen
+@code{\book}-Umgebungen eine andere Ausgabedatei, etwa von der vorherigen
+@code{\book}-Umgebung, überschreibt.
+
+Dies geschieht, indem ein Suffix an den Ausgabenamen für jede
+@code{\book}-Umgebung gehängt wird, die den Dateinamen der Eingabdatei
+als Grundlage nimmt.
+
+Das Standardverhalten ist es, einen Zahlen-Suffix für die Namen hinzuzufügen,
+die in Konflikt stehen.  Der Code
+
+@example
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+@noindent
+produziert also
+
+@itemize
+@item
+@file{eightminiatures.pdf},
+@item
+@file{eightminiatures-1.pdf} and
+@item
+@file{eightminiatures-2.pdf}.
+@end itemize
+
+
+@node Dateinamen der Ausgabedateien
+@subsection Dateinamen der Ausgabedateien
+@translationof Output file names
+
+@funindex \bookOutputSuffix
+@funindex \bookOutputName
+
+LilyPond stellt die Möglichkeit zur Verfügung zu kontrollieren, welche
+Dateinamen für welche Back-ends benutzt werden sollen, wenn die Ausgabedateien
+erstellt werden.
+
+Im vorhergehenden Abschnitt wurde gezeigt, wir LilyPond gleichnamige
+Ausgabedateien verhindert, wenn mehrere Ausgabedateien aus derselben
+Eingabedatei erstellt werden.  Es gibt auch die Möglichkeit, eigene
+Suffixe für jeden @code{\book}-Abschnitt zu definieren, sodass man etwa
+Dateinamen wie @file{eightminiatures-Romanze.pdf}, @file{eightminiatures-Menuetto.pdf}
+und @file{eightminiatures-Nocturne.pdf} produzieren kann, indem man
+eine @code{\bookOutputSuffix}-Angabe in jede @code{\book}-Umgebung
+einfügt.
+
+@example
+\book @{
+  \bookOutputSuffix "Romanze"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Menuetto"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Nocturne"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+Man kann auch einen anderen Dateinamen für die Ausgabedatei einer
+@code{\book}-Umgebung erstellen, indem man @code{\bookOutputName}-Angabe
+macht:
+
+@example
+\book @{
+  \bookOutputName "Romanze"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Menuetto"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Nocturne"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+Die obige Datei produziert folgene Ausgabedateien:
+
+@itemize
+@item
+@file{Romanze.pdf},
+@item
+@file{Menuetto.pdf} and
+@item
+@file{Nocturne.pdf}.
+@end itemize
 @node Die Dateistruktur
 @subsection Die Dateistruktur
 @translationof File structure
@@ -242,7 +379,7 @@ Eine @code{.ly}-Datei kann eine beliebige Anzahl an Ausdrücken
 auf der obersten Ebene beinhalten, wobei ein Ausdruck der obersten
 Ebene einer der folgenden sein kann:
 
-@itemize @bullet
+@itemize
 @item
 Eine Ausgabedefinition, wie @code{\paper}, @code{\midi} und
 @code{\layout}.  Derartige Definitionen auf oberster Ebene verändern

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 64feeff58e5ce3397de87188a08ac99f7ef8e37b
+    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -130,6 +130,12 @@ schönen Notenbild erfreuen!
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-verse-and-refrain.ly}
+
+
+@appendixsubsec Hymnen
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{hymn-template.ly}
 
 
 @node Orchestervorlage

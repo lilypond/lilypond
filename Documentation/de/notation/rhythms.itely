@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1724,6 +1724,10 @@ c16 c8
 sollte die automatische Bebalkung mit @code{\autoBeamOff} ausgeschaltet
 werden und die Balken manuell notiert werden.}
 
+@warning{Wenn @code{@bs{}partcombine} mit @code{@bs{}autoBeamOff} benutzt
+wird, können ungewünschte Resultate auftreten.  Siehe die Schnipsel unten
+für mehr Information.}
+
 Balkenmuster, die sich von den automatisch erstellen unterscheiden,
 können erstellt werden, siehe @ref{Einstellung von automatischen Balken}.
 
@@ -1748,6 +1752,13 @@ können erstellt werden, siehe @ref{Einstellung von automatischen Balken}.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
+
+@cindex \partcombine and \autoBeamOff
+@cindex \autoBeamOff and \partcombine
+
+
+@lilypondfile [verbatim, lilyquote, ragged-right, texidoc, doctitle]
+{partcombine-and-autobeamoff.ly}
 
 @seealso
 Notationsreferenz:

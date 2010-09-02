@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -319,11 +319,24 @@ d2\> d\>
 c1\!
 @end lilypond
 
-Unsichtbare Pausen werden benötigt, um mehrere Zeichen einer
-Note zuzuweisen.
+Eine Crescendo-Klammer, die mit @code{\!} beendet wird, endet an der rechten
+Seite der Note, welcher @code{\!} zugeordnet ist.  In dem Fall, dass es durch
+den Beginn eines anderen @notation{crescendo}- oder @notation{decrescendo}-Zeichens
+beendet wird, endet es in der Mitt der Note, welche das nächste @code{\<}
+oder @code{\>} angehängt hat.  Die nächste Klammer beginnt dann am rechten
+Rand der selben Note anstatt dem normalerweise linken Rand, wenn die
+vorherige Klammer mit @code{\!} beendet worden wäre.
+
+@lilypond[verbatim,quote,relative=2]
+c1\< | c4 a c\< a | c4 a c\! a\< | c4 a c a\!
+@end lilypond
 
 @cindex mehre Dynamikzeichen an einer Note
 @cindex Dynamik, mehrere Zeichen an einer Note
+
+Leere Pausenzeichen werden benötigt, um mehrere Zeichen für eine Note
+zu notieren.  Das ist insbesondere nützlich, wenn man @notation{crescendo}
+und @notation{decrescendo} zu der selben Note hinzufügen will:
 
 @lilypond[verbatim,quote,relative=2]
 c4\< c\! d\> e\!
@@ -335,8 +348,9 @@ c4\< c\! d\> e\!
 @funindex \espressivo
 @funindex espressivo
 
-In manchen Situationen kann auch der @code{\espressivo}-Befehl 
-geeignet sein, ein An- und Abschwellen einer Note anzuzeigen.
+Der @code{\espressivo}-Befehl kann eingesetzt werden, um crescendo
+und decrescendo für die selbe Note anzuzeigen.  Dieser Befehl ist
+jedoch als Artikulation, nicht als Dynamikzeichen implementiert.
 
 @lilypond[verbatim,quote,relative=2]
 c2 b4 a
