@@ -32,14 +32,13 @@
 			  " and share it!")) }
 	   }
        }
-}
-%{
 
+  texidoc="
 This is the Mozart 3 for horn.  It's from an Edition Breitkopf EB
 2563, edited by Henri Kling. Henri Kling (1842-1918) was a horn
 virtuoso that taught in Geneva. 
-
-%}
+"
+}
 
 \version "2.12.0"
 

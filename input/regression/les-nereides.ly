@@ -7,6 +7,8 @@
     enteredby = "JCN"
     piece = "Allegretto scherzando"
     copyright = "public domain"
+
+    texidoc="Highly tweaked example of lilypond output"
 }
 
 %{
