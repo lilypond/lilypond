@@ -10,8 +10,8 @@
 
 @c \version "2.12.0"
 
-@node Vorschläge, wie LilyPond-Eingabe-Dateien geschrieben werden sollen
-@section Vorschläge, wie LilyPond-Eingabe-Dateien geschrieben werden sollen
+@node Vorschläge zum Schreiben von LilyPond-Eingabe-Dateien
+@chapter Vorschläge zum Schreiben von LilyPond-Eingabe-Dateien
 @translationof Suggestions for writing LilyPond input files
 
 Jetzt sind Sie so weit, größere Stücke mit LilyPond zu schreiben -- 
@@ -51,7 +51,7 @@ strukturiert werden, damit sie einfacher aktualisierbar sind.
 
 
 @node Allgemeine Vorschläge
-@subsection Allgemeine Vorschläge
+@section Allgemeine Vorschläge
 @translationof General suggestions
 
 Hier einige Vorschläge, wie Sie Probleme vermeiden oder lösen können:
@@ -111,7 +111,7 @@ und
 
 
 @node Das Kopieren von bereits vorhandener Musik
-@subsection Das Kopieren von bereits vorhandener Musik
+@section Das Kopieren von bereits vorhandener Musik
 @translationof Typesetting existing music
 
 Wenn Sie Musik aus einer fertigen Partitur kopieren (z. B. die 
@@ -161,7 +161,7 @@ eine B-Trompete oder @code{aes} für eine As-Klarinette usw.
 
 
 @node Große Projekte
-@subsection Große Projekte
+@section Große Projekte
 @translationof Large projects
 
 Besonders wenn Sie an größeren Projekten arbeiten, ist es 
@@ -209,7 +209,7 @@ g4\fdannp c'8. e16
 
 
 @node Fehlersuche
-@subsection Fehlersuche
+@section Fehlersuche
 @translationof Troubleshooting
 
 Früher oder später werden Sie in die Lage kommen, 
@@ -272,7 +272,7 @@ Eine andere nützliche Technik zur Problemlösung ist es,
 
 
 @node Make und Makefiles
-@subsection Make und Makefiles
+@section Make und Makefiles
 @translationof Make and Makefiles
 
 @cindex Makefile

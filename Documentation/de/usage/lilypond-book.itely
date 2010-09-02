@@ -58,7 +58,7 @@ angewendet werden.
 * lilypond-book aufrufen::
 * Dateiendungen::
 * lilypond-book-Vorlagen::
-* Alternative Methoden, Text und Musik zu kombinieren::
+* Alternative Methoden Text und Musik zu kombinieren::
 @end menu
 
 @node Ein musikwissenschaftlicher Text als Beispiel
@@ -1189,8 +1189,8 @@ lilypond-book.
 @end verbatim
 
 
-@node Alternative Methoden, Text und Musik zu kombinieren
-@section Alternative Methoden, Text mit Musik zu kombinieren
+@node Alternative Methoden Text und Musik zu kombinieren
+@section Alternative Methoden Text und Musik zu kombinieren
 @translationof Alternate methods of mixing text and music
 
 Andere Methoden, Text und Noten miteinander zu kombinieren (ohne

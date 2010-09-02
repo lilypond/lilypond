@@ -198,7 +198,7 @@ zu näheren Fragen.  Derartige Editoren finden sich unter @rweb{Leichteres Editi
 
 
 @node Von anderen Formaten konvertieren
-@chapter Von anderen Formaten konvertieren
+@section Von anderen Formaten konvertieren
 @translationof Converting from other formats
 
 LilyPond kann auch Musik aus diversen anderen Formaten importieren.
@@ -230,7 +230,7 @@ Selbstverständlich sind Patches von Ihnen sehr willkommen!
 @end menu
 
 @node midi2ly aufrufen
-@section @command{midi2ly} aufrufen
+@subsection @command{midi2ly} aufrufen
 @translationof Invoking midi2ly
 
 @cindex MIDI
@@ -325,7 +325,7 @@ hinzufügen.
 
 
 @node muscxml2ly aufrufen
-@section @command{muscxml2ly} aufrufen
+@subsection @command{muscxml2ly} aufrufen
 @translationof Invoking musicxml2ly
 
 @cindex MusicXML
@@ -399,7 +399,7 @@ Dies ist die Standardeinstellung für Dateien mit der Erweiterung
 
 
 @node abc2ly aufrufen
-@section @command{abc2ly} aufrufen
+@subsection @command{abc2ly} aufrufen
 @translationof Invoking abc2ly
 
 @warning{Dieses Programm ist nicht unterstützt und kann aus kommenden
@@ -483,7 +483,7 @@ ABC synchronisiert den Liedtext am Anfang jeder Zeile mit den Noten,
 
 
 @node etf2ly aufrufen
-@section @command{etf2ly} aufrufen
+@subsection @command{etf2ly} aufrufen
 @translationof Invoking etf2ly
 
 @warning{Dieses Programm ist nicht unterstützt und kann in kommenden

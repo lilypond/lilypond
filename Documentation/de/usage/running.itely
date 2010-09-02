@@ -719,7 +719,7 @@ der Fehler einmal verstanden ist, kann er einfach behoben werden.
 * Offensichtlicher Fehler in ../ly/init.ly::
 * Fehlermeldung Ungebundene Variable %::
 * Fehlermeldung FT_Get_Glyph_Name::
-* Warnung, dass staff affinities nur absteigen sollten::
+* Warnung über absteigende staff affinities::
 @end menu
 
 @node Noten laufen aus der Seite heraus
@@ -861,8 +861,8 @@ Datei ein Zeichen enthält, das nicht zu ASCII gehört und die Datei
 nicht in UTF-8-Kodierung gespeichert wurd.  Sie auch @ruser{Zeichenkodierung}.
 
 
-@node Warnung, dass staff affinities nur absteigen sollten
-@unnumberedsubsec Warnung, dass staff affinities nur absteigen sollten
+@node Warnung über absteigende staff affinities
+@unnumberedsubsec Warnung über absteigende staff affinities
 @translationof Warning staff affinities should only decrease
 
 Diese Warnung erscheint, wenn keine Notensysteme in der Ausgabe vorhanden
