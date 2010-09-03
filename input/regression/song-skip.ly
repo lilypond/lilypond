@@ -1,5 +1,9 @@
 \version "2.12.0"
-
+\header {
+  texidoc="Festival song synthesis output supports
+skips.
+"
+}
 \include "festival.ly"
 
 \festival #"song-skip.xml" { \tempo 4 = 100 }

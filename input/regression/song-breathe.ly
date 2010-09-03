@@ -1,5 +1,9 @@
 \version "2.12.0"
-
+\header {
+  texidoc="Festival song synthesis output supports
+breath marks.
+"
+}
 \include "festival.ly"
 
 \festival #"song-breathe.xml" { \tempo 4 = 100 }

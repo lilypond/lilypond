@@ -1,5 +1,9 @@
 \version "2.12.0"
-
+\header {
+  texidoc="Festival song synthesis output supports
+changing tempo in the middle of a piece.
+"
+}
 \include "festival.ly"
 
 \festival #"song-tempo.xml" { \tempo 4=90 }
