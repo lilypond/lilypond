@@ -9,6 +9,17 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading LilyPond 2.13.32 released!  @emph{Sep 3, 2010}
+
+We are happy to announce the release of LilyPond 2.13.32.  This
+release contains the usual number of bugfixes.  However, a number
+of critical issues still remain, so this release is intended for
+developers only.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond Report #20.  @emph{Sep 2, 2010}
 
 The @emph{LilyPond Report} is back, with its two
@@ -20,43 +31,6 @@ the bug report of the report!
 Come
 @uref{http://news.lilynet.net/The-LilyPond-Report-20, read
 LilyPond Report 20} now; comments and contributions are
-warmly encouraged!
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.13.31 released!  @emph{Aug 24, 2010}
-
-We are happy to announce the release of LilyPond 2.13.31.  This
-release contains the usual number of bugfixes.  However, a number
-of critical issues still remain, so this release is intended for
-developers only.
-
-@newsEnd
-
-@newsItem
-@subsubheading LilyPond 2.13.30 released!  @emph{Aug 13, 2010}
-
-We are happy to announce the release of LilyPond 2.13.30.  This
-release contains the usual number of bugfixes.  However, a number
-of critical issues still remain, so this release is intended for
-developers only.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond Report #19.  @emph{Aug 9, 2010}
-
-The @emph{LilyPond Report} is back, with its two
-@qq{grumpy-and-fluffy} editors! This issue contains some
-conference news, along with the regular release news, snippet of
-the report, news from the frog pond, and the bug report of the
-report!
-
-Come
-@uref{http://news.lilynet.net/The-LilyPond-Report-19, read
-LilyPond Report 19} now; comments and contributions are
 warmly encouraged!
 @newsEnd
 
