@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 9ccf7f0f5e52e074f3b7852416ad5b78718395c8
+    Translation of GIT committish: 4c48ef850dd6cc09e2240c83e21710758a8a595a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,8 +11,8 @@
 
 @c Translators: Jean-Charles Malahieude
 
-@node Notation éditoriale
-@section Notation éditoriale
+@node Annotations éditoriales
+@section Annotations éditoriales
 @translationof Editorial annotations
 
 @lilypondfile[quote]{editorial-headword.ly}
@@ -21,8 +21,8 @@ Ce chapitre traite de la manière de modifier l'apparence des notes dans
 un but pédagogique ou d'analyse.
 
 @menu
-* Dans la portée::            
-* Hors de la portée::           
+* Dans la portée::
+* Hors de la portée::
 @end menu
 
 
@@ -34,12 +34,12 @@ Nous allons voir ici comment mettre en exergue certains éléments à
 l'intérieur même de la portée.
 
 @menu
-* Indication de la taille de fonte musicale::  
-* Doigtés::      
-* Dictée à trous::                
-* Coloration d'objets::            
-* Parenthèses::                 
-* Hampes::                       
+* Indication de la taille de fonte musicale::
+* Doigtés::
+* Dictée à trous::
+* Coloration d'objets::
+* Parenthèses::
+* Hampes::
 @end menu
 
 @node Indication de la taille de fonte musicale
@@ -119,12 +119,11 @@ c4.-> d8---3
 @funindex font-interface
 @funindex font-size
 
-Pour changer la taille des symboles musicaux (police Feta), LilyPond met
-à l'échelle la fonte dont la taille est la plus proche de la taille
-voulue -- cf. @ref{Définition de la taille de portée}.  La taille
+Pour changer la taille des caractères, LilyPond met à l'échelle la fonte
+dont la taille est la plus proche de la taille voulue.  La taille
 standard (pour laquelle @w{@code{font-size = #0}}) dépend de la hauteur
-de la portée.  À une portée de 20 points correspond une police de 10 
-points. 
+de la portée.  À une portée de 20@tie{}points correspond une police de
+10@tie{}points.
 
 La propriété @code{font-size} ne peut intervenir que pour les objets
 qui utilisent des polices, autrement dit ceux qui disposent de
@@ -143,7 +142,7 @@ l'interface de rendu @code{font-interface}.
 
 @seealso
 Morceaux choisis :
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 Référence des propriétés internes :
 @rinternals{font-interface}.
@@ -159,7 +158,7 @@ Référence des propriétés internes :
 @funindex \finger
 @funindex finger
 
-Les doigtés peuvent être indiqués comme suit :
+Les doigtés peuvent être indiqués comme suit@tie{}:
 @var{note}-@var{chiffre_du_doigt}
 
 @lilypond[verbatim,quote,relative=2]
@@ -217,7 +216,7 @@ Manuel de notation :
 @ref{Direction et positionnement}
 
 Morceaux choisis :
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 Référence des propriétés internes :
 @rinternals{FingeringEvent},
@@ -281,7 +280,7 @@ Manuel de notation :
 @ref{Masquage de portées}.
 
 Morceaux choisis :
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 Référence des propriétés internes :
 @rinternals{Note_spacing_engraver},
@@ -308,7 +307,7 @@ Référence des propriétés internes :
 @funindex x11-color
 
 Des objets peuvent être colorisés individuellement.  Une listes des
-noms des couleurs disponibles se trouvent à l'annexe 
+noms des couleurs disponibles se trouvent à l'annexe
 @ref{Liste des couleurs}.
 
 @lilypond[verbatim,quote,relative=2]
@@ -326,7 +325,7 @@ prend en argument une expression symbolique de la forme @var{'TaraTata}
 ou bien une chaîne de caractères comme @var{"TaraTata"}.  La première
 formulation est à la fois plus rapide à écrire et aussi plus efficace.
 Néanmoins, la deuxième forme permet d'accéder aux noms composés des
-couleurs de X11. 
+couleurs de X11.
 
 Lorsque la fonction @code{x11-color} ne trouve pas le paramètre fourni,
 elle revient à la couleur par défaut, le noir.  Le problème ressort de
@@ -383,7 +382,7 @@ Manuel de notation :
 @ref{La commande d'affinage (@emph{tweak})}.
 
 Morceaux choisis :
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 
 @cindex x11, couleur
@@ -404,8 +403,8 @@ présentation multimedia, d'utiliser des couleurs de base @code{#blue},
 
 
 Vous ne pouvez pas coloriser des notes à l'intérieur d'un accord avec
-@code{\override}.  Si besoin est, utilisez @code{\tweak}.  
-Pour plus de détails, consultez 
+@code{\override}.  Si besoin est, utilisez @code{\tweak}.
+Pour plus de détails, consultez
 @ref{La commande d'affinage (@emph{tweak})}.
 
 
@@ -444,7 +443,7 @@ c2 \parenthesize r
 
 @seealso
 Morceaux choisis :
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 Référence des propriétés internes :
 @rinternals{Parenthesis_engraver},
@@ -483,7 +482,7 @@ Dès qu'une note est rencontrée, un objet @code{Stem} se crée
 automatiquement.  Pour les rondes et les silences, ils sont aussi
 créés, mais en mode invisible.
 
-La direction des hampes peut être définie manuellement -- voir 
+La direction des hampes peut être définie manuellement -- voir
 @ref{Direction et positionnement} à ce sujet.
 
 
@@ -505,7 +504,7 @@ Manuel de notation :
 @ref{Direction et positionnement}.
 
 Morceaux choisis :
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 Référence des propriétés internes :
 @rinternals{Stem_engraver},
@@ -521,9 +520,9 @@ Nous allons nous intéresser ici à souligner des éléments inscrits dans
 la portée par des éléments qui lui seront externes.
 
 @menu
-* Info-bulle::                
-* Quadrillage temporel::                  
-* Crochets d'analyse::           
+* Info-bulle::
+* Quadrillage temporel::
+* Crochets d'analyse::
 @end menu
 
 @node Info-bulle
@@ -545,8 +544,8 @@ la portée par des éléments qui lui seront externes.
 @funindex balloonLengthOff
 
 Vous pouvez marquer et nommer des éléments de notation à l'aide de
-bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la 
-notation. 
+bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la
+notation.
 
 En voici un exemple :
 @c KEEP LY
@@ -564,12 +563,14 @@ En voici un exemple :
 
 Vous disposez de deux fonctions musicales, @code{balloonGrobText} et
 @code{balloonText}.  @code{balloonGrobText} prend en argument
-l'objet graphique à agrémenter, alors que @code{balloonText} s'utilise
-comme une simple articulation.  Les autres arguments sont le décalage
-et le texte de la bulle.
+l'objet graphique à agrémenter et s'utilise comme
+@code{\once@tie{}\override}.  @code{balloonText}, quant à lui, s'utilise
+comme une simple articulation et fonctionne comme @code{\tweak} pour
+attacher du texte à l'une des notes d'un accord.  Les autres arguments
+sont le décalage et le texte de la bulle.
 
 Les info-bulles ont une influence sur les espacements, que l'on peut
-gérer ainsi :
+gérer ainsi@tie{}:
 
 @c KEEP LY
 @lilypond[verbatim,quote,relative=2]
@@ -594,7 +595,7 @@ gérer ainsi :
 
 @seealso
 Morceaux choisis :
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 Référence des propriétés internes :
 @rinternals{Balloon_engraver},
@@ -617,9 +618,9 @@ Vous pouvez tracer des lignes entre les portées, synchronisées avec
 les notes.
 
 LilyPond a recours à deux graveurs distincts afin d'afficher le
-cadrillage :  le @code{Grid_point_engraver} se charge de 
+cadrillage@tie{}:  le @code{Grid_point_engraver} se charge de
 déterminer l'envergure du crochet, alors que le
-@code{Grid_line_span_engraver} se consacrera au tracé des lignes.  
+@code{Grid_line_span_engraver} se consacrera au tracé des lignes.
 Les lignes sont par défaut centrées horizontalement sous les notes et
 alignées sur la gauche des têtes.  La propriété @code{gridInterval}
 spécifie quant à elle l'espace de temps entre chaque ligne.
@@ -663,7 +664,7 @@ spécifie quant à elle l'espace de temps entre chaque ligne.
 
 @seealso
 Morceaux choisis :
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 Référence des propriétés internes :
 @rinternals{Grid_line_span_engraver},
@@ -690,7 +691,7 @@ Référence des propriétés internes :
 @funindex stopGroup
 
 On utilise des crochets en analyse musicale, pour indiquer la
-structure d'une pièce. 
+structure d'une pièce.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -705,7 +706,7 @@ structure d'une pièce.
 }
 @end lilypond
 
-Les crochets d'analyses sont susceptibles d'être imbriqués :
+Les crochets d'analyses sont susceptibles d'être imbriqués@tie{}:
 
 @lilypond[verbatim,quote]
 \layout {
@@ -725,7 +726,7 @@ Les crochets d'analyses sont susceptibles d'être imbriqués :
 
 @seealso
 Morceaux choisis :
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 Référence des propriétés internes :
 @rinternals{Horizontal_bracket_engraver},
