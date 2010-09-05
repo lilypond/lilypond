@@ -47,7 +47,7 @@ d'informations, voir @ref{Codage du texte}.}
 
 @menu
 * Commentaires textuels::
-* Indication textuelle avec ligne d'extension::
+* Indication textuelle avec extension::
 * Indications textuelles::
 * Texte indépendant::
 @end menu
@@ -218,7 +218,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Text,Texte},
-@rlsrnnamed{Expressive marks,Signes d'interprétation}.
+@rlsrnamed{Expressive marks,Signes d'interprétation}.
 
 Référence des propriétés internes :
 @rinternals{TextSpanner},

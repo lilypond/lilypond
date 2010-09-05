@@ -335,11 +335,11 @@ c1\< | c4 a c\mf a | c1\< | c4 a c\ffff a
 @cindex nuances successives sur une note tenue
 @cindex tenue et nuances successives
 
-@Les indications de nuancez sont attachées aux notes@tie{}; aussi si l'on
-veut faire se succéder plusieurs nuances pendant une note tenue, il
+Les indications de nuance sont attachées aux notes@tie{}; aussi, lorsque
+l'on veut faire se succéder plusieurs nuances pendant une note tenue, il
 faudra avoir recours à des silences invisibles@tie{}:
 
-lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c4\< c\! d\> e\!
 << f1 { s4 s4\< s4\> s4\! } >>
 @end lilypond
