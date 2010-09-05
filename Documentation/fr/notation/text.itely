@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
+    Translation of GIT committish: a06cb0b0d9593ba110e001f2b0f44b8bef084693
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,18 +18,18 @@
 
 @lilypondfile[quote]{text-headword.ly}
 
-Nous allons voir ici comment insérer du texte dans une partition, ainsi que
-différentes manières de le mettre en forme.
+Nous allons voir ici comment insérer du texte dans une partition, ainsi
+que différentes manières de le mettre en forme.
 
 @noindent
 Certains éléments de texte ne sont pas abordés ici mais dans des
-chapitres qui leur sont dédiés.  C'est le cas de la 
+chapitres qui leur sont dédiés.  C'est le cas de la
 @ref{Musique vocale} et des @ref{Titres et entêtes}.
 
 @menu
-* Ajout de texte::                
-* Mise en forme du texte::             
-* Fontes::                       
+* Ajout de texte::
+* Mise en forme du texte::
+* Fontes::
 @end menu
 
 @node Ajout de texte
@@ -40,16 +40,16 @@ Cette partie constitue une introduction aux différentes manières
 d'ajouter du texte à une partition.
 
 @cindex Texte, autres langues
-@warning{Pour écrire des accents et autres caractères spéciaux, il suffit de
-les insérer directement dans votre fichier LilyPond.  Ce fichier devra
-être sauvegardé avec l'encodage UTF-8.  Pour plus d'informations, voir
-@ref{Codage du texte}.}
+@warning{Pour écrire des accents et autres caractères spéciaux, il
+suffit de les insérer directement dans votre fichier LilyPond.  Ce
+fichier devra être sauvegardé avec l'encodage UTF-8.  Pour plus
+d'informations, voir @ref{Codage du texte}.}
 
 @menu
-* Commentaires textuels::                
-* Indication textuelle avec ligne d'extension::      
-* Indications textuelles::               
-* Texte indépendant::                  
+* Commentaires textuels::
+* Indication textuelle avec ligne d'extension::
+* Indications textuelles::
+* Texte indépendant::
 @end menu
 
 @node Commentaires textuels
@@ -62,7 +62,7 @@ les insérer directement dans votre fichier LilyPond.  Ce fichier devra
 
 Vous pouvez ajouter à une partition des indications sous forme texuelle,
 comme dans l'exemple suivant.  Ces indications se placeront manuellement
-au-dessus ou au-dessous de la portée selon la syntaxe utilisée -- cf. 
+au-dessus ou au-dessous de la portée selon la syntaxe utilisée -- cf.
 @ref{Direction et positionnement}.
 
 @lilypond[quote,verbatim,relative=2]
@@ -71,7 +71,7 @@ a8^"pizz." g f e a4-"scherz." f
 
 Cette syntaxe est en fait un raccourci.  Des constructions plus
 élaborées d'annotation peuvent être obtenues en ayant recours à un bloc
-@code{\markup} et selon les préceptes énoncés dans 
+@code{\markup} et selon les préceptes énoncés dans
 @ref{Mise en forme du texte}.
 
 @lilypond[quote,verbatim,relative=2]
@@ -91,7 +91,8 @@ a4_"scherzando" f
 @end lilypond
 
 En plus d'indications textuelles, les notes peuvent se voir attacher des
-articulations, comme indiqué au chapitre @ref{Articulations et ornements}.
+articulations, comme indiqué au chapitre
+@ref{Articulations et ornements}.
 
 Pour de plus amples détails sur la manière de combiner indications
 textuelles et articulations, reportez-vous au chapitre
@@ -117,7 +118,7 @@ Manuel de notation :
 @ref{Direction et positionnement}.
 
 Morceaux choisis :
-@rlsr{Text}.
+@rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
@@ -133,8 +134,8 @@ Référence des propriétés internes :
 
 S'assurer que tous les éléments textuels et les paroles respectent
 les marges du document requiert des calculs relativement lourds@tie{};
-c'est la raison pour laquelle LilyPond, par défaut, ne s'en préoccupe pas.
-Vous pouvez cependant l'y forcer en définissant
+c'est la raison pour laquelle LilyPond, par défaut, ne s'en préoccupe
+pas.  Vous pouvez cependant l'y forcer en définissant
 
 @example
 \override Score.PaperColumn #'keep-inside-line = ##t
@@ -149,7 +150,7 @@ Vous pouvez cependant l'y forcer en définissant
 @cindex prolongation de texte
 @cindex extenseur
 
-Certaines indications d'interprétation comme @i{rallentando}, 
+Certaines indications d'interprétation comme @i{rallentando},
 @i{accelerando} ou @i{trilles}, s'inscrivent textuellement et se
 prolongent sur plusieurs notes à l'aide d'une ligne pleine, pointillée
 ou ondulée.  Ces objets, que l'on appelle @qq{extenseurs}, se dessinent
@@ -180,8 +181,9 @@ e,\stopTextSpan
 @end lilypond
 
 Le style de ligne se définit lui aussi comme une propriété de l'objet.
-Les détails concernant la syntaxe à utiliser sont expliqués au chapitre 
-@ref{Lignes}.
+Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
+@ref{Styles de ligne}.  Les extenseurs sont rattachés au contexte
+@code{Dynamics} -- cf. @rinternals{Dynamics}.
 
 
 @funindex \textSpannerUp
@@ -201,16 +203,26 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 @knownissues
 LilyPond ne peut traiter qu'un seul extenseur à la fois par voix.
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{dynamics-text-spanner-postfix.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{dynamics-custom-text-spanner-postfix.ly}
+
 @seealso
 Manuel de notation :
-@ref{Lignes},
+@ref{Styles de ligne},
 @ref{Nuances}.
 
 Morceaux choisis :
-@rlsr{Text}.
+@rlsrnamed{Text,Texte},
+@rlsrnnamed{Expressive marks,Signes d'interprétation}.
 
 Référence des propriétés internes :
-@rinternals{TextSpanner}.
+@rinternals{TextSpanner},
+@rinternals{Dynamics}.
 
 
 @node Indications textuelles
@@ -229,7 +241,7 @@ Référence des propriétés internes :
 @funindex markup
 
 La commande @code{\mark} est tout d'abord conçue pour les
-@ref{Indications de repère}.  
+@ref{Indications de repère}.
 
 @c \mark needs to be placed on a separate line (it's not
 @c attached to an object like \markup is). -vv
@@ -303,7 +315,7 @@ Manuel de notation :
 @ref{La fonte Feta}.
 
 Morceaux choisis:
-@rlsr{Text}.
+@rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
 @rinternals{MarkEvent},
@@ -327,7 +339,7 @@ Référence des propriétés internes :
 
 Un bloc @code{\markup} peut exister en lui-même, indépendamment de tout
 bloc @code{\score}, et venir en préambule par exemple -- voir le
-chapitre @ref{Structure de fichier} à ce propos.  
+chapitre @ref{Structure de fichier} à ce propos.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -355,7 +367,7 @@ au chapitre @ref{Plusieurs partitions dans un même ouvrage}.
 
 Les blocs de textes peuvent s'étendre sur plusieurs pages, ce qui permet
 de générer des ouvrages complets uniquement grâce à LilyPond.  Cette
-fonctionnalité ainsi que la syntaxe appropriée est abordée plus en
+fonctionnalité, ainsi que la syntaxe appropriée, est abordée plus en
 détail au chapitre @ref{Texte avec sauts de page}.
 
 
@@ -384,7 +396,7 @@ Manuel de notation :
 @ref{Texte avec sauts de page}.
 
 Morceaux choisis :
-@rlsr{Text}.
+@rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
@@ -399,11 +411,11 @@ forme du texte à l'aide de la syntaxe propre au mode @code{\markup}.
 
 @menu
 * Introduction au formatage de texte::
-* Sélection de la fonte et de la taille::    
+* Sélection de la fonte et de la taille::
 * Alignement du texte::
 * Éléments graphiques dans du texte formaté::
-* Notation musicale dans du texte formaté::             
-* Texte avec sauts de page::          
+* Notation musicale dans du texte formaté::
+* Texte avec sauts de page::
 @end menu
 
 @node Introduction au formatage de texte
@@ -500,7 +512,7 @@ allegro = \markup { \bold \large Allegro }
 @noindent
 Pour une liste des différentes commandes spécifiques au mode
 @code{\markup}, consultez l'annexe @ref{Text markup commands} (en
-anglais). 
+anglais).
 
 
 @seealso
@@ -508,7 +520,7 @@ Manuel de notation :
 @ref{Text markup commands}.
 
 Morceaux choisis :
-@rlsr{Text}.
+@rlsrnamed{Text,Texte}.
 
 Fichiers d'initialisation :
 @file{scm/@/markup@/.scm}.
@@ -561,7 +573,7 @@ f1 d2 r
 @funindex \magnify
 @funindex magnify
 
-La taille des caractères se modifie de différentes manières :
+La taille des caractères se modifie de différentes manières@tie{}:
 @itemize
 @item
 à partir de l'une des tailles standard prédéfinies,
@@ -640,13 +652,13 @@ entre les premier et deuxième mots.
 Certaines familles de police spécifiques aux nombres ou aux nuances par
 exemple, ne disposent pas de tous les caractères, comme nous l'avons vu
 dans les chapitres @ref{Personnalisation des indications de nuance} et
-@ref{Indications de reprise manuelles}. 
+@ref{Indications de reprise manuelles}.
 
 @c \concat is actually documented in Align (it is not
 @c a font-switching command). But we need it here. -vv
 
 Lorsqu'un changement survient au milieu d'un mot, il se peut qu'un
-espacement supplémentaire apparaîsse.  Il suffit en pareil cas de
+espacement supplémentaire apparaisse.  Il suffit en pareil cas de
 concaténer les différents éléments@tie{}:
 
 @lilypond[quote,verbatim]
@@ -665,9 +677,10 @@ concaténer les différents éléments@tie{}:
 @end lilypond
 
 Une liste des différentes commandes permettant de changer de fonte ou
-d'utiliser des fontes personnalisées est disponible à l'annexe @ref{Font}.
+d'utiliser des fontes personnalisées est disponible à l'annexe
+@ref{Font}.
 
-Pour savoir comment personnaliser des fontes, reportez-vous au chapitre 
+Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 @ref{Fontes}.
 
 @funindex \teeny
@@ -708,7 +721,7 @@ Manuel de notation :
 @ref{Fontes}.
 
 Morceaux choisis :
-@rlsr{Text}.
+@rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
@@ -728,8 +741,8 @@ Fichiers d'initialisation :
 
 Cette partie traite de la manière de positionner du texte en mode
 @emph{markup}.  On déplace l'intégralité d'un objet @emph{markup} en
-utilisant la syntaxe décrite au chapitre 
-@rlearning{Déplacement d'objets}. 
+utilisant la syntaxe décrite au chapitre
+@rlearning{Déplacement d'objets}.
 
 @c Padding commands should be mentioned on this page, but
 @c most of these require \box to be more clearly illustrated. -vv
@@ -780,7 +793,7 @@ Certains objets possèdent leurs propres procédures d'alignement, qui
 annuleront toute spécification d'alignement que vous pourriez affecter
 à un argument de type @emph{markup} que vous leur auriez fourni.  La
 solution consiste alors à déplacer l'intégralité de ces objets
-@emph{markup}, comme indiqué par exemple au chapitre 
+@emph{markup}, comme indiqué par exemple au chapitre
 @ref{Indications textuelles}.
 
 @cindex texte, alignement vertical
@@ -831,7 +844,8 @@ a'4 a g2 a
 
 Certaines commandes permettent de régler l'alignement des objets
 textuels en mode @emph{markup}, tant au niveau horizontal que vertical.
-Tout objet soumis à ces commandes doit être précédé d'un point d'ancrage.
+Tout objet soumis à ces commandes doit être précédé d'un point
+d'ancrage.
 
 @lilypond[quote,verbatim,relative=1]
 d2^\markup {
@@ -891,7 +905,7 @@ sa propre ligne, tantôt alignée à gauche, tantôt centrée.
 @funindex fill-line
 
 Pareillement, une liste d'éléments ou d'expressions sera répartie sur
-une ligne entière, voire même centrée sur toute la page s'il n'y a qu'un 
+une ligne entière, voire même centrée sur toute la page s'il n'y a qu'un
 seul élément.  De telles expressions peuvent à leur tour contenir du
 texte multi-ligne ou une autre expression @emph{markup}.
 
@@ -925,7 +939,7 @@ texte multi-ligne ou une autre expression @emph{markup}.
 @funindex justify
 
 Les indications textuelles, lorsqu'elles sont relativement longues,
-peuvent se répartir sur plusieurs lignes en fonction de la largeur de 
+peuvent se répartir sur plusieurs lignes en fonction de la largeur de
 ligne.  Le texte sera alors soit aligné à gauche, soit justifié, comme
 le montre l'exemple suivant@tie{}:
 
@@ -972,7 +986,7 @@ Manuel de notation :
 @ref{Indications textuelles}.
 
 Morceaux choisis :
-@rlsr{Text}.
+@rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
@@ -1013,7 +1027,8 @@ graphiques à votre partition.
 @funindex hbracket
 
 Certaines commandes de @emph{markup} permettent d'ornementer des
-éléments textuels avec des graphismes, à l'instar de l'exemple suivant@tie{}:
+éléments textuels avec des graphismes, à l'instar de l'exemple
+suivant@tie{}:
 
 @lilypond[quote,verbatim]
 \markup \fill-line {
@@ -1153,10 +1168,10 @@ de graphisme.
 @seealso
 Manuel de notation :
 @ref{Graphic},
-@ref{Notation éditoriale}.
+@ref{Annotations éditoriales}.
 
 Morceaux choisis :
-@rlsr{Text}.
+@rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
@@ -1259,15 +1274,15 @@ c^\markup {
 @c The accordion diagram is actually taken from a snippet.
 
 @noindent
-La documentation sur ces diagrammes se trouvent à l'annexe 
+La documentation sur ces diagrammes se trouvent à l'annexe
 @ref{Instrument Specific Markup}.
 
 @cindex partition incluse dans un markup
 @cindex markup, inclusion de partition
 
 Rien ne s'oppose à ce qu'une étiquette ne comporte une partition.  Il
-suffit que l'expression en question contienne un bloc @code{\score} et
-un bloc @code{\layout}.
+suffit que l'expression en question contienne un bloc @code{\score}
+incluant un bloc @code{\layout}.
 
 @lilypond[quote,verbatim,ragged-right]
 \relative {
@@ -1292,7 +1307,7 @@ Manuel de notation :
 @ref{Tout savoir sur les fontes}.
 
 Morceaux choisis :
-@rlsr{Text}.
+@rlsrnamed{Text,Texte}.
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
@@ -1359,7 +1374,7 @@ Manuel de notation :
 @ref{Text markup list commands},
 
 Morceaux choisis :
-@rlsr{Text}.
+@rlsrnamed{Text,Texte}.
 
 @c en attendant redécoupage et création de "extending" -jcm
 @c Extension :
@@ -1446,7 +1461,7 @@ grande).  Vous serez souvent amené à procéder par tatonnement pour
 arriver au résultat optimal.  Par ailleurs, @code{fetaBraces} ne
 comporte que des accolades ouvrantes.  Pour obtenir une accolade
 fermante, il suffit d'appliquer une rotation au glyphe sélectionné,
-comme indiqué au chapitre @ref{Rotation des objets}. 
+comme indiqué au chapitre @ref{Rotation des objets}.
 
 Vous disposez de trois familles de fontes textuelles@tie{}: @emph{roman}
 pour la police sérif ou avec empattement -- fixée par défaut à New
@@ -1458,7 +1473,7 @@ Chaque famille dispose en principe de différents styles et niveau de
 gras.  L'exemple qui suit illustre la manière de changer la famille, le
 style, la graisse ou la taille.  Notez bien que l'argument fourni à
 @code{font-size} correspond à la correction à apporter à la taille par
-défaut. 
+défaut.
 
 @lilypond[quote,verbatim,relative=2]
 \override Score.RehearsalMark #'font-family = #'typewriter
@@ -1537,7 +1552,7 @@ a1_\markup {
 @funindex show-available-fonts
 
 Pour obtenir la liste de toutes les polices disponibles sur votre
-machine, lancez 
+machine, lancez
 
 @example
 lilypond -dshow-available-fonts toto
@@ -1552,7 +1567,7 @@ Manuel de notation :
 @ref{Choix des fontes par défaut}.
 
 Morceaux choisis :
-@rlsr{Text}.
+@rlsrnamed{Text,Texte}.
 
 @c A source file gets never installed...
 @c Fichiers d'initialisation :
@@ -1567,7 +1582,7 @@ Vous pouvez tout à fait préférer un autre jeu de polices par défaut que
 celui de LilyPond.  Il vous faudra alors spécifier les différentes
 familles, en respectant l'ordre @emph{roman}, @emph{sans empattement} et
 @emph{monospace}, comme dans l'exemple suivant.  Pour plus
-d'explications sur les fontes, relisez @ref{Tout savoir sur les fontes}. 
+d'explications sur les fontes, relisez @ref{Tout savoir sur les fontes}.
 
 @cindex polices, choix par défaut
 @cindex fontes, choix par défaut
