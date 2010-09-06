@@ -1170,7 +1170,7 @@
 			,(ly:make-simple-closure
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(self-alignment-X . ,LEFT)
-	(break-align-symbols . (key-signature time-signature))
+	(break-align-symbols . (time-signature))
 	(non-break-align-symbols . (multi-measure-rest-interface))
 	(non-musical . #t)
 	(meta . ((class . Item)

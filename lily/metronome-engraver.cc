@@ -47,6 +47,7 @@ protected:
   SCM last_text_;
 
   DECLARE_ACKNOWLEDGER (break_aligned);
+  DECLARE_ACKNOWLEDGER (break_alignment);
   DECLARE_ACKNOWLEDGER (grob);
 
 protected:
@@ -92,11 +93,20 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
   else if (text_
 	   && !support_
 	   && safe_is_member (g->get_property ("break-align-symbol"),
-			      text_->get_property ("break-align-symbols")))
-    {
-      support_ = g;
-      text_->set_parent (g, X_AXIS);
-    }
+			      text_->get_property ("break-align-symbols"))
+	   && Item::break_visible (g))
+    support_ = g;
+}
+
+void
+Metronome_mark_engraver::acknowledge_break_alignment (Grob_info info)
+{
+  Grob *g = info.grob ();
+
+  if (text_
+      && support_
+      && dynamic_cast<Item *> (g))
+    text_->set_parent (g, X_AXIS);
 }
 
 void
@@ -176,6 +186,7 @@ Metronome_mark_engraver::process_music ()
 
 
 ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_aligned);
+ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_alignment);
 ADD_ACKNOWLEDGER (Metronome_mark_engraver, grob);
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
