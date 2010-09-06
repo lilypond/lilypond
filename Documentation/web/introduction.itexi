@@ -829,6 +829,25 @@ last year, i was raving to several friends of mine about its
 potential.}
 @divEnd
 
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, Dr. Mika Kuuskankare}, researcher at the @uref{http://siba.fi, Sibelius Academy Finland}, composer and author of Expressive Notation Package (ENP)
+
+@qq{I have the deepest respect towards LilyPond and towards its creators
+and maintainers as I know from personal experience how difficult this
+kind of software can be.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://camerondh.blogspot.com, David Cameron}, Musician, professional typesetter and long time SCORE user
+
+@qq{My heartfelt thanks to everyone who contributes to this project.  I
+was a power SCORE user for big typesetting houses way back in the '90s,
+but I feel LilyPond finally makes it possible for me to get exactly what
+I want on the page, especially when it isn't "standard" practice.}
+@divEnd
+
 @divEnd
 
 @divClass{column-center-bottom}
