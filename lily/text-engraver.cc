@@ -19,12 +19,10 @@
 
 #include "directional-element-interface.hh"
 #include "engraver.hh"
-#include "rhythmic-head.hh"
+#include "item.hh"
 #include "side-position-interface.hh"
-#include "stem.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
-#include "item.hh"
 
 #include "translator.icc"
 
@@ -34,12 +32,11 @@
 class Text_engraver : public Engraver
 {
   vector<Stream_event *> evs_;
-  vector<Grob*> texts_;
 public:
   TRANSLATOR_DECLARATIONS (Text_engraver);
 protected:
   void stop_translation_timestep ();
-  void process_acknowledged ();
+  void process_music ();
 
   DECLARE_TRANSLATOR_LISTENER (text_script);
 };
@@ -52,10 +49,8 @@ Text_engraver::listen_text_script (Stream_event *ev)
 }
 
 void
-Text_engraver::process_acknowledged ()
+Text_engraver::process_music ()
 {
-  if (texts_.size ())
-    return;
   for (vsize i = 0; i < evs_.size (); i++)
     {
       Stream_event *r = evs_[i];
@@ -78,14 +73,12 @@ Text_engraver::process_acknowledged ()
       SCM mark = r->get_property ("text");
 
       text->set_property ("text", mark);
-      texts_.push_back (text);
     }
 }
 
 void
 Text_engraver::stop_translation_timestep ()
 {
-  texts_.clear ();
   evs_.clear ();
 }
 

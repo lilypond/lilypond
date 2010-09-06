@@ -29,8 +29,7 @@ class Note_name_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Note_name_engraver);
 
-  vector<Stream_event*> events_;
-  vector<Item*> texts_;
+  vector<Stream_event *> events_;
   DECLARE_TRANSLATOR_LISTENER (note);
   void process_music ();
   void stop_translation_timestep ();
@@ -62,14 +61,12 @@ Note_name_engraver::process_music ()
     {
       Item *t = make_item ("NoteName", events_[0]->self_scm ());
       t->set_property ("text", ly_string2scm (s));
-      texts_.push_back (t);
     }
 }
 
 void
 Note_name_engraver::stop_translation_timestep ()
 {
-  texts_.clear ();
   events_.clear ();
 }
 

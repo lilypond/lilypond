@@ -12,7 +12,6 @@
 class Control_track_performer : public Performer
 {
   Audio_staff *control_track_;
-  vector<Audio_item*> texts_;
 
   void add_text (Audio_text::Type, string);
   TRANSLATOR_DECLARATIONS (Control_track_performer);
@@ -46,7 +45,6 @@ Control_track_performer::add_text (Audio_text::Type text_type, string str)
 {
   Audio_item *text = new Audio_text (text_type, str);
   control_track_->add_audio_item (text);
-  texts_.push_back (text);
 
   announce_element (Audio_element_info (text, 0));
   

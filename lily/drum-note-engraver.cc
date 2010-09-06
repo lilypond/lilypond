@@ -35,9 +35,8 @@ using namespace std;
 
 class Drum_notes_engraver : public Engraver
 {
-  vector<Item*> notes_;
-  vector<Item*> scripts_;
-  vector<Stream_event*> events_;
+  vector<Item *> scripts_;
+  vector<Stream_event *> events_;
 
 public:
   TRANSLATOR_DECLARATIONS (Drum_notes_engraver);
@@ -102,8 +101,6 @@ Drum_notes_engraver::process_music ()
 	      scripts_.push_back (p);
 	    }
 	}
-
-      notes_.push_back (note);
     }
 }
 
@@ -137,15 +134,12 @@ Drum_notes_engraver::acknowledge_note_column (Grob_info inf)
 void
 Drum_notes_engraver::stop_translation_timestep ()
 {
-  notes_.clear ();
   scripts_.clear ();
-
   events_.clear ();
 }
 
 ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
 ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
-
 
 ADD_TRANSLATOR (Drum_notes_engraver,
 		/* doc */
@@ -161,4 +155,3 @@ ADD_TRANSLATOR (Drum_notes_engraver,
 		/* write */
 		""
 		);
-
