@@ -1721,65 +1721,199 @@ which arise are broadly similar, and are covered in this section.
 Typesetting Gregorian chant in various styles of ancient notation
 is described in @ref{Ancient notation}.
 
-Modern chant settings use modern notation with varying numbers of
-elements taken from ancient notation.  Some of the elements and
-methods to consider are these:
-
-@itemize
-
-@item
-Chants often use quarter notes without stems to indicate the pitch,
-with the rhythm being taken from the spoken rhythm of the words.  To
-remove the stem set the @code{transparent} property of the
-@code{Stem} grob to @code{#t}.  See
-@rlearning{Visibility and color of objects} and
-@ref{Visibility of objects}.  An alternative is set the
-@code{length} property to @code{0}.
-
-@item
-Chants usually omit the bar lines or use shortened or dotted bar
-lines to indicate pauses in the music.  To omit bar lines
-completely use @code{\cadenzaOn} or remove the @code{Bar_engraver}.
-See @ref{Unmetered music} and @ref{Modifying context plug-ins}.
-
-@item
-To use modified bar lines see the @emph{Bar lines} section in
-@ref{Bars}.  Alternatively, the correct Gregorian chant notation
-for pauses or rests in the music are described in @emph{Divisiones}
-in @ref{Typesetting Gregorian chant}.
-
-@item
-Chants usually omit the time signature and often omit the clef too.
-To omit these remove the @code{Time_signature_engraver} and
-@code{Clef_engraver} from the @code{Staff} context respectively.
-For details, see @ref{Modifying context plug-ins}.
-
-@end itemize
-
 @seealso
-Learning Manual:
-@rlearning{Visibility and color of objects}.
-
 Notation reference:
-@ref{Ancient notation},
-@ref{Visibility of objects},
-@ref{Bars},
-@ref{Unmetered music},
-@ref{Modifying context plug-ins},
-@ref{Typesetting Gregorian chant}.
+@ref{Ancient notation}.
+
 
 @node Setting a chant
 @unnumberedsubsubsec Setting a chant
 
-Chants in the Anglican tradition are usually either single, with 7
-bars of music, or double, with two lots of 7 bars.  Each group of 7
-bars is divided into two halves, corresponding to the two halves of
-each verse, usually separated by a double bar line.  Only whole and
-half notes are used.  The 1st bar in each half always contains a
-single chord of whole notes.  This is the @qq{reciting note}.
+Modern chant settings use modern notation with varying numbers of
+elements taken from ancient notation.  Some of the elements and
+methods to consider are shown here.
 
-Some approaches to setting a chant are shown in the following
-snippets.
+Chants often use quarter notes without stems to indicate the pitch,
+with the rhythm being taken from the spoken rhythm of the words.
+
+@lilypond[verbatim,quote]
+stemOff = { \override Staff.Stem #'transparent = ##t }
+
+\relative c' {
+  \stemOff
+  a'4 b c2 |
+}
+
+@end lilypond
+
+Chants often omit the bar lines or use shortened or dotted bar
+lines to indicate pauses in the music.  To omit all bar lines from
+all staves remove the bar line engraver completely:
+
+@lilypond[verbatim,quote]
+\score {
+  \new StaffGroup <<
+    \new Staff {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove Bar_engraver
+    }
+  }
+}
+@end lilypond
+
+Bar lines can also be removed on a staff-by-staff basis:
+
+@lilypond[verbatim, quote]
+\score {
+  \new ChoirStaff <<
+    \new Staff
+    \with { \remove Bar_engraver } {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+  >>
+}
+@end lilypond
+
+To remove bar lines from just a section of music treat it as a
+cadenza.  If the section is long you may need to insert dummy
+barlines with @code{\bar ""} to show where the line should break.
+
+@lilypond[verbatim,quote,relative=2]
+a4 b c2 |
+\cadenzaOn
+a4 b c2
+a4 b c2
+\bar ""
+a4 b c2
+a4 b c2
+\cadenzaOff
+a4 b c2 |
+a4 b c2 |
+@end lilypond
+
+Rests or pauses in chants can be indicated by modified bar lines.
+
+@lilypond[verbatim, quote,relative=2]
+a4
+\cadenzaOn
+b c2
+a4 b c2
+\bar "'"
+a4 b c2
+a4 b c2
+\bar ":"
+a4 b c2
+\bar "dashed"
+a4 b c2
+\bar "||"
+@end lilypond
+
+Alternatively, the notation used in Gregorian chant for pauses or
+rests is sometimes used even though the rest of the notation is
+modern.  This uses a modified @code{\breathe} mark:
+
+@lilypond[verbatim,quote]
+divisioMinima = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-minima
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+divisioMaior = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maior
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+divisioMaxima = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maxima
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+finalis = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::finalis
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+
+\score {
+  \relative c'' {
+    g2 a4 g
+    \divisioMinima
+    g2 a4 g
+    \divisioMaior
+    g2 a4 g
+    \divisioMaxima
+    g2 a4 g
+    \finalis
+  }
+  \layout {
+    \context {
+      \Staff
+      \remove Bar_engraver
+    }
+  }
+}
+@end lilypond
+
+Chants usually omit the time signature and often omit the clef too.
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    \relative c'' {
+      a4 b c2 |
+      a4 b c2 |
+      a4 b c2 |
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      \remove Bar_engraver
+      \remove Time_signature_engraver
+      \remove Clef_engraver
+    }
+  }
+}
+@end lilypond
+
+Chants for psalms in the Anglican tradition are usually either
+@emph{single}, with 7 bars of music, or @emph{double}, with two lots
+of 7 bars.  Each group of 7 bars is divided into two halves,
+corresponding to the two halves of each verse, usually separated by
+a double bar line.  Only whole and half notes are used.  The 1st bar
+in each half always contains a single chord of whole notes.  This is
+the @qq{reciting note}.
+
+Some approaches to setting such a chant are shown in the first of
+the following snippets, and another example can be seen in the
+templates, see @qq{Psalms} in @rlearning{Vocal ensembles}.
 
 @snippets
 
@@ -1788,14 +1922,24 @@ snippets.
 
 Canticles and other liturgical texts may be set more freely, and
 may use notational elements from ancient music.  Often the words
-are shown underneath and aligned with the notes.
+are shown underneath and aligned with the notes.  If so, the notes
+are spaced in accordance with the syllables rather than the notes'
+durations.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @seealso
+Learning Manual:
+@rlearning{Visibility and color of objects}.
+
 Notation Reference:
-@ref{Typesetting Gregorian chant}.
+@ref{Ancient notation},
+@ref{Bar lines},
+@ref{Modifying context plug-ins},
+@ref{Typesetting Gregorian chant},
+@ref{Unmetered music},
+@ref{Visibility of objects}.
 
 
 @node Pointing a psalm
