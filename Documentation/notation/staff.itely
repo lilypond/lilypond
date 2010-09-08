@@ -35,6 +35,7 @@ grouping staves.
 * Instantiating new staves::
 * Grouping staves::
 * Nested staff groups::
+* Separating systems::
 @end menu
 
 
@@ -331,6 +332,55 @@ Internals Reference:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
+
+@node Separating systems
+@unnumberedsubsubsec Separating systems
+
+@cindex system separator mark
+
+If the number of systems per page changes from page to page it is
+customary to separate the systems by placing a system separator mark
+between them.  By default the system separator is blank, but can be
+turned on with a @code{\paper} option.
+
+@c \book is required here to display the system separator
+@c ragged-right is required as there are two systems
+@lilypond[verbatim,quote,ragged-right]
+\book {
+  \score {
+    \new StaffGroup <<
+      \new Staff {
+        \relative c'' {
+          c4 c c c
+          \break
+          c4 c c c
+        }
+      }
+      \new Staff {
+        \relative c'' {
+          c4 c c c
+          \break
+          c4 c c c
+        }
+      }
+    >>
+  }
+  \paper {
+    system-separator-markup = \slashSeparator
+    % following commands are needed only to format this documentation
+    paper-width = 100\mm
+    paper-height = 100\mm
+    tagline = ##f
+  }
+}
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{Page formatting}.
+
+Snippets:
+@rlsr{Staff notation}.
 
 
 @node Modifying single staves
