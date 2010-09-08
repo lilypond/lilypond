@@ -654,7 +654,13 @@ automatically when an output definition (a @code{\score} or
   )
 
   keepAliveInterfaces = #'(
-    rhythmic-grob-interface
+    bass-figure-interface
+    chord-name-interface
+    cluster-beacon-interface
+    fret-diagram-interface
+    lyric-syllable-interface
+    note-head-interface
+    tab-note-head-interface
     lyric-interface
     percent-repeat-item-interface
     percent-repeat-interface
