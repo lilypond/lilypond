@@ -151,30 +151,6 @@ but instead use
 \override Score . LyricText #'font-shape = #'italic
 @end example
 
-@funindex _
-@cindex spaces, in lyrics
-@cindex quotes, in lyrics
-@cindex ties, in lyrics
-
-In order to assign more than one syllable to a single note, you can
-surround them with quotes or use a @code{_} character, to get spaces
-between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\time 3/4
-\relative c' { c2 e4 g2 e4 }
-\addlyrics { gran- de_a- mi- go }
-\addlyrics { pu- "ro y ho-" nes- to }
-\addlyrics { pu- ro~y~ho- nes- to }
-@end lilypond
-
-@noindent
-The lyric tie is implemented with the Unicode character
-@code{U+203F}; therefore a font that includes this glyph
-(such as DejaVuLGC) has to be used.  More explanations about
-text and non-text fonts can be found in @ref{Fonts}.
-
-
 To enter lyrics with characters from non-English languages, or with
 accented and special characters (such as the heart symbol or slanted quotes),
 simply insert the characters directly into the input file and save
@@ -413,17 +389,18 @@ Internals Reference:
 @node Multiple syllables to one note
 @unnumberedsubsubsec Multiple syllables to one note
 
-
 @funindex _
+@cindex spaces, in lyrics
+@cindex quotes, in lyrics
 @cindex ties, in lyrics
 
-In order to assign more than one syllable to a single note, you can
-surround them with quotes or use a @code{_} character, to get spaces
-between syllables, or use tilde  symbol (@code{~}) to get a lyric
-tie.@footnote{The lyric ties is implemented with the Unicode character
-U+203F, so be
+In order to assign more than one syllable to a single note with
+spaces between the syllables, you can surround the phrase with
+quotes or use a @code{_} character.  Alternatively, you can use
+code the tilde  symbol (@code{~}) to get a lyric tie.  The lyric
+tie is implemented with the Unicode character U+203F, so be
 sure to have a font (like DejaVuLGC) installed that includes this
-glyph.}
+glyph.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \time 3/4
