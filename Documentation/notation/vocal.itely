@@ -1449,48 +1449,17 @@ an aid to adjusting the vertical spacing.  This and other
 possibilities for fitting the music onto fewer pages are described
 in @ref{Fitting music onto fewer pages}.
 
-@end itemize
-
-@c TODO change the following to a ref when system-separator-markup
-@c is well-documented elsewhere
-
+@item
 If the number of systems per page changes from one to two it is
 customary to indicate this with a system separator mark between
-the two systems.  By default the system separator is blank.  In
-this example the @code{system-separator-markup} in the @code{\paper}
-block is changed:
+the two systems.  See @ref{Separating systems}.
 
-@lilypond[verbatim,quote]
-#(set-default-paper-size "a6" 'landscape)
-\book {
-  \score {
-    \new ChoirStaff <<
-      \new Staff {
-        \relative c'' {
-          \repeat unfold 8 { c4 }
-          \break
-          \repeat unfold 8 { c4 }
-        }
-      }
-      \new Staff {
-        \relative c'' {
-          \repeat unfold 8 { g4 }
-          \break
-          \repeat unfold 8 { g4 }
-        }
-      }
-    >>
-  }
-  \paper {
-    indent = 0\mm
-    system-separator-markup = \slashSeparator
-  }
-}
-@end lilypond
-
-@noindent
+@item
 For details of other page formatting properties, see
 @ref{Page formatting}.
+
+@end itemize
+
 
 Dynamic markings by default are placed below the staff, but in
 choral music they are usually placed above the staff in order to
@@ -1535,6 +1504,7 @@ Notation Reference:
 @ref{Fitting music onto fewer pages},
 @ref{Page formatting},
 @ref{Score layout},
+See @ref{Separating systems},
 @ref{Setting the staff size},
 @ref{Using an extra voice for breaks},
 @ref{Vertical spacing}.
@@ -1627,6 +1597,15 @@ depending on the orchestration used.  Many instruments are
 transposing instruments, see @ref{Instrument transpositions}.
 
 @item
+If the number of systems per page changes from page to page it is
+customary to separate the systems with a system separator mark.
+See @ref{Separating systems}.
+
+@item
+For details of other page formatting properties, see
+@ref{Page formatting}.
+
+@item
 Character names are usually shown to the left of the staff when the
 staff is dedicated to that character alone.  The instrument name can
 be used for this purpose.  See @ref{Instrument names}.
@@ -1667,7 +1646,9 @@ Notation Manual:
 @ref{Instrument names},
 @ref{Instrument transpositions},
 @ref{Nested staff groups},
+@ref{Page formatting},
 @ref{Selecting font and font size},
+@ref{Separating systems},
 @ref{Text},
 @ref{Transpose},
 @ref{Writing parts},
