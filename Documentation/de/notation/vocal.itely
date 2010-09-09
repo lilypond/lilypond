@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -24,8 +24,13 @@ die Silben von Gesangstext an den Noten ausgerichtet werden.
 * Übliche Notation für Vokalmusik::
 * Eingabe von Text::
 * Text an einer Melodie ausrichten::
-* Besonderheiten der Gesangtextnotation::
+* Techniken für die Gesangtextnotation::
 * Strophen::
+* Lieder::
+* Chormusik::
+* Oper und Musical::
+* Psalmengesänge und Hymnen::
+* Alte Vokalmusik::
 @end menu
 
 
@@ -33,28 +38,24 @@ die Silben von Gesangstext an den Noten ausgerichtet werden.
 @subsection Übliche Notation für Vokalmusik
 @translationof Common notation for vocal music
 
-Dieser Abschnitt behandelt allgemeine Fragen der Notation
-von Vokalmusik und einige spezifische Vokalmusikstile.
+Dieser Abschnitt und Abschnitt 2.1.2 bis 2.1.5 behandeln allgemeine Fragen
+der Notation von Vokalmusik.  Spezifische Vokalmusikstile werden ab Abschnitt
+2.1.6 beschrieben.
 
 @menu
-* Referenz für Vokalmusik und Gesangstext::
-* Oper::
-* Liederhefte::
-* Gesprochene Musik::
-* Hymnen::
-* Alte Vokalmusik::
+* Referenz für Vokalmusik::
 @end menu
 
 
-@node Referenz für Vokalmusik und Gesangstext
-@unnumberedsubsubsec Referenz für Vokalmusik und Gesangstext
-@translationof References for vocal music and lyrics
+@node Referenz für Vokalmusik
+@unnumberedsubsubsec Referenz für Vokalmusik
+@translationof Common references for vocal music
 
-Viele Probleme können auftreten, wenn man Vokalmusik setzt.  Einige
-davon werden in diesem Abschnitt behandelt, während weitere sich
-in anderen Abschnitten befinden:
+Dieser Abschnitt, wo man Lösungen zu den Problemen finden kann, die bei
+der Notation von Gesang mit Text auftreten können.
 
 @itemize
+
 @item
 Die meisten Vokalmusikstile benutzen Text für den Gesangstext.  Eine
 Einleitung hierzu findet sich in @rlearning{Einfache Lieder setzen}.
@@ -66,99 +67,23 @@ Vokalmusik braucht oft die Benutzung von Textbeschriftung (dem
 @ref{Textbeschriftung (Einleitung)}.
 
 @item
-Liedblätter können erstellt werden, indem eine Gesangsstimme mit Akkorden
-kombiniert wird, Einzelheiten finden sich in @ref{Notation von Akkorden}.
-
-@item
 @q{Ambitus} können zu Beginn der Stimmen hinzugefügt werden, dies findet
 sich erklärt in
 @ref{Tonumfang}.
 
-@item
-Gesangsstimmen können auch mit traditionellen Schlüsseln gesetzt werden,
-siehe @ref{Notenschlüssel}.
-
-@item
-Alte Vokalmusik ist unterstützt, Einzelheiten hierzu in @ref{Notation von alter Musik}.
 @end itemize
 
-
-@node Oper
-@unnumberedsubsubsec Oper
-@translationof Opera
-
-@c TODO
-TBC
-
-
-
-@node Liederhefte
-@unnumberedsubsubsec Liederhefte
-@translationof Song books
-
-@c TODO
-TBC
-
-@snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
-
-@seealso
-Notationsreferenz:
-@ref{Notation von Akkorden}.
-
-
-@node Gesprochene Musik
-@unnumberedsubsubsec Gesprochene Musik
-@translationof Spoken music
-
-@cindex Parlato
-@cindex Sprechgesang
-
-Effekte wie @qq{Parlato} bzw. @qq{Sprechgesang} erfordern, dass die Noten
-ohne Tonhöhe, aber mit dem notierten Rhythmus gesprochen werden.  Solche
-Noten werden mit einem Kreuz als Notenkopf notiert, siehe hierzu
-@ref{Besondere Notenköpfe}.
-
-@c TODO add "marking-notes-on-spoken-parts" snippet -vv
-@c add "showing the rhythm of a melody" snip
-@c add "one staff-line notation"
-@c add "improvisation" ref
-@c add "lyrics independents of notes" ref
-
-
-@node Hymnen
-@unnumberedsubsubsec Hymnen
-@translationof Chants
-
-@c TODO Add text from lsr and -user
-TBC
-
-
-@node Alte Vokalmusik
-@unnumberedsubsubsec Alte Vokalmusik
-@translationof Ancient vocal music
-
-@c TODO
-TBC
-
-@c Add "Printing both the ancient and the modern clef in vocal music" snippet,
-@c and "Transcription of Ancient music with incipit" snippet. -vv
-
-@seealso
-Notationsreferenz:
-@ref{Notation von alter Musik}.
 
 
 @node Eingabe von Text
 @subsection Eingabe von Text
 @translationof Entering lyrics
 
-@c TODO add one sentence here. -vv
+Gesangstext wird im Gesangstextmodus (engl. lyricmode) gesetzt.  Dieser
+Abschnitt erklärt, wie das geschieht.
 
 @menu
 * Was ist Gesangtext::
-* Einfache Lieder setzen::
 * Mit Gesangtexten und Bezeichnern arbeiten::
 @end menu
 
@@ -221,7 +146,6 @@ nicht funktioniert.
 
 @funindex \property in \lyricmode
 
-@noindent
 Auch ein Punkt, der auf eine Silbe folgt, wird in die Silbe inkorporiert. 
 Infolgedessen müssen auch um Eigenschaftsbezeichnungen Leerzeichen gesetzt
 werden.  Ein Befehl heißt also @emph{nicht}:
@@ -320,46 +244,6 @@ Referenz der Interna:
 @rinternals{LyricText},
 @rinternals{LyricSpace}.
 
-@c TODO: this title has to be changed (possible confusion with LM) -vv
-@node Einfache Lieder setzen
-@unnumberedsubsubsec Einfache Lieder setzen
-@translationof Setting simple songs
-
-@funindex \addlyrics
-
-Am einfachsten kann Gesangstext zu Noten mit dem Befehl
-
-@example
-\addlyrics @{ @var{Gesangstext} @}
-@end example
-
-@noindent
-hinzugefügt werden.  Hier ein Beispiel:
-
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative c' { c2 e4 g2. }
-\addlyrics { play the game }
-@end lilypond
-
-Weitere Strophen können hinzugefügt werden, indem
-weitere @code{\addlyrics}-Abschnitte erstellt werden:
-
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative c' { c2 e4 g2. }
-\addlyrics { play the game }
-\addlyrics { speel het spel }
-\addlyrics { joue le jeu }
-@end lilypond
-
-Der Befehl @code{\addlyrics} funktioniert nicht in polyphonen 
-Situationen.  In diesem Fall sollte man @code{\lyricsto} in Kombination
-mit @code{\lyricmode} benutzen, wie erklärt in
-@ref{Was ist Gesangtext}.
-
-@c TODO: one additional section may be needed here,
-@c such as "advanced lyric syntax" or whatever -vv
 
 
 @node Mit Gesangtexten und Bezeichnern arbeiten
@@ -409,6 +293,16 @@ und erst dann die entsprechenden Stimmen mit den dem Text zu kombinieren
 @emph{Gesangstext}
 @end example
 
+@noindent
+Die Endfassung würde dann etwa so aussehen:
+
+@example
+<<\new ChoirStaff << @emph{Noten hier aufbauen} >>
+ \lyricsto "soprano" @emph{usw}
+ \lyricsto "alto" @emph{usw}
+@emph{usw}
+>>
+@end example
 
 
 @ignore
@@ -554,6 +448,9 @@ Die zweite Strophe ist nicht richtig ausgerichtet, weil die Dauern der
 Silben nicht angegeben wurden.  Anstelle dessen könnte besser @code{\lyricsto}
 eingesetzt werden.
 
+@funindex addlyrics
+@funindex \addlyrics
+
 Der @code{\addlyrics}-Befehl ist eigentlich nur eine Abkürzung für eine
 etwas kompliziertere LilyPond-Struktur:
 
@@ -570,6 +467,29 @@ bedeutet das Gleiche wie
 \new Lyrics \lyricsto "bla" @{ Gesangstext @}
 @end example
 
+Hier ein Beispiel:
+
+@lilypond[ragged-right,verbatim,fragment,quote]
+\time 3/4
+\relative c' { c2 e4 g2. }
+\addlyrics { play the game }
+@end lilypond
+
+Weitere Strophen können mit weiteren @code{\addlyrics}-Abschnitten
+hinzugefügt werden:
+
+@lilypond[ragged-right,verbatim,fragment,quote]
+\time 3/4
+\relative c' { c2 e4 g2. }
+\addlyrics { play the game }
+\addlyrics { speel het spel }
+\addlyrics { joue le jeu }
+@end lilypond
+
+Der Befehl @code{\addlyrics} kann keine polyphonen Situationen bewältigen.
+In diesen Fällen sollen man @code{\lyricsto} und @code{\lyricmode} benutzen,
+siehe @ref{Was ist Gesangtext}.
+
 
 @node Manuelle Silbendauer
 @unnumberedsubsubsec Manuelle Silbendauer
@@ -581,8 +501,8 @@ notiert werden.  In diesem Fall werden die Silben wie Noten notiert
 die Dauer jeder Silbe muss angegeben werden.  Beispielsweise so:
 
 @example
-play2 the4 game2.
-sink2 or4 swim2.
+Mach2 doch4 mit2.
+wenn2 du4 kannst2.
 @end example
 
 Die Ausrichtung an einer Melodie kann mit der
@@ -735,16 +655,19 @@ gleichzeitig ausgeschaltet ist.  Siehe auch @ref{Einstellung von automatischen B
 @c   umm, yeah... so what?  -gp
 
 @cindex SATB
-@cindex choral score
+@cindex Chorpartitur
 
 Ein vollständiges Beispiel für einen SATB-Chorsatz findet
 sich in @rlearning{Vokalensemble}.
 
-
-@predefined
-@code{\melisma}, @code{\melismaEnd}
 @funindex \melismaEnd
 @funindex \melisma
+@funindex melismaEnd
+@funindex melisma
+
+@predefined
+@code{\melisma},
+@code{\melismaEnd}.
 @endpredefined
 
 @c seealso
@@ -826,9 +749,10 @@ Referenz der Interna:
 TBC
 
 
-@node Besonderheiten der Gesangtextnotation
-@subsection Besonderheiten der Gesangtextnotation
-@translationof Specific uses of lyrics
+
+@node Techniken für die Gesangtextnotation
+@subsection Techniken für die Gesangtextnotation
+@translationof Techniques specific to lyrics
 
 @c TODO This whole section is to be reorganized. -vv
 
@@ -841,7 +765,7 @@ können mit @code{\lyricsto} notiert werden.
 * Getrennte Texte::
 * Text unabhängig von den Noten::
 * Silben platzieren::
-* Gesangtext zwischen Systemen zentrieren::
+* Gesangtext zwischen Systemen platzieren::
 @end menu
 
 
@@ -1031,9 +955,9 @@ zusammenstößt, kann folgende Einstellung gesetzt werden:
 @end ignore
 
 
-@node Gesangtext zwischen Systemen zentrieren
-@unnumberedsubsubsec Gesangtext zwischen Systemen zentrieren
-@translationof Centering lyrics between staves
+@node Gesangtext zwischen Systemen platzieren
+@unnumberedsubsubsec Gesangtext zwischen Systemen platzieren
+@translationof Placement of lyrics between staves
 
 @c TODO Add text from -user
 TBC
@@ -1457,4 +1381,375 @@ Referenz der Interna:
 
 
 
+@node Lieder
+@subsection Lieder
+@translationof Songs
+
+@menu
+* Verweise für Lieder::
+* Liedblätter::
+@end menu
+
+@node Verweise für Lieder
+@unnumberedsubsubsec Verweise für Lieder
+@translationof References for songs
+
+@c TODO chords, setting simple songs (LM), stanzas
+TBC
+
+@node Liedblätter
+@unnumberedsubsubsec Liedblätter
+@translationof Lead sheets
+
+Liedblätter können erstellt werden, indem man Gesangstext mit
+Akkorden im Akkord-Modus kombiniert; die Syntax ist erklärt in
+@ref{Notation von Akkorden}.
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{simple-lead-sheet.ly}
+
+@seealso
+Notationsreferenz:
+@ref{Notation von Akkorden}.
+
+
+
+@node Chormusik
+@subsection Chormusik
+@translationof Choral
+
+@cindex Oratorium
+@cindex Gesangsstimmen
+@cindex Chornoten
+@cindex SATB
+
+Dieser Abschnitt zeigt Eigenheiten der Notation von Chormusik.
+
+@menu
+* Verweise für Chormusik::
+* Partiturbeispiele für Chormusik::
+@end menu
+
+@node Verweise für Chormusik
+@unnumberedsubsubsec Verweise für Chormusik
+@translationof References for choral
+
+Chormusik wird normalerweise auf zwei, drei oder vier Systemen
+innerhalb einer @code{ChoirStaff}-Gruppe notiert.  Begleitung wird
+darunter als @code{PianoStaff}-Klaviersystem gesetzt, oft auch in
+kleinerer Größe, wenn es sich um Übungshilfe für ein
+@emph{a capella}-Chorwerk handelt.  Die Noten jeder Stimme werden
+in einem @code{Voice}-Kontext notiert, welche entweder einzeln
+auf einem Notensytem notiert werden oder zu zweit auf dem gleichen
+System gesetzt werden.
+
+Gesangstext wird in @code{Lyrics}-Kontext gesetzt, entweer unter
+dem zugehörigen System oder ein Text über dem System, der andere
+darunter, wenn das System die Noten von zwei Stimmen enthält.
+
+Einige häufig anzutreffende Sachverhalte für Chormusik sind woanders
+behandelt:
+
+@itemize
+
+@item
+Eine Einleitung, um SATB-Chorpartituren zu erstellen, findet sich
+in @rlearning{Vierstimmige SATB-Partitur}.
+
+@item
+Einige Vorlagen, die sich für unterschiedliche Chormusik eignen,
+finden sich im Handbuch zum Lernen, siehe
+@rlearning{Vokalensemble}.
+
+@item
+Zu Information über @code{ChoirStaff} und @code{PianoStaff} siehe
+@ref{Systeme gruppieren}.
+
+@item
+Allgemeine Informationen, wie der Gesangstext (engl. lyrics) für
+Vokalmusik eingegeben wird, findet sich in den Abschnitten 2.1.2
+bis 2.1.5 in diesem Handbuch.  Alle Abschnitt sind wichtig für
+Vokalmusik.
+
+@item
+Notenköpfe mit besonderen Formen, wie von Sacred Harp und ähnlicher
+Notation benutzt, findet sich beschrieben in
+@ref{Notenköpfe mit besonderen Formen}.
+
+@end itemize
+
+@seealso
+Handbuch zum Lernen:
+@rlearning{Vierstimmige SATB-Partitur},
+@rlearning{Vokalensemble}.
+
+Notationsreferenz:
+@ref{Systeme gruppieren},
+@ref{Reihenfolge des Kontextlayouts},
+@ref{Notenköpfe mit besonderen Formen}.
+
+Referenz der Interna:
+@rinternals{ChoirStaff},
+@rinternals{Lyrics},
+@rinternals{PianoStaff}.
+
+@node Partiturbeispiele für Chormusik
+@unnumberedsubsubsec Partiturbeispiele für Chormusik
+@translationof Score layouts for choral
+
+Chormusik auf vier Systemen, mit oder ohne Klavierbegleitung,
+wird meistens mit zwei Gruppen pro Seite gesetzt.  Abhängig von
+der Seitengröße kann das erfordern, dass die Standardgröße der
+Notensysteme geändert wird.  Die folgenden Einstellungen sollten
+in Betracht gezogen werden:
+
+@itemize
+
+@item
+Die globale Systemgröße kann verändert werden, um die Größe aller
+Elemente einer Partitur zu ändern.  Siehe @ref{Die Notensystemgröße einstellen}.
+
+@item
+Die Abstände zwischen den Systemen, den Systemgruppen und den Gesangstexten
+können alle einzeln eingestellt werden.  Siehe @ref{Vertikale Abstände}.
+
+@item
+Die Einstellung @code{annotate-spacing = ##t} in der Layout-Umgebung zeigt
+die Dimensionen der vertikalen Layout-Variablen an.  Das kann helfen, um sie
+richtig einzustellen.  Zu Einzelheiten siehe
+@ref{Abstände anzeigen lassen}.
+
+@item
+Andere Möglichkeiten, die Musik auf weniger Seiten zu zwingen, finden
+sich in @ref{Abstände verändern}.
+
+@end itemize
+
+Wenn die Anzahl der Systemgruppen pro Seite von eins auf zwei
+wechselt, ist es üblich, dies mit einem Systemtrenner zwischen den
+beiden Systemgruppen darzustellen.  Normalerweise ist der Systemtrenner
+nicht definiert.  Er kann aktiviert werde mit:
+
+@example
+\paper @{
+  system-separator-markup = \slashSeparator
+@}
+@end example
+
+@noindent
+Zu Einzelheiten darüber und andere Eigenschaften der Seitenformatierung siehe
+@ref{Seitenformatierung}.
+
+Dynamikzeichen werden in den Grundeinstellungen unter das System notiert,
+aber in Chormusik werden sie oft über dem System gesetzt um nicht mit
+dem Gesangstext zu kollidieren.  Der vordefiniert Befehl @code{\dynamicUp}
+erledigt das für einen @code{Voice}-Kontext.  Um alle Dynamikzeichen
+in einer Partitur über den Systemen zu setzen, muss folgendes in die
+@code{\layout}-Umgebung in der @code{\score}-Umgebung gesetzt werden:
+
+@example
+\layout @{
+  \context @{
+    \Score
+    \override DynamicText #'direction = #UP
+    \override DynamicLineSpanner #'direction = #UP
+  @}
+@}
+@end example
+
+@predefined
+@code{\dynamicUp}.
+
+@seealso
+Notationsreferenz:
+@ref{Die Notensystemgröße einstellen},
+@ref{Vertikale Abstände},
+@ref{Abstände anzeigen lassen},
+@ref{Abstände verändern},
+@ref{Partiturlayout},
+@ref{Eine zusätzliche Stimme für Umbrüche benutzen},
+@ref{Seitenformatierung}.
+
+Referenz der Interna:
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
+
+
+
+@node Oper und Musical
+@subsection Oper und Musical
+@translationof Opera and stage musicals
+
+@menu
+* Verweise für Oper und Musical::
+* Gesprochene Musik::
+* Melodram::
+@end menu
+
+@node Verweise für Oper und Musical
+@unnumberedsubsubsec Verweise für Oper und Musical
+@translationof References for opera and stage musicals
+
+@c TODO Choral, cues, character names, French staves
+@c vocal/conductor scores
+@c add characters names snippet -vv
+
+TBC
+
+@node Gesprochene Musik
+@unnumberedsubsubsec Gesprochene Musik
+@translationof Spoken music
+
+@cindex Parlato
+@cindex Sprechgesang
+
+Effekte wie @qq{Parlato} bzw. @qq{Sprechgesang} erfordern, dass die Noten
+ohne Tonhöhe, aber mit dem notierten Rhythmus gesprochen werden.  Solche
+Noten werden mit einem Kreuz als Notenkopf notiert, siehe hierzu
+@ref{Besondere Notenköpfe}.
+
+
+@c TODO add "marking-notes-on-spoken-parts" snippet -vv
+@c add "showing the rhythm of a melody" snip
+@c add "one staff-line notation"
+@c add "improvisation" ref
+@c add "lyrics independents of notes" ref
+
+
+@node Melodram
+@unnumberedsubsubsec Melodram
+
+TBC
+
+
+@node Psalmengesänge und Hymnen
+@subsection Psalmengesänge und Hymnen
+@translationof Chants psalms and hymns
+
+@cindex chants
+@cindex psalms
+@cindex hymns
+@cindex religious music
+
+Noten und Text für Psalmengesänge, Hymnen und Kirchengesänge haben
+eine spezifische Form in jeder Kirche.  Auch wenn die Form sich
+unterscheidet, sind jedoch die typographischen Probleme sehr
+ähnlich und werden hier gesammelt behandelt.
+
+@menu
+* Verweise für Psalmen und Hymnen::
+* Kirchengesang notieren::
+* Einen Psalm notieren::
+* Unvollständige Takte in Hymnen::
+@end menu
+
+@node Verweise für Psalmen und Hymnen
+@unnumberedsubsubsec Verweise für Psalmen und Hymnen
+@translationof References for chants and psalms
+
+Wie der Gregorianische Choral in verschiedenen Alten Notationsstilen
+gesetzt wird, findet sich in @ref{Notation von alter Musik}.
+
+Moderne Kirchengesänge benutzen eine Notation mit einer wechselnden
+Anzahl von Notationselementen der Notation alter Musik.  Einige
+dieser Elemente und Methoden sind:
+
+@itemize
+
+@item
+Kirchengesänge werden oft mit Viertelnoten ohne Hälse notiert, um
+die Tonhöhen darzustellen, während der Rhythmus sich am Rhythmus
+der gesprochenen Worte orientiert.  Um die Hälse zu entfernen,
+kann die @code{transparent}-Eigenschaft des @code{Stem}-Grobs
+auf @code{#t} gesetzt werden.  Siehe
+@rlearning{Sichtbarkeit und Farbe von Objekten} und
+@ref{Sichtbarkeit von Objekten}.  Alternativ kann auch die
+@code{length} (Länge) der Hälse auf @code{0} gesetzt werden.
+
+@item
+Kirchengesänge verzichten üblicherweise auf die Taktstriche oder
+setzen gekürzte oder punktierte Taktstriche ein.  Um Taktstriche
+auszulassen, kann eine @qq{Kadenz} mit @code{\cadenzaOn} begonnen
+werden oder der @code{Bar_engraver} entfert werden.
+Siehe @ref{Musik ohne Metrum} und @ref{Umgebungs-Plugins verändern}.
+
+@item
+Für andere Taktstriche siehe den @emph{Taktstriche}-Abschnitt in
+@ref{Takte}.  Alternativ wird die echte Gregorianische Notation
+für den Choral mit Pausen und Atemzeichen erklärt in @emph{Divisiones}
+in @ref{Gregorianischen Choral setzen}.
+
+@item
+Im Choral wird oft die Taktangabe und teilweise auch der Schlüssel
+weggelassen.  Um sie zu entfernen, müssen @code{Time_signature_engraver}
+für die Taktangabe und @code{Clef_engraver} für den Schlüssel aus dem
+@code{Staff}-Kontext entfernt werden.  Zu Einzelheiten siehe
+@ref{Umgebungs-Plugins verändern}.
+
+@end itemize
+
+@seealso
+Handbuch zum Lernen:
+@rlearning{Sichtbarkeit und Farbe von Objekten}.
+
+Notationsreferenz:
+@ref{Notation von alter Musik},
+@ref{Sichtbarkeit von Objekten},
+@ref{Takte},
+@ref{Musik ohne Metrum},
+@ref{Umgebungs-Plugins verändern},
+@ref{Gregorianischen Choral setzen}.
+
+
+@node Kirchengesang notieren
+@unnumberedsubsubsec Kirchengesang notieren
+@translationof Setting a chant
+
+Einige Herangehensweisen, Kirchengesang zu notieren, finden sich in
+den folgenden Schnipseln:
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{chant-or-psalms-notation.ly}
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+
+
+@node Einen Psalm notieren
+@unnumberedsubsubsec Einen Psalm notieren
+@translationof Pointing a psalm
+
+TBC
+
+@node Unvollständige Takte in Hymnen
+@unnumberedsubsubsec Unvollständige Takte in Hymnen
+@translationof Partial measures in hymn tunes
+
+Hymnen beginnen und enden oft jede Zeile der Noten mit einem
+unvollständigen Takt, sodass jede Notenzeile exakt mit eine Textzeile
+übereinstimmt.  Dazu setzt man den @code{\partial}-Befehl zu
+Beginn der Musik ein und @code{\bar "|"} oder @code{\bar "||"},
+um die schließende Taktlinie am Ende der Zeile zu setzen.
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{hymn-template.ly}
+
+
+@node Alte Vokalmusik
+@subsection Alte Vokalmusik
+@translationof Ancient vocal music
+
+Alte Vokalmusik  ist unterstützt, wie erklärt in
+@ref{Notation von alter Musik}.
+
+@c TODO
+
+@c Add "Printing both the ancient and the modern clef in vocal music" snippet,
+@c and "Transcription of Ancient music with incipit" snippet. -vv
+
+@seealso
+Notationsreferenz:
+@ref{Notation von alter Musik}.
 
