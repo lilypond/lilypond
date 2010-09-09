@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
+    Translation of GIT committish: 13b20c0eb00e87fd6c1551965dd268f125a4caf1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -33,8 +33,12 @@ portée.
 @subsection Monophonie
 @translationof Single voice
 
+Nous allons voir ici comment gérer plusieurs notes simultanées dans un
+même voix.
+
 @menu
 * Notes en accords::
+* Répétition d'accords::
 * Expressions simultanées::
 * Clusters::
 @end menu
@@ -45,24 +49,54 @@ portée.
 
 @cindex accords
 @cindex chevrons
-@cindex hauteur relative et accords
 
 @funindex <
 @funindex >
 @funindex <...>
 
 Un accord est formé en mettant une série de hauteurs entre @code{<}
-et @code{>}.  Un accord peut être suivi d'une durée et d'indications
-d'articulation, comme une simple note.
+et @code{>}.  Un accord peut être suivi d'une durée comme une simple
+note.
 
-@lilypond[verbatim,quote,relative=1]
-<c e g>2 <c f a>4-> <e g c>-.
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
 @end lilypond
+
+Un accord peut être suivi d'une indication d'articulation comme une
+simple note.
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^| <g c e>16-.
+@end lilypond
+
+Certaines notes, au sein même d'un accord, peuvent être affectées d'une
+articulation ou d'un ornement@tie{}:
+
+@lilypond[verbatim,quote,relative=2]
+<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4 <a-+ c-->8. <g\fermata c e\turn>16
+@end lilypond
+
+Certains éléments de notation, tels que nuances, soufflets et liaisons,
+ne peuvent se rattacher qu'à l'accord et non aux notes qui le composent,
+sous peine de ne les voir s'imprimer.
+
+@lilypond[verbatim,quote,relative=2]
+<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+@end lilypond
+
+@cindex accord et mode relatif
+@cindex mode relatif et accord
 
 Les accords peuvent être saisis en mode relatif.  Dans un accord,
 l'octave de chaque hauteur saisie est fonction de la précédente, à
 l'exception de la première qui, elle, sera positionnée en fonction de la
-première hauteur mentionnée dans l'accord précédent.
+première hauteur mentionnée dans l'accord précédent ou de la note
+individuelle précédente.  Les autres notes au sein de l'accord se
+positionnent relativement à la précédente.
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+@end lilypond
 
 Pour plus d'information à propos des accords, voir
 @ref{Notation des accords}.
@@ -70,16 +104,65 @@ Pour plus d'information à propos des accords, voir
 
 @seealso
 Glossaire musical :
-@rglos{chord}.
+@rglosnamed{chord,accord}.
 
 Manuel d'initiation :
-@ref{Notes en accords}.
+@rlearning{Combinaison de notes en accords}.
 
 Manuel de notation :
 @ref{Notation des accords}.
+@ref{Articulations et ornements},
+@ref{Octaves relatives}.
 
 Morceaux choisis :
-@rlsr{Simultaneous notes}.
+@rlsrnamed{Simultaneous notes,Notes simultanées}.
+
+
+@node Répétition d'accords
+@unnumberedsubsubsec Répétition d'accords
+@translationof Chord repetition
+
+Dans le but de vous épargner de la saisie, LilyPond dispose d'un
+raccourci -- symbolisé par la lettre @code{q} -- qui a pour effet de
+répéter le dernier accord saisi@tie{}:
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 q <f a c>2 q
+@end lilypond
+
+À l'instar de n'importe quel accord, le symbole de répétition peut être
+affublé d'une durée, de signes d'articulation, @emph{markups}, liaisons,
+ligatures@dots{}  En fait, c'est la structure du dernier accord qui est
+dupliquée.
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1\p^"text" q2\<( q8)[-| q8.]\! q16-1-2-3 q8\prall
+@end lilypond
+
+Dans la mesure où le symbole de répétition d'accord enregistre la
+structure du dernier accord construit, il est tout à fait possible de
+l'utiliser même après une succession de notes individuelles et de
+silences@tie{}:
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 c4 q2 r8 q8
+@end lilypond
+
+ILe symbole de répétition d'accord ne prend en charge que les hauteurs,
+en aucun cas les nuances, articulation ou ornementations, qu'elles
+aient été attachées aux notes le composant ou à l'ensemble.
+
+@lilypond[verbatim,quote,relative=2]
+<a-. c\prall e>1\sfz c4 q2 r8 q8
+@end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Notation des accords},
+@ref{Articulations et ornements}.
+
+Fichiers d'initialisation :
+@file{ly/@/chord-repetition-init@/.ly}.
 
 
 @node Expressions simultanées
@@ -150,7 +233,7 @@ Glossaire musicologique :
 @rglos{cluster}.
 
 Morceaux choisis :
-@rlsr{Simultaneous notes}.
+@rlsrnamed{Simultaneous notes,Notation simultanée}.
 
 Référence des propriétés internes :
 @rinternals{ClusterSpanner},
@@ -159,9 +242,8 @@ Référence des propriétés internes :
 
 @knownissues
 
-Les expressions musicales du type @code{<< @{ g8 e8 @} a4 >>} ne
-seront pas imprimées de façon acceptable.  utilisez plutôt
-@code{<g a>8 <e a>8}.
+L'apparence d'un cluster sera extrèmement resserrée s'il ne comporte au
+moins deux accords.
 
 Dans la mesure où un cluster ne possède pas de hampe, il n'y a aucun
 moyen d'en connaître la durée@tie{}; cependant la longueur du signe
@@ -177,6 +259,10 @@ Les clusters ne sont pas reproduits en MIDI.
 @subsection Plusieurs voix
 @translationof Multiple voices
 
+Nous allons nous intéresser, dans les paragraphes qui suivent, à la
+gestion de notes simultanées réparties sur plusieurs voix ou plusieurs
+portées.
+
 @menu
 * Polyphonie sur une portée::
 * Styles de voix::
@@ -184,6 +270,7 @@ Les clusters ne sont pas reproduits en MIDI.
 * Regroupement automatique de parties::
 * Saisie de musique en parallèle::
 @end menu
+
 
 @node Polyphonie sur une portée
 @unnumberedsubsubsec Polyphonie sur une portée
@@ -219,7 +306,7 @@ Vous constaterez que les voix sont créées  explicitement et qu'elles
 sont nommées.  Les commandes @code{\voiceOne} @dots{} @code{\voiceFour}
 déterminent les voix de telle sorte que les première et troisième
 auront des hampes vers le haut, et les deuxième et quatrième vers le
-bas.  D'utre prt, les notes des troisièmre et quatrième voix seront
+bas.  D'autre part, les notes des troisième et quatrième voix seront
 quelque peu décalées, tout comme leurs silences, afin d'éviter les
 collisions.  La commande @code{\oneVoice} permet de retrouver les
 réglages par défaut.
@@ -238,7 +325,7 @@ suivante@tie{}:
 @noindent
 En fait, la première expression d'une polyphonie temporaire reste dans
 le même contexte @code{Voice} que celui existant auparavant et qui
-perdurera àprès ce fragment.  Les autres expressions entre doubles
+perdurera après ce fragment.  Les autres expressions entre doubles
 chevrons seront assignées à des voix temporaires distinctes.  C'est la
 raison pour laquelle les paroles qui suivaient la voix avant la
 polyphonie continueront à le faire durant ce passage polyphonique et
@@ -284,8 +371,8 @@ inversées, se comporte différemment de celle sans séparateurs@tie{}:
 @strong{tous} les membres de cette contruction seront assignés à de
 nouveaux contextes de voix.  Ces contextes de voix, créés implicitement,
 portent les noms @code{"1"}, @code{"2"}, etc.  Dans chacun de ces
-contextes, la direction verticale des liaisons, hampes, etc. est réglée
-de manière appropriée. En voici un exemple@tie{}:
+contextes, le positionnement des liaisons, la direction des hampes, etc.
+sont réglés de manière appropriée. En voici un exemple@tie{}:
 
 @lilypond[quote,relative=3,verbatim]
 <<
@@ -362,7 +449,7 @@ Manuel de notation :
 @ref{Hampes}.
 
 Morceaux choisis :
-@rlsr{Simultaneous notes}.
+@rlsrnamed{Simultaneous notes,Notation simultanée}.
 
 
 @node Styles de voix
@@ -455,7 +542,9 @@ si leur hampe sont opposées, verront leur tête automatiquement
 fusionnées.  Les notes dont la tête diffère ou bien qui ont la hampe
 dans la même direction ne seront pas automatiquement fusionnées.  Les
 silences, lorsqu'ils sont dans une autre voix et à l'opposé des
-hampes seront décalés verticalement.
+hampes seront décalés verticalement.  Vous constaterez, dans l'exemple
+suivant, que la fusion échoue aux premier et troisième temps de la
+première mesur, ainsi qu'au premier temps de la deuxième mesure.
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -474,7 +563,8 @@ hampes seront décalés verticalement.
 @end lilypond
 
 Cependant, vous pouvez fusionner une tête de blanche avec une tête de
-croche@tie{}:
+croche -- jamais avec une noire.  Les têtes du premier temps de la
+première mesure sont bien fusionnées@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -494,7 +584,7 @@ croche@tie{}:
 @end lilypond
 
 De même, vous pouvez fusionner les têtes de notes pointées et
-non-pointées@tie{}:
+non-pointées comme au troisième temps de la première mesure@tie{}:
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -513,8 +603,6 @@ non-pointées@tie{}:
   }
 >>
 @end lilypond
-
-
 
 
 Lorsque trois notes ou plus s'agglutinent dans un même empilement,
@@ -541,20 +629,20 @@ alors comme il faut.
     s1
     e8 a b c d2
   }
-
 >>
 @end lilypond
 
 Les commandes @code{\shiftOn}, @code{\shiftOnn}, et @code{\shiftOnnn}
 déterminent le niveau de décalage des accords de la voix en cours.
-Les voix externes -- habituellement, les voix une et deux -- ont
-@code{\shiftOff}, alors que les voix internes -- trois et quatre -- ont
-@code{\shiftOn}.  @code{\shiftOnn} et @code{\shiftOnnn} sont des niveaux
-supplémentaires de décalage.
+Les voix externes -- habituellement, les voix une et deux -- sont
+affectées de @code{\shiftOff}, alors que les voix internes -- trois et
+quatre -- sont affectées de @code{\shiftOn}.  @code{\shiftOnn} et
+@code{\shiftOnnn} sont des niveaux supplémentaires de décalage.
 
 
 Les têtes de notes ne seront fusionnées que dans la mesure où leur
-hampe sont opposées.
+hampe sont opposées -- implicitement parce qu'appartenant aux voix une
+ou deux, ou bien explicitement.
 
 
 @predefined
@@ -584,9 +672,9 @@ Glossaire musicologique :
 @rglosnamed{polyphony,polyphonie}.
 
 Manuel d'initiation :
-@rlearning{Multiple notes at once},
-@rlearning{Voices contain music},
-@rlearning{Collisions of objects}.
+@rlearning{Notes simultanées},
+@rlearning{Les voix contiennent la musique},
+@rlearning{Exemple concret}.
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes,Notation simultanée}.
@@ -607,7 +695,7 @@ are at the same time differently dotted are not clear.
 
 Il n'y a aucune prise en charge des agrégats dans lesquels une même note
 apparaît avec différentes altérations.  Il est conseillé d'avoir recours
-aux enharmoniques, ou d'utiliser la notation spécifique de cluster ---
+aux enharmoniques, ou d'utiliser la notation spécifique de cluster --
 voir @ref{Clusters}.
 
 
@@ -677,10 +765,10 @@ alors que la deuxième, appelée @code{two}, aura des hampes vers le bas
 et sera notée @qq{Solo@tie{}II}.  Les parties à l'unisson seront
 estampillées d'un @qq{a2} par défaut.
 
-LilyPond interprète dans un contexte @code{Voice} les arguments fournis
-à @code{\partcombine}.  Si vous travaillez avec des octaves relatives,
-spécifiez @code{\relative} dans chacune des expressions musicales, comme
-ceci@tie{}:
+LilyPond interprète dans un contexte @code{Voice} chacun des arguments
+fournis à @code{\partcombine}.  Si vous travaillez avec des octaves
+relatives, spécifiez @code{\relative} dans chacune des expressions
+musicales, comme ceci@tie{}:
 
 @example
 \partcombine
@@ -787,7 +875,7 @@ le mesures doivent être de longueur identique.}
 Vous pouvez travailler en mode relatif.  Notez cependant que la commande
 @code{\relative} n'apparaît pas au sein du bloc @code{\parallelMusic}.
 Le calcul des hauteurs relatives s'effectue voix par voix, et non au fil
-des lignes saisies@tie{}; en d'autre termes, les notes de la
+des lignes saisies@tie{}; en d'autres termes, les notes de la
 @code{voiceA} ignorent tout de celles de la @code{voiceB}.
 
 @lilypond[quote,verbatim]

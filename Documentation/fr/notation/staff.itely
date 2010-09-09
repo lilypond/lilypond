@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
+    Translation of GIT committish: 22fc4443690d33d4335a310723cb37dc5b76fb12
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,7 +70,7 @@ Nous allons voir ici comment créer des portées et comment les regrouper.
 @funindex VaticanaStaff
 @funindex GregorianTranscriptionStaff
 
-Les @notation{portées} -- en anglais@tie{}: @emph{staff} (@emph{staves}
+Les @notation{portées} -- en anglais @emph{staff} (@emph{staves}
 au pluriel) -- sont créées à l'aide des commandes @code{\new} ou
 @code{\context}.  Pour de plus amples détails, consultez
 @ref{Création d'un contexte}.
@@ -351,7 +351,7 @@ Référence des propriétés internes :
 
 Cette section explique le réglage de la gravure de chaque portée,
 comme la taille de portée ou le nombre de lignes@tie{}; sont aussi
-décrits la suspension et la reprise de portées et les portées
+décrits la suspension et la reprise de portées, ainsi que les portées
 d'@emph{ossia}.
 
 
@@ -360,6 +360,7 @@ d'@emph{ossia}.
 * Portées d'ossia::
 * Masquage de portées::
 @end menu
+
 
 @node Symbole de la portée
 @unnumberedsubsubsec Symbole de la portée
@@ -379,7 +380,7 @@ d'@emph{ossia}.
 Les notes, nuances, etc. sont regroupées dans un assemblage de lignes
 horizontales, que l'on nomme la portée (en anglais @emph{staff}, et
 @emph{staves} au pluriel).  Dans LilyPond, ces lignes sont dessinées au
-moyen d'un objet de mise en forme (@emph{grob}) à part entière, nommé
+moyen d'un objet graphique (@emph{grob}) à part entière, nommé
 @code{StaffSymbol} -- symbole de portée.  Modifier les propriétés d'un
 @code{StaffSymbol} changera l'apparence de la portée, dès lors qu'elles
 auront été définies avant de créer la portée en question.
@@ -701,7 +702,7 @@ rien.  Dans les partitions d'orchestre, les portées qui n'ont que des
 silences sont habituellement masquées afin de gagner de la place.  Ce
 style d'édition s'appelle en anglais @qq{French Score}.
 Cette fonctionnalité masque et supprime toutes les portées vides d'une
-partition, hormis celles du premièr système.
+partition, hormis celles du premier système.
 
 @warning{Une portée est considérée comme vide dès lors qu'elle ne
 contient que des silences multimesures, des silences invisibles ou
@@ -803,6 +804,10 @@ graveur, recourrir aux dérogations suivantes@tie{}:
 \override NoteHead #'no-ledgers = ##t
 @end example
 
+En ce qui concerne les désagréments et messages liés à l'utilisation de
+l'instruction @code{\RemoveEmptyStaffContext}, concultez
+@ref{Modification des réglages par défaut d'un contexte}.
+
 
 @node Écriture de parties séparées
 @subsection Écriture de parties séparées
@@ -892,7 +897,7 @@ Pour plus de détails, voir @ref{Mise en forme du texte}.
 
 @seealso
 Glossaire musicologique :
-@rglos{metronome},
+@rglosnamed{metronome,métronome},
 @rglosnamed{metronomic indication,indication métronomique},
 @rglos{tempo indication},
 @rglos{metronome mark}.
@@ -966,7 +971,7 @@ lignes, il faudra recourrir à l'instruction @code{\center-column}@tie{}:
 @funindex indent
 @funindex short-indent
 
-Losque le nom d'un instrument est relativement long, il est judicieux
+Lorsque le nom d'un instrument est relativement long, il est judicieux
 d'augmenter les retraits -- @emph{indent} -- au sein du bloc
 @code{\layout} à l'aide des commandes @code{indent} et
 @code{short-indent}.  Pour plus de plus amples détails sur ces réglages,
@@ -1005,7 +1010,9 @@ désactiver un graveur, voir @ref{Modification des greffons de contexte}.
 @cindex instrument, changement de nom
 @cindex changement de nom d'instrument
 
-Vous pouvez changer le nom d'un instrument en cours de morceau@tie{}:
+Vous pouvez changer le nom d'un instrument en cours de morceau.  Notez
+cependant que la valeur de @code{instrumentName} ne s'affichera que sur
+la première portée@tie{}:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \set Staff.instrumentName = #"First"
@@ -1120,7 +1127,7 @@ voix originelle.
 
 @lilypond[verbatim,quote]
 flute = \relative c'' {
-  a4 gis g gis
+  a4 gis g->\f gis^\markup{quoted}
 }
 \addQuote "flute" { \flute }
 
@@ -1166,6 +1173,25 @@ Les citations peuvent être @qq{balisées} par un nom particulier afin de
 les utiliser de différentes manières.  Pour de plus amples détails à ce
 propos, consultez le chapitre @ref{Utilisation de balises}.
 
+La propriété @code{quotedEventTypes} permet de définir précisément quels
+éléments de la voix originelle seront reproduits.  Sa valeur par défaut
+est @code{#'(StreamEvent)}@tie{}; autrement dit, tout sera recopié.  Lui
+affecter la valeur @code{#'(note-event@tie{}rest-event@tie{}tie-event)}
+fera que LilyPond reproduira les notes, silences et liaisons de
+prolongation, mais pas les articulations, annotations ni nuances.
+
+@lilypond[verbatim,quote]
+clarinet = \relative c'' {
+  a4 gis g->\f gis^\markup{quoted}
+}
+\addQuote "clarinet" { \clarinet }
+
+\relative c' {
+  \set Score.quotedEventTypes = #'(note-event rest-event tie-event)
+  c4 cis \quoteDuring #"clarinet" { s2 }
+}
+@end lilypond
+
 
 @snippets
 
@@ -1178,6 +1204,7 @@ propos, consultez le chapitre @ref{Utilisation de balises}.
 @cindex rest-event
 
 @funindex quotedEventTypes
+@funindex quotedCueEventTypes
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {quoting-another-voice.ly}
@@ -1201,8 +1228,8 @@ Référence des propriétés internes :
 Seul le contenu de la première @code{Voice} rencontrée dans la
 partie marquée d'une commande @code{\addQuote} pourra être retenu.  Par
 voie de conséquence, @var{musique} ne saurait comprendre de @code{\new}
-ou une instance @code{\context Voice} qui la ferait passer à une autre
-voix.
+ou une instance @code{\context@tie{}Voice} qui la ferait passer à une
+autre voix.
 
 Citer des notes d'ornement ne fonctionne pas, et peut même entraîner
 un blocage de LilyPond.
@@ -1211,7 +1238,7 @@ Citer des triolets imbriqués peut entraîner un résultat de médiocre
 qualité.
 
 Dans les versions précédentes de LilyPond (avant 2.11), @code{addQuote}
-était écrit entièremeent en minuscules@tie{}: @code{\addquote}.
+était écrit entièrement en minuscules@tie{}: @code{\addquote}.
 
 
 @node Mise en forme d'une citation
@@ -1262,6 +1289,29 @@ oboe = \relative c'' {
 Dans cet exemple, il était nécessaire de déclarer explicitement le
 contexte @code{Voice}, sinon l'intégralité de l'expression musicale se
 serait retrouvée dans le contexte @code{CueVoice}.
+
+La propriété @code{quotedCueEventTypes} permet de définir précisément
+quels éléments de la voix originelle seront reproduits.  Sa valeur par
+défaut est @code{#'(note-event rest-event tie-event beam-event
+tuplet-span-event)}.  LilyPond reproduira donc les notes, silences,
+liaisons de prolongation, ligatures et nolets, mais pas les
+articulations, annotations ni nuances.
+
+@lilypond[verbatim,quote]
+oboe = \relative c'' {
+  r2 r8 d16(\f f e g f a)
+  g8 g16 g g2.
+}
+\addQuote "oboe" { \oboe }
+
+\new Voice \relative c'' {
+  \set Score.quotedCueEventTypes = #'(note-event rest-event tie-event
+                                      beam-event tuplet-span-event
+                                      dynamic-event slur-event)
+  \cueDuring #"oboe" #UP { R1 }
+  g2 c,
+}
+@end lilypond
 
 Le nom de l'instrument qui est répliqué sera imprimé dès lors que vous
 définirez la propriété @code{instrumentCueName} du contexte
