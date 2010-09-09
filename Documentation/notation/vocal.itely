@@ -1405,6 +1405,7 @@ down.  To do this, use @code{\voiceOne} and @code{\voiceTwo}.  See
 @end itemize
 
 @predefined
+@code{\oneVoice},
 @code{\voiceOne},
 @code{\voiceTwo}.
 
