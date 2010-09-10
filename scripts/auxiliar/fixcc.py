@@ -91,8 +91,8 @@ rules = {
     # space around +/-; exponent
     ('([\w\)\]])(\+|-)([_A-Za-z\(])', '\\1 \\2 \\3'),
     ('([_\dA-Za-df-z\)\]])(\+|-)([\w\(])', '\\1 \\2 \\3'),
-    # trailing operator
-    (' (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&XXX|\||\*XXX)[ \t]*\n([ \t]*)', '\n\\2\\1 '),
+    # trailing operator, but don't un-trail #include
+    (' (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&XXX|\||\*XXX)[ \t]*\n([ \t]*)(?!#include)', '\n\\2\\1 '),
     # pointer
     ##('(bool|char|const|delete|int|stream|unsigned|void|size_t|struct \w+|[A-Z]\w*|,|;|&&|<|[^-]>|\|\||-|\+)[ \t]*(\*|&)[ \t]*', '\\1 \\2'),
     ('(bool|char|const|delete|int|stream|unsigned|void|vsize|size_t|struct \w+|[A-Z]\w*|,|;|:|=|\?\)|&&|<|[^-]>|\|\||-|\+)[ \t]*(\*|&)[ \t]*', '\\1 \\2'),
@@ -115,10 +115,10 @@ rules = {
     ('\n[ \t]*\)', ')'),
     # dangling comma
     ('\n[ \t]*,', ','),
-    # dangling semicolon
-    ('\n[ \t]*;', ';'),
-    # brace open
-    ('(\w)[ \t]*([^\s]*){([ \t]*\n)', '\\1\\2\n{\n'),
+    # dangling semicolon, but don't un-dangle it onto #include
+    ('(\n.*\n[ \t]*;)(?!\n#include)', '\\1'),
+    # brace open, but not changing a #define... line
+    ('(\w)[ \t]*([^\s]*){([ \t]*\n)(?!#define)', '\\1\\2\n{\n'),
     # brace open backslash
     ('(\w[^\n]*){[ \t]*\\\\\n', '\\1\\\n{\\\n'),
     # brace close
