@@ -738,7 +738,7 @@ Score}.  By default, this command hides and removes all empty
 staves in a score except for those in the first system.
 
 @warning{A staff is considered empty when it contains only
-multi-measure rests, skips, spacer rests, or a combination of these
+multi-measure rests, rests, skips, spacer rests, or a combination of these
 elements.}
 
 @lilypond[verbatim,quote,ragged-right]
