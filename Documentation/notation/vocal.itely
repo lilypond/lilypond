@@ -1868,11 +1868,83 @@ of 7 bars.  Each group of 7 bars is divided into two halves,
 corresponding to the two halves of each verse, usually separated by
 a double bar line.  Only whole and half notes are used.  The 1st bar
 in each half always contains a single chord of whole notes.  This is
-the @qq{reciting note}.
+the @qq{reciting note}.  Chants are usually centered on the page.
 
-Some approaches to setting such a chant are shown in the first of
-the following snippets, and another example can be seen in the
-templates, see @qq{Psalms} in @rlearning{Vocal ensembles}.
+@lilypond[verbatim,quote]
+SopranoMusic = \relative g' {
+  g1 | c2 b | a1 | \bar "||"
+  a1 | d2 c | c b | c1 | \bar "||"
+}
+
+AltoMusic = \relative c' {
+  e1 | g2 g | f1 |
+  f1 | f2 e | d d | e1 |
+}
+
+TenorMusic = \relative a {
+  c1 | c2 c | c1 |
+  d1 | g,2 g | g g | g1 |
+}
+
+BassMusic =  \relative c {
+  c1 | e2 e | f1 |
+  d1 | b2 c | g' g | c,1 |
+}
+
+global = {
+  \time 2/2
+}
+
+% Use markup to center the chant on the page
+\markup {
+  \fill-line {
+    \score {  % centered
+      <<
+        \new ChoirStaff <<
+          \new Staff <<
+            \global
+            \clef "treble"
+            \new Voice = "Soprano" <<
+              \voiceOne
+              \SopranoMusic
+            >>
+            \new Voice = "Alto" <<
+              \voiceTwo
+              \AltoMusic
+            >>
+          >>
+          \new Staff <<
+            \clef "bass"
+            \global
+            \new Voice = "Tenor" <<
+              \voiceOne
+              \TenorMusic
+            >>
+            \new Voice = "Bass" <<
+              \voiceTwo
+              \BassMusic
+            >>
+          >>
+        >>
+      >>
+      \layout {
+        \context {
+          \Score
+          \override SpacingSpanner
+          #'base-shortest-duration = #(ly:make-moment 1 2)
+        }
+        \context {
+          \Staff
+          \remove "Time_signature_engraver"
+        }
+      }
+    }  % End score
+  }
+}  % End markup
+@end lilypond
+
+Some other approaches to setting such a chant are shown in the first
+of the following snippets.
 
 @snippets
 
@@ -1890,7 +1962,8 @@ durations.
 
 @seealso
 Learning Manual:
-@rlearning{Visibility and color of objects}.
+@rlearning{Visibility and color of objects},
+@rlearning{Vocal ensembles}.
 
 Notation Reference:
 @ref{Ancient notation},
@@ -1904,26 +1977,58 @@ Notation Reference:
 @node Pointing a psalm
 @unnumberedsubsubsec Pointing a psalm
 
-The words to a Anglican psalm are usually printed in separate
-verses underneath the chant.  See the Anglican psalm template in
-the Learning Manual to see how to use mark-up to center the chant
-and place the verses centered underneath.  Marks are inserted
-in the words to show how they should be fitted to the chant.
-Single chants (with 7 bars) are repeated for every verse.  Double
-chants (with 14 bars) are repeated for every pair of verses.
+The words to an Anglican psalm are usually printed in separate
+verses centered underneath the chant.
 
-Each verse is divided into two halves.  An asterisk or a colon
-is frequently used to indicate this division.  This corresponds
-to the double bar line in the music.  The words before the colon
-are sung to the first 3 bars of music; the words after the colon
-are sung to the last four bars.
+Single chants (with 7 bars) are repeated for every verse.  Double
+chants (with 14 bars) are repeated for every pair of verses.  Marks
+are inserted in the words to show how they should be fitted to the
+chant.  Each verse is divided into two halves.  A colon is usually
+used to indicate this division.  This corresponds to the double bar
+line in the music.  The words before the colon are sung to the first
+three bars of music; the words after the colon are sung to the last
+four bars.
 
 Single bar lines (or in some psalters an inverted comma or similar
 symbol) are inserted between words to indicate where the bar lines
 in the music fall.  In markup mode a single bar line can be entered
-with the bar check symbol, @code{|}.  Other symbols may require
-glyphs from the @code{fetaMusic} fonts.  For details, see
-@ref{Fonts}.
+with the bar check symbol, @code{|}.
+
+@lilypond[verbatim,quote]
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { O come let us sing | unto the | Lord : let }
+        \line { us heartily rejoice in the | strength of | our }
+        \line { sal- | -vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+Other symbols may require glyphs from the @code{fetaMusic} fonts.
+For details, see @ref{Fonts}.
+
+@lilypond[verbatim,quote]
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { O come let us sing \tick unto the \tick Lord : let }
+        \line {
+          us heartily rejoice in the \tick strength of \tick our
+        }
+        \line { sal \tick vation. }
+      }
+    }
+  }
+}
+@end lilypond
 
 Where there is one whole note in a bar all the words corresponding
 to that bar are recited on that one note in speech rhythm.  Where
@@ -1931,10 +2036,87 @@ there are two notes in a bar there will usually be only one or two
 corresponding syllables.  If there are more that two syllables a
 dot is usually inserted to indicate where the change in note occurs.
 
+@lilypond[verbatim,quote]
+dot = \markup {
+  \raise #0.7 \musicglyph #"dots.dot"
+}
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line {
+          O come let us sing \tick unto \dot the \tick Lord : let
+        }
+        \line {
+          us heartily rejoice in the \tick strength of \tick our
+        }
+        \line { sal \tick vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
 In some psalters an asterisk is used to indicate a break in a
 recited section instead of a comma, and stressed or slightly
-lengthened syllables are indicated in bold text.  Others use an
-accent over the syllable to indicate stress.
+lengthened syllables are indicated in bold text.
+
+@lilypond[verbatim,quote]
+dot = \markup {
+  \raise #0.7 \musicglyph #"dots.dot"
+}
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { Today if ye will hear his voice * }
+        \line {
+          \concat { \bold hard en }
+          | not your | hearts : as in the pro-
+        }
+        \line { vocation * and as in the \bold day of tempt- | }
+        \line { -ation | in the | wilderness. }
+      }
+    }
+  }
+}
+@end lilypond
+
+In other psalters an accent is placed over the syllable to indicate
+stress.
+
+@lilypond[verbatim,quote]
+tick = \markup {
+  \raise #2 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line {
+          O come let us \concat {
+            si \combine \tick ng
+          }
+          | unto the | Lord : let
+        }
+        \line {
+          us heartily \concat {
+            rejo \combine \tick ice
+          }
+          in the | strength of | our
+        }
+        \line { sal- | -vation. }
+      }
+    }
+  }
+}
+@end lilypond
 
 The use of markup to center text, and arrange lines in columns is
 described in @ref{Formatting text}.
