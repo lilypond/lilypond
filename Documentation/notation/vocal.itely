@@ -697,7 +697,177 @@ Internals Reference:
 @node Lyrics and repeats
 @unnumberedsubsubsec Lyrics and repeats
 
-@c TODO New section.  Add text
+@cindex repeats and lyrics
+
+@c see http://lists.gnu.org/archive/html/lilypond-user/2010-07/msg00022.html
+@c see http://lists.gnu.org/archive/html/lilypond-user/2010-06/msg00472.html
+
+@subheading Simple repeats
+
+Repeats in @emph{music} are fully described elsewhere; see
+@ref{Repeats}.  This section explains how to add lyrics to repeated
+sections of music.
+
+Lyrics to a volta repeat can be written exactly as if the music was
+not repeated, if the words are unchanged.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat volta 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        Re -- peat -- ed twice.
+      }
+    }
+  >>
+}
+@end lilypond
+
+But if an unfold repeat is used, both the lyrics and the music must
+be repeated (assuming the repeated words are the same), otherwise
+the repeated section will have no lyrics.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat unfold 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        \repeat unfold 2 { Re -- peat -- ed twice. }
+      }
+    }
+  >>
+}
+@end lilypond
+
+If the repeated section has different words and is unfolded simply
+enter all the words:
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat unfold 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        The first time words.
+        Sec -- ond time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+When the words to a repeated volta section are different the words
+to each repeat must entered in separate @code{Lyrics} contexts.
+Earlier unrepeated sections must be skipped in the second and
+subsequent repeats.  The easiest way to skip several notes is to
+use @code{\repeat unfold} around the @code{\skip}.
+
+@warning{The @code{\skip} command must be followed by a number,
+but this number is ignored in lyric mode.  Each @code{\skip} skips
+a single note of any value, irrespective of the value of the
+following number.}
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat volta 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        The first time words.
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        % skip 4 notes of any duration
+        \repeat unfold 4 { \skip 1 }
+        Sec -- ond time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+An alternative way, which avoids having to count notes, is to use a
+temporary voice for the repeated section.  This may be useful if
+the earlier sections are still subject to change.  A temporary voice
+can be inserted anywhere in the main music stream in parallel with
+it, as shown below, but it may be necessary to keep the main voice
+alive in complex scores when using this technique; see
+@ref{Keeping contexts alive}.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "singleVoice" {
+        \relative c'' { a4 a a a }
+        \new Voice = "repeatVoice" {
+          \relative c'' \repeat volta 3 { b4 b b b }
+        }
+        \relative c'' { c4 c c c }
+      }
+    }
+    \new Lyrics <<
+      \lyricsto "singleVoice" {
+        Not re -- peat -- ed.
+        The end sec -- tion.
+      }
+      \lyricsto "repeatVoice" {
+        The first time words.
+      }
+    >>
+    \new Lyrics {
+      \lyricsto "repeatVoice" {
+        Sec -- ond time words.
+      }
+    }
+    \new Lyrics {
+      \lyricsto "repeatVoice" {
+        The third time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+@c TODO lowering a common line of lyrics
+
+@subheading Repeats with alternative endings
+
 TBC
 
 
