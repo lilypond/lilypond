@@ -1126,13 +1126,13 @@ fet_beginchar ("Half dohead", "u1do");
 fet_endchar;
 
 
-fet_beginchar ("Quart dohead", "ddo_weightdo");
+fet_beginchar ("Quart dohead", "d2do");
 	draw_do_head (solfa_quarter_width, -1, do_weight);
 	fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Quart dohead", "udo_weightdo");
+fet_beginchar ("Quart dohead", "u2do");
 	draw_do_head (solfa_quarter_width, 1, do_weight);
 	fill p_out;
 fet_endchar;
