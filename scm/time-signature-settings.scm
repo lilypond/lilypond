@@ -260,7 +260,8 @@ a fresh copy of the list-head is made."
     (cond
       ((null? alist) new)
       ((equal? (car alist) entry) (revert-member (cdr alist) entry new))
-      (else (revert-member (cdr alist) entry (cons (car alist) new)))))
+      (else (cons (car alist)
+                  (revert-member (cdr alist) entry new)))))
 
   (ly:context-set-property!
     context property
