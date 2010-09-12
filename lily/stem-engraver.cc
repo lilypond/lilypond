@@ -69,14 +69,14 @@ Stem_engraver::make_stem (Grob_info gi)
   if (tremolo_ev_)
     {
       /* Stem tremolo is never applied to a note by default,
-	 is must me requested.  But there is a default for the
+	 it must be requested.  But there is a default for the
 	 tremolo value:
 
 	 c4:8 c c:
 
-	 the first and last (quarter) note bothe get one tremolo flag.  */
+	 the first and last (quarter) note both get one tremolo flag.  */
       int requested_type
-	= scm_to_int (tremolo_ev_->get_property ("tremolo-type"));
+	= robust_scm2int (tremolo_ev_->get_property ("tremolo-type"), 0);
       SCM f = get_property ("tremoloFlags");
       if (!requested_type)
 	{

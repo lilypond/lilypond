@@ -270,7 +270,8 @@ through MUSIC."
     (set! (ly:music-property r 'repeat-count) (max times 1))
     (set! (ly:music-property r 'elements) talts)
     (if (and (equal? name "tremolo")
-	     (pair? (ly:music-property main 'elements)))
+	     (or (pair? (ly:music-property main 'elements))
+		 (ly:music? (ly:music-property main 'element))))
 	;; This works for single-note and multi-note tremolos!
 	(let* ((children (if (music-is-of-type? main 'sequential-music)
 			     ;; \repeat tremolo n { ... }
@@ -324,7 +325,6 @@ through MUSIC."
 	(let* ((props (ly:music-mutable-properties music))
 	       (old-name (ly:music-property music 'name))
 	       (flattened (flatten-alist props)))
-
 	  (set! music (apply make-music (cons 'UnfoldedRepeatedMusic
 					      flattened)))
 
