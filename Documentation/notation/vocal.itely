@@ -1719,6 +1719,7 @@ typesetting opera and musical scores.
 
 @menu
 * References for opera and stage musicals::
+* Character names::
 * Spoken music::
 * Dialogue over music::
 @end menu
@@ -1752,18 +1753,6 @@ See @ref{Separating systems}.
 @item
 For details of other page formatting properties, see
 @ref{Page formatting}.
-
-@item
-Character names are usually shown to the left of the staff when the
-staff is dedicated to that character alone.  The instrument name can
-be used for this purpose.  See @ref{Instrument names}.
-
-@item
-When two or more characters share a staff the character's name is
-usually printed above the staff at the start of every section
-applying to that character.  This can be done with markup.  The use
-of markup is covered fully in @ref{Text}.  Often a specific font is
-used for this purpose, see @ref{Selecting font and font size}.
 
 @item
 Musical cues can be inserted with the @code{\cueDuring} predefined
@@ -1801,6 +1790,65 @@ Notation Manual:
 @ref{Transpose},
 @ref{Writing parts},
 @ref{Writing text}.
+
+
+@node Character names
+@unnumberedsubsubsec Character names
+
+@cindex character names
+@cindex names, character
+
+Character names are usually shown to the left of the staff when the
+staff is dedicated to that character alone.  The instrument name can
+be used for this purpose.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \set Staff.instrumentName = #"Kaspar"
+      \set Staff.shortInstrumentName = #"Kas"
+      \relative c' {
+        \clef "G_8"
+        c4 c c c
+        \break
+        c4 c c c
+      }
+    }
+    \new Staff {
+      \set Staff.instrumentName = #"Melchior"
+      \set Staff.shortInstrumentName = #"Mel"
+      \clef "bass"
+      \relative c' {
+        a4 a a a
+        a4 a a a
+      }
+    }
+  >>
+}
+@end lilypond
+
+When two or more characters share a staff the character's name is
+usually printed above the staff at the start of every section
+applying to that character.  This can be done with markup.  Often a
+specific font is used for this purpose.
+
+@lilypond[quote,verbatim,relative=1]
+\override TextScript #'font-family = #'typewriter
+\override TextScript #'font-size = #2
+\clef "G_8"
+c4^\markup Kaspar
+c c c
+\clef "bass"
+a4^\markup Melchior
+a a a
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{Instrument names},
+@ref{Selecting font and font size},
+@ref{Text}.
 
 
 @node Spoken music
