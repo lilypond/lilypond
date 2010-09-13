@@ -1,5 +1,9 @@
 \version "2.12.0"
-
+\header {
+  texidoc="Festival song synthesis output supports
+slurs.
+"
+}
 \include "festival.ly"
 
 \festival #"song-slurs.xml" { \tempo 4 = 100 }

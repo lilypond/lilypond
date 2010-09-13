@@ -1353,7 +1353,20 @@ scripts/auxiliar/cg-section.sh doc-work
 Like @code{doc-section.sh}, @code{cg-section.sh} may need to be customized
 for your installation.
 
-@subheading Stripping whitespace
+@subheading Stripping whitespace and generating menus
+
+@warning{This script assumes that the file conforms to our doc
+policy; a few files still need work in this regard.}
+
+To automatically regenerate @code{@@menu} portions and strip
+whitespace, use:
+
+@example
+scripts/auxiliar/node-menuify.py @var{FILENAME}
+@end example
+
+
+@subheading Stripping whitespace only
 
 @c TODO: should this be documented elsewhere?  It's useful for
 @c more than just docs.
@@ -1362,24 +1375,6 @@ To remove extra whitespace from the ends of lines, run
 @example
 scripts/auxiliar/strip-whitespace.py Documentation/FILENAME
 @end example
-
-
-@subheading Sectioning commands
-
-@warning{These commands add whitespace.}
-
-The emacs @code{M-x texinfo-all-menus-update} command will
-regenerate @@menu blocks.  This can also be run with this
-command-line script:
-
-@example
-#!/bin/sh
-emacs $1 -batch -f texinfo-all-menus-update -f save-buffer
-@end example
-
-@noindent
-(save the above as something like @command{texinfo-menus.sh}, make
-it executable, then run @command{texinfo-menus.sh foo.itely})
 
 
 @subheading Updating doc with @command{convert-ly}

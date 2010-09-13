@@ -65,7 +65,7 @@ in beide Richtungen tragen.  Das geschieht mit @code{[]}-Klammern (Bsp. 4).
 
 (@code{\\set stemLeftBeamCount} entspricht immer dem Befehl
 @code{\\once \\set}.  Anders gesagt müssen die Einstellungen immer wieder
-wiederholt werden und die Fähnchen des letzten Sechszehntels im letzten
+wiederholt werden und die Fähnchen des letzten Sechzehntels im letzten
 Beispiel haben nichts mit dem @code{\\set}-Befehl zwei Noten vorher zu tun.)
 
 "

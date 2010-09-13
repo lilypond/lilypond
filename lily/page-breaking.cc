@@ -177,6 +177,7 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
 {
   book_ = pb;
   system_count_ = 0;
+  paper_height_ = robust_scm2double (pb->paper_->c_variable ("paper-height"), 1.0);
   ragged_ = to_boolean (pb->paper_->c_variable ("ragged-bottom"));
   ragged_last_ = to_boolean (pb->paper_->c_variable ("ragged-last-bottom"));
   systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("systems-per-page"), 0));
@@ -363,6 +364,15 @@ Page_breaking::make_page (int page_num, bool last) const
 				  ly_symbol2scm ("is-last-bookpart"), scm_from_bool (last_part),
 				  ly_symbol2scm ("is-bookpart-last-page"), scm_from_bool (last),
 				  SCM_UNDEFINED));
+}
+
+// Returns the total height of the paper, including margins and
+// space for the header/footer.  This is an upper bound on
+// page_height, and it doesn't depend on the current page.
+Real
+Page_breaking::paper_height () const
+{
+  return paper_height_;
 }
 
 Real
@@ -841,17 +851,17 @@ Page_breaking::line_divisions_rec (vsize system_count,
 				   Line_division *cur_division)
 {
   vsize my_index = cur_division->size ();
-  vsize others_min = 0;
-  vsize others_max = 0;
+  int others_min = 0;
+  int others_max = 0;
 
   for (vsize i = my_index + 1; i < min_sys.size (); i++)
     {
       others_min += min_sys[i];
       others_max += max_sys[i];
     }
-  others_max = min (others_max, system_count);
-  vsize real_min = max (min_sys[my_index], system_count - others_max);
-  vsize real_max = min (max_sys[my_index], system_count - others_min);
+  others_max = min (others_max, (int) system_count);
+  int real_min = max ((int) min_sys[my_index], (int) system_count - others_max);
+  int real_max = min ((int) max_sys[my_index], (int) system_count - others_min);
 
   if (real_min > real_max || real_min <= 0)
     {
@@ -862,7 +872,7 @@ Page_breaking::line_divisions_rec (vsize system_count,
       return;
     }
 
-  for (vsize i = real_min; i <= real_max; i++)
+  for (int i = real_min; i <= real_max; i++)
     {
       cur_division->push_back (i);
       if (my_index == min_sys.size () - 1)

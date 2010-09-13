@@ -19,7 +19,6 @@
 
 #include "engraver.hh"
 #include "context.hh"
-#include "multi-measure-rest.hh"
 #include "grob.hh"
 #include "warn.hh"
 

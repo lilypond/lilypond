@@ -51,7 +51,7 @@ public:
   static Interval extent_in_staff (Grob *); 
 };
 
-int compare_position (Grob *const &, Grob *const &);\
+int compare_position (Grob *const &, Grob *const &);
 bool position_less (Grob *const &, Grob *const &);
 #endif /* STAFF_SYMBOL_REFERENCER_HH */
 

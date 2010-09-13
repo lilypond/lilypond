@@ -20,7 +20,7 @@ variable que utiliza la función de Scheme @code{context-spec-music}.
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Ein einigen Fällen von sehr komplexer polyphoner Musik sind zusätzliche
-Stimmen notwendig, um Zusammestöße zwischen den Noten zu vermeiden.
+Stimmen notwendig, um Zusammenstöße zwischen den Noten zu vermeiden.
 Wenn mehr als vier parallele Stimmen benötigt werden, können zusätzliche
 Stimmen definiert werden, indem eine Variable mit der Funktion
 @code{context-spec-music} definiert wird.

@@ -17,7 +17,6 @@
 * Post-compilation options::
 * Problems::
 * Concurrent stable and development versions::
-* Using a Virtual Machine to Compile LilyPond::
 * Build system::
 @end menu
 
@@ -44,8 +43,8 @@ program.  For more information, see @ref{Building documentation
 without compiling}.
 
 Attempts to compile LilyPond natively on Windows have been
-unsuccessful, though a workaround is available (see @ref{Using a
-Virtual Machine to Compile LilyPond}).
+unsuccessful, though a workaround is available (see
+@rcontrib{Lilybuntu}).
 
 
 @node Requirements
@@ -1074,119 +1073,6 @@ Lilypond foobar.ly
 TODO: ADD
 
 - other compilation tricks for developers
-
-
-@node Using a Virtual Machine to Compile LilyPond
-@section Using a Virtual Machine to Compile LilyPond
-
-
-TODO: rewrite for lily-git.tcl !!!  do before GOP!  -gp
-
-Since it is not possible to compile Lilypond on Windows, some
-developers may find it useful to install a GNU/Linux virtual
-machine.  A disk image with a special remix of @strong{Ubuntu}
-has been created for this purpose.  It has all of the Lilypond
-build dependencies in place, so that once installed, it is
-ready to compile both Lilypond and the Documentation.
-The @code{lilybuntu} remix is available for download here:
-
-@example
-@uref{http://@/files.lilynet.net/@/lilybuntu.iso}
-@end example
-
-We do not necessarily recommend any one virtualization tool,
-however the @code{lilybuntu} remix is known to work well on
-@uref{http://www.virtualbox.org/wiki/Downloads, Sun VirtualBox},
-which is a free download.  Consult your virtualization software's
-documentation for instructions on setting up the software and
-for general instructions on installing a virtual machine.
-
-Steps to setting up @code{lilybuntu} in a virtual machine:
-
-@enumerate
-@item Download the @code{lilybuntu} disk image.
-
-@item Install @code{lilybuntu}.  You will use the @code{.iso}
-file as the boot disk.  It should not be necessary to burn it
-to a DVD, but consult the documentation for your virtualization
-software for specific instructions.  If possible, use at least 500
-MB of RAM (1GB would be better!) for the virtual machine, and use
-a dynamically expanding virtual hard drive.
-A virtual hard drive with 6 GB will be enough to compile LilyPond,
-but if you intend to build the docs and run the regression tests
-the virtual hard drive should be at least 10 GB.
-The Ubuntu installation should be straightforward, although in the
-partitioning stage do not be afraid to select @qq{use entire disk,}
-since this is only your @strong{virtual disk} and not your
-machine's actual hard drive.
-
-@item After installation is complete, restart the virtual
-machine.  If you are using @strong{VirtualBox}, you may wish
-to install the @qq{Guest Additions}, which while not essential for
-compiling @code{Lilypond} will allow you to use the virtual machine
-in full screen, Seamless mode (also known as Unity mode on other
-virtualization platforms) and allow you to share clipboards between
-the physical and virtual machine.  From the @code{Devices} menu select
-@code{Install Guest Additions...}, the @code{VBOXADDITIONS} CDROM device
-will appear on the desktop.  Open a @strong{terminal} session.
-(@code{Applications > Accessories > Terminal}) and @code{cd} to the
-top level of the CDROM.  Run the @code{autorun.sh} script as superuser
-(@code{sudo ./autorun.sh }), a console window will open while the
-@qq{Guest Additions} are being installed.  Once the script has
-been finished, reboot your Virtual Machine to complete the installation
-of the @qq{Guest Additions}.
-
-@item Open a @strong{terminal} session.
-(@code{Applications > Accessories > Terminal})
-
-@item Open @strong{Firefox} (there's an icon for it on the
-panel at the top of the screen) and go to the online Lilypond
-@uref{http://lilypond.org/doc/latest/Documentation/contributor/,
-Contributor's Guide}.
-
-@item To retrieve the Lilypond source code from @code{git},
-copy-and-paste each command from the CG @qq{Main source code}
-section into the terminal (paste into the terminal with keystroke
-@code{CTRL+SHIFT+V}).
-
-@item Prepare to build Lilypond by running the configuration script.
-Type
-
-@example
-./autogen.sh
-@end example
-
-When it is finished you should be presented
-with the three most common @code{make} options:
-
-@example
-Type:
-    make all       to build LilyPond
-    make install   to install LilyPond
-    make help      to see all possible targets
-
-Edit local.make for local Makefile overrides.
-@end example
-
-@item First type @code{make all} to build Lilypond.  This will take
-a while.
-
-@item When Lilypond is finished building, build the documentation
-by typing
-
-@example
-make doc
-@end example
-
-Depending on your system specs it could take from 30-60 minutes
-to finish.
-
-@end enumerate
-
-At this point everything has been compiled.
-You may install Lilypond using @code{make install}, or you may wish
-to set up your system with concurrent stable and development
-versions as described in the previous section.
 
 
 @node Build system

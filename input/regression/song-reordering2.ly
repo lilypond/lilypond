@@ -1,5 +1,9 @@
 \version "2.12.0"
-
+\header {
+  texidoc="Festival song synthesis output supports
+reordered lyrics.
+"
+}
 \include "festival.ly"
 
 \festival #"song-reordering2.xml" { \tempo 4 = 100 }

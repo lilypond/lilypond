@@ -654,7 +654,13 @@ automatically when an output definition (a @code{\score} or
   )
 
   keepAliveInterfaces = #'(
-    rhythmic-grob-interface
+    bass-figure-interface
+    chord-name-interface
+    cluster-beacon-interface
+    fret-diagram-interface
+    lyric-syllable-interface
+    note-head-interface
+    tab-note-head-interface
     lyric-interface
     percent-repeat-item-interface
     percent-repeat-interface
@@ -725,6 +731,14 @@ context."
   %% too big. We have to adjust the beam settings:
   \override Beam #'beam-thickness = #0.32
   \override Beam #'length-fraction = #0.62
+  %% the same goes for tremolo beams
+  \override StemTremolo #'beam-thickness = #0.32
+  %% NOTE: in lily/stem-tremolo.cc, we have length-fraction = 1,
+  %% and the tablature staff space is scaled (1.5 by default),
+  %% so we use the inversion of the scale factor:
+  \override StemTremolo #'length-fraction = #(lambda (grob)
+                                               (/ 1 (ly:staff-symbol-staff-space grob)))
+  \override StemTremolo #'beam-width = #stem-tremolo::calc-tab-width
 
   %% No accidental in tablature !
   \remove "Accidental_engraver"
@@ -744,10 +758,12 @@ context."
   autoBeaming = ##f
   %% remove beams, dots and rests ...
   \override Beam #'stencil = ##f
+  \override StemTremolo #'stencil = ##f
   \override Dots #'stencil = ##f
   \override Rest #'stencil = ##f
   \override MultiMeasureRest #'stencil = ##f
   \override MultiMeasureRestNumber #'transparent = ##t
+  \override MultiMeasureRestText #'transparent = ##t
   %% ... all kinds of ties/slurs
   \override Tie  #'stencil = ##f
   \override RepeatTie #'stencil = ##f

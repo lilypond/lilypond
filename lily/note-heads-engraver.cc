@@ -35,8 +35,7 @@ using namespace std;
 
 class Note_heads_engraver : public Engraver
 {
-  vector<Item*> notes_;
-  vector<Stream_event*> note_evs_;
+  vector<Stream_event *> note_evs_;
 
 public:
   TRANSLATOR_DECLARATIONS (Note_heads_engraver);
@@ -62,7 +61,7 @@ void
 Note_heads_engraver::process_music ()
 {
   SCM c0 = get_property ("middleCPosition");
-  SCM layout_proc = get_property("staffLineLayoutFunction");
+  SCM layout_proc = get_property ("staffLineLayoutFunction");
 
   for (vsize i = 0; i < note_evs_.size (); i++)
     {
@@ -80,15 +79,16 @@ Note_heads_engraver::process_music ()
       int pos;
       if (pit == 0)
 	pos = 0;
-      else if (ly_is_procedure (layout_proc)){
-	SCM pitch = ev->get_property("pitch");
-	pos = scm_to_int(scm_call_1 (layout_proc, pitch));
-      }
+      else if (ly_is_procedure (layout_proc))
+	{
+	  SCM pitch = ev->get_property ("pitch");
+	  pos = scm_to_int (scm_call_1 (layout_proc, pitch));
+	}
       else
 	pos = pit->steps ();
 
       if (scm_is_number (c0))
-	pos += scm_to_int(c0);
+	pos += scm_to_int (c0);
 
       note->set_property ("staff-position", scm_from_int (pos));
 
@@ -112,15 +112,12 @@ Note_heads_engraver::process_music ()
 	  if (scm_is_symbol (style))
 	    note->set_property ("style", style);
 	}
-
-      notes_.push_back (note);
     }
 }
 
 void
 Note_heads_engraver::stop_translation_timestep ()
 {
-  notes_.clear ();
   note_evs_.clear ();
 }
 

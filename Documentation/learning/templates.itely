@@ -110,6 +110,11 @@ beautiful printed scores!
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
+@appendixsubsec SATB on four staves
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{satb-choir-template---four-staves.ly}
+
 @appendixsubsec Solo verse and two-part refrain
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
@@ -119,6 +124,11 @@ beautiful printed scores!
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {hymn-template.ly}
+
+@appendixsubsec Psalms
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{anglican-psalm-template.ly}
 
 
 @node Orchestral templates

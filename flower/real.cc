@@ -3,11 +3,9 @@
 #include <cmath>
 using namespace std;
 
-const Real infinity_f =
 #ifdef INFINITY
-  INFINITY
+const Real infinity_f = INFINITY;
 #else
-  HUGE_VAL  
+const Real infinity_f = HUGE_VAL;
 #endif
-  ;
-  
+

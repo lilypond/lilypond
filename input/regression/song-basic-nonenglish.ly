@@ -1,5 +1,9 @@
 \version "2.12.0"
-
+\header {
+  texidoc="Festival song synthesis output supports
+non-english syllabels.
+"
+}
 \include "festival.ly"
 
 \festivalsyl #"song-basic-nonenglish.xml" { \tempo 4 = 100 }

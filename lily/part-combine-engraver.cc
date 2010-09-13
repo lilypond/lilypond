@@ -20,7 +20,6 @@
 */
 
 #include "engraver.hh"
-#include "multi-measure-rest.hh"
 #include "note-head.hh"
 #include "side-position-interface.hh"
 #include "stem.hh"

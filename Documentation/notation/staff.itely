@@ -35,6 +35,7 @@ grouping staves.
 * Instantiating new staves::
 * Grouping staves::
 * Nested staff groups::
+* Separating systems::
 @end menu
 
 
@@ -331,6 +332,55 @@ Internals Reference:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
+
+@node Separating systems
+@unnumberedsubsubsec Separating systems
+
+@cindex system separator mark
+
+If the number of systems per page changes from page to page it is
+customary to separate the systems by placing a system separator mark
+between them.  By default the system separator is blank, but can be
+turned on with a @code{\paper} option.
+
+@c \book is required here to display the system separator
+@c ragged-right is required as there are two systems
+@lilypond[verbatim,quote,ragged-right]
+\book {
+  \score {
+    \new StaffGroup <<
+      \new Staff {
+        \relative c'' {
+          c4 c c c
+          \break
+          c4 c c c
+        }
+      }
+      \new Staff {
+        \relative c'' {
+          c4 c c c
+          \break
+          c4 c c c
+        }
+      }
+    >>
+  }
+  \paper {
+    system-separator-markup = \slashSeparator
+    % following commands are needed only to format this documentation
+    paper-width = 100\mm
+    paper-height = 100\mm
+    tagline = ##f
+  }
+}
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{Page formatting}.
+
+Snippets:
+@rlsr{Staff notation}.
 
 
 @node Modifying single staves
@@ -688,7 +738,7 @@ Score}.  By default, this command hides and removes all empty
 staves in a score except for those in the first system.
 
 @warning{A staff is considered empty when it contains only
-multi-measure rests, skips, spacer rests, or a combination of these
+multi-measure rests, rests, skips, spacer rests, or a combination of these
 elements.}
 
 @lilypond[verbatim,quote,ragged-right]
@@ -798,98 +848,10 @@ instrument names into a score.  Methods to quote other voices and
 format cue notes are also described.
 
 @menu
-* Metronome marks::
 * Instrument names::
 * Quoting other voices::
 * Formatting cue notes::
 @end menu
-
-
-@node Metronome marks
-@unnumberedsubsubsec Metronome marks
-
-@cindex tempo
-@cindex beats per minute
-@cindex metronome mark
-@cindex metronome marking with text
-
-@funindex \tempo
-@funindex tempo
-
-A basic metronome mark is simple to write:
-
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 120
-c2 d
-e4. d8 c2
-@end lilypond
-
-Tempo indications with text can be used instead:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegretto"
-c4 e d c
-b4. a16 b c4 r4
-@end lilypond
-
-Combining a metronome mark and text will automatically place the
-metronome mark within parentheses:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegro" 4 = 160
-g4 c d e
-d4 b g2
-@end lilypond
-
-In general, the text can be any markup object:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo \markup { \italic Faster } 4 = 132
-a8-. r8 b-. r gis-. r a-. r
-@end lilypond
-
-A parenthesized metronome mark with no textual indication may be
-written by including an empty string in the input:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "" 8 = 96
-d4 g e c
-@end lilypond
-
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
-
-@c perhaps also an example of how to move it horizontally?
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{changing-the-tempo-without-a-metronome-mark.ly}
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{creating-metronome-marks-in-markup-mode.ly}
-
-For more details, see @ref{Formatting text}.
-
-
-@seealso
-Music Glossary:
-@rglos{metronome},
-@rglos{metronomic indication},
-@rglos{tempo indication},
-@rglos{metronome mark}.
-
-Notation Reference:
-@ref{Formatting text},
-@ref{MIDI output}.
-
-Snippets:
-@rlsr{Staff notation}.
-
-Internals Reference:
-@rinternals{MetronomeMark}.
-
 
 @node Instrument names
 @unnumberedsubsubsec Instrument names

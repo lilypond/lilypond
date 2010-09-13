@@ -194,20 +194,35 @@ messages into errors.")
 (if (defined? 'set-debug-cell-accesses!)
     (set-debug-cell-accesses! #f))
 
-					;(set-debug-cell-accesses! 1000)
+;;(set-debug-cell-accesses! 1000)
+
+;;; Boolean thunk - are we integrating Guile V2.0 or higher with LilyPond?
+(define-public (guile-v2)
+  (string>? (version) "1.9.10"))
 
 (use-modules (ice-9 regex)
-              (ice-9 safe)
-              (ice-9 format)
-              (ice-9 rdelim)
-              (ice-9 optargs)
-              (oop goops)
-              (srfi srfi-1)
-              (srfi srfi-13)
-              (srfi srfi-14)
-              (scm clip-region)
-              (scm memory-trace)
-              (scm coverage))
+	     (ice-9 safe)
+	     (ice-9 format)
+	     (ice-9 rdelim)
+	     (ice-9 optargs)
+	     (oop goops)
+	     (srfi srfi-1)
+	     (srfi srfi-13)
+	     (srfi srfi-14)
+	     (scm clip-region)
+	     (scm memory-trace)
+	     (scm coverage))
+
+(define-public _ gettext)
+;;; TODO:
+;;  There are new modules defined in Guile V2.0 which we need to use, e.g.
+;;  the modules and scheme files loaded by lily.scm use currying.
+;;  In Guile V2 this needs (ice-9 curried-definitions) which is not
+;;  present in Guile V1.8
+;;
+;; TODO add in modules for V1.8,7 deprecated in V2.0 and integrated
+;; into Guile base code, like (ice-9 syncase).
+;;
 
 (define-public fancy-format
   format)
@@ -258,7 +273,6 @@ messages into errors.")
 (if (memq (ly:get-option 'backend) music-string-to-path-backends)
     (ly:set-option 'music-strings-to-paths #t))
 
-(define-public _ gettext)
 
 (define-public (ly:load x)
   (let* ((file-name (%search-load-path x)))
@@ -299,7 +313,22 @@ messages into errors.")
 		 (eq? (string-ref file-name 2) #\/))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; If necessary, emulate Guile V2 module_export_all! for Guile V1.8.n
+(cond-expand
+ ((not guile-v2)
+  (define (module-export-all! mod)
+    (define (fresh-interface!)
+      (let ((iface (make-module)))
+	(set-module-name! iface (module-name mod))
+	;; for guile 2: (set-module-version! iface (module-version mod))
+	(set-module-kind! iface 'interface)
+	(set-module-public-interface! mod iface)
+	iface))
+    (let ((iface (or (module-public-interface mod)
+		     (fresh-interface!))))
+      (set-module-obarray! iface (module-obarray mod))))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (type-check-list location signature arguments)
   "Typecheck a list of arguments against a list of type predicates.
 Print a message at LOCATION if any predicate failed."
@@ -667,16 +696,15 @@ PIDs or the number of the process."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define* (ly:exit status #:optional (silently #f) )
-    "Exit function for lilypond"
-    (if (not silently)
-	(case status
-	    ((0) (ly:success "Compilation successfully completed"))
-	    ((1) (ly:warning "Compilation completed with warnings or errors"))
-	    (else (ly:message "")))
-	)
-    (exit status)
-    )
+(define* (ly:exit status #:optional (silently #f))
+  "Exit function for lilypond"
+  (if (not silently)
+      (case status
+	((0) (ly:success (_ "Compilation successfully completed")))
+	((1) (ly:warning (_ "Compilation completed with warnings or errors")))
+	(else (ly:message ""))))
+  (exit status))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (lilypond-main files)
@@ -761,7 +789,7 @@ PIDs or the number of the process."
 			       (string-contains f "lilypond")))))
     (if (pair? failed)
 	(begin (ly:error (_ "failed files: ~S") (string-join failed))
-               (ly:exit 1 #f))
+	       (ly:exit 1 #f))
 	(begin
 	  (ly:exit 0 #f)))))
 
@@ -808,7 +836,7 @@ PIDs or the number of the process."
              (ly:reset-all-fonts))))
      files)
 
-    ;; we want the failed-files notice in the aggregrate logfile.
+    ;; Ensure a notice re failed files is written to aggregate logfile.
     (if ping-log
 	(format ping-log "Failed files: ~a\n" failed))
     (if (ly:get-option 'dump-profile)

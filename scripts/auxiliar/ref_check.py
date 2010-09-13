@@ -111,7 +111,7 @@ class File:
           if words[0] == "@end" and (words[1].find("ignore") >= 0 or words[1].find("macro") >= 0):
             skip = False
 
-        if not skip and words[0].find("@c") < 0:
+        if not skip and words[0] != "@c":
           if words[0].find("@defManual") >= 0:
             # Manual definition found - extract manual name and refManual string
             manualName = words[1]

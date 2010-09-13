@@ -1,5 +1,11 @@
 \version "2.12.0"
 
+\header {
+texidoc = "Figured bass supports numbers with slashes through
+them.
+"
+}
+
 bassfigures = \figuremode {
   <0/ 1/ 2/> <3/ 4/ 5/> <6/ 7/ 8/> <9/ 10/ 11/> <12/ 13/ 100/>
   <0\\ 1\\ 2\\> <3\\ 4\\ 5\\> <6\\ 7\\ 8\\> <9\\ 10\\ 11\\> <12\\ 13\\ 100\\>

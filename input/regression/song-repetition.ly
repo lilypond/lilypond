@@ -1,5 +1,9 @@
 \version "2.12.0"
-
+\header {
+  texidoc="Festival song synthesis output supports
+repeat signs.
+"
+}
 \include "festival.ly"
 
 \score{

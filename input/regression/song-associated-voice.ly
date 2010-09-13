@@ -1,4 +1,10 @@
 \version "2.12.0"
+\header {
+  texidoc="Festival song synthesis output supports
+associated voices.
+"
+}
+
 
 \include "festival.ly"
 

@@ -22,7 +22,6 @@
 #include "warn.hh"
 #include "translator-group.hh"
 #include "global-context.hh"
-#include "multi-measure-rest.hh"
 
 void
 Timing_translator::stop_translation_timestep ()

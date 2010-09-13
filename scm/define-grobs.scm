@@ -1155,6 +1155,7 @@
     (MetronomeMark
      . (
 	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+	(break-visibility . ,end-of-line-invisible)
 	(direction . ,UP)
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-priority . 1000)
@@ -1162,9 +1163,21 @@
 	(side-axis . ,Y)
 	(stencil . ,ly:text-interface::print)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+
+			,(ly:make-simple-closure
+			  (list ly:break-alignable-interface::self-align-callback))
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::x-aligned-on-self)))))
+	(self-alignment-X . ,LEFT)
+	(break-align-symbols . (time-signature))
+	(non-break-align-symbols . (multi-measure-rest-interface))
+	(non-musical . #t)
 	(meta . ((class . Item)
-		 (interfaces . (font-interface
+		 (interfaces . (break-alignable-interface
+				font-interface
 				metronome-mark-interface
+				self-alignment-interface
 				side-position-interface
 				text-interface))))))
 
@@ -2091,6 +2104,7 @@
 	(break-align-anchor
 	 . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-align-symbol . time-signature)
+	(break-align-anchor-alignment . ,LEFT)
 	(break-visibility . ,all-visible)
 	(extra-spacing-height . (-1.0 . 1.0))
 	(non-musical . #t)

@@ -19,13 +19,15 @@ Files to be excluded (not available in git):
 @exclude engravingbib.itexi
 @exclude identifiers.tely
 @exclude layout-properties.tely
-@exclude macros.itexi
 @exclude markup-commands.tely
 @exclude markup-list-commands.tely
+@exclude others-did.itexi
 @exclude scheme-functions.tely
 @exclude type-predicates.tely
 @exclude version.itexi
 @exclude weblinks.itexi
+@exclude we-wrote.itexi
+
 
 @defaultPath Documentation/
 
@@ -41,13 +43,11 @@ Notation Reference
 @setManual NR
 @include notation.tely
 Dummy nodes to satisfy refs to text markup
-@node Text markup commands
 @node Font
 @node Align
 @node Graphic
 @node Instrument Specific Markup
 @node Music
-@node Text markup list commands
 
 Application Usage
 @setManual AU
@@ -68,4 +68,3 @@ Essay
 General (web)
 @setManual WE
 @include web.texi
-

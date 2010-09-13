@@ -35,8 +35,7 @@ protected:
   void process_music ();
   DECLARE_TRANSLATOR_LISTENER (note);
 private:
-  vector<Stream_event*> note_evs_;
-  vector<Audio_note*> notes_;
+  vector<Stream_event *> note_evs_;
 };
 
 Drum_note_performer::Drum_note_performer ()
@@ -81,7 +80,6 @@ Drum_note_performer::process_music ()
                                           tie_event, Pitch (0, 0, 0));
 	  Audio_element_info info (p, n);
 	  announce_element (info);
-	  notes_.push_back (p);
 	}
     }
 
@@ -91,7 +89,6 @@ Drum_note_performer::process_music ()
 void
 Drum_note_performer::stop_translation_timestep ()
 {
-  notes_.clear ();
   note_evs_.clear ();
 }
 

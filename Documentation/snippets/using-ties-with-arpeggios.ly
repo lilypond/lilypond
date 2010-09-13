@@ -28,7 +28,7 @@ auf @code{#t} gesetzt wird.  Diese Funktion ist auch sinnvoll, um etwa
 ein Tremolo mit einem Akkord zu überbinden, kann aber prinzipiell auch
 für normale Überbindungen eingesetzt werden
 "
-  doctitlede = "Überbingungen für Arpeggio genutzen"
+  doctitlede = "Überbindungen für Arpeggio benutzen"
 
 
 

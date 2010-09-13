@@ -24,7 +24,7 @@ dentro del contexto de @code{Staff}.
   doctitlede = "Verhindern, dass zusätzliche Auflösungszeichen automatisch
 hinzugefügt werden"
 
-texidocde = "Den tranditionellen Notensatzregeln zufolge wird ein
+texidocde = "Den traditionellen Notensatzregeln zufolge wird ein
 Auflösungszeichen immer dann vor einem Kreuz oder B gesetzt, wenn
 ein vorheriges Versetzungszeichen der gleichen Note aufgehoben werden
 soll.  Um dieses Verhalten zu ändern, muss die Eigenschaft

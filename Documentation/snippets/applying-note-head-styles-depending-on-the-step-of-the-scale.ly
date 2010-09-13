@@ -37,7 +37,7 @@ nota.
 Die @code{shapeNoteStyles}-(NotenFormenStile)-Eigenschaft kann benutzt
 werden, um verschiedene Notenstile für jeden Schritt der Tonleiter
 zu definieren (vorgegeben von der Tonart oder der @qq{tonic}
-(Tonika)-Eigneschaft.  Diese Eigenschaft braucht eine Anzahl von Symbolen,
+(Tonika)-Eigenschaft.  Diese Eigenschaft braucht eine Anzahl von Symbolen,
 welche beliebig sein können (geometrische Ausdrücke wie @code{triangle}
 (Dreieck), @code{cross} (Kreuz) und @code{xcircle} (X-Kreis) sind erlaubt)
 oder basierend auf einer alten amerikanischen Notensatztradition (einige

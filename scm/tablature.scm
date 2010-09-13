@@ -248,3 +248,10 @@
 
     (ly:grob-set-property! grob 'control-points new-control-points)
     (ly:slur::print grob)))
+
+;; for \tabFullNotation, the stem tremolo beams are too big in comparison to
+;; normal staves; this wrapper function scales accordingly:
+(define-public (stem-tremolo::calc-tab-width grob)
+  (let ((width (ly:stem-tremolo::calc-width grob))
+	(staff-space (ly:staff-symbol-staff-space grob)))
+    (/ width staff-space)))

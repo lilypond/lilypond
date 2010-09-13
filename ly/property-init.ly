@@ -344,13 +344,20 @@ predefinedFretboardsOn =
 
 aikenHeads      = \set shapeNoteStyles = #'#(do re miMirror fa sol la ti)
 aikenHeadsMinor = \set shapeNoteStyles = #'#(la ti do re miMirror fa sol)
+funkHeads =
+  \set shapeNoteStyles = #'#(doFunk reFunk miFunk faFunk solFunk laFunk tiFunk)
+funkHeadsMinor =
+  \set shapeNoteStyles = #'#(laFunk tiFunk doFunk reFunk miFunk faFunk solFunk)
 sacredHarpHeads = \set shapeNoteStyles = #'#(fa sol la fa sol la mi)
 sacredHarpHeadsMinor = \set shapeNoteStyles = #'#(la mi fa sol la fa sol)
-southernHarmonyHeads = 
+southernHarmonyHeads =
   \set shapeNoteStyles = #'#(faThin sol laThin faThin sol laThin miThin)
 southernHarmonyHeadsMinor =
   \set shapeNoteStyles = #'#(laThin miThin faThin sol laThin faThin sol)
-
+walkerHeads =
+  \set shapeNoteStyles = #'#(doWalker reWalker miWalker faWalker solFunk laWalker tiWalker)
+walkerHeadsMinor =
+  \set shapeNoteStyles = #'#(laWalker tiWalker doWalker reWalker miWalker faWalker solFunk)
 
 
 %% shifts
@@ -415,6 +422,7 @@ tabFullNotation = {
   \revert NoteColumn #'ignore-collision
   % beams, dots
   \revert TabVoice.Beam #'stencil
+  \revert TabVoice.StemTremolo #'stencil
   \revert TabVoice.Dots #'stencil
   \revert TabVoice.Tie #'stencil
   \revert TabVoice.Tie #'after-line-breaking
@@ -435,6 +443,7 @@ tabFullNotation = {
   \revert TabVoice.Rest #'stencil
   \revert TabVoice.MultiMeasureRest #'stencil
   \revert TabVoice.MultiMeasureRestNumber #'transparent
+  \revert TabVoice.MultiMeasureRestText #'transparent
   % markups etc.
   \revert TabVoice.Script #'stencil
   \revert TabVoice.TextScript #'stencil

@@ -19,8 +19,6 @@ that the lyrics will be aligned with the notes of their melody.
 
 @menu
 * Common notation for vocal music::
-* Entering lyrics::
-* Aligning lyrics to a melody::
 * Techniques specific to lyrics::
 * Stanzas::
 * Songs::
@@ -35,17 +33,23 @@ that the lyrics will be aligned with the notes of their melody.
 @node Common notation for vocal music
 @subsection Common notation for vocal music
 
-This section and sections 2.1.2 to 2.1.5 discuss issues common to
-all types of vocal music.  Issues specific to certain types of
-vocal music are covered in section 2.1.6 on.
+This section discusses issues common to most types of vocal music.
 
 @menu
-* Common references for vocal music::
+* References for vocal music::
+* Entering lyrics::
+* Aligning lyrics to a melody::
+* Automatic syllable durations::
+* Manual syllable durations::
+* Multiple syllables to one note::
+* Multiple notes to one syllable::
+* Skipping notes::
+* Extenders and hyphens::
 @end menu
 
 
-@node Common references for vocal music
-@unnumberedsubsubsec Common references for vocal music
+@node References for vocal music
+@unnumberedsubsubsec References for vocal music
 
 This section indicates where to find details of notation issues
 that may arise in any type of vocal music.
@@ -62,26 +66,20 @@ for lyrics of for other text elements (character's names, etc.).
 This syntax is described in @ref{Text markup introduction}.
 
 @item
-@q{Ambitus} may be added at the beginning of vocal staves, as explained
+@notation{Ambitus} may be added at the beginning of vocal staves, as explained
 in @ref{Ambitus}.
 
 @end itemize
 
+@seealso
+Music Glossary:
+@rglos{ambitus}.
 
 @node Entering lyrics
-@subsection Entering lyrics
+@unnumberedsubsubsec Entering lyrics
 
 Lyrics are entered in lyric mode.  This section explains how this
 done.
-
-@menu
-* Lyrics explained::
-* Working with lyrics and variables::
-@end menu
-
-
-@node Lyrics explained
-@unnumberedsubsubsec Lyrics explained
 
 @cindex lyrics
 @funindex \lyricmode
@@ -153,30 +151,6 @@ but instead use
 \override Score . LyricText #'font-shape = #'italic
 @end example
 
-@funindex _
-@cindex spaces, in lyrics
-@cindex quotes, in lyrics
-@cindex ties, in lyrics
-
-In order to assign more than one syllable to a single note, you can
-surround them with quotes or use a @code{_} character, to get spaces
-between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\time 3/4
-\relative c' { c2 e4 g2 e4 }
-\addlyrics { gran- de_a- mi- go }
-\addlyrics { pu- "ro y ho-" nes- to }
-\addlyrics { pu- ro~y~ho- nes- to }
-@end lilypond
-
-@noindent
-The lyric tie is implemented with the Unicode character
-@code{U+203F}; therefore a font that includes this glyph
-(such as DejaVuLGC) has to be used.  More explanations about
-text and non-text fonts can be found in @ref{Fonts}.
-
-
 To enter lyrics with characters from non-English languages, or with
 accented and special characters (such as the heart symbol or slanted quotes),
 simply insert the characters directly into the input file and save
@@ -234,102 +208,8 @@ Internals Reference:
 @rinternals{LyricSpace}.
 
 
-@node Working with lyrics and variables
-@unnumberedsubsubsec Working with lyrics and variables
-
-@cindex lyrics, variables
-
-To define variables containing lyrics, the function @code{\lyricmode}
-must be used.  You do not have to enter durations though, if you add
-@code{\addlyrics} or @code{\lyricsto}
-when invoking your variable.
-
-@example
-verseOne = \lyricmode @{ Joy to the world the Lord is come @}
-\score @{
- <<
-   \new Voice = "one" \relative c'' @{
-     \autoBeamOff
-     \time 2/4
-     c4 b8. a16 g4. f8 e4 d c2
-   @}
-   \addlyrics @{ \verseOne @}
- >>
-@}
-@end example
-
-For different or more complex orderings, the best way is to set up the
-hierarchy of staves and lyrics first, e.g.,
-@example
-\new ChoirStaff <<
-  \new Voice = "soprano" @{ @emph{music} @}
-  \new Lyrics = "sopranoLyrics" @{ s1 @}
-  \new Lyrics = "tenorLyrics" @{ s1 @}
-  \new Voice = "tenor" @{ @emph{music} @}
->>
-@end example
-
-@noindent
-and then combine the appropriate melodies and lyric lines
-
-@example
-\context Lyrics = sopranoLyrics \lyricsto "soprano"
-@emph{the lyrics}
-@end example
-
-@noindent
-The final input would resemble
-
-@example
-<<\new ChoirStaff << @emph{setup the music} >>
- \lyricsto "soprano" @emph{etc}
- \lyricsto "alto" @emph{etc}
-@emph{etc}
->>
-@end example
-
-@ignore
-@c TODO
-http://code.google.com/p/lilypond/issues/detail?id=329
-The problem cannot be reproduced.
-The following has no sense, because the issue seems to be fixed.
-A comment is in tracker waiting for response ---FV
-
-
-Be careful when defining a variable with lyrics that creates a new
-context, for example, using the deprecated @code{\lyrics} command.  See
-the next erroneous example:
-
-@example
-words = \lyrics{ %warning: this creates a new context
- one two
-}
-<<
-  \new Voice = "sop" { c1 }
-  \new Lyrics \lyricsto "sop" { \words }
-  \new Voice = "alt" { c2 c }
-  \new Lyrics \lyricsto "alt" { \words }
->>
-@end example
-
-the problem is that \lyricsto will try to connect the "sop" melody with the context
-created by "\new Lyrics".
-
-Then \lyrics in \words creates another context, and the original "\new Lyrics" one
-remains empty.
-
-@end ignore
-
-
-@seealso
-@c TODO: document \new Staff << Voice \lyricsto >> bug
-Internals Reference:
-@rinternals{LyricCombineMusic},
-@rinternals{Lyrics}.
-
-
 @node Aligning lyrics to a melody
-@subsection Aligning lyrics to a melody
+@unnumberedsubsubsec Aligning lyrics to a melody
 
 @funindex \lyricmode
 @funindex \addlyrics
@@ -370,20 +250,10 @@ voice has nothing to do.  For methods of keeping contexts alive, see
 @ref{Keeping contexts alive}.
 
 
-@menu
-* Automatic syllable durations::
-* Manual syllable durations::
-* Multiple syllables to one note::
-* Multiple notes to one syllable::
-* Skipping notes::
-* Extenders and hyphens::
-* Lyrics and repeats::
-@end menu
-
 @node Automatic syllable durations
 @unnumberedsubsubsec Automatic syllable durations
 
-@cindex automatic syllable durations
+@cindex syllable durations, automatic
 @cindex lyrics and melodies
 
 The lyrics can be aligned under a given melody
@@ -466,7 +336,7 @@ More stanzas can be added by adding more
 
 The command @code{\addlyrics} cannot handle polyphony settings.
 For these cases you should use @code{\lyricsto} and
-@code{\lyricmode}, for details see@ref{Lyrics explained}.
+@code{\lyricmode}, for details see @ref{Entering lyrics}.
 
 @node Manual syllable durations
 @unnumberedsubsubsec Manual syllable durations
@@ -519,17 +389,18 @@ Internals Reference:
 @node Multiple syllables to one note
 @unnumberedsubsubsec Multiple syllables to one note
 
-
 @funindex _
+@cindex spaces, in lyrics
+@cindex quotes, in lyrics
 @cindex ties, in lyrics
 
-In order to assign more than one syllable to a single note, you can
-surround them with quotes or use a @code{_} character, to get spaces
-between syllables, or use tilde  symbol (@code{~}) to get a lyric
-tie.@footnote{The lyric ties is implemented with the Unicode character
-U+203F, so be
+In order to assign more than one syllable to a single note with
+spaces between the syllables, you can surround the phrase with
+quotes or use a @code{_} character.  Alternatively, you can use
+code the tilde  symbol (@code{~}) to get a lyric tie.  The lyric
+tie is implemented with the Unicode character U+203F, so be
 sure to have a font (like DejaVuLGC) installed that includes this
-glyph.}
+glyph.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \time 3/4
@@ -713,29 +584,291 @@ Internals Reference:
 @rinternals{LyricHyphen}.
 
 
-@node Lyrics and repeats
-@unnumberedsubsubsec Lyrics and repeats
-
-@c TODO New section.  Add text
-TBC
-
-
 @node Techniques specific to lyrics
 @subsection Techniques specific to lyrics
 
 @c TODO This whole section is to be reorganized. -vv
 
-Often, different stanzas of one song are put to one melody in slightly
-differing ways.  Such variations can still be captured with
-@code{\lyricsto}.
-
 @menu
+* Working with lyrics and variables::
+* Lyrics and repeats::
 * Divisi lyrics::
 * Lyrics independent of notes::
 * Spacing out syllables::
 * Placement of lyrics between staves::
 @end menu
 
+
+
+@node Working with lyrics and variables
+@unnumberedsubsubsec Working with lyrics and variables
+
+@cindex lyrics, variables
+
+To define variables containing lyrics, the function @code{\lyricmode}
+must be used.  You do not have to enter durations though, if you add
+@code{\addlyrics} or @code{\lyricsto}
+when invoking your variable.
+
+@example
+verseOne = \lyricmode @{ Joy to the world the Lord is come @}
+\score @{
+ <<
+   \new Voice = "one" \relative c'' @{
+     \autoBeamOff
+     \time 2/4
+     c4 b8. a16 g4. f8 e4 d c2
+   @}
+   \addlyrics @{ \verseOne @}
+ >>
+@}
+@end example
+
+For different or more complex orderings, the best way is to set up the
+hierarchy of staves and lyrics first, e.g.,
+@example
+\new ChoirStaff <<
+  \new Voice = "soprano" @{ @emph{music} @}
+  \new Lyrics = "sopranoLyrics" @{ s1 @}
+  \new Lyrics = "tenorLyrics" @{ s1 @}
+  \new Voice = "tenor" @{ @emph{music} @}
+>>
+@end example
+
+@noindent
+and then combine the appropriate melodies and lyric lines
+
+@example
+\context Lyrics = sopranoLyrics \lyricsto "soprano"
+@emph{the lyrics}
+@end example
+
+@noindent
+The final input would resemble
+
+@example
+<<\new ChoirStaff << @emph{setup the music} >>
+ \lyricsto "soprano" @emph{etc}
+ \lyricsto "alto" @emph{etc}
+@emph{etc}
+>>
+@end example
+
+@ignore
+@c TODO
+http://code.google.com/p/lilypond/issues/detail?id=329
+The problem cannot be reproduced.
+The following has no sense, because the issue seems to be fixed.
+A comment is in tracker waiting for response ---FV
+
+
+Be careful when defining a variable with lyrics that creates a new
+context, for example, using the deprecated @code{\lyrics} command.  See
+the next erroneous example:
+
+@example
+words = \lyrics{ %warning: this creates a new context
+ one two
+}
+<<
+  \new Voice = "sop" { c1 }
+  \new Lyrics \lyricsto "sop" { \words }
+  \new Voice = "alt" { c2 c }
+  \new Lyrics \lyricsto "alt" { \words }
+>>
+@end example
+
+the problem is that \lyricsto will try to connect the "sop" melody with the context
+created by "\new Lyrics".
+
+Then \lyrics in \words creates another context, and the original "\new Lyrics" one
+remains empty.
+
+@end ignore
+
+
+@seealso
+@c TODO: document \new Staff << Voice \lyricsto >> bug
+Internals Reference:
+@rinternals{LyricCombineMusic},
+@rinternals{Lyrics}.
+
+
+@node Lyrics and repeats
+@unnumberedsubsubsec Lyrics and repeats
+
+@cindex repeats and lyrics
+
+@c see http://lists.gnu.org/archive/html/lilypond-user/2010-07/msg00022.html
+@c see http://lists.gnu.org/archive/html/lilypond-user/2010-06/msg00472.html
+
+@subheading Simple repeats
+
+Repeats in @emph{music} are fully described elsewhere; see
+@ref{Repeats}.  This section explains how to add lyrics to repeated
+sections of music.
+
+Lyrics to a volta repeat can be written exactly as if the music was
+not repeated, if the words are unchanged.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat volta 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        Re -- peat -- ed twice.
+      }
+    }
+  >>
+}
+@end lilypond
+
+But if an unfold repeat is used, both the lyrics and the music must
+be repeated (assuming the repeated words are the same), otherwise
+the repeated section will have no lyrics.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat unfold 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        \repeat unfold 2 { Re -- peat -- ed twice. }
+      }
+    }
+  >>
+}
+@end lilypond
+
+If the repeated section has different words and is unfolded simply
+enter all the words:
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat unfold 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        The first time words.
+        Sec -- ond time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+When the words to a repeated volta section are different the words
+to each repeat must entered in separate @code{Lyrics} contexts.
+Earlier unrepeated sections must be skipped in the second and
+subsequent repeats.  The easiest way to skip several notes is to
+use @code{\repeat unfold} around the @code{\skip}.
+
+@warning{The @code{\skip} command must be followed by a number,
+but this number is ignored in lyric mode.  Each @code{\skip} skips
+a single note of any value, irrespective of the value of the
+following number.}
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat volta 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        The first time words.
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        % skip 4 notes of any duration
+        \repeat unfold 4 { \skip 1 }
+        Sec -- ond time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+An alternative way, which avoids having to count notes, is to use a
+temporary voice for the repeated section.  This may be useful if
+the earlier sections are still subject to change.  A temporary voice
+can be inserted anywhere in the main music stream in parallel with
+it, as shown below, but it may be necessary to keep the main voice
+alive in complex scores when using this technique; see
+@ref{Keeping contexts alive}.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "singleVoice" {
+        \relative c'' { a4 a a a }
+        \new Voice = "repeatVoice" {
+          \relative c'' \repeat volta 3 { b4 b b b }
+        }
+        \relative c'' { c4 c c c }
+      }
+    }
+    \new Lyrics <<
+      \lyricsto "singleVoice" {
+        Not re -- peat -- ed.
+        The end sec -- tion.
+      }
+      \lyricsto "repeatVoice" {
+        The first time words.
+      }
+    >>
+    \new Lyrics {
+      \lyricsto "repeatVoice" {
+        Sec -- ond time words.
+      }
+    }
+    \new Lyrics {
+      \lyricsto "repeatVoice" {
+        The third time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+@c TODO lowering a common line of lyrics
+
+@subheading Repeats with alternative endings
+
+TBC
 
 
 @node Divisi lyrics
@@ -1036,6 +1169,10 @@ the line, just like instrument names.  They are created by setting
 
 @node Stanzas with different rhythms
 @unnumberedsubsubsec Stanzas with different rhythms
+
+Often, different stanzas of one song are put to one melody in slightly
+differing ways.  Such variations can still be captured with
+@code{\lyricsto}.
 
 @subsubheading Ignoring melismata
 
@@ -1367,6 +1504,7 @@ etc.
 @menu
 * References for choral::
 * Score layouts for choral::
+* Divided voices::
 @end menu
 
 @node References for choral
@@ -1376,8 +1514,9 @@ Choral music is usually notated on two, three or four staves within
 a @code{ChoirStaff} group.  Accompaniment, if required, is placed
 beneath in a @code{PianoStaff} group, which is usually reduced in
 size for @emph{a capella} choral works.  The notes for each vocal
-part are placed in a @code{Voice} context, with each either on a
-staff of its own or grouped in pairs on a single staff.
+part are placed in a @code{Voice} context, with each staff
+being given either a single vocal part (i.e., one @code{Voice}) or
+a pair of vocal parts (i.e., two @code{Voice}s).
 
 Words are placed in @code{Lyrics} contexts, either underneath each
 corresponding music staff, or one above and one below the music
@@ -1401,15 +1540,21 @@ For information about @code{ChoirStaff} and @code{PianoStaff} see
 @ref{Grouping staves}.
 
 @item
-General information about entering the words (i.e. @qq{lyrics}) to
-vocal music is described in sections 2.1.2 to 2.1.5 of this manual.
-All these sections are relevant to choral music.
-
-@item
 Shape noteheads, as used in Sacred Harp and similar notation, are
 described in @ref{Shape note heads}.
 
+@item
+When two vocal parts share a staff the stems, ties, slurs, etc., of
+the higher part will be directed up and those of the lower part
+down.  To do this, use @code{\voiceOne} and @code{\voiceTwo}.  See
+@ref{Single-staff polyphony}.
+
 @end itemize
+
+@predefined
+@code{\oneVoice},
+@code{\voiceOne},
+@code{\voiceTwo}.
 
 @seealso
 Learning Manual:
@@ -1417,9 +1562,10 @@ Learning Manual:
 @rlearning{Vocal ensembles}.
 
 Notation Reference:
-@ref{Grouping staves},
 @ref{Context layout order},
-@ref{Shape note heads}.
+@ref{Grouping staves},
+@ref{Shape note heads},
+@ref{Single-staff polyphony}.
 
 Internals Reference:
 @rinternals{ChoirStaff},
@@ -1446,73 +1592,134 @@ The distances between the systems, the staves and the lyrics can
 all be adjusted independently.  See @ref{Vertical spacing}.
 
 @item
-Setting @code{annotate-spacing = ##t} in the layout block will
-display the dimensions of the vertical layout variables.  This
-may help in adjusting them.  For details, see
-@ref{Displaying spacing}.
+The dimensions of the vertical layout variables can be displayed as
+an aid to adjusting the vertical spacing.  This and other
+possibilities for fitting the music onto fewer pages are described
+in @ref{Fitting music onto fewer pages}.
 
 @item
-Other possibilities for fitting the music onto fewer pages are
-described in @ref{Changing spacing}.
+If the number of systems per page changes from one to two it is
+customary to indicate this with a system separator mark between
+the two systems.  See @ref{Separating systems}.
+
+@item
+For details of other page formatting properties, see
+@ref{Page formatting}.
 
 @end itemize
 
-If the number of systems per page changes from one to two it is
-customary to indicate this with a system separator mark between
-the two systems.  By default the system separator is blank.  It
-may be activated with
-
-@example
-\paper @{
-  system-separator-markup = \slashSeparator
-@}
-@end example
-
-@noindent
-For details of this and other page formatting properties, see
-@ref{Page formatting}.
 
 Dynamic markings by default are placed below the staff, but in
-choral music they are often placed above the staff in order to
+choral music they are usually placed above the staff in order to
 avoid the lyrics.  The predefined command @code{\dynamicUp} does
 this for the dynamic markings in a single @code{Voice} context.
-To place all dynamic markings in the score above their respective
-staves use the following in a @code{\layout} block within the
-@code{\score} block:
+If there are many @code{Voice} contexts this predefined command
+would have to be placed in every one.  Alternatively its expanded
+form can be used to place all dynamic markings in the entire score
+above their respective staves, as shown here:
 
-@example
-\layout @{
-  \context @{
-    \Score
-    \override DynamicText #'direction = #UP
-    \override DynamicLineSpanner #'direction = #UP
-  @}
-@}
-@end example
+@lilypond[verbatim,quote]
+\score {
+  \new ChoirStaff <<
+    \new Staff {
+      \new Voice {
+        \relative c'' { g4\f g g g }
+      }
+    }
+    \new Staff {
+      \new Voice {
+        \relative c' { d4 d d\p d }
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override DynamicText #'direction = #UP
+      \override DynamicLineSpanner #'direction = #UP
+    }
+  }
+}
+@end lilypond
 
 @predefined
-@code{\dynamicUp}.
+@code{\dynamicUp}, @code{\dynamicDown}, @code{\dynamicNeutral}.
 
 @seealso
 Notation Reference:
-@ref{Setting the staff size},
-@ref{Vertical spacing},
-@ref{Displaying spacing},
 @ref{Changing spacing},
+@ref{Displaying spacing},
+@ref{Fitting music onto fewer pages},
+@ref{Page formatting},
 @ref{Score layout},
+See @ref{Separating systems},
+@ref{Setting the staff size},
 @ref{Using an extra voice for breaks},
-@ref{Page formatting}.
+@ref{Vertical spacing}.
 
 Internals Reference:
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
 
 
+@node Divided voices
+@unnumberedsubsubsec Divided voices
+
+@cindex voices, divided
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{using-arpeggiobracket-to-make-divisi-more-visible.ly}
+
+@seealso
+Notation Reference:
+@ref{Expressive marks as lines}.
+
+
 @node Opera and stage musicals
 @subsection Opera and stage musicals
 
+The music, lyrics and dialogue to opera and stage musicals are
+usually set out in one or more of the following forms:
+
+@itemize
+
+@item
+A @emph{Conductors' Score} containing the full orchestral and vocal
+parts, together with libretto cues if there are spoken passages.
+
+@item
+@emph{Orchestral Parts} containing the music for the individual
+instruments of the orchestra or band.
+
+@item
+A @emph{Vocal Score} containing all vocal parts with piano
+accompaniment.  The accompaniment is usually an orchestral
+reduction, and if so the name of the original orchestral instrument
+is often indicated.  Vocal scores sometimes includes stage
+directions and libretto cues.
+
+@item
+A @emph{Vocal Book} containing just the vocal parts
+(no accompaniment), sometimes combined with the libretto.
+
+@item
+A @emph{Libretto} containing the extended passages of spoken
+dialogue usually found in musicals, together with the words to the
+sung parts.  Stage directions are usually included.  LilyPond can
+be used to typeset libretti but as they contain no music
+alternative methods may be preferable.
+
+@end itemize
+
+The sections in the LilyPond documentation which cover the topics
+needed to create scores in the styles commonly found in opera and
+musicals are indicated in the References below.  This is followed
+by sections covering those techniques which are peculiar to
+typesetting opera and musical scores.
+
 @menu
 * References for opera and stage musicals::
+* Character names::
 * Spoken music::
 * Dialogue over music::
 @end menu
@@ -1520,11 +1727,129 @@ Internals Reference:
 @node References for opera and stage musicals
 @unnumberedsubsubsec References for opera and stage musicals
 
-@c TODO Choral, cues, character names, French staves
-@c vocal/conductor scores
-@c add characters names snippet -vv
+@itemize
 
-TBC
+@item
+A conductors' score contains many grouped staves and lyrics.  Ways
+of grouping staves is shown in @ref{Grouping staves}.  To nest
+groups of staves see @ref{Nested staff groups}.
+
+@item
+The printing of empty staves in conductors' scores and vocal scores
+is often suppressed.  To create such a @qq{Frenched score} see
+@ref{Hiding staves}.
+
+@item
+Writing orchestral parts is covered in @ref{Writing parts}.
+Other sections in the Specialist notation chapter may be relevant,
+depending on the orchestration used.  Many instruments are
+transposing instruments, see @ref{Instrument transpositions}.
+
+@item
+If the number of systems per page changes from page to page it is
+customary to separate the systems with a system separator mark.
+See @ref{Separating systems}.
+
+@item
+For details of other page formatting properties, see
+@ref{Page formatting}.
+
+@item
+Musical cues can be inserted with the @code{\cueDuring} predefined
+command.  For details of its use see @ref{Formatting cue notes}.
+
+@item
+Dialogue cues and stage directions can be inserted with markup.
+See @ref{Text}.  Extensive stage directions can be inserted with
+a section of stand-alone markup between two @code{\score} blocks.
+See @ref{Separate text}.
+
+@end itemize
+
+@predefined
+@code{\cueDuring},
+@code{\quoteDuring}.
+
+@seealso
+Musical Glossary:
+@rglos{cue-notes},
+@rglos{Frenched score},
+@rglos{Frenched staves},
+@rglos{transposing instrument}.
+
+Notation Manual:
+@ref{Grouping staves},
+@ref{Hiding staves},
+@ref{Instrument names},
+@ref{Instrument transpositions},
+@ref{Nested staff groups},
+@ref{Page formatting},
+@ref{Selecting font and font size},
+@ref{Separating systems},
+@ref{Text},
+@ref{Transpose},
+@ref{Writing parts},
+@ref{Writing text}.
+
+
+@node Character names
+@unnumberedsubsubsec Character names
+
+@cindex character names
+@cindex names, character
+
+Character names are usually shown to the left of the staff when the
+staff is dedicated to that character alone.  The instrument name can
+be used for this purpose.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \set Staff.instrumentName = #"Kaspar"
+      \set Staff.shortInstrumentName = #"Kas"
+      \relative c' {
+        \clef "G_8"
+        c4 c c c
+        \break
+        c4 c c c
+      }
+    }
+    \new Staff {
+      \set Staff.instrumentName = #"Melchior"
+      \set Staff.shortInstrumentName = #"Mel"
+      \clef "bass"
+      \relative c' {
+        a4 a a a
+        a4 a a a
+      }
+    }
+  >>
+}
+@end lilypond
+
+When two or more characters share a staff the character's name is
+usually printed above the staff at the start of every section
+applying to that character.  This can be done with markup.  Often a
+specific font is used for this purpose.
+
+@lilypond[quote,verbatim,relative=1]
+\override TextScript #'font-family = #'typewriter
+\override TextScript #'font-size = #2
+\clef "G_8"
+c4^\markup Kaspar
+c c c
+\clef "bass"
+a4^\markup Melchior
+a a a
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{Instrument names},
+@ref{Selecting font and font size},
+@ref{Text}.
+
 
 @node Spoken music
 @unnumberedsubsubsec Spoken music
@@ -1573,71 +1898,458 @@ which arise are broadly similar, and are covered in this section.
 Typesetting Gregorian chant in various styles of ancient notation
 is described in @ref{Ancient notation}.
 
-Modern chant settings use modern notation with varying numbers of
-elements taken from ancient notation.  Some of the elements and
-methods to consider are these:
-
-@itemize
-
-@item
-Chants often use quarter notes without stems to indicate the pitch,
-with the rhythm being taken from the spoken rhythm of the words.  To
-remove the stem set the @code{transparent} property of the
-@code{Stem} grob to @code{#t}.  See
-@rlearning{Visibility and color of objects} and
-@ref{Visibility of objects}.  An alternative is set the
-@code{length} property to @code{0}.
-
-@item
-Chants usually omit the bar lines or use shortened or dotted bar
-lines to indicate pauses in the music.  To omit bar lines
-completely use @code{\cadenzaOn} or remove the @code{Bar_engraver}.
-See @ref{Unmetered music} and @ref{Modifying context plug-ins}.
-
-@item
-To use modified bar lines see the @emph{Bar lines} section in
-@ref{Bars}.  Alternatively, the correct Gregorian chant notation
-for pauses or rests in the music are described in @emph{Divisiones}
-in @ref{Typesetting Gregorian chant}.
-
-@item
-Chants usually omit the time signature and often omit the clef too.
-To omit these remove the @code{Time_signature_engraver} and
-@code{Clef_engraver} from the @code{Staff} context respectively.
-For details, see @ref{Modifying context plug-ins}.
-
-@end itemize
-
 @seealso
-Learning Manual:
-@rlearning{Visibility and color of objects}.
-
 Notation reference:
-@ref{Ancient notation},
-@ref{Visibility of objects},
-@ref{Bars},
-@ref{Unmetered music},
-@ref{Modifying context plug-ins},
-@ref{Typesetting Gregorian chant}.
+@ref{Ancient notation}.
+
 
 @node Setting a chant
 @unnumberedsubsubsec Setting a chant
 
-Some approaches to setting a chant are shown in the following
-snippets.
+Modern chant settings use modern notation with varying numbers of
+elements taken from ancient notation.  Some of the elements and
+methods to consider are shown here.
+
+Chants often use quarter notes without stems to indicate the pitch,
+with the rhythm being taken from the spoken rhythm of the words.
+
+@lilypond[verbatim,quote]
+stemOff = { \override Staff.Stem #'transparent = ##t }
+
+\relative c' {
+  \stemOff
+  a'4 b c2 |
+}
+
+@end lilypond
+
+Chants often omit the bar lines or use shortened or dotted bar
+lines to indicate pauses in the music.  To omit all bar lines from
+all staves remove the bar line engraver completely:
+
+@lilypond[verbatim,quote]
+\score {
+  \new StaffGroup <<
+    \new Staff {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove Bar_engraver
+    }
+  }
+}
+@end lilypond
+
+Bar lines can also be removed on a staff-by-staff basis:
+
+@lilypond[verbatim, quote]
+\score {
+  \new ChoirStaff <<
+    \new Staff
+    \with { \remove Bar_engraver } {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        a4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+  >>
+}
+@end lilypond
+
+To remove bar lines from just a section of music treat it as a
+cadenza.  If the section is long you may need to insert dummy
+barlines with @code{\bar ""} to show where the line should break.
+
+@lilypond[verbatim,quote,relative=2]
+a4 b c2 |
+\cadenzaOn
+a4 b c2
+a4 b c2
+\bar ""
+a4 b c2
+a4 b c2
+\cadenzaOff
+a4 b c2 |
+a4 b c2 |
+@end lilypond
+
+Rests or pauses in chants can be indicated by modified bar lines.
+
+@lilypond[verbatim, quote,relative=2]
+a4
+\cadenzaOn
+b c2
+a4 b c2
+\bar "'"
+a4 b c2
+a4 b c2
+\bar ":"
+a4 b c2
+\bar "dashed"
+a4 b c2
+\bar "||"
+@end lilypond
+
+Alternatively, the notation used in Gregorian chant for pauses or
+rests is sometimes used even though the rest of the notation is
+modern.  This uses a modified @code{\breathe} mark:
+
+@lilypond[verbatim,quote]
+divisioMinima = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-minima
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+divisioMaior = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maior
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+divisioMaxima = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maxima
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+finalis = {
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::finalis
+  \once \override BreathingSign  #'Y-offset = #0
+  \breathe
+}
+
+\score {
+  \relative c'' {
+    g2 a4 g
+    \divisioMinima
+    g2 a4 g
+    \divisioMaior
+    g2 a4 g
+    \divisioMaxima
+    g2 a4 g
+    \finalis
+  }
+  \layout {
+    \context {
+      \Staff
+      \remove Bar_engraver
+    }
+  }
+}
+@end lilypond
+
+Chants usually omit the time signature and often omit the clef too.
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    \relative c'' {
+      a4 b c2 |
+      a4 b c2 |
+      a4 b c2 |
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      \remove Bar_engraver
+      \remove Time_signature_engraver
+      \remove Clef_engraver
+    }
+  }
+}
+@end lilypond
+
+Chants for psalms in the Anglican tradition are usually either
+@emph{single}, with 7 bars of music, or @emph{double}, with two lots
+of 7 bars.  Each group of 7 bars is divided into two halves,
+corresponding to the two halves of each verse, usually separated by
+a double bar line.  Only whole and half notes are used.  The 1st bar
+in each half always contains a single chord of whole notes.  This is
+the @qq{reciting note}.  Chants are usually centered on the page.
+
+@lilypond[verbatim,quote]
+SopranoMusic = \relative g' {
+  g1 | c2 b | a1 | \bar "||"
+  a1 | d2 c | c b | c1 | \bar "||"
+}
+
+AltoMusic = \relative c' {
+  e1 | g2 g | f1 |
+  f1 | f2 e | d d | e1 |
+}
+
+TenorMusic = \relative a {
+  c1 | c2 c | c1 |
+  d1 | g,2 g | g g | g1 |
+}
+
+BassMusic =  \relative c {
+  c1 | e2 e | f1 |
+  d1 | b2 c | g' g | c,1 |
+}
+
+global = {
+  \time 2/2
+}
+
+% Use markup to center the chant on the page
+\markup {
+  \fill-line {
+    \score {  % centered
+      <<
+        \new ChoirStaff <<
+          \new Staff <<
+            \global
+            \clef "treble"
+            \new Voice = "Soprano" <<
+              \voiceOne
+              \SopranoMusic
+            >>
+            \new Voice = "Alto" <<
+              \voiceTwo
+              \AltoMusic
+            >>
+          >>
+          \new Staff <<
+            \clef "bass"
+            \global
+            \new Voice = "Tenor" <<
+              \voiceOne
+              \TenorMusic
+            >>
+            \new Voice = "Bass" <<
+              \voiceTwo
+              \BassMusic
+            >>
+          >>
+        >>
+      >>
+      \layout {
+        \context {
+          \Score
+          \override SpacingSpanner
+          #'base-shortest-duration = #(ly:make-moment 1 2)
+        }
+        \context {
+          \Staff
+          \remove "Time_signature_engraver"
+        }
+      }
+    }  % End score
+  }
+}  % End markup
+@end lilypond
+
+Some other approaches to setting such a chant are shown in the first
+of the following snippets.
 
 @snippets
+
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
+Canticles and other liturgical texts may be set more freely, and
+may use notational elements from ancient music.  Often the words
+are shown underneath and aligned with the notes.  If so, the notes
+are spaced in accordance with the syllables rather than the notes'
+durations.
+
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+
+@seealso
+Learning Manual:
+@rlearning{Visibility and color of objects},
+@rlearning{Vocal ensembles}.
+
+Notation Reference:
+@ref{Ancient notation},
+@ref{Bar lines},
+@ref{Modifying context plug-ins},
+@ref{Typesetting Gregorian chant},
+@ref{Unmetered music},
+@ref{Visibility of objects}.
 
 
 @node Pointing a psalm
 @unnumberedsubsubsec Pointing a psalm
 
-TBC
+The words to an Anglican psalm are usually printed in separate
+verses centered underneath the chant.
+
+Single chants (with 7 bars) are repeated for every verse.  Double
+chants (with 14 bars) are repeated for every pair of verses.  Marks
+are inserted in the words to show how they should be fitted to the
+chant.  Each verse is divided into two halves.  A colon is usually
+used to indicate this division.  This corresponds to the double bar
+line in the music.  The words before the colon are sung to the first
+three bars of music; the words after the colon are sung to the last
+four bars.
+
+Single bar lines (or in some psalters an inverted comma or similar
+symbol) are inserted between words to indicate where the bar lines
+in the music fall.  In markup mode a single bar line can be entered
+with the bar check symbol, @code{|}.
+
+@lilypond[verbatim,quote]
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { O come let us sing | unto the | Lord : let }
+        \line { us heartily rejoice in the | strength of | our }
+        \line { sal- | -vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+Other symbols may require glyphs from the @code{fetaMusic} fonts.
+For details, see @ref{Fonts}.
+
+@lilypond[verbatim,quote]
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { O come let us sing \tick unto the \tick Lord : let }
+        \line {
+          us heartily rejoice in the \tick strength of \tick our
+        }
+        \line { sal \tick vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+Where there is one whole note in a bar all the words corresponding
+to that bar are recited on that one note in speech rhythm.  Where
+there are two notes in a bar there will usually be only one or two
+corresponding syllables.  If there are more that two syllables a
+dot is usually inserted to indicate where the change in note occurs.
+
+@lilypond[verbatim,quote]
+dot = \markup {
+  \raise #0.7 \musicglyph #"dots.dot"
+}
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line {
+          O come let us sing \tick unto \dot the \tick Lord : let
+        }
+        \line {
+          us heartily rejoice in the \tick strength of \tick our
+        }
+        \line { sal \tick vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+In some psalters an asterisk is used to indicate a break in a
+recited section instead of a comma, and stressed or slightly
+lengthened syllables are indicated in bold text.
+
+@lilypond[verbatim,quote]
+dot = \markup {
+  \raise #0.7 \musicglyph #"dots.dot"
+}
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { Today if ye will hear his voice * }
+        \line {
+          \concat { \bold hard en }
+          | not your | hearts : as in the pro-
+        }
+        \line { vocation * and as in the \bold day of tempt- | }
+        \line { -ation | in the | wilderness. }
+      }
+    }
+  }
+}
+@end lilypond
+
+In other psalters an accent is placed over the syllable to indicate
+stress.
+
+@lilypond[verbatim,quote]
+tick = \markup {
+  \raise #2 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line {
+          O come let us \concat {
+            si \combine \tick ng
+          }
+          | unto the | Lord : let
+        }
+        \line {
+          us heartily \concat {
+            rejo \combine \tick ice
+          }
+          in the | strength of | our
+        }
+        \line { sal- | -vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+The use of markup to center text, and arrange lines in columns is
+described in @ref{Formatting text}.
+
+Most of these elements are shown in one or other of the two verses
+in the template, see @qq{Psalms} in @rlearning{Vocal ensembles}.
+
+@seealso
+Learning Manual:
+@rlearning{Vocal ensembles}.
+
+Notation Reference:
+@ref{Fonts},
+@ref{Formatting text}.
+
 
 @node Partial measures in hymn tunes
 @unnumberedsubsubsec Partial measures in hymn tunes

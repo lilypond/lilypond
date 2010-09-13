@@ -487,6 +487,7 @@ def samefile (f1, f2):
 
 def do_file (input_filename, included=False):
     # Ugh.
+    input_absname = input_filename
     if not input_filename or input_filename == '-':
         in_handle = sys.stdin
         input_fullname = '<stdin>'
@@ -496,7 +497,10 @@ def do_file (input_filename, included=False):
         else:
             input_fullname = global_options.formatter.input_fullname (input_filename)
         # Normalize path to absolute path, since we will change cwd to the output dir!
-        input_fullname = os.path.abspath (input_fullname)
+        # Otherwise, "lilypond-book -o out test.tex" will complain that it is
+        # overwriting the input file (which it is actually not), since the
+        # input filename is relative to the CWD...
+        input_absname = os.path.abspath (input_fullname)
 
         note_input_file (input_fullname)
         in_handle = file (input_fullname)
@@ -523,7 +527,7 @@ def do_file (input_filename, included=False):
                                    input_base + global_options.formatter.default_extension)
     if (os.path.exists (input_filename)
         and os.path.exists (output_filename)
-        and samefile (output_filename, input_fullname)):
+        and samefile (output_filename, input_absname)):
      error (
      _ ("Output would overwrite input file; use --output."))
      exit (2)

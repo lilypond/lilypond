@@ -173,6 +173,55 @@ and duration-log @var{log}."
 	   letter)))
      radius X)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; clipping
+
+(define-public (make-rhythmic-location bar-num num den)
+  (cons
+   bar-num (ly:make-moment num den)))
+
+(define-public (rhythmic-location? a)
+  (and (pair? a)
+       (integer? (car a))
+       (ly:moment? (cdr a))))
+
+(define-public (make-graceless-rhythmic-location loc)
+  (make-rhythmic-location
+   (car loc)
+   (ly:moment-main-numerator (rhythmic-location-measure-position loc))
+   (ly:moment-main-denominator (rhythmic-location-measure-position loc))))
+
+(define-public rhythmic-location-measure-position cdr)
+(define-public rhythmic-location-bar-number car)
+
+(define-public (rhythmic-location<? a b)
+  (cond
+   ((< (car a) (car b)) #t)
+   ((> (car a) (car b)) #f)
+   (else
+    (ly:moment<? (cdr a) (cdr b)))))
+
+(define-public (rhythmic-location<=? a b)
+  (not (rhythmic-location<? b a)))
+(define-public (rhythmic-location>=? a b)
+  (rhythmic-location<? a b))
+(define-public (rhythmic-location>? a b)
+  (rhythmic-location<? b a))
+
+(define-public (rhythmic-location=? a b)
+  (and (rhythmic-location<=? a b)
+       (rhythmic-location<=? b a)))
+
+(define-public (rhythmic-location->file-string a)
+  (ly:format "~a.~a.~a"
+	     (car a)
+	     (ly:moment-main-numerator (cdr a))
+	     (ly:moment-main-denominator (cdr a))))
+
+(define-public (rhythmic-location->string a)
+  (ly:format "bar ~a ~a"
+	     (car a)
+	     (ly:moment->string (cdr a))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; break visibility

@@ -24,29 +24,40 @@
 #include "protected-scm.hh"
 
 
+
 SCM
 ly_make_module (bool safe)
 {
   SCM mod = SCM_EOL;
   if (!safe)
     {
+      /* Look up (evaluate) Scheme make-module function and call it */
+
       SCM maker = ly_lily_module_constant ("make-module");
-
-      SCM scm_module = ly_lily_module_constant ("the-scm-module");
-
       mod = scm_call_0 (maker);
-      scm_module_define (mod, ly_symbol2scm ("%module-public-interface"),
-			 mod);
+      /*
+	Look up and call Guile module-export-all! or, when using
+	Guile V1.8, the compatible shim defined in lily.scm.
+      */
+      SCM module_export_all_x = ly_lily_module_constant ("module-export-all!");
+      scm_call_1 (module_export_all_x, mod);
 
+      /*
+	Evaluate Guile module "the-root-module",
+	and ensure we inherit definitions from it and the "lily" module
+	N.B. this used to be "the-scm-module" and is deprecated in
+	Guile V1.9/2.0
+      */
+      SCM scm_module = ly_lily_module_constant ("the-root-module");
       ly_use_module (mod, scm_module);
       ly_use_module (mod, global_lily_module);
     }
   else
     {
+      /* Evaluate and call make-safe-lilypond-module */
       SCM proc = ly_lily_module_constant ("make-safe-lilypond-module");
       mod = scm_call_0 (proc);
     }
-
 
   return mod;
 }
@@ -54,17 +65,27 @@ ly_make_module (bool safe)
 SCM
 ly_use_module (SCM mod, SCM used)
 {
-  SCM expr
-    = scm_list_3 (ly_symbol2scm ("module-use!"),
-		  mod,
-		  scm_list_2 (ly_symbol2scm ("module-public-interface"),
-			      used));
-
+  /*
+    Pick up the module's interface definition.
+    TODO - Replace inline evaluations (interpreted)
+    with guile API calls if these become available.
+  */
+  SCM scm_module_use = ly_symbol2scm ("module-use!");
+  SCM scm_module_public_interface = ly_symbol2scm ("module-public-interface");
+  SCM iface = scm_list_2 (scm_module_public_interface, used);
+  /*
+    Set up to interpret
+    '(module_use! <mod> (module-public-interface <used>))'
+  */
+  SCM expr = scm_list_3 (scm_module_use, mod, iface);
+  /*
+    Now return SCM value, this is the result of interpreting
+    '(eval (module-use! <mod> (module-public-interface <used>)) "lily")'
+  */
   return scm_eval (expr, global_lily_module);
 }
 
 #define FUNC_NAME __FUNCTION__
-
 
 
 SCM

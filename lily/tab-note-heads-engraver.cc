@@ -41,10 +41,9 @@ using namespace std;
 */
 class Tab_note_heads_engraver : public Engraver
 {
-  vector<Item *> notes_;
-
   vector<Stream_event *> note_events_;
   vector<Stream_event *> tabstring_events_;
+
 public:
   TRANSLATOR_DECLARATIONS (Tab_note_heads_engraver);
 
@@ -116,21 +115,19 @@ Tab_note_heads_engraver::process_music ()
 				     context ()->self_scm (),
 				     string_number);
 	note->set_property ("staff-position", staff_position);
-	notes_.push_back (note);
       }
 }
 
 void
 Tab_note_heads_engraver::stop_translation_timestep ()
 {
-  notes_.clear ();
   note_events_.clear ();
   tabstring_events_.clear ();
 }
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,
 		/* doc */
-		"Generate one or more tablature noteheads from event of type"
+		"Generate one or more tablature note heads from event of type"
 		" @code{NoteEvent}.",
 
 		/* create */

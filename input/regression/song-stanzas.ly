@@ -1,5 +1,9 @@
 \version "2.12.0"
-
+\header {
+  texidoc="Festival song synthesis output supports
+multiple stanzas.
+"
+}
 \include "festival.ly"
 
 \festival #"song-stanzas.xml" { \tempo 4 = 100 }

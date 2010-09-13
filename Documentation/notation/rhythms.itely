@@ -974,6 +974,7 @@ Multi-measure rests do not take part in rest collisions.
 
 @menu
 * Time signature::
+* Metronome marks::
 * Upbeats::
 * Unmetered music::
 * Polymetric notation::
@@ -1146,6 +1147,91 @@ Snippets:
 Internals Reference:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator}.
+
+@node Metronome marks
+@unnumberedsubsubsec Metronome marks
+
+@cindex tempo
+@cindex beats per minute
+@cindex metronome mark
+@cindex metronome marking with text
+
+@funindex \tempo
+@funindex tempo
+
+A basic metronome mark is simple to write:
+
+@lilypond[verbatim,quote,relative=1]
+\tempo 4 = 120
+c2 d
+e4. d8 c2
+@end lilypond
+
+Tempo indications with text can be used instead:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "Allegretto"
+c4 e d c
+b4. a16 b c4 r4
+@end lilypond
+
+Combining a metronome mark and text will automatically place the
+metronome mark within parentheses:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "Allegro" 4 = 160
+g4 c d e
+d4 b g2
+@end lilypond
+
+In general, the text can be any markup object:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo \markup { \italic Faster } 4 = 132
+a8-. r8 b-. r gis-. r a-. r
+@end lilypond
+
+A parenthesized metronome mark with no textual indication may be
+written by including an empty string in the input:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "" 8 = 96
+d4 g e c
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
+
+@c perhaps also an example of how to move it horizontally?
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-tempo-without-a-metronome-mark.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-metronome-marks-in-markup-mode.ly}
+
+For more details, see @ref{Formatting text}.
+
+
+@seealso
+Music Glossary:
+@rglos{metronome},
+@rglos{metronomic indication},
+@rglos{tempo indication},
+@rglos{metronome mark}.
+
+Notation Reference:
+@ref{Formatting text},
+@ref{MIDI output}.
+
+Snippets:
+@rlsr{Staff notation}.
+
+Internals Reference:
+@rinternals{MetronomeMark}.
 
 
 @node Upbeats

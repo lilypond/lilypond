@@ -116,6 +116,7 @@ public:
   bool is_chord_state () const;
   bool is_lyric_state () const;
   bool is_figure_state () const;
+  bool is_clean () const;
 };
 
 #endif /* MY_LILY_LEXER_HH */

@@ -1,5 +1,9 @@
 \version "2.12.0"
-
+\header {
+  texidoc="Festival song synthesis output supports
+lyrics which are not complete words.
+"
+}
 \include "festival.ly"
 #(set! *skip-word* #f)
 

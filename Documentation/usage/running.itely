@@ -768,7 +768,7 @@ of a lyrics block and the terminating brace, (@code{@}}).  Without
 this separation the brace is taken to be part of the syllable.  It
 is always advisable to ensure there is white space before and after
 @emph{every} brace.  For the importance of this when using lyrics,
-see @ruser{Lyrics explained}.
+see @ruser{Entering lyrics}.
 
 This error message can also appear if a terminating quote sign,
 (@code{"}), is omitted.  In this case an accompanying error message

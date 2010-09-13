@@ -39,41 +39,50 @@ for i in range(len(lines)):
             sys.exit(1)
         nodes.append( (section_type, node_name) )
 
+# sanity check for debugging
+#for node in nodes:
+#    print ' '*2*node[0] + node[1]
+
+def getMenuFor(node_name):
+    i = 0
+    while nodes[i][1] != node_name:
+        i += 1
+    startIndex = i + 1
+    findType = nodes[i][0] + 1
+    menu = []
+    for i in range(startIndex, len(nodes)):
+        currentSectionType = nodes[i][0]
+        currentNodeName = nodes[i][1]
+        if currentSectionType < findType:
+            break
+        elif currentSectionType == findType:
+            menu.append(currentNodeName)
+        else:
+            pass
+    return menu
+
 # rewrite file with new menus from TOC
 outfile = open(infile, 'w')
+
+lastNode = ''
 line_index = 0
-toc_index = 0
 while line_index < len(lines):
     line = lines[ line_index ]
+    if line.startswith('@node'):
+        lastNode = line[6:].rstrip()
     if line.startswith('@menu'):
         outfile.write('@menu\n')
+        # skip over existing menu
         # ASSUME: every @menu has a proper @end menu
         while not lines[line_index].startswith('@end menu'):
             line_index += 1
 
         # write new menu entries
-        menu_type = nodes[toc_index][0]
-        i = toc_index
-        while nodes[i][0] == menu_type:
-            i += 1
-            if i >= len(nodes):
-                break
-        added = 0
-        while True:
-            if i >= len(nodes):
-                added = 1
-                break
-            section_type = nodes[i][0]
-            if section_type == menu_type+1:
-                node_name = nodes[i][1]
-                node_formatted = '* ' + node_name + '::\n'
-                outfile.write( node_formatted )
-                added += 1
-            if section_type == menu_type:
-                added += 1
-                break
-            i += 1
-        toc_index += added
+        menu = getMenuFor(lastNode)
+        for item in menu:
+            node_formatted = '* ' + item + '::\n'
+            outfile.write( node_formatted )
+
         line = lines[line_index]
     line_index += 1
     # write normal line.  Removes tabs and spaces; leaves EOL
