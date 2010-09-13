@@ -1,5 +1,16 @@
-%-------------------8<----------------------------
-\version "2.13.30"
+\version "2.13.32"
+
+\header {
+
+  texinfo = "
+Tremolos will appear on tablature staffs only if
+@code{\tabFullNotation} is active.  Otherwise, no
+tremolo indications are displayed on the TabStaff.
+Also, tablature beams are the same thickness on TabStaff
+and Staff."
+
+  doctitle = "Tablature tremolo"
+}
 
 music = {
   <c e g c' e'>4:16
@@ -27,4 +38,3 @@ music = {
     \music
   }
 }
-%-------------------8<----------------------------
