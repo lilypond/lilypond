@@ -1,6 +1,6 @@
 \header {
 
-  texidoc = "The markup commands @code{\wordwrap} and @code{\justify}
+  texidoc = "The markup commands @code{\\wordwrap} and @code{\\justify}
   produce simple paragraph text."
 
 }

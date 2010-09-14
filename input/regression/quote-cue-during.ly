@@ -3,7 +3,7 @@
 
   texidoc = " The @code{cueDuring} form of quotation will set stem
 directions on both quoted and main voice, and deliver the quoted voice
-in the @code{cue} @code{Voice}. The music function @code{\killCues}
+in the @code{cue} @code{Voice}. The music function @code{\\killCues}
 can remove all cue notes.
 
 Spanners run to the end of a cue section, and are not started on the

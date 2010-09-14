@@ -4,8 +4,8 @@
     them with a @code{$}, both in a LilyPond context or in a Scheme
     context.
 
-In this example, the @code{\withpaddingA}, @code{\withpaddingB} and
-@code{\withpaddingC} music functions set different kinds of padding on
+In this example, the @code{\\withpaddingA}, @code{\\withpaddingB} and
+@code{\\withpaddingC} music functions set different kinds of padding on
 the @code{TextScript} grob.
 
 "

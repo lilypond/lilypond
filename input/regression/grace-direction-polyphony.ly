@@ -1,6 +1,6 @@
 \header {
 
-  texidoc = "The @code{\voiceOne} setting is retained after
+  texidoc = "The @code{\\voiceOne} setting is retained after
 finishing the grace section."
 
 }

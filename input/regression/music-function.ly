@@ -3,8 +3,8 @@
     
 texidoc = "Music functions are generic music transformation functions,
 which can be used to extend music syntax seamlessly.  Here we
-demonstrate a @code{\myBar} function, which works similar to
-@code{\bar}, but is implemented completely in Scheme."
+demonstrate a @code{\\myBar} function, which works similar to
+@code{\\bar}, but is implemented completely in Scheme."
 
 }
 \version "2.12.0"

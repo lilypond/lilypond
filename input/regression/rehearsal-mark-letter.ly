@@ -4,7 +4,7 @@
 
   texidoc= "Rehearsal marks in letter style: the I is skipped, and
 after Z, double letters are used.  The mark may be set with
-@code{\mark NUMBER}, or with @code{Score.rehearsalMark}."
+@code{\\mark NUMBER}, or with @code{Score.rehearsalMark}."
 
 }
 

@@ -4,7 +4,7 @@
 \header{
 
   texidoc=" You can have beams, notes, chords, stems etc. within a
-@code{\grace} section.  If there are tuplets, the grace notes will not
+@code{\\grace} section.  If there are tuplets, the grace notes will not
 be under the brace.  
 
 Main note scripts do not end up on the grace note. 

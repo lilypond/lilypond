@@ -1,6 +1,6 @@
 \header {
 
-  texidoc = "Glissandi are not broken. Here a @code{\break} is ineffective.
+  texidoc = "Glissandi are not broken. Here a @code{\\break} is ineffective.
 Use @code{breakable} grob property to override."
 
 }

@@ -1,7 +1,7 @@
 \header  {
 
   texidoc = "Specifying @code{grow-direction} on a beam, will cause
-  feathered beaming. The @code{\featherDurations} function can be used
+  feathered beaming. The @code{\\featherDurations} function can be used
   to adjust note durations."
   
 }
