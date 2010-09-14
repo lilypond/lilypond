@@ -4,7 +4,7 @@
 
   texidoc = "
 Tremolos will appear on tablature staffs only if
-@code{\tabFullNotation} is active.  Otherwise, no
+@code{\\tabFullNotation} is active.  Otherwise, no
 tremolo indications are displayed on the TabStaff.
 Also, tablature beams are the same thickness on TabStaff
 and Staff."
@@ -38,3 +38,4 @@ music = {
     \music
   }
 }
+
