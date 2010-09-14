@@ -52,6 +52,7 @@ documents.
 * Invoking lilypond-book::
 * Filename extensions::
 * lilypond-book templates::
+* Sharing the table of contents::
 * Alternate methods of mixing text and music::
 @end menu
 
@@ -1137,6 +1138,112 @@ seltsamen Zeichen: __ ______, wenn sie von der Schriftart
 unterst__tzt werden.
 \end{document}
 @end verbatim
+
+
+@node Sharing the table of contents
+@section Sharing the table of contents
+
+These functions already exist in the OrchestralLily package:
+
+@example
+@url{http://repo.or.cz/w/orchestrallily.git}
+@end example
+
+For greater flexibility in text handling, some users prefer to
+export the table of contents from lilypond and read it into
+@LaTeX{}.
+
+@subsubheading Exporting the ToC from LilyPond
+
+This assumes that your score has multiple movements in the same lilypond
+output file.
+
+@smallexample
+#(define (oly:create-toc-file layout pages)
+  (let* ((label-table (ly:output-def-lookup layout 'label-page-table)))
+    (if (not (null? label-table))
+      (let* ((format-line (lambda (toc-item)
+             (let* ((label (car toc-item))
+                    (text  (caddr toc-item))
+                    (label-page (and (list? label-table)
+                                     (assoc label label-table)))
+                    (page (and label-page (cdr label-page))))
+               (format #f "~a, section, 1, @{~a@}, ~a" page text label))))
+             (formatted-toc-items (map format-line (toc-items)))
+             (whole-string (string-join formatted-toc-items ",\n"))
+             (output-name (ly:parser-output-name parser))
+             (outfilename (format "~a.toc" output-name))
+             (outfile (open-output-file outfilename)))
+        (if (output-port? outfile)
+            (display whole-string outfile)
+            (ly:warning (_ "Unable to open output file ~a for the TOC information") outfilename))
+        (close-output-port outfile)))))
+
+\paper @{
+  #(define (page-post-process layout pages) (oly:create-toc-file layout pages))
+@}
+@end smallexample
+
+@subsubheading Importing the ToC into LaTeX
+
+In LaTeX, the header should include:
+
+@c no, this doesn't require the smallexample, but since the other
+@c two blocks on this page use it, I figured I might as well
+@c user it here as well, for consistency. -gp
+@smallexample
+\usepackage@{pdfpages@}
+\includescore@{nameofthescore@}
+@end smallexample
+
+@noindent
+where @code{\includescore} is defined as:
+
+@smallexample
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \includescore@{PossibleExtension@}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Read in the TOC entries for a PDF file from the corresponding .toc file.
+% This requires some heave latex tweaking, since reading in things from a file
+% and inserting it into the arguments of a macro is not (easily) possible
+
+% Solution by Patrick Fimml on #latex on April 18, 2009:
+% \readfile@{filename@}@{\variable@}
+% reads in the contents of the file into \variable (undefined if file
+% doesn't exist)
+\newread\readfile@@f
+\def\readfile@@line#1@{%
+@{\catcode`\^^M=10\global\read\readfile@@f to \readfile@@tmp@}%
+\edef\do@{\noexpand\g@@addto@@macro@{\noexpand#1@}@{\readfile@@tmp@}@}\do%
+\ifeof\readfile@@f\else%
+\readfile@@line@{#1@}%
+\fi%
+@}
+\def\readfile#1#2@{%
+\openin\readfile@@f=#1 %
+\ifeof\readfile@@f%
+\typeout@{No TOC file #1 available!@}%
+\else%
+\gdef#2@{@}%
+\readfile@@line@{#2@}%
+\fi
+\closein\readfile@@f%
+@}%
+
+
+\newcommand@{\includescore@}[1]@{
+\def\oly@@fname@{\oly@@basename\@@ifmtarg@{#1@}@{@}@{_#1@}@}
+\let\oly@@addtotoc\undefined
+\readfile@{\oly@@xxxxxxxxx@}@{\oly@@addtotoc@}
+\ifx\oly@@addtotoc\undefined
+\includepdf[pages=-]@{\oly@@fname@}
+\else
+\edef\includeit@{\noexpand\includepdf[pages=-,addtotoc=@{\oly@@addtotoc@}]
+@{\oly@@fname@}@}\includeit
+\fi
+@}
+@end smallexample
 
 
 @node Alternate methods of mixing text and music
