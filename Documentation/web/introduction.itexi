@@ -560,6 +560,7 @@ lovers.
 
 @divEnd
 
+@contactUsAbout{concerts or sheet music}
 
 @divClass{column-center-bottom}
 @subheading Where now?
@@ -849,6 +850,8 @@ I want on the page, especially when it isn't "standard" practice.}
 @divEnd
 
 @divEnd
+
+@contactUsAbout{news articles or testimonals}
 
 @divClass{column-center-bottom}
 @subheading Where now?

@@ -805,7 +805,6 @@ manuals can be found at @url{http://lilypond.org}}
 @divEnd
 @divEnd
 
-
 @divClass{column-center-bottom}
 
 @subheading What people did with LilyPond
@@ -817,6 +816,8 @@ manuals can be found at @url{http://lilypond.org}}
 
 @divEnd
 @divEnd
+
+@contactUsAbout{academic papers}
 
 
 @node Old news
