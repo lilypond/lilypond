@@ -5,6 +5,17 @@
 \version "2.13.31"
 
 \header {
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+  texidocde="
+Dieses Schnipsel erzeugt eine Liste aller möglichen Löcher und Locheinstellungen
+für Holzbläserdiagramme, wie sie in der Datei
+@file{scm/define-woodwind-diagrams.scm} definiert sind.  Die Liste wird auf
+der Kommandozeile und in der Log-Datei angezeigt, nicht in den Noten.
+"
+  doctitlede = "Liste der Löcher für Holzbläserdiagramme"
+
+
   lsrtags = "winds"
 
   texidoc="

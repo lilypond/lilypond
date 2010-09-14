@@ -4,6 +4,15 @@
 %% Note: this file works from version 2.13.26
 \version "2.13.31"
 \header {
+%% Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
+  texidocfr = "Cet exemple illustre comment, lorsqu'une note affublée
+  d'une altération accidentelle est prolongée, ne pas répéter cette
+  altération après un saut de ligne.
+"
+  doctitlefr = "Non répétition de l'altération après saut de ligne
+  sur liaison de prolongation"
+
+
   lsrtags = "pitches"
   texidoc = "This shows how to hide accidentals on tied notes at the beginning of a
 new system."

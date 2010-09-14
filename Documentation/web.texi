@@ -277,6 +277,12 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end macro
 
 
+@macro contactUs{}
+
+
+
+@end macro
+
 @include web/introduction.itexi
 @include web/download.itexi
 @include web/manuals.itexi

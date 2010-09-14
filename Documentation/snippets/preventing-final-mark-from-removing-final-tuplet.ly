@@ -21,27 +21,24 @@ tuplet marking.  This can be overcome by setting @code{TupletBracket
    \times 2/3 { c'16 c'16 c'16 }
    \times 2/3 { c'16 c'16 c'16 }
    \times 2/3 { c'16 c'16 c'16 }
-   \override Score.RehearsalMark #'break-visibility = ##(#t #t #t)
-   \override Score.RehearsalMark #'direction = #down
-   \override Score.RehearsalMark #'break-align-symbol =  #'clef
-   \override Score.RehearsalMark #'self-alignment-X = #right
+   \override Score.RehearsalMark #'break-visibility = #'#(#t #t #t)
+   \override Score.RehearsalMark #'direction = #DOWN
+   \override Score.RehearsalMark #'self-alignment-X = #RIGHT
    \mark "Composed Feb 2007 - Feb 2008"
 }
 
 \new Staff {
-   \set tupletFullLength = ##t
+  \set tupletFullLength = ##t
 
-   \override TupletBracket #'full-length-to-extent = ##f
+  \override TupletBracket #'full-length-to-extent = ##f
 
-   \time 1/8
-   \times 2/3 { c'16 c'16 c'16 }
-   \times 2/3 { c'16 c'16 c'16 }
-   \times 2/3 { c'16 c'16 c'16 }
-   \override Score.RehearsalMark #'break-visibility = ##(#t #t #t)
-   \override Score.RehearsalMark #'direction = #down
-   \override Score.RehearsalMark #'break-align-symbol =  #'clef
-   \override Score.RehearsalMark #'self-alignment-X = #right
-   \mark "Composed Feb 2007 - Feb 2008"
+  \time 1/8
+  \times 2/3 { c'16 c'16 c'16 }
+  \times 2/3 { c'16 c'16 c'16 }
+  \times 2/3 { c'16 c'16 c'16 }
+  \override Score.RehearsalMark #'break-visibility = #'#(#t #t #t)
+  \override Score.RehearsalMark #'direction = #DOWN
+  \override Score.RehearsalMark #'self-alignment-X = #RIGHT
+  \mark "Composed Feb 2007 - Feb 2008"
 }
-
 

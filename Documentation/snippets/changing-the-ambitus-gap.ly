@@ -4,6 +4,14 @@
 %% Note: this file works from version 2.13.26
 \version "2.13.31"
 \header {
+%% Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
+  texidocfr = "L'affichage d'un @emph{ambitus} peut s'affiner pour
+  répondre à vos préférences en matière d'esthétique.
+"
+
+  doctitlefr = "Réglage de l'affichage d'un ambitus"
+
+
   lsrtags = "pitches"
   texidoc = "It is possible to change the default gap setting for
 ambitus."

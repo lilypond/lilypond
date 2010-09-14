@@ -5,6 +5,16 @@
 \version "2.13.31"
 
 \header {
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+
+  texidocde="
+Die Größe und Dicke der Holzbläserdiagramme kann geändert werden.
+"
+
+  doctitlede = "Größe von Holzbläserdiagrammen ändern"
+
+
   lsrtags="winds"
   texidoc="
 The size and thickness of woodwind diagrams can be changed.

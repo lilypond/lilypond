@@ -22,6 +22,7 @@ printing-metronome-and-rehearsal-marks-below-the-staff.ly
 quoting-another-voice-with-transposition.ly
 quoting-another-voice.ly
 removing-the-first-empty-line.ly
+setting-system-separators.ly
 tick-bar-lines.ly
 time-signature-in-parentheses.ly
 tweaking-clef-properties.ly

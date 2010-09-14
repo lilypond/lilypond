@@ -5,6 +5,17 @@
 \version "2.13.31"
 
 \header {
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+
+  texidocde="
+Folgende Noten zeige alle Holzbläserdiagramme, die für LilyPond
+definiert sind.
+
+"
+  doctitlede = "Liste der Holzbläserdiagramme"
+
+
   lsrtags="winds"
   texidoc="
 The following music shows all of the woodwind diagrams currently

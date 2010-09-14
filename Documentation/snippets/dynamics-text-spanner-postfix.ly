@@ -20,6 +20,34 @@ extensores de texto de forma predeterminada.
 
   doctitlees = "Objetos extensores de texto postfijos para dinámica"
 
+%%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+
+  texidocde = "Die \cresc, \dim und \decresc Strecker können umdefiniert werden,
+um nachgestellt zu funktionieren und einen Textstrecker zu produzieren.  Eigene
+Strecker können auch einfach definiert werden.  Klammer- und Textcrescendi können
+einfach vermischt werden.  \< und \> erstellen normalerweise Klammern, \cresc
+usw. dagegen normalerweise Textspanner.
+
+"
+  doctitlede = "Dynamiktextstrecker nachgestellt"
+
+
+
+%% Translation of GIT committish: a06cb0b0d9593ba110e001f2b0f44b8bef084693
+
+  texidocfr = "
+Les lignes d'extension des commandes \cresc, \dim et \decresc peuvent
+désormais être personnalisées facilement sous forme d'opérateurs
+postfix.  Soufflets et (de)crescendos peuvent cohabiter.  \< et \>
+produiront par défaut des soufflets, alors que \cresc etc. produiront
+une indication textuelle avec extension.
+
+"
+
+  doctitlefr = "Extensions de nuance postfix"
+
+
   lsrtags = "expressive-marks, tweaks-and-overrides"
   texidoc = "The \cresc, \dim and \decresc spanners can now be redefined as
 postfix operators and produce one text spanner.  Defining custom spanners is

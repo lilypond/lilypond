@@ -14,6 +14,16 @@ que las estrofas no siempre tienen la misma longitud.
 "
   doctitlees = "Notación de responsos o salmos"
 
+%% Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+  texidocde = "
+Diese Form der Notation wird benutzt für die Notation von Psalmen, in denen
+die Strophen nicht die gleiche Länge haben.
+
+"
+  doctitlede = "Psalmennotation"
+
+
   texidoc = "
 This form of notation is used for the chant of the Psalms, where verses
 aren't always the same length.

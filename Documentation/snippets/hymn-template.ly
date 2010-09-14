@@ -6,6 +6,18 @@
 \header {
   lsrtags = "vocal-music, template"
 
+%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+  texidocde = "
+Dieses Beispiel zeigt eine Möglichkeit, eine Hymnusmelodie zu setzen, in
+der jede Zeiel mit einem Auftakt beginnt und einem unvollständigen
+Takt abschließt.  Es zeigt auch, wie man die Strophen als allein stehenden
+Text unter die Noten hinzufügt.
+
+"
+  doctitlede = "Hymnus-Vorlage"
+
+
 %% Translation of GIT committish: 26375d5016d8d180fc914bfd07cf76f4168f2e37
 
   texidocfr = "
@@ -114,3 +126,4 @@ global = {
   indent = 0     % don't indent first system
   line-width = 130   % shorten line length to suit music
 }  % End paper block
+
