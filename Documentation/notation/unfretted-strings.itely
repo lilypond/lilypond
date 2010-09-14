@@ -207,7 +207,15 @@ Notation Reference:
 @cindex Bartók pizzicato
 @cindex snap pizzicato
 
-@snippets
+A @notation{snap pizzicato} (also known as @qq{Bartok pizz}) is a
+type of pizzicato where the string is deliberately plucked upwards
+(rather than sideways) such that it hits the fingerboard.
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{snap-pizzicato-bartok-pizzicato.ly}
+@lilypond[verbatim,quote,relative=1]
+c4\snappizzicato
+<c' e g>4\snappizzicato
+<c' e g>4^\snappizzicato
+<c, e g>4_\snappizzicato
+@end lilypond
+
+
