@@ -124,8 +124,7 @@
 	  (output-file (if multi-page? pngn png1))
 
 	  (gs-variable-options
-	    ;; ps-page-count returns 0 for EPS files
-	    (if (zero? page-count)
+	    (if (string-suffix-ci? ".eps" ps-name)
 		"-dEPSCrop"
 		(format #f "-dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f"
 			page-width page-height)))
