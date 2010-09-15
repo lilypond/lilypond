@@ -341,7 +341,7 @@ balkez = \relative c { b2 e2 }
 \score {
   <<
     \new Staff = "enek" <<
-      \new Voice = "dallam" { \melody }
+      \new Voice = "dallam" { \dallam }
       \addlyrics { \dalszoveg }
     >>
     \new PianoStaff = "zongora" <<
