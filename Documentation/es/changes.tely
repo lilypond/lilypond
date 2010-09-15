@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 5752ef148b614ee0611b3ce300692e1426886785
+    Translation of GIT committish: c89a1808d10c9a5e60c74e20668e136623db12f2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -74,6 +74,33 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Se han añadido notas con forma en los estilos Funk y Walker.
+
+@item
+Los silencios ya no mantienen viva una pauta si se está utilizando
+@code{\RemoveEmptyStaffContext}.
+
+@item
+Nueva opción @code{-dinclude-settings=INCLUDEFILE.ly}, que indica a
+lilypond que incluya el archivo especificado antes de que se procese
+la partitura.  Ello permite al usuario cambiar los ajustes globales
+sin necesidad de modificar la propia partitura.  De esta forma se
+pueden generar distintas versiones o ediciones (como distintos tamaños
+de página) a partir del mismo documento, sin tener que modificar la
+partitura para cada una de las versiones.
+
+@item
+Se ha modificado la sintaxis de los ajustes de barrado automático.  Se
+han eliminado beatLength, beatGrouping, beamSettings y
+measureGrouping.  El barrado automático está controlado ahora a través
+de baseMoment, beatStructure y beamExceptions.  Los ajustes
+predeterminados para cada una de estas propiedades se pueden almacenar
+en time-signature-settings, de manera que el autobarrado cambia
+automáticamente cada vez que se modifica el tipo de compás.  La nueva
+sintaxis pretende ser mucho más sencilla de utilizar y requerir menos
+ajustes manuales.
 
 @item
 El @q{backend} de SVG contempla opcionalmente las fuentes tipográficas

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3312aad46463fdae183931f24a8fafb743c72cd1
+    Translation of GIT committish: fe2cae0fa47ec4ec0184e6b3d15572fbcba881cf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1196,7 +1196,7 @@ Ahora examinamos la entrada,
 
 Así pues, en nuestra función, tenemos que clonar esta expresión (de
 forma que tengamos dos notas para construir la secuencia), añadir
-@code{SlurEvents} a la propiedad @code{'elements} de cada una de
+@code{SlurEvent} a la propiedad @code{'elements} de cada una de
 ellas, y por último hacer una secuencia @code{SequentialMusic} con los
 dos @code{EventChords}.
 

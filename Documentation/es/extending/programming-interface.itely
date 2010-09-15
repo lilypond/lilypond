@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 9c31e340ad9e67bf74f75b9a28d57e432268e2fd
+    Translation of GIT committish: ca3b3c23ad44cb6b035c0dccf272cecf789d1029
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -435,7 +435,7 @@ predicado de tipo para el argumento @var{i}-ésimo
 
 Si la instrucción utiliza propiedades de los argumentos @var{props},
 se puede usar la palabra clave @code{#:properties} para especificar
-qué propiedades se usan, y sus valores predeterminados.
+qué propiedades se usan, así como sus valores predeterminados.
 
 Los argumentos se distinguen según su tipo:
 @itemize
@@ -1024,31 +1024,33 @@ arriba.
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (my-callback grob)
-  (let* (
-         ; have we been split?
-         (orig (ly:grob-original grob))
+   (let* (
+          ;; have we been split?
+          (orig (ly:grob-original grob))
 
-         ; if yes, get the split pieces (our siblings)
-         (siblings (if (ly:grob? orig)
-                     (ly:spanner-broken-into orig) '() )))
+          ;; if yes, get the split pieces (our siblings)
+          (siblings (if (ly:grob? orig)
+                        (ly:spanner-broken-into orig)
+                        '())))
 
-   (if (and (>= (length siblings) 2)
-             (eq? (car (last-pair siblings)) grob))
-     (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
+     (if (and (>= (length siblings) 2)
+              (eq? (car (last-pair siblings)) grob))
+         (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
 \relative c'' {
   \override Tie #'after-line-breaking =
   #my-callback
-  c1 ~ \break c2 ~ c
+  c1 ~ \break
+  c2 ~ c
 }
 @end lilypond
 
 @noindent
 Al aplicar este truco, la nueva función de callback
-@code{after-line-breaking} también debe llamar a la antigua
-@code{after-line-breaking}, si existe.  Por ejemplo, si se usa con
+@code{after-line-breaking} también debe llamar a la antigua,
+si existe este valor predeterminado.  Por ejemplo, si se usa con
 @code{Hairpin}, se debe llamar también a
-@code{ly:hairpin::after-line-breaking}.
+@code{ly:spanner::kill-zero-spanned-time}.
 
 
 @item Algunos objetos no se pueden cambiar con @code{\override} por
