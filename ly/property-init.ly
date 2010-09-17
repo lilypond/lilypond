@@ -123,6 +123,9 @@ italianChords = {
   \set chordRootNamer = #(chord-name->italian-markup #f)
   \set chordPrefixSpacer = #0.4
 }
+powerChords = {
+  \set chordNameExceptions = #powerChordExceptions
+}
 
 
 %% compressFullBarRests
