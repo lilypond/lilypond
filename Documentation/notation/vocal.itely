@@ -1720,6 +1720,7 @@ typesetting opera and musical scores.
 @menu
 * References for opera and stage musicals::
 * Character names::
+* Musical cues::
 * Spoken music::
 * Dialogue over music::
 @end menu
@@ -1755,10 +1756,6 @@ For details of other page formatting properties, see
 @ref{Page formatting}.
 
 @item
-Musical cues can be inserted with the @code{\cueDuring} predefined
-command.  For details of its use see @ref{Formatting cue notes}.
-
-@item
 Dialogue cues and stage directions can be inserted with markup.
 See @ref{Text}.  Extensive stage directions can be inserted with
 a section of stand-alone markup between two @code{\score} blocks.
@@ -1766,13 +1763,8 @@ See @ref{Separate text}.
 
 @end itemize
 
-@predefined
-@code{\cueDuring},
-@code{\quoteDuring}.
-
 @seealso
 Musical Glossary:
-@rglos{cue-notes},
 @rglos{Frenched score},
 @rglos{Frenched staves},
 @rglos{transposing instrument}.
@@ -1780,13 +1772,10 @@ Musical Glossary:
 Notation Manual:
 @ref{Grouping staves},
 @ref{Hiding staves},
-@ref{Instrument names},
 @ref{Instrument transpositions},
 @ref{Nested staff groups},
 @ref{Page formatting},
-@ref{Selecting font and font size},
 @ref{Separating systems},
-@ref{Text},
 @ref{Transpose},
 @ref{Writing parts},
 @ref{Writing text}.
@@ -1849,6 +1838,143 @@ Notation Reference:
 @ref{Instrument names},
 @ref{Selecting font and font size},
 @ref{Text}.
+
+@node Musical cues
+@unnumberedsubsubsec Musical cues
+
+@cindex musical cues
+@cindex cues, musical
+
+Musical cues can be inserted in Vocal Scores, Vocal Books and
+Orchestral Parts to indicate what music in another part
+immediately precedes an entry.  Also, cues are often inserted in the
+piano reduction in Vocal Scores to indicate what each orchestral
+instrument is playing.  This aids the conductor when a full
+Conductors' Score is not available.
+
+The basic mechanism for inserting cues is fully explained in the
+main text, see @ref{Quoting other voices} and
+@ref{Formatting cue notes}.  But when many cues have to be
+inserted, for example, as an aid to a conductor in a vocal score,
+the instrument name must be positioned carefully just before and
+close to the start of the cued notes.  The following example shows
+how this is done.  Note that the name of the grob for overriding
+the cued instrument name is @code{InstrumentSwitch}.
+
+@lilypond[quote,verbatim]
+flute = \relative c'' {
+  s4 s4 e g
+}
+\addQuote "flute" { \flute }
+
+pianoRH = \relative c'' {
+  c4. g8
+  % position name of cued instrument just before the cued notes
+  \once \override CueVoice.InstrumentSwitch
+    #'self-alignment-X = #RIGHT
+  % position name of cued instrument above the staff
+  \once \override CueVoice.InstrumentSwitch #'direction = #UP
+  \set CueVoice.instrumentCueName = "Flute"
+  \cueDuring "flute" #UP { g4 bes4 }
+}
+pianoLH = \relative c { c4 <c' e> e, <g c> }
+
+\score {
+  \new PianoStaff <<
+    \new Staff {
+      \pianoRH
+    }
+    \new Staff {
+      \clef "bass"
+      \pianoLH
+    }
+  >>
+}
+@end lilypond
+
+If a transposing instrument is being cued the instrument part should
+specify its key so the conversion of its cued notes will be done
+automatically.  The example below shows this transposition for a
+B-flat clarinet.  The notes in this example are low on the staff so
+@code{#DOWN} is specified in @code{\cueDuring} (so the stems are
+down) and the instrument name is positioned below the staff.  Note
+also that the piano right-hand voice is explicitly declared.  This
+is because the cued notes in this example begin at the start of the
+first bar and this would otherwise cause the entire piano right-hand
+notes to be placed in a @code{CueVoice} context.
+
+@lilypond[quote,verbatim]
+clarinet = \relative c' {
+  \transposition bes
+  fis4 d d c
+}
+\addQuote "clarinet" { \clarinet }
+
+pianoRH = \relative c'' {
+  \transposition c'
+  % position name of cued instrument just before the cued notes
+  \once \override CueVoice.InstrumentSwitch
+    #'self-alignment-X = #RIGHT
+  % position name of cued instrument below the staff
+  \once \override CueVoice.InstrumentSwitch #'direction = #DOWN
+  \set CueVoice.instrumentCueName = "Clar."
+  \cueDuring "clarinet" #DOWN { c4. g8 }
+  g4 bes4
+}
+pianoLH = \relative c { c4 <c' e> e, <g c> }
+
+\score {
+  <<
+    \new PianoStaff <<
+      \new Staff {
+        \new Voice {
+          \pianoRH
+        }
+      }
+      \new Staff {
+        \clef "bass"
+        \pianoLH
+      }
+    >>
+  >>
+}
+@end lilypond
+
+From these two examples it is clear that inserting many cues in a
+Vocal Score would be extremely tedious, and the notes of the piano
+part would be obscured by the many overrides.  However, as the
+following snippet shows, it is possible to define a music function
+to reduce the amount of typing and to make the piano notes clearer.
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{adding-orchestral-cues-to-a-vocal-score.ly}
+
+@seealso
+Musical Glossary:
+@rglos{cue-notes}.
+
+Notation Reference:
+@ref{Aligning objects},
+@ref{Direction and placement},
+@ref{Formatting cue notes},
+@ref{Quoting other voices},
+@ref{Using music functions}.
+
+Snippets:
+@rlsr{vocal-music}.
+
+Internals Reference:
+@rinternals{InstrumentSwitch},
+@rinternals{CueVoice}.
+
+@knownissues
+@code{\cueDuring} automatically inserts a @code{CueVoice} context
+and all cue notes are placed in that context.  This means it is not
+possible to have two overlapping sequences of cued notes by this
+technique.  Overlapping sequences could be entered by explicitly
+declaring separate @code{CueVoice} contexts and using
+@code{\quoteDuring} to extract and insert the cued notes.
 
 
 @node Spoken music
