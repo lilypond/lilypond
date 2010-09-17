@@ -174,7 +174,7 @@ nem azok részei. A @code{\score} blokkon belül vagy kívül is elhelyezkedhetn
 szerző stb.) lehet megadni, legtöbbször a @code{\score} parancs előtt szerepel,
 ahogy a szakasz elején található példában is látható.
 
-A két további, még ismeretlen parancs: @code{\layout @{ @}} és
+A két további, még ismeretlen parancs: @code{\layout @{@}} és
 @code{\midi @{@}}. Ezek ebben a formában rendre azt jelentik, hogy a LilyPond
 kottaképet, ill. hangzó anyagot állítson elő. Teljes leírásuk a Kottaírás
 Kézikönyvében található, a @ruser{Score layout} és a
@@ -229,7 +229,7 @@ dallam = \relative c' @{
 
 Amikor a LilyPond feldolgozza ezt a fájlt, a @code{dallam} változó értékét
 (azaz mindent az egyenlőségjel utáni zenei kifejezésből) beszúrja mindenhova,
-ahol @code{\melody}. hivatkozást lát. A változók nevére nincs sok megkötés -- a
+ahol @code{\dallam} hivatkozást lát. A változók nevére nincs sok megkötés -- a
 következők mind helyes példák:  @code{dallam}, @code{jobbKez}, @code{fuvola},
 @code{BII} stb. A @ref{Kevesebb gépelés változókkal és függvényekkel} c.
 szakasz további információkat tartalmaz. Mindössze annyi a korlátozás, hogy a
@@ -314,7 +314,7 @@ tartalmaz a hangoknak, és egy strófányi dalszöveget. A zongoraszólam pedig
 a jobb- és balkéz kottasorait tartalmazza. 
 
 Most elkezdhetjük kitölteni a hangokat. Elkezdhetnénk közvetlenül a Voice
-kontextus belsejébe beleírni, hogy
+kontextus belsejébe beleírni, hogy:
 
 @example
 \relative c'' @{
@@ -417,10 +417,10 @@ Az ossia a kottasor fölött is elhelyezkedhet:
 @end lilypond
 
 Ebben a példában a még ismeretlen @code{\with} parancsot használtuk, amelyet
-később ismertetünk. Most elég annyi, hogy a kottasor bizonyos tulajdonságainak
-módosítására szolgál. Itt egy olyan tulajdonságot adunk meg, ami azt mondja,
-hogy az új kottasor a @qq{main} nevű kottasor felett helyezkedjen el
-(ahelyett, hogy alatta helyezkedne el, ami az alapértelmezés).
+később ismertetünk. Most elég annyit tudni róla, hogy a kottasor bizonyos
+tulajdonságainak módosítására szolgál. Itt egy olyan tulajdonságot adunk meg,
+ami azt mondja, hogy az új kottasor a @qq{main} nevű kottasor felett
+helyezkedjen el (ahelyett, hogy alatta helyezkedne el, ami az alapértelmezés).
 
 
 @seealso
