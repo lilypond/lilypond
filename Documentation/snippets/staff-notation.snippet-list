@@ -2,11 +2,10 @@ adding-ambitus-per-voice.ly
 adding-an-extra-staff-at-a-line-break.ly
 adding-an-extra-staff.ly
 adding-indicators-to-staves-which-get-split-after-a-break.ly
+adding-orchestral-cues-to-a-vocal-score.ly
 changing-the-number-of-lines-in-a-staff.ly
 changing-the-staff-size.ly
-changing-the-tempo-without-a-metronome-mark.ly
 creating-blank-staves.ly
-creating-metronome-marks-in-markup-mode.ly
 display-bracket-with-only-one-staff-in-a-system.ly
 forcing-measure-width-to-adapt-to-metronomemarks-width.ly
 incipit.ly
@@ -18,7 +17,6 @@ mensurstriche-layout-bar-lines-between-the-staves.ly
 modern-tab-text-clef.ly
 nesting-staves.ly
 non-traditional-key-signatures.ly
-printing-metronome-and-rehearsal-marks-below-the-staff.ly
 quoting-another-voice-with-transposition.ly
 quoting-another-voice.ly
 removing-the-first-empty-line.ly

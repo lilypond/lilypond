@@ -4,7 +4,7 @@
 \version "2.13.31"
 
 \header {
-  lsrtags = "expressive-marks, staff-notation, tweaks-and-overrides"
+  lsrtags = "rhythms, expressive-marks, tweaks-and-overrides"
 
 %% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "

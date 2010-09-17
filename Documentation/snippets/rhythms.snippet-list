@@ -10,6 +10,7 @@ beams-across-line-breaks.ly
 changing-beam-knee-gap.ly
 changing-form-of-multi-measure-rests.ly
 changing-the-number-of-augmentation-dots-per-note.ly
+changing-the-tempo-without-a-metronome-mark.ly
 changing-the-time-signature-without-affecting-the-beaming.ly
 changing-the-tuplet-number.ly
 changing-time-signatures-inside-a-polymetric-section-using--scaledurations.ly
@@ -17,6 +18,7 @@ chant-or-psalms-notation.ly
 compound-time-signatures.ly
 conducting-signs,-measure-grouping-signs.ly
 controlling-tuplet-bracket-visibility.ly
+creating-metronome-marks-in-markup-mode.ly
 engraving-ties-manually.ly
 engraving-tremolos-with-floating-beams.ly
 entering-several-tuplets-using-only-one--times-command.ly
@@ -42,6 +44,7 @@ positioning-multi-measure-rests.ly
 preventing-final-mark-from-removing-final-tuplet.ly
 printing-bar-numbers-at-regular-intervals.ly
 printing-bar-numbers-inside-boxes-or-circles.ly
+printing-metronome-and-rehearsal-marks-below-the-staff.ly
 printing-music-with-different-time-signatures.ly
 printing-the-bar-number-for-the-first-measure.ly
 redefining-grace-note-global-defaults.ly
