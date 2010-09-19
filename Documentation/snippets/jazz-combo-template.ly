@@ -21,9 +21,9 @@ dentro de una sección @code{\\transpose}.
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Hier ist ein ziemlich kompliziertes Beispiel für ein Jazz-Ensemble. Achtung:
-Alle Instrumente sind in @code{\key c \major} (C-Dur) notiert. Das bezieht sich
+Alle Instrumente sind in @code{\\key c \major} (C-Dur) notiert. Das bezieht sich
 auf die klingende Musik: LilyPond transponiert die Tonart automatisch, wenn
-sich die Noten innerhalb eines @code{\transpose}-Abschnitts befinden.
+sich die Noten innerhalb eines @code{\\transpose}-Abschnitts befinden.
 
 "
 
@@ -33,7 +33,7 @@ sich die Noten innerhalb eines @code{\transpose}-Abschnitts befinden.
   texidocfr = "
 Bien que compliqué de prime abord, voici un canevas tout à fait indiqué
 pour les ensembles de jazz.  Vous noterez que tous les instruments sont
-notés en ut (@code{\key c \major}), la tonalité de concert.  Les notes
+notés en ut (@code{\\key c \major}), la tonalité de concert.  Les notes
 seront automatiquement transposée dès lors qu'elles seront inscrites
 dans une section @code{\\transpose}.
 

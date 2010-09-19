@@ -24,7 +24,7 @@ sobreescritura de propiedades.
   texidocde = "
 Eigenschaften von Bunddiagrammen können in
 @code{'fret-diagram-details} verändert werden.  Einstellungen mit
-dem @code{\override}-Befehl werden dem @code{FretBoards.FretBoard}-Objekt
+dem @code{\\override}-Befehl werden dem @code{FretBoards.FretBoard}-Objekt
 zugewiesen.  Genauso wie @code{Voice} ist auch @code{FretBoards} ein
 Kontext der niedrigsten Ebene, weshalb der Kontext auch in dem Befehl
 weggelassen werden kann.

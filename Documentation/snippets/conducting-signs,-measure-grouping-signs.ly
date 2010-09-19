@@ -76,13 +76,13 @@ Beat grouping within a measure is controlled by the context property
 @code{beatStructure}.  Values of @code{beatStructure} are
 established for many time signatures in
 @file{scm/time-signature-settings.scm}.  Values of @code{beatStructure}
-can be changed or set with @code{\set}.
+can be changed or set with @code{\\set}.
 Alternatively, the
 Scheme function @code{set-time-signature} can be used to both
 set the time signature and establish the beat structure.
 @code{set-time-signature}, takes three arguments: the
 number of beats, the beat length, and the internal grouping of beats in
-the measure.  @code{\time} and @code{set-time-signature} both apply
+the measure.  @code{\\time} and @code{set-time-signature} both apply
 to the @code{Timing} context, so they will not reset values of
 @code{beatStructure} or @code{baseMoment} that are set in
 other lower-level contexts, such as @code{Voice}.

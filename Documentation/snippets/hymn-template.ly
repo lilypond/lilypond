@@ -17,7 +17,6 @@ Text unter die Noten hinzufügt.
 "
   doctitlede = "Hymnus-Vorlage"
 
-
 %% Translation of GIT committish: 26375d5016d8d180fc914bfd07cf76f4168f2e37
 
   texidocfr = "

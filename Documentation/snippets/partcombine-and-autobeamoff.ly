@@ -21,22 +21,21 @@ Es kann besser sein, anstatt dessen
 zu benutzen, um sicherzustellen, dass die automatische Bebalkung für das
 gesamte System ausgeschaltet ist.
 
-@code{\partcombine} funktioniert offensichtlich mit 3 Stimme (Hals nach oben
+@code{\\partcombine} funktioniert offensichtlich mit 3 Stimme (Hals nach oben
 einfach, Hals nach unten einfach, Hals nach oben kombiniert).
 
-Ein @code{\autoBeamOff}-Befehl im ersten Argument von @code{\partcombine}
+Ein @code{\\autoBeamOff}-Befehl im ersten Argument von @code{\\partcombine}
 gilt für die Stimme, die zu dem Zeitpunkt aktiv ist, an dem der Befehl
 verarbeitet wird, entweder für Hals nach oben, nach unten oder Hals nach
-oben kombiniert.  Ein @code{\autoBeamOff}-Befehl im zweiten Argument gilt
+oben kombiniert.  Ein @code{\\autoBeamOff}-Befehl im zweiten Argument gilt
 für die Stimme, die mit Hals nach unten einfach ist.
 
-Um @code{\autoBeamOff} zu benutzen, damit alle automatischen Balken aufhören,
-wenn man es mit @code{\partcombine} verwendet, muss @code{\autoBeamOff}
+Um @code{\\autoBeamOff} zu benutzen, damit alle automatischen Balken aufhören,
+wenn man es mit @code{\\partcombine} verwendet, muss @code{\\autoBeamOff}
 @emph{dreimal} aufgerufen werden.
 
 "
 doctitlede = "Partcombine und autoBeamOff"
-
 
 %% Translation of GIT committish: e1a149d0cc60b02e86209387958f4028567dd366
   texidocfr = "
@@ -52,18 +51,18 @@ pourquoi il vaut mieux tout d'abord recourir à
 pour désactiver les ligatures automatiques pour l'ensemble de la portée
 concernée.
 
-L'instruction @code{\partcombine} fonctionne apparament sur la base de
+L'instruction @code{\\partcombine} fonctionne apparament sur la base de
 trois voix@tie{}: solo hampes montantes, solo hampes descendantes et
 ensemble hampes montantes.
 
-Lorsque @code{\autoBeamOff} apparaît dans le premier argument de la
+Lorsque @code{\\autoBeamOff} apparaît dans le premier argument de la
 combinaison, il s'applique à la voix active à ce moment précis, qu'il
 s'agisse du solo hampes montantes ou du combiné hampes montantes.
 Lorsqu'elle est introduite dans le second argument, la commande
-@code{\autoBeamOff} s'appliquera au solo hampes descendantes.
+@code{\\autoBeamOff} s'appliquera au solo hampes descendantes.
 
-Vous devrez donc, afin que @code{\autoBeamOff} soit pleinement
-opérationnel dans le cadre d'un @code{\partcombine}, l'introduire aux
+Vous devrez donc, afin que @code{\\autoBeamOff} soit pleinement
+opérationnel dans le cadre d'un @code{\\partcombine}, l'introduire aux
 @strong{trois} niveaux.
 
 "
