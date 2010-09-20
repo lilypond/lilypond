@@ -368,7 +368,6 @@ advierta que esta indicación está implementada como una
 articulación, no como una expresión dinámica.
 
 @lilypond[verbatim,quote,relative=2]
-@lilypond[verbatim,quote,relative=2]
 c2 b4 a
 g1\espressivo
 @end lilypond
