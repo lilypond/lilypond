@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.26
-\version "2.13.31"
+\version "2.13.36"
 \header {
 %% Translation of GIT committish: 158658dc75b6f6553e77ff53119ac802eb91f50c
   texidocfr = "LilyPond dispose de trois styles de barre différents

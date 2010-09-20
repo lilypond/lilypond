@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.32
-\version "2.13.32"
+\version "2.13.36"
 
 \header {
   lsrtags = "vocal-music, template"
