@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 42d36ea50b7ba80ea326e4d17bb1af02ad9f994f
+    Translation of GIT committish: 9e680d0204bbb4fde75212bb8152ab8626caf5b1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -387,11 +387,14 @@ cis1 ~ cis ~
 cis
 @end lilypond
 
+
 @snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle,ragged-right]
+{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
-
 
 @seealso
 Glosario musical:
@@ -920,8 +923,7 @@ notas.
 @funindex \clef
 @funindex clef
 
-La clave se establece con la instrucción @code{\clef}
-@var{nombre_de_clave}.  En todos los ejemplos se muestra el Do
+Es posible cambiar la clave. En todos los ejemplos se muestra el Do
 central.  Estos nombres de clave pueden (aunque no necesariamente)
 encerrarse entre comillas.
 
@@ -2491,6 +2493,9 @@ tonalidad.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {ambitus-with-multiple-voices.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-ambitus-gap.ly}
+
 
 @seealso
 Glosario musical:
@@ -2697,13 +2702,23 @@ Referencia de funcionamiento interno:
 @translationof Shape note heads
 
 @cindex notas, cabezas de, con formas
+@cindex formas, notas con
+
+@cindex Aiken, cabezas de nota con forma
+@cindex arpa sacra, cabezas de nota con forma
+@cindex Southern Harmony, cabezas de nota con forma
+@cindex Funk, cabezas de nota con forma
+@cindex Harmonica Sacra, cabezas de nota con forma
+@cindex Christian Harmony, cabezas de nota con forma
+@cindex Walker, cabezas de nota con forma
+
 @cindex notas, cabezas de, Aiken
 @cindex notas, cabezas de, arpa sacra
-@cindex formas, notas con
-@cindex Aiken, cabezas de nota con forma de
-@cindex arpa sacra, cabezas de nota de
-@cindex cabezas de nota de, Southern Harmony
-@cindex Southern Harmony, cabezas de nota
+@cindex notas, cabezas de, Southern Harmony
+@cindex notas, cabezas de, Funk
+@cindex notas, cabezas de, Harmonica Sacra
+@cindex notas, cabezas de, Christian Harmony
+@cindex notas, cabezas de, Walker
 
 @funindex \aikenHeads
 @funindex aikenHeads
@@ -2711,12 +2726,17 @@ Referencia de funcionamiento interno:
 @funindex sacredHarpHeads
 @funindex \southernHarmonyHeads
 @funindex southernHarmonyHeads
+@funindex \funkHeads
+@funindex funkHeads
+@funindex \walkerHeads
+@funindex walkerHeads
 
 En la notación de cabezas con forma, la forma de la cabeza corresponde
 a la función armónica de una nota dentro de la escala. Esta notación
 se hizo popular en los libros americanos de canciones durante el
 s.XIX.  Las cabezas de nota con formas se pueden producir en los
-estilos @q{Sacred Harp}, @q{Southern Harmony} y Aiken @q{(Christian
+estilos @q{Sacred Harp}, @q{Southern Harmony},
+Funk (Harmonica Sacra), Walker y Aiken @q{(Christian
 Harmony)}:
 
 @lilypond[verbatim,quote,relative=2]
@@ -2725,6 +2745,10 @@ c, d e f g2 a b1 c \break
 \sacredHarpHeads
 c,4 d e f g2 a b1 c \break
 \southernHarmonyHeads
+c,4 d e f g2 a b1 c \break
+\funkHeads
+c,4 d e f g2 a b1 c \break
+\walkerHeads
 c,4 d e f g2 a b1 c \break
 @end lilypond
 
@@ -2736,6 +2760,10 @@ c,4 d e f g2 a b1 c \break
 @funindex sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
 @funindex southernHarmonyHeadsMinor
+@funindex \funkHeadsMinor
+@funindex funkHeadsMinor
+@funindex \walkerHeadsMinor
+@funindex walkerHeadsMinor
 
 Las formas se determinan en función del grado de la escala, donde la
 tónica está determinada por la instrucción @code{\key} Cuando se
@@ -2752,16 +2780,25 @@ a,4 b c d e2 f g1 a \break
 a,2 b c d \break
 \southernHarmonyHeadsMinor
 a2 b c d \break
+\funkHeadsMinor
+a2 b c d \break
+\walkerHeadsMinor
+a2 b c d \break
+
 @end lilypond
 
 
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
+@code{\funkHeads},
+@code{\funkHeadsMinor},
 @code{\sacredHarpHeads},
 @code{\sacredHarpHeadsMinor},
 @code{\southernHarmonyHeads},
-@code{\southernHarmonyHeadsMinor}.
+@code{\southernHarmonyHeadsMinor},
+@code{\walkerHeads},
+@code{\walkerHeadsMinor}.
 @endpredefined
 
 
