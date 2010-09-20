@@ -1,17 +1,19 @@
-\header { texidoc = "The centering of multi-measure rests is
-independent on prefatory matter in other staves."
+\version "2.13.34"
 
-	}
+\header {
+  texidoc = "Though the default spacing for multi-measure rests
+is affected by prefatory matter in other staves, centering can be
+restored by overriding @code{spacing-pair}."
+}
 
-
-\version "2.12.0"
-\layout { ragged-right = ##t }
-
-
-<< \new Staff  { R1 } 
-   \new Staff { f'1  \clef bass } 
-
- >>
-
- 
-
+<<
+  \new Staff  {
+    \once \override MultiMeasureRest #'spacing-pair =
+    #'(break-alignment . staff-bar)
+    R1
+  }
+  \new Staff {
+    f'1
+    \clef bass
+  }
+>>

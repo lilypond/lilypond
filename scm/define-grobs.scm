@@ -1186,7 +1186,7 @@
 	(expand-limit . 10)
 	(hair-thickness . 2.0)
 	(padding . 1)
-	(spacing-pair . (break-alignment . staff-bar))
+	(spacing-pair . (break-alignment . break-alignment))
 	(springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
 	(staff-position . 0)
 	(stencil . ,ly:multi-measure-rest::print)
