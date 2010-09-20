@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: eb98dcb8ece687486640a5dc3ec3aa2395ec31cf
+    Translation of GIT committish: 05321651998ea6b04cd6649f5d4dcdd9b102d7f5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -22,8 +22,8 @@
 * Lista de colores::
 * La tipografía Feta::
 * Estilos de cabezas de nota::
-* Text markup commands::
-* Text markup list commands::
+* Instrucciones de marcado de texto::
+* Instrucciones de listas de marcado de texto::
 * Lista de articulaciones::
 * Notas de percusión::
 * Glosario técnico::
@@ -39,8 +39,8 @@
 @appendixsec Cuadro de nombres de acordes
 @translationof Chord name chart
 
-Las siguientes tablas muestran dos sistemas estándar para imprimir los nombres de los acordes,
-junto a las notas que representan.
+Las siguientes tablas muestran dos sistemas estándar para imprimir los
+nombres de los acordes, junto a las notas que representan.
 
 @lilypondfile{chord-names-jazz.ly}
 
@@ -871,18 +871,19 @@ Se pueden usar los siguientes estilos para las cabezas de las notas.
 @lilypondfile[noindent]{note-head-style.ly}
 
 
-@node Text markup commands
-@appendixsec Text markup commands
+@node Instrucciones de marcado de texto
+@appendixsec Instrucciones de marcado de texto
 @translationof Text markup commands
 
 @include markup-commands.tely
 
 
-@node Text markup list commands
-@appendixsec Text markup list commands
+@node Instrucciones de listas de marcado de texto
+@appendixsec Instrucciones de listas de marcado de texto
 @translationof Text markup list commands
 
-The following commands can all be used with @code{\markuplines}:
+Se puede usar cualquiera de las siguientes instrucciones con
+@code{\markuplines}:
 
 @include markup-list-commands.tely
 
