@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
+    Translation of GIT committish: 908605aaf5df4d07684dafd862322e6ffac3ae10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2654,6 +2654,14 @@ Référence des propriétés internes :
 @cindex notes profilées
 @cindex Aiken, tête de note
 @cindex harpe sacrée, tête de note
+@cindex Funk, tête de note
+@cindex tête de note, Funk
+@cindex tête de note, Harmonica Sacra
+@cindex Harmonica Sacra, tête de note
+@cindex Christian Harmony, tête de note
+@cindex tête de note, Christian Harmony
+@cindex Walker shape, tête de note
+@cindex tête de note, Walker
 
 @funindex \key
 @funindex key
@@ -2669,6 +2677,14 @@ Référence des propriétés internes :
 @funindex southernHarmonyHeads
 @funindex \southernHarmonyHeadsMinor
 @funindex southernHarmonyHeadsMinor
+@funindex \funkHeads
+@funindex funkHeads
+@funindex \walkerHeads
+@funindex walkerHeads
+@funindex \funkHeadsMinor
+@funindex funkHeadsMinor
+@funindex \walkerHeadsMinor
+@funindex walkerHeadsMinor
 
 En notation profilée, le profil d'une tête de note correspond à la
 fonction harmonique de cette note dans la gamme.  Ce style de notation
@@ -2681,6 +2697,10 @@ c, d e f g2 a b1 c \break
 \sacredHarpHeads
 c,4 d e f g2 a b1 c \break
 \southernHarmonyHeads
+c,4 d e f g2 a b1 c \break
+\funkHeads
+c,4 d e f g2 a b1 c \break
+\walkerHeads
 c,4 d e f g2 a b1 c \break
 @end lilypond
 
@@ -2698,6 +2718,10 @@ a,4 b c d e2 f g1 a \break
 a,2 b c d \break
 \southernHarmonyHeadsMinor
 a2 b c d \break
+\funkHeadsMinor
+a2 b c d \break
+\walkerHeadsMinor
+a2 b c d \break
 @end lilypond
 
 
@@ -2705,10 +2729,14 @@ a2 b c d \break
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
+@code{\funkHeads},
+@code{\funkHeadsMinor},
 @code{\sacredHarpHeads}.
 @code{\sacredHarpHeadsMinor},
 @code{\southernHarmonyHeads},
-@code{\southernHarmonyHeadsMinor}.
+@code{\southernHarmonyHeadsMinor},
+@code{\walkerHeads},
+@code{\walkerHeadsMinor}.
 @endpredefined
 
 

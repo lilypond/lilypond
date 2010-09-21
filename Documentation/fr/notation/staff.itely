@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 22fc4443690d33d4335a310723cb37dc5b76fb12
+    Translation of GIT committish: 908605aaf5df4d07684dafd862322e6ffac3ae10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -40,6 +40,7 @@ Nous allons voir ici comment créer des portées et comment les regrouper.
 * Initialisation de nouvelles portées::
 * Regroupement de portées::
 * Imbrication de regroupements de portées::
+* Séparation des systèmes::
 @end menu
 
 
@@ -345,6 +346,58 @@ Référence des propriétés internes :
 @rinternals{SystemStartSquare}.
 
 
+@node Séparation des systèmes
+@unnumberedsubsubsec Séparation des systèmes
+@translationof Separating systems
+
+@cindex système, indicateur de séparation
+
+Le nombre de systèmes peut varier d'une page à l'autre@tie{}; vous
+povez, en pareil cas, rendre plus évidente la séparation entre les
+systèmes en l'indiquant visuellement.  Ce @qq{séparateur} est absent par
+défaut, mais vous pouvez l'activer par une option au sein du bloc
+@code{\paper}.
+
+@c \book is required here to display the system separator
+@c ragged-right is required as there are two systems
+@lilypond[verbatim,quote,ragged-right]
+\book {
+  \score {
+    \new StaffGroup <<
+      \new Staff {
+        \relative c'' {
+          c4 c c c
+          \break
+          c4 c c c
+        }
+      }
+      \new Staff {
+        \relative c'' {
+          c4 c c c
+          \break
+          c4 c c c
+        }
+      }
+    >>
+  }
+  \paper {
+    system-separator-markup = \slashSeparator
+    % following commands are needed only to format this documentation
+    paper-width = 100\mm
+    paper-height = 100\mm
+    tagline = ##f
+  }
+}
+@end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Mise en forme de la page}.
+
+Morceaux choisis :
+@rlsrnamed{Staff notation,Notation sur la portée}.
+
+ 
 @node Modification de portées individuelles
 @subsection Modification de portées individuelles
 @translationof Modifying single staves
@@ -705,9 +758,9 @@ Cette fonctionnalité masque et supprime toutes les portées vides d'une
 partition, hormis celles du premier système.
 
 @warning{Une portée est considérée comme vide dès lors qu'elle ne
-contient que des silences multimesures, des silences invisibles ou
-d'espacement (les @emph{\skip}) ou bien une combinaison de ces
-éléments.}
+contient que des silences multimesures, des silences visibles ou
+invisibles (ou d'espacement -- les @emph{\skip}) ou bien une combinaison
+de ces éléments.}
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -819,98 +872,10 @@ aborderons aussi la citation d'autres voix, et comment la mettre en
 forme.
 
 @menu
-* Indications métronomiques::
 * Noms d'instrument::
 * Citation d'autres voix::
 * Mise en forme d'une citation::
 @end menu
-
-
-@node Indications métronomiques
-@unnumberedsubsubsec Indications métronomiques
-@translationof Metronome marks
-
-@cindex Tempo
-@cindex battements par minute
-@cindex indication métronomique
-
-@funindex \tempo
-@funindex tempo
-
-Le métronome se règle de la manière suivante@tie{}:
-
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 120
-c2 d
-e4. d8 c2
-@end lilypond
-
-On peut cependant lui préférer du texte@tie{}:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegretto"
-c4 e d c
-b4. a16 b c4 r4
-@end lilypond
-
-Lorsque l'on indique à la fois le tempo et le métronome, ce dernier sera
-indiqué entre parenthèses@tie{}:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegro" 4 = 160
-g4 c d e
-d4 b g2
-@end lilypond
-
-En règle générale, le texte peut être constitué de n'importe quel objet
-de type @code{markup}@tie{}:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo \markup { \italic Faster } 4 = 132
-a8-. r8 b-. r gis-. r a-. r
-@end lilypond
-
-Une simple indication métronomique entre parenthèses s'obtient en
-fournissant une chaîne vide à l'instruction@tie{}:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "" 8 = 96
-d4 g e c
-@end lilypond
-
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
-
-@c perhaps also an example of how to move it horizontally?
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{changing-the-tempo-without-a-metronome-mark.ly}
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{creating-metronome-marks-in-markup-mode.ly}
-
-Pour plus de détails, voir @ref{Mise en forme du texte}.
-
-
-@seealso
-Glossaire musicologique :
-@rglosnamed{metronome,métronome},
-@rglosnamed{metronomic indication,indication métronomique},
-@rglos{tempo indication},
-@rglos{metronome mark}.
-
-Manuel de notation :
-@ref{Mise en forme du texte},
-@ref{Sortie MIDI}.
-
-Morceaux choisis :
-@rlsrnamed{Staff notation,Notation sur la portée}.
-
-Référence des propriétés internes :
-@rinternals{MetronomeMark}.
 
 
 @node Noms d'instrument
