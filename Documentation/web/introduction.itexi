@@ -1144,6 +1144,12 @@ welcome, though.
 @uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, a
 realtime monophonic MIDI to LilyPond converter.
 
+@item
+@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
+NW2LY} is a C# program which converts a
+@uref{http://www.noteworthysoftware.com/, NoteWorthy} song into
+LilyPond.
+
 @end itemize
 
 @subsubheading Algorithmic code generators
@@ -1162,8 +1168,10 @@ to generate music notation from computer music software
 environments.
 
 @item
-@uref{http://strasheela.sourceforge.net,Strasheela}, @qq{a
-highly expressive constraint-based music composition system.}
+@uref{http://strasheela.sourceforge.net,Strasheela}, an
+environment built on top of the
+@uref{http://www.mozart-oz.org/, Mozart/Oz} constraint programming
+language.
 
 @end itemize
 @divEnd
