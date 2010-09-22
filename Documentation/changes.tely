@@ -377,6 +377,10 @@ and to add notes to the number or fraction:
 FretBoards now have a chordChanges property to keep repeated FretBoard objects
 from being typeset.
 
+@item
+The vertical spacing engine has been drastically changed, making
+it more flexible and easier to control.
+
 @end itemize
 
 
