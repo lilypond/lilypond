@@ -18,7 +18,7 @@ with this version.  New features since 2.12.3 are listed in the
 @ref{Development}.
 
 One known regression against 2.12.3 still exist:
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1263,
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
 Issue 1173 MetronomeMarks cannot be aligned on a note if a
 multi-measure rest exists in another voice}, but we expect to find
 more.  If you decide to test 2.13.34, do not be surprised to
