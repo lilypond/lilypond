@@ -12,21 +12,17 @@
 @subsubheading Alpha test of 2.14 -- LilyPond 2.13.34 released!  @emph{Sep 21, 2010}
 
 LilyPond 2.13.34 is out; this is the first alpha test of the
-upcoming 2.14 stable release.  Users are invited to cautiously
-experiment with this version.  Two known regressions against
-2.12.3 still exist:
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
-a crash when using showFirstLength/showLastLength with
-\compressFullBarRests}, and
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1263,
-MetronomeMarks cannot be aligned on a note if a multi-measure rest
-exists in another voice}.  We estimate that we will discover (and
-fix) another 5-10 regressions before 2.14 is out.  If you decide
-to test 2.13.34, do not be surprised to discover problems; just
-send us polite @ref{Bug reports}.
+upcoming 2.14 stable release.  Users are invited to experiment
+with this version.  New features since 2.12.3 are listed in the
+@qq{Changes} manual on the website section about
+@ref{Development}.
 
-New features since 2.12.3 are listed in the @qq{Changes} manual on
-the section about @ref{Development}.
+One known regression against 2.12.3 still exist:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1263,
+Issue 1173 MetronomeMarks cannot be aligned on a note if a
+multi-measure rest exists in another voice}, but we expect to find
+more.  If you decide to test 2.13.34, do not be surprised to
+discover problems; just send us polite @ref{Bug reports}.
 
 @newsEnd
 
