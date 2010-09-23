@@ -67,6 +67,10 @@ which scares away people.
 @end ignore
 
 @item
+Tablature staves show fret numbers only by default. To get the
+former style, @code{\tabFullNotation} is provided.
+
+@item
 Funk-style and Walker-style shape notes have been added.
 
 @item
