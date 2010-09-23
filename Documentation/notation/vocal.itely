@@ -1861,20 +1861,24 @@ indicate each change.
      (midiInstrument . "voice aahs"))
 
 \relative c' {
-\instrumentSwitch "kaspar"
-c4 c c c
-\instrumentSwitch "melchior"
-a4 a a a
-\instrumentSwitch "kaspar"
-c4 c c c
+  \instrumentSwitch "kaspar"
+  c4 c c c
+  \instrumentSwitch "melchior"
+  a4 a a a
+  \instrumentSwitch "kaspar"
+  c4 c c c
 }
 @end lilypond
 
 @seealso
 Notation Reference:
 @ref{Instrument names},
-@ref{Selecting font and font size},
-@ref{Text}.
+@ref{Scheme functions},
+@ref{Text},
+@ref{Text markup commands}.
+
+Extending LilyPond:
+@rextend{Markup construction in Scheme}.
 
 @node Musical cues
 @unnumberedsubsubsec Musical cues
