@@ -1823,14 +1823,51 @@ applying to that character.  This can be done with markup.  Often a
 specific font is used for this purpose.
 
 @lilypond[quote,verbatim,relative=1]
-\override TextScript #'font-family = #'typewriter
-\override TextScript #'font-size = #2
 \clef "G_8"
-c4^\markup Kaspar
+c4^\markup \fontsize #1 \smallCaps Kaspar
 c c c
 \clef "bass"
-a4^\markup Melchior
+a4^\markup \fontsize #1 \smallCaps Melchior
 a a a
+\clef "G_8"
+c4^\markup \fontsize #1 \smallCaps Kaspar
+c c c
+@end lilypond
+
+Alternatively, if there are many character changes, it may be
+easier to set up @qq{instrument} definitions for each character at
+the top level so that @code{\instrumentSwitch} can be used to
+indicate each change.
+
+@lilypond[quote,verbatim]
+\addInstrumentDefinition #"kaspar"
+  #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
+     (shortInstrumentName . "Kas.")
+     (clefGlyph . "clefs.G")
+     (clefOctavation . -7)
+     (middleCPosition . 1)
+     (clefPosition . -2)
+     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Kaspar"))
+     (midiInstrument . "voice oohs"))
+
+\addInstrumentDefinition #"melchior"
+  #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
+     (shortInstrumentName . "Mel.")
+     (clefGlyph . "clefs.F")
+     (clefOctavation . 0)
+     (middleCPosition . 6)
+     (clefPosition . 2)
+     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Melchior"))
+     (midiInstrument . "voice aahs"))
+
+\relative c' {
+\instrumentSwitch "kaspar"
+c4 c c c
+\instrumentSwitch "melchior"
+a4 a a a
+\instrumentSwitch "kaspar"
+c4 c c c
+}
 @end lilypond
 
 @seealso
