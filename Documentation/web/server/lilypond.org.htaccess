@@ -1,4 +1,18 @@
 # htaccess for root dir of lilypond.org
+# ----------------------------------------------------
+#   The file comes from git master:
+#   Documentation/web/server/lilypond.org.htaccess
+#
+#   Please do not edit it directly (unless something
+#   is critically broken); instead, change it in git
+#   and then do the:
+#     update-git.sh
+#     check-git.sh
+#     copy-git.sh
+#     make-website.sh
+#  as discussed in:
+#    Contributor 5.2 Uploading and security
+# ----------------------------------------------------
 
 RewriteEngine On
 
@@ -10,16 +24,20 @@ RewriteCond %{HTTP_USER_AGENT} httrack [NC]
 RewriteRule ^.*/source/.*$ /please-respect-robots.txt.html [L]
 
 # Permanent top level entry points -- ./doc
-RedirectMatch ^/music-glossary /doc/Documentation/user/music-glossary/index
-RedirectMatch ^/tutorial /doc/Documentation/user/lilypond-learning/Tutorial
+RedirectMatch ^/music-glossary /glossary
+RedirectMatch ^/tutorial /learning
 RedirectMatch ^/documentation/$ /doc
 # Possibly resurrect this with new web site
 # This breaks the documentation index with old site
 # RedirectMatch ^/documentation$ /doc
-RedirectMatch ^/bugs	http://code.google.com/p/lilypond/issues/list
+#
+RedirectMatch ^/bugs	/bug-reports
+#RedirectMatch ^/bugs	http://code.google.com/p/lilypond/issues/list
 RedirectMatch ^/wiki	http://wiki.lilynet.net
-RedirectMatch ^/authors /doc/Documentation/topdocs/AUTHORS
-RedirectMatch ^/news    /doc/Documentation/topdocs/NEWS
+# the new website already has an /authors
+#RedirectMatch ^/authors /doc/Documentation/topdocs/AUTHORS
+# the new website has news on the main page
+RedirectMatch ^/news    /
 RedirectMatch ^/stable    /doc/stable
 RedirectMatch ^/development    /doc/development
 
@@ -45,10 +63,7 @@ RedirectMatch ^/index$ /
 RewriteEngine on
 RewriteBase /
 
-SetEnvIf REQUEST_URI .* WEB=/web
-## To switch over to the new site, we do not even need to put it in /web
-## we could do
-# SetEnvIf REQUEST_URI .* WEB=/doc/v2.13/Documentation
+SetEnvIf REQUEST_URI .* WEB=/website
 
 # Rewrite empty to /web
 RewriteCond %{REQUEST_URI} ^/*$
@@ -69,14 +84,14 @@ RewriteCond %{REQUEST_URI} !.*/$
 RewriteCond %{DOCUMENT_ROOT}%{ENV:WEB}%{REQUEST_URI} -d
 # ...and does not start with /web
 RewriteCond %{REQUEST_URI} !^%{ENV:WEB}
-RewriteCond %{REQUEST_URI} !^/web
+RewriteCond %{REQUEST_URI} !^/website
 # ...and does not start with /doc$
 RewriteCond %{REQUEST_URI} !^/doc$
 # ...add trailing slash for [menu] and to avoid /web/ in browser url
 RewriteRule ^(.+)$ http://%{HTTP_HOST}/$1/ [R,QSA,L]
 
 # Request that does not start with /web
-RewriteCond %{REQUEST_URI} !^/web
+RewriteCond %{REQUEST_URI} !^/website
 RewriteCond %{REQUEST_URI} !^%{ENV:WEB}
 # ...and does not start with /doc/
 RewriteCond %{REQUEST_URI} !^/doc/
