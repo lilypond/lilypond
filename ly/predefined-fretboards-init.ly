@@ -42,12 +42,28 @@ hash with the key @var{(cons key-symbol tuning)}.")
 #(define (chord-shape shape-code tuning)
    (get-chord-shape shape-code tuning chord-shape-table))
 
+% scheme function for copying/creating fretboard tables
+
+#(define (make-fretboard-table . rest)
+  "Create a new fretboard table.  @code{rest} is an optional table name.
+If present, the new fretboard table starts as a copy of the fretboard
+table @code{rest}."
+  (if (null? rest)
+      (make-hash-table 101)
+      (let ((source-table (car rest)))
+        (hash-fold
+          (lambda (key value tab)
+            (hash-set! tab key value)
+            tab)
+          (make-hash-table 101)
+          source-table))))
+
 % music function for adding a predefined diagram to
 % fretboard-table
 
 storePredefinedDiagram =
-#(define-music-function (parser location
-    fretboard-table chord tuning diagram-definition)
+#(define-music-function
+   (parser location fretboard-table chord tuning diagram-definition)
    (hash-table? ly:music? pair? string-or-pair?)
   (_i "Add predefined fret diagram defined by @var{diagram-definition}
   for the chord pitches @var{chord} and the stringTuning @var{tuning}.")
