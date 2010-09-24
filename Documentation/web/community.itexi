@@ -464,10 +464,12 @@ account.
 @end ifset
 
 
+@c we normally don't allow named references, but in this case
+@c it's good to emphasize the "stable" part.  -gp
 @warning{These are @emph{unstable development} versions.  If you
 have the slightest doubt about how to use or install LilyPond, we
-urge you to use the stable @ref{Download}, and read the stable
-@ref{Manuals}.}
+urge you to use the @ref{Download, stable Download}, and read the
+@ref{Manuals, stable Manuals}.}
 
 @divEnd
 
