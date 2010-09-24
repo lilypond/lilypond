@@ -253,12 +253,6 @@ Item::pure_height (Grob *g, int start, int end)
   return cached_pure_height_ + pure_relative_y_coordinate (g, start, end);
 }
 
-bool
-Item::less (Grob * const &g1, Grob * const &g2)
-{
-  return dynamic_cast<Item*> (g1)->get_column ()->get_rank () < dynamic_cast<Item*> (g2)->get_column ()->get_rank ();
-}
-
 ADD_INTERFACE (Item,
 	       "Grobs can be distinguished in their role in the horizontal"
 	       " spacing.  Many grobs define constraints on the spacing by"

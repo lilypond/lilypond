@@ -69,26 +69,24 @@ Paper_score::typeset_system (System *system)
   system->unprotect ();
 }
 
-
-vector<vsize>
+void
 Paper_score::find_break_indices () const
 {
-  vector<Grob*> all = root_system ()->used_columns ();
-  vector<vsize> retval;
+  cols_ = root_system ()->used_columns ();
+  break_indices_.clear ();
+  break_ranks_.clear ();
 
-  for (vsize i = 0; i < all.size (); i++)
+  for (vsize i = 0; i < cols_.size (); i++)
     {
-      Item *it = dynamic_cast<Item*> (all[i]);
-      if (Paper_column::is_breakable (all[i])
+      Item *it = dynamic_cast<Item*> (cols_[i]);
+      if (Paper_column::is_breakable (cols_[i])
 	  && (i == 0 || it->find_prebroken_piece (LEFT))
-	  && (i == all.size () - 1 || it->find_prebroken_piece (RIGHT)))
-	retval.push_back (i);
+	  && (i == cols_.size () - 1 || it->find_prebroken_piece (RIGHT)))
+	{
+	  break_indices_.push_back (i);
+	  break_ranks_.push_back (it->get_column ()->get_rank ());
+	}
     }
-
-  cols_ = all;
-  break_indices_ = retval;
-
-  return retval;
 }
 
 vector<vsize>
@@ -105,6 +103,14 @@ Paper_score::get_columns () const
   if (cols_.empty ())
     find_break_indices ();
   return cols_;
+}
+
+vector<vsize>
+Paper_score::get_break_ranks () const
+{
+  if (break_ranks_.empty ())
+    find_break_indices ();
+  return break_ranks_;
 }
 
 vector<Column_x_positions>
