@@ -384,6 +384,42 @@ In all but the simplest works it is advisable to create explicit
 @code{Voice} contexts as explained in @rlearning{Contexts and engravers} and
 @rlearning{Explicitly instantiating voices}.
 
+@strong{@i{Voice order}}
+
+When entering multiple voices in the input file, use the following
+order:
+
+@example
+Voice 1: highest
+Voice 2: lowest
+Voice 3: second highest
+Voice 4: second lowest
+Voice 5: third highest
+Voice 6: third lowest
+etc.
+@end example
+
+Though this may seem counterintuitive, it simplifies the automatic
+layout process.  Note that the odd-numbered voices are given
+upstems, and the even-numbered voices are given downstems:
+
+@lilypond[quote,verbatim]
+\new Staff <<
+  \time 2/4
+  { f''2 }  % 1: highest
+  \\
+  { c'2  }  % 2: lowest
+  \\
+  { d''2 }  % 3: second-highest
+  \\
+  { e'2  }  % 4: second-lowest
+  \\
+  { b'2  }  % 5: third-highest
+  \\
+  { g'2  }  % 6: third-lowest
+>>
+@end lilypond
+
 @strong{@i{Identical rhythms}}
 
 In the special case that we want to typeset parallel pieces of music
@@ -600,12 +636,54 @@ then works properly.
 >>
 @end lilypond
 
-The @code{\shiftOn}, @code{\shiftOnn}, and @code{\shiftOnnn}
-commands specify the degree to which chords of the current voice
-should be shifted.  The outer voices (normally: voices one and
-two) have @code{\shiftOff}, while the inner voices (three and
-four) have @code{\shiftOn}.  @code{\shiftOnn} and
-@code{\shiftOnnn} define further shift levels.
+The @code{\shiftOn} command allows (but does not force) the notes
+in a voice to be shifted.  When @code{\shiftOn} is applied to a
+voice, a note or chord in that voice is shifted only if its stem
+would otherwise collide with a stem from another voice, and only
+if the colliding stems point in the same direction.  The
+@code{\shiftOff} command prevents this type of shifting from
+occuring.
+
+By default, the outer voices (normally voices one and two) have
+@code{\shiftOff} specified, while the inner voices (three and
+above) have @code{\shiftOn} specified.  When a shift is applied,
+voices with upstems (odd-numbered voices) are shifted to the
+right, and voices with downstems (even-numbered voices) are
+shifted to the left.
+
+Here is an example to help you visualize how an abbreviated
+polyphonic expression would be expanded internally.
+
+@warning{Note that with three or more voices, the vertical order
+of voices in your input file should not be the same as the
+vertical order of voices on the staff!}
+
+@lilypond[quote,verbatim]
+\new Staff \relative c'' {
+  %% abbreviated entry
+  <<
+    { f2  }  % 1: highest
+    \\
+    { g,2 }  % 2: lowest
+    \\
+    { d'2 }  % 3: upper middle
+    \\
+    { b2  }  % 4: lower middle
+  >>
+  %% internal expansion of the above
+  <<
+    \new Voice = "1" { \voiceOne   \shiftOff f'2 }
+    \new Voice = "2" { \voiceTwo   \shiftOff g,2 }
+    \new Voice = "3" { \voiceThree \shiftOn  d'2 } % shifts right
+    \new Voice = "4" { \voiceFour  \shiftOn  b2  } % shifts left
+  >>
+}
+@end lilypond
+
+Two additional commands, @code{\shiftOnn} and @code{\shiftOnnn}
+provide further shift levels which may be specified temporarily to
+resolve collisions in complex situations -- see
+@rlearning{Real music example}.
 
 Notes are only merged if they have opposing stem directions (as
 they have, for example, in voices one and two by default or when
