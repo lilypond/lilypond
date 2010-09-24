@@ -16,8 +16,8 @@ ifeq ($(WEBSITE_ONLY_BUILD),1)
   top-htaccess=$(trusted-dir)/lilypond.org.htaccess
   dir-htaccess=$(trusted-dir)/website-dir.htaccess
   TEXI2HTML_PROGRAM=$(HOME)/usr/bin/texi2html
-  EXAMPLES=$(HOME)/media/ly-examples/
-  PICTURES=$(HOME)/media/pictures
+  EXAMPLES=$(HOME)/lilypond/media/ly-examples/
+  PICTURES=$(HOME)/lilypond/media/pictures
 else
   ### for normal git
   script-dir=$(top-src-dir)/scripts/build/
