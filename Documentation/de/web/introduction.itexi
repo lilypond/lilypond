@@ -930,7 +930,7 @@ Einzelheiten sehr viel ausführlicher behandelt.}
 Noten werden durch Buchstaben und Zahlen kodiert. Besondere Kommandos werden
 mit einem Backslash eingegeben.
 
-@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-annotate-de,png,center}
 @imageFloat{text-input-1-output,png,center}
 
 Versetzungszeichen werden durch verschiedene Endungen hinzugefügt: @code{-is}
@@ -938,7 +938,7 @@ nach der Note setzt ein Kreuz, @code{-es} dagegen ein b (-- das sind die deutsch
 Endungen, Endungen in anderen Sprachen sind auch möglich). LilyPond entscheidet selber, wo 
 es die Versetzungszeichen platziert.
 
-@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-annotate-de,png,center}
 @imageFloat{text-input-2-output,png,center}
 
 
@@ -946,7 +946,7 @@ es die Versetzungszeichen platziert.
 
 Akkorde und Liedtext können einfach zu einem Lead Sheet kombiniert werden.
 
-@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-annotate-de,png,center}
 @imageFloat{text-input-pop-output,png,center}
 
 
@@ -959,19 +959,19 @@ erstellt werden. Wenn man eine Note verändert, findet sich die Veränderung
 also gleichzeitig in der Stimme und der Partitur wieder. Damit die Noten mehrfach
 verwendet werden, sollten sie einer Variablen zugewiesen werden:
 
-@imageFloat{text-input-parts-both-annotate,png,center}
+@imageFloat{text-input-parts-both-annotate-de,png,center}
 
 
 Mit dieser Variable kann dann eine Einzelstimme erstellt werden (hier transponiert,
 die Pausen sind zusammengezogen):
 
-@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-annotate-de,png,center}
 @imageFloat{text-input-parts-single-output,png,center}
 
 
 Die gleiche Variable wird dann in der Partitur benutzt (hier in der Originaltonhöhe):
 
-@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-annotate-de,png,center}
 @imageFloat{text-input-score-output,png,center}
 
 
