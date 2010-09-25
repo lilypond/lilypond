@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 0ab366a101ef8c3439dd8d6ff6c634f70fa5f63b
+    Translation of GIT committish: 87a9977bbd54e3822338e290716845d8e2e304e3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -496,8 +496,9 @@ la liste anglophone et assurerons le suivi.
 
 @warning{Il s'agit des versions @emph{instables et de développement}.
 Si vous avez le moindre doute quant à l'utilisation ou l'installation de
-LilyPond, nous vous enjoignons à utiliser le @ref{Téléchargement} et la
-lecture des @ref{Manuels} pour la version stable.}
+LilyPond, nous vous enjoignons à utiliser le 
+@ref{Téléchargement,téléchargement de la version stable} et la
+lecture des @ref{Manuels,manuels pour la version stable}.}
 
 @divEnd
 
