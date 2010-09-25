@@ -1013,29 +1013,6 @@ Otherwise, return #f."
      (format #f "\\bar \"~a\"~a" ?bar-type (new-line->lily-string))))
 
 ;;; \partial
-(define (duration->moment ly-duration)
-  (let ((log2	 (ly:duration-log ly-duration))
-	(dots	 (ly:duration-dot-count ly-duration))
-	(num+den (ly:duration-factor ly-duration)))
-    (let* ((m (expt 2 (- log2)))
-	   (factor (/ (car num+den) (cdr num+den))))
-      (/ (do ((i 0 (1+ i))
-	      (delta (/ m 2) (/ delta 2)))
-	     ((= i dots) m)
-	   (set! m (+ m delta)))
-	 factor))))
-
-(define moment-duration-alist (map (lambda (duration)
-				     (cons (duration->moment duration)
-					   duration))
-				   (append-map (lambda (log2)
-						 (map (lambda (dots)
-							(ly:make-duration log2 dots 1 1))
-						      (list 0 1 2 3)))
-					       (list 0 1 2 3 4))))
-
-(define (moment->duration moment)
-  (assoc-get (- moment) moment-duration-alist))
 
 (define-extra-display-method ContextSpeccedMusic (expr parser)
   "If `expr' is a partial measure, return \"\\partial ...\".
@@ -1046,13 +1023,12 @@ Otherwise, return #f."
 				    'ContextSpeccedMusic
 				    context-type 'Timing
 				    element (music
-					     'PropertySet
-					     value ?moment
-					     symbol 'measurePosition))))
-     (let ((duration (moment->duration (/ (ly:moment-main-numerator ?moment)
-					  (ly:moment-main-denominator ?moment)))))
-       (and duration (format #f "\\partial ~a" (duration->lily-string duration
-						 #:force-duration #t))))))
+					     'PartialSet
+					     partial-duration ?duration))))
+
+		    (and ?duration
+			 (format #f "\\partial ~a"
+				 (duration->lily-string ?duration #:force-duration #t)))))
 
 ;;;
 ;;;
