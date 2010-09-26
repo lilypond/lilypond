@@ -134,7 +134,7 @@ For instance,
 	  ((and (not (string? arg)) (markup? arg)) ;; a markup
 	   (inner-markup->make-markup arg))
 	  (else					 ;; scheme arg
-	   arg)))
+	   (music->make-music arg))))
   (define (inner-markup->make-markup mrkup)
     (if (string? mrkup)
 	`(#:simple ,mrkup)
