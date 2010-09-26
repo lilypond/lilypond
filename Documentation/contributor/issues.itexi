@@ -205,6 +205,11 @@ or ask the lilypond-user mailing list.
 @end example
 
 @item
+If the email mentions @qq{the latest git}, or any version number
+that has not yet been officially released, forward it to
+@code{lilypond-devel}.
+
+@item
 If a bug report is not in the form of a Tiny example, direct the
 user to resubmit the report with this response:
 
@@ -214,7 +219,6 @@ can only accept reports in the form of Tiny examples.  Please see
 step 2 in our bug reporting guidelines:
   @uref{http://lilypond.org/website/bug-reports.html}
 @end example
-
 
 @item
 If anything is unclear, ask the user for more information.
