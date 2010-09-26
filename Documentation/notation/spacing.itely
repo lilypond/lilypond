@@ -597,11 +597,15 @@ The value of the page number on the first page.  Default:
 @code{#1}.
 
 @item max-systems-per-page
+@funindex max-systems-per-page
+
 The maximum number of systems that will be placed on a page.  This
 is currently supported only by the @code{ly:optimal-breaking} algorithm.
 Default: unset.
 
 @item min-systems-per-page
+@funindex min-systems-per-page
+
 The minimum number of systems that will be placed on a page.  This
 may cause pages to be overfilled if it is made too large.  This is
 currently supported only by the @code{ly:optimal-breaking} algorithm.
