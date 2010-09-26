@@ -1084,6 +1084,14 @@ Pitches).  A first-level section may have introductory material,
 but other than that all material goes into third-level sections
 (i.e. 1.1.1 Writing Pitches).
 
+@item
+The @@knownissues should not discuss any issues that are in the
+tracker, unless the issue is Priority-Postponed.  The goal is to
+discuss any overall architecture or syntax decisions which may be
+interpreted as bugs.  Normal bugs should not be discussed here,
+because we have so many bugs that it would be a huge task to keep
+the @@knownissues current and accurate all the time.
+
 @end itemize
 
 
