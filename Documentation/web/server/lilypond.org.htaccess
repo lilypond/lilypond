@@ -39,7 +39,8 @@ RedirectMatch ^/wiki	http://wiki.lilynet.net
 # the new website has news on the main page
 RedirectMatch ^/news    /
 RedirectMatch ^/stable    /doc/stable
-RedirectMatch ^/development    /doc/development
+# the new website has a dedicated page for development.
+#RedirectMatch ^/development    /doc/development
 
 #old# default doc dir
 RedirectMatch ^/doc/*$ /doc/v2.12
