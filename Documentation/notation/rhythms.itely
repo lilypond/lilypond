@@ -1061,9 +1061,9 @@ be changed, or new default values can be added:
 \score {
   \relative c' {
     \overrideTimeSignatureSettings
-      #'Score
-      #'(4 . 4)  % time signature fraction
-      #'(1 . 4)  % base moment fraction
+      #'Score    % context
+      #'(4 . 4)  % timeSignatureFraction
+      #'(1 . 4)  % baseMoment
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1073,17 +1073,29 @@ be changed, or new default values can be added:
 @end lilypond
 
 @code{\overrideTimeSignatureSettings} takes five arguments:
-context, time signature fraction, base moment, beat structure, and
-beaming exception.  The context is a Scheme symbol that describes
-the context to which the default setting will apply.  The
-time signature fraction is a Scheme pair describing the time signature.
-The base moment is a Scheme pair containing the
-numerator and denominator of the basic timing unit for the
-time signature.  The beat structure is a Scheme list indicating
-the structure of the beats in the measure, in units of the base moment.
-The beaming exception is an alist containing any beaming rules for the
-time signature that go beyond ending at every beat,
-as described in @ref{Setting automatic beam behavior}.
+
+@enumerate
+@item
+@code{@var{context}}, a Scheme symbol that describes the context
+to which the default setting will apply.
+
+@item
+@code{@var{timeSignatureFraction}}, a Scheme pair describing the
+time signature.
+
+@item
+@code{@var{baseMoment}}, a Scheme pair containing the numerator
+and denominator of the basic timing unit for the time signature.
+
+@item
+@code{@var{beatStructure}}, a Scheme list indicating the structure
+of the beats in the measure, in units of the base moment.
+
+@item
+@code{@var{beamExceptions}}, an alist containing any beaming rules
+for the time signature that go beyond ending at every beat, as
+described in @ref{Setting automatic beam behavior}.
+@end enumerate
 
 @cindex time signature properties, restoring default values
 @cindex restoring default properties for time signatures
@@ -1093,16 +1105,15 @@ Changed values of default time signature properties can be restored
 to the original values:
 
 @lilypond[quote,verbatim]
-
 \score{
   \relative c' {
     \repeat unfold 8 c8 |
     \overrideTimeSignatureSettings
-      #'Score
-      #'(4 . 4)
-      #'(1 . 4)
-      #'(3 1)
-      #'((end . (((1 . 8) . (3 1)))))
+      #'Score                         % context
+      #'(4 . 4)                       % timeSignatureFraction
+      #'(1 . 4)                       % baseMoment
+      #'(3 1)                         % beatStructure
+      #'((end . (((1 . 8) . (3 1))))) % beamExceptions
     \time 4/4
     \repeat unfold 8 c8 |
     \revertTimeSignatureSettings #'Score #'(4 . 4)
