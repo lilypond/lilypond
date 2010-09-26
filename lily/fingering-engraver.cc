@@ -141,9 +141,6 @@ Fingering_engraver::make_script (Direction d, Stream_event *r, int i)
 void
 Fingering_engraver::stop_translation_timestep ()
 {
-  if (!fingerings_.size ())
-    return;
-
   fingerings_.clear ();
   events_.clear ();
 }
