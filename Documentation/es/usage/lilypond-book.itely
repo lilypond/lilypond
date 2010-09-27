@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 37fad23ed3941fc55f118b1c4e96dae40d458f24
+    Translation of GIT committish: 814486057aa68c11988cb86375b44bf898cdc300
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -342,7 +342,7 @@ sustituya el @q{2} por el número de sistemas que quiere en la salida:
 
 @example
 \def\betweenLilyPondSystem#1@{
-    \ifnum##1<2\else\expandafter\endinput\fi
+    \ifnum#1<2\else\expandafter\endinput\fi
 @}
 @end example
 

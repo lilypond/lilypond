@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ec64184cf863f8565cfedd6dfe91198ce843526e
+    Translation of GIT committish: 0f160f02f8fcf7859e18ab1ea0be1e3d69953879
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -100,9 +100,13 @@ Fragmentos de código:
 
 @knownissues
 
+No se pueden usar las abreviaturas predefinidas de articulaciones y
+adornos sobre notas dentro del modo de acordes; véase
+@ref{Articulaciones y ornamentos}.
+
 Cuando se mezclan los modos de acorde y de nota en música secuencial,
 y el modo de acordes aparece en primer lugar, el modo de notas crea un
-nuevo contexto de @code{Staff}.
+nuevo contexto de @code{Staff}:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \chordmode { c2 f }

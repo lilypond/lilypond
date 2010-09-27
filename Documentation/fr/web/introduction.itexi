@@ -621,6 +621,14 @@ sous forme de texte}.
 @itemize
 
 @item
+Mai 2010
+
+Peter Kirn publie, sur le site Create Digital Music, une
+@uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,critique de LilyPond}.
+Son approche reste objective et il invite à essayer LilyPond pour la
+qualité de son rendu.
+
+@item
 Septembre 2009
 
 Le magazine allemand LinuxUser publie un 
@@ -856,6 +864,26 @@ investissement@tie{}!}
   produit des résultats vraiment merveilleux.  Après avoir lu une
   interview à son sujet l'an dernier, j'ai déliré avec plusieurs de mes
   amis sur son potentiel.}
+@divEnd
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, Dr Mika Kuuskankare}, chercheur à la @uref{http://siba.fi, Sibelius Academy Finland}, compositeur et auteur de Expressive Notation Package (ENP)
+
+@qq{J'ai le plus grand respect pour LilyPond, ses concepteurs et tous
+ceux qui en assurent la maintenance, d'autant plus que je sais, de par
+ma propre expérience, comment cela peut être difficile pour ce type de
+logiciel.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://camerondh.blogspot.com, David Cameron}, musicien, graveur professionnel et utilisateur de SCORE pendant longtemps
+
+@qq{J'adresse mes remerciements les plus chaleureux à tous ceux qui
+contribuent à ce projet.  Bien qu'utilisateur chevronné de SCORE pour
+différents éditeurs dans les années 1990, je considère à présent que
+LilyPond me permet d'obtenir exactement ce que je veux sur une page, et
+tout spécialement quand cela sort des standards.}
 @divEnd
 
 @divEnd

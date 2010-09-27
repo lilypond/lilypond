@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 0a8cfef9d285775b5587218e57ffaa9bbf134359
+    Translation of GIT committish: 0f160f02f8fcf7859e18ab1ea0be1e3d69953879
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2472,12 +2472,11 @@ tipo de objeto.  Entre tales propiedades se encuentran:
 Ya se ha estudiado con cierto detalle: véase @ref{Objetos interiores al pentagrama}.
 
 @item
-@code{padding} (relleno), @code{left-padding} (relleno por la
-izquierda), @code{right-padding} (relleno por la derecha),
+@code{padding} (relleno),
+@code{right-padding} (relleno por la derecha),
 @code{staff-padding} (relleno de pentagrama)
 
 @cindex relleno
-@cindex left-padding, propiedad
 @cindex padding, propiedad
 @cindex right-padding, propiedad
 @cindex staff-padding, propiedad
@@ -2493,14 +2492,15 @@ aplicar a todos los objetos que contemplan el interface
 @code{side-position-interface}.
 
 En lugar de con @code{padding}, la colocación de los grupos de
-alteraciones se controla con @code{left-padding} y
-@code{right-padding}.  Estas propiedades se encontrarán en el objeto
+alteraciones se controla con
+@code{right-padding}.  Esta propiedad se encuentra en el objeto
 @code{AccidentalPlacement} que, observe, vive dentro del contexto de
-@strong{staff}.  Durante el proceso tipográfico, las cabezas de las
+@strong{Staff}.  Durante el proceso tipográfico, las cabezas de las
 notas se componen tipográficamente en primer lugar, y después las
 alteraciones, si existen, se añaden a la izquierda de las cabezas
 utilizando la propiedad de relleno por la derecha @code{right-padding}
-para determinar la separación entre la alteración y la cabeza.  así
+para determinar la separación entre la alteración y la cabeza, y
+de las alteraciones entre sí.  Así
 pues, sólo la propiedad de relleno por la derecha @code{right-padding}
 del objeto @code{AccidentalPlacement} tiene efecto sobre la colocación
 de las alteraciones.
@@ -2709,11 +2709,11 @@ b2\fermata
 @lilypond[quote,fragment,relative=1,verbatim]
 % This will not work, see below
 \override MetronomeMark #'padding = #3
-\tempo 4=120
+\tempo 4 = 120
 c1 |
 % This works
 \override Score.MetronomeMark #'padding = #3
-\tempo 4=80
+\tempo 4 = 80
 d1 |
 @end lilypond
 
@@ -2730,9 +2730,8 @@ entonces ese objeto se moverá, y también todos los que están por fuera
 de él.
 
 
-@subheading left-padding y right-padding (relleno por la izquierda y por la derecha)
+@subheading right-padding (relleno por la derecha)
 
-@cindex left-padding, propiedad
 @cindex right-padding, propiedad
 
 La propiedad @code{right-padding} afecta al espaciado entre la
@@ -3039,7 +3038,7 @@ deben tomar para tratar con un ejemplo complicado que necesita varios
 trucos para producir el resultado deseado.  El ejemplo se ha escogido
 deliberadamente para ilustrar el uso de la Referencia de la Notación
 para resolver problemas de notación poco comunes.  No es
-representativo de un proceso de grabado más usual, por lo que ¡le
+representativo del proceso de grabado más usual, por lo que ¡le
 recomendamos que no deje que estas dificultades le desanimen!
 ¡Afortunadamente, las dificultades como éstas no son muy comunes!
 
@@ -3052,38 +3051,46 @@ quitado las indicaciones dinámicas, las digitaciones y el pedal.
 @c The following should appear as music without code
 @c This example should not be indexed
 @c line-width ensures no break
-@lilypond[quote,ragged-right,line-width=5.5\in]
+@lilypond[quote,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  bes2.^\markup { \bold "Moderato" } r8
-  <<
-    { c,8 d fis bes a }
-  \\
-    {
-      % Reposition the c2 to the right of the merged note
-      c,8~ \once \override NoteColumn #'force-hshift = #1.0
-      % Move the c2 out of the main note column so the merge will work
-      \shiftOnn c2
-    }
-  \\
-    {
-      % Stem on the d2 must be down to permit merging
-      s8 \stemDown
-      \once \override Stem #'transparent = ##t
-      d2
-    }
-  \\
-    { s4 fis4. }
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\)
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    bes2.^\markup { \bold "Moderato" } r8
+    <<
+      { c,8 d fis bes a }
+      \new Voice {
+        \voiceTwo
+        c,8~
+        % Reposition the c2 to the right of the merged note
+        \once \override NoteColumn #'force-hshift = #1.0
+        % Move the c2 out of the main note column so the merge will work
+        \shiftOnn
+        c2
+      }
+      \new Voice {
+        \voiceThree
+        s8
+        % Stem on the d2 must be down to permit merging
+        \stemDown
+        % Stem on the d2 should be invisible
+        \once \override Stem #'transparent = ##t
+        d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)
+  }
 }
 
 lhMusic = \relative c' {
@@ -3113,30 +3120,44 @@ compás requiere cuatro voces.  Son las cinco corcheas unidas por una
 barra, la nota Do ligada, el Re blanca que se funde con el Re corchea,
 y el Fa sostenido negra con puntillo, que también está fundida con la
 corchea de su misma altura.  Todo lo demás está en una sola voz, así
-que lo más fácil es introducir estas cuatro voces temporalmente en el
-momento en que se necesiten.  Si ha olvidado cómo hacerlo, lea
-@ref{Oigo voces}.  Vamos a comenzar introduciendo las notas
-como dos variables y disponiendo la estructura de pentagramas en un
-bloque Score, y veremos qué produce LilyPond de forma predeterminada:
+que lo más fácil es introducir estas tres voces adicionales, en el
+momento en que se necesiten y de forma temporal.  Si ha olvidado cómo
+hacerlo, lea las secciones @ref{Oigo voces} y @ref{Voces explícitas}.
+Aquí tomamos la decisión de utilizar voces instanciadas explícitamente
+para el pasaje polifónico, dado que LilyPond es más probable que pueda
+evitar las colisiones si todas las voces se instancian explícitamente
+de esta forma.
+
+Vamos a comenzar introduciendo las notas como dos variables y
+disponiendo la estructura de pentagramas en un bloque Score, y veremos
+qué produce LilyPond de forma predeterminada:
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4. g8 |
-  bes1~ |
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a }
-  \\
-    { c,8~ c2 }
-  \\
-    { s8 d2 }
-  \\
-    { s4 fis4. }
-  >> |
-  g2. |
+  \new Voice {
+    r2 c4. g8 |
+    bes1~ |
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3163,30 +3184,38 @@ lhMusic = \relative c' {
 
 Todas las notas son correctas, pero el aspecto está lejos de ser
 satisfactorio.  La ligadura de unión choca con el cambio de compás,
-las notas no se funden correctamente, y faltan algunos elementos de
+ciertas notas no se funden correctamente, y faltan algunos elementos de
 notación.  En primer lugar trataremos con lo más fácil.  Podemos
 añadir fácilmente la ligadura de expresión de la mano izquierda y la
 ligadura de fraseo de la mano derecha, pues todo ello se estudió en el
 Tutorial.  Al hacerlo así obtenemos:
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  bes1~ |
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a }
-  \\
-    { c,8~ c2 }
-  \\
-    { s8 d2 }
-  \\
-    { s4 fis4. }
-  >> |
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    bes1~ |
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3223,7 +3252,8 @@ la colisión entre la ligadura de unión y la indicación de compás.
 Esto se hace mejor moviendo la ligadura hacia arriba.  Estudiamos cómo
 mover objetos anteriormente en @ref{Mover objetos}, donde dice que
 los objetos que están situados de forma relativa al pentagrama se
-pueden mover sobreescribiendo su propiedad @code{staff-position}, que
+pueden mover verticalmente
+sobreescribiendo su propiedad @code{staff-position}, que
 se especifica en unidades de medio espacio de pentagrama respecto de
 la línea central del pentagrama.  Así pues, la sobreescritura
 siguiente colocada justo antes de la primera nota ligada subirá la
@@ -3235,25 +3265,33 @@ central:
 Con esto se completa el compás dos, dando como resultado:
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2. r8
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a }
-  \\
-    { c,8~ c2 }
-  \\
-    { s8 d2 }
-  \\
-    { s4 fis4. }
-  >> |
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3280,7 +3318,7 @@ lhMusic = \relative c' {
 
 Vayamos ahora al tercer compás y comienzo de la sección Moderato.  El
 tutorial nos enseñó cómo escribir texto en negrita mediante la
-instrucción @code{\markup}, por lo que añadir @q{Moderato} en negrita
+instrucción @code{\markup}, por lo que añadir @qq{Moderato} en negrita
 es fácil.  Pero ahora ¿cómo fundimos notas que están en distintas
 voces?  Aquí es donde debemos volver a buscar ayuda en el manual de
 Referencia de la notación. Al buscar la palabra @qq{merge} (mezcla) en
@@ -3308,29 +3346,37 @@ al principio de la sección, y
 al final, dando como resultado:
 
 @c line-width ensures no break
-@lilypond[quote,ragged-right,line-width=5.5\in]
+@lilypond[quote,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup { \bold "Moderato" } r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a }
-  \\
-    { c,8~ c2 }
-  \\
-    { s8 d2 }
-  \\
-    { s4 fis4. }
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ c2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3375,35 +3421,39 @@ aplicar estos cambios obtenemos:
 @cindex staff-position, propiedad, ejemplo
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup { \bold "Moderato" } r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  % Start polyphonic section of four voices
-  <<
-    { c,8 d fis bes a }
-  \\
-    {
-      % Move the c2 out of the main note column so the merge will work
-      c,8~ \shiftOnn c2
-    }
-  \\
-    {
-      % Stem on the d2 must be down to permit merging
-      s8 \stemDown d2
-    }
-  \\
-    { s4 fis4. }
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        % Move the c2 out of the main note column so the merge will work
+        c,8~ \shiftOnn c2
+      }
+      \new Voice {
+        \voiceThree
+        % Stem on the d2 must be down to permit merging
+        s8 \stemDown d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3441,38 +3491,47 @@ final:
 @cindex transparent, propiedad, ejemplo
 
 @c line-width ensures no break
-@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative c'' {
-  r2 c4.\( g8 |
-  \once \override Tie #'staff-position = #3.5
-  bes1~ |
-  \bar "||"
-  \time 6/4
-  bes2.^\markup { \bold "Moderato" } r8
-  \mergeDifferentlyHeadedOn
-  \mergeDifferentlyDottedOn
-  <<
-    { c,8 d fis bes a }
-  \\
-    {
-      % Reposition the c2 to the right of the merged note
-      c,8~ \once \override NoteColumn #'force-hshift = #1.0
-      % Move the c2 out of the main note column so the merge will work
-      \shiftOnn c2
-    }
-  \\
-    {
-      % Stem on the d2 must be down to permit merging
-      s8 \stemDown
-      \once \override Stem #'transparent = ##t
-      d2
-    }
-  \\
-    { s4 fis4. }
-  >> |
-  \mergeDifferentlyHeadedOff
-  \mergeDifferentlyDottedOff
-  g2.\) |
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie #'staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~
+        % Reposition the c2 to the right of the merged note
+        \once \override NoteColumn #'force-hshift = #1.0
+        % Move the c2 out of the main note column so the merge will work
+        \shiftOnn
+        c2
+      }
+      \new Voice {
+        \voiceThree
+        s8
+        % Stem on the d2 must be down to permit merging
+        \stemDown
+        % Stem on the d2 should be invisible
+        \once \override Stem #'transparent = ##t
+        d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
 }
 
 lhMusic = \relative c' {
@@ -3829,11 +3888,11 @@ archivo como @file{"musica.ly"}).
 
 \relative c'' @{
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a
-  b4 bes a2
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
   \inst "Clarinete"
-  cis4.\< d8 e4 fis
-  g8(\! fis)-. e( d)-. cis2
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
 @}
 @end example
 
@@ -4291,3 +4350,4 @@ notas un color que depende de su posición dentro del pentagrama.
 Se pueden encontrar ejemplos adicionales que muestran la utilización
 de estos interfaces programables, en @rextendnamed{Callback
 functions,Funciones de callback}.
+

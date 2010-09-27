@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
+    Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.12.0"
 
-@c Translators: Valentin Villenave
+@c Translators: Valentin Villenave, Jean-Charles Malahieuse
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 @node Instruments à vent
@@ -25,6 +25,7 @@ notation pour instruments à vent.
 @menu
 * Vue d'ensemble des instruments à vent::
 * Cornemuse::
+* Bois::
 @end menu
 
 @node Vue d'ensemble des instruments à vent
@@ -109,19 +110,36 @@ Manuel de notation :
 @ref{Têtes de note spécifiques},
 
 Morceaux choisis :
-@rlsr{Winds}
+@rlsrnamed{Winds,Vents}.
 
 
 @node Doigtés pour vents
 @unnumberedsubsubsec Doigtés pour vents
 @translationof Fingerings
 
-@c TODO add link to LSR snippet by Libero Mureddo once he has added
-@c it (after August 15th).
 Tout instrument à vent, hormis le trombone à coulisse, fait appel à
-plusieurs doigts pour produire un son.
+plusieurs doigts pour produire un son.  Les exemples ci-dessous vous
+donnent un apperçu de différentes manières d'indiquer des doigtés.
 
-TBC
+La gestion des diagrammes de doigté spécifiques aux bois est abordée
+plus en profondeur au chapitre @ref{Diagrammes pour bois}.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{fingering-symbols-for-wind-instruments.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{recorder-fingering-chart.ly}
+
+@seealso
+
+Manuel de notation :
+@ref{Diagrammes pour bois}.
+
+Snippets:
+@rlsrnamed{Winds,Vents}.
+ 
 
 @node Cornemuse
 @subsection Cornemuse
@@ -192,7 +210,7 @@ ou un défilé, peut survenir un sol aigu, au doux nom de
 
 
 @seealso
-@rlsr{Winds}
+@rlsrnamed{Winds,Vents}.
 
 
 @node Exemple pour la cornemuse
@@ -244,4 +262,174 @@ Et voici en guise d'exemple, à quoi ressemble le chant populaire
 
 
 @seealso
-@rlsr{Winds}
+@rlsrnamed{Winds,Vents}
+
+
+@node Bois
+@subsection Bois
+@translationof Woodwinds
+
+Nous allons ici nous intéresser aux spécificités de la section des bois.
+
+@menu
+* Diagrammes pour bois::
+@end menu
+
+@node Diagrammes pour bois
+@subsubsection Diagrammes pour bois
+@translationof Woodwind diagrams
+
+Les doigtés pour obtenir une note particulière peuvent s'afficher sous
+forme graphique.  LilyPond dispose de diagrammes pour la plupart des
+bois, et tout particulièrement les instruments suivants@tie{}:
+
+@itemize
+@item piccolo
+@item flûte
+@item hautbois
+@item clarinette
+@item clarinette basse
+@item saxophone
+@item basson
+@item contrebasson
+@end itemize
+
+@noindent
+L'exemple qui suit répertorie les différents diagrammes disponibles, le
+nom de chaque instrument étant indiqué en langage Scheme.
+
+Les diagrammes sont générés en tant qu'objet de type
+@emph{markup}@tie{}:
+
+@lilypond[verbatim, quote, relative=2]
+c1^ \markup \woodwind-diagram #'piccolo #'((lh . (gis))
+                                           (cc . (one three))
+                                           (rh . (ees)))
+@end lilypond
+
+Les clés ou trous peuvent être partiellement enfoncés ou bouchés@tie{}:
+
+@c KEEP LY
+@lilypond [verbatim, quote, relative=2]
+\textLengthOn
+c1^ \markup \center-column {
+  "quart de trou"
+  \woodwind-diagram #'flute #'((cc . (one1q))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "demi-trou"
+  \woodwind-diagram #'flute #'((cc . (one1h))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "trois quarts de trou"
+  \woodwind-diagram #'flute #'((cc . (one3q))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "anneau"
+  \woodwind-diagram #'flute #'((cc . (oneR))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "bouché"
+  \woodwind-diagram #'flute #'((cc . (oneF two))
+                                  (lh . ())
+                                  (rh . ()))
+}
+@end lilypond
+
+L'indication du doigté permettant de triller s'obtient en grisant une
+position@tie{}:
+
+@lilypond [verbatim, quote, relative=2]
+c1^ \markup \woodwind-diagram #'bass-clarinet
+                              #'((cc . (threeT four))
+                                 (lh . ())
+                                 (rh . (b fis)))
+@end lilypond
+
+Certaines combinaisons particulières en matière de trille sont
+possibles@tie{}:
+
+@c KEEP LY
+@lilypond [verbatim, quote, relative=2]
+\textLengthOn
+c1^ \markup \center-column {
+  "quart de trou et anneau"
+  \woodwind-diagram #'flute #'((cc . (one1qTR))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "anneau et fermé"
+  \woodwind-diagram #'flute #'((cc . (oneTR))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "anneau et ouvert"
+  \woodwind-diagram #'flute #'((cc . (oneRT))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "ouvert et fermé"
+  \woodwind-diagram #'flute #'((cc . (oneT))
+                                  (lh . ())
+                                  (rh . ()))
+}
+c1^ \markup \center-column {
+  "quart de trou et trois quarts"
+  \woodwind-diagram #'flute #'((cc . (one1qT3q))
+                                  (lh . ())
+                                  (rh . ()))
+}
+@end lilypond
+
+Bien que cela ne produise pas de notation, vous pouvez obtenir à l'écran
+ou dans un fichier de journalisation la liste de toutes les possibilités
+pour un instrument donné, en utilisant dans un fichier
+
+@lilypond[verbatim, quote]
+#(print-keys-verbose 'flute)
+
+@end lilypond
+
+De nouveaux diagrammes sont réalisables, en suivant les directives
+contenues dans les fichiers @file{scm/define-woodwind-diagrams.scm} et
+@file{scm/display-woodwind-diagrams.scm}.  Ceci requiert toutefois la
+maîtrise du langage Scheme.
+
+
+@snippets
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{woodwind-diagrams-listing.ly}
+
+@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+{graphical-and-text-woodwind-diagrams.ly}
+
+@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+{changing-the-size-of-woodwind-diagrams.ly}
+
+@lilypondfile[verbatim, lilyquote, texidoc, doctitle]
+{woodwind-diagrams-key-lists.ly}
+
+@seealso
+
+Fichiers d'initialisation :
+@file{scm/define-woodwind-diagrams.scm},
+@file{scm/display-woodwind-diagrams.scm}.
+
+Morceaux choisis :
+@rlsrnamed{Winds,Vents}.
+
+Référence des propriétés internes :
+@rinternals{TextScript},
+@rinternals{instrument-specific-markup-interface}.
+

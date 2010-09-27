@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: e1a149d0cc60b02e86209387958f4028567dd366
+    Translation of GIT committish: 908605aaf5df4d07684dafd862322e6ffac3ae10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1008,6 +1008,7 @@ silences.
 
 @menu
 * Métrique::
+* Indication métronomique::
 * Levées::
 * Musique sans métrique::
 * Notation polymétrique::
@@ -1189,6 +1190,94 @@ Références des propriétés internes :
 @rinternals{Timing_translator}.
 
 
+@node Indication métronomique
+@unnumberedsubsubsec Indication métronomique
+@translationof Metronome marks
+
+@cindex tempo
+@cindex battements par minute
+@cindex métronome, indication
+
+@funindex \tempo
+@funindex tempo
+
+Une indication métronomique s'insère tout simplement comme ceci@tie{}:
+
+@lilypond[verbatim,quote,relative=1]
+\tempo 4 = 120
+c2 d
+e4. d8 c2
+@end lilypond
+
+Vous pouvez préférer une indication textuelle@tie{}:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "Allegretto"
+c4 e d c
+b4. a16 b c4 r4
+@end lilypond
+
+Lorsque vous combinez des indications métronomiques sous forme textuelle
+et numérique, l'indication numérique sera placée entre parenthèses@tie{}:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "Allegro" 4 = 160
+g4 c d e
+d4 b g2
+@end lilypond
+
+En matière d'indication textuelle, vous pouvez utiliser n'importe quel
+objet de type @emph{markup}, comme ici@tie{}:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo \markup { \italic Faster } 4 = 132
+a8-. r8 b-. r gis-. r a-. r
+@end lilypond
+
+Mentionner une indication textuelle vide vous permet de mettre entre
+parenthèses l'indication numérique@tie{}:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "" 8 = 96
+d4 g e c
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
+
+@c perhaps also an example of how to move it horizontally?
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-tempo-without-a-metronome-mark.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-metronome-marks-in-markup-mode.ly}
+
+Pour de plus amples détails, veuillez consulter
+@ref{Mise en forme du texte}.
+
+
+@seealso
+Glossaire musicologique :
+@rglosnamed{metronome,métronome},
+@rglosnamed{metronomic indication,indication métronomique},
+@rglosnamed{tempo indication,indication du tempo},
+@rglosnamed{metronome mark,marque de métronome}.
+
+Manuel de notation :
+@ref{Mise en forme du texte},
+@ref{Sortie MIDI}.
+
+Morceaux choisis :
+@rlsrnamed{Staff notation,Notation sur la portée}.
+
+Référence des propriétés internes :
+@rinternals{MetronomeMark}.
+
+ 
 @node Levées
 @unnumberedsubsubsec Levées
 @translationof Upbeats

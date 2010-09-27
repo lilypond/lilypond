@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9cb0f67cda719b296b698a8c25b2559b4f427148
+    Translation of GIT committish: fe2cae0fa47ec4ec0184e6b3d15572fbcba881cf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2925,7 +2925,84 @@ los pentagramas usando nuestra variable previamente definida
       @}
     >>  % fin del pentagrama de OrganoPedal
   >>
-@}  % end Score context
+@}  % fin del contexto Score
+@end example
+
+@cindex ampliabilidad de las pautas
+@cindex pautas, ampliabilidad
+
+La disposición anterior de los pentagramas de órgano es casi perfecta;
+sin embargo, existe un ligero defecto que no es visible cuando se
+observa un solo sistema: la distancia entre el pentagrama de pedal y
+el de la mano izquierda debiera ser aproximadamente la misma que la
+que existe entre los pentagramas de las manos izquierda y derecha.
+Concretamente, la ampliabilidad de los pentagramas dentro de un
+contexto @code{PianoStaff} es limitada (de forma que la distancia
+entre los pentagramas de las manos izquierda y derecha nunca crezcan
+excesivamente), y el pentagrama de los pedales debería comportarse de
+una forma similar.
+
+@cindex sub-propiedades
+@cindex propiedades, sub-propiedades
+@cindex objetos gráficos
+@cindex gráficos, objetos
+@cindex grobs
+
+El grado de ampliabilidad o separabilidad de los pentagramas se puede
+controlar con la propiedad @code{next-staff-spacing} del @q{objeto
+gráfico} @code{VerticalAxisGroup} (los objetos gráficos reciben por lo
+general el nombre de @q{grob}s en la documentación de lilypond); no se
+preocupe por el momento de los detalles, pues esto se explica más
+tarde de forma exhaustiva.  Los más curiosos pueden echar un vistazo a
+@ruser{Panorámica de la modificación de las propiedades}.  En el
+momento actual, no es posible modificar solamente la sub-propiedad
+@code{stretchability}, por lo que debemos copiar también las otras
+sub-propiedades.  De nuevo, los curiosos encontrarán los valores
+predeterminados en el archivo @file{scm/@/define-grobs@/.scm}
+examinando la definición del grob @code{VerticalAxisGroup} grob.  El
+valor de @code{stretchability} se toma de la definición del contexto
+@code{PianoStaff} (en el archivo @file{ly/@/engraver-init@/.ly}) de
+forma que los valores sean idénticos.
+
+@example
+\score @{
+  <<  % el grupo PianoStaff y el pentagrama de Pedal son simultáneos
+    \new PianoStaff <<
+      \new Staff = "ManualUno" <<
+        \keyTime  % establecer compás y tonalidad
+        \clef "treble"
+        \new Voice @{
+          \voiceOne
+          \MusicaManualUnoVozUno
+        @}
+        \new Voice @{
+          \voiceTwo
+          \MusicaManualUnoVozDos
+        @}
+      >>  % % fin del contexto de Staff ManualUno
+      \new Staff = "ManualDos" \with @{
+        \override VerticalAxisGroup
+          #'next-staff-spacing = #'((space . 9)
+                                    (minimum-distance . 8)
+                                    (padding . 1)
+                                    (stretchability . 5))
+      @} <<
+        \keyTime
+        \clef "bass"
+        \new Voice @{
+          \MusicaManualDos
+        @}
+      >>  % fin del contexto de Staff ManualDos
+    >>  % fin del contexto de PianoStaff
+    \new Staff = "OrganoPedal" <<
+      \keyTime
+      \clef "bass"
+      \new Voice @{
+        \MusicaOrganoPedal
+      @}
+    >>  % fin del pentagrama de OrganoPedal
+  >>
+@}  % fin del contexto Score
 @end example
 
 Con esto se completa la estructura.  Toda música para órgano de tres
@@ -2971,7 +3048,13 @@ PedalOrganMusic = \relative c {
           \ManualOneVoiceTwoMusic
         }
       >>  % end ManualOne Staff context
-      \new Staff = "ManualTwo" <<
+      \new Staff = "ManualTwo" \with {
+        \override VerticalAxisGroup
+          #'next-staff-spacing = #'((space . 9)
+                                    (minimum-distance . 8)
+                                    (padding . 1)
+                                    (stretchability . 5))
+      } <<
         \keyTime
         \clef "bass"
         \new Voice {

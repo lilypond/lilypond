@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: a5fd30e7288eae7bc4417cff39a53bb7d75ecb60
+    Translation of GIT committish: cb1c621969fe36a13e474e1bc55647445f9f3ffe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -93,8 +93,7 @@ código fuente y sea capaz de compilar LilyPond.  Consulte
 Sugerimos a los colaboradores nuevos que sean usuarios de Windows
 o de MacOS X que @strong{no} traten de montar un entorno de desarrollo
 por ellos mismos; en su lugar, consulte
-@rcontribnamed{Using a Virtual Machine to Compile LilyPond,Utilización
-de una máquina virtual para la compilación de LilyPond}.
+@rcontrib{Lilybuntu}.
 
 @itemize
 @item

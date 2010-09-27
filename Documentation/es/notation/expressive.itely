@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f46c0183ef97a5d37310a6aff9e1a98d2b6865e9
+    Translation of GIT committish: 15578ad21fa9939acf92026c9fdbe7609a635777
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,15 +19,15 @@ Esta sección relaciona diversas marcas de expresión que se pueden
 crear en un a partitura.
 
 @menu
-* Adosado a las notas::
-* Curvas::
-* Líneas::
+* Expresiones adosadas a las notas::
+* Expresiones como curvas::
+* Expresiones como líneas::
 @end menu
 
 
-@node Adosado a las notas
-@subsection Adosado a las notas
-@translationof Attached to notes
+@node Expresiones adosadas a las notas
+@subsection Expresiones adosadas a las notas
+@translationof Expressive marks attached to notes
 
 Esta sección explica cómo crear marcas expresivas que están aplicadas
 a notas: articulaciones, ornamentos y matices.  También se tratan los
@@ -112,6 +112,7 @@ métodos para crear las nuevas marcas dinámicas.
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
+@funindex \fermataMarkup
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -165,6 +166,20 @@ por debajo del pentagrama; véase @ref{Dirección y posición}.
 
 Las articulaciones son objetos @code{Script}.  Sus propiedades se
 describen de forma más completa en @rinternals{Script}.
+
+Las articulaciones se pueden adjuntar a los silencios así como a
+las notas, pero no se pueden adjuntar a silencions multicompás.
+Está disponible una instrucción predefinida especial,
+@code{\fermataMarkup}, para adosar un calderón a un silencio
+multicompás (y sólo a un silencio multicompás).  La instrucción
+crea un objeto @code{MultiMeasureRestText}.
+
+@lilypond[verbatim,quote,relative=2]
+\override Script #'color = #red
+\override MultiMeasureRestText #'color = #blue
+a2\fermata r\fermata
+R1\fermataMarkup
+@end lilypond
 
 Además de articulaciones, se pueden adjuntar textos y elementos de
 marcado a las notas.  Véase @ref{Guiones de texto}.
@@ -304,12 +319,38 @@ d2\> d\>
 c1\!
 @end lilypond
 
-Se requieren silencios espaciadores para tipografiar varias
-indicaciones dinámicas sobre una sola nota.
+Un regulador terminado mediante @code{\!} finaliza en el borde
+derecho de la nota que lleva el @code{\!} adosado.  En el caso en
+que esté terminado con el comienzo de otra indicación
+@notation{crescendo} o @notation{decrescendo}, terminará en el
+centro de la nota que tiene adosada la siguiente indicación
+@code{\<} ó @code{\>}.  El regulador siguiente empezará entonces
+en el borde derecho de la misma nota en lugar del borde
+izquierdo, como sería usual si hubiese terminado con @code{\!}
+previamente.
+
+@lilypond[verbatim,quote,relative=2]
+c1\< | c4 a c\< a | c4 a c\! a\< | c4 a c a\!
+@end lilypond
+
+Los reguladores que terminan con indicaciones dinámicas absolutas
+en lugar de con @code{\!} también se tipografían de manera
+parecida.  Sin embargo, la longitud de la propia indicación
+dinámica puede alterar el punto en que finaliza el regulador
+anterior.
+
+@lilypond[verbatim,quote,relative=2]
+c1\< | c4 a c\mf a | c1\< | c4 a c\ffff a
+@end lilypond
 
 @cindex varios matices sobre una nota
 @cindex matices, varios sobre una nota
 @cindex dinámica, varias indicaciones sobre una nota
+
+Se requieren silencios espaciadores para tipografiar varias
+indicaciones dinámicas sobre una sola nota.  Esto es útil
+especialmente para añadir un @notation{crescendo} y un
+@notation{decrescendo} a la misma nota:
 
 @lilypond[verbatim,quote,relative=2]
 c4\< c\! d\> e\!
@@ -321,9 +362,10 @@ c4\< c\! d\> e\!
 @funindex \espressivo
 @funindex espressivo
 
-En algunas situaciones, la marca de articulación @code{\espressivo}
-puede ser apropiada para indicar un crescendo y decrescendo sobre una
-nota:
+Se puede usar la instrucción @code{\espressivo} para indicar un
+crescendo y un decrescendo sobre la misma nota.  Sin embargo,
+advierta que esta indicación está implementada como una
+articulación, no como una expresión dinámica.
 
 @lilypond[verbatim,quote,relative=2]
 c2 b4 a
@@ -562,9 +604,9 @@ Fragmentos de código:
 Extender LilyPond:
 @rextend{Construcción del marcado en Scheme}.
 
-@node Curvas
-@subsection Curvas
-@translationof Curves
+@node Expresiones como curvas
+@subsection Expresiones como curvas
+@translationof Expressive marks as curves
 
 Esta sección explica cómo crear varias marcas expresivas de forma
 curva: ligaduras de expresión y de fraseo, respiraciones, caídas y
@@ -978,9 +1020,9 @@ Fragmentos de código:
 @rlsr{Expressive marks}.
 
 
-@node Líneas
-@subsection Líneas
-@translationof Lines
+@node Expresiones como líneas
+@subsection Expresiones como líneas
+@translationof Expressive marks as lines
 
 Esta sección explica cómo crear diversas marcas de expresión que
 siguen un camino lineal: glissandi, arpegios y trinos.
@@ -1176,27 +1218,52 @@ arpegios de pentagrama cruzado.
 @funindex \stopTrillSpan
 @funindex stopTrillSpan
 
-Los @notation{trinos} cortos sin línea extensora se imprimen con
+Los trinos cortos sin línea extensora se imprimen con
 @code{\trill}; véase @ref{Articulaciones y ornamentos}.
 
 Los @notation{trinos} largos mantenidos, con línea de extensión, se
 hacen con @code{\startTrillSpan} y @code{\stopTrillSpan}:
 
 @lilypond[verbatim,quote,relative=2]
-d1~\startTrillSpan
+d1\startTrillSpan
 d1
-c2\stopTrillSpan r2
+c2\stopTrillSpan
+r2
 @end lilypond
 
-En el ejemplo siguiente se muestra un trino en combinación con notas
-de adorno.  La sintaxis de esta construcción y el método para efectuar
-un control más preciso sobre la colocación de las notas de adorno se
-describe en @ref{Notas de adorno}.
+Un trino extendido que atraviesa un salto de línea
+recomienza exactamente encima de la primera nota
+de la nueva línea.
+
+@lilypond[ragged-right,verbatim,quote,relative=2]
+d1\startTrillSpan
+\break
+d1
+c2\stopTrillSpan
+r2
+@end lilypond
+
+Los trinos extendidos consecutivos funcionan sin necesidad de
+instrucciones @code{\stopTrillSpan} explícitas, porque cada trino
+se convertirá automáticamente en el borde derecho del trino anterior.
 
 @lilypond[verbatim,quote,relative=2]
-c1 \afterGrace
+d1\startTrillSpan
+d1
+b1\startTrillSpan
+d2\stopTrillSpan
+r2
+@end lilypond
+
+También se pueden combinar los trinos con notas de adorno.
+La sintaxis de esta construcción y el método para colocar
+las notas de adorno con precisión están descritos en
+@ref{Notas de adorno}.
+
+@lilypond[verbatim,quote,relative=2]
+d1~\afterGrace
 d1\startTrillSpan { c32[ d]\stopTrillSpan }
-e2 r2
+c2 r2
 @end lilypond
 
 @cindex trinos de nota explícita
@@ -1210,28 +1277,34 @@ explícitas se pueden tipografiar con la instrucción
 segundo es la nota @emph{trinada}, que se imprime como una cabeza de
 nota, sin plica y entre paréntesis.
 
-@lilypond[verbatim,quote,relative=1]
-\pitchedTrill e2\startTrillSpan fis
-d\stopTrillSpan
+@lilypond[verbatim,quote,relative=2]
+\pitchedTrill
+d2\startTrillSpan fis
+d2
+c2\stopTrillSpan
+r2
 @end lilypond
 
-@cindex trino con nota y alteración forzada
-@cindex alteración forzada para trino con nota
+@cindex trino con nota y alteración
+@cindex alteración, trino con
 
-En el ejemplo siguiente, el segundo trino con nota es ambiguo; la
-alteración de la nota trinada no se imprime.  Como manera de rodear el
-problema se pueden forzar las alteraciones de las notas trinadas.  El
-segundo compás ejemplifica este método:
+Es necesario añadir manualmente las alteraciones subsiguientes de
+la misma nota dentro del mismo compás.  Sólo se imprime la
+alteración del primer trino con nota, dentro de un compás.
 
 @lilypond[verbatim,quote,relative=2]
-\pitchedTrill eis4\startTrillSpan fis
-g\stopTrillSpan
-\pitchedTrill eis4\startTrillSpan fis
-g\stopTrillSpan
-\pitchedTrill eis4\startTrillSpan fis
-g\stopTrillSpan
-\pitchedTrill eis4\startTrillSpan fis!
-g\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan fis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan cis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan fis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan fis!
+eis4\stopTrillSpan
 @end lilypond
 
 

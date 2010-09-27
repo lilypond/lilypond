@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 19d92f1d66a6532bb5c8acbc81745a57617771a8
+    Translation of GIT committish: 9748b8a77001b73bfd2bf35e27172a63d780c78d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -36,6 +36,8 @@ Por convenio, el nombre de estos archivos termina en @code{.ly}.
 @menu
 * Estructura de una partitura::
 * Varias partituras en un libro::
+* Varios archivos de salida a partir de uno de entrada::
+* Nombres de los archivos de salida::
 * Estructura del archivo::
 @end menu
 
@@ -103,6 +105,18 @@ pueden escribir en cualquier lugar dentro del archivo de entrada.  Se
 pueden escribir dentro o fuera del bloque @code{\score}, y dentro o
 fuera de la expresión musical única dentro del bloque @code{\score}.
 
+Recuerde que incluso dentro de un archivo que contenga solamente un
+bloque @code{\score}, éste se encuentra incluido implícitamente dentro
+de un bloque @code{\book}.  Un bloque @code{\book} dentro de un
+archivo fuente produce al menos un archivo de salida, y de forma
+predeterminada el nombre del archivo de salida que se produce está
+derivado del nombre del archivo de entrada, de forma que
+@file{fandangoforelephants.ly} da como resultado
+@file{fandangoforelephants.pdf}.
+
+(Para ver más detalles acerca de los bloques @code{\book}, consulte
+@ref{Varias partituras en un libro}, @ref{Varios archivos de salida a
+partir de uno de entrada} y @ref{Estructura del archivo}.)
 
 @seealso
 Manual de aprendizaje:
@@ -155,12 +169,6 @@ de salida.
 @}
 @end example
 
-Sin embargo, si queremos varios archivos de salida a partir del mismo
-archivo @code{.ly}, podemos escribir varios bloques @code{\book},
-donde cada uno de estos bloques @code{\book} dará como resultado un
-archivo de salida distinto.  Si no especificamos ningún bloque
-@code{\book} en el archivo,, LilyPond trata implícitamente todo el
-archivo como un solo bloque @code{\book}, véase @ref{Estructura del archivo}.
 Una excepción importante se da dentro de los documentos de
 lilypond-book, en los que tenemos que escribir explícitamente un
 bloque @code{\book}, pues en caso contrario sólo aparecerá en la
@@ -221,6 +229,125 @@ como el libro propiamente dicho, mediante la especificación del bloque
 @}
 @end example
 
+@node Varios archivos de salida a partir de uno de entrada
+@subsection Varios archivos de salida a partir de uno de entrada
+@translationof Multiple output files from one input file
+
+Si queremos varios archivos de salida a partir del mismo archivo
+@code{.ly}, podemos escribir varios bloques @code{\book}, donde cada
+uno de estos bloques @code{\book} dará como resultado un archivo de
+salida distinto.  Si no especificamos ningún bloque @code{\book} en el
+archivo, LilyPond trata implícitamente todo el archivo como un solo
+bloque @code{\book}, véase @ref{Estructura del archivo}.
+
+Al producir varios archivos a partir de un solo archivo fuente,
+Lilypond se asegura de que ninguno de los archivos de salida de ningún
+bloque @code{\book} sobreescribe el archivo de salida producido por un
+@code{\book} anterior del mismo archivo de entrada.
+
+Lo hace añadiendo un sufijo al nombre de la salida para cada libro
+@code{\book} que utiliza el nombre del archivo de salida
+predeterminado, derivado del archivo fuente de entrada.
+
+El comportamiento predeterminado es añadir un sufijo con el número de
+versión para cada nombre que pueda coincidir; así:
+
+@example
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+en el archivo fuente @file{eightminiatures.ly}, produce
+
+@itemize
+@item
+@file{eightminiatures.pdf},
+@item
+@file{eightminiatures-1.pdf} y
+@item
+@file{eightminiatures-2.pdf}.
+@end itemize
+
+@node Nombres de los archivos de salida
+@subsection Nombres de los archivos de salida
+@translationof Output file names
+
+@funindex \bookOutputSuffix
+@funindex \bookOutputName
+
+Lilypond le ofrece unos mecanismos que le permiten controlar los
+nombres de archivo que se utilizan por parte de los diversos motores
+finales al producir los archivos de salida.
+
+En la sección anterior vimos cómo Lilypond evita las coincidencias de
+nombres al producir varias salidas a partir de un único archivo fuente
+de entrada.  También podemos especificar nuestros propios sufijos para
+cada bloque @code{\book}, de manera que podemos producir, por ejemplo,
+archivos con los nombres @file{eightminiatures-Romanze.pdf},
+@file{eightminiatures-Menuetto.pdf} y
+@file{eightminiatures-Nocturne.pdf} añadiendo una declaración
+@code{\bookOutputSuffix} dentro de cada bloque @code{\book}.
+
+@example
+\book @{
+  \bookOutputSuffix "Romanze"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Menuetto"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Nocturne"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+También podemos especificar un nombre de archivo de salida diferente
+para cada bloque @code{book}, mediante la utilización de declaraciones
+@code{\bookOutputName}:
+
+@example
+\book @{
+  \bookOutputName "Romanze"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Menuetto"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Nocturne"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+El código anterior produce los siguientes archivos de salida:
+
+@itemize
+@item
+@file{Romanze.pdf},
+@item
+@file{Menuetto.pdf} y
+@item
+@file{Nocturne.pdf}.
+@end itemize
 
 @node Estructura del archivo
 @subsection Estructura del archivo
@@ -238,7 +365,7 @@ Un archivo @code{.ly} puede contener cualquier número de expresiones
 del nivel superior, donde una expresión del nivel superior es una de
 las siguientes posibilidades:
 
-@itemize @bullet
+@itemize
 @item
 Una definición de salida, como @code{\paper}, @code{\midi} y
 @code{\layout}.  Tal definición en el nivel más alto cambia los

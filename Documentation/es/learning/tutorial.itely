@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 0a8cfef9d285775b5587218e57ffaa9bbf134359
+    Translation of GIT committish: 9e1b534c81e101c449acfa176f923be57cbcaea5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -403,6 +403,35 @@ La @notation{indicación de compás} se puede establecer con la orden
 }
 @end lilypond
 
+@subheading Indicaciones de tempo
+
+@cindex tempo, indicaciones de
+@cindex metronómicas, indicaciones
+
+@funindex \tempo
+@funindex tempo
+
+Glosario musical:
+@rglos{tempo indication},
+@rglos{metronome}.
+
+La @notation{indicación de tempo} y la @notation{indicación
+metronómica} pueden establecerse con la instrucción @code{\tempo}:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \time 3/4
+  \tempo "Andante"
+  a4 a a
+  \time 6/8
+  \tempo 4. = 96
+  a4. a
+  \time 4/4
+  \tempo  "Presto" 4 = 120
+  a4 a a a
+}
+@end lilypond
+
 
 @subheading Clave
 
@@ -448,6 +477,7 @@ juntos:
 \relative c, {
   \clef "bass"
   \time 3/4
+  \tempo "Andante" 4 = 120
   c2 e8 c'
   g'2.
   f4 e d
