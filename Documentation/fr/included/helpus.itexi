@@ -94,7 +94,7 @@ source et d'être en mesure de compiler LilyPond.  Voir
 
 Nous engageons les nouveaux contributeurs utilisant Windows à utiliser
 une machine virtuelle pour faire tourner @emph{lilybuntu}.  Voir
-@rcontrib{Using a Virtual Machine to Compile LilyPond}.
+@rcontrib{Lilybuntu}.
 
 @itemize
 @item

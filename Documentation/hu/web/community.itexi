@@ -476,7 +476,7 @@ Honosítás: ld. @rcontrib{Translating the documentation} és
 @rcontrib{Compiling LilyPond} c. fejezeteket.}
 
 Windowst használó felhasználóknak javasoljuk a @emph{lilybuntu} virtuális gép
-használatát. Ld. a @rcontrib{Using a Virtual Machine to Compile LilyPond}
+használatát. Ld. a @rcontrib{Lilybuntu}
 c. fejezetet.
 
 @itemize
