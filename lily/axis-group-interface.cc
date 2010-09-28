@@ -35,6 +35,8 @@
 #include "system.hh"
 #include "warn.hh"
 
+static bool
+pure_staff_priority_less (Grob *const &g1, Grob *const &g2);
 
 void
 Axis_group_interface::add_element (Grob *me, Grob *e)
@@ -173,6 +175,13 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
       if (to_boolean (g->get_property ("cross-staff")))
 	continue;
 
+      bool outside_staff = scm_is_number (g->get_property ("outside-staff-priority"));
+      Real padding = robust_scm2double (g->get_property ("outside-staff-padding"), 0.5);
+
+      // TODO: consider a pure version of get_grob_direction?
+      Direction d = to_dir (g->get_property_data ("direction"));
+      d = (d == CENTER) ? UP : d;
+
       Interval_t<int> rank_span = g->spanned_rank_interval ();
       vsize first_break = lower_bound (ranks, (vsize)rank_span[LEFT], less<vsize> ());
       if (first_break > 0 && ranks[first_break] >= (vsize)rank_span[LEFT])
@@ -194,9 +203,19 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 	      if (!dims.is_empty ())
 		{
 		  if (rank_span[LEFT] <= start)
-		    begin_line_heights[j].unite (dims);
-		  if (rank_span[RIGHT] > start)
-		    mid_line_heights[j].unite (dims);
+		    {
+		      if (outside_staff)
+			begin_line_heights[j].unite_disjoint (dims, padding, d);
+		      else
+			begin_line_heights[j].unite (dims);
+		    }
+                  if (rank_span[RIGHT] > start)
+		    {
+		      if (outside_staff)
+			mid_line_heights[j].unite_disjoint (dims, padding, d);
+		      else
+			mid_line_heights[j].unite (dims);
+		    }
 		}
 	    }
 	}
@@ -394,6 +413,7 @@ Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 	}
     }
 
+  vector_sort (relevant_grobs, pure_staff_priority_less);
   SCM grobs_scm = Grob_array::make_array ();
   unsmob_grob_array (grobs_scm)->set_array (relevant_grobs);
 
@@ -500,6 +520,15 @@ staff_priority_less (Grob * const &g1, Grob * const &g2)
   Real start_1 = g1->extent (common, X_AXIS)[LEFT];
   Real start_2 = g2->extent (common, X_AXIS)[LEFT];
   return start_1 < start_2;
+}
+
+static bool
+pure_staff_priority_less (Grob * const &g1, Grob * const &g2)
+{
+  Real priority_1 = robust_scm2double (g1->get_property ("outside-staff-priority"), -infinity_f);
+  Real priority_2 = robust_scm2double (g2->get_property ("outside-staff-priority"), -infinity_f);
+
+  return priority_1 < priority_2;
 }
 
 static void
