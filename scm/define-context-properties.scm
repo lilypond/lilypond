@@ -174,6 +174,12 @@ crescendi.  Available values are @samp{hairpin} and @samp{text}.  If unset,
 a hairpin crescendo is used.")
      (crescendoText ,markup? "The text to print at start of non-hairpin
 crescendo, i.e., @samp{cresc.}.")
+     (cueClefGlyph ,string? "Name of the symbol within the music font.")
+     (cueClefOctavation ,integer? "Add this much extra octavation.
+Values of 7 and -7 are common.")
+     (cueClefPosition ,number? "Where should the center of the clef
+symbol go, measured in half staff spaces from the center of the
+staff.")
      (currentBarNumber ,integer? "Contains the current barnumber.
 This property is incremented at every bar line.")
 
@@ -210,6 +216,8 @@ values.")
 
      (explicitClefVisibility ,vector? "@samp{break-visibility}
 function for clef changes.")
+     (explicitCueClefVisibility ,vector? "@samp{break-visibility}
+function for cue clef changes.")
      (explicitKeySignatureVisibility ,vector? "@samp{break-visibility}
 function for explicit key changes.  @samp{\\override} of the
 @code{break-visibility} property will set the visibility for normal
@@ -330,6 +338,9 @@ markup.  Called with four arguments: text, duration, count and context.")
      (middleCClefPosition ,number? "The position of the middle C,
 as determined only by the clef.  This can be calculated by looking at
 @code{clefPosition} and @code{clefGlyph}.")
+     (middleCCuePosition ,number? "The position of the middle C,
+as determined only by the clef of the cue notes.  This can be calculated by
+looking at @code{cueClefPosition} and @code{cueClefGlyph}.")
      (middleCOffset ,number? "The offset of
 middle C from the position given by @code{middleCClefPosition} This
 is used for ottava brackets.")

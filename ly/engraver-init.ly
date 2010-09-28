@@ -75,6 +75,7 @@
   \consists "Figured_bass_engraver"
   \consists "Figured_bass_position_engraver"
   \consists "Script_row_engraver"
+  \consists "Cue_clef_engraver"
 
   localKeySignature = #'()
   createSpacing = ##t
@@ -553,6 +554,7 @@ automatically when an output definition (a @code{\score} or
   automaticBars = ##t
 
   explicitClefVisibility = #all-visible
+  explicitCueClefVisibility = #end-of-line-invisible
   explicitKeySignatureVisibility = #all-visible
   implicitTimeSignatureVisibility = #end-of-line-invisible
 

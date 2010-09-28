@@ -67,6 +67,34 @@ which scares away people.
 @end ignore
 
 @item
+By using @code{\cueDuringWithClef}, cue notes can now also have their own
+clef, which is correctly reset at the end of the cue notes.  At the begin
+of each line, the standard clef is still displayed, but the cue clef is
+shown after the time/key signature in smaller size.
+@lilypond
+vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }
+\addQuote vIQuote { \vI }
+
+Solo = \relative c {
+  \clef "bass"
+  \cueDuringWithClef #"vIQuote" #DOWN #"treble" { R1 } |
+  c4 \cueDuringWithClef #"vIQuote" #DOWN #"treble" {
+    r4 r2 |
+    r4
+  } c4 c2 |
+  \cueDuringWithClef #"vIQuote" #DOWN "soprano" { R1*2 \break R1 } |
+  c1
+}
+
+\score {
+  <<
+    \new Staff \new Voice \Solo
+  >>
+}
+@end lilypond
+
+
+@item
 Note names can be selected with a new
 @code{@bs{}language "italiano"} command, which
 can be used in safe mode.  The old

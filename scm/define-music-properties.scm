@@ -148,6 +148,7 @@ e.g., @code{cue}.")
 direct quotes to, e.g., @code{Voice}.")
      (quoted-events ,vector? "A vector of with @code{moment} and
 @code{event-list} entries.")
+     (quoted-music-clef ,string? "The clef of the voice to quote.")
      (quoted-music-name ,string? "The name of the voice to quote.")
      (quoted-transposition ,ly:pitch? "The pitch used for the quote,
 overriding @code{\\transposition}.")
