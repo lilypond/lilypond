@@ -2494,7 +2494,7 @@ In case of a line break, the values for the end points are
 specified by the @code{left-broken} and @code{right-broken}
 sub-lists of @code{bound-details}.  For example:
 
-@lilypond[relative=2,ragged-right,verbatim,fragment]
+@lilypond[relative=2,ragged-right,verbatim,quote]
 \override Glissando #'breakable = ##t
 \override Glissando #'(bound-details right-broken Y) = #-3
 c1 \glissando \break
@@ -2549,7 +2549,7 @@ end-point, centered on the line, as defined by the @code{X} and
 or @code{stencil-offset} will move the symbol at the edge vertically
 relative to the end point of the line:
 
-@lilypond[relative=1,fragment,verbatim]
+@lilypond[relative=1,quote,verbatim]
 \override TextSpanner
   #'(bound-details left stencil-align-dir-y) = #-2
 \override TextSpanner
@@ -2963,7 +2963,7 @@ between them, in the style requested.
 Here is an example showing the different line styles available,
 and how to tune them.
 
-@lilypond[relative=2,ragged-right,verbatim,fragment]
+@lilypond[relative=2,ragged-right,verbatim,quote]
 d2 \glissando d'2
 \once \override Glissando #'style = #'dashed-line
 d,2 \glissando d'2
@@ -2980,7 +2980,7 @@ on-the-fly for every graphic object, but it is possible to
 override these:
 
 @c TODO Complete
-@lilypond[relative=2,ragged-right,verbatim,fragment]
+@lilypond[relative=2,ragged-right,verbatim,quote]
 e2 \glissando f
 \once \override Glissando #'(bound-details right Y) = #-2
 e2 \glissando f
