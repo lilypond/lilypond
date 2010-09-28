@@ -1063,7 +1063,7 @@ be changed, or new default values can be added:
     \overrideTimeSignatureSettings
       #'Score    % context
       #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMoment
+      #'(1 . 4)  % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1084,7 +1084,7 @@ to which the default setting will apply.
 time signature.
 
 @item
-@code{@var{baseMoment}}, a Scheme pair containing the numerator
+@code{@var{baseMomentFraction}}, a Scheme pair containing the numerator
 and denominator of the basic timing unit for the time signature.
 
 @item
@@ -1111,7 +1111,7 @@ to the original values:
     \overrideTimeSignatureSettings
       #'Score                         % context
       #'(4 . 4)                       % timeSignatureFraction
-      #'(1 . 4)                       % baseMoment
+      #'(1 . 4)                       % baseMomentFraction
       #'(3 1)                         % beatStructure
       #'((end . (((1 . 8) . (3 1))))) % beamExceptions
     \time 4/4
@@ -1861,12 +1861,12 @@ if @code{\autoBeamOff} is in force do not beam, otherwise
 
 @item
 if a beam-ending rule is defined in @code{beamExceptions}
-for the beam type, use it to determine the valid places where
+for the beam-type, use it to determine the valid places where
 beams may end, otherwise
 
 @item
 if a beam-ending rule is defined in @code{beamExceptions}
-for a larger beam-type, use it to determined the valid places
+for a longer beam-type, use it to determined the valid places
 where beams may end, otherwise
 
 @item
@@ -1876,9 +1876,7 @@ end beams at the end of beats.
 
 @end itemize
 
-The beam type is the duration of the shortest note in the beamed group.
-If no beam-ending rule is defined for a beam type, the rule for the
-smallest beam-type larger than the current beam is used.
+The beam-type is the duration of the shortest note in the beamed group.
 
 @i{@strong{Modifying the grouping of beats}}
 
