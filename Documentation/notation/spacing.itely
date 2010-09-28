@@ -2738,8 +2738,7 @@ a system can be moved closer to the staff:
 
 @lilypond[verbatim,quote,relative=1]
 e4 c g\f c
-\override DynamicText #'extra-offset = #'( -2.2 . 2.0)
-e4 c g\f c
+e4 c g-\tweak #'X-offset #-2.7 -\tweak #'Y-offset #2.5 \f c 
 @end lilypond
 
 @item
