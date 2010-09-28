@@ -789,8 +789,11 @@ When the words to a repeated volta section are different the words
 to each repeat must be entered in separate @code{Lyrics} contexts.
 Earlier unrepeated sections must be skipped in the second and
 subsequent repeats.  The easiest way to skip several notes is to
-use @code{\repeat unfold} around the lyric skip symbol, @code{_}.
-The @code{\skip} command can be used instead of @code{_} if desired.
+use @code{\repeat unfold} around the @code{\skip} command.
+
+Note: do not use an underscore, @code{_}, to skip notes as this
+indicates a melisma and will cause the preceding syllable to be
+left-aligned.
 
 @warning{The @code{@bs{}skip} command must be followed by a number,
 but this number is ignored in lyric mode.  Each @code{@bs{}skip}
@@ -817,7 +820,7 @@ following number.}
     \new Lyrics {
       \lyricsto "melody" {
         % skip 4 notes of any duration
-        \repeat unfold 4 { _ }
+        \repeat unfold 4 { \skip 1 }
         Sec -- ond time words.
       }
     }
@@ -907,9 +910,8 @@ same structure can be used for both the lyrics and music.
 
 But when the repeated section has different words, a repeat
 construct cannot be used around the words and @code{\skip} commands
-or lyric skips, @code{_}, have to be inserted manually as described
-in the previous section to skip over the notes in the alternative
-sections which do not apply.
+have to be inserted manually as described in the previous section to
+skip over the notes in the alternative sections which do not apply.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -927,12 +929,15 @@ sections which do not apply.
     \new Lyrics {
       \lyricsto "melody" {
         The first time words.
-        _ _ End here.
+        \repeat unfold 2 { \skip 1 }
+        End here.
       }
     }
     \new Lyrics {
       \lyricsto "melody" {
-        Sec -- ond _ _ time words.
+        Sec -- ond
+        \repeat unfold 2 { \skip 1 }
+        time words.
       }
     }
   >>
@@ -974,8 +979,8 @@ melismata over the volta section and insert manual skips.
       \lyricsto "melody" {
         \repeat volta 2 { Here's a __ }
         \alternative {
-          { _ verse }
-          { _ sec }
+          { \skip 1 verse }
+          { \skip 1 sec }
         }
         ond one.
       }
@@ -989,8 +994,8 @@ containing @code{\repeatTie}, the @code{\repeatTie} should be
 removed to avoid both types of tie being printed.
 
 When the repeated section has different words a @code{\repeat}
-cannot be used around the lyrics and skips need to be inserted
-manually, as before.
+cannot be used around the lyrics and @code{\skip} commands need to
+be inserted manually, as before.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1008,12 +1013,14 @@ manually, as before.
     \new Lyrics {
       \lyricsto "melody" {
         Here's a __ verse.
-        _ _ to sing.
+        \repeat unfold 2 { \skip 1 }
       }
     }
     \new Lyrics {
       \lyricsto "melody" {
-        Here's one _ _ more
+        Here's one
+        \repeat unfold 2 { \skip 1 }
+        more to sing.
       }
     }
   >>
@@ -1039,12 +1046,14 @@ alternative sections these must be inserted manually.
     \new Lyrics {
       \lyricsto "melody" {
         Here's a __ verse.
-        _ _ -ond one.
+        \repeat unfold 2 { \skip 1 }
       }
     }
     \new Lyrics {
       \lyricsto "melody" {
-        Here's "a_" _ "_" sec-
+        Here's "a_"
+        \skip 1
+        "_" sec -- ond one.
       }
     }
   >>
