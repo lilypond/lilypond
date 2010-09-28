@@ -698,9 +698,7 @@ Internals Reference:
 @unnumberedsubsubsec Lyrics and repeats
 
 @cindex repeats and lyrics
-
-@c see http://lists.gnu.org/archive/html/lilypond-user/2010-07/msg00022.html
-@c see http://lists.gnu.org/archive/html/lilypond-user/2010-06/msg00472.html
+@cindex lyrics, repeating
 
 @subheading Simple repeats
 
@@ -708,8 +706,9 @@ Repeats in @emph{music} are fully described elsewhere; see
 @ref{Repeats}.  This section explains how to add lyrics to repeated
 sections of music.
 
-Lyrics to a volta repeat can be written exactly as if the music was
-not repeated, if the words are unchanged.
+Lyrics to a section of music that is repeated should be surrounded
+by exactly the same repeat construct as the music, if the words are
+unchanged.
 
 @lilypond[verbatim,quote]
 \score {
@@ -725,35 +724,36 @@ not repeated, if the words are unchanged.
     \new Lyrics {
       \lyricsto "melody" {
         Not re -- peat -- ed.
-        Re -- peat -- ed twice.
+        \repeat volta 2 { Re -- peat -- ed twice. }
       }
     }
   >>
 }
 @end lilypond
 
-But if an unfold repeat is used, both the lyrics and the music must
-be repeated (assuming the repeated words are the same), otherwise
-the repeated section will have no lyrics.
+The words will then be correctly expanded if the repeats are
+unfolded.
 
 @lilypond[verbatim,quote]
 \score {
-  <<
-    \new Staff {
-      \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
-          \repeat unfold 2 { b4 b b b }
+  \unfoldRepeats {
+    <<
+      \new Staff {
+        \new Voice = "melody" {
+          \relative c'' {
+            a4 a a a
+            \repeat volta 2 { b4 b b b }
+          }
         }
       }
-    }
-    \new Lyrics {
-      \lyricsto "melody" {
-        Not re -- peat -- ed.
-        \repeat unfold 2 { Re -- peat -- ed twice. }
+      \new Lyrics {
+        \lyricsto "melody" {
+          Not re -- peat -- ed.
+          \repeat volta 2 { Re -- peat -- ed twice. }
+        }
       }
-    }
-  >>
+    >>
+  }
 }
 @end lilypond
 
@@ -782,15 +782,19 @@ enter all the words:
 }
 @end lilypond
 
+@cindex lyric skip
+@funindex \skip
+
 When the words to a repeated volta section are different the words
-to each repeat must entered in separate @code{Lyrics} contexts.
+to each repeat must be entered in separate @code{Lyrics} contexts.
 Earlier unrepeated sections must be skipped in the second and
 subsequent repeats.  The easiest way to skip several notes is to
-use @code{\repeat unfold} around the @code{\skip}.
+use @code{\repeat unfold} around the lyric skip symbol, @code{_}.
+The @code{\skip} command can be used instead of @code{_} if desired.
 
-@warning{The @code{\skip} command must be followed by a number,
-but this number is ignored in lyric mode.  Each @code{\skip} skips
-a single note of any value, irrespective of the value of the
+@warning{The @code{@bs{}skip} command must be followed by a number,
+but this number is ignored in lyric mode.  Each @code{@bs{}skip}
+skips a single note of any value, irrespective of the value of the
 following number.}
 
 @lilypond[verbatim,quote]
@@ -813,7 +817,7 @@ following number.}
     \new Lyrics {
       \lyricsto "melody" {
         % skip 4 notes of any duration
-        \repeat unfold 4 { \skip 1 }
+        \repeat unfold 4 { _ }
         Sec -- ond time words.
       }
     }
@@ -821,13 +825,15 @@ following number.}
 }
 @end lilypond
 
-An alternative way, which avoids having to count notes, is to use a
-temporary voice for the repeated section.  This may be useful if
-the earlier sections are still subject to change.  A temporary voice
-can be inserted anywhere in the main music stream in parallel with
-it, as shown below, but it may be necessary to keep the main voice
-alive in complex scores when using this technique; see
-@ref{Keeping contexts alive}.
+@cindex lyrics, repeating with a temporary voice
+
+An alternative way, which avoids skips and having to count notes,
+is to use a temporary voice for the repeated section.  This may be
+preferable if the earlier sections are still subject to change.  A
+temporary voice can be inserted anywhere in the main music stream
+in parallel with it, as shown below, but it may be necessary to
+keep the main voice alive in complex scores when using this
+technique; see @ref{Keeping contexts alive}.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -868,7 +874,183 @@ alive in complex scores when using this technique; see
 
 @subheading Repeats with alternative endings
 
-TBC
+@cindex lyrics, repeats with alternative endings
+@cindex repeating lyrics with alternative endings
+@cindex alternative endings and lyrics
+
+If the words of the repeated section are the same, exactly the
+same structure can be used for both the lyrics and music.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat volta 2 { b4 b }
+          \alternative { { b b } { b c } }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        \repeat volta 2 { Re -- peat -- }
+        \alternative { { ed twice. } { ed twice. } }
+      }
+    }
+  >>
+}
+@end lilypond
+
+But when the repeated section has different words, a repeat
+construct cannot be used around the words and @code{\skip} commands
+or lyric skips, @code{_}, have to be inserted manually as described
+in the previous section to skip over the notes in the alternative
+sections which do not apply.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \repeat volta 2 { b4 b }
+          \alternative { { b b } { b c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        The first time words.
+        _ _ End here.
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Sec -- ond _ _ time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+@cindex lyrics and tied notes
+@funindex \repeatTie
+
+When a note is tied over into two or more alternative endings a
+tie is used to carry the note into the first alternative ending and
+a @code{\repeatTie} is used in the second and subsequent endings.
+This structure causes difficult alignment problems when lyrics are
+involved and increasing the length of the alternative sections so
+the tied notes are contained wholly within them may give a more
+acceptable result.
+
+The tie creates a melisma into the first alternative, but not into
+the second and subsequent alternatives, so to align the lyrics
+correctly it is necessary to disable the automatic creation of
+melismata over the volta section and insert manual skips.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \set melismaBusyProperties = #'()
+          \repeat volta 2 { b4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          \unset melismaBusyProperties
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        \repeat volta 2 { Here's a __ }
+        \alternative {
+          { _ verse }
+          { _ sec }
+        }
+        ond one.
+      }
+    }
+  >>
+}
+@end lilypond
+
+Note that if @code{\unfoldRepeats} is used around a section
+containing @code{\repeatTie}, the @code{\repeatTie} should be
+removed to avoid both types of tie being printed.
+
+When the repeated section has different words a @code{\repeat}
+cannot be used around the lyrics and skips need to be inserted
+manually, as before.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \repeat volta 2 { b4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's a __ verse.
+        _ _ to sing.
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's one _ _ more
+      }
+    }
+  >>
+}
+@end lilypond
+
+If you wish to show extenders and hyphens into and out of
+alternative sections these must be inserted manually.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \repeat volta 2 { b4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's a __ verse.
+        _ _ -ond one.
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's "a_" _ "_" sec-
+      }
+    }
+  >>
+}
+@end lilypond
+
 
 
 @node Divisi lyrics
