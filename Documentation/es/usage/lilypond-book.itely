@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 814486057aa68c11988cb86375b44bf898cdc300
+    Translation of GIT committish: 2f9b33bc922d93c36e3b6bfe59f1c9deffd94af4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -56,6 +56,7 @@ Texinfo o DocBook.
 * Invocar lilypond-book::
 * Extensiones de nombres de archivo::
 * Plantillas de lilypond-book::
+* Compartir el índice general::
 * Métodos alternativos para mezclar texto y música::
 @end menu
 
@@ -1196,6 +1197,115 @@ seltsamen Zeichen: __ ______, wenn sie von der Schriftart
 unterst__tzt werden.
 \end{document}
 @end verbatim
+
+
+@node Compartir el índice general
+@section Compartir el índice general
+@translationof Sharing the table of contents
+
+Estas funciones ya existen en el paquete OrchestralLily:
+
+@example
+@url{http://repo.or.cz/w/orchestrallily.git}
+@end example
+
+Para conseguir más flexibilidad en el manejo del texto, algunos
+usuarios prefieren exportar la el índice general o tabla de contenidos
+desde lilypond y leerla dentro de @LaTeX{}.
+
+@subsubheading Exportación del índice general desde LilyPond
+
+Esto supone que nuestra partitura tiene varios movimientos dentor del
+mismo archivo de salida de lilypond.
+
+@smallexample
+#(define (oly:create-toc-file layout pages)
+  (let* ((label-table (ly:output-def-lookup layout 'label-page-table)))
+    (if (not (null? label-table))
+      (let* ((format-line (lambda (toc-item)
+             (let* ((label (car toc-item))
+                    (text  (caddr toc-item))
+                    (label-page (and (list? label-table)
+                                     (assoc label label-table)))
+                    (page (and label-page (cdr label-page))))
+               (format #f "~a, section, 1, @{~a@}, ~a" page text label))))
+             (formatted-toc-items (map format-line (toc-items)))
+             (whole-string (string-join formatted-toc-items ",\n"))
+             (output-name (ly:parser-output-name parser))
+             (outfilename (format "~a.toc" output-name))
+             (outfile (open-output-file outfilename)))
+        (if (output-port? outfile)
+            (display whole-string outfile)
+            (ly:warning (_ "Unable to open output file ~a for the TOC information") outfilename))
+        (close-output-port outfile)))))
+
+\paper @{
+  #(define (page-post-process layout pages) (oly:create-toc-file layout pages))
+@}
+@end smallexample
+
+@subsubheading Importación del índice general dentro de LaTeX
+
+En LaTeX, la cabecera debe incluir lo siguiente:
+
+@c no, this doesn't require the smallexample, but since the other
+@c two blocks on this page use it, I figured I might as well
+@c user it here as well, for consistency. -gp
+@smallexample
+\usepackage@{pdfpages@}
+\includescore@{nombredelapartitura@}
+@end smallexample
+
+@noindent
+donde @code{\includescore} está definido como:
+
+@smallexample
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \includescore@{PossibleExtension@}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Leer las entradas del índice general para un archivo PDF
+% a partir del archivo .toc correspondeiente.
+% Esto requiere bastantes trucos de latex, porque leer cosas de un archivo
+% e insertarlo dentro de los argumentos de un macro no es posible
+% fácilmente.
+
+% Solución de Patrick Fimml en el canal #latex el 18 de abril de 2009:
+% \readfile@{filename@}@{\variable@}
+% lee el contenido del archivo en \variable (no definida si el
+% archivo no existe)
+\newread\readfile@@f
+\def\readfile@@line#1@{%
+@{\catcode`\^^M=10\global\read\readfile@@f to \readfile@@tmp@}%
+\edef\do@{\noexpand\g@@addto@@macro@{\noexpand#1@}@{\readfile@@tmp@}@}\do%
+\ifeof\readfile@@f\else%
+\readfile@@line@{#1@}%
+\fi%
+@}
+\def\readfile#1#2@{%
+\openin\readfile@@f=#1 %
+\ifeof\readfile@@f%
+\typeout@{No TOC file #1 available!@}%
+\else%
+\gdef#2@{@}%
+\readfile@@line@{#2@}%
+\fi
+\closein\readfile@@f%
+@}%
+
+
+\newcommand@{\includescore@}[1]@{
+\def\oly@@fname@{\oly@@basename\@@ifmtarg@{#1@}@{@}@{_#1@}@}
+\let\oly@@addtotoc\undefined
+\readfile@{\oly@@xxxxxxxxx@}@{\oly@@addtotoc@}
+\ifx\oly@@addtotoc\undefined
+\includepdf[pages=-]@{\oly@@fname@}
+\else
+\edef\includeit@{\noexpand\includepdf[pages=-,addtotoc=@{\oly@@addtotoc@}]
+@{\oly@@fname@}@}\includeit
+\fi
+@}
+@end smallexample
 
 
 @node Métodos alternativos para mezclar texto y música
