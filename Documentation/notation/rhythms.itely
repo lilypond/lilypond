@@ -197,7 +197,7 @@ durations with a fraction:
 @end example
 
 @noindent
-The duration of @var{music} will be multiplied by the
+The duration of @code{@var{music}} will be multiplied by the
 fraction.  The fraction's denominator will be printed over or
 under the notes, optionally with a bracket.  The most common
 tuplet is the triplet in which 3 notes have the duration of 2, so
@@ -1267,8 +1267,9 @@ entered using the @code{\partial} command, with the syntax
 @end example
 
 @noindent
-where @code{duration} is the rhythmic length of the remaining
-interval of the current measure before the start of the next.
+where @code{@var{duration}} is the rhythmic length of the
+remaining interval of the current measure before the start of the
+next.
 
 @lilypond[quote,verbatim,relative=2]
 \partial 4 e4 |
@@ -2451,13 +2452,13 @@ connected between different staves of a @code{StaffGroup},
 @funindex bar
 @funindex bartype
 
-The command @code{\bar }@var{bartype} is a shortcut for
-@code{\set Timing.whichBar = }@var{bartype}.  A bar line is
+The command @samp{\bar @var{bartype}} is a shortcut for
+@samp{\set Timing.whichBar = @var{bartype}}.  A bar line is
 created whenever the @code{whichBar} property is set.
 
 The default bar type used for automatically inserted bar lines is
-@code{"|"}.  This may be changed at any time
-with @code{\set Timing.defaultBarType = }@var{bartype}.
+@code{"|"}.  This may be changed at any time with
+@samp{\set Timing.defaultBarType = @var{bartype}}.
 
 
 @seealso

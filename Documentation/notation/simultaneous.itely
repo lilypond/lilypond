@@ -820,8 +820,8 @@ i.e.,
 
 @noindent
 A @code{\relative} section that is outside of @code{\partcombine}
-has no effect on the pitches of @var{musicexpr1} and
-@var{musicexpr2}.
+has no effect on the pitches of @code{@var{musicexpr1}} and
+@code{@var{musicexpr2}}.
 
 @snippets
 

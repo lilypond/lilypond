@@ -124,8 +124,8 @@ this syntax:
 @var{note}\@var{name}
 @end example
 
-The possible values for @var{name} are listed in @ref{List of
-articulations}.  For example:
+The possible values for @code{@var{name}} are listed in
+@ref{List of articulations}.  For example:
 
 @lilypond[verbatim,quote,relative=2]
 c4\staccato c\mordent b2\turn

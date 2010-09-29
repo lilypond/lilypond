@@ -149,7 +149,7 @@ Internals Reference:
 @funindex finger
 
 Fingering instructions can be entered using
-@var{note}-@var{digit}:
+@samp{@var{note}-@var{digit}}:
 
 @lilypond[verbatim,quote,relative=2]
 c4-1 d-2 f-4 e-3
@@ -311,10 +311,11 @@ e
 
 The full range of colors defined for X11 can be accessed by using
 the Scheme function @code{x11-color}.  The function takes one
-argument; this can be a symbol in the form @var{'FooBar} or a
-string in the form @var{"FooBar"}.  The first form is quicker to
-write and is more efficient.  However, using the second form it is
-possible to access X11 colors by the multi-word form of its name.
+argument; this can be a symbol in the form @code{'@var{FooBar}} or
+a string in the form @code{"@var{FooBar}"}.  The first form is
+quicker to write and is more efficient.  However, using the second
+form it is possible to access X11 colors by the multi-word form of
+its name.
 
 If @code{x11-color} cannot make sense of the parameter then the
 color returned defaults to black.

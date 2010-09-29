@@ -119,7 +119,7 @@ octave.
 
 In relative mode, each note is assumed to be as close to the
 previous note as possible.  This means that the octave of each
-pitch inside @var{musicexpr} is calculated as follows:
+pitch inside @code{@var{musicexpr}} is calculated as follows:
 
 @itemize
 @item
@@ -140,10 +140,9 @@ octaves.
 
 @item
 The pitch of the first note is relative to
-@code{@var{startpitch}}.  @var{startpitch} is specified in
+@code{@var{startpitch}}.  @code{@var{startpitch}} is specified in
 absolute octave mode, and it is recommended that it be a octave of
 @code{c}.
-
 @end itemize
 
 Here is the relative mode shown in action:
@@ -282,7 +281,7 @@ Internals Reference:
 
 
 @c DEPRECATED
-If no @var{startpitch} is specified for @code{\relative},
+If no @code{@var{startpitch}} is specified for @code{\relative},
 then@tie{}@code{c'} is assumed.  However, this is a deprecated
 option and may disappear in future versions, so its use is
 discouraged.
@@ -679,13 +678,13 @@ correction.
 @end lilypond
 
 The octave of notes may also be checked with the
-@code{\octaveCheck}@tie{}@var{controlpitch} command.
-@var{controlpitch} is specified in absolute mode.  This checks
-that the interval between the previous note and the
-@var{controlpitch} is within a fourth (i.e., the normal
+@code{\octaveCheck@tie{}@var{controlpitch}} command.
+@code{@var{controlpitch}} is specified in absolute mode.  This
+checks that the interval between the previous note and the
+@code{@var{controlpitch}} is within a fourth (i.e., the normal
 calculation of relative mode).  If this check fails, a warning is
 printed, but the previous note is not changed.  Future notes are
-relative to the @var{controlpitch}.
+relative to the @code{@var{controlpitch}}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -743,11 +742,12 @@ syntax is
 @end example
 
 @noindent
-This means that @var{musicexpr} is transposed by the interval
-between the pitches @var{frompitch} and @var{topitch}: any note
-with pitch @var{frompitch} is changed to @var{topitch} and any
-other note is transposed by the same interval.  Both pitches are
-entered in absolute mode.
+This means that @code{@var{musicexpr}} is transposed by the
+interval between the pitches @code{@var{frompitch}} and
+@code{@var{topitch}}: any note with pitch @code{@var{frompitch}}
+is changed to @code{@var{topitch}} and any other note is
+transposed by the same interval.  Both pitches are entered in
+absolute mode.
 
 @warning{Music inside a @code{@bs{}transpose} block is absolute
 unless a @code{@bs{}relative} is included in the block.}
@@ -1071,12 +1071,12 @@ at the start of the staff.  The key signature may be altered:
 @cindex dorian
 
 @noindent
-Here, @var{mode} should be @code{\major} or @code{\minor} to get a
-key signature of @var{pitch}-major or @var{pitch}-minor,
-respectively.  You may also use the standard mode names, also
-called @notation{church modes}: @code{\ionian}, @code{\dorian},
-@code{\phrygian}, @code{\lydian}, @code{\mixolydian},
-@code{\aeolian}, and @code{\locrian}.
+Here, @code{@var{mode}} should be @code{\major} or @code{\minor}
+to get a key signature of @code{@var{pitch}}-major or
+@code{@var{pitch}}-minor, respectively.  You may also use the
+standard mode names, also called @notation{church modes}:
+@code{\ionian}, @code{\dorian}, @code{\phrygian}, @code{\lydian},
+@code{\mixolydian}, @code{\aeolian}, and @code{\locrian}.
 
 @lilypond[verbatim,quote,relative=2]
 \key g \major
