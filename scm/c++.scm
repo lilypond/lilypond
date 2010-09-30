@@ -55,6 +55,8 @@
 
 (define-public (scheme? x) #t)
 
+(define-public (symbol-or-boolean? x)
+  (or (symbol? x) (boolean? x)))
 
 ;; moved list to end of lily.scm: then all type-predicates are
 ;; defined.

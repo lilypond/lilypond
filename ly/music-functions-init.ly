@@ -614,7 +614,6 @@ that they share a staff.")
    (make-part-combine-music parser
                             (list part1 part2)))
 
-#(define (symbol-or-boolean? x) (or (symbol? x) (boolean? x)))
 partcombineForce =
 #(define-music-function (location parser type once) (symbol-or-boolean? boolean?)
    (_i "Override the part-combiner.")
