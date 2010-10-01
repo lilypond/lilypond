@@ -773,6 +773,7 @@ meister wants to merge @code{lilypond/translation} into
 * Making commits::
 * Commit messages::
 * Making patches::
+* Uploading a patch for review::
 @end menu
 
 
@@ -926,9 +927,12 @@ for examples.
 @node Making patches
 @unnumberedsubsubsec Making patches
 
-
 If you want to share your changes with other contributors and
 developers, you need to generate @emph{patches} from your commits.
+We prefer it if you follow the instructions in
+@ref{Uploading a patch for review}.  However, we present an
+alternate method here.
+
 You should always run @command{git@tie{}pull@tie{}-r} (translators
 should leave off the @code{-r}) before doing this to ensure that
 your patches are as current as possible.
@@ -960,11 +964,128 @@ the patch files attached.  Translators should send patches to
 reviewed, the developers may push one or more of them to the main
 repository or discuss them with you.
 
-@seealso
 
-If your patch includes a significant amount of code, you may want
-to see @ref{Adding or modifying features}, especially @emph{Post
-patch for comments}.
+@node Uploading a patch for review
+@unnumberedsubsubsec Uploading a patch for review
+
+Any non-trivial change should be uploaded to our @qq{Rietveld}
+code review website:
+
+@example
+@uref{http://codereview.appspot.com/}
+@end example
+
+@subsubheading Initial setup
+
+This requires the use of an external package, git-cl, and an email
+account on Google.
+
+@command{git-cl} is installed by:
+
+@example
+git clone git://neugierig.org/git-cl.git
+@end example
+
+Then, add the @file{git-cl} directory to your PATH, or create a
+symbolic link to the @command{git-cl} and @command{upload.py} in
+one of your PATH directories (like @file{usr/bin}).  Then
+configure the program by running:
+
+@example
+git cl config
+@end example
+
+@noindent
+in the LilyPond git directory and answering the questions that
+are asked.  If you do not understand the question answer with just
+a newline (CR).
+
+@subsubheading Uploading patch set
+
+There are two methods, depending on your git setup.
+
+@itemize
+@item
+@strong{Separate branch}:
+
+Ensure your changes are committed in a separate branch, which
+should differ from the reference branch to be used by just the
+changes to be uploaded.  If the reference branch is to be
+origin/master, ensure this is up-to-date.  If necessary, use git
+rebase to rebase the branch containing the changes to the head of
+origin/master.  Finally, check out branch with the changes and
+enter the command:
+
+@example
+git cl upload <reference SHA1 ID>
+@end example
+
+@noindent
+where <reference SHA1 ID> is the SHA1 ID of the commit to be used
+as a reference source for the patch.  Generally, this will be the
+SHA1 ID of origin/master, and in that case the command:
+
+@example
+git cl upload origin/master
+@end example
+
+@noindent
+can be used.
+
+@item
+@strong{Master branch}:
+
+If you added your patch to @code{master}, then make sure that you
+are up-to-date (by running @code{git pull -r}), and then run:
+
+@example
+git cl upload origin/master
+@end example
+
+If you have git push ability, make sure that you @emph{remove}
+your patch (with @command{git rebase} or @command{git reset})
+before pushing other stuff.
+
+@end itemize
+
+After prompting for your Google email address and password, the
+patch set will be posted to Rietveld.
+
+@subsubheading Announcing your patch set
+
+You should then announce the patch by sending an email to
+@code{lilypond-devel}, with a subject line starting with PATCH:,
+asking for comments on the patch.  Alternately, you may Publish +
+Mail a (bogus) comment, in order to send an email to
+lilypond-devel.
+
+@subsubheading Revisions
+
+As revisions are made in response to comments, successive patch sets
+for the same issue can be uploaded by reissuing the git-cl command
+with the modified branch checked out.
+
+Sometimes in response to comments on revisions, the best way to
+work may require creation of a new branch in git.  In order to
+associate the new branch with an existing Rietveld issue,
+the following command can be used:
+
+@example
+git cl issue issue-number
+@end example
+
+@noindent
+where @code{issue-number} is the number of the existing Rietveld
+issue.
+
+@subsubheading Resetting git cl
+
+If @command{git cl} becomes confused, you can @qq{reset} it by
+running:
+
+@example
+git cl issue 0
+@end example
 
 
 @node Advanced Git procedures
