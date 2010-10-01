@@ -1773,8 +1773,60 @@ Internals Reference:
 @node References for songs
 @unnumberedsubsubsec References for songs
 
-@c TODO chords, setting simple songs (LM), stanzas
-TBC
+Songs are usually written on three staves with the melody for the
+singer on the top staff and two staves of piano accompaniment at
+the bottom.  The lyrics of the first stanza are printed immediately
+underneath the top staff.  If there are just a small number of
+further stanzas these can be printed immediately under the first
+one, but if there are more stanzas than can be easily accommodated
+there the second and subsequent stanzas are printed after the music
+as stand-alone text.
+
+All the notational elements needed to write songs are fully described
+elsewhere:
+
+@itemize
+
+@item
+For constructing the staff layout, see @ref{Displaying staves}.
+
+@item
+For writing piano music, see
+@ref{Keyboard and other multi-staff instruments}.
+
+@item
+For writing the lyrics to a melody line, see
+@ref{Common notation for vocal music}.
+
+@item
+For placing the lyrics, see @ref{Placement of lyrics}.
+
+@item
+For entering stanzas, see @ref{Stanzas}.
+
+@item
+Songs are frequently printed with the chording indicated by chord
+names above the staves.  This is described in
+@ref{Displaying chords}.
+
+@item
+To print fret diagrams of the chords for guitar accompaniment or
+accompaniment by other fretted instruments, see @qq{Fret diagram
+markups} in @ref{Common notation for fretted strings}.
+
+@end itemize
+
+@seealso
+Learning Manual:
+@rlearning{Songs}.
+
+Notation Reference:
+@ref{Common notation for vocal music},
+@ref{Displaying chords},
+@ref{Displaying staves},
+@ref{Keyboard and other multi-staff instruments},
+@ref{Placement of lyrics},
+@ref{Stanzas}.
 
 @node Lead sheets
 @unnumberedsubsubsec Lead sheets
