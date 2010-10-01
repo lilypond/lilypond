@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.26
-\version "2.13.31"
+\version "2.13.36"
 \header {
 %% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
 

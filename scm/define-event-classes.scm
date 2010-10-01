@@ -24,18 +24,19 @@
     (StreamEvent .
 		 (RemoveContext ChangeParent Override Revert UnsetProperty
 				SetProperty music-event OldMusicEvent CreateContext Prepare
-				OneTimeStep Finish)) 
+				OneTimeStep Finish))
     (music-event . (annotate-output-event
 		    arpeggio-event breathing-event extender-event span-event
       rhythmic-event dynamic-event break-event label-event percent-event
-      key-change-event string-number-event stroke-finger-event tie-event part-combine-event
+      key-change-event string-number-event stroke-finger-event tie-event
+      part-combine-event part-combine-force-event
       beam-forbid-event script-event
       tremolo-event bend-after-event fingering-event glissando-event
       harmonic-event hyphen-event laissez-vibrer-event mark-event
-      multi-measure-text-event note-grouping-event 
+      multi-measure-text-event note-grouping-event
       pes-or-flexa-event repeat-tie-event spacing-section-event
       layout-instruction-event completize-extender-event break-span-event))
-    
+
     (layout-instruction-event . (apply-output-event))
     (script-event . (articulation-event text-script-event))
     (part-combine-event . (solo-one-event solo-two-event unisono-event))
@@ -43,7 +44,7 @@
     (dynamic-event . (absolute-dynamic-event))
     (span-event . (span-dynamic-event beam-event episema-event ligature-event
 			 pedal-event phrasing-slur-event slur-event staff-span-event
-			 text-span-event trill-span-event tremolo-span-event 
+			 text-span-event trill-span-event tremolo-span-event
 			 tuplet-span-event))
     (span-dynamic-event . (decrescendo-event crescendo-event))
     (break-span-event . (break-dynamic-span-event))
@@ -66,7 +67,7 @@
  (lambda (rel)
    (for-each
     (lambda (type)
-      (hashq-set! ancestor-lookup type 
+      (hashq-set! ancestor-lookup type
 		  (cons type (hashq-ref ancestor-lookup (car rel) '()))))
     (cdr rel)))
  event-classes)
@@ -100,7 +101,7 @@
 (define unlistened-music-event-classes
   '(harmonic-event line-break-event page-break-event page-turn-event label-event
 		   solo-one-event solo-two-event skip-event unisono-event
-		   break-dynamic-span-event))
+		   part-combine-force-event break-dynamic-span-event))
 
 ;; produce neater representation of music event tree.
 ;; TODO: switch to this representation for the event-classes list?
@@ -124,12 +125,12 @@
 
 ;; check that the music event tree corresponds well with the set of
 ;; available translators; print warnings otherwise.
-(map-tree (lambda (sym) 
+(map-tree (lambda (sym)
 	    (if (and (symbol? sym)
 		     (not (ly:is-listened-event-class sym))
 		     (not (assq sym event-classes))
 		     (not (memq sym unlistened-music-event-classes)))
-		(ly:programming-error (_ "event class ~A seems to be unused") sym)))	  
+		(ly:programming-error (_ "event class ~A seems to be unused") sym)))
 	  music-event-tree)
 
 (map (lambda (sym)

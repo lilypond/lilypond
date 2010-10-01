@@ -111,9 +111,7 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (ambitus-interface
 				axis-group-interface
 				break-aligned-interface))))))
@@ -274,9 +272,7 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (align-interface
 				axis-group-interface
 				bass-figure-alignment-interface))))))
@@ -292,9 +288,7 @@
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (axis-group-interface
 				side-position-interface))))))
 
@@ -321,9 +315,7 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (axis-group-interface))))))
 
 
@@ -662,9 +654,7 @@
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (axis-group-interface
 				dynamic-interface
 				dynamic-line-spanner-interface
@@ -1266,9 +1256,7 @@
 	(X-extent . ,ly:axis-group-interface::width)
 	(meta . ((class . Paper_column)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (axis-group-interface
 				font-interface
 				paper-column-interface
@@ -1284,9 +1272,7 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (axis-group-interface
 				note-collision-interface))))))
 
@@ -1298,9 +1284,7 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (axis-group-interface
 				note-column-interface
 				separation-item-interface))))))
@@ -1403,9 +1387,7 @@
 	;;		         (font-size . -6) (font-name . "sans") (Y-extent . #f)
 	(meta . ((class . Paper_column)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (axis-group-interface
 				font-interface
 				paper-column-interface
@@ -1657,9 +1639,7 @@
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (axis-group-interface
 				piano-pedal-interface
 				side-position-interface))))))
@@ -1702,9 +1682,7 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (bar-line-interface
 				font-interface
 				span-bar-interface))))))
@@ -1888,9 +1866,7 @@
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (axis-group-interface
 				piano-pedal-interface
 				side-position-interface))))))
@@ -1904,8 +1880,6 @@
 	(Y-extent . ,ly:system::height)
 	(meta . ((class . System)
 		 (object-callbacks . ((pure-relevant-grobs . ,ly:system::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)
 				      (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)))
 		 (interfaces . (axis-group-interface
 				system-interface))))))
@@ -2256,9 +2230,7 @@
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (axis-group-interface
 				piano-pedal-interface
 				side-position-interface))))))
@@ -2284,8 +2256,6 @@
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((Y-common . ,ly:axis-group-interface::calc-y-common)
 				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)
 				      (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)))
 		 (interfaces . (align-interface
 				axis-group-interface))))))
@@ -2308,9 +2278,7 @@
 		 (object-callbacks . (
 				      (X-common . ,ly:axis-group-interface::calc-x-common)
 				      (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 
 		 (interfaces . (axis-group-interface
 				hara-kiri-group-spanner-interface))))))
@@ -2369,9 +2337,7 @@
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-				      (pure-relevant-items . ,ly:axis-group-interface::calc-pure-relevant-items)
-				      (pure-relevant-spanners . ,ly:axis-group-interface::calc-pure-relevant-spanners)))
+				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 		 (interfaces . (axis-group-interface
 				side-position-interface
 				volta-interface))))))

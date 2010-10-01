@@ -32,7 +32,7 @@ maxima = #(ly:make-duration -3 0)
 %% default note names are dutch
 \include "nederlands.ly"
 
-\include "drumpitch-init.ly"		
+\include "drumpitch-init.ly"
 \include "chord-modifiers-init.ly"
 \include "script-init.ly"
 
@@ -68,7 +68,7 @@ startStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent START)))
 %
 % Code articulation definitions
 %
-noBeam = #(make-music 'BeamForbidEvent) 
+noBeam = #(make-music 'BeamForbidEvent)
 pipeSymbol = #(make-music 'BarCheck)
 bracketOpenSymbol = #(make-span-event 'BeamEvent START)
 bracketCloseSymbol = #(make-span-event 'BeamEvent STOP)
@@ -82,7 +82,7 @@ escapedBiggerSymbol = #(make-span-event 'DecrescendoEvent START)
 escapedSmallerSymbol = #(make-span-event 'CrescendoEvent START)
 
 
-#(define fretboard-table (make-hash-table 100))
+#(define default-fret-table (make-hash-table 100))
 #(define chord-shape-table (make-hash-table 100))
 
 \include "scale-definitions-init.ly"
@@ -92,7 +92,7 @@ melismaEnd = #(context-spec-music (make-property-unset 'melismaBusy) 'Bottom)
 
 laissezVibrer = #(make-music 'LaissezVibrerEvent)
 repeatTie = #(make-music 'RepeatTieEvent)
-		  
+
 \include "grace-init.ly"
 \include "midi-init.ly"
 \include "paper-defaults-init.ly"
@@ -104,7 +104,7 @@ repeatTie = #(make-music 'RepeatTieEvent)
     in = #(* 25.4 mm)
     pt = #(/  in 72.27)
     cm = #(* 10 mm)
-    
+
     \include "engraver-init.ly"
 
     #(set-paper-dimension-variables (current-module))

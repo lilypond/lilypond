@@ -141,7 +141,9 @@ public:
   void fixup_refpoint ();
 
   virtual Interval_t<int> spanned_rank_interval () const;
+  virtual bool pure_is_visible (int start, int end) const;
   bool check_cross_staff (Grob *common);
+  static bool less (Grob *g1, Grob *g2);
 };
 
 /* smob utilities */

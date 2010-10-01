@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.12.0
-\version "2.13.31"
+\version "2.13.36"
 \include "english.ly"
 
 #(set-global-staff-size 15)

@@ -40,7 +40,7 @@
   \consists "Font_size_engraver"
   \consists "Instrument_name_engraver"
 
-  predefinedDiagramTable = #fretboard-table
+  predefinedDiagramTable = #default-fret-table
 }
 
 \context {

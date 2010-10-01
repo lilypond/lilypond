@@ -29,7 +29,7 @@ notation for repeats with alternatives.
 
 @item unfold
 The repeated music is fully written out, as many times as
-specified by @var{repeatcount}.  This is useful when
+specified by @code{@var{repeatcount}}.  This is useful when
 entering repetitious music.
 
 @item percent
@@ -84,7 +84,7 @@ The syntax for a normal repeat is
 @end example
 
 @noindent
-where @var{musicexpr} is a music expression.
+where @code{@var{musicexpr}} is a music expression.
 
 A single repeat without an alternate ending:
 
@@ -105,7 +105,7 @@ group of alternatives must be themselves, enclosed in a set of braces.
 @end example
 
 @noindent
-where @var{musicexpr} is a music expression.
+where @code{@var{musicexpr}} is a music expression.
 
 If there are more repeats than there are alternate endings, the earliest
 repeats are given the first alternative.
@@ -458,8 +458,9 @@ the writing out of repetitious music.  The syntax is
 @end example
 
 @noindent
-where @var{musicexpr} is a music expression and @var{repeatcount} is
-the number of times @var{musicexpr} is repeated.
+where @code{@var{musicexpr}} is a music expression and
+@code{@var{repeatcount}} is the number of times
+@code{@var{musicexpr}} is repeated.
 
 @lilypond[verbatim,quote,relative=2]
 \repeat unfold 2 { c4 d e f }
@@ -564,11 +565,11 @@ is replaced with a special sign.
 The syntax is
 
 @example
-@code{\repeat percent @var{number} @var{musicexpr}}
+\repeat percent @var{number} @var{musicexpr}
 @end example
 
 @noindent
-where @var{musicexpr} is a music expression.
+where @code{@var{musicexpr}} is a music expression.
 
 Patterns that are shorter than one measure are replaced by slashes.
 
@@ -678,12 +679,11 @@ the note should not be surrounded by braces:
 @funindex tremoloFlags
 @funindex :
 
-The same output can be obtained by adding
-@q{@code{:}[@var{number}]} after the note.  The number indicates
-the duration of the subdivision, and it must be at least 8.  A
-@var{number} value of 8 gives one line across the note stem.  If
-the length is omitted, the last value (stored in
-@code{tremoloFlags}) is used:
+The same output can be obtained by adding @code{:@var{N}} after
+the note, where @code{@var{N}} indicates the duration of the
+subdivision (it must be at least 8).  If @code{@var{N}} is 8, one
+beam is added to the note's stem.  If @code{@var{N}} is omitted,
+the last value (stored in @code{tremoloFlags}) is used:
 
 @lilypond[quote,verbatim,relative=2]
 c2:8 c:32

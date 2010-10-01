@@ -40,9 +40,8 @@ public:
 
   static bool is_non_musical (Grob *);
   static bool break_visible(Grob *);
-  static bool less (Grob * const&, Grob * const&);
   bool is_broken () const;
-  bool pure_is_visible (int start, int end) const;
+  virtual bool pure_is_visible (int start, int end) const;
 
   Direction break_status_dir () const;
 

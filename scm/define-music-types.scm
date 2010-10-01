@@ -349,11 +349,16 @@ Syntax: @code{\\override} [ @var{context} @code{.} ]
 	(types . (general-music break-event page-turn-event event))
 	))
 
+    (PartCombineForceEvent
+     . ((description . "Override the part-combiner's strategy.")
+	(types . (general-music part-combine-force-event event))
+	))
+
     (PartialSet
      . ((description . "Create an anacrusis or upbeat (partial measure).")
 	(iterator-ctor . ,ly:partial-iterator::constructor)
 	(types . (general-music partial-set))
-	))
+        ))
 
     (PartCombineMusic
      . ((description . "Combine two parts on a staff, either merged or

@@ -1,4 +1,4 @@
-\version "2.12.0"
+\version "2.13.36"
 
 \header {
 texidoc = "Predefined fretboards and chord shapes can be added.
@@ -11,11 +11,11 @@ texidoc = "Predefined fretboards and chord shapes can be added.
 
 % add chords
 
-\storePredefinedDiagram \chordmode {bes}
+\storePredefinedDiagram #default-fret-table \chordmode {bes}
                         #guitar-tuning
                         #(chord-shape 'bes guitar-tuning)
 
-\storePredefinedDiagram \chordmode {c}
+\storePredefinedDiagram #default-fret-table \chordmode {c}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'bes guitar-tuning))
 

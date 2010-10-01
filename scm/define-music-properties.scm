@@ -84,6 +84,7 @@ a sequential iterator.  Takes a single music parameter.")
      (figure ,integer? "A bass figure.")
      (force-accidental ,boolean? "If set, a cautionary accidental should
 always be printed on this note.")
+     (forced-type ,symbol? "Override for the part-combiner.")
 
      (grob-property ,symbol? "The symbol of the grob property to set.")
      (grob-property-path ,list? "A list of symbols, locating a nested grob

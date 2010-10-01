@@ -46,17 +46,18 @@ hash with the key @var{(cons key-symbol tuning)}.")
 % fretboard-table
 
 storePredefinedDiagram =
-#(define-music-function (parser location chord tuning diagram-definition)
-  (ly:music? pair? string-or-pair?)
+#(define-music-function (parser location
+    fretboard-table chord tuning diagram-definition)
+   (hash-table? ly:music? pair? string-or-pair?)
   (_i "Add predefined fret diagram defined by @var{diagram-definition}
   for the chord pitches @var{chord} and the stringTuning @var{tuning}.")
-  (let* ((pitches (event-chord-pitches 
+  (let* ((pitches (event-chord-pitches
                     (car (extract-named-music chord 'EventChord))))
          (hash-key (cons tuning pitches))
          (verbose-definition (if (string? diagram-definition)
                                  (parse-terse-string diagram-definition)
                                  diagram-definition)))
-  (hash-set! fretboard-table 
-             hash-key 
-             verbose-definition))
-  (make-music 'SequentialMusic 'void #t))
+  (hash-set! fretboard-table
+             hash-key
+             verbose-definition)
+  (make-music 'SequentialMusic 'void #t)))
