@@ -452,6 +452,7 @@ tabFullNotation = {
   % markups etc.
   \revert TabVoice.Script #'stencil
   \revert TabVoice.TextScript #'stencil
+  \revert TabVoice.TextSpanner #'stencil
   \revert TabStaff.Arpeggio #'stencil
   \revert TabStaff.NoteColumn #'ignore-collision
 }
