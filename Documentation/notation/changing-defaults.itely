@@ -645,18 +645,16 @@ time signature.
 @cindex polymetric scores
 @cindex Time signatures, multiple
 
-@lilypond[quote,relative=1,ragged-right,verbatim,fragment]
-\new Score \with {
-  \remove "Timing_translator"
-  \remove "Default_bar_line_engraver"
-} <<
-  \new Staff \with {
-    \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
-  } {
-      \time 3/4
-      c4 c c c c c
-  }
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff \with {
+      \consists "Timing_translator"
+      \consists "Default_bar_line_engraver"
+    } {
+        \time 3/4
+        c4 c c c c c
+    }
   \new Staff \with {
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
@@ -665,6 +663,14 @@ time signature.
        c4 c c c c c
   }
 >>
+\layout {
+  \context {
+    \Score
+    \remove "Timing_translator"
+    \remove "Default_bar_line_engraver"
+    }
+  }
+}
 @end lilypond
 
 @knownissues
