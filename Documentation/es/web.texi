@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 08f9346660b5a8762041f4ce27e0aa4e4e3e338a
+    Translation of GIT committish: a2e97a25e3f33c847c4d6a039c2f93d8d050a990
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -51,6 +51,27 @@ A copy of the license is included in the section entitled ``GNU
 Free Documentation License''.
 @end quotation
 @end copying
+
+
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond: el tipografiador de música
+@direntry
+* Manual de aprendizaje de LilyPond: (lilypond-learning).  Comience por aquí.
+* Glosario musical: (music-glossary).                 Para usuarios de habla no inglesa.
+* LilyPond: (lilypond-notation).                      Referencia de la notación con LilyPond.
+* Fragmentos de código de LilyPond: (lilypond-snippets).         Consejos, trucos y ejemplos cortos.
+* Referencia de funcionamiento interno: (lilypond-internals).  Definiciones para la construcción de trucos.
+* Utilización del programa: (lilypond-usage). Instalación y ejecución de las aplicaciones.
+* Página web: (lilypond-web).    Vista previa de la nueva página.
+* lilypond: (lilypond-usage)Ejecutar LilyPond.      Invocar el programa LilyPond.
+* abc2ly: (lilypond-usage)Invocación de abc2ly.      Importación de ABC.
+* convert-ly: (lilypond-usage)Actualización de archivos mediante convert-ly. Versiones antiguas de LilyPond.
+* etf2ly: (lilypond-usage)Invocar etf2ly.      Importación de Finale.
+* lilypond-book: (lilypond-usage)LilyPond-book. Intergrar texto y música.
+* midi2ly: (lilypond-usage)Invocar midi2ly.    Importación de MIDI.
+* musicxml2ly: (lilypond-usage)Invocar musicxml2ly.  Importación de MusicXML.
+@end direntry
 
 
 @c TITLE PAGE
@@ -184,27 +205,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @end ignore
 
-@c Info files are no longer installed in a subdirectory, images are
-@c expected to be found in lilypond/ subdirectory.
-@dircategory GNU LilyPond: el tipografiador de música
-@direntry
-* Manual de aprendizaje de LilyPond: (lilypond-learning).  Comience por aquí.
-* Glosario musical: (music-glossary).                 Para usuarios de habla no inglesa.
-* LilyPond: (lilypond-notation).                      Referencia de la notación con LilyPond.
-* Fragmentos de código de LilyPond: (lilypond-snippets).         Consejos, trucos y ejemplos cortos.
-* Referencia de funcionamiento interno: (lilypond-internals).  Definiciones para la construcción de trucos.
-* Utilización del programa: (lilypond-usage). Instalación y ejecución de las aplicaciones.
-* Página web: (lilypond-web).    Vista previa de la nueva página.
-* lilypond: (lilypond-usage)Ejecutar LilyPond.      Invocar el programa LilyPond.
-* abc2ly: (lilypond-usage)Invocación de abc2ly.      Importación de ABC.
-* convert-ly: (lilypond-usage)Actualización de archivos mediante convert-ly. Versiones antiguas de LilyPond.
-* etf2ly: (lilypond-usage)Invocar etf2ly.      Importación de Finale.
-* lilypond-book: (lilypond-usage)LilyPond-book. Intergrar texto y música.
-* midi2ly: (lilypond-usage)Invocar midi2ly.    Importación de MIDI.
-* musicxml2ly: (lilypond-usage)Invocar musicxml2ly.  Importación de MusicXML.
-@end direntry
-
-
 @c FIXME: this still doesn't solve the broken links in pdf and big
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp
 @c ****************** SPECIAL MACROS FOR WEB MANUAL ************
@@ -279,6 +279,34 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end ifset
 @end macro
 
+
+@ifhtml
+@macro contactUsAbout{topic}
+
+@divClass{heading-center}
+@divClass{contactBox}
+Si tiene conocimiento de cualesquiera otros \topic\ que merezcan
+aparecer relacionados aquí,
+le rogamos que nos lo haga saber siguiendo las instrucciones
+que hay en @ref{Informes de fallos}.
+
+@divEnd
+@divEnd
+
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro contactUsAbout{topic}
+@cartouche
+If you are aware of any other \topic\ which could be listed here,
+please let us know by following the instructions on
+@ref{Bug reports}.
+
+@end cartouche
+
+@end macro
+@end ifnothtml
 
 @include web/introduction.itexi
 @include web/download.itexi

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: bfd2f9b876b209255fcb8b063261db6953bb5181
+    Translation of GIT committish: 847f8da9ce0eb39bdcd199a554363373f0d003ae
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,104 +15,73 @@
 @c Translators: Francisco Vila
 @c keep two blank lines between news entries
 
-@c FIXME: fill in number
-@c used for news about the upcoming release; see CG x.y
+@c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading ¡Probando nuestra nueva página!  @emph{29 de junio de 2010}
+@subsubheading ¡Lanzado LilyPond 2.13.31!  @emph{24 de agosto de 2010}
 
-¡Estamos probando nuestras nuevas páginas!  Durante las próximas
-24 horas, las páginas predeterminadas serán las de nuestro nuevo sitio;
-después, cambiaremos de nuevo al sitio antiguo mientras
-examinamos el retorno de los usuarios y efectuamos algunas
-mejoras a las nuevas páginas.
-
-Envíe sus comentarios a @code{lilypond-user}; encontrará
-más información en nuestra página de @ref{Contacto}.
-
-@warning{Existen algunos problemas conocidos con las traducciones.
-Si no domina el inglés, quizá prefiera ver el sitio web anterior
-de LilyPond en: @uref{http://lilypond.org/web/}}
-
-@newsEnd
-
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.26!  @emph{26 de junio de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.26.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.  Sin
-embargo, aún quedan algunos problemas críticos, por lo que esta
-versión está orientada solamente a los desarrolladores.
-@newsEnd
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.25!  @emph{20 de junio de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.25.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.  Sin
-embargo, aún quedan algunos problemas críticos, por lo que esta
-versión está orientada solamente a los desarrolladores.
-@newsEnd
-
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.24!  @emph{14 de junio de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.24.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.  Sin
-embargo, aún quedan algunos problemas críticos, por lo que esta
-versión está orientada solamente a los desarrolladores.
-@newsEnd
-
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.23!  @emph{3 de junio de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.23.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.  Sin
-embargo, aún quedan algunos problemas críticos, por lo que esta
-versión está orientada solamente a los desarrolladores.
-@newsEnd
-
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.22!  @emph{27 de mayo de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.22.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.  Sin
-embargo, aún quedan algunos problemas críticos, por lo que esta
-versión está orientada solamente a los desarrolladores.
-@newsEnd
-
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.21!  @emph{12 de mayo de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.21.  Esta
+Nos complace anunciar el lanzamiento de LilyPond 2.13.31.  Esta
 versión contiene el conjunto habitual de correcciones de fallos.  Sin
 embargo, aún quedan algunos problemas críticos, por lo que esta
 versión está orientada solamente a los desarrolladores.
 
-Esta versión debiera ser de especial interés
-para los mantenedores de paquetes: hemos hecho algunos
-cambios en el guión de configuración y en las bibliotecas
-requeridas.  Aparte de algún posible informe urgente de fallo,
-éstos son el sistema de montaje y las bibliotecas que se van
-a utilizar en la próxima edición estable.
+@newsEnd
+
+@newsItem
+@subsubheading Versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.34! @emph{21 de septiembre de 2010}
+
+Ha salido LilyPond 2.13.34; ésta es la primera versión alfa de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún existe una regresión conocida contra 2.12.3:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
+Porblema número 1173 No se pueden alinear las MetronomeMarks sobre una
+nota si existe un silencio multicompás en otra voz}, pero esperamos
+encontrar más.  Si se decide a probar 2.13.34, no se sorprenda al
+encontrar problemas; tan sólo envíenos @ref{Informes de fallos}
+educados.
+
 @newsEnd
 
 
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.33!  @emph{10 de septiembre de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.33.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.32!  @emph{3 de septiembre de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.32.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+
+@newsEnd
+
+
+@newsItem
 @newsItem
 @subsubheading El Informe LilyPond, número 18.  @emph{11 de mayo de 2010}
+@subsubheading LilyPond Report #20.  @emph{Sep 2, 2010}
 
 ¡Vuelve el @emph{Informe LilyPond}, con sus dos editores: @qq{gruñón}
-y @qq{blandito}!  Esta edición está repleta de emoción e interés,
-bolsas de papel y pentagramas terminados en zigzag, además de las
-secciones habituales Ranas y Bichos.
+y @qq{blandito}!  Esta edición contiene la revisión de un editor de
+notación en línea que utiliza lilypond, además de las acostumbradas
+notas de lanzamientos, el fragmento de código del día, noticias desde
+la charca de las ranas y el informe de fallos del día.
 
-Acérquese al @uref{http://news.lilynet.net/The-LilyPond-Report-18,
-Informe LilyPond 18} y léalo ahora mismo; ¡animamos calurosamente a
+Acérquese al @uref{http://news.lilynet.net/The-LilyPond-Report-20,
+Informe LilyPond 20} y léalo ahora mismo; ¡animamos calurosamente a
 todos a que hagan sus comentarios y contribuciones!
 @newsEnd
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 77af5c6014addc929dfa818be21d2093d4b1028a
+    Translation of GIT committish: 98d54187c3da37a2f2a7d21c2aeaa5f6dd148193
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -22,7 +22,7 @@ infórmese sobre nuestra @ref{Entrada de texto}.}
 
 @divClass{heading-center}
 @ifclear web_version
-  @c yes, we want verisonDevel here, since the online links
+  @c yes, we want versionDevel here, since the online links
   @c for @version won't be up yet!
 @heading Descargas para LilyPond @versionDevel
 
@@ -37,13 +37,15 @@ infórmese sobre nuestra @ref{Entrada de texto}.}
 
 @divEnd
 
+@divClass{link-headings}
+
 @divClass{column-left-top}
 @subheading Para usuarios
 
 @itemize
 
 @item
-@c TODO: duplicate to avoid underlined refs in HTML?  icky.
+@c ref is duplicated to avoid underlining ref as image.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
 @ref{Unix, Unix (Linux y FreeBSD)}
@@ -79,6 +81,7 @@ versiones anteriores
 @end itemize
 @divEnd
 
+@divEnd
 
 @divClass{column-center-bottom}
 
@@ -207,6 +210,7 @@ uninstall-lilypond
 @end example
 
 @divEnd
+
 
 
 @divClass{column-right-top}
@@ -339,11 +343,11 @@ cd ~/bin
 @item
 Cree un archivo llamado @command{lilypond} que contenga
 
-@c @hel p obvious css issue to be dealt with.  :(
-@c we need a small font here to fit.  -gp
-@smallexample
+@divClass{h-scroll-auto}
+@example
 exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
-@end smallexample
+@end example
+@divEnd
 
 @warning{en general, @var{DIR} será @code{/Applications/}}
 
@@ -386,9 +390,11 @@ incluidos dentro del archivo @code{.app} para MacOS@tie{}X.
 Los guiones también se pueden lanzar desde la línea de órdenes
 mediante su invocación directa:
 
+@divClass{h-scroll-auto}
 @example
 @var{ruta/de}/LilyPond.app/Contents/Resources/bin/lilypond
 @end example
+@divEnd
 
 Lo mismo vale para el resto de los guiones de ese directorio, como
 @command{lilypond-book} y @command{convert-ly}.
@@ -438,9 +444,10 @@ Para Windows 2000, XP, Vista y Windows 7.
 
 @item
 Localice el archivo descargado y haga doble clic sobre él para
-arrancar el instalador. Siga las instrucciones que le indica el instalador; le recomendamos
-que deje seleccionadas todas las opciones de instalación y que utilice
-la ruta de instalación predeterminada. Pulse sobre el botón
+arrancar el instalador.  Siga las instrucciones que le indica
+el instalador; le recomendamos que deje seleccionadas todas
+las opciones de instalación y que utilice
+la ruta de instalación predeterminada.  Pulse sobre el botón
 @q{Finalizar} cuando el instalador termine. LilyPond está instalado.
 
 @end enumerate
@@ -457,9 +464,9 @@ Localizar el apartado de LilyPond en el menú Inicio y elegir
 de desinstalación.
 
 @item
-Desde el Panel de control, busque y seleccione el programa LilyPond y
-elija la opción de desinstalar/quitar programa.  Pulse el botón
-@q{Finish} cuando termine el programa de desinstalación.
+O bien, desde el Panel de control, busque y seleccione el programa
+LilyPond y elija la opción de desinstalar/quitar programa.
+Pulse el botón @q{Finish} cuando termine el programa de desinstalación.
 
 @end enumerate
 
@@ -608,6 +615,3 @@ haberla elegido, en @ref{Libertad}.
 @include gpl.itexi
 
 @divEnd
-
-
-
