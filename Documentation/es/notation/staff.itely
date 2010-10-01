@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: dfd6e629fdd9885b65ed2612b0cb5255806fe40b
+    Translation of GIT committish: c89a1808d10c9a5e60c74e20668e136623db12f2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -37,6 +37,7 @@ y grupos de ellos.
 * Crear instancias de pentagramas nuevos::
 * Agrupar pentagramas::
 * Grupos de pentagramas anidados::
+* Separating systems::
 @end menu
 
 
@@ -337,6 +338,55 @@ Referencia de funcionamiento interno:
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
 
+@node Separación de sistemas
+@unnumberedsubsubsec Separación de sistemas
+@translationof Separating systems
+
+@cindex separación de sistemas, marca de
+
+Si el número de sistemas por p´agina varía de una página a otra, es
+costumbre separar los sistemas colocando una marca separadora entre
+ellos.  De forma predeterminada, el separador de sistemas es nulo,
+pero se puede activar con una opción de @code{\paper}.
+
+@c \book is required here to display the system separator
+@c ragged-right is required as there are two systems
+@lilypond[verbatim,quote,ragged-right]
+\book {
+  \score {
+    \new StaffGroup <<
+      \new Staff {
+        \relative c'' {
+          c4 c c c
+          \break
+          c4 c c c
+        }
+      }
+      \new Staff {
+        \relative c'' {
+          c4 c c c
+          \break
+          c4 c c c
+        }
+      }
+    >>
+  }
+  \paper {
+    system-separator-markup = \slashSeparator
+    % following commands are needed only to format this documentation
+    paper-width = 100\mm
+    paper-height = 100\mm
+    tagline = ##f
+  }
+}
+@end lilypond
+
+@seealso
+Referencia de la notación:
+@ref{Formateo de las páginas}.
+
+Fragmentos de código:
+@rlsr{Notación de los pentagramas}.
 
 @node Modificación de pentagramas sueltos
 @subsection Modificación de pentagramas sueltos
@@ -632,6 +682,7 @@ sobre @code{\RemoveEmptyStaffContext}, consulte @ref{Ocultar pentagramas}.
 }
 @end lilypond
 
+
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
@@ -696,8 +747,8 @@ instrucción oculta y elimina todos los pentagramas vacíos de la
 partitura excepto los del primer sistema.
 
 @warning{Un pentagrama se considera vacío cuando contiene solamente
-silencios multicompás, desplazamientos, silencios de separación o una
-combinación de estos elementos.}
+silencios, silencios multicompás, desplazamientos, silencios de
+separación o una combinación de estos elementos.}
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -810,98 +861,10 @@ instrumento en una partitura.  También se describen métodos para citar
 otras voces y dar formato a las notas guía.
 
 @menu
-* Indicaciones metronómicas::
 * Nombres de instrumentos::
 * Citar otras voces::
 * Formateo de las notas guía::
 @end menu
-
-
-@node Indicaciones metronómicas
-@unnumberedsubsubsec Indicaciones metronómicas
-@translationof Metronome marks
-
-@cindex tempo
-@cindex pulsos por minuto
-@cindex metrónomo, indicación de
-@cindex metrónomo, indicación de, con texto
-
-@funindex \tempo
-@funindex tempo
-
-Es muy sencillo escribir una indicación metronómica básica:
-
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 120
-c2 d
-e4. d8 c2
-@end lilypond
-
-Se pueden usar indicaciones de tempo con texto:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegretto"
-c4 e d c
-b4. a16 b c4 r4
-@end lilypond
-
-La combinación de una indicación metronómica y un texto hace que la
-marca de metrónomo se encierre entre paréntesis automáticamente:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegro" 4 = 160
-g4 c d e
-d4 b g2
-@end lilypond
-
-En general, el texto puede ser cualquier objeto de marcado:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo \markup { \italic Faster } 4 = 132
-a8-. r8 b-. r gis-. r a-. r
-@end lilypond
-
-Se puede escribir una indicación metronómica entre paréntesis sin
-ninguna indicación textual, escribiendo una cadena vacía en la
-entrada:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "" 8 = 96
-d4 g e c
-@end lilypond
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
-
-@c perhaps also an example of how to move it horizontally?
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{changing-the-tempo-without-a-metronome-mark.ly}
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{creating-metronome-marks-in-markup-mode.ly}
-
-Para ver más detalles, consulte @ref{Formatear el texto}.
-
-
-@seealso
-Glosario musical:
-@rglos{metronome},
-@rglos{metronomic indication},
-@rglos{tempo indication},
-@rglos{metronome mark}.
-
-Referencia de la notación:
-@ref{Formatear el texto},
-@ref{Salida MIDI}.
-
-Fragmentos de código:
-@rlsr{Staff notation}.
-
-Referencia de funcionamiento interno::
-@rinternals{MetronomeMark}.
 
 
 @node Nombres de instrumentos
