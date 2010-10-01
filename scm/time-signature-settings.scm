@@ -254,18 +254,32 @@ checking. "
   "Like the C++ code that executes \revert, but without type
 checking. "
 
-  (define (revert-member alist entry new)
-    "Return ALIST, with ENTRY removed.  ALIST is not modified, instead
+  (define (entry-count alist entry-key)
+    "Count the number of entries in alist with a key of
+ENTRY-KEY."
+    (cond
+      ((null? alist) 0)
+      ((equal? (caar alist) entry-key)
+         (+ 1 (entry-count (cdr alist) entry-key)))
+      (else (entry-count (cdr alist) entry-key))))
+
+  (define (revert-member alist entry-key)
+    "Return ALIST, with the first entry having a key of
+ENTRY-KEY removed.  ALIST is not modified, instead
 a fresh copy of the list-head is made."
     (cond
-      ((null? alist) new)
-      ((equal? (car alist) entry) (revert-member (cdr alist) entry new))
+      ((null? alist) '())
+      ((equal? (caar alist) entry-key) (cdr alist))
       (else (cons (car alist)
-                  (revert-member (cdr alist) entry new)))))
+                  (revert-member (cdr alist) entry-key)))))
 
-  (ly:context-set-property!
-    context property
-    (revert-member (ly:context-property context property) setting '())))
+  ;; body of revert-property-setting
+  (let ((current-value (ly:context-property context property)))
+    (if (> (entry-count current-value setting) 1)
+        (ly:context-set-property!
+          context
+          property
+          (revert-member current-value setting)))))
 
 (define-public (override-time-signature-setting time-signature setting . rest)
   "Override the time signature settings for the context in @var{rest},
