@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c89a1808d10c9a5e60c74e20668e136623db12f2
+    Translation of GIT committish: 8e0330b913e0c7494282e6b00cebbf4dcee79b50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1218,10 +1218,10 @@ guía en una particella.  La sintaxis es como sigue:
 Esta instrucción copia
 sólo las notas y los silencios de
 los compases correspondientes a partir de
-@var{nombre_de_la_parte} dentro de un contexto @code{CueVoice} de voz
+@code{@var{nombre_de_la_parte}} dentro de un contexto @code{CueVoice} de voz
 guía.  La voz guía @code{CueVoice} se crea implícitamente, y se
-produce simultáneamente con @var{música}, lo que crea una situación
-polifónica.  El argumento @var{voz} determina si la notación de las
+produce simultáneamente con @code{@var{música}}, lo que crea una situación
+polifónica.  El argumento @code{@var{voz}} determina si la notación de las
 notas guía debe ser como primera o como segunda voz; @code{UP}
 (arriba) corresponde a la primera voz, y @code{DOWN} (abajo)
 corresponde a la segunda.

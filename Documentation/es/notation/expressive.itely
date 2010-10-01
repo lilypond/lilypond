@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 15578ad21fa9939acf92026c9fdbe7609a635777
+    Translation of GIT committish: 8e0330b913e0c7494282e6b00cebbf4dcee79b50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -128,7 +128,8 @@ utilizando la sintaxis siguiente:
 @var{nota}\@var{nombre}
 @end example
 
-La lista de los posibles valores de @var{nombre} está en @ref{Lista de articulaciones}.  Por ejemplo:
+La lista de los posibles valores de @code{@var{nombre}} está en
+@ref{Lista de articulaciones}.  Por ejemplo:
 
 @lilypond[verbatim,quote,relative=2]
 c4\staccato c\mordent b2\turn

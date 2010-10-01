@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 0f160f02f8fcf7859e18ab1ea0be1e3d69953879
+Translation of GIT committish: 13ac33309a84e81f7f5733a1676d839b9c9b5bc6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -628,18 +628,16 @@ compás independiente.
 @cindex polimétricas, partituras
 @cindex compases distintos al mismo tiempo
 
-@lilypond[quote,relative=1,ragged-right,verbatim,fragment]
-\new Score \with {
-  \remove "Timing_translator"
-  \remove "Default_bar_line_engraver"
-} <<
-  \new Staff \with {
-    \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
-  } {
-      \time 3/4
-      c4 c c c c c
-  }
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff \with {
+      \consists "Timing_translator"
+      \consists "Default_bar_line_engraver"
+    } {
+        \time 3/4
+        c4 c c c c c
+    }
   \new Staff \with {
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
@@ -648,6 +646,14 @@ compás independiente.
        c4 c c c c c
   }
 >>
+\layout {
+  \context {
+    \Score
+    \remove "Timing_translator"
+    \remove "Default_bar_line_engraver"
+    }
+  }
+}
 @end lilypond
 
 @knownissues
@@ -2510,7 +2516,7 @@ En caso de salto de línea, los valores para los puntos extremos se
 especifican por las sub-listas @code{left-broken} y
 @code{right-broken} de @code{bound-details}.  Por ejemplo:
 
-@lilypond[relative=2,ragged-right,verbatim,fragment]
+@lilypond[relative=2,ragged-right,verbatim,quote]
 \override Glissando #'breakable = ##t
 \override Glissando #'(bound-details right-broken Y) = #-3
 c1 \glissando \break
@@ -2565,7 +2571,7 @@ subpropiedades @code{X} e @code{Y}.  Si se fijan
 @code{stencil-align-dir-y} o @code{stencil-offset} se moverá el
 símbolo del borde verticalmente con relación al extremo de la línea:
 
-@lilypond[relative=1,fragment,verbatim]
+@lilypond[relative=1,quote,verbatim]
 \override TextSpanner
   #'(bound-details left stencil-align-dir-y) = #-2
 \override TextSpanner
@@ -2995,7 +3001,7 @@ dibuja una línea entre ellos, en el estilo solicitado.
 He aquí un ejemplo de los distintos estilos de línea disponibles, y
 cómo aplicarles ajustes finos.
 
-@lilypond[relative=2,ragged-right,verbatim,fragment]
+@lilypond[relative=2,ragged-right,verbatim,quote]
 d2 \glissando d'2
 \once \override Glissando #'style = #'dashed-line
 d,2 \glissando d'2
@@ -3011,7 +3017,7 @@ Las posiciones de los puntos extremos del objeto de extensión se
 computan al vuelo para cada uno de los objetos gráficos, pero es
 posible sobreescribirlos:
 
-@lilypond[relative=2,ragged-right,verbatim,fragment]
+@lilypond[relative=2,ragged-right,verbatim,quote]
 e2 \glissando f
 \once \override Glissando #'(bound-details right Y) = #-2
 e2 \glissando f
