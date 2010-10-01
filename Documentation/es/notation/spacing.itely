@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fe2cae0fa47ec4ec0184e6b3d15572fbcba881cf
+    Translation of GIT committish: 9c5e93c359806da8d5945349b36ac2a481a25504
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -584,11 +584,15 @@ predeterminado: @code{##t}.
 Valor del número de la primera página.  Predeterminado: @code{#1}.
 
 @item max-systems-per-page
+@funindex max-systems-per-page
+
 Máximo número de sistemas que tendrán cabida en una página.  Está
 contemplado por el momento solamente por parte del algoritmo
 @code{ly:optimal-breaking}.  Predeterminado: no establecido.
 
 @item min-systems-per-page
+@funindex min-systems-per-page
+
 Mínimo número de sistemas que habrá en una página.  Puede hacer que
 las páginas se llenen en exceso si se establece a un valor grande.
 Por el momento solamente está contemplado por parte del algoritmo

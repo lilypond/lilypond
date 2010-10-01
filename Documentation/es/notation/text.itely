@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: a4d7a0103cff1c2bc140aaac66041a4b3137da40
+    Translation of GIT committish: 4ecef06e22df3293a2bf246e1ebccb300ce90b3e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -181,11 +181,9 @@ e,\stopTextSpan
 
 El estilo de la línea, así como la cadena de texto, se pueden definir
 como una propiedad de objeto.  Esta sintaxis se describe en
-@ref{Estilos de línea}.
-
-@knownissues
-LilyPond sólo puede manejar un objeto de extensión de texto por cada
-voz.
+@ref{Estilos de línea}. Los extensores de texto
+forman parte del contexto @code{Dynamics}; véase
+@rinternals{Dynamics}.
 
 
 @funindex \textSpannerUp
@@ -202,6 +200,17 @@ voz.
 @code{\textSpannerNeutral}.
 @endpredefined
 
+@knownissues
+LilyPond sólo puede manejar un objeto de extensión de texto por cada
+voz.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{dynamics-text-spanner-postfix.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{dynamics-custom-text-spanner-postfix.ly}
 
 @seealso
 Referencia de la notación:
@@ -209,10 +218,12 @@ Referencia de la notación:
 @ref{Matices dinámicos}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsr{Text},
+@rlsr{Expressive marks}.
 
 Referencia de funcionamiento interno:
-@rinternals{TextSpanner}.
+@rinternals{TextSpanner},
+@rinternals{Dynamics}.
 
 
 @node Indicaciones de texto
@@ -637,7 +648,7 @@ números o matices, no ofrecen todos los caracteres, como se explica en
 @ref{Indicaciones dinámicas contemporáneas} y @ref{Marcas de repetición manual}.
 
 @c \concat is actually documented in Align (it is not
-@c a font-switching command). But we need it here. -vv
+@c a font-switching command).  But we need it here. -vv
 
 Si se usan dentro de una palabra, algunas instrucciones de cambio de
 tipografía o de formateo pueden producir un espacio vacío no deseado.
@@ -930,7 +941,7 @@ la izquierda o justificados, como se muestra en el ejemplo siguiente.
     \line \bold { Acto I }
     \wordwrap \italic {
       (La escena representa el corral de una casa de
-      gitanos en el Albaicín de Granada. Al fondo una
+      gitanos en el Albaicín de Granada.  Al fondo una
       puerta por la que se ve el negro interior de
       una Fragua, iluminado por los rojos resplandores
       del fuego.)
@@ -940,7 +951,7 @@ la izquierda o justificados, como se muestra en el ejemplo siguiente.
     \line \bold { Acto II }
     \override #'(line-width . 50)
     \justify \italic {
-      (Calle de Granada. Fachada de la casa de Carmela
+      (Calle de Granada.  Fachada de la casa de Carmela
       y su hermano Manuel con grandes ventanas abiertas
       a través de las que se ve el patio
       donde se celebra una alegre fiesta)
