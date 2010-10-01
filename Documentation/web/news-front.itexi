@@ -9,9 +9,9 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading Alpha test two of 2.14 -- LilyPond 2.13.36 released!  @emph{Sep 29, 2010}
+@subsubheading Alpha test two of 2.14 -- LilyPond 2.13.35 released!  @emph{Sep 29, 2010}
 
-LilyPond 2.13.36 is out; this is the second alpha test of the
+LilyPond 2.13.35 is out; this is the second alpha test of the
 upcoming 2.14 stable release.  Users are invited to experiment
 with this version.  New features since 2.12.3 are listed in the
 @qq{Changes} manual on the website section about
@@ -25,7 +25,7 @@ bugs:
 @uref{http://code.google.com/p/lilypond/issues/detail?id=1240,
 Issue 1240} and
 @uref{http://code.google.com/p/lilypond/issues/detail?id=1252,
-Issue 1252}.  If you decide to test 2.13.34, do not be surprised
+Issue 1252}.  If you decide to test 2.13.35, do not be surprised
 to discover problems; just send us polite @ref{Bug reports}.
 
 @newsEnd
