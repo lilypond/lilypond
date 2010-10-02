@@ -1333,13 +1333,13 @@ breaking layout information.
       s1 * 6 \break
       s1 * 5 \break
     }
-  \new Voice {
-    \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-    \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-    \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-    \repeat unfold 5 { c'4 c'4 c'4 c'4 }
-  }
->>
+    \new Voice {
+      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+    }
+  >>
 }
 @end lilypond
 
@@ -1348,32 +1348,31 @@ This pattern becomes especially helpful when overriding
 @code{NonMusicalPaperColumnGrob}, as explained in @ref{Vertical spacing}.
 
 @lilypond[quote,verbatim]
-\new Score {
+\score {
   \new Staff <<
-     \new Voice {
-
-        \overrideProperty "Score.NonMusicalPaperColumn"
+    \new Voice {
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 0))
-        s1 * 2 \break
+      s1 * 2 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 35))
-        s1 * 3 \break
+      s1 * 3 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 70))
-        s1 * 6 \break
+      s1 * 6 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 105))
-        s1 * 5 \break
-     }
-     \new Voice {
-        \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 5 { c'4 c'4 c'4 c'4 }
-     }
+      s1 * 5 \break
+    }
+    \new Voice {
+      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+    }
   >>
 }
 @end lilypond
@@ -2062,11 +2061,11 @@ once with exaggerated corrections:
 @lilypond[quote,ragged-right]
 {
   c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4|
+  b'4 e''4 b'4 e''4 |
   \override Staff.NoteSpacing #'stem-spacing-correction = #1.5
   \override Staff.StaffSpacing #'stem-spacing-correction = #1.5
   c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4|
+  b'4 e''4 b'4 e''4 |
 }
 @end lilypond
 
@@ -2163,7 +2162,7 @@ than @code{1 16}.
     \context {
       \Score
       \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 16)
+        #'base-shortest-duration = #(ly:make-moment 1 16)
     }
   }
 }
@@ -2178,23 +2177,29 @@ such symbols and force uniform equal-duration spacing, use
 @code{Score.SpacingSpanner #'uniform-stretching}.  This
 property can only be changed at the beginning of a score,
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-\new Score \with {
-  \override SpacingSpanner #'uniform-stretching = ##t
-} <<
-  \new Staff{
-    \times 4/5 {
-      c8 c8 c8 c8 c8
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new Staff {
+      \times 4/5 {
+        c8 c8 c8 c8 c8
+      }
+      c8 c8 c8 c8
     }
-    c8 c8 c8 c8
-  }
-  \new Staff{
-    c8 c8 c8 c8
-    \times 4/5 {
-      c8 c8 c8 c8 c8
+    \new Staff {
+      c8 c8 c8 c8
+      \times 4/5 {
+        c8 c8 c8 c8 c8
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner #'uniform-stretching = ##t
     }
   }
->>
+}
 @end lilypond
 
 When @code{strict-note-spacing} is set, notes are spaced without
@@ -2294,15 +2299,17 @@ We start with the following one-measure example, which uses classical
 spacing with ragged-right turned on.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
     }
-  }
->>
+  >>
+}
 @end lilypond
 
 Notice that the half note which begins the measure takes up far less
@@ -2321,17 +2328,23 @@ turn proportional notation on with the proportionalNotationDuration
 setting.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 20)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+ \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 20)
     }
   }
->>
+}
 @end lilypond
 
 The half note at the beginning of the measure and the faster notes in
