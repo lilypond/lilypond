@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 8d0379b60d9e6bf497a45a6b03ae1937acd32adc
+    Translation of GIT committish: 8e0330b913e0c7494282e6b00cebbf4dcee79b50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -210,7 +210,7 @@ multiplicando todas las duraciones por una fracción:
 @end example
 
 @noindent
-La duración de @var{música} se multiplicará por la
+La duración de @code{@var{música}} se multiplicará por la
 fracción.  El denominador de la fracción se imprimirá sobre las notas,
 opcionalmente con un corchete.  El grupo especial más común es el
 tresillo, en el que 3 notas tienen el valor de 2, por tanto las notas
@@ -927,7 +927,7 @@ las advertencias correspondientes de comprobación de compás.
 @funindex \textLengthOn
 @funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLenthOff
+@funindex textLengthOff
 @funindex \fermataMarkup
 @funindex fermataMarkup
 @funindex \compressFullBarRests
@@ -1008,6 +1008,7 @@ silencios.
 
 @menu
 * Indicación de compás::
+* Indicaciones metronómicas::
 * Anacrusas::
 * Música sin compasear::
 * Notación polimétrica::
@@ -1078,6 +1079,86 @@ estilo numérico:
 Las indicaciones de compás de la música mensural se tratan en
 @ref{Indicaciones de compás de la música mensural}.
 
+@cindex compás, indicación de, ajustes predeterminados
+@cindex autobarrado, propiedades para indicaciones de compás
+@cindex barrado, propiedades predefinidas para el compás
+@funindex \overrideTimeSignatureSettings
+
+Además de ajustar la indicación de compás que se imprime, la
+instrucción @code{\time} establece también los valores predeterminados
+basados en el tipo de compás para las propiedades @code{baseMoment},
+@code{beatStructure} y @code{beamExceptions}.  Los valores
+predefinidos de estas propiedades están en
+@file{scm/time-signature-settings.scm}.  Los valores predefinidos
+existentes se pueden cambiar, o pueden añadirse valores nuevos:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c' {
+    \overrideTimeSignatureSettings
+      #'Score    % context
+      #'(4 . 4)  % timeSignatureFraction
+      #'(1 . 4)  % baseMomentFraction
+      #'(3 1)    % beatStructure
+      #'()       % beamExceptions
+    \time 4/4
+    \repeat unfold 8 c8 |
+  }
+}
+@end lilypond
+
+@code{\overrideTimeSignatureSettings} toma cinco argumentos:
+
+@enumerate
+@item
+@code{@var{context}}, un símbolo de Scheme que describe el contexto al
+que se aplica el valor predeterminado.
+
+@item
+@code{@var{timeSignatureFraction}}, una pareja de Scheme que describe
+el tipo de compás.
+
+@item
+@code{@var{baseMomentFraction}}, una pareja de Scheme que contiene el
+numerador y denominador de la unidad de medida básica de ese tipo de
+compás.
+
+@item
+@code{@var{beatStructure}}, una lista de Scheme que indica la
+estructura de los pulsos del compás, en unidades del momento base.
+
+@item
+@code{@var{beamExceptions}}, una lista-A que contiene cualesquiera
+reglas de barrado para el tipo de compás que vayan más allá de
+terminar en cada pulso, como se describe en @ref{Establecer el
+comportamiento de las barras automáticas}.
+@end enumerate
+
+@cindex compás, propiedades, restaurar los valores predeterminados
+@cindex restaurar las propiedades predeterminadas del tipo de compás
+@funindex \revertTimeSignatureSettings
+
+Los valores modificados de las propiedades predeterminadas del tipo de
+compás se pueden restaurar a los valores originales:
+
+@lilypond[quote,verbatim]
+\score{
+  \relative c' {
+    \repeat unfold 8 c8 |
+    \overrideTimeSignatureSettings
+      #'Score                         % context
+      #'(4 . 4)                       % timeSignatureFraction
+      #'(1 . 4)                       % baseMomentFraction
+      #'(3 1)                         % beatStructure
+      #'((end . (((1 . 8) . (3 1))))) % beamExceptions
+    \time 4/4
+    \repeat unfold 8 c8 |
+    \revertTimeSignatureSettings #'Score #'(4 . 4)
+    \time 4/4
+    \repeat unfold 8 c8 |
+  }
+}
+@end lilypond
 
 @predefined
 @code{\numericTimeSignature},
@@ -1116,6 +1197,94 @@ Referencia de funcionamiento interno:
 @rinternals{Timing_translator}.
 
 
+@node Indicaciones metronómicas
+@unnumberedsubsubsec Indicaciones metronómicas
+@translationof Metronome marks
+
+@cindex tempo
+@cindex pulsos por minuto
+@cindex metrónomo, indicación de
+@cindex metrónomo, indicación de, con texto
+
+@funindex \tempo
+@funindex tempo
+
+Es muy sencillo escribir una indicación metronómica básica:
+
+@lilypond[verbatim,quote,relative=1]
+\tempo 4 = 120
+c2 d
+e4. d8 c2
+@end lilypond
+
+Se pueden usar indicaciones de tempo con texto:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "Allegretto"
+c4 e d c
+b4. a16 b c4 r4
+@end lilypond
+
+La combinación de una indicación metronómica y un texto hace que la
+marca de metrónomo se encierre entre paréntesis automáticamente:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "Allegro" 4 = 160
+g4 c d e
+d4 b g2
+@end lilypond
+
+En general, el texto puede ser cualquier objeto de marcado:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo \markup { \italic Faster } 4 = 132
+a8-. r8 b-. r gis-. r a-. r
+@end lilypond
+
+Se puede escribir una indicación metronómica entre paréntesis sin
+ninguna indicación textual, escribiendo una cadena vacía en la
+entrada:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "" 8 = 96
+d4 g e c
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
+
+@c perhaps also an example of how to move it horizontally?
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-tempo-without-a-metronome-mark.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-metronome-marks-in-markup-mode.ly}
+
+Para ver más detalles, consulte @ref{Formatear el texto}.
+
+
+@seealso
+Glosario musical:
+@rglos{metronome},
+@rglos{metronomic indication},
+@rglos{tempo indication},
+@rglos{metronome mark}.
+
+Referencia de la notación:
+@ref{Formatear el texto},
+@ref{Salida MIDI}.
+
+Fragmentos de código:
+@rlsr{Staff notation}.
+
+Referencia de funcionamiento interno::
+@rinternals{MetronomeMark}.
+
+
 @node Anacrusas
 @unnumberedsubsubsec Anacrusas
 @translationof Upbeats
@@ -1138,7 +1307,7 @@ escriben usando la instrucción @code{\partial}, con la sintaxis
 @end example
 
 @noindent
-donde @code{duración} es el valor rítmico restante del compás actual
+donde @code{@var{duración}} es el valor rítmico restante del compás actual
 antes de que comience el siguiente.
 
 @lilypond[quote,verbatim,relative=2]
@@ -1215,7 +1384,7 @@ esto no es deseable.  Para desactivar las barras y los números de
 compás automáticos, utilice la instrucción @code{\cadenzaOn}, y para
 activarlos de nuevo use @code{\cadenzaOff}.
 
-@lilypond[verbatim,relative=2,fragment]
+@lilypond[verbatim,relative=2,quote]
 c4 d e d
 \cadenzaOn
 c4 c d8 d d f4 g4.
@@ -1227,7 +1396,7 @@ d4 e d c
 La numeración de compases se continúa al final de la cadencia como si
 la cadencia no existiera:
 
-@lilypond[verbatim,relative=2,fragment]
+@lilypond[verbatim,relative=2,quote]
 % Show all bar numbers
 \override Score.BarNumber #'break-visibility = #all-visible
 c4 d e d
@@ -1289,7 +1458,7 @@ Debemos crear un contexto de voz explícitamente al empezar una
 pieza con @code{\cadenzaOn}, pues en caso contrario pueden
 ocurrir algunos errores extraños.
 
-@lilypond[verbatim,relative=2,fragment]
+@lilypond[verbatim,relative=2,quote]
 \new Voice \relative c'{
   \cadenzaOn
   c16^"Solo Free Time" d e f g2. \bar "||"
@@ -1649,8 +1818,13 @@ c16 c8
 entonces se debe desactivar el barrado automático con
 @code{\autoBeamOff} e indicar las barras manualmente.}
 
+@warning{La utilización de @code{@bs{}partcombine} con
+@code{@bs{}autoBeamOff} puede producir resultados no deseados.  Véase
+el fragmento de código de abajo para mayor información.}
+
 Se pueden crear patrones de barrado que difieran de los valores
 automáticos predeterminados; véase @ref{Establecer el comportamiento de las barras automáticas}.
+
 
 @predefined
 @code{\autoBeamOff},
@@ -1671,6 +1845,13 @@ automáticos predeterminados; véase @ref{Establecer el comportamiento de las ba
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
+
+@cindex \partcombine y \autoBeamOff
+@cindex \autoBeamOff y \partcombine
+
+
+@lilypondfile [verbatim, lilyquote, ragged-right, texidoc, doctitle]
+{partcombine-and-autobeamoff.ly}
 
 
 @seealso
@@ -1711,8 +1892,8 @@ alteraciones accidentales de las otras voces.
 @cindex letra y barrado
 
 @funindex autoBeaming
-@funindex beamExceptions
 @funindex baseMoment
+@funindex beamExceptions
 @funindex beatStructure
 @funindex measureLength
 @funindex \time
@@ -1721,12 +1902,9 @@ alteraciones accidentales de las otras voces.
 @funindex set
 
 La colocación de las barras de corchea automáticas viene
-determinada por la indicación de compás.  Se usan tres tipos de
-reglas para la determinación del final de las barras de corchea
-automáticas: reglas @emph{predeterminadas} para el tipo de
-compás, reglas @emph{explícitas} para la barra dentro del tipo de
-compás, y la @emph{beatLength} (longitud de la barra) para el
-tipo de compás.
+determinada por las propiedades de contexto
+@code{baseMoment}, @code{beatStructure}, @code{beamExceptions}
+y @code{autoBeaming}.
 
 Se aplican las siguientes reglas, en orden de prioridad, para
 determinara el aspecto de las barras:
@@ -1740,39 +1918,51 @@ la barra tal y como está especificado; en caso contrario:
 si está en vigor @code{\autoBeamOff} no poner barras; en caso contrario:
 
 @item
-si está definida alguna regla de fin de barra para el tipo de barra en
-este tipo de compás, usarla para determinar los lugares válidos en que
-las barras pueden terminar; en caso contrario
-
-@item
-si está definida alguna una regla predeterminada de fin de barra en
-este tipo de compás, usarla para agrupar las notas con barras; en caso
+si está definida alguna regla de fin de barra en
+@code{beamExceptions} para este tipo de barra,
+usarla para determinar los lugares válidos
+en que las barras pueden terminar; en caso
 contrario
 
 @item
-usar el valor de @code{beatLength} para agrupar las notas con barras.
+si está definida alguna regla de fin de barra en
+@code{beamExceptions} para un tipo de barra más largo,
+usarla para determinar los lugares válidos
+en que las barras pueden terminar; en caso
+contrario
 
+@item
+usar los valores de @code{baseMoment} y de @code{beatStructure} para
+determinar los finales de los pulsos en el compás, y finalizar las
+barras en los finales de los pulsos.
 @end itemize
+
+El tipo de barra es la duración de la figura más breve dentro del
+grupo agrupado por la barra.
 
 @i{@strong{Modificar las agrupaciones de pulsos}}
 
-De forma predeterminada, @code{beatLength} se deriva del tipo de
-compás establecido por la instrucción @code{\time}.  La longitud del
-pulso @code{beatLength} se establece a uno sobre el denominador del
-compás.
+El valor predeterminado de @code{baseMoment} está establecido por la
+instrucción @code{\time}, normalmente a uno más que el denominador del
+tipo de compás.  Cualquier excepción a este valor predeterminado podrá
+encontrarse en @file{scm/@/time@/-signature@/-settings@/.scm}.  La
+manera de modificar el valor predeterminado de @code{baseMoment} para
+un tipo de compás dado se describe en @ref{Indicación de compás}.
 
-@code{beatLength} es un @i{momento}, una unidad de duración musical.
-Las cantidades del tipo @i{moment} se crean por la función de Scheme
-@code{ly:make-moment}.  Para ver más información sobre esta función,
-consulte @ref{Gestión del tiempo}.
+@code{baseMoment} es un @i{momento}, una unidad de duración musical.
+Se crea una cantidad del tipo @i{momento} por medio de la función de
+Scheme @code{ly:make-moment}.  Para ver más información acerca de esta
+función, consulte @ref{Gestión del tiempo}.
 
-Los ajustes de barrado automático se
-almacenan en la propiedad @code{beamSettings}.  Los valores
-predeterminados de @code{beamSettings} están precisados en
-@file{scm/@/beam@/-settings@/.scm}.  Las entradas de
-@code{beamSettings} están clasificadas por tipo de compás y tipo de regla.
-
-EL tipo de compás debe ser una dupla de Scheme, p.ej. @code{#'(4 . 4)}.
+Los ajustes de autobarrado especiales (es decir, los que no se
+refieren al final de un pulso) están al macenados dentro de la
+propiedad @code{beamExceptions}.  Los valores predeterminados de
+@code{beamExceptions} se establecen por medio de la instrucción
+@code{\time}.  Los valores predeterminados de @code{beamExceptions}
+para un tipo de compás están determinados en
+@file{scm/@/time@/-signature@/-settings@/.scm}.  Las entradas de
+@code{beamExceptions} están ordenadas por tipo de regla y por tipo de
+barra.
 
 El tipo de regla debe ser @code{#'end} para finales de barra.
 
@@ -1787,29 +1977,25 @@ que se aplica a ese tipo de barra.
 @end example
 
 El tipo de barra es una dupla de Scheme que indica la duración de la
-barra, p.e.j. @code{(1 . 16)}, ó @code{*} para indicar una regla por
-omisión, que se aplica a todas las barras si no hay definida ninguna
-regla explícita.
+barra, p.e.j. @code{(1 . 16)}.
 
 La agrupación es una lista de Scheme que indica la agrupación que se
-aplica a la barra.  Para las reglas por omisión, aquellas en las que
-el tipo de barra es @code{*}, la agrupación está en unidades de
-longitud de pulso, @code{beatLength}.  Para las reglas explícitas, la
-agrupación está en unidades del tipo de barra.
+aplica a la barra.  La agrupación está en unidades del tipo de barra.
 
 Como referencia pueden consultarse las reglas de barrado por omisión
-que están en @file{scm/beam-settings.scm}.
+que están en @file{scm/time-signature-settings.scm}.
 
-Los ajustes para las barras se cambian con
-@code{\overrideBeamSettings} y @code{\revertBeamSettings}.
+Se pueden definir valores alternativos para
+@code{beamExceptions} usando la instrucción
+@code{\set}.
 
-@warning{ Los ajustes de final y subdivisión deben ser reglas
-@emph{completas}.  Esto es, toda regla que se aplicaría al tipo de
-compás actual debe incluirse en los ajustes.  No es posible cambiar la
-agrupación de sólo el tipo de barra para un tipo de compás dado.
-Aunque puede parecer muy engorroso, significa que los ajustes de
-barrado actuales no necesitan ser conocidos para poder especificar un
-nuevo patrón de barrado.}
+warning{Un valor de @code{beamExceptions} debe ser una lista de
+excepciones @emph{completa}.  Esto es, toda excepción que debe ser
+aplicada tendrá que estar incluida en el ajuste.  No es posible
+añadir, suprimir o cambiar una sola excepción.  Aunque esto puede
+parecer engorroso, significa que los ajustes de barrado en curso no
+han de ser necesariamente conocidos para pode especificar un patrón de
+barrado nuevo.}
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
@@ -1834,7 +2020,7 @@ más bajo, se aplican los ajustes del contexto circundante.
         a8 a a a a a a
       }
     }
-    \new Voice  = two {
+    \new Voice = two {
       \relative c' {
         \voiceTwo
         \set Voice.beatStructure = #'(1 3 3)
@@ -1863,34 +2049,20 @@ pentagrama:
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 @end lilypond
 
-@funindex revertBeamSettings
-
 Los ajustes de barrado se pueden revertir para volver al
-comportamiento predeterminado.  Esto se consigue mediante la
-utilización de @code{\revertBeamSettings}.  Los argumentos son los
-mismos que para @code{\overrideBeamSettings}, excepto que no se da
-ningún valor para @var{agrupación}:
-
-@example
-\revertBeamSettings contexto tipo-de-compás tipo-de-regla
-@end example
-
+comportamiento predeterminado.  Esto se consigue mediante el
+ajuste de la indicación de compás.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
 \repeat unfold 8 {a8}
-% set beaming rule for ending all beams at (1 . 4)
+% eliminate beam exception that groups beats 1, 2 and 3, 4
 \set Timing.beamExceptions = #'()
 \repeat unfold 8 {a8}
-% go back to default beahavior
+% go back to default behavior
 \time 4/4
 \repeat unfold 8 {a8}
 @end lilypond
-
-@predefined
-@code{\overrideBeamSettings},
-@code{\revertBeamSettings}.
-@endpredefined
 
 
 @snippets
@@ -2357,14 +2529,15 @@ líneas resultantes se conectan entre los distintos pentagramas de un
 @funindex bar
 @funindex bartype
 
-La instrucción @code{\bar }@var{tipo_de_barra} es una forma corta de
-hacer @code{\set Timing.whichBar = }@var{tipo_de_barra}.  Cuando
+La instrucción @samp{\bar @var{tipo de barra}} es una forma corta de
+hacer @samp{\set Timing.whichBar = @var{tipo de barra}}.  Cuando
 @code{whichBar} se establece con el valor de una cadena, se crea una
 línea divisoria de ese tipo.
 
 El tipo de barra predeterminado que se usa para las líneas divisorias
 insertadas automáticamente es @code{"|"}.  Se puede cambiar en
-cualquier momento con @code{\set Timing.defaultBarType = }@var{bartype}.
+cualquier momento con
+@samp{\set Timing.defaultBarType = @var{tipo de barra}}.
 
 
 @seealso
@@ -2754,9 +2927,9 @@ Referencia de funcionamiento interno:
 @funindex \grace
 @funindex grace
 
-Los mordentes y notas de adorno son ornamentos escritos. Se imprimen
-en un tipo más pequeño y no ocupan ningún tiempo lógico en el
-compás.
+Los mordentes y notas de adorno son ornamentos escritos.
+Se imprimen en un tipo más pequeño y no ocupan ningún
+tiempo lógico en el compás.
 
 @lilypond[quote,relative=2,verbatim]
 c4 \grace c16 c4
@@ -2824,8 +2997,9 @@ predeterminado, en 15/16, y por último en 1/2 de la nota principal.
 @end lilypond
 
 El espacio entre la nota principal y la de adorno también se puede
-especificar usando espaciadores. El ejemplo siguiente sitúa la nota de
-adorno después de un espacio que dura 7/8 de la nota principal.
+especificar usando espaciadores.  El ejemplo siguiente sitúa
+la nota de adorno después de un espacio que dura 7/8 de la
+nota principal.
 
 @lilypond[quote,verbatim,relative=2]
 \new Voice {
