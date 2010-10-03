@@ -2006,7 +2006,7 @@ Notation Reference:
 @ref{Fitting music onto fewer pages},
 @ref{Page formatting},
 @ref{Score layout},
-See @ref{Separating systems},
+@ref{Separating systems},
 @ref{Setting the staff size},
 @ref{Using an extra voice for breaks},
 @ref{Vertical spacing}.
@@ -2123,7 +2123,7 @@ Musical Glossary:
 @rglos{Frenched staves},
 @rglos{transposing instrument}.
 
-Notation Manual:
+Notation Reference:
 @ref{Grouping staves},
 @ref{Hiding staves},
 @ref{Instrument transpositions},
