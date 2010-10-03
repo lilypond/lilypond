@@ -2,9 +2,21 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.32
-\version "2.13.36"
+\version "2.13.32"
 
 \header {
+%% Translation of GIT committish: 092f85605dcea69efff5ef31de4ff100346d6ef8
+
+  texidocfr = "
+Cet exemple illustre la manière de présenter un cantique tel qu'on le
+trouve dans l'église anglicane.  Vous noterez comment sont ajoutés les
+couplets indépendamment de la musique.  Dans le but de vous montrer
+plusieurs styles, comparez le code des deux couplets.
+
+"
+  doctitlefr = "Psalmodie anglicane"
+
+
   lsrtags = "vocal-music, template"
   texidoc = "
 This template shows one way of setting out an Anglican psalm chant. It

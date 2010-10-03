@@ -8,9 +8,7 @@
 
 %% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
-También se pueden imprimir símbolos de porcentaje sueltos.  Esto se
-hace introduciendo un silencio multicompás con una función de
-impresión distinta:
+También se pueden imprimir símbolos de porcentaje sueltos.
 
 "
   doctitlees = "Símbolos de porcentaje sueltos"

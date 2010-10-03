@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.34
-\version "2.13.36"
+\version "2.13.34"
 
 \header {
   lsrtags="vocal-music, staff-notation"

@@ -1,9 +1,7 @@
 %% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
-Para tipografiar las barras agrupadas en la forma @code{3-4-3-2}
-en 12/8, en primer lugar tenemos que sobreescribir los finales de
-barra predeterminados en 12/8, y después preparar los finales de
-barra nuevos:
+Para tipografiar las barras agrupadas en la forma @code{3-4-3-2} sólo
+es necesario modificar la estructura de pulsos:
 
 "
   doctitlees = "Alteración de los finales de barra predeterminados"

@@ -36,6 +36,7 @@ weggelassen werden kann.
 
   lsrtags = "fretted-strings, tweaks-and-overrides"
 
+
 %% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 Se pueden establecer las propiedades de los diagramas de

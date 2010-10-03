@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.31
-\version "2.13.36"
+\version "2.13.31"
 
 \header {
 %%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
@@ -14,6 +14,14 @@ definiert sind.
 
 "
   doctitlede = "Liste der Holzbläserdiagramme"
+
+
+%% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
+  texidocfr = "
+Voici la liste des différents instruments à vent de la section des bois
+dont les doigtés sont disponibles à ce jour.
+"
+  doctitlefr = "Liste des diagrammes de doigtés pour bois"
 
 
   lsrtags="winds"
