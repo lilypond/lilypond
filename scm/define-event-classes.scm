@@ -72,6 +72,21 @@
     (cdr rel)))
  event-classes)
 
+(define-public (define-event-class leaf heritage)
+  (cond
+   ((not (eq? leaf (car heritage)))
+    (ly:warning (_ "All classes must be the last in their matrilineal line.")))
+   ((not (equal? (cdr heritage)
+                 (list-head (hashq-ref ancestor-lookup (cadr heritage) '())
+                            (length (cdr heritage)))))
+    (ly:warning (_ "All classes must have a well-defined pedigree in the existing class hierarchy.")))
+   (else (hashq-set! ancestor-lookup
+                     leaf
+                     (cons leaf
+                           (hashq-ref ancestor-lookup
+                                      (cadr heritage)
+                                      '()))))))
+
 ;; TODO: Allow entering more complex classes, by taking unions.
 (define-public (ly:make-event-class leaf)
  (hashq-ref ancestor-lookup leaf))
