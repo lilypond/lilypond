@@ -1044,7 +1044,7 @@ aussi bien de type @var{terse} que @var{verbose}.
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram \chordmode {c:9}
+\storePredefinedDiagram #default-fret-table \chordmode {c:9}
                         #guitar-tuning
                         #"x;3-2;2-1;3-3;3-4;x;"
 
@@ -1069,7 +1069,7 @@ intervalle de deux octaves, le premier servant à la transposition.
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram \chordmode {c'}
+\storePredefinedDiagram #default-fret-table \chordmode {c'}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'bes guitar-tuning))
 
@@ -1116,10 +1116,10 @@ définies grâce aux interfaces @code{fret-diagram-terse} ou
 
 % add some new chords based on the power chord shape
 
-\storePredefinedDiagram \chordmode {f'}
+\storePredefinedDiagram #default-fret-table \chordmode {f'}
                         #guitar-tuning
                         #(chord-shape 'powerf guitar-tuning)
-\storePredefinedDiagram \chordmode {g'}
+\storePredefinedDiagram #default-fret-table \chordmode {g'}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
@@ -1218,7 +1218,7 @@ prédéfinies@tie{}:
 
 @lilypond[quote,ragged-right,verbatim]
 
-\storePredefinedDiagram <c e g c' e'>
+\storePredefinedDiagram #default-fret-table <c e g c' e'>
                         #guitar-tuning
                         #"x;3-1-(;5-2;5-3;5-4;3-1-1);"
 <<
