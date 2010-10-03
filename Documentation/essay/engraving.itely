@@ -461,8 +461,9 @@ global = {
   \key c \minor
 }
 
-\new Score <<
-  \new Staff \with {
+\score {
+  <<
+    \new Staff \with {
       fontSize = #-4
       \override StaffSymbol #'staff-space = #(magstep -4)
       \override StaffSymbol #'thickness = #(magstep -3)
@@ -474,18 +475,18 @@ global = {
       g8.(^> b16 c ees) g8-.^> r r
       R2.
     }
-  \new PianoStaff <<
-    \set PianoStaff.instrumentName = #"Piano"
-    \new Staff \relative c' {
-      \global
-      s2.
-      s4. s8 r8 r16 <c f aes c>
-      <c f aes c>4.^> <c ees g>8 r r
-    }
-    \new Staff \relative c {
-      \global
-      \clef "bass"
-      <<
+    \new PianoStaff <<
+      \set PianoStaff.instrumentName = #"Piano"
+      \new Staff \relative c' {
+        \global
+        s2.
+        s4. s8 r8 r16 <c f aes c>
+        <c f aes c>4.^> <c ees g>8 r r
+      }
+      \new Staff \relative c {
+        \global
+        \clef "bass"
+        <<
         {
           \once \override DynamicText #'X-offset = #-3
           <ees g c>2.~->^\f
@@ -494,12 +495,13 @@ global = {
           <c g c,>2.~
           <c g c,>4.~ <c g c,>8
         }
-      >>
-      r8 r16 <f, c' aes'>16
-      <f c' aes'>4.-> <c' g'>8 r r
-    }
+        >>
+        r8 r16 <f, c' aes'>16
+        <f c' aes'>4.-> <c' g'>8 r r
+      }
+    >>
   >>
->>
+}
 @end lilypond
 @end ignore
 
@@ -788,10 +790,12 @@ partII = \relative c' {
   d4 r4 r8 d'16 c bes8 c16 d
   ees8 d c ees a, r r4
 }
+
 partIII = \relative c' {
   \voiceOne
   r2 r8 d ees g, fis4 g r8 a16 bes c8 bes16 a
 }
+
 partIV = \relative c {
   \voiceTwo
   d4 r r2
@@ -846,16 +850,19 @@ lower voices exchange positions temporarily:
 
 @lilypond
 collide = \once \override NoteColumn #'force-hshift = #0
-\new Score <<
-  \new Voice = "sample" \relative c''{
-    \key g \minor
-    <<
-      { \voiceOne g4 \collide g4 }
-      \new Voice { \voiceTwo bes \collide bes }
-    >>
-  }
-  \new Lyrics \lyricsto "sample" \lyricmode { "good " " bad" }
->>
+
+\score {
+  <<
+    \new Voice = "sample" \relative c''{
+      \key g \minor
+      <<
+        { \voiceOne g4 \collide g4 }
+        \new Voice { \voiceTwo bes \collide bes }
+      >>
+    }
+    \new Lyrics \lyricsto "sample" \lyricmode { "good " " bad" }
+  >>
+}
 @end lilypond
 
 @item Finale has placed all of the rests at fixed heights on the staff.
@@ -1358,13 +1365,19 @@ graphical objects have all directions down (or left).  The second
 chord has all directions up (right).
 
 @lilypond[quote,ragged-right]
-\new Score \with {
-   \override SpacingSpanner #'spacing-increment = #3
-   \override TimeSignature #'transparent = ##t
-} \relative c' {
-   \stemDown <e g b>4_>-\arpeggio
-   \override Arpeggio #'direction = #RIGHT
-   \stemUp <e g b>4^>-\arpeggio
+\score {
+  \relative c' {
+    \stemDown <e g b>4_>-\arpeggio
+    \override Arpeggio #'direction = #RIGHT
+    \stemUp <e g b>4^>-\arpeggio
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner #'spacing-increment = #3
+      \override TimeSignature #'transparent = ##t
+    }
+  }
 }
 @end lilypond
 
