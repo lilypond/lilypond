@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Text
 @section Text
@@ -1212,10 +1212,10 @@ c^\markup {
 c
 c^\markup {
   \combine
-    \musicglyph #"accordion.accDiscant"
+    \musicglyph #"accordion.discant"
     \combine
-      \raise #0.5 \musicglyph #"accordion.accDot"
-      \raise #1.5 \musicglyph #"accordion.accDot"
+      \raise #0.5 \musicglyph #"accordion.dot"
+      \raise #1.5 \musicglyph #"accordion.dot"
 }
 @end lilypond
 
