@@ -1870,27 +1870,6 @@ like this:
 >>
 @end lilypond
 
-Or, if the property override is to be applied to all staves
-within the score, it may be appended to an explicit
-@code{\new Score} command, like this:
-
-@lilypond[quote,verbatim,ragged-right]
-\score {
-  \new Score \with { extraNatural = ##f } <<
-    \new Staff {
-      \relative c'' {
-        gis4 ges aes ais
-      }
-    }
-    \new Staff {
-      \relative c'' {
-        gis4 ges aes ais
-      }
-    }
-  >>
-}
-@end lilypond
-
 Properties set in this way may still be changed dynamically using
 @code{\set} and returned to the default value set in the
 @code{\with} block with @code{\unset}.
@@ -1930,6 +1909,31 @@ throughout the @code{\score} or @code{\book} block in which the
     \context {
       \Staff
       extraNatural = ##t
+    }
+  }
+}
+@end lilypond
+
+If the property override is to be applied to all staves
+within the score:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \relative c'' {
+        gis4 ges aes ais
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        gis4 ges aes ais
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score extraNatural = ##f
     }
   }
 }
