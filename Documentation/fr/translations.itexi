@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Fri Oct  1 18:40:14 UTC 2010
+@emph{Dernière mise à jour Mon Oct  4 08:26:17 UTC 2010
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -501,7 +501,7 @@ partiellement
 @item
 1.2 Rythme
 @*
-5096
+5117
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -743,7 +743,7 @@ partiellement
 @item
 2.1 Musique vocale
 @*
-4962
+4991
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1056,7 +1056,7 @@ partiellement (6 %)
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partiellement</span>
+<span style="background-color: #47ff24">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
