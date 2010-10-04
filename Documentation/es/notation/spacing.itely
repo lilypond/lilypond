@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 13ac33309a84e81f7f5733a1676d839b9c9b5bc6
+    Translation of GIT committish: af3c4ca42e348ec53b5034c50f3eeb435f7db05e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1377,13 +1377,13 @@ disposición de los saltos.
       s1 * 6 \break
       s1 * 5 \break
     }
-  \new Voice {
-    \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-    \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-    \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-    \repeat unfold 5 { c'4 c'4 c'4 c'4 }
-  }
->>
+    \new Voice {
+      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+    }
+  >>
 }
 @end lilypond
 
@@ -1393,32 +1393,31 @@ propiedades de @code{NonMusicalPaperColumnGrob}, como se explica en
 @ref{Espaciado vertical}.
 
 @lilypond[quote,verbatim]
-\new Score {
+\score {
   \new Staff <<
-     \new Voice {
-
-        \overrideProperty "Score.NonMusicalPaperColumn"
+    \new Voice {
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 0))
-        s1 * 2 \break
+      s1 * 2 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 35))
-        s1 * 3 \break
+      s1 * 3 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 70))
-        s1 * 6 \break
+      s1 * 6 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 105))
-        s1 * 5 \break
-     }
-     \new Voice {
-        \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 5 { c'4 c'4 c'4 c'4 }
-     }
+      s1 * 5 \break
+    }
+    \new Voice {
+      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+    }
   >>
 }
 @end lilypond
@@ -2139,11 +2138,11 @@ con los valores predeterminados y otra con correcciones exageradas:
 @lilypond[quote,ragged-right]
 {
   c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4|
+  b'4 e''4 b'4 e''4 |
   \override Staff.NoteSpacing #'stem-spacing-correction = #1.5
   \override Staff.StaffSpacing #'stem-spacing-correction = #1.5
   c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4|
+  b'4 e''4 b'4 e''4 |
 }
 @end lilypond
 
@@ -2242,7 +2241,7 @@ que @code{ly:make-moment} construye una duración, por lo que @code{1
     \context {
       \Score
       \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 16)
+        #'base-shortest-duration = #(ly:make-moment 1 16)
     }
   }
 }
@@ -2258,23 +2257,29 @@ símbolos y forzar un espaciado de duraciones iguales uniforme, use
 @code{Score.SpacingSpanner #'uniform-stretching}.  Esta propiedad sólo
 puede cambiarse al principio de la partitura:
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-\new Score \with {
-  \override SpacingSpanner #'uniform-stretching = ##t
-} <<
-  \new Staff{
-    \times 4/5 {
-      c8 c8 c8 c8 c8
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new Staff {
+      \times 4/5 {
+        c8 c8 c8 c8 c8
+      }
+      c8 c8 c8 c8
     }
-    c8 c8 c8 c8
-  }
-  \new Staff{
-    c8 c8 c8 c8
-    \times 4/5 {
-      c8 c8 c8 c8 c8
+    \new Staff {
+      c8 c8 c8 c8
+      \times 4/5 {
+        c8 c8 c8 c8 c8
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner #'uniform-stretching = ##t
     }
   }
->>
+}
 @end lilypond
 
 Cuando se establece @code{strict-note-spacing}, las notas se separan
@@ -2383,15 +2388,17 @@ Comenzamos con el siguiente ejemplo de un solo compás, que usa un
 espaciado clásico sin justificación por la derecha.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
     }
-  }
->>
+  >>
+}
 @end lilypond
 
 Observe que la blanca que inicia el compás ocupa mucho menos de la
@@ -2411,17 +2418,23 @@ notación proporcional.  Se activa la notación proporcional con el
 ajuste @code{proportionalNotationDuration}.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 20)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+ \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 20)
     }
   }
->>
+}
 @end lilypond
 
 La blanca al principio del compás y las notas rápidas de la segunda
@@ -2445,9 +2458,9 @@ espaciado de toda la música.  La función Scheme de LilyPond
 denominador que, juntos, expresan una cierta fracción de redonda.  La
 llamada @code{#(ly:make-moment 1 20)}, por tanto, produce una duración
 de referencia de una nota de un veinteavo de redonda (semicorcheas de
-cinquillo).  Los valores @code{#(ly:make-moment 1 16)},
-@code{#(ly:make-moment 1 8)} y @code{#(ly:make-moment 3 97)} son
-también posibles.
+cinquillo).  Son también posibles valores como
+@code{#(ly:make-moment 1 16)},
+@code{#(ly:make-moment 1 8)} y @code{#(ly:make-moment 3 97)}.
 
 ¿Cómo seleccionamos la duración correcta de referencia para pasarla a
 @code{proportionalNotationDuration}?  Normalmente mediante un proceso
@@ -2457,41 +2470,59 @@ pequeñas aplican un espaciado más suelto; las duraciones de referencia
 más largas aplican un espaciado más apretado.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 8)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 8)
     }
   }
->>
+}
 
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 16)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 16)
     }
   }
->>
+}
 
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 32)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 32)
     }
   }
->>
+}
 @end lilypond
 
 Observe que una duración de referencia demasiado grande (como la
@@ -2529,30 +2560,37 @@ diferente de grupo especial.
 @end lilypond
 
 El espaciado es defectuoso porque las notas regularmente espaciadas
-del pentagrama inferior no se amplían de manera uniforme.  El grabado
-clásico incluye muy pocos tresillos complejos y así las reglas del
+del pentagrama inferior no se amplían de manera uniforme.  Los grabados
+clásicos incluyen muy pocos tresillos complejos y así las reglas del
 grabado clásico pueden generar este tipo de resultado.  El
-establecimiento de @code{proportionalNotationDuration} remedia esta
-situación considerablemente.
+establecimiento de @code{proportionalNotationDuration} lo
+soluciona.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 20)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+    \new RhythmicStaff {
+      \times 8/9 {
+        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 20)
     }
   }
-  \new RhythmicStaff {
-    \times 8/9 {
-      c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-    }
-  }
->>
+ }
 @end lilypond
+
 
 Pero si observamos con mucho cuidado podremos ver que las notas de la
 segunda mitad del 9-illo están espaciadas de forma ligeramente más
@@ -2561,23 +2599,29 @@ ampliación uniforme, activamos @code{uniform-stretching}, que es una
 propiedad de @code{SpacingSpanner}.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 20)
-  \override SpacingSpanner #'uniform-stretching = ##t
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+    \new RhythmicStaff {
+      \times 8/9 {
+        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 20)
+      \override SpacingSpanner #'uniform-stretching = ##t
     }
   }
-  \new RhythmicStaff {
-    \times 8/9 {
-      c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-    }
-  }
->>
+}
 @end lilypond
 
 Nuestro ejemplo de dos pentagramas ahora está espaciado exactamente,

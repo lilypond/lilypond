@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 62ddeb968c788ef834c3ebb04f739f96d75534e0
+    Translation of GIT committish: 01097a2a0d059f418cf7803d6c83c41ecc639110
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -560,7 +560,9 @@ Se puede conseguir que una línea de letra progrese más lentamente que
 la melodía, mediante la inserción de desplazamientos o @code{\skip}s
 en la letra.  Por cada @code{\skip}, el texto se retrasa en una nota.
 La instrucción @code{\skip} debe ir seguida de una duración válida,
-pero esta duración se ignora cuando se usa @code{\skip} en las letras.
+pero esta duración se ignora cuando se usa @code{\skip} en las letras
+cuya duración se toma de las notas de una melodía asociada por medio de
+@code{\addlyrics} o de @code{\lyricsto}.
 
 @lilypond[verbatim,ragged-right,quote]
 \relative c' { c c g' }
@@ -831,8 +833,10 @@ pues esto indica un melisma y hará que la sílaba precedente aparezca
 alineada por la izquierda.
 
 @warning{La instrucción @code{@bs{}skip} debe ir seguida de un número,
-pero este número se ignora dentro del modo de letra.  Cada
-@code{@bs{}skip} salta una sola nota de cualquier duración, sin
+pero este número se ignora en aquellas letras cuya duración
+deriva de las duraciones de las notas de una melodía asociada
+con ella a través de @code{\addlyrics} o de @code{\lyricsto}.
+Cada @code{@bs{}skip} salta una sola nota de cualquier duración, sin
 importar el valor del número que le sigue.}
 
 @lilypond[verbatim,quote]

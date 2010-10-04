@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 13ac33309a84e81f7f5733a1676d839b9c9b5bc6
+Translation of GIT committish: af3c4ca42e348ec53b5034c50f3eeb435f7db05e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -642,8 +642,8 @@ compás independiente.
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
   } {
-       \time 2/4
-       c4 c c c c c
+      \time 2/4
+      c4 c c c c c
   }
 >>
 \layout {

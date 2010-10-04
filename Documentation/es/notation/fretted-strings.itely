@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fe2cae0fa47ec4ec0184e6b3d15572fbcba881cf
+    Translation of GIT committish: a90b4f6c28f125d797df443241501a679c900424
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1252,6 +1252,7 @@ predefinido, las propiedades de interface pertenecen a
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chordchanges-for-fretboards.ly}
+
 
 @seealso
 Referencia de la notación:

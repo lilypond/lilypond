@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 8e0330b913e0c7494282e6b00cebbf4dcee79b50
+    Translation of GIT committish: df359b39d28604e7060c54be8caaba0e45d1b94e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -734,7 +734,9 @@ Los silencios de separación sólo están disponible en el modo de notas
 y en el modo de acordes.  En otras situaciones, por ejemplo, cuando se
 introduce la letra, se usa la instrucción @code{\skip} para producir
 un desplazamiento de una cierta magnitud temporal.  @code{\skip}
-requiere una duración explícita.
+requiere una duración explícita, pero se ignora si las sílabes de la
+letra toman sus duraciones de las notas de una melodía asociada, a
+través de @code{\addlyrics} o de @code{\lyricsto}.
 
 @lilypond[quote,verbatim,relative=2]
 <<

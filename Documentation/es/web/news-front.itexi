@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 21d1bd8bd4915502ff2148077220cbd0d55bbac3
+    Translation of GIT committish: b17e2f3d7a5853a30f7d5a3cdc6b5079e77a3d2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,6 +16,22 @@
 @c keep two blank lines between news entries
 
 @c used for news about the upcoming release; see CG 10.2
+
+@newsItem
+@subsubheading El Informe LilyPond, número 21.  @emph{3 de octubre de 2010}
+
+¡Vuelve el @emph{Informe LilyPond}, con sus dos editores: @qq{gruñón}
+y @qq{blandito}!  Esta edición se ocupa principalmente de la notación
+microtonal en LilyPond, pero también incluye un tutorial sobre la
+forma de ejecutar LilyPond a partir de una memoria USB, sin olvidar
+las acostumbradas notas de lanzamientos, el fragmento de código del
+día y las noticias que nos llegan de la charca de las ranas.
+
+Acérquese al @uref{http://news.lilynet.net/The-LilyPond-Report-21,
+Informe LilyPond 21} y léalo ahora mismo; ¡animamos calurosamente a
+todos a que hagan sus comentarios y contribuciones!
+
+@newsEnd
 
 @newsItem
 @subsubheading Segunda versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.35! @emph{29 de septiembre de 2010}
@@ -70,31 +86,3 @@ embargo, aún quedan algunos problemas críticos, por lo que esta
 versión está orientada solamente a los desarrolladores.
 
 @newsEnd
-
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.32!  @emph{3 de septiembre de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.32.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.  Sin
-embargo, aún quedan algunos problemas críticos, por lo que esta
-versión está orientada solamente a los desarrolladores.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading El Informe LilyPond, número 20.  @emph{2 de septiembre de 2010}
-
-¡Vuelve el @emph{Informe LilyPond}, con sus dos editores: @qq{gruñón}
-y @qq{blandito}!  Esta edición contiene la revisión de un editor de
-notación en línea que utiliza lilypond, además de las acostumbradas
-notas de lanzamientos, el fragmento de código del día, noticias desde
-la charca de las ranas y el informe de fallos del día.
-
-Acérquese al @uref{http://news.lilynet.net/The-LilyPond-Report-20,
-Informe LilyPond 20} y léalo ahora mismo; ¡animamos calurosamente a
-todos a que hagan sus comentarios y contribuciones!
-@newsEnd
-
-
