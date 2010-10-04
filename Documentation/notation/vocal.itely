@@ -532,9 +532,11 @@ inserted by hand.
 
 Making a lyric line run slower than the melody can be achieved by
 inserting @code{\skip}s into the lyrics.  For every @code{\skip},
-the text will be delayed another note.  The @code{\skip} command
+the text will be delayed by another note.  The @code{\skip} command
 must be followed by a valid duration, but this is ignored when
-@code{\skip} is used in lyrics.
+@code{\skip} is used in lyrics which derive their durations from the
+notes in an associated melody through @code{\addlyrics} or
+@code{\lyricsto}.
 
 @lilypond[verbatim,ragged-right,quote]
 \relative c' { c c g' }
@@ -796,9 +798,10 @@ indicates a melisma and will cause the preceding syllable to be
 left-aligned.
 
 @warning{The @code{@bs{}skip} command must be followed by a number,
-but this number is ignored in lyric mode.  Each @code{@bs{}skip}
-skips a single note of any value, irrespective of the value of the
-following number.}
+but this number is ignored in lyrics which derive their durations
+from the notes in an associated melody through @code{\addlyrics} or
+@code{\lyricsto}.  Each @code{@bs{}skip} skips a single note of any
+value, irrespective of the value of the following number.}
 
 @lilypond[verbatim,quote]
 \score {

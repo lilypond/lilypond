@@ -659,8 +659,8 @@ time signature.
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
   } {
-       \time 2/4
-       c4 c c c c c
+      \time 2/4
+      c4 c c c c c
   }
 >>
 \layout {

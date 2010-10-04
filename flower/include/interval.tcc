@@ -124,6 +124,15 @@ Interval_t<T>::unite_disjoint (Interval_t<T> h, T padding, Direction d)
 }
 
 template<class T>
+Interval_t<T>
+Interval_t<T>::union_disjoint (Interval_t<T> h, T padding, Direction d) const
+{
+  Interval_t<T> iv = *this;
+  iv.unite_disjoint (h, padding, d);
+  return iv;
+}
+
+template<class T>
 void
 Interval_t<T>::intersect (Interval_t<T> h)
 {

@@ -703,7 +703,9 @@ s2 c
 Spacer rests are available only in note mode and chord mode.  In
 other situations, for example, when entering lyrics, the
 command @code{\skip} is used to skip a musical moment.
-@code{\skip} requires an explicit duration.
+@code{\skip} requires an explicit duration, but this is ignored if
+the lyrics derive their durations from the notes in an associated
+melody through @code{\addlyrics} or @code{\lyricsto}.
 
 @lilypond[quote,verbatim,relative=2]
 <<

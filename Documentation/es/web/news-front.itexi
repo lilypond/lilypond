@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 847f8da9ce0eb39bdcd199a554363373f0d003ae
+    Translation of GIT committish: 21d1bd8bd4915502ff2148077220cbd0d55bbac3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,14 +18,28 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.31!  @emph{24 de agosto de 2010}
+@subsubheading Segunda versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.35! @emph{29 de septiembre de 2010}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.13.31.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.  Sin
-embargo, aún quedan algunos problemas críticos, por lo que esta
-versión está orientada solamente a los desarrolladores.
+Ha salido LilyPond 2.13.35; ésta es la segunda versión alfa de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún existen tres regresiones conocidas contra 2.12.3:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
+Problema número 1173 - No se pueden alinear las MetronomeMarks sobre
+una nota si existe un silencio multicompás en otra voz}, y dos fallos
+de espaciado:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1240,
+Problema 1240} y
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1252,
+Problema 1252} pero esperamos encontrar más.  Si se decide a probar
+2.13.35, no se sorprenda al encontrar problemas; tan sólo envíenos
+@ref{Informes de fallos} educados.
 
 @newsEnd
+
 
 @newsItem
 @subsubheading Versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.34! @emph{21 de septiembre de 2010}
@@ -38,7 +52,7 @@ sección @ref{Desarrollo} de estas páginas.
 
 Aún existe una regresión conocida contra 2.12.3:
 @uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
-Porblema número 1173 No se pueden alinear las MetronomeMarks sobre una
+Problema número 1173 - No se pueden alinear las MetronomeMarks sobre una
 nota si existe un silencio multicompás en otra voz}, pero esperamos
 encontrar más.  Si se decide a probar 2.13.34, no se sorprenda al
 encontrar problemas; tan sólo envíenos @ref{Informes de fallos}
@@ -70,9 +84,7 @@ versión está orientada solamente a los desarrolladores.
 
 
 @newsItem
-@newsItem
-@subsubheading El Informe LilyPond, número 18.  @emph{11 de mayo de 2010}
-@subsubheading LilyPond Report #20.  @emph{Sep 2, 2010}
+@subsubheading El Informe LilyPond, número 20.  @emph{2 de septiembre de 2010}
 
 ¡Vuelve el @emph{Informe LilyPond}, con sus dos editores: @qq{gruñón}
 y @qq{blandito}!  Esta edición contiene la revisión de un editor de

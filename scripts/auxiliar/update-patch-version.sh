@@ -17,5 +17,8 @@ then
   exit 1
 fi
 
-git grep --name-only $1 | xargs sed -i -e s/$1/$2/g
+echo "Warning -- if this script is run after a branch is rebased,"
+echo "  unintended changes will occur. It would be best to revert"
+echo "  the rebase commit before running."
 
+git grep --name-only $1 | xargs sed -i -e s/$1/$2/g

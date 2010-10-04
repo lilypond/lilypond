@@ -143,14 +143,12 @@ Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents, int s
   return ext;
 }
 
-
 // adjacent-pure-heights is a pair of vectors, each of which has one element
 // for every measure in the score. The first vector stores, for each measure,
 // the combined height of the elements that are present only when the bar
 // is at the beginning of a line. The second vector stores, for each measure,
 // the combined height of the elements that are present only when the bar
 // is not at the beginning of a line.
-
 MAKE_SCHEME_CALLBACK (Axis_group_interface, adjacent_pure_heights, 1)
 SCM
 Axis_group_interface::adjacent_pure_heights (SCM smob)
@@ -165,6 +163,8 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 
   vector<Interval> begin_line_heights;
   vector<Interval> mid_line_heights;
+  vector<Interval> begin_line_staff_heights;
+  vector<Interval> mid_line_staff_heights;
   begin_line_heights.resize (ranks.size () - 1);
   mid_line_heights.resize (ranks.size () - 1);
 
@@ -177,6 +177,18 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 
       bool outside_staff = scm_is_number (g->get_property ("outside-staff-priority"));
       Real padding = robust_scm2double (g->get_property ("outside-staff-padding"), 0.5);
+
+      // When we encounter the first outside-staff grob, make a copy
+      // of the current heights to use as an estimate for the staff heights.
+      // Note that the outside-staff approximation that we use here doesn't
+      // consider any collisions that might occur between outside-staff grobs,
+      // but only the fact that outside-staff grobs may need to be raised above
+      // the staff.
+      if (outside_staff && begin_line_staff_heights.empty ())
+	{
+	  begin_line_staff_heights = begin_line_heights;
+	  mid_line_staff_heights = mid_line_heights;
+	}
 
       // TODO: consider a pure version of get_grob_direction?
       Direction d = to_dir (g->get_property_data ("direction"));
@@ -205,14 +217,16 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 		  if (rank_span[LEFT] <= start)
 		    {
 		      if (outside_staff)
-			begin_line_heights[j].unite_disjoint (dims, padding, d);
+			begin_line_heights[j].unite (
+			    begin_line_staff_heights[j].union_disjoint (dims, padding, d));
 		      else
 			begin_line_heights[j].unite (dims);
 		    }
                   if (rank_span[RIGHT] > start)
 		    {
 		      if (outside_staff)
-			mid_line_heights[j].unite_disjoint (dims, padding, d);
+			mid_line_heights[j].unite (
+                            mid_line_staff_heights[j].union_disjoint (dims, padding, d));
 		      else
 			mid_line_heights[j].unite (dims);
 		    }
