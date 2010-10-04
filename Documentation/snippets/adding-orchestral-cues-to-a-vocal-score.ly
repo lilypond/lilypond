@@ -2,9 +2,32 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.34
-\version "2.13.34"
+\version "2.13.36"
 
 \header {
+%% Translation of GIT committish: 5a7301fc350ffc3ab5bd3a2084c91666c9e9a549
+
+  texidoces = "
+   Este ejemplo muestra una forma de simplificar la adición de muchas
+notas guía orquestales a la reducción de piano en una partitura vocal.
+La función musical @code{\\cueWhile} toma cuatro argumentos: la música
+de la que se toma la cita, como viene definida por @code{\\addQuote},
+el nombre que insertar antes de las notas guía, y después @code{#UP} o
+@code{#DOWN} para especificar @code{\\voiceOne} con el nombre encima
+del pentagrama o bien @code{\\voiceTwo} con el nombre debajo del
+pentagrama, y finalmente la música de piano con la que las notas guía
+deben aparecer en paralelo.  El nombre del instrumento citado se
+posiciona a la izquierda de las notas guía.  Se pueden citar muchos
+pasajes como guía, pero no se pueden superponer en el tiempo entre
+ellos.
+
+"
+
+ doctitlees = "Añadir notas guía orquestales a una partitura vocal"
+
+
+
+
   lsrtags="vocal-music, staff-notation"
   texidoc="
   This shows one approach to simplify adding many orchestral cues to
