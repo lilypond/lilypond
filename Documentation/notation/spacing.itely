@@ -173,6 +173,8 @@ Snippets:
 @node Page formatting
 @subsection Page formatting
 
+@funindex \paper
+
 Margins, headers, and footers and other layout variables are
 automatically set according to the paper size.
 
@@ -194,106 +196,10 @@ may be altered.
 @node Vertical dimensions
 @unnumberedsubsubsec Vertical dimensions
 
-These variables are used to set different vertical dimensions on a
-page:
 
-@funindex \paper
+@subsubheading Fixed vertical dimensions
 
 @table @code
-
-@item after-title-spacing
-@funindex after-title-spacing
-
-Specifies how to calculate the space between a title (or top-level markup)
-and the system that follows it.  This is an associative list with five
-components:
-@itemize @bullet
-@item @var{space} -- the amount of stretchable space between the baseline
-of a title and the center of the staff that follows it;
-@item @var{padding} -- the minimum amount of whitespace that must be
-present between a title and the staff that follows it;
-@item @var{stretchability} -- the ease with which the stretchable
-space increases when a page is stretched.
-If this is zero, the distance to the next staff will not stretch at all;
-@item @var{minimum-distance} -- the minimum distance to place between
-the baseline of a title and the center of the staff that follows it.  This differs
-from @var{padding} in that the height of a staff has no effect on
-the application of @var{minimum-distance} (whereas the height of a
-staff is crucial for @var{padding}).
-@end itemize
-
-For example, the default is:
-
-@example
-after-title-spacing = #'((space . 2) (padding . 0.5))
-@end example
-
-
-If a page has a ragged bottom, @var{space} is not stretched.  In particular, the
-resulting distance on such a page is the largest of
-@itemize @bullet
-@item @var{space},
-@item @var{minimum-distance}, and
-@item @var{padding} plus the smallest distance necessary to eliminate overlap.
-@end itemize
-
-@item before-title-spacing
-@funindex before-title-spacing
-
-Specifies the spacing between a system and the title (or top-level markup) that
-follows it.
-The distances are measured from the center of the last staff in the system to
-the baseline of the title that follows it.  See @var{after-title-spacing}.
-
-@item between-scores-system-spacing
-@funindex between-scores-system-spacing
-
-Specifies the spacing between two systems if they are in different scores, but
-there is no title between them.  See @var{after-title-spacing}.
-
-@item between-system-spacing
-@funindex between-system-spacing
-
-Specifies the spacing between the center of the bottom staff of one system
-and the center of the top staff of the following system.  See @var{after-title-spacing}.
-
-@item between-title-spacing
-@funindex between-title-spacing
-
-Specifies the spacing between two titles (or top-level markups).
-The distances are measured from the baseline of the first title to the baseline
-of the second.  See @var{after-title-spacing}.
-
-@item bottom-margin
-@funindex bottom-margin
-
-The margin between footer and bottom of the page.  Default:
-@code{6\mm}.
-
-@item bottom-system-spacing
-@funindex bottom-system-spacing
-
-Specifies the spacing from the center of the last staff (or the
-baseline of the last top-level markup) to the bottom of the
-printable area (ie. the top of the bottom margin).
-See @var{after-title-spacing}.
-
-@item top-title-spacing
-@funindex top-title-spacing
-
-Specifies the spacing from the top of the printable area (ie.
-the bottom of the top margin) to the baseline of the title.
-See @var{after-title-spacing}.
-
-@item top-system-spacing
-@funindex top-system-spacing
-
-Specifies the spacing from the top of the printable area (ie.
-the bottom of the top margin) to the center of the first staff.
-This only takes effect if there is no title at the top of the
-page (in which case @var{top-title-spacing} is used instead).
-See @var{after-title-spacing}.
-
 @item paper-height
 @funindex paper-height
 
@@ -303,27 +209,176 @@ size.  For details, see @ref{Paper size}.
 @item top-margin
 @funindex top-margin
 
-The margin between header and top of the page.  Default:
-@code{5\mm}.
+The margin between the top of the page and the top of the
+printable area.  Default: @code{5\mm}.
+
+@item bottom-margin
+@funindex bottom-margin
+
+The margin between the bottom of the printable area and the bottom
+of the page.  Default: @code{6\mm}.
+
+@end table
+
+
+@subsubheading Flexible vertical dimensions
+
+In most cases, it is preferable for the vertical distances between
+certain items (such as margins, titles, systems, and separate
+scores) to be flexible, so that they stretch and compress nicely
+according to each situation.  A number of @code{\paper} variables
+(listed below) are available to fine-tune the stretching behavior
+of these dimensions.
+
+Each of these variables is an associative list containing four
+@emph{keys}:
+
+@itemize
+@item @code{padding} -- the minimum required amount of
+unobstructed vertical whitespace between two items.  This can be
+thought of as the minimum height of an unobstructed (invisible)
+rectangle that extends from the leftmost to the rightmost point of
+the combined items.
+
+@item @code{space} -- the default vertical distance between the
+@emph{reference points} of the two items, when no collisions would
+result, and no stretching or compressing is in effect.  The
+reference point of a title or markup is its highest point, and the
+reference point of a system is the middle line of the nearest
+staff.  Values for @code{space} that are less than either
+@code{padding} or @code{minimum-distance} are not meaningful,
+since the resulting space will never be less than either
+@code{padding} or @code{minimum-distance}.
+
+@item @code{minimum-distance} -- the minimum required vertical
+distance between the reference points of the two items, when
+compressing is in effect.  Values for @code{minimum-distance} that
+are less than @code{padding} are not meaningful, since the
+resulting space will never be less than @code{padding.}
+
+@item @code{stretchability} -- the stretchable space's propensity
+to stretch.  If zero, the space will not stretch (unless
+collisions would result).  When positive, the significance of a
+particular dimension's @code{stretchability} value lies only in
+its relation to the @code{stretchability} values of the other
+dimensions.  For example, if one dimension has twice the
+@code{stretchability} of another, it will stretch twice as easily.
+Values should be non-negative and finite.  The value @code{+inf.0}
+triggers a @code{programming_error} and is ignored, but
+@code{1.0e7} can be used for an almost infinitely stretchable
+spring.  If unset, the default value is set to @code{space}.  Note
+that the stretchable space's propensity to @emph{compress} cannot
+be directly set by the user and is equal to
+(@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
+
+@end itemize
+
+If a page has a ragged bottom, the resulting distance is the
+largest of:
+
+@itemize
+@item @code{space},
+@item @code{minimum-distance}, and
+@item @code{padding} plus the smallest distance necessary to
+eliminate collisions.
+@end itemize
+
+A single key for a flexible vertical dimension variable can be set
+like this:
+
+@example
+\paper @{
+  after-title-spacing #'space = #5
+@}
+@end example
+
+Multiple keys for a single variable can be set simultaneously like
+this:
+
+@example
+\paper @{
+  bottom-system-spacing =
+    #'((padding . 1)
+       (space . 1)
+       (minimum-distance . 0)
+       (stretchability . 5))
+@}
+@end example
+
+The flexible vertical dimension variables are:
+
+@table @code
+
+@item after-title-spacing
+@funindex after-title-spacing
+
+the space between a title (or top-level markup) and the system
+that follows it.
+
+@item before-title-spacing
+@funindex before-title-spacing
+
+the space between a system and the title (or top-level markup)
+that follows it.
+
+@item between-scores-system-spacing
+@funindex between-scores-system-spacing
+
+the space between two systems if they are in different scores,
+with no title between them.
+
+@item between-system-spacing
+@funindex between-system-spacing
+
+the space between two systems in the same score.
+
+@item between-title-spacing
+@funindex between-title-spacing
+
+the space between two titles (or top-level markups).
+
+@item bottom-system-spacing
+@funindex bottom-system-spacing
+
+the space from the last system (or the last top-level markup) to
+the bottom of the printable area (ie. the top of the bottom
+margin).
+
+@item top-system-spacing
+@funindex top-system-spacing
+
+the space from the top of the printable area (ie. the bottom of
+the top margin) to the first system.  This only takes effect if
+there is no title at the top of the page (in which case
+@code{top-title-spacing} is used instead).
+
+@item top-title-spacing
+@funindex top-title-spacing
+
+the space from the top of the printable area (ie. the bottom of
+the top margin) to the title.
 
 @end table
 
 
 @snippets
 
-The header and footer are created by the functions make-footer and
-make-header, defined in \paper.  The default implementations are in
-ly/paper-defaults.ly and ly/titling-init.ly.
+The header and footer are created by the functions
+@code{make-footer} and @code{make-header}, defined in
+@code{\paper}.  The default implementations are in
+@file{ly/paper-defaults.ly} and @file{ly/titling-init.ly}.
 
-The page layout itself is done by two functions in the \paper block,
-page-music-height and page-make-stencil.  The former tells the
-line-breaking algorithm how much space can be spent on a page, the
-latter creates the actual page given the system to put on it.
+The page layout itself is done by two functions in the
+@code{\paper} block, @code{page-music-height} and
+@code{page-make-stencil}.  The former tells the line-breaking
+algorithm how much space can be spent on a page, the latter
+creates the actual page given the system to put on it.
 
-You can define paper block values in Scheme.  In that case mm, in, pt,
-and cm are variables defined in paper-defaults.ly with values in
-millimeters.  That is why the value 2 cm must be multiplied in the
-example
+You can define @code{\paper} block values in Scheme.  In that case
+@code{mm}, @code{in}, @code{pt}, and @code{cm} are variables
+defined in @file{paper-defaults.ly} with values in millimeters.
+That is why the value @w{@code{2 cm}} must be multiplied in the
+example:
 
 @example
 \paper @{
@@ -359,29 +414,6 @@ This second example centers page numbers at the bottom of every page.
      \fromproperty #'page:page-number-string @} @}
 @}
 @end example
-
-You can also define these values in Scheme.  In that case @code{mm},
-@code{in}, @code{pt}, and @code{cm} are variables defined in
-@file{paper@/-defaults@/-init@/.ly} with values in millimeters.  That is why the
-value must be multiplied in the example
-
-@example
-\paper @{
-  #(define bottom-margin (* 2 cm))
-@}
-@end example
-
-The header and footer are created by the functions @code{make-footer}
-and @code{make-header}, defined in @code{\paper}.  The default
-implementations are in @file{ly/@/paper@/-defaults@/-init@/.ly} and
-@file{ly/@/titling@/-init@/.ly}.
-
-The page layout itself is done by two functions in the
-@code{\paper} block, @code{page-music-height} and
-@code{page-make-stencil}.  The former tells the line-breaking algorithm
-how much space can be spent on a page, the latter creates the actual
-page given the system to put on it.
-
 
 @seealso
 Notation Reference:
