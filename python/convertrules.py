@@ -2901,7 +2901,7 @@ longer in reversed order.\n"))
 ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time\n\
 Dash parameters for slurs and ties are now in dash-definition"))
 def conv(str):
-    if re.search(r'\\bar\s*"."', str):
+    if re.search(r'\\bar\s*"\."', str):
         stderr_write ("\n")
         stderr_write (NOT_SMART % _("\\bar \".\" now produces a thick barline.\n"))
         stderr_write (UPDATE_MANUALLY)
