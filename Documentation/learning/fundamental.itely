@@ -1464,8 +1464,7 @@ interpreting the @var{music-expression} within that context.
 top-level @code{Score} context is created automatically when the music
 expression within the @bs{}@code{score} block is interpreted.  Score-wide
 default values of context properties can be changed within the
-@bs{}@code{layout} block.
-See @rlearning{Changing all contexts of the same type}}
+@bs{}@code{layout} block.  See @ref{Modifying context properties}}
 
 You have seen many practical examples which created new
 @code{Staff} and @code{Voice} contexts in earlier sections, but
