@@ -93,10 +93,15 @@ bassFigureStaffAlignmentNeutral =
 
 %% cadenzas
 
-cadenzaOn  = \set Timing.timing = ##f
+cadenzaOn  = {
+  \set Timing.timing = ##f
+  \set Timing.autoBeaming = ##f
+}
+
 cadenzaOff = {
   \set Timing.timing = ##t
   \set Timing.measurePosition = #ZERO-MOMENT
+  \set Timing.autoBeaming = ##t
 }
 
 

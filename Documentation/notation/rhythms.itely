@@ -1365,6 +1365,24 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
+@cindex beaming in cadenzas
+@cindex beaming in unmetered music
+@cindex cadenza, beaming in
+@cindex unmetered music, beaming in
+
+Automatic beaming is disabled by @code{\cadenzaOn} and enabled
+by @code{\cadenzaOff}.  Therefore, all beaming in cadenzas
+must be entered manually (@ref{Manual beams}).
+
+@lilypond[verbatim,relative=2,quote]
+\repeat unfold 8 {c8}
+\cadenzaOn
+\repeat unfold 5 {c8}
+\bar"|"
+\cadenzaOff
+\repeat unfold 8 {c8}
+@end lilypond
+
 Note that these predefined commands affect all staves in the
 score, even when they are placed in just one @code{Voice}
 context.  To change this, move the @code{Timing_translator}
@@ -1383,7 +1401,8 @@ Music Glossary:
 
 Notation Reference:
 @ref{Visibility of objects},
-@ref{Polymetric notation}.
+@ref{Polymetric notation},
+@ref{Manual beams}.
 
 Snippets:
 @rlsr{Rhythms}.
@@ -1411,10 +1430,6 @@ staff line, you will need to insert invisible bar lines with
 
 @noindent
 to indicate where breaks can occur.
-
-Automatic beaming rules are unlikely to produce the desired beams in
-cadenzas longer than one or two beats, so it is best to specify beams
-manually with @code{[} and @code{]}.
 
 You should explicitly create a @code{Voice} context when starting a
 piece with @code{\cadenzaOn}, otherwise strange errors may occur.
