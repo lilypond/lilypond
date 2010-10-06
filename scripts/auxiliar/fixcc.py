@@ -46,9 +46,9 @@ indent_p = 0
 rules = {
     GLOBAL_CXX:
     [
-    # delete gratuitous block
-    ('''\n(    |\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
-    '\n\\2;'),
+    # delete gratuitous block -- disabled because it breaks .h files
+#    ('''\n(    |\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
+#    '\n\\2;'),
     ],
     CXX:
     [
@@ -56,9 +56,9 @@ rules = {
     ('([^\( \]])[ \t]*\(', '\\1 ('),
     # space after comma
     ("\([^'],\)[ \t]*", '\1 '),
-    # delete gratuitous block
-    ('''\n(    |\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
-    '\n\\2;'),
+    # delete gratuitous block -- disabled because it breaks .h files
+#    ('''\n(    |\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
+#    '\n\\2;'),
     # delete inline tabs
     ('(\w)\t+', '\\1 '),
     # delete inline double spaces
