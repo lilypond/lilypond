@@ -162,7 +162,7 @@ extern bool parsed_objects_should_be_dead;
     passed_here_once = true;\
   }    
 #else
-#define ASSERT_LIVE_IS_ALLOWED()
+#define ASSERT_LIVE_IS_ALLOWED() {};
 #endif
 
 #endif /* SMOBS_HH */
