@@ -3184,7 +3184,7 @@ different voices together?  This is where we need to turn again to
 the Notation Reference for help.  A search for @qq{merge} in the
 Notation Reference index quickly leads us to the commands for merging
 differently headed and differently dotted notes in
-@ruser{Collision resolution}.  In our example we need to merge both 
+@ruser{Collision resolution}.  In our example we need to merge both
 types of note for the duration of the polyphonic section in bar 3,
 so using the information we find in the Notation Reference we add
 
@@ -4114,16 +4114,20 @@ compress that line of the score just enough to fit within the
 margins.
 
 To be effective under all circumstances these checks must be enabled
-by placing the overrides in a Score @code{\with} block, rather than
-in-line in music, as follows:
+by placing the overrides using @code{\context} within a @code{\layout}
+block, rather than in-line in music, as follows:
 
 @example
-\new Score \with @{
-  % Makes sure text scripts and lyrics are within the paper margins
-  \override PaperColumn #'keep-inside-line = ##t
-  \override NonMusicalPaperColumn #'keep-inside-line = ##t
-@} @{
-   ..
+\score @{
+  @{ @dots{}notes@dots{} @}
+  \layout @{
+    \context @{
+      \Score
+      % Makes sure text scripts and lyrics are within the paper margins
+      \override PaperColumn #'keep-inside-line = ##t
+      \override NonMusicalPaperColumn #'keep-inside-line = ##t
+    @}
+  @}
 @}
 @end example
 

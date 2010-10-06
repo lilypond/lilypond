@@ -1806,15 +1806,11 @@ from the MIDI output, insert the following lines in the
 @end example
 
 MIDI output is created only when a @code{\midi} block is included
-within a score block defined with a @code{\score} command.  If it
-is placed within an explicitly instantiated score context (i.e.
-within a @code{\new Score} block) the file will fail.  To solve
-this, enclose the @code{\new Score} and the @code{\midi} commands
-in a @code{\score} block.
+within a score block defined with a @code{\score} command.
 
 @example
 \score @{
-  \new Score @{ @dots{}notes@dots{} @}
+  @{ @dots{}notes@dots{} @}
   \midi @{ @}
 @}
 @end example

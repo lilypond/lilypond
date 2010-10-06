@@ -131,8 +131,7 @@ across staves.
 
 A Score context is instantiated implicitly when a
 @code{\score @{@dots{}@}} or @code{\layout @{@dots{}@}} block is
-processed, or explicitly when a @code{\new Score} command is
-executed.
+processed.
 
 @node Top-level contexts - staff containers
 @unnumberedsubsubsec Top-level contexts - staff containers
@@ -272,7 +271,6 @@ context.
 @node Creating contexts
 @subsection Creating contexts
 
-@c TODO \new Score and \score
 @c TODO more complete descriptions rather than learning style
 
 For scores with only one voice and one staff, contexts are
