@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 298a2c322d7e4f437f3dd1a24db2839e3f35acce
+
+  texidoces = "
+
+Se pueden imprimir marcas al final de la línea actual, en vez de al
+principio de la línea siguiente.  En estos casos, puede ser preferible
+alinear el borde derecho de la marca con la línea divisoria.
+
+"
+  doctitlees = "Imprimir marcas al final de una línea"
