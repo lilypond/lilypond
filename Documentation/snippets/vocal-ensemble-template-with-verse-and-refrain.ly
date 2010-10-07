@@ -10,7 +10,7 @@
   texidoces = "
 Esta plantilla crea una partitura que comienza con una estrofa para
 solista y continúa con un estribillo a dos voces.  también muestra el
-uso de silencios de separación dentro de la variable @code{\global}
+uso de silencios de separación dentro de la variable @code{\\global}
 para definir cambios de compás (y otros elementos que son comunes a
 todas las partes) a lo largo de toda la partitura.
 
@@ -23,7 +23,7 @@ todas las partes) a lo largo de toda la partitura.
   texidocde = "
 Diese Vorlage erstellt eine Partitur, die mit Sologesang beginnt und einen
 Refrain für zwei Stimmen enthält.  Sie zeigt auch die Benutzung von
-Platzhalter-Pausen innerhalb der @code{\global}-Variable, um Taktwechsel
+Platzhalter-Pausen innerhalb der @code{\\global}-Variable, um Taktwechsel
 (und andere Elemente, die für alle Stimmen gleich sind) für das gesamte
 Stück zu definieren.
 
@@ -35,7 +35,7 @@ Stück zu definieren.
   texidocfr = "
 Ce canevas illustre la manière d'agencer une œuvre vocale où le couplet
 est chanté en solo et le refrain à deux voix.  Vous noterez le recours
-aux silences invisibles dans la variable @code{\global}@tie{}; ils
+aux silences invisibles dans la variable @code{\\global}@tie{}; ils
 permettent de positionner les changements de métrique et autres éléments
 communs à toutes les parties et pour l'intégralité du morceau.
 "
@@ -45,7 +45,7 @@ communs à toutes les parties et pour l'intégralité du morceau.
   texidoc = "
 This template creates a score which starts with a solo verse and
 continues into a refrain for two voices.  It also demonstrates the
-use of spacer rests within the @code{\global} variable to define
+use of spacer rests within the @code{\\global} variable to define
 meter changes (and other elements common to all parts) throughout
 the entire score.
 "

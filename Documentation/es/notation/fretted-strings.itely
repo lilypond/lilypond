@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fe2cae0fa47ec4ec0184e6b3d15572fbcba881cf
+    Translation of GIT committish: a90b4f6c28f125d797df443241501a679c900424
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1141,7 +1141,7 @@ fret-diagram-verbose.
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram \chordmode { c:maj9 }
+\storePredefinedDiagram #default-fret-table \chordmode { c:maj9 }
                         #guitar-tuning
                         #"x;3-2;o;o;o;o;"
 
@@ -1168,7 +1168,7 @@ la predeterminada se utilizan para los trasteros transpositores.
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram \chordmode { c'' }
+\storePredefinedDiagram #default-fret-table \chordmode { c'' }
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'bes guitar-tuning))
 
@@ -1214,10 +1214,10 @@ fret-diagram-verbose.
 
 % add some new chords based on the power chord shape
 
-\storePredefinedDiagram \chordmode { f'' }
+\storePredefinedDiagram #default-fret-table \chordmode { f'' }
                         #guitar-tuning
                         #(chord-shape 'powerf guitar-tuning)
-\storePredefinedDiagram \chordmode { g'' }
+\storePredefinedDiagram #default-fret-table \chordmode { g'' }
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
@@ -1252,6 +1252,7 @@ predefinido, las propiedades de interface pertenecen a
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chordchanges-for-fretboards.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -1318,7 +1319,7 @@ con instrucciones predefinidas:
 
 @lilypond[quote,ragged-right,verbatim]
 
-\storePredefinedDiagram <c e g c' e'>
+\storePredefinedDiagram #default-fret-table <c e g c' e'>
                         #guitar-tuning
                         #"x;3-1-(;5-2;5-3;5-4;3-1-1);"
 <<

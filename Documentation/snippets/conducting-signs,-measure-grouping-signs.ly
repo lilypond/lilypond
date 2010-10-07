@@ -8,20 +8,27 @@
 %% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
   texidoces = "
 La agrupación de pulsos dentro de un compás está controlada por la
-agrupación predeterminada que se establece en @code{beamSettings}.
-Estas agrupaciones se pueden establecer mediante el uso de
-@code{\\overrideBeamSettings}.  De forma alternativa, se puede usar la
-función de Scheme @code{set-time-signature} para establecer tanto el
-compás como la regla de agrupamiento predeterminada.
-@code{set-time-signature} acepta tres argumentos: el número de pulsos,
-la longitud del pulso y la agrupación interna de los pulsos en el
-compás.  Si el grabador @code{Measure_grouping_engraver} está incluido
-en uno de los contextos de presentación, se imprimirán signos de
-agrupación de pulsos.  Estos símbolos facilitan la lectura de música
-moderna rítmicamente compleja.  En este ejemplo, el compás de 9/8 se
-agrupa según dos patrones distintos utilizando los dos métodos,
-mientras que el compás de 5/8 se agrupa de acuerdo con el ajuste
-predeterminado que está en @file{scm/beam-settings.scm}:
+propiedad de contexto @code{beatStructure}.  Hay establecidos valores
+de @code{beatStructure} para muchos tipos de compases en
+@file{scm/time-signature-settings.scm}.  Los valores de
+@code{beatStructure} se pueden cambiar o establecer con @code{\\set}.
+Como alternativa, se puede usar la función de Scheme
+@code{set-time-signature} para establecer tanto el compás como la
+estructura de pulsos.  @code{set-time-signature} acepta tres
+argumentos: el número de pulsos, la longitud del pulso y la agrupación
+interna de los pulsos en el compás.  Tanto @code{\\time} como
+@code{set-time-signature} se aplican al contexto @code{Timing}, por lo
+que no restablecen los valores de @code{beatStructure} ni de
+@code{baseMoment} que se establezcan en otros contextos de nivel
+inferior, como @code{Voice}.
+
+Si el grabador @code{Measure_grouping_engraver} está incluido en uno
+de los contextos de presentación, se imprimirán signos de agrupación
+de pulsos.  Estos símbolos facilitan la lectura de música moderna
+rítmicamente compleja.  En este ejemplo, el compás de 9/8 se agrupa
+según dos patrones distintos utilizando los dos métodos, mientras que
+el compás de 5/8 se agrupa de acuerdo con el ajuste predeterminado que
+está en @file{scm/time-signature-settings.scm}:
 
 "
 doctitlees = "Símbolos de dirección y símbolos de agrupación de compás"
@@ -76,13 +83,13 @@ Beat grouping within a measure is controlled by the context property
 @code{beatStructure}.  Values of @code{beatStructure} are
 established for many time signatures in
 @file{scm/time-signature-settings.scm}.  Values of @code{beatStructure}
-can be changed or set with @code{\set}.
+can be changed or set with @code{\\set}.
 Alternatively, the
 Scheme function @code{set-time-signature} can be used to both
 set the time signature and establish the beat structure.
 @code{set-time-signature}, takes three arguments: the
 number of beats, the beat length, and the internal grouping of beats in
-the measure.  @code{\time} and @code{set-time-signature} both apply
+the measure.  @code{\\time} and @code{set-time-signature} both apply
 to the @code{Timing} context, so they will not reset values of
 @code{beatStructure} or @code{baseMoment} that are set in
 other lower-level contexts, such as @code{Voice}.

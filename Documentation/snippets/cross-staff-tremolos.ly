@@ -4,7 +4,21 @@
 \version "2.13.31"
 
 \header {
+%% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
+
+  texidoces = "
+
+Dado que @code{\\repeat tremolo} espera exactamente dos argumentos
+musicales para los trémolos de acorde, la nota o acorde que cambia de
+pentagrama en un trémolo que cruza el pentagrama se debe colocar
+dentro de llaves curvas junto a su instrucción @code{\\change Staff}.
+
+"
+
+  doctitlees = "Trémolos de pentagrama cruzado"
+
   lsrtags = "repeats, keyboards"
+
 
 %% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
   texidocfr = "

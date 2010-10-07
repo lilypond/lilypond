@@ -24,7 +24,7 @@ una sección @code{\\global} para el compás y la armadura
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
 Dieses Beispiel demonstriert die Partitur für ein Streichquartett. Hier
-wird auch eine @qq{@code{\global}}-Variable für Taktart und
+wird auch eine @qq{@code{\\global}}-Variable für Taktart und
 Vorzeichen benutzt.
 "
 

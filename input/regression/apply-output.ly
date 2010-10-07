@@ -1,7 +1,7 @@
 \version "2.12.0"
 
 \header {
-  texidoc = "The @code{\applyOutput} expression is the most flexible way to
+  texidoc = "The @code{\\applyOutput} expression is the most flexible way to
 tune properties for individual grobs.
 
 Here, the layout of a note head is changed depending on its vertical

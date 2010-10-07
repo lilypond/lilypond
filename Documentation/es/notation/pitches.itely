@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 9e680d0204bbb4fde75212bb8152ab8626caf5b1
+    Translation of GIT committish: 8e0330b913e0c7494282e6b00cebbf4dcee79b50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -125,7 +125,7 @@ más alta o más baja de lo que debería.
 
 En el modo relativo, se supone que cada nota se encuentra lo más cerca
 posible de la nota anterior.  Esto significa que la octava de una nota
-que está dentro de @var{expresión_musical} se calcula como sigue:
+que está dentro de @code{@var{expresión_musical}} se calcula como sigue:
 
 @itemize
 @item
@@ -145,7 +145,7 @@ Se pueden usar varias marcas de cambio de octava.  Por ejemplo,
 
 @item
 La altura de la primera nota es relativa a
-@code{@var{altura_inicial}}.  @var{altura_inicial} se especifica en
+@code{@var{altura_inicial}}.  @code{@var{altura_inicial}} se especifica en
 modo de octava absoluta, y se recomienda que sea un Do (una octava de
 @code{c}).
 
@@ -258,6 +258,7 @@ independientemente del número de semitonos de cada uno de ellos.
 }
 @end lilypond
 
+
 @seealso
 Glosario musical:
 @rglos{fifth},
@@ -283,8 +284,9 @@ Referencia de funcionamiento interno:
 @funindex \relative
 @funindex relative
 
+
 @c DEPRECATED
-Si no se especifica ninguna @var{altura_inicial} para
+Si no se especifica ninguna @code{@var{altura_inicial}} para
 @code{\relative}, entonces se supone que es@tie{}@code{c'}.  Sin
 embargo, ésta es una opción en desuso y podría desaparecer en
 versiones posteriores, por lo que su utilización está desaconsejada.
@@ -687,14 +689,14 @@ octava.
 @end lilypond
 
 La octava de las notas se puede comprobar también con la instrucción
-@code{\octaveCheck}@tie{}@var{altura_de_control}.
-@var{altura_de_control} se especifica en modo absoluto.  Esto
+@code{\octaveCheck@tie{}@var{altura_de_control}}.
+@code{@var{altura_de_control}} se especifica en modo absoluto.  Esto
 comprueba que el intervalo entre la nota anterior y la
-@var{altura_de_control} se encuentra dentro de una cuarta (es decir, el
+@code{@var{altura_de_control}} se encuentra dentro de una cuarta (es decir, el
 cálculo normal para el modo relativo).  Si esta comprobación fracasa,
 se imprime un mensaje de advertencia, pero la nota previa no se
 modifica.  Las notas posteriores están en relación a la
-@var{altura_de_control}.
+@code{@var{altura_de_control}}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -751,10 +753,10 @@ La sintaxis es
 \transpose @var{nota_origen} @var{nota_destino} @var{expresión_musical}
 @end example
 
-Esto significa que la @var{expresión_musical} se transporta el
-intervalo que hay entre las notas @var{nota_origen} y
-@var{nota_destino}: cualquier nota con la altura de @code{nota_origen}
-se cambia por @code{nota_destino} y cualquier otra nota se transporta
+Esto significa que la @code{@var{expresión_musical}} se transporta el
+intervalo que hay entre las notas @code{@var{nota_origen}} y
+@code{@var{nota_destino}}: cualquier nota con la altura de @code{@var{nota_origen}}
+se cambia por @code{@var{nota_destino}} y cualquier otra nota se transporta
 el mismo intervalo.  Las dos notas se introducen en modo absoluto.
 
 @warning{La música que está dentro de un bloque @code{@bs{}transpose}
@@ -1048,7 +1050,7 @@ comienzo del pentagrama.  El establecimiento o modificación de la
 armadura se hace con la instrucción @code{\key}:
 
 @example
-\key @var{nota} @var{tipo}
+\key @var{nota} @var{modo}
 @end example
 
 @funindex \major
@@ -1083,8 +1085,8 @@ armadura se hace con la instrucción @code{\key}:
 @cindex dórico, modo
 
 @noindent
-Aquí, @var{tipo} debe ser @code{\major} o @code{\minor} para obtener
-la tonalidad @var{nota} mayor o @var{nota} menor, respectivamente.
+Aquí, @code{@var{modo}} debe ser @code{\major} o @code{\minor} para obtener
+la tonalidad @code{@var{nota}} mayor o @code{@var{nota}} menor, respectivamente.
 También puede usar los nombres estándar de modo (también conocidos
 como @notation{modos eclesiásticos}): @code{\ionian} (jónico),
 @code{\dorian} (dórico), @code{\phrygian} (frigio), @code{\lydian}

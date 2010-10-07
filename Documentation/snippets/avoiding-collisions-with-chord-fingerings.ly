@@ -4,6 +4,21 @@
 \version "2.13.31"
 
 \header {
+%% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
+
+  texidoces = "
+
+Las digitaciones y números de cuerda que se aplican a las notas
+individuales evitan automáticamente las barras y las plicas de las
+figuras, pero esto no es cierto de forma predeterminada para las
+digitaciones y números de cuerda que se aplican sobre notas
+individuales de acordes.  El ejemplo siguiente muestra cómo se puede
+sobreescribir este comportamiento predeterminado.
+
+"
+  doctitlees = "Evitar colisiones con digitaciones de acordes"
+
+
   lsrtags = "rhythms, editorial-annotations, chords, tweaks-and-overrides"
 
   texidoc = "

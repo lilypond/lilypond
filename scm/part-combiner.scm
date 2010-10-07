@@ -54,7 +54,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-class <Split-state> ()
+  ;; The automatically determined split configuration
   (configuration #:init-value '() #:accessor configuration)
+  ;; Allow overriding split configuration, takes precedence over configuration
+  (forced-configuration #:init-value #f #:accessor forced-configuration)
   (when-moment #:accessor when #:init-keyword #:when)
   ;; voice-states are states starting with the Split-state or later
   ;;
@@ -262,6 +265,56 @@ list, similar to the Recording_group_engraver in 2.8 and earlier"
 	 (voice-state-vec1 (make-voice-states evl1))
 	 (voice-state-vec2 (make-voice-states evl2))
 	 (result (make-split-state voice-state-vec1 voice-state-vec2)))
+
+    ;; Go through all moments recursively and check if the events of that
+    ;; moment contain a part-combine-force-event override. If so, store its
+    ;; value in the forced-configuration field, which will override. The
+    ;; previous configuration is used to determine non-terminated settings.
+    (define (analyse-forced-combine result-idx prev-res)
+
+      (define (get-forced-event x)
+	(if (ly:in-event-class? x 'part-combine-force-event)
+	    (cons (ly:event-property x 'forced-type) (ly:event-property x 'once))
+	    #f))
+      (define (part-combine-events vs)
+	(if (not vs)
+	    '()
+	    (filter-map get-forced-event (events vs))))
+      ;; end part-combine-events
+
+      ;; forced-result: Take the previous config and analyse whether
+      ;; any change happened.... Return new once and permanent config
+      (define (forced-result evt state)
+	;; sanity check, evt should always be (new-state . once)
+	(if (not (and (pair? evt) (pair? state)))
+	    state
+	    (if (cdr evt)
+		;; Once-event, leave permanent state unchanged
+		(cons (car evt) (cdr state))
+		;; permanent change, leave once state unchanged
+		(cons (car state) (car evt)))))
+      ;; end forced-combine-result
+
+      ;; body of analyse-forced-combine:
+      (if (< result-idx (vector-length result))
+	  (let* ((now-state (vector-ref result result-idx)) ; current result
+		 ;; Extract all part-combine force events
+		 (ev1 (part-combine-events (car (voice-states now-state))))
+		 (ev2 (part-combine-events (cdr (voice-states now-state))))
+		 (evts (append ev1 ev2))
+		 ;; result is (once-state permament-state):
+		 (state (fold forced-result (cons 'automatic prev-res) evts))
+		 ;; Now let once override permanent changes:
+		 (force-state (if (equal? (car state) 'automatic)
+				  (cdr state)
+				  (car state))))
+	    (set! (forced-configuration (vector-ref result result-idx))
+		  force-state)
+	    ;; For the next moment, ignore the once override (car stat)
+	    ;; and pass on the permanent override, stored as (cdr state)
+	    (analyse-forced-combine (1+ result-idx) (cdr state)))))
+    ;; end analyse-forced-combine
+
 
     (define (analyse-time-step result-idx)
       (define (put x . index)
@@ -488,14 +541,25 @@ the mark when there are no spanners active.
 	  (display "***\n")
 	  (display result)
 	  (display "***\n")))
+
+    ;; Extract all forced combine strategies, i.e. events inserted by
+    ;; \partcombine(Apart|Automatic|SoloI|SoloII|Chords)[Once]
+    ;; They will in the end override the automaically determined ones.
+    ;; Initial state for both voices is no override
+    (analyse-forced-combine 0 #f)
+    ;; Now go through all time steps in a loop and find a combination strategy
+    ;; based only on the events of that one moment (i.e. neglecting longer
+    ;; periods of solo/apart, etc.)
     (analyse-time-step 0)
     ;; (display result)
+    ;; Check for unisono or unisilence moments
     (analyse-a2 0)
     ;;(display result)
     (analyse-solo12 0)
     ;; (display result)
     (set! result (map
-		  (lambda (x) (cons (when x) (configuration x)))
+		  ;; forced-configuration overrides, if it is set
+		  (lambda (x) (cons (when x) (or (forced-configuration x) (configuration x))))
 		  (vector->list result)))
     (if #f ;; pc-debug
 	 (display result))

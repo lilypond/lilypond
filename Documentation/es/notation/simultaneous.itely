@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 95a39ac24c8d92ea0355615197812531961ef1f3
+    Translation of GIT committish: 8e0330b913e0c7494282e6b00cebbf4dcee79b50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -45,29 +45,57 @@ Esta sección trata de la notas simultáneas dentro de la misma voz.
 
 @cindex acordes
 @cindex paréntesis en ángulo
-@cindex ángulo, paréntesis en
-@cindex relativa, altura en acordes
 
 @funindex <
 @funindex >
 @funindex <...>
 
 Un acorde se forma encerrando un conjunto de notas entre @code{<} y
-@code{>}.  Un acorde puede ir seguido de una duración o un conjunto de
-articulaciones, como si fueran simples notas.
+@code{>}.  Un acorde puede ir seguido de una duración,
+como si fueran simples notas.
 
-@lilypond[verbatim,quote,relative=1]
-<c e g>2 <c f a>4-> <e g c>-.
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
 @end lilypond
 
+Los acordes también pueden ir seguidos de articulaciones, de nuevo como
+si fueran simples notas.
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^| <g c e>16-.
+@end lilypond
+
+Las notas dentro del propio acorde también pueden ir seguidas
+de articulaciones y ornamentos.
+
+@lilypond[verbatim,quote,relative=2]
+<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4 <a-+ c-->8. <g\fermata c e\turn>16
+@end lilypond
+
+Sin embargo, algunos elementos de notación tales como las
+expresiones de matices dinámicos, los reguladores y las
+ligaduras de espresión, se deben unir al acorde y no a las notas que integran
+el mismo, pues en caso contrario no se imprimirán.
+
+@lilypond[verbatim,quote,relative=2]
+<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+@end lilypond
+
+@cindex relativo, acordes en altura
+@cindex acordes y altura relativa
+
 Se puede usar el modo relativo para la altura de las notas de los
-acordes.  La octava de cada nota se determina utilizando como
-referencia la nota precedente, excepto en el caso de la primera nota
-de un acorde: la referencia para la primera nota es la @emph{primera}
-nota del acorde anterior.
+acordes.  La primera nota del acorde siempre es relativa a la primera nota
+del acorde anterior, o en caso de que el elemento precedente no sea un acorde,
+la altura de la última nota que vino antes del acorde.
+El resto de las notas del acorde son relativas a la nota anterior
+@emph{dentro del mismo acorde}.
+
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+@end lilypond
 
 Para ver más información sobre los acordes, consulte @ref{Notación de acordes}.
-
 
 @seealso
 Glosario musical:
@@ -77,7 +105,9 @@ Manual de aprendizaje:
 @rlearning{Combinar notas para formar acordes}.
 
 Referencia de la notación:
-@ref{Notación de acordes}.
+@ref{Notación de acordes},
+@ref{Articulaciones y ornamentos},
+@ref{Escritura de octava relativa}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
@@ -90,16 +120,16 @@ Fragmentos de código:
 Para reducir el tecleo, se puede usar una abreviatura de repetición
 del acorde anterior.  El símbolo de repetición de acordes es @code{q}:
 
-@lilypond[verbatim,quote,relative=1]
-<c e g>4 q q q
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 q <f a c>2 q
 @end lilypond
 
 Como en los acordes normales, el símbolo de repetición de acordes
 puede usarse con duraciones, articulaciones, elementos de marcado, ligaduras
 de expresión, barras, etc., pues sólo se duplican las notas del acorde precedente.
 
-@lilypond[verbatim,quote,relative=1]
-<c e g>4\p q^"text"( q8)[-| q8.] q16-1-2-3
+@lilypond[verbatim,quote,relative=2]
+<a c e>1\p^"text" q2\<( q8)[-| q8.]\! q16-1-2-3 q8\prall
 @end lilypond
 
 El símbolo de repetición de acordes
@@ -107,11 +137,23 @@ siempre recuerda la última ocurrencia de un acorde,
 por lo que es posible repetir el acorde más reciente
 incluso si se han escrito en medio otras notas que no están en un acorde, o silencios.
 
-@lilypond[verbatim,quote,relative=1]
-<c e g>8 c'4 q r8 q
+@lilypond[verbatim,quote,relative=2]
+<a c e>1 c4 q2 r8 q8
+@end lilypond
+
+Sin embargo, el símbolo de repetición de acordes no retiene los
+matices dinámicos, las articulaciones ni los ornamentos que
+contiene o que están adosados al acorde  anterior.
+
+@lilypond[verbatim,quote,relative=2]
+<a-. c\prall e>1\sfz c4 q2 r8 q8
 @end lilypond
 
 @seealso
+Notation Reference:
+@ref{Notación de acordes},
+@ref{Articulaciones y ornamentos}.
+
 Archivos de inicio:
 @file{ly/@/chord-repetition-init@/.ly}.
 
@@ -253,7 +295,7 @@ siguiente:
 
 @noindent
 Aquí se crean explícitamente instancias de voces, cada una de las
-cuales recibe un nombre. Las instrucciones @code{\voiceOne}
+cuales recibe un nombre.  Las instrucciones @code{\voiceOne}
 ... @code{\voiceFour} (voz uno hasta voz cuatro) preparan las voces de
 manera que la primera y segunda voces llevan las plicas hacia arriba,
 las voces segunda y cuarta llevan las plicas hacia abajo, las cabezas
@@ -355,6 +397,44 @@ silencios duplicados.
 En todas las partituras excepto las más simples, se recomienda crear
 contextos @code{Voice} explícitos como aparece explicado en
 @rlearning{Contextos y grabadores} y en @rlearning{Voces explícitas}.
+
+
+@strong{@i{Orden de las voces}}
+
+Al escribir varias voces en el archivo de entrada,
+utilice el orden siguiente:
+
+@example
+Voz 1: las más aguda
+Voz 2: la más grave
+Voz 3: la segunda más aguda
+Voz 4: la segunda más grave
+Voz 5: la tercera más aguda
+Voz 6: la tercera más grave
+etc.
+@end example
+
+A pesar de que esto puede parecer contrario a la intuición,
+simplifica el proceso de disposición automática de las figuras.
+Observe que las voces de numeración impar reciben plicas
+hacia arriba, y las de numeración par reciben plicas hacia abajo:
+
+@lilypond[quote,verbatim]
+\new Staff <<
+  \time 2/4
+  { f''2 }  % 1: highest
+  \\
+  { c'2  }  % 2: lowest
+  \\
+  { d''2 }  % 3: second-highest
+  \\
+  { e'2  }  % 4: second-lowest
+  \\
+  { b'2  }  % 5: third-highest
+  \\
+  { g'2  }  % 6: third-lowest
+>>
+@end lilypond
 
 @strong{@i{Duraciones idénticas}}
 
@@ -574,17 +654,58 @@ para mover el sol agudo fuera de la columna, y entonces
     s1
     e8 a b c d2
   }
-
 >>
 @end lilypond
 
-Las instrucciones @code{\shiftOn}, @code{\shiftOnn} y
-@code{\shiftOnnn} especifican el grado en que se deben desplazar los
-acordes de la voz en curso.  Las voces exteriores (normalmente: la voz
-uno y la voz dos) tienen @code{\shiftOff} (desplazamiento
-desactivado), mientras que las voces interiores (tres y cuatro) tienen
-@code{\shiftOn} (desplazamiento activado).  @code{\shiftOnn} y
-@code{\shiftOnnn} definen niveles de desplazamiento más grandes.
+La instrucción @code{\shiftOn} permite (aunque no fuerza)
+que las notas de una voz se puedan desplazar.  Cuando@code{\shiftOn}
+se aplica a una voz, una nota o acorde de esta voz se desplaza
+solamente si su plica chocase en caso contrario con una plica de otra voz,
+y sólo si las plicas en colisión apuntan en la misma dirección.
+La instrucción @code{\shiftOff} evita la posibilidad de este tipo de desplazamiento.
+
+De forma predeterminada, las voces externas (normalmente las voces uno y dos)
+tienen @code{\shiftOff} especificado (desplazamiento desactivado), mientras
+que las voces interiores (tres y siguientes) tienen especificado
+@code{\shiftOn} (desplazamiento activado). Cuando se aplica un desplazamiento,
+las voces con plicas hacia arriba (voces de numeración impar)
+se desplazan hacia la derecha,
+y las voces con las plicas hacia abajo (voces con numeración par)
+se desplazarn a la izquierda.
+
+He aquí un ejemplo que le ayudará a visualizar
+la forma en que se expanidría internamente una expresión polifónica.
+
+@warning{Observe que con tres o más voces, el orden vertical de
+las mismas dentro de su archivo de entrada ¡no sería el mismo que
+el orden vertical de las voces en el pentagrama!}
+
+@lilypond[quote,verbatim]
+\new Staff \relative c'' {
+  %% abbreviated entry
+  <<
+    { f2  }  % 1: highest
+    \\
+    { g,2 }  % 2: lowest
+    \\
+    { d'2 }  % 3: upper middle
+    \\
+    { b2  }  % 4: lower middle
+  >>
+  %% internal expansion of the above
+  <<
+    \new Voice = "1" { \voiceOne   \shiftOff f'2 }
+    \new Voice = "2" { \voiceTwo   \shiftOff g,2 }
+    \new Voice = "3" { \voiceThree \shiftOn  d'2 } % shifts right
+    \new Voice = "4" { \voiceFour  \shiftOn  b2  } % shifts left
+  >>
+}
+@end lilypond
+
+Dos instrucciones adicionales, @code{\shiftOnn} y @code{\shiftOnnn},
+ofrecen niveles de desplazamiento mayores que se pueden
+especificar temporalmente para resolver colisiones en situaciones
+complejas; véase @rlearning{Ejemplos reales de música}.
 
 Sólo se combinan las notas si tienen la plica en direcciones opuestas
 (como la tienen, por ejemplo, en las voces uno y dos de forma
@@ -727,7 +848,7 @@ musicales, es decir:
 @noindent
 Una sección @code{\relative} que se encuentra fuera de
 @code{\partcombine} no tiene ningún efecto sobre las notas de
-@var{expresión_musical_1} y @var{expresión_musical_2}.
+@code{@var{expresión_musical_1}} y @code{@var{expresión_musical_2}}.
 
 @snippets
 

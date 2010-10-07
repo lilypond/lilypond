@@ -88,7 +88,7 @@ security concerns), the @file{Documentation/@/pictures/} and
 @file{Documentation/@/web/@/ly-examples/} directories are
 @strong{not} compiled.  You need to upload them, and if they ever
 change, a user in the @code{lilypond} group must upload them to
-@file{~graham/@/media} on the host.
+@file{~graham/@/lilypond@/media} on the host.
 
 Upload latest pictures/ and ly-examples/ (local script):
 
@@ -104,8 +104,8 @@ PICS=$BUILD_DIR/Documentation/pictures/out-www/
 EXAMPLES=$BUILD_DIR/Documentation/web/ly-examples/out-www/
 
 cd $BUILD_DIR
-rsync -a $PICS graham@lilypond.org:media/pictures
-rsync -a $EXAMPLES graham@lilypond.org:ly-examples
+rsync -a $PICS graham@lilypond.org:lilypond/media/pictures
+rsync -a $EXAMPLES graham@lilypond.org:lilypond/media/ly-examples
 @end verbatim
 
 

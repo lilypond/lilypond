@@ -4,7 +4,29 @@
 \version "2.13.31"
 
 \header {
+%% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
+  texidoces = "
+  Este fragmento de código muestra una forma de preparar un himno cuando
+cada línea comienza con un compás parcial.  También muestra cómo
+añadir los versos como texto independiente debajo de la música.
+
+"
+
+  doctitlees = "Plantilla para himnos"
+
   lsrtags = "vocal-music, template"
+
+%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+  texidocde = "
+Dieses Beispiel zeigt eine Möglichkeit, eine Hymnusmelodie zu setzen, in
+der jede Zeiel mit einem Auftakt beginnt und einem unvollständigen
+Takt abschließt.  Es zeigt auch, wie man die Strophen als allein stehenden
+Text unter die Noten hinzufügt.
+
+"
+  doctitlede = "Hymnus-Vorlage"
+
 
 %% Translation of GIT committish: 26375d5016d8d180fc914bfd07cf76f4168f2e37
 
@@ -114,3 +136,4 @@ global = {
   indent = 0     % don't indent first system
   line-width = 130   % shorten line length to suit music
 }  % End paper block
+

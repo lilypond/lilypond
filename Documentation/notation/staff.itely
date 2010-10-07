@@ -1158,8 +1158,9 @@ Internals Reference:
 
 Only the contents of the first @code{Voice} occurring in an
 @code{\addQuote} command will be considered for quotation, so
-@var{music} cannot contain @code{\new} and @code{\context Voice}
-statements that would switch to a different Voice.
+@code{@var{music}} cannot contain @code{\new} and
+@code{\context Voice} statements that would switch to a different
+Voice.
 
 Quoting grace notes is broken and can even cause LilyPond to
 crash.
@@ -1194,13 +1195,14 @@ notes into a part.  The syntax is as follows:
 \cueDuring #@var{partname} #@var{voice} @var{music}
 @end example
 
-This command copies only the notes and rests from the corresponding measures
-from @var{partname} into a @code{CueVoice} context.  The @code{CueVoice} is
-created implicitly, and occurs simultaneously with @var{music}, which
-creates a polyphonic situation.  The @var{voice} argument
-determines whether the cue notes should be notated as a first or
-second voice; @code{UP} corresponds to the first voice, and
-@code{DOWN} corresponds to the second.
+This command copies only the notes and rests from the
+corresponding measures from @code{@var{partname}} into a
+@code{CueVoice} context.  The @code{CueVoice} is created
+implicitly, and occurs simultaneously with @code{@var{music}},
+which creates a polyphonic situation.  The @code{@var{voice}}
+argument determines whether the cue notes should be notated as a
+first or second voice; @code{UP} corresponds to the first voice,
+and @code{DOWN} corresponds to the second.
 
 @lilypond[verbatim,quote]
 oboe = \relative c'' {

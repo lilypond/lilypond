@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
+%% Translation of GIT committish: 298a2c322d7e4f437f3dd1a24db2839e3f35acce
   texidoces = "
-Las repeticiones de compases completos mayores de dos repeticiones
+Las repeticiones de compases completos de más de dos repeticiones
 pueden llevar un contador si se activa la propiedad adecuada, como se
 ve en este ejemplo:
 
 "
-  doctitlees = "Percent repeat counter"
+  doctitlees = "Contador de repeticiones de tipo porcentaje"
 

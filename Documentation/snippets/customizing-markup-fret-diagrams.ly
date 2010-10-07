@@ -32,7 +32,7 @@ Beschriftung vorgenommen werden.
   texidocfr = "
 Les propriétés d'un diagramme de fret sont modifiables grâce au
 @code{'fret-diagram-details}.  Lorsqu'ils sont générés sous forme
-de @code{\markup}, rien n'empêche de les modifier en jouant sur les
+de @code{\\markup}, rien n'empêche de les modifier en jouant sur les
 réglages de l'objet @code{Voice.TextScript} ou bien directement sur
 le @qq{markup}.
 

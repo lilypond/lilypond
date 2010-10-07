@@ -432,7 +432,7 @@ Constrained_breaking::initialize ()
   Interval first_line = line_dimensions_int (pscore_->layout (), 0);
   Interval other_lines = line_dimensions_int (pscore_->layout (), 1);
   /* do all the rod/spring problems */
-  breaks_ = pscore_->find_break_indices ();
+  breaks_ = pscore_->get_break_indices ();
   all_ = pscore_->root_system ()->used_columns ();
   lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
   vector<Real> forces = get_line_forces (all_,

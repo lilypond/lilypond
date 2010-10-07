@@ -223,7 +223,7 @@ stderr of this run."
 %% \partial
 \test "" ##[ \partial 2 #]
 \test "" ##[ \partial 8. #]
-\test #"TODO? exotic durations in \\partial" ##[ \partial 4*2/3 #]
+\test "" ##[ \partial 4*2/3 #]
 
 %% \partcombine
 \test "" ##[ \partcombine { c e }

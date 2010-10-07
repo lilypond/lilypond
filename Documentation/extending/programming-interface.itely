@@ -111,7 +111,7 @@ Intermediate substitution functions involve a mix of Scheme code
 and LilyPond code in the music expression to be returned.
 
 Some @code{\override} commands require an argument consisting of
-a pair of numbers (called a @code{cons cell} in Scheme).
+a pair of numbers (called a @emph{cons cell} in Scheme).
 
 The pair can be directly passed into the music function,
 using a @code{pair?} variable:
@@ -401,22 +401,22 @@ New markup commands can be defined using the
 
 The arguments are
 
-@table @var
-@item command-name
+@table @code
+@item @var{command-name}
 the markup command name
 @item layout
 the @q{layout} definition.
 @item props
 a list of associative lists, containing all active properties.
-@item argi
+@item @var{argi}
 @var{i}th command argument
-@item argi-type?
+@item @var{argi-type?}
 a type predicate for the i@var{th} argument
 @end table
 
-If the command uses properties from the @var{props} arguments, the
-@code{#:properties} keyword can be used to specify which properties are
-used along with their default values.
+If the command uses properties from the @code{props} arguments,
+the @code{#:properties} keyword can be used to specify which
+properties are used along with their default values.
 
 Arguments are distinguished according to their type:
 @itemize
@@ -427,17 +427,19 @@ Arguments are distinguished according to their type:
 @code{list?}, @code{number?}, @code{boolean?}, etc.
 @end itemize
 
-There is no limitation on the order of arguments (after the standard
-@var{layout} and @var{props} arguments).  However, markup functions
-taking a markup as their last argument are somewhat special as you can
-apply them to a markup list, and the result is a markup list where the
-markup function (with the specified leading arguments) has been applied
-to every element of the original markup list.
+There is no limitation on the order of arguments (after the
+standard @code{layout} and @code{props} arguments).  However,
+markup functions taking a markup as their last argument are
+somewhat special as you can apply them to a markup list, and the
+result is a markup list where the markup function (with the
+specified leading arguments) has been applied to every element of
+the original markup list.
 
-Since replicating the leading arguments for applying a markup function
-to a markup list is cheap mostly for Scheme arguments, you avoid
-performance pitfalls by just using Scheme arguments for the leading
-arguments of markup functions that take a markup as their last argument.
+Since replicating the leading arguments for applying a markup
+function to a markup list is cheap mostly for Scheme arguments,
+you avoid performance pitfalls by just using Scheme arguments for
+the leading arguments of markup functions that take a markup as
+their last argument.
 
 @node On properties
 @unnumberedsubsubsec On properties
@@ -726,10 +728,10 @@ syntax for this is
 \applyContext @var{function}
 @end example
 
-@var{function} should be a Scheme function that takes a single
-argument: the context in which the @code{\applyContext} command is
-being called.  The following code will print the current bar
-number on the standard output during the compile:
+@code{@var{function}} should be a Scheme function that takes a
+single argument: the context in which the @code{\applyContext}
+command is being called.  The following code will print the
+current bar number on the standard output during the compile:
 
 @example
 \applyContext
@@ -748,18 +750,19 @@ number on the standard output during the compile:
 @funindex \applyOutput
 
 
-The most versatile way of tuning an object is @code{\applyOutput}.  Its
-syntax is
+The most versatile way of tuning an object is @code{\applyOutput} which
+works by inserting an event into the specified context
+(@rinternals{ApplyOutputEvent}).  Its syntax is
 @example
 \applyOutput @var{context} @var{proc}
 @end example
 
 @noindent
-where @var{proc} is a Scheme function, taking three arguments.
+where @code{@var{proc}} is a Scheme function, taking three arguments.
 
-When interpreted, the function @var{proc} is called for every layout
-object found in the context @var{context}, with the following
-arguments:
+When interpreted, the function @code{@var{proc}} is called for
+every layout object found in the context @code{@var{context}} at
+the current time step, with the following arguments:
 @itemize
 @item the layout object itself,
 @item the context where the layout object was created, and
@@ -770,20 +773,20 @@ arguments:
 In addition, the cause of the layout object, i.e., the music
 expression or object that was responsible for creating it, is in the
 object property @code{cause}.  For example, for a note head, this is a
-@rinternals{NoteHead} event, and for a @rinternals{Stem} object,
-this is a @rinternals{NoteHead} object.
+@rinternals{NoteHead} event, and for a stem object,
+this is a @rinternals{Stem} object.
 
 Here is a function to use for @code{\applyOutput}; it blanks
-note-heads on the center-line:
+note-heads on the center-line and next to it:
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (blanker grob grob-origin context)
    (if (and (memq 'note-head-interface (ly:grob-interfaces grob))
-            (eq? (ly:grob-property grob 'staff-position) 0))
+            (< (abs (ly:grob-property grob 'staff-position)) 2))
        (set! (ly:grob-property grob 'transparent) #t)))
 
 \relative c' {
-  e4 g8 \applyOutput #'Voice #blanker b d2
+  a'4 e8 <<\applyOutput #'Voice #blanker a c d>> b2
 }
 @end lilypond
 

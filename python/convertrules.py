@@ -3056,6 +3056,15 @@ def conv(str):
                   r"style = #'none",
                   str);
     return str
+
+@rule ((2, 13, 36),
+    _ ("Add fretboard-table argument to savePredefinedFretboard."))
+def conv(str):
+    str = re.sub (r"storePredefinedDiagram",
+                  r"storePredefinedDiagram #default-fret-table",
+                  str);
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

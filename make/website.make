@@ -16,8 +16,8 @@ ifeq ($(WEBSITE_ONLY_BUILD),1)
   top-htaccess=$(trusted-dir)/lilypond.org.htaccess
   dir-htaccess=$(trusted-dir)/website-dir.htaccess
   TEXI2HTML_PROGRAM=$(HOME)/usr/bin/texi2html
-  EXAMPLES=$(HOME)/media/ly-examples/
-  PICTURES=$(HOME)/media/pictures
+  EXAMPLES=$(HOME)/lilypond/media/ly-examples/
+  PICTURES=$(HOME)/lilypond/media/pictures
 else
   ### for normal git
   script-dir=$(top-src-dir)/scripts/build/
@@ -36,7 +36,7 @@ OUT=out-website
 
 ### only update this when the language compiles correctly!
 # LANGUAGES = (site, de, es, fr, hu, it, ja, nl)
-WEB_LANGS = es fr it nl de
+WEB_LANGS = es fr it nl de hu
 
 TEXI2HTML=ONLY_WEB=1 TOP_SRC_DIR=$(top-src-dir) DEPTH=$(depth) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 

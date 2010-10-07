@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: d5bf9d0cec254701a31ecae4587c52c147d08635
+    Translation of GIT committish: 8d6bc6be08ed7a515c17a3290ba8977655ef074f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -29,6 +29,8 @@ crear partituras de calidad editorial, realizadas dentro de las
 mejores tradiciones del grabado musical clásico.
 
 @divEnd
+
+@divClass{link-headings}
 
 @divClass{column-left-top}
 @subheading Qué hace LilyPond
@@ -77,18 +79,20 @@ mejores tradiciones del grabado musical clásico.
 @end itemize
 @divEnd
 
+@divEnd
+
 @c TRANSLATORS, translations are not yet compiled in Info format, so
 @c it's not worth translating the right column of the following
 @c menu. -JM
 @divClass{hide}
 @menu
-* Posibilidades::               
-* Ejemplos::                    
+* Posibilidades::
+* Ejemplos::
 * Libertad::                    La libertad y la GPL.
 * Trasfondo::                   Estética computacional.
 * Producciones::                Uso de LilyPond en el mundo real.
-* Reseñas::                     
-* Entrada de texto::            
+* Reseñas::
+* Entrada de texto::
 * Entornos mejorados::          Otras formas de trabajar con LilyPond.
 @end menu
 @divEnd
@@ -574,7 +578,7 @@ partituras de música sacra de alta calidad, disponibles para su
 descarga inmediata o en el formato tradicional de papel.
 
 @item
-@uref{http://theshadylanepublishing.com/, The Shady Lane Publishing},
+@uref{http://www.shadylane.fr, The Shady Lane Publishing},
 una @qq{micro editorial musical} cuya meta es promover una nueva forma
 de economía más cercana a los músicos y amantes de la música.
 
@@ -584,6 +588,7 @@ de economía más cercana a los músicos y amantes de la música.
 
 @divEnd
 
+@contactUsAbout{conciertos o partituras}
 
 @divClass{column-center-bottom}
 @subheading Y ahora ¿qué?
@@ -603,6 +608,14 @@ lugar infórmese sobre nuestra @ref{Entrada de texto}.
 
 @divClass{keep-bullets}
 @itemize
+
+@item
+May 2010
+
+Peter Kirn, en el sitio web Create Digital Music website, publica una
+@uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,revisión
+de LilyPond}.  Arroja una mirada equilibrada sobre la utilización, alaba
+la notación de alta calidad de LilyPond y sugiere a los lectores que lo prueben.
 
 @item
 Septiembre de 2009
@@ -847,6 +860,30 @@ hablándoles de su potencial.}
 @divEnd
 
 
+@divClass{testimonial-item}
+@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, El Dr. Mika Kuuskankare}, investigador de la @uref{http://siba.fi, Sibelius Academy de Finlandia}, compositor y autor del Expressive Notation Package (ENP)
+
+@qq{Siento el más hondo respeto hacia LilyPond y sus creadores y
+mantenedores debido a que sé por mi experiencia personal lo difícil
+que puede ser este tipo de software.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://camerondh.blogspot.com, David Cameron}, Músico, tipógrafo musical profesional y usuario experimentado de SCORE
+
+@qq{Mi agradecimiento de todo corazón a todo aquel que contribuye a
+este proyecto.  Yo fui un usuario intensivo de SCORE para casas
+grandes de edición musical, allá por los años 90, pero ahora siento
+que LilyPond, por fin, me permite conseguir exactamente los que quiero
+hacer sobre la página, especialmente cuando no se trata de la práctica
+"estándar".}
+@divEnd
+
+@divEnd
+
+@contactUsAbout{artículos de noticias o testimonios}
+
 @divClass{column-center-bottom}
 @subheading Y ahora ¿qué?
 
@@ -1067,7 +1104,7 @@ activamente para actualizarlo a nuestra versión estable actual, 2.12.}
 @divEnd
 
 @divClass{column-center-top}
-@divEnd@subheading Emacs y Vim
+@subheading Editores de texto
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -1097,19 +1134,7 @@ escribir archivos de entrada de LilyPond.
 Hay más información sobre la configuración de Emacs y de Vim en
 @rprogram{Apoyo respecto de los editores de texto}.
 
-@divEnd
-
-@ignore these may not need to be here at all, as they are purely
-MacOS scripts.
-
-@divClass{column-center-top}
-@subheading Otros
-
-
-@subsubheading Entorno de edición de texto: TexShop
-
 @sourceimage{logo-macosx,,,}
-
 @uref{http://www.uoregon.edu/~koch/texshop}
 
 El editor TexShop para MacOS@tie{}X se puede extender para que ejecute
@@ -1120,24 +1145,21 @@ del editor, utilizando las extensiones que están disponibles en:
 @uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
 @end example
 
-@subsubheading TextMate
-
 @sourceimage{logo-macosx,,,}
-
-There is a LilyPond bundle for TextMate.  It may be installed by
-running:
+Existe un paquete de LilyPond para TextMate, un editor
+comercial para MacOS.  Se puede instalar ejecutando:
 
 @example
 mkdir -p /Library/Application\ Support/TextMate/Bundles
 cd /Library/Application\ Support/TextMate/Bundles
-svn co http://svn.textmate.org/trunk/Bundles/LilyPond.tmbundle/
+git clone http://github.com/textmate/lilypond.tmbundle.git
+
 @end example
 
 @divEnd
-@end ignore
 
 @divClass{column-center-top}
-@subheading Otros programas capaces de exportar código de LilyPond
+@subheading Programas capaces de exportar código de LilyPond
 
 
 @subsubheading Editores de partitura, tablatura y MIDI:
@@ -1150,20 +1172,23 @@ un solo pentagrama.
 
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
-está basado en la biblioteca @uref{http://cairographics.org, Cairo} y
-exporta archivos de LilyPond de forma experimental.
+un editor de partitura basado en la biblioteca
+@uref{http://www.cairographics.org,Cairo},
+contempla de forma experimental la exportación a LilyPond.
 
 @item
 @uref{http://www.tuxguitar.com.ar/,TuxGuitar}, un editor y reproductor
-de tablatura multipista tiene un modo de vista de partitura y
-tablatura, y es capaz de exportar hacia LilyPond.
+de tablatura multipista, tiene visor de partitura
+y es capaz de exportar hacia LilyPond.
 
 @item
-@uref{http://musescore.org,MuseScore} tiene exportación incompleta de
-LilyPond pero se está desarrollando de forma activa.
+@uref{http://www.musescore.org,MuseScore}, unu editor de partituras,
+tiene exportación incompleta de LilyPond
+pero se está desarrollando de forma activa.
 
 @item
-@uref{http://canorus.org,Canorus} puede exportar también a LilyPond,
+@uref{http://www.canorus.org,Canorus}, un editor de partituras,
+también puede exportar a LilyPond,
 pero aún es un programa en fase beta, se agradecen las pruebas por
 parte de los usuarios.
 
@@ -1171,19 +1196,35 @@ parte de los usuarios.
 @uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, un
 convertidor monofónico de MIDI a LilyPond en tiempo real.
 
+@item
+@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
+NW2LY} es un programa en C# que convierte una canción de
+@uref{http://www.noteworthysoftware.com/, NoteWorthy} en
+LilyPond.
+
 @end itemize
 
-@subsubheading Generadores de código algorítmicos:
+@subsubheading Generadores de código algorítmicos
 
 @itemize
 
 @item
-@uref{http://strasheela.sourceforge.net, Strasheela} es @qq{un sistema
-de composición musical basado en restricciones, altamente expresivo}.
+@uref{http://www.projectabjad.org/,Abjad}, una API de
+@uref{http://www.python.org/,Python} para el control formalizado
+de partituras, diseñado para ayudar a los compositores
+a construir fragmentos complejos de notación de LilyPond
+de una forma iterativa e incremental.
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, una biblioteca de LISP
-para generar notación musical a partir de entornos de software musical.
+@uref{http://common-lisp.net/project/fomus/,FOMUS}, una
+biblioteca de LISP para generar notación musical a partir
+de entornos de software musical.
+
+@item
+@uref{http://strasheela.sourceforge.net,Strasheela}, un entorno
+construido sobre el lenguaje de restricciones
+@uref{http://www.mozart-oz.org/, Mozart/Oz}.
+
 
 @end itemize
 @divEnd

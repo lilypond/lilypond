@@ -32,7 +32,7 @@ comentario la línea correspondiente.
 Das nächste Beispiel zeigt eine einfache Melodie mit Text. Kopieren
 Sie es in Ihre Datei, fügen Sie Noten und Text hinzu und übersetzen
 Sie es mit LilyPond. In dem Beispiel wird die automatische
-Balkenverbindung ausgeschaltet (mit dem Befehl @code{\autoBeamOff}),
+Balkenverbindung ausgeschaltet (mit dem Befehl @code{\\autoBeamOff}),
 wie es für Vokalmusik üblich ist.
 Wenn Sie die Balken wieder einschalten wollen, müssen Sie die
 entsprechende Zeile entweder ändern oder auskommentieren.

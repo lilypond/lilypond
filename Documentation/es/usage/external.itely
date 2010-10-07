@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 3b870eb9ab448ebc11a2d6283ad35796b22351aa
+    Translation of GIT committish: 5c6e54cb116ec894b6b2ff7b1fca6ed56628f53b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -177,41 +177,24 @@ siguiente línea (modificada) a su @file{~/.emacs}
 @unnumberedsubsec Modo de Vim
 @translationof Vim mode
 
-Para @uref{http://@/www@/.vim@/.org,VIM} se proporciona un
-@file{vimrc}, junto con herramientas de resaltado de sintaxis con
-colores.  Se encuentra incluido un modo de Vim para escribir música y
-ejecutar LilyPond, dentro del archivo de código fuente, en el
-directorio @code{$VIM}.
-
-El tipo de archivo de LilyPond se detecta si el archivo
-@file{~/.vim/filetype.vim} tiene el siguiente contenido
+Para @uref{http://@/www@/.vim@/.org,Vim}, se proporcionan para
+su uso con LilyPond un plug-in o complemento para el tipo de archivo,
+un modo de sangrado y un modo de resaltado de sintaxis.
+Para habilitar todas estas posibilidades, cree (o modifique)
+su archivo @file{$HOME/.vimrc} de manera que contenga estas tres líneas
+en el mismo orden:
 
 @example
-if exists("did_load_filetypes")
-  finish
-endif
-augroup filetypedetect
-  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
-augroup END
+filetype off
+set runtimepath+=/usr/local/share/lilypond/current/vim/
+filetype on
 @end example
 
-Incluya esta ruta añadiendo la siguiente línea a su @file{~/.vimrc}
+Si LilyPond no está instalado en el directorio
+@file{/usr/local/}, cambie esta ruta de una forma adecuada.
+Este asunto se trata en
+@rlearning{Otras fuentes de información}.
 
-@example
-set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
-@end example
-
-@noindent
-donde $@{LILYPOND_VERSION@} es su versión de lilypond.  Si LilyPond no
-se instaló en su momento en @file{/usr/local/}, cambie esta ruta de la
-forma correspondiente.
-
-En Fedora, la ruta apunta a la versión actual de Vim en lugar de
-LilyPond:
-
-@example
-set runtimepath+=/usr/share/vim/vim72/
-@end example
 
 
 @node Otros editores
@@ -251,10 +234,10 @@ están}.  Se agradecerá el envío de parches correctores, pero los
 informes de fallo casi con certeza no se resolverán a medio plazo.
 
 @menu
-* Invocar midi2ly::            Importar archivos MIDI.
-* Invocar musicxml2ly::        Importar archivos MusicXML.
-* Invocar abc2ly::             Importar archivos ABC.
-* Invocar etf2ly::             Importar archivos de Finale.
+* Invocar midi2ly::             Importar archivos MIDI.
+* Invocar musicxml2ly::         Importar archivos MusicXML.
+* Invocar abc2ly::              Importar archivos ABC.
+* Invocar etf2ly::              Importar archivos de Finale.
 * Otros formatos::
 @end menu
 

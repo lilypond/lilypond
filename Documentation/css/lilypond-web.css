@@ -919,6 +919,21 @@ div.color4 h3 {
   margin: 0;
 }
 
+.contactBox {
+  float: left;
+  background: #eef;
+  text-align: left;
+  border: 1px solid green;
+  padding: 0;
+  margin: 1em;
+}
+
+.contactBox p {
+  padding: 0.5em;
+  margin: 0;
+}
+
+
 .hide {
   position: relative;
   text-indent: -999em;

@@ -4,6 +4,15 @@
 \version "2.13.31"
 
 \header {
+%% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
+  texidocfr = "
+Cet exemple illustre la manière de créer et afficher des indications de 
+doigté pour instrument à vent.
+
+"
+  doctitlefr = "Doigtés pour flûte à bec"
+
+
   lsrtags = "winds"
 
   texidoc = "

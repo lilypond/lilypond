@@ -4,6 +4,24 @@
 \version "2.13.31"
 
 \header {
+%% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
+  texidoces = "
+Se pueden conseguir símbolos especiales combinando glifos existentes,
+lo que es de utilidad para la notación de instrumentos de viento.
+
+"
+  doctitlees = "Símbolos de digitación para instrumentos de viento"
+
+
+%% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
+  texidocfr = "
+Des sumboles spécifiques peuvent être obtenus en combinant les glyphes
+disponibles, ce qui est tout à fait indiqué en matière d'instrument à vent.
+
+"
+  doctitlefr = "Symboles de doigtés pour instruments à vent"
+
+
   lsrtags = "winds"
 
   texidoc = "

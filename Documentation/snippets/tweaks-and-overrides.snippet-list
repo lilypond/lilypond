@@ -10,6 +10,7 @@ changing-form-of-multi-measure-rests.ly
 changing-properties-for-individual-grobs.ly
 changing-the-default-text-font-family.ly
 changing-the-staff-size.ly
+changing-the-tempo-without-a-metronome-mark.ly
 changing-the-text-for-sustain-markings.ly
 controlling-spanner-visibility-after-a-line-break.ly
 controlling-the-vertical-ordering-of-scripts.ly

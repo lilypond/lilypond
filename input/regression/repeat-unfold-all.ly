@@ -1,7 +1,7 @@
 \version "2.12.0"
 
 \header { texidoc = "Volta repeats may be unfolded through the music
-    function @code{\unfoldRepeats}."
+    function @code{\\unfoldRepeats}."
 
 }
 

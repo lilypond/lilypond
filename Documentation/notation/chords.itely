@@ -477,7 +477,7 @@ Rests passed to a @code{ChordNames} context will cause the
     g1
     c1
   }
-  \new Score \chordmode {
+  \chordmode {
     c1
     r1
     g1

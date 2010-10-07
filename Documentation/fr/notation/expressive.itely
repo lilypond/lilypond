@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 0a9a2436b50e6fb852bc7442bb5e8ed3919e829b
+    Translation of GIT committish: 908605aaf5df4d07684dafd862322e6ffac3ae10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,15 +23,15 @@ Ce chapitre traite des différentes indications d'interprétation que l'on
 peut trouver sur les partitions.
 
 @menu
-* Indications attachées à des notes::
-* Courbes::
-* Lignes::
+* Signes d'interprétation attachés à des notes::
+* Signes d'interprétation sous forme de courbe::
+* Signes d'interprétation sous forme de ligne::
 @end menu
 
 
-@node Indications attachées à des notes
-@subsection Indications attachées à des notes
-@translationof Attached to notes
+@node Signes d'interprétation attachés à des notes
+@subsection Signes d'interprétation attachés à des notes
+@translationof Expressive marks attached to notes
 
 Nous allons voir au cours de ces lignes comment ajouter aux notes des
 indications d'interprétation -- articulation, ornementation, nuance --
@@ -596,9 +596,11 @@ Manuel d'extension :
 @rextendnamed{Markup construction in Scheme,Construction Scheme d'un marqueur}.
 
 
-@node Courbes
-@subsection Courbes
-@translationof Curves
+@node Signes d'interprétation sous forme de courbe
+@subsection Signes d'interprétation sous forme de courbe
+@translationof Expressive marks as curves
+
+@cindex courbes
 
 Ce chapitre traite des signes d'interprétation imprimés sous forme de
 courbe@tie{}: liaisons d'articulation ou de phrasé, respirations, chutes
@@ -1011,9 +1013,11 @@ Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
 
 
-@node Lignes
-@subsection Lignes
-@translationof Lines
+@node Signes d'interprétation sous forme de ligne
+@subsection Signes d'interprétation sous forme de ligne
+@translationof Expressive marks as lines
+
+@cindex lignes
 
 Cette partie traite de la manière de générer des signes d'interprétation
 d'aspect linéaire, tels les glissandos, arpèges et trilles.

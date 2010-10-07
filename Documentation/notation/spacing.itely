@@ -597,11 +597,15 @@ The value of the page number on the first page.  Default:
 @code{#1}.
 
 @item max-systems-per-page
+@funindex max-systems-per-page
+
 The maximum number of systems that will be placed on a page.  This
 is currently supported only by the @code{ly:optimal-breaking} algorithm.
 Default: unset.
 
 @item min-systems-per-page
+@funindex min-systems-per-page
+
 The minimum number of systems that will be placed on a page.  This
 may cause pages to be overfilled if it is made too large.  This is
 currently supported only by the @code{ly:optimal-breaking} algorithm.
@@ -1271,19 +1275,21 @@ page breaks at explicit @code{\pageBreak} commands and nowhere else.
 }
 
 \score {
-  \new Score \with {
-    \override NonMusicalPaperColumn #'line-break-permission = ##f
-    \override NonMusicalPaperColumn #'page-break-permission = ##f
-  } {
-    \new Staff {
-      \repeat unfold 2 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 8 { c'8 c'8 c'8 c'8 } \pageBreak
-      \repeat unfold 8 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 2 { c'8 c'8 c'8 c'8 }
+  \new Staff {
+    \repeat unfold 2 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 8 { c'8 c'8 c'8 c'8 } \pageBreak
+    \repeat unfold 8 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 2 { c'8 c'8 c'8 c'8 }
+    }
+  \layout {
+    \context {
+      \Score
+      \override NonMusicalPaperColumn #'line-break-permission = ##f
+      \override NonMusicalPaperColumn #'page-break-permission = ##f
     }
   }
 }
@@ -1301,7 +1307,7 @@ Snippets:
 Line- and page-breaking information usually appears within note entry directly.
 
 @example
-\new Score @{
+\score @{
   \new Staff @{
     \repeat unfold 2 @{ c'4 c'4 c'4 c'4 @}
     \break
@@ -1319,20 +1325,20 @@ contains only skips together with @code{\break}, @code{pageBreak} and other
 breaking layout information.
 
 @lilypond[quote,verbatim]
-\new Score {
+\score {
   \new Staff <<
-     \new Voice {
-        s1 * 2 \break
-        s1 * 3 \break
-        s1 * 6 \break
-        s1 * 5 \break
-     }
-     \new Voice {
-        \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 5 { c'4 c'4 c'4 c'4 }
-     }
+    \new Voice {
+      s1 * 2 \break
+      s1 * 3 \break
+      s1 * 6 \break
+      s1 * 5 \break
+    }
+    \new Voice {
+      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+    }
   >>
 }
 @end lilypond
@@ -1342,32 +1348,31 @@ This pattern becomes especially helpful when overriding
 @code{NonMusicalPaperColumnGrob}, as explained in @ref{Vertical spacing}.
 
 @lilypond[quote,verbatim]
-\new Score {
+\score {
   \new Staff <<
-     \new Voice {
-
-        \overrideProperty "Score.NonMusicalPaperColumn"
+    \new Voice {
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 0))
-        s1 * 2 \break
+      s1 * 2 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 35))
-        s1 * 3 \break
+      s1 * 3 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 70))
-        s1 * 6 \break
+      s1 * 6 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 105))
-        s1 * 5 \break
-     }
-     \new Voice {
-        \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 5 { c'4 c'4 c'4 c'4 }
-     }
+      s1 * 5 \break
+    }
+    \new Voice {
+      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+    }
   >>
 }
 @end lilypond
@@ -2056,11 +2061,11 @@ once with exaggerated corrections:
 @lilypond[quote,ragged-right]
 {
   c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4|
+  b'4 e''4 b'4 e''4 |
   \override Staff.NoteSpacing #'stem-spacing-correction = #1.5
   \override Staff.StaffSpacing #'stem-spacing-correction = #1.5
   c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4|
+  b'4 e''4 b'4 e''4 |
 }
 @end lilypond
 
@@ -2157,7 +2162,7 @@ than @code{1 16}.
     \context {
       \Score
       \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 16)
+        #'base-shortest-duration = #(ly:make-moment 1 16)
     }
   }
 }
@@ -2172,23 +2177,29 @@ such symbols and force uniform equal-duration spacing, use
 @code{Score.SpacingSpanner #'uniform-stretching}.  This
 property can only be changed at the beginning of a score,
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-\new Score \with {
-  \override SpacingSpanner #'uniform-stretching = ##t
-} <<
-  \new Staff{
-    \times 4/5 {
-      c8 c8 c8 c8 c8
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new Staff {
+      \times 4/5 {
+        c8 c8 c8 c8 c8
+      }
+      c8 c8 c8 c8
     }
-    c8 c8 c8 c8
-  }
-  \new Staff{
-    c8 c8 c8 c8
-    \times 4/5 {
-      c8 c8 c8 c8 c8
+    \new Staff {
+      c8 c8 c8 c8
+      \times 4/5 {
+        c8 c8 c8 c8 c8
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner #'uniform-stretching = ##t
     }
   }
->>
+}
 @end lilypond
 
 When @code{strict-note-spacing} is set, notes are spaced without
@@ -2288,15 +2299,17 @@ We start with the following one-measure example, which uses classical
 spacing with ragged-right turned on.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
     }
-  }
->>
+  >>
+}
 @end lilypond
 
 Notice that the half note which begins the measure takes up far less
@@ -2315,17 +2328,23 @@ turn proportional notation on with the proportionalNotationDuration
 setting.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 20)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+ \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 20)
     }
   }
->>
+}
 @end lilypond
 
 The half note at the beginning of the measure and the faster notes in
@@ -2333,72 +2352,90 @@ the second half of the measure now occupy equal amounts of horizontal
 space.  We could place a measured timeline or graphic above or below
 this example.
 
-The @code{proportionalNotationDuration} setting is a context setting that
-lives in @code{Score}.  Recall that context settings appear in one of
-three locations in our input file -- in a @code{\with} block, in a
-@code{\context} block, or directly in music entry
-preceded by the @code{\set} command.  As with all
-context settings, users can pick which of the three different
-locations they would like to set @code{proportionalNotationDuration}.
+The @code{proportionalNotationDuration} setting is a context setting
+that lives in @code{Score}.  Remember that context settings can appear
+in one of three locations within our input file -- in a @code{\with}
+block, in a @code{\context} block, or directly in music entry preceded
+by the @code{\set} command.  As with all context settings, users can
+pick which of the three different locations they would like to
+set @code{proportionalNotationDuration} in to.
 
 The @code{proportionalNotationDuration} setting takes a single argument,
-which is the reference duration against which all music will be
-spaced.  The LilyPond Scheme function make-moment takes two arguments
+which is the reference duration against that all music will be spaced.
+The LilyPond Scheme function @code{make-moment} takes two arguments
 -- a numerator and denominator which together express some fraction of
-a whole note.  The call @code{#(ly:make-moment 1 20)} therefore produces a
-reference duration of a twentieth note.  The values
+a whole note.  The call @code{#(ly:make-moment 1 20)} therefore produces
+a reference duration of a twentieth note.  Values such as
 @code{#(ly:make-moment 1 16)}, @code{#(ly:make-moment 1 8)}, and
 @code{#(ly:make-moment 3 97)} are all possible as well.
 
 How do we select the right reference duration to pass to
-@code{proportionalNotationDuration}?  Usually by a process of trial and error,
-beginning with a duration close to the fastest (or smallest) duration
-in the piece.  Smaller reference durations space music loosely; larger
-reference durations space music tightly.
+@code{proportionalNotationDuration}?  Usually by a process of trial
+and error, beginning with a duration close to the fastest (or smallest)
+duration in the piece.  Smaller reference durations space music loosely;
+larger reference durations space music tightly.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 8)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 8)
     }
   }
->>
+}
 
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 16)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 16)
     }
   }
->>
+}
 
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 32)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 32)
     }
   }
->>
+}
 @end lilypond
 
 Note that too large a reference duration -- such as the eighth note,
 above -- spaces music too tightly and can cause note head collisions.
-Note also that proportional notation in general takes up more
-horizontal space that does classical spacing.  Proportional spacing
-provides rhythmic clarity at the expense of horizontal space.
+Also that proportional notation in general takes up more horizontal
+space than classical spacing.  Proportional spacing provides rhythmic
+clarity at the expense of horizontal space.
 
 Next we examine how to optimally space overlapping tuplets.
 
@@ -2407,71 +2444,84 @@ classical spacing, when we add a second staff with a different type of
 tuplet.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
     }
-  }
-  \new RhythmicStaff {
-    \times 8/9 {
-      c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+    \new RhythmicStaff {
+      \times 8/9 {
+        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+      }
     }
-  }
->>
+  >>
+}
 @end lilypond
 
-The spacing is bad because the evenly notes of the bottom staff do not
-stretch uniformly.  Classical engraving includes very few complex
+The spacing is bad because the evenly spaced notes of the bottom staff
+do not stretch uniformly.  Classical engravings include very few complex
 triplets and so classical engraving rules can generate this type of
-result.  Setting @code{proportionalNotationDuration} remedies this
-situation considerably.
+result.  Setting @code{proportionalNotationDuration} fixes this.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 20)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+    \new RhythmicStaff {
+      \times 8/9 {
+        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 20)
     }
   }
-  \new RhythmicStaff {
-    \times 8/9 {
-      c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-    }
-  }
->>
+}
 @end lilypond
 
 But if we look very carefully we can see that notes of the second half
-of the 9-tuplet space ever so slightly more widely than do the notes
+of the 9-tuplet space ever so slightly more widely than the notes
 of the first half of the 9-tuplet.  To ensure uniform stretching, we
 turn on @code{uniform-stretching}, which is a property of
 @code{SpacingSpanner}.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 20)
-  \override SpacingSpanner #'uniform-stretching = ##t
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+    \new RhythmicStaff {
+      \times 8/9 {
+        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 20)
+      \override SpacingSpanner #'uniform-stretching = ##t
     }
   }
-  \new RhythmicStaff {
-    \times 8/9 {
-      c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-    }
-  }
->>
+}
 @end lilypond
 
 Our two-staff example now spaces exactly, our rhythmic
@@ -2734,8 +2784,7 @@ a system can be moved closer to the staff:
 
 @lilypond[verbatim,quote,relative=1]
 e4 c g\f c
-\override DynamicText #'extra-offset = #'( -2.2 . 2.0)
-e4 c g\f c
+e4 c g-\tweak #'X-offset #-2.7 -\tweak #'Y-offset #2.5 \f c
 @end lilypond
 
 @item

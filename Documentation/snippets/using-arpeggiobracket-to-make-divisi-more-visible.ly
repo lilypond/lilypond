@@ -4,6 +4,17 @@
 \version "2.13.31"
 
 \header {
+%% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
+  texidoces = "
+El corchete de arpegios @code{arpeggioBracket} se puede usar para
+indicar la división de voces cuando no hay plicas que puedan ofrecer
+esta información. Se suele encontrar en la música coral.
+
+"
+
+  doctitlees = "Uso de arpeggioBracket para hacer más visible un divisi"
+
+
   lsrtags = "expressive-marks, vocal-music"
 
   texidoc = "

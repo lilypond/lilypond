@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: ae438b1b151ed80ec5e491ac4d6538bddf3e9446
+    Translation of GIT committish: 98d54187c3da37a2f2a7d21c2aeaa5f6dd148193
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -17,7 +17,6 @@
 @spanEnd
 @end macro
 
-
 @divClass{heading-center}
 @ifclear web_version
 @heading Manuales de LilyPond @version
@@ -28,26 +27,30 @@
 
 @divEnd
 
-@c TODO: do we want these links to be in larger text / bold ?   CSS.
+@divClass{link-headings}
 
 @divClass{column-center-top}
 @subheading Introducción
 
 @itemize
 
-@item @ref{Entrada de texto}:
+@item
+@ref{Entrada de texto}:
 LilyPond es un sistema de grabado musical @strong{basado en texto}.
 ¡Lea esto primero!
 
-@item @ifWebLinks{@manualStableLearningSplitNoName-es,@rlearningnamed{Top,Aprendizaje}}
+@item
+@ifWebLinks{@manualStableLearningSplitNoName-es,@rlearningnamed{Top,Aprendizaje}}
 una introducción a LilyPond amable e @qq{imprescindible}.
 @details{Aprendizaje}
 
-@item @ifWebLinks{@manualStableGlossarySplitNoName-es,@rglosnamed{Top,Glosario}}
+@item
+@ifWebLinks{@manualStableGlossarySplitNoName-es,@rglosnamed{Top,Glosario}}
 @emph{(lectura opcional)} términos musicales y traducciones.
 @details{Glosario}
 
-@item @ifWebLinks{@manualStableEssaySplitNoName-es,@ressaynamed{Top,Ensayo}}
+@item
+@ifWebLinks{@manualStableEssaySplitNoName-es,@ressaynamed{Top,Ensayo}}
 @emph{(lectura opcional)} la información de trasfondo sobre grabado musical.
 @details{Ensayo}
 
@@ -61,15 +64,18 @@ una introducción a LilyPond amable e @qq{imprescindible}.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName-es,@rusernamed{Top,Notación}}
+@item
+@ifWebLinks{@manualStableNotationSplitNoName-es,@rusernamed{Top,Notación}}
 referencia de la sintaxis.
 @details{Notación}
 
-@item @ifWebLinks{@manualStableUsageSplitNoName-es,@rprogramnamed{Top,Utilización}}
+@item
+@ifWebLinks{@manualStableUsageSplitNoName-es,@rprogramnamed{Top,Utilización}}
 cómo ejecutar los programas.
 @details{Utilización}
 
-@item @ifWebLinks{@manualStableSnippetsSplitNoName-es,@rlsrnamed{Top,Fragmentos}}
+@item
+@ifWebLinks{@manualStableSnippetsSplitNoName-es,@rlsrnamed{Top,Fragmentos}}
 trucos y consejos cortos.
 @details{Fragmentos}
 
@@ -83,22 +89,27 @@ trucos y consejos cortos.
 
 @itemize
 
-@item @ref{FAQ}:
+@item
+@ref{FAQ}:
 Preguntas más frecuentes (Frequently Asked Questions).
 
-@item @ref{Web}:
+@item
+@ref{Web}:
 este documento.
 @details{Web}
 
-@item @ifWebLinks{@manualStableChangesSplitNoName-es,@rchangesnamed{Top,Cambios}}
+@item
+@ifWebLinks{@manualStableChangesSplitNoName-es,@rchangesnamed{Top,Cambios}}
 ¿qué hay de nuevo?
 @details{Cambios}
 
-@item @ifWebLinks{@manualStableExtendingSplitNoName-es,@rextendnamed{Top,Extender}}
+@item
+@ifWebLinks{@manualStableExtendingSplitNoName-es,@rextendnamed{Top,Extender}}
 trucos interesantes.
 @details{Extender}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName-es,@rinternalsnamed{Top,Funcionamiento interno}}
+@item
+@ifWebLinks{@manualStableInternalsSplitNoName-es,@rinternalsnamed{Top,Funcionamiento interno}}
 referencia sobre el trucaje.
 @details{Funcionamiento interno}
 
@@ -112,20 +123,26 @@ referencia sobre el trucaje.
 
 @itemize
 
-@item @ref{Traducido}:
+@item
+@ref{Traducido}:
 estado del proceso de traducción para los lectores no anglófonos.
 
-@item @ref{Todos}:
+@item
+@ref{Todos}:
 enlaces rápidos, manuales descargables y manuales antiguos.
 
-@item @ref{Desarrollo}:
+@item
+@ref{Desarrollo}:
 manuales para la versión de desarrollo.
 
-@item @ref{FDL}:
+@item
+@ref{FDL}:
 estos manuales están publicados bajo la Licencia de Documentación
 Libre de GNU.
 
 @end itemize
+
+@divEnd
 
 @divEnd
 

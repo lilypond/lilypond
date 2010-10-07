@@ -532,9 +532,11 @@ inserted by hand.
 
 Making a lyric line run slower than the melody can be achieved by
 inserting @code{\skip}s into the lyrics.  For every @code{\skip},
-the text will be delayed another note.  The @code{\skip} command
+the text will be delayed by another note.  The @code{\skip} command
 must be followed by a valid duration, but this is ignored when
-@code{\skip} is used in lyrics.
+@code{\skip} is used in lyrics which derive their durations from the
+notes in an associated melody through @code{\addlyrics} or
+@code{\lyricsto}.
 
 @lilypond[verbatim,ragged-right,quote]
 \relative c' { c c g' }
@@ -595,7 +597,7 @@ Internals Reference:
 * Divisi lyrics::
 * Lyrics independent of notes::
 * Spacing out syllables::
-* Placement of lyrics between staves::
+* Placement of lyrics::
 @end menu
 
 
@@ -698,9 +700,7 @@ Internals Reference:
 @unnumberedsubsubsec Lyrics and repeats
 
 @cindex repeats and lyrics
-
-@c see http://lists.gnu.org/archive/html/lilypond-user/2010-07/msg00022.html
-@c see http://lists.gnu.org/archive/html/lilypond-user/2010-06/msg00472.html
+@cindex lyrics, repeating
 
 @subheading Simple repeats
 
@@ -708,8 +708,9 @@ Repeats in @emph{music} are fully described elsewhere; see
 @ref{Repeats}.  This section explains how to add lyrics to repeated
 sections of music.
 
-Lyrics to a volta repeat can be written exactly as if the music was
-not repeated, if the words are unchanged.
+Lyrics to a section of music that is repeated should be surrounded
+by exactly the same repeat construct as the music, if the words are
+unchanged.
 
 @lilypond[verbatim,quote]
 \score {
@@ -725,35 +726,36 @@ not repeated, if the words are unchanged.
     \new Lyrics {
       \lyricsto "melody" {
         Not re -- peat -- ed.
-        Re -- peat -- ed twice.
+        \repeat volta 2 { Re -- peat -- ed twice. }
       }
     }
   >>
 }
 @end lilypond
 
-But if an unfold repeat is used, both the lyrics and the music must
-be repeated (assuming the repeated words are the same), otherwise
-the repeated section will have no lyrics.
+The words will then be correctly expanded if the repeats are
+unfolded.
 
 @lilypond[verbatim,quote]
 \score {
-  <<
-    \new Staff {
-      \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
-          \repeat unfold 2 { b4 b b b }
+  \unfoldRepeats {
+    <<
+      \new Staff {
+        \new Voice = "melody" {
+          \relative c'' {
+            a4 a a a
+            \repeat volta 2 { b4 b b b }
+          }
         }
       }
-    }
-    \new Lyrics {
-      \lyricsto "melody" {
-        Not re -- peat -- ed.
-        \repeat unfold 2 { Re -- peat -- ed twice. }
+      \new Lyrics {
+        \lyricsto "melody" {
+          Not re -- peat -- ed.
+          \repeat volta 2 { Re -- peat -- ed twice. }
+        }
       }
-    }
-  >>
+    >>
+  }
 }
 @end lilypond
 
@@ -782,16 +784,24 @@ enter all the words:
 }
 @end lilypond
 
+@cindex lyric skip
+@funindex \skip
+
 When the words to a repeated volta section are different the words
-to each repeat must entered in separate @code{Lyrics} contexts.
+to each repeat must be entered in separate @code{Lyrics} contexts.
 Earlier unrepeated sections must be skipped in the second and
 subsequent repeats.  The easiest way to skip several notes is to
-use @code{\repeat unfold} around the @code{\skip}.
+use @code{\repeat unfold} around the @code{\skip} command.
 
-@warning{The @code{\skip} command must be followed by a number,
-but this number is ignored in lyric mode.  Each @code{\skip} skips
-a single note of any value, irrespective of the value of the
-following number.}
+Note: do not use an underscore, @code{_}, to skip notes as this
+indicates a melisma and will cause the preceding syllable to be
+left-aligned.
+
+@warning{The @code{@bs{}skip} command must be followed by a number,
+but this number is ignored in lyrics which derive their durations
+from the notes in an associated melody through @code{\addlyrics} or
+@code{\lyricsto}.  Each @code{@bs{}skip} skips a single note of any
+value, irrespective of the value of the following number.}
 
 @lilypond[verbatim,quote]
 \score {
@@ -821,13 +831,15 @@ following number.}
 }
 @end lilypond
 
-An alternative way, which avoids having to count notes, is to use a
-temporary voice for the repeated section.  This may be useful if
-the earlier sections are still subject to change.  A temporary voice
-can be inserted anywhere in the main music stream in parallel with
-it, as shown below, but it may be necessary to keep the main voice
-alive in complex scores when using this technique; see
-@ref{Keeping contexts alive}.
+@cindex lyrics, repeating with a temporary voice
+
+An alternative way, which avoids skips and having to count notes,
+is to use a temporary voice for the repeated section.  This may be
+preferable if the earlier sections are still subject to change.  A
+temporary voice can be inserted anywhere in the main music stream
+in parallel with it, as shown below, but it may be necessary to
+keep the main voice alive in complex scores when using this
+technique; see @ref{Keeping contexts alive}.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -868,7 +880,189 @@ alive in complex scores when using this technique; see
 
 @subheading Repeats with alternative endings
 
-TBC
+@cindex lyrics, repeats with alternative endings
+@cindex repeating lyrics with alternative endings
+@cindex alternative endings and lyrics
+
+If the words of the repeated section are the same, exactly the
+same structure can be used for both the lyrics and music.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          a4 a a a
+          \repeat volta 2 { b4 b }
+          \alternative { { b b } { b c } }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        \repeat volta 2 { Re -- peat -- }
+        \alternative { { ed twice. } { ed twice. } }
+      }
+    }
+  >>
+}
+@end lilypond
+
+But when the repeated section has different words, a repeat
+construct cannot be used around the words and @code{\skip} commands
+have to be inserted manually as described in the previous section to
+skip over the notes in the alternative sections which do not apply.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \repeat volta 2 { b4 b }
+          \alternative { { b b } { b c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        The first time words.
+        \repeat unfold 2 { \skip 1 }
+        End here.
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Sec -- ond
+        \repeat unfold 2 { \skip 1 }
+        time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+@cindex lyrics and tied notes
+@funindex \repeatTie
+
+When a note is tied over into two or more alternative endings a
+tie is used to carry the note into the first alternative ending and
+a @code{\repeatTie} is used in the second and subsequent endings.
+This structure causes difficult alignment problems when lyrics are
+involved and increasing the length of the alternative sections so
+the tied notes are contained wholly within them may give a more
+acceptable result.
+
+The tie creates a melisma into the first alternative, but not into
+the second and subsequent alternatives, so to align the lyrics
+correctly it is necessary to disable the automatic creation of
+melismata over the volta section and insert manual skips.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \set melismaBusyProperties = #'()
+          \repeat volta 2 { b4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          \unset melismaBusyProperties
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        \repeat volta 2 { Here's a __ }
+        \alternative {
+          { \skip 1 verse }
+          { \skip 1 sec }
+        }
+        ond one.
+      }
+    }
+  >>
+}
+@end lilypond
+
+Note that if @code{\unfoldRepeats} is used around a section
+containing @code{\repeatTie}, the @code{\repeatTie} should be
+removed to avoid both types of tie being printed.
+
+When the repeated section has different words a @code{\repeat}
+cannot be used around the lyrics and @code{\skip} commands need to
+be inserted manually, as before.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \repeat volta 2 { b4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's a __ verse.
+        \repeat unfold 2 { \skip 1 }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's one
+        \repeat unfold 2 { \skip 1 }
+        more to sing.
+      }
+    }
+  >>
+}
+@end lilypond
+
+If you wish to show extenders and hyphens into and out of
+alternative sections these must be inserted manually.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative c'' {
+          \repeat volta 2 { b4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's a __ verse.
+        \repeat unfold 2 { \skip 1 }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's "a_"
+        \skip 1
+        "_" sec -- ond one.
+      }
+    }
+  >>
+}
+@end lilypond
+
 
 
 @node Divisi lyrics
@@ -1044,12 +1238,123 @@ To make lyrics avoid bar lines as well, use
 @end ignore
 
 
-@node Placement of lyrics between staves
-@unnumberedsubsubsec Placement of lyrics between staves
+@node Placement of lyrics
+@unnumberedsubsubsec Placement of lyrics
+
+@cindex placement of lyrics
+@cindex lyrics, positioning
 
 @c TODO Add text from -user
-@c TODO Add new spacing properties, centering lyrics, etc
-TBC
+
+Lyrics are positioned above the staff, below the staff, or between
+staves, depending on the type of music.  To place lyrics below the
+associated staff simply define the Lyrics context below the Staff
+context:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+To position lyrics above the staff, place the declaration of the
+Lyrics context before the Staff and Voice contexts, but the
+@code{\lyricsto} command must come after the Voice declaration it
+references, like this:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Lyrics = "lyrics"
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \context Lyrics = "lyrics" {
+      \lyricsto "melody" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+Alternatively, the position of the lyrics may be specified
+explicitly:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff = "staff" {
+      \new Voice = "melody" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \new Lyrics \with { alignAboveContext = "staff" } {
+      \lyricsto "melody" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+When there are two voices on separate staves the lyrics may be
+placed between the staves using either of these methods.  Here
+is an example of the first method:
+
+@lilypond[quote,verbatim]
+\score {
+  \new ChoirStaff <<
+    \new Staff {
+      \new Voice = "sopranos" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \new Lyrics = "sopranos"
+    \new Lyrics = "contraltos"
+    \new Staff {
+      \new Voice = "contraltos" {
+        \relative c'' { a4 a a a }
+      }
+    }
+    \context Lyrics = "sopranos" {
+      \lyricsto "sopranos" {
+        Sop -- ra -- no words
+      }
+    }
+    \context Lyrics = "contraltos" {
+      \lyricsto "contraltos" {
+        Con -- tral -- to words
+      }
+    }
+  >>
+}
+@end lilypond
+
+Other combinations of lyrics and staves may be generated by
+elaborating these examples, or by examining the SATB templates in
+the Learning Manual.
+
+@seealso
+Learning Manual:
+@rlearning{Vocal ensembles}.
+
+Notation Reference:
+@ref{Aligning contexts},
+@ref{Creating contexts}.
 
 @node Stanzas
 @subsection Stanzas
@@ -1471,8 +1776,60 @@ Internals Reference:
 @node References for songs
 @unnumberedsubsubsec References for songs
 
-@c TODO chords, setting simple songs (LM), stanzas
-TBC
+Songs are usually written on three staves with the melody for the
+singer on the top staff and two staves of piano accompaniment at
+the bottom.  The lyrics of the first stanza are printed immediately
+underneath the top staff.  If there are just a small number of
+further stanzas these can be printed immediately under the first
+one, but if there are more stanzas than can be easily accommodated
+there the second and subsequent stanzas are printed after the music
+as stand-alone text.
+
+All the notational elements needed to write songs are fully described
+elsewhere:
+
+@itemize
+
+@item
+For constructing the staff layout, see @ref{Displaying staves}.
+
+@item
+For writing piano music, see
+@ref{Keyboard and other multi-staff instruments}.
+
+@item
+For writing the lyrics to a melody line, see
+@ref{Common notation for vocal music}.
+
+@item
+For placing the lyrics, see @ref{Placement of lyrics}.
+
+@item
+For entering stanzas, see @ref{Stanzas}.
+
+@item
+Songs are frequently printed with the chording indicated by chord
+names above the staves.  This is described in
+@ref{Displaying chords}.
+
+@item
+To print fret diagrams of the chords for guitar accompaniment or
+accompaniment by other fretted instruments, see @qq{Fret diagram
+markups} in @ref{Common notation for fretted strings}.
+
+@end itemize
+
+@seealso
+Learning Manual:
+@rlearning{Songs}.
+
+Notation Reference:
+@ref{Common notation for vocal music},
+@ref{Displaying chords},
+@ref{Displaying staves},
+@ref{Keyboard and other multi-staff instruments},
+@ref{Placement of lyrics},
+@ref{Stanzas}.
 
 @node Lead sheets
 @unnumberedsubsubsec Lead sheets
@@ -1652,7 +2009,7 @@ Notation Reference:
 @ref{Fitting music onto fewer pages},
 @ref{Page formatting},
 @ref{Score layout},
-See @ref{Separating systems},
+@ref{Separating systems},
 @ref{Setting the staff size},
 @ref{Using an extra voice for breaks},
 @ref{Vertical spacing}.
@@ -1720,6 +2077,7 @@ typesetting opera and musical scores.
 @menu
 * References for opera and stage musicals::
 * Character names::
+* Musical cues::
 * Spoken music::
 * Dialogue over music::
 @end menu
@@ -1755,10 +2113,6 @@ For details of other page formatting properties, see
 @ref{Page formatting}.
 
 @item
-Musical cues can be inserted with the @code{\cueDuring} predefined
-command.  For details of its use see @ref{Formatting cue notes}.
-
-@item
 Dialogue cues and stage directions can be inserted with markup.
 See @ref{Text}.  Extensive stage directions can be inserted with
 a section of stand-alone markup between two @code{\score} blocks.
@@ -1766,27 +2120,19 @@ See @ref{Separate text}.
 
 @end itemize
 
-@predefined
-@code{\cueDuring},
-@code{\quoteDuring}.
-
 @seealso
 Musical Glossary:
-@rglos{cue-notes},
 @rglos{Frenched score},
 @rglos{Frenched staves},
 @rglos{transposing instrument}.
 
-Notation Manual:
+Notation Reference:
 @ref{Grouping staves},
 @ref{Hiding staves},
-@ref{Instrument names},
 @ref{Instrument transpositions},
 @ref{Nested staff groups},
 @ref{Page formatting},
-@ref{Selecting font and font size},
 @ref{Separating systems},
-@ref{Text},
 @ref{Transpose},
 @ref{Writing parts},
 @ref{Writing text}.
@@ -1834,21 +2180,199 @@ applying to that character.  This can be done with markup.  Often a
 specific font is used for this purpose.
 
 @lilypond[quote,verbatim,relative=1]
-\override TextScript #'font-family = #'typewriter
-\override TextScript #'font-size = #2
 \clef "G_8"
-c4^\markup Kaspar
+c4^\markup \fontsize #1 \smallCaps Kaspar
 c c c
 \clef "bass"
-a4^\markup Melchior
+a4^\markup \fontsize #1 \smallCaps Melchior
 a a a
+\clef "G_8"
+c4^\markup \fontsize #1 \smallCaps Kaspar
+c c c
+@end lilypond
+
+Alternatively, if there are many character changes, it may be
+easier to set up @qq{instrument} definitions for each character at
+the top level so that @code{\instrumentSwitch} can be used to
+indicate each change.
+
+@lilypond[quote,verbatim]
+\addInstrumentDefinition #"kaspar"
+  #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
+     (shortInstrumentName . "Kas.")
+     (clefGlyph . "clefs.G")
+     (clefOctavation . -7)
+     (middleCPosition . 1)
+     (clefPosition . -2)
+     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Kaspar"))
+     (midiInstrument . "voice oohs"))
+
+\addInstrumentDefinition #"melchior"
+  #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
+     (shortInstrumentName . "Mel.")
+     (clefGlyph . "clefs.F")
+     (clefOctavation . 0)
+     (middleCPosition . 6)
+     (clefPosition . 2)
+     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Melchior"))
+     (midiInstrument . "voice aahs"))
+
+\relative c' {
+  \instrumentSwitch "kaspar"
+  c4 c c c
+  \instrumentSwitch "melchior"
+  a4 a a a
+  \instrumentSwitch "kaspar"
+  c4 c c c
+}
 @end lilypond
 
 @seealso
 Notation Reference:
 @ref{Instrument names},
-@ref{Selecting font and font size},
-@ref{Text}.
+@ref{Scheme functions},
+@ref{Text},
+@ref{Text markup commands}.
+
+Extending LilyPond:
+@rextend{Markup construction in Scheme}.
+
+@node Musical cues
+@unnumberedsubsubsec Musical cues
+
+@cindex musical cues
+@cindex cues, musical
+
+Musical cues can be inserted in Vocal Scores, Vocal Books and
+Orchestral Parts to indicate what music in another part
+immediately precedes an entry.  Also, cues are often inserted in the
+piano reduction in Vocal Scores to indicate what each orchestral
+instrument is playing.  This aids the conductor when a full
+Conductors' Score is not available.
+
+The basic mechanism for inserting cues is fully explained in the
+main text, see @ref{Quoting other voices} and
+@ref{Formatting cue notes}.  But when many cues have to be
+inserted, for example, as an aid to a conductor in a vocal score,
+the instrument name must be positioned carefully just before and
+close to the start of the cued notes.  The following example shows
+how this is done.  Note that the name of the grob for overriding
+the cued instrument name is @code{InstrumentSwitch}.
+
+@lilypond[quote,verbatim]
+flute = \relative c'' {
+  s4 s4 e g
+}
+\addQuote "flute" { \flute }
+
+pianoRH = \relative c'' {
+  c4. g8
+  % position name of cued instrument just before the cued notes
+  \once \override CueVoice.InstrumentSwitch
+    #'self-alignment-X = #RIGHT
+  % position name of cued instrument above the staff
+  \once \override CueVoice.InstrumentSwitch #'direction = #UP
+  \set CueVoice.instrumentCueName = "Flute"
+  \cueDuring "flute" #UP { g4 bes4 }
+}
+pianoLH = \relative c { c4 <c' e> e, <g c> }
+
+\score {
+  \new PianoStaff <<
+    \new Staff {
+      \pianoRH
+    }
+    \new Staff {
+      \clef "bass"
+      \pianoLH
+    }
+  >>
+}
+@end lilypond
+
+If a transposing instrument is being cued the instrument part should
+specify its key so the conversion of its cued notes will be done
+automatically.  The example below shows this transposition for a
+B-flat clarinet.  The notes in this example are low on the staff so
+@code{#DOWN} is specified in @code{\cueDuring} (so the stems are
+down) and the instrument name is positioned below the staff.  Note
+also that the piano right-hand voice is explicitly declared.  This
+is because the cued notes in this example begin at the start of the
+first bar and this would otherwise cause the entire piano right-hand
+notes to be placed in a @code{CueVoice} context.
+
+@lilypond[quote,verbatim]
+clarinet = \relative c' {
+  \transposition bes
+  fis4 d d c
+}
+\addQuote "clarinet" { \clarinet }
+
+pianoRH = \relative c'' {
+  \transposition c'
+  % position name of cued instrument just before the cued notes
+  \once \override CueVoice.InstrumentSwitch
+    #'self-alignment-X = #RIGHT
+  % position name of cued instrument below the staff
+  \once \override CueVoice.InstrumentSwitch #'direction = #DOWN
+  \set CueVoice.instrumentCueName = "Clar."
+  \cueDuring "clarinet" #DOWN { c4. g8 }
+  g4 bes4
+}
+pianoLH = \relative c { c4 <c' e> e, <g c> }
+
+\score {
+  <<
+    \new PianoStaff <<
+      \new Staff {
+        \new Voice {
+          \pianoRH
+        }
+      }
+      \new Staff {
+        \clef "bass"
+        \pianoLH
+      }
+    >>
+  >>
+}
+@end lilypond
+
+From these two examples it is clear that inserting many cues in a
+Vocal Score would be extremely tedious, and the notes of the piano
+part would be obscured by the many overrides.  However, as the
+following snippet shows, it is possible to define a music function
+to reduce the amount of typing and to make the piano notes clearer.
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{adding-orchestral-cues-to-a-vocal-score.ly}
+
+@seealso
+Musical Glossary:
+@rglos{cue-notes}.
+
+Notation Reference:
+@ref{Aligning objects},
+@ref{Direction and placement},
+@ref{Formatting cue notes},
+@ref{Quoting other voices},
+@ref{Using music functions}.
+
+Snippets:
+@rlsr{vocal-music}.
+
+Internals Reference:
+@rinternals{InstrumentSwitch},
+@rinternals{CueVoice}.
+
+@knownissues
+@code{\cueDuring} automatically inserts a @code{CueVoice} context
+and all cue notes are placed in that context.  This means it is not
+possible to have two overlapping sequences of cued notes by this
+technique.  Overlapping sequences could be entered by explicitly
+declaring separate @code{CueVoice} contexts and using
+@code{\quoteDuring} to extract and insert the cued notes.
 
 
 @node Spoken music

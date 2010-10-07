@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: ca3b3c23ad44cb6b035c0dccf272cecf789d1029
+    Translation of GIT committish: 87a9977bbd54e3822338e290716845d8e2e304e3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -119,7 +119,7 @@ mezcla de código de Scheme y de LilyPond
 dentro de la expresión musical que se devuelve.
 
 Algunas instrucciones @code{\override} requieren un argumento que
-consiste en una pareja de números (llamada una @code{célula cons} en
+consiste en una pareja de números (llamada una @emph{célula cons} en
 Scheme).
 
 La pareja se puede pasar directamente dentro de la función musical,
@@ -419,21 +419,21 @@ Scheme @code{define-markup-command}, en el nivel sintáctico superior.
 
 Los argumentos son
 
-@table @var
-@item nombre-de-la-instruccion
+@table @code
+@item @var{nombre-de-la-instruccion}
 nombre de la instrucción de marcado
 @item layout
 la definición de @q{layout} (disposición).
 @item props
 una lista de listas asociativas, que contienen todas las propiedades
 activas.
-@item argi
+@item @var{argi}
 argumento @var{i}-ésimo de la instrucción
-@item tipo-de-argi?
+@item @var{tipo-de-argi?}
 predicado de tipo para el argumento @var{i}-ésimo
 @end table
 
-Si la instrucción utiliza propiedades de los argumentos @var{props},
+Si la instrucción utiliza propiedades de los argumentos @code{props},
 se puede usar la palabra clave @code{#:properties} para especificar
 qué propiedades se usan, así como sus valores predeterminados.
 
@@ -447,7 +447,7 @@ Los argumentos se distinguen según su tipo:
 @end itemize
 
 No existe ninguna limitación en el orden de los argumentos (después de
-los argumentos estándar @var{layout} y @var{props}).  Sin embargo, las
+los argumentos estándar @code{layout} y @code{props}).  Sin embargo, las
 funciones de marcado que toman un elemento de marcado como su último
 argumento son un poco especiales porque podemos aplicarlas a una lista
 de marcados y el resultado es una lista de marcados donde la función
@@ -778,7 +778,7 @@ de Scheme.  La sintaxis para esto es
 \applyContext @var{función}
 @end example
 
-@var{función} debe ser una función de Scheme que toma un único
+@code{@var{función}} debe ser una función de Scheme que toma un único
 argumento, que es el contexto al que aplicarla.  El código siguiente
 imprime el número del compás actual sobre la salida estándar durante
 la compilación:
@@ -800,18 +800,20 @@ la compilación:
 
 
 La manera más versátil de realizar el ajuste fino de un objeto es
-@code{\applyOutput}.  Su sintaxis es
+@code{\applyOutput}, que
+funciona insertando un evento dentro del contexto especificado
+(@rinternals{ApplyOutputEvent}).  Su sintaxis es
 
 @example
 \applyOutput @var{contexto} @var{proc}
 @end example
 
 @noindent
-donde @var{proc} es una función de Scheme, que toma tres argumentos.
+donde @code{@var{proc}} es una función de Scheme que toma tres argumentos.
 
-Al interpretarse, la función @var{proc} se llama para cada objeto de
-presentación que se encuentra en el contexto @var{contexto}, con los
-siguientes argumentos:
+Al interpretarse, la función @code{@var{proc}} se llama para cada objeto de
+presentación que se encuentra en el contexto @code{@var{contexto}}
+en el tiempo actual, con los siguientes argumentos:
 
 @itemize
 @item el propio objeto de presentación,
@@ -824,20 +826,19 @@ Además, la causa del objeto de presentación, es decir el objeto o
 expresión musical que es responsable de haberlo creado, está en la
 propiedad @code{cause} del objeto.  Por ejemplo, para la cabeza de una
 nota, éste es un evento @rinternals{NoteHead}, y para un objeto
-@rinternals{Stem} (plica), éste es un objeto @rinternals{Stem}.
-@c Impossible - changed to Stem --FV
+plica, éste es un objeto @rinternals{Stem}.
 
 He aquí una función que usar para @code{\applyOutput}; borra las
-cabezas de las notas que están sobre la línea central:
+cabezas de las notas que están sobre la línea central y junto a ella:
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (blanker grob grob-origin context)
    (if (and (memq 'note-head-interface (ly:grob-interfaces grob))
-            (eq? (ly:grob-property grob 'staff-position) 0))
+            (< (abs (ly:grob-property grob 'staff-position)) 2))
        (set! (ly:grob-property grob 'transparent) #t)))
 
 \relative c' {
-  e4 g8 \applyOutput #'Voice #blanker b d2
+  a'4 e8 <<\applyOutput #'Voice #blanker a c d>> b2
 }
 @end lilypond
 

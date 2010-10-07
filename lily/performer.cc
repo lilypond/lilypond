@@ -19,6 +19,7 @@
 */
 
 #include "context.hh"
+#include "performer.hh"
 #include "performer-group.hh"
 #include "warn.hh"
 
@@ -47,4 +48,10 @@ Performer::announce_element (Audio_element_info i)
     i.origin_trans_ = this;
 
   get_daddy_performer ()->announce_element (i);
+}
+
+Performer *
+unsmob_performer (SCM perf)
+{
+  return dynamic_cast<Performer *> (unsmob_translator (perf));
 }

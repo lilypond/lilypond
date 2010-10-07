@@ -1,6 +1,6 @@
 \header {
 
-  texidoc = "@code{\laissezVibrer} ties on beamed notes don't trigger
+  texidoc = "@code{\\laissezVibrer} ties on beamed notes don't trigger
 premature beam slope calculation. "
 
 }

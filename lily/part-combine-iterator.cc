@@ -367,6 +367,10 @@ Part_combine_iterator::construct_children ()
   set_context (two);
   second_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_cadr (lst))));
 
+
+  /* Mimic all settings of voiceOne/voiceTwo for the two separate voices...*/
+  /* FIXME: Is there any way to use the definition of \voiceOne/\voiceTwo
+            directly??? */
   char const *syms[]
     = {
     "Stem",
@@ -389,6 +393,17 @@ Part_combine_iterator::construct_children ()
       execute_pushpop_property (two, sym,
 				ly_symbol2scm ("direction"), scm_from_int (-1));
     }
+   /* Handle horizontal shifts for crossing notes */
+  execute_pushpop_property (one, ly_symbol2scm ("NoteColumn"),
+				 ly_symbol2scm ("horizontal-shift"), scm_from_int (0));
+  execute_pushpop_property (two, ly_symbol2scm ("NoteColumn"),
+				 ly_symbol2scm ("horizontal-shift"), scm_from_int (1));
+   /* Also handle MultiMeasureRest positions for voice 1/2 */
+  execute_pushpop_property (one, ly_symbol2scm ("MultiMeasureRest"),
+				 ly_symbol2scm ("staff-position"), scm_from_int (4));
+  execute_pushpop_property (two, ly_symbol2scm ("MultiMeasureRest"),
+				 ly_symbol2scm ("staff-position"), scm_from_int (-4));
+
 }
 
 IMPLEMENT_LISTENER (Part_combine_iterator, set_busy);

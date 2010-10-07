@@ -2,9 +2,32 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.29
-\version "2.13.31"
+\version "2.13.36"
 
 \header {
+%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
+
+  texidoces = "
+
+Las barras de semicorchea, o de figuras más breves, no se subdividen
+de forma predeterminada.  Esto es, las tres (o más) barras se amplían
+sin romperse sobre grupos completos de notas.  Este comportamiento se
+puede modificar para subdividir las barras en subgrupos mediante el
+establecimiento de la propiedad @code{subdivideBeams}.  Cuando está
+activada, las barras se subdividen a intervalos definidos por el valor
+actual de @code{baseMoment} mediante la reducción de las barras
+repetidas a una sola entre los subgrupos.  Observe que el valor
+predeterminado de @code{baseMoment} es uno más que el denominador del
+tipo de compás actual, si no se fija explícitamente.  Se debe ajustar
+a una fracción que da la duración del subgrupo de barras utilizando la
+función @code{ly:make-moment}, como se ve en este fragmento de código.
+Asimismo, cuando se modifica @code{baseMoment}, se debería cambiar
+también @code{beatStructure} para que corresponda al @code{baseMoment}
+nuevo:
+
+"
+  doctitlees = "Subdivisión de barras"
+
 %% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
   texidocfr = "
 Les ligatures d'une succession de notes de durée inférieure à la croche

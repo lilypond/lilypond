@@ -2,7 +2,7 @@
 \header {
 
   texidoc ="Polyphonic rhythms and rests do not disturb
-@code{\lyricsto}."
+@code{\\lyricsto}."
 
 }
 

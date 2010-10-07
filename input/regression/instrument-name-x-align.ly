@@ -2,7 +2,7 @@
 
   texidoc = "Instrument names horizontal alignment is tweaked by
 changing the @code{Staff.Instrument #'self-alignment-X} property.  The
-@code{\layout} variables @code{indent} and @code{short-indent} define
+@code{\\layout} variables @code{indent} and @code{short-indent} define
 the space where the instrument names are aligned before the first and
 the following systems, respectively."
 

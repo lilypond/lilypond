@@ -4,7 +4,23 @@
 \version "2.13.31"
 
 \header {
+%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
+  texidoces = "
+
+A veces, la indicación de compás no debe imprimir la fracción completa
+(p.ej.  7/4), sino sólo el numerador (7 en este caso).  Esto se puede
+hacer fácilmente utilizando @code{\\override Staff.TimeSignature
+#'style = #'single-digit} para cambiar el estilo
+permanentemente. Usando @code{\\revert Staff.TimeSignature #'style},
+se puede revertir el cambio.  Para aplicar el estilo de un dígito
+único a una sola indicación de compás, utilice la instrucción
+@code{\\override} y anteponga la instrucción @code{\\once}.
+
+"
+  doctitlees = "Indicación de compás imprimiendo sólo el numerador (en lugar de la fracción)"
+
   lsrtags = "rhythms, tweaks-and-overrides"
+
 
 %% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
 

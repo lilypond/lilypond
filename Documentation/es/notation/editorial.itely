@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: fe2cae0fa47ec4ec0184e6b3d15572fbcba881cf
+    Translation of GIT committish: 8e0330b913e0c7494282e6b00cebbf4dcee79b50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -157,7 +157,7 @@ Referencia de funcionamiento interno:
 @funindex finger
 
 Las instrucciones de digitación se pueden introducir usando
-@var{nota}-@var{dígito}:
+@samp{@var{nota}-@var{dígito}}:
 
 @lilypond[verbatim,quote,relative=2]
 c4-1 d-2 f-4 e-3
@@ -319,10 +319,11 @@ d
 e
 @end lilypond
 
+
 Se puede acceder al espectro completo de colores definido para X11
 usando la función de Scheme x11-color.  Esta función acepta un único
-argumento; éste puede ser un símbolo de la forma @var{'FulanoMengano}
-o una cadena de la forma @var{"FulanoMengano"}.  La primera forma es
+argumento; éste puede ser un símbolo de la forma @code{@var{'FulanoMengano}}
+o una cadena de la forma @code{"@var{FulanoMengano}"}.  La primera forma es
 más rápida de escribir y también más eficiente.  Sin embargo, al usar
 la segunda forma es posible acceder a los colores de X11 por medio de
 la forma del nombre que tiene varias palabras.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
+    Translation of GIT committish: 908605aaf5df4d07684dafd862322e6ffac3ae10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -414,7 +414,9 @@ La liste suivante répertorie les tablatures prédéfinies pour le ukulele.
 @translationof MIDI instruments 
 
 La liste suivante répertorie les différentes dénominations que vous
-pouvez affecter à la propriété @code{midiInstrument}.
+pouvez affecter à la propriété @code{midiInstrument}.  L'ordre dans
+lequel ils sont rangés, par colonne, correspond aux 128 programmes du
+standard @emph{General MIDI}.
 
 @example
 acoustic grand            contrabass           lead 7 (fifths)
@@ -581,8 +583,8 @@ où @var{N} est compris entre 0 et 100.
 Voici, regroupés par type, les différents symboles de la fonte
 Emmentaler qui peuvent s'inclure directement dans un objet
 @emph{markup}.  Pour ce faire, il suffit d'employer le nom du glyphe,
-comme dans @code{g^\markup @{\musicglyph #"scripts.segno" @}} ou
-@code{\markup @{\musicglyph #"five"@}}.  Pour de plus amples
+comme dans @w{@code{g^\markup @{\musicglyph #"scripts.segno" @}}} ou
+@w{@code{\markup @{\musicglyph #"five"@}}}.  Pour de plus amples
 informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 
@@ -924,9 +926,11 @@ bloc @code{\markuplines @{ @}}.
 @cindex segno
 @cindex coda
 @cindex varcoda
+@cindex pointe
+@cindex talon
 
-
-Voici la liste exhaustive des symboles prédéfinis :
+Voici la liste exhaustive des symboles prédéfinis et que vous pouvez
+attacher à une note (p.ex. @code{c\accent})@tie{}:
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")

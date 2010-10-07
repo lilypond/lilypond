@@ -4,7 +4,18 @@
 \version "2.13.31"
 
 \header {
+%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+
+  texidoces = "
+
+Se pueden imprimir marcas al final de la línea actual, en vez de al
+principio de la línea siguiente.  En estos casos, puede ser preferible
+alinear el borde derecho de la marca con la línea divisoria.
+
+"
+  doctitlees = "Imprimir marcas al final de una línea"
   lsrtags = "text"
+
 
 %% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
   texidocfr = "

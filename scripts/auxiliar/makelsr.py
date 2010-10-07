@@ -119,6 +119,20 @@ def update_translated_texidoc (m, snippet_path, visited_languages):
     else:
         return m.group (0)
 
+def escape_backslashes_in_header(snippet):
+    # ASSUME: the \header exists.
+    header_char_number_start = snippet.find('\header {')
+    header_char_number_end = snippet.find('} % begin verbatim')
+
+    header = snippet[header_char_number_start:header_char_number_end]
+    # two levels of escaping happening here -- 4\ means 1\
+    # and the 10\ means two \ backslashes (that's 8\ ), and
+    # one backreference to group 1 (that's two 2\ ).
+    new_header = re.sub("@code\{\\\\([a-zA-Z])", "@code{\\\\\\\\\\1", header)
+    escaped_snippet = (snippet[:header_char_number_start] +
+	new_header + snippet[header_char_number_end:])
+    return escaped_snippet
+
 def copy_ly (srcdir, name, tags):
     global unsafe
     global unconverted
@@ -146,6 +160,7 @@ def copy_ly (srcdir, name, tags):
     s = mark_verbatim_section (s)
     s = lsr_comment_re.sub ('', s)
     s = strip_white_spaces_re.sub ('', s)
+    s = escape_backslashes_in_header (s)
     open (dest, 'w').write (s)
 
     e = os.system (convert_ly+(" -e '%s'" % dest))
@@ -223,6 +238,8 @@ def update_ly_in_place (snippet_path):
         else:
             need_line_break_workaround = True
     contents = doctitle_re.sub (doctitle_sub, contents)
+    contents = escape_backslashes_in_header (contents)
+
     # workaround for a bug in the regex's that I'm not smart
     # enough to figure out.  -gp
     if need_line_break_workaround:

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c89a1808d10c9a5e60c74e20668e136623db12f2
+    Translation of GIT committish: d9d72186ca281ea763cb2d50446a113ab0a26779
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -74,6 +74,25 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Ahora el usuario puede especificar el nombre de la tabla
+predeterminada de diagramas de posiciones de acordes.  Esto permite la
+utilización de varias tablas y el cambio de una a otra en función de
+los deseos del usuario.
+
+@item
+Ahora se puede personalizar la decisión del combinador de voces de combinar o no las notas.
+@lilypond[quote,relative=2]
+\partcombine
+\relative c' { c2 \partcombineApart c | \partcombineChordsOnce e' e }
+\relative c' { c2 \partcombineApart c | c c }
+@end lilypond
+
+@item
+De forma predeterminada, las pautas de tablatura sólo muestran los
+números de traste.  Para conseguir el estilo anterior, se ofrece la
+instrucción @code{\tabFullNotation}.
 
 @item
 Se han añadido notas con forma en los estilos Funk y Walker.

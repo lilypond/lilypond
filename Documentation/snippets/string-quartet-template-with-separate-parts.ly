@@ -56,7 +56,7 @@ sind in den Kommentaren am Anfang jeder Datei enthalten.  @code{piece.ly}
 enthält die Noten. Die anderen Dateien -- @code{score.ly},
 @code{vn1.ly}, @code{vn2.ly}, @code{vla.ly} und
 @code{vlc.ly} -- erstellen daraus die entsprechenden Stimmen bzw. die
-Partitur (@code{score.ly}). Mit @code{\tag} wird den Stimmen ein Name
+Partitur (@code{score.ly}). Mit @code{\\tag} wird den Stimmen ein Name
 zugewiesen, auf den zurückgegriffen werden kann.
 "
 

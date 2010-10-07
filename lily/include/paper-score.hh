@@ -33,6 +33,7 @@ class Paper_score : public Music_output
 
   mutable vector<Grob*> cols_;
   mutable vector<vsize> break_indices_;
+  mutable vector<vsize> break_ranks_;
 public:
   Paper_score (Output_def *);
   
@@ -43,11 +44,12 @@ public:
 
   void typeset_system (System *);
   vector<Column_x_positions> calc_breaking ();
-  vector<vsize> find_break_indices () const;
   vector<vsize> get_break_indices () const;
+  vector<vsize> get_break_ranks () const;
   vector<Grob*> get_columns () const;
   SCM get_paper_systems ();
 protected:
+  void find_break_indices () const;
   virtual void process ();
   virtual void derived_mark () const;
 

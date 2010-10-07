@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: e776d5bb2a48191d2c7ccd60b160211462701b2e
+    Translation of GIT committish: e97ca85dab74d4cdf388fc489789bddd69275186
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -103,6 +103,29 @@ base y el número.  Un archivo de entrada que contenga
 producirá como salida @var{base}@file{-violin.pdf} y
 @var{base}@file{-cello-1.pdf}.
 
+
+@unnumberedsubsubsec Instrucciones estándar de la línea de órdenes
+
+Si su terminal (o ventana de órdenes) contempla las redirecciones
+normales, quizá le sean de utilidad las siguientes instrucciones para
+redirigir la salida de la consola a un archivo:
+
+@itemize
+
+@item
+@code{lilypond archivo.ly 1>salidaestandar.log} para redirigir la salida normal
+
+@item
+@code{lilypond archivo.ly 2>salidadeerror.log} para redirigir los mensajes de error
+
+@item
+@code{lilypond archivo.ly &>todo.log} para redirigir toda la salida
+
+@end itemize
+
+Consulte la documentación de su shell para ver si contempla estas
+opciones, o si la sintaxis es distinta.  Observe que son instrucciones
+del shell y que no tienen nada que ver con lilypond.
 
 @node Opciones de la línea de órdenes para lilypond
 @unnumberedsubsec Opciones de la línea de órdenes para @command{lilypond}
@@ -303,20 +326,29 @@ Mostrar un resumen de las formas de utilización.
 @item -H,--header=@var{CAMPO}
 Volcar un campo de cabecera al archivo @file{NOMBREBASE.@var{CAMPO}}
 
+@cindex archivos, búsqueda de
+@cindex búsqueda, ruta de
 @item --include, -I=@var{directorio}
 Añadir el @var{directorio} a la ruta de búsqueda de archivos de
 entrada.
-@cindex archivos, búsqueda de
-@cindex búsqueda, ruta de
+
+Se pueden escribir varias opciones -I.  La búsqueda se inicia en el
+primer directorio definido, y si el archivo que se debe incluir no se
+encuentra, la búsqueda continúa en los directorios siguientes.
 
 @item -i,--init=@var{archivo}
 Establecer el archivo de inicio a @var{archivo} (predeterminado:
 @file{init.ly}).
 
-@item -o,--output=@var{ARCHIVO}
+@cindex carpeta, dirigir la salida hacia
+@cindex salida, establecer el nombre del archivo de
+
+@item -o,--output=@var{ARCHIVO} o @var{CARPETA}
 Establecer el nombre del archivo de salida predeterminado a
-@var{ARCHIVO}.  Se añade el sufijo correspondiente (por ejemplo,
-@code{.pdf} para PDF).
+@var{ARCHIVO} o, si existe una carpeta con ese nombre, dirigir la
+salida hacia @var{CARPETA}, tomando el nombre de archivo del documento
+de entrada.  Se añade el sufijo correspondiente (por ejemplo,
+@code{.pdf} para PDF) en los dos casos.
 
 @item --ps
 Generar PostScript.
@@ -547,11 +579,14 @@ for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh" "/bin/rm
 # Los archivos compartidos para ImageMagick
       cp -L -r /usr/lib/ImageMagick* usr/lib
 
-### Ahora, suponiendo que tenemos test.ly en /mnt/lilyloop/lilyhome, deberíamos poder ejecutar:
-### Observe que /$lilyprefix/bin/lilypond es un guión, que establece un valor para LD_LIBRARY_PATH : esto es crucial
+### Ahora, suponiendo que tenemos test.ly en /mnt/lilyloop/lilyhome,
+### deberíamos poder ejecutar:
+### Observe que /$lilyprefix/bin/lilypond es un guión, que establece
+### un valor para LD_LIBRARY_PATH : esto es crucial
       /$lilyprefix/bin/lilypond -jlily,lily,/mnt/lilyloop,/lilyhome test.ly
 @end example
 
+@c " keep quote signs balanced for context-sensitive editors
 
 @node Mensajes de error
 @section Mensajes de error
@@ -651,6 +686,7 @@ se han visto y comprendido, se manejan sin problema.
 * Error aparente en ../ly/init.ly::
 * Mensaje de error Unbound variable %::
 * Mensaje de error FT_Get_Glyph_Name::
+* Advertencia sobre que las afinidades del pentagrama sólo deben decrecer::
 @end menu
 
 @node La música se sale de la página
@@ -768,7 +804,7 @@ sílaba de un bloque lyrics (de letra) y la llave de cierre,
 parte de la sílaba.  Siempre se aconseja asegurarse de que hay
 espacios antes y después de @emph{todas} las llaves.  Para conocer la
 importancia de este asunto al utilizar letras de canciones, consulte
-@ruser{Explicación de la letra}.
+@ruser{Introducir la letra}.
 
 Este mensaje de error también puede aparecer si se omiten las comillas
 de terminación (@code{"}).  En este caso, un mensaje de error
@@ -791,7 +827,6 @@ Los comentarios de LilyPond comienzan con un símbolo de porcentaje,
 (@code{%}), y no se deben utilizar dentro de las rutinas de Scheme.
 Los comentarios de Scheme comienzan con punto y coma, (@code{;}).
 
-
 @node Mensaje de error FT_Get_Glyph_Name
 @unnumberedsubsec Mensaje de error FT_Get_Glyph_Name
 @translationof Error message FT_Get_Glyph_Name
@@ -803,4 +838,21 @@ UTF-8.  Para ver más detalles, consulte @ruser{Codificación del
 texto}.
 
 
+@node Advertencia sobre que las afinidades del pentagrama sólo deben decrecer
+@unnumberedsubsec Advertencia sobre que las afinidades del pentagrama sólo deben decrecer
+@translationof Warning staff affinities should only decrease
 
+Esta advertencia puede aparecer si no hay ningún pentagrama en la
+salida impresa, por ejemplo si sólo hay un contexto @code{ChordName} y
+un contexto @code{Lyrics} como en una hoja guía de acordes.  Los
+mensajes de advertencia se pueden evitar haciendo que uno de los
+contextos se comporte como un pentagrama, insertando
+
+@example
+\override VerticalAxisGroup #'staff-affinity = ##f
+@end example
+
+@noindent
+al comienzo.  Para ver más detalles, consulte @qq{Espaciado de las
+líneas que no son pautas} in @ruser{Espaciado vertical dentro de un
+sistema}.

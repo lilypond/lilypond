@@ -96,7 +96,7 @@ und @rcontribnamed{Compiling,Kompilieren}.}
 Wir empfehlen, dass neue Mithelfer, die Windows oder MacOS X benutzen,
 @strong{keine} eigene Kompilierungsumgebung einrichtigen; anstelle
 dessen siehe
-@rcontribnamed{Using a Virtual Machine to Compile LilyPond,Ein virtuelles Betriebssystem (VM) einsetzen um LilyPond zu kompilieren}.
+@rcontrib{Lilybuntu}.
 
 @itemize
 @item

@@ -26,6 +26,35 @@ NOTE:
   * don't duplicate entries from news-front.itexi
 @end ignore
 
+
+
+@newsItem
+@subsubheading LilyPond 2.13.32 released!  @emph{Sep 3, 2010}
+
+We are happy to announce the release of LilyPond 2.13.32.  This
+release contains the usual number of bugfixes.  However, a number
+of critical issues still remain, so this release is intended for
+developers only.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond Report #20.  @emph{Sep 2, 2010}
+
+The @emph{LilyPond Report} is back, with its two
+@qq{grumpy-and-fluffy} editors! This issue contains a review of an
+online notation editor using lilypond, along with the regular
+release news, snippet of the report, news from the frog pond, and
+the bug report of the report!
+
+Come
+@uref{http://news.lilynet.net/The-LilyPond-Report-20, read
+LilyPond Report 20} now; comments and contributions are
+warmly encouraged!
+@newsEnd
+
+
 @newsItem
 @subsubheading LilyPond 2.13.31 released!  @emph{Aug 24, 2010}
 

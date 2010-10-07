@@ -2,7 +2,7 @@
 
 \header{
   texidoc = "Each grob can have a color assigned to it.
-Use the @code{\override} and @code{\revert} expressions to set the
+Use the @code{\\override} and @code{\\revert} expressions to set the
 @code{color} property."
 }
 

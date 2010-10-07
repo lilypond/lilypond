@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: fe2cae0fa47ec4ec0184e6b3d15572fbcba881cf
+    Translation of GIT committish: 8e0330b913e0c7494282e6b00cebbf4dcee79b50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -31,7 +31,7 @@ repeticiones con finales alternativos.
 
 @item unfold (desplegada)
 Las música repetida se escribe y se interpreta completamente tantas
-veces como especifique el valor @var{número_de_repeticiones}.  Es útil
+veces como especifique el valor @code{@var{número_de_repeticiones}}.  Es útil
 cuando se está escribiendo música repetitiva.
 
 @item percent (porcentaje)
@@ -90,7 +90,7 @@ La sintaxis de una repetición normal es
 @end example
 
 @noindent
-donde @var{expresión_musical} es una expresión musical.
+donde @code{@var{expresión_musical}} es una expresión musical.
 
 Una repetición simple sin finales alternativos:
 
@@ -113,7 +113,7 @@ entre llaves curvas.
 @end example
 
 @noindent
-donde @var{expresión_musical} es una expresión musical.
+donde @code{@var{expresión_musical}} es una expresión musical.
 
 Si existen más repeticiones que finales alternativos,
 se asigna el primer final alternativo
@@ -482,9 +482,9 @@ repetitiva.  La sintaxis es:
 @end example
 
 @noindent
-donde @var{expresión_musical} es una expresión musical y
-@var{número_de_repeticiones} es el número de veces que
-@var{expresión_musical} se repite.
+donde @code{@var{expresión_musical}} es una expresión musical y
+@code{@var{número_de_repeticiones}} es el número de veces que
+@code{@var{expresión_musical}} se repite.
 
 @lilypond[verbatim,quote,relative=2]
 \repeat unfold 2 { c4 d e f }
@@ -595,11 +595,11 @@ sustituyen por barras inclinadas, y los patrones de uno o dos compases
 se sustituyen por símbolos de tipo porcentaje.  La sintaxis es:
 
 @example
-@code{\repeat percent @var{número} @var{expresión_musical}}
+\repeat percent @var{número} @var{expresión_musical}
 @end example
 
 @noindent
-donde @var{expresión_musical} es una expresión musical.
+donde @code{@var{expresión_musical}} es una expresión musical.
 
 Patterns that are shorter than one measure are replaced by slashes.
 
@@ -716,10 +716,10 @@ cuyo caso la nota no debe ir encerrada entre llaves:
 @funindex :
 
 El mismo resultado se puede obtener escribiendo
-@q{@code{:}[@var{número}]} después de la nota.  El número indica la
-duración de la subdivisión, y debe ser 8 como mínimo.  Un valor de 8
-para @var{número} produce una línea que atraviesa la plica de la nota.
-Si se omite la longitud, se utiliza el último valor (almacenado en
+@code{:@var{N}} después de la nota, donde @code{@var{N}} indica la
+duración de la subdivisión (debe ser 8 como mínimo).  Si @code{@var{N}}
+es 8, se añade una barra de corchea a la plica de la nota.
+Si @code{@var{N}} se omite, se utiliza el último valor (almacenado en
 @code{tremoloFlags}):
 
 @lilypond[quote,verbatim,relative=2]

@@ -277,6 +277,33 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end macro
 
 
+@ifhtml
+@macro contactUsAbout{topic}
+
+@divClass{heading-center}
+@divClass{contactBox}
+If you are aware of any other \topic\ which could be listed here,
+please let us know by following the instructions on
+@ref{Bug reports}.
+
+@divEnd
+@divEnd
+
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro contactUsAbout{topic}
+@cartouche
+If you are aware of any other \topic\ which could be listed here,
+please let us know by following the instructions on
+@ref{Bug reports}.
+
+@end cartouche
+
+@end macro
+@end ifnothtml
+
 @include web/introduction.itexi
 @include web/download.itexi
 @include web/manuals.itexi

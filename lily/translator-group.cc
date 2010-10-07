@@ -23,11 +23,13 @@
 #include "context-def.hh"
 #include "context.hh"
 #include "dispatcher.hh"
+#include "engraver.hh"
 #include "engraver-group.hh"
 #include "international.hh"
 #include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
+#include "performer.hh"
 #include "performer-group.hh"
 #include "scheme-engraver.hh"
 #include "scm-hash.hh"
@@ -52,7 +54,7 @@ Translator_group::connect_to_context (Context *c)
   if (context_)
     {
       programming_error ("translator group is already connected to context "
-			 +  context_->context_name ());
+			 + context_->context_name ());
     }
   
   context_ = c;
@@ -84,13 +86,22 @@ Translator_group::finalize ()
 {
 }
 
+/*
+  Both filter_performers and filter_engravers used to use a direct dynamic_cast
+  on the unsmobbed translator to be filtered, i.e.,
+
+  if (dynamic_cast<Performer *> (unsmob_translator (scm_car (*tail))))
+
+  but this caused mysterious optimisation issues in several GUB builds.  See
+  issue #818 for the background to this change.
+*/
 SCM
 filter_performers (SCM ell)
 {
   SCM *tail = &ell;
   for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
     {
-      if (dynamic_cast<Performer *> (unsmob_translator (scm_car (*tail))))
+      if (unsmob_performer (scm_car (*tail)))
 	*tail = scm_cdr (*tail);
       else
 	tail = SCM_CDRLOC (*tail);
@@ -104,7 +115,7 @@ filter_engravers (SCM ell)
   SCM *tail = &ell;
   for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
     {
-      if (dynamic_cast<Engraver *> (unsmob_translator (scm_car (*tail))))
+      if (unsmob_engraver (scm_car (*tail)))
 	*tail = scm_cdr (*tail);
       else
 	tail = SCM_CDRLOC (*tail);

@@ -2,9 +2,40 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.31
-\version "2.13.31"
+\version "2.13.36"
 
 \header {
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+  texidoces = "
+
+Se puede cambiar el tamaño y grosor de las líneas de los diagramas de
+posiciones para instrumentos de viento madera.
+
+"
+
+  doctitlees = "Modificar el tamaño de los diagramas de viento madera"
+
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+
+  texidocde="
+Die Größe und Dicke der Holzbläserdiagramme kann geändert werden.
+"
+
+  doctitlede = "Größe von Holzbläserdiagrammen ändern"
+
+
+%% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
+  texidocfr = "
+La taille et l'épaisseur des diagrammes de doigté pour bois est modifiable
+à souhait.
+
+"
+
+  doctitlefr = "Modification de la taille d'un diagramme pour bois"
+
+
   lsrtags="winds"
   texidoc="
 The size and thickness of woodwind diagrams can be changed.

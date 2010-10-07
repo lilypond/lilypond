@@ -284,6 +284,16 @@ make a link from the old unstable to the next stable in
 lilypond.org's /doc/ dir.  Keep all previous unstable->stable doc
 symlinks.
 
+Also, make the old docs self-contained -- if there's a redirect in
+/doc/v2.12/Documentation/index.html , replace it with the
+index.html.old-2.12 files.
+
+The post-2.13 docs will need another way of handling the
+self-containment.  It won't be hard to whip up a python script
+that changes the link to ../../../../manuals.html to
+../website/manuals.html , but it's still a 30-minute task that
+needs to be done before 2.16.
+
 @item
 doc auto redirects  to v2.LATEST-STABLE
 

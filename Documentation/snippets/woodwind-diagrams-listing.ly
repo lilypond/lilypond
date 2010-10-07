@@ -2,9 +2,37 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.31
-\version "2.13.31"
+\version "2.13.36"
 
 \header {
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+  texidoces = "
+El fragmento de música que aparece a continuación presenta todos los
+diagramas de viento madera que se encuentran definidos en LilyPond por
+el momento.
+
+"
+  doctitlees = "Listado de los diagramas para viento madera"
+
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+
+  texidocde="
+Folgende Noten zeige alle Holzbläserdiagramme, die für LilyPond
+definiert sind.
+
+"
+  doctitlede = "Liste der Holzbläserdiagramme"
+
+
+%% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
+  texidocfr = "
+Voici la liste des différents instruments à vent de la section des bois
+dont les doigtés sont disponibles à ce jour.
+"
+  doctitlefr = "Liste des diagrammes de doigtés pour bois"
+
+
   lsrtags="winds"
   texidoc="
 The following music shows all of the woodwind diagrams currently

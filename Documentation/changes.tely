@@ -67,6 +67,23 @@ which scares away people.
 @end ignore
 
 @item
+The user is now able to specify the name of the predefined fretboard
+table.  This allows the use of multiple tables, with switching between them
+based on user input.
+
+@item
+The part-combiner's decision to combine/not combine notes can now be customized
+@lilypond[quote,relative=2]
+\partcombine
+\relative c' { c2 \partcombineApart c | \partcombineChordsOnce e' e }
+\relative c' { c2 \partcombineApart c | c c }
+@end lilypond
+
+@item
+Tablature staves show fret numbers only by default. To get the
+former style, @code{\tabFullNotation} is provided.
+
+@item
 Funk-style and Walker-style shape notes have been added.
 
 @item
@@ -376,6 +393,10 @@ and to add notes to the number or fraction:
 @item
 FretBoards now have a chordChanges property to keep repeated FretBoard objects
 from being typeset.
+
+@item
+The vertical spacing engine has been drastically changed, making
+it more flexible and easier to control.
 
 @end itemize
 

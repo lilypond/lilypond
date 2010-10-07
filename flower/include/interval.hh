@@ -72,6 +72,9 @@ struct Interval_t : public Drul_array<T>
   void set_empty ();
   void set_full ();
 
+  void unite_disjoint (Interval_t<T> h, T padding, Direction d);
+  Interval_t<T> union_disjoint (Interval_t<T> h, T padding, Direction d) const;
+
   bool is_empty () const
   {
     return at (LEFT) > at (RIGHT);

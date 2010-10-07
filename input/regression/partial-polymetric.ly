@@ -1,7 +1,7 @@
 \version "2.13.31"
 
 \header {
-  texidoc = "@code{\partial} works with polymetric staves."
+  texidoc = "@code{\\partial} works with polymetric staves."
 }
 
 \score {

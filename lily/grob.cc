@@ -482,6 +482,19 @@ Grob::spanned_rank_interval () const
   return Interval_t<int> (-1, 0);
 }
 
+bool
+Grob::pure_is_visible (int start, int end) const
+{
+  return true;
+}
+
+/* Sort grobs according to their starting column. */
+bool
+Grob::less (Grob *g1, Grob *g2)
+{
+  return g1->spanned_rank_interval ()[LEFT] < g2->spanned_rank_interval ()[LEFT];
+}
+
 /****************************************************************
   REFPOINTS
 ****************************************************************/

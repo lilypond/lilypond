@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 0945e7219a3995158d76267d26f77f57659c8578
+    Translation of GIT committish: ab33677eec38b683b5a5223bf7aa5f4bed38549c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -224,7 +224,15 @@ Referencia de la notación:
 @cindex Bartók pizzicato
 @cindex snap pizzicato
 
-@snippets
+El @notation{snap pizzicato} (conocido también como @qq{pizzicato de Bartók}) es un
+tipo de pizzicato en el que la cuerda se pulsa hacia arriba (y no lateralmente)
+de forma deliberada, de forma que golpea la madera del diapasón.
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{snap-pizzicato-bartok-pizzicato.ly}
+@lilypond[verbatim,quote,relative=1]
+c4\snappizzicato
+<c' e g>4\snappizzicato
+<c' e g>4^\snappizzicato
+<c, e g>4_\snappizzicato
+@end lilypond
+
+

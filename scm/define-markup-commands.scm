@@ -45,27 +45,19 @@
 ;;;     using `chain-assoc-get' (more on that below)
 ;;;
 ;;;   args...
-;;;     the command arguments. There are restrictions on the
-;;;     possible arguments for a markup command.
-;;;     First, arguments are distinguished according to their type:
-;;;       1) a markup (or a string), corresponding to type predicate `markup?'
-;;;       2) a list of markups, corresponding to type predicate `markup-list?'
-;;;       3) any scheme object, corresponding to type predicates such as
-;;;       `list?', 'number?', 'boolean?', etc.
-;;;     The supported arrangements of arguments, according to their type, are:
-;;;       - no argument
-;;;       - markup
-;;;       - scheme
-;;;       - markup, markup
-;;;       - markup-list
-;;;       - scheme, scheme
-;;;       - scheme, markup
-;;;       - scheme, scheme, markup
-;;;       - scheme, scheme, markup, markup
-;;;       - scheme, markup, markup
-;;;       - scheme, scheme, scheme
-;;;     This combinations are hard-coded in the lexer and in the parser
-;;;     (lily/lexer.ll and lily/parser.yy)
+;;;     the command arguments.
+;;;     There is no limitation on the order of command arguments.
+;;;     However, markup functions taking a markup as their last
+;;;     argument are somewhat special as you can apply them to a
+;;;     markup list, and the result is a markup list where the
+;;;     markup function (with the specified leading arguments) has
+;;;     been applied to every element of the original markup list.
+;;;
+;;;     Since replicating the leading arguments for applying a
+;;;     markup function to a markup list is cheap mostly for
+;;;     Scheme arguments, you avoid performance pitfalls by just
+;;;     using Scheme arguments for the leading arguments of markup
+;;;     functions that take a markup as their last argument.
 ;;;
 ;;;   args-signature
 ;;;     the arguments signature, i.e. a list of type predicates which

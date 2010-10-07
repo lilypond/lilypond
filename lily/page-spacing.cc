@@ -31,7 +31,7 @@ Page_spacing::calc_force ()
     - breaker_->min_whitespace_at_bottom_of_page (last_line_);
 
   if (rod_height_ + last_line_.bottom_padding_ >= height)
-    force_ = infinity_f;
+    force_ = -infinity_f;
   else
     force_ = (height - rod_height_ - last_line_.bottom_padding_ - spring_len_)
       / max (0.1, inverse_spring_k_);
@@ -300,10 +300,11 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 	    space.force_ = 0;
 
 	  Real demerits = space.force_ * space.force_;
-	  /* If a single line is taller than a page, we need to consider it as
-	     a possible solution (but we give it a very bad score). */
-	  if (isinf (space.force_) && page_start == line)
-	    demerits = BAD_SPACING_PENALTY;
+
+	  // Clamp the demerits at BAD_SPACING_PENALTY, even if the page
+	  // is overfull.  This ensures that TERRIBLE_SPACING_PENALTY takes
+	  // precedence over overfull pages.
+	  demerits = min (demerits, BAD_SPACING_PENALTY);
 	  demerits += (prev ? prev->demerits_ : 0);
 
 	  Real penalty = breaker_->line_count_penalty (line_count);

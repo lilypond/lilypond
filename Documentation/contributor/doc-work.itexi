@@ -604,17 +604,20 @@ external url.  Use within an @code{@@example ... @@end example}.
 @item
 @code{@@code@{@dots{}@}}, @code{@@samp@{@dots{}@}} ---
 
-Use the @code{@@code@{@dots{}@}} command for individual
-language-specific tokens (keywords, commands, engravers, scheme
-symbols, etc.).  Ideally, a single @code{@@code@{@dots{}@}} block
-should fit within one line in the PDF output.  Use the
-@code{@@samp@{@dots{}@}} command when you have a short example of
-user input, unless it constitutes an entire @code{@@item} by
-itself, in which case @code{@@code@{@dots{}@}} is preferable.
-Otherwise, both should only be used when part of a larger sentence
-within a paragraph or @code{@@item}.  Never use a
-@code{@@code@{@dots{}@}} or @code{@@samp@{@dots{}@}} block as a
-free-standing paragraph; use @code{@@example} instead.
+Use the @code{@@code@{@dots{}@}} command when referring to
+individual language-specific tokens (keywords, commands,
+engravers, scheme symbols, etc.) in the text.  Ideally, a single
+@code{@@code@{@dots{}@}} block should fit within one line in the
+PDF output.
+
+Use the @code{@@samp@{@dots{}@}} command when you have a short
+example of user input, unless it constitutes an entire
+@code{@@item} by itself, in which case @code{@@code@{@dots{}@}} is
+preferable.  Otherwise, both should only be used when part of a
+larger sentence within a paragraph or @code{@@item}.  Do not use
+@code{@@code@{@dots{}@}} or @code{@@samp@{@dots{}@}} inside an
+@code{@@example} block, and do not use either as a free-standing
+paragraph; use @code{@@example} instead.
 
 A single unindented line in the PDF has space for about 79
 fixed-width characters (76 if indented).  Within an @code{@@item}
@@ -660,8 +663,9 @@ so the example above would be coded as
 @q{@code{@@q@{@@w@{@@code@{@@bs@{@}relative c''@}@}@}}}.
 
 @item
-@code{@@command@{@dots{}@}} --- Use for command-line commands (eg.
-@samp{@@command@{lilypond-book@}}).
+@code{@@command@{@dots{}@}} --- Use when referring to command-line
+commands within the text (eg. @samp{@@command@{convert-ly@}}).  Do
+not use inside an @code{@@example} block.
 
 @item
 @code{@@example} --- Use for examples of program code.  Do not add
@@ -700,11 +704,14 @@ running into the PDF margin.  Each additional level of
 @code{@@smallexample} line by about 5 columns.
 
 @item
-@code{@@file@{@dots{}@}} --- Use for filenames and directories.
+@code{@@file@{@dots{}@}} --- Use when referring to filenames and
+directories in the text.  Do not use inside an @code{@@example}
+block.
 
 @item
-@code{@@option@{@dots{}@}} --- Use for options to command-line
-commands (eg. @samp{@@option@{--format@}}).
+@code{@@option@{@dots{}@}} --- Use when referring to command-line
+options in the text (eg. @samp{@@option@{--format@}}).  Do not use
+inside an @code{@@example} block.
 
 @item
 @code{@@verbatim} --- Prints the block exactly as it appears in
@@ -814,7 +821,17 @@ Only use once per subsection per term.
 backslash (\), you must use @samp{@@bs@{@}}.
 
 @item
-@code{@@var@{@dots{}@}} --- Use for variables.
+@code{@@var@{@dots{}@}} --- Use for metasyntactic variables (such
+as @code{@var{foo}}, @code{@var{bar}}, @code{@var{arg1}}, etc.).
+In most cases, when the @code{@@var@{@dots{}@}} command appears in
+the text (and not in an @code{@@example} block) it should be
+wrapped with an appropriate texinfo code-highlighting command
+(such as @code{@@code}, @code{@@samp}, @code{@@file},
+@code{@@command}, etc.).  For example:
+@samp{@@code@{@@var@{foo@}@}},
+@samp{@@file@{@@var@{myfile.ly@}@}},
+@w{@samp{@@samp@{git checkout @@var@{branch@}@}}}, etc.  This
+improves readability in the PDF and HTML output.
 
 @item
 @code{@@version@{@}} --- Return the current LilyPond version
@@ -1066,6 +1083,14 @@ Do not include any real info in second-level sections (i.e. 1.1
 Pitches).  A first-level section may have introductory material,
 but other than that all material goes into third-level sections
 (i.e. 1.1.1 Writing Pitches).
+
+@item
+The @@knownissues should not discuss any issues that are in the
+tracker, unless the issue is Priority-Postponed.  The goal is to
+discuss any overall architecture or syntax decisions which may be
+interpreted as bugs.  Normal bugs should not be discussed here,
+because we have so many bugs that it would be a huge task to keep
+the @@knownissues current and accurate all the time.
 
 @end itemize
 

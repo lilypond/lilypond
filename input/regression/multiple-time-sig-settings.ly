@@ -3,7 +3,8 @@
 \header {
   texidoc = "
 Multiple overrides to the default time signature settings can be
-added.  In this example, all notes should be beamed at 1/4.
+added.  In this example, notes should be beamed as indicated
+by the markups.
 "
 }
 
@@ -21,11 +22,13 @@ added.  In this example, all notes should be beamed at 1/4.
       #'(1 1 1)    % beatStructure
       #'()       % beamExceptions
   \time 4/4
-  c8 c c c c c c c |
+  c8^\markup {"Beam by 1/4"} c c c c c c c |
   \time 3/4
-  c8 c c c c c |
+  c8^\markup {"Beam by 1/4"} c c c c c |
+  \revertTimeSignatureSettings #'Score #'(4 . 4)
+  \revertTimeSignatureSettings #'Score #'(3 . 4)
   \time 4/4
-  c8 c c c c c c c |
+  c8^\markup {"Beam by 1/2"} c c c c c c c |
   \time 3/4
-  c8 c c c c c |
+  c8^\markup {"Beam by 3/4"} c c c c c |
 }

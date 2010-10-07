@@ -35,6 +35,9 @@
 #include "system.hh"
 #include "warn.hh"
 
+static bool
+pure_staff_priority_less (Grob *const &g1, Grob *const &g2);
+
 void
 Axis_group_interface::add_element (Grob *me, Grob *e)
 {
@@ -146,7 +149,6 @@ Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents, int s
 // is at the beginning of a line. The second vector stores, for each measure,
 // the combined height of the elements that are present only when the bar
 // is not at the beginning of a line.
-
 MAKE_SCHEME_CALLBACK (Axis_group_interface, adjacent_pure_heights, 1)
 SCM
 Axis_group_interface::adjacent_pure_heights (SCM smob)
@@ -154,73 +156,95 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   Grob *common = unsmob_grob (me->get_object ("pure-Y-common"));
-  extract_grob_set (me, "pure-relevant-items", items);
-  extract_grob_set (me, "pure-relevant-spanners", spanners);
+  extract_grob_set (me, "pure-relevant-grobs", elts);
 
   Paper_score *ps = get_root_system (me)->paper_score ();
-  vector<vsize> breaks = ps->get_break_indices ();
-  vector<Grob*> cols = ps->get_columns ();
+  vector<vsize> ranks = ps->get_break_ranks ();
 
-  SCM begin_line_heights = scm_c_make_vector (breaks.size () - 1, SCM_EOL);
-  SCM mid_line_heights = scm_c_make_vector (breaks.size () - 1, SCM_EOL);
+  vector<Interval> begin_line_heights;
+  vector<Interval> mid_line_heights;
+  vector<Interval> begin_line_staff_heights;
+  vector<Interval> mid_line_staff_heights;
+  begin_line_heights.resize (ranks.size () - 1);
+  mid_line_heights.resize (ranks.size () - 1);
 
-  vsize it_index = 0;
-  for (vsize i = 0; i + 1 < breaks.size (); i++)
+  for (vsize i = 0; i < elts.size (); ++i)
     {
-      int start = Paper_column::get_rank (cols[breaks[i]]);
-      int end = Paper_column::get_rank (cols[breaks[i+1]]);
+      Grob *g = elts[i];
 
-      // Take grobs that are visible with respect to a slightly longer line.
-      // Otherwise, we will never include grobs at breakpoints which aren't
-      // end-of-line-visible.
-      int visibility_end = i + 2 < breaks.size () ?
-	Paper_column::get_rank (cols[breaks[i+2]]) : end;
+      if (to_boolean (g->get_property ("cross-staff")))
+	continue;
 
-      Interval begin_line_iv;
-      Interval mid_line_iv;
+      bool outside_staff = scm_is_number (g->get_property ("outside-staff-priority"));
+      Real padding = robust_scm2double (g->get_property ("outside-staff-padding"), 0.5);
 
-      for (vsize j = it_index; j < items.size (); j++)
+      // When we encounter the first outside-staff grob, make a copy
+      // of the current heights to use as an estimate for the staff heights.
+      // Note that the outside-staff approximation that we use here doesn't
+      // consider any collisions that might occur between outside-staff grobs,
+      // but only the fact that outside-staff grobs may need to be raised above
+      // the staff.
+      if (outside_staff && begin_line_staff_heights.empty ())
 	{
-	  Item *it = dynamic_cast<Item*> (items[j]);
-	  int rank = it->get_column ()->get_rank ();
-
-	  if (rank <= end && it->pure_is_visible (start, visibility_end)
-	      && !to_boolean (it->get_property ("cross-staff")))
-	    {
-	      Interval dims = items[j]->pure_height (common, start, end);
-	      Interval &target_iv = start == it->get_column ()->get_rank () ? begin_line_iv : mid_line_iv;
-
-	      if (!dims.is_empty ())
-		target_iv.unite (dims);
-	    }
-
-	  if (rank < end)
-	    it_index++;
-	  else if (rank > end)
-	    break;
+	  begin_line_staff_heights = begin_line_heights;
+	  mid_line_staff_heights = mid_line_heights;
 	}
 
-      for (vsize j = 0; j < spanners.size (); j++)
-	{
-	  Interval_t<int> rank_span = spanners[j]->spanned_rank_interval ();
-	  if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
-	      && !to_boolean (spanners[j]->get_property ("cross-staff")))
-	    {
-	      Interval dims = spanners[j]->pure_height (common, start, end);
+      // TODO: consider a pure version of get_grob_direction?
+      Direction d = to_dir (g->get_property_data ("direction"));
+      d = (d == CENTER) ? UP : d;
 
+      Interval_t<int> rank_span = g->spanned_rank_interval ();
+      vsize first_break = lower_bound (ranks, (vsize)rank_span[LEFT], less<vsize> ());
+      if (first_break > 0 && ranks[first_break] >= (vsize)rank_span[LEFT])
+	first_break--;
+
+      for (vsize j = first_break; j+1 < ranks.size () && (int)ranks[j] <= rank_span[RIGHT]; ++j)
+	{
+	  int start = ranks[j];
+	  int end = ranks[j+1];
+
+	  // Take grobs that are visible with respect to a slightly longer line.
+	  // Otherwise, we will never include grobs at breakpoints which aren't
+	  // end-of-line-visible.
+	  int visibility_end = j + 2 < ranks.size () ? ranks[j+2] : end;
+
+	  if (g->pure_is_visible (start, visibility_end))
+	    {
+	      Interval dims = g->pure_height (common, start, end);
 	      if (!dims.is_empty ())
 		{
-		  mid_line_iv.unite (dims);
 		  if (rank_span[LEFT] <= start)
-		    begin_line_iv.unite (dims);
+		    {
+		      if (outside_staff)
+			begin_line_heights[j].unite (
+			    begin_line_staff_heights[j].union_disjoint (dims, padding, d));
+		      else
+			begin_line_heights[j].unite (dims);
+		    }
+                  if (rank_span[RIGHT] > start)
+		    {
+		      if (outside_staff)
+			mid_line_heights[j].unite (
+                            mid_line_staff_heights[j].union_disjoint (dims, padding, d));
+		      else
+			mid_line_heights[j].unite (dims);
+		    }
 		}
 	    }
 	}
-
-      scm_vector_set_x (begin_line_heights, scm_from_int (i), ly_interval2scm (begin_line_iv));
-      scm_vector_set_x (mid_line_heights, scm_from_int (i), ly_interval2scm (mid_line_iv));
     }
-  return scm_cons (begin_line_heights, mid_line_heights);
+
+  // Convert begin_line_heights and min_line_heights to SCM.
+  SCM begin_scm = scm_c_make_vector (ranks.size () - 1, SCM_EOL);
+  SCM mid_scm = scm_c_make_vector (ranks.size () - 1, SCM_EOL);
+  for (vsize i = 0; i < begin_line_heights.size (); ++i)
+    {
+      scm_vector_set_x (begin_scm, scm_from_int (i), ly_interval2scm (begin_line_heights[i]));
+      scm_vector_set_x (mid_scm, scm_from_int (i), ly_interval2scm (mid_line_heights[i]));
+    }
+
+  return scm_cons (begin_scm, mid_scm);
 }
 
 Interval
@@ -231,8 +255,7 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
      Unfortunately, it isn't always true, particularly if there is a
      VerticalAlignment somewhere in the descendants.
 
-     Apart from PianoStaff, which has a fixed VerticalAlignment so it doesn't
-     count, the only VerticalAlignment comes from Score. This makes it
+     Usually, the only VerticalAlignment comes from Score. This makes it
      reasonably safe to assume that if our parent is a VerticalAlignment,
      we can assume additivity and cache things nicely. */
   Grob *p = me->get_parent (Y_AXIS);
@@ -240,34 +263,18 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
     return Axis_group_interface::cached_pure_height (me, start, end);
 
   Grob *common = unsmob_grob (me->get_object ("pure-Y-common"));
-  extract_grob_set (me, "pure-relevant-items", items);
-  extract_grob_set (me, "pure-relevant-spanners", spanners);
+  extract_grob_set (me, "pure-relevant-grobs", elts);
 
   Interval r;
-
-  for (vsize i = 0; i < items.size (); i++)
+  for (vsize i = 0; i < elts.size (); i++)
     {
-      Item *it = dynamic_cast<Item*> (items[i]);
-      int rank = it->get_column ()->get_rank ();
-
-      if (rank > end)
-	break;
-      else if (rank >= start && it->pure_is_visible (start, end)
-	       && !to_boolean (it->get_property ("cross-staff")))
-	{
-	  Interval dims = it->pure_height (common, start, end);
-	  if (!dims.is_empty ())
-	    r.unite (dims);
-	}
-    }
-
-  for (vsize i = 0; i < spanners.size (); i++)
-    {
-      Interval_t<int> rank_span = spanners[i]->spanned_rank_interval ();
+      Grob *g = elts[i];
+      Interval_t<int> rank_span = g->spanned_rank_interval ();
       if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
-	  && !to_boolean (spanners[i]->get_property ("cross-staff")))
+	  && g->pure_is_visible (start, end)
+	  && !to_boolean (g->get_property ("cross-staff")))
 	{
-	  Interval dims = spanners[i]->pure_height (common, start, end);
+	  Interval dims = g->pure_height (common, start, end);
 	  if (!dims.is_empty ())
 	    r.unite (dims);
 	}
@@ -420,48 +427,11 @@ Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 	}
     }
 
+  vector_sort (relevant_grobs, pure_staff_priority_less);
   SCM grobs_scm = Grob_array::make_array ();
   unsmob_grob_array (grobs_scm)->set_array (relevant_grobs);
 
   return grobs_scm;
-}
-
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_items, 1);
-SCM
-Axis_group_interface::calc_pure_relevant_items (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-
-  extract_grob_set (me, "pure-relevant-grobs", elts);
-
-  vector<Grob*> relevant_items;
-  for (vsize i = 0; i < elts.size (); i++)
-    if (Item *it = dynamic_cast<Item*> (elts[i]))
-      relevant_items.push_back (it);
-
-  vector_sort (relevant_items, Item::less);
-
-  SCM items_scm = Grob_array::make_array ();
-  unsmob_grob_array (items_scm)->set_array (relevant_items);
-  return items_scm;
-}
-
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_spanners, 1);
-SCM
-Axis_group_interface::calc_pure_relevant_spanners (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-
-  extract_grob_set (me, "pure-relevant-grobs", elts);
-
-  vector<Grob*> relevant_spanners;
-  for (vsize i = 0; i < elts.size (); i++)
-    if (dynamic_cast<Spanner*> (elts[i]))
-      relevant_spanners.push_back (elts[i]);
-
-  SCM spanners_scm = Grob_array::make_array ();
-  unsmob_grob_array (spanners_scm)->set_array (relevant_spanners);
-  return spanners_scm;
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_y_common, 1);
@@ -542,7 +512,7 @@ Axis_group_interface::get_children (Grob *me, vector<Grob*> *found)
     }
 }
 
-bool
+static bool
 staff_priority_less (Grob * const &g1, Grob * const &g2)
 {
   Real priority_1 = robust_scm2double (g1->get_property ("outside-staff-priority"), -infinity_f);
@@ -564,6 +534,15 @@ staff_priority_less (Grob * const &g1, Grob * const &g2)
   Real start_1 = g1->extent (common, X_AXIS)[LEFT];
   Real start_2 = g2->extent (common, X_AXIS)[LEFT];
   return start_1 < start_2;
+}
+
+static bool
+pure_staff_priority_less (Grob * const &g1, Grob * const &g2)
+{
+  Real priority_1 = robust_scm2double (g1->get_property ("outside-staff-priority"), -infinity_f);
+  Real priority_2 = robust_scm2double (g2->get_property ("outside-staff-priority"), -infinity_f);
+
+  return priority_1 < priority_2;
 }
 
 static void

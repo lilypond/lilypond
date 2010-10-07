@@ -9,7 +9,7 @@ property, but it may be shortened down to @code{minimum-length} in
 tight situations. If in this it still does not fit, the hyphen will be
 omitted.
 
-Like all overrides within @code{\lyricsto} and @code{\addlyrics}, the
+Like all overrides within @code{\\lyricsto} and @code{\\addlyrics}, the
 effect of a setting is delayed is one syllable."
 
 }
