@@ -2,9 +2,24 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.24
-\version "2.13.31"
+\version "2.13.36"
 
 \header {
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+  texidoces = "
+
+El fragmento de código que aparece a continuación produce una lista de
+todas las llaves y disposiciones de llave posibles para los diagramas
+de posiciones de instrumentos de viento madera, tal y como están
+definidos en @file{scm/define-woodwind-diagrams.scm}.  La lista se
+presenta en la consola y en el archivo de registro de salida, pero no
+en la salida de música.
+
+"
+
+  doctitlees = "Listas de llaves para los diagramas de viento madera"
+
 %%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
   texidocde="

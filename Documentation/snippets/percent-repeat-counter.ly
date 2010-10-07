@@ -6,14 +6,14 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
+%% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
   texidoces = "
-Las repeticiones de compases completos mayores de dos repeticiones
+Las repeticiones de compases completos de más de dos repeticiones
 pueden llevar un contador si se activa la propiedad adecuada, como se
 ve en este ejemplo:
 
 "
-  doctitlees = "Percent repeat counter"
+  doctitlees = "Contador de repeticiones de tipo porcentaje"
 
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
