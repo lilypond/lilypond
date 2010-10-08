@@ -78,67 +78,63 @@ Music Glossary:
 @node Entering lyrics
 @unnumberedsubsubsec Entering lyrics
 
-Lyrics are entered in lyric mode.  This section explains how this
-done.
-
-@cindex lyrics
+@cindex lyrics, entering
+@cindex entering lyrics
+@cindex punctuation in lyrics
+@cindex lyrics punctuation
+@cindex spaces in lyrics
+@cindex quotes in lyrics
 @funindex \lyricmode
-@cindex punctuation
-@cindex spaces, in lyrics
-@cindex quotes, in lyrics
-
-@c TODO: this section is to be rewritten.
-Since LilyPond input files are text, there is at least one
-issue to consider when working with vocal music:
-song texts must be interpreted as text, not notes.  For example, the
-input@tie{}@code{d} should be interpreted as a one letter syllable,
-not the note@tie{}D.
-Therefore, a special lyric mode has to be used, either explicitly
-or using some abbreviated methods.
 
 Lyrics are entered in a special input mode, which can be introduced
 by the keyword @code{\lyricmode}, or by using @code{\addlyrics} or
-@code{\lyricsto}.  In this mode you can enter lyrics,
-with punctuation and accents, and the input @code{d} is not parsed as
-a pitch, but rather as a one letter syllable.  Syllables are entered
-like notes, but with pitches replaced by text.  For example,
+@code{\lyricsto}.  In this mode the input @code{d} is not parsed as
+the pitch @notation{D}, but rather as a one-letter syllable of text.
+In other words, syllables are entered like notes but with pitches
+replaced by text.
+
+For example:
 
 @example
-\lyricmode @{ Twin-4 kle4 twin- kle litt- le star2 @}
+\lyricmode @{ Three4 blind mice,2 three4 blind mice2 @}
 @end example
 
-There are two main methods to specify the horizontal placement
+There are two main methods for specifying the horizontal placement
 of the syllables, either by specifying the duration of each syllable
-explicitly, like in the example above, or by automatically aligning
-the lyrics to a melody or other voice of music, using @code{\addlyrics}
-or @code{\lyricsto}.
-@c  TODO: broken
-@c For more details see @ref{The Lyrics context}.
+explicitly, as in the example above, or by leaving the lyrics to be
+aligned automatically to a melody or other voice of music, using
+@code{\addlyrics} or @code{\lyricsto}.  The former method is
+described below in @ref{Manual syllable durations}.  The latter
+method is described in @ref{Automatic syllable durations}.
 
-A word or syllable of lyrics begins with an alphabetic character, and ends
-with
-any space or digit.  The following characters can be any character
-that is not a digit or white space.
+A word or syllable of lyrics begins with an alphabetic character
+(plus some other characters, see below) and is terminated by any
+white space or a digit.  Later characters in the syllable can be any
+character that is not a digit or white space.
 
-Any character that is not a digit or white space will be regarded as
-part of the syllable; one important consequence of this is that a word
-can end with @code{@}}, which often leads to the following mistake:
+Because any character that is not a digit or white space is regarded
+as part of the syllable, a word is valid even if it ends with
+@code{@}}, which often leads to the following mistake:
 
 @example
-\lyricmode @{ lah- lah@}
+\lyricmode @{ lah lah lah@}
 @end example
 
 In this example, the @code{@}} is included in the final syllable, so the
 opening brace is not balanced and the input file will probably not
-compile.
+compile.  Instead, always place white space around braces:
 
+@example
+\lyricmode @{ lah lah lah @}
+@end example
 
-@funindex \property in \lyricmode
+@cindex overrides in lyric mode
+@funindex \override in \lyricmode
 
-@noindent
-Similarly, a period which follows an alphabetic sequence is included in
-the resulting string.  As a consequence, spaces must be inserted around
-property commands: do @emph{not} write
+Similarly, a period which follows an alphabetic sequence is included
+in that sequence in lyric mode.  As a consequence, spaces must be
+inserted around the period in @code{\override} commands.  Do
+@emph{not} write
 
 @example
 \override Score.LyricText #'font-shape = #'italic
@@ -151,61 +147,49 @@ but instead use
 \override Score . LyricText #'font-shape = #'italic
 @end example
 
-To enter lyrics with characters from non-English languages, or with
-accented and special characters (such as the heart symbol or slanted quotes),
-simply insert the characters directly into the input file and save
-it with UTF-8 encoding.  See @ref{Text encoding}, for more info.
+To enter punctuation, lyrics with accented characters, characters
+from non-English languages, or special characters (such as the heart
+symbol or slanted quotes), simply insert the characters directly
+into the input file and save it with UTF-8 encoding.  For more
+information, see @ref{Text encoding}.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,verbatim]
 \relative c' { e4 f e d e f e2 }
-\addlyrics { He said: “Let my peo ple go”. }
+\addlyrics { He said: “Let my peo -- ple go.” }
 @end lilypond
 
 To use normal quotes in lyrics, add a backslash before the
-quotes.  For example,
+quotes and place the whole syllable in quotes.  For example,
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,verbatim]
 \relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
-\addlyrics { "\"I" am so lone- "ly\"" said she }
+\addlyrics { "\"I" am so lone -- "ly,\"" said she }
 @end lilypond
 
-The full definition of a word start in Lyrics mode is somewhat more
-complex.
-
-A word in Lyrics mode begins with: an alphabetic character, @code{_},
-@code{?}, @code{!}, @code{:}, @code{'}, the control characters @code{^A}
-through @code{^F}, @code{^Q} through @code{^W}, @code{^Y}, @code{^^},
-any 8-bit character with ASCII code over 127, or a two-character
+The full definition of a word start in lyrics mode is somewhat more
+complex.  A word in lyrics mode is one that begins with an
+alphabetic character, @code{_}, @code{?}, @code{!}, @code{:},
+@code{'}, the control characters @code{^A} through @code{^F},
+@code{^Q} through @code{^W}, @code{^Y}, @code{^^}, any 8-bit
+character with an ASCII code over 127, or a two-character
 combination of a backslash followed by one of @code{`}, @code{'},
 @code{"}, or @code{^}.
 
 @c " to balance double quotes for not-so-bright context-sensitive editors
 
-To define variables containing lyrics, the function @code{lyricmode}
-must be used.
-
-@example
-verseOne = \lyricmode @{ Joy to the world the Lord is come @}
-\score @{
-  <<
-    \new Voice = "one" \relative c'' @{
-      \autoBeamOff
-      \time 2/4
-      c4 b8. a16 g4. f8 e4 d c2
-    @}
-    \addlyrics @{ \verseOne @}
-  >>
-@}
-@end example
-
 
 @seealso
+Learning Manual:
+@rlearning{Songs}.
+
 Notation Reference:
-@ref{Fonts}.
+@ref{Automatic syllable durations},
+@ref{Fonts},
+@ref{Input modes},
+@ref{Manual syllable durations}.
 
 Internals Reference:
-@rinternals{LyricText},
-@rinternals{LyricSpace}.
+@rinternals{LyricText}.
 
 
 @node Aligning lyrics to a melody
@@ -608,23 +592,22 @@ Internals Reference:
 @cindex lyrics, variables
 
 To define variables containing lyrics, the function @code{\lyricmode}
-must be used.  You do not have to enter durations though, if you add
-@code{\addlyrics} or @code{\lyricsto}
-when invoking your variable.
+must be used.  Durations do not need to be added if the variable is
+to be invoked with @code{\addlyrics} or @code{\lyricsto}.
 
-@example
-verseOne = \lyricmode @{ Joy to the world the Lord is come @}
-\score @{
- <<
-   \new Voice = "one" \relative c'' @{
-     \autoBeamOff
-     \time 2/4
-     c4 b8. a16 g4. f8 e4 d c2
-   @}
-   \addlyrics @{ \verseOne @}
- >>
-@}
-@end example
+@lilypond[quote,verbatim]
+verseOne = \lyricmode { Joy to the world, the Lord is come. }
+\score {
+  <<
+    \new Voice = "one" \relative c'' {
+      \autoBeamOff
+      \time 2/4
+      c4 b8. a16 g4. f8 e4 d c2
+    }
+    \addlyrics { \verseOne }
+  >>
+}
+@end lilypond
 
 For different or more complex orderings, the best way is to set up the
 hierarchy of staves and lyrics first, e.g.,
