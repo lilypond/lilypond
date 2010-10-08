@@ -2393,7 +2393,80 @@ note heads, as demonstrated in @ref{Special note heads}.
 @node Dialogue over music
 @unnumberedsubsubsec Dialogue over music
 
-TBC
+Dialogue over music is usually printed over the staves in an italic
+font, with the start of each phrase keyed in to a particular music
+moment.
+
+For short interjections a simple markup suffices.
+
+@lilypond[quote,verbatim,relative=2]
+a4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
+a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
+a4 a a a
+@end lilypond
+
+For longer phrases it may be necessary to expand the music to make
+the words fit neatly.  There is no provision in LilyPond to do this
+fully automatically, and some manual intervention to layout the
+page will be necessary.
+
+For long phrases or for passages with a lot of closely packed
+dialogue, using a Lyrics context will give better results.  The
+Lyrics context should not be associated with a music Voice; instead
+each section of dialogue should be given an explicit duration.  If
+there is a gap in the dialogue, the final word should be separated
+from the rest and the duration split between them so that the
+underlying music spaces out smoothly.
+
+If the dialogue extends for more than one line it will be necessary
+to manually insert @code{\break}s and adjust the placing of the
+dialogue to avoid running into the right margin.  The final word of
+the last measure on a line should also be separated out, as above.
+
+Here is an example illustating how this might be done.
+
+@c This should be a snippet, but it can't be as it needs to be
+@c manually adjusted to suit the imposed line length.  -td
+
+@lilypond[quote,verbatim,ragged-right]
+music = \relative c'' {
+  \repeat unfold 3 { a4 a a a }
+}
+
+dialogue = \lyricmode {
+  \markup {
+    \fontsize #1 \upright \smallCaps Abe:
+    "Say this over measures one and"
+  }4*7
+  "two"4 |
+  \break
+  "and this over measure"4*3
+  "three"4 |
+}
+
+\score {
+  <<
+    \new Lyrics \with {
+      \override LyricText #'font-shape = #'italic
+      \override LyricText #'self-alignment-X = #LEFT
+    }
+    { \dialogue }
+    \new Staff {
+      \new Voice { \music }
+    }
+  >>
+}
+@end lilypond
+
+@c TODO show use of \column to produce dialogue on two lines
+
+@seealso
+Notation Reference:
+@ref{Manual syllable durations},
+@ref{Text}.
+
+Internal Reference:
+@rinternals{LyricText}.
 
 
 @node Chants psalms and hymns
