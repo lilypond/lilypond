@@ -98,8 +98,8 @@ instrucción @code{\tabFullNotation}.
 Se han añadido notas con forma en los estilos Funk y Walker.
 
 @item
-Los silencios ya no mantienen viva una pauta si se está utilizando
-@code{\RemoveEmptyStaffContext}.
+Los silencios ya no mantienen vivo un contexto de pauta si se está
+utilizando @code{\RemoveEmptyStaffContext}.
 
 @item
 Nueva opción @code{-dinclude-settings=INCLUDEFILE.ly}, que indica a
@@ -295,7 +295,7 @@ La dirección de las barras de corchea manuales se puede establecer con
 @code{^[} y @code{_[}.
 
 @item
-Se ha añadido una versión de la nota cuadrada que lleva dos líneas
+Se ha añadido una versión de la figura cuadrada que lleva dos líneas
 verticales a cada lado.
 
 @lilypond[quote,relative=2]
