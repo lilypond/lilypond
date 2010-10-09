@@ -593,7 +593,7 @@ Learning Manual:
 Notation Reference:
 @ref{Aligning lyrics to a melody},
 @ref{Automatic syllable durations},
-@ref{Setting automatic beam behaviour}.
+@ref{Setting automatic beam behavior}.
 
 Internals Reference:
 @rinternals{Tunable context properties}.
