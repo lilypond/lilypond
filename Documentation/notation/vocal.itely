@@ -177,7 +177,6 @@ combination of a backslash followed by one of @code{`}, @code{'},
 
 @c " to balance double quotes for not-so-bright context-sensitive editors
 
-
 @seealso
 Learning Manual:
 @rlearning{Songs}.
@@ -195,50 +194,94 @@ Internals Reference:
 @node Aligning lyrics to a melody
 @unnumberedsubsubsec Aligning lyrics to a melody
 
+@cindex lyrics, aligning to a melody
 @funindex \lyricmode
 @funindex \addlyrics
 @funindex \lyricsto
 
-@c TODO: this stuff is to be rewritten. -vv
-
-Aligning of text with melodies can be made automatically, but if you
-specify the durations of the syllables it can also be made manually.
-Lyrics aligning and typesetting are prepared with the help of skips,
-hyphens and extender lines.
-
 Lyrics are printed by interpreting them in the context called
-@code{Lyrics}; see @rinternals{Lyrics}, for more.
+@code{Lyrics}, see @ref{Contexts explained}.
 
 @example
 \new Lyrics \lyricmode @dots{}
 @end example
 
-There are two main methods to specify the horizontal placement
-of the syllables:
+Lyrics can be aligned with melodies in two main ways:
 
 @itemize
-@item
-by automatically aligning
-the lyrics to a melody or other voice of music, using @code{\addlyrics}
-or @code{\lyricsto}
 
 @item
-or by specifying the duration of each syllable
-explicitly, using @code{\lyricmode}
+They can be aligned automatically, with the durations of the
+syllables being taken from an associated melody or other voice
+of music, using @code{\addlyrics} or @code{\lyricsto}.  See
+@ref{Automatic syllable durations}.
+
+@item
+They can be aligned independently of the duration of any notes
+if the durations of the syllables are specified explicitly,
+and entered with @code{\lyricmode}.  See
+@ref{Manual syllable durations}.
+
 @end itemize
 
-The @code{Voice} context containing the melody to which the lyrics
-are being aligned must not have @qq{died}, or the lyrics after that
-point will be lost.  This can happen if there are periods when that
-voice has nothing to do.  For methods of keeping contexts alive, see
-@ref{Keeping contexts alive}.
+The following example compares different ways to align lyrics.
 
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Voice = "one" \relative c'' {
+    \autoBeamOff
+    \time 2/4
+    c4 b8. a16 g4. f8 e4 d c2
+  }
+
+% uses default durations of 2;
+  \new Lyrics \lyricmode {
+    Joy to the earth!
+  }
+
+% explicit durations; left-aligned by default
+  \new Lyrics \lyricmode {
+    Joy4 to8. the16 world!4. the8 Lord4 is come.2
+  }
+
+% takes durations and alignment from notes in "one"
+  \new Lyrics \lyricsto "one" {
+    No more let sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+The first stanza is not aligned with the notes because the durations
+were not specified, and the default value of 2 is used for each
+word.  This can be useful for dialogue over music; for more, see
+@ref{Dialogue over music}.
+
+The second stanza with explicitly specified durations is
+aligned to the notes because the durations are the same as the
+corresponding notes.  The words are left-aligned to the notes by
+default.  Useful if the words to different stanzas fit the notes in
+different ways.
+
+The third stanza shows the normal way of entering lyrics.
+
+@seealso
+Internals Reference:
+@rinternals{Lyrics}.
 
 @node Automatic syllable durations
 @unnumberedsubsubsec Automatic syllable durations
 
 @cindex syllable durations, automatic
 @cindex lyrics and melodies
+
+Lyrics are aligned and typeset with the help of skips, hyphens and
+extender lines.
+
+The @code{Voice} context containing the melody to which the lyrics
+are being aligned must not have @qq{died}, or the lyrics after that
+point will be lost.  This can happen if there are periods when that
+voice has nothing to do.  For methods of keeping contexts alive, see
+@ref{Keeping contexts alive}.
 
 The lyrics can be aligned under a given melody
 automatically.  This is achieved by combining the
@@ -256,29 +299,6 @@ then the lyrics are specified with @code{\lyricsto}.  The command
 @code{\lyricsto} switches to @code{\lyricmode} mode automatically, so the
 @code{\lyricmode} keyword may be omitted.
 
-The following example uses different commands for entering lyrics.
-
-@lilypond[quote,fragment,ragged-right,verbatim]
-<<
-  \new Voice = "one" \relative c'' {
-    \autoBeamOff
-    \time 2/4
-    c4 b8. a16 g4. f8 e4 d c2
-  }
-
-% not recommended: left-aligned syllables
-  \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
-
-% wrong: durations needed
-  \new Lyrics \lyricmode { Joy to the earth! the Sa -- viour reigns. }
-
-%correct
-  \new Lyrics \lyricsto "one" { No more let sins and sor -- rows grow. }
->>
-@end lilypond
-
-The second stanza is not properly aligned because the durations
-were not specified.  A solution for that would be to use @code{\lyricsto}.
 
 @cindex \addlyrics
 
