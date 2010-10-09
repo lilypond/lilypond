@@ -86,6 +86,8 @@ Music Glossary:
 @cindex quotes in lyrics
 @funindex \lyricmode
 
+@c TODO should we explain hyphens here
+
 Lyrics are entered in a special input mode, which can be introduced
 by the keyword @code{\lyricmode}, or by using @code{\addlyrics} or
 @code{\lyricsto}.  In this mode the input @code{d} is not parsed as
@@ -265,6 +267,9 @@ different ways.
 The third stanza shows the normal way of entering lyrics.
 
 @seealso
+Learning Manual:
+@rlearning{Aligning lyrics to a melody}.
+
 Internals Reference:
 @rinternals{Lyrics}.
 
@@ -420,116 +425,183 @@ Internals Reference:
 @rinternals{LyricCombineMusic}.
 
 
-@c Here come the section which used to be "Melismata"
-@c the new title might be more self-explanatory
-
-
 @node Multiple notes to one syllable
 @unnumberedsubsubsec Multiple notes to one syllable
 
 @cindex melisma
 @cindex melismata
 @cindex phrasing, in lyrics
+@funindex \melisma
+@funindex \melismaEnd
 
-Sometimes, particularly in Medieval music, several notes are to be sung on one
-single syllable; such vocalises are called melismas, or melismata.
+Sometimes, particularly in Medieval music, several notes are to be
+sung on one syllable; such vocalises are called melismas, or
+melismata.  The syllable to a melisma is usually left-aligned with
+the first note of the melisma.
 
-@c this method seems to be the simplest; therefore
-@c it might be better to present it first - vv
+When a melisma occurs on a syllable other that the last one in a
+word, that syllable is usually joined to the following one with a
+hyphenated line.  This is indicated by placing a double hyphen,
+@code{--}, immediately after the syllable.
 
-You can define melismata entirely in the lyrics, by entering @code{_}
-for every extra note that has to be added to the melisma.
+Alternatively, when a melisma occurs on the last or only syllable in
+a word an extender line is usually drawn from the end of the syllable
+to the last note of the melisma.  This is indicated by placing a
+double underscore, @code{__}, immediately after the word.
 
-@c TODO: clarify: __ is used to crate a lyric extender,
-@c _ is used to add a note to a melisma, so both __ and _ are needed.
+There are five ways in which melismata can be indicated:
 
-@c verbose! --FV
-@c duplicated: TODO fix
-Additionally, you can make an extender line to be typeset to indicate
-the melisma in the score, writing a double underscore next to the
-first syllable of the melisma.  This example shows the three elements
-that are used for this purpose (all of them surrounded by spaces):
-double hyphens to separate syllables in a word, underscores to add
-notes to a melisma, and a double underscore to put an extender line.
+@itemize
 
-@c wrong: extender line only on last syllable of a word.  Change example
-@lilypond[relative=1,verbatim,fragment,quote]
-{ \set melismaBusyProperties = #'()
- c d( e) f f( e) e e  }
-\addlyrics
- { Ky -- _ _ ri __ _ _ _  e }
+@item
+Melismata are created automatically over notes which are tied
+together:
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    f4 g2 ~ |
+    g4 e2 ~ |
+    e8
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ki -- ri -- e __
+  }
+>>
 @end lilypond
 
-In this case, you can also have ties and slurs in the melody if you
-set @code{melismaBusyProperties}, as is done in the example above.
+@item
+Melismata can be created automatically from the music by placing
+slurs over the notes of each melisma.  This is the usual way of
+entering lyrics:
 
-However, the @code{\lyricsto} command can also
-detect melismata automatically: it only puts one
-syllable under a tied or slurred group of notes.  If you want to force
-an unslurred group of notes to be a melisma, insert @code{\melisma}
-after the first note of the group, and @code{\melismaEnd} after the
-last one, e.g.,
-
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@lilypond[quote,relative=2,verbatim]
 <<
-  \new Voice = "lala" {
+  \new Voice = "melody" {
+    \time 3/4
+    f4 g8 ( f e f )
+    e8 ( d e2 )
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ki -- ri -- e __
+  }
+>>
+@end lilypond
+
+@item
+Notes are considered a melisma if they are manually beamed,
+providing automatic beaming is switched off.  See
+@ref{Setting automatic beam behavior}.
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    \autoBeamOff
+    f4 g8[ f e f]
+    e2.
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ki -- ri -- e
+  }
+>>
+@end lilypond
+
+Clearly this is not suited to melisma over notes which are longer
+than eighth notes.
+
+@item
+An unslurred group of notes will be treated as a melisma if they
+are bracketed between @code{\melisma} and @code{\melismaEnd}.
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  \new Voice = "melody" {
     \time 3/4
     f4 g8
     \melisma
     f e f
     \melismaEnd
-    e2
+    e2.
   }
-  \new Lyrics \lyricsto "lala" {
-    la di __ daah
+  \new Lyrics \lyricsto "melody" {
+    Ki -- ri -- e
   }
 >>
 @end lilypond
 
-In addition, notes are considered a melisma if they are manually
-beamed, and automatic beaming (see @ref{Setting automatic beam
-behavior}) is switched off.
+Note that this method cannot be used to indicate two melismata if
+the first one is immediately followed by another.
 
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@item
+A melisma can be defined entirely in the lyrics by entering a
+single underscore character, @code{_}, for every extra note that has
+to be added to the melisma.
+
+@lilypond[verbatim, quote, relative=2]
 <<
-  \new Voice = "lala" {
+  \new Voice = "melody" {
     \time 3/4
-    \autoBeamOff
-    f4 g8[ f e f]
-    e2
+    f4 g8 f e f
+    e8 d e2
   }
-  \new Lyrics \lyricsto "lala" {
-    la di __ daah
+  \new Lyrics \lyricsto "melody" {
+    Ki -- ri -- _ _ _ e __ _ _
   }
 >>
 @end lilypond
 
-@c TODO: this now links to LM -vv
-@c   umm, yeah... so what?  -gp
+@end itemize
 
-@cindex SATB
-@cindex choral score
+It is possible to have ties, slurs and manual beams in the melody
+without their indicating melismata.  To do this, set
+@code{melismaBusyProperties} and indicate the melismata with single
+underscores in the lyrics, one underscore for each extra note:
 
-A complete example of a SATB score setup is in
-@rlearning{Vocal ensembles}.
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    \set melismaBusyProperties = #'()
+    c4 d ( e )
+    g8 [ f ] f4( e)
+    d e ~ e
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- _ _ _ _ ri -- _ _ e __ _
+  }
+>>
+@end lilypond
 
+Other settings for @code{melismaBusyProperties} can be used to
+include or exclude ties, slurs, and beams from the automatic
+detection of melismata; see @code{melismaBusyProperties} in
+@rinternals{Tunable context properties}.
 
 @predefined
-@funindex \melisma
+
+@code{\autoBeamOff},
+@code{\autoBeamOn},
 @code{\melisma},
-@funindex \melismaEnd
 @code{\melismaEnd}.
-@endpredefined
 
+@seealso
+Learning Manual:
+@rlearning{Aligning lyrics to a melody}.
 
-@c @seealso
-@c @lsr{vocal,lyric@/-combine.ly}.
+Notation Reference:
+@ref{Aligning lyrics to a melody},
+@ref{Automatic syllable durations},
+@ref{Setting automatic beam behaviour}.
 
+Internals Reference:
+@rinternals{Tunable context properties}.
 
 @knownissues
 
-Melismata are not detected automatically, and extender lines must be
-inserted by hand.
+Extender lines under melismata are not created automatically; they
+must be inserted manually with a double underscore.
 
 @node Skipping notes
 @unnumberedsubsubsec Skipping notes
