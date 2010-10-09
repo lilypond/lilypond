@@ -13,9 +13,8 @@ This chart shows all percussion and drum notes."
 
 myBreak = { \bar " " \break }
 
-\new Score \with {
-  \remove "Bar_number_engraver"
-} \new DrumStaff \with {
+\score {
+ \new DrumStaff \with {
   \remove "Time_signature_engraver"
 } \context DrumVoice {
 
@@ -64,5 +63,12 @@ trim  ^"mutetriangle: trim" tri  ^"triangle: tri" trio  ^"opentriangle: trio"  \
 ua  ^"oneup: ua" ub  ^"twoup: ub" uc  ^"threeup: uc" ud  ^"fourup: ud" ue  ^"fiveup: ue"  \myBreak
 da  ^"onedown: da" db  ^"twodown: db" dc  ^"threedown: dc" dd  ^"fourdown: dd" de ^"fivedown: de"  \myBreak
 }
+}
+  \layout {
+    \context {
+      \Score
+      \remove "Bar_number_engraver"
+    }
+  }
 }
 

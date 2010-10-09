@@ -28,7 +28,8 @@
 \include "english.ly"
 \include "cary-layout.ily"
 
-\new Score <<
+\score {
+  <<
 	
 	\new StaffGroup <<
 		
@@ -392,4 +393,5 @@
 			}
 		>>
 	>>
->>
+  >>
+}
