@@ -2,10 +2,10 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.29
-\version "2.13.31"
+\version "2.13.36"
 
 \header {
-%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
+%% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
   texidoces = "
 Las reglas de final de barra especificadas en el contexto
 @code{Score} se aplican a todos los pentagramas, pero se pueden
