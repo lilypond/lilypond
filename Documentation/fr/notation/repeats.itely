@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: a77235f2c9706d75fdd16dd077802bfa60d3913a
+    Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -94,7 +94,7 @@ On peut indiquer une répétition de la façon suivante@tie{}:
 @end example
 
 @noindent
-où @var{expression_musicale} représente ce qui doît être répété.
+où @code{@var{expression_musicale}} représente ce qui doît être répété.
 
 Les reprises courantes, sans alternative, s'indiquent comme ceci@tie{}:
 
@@ -105,7 +105,7 @@ c2 d
 @end lilypond
 
 On peut ajouter une fin alternative à l'aide de la commande
-@code{\alternative}.  Chaque @var{alternative} est une expression
+@code{\alternative}.  Chaque @code{@var{alternative}} est une expression
 musicale en elle-même@tie{}; il faudra donc les regrouper par des
 accolades.
 
@@ -561,7 +561,7 @@ spécial.
 En voici la syntaxe@tie{}:
 
 @example
-@code{\repeat percent @var{nombre} @var{expression_musicale}}
+\repeat percent @var{nombre} @var{expression_musicale}
 @end example
 
 
@@ -677,7 +677,7 @@ faudra alors laisser sans accolades@tie{}:
 @funindex :
 
 Le même résultat s'obtient en faisant suivre la note considérée
-de deux points et d'un nombre (@w{@code{note:}[@var{nombre}]}).
+de deux points et d'un nombre (@w{@code{note:@var{nombre}}}).
 Le nombre en question correspond à la valeur de la subdivision@tie{};
 il doit être au moins de 8, auquel cas la hampe sera barrée par un
 seul trait de ligature.  Si ce nombre est omis, la dernière valeur --

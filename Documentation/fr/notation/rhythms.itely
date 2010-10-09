@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 908605aaf5df4d07684dafd862322e6ffac3ae10
+    Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -214,11 +214,11 @@ fraction.
 @end example
 
 @noindent
-La durée de @var{expression_musicale} sera multipliée par la fraction.
-Le dénominateur de cette fraction sera imprimé au-dessus ou au-dessous
-des notes, parfois avec un crochet.  Le nolet le plus courant est le
-triolet, dans lequel 3 notes ont la durée de 2, et où les notes durent
-donc 2/3 de leur valeur écrite.
+La durée de l'@code{@var{expression_musicale}} sera multipliée par la
+fraction.  Le dénominateur de cette fraction sera imprimé au-dessus ou
+au-dessous des notes, parfois avec un crochet.  Le nolet le plus courant
+est le triolet, dans lequel 3 notes ont la durée de 2, et où les notes
+durent donc 2/3 de leur valeur écrite.
 
 @lilypond[quote,verbatim,relative=2]
 a2 \times 2/3 { b4 b b }
@@ -733,7 +733,10 @@ s2 c
 La syntaxe @code{s} est seulement disponible pour les modes d'entrée
 de notes et d'accords.  Dans les autres situations, pour l'entrée de
 paroles par exemple, vous devrez utiliser la commande @code{\skip}, qui
-requiert une durée explicite.
+requiert une durée explicite@tie{}; cette durée ne sera pas prise en
+considération dès lors que les paroles suivent le rythme des notes de la
+mélodie à laquelle vous les aurez associées à l'aide des commandes
+@code{\addlyrics} ou @code{\lyricsto}.
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -1100,9 +1103,9 @@ pouvez les modifier de la manière suivante@tie{}:
 \score {
   \relative c' {
     \overrideTimeSignatureSettings
-      #'Score
-      #'(4 . 4)  % time signature fraction
-      #'(1 . 4)  % base moment fraction
+      #'Score    % context
+      #'(4 . 4)  % timeSignatureFraction
+      #'(1 . 4)  % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1134,16 +1137,15 @@ Vous pouvez revenir à tout moment aux réglages prédéterminés d'une
 métrique@tie{}:
 
 @lilypond[quote,verbatim]
-
 \score{
   \relative c' {
     \repeat unfold 8 c8 |
     \overrideTimeSignatureSettings
-      #'Score
-      #'(4 . 4)
-      #'(1 . 4)
-      #'(3 1)
-      #'((end . (((1 . 8) . (3 1)))))
+      #'Score                         % context
+      #'(4 . 4)                       % timeSignatureFraction
+      #'(1 . 4)                       % baseMomentFraction
+      #'(3 1)                         % beatStructure
+      #'((end . (((1 . 8) . (3 1))))) % beamExceptions
     \time 4/4
     \repeat unfold 8 c8 |
     \revertTimeSignatureSettings #'Score #'(4 . 4)
@@ -1300,8 +1302,8 @@ commande est
 @end example
 
 @noindent
-où @code{durée} correspond à la valeur rythmique devant être ajoutée
-avant la première mesure complète@tie{}:
+où @code{@var{durée}} correspond à la valeur rythmique devant être
+ajoutée avant la première mesure complète@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
 \partial 4 e4 |
@@ -1375,10 +1377,10 @@ non mesurée -- les cadences, par exemple.  Les commandes
 @code{\cadenzaOn} et @code{\cadenzaOff} permettent de désactiver et de
 rétablir ce comportement automatique.
 
-@lilypond[verbatim,relative=2,fragment]
+@lilypond[verbatim,relative=2,quote]
 c4 d e d
 \cadenzaOn
-c4 c d8 d d f4 g4.
+c4 c d8[ d d] f4 g4.
 \cadenzaOff
 \bar "|"
 d4 e d c
@@ -1387,12 +1389,12 @@ d4 e d c
 La numérotation reprend dès la fin d'une cadence, comme si celle-ci
 n'avait pas existé@tie{}:
 
-@lilypond[verbatim,relative=2,fragment]
+@lilypond[verbatim,relative=2,quote]
 % Show all bar numbers
 \override Score.BarNumber #'break-visibility = #all-visible
 c4 d e d
 \cadenzaOn
-c4 c d8 d d f4 g4.
+c4 c d8[ d d] f4 g4.
 \cadenzaOff
 \bar "|"
 d4 e d c
@@ -1446,17 +1448,25 @@ vous faudra insérer des barres de mesure invisibles,
 @noindent
 pour indiquer où des sauts de ligne peuvent prendre place.
 
-Au risque d'obtenir des messages d'erreur inhabituels, il est impératif
-de créer explicitement un contexte @code{Voice} lorsqu'un morceau débute
-par un @code{\cadenzaOn}.
+Les règles de ligature automatique peuvent être fortement perturbées
+lorsqu'une cadence dure plus de deux temps.  Aussi nous vous
+recommandons de recourir aux ligatures manuelles à l'aide de
+@code{[} et @code{]}.
 
-@lilypond[verbatim,relative=2,fragment]
-\new Voice \relative c'{
-  \cadenzaOn
-  c16^"Solo Free Time" d e f g2. \bar "||"
-  \cadenzaOff
-}
-@end lilypond
+Au risque d'obtenir des messages d'erreur inhabituels, il est fortement
+recommandé de créer explicitement un contexte @code{Voice} lorsqu'un
+morceau débute par un @code{\cadenzaOn}.
+
+@example
+\new Voice @{
+  \relative c' @{
+    \cadenzaOn
+    c16[^"Solo Free Time" d e f] g2.
+    \bar "||"
+    \cadenzaOff
+  @}
+@}
+@end example
 
 
 @node Notation polymétrique
@@ -1840,7 +1850,7 @@ possibles@tie{}; voir
 @cindex \partcombine et \autoBeamOff
 @cindex \autoBeamOff et \partcombine
 
-@lilypondfile [verbatim, lilyquote, ragged-right, texidoc, doctitle]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {partcombine-and-autobeamoff.ly}
 
 
@@ -1926,9 +1936,6 @@ pour regrouper les notes par des ligatures.
 @end itemize
 
 Le type de ligature correspond à la durée la plus courte dans le groupe.
-Lorsqu'aucune règle de terminaison n'a été déterminée pour un certain
-type, s'appliquera la règle de ligature pour la durée directement
-supérieure.
 
 @i{@strong{Modification des ligatures selon la pulsation}}
 
@@ -1996,7 +2003,7 @@ particulier.  En l'absence de régles particulières déterminées dans un
 contexte de niveau inférieur, les règles définies au niveau directement
 supérieur s'appliqueront.
 
-@lilypond[quote, verbatim,relative=1]
+@lilypond[quote,verbatim,relative=1]
 \new Staff {
   \time 7/8
   \set Staff.beatStructure = #'(2 3 2)
@@ -2505,14 +2512,14 @@ les portées d'un @code{StaffGroup}, d'un @code{PianoStaff} ou d'un
 @funindex bartype
 
 
-La commande @code{\bar }@var{type_de_barre} sert de raccourci pour
-@code{\set@tie{}Timing.whichBar@tie{}=@tie{}}@var{type_de_barre}.  Dès
+La commande @samp{\bar @var{type_de_barre}} sert de raccourci pour
+@samp{\set Timing.whichBar = @var{type_de_barre}}.  Dès
 que l'on définit @code{whichBar}, une barre de mesure est créée selon le
 style défini.
 
 Le type de barre de mesure par défaut utilisé pour l'insertion
 automatique est @code{"|"}.  Vous pouvez en changer à tout moment grâce
-à @code{\set@tie{}Timing.defaultBarType@tie{}=@tie{}}@var{type_de_barre}.
+à @samp{\set Timing.defaultBarType = @var{type_de_barre}}.
 
 
 @seealso

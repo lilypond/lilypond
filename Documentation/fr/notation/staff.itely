@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 908605aaf5df4d07684dafd862322e6ffac3ae10
+    Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1192,9 +1192,9 @@ Référence des propriétés internes :
 
 Seul le contenu de la première @code{Voice} rencontrée dans la
 partie marquée d'une commande @code{\addQuote} pourra être retenu.  Par
-voie de conséquence, @var{musique} ne saurait comprendre de @code{\new}
-ou une instance @code{\context@tie{}Voice} qui la ferait passer à une
-autre voix.
+voie de conséquence, @code{@var{musique}} ne saurait comprendre de
+@code{\new} ou une instance @code{\context@tie{}Voice} qui la ferait
+passer à une autre voix.
 
 Citer des notes d'ornement ne fonctionne pas, et peut même entraîner
 un blocage de LilyPond.
@@ -1228,13 +1228,13 @@ Sa syntaxe est@tie{}:
 \cueDuring #@var{origine} #@var{voix} @var{musique}
 @end example
 
-Des mesures issues de la partie d'@var{origine} seront recopiées dans un
-contexte de @code{CueVoice}, créé implicitement, et synchronisées avec
-@var{musique} -- habituellement un silence.  L'apparition des petites
-notes initialise une polyphonie temporaire pour la portée concernée.
-L'argument @var{voix} détermine si ces petites notes seront
-attachées à la première ou à la seconde voix -- @code{UP} pour la
-première ou @code{DOWN} pour la seconde.
+Des mesures issues de la partie d'@code{@var{origine}} seront recopiées
+dans un contexte de @code{CueVoice}, créé implicitement, et
+synchronisées avec @code{@var{musique}} -- habituellement un silence.
+L'apparition des petites notes initialise une polyphonie temporaire pour
+la portée concernée.  L'argument @code{@var{voix}} détermine si ces
+petites notes seront attachées à la première ou à la seconde voix --
+@code{UP} pour la première ou @code{DOWN} pour la seconde.
 
 
 @lilypond[verbatim,quote]
