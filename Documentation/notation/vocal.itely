@@ -681,6 +681,8 @@ Internals Reference:
 @node Working with lyrics and variables
 @unnumberedsubsubsec Working with lyrics and variables
 
+@c TODO rewrite this section
+
 @cindex lyrics, variables
 
 To define variables containing lyrics, the function @code{\lyricmode}
@@ -730,39 +732,6 @@ The final input would resemble
 @emph{etc}
 >>
 @end example
-
-@ignore
-@c TODO
-http://code.google.com/p/lilypond/issues/detail?id=329
-The problem cannot be reproduced.
-The following has no sense, because the issue seems to be fixed.
-A comment is in tracker waiting for response ---FV
-
-
-Be careful when defining a variable with lyrics that creates a new
-context, for example, using the deprecated @code{\lyrics} command.  See
-the next erroneous example:
-
-@example
-words = \lyrics{ %warning: this creates a new context
- one two
-}
-<<
-  \new Voice = "sop" { c1 }
-  \new Lyrics \lyricsto "sop" { \words }
-  \new Voice = "alt" { c2 c }
-  \new Lyrics \lyricsto "alt" { \words }
->>
-@end example
-
-the problem is that \lyricsto will try to connect the "sop" melody with the context
-created by "\new Lyrics".
-
-Then \lyrics in \words creates another context, and the original "\new Lyrics" one
-remains empty.
-
-@end ignore
-
 
 @seealso
 @c TODO: document \new Staff << Voice \lyricsto >> bug
@@ -1163,6 +1132,7 @@ contexts and attaching lyrics to those specific contexts.
 >> }
 @end lilypond
 
+@c TODO remove this example - it's already shown in Repeats
 
 You can use this trick to display different lyrics for a repeated
 section.
@@ -1188,6 +1158,9 @@ section.
 
 @node Lyrics independent of notes
 @unnumberedsubsubsec Lyrics independent of notes
+
+@c TODO remove this section?  Don't use DevNull 
+@c should be all in Manual Syllable durations
 
 @cindex Devnull context
 
@@ -1229,6 +1202,8 @@ the implicit melismata get ignored.
 
 @node Spacing out syllables
 @unnumberedsubsubsec Spacing out syllables
+
+@c TODO move to second item
 
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
