@@ -8,13 +8,14 @@ hence it must be switched on explicitly with the
 @code{uniform-stretching} property of @code{SpacingSpanner}."
 }
 
-
+\layout{
+  \context{
+    \Score
+    \override SpacingSpanner #'uniform-stretching = ##t
+  }
+}
 
 \relative c' { 
-  \new Score \with
-  {
-    \override SpacingSpanner #'uniform-stretching = ##t 
-  }
   \context StaffGroup << 
     \new Staff  \context Voice { 
       \times 2/10 {  c8[ c c c c c c c c c] } 

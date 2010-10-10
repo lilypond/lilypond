@@ -35,7 +35,14 @@ mus = \relative c' {
 }
 \addQuote "music" \mus
 
-\new Score \with { quotedEventTypes = #'(StreamEvent) }
+\layout {
+  \context {
+    \Score
+    quotedEventTypes = #'(StreamEvent)
+  }
+}
+
+\score
 { <<
   \new Staff \mus
   \new Voice { \quoteDuring #"music" s1*2 }

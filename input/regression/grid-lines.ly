@@ -47,20 +47,20 @@ skips =
     \StaffGroup
     \remove "System_start_delimiter_engraver" 
   }
+  \context {
+    \Score
+      \consists "Grid_line_span_engraver"
+      \override SystemStartBrace #'transparent = ##t
+
+      \override NoteColumn #'X-offset = #-0.5
+      \override NoteHead #'Y-offset = #0.75
+  }
 }
 
 \layout {
   ragged-right = ##t
 }
-\new Score 
-\with {
-  \consists "Grid_line_span_engraver"
-  \override SystemStartBrace #'transparent = ##t
-
-  \override NoteColumn #'X-offset = #-0.5
-  \override NoteHead #'Y-offset = #0.75
-
-}
+\score {
 \new StaffGroup <<
   \new RhythmicStaff \with
   {
@@ -84,4 +84,5 @@ skips =
   }
   
 >>
+}
 

@@ -6,9 +6,15 @@ across a line break, it gets attached to the end of line."
 
 \version "2.12.0"
 
-\new Score \with {
-  \override SpacingSpanner #'strict-grace-spacing = ##t
-} <<
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner #'strict-grace-spacing = ##t
+  }
+}
+
+\score {
+ <<
 
   \new Staff <<
 
@@ -35,4 +41,5 @@ across a line break, it gets attached to the end of line."
     }
   >>
 >>
+}
 
