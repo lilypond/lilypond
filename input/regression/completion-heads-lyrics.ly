@@ -12,7 +12,7 @@ lyr = \lyricmode {
 }
 
 \score {
- \new Score <<
+ <<
    \new Staff <<
      \new Voice = "completion" \with {
        \remove "Note_heads_engraver"

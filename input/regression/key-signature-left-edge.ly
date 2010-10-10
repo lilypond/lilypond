@@ -10,12 +10,12 @@ proper padding > 0 to the start of the staff lines."
 m = \relative c' { \key f \major c8 }
 
 % Default spacing should not be affected
-\new Score  {
+\score {
   \new Staff \m
 }
 
 % Key signature should not touch the left edge
-\new Score  {
+\score {
   \new Staff \with {
       \remove "Clef_engraver"
   } \m
