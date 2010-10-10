@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
+    Translation of GIT committish: f4e493be609aeefbb35a91f35236d2176f95fe22
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1902,100 +1902,22 @@ altérations appartenant à d'autres voix.
 @funindex \set
 @funindex set
 
-La gestion automatisée des ligatures est directement liée aux propriétés
-@code{baseMoment}, @code{beatStructure}, @code{beamExceptions} et
-@code{autoBeaming}.
-
-Les règles déterminant le positionnement des ligatures automatiques
-s'appliquent dans l'ordre suivant de priorité@tie{}:
-
-@itemize
-
-@item
-Une ligature explicite -- indiquée par @code{[@dots{}]} -- sera toujours
-respectée@tie{}; sinon
-
-@item
-si @code{\autoBeamOff} a été activé, il n'y aura pas de ligature@tie{};
-sinon
-
-@item
-si une règle explicite de terminaison a été définie grâce à la propriété
-@code{beamExceptions} pour un type de ligature spécifique dans la
-métrique en cours, c'est elle qui s'appliquera@tie{}; sinon
-
-@item
-si une règle explicite de terminaison a été définie grâce à la propriété
-@code{beamExceptions} pour un type de ligature plus large, c'est elle
-qui s'appliquera@tie{}; sinon
-
-@item
-utiliser les valeurs de @code{baseMoment} et @code{beatStructure}
-pour regrouper les notes par des ligatures.
-
-@end itemize
-
-Le type de ligature correspond à la durée la plus courte dans le groupe.
-
-@i{@strong{Modification des ligatures selon la pulsation}}
-
-La pulsation -- @emph{baseMoment} en anglais -- découle directement de
-la métrique telle que définie par la commande @code{\time}.  Elle est
-par défaut égale à un sur le dénominateur de la métrique.  Les
-exceptions à cette règle par défaut sont répertoriées dans le fichier
-@file{scm/@/time@/-signature@/-settings@/.scm}.  Pour savoir comment
-jouer avec la valeur de @code{baseMoment} selon la métrique, reportez
-vous au chapitre @ref{Métrique}.
-
-@code{baseMoment} constitue un @strong{moment},
-autrement dit une unité de durée musicale.  La fonction Scheme
-@code{ly:make-moment} est tout particulièrement chargée de créer cette
-quantité de type @i{moment} -- voir @ref{Gestion du temps}.
-
-Les règles de ligature et de subdivision spécifiques sont enregistrées
-dans la propriété @code{beamExceptions}.  Ses valeurs par défaut,
-rangées par métrique et type de règle,  sont répertoriées dans le
-fichier @file{scm/@/time@/-signature@/-settings@/.scm}.
-
-Le type de règle est @code{#'end} pour ce qui concerne les
-terminaisons.
-
-Chaque règle est constituée d'une liste de doublets associatifs en
-langage Scheme (un @emph{alist} pour les puristes), qui indique la durée
-de base et sa règle de regroupement.
-
-@example
-#'((durée-type1 . groupement-1)
-   (durée-type2 . groupement-2)
-   (durée-type3 . groupement-3))
-@end example
-
-@var{durée-type} est constitué d'une paire indiquant la durée de base --
-par exemple @code{(1@tie{}.@tie{}16)}.
-
-@var{groupement} est constitué d'une liste Scheme qui indique le
-regroupement à effectuer, en unité de type de ligature.
-
-Pour information, les règles de ligature par défaut sont contenues dans
-le fichier @file{scm/time-signature-settings.scm}.
-
-Grâce à la commande @code{\set}, vous pouvez déterminer des valeurs
-alternatives pour @code{beamExceptions}.
-
-@warning{La propriété @code{beamExceptions} doit contenir absolument
-@strong{toutes} les exceptions.  Il n'est en effet pas possible d'en
-ajouter, modifier ou suprimer @emph{a posteriori}.  Cela peut paraître
-fastidieux, mais toutes les règles de ligature devraient être appréciées
-avant de les spécifier.}
-
+Dans la plupart des cas, une ligature automatique se termine à la fin
+d'une pulsation.  Ce sont les propriétés de contexte @code{baseMoment}
+et @code{beatStructure} qui détermineront là où prend fin la pulsation.
+La propriété @code{beatStructure} est constituée d'une liste d'éléments
+Scheme qui définit la longueur de chaque pulsation, prenant
+@code{baseMoment} comme unité.  L'unité de base (le @code{baseMoment})
+correspond par défaut au dénominateur de la métrique.  D'autre part,
+chaque unité de @code{baseMoment} constitue une seule pulsation.
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
-c8^"beats" c16 c8 |
-\set beatStructure = #'(2 3)
-c8^"(2+3)" c16 c8
-\set beatStructure = #'(3 2)
-c8^"(3+2)" c16 c8
+c16^"default" c c c c |
+\set Timing.beatStructure = #'(2 3)
+c16^"(2+3)" c c c c |
+\set Timing.beatStructure = #'(3 2)
+c16^"(3+2)" c c c c |
 @end lilypond
 
 Les effets de règles de ligature peuvent être restreints à un contexte
@@ -2003,7 +1925,7 @@ particulier.  En l'absence de régles particulières déterminées dans un
 contexte de niveau inférieur, les règles définies au niveau directement
 supérieur s'appliqueront.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote, verbatim,relative=1]
 \new Staff {
   \time 7/8
   \set Staff.beatStructure = #'(2 3 2)
@@ -2013,7 +1935,7 @@ supérieur s'appliqueront.
         a8 a a a a a a
       }
     }
-    \new Voice  = two {
+    \new Voice = two {
       \relative c' {
         \voiceTwo
         \set Voice.beatStructure = #'(1 3 3)
@@ -2042,8 +1964,86 @@ ces règles affectent le contexte @code{Staff}@tie{}:
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 @end lilypond
 
-Pour revenir aux règles de ligature par défaut, il suffit de spécifier à
-nouveau la métrique.
+Vous pouvez ajuster la valeur de @code{baseMoment} afin d'obtenir des
+ligatures selon vos besoin.  Notez cependant que la valeur de
+@code{beatStructure} devra être en corrélation avec cette nouvelle
+valeur de @code{baseMoment}.
+
+@lilypond[quote,verbatim,relative=2]
+\time 5/8
+\set Timing.baseMoment = #(ly:make-moment 1 16)
+\set Timing.beatStructure = #'(7 3)
+\repeat unfold 10 {a16}
+@end lilypond
+
+@code{baseMoment} constitue un @strong{moment}, autrement dit une unité
+de durée musicale.  La fonction Scheme @code{ly:make-moment} est tout
+particulièrement chargée de créer cette quantité de type @i{moment} --
+voir @ref{Gestion du temps}.
+
+La pulsation -- @emph{baseMoment} en anglais -- découle directement de
+la métrique telle que définie par la commande @code{\time}.  Elle est
+par défaut égale à un sur le dénominateur de la métrique.  Les
+exceptions à cette règle par défaut sont répertoriées dans le fichier
+@file{scm/@/time@/-signature@/-settings@/.scm}.  Pour savoir comment
+jouer avec la valeur de @code{baseMoment} selon la métrique, reportez
+vous au chapitre @ref{Métrique}.
+
+Les règles de ligature et de subdivision spécifiques sont enregistrées
+dans la propriété @code{beamExceptions}.  Ses valeurs par défaut,
+rangées par métrique et type de règle,  sont répertoriées dans le
+fichier @file{scm/@/time@/-signature@/-settings@/.scm}.
+
+Les règles spécifiques autres que celles concernant la terminaison des
+ligatures sont gérées par la propriété  @code{beamExceptions}.
+
+@c KEEP LY
+@lilypond[quote,relative=2,verbatim]
+\time 3/16
+\set Timing.beatStructure = #'(2 1)
+\set Timing.beamExceptions =
+  #'(                         ;ouvre de la liste associative
+     (end .                   ;ceci concerne la terminaison des ligatures
+      (                       ;ouvre la liste des points de terminaison
+       ((1 . 32) . (2 2 2))   ;règle pour les triples -- groupées à la double
+      )))                     %referme la liste
+c16 c c |
+\repeat unfold 6 {c32} |
+@end lilypond
+
+@code{beamExceptions} contient la liste des règles de ligature selon
+leur type.
+
+Le seul type de règle pris en charge à ce jour est @code{#'end}, qui
+concerne les terminaisons.
+
+Chaque règle est constituée d'une liste de doublets associatifs en
+langage Scheme (un @emph{alist} pour les puristes), qui indique la durée
+de base et sa règle de regroupement.
+
+@example
+#'((durée-type1 . groupement-1)
+   (durée-type2 . groupement-2)
+   (durée-type3 . groupement-3))
+@end example
+
+@var{durée-type} est constitué d'une paire indiquant la durée de base --
+par exemple @code{(1@tie{}.@tie{}16)} pour une double-croche.
+
+@var{groupement} est constitué d'une liste Scheme qui indique le
+regroupement à effectuer, en unité de type de ligature.
+
+@warning{La propriété @code{beamExceptions} doit contenir absolument
+@strong{toutes} les exceptions.  Il n'est en effet pas possible d'en
+ajouter, modifier ou suprimer @emph{a posteriori}.  Cela peut paraître
+fastidieux, mais toutes les règles de ligature devraient être appréciées
+avant de les spécifier.}
+
+Lorsqu'intervient un changement de métrique, les valeurs par défaut de
+@code{Timing.baseMoment}, @code{Timing.beatStructure} et
+@code{Timing.beamExceptions} sont réinitialisées.  Il suffit donc, pour
+revenir aux règles de ligature par défaut, de spécifier à nouveau la
+métrique.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
@@ -2055,6 +2055,46 @@ nouveau la métrique.
 \time 4/4
 \repeat unfold 8 {a8}
 @end lilypond
+
+Les règles de ligature automatique par défaut sont répertoriées, par
+métrique, dans le fichier
+@file{scm/@/time@/-signature@/-settings@/.scm}.  Les manières de déroger
+à ce comportement sosnt abordées au chapitre @ref{Métrique}.
+
+@i{@strong{Principes de la ligature automatique}}
+
+Lorsqu'elle est activée, la gestion automatisée des ligatures est
+directement liée aux propriétés @code{baseMoment}, @code{beatStructure}
+et @code{beamExceptions}.
+
+Les règles déterminant le positionnement des ligatures automatiques
+s'appliquent dans l'ordre suivant de priorité@tie{}:
+
+@itemize
+@item
+Une ligature explicite -- indiquée par @code{[@dots{}]} -- sera toujours
+respectée@tie{}; sinon
+
+@item
+si une règle explicite de terminaison a été définie grâce à la propriété
+@code{beamExceptions} pour un type de ligature spécifique dans la
+métrique en cours, c'est elle qui s'appliquera@tie{}; sinon
+
+@item
+si une règle explicite de terminaison a été définie grâce à la propriété
+@code{beamExceptions} pour un type de ligature plus large, c'est elle
+qui s'appliquera@tie{}; sinon
+
+@item
+utiliser les valeurs de @code{baseMoment} et @code{beatStructure}
+pour regrouper les notes par des ligatures.
+
+@end itemize
+
+Le type de ligature correspond à la durée la plus courte dans le groupe.
+
+Pour information, les règles de ligature par défaut sont répertoriées
+dans le fichier @file{scm/@/time@/-signature@/-settings@/.scm}.
 
 
 @snippets
