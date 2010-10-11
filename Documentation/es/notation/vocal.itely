@@ -2517,14 +2517,15 @@ problemas de tipografiado que surgen son bastante similares, y se
 estudian en esta sección.
 
 @menu
-* References for chants and psalms::
+* Referencias para cánticos y salmos::
 * Preparar un cántico::
 * Puntuación de un salmo::
 * Compases parciales en melodías de himno::
 @end menu
 
-@node References for chants and psalms
-@unnumberedsubsubsec References for chants and psalms
+@node Referencias para cánticos y salmos
+@unnumberedsubsubsec Referencias para cánticos y salmos
+@translationof References for chants and psalms
 
 El tipografiado del canto gregoriano en distintos estilos de notación
 antigua se describe en @ref{Notación antigua}.

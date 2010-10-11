@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 298a2c322d7e4f437f3dd1a24db2839e3f35acce
+
+  texidoces = "
+
+Dado que @code{\\repeat tremolo} espera exactamente dos argumentos
+musicales para los trémolos de acorde, la nota o acorde que cambia de
+pentagrama en un trémolo que cruza el pentagrama se debe colocar
+dentro de llaves curvas junto a su instrucción @code{\\change Staff}.
+
+"
+
+  doctitlees = "Trémolos de pentagrama cruzado"

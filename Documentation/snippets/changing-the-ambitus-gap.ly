@@ -2,8 +2,17 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.26
-\version "2.13.31"
+\version "2.13.36"
 \header {
+%% Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
+
+  texidoces = "
+Es posible ajustar la separación en las indicaciones de tesitura.
+
+"
+
+  doctitlees = "Modificación de la separación en las indicaciones de tesitura"
+
 %% Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
   texidocfr = "L'affichage d'un @emph{ambitus} peut s'affiner pour
   répondre à vos préférences en matière d'esthétique.

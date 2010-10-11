@@ -2,8 +2,19 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.26
-\version "2.13.31"
+\version "2.13.36"
 \header {
+%% Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
+
+  texidoces = "
+Aquí se muestra la manera de ocultar las alteraciones de las notas
+ligadas al comienzo de un sistema nuevo.
+
+"
+
+  doctitlees = "Ocultar las alteraciones sobre notas ligadas al principio de un sistema nuevo"
+
+
 %% Translation of GIT committish: 31097723b2b816696ad61696630a80ff17a39557
   texidocfr = "Cet exemple illustre comment, lorsqu'une note affublée
   d'une altération accidentelle est prolongée, ne pas répéter cette

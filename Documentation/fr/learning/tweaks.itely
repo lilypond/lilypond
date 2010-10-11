@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-	Translation of GIT committish: 11b44eeed204540f7a4e638f12afe5a9f5466ca8
+	Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -101,34 +101,35 @@ nuances, etc. Chaque objet dispose de son propre échantillon de valeurs
 pour le réglage des propriétés.
 
 Certains types d'objet portent des noms spécifiques.  Les objets qui se
-rapportent à des éléments de notation sur le fichier de sortie, comme les
-notes, les hampes, les liaisons de phrasé ou de prolongation, les doigtés,
-les clefs, etc. sont appelés @qq{Objets de rendu}@tie{}; ils sont aussi
-connus sous le nom d'@qq{Objets graphiques} (en anglais@tie{}:
-@emph{Graphical objects} ou @emph{Grobs} pour faire court).  Ce sont
-bien des objets au sens générique ci-dessus, et, en tant que tels, ils
-reçoivent des propriétés qui leur sont associées, comme leur position,
-leur taille, leur couleur, etc.
+rapportent à des éléments de notation sur le fichier de sortie, comme
+les notes, les hampes, les liaisons de phrasé ou de prolongation, les
+doigtés, les clefs, etc. sont appelés @qq{Objets de rendu}@tie{}; ils
+sont aussi connus sous le nom d'@qq{Objets graphiques} (en
+anglais@tie{}: @emph{Graphical objects} ou @emph{Grobs} pour faire
+court).  Ce sont bien des objets au sens générique ci-dessus, et, en
+tant que tels, ils reçoivent des propriétés qui leur sont associées,
+comme leur position, leur taille, leur couleur, etc.
 
 Certains objets de rendu, comme les liaisons de phrasé, les soufflets
-de crescendo, les marques d'octaviation et beaucoup d'autres @emph{grobs},
-ont pour particularité de ne pas se situer à un seul et unique endroit
--- ils ont un point de départ, un point d'arrivée, et éventuellement
-d'autres propriétés relatives à leur forme.  Ces objets avec une forme
-étendue sont appelés des bandeaux (@emph{Spanners} en anglais).
+de crescendo, les marques d'octaviation et beaucoup d'autres
+@emph{grobs}, ont pour particularité de ne pas se situer à un seul et
+unique endroit -- ils ont un point de départ, un point d'arrivée, et
+éventuellement d'autres propriétés relatives à leur forme.  Ces objets
+avec une forme étendue sont appelés des bandeaux (@emph{Spanners} en
+anglais).
 
-Il reste à expliquer ce que sont les @qq{interfaces}.  De nombreux objets,
-qui peuvent être très différents les uns des autres, ont pour point commun
-de devoir être compilés simultanément.  Par exemple, tous les
-@emph{grobs} ont une couleur, une taille, une position, etc., et toutes
-ces propriétés sont compilées simultanément durant l'interprétation du
-fichier d'entrée par LilyPond.  Pour alléger ces opérations internes,
-ces actions et propriétés communes sont regroupées en un objet appelé
-@code{grob-interface}.  Il existe beaucoup d'autres regroupements de
-propriétés communes dans le genre de celui-ci, chacun portant un nom qui
-se termine par @code{interface}.  En tout, on en compte plus d'une
-centaine.  Nous verrons plus loin en quoi c'est intéressant et utile
-pour l'utilisateur.
+Il reste à expliquer ce que sont les @qq{interfaces}.  De nombreux
+objets, qui peuvent être très différents les uns des autres, ont pour
+point commun de devoir être compilés simultanément.  Par exemple, tous
+les @emph{grobs} ont une couleur, une taille, une position, etc., et
+toutes ces propriétés sont compilées simultanément durant
+l'interprétation du fichier d'entrée par LilyPond.  Pour alléger ces
+opérations internes, ces actions et propriétés communes sont regroupées
+en un objet appelé @code{grob-interface}.  Il existe beaucoup d'autres
+regroupements de propriétés communes dans le genre de celui-ci, chacun
+portant un nom qui se termine par @code{interface}.  En tout, on en
+compte plus d'une centaine.  Nous verrons plus loin en quoi c'est
+intéressant et utile pour l'utilisateur.
 
 Ainsi s'achève le tour des principaux termes relatifs aux objets et
 que nous serons amenés à utiliser dans ce chapitre.
@@ -2432,9 +2433,9 @@ changée grâce aux commandes prédéfinies dont la liste a été donnée
 plus haut à propos des objets de portée (voir
 @ref{Objets inclus dans la portée}).
 Les queues de note, les liaisons de phrasé et de prolongation, les
-crochets, les nuances et les nolets peuvent facilement être repositionnés
-de cette manière.  En contrepartie, vous n'avez le choix qu'entre deux
-positions, sans personnalisation possible.
+crochets, les nuances et les nolets peuvent facilement être
+repositionnés de cette manière.  En contrepartie, vous n'avez le choix
+qu'entre deux positions, sans personnalisation possible.
 
 @item
 Les @strong{propriétés d'objet}, auxquelles LilyPond a recours pour
@@ -4138,8 +4139,8 @@ encore vous l'avez compilé directement à partir des sources@tie{}; et
 @item MacOS X
 
 @code{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current/}
-Pour accéder à ce dossier, deux possibilités@tie{}: soit, dans un Terminal,
-taper @code{cd} suivi du chemin complet ci-dessus@tie{}; soit
+Pour accéder à ce dossier, deux possibilités@tie{}: soit, dans un
+Terminal, taper @code{cd} suivi du chemin complet ci-dessus@tie{}; soit
 Control-cliquer (ou clic droit) sur l'application LilyPond
 et sélectionner @qq{Afficher le contenu du paquet}.
 
@@ -4255,17 +4256,21 @@ suffisamment pour faire tenir le texte entre les marges.
 
 Pour pouvoir fonctionner en toutes circonstances, ces vérifications
 doivent être activées@tie{}; il faut pour cela placer les retouches dans
-un bloc @code{Score@tie{}\with}, plutôt qu'à l'intérieur du fragment
-musical, comme ceci@tie{}:
+un @code{\context} à l'intérieur d'un bloc @code{\layout}, plutôt que
+directement dans le fragment musical, comme ceci@tie{}:
 
 @example
-\new Score \with @{
-  % Pour s'assurer que les indications textuelles et paroles
-  % seront à l'intérieur des marges de la page.
-  \override PaperColumn #'keep-inside-line = ##t
-  \override NonMusicalPaperColumn #'keep-inside-line = ##t
-@} @{
-   ..
+\score @{
+  @{ @dots{}notes@dots{} @}
+  \layout @{
+    \context @{
+      \Score
+      % Pour s'assurer que les indications textuelles et paroles
+      % seront à l'intérieur des marges de la page.
+      \override PaperColumn #'keep-inside-line = ##t
+      \override NonMusicalPaperColumn #'keep-inside-line = ##t
+    @}
+  @}
 @}
 @end example
 

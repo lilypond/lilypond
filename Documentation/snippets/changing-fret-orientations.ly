@@ -4,6 +4,19 @@
 \version "2.13.31"
 
 \header {
+%% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
+
+  texidoces = "
+
+Los diagramas de posiciones de acordes se pueden orientar de tres
+formas.  De manera predeterminada se alinena la cuerda o traste
+superior en las distintas alineaciones.
+
+
+"
+
+  doctitlees = "Modificar la orientación de los trastes"
+
   lsrtags = "fretted-strings"
 
   texidoc = "

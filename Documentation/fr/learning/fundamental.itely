@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 26375d5016d8d180fc914bfd07cf76f4168f2e37
+    Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1212,8 +1212,8 @@ Manuel de notation :
 @subsection Voix et paroles
 @translationof Voices and vocals
 
-La musique vocale est une gageure en soi@tie{}: il nous faut combiner deux
-expressions différentes -- des notes et des paroles.
+La musique vocale est une gageure en soi@tie{}: il nous faut combiner
+deux expressions différentes -- des notes et des paroles.
 
 @funindex \new Lyrics
 @funindex \lyricsto
@@ -1378,13 +1378,13 @@ quelque peu tirés par les cheveux.
 Commençons par ouvrir un bloc @code{score} qui contiendra un
 @code{ChoirStaff}, puisque nous aimerions voir un crochet au début du
 système choral.  Nous devrions avoir, après @code{\new ChoirStaff}, un
-double chevron gauche pour synchroniser les portées@tie{}; mais comme nous
-reportons le parallélisme après le solo, nous utilisons des accolades --
-un double chevron ne serait cependant pas génant.  À l'intérieur du
-@code{ChoirStaff}, nous voulons en premier la portée avec le couplet.
-Puisqu'elle englobe parallèlement des notes et des paroles, nous devons
-encadrer les @code{\new Voice} et @code{\new Lyrics} de doubles
-chevrons gauche/droite pour les faire démarrer de concert@tie{}:
+double chevron gauche pour synchroniser les portées@tie{}; mais comme
+nous reportons le parallélisme après le solo, nous utilisons des
+accolades -- un double chevron ne serait cependant pas génant.  À
+l'intérieur du @code{ChoirStaff}, nous voulons en premier la portée avec
+le couplet.  Puisqu'elle englobe parallèlement des notes et des paroles,
+nous devons encadrer les @code{\new Voice} et @code{\new Lyrics} de
+doubles chevrons gauche/droite pour les faire démarrer de concert@tie{}:
 
 @lilypond[quote,verbatim,ragged-right]
 versenotes = \relative c'' {
@@ -1607,12 +1607,12 @@ seule portée, tandis qu'une barre de mesure doit être synchronisée sur
 toute l'étendue verticale de la partition.
 
 LilyPond regroupe ces règles et ces fragments d'information dans des
-@emph{Contextes}.  Certains contextes sont les voix (contexte @code{Voice}),
-les portées (contexte @code{Staff}), ou la partition dans son ensemble
-(contexte @code{Score}).  Ils sont ordonnés hiérarchiquement@tie{}:
-ainsi un contexte @code{Staff} peut contenir plusieurs contextes
-@code{Voice}, et un contexte @code{Score} peut contenir plusieurs
-contextes @code{Staff}.
+@emph{Contextes}.  Certains contextes sont les voix (contexte
+@code{Voice}), les portées (contexte @code{Staff}), ou la partition dans
+son ensemble (contexte @code{Score}).  Ils sont ordonnés
+hiérarchiquement@tie{}: ainsi un contexte @code{Staff} peut contenir
+plusieurs contextes @code{Voice}, et un contexte @code{Score} peut
+contenir plusieurs contextes @code{Staff}.
 
 @quotation
 @sourceimage{context-example,5cm,,}
@@ -1668,17 +1668,18 @@ Manuel de notation :
 @cindex nouveaux contextes
 @cindex contextes, création de
 
-Il en va des contextes comme de toute hiérarchie@tie{}: il faut un sommet --
-le contexte @code{Score} en l'occurence.  La commande @code{\score} est
-chargée de le créer, mais pour des partitions simples, il le sera
-automatiquement.  Le bloc @code{score} contient donc une expression
-musicale unique ainsi que la définition des supports à produire --
-@code{\layout} pour du visuel ou @code{\midi} pour de l'acoustique.
+Il en va des contextes comme de toute hiérarchie@tie{}: il faut un
+sommet -- le contexte @code{Score} en l'occurence.  La commande
+@code{\score} est chargée de le créer, mais pour des partitions simples,
+il le sera automatiquement.  Le bloc @code{score} contient donc une
+expression musicale unique ainsi que la définition des supports à
+produire -- @code{\layout} pour du visuel ou @code{\midi} pour de
+l'acoustique.
 
 Lorsqu'une partition ne comporte qu'une voix et une seule portée, vous
 pouvez laisser LilyPond créer automatiquement les contextes @code{Voice}
-et @code{Staff}@tie{}; mais leur présence explicite devient indispensable dès
-que la situation se complique.
+et @code{Staff}@tie{}; mais leur présence explicite devient
+indispensable dès que la situation se complique.
 Le moyen le plus simple est d'utiliser la commande @code{\new}.  Elle
 doit intervenir avant une expression musicale, ainsi@tie{}:
 
@@ -1692,16 +1693,14 @@ où @var{type} correspond au nom du contexte (tels @code{Staff} ou
 interprète l'@var{expression-musicale} contenue dans ledit
 contexte.
 
-Notez bien que la commande @code{\new Score} n'est pas obligatoire,
-puisque le contexte premier que constitue @code{Score} est créé
-automatiquement par l'interprétation de l'@var{expression-musicale}
-contenue dans le bloc @code{\score}.  Le seul cas où il faut créer
-explicitement un contexte @code{Score} à l'aide de la commande
-@code{\new score} est lorsqu'il comprendra un bloc @code{\with} aux fins
-de stipuler les propriétés de certains contextes qui s'appliqueront à
-l'ensemble de la partition.  Vous trouverez plus dinformation sur
-l'utilisation des blocs @code{\with} au chapitre
-@ref{Modification des propriétés d'un contexte}.
+@warning{La commande @code{\new Score} ne devrait jamais servir en début
+de partition, puisque le contexte premier que constitue @code{Score} est
+créé automatiquement par l'interprétation de l'@var{expression-musicale}
+contenue dans le bloc @code{\score}.  Les adaptations affectant les
+propriétés des différents contextes et qui s'appliqueront à l'ensemble de
+la partition trouvent leur place au sein d'un bloc @code{\layout}, en
+suivant les préceptes énoncés au chapitre
+@ref{Modification des propriétés d'un contexte}.}
 
 Nous avons déjà vu au cours des chapitres précédents de nombreux
 exemples où des contextes @code{Staff} ou @code{Voice} étaient créés au
@@ -1752,9 +1751,9 @@ invitons à adopter cette pratique qui vous évitera nombre d'erreurs
 @qq{accolades non appariées}.  La structure de la musique apparaît ainsi
 au premier coup d'œil, et les défauts de parité plus facilement
 repérables.  Vous remarquerez que la portée MG est créée à l'aide d'un
-double chevron gauche -- nécessaire pour gérer ses deux voix -- alors que la
-portée MD ne contient qu'une seule expression musicale -- il n'y a
-qu'une voix -- bornée par des accolades simples.
+double chevron gauche -- nécessaire pour gérer ses deux voix -- alors
+que la portée MD ne contient qu'une seule expression musicale -- il n'y
+a qu'une voix -- bornée par des accolades simples.
 
 @cindex contexte, nommage
 @cindex nommage des contextes
@@ -1804,8 +1803,8 @@ s'appliquent à la partition dans son intégralité, opèrent au sein du
 contexte de plus haut niveau -- le contexte @code{Score}.
 
 Les graveurs @code{Clef_engraver} et @code{Key_engraver} seront logés
-dans chacun des contextes @code{Staff}@tie{}; deux portées peuvent requérir
-des clefs et des armures différentes.
+dans chacun des contextes @code{Staff}@tie{}; deux portées peuvent
+requérir des clefs et des armures différentes.
 
 Les graveurs @code{Note_heads_engraver} et @code{Stem_engraver} résident
 dans chacun des contextes @code{Voice}, contexte du plus bas niveau.
@@ -1939,11 +1938,11 @@ anglais) ou faux (@code{#f} pour @emph{False} en anglais), un entier est
 un nombre entier positif, un réel est un nombre décimal positif ou
 négatif, et texte correspond à une suite de caractères encadrée par des
 apostrophes doubles.  Attention à la présence des signes dièse
-(@code{#}) dans deux cas particuliers@tie{}: ils sont partie intégrante des
-valeurs boléennes et précèdent les @code{t} ou @code{f}, mais doivent
-aussi précéder @emph{valeur} dans le libellé de la commande @code{\set}.
-Il faudra donc, dans le cas d'une valeur boléenne, ne pas oublier de
-saisir deux signes dièse -- par exemple @code{##t}.
+(@code{#}) dans deux cas particuliers@tie{}: ils sont partie intégrante
+des valeurs boléennes et précèdent les @code{t} ou @code{f}, mais
+doivent aussi précéder @emph{valeur} dans le libellé de la commande
+@code{\set}. Il faudra donc, dans le cas d'une valeur boléenne, ne pas
+oublier de saisir deux signes dièse -- par exemple @code{##t}.
 
 @cindex propriétés et contextes
 @cindex réglage de propriétés au sein des contextes
@@ -1995,16 +1994,17 @@ le Manuel de références internes -- voir
 @rinternals{Tunable context properties}, ou @rinternals{Contexts}.
 
 La propriété @code{instrumentName} ne sera prise en compte que si elle
-est définie dans un contexte @code{Staff}@tie{}; d'autres propriétés peuvent
-par contre être définies dans plusieurs contextes différents.  C'est le
-cas de la propriété @code{extraNatural} qui est définie par défaut à
-@code{##t} (vrai) pour toutes les portées.  Si vous lui attribuez la
-valeur @code{##f} (faux) dans un contexte @code{Staff} particulier, elle
-ne s'appliquera qu'aux altérations de la portée en question@tie{}; si vous
-lui attribuez la valeur @qq{faux} au niveau du contexte @code{Score},
-cela s'appliquera alors à toutes les portées.
+est définie dans un contexte @code{Staff}@tie{}; d'autres propriétés
+peuvent par contre être définies dans plusieurs contextes différents.
+C'est le cas de la propriété @code{extraNatural} qui est définie par
+défaut à @code{##t} (vrai) pour toutes les portées.  Si vous lui
+attribuez la valeur @code{##f} (faux) dans un contexte @code{Staff}
+particulier, elle ne s'appliquera qu'aux altérations de la portée en
+question@tie{}; si vous lui attribuez la valeur @qq{faux} au niveau du
+contexte @code{Score}, cela s'appliquera alors à toutes les portées.
 
-Voici comment supprimer les bécarres supplémentaires pour une portée@tie{}:
+Voici comment supprimer les bécarres supplémentaires pour une
+portée@tie{}:
 
 @lilypond[quote,verbatim,ragged-right]
 <<
@@ -2039,11 +2039,11 @@ cours pour toutes les portées actives@tie{}; cette valeur sera considérée
 comme étant la nouvelle valeur par défaut pour toutes les portées à
 venir.
 
-La commande opposée, @code{\unset}, efface la propriété du contexte@tie{}; la
-plupart des propriétés reviennent de ce fait à leur valeur par défaut.
-En règle générale, la commande @code{\unset} n'est pas nécessaire dès
-lors que vous faites appel à une nouvelle commande @code{\set} pour
-modifier le réglage.
+La commande opposée, @code{\unset}, efface la propriété du
+contexte@tie{}; la plupart des propriétés reviennent de ce fait à leur
+valeur par défaut.  En règle générale, la commande @code{\unset} n'est
+pas nécessaire dès lors que vous faites appel à une nouvelle commande
+@code{\set} pour modifier le réglage.
 
 Les commandes @code{\set} et @code{\unset} peuvent intervenir n'importe
 où dans votre fichier source.  Elles seront effectives dès leur
@@ -2087,8 +2087,9 @@ de spécifier les valeurs d'une propriété pour la durée de vie du
 contexte.  Lorsque vous créez un contexte à l'aide de la commande
 @code{\new}, vous pouvez la faire suivre immédiatement d'un bloc
 @w{@code{\with @{ .. @}}} qui contiendra les réglages des différentes
-propriétés.  Ainsi, si nous voulions par exemple annuler l'impression des
-bécarres supplémentaires sur la durée d'une portée, nous écririons@tie{}:
+propriétés.  Ainsi, si nous voulions par exemple annuler l'impression
+des bécarres supplémentaires sur la durée d'une portée, nous
+écririons@tie{}:
 
 @example
 \new Staff \with @{ extraNatural = ##f @}
@@ -2110,36 +2111,15 @@ ce qui donnerait :
 >>
 @end lilypond
 
-Dans le cas où ces ajustements de propriété doivent affecter
-toutes les portées de la partition, nous utiliserons alors
-l'instruction @code{\new Score}, comme ici@tie{}:
-
-@lilypond[quote,verbatim,ragged-right]
-\score {
-  \new Score \with { extraNatural = ##f } <<
-    \new Staff {
-      \relative c'' {
-        gis ges aes ais
-      }
-    }
-    \new Staff {
-      \relative c'' {
-        gis ges aes ais
-      }
-    }
-  >>
-}
-@end lilypond
-
 Les propriétés réglées de cette manière peuvent néanmoins être modifiées
-de façon dynamique grâce à @code{\set}@tie{}; un @code{\unset} les ramènera à
-leur valeur par défaut.
+de façon dynamique grâce à @code{\set}@tie{}; un @code{\unset} les
+ramènera à leur valeur par défaut.
 
 @cindex fontSize, valeur par défaut et réglage
 
-La propriété @code{fontSize} constitue une exception@tie{}: lorsqu'elle est
-déterminée au sein d'un bloc @code{\with}, cela redéfinit la valeur par
-défaut de la taille de fonte.  Une modification est possible par la
+La propriété @code{fontSize} constitue une exception@tie{}: lorsqu'elle
+est déterminée au sein d'un bloc @code{\with}, cela redéfinit la valeur
+par défaut de la taille de fonte.  Une modification est possible par la
 commande @code{\set}, mais la commande @code{\unset fontSize} fera
 revenir à la nouvelle valeur par défaut.
 
@@ -2174,6 +2154,27 @@ avec la commande @code{\with}, puisqu'on se place dans un bloc
       extraNatural = ##t
     }
   }
+}
+@end lilypond
+
+Dans le cas où ces ajustements de propriété doivent affecter
+toutes les portées de la partition, nous utiliserons alors
+l'instruction @code{\new Score}, comme ici@tie{}:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \new Score \with { extraNatural = ##f } <<
+    \new Staff {
+      \relative c'' {
+        gis ges aes ais
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        gis ges aes ais
+      }
+    }
+  >>
 }
 @end lilypond
 
@@ -2373,8 +2374,8 @@ adapter des modèles.
 
 Commencez par le modèle qui vous semblera le plus proche de ce à quoi
 vous voulez aboutir.  Disons par exemple que vous voulez écrire une pièce
-pour soprano et violoncelle@tie{}: dans ce cas, on pourrait commencer par les
-@qq{notes et paroles}, pour la partie de soprano.
+pour soprano et violoncelle@tie{}: dans ce cas, on pourrait commencer
+par les @qq{notes et paroles}, pour la partie de soprano.
 
 @example
 \version @w{"@version{}"}
@@ -2426,19 +2427,19 @@ melodie = \relative c' @{
 On n'a pas besoin de deux commandes @code{\version}.  Ce dont on a
 besoin, c'est de la section @code{melodie}. De même, on n'a pas besoin
 de deux sections @code{\score} -- si nous les gardions toutes les deux,
-on obtiendrait deux parties séparées@tie{}; mais nous voulons un vrai duo,
-avec les deux parties ensemble.  Dans la section @code{\score}, on n'a
-pas besoin non plus de deux @code{\layout} ni de deux @code{\midi}.
+on obtiendrait deux parties séparées@tie{}; mais nous voulons un vrai
+duo, avec les deux parties ensemble.  Dans la section @code{\score}, on
+n'a pas besoin non plus de deux @code{\layout} ni de deux @code{\midi}.
 
 Si on se contente de couper et coller les sections @code{melodie}, on se
-retrouvera avec deux sections de ce nom@tie{}; il nous faut donc les renommer.
-Appelons la section pour la soprano @code{sopranoMusique} et celle pour le
-violoncelle @code{violoncelleMusique}.  Tant qu'on y est, renommons
-@code{texte} en @code{sopranoParoles}.  Attention à bien renommer les
-deux occurrences de chacune de ces dénominations@tie{}: c'est-à-dire la
-définition de départ, où l'on trouve @w{@code{melodie = \relative c' @{ }},
-et l'endroit où cette dénomination est utilisée, dans la section
-@code{\score}.
+retrouvera avec deux sections de ce nom@tie{}; il nous faut donc les
+renommer.  Appelons la section pour la soprano @code{sopranoMusique} et
+celle pour le violoncelle @code{violoncelleMusique}.  Tant qu'on y est,
+renommons @code{texte} en @code{sopranoParoles}.  Attention à bien
+renommer les deux occurrences de chacune de ces dénominations@tie{}:
+c'est-à-dire la définition de départ, où l'on trouve @w{@code{melodie =
+\relative c' @{ }}, et l'endroit où cette dénomination est utilisée,
+dans la section @code{\score}.
 
 Et puis, toujours tant qu'on y est, mettons le violoncelle en clé de fa,
 comme le veut l'usage, et donnons-lui d'autres notes.
@@ -2658,11 +2659,12 @@ L'ordre dans lequel apparaissent les contextes dans le @code{ChoirStaff}
 du modèle ne correspond pas à ce que nous voyons ci-dessus.  Il nous
 faudra y revenir pour obtenir quatre portées avec des paroles en dessous
 de chacune d'elles.  Toutes les voix devraient être @code{\voiceOne},
-ce qui est la position par défaut@tie{}; il nous faudra donc éliminer toutes
-les commandes @code{\voiceXXX}.  Les ténors auront besoin d'une clé
-spécifique.  Enfin, nous n'avons pas encore abordé la façon dont les
-paroles sont présentées dans le modèle@tie{}; nous procèderons donc comme
-nous en avons l'habitude.  Il faudra aussi ajouter un nom à chaque portée.
+ce qui est la position par défaut@tie{}; il nous faudra donc éliminer
+toutes les commandes @code{\voiceXXX}.  Les ténors auront besoin d'une
+clé spécifique.  Enfin, nous n'avons pas encore abordé la façon dont les
+paroles sont présentées dans le modèle@tie{}; nous procèderons donc
+comme nous en avons l'habitude.  Il faudra aussi ajouter un nom à chaque
+portée.
 
 Une fois tout ceci accompli, voici notre @code{ChoirStaff}@tie{}:
 
@@ -2832,11 +2834,12 @@ propres patrons selon le type de musique que vous affectionnez plus
 particulièrement.  Pour voir comment procéder, nous allons monter la
 partition d'un prélude pour orgue.
 
-Nous débutons par une section d'en-tête@tie{}; nous y mettrons entre autres
-le titre et le nom du compositeur.  Puis viennent toutes les définitions
-de toutes les variables. Nous terminons par le bloc @code{\score}.
-Attelons-nous pour cette aventure, en gardant bien à l'esprit ce que
-nous venons de dire@tie{}; nous nous occuperons des détails en temps voulu.
+Nous débutons par une section d'en-tête@tie{}; nous y mettrons entre
+autres le titre et le nom du compositeur.  Puis viennent toutes les
+définitions de toutes les variables.  Nous terminons par le bloc
+@code{\score}.  Attelons-nous pour cette aventure, en gardant bien à
+l'esprit ce que nous venons de dire@tie{}; nous nous occuperons des
+détails en temps voulu.
 
 Nous nous appuyons sur les deux premières mesures du prélude sur
 @emph{Jesu, meine Freude}, écrit pour orgue avec pédalier.  Vous pouvez
@@ -2910,8 +2913,8 @@ de le compiler, pour voir de quoi il retourne.
 
 La construction en simultané -- @code{<<...>>} -- n'est pas strictement
 obligatoire pour les portées manuel deux et pédalier, qui ne contiennent
-chacune qu'une seule expression musicale@tie{}; mais cela ne mange pas de
-pain, et c'est une bonne habitude que de toujours encadrer par des
+chacune qu'une seule expression musicale@tie{}; mais cela ne mange pas
+de pain, et c'est une bonne habitude que de toujours encadrer par des
 doubles chevrons gauche/droite ce qui suit une commande @code{\new
 Staff} au cas où il y aurait plusieurs voix.  Il en va autrement pour
 les contextes @code{Voice}@tie{}: ils doivent être toujours suivis
@@ -3080,9 +3083,10 @@ violin = \relative c'' @{
 @c TODO Replace the following with a better example  -td
 @c Skylining handles this correctly without padText
 
-Jusqu'ici nous avons vu des substitutions statiques@tie{}: quand LilyPond
-rencontre @code{\padText}, il le remplace par le contenu que nous lui
-avons défini -- c'est-à-dire le contenu à droite de @code{padText=}.
+Jusqu'ici nous avons vu des substitutions statiques@tie{}: quand
+LilyPond rencontre @code{\padText}, il le remplace par le contenu que
+nous lui avons défini -- c'est-à-dire le contenu à droite de
+@code{padText=}.
 
 LilyPond gère également des substitutions non-statiques -- vous
 pouvez les voir comme des fonctions.
@@ -3135,7 +3139,8 @@ notesCor = \relative c @{
 @end example
 
 @noindent
-On établira alors une partie séparée en constituant un nouveau fichier@tie{}:
+On établira alors une partie séparée en constituant un nouveau
+fichier@tie{}:
 
 @example
 \include "musique-Cor.ly"
@@ -3172,16 +3177,18 @@ transposition est visible comme suit@tie{}:
 Dans les pièces d'ensemble, il arrive souvent qu'une voix ne joue pas
 pendant plusieurs mesures.  Un silence spécial, appelé silence
 multimesures, l'indique alors.  On l'obtient par un @code{R} majuscule,
-suivi d'une durée@tie{}: @code{1}@tie{}pour une pause, @code{2}@tie{}pour une
-demi-pause, etc.  Cette durée peut être multipliée pour établir de plus
-longs silences. Par exemple, le silence suivant dure 3@tie{}mesures à 2/4.
+suivi d'une durée@tie{}: @code{1}@tie{}pour une pause,
+@code{2}@tie{}pour une demi-pause, etc.  Cette durée peut être
+multipliée pour établir de plus longs silences.  Par exemple, le silence
+suivant dure 3@tie{}mesures à 2/4.
 
 @example
 R2*3
 @end example
 
 Dans une partie séparée, les silences multimesure sont compressés.
-Il faut pour cela définir la propriété @code{skipBars} à @qq{vrai}@tie{}:
+Il faut pour cela définir la propriété @code{skipBars} à
+@qq{vrai}@tie{}:
 
 @example
 \set Score.skipBars = ##t

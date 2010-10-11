@@ -4,6 +4,45 @@
 \version "2.13.31"
 
 \header {
+%%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+  texidoces = "
+
+Puede ser difícil comprender la función de @code{\\autoBeamOff} cuando
+se usa con @code{\\partcombine}.
+
+Puede ser preferible usar
+
+
+@code{\\set Staff.autoBeaming = ##f}
+
+
+en su lugar, para asegurarse de que el barrado automático se desactiva
+para todo el pentagrama.
+
+
+@code{\\partcombine} funciona aparentemente con tres voces: plica
+arriba cuando hay una sola voz, plica abajo con la otra, y plica
+arriba cuando está combinada.
+
+
+Una llamada a @code{\\autoBeamOff} en el primer argumento de
+partcombine se aplica a la voz que está activa en el momento en que se
+procesa la llamada, ya sea voz única con la plica hacia arriba, hacia
+abajo o combinadas.  Una llamada a @code{\\autoBeamOff} en el segundo
+argumento se aplica a la voz que está sola con la plica abajo.
+
+
+Para pode usar @code{\\autoBeamOff} con el objeto de detener todo el
+barrado automático cuando se usa con @code{\\partcombine}, es
+necesario hacer tres llamadas a @code{\\autoBeamOff}.
+
+
+
+
+"
+  doctitlees = "Partcombine y autoBeamOff"
+
   lsrtags = "rhythms"
 
 %%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506

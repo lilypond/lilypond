@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 13b20c0eb00e87fd6c1551965dd268f125a4caf1
+    Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -778,8 +778,9 @@ musicales, comme ceci@tie{}:
 
 @noindent
 Une section @code{\relative} à l'extérieur du @code{\partcombine}
-restera sans effet sur les hauteurs de @var{expression_musicale_1} ou de
-@var{expression_musicale_2}.
+restera sans effet sur les hauteurs de
+@code{@var{expression_musicale_1}} ou de
+@code{@var{expression_musicale_2}}.
 
 
 @snippets

@@ -294,6 +294,7 @@ si vous imprimez une partition avec les deux sections balisées.
 
 
 @unnumberedsubsubsec Noms d'instrument
+@translationof Instrument names
 @node Le bloc MIDI
 @subsection Le bloc MIDI
 @translationof MIDI block
@@ -309,7 +310,9 @@ si vous imprimez une partition avec les deux sections balisées.
 
 
 @unnumberedsubsubsec Éléments pris en compte dans le MIDI
+@translationof Supported in MIDI
 @unnumberedsubsubsec Éléments non pris en compte dans le MIDI
+@translationof Unsupported in MIDI
 
 @node Répétitions et MIDI
 @subsection Répétitions et MIDI

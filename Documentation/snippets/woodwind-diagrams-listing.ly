@@ -2,9 +2,18 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.31
-\version "2.13.31"
+\version "2.13.36"
 
 \header {
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+  texidoces = "
+El fragmento de música que aparece a continuación presenta todos los
+diagramas de viento madera que se encuentran definidos en LilyPond por
+el momento.
+
+"
+  doctitlees = "Listado de los diagramas para viento madera"
+
 %%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
 

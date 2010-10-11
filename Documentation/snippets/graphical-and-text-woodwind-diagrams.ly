@@ -2,9 +2,19 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.31
-\version "2.13.31"
+\version "2.13.36"
 
 \header {
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+  texidoces = "
+En muchos casos, las llaves que no están en la columna central se
+pueden presentar por el nombre de la llave así como de forma gráfica.
+
+"
+
+  doctitlees = "Diagramas para viento madera gráficos y textuales"
+
 %%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
 

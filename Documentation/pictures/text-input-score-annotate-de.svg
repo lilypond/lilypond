@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="514"
+   height="264"
+   id="svg4445"
+   sodipodi:version="0.32"
+   inkscape:version="0.47 r22583"
+   version="1.0"
+   sodipodi:docname="text-input-score-annotate-de.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/till/Lilypond/Translationbranch/Documentation/pictures/text-input-score-annotate-de.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4447">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective4453" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="257"
+     inkscape:cy="162.42641"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="635"
+     inkscape:window-height="596"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata4450">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#87de87"
+       id="rect5251"
+       width="31.1127"
+       height="115.25841"
+       x="23.85965"
+       y="57.76746" />
+    <rect
+       y="115.23402"
+       x="55.353554"
+       height="32"
+       width="351.54773"
+       id="rect5249"
+       style="fill:#ff8080" />
+    <rect
+       style="fill:#ff8080"
+       id="rect4477"
+       width="307"
+       height="32"
+       x="55.353554"
+       y="81.646446" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:Sans Bold"
+       x="26"
+       y="76"
+       id="text4455"><tspan
+         sodipodi:role="line"
+         x="26"
+         y="76"
+         id="tspan4459"
+         style="font-size:24px">&lt;&lt;</tspan><tspan
+         sodipodi:role="line"
+         x="26"
+         y="106"
+         id="tspan4463"
+         style="font-size:24px">  \new Staff \HornNoten</tspan><tspan
+         sodipodi:role="line"
+         x="26"
+         y="136"
+         id="tspan4465"
+         style="font-size:24px">  \new Staff \FagottNoten</tspan><tspan
+         sodipodi:role="line"
+         x="26"
+         y="166"
+         id="tspan4467"
+         style="font-size:24px">&gt;&gt;</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#c83737;fill-opacity:1;stroke:none;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="203"
+       y="37"
+       id="text4469"><tspan
+         sodipodi:role="line"
+         id="tspan4471"
+         x="203"
+         y="37"
+         style="font-size:22px;fill:#c83737">Notensystem erstellen</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#217821;fill-opacity:1;stroke:none;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="120"
+       y="222"
+       id="text4473"><tspan
+         sodipodi:role="line"
+         id="tspan4475"
+         x="120"
+         y="222"
+         style="font-size:22px;fill:#217821">Notensysteme parallel anordnen</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#217821;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 114.72287,214.39161 C 69.821589,214.74516 36.120523,211.11735 36.474077,173.99425"
+       id="path5255"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#c83737;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 199.57568,27.361869 C 107.6518,27.361869 115.42998,58.828121 115.78353,80.041324"
+       id="path5259"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>

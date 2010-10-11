@@ -127,8 +127,8 @@ Partituren.  Dazu mehr in unserem @ref{Aufsatz}.
 
 Verbringen Sie weniger Zeit damit, den Notensatz nachträglich zu
 verändern: LilyPond formatiert die Noten von Anfang an richtig.
-Platzaufteilung von von selber errechnet und die richtigen Zeilen-
-und Seitenumbrüche errechnet, um ein dichtes und gleichmäßiges
+Die Platzaufteilung und die richtigen Zeilen-
+und Seitenumbrüche werden von selber errechnet, um ein dichtes und gleichmäßiges
 Notenbild zu erzeugen.  Zusammenstöße zwischen Gesangstext, Noten
 und Akkorden werden aufgelöst und alle Bögen sind automatisch
 richtig gekrümmt!
@@ -158,17 +158,6 @@ integrieren.  Es gibt auch Plugins, mit denen LilyPond-Code für verschiedene
 Blogs und Wikis ermöglicht wird, sodass auch eine Zusammenarbeit online
 möglich wird.
 
-
-@subsubheading Noten und Text kombinieren
-
-@imageFloat{lilypond-book,png,right}
-
-Sie können Notenfragmente in Texte einfügen, ohne Bilder
-auszuschneiden und einzufügen.  Noten können in @LaTeX{} oder HTML-Dateien
-nahtlos integriert werden oder mit OOoLilyPond zu
-OpenOffice.org-Dateien hinzugefügt werden.
-
-
 @subsubheading Barrierefreiheit
 
 Text-basierte Eingabe ermöglicht das Schreiben von Partituren auch
@@ -183,9 +172,9 @@ mit graphisch-basierten Notationsprogrammen.
 @subsubheading Erweiterbares Design
 
 Alle Einstellungen können verändert werden, um Ihrem persönlichen
-typographischen Geschmack zu entsprechen.  Wenn das Ihnen immer
+typographischen Geschmack zu entsprechen.  Wenn Ihnen das immer
 noch nicht reicht, gibt es immer noch die eingebaute Scriptsprache
-Scheme, ein Dialekt des mächtigen LISP.  Einstellungen, Variablen
+@qq{Scheme}, ein Dialekt des mächtigen LISP.  Einstellungen, Variablen
 und Funktionen sind alle in einem ausführlichen Programmhandbuch
 dokumentiert.
 
@@ -930,7 +919,7 @@ Einzelheiten sehr viel ausführlicher behandelt.}
 Noten werden durch Buchstaben und Zahlen kodiert. Besondere Kommandos werden
 mit einem Backslash eingegeben.
 
-@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-annotate-de,png,center}
 @imageFloat{text-input-1-output,png,center}
 
 Versetzungszeichen werden durch verschiedene Endungen hinzugefügt: @code{-is}
@@ -938,7 +927,7 @@ nach der Note setzt ein Kreuz, @code{-es} dagegen ein b (-- das sind die deutsch
 Endungen, Endungen in anderen Sprachen sind auch möglich). LilyPond entscheidet selber, wo 
 es die Versetzungszeichen platziert.
 
-@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-annotate-de,png,center}
 @imageFloat{text-input-2-output,png,center}
 
 
@@ -946,7 +935,7 @@ es die Versetzungszeichen platziert.
 
 Akkorde und Liedtext können einfach zu einem Lead Sheet kombiniert werden.
 
-@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-annotate-de,png,center}
 @imageFloat{text-input-pop-output,png,center}
 
 
@@ -959,19 +948,19 @@ erstellt werden. Wenn man eine Note verändert, findet sich die Veränderung
 also gleichzeitig in der Stimme und der Partitur wieder. Damit die Noten mehrfach
 verwendet werden, sollten sie einer Variablen zugewiesen werden:
 
-@imageFloat{text-input-parts-both-annotate,png,center}
+@imageFloat{text-input-parts-both-annotate-de,png,center}
 
 
 Mit dieser Variable kann dann eine Einzelstimme erstellt werden (hier transponiert,
 die Pausen sind zusammengezogen):
 
-@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-annotate-de,png,center}
 @imageFloat{text-input-parts-single-output,png,center}
 
 
 Die gleiche Variable wird dann in der Partitur benutzt (hier in der Originaltonhöhe):
 
-@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-annotate-de,png,center}
 @imageFloat{text-input-score-output,png,center}
 
 
@@ -1070,8 +1059,7 @@ UNIX-artigen Betriebssystemen.
 @divEnd
 
 @divClass{column-center-top}
-@divClass{column-center-top}
-@subheading Graphische Umgebung: Denemo
+@subheading Denemo
 
 @imageClickable{screenshot-denemo-small,png,
   (Klick zum Vergrößern),screenshot-denemo,png,right}
@@ -1082,7 +1070,7 @@ UNIX-artigen Betriebssystemen.
 @uref{http://denemo.org}
 
 Denemo ist ein graphischer Editor, welcher LilyPond-Dateien
-produzieren kann (mit Eingabeformat der Version 2.8.7) und auch Audioplayback erlaubt.  Hiermit kann die LilyPond-Datei
+produzieren kann und auch Audioplayback erlaubt.  Hiermit kann die LilyPond-Datei
 parallel zum graphischen Notenbild betrachtet werden.  Zusätzliche
 Veränderungen und Anpassungen können an die Objekte angehängt
 werden -- sie werden mit der Denemo-Datei gespeichert, sodass der
@@ -1091,6 +1079,10 @@ Benutzer graphisch weiterarbeiten kann.
 Wenn man den Cursor im LilyPond-Text bewegt, wird er auch im Notenbild
 verschoben, und Syntaxfeher in LilyPond-Anpassungen werden in
 Textansicht markiert, wenn man von dort aus druckt.
+
+@warning{Denemo unterstützt offiziell die veraltete LilyPond-Version 2.8.7,
+welcher sehr viele seither hinzugefügte Funktionen fehlen.  Die Denemo-Entwickler
+arbeiten aktiv daran, die Version auf die aktuelle Nummer 2.12 zu bringen.}
 
 @divEnd
 
@@ -1192,6 +1184,8 @@ ein monophoner Echtzeitkonverter von MIDI nach LilyPond.
 @subsubheading Algorithmische Code-Generatoren
 
 @itemize
+
+@item
 @uref{http://strasheela.sourceforge.net, Strasheela} ist @qq{a
 highly expressive constraint-based music composition system}.
 

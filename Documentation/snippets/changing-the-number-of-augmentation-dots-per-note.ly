@@ -2,8 +2,18 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.26
-\version "2.13.31"
+\version "2.13.36"
 \header {
+%% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
+
+  texidoces = "
+Este código muestra cómo cambiar la cantidad de puntillos de una nota.
+
+"
+
+  doctitlees = "Modificar el número de puntillos de una nota"
+
+
 %% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033
 
   texidocfr = "Voici comment modifier le nombre de points d'augmentation
