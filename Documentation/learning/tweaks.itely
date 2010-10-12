@@ -3556,6 +3556,10 @@ required, but the transparent metronome mark in the first line
 forces the following tempo indication too high while the
 second (with the stencil removed) does not.
 
+@seealso
+Music Glossary:
+@rglos{system}.
+
 @node Using variables for tweaks
 @subsection Using variables for tweaks
 

@@ -776,7 +776,10 @@ than polyrhythmic scores.
 @funindex GrandStaff
 @funindex ChoirStaff
 
-Music Glossary: @rglos{brace}.
+Music Glossary:
+@rglos{brace},
+@rglos{staff},
+@rglos{system}.
 
 Piano music is typeset in two staves connected by a
 @notation{brace}.

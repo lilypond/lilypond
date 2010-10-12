@@ -2959,6 +2959,9 @@ PedalOrganMusic = \relative c {
 }  % end Score context
 @end lilypond
 
+@seealso
+Music Glossary:
+@rglos{system}.
 
 @node Saving typing with variables and functions
 @subsection Saving typing with variables and functions
