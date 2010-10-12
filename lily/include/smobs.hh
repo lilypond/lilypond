@@ -162,6 +162,7 @@ extern bool parsed_objects_should_be_dead;
       ::programming_error (string ("Parsed object should be dead: ")  + __PRETTY_FUNCTION__ ); \
       passed_here_once = true;\
     } \
+  } \
   while (0)
 #else
 #define ASSERT_LIVE_IS_ALLOWED() do { } \
