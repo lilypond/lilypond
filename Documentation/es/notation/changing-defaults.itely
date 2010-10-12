@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: af3c4ca42e348ec53b5034c50f3eeb435f7db05e
+Translation of GIT committish: cd6d449de0bfc3236b87fbec08389697be8cae81
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -114,8 +114,7 @@ armaduras están siempre alineados entre los distintos pentagramas.
 
 Se crea implícitamente una instancia del contexto Score cuando se
 procesa un bloque @code{\score @{@dots{}@}} o @code{\layout
-@{@dots{}@}}, o explícitamente cuando se ejecuta una instrucción
-@code{\new Score}.
+@{@dots{}@}}.
 
 @node Contextos del nivel superior. Contenedores de pentagramas
 @unnumberedsubsubsec Contextos del nivel superior: contenedores de pentagramas
@@ -241,6 +240,8 @@ Tipografía nombres de acordes.
 @node Crear contextos
 @subsection Crear contextos
 @translationof Creating contexts
+
+@c TODO more complete descriptions rather than learning style
 
 Para partituras que sólo tienen una voz y un pentagrama, los contextos
 se crean automáticamente.  Para partituras más complejas, es necesario

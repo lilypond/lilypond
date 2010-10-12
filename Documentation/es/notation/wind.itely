@@ -1,15 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 671a0bcf734837eb45a942d377ac81e5d1450496
+    Translation of GIT committish: 0e655d34188858edac8876696bd7bb229d8eac52
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
-
+@c \version "2.13.36"
 
 @node Instrumentos de viento
 @section Instrumentos de viento
