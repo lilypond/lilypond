@@ -7314,8 +7314,12 @@ lines upon and between which the musical notes are written, thus
 indicating (in connection with a @ref{clef}) their pitch.  Staves for
 @ref{percussion} instruments may have fewer lines.
 
+@lilypond[quote,relative=1]
+c4 e g c
+@end lilypond
+
 @seealso
-No cross-references.
+@ref{system}.
 
 
 @node staves
@@ -7603,8 +7607,9 @@ DK: system,
 S: system,
 FI: nuottiviivasto.
 
-The collection of staves (@notation{staff}), two or more, as used for writing
-down of keyboard, chamber, choral, or orchestral music.
+The collection of staves (@notation{staff}), two or more, as used
+for writing down keyboard, chamber, choral, or orchestral music;
+a section of the score spanning the width of a single page.
 
 @seealso
 @ref{staff}.
