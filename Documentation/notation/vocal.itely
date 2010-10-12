@@ -1112,54 +1112,76 @@ alternative sections these must be inserted manually.
 @node Divisi lyrics
 @unnumberedsubsubsec Divisi lyrics
 
-You can display alternate (or divisi) lyrics by naming voice
-contexts and attaching lyrics to those specific contexts.
+@cindex divided lyrics
+@cindex lyrics, divided
 
-@lilypond[verbatim,ragged-right,quote]
-\score{ <<
-  \new Voice = "melody" {
-    \relative c' {
-      c4
-      <<
-        { \voiceOne c8 e }
-        \new Voice = "splitpart" { \voiceTwo c4 }
-      >>
-      \oneVoice c4 c | c
+When just the words and rhythms of the two parts differ with the
+pitches remaining the same, temporarily turning off the automatic
+detection of melismata and indicating the melisma in the lyrics
+may be the appropriate method to use:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Voice = "melody" {
+      \relative c' {
+        \set melismaBusyProperties = #'()
+        \slurDown
+        \slurDashed
+        e4 e8 ( e ) c4 c |
+        \unset melismaBusyProperties
+        c
+      }
     }
-  }
-  \new Lyrics \lyricsto "melody" { we shall not o- ver- come }
-  \new Lyrics \lyricsto "splitpart" { will }
->> }
-@end lilypond
-
-@c TODO remove this example - it's already shown in Repeats
-
-You can use this trick to display different lyrics for a repeated
-section.
-
-@lilypond[verbatim,ragged-right,quote]
-\score{ <<
-  \new Voice = "melody" \relative c' {
-    c2 e | g e | c1 |
-    \new Voice = "verse" \repeat volta 2 {c4 d e f | g1 | }
-    a2 b | c1}
-  \new Lyrics = "mainlyrics" \lyricsto melody \lyricmode {
-    do mi sol mi do
-    la si do }
-  \context Lyrics = "mainlyrics" \lyricsto verse \lyricmode {
-   do re mi fa sol }
-  \new Lyrics = "repeatlyrics" \lyricsto verse \lyricmode {
-   dodo rere mimi fafa solsol }
->>
+    \new Lyrics \lyricsto "melody" {
+      They shall not o -- ver -- come
+    }
+    \new Lyrics \lyricsto "melody" {
+      We will _
+    }
+  >>
 }
 @end lilypond
 
+When both music and words differ it may be better to display
+the differing music and lyrics by naming voice contexts and
+attaching lyrics to those specific contexts:
+
+@lilypond[verbatim,ragged-right,quote]
+\score {
+  <<
+    \new Voice = "melody" {
+      \relative c' {
+        <<
+          {
+            \voiceOne
+            e4 e8 e
+          }
+          \new Voice = "splitpart" {
+            \voiceTwo
+            c4 c
+          }
+        >>
+        \oneVoice
+        c4 c |
+        c
+      }
+    }
+    \new Lyrics \lyricsto "melody" {
+      They shall not o -- ver -- come
+    }
+    \new Lyrics \lyricsto "splitpart" {
+      We will
+    }
+  >>
+}
+@end lilypond
 
 
 @node Lyrics independent of notes
 @unnumberedsubsubsec Lyrics independent of notes
 
-@c TODO remove this section?  Don't use DevNull 
+@c TODO remove this section?  Don't use DevNull
 @c should be all in Manual Syllable durations
 
 @cindex Devnull context
