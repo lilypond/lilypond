@@ -124,7 +124,7 @@ as part of the syllable, a word is valid even if it ends with
 
 In this example, the @code{@}} is included in the final syllable, so the
 opening brace is not balanced and the input file will probably not
-compile.  Instead, always place white space around braces:
+compile.  Instead, braces should always be surrounded with white space:
 
 @example
 \lyricmode @{ lah lah lah @}
@@ -133,10 +133,10 @@ compile.  Instead, always place white space around braces:
 @cindex overrides in lyric mode
 @funindex \override in \lyricmode
 
-Similarly, a period which follows an alphabetic sequence is included
-in that sequence in lyric mode.  As a consequence, spaces must be
-inserted around the period in @code{\override} commands.  Do
-@emph{not} write
+Similarly, in lyric mode, a period will be included in the
+alphabetic sequence that it follows.  As a consequence, spaces
+must be inserted around the period in @code{\override} commands.
+Do @emph{not} write
 
 @example
 \override Score.LyricText #'font-shape = #'italic
@@ -149,19 +149,20 @@ but instead use
 \override Score . LyricText #'font-shape = #'italic
 @end example
 
-To enter punctuation, lyrics with accented characters, characters
-from non-English languages, or special characters (such as the heart
-symbol or slanted quotes), simply insert the characters directly
-into the input file and save it with UTF-8 encoding.  For more
-information, see @ref{Text encoding}.
+Punctuation, lyrics with accented characters, characters from
+non-English languages, or special characters (such as the heart
+symbol or slanted quotes), may simply be inserted directly
+into the input file, providing it is saved with UTF-8 encoding.
+For more information, see @ref{Text encoding}.
 
 @lilypond[quote,verbatim]
 \relative c' { e4 f e d e f e2 }
 \addlyrics { He said: “Let my peo -- ple go.” }
 @end lilypond
 
-To use normal quotes in lyrics, add a backslash before the
-quotes and place the whole syllable in quotes.  For example,
+Normal quotes may be used in lyrics, but they have to be preceded
+with a backslash character and the whole syllable has to be
+enclosed between additional quotes.  For example,
 
 @lilypond[quote,verbatim]
 \relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
@@ -205,7 +206,7 @@ Lyrics are printed by interpreting them in the context called
 @code{Lyrics}, see @ref{Contexts explained}.
 
 @example
-\new Lyrics \lyricmode @dots{}
+\new Lyrics \lyricmode @{ @dots{} @}
 @end example
 
 Lyrics can be aligned with melodies in two main ways:
@@ -293,7 +294,7 @@ automatically.  This is achieved by combining the
 melody and the lyrics with the @code{\lyricsto} expression
 
 @example
-\new Lyrics \lyricsto @var{name} @dots{}
+\new Lyrics \lyricsto @var{name} @{ @dots{} @}
 @end example
 
 @noindent
@@ -307,9 +308,9 @@ then the lyrics are specified with @code{\lyricsto}.  The command
 
 @cindex \addlyrics
 
-The @code{\addlyrics} command is actually just a convenient way
-to write a more complicated LilyPond structure that sets up the
-lyrics.
+The @code{\addlyrics} command is actually just a convenient shortcut
+that can be used instead of having to set up the lyrics through a more
+complicated LilyPond structure.
 
 @example
 @{ MUSIC @}
@@ -333,7 +334,7 @@ Here is an example,
 @end lilypond
 
 More stanzas can be added by adding more
-@code{\addlyrics} sections
+@code{\addlyrics} sections:
 
 @lilypond[ragged-right,verbatim,fragment,quote]
 \time 3/4
@@ -344,16 +345,16 @@ More stanzas can be added by adding more
 @end lilypond
 
 The command @code{\addlyrics} cannot handle polyphony settings.
-For these cases you should use @code{\lyricsto} and
+For these cases one should use @code{\lyricsto} and
 @code{\lyricmode}, for details see @ref{Entering lyrics}.
 
 @node Manual syllable durations
 @unnumberedsubsubsec Manual syllable durations
 
 Lyrics can also be entered without @code{\addlyrics} or
-@code{\lyricsto}.  In this case,
-syllables are entered like notes -- but with pitches replaced by text -- and the
-duration of each syllable must be entered explicitly.  For example:
+@code{\lyricsto}.  In this case, syllables are entered like
+notes -- but with pitches replaced by text -- and the duration
+of each syllable must be entered explicitly.  For example:
 
 @example
 play2 the4 game2.
@@ -406,7 +407,7 @@ Internals Reference:
 In order to assign more than one syllable to a single note with
 spaces between the syllables, you can surround the phrase with
 quotes or use a @code{_} character.  Alternatively, you can use
-code the tilde  symbol (@code{~}) to get a lyric tie.  The lyric
+code the tilde symbol (@code{~}) to get a lyric tie.  The lyric
 tie is implemented with the Unicode character U+203F, so be
 sure to have a font (like DejaVuLGC) installed that includes this
 glyph.
@@ -435,7 +436,7 @@ Internals Reference:
 @funindex \melismaEnd
 
 Sometimes, particularly in Medieval music, several notes are to be
-sung on one syllable; such vocalises are called melismas, or
+sung on one syllable; such vocalises are called @rglos{melisma}s, or
 melismata.  The syllable to a melisma is usually left-aligned with
 the first note of the melisma.
 
@@ -587,6 +588,9 @@ detection of melismata; see @code{melismaBusyProperties} in
 @code{\melismaEnd}.
 
 @seealso
+Musical Glossary:
+@rglos{melisma}.
+
 Learning Manual:
 @rlearning{Aligning lyrics to a melody}.
 
@@ -665,8 +669,6 @@ Internals Reference:
 @node Techniques specific to lyrics
 @subsection Techniques specific to lyrics
 
-@c TODO This whole section is to be reorganized. -vv
-
 @menu
 * Working with lyrics and variables::
 * Lyrics and repeats::
@@ -715,7 +717,7 @@ hierarchy of staves and lyrics first, e.g.,
 @end example
 
 @noindent
-and then combine the appropriate melodies and lyric lines
+and then combine the appropriate melodies and lyric lines:
 
 @example
 \context Lyrics = sopranoLyrics \lyricsto "soprano"
@@ -803,7 +805,7 @@ unfolded.
 }
 @end lilypond
 
-If the repeated section has different words and is unfolded simply
+If the repeated section is unfolded with different words, simply
 enter all the words:
 
 @lilypond[verbatim,quote,ragged-right]
@@ -831,15 +833,15 @@ enter all the words:
 @cindex lyric skip
 @funindex \skip
 
-When the words to a repeated volta section are different the words
-to each repeat must be entered in separate @code{Lyrics} contexts.
+When the words to a repeated volta section are different, the words
+to each repeat must be entered in separate @code{Lyrics} context.
 Earlier unrepeated sections must be skipped in the second and
 subsequent repeats.  The easiest way to skip several notes is to
 use @code{\repeat unfold} around the @code{\skip} command.
 
-Note: do not use an underscore, @code{_}, to skip notes as this
-indicates a melisma and will cause the preceding syllable to be
-left-aligned.
+Note: do not use an underscore, @code{_}, to skip notes in this
+particular case.  As this syntax indicates a melisma, it will cause
+the preceding syllable to be left-aligned.
 
 @warning{The @code{@bs{}skip} command must be followed by a number,
 but this number is ignored in lyrics which derive their durations
