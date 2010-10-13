@@ -309,8 +309,8 @@ then the lyrics are specified with @code{\lyricsto}.  The command
 @cindex \addlyrics
 
 The @code{\addlyrics} command is actually just a convenient shortcut
-that can be used instead of having to set up the lyrics through a more
-complicated LilyPond structure.
+that can sometimes be used instead of having to set up the lyrics
+through a more complicated LilyPond structure.
 
 @example
 @{ MUSIC @}
@@ -436,9 +436,9 @@ Internals Reference:
 @funindex \melismaEnd
 
 Sometimes, particularly in Medieval music, several notes are to be
-sung on one syllable; such vocalises are called @rglos{melisma}s, or
-melismata.  The syllable to a melisma is usually left-aligned with
-the first note of the melisma.
+sung on one syllable; such vocalises are called melismata, or
+@rglos{melisma}s.  The syllable to a melisma is usually
+left-aligned with the first note of the melisma.
 
 When a melisma occurs on a syllable other that the last one in a
 word, that syllable is usually joined to the following one with a
@@ -669,6 +669,8 @@ Internals Reference:
 @node Techniques specific to lyrics
 @subsection Techniques specific to lyrics
 
+@c TODO this whole section is to be reorganised
+
 @menu
 * Working with lyrics and variables::
 * Lyrics and repeats::
@@ -805,8 +807,8 @@ unfolded.
 }
 @end lilypond
 
-If the repeated section is unfolded with different words, simply
-enter all the words:
+If the repeated section is to be unfolded and has different words,
+simply enter all the words:
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -834,7 +836,7 @@ enter all the words:
 @funindex \skip
 
 When the words to a repeated volta section are different, the words
-to each repeat must be entered in separate @code{Lyrics} context.
+to each repeat must be entered in separate @code{Lyrics} contexts.
 Earlier unrepeated sections must be skipped in the second and
 subsequent repeats.  The easiest way to skip several notes is to
 use @code{\repeat unfold} around the @code{\skip} command.
