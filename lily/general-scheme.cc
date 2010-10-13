@@ -566,7 +566,7 @@ format_single_argument (SCM arg, int precision, bool escape = false)
     return (ly_symbol2string (arg));
   else
     {
-      ly_progress (scm_from_locale_string ("Unsupported SCM value for format: ~a"),
+      ly_progress (scm_from_locale_string ("\nUnsupported SCM value for format: ~a"),
 		   scm_list_1 (arg));
     }
 
