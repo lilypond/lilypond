@@ -2347,10 +2347,9 @@ from the order that they were defined. (@ref{Old downloads})
 @newsItem
 @subsubheading 2.5.23 released - @emph{May 6, 2005}
 This release has a couple of small bugfixes, and a new feature. It is
-now possible to start and stop the StaffSymbol, during a piece of
-music, by doing \stopStaff \startStaff. This can be used to produce
-Ossia
-staves. (@ref{Changes},
+now possible to start and stop the @code{StaffSymbol}, during a piece of
+music, by doing @code{\stopStaff \startStaff}. This can be used to
+produce Ossia staves. (@ref{Changes},
 @ref{Old downloads})
 @newsEnd
 
