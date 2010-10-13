@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -24,8 +24,8 @@
 * Liste der Farben::              
 * Die Feta-Schriftart::               
 * Notenkopfstile::            
-* Text markup commands::        
-* Text markup list commands::   
+* Textbeschriftungsbefehle::        
+* Textbeschriftungslistenbefehle::   
 * Liste der Artikulationszeichen::
 * Schlagzeugnoten::   
 * Technisches Glossar::   
@@ -878,18 +878,20 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 @lilypondfile[noindent]{note-head-style.ly}
 
 
-@node Text markup commands
-@appendixsec Text markup commands
+
+@node Textbeschriftungsbefehle
+@appendixsec Textbeschriftungsbefehle
 @translationof Text markup commands
 
 @include markup-commands.tely
 
 
-@node Text markup list commands
-@appendixsec Text markup list commands
+@node Textbeschriftungslistenbefehle
+@appendixsec Textbeschriftungslistenbefehle
 @translationof Text markup list commands
 
-The following commands can all be used with @code{\markuplines}:
+Folgende Befehle können mit dem Befehl @code{\markuplines} zusammen
+benutzt werden:
 
 @include markup-list-commands.tely
 

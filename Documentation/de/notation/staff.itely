@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -39,6 +39,7 @@ Gruppen von Systemen zu erstellen.
 * Neue Notensysteme erstellen::
 * Systeme gruppieren::
 * Verschachtelte Notensysteme::
+* Systeme trennen::
 @end menu
 
 @node Neue Notensysteme erstellen
@@ -349,6 +350,59 @@ Referenz der Interna:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
+
+
+@node Systeme trennen
+@unnumberedsubsubsec Systeme trennen
+@translationof Separating systems
+
+@cindex Trennzeichen
+@cindex System-Trennzeichen
+
+Wenn die Anzahl der Systeme sich von Seite zu Seite ändert, wird normalerweise
+ein Trennzeichen hinzugefügt, dass die Systeme voneinander trennt.  Die
+Standardeinstellung ist, dass der Trenner nicht gesetzt wird, aber man kann ihn
+mit einer Option in der @code{\paper}-Umgebung angeschalten.
+
+@c \book is required here to display the system separator
+@c ragged-right is required as there are two systems
+@lilypond[verbatim,quote,ragged-right]
+\book {
+  \score {
+    \new StaffGroup <<
+      \new Staff {
+        \relative c'' {
+          c4 c c c
+          \break
+          c4 c c c
+        }
+      }
+      \new Staff {
+        \relative c'' {
+          c4 c c c
+          \break
+          c4 c c c
+        }
+      }
+    >>
+  }
+  \paper {
+    system-separator-markup = \slashSeparator
+    % following commands are needed only to format this documentation
+    paper-width = 100\mm
+    paper-height = 100\mm
+    tagline = ##f
+  }
+}
+@end lilypond
+
+@seealso
+Notationsreferenz:
+@ref{Seitenformatierung}.
+
+Schnipsel:
+@rlsr{Staff notation}.
+
 
 
 @node Einzelne Systeme verändern
@@ -725,7 +779,7 @@ Instrumenten zu verstecken.  In der Standardeinstellung werden alle
 leeren Notenzeilen außer die des ersten Systems entfernt.
 
 @warning{Eine Notenzeile gilt als leer, wenn sie nur Ganztaktpausen,
-unsichtbare Noten, @code{\skip}-Befehle oder eine Kombination 
+Pausen, unsichtbare Noten, @code{\skip}-Befehle oder eine Kombination 
 der drei enthält.}
 
 @lilypond[verbatim,quote,ragged-right]
@@ -840,98 +894,10 @@ vorgestellt, andere Stimmen zu zitieren und Stichnoten zu
 formatieren.
 
 @menu
-* Metronomangabe::
 * Instrumentenbezeichnungen::
 * Stichnoten::
 * Stichnoten formatieren::
 @end menu
-
-
-@node Metronomangabe
-@unnumberedsubsubsec Metronomangabe
-@translationof Metronome marks
-
-@cindex Tempo
-@cindex Metronombezeichnung
-@cindex Tempobezeichnung
-@cindex Aufführungsanweisung: Tempo
-
-@funindex tempo
-@funindex \tempo
-
-Eine Metronomanweisung wird wie folgt erstellt:
-
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 120
-c2 d
-e4. d8 c2
-@end lilypond
-
-Anstelle dessen kann auch Text als Argument angegeben werden:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegretto"
-c4 e d c
-b4. a16 b c4 r4
-@end lilypond
-
-Wenn eine Metronombezeichnung und Text kombiniert wird, wird
-die Metronombezeichnung automatisch in Klammern gesetzt:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegro" 4 = 160
-g4 c d e
-d4 b g2
-@end lilypond
-
-Der Text kann ein beliebiges Textbeschriftungsobjekt sein:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo \markup { \italic Faster } 4 = 132
-a8-. r8 b-. r gis-. r a-. r
-@end lilypond
-
-Eine Metronombezeichnung in Klammern ohne Text kann erstellt
-werden, indem eine leere Zeichenkette hinzugefügt wird:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "" 8 = 96
-d4 g e c
-@end lilypond
-
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
-
-@c perhaps also an example of how to move it horizontally?
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{changing-the-tempo-without-a-metronome-mark.ly}
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{creating-metronome-marks-in-markup-mode.ly}
-
-Zu Einzelheiten siehe @ref{Text formatieren}.
-
-
-@seealso
-Glossar:
-@rglos{metronome},
-@rglos{metronomic indication},
-@rglos{tempo indication},
-@rglos{metronome mark}.
-
-Notationsreferenz:
-@ref{Text formatieren},
-@ref{MIDI-Ausgabe}.
-
-Schnipsel:
-@rlsr{Staff notation}.
-
-Referenz der Interna:
-@rinternals{MetronomeMark}.
 
 
 @node Instrumentenbezeichnungen
