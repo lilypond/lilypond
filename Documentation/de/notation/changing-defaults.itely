@@ -2153,7 +2153,7 @@ nachfolgenden Gesangstext mit der vorhergehenden Musik verknüpft.
 
 Man erreicht ihn mit dem Befehl @code{\markup}.  Die Eingabe wird
 entsprechend der Syntax für Textbeschriftung interpretiert, siehe
-@ref{Text markup commands}.
+@ref{Textbeschriftungsbefehle}.
 
 @c silly work-around for texinfo broken-ness
 @c (@strong{Note...} causes a spurious cross-reference in Info)

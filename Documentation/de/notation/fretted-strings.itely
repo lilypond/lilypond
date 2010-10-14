@@ -576,7 +576,7 @@ gewünschten Bunddiagramm.  Es gibt drei unterschiedliche
 Darstellungsarten: normal, knapp und ausführlich.  Die drei
 Arten erzeugen die gleiche Ausgabe, aber mit jeweils mehr oder
 weniger Einzelheiten.  Einzelheiten zu Textbeschriftungsbefehlen
-findet sich in @ref{Text markup commands}.
+findet sich in @ref{Textbeschriftungsbefehle}.
 
 Die Standard-Bunddiagrammbeschriftung beinhaltet die Saitennummer
 und die Bundnummer für jeden Punkt, der notiert werden soll.
@@ -963,7 +963,7 @@ Schnittstelle gehören dem @code{Voice.TextScript}-Kontext an.
 
 @seealso
 Notationsreferenz:
-@ref{Text markup commands}.
+@ref{Textbeschriftungsbefehle}.
 
 Schnipsel:
 @rlsr{Fretted strings}.

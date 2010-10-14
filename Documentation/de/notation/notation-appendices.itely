@@ -1382,8 +1382,8 @@ Referenz der Interna:
 @include identifiers.tely
 
 
-@node Vordefinierte Typprädikate
-@appendixsec Vordefinierte Typprädikate
+@node Vordefinierte Typenprädikate
+@appendixsec Vordefinierte Typenprädikate
 @translationof Predefined type predicates
 
 @include type-predicates.tely

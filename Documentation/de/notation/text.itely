@@ -530,12 +530,12 @@ allegro = \markup { \bold \large Allegro }
 
 @noindent
 Eine ausführliche Liste der @code{\markup}-Befehle findet sich in
-@ref{Text markup commands}.
+@ref{Textbeschriftungsbefehle}.
 
 
 @seealso
 Notationsreferenz:
-@ref{Text markup commands}.
+@ref{Textbeschriftungsbefehle}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -1377,17 +1377,17 @@ eine Liste von Beschriftungslisten.
 @end itemize
 
 Eine vollständige Liste der Beschriftungslistenbefehle findet sich in
-@ref{Text markup list commands}.
+@ref{Textbeschriftungslistenbefehle}.
 
 @seealso
 Notationsreferenz:
-@ref{Text markup list commands}.
+@ref{Textbeschriftungslistenbefehle}.
 
 Schnipsel:
 @rlsr{Text}.
 
 Erweitern:
-@rextend{Neue Definitionen von Beschriftungsbefehlen für Listen}.
+@rextend{Neue Definitionen von Beschriftungslistenbefehlen}.
 
 Referenz der Interna:
 @rinternals{TextScript}.
