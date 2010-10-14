@@ -369,23 +369,58 @@ The alignment to a melody can be specified with the
 @end example
 
 @noindent
+
+@c TODO setting associated voice does more than format extender
+@c lines.  Document it properly.  Does it have anything to do
+@c with manual durations in lyrics?
+
 The value of the property (here: @code{"lala"}) should be the name of
 a @code{Voice} context.  Without this setting, extender lines
 will not be formatted properly.
 
 Here is an example demonstrating manual lyric durations,
 
-@lilypond[relative=1,ragged-right,verbatim,fragment,quote]
-<< \new Voice = "melody" {
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
     \time 3/4
     c2 e4 g2.
- }
- \new Lyrics \lyricmode {
-   \set associatedVoice = #"melody"
-   play2 the4 game2.
- } >>
+  }
+  \new Lyrics \lyricmode {
+    \set associatedVoice = #"melody"
+    play2 the4 game2.
+  }
+>>
 @end lilypond
 
+In some complex vocal music, it may be desirable to place lyrics
+completely independently of notes.  In this case do not use
+@code{\lyricsto} or @code{\addlyrics} and do not set
+@code{associatedVoice}:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff {
+    \relative c'' {
+      c2 c2
+      d1
+    }
+  }
+  \new Lyrics {
+    \lyricmode {
+      I2 like4. my8 cat!1
+    }
+  }
+  \new Staff {
+    \relative c' {
+      c8 c c c c c c c
+      c8 c c c c c c c
+    }
+  }
+>>
+@end lilypond
+
+@c TODO see also feature request 707 - show how to do this with manual durations
 
 @seealso
 Notation Reference:
@@ -676,7 +711,6 @@ Internals Reference:
 * Placement of lyrics::
 * Lyrics and repeats::
 * Divisi lyrics::
-* Lyrics independent of notes::
 * Spacing out syllables::
 @end menu
 
@@ -1297,51 +1331,6 @@ attaching lyrics to those specific contexts:
 }
 @end lilypond
 
-
-@node Lyrics independent of notes
-@unnumberedsubsubsec Lyrics independent of notes
-
-@c TODO remove this section?  Don't use DevNull
-@c should be all in Manual Syllable durations
-
-@cindex Devnull context
-
-In some complex vocal music, it may be desirable to place
-lyrics completely independently of notes.  Music defined
-inside @code{lyricrhythm} disappears into the
-@code{Devnull} context, but the rhythms can still be used
-to place the lyrics.
-
-@lilypond[quote,verbatim,ragged-right]
-voice = {
-  c''2
-  \tag #'music { c''2 }
-  \tag #'lyricrhythm { c''4. c''8 }
-  d''1
-}
-
-lyr = \lyricmode { I like my cat! }
-
-<<
-  \new Staff \keepWithTag #'music \voice
-  \new Devnull="nowhere" \keepWithTag #'lyricrhythm \voice
-  \new Lyrics \lyricsto "nowhere" \lyr
-  \new Staff { c'8 c' c' c' c' c' c' c'
-  c' c' c' c' c' c' c' c' }
->>
-@end lilypond
-
-This method is recommended only if the music in the @code{Devnull}
-context does not contain melismata.  Melismata are defined by the
-@code{Voice} context.  Connecting lyrics to a @code{Devnull} context
-makes the voice/lyrics links to get lost, and so does the info on
-melismata.  Therefore, if you link lyrics to a @code{Devnull} context,
-the implicit melismata get ignored.
-
-@c Conclusion: do not use devnull for lyrics -FV
-
-@c this clarifies http://code.google.com/p/lilypond/issues/detail?id=248
-@c see also feature request 777 - show how to do this in manual durations
 
 @node Spacing out syllables
 @unnumberedsubsubsec Spacing out syllables
