@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
+    Translation of GIT committish: bee18bdf4277224b584f66ca4a0be88881a37c06
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -12,9 +12,76 @@
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
+@ignore
+GDP TODO list
+
+Negative numbers are allowed:
+> Are you sure? The following works well
+> \paper{
+>   first-page-number = -2
+> }
+> and prints page number -1 on the second page, for example.
+
+
+In 5.2.1 the @refbugs (line 495 in spacing.itely on master) it
+states:
+
+"@code{layout-set-staff-size} does not change the distance between
+the
+staff lines."
+
+Could we add a sentence:
+"Use instead the pair               fontSize = #@var{N}
+            \override StaffSymbol #'staff-space = #(magstep
+@var{N})
+inside the Staff context to change the size of the font and the
+distance between
+staff lines accordingly."
+
+Actually I found, that the @internalsref{StaffSymbol} at line 481
+sends to an incomplete
+documentation.  The property staff-space is not explained here.  I
+thought Y-extent might be of
+help, but it is in turn explained by x-space which again is
+missing from the list.  Who has the
+knowledge to fix this?
+
+
+Clarify
+http://code.google.com/p/lilypond/issues/detail?id=68
+
+@end ignore
+
+
 @node Gestion de l'espace
 @chapter Gestion de l'espace
 @translationof Spacing issues
+
+L'agencement général d'une partition dépend de trois facteurs
+interdépendants@tie{}: la mise en page, les sauts de ligne et
+l'espacement.  Les choix faits en matière d'espacement détermineront la
+densité de chacun des systèmes, ce qui influera sur le positionnement
+des sauts de lignes et, par voie de conséquence, sur le nombre de page
+de la partition.
+
+En pratique, cette procédure comporte quatre étapes.  Dans un premier
+temps, des distances élastiques (@emph{springs}) sont déterminées sur la
+base des durées.  Sont alors calculées différentes possibilités de saut
+de ligne, chacune se voyant attribuer un @qq{coefficient de laideur},
+puis est estimée la hauteur de chaque système.  LilyPond opte enfin pour
+la combinaison entre sauts de page et de ligne qui offre la meilleure
+occupation de l'espace, tant horizontalement que verticalement.
+
+Les réglages qui influencent la mise en forme peuvent se placer dans
+deux blocs différents.  Le bloc @w{@code{\paper @{@dots{}@}}} intervient
+en dehors de tout bloc @w{@code{\score @{@dots{}@}}}@tie{}; il contient
+les réglages applicables à l'intégralité du document.  Quant au bloc
+@w{@code{\layout @{@dots{}@}}}, il se place à l'intérieur d'un bloc
+@w{@code{\score @{@dots{}@}}} pour déterminer ce qui le concerne tout
+particulièrement.  Dans le cas où il n'y a qu'un seul bloc
+@w{@code{\score @{@dots{}@}}}, les deux emplacements donneront le même
+effet.  Les commandes indiquées dans ce chapitre sont valables dans tous
+les cas.
 
 
 @menu
@@ -26,12 +93,25 @@
 * Réduction du nombre de pages de la partition::
 @end menu
 
+@cindex ragged, aligné
+@cindex aligné, ragged
+
+@warning{Vous verrez au fil de ce chapitre apparaître certains termes
+dont la traduction vous semblera assurément erronée.  Il n'en est
+cependant rien@tie{}: certains termes techniques ont une histoire
+particulière selon leur langue d'origine.  Ainsi, le vocable anglais
+@emph{Ragged} signifie en lambeau, en loques@tie{}; dans l'univers
+typographique, un maître français voit un alignement à gauche -- il dira
+@qq{au fer à gauche} -- alors que son homologue anglophone constate un
+@emph{ragged-right} -- donc du vide à droite.}
+
+
 @node Du papier et des pages
 @section Du papier et des pages
 @translationof Paper and pages
 
-@untranslated
-
+Nous allons examiner ici le bornage -- ce qui détermine l'espace que
+pourra occuper la musique sur une feuille.
 
 @menu
 * Format du papier::
@@ -42,48 +122,890 @@
 @subsection Format du papier
 @translationof Paper size
 
-@untranslated
+@cindex papier, taille
+@cindex page, format
+
+Le format du papier est déterminé par deux fonctions différentes@tie{}:
+@code{set-default-paper-size} et @code{set-paper-size}.
+@code{set-default-paper-size} se place en tête de fichier, alors que
+@code{set-paper-size} se place à l'intérieur d'un bloc
+@code{\paper}@tie{}:
+
+@example
+#(set-default-paper-size "a4")
+@end example
+
+@example
+\paper @{
+  #(set-paper-size "a4")
+@}
+@end example
+
+@noindent
+@code{set-default-paper-size} fixe le format pour toutes les pages,
+alors que @code{set-paper-size} détermine le format des feuilles
+rattachées à un bloc @code{\paper} particulier.  Ainsi, lorsque le bloc
+@code{\paper} se trouve en tête de fichier, le format du papier
+s'appliquera à toutes les pages@tie{}; si @code{\paper} apparaît dans un
+bloc @code{\book}, la taille ne s'appliquera qu'au @emph{book} en
+question.
+
+Les formats @code{a4}, @code{letter}, @code{legal} et @code{11x17} (ou
+tabloïde) sont couramment utilisés pour les éditions musicales.  Bien
+d'autres formats sont disponibles et sont répertoriés à la rubrique
+@code{paper-alist} du fichier d'initialisation @file{scm/@/paper@/.scm}.
+
+@c TODO add a new appendix for paper sizes (auto-generated) -pm
+
+@warning{Par défaut, le papier est au format A4 (codé @code{a4}).}
+
+Rien ne vous empèche d'ajouter un format de papier inhabituel à la
+rubrique @code{paper-alist} du fichier @file{scm/@/paper@/.scm}.  Sachez
+cependant que celui-ci est écrasé à chaque mise à jour de LilyPond.
+
+@cindex orientation
+@cindex landscape
+@cindex paysage, papier
+@cindex à l'italienne, papier
+
+Le fait d'ajouter l'argument @code{'landscape} à l'instruction
+@code{set-default-paper-size} permet d'obtenir une présentation à
+l'italienne -- ou paysage si vous préférez -- et donc des lignes plus
+longues.
+
+@example
+#(set-default-paper-size "a6" 'landscape)
+@end example
+
+La définition du format de papier influe sur un certain nombre de
+variables comme entre autres les marges.  Nous vous invitons à toujours
+spécifier, dans le bloc @code{\paper}, le format de page avant toute
+autre variable.
+
+
+@seealso
+Fichiers d'initialisation :
+@file{scm/@/paper@/.scm}.
+
+Morceaux choisis :
+@rlsrnamed{Spacing,Espacements}.
 
 
 @node Mise en forme de la page
 @subsection Mise en forme de la page
 @translationof Page formatting
 
-@untranslated
+Les marges, en-tête et pied de page, ainsi que les autres variables de
+mise en page sont automatiquement définis par rapport au format du
+papier.
+
+Les valeurs par défaut des marges, inscrites dans le fichier
+d'initialisation @file{ly/@/paper@/-defaults@/-init@/.ly}, s'appliquent
+au format par défaut (A4 sauf mention spécifique) et sont étalonnées
+pour les autres formats.
+
+Nous allons examiner, dans les paragraphes qui suivent, les différentes
+variables sur lesquelles vous pouvez intervenir.
+
+@menu
+* Dimensionnement vertical::
+* Dimensionnement horizontal::
+* Autres variables de mise en page::
+@end menu
+
+
+@node Dimensionnement vertical
+@unnumberedsubsubsec Dimensionnement vertical
+@translationof Vertical dimensions
+
+@subsubheading Hauteurs fixes
+@translationof Fixed vertical dimensions
+
+@table @code
+@item paper-height
+@funindex paper-height
+
+La hauteur de la feuille.  Il s'agit par défaut de la dimension du
+papier utilisé -- voir @ref{Format du papier} pour plus de détails.
+
+@item top-margin
+@funindex top-margin
+
+La marge entre le bord supérieur de la feuille et la surface imprimable.
+Elle est fixée par défaut à@tie{}@code{5\mm}.
+
+@item bottom-margin
+@funindex bottom-margin
+
+La marge entre la surface imprimable et le bord inférieur de la feuille.
+Elle est fixée par défaut à@tie{}@code{6\mm}.
+
+@end table
+
+
+@subsubheading Hauteurs variables
+
+Il est souvent judicieux d'apporter un peu de flexibilité à l'espacement
+entre différents éléments (marges, titres, systèmes ou mouvements), en
+dilatation ou compression selon le cas.  Un certain nombre de variables
+de type @code{\paper} répertoriées ci-dessous vous permettront d'affiner
+ces dimensionnements.
+
+Chacune de ces variables est constituée d'une liste associative à quatre
+@i{clés}@tie{}:
+
+@itemize 
+@item @code{décalage} (@emph{padding}) -- la grandeur minimale de
+@qq{blanc} qui sépare deux éléments.  On peut le voir comme la hauteur
+minimale d'un rectangle vide qui devrait s'étendre sur toute la
+largueur des deux éléments.
+
+@item @code{espace} (@emph{space}) -- la grandeur d'espace par défaut séparant
+les @i{points de référence} de deux éléments qui évite tout risque de
+collision en l'absence de dilatation ou compression.  Le point de
+référence d'un titre ou d'un @emph{markup} est son sommet, celui d'un
+système est la ligne médiane de la portée la plus proche.  Un
+@code{espace} inférieur à @code{décalage} ou @code{distance-minimale}
+sera sans effet, dans la mesure où l'espacement résultant ne saurait
+être inférieur à @code{décalage} ou @code{distance-minimale}.
+
+@item @code{distance-minimale} (@emph{minimum-distance}) -- l'espacement
+minimal entre les points de référence des deux éléments alors qu'il y a
+déjà un effet de compression. Une @code{distance-minimale} inférieure à
+la valeur du @code{décalage} sera sans effet, dans la mesure où
+l'espacement résultant ne saurait être inférieur au @code{décalage}.
+
+@item @code{dilatation} (@emph{stretchability}) -- le coefficient
+d'étirement de cet espace.  Un coefficient nul permet de figer
+l'espacement, à moins qu'il n'en résulte des collisions.  Un coefficient
+positif déterminera la propension d'un espacement à s'étirer, tout
+en tenant compte du coefficient affecté aux autres espacements.
+Par exemple, lorsque le coefficient de dilatation d'une dimension est
+double de celui d'une autre, elle pourra s'étirer deux fois plus que
+cette dernière.  La valeur @code{+inf.0} provoque une
+@code{programming_error} (erreur de programmation) et est ignorée@tie{};
+vous pouvez toutefois utiliser @code{1.0e7} pour obtenir une valeur
+proche de l'infini.  Lorsque cette @i{clé} n'est pas définie, sa valeur
+est par défaut égale à @code{space}.  Notez bien que l'utilisateur ne
+peut définir une propension à la compression@tie{}; elle est en fait
+égale à (@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
+
+@end itemize
+
+Lorsque l'impression n'est pas en pleine page -- elle est donc
+@emph{ragged bottom} pour les anglophones -- l'élément @code{espace}
+n'est pas étiré. Les hauteurs sur une telle page correspondront donc au
+maximum de
+
+@itemize 
+@item @code{space}, plus
+@item @code{minimum-distance} et
+@item @code{padding}, augmenté de ce qu'il faut pour éviter les
+chevauchements.
+@end itemize
+
+Vous pouvez ne jouer que sur une clé d'une variable particulière@tie{}:
+
+@example
+\paper @{
+  after-title-spacing #'space = #5
+@}
+@end example
+
+@noindent
+ou bien déterminer simultatnément plusieurs clés d'une même
+variable@tie{}:
+
+@example
+\paper @{
+  bottom-system-spacing =
+    #'((padding . 1)
+       (space . 1)
+       (minimum-distance . 0)
+       (stretchability . 5))
+@}
+@end example
+
+Voici à présent les différentes variables disponibles@tie{}:
+
+@table @code
+
+@item after-title-spacing
+@funindex after-title-spacing
+
+détermine l'espacement entre un titre, ou un @emph{markup} de premier
+niveau, et le système qui le suit.
+
+@item before-title-spacing
+@funindex before-title-spacing
+
+détermine l'espacement entre un système et le titre ou @emph{markup} de
+haut niveau qui le suit.
+
+@item between-scores-system-spacing
+@funindex between-scores-system-spacing
+
+détermine l'espacement entre deux systèmes appartenant à deux partitions
+consécutives en l'absence de titrage.
+
+@item between-system-spacing
+@funindex between-system-spacing
+
+détermine l'espacement entre deux systèmes d'un même mouvement.
+
+@item between-title-spacing
+@funindex between-title-spacing
+
+détermine l'espacement entre deux titres ou @emph{markups} de premier
+niveau.
+
+@item bottom-system-spacing
+@funindex bottom-system-spacing
+
+détermine la distance entre le dernier système ou le dernier
+@emph{markup} de haut niveau, et le bas de la surface imprimable --
+autrement dit le haut de la marge basse.
+
+@item top-system-spacing
+@funindex top-system-spacing
+
+détermine l'espace entre le haut de la surface imprimable (le bas de la
+marge haute) et le milieu du premier système.  Cette variable n'est
+effective qu'en l'absence de titre en haut de page -- c'est alors
+@var{top-title-spacing} qui doit intervenir.
+
+@item top-title-spacing
+@funindex top-title-spacing
+
+détermine l'espace entre le haut de la surface imprimable (le bas de la
+marge haute) et le titre.
+
+@end table
+
+
+@snippets
+
+L'en-tête et le pied de page sont créés respectivement par les fonctions
+@code{make-header} et @code{make-footer}, toutes deux définies dans le
+bloc @code{\paper}.  Leur implémentation par défaut se trouve dans les
+fichiers d'initialisation @file{ly/@/paper@/-defaults@/-init@/.ly} et
+@file{ly/@/titling@/-init@/.ly}.
+
+La mise en forme de la page est réalisée par les fonctions
+@code{page-music-height} et @code{page-make-stencil}, toutes deux
+membres du bloc @code{\paper}.  La première informe l'algoritme des
+sauts de ligne de combien d'espace il dispose sur la page@tie{}; la
+seconde génère la page selon le nombre de système qu'elle contiendra.
+
+Vous pouvez définir toutes ces valeurs -- @code{mm}, @code{in},
+@code{pt} ou @code{cm} -- en langage Scheme au sein du bloc
+@code{\paper}.  Celles contenues dans le fichier
+@file{paper-defaults.ly} sont en millimètres, c'est la raison pour
+laquelle la valeur de@tie{}@w{@code{2 cm}} de ce qui suit doit être
+précédée du signe multiplier.
+
+@example
+\paper @{
+ #(define bottom-margin (* 2 cm))
+@}
+@end example
+
+
+Exemple :
+
+@example
+\paper @{
+  paper-width = 2\cm
+  top-margin = 3\cm
+  bottom-margin = 3\cm
+  ragged-last-bottom = ##t
+@}
+@end example
+
+Voici par exemple comment centrer le numéro des pages au bas de chacune
+d'elles@tie{}:
+
+@example
+\paper @{
+  print-page-number = ##t
+  print-first-page-number = ##t
+  oddHeaderMarkup = \markup \fill-line @{ " " @}
+  evenHeaderMarkup = \markup \fill-line @{ " " @}
+  oddFooterMarkup = \markup @{ \fill-line @{
+     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
+     \fromproperty #'page:page-number-string @} @}
+  evenFooterMarkup = \markup @{ \fill-line @{
+     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
+     \fromproperty #'page:page-number-string @} @}
+@}
+@end example
+
+
+@seealso
+Manuel de notation :
+@ref{Espacement vertical entre les systèmes}.
+
+Morceaux choisis :
+@rlsrnamed{Spacing,Espacements}.
+
+
+@node Dimensionnement horizontal
+@unnumberedsubsubsec Dimensionnement horizontal
+@translationof Horizontal dimensions
+
+Certaines variables permettent de gérer les dimensionnements
+horizontaux de la page@tie{}:
+
+@table @code
+
+@item binding-offset
+@funindex binding-offset
+
+la gouttière, ou marge de reliure, permet d'augmenter en conséquence la
+valeur de la marge intérieure @code{inner-margin} de telle sorte que
+rien ne soit masqué par la reliure.  Bien entendu, cette variable n'est
+active que lorsque vous comptez générer un fichier imprimable en
+recto-verso -- propriété @code{two-sided} définie à vrai.  La valeur par
+défaut est de@tie{}@code{0}.
+
+@item horizontal-shift
+@funindex horizontal-shift
+
+tous les systèmes, ainsi que les titres et séparateurs de systèmes,
+seront poussés d'autant vers la droite.  la valeur par défaut est
+de@tie{}@code{0.0}.
+
+@item indent
+@funindex indent
+
+définit le niveau d'indentation du premier sysème d'une partition.  La
+valeur par défaut est de@tie{}@code{15\mm}.
+
+@item inner-margin
+@funindex inner-margin
+
+la marge que toutes les pages d'une partie ou de tout un ouvrage devront
+avoir du côté intérieur.  Bien entendu, cette variable n'est
+active que lorsque vous comptez générer un fichier imprimable en
+recto-verso -- propriété @code{two-sided} définie à vrai.  La valeur par
+défaut est de@tie{}@code{10\mm}.
+
+@item left-margin
+@funindex left-margin
+
+la marge entre le bord gauche de la feuille et le début de chaque
+système.  La valeur par défaut est de@tie{}@code{10\mm}.
+
+@item line-width
+@funindex line-width
+
+la longueur d'un système musical.  La valeur par défaut est égale à
+@code{paper-width}, auquel sont retranchés @code{left-margin} et
+@code{right-margin}.
+
+@item outer-margin
+@funindex outer-margin
+
+la marge que toutes les pages d'une partie ou de tout un ouvrage devront
+avoir du côté extérieur -- opposé à la reliure.  Bien entendu, cette
+variable n'est active que lorsque vous comptez générer un fichier
+imprimable en recto-verso -- propriété @code{two-sided} définie à vrai.
+La valeur par défaut est de@tie{}@code{20\mm}.
+
+@item paper-width
+@funindex paper-width
+
+la largeur de la page.  Elle correspond par défaut à la largeur du
+format de papier utilisé -- voir à ce suje la rubrique
+@ref{Format du papier}.
+
+@item right-margin
+@funindex right-margin
+
+la marge entre le bord droit de la page et la fin des systèmes.  La
+valeur par défaut est de@tie{}@code{10\mm}.
+
+@item short-indent
+@funindex short-indent
+
+le niveau d'indentation de tous les systèmes hormis le premier.  La
+valeur par défaut est de@tie{}@code{0}.
+
+@end table
+
+LilyPond appliquera les valeurs par défaut pour les variables non
+définies, en les ajustant toutefois selon la taille de papier que vous
+aurez spécifiée.  Cet adaptation automatique concerne@tie{}:
+
+@itemize
+@item @var{left-margin}
+@item @var{right-margin}
+@item @var{top-margin}
+@item @var{bottom-margin}
+@item @var{head-separation}
+@item @var{foot-separation}
+@item @var{indent}
+@item @var{short-indent}
+@end itemize
+
+Les réglages de @code{line-width}, @code{left-margin},
+@code{right-margin} et @code{paper-width} dépendent les uns des autres,
+mais ne sont pas tous obligatoires@tie{}:
+
+@example
+\paper @{
+  left-margin = 30\mm
+@}
+@end example
+
+Ceci ne définit que la marge gauche (@code{lef-margin}).  Cependant, et
+dans la mesure ou @code{right-margin} -- la marge de droite -- garde sa
+valeur par défaut, la longueur de ligne -- @code{line-width} -- sera
+automatiquement calculée.
+
+@example
+\paper @{
+  line-width = 150\mm
+@}
+@end example
+
+Ici, @code{left-margin} et @code{right-margin} prendront la même valeur.
+Par conséquent, @code{line-width} est retranché de @code{paper-width} et
+divisé par deux.  Autrement dit, le fait de ne spécifier que la valeur
+de @code{line-width} permet d'obtenir des systèmes centrés sur la
+largeur de la page.
+
+LilyPond effectue toutefois des contrôles de cohérence au niveau de ces
+valeurs et émet un avertissement si l'addition n'est pas bonne ou si les
+systèmes risquent de déborder.
+
+@example
+\paper @{
+  paper-width = 210\mm
+  left-margin = 20\mm
+  right-margin = 30\mm
+  line-width = 100\mm
+@}
+@end example
+
+Ces contrôles peuvent se désactiver en définissant la propriété 
+@code{check-consistency} à faux@tie{}:
+
+@example
+\paper @{
+  paper-width = 210\mm
+  left-margin = 20\mm
+  line-width = 200\mm
+  check-consistency = ##f
+@}
+@end example
+
+@warning{Lorsque vous définissez manuellement la largeur de page
+(@code{paper-width}), ajustez si besoin les valeurs de
+@code{line-width}, @code{left-margin}, @code{indent} et
+@code{short-indent}.}
+
+
+@seealso
+Morceaux choisis :
+@rlsrnamed{Spacing,Espacements}.
+
+
+@node Autres variables de mise en page
+@unnumberedsubsubsec Autres variables de mise en page
+@translationof Other layout variables
+
+Les variables regroupées ici par ordre alphabétique vous permettront
+d'agencer la page en général.
+
+@table @code
+
+@item auto-first-page-number
+@funindex auto-first-page-number
+
+L'algorithme qui gère les sauts de page prend en compte le fait que le
+premier numéro de page soit pair ou impair.  Lorsque cette
+fonctionnalité est activée, l'algorithme des sauts de page décidera par
+lui-même si le premier numéro sera pair ou impair, ce qui se traduira
+par un éventuel incrément de un.  La valeur par défaut est@tie{}@code{##f}.
+
+@ignore
+
+TODO: this variable is used, but I don't know what it does. -pm
+@item blank-after-score-page-force
+@funindex blank-after-score-page-force
+
+Default: @code{2}.
+
+@end ignore
+
+@item blank-last-page-force
+@funindex blank-last-page-force
+
+Pénalité pour fin de partition intervenant sur une page impaire.  La
+valeur par défaut est de@tie{}@code{0}.
+
+@item blank-page-force
+@funindex blank-page-force
+
+Pénalité pour apparition d'une page blanche en cours de partition.
+L'option @code{ly:optimal-breaking} n'en tiendra pas compte puisqu'elle
+ne conçoit pas la présence d'une page blanche au milieu d'une partition.
+La valeur par défaut est de@tie{}@code{5}.
+
+@item check-consistency
+@funindex check-consistency
+
+Lorsqu'elle est activée, cette variable vérifie que  @code{left-margin},
+@code{right-margin} et @code{line-width} sont en cohérence, et que
+l'addition de ces trois éléments ne dépassera pas la largeur du papier
+(@code{paper-width}).  La valeur par défaut est@tie{}@code{##t}.
+
+@item first-page-number
+@funindex first-page-number
+
+Le numéro de la première page.  La valeur par défaut est
+de@tie{}@code{#1}.
+
+@item max-systems-per-page
+Le nombre maximal de systèmes qu'une page pourra comporter.  Cette
+variable n'est prise en compte, à ce jour, que par l'option
+@code{ly:optimal-breaking}, et n'est pas définie.
+
+@item min-systems-per-page
+Le nombre minimal de systèmes qu'une page pourra comporter.  Attention
+cependant aux risques de débordements s'il est trop important.  Cette
+variable n'est prise en compte, à ce jour, que par l'option
+@code{ly:optimal-breaking}, et n'est pas définie.
+
+@item page-breaking-between-system-spacing
+@funindex page-breaking-between-system-spacing
+
+Cette variable permet de @qq{tromper} l'algorithme de gestion des sauts
+de page quant à la valeur de @code{between-system-spacing}.  Ainsi,
+lorsque @code{page-breaking-between-system-spacing #'padding} a une
+valeur nettement supérieure à @code{between-system-spacing #'padding},
+l'algorithme en question aura tendance à disposer moins de systèmes sur
+une même page.  Cette variable est par défaut non définie.
+
+@item page-count
+@funindex page-count
+
+Le nombre de pages que devra comporter la partition.  Cette variable est
+par défaut non définie.
+
+@item page-limit-inter-system-space
+@funindex page-limit-inter-system-space
+
+Lorsqu'elle est activée, cette variable permet de limiter l'espacement
+entre les systèmes d'une page comportant beaucoup de blanc.  La valeur
+par défaut est@tie{}@code{##f}.  Pour de plus amples détails,
+reportez-vous à la rubrique @ref{Espacement vertical entre les systèmes}.
+
+@item page-limit-inter-system-space-factor
+@funindex page-limit-inter-system-space-factor
+
+Le coefficient utilisé par @code{page-limit-inter-system-space}.  La
+valeur par défaut est de@tie{}@code{1.4}.  Pour de plus amples détails,
+reportez-vous à la rubrique @ref{Espacement vertical entre les systèmes}.
+
+@item page-spacing-weight
+@funindex page-spacing-weight
+
+Cette variable définit l'importance relative des espacements entre la
+page (verticalité) et la ligne (horizontalité).  Une valeur élevée
+privilégiera l'espacement au niveau de la page.  La valeur par défaut
+est de@tie{}@code{#10}.
+
+@item print-all-headers
+@funindex print-all-headers
+
+Lorsque cette variable est activiée, l'intégralité des champs d'entête
+sera imprimée pour chaque bloc @code{\score}, plutôt que les seuls
+champs @code{piece} et @code{opus}.  La valeur par défaut
+est@tie{}@code{##f}.
+
+@item print-first-page-number
+@funindex print-first-page-number
+
+Cette variable permet d'imprimer le numéro de page y compris sur la
+première.  La valeur par défaut est@tie{}@code{##f}.
+
+@item print-page-number
+@funindex print-page-number
+
+La désactivation de cette variable permet d'obtenir des pages non
+numérotées.  La valeur par défaut est@tie{}@code{##t}.
+
+@item ragged-bottom
+@funindex ragged-bottom
+
+L'activation de cette variable permet de ne pas répartir verticalement
+les systèmes sur les pages homrmis la dernière.  La valeur par défaut
+est@tie{}@code{##f}.
+
+Lorsque la partition ne comporte que deux ou trois systèmes par page,
+comme pour un conducteur d'orchestre, nous vous conseillons d'activer
+cette variable.
+
+@item ragged-last
+@funindex ragged-last
+
+Lorsqu'elle est activée, cette variable permet de ne pas étendre le
+dernier système de façon à occuper toute la longueur de la ligne.  La
+valeur par défaut est@tie{}@code{##f}.
+
+@item ragged-last-bottom
+@funindex ragged-last-bottom
+
+La désactivation de cette variable permet de répartir verticalement les
+systèmes de la dernière pages d'une partition.  La valeur par défaut
+est@tie{}@code{##t}.
+
+Nous vous conseillons, lorsque des pièces couvrent deux pages ou plus,
+d'activer cette variable.
+
+Notez bien que la variable @code{ragged-last-bottom} affecte aussi la
+dernière page de chacune des parties -- créées à l'aide d'un bloc
+@code{\bookpart} -- d'un même ouvrage.
+
+@item ragged-right
+@funindex ragged-right
+
+Lorsque cette variable est activée, les systèmes ne s'étendront pas sur
+la longueur de la ligne, mais sarrêteront sur à leur longueur normale.
+La valeur par défaut est @code{##f}.
+
+Si la partition ne comporte qu'un seul système, la valeur par défaut
+devient @code{##t}.
+
+@item system-separator-markup
+@funindex system-separator-markup
+
+Il s'agit en l'occurence d'insérer un objet de type @emph{markup} entre
+chaque système, comme on le voit dans nombre de partitions orchestrales.
+Cette variable n'est pas définie par défaut.
+
+La commande @code{\slashSeparator} fournit un @emph{markup} relativement
+courant@tie{}:
+
+@lilypond[quote,ragged-right]
+#(set-default-paper-size "a6" 'landscape)
+\book {
+  \score {
+    \relative c' { c1 \break c1 }
+  }
+  \paper {
+    system-separator-markup = \slashSeparator
+  }
+}
+@end lilypond
+
+@item system-count
+@funindex system-count
+
+Le nombre de systèmes requis par la partition.  Cette variable n'est pas
+définie par défaut.
+
+@item systems-per-page
+@funindex systems-per-page
+
+Le nombre de systèmes que devrait comporter chaque page.  Cette variable
+n'est à ce jour prise en charge que par l'algorithme
+@code{ly:optimal-breaking} et n'est pas définie par défaut.
+
+@item two-sided
+@funindex two-sided
+
+@cindex gutter
+@cindex binding gutter
+
+Cette variable permet de gérer efficacement les impressions recto-verso.
+Lorsqu'elle est activée, les réglages affectés à @code{inner-margin},
+@code{outer-margin} ainsi que @code{binding-offset} détermineront les
+différentes marges selon qu'il s'agit d'une page paire ou impaire.
+Cette variable s'applique en lieu et place de @code{left-margin} et
+@code{right-margin}.  La valeur par défaut est@tie{}@code{##f}.
+
+@end table
+
+
+@seealso
+Morceaux choisis :
+@rlsrnamed{Spacing,Espacements}.
+
+
+@knownissues
+
+L'entête par défaut, formé d'une seule ligne, est constitué du numéro de
+page et du champ @code{instrument} contenu dans le bloc @code{\header}.
+
+Les titrages (contenus dans le bloc @code{\header@{@}}) sont considérés
+comme des systèmes@tie{}; ils seront donc affectés par
+@code{ragged-bottom} et @code{ragged-last-bottom}, qui éventuellement
+ajouteront de l'espace avant le premier système de la partition.
 
 
 @node Mise en forme de la musique
 @section Mise en forme de la musique
 @translationof Music layout
 
-@untranslated
-
-
 @menu
 * Définition de la taille de portée::
 * Mise en forme de la partition::
 @end menu
 
+
 @node Définition de la taille de portée
 @subsection Définition de la taille de portée
 @translationof Setting the staff size
 
-@untranslated
+@cindex fonte, définition de la taille
+@cindex portée, définition de la taille
+@funindex layout file
+
+La @strong{taille de portée} (@emph{staff size}) est fixée par défaut à
+20@tie{}points.  Il existe deux manières de la modifier@tie{}:
+
+La taille des portées peut se définir de globalement pour toutes les
+partitions d'un même fichier, ou plus précisément d'un bloc
+@code{\book}, à l'aide de @code{set-global-staff-size}.
+
+@example
+#(set-global-staff-size 14)
+@end example
+
+@noindent
+Ceci définit donc la hauteur des portées à 14@tie{}points par
+défaut@tie{}; toutes les fontes seront ajustées en conséquence.
+
+
+Vous pouvez aussi spécifier une taille à une partition en particulier en
+procédant comme ci-dessous@tie{}:
+@example
+\score@{
+  ...
+  \layout@{
+  #(layout-set-staff-size 15)
+  @}
+@}
+@end example
+
+La fonte Feta fournit les symboles musicaux dans huit tailles
+différentes.  Chaque fonte correspond à une hauteur particulière de
+portée@tie{}; les petites tailles comportent des symboles plus épais
+pour correspondre à l'épaisseur relativement plus importante des lignes
+de la portée.  Le tableau suivant répertorie les différentes tailles de
+police.
+
+@quotation
+@multitable @columnfractions .15 .2 .22 .2
+
+@item @b{nom de la fonte}
+@tab @b{hauteur de portée (pt)}
+@tab @b{hauteur de portée (mm)}
+@tab @b{utilisation}
+
+@item feta11
+@tab 11.22
+@tab 3.9
+@tab format de poche
+
+@item feta13
+@tab 12.60
+@tab 4.4
+@tab
+
+@item feta14
+@tab 14.14
+@tab 5.0
+@tab
+
+@item feta16
+@tab 15.87
+@tab 5.6
+@tab
+
+@item feta18
+@tab 17.82
+@tab 6.3
+@tab cernet de chant
+
+@item feta20
+@tab 20
+@tab 7.0
+@tab partition standard
+
+@item feta23
+@tab 22.45
+@tab 7.9
+@tab
+
+@item feta26
+@tab 25.2
+@tab 8.9
+@tab
+@c modern rental material?
+
+@end multitable
+@end quotation
+
+Ces fontes sont disponibles à toutes les tailles.  La propriété de
+contexte @code{fontSize} ainsi que la propriété de mise en forme
+@code{staff-space} (voir @rinternals{StaffSymbol}) permettent d'ajuster
+individuellement la taille de chaque portée.  La taille de chacune des
+portées est relative à la taille globale.
+
+
+@seealso
+Manuel de notation :
+@ref{Indication de la taille de fonte musicale}.
+
+Morceaux choisis :
+@rlsrnamed{Spacing,Espacements}.
+
+
+@knownissues
+
+@code{layout-set-staff-size} ne modifie en rien l'espacement entre les
+lignes d'une portée.
 
 
 @node Mise en forme de la partition
 @subsection Mise en forme de la partition
 @translationof Score layout
 
-@untranslated
+@funindex \layout
+
+Alors que @code{\paper} définit le formatage des pages pour
+l'intégralité du document, @code{\layout} s'occupe de la mise en forme
+spécifique à la partition.
+
+@example
+\layout @{
+  indent = 2.0\cm
+  \context @{ \Staff
+    \override VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 6)
+  @}
+  \context @{ \Voice
+    \override TextScript #'padding = #1.0
+    \override Glissando #'thickness = #3
+  @}
+@}
+@end example
+
+
+@seealso
+Manuel de notation :
+@ref{Modification des réglages par défaut d'un contexte}.
+
+Morceaux choisis :
+@rlsrnamed{Spacing,Espacements}.
 
 
 @node Sauts
 @section Sauts
 @translationof Breaks
-
-@untranslated
-
 
 @menu
 * Sauts de ligne::
@@ -155,13 +1077,24 @@
 * Espacement vertical au sein d'un système::
 * Espacement vertical entre les systèmes::
 * Positionnement explicite des portées et systèmes::
-* Optimisation du remplissage avec un deuxième passage::
 * Résolution des collisions verticales::
 @end menu
 
 @node Espacement vertical au sein d'un système
 @subsection Espacement vertical au sein d'un système
 @translationof Vertical spacing inside a system
+
+@untranslated
+
+
+@unnumberedsubsubsec Espacement entre les portées
+@translationof Spacing between staves
+
+@untranslated
+
+
+@unnumberedsubsubsec Espacement des lignes rattachées à des portées
+@translationof Spacing of non-staff lines
 
 @untranslated
 
@@ -180,13 +1113,6 @@
 @untranslated
 
 
-@node Optimisation du remplissage avec un deuxième passage
-@subsection Optimisation du remplissage avec un deuxième passage
-@translationof Two-pass vertical spacing
-
-@untranslated
-
-
 @node Résolution des collisions verticales
 @subsection Résolution des collisions verticales
 @translationof Vertical collision avoidance
@@ -198,8 +1124,8 @@
 @section Espacement horizontal
 @translationof Horizontal spacing
 
-@untranslated
-
+@cindex horizontal, espacement
+@cindex espacement horizontal
 
 @menu
 * Généralités sur l'espacement horizontal::
@@ -241,50 +1167,15 @@
 @subsection Notation proportionnelle
 @translationof Proportional notation
 
-Les notes peuvent s'espacer proportionnellement en assignant une durée
-à @code{proportionalNotationDuration}
-
-@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
-<<
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
-  \new Staff { c8[ c c c c c]  c4 c2 r2 }
-  \new Staff { c2  \times 2/3 { c8 c c } c4 c1 }
->>
-@end lilypond
-
-Manipuler cette propriété affectera l'espacement idéal uniquement pour
-des notes consécutives.  Pour obtenir une véritable notation
-proportionnelle, vous devrez tenir compte des réglages suivants@tie{}:
-
-@itemize @bullet
-
-@item La véritable notation proportionnelle exige que des symboles
-puissent en écraser d'autres.  Pour y parvenir, il faut retirer le
-@rinternals{Separating_line_group_engraver} du contexte
-@rinternals{Staff}.
-
-@item L'influence en matière d'espacement induite par le formatage
-(clés, barres de mesure, etc) s'annule en assignant
-@emph{vrai}@tie{}(#t) à la propriété @code{strict-note-spacing} de
-l'objet @rinternals{SpacingSpanner}.
-
-@item Les affinages optiques se règlent en assignant @emph{vrai} à la
-propriété @code{uniform-stretching} du @rinternals{SpacingSpanner}.
-
-@end itemize
-
-
-@seealso
-Morceaux choisis :
-@rlsrnamed{Spacing,Espacements}.
-
-Le fichier @file{input/proportional.ly} illustre la notation
-proportionnelle stricte.
+@untranslated
 
 
 @node Réduction du nombre de pages de la partition
 @section Réduction du nombre de pages de la partition
 @translationof Fitting music onto fewer pages
+
+@untranslated
+
 
 @menu
 * Mise en évidence de l'espacement::
@@ -302,92 +1193,6 @@ proportionnelle stricte.
 @subsection Modification de l'espacement
 @translationof Changing spacing
 
-Parfois, une partition peut se terminer avec seulement
-un ou deux systèmes sur la dernière page. Ceci peut être ennuyeux
-surtout si vous constatez, en regardant les pages précédentes, qu'il
-reste encore beaucoup de place sur celles-ci.
+@untranslated
 
-Si vous vous intéressez aux problèmes de mise en page,
-@code{annotate-spacing} peut alors être un outil d'une valeur
-inestimable.  Cette commande imprime les valeurs
-de nombreuses commandes d'espacement concernant la mise en page.
-Consultez @ref{Mise en évidence de l'espacement} pour de plus amples
-informations.  À l'aide des informations données par
-@code{annotate-spacing}, on peut voir quelles marges il est souhaitable
-de modifier afin de résoudre le problème.
-
-
-En plus d'agir sur les marges, il existe d'autres possibilités
-qui permettent de gagner de la place.
-
-@itemize
-@item
-Demander à LilyPond de placer les systèmes aussi
-près que possible les uns des autres (pour en disposer autant
-que possible sur une page), tout en répartissant les systèmes afin
-de ne pas laisser de blanc en bas de la dernière page.
-
-@example
-\paper @{
-  between-system-padding = #0.1
-  between-system-space = #0.1
-  ragged-last-bottom = ##f
-  ragged-bottom = ##f
-@}
-@end example
-
-@item
-Obliger LilyPond à mettre un certain nombre de systèmes par page.  Par
-exemple, si LilyPond veut placer onze systèmes dans une page, vous
-pouvez l'obliger à n'en mettre que dix.
-
-@example
-\paper @{
-  system-count = #10
-@}
-@end example
-
-@item
-Supprimer (ou réduire) les objets qui augmentent la hauteur du système.
-C'est le cas en particulier de certaines reprises (avec des
-alternatives) qui placent des crochets au dessus des portées. Si ces
-crochets de reprise se poursuivent sur deux systèmes, ils prendront plus
-de place que s'ils sont regroupés sur un même système.
-
-Un autre exemple@tie{}: déplacer les nuances qui @qq{débordent} d'un
-système.
-
-@lilypond[verbatim,quote,fragment]
-\relative c' {
-  e4 c g\f c
-  \override DynamicLineSpanner #'padding = #-1.8
-  \override DynamicText #'extra-offset = #'( -2.1 . 0)
-  e4 c g\f c
-}
-@end lilypond
-
-@item
-Modifier l'espacement vertical avec @code{SpacingSpanner}.
-Reportez-vous à @ref{Modification de l'espacement horizontal} pour plus
-de détails.
-
-@lilypond[verbatim,quote]
-\score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-  }
-  \layout {
-    \context {
-      \Score
-      \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 4)
-    }
-  }
-}
-@end lilypond
-
-@end itemize
 
