@@ -3058,8 +3058,20 @@ def conv(str):
     return str
 
 @rule ((2, 13, 36),
-    _ ("Add fretboard-table argument to savePredefinedFretboard."))
+    _ ("Rename vertical spacing variables.\n\
+Add fretboard-table argument to savePredefinedFretboard."))
 def conv(str):
+    str = re.sub ('after-title-spacing',           'markup-system-spacing', str)
+    str = re.sub ('before-title-spacing',          'score-markup-spacing',  str)
+    str = re.sub ('between-scores-system-spacing', 'score-system-spacing',  str)
+
+    # also converts page-breaking-between-system-spacing:
+    str = re.sub ('between-system-spacing',        'system-system-spacing', str)
+
+    str = re.sub ('between-title-spacing',         'markup-markup-spacing', str)
+    str = re.sub ('bottom-system-spacing',         'last-bottom-spacing',   str)
+    str = re.sub ('top-title-spacing',             'top-markup-spacing',    str)
+
     str = re.sub (r"storePredefinedDiagram",
                   r"storePredefinedDiagram #default-fret-table",
                   str);
