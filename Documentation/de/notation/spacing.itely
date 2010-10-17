@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -189,9 +189,9 @@ auf einer Seite zu produzieren:
 
 @table @code
 
-@item after-title-spacing
+@item markup-system-spacing
 
-@funindex after-title-spacing
+@funindex markup-system-spacing
 
 Gibt an, wie der Abstand zwischen Titel (oder der obersten Beschriftung) und
 dem darauffolgenden Notensystem berechnet wird.  Das ist eine assoziative
@@ -220,7 +220,7 @@ eines Systems ausdrücklich für @var{Verschiebung} verlangt wird.
 Der Standard beispielsweise ist:
 
 @example
-after-title-spacing = #'((Platz . 2) Verschiebung . 0.5))
+markup-system-spacing = #'((Platz . 2) Verschiebung . 0.5))
 @end example
 
 Wenn eine Seite einen keinen ausgeglichenen unteren Rand hat, wird @var{Platz}
@@ -234,58 +234,58 @@ größte Wert von
 auftreten.
 @end itemize
 
-@item before-title-spacing
+@item score-markup-spacing
 
-@funindex before-title-spacing
+@funindex score-markup-spacing
 
 Definiert den Platz zwiscehn einem System und dem Titel (oder der obersten
 Beschriftung), der darauf folgt.  Der Abstand wird von der Mitte des letzten
 Notensystems der Systemgruppe zur Grundlinie des darauf folgenden Titels
-berechnet.  Siehe auch @var{after-title-spacing}.
+berechnet.  Siehe auch @var{markup-system-spacing}.
 
-@item between-scores-system-spacing
+@item score-system-spacing
 
-@funindex between-scores-system-spacing
+@funindex score-system-spacing
 
 Definiert den Abstand zwischen zwei Systemen, wenn sie sich in unterschiedlichen
 Partituren (Score) befinden, aber zwischen ihnen keine Überschrift kommt.  Siehe
-auch @var{after-title-spacing}.
+auch @var{markup-system-spacing}.
 
-@item between-system-spacing
+@item system-system-spacing
 
-@funindex between-system-spacing
+@funindex system-system-spacing
 
 Definiert den Abstand zwischen der Mitte des untersten Notensystems einer
 Systemgruppe und der Mitte des obersten Notensystems der folgenden Systemgruppe.
-Siehe @var{after-title-spacing}.
+Siehe @var{markup-system-spacing}.
 
-@item between-title-spacing
+@item markup-markup-spacing
 
-@funindex between-title-spacing
+@funindex markup-markup-spacing
 
 Definiert den Abstand zwischen zwei Überschriften (oder Beschriftungen auf oberster
 Ebene).  Die Abstände werden von der Grundlinie der ersten Überschrift zur
-Grundlinie der zweiten Überschrift errechnet.  Siehe @var{after-title-spacing}.
+Grundlinie der zweiten Überschrift errechnet.  Siehe @var{markup-system-spacing}.
 
 @item bottom-margin
 
 Der Rand zwischen der Fußzeile und dem unteren Rand der Seite.
 Standard: @code{6\mm}.
 
-@item bottom-system-spacing
+@item last-bottom-spacing
 
-@funindex bottom-system-spacing
+@funindex last-bottom-spacing
 
 Definiert den Abstand von der Mitte des letzten Systems (oder der Grundlinie der
 letzten Beschriftung) zum Ende des bedruckbaren Bereichs (normalerweise die
-Oberkante des Seitenrandes).  Siehe @var{after-title-spacing}.
+Oberkante des Seitenrandes).  Siehe @var{markup-system-spacing}.
 
-@item top-title-spacing
+@item top-markup-spacing
 
-@funindex top-title-spacing
+@funindex top-markup-spacing
 
 Definiert den Abstand vom Oberrand des bedruckbaren Bereichs (also dem Unterrand
-des oberen Seitenrandes) zur Grundlinie der Ügerschrift.  Siehe @var{after-title-spacing}.
+des oberen Seitenrandes) zur Grundlinie der Ügerschrift.  Siehe @var{markup-system-spacing}.
 
 @item top-system-spacing
 
@@ -294,7 +294,7 @@ des oberen Seitenrandes) zur Grundlinie der Ügerschrift.  Siehe @var{after-titl
 Definiert den Abstand vom Oberrand des bedruckbaren Bereiches (also dem Unterrand
 des oberen Seitenrandes) zur Mitte des ersten Notensystems.  Der Wert wird nur
 eingesetzt, wenn oben auf der Seite kein Titel gesetzt ist (in welchem Fall
-@var{top-title-spacing} benutzt wird).  Siehe @var{after-title-spacing}.
+@var{top-markup-spacing} benutzt wird).  Siehe @var{markup-system-spacing}.
 
 @item paper-height
 
@@ -622,15 +622,15 @@ kann dazu führen, dass Seiten zu dicht gefüllt werden, wenn der Wert
 zu groß gewählt wird.  Die Option ist zur Zeit nur von dem
 @code{ly:optimal-breaking}-Algorithmus unterstützt.  Standard: nicht gesetzt.
 
-@item page-breaking-between-system-spacing
+@item page-breaking-system-system-spacing
 
-@funindex page-breaking-between-system-spacing
+@funindex page-breaking-system-system-spacing
 
 Überlistet die Seitenumbruchfunktion, indem ihr ein anderer Wert
-für @code{between-system-spacing} mitgeteilt wird, als in Wirklichkeit
+für @code{system-system-spacing} mitgeteilt wird, als in Wirklichkeit
 eingestellt ist.  Wenn beispielsweise 
-@code{page-breaking-between-system-spacing #'padding} auf einen
-deutlich größeren Wert als @code{between-system-spacing #'padding} gesetzt
+@code{page-breaking-system-system-spacing #'padding} auf einen
+deutlich größeren Wert als @code{system-system-spacing #'padding} gesetzt
 wird, setzt die Seitenumbruchsfunktion weniger Systeme auf eine
 Seite.  Standard: nicht gesetzt.
 
@@ -1702,13 +1702,13 @@ sehr ähnlich, der Abstände innerhalb einer Systemgruppe kontrolliert
 (siehe @ref{Abstände innerhalb eines Systems}).  Der Hauptunterschied ist,
 dass die Variablen, die Abstände zwischen Systemgruppen definieren, in der
 @code{\paper}-Umgebung und nicht als Grob-Eigenschaften definiert werden.
-Diese Variablen der @code{\paper}-Umbgebung sind @var{between-system-spacing},
-@var{between-scores-system-spacing}, @var{after-title-spacing},
-@var{before-title-spacing}, @var{between-title-spacing},
-@var{top-system-spacing}, @var{top-title-spacing} und
-@var{bottom-system-spacing}.  Beachten Sie, dass diese Variablen
+Diese Variablen der @code{\paper}-Umbgebung sind @var{system-system-spacing},
+@var{score-system-spacing}, @var{markup-system-spacing},
+@var{score-markup-spacing}, @var{markup-markup-spacing},
+@var{top-system-spacing}, @var{top-markup-spacing} und
+@var{last-bottom-spacing}.  Beachten Sie, dass diese Variablen
 Nicht-Notensystem-zeilen ignorieren.  Beispielsweise kontrolliert
-@var{between-system-spacing} den Abstand der mittleren Notenlinie des
+@var{system-system-spacing} den Abstand der mittleren Notenlinie des
 tiefsten Systems einer Gruppe zur mittleren Notenlinie des höchsten
 Notensystems der nächsten Gruppe, egal ob dazwischen Gesangstext gesetzt
 ist oder nicht.  Siehe auch @ref{Vertikale Dimensionen} für eine
@@ -2841,7 +2841,7 @@ dann so anordnen, dass kein weißer Rand unten auf der Seite entsteht.
 
 @example
 \paper @{
-  between-system-spacing = #'((padding . 0) (space . 0.1))
+  system-system-spacing = #'((padding . 0) (space . 0.1))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @ignore
 GDP TODO list
@@ -288,7 +288,7 @@ like this:
 
 @example
 \paper @{
-  after-title-spacing #'space = #5
+  markup-system-spacing #'space = #5
 @}
 @end example
 
@@ -297,7 +297,7 @@ this:
 
 @example
 \paper @{
-  bottom-system-spacing =
+  last-bottom-spacing =
     #'((padding . 1)
        (space . 1)
        (minimum-distance . 0)
@@ -309,36 +309,36 @@ The flexible vertical dimension variables are:
 
 @table @code
 
-@item after-title-spacing
-@funindex after-title-spacing
+@item markup-system-spacing
+@funindex markup-system-spacing
 
 the space between a title (or top-level markup) and the system
 that follows it.
 
-@item before-title-spacing
-@funindex before-title-spacing
+@item score-markup-spacing
+@funindex score-markup-spacing
 
 the space between a system and the title (or top-level markup)
 that follows it.
 
-@item between-scores-system-spacing
-@funindex between-scores-system-spacing
+@item score-system-spacing
+@funindex score-system-spacing
 
 the space between two systems if they are in different scores,
 with no title between them.
 
-@item between-system-spacing
-@funindex between-system-spacing
+@item system-system-spacing
+@funindex system-system-spacing
 
 the space between two systems in the same score.
 
-@item between-title-spacing
-@funindex between-title-spacing
+@item markup-markup-spacing
+@funindex markup-markup-spacing
 
 the space between two titles (or top-level markups).
 
-@item bottom-system-spacing
-@funindex bottom-system-spacing
+@item last-bottom-spacing
+@funindex last-bottom-spacing
 
 the space from the last system (or the last top-level markup) to
 the bottom of the printable area (ie. the top of the bottom
@@ -350,10 +350,10 @@ margin).
 the space from the top of the printable area (ie. the bottom of
 the top margin) to the first system.  This only takes effect if
 there is no title at the top of the page (in which case
-@code{top-title-spacing} is used instead).
+@code{top-markup-spacing} is used instead).
 
-@item top-title-spacing
-@funindex top-title-spacing
+@item top-markup-spacing
+@funindex top-markup-spacing
 
 the space from the top of the printable area (ie. the bottom of
 the top margin) to the title.
@@ -643,14 +643,14 @@ may cause pages to be overfilled if it is made too large.  This is
 currently supported only by the @code{ly:optimal-breaking} algorithm.
 Default: unset.
 
-@item page-breaking-between-system-spacing
-@funindex page-breaking-between-system-spacing
+@item page-breaking-system-system-spacing
+@funindex page-breaking-system-system-spacing
 
 Tricks the page breaker into thinking that
-@code{between-system-spacing} is set to something different than
+@code{system-system-spacing} is set to something different than
 it really is.  For example, if
-@code{page-breaking-between-system-spacing #'padding} is set to something
-substantially larger than @code{between-system-spacing #'padding}, then the
+@code{page-breaking-system-system-spacing #'padding} is set to something
+substantially larger than @code{system-system-spacing #'padding}, then the
 page-breaker will put fewer systems on each page.  Default: unset.
 
 @item page-count
@@ -1660,12 +1660,12 @@ that control spacing between staves within a system (see
 @ref{Vertical spacing inside a system}).  The main difference is that
 the variables to control spacing between systems are set in the
 @code{\paper} block, rather than as grob properties.  These paper block
-variables are @var{between-system-spacing},
-@var{between-scores-system-spacing}, @var{after-title-spacing},
-@var{before-title-spacing}, @var{between-title-spacing},
-@var{top-system-spacing}, @var{top-title-spacing} and
-@var{bottom-system-spacing}.  Note that these variables ignore non-staff
-lines.  For example, @var{between-system-spacing} controls the spacing
+variables are @var{system-system-spacing},
+@var{score-system-spacing}, @var{markup-system-spacing},
+@var{score-markup-spacing}, @var{markup-markup-spacing},
+@var{top-system-spacing}, @var{top-markup-spacing} and
+@var{last-bottom-spacing}.  Note that these variables ignore non-staff
+lines.  For example, @var{system-system-spacing} controls the spacing
 from the middle staff line of the bottom staff from one system to
 the middle staff line of the top staff of the next system, whether
 or not there are lyrics below the upper system.
@@ -2784,7 +2784,7 @@ there is no blank space at the bottom of the page.
 
 @example
 \paper @{
-  between-system-spacing = #'((padding . 0) (space . 0.1))
+  system-system-spacing = #'((padding . 0) (space . 0.1))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}
