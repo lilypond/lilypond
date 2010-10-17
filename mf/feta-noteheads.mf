@@ -1,4 +1,4 @@
-% Feta (not the Font-En-Tja) music font --  implement noteheads
+% Feta (not the Font-En-Tja) music font -- implement noteheads
 % This file is part of LilyPond, the GNU music typesetter.
 %
 % Copyright (C) 1997--2010 Jan Nieuwenhuizen <janneke@gnu.org>
@@ -13,11 +13,11 @@
 %
 % LilyPond is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 % GNU General Public License for more details.
 %
 % You should have received a copy of the GNU General Public License
-% along with LilyPond.	If not, see <http://www.gnu.org/licenses/>.
+% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 test_outlines := 0;
 
@@ -207,6 +207,7 @@ fet_beginchar ("Longa notehead", "uM2");
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
+
 fet_beginchar ("Longa notehead", "dM2");
 	draw_longa (false);
 
@@ -220,6 +221,7 @@ if test > 0:
 
 		draw_staff (-2, 2, 0.5);
 	fet_endchar;
+
 
 	fet_beginchar ("Longa notehead", "dM2");
 		draw_longa (false);
@@ -964,10 +966,12 @@ fet_beginchar ("X-Circled notehead", "s2xcircle");
 	ypos := .5 cyd / sqrt2;
 
 	pickup penrazor scaled cthick rotated (angle (xpos, ypos) + 90);
-	draw (-xpos + w / 2, -ypos + dy) -- (xpos + w / 2, ypos + dy);
+	draw (-xpos + w / 2, -ypos + dy)
+	     -- (xpos + w / 2, ypos + dy);
 
 	pickup penrazor scaled cthick rotated (angle (xpos, -ypos) + 90);
-	draw (-xpos + w / 2, ypos + dy) -- (xpos + w / 2, -ypos + dy);
+	draw (-xpos + w / 2, ypos + dy)
+	     -- (xpos + w / 2, -ypos + dy);
 
 	charwx := charwd;
 	charwy := 0;
@@ -1003,16 +1007,20 @@ fi;
 % SOLFA SHAPED NOTES
 %
 %
-%   Note: for whole and half notes, the "fill" curve (p_out) is offset
-%   from the points that specify the outer geometry, because we need
-%   to add the rounding.  In contrast, the inner curve is not
-%   offset, because there is no rounding.
+% Note: For whole and half notes, the `fill' curve (p_out) is offset from
+%       the points that specify the outer geometry, because we need to add
+%       the rounding.  In contrast, the inner curve is not offset, because
+%       there is no rounding.
 %
-%   This means that to get a line of thick_factor * pen_thickness,
-%   we need to offset the inner curve by
-%   (thick_factor - 0.5) * pen_thickness or by
-%   (2 * thick_factor - 1) * half_pen_thickness
-
+%       This means that to get a line of thick_factor * pen_thickness,
+%       we need to offset the inner curve by
+%
+%         (thick_factor - 0.5) * pen_thickness
+%
+%       or by
+%
+%         (2 * thick_factor - 1) * half_pen_thickness
+%
 save solfa_pen_thick;
 solfa_pen_thick# = 1.3 stafflinethickness#;
 define_blacker_pixels (solfa_pen_thick);
@@ -1030,7 +1038,7 @@ solfa_quarter_width := 1.0;
 
 %%% Do head
 %
-%   Triangle with base parallel to staff lines.
+% Triangle with base parallel to staff lines.
 %
 
 def draw_do_head (expr width_factor, dir, thickness_factor) =
@@ -1047,17 +1055,18 @@ def draw_do_head (expr width_factor, dir, thickness_factor) =
 
 	bottom_thick_factor := 2 * thickness_factor - 1;
 	% no different thickness for left side if we want uniform thickness
-	left_thick_factor := if thickness_factor = 1 :
-				1;
-			     else :
-				0.7 * bottom_thick_factor;
-			     fi
+	if thickness_factor = 1:
+		left_thick_factor := 1;
+	else:
+		left_thick_factor := 0.7 * bottom_thick_factor;
+	fi
+
 	bot y1 = -d;
 	y1 = y2;
 	lft x1 = 0;
 	rt x2 = w;
 	top y3 = h;
-	x3 =.5 [x1, x2];
+	x3 = .5 [x1, x2];
 
 	left_dist = (unitvector (z3 - z1) rotated 90) * solfa_pen_radius;
 	right_dist = (unitvector (z2 - z3) rotated 90) * solfa_pen_radius;
@@ -1068,18 +1077,21 @@ def draw_do_head (expr width_factor, dir, thickness_factor) =
 	save point_a, point_b, point_c;
 	pair point_a, point_b, point_c;
 
-	pa := (z1 - left_thick_factor * left_dist) --
-	      (z3 - left_thick_factor * left_dist);
-	pb := (z1 + bottom_thick_factor * bottom_dist) --
-	      (z2 + bottom_thick_factor * bottom_dist);
-	pc := (z2 - right_dist) -- (z3 - right_dist);
-
+	pa := (z1 - left_thick_factor * left_dist)
+	      -- (z3 - left_thick_factor * left_dist);
+	pb := (z1 + bottom_thick_factor * bottom_dist)
+	      -- (z2 + bottom_thick_factor * bottom_dist);
+	pc := (z2 - right_dist)
+	      -- (z3 - right_dist);
 
 	point_a := pa intersectionpoint pb;
 	point_b := pb intersectionpoint pc;
 	point_c := pc intersectionpoint pa;
 
-	p_in := point_a -- point_b -- point_c -- cycle;
+	p_in := point_a
+		-- point_b
+		-- point_c
+		-- cycle;
 
 	p_out := bot z1
 		 -- bot z2{right}
@@ -1138,7 +1150,6 @@ fet_beginchar ("Quart dohead", "u2do");
 fet_endchar;
 
 
-
 fet_beginchar ("Whole thin dohead", "s0doThin");
 	draw_do_head (solfa_whole_width, 1, 1);
 	fill p_out;
@@ -1172,21 +1183,23 @@ fet_beginchar ("Quart thin dohead", "u2doThin");
 fet_endchar;
 
 
-
 %
 % re - flat top, curved bottom:
-%		 (0,h/2) {dir -90} .. (w/2,-h/2) .. {dir 90} (w,h/2) -- cycle;
+%
+%   (0,h/2) {dir -90}
+%   .. (w/2,-h/2)
+%   .. {dir 90} (w,h/2)
+%   -- cycle;
+%
 % (broader along the base and with more vertical sides for half and
 % whole notes)
 %
-% Note:  According to some shape-note singers, there should be no size
-%	 differences for half and whole notes, contrary to
-%	 the comment above.  Consequently, we have made them all the
-%	 same width.
+% Note: According to some shape-note singers, there should be no size
+%       differences for half and whole notes, contrary to the comment above. 
+%       Consequently, we have made them all the same width.
 %
 % stem attachment: h/2
 %
-
 def draw_re_head (expr width_factor, dir, thickness_factor) =
 	save p_in, p_out;
 	path p_in, p_out;
@@ -1195,7 +1208,6 @@ def draw_re_head (expr width_factor, dir, thickness_factor) =
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 
 	pickup pencircle scaled solfa_pen_thick;
-
 
 	save curve_start;
 	curve_start = 0.7;
@@ -1238,6 +1250,7 @@ def draw_re_head (expr width_factor, dir, thickness_factor) =
 		charwy := -charwy;
 	fi;
 enddef;
+
 
 save re_weight;
 re_weight := 2;
@@ -1308,14 +1321,11 @@ fet_beginchar ("Quart thin rehead", "d2reThin");
 fet_endchar;
 
 
-
-
 %%%% mi head -- diamond shape
 %
-%  two versions, depending on whether the "strong" lines are on
-%  the nw & se or the ne & sw
+% two versions, depending on whether the `strong' lines are on the nw & se
+% or the ne & sw
 %
-
 def draw_mi_head (expr width_factor, thickness_factor, mirror) =
 	save path_out, path_in;
 	save ne_dist, se_dist, ne, se;
@@ -1355,12 +1365,14 @@ def draw_mi_head (expr width_factor, thickness_factor, mirror) =
 	ne_dist = (ne rotated 90) * solfa_pen_radius;
 	se_dist = (se rotated 90) * solfa_pen_radius;
 
-	path_a := (z1 + se_dist) -- (z2 + se_dist);
-	path_b := (z2 + (ne_dist * offset)) --
-		  (z3 + (ne_dist * offset));
-	path_c := (z3 - se_dist) -- (z4 - se_dist);
-	path_d := (z4 - (ne_dist * offset)) --
-		  (z1 - (ne_dist * offset));
+	path_a := (z1 + se_dist)
+		  -- (z2 + se_dist);
+	path_b := (z2 + (ne_dist * offset))
+		  -- (z3 + (ne_dist * offset));
+	path_c := (z3 - se_dist)
+		  -- (z4 - se_dist);
+	path_d := (z4 - (ne_dist * offset))
+		  -- (z1 - (ne_dist * offset));
 
 	z5 = path_a intersectionpoint path_d;
 	z7 = path_b intersectionpoint path_c;
@@ -1368,16 +1380,16 @@ def draw_mi_head (expr width_factor, thickness_factor, mirror) =
 	labels (range 1 thru 8);
 
 	inner_path := z5
-		   -- z6
-		   -- z7
-		   -- z8
-		   -- cycle;
+		      -- z6
+		      -- z7
+		      -- z8
+		      -- cycle;
 
-	path_in := if mirror:
-		      inner_path;
-		   else:
-		      inner_path reflectedabout (z2, z4);
-		   fi
+	if mirror:
+		path_in := inner_path;
+	else:
+		path_in := inner_path reflectedabout (z2, z4);
+	fi
 
 	path_out := lft z1 {down}
 		    .. (z1 - se_dist){se}
@@ -1393,6 +1405,7 @@ def draw_mi_head (expr width_factor, thickness_factor, mirror) =
 		    -- (z1 + ne_dist){-ne}
 		    .. cycle;
 enddef;
+
 
 save mi_weight, mi_width;
 mi_weight := 2;
@@ -1411,10 +1424,12 @@ fet_beginchar ("Half mihead", "s1mi");
 	unfill path_in;
 fet_endchar;
 
+
 fet_beginchar ("Quart mihead", "s2mi");
 	draw_mi_head (mi_width * solfa_quarter_width, mi_weight, false);
 	fill path_out;
 fet_endchar;
+
 
 fet_beginchar ("Whole mirror mihead", "s0miMirror");
 	draw_mi_head (mi_width * solfa_whole_width, mi_weight, true);
@@ -1422,17 +1437,18 @@ fet_beginchar ("Whole mirror mihead", "s0miMirror");
 	unfill path_in;
 fet_endchar;
 
+
 fet_beginchar ("Half  mirror mihead", "s1miMirror");
 	draw_mi_head (mi_width * solfa_quarter_width, mi_weight, true);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
+
 fet_beginchar ("Quart mirror mihead", "s2miMirror");
 	draw_mi_head (mi_width * solfa_quarter_width, mi_weight, true);
 	fill path_out;
 fet_endchar;
-
 
 
 fet_beginchar ("Whole thin mihead", "s0miThin");
@@ -1455,14 +1471,11 @@ fet_beginchar ("Quart thin mihead", "s2miThin");
 fet_endchar;
 
 
-
-%%%%  fa head
+%%%% fa head
 %
-%   Right triangle, hypotenuse from nw to se corner
-%   Stem attaches on vertical side in direction of
-%   horizontal side.
+% Right triangle, hypotenuse from nw to se corner.  Stem attaches on
+% vertical side in direction of horizontal side.
 %
-
 def draw_fa_head (expr width_factor, thickness_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
@@ -1494,16 +1507,17 @@ def draw_fa_head (expr width_factor, thickness_factor) =
 	nw = unitvector (z1 - z3);
 	nw_dist = (nw rotated 90) * solfa_pen_radius;
 
-	path_a := (z1 - (0,1) * offset * solfa_pen_radius) --
-		  (z2 - (0,1) * offset * solfa_pen_radius);
-	path_b := (z2 - (1,0) * solfa_pen_radius) --
-		  (z3 - (1,0) * solfa_pen_radius);
-	path_c := (z3 - nw_dist) -- (z1 - nw_dist);
+	path_a := (z1 - (0,1) * offset * solfa_pen_radius)
+		  -- (z2 - (0,1) * offset * solfa_pen_radius);
+	path_b := (z2 - (1,0) * solfa_pen_radius)
+		  -- (z3 - (1,0) * solfa_pen_radius);
+	path_c := (z3 - nw_dist)
+		  -- (z1 - nw_dist);
 
-	p_up_in := (path_a intersectionpoint path_b) --
-		   (path_b intersectionpoint path_c) --
-		   (path_c intersectionpoint path_a) --
-		   cycle;
+	p_up_in := (path_a intersectionpoint path_b)
+		   -- (path_b intersectionpoint path_c)
+		   -- (path_c intersectionpoint path_a)
+		   -- cycle;
 
 	p_up_out := lft z1{down}
 		    .. (z1 + nw_dist){-nw}
@@ -1607,12 +1621,11 @@ fet_endchar;
 
 
 %%%% sol head
-%%
-%%  Note -- sol head is the same shape as a standard music
-%%	    head, and doesn't vary from style to style.
-%%	    However, width is constant with duration, so we
-%%	    can't just use the standard note font.
-
+%
+% Note: sol head is the same shape as a standard music head, and doesn't
+%       vary from style to style.  However, width is constant with duration,
+%       so we can't just use the standard note font.
+%
 def draw_sol_head (expr filled) =
 	draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
 	if not filled:
@@ -1636,12 +1649,10 @@ fet_beginchar ("Quart solhead", "s2sol");
 fet_endchar;
 
 
-
 %%%% la head
 %
 %   Rectangle head
 %
-
 def draw_la_head (expr width_factor, thickness_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
@@ -1682,6 +1693,7 @@ def draw_la_head (expr width_factor, thickness_factor) =
 		 -- lft z1{up}
 		 .. cycle;
 enddef;
+
 
 save la_weight;
 la_weight := 2;
@@ -1726,12 +1738,10 @@ fet_beginchar ("Quart lahead", "s2laThin");
 fet_endchar;
 
 
-
 %%%% ti head
 %
-%   "Snow-cone", V with rounded top.
+%   `Snow-cone', V with rounded top.
 %
-
 def draw_ti_head (expr width_factor, dir, thickness_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
@@ -1754,7 +1764,7 @@ def draw_ti_head (expr width_factor, dir, thickness_factor) =
 	x3 = x1;
 	top y3 = h;
 	x5 = x1;
-	y5 = y1 +  offset * solfa_pen_radius;
+	y5 = y1 + offset * solfa_pen_radius;
 
 	labels (range 1 thru 4);
 
@@ -1777,13 +1787,19 @@ def draw_ti_head (expr width_factor, dir, thickness_factor) =
 
 	save path_a, path_b;
 	path path_a, path_b;
-	path_a := z2 -- z5;
-	path_b := z5 -- z4;
+	path_a := z2
+		  -- z5;
+	path_b := z5
+		  -- z4;
 
 	z6 = path_a intersectionpoint p_top_in;
 	z7 = path_b intersectionpoint p_top_in;
 
-	p_in := z5 -- z6 .. bot z3 .. z7 -- cycle;
+	p_in := z5
+		-- z6
+		.. bot z3
+		.. z7
+		-- cycle;
 
 	p_out := bot z1
 		 .. (z1 + nw_dist)
@@ -1791,7 +1807,7 @@ def draw_ti_head (expr width_factor, dir, thickness_factor) =
 		 .. lft z2
 		 .. (z2 + nw * solfa_pen_radius){direction 0 of p_top}
 		 & p_top
-		 & {direction infinity of p_top}(z4 -sw * solfa_pen_radius)
+		 & {direction infinity of p_top}(z4 - sw * solfa_pen_radius)
 		 .. rt z4
 		 .. (z4 + sw_dist)
 		 -- (z1 + sw_dist)
@@ -1803,6 +1819,7 @@ def draw_ti_head (expr width_factor, dir, thickness_factor) =
 		charwy := -charwy;
 	fi;
 enddef;
+
 
 save ti_weight;
 ti_weight := 2;
@@ -1875,16 +1892,16 @@ fet_endchar;
 
 %%%%%%   Funk shape note heads
 %
-%	Funk heads are narrower than Aiken and Sacred Harp,
-%	so we need a new width
-
+%  Funk heads are narrower than Aiken and Sacred Harp, so we need a new
+%  width.
+%
 funk_notehead_width := 0.75;
+
 
 %%%%%%   Funk do head
 %          Parabolic on one side, vertical line on other
 %          Has up and down shapes for *all* notes
 %
-
 def draw_Funk_do_head (expr width_factor, thickness_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
@@ -1906,7 +1923,7 @@ def draw_Funk_do_head (expr width_factor, thickness_factor) =
 	y4 = y1 + offset * solfa_pen_radius;
 
 	y5 = y2;
-	x5 = x2 +  solfa_pen_radius;
+	x5 = x2 + solfa_pen_radius;
 
 	x6 = x4;
 	y6 = y3 - offset * solfa_pen_radius;
@@ -1914,19 +1931,23 @@ def draw_Funk_do_head (expr width_factor, thickness_factor) =
 	save p_up_in, p_up_out, p_down_in, p_down_out;
 	path p_up_in, p_up_out, p_down_in, p_down_out;
 
-	p_down_in := z4{left} .. z5{up} .. z6{right} -- cycle;
+	p_down_in := z4{left}
+		     .. z5{up}
+		     .. z6{right}
+		     -- cycle;
 
 	p_down_out := bot z1{left}
-		 .. lft z2{up}
-		 .. top z3{right}
-		 .. rt z3{down}
-		 -- rt z1{down}
-		 .. cycle;
+		      .. lft z2{up}
+		      .. top z3{right}
+		      .. rt z3{down}
+		      -- rt z1{down}
+		      .. cycle;
 
 	p_up_in := p_down_in rotated 180 shifted (w,0);
 	p_up_out := p_down_out rotated 180 shifted (w,0);
 
 enddef;
+
 
 save funk_do_weight;
 funk_do_weight := 1.7;
@@ -1937,11 +1958,13 @@ fet_beginchar ("Whole up Funk dohead", "u0doFunk");
 	unfill p_up_in;
 fet_endchar;
 
+
 fet_beginchar ("Whole down Funk dohead", "d0doFunk");
 	draw_Funk_do_head (funk_notehead_width, funk_do_weight);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
+
 
 fet_beginchar ("Half up Funk dohead", "u1doFunk");
 	draw_Funk_do_head (funk_notehead_width, funk_do_weight);
@@ -1949,25 +1972,30 @@ fet_beginchar ("Half up Funk dohead", "u1doFunk");
 	unfill p_up_in;
 fet_endchar;
 
+
 fet_beginchar ("Half down Funk dohead", "d1doFunk");
 	draw_Funk_do_head (funk_notehead_width, funk_do_weight);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
 
+
 fet_beginchar ("Quarter up Funk dohead", "u2doFunk");
 	draw_Funk_do_head (funk_notehead_width, funk_do_weight);
 	fill p_up_out;
 fet_endchar;
+
 
 fet_beginchar ("Quarter down Funk dohead", "d2doFunk");
 	draw_Funk_do_head (funk_notehead_width, funk_do_weight);
 	fill p_down_out;
 fet_endchar;
 
+
 %%%%%%  Funk re head
 %       Arrowhead shape.
 %       Has up and down shapes for *all* notes
+%
 def draw_Funk_re_head (expr width_factor, thickness_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
@@ -2008,8 +2036,10 @@ def draw_Funk_re_head (expr width_factor, thickness_factor) =
 
 
 	path_d := z2 .. z3{down} .. z4;
-	arrow_a_perp = unitvector (direction 0 of path_d rotated 90) * solfa_pen_radius;
-	arrow_b_perp = unitvector (direction 1 of path_d rotated 90) * solfa_pen_radius;
+	arrow_a_perp = unitvector (direction 0 of path_d rotated 90)
+		       * solfa_pen_radius;
+	arrow_b_perp = unitvector (direction 1 of path_d rotated 90)
+		       * solfa_pen_radius;
 
 	path_b := (z1 + se_perp * solfa_pen_radius)
 		  -- z4 + se_perp * offset * solfa_pen_radius;
@@ -2026,7 +2056,11 @@ def draw_Funk_re_head (expr width_factor, thickness_factor) =
 	save p_up_in, p_down_in, p_up_out, p_down_out;
 	path p_up_in, p_down_in, p_up_out, p_down_out;
 
-	p_down_in := z5 -- z7 .. z6{down} .. z8 -- cycle;
+	p_down_in := z5
+		     -- z7
+		     .. z6{down}
+		     .. z8
+		     -- cycle;
 
 	p_down_out := lft z1{up}
 		      .. (z1 + ne_perp * solfa_pen_radius){ne}
@@ -2042,10 +2076,11 @@ def draw_Funk_re_head (expr width_factor, thickness_factor) =
 		      -- z1 - se_perp * solfa_pen_radius
 		      .. cycle;
 
-	p_up_in := p_down_in rotated 180 shifted (w,0);
-	p_up_out := p_down_out rotated 180 shifted (w,0);
+	p_up_in := p_down_in rotated 180 shifted (w, 0);
+	p_up_out := p_down_out rotated 180 shifted (w, 0);
 
 enddef;
+
 
 save funk_re_weight;
 funk_re_weight = 1.7;
@@ -2056,11 +2091,13 @@ fet_beginchar ("Whole up Funk rehead", "u0reFunk");
 	unfill p_up_in;
 fet_endchar;
 
+
 fet_beginchar ("Whole down Funk rehead", "d0reFunk");
 	draw_Funk_re_head (funk_notehead_width, funk_re_weight);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
+
 
 fet_beginchar ("Half up Funk rehead", "u1reFunk");
 	draw_Funk_re_head (funk_notehead_width, funk_re_weight);
@@ -2068,16 +2105,19 @@ fet_beginchar ("Half up Funk rehead", "u1reFunk");
 	unfill p_up_in;
 fet_endchar;
 
+
 fet_beginchar ("Half down Funk rehead", "d1reFunk");
 	draw_Funk_re_head (funk_notehead_width, funk_re_weight);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
 
+
 fet_beginchar ("Quarter up Funk rehead", "u2reFunk");
 	draw_Funk_re_head (funk_notehead_width, funk_re_weight);
 	fill p_up_out;
 fet_endchar;
+
 
 fet_beginchar ("Quarter down Funk rehead", "d2reFunk");
 	draw_Funk_re_head (funk_notehead_width, funk_re_weight);
@@ -2088,40 +2128,48 @@ fet_endchar;
 %%%%%%  Funk mi head
 %       Diamond shape
 %       Has up and down shapes for all hollow notes
-
+%
 save funk_mi_width, funk_mi_weight;
 funk_mi_width := 1.2;
 funk_mi_weight := 1.9;
 
 fet_beginchar ("Whole up Funk mihead", "u0miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width, funk_mi_weight, false);
+	draw_mi_head (funk_mi_width * funk_notehead_width,
+		      funk_mi_weight, false);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
+
 
 fet_beginchar ("Whole down Funk mihead", "d0miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width, funk_mi_weight, true);
+	draw_mi_head (funk_mi_width * funk_notehead_width,
+		      funk_mi_weight, true);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
+
 
 fet_beginchar ("Half up Funk mihead", "u1miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width, funk_mi_weight, false);
+	draw_mi_head (funk_mi_width * funk_notehead_width,
+		      funk_mi_weight, false);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
+
 
 fet_beginchar ("Half down Funk mihead", "d1miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width, funk_mi_weight, true);
+	draw_mi_head (funk_mi_width * funk_notehead_width,
+		      funk_mi_weight, true);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
+
 fet_beginchar ("Quarter Funk mihead", "s2miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width, funk_mi_weight, false);
+	draw_mi_head (funk_mi_width * funk_notehead_width,
+		      funk_mi_weight, false);
 	fill path_out;
 fet_endchar;
-
 
 
 %%%%%%  Funk fa
@@ -2129,7 +2177,7 @@ fet_endchar;
 %       Does it rotate for whole notes?
 %       Same as other shape note systems
 %       Need special notes because of special width
-
+%
 save funk_fa_weight;
 funk_fa_weight := 1.9;
 
@@ -2139,11 +2187,13 @@ fet_beginchar ("Whole up Funk fahead", "u0faFunk");
 	unfill p_up_in;
 fet_endchar;
 
+
 fet_beginchar ("Whole down Funk fahead", "d0faFunk");
 	draw_fa_head (funk_notehead_width, funk_fa_weight);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
+
 
 fet_beginchar ("Half up Funk fahead", "u1faFunk");
 	draw_fa_head (funk_notehead_width, funk_fa_weight);
@@ -2151,16 +2201,19 @@ fet_beginchar ("Half up Funk fahead", "u1faFunk");
 	unfill p_up_in;
 fet_endchar;
 
+
 fet_beginchar ("Half down Funk fahead", "d1faFunk");
 	draw_fa_head (funk_notehead_width, funk_fa_weight);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
 
+
 fet_beginchar ("Quarter up Funk fahead", "u2faFunk");
 	draw_fa_head (funk_notehead_width, funk_fa_weight);
 	fill p_up_out;
 fet_endchar;
+
 
 fet_beginchar ("Quarter down Funk fahead", "d2faFunk");
 	draw_fa_head (funk_notehead_width, funk_fa_weight);
@@ -2168,12 +2221,9 @@ fet_beginchar ("Quarter down Funk fahead", "d2faFunk");
 fet_endchar;
 
 
-
-
 %%%%%%  Funk sol head is the same as the others
 %       Need special character because of skinnier head
 %
-
 def draw_Funk_sol_head (expr filled) =
 begingroup
 	save noteheight;
@@ -2185,6 +2235,7 @@ begingroup
 	draw_staff (-2, 2, 0);
 endgroup
 enddef;
+
 
 fet_beginchar ("Whole Funk solhead", "s0solFunk");
 	draw_Funk_sol_head ( false);
@@ -2201,13 +2252,11 @@ fet_beginchar ("Quarter Funk solhead", "s2solFunk");
 fet_endchar;
 
 
-
-
 %%%%%%  Funk la head
 %       Rectangle head
 %       Same as for other shape notes
 %       Smaller width requires special characters
-
+%
 save funk_la_weight;
 funk_la_weight := 1.9;
 
@@ -2231,12 +2280,10 @@ fet_beginchar ("Quart Funk lahead", "s2laFunk");
 fet_endchar;
 
 
-
 %%%%%%  Funk ti head
-%       "Sideways snow cone"
-%       Rotates for all notes
-
-
+%       `Sideways snow cone'.
+%       Rotates for all notes.
+%
 def draw_Funk_ti_head (expr width_factor, thickness_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
@@ -2249,10 +2296,10 @@ def draw_Funk_ti_head (expr width_factor, thickness_factor) =
 	pickup pencircle scaled solfa_pen_thick;
 
 	lft x1 = 0;
-        y1 = .5 [y2, y4];
+	y1 = .5 [y2, y4];
 
 	x2 = cone_width [x1, x3];
-        top y2 = h;
+	top y2 = h;
 
 	rt x3 = w;
 	y3 = y1;
@@ -2271,8 +2318,10 @@ def draw_Funk_ti_head (expr width_factor, thickness_factor) =
 
 	save path_a, path_b;
 	path path_a, path_b;
-	path_a := z1 - nw_dist -- z2 - offset * nw_dist;
-	path_b := z1 - sw_dist -- z4 - offset * sw_dist;
+	path_a := z1 - nw_dist
+		  -- z2 - offset * nw_dist;
+	path_b := z1 - sw_dist
+		  -- z4 - offset * sw_dist;
 
 	save path_right, path_right_in;
 	path path_right, path_right_in;
@@ -2281,8 +2330,8 @@ def draw_Funk_ti_head (expr width_factor, thickness_factor) =
 		      .. (z4 + se * solfa_pen_radius);
 
 	path_right_in := (z2 - ne * solfa_pen_radius)
-		    .. lft z3{down}
-		    .. (z4 - se * solfa_pen_radius);
+			 .. lft z3{down}
+			 .. (z4 - se * solfa_pen_radius);
 
 	z5 = path_a intersectionpoint path_b;
 	z6 = path_a intersectionpoint path_right_in;
@@ -2291,23 +2340,28 @@ def draw_Funk_ti_head (expr width_factor, thickness_factor) =
 	save p_up_in, p_down_in, p_up_out, p_down_out;
 	path p_up_in, p_down_in, p_up_out, p_down_out;
 
-	p_down_in := z5 -- z6 .. lft z3 .. z7 -- cycle;
+	p_down_in := z5
+		     -- z6
+		     .. lft z3
+		     .. z7
+		     -- cycle;
 
 	p_down_out := lft z1
-		 .. (z1 + nw_dist)
-		 -- (z2 + nw_dist)
-		 .. top z2
-		 .. (z2 + ne * solfa_pen_radius){direction 0 of path_right}
-		 & path_right
-		 & {direction infinity of path_right}(z4 + se * solfa_pen_radius)
-		 .. bot z4
-		 .. (z4 + sw_dist)
-		 -- (z1 + sw_dist)
-		 .. cycle;
+		      .. (z1 + nw_dist)
+		      -- (z2 + nw_dist)
+		      .. top z2
+		      .. (z2 + ne * solfa_pen_radius){direction 0 of path_right}
+		      & path_right
+		      & {direction infinity of path_right}(z4 + se * solfa_pen_radius)
+		      .. bot z4
+		      .. (z4 + sw_dist)
+		      -- (z1 + sw_dist)
+		      .. cycle;
 
-	p_up_in := p_down_in rotated 180 shifted (w,0);
-	p_up_out := p_down_out rotated 180 shifted (w,0);
+	p_up_in := p_down_in rotated 180 shifted (w, 0);
+	p_up_out := p_down_out rotated 180 shifted (w, 0);
 enddef;
+
 
 save funk_ti_weight;
 funk_ti_weight := 1.6;
@@ -2318,11 +2372,13 @@ fet_beginchar ("Whole up Funk tihead", "u0tiFunk");
 	unfill p_up_in;
 fet_endchar;
 
+
 fet_beginchar ("Whole down Funk tihead", "d0tiFunk");
 	draw_Funk_ti_head (funk_notehead_width, funk_ti_weight);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
+
 
 fet_beginchar ("Half up Funk tihead", "u1tiFunk");
 	draw_Funk_ti_head (funk_notehead_width, funk_ti_weight);
@@ -2330,16 +2386,19 @@ fet_beginchar ("Half up Funk tihead", "u1tiFunk");
 	unfill p_up_in;
 fet_endchar;
 
+
 fet_beginchar ("Half down Funk tihead", "d1tiFunk");
 	draw_Funk_ti_head (funk_notehead_width, funk_ti_weight);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
 
+
 fet_beginchar ("Quarter up Funk tihead", "u2tiFunk");
 	draw_Funk_ti_head (funk_notehead_width, funk_ti_weight);
 	fill p_up_out;
 fet_endchar;
+
 
 fet_beginchar ("Quarter down Funk tihead", "d2tiFunk");
 	draw_Funk_ti_head (funk_notehead_width, funk_ti_weight);
@@ -2347,18 +2406,15 @@ fet_beginchar ("Quarter down Funk tihead", "d2tiFunk");
 fet_endchar;
 
 
-
 %%%%%%   Walker shape note heads
 %
-%	Walker heads are narrow like Funk heads, so use
-%	funk_notehead_width
+% Walker heads are narrow like Funk heads, so use funk_notehead_width.
 %
 
 %%%%%%   Walker do head
 %
-%	Trapezoid, with largest side on stem side
+% Trapezoid, with largest side on stem side
 %
-
 def draw_Walker_do_head (expr width_factor, dir, thickness_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
@@ -2368,7 +2424,7 @@ def draw_Walker_do_head (expr width_factor, dir, thickness_factor) =
 	save offset;
 	offset := 2 * thickness_factor - 1;
 
-        % adjust width so stem can be centered
+	% adjust width so stem can be centered
 	if .5w <> good.x .5w: change_width; fi
 
 	save scaling;
@@ -2403,10 +2459,12 @@ def draw_Walker_do_head (expr width_factor, dir, thickness_factor) =
 	save path_a, path_b, path_c, path_d;
 	path path_a, path_b, path_c, path_d;
 
-	path_a := (z4 - left_perp) -- (z1 - left_perp);
+	path_a := (z4 - left_perp)
+		  -- (z1 - left_perp);
 	path_b := (z1 - (0, offset*solfa_pen_radius))
 		  -- (z2 - (0, offset*solfa_pen_radius));
-	path_c := (z2 - right_perp) -- (z3 - right_perp);
+	path_c := (z2 - right_perp)
+		  -- (z3 - right_perp);
 	path_d := (z3 + (0, offset*solfa_pen_radius))
 		  -- (z4 + (0, offset*solfa_pen_radius));
 
@@ -2432,12 +2490,12 @@ def draw_Walker_do_head (expr width_factor, dir, thickness_factor) =
 	charwx := scaling# * (w/2 + solfa_pen_radius);
 	charwy := scaling# * y2 ;
 
-	if dir=1:
+	if dir = 1:
 		p_in := p_in rotated 180 shifted (w,0);
 		p_out := p_out rotated 180 shifted (w,0);
 	fi;
-
 enddef;
+
 
 save walker_do_weight;
 walker_do_weight := 1.5;
@@ -2448,11 +2506,13 @@ fet_beginchar ("Whole Walker dohead", "s0doWalker");
 	unfill p_in;
 fet_endchar;
 
+
 fet_beginchar ("Half up Walker dohead", "u1doWalker");
 	draw_Walker_do_head (funk_notehead_width, 1, walker_do_weight);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
+
 
 fet_beginchar ("Half down Walker dohead", "d1doWalker");
 	draw_Walker_do_head (funk_notehead_width, 0, walker_do_weight);
@@ -2460,10 +2520,12 @@ fet_beginchar ("Half down Walker dohead", "d1doWalker");
 	unfill p_in;
 fet_endchar;
 
+
 fet_beginchar ("Quarter up Walker dohead", "u2doWalker");
 	draw_Walker_do_head (funk_notehead_width, 1, walker_do_weight);
 	fill p_out;
 fet_endchar;
+
 
 fet_beginchar ("Quarter down Walker dohead", "d2doWalker");
 	draw_Walker_do_head (funk_notehead_width, 0, walker_do_weight);
@@ -2471,13 +2533,10 @@ fet_beginchar ("Quarter down Walker dohead", "d2doWalker");
 fet_endchar;
 
 
-
-
 %%%%%%   Walker re head
 %          Parabolic on one side, shallow parabola on other
 %          Has up and down shapes for *all* notes
 %
-
 def draw_Walker_re_head (expr width_factor, thickness_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
@@ -2530,12 +2589,11 @@ def draw_Walker_re_head (expr width_factor, thickness_factor) =
 		  .. z4 {down}
 		  ..(z1 - p_a_end_perp){p_a_end_dir};
 
-        save path_b, path_c;
+	save path_b, path_c;
 	path path_b, path_c;
 
 	path_b := z5 {left} .. z6{up};
-        path_c := z7 {left} .. z6{down};
-
+	path_c := z7 {left} .. z6{down};
 
 	z9 = path_d intersectionpoint path_b;
 	z10 = path_d intersectionpoint path_c;
@@ -2571,6 +2629,7 @@ def draw_Walker_re_head (expr width_factor, thickness_factor) =
 	p_up_out := p_down_out rotated 180 shifted (w,0);
 enddef;
 
+
 save walker_re_weight;
 walker_re_weight := 1.5;
 
@@ -2580,11 +2639,13 @@ fet_beginchar ("Whole Walker rehead", "s0reWalker");
 	unfill p_down_in;
 fet_endchar;
 
+
 fet_beginchar ("Half up Walker rehead", "u1reWalker");
 	draw_Walker_re_head (funk_notehead_width, walker_re_weight);
 	fill p_up_out;
 	unfill p_up_in;
 fet_endchar;
+
 
 fet_beginchar ("Half down Walker rehead", "d1reWalker");
 	draw_Walker_re_head (funk_notehead_width, walker_re_weight);
@@ -2592,10 +2653,12 @@ fet_beginchar ("Half down Walker rehead", "d1reWalker");
 	unfill p_down_in;
 fet_endchar;
 
+
 fet_beginchar ("Quarter up Walker rehead", "u2reWalker");
 	draw_Walker_re_head (funk_notehead_width, walker_re_weight);
 	fill p_up_out;
 fet_endchar;
+
 
 fet_beginchar ("Quarter down Walker rehead", "d2reWalker");
 	draw_Walker_re_head (funk_notehead_width, walker_re_weight);
@@ -2606,37 +2669,42 @@ fet_endchar;
 %%%%%%  Walker mi head
 %       Diamond shape
 %       Symmetric for all hollow notes
-
+%
 save walker_mi_width, walker_mi_weight;
 walker_mi_width := 1.2;
 walker_mi_weight := 1.5;
 
 fet_beginchar ("Whole Walker mihead", "s0miWalker");
-	draw_mi_head (walker_mi_width * funk_notehead_width, walker_mi_weight, true);
+	draw_mi_head (walker_mi_width * funk_notehead_width,
+		      walker_mi_weight, true);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
+
 
 fet_beginchar ("Half Walker mihead", "s1miWalker");
-	draw_mi_head (walker_mi_width * funk_notehead_width, walker_mi_weight, true);
+	draw_mi_head (walker_mi_width * funk_notehead_width,
+		      walker_mi_weight, true);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
+
 fet_beginchar ("Quarter Walker mihead", "s2miWalker");
-	draw_mi_head (walker_mi_width * funk_notehead_width, walker_mi_weight, true);
+	draw_mi_head (walker_mi_width * funk_notehead_width,
+		      walker_mi_weight, true);
 	fill path_out;
 fet_endchar;
-
 
 
 %%%%%%  Walker fa
 %       Triangle shape
 %       Does not rotate for whole notes
 %       Whole rotation is different from Funk, so special notes
+
 %%%%%%  Funk sol head is the same as the others
 %       Need special character because of skinnier head
-
+%
 save walker_fa_weight;
 walker_fa_weight := 1.5;
 
@@ -2646,11 +2714,13 @@ fet_beginchar ("Whole Walker fahead", "s0faWalker");
 	unfill p_down_in;
 fet_endchar;
 
+
 fet_beginchar ("Half up Walker fahead", "u1faWalker");
 	draw_fa_head (funk_notehead_width, walker_fa_weight);
 	fill p_up_out;
 	unfill p_up_in;
 fet_endchar;
+
 
 fet_beginchar ("Half down Walker fahead", "d1faWalker");
 	draw_fa_head (funk_notehead_width, walker_fa_weight);
@@ -2658,10 +2728,12 @@ fet_beginchar ("Half down Walker fahead", "d1faWalker");
 	unfill p_down_in;
 fet_endchar;
 
+
 fet_beginchar ("Quarter up Walker fahead", "u2faWalker");
 	draw_fa_head (funk_notehead_width, walker_fa_weight);
 	fill p_up_out;
 fet_endchar;
+
 
 fet_beginchar ("Quarter down Walker fahead", "d2faWalker");
 	draw_fa_head (funk_notehead_width, walker_fa_weight);
@@ -2669,17 +2741,14 @@ fet_beginchar ("Quarter down Walker fahead", "d2faWalker");
 fet_endchar;
 
 
-
 %%%%%%  Walker sol
 %       Same as Funk, no special notes
 %
 
-
-
 %%%%%%  Walker la head
 %       Rectcangle head
 %       Lighter weight requires separate notes
-
+%
 save walker_la_weight;
 walker_la_weight := 1.5;
 
@@ -2703,12 +2772,10 @@ fet_beginchar ("Quart Funk lahead", "s2laWalker");
 fet_endchar;
 
 
-
 %%%%%%  Walker ti head
 %       Triangular arrowhead
 %       Rotates for all but whole notes
-
-
+%
 def draw_Walker_ti_head (expr width_factor, thickness_factor) =
 	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
@@ -2719,10 +2786,10 @@ def draw_Walker_ti_head (expr width_factor, thickness_factor) =
 	pickup pencircle scaled solfa_pen_thick;
 
 	lft x1 = 0;
-        y1 = .5 [y2, y3];
+	y1 = .5 [y2, y3];
 
 	rt x2 = w;
-        top y2 = h;
+	top y2 = h;
 
 	x3 = x2;
 	bot y3 = -d;
@@ -2742,9 +2809,12 @@ def draw_Walker_ti_head (expr width_factor, thickness_factor) =
 
 	save path_a, path_b, path_c;
 	path path_a, path_b, path_c;
-	path_a := z2 - nw_dist * offset -- z1 - nw_dist * offset;
-	path_b := z3 - sw_dist * offset -- z1 - sw_dist * offset;
-	path_c := z2 + left * solfa_pen_radius -- z3 + left * solfa_pen_radius;
+	path_a := z2 - nw_dist * offset
+		  -- z1 - nw_dist * offset;
+	path_b := z3 - sw_dist * offset
+		  -- z1 - sw_dist * offset;
+	path_c := z2 + left * solfa_pen_radius
+		  -- z3 + left * solfa_pen_radius;
 
 	z4 = path_a intersectionpoint path_b;
 	z5 = path_a intersectionpoint path_c;
@@ -2753,22 +2823,26 @@ def draw_Walker_ti_head (expr width_factor, thickness_factor) =
 	save p_up_in, p_down_in, p_up_out, p_down_out;
 	path p_up_in, p_down_in, p_up_out, p_down_out;
 
-	p_down_in := z4 -- z5 -- z6 -- cycle;
+	p_down_in := z4
+		     -- z5
+		     -- z6
+		     -- cycle;
 
 	p_down_out := lft z1{up}
-		 .. (z1 + nw_dist){ne}
-		 -- (z2 + nw_dist){ne}
-		 .. top z2{right}
-		 .. rt z2 {down}
-		 -- rt z3 {down}
-		 .. bot z3 {left}
-		 .. (z3 + sw_dist){- se}
-		 .. (z1 + sw_dist){- se}
-		 .. cycle;
+		      .. (z1 + nw_dist){ne}
+		      -- (z2 + nw_dist){ne}
+		      .. top z2{right}
+		      .. rt z2 {down}
+		      -- rt z3 {down}
+		      .. bot z3 {left}
+		      .. (z3 + sw_dist){- se}
+		      .. (z1 + sw_dist){- se}
+		      .. cycle;
 
-	p_up_in := p_down_in rotated 180 shifted (w,0);
-	p_up_out := p_down_out rotated 180 shifted (w,0);
+	p_up_in := p_down_in rotated 180 shifted (w, 0);
+	p_up_out := p_down_out rotated 180 shifted (w, 0);
 enddef;
+
 
 save walker_ti_weight;
 walker_ti_weight := 1.4;
@@ -2779,11 +2853,13 @@ fet_beginchar ("Whole Walker tihead", "s0tiWalker");
 	unfill p_down_in;
 fet_endchar;
 
+
 fet_beginchar ("Half up Walker tihead", "u1tiWalker");
 	draw_Walker_ti_head (funk_notehead_width, walker_ti_weight);
 	fill p_up_out;
 	unfill p_up_in;
 fet_endchar;
+
 
 fet_beginchar ("Half down Walker tihead", "d1tiWalker");
 	draw_Walker_ti_head (funk_notehead_width, walker_ti_weight);
@@ -2791,19 +2867,19 @@ fet_beginchar ("Half down Walker tihead", "d1tiWalker");
 	unfill p_down_in;
 fet_endchar;
 
+
 fet_beginchar ("Quarter up Walker tihead", "u2tiWalker");
 	draw_Walker_ti_head (funk_notehead_width, walker_ti_weight);
 	fill p_up_out;
 fet_endchar;
+
 
 fet_beginchar ("Quarter down Walker tihead", "d2tiWalker");
 	draw_Walker_ti_head (funk_notehead_width, walker_ti_weight);
 	fill p_down_out;
 fet_endchar;
 
-
 fet_endgroup ("noteheads");
-
 
 
 %

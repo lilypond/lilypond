@@ -452,6 +452,7 @@ fet_beginchar ("accordion oldEE", "oldEE")
 	fi;
 fet_endchar;
 
+
 fet_beginchar ("accordion push", "push");
 	save width, height;
 
@@ -474,20 +475,16 @@ fet_beginchar ("accordion push", "push");
 	top y1 = height;
 
 	rt x2 = 0;
-	y2 = 0.5 * (y1+y3);
+	y2 = 0.5 * (y1 + y3);
 
-	x3= x1;
+	x3 = x1;
 	bot y3 = 0;
 
-	save pat;
-
-	path pat;
-
-	pat = z1 -- z2 -- z3;
-
-	draw pat;
-
+	draw z1
+	     -- z2
+	     -- z3;
 fet_endchar;
+
 
 fet_beginchar ("accordion pull", "pull");
 	save width, height;
@@ -525,24 +522,17 @@ fet_beginchar ("accordion pull", "pull");
 	x5 = x1;
 	y5 = y4;
 
-	save pat;
-
-	path pat;
-
-	pat = z1 + penradius * right {up} --
-	      z2 + penradius * right {up} ..
-	      z2 + penradius * up {left} --
-	      z3 + penradius * up {left} ..
-	      z3 + penradius * left {down} --
-	      z4 + penradius * left {down} ..
-	      z4 + penradius * down {right} --
-	      z5 + penradius * (down + left) --
-	      z1 + penradius * left {down} ..
-	      z1 + penradius * down {right} ..
-	      cycle;
-
-	fill pat;
-
+	fill z1 + penradius * right {up}
+	     -- z2 + penradius * right {up}
+	     .. z2 + penradius * up {left}
+	     -- z3 + penradius * up {left}
+	     .. z3 + penradius * left {down}
+	     -- z4 + penradius * left {down}
+	     .. z4 + penradius * down {right}
+	     -- z5 + penradius * (down + left)
+	     -- z1 + penradius * left {down}
+	     .. z1 + penradius * down {right}
+	     .. cycle;
 fet_endchar;
 
 fet_endgroup ("accordion");
