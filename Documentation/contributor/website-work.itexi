@@ -5,6 +5,7 @@
 @menu
 * Introduction to website work::
 * Uploading and security::
+* Debugging website and docs locally::
 * Translating the website::
 @end menu
 
@@ -191,6 +192,40 @@ Cronjob to automate the trusted portions:
 Some information about the website is stored in
 @file{~graham/@/lilypond/@/*.txt}; this information should not be
 shared with people without trusted access to the server.
+
+
+@node Debugging website and docs locally
+@section Debugging website and docs locally
+
+@itemize
+@item
+Install apache2, or any other http server.  These instructions
+assume that you also enable @code{mod_userdir}, and use
+@code{$HOME/public_html} as the location.
+
+@item
+Build the online docs and website:
+
+@example
+make WEB_TARGETS="offline online" doc
+make website
+@end example
+
+
+@item
+Move the built stuff into those directories.  It's highly
+recommended to have your build dir and www dir on the same
+partition.  (make @code{$HOME/public_html/} a symlink if
+necessary)
+
+@example
+mv out-website/website/ $HOME/public_html
+mv $HOME/public_html/website/pictures $HOME/public_html/
+mkdir -p $HOME/public_html/doc/v2.13/
+mv out-www/online-root/* $HOME/public_html/doc/v2.13/
+@end example
+
+@end itemize
 
 
 @node Translating the website
