@@ -157,13 +157,13 @@ private:
   bool ragged_right_;
   bool ragged_last_;
 
-  Real between_system_min_distance_;
-  Real between_system_padding_;
-  Real between_system_space_;
-  Real between_scores_system_min_distance_;
-  Real between_scores_system_padding_;
-  Real before_title_min_distance_;
-  Real before_title_padding_;
+  Real system_system_min_distance_;
+  Real system_system_padding_;
+  Real system_system_space_;
+  Real score_system_min_distance_;
+  Real score_system_padding_;
+  Real score_markup_min_distance_;
+  Real score_markup_padding_;
 
   /* the (i,j)th entry is the configuration for breaking between
     columns i and j */

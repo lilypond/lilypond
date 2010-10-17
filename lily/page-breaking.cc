@@ -1453,7 +1453,7 @@ Page_breaking::min_whitespace_at_top_of_page (Line_details const &line) const
 {
   SCM first_system_spacing = book_->paper_->c_variable ("top-system-spacing");
   if (line.title_)
-    first_system_spacing = book_->paper_->c_variable ("top-title-spacing");
+    first_system_spacing = book_->paper_->c_variable ("top-markup-spacing");
 
   Real min_distance = -infinity_f;
   Real padding = 0;
@@ -1473,7 +1473,7 @@ Page_breaking::min_whitespace_at_top_of_page (Line_details const &line) const
 Real
 Page_breaking::min_whitespace_at_bottom_of_page (Line_details const &line) const
 {
-  SCM last_system_spacing = book_->paper_->c_variable ("bottom-system-spacing");
+  SCM last_system_spacing = book_->paper_->c_variable ("last-bottom-spacing");
   Real min_distance = -infinity_f;
   Real padding = 0;
 

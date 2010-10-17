@@ -80,14 +80,14 @@
     (let* ((spacing-spec (cond ((and next-system
 				     (paper-system-title? system)
 				     (paper-system-title? next-system))
-				(ly:output-def-lookup layout 'between-title-spacing))
+				(ly:output-def-lookup layout 'markup-markup-spacing))
 			       ((paper-system-title? system)
-				(ly:output-def-lookup layout 'after-title-spacing))
+				(ly:output-def-lookup layout 'markup-system-spacing))
 			       ((and next-system
 				     (paper-system-title? next-system))
-				(ly:output-def-lookup layout 'before-title-spacing))
+				(ly:output-def-lookup layout 'score-markup-spacing))
 			       (else
-				(ly:output-def-lookup layout 'between-system-spacing))))
+				(ly:output-def-lookup layout 'system-system-spacing))))
 	   (last-staff-Y (car (paper-system-staff-extents system))))
 
       (set! annotations
