@@ -305,27 +305,40 @@ this:
 @}
 @end example
 
+The names of the flexible vertical dimension variables follow the
+format @code{@var{upper}-@var{lower}-spacing}, where
+@code{@var{upper}} and @code{@var{lower}} are the items to be
+spaced.  Each distance is measured between the reference points of
+the two items: the reference point of a title or markup is its
+highest point, and the reference point of a system is the middle
+line of the nearest staff.  Note that in these variable names, the
+term @q{@code{markup}} refers to both @i{title markups}
+(@code{bookTitleMarkup} or @code{scoreTitleMarkup}) and
+@i{top-level markups} (see @ref{File structure}).
+
 The flexible vertical dimension variables are:
+
 
 @table @code
 
 @item markup-system-spacing
 @funindex markup-system-spacing
 
-the space between a title (or top-level markup) and the system
+the space between a (title or top-level) markup and the system
 that follows it.
 
 @item score-markup-spacing
 @funindex score-markup-spacing
 
-the space between a system and the title (or top-level markup)
-that follows it.
+the space between the last system of a score and the (title or
+top-level) markup that follows it.
 
 @item score-system-spacing
 @funindex score-system-spacing
 
-the space between two systems if they are in different scores,
-with no title between them.
+the space between the last system of a score and the first system
+of the score that follows it, when no (title or top-level) markup
+exists between them.
 
 @item system-system-spacing
 @funindex system-system-spacing
@@ -335,28 +348,28 @@ the space between two systems in the same score.
 @item markup-markup-spacing
 @funindex markup-markup-spacing
 
-the space between two titles (or top-level markups).
+the space between two (title or top-level) markups.
 
 @item last-bottom-spacing
 @funindex last-bottom-spacing
 
-the space from the last system (or the last top-level markup) to
-the bottom of the printable area (ie. the top of the bottom
+the space from the last system or top-level markup on a page to
+the bottom of the printable area (i.e. the top of the bottom
 margin).
 
 @item top-system-spacing
 @funindex top-system-spacing
 
-the space from the top of the printable area (ie. the bottom of
-the top margin) to the first system.  This only takes effect if
-there is no title at the top of the page (in which case
-@code{top-markup-spacing} is used instead).
+the space from the top of the printable area (i.e. the bottom of
+the top margin) to the first system on a page, when there is no
+(title or top-level) markup between the two.
 
 @item top-markup-spacing
 @funindex top-markup-spacing
 
-the space from the top of the printable area (ie. the bottom of
-the top margin) to the title.
+the space from the top of the printable area (i.e. the bottom of
+the top margin) to the first (title or top-level) markup on a
+page, when there is no system between the two.
 
 @end table
 
