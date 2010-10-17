@@ -1188,6 +1188,9 @@ Here is a list of preferred terms to be used:
 @emph{Chord construct} NOT just chord (when referring to < ... >)
 
 @item
+@emph{Staff} NOT stave.
+
+@item
 @emph{Staves} NOT Staffs:
 Phrases such as
 @q{multiple @@internalsref@{Staff@}s}
