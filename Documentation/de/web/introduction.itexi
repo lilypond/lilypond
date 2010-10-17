@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish:  144cd434d02e6d90b2fb738eeee99119a7c5e1d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -620,6 +620,15 @@ haben, LilyPond auszuprobieren, lesen zuerst über unsere
 @itemize
 
 @item
+Mai 2010
+
+Peter Kirn publiziert auf der Create Digital Music-Webseite einen
+@uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,LilyPond-Test}.
+Er nimmt einen gerechten Standpunkt in Bezug auf die Benutzbarkeit
+ein, lobt die hohe Qualität des LilyPond-Notensatzes und fordert dazu aus, das
+Programm einmal auszuprobieren.
+
+@item
 September 2009
 
 Die deutsche LinuxUser-Zeitschrift schrieb einen
@@ -868,6 +877,28 @@ desto mehr mag ich es!}
   Ergebnisse. Als ich im letzten Jahr ein Interview darüber gelesen
   habe, habe ich verschiedenen Freunden über sein Potential gepredigt.}
 @divEnd
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, Dr. Mika Kuuskankare}, Forscher an der @uref{http://siba.fi, Sibelius-Akademie Finnland}, Komponist
+und Autor des Expressive Notation Package (ENP)
+
+@qq{Ich habe eine große Achtung vor LilyPond und denen, die es geschrieben
+haben, denn ich weiß aus eigener Erfarhung, wie schwierig solch ein
+Programm sein kann.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://camerondh.blogspot.com, David Cameron}, Musiker,
+professioneller Notensetzer und lange Zeit Score-Benutzer
+
+@qq{Den allergrößten Dank an alle, die zu diesem Projekt beitragen.  Ich habe SCORE für einen großen Musikverlag in den 90er Jahren sehr intensiv benutzt,
+aber jetzt sehe ich, dass LilyPond es mir endlich ermöglicht, genau das
+Aussehen des Notendrucks zu erreichen, das ich will, besonders wenn es sich
+nicht um "Standardlösungen" handelt.}
+@divEnd
+
+
 
 @divEnd
 

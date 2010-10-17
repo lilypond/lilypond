@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4ecef06e22df3293a2bf246e1ebccb300ce90b3e
+    Translation of GIT committish: f021b1f3fa3a696a132dcdd6e27005c95e27176f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Texto
 @section Texto
@@ -1255,10 +1255,10 @@ c^\markup {
 c
 c^\markup {
   \combine
-    \musicglyph #"accordion.accDiscant"
+    \musicglyph #"accordion.discant"
     \combine
-      \raise #0.5 \musicglyph #"accordion.accDot"
-      \raise #1.5 \musicglyph #"accordion.accDot"
+      \raise #0.5 \musicglyph #"accordion.dot"
+      \raise #1.5 \musicglyph #"accordion.dot"
 }
 @end lilypond
 

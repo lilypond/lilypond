@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 26375d5016d8d180fc914bfd07cf76f4168f2e37
+   Translation of GIT committish: 6d618ddf527c69dc7c5309f071b115df50566121
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -848,7 +848,10 @@ fréquente que la musique polyrythmique.
 @funindex GrandStaff
 @funindex ChoirStaff
 
-Glossaire musicologique : @rglosnamed{brace,accolade}.
+Glossaire musicologique : 
+@rglosnamed{brace,accolade},
+@rglosnamed{staff,portée},
+@rglosnamed{system,système}.
 
 La musique pour piano s'écrit sur deux portées reliées par une
 @notation{accolade}.  La gravure de ce type de portée est semblable à
@@ -1512,9 +1515,9 @@ première lecture@tie{}; lorsque vous aurez lu l'ensemble du manuel
 d'initiation, vous pourrez en relisant certaines sections suivre ces
 références pour approfondir certains aspects.
 
-Si vous ne l'avez pas encore fait, lisez @ref{Vue d'ensemble des
-manuels}.  Les sources de documentation et d'information sur LilyPond
-sont vastes, il est normal pour un débutant de ne pas savoir où
-chercher@tie{}; si vous passez quelques minutes à lire attentivement
-cette section, vous vous épargnerez certainement la frustration causée
-par des heures de recherches infructueuses.
+Si vous ne l'avez pas encore fait, lisez 
+@ref{Vue d'ensemble des manuels}.  Les sources de documentation et
+d'information sur LilyPond sont vastes, il est normal pour un débutant
+de ne pas savoir où chercher@tie{}; si vous passez quelques minutes à
+lire attentivement cette section, vous vous épargnerez certainement la
+frustration causée par des heures de recherches infructueuses.

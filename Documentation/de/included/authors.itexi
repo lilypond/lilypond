@@ -2,7 +2,7 @@
 @c This file is part of community.itexi and ../topdocs/AUTHORS.itexi
 
 @ignore
-    Translation of GIT committish:  ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish:  144cd434d02e6d90b2fb738eeee99119a7c5e1d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -85,7 +85,8 @@ Main author
 
 @item Jan Nieuwenhuizen:
 @email{janneke@@gnu.org},
-@uref{http://www.xs4all.nl/~jantien/},
+@uref{http://JoyofSource.com},
+@uref{http://AvatarAcademy.nl},
 Main author
 
 @item Graham Percival:

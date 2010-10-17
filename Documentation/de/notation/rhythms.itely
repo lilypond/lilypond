@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1015,6 +1015,7 @@ berücksichtigt.
 
 @menu
 * Taktangabe::
+* Metronomangabe::
 * Auftakte::
 * Musik ohne Metrum::
 * Polymetrische Notation::
@@ -1191,6 +1192,94 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator}.
+
+
+@node Metronomangabe
+@unnumberedsubsubsec Metronomangabe
+@translationof Metronome marks
+
+@cindex Tempo
+@cindex Metronombezeichnung
+@cindex Tempobezeichnung
+@cindex Aufführungsanweisung: Tempo
+
+@funindex tempo
+@funindex \tempo
+
+Eine Metronomanweisung wird wie folgt erstellt:
+
+@lilypond[verbatim,quote,relative=1]
+\tempo 4 = 120
+c2 d
+e4. d8 c2
+@end lilypond
+
+Anstelle dessen kann auch Text als Argument angegeben werden:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "Allegretto"
+c4 e d c
+b4. a16 b c4 r4
+@end lilypond
+
+Wenn eine Metronombezeichnung und Text kombiniert wird, wird
+die Metronombezeichnung automatisch in Klammern gesetzt:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "Allegro" 4 = 160
+g4 c d e
+d4 b g2
+@end lilypond
+
+Der Text kann ein beliebiges Textbeschriftungsobjekt sein:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo \markup { \italic Faster } 4 = 132
+a8-. r8 b-. r gis-. r a-. r
+@end lilypond
+
+Eine Metronombezeichnung in Klammern ohne Text kann erstellt
+werden, indem eine leere Zeichenkette hinzugefügt wird:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "" 8 = 96
+d4 g e c
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
+
+@c perhaps also an example of how to move it horizontally?
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-tempo-without-a-metronome-mark.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-metronome-marks-in-markup-mode.ly}
+
+Zu Einzelheiten siehe @ref{Text formatieren}.
+
+
+@seealso
+Glossar:
+@rglos{metronome},
+@rglos{metronomic indication},
+@rglos{tempo indication},
+@rglos{metronome mark}.
+
+Notationsreferenz:
+@ref{Text formatieren},
+@ref{MIDI-Ausgabe}.
+
+Schnipsel:
+@rlsr{Staff notation}.
+
+Referenz der Interna:
+@rinternals{MetronomeMark}.
+
 
 
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -126,6 +126,13 @@ schönen Notenbild erfreuen!
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
+
+@appendixsubsec SATB auf vier Systemen
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{satb-choir-template---four-staves.ly}
+
+
 @appendixsubsec Sologesang und zweistimmiger Refrain
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
@@ -136,6 +143,12 @@ schönen Notenbild erfreuen!
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {hymn-template.ly}
+
+
+@appendixsubsec Psalmengesang
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{anglican-psalm-template.ly}
 
 
 @node Orchestervorlage

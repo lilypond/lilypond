@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-	Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
+	Translation of GIT committish: 6d618ddf527c69dc7c5309f071b115df50566121
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3678,6 +3678,11 @@ rythme MIDI comme souhaité  mais, dans la première, l'indication
 métronomique transparente repousse vers le haut l'indication de tempo,
 contrairement à la seconde (avec le stencil désactivé) qui la laisse à
 sa place.
+
+
+@seealso
+Glossaire musicologique :
+@rglosnamed{system,système}.
 
 
 @node Utilisation de variables dans les retouches

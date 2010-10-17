@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 87a9977bbd54e3822338e290716845d8e2e304e3
+    Translation of GIT committish: ff5b756b319b1a577e0ebcbe90b77feeef3eb1da
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -177,8 +177,8 @@ musicale fonctionnant avec une interface graphique.
 @subsubheading Conception extensible
 
 Tous les paramètres peuvent être changés pour adapter le résultat à vos
-goûts typographiques.  Si cela ne suffit pas, le langage de script intégré
-Scheme, un dialecte du puissant langage LISP, offre beaucoup de
+goûts typographiques.  Si cela ne suffit pas, le langage de script
+intégré Scheme, un dialecte du puissant langage LISP, offre beaucoup de
 possibilités.  Les paramètres, variables et fonctions sont tous
 documentés dans les manuels de référence.
 
@@ -199,8 +199,8 @@ pouvez le récupérer depuis la page de téléchargement.
 Ce logiciel est également et avant tout libre : son code source est
 également disponible, et il est possible sous certaines conditions de le
 copier, de le modifier et de le redistribuer.  Êtes-vous irrité par un
-bogue, ou désirez-vous une fonctionnalité@tie{}?  Ajoutez-la vous-même, ou
-payez quelqu'un d'autre pour le faire.
+bogue, ou désirez-vous une fonctionnalité@tie{}?  Ajoutez-la vous-même,
+ou payez quelqu'un d'autre pour le faire.
 
 
 @subsubheading Excellent support
@@ -287,9 +287,10 @@ est extrait de @emph{Čáry}, pour flûte basse seule, de Trevor Bača.
 
 Divers matériels d'exécution -- conducteur, parties séparées --
 peuvent être créés à partir du même code source LilyPond.  Voici un
-extrait de la gravure par @uref{http://nicolas.sceaux.free.fr/, Nicolas
-Sceaux} du @emph{Giulio Cesare} de Händel, avec le conducteur, une
-réduction à deux portées vocales, et une partie de violon.
+extrait de la gravure par
+@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux} du @emph{Giulio
+Cesare} de Händel, avec le conducteur, une réduction à deux portées
+vocales, et une partie de violon.
 
 @exampleImage{sesto-full}
 
@@ -374,8 +375,8 @@ extrait de l'œuvre de Hu Haipeng, compositeur aveugle.
 
 Vous n'êtes toujours pas convaincu(e) ?  LilyPond est un logiciel libre,
 vous garantissant de la @ref{Liberté}.  Si vous êtes déjà décidé(e) à
-utiliser LilyPond, nous vous recommandons de lire d'abord @ref{Entrée
-sous forme de texte}.
+utiliser LilyPond, nous vous recommandons de lire d'abord
+@ref{Entrée sous forme de texte}.
 @divEnd
 
 
@@ -387,12 +388,12 @@ sous forme de texte}.
 @subheading Un logiciel libre
 
 @uref{http://www.gnu.org/, GNU} LilyPond est développé par une
-communauté de passionnés.  Ce logiciel est distribué selon la @ref{GPL,
-Licence Publique Générale GNU GPL} et la @ref{FDL, Licence Libre de
-Documentation GNU FDL}, accordant à tous la liberté de le corriger, le
-modifier et étendre ses fonctionnalités.  La gravure musicale de qualité
-ne devrait pas vous coûter des centaines d'euros dépensés pour acheter
-une licence de logiciel@tie{}!
+communauté de passionnés.  Ce logiciel est distribué selon la
+@ref{GPL, Licence Publique Générale GNU GPL} et la
+@ref{FDL, Licence Libre de Documentation GNU FDL}, accordant à tous la
+liberté de le corriger, le modifier et étendre ses fonctionnalités.  La
+gravure musicale de qualité ne devrait pas vous coûter des centaines
+d'euros dépensés pour acheter une licence de logiciel@tie{}!
 @divEnd
 
 
@@ -412,8 +413,8 @@ Partage : si vous appréciez ce logiciel, donnez-en une copie à vos amis,
 professeurs, étudiants et collègues@tie{}!
 
 @item
-Code source disponible : si vous êtes curieux du fonctionnement interne de
-LilyPond, vous avez le droit de le connaître exactement grâce à la
+Code source disponible : si vous êtes curieux du fonctionnement interne
+de LilyPond, vous avez le droit de le connaître exactement grâce à la
 disponibilité du code source et de toute l'infrastructure de
 compilation.
 
@@ -431,10 +432,11 @@ une entreprise ou un milieu de recherche.
 @item
 Indépendance par rapport aux éditeurs de logiciel : si une entreprise
 fait faillite, qu'advient-il des logiciels et fichiers dans le format de
-ces logiciels que cette entreprise développait et éditait@tie{}?  Ce n'est
-pas un problème avec LilyPond@tie{}; même si toute l'équipe de développement
-laissait ce logiciel à l'abandon, il serait encore légalement et
-effectivement disponible afin d'être copié, modifié et distribué.
+ces logiciels que cette entreprise développait et éditait@tie{}?  Ce
+n'est pas un problème avec LilyPond@tie{}; même si toute l'équipe de
+développement laissait ce logiciel à l'abandon, il serait encore
+légalement et effectivement disponible afin d'être copié, modifié et
+distribué.
 
 
 @end itemize
@@ -449,8 +451,8 @@ effectivement disponible afin d'être copié, modifié et distribué.
 @subheading Pourquoi les développeurs de LilyPond @qq{donnent-ils} leur travail gratuitement ?
 
 La plupart d'entre nous conçoivent le développement de LilyPond comme un
-passe-temps ou un travail bénévole, c'est pourquoi cette question serait mieux
-formulée ainsi@tie{}: pourquoi des gens contribuent bénévolement à
+passe-temps ou un travail bénévole, c'est pourquoi cette question serait
+mieux formulée ainsi@tie{}: pourquoi des gens contribuent bénévolement à
 LilyPond@tie{}?
 
 @itemize
@@ -461,9 +463,9 @@ d'autant plus que le travail d'équipe apporte de l'entraide@tie{}!
 
 @item
 Des objectifs communs : nous voulons tous produire des partitions de
-musique de qualité, mais peu de gens ont l'expertise -- et personne n'a le
-temps@tie{}! -- de créer un logiciel qui gère toutes les situations.  En
-travaillant tous ensemble -- l'un améliore le code des ligatures
+musique de qualité, mais peu de gens ont l'expertise -- et personne n'a
+le temps@tie{}! -- de créer un logiciel qui gère toutes les situations.
+En travaillant tous ensemble -- l'un améliore le code des ligatures
 automatiques, un autre corrige le galbe des liaisons, et un troisième
 écrit de la documentation expliquant l'utilisation de ces
 fonctionnalités -- nous pouvons tendre bien plus vite vers ce but.
@@ -478,10 +480,10 @@ ces projets en tant qu'utilisateurs, certains souhaitent donner en
 retour à la communauté en contribuant à un logiciel libre.
 
 @item
-Expérience professionnelle : la contribution à des projets de logiciel libre
-est une excellente manière de pratiquer la programmation, l'édition de
-documentation et la conception.  Cette expérience a aidé quelques
-développeurs à décrocher un emploi ou une bourse d'études.
+Expérience professionnelle : la contribution à des projets de logiciel
+libre est une excellente manière de pratiquer la programmation,
+l'édition de documentation et la conception.  Cette expérience a aidé
+quelques développeurs à décrocher un emploi ou une bourse d'études.
 
 
 @end itemize
@@ -554,9 +556,10 @@ avec un matériel gravé par
 
 @item
 Des passages instrumentaux @emph{d'Hippolyte et Aricie} de Rameau ont
-été joués le 8@tie{}mai@tie{}2009 en l'église Saint-James de Manhattan, par
-Frederick Renz et son ensemble @uref{http://www.earlymusicny.org/, Early
-Music New York}, avec des partitions gravées par Nicolas Sceaux.
+été joués le 8@tie{}mai@tie{}2009 en l'église Saint-James de Manhattan,
+par Frederick Renz et son ensemble
+@uref{http://www.earlymusicny.org/, Early Music New York}, avec des
+partitions gravées par Nicolas Sceaux.
 
 @end itemize
 @divEnd
@@ -572,8 +575,9 @@ Music New York}, avec des partitions gravées par Nicolas Sceaux.
 
 @item
 Le @uref{http://www.mutopiaproject.org/index.html, projet Mutopia}
-propose en téléchargement libre des partitions de plus de 1@tie{}500 pièces de
-musique classique@tie{}; c'est la plus grande vitrine de partitions LilyPond.
+propose en téléchargement libre des partitions de plus de 1@tie{}500
+pièces de musique classique@tie{}; c'est la plus grande vitrine de
+partitions LilyPond.
 
 @c don't make this "Mutopia" a link, since that looks silly.
 @item
@@ -605,8 +609,8 @@ musiciens et amoureux de la musique.
 
 Vous n'êtes toujours pas convaincu(e) ?  Lisez quelques
 @ref{Témoignages} de nos utilisateurs.  Si vous êtes déjà décidé(e) à
-utiliser LilyPond, nous vous recommandons de lire d'abord @ref{Entrée
-sous forme de texte}.
+utiliser LilyPond, nous vous recommandons de lire d'abord
+@ref{Entrée sous forme de texte}.
 @divEnd
 
 
@@ -632,8 +636,26 @@ qualité de son rendu.
 Septembre 2009
 
 Le magazine allemand LinuxUser publie un 
-@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
-article au sujet de LilyPond}.
+@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel, article au sujet de LilyPond}.
+
+@item
+Août 2009
+
+Sur le site
+@uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org},
+Ann Drinan présente les commentaires de deux conservateurs à propos de
+l'utilisation des logiciels pour entretenir le contenu de la
+bibliothèque des orchestres pour lesquels ils travaillent.
+
+@item
+Juin 2009
+
+In an @uref{http://news.lilynet.net/Free-Music-Now, article}
+published in the French @emph{National Conservatory Parent
+Association}'s yearly magazine, French composer and LilyPond
+contributor Valentin Villenave explains how Free licenses, and
+specifically LilyPond-engraved scores, are instrumental in
+making written music accessible to all.
 
 @item
 Août 2009
@@ -671,8 +693,8 @@ Juin 2006
 @uref{http://distrowatch.com,DistroWatch} récompense LilyPond et
 @uref{http://distrowatch.com/weekly.php?issue=20060605,écrit}@tie{}:
 @qq{Mesdames et Messieurs, nous avons l'immense plaisir de vous annoncer
-que, à la demande de nombreux lecteurs, les récompenses du DistroWatch de
-mai@tie{}2006 sont attribuées à LilyPond (190@tie{}@euro{}) et Lua
+que, à la demande de nombreux lecteurs, les récompenses du DistroWatch
+de mai@tie{}2006 sont attribuées à LilyPond (190@tie{}@euro{}) et Lua
 (250@tie{}US$).} 
 
 @item
@@ -712,8 +734,8 @@ Les éditeurs de @emph{Computer!Totaal}, magazine informatique
 hollandais, @uref{http://lilypond.org/web/images/computer-totaal.jpeg,
 décrivent LilyPond} dans leur numéro d'octobre 2004 comme@tie{}: @qq{un
 merveilleux logiciel libre [@dots{}]  Les partitions qu'il génère sont
-extrêmement belles [@dots{}]  Un système très puissant permettant presque
-tout.} 
+extrêmement belles [@dots{}]  Un système très puissant permettant
+presque tout.} 
 
 @item
 Juillet--août 2004
@@ -728,8 +750,7 @@ sounding edge: LilyPond},
 Mars 2004
 
 Chris Cannam
-@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,
-s'est entretenu avec Han-Wen Nienhuys et Jan Nieuwenhuizen} sur
+@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html, s'est entretenu avec Han-Wen Nienhuys et Jan Nieuwenhuizen} sur
 linuxmusician.com (site aujourd'hui disparu). Cette interview a
 également été citée sur
 @uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=, slashdot story}.
@@ -953,14 +974,14 @@ aborde d'une façon progressive tout ceci et bien d'autres choses encore.}
 Les notes sont codées sous forme de lettres et de nombres.  Les
 commandes spéciales commencent par un antislash.
 
-@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-annotate-fr,png,center}
 @imageFloat{text-input-1-output,png,center}
 
 Les altérations sont obtenues avec différents suffixes : @code{-is} pour dièse,
 @code{-es} pour bémol -- ce sont des noms de note hollandais, d'autres langues
 sont disponibles.  LilyPond détermine où placer les signes d'altération.
 
-@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-annotate-fr,png,center}
 @imageFloat{text-input-2-output,png,center}
 
 
@@ -968,7 +989,7 @@ sont disponibles.  LilyPond détermine où placer les signes d'altération.
 
 Ajoutez des accords et des paroles pour obtenir une chanson :
 
-@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-annotate-fr,png,center}
 @imageFloat{text-input-pop-output,png,center}
 
 
@@ -982,19 +1003,19 @@ les parties et le conducteur.  Pour pouvoir utiliser la même musique à
 plusieurs endroits, celle-ci est stockée dans une variable, c'est-à-dire
 qu'on lui attribue un nom.
 
-@imageFloat{text-input-parts-both-annotate,png,center}
+@imageFloat{text-input-parts-both-annotate-fr,png,center}
 
 
 Cette variable est ensuite utilisée dans une partie séparée -- ici
 transposée, avec les mesures de silence condensées.
 
-@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-annotate-fr,png,center}
 @imageFloat{text-input-parts-single-output,png,center}
 
 
 La même variable est réutilisée dans le conducteur, ici en sons réels.
 
-@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-annotate-fr,png,center}
 @imageFloat{text-input-score-output,png,center}
 
 
@@ -1033,9 +1054,9 @@ partition.  Pour plus de détails, voir @ref{Facilités d'édition}.
 @divClass{column-center-bottom}
 @subheading Et ensuite ?
 
-Vous êtes désormais prêt(e) à @ref{Téléchargement,télécharger LilyPond}.  Si
-vous n'êtes toujours pas convaincu(e), examinez les @ref{Facilités
-d'édition}.
+Vous êtes désormais prêt(e) à @ref{Téléchargement,télécharger LilyPond}.
+Si vous n'êtes toujours pas convaincu(e), examinez les
+@ref{Facilités d'édition}.
 
 @divEnd
 
@@ -1080,8 +1101,8 @@ visonneuse de PDF intégrée avec un excellent pointer-cliquer.
 
 Frescobaldi est un éditeur de texte dédié à LilyPond, avec visionneuse
 PDF intégrée, un assistant de création de partition et beaucoup de
-fonctionnalités d'édition.  Il repose sur les bibliothèques KDE@tie{}4 et
-fonctionne actuellement sur toutes les variantes d'Unix dont GNU/Linux.
+fonctionnalités d'édition.  Il repose sur les bibliothèques KDE@tie{}4
+et fonctionne actuellement sur toutes les variantes d'Unix dont GNU/Linux.
 
 @divEnd
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2748,6 +2748,14 @@ Referenz der Interna:
 @cindex Aiken-Notenköpfe
 @cindex sacred harp-Notenköpfe
 @cindex Southern-Harmony-Notenköpfe
+@cindex Funk-Formnotenköpfe
+@cindex Notenköpfe, Funk
+@cindex Notenköpfe, Harmonica Sacra
+@cindex Harmonica Sacra-Notenköpfe
+@cindex Christian Harmony-Notenköpfe
+@cindex Notenköpfe, Christian Harmony
+@cindex Walker-Formnotenköpfe
+@cindex Notenköpfe, Walker
 
 @funindex \aikenHeads
 @funindex \sacredHarpHeads
@@ -2755,12 +2763,17 @@ Referenz der Interna:
 @funindex sacredHarpHeads
 @funindex \southernHarmonyHeads
 @funindex southernHarmonyHeads
+@funindex \funkHeads
+@funindex funkHeads
+@funindex \walkerHeads
+@funindex walkerHeads
 
 In dieser Notation haben die Notenköpfe eine Form, die ihrer
 harmonischen Funktion innerhalb der Tonleiter entspricht.  Die
 Notation war sehr beliebt in amerikanischen Liederbüchern des
-19. Jahrhunderts.  Auf diese Weise können die Formen benutzt
-werden:
+19. Jahrhunderts.  Auf diese Weise können die Formen
+Sacred Harp, Southern Harmony, Funk (Harmonica Sacra), Walker
+und Aiken (Christian Harmony) benutzt werden:
 
 @lilypond[verbatim,quote,relative=2]
 \aikenHeads
@@ -2768,6 +2781,10 @@ c, d e f g2 a b1 c \break
 \sacredHarpHeads
 c,4 d e f g2 a b1 c \break
 \southernHarmonyHeads
+c,4 d e f g2 a b1 c \break
+\funkHeads
+c,4 d e f g2 a b1 c \break
+\walkerHeads
 c,4 d e f g2 a b1 c \break
 @end lilypond
 
@@ -2779,6 +2796,10 @@ c,4 d e f g2 a b1 c \break
 @funindex sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
 @funindex southernHarmonyHeadsMinor
+@funindex \funkHeadsMinor
+@funindex funkHeadsMinor
+@funindex \walkerHeadsMinor
+@funindex walkerHeadsMinor
 
 Die unterschiedlichen Formen richten sich nach der Stufe in der
 Skala, wobei der Grundton der Skala aus dem @code{\key}-Befehl
@@ -2795,15 +2816,23 @@ a,4 b c d e2 f g1 a \break
 a,2 b c d \break
 \southernHarmonyHeadsMinor
 a2 b c d \break
+\funkHeadsMinor
+a2 b c d \break
+\walkerHeadsMinor
+a2 b c d \break
 @end lilypond
 
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
+@code{\funkHeads},
+@code{\funkHeadsMinor},
 @code{\sacredHarpHeads},
 @code{\sacredHarpHeadsMinor},
 @code{\southernHarmonyHeads},
-@code{\southernHarmonyHeadsMinor}.
+@code{\southernHarmonyHeadsMinor},
+@code{\walkerHeads},
+@code{\walkerHeadsMinor}.
 @endpredefined
 
 @snippets

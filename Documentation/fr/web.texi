@@ -60,19 +60,19 @@ License''.
 @c expected to be found in lilypond/ subdirectory.
 @dircategory GNU LilyPond -- le typographe de musique
 @direntry
-* Manuel d'initiation à LilyPond: (lilypond-learning).        Les premiers pas.
-* Glossaire musicologique: (music-glossary).                  Pour l'utilisateur non anglophone.
-* Manuel de notation: (lilypond-notation).                    Gravure de musique avec LilyPond.
-* Morceaux choisis de LilyPond: (lilypond-snippets).          Petits trucs, astuces et exemples.
-* Références des propriétés internes: (lilypond-internals).   Définitions pour les retouches.
-* Utilisation des programmes: (lilypond-usage).               Installation et exécution des programmes.
-* LilyPond Website: (lilypond-web).                           Prévisualisation du site.
-* abc2ly: (lilypond-usage) Lancement de abc2ly.               Import de fichier ABC.
-* convert-ly: (lilypond-usage) Mise à jour de fichiers.       Pour d'anciens fichiers LilyPond.
-* etf2ly: (lilypond-usage) Lancement de etf2ly.               Import de fichier Finale.
-* lilypond-book: (lilypond-usage) LilyPond-book.              Association musique-texte.
-* midi2ly: (lilypond-usage) Lancement de midi2ly.             Import de fichier MIDI.
-* musicxml2ly: (lilypond-usage) Lancement de musicxml2ly.     Import de fichier MusicXML.
+* Manuel d'initiation à LilyPond: (lilypond-learning).       Les premiers pas.
+* Glossaire musicologique: (music-glossary).                 Pour l'utilisateur non anglophone.
+* Manuel de notation: (lilypond-notation).                   Gravure de musique avec LilyPond.
+* Morceaux choisis de LilyPond: (lilypond-snippets).         Petits trucs, astuces et exemples.
+* Référence des propriétés internes: (lilypond-internals).   Définitions pour les retouches.
+* Manuel d'utilisation: (lilypond-usage).                    Installation et exécution des programmes.
+* LilyPond Website: (lilypond-web).                          Prévisualisation du site.
+* abc2ly: (lilypond-usage) Lancement de abc2ly.              Import de fichier ABC.
+* convert-ly: (lilypond-usage) Mise à jour de fichiers.      Pour d'anciens fichiers LilyPond.
+* etf2ly: (lilypond-usage) Lancement de etf2ly.              Import de fichier Finale.
+* lilypond-book: (lilypond-usage) LilyPond-book.             Association musique-texte.
+* midi2ly: (lilypond-usage) Lancement de midi2ly.            Import de fichier MIDI.
+* musicxml2ly: (lilypond-usage) Lancement de musicxml2ly.    Import de fichier MusicXML.
 @end direntry
 
 
@@ -280,6 +280,33 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end ifset
 @end macro
 
+
+@ifhtml
+@macro contactUsAbout{topic}
+
+@divClass{heading-center}
+@divClass{contactBox}
+Si vous avez connaissance d'autres \topic\ qui mériteraient de figure
+ici, faites le nous savoir, en suivant les instructions de la rubrique
+@ref{Signalement de bogue}.
+
+@divEnd
+@divEnd
+
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro contactUsAbout{topic}
+@cartouche
+Si vous avez connaissance d'autres \topic\ qui mériteraient de figure
+ici, faites le nous savoir, en suivant les instructions de la rubrique
+@ref{Signalement de bogue}.
+
+@end cartouche
+
+@end macro
+@end ifnothtml
 
 @include web/introduction.itexi
 @include web/download.itexi

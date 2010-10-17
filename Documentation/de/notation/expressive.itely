@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -21,15 +21,15 @@ Dieser Abschnitt zeigt verschiedene Ausdrucksbezeichnungen,
 die zur Partitur hinzugefügt werden können.
 
 @menu
-* An Noten angehängt::           
-* Bögen::                      
-* Linien::                       
+* Ausdrucksbezeichnungen an Noten angehängt::           
+* Ausdrucksbezeichnungen als Bögen::                      
+* Ausdrucksbezeichnungen als Linien::                       
 @end menu
 
 
-@node An Noten angehängt
-@subsection An Noten angehängt
-@translationof Attached to notes
+@node Ausdrucksbezeichnungen an Noten angehängt
+@subsection Ausdrucksbezeichnungen an Noten angehängt
+@translationof Expressive marks attached to notes
 
 Dieser Abschnitt erklärt, wie man Ausdrucksbezeichnungen erstellt,
 die an Noten gebunden sind: Artikulationszeichen, Ornamente und
@@ -589,9 +589,9 @@ Erweitert:
 
 
 
-@node Bögen
-@subsection Bögen
-@translationof Curves
+@node Ausdrucksbezeichnungen als Bögen
+@subsection Ausdrucksbezeichnungen als Bögen
+@translationof Expressive marks as curves
 
 Dieser Abschnitt erklärt, wie man verschiedene gebogene
 Ausdrucksbezeichnungen erstellt: Legato- und Phrasierungsbögen,
@@ -1001,9 +1001,9 @@ Schnipsel:
 @rlsr{Expressive marks}.
 
 
-@node Linien
-@subsection Linien
-@translationof Lines
+@node Ausdrucksbezeichnungen als Linien
+@subsection Ausdrucksbezeichnungen als Linien
+@translationof Expressive marks as lines
 
 Dieser Abschnitt zeigt, wie man verschiedene Ausdrucksbezeichnungen
 erstellt, die sich linear erstrecken: Glissando, Arpeggio und

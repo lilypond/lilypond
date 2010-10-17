@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="660"
+   height="470"
+   id="svg5281"
+   sodipodi:version="0.32"
+   inkscape:version="0.47 r22583"
+   version="1.0"
+   sodipodi:docname="text-input-pop-annotate-fr.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs5283">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective5289" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="323.73827"
+     inkscape:cy="236.58879"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1280"
+     inkscape:window-height="945"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5286">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#afc6e9;stroke:none"
+       id="rect5345"
+       width="324"
+       height="60"
+       x="66"
+       y="290" />
+    <rect
+       style="fill:#b380ff;stroke:none"
+       id="rect5343"
+       width="206"
+       height="28"
+       x="52"
+       y="258" />
+    <rect
+       style="fill:#87de87;stroke:none"
+       id="rect5341"
+       width="232"
+       height="62"
+       x="90"
+       y="168" />
+    <rect
+       style="fill:#ff8080;stroke:none"
+       id="rect5339"
+       width="222"
+       height="32"
+       x="78"
+       y="76" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono Bold"
+       x="38"
+       y="40"
+       id="text5291"><tspan
+         sodipodi:role="line"
+         x="38"
+         y="40"
+         id="tspan5295"
+         style="font-size:24px">&lt;&lt;</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="70"
+         id="tspan5299"
+         style="font-size:24px">  \chords {</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="100"
+         id="tspan5301"
+         style="font-size:24px">    c1:m7 f2:7 c2</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="130"
+         id="tspan5303"
+         style="font-size:24px">  }</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="160"
+         id="tspan5305"
+         style="font-size:24px">  \relative c'' {</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="190"
+         id="tspan5307"
+         style="font-size:24px">    g2 es8( c4) es8</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="220"
+         id="tspan5309"
+         style="font-size:24px">    f8 es d c~ c2</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="250"
+         id="tspan5311"
+         style="font-size:24px">  }</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="280"
+         id="tspan5313"
+         style="font-size:24px">  \addlyrics {</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="310"
+         id="tspan5315"
+         style="font-size:24px">    You are</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="340"
+         id="tspan5317"
+         style="font-size:24px">    the sky and my rain,</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="370"
+         id="tspan5319"
+         style="font-size:24px">  }</tspan><tspan
+         sodipodi:role="line"
+         x="38"
+         y="400"
+         id="tspan5321"
+         style="font-size:24px">&gt;&gt;</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#c83737;fill-opacity:1;stroke:none;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="333"
+       y="139"
+       id="text5323"><tspan
+         sodipodi:role="line"
+         id="tspan5325"
+         x="333"
+         y="139">Entrer le nom des accords</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#217821;fill-opacity:1;stroke:none;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="415"
+       y="218"
+       id="text5327"><tspan
+         sodipodi:role="line"
+         id="tspan5329"
+         x="415"
+         y="218">Entrer la mélodie</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#0044aa;fill-opacity:1;stroke:none;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="403"
+       y="403"
+       id="text5331"><tspan
+         sodipodi:role="line"
+         id="tspan5333"
+         x="403"
+         y="403">Entrer les paroles</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#5500d4;fill-opacity:1;stroke:none;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="108"
+       y="446"
+       id="text5335"><tspan
+         sodipodi:role="line"
+         id="tspan5337"
+         x="108"
+         y="446">Combiner mélodie et paroles</tspan></text>
+    <path
+       style="fill:none;stroke:#c83737;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 434,113 C 399,65 376,99 308,93"
+       id="path5856"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#217821;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 409,217 c -68,30 -32,-23 -82,-23"
+       id="path5858"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#0044aa;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 469,378 c 56,-31 -29,-68 -71,-60"
+       id="path5860"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#5500d4;stroke-width:1.99090564;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 97.90455,438.90455 c -87,7 -108.809097,-153.8091 -51.809097,-166.8091"
+       id="path5862"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>
