@@ -324,51 +324,51 @@ The flexible vertical dimension variables are:
 @item markup-system-spacing
 @funindex markup-system-spacing
 
-the space between a (title or top-level) markup and the system
+the distance between a (title or top-level) markup and the system
 that follows it.
 
 @item score-markup-spacing
 @funindex score-markup-spacing
 
-the space between the last system of a score and the (title or
+the distance between the last system of a score and the (title or
 top-level) markup that follows it.
 
 @item score-system-spacing
 @funindex score-system-spacing
 
-the space between the last system of a score and the first system
-of the score that follows it, when no (title or top-level) markup
-exists between them.
+the distance between the last system of a score and the first
+system of the score that follows it, when no (title or top-level)
+markup exists between them.
 
 @item system-system-spacing
 @funindex system-system-spacing
 
-the space between two systems in the same score.
+the distance between two systems in the same score.
 
 @item markup-markup-spacing
 @funindex markup-markup-spacing
 
-the space between two (title or top-level) markups.
+the distance between two (title or top-level) markups.
 
 @item last-bottom-spacing
 @funindex last-bottom-spacing
 
-the space from the last system or top-level markup on a page to
+the distance from the last system or top-level markup on a page to
 the bottom of the printable area (i.e. the top of the bottom
 margin).
 
 @item top-system-spacing
 @funindex top-system-spacing
 
-the space from the top of the printable area (i.e. the bottom of
-the top margin) to the first system on a page, when there is no
+the distance from the top of the printable area (i.e. the bottom
+of the top margin) to the first system on a page, when there is no
 (title or top-level) markup between the two.
 
 @item top-markup-spacing
 @funindex top-markup-spacing
 
-the space from the top of the printable area (i.e. the bottom of
-the top margin) to the first (title or top-level) markup on a
+the distance from the top of the printable area (i.e. the bottom
+of the top margin) to the first (title or top-level) markup on a
 page, when there is no system between the two.
 
 @end table
