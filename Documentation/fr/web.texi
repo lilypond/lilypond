@@ -286,7 +286,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @divClass{heading-center}
 @divClass{contactBox}
-Si vous avez connaissance d'autres \topic\ qui mériteraient de figure
+Si vous avez connaissance d'autres \topic\ qui mériteraient de figurer
 ici, faites le nous savoir, en suivant les instructions de la rubrique
 @ref{Signalement de bogue}.
 
@@ -299,7 +299,7 @@ ici, faites le nous savoir, en suivant les instructions de la rubrique
 @ifnothtml
 @macro contactUsAbout{topic}
 @cartouche
-Si vous avez connaissance d'autres \topic\ qui mériteraient de figure
+Si vous avez connaissance d'autres \topic\ qui mériteraient de figurer
 ici, faites le nous savoir, en suivant les instructions de la rubrique
 @ref{Signalement de bogue}.
 

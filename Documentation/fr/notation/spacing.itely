@@ -195,6 +195,8 @@ Morceaux choisis :
 @subsection Mise en forme de la page
 @translationof Page formatting
 
+@funindex \paper
+
 Les marges, en-tête et pied de page, ainsi que les autres variables de
 mise en page sont automatiquement définis par rapport au format du
 papier.
@@ -244,6 +246,7 @@ Elle est fixée par défaut à@tie{}@code{6\mm}.
 
 
 @subsubheading Hauteurs variables
+@translationof Flexible vertical dimensions
 
 Il est souvent judicieux d'apporter un peu de flexibilité à l'espacement
 entre différents éléments (marges, titres, systèmes ou mouvements), en
@@ -313,12 +316,12 @@ Vous pouvez ne jouer que sur une clé d'une variable particulière@tie{}:
 @end example
 
 @noindent
-ou bien déterminer simultatnément plusieurs clés d'une même
+ou bien déterminer simultanément plusieurs clés d'une même
 variable@tie{}:
 
 @example
 \paper @{
-  bottom-system-spacing =
+  last-bottom-spacing =
     #'((padding . 1)
        (space . 1)
        (minimum-distance . 0)
@@ -326,41 +329,52 @@ variable@tie{}:
 @}
 @end example
 
+Le nom des dimmensionnements à hauteur variable sont de la forme
+@code{@var{upper}-@var{lower}-spacing}, où @code{@var{upper}} et
+@code{@var{lower}} représentent les éléments qui doivent être espacés.
+La distance s'établit entre les points de référence des deux éléments
+concernés@tie{}: le sommet pour un titre ou un @emph{markup}, la ligne
+médiane de la portée la plus proche pour un système.  Notez bien que,
+dans les règles de nommage des variables qui suivent, le terme
+@code{markup} fait référence aussi bien à un @i{markup de titrage}
+(@code{bookTitleMarkup} ou @code{scoreTitleMarkup}) qu'à un
+@i{markup de haut niveau} (voir @ref{Structure de fichier}).
+
 Voici à présent les différentes variables disponibles@tie{}:
 
 @table @code
 
-@item after-title-spacing
-@funindex after-title-spacing
+@item markup-system-spacing
+@funindex markup-system-spacing
 
 détermine l'espacement entre un titre, ou un @emph{markup} de premier
 niveau, et le système qui le suit.
 
-@item before-title-spacing
-@funindex before-title-spacing
+@item score-markup-spacing
+@funindex score-markup-spacing
 
-détermine l'espacement entre un système et le titre ou @emph{markup} de
-haut niveau qui le suit.
+détermine l'espacement entre le dernier système et le titre ou
+@emph{markup} de haut niveau qui le suit.
 
-@item between-scores-system-spacing
-@funindex between-scores-system-spacing
+@item score-system-spacing
+@funindex score-system-spacing
 
 détermine l'espacement entre deux systèmes appartenant à deux partitions
 consécutives en l'absence de titrage.
 
-@item between-system-spacing
-@funindex between-system-spacing
+@item system-system-spacing
+@funindex system-system-spacing
 
 détermine l'espacement entre deux systèmes d'un même mouvement.
 
-@item between-title-spacing
-@funindex between-title-spacing
+@item markup-markup-spacing
+@funindex markup-markup-spacing
 
 détermine l'espacement entre deux titres ou @emph{markups} de premier
 niveau.
 
-@item bottom-system-spacing
-@funindex bottom-system-spacing
+@item last-bottom-spacing
+@funindex last-bottom-spacing
 
 détermine la distance entre le dernier système ou le dernier
 @emph{markup} de haut niveau, et le bas de la surface imprimable --
@@ -371,11 +385,10 @@ autrement dit le haut de la marge basse.
 
 détermine l'espace entre le haut de la surface imprimable (le bas de la
 marge haute) et le milieu du premier système.  Cette variable n'est
-effective qu'en l'absence de titre en haut de page -- c'est alors
-@var{top-title-spacing} qui doit intervenir.
+effective qu'en l'absence de titre en haut de page.
 
-@item top-title-spacing
-@funindex top-title-spacing
+@item top-markup-spacing
+@funindex top-markup-spacing
 
 détermine l'espace entre le haut de la surface imprimable (le bas de la
 marge haute) et le titre.
@@ -397,7 +410,7 @@ membres du bloc @code{\paper}.  La première informe l'algoritme des
 sauts de ligne de combien d'espace il dispose sur la page@tie{}; la
 seconde génère la page selon le nombre de système qu'elle contiendra.
 
-Vous pouvez définir toutes ces valeurs -- @code{mm}, @code{in},
+Vous pouvez définir toutes ces valeurs -- en @code{mm}, @code{in},
 @code{pt} ou @code{cm} -- en langage Scheme au sein du bloc
 @code{\paper}.  Celles contenues dans le fichier
 @file{paper-defaults.ly} sont en millimètres, c'est la raison pour
