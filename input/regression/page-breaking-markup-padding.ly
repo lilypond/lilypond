@@ -4,8 +4,8 @@
 
 \book {
   \header {
-    texidoc = "Padding between titles is honoured by the page breaker.
-This should take up two pages."
+    texidoc = "Padding between markups is honored by the page
+breaker.  This should take up two pages."
   }
 
   \paper {

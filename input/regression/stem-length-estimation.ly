@@ -6,12 +6,11 @@ This example should fit snugly on one page.
 "
 }
 
-\paper { 
+\paper {
   #(set-paper-size "a6")
   tagline = ##f
   system-system-spacing #'padding = #1.20
-}   
-
+}
 
 \new Voice {
   \voiceTwo
