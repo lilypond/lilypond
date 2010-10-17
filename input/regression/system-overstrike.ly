@@ -1,4 +1,4 @@
-\version "2.13.3"
+\version "2.13.36"
 \header {
   texidoc = "By setting the padding between systems to a negative
 value, it is possible to eliminate the anti-collision constraints.
@@ -8,7 +8,7 @@ value, it is possible to eliminate the anti-collision constraints.
 \book {
   \paper {
       ragged-bottom =##t
-      between-system-spacing = #'((space . 1) (padding . -10))
+      system-system-spacing = #'((space . 1) (padding . -10))
   }
 
   {

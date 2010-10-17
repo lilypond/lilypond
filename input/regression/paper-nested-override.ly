@@ -1,11 +1,11 @@
-\version "2.13.9"
+\version "2.13.36"
 
 \header {
   texidoc = "Nested properties can be set in the paper block."
 }
 
 \paper {
-  between-system-spacing #'minimum-distance = #0.0
+  system-system-spacing #'minimum-distance = #0.0
 }
 
 { c1 \break c1 }

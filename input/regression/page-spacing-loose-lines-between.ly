@@ -1,14 +1,14 @@
-\version "2.13.4"
+\version "2.13.36"
 
 \header {
   texidoc = "Loose lines between two systems don't confuse the layout engine.
-In particular, they don't interfere with @var{between-system-spacing},
+In particular, they don't interfere with @var{system-system-spacing},
 which measures distances between spaceable staves."
 }
 
 \paper {
   ragged-right = ##t
-  between-system-spacing = #'((space . 20) (minimum-distance . 30))
+  system-system-spacing = #'((space . 20) (minimum-distance . 30))
   annotate-spacing = ##t
 }
 
