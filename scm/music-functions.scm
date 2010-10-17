@@ -889,7 +889,7 @@ Syntax:
     'Score))))
 
 (define (skip-as-needed music parser)
- "Replace MUSIC by
+  "Replace MUSIC by
  << {  \\set skipTypesetting = ##f
  LENGTHOF(\\showFirstLength)
  \\set skipTypesetting = ##t
@@ -900,51 +900,56 @@ Syntax:
  When only showFirstLength is set,
  the 'length property of the music is
  overridden to speed up compiling."
- (let*
-  ((show-last (ly:parser-lookup parser 'showLastLength))
-   (show-first (ly:parser-lookup parser 'showFirstLength)))
-  (cond
+  (let*
+      ((show-last (ly:parser-lookup parser 'showLastLength))
+       (show-first (ly:parser-lookup parser 'showFirstLength))
+       (show-last-length (if (ly:music? show-last)
+                             (ly:music-length show-last)
+                             #f))
+       (show-first-length (if (ly:music? show-first)
+                              (ly:music-length show-first)
+                              #f))
+       (orig-length (ly:music-length music)))
 
-   ;; both properties may be set.
-   ((and (ly:music? show-first) (ly:music? show-last))
-    (let*
-     ((orig-length (ly:music-length music))
-      (skip-length (ly:moment-sub orig-length (ly:music-length show-last)))
-      (begin-length (ly:music-length show-first)))
-     (make-simultaneous-music
-      (list
-       (make-sequential-music
-        (list
-         (skip-this skip-length)
-         ;; let's draw a separator between the beginning and the end
-         (context-spec-music (make-property-set 'whichBar "||")
-          'Timing)))
-       (unskip-this begin-length)
-       music))))
+    ;;FIXME: if using either showFirst- or showLastLength,
+    ;; make sure that skipBars is not set.
 
-   ;; we may only want to print the last length
-   ((ly:music? show-last)
-    (let*
-     ((orig-length (ly:music-length music))
-      (skip-length (ly:moment-sub orig-length (ly:music-length show-last))))
-     (make-simultaneous-music
-      (list
-       (skip-this skip-length)
-       music))))
+    (cond
 
-   ;; we may only want to print the beginning; in this case
-   ;; only the first length will be processed (much faster).
-   ((ly:music? show-first)
-    (let*
-     ((orig-length (ly:music-length music))
-      (begin-length (ly:music-length show-first)))
-     ;; the first length must not exceed the original length.
-     (if (ly:moment<? begin-length orig-length)
-      (set! (ly:music-property music 'length)
-       (ly:music-length show-first)))
-     music))
+     ;; both properties may be set.
+     ((and show-first-length show-last-length)
+      (let
+          ((skip-length (ly:moment-sub orig-length show-last-length)))
+        (make-simultaneous-music
+         (list
+          (make-sequential-music
+           (list
+            (skip-this skip-length)
+            ;; let's draw a separator between the beginning and the end
+            (context-spec-music (make-property-set 'whichBar "||")
+                                'Timing)))
+          (unskip-this show-first-length)
+          music))))
 
-   (else music))))
+     ;; we may only want to print the last length
+     (show-last-length
+      (let
+          ((skip-length (ly:moment-sub orig-length show-last-length)))
+        (make-simultaneous-music
+         (list
+          (skip-this skip-length)
+          music))))
+
+     ;; we may only want to print the beginning; in this case
+     ;; only the first length will be processed (much faster).
+     (show-first-length
+      ;; the first length must not exceed the original length.
+      (if (ly:moment<? show-first-length orig-length)
+          (set! (ly:music-property music 'length)
+                show-first-length))
+      music)
+
+     (else music))))
 
 
 (define-public toplevel-music-functions
