@@ -375,7 +375,7 @@ context, which must already exist.  Therefore normally the
 @code{\lyricsto} command.  The @code{\lyricsto} command
 invokes lyric mode automatically, so the @code{\lyricmode} keyword
 may be omitted.  By default, the lyrics are placed underneath the
-notes.  For other placements, see @ref{Placement of lyrics}.
+notes.  For other placements, see @ref{Placing lyrics vertically}.
 
 @subheading Using @code{\addlyrics}
 
@@ -832,10 +832,10 @@ Internals Reference:
 
 @menu
 * Working with lyrics and variables::
-* Placement of lyrics::
+* Placing lyrics vertically::
+* Placing syllables horizontally::
 * Lyrics and repeats::
 * Divisi lyrics::
-* Spacing out syllables::
 @end menu
 
 
@@ -905,8 +905,8 @@ Internals Reference:
 @rinternals{Lyrics}.
 
 
-@node Placement of lyrics
-@unnumberedsubsubsec Placement of lyrics
+@node Placing lyrics vertically
+@unnumberedsubsubsec Placing lyrics vertically
 
 @cindex placement of lyrics
 @cindex lyrics, positioning
@@ -1022,6 +1022,92 @@ Learning Manual:
 Notation Reference:
 @ref{Aligning contexts},
 @ref{Creating contexts}.
+
+@node Placing syllables horizontally
+@unnumberedsubsubsec Placing syllables horizontally
+
+@cindex Spacing lyrics
+@cindex Lyrics, increasing space between
+
+To increase the spacing between lyrics, set the @code{minimum-distance}
+property of @code{LyricSpace}.
+
+@lilypond[relative,verbatim,fragment,quote,ragged-right]
+{
+  c c c c
+  \override Lyrics.LyricSpace #'minimum-distance = #1.0
+  c c c c
+}
+\addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+}
+@end lilypond
+
+@noindent
+To make this change for all lyrics in the score, set the property in the
+layout.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \relative c' {
+  c c c c
+  c c c c
+  }
+  \addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+  }
+  \layout {
+    \context {
+      \Lyrics
+      \override LyricSpace #'minimum-distance = #1.0
+    }
+  }
+}
+@end lilypond
+
+@c @snippets
+@c This snippet has been renamed to "lyrics-alignment.ly"
+@c update as soon as lsr/is updated -vv
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@c {lyrics-alignment.ly}
+
+@c TODO: move to LSR -vv
+@snippets
+
+Checking to make sure that text scripts and lyrics are within the margins is
+a relatively large computational task.  To speed up processing, LilyPond does
+not perform such calculations by default; to enable it, use
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t
+@end example
+
+To make lyrics avoid bar lines as well, use
+
+@example
+\layout @{
+  \context @{
+    \Lyrics
+      \consists "Bar_engraver"
+      \consists "Separating_line_group_engraver"
+      \override BarLine #'transparent = ##t
+  @}
+@}
+@end example
+
+@c TODO Create and add lsr example of lyricMelismaAlignment
+@c It's used like this to center-align all lyric syllables,
+@c even when notes are tied. -td
+
+@ignore
+\layout
+{
+     \context { \Score lyricMelismaAlignment = #0 }
+}
+@end ignore
+
 
 @node Lyrics and repeats
 @unnumberedsubsubsec Lyrics and repeats
@@ -1459,92 +1545,6 @@ attaching lyrics to those specific contexts:
   >>
 }
 @end lilypond
-
-
-@node Spacing out syllables
-@unnumberedsubsubsec Spacing out syllables
-
-@cindex Spacing lyrics
-@cindex Lyrics, increasing space between
-
-To increase the spacing between lyrics, set the @code{minimum-distance}
-property of @code{LyricSpace}.
-
-@lilypond[relative,verbatim,fragment,quote,ragged-right]
-{
-  c c c c
-  \override Lyrics.LyricSpace #'minimum-distance = #1.0
-  c c c c
-}
-\addlyrics {
-  longtext longtext longtext longtext
-  longtext longtext longtext longtext
-}
-@end lilypond
-
-@noindent
-To make this change for all lyrics in the score, set the property in the
-layout.
-
-@lilypond[verbatim,quote,ragged-right]
-\score {
-  \relative c' {
-  c c c c
-  c c c c
-  }
-  \addlyrics {
-  longtext longtext longtext longtext
-  longtext longtext longtext longtext
-  }
-  \layout {
-    \context {
-      \Lyrics
-      \override LyricSpace #'minimum-distance = #1.0
-    }
-  }
-}
-@end lilypond
-
-@c @snippets
-@c This snippet has been renamed to "lyrics-alignment.ly"
-@c update as soon as lsr/is updated -vv
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-@c {lyrics-alignment.ly}
-
-@c TODO: move to LSR -vv
-@snippets
-
-Checking to make sure that text scripts and lyrics are within the margins is
-a relatively large computational task.  To speed up processing, LilyPond does
-not perform such calculations by default; to enable it, use
-
-@example
-\override Score.PaperColumn #'keep-inside-line = ##t
-@end example
-
-To make lyrics avoid bar lines as well, use
-
-@example
-\layout @{
-  \context @{
-    \Lyrics
-      \consists "Bar_engraver"
-      \consists "Separating_line_group_engraver"
-      \override BarLine #'transparent = ##t
-  @}
-@}
-@end example
-
-@c TODO Create and add lsr example of lyricMelismaAlignment
-@c It's used like this to center-align all lyric syllables,
-@c even when notes are tied. -td
-
-@ignore
-\layout
-{
-     \context { \Score lyricMelismaAlignment = #0 }
-}
-@end ignore
 
 
 @node Stanzas
@@ -1993,7 +1993,7 @@ For writing the lyrics to a melody line, see
 @ref{Common notation for vocal music}.
 
 @item
-For placing the lyrics, see @ref{Placement of lyrics}.
+For placing the lyrics, see @ref{Placing lyrics vertically}.
 
 @item
 For entering stanzas, see @ref{Stanzas}.
@@ -2019,7 +2019,7 @@ Notation Reference:
 @ref{Displaying chords},
 @ref{Displaying staves},
 @ref{Keyboard and other multi-staff instruments},
-@ref{Placement of lyrics},
+@ref{Placing lyrics vertically},
 @ref{Stanzas}.
 
 @node Lead sheets
