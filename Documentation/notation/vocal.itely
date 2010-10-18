@@ -843,62 +843,79 @@ Internals Reference:
 @node Working with lyrics and variables
 @unnumberedsubsubsec Working with lyrics and variables
 
-@c TODO rewrite this section
+@cindex lyrics, using variables
 
-@cindex lyrics, variables
-
-To define variables containing lyrics, the function @code{\lyricmode}
-must be used.  Durations do not need to be added if the variable is
-to be invoked with @code{\addlyrics} or @code{\lyricsto}.
+Variables containing lyrics can be created, but the lyrics must be
+entered in lyric mode:
 
 @lilypond[quote,verbatim]
-verseOne = \lyricmode { Joy to the world, the Lord is come. }
+musicOne = \relative c'' {
+  c4 b8. a16 g4. f8 e4 d c2
+}
+verseOne = \lyricmode {
+  Joy to the world, the Lord is come.
+}
 \score {
   <<
-    \new Voice = "one" \relative c'' {
-      \autoBeamOff
+    \new Voice = "one" {
       \time 2/4
-      c4 b8. a16 g4. f8 e4 d c2
+      \musicOne
     }
-    \addlyrics { \verseOne }
+    \new Lyrics \lyricsto "one" {
+      \verseOne
+    }
   >>
 }
 @end lilypond
 
-For different or more complex orderings, the best way is to set up the
-hierarchy of staves and lyrics first, e.g.,
-@example
-\new ChoirStaff <<
-  \new Voice = "soprano" @{ @emph{music} @}
-  \new Lyrics = "sopranoLyrics" @{ s1 @}
-  \new Lyrics = "tenorLyrics" @{ s1 @}
-  \new Voice = "tenor" @{ @emph{music} @}
->>
-@end example
+Durations do not need to be added if the variable is to be invoked
+with @code{\addlyrics} or @code{\lyricsto}.
 
-@noindent
-and then combine the appropriate melodies and lyric lines:
+For different or more complex orderings, the best way is to define
+the music and lyric variables first, then set up the hierarchy of
+staves and lyrics, omitting the lyrics and then add the lyrics using
+@code{\context} underneath.  This ensures that the voices referenced
+by @code{\lyricsto} have always been defined earlier.  For example:
 
-@example
-\context Lyrics = sopranoLyrics \lyricsto "soprano"
-@emph{the lyrics}
-@end example
+@lilypond[quote,verbatim]
+sopranoMusic = \relative c'' { c4 c c c }
+contraltoMusic = \relative c'' { a4 a a a }
+sopranoWords = \lyricmode { Sop -- ra -- no words }
+contraltoWords = \lyricmode { Con -- tral -- to words }
 
-@noindent
-The final input would resemble
-
-@example
-<<
+\score {
   \new ChoirStaff <<
-    @emph{setup the music}
+    \new Staff {
+      \new Voice = "sopranos" {
+        \sopranoMusic
+      }
+    }
+    \new Lyrics = "sopranos"
+    \new Lyrics = "contraltos"
+    \new Staff {
+      \new Voice = "contraltos" {
+        \contraltoMusic
+      }
+    }
+    \context Lyrics = "sopranos" {
+      \lyricsto "sopranos" {
+        \sopranoWords
+      }
+    }
+    \context Lyrics = "contraltos" {
+      \lyricsto "contraltos" {
+        \contraltoWords
+      }
+    }
   >>
-  \lyricsto "soprano" @emph{etc}
-  \lyricsto "alto" @emph{etc}
-  @emph{etc}
->>
-@end example
+}
+@end lilypond
+
 
 @seealso
+Notation Reference:
+@ref{Placing lyrics vertically}.
+
 Internals Reference:
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
