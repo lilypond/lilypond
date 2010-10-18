@@ -899,7 +899,6 @@ The final input would resemble
 @end example
 
 @seealso
-@c TODO: document \new Staff << Voice \lyricsto >> bug
 Internals Reference:
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
