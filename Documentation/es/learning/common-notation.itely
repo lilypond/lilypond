@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fe2cae0fa47ec4ec0184e6b3d15572fbcba881cf
+    Translation of GIT committish: d3f5ef1663963358c4901195143c529e5915b320
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -820,6 +820,7 @@ partituras polirrítmicas.
 }
 @end lilypond
 
+
 @node Grupos de pentagramas
 @subsection Grupos de pentagramas
 @translationof Staff groups
@@ -836,7 +837,9 @@ partituras polirrítmicas.
 @funindex ChoirStaff
 
 Glosario musical:
-@rglos{brace}.
+@rglos{brace},
+@rglos{staff},
+@rglos{system}.
 
 La música para piano se compone tipográficamente en forma de dos
 pentagramas unidos mediante una @notation{llave}. El aspecto impreso
