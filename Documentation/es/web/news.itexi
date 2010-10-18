@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: b17e2f3d7a5853a30f7d5a3cdc6b5079e77a3d2a
+    Translation of GIT committish: c22f75eaf6692b4498251f4d57fc5e7af9f79891
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2294,8 +2294,8 @@ from the order that they were defined. (@ref{Descargas antiguas})
 @newsItem
 @subsubheading 2.5.23 released - @emph{May 6, 2005}
 This release has a couple of small bugfixes, and a new feature. It is
-now possible to start and stop the StaffSymbol, during a piece of
-music, by doing \stopStaff \startStaff. This can be used to produce
+now possible to start and stop the @code{StaffSymbol}, during a piece of
+music, by doing @code{\stopStaff \startStaff}. This can be used to produce
 Ossia
 staves. (@ref{Cambios},
 @ref{Descargas antiguas})
