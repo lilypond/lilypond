@@ -29,6 +29,61 @@ NOTE:
 
 
 @newsItem
+@subsubheading Alpha test two of 2.14 -- LilyPond 2.13.35 released!  @emph{Sep 29, 2010}
+
+LilyPond 2.13.35 is out; this is the second alpha test of the
+upcoming 2.14 stable release.  Users are invited to experiment
+with this version.  New features since 2.12.3 are listed in the
+@qq{Changes} manual on the website section about
+@ref{Development}.
+
+Three known regressions against 2.12.3 still exist:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
+Issue 1173 MetronomeMarks cannot be aligned on a note if a
+multi-measure rest exists in another voice}, and two spacing
+bugs:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1240,
+Issue 1240} and
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1252,
+Issue 1252}.  If you decide to test 2.13.35, do not be surprised
+to discover problems; just send us polite @ref{Bug reports}.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Alpha test of 2.14 -- LilyPond 2.13.34 released!  @emph{Sep 21, 2010}
+
+LilyPond 2.13.34 is out; this is the first alpha test of the
+upcoming 2.14 stable release.  Users are invited to experiment
+with this version.  New features since 2.12.3 are listed in the
+@qq{Changes} manual on the website section about
+@ref{Development}.
+
+One known regression against 2.12.3 still exist:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
+Issue 1173 MetronomeMarks cannot be aligned on a note if a
+multi-measure rest exists in another voice}, but we expect to find
+more.  If you decide to test 2.13.34, do not be surprised to
+discover problems; just send us polite @ref{Bug reports}.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.13.33 released!  @emph{Sep 10, 2010}
+
+We are happy to announce the release of LilyPond 2.13.33.  This
+release contains the usual number of bugfixes.  However, a number
+of critical issues still remain, so this release is intended for
+developers only.
+
+@newsEnd
+
+
+
+
+@newsItem
 @subsubheading LilyPond 2.13.32 released!  @emph{Sep 3, 2010}
 
 We are happy to announce the release of LilyPond 2.13.32.  This
