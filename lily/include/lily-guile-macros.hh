@@ -41,7 +41,7 @@
 /* this lets us "overload" macros such as get_property to take
    symbols as well as strings */
 inline SCM
-scm_or_str2symbol (char const *c) { return scm_str2symbol (c); }
+scm_or_str2symbol (char const *c) { return scm_from_locale_symbol (c); }
 
 inline SCM
 scm_or_str2symbol (SCM s) {
@@ -49,7 +49,7 @@ scm_or_str2symbol (SCM s) {
   return s;
 }
 
-/* Using this trick we cache the value of scm_str2symbol ("fooo") where
+/* Using this trick we cache the value of scm_from_locale_symbol ("fooo") where
    "fooo" is a constant string. This is done at the cost of one static
    variable per ly_symbol2scm() use, and one boolean evaluation for
    every call.
@@ -69,7 +69,7 @@ scm_or_str2symbol (SCM s) {
     value;								\
   })
 #else
-inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
+inline SCM ly_symbol2scm (char const *x) { return scm_from_locale_symbol ((x)); }
 #endif
 
 /*
@@ -87,11 +87,11 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
     if (__builtin_constant_p ((x)))					\
       {									\
 	if (!cached)							\
-	  value = cached = scm_eval (scm_str2symbol (x),		\
-				     global_lily_module);		\
+	  value = cached = scm_eval (scm_from_locale_symbol (x),		\
+				    global_lily_module);		\
       }									\
     else								\
-      value = scm_eval (scm_str2symbol (x), global_lily_module);	\
+      value = scm_eval (scm_from_locale_symbol (x), global_lily_module);	\
     value;								\
   })
 

@@ -42,9 +42,9 @@ LY_DEFINE (ly_grob_array_ref, "ly:grob-array-ref",
   LY_ASSERT_SMOB (Grob_array, grob_arr, 1);
   LY_ASSERT_TYPE (scm_is_integer, index, 2);
 
-  vsize i = scm_to_unsigned (index);
+  vsize i = scm_to_uint (index);
   if (i == VPOS || i >= me->size ())
-    scm_out_of_range (NULL, scm_from_unsigned (i)); 
+    scm_out_of_range (NULL, scm_from_unsigned_integer (i)); 
   
   return me->grob (i)->self_scm ();
 }

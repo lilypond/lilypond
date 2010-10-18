@@ -172,7 +172,7 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
   if (SCM_HASHTABLE_P (lily_index_to_bbox_table_))
     {
       SCM box = scm_hashq_ref (lily_index_to_bbox_table_,
-			       scm_from_unsigned (signed_idx), SCM_BOOL_F);
+			       scm_from_unsigned_integer (signed_idx), SCM_BOOL_F);
       Box *box_ptr = Box::unsmob (box);
       if (box_ptr)
 	return *box_ptr;
@@ -208,7 +208,7 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
 	  b.scale (point_constant);
 
 	  scm_hashq_set_x (lily_index_to_bbox_table_,
-			   scm_from_unsigned (signed_idx),
+			   scm_from_unsigned_integer (signed_idx),
 			   b.smobbed_copy ());
 	  return b;
 	}
@@ -270,7 +270,7 @@ Open_type_font::design_size () const
 			       which will trip errors more
 			       quickly. --hwn.
 			     */
-			     scm_from_unsigned (1));
+			     scm_from_unsigned_integer (1));
   return scm_to_double (entry) * Real (point_constant);
 }
 

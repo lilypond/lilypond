@@ -134,7 +134,7 @@ Paper_book::output_aux (SCM output_channel,
       scm_call_3 (proc,
 		  performances (),
 		  output_channel,
-		  scm_long2num (*first_performance_number));
+		  scm_from_long (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
     }
 
@@ -155,7 +155,7 @@ Paper_book::output_aux (SCM output_channel,
       if (scores_ == SCM_EOL)
 	return 0;
       paper_->set_variable (ly_symbol2scm ("first-page-number"),
-			    scm_long2num (*first_page_number));
+			    scm_from_long (*first_page_number));
       paper_->set_variable (ly_symbol2scm ("is-last-bookpart"),
 			    ly_bool2scm (is_last));
       /* Generate all stencils to trigger font loads.  */
@@ -245,7 +245,7 @@ Paper_book::classic_output_aux (SCM output,
       scm_call_3 (proc,
 		  performances (),
 		  output,
-		  scm_long2num (*first_performance_number));
+		  scm_from_long (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
     }
   

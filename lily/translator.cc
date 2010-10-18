@@ -186,7 +186,7 @@ Translator::add_translator_listener (translator_listener_record **listener_list,
   name = replace_all (&name, '_', '-');
   name += "-event";
   
-  SCM class_sym = scm_str2symbol (name.c_str ());
+  SCM class_sym = scm_from_locale_symbol (name.c_str ());
   
   add_listened_event_class (class_sym);
 
