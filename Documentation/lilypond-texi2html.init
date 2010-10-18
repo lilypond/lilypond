@@ -1374,9 +1374,13 @@ sub lilypond_print_toc_div ($$)
       $lang = "";
     }
     my $reldir = $ENV{DEPTH};
-    # add a / at the end if there isn't one.  I cannot believe perl syntax!
-    if (!($reldir =~ m/\/$/ )) {
-        $reldir .= '/'
+    # strip one depth level for translations
+    if ($lang and $lang ne "en" and substr ($reldir, 0, 3) eq '../') {
+	$reldir = substr ($reldir, 3);
+    }
+    # add a / at the end if there isn't one.
+    if (substr ($reldir, -1) ne '/') {
+        $reldir .= '/';
     }
     my $uplink = $reldir."Documentation/web/manuals.${lang}html";
 
