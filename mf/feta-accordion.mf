@@ -480,9 +480,34 @@ fet_beginchar ("accordion push", "push");
 	x3 = x1;
 	bot y3 = 0;
 
-	draw z1
-	     -- z2
-	     -- z3;
+	save nw_offset, ne_offset;
+	pair nw_offset, ne_offset;
+	save sw_offset, se_offset, line_radius;
+	pair sw_offset, se_offset;
+
+	line_radius := linewidth / 2;
+	nw_offset := line_radius * unitvector (z1 - z2);
+	ne_offset := nw_offset rotated -90;
+	sw_offset := line_radius * unitvector (z3 - z2);
+	se_offset := sw_offset rotated 90;
+
+	z4 = ((z1 - ne_offset)
+	     -- (z2 - ne_offset))
+	     intersectionpoint
+	     ((z2 - se_offset)
+	     -- (z3 - se_offset));
+
+	fill z1 + ne_offset
+	     -- z2 + ne_offset
+	     .. rt z2 {down}
+	     .. z2 + se_offset
+	     -- z3 + se_offset
+	     .. z3 + sw_offset {- se_offset}
+	     .. z3 - se_offset
+	     -- z4
+	     -- z1 - ne_offset
+	     .. z1 + nw_offset {ne_offset}
+	     .. cycle;
 fet_endchar;
 
 
