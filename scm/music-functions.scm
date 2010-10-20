@@ -864,28 +864,17 @@ Syntax:
   (ly:moment-main-numerator moment)
   (ly:moment-main-denominator moment)))
 
-(define (skip-this moment)
- "set skipTypesetting, make SkipMusic of the given MOMENT length,
- and then unset skipTypesetting."
+(define (make-skipped moment bool)
+ "Depending on BOOL, set or unset skipTypesetting,
+then make SkipMusic of the given MOMENT length, and
+then revert skipTypesetting."
  (make-sequential-music
   (list
-   (context-spec-music (make-property-set 'skipTypesetting #t)
+   (context-spec-music (make-property-set 'skipTypesetting bool)
     'Score)
    (make-music 'SkipMusic 'duration
     (make-duration-of-length moment))
-   (context-spec-music (make-property-set 'skipTypesetting #f)
-    'Score))))
-
-(define (unskip-this moment)
- "unset skipTypesetting, make SkipMusic of the given MOMENT length,
- and then set skipTypesetting."
- (make-sequential-music
-  (list
-   (context-spec-music (make-property-set 'skipTypesetting #f)
-    'Score)
-   (make-music 'SkipMusic 'duration
-    (make-duration-of-length moment))
-   (context-spec-music (make-property-set 'skipTypesetting #t)
+   (context-spec-music (make-property-set 'skipTypesetting (not bool))
     'Score))))
 
 (define (skip-as-needed music parser)
@@ -924,11 +913,11 @@ Syntax:
          (list
           (make-sequential-music
            (list
-            (skip-this skip-length)
+            (make-skipped skip-length #t)
             ;; let's draw a separator between the beginning and the end
             (context-spec-music (make-property-set 'whichBar "||")
                                 'Timing)))
-          (unskip-this show-first-length)
+          (make-skipped show-first-length #f)
           music))))
 
      ;; we may only want to print the last length
@@ -937,7 +926,7 @@ Syntax:
           ((skip-length (ly:moment-sub orig-length show-last-length)))
         (make-simultaneous-music
          (list
-          (skip-this skip-length)
+          (make-skipped skip-length #t)
           music))))
 
      ;; we may only want to print the beginning; in this case
