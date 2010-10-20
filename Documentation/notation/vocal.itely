@@ -93,10 +93,10 @@ Snippets:
 
 Lyrics are entered in a special input mode, which can be introduced
 by the keyword @code{\lyricmode}, or by using @code{\addlyrics} or
-@code{\lyricsto}.  In this mode the input @code{d} is not parsed as
-the pitch @notation{D}, but rather as a one-letter syllable of text.
-In other words, syllables are entered like notes but with pitches
-replaced by text.
+@code{\lyricsto}.  In this special input mode, the input @code{d}
+is not parsed as the pitch @notation{D}, but rather as a one-letter
+syllable of text.  In other words, syllables are entered like notes
+but with pitches replaced by text.
 
 For example:
 
@@ -159,8 +159,8 @@ into the input file, providing it is saved with UTF-8 encoding.
 For more information, see @ref{Text encoding}.
 
 @lilypond[quote,verbatim]
-\relative c' { e4 f e d e f e2 }
-\addlyrics { He said: “Let my peo -- ple go.” }
+\relative c'' { d8 c16 a bes8 f e' d c4 }
+\addlyrics { „Schad’ um das schö -- ne grü -- ne Band, }
 @end lilypond
 
 Normal quotes may be used in lyrics, but they have to be preceded
@@ -273,7 +273,7 @@ and entered with @code{\lyricmode}.
     c4 b8. a16 g4. f8 e4 d c2
   }
 
-% uses default durations of 2;
+% uses previous explicit duration of 2;
   \new Lyrics \lyricmode {
     Joy to the earth!
   }
@@ -286,7 +286,7 @@ and entered with @code{\lyricmode}.
 @end lilypond
 
 The first stanza is not aligned with the notes because the durations
-were not specified, and the default value of 2 is used for each
+were not specified, and the previous value of 2 is used for each
 word.
 
 The second stanza shows how the words can be aligned quite
@@ -470,7 +470,8 @@ Here is an example demonstrating its use:
 
 @seealso
 Notation Reference:
-@ref{Extenders and hyphens}.
+@ref{Extenders and hyphens},
+@ref{Keeping contexts alive}.
 
 @node Manual syllable durations
 @unnumberedsubsubsec Manual syllable durations
@@ -550,8 +551,7 @@ hyphenated lines and extenders under melismata correctly.
 
 @seealso
 Notation Reference:
-@ref{Dialogue over music},
-@ref{Keeping contexts alive}.
+@ref{Dialogue over music}.
 
 Internals Reference:
 @rinternals{Lyrics},
