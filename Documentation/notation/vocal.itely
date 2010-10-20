@@ -2352,15 +2352,14 @@ Notation Reference:
 @cindex names, character
 
 Character names are usually shown to the left of the staff when the
-staff is dedicated to that character alone.  The instrument name can
-be used for this purpose.
+staff is dedicated to that character alone:
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
     \new Staff {
-      \set Staff.instrumentName = #"Kaspar"
-      \set Staff.shortInstrumentName = #"Kas"
+      \set Staff.vocalName = \markup \smallCaps Kaspar
+      \set Staff.shortVocalName = \markup \smallCaps Kas.
       \relative c' {
         \clef "G_8"
         c4 c c c
@@ -2369,8 +2368,8 @@ be used for this purpose.
       }
     }
     \new Staff {
-      \set Staff.instrumentName = #"Melchior"
-      \set Staff.shortInstrumentName = #"Mel"
+      \set Staff.vocalName = \markup \smallCaps Melchior
+      \set Staff.shortVocalName = \markup \smallCaps Mel
       \clef "bass"
       \relative c' {
         a4 a a a
