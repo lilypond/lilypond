@@ -1536,7 +1536,7 @@ interpretarse la expresión musical que está dentro del bloque
 @bs{}@code{score}.  Los valores predeterminados de propiedades de
 contexto válidos para toda la partitura se pueden cambiar dentro del
 bloque @bs{}@code{layout}.  Véase @ref{Modificar las propiedades de
-los contextos}).
+los contextos}.}
 
 En las secciones anteriores ha podido ver muchos ejemplos prácticos que
 creaban nuevos contextos de @code{Staff} y de @code{Voice}, pero para
