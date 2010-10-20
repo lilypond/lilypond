@@ -75,6 +75,9 @@ in @ref{Ambitus}.
 Music Glossary:
 @rglos{ambitus}.
 
+Snippets:
+@rlsr{Vocal music}.
+
 @node Entering lyrics
 @unnumberedsubsubsec Entering lyrics
 
@@ -2038,6 +2041,9 @@ Notation Reference:
 @ref{Placing lyrics vertically},
 @ref{Stanzas}.
 
+Snippets:
+@rlsr{Vocal music}.
+
 @node Lead sheets
 @unnumberedsubsubsec Lead sheets
 
@@ -2130,6 +2136,9 @@ Notation Reference:
 @ref{Grouping staves},
 @ref{Shape note heads},
 @ref{Single-staff polyphony}.
+
+Snippets:
+@rlsr{Vocal music}.
 
 Internals Reference:
 @rinternals{ChoirStaff},
@@ -2343,6 +2352,9 @@ Notation Reference:
 @ref{Transpose},
 @ref{Writing parts},
 @ref{Writing text}.
+
+Snippets:
+@rlsr{Vocal music}.
 
 
 @node Character names
@@ -2558,7 +2570,7 @@ Notation Reference:
 @ref{Using music functions}.
 
 Snippets:
-@rlsr{vocal-music}.
+@rlsr{Vocal music}.
 
 Internals Reference:
 @rinternals{InstrumentSwitch},
@@ -2696,6 +2708,9 @@ is described in @ref{Ancient notation}.
 @seealso
 Notation reference:
 @ref{Ancient notation}.
+
+Snippets:
+@rlsr{Vocal music}.
 
 
 @node Setting a chant
