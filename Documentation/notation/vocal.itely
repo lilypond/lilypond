@@ -1086,14 +1086,11 @@ layout.
 }
 @end lilypond
 
-@c @snippets
-@c This snippet has been renamed to "lyrics-alignment.ly"
-@c update as soon as lsr/is updated -vv
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-@c {lyrics-alignment.ly}
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{lyrics-alignment.ly}
 
 @c TODO: move to LSR -vv
-@snippets
 
 Checking to make sure that text scripts and lyrics are within the margins is
 a relatively large computational task.  To speed up processing, LilyPond does
