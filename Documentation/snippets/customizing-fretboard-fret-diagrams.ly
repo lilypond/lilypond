@@ -75,7 +75,7 @@ can be omitted in property overrides.
 } % begin verbatim
 
 \include "predefined-guitar-fretboards.ly"
-\storePredefinedDiagram #default-fret-table \chordmode { c' } % begin verbatim
+\storePredefinedDiagram #default-fret-table \chordmode { c' }
 
                         #guitar-tuning
                         #"x;1-1-(;3-2;3-3;3-4;1-1-);"
