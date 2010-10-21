@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -659,10 +659,10 @@ procéder, bien plus que dans l'exemple suivant.
 
 
 Vous pourriez aussi recourir à la commande
-@code{\RemoveEmptyStaffContext} pour créer votre portée d'ossia.
+@code{\Staff \RemoveEmptyStaves} pour créer votre portée d'ossia.
 Cependant, cette méthode reste limitée à l'apparition de ces ossias en
 début de ligne.  Pour plus d'information au sujet de la commande
-@code{\RemoveEmptyStaffContext}, reportez-vous au chapitre
+@code{\Staff \RemoveEmptyStaves}, reportez-vous au chapitre
 @ref{Masquage de portées}.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -689,7 +689,7 @@ début de ligne.  Pour plus d'information au sujet de la commande
 
 \layout {
   \context {
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
     \override VerticalAxisGroup #'remove-first = ##t
   }
 }
@@ -731,7 +731,7 @@ Référence des propriétés internes :
 @cindex Masquage de portée
 @cindex portée vide
 
-@funindex \RemoveEmptyStaffContext
+@funindex \RemoveEmptyStaves
 @funindex RemoveEmptyStaffContext
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
@@ -749,7 +749,7 @@ Désactiver le graveur @code{Staff_symbol_engraver} dans un contexte
 \relative c''' { a8 f e16 d c b a2 }
 @end lilypond
 
-L'instruction @code{\RemoveEmptyStaffContext} placée dans un bloc
+L'instruction @code{\Staff \RemoveEmptyStaves} placée dans un bloc
 @code{\layout} aura pour effet de masquer toute portée qui ne contient
 rien.  Dans les partitions d'orchestre, les portées qui n'ont que des
 silences sont habituellement masquées afin de gagner de la place.  Ce
@@ -765,7 +765,7 @@ de ces éléments.}
 @lilypond[verbatim,quote,ragged-right]
 \layout {
   \context {
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
   }
 }
 
@@ -786,30 +786,25 @@ de ces éléments.}
 @cindex ossia
 
 @noindent
-@code{\RemoveEmptyStaffContext} permet aussi de gérer des fragments
+@code{\Staff \RemoveEmptyStaves} permet aussi de gérer des fragments
 d'ossia attachés à une portée.  Pour plus de détails, voir
 @ref{Portées d'ossia}.
 
 @cindex musique ancienne, masquage de portée
 @cindex portées rythmiques, masquage
 
-@funindex \RemoveEmptyStaffContext
-@funindex RemoveEmptyStaffContext
-@funindex \AncientRemoveEmptyStaffContext
-@funindex AncientRemoveEmptyStaffContext
-@funindex \RemoveEmptyRhythmicStaffContext
-@funindex RemoveEmptyRhythmicStaffContext
+@funindex \RemoveEmptyStaves
 
-La commande @code{\AncientRemoveEmptyStaffContext} permet de masquer des
+La commande @code{\VaticanaStaff \RemoveEmptyStaves} permet de masquer des
 portées vides dans les contextes de musique ancienne.  Pour des
 contextes @code{RhythmicStaff}, il faudra utiliser
-@code{\RemoveEmptyRhythmicStaffContext}.
+@code{\RhythmicStaff \RemoveEmptyStaves}.
 
 
 @predefined
-@code{\RemoveEmptyStaffContext},
-@code{\AncientRemoveEmptyStaffContext},
-@code{\RemoveEmptyRhythmicStaffContext}.
+@code{\Staff \RemoveEmptyStaves},
+@code{\VaticanaStaff \RemoveEmptyStaves},
+@code{\RhythmicStaff \RemoveEmptyStaves}.
 @endpredefined
 
 
@@ -858,7 +853,7 @@ graveur, recourrir aux dérogations suivantes@tie{}:
 @end example
 
 En ce qui concerne les désagréments et messages liés à l'utilisation de
-l'instruction @code{\RemoveEmptyStaffContext}, concultez
+l'instruction @code{\Staff \RemoveEmptyStaves}, consultez
 @ref{Modification des réglages par défaut d'un contexte}.
 
 
