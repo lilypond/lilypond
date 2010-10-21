@@ -171,7 +171,7 @@ def show_rules (file, from_version, to_version):
 
 def do_conversion (str, from_version, to_version):
     """Apply conversions from FROM_VERSION to TO_VERSION.  Return
-tuple (LAST,STR), with the last succesful conversion and the resulting
+tuple (LAST,STR), with the last successful conversion and the resulting
 string."""
     conv_list = get_conversions (from_version, to_version)
 
