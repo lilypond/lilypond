@@ -1754,7 +1754,7 @@ changed:
 @end lilypond
 
 @knownissues
-Like for @code{associatedVoice}, @code{includeGraceNotes} needs to be
+Like @code{associatedVoice}, @code{includeGraceNotes} needs to be
 set at latest one syllable before the one which is to be put under a
 grace note.  For the case of a grace note at the very beginning of a
 piece of music, consider using a @code{\with} or @code{\context}
@@ -1775,11 +1775,14 @@ block:
 
 @subsubheading Switching to an alternative melody
 
-More complex variations in text underlay are possible.  It is possible
-to switch the melody for a line of lyrics during the text.  This is
-done by setting the @code{associatedVoice} property.  In the example
+@cindex associatedVoice
+@cindex alternative melody, switching to
 
-@lilypond[ragged-right,quote]
+More complex variations in setting lyrics to music are possible.
+The melody to which the lyrics are being set can be changed from
+within the lyrics by setting the @code{associatedVoice} property:
+
+@lilypond[verbatim,quote]
 <<
   \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -1806,56 +1809,42 @@ done by setting the @code{associatedVoice} property.  In the example
   \new Lyrics \lyricsto "lahlah" {
     % Tricky: need to set associatedVoice
     % one syllable too soon!
-    \set associatedVoice = alternative % applies to "ran"
+    \set associatedVoice = "alternative" % applies to "ran"
     Ty --
     ran --
     no --
-    \set associatedVoice = lahlah % applies to "rus"
+    \set associatedVoice = "lahlah" % applies to "rus"
     sau -- rus Rex
   } >>
 @end lilypond
 
 @noindent
-the text for the first stanza is set to a melody called @q{lahlah},
+The text for the first stanza is set to the melody called @q{lahlah}
+in the usual way, but the second stanza is set initally to the
+@code{lahlah} context and is then switched to the @code{alternative}
+melody for the syllables @q{ran} to @q{sau} by the lines:
 
 @example
-\new Lyrics \lyricsto "lahlah" @{
-  Ju -- ras -- sic Park
-@}
-@end example
-
-
-The second stanza initially is set to the @code{lahlah} context, but
-for the syllable @q{ran}, it switches to a different melody.
-This is achieved with
-@example
-\set associatedVoice = alternative
+\set associatedVoice = "alternative" % applies to "ran"
+Ty --
+ran --
+no --
+\set associatedVoice = "lahlah" % applies to "rus"
+sau -- rus Rex
 @end example
 
 @noindent
 Here, @code{alternative} is the name of the @code{Voice} context
 containing the triplet.
 
-@c TODO: make this easier to understand -vv
-This command must be one syllable too early, before @q{Ty} in this
-case.  In other words, changing the associatedVoice happens one step
-later than expected.  This is for technical reasons, and it is not a
-bug.
+Note the placement of the @code{\set associatedVoice} command --
+it appears to be one syllable too early, but this is correct.
 
-@example
-\new Lyrics \lyricsto "lahlah" @{
-  \set associatedVoice = alternative % applies to "ran"
-  Ty --
-  ran --
-  no --
-  \set associatedVoice = lahlah % applies to "rus"
-  sau -- rus Rex
-@}
-@end example
-
-@noindent
-The underlay is switched back to the starting situation by assigning
-@code{lahlah} to @code{associatedVoice}.
+@warning{The @code{\set associatedVoice} command must be placed
+one syllable @emph{before} the one at which the switch to the new
+voice is to occur.  In other words, changing the associated Voice
+happens one syllable later than expected.  This is for technical
+reasons, and it is not a bug.}
 
 
 @node Printing stanzas at the end
