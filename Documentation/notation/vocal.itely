@@ -293,7 +293,7 @@ The second stanza shows how the words can be aligned quite
 independently from the notes.  This is useful if the words to
 different stanzas fit the notes in different ways and the required
 durations are not available in a music context.  For more details
-see @ref{Manual syllable durations}.  This technical is also useful
+see @ref{Manual syllable durations}.  This technique is also useful
 when setting dialogue over music; for examples showing this, see
 @ref{Dialogue over music}.
 
@@ -671,7 +671,7 @@ providing automatic beaming is switched off.  See
 >>
 @end lilypond
 
-Clearly this is not suited to melisma over notes which are longer
+Clearly this is not suited to melismata over notes which are longer
 than eighth notes.
 
 @item
@@ -795,6 +795,8 @@ notes in an associated melody through @code{\addlyrics} or
 @cindex melisma
 @cindex extender
 
+@c TODO cf Multiple notes to one syllable; should this be merged in?
+
 @c leave this as samp. -gp
 In the last syllable of a word, melismata are sometimes indicated with
 a long horizontal line starting in the melisma syllable, and ending in
@@ -811,15 +813,17 @@ typeset by default.}
 @cindex hyphens
 
 @c leave this as samp. -gp
-Centered hyphens are entered as @samp{ -- } between syllables of a same word
-(note the spaces before and after the two hyphen characters).  The hyphen
-will be centered between the syllables, and its length will be adjusted
-depending on the space between the syllables.
+Centered hyphens are entered as @samp{ -- } between syllables of a
+same word (note the spaces before and after the two hyphen
+characters).  The hyphen will be centered between the syllables, and
+its length will be adjusted depending on the space between the
+syllables.
 
 In tightly engraved music, hyphens can be removed.  Whether this
 happens can be controlled with the @code{minimum-distance} (minimum
 distance between two syllables) and the @code{minimum-length}
-(threshold below which hyphens are removed).
+(threshold below which hyphens are removed) properties of
+@code{LyricHyphen}.
 
 
 @seealso
@@ -876,9 +880,10 @@ with @code{\addlyrics} or @code{\lyricsto}.
 
 For different or more complex orderings, the best way is to define
 the music and lyric variables first, then set up the hierarchy of
-staves and lyrics, omitting the lyrics and then add the lyrics using
-@code{\context} underneath.  This ensures that the voices referenced
-by @code{\lyricsto} have always been defined earlier.  For example:
+staves and lyrics, omitting the lyrics themselves, and then add the
+lyrics using @code{\context} underneath.  This ensures that the
+voices referenced by @code{\lyricsto} have always been defined
+earlier.  For example:
 
 @lilypond[quote,verbatim]
 sopranoMusic = \relative c'' { c4 c c c }
@@ -976,8 +981,9 @@ above and explicitly specify the position of the lyrics:
 
 Alternatively, a two-step process may be used.  First the Lyrics
 context is declared (without any content) before the Staff and
-Voice contexts, then the @code{\lyricsto} command comes after
-the Voice declaration it references, as follows:
+Voice contexts, then the @code{\lyricsto} command is placed after
+the Voice declaration it references by using @code{\context}, as
+follows:
 
 @lilypond[quote,verbatim]
 \score {
@@ -1065,7 +1071,7 @@ property of @code{LyricSpace}.
 
 @noindent
 To make this change for all lyrics in the score, set the property in the
-layout.
+@code{\layout} block.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -1689,7 +1695,7 @@ differing ways.  Such variations can still be captured with
 @subsubheading Ignoring melismata
 
 One possibility is that the text has a melisma in one stanza, but
-multiple syllables in another one.  One solution is to make the faster
+multiple syllables in another.  One solution is to make the faster
 voice ignore the melisma.  This is done by setting
 @code{ignoreMelismata} in the Lyrics context.
 
