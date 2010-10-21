@@ -1,4 +1,4 @@
-\version "2.13.26"
+\version "2.13.36"
 \header {
   lsrtags = "repeats"
   texidoc = "There are three different styles of double repeats for

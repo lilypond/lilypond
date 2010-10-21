@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Staff notation
 @section Staff notation
@@ -638,11 +638,11 @@ example.
 @end lilypond
 
 
-Using the @code{\RemoveEmptyStaffContext} command to create ossia
+Using the @code{\Staff \RemoveEmptyStaves} command to create ossia
 staves may be used as an alternative.  This method is most
 convenient when ossia staves occur immediately following a line
 break.  For more information about
-@code{\RemoveEmptyStaffContext}, see @ref{Hiding staves}.
+@code{\Staff \RemoveEmptyStaves}, see @ref{Hiding staves}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -668,7 +668,7 @@ break.  For more information about
 
 \layout {
   \context {
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
     \override VerticalAxisGroup #'remove-first = ##t
   }
 }
@@ -712,7 +712,7 @@ Internals Reference:
 @cindex hiding of staves
 @cindex empty staves
 
-@funindex \RemoveEmptyStaffContext
+@funindex \RemoveEmptyStaves
 @funindex RemoveEmptyStaffContext
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
@@ -732,7 +732,7 @@ alternative, @code{\stopStaff} may be used.
 
 
 Empty staves can be hidden by setting the
-@code{\RemoveEmptyStaffContext} command in the @code{\layout}
+@code{\Staff \RemoveEmptyStaves} command in the @code{\layout}
 block.  In orchestral scores, this style is known as @q{Frenched
 Score}.  By default, this command hides and removes all empty
 staves in a score except for those in the first system.
@@ -744,7 +744,7 @@ elements.}
 @lilypond[verbatim,quote,ragged-right]
 \layout {
   \context {
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
   }
 }
 
@@ -765,29 +765,24 @@ elements.}
 @cindex ossia
 
 @noindent
-@code{\RemoveEmptyStaffContext} can also be used to create ossia
+@code{\Staff \RemoveEmptyStaves} can also be used to create ossia
 sections for a staff.  For details, see @ref{Ossia staves}.
 
 @cindex hiding ancient staves
 @cindex hiding rhythmic staves
 
-@funindex \RemoveEmptyStaffContext
-@funindex RemoveEmptyStaffContext
-@funindex \AncientRemoveEmptyStaffContext
-@funindex AncientRemoveEmptyStaffContext
-@funindex \RemoveEmptyRhythmicStaffContext
-@funindex RemoveEmptyRhythmicStaffContext
+@funindex \RemoveEmptyStaves
 
-The @code{\AncientRemoveEmptyStaffContext} command may be used to
+The @code{\VaticanaStaff \RemoveEmptyStaves} command may be used to
 hide empty staves in ancient music contexts.  Similarly,
-@code{\RemoveEmptyRhythmicStaffContext} may be used to hide empty
+@code{\RhythmicStaff \RemoveEmptyStaves} may be used to hide empty
 @code{RhythmicStaff} contexts.
 
 
 @predefined
-@code{\RemoveEmptyStaffContext},
-@code{\AncientRemoveEmptyStaffContext},
-@code{\RemoveEmptyRhythmicStaffContext}.
+@code{\Staff \RemoveEmptyStaves},
+@code{\VaticanaStaff \RemoveEmptyStaves},
+@code{\RhythmicStaff \RemoveEmptyStaves}.
 @endpredefined
 
 
@@ -837,7 +832,7 @@ engraver:
 @end example
 
 For the Known issues and warnings associated with
-@code{\RemoveEmptyStaffContext} see @ref{Changing context default
+@code{\Staff \RemoveEmptyStaves} see @ref{Changing context default
 settings}.
 
 @node Writing parts
