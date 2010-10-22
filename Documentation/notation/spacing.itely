@@ -187,17 +187,15 @@ This section lists and describes a number of paper variables that
 may be altered.
 
 @menu
-* Vertical dimensions::
+* Fixed vertical dimensions::
+* Flexible vertical dimensions::
 * Horizontal dimensions::
 * Other layout variables::
 @end menu
 
 
-@node Vertical dimensions
-@unnumberedsubsubsec Vertical dimensions
-
-
-@subsubheading Fixed vertical dimensions
+@node Fixed vertical dimensions
+@unnumberedsubsubsec Fixed vertical dimensions
 
 @table @code
 @item paper-height
@@ -220,7 +218,8 @@ of the page.  Default: @code{6\mm}.
 @end table
 
 
-@subsubheading Flexible vertical dimensions
+@node Flexible vertical dimensions
+@unnumberedsubsubsec Flexible vertical dimensions
 
 In most cases, it is preferable for the vertical distances between
 certain items (such as margins, titles, systems, and separate
@@ -229,8 +228,18 @@ according to each situation.  A number of @code{\paper} variables
 (listed below) are available to fine-tune the stretching behavior
 of these dimensions.
 
-Each of these variables is an associative list containing four
-@emph{keys}:
+Note that the @code{\paper} variables discussed in this section do
+not control the spacing of staves within individual systems.
+Inter-system spacing is controlled by grob properties, with
+settings typically entered inside a @code{\score} block, and not
+inside a @code{\paper} block.  See
+@ref{Vertical spacing between systems}.
+
+
+@subsubheading Structure of spacing alists for @code{\paper} variables
+
+Each of these variables is an alist (associative list) containing
+four @emph{keys}:
 
 @itemize
 @item @code{padding} -- the minimum required amount of
@@ -283,6 +292,9 @@ largest of:
 eliminate collisions.
 @end itemize
 
+
+@subsubheading Modifying spacing alists for @code{\paper} variables
+
 To set or modify a single key for a dimension variable, use a
 nested declaration:
 
@@ -329,6 +341,9 @@ size) will always reset all its default key-values.  Default
 settings for the flexible vertical @code{\paper} dimensions are
 defined in @file{ly/paper-defaults-init.ly}.
 
+
+@subsubheading Flexible vertical dimension @code{\paper} variables
+
 The names of these variables follow the format
 @code{@var{upper}-@var{lower}-spacing}, where @code{@var{upper}}
 and @code{@var{lower}} are the items to be spaced.  Each distance
@@ -339,8 +354,6 @@ the nearest staff.  Note that in these variable names, the term
 @q{@code{markup}} refers to both @emph{title markups}
 (@code{bookTitleMarkup} or @code{scoreTitleMarkup}) and
 @emph{top-level markups} (see @ref{File structure}).
-
-The flexible vertical dimension @code{\paper} variables are:
 
 @table @code
 @item markup-system-spacing
@@ -1703,8 +1716,8 @@ lines.  For example, @var{system-system-spacing} controls the spacing
 from the middle staff line of the bottom staff from one system to
 the middle staff line of the top staff of the next system, whether
 or not there are lyrics below the upper system.
-See @ref{Vertical dimensions} for a description of each of these
-variables.
+See @ref{Flexible vertical dimensions} for a description of each
+of these variables.
 
 There are two more @code{\paper} block variables that affect vertical
 spacing: if @var{ragged-bottom} is set to @code{##t} then no pages will
