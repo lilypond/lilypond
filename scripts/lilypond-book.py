@@ -179,6 +179,11 @@ def get_option_parser ():
                   action='store',
                   dest='process_cmd', default='')
 
+    p.add_option ('-s', '--safe', help=_ ("Compile snippets in safe mode"),
+                  action="store_true",
+                  default=False,
+                  dest="safe_mode")
+
     p.add_option ('--skip-lily-check',
                   help=_ ("do not fail if no lilypond output is found"),
                   metavar=_ ("DIR"),
