@@ -235,29 +235,29 @@ Each of these variables is an associative list containing four
 
 @itemize
 @item @code{padding} -- the minimum required amount of
-unobstructed vertical whitespace between two items.  This can be
+unobstructed vertical whitespace between two items, measured in staff-spaces.  This can be
 thought of as the minimum height of an unobstructed (invisible)
 rectangle that extends from the leftmost to the rightmost point of
 the combined items.
 
-@item @code{space} -- the default vertical distance between the
+@item @code{space} -- the default vertical distance, measured in staff-spaces, between the
 @emph{reference points} of the two items, when no collisions would
 result, and no stretching or compressing is in effect.  The
-reference point of a title or markup is its highest point, and the
+reference point of a (title or top-level) markup is its highest point, and the
 reference point of a system is the middle line of the nearest
 staff.  Values for @code{space} that are less than either
 @code{padding} or @code{minimum-distance} are not meaningful,
-since the resulting space will never be less than either
+since the resulting distance will never be less than either
 @code{padding} or @code{minimum-distance}.
 
 @item @code{minimum-distance} -- the minimum required vertical
-distance between the reference points of the two items, when
+distance, measured in staff-spaces, between the reference points of the two items, when
 compressing is in effect.  Values for @code{minimum-distance} that
 are less than @code{padding} are not meaningful, since the
-resulting space will never be less than @code{padding.}
+resulting distance will never be less than @code{padding.}
 
-@item @code{stretchability} -- the stretchable space's propensity
-to stretch.  If zero, the space will not stretch (unless
+@item @code{stretchability} -- a unitless measure of the dimension's relative propensity
+to stretch.  If zero, the distance will not stretch (unless
 collisions would result).  When positive, the significance of a
 particular dimension's @code{stretchability} value lies only in
 its relation to the @code{stretchability} values of the other
@@ -267,7 +267,7 @@ Values should be non-negative and finite.  The value @code{+inf.0}
 triggers a @code{programming_error} and is ignored, but
 @code{1.0e7} can be used for an almost infinitely stretchable
 spring.  If unset, the default value is set to @code{space}.  Note
-that the stretchable space's propensity to @emph{compress} cannot
+that the dimension's propensity to @emph{compress} cannot
 be directly set by the user and is equal to
 (@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
 
@@ -329,18 +329,18 @@ size) will always reset all its default key-values.  Default
 settings for the flexible vertical @code{\paper} dimensions are
 defined in @file{ly/paper-defaults-init.ly}.
 
-The names of the flexible vertical dimension variables follow the
+The names of these variables follow the
 format @code{@var{upper}-@var{lower}-spacing}, where
 @code{@var{upper}} and @code{@var{lower}} are the items to be
 spaced.  Each distance is measured between the reference points of
-the two items: the reference point of a title or markup is its
+the two items: the reference point of a (title or top-level) markup is its
 highest point, and the reference point of a system is the middle
 line of the nearest staff.  Note that in these variable names, the
-term @q{@code{markup}} refers to both @i{title markups}
+term @q{@code{markup}} refers to both @emph{title markups}
 (@code{bookTitleMarkup} or @code{scoreTitleMarkup}) and
-@i{top-level markups} (see @ref{File structure}).
+@emph{top-level markups} (see @ref{File structure}).
 
-The flexible vertical dimension variables are:
+The flexible vertical dimension @code{\paper} variables are:
 
 
 @table @code
