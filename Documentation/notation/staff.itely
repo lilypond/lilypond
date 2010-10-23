@@ -713,7 +713,6 @@ Internals Reference:
 @cindex empty staves
 
 @funindex \RemoveEmptyStaves
-@funindex RemoveEmptyStaffContext
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
 @funindex stopStaff
