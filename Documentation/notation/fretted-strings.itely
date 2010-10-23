@@ -1419,7 +1419,7 @@ even when applied to a single note.
 <g-\rightHandFinger #3 >
 <c-\rightHandFinger #4 >
 <c,-\rightHandFinger #1 e-\rightHandFinger #2
-g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+ g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 @end lilypond
 
 For convenience, you can abbreviate @code{\rightHandFinger} to something
@@ -1578,6 +1578,7 @@ Notation Reference:
 @funindex \powerChords
 
 @cindex power chords
+@cindex chords, power
 
 Power chords and their symbols can be engraved in chord mode or as chord
 constructs:
@@ -1640,6 +1641,9 @@ mixedChords = \chordmode {
 @end lilypond
 
 @seealso
+Music Glossary:
+@rglos{power chord}.
+
 Notation Reference:
 @ref{Extended and altered chords},
 @ref{Printing chord names}.
