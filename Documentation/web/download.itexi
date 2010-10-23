@@ -289,12 +289,14 @@ acknowledged.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-For Intel chips (if in doubt, use this).
+For MacOS X 10.4 or higher, running on Intel CPUs (if in doubt,
+use this).
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-For G3 and G4 CPUs (old Apple computers).
+For MacOS X 10.4 or higher, running on G3 and G4 CPUs (old Apple
+computers).
 
 @end itemize
 
