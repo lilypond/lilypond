@@ -383,10 +383,11 @@ language =
 			     #f)))
 
      (if extract-alist
-	 (begin
+	 (let ((lang-alist (eval-string extract-alist)))
 	   (if (ly:get-option 'verbose)
 	       (ly:message (_ "Using ~a note names...") str))
-	   (ly:parser-set-note-names parser (eval-string extract-alist)))
+	   (set! pitchnames lang-alist)
+	   (ly:parser-set-note-names parser lang-alist))
 	 (ly:error (_ "Cannot process ~a as a language file.
 Use \\include \"~a\" instead.") file-name file-name))
      make-void-music))
