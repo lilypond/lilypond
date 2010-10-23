@@ -25,9 +25,12 @@
 %% this file is alphabetically sorted.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% need SRFI-1 for filter; optargs for lambda*
+%% need SRFI-1 for filter;
+%% optargs for lambda*;
+%% regex for string-match
 #(use-modules (srfi srfi-1)
-	      (ice-9 optargs))
+	      (ice-9 optargs)
+	      (ice-9 regex))
 
 %% TODO: using define-music-function in a .scm causes crash.
 
@@ -359,6 +362,34 @@ label =
 	       'elements (list (make-music 'LabelEvent
 					   'page-label label))))
 
+
+language =
+#(define-music-function (parser location str) (string?)
+   (_i "Select note-names language.")
+   ;; This function is a hack around the old language
+   ;; selection system, using separate .ly files for each
+   ;; supported languages.
+   ;; TODO: re-implement language selection in a cleaner way.
+   (let* ((file-name (string-append (string-downcase! str) ".ly"))
+
+	  ; Ugh.  ly:gulp-file's "file not found" error message
+	  ; won't be much informative in this specific case.
+	  (raw-string (ly:gulp-file file-name))
+
+	  ; extract the pitchnames alist.
+	  (delim-alist (string-match "`\\(.*\\)\\)\\s[ |\n]?\\)" raw-string ))
+	  (extract-alist (if delim-alist
+			     (match:substring delim-alist)
+			     #f)))
+
+     (if extract-alist
+	 (begin
+	   (if (ly:get-option 'verbose)
+	       (ly:message (_ "Using ~a note names...") str))
+	   (ly:parser-set-note-names parser (eval-string extract-alist)))
+	 (ly:error (_ "Cannot process ~a as a language file.
+Use \\include \"~a\" instead.") file-name file-name))
+     make-void-music))
 
 
 makeClusters =

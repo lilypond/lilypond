@@ -439,14 +439,32 @@ any standard.
 @cindex language, pitch names in other
 
 There are predefined sets of note and accidental names for various
-other languages.  To use them, include the language-specific init
-file listed below.  For example, to use English note names, add
-@code{@w{\include "english.ly"}} to the input file.
+other languages.  These may be selected using the following
+shortcut syntax:
+
+@example
+\language "italiano"
+@end example
+
+@noindent
+for Italian note names, or any other supported language listed below.
+Alternatively, the relevant language-specific file may be directly
+included in the input file; the previous example could equally be
+written as follows:
+
+@example
+\include "italiano.ly"
+@end example
+
+@noindent
+The latter syntax is actually more reliable, in that it allows for more
+complex files to be included: for instance the @file{arabic.ly} file is
+not supported by the @code{@bs{}language} shortcut, and can only be
+processed through the @code{@bs{}include} command.
 
 @warning{Because some other include files (such as @code{@w{predefined-fretboards.ly}})
-use default (Nederlands) note names, the @code{@bs{}include}
-command for the language file should be placed after all other
-LilyPond distribution files.}
+use default (Nederlands) note names, it is recommended to select the note name language
+@emph{after} having included all other LilyPond distribution files.}
 
 The available language files and the note names they define are:
 
