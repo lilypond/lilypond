@@ -102,6 +102,7 @@ context:
 <c e g>2 <g' b d>
 @end lilypond
 
+@noindent
 To avoid this behavior, explicitly create the @code{Staff} context:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
