@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.29"
 
 @node Notación de los pentagramas
 @section Notación de los pentagramas
@@ -647,10 +647,10 @@ en ejemplo siguiente.
 @end lilypond
 
 Como alternativa, se puede usar la instrucción
-@code{\RemoveEmptyStaffContext} para crear pentagramas de ossia.  Este
+@code{\RemoveEmptyStaves} para crear pentagramas de ossia.  Este
 método es muy conveniente cuando los pentagramas de ossia aparecen
 inmediatamente después de un salto de línea. Para ver más información
-sobre @code{\RemoveEmptyStaffContext}, consulte @ref{Ocultar pentagramas}.
+sobre @code{\RemoveEmptyStaves}, consulte @ref{Ocultar pentagramas}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -676,7 +676,7 @@ sobre @code{\RemoveEmptyStaffContext}, consulte @ref{Ocultar pentagramas}.
 
 \layout {
   \context {
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
     \override VerticalAxisGroup #'remove-first = ##t
   }
 }
@@ -722,8 +722,8 @@ Referencia de funcionamiento interno:
 @cindex ocultar pentagramas
 @cindex vacío, pentagrama
 
-@funindex \RemoveEmptyStaffContext
-@funindex RemoveEmptyStaffContext
+@funindex \RemoveEmptyStaves
+@funindex RemoveEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
 @funindex stopStaff
@@ -740,11 +740,11 @@ alternativa se puede utilizar la instrucción @code{\stopStaff}.
 @end lilypond
 
 Se pueden ocultar los pentagramas que están vacíos mediante la
-instrucción @code{\RemoveEmptyStaffContext} dentro del bloque
-@code{\layout}.  En las partituras orquestales, este estilo se conoce
-como @q{partitura a la francesa}.  De forma predeterminada, esta
-instrucción oculta y elimina todos los pentagramas vacíos de la
-partitura excepto los del primer sistema.
+instrucción @code{\RemoveEmptyStaves} dentro del bloque @code{\layout}
+para el contexto @code{\Staff}.  En las partituras orquestales, este
+estilo se conoce como @q{partitura a la francesa}.  De forma
+predeterminada, esta instrucción oculta y elimina todos los
+pentagramas vacíos de la partitura excepto los del primer sistema.
 
 @warning{Un pentagrama se considera vacío cuando contiene solamente
 silencios, silencios multicompás, desplazamientos, silencios de
@@ -753,7 +753,7 @@ separación o una combinación de estos elementos.}
 @lilypond[verbatim,quote,ragged-right]
 \layout {
   \context {
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
   }
 }
 
@@ -774,31 +774,27 @@ separación o una combinación de estos elementos.}
 @cindex ossia
 
 @noindent
-También se puede usar @code{\RemoveEmptyStaffContext} para crear
-secciones de ossia para un pentagrama.  Para ver más detalles,
-consulte @ref{Pentagramas de Ossia}.
+También se puede usar @code{\RemoveEmptyStaves} en el contexto
+@code{\Staff} para crear secciones de ossia para un pentagrama.  Para
+ver más detalles, consulte @ref{Pentagramas de Ossia}.
 
 @cindex ocultar pentagramas de música antigua
 @cindex ocultar pentagramas rítmicos
 
-@funindex \RemoveEmptyStaffContext
-@funindex RemoveEmptyStaffContext
-@funindex \AncientRemoveEmptyStaffContext
-@funindex AncientRemoveEmptyStaffContext
-@funindex \RemoveEmptyRhythmicStaffContext
-@funindex RemoveEmptyRhythmicStaffContext
+@funindex \RemoveEmptyStaves
+@funindex RemoveEmptyStaves
 
-Se puede usar la instrucción @code{\AncientRemoveEmptyStaffContext}
-para ocultar los pentagramas vacíos en contextos de música antigua.
-de forma similar, se puede usar
-@code{\RemoveEmptyRhythmicStaffContext} para ocultar los contextos
+Se puede usar la instrucción @code{\RemoveEmptyStaves} para ocultar
+los pentagramas vacíos en contextos de música antigua como
+@code{\VaticanaStaff}.  De forma similar, se puede usar
+@code{\RhythmicStaff \RemoveEmptyStaves} para ocultar los contextos
 @code{RhythmicStaff} vacíos.
 
 
 @predefined
-@code{\RemoveEmptyStaffContext},
-@code{\AncientRemoveEmptyStaffContext},
-@code{\RemoveEmptyRhythmicStaffContext}.
+@code{\Staff \RemoveEmptyStaves},
+@code{\VaticanaStaff \RemoveEmptyStaves},
+@code{\RhythmicStaff \RemoveEmptyStaves}.
 @endpredefined
 
 
@@ -849,8 +845,8 @@ grabador:
 @end example
 
 Para ver los fallos y problemas conocidos, así como las advertencias
-asociadas con @code{\RemoveEmptyStaffContext}, consulte @ref{Cambiar
-los valores por omisión de los contextos}.
+asociadas con @code{\RemoveEmptyStaves}, consulte @ref{Cambiar los
+valores por omisión de los contextos}.
 
 @node Escritura de las particellas
 @subsection Escritura de las particellas
