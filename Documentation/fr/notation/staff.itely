@@ -732,7 +732,6 @@ Référence des propriétés internes :
 @cindex portée vide
 
 @funindex \RemoveEmptyStaves
-@funindex RemoveEmptyStaffContext
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
 @funindex stopStaff
