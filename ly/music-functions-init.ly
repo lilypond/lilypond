@@ -360,7 +360,6 @@ label =
 					   'page-label label))))
 
 
-
 makeClusters =
 #(define-music-function (parser location arg) (ly:music?)
    (_i "Display chords in @var{arg} as clusters.")
