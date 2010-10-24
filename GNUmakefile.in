@@ -251,7 +251,7 @@ RESULT_DIR=$(top-build-dir)/out/test-results
 test:
 	@echo 'For tracking crashes: use'
 	@echo
-	@echo '        grep sourcefilename `grep -L systems.texi out/lybook-db/*/*log|sed s/log/ly/g`'
+	@echo '        grep sourcefilename `grep -L systems.texi out/lybook-testdb/*/*log|sed s/log/ly/g`'
 	@echo
 	$(MAKE) -C input/regression/ out=test local-test
 	$(MAKE) -C input/regression/musicxml out=test local-test
