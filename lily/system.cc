@@ -573,6 +573,34 @@ System::get_extremal_staff (Direction dir, Interval const &iv)
 }
 
 Interval
+System::pure_refpoint_extent (vsize start, vsize end)
+{
+  Interval ret;
+  Grob *alignment = get_vertical_alignment ();
+  if (!alignment)
+    return Interval ();
+
+  extract_grob_set (alignment, "elements", staves);
+  vector<Real> offsets = Align_interface::get_minimum_translations (alignment, staves, Y_AXIS, true, start, end);
+
+  for (vsize i = 0; i < offsets.size (); ++i)
+    if (Page_layout_problem::is_spaceable (staves[i]))
+      {
+	ret[UP] = offsets[i];
+	break;
+      }
+
+  for (vsize i = offsets.size (); i--;)
+    if (Page_layout_problem::is_spaceable (staves[i]))
+      {
+	ret[DOWN] = offsets[i];
+	break;
+      }
+
+  return ret;
+}
+
+Interval
 System::part_of_line_pure_height (vsize start, vsize end, bool begin)
 {
   Grob *alignment = get_vertical_alignment ();

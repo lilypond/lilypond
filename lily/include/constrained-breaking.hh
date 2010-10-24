@@ -44,6 +44,11 @@ struct Line_details {
   Grob *last_column_;
   Real force_;
   Line_shape shape_;
+  Interval refpoint_extent_; /* The refpoints of the first and last
+				spaceable staff in this line.  min-distance
+				should be measured from the bottom
+				refpoint_extent of one line to the
+				top refpoint_extent of the next. */
   Real tallness_; /* Y-extent, adjusted according to begin/rest-of-line*/
 
   Real padding_;  /* compulsory space after this system (if we're not
@@ -74,7 +79,6 @@ struct Line_details {
   bool last_markup_line_;
   bool first_markup_line_;
   bool tight_spacing_;
-  Real first_refpoint_offset_;
 
   Line_details ()
   {
@@ -100,7 +104,6 @@ struct Line_details {
     last_markup_line_ = false;
     first_markup_line_ = false;
     tallness_ = 0;
-    first_refpoint_offset_ = 0;
   }
 
   Line_details (Prob *pb, Output_def *paper);

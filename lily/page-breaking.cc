@@ -109,8 +109,12 @@ compress_lines (const vector<Line_details> &orig)
 	  if (!orig[i].tight_spacing_)
 	    padding = orig[i].title_ ? old.title_padding_ : old.padding_;
 
+	  // FIXME: double check these. Doesn't foo.piggyback (bar) mean
+	  // that foo goes on top?
+	  // TODO: break out a Line_details::piggyback from here?
 	  compressed.shape_ = old.shape_.piggyback (orig[i].shape_, padding);
-	  compressed.first_refpoint_offset_ += compressed.shape_.rest_[UP] - old.shape_.rest_[UP];
+	  compressed.refpoint_extent_[UP] = old.refpoint_extent_[UP];
+	  compressed.refpoint_extent_[DOWN] += compressed.shape_.rest_[UP] - old.shape_.rest_[UP];
 	  compressed.space_ += old.space_;
 	  compressed.inverse_hooke_ += old.inverse_hooke_;
 
@@ -889,34 +893,40 @@ Page_breaking::compute_line_heights ()
   Real prev_hanging = 0;
   Real prev_hanging_begin = 0;
   Real prev_hanging_rest = 0;
+
+  // refpoint_hanging is the y coordinate of the origin of this system.
+  // It may not be the same as refpoint_extent[UP], which is the
+  // refpoint of the first spaceable staff in this system.
   Real prev_refpoint_hanging = 0;
   for (vsize i = 0; i < cached_line_details_.size (); i++)
     {
-      Line_shape shape = cached_line_details_[i].shape_;
+      Line_details& cur = cached_line_details_[i];
+      Line_shape shape = cur.shape_;
       Real a = shape.begin_[UP];
       Real b = shape.rest_[UP];
-      bool title = cached_line_details_[i].title_;
+      bool title = cur.title_;
       Real refpoint_hanging = max (prev_hanging_begin + a, prev_hanging_rest + b);
 
       if (i > 0)
 	{
 	  Real padding = 0;
-	  if (!cached_line_details_[i].tight_spacing_)
+	  Line_details const& prev = cached_line_details_[i-1];
+	  if (!cur.tight_spacing_)
 	    padding = title
-	      ? cached_line_details_[i-1].title_padding_
-	      : cached_line_details_[i-1].padding_;
+	      ? prev.title_padding_
+	      : prev.padding_;
 	  Real min_dist = title
-	    ? cached_line_details_[i-1].title_min_distance_
-	    : cached_line_details_[i-1].min_distance_;
+	    ? prev.title_min_distance_
+	    : prev.min_distance_;
 	  refpoint_hanging = max (refpoint_hanging + padding,
-				  prev_refpoint_hanging + min_dist
-				  + cached_line_details_[i].first_refpoint_offset_);
+				  prev_refpoint_hanging - prev.refpoint_extent_[DOWN]
+				  + cur.refpoint_extent_[UP] + min_dist);
 	}
 
       Real hanging_begin = refpoint_hanging - shape.begin_[DOWN];
       Real hanging_rest = refpoint_hanging - shape.rest_[DOWN];
       Real hanging = max (hanging_begin, hanging_rest);
-      cached_line_details_[i].tallness_ = hanging - prev_hanging;
+      cur.tallness_ = hanging - prev_hanging;
       prev_hanging = hanging;
       prev_hanging_begin = hanging_begin;
       prev_hanging_rest = hanging_rest;
