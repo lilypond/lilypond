@@ -629,9 +629,23 @@ System::calc_pure_relevant_grobs (SCM smob)
 
   for (vsize i = 0; i < elts.size (); ++i)
     {
-      if (!Axis_group_interface::has_interface (elts[i])
-	  && to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
-	relevant_grobs.push_back (elts[i]);
+      if (!Axis_group_interface::has_interface (elts[i]))
+	{
+	  if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
+	    relevant_grobs.push_back (elts[i]);
+
+	  if (Item *it = dynamic_cast<Item*> (elts[i]))
+	    {
+	      Direction d = LEFT;
+	      do
+		{
+		  Item *piece = it->find_prebroken_piece (d);
+		  if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
+		    relevant_grobs.push_back (piece);
+		}
+	      while (flip (&d) != LEFT);
+	    }
+	}
     }
 
   SCM grobs_scm = Grob_array::make_array ();
