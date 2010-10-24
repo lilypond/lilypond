@@ -1364,7 +1364,7 @@ scripts/auxiliar/doc-section.sh MANUAL SECTION
 
 @noindent
 where @code{SECTION} is the name of the file containing the section
-to be build, and @code{MANUAL} isc replaced by the name of the directory
+to be build, and @code{MANUAL} is replaced by the name of the directory
 containing the section.  So, for example, to build section 1.1 of the
 Notation Reference, use the command:
 
