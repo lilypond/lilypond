@@ -470,10 +470,6 @@ i.e.  this is not an override"
   (make-music 'SkipMusic
 	      'duration dur))
 
-(define-public make-void-music
-  (make-music 'Music
-	      'void #t))
-
 (define-public (make-grace-music music)
   (make-music 'GraceMusic
 	      'element music))

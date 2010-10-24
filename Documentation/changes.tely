@@ -66,14 +66,6 @@ which scares away people.
 
 @end ignore
 
-
-@item
-A new @code{\language} command makes it easier to select
-note names languages: instead of the usual
-@code{\include "italiano.ly"} syntax (which is still
-supported and recommended), it is possible to just type
-@code{\language "italiano"}.
-
 @item
 auotbeaming is now disabled by @code{\cadenzaOn} and enabled by
 @code{\cadenzaOff}.  Beaming in cadenzas should be indicated manually.
