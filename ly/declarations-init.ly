@@ -30,8 +30,6 @@ maxima = #(ly:make-duration -3 0)
 \include "toc-init.ly"
 
 %% default note names are dutch
-%% This also initializes the pitchnames variable,
-%% so we don't want to use \language here.
 \include "nederlands.ly"
 
 \include "drumpitch-init.ly"
