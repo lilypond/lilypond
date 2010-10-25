@@ -380,16 +380,6 @@ Constrained_breaking::initialize ()
 
   ragged_right_ = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
   ragged_last_ = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
-  /* NOTE: currently, we aren't using the space_ field of a
-     Line_details for anything.  That's because the approximations
-     used for scoring a page configuration don't actually space things
-     properly (for speed reasons) using springs anchored at the staff
-     refpoints.  Rather, the "space" is placed between the extent
-     boxes.  To get a good result, therefore, the "space" value for
-     page breaking needs to be much smaller than the "space" value for
-     page layout.  Currently, we just make it zero always, which means
-     that we will always prefer a tighter vertical layout.
-  */
   system_system_space_ = 0;
   system_system_padding_ = 0;
   system_system_min_distance_ = 0;
@@ -404,6 +394,13 @@ Constrained_breaking::initialize ()
   SCM between_scores_spec = l->c_variable ("score-system-spacing");
   SCM title_spec = l->c_variable ("score-markup-spacing");
   SCM page_breaking_spacing_spec = l->c_variable ("page-breaking-system-system-spacing");
+
+  Page_layout_problem::read_spacing_spec (spacing_spec,
+					  &system_system_space_,
+					  ly_symbol2scm ("space"));
+  Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
+					  &system_system_space_,
+					  ly_symbol2scm ("space"));
   Page_layout_problem::read_spacing_spec (spacing_spec,
 					  &system_system_padding_,
 					  ly_symbol2scm ("padding"));
@@ -508,13 +505,16 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
 			 || isnan (rest_of_line_extent[RIGHT]))
     ? Interval (0, 0) : rest_of_line_extent;
   out->shape_ = Line_shape (begin_of_line_extent, rest_of_line_extent);
-  out->refpoint_extent_ = sys->pure_refpoint_extent (start_rank, end_rank);
   out->padding_ = last ? score_system_padding_ : system_system_padding_;
   out->title_padding_ = score_markup_padding_;
   out->min_distance_ = last ? score_system_min_distance_ : system_system_min_distance_;
   out->title_min_distance_ = score_markup_min_distance_;
   out->space_ = system_system_space_;
   out->inverse_hooke_ = out->full_height () + system_system_space_;
+
+  out->refpoint_extent_ = sys->pure_refpoint_extent (start_rank, end_rank);
+  if (out->refpoint_extent_.is_empty ())
+    out->refpoint_extent_ = Interval (0, 0);
 }
 
 Real
@@ -561,6 +561,7 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   SCM first_scm = pb->get_property ("first-markup-line");
   first_markup_line_ = to_boolean (first_scm);
   tight_spacing_ = to_boolean (pb->get_property ("tight-spacing"));
+  refpoint_extent_ = Interval (0, 0);
 }
 
 Real

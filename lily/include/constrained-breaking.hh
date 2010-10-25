@@ -104,6 +104,7 @@ struct Line_details {
     last_markup_line_ = false;
     first_markup_line_ = false;
     tallness_ = 0;
+    refpoint_extent_ = Interval (0, 0);
   }
 
   Line_details (Prob *pb, Output_def *paper);
