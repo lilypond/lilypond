@@ -123,6 +123,9 @@ italianChords = {
   \set chordRootNamer = #(chord-name->italian-markup #f)
   \set chordPrefixSpacer = #0.4
 }
+powerChords = {
+  \set chordNameExceptions = #powerChordExceptions
+}
 
 
 %% compressFullBarRests
@@ -452,6 +455,7 @@ tabFullNotation = {
   % markups etc.
   \revert TabVoice.Script #'stencil
   \revert TabVoice.TextScript #'stencil
+  \revert TabVoice.TextSpanner #'stencil
   \revert TabStaff.Arpeggio #'stencil
   \revert TabStaff.NoteColumn #'ignore-collision
 }

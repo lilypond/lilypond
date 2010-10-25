@@ -107,6 +107,7 @@ public:
 
   /* class hierarchy */
   virtual System *get_system () const;
+  static System *get_system (Grob *);
   virtual void do_break_processing ();
   virtual Grob *find_broken_piece (System *) const;
   virtual void discretionary_processing ();

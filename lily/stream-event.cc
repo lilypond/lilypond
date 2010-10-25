@@ -73,8 +73,6 @@ Stream_event::internal_in_event_class (SCM class_name)
   return scm_c_memq (class_name, cl) != SCM_BOOL_F;
 }
 
-IMPLEMENT_TYPE_P (Stream_event, "ly:stream-event?");
-
 MAKE_SCHEME_CALLBACK (Stream_event, undump, 1);
 MAKE_SCHEME_CALLBACK (Stream_event, dump, 1);
 

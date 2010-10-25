@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Vocal music
 @section Vocal music
@@ -75,6 +75,9 @@ in @ref{Ambitus}.
 Music Glossary:
 @rglos{ambitus}.
 
+Snippets:
+@rlsr{Vocal music}.
+
 @node Entering lyrics
 @unnumberedsubsubsec Entering lyrics
 
@@ -90,10 +93,10 @@ Music Glossary:
 
 Lyrics are entered in a special input mode, which can be introduced
 by the keyword @code{\lyricmode}, or by using @code{\addlyrics} or
-@code{\lyricsto}.  In this mode the input @code{d} is not parsed as
-the pitch @notation{D}, but rather as a one-letter syllable of text.
-In other words, syllables are entered like notes but with pitches
-replaced by text.
+@code{\lyricsto}.  In this special input mode, the input @code{d}
+is not parsed as the pitch @notation{D}, but rather as a one-letter
+syllable of text.  In other words, syllables are entered like notes
+but with pitches replaced by text.
 
 For example:
 
@@ -156,8 +159,8 @@ into the input file, providing it is saved with UTF-8 encoding.
 For more information, see @ref{Text encoding}.
 
 @lilypond[quote,verbatim]
-\relative c' { e4 f e d e f e2 }
-\addlyrics { He said: “Let my peo -- ple go.” }
+\relative c'' { d8 c16 a bes8 f e' d c4 }
+\addlyrics { „Schad’ um das schö -- ne grü -- ne Band, }
 @end lilypond
 
 Normal quotes may be used in lyrics, but they have to be preceded
@@ -198,6 +201,7 @@ Internals Reference:
 @unnumberedsubsubsec Aligning lyrics to a melody
 
 @cindex lyrics, aligning to a melody
+@cindex @code{associatedVoice}
 @funindex \lyricmode
 @funindex \addlyrics
 @funindex \lyricsto
@@ -214,58 +218,91 @@ Lyrics can be aligned with melodies in two main ways:
 @itemize
 
 @item
-They can be aligned automatically, with the durations of the
-syllables being taken from an associated melody or other voice
-of music, using @code{\addlyrics} or @code{\lyricsto}.  See
-@ref{Automatic syllable durations}.
+Lyrics can be aligned automatically, with the durations of the
+syllables being taken from another voice of music or (in special
+circumstances) an associated melody, using @code{\addlyrics},
+@code{\lyricsto}, or by setting the @code{associatedVoice} property.
+For more details, see @ref{Automatic syllable durations}.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff <<
+    \time 2/4
+    \new Voice = "one" \relative c'' {
+      \voiceOne
+      c4 b8. a16 g4. r8 a4 ( b ) c2
+    }
+    \new Voice = "two" \relative c' {
+      \voiceTwo
+       s2 s4. f8 e4 d c2
+    }
+  >>
+
+% takes durations and alignment from notes in "one"
+  \new Lyrics \lyricsto "one" {
+    Life is __ _ love, live __ life.
+  }
+
+% takes durations and alignment from notes in "one" initially
+% then switches to "two"
+  \new Lyrics \lyricsto "one" {
+    No more let
+    \set associatedVoice = "two"  % must be set one syllable early
+    sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+The first stanza shows the normal way of entering lyrics.
+
+The second stanza shows how the voice from which the lyric
+durations are taken can be changed.  This is useful if the words to
+different stanzas fit the notes in different ways and all the
+durations are available in Voice contexts.  For more details, see
+@ref{Stanzas}.
 
 @item
-They can be aligned independently of the duration of any notes
+Lyrics can be aligned independently of the duration of any notes
 if the durations of the syllables are specified explicitly,
-and entered with @code{\lyricmode}.  See
-@ref{Manual syllable durations}.
-
-@end itemize
-
-The following example compares different ways to align lyrics.
+and entered with @code{\lyricmode}.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Voice = "one" \relative c'' {
-    \autoBeamOff
     \time 2/4
     c4 b8. a16 g4. f8 e4 d c2
   }
 
-% uses default durations of 2;
+% uses previous explicit duration of 2;
   \new Lyrics \lyricmode {
     Joy to the earth!
   }
 
-% explicit durations; left-aligned by default
+% explicit durations, set to a different rhythm
   \new Lyrics \lyricmode {
-    Joy4 to8. the16 world!4. the8 Lord4 is come.2
-  }
-
-% takes durations and alignment from notes in "one"
-  \new Lyrics \lyricsto "one" {
-    No more let sins and sor -- rows grow.
+    Life4 is love,2. live4 life.2
   }
 >>
 @end lilypond
 
 The first stanza is not aligned with the notes because the durations
-were not specified, and the default value of 2 is used for each
-word.  This can be useful for dialogue over music; for more, see
+were not specified, and the previous value of 2 is used for each
+word.
+
+The second stanza shows how the words can be aligned quite
+independently from the notes.  This is useful if the words to
+different stanzas fit the notes in different ways and the required
+durations are not available in a music context.  For more details
+see @ref{Manual syllable durations}.  This technique is also useful
+when setting dialogue over music; for examples showing this, see
 @ref{Dialogue over music}.
 
-The second stanza with explicitly specified durations is
-aligned to the notes because the durations are the same as the
-corresponding notes.  The words are left-aligned to the notes by
-default.  Useful if the words to different stanzas fit the notes in
-different ways.
+When entered in this way the words are left-aligned to the notes
+by default, but may be center-aligned to the notes of a melody by
+specifying an associated voice, if one exists.  For details, see
+@ref{Manual syllable durations}.
 
-The third stanza shows the normal way of entering lyrics.
+@end itemize
 
 @seealso
 Learning Manual:
@@ -279,9 +316,33 @@ Internals Reference:
 
 @cindex syllable durations, automatic
 @cindex lyrics and melodies
+@cindex associatedVoice
+@funindex \addlyrics
+@funindex \lyricsto
 
-Lyrics are aligned and typeset with the help of skips, hyphens and
-extender lines.
+Lyrics can be automatically aligned to the notes of a melody in
+three ways:
+
+@itemize
+
+@item
+by specifying the named Voice context containing the melody with
+@code{\lyricsto},
+
+@item
+by introducing the lyrics with @code{\addlyrics} and placing them
+immediately after the Voice context containing the melody,
+
+@item
+by setting the @code{associatedVoice} property, the alignment of
+the lyrics may be switched to a different named Voice context at
+any musical moment.
+
+@end itemize
+
+In all three methods hyphens can be drawn between the syllables of
+a word and extender lines can be drawn beyond the end of a word.  For
+details, see @ref{Extenders and hyphens}.
 
 The @code{Voice} context containing the melody to which the lyrics
 are being aligned must not have @qq{died}, or the lyrics after that
@@ -289,27 +350,43 @@ point will be lost.  This can happen if there are periods when that
 voice has nothing to do.  For methods of keeping contexts alive, see
 @ref{Keeping contexts alive}.
 
-The lyrics can be aligned under a given melody
-automatically.  This is achieved by combining the
-melody and the lyrics with the @code{\lyricsto} expression
+@subheading Using @code{\lyricsto}
 
-@example
-\new Lyrics \lyricsto @var{name} @{ @dots{} @}
-@end example
+@cindex \lyricsto
+@funindex \lyricsto
+
+Lyrics can be aligned under a melody automatically by specifying
+the named Voice context containing the melody with
+@code{\lyricsto}:
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Voice = "melody" {
+    a4 a a a
+  }
+  \new Lyrics \lyricsto "melody" {
+    These are the words
+  }
+>>
+@end lilypond
 
 @noindent
-This aligns the lyrics to the
-notes of the @code{Voice} context called @var{name}, which must
-already exist.  Therefore normally the @code{Voice} is specified first, and
-then the lyrics are specified with @code{\lyricsto}.  The command
-@code{\lyricsto} switches to @code{\lyricmode} mode automatically, so the
-@code{\lyricmode} keyword may be omitted.
+This aligns the lyrics to the notes of the named @code{Voice}
+context, which must already exist.  Therefore normally the
+@code{Voice} context is specified first, followed by the
+@code{Lyrics} context.  The lyrics themselves follow the
+@code{\lyricsto} command.  The @code{\lyricsto} command
+invokes lyric mode automatically, so the @code{\lyricmode} keyword
+may be omitted.  By default, the lyrics are placed underneath the
+notes.  For other placements, see @ref{Placing lyrics vertically}.
 
+@subheading Using @code{\addlyrics}
 
 @cindex \addlyrics
+@funindex \addlyrics
 
-The @code{\addlyrics} command is actually just a convenient shortcut
-that can sometimes be used instead of having to set up the lyrics
+The @code{\addlyrics} command is just a convenient shortcut that
+can sometimes be used instead of having to set up the lyrics
 through a more complicated LilyPond structure.
 
 @example
@@ -321,20 +398,23 @@ through a more complicated LilyPond structure.
 is the same as
 
 @example
-\new Voice = "blah" @{ music @}
+\new Voice = "blah" @{ MUSIC @}
 \new Lyrics \lyricsto "blah" @{ LYRICS @}
 @end example
 
 Here is an example,
 
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative c' { c2 e4 g2. }
-\addlyrics { play the game }
+@lilypond[verbatim,quote]
+{
+  \time 3/4
+  \relative c' { c2 e4 g2. }
+  \addlyrics { play the game }
+}
 @end lilypond
 
 More stanzas can be added by adding more
 @code{\addlyrics} sections:
+
 
 @lilypond[ragged-right,verbatim,fragment,quote]
 \time 3/4
@@ -344,25 +424,13 @@ More stanzas can be added by adding more
 \addlyrics { joue le jeu }
 @end lilypond
 
-The command @code{\addlyrics} cannot handle polyphony settings.
-For these cases one should use @code{\lyricsto} and
-@code{\lyricmode}, for details see @ref{Entering lyrics}.
+The command @code{\addlyrics} cannot handle polyphonic settings.
+For these cases one should use @code{\lyricsto}.
 
-@node Manual syllable durations
-@unnumberedsubsubsec Manual syllable durations
+@subheading Using associatedVoice
 
-Lyrics can also be entered without @code{\addlyrics} or
-@code{\lyricsto}.  In this case, syllables are entered like
-notes -- but with pitches replaced by text -- and the duration
-of each syllable must be entered explicitly.  For example:
-
-@example
-play2 the4 game2.
-sink2 or4 swim2.
-@end example
-
-The alignment to a melody can be specified with the
-@code{associatedVoice} property,
+The melody to which the lyrics are being aligned can be changed by
+setting the @code{associatedVoice} property,
 
 @example
 \set associatedVoice = #"lala"
@@ -370,33 +438,70 @@ The alignment to a melody can be specified with the
 
 @noindent
 
-@c TODO setting associated voice does more than format extender
-@c lines.  Document it properly.  Does it have anything to do
-@c with manual durations in lyrics?
+The value of the property (here: @code{"lala"}) should be the name
+of a @code{Voice} context.  For technical reasons, the @code{\set}
+command must be placed one syllable before the one to which the
+change in voice is to apply.
 
-The value of the property (here: @code{"lala"}) should be the name of
-a @code{Voice} context.  Without this setting, extender lines
-will not be formatted properly.
+Here is an example demonstrating its use:
 
-Here is an example demonstrating manual lyric durations,
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff <<
+    \time 2/4
+    \new Voice = "one" \relative c'' {
+      \voiceOne
+      c4 b8. a16 g4. r8 a4 ( b ) c2
+    }
+    \new Voice = "two" \relative c' {
+      \voiceTwo
+       s2 s4. f8 e8 d4. c2
+    }
+  >>
+% takes durations and alignment from notes in "one" initially
+% then switches to "two"
+  \new Lyrics \lyricsto "one" {
+    No more let
+    \set associatedVoice = "two"  % must be set one syllable early
+    sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{Extenders and hyphens},
+@ref{Keeping contexts alive}.
+
+@node Manual syllable durations
+@unnumberedsubsubsec Manual syllable durations
+
+In some complex vocal music, it may be desirable to place lyrics
+completely independently of notes.  In this case do not use
+@code{\lyricsto} or @code{\addlyrics} and do not set
+@code{associatedVoice}.  Syllables are entered like notes --
+but with pitches replaced by text -- and the duration of each
+syllable is entered explicitly after the syllable.
+
+By default, syllables will be left-aligned to the corresponding
+musical moment.  Hyphenated lines may be drawn between syllables
+as usual, but extender lines cannot be drawn when there is no
+associated voice.
+
+Here are two examples:
 
 @lilypond[relative=1,verbatim,quote]
 <<
   \new Voice = "melody" {
     \time 3/4
-    c2 e4 g2.
+    c2 e4 g2 f
   }
   \new Lyrics \lyricmode {
-    \set associatedVoice = #"melody"
-    play2 the4 game2.
+    play1 the4 game4
   }
 >>
 @end lilypond
 
-In some complex vocal music, it may be desirable to place lyrics
-completely independently of notes.  In this case do not use
-@code{\lyricsto} or @code{\addlyrics} and do not set
-@code{associatedVoice}:
 
 @lilypond[quote,verbatim,ragged-right]
 <<
@@ -420,11 +525,33 @@ completely independently of notes.  In this case do not use
 >>
 @end lilypond
 
+This technique is useful when writing dialogue over music, see
+@ref{Dialogue over music}.
+
+To center-align syllables on the notes at the corresponding musical
+moments, set @code{associatedVoice} to the name of the Voice context
+containing those notes.  When @code{associatedVoice} is set, both
+double hyphens and double underscores can be used to draw
+hyphenated lines and extenders under melismata correctly.
+
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    c2 e4 g f g
+  }
+  \new Lyrics \lyricmode {
+    \set associatedVoice = #"melody"
+    play2 the4 game2. __
+  }
+>>
+@end lilypond
+
 @c TODO see also feature request 707 - show how to do this with manual durations
 
 @seealso
 Notation Reference:
-@ref{Keeping contexts alive}.
+@ref{Dialogue over music}.
 
 Internals Reference:
 @rinternals{Lyrics},
@@ -544,7 +671,7 @@ providing automatic beaming is switched off.  See
 >>
 @end lilypond
 
-Clearly this is not suited to melisma over notes which are longer
+Clearly this is not suited to melismata over notes which are longer
 than eighth notes.
 
 @item
@@ -668,6 +795,8 @@ notes in an associated melody through @code{\addlyrics} or
 @cindex melisma
 @cindex extender
 
+@c TODO cf Multiple notes to one syllable; should this be merged in?
+
 @c leave this as samp. -gp
 In the last syllable of a word, melismata are sometimes indicated with
 a long horizontal line starting in the melisma syllable, and ending in
@@ -684,15 +813,17 @@ typeset by default.}
 @cindex hyphens
 
 @c leave this as samp. -gp
-Centered hyphens are entered as @samp{ -- } between syllables of a same word
-(note the spaces before and after the two hyphen characters).  The hyphen
-will be centered between the syllables, and its length will be adjusted
-depending on the space between the syllables.
+Centered hyphens are entered as @samp{ -- } between syllables of a
+same word (note the spaces before and after the two hyphen
+characters).  The hyphen will be centered between the syllables, and
+its length will be adjusted depending on the space between the
+syllables.
 
 In tightly engraved music, hyphens can be removed.  Whether this
 happens can be controlled with the @code{minimum-distance} (minimum
 distance between two syllables) and the @code{minimum-length}
-(threshold below which hyphens are removed).
+(threshold below which hyphens are removed) properties of
+@code{LyricHyphen}.
 
 
 @seealso
@@ -708,10 +839,10 @@ Internals Reference:
 
 @menu
 * Working with lyrics and variables::
-* Placement of lyrics::
+* Placing lyrics vertically::
+* Placing syllables horizontally::
 * Lyrics and repeats::
 * Divisi lyrics::
-* Spacing out syllables::
 @end menu
 
 
@@ -719,70 +850,87 @@ Internals Reference:
 @node Working with lyrics and variables
 @unnumberedsubsubsec Working with lyrics and variables
 
-@c TODO rewrite this section
+@cindex lyrics, using variables
 
-@cindex lyrics, variables
-
-To define variables containing lyrics, the function @code{\lyricmode}
-must be used.  Durations do not need to be added if the variable is
-to be invoked with @code{\addlyrics} or @code{\lyricsto}.
+Variables containing lyrics can be created, but the lyrics must be
+entered in lyric mode:
 
 @lilypond[quote,verbatim]
-verseOne = \lyricmode { Joy to the world, the Lord is come. }
+musicOne = \relative c'' {
+  c4 b8. a16 g4. f8 e4 d c2
+}
+verseOne = \lyricmode {
+  Joy to the world, the Lord is come.
+}
 \score {
   <<
-    \new Voice = "one" \relative c'' {
-      \autoBeamOff
+    \new Voice = "one" {
       \time 2/4
-      c4 b8. a16 g4. f8 e4 d c2
+      \musicOne
     }
-    \addlyrics { \verseOne }
+    \new Lyrics \lyricsto "one" {
+      \verseOne
+    }
   >>
 }
 @end lilypond
 
-For different or more complex orderings, the best way is to set up the
-hierarchy of staves and lyrics first, e.g.,
-@example
-\new ChoirStaff <<
-  \new Voice = "soprano" @{ @emph{music} @}
-  \new Lyrics = "sopranoLyrics" @{ s1 @}
-  \new Lyrics = "tenorLyrics" @{ s1 @}
-  \new Voice = "tenor" @{ @emph{music} @}
->>
-@end example
+Durations do not need to be added if the variable is to be invoked
+with @code{\addlyrics} or @code{\lyricsto}.
 
-@noindent
-and then combine the appropriate melodies and lyric lines:
+For different or more complex orderings, the best way is to define
+the music and lyric variables first, then set up the hierarchy of
+staves and lyrics, omitting the lyrics themselves, and then add the
+lyrics using @code{\context} underneath.  This ensures that the
+voices referenced by @code{\lyricsto} have always been defined
+earlier.  For example:
 
-@example
-\context Lyrics = sopranoLyrics \lyricsto "soprano"
-@emph{the lyrics}
-@end example
+@lilypond[quote,verbatim]
+sopranoMusic = \relative c'' { c4 c c c }
+contraltoMusic = \relative c'' { a4 a a a }
+sopranoWords = \lyricmode { Sop -- ra -- no words }
+contraltoWords = \lyricmode { Con -- tral -- to words }
 
-@noindent
-The final input would resemble
-
-@example
-<<
+\score {
   \new ChoirStaff <<
-    @emph{setup the music}
+    \new Staff {
+      \new Voice = "sopranos" {
+        \sopranoMusic
+      }
+    }
+    \new Lyrics = "sopranos"
+    \new Lyrics = "contraltos"
+    \new Staff {
+      \new Voice = "contraltos" {
+        \contraltoMusic
+      }
+    }
+    \context Lyrics = "sopranos" {
+      \lyricsto "sopranos" {
+        \sopranoWords
+      }
+    }
+    \context Lyrics = "contraltos" {
+      \lyricsto "contraltos" {
+        \contraltoWords
+      }
+    }
   >>
-  \lyricsto "soprano" @emph{etc}
-  \lyricsto "alto" @emph{etc}
-  @emph{etc}
->>
-@end example
+}
+@end lilypond
+
 
 @seealso
-@c TODO: document \new Staff << Voice \lyricsto >> bug
+Notation Reference:
+@ref{Placing lyrics vertically}.
+
 Internals Reference:
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
 
 
-@node Placement of lyrics
-@unnumberedsubsubsec Placement of lyrics
+@node Placing lyrics vertically
+@unnumberedsubsubsec Placing lyrics vertically
 
 @cindex placement of lyrics
 @cindex lyrics, positioning
@@ -833,8 +981,9 @@ above and explicitly specify the position of the lyrics:
 
 Alternatively, a two-step process may be used.  First the Lyrics
 context is declared (without any content) before the Staff and
-Voice contexts, then the @code{\lyricsto} command comes after
-the Voice declaration it references, as follows:
+Voice contexts, then the @code{\lyricsto} command is placed after
+the Voice declaration it references by using @code{\context}, as
+follows:
 
 @lilypond[quote,verbatim]
 \score {
@@ -898,6 +1047,89 @@ Learning Manual:
 Notation Reference:
 @ref{Aligning contexts},
 @ref{Creating contexts}.
+
+@node Placing syllables horizontally
+@unnumberedsubsubsec Placing syllables horizontally
+
+@cindex Spacing lyrics
+@cindex Lyrics, increasing space between
+
+To increase the spacing between lyrics, set the @code{minimum-distance}
+property of @code{LyricSpace}.
+
+@lilypond[relative,verbatim,fragment,quote,ragged-right]
+{
+  c c c c
+  \override Lyrics.LyricSpace #'minimum-distance = #1.0
+  c c c c
+}
+\addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+}
+@end lilypond
+
+@noindent
+To make this change for all lyrics in the score, set the property in the
+@code{\layout} block.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \relative c' {
+  c c c c
+  c c c c
+  }
+  \addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+  }
+  \layout {
+    \context {
+      \Lyrics
+      \override LyricSpace #'minimum-distance = #1.0
+    }
+  }
+}
+@end lilypond
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{lyrics-alignment.ly}
+
+@c TODO: move to LSR -vv
+
+Checking to make sure that text scripts and lyrics are within the margins is
+a relatively large computational task.  To speed up processing, LilyPond does
+not perform such calculations by default; to enable it, use
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t
+@end example
+
+To make lyrics avoid bar lines as well, use
+
+@example
+\layout @{
+  \context @{
+    \Lyrics
+      \consists "Bar_engraver"
+      \consists "Separating_line_group_engraver"
+      \override BarLine #'transparent = ##t
+  @}
+@}
+@end example
+
+@c TODO Create and add lsr example of lyricMelismaAlignment
+@c It's used like this to center-align all lyric syllables,
+@c even when notes are tied. -td
+
+@ignore
+\layout
+{
+     \context { \Score lyricMelismaAlignment = #0 }
+}
+@end ignore
+
 
 @node Lyrics and repeats
 @unnumberedsubsubsec Lyrics and repeats
@@ -1337,92 +1569,6 @@ attaching lyrics to those specific contexts:
 @end lilypond
 
 
-@node Spacing out syllables
-@unnumberedsubsubsec Spacing out syllables
-
-@cindex Spacing lyrics
-@cindex Lyrics, increasing space between
-
-To increase the spacing between lyrics, set the @code{minimum-distance}
-property of @code{LyricSpace}.
-
-@lilypond[relative,verbatim,fragment,quote,ragged-right]
-{
-  c c c c
-  \override Lyrics.LyricSpace #'minimum-distance = #1.0
-  c c c c
-}
-\addlyrics {
-  longtext longtext longtext longtext
-  longtext longtext longtext longtext
-}
-@end lilypond
-
-@noindent
-To make this change for all lyrics in the score, set the property in the
-layout.
-
-@lilypond[verbatim,quote,ragged-right]
-\score {
-  \relative c' {
-  c c c c
-  c c c c
-  }
-  \addlyrics {
-  longtext longtext longtext longtext
-  longtext longtext longtext longtext
-  }
-  \layout {
-    \context {
-      \Lyrics
-      \override LyricSpace #'minimum-distance = #1.0
-    }
-  }
-}
-@end lilypond
-
-@c @snippets
-@c This snippet has been renamed to "lyrics-alignment.ly"
-@c update as soon as lsr/is updated -vv
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-@c {lyrics-alignment.ly}
-
-@c TODO: move to LSR -vv
-@snippets
-
-Checking to make sure that text scripts and lyrics are within the margins is
-a relatively large computational task.  To speed up processing, LilyPond does
-not perform such calculations by default; to enable it, use
-
-@example
-\override Score.PaperColumn #'keep-inside-line = ##t
-@end example
-
-To make lyrics avoid bar lines as well, use
-
-@example
-\layout @{
-  \context @{
-    \Lyrics
-      \consists "Bar_engraver"
-      \consists "Separating_line_group_engraver"
-      \override BarLine #'transparent = ##t
-  @}
-@}
-@end example
-
-@c TODO Create and add lsr example of lyricMelismaAlignment
-@c It's used like this to center-align all lyric syllables,
-@c even when notes are tied. -td
-
-@ignore
-\layout
-{
-     \context { \Score lyricMelismaAlignment = #0 }
-}
-@end ignore
-
-
 @node Stanzas
 @subsection Stanzas
 
@@ -1549,7 +1695,7 @@ differing ways.  Such variations can still be captured with
 @subsubheading Ignoring melismata
 
 One possibility is that the text has a melisma in one stanza, but
-multiple syllables in another one.  One solution is to make the faster
+multiple syllables in another.  One solution is to make the faster
 voice ignore the melisma.  This is done by setting
 @code{ignoreMelismata} in the Lyrics context.
 
@@ -1608,7 +1754,7 @@ changed:
 @end lilypond
 
 @knownissues
-Like for @code{associatedVoice}, @code{includeGraceNotes} needs to be
+Like @code{associatedVoice}, @code{includeGraceNotes} needs to be
 set at latest one syllable before the one which is to be put under a
 grace note.  For the case of a grace note at the very beginning of a
 piece of music, consider using a @code{\with} or @code{\context}
@@ -1629,11 +1775,14 @@ block:
 
 @subsubheading Switching to an alternative melody
 
-More complex variations in text underlay are possible.  It is possible
-to switch the melody for a line of lyrics during the text.  This is
-done by setting the @code{associatedVoice} property.  In the example
+@cindex associatedVoice
+@cindex alternative melody, switching to
 
-@lilypond[ragged-right,quote]
+More complex variations in setting lyrics to music are possible.
+The melody to which the lyrics are being set can be changed from
+within the lyrics by setting the @code{associatedVoice} property:
+
+@lilypond[verbatim,quote]
 <<
   \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -1660,56 +1809,42 @@ done by setting the @code{associatedVoice} property.  In the example
   \new Lyrics \lyricsto "lahlah" {
     % Tricky: need to set associatedVoice
     % one syllable too soon!
-    \set associatedVoice = alternative % applies to "ran"
+    \set associatedVoice = "alternative" % applies to "ran"
     Ty --
     ran --
     no --
-    \set associatedVoice = lahlah % applies to "rus"
+    \set associatedVoice = "lahlah" % applies to "rus"
     sau -- rus Rex
   } >>
 @end lilypond
 
 @noindent
-the text for the first stanza is set to a melody called @q{lahlah},
+The text for the first stanza is set to the melody called @q{lahlah}
+in the usual way, but the second stanza is set initally to the
+@code{lahlah} context and is then switched to the @code{alternative}
+melody for the syllables @q{ran} to @q{sau} by the lines:
 
 @example
-\new Lyrics \lyricsto "lahlah" @{
-  Ju -- ras -- sic Park
-@}
-@end example
-
-
-The second stanza initially is set to the @code{lahlah} context, but
-for the syllable @q{ran}, it switches to a different melody.
-This is achieved with
-@example
-\set associatedVoice = alternative
+\set associatedVoice = "alternative" % applies to "ran"
+Ty --
+ran --
+no --
+\set associatedVoice = "lahlah" % applies to "rus"
+sau -- rus Rex
 @end example
 
 @noindent
 Here, @code{alternative} is the name of the @code{Voice} context
 containing the triplet.
 
-@c TODO: make this easier to understand -vv
-This command must be one syllable too early, before @q{Ty} in this
-case.  In other words, changing the associatedVoice happens one step
-later than expected.  This is for technical reasons, and it is not a
-bug.
+Note the placement of the @code{\set associatedVoice} command --
+it appears to be one syllable too early, but this is correct.
 
-@example
-\new Lyrics \lyricsto "lahlah" @{
-  \set associatedVoice = alternative % applies to "ran"
-  Ty --
-  ran --
-  no --
-  \set associatedVoice = lahlah % applies to "rus"
-  sau -- rus Rex
-@}
-@end example
-
-@noindent
-The underlay is switched back to the starting situation by assigning
-@code{lahlah} to @code{associatedVoice}.
+@warning{The @code{\set associatedVoice} command must be placed
+one syllable @emph{before} the one at which the switch to the new
+voice is to occur.  In other words, changing the associated Voice
+happens one syllable later than expected.  This is for technical
+reasons, and it is not a bug.}
 
 
 @node Printing stanzas at the end
@@ -1869,7 +2004,7 @@ For writing the lyrics to a melody line, see
 @ref{Common notation for vocal music}.
 
 @item
-For placing the lyrics, see @ref{Placement of lyrics}.
+For placing the lyrics, see @ref{Placing lyrics vertically}.
 
 @item
 For entering stanzas, see @ref{Stanzas}.
@@ -1895,8 +2030,11 @@ Notation Reference:
 @ref{Displaying chords},
 @ref{Displaying staves},
 @ref{Keyboard and other multi-staff instruments},
-@ref{Placement of lyrics},
+@ref{Placing lyrics vertically},
 @ref{Stanzas}.
+
+Snippets:
+@rlsr{Vocal music}.
 
 @node Lead sheets
 @unnumberedsubsubsec Lead sheets
@@ -1990,6 +2128,9 @@ Notation Reference:
 @ref{Grouping staves},
 @ref{Shape note heads},
 @ref{Single-staff polyphony}.
+
+Snippets:
+@rlsr{Vocal music}.
 
 Internals Reference:
 @rinternals{ChoirStaff},
@@ -2204,6 +2345,9 @@ Notation Reference:
 @ref{Writing parts},
 @ref{Writing text}.
 
+Snippets:
+@rlsr{Vocal music}.
+
 
 @node Character names
 @unnumberedsubsubsec Character names
@@ -2212,15 +2356,14 @@ Notation Reference:
 @cindex names, character
 
 Character names are usually shown to the left of the staff when the
-staff is dedicated to that character alone.  The instrument name can
-be used for this purpose.
+staff is dedicated to that character alone:
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
     \new Staff {
-      \set Staff.instrumentName = #"Kaspar"
-      \set Staff.shortInstrumentName = #"Kas"
+      \set Staff.vocalName = \markup \smallCaps Kaspar
+      \set Staff.shortVocalName = \markup \smallCaps Kas.
       \relative c' {
         \clef "G_8"
         c4 c c c
@@ -2229,8 +2372,8 @@ be used for this purpose.
       }
     }
     \new Staff {
-      \set Staff.instrumentName = #"Melchior"
-      \set Staff.shortInstrumentName = #"Mel"
+      \set Staff.vocalName = \markup \smallCaps Melchior
+      \set Staff.shortVocalName = \markup \smallCaps Mel
       \clef "bass"
       \relative c' {
         a4 a a a
@@ -2322,9 +2465,8 @@ main text, see @ref{Quoting other voices} and
 @ref{Formatting cue notes}.  But when many cues have to be
 inserted, for example, as an aid to a conductor in a vocal score,
 the instrument name must be positioned carefully just before and
-close to the start of the cued notes.  The following example shows
-how this is done.  Note that the name of the grob for overriding
-the cued instrument name is @code{InstrumentSwitch}.
+close to the start of the cue notes.  The following example shows
+how this is done.
 
 @lilypond[quote,verbatim]
 flute = \relative c'' {
@@ -2334,12 +2476,9 @@ flute = \relative c'' {
 
 pianoRH = \relative c'' {
   c4. g8
-  % position name of cued instrument just before the cued notes
-  \once \override CueVoice.InstrumentSwitch
-    #'self-alignment-X = #RIGHT
-  % position name of cued instrument above the staff
-  \once \override CueVoice.InstrumentSwitch #'direction = #UP
-  \set CueVoice.instrumentCueName = "Flute"
+  % position name of cue-ing instrument just before the cue notes,
+  % and above the staff
+  s1*0^\markup { \right-align { \tiny "Flute" } }
   \cueDuring "flute" #UP { g4 bes4 }
 }
 pianoLH = \relative c { c4 <c' e> e, <g c> }
@@ -2357,14 +2496,14 @@ pianoLH = \relative c { c4 <c' e> e, <g c> }
 }
 @end lilypond
 
-If a transposing instrument is being cued the instrument part should
-specify its key so the conversion of its cued notes will be done
+If a transposing instrument is being quoted the instrument part should
+specify its key so the conversion of its cue notes will be done
 automatically.  The example below shows this transposition for a
 B-flat clarinet.  The notes in this example are low on the staff so
 @code{#DOWN} is specified in @code{\cueDuring} (so the stems are
 down) and the instrument name is positioned below the staff.  Note
 also that the piano right-hand voice is explicitly declared.  This
-is because the cued notes in this example begin at the start of the
+is because the cue notes in this example begin at the start of the
 first bar and this would otherwise cause the entire piano right-hand
 notes to be placed in a @code{CueVoice} context.
 
@@ -2377,12 +2516,8 @@ clarinet = \relative c' {
 
 pianoRH = \relative c'' {
   \transposition c'
-  % position name of cued instrument just before the cued notes
-  \once \override CueVoice.InstrumentSwitch
-    #'self-alignment-X = #RIGHT
-  % position name of cued instrument below the staff
-  \once \override CueVoice.InstrumentSwitch #'direction = #DOWN
-  \set CueVoice.instrumentCueName = "Clar."
+  % position name of cue-ing instrument below the staff
+  s1*0_\markup { \right-align { \tiny "Clar." } }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }
@@ -2406,10 +2541,10 @@ pianoLH = \relative c { c4 <c' e> e, <g c> }
 @end lilypond
 
 From these two examples it is clear that inserting many cues in a
-Vocal Score would be extremely tedious, and the notes of the piano
-part would be obscured by the many overrides.  However, as the
-following snippet shows, it is possible to define a music function
-to reduce the amount of typing and to make the piano notes clearer.
+Vocal Score would be tedious, and the notes of the piano part would
+become obscured.  However, as the following snippet shows, it is
+possible to define a music function to reduce the amount of typing
+and to make the piano notes clearer.
 
 @snippets
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
@@ -2427,7 +2562,7 @@ Notation Reference:
 @ref{Using music functions}.
 
 Snippets:
-@rlsr{vocal-music}.
+@rlsr{Vocal music}.
 
 Internals Reference:
 @rinternals{InstrumentSwitch},
@@ -2436,10 +2571,10 @@ Internals Reference:
 @knownissues
 @code{\cueDuring} automatically inserts a @code{CueVoice} context
 and all cue notes are placed in that context.  This means it is not
-possible to have two overlapping sequences of cued notes by this
+possible to have two overlapping sequences of cue notes by this
 technique.  Overlapping sequences could be entered by explicitly
 declaring separate @code{CueVoice} contexts and using
-@code{\quoteDuring} to extract and insert the cued notes.
+@code{\quoteDuring} to extract and insert the cue notes.
 
 
 @node Spoken music
@@ -2565,6 +2700,9 @@ is described in @ref{Ancient notation}.
 @seealso
 Notation reference:
 @ref{Ancient notation}.
+
+Snippets:
+@rlsr{Vocal music}.
 
 
 @node Setting a chant

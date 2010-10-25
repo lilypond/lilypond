@@ -573,6 +573,34 @@ System::get_extremal_staff (Direction dir, Interval const &iv)
 }
 
 Interval
+System::pure_refpoint_extent (vsize start, vsize end)
+{
+  Interval ret;
+  Grob *alignment = get_vertical_alignment ();
+  if (!alignment)
+    return Interval ();
+
+  extract_grob_set (alignment, "elements", staves);
+  vector<Real> offsets = Align_interface::get_pure_minimum_translations (alignment, staves, Y_AXIS, start, end);
+
+  for (vsize i = 0; i < offsets.size (); ++i)
+    if (Page_layout_problem::is_spaceable (staves[i]))
+      {
+	ret[UP] = offsets[i];
+	break;
+      }
+
+  for (vsize i = offsets.size (); i--;)
+    if (Page_layout_problem::is_spaceable (staves[i]))
+      {
+	ret[DOWN] = offsets[i];
+	break;
+      }
+
+  return ret;
+}
+
+Interval
 System::part_of_line_pure_height (vsize start, vsize end, bool begin)
 {
   Grob *alignment = get_vertical_alignment ();
@@ -580,7 +608,7 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
     return Interval ();
 
   extract_grob_set (alignment, "elements", staves);
-  vector<Real> offsets = Align_interface::get_minimum_translations (alignment, staves, Y_AXIS, true, start, end);
+  vector<Real> offsets = Align_interface::get_pure_minimum_translations (alignment, staves, Y_AXIS, start, end);
 
   Interval ret;
   for (vsize i = 0; i < staves.size (); ++i)
@@ -629,9 +657,23 @@ System::calc_pure_relevant_grobs (SCM smob)
 
   for (vsize i = 0; i < elts.size (); ++i)
     {
-      if (!Axis_group_interface::has_interface (elts[i])
-	  && to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
-	relevant_grobs.push_back (elts[i]);
+      if (!Axis_group_interface::has_interface (elts[i]))
+	{
+	  if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
+	    relevant_grobs.push_back (elts[i]);
+
+	  if (Item *it = dynamic_cast<Item*> (elts[i]))
+	    {
+	      Direction d = LEFT;
+	      do
+		{
+		  Item *piece = it->find_prebroken_piece (d);
+		  if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
+		    relevant_grobs.push_back (piece);
+		}
+	      while (flip (&d) != LEFT);
+	    }
+	}
     }
 
   SCM grobs_scm = Grob_array::make_array ();
@@ -660,6 +702,29 @@ System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
   begin.unite (rest);
 
   return ly_interval2scm (begin);
+}
+
+Grob*
+System::get_pure_bound (Direction d, int start, int end)
+{
+  vector<vsize> ranks = pscore_->get_break_ranks ();
+  vector<vsize> indices = pscore_->get_break_indices ();
+  vector<Grob*> cols = pscore_->get_columns ();
+
+  vsize target_rank = (d == LEFT ? start : end);
+  vector<vsize>::const_iterator i =
+    lower_bound (ranks.begin (), ranks.end (), target_rank, std::less<vsize> ());
+
+  if (i != ranks.end () && (*i) == target_rank)
+    return cols[indices[i - ranks.begin ()]];
+  else
+    return 0;
+}
+
+Grob*
+System::get_maybe_pure_bound (Direction d, bool pure, int start, int end)
+{
+  return pure ? get_pure_bound (d, start, end) : get_bound (d);
 }
 
 ADD_INTERFACE (System,

@@ -508,6 +508,7 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
 			 || isnan (rest_of_line_extent[RIGHT]))
     ? Interval (0, 0) : rest_of_line_extent;
   out->shape_ = Line_shape (begin_of_line_extent, rest_of_line_extent);
+  out->refpoint_extent_ = sys->pure_refpoint_extent (start_rank, end_rank);
   out->padding_ = last ? score_system_padding_ : system_system_padding_;
   out->title_padding_ = score_markup_padding_;
   out->min_distance_ = last ? score_system_min_distance_ : system_system_min_distance_;
@@ -560,7 +561,6 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   SCM first_scm = pb->get_property ("first-markup-line");
   first_markup_line_ = to_boolean (first_scm);
   tight_spacing_ = to_boolean (pb->get_property ("tight-spacing"));
-  first_refpoint_offset_ = 0;
 }
 
 Real

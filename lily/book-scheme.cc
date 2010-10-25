@@ -129,3 +129,30 @@ LY_DEFINE (ly_book_add_bookpart_x, "ly:book-add-bookpart!",
   book->add_bookpart (book_part);
   return SCM_UNSPECIFIED;
 }
+
+LY_DEFINE (ly_book_book_parts, "ly:book-book-parts",
+	   1, 0, 0, (SCM book),
+	   "Return book parts in book.")
+{
+  LY_ASSERT_SMOB (Book, book, 1);
+  Book *b = unsmob_book (book);
+  return b->bookparts_;
+}
+
+LY_DEFINE (ly_book_paper, "ly:book-paper",
+	   1, 0, 0, (SCM book),
+	   "Return paper in book.")
+{
+  LY_ASSERT_SMOB (Book, book, 1);
+  Book *b = unsmob_book (book);
+  return b->paper_ ? b->paper_->self_scm () : SCM_BOOL_F;
+}
+
+LY_DEFINE (ly_book_scores, "ly:book-scores",
+	   1, 0, 0, (SCM book),
+	   "Return scores in book.")
+{
+  LY_ASSERT_SMOB (Book, book, 1);
+  Book *b = unsmob_book (book);
+  return b->scores_;
+}

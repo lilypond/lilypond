@@ -100,10 +100,12 @@ Voor LilyPond versie @version{}
 @divId{quickSummary}
 @subheading Wat is LilyPond?
 
-LilyPond is een Open Source muzieknotatie programma en beoogt het
-produceren van bladmuziek van de hoogst mogelijke kwaliteit.  Deze vrije
-software integreert de esthetiek van traditioneel gegraveerde bladmuziek in
-computer printouts.
+LilyPond is een muzieknotatie programma en beoogt het produceren van
+bladmuziek van de hoogst mogelijke kwaliteit.  Het integreert de
+esthetiek van traditioneel gegraveerde bladmuziek in computer printouts.
+LilyPond is vrije software en is onderdeel van het
+@uref{http://gnu.org,GNU Project}.
+
 
 @divClass{align-right}
 Lees meer in onze @ref{Inleiding}!

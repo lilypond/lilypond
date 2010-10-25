@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Rhythms
 @section Rhythms
@@ -430,7 +430,7 @@ the chord.
 
 @lilypond[quote,verbatim,relative=1]
 <c e g> ~ <c e g>
-<c~ e g~ b> <c e g b>
+<c ~ e g ~ b> <c e g b>
 @end lilypond
 
 @cindex repeating ties
@@ -567,7 +567,6 @@ Internals Reference:
 
 
 @knownissues
-
 Switching staves when a tie is active will not produce a slanted
 tie.
 
@@ -607,12 +606,12 @@ Rests are entered as part of the music in music expressions.
 @funindex breve
 
 Rests are entered like notes with the note name @code{r}.
-Durations longer than a whole rest use the predefined
-commands shown:
+Durations longer than a whole rest use the following predefined
+commands:
 
 @c \time 16/1 is used to avoid spurious bar lines
 @c and long tracts of empty measures
-@lilypond[fragment,quote,verbatim]
+@lilypond[quote,verbatim]
 \new Staff {
   % These two lines are just to prettify this example
   \time 16/1
@@ -632,8 +631,8 @@ commands shown:
 
 Whole measure rests, centered in the middle of the measure, must be
 entered as multi-measure rests.  They can be used for a single
-measure as well as many measures and are discussed in @ref{Full
-measure rests}.
+measure as well as many measures and are discussed in
+@ref{Full measure rests}.
 
 @cindex rest, specifying vertical position
 
@@ -726,7 +725,7 @@ durations of following notes, unlike@tie{}@code{s}.
 @lilypond[quote,verbatim,relative=2]
 <<
   {
-    \repeat unfold 8 {a4}
+    \repeat unfold 8 { a4 }
   }
   {
     a4 \skip 2 a |
@@ -740,14 +739,14 @@ A spacer rest implicitly causes @code{Staff} and @code{Voice}
 contexts to be created if none exist, just like notes and rests
 do:
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 s1 s s
 @end lilypond
 
 @code{\skip} simply skips musical time; it creates no output of
 any kind.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 % This is valid input, but does nothing
 \skip 1 \skip1 \skip 1
 @end lilypond
@@ -797,7 +796,7 @@ notation used for notes.  The duration in a multi-measure rest must
 always be an integral number of measure-lengths, so augmentation dots
 or fractions must often be used:
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,verbatim]
 \compressFullBarRests
 \time 2/4
 R1 | R2 |
@@ -812,7 +811,7 @@ R4*5*4 |
 A full-measure rest is printed as either a whole or breve rest,
 centered in the measure, depending on the time signature.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 \time 4/4
 R1 |
 \time 6/4
@@ -834,7 +833,7 @@ show all the rest measures explicitly.  Alternatively, a multi-measure
 rest can be shown as a single measure containing a multi-measure rest
 symbol, with the number of measures of rest printed above the measure:
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,verbatim]
 % Default behavior
 \time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
@@ -866,25 +865,23 @@ Markups can be added to multi-measure rests.
 The predefined command @code{\fermataMarkup}
 is provided for adding fermatas.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 \compressFullBarRests
 \time 3/4
 R2.*10^\markup { \italic "ad lib." }
 R2.^\fermataMarkup
 @end lilypond
 
-@warning{
-Markups attached to a multi-measure rest are
-objects of type @code{MultiMeasureRestText}, not
-@code{TextScript}.  Overrides must be directed to the correct
-object, or they will be ignored.  See the following example.
-}
+@warning{Markups attached to a multi-measure rest are objects of type
+@code{MultiMeasureRestText}, not @code{TextScript}.  Overrides must
+be directed to the correct object, or they will be ignored.  See the
+following example:}
 
 @lilypond[quote,verbatim,fragment]
 % This fails, as the wrong object name is specified
 \override TextScript #'padding = #5
 R1^"wrong"
-% This is correct and works
+% This is the correct object name to be specified
 \override MultiMeasureRestText #'padding = #5
 R1^"right"
 @end lilypond
@@ -955,11 +952,9 @@ Internals Reference:
 @cindex multi-measure rests and fingerings
 
 @knownissues
-
-If an attempt is made to use fingerings (e.g.,
-@code{R1*10-4}) to put numbers over multi-measure rests, the
-fingering numeral (4) may collide with the bar counter
-numeral (10).
+Fingerings over multi-measure rests (e.g. @code{R1*10-4}) may result
+in the fingering numeral colliding with the bar counter
+numeral.
 
 @cindex condensing rests
 @cindex rest, condensing ordinary
@@ -1069,7 +1064,7 @@ be changed, or new default values can be added:
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
-    \repeat unfold 8 c8 |
+    \repeat unfold 8 { c8 } |
   }
 }
 @end lilypond
@@ -1109,7 +1104,7 @@ to the original values:
 @lilypond[quote,verbatim]
 \score{
   \relative c' {
-    \repeat unfold 8 c8 |
+    \repeat unfold 8 { c8 } |
     \overrideTimeSignatureSettings
       #'Score                         % context
       #'(4 . 4)                       % timeSignatureFraction
@@ -1117,10 +1112,10 @@ to the original values:
       #'(3 1)                         % beatStructure
       #'((end . (((1 . 8) . (3 1))))) % beamExceptions
     \time 4/4
-    \repeat unfold 8 c8 |
+    \repeat unfold 8 { c8 } |
     \revertTimeSignatureSettings #'Score #'(4 . 4)
     \time 4/4
-    \repeat unfold 8 c8 |
+    \repeat unfold 8 { c8 } |
   }
 }
 @end lilypond
@@ -1375,12 +1370,12 @@ by @code{\cadenzaOff}.  Therefore, all beaming in cadenzas
 must be entered manually (@ref{Manual beams}).
 
 @lilypond[verbatim,relative=2,quote]
-\repeat unfold 8 {c8}
+\repeat unfold 8 { c8 }
 \cadenzaOn
-\repeat unfold 5 {c8}
+\repeat unfold 5 { c8 }
 \bar"|"
 \cadenzaOff
-\repeat unfold 8 {c8}
+\repeat unfold 8 { c8 }
 @end lilypond
 
 Note that these predefined commands affect all staves in the
@@ -1489,7 +1484,7 @@ staff, shown durations are multiplied by 3/5, as 3/5 * 10/8 = 3/4.
 It will often be necessary to insert beams manually, as the
 duration scaling affects the autobeaming rules.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 \relative c' <<
   \new Staff {
     \time 3/4
@@ -1701,7 +1696,6 @@ be done with the @code{Pitch_squash_engraver} and
       c1 f g c
     }
   }
-
   \new Voice \with {
     \consists Pitch_squash_engraver
   } \relative c'' {
@@ -1763,7 +1757,7 @@ By default, beams are inserted automatically:
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4 c8 c c c
-\time 6/8 c c c c8. c16 c8
+\time 6/8 c8 c c c8. c16 c8
 @end lilypond
 
 If these automatic decisions are not satisfactory, beaming can be
@@ -1938,18 +1932,17 @@ compatible with the new value of @code{baseMoment}.
 \time 5/8
 \set Timing.baseMoment = #(ly:make-moment 1 16)
 \set Timing.beatStructure = #'(7 3)
-\repeat unfold 10 {a16}
+\repeat unfold 10 { a16 }
 @end lilypond
 
-@code{baseMoment} is a @i{moment},
-a unit of musical duration.  A quantity of type @i{moment} is
-created by the scheme function @code{ly:make-moment}.  For more
-information about this function, see @ref{Time administration}.
+@code{baseMoment} is a @i{moment}; a unit of musical duration.  A
+quantity of type @i{moment} is created by the scheme function
+@code{ly:make-moment}.  For more information about this function,
+see @ref{Time administration}.
 
-By default @code{baseMoment} is set
-to one over the denominator of the time signature.
-Any exceptions to this default
-can be found in @file{scm/@/time@/-signature@/-settings@/.scm}.
+By default @code{baseMoment} is set to one over the denominator of
+the time signature. Any exceptions to this default can be found in
+@file{scm/@/time@/-signature@/-settings@/.scm}.
 
 Special autobeaming rules (other than ending a beam on a beat)
 are defined in the @code{beamExceptions} property.
@@ -1964,19 +1957,18 @@ are defined in the @code{beamExceptions} property.
        ((1 . 32) . (2 2 2))   ;rule for 1/32 beams -- end each 1/16
       )))                     %close all entries
 c16 c c |
-\repeat unfold 6 {c32} |
+\repeat unfold 6 { c32 } |
 @end lilypond
 
-@code{beamExceptions} is an alist with a key of rule-type and
-a value of beaming-rules.
+@code{beamExceptions} is an alist with a key of rule-type and a value
+of beaming-rules.
 
 At this time the only available value of rule-type is
 @code{#'end} for beam ending.
 
-Beaming-rules is a scheme alist (or list of pairs) that
-indicates the beam type and the grouping to be applied to
-beams containing notes with a shortest duration of that
-beam type.
+Beaming-rules is a scheme alist (or list of pairs) that indicates the
+beam type and the grouping to be applied to beams containing notes with
+a shortest duration of that beam type.
 
 @example
 #'((beam-type1 . grouping-1)
@@ -1984,20 +1976,18 @@ beam type.
    (beam-type3 . grouping-3))
 @end example
 
-Beam type is a scheme pair indicating the duration
-of the beam, e.g., @code{(1 . 16)}.
+Beam type is a scheme pair indicating the duration of the beam,
+e.g., @code{(1 . 16)}.
 
 Grouping is a scheme list indicating the grouping to be applied to
 the beam.  The grouping is in units of the beam type.
 
-@warning{
-A @code{beamExceptions} value must be
-@emph{complete} exceptions list.  That is, every exception that should
-be applied must be included in the setting.
-It is not possible to add, remove, or change only one of the exceptions.
-While this may seem cumbersome,
-it means that the current beaming settings need not be known
-in order to specify a new beaming pattern.}
+@warning{ A @code{beamExceptions} value must be @emph{complete}
+exceptions list.  That is, every exception that should be applied
+must be included in the setting.  It is not possible to add, remove,
+or change only one of the exceptions. While this may seem cumbersome,
+it means that the current beaming settings need not be known in order
+to specify a new beaming pattern.}
 
 When the time signature is changed, default values of
 @code{Timing.baseMoment}, @code{Timing.beatStructure},
@@ -2007,13 +1997,13 @@ context to the default behavior.
 
 @lilypond[quote,verbatim,relative=2]
 \time 6/8
-\repeat unfold 6 {a8}
+\repeat unfold 6 { a8 }
 % group (4 + 2)
 \set Timing.beatStructure = #'(4 2)
-\repeat unfold 6 {a8}
+\repeat unfold 6 { a8 }
 % go back to default behavior
 \time 6/8
-\repeat unfold 6 {a8}
+\repeat unfold 6 { a8 }
 @end lilypond
 
 These default automatic beaming settings for a time signature
@@ -2095,11 +2085,10 @@ Internals Reference:
 
 
 @knownissues
-
 If a score ends while an automatic beam has not been ended and is
 still accepting notes, this last beam will not be typeset at all.
-The same holds for polyphonic voices, entered with @code{<<
-@dots{} \\ @dots{} >>}.  If a polyphonic voice ends while an
+The same holds for polyphonic voices, entered with
+@code{<< @dots{} \\ @dots{} >>}.  If a polyphonic voice ends while an
 automatic beam is still accepting notes, it is not typeset.
 The workaround for these problems is to manually beam the last
 beam in the voice or score.
@@ -2121,7 +2110,7 @@ notes.  Such beams can be specified manually by
 marking the begin and end point with @code{[} and @code{]}.
 
 @lilypond[quote,relative=1,verbatim]
-r4 r8[ g' a r8] r8 g[ | a] r8
+r4 r8[ g' a r] r g[ | a] r
 @end lilypond
 
 @cindex manual beams, direction shorthand for
@@ -2150,7 +2139,7 @@ Unbeamed grace notes are not put into normal note beams.
 @lilypond[quote,verbatim,relative=2]
 c4 d8[
 \grace { e32[ d c d] }
-e8] e8[ e
+e8] e[ e
 \grace { f16 }
 e8 e]
 @end lilypond
@@ -2391,7 +2380,7 @@ g1 \bar ":|:"
 a1 \bar ":|.|:"
 b1 \bar ":|.:"
 c1 \bar ":|"
-d1
+e1
 @end lilypond
 
 Additionally, a bar line can be printed as a simple tick:
@@ -2616,7 +2605,6 @@ Internals Reference:
 @cindex collision, bar number
 
 @knownissues
-
 Bar numbers may collide with the top of the @code{StaffGroup} bracket,
 if there is one.  To solve this, the @code{padding} property of
 @code{BarNumber} can be used to position the number correctly.  See
@@ -2678,10 +2666,10 @@ for end of bar.
 @lilypond[quote,verbatim]
 pipeSymbol = \bar "||"
 {
-  c'2 c'2 |
-  c'2 c'2
-  c'2 | c'2
-  c'2 c'2
+  c'2 c' |
+  c'2 c'
+  c'2 | c'
+  c'2 c'
 }
 @end lilypond
 

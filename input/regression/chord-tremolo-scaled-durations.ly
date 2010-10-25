@@ -1,4 +1,4 @@
-\version "2.11.32"
+\version "2.12.0"
 
 \header {
   texidoc = "Don't allow scaled durations to confuse the tremolo beaming.

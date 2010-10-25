@@ -2915,8 +2915,9 @@ def conv(str):
 
 @rule ((2, 13, 4),
        _ ("Autobeaming rules have changed.  override-auto-beam-setting and\n\
-revert-auto-beam-setting have been eliminated.  \\overrideBeamSettings has been\n\
-added.  beatGrouping has been eliminated.\n\
+revert-auto-beam-setting have been eliminated.\n\
+\\overrideBeamSettings has been added.\n\
+beatGrouping has been eliminated.\n\
 Different settings for vertical layout.\n\
 ly:system-start-text::print -> system-start-text::print\n\
 Beam #'thickness -> Beam #'beam-thickness\n\
@@ -2989,7 +2990,7 @@ def conv(str):
     return re.sub(r'\bfeta(Number|Dynamic)', 'fetaText', str)
 
 @rule ((2, 13, 18),
-       _ ("\RemoveEmpty*StaffContext -> \*Staff \RemoveEmptyStaves"))
+       _ ("\\RemoveEmpty*StaffContext -> \\*Staff \\RemoveEmptyStaves"))
 def conv(str):
     str = re.sub (r"\\RemoveEmpty(|Drum|Rhythmic|Tab)StaffContext",
                   r"\\\1Staff \\RemoveEmptyStaves",
@@ -3006,7 +3007,7 @@ def conv (str):
     return str
 
 @rule ((2, 13, 29),
-       _ ("Eliminate beamSettings, beatLength, \setBeatGrouping, \overrideBeamSettings and \revertBeamSettings\n\
+       _ ("Eliminate beamSettings, beatLength, \\setBeatGrouping, \\overrideBeamSettings and \\revertBeamSettings.\n\
 \"accordion.accEtcbase\" -> \"accordion.etcbass\""))
 def conv(str):
     def sub_acc (m):
@@ -3024,11 +3025,11 @@ def conv(str):
 		  sub_acc, str)
     if re.search(r'overrideBeamSettings', str):
         stderr_write("\n")
-        stderr_write(NOT_SMART % _("\overrideBeamSettings.  Use \set beamExceptions or \overrideTimeSignatureSettings.\n"))
+        stderr_write(NOT_SMART % _("\\overrideBeamSettings.  Use \\set beamExceptions or \\overrideTimeSignatureSettings.\n"))
         stderr_write(UPDATE_MANUALLY)
     if re.search(r'revertBeamSettings', str):
         stderr_write("\n")
-        stderr_write(NOT_SMART % _("\revertBeamSettings. Use \set beamExceptions or \revertTimeSignatureSettings.\n"))
+        stderr_write(NOT_SMART % _("\\revertBeamSettings. Use \\set beamExceptions or \\revertTimeSignatureSettings.\n"))
         stderr_write(UPDATE_MANUALLY)
     if re.search(r'beamSettings', str):
         stderr_write("\n")

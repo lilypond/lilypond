@@ -168,9 +168,9 @@ init_pedal_types ()
 	be careful, as we don't want to loose references to the _sym_ members.
        */
       Pedal_type_info info;
-      info.event_class_sym_ = scm_str2symbol ((base_ident + "-event").c_str ());
-      info.style_sym_ = scm_str2symbol (("pedal" + base_name + "Style").c_str ());
-      info.strings_sym_ = scm_str2symbol (("pedal" + base_name + "Strings").c_str ());
+      info.event_class_sym_ = scm_from_locale_symbol ((base_ident + "-event").c_str ());
+      info.style_sym_ = scm_from_locale_symbol (("pedal" + base_name + "Style").c_str ());
+      info.strings_sym_ = scm_from_locale_symbol (("pedal" + base_name + "Strings").c_str ());
       
       info.base_name_ = name;
       info.pedal_c_str_ = strdup ((base_name + "Pedal").c_str ());

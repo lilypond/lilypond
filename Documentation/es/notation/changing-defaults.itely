@@ -8,7 +8,7 @@ Translation of GIT committish: cd6d449de0bfc3236b87fbec08389697be8cae81
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.29"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -717,16 +717,16 @@ No es posible recolectar cambios de contexto dentro de una variable y
 aplicarlos a una definición de @code{\context} por referencia a dicha
 variable.
 
-La instrucción @code{\RemoveEmptyStaffContext} sobreescribe nuestros
-ajustes en curso para @code{\Staff}.  Si queremos cambiar los valores
-predeterminados para un pentagrama que utilice
-@code{\RemoveEmptyStaffContext}, debe hacerlo después de llamar a
-@code{\RemoveEmptyStaffContext}, o sea
+La instrucción @code{\RemoveEmptyStaves} sobreescribe nuestros ajustes
+en curso para el contexto @code{\Staff}.  Si queremos cambiar los
+valores predeterminados para un pentagrama que utilice
+@code{\RemoveEmptyStaves}, debe hacerlo después de llamar a
+@code{\RemoveEmptyStaves}, o sea
 
 @example
 \layout @{
   \context @{
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
 
     \override Stem #'thickness = #4.0
   @}
@@ -1179,7 +1179,7 @@ realmente esto no significa mucho.  El archivo de inicialización
      (script-priority . 100)
      (stencil . ,ly:text-interface::print)
      (direction . ,ly:script-interface::calc-direction)
-     (font-encoding . fetaNumber)
+     (font-encoding . fetaText)
      (font-size . -5) 		; don't overlap when next to heads.
      (meta . ((class . Item)
      (interfaces . (finger-interface
@@ -1390,7 +1390,7 @@ en el momento en que se crea el objeto.  En este ejemplo:
 @lilypond[quote,fragment,verbatim,relative=2]
 \override Slur #'thickness = #3.0
 c8[( c
-\override Beam #'thickness = #0.6
+\override Beam #'beam-thickness = #0.6
 c8 c])
 @end lilypond
 

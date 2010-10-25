@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Notation manual tables
 @appendix Notation manual tables
@@ -196,11 +196,11 @@ Minor-major seventh
 @tab
 Minor triad, major seventh
 @tab
-@code{maj7.3-}
+@code{m7+}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:maj7.3-
+  c1:m7+
 }
 @end lilypond
 
@@ -386,6 +386,33 @@ Perfect fourth, perfect fifth
 }
 @end lilypond
 
+@item
+Power chord (two-voiced)
+@tab
+Perfect fifth
+@tab
+@code{1.5}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  \powerChords
+  c1:1.5
+}
+@end lilypond
+
+@item
+Power chord (three-voiced)
+@tab
+Perfect fifth, octave
+@tab
+@code{1.5.8}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  \powerChords
+  c1:1.5.8
+}
+@end lilypond
 
 @end multitable
 

@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.12.0"
+\version "2.13.36"
 manuscriptBreak = { \break }
 
 
@@ -176,7 +176,7 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	    }
 	    \context {
 		\Score
-		\override Beam #'thickness = #0.55
+		\override Beam #'beam-thickness = #0.55
 		\override SpacingSpanner #'spacing-increment = #1.0
 		\override Slur #'height-limit = #1.5
 	    }

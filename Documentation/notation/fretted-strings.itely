@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Fretted string instruments
 @section Fretted string instruments
@@ -1280,7 +1280,7 @@ commands:
 
 \storePredefinedDiagram #default-fret-table <c e g c' e'>
                         #guitar-tuning
-                        #"x;3-1-(;5-2;5-3;5-4;3-1-1);"
+                        #"x;3-1-(;5-2;5-3;5-4;3-1-1-);"
 <<
   \context ChordNames {
     \chordmode {
@@ -1335,6 +1335,8 @@ Fingerings can be added to FretBoard fret diagrams.
   }
 >>
 @end lilypond
+
+@funindex minimumFret
 
 The minimum fret to be used in calculating strings and frets for
 the FretBoard context can be set with the @code{minimumFret}
@@ -1417,7 +1419,7 @@ even when applied to a single note.
 <g-\rightHandFinger #3 >
 <c-\rightHandFinger #4 >
 <c,-\rightHandFinger #1 e-\rightHandFinger #2
-  g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+ g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 @end lilypond
 
 For convenience, you can abbreviate @code{\rightHandFinger} to something
@@ -1460,6 +1462,7 @@ or, for experienced users, a typesetter like GuitarTeX.
 @menu
 * Indicating position and barring::
 * Indicating harmonics and dampened notes::
+* Indicating power chords::
 @end menu
 
 @node Indicating position and barring
@@ -1471,13 +1474,13 @@ or, for experienced users, a typesetter like GuitarTeX.
 This example demonstrates how to include guitar position and
 barring indications.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=0]
+@lilypond[quote,ragged-right,verbatim,relative=0]
 \clef "treble_8"
 b16 d g b e
 \textSpannerDown
 \override TextSpanner #'(bound-details left text) = #"XII "
-  g16\startTextSpan
-  b16 e g e b g\stopTextSpan
+g16\startTextSpan
+b16 e g e b g\stopTextSpan
 e16 b g d
 @end lilypond
 
@@ -1566,6 +1569,87 @@ Snippets:
 Notation Reference:
 @ref{Special note heads},
 @ref{Note head styles}.
+
+
+@node Indicating power chords
+@unnumberedsubsubsec Indicating power chords
+
+@funindex powerChords
+@funindex \powerChords
+
+@cindex power chords
+@cindex chords, power
+
+Power chords and their symbols can be engraved in chord mode or as chord
+constructs:
+
+@lilypond[quote,ragged-right,verbatim]
+ChordsAndSymbols = {
+  \chordmode {
+    \powerChords
+    e,,1:1.5
+    a,,1:1.5.8
+    \set minimumFret = #8
+    c,1:1.5
+    f,1:1.5.8
+  }
+  \set minimumFret = #5
+  <a, e>1
+  <g d' g'>1
+}
+\score {
+  <<
+    \new ChordNames {
+    \ChordsAndSymbols
+    }
+    \new Staff {
+      \clef "treble_8"
+      \ChordsAndSymbols
+    }
+    \new TabStaff {
+      \ChordsAndSymbols
+    }
+  >>
+}
+@end lilypond
+
+Power chord symbols are automatically switched off as soon as one of the
+other common chord modifier is used:
+
+@lilypond[quote,ragged-right,verbatim]
+mixedChords = \chordmode {
+  c,1
+  \powerChords
+  b,,1:1.5
+  fis,,1:1.5.8
+  g,,1:m
+}
+\score {
+  <<
+    \new ChordNames {
+      \mixedChords
+    }
+    \new Staff {
+      \clef "treble_8"
+      \mixedChords
+    }
+    \new TabStaff {
+      \mixedChords
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Music Glossary:
+@rglos{power chord}.
+
+Notation Reference:
+@ref{Extended and altered chords},
+@ref{Printing chord names}.
+
+Snippets:
+@rlsr{Fretted strings}.
 
 
 @node Banjo

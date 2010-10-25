@@ -185,7 +185,7 @@ Dispatcher::internal_add_listener (Listener l, SCM ev_class, int priority)
   SCM list = scm_hashq_ref (listeners_, ev_class, SCM_EOL);
   if (!scm_is_pair (list))
     {
-      /* Tell all dispatchers that we listen to, that we want to hear ev_class 
+      /* Tell all dispatchers that we listen to, that we want to hear ev_class
          events */
       for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
 	{
@@ -195,7 +195,7 @@ Dispatcher::internal_add_listener (Listener l, SCM ev_class, int priority)
 	}
       listen_classes_ = scm_cons (ev_class, listen_classes_);
     }
-  SCM entry = scm_cons (scm_int2num (priority), l.smobbed_copy ());
+  SCM entry = scm_cons (scm_from_int (priority), l.smobbed_copy ());
   list = scm_merge (list, scm_list_1 (entry), ly_lily_module_constant ("car<"));
   scm_hashq_set_x (listeners_, ev_class, list);
 }
@@ -255,7 +255,7 @@ Dispatcher::register_as_listener (Dispatcher *disp)
       return;
     }
 
-  dispatchers_ = scm_acons (disp->self_scm (), scm_int2num (priority), dispatchers_);
+  dispatchers_ = scm_acons (disp->self_scm (), scm_from_int (priority), dispatchers_);
 
   Listener list = GET_LISTENER (dispatch);
   for (SCM cl = listen_classes_; scm_is_pair (cl); cl = scm_cdr (cl))

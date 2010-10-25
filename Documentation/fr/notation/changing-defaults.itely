@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -379,7 +379,7 @@ doit être saisie avant que l'objet soit créé.
 @lilypond[quote,fragment,verbatim,relative=2]
 \override Slur #'thickness = #3.0
 c8[( c
-\override Beam #'thickness = #0.6
+\override Beam #'beam-thickness = #0.6
 c8 c])
 @end lilypond
 
@@ -431,11 +431,12 @@ de ce fait interrompre, ou faire planter le programme -- ou bien les deux.
 @subsection Modification des réglages par défaut d'un contexte
 @translationof Changing context default settings
 
-Les réglages montrés dans les sous-sections @ref{La commande de fixation
- (set)}, @ref{Modification des greffons de contexte}
- et @c r ef{Retouches de mise en forme au sein des contextes} 
-peuvent également être saisis indépendamment
-de la musique dans le bloc @code{\layout}, au moyen de la commande @code{\context} :
+Les réglages montrés dans les sous-sections 
+@ref{La commande de fixation  (set)},
+@ref{Modification des greffons de contexte}
+@c et @c r ef{Retouches de mise en forme au sein des contextes} 
+peuvent également être saisis indépendamment de la musique dans le bloc
+@code{\layout}, au moyen de la commande @code{\context}@tie{}:
 
 @example
 \layout @{
@@ -453,8 +454,8 @@ de la musique dans le bloc @code{\layout}, au moyen de la commande @code{\contex
 Le raccourci @code{\Staff} invoque les définitions inhérentes au contexte
 @code{Staff}, de façon à ce qu'elles puissent être modifiées.
 
-Les lignes suivantes affecteront toutes les portées (tous les contextes @code{Staff})
-dans la partition.
+Les lignes suivantes affecteront toutes les portées (tous les contextes
+@code{Staff}) dans la partition.
 @example
 \set fontSize = #-2
 \override Stem #'thickness = #4.0
@@ -479,15 +480,15 @@ les lignes suivantes produiront-elles le même effet.
 
 Il est impossible de stocker des modifications de contexte dans un identificateur.
 
-Le raccourci @code{\RemoveEmptyStaffContext} détruit tous les réglages
+Le raccourci @code{\Staff \RemoveEmptyStaves} détruit tous les réglages
 du contexte @code{\Staff}.  Pour modifier des propriétés de portées gouvernées
-par @code{\RemoveEmptyStaffContext}, il faut le faire impérativement @emph{après}
-avoir invoqué @code{\RemoveEmptyStaffContext} :
+par @code{\Staff \RemoveEmptyStaves}, il faut le faire impérativement
+@emph{après} avoir invoqué @code{\Staff \RemoveEmptyStaves} :
 
 @example
 \layout @{
   \context @{
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
 
     \override Stem #'thickness = #4.0
   @}
@@ -921,7 +922,7 @@ son âme même, dans les fichiers source de LilyPond (voir
      (script-priority . 100)
      (stencil . ,ly:text-interface::print)
      (direction . ,ly:script-interface::calc-direction)
-     (font-encoding . fetaNumber)
+     (font-encoding . fetaText)
      (font-size . -5) 		; don't overlap when next to heads.
      (meta . ((class . Item)
      (interfaces . (finger-interface

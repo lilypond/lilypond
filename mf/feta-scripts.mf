@@ -1217,20 +1217,25 @@ fet_beginchar ("Varied Segno", "varsegno");
 	bulbradius = length (z1l - z1');
 	pickup pencircle scaled 2 bulbradius;
 
-	drawdot z1';
+	save se_dir, nw_dir;
+	pair se_dir, nw_dir;
+	se_dir := dir -loopangle;
+	nw_dir := dir (180 - loopangle);
+
+	draw_bulb (-1, z1r, z1l, bulbradius, .8);
 
 	penstroke z1e
 		  .. z2e
 		  .. z3e
-		  .. z4e{dir (-loopangle)}
-		  .. z5e{dir (-loopangle)}
-		  .. z6e
-		  .. z7e
-		  .. z8e
-		  .. z9e{dir (-loopangle)}
-		  .. z10e{dir (-loopangle)}
-		  .. z11e
-		  .. {dir (180 - loopangle)}z12e;
+		  ... {se_dir}z4e
+		  -- z5e{se_dir}
+		  ... z6e
+		  ... z7e{nw_dir}
+		  ... z8e
+		  ... {se_dir}z9e
+		  -- z10e{se_dir}
+		  ... z11e
+		  ... {nw_dir}z12e;
 	addto currentpicture also currentpicture scaled -1;
 
 	penlabels (1, 1', 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);

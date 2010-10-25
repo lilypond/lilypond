@@ -190,8 +190,7 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real padd
 
   extract_grob_set (align, "elements", all_elts);
   vector<Grob*> elts = filter_dead_elements (all_elts);
-  vector<Real> minimum_offsets = Align_interface::get_minimum_translations (align, elts, Y_AXIS,
-									    false, 0, 0);
+  vector<Real> minimum_offsets = Align_interface::get_minimum_translations_without_min_dist (align, elts, Y_AXIS);
 
   Skyline up_skyline (UP);
   Skyline down_skyline (DOWN);
@@ -625,6 +624,39 @@ Page_layout_problem::read_spacing_spec (SCM spec, Real* dest, SCM sym)
       return true;
     }
   return false;
+}
+
+// If there is a forced, fixed spacing between BEFORE and AFTER, return it.
+// Otherwise, return -infinity_f.
+// If after is spaceable, it is the (spaceable_index + 1)th spaceable grob in
+// its alignment.
+Real
+Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after, int spaceable_index, bool pure, int start, int end)
+{
+  SCM spec = Page_layout_problem::get_spacing_spec (before, after, pure, start, end);
+  Real ret = -infinity_f;
+  Real stretchability = 0;
+  if (Page_layout_problem::read_spacing_spec (spec, &stretchability, ly_symbol2scm ("stretchability"))
+      && stretchability == 0)
+    Page_layout_problem::read_spacing_spec (spec, &ret, ly_symbol2scm ("space"));
+
+  // If we're pure, then paper-columns have not had their systems set,
+  // and so elts[i]->get_system () is unreliable.
+  System *sys = pure ? Grob::get_system (before) : before->get_system ();
+  Grob *left_bound = sys ? sys->get_maybe_pure_bound (LEFT, pure, start, end) : 0;
+
+  if (is_spaceable (before) && is_spaceable (after) && left_bound)
+    {
+      SCM details = left_bound->get_property ("line-break-system-details");
+      SCM manual_dists = ly_assoc_get (ly_symbol2scm ("alignment-distances"), details, SCM_EOL);
+      if (scm_is_pair (manual_dists))
+	{
+	  SCM forced = robust_list_ref (spaceable_index - 1, manual_dists);
+	  if (scm_is_number (forced))
+	    ret = max (ret, scm_to_double (forced));
+	}
+    }
+  return ret;
 }
 
 static SCM

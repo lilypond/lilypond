@@ -187,17 +187,15 @@ This section lists and describes a number of paper variables that
 may be altered.
 
 @menu
-* Vertical dimensions::
+* Fixed vertical dimensions::
+* Flexible vertical dimensions::
 * Horizontal dimensions::
 * Other layout variables::
 @end menu
 
 
-@node Vertical dimensions
-@unnumberedsubsubsec Vertical dimensions
-
-
-@subsubheading Fixed vertical dimensions
+@node Fixed vertical dimensions
+@unnumberedsubsubsec Fixed vertical dimensions
 
 @table @code
 @item paper-height
@@ -217,11 +215,11 @@ printable area.  Default: @code{5\mm}.
 
 The margin between the bottom of the printable area and the bottom
 of the page.  Default: @code{6\mm}.
-
 @end table
 
 
-@subsubheading Flexible vertical dimensions
+@node Flexible vertical dimensions
+@unnumberedsubsubsec Flexible vertical dimensions
 
 In most cases, it is preferable for the vertical distances between
 certain items (such as margins, titles, systems, and separate
@@ -230,47 +228,58 @@ according to each situation.  A number of @code{\paper} variables
 (listed below) are available to fine-tune the stretching behavior
 of these dimensions.
 
-Each of these variables is an associative list containing four
-@emph{keys}:
+Note that the @code{\paper} variables discussed in this section do
+not control the spacing of staves within individual systems.
+Inter-system spacing is controlled by grob properties, with
+settings typically entered inside a @code{\score} block, and not
+inside a @code{\paper} block.  See
+@ref{Vertical spacing between systems}.
+
+
+@subsubheading Structure of spacing alists for @code{\paper} variables
+
+Each of these variables is an alist (associative list) containing
+four @emph{keys}:
 
 @itemize
 @item @code{padding} -- the minimum required amount of
-unobstructed vertical whitespace between two items.  This can be
-thought of as the minimum height of an unobstructed (invisible)
-rectangle that extends from the leftmost to the rightmost point of
-the combined items.
+unobstructed vertical whitespace between two items, measured in
+staff-spaces.  This can be thought of as the minimum height of an
+unobstructed (invisible) rectangle that extends from the leftmost
+to the rightmost point of the combined items.
 
-@item @code{space} -- the default vertical distance between the
-@emph{reference points} of the two items, when no collisions would
-result, and no stretching or compressing is in effect.  The
-reference point of a title or markup is its highest point, and the
-reference point of a system is the middle line of the nearest
-staff.  Values for @code{space} that are less than either
-@code{padding} or @code{minimum-distance} are not meaningful,
-since the resulting space will never be less than either
-@code{padding} or @code{minimum-distance}.
+@item @code{space} -- the default vertical distance, measured in
+staff-spaces, between the @emph{reference points} of the two
+items, when no collisions would result, and no stretching or
+compressing is in effect.  The reference point of a (title or
+top-level) markup is its highest point, and the reference point of
+a system is the middle line of the nearest staff.  Values for
+@code{space} that are less than either @code{padding} or
+@code{minimum-distance} are not meaningful, since the resulting
+distance will never be less than either @code{padding} or
+@code{minimum-distance}.
 
 @item @code{minimum-distance} -- the minimum required vertical
-distance between the reference points of the two items, when
-compressing is in effect.  Values for @code{minimum-distance} that
-are less than @code{padding} are not meaningful, since the
-resulting space will never be less than @code{padding.}
+distance, measured in staff-spaces, between the reference points
+of the two items, when compressing is in effect.  Values for
+@code{minimum-distance} that are less than @code{padding} are not
+meaningful, since the resulting distance will never be less than
+@code{padding.}
 
-@item @code{stretchability} -- the stretchable space's propensity
-to stretch.  If zero, the space will not stretch (unless
-collisions would result).  When positive, the significance of a
-particular dimension's @code{stretchability} value lies only in
-its relation to the @code{stretchability} values of the other
-dimensions.  For example, if one dimension has twice the
-@code{stretchability} of another, it will stretch twice as easily.
-Values should be non-negative and finite.  The value @code{+inf.0}
-triggers a @code{programming_error} and is ignored, but
-@code{1.0e7} can be used for an almost infinitely stretchable
+@item @code{stretchability} -- a unitless measure of the
+dimension's relative propensity to stretch.  If zero, the distance
+will not stretch (unless collisions would result).  When positive,
+the significance of a particular dimension's @code{stretchability}
+value lies only in its relation to the @code{stretchability}
+values of the other dimensions.  For example, if one dimension has
+twice the @code{stretchability} of another, it will stretch twice
+as easily.  Values should be non-negative and finite.  The value
+@code{+inf.0} triggers a @code{programming_error} and is ignored,
+but @code{1.0e7} can be used for an almost infinitely stretchable
 spring.  If unset, the default value is set to @code{space}.  Note
-that the stretchable space's propensity to @emph{compress} cannot
-be directly set by the user and is equal to
+that the dimension's propensity to @emph{compress} cannot be
+directly set by the user and is equal to
 (@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
-
 @end itemize
 
 If a page has a ragged bottom, the resulting distance is the
@@ -283,44 +292,70 @@ largest of:
 eliminate collisions.
 @end itemize
 
-A single key for a flexible vertical dimension variable can be set
-like this:
+
+@subsubheading Modifying spacing alists for @code{\paper} variables
+
+To set or modify a single key for a dimension variable, use a
+nested declaration:
 
 @example
 \paper @{
-  markup-system-spacing #'space = #5
+  system-system-spacing #'space = #10
 @}
 @end example
 
-Multiple keys for a single variable can be set simultaneously like
-this:
+This will update the specified key without altering any other keys
+already set for the same variable.  To completely re-define a
+variable with one declaration, define it as an alist:
 
 @example
 \paper @{
-  last-bottom-spacing =
+  system-system-spacing =
     #'((padding . 1)
-       (space . 1)
-       (minimum-distance . 0)
-       (stretchability . 5))
+       (space . 12)
+       (minimum-distance . 8)
+       (stretchability . 12))
 @}
 @end example
 
-The names of the flexible vertical dimension variables follow the
-format @code{@var{upper}-@var{lower}-spacing}, where
-@code{@var{upper}} and @code{@var{lower}} are the items to be
-spaced.  Each distance is measured between the reference points of
-the two items: the reference point of a title or markup is its
-highest point, and the reference point of a system is the middle
-line of the nearest staff.  Note that in these variable names, the
-term @q{@code{markup}} refers to both @i{title markups}
+However, note that any keys not listed in an alist definition will
+still be overwritten; they will be reset to zero (except
+@code{stretchability}, which takes the value of @code{space}).
+Thus the following two declarations are equivalent:
+
+@example
+system-system-spacing =
+  #'((space . 10))
+
+system-system-spacing =
+  #'((padding . 0)
+     (space . 10)
+     (minimum-distance . 0)
+     (stretchability . 10))
+@end example
+
+One possibly unintended consequence of the above example is the
+removal of the default values for @code{padding} and
+@code{minimum-distance}.  Defining a variable as an alist (of any
+size) will always reset all its default key-values.  Default
+settings for the flexible vertical @code{\paper} dimensions are
+defined in @file{ly/paper-defaults-init.ly}.
+
+
+@subsubheading Flexible vertical dimension @code{\paper} variables
+
+The names of these variables follow the format
+@code{@var{upper}-@var{lower}-spacing}, where @code{@var{upper}}
+and @code{@var{lower}} are the items to be spaced.  Each distance
+is measured between the reference points of the two items: the
+reference point of a (title or top-level) markup is its highest
+point, and the reference point of a system is the middle line of
+the nearest staff.  Note that in these variable names, the term
+@q{@code{markup}} refers to both @emph{title markups}
 (@code{bookTitleMarkup} or @code{scoreTitleMarkup}) and
-@i{top-level markups} (see @ref{File structure}).
-
-The flexible vertical dimension variables are:
-
+@emph{top-level markups} (see @ref{File structure}).
 
 @table @code
-
 @item markup-system-spacing
 @funindex markup-system-spacing
 
@@ -370,7 +405,6 @@ of the top margin) to the first system on a page, when there is no
 the distance from the top of the printable area (i.e. the bottom
 of the top margin) to the first (title or top-level) markup on a
 page, when there is no system between the two.
-
 @end table
 
 
@@ -1682,8 +1716,8 @@ lines.  For example, @var{system-system-spacing} controls the spacing
 from the middle staff line of the bottom staff from one system to
 the middle staff line of the top staff of the next system, whether
 or not there are lyrics below the upper system.
-See @ref{Vertical dimensions} for a description of each of these
-variables.
+See @ref{Flexible vertical dimensions} for a description of each
+of these variables.
 
 There are two more @code{\paper} block variables that affect vertical
 spacing: if @var{ragged-bottom} is set to @code{##t} then no pages will

@@ -107,13 +107,13 @@ lily_snippets_re = re.compile ('(href|src)="([0-9a-f]{2}/lily-.*?)"')
 pictures_re = re.compile ('src="(pictures/.*?)"')
 
 docindex_link_re = re.compile (r'href="index.html"')
-
+manuals_page_link_re = re.compile (r'href="((?:\.\./)+)Documentation/web/manuals')
 
 ## Windows does not support symlinks.
 # This function avoids creating symlinks for splitted HTML manuals
 # Get rid of symlinks in GNUmakefile.in (local-WWW-post)
 # this also fixes missing PNGs only present in translated docs
-def hack_urls (s, prefix):
+def hack_urls (s, prefix, target, is_development_branch):
     if splitted_docs_re.match (prefix):
         s = lily_snippets_re.sub ('\\1="../\\2"', s)
         s = pictures_re.sub ('src="../\\1"', s)
@@ -130,7 +130,15 @@ def hack_urls (s, prefix):
         else:
             indexfile = "index"
         s = docindex_link_re.sub ('href="' + rel_link + indexfile + '.html\"', s)
-
+    # make the "return to doc index" work with the online website.
+    if target == 'online':
+        if (('Documentation/contributor' in prefix) or
+            is_development_branch):
+            manuals_page = 'development'
+        else:
+            manuals_page = 'manuals'
+        s = manuals_page_link_re.sub (r'href="../../\1website/%s'
+                                      % manuals_page, s)
     source_path = os.path.join (os.path.dirname (prefix), 'source')
     if not os.path.islink (source_path):
         return s
@@ -343,19 +351,8 @@ def process_html_files (package_name = '',
             in_f.close()
 
             s = s.replace ('%', '%%')
-            s = hack_urls (s, prefix)
+            s = hack_urls (s, prefix, target, bool (int (versiontup[1]) %  2))
             s = add_header (s, prefix)
-            # make the "return to doc index" work with the online website.
-            if target == 'online':
-                if (('Documentation/contributor' in prefix) or
-                    (int (versiontup[1]) %  2)):
-                    s = s.replace (
-                        'href=\"../..//Documentation/web/manuals.html\"',
-                        'href=\"../../../../website/development.html\"')
-                else:
-                    s = s.replace (
-                        'href=\"../..//Documentation/web/manuals.html\"',
-                        'href=\"../../../../website/manuals.html\"')
 
             ### add footer
             if footer_tag_re.search (s) == None:

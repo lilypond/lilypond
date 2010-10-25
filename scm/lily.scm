@@ -801,7 +801,7 @@ PIDs or the number of the process."
 	  (if separate-logs
 	      (open-file (if (string-or-symbol? (ly:get-option 'log-file))
 			     (format "~a.log" (ly:get-option 'log-file))
-			     "/dev/tty") "a") #f))
+			     "/dev/stderr") "a") #f))
 	 (do-measurements (ly:get-option 'dump-profile))
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
