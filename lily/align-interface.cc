@@ -143,6 +143,30 @@ get_skylines (Grob *me,
   reverse (*ret);
 }
 
+vector<Real>
+Align_interface::get_minimum_translations (Grob *me,
+					   vector<Grob*> const &all_grobs,
+					   Axis a)
+{
+  return internal_get_minimum_translations (me, all_grobs, a, true, false, 0, 0);
+}
+
+vector<Real>
+Align_interface::get_pure_minimum_translations (Grob *me,
+						vector<Grob*> const &all_grobs,
+						Axis a, int start, int end)
+{
+  return internal_get_minimum_translations (me, all_grobs, a, true, true, start, end);
+}
+
+vector<Real>
+Align_interface::get_minimum_translations_without_min_dist (Grob *me,
+							    vector<Grob*> const &all_grobs,
+							    Axis a)
+{
+  return internal_get_minimum_translations (me, all_grobs, a, false, false, 0, 0);
+}
+
 // If include_fixed_spacing is true, the manually fixed spacings
 // induced by stretchable=0 or alignment-distances are included
 // in the minimum translations here.  If you want to find the minimum
@@ -150,11 +174,11 @@ get_skylines (Grob *me,
 // want to actually lay out the page, then it should be false (or
 // else centered dynamics will break when there is a fixed alignment).
 vector<Real>
-Align_interface::get_minimum_translations (Grob *me,
-					   vector<Grob*> const &all_grobs,
-					   Axis a,
-					   bool include_fixed_spacing,
-					   bool pure, int start, int end)
+Align_interface::internal_get_minimum_translations (Grob *me,
+						    vector<Grob*> const &all_grobs,
+						    Axis a,
+						    bool include_fixed_spacing,
+						    bool pure, int start, int end)
 {
   if (!pure && a == Y_AXIS && dynamic_cast<Spanner*> (me) && !me->get_system ())
     me->programming_error ("vertical alignment called before line-breaking");
@@ -270,7 +294,7 @@ Align_interface::align_elements_to_minimum_distances (Grob *me, Axis a)
 {
   extract_grob_set (me, "elements", all_grobs);
 
-  vector<Real> translates = get_minimum_translations (me, all_grobs, a, true, false, 0, 0);
+  vector<Real> translates = get_minimum_translations (me, all_grobs, a);
   if (translates.size ())
     for (vsize j = 0; j < all_grobs.size (); j++)
       all_grobs[j]->translate_axis (translates[j], a);
@@ -280,7 +304,7 @@ Real
 Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, int end)
 {
   extract_grob_set (me, "elements", all_grobs);
-  vector<Real> translates = get_minimum_translations (me, all_grobs, Y_AXIS, true, true, start, end);
+  vector<Real> translates = get_pure_minimum_translations (me, all_grobs, Y_AXIS, start, end);
 
   if (translates.size ())
     {

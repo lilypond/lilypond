@@ -190,8 +190,7 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real padd
 
   extract_grob_set (align, "elements", all_elts);
   vector<Grob*> elts = filter_dead_elements (all_elts);
-  vector<Real> minimum_offsets = Align_interface::get_minimum_translations (align, elts, Y_AXIS, false,
-									    false, 0, 0);
+  vector<Real> minimum_offsets = Align_interface::get_minimum_translations_without_min_dist (align, elts, Y_AXIS);
 
   Skyline up_skyline (UP);
   Skyline down_skyline (DOWN);

@@ -581,7 +581,7 @@ System::pure_refpoint_extent (vsize start, vsize end)
     return Interval ();
 
   extract_grob_set (alignment, "elements", staves);
-  vector<Real> offsets = Align_interface::get_minimum_translations (alignment, staves, Y_AXIS, true, true, start, end);
+  vector<Real> offsets = Align_interface::get_pure_minimum_translations (alignment, staves, Y_AXIS, start, end);
 
   for (vsize i = 0; i < offsets.size (); ++i)
     if (Page_layout_problem::is_spaceable (staves[i]))
@@ -608,7 +608,7 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
     return Interval ();
 
   extract_grob_set (alignment, "elements", staves);
-  vector<Real> offsets = Align_interface::get_minimum_translations (alignment, staves, Y_AXIS, true, true, start, end);
+  vector<Real> offsets = Align_interface::get_pure_minimum_translations (alignment, staves, Y_AXIS, start, end);
 
   Interval ret;
   for (vsize i = 0; i < staves.size (); ++i)
