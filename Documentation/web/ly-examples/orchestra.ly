@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.13.36"
 
 \header {
   tagline = ##f
@@ -592,7 +592,7 @@ R2. |
         \remove "Metronome_mark_engraver"
       }
       \context {
-        \RemoveEmptyStaffContext
+        \Staff \RemoveEmptyStaves
       }
     }
   }
