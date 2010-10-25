@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Valentin Villenave
 @c Translation checkers: Gilles Thibault, Jean-Charles Malahieude
@@ -370,7 +370,7 @@ rappel @code{after-line-breaking} devra également appeler celle
 d'origine (@code{after-line-breaking}), si elle existe.
 Ainsi, pour l'utiliser dans le cas d'un crescendo (objet
 @code{Hairpin}), il faudra appeler également
-@code{ly:hairpin::after-line-breaking}.
+@code{ly:spanner::kill-zero-spanned-time}.
 
 
 @item Pour des raisons d'ordre technique, certains objets ne peuvent

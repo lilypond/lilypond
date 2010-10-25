@@ -452,6 +452,7 @@ fet_beginchar ("accordion oldEE", "oldEE")
 	fi;
 fet_endchar;
 
+
 fet_beginchar ("accordion push", "push");
 	save width, height;
 
@@ -474,20 +475,41 @@ fet_beginchar ("accordion push", "push");
 	top y1 = height;
 
 	rt x2 = 0;
-	y2 = 0.5 * (y1+y3);
+	y2 = 0.5 * (y1 + y3);
 
-	x3= x1;
+	x3 = x1;
 	bot y3 = 0;
 
-	save pat;
+	save nw_offset, ne_offset;
+	pair nw_offset, ne_offset;
+	save sw_offset, se_offset, line_radius;
+	pair sw_offset, se_offset;
 
-	path pat;
+	line_radius := linewidth / 2;
+	nw_offset := line_radius * unitvector (z1 - z2);
+	ne_offset := nw_offset rotated -90;
+	sw_offset := line_radius * unitvector (z3 - z2);
+	se_offset := sw_offset rotated 90;
 
-	pat = z1 -- z2 -- z3;
+	z4 = ((z1 - ne_offset)
+	     -- (z2 - ne_offset))
+	     intersectionpoint
+	     ((z2 - se_offset)
+	     -- (z3 - se_offset));
 
-	draw pat;
-
+	fill z1 + ne_offset
+	     -- z2 + ne_offset
+	     .. rt z2 {down}
+	     .. z2 + se_offset
+	     -- z3 + se_offset
+	     .. z3 + sw_offset {- se_offset}
+	     .. z3 - se_offset
+	     -- z4
+	     -- z1 - ne_offset
+	     .. z1 + nw_offset {ne_offset}
+	     .. cycle;
 fet_endchar;
+
 
 fet_beginchar ("accordion pull", "pull");
 	save width, height;
@@ -525,24 +547,17 @@ fet_beginchar ("accordion pull", "pull");
 	x5 = x1;
 	y5 = y4;
 
-	save pat;
-
-	path pat;
-
-	pat = z1 + penradius * right {up} --
-	      z2 + penradius * right {up} ..
-	      z2 + penradius * up {left} --
-	      z3 + penradius * up {left} ..
-	      z3 + penradius * left {down} --
-	      z4 + penradius * left {down} ..
-	      z4 + penradius * down {right} --
-	      z5 + penradius * (down + left) --
-	      z1 + penradius * left {down} ..
-	      z1 + penradius * down {right} ..
-	      cycle;
-
-	fill pat;
-
+	fill z1 + penradius * right {up}
+	     -- z2 + penradius * right {up}
+	     .. z2 + penradius * up {left}
+	     -- z3 + penradius * up {left}
+	     .. z3 + penradius * left {down}
+	     -- z4 + penradius * left {down}
+	     .. z4 + penradius * down {right}
+	     -- z5 + penradius * (down + left)
+	     -- z1 + penradius * left {down}
+	     .. z1 + penradius * down {right}
+	     .. cycle;
 fet_endchar;
 
 fet_endgroup ("accordion");

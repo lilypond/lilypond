@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -728,15 +728,15 @@ Modifications can be made to the @code{Score} context or all
 It is not possible to collect context changes in a variable and apply
 them to a @code{\context} definition by referring to that variable.
 
-The @code{\RemoveEmptyStaffContext} will overwrite your current
+The @code{\Staff \RemoveEmptyStaves} will overwrite your current
 @code{\Staff} settings.  If you wish to change the defaults for a
-staff which uses @code{\RemoveEmptyStaffContext}, you must do so
-after calling @code{\RemoveEmptyStaffContext}, ie
+staff which uses @code{\Staff \RemoveEmptyStaves}, you must do so
+after calling @code{\Staff \RemoveEmptyStaves}, ie
 
 @example
 \layout @{
   \context @{
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
 
     \override Stem #'thickness = #4.0
   @}
@@ -1212,7 +1212,7 @@ does not amount to much.  The initialization file (see
      (script-priority . 100)
      (stencil . ,ly:text-interface::print)
      (direction . ,ly:script-interface::calc-direction)
-     (font-encoding . fetaNumber)
+     (font-encoding . fetaText)
      (font-size . -5) 		; don't overlap when next to heads.
      (meta . ((class . Item)
      (interfaces . (finger-interface
@@ -1419,7 +1419,7 @@ when the object is created.  In this example,
 @lilypond[quote,fragment,verbatim,relative=2]
 \override Slur #'thickness = #3.0
 c8[( c
-\override Beam #'thickness = #0.6
+\override Beam #'beam-thickness = #0.6
 c8 c])
 @end lilypond
 

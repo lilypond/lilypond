@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: c95162b90ec5d20e208ef20ced3eb0f8fde23e1f
+    Translation of GIT committish: ff092354107e43a7c29abad74226b302d9a93faa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -614,8 +614,11 @@ Las pruebas de lilypond-book de esta versión.
 @subsubheading Todas las versiones
 
 @itemize
-@item @uref{http://lilypond.org/test, Archivo de las pruebas de regresión}:
-Comparaciones entre versiones.
+@item @uref{http://lilypond.org/test, Comparaciones entre pruebas de regresión}
+
+@item @uref{http://lilypond.org/download/binaries/test-output/,
+Archivo de todas las pruebas de regresión}
+
 @end itemize
 
 @divEnd

@@ -69,7 +69,7 @@ LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation
 
 #include <map>
 
-map<void *, string>  type_names;
+map<void *, string> type_names;
   
 void
 ly_add_type_predicate (void *ptr,
@@ -91,14 +91,15 @@ predicate_to_typename (void *ptr)
 }
 
 /* type predicates. */
-#include "spanner.hh"
+#include "global-context.hh"
+#include "input.hh"
 #include "item.hh"
 #include "music.hh"
 #include "music-function.hh"
-#include "performance.hh"
 #include "paper-score.hh"
-#include "global-context.hh"
-#include "input.hh"
+#include "performance.hh"
+#include "spanner.hh"
+#include "stream-event.hh"
 
 void
 init_func_doc ()
@@ -128,6 +129,7 @@ init_func_doc ()
   ly_add_type_predicate ((void*) &unsmob_item, "Item");
   ly_add_type_predicate ((void*) &unsmob_music, "Music");
   ly_add_type_predicate ((void*) &unsmob_spanner, "Spanner");
+  ly_add_type_predicate ((void*) &unsmob_stream_event, "Stream_event");
 }
 
 ADD_SCM_INIT_FUNC (func_doc, init_func_doc);

@@ -118,6 +118,12 @@ def get_option_parser ():
               action='store_true',
               dest='force_current_version',
               default=False)
+
+    p.add_option ('-d', '--diff-version-update',
+              help=_ ("only update \\version number if file is modified"),
+              action='store_true',
+              dest='diff_version_update',
+              default=False)
     
     p.add_option ("-s", '--show-rules',
               help=_ ("show rules [default: -f 0, -t %s]") % program_version,
@@ -171,7 +177,7 @@ def show_rules (file, from_version, to_version):
 
 def do_conversion (str, from_version, to_version):
     """Apply conversions from FROM_VERSION to TO_VERSION.  Return
-tuple (LAST,STR), with the last succesful conversion and the resulting
+tuple (LAST,STR), with the last successful conversion and the resulting
 string."""
     conv_list = get_conversions (from_version, to_version)
 
@@ -249,6 +255,18 @@ def do_one_file (infile_name):
     if last:
         if global_options.force_current_version and last == to_version:
             last = str_to_tuple (program_version)
+
+        if global_options.diff_version_update:
+            if result == input:
+                # check the y in x.y.z  (minor version number)
+                previous_stable = (last[0], 2*(last[1]/2), 0)
+                if ((last[0:2] != from_version[0:2]) and
+                    (previous_stable > from_version)):
+                    # previous stable version
+                    last = previous_stable
+                else:
+                    # make no (actual) change to the version number
+                    last = from_version
 
         newversion = r'\version "%s"' % tup_to_str (last)
         if lilypond_version_re.search (result):

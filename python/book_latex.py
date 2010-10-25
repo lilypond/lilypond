@@ -106,6 +106,7 @@ Latex_output = {
 
     OUTPUT: r'''{%%
 \parindent 0pt
+\noindent
 \ifx\preLilyPondExample \undefined
 \else
   \expandafter\preLilyPondExample

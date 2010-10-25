@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Problemas de espaciado
 @chapter Problemas de espaciado
@@ -172,8 +172,8 @@ verticales de la página:
 
 @table @code
 
-@item after-title-spacing
-@funindex after-title-spacing
+@item markup-system-spacing
+@funindex markup-system-spacing
 
 Especifica cómo calcular el espacio entre un título (o un elemento de
 marcado del nivel superior) y el sistema que le sigue.  Es una lista
@@ -200,7 +200,7 @@ pentagrama es crucial para @var{padding}).
 Por ejemplo, los valores predeterminados son:
 
 @example
-after-title-spacing = #'((space . 2) (padding . 0.5))
+markup-system-spacing = #'((space . 2) (padding . 0.5))
 @end example
 
 
@@ -213,35 +213,35 @@ es la mayor de
 @item @var{padding} más la menor distancia necesaria para eliminar la superposición.
 @end itemize
 
-@item before-title-spacing
-@funindex before-title-spacing
+@item score-markup-spacing
+@funindex score-markup-spacing
 
 Especifica el espacio entre un sistema y el título (o elemento de
 marcado del nivel superior) que le sigue.  Las distancias se miden a
 partir del centro del último pentagrama del sistema hasta la línea de
-base del título que le sigue.  Véase @var{after-title-spacing}.
+base del título que le sigue.  Véase @var{markup-system-spacing}.
 
-@item between-scores-system-spacing
-@funindex between-scores-system-spacing
+@item score-system-spacing
+@funindex score-system-spacing
 
 Especifica el espacio entre dos sistemas si están en diferentes
 partituras, pero no hay ningún título entre ellas. Véase
-@var{after-title-spacing}.
+@var{markup-system-spacing}.
 
-@item between-system-spacing
-@funindex between-system-spacing
+@item system-system-spacing
+@funindex system-system-spacing
 
 Especifica el espacio entre el centro del pentagrama inferior de un
 sistema y el centro del pentagrama superior del sistema siguiente.
-Véase @var{after-title-spacing}.
+Véase @var{markup-system-spacing}.
 
-@item between-title-spacing
-@funindex between-title-spacing
+@item markup-markup-spacing
+@funindex markup-markup-spacing
 
 Especifica el espacio entre dos títulos (o elementos de marcado del
 nivel superior).  Las distancias se miden a partir de la línea de base
 de del primer título hasta la línea de base del segundo.  Véase
-@var{after-title-spacing}.
+@var{markup-system-spacing}.
 
 @item bottom-margin
 @funindex bottom-margin
@@ -249,20 +249,20 @@ de del primer título hasta la línea de base del segundo.  Véase
 Margen entre el pie y el final de la página.  Valor predeterminado:
 @code{6\mm}.
 
-@item bottom-system-spacing
-@funindex bottom-system-spacing
+@item last-bottom-spacing
+@funindex last-bottom-spacing
 
 Especifica el espacio desde el centro del último pentagrama (o la
 línea de base del último elemento de marcado del nivel superior) hasta
 el final del área imprimible (es decir, el límite superior del margen
-inferior).  Véase @var{after-title-spacing}.
+inferior).  Véase @var{markup-system-spacing}.
 
-@item top-title-spacing
-@funindex top-title-spacing
+@item top-markup-spacing
+@funindex top-markup-spacing
 
 Especifica el espacio desde el principio del área imprimible (es
 decir, el límite inferior del margen superior) hasta la línea de base
-del título.  Véase @var{after-title-spacing}.
+del título.  Véase @var{markup-system-spacing}.
 
 @item top-system-spacing
 @funindex top-system-spacing
@@ -271,7 +271,7 @@ Especifica el espacio desde el principio del área imprimible (es
 decir, el límite inferior del margen superior) hasta el centro del
 primer pentagrama.  Sólo tiene efecto si no hay ningún título al
 principio de la página (en cuyo caso se utiliza en su lugar
-@var{top-title-spacing}).  Véase @var{after-title-spacing}.
+@var{top-markup-spacing}).  Véase @var{markup-system-spacing}.
 
 @item paper-height
 @funindex paper-height
@@ -598,14 +598,14 @@ las páginas se llenen en exceso si se establece a un valor grande.
 Por el momento solamente está contemplado por parte del algoritmo
 @code{ly:optimal-breaking}.  Predeterminado: no establecido.
 
-@item page-breaking-between-system-spacing
-@funindex page-breaking-between-system-spacing
+@item page-breaking-system-system-spacing
+@funindex page-breaking-system-system-spacing
 
 Engaña al divisor de páginas para que crea que
-@code{between-system-spacing} está establecido a algo distinto de lo
+@code{system-system-spacing} está establecido a algo distinto de lo
 que está realmente.  Por ejemplo, si
-@code{page-breaking-between-system-spacing #'padding} se establece a algo
-mucho mayor que @code{between-system-spacing #'padding}, entonces
+@code{page-breaking-system-system-spacing #'padding} se establece a algo
+mucho mayor que @code{system-system-spacing #'padding}, entonces
 el divisor de páginas colocará menos sistemas en cada página.
 Predeterminado: no establecido.
 
@@ -1684,12 +1684,12 @@ a los que controlan el espaciado dentro de un sistema (véase
 principal es que las variables para controlar el espaciado entre
 sistemas se establece dentro del bloque @code{\paper} en lugar de
 hacerlo como propiedades de grob.  Estas variables del bloque paper
-son @var{between-system-spacing}, @var{between-scores-system-spacing},
-@var{after-title-spacing}, @var{before-title-spacing},
-@var{between-title-spacing}, @var{top-system-spacing},
-@var{top-title-spacing} y @var{bottom-system-spacing}.  Observe que
+son @var{system-system-spacing}, @var{score-system-spacing},
+@var{markup-system-spacing}, @var{score-markup-spacing},
+@var{markup-markup-spacing}, @var{top-system-spacing},
+@var{top-markup-spacing} y @var{last-bottom-spacing}.  Observe que
 estas variables ignoran las líneas que nos son pautas.  Por ejemplo,
-@var{between-system-spacing} controla el espaciado desde la línea
+@var{system-system-spacing} controla el espaciado desde la línea
 media del pentagrama inferior de un sistema hasta la línea del
 pentagrama superior del sistema siguiente, tanto si hay letra debajo
 del sistema superior como si no.  Consulte @ref{Dimensiones
@@ -2866,7 +2866,7 @@ parte baja del papel.
 
 @example
 \paper @{
-  between-system-spacing = #'((padding . 0) (space . 0.1))
+  system-system-spacing = #'((padding . 0) (space . 0.1))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}

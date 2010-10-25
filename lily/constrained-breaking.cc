@@ -390,43 +390,43 @@ Constrained_breaking::initialize ()
      page layout.  Currently, we just make it zero always, which means
      that we will always prefer a tighter vertical layout.
   */
-  between_system_space_ = 0;
-  between_system_padding_ = 0;
-  between_system_min_distance_ = 0;
-  between_scores_system_padding_ = 0;
-  between_scores_system_min_distance_ = 0;
-  before_title_padding_ = 0;
-  before_title_min_distance_ = 0;
+  system_system_space_ = 0;
+  system_system_padding_ = 0;
+  system_system_min_distance_ = 0;
+  score_system_padding_ = 0;
+  score_system_min_distance_ = 0;
+  score_markup_padding_ = 0;
+  score_markup_min_distance_ = 0;
 
   Output_def *l = pscore_->layout ();
 
-  SCM spacing_spec = l->c_variable ("between-system-spacing");
-  SCM between_scores_spec = l->c_variable ("between-scores-system-spacing");
-  SCM title_spec = l->c_variable ("before-title-spacing");
-  SCM page_breaking_spacing_spec = l->c_variable ("page-breaking-between-system-spacing");
+  SCM spacing_spec = l->c_variable ("system-system-spacing");
+  SCM between_scores_spec = l->c_variable ("score-system-spacing");
+  SCM title_spec = l->c_variable ("score-markup-spacing");
+  SCM page_breaking_spacing_spec = l->c_variable ("page-breaking-system-system-spacing");
   Page_layout_problem::read_spacing_spec (spacing_spec,
-					  &between_system_padding_,
+					  &system_system_padding_,
 					  ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (between_scores_spec,
-					  &between_scores_system_padding_,
+					  &score_system_padding_,
 					  ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
-					  &between_system_padding_,
+					  &system_system_padding_,
 					  ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (title_spec,
-					  &before_title_padding_,
+					  &score_markup_padding_,
 					  ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (between_scores_spec,
-					  &between_scores_system_min_distance_,
+					  &score_system_min_distance_,
 					  ly_symbol2scm ("minimum-distance"));
   Page_layout_problem::read_spacing_spec (spacing_spec,
-					  &between_system_min_distance_,
+					  &system_system_min_distance_,
 					  ly_symbol2scm ("minimum-distance"));
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
-					  &between_system_min_distance_,
+					  &system_system_min_distance_,
 					  ly_symbol2scm ("minimum-distance"));
   Page_layout_problem::read_spacing_spec (title_spec,
-					  &before_title_min_distance_,
+					  &score_markup_min_distance_,
 					  ly_symbol2scm ("minimum-distance"));
 
   Interval first_line = line_dimensions_int (pscore_->layout (), 0);
@@ -508,12 +508,13 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
 			 || isnan (rest_of_line_extent[RIGHT]))
     ? Interval (0, 0) : rest_of_line_extent;
   out->shape_ = Line_shape (begin_of_line_extent, rest_of_line_extent);
-  out->padding_ = last ? between_scores_system_padding_ : between_system_padding_;
-  out->title_padding_ = before_title_padding_;
-  out->min_distance_ = last ? between_scores_system_min_distance_ : between_system_min_distance_;
-  out->title_min_distance_ = before_title_min_distance_;
-  out->space_ = between_system_space_;
-  out->inverse_hooke_ = out->full_height () + between_system_space_;
+  out->refpoint_extent_ = sys->pure_refpoint_extent (start_rank, end_rank);
+  out->padding_ = last ? score_system_padding_ : system_system_padding_;
+  out->title_padding_ = score_markup_padding_;
+  out->min_distance_ = last ? score_system_min_distance_ : system_system_min_distance_;
+  out->title_min_distance_ = score_markup_min_distance_;
+  out->space_ = system_system_space_;
+  out->inverse_hooke_ = out->full_height () + system_system_space_;
 }
 
 Real
@@ -527,8 +528,8 @@ Constrained_breaking::combine_demerits (Real force, Real prev_force)
 
 Line_details::Line_details (Prob *pb, Output_def *paper)
 {
-  SCM spec = paper->c_variable ("after-title-spacing");
-  SCM title_spec = paper->c_variable ("between-title-spacing");
+  SCM spec = paper->c_variable ("markup-system-spacing");
+  SCM title_spec = paper->c_variable ("markup-markup-spacing");
   padding_ = 0;
   title_padding_ = 0;
   min_distance_ = 0;
@@ -560,7 +561,6 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   SCM first_scm = pb->get_property ("first-markup-line");
   first_markup_line_ = to_boolean (first_scm);
   tight_spacing_ = to_boolean (pb->get_property ("tight-spacing"));
-  first_refpoint_offset_ = 0;
 }
 
 Real

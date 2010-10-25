@@ -96,7 +96,7 @@
 (define (annotate-top-space first-system layout header-stencil stencil)
   (let* ((top-margin (ly:output-def-lookup layout 'top-margin))
 	 (sym (if (paper-system-title? first-system)
-		  'top-title-spacing
+		  'top-markup-spacing
 		  'top-system-spacing))
 	 (spacing-spec (ly:output-def-lookup layout sym))
 	 (X-offset (ly:prob-property first-system 'X-offset 5))

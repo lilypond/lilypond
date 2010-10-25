@@ -41,6 +41,8 @@ public:
   Paper_score *paper_score () const;
   Grob *get_vertical_alignment ();
   Grob *get_extremal_staff (Direction dir, Interval const&);
+  Grob *get_pure_bound (Direction dir, int start, int end);
+  Grob *get_maybe_pure_bound (Direction dir, bool pure, int start, int end);
   int get_rank () const;
   void do_break_substitution_and_fixup_refpoints ();
   void post_processing ();
@@ -71,6 +73,7 @@ public:
 
   Interval begin_of_line_pure_height (vsize start, vsize end);
   Interval rest_of_line_pure_height (vsize start, vsize end);
+  Interval pure_refpoint_extent (vsize start, vsize end);
 
 protected:
   virtual void derived_mark () const;

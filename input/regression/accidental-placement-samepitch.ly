@@ -1,4 +1,4 @@
-\version "2.11.37"
+\version "2.12.0"
 
 \header {
   texidoc = "When two (or more) accidentals modify the same pitch,

@@ -46,7 +46,6 @@ public:
 #define in_event_class(class_name) internal_in_event_class (ly_symbol2scm (class_name))
 
 Stream_event *unsmob_stream_event (SCM);
-DECLARE_TYPE_P (Stream_event);
 SCM ly_event_deep_copy (SCM);
 
 #endif /* STREAM_EVENT_HH */

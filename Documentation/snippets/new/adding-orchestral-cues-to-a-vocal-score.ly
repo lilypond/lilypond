@@ -1,4 +1,4 @@
-\version "2.13.34"
+\version "2.13.36"
 
 \header {
   lsrtags="vocal-music, staff-notation"
@@ -11,7 +11,7 @@ inserted before the cue notes, then either @code{#UP} or @code{#DOWN}
 to specify either @code{\voiceOne} with the name above the staff or
 @code{\voiceTwo} with the name below the staff, and finally the piano
 music in parallel with which the cue notes are to appear.  The name
-of the cued instrument is positioned to the left of the cued notes.
+of the quoted instrument is positioned to the left of the cue notes.
 Many passages can be cued, but they cannot overlap each other in time.
 "
   doctitle = "Adding orchestral cues to a vocal score"
@@ -23,10 +23,10 @@ cueWhile =
     (string? string? ly:dir? ly:music?)
     #{
       \cueDuring $instrument #$dir {
-        \once \override CueVoice.InstrumentSwitch #'self-alignment-X = #RIGHT
-        \once \override CueVoice.InstrumentSwitch #'direction = $dir
-        \set CueVoice.instrumentCueName = $name
-        { $music }
+        \once \override TextScript #'self-alignment-X = #RIGHT
+        \once \override TextScript #'direction = $dir
+        s1*0-\markup { \tiny $name }
+        $music
       }
     #}
   )

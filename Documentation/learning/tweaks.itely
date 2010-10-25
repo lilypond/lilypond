@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -3555,6 +3555,10 @@ from the printed output, and both affect the MIDI timing as
 required, but the transparent metronome mark in the first line
 forces the following tempo indication too high while the
 second (with the stencil removed) does not.
+
+@seealso
+Music Glossary:
+@rglos{system}.
 
 @node Using variables for tweaks
 @subsection Using variables for tweaks

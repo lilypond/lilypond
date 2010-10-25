@@ -43,6 +43,11 @@ partialJazzMusic = {
     <c d es>-\markup { "m" }-\markup { \normal-size-super "sus2" }
 }
 
+powerChordSymbol = {
+    <c g>-\markup { \normal-size-super "5" }
+    <c g c'>1-\markup { \normal-size-super "5" }
+}
+
 
 %% TODO: compatibility ignatzek code
 fullJazzExceptions=
@@ -50,6 +55,9 @@ fullJazzExceptions=
 
 partialJazzExceptions=
 #(sequential-music-to-chord-exceptions partialJazzMusic #f)
+
+powerChordExceptions =
+  #(sequential-music-to-chord-exceptions powerChordSymbol #t)
 
 ignatzekExceptions  =
 #(sequential-music-to-chord-exceptions ignatzekExceptionMusic #t)

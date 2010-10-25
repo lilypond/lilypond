@@ -1,4 +1,4 @@
-\version "2.13.26"
+\version "2.13.36"
 \header {
   lsrtags = "pitches"
   texidoc = "This shows how to hide accidentals on tied notes at the beginning of a

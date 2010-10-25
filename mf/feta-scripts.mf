@@ -1151,27 +1151,29 @@ fet_beginchar ("Segno", "segno");
 	penlabels (range 1 thru 8);
 fet_endchar;
 
+
 fet_beginchar ("Varied Segno", "varsegno");
 	save ht, wd, loopdist, loopangle;
 	save thin, med, thick;
-	save bulbradius;
+	save bulbradius, center;
+	pair center;
 
 	ht# = 8 staff_space#;
 	wd# = 2.5 staff_space#;
 
 	set_char_box (wd# / 2, wd# / 2, ht# / 2, ht# / 2);
-	%set_char_box (0, 0, ht# / 2, ht# / 2);
+	% set_char_box (0, 0, ht# / 2, ht# / 2);
 
 	loopdist = 4/3 staff_space;
 	loopangle = 35;
 
 	thick = 1/2 staff_space;
-	med   = 1/4 staff_space;
+	med = 1/4 staff_space;
 	thin = 1/10 staff_space;
 
 	x1 = staff_space;
 	y1 = 13/4 staff_space;
-	penpos1 (med,  210);
+	penpos1 (med, 210);
 
 	z2l = (0, 4 staff_space);
 	penpos2 (med, 270 - loopangle);
@@ -1180,20 +1182,26 @@ fet_beginchar ("Varied Segno", "varsegno");
 	y3 = y1 + 1/4 staff_space;
 	penpos3 (med, 270 + loopangle);
 
-        pair center;
         center = (0, 2 staff_space);
-	z4 = (3/4 staff_space, 2 staff_space) rotatedabout (center, 180 - loopangle);
-	z5 = 2[z4,center];
-	x9  = x4; y9  = y4 - 2 loopdist;
-	x10 = x5; y10 = y5 - 2 loopdist;
-	penpos4  (thick, 90 - loopangle);
-	penpos5  (thick, 90 - loopangle);
-	penpos9  (thick, 90 - loopangle);
+	z4 = (3/4 staff_space, 2 staff_space)
+	     rotatedabout (center, 180 - loopangle);
+	z5 = 2[z4, center];
+	x9 = x4;
+	y9 = y4 - 2 loopdist;
+	x10 = x5;
+	y10 = y5 - 2 loopdist;
+
+	penpos4 (thick, 90 - loopangle);
+	penpos5 (thick, 90 - loopangle);
+	penpos9 (thick, 90 - loopangle);
 	penpos10 (thick, 90 - loopangle);
 
-	z6 = (4/3 staff_space, 4/3 staff_space) rotatedabout (2/3 center, -loopangle);
-	x11 = x6; y11 = y6 - 2 loopdist;
-	penpos6  (thin, -loopangle);
+	z6 = (4/3 staff_space, 4/3 staff_space)
+	     rotatedabout (2/3 center, -loopangle);
+	x11 = x6;
+	y11 = y6 - 2 loopdist;
+
+	penpos6 (thin, -loopangle);
 	penpos11 (thin, -loopangle);
 
 	z7 = 1/3 center;
@@ -1205,29 +1213,34 @@ fet_beginchar ("Varied Segno", "varsegno");
 	z12 = -center;
 	penpos12 (thick, 270 - loopangle);
 
-	z1' = 4/3[z1l,z1r];
-	bulbradius = length ( z1l - z1');
+	z1' = 4/3[z1l, z1r];
+	bulbradius = length (z1l - z1');
 	pickup pencircle scaled 2 bulbradius;
-	drawdot z1';
+
+	save se_dir, nw_dir;
+	pair se_dir, nw_dir;
+	se_dir := dir -loopangle;
+	nw_dir := dir (180 - loopangle);
+
+	draw_bulb (-1, z1r, z1l, bulbradius, .8);
 
 	penstroke z1e
-	       .. z2e
-	       .. z3e
-	       .. z4e{dir (-loopangle)}
-	       .. z5e{dir (-loopangle)}
-	       .. z6e
-	       .. z7e
-	       .. z8e
-	       .. z9e{dir (-loopangle)}
-	       .. z10e{dir (-loopangle)}
-	       .. z11e
-	       .. {dir (180 - loopangle)}z12e;
+		  .. z2e
+		  .. z3e
+		  ... {se_dir}z4e
+		  -- z5e{se_dir}
+		  ... z6e
+		  ... z7e{nw_dir}
+		  ... z8e
+		  ... {se_dir}z9e
+		  -- z10e{se_dir}
+		  ... z11e
+		  ... {nw_dir}z12e;
 	addto currentpicture also currentpicture scaled -1;
 
 	penlabels (1, 1', 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
-	%draw_staff (-2, 2, 0);
+	% draw_staff (-2, 2, 0);
 fet_endchar;
-
 
 
 fet_beginchar ("Coda", "coda");

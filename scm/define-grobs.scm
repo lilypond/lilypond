@@ -1098,7 +1098,7 @@
     (LyricText
      . (
 	(extra-spacing-width . (0.0 . 0.0))
-	(font-series . bold-narrow)
+	(font-series . medium)
 	(font-size . 1.0)
 	(self-alignment-X . ,CENTER)
 	(stencil . ,lyric-text::print)

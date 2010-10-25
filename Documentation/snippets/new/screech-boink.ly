@@ -1,4 +1,4 @@
-\version "2.12.0"
+\version "2.13.36"
 \header {
   lsrtags = "headwords"
   texidoc = "Random complex notation"
@@ -42,7 +42,7 @@
       \key c \minor
       \set subdivideBeams = ##f
       \override Stem #'french-beaming = ##t
-      \override Beam #'thickness = #0.3
+      \override Beam #'beam-thickness = #0.3
       \override Stem #'thickness = #4.0
       g'16[ b16 fis16 g16]
       <<

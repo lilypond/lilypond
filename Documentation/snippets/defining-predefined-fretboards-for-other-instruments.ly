@@ -6,7 +6,7 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: 0b55335aeca1de539bf1125b717e0c21bb6fa31b
+%% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
   texidoces = "
 
 Se pueden añadir diagramas de posiciones predefinidas para

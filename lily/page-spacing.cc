@@ -247,10 +247,13 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
   bool last = line == lines_.size () - 1;
 
   // Note: if page == VPOS then we don't actually know yet which page number we're
-  // working on, so we have to recalculate the page height in the loop.  In that case,
-  // the algorithm may not be optimal: if our page has a very large header then perhaps
-  // we need to look ahead a few systems in order to find the best solution.  But
-  // we won't, because we stop once we overfill the page with the large header.
+  // working on, so we have to recalculate the page height in the loop.  Therefore
+  // our early-exit condition from the loop depends on paper_height rather than
+  // page_height (ie. we break only if we would overfill a page without margins
+  // or headers/footers).  Otherwise, the algorithm would not be optimal:
+  // if our page has a very large header then perhaps
+  // we should look ahead a few systems in order to find the best solution.  A
+  // good example of this is input/regression/page-spacing-tall-headfoot.ly
   vsize page_num = page == VPOS ? 0 : page;
   Real paper_height = breaker_->paper_height ();
   Page_spacing space (breaker_->page_height (page_num + first_page_num_, last),

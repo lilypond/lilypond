@@ -191,6 +191,16 @@ Grob::get_system () const
   return 0;
 }
 
+/* This version of get_system is more reliable than this->get_system ()
+   before line-breaking has been done, at which point there is only
+   one system in the whole score and we can find it just by following
+   parent pointers. */
+System *
+Grob::get_system(Grob *me)
+{
+  Grob *p = me->get_parent (X_AXIS);
+  return p ? get_system (p) : dynamic_cast<System *>(me);
+}
 
 void
 Grob::handle_broken_dependencies ()

@@ -115,7 +115,7 @@ Output_def *
 scale_output_def (Output_def *o, Real amount)
 {
   SCM proc = ly_lily_module_constant ("scale-layout");
-  SCM new_pap = scm_call_2 (proc, o->self_scm (), scm_double2num (amount));
+  SCM new_pap = scm_call_2 (proc, o->self_scm (), scm_from_double (amount));
 
   o = unsmob_output_def (new_pap);
   o->protect ();

@@ -40,7 +40,7 @@ internal_ly_parse_scm (Parse_start *ps)
 
   int off = ps->start_location_.start () - sf->c_str ();
 
-  scm_seek (port, scm_long2num (off), scm_long2num (SEEK_SET));
+  scm_seek (port, scm_from_long (off), scm_from_long (SEEK_SET));
   SCM from = scm_ftell (port);
 
   scm_set_port_line_x (port,  scm_from_int (ps->start_location_.line_number () -1));

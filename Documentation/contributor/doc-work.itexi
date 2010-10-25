@@ -1139,23 +1139,24 @@ Enter commands with @@funindex, i.e.
 @end example
 
 @noindent
-do not bother with the @@code@{@} (they are added automatically).
+Do not bother with the @@code@{@} (they are added automatically).
 These items are added to both the command index and the unified
-index.
+index.  Both index commands should go in front of the actual material.
 
-Both index commands should go in front of the actual material.
-
-@@cindex entries should not be capitalized, ie
+@item
+@@cindex entries should not be capitalized, i.e.
 
 @example
 @@cindex time signature
 @end example
 
 @noindent
-is preferred instead of @qq{Time signature},   Only use capital
-letters for musical terms which demand them, like D.S. al Fine.
+is preferred instead of @qq{Time signature}.  Only use capital
+letters for musical terms which demand them, e.g.
+@qq{D.S. al Fine}.
 
-For scheme functions, only include the final part, i.e.,
+@item
+For scheme function index entries, only include the final part, i.e.
 
 @example
 @@funindex modern-voice-cautionary
@@ -1164,27 +1165,40 @@ For scheme functions, only include the final part, i.e.,
 @end example
 
 @item
-Preferred terms:
+Use American spelling.  LilyPond's internal property
+names use this convention.
+
+@item
+Here is a list of preferred terms to be used:
 
 @itemize
+@item
+@emph{Simultaneous} NOT concurrent.
 
 @item
-In general, use the American spellings.  The internal lilypond
-property names use this spelling.
+@emph{Measure}: the unit of music.
 
 @item
-List of specific terms:
+@emph{Bar line}: the symbol delimiting a measure NOT barline.
 
-@example
-canceled
-simultaneous    NOT concurrent
-measure: the unit of music
-bar line: the symbol delimiting a measure   NOT barline
-note head   NOT notehead
-chord construct   NOT chord (when referring to <>)
-@end example
+@item
+@emph{Note head} NOT notehead.
+
+@item
+@emph{Chord construct} NOT just chord (when referring to < ... >)
+
+@item
+@emph{Staff} NOT stave.
+
+@item
+@emph{Staves} NOT Staffs:
+Phrases such as
+@q{multiple @@internalsref@{Staff@}s}
+should be rephrased to
+@q{multiple @@internalsref@{Staff@} contexts}.
 
 @end itemize
+
 
 @end itemize
 
@@ -1350,7 +1364,7 @@ scripts/auxiliar/doc-section.sh MANUAL SECTION
 
 @noindent
 where @code{SECTION} is the name of the file containing the section
-to be build, and @code{MANUAL} isc replaced by the name of the directory
+to be built, and @code{MANUAL} is replaced by the name of the directory
 containing the section.  So, for example, to build section 1.1 of the
 Notation Reference, use the command:
 

@@ -57,30 +57,30 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
   // below the top of the printable area.
   bottom_skyline_.set_minimum_height (-header_height_);
 
-  SCM between_system_spacing = SCM_EOL;
-  SCM between_scores_system_spacing = SCM_EOL;
-  SCM after_title_spacing = SCM_EOL;
-  SCM before_title_spacing = SCM_EOL;
-  SCM between_title_spacing = SCM_EOL;
+  SCM system_system_spacing = SCM_EOL;
+  SCM score_system_spacing = SCM_EOL;
+  SCM markup_system_spacing = SCM_EOL;
+  SCM score_markup_spacing = SCM_EOL;
+  SCM markup_markup_spacing = SCM_EOL;
 
   // top_system_spacing controls the spring from the top of the printable
   // area to the first staff. It allows the user to control the offset of
   // the first staff (as opposed to the top of the first system) from the
-  // top of the page. Similarly for bottom_system_spacing.
+  // top of the page. Similarly for last_bottom_spacing.
   SCM top_system_spacing = SCM_EOL;
-  SCM bottom_system_spacing = SCM_EOL;
+  SCM last_bottom_spacing = SCM_EOL;
   if (pb && pb->paper_)
     {
       Output_def *paper = pb->paper_;
-      between_system_spacing = paper->c_variable ("between-system-spacing");
-      between_scores_system_spacing = paper->c_variable ("between-scores-system-spacing");
-      after_title_spacing = paper->c_variable ("after-title-spacing");
-      before_title_spacing = paper->c_variable ("before-title-spacing");
-      between_title_spacing = paper->c_variable ("between-title-spacing");
-      bottom_system_spacing = paper->c_variable ("bottom-system-spacing");
+      system_system_spacing = paper->c_variable ("system-system-spacing");
+      score_system_spacing = paper->c_variable ("score-system-spacing");
+      markup_system_spacing = paper->c_variable ("markup-system-spacing");
+      score_markup_spacing = paper->c_variable ("score-markup-spacing");
+      markup_markup_spacing = paper->c_variable ("markup-markup-spacing");
+      last_bottom_spacing = paper->c_variable ("last-bottom-spacing");
       top_system_spacing = paper->c_variable ("top-system-spacing");
       if (scm_is_pair (systems) && unsmob_prob (scm_car (systems)))
-	top_system_spacing = paper->c_variable ("top-title-spacing");
+	top_system_spacing = paper->c_variable ("top-markup-spacing");
 
       // Note: the page height here does _not_ reserve space for headers and
       // footers. This is because we want to anchor the top-system-spacing
@@ -89,7 +89,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 	+ robust_scm2double (paper->c_variable ("bottom-margin"), 0);
 
       read_spacing_spec (top_system_spacing, &header_padding_, ly_symbol2scm ("padding"));
-      read_spacing_spec (bottom_system_spacing, &footer_padding_, ly_symbol2scm ("padding"));
+      read_spacing_spec (last_bottom_spacing, &footer_padding_, ly_symbol2scm ("padding"));
     }
   bool last_system_was_title = false;
 
@@ -107,13 +107,13 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 	      continue;
 	    }
 
-	  SCM spec = between_system_spacing;
+	  SCM spec = system_system_spacing;
 	  if (first)
 	    spec = top_system_spacing;
 	  else if (last_system_was_title)
-	    spec = after_title_spacing;
+	    spec = markup_system_spacing;
 	  else if (0 == Paper_column::get_rank (sys->get_bound (LEFT)))
-	    spec = between_scores_system_spacing;
+	    spec = score_system_spacing;
 
 	  Spring spring (0, 0);
 	  Real padding = 0.0;
@@ -126,7 +126,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
       else if (Prob *p = unsmob_prob (scm_car (s)))
 	{
 	  SCM spec = first ? top_system_spacing
-	    : (last_system_was_title ? between_title_spacing : before_title_spacing);
+	    : (last_system_was_title ? markup_markup_spacing : score_markup_spacing);
 	  Spring spring (0, 0);
 	  Real padding = 0.0;
 	  alter_spring_from_spacing_spec (spec, &spring);
@@ -141,8 +141,8 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
   Spring last_spring (0, 0);
   Real last_padding = 0;
-  alter_spring_from_spacing_spec (bottom_system_spacing, &last_spring);
-  read_spacing_spec (bottom_system_spacing, &last_padding, ly_symbol2scm ("padding"));
+  alter_spring_from_spacing_spec (last_bottom_spacing, &last_spring);
+  read_spacing_spec (last_bottom_spacing, &last_padding, ly_symbol2scm ("padding"));
   last_spring.ensure_min_distance (last_padding - bottom_skyline_.max_height () + footer_height_);
   springs_.push_back (last_spring);
 
@@ -150,7 +150,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
     {
       Real bottom_padding = 0;
 
-      // TODO: junk bottom-space now that we have bottom-system-spacing?
+      // TODO: junk bottom-space now that we have last-bottom-spacing?
       // bottom-space has the flexibility that one can do it per-system.
       // NOTE: bottom-space is misnamed since it is not stretchable space.
       if (Prob *p = elements_.back ().prob)
@@ -190,8 +190,7 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real padd
 
   extract_grob_set (align, "elements", all_elts);
   vector<Grob*> elts = filter_dead_elements (all_elts);
-  vector<Real> minimum_offsets = Align_interface::get_minimum_translations (align, elts, Y_AXIS,
-									    false, 0, 0);
+  vector<Real> minimum_offsets = Align_interface::get_minimum_translations_without_min_dist (align, elts, Y_AXIS);
 
   Skyline up_skyline (UP);
   Skyline down_skyline (DOWN);
@@ -625,6 +624,39 @@ Page_layout_problem::read_spacing_spec (SCM spec, Real* dest, SCM sym)
       return true;
     }
   return false;
+}
+
+// If there is a forced, fixed spacing between BEFORE and AFTER, return it.
+// Otherwise, return -infinity_f.
+// If after is spaceable, it is the (spaceable_index + 1)th spaceable grob in
+// its alignment.
+Real
+Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after, int spaceable_index, bool pure, int start, int end)
+{
+  SCM spec = Page_layout_problem::get_spacing_spec (before, after, pure, start, end);
+  Real ret = -infinity_f;
+  Real stretchability = 0;
+  if (Page_layout_problem::read_spacing_spec (spec, &stretchability, ly_symbol2scm ("stretchability"))
+      && stretchability == 0)
+    Page_layout_problem::read_spacing_spec (spec, &ret, ly_symbol2scm ("space"));
+
+  // If we're pure, then paper-columns have not had their systems set,
+  // and so elts[i]->get_system () is unreliable.
+  System *sys = pure ? Grob::get_system (before) : before->get_system ();
+  Grob *left_bound = sys ? sys->get_maybe_pure_bound (LEFT, pure, start, end) : 0;
+
+  if (is_spaceable (before) && is_spaceable (after) && left_bound)
+    {
+      SCM details = left_bound->get_property ("line-break-system-details");
+      SCM manual_dists = ly_assoc_get (ly_symbol2scm ("alignment-distances"), details, SCM_EOL);
+      if (scm_is_pair (manual_dists))
+	{
+	  SCM forced = robust_list_ref (spaceable_index - 1, manual_dists);
+	  if (scm_is_number (forced))
+	    ret = max (ret, scm_to_double (forced));
+	}
+    }
+  return ret;
 }
 
 static SCM
