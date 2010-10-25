@@ -259,9 +259,11 @@ def do_one_file (infile_name):
         if global_options.diff_version_update:
             if result == input:
                 # check the y in x.y.z  (minor version number)
-                if last[0:2] != from_version[0:2]:
+                previous_stable = (last[0], 2*(last[1]/2), 0)
+                if ((last[0:2] != from_version[0:2]) and
+                    (previous_stable > from_version)):
                     # previous stable version
-                    last = (last[0], 2*(last[1]/2), 0)
+                    last = previous_stable
                 else:
                     # make no (actual) change to the version number
                     last = from_version
