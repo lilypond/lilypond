@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: f4e493be609aeefbb35a91f35236d2176f95fe22
+    Translation of GIT committish: 235de94b7408e9badc7b82c8e0dae8f05009adc3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -456,7 +456,7 @@ accords.
 
 @lilypond[quote,verbatim,relative=1]
 <c e g> ~ <c e g>
-<c~ e g~ b> <c e g b>
+<c ~ e g ~ b> <c e g b>
 @end lilypond
 
 @cindex liaison de tenue et répétition
@@ -584,7 +584,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
-Référence dezs propriétés internes :
+Référence des propriétés internes :
 @rinternals{LaissezVibrerTie},
 @rinternals{LaissezVibrerTieColumn},
 @rinternals{TieColumn},
@@ -593,7 +593,6 @@ Référence dezs propriétés internes :
 
 
 @knownissues
-
 Un changement de portée, lorsqu'une liaison de tenue est active, ne
 peut produire une liaison oblique.
 
@@ -639,7 +638,7 @@ prédéfinies@tie{}:
 
 @c \time 16/1 is used to avoid spurious bar lines
 @c and long tracts of empty measures
-@lilypond[fragment,quote,verbatim]
+@lilypond[quote,verbatim]
 \new Staff {
   % These two lines are just to prettify this example
   \time 16/1
@@ -772,14 +771,14 @@ de saut @code{s} crée tout de même les contextes @code{Staff} et
 @code{Voice} lorsque nécessaire, à l'instar des notes ou des
 silences@tie{}:
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 s1 s s
 @end lilypond
 
 Un @code{\skip} ne fait que sauter du temps musical@tie{}; il ne produit
 rien du tout, pas même un symbole transparent.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 % This is valid input, but does nothing
 \skip 1 \skip1 \skip 1
 @end lilypond
@@ -829,7 +828,7 @@ doit donc correspondre à la longueur de la mesure telle que définie par
 la métrique.  C'est la raison pour laquelle on utilisera aussi des
 points d'augmentation ou des fractions@tie{}:
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,verbatim]
 \compressFullBarRests
 \time 2/4
 R1 | R2 |
@@ -845,7 +844,7 @@ Un @code{R} qui s'étend sur une seule mesure s'imprime tantôt comme
 une pause, tantôt comme une brève -- ou @qq{bâton de pause} -- et
 sera centré sur la mesure quelle qu'en soit la métrique@tie{}:
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 \time 4/4
 R1 |
 \time 6/4
@@ -866,7 +865,7 @@ Par défaut, un silence multimesures sera répété sur autant de mesures
 que nécessaire.  Il peut aussi n'être imprimé qu'une seule fois,
 surplombé du nombre de mesures vides -- ou @qq{à compter}@tie{}:
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,verbatim]
 % Default behavior
 \time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
@@ -906,8 +905,7 @@ R2.*10^\markup { \italic "ad lib." }
 R2.^\fermataMarkup
 @end lilypond
 
-@warning{
-C'est @code{MultiMeasureRestText} qui créera le texte, et
+@warning{C'est @code{MultiMeasureRestText} qui créera le texte, et
 non @code{TextScript}.  Les commandes de dérogation ou de redéfinition
 doivent s'adresser à l'objet concerné, comme vous pouvez le constater
 dans l'exemple suivant.}
@@ -1109,7 +1107,7 @@ pouvez les modifier de la manière suivante@tie{}:
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
-    \repeat unfold 8 c8 |
+    \repeat unfold 8 { c8 } |
   }
 }
 @end lilypond
@@ -1139,7 +1137,7 @@ métrique@tie{}:
 @lilypond[quote,verbatim]
 \score{
   \relative c' {
-    \repeat unfold 8 c8 |
+    \repeat unfold 8 { c8 } |
     \overrideTimeSignatureSettings
       #'Score                         % context
       #'(4 . 4)                       % timeSignatureFraction
@@ -1150,7 +1148,7 @@ métrique@tie{}:
     \repeat unfold 8 c8 |
     \revertTimeSignatureSettings #'Score #'(4 . 4)
     \time 4/4
-    \repeat unfold 8 c8 |
+    \repeat unfold 8 { c8 } |
   }
 }
 @end lilypond
@@ -1400,6 +1398,25 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
+@cindex ligature et cadence
+@cindex ligature et musique non mesurée
+@cindex cadence et ligature
+@cindex musique non mesurée et ligature
+
+L'instruction @code{\cadenzaOn} désative les ligatures
+automatique@tie{}; elles seront réactivées après un @code{\cadenzaOff}.
+Toutes les ligatures devront donc être indiquées de manière explicite
+tout au long de la cadence -- voir @ref{Barres de ligature manuelles}).
+
+@lilypond[verbatim,relative=2,quote]
+\repeat unfold 8 { c8 }
+\cadenzaOn
+\repeat unfold 5 { c8 }
+\bar"|"
+\cadenzaOff
+\repeat unfold 8 { c8 }
+@end lilypond
+
 Notez bien que ces commandes prédéfinies affecteront toutes les portées
 de la partition, même si vous ne les placez que dans un simple contexte
 @code{Voice}.  Pour éviter ce désagrément, transférez le
@@ -1513,7 +1530,7 @@ sont multipliées par 3/5, de telle sorte que @w{3/5 * 10/8 = 3/4}.  Les
 ligatures devront être explicites, la fonction d'échelonnement venant
 perturber les règles de ligature automatique.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 \relative c' <<
   \new Staff {
     \time 3/4
@@ -1726,7 +1743,6 @@ grille d'accords@tie{}:
       c1 f g c
     }
   }
-
   \new Voice \with {
     \consists Pitch_squash_engraver
   } \relative c'' {
@@ -1790,7 +1806,7 @@ d'imprimer les ligatures.
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4 c8 c c c
-\time 6/8 c c c c8. c16 c8
+\time 6/8 c8 c c c8. c16 c8
 @end lilypond
 
 Lorsque ce comportement automatisé n'est pas satisfaisant, on peut
@@ -1973,7 +1989,7 @@ valeur de @code{baseMoment}.
 \time 5/8
 \set Timing.baseMoment = #(ly:make-moment 1 16)
 \set Timing.beatStructure = #'(7 3)
-\repeat unfold 10 {a16}
+\repeat unfold 10 { a16 }
 @end lilypond
 
 @code{baseMoment} constitue un @strong{moment}, autrement dit une unité
@@ -2008,7 +2024,7 @@ ligatures sont gérées par la propriété  @code{beamExceptions}.
        ((1 . 32) . (2 2 2))   ;règle pour les triples -- groupées à la double
       )))                     %referme la liste
 c16 c c |
-\repeat unfold 6 {c32} |
+\repeat unfold 6 { c32 } |
 @end lilypond
 
 @code{beamExceptions} contient la liste des règles de ligature selon
@@ -2047,13 +2063,13 @@ métrique.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-\repeat unfold 8 {a8}
+\repeat unfold 8 { a8 }
 % eliminate beam exception that groups beats 1, 2 and 3, 4
 \set Timing.beamExceptions = #'()
-\repeat unfold 8 {a8}
+\repeat unfold 8 { a8 }
 % go back to default behavior
 \time 4/4
-\repeat unfold 8 {a8}
+\repeat unfold 8 { a8 }
 @end lilypond
 
 Les règles de ligature automatique par défaut sont répertoriées, par
@@ -2135,13 +2151,12 @@ Référence des propriétés internes :
 
 
 @knownissues
-
 Si une partition se termine alors qu'une ligature automatique est restée
 inachevée, cette dernière ligature ne sera pas imprimée du tout.  C'est
 également valable dans le cas d'une musique polyphonique, saisie avec la
-syntaxe @code{<< @dots{} \\ @dots{} >>}, où une voix se terminerait sans
-que la dernière ligature ne soit achevée.  Le plus simple, en pareil
-cas, est de spécifier anuellement les dernières ligatures.
+syntaxe @w{@code{<< @dots{} \\ @dots{} >>}}, où une voix se terminerait
+sans que la dernière ligature ne soit achevée.  Le plus simple, en
+pareil cas, est de spécifier anuellement les dernières ligatures.
 
 
 @node Barres de ligature manuelles
@@ -2162,7 +2177,7 @@ des notes.  Le début et la fin de la ligature sont alors indiqués
 respectivement par @code{[} et @code{]}.
 
 @lilypond[quote,relative=1,verbatim]
-r4 r8[ g' a r8] r8 g[ | a] r8
+r4 r8[ g' a r] r8 g[ | a] r8
 @end lilypond
 
 @cindex ligature manuelle, orientation
@@ -2193,7 +2208,7 @@ qui est en place au niveau de la notation normale.
 @lilypond[quote,verbatim,relative=2]
 c4 d8[
 \grace { e32[ d c d] }
-e8] e8[ e
+e8] e[ e
 \grace { f16 }
 e8 e]
 @end lilypond
@@ -2429,7 +2444,7 @@ g1 \bar ":|:"
 a1 \bar ":|.|:"
 b1 \bar ":|.:"
 c1 \bar ":|"
-d1
+e1
 @end lilypond
 
 De plus, une barre de mesure peut s'imprimer sous la forme d'une
@@ -2663,7 +2678,6 @@ Référence des pripriétés internes :
 @cindex collision et numéro de mesure
 
 @knownissues
-
 Les numéros de mesure peuvent entrer en collision avec les crochets d'un
 @rinternals{StaffGroup}.  La propriété @code{padding} -- décalage
 -- de l'objet @rinternals{BarNumber} permet alors d'ajuster leur
@@ -2723,10 +2737,10 @@ mesure est atteinte.
 @lilypond[quote,verbatim]
 pipeSymbol = \bar "||"
 {
-  c'2 c'2 |
-  c'2 c'2
-  c'2 | c'2
-  c'2 c'2
+  c'2 c' |
+  c'2 c'
+  c'2 | c'
+  c'2 c'
 }
 @end lilypond
 
