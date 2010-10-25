@@ -86,6 +86,8 @@
 			       ((and next-system
 				     (paper-system-title? next-system))
 				(ly:output-def-lookup layout 'score-markup-spacing))
+			       ((not next-system)
+				(ly:output-def-lookup layout 'last-bottom-spacing))
 			       (else
 				(ly:output-def-lookup layout 'system-system-spacing))))
 	   (last-staff-Y (car (paper-system-staff-extents system))))
