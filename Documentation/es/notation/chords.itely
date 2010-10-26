@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6e36ca8cc133568378f03e519d2d44a3eeb6abf8
+    Translation of GIT committish: d7f5cebae73078d1919381df574c69323043a224
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.29"
+@c \version "2.13.36"
 
 @node Notación de acordes
 @section Notación de acordes
@@ -113,6 +113,7 @@ nuevo contexto de @code{Staff}:
 <c e g>2 <g' b d>
 @end lilypond
 
+@noindent
 Para evitar este comportamiento podemos crear explícitamente el
 contexto de @code{Staff}:
 
