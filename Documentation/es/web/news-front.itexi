@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: b17e2f3d7a5853a30f7d5a3cdc6b5079e77a3d2a
+    Translation of GIT committish: 7fdd64899c9931d8d5f66786bdf49459a1a0ac53
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -17,6 +17,43 @@
 
 @c used for news about the upcoming release; see CG 10.2
 
+
+@newsItem
+@subsubheading Tercera versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.37! @emph{25 de octubre de 2010}
+
+Ha salido LilyPond 2.13.37; ésta es la tercera versión alfa de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún permanecen algunos problemas calificados como Críticos
+en esta versión: el espaciado vertical sorprende en
+dos casos, y lilypond puede salir de manera abrupta frente
+a algunos códigos de entrada extraños.  Si se decide a probar
+2.13.37, no se sorprenda al descubrir problemas; tan sólo
+envíenos @ref{Informes de fallos} educados.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.36! @emph{19 de octubre de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.36.
+Esta versión contiene el conjunto habitual de correcciones de fallos.
+Sin embargo, aún permanecen un cierto número de problemas críticos,
+por lo que está orientada solamente a los desarrolladores.
+
+Tenga en cuenta que ésta @strong{no} es la tercera versión
+de pruebas alfa.  A causa de la aparición de algunos cambios en nuestro
+proceso de construcción del programa que no se han probado,
+no podemos estar completamente seguros de la calidad
+de esta versión.
+
+@newsEnd
+
+
 @newsItem
 @subsubheading El Informe LilyPond, número 21.  @emph{3 de octubre de 2010}
 
@@ -30,59 +67,5 @@ día y las noticias que nos llegan de la charca de las ranas.
 Acérquese al @uref{http://news.lilynet.net/The-LilyPond-Report-21,
 Informe LilyPond 21} y léalo ahora mismo; ¡animamos calurosamente a
 todos a que hagan sus comentarios y contribuciones!
-
-@newsEnd
-
-@newsItem
-@subsubheading Segunda versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.35! @emph{29 de septiembre de 2010}
-
-Ha salido LilyPond 2.13.35; ésta es la segunda versión alfa de la
-inminente versión estable 2.14.  Se invita a los usuarios a que hagan
-experimentos con esta versión.  Las funcionalidades nuevas desde
-2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
-sección @ref{Desarrollo} de estas páginas.
-
-Aún existen tres regresiones conocidas contra 2.12.3:
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
-Problema número 1173 - No se pueden alinear las MetronomeMarks sobre
-una nota si existe un silencio multicompás en otra voz}, y dos fallos
-de espaciado:
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1240,
-Problema 1240} y
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1252,
-Problema 1252} pero esperamos encontrar más.  Si se decide a probar
-2.13.35, no se sorprenda al encontrar problemas; tan sólo envíenos
-@ref{Informes de fallos} educados.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading Versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.34! @emph{21 de septiembre de 2010}
-
-Ha salido LilyPond 2.13.34; ésta es la primera versión alfa de la
-inminente versión estable 2.14.  Se invita a los usuarios a que hagan
-experimentos con esta versión.  Las funcionalidades nuevas desde
-2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
-sección @ref{Desarrollo} de estas páginas.
-
-Aún existe una regresión conocida contra 2.12.3:
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
-Problema número 1173 - No se pueden alinear las MetronomeMarks sobre una
-nota si existe un silencio multicompás en otra voz}, pero esperamos
-encontrar más.  Si se decide a probar 2.13.34, no se sorprenda al
-encontrar problemas; tan sólo envíenos @ref{Informes de fallos}
-educados.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.33!  @emph{10 de septiembre de 2010}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.13.33.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.  Sin
-embargo, aún quedan algunos problemas críticos, por lo que esta
-versión está orientada solamente a los desarrolladores.
 
 @newsEnd
