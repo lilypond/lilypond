@@ -430,7 +430,7 @@ the chord.
 
 @lilypond[quote,verbatim,relative=1]
 <c e g> ~ <c e g>
-<c ~ e g ~ b> <c e g b>
+<c~ e g~ b> <c e g b>
 @end lilypond
 
 @cindex repeating ties
@@ -611,7 +611,7 @@ commands:
 
 @c \time 16/1 is used to avoid spurious bar lines
 @c and long tracts of empty measures
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 \new Staff {
   % These two lines are just to prettify this example
   \time 16/1
@@ -739,14 +739,14 @@ A spacer rest implicitly causes @code{Staff} and @code{Voice}
 contexts to be created if none exist, just like notes and rests
 do:
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 s1 s s
 @end lilypond
 
 @code{\skip} simply skips musical time; it creates no output of
 any kind.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 % This is valid input, but does nothing
 \skip 1 \skip1 \skip 1
 @end lilypond
@@ -796,7 +796,7 @@ notation used for notes.  The duration in a multi-measure rest must
 always be an integral number of measure-lengths, so augmentation dots
 or fractions must often be used:
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 \compressFullBarRests
 \time 2/4
 R1 | R2 |
@@ -811,7 +811,7 @@ R4*5*4 |
 A full-measure rest is printed as either a whole or breve rest,
 centered in the measure, depending on the time signature.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 \time 4/4
 R1 |
 \time 6/4
@@ -833,7 +833,7 @@ show all the rest measures explicitly.  Alternatively, a multi-measure
 rest can be shown as a single measure containing a multi-measure rest
 symbol, with the number of measures of rest printed above the measure:
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 % Default behavior
 \time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
@@ -865,7 +865,7 @@ Markups can be added to multi-measure rests.
 The predefined command @code{\fermataMarkup}
 is provided for adding fermatas.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 \compressFullBarRests
 \time 3/4
 R2.*10^\markup { \italic "ad lib." }
@@ -877,7 +877,7 @@ R2.^\fermataMarkup
 be directed to the correct object, or they will be ignored.  See the
 following example:}
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim,relative=2]
 % This fails, as the wrong object name is specified
 \override TextScript #'padding = #5
 R1^"wrong"
