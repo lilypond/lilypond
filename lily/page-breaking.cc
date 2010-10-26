@@ -999,18 +999,21 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
      calculations that treated it as a non-last page were ok.
   */
 
-  cur_page_height = page_height (first_page_num + ret - 1, true);
-  cur_page_height -= min_whitespace_at_top_of_page (cached_line_details_[page_starter]);
-  cur_page_height -= min_whitespace_at_bottom_of_page (cached_line_details_.back ());
+  if (is_last ())
+    {
+      cur_page_height = page_height (first_page_num + ret - 1, true);
+      cur_page_height -= min_whitespace_at_top_of_page (cached_line_details_[page_starter]);
+      cur_page_height -= min_whitespace_at_bottom_of_page (cached_line_details_.back ());
 
-  Real cur_height = cur_rod_height + ((ragged_last () || ragged ()) ? cur_spring_height : 0);
-  if (!too_few_lines (line_count - cached_line_details_.back ().compressed_nontitle_lines_count_)
-      && cur_height > cur_page_height
-      /* don't increase the page count if the last page had only one system */
-      && cur_rod_height > cached_line_details_.back ().full_height ())
-    ret++;
+      Real cur_height = cur_rod_height + ((ragged_last () || ragged ()) ? cur_spring_height : 0);
+      if (!too_few_lines (line_count - cached_line_details_.back ().compressed_nontitle_lines_count_)
+	  && cur_height > cur_page_height
+	  /* don't increase the page count if the last page had only one system */
+	  && cur_rod_height > cached_line_details_.back ().full_height ())
+	ret++;
+      assert (ret <= cached_line_details_.size ());
+    }
 
-  assert (ret <= cached_line_details_.size ());
   return ret;
 }
 
