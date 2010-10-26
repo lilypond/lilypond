@@ -8,7 +8,8 @@
 
 LY_DEFINE (ly_pfb_2_pfa, "ly:pfb->pfa",
 	   1, 0, 0, (SCM pfb_file_name),
-	   "Convert the contents of a PFB file to PFA.")
+	   "Convert the contents of a Type@tie{}1 font in PFB format"
+	   " to PFA format.")
 {
   LY_ASSERT_TYPE (scm_is_string, pfb_file_name, 1);
 

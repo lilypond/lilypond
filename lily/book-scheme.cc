@@ -122,7 +122,7 @@ LY_DEFINE (ly_book_add_score_x, "ly:book-add-score!",
 
 LY_DEFINE (ly_book_add_bookpart_x, "ly:book-add-bookpart!",
 	   2, 0, 0, (SCM book_smob, SCM book_part),
-	   "Add @var{book_part} to @var{book-smob} book part list.")
+	   "Add @var{book-part} to @var{book-smob} book part list.")
 {
   LY_ASSERT_SMOB (Book, book_smob, 1);
   Book *book = unsmob_book (book_smob); 
@@ -132,7 +132,7 @@ LY_DEFINE (ly_book_add_bookpart_x, "ly:book-add-bookpart!",
 
 LY_DEFINE (ly_book_book_parts, "ly:book-book-parts",
 	   1, 0, 0, (SCM book),
-	   "Return book parts in book.")
+	   "Return book parts in @var{book}.")
 {
   LY_ASSERT_SMOB (Book, book, 1);
   Book *b = unsmob_book (book);
@@ -141,7 +141,7 @@ LY_DEFINE (ly_book_book_parts, "ly:book-book-parts",
 
 LY_DEFINE (ly_book_paper, "ly:book-paper",
 	   1, 0, 0, (SCM book),
-	   "Return paper in book.")
+	   "Return paper in @var{book}.")
 {
   LY_ASSERT_SMOB (Book, book, 1);
   Book *b = unsmob_book (book);
@@ -150,7 +150,7 @@ LY_DEFINE (ly_book_paper, "ly:book-paper",
 
 LY_DEFINE (ly_book_scores, "ly:book-scores",
 	   1, 0, 0, (SCM book),
-	   "Return scores in book.")
+	   "Return scores in @var{book}.")
 {
   LY_ASSERT_SMOB (Book, book, 1);
   Book *b = unsmob_book (book);

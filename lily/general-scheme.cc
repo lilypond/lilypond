@@ -289,7 +289,7 @@ LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode",
 
 LY_DEFINE (ly_number_2_string, "ly:number->string",
 	   1, 0, 0, (SCM s),
-	   "Convert @var{num} to a string without generating many decimals.")
+	   "Convert @var{s} to a string without generating many decimals.")
 {
   LY_ASSERT_TYPE (scm_is_number, s, 1);
 

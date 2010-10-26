@@ -111,9 +111,9 @@ LY_DEFINE (ly_grob_interfaces, "ly:grob-interfaces",
 
 LY_DEFINE (ly_grob_object, "ly:grob-object",
 	   2, 0, 0, (SCM grob, SCM sym),
-	   "Return the value of a pointer in grob@tie{}@var{g} of property"
+	   "Return the value of a pointer in grob @var{grob} of property"
 	   " @var{sym}.  It returns @code{'()} (end-of-list) if @var{sym}"
-	   " is undefined in@tie{}@var{g}.")
+	   " is undefined in @var{grob}.")
 {
   Grob *sc = unsmob_grob (grob);
    
@@ -337,7 +337,7 @@ LY_DEFINE (ly_grob_suicide_x, "ly:grob-suicide!",
 
 LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
 	   3, 0, 0, (SCM grob, SCM d, SCM a),
-	   "Translate @var{g} on axis@tie{}@var{a} over"
+	   "Translate @var{grob} on axis@tie{}@var{a} over"
 	   " distance@tie{}@var{d}.")
 {
   Grob *me = unsmob_grob (grob);
@@ -352,7 +352,7 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
 
 LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",
 	   1, 0, 0, (SCM grob),
-	   "Return the default font for grob @var{gr}.")
+	   "Return the default font for grob @var{grob}.")
 {
   Grob *gr = unsmob_grob (grob);
    

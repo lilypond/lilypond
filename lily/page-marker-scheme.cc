@@ -33,7 +33,7 @@ LY_DEFINE (ly_make_page_permission_marker, "ly:make-page-permission-marker",
 LY_DEFINE (ly_make_page_label_marker, "ly:make-page-label-marker",
 	   1, 0, 0,
 	   (SCM label),
-	   "Return page marker with label.")
+	   "Return page marker with label @var{label}.")
 {
   LY_ASSERT_TYPE (ly_is_symbol, label, 1);
   Page_marker *page_marker = new Page_marker ();
