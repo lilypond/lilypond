@@ -1418,15 +1418,9 @@ scripts/auxiliar/strip-whitespace.py Documentation/FILENAME
 
 @subheading Updating doc with @command{convert-ly}
 
-cd into @file{Documentation/} and run
-
-@example
-find . -name '*.itely' | xargs convert-ly -e
-@end example
-
-@noindent
-This also updates translated documentation.
-
+Don't.  This should be done by programmers when they add new
+features.  If you notice that it hasn't been done, complain to
+@code{lilypond-devel}.
 
 
 @node Docstrings in scheme
