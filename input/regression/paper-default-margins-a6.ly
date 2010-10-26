@@ -7,7 +7,7 @@ and apply to the default paper size returned by (ly:get-option
 This also affects head- and foot-separation as well as indents."
 }
 
-someNotes = \repeat unfold 30 { c4 d e f }
+someNotes = \repeat unfold 20 { c4 d e f }
 
 \paper {
   #(set-paper-size "a6")
