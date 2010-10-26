@@ -79,7 +79,9 @@ LY_DEFINE (ly_find_file, "ly:find-file",
 */
 LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   1, 1, 0, (SCM name, SCM size),
-	   "Read the file @var{name}, and return its contents in a string."
+	   "Read @var{size} characters from the file @var{name},"
+           " and return its contents in a string."
+           "  If @var{size} is undefined, the entire file is read."
 	   "  The file is looked up using the search path.")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
