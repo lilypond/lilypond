@@ -20,6 +20,10 @@ that are relevant to traditions outside the Western tradition.
 * Turkish classical music::
 @end menu
 
+@c update Music Glossary for makam, makamlar, maqam,... -vv
+@c and add @rglos entries to pitches.itely "Non-Western note names"
+
+
 @node Arabic music
 @subsection Arabic music
 
