@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1605,17 +1605,13 @@ wobei @var{Typ} eine Kontextbezeichnung (wie etwa @code{Staff} oder
 beginnt, den @var{muskalischen Ausdruck} innerhalb dieses
 Kontexts auszuwerten.
 
-(Beachten Sie, dass man normalerweise keinen @code{\new Score}-Befehl
-braucht: der Partitur-(Score)-Kontext der obersten Ebene wird
-normalerweise automatisch erstellt, wenn der musikalische Ausdruck
-innerhalb der @code{\score}-Umgebung interpretiert wird.  Der
-einzige Grund, einen @code{Score}-Kontext explizit mit
-@code{\new Score} zu erstellen ist es, wenn man eine @code{\with}-Umgebung
-beginnen will, in der man eine oder mehrere Partitur-weite
-Standardwerte definiert werden.  Information über die Benutzung
-von @code{\with}-Umgebungen finden sich unter der Unterüberschrift
-@qq{Kontexteigenschaften mit @code{\\with} setzen} in
-@ref{Kontexteigenschaften verändern}.)
+@warning{Der @bs{}@code{new Score}-Befehl sollte nicht benutzt werden,
+weil der Partitur-(Score)-Kontext der obersten Ebene
+normalerweise automatisch erstellt wird, wenn der musikalische Ausdruck
+innerhalb der @code{\score}-Umgebung interpretiert wird.  Standard-Werte
+von Kontexteigenschaften, die für einen bestimmten @code{Score} gelten
+sollen, können innerhalb der @bs{}@code{layout}-Umgebung definiert werden.
+Siehe @ref{Kontexteigenschaften verändern}.}
 
 Wir haben schon viele explizite Beispiel gesehen, in denen
 neue @code{Staff}- und @code{Voice}-Kontexte erstellt wurden, aber
@@ -2051,27 +2047,6 @@ etwa so:
 >>
 @end lilypond
 
-Oder, wenn das @code{\override} für die Eigenschaft auf alle
-Notensysteme innerhalb der Partitur gelten soll, kann es auch
-direkt an ein @code{\new Score} gehängt werden, wie etwa hier:
-
-@lilypond[quote,verbatim,ragged-right]
-\score {
-  \new Score \with { extraNatural = ##f } <<
-    \new Staff {
-      \relative c'' {
-        gis4 ges aes ais
-      }
-    }
-    \new Staff {
-      \relative c'' {
-        gis4 ges aes ais
-      }
-    }
-  >>
-}
-@end lilypond
-
 Eigenschaften, die auf diese Arte gesetzt werden, können immer noch
 dynamisch mit dem @code{\set}-Befehl geändert werden und mit
 @code{\unset} auf ihre Standardeinstellungen zurückgesetzt werden,
@@ -2104,7 +2079,7 @@ eine @code{\context}-Umgebung eingebettet, welche wiederum innerhalb
 von einer @code{\layout}-Umgebung steht.  Jede @code{\context}-Umgebung
 wirkt sich auf alle Kontexte dieses Types aus, welche sich in der
 aktuellen Partitur befinden (d. h. innerhalb einer @code{\score}-
-oder @code{\book}-Umgebung.  Hier ist ein Beispiel, wie man diese
+oder @code{\book}-Umgebung).  Hier ist ein Beispiel, wie man diese
 Funktion anwendet:
 
 @lilypond[verbatim,quote]
@@ -2118,6 +2093,31 @@ Funktion anwendet:
     \context {
       \Staff
       extraNatural = ##t
+    }
+  }
+}
+@end lilypond
+
+Wenn die Veränderung der Eigenschaft sich auf alle Systeme einer
+@code{score}-Umgebung beziehen soll:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \relative c'' {
+        gis4 ges aes ais
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        gis4 ges aes ais
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score extraNatural = ##f
     }
   }
 }
@@ -3215,6 +3215,10 @@ PedalOrganMusic = \relative c {
   >>
 }  % end Score context
 @end lilypond
+
+@seealso
+Glossar:
+@rglos{system}.
 
 
 @node Tipparbeit durch Variablen und Funktionen ersparen
