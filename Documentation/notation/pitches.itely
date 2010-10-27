@@ -441,7 +441,7 @@ any standard.
 There are predefined sets of note and accidental names for various
 other languages.  To use them, include the language-specific init
 file listed below.  For example, to use English note names, add
-@code{@w{@bs{}include "english.ly"}} to the input file.
+@code{@w{\include "english.ly"}} to the input file.
 
 @warning{Because some other include files (such as @code{@w{predefined-fretboards.ly}})
 use default (Nederlands) note names, the @code{@bs{}include}
@@ -456,6 +456,8 @@ The available language files and the note names they define are:
   @tab Note Names
 @item @file{nederlands.ly}
   @tab c d e f g a bes b
+@item @file{arabic.ly}
+  @tab do re mi fa sol la sib si
 @item @file{catalan.ly}
   @tab do re mi fa sol la sib si
 @item @file{deutsch.ly}
@@ -487,6 +489,8 @@ and the accidental suffixes they define are:
 @headitem Language File
   @tab sharp @tab flat @tab double sharp @tab double flat
 @item @file{nederlands.ly}
+  @tab -is @tab -es @tab -isis @tab -eses
+@item @file{arabic.ly}
   @tab -d @tab -b @tab -dd @tab -bb
 @item @file{catalan.ly}
   @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
@@ -545,6 +549,8 @@ languages, no special names have been defined yet.
 
 @item @file{nederlands.ly}
   @tab -ih @tab -eh @tab -isih @tab -eseh
+@item @file{arabic.ly}
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @file{deutsch.ly}
   @tab -ih @tab -eh @tab -isih @tab -eseh
 @item @file{english.ly}
@@ -559,23 +565,7 @@ languages, no special names have been defined yet.
 @end quotation
 
 
-@cindex Arabic music
-
-Other languages and types of music may be supported by extending
-these predefined sets of note names.  For example, Arabic music
-may be typeset using @code{@w{@bs{}include "arabic.ly"}} which
-actually includes, in turn, the standard Italian note names as
-defined in @file{italiano.ly}, and adds extra macros and definitions.
-For details about non-Western music support, see
-@ref{Non-Western note names and accidentals} and
-@ref{World music}.
-
-
 @seealso
-Notation Reference:
-@ref{Non-Western note names and accidentals},
-@ref{World music}.
-
 Music Glossary:
 @rglos{Pitch names}.
 
@@ -592,16 +582,12 @@ systems that do not fit readily into standard classical
 notation.
 
 In some cases standard notation is still used, with the
-pitch differences being implicit.  For example,
-@notation{Arabic music} is typically notated in
-standard @q{Italian} notation, with standard semitone and quarter-tone
+pitch differences being implicit.  For example, Arabic
+music is notated with standard semitone and quarter-tone
 accidentals, with the precise pitch alterations being
-determined by context.
-Italian note names and Arabic-specific tweaks are explained in
-@ref{Note names in other languages}; Arabic notation is discussed
-more extensively in @ref{Arabic music}.
+determined by context.  Others require extended or unique
+notations.
 
-Other types of music require extended or unique notations:
 @notation{Turkish classical music}, or Ottoman music,
 employs melodic forms known as @notation{makamlar}, whose
 intervals are based on 1/9 divisions of the whole tone.
@@ -649,13 +635,6 @@ makamlar, see @ref{Turkish classical music}.
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {makam-example.ly}
-
-@seealso
-Notation Reference:
-@ref{Note names in other languages},
-@ref{World music},
-@ref{Arabic music},
-@ref{Turkish classical music}.
 
 
 @node Changing multiple pitches
