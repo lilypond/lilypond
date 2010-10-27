@@ -2,7 +2,7 @@
 @c This file is part of community.itexi and ../topdocs/AUTHORS.itexi
 
 @ignore
-    Translation of GIT committish:  144cd434d02e6d90b2fb738eeee99119a7c5e1d2
+    Translation of GIT committish:  aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,7 +70,7 @@ Fonts, bug squasher
 
 @item John Mandereau:
 @email{john.mandereau@@free.fr},
-Translation meister
+Translations
 
 @item Patrick McCarty:
 SVG guru, bug squad member, bug squasher, text handling
@@ -107,7 +107,7 @@ Core developer, Schemer extraordinaire
 Core developer, Frog meister
 
 @item Francisco Vila:
-Translations
+Translation Meister
 
 @item Valentin Villenave:
 LSR editor and Bug squad member
@@ -125,6 +125,10 @@ LSR editor and Bug squad member
 
 @item Pedro Kroeger:
 Build meister
+
+@item John Mandereau:
+@email{john.mandereau@@free.fr},
+Translation meister
 
 @item Graham Percival:
 @uref{http://percival-music.ca},
