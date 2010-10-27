@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 01097a2a0d059f418cf7803d6c83c41ecc639110
+    Translation of GIT committish: 23e9acfb081e6d194b63fa185bf54b34bb425c59
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,7 +9,6 @@
 @end ignore
 
 @c \version "2.13.36"
-
 
 @node Música vocal
 @section Música vocal
@@ -57,7 +56,7 @@ tipos de música vocal.
 @translationof References for vocal music
 
 Esta sección indica dónde encontrar los detalles de las cuestiones de
-notación que pueden surgir en cualquie tipo de música vocal.
+notación que pueden surgir en cualquier tipo de música vocal.
 
 @itemize
 
@@ -84,72 +83,83 @@ principio de los pentagramas vocales, como se explica en
 Glosario musical:
 @rglos{ambitus}.
 
+Fragmentos de código:
+@rlsr{Vocal music}.
 
 @node Introducir la letra
 @unnumberedsubsubsec Introducir la letra
 @translationof Entering lyrics
 
 @cindex letra
-@funindex \lyricmode
+@cindex lyrics, entering
+@cindex entering lyrics
+@cindex punctuation in lyrics
+@cindex lyrics punctuation
+@cindex spaces in lyrics
+@cindex quotes in lyrics
 @cindex puntuación
 @cindex espacios, en la letra
 @cindex comillas, en la letra
+@funindex \lyricmode
 
-@c FIXME: this section is to be rewritten.
-Dado que los archivos de entrada de LilyPond son de texto, existe al
-menos un asunto que tener en cuenta al trabajar con música vocal: los
-textos de las canciones se deben interpretar como texto, no como
-notas.  Por ejemplo, la entrada@tie{}@code{d} debe interpretarse como
-una sílaba de una sola letra, no como la nota@tie{}Re.  Por tanto se
-hace necesario utilizar un modo especial para la letra, ya sea
-explícitamente o mediante el uso de métodos abreviados.
+@c TODO should we explain hyphens here
 
 La letra de las canciones se introduce en un modo de entrada especial
 que se inicia mediante la palabra clave @code{\lyricmode}, o bien
-mediante @code{\addlyrics} ó @code{\lyricsto}.  En este modo puede
-introducir la letra, con puntuación y acentos, y el carácter @code{d}
-no se analiza como una nota, sino más bien como una sílaba de una sola
-letra.  Las sílabas se introducen como las notas, pero con texto en
-lugar de alturas de nota.  Por ejemplo,
+mediante @code{\addlyrics} ó @code{\lyricsto}.  En este modo especial
+de entrada, el carácter @code{d} no se analiza como una nota, sino más
+bien como una sílaba de una sola letra.  Dicho de otra forma, las
+sílabas se introducen como las notas, pero la altura de las notas se
+sustituye por texto.
 
+Por ejemplo:
+
+@c TODO translate -FV
 @example
-\lyricmode @{ Cam-4 pa-4 ni- ta del- lu- gar2 @}
+\lyricmode @{ Three4 blind mice,2 three4 blind mice2 @}
 @end example
 
+
 Existen dos métodos principales para especificar la colocación
-horizontal de las sílabas, bien especificando la duración de cada
-sílaba de forma explícita, como en el ejemplo anterior, o bien
-alineando automáticamente la letra a la melodía o a cualquier otra
-voz, usando @code{\addlyrics} o @code{\lyricsto}.
-@c  TODO: broken
-@c For more details see @ref{The Lyrics context}.
+horizontal de las sílabas: mediante la indicación de la duración de
+cada sílaba explícitamente, como en el ejemplo anterior, o dejando que
+la letra se alinee automáticamente con una melodía u otra voz de
+música, utilizando @code{\addlyrics} o @code{\lyricsto}.  El primer
+método se describe a continuación bajo el epígrafe @ref{Duración
+manual de las sílabas}.  El segundo método se describe en
+@ref{Duración automática de las sílabas}.
 
-Una palabra o sílaba de la letra comienza con un carácter alfabético,
-y termina con cualquier espacio o dígito.  Los caracteres que siguen
-pueden ser cualesquiera excepto un dígito o un espacio.
+Una palabra o sílaba de la letra comienza con un carácter alfabético
+(y algunos otros caracteres, véase más abajo) y termina con un espacio
+o un dígito.  El resto de los caracteres dentro de la sílaba pueden
+ser cualesquier caracteres que no sean dígitos o espacios.
 
-Cualquier carácter excepto un dígito o un espacio en blanco se
-considera parte de una sílaba; esto tiene una importante consecuencia,
-y es que una palabra puede terminar en @code{@}}, lo que con
-frecuencia conduce al siguiente error:
+A causa de que cualquier carácter que no es un dígito o un espacio se
+considera parte de la sílaba, una palabra es válida incluso si termina
+con @code{@}}, lo que a menudo lleva al siguiente fallo:
 
 @example
-\lyricmode @{ la- la@}
+\lyricmode @{ la la la@}
 @end example
 
 En este ejemplo, el símbolo @code{@}} se encuentra incluido dentro de
 la sílaba final, por tanto la llave de apertura no se compensa con la
 correspondiente llave de cierre y el archivo de entrada probablemente
-no se podrá procesar.
+no se podrá procesar.  En vez de ello, las llaves siempre deben ir
+rodeadas por espacios:
 
+@example
+\lyricmode @{ la la la @}
+@end example
 
+@cindex sobreescrituras en el modo de letra
 @funindex \property dentro de \lyricmode
 
-@noindent
-De forma similar, un punto que sigue a una secuencia alfabética queda
-incluido dentro de la cadena resultante.  Como consecuencia, se deben
-insertar espacios antes y después de los comandos de propiedades:
-@emph{no} escriba
+De forma similar, en el modo de letra, un punto ortográfico se
+incluirá dentro de la secuencia alfabética a la que sigue.  Como
+consecuencia, se deben insertar espacios antes y después del punto
+dentro de las instrucciones @code{\override}.  @emph{No} escriba lo
+siguiente:
 
 @example
 \override Score.LyricText #'font-shape = #'italic
@@ -162,161 +172,251 @@ sino lo siguiente:
 \override Score . LyricText #'font-shape = #'italic
 @end example
 
-Para escribir letra con caracteres de una lengua no inglesa, o que
-tenga caracteres acentuados o especiales (como el símbolo del corazón
-o comillas inclinadas), introduzca simplemente los caracteres
-directamente en el archivo de entrada y guárdelo con una codificación
-utf-8.  Consulte @ref{Codificación del texto}, para ver más información.
+Los signos de puntuación, las letras con caracteres acentuados o de
+cualquier idioma distinto del inglés, o los caracteres especiales
+(como el símbolo del corazón o las comillas inclinadas), se pueden
+insertar directamente en el archivo de entrada, siempre que éste se
+grabe con la codificación UTF-8.  Para más información, consulte
+@ref{Codificación del texto}.
 
-@c FIXME: quotes.
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\relative c' { e4 f e d e f e2 }
-\addlyrics { He said: “Let my peo ple go”. }
+@lilypond[quote,verbatim]
+\relative c'' { d8 c16 a bes8 f e' d c4 }
+\addlyrics { „Schad’ um das schö -- ne grü -- ne Band, }
 @end lilypond
 
-Para utilizar comillas normales en la letra, escriba una barra
-invertida antes de las comillas.  Por ejemplo,
+Se pueden usar las comillas normales dentro de la letra, pero deben ir
+precedidas por el carácter de barra invertida y la sílaba en su
+conjunto se debe encerrar en otro par de comillas.  Por ejemplo,
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,verbatim]
 \relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
-\addlyrics { "\"I" am so lone- "ly\"" said she }
+\addlyrics { "\"I" am so lone -- "ly,\"" said she }
 @end lilypond
 
 La definición completa del comienzo de una palabra en el modo Lyrics
-(letra) es algo más compleja.
-
-Una palabra en el modo Lyrics comienza por: un carácter alfabético,
-@code{_}, @code{?}, @code{!}, @code{:}, @code{'}, los caracteres de
-control desde @code{^A} hasta @code{^F}, desde @code{^Q} hasta
-@code{^W}, @code{^Y}, @code{^^}, cualquier carácter de 8 bits con
-código ASCII por encima del 127, o una combinación de dos caracteres
-consistente en la combinación de una barra invertida seguida por
-@code{`}, @code{'}, @code{"} ó @code{^}.
+(letra) es algo más compleja.  Una palabra en el modo Lyrics comienza
+por: un carácter alfabético, @code{_}, @code{?}, @code{!}, @code{:},
+@code{'}, los caracteres de control desde @code{^A} hasta @code{^F},
+desde @code{^Q} hasta @code{^W}, @code{^Y}, @code{^^}, cualquier
+carácter de 8 bits con código ASCII por encima del 127, o una
+combinación de dos caracteres consistente en la combinación de una
+barra invertida seguida por @code{`}, @code{'}, @code{"} ó @code{^}.
 
 @c " to balance double quotes for not-so-bright context-sensitive editors
 
-Para definir identificadores que contengan letra, se debe usar la
-función @code{lyricmode}.
-
-@example
-verseOne = \lyricmode @{ Joy to the world the Lord is come @}
-\score @{
-  <<
-    \new Voice = "one" \relative c'' @{
-      \autoBeamOff
-      \time 2/4
-      c4 b8. a16 g4. f8 e4 d c2
-    @}
-    \addlyrics @{ \verseOne @}
-  >>
-@}
-@end example
-
-
 @seealso
+Manual de aprendizaje:
+@rlearning{Canciones}.
+
 Referencia de la notación:
-@ref{Tipografías}.
+@ref{Duración automática de las sílabas},
+@ref{Tipografías},
+@ref{Modos de entrada},
+@ref{Duración manual de las sílabas}.
 
 Referencia de funcionamiento interno:
-@rinternals{LyricText},
-@rinternals{LyricSpace}.
+@rinternals{LyricText}.
 
 
 @node Alineación de la letra a una melodía
 @unnumberedsubsubsec Alineación de la letra a una melodía
 @translationof Aligning lyrics to a melody
 
+@cindex letra, alineación a una melodía
+@cindex @code{associatedVoice}
 @funindex \lyricmode
 @funindex \addlyrics
 @funindex \lyricsto
 
-La alineación del texto con las melodías se puede hacer
-automáticamente, pero si especificamos las duraciones de las sílabas
-también puede hacerse de forma manual.  La alineación y el
-tipografiado de la letra se preparan con la ayuda de saltos o
-@i{skips}, guiones y líneas extensoras.
-
-La letra se imprime a través de su interpretación dentro del contexto
-llamado @code{Lyrics}; véase @rinternals{Lyrics} para más información.
+La letra se imprime mediante su interpretación dentro del contexto
+llamado @code{Lyrics}, véase @ref{Explicación de los contextos}.
 
 @example
-\new Lyrics \lyricmode @dots{}
+\new Lyrics \lyricmode @{ @dots{} @}
 @end example
 
-Existen dos métodos principales para especificar la colocación
-horizontal de las sílabas:
+La letra se puede alinear con la melodía de dos maneras principales:
 
 @itemize
-@item
-alineando automáticamente el texto a una melodía o a otra voz,
-utilizando @code{\addlyrics} o @code{\lyricsto}
 
 @item
-o especificando la duración de cada sílaba explícitamente, utilizando
-@code{\lyricmode}
+Se puede alinear la letra automáticamente, tomándose las duraciones de
+las sílabas de otra voz de música, o (en circunstancias especiales)
+una melodía asociada, usando @code{\addlyrics}, @code{\lyricsto}, o
+estableciendo el valor de la propiedad @code{associatedVoice}.  Para
+ver más detalles, consulte @ref{Duración automática de las sílabas}.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff <<
+    \time 2/4
+    \new Voice = "one" \relative c'' {
+      \voiceOne
+      c4 b8. a16 g4. r8 a4 ( b ) c2
+    }
+    \new Voice = "two" \relative c' {
+      \voiceTwo
+       s2 s4. f8 e4 d c2
+    }
+  >>
+
+% takes durations and alignment from notes in "one"
+  \new Lyrics \lyricsto "one" {
+    Life is __ _ love, live __ life.
+  }
+
+% takes durations and alignment from notes in "one" initially
+% then switches to "two"
+  \new Lyrics \lyricsto "one" {
+    No more let
+    \set associatedVoice = "two"  % must be set one syllable early
+    sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+La primera línea de letra muestra la forma normal de introducir la
+letra.
+
+La segunda línea de texto muestra cómo se puede cambiar la voz de la
+que se toman las duraciones para las sílabas.  Esto es útil si el
+texto de las distintas estrofas corresponde a las mismas notas de
+formas diferentes, y todas las duraciones están disponibles dentro de
+contextos de voz.  Para ver más detalles, consulte @ref{Versos}.
+
+@item
+El texto se puede alinear independientemente de la duración de
+cualquier nota si las duraciones de de las sílabas se especifican
+explícitamente, y se escriben con @code{\lyricmode}.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Voice = "one" \relative c'' {
+    \time 2/4
+    c4 b8. a16 g4. f8 e4 d c2
+  }
+
+% uses previous explicit duration of 2;
+  \new Lyrics \lyricmode {
+    Joy to the earth!
+  }
+
+% explicit durations, set to a different rhythm
+  \new Lyrics \lyricmode {
+    Life4 is love,2. live4 life.2
+  }
+>>
+@end lilypond
+
+El primer verso no está alineado con las notas porque no se
+especificaron las duraciones, y se utiliza el valor previo de 2
+(blanca) para todas las sílabas.
+
+El segundo verso muestra cómo las palabras se pueden alinear de forma
+independiente de las notas.  Esto es útil si el texto de los distintos
+versos se corresponde con las notas de maneras diferentes, pero las
+duraciones requeridas no están disponibles en un contexto de música.
+Para ver más detalles, consulte @ref{Duración manual de las sílabas}.
+Esta técnica también es útil cuando se quiere preparar un diálogo
+encima de la música; para ver ejemplos que lo muestran, consulte
+@ref{Diálogo por encima de la música}.
+
+Cuando se escriben de esta forma, las sílabas del texto se alinean por
+la izquierda con las notas, de forma predeterminada, pero se pueden
+centrar sobre las notas de una melodía especificando una voz asociada,
+si existe.  Para ver más detalles, consulte @ref{Duración manual de
+las sílabas}.
+
 @end itemize
 
-El contexto @code{Voice} que contiene la melodía con la que se está
-alineando la letra no debe haber @qq{muerto}, o se perderá la letra
-después de ese punto.  Esto puede ocurrir si existen períodos en los
-que dicha voz no tiene nada que hacer.  Para ver métodos de mantener
-vivos los contextos, consulte @ref{Mantener vivos los contextos}.
+@seealso
+Manual de aprendizaje:
+@rlearning{Alineación de la letra a una melodía}.
 
+Referencia de funcionamiento interno:
+@rinternals{Lyrics}.
 
 @node Duración automática de las sílabas
 @unnumberedsubsubsec Duración automática de las sílabas
 @translationof Automatic syllable durations
 
-@cindex sílabas, duraciones automáticas
+@cindex sílabas, duración automática de las
 @cindex letra y melodías
+@cindex associatedVoice
+@funindex \addlyrics
+@funindex \lyricsto
 
-La letra se puede alinear automáticamente bajo una melodía dada.  Esto
-se consigue combinando la melodía y el texto con la expresión
-@code{\lyricsto}
+Las sílabas de la letra se pueden alinear automáticamente con las
+notas de una melodía de tres formas:
 
-@example
-\new Lyrics \lyricsto @var{nombre} @dots{}
-@end example
+@itemize
 
-@noindent
-Esto alinea la letra a las notas del contexto de @code{Voice}
-llamado @var{nombre}, que debe existir previamente.  Por ello la
-@code{Voice} normalmente se especifica en primer lugar, y después se
-especifica la letra con @code{\lyricsto}.  La instrucción
-@code{\lyricsto} cambia automáticamente al modo @code{\lyricmode}, por
-lo que la palabra clave @code{\lyricmode} se puede omitir.
+@item
+especificando por su nombre el contexto Voice que contiene la melodía,
+con @code{\lyricsto},
 
-El ejemplo siguiente utiliza comandos diferentes para introducir la
-letra.
+@item
+introduciendo la letra con @code{\addlyrics} y colocándola
+inmediatamente después del contexto de voz que contiene la melodía,
 
-@lilypond[quote,fragment,ragged-right,verbatim]
+@item
+estableciendo un valor para la propiedad @code{associatedVoice}, la
+alineación de la letra se puede mover a un contexto de voz distinto,
+especificado por su nombre, en cualquier momento musical.
+
+@end itemize
+
+En los tres métodos se pueden trazar guiones de separación entre las
+sílabas de una palabra y líneas extensoras después del final de una
+palabra.  Para ver más detalles, véase @ref{Líneas de extensión y
+guiones}.
+
+El contexto @code{Voice} que contiene la melodía con que se está
+alineando la letra, no debe haber @qq{muerto}, o se perderá la letra a
+partir de este punto.  Esto puede ocurrir si existen períodos en que
+dicha voz no tiene nada que hacer.  Para ver métodos para mantener
+vivos los contextos, consulte @ref{Mantener vivos los contextos}.
+
+@subheading Uso de @code{\lyricsto}
+
+@cindex \lyricsto
+@funindex \lyricsto
+
+Las sílabas de la letra se pueden alinear automáticamente bajo las
+notas de una melodía especificando por su nombre el contexto de voz
+que contiene la melodía, con @code{\lyricsto}:
+
+@lilypond[quote,verbatim,relative=2]
 <<
-  \new Voice = "one" \relative c'' {
-    \autoBeamOff
-    \time 2/4
-    c4 b8. a16 g4. f8 e4 d c2
+  \new Voice = "melody" {
+    a4 a a a
   }
-
-% not recommended: left-aligned syllables
-  \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
-
-% wrong: durations needed
-  \new Lyrics \lyricmode { Joy to the earth! the Sa -- viour reigns. }
-
-%correct
-  \new Lyrics \lyricsto "one" { No more let sins and sor -- rows grow. }
+  \new Lyrics \lyricsto "melody" {
+    These are the words
+  }
 >>
 @end lilypond
 
-El segundo verso no está bien alineado porque las duraciones
-no se han especificado.  Una solución para eso sería usar @code{\lyricsto}.
+@noindent
+Esto alinea las sílabas con las notas del contexto @code{Voice}
+nombrado, que debe existir previamente.  Por tanto, normalmente se
+especifica primero el contexto @code{Voice} seguido del contexto
+@code{Lyrics}.  La letra en sí sigue a la instrucción
+@code{\lyricsto}.  La instrucción @code{\lyricsto} invoca
+automáticamente el modo de letra, por lo que la palabra clave
+@code{\lyricmode} se puede omitir.  De forma predeterminada, la letra
+se coloca por debajo de las notas.  Para otras colocaciones, consulte
+@ref{Posicionamiento vertical de la letra}.
+
+
+@subheading Uso de @code{\addlyrics}
 
 @cindex \addlyrics
+@funindex \addlyrics
 
-El comando @code{\addlyrics} es realmente tan sólo una forma cómoda de
-escribir una estructura de LilyPond más complicada que establece la
-letra.
+La instrucción @code{\addlyrics} es realmente tan sólo una forma
+cómoda de escribir una estructura de LilyPond más complicada que
+establece la letra.
 
 @example
 @{ MÚSICA @}
@@ -333,10 +433,12 @@ es lo mismo que
 
 He aquí un ejemplo:
 
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative c' { c2 e4 g2. }
-\addlyrics { play the game }
+@lilypond[verbatim,quote]
+{
+  \time 3/4
+  \relative c' { c2 e4 g2. }
+  \addlyrics { play the game }
+}
 @end lilypond
 
 Se pueden añadir más versos poniendo más secciones @code{\addlyrics}:
@@ -350,51 +452,132 @@ Se pueden añadir más versos poniendo más secciones @code{\addlyrics}:
 @end lilypond
 
 La instrucción @code{\addlyrics} no es capaz de manejar situaciones de
-polifonía.  Para estos casos debería usar @code{\lyricsto} y
-@code{\lyricmode}, para ver más detalles consulte @ref{Introducir la
-letra}.
+polifonía.  Para estos casos debería usar @code{\lyricsto}.
 
+@subheading Uso de @code{associatedVoice}
 
-@node Duración manual de las sílabas
-@unnumberedsubsubsec Duración manual de las sílabas
-@translationof Manual syllable durations
-
-El texto también se puede introducir sin @code{\addlyrics} ni
-@code{\lyricsto}.  En este caso, las sílabas se escriben como notas
-(pero con las alturas sustituidas por texto) y la duración de cada
-sílaba se debe escribir explícitamente.  Por ejemplo:
-
-@example
-play2 the4 game2.
-sink2 or4 swim2.
-@end example
-
-La alineación respecto de una melodía se puede especificar con la
-propiedad @code{associatedVoice},
+Se puede cambiar la melodía a la que se alinea la letra mediante el
+establecimiento de la propiedad @code{associatedVoice},
 
 @example
 \set associatedVoice = #"lala"
 @end example
 
 @noindent
-El valor de la propiedad (aquí: @code{"lala"}) ha de ser el nombre de
-un contexto de @code{Voice}.  Sin este ajuste, las líneas de
-extensión no se formatearán correctamente.
 
-Presentamos a continuación un ejemplo que muestra el uso de las
-duraciones manuales de las sílabas del texto:
+El valor de la propiedad (aquí: @code{"lala"}) debe ser el nombre de
+un contexto @code{Voice}.  Por razones técnicas, la instrucción
+@code{\set} se debe escribir una sílaba antes de aquella a la que se
+quiere aplicar el cambio de voz.
 
-@lilypond[relative=1,ragged-right,verbatim,fragment,quote]
-<< \new Voice = "melody" {
-    \time 3/4
-    c2 e4 g2.
- }
- \new Lyrics \lyricmode {
-   \set associatedVoice = #"melody"
-   play2 the4 game2.
- } >>
+He aquí un ejemplo que muestra su uso:
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff <<
+    \time 2/4
+    \new Voice = "one" \relative c'' {
+      \voiceOne
+      c4 b8. a16 g4. r8 a4 ( b ) c2
+    }
+    \new Voice = "two" \relative c' {
+      \voiceTwo
+       s2 s4. f8 e8 d4. c2
+    }
+  >>
+% takes durations and alignment from notes in "one" initially
+% then switches to "two"
+  \new Lyrics \lyricsto "one" {
+    No more let
+    \set associatedVoice = "two"  % must be set one syllable early
+    sins and sor -- rows grow.
+  }
+>>
 @end lilypond
 
+@seealso
+Referencia de la notación:
+@ref{Líneas de extensión y guiones},
+@ref{Mantener vivos los contextos}.
+
+@node Duración manual de las sílabas
+@unnumberedsubsubsec Duración manual de las sílabas
+@translationof Manual syllable durations
+
+En ciertas músicas vocales complejas puede ser deseable colocar la
+letra de forma completamente independiente de las notas.  En este
+caso, no use @code{\lyricsto} ni @code{\addlyrics} y no establezca un
+valor para @code{associatedVoice}.  Las sílabas se escriben como notas
+-- pero sustituyendo los nombres de las notas por texto -- y la
+duración de cada sílaba se escribe explícitamente después de la
+sílaba.
+
+De forma predeterminada, las sílabas se alinean por la izquierda con
+el momento musical correspondiente.  Se pueden trazar líneas
+separadores entre las sílabas, como es usual, pero no se pueden trazar
+líneas extensoras cuando no hay una voz asociada.
+
+He aquí dos ejemplos:
+
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    c2 e4 g2 f
+  }
+  \new Lyrics \lyricmode {
+    play1 the4 game4
+  }
+>>
+@end lilypond
+
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff {
+    \relative c'' {
+      c2 c2
+      d1
+    }
+  }
+  \new Lyrics {
+    \lyricmode {
+      I2 like4. my8 cat!1
+    }
+  }
+  \new Staff {
+    \relative c' {
+      c8 c c c c c c c
+      c8 c c c c c c c
+    }
+  }
+>>
+@end lilypond
+
+Esta técnica es muy útil cuando se escriben diálogos encima de la
+música, véase @ref{Diálogos encima de la música}.
+
+Para centrar las sílabas sobre las notas en sus momentos musicales
+correspondientes, ajuste @code{associatedVoice} al nombre del contexto
+de voz que contiene dichas notas.  Cuando está establecido el valor de
+@code{associatedVoice}, se pueden usar tanto dobles guiones como
+dobles barras bajas para trazar correctamente guiones separadores y
+líneas extensoras bajos los melismas.
+
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    c2 e4 g f g
+  }
+  \new Lyrics \lyricmode {
+    \set associatedVoice = #"melody"
+    play2 the4 game2. __
+  }
+>>
+@end lilypond
+
+@c TODO see also feature request 707 - show how to do this with manual durations
 
 @seealso
 Referencia de la notación:
@@ -414,7 +597,7 @@ Referencia de funcionamiento interno:
 @cindex espacios en la letra
 @cindex comillas en la letra
 
-Para asignar más de una sílaba a una única nota con espacioes entre
+Para asignar más de una sílaba a una única nota con espacios entre
 las sílabas, podemos encerrar la frase entre comillas o utilizar un
 carácter de guión bajo @code{_}.  De forma alternativa, podemos usar
 el símbolo de tilde curva (@code{~}) para obtener una ligadura de
@@ -436,10 +619,6 @@ Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic}.
 
 
-@c Here come the section which used to be "Melismata"
-@c the new title might be more self-explanatory
-
-
 @node Varias notas sobre una sílaba
 @unnumberedsubsubsec Varias notas sobre una sílaba
 @translationof Multiple notes to one syllable
@@ -447,110 +626,185 @@ Referencia de funcionamiento interno:
 @cindex melisma
 @cindex melismata
 @cindex fraseo, en la letra
+@funindex \melisma
+@funindex \melismaEnd
 
 A veces, y sobre todo en la música medieval, varias notas se cantan
 sobre una sílaba única; tales vocalizaciones reciben el nombre de
-melismas, o melismata.
+melismas, o melismata.  La sílaba de un melisma se suele alinear por
+la izquierda con la primera nota del melisma.
 
-@c this method seems to be the simplest; therefore
-@c it might be better to present it first - vv
+Cuando se produce un melisma sobre una sílaba distinta de la última de
+una palabra, dicha sílaba se suele unir a la siguiente con un guión
+separador.  Esto se indica en el código de entrada escribiendo un
+doble guión, @code{--}, inmediatamente después de la sílaba.
 
-Podemos definir los melismas completamente dentro de la letra,
-escribiendo un guión bajo @code{_} por cada nota que se quiere añadir
-al melisma.
+De forma alternativa, cuando se produce un melisma sobre la última o
+sobre la única sílaba de una palabra, se suele trazar una línea
+extensora desde el final de la sílaba hasta la última nota del
+melisma.  Esto se indica en el código de entrada escribiendo una doble
+barra baja o carácter de subrayado, @code{__}, inmediatamente después
+de la palabra.
 
-@c FIXME: clarify: __ is used to crate a lyric extender,
-@c _ is used to add a note to a melisma, so both __ and _ are needed.
+Existen cinco formas de indicar los melismas:
 
-@c verbose! --FV
-@c duplicated: TODO fix
-Además, podemos hacer que se imprima una línea extensora para indicar
-el melisma en la partitura, escribiendo un doble guión bajo junto a la
-primera sílaba del melisma.  Este ejemplo presenta los tres elementos
-que se usan con este fin (todos ellos circundados por espacios):
-guiones dobles para separar las sílabas de una palabra, guiones bajos
-para añadir notas al melisma, y un doble guión bajo para poner una
-línea extensora.
+@itemize
 
-@c wrong: extender line only on last syllable of a word.  Change example
-@lilypond[relative=1,verbatim,fragment,quote]
-{ \set melismaBusyProperties = #'()
- c d( e) f f( e) e e  }
-\addlyrics
- { Ky -- _ _ ri __ _ _ _  e }
+@item
+Se crean melismas automáticamente sobre las notas unidas mediante
+ligadura de unión:
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    f4 g2 ~ |
+    g4 e2 ~ |
+    e8
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- e __
+  }
+>>
 @end lilypond
 
-En este caso también podemos tener ligaduras de unión y de expresión
-en la melodía, si establecemos @code{melismaBusyProperties}, como se
-hizo en el ejemplo anterior.
+@item
+Se pueden crear melismas automáticamente a partir de la música
+escribiendo ligaduras de expresión sobre las notas de cada melisma.
+Ésta es la forma usual de escribir la letra:
 
-Sin embargo la instrucción @code{\lyricsto} también puede detectar los
-melismas automáticamente: sólo pone una sílaba debajo de un grupo de
-notas unidas mediante ligadura de unión o de expresión.  Si quiere
-forzar que un grupo de notas sin ligadura sea un melisma, inserte
-@code{\melisma} después de la primera nota del grupo, y
-@code{\melismaEnd} después de la última, p.ej.:
-
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@lilypond[quote,relative=2,verbatim]
 <<
-  \new Voice = "lala" {
+  \new Voice = "melody" {
+    \time 3/4
+    f4 g8 ( f e f )
+    e8 ( d e2 )
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- e __
+  }
+>>
+@end lilypond
+
+@item
+Se considera que las notas forman un melisma cuando se unen
+manualmente mediante barra, siempre y cuando el barrado automático
+esté desactivado.  Véase @ref{Establecer el comportamiento de las
+barras automáticas}.
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    \autoBeamOff
+    f4 g8[ f e f]
+    e2.
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- e
+  }
+>>
+@end lilypond
+
+Claramente, esto no es adecuado para los melismas formados por notas
+de duración más larga que la corchea.
+
+@item
+Un grupo de notas sin ligadura de expresión se trata como un melisma
+si están comprendidas entre @code{\melisma} y @code{\melismaEnd}.
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  \new Voice = "melody" {
     \time 3/4
     f4 g8
     \melisma
     f e f
     \melismaEnd
-    e2
+    e2.
   }
-  \new Lyrics \lyricsto "lala" {
-    la di __ daah
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- e
   }
 >>
 @end lilypond
 
-Además, las notas se consideran un melisma si están unidas manualmente
-mediante una barra, y el barrado automático
-(véase @ref{Establecer el comportamiento de las barras automáticas})
-está desactivado.
+Observe que este método no se puede usar para indicar dos melismas si
+el primero va seguido inmediatamente por el otro.
 
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@item
+Se puede definir un melisma enteramente dentro de la letra escribiendo
+un carácter de barra baja suelto, @code{_}, por cada nota adicional
+que se quiere añadir al melisma.
+
+@lilypond[verbatim, quote, relative=2]
 <<
-  \new Voice = "lala" {
+  \new Voice = "melody" {
     \time 3/4
-    \autoBeamOff
-    f4 g8[ f e f]
-    e2
+    f4 g8 f e f
+    e8 d e2
   }
-  \new Lyrics \lyricsto "lala" {
-    la di __ daah
+  \new Lyrics \lyricsto "melody" {
+    Ky -- ri -- _ _ _ e __ _ _
   }
 >>
 @end lilypond
 
-@c FIXME: this now links to LM -vv
+@end itemize
 
-@cindex SATB
-@cindex coral, partitura
+Es posible tener ligaduras de unión o de expresión y barras manuales
+en la melodía sin que indiquen melisma.  Para hacerlo, ajuste el valor
+de @code{melismaBusyProperties} e indique los melismas mediante barras
+bajas sueltas dentro de la letra, una barra baja por cada nota
+adicional:
 
-Hay un ejemplo completo de una disposición de partitura SATB
-en @rlearning{Conjuntos vocales}.
+@lilypond[relative=1,verbatim,quote]
+<<
+  \new Voice = "melody" {
+    \time 3/4
+    \set melismaBusyProperties = #'()
+    c4 d ( e )
+    g8 [ f ] f4( e)
+    d e ~ e
+  }
+  \new Lyrics \lyricsto "melody" {
+    Ky -- _ _ _ _ ri -- _ _ e __ _
+  }
+>>
+@end lilypond
 
+Se pueden usar otros valores para @code{melismaBusyProperties} si
+queremos incluir o excluir las ligaduras de unión, ligaduras de
+expresión o barras de la detección automática de los melismas; véase
+@code{melismaBusyProperties} en el apartado @rinternals{Tunable
+context properties}.
 
 @predefined
-@funindex \melisma
+
+@code{\autoBeamOff},
+@code{\autoBeamOn},
 @code{\melisma},
-@funindex \melismaEnd
 @code{\melismaEnd}.
-@endpredefined
 
+@seealso
+Glosario musical:
+@rglos{melisma}.
 
-@c @seealso
-@c @lsr{vocal,lyric@/-combine.ly}.
+Manual de aprendizaje:
+@rlearning{Alineación de la letra a una melodía}.
 
+Referencia de la notación:
+@ref{Alineación de la letra a una melodía},
+@ref{Duración automática de las sílabas},
+@ref{Establecer el comportamiento de las barras automáticas}.
+
+Referencia de funcionamiento interno:
+@rinternals{Tunable context properties}.
 
 @knownissues
 
-Los melismas no se detectan automáticamente, y las líneas de extensión
-se deben insertar a mano.
+No se crean automáticamente líneas extensoras bajo los melismas; se
+deben insertar manualmente con un doble guión bajo.
 
 @node Saltar notas
 @unnumberedsubsubsec Saltar notas
@@ -561,8 +815,8 @@ la melodía, mediante la inserción de desplazamientos o @code{\skip}s
 en la letra.  Por cada @code{\skip}, el texto se retrasa en una nota.
 La instrucción @code{\skip} debe ir seguida de una duración válida,
 pero esta duración se ignora cuando se usa @code{\skip} en las letras
-cuya duración se toma de las notas de una melodía asociada por medio de
-@code{\addlyrics} o de @code{\lyricsto}.
+cuya duración se toma de las notas de una melodía asociada por medio
+de @code{\addlyrics} o de @code{\lyricsto}.
 
 @lilypond[verbatim,ragged-right,quote]
 \relative c' { c c g' }
@@ -580,6 +834,8 @@ cuya duración se toma de las notas de una melodía asociada por medio de
 @cindex melisma
 @cindex extensora, línea
 @cindex línea de extensión
+
+@c TODO cf Multiple notes to one syllable; should this be merged in?
 
 @c leave this as samp. -gp
 Los melismas se indican mediante una línea horizontal centrada entre
@@ -603,10 +859,10 @@ guiones).  El guión quedará centrado entre las sílabas, y su longitud
 se ajustará en función del espacio que exista entre ellas.
 
 En la música grabada de modo muy apretado, se pueden quitar los
-guiones.  Se puede controlar si esto ocurre o no, mediante la
-@code{minimum-distance} (distancia mínima entre las dos sílabas) y la
-@code{minimum-length} (umbral por debajo del cual se suprimen los
-guiones).
+guiones.  Se puede controlar si esto ocurre o no, mediante las
+propiedades @code{minimum-distance} (distancia mínima entre las dos
+sílabas) y la @code{minimum-length} (umbral por debajo del cual se
+suprimen los guiones) de @code{LyricHyphen}.
 
 
 @seealso
@@ -619,15 +875,14 @@ Referencia de funcionamiento interno:
 @subsection Técnicas específicas para la letra
 @translationof Techniques specific to lyrics
 
-@c TODO This whole section is to be reorganized. -vv
+@c TODO this whole section is to be reorganised
 
 @menu
 * Trabajar con letra y variables::
+* Posicionamiento vertical de la letra::
+* Colocación horizontal de las sílabas::
 * Letra y repeticiones::
 * Letras en divisi::
-* Letra independiente de las notas::
-* Espaciado de las sílabas::
-* Colocación de la letra::
 @end menu
 
 
@@ -636,96 +891,289 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Trabajar con letra y variables
 @translationof Working with lyrics and variables
 
-@cindex letra y variables
+@cindex lyrics, using variables
 
-Para definir variables que contengan letra de canciones, se debe
-utilizar la función @code{\lyricmode}.  No tenemos que introducir las
-duraciones si escribimos @code{\addlyrics} ó @code{\lyricsto} en el
-momento de invocar nuestra variable.
+Se pueden crear variables que contienen letra, pero la letra se debe
+introducir en el modo de letra:
 
-@example
-verseOne = \lyricmode @{ Joy to the world the Lord is come @}
-\score @{
- <<
-   \new Voice = "one" \relative c'' @{
-     \autoBeamOff
-     \time 2/4
-     c4 b8. a16 g4. f8 e4 d c2
-   @}
-   \addlyrics @{ \verseOne @}
- >>
-@}
-@end example
-
-Para disposiciones distintas o de mayor complejidad, la mejor forma es
-configurar primero una jerarquía de pautas y letras, por ejemplo:
-
-@example
-\new ChoirStaff <<
-  \new Voice = "soprano" @{ @emph{music} @}
-  \new Lyrics = "sopranoLyrics" @{ s1 @}
-  \new Lyrics = "tenorLyrics" @{ s1 @}
-  \new Voice = "tenor" @{ @emph{music} @}
->>
-@end example
-
-@noindent
-y después combinar las melodías adecuadas con las líneas de texto:
-
-@example
-\context Lyrics = sopranoLyrics \lyricsto "soprano"
-@emph{the lyrics}
-@end example
-
-@noindent
-El código final de entrada sería algo parecido a esto:
-
-@example
-<<\new ChoirStaff << @emph{setup the music} >>
- \lyricsto "soprano" @emph{etc}
- \lyricsto "alto" @emph{etc}
-@emph{etc}
->>
-@end example
-
-@ignore
-@c TODO
-http://code.google.com/p/lilypond/issues/detail?id=329
-The problem cannot be reproduced.
-The following has no sense, because the issue seems to be fixed.
-A comment is in tracker waiting for response ---FV
-
-
-Be careful when defining a variable with lyrics that creates a new
-context, for example, using the deprecated @code{\lyrics} command.  See
-the next erroneous example:
-
-@example
-words = \lyrics{ %warning: this creates a new context
- one two
+@lilypond[quote,verbatim]
+musicOne = \relative c'' {
+  c4 b8. a16 g4. f8 e4 d c2
 }
-<<
-  \new Voice = "sop" { c1 }
-  \new Lyrics \lyricsto "sop" { \words }
-  \new Voice = "alt" { c2 c }
-  \new Lyrics \lyricsto "alt" { \words }
->>
-@end example
+verseOne = \lyricmode {
+  Joy to the world, the Lord is come.
+}
+\score {
+  <<
+    \new Voice = "one" {
+      \time 2/4
+      \musicOne
+    }
+    \new Lyrics \lyricsto "one" {
+      \verseOne
+    }
+  >>
+}
+@end lilypond
 
-the problem is that \lyricsto will try to connect the "sop" melody with the context
-created by "\new Lyrics".
+No es necesario escribir las duraciones si la variables se va a
+invocar con @code{\addlyrics} o con @code{\lyricsto}.
 
-Then \lyrics in \words creates another context, and the original "\new Lyrics" one
-remains empty.
+Para disposiciones distintas o más complejas, la mejor forma es
+definir en primer lugar las variables de la música y de la letra,
+después preparar una jerarquía de pentagramas y letras, omitiendo la
+letra en sí, y después poner la letra utilizando @code{\context} por
+debajo.  Esto asegura que las voces referenciadas por @code{\lyricsto}
+siempre han sido definidas previamente.  Por ejemplo:
 
-@end ignore
+@lilypond[quote,verbatim]
+sopranoMusic = \relative c'' { c4 c c c }
+contraltoMusic = \relative c'' { a4 a a a }
+sopranoWords = \lyricmode { Sop -- ra -- no words }
+contraltoWords = \lyricmode { Con -- tral -- to words }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff {
+      \new Voice = "sopranos" {
+        \sopranoMusic
+      }
+    }
+    \new Lyrics = "sopranos"
+    \new Lyrics = "contraltos"
+    \new Staff {
+      \new Voice = "contraltos" {
+        \contraltoMusic
+      }
+    }
+    \context Lyrics = "sopranos" {
+      \lyricsto "sopranos" {
+        \sopranoWords
+      }
+    }
+    \context Lyrics = "contraltos" {
+      \lyricsto "contraltos" {
+        \contraltoWords
+      }
+    }
+  >>
+}
+@end lilypond
 
 
 @seealso
-@c TODO: document \new Staff << Voice \lyricsto >> bug
+Referencia de la notación:
+@ref{Posicionamiento vertical de la letra}.
+
 Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
+
+
+@node Posicionamiento vertical de la letra
+@unnumberedsubsubsec Posicionamiento vertical de la letra
+@translationof Placing lyrics vertically
+
+@cindex posicionamiento de la letra
+@cindex letra, posicionamiento
+
+Dependiendo del tipo de música, la letra puede colocarse sobre el
+pentagrama, debajo del pentagrama, o entre dos pentagramas.  Lo más
+fácil es situar la letra debajo de la pauta asociada, y se puede
+conseguir simplemente definiendo el contexto Lyrics por debajo del
+contexto Staff:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+Se puede colocar la letra sobre el pentagrama usando uno de los dos
+métodos disponibles: el más sencillo es usar la misma sintaxis que se
+ha visto más arriba y especificar explícitamente la posición de la
+letra:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff = "staff" {
+      \new Voice = "melody" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \new Lyrics \with { alignAboveContext = "staff" } {
+      \lyricsto "melody" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+Como alternativa, se puede usar un proceso en dos pasos.  En primer
+lugar se declara el contexto Lyrics (sin ningún contenido) antes de
+los contextos Staff y Voice, y después se escribe la instrucción
+@code{\lyricsto} después de la declaración de Voice a que hace
+referencia, usando @code{\context}, como se ve a continuación:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Lyrics = "lyrics"
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \context Lyrics = "lyrics" {
+      \lyricsto "melody" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+Cuando hay dos voces sobre pentagramas separados, la letra se puede
+colocar entre ellos usando cualquiera de estos métodos.  He aquí un
+ejemplo del segundo método:
+
+@lilypond[quote,verbatim]
+\score {
+  \new ChoirStaff <<
+    \new Staff {
+      \new Voice = "sopranos" {
+        \relative c'' { c4 c c c }
+      }
+    }
+    \new Lyrics = "sopranos"
+    \new Lyrics = "contraltos"
+    \new Staff {
+      \new Voice = "contraltos" {
+        \relative c'' { a4 a a a }
+      }
+    }
+    \context Lyrics = "sopranos" {
+      \lyricsto "sopranos" {
+        Sop -- ra -- no words
+      }
+    }
+    \context Lyrics = "contraltos" {
+      \lyricsto "contraltos" {
+        Con -- tral -- to words
+      }
+    }
+  >>
+}
+@end lilypond
+
+Es posible generar otras combinaciones de letra y pautas mediante la
+elaboración de los ejemplos anteriores, o examinando las plantillas de
+@rlearning{Conjuntos vocales} del manual de aprendizaje.
+
+@seealso
+Manual de aprendizaje:
+@rlearning{Conjuntos vocales}.
+
+Referencia de la notación:
+@ref{Alinear los contextos},
+@ref{Crear contextos}.
+
+@node Colocación horizontal de las sílabas
+@unnumberedsubsubsec Colocación horizontal de las sílabas
+@translationof Placing syllables horizontally
+
+@cindex espaciado de la letra
+@cindex letra, aumentar la separación
+
+Para aumentar la separación entre las líneas de texto, establezca la
+propiedad @code{minimum-distance} de @code{LyricSpace}.
+
+@lilypond[relative,verbatim,fragment,quote,ragged-right]
+{
+  c c c c
+  \override Lyrics.LyricSpace #'minimum-distance = #1.0
+  c c c c
+}
+\addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+}
+@end lilypond
+
+@noindent
+Para efectuar este cambio en todas las letras de la partitura, ajuste
+la propiedad dentro del bloque @code{\layout}.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \relative c' {
+  c c c c
+  c c c c
+  }
+  \addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+  }
+  \layout {
+    \context {
+      \Lyrics
+      \override LyricSpace #'minimum-distance = #1.0
+    }
+  }
+}
+@end lilypond
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{lyrics-alignment.ly}
+
+@c TODO: move to LSR -vv
+
+La comprobación necesaria para asegurar que las inscripciones de texto
+están dentro de los márgenes es una tarea relativamente costosa en
+términos computacionales.  Para acelerar el procesado, LilyPond no
+realiza estos cálculos de forma predeterminada; para activarlo, use
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t
+@end example
+
+Para hacer que el texto evite también las líneas divisorias, use
+
+@example
+\layout @{
+  \context @{
+    \Lyrics
+      \consists "Bar_engraver"
+      \consists "Separating_line_group_engraver"
+      \override BarLine #'transparent = ##t
+  @}
+@}
+@end example
+
+@c TODO Create and add lsr example of lyricMelismaAlignment
+@c It's used like this to center-align all lyric syllables,
+@c even when notes are tied. -td
+
+@ignore
+\layout
+{
+     \context { \Score lyricMelismaAlignment = #0 }
+}
+@end ignore
 
 
 @node Letra y repeticiones
@@ -793,8 +1241,8 @@ se despliegan.
 }
 @end lilypond
 
-Si la sección repetida tiene distintos textos y está desplegada, tan
-sólo escriba el texto completo:
+Si la sección repetida ha de desplegarse y tiene distinta letra,
+escriba simplemente todo el texto:
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -828,9 +1276,9 @@ deben saltar en la segunda repetición y siguientes.  La manera más
 fácil de saltar varias notas es utilizar @code{\repeat unfold} con una
 instrucción @code{\skip} en su interior.
 
-Observación: no utilice un guión bajo, @code{_}, para saltar notas,
-pues esto indica un melisma y hará que la sílaba precedente aparezca
-alineada por la izquierda.
+Observación: no utilice un guión bajo, @code{_}, para saltar notas en
+este caso concreto, pues esto indica un melisma y hará que la sílaba
+precedente aparezca alineada por la izquierda.
 
 @warning{La instrucción @code{@bs{}skip} debe ir seguida de un número,
 pero este número se ignora en aquellas letras cuya duración
@@ -1116,296 +1564,71 @@ manualmente.
 @unnumberedsubsubsec Letras en divisi
 @translationof Divisi lyrics
 
-Podemos imprimir letras alternativas (o en divisi) nombrando los
-contextos de voz y adosando la letra a dichos contextos específicos.
+@cindex dividida, letra
+@cindex letra dividida
+
+Cuando solamente difieren las palabras y las duraciones de las dos
+partes mientras que la altura de las notas es la misma, el método
+adecuado puede ser la desactivación temporal de la detección
+automática de los melismas e indicar el melisma dentro de la letra:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Voice = "melody" {
+      \relative c' {
+        \set melismaBusyProperties = #'()
+        \slurDown
+        \slurDashed
+        e4 e8 ( e ) c4 c |
+        \unset melismaBusyProperties
+        c
+      }
+    }
+    \new Lyrics \lyricsto "melody" {
+      They shall not o -- ver -- come
+    }
+    \new Lyrics \lyricsto "melody" {
+      We will _
+    }
+  >>
+}
+@end lilypond
+
+Cuando difieren tanto la música como las palabras, puede ser mejor
+imprimir la música y la letra que difieren mediante el nombrado de
+contextos de voz y adjuntando la letra a estos contextos específicos:
 
 @lilypond[verbatim,ragged-right,quote]
-\score{ <<
-  \new Voice = "melody" {
-    \relative c' {
-      c4
-      <<
-        { \voiceOne c8 e }
-        \new Voice = "splitpart" { \voiceTwo c4 }
-      >>
-      \oneVoice c4 c | c
-    }
-  }
-  \new Lyrics \lyricsto "melody" { we shall not o- ver- come }
-  \new Lyrics \lyricsto "splitpart" { will }
->> }
-@end lilypond
-
-
-Podemos usar este truco para presentar las distintas letras de una
-sección que se repite.
-
-@lilypond[verbatim,ragged-right,quote]
-\score{ <<
-  \new Voice = "melody" \relative c' {
-    c2 e | g e | c1 |
-    \new Voice = "verse" \repeat volta 2 {c4 d e f | g1 | }
-    a2 b | c1}
-  \new Lyrics = "mainlyrics" \lyricsto melody \lyricmode {
-    do mi sol mi do
-    la si do }
-  \context Lyrics = "mainlyrics" \lyricsto verse \lyricmode {
-   do re mi fa sol }
-  \new Lyrics = "repeatlyrics" \lyricsto verse \lyricmode {
-   dodo rere mimi fafa solsol }
->>
-}
-@end lilypond
-
-
-@node Letra independiente de las notas
-@unnumberedsubsubsec Letra independiente de las notas
-@translationof Lyrics independent of notes
-
-En cierta música vocal compleja, podría ser deseable colocar la letra
-de forma totalmente independiente de las notas.  La música que se
-define dentro de @code{lyricrhythm} desaparece dentro del contexto
-@code{Devnull}, pero los valores rítmicos aún se pueden utilizar para
-colocar la letra.
-
-@lilypond[quote,verbatim,ragged-right]
-voice = {
-  c''2
-  \tag #'music { c''2 }
-  \tag #'lyricrhythm { c''4. c''8 }
-  d''1
-}
-
-lyr = \lyricmode { I like my cat! }
-
-<<
-  \new Staff \keepWithTag #'music \voice
-  \new Devnull="nowhere" \keepWithTag #'lyricrhythm \voice
-  \new Lyrics \lyricsto "nowhere" \lyr
-  \new Staff { c'8 c' c' c' c' c' c' c'
-  c' c' c' c' c' c' c' c' }
->>
-@end lilypond
-
-Sólo se recomienda este método si la música que está en el contexto
-@code{Devnull} no contiene melismas.  Los melismas están definidos por
-el contexto @code{Voice}.  La conexión de la letra a un contexto
-@code{Devnull} hace que se pierdan los enlaces entre la voz y las
-sílabas, y también la información relativa a los melismas.  Por tanto,
-si enlazamos la letra a un contexto @code{Devnull}, los melismas
-implícitos se ignoran.
-
-@c Conclusion: do not use devnull for lyrics -FV
-
-@c this clarifies http://code.google.com/p/lilypond/issues/detail?id=248
-
-@node Espaciado de las sílabas
-@unnumberedsubsubsec Espaciado de las sílabas
-@translationof Spacing out syllables
-
-@cindex Espaciado de la letra
-@cindex Letra, aumentar el espaciado
-
-Para aumentar el espaciado entre las sílabas de la letra, establezca
-la propiedad @code{minimum-distance} de @code{LyricSpace}.
-
-@lilypond[relative,verbatim,fragment,quote,ragged-right]
-{
-  c c c c
-  \override Lyrics.LyricSpace #'minimum-distance = #1.0
-  c c c c
-}
-\addlyrics {
-  longtext longtext longtext longtext
-  longtext longtext longtext longtext
-}
-@end lilypond
-
-@noindent
-Para que este cambio sea válido para la letra de la partitura
-completa, establezca la propiedad dentro del @q{layout} o disposición.
-
-@lilypond[verbatim,quote,ragged-right]
-\score {
-  \relative c' {
-  c c c c
-  c c c c
-  }
-  \addlyrics {
-  longtext longtext longtext longtext
-  longtext longtext longtext longtext
-  }
-  \layout {
-    \context {
-      \Lyrics
-      \override LyricSpace #'minimum-distance = #1.0
-    }
-  }
-}
-@end lilypond
-
-@c @snippets
-@c This snippet has been renamed to "lyrics-alignment.ly"
-@c update as soon as lsr/is updated -vv
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-@c {lyrics-alignment.ly}
-
-@c TODO: move to LSR -vv
-@snippets
-
-La comprobación que asegura que las inscripciones de texto y la letra
-de las canciones se mantienen dentro de los márgenes, es una tarea
-computacional relativamente costosa.  Para acelerar el procesado,
-LilyPond no hace tales cálculos de forma predeterminada; para
-habilitarlos, utilice
-
-@example
-\override Score.PaperColumn #'keep-inside-line = ##t
-@end example
-
-Para hacer también que las sílabas de la letra eviten las barras de compás, use
-
-@example
-\layout @{
-  \context @{
-    \Lyrics
-      \consists "Bar_engraver"
-      \consists "Separating_line_group_engraver"
-      \override BarLine #'transparent = ##t
-  @}
-@}
-@end example
-
-@c TODO Create and add lsr example of lyricMelismaAlignment
-@c It's used like this to center-align all lyric syllables,
-@c even when notes are tied. -td
-
-@ignore
-\layout
-{
-     \context { \Score lyricMelismaAlignment = #0 }
-}
-@end ignore
-
-
-@node Colocación de la letra
-@unnumberedsubsubsec Colocación de la letra
-@translationof Placement of lyrics
-
-@cindex colocación de la letra
-@cindex letra, posicionar
-
-@c TODO Add text from -user
-
-Las letras se sitúan sobre el pentagrama, debajo del pentagrama o
-entre pentagramas, dependiendo del tipo de música.  Para situar la
-letra debajo de la pauta asociada, tan sólo tenemos que definir el
-contexto Lyrics debajo del contexto Staff:
-
-@lilypond[quote,verbatim]
 \score {
   <<
-    \new Staff {
-      \new Voice = "melody" {
-        \relative c'' { c4 c c c }
+    \new Voice = "melody" {
+      \relative c' {
+        <<
+          {
+            \voiceOne
+            e4 e8 e
+          }
+          \new Voice = "splitpart" {
+            \voiceTwo
+            c4 c
+          }
+        >>
+        \oneVoice
+        c4 c |
+        c
       }
     }
-    \new Lyrics {
-      \lyricsto "melody" {
-        Here are the words
-      }
+    \new Lyrics \lyricsto "melody" {
+      They shall not o -- ver -- come
     }
-  >>
-}
-@end lilypond
-
-Para posicionar la letra por encima del pentagrama, coloque la
-declaración del contexto Lyrics entres de los contextos Staff y Voice,
-pero la instrucción @code{\lyricsto} debe venir después de la
-declaración de Voice a la que hace referencia, de esta forma:
-
-@lilypond[quote,verbatim]
-\score {
-  <<
-    \new Lyrics = "lyrics"
-    \new Staff {
-      \new Voice = "melody" {
-        \relative c'' { c4 c c c }
-      }
-    }
-    \context Lyrics = "lyrics" {
-      \lyricsto "melody" {
-        Here are the words
-      }
+    \new Lyrics \lyricsto "splitpart" {
+      We will
     }
   >>
 }
 @end lilypond
 
-De manera alternativa, se puede especificar la posición de la letra
-explícitamente:
-
-@lilypond[quote,verbatim]
-\score {
-  <<
-    \new Staff = "staff" {
-      \new Voice = "melody" {
-        \relative c'' { c4 c c c }
-      }
-    }
-    \new Lyrics \with { alignAboveContext = "staff" } {
-      \lyricsto "melody" {
-        Here are the words
-      }
-    }
-  >>
-}
-@end lilypond
-
-Cuando hay dos voces en pentagramas separados, la letra se puede
-situar entre los pentagramas utilizando uno cualquiera de estos
-métodos.  He aquí un ejemplo del primer método:
-
-@lilypond[quote,verbatim]
-\score {
-  \new ChoirStaff <<
-    \new Staff {
-      \new Voice = "sopranos" {
-        \relative c'' { c4 c c c }
-      }
-    }
-    \new Lyrics = "sopranos"
-    \new Lyrics = "contraltos"
-    \new Staff {
-      \new Voice = "contraltos" {
-        \relative c'' { a4 a a a }
-      }
-    }
-    \context Lyrics = "sopranos" {
-      \lyricsto "sopranos" {
-        Sop -- ra -- no words
-      }
-    }
-    \context Lyrics = "contraltos" {
-      \lyricsto "contraltos" {
-        Con -- tral -- to words
-      }
-    }
-  >>
-}
-@end lilypond
-
-Se pueden generar otras combinaciones de letras y pentagramas
-elaborando algo más estos ejemplos, o examinando las plantillas SATB
-que están en el manual de aprendizaje.
-
-@seealso
-Manual de aprendizaje:
-@rlearning{Conjuntos vocales}.
-
-Referencia de la notación:
-@ref{Alinear los contextos},
-@ref{Crear contextos}.
 
 @node Versos
 @subsection Versos
@@ -1621,15 +1844,17 @@ bloque @code{\with} o @code{\context}:
 >>
 @end lilypond
 
-
 @subsubheading Cambio a una melodía alternativa
 
-Son posibles variaciones más complejas en la disposición del texto.
-Se puede cambiar la melodía para una línea de la letra durante el
-texto.  Esto se hace estableciendo la propiedad
-@code{associatedVoice}.  En el ejemplo
+@cindex associatedVoice
+@cindex melodía alternativa, cambio a una
 
-@lilypond[ragged-right,quote]
+Son posibles variaciones más complejas en la coordinación de la letra
+y la música.  La melodía a la que se está alineando la letra puede
+cambiarse desde dentro de la letra mediante el establecimiento de la
+propiedad @code{associatedVoice}:
+
+@lilypond[verbatim,quote]
 <<
   \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -1656,56 +1881,43 @@ texto.  Esto se hace estableciendo la propiedad
   \new Lyrics \lyricsto "lahlah" {
     % Tricky: need to set associatedVoice
     % one syllable too soon!
-    \set associatedVoice = alternative % applies to "ran"
+    \set associatedVoice = "alternative" % applies to "ran"
     Ty --
     ran --
     no --
-    \set associatedVoice = lahlah % applies to "rus"
+    \set associatedVoice = "lahlah" % applies to "rus"
     sau -- rus Rex
   } >>
 @end lilypond
 
 @noindent
-el texto del primer verso se aplica a una melodía llamada @q{lahlah},
+El texto del primer verso se fija a la melodía llamada @q{lahlah} de
+la forma usual, pero el segundo verso se fija inicialmente al contexto
+@code{lahlah} y después se cambia a la melodía @code{alternative} para
+las sílabas desde @q{ran} hasta @q{sau} mediante las líneas:
 
 @example
-\new Lyrics \lyricsto "lahlah" @{
-  Ju -- ras -- sic Park
-@}
-@end example
-
-
-El segundo verso se aplica en principio al contexto de @code{lahlah},
-pero para la sílaba @q{ran}, cambia a una melodía diferente.  Esto se
-consigue con
-@example
-\set associatedVoice = alternative
+\set associatedVoice = "alternative" % se aplica a "ran"
+Ty --
+ran --
+no --
+\set associatedVoice = "lahlah" % se aplica a "rus"
+sau -- rus Rex
 @end example
 
 @noindent
 Aquí, @code{alternative} es el nombre del contexto de @code{Voice} que
 contiene el tresillo.
 
-@c FIXME: make this easier to understand -vv
-La instrucción debe ir una sílaba antes de la cuenta, antes de @q{Ty}
-en este caso.  En otras palabras, el cambio en la voz asociada
-associatedVoice se produce un paso más tarde de lo que se espera.
-Esto es así por razones técnicas, y no es un fallo del programa.
+Observe la posición de la instrucción @code{\set associatedVoice}:
+parece estar situada una sílaba antes de lo normal, pero está bien
+así.
 
-@example
-\new Lyrics \lyricsto "lahlah" @{
-  \set associatedVoice = alternative % se aplica al "ran"
-  Ty --
-  ran --
-  no --
-  \set associatedVoice = lahlah % se aplica al "rus"
-  sau -- rus Rex
-@}
-@end example
-
-@noindent
-La disposición se vuelve a cambiar a la situación inicial mediante la
-asignación de @code{lahlah} a @code{associatedVoice}.
+@warning{La instrucción @code{\set associatedVoice} se debe escribir
+una sílaba @emph{antes} de aquella en la que queremos que se produzca
+el cambio a la voz nueva.  Dicho de otra forma, el cambio de la voz
+asociada se produce una sílaba más tarde de lo esperado.  Esto es por
+razones técnicas, y no es un fallo.}
 
 
 @node Imprimir los versos al final
@@ -1869,7 +2081,8 @@ Para imprimir la letra de una línea melódica, véase @ref{Notación
 común para música vocal}.
 
 @item
-Para posicionar la letra, véase @ref{Colocación de la letra}.
+Para colocar la letra, véase @ref{Posicionamiento vertical de la
+letra}.
 
 @item
 Para escribir versos véase @ref{Versos}.
@@ -1877,12 +2090,12 @@ Para escribir versos véase @ref{Versos}.
 @item
 Las canciones se imprimen frecuentemente con los acordes indicados
 mediante cifrado americano (los nombres de los acordes en letras
-mayúsculas) sobre las pautas.  Esto se decribe en @ref{Imprimir los
+mayúsculas) sobre las pautas.  Esto se describe en @ref{Imprimir los
 acordes}.
 
 @item
 Para imprimir diagramas de posiciones de los acordes para
-elacompañamiento de guitarra o para otros instrumentos con trastes en
+el acompañamiento de guitarra o para otros instrumentos con trastes en
 el mástil, consulte @qq{Marcados de diagramas de posiciones de acorde}
 dentro de @ref{Notación común para cuerdas con trastes}.
 
@@ -1897,8 +2110,11 @@ Referencia de la notación:
 @ref{Imprimir los acordes},
 @ref{Impresión de los pentagramas},
 @ref{Teclados y otros instrumentos de varios pentagramas},
-@ref{Colocación de la letra},
+@ref{Posicionamiento vertical de la letra},
 @ref{Versos}.
+
+Fragmentos de código:
+@rlsr{Vocal music}.
 
 @node Hojas guía de acordes
 @unnumberedsubsubsec Hojas guía de acordes
@@ -1906,7 +2122,6 @@ Referencia de la notación:
 
 Se pueden imprimir hojas guía de acordes combinando partes vocales y
 el @q{modo de acordes}; esta sintaxis se explica en
-
 @ref{Notación de acordes}.
 
 @snippets
@@ -2002,6 +2217,9 @@ Referencia de la notación:
 @ref{Cabezas de notas con formas diversas},
 @ref{Polifonía en un solo pentagrama}.
 
+Fragmentos de código:
+@rlsr{Vocal music}.
+
 Referencia de funcionamiento interno:
 @rinternals{ChoirStaff},
 @rinternals{Lyrics},
@@ -2020,7 +2238,7 @@ en cuenta los siguientes ajustes:
 @itemize
 
 @item
-Se puede modificar el tamañod global de pentagrama para alterar el
+Se puede modificar el tamaño global de pentagrama para alterar el
 tamaño general de los elementos de la partitura.  Véase
 @ref{Establecer el tamaño del pentagrama}.
 
@@ -2037,7 +2255,7 @@ páginas menor, se describen en @ref{Encajar la música en menos
 páginas}.
 
 @item
-Si el número de sistemas po página cambia de uno a dos, es costumbre
+Si el número de sistemas por página cambia de uno a dos, es costumbre
 indicarlo mediante una marca separadora de sistemas entre los dos
 sistemas.  Véase @ref{Separación de sistemas}.
 
@@ -2112,7 +2330,7 @@ Referencia de funcionamiento interno:
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @seealso
-Referncia de la notación:
+Referencia de la notación:
 @ref{Expresiones como líneas}.
 
 
@@ -2148,14 +2366,14 @@ acompañamiento), a veces en combinación con el libreto.
 @item
 Un @emph{Libreto} que contiene los diálogos completos que normalmente
 hay en los musicales, junto a la letra de las partes cantadas.  Suelen
-incluirse también las indicacioens de escena.  Se puede utilizar
+incluirse también las indicaciones de escena.  Se puede utilizar
 LilyPond para tipografiar libretos, pero dado que no contienen música,
 puede ser preferible algún método alternativo.
 
 @end itemize
 
 En la sección de referencias que aparece a continuación están
-relacionadas las secciones de la documentación de lilyPond que se
+relacionadas las secciones de la documentación de LilyPond que se
 ocupan de los temas necesarios para crear partituras en los estilos
 habituales de la ópera y los musicales.  Después aparecen secciones
 que cubren las técnicas peculiares de la tipografía musical de las
@@ -2163,7 +2381,7 @@ partituras de ópera y de musicales.
 
 @menu
 * Referencias para ópera y musicales::
-* Nombres de los perasonajes::
+* Nombres de los personajes::
 * Guías musicales::
 * Música hablada::
 * Diálogos encima de la música::
@@ -2227,25 +2445,26 @@ Referencia de la notación:
 @ref{Escritura de las particellas},
 @ref{Escritura del texto}.
 
+Snippets:
+@rlsr{Vocal music}.
 
-@node Nombres de los perasonajes
-@unnumberedsubsubsec Nombres de los perasonajes
+
+@node Nombres de los personajes
+@unnumberedsubsubsec Nombres de los personajes
 @translationof Character names
 
 @cindex personajes, nombres
 @cindex nombres de personajes
 
-Se suene mostrar los nombres de los personajes a la izquierda del
-pentagrama cuando éste está dedicado a dicho personaje solamente.  Se
-puede utilizar la propiedad del nombre del instrumento para este
-propósito.
+Se suelen mostrar los nombres de los personajes a la izquierda del
+pentagrama cuando éste está dedicado a dicho personaje solamente:
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
     \new Staff {
-      \set Staff.instrumentName = #"Kaspar"
-      \set Staff.shortInstrumentName = #"Kas"
+      \set Staff.vocalName = \markup \smallCaps Kaspar
+      \set Staff.shortVocalName = \markup \smallCaps Kas.
       \relative c' {
         \clef "G_8"
         c4 c c c
@@ -2254,8 +2473,8 @@ propósito.
       }
     }
     \new Staff {
-      \set Staff.instrumentName = #"Melchior"
-      \set Staff.shortInstrumentName = #"Mel"
+      \set Staff.vocalName = \markup \smallCaps Melchior
+      \set Staff.shortVocalName = \markup \smallCaps Mel
       \clef "bass"
       \relative c' {
         a4 a a a
@@ -2268,7 +2487,7 @@ propósito.
 
 Cuando dos o más personajes comparten un pentagrama, el nombre del
 personaje se suele imprimir encima del pentagrama al principio de cada
-sección correspondiente a dicho personaje.  Eesto se puede hacer con
+sección correspondiente a dicho personaje.  Esto se puede hacer con
 elementos de marcado.  Con frecuencia se usa un tipo de letra especial
 para este propósito.
 
@@ -2346,14 +2565,12 @@ ayuda al director cuando no está disponible una partitura del
 director.
 
 El mecanismo básico para insertar guías se explica de forma exhaustiva
-en el texto principal, véase @ref{Citar otras voces} yand
-@ref{Formateo de las notas guía}.  Pero cuando se deben insertar
-muchas guías, por ejemplo, como ayuda para el director en una
-partitura vocal, el nombre del instrumento se debe colocar
-cuidadosamente justo antes del comienzo de las notas citadas, y cerca
-de ellas.  El siguiente ejemplo muestra cómo se hace esto.  Observe
-que el nombre del grob para sobreescribir la propiedad del instrumento
-citado es @code{InstrumentSwitch}.
+en el texto principal, véase @ref{Citar otras voces} y @ref{Formateo
+de las notas guía}.  Pero cuando se deben insertar muchas guías, por
+ejemplo, como ayuda para el director en una partitura vocal, el nombre
+del instrumento se debe colocar cuidadosamente justo antes del
+comienzo de las notas guía, y cerca de ellas.  El siguiente ejemplo
+muestra cómo se hace esto.
 
 @lilypond[quote,verbatim]
 flute = \relative c'' {
@@ -2363,12 +2580,9 @@ flute = \relative c'' {
 
 pianoRH = \relative c'' {
   c4. g8
-  % position name of cued instrument just before the cued notes
-  \once \override CueVoice.InstrumentSwitch
-    #'self-alignment-X = #RIGHT
-  % position name of cued instrument above the staff
-  \once \override CueVoice.InstrumentSwitch #'direction = #UP
-  \set CueVoice.instrumentCueName = "Flute"
+  % position name of cue-ing instrument just before the cue notes,
+  % and above the staff
+  s1*0^\markup { \right-align { \tiny "Flute" } }
   \cueDuring "flute" #UP { g4 bes4 }
 }
 pianoLH = \relative c { c4 <c' e> e, <g c> }
@@ -2394,7 +2608,7 @@ ejemplo son bajas en el pentagrama, por lo que se especifica
 @code{#DOWN} en @code{\cueDuring} (para que las plicas se orienten
 hacia abajo) y el nombre del instrumento se coloca debajo del
 pentagrama.  Observe también que la voz de la mano derecha del piano
-está declarada explíctamente.  Esto es así porque las notas citadas en
+está declarada explícitamente.  Esto es así porque las notas citadas en
 este ejemplo comienzan al principio del primer compás y en caso
 contrario produciría que todas las notas de la mano derecha del piano
 se situaran dentro de un contexto @code{CueVoice}.
@@ -2408,12 +2622,8 @@ clarinet = \relative c' {
 
 pianoRH = \relative c'' {
   \transposition c'
-  % position name of cued instrument just before the cued notes
-  \once \override CueVoice.InstrumentSwitch
-    #'self-alignment-X = #RIGHT
-  % position name of cued instrument below the staff
-  \once \override CueVoice.InstrumentSwitch #'direction = #DOWN
-  \set CueVoice.instrumentCueName = "Clar."
+  % position name of cue-ing instrument below the staff
+  s1*0_\markup { \right-align { \tiny "Clar." } }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }
@@ -2437,9 +2647,9 @@ pianoLH = \relative c { c4 <c' e> e, <g c> }
 @end lilypond
 
 A partir de estos dos ejemplos debería quedar claro que insertar
-muchas notas guía en una partitura vocal puede ser extremadamente
-tedioso, y las notas de la parte de piano quedarían entorpecidas por
-la gran cantidad de sobreescrituras de propiedades.  Sin embargo, como
+muchas notas guía en una partitura vocal puede ser
+tedioso, y la visión de las notas de la parte de piano quedaría
+entorpecida.  Sin embargo, como
 muestra el siguiente fragmento de código, es posible definir una
 función musical para reducir la cantidad de texto que se teclea y para
 hacer que las notas del piano estén más claras.
@@ -2460,7 +2670,7 @@ Referencia de la notación:
 @ref{Uso de las funciones musicales}.
 
 Fragmentos de código:
-@rlsr{vocal-music}.
+@rlsr{Vocal music}.
 
 Referencia de funcionamiento interno:
 @rinternals{InstrumentSwitch},
@@ -2498,7 +2708,81 @@ en forma de cruz, como se muestra en @ref{Cabezas de nota especiales}.
 @unnumberedsubsubsec Diálogos encima de la música
 @translationof Dialogue over music
 
-Continuará...
+Los diálogos sobre la música se imprimen normalmente por encima de los
+pentagramas en un estilo inclinado, con el comienzo de cada frase
+ligado a un momento musical en particular.
+
+Para interjecciones cortas, basta un simple elemento de marcado.
+
+@lilypond[quote,verbatim,relative=2]
+a4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
+a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
+a4 a a a
+@end lilypond
+
+Para frases más largas puede ser necesario expandir la música de forma
+que que las palabras quepan holgadamente.  No está previsto en
+LilyPond hacer esto de manera completamente automática, y puede ser
+necesaria cierta intervención manual sobre la disposición.
+
+Para frases largas o pasajes con un diálogo en disposición apretada,
+puede dar mejores resultados la utilización de un contexto de letra.
+El contexto Lyrics no se debe asociar con una voz musical; en vez de
+ello, cada sección del diálogo recibe una duración explícita.  Si hay
+una pausa en medio del diálogo, se debe separar la palabra final del
+resto y dividirse la duración entre ellas de forma que la música
+subyacente reciba un espaciado continuo y adecuado.
+
+Si el diálogo se extiende a más de una línea, será necesario insertar
+@code{\break}s manualmente y ajustar la colocación del diálogo para
+evitar que se extienda más allá del margen derecho.  La última palabra
+del último compás de una línea debe separarse también, como se ha
+visto antes.
+
+He aquí un ejemplo que ilustra cómo puede hacerse.
+
+@c This should be a snippet, but it can't be as it needs to be
+@c manually adjusted to suit the imposed line length.  -td
+
+@lilypond[quote,verbatim,ragged-right]
+music = \relative c'' {
+  \repeat unfold 3 { a4 a a a }
+}
+
+dialogue = \lyricmode {
+  \markup {
+    \fontsize #1 \upright \smallCaps Abe:
+    "Say this over measures one and"
+  }4*7
+  "two"4 |
+  \break
+  "and this over measure"4*3
+  "three"4 |
+}
+
+\score {
+  <<
+    \new Lyrics \with {
+      \override LyricText #'font-shape = #'italic
+      \override LyricText #'self-alignment-X = #LEFT
+    }
+    { \dialogue }
+    \new Staff {
+      \new Voice { \music }
+    }
+  >>
+}
+@end lilypond
+
+@c TODO show use of \column to produce dialogue on two lines
+
+@seealso
+Referencia de la notación:
+@ref{Duración manual de las sílabas},
+@ref{Texto}.
+
+Referencia de funcionamiento interno:
+@rinternals{LyricText}.
 
 
 @node Cánticos salmos e himnos
@@ -2531,8 +2815,11 @@ El tipografiado del canto gregoriano en distintos estilos de notación
 antigua se describe en @ref{Notación antigua}.
 
 @seealso
-Referncia de la notación:
+Referencia de la notación:
 @ref{Notación antigua}.
+
+Snippets:
+@rlsr{Vocal music}.
 
 
 @node Preparar un cántico
@@ -2650,7 +2937,7 @@ a4 b c2
 @end lilypond
 
 Como alternativa, se usa a veces la notación del canto gregoriano para
-las pausas o silencios, aunque el resto de la ntoación sea moderna.
+las pausas o silencios, aunque el resto de la notación sea moderna.
 Este ejemplo utiliza una marca @code{\breathe} modificada:
 
 @lilypond[verbatim,quote]
@@ -2720,9 +3007,9 @@ omiten la clave también.
 
 Los cánticos de salmos en la tradición anglicana suelen ser
 @emph{sencillos}, con siete compases de música, o @emph{dobles}, con
-dos períodos de siete compases.  cada grupo de siete compases se
+dos períodos de siete compases.  Cada grupo de siete compases se
 divide en dos mitades, que corresponden a las dos mitades de cada
-verso, normalmente separados mediante una dobre línea divisoria.  Sólo
+verso, normalmente separados mediante una doble línea divisoria.  Sólo
 se utilizan redondas y blancas.  El primer compás de cada mitad
 siempre contiene un único acorde en redondas.  Ésta es la @qq{nota de
 recitado}.  Los cánticos se suelen centrar sobre la página.
@@ -2891,7 +3178,7 @@ tick = \markup {
 }
 @end lilypond
 
-Donde hay una redonda en un compás, todo eltexto que corresponde a ese
+Donde hay una redonda en un compás, todo el texto que corresponde a ese
 compás se recita sobre esa nota en el ritmo de la palabra.  Donde hay
 dos notas en un compás, suele haber solamente una o dos sílabas
 correspondientes.  Si hay más de dos sílabas, se suele insertar un
@@ -2999,7 +3286,7 @@ Referencia de la notación:
 @unnumberedsubsubsec Compases parciales en melodías de himno
 @translationof Partial measures in hymn tunes
 
-COn frecuencia las melodías de himno comienzan y terminan cada línea
+Con frecuencia las melodías de himno comienzan y terminan cada línea
 de música con compases parciales de forma que cada línea de música
 corresponde exactamente con una línea de texto.  Esto requiere una
 instrucción @code{\partial} al principio de la música e instrucciones
