@@ -629,7 +629,7 @@ together:
     e8
   }
   \new Lyrics \lyricsto "melody" {
-    Ki -- ri -- e __
+    Ky -- ri -- e __
   }
 >>
 @end lilypond
@@ -647,7 +647,7 @@ entering lyrics:
     e8 ( d e2 )
   }
   \new Lyrics \lyricsto "melody" {
-    Ki -- ri -- e __
+    Ky -- ri -- e __
   }
 >>
 @end lilypond
@@ -666,7 +666,7 @@ providing automatic beaming is switched off.  See
     e2.
   }
   \new Lyrics \lyricsto "melody" {
-    Ki -- ri -- e
+    Ky -- ri -- e
   }
 >>
 @end lilypond
@@ -689,7 +689,7 @@ are bracketed between @code{\melisma} and @code{\melismaEnd}.
     e2.
   }
   \new Lyrics \lyricsto "melody" {
-    Ki -- ri -- e
+    Ky -- ri -- e
   }
 >>
 @end lilypond
@@ -710,7 +710,7 @@ to be added to the melisma.
     e8 d e2
   }
   \new Lyrics \lyricsto "melody" {
-    Ki -- ri -- _ _ _ e __ _ _
+    Ky -- ri -- _ _ _ e __ _ _
   }
 >>
 @end lilypond
