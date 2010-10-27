@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: af3c4ca42e348ec53b5034c50f3eeb435f7db05e
+    Translation of GIT committish: 7477d35aa8f656fa4ed82e186ad97109ee4fe108
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -142,6 +142,8 @@ Fragmentos de código:
 @subsection Formateo de las páginas
 @translationof Page formatting
 
+@funindex \paper
+
 Los márgenes, encabezamientos y pies de página y otras variables de
 diseño de página se establecen automáticamente de acuerdo con el
 tamaño del papel.
@@ -155,136 +157,237 @@ Esta sección relaciona y describe cierto número de variables del papel
 que se pueden alterar.
 
 @menu
-* Dimensiones verticales::
+* Dimensiones verticales fijas::
+* Dimensiones verticales flexibles::
 * Dimensiones horizontales::
 * Otras variables de diseño de página::
 @end menu
 
 
-@node Dimensiones verticales
-@unnumberedsubsubsec Dimensiones verticales
-@translationof Vertical dimensions
-
-Estas variables se utilizan para establecer las diferentes dimensiones
-verticales de la página:
-
-@funindex \paper
+@node Dimensiones verticales fijas
+@unnumberedsubsubsec Dimensiones verticales fijas
+@translationof Fixed vertical dimensions
 
 @table @code
-
-@item markup-system-spacing
-@funindex markup-system-spacing
-
-Especifica cómo calcular el espacio entre un título (o un elemento de
-marcado del nivel superior) y el sistema que le sigue.  Es una lista
-asociativa con cinco componentes:
-@itemize @bullet
-@item @var{space}:
-cantidad de espacio que puede ensancharse entre la línea base de un
-título y el centro del pentagrama que le sigue;
-@item @var{padding}:
-cantidad mínima de espacio vacío que se debe dejar entre un título y
-el pentagrama que le sigue;
-@item @var{stretchability}:
-facilidad con que el espacio ensanchable aumenta cuando se estira una
-página.  Si es cero, la distancia al pentagrama siguiente no se
-ensancha en absoluto;
-@item @var{minimum-distance}:
-distancia mínima que poner entre la línea de base de un título y el
-centro del pentagrama que le sigue. Se diferencia de @var{padding} en
-que la altura de un pentagrama no tiene ningún efecto sobre la
-aplicación de @var{minimum-distance} (mientras que la altura del
-pentagrama es crucial para @var{padding}).
-@end itemize
-
-Por ejemplo, los valores predeterminados son:
-
-@example
-markup-system-spacing = #'((space . 2) (padding . 0.5))
-@end example
-
-
-Si una página tiene la parte de abajo no ajustada, @var{space} no se
-ensancha.  Concretamente, la distancia que resulta sobre esta página
-es la mayor de
-@itemize @bullet
-@item @var{space},
-@item @var{minimum-distance}, y
-@item @var{padding} más la menor distancia necesaria para eliminar la superposición.
-@end itemize
-
-@item score-markup-spacing
-@funindex score-markup-spacing
-
-Especifica el espacio entre un sistema y el título (o elemento de
-marcado del nivel superior) que le sigue.  Las distancias se miden a
-partir del centro del último pentagrama del sistema hasta la línea de
-base del título que le sigue.  Véase @var{markup-system-spacing}.
-
-@item score-system-spacing
-@funindex score-system-spacing
-
-Especifica el espacio entre dos sistemas si están en diferentes
-partituras, pero no hay ningún título entre ellas. Véase
-@var{markup-system-spacing}.
-
-@item system-system-spacing
-@funindex system-system-spacing
-
-Especifica el espacio entre el centro del pentagrama inferior de un
-sistema y el centro del pentagrama superior del sistema siguiente.
-Véase @var{markup-system-spacing}.
-
-@item markup-markup-spacing
-@funindex markup-markup-spacing
-
-Especifica el espacio entre dos títulos (o elementos de marcado del
-nivel superior).  Las distancias se miden a partir de la línea de base
-de del primer título hasta la línea de base del segundo.  Véase
-@var{markup-system-spacing}.
-
-@item bottom-margin
-@funindex bottom-margin
-
-Margen entre el pie y el final de la página.  Valor predeterminado:
-@code{6\mm}.
-
-@item last-bottom-spacing
-@funindex last-bottom-spacing
-
-Especifica el espacio desde el centro del último pentagrama (o la
-línea de base del último elemento de marcado del nivel superior) hasta
-el final del área imprimible (es decir, el límite superior del margen
-inferior).  Véase @var{markup-system-spacing}.
-
-@item top-markup-spacing
-@funindex top-markup-spacing
-
-Especifica el espacio desde el principio del área imprimible (es
-decir, el límite inferior del margen superior) hasta la línea de base
-del título.  Véase @var{markup-system-spacing}.
-
-@item top-system-spacing
-@funindex top-system-spacing
-
-Especifica el espacio desde el principio del área imprimible (es
-decir, el límite inferior del margen superior) hasta el centro del
-primer pentagrama.  Sólo tiene efecto si no hay ningún título al
-principio de la página (en cuyo caso se utiliza en su lugar
-@var{top-markup-spacing}).  Véase @var{markup-system-spacing}.
-
 @item paper-height
 @funindex paper-height
 
-Altura de la página.  Predeterminado: altura del tamaño actual del
-papel.  Para ver más detalles, consulte @ref{Tamaño del papel}.
+Altura de la página.  Valor predeterminado: altura del tamaño actual
+del papel.  Para ver más detalles, consulte @ref{Tamaño del papel}.
 
 @item top-margin
 @funindex top-margin
 
-Margen entre el encabezamiento y la parte alta del papel.
-Predeterminado: @code{5\mm}.
+Margen entre el extremo superior de la página y la parte superior del
+área imprimible.  Valor predeterminado: @code{5\mm}.
 
+@item bottom-margin
+@funindex bottom-margin
+
+Margen entre el extremo inferior del área imprimible y la parte
+inferior de la página.  Valor predeterminado: @code{6\mm}.
+@end table
+
+
+@node Dimensiones verticales flexibles
+@unnumberedsubsubsec Dimensiones verticales flexibles
+@translationof Flexible vertical dimensions
+
+En casi todos los casos es preferible que las distancias verticales
+entre ciertos elementos (como márgenes, títulos, sistemas y las
+distintas partituras) sean flexibles, de manera que se amplíen y
+compriman adecuadamente dependiendo de la situación.  Están
+disponibles un cierto número de variables del bloque @code{\paper}
+(relacionadas más abajo) para realizar un ajuste fino del
+comportamiento de estas dimensiones frente a su ampliación o
+compresión.
+
+Observe que las variables de @code{\paper} que se estudian en esta
+sección no controlan el espaciado de los pentagramas que están dentro
+de los sistemas individuales.  El espaciado dentro de los sistemas se
+controla por medio de propiedades de grob, con ajustes que se escriben
+normalmente dentro de un bloque @code{\score}, y no dentro del bloque
+@code{\paper}.  Véase @ref{Espaciado vertical entre sistemas}.
+
+
+@subsubheading Esctructura de las listas-A de espaciado para las variables de @code{\paper}
+
+Cada una de estas variables es una lista-A (lista asociativa) que
+contiene cuatro @emph{claves}:
+
+@itemize
+@item @code{padding} (relleno):
+mínimo espacio vertical vacío necesario entre dos elementos, medido en
+espacios de pentagrama.  Se puede pensar como la altura mínima de un
+rectángulo invisible que abarca desde el punto más a la izquierda
+hasta el situado más a la derecha de los elementos combinados.
+
+@item @code{space} (espacio):
+distancia vertical predeterminada, medida en espacios de pentagrama,
+entre los @emph{puntos de referencia} de los dos elementos, cuando no
+resulte ninguna colisión, y no se produzca ninguna ampliación o
+compresión.  El punto de referencia de un elemento de marcado (de
+título o del nivel jerárquico superior) es su punto más alto, y el
+punto de referencia de un sistema es la línea central del pentagrama
+más cercano.  Los valores de @code{space} menores de @code{padding} o
+de @code{minimum-distance} no son significativos, porque la distancia
+resultante nunca será menor de @code{padding} o de
+@code{minimum-distance}.
+
+@item @code{minimum-distance} (distancia mínima):
+la distancia vertical mínima requerida, medida en espacios de
+pentagrama, entre los puntos de referencia de los dos elementos,
+cuando se produce una compresión.  Los valores de
+@code{minimum-distance} menores de @code{padding} no son
+significativos, porque la distancia resultante nunca será menor de
+@code{padding}.
+
+@item @code{stretchability} (ampliabilidad):
+medida sin unidades de la propensión relativa de esta dimensión a
+ampliarse.  Si es cero, la distancia no se ampliará (a no ser que
+resultasen colisiones).  Si es positiva, la significación del valor de
+ampliabilidad de una dimensión concreta depende solamente de su
+relación con los valores de @code{stretchability} de las otras
+dimensiones.  Por ejemplo, si una dimensión tiene el doble de
+@code{stretchability} que otra, se ampliará con el doble de facilidad.
+Los valores deben ser no negativos y finitos.  El valor @code{+inf.0}
+desencadena un error de programación y se ignora, pero se puede usar
+@code{1.0e7} para un muelle casi infinitamente ampliable.  Si no se
+fija un valor, el valor predeterminado se establece a @code{space}.
+Observe que la propensión de la dimensión a @emph{comprimirse} no se
+puede establecer directamente por el usuario y es igual a
+(@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
+@end itemize
+
+Si una página tiene un margen inferior no justificado, la distancia
+resultante es la mayor de:
+
+@itemize
+@item @code{space},
+@item @code{minimum-distance}, y
+@item @code{padding} más la menor distancia necesaria para eliminar las colisiones.
+@end itemize
+
+
+@subsubheading Modificación de las listas-A de espaciado para variables de @code{\paper}
+
+Para fijar o modificar una sola clave para una variable de dimensión,
+utilice una declaración anidada:
+
+@example
+\paper @{
+  system-system-spacing #'space = #10
+@}
+@end example
+
+Esto actualiza la clave especificada sin alterar ninguna de las otras
+claves ya establecidas para la misma variable.  Para redefinir
+completamente una variable con una declaración, defínala como una
+lista-A:
+
+@example
+\paper @{
+  system-system-spacing =
+    #'((padding . 1)
+       (space . 12)
+       (minimum-distance . 8)
+       (stretchability . 12))
+@}
+@end example
+
+Sin embargo, observe que cualquier clave que no esté relacionada en la
+definición de una lista-A aún se sobreescribirá; se restablecerán al
+valor cero (excepto @code{stretchability}, que toma el valor de
+@code{space}).  Así, las dos declaraciones siguientes son equivalentes:
+
+@example
+system-system-spacing =
+  #'((space . 10))
+
+system-system-spacing =
+  #'((padding . 0)
+     (space . 10)
+     (minimum-distance . 0)
+     (stretchability . 10))
+@end example
+
+Una consecuencia posiblemente no intencionada del ejemplo anterior es
+la eliminación de los valores predeterminados para @code{padding} y
+@code{minimum-distance}.  Definir una variable como una lista-A (de
+cualquier tamaño) siempre restablece todos sus valores de clave
+predeterminados.  Los ajustes predeterminados para las dimensiones
+flexibles verticales de @code{\paper} están definidas en
+@file{ly/paper-defaults-init.ly}.
+
+
+@subsubheading Variables de dimensión de @code{\paper} verticales flexibles
+
+Los nombres de estas variables siguen el formato
+@code{@var{superior}-@var{inferior}-spacing}, donde
+@code{@var{superior}} e @code{@var{inferior}} son los elementos que
+van a ser espaciados.  Cada distancia se mide entre los puntos de
+referencia de los dos elementos: el punto de referencia de un elemento
+de marcado (de título o de nivel superior) es su punto más alto, y el
+punto de referencia de un sistema es la línea central de pentagrama
+más cercano.  Observe que en estos nombres de variable, el término
+@q{@code{markup}} se refiere tanto a @emph{elementos de marcado de
+título} (@code{bookTitleMarkup} o @code{scoreTitleMarkup}) como a
+@emph{elementos de marcado del nivel superior} (véase @ref{Estructura
+del archivo}).
+
+@table @code
+@item markup-system-spacing
+@funindex markup-system-spacing
+
+distancia entre un elemento de marcado (de título o del nivel
+superior) y el sistema que le sigue.
+
+@item score-markup-spacing
+@funindex score-markup-spacing
+
+distancia entre el último sistema de una partitura y el elemento de
+marcado (de título o del nivel superior) que le sigue.
+
+@item score-system-spacing
+@funindex score-system-spacing
+
+distancia entre el último sistema de una partitura y el primer sistema
+de la partitura que le sigue, cuando no existe ningún elemento de
+marcado (de título o del nivel superior) entre ellos.
+
+@item system-system-spacing
+@funindex system-system-spacing
+
+distancia entre dos sistemas dentro de la misma partitura.
+
+@item markup-markup-spacing
+@funindex markup-markup-spacing
+
+distancia entre dos elementos de marcado (de título o del nivel
+superior).
+
+@item last-bottom-spacing
+@funindex last-bottom-spacing
+
+distancia desde el último sistema o elemento de marcado del nivel
+superior en una página, hasta la parte inferior de la zona imprimible
+(es decir, el extremo superior del margen inferior).
+
+@item top-system-spacing
+@funindex top-system-spacing
+
+distancia desde la parte superior de la zona imprimible (es decir, el
+extremo inferior del margen superior) hasta el primer sistema de una
+página, cuando no hay ningún elemento de marcado (de título o del
+nivel superior) entre los dos.
+
+@item top-markup-spacing
+@funindex top-markup-spacing
+
+distancia desde el extremo superior de la zona imprimible (es decir,
+el extremo inferior del margen superior) hasta el primer elemento de
+marcado (de título o del nivel superior) sobre una página, cuando no
+hay ningún sistema entre los dos.
 @end table
 
 
@@ -305,7 +408,7 @@ ella.
 Se pueden definir valores del bloque @code{\paper} en Scheme.  En tal
 caso, @code{mm}, @code{in}, @code{pt}, y @code{cm} son variables que
 están definidas en @file{paper-defaults.ly} con valores en milímetros.
-Por ello el valor 2 cm se debe multiplicar en el siguiente ejemplo:
+Por ello el valor @w{@code{2 cm}} se debe multiplicar en el siguiente ejemplo:
 
 @example
 \paper @{
@@ -342,30 +445,6 @@ papel.
      \fromproperty #'page:page-number-string @} @}
 @}
 @end example
-
-También podemos definir estos valores en Scheme.  En tal caso,
-@code{mm}, @code{in}, @code{pt} y @code{cm} son variables definidas en
-@file{paper@/-defaults@/-init@/.ly} con valores en milímetros.  Es la
-razón por la que el valor se debe multiplicar en el ejemplo
-
-@example
-\paper @{
-  #(define bottom-margin (* 2 cm))
-@}
-@end example
-
-El encabezamiento y el pie se crean por parte de las funciones
-@code{make-footer} y @code{make-header}, definidas en @code{\paper}.
-Las implementaciones predeterminadas están en
-@file{ly/@/paper@/-defaults@/-init@/.ly} y en
-@file{ly/@/titling@/-init@/.ly}.
-
-La propia disposición de la página se realiza por parte de dos
-funciones del bloque @code{\paper}, @code{page-music-height} y
-@code{page-make-stencil}.  La primera dice al algoritmo de saltos de
-línea cuánto espacio se puede emplear en la página, y la segunda crea
-la página en sí dado el sistema que poner en ella.
-
 
 @seealso
 Referencia de la notación:
@@ -1357,7 +1436,6 @@ directamente entremezclado dentro del código de notas.
 @}
 @end example
 
-
 Esto hace sencillas de introducir a las instrucciones @code{\break} y
 @code{\pageBreak}, pero mezcla la escritura de música con información
 que especifica cómo se debe disponer la música sobre la página.
@@ -1617,7 +1695,7 @@ de letra y el pentagrama a que no pertenece.
 \layout {
   \context {
     \Lyrics
-    % By default, Lyrics are placed close together. Here, we allow them to
+    % By default, Lyrics are placed close together.  Here, we allow them to
     % be stretched more widely.
     \override VerticalAxisGroup
       #'inter-loose-line-spacing #'stretchability = #1000
@@ -1693,7 +1771,8 @@ estas variables ignoran las líneas que nos son pautas.  Por ejemplo,
 media del pentagrama inferior de un sistema hasta la línea del
 pentagrama superior del sistema siguiente, tanto si hay letra debajo
 del sistema superior como si no.  Consulte @ref{Dimensiones
-verticales} para ver una descripción de cada una de dichas variables.
+verticales flexibles} para ver una descripción de cada una
+de dichas variables.
 
 Aún hay otras dos variables del bloque @code{\paper} que afectan al
 espaciado vertical: si @var{ragged-bottom} está ajustado a @code{##t},
@@ -2341,8 +2420,6 @@ ocupa su longitud horizontal natural.
 @c stretch as the previous line.  eTeX uses \lastlinefit to
 @c interpolate between both these solutions.
 
-@c interesting! -FV
-
 @example
 \layout @{
   indent = #0
@@ -2808,6 +2885,7 @@ página, establezca @code{annotate-spacing} en el bloque @code{\paper}:
   \paper { annotate-spacing = ##t }
 }
 @end lilypond
+
 
 @noindent
 Todas las dimensiones de disposición se muestran en espacios de

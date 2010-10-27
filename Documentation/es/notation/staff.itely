@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 8e0330b913e0c7494282e6b00cebbf4dcee79b50
+    Translation of GIT committish: fbc66ca73dac98eb538791022eeab66e7d5c3c1a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.29"
+@c \version "2.13.36"
 
 @node Notación de los pentagramas
 @section Notación de los pentagramas
