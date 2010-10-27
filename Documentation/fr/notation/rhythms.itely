@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 235de94b7408e9badc7b82c8e0dae8f05009adc3
+    Translation of GIT committish: 98c09018bda39821c6f632b67a5e9906c64cfc5b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -456,7 +456,7 @@ accords.
 
 @lilypond[quote,verbatim,relative=1]
 <c e g> ~ <c e g>
-<c ~ e g ~ b> <c e g b>
+<c~ e g~ b> <c e g b>
 @end lilypond
 
 @cindex liaison de tenue et répétition
@@ -638,7 +638,7 @@ prédéfinies@tie{}:
 
 @c \time 16/1 is used to avoid spurious bar lines
 @c and long tracts of empty measures
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 \new Staff {
   % These two lines are just to prettify this example
   \time 16/1
@@ -771,14 +771,14 @@ de saut @code{s} crée tout de même les contextes @code{Staff} et
 @code{Voice} lorsque nécessaire, à l'instar des notes ou des
 silences@tie{}:
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 s1 s s
 @end lilypond
 
 Un @code{\skip} ne fait que sauter du temps musical@tie{}; il ne produit
 rien du tout, pas même un symbole transparent.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 % This is valid input, but does nothing
 \skip 1 \skip1 \skip 1
 @end lilypond
@@ -828,7 +828,7 @@ doit donc correspondre à la longueur de la mesure telle que définie par
 la métrique.  C'est la raison pour laquelle on utilisera aussi des
 points d'augmentation ou des fractions@tie{}:
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 \compressFullBarRests
 \time 2/4
 R1 | R2 |
@@ -844,7 +844,7 @@ Un @code{R} qui s'étend sur une seule mesure s'imprime tantôt comme
 une pause, tantôt comme une brève -- ou @qq{bâton de pause} -- et
 sera centré sur la mesure quelle qu'en soit la métrique@tie{}:
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 \time 4/4
 R1 |
 \time 6/4
@@ -865,7 +865,7 @@ Par défaut, un silence multimesures sera répété sur autant de mesures
 que nécessaire.  Il peut aussi n'être imprimé qu'une seule fois,
 surplombé du nombre de mesures vides -- ou @qq{à compter}@tie{}:
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 % Default behavior
 \time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
@@ -898,7 +898,7 @@ utilisant la syntaxe @w{@var{note}-@code{markup}} (cf.
 @ref{Mise en forme du texte}).  La variable @code{\fermataMarkup} quant
 à elle permet d'ajouter un point d'orgue@tie{}:
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim,relative=2]
 \compressFullBarRests
 \time 3/4
 R2.*10^\markup { \italic "ad lib." }
@@ -911,7 +911,7 @@ doivent s'adresser à l'objet concerné, comme vous pouvez le constater
 dans l'exemple suivant.}
 
 @c KEEP LY
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim,relative=2]
 % Ceci échouera : il y a erreur quant à l'objet spécifié
 \override TextScript #'padding = #5
 R1^"pas bon !"
