@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish:  aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -120,7 +120,9 @@ Für LilyPond Version @version{}
 @divId{quickSummary}
 @subheading Was ist LilyPond?
 
-LilyPond ist ein Open Source Notensatzprogramm, dass es sich zum Ziel gemacht hat, Notendruck von der bestmöglichen Qualität zu erstellen.  Dieses Open Source Programm ermöglicht, die Ästhetik handgestochenen traditionellen Notensatzes mit computergesetzen Noten zu erreichen.
+LilyPond ist ein Notensatzprogramm, dass es sich zum Ziel gemacht hat, Notendruck von der bestmöglichen Qualität zu erstellen.  Mit dem Programm wird es
+möglich, die Ästhetik handgestochenen traditionellen Notensatzes mit computergesetzen Noten zu erreichen.  LilyPond ist ein Open Source-Programm
+und Teil des @uref{http://gnu.org,GNU Projekts}.
 
 @divClass{align-right}
 Lesen Sie mehr in der @ref{Einleitung}!
@@ -277,6 +279,34 @@ Distributions will want to install lilypond.info in postinstall, doing:
   \webLink\:
 @end ifset
 @end macro
+
+
+@ifhtml
+@macro contactUsAbout{topic}
+
+@divClass{heading-center}
+@divClass{contactBox}
+Wenn Sie irgendein \Thema\ hier vermissen, teilen Sie das uns
+bitte mit und beachten Sie die Anleitung dazu unter
+@ref{Fehlerberichte}.
+
+@divEnd
+@divEnd
+
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro contactUsAbout{topic}
+@cartouche
+Wenn Sie die Erwähnung von \topic\ hier vermissen, teilen Sie das uns
+bitte mit und beachten Sie die Anleitung dazu unter
+@ref{Fehlerberichte}.
+
+@end cartouche
+
+@end macro
+@end ifnothtml
 
 
 

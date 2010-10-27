@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  144cd434d02e6d90b2fb738eeee99119a7c5e1d2
+    Translation of GIT committish:  aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -642,6 +642,16 @@ Ann Drinan präsentiert auf der
 @uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org}-Webseite
 Kommentare von zwei Orchsterbibliothekaren, die sich über die Benutzung von
 Software zur Unterhaltung ihrer Bibliotheken unterhalten.
+
+ @item
+June 2009
+
+In einem @uref{http://news.lilynet.net/Free-Music-Now, Artikel}
+in der Jahreszeitschrift der @emph{National Conservatory Parent
+Association} erklärt der französischer Komponist und LilyPond-Mitarbeiter
+Valentin Villenave wie freie Lizenzen und insbesondere mit LilyPond
+gesetzte Partituren dazu beitragen, dass notierte Musik allen zugänglich
+gemacht wird.
 
 @item
 Februar 2008
