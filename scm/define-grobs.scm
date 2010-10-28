@@ -2189,7 +2189,7 @@
 
     (TupletNumber
      . (
-	(avoid-slur . around)
+	(avoid-slur . inside)
 	(cross-staff . ,ly:tuplet-number::calc-cross-staff)
 	(font-shape . italic)
 	(font-size . -2)
