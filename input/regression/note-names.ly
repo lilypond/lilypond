@@ -17,7 +17,7 @@ and doesn't break point-and-click abilities.
   %% Manual override of the pitchnames variable
   %% and the parser note names:
   #(begin
-    (set! pitchnames(ly:assoc-get 'nederlands language-pitch-names))
+    (set! pitchnames (ly:assoc-get 'nederlands language-pitch-names))
     (ly:parser-set-note-names parser pitchnames))
   bes4 a g fis
 
