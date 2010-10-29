@@ -30,6 +30,8 @@ maxima = #(ly:make-duration -3 0)
 \include "toc-init.ly"
 
 \include "language-init.ly"
+pitchnames = #default-language
+#(ly:parser-set-note-names parser pitchnames)
 
 \include "drumpitch-init.ly"
 \include "chord-modifiers-init.ly"

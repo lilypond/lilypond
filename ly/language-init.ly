@@ -956,6 +956,5 @@
   ))
 
 %% default note names are dutch
-pitchnames = #(ly:assoc-get 'nederlands language-pitch-names '())
-#(ly:parser-set-note-names parser pitchnames)
-
+#(define default-language
+  (ly:assoc-get 'nederlands language-pitch-names '()))

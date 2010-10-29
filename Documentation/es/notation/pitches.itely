@@ -450,12 +450,6 @@ archivo de inicio específico del idioma según aparece relacionado más
 abajo.  Por ejemplo, para usar los nombres de las notas en español,
 inserte @code{@w{\include "espanol.ly"}} en el archivo de entrada.
 
-@warning{A causa de que alguno de los otros archivos de inclusión
-(como @code{@w{predefined-fretboards.ly}}) utilizan los nombres de
-nota predeterminados (holandeses), la instrucción @code{@bs{}include}
-para el archivo de idioma se debe colocar después de todos los demás
-archivos de la distribución de LilyPond.}
-
 Los archivos de idioma disponibles y los nombres de las notas que
 definen son los siguientes:
 

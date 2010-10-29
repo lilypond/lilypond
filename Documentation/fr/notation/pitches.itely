@@ -440,12 +440,6 @@ langues.  Pour les utiliser, incluez le fichier d'initialisation
 spécifique à la langue voulue.  Par exemple, pour les langues romanes,
 ajoutez @w{@code{\include "italiano.ly"}} au début du fichier source.
 
-@warning{Dans la mesure où certains fichiers d'initialisation, comme 
-@w{@code{predefined-fretboards.ly}}, utilisent les conventions bataves,
-la commande @code{@bs{}include} concernant la langue que vous désirez
-utiliser doît intervenir après toutes les autres inclusions de fichier
-d'initialisation de LilyPond.}
-
 Les fichiers de langue disponibles ainsi que les noms de note utilisés
 sont les suivants@tie{}:
 
