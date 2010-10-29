@@ -1261,9 +1261,21 @@ new_lyrics:
 
 		$$ = scm_cons ($3, SCM_EOL);
 	}
+	| ADDLYRICS {
+		PARSER->lexer_->push_lyric_state (); }
+	MUSIC_IDENTIFIER {
+		PARSER->lexer_->pop_state ();
+		$$ = scm_cons ($3, SCM_EOL);
+	}
 	| new_lyrics ADDLYRICS {
 		PARSER->lexer_->push_lyric_state ();
 	} grouped_music_list {
+		PARSER->lexer_->pop_state ();
+		$$ = scm_cons ($4, $1);
+	}
+	| new_lyrics ADDLYRICS {
+		PARSER->lexer_->push_lyric_state ();
+	} MUSIC_IDENTIFIER {
 		PARSER->lexer_->pop_state ();
 		$$ = scm_cons ($4, $1);
 	}
@@ -1271,6 +1283,9 @@ new_lyrics:
 
 re_rhythmed_music:
 	grouped_music_list new_lyrics {
+		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
+	}
+	| MUSIC_IDENTIFIER new_lyrics {
 		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
 	}
 	| LYRICSTO simple_string {
