@@ -135,7 +135,7 @@ elsewhere:
 
 @itemize
 @item Note names and accidentals (including quarter tones) can be
-tailored as discussed in @ref{Note names in other languages}.
+tailored as discussed in @ref{Non-Western notation and tuning systems}.
 
 @item Additional key signatures can also be tailored as described
 in @ref{Key signature}.
@@ -152,7 +152,7 @@ described in @ref{Unmetered music}.
 
 @seealso
 Notation Reference:
-@ref{Note names in other languages},
+@ref{Non-Western notation and tuning systems},
 @ref{Key signature},
 @ref{Manual beams}.
 
@@ -171,7 +171,8 @@ not suitable for the purpose of music writing, so they are not
 used.  English note names are not very familiar in Arabic music
 education, so Italian or Solfege note names (@code{do, re, mi, fa,
 sol, la, si}) are used instead.  Modifiers (accidentals) can also
-be used, as discussed in @ref{Note names in other languages}.
+be used, as discussed in
+@ref{Non-Western notation and tuning systems}.
 
 For example, this is how the Arabic @notation{rast} scale can be
 notated:
@@ -206,7 +207,7 @@ signature cannot be altered by using this method.
 
 @seealso
 Notation Reference:
-@ref{Note names in other languages}.
+@ref{Non-Western notation and tuning systems}.
 
 Snippets:
 @rlsr{World music}.
@@ -488,7 +489,7 @@ elsewhere:
 
 @itemize
 @item Note names and accidentals are provided in
-@ref{Non-Western note names and accidentals}.
+@ref{Non-Western notation and tuning systems}.
 
 @end itemize
 
@@ -516,4 +517,5 @@ of 1/9, 4/9, 5/9 and 8/9 of a tone.  These accidentals are
 defined in the file @file{makam.ly} (to locate this file on
 your system, see @rlearning{Other sources of information}).
 A more detailed description is provided in
-@ref{Non-Western note names and accidentals}.
+@ref{Non-Western notation and tuning systems}.
+
