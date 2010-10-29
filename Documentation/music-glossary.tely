@@ -148,6 +148,7 @@ Languages in this order.
 * cluster::
 * comma::
 * common meter::
+* Common Practice Period::
 * common time::
 * complement::
 * compound interval::
@@ -1988,6 +1989,25 @@ Another name for @ref{common time}.
 
 @seealso
 @ref{common time}, @ref{meter}.
+
+
+@node Common Practice Period
+@section Common Practice Period
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+@c TODO:
+This is a stubs for Common Practice Period (CPP).
+
+@seealso
+@user{Note names in other languages}.
 
 
 @node common time

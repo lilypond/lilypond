@@ -22,9 +22,74 @@ zu notieren.
 
 
 @menu
+* Nichteuropäische Notenbezeichnungen und Versetzungszeichen::
 * Arabische Musik::
 * Türkische klassische Musik::
 @end menu
+
+
+@node Nichteuropäische Notenbezeichnungen und Versetzungszeichen
+@subsection Nichteuropäische Notenbezeichnungen und Versetzungszeichen
+@translationof Non-Western notation and tuning systems
+
+Viele nicht-europäische Musik (und auch manche europäische Volksmusik)
+benutzt alternative oder erweiterte Skalen (Tonleitern), die man
+nicht mit der normalen westlichen Notation notieren kann.
+
+In einigen Fällen wird die klassische Notation dennoch benutzt,
+wobei man die Tonhöhenunterschiede implizit mitliest.  Beispielsweise
+arabische Musik wird mit normalen Halb- und Vierteltonversetzungszeichen
+notiert und die exakte Tonhöhe (die etwas von der notierten abeweichen
+kann) dann aus dem Kontext erschlossen.  Andere Tonsysteme brauchen
+erweiterte odert vollständige andere Notation.
+
+Die klassische Musik der Türkei, oder ottomanische Musik, benutzt
+melodische Formen, die als @notation{makamlar} bekannt sind und
+deren Intervalle auf 1/9-Bruchteilen des Ganztones beruhen.  Die
+moderne nationale Lösung ist es, die normale europäische Notation
+auf dem System mit normalen Noten zu benutzen und ihnen spezielle
+türkische Versetzungszeichen hinzuzufügen.  Diese Versetzungszeichen
+sind in der Datei @file{makam.ly} definiert.  (Wie Sie diese Datei
+finden können, wird erklärt in @rlearning{Mehr Information}.  Die
+folgende Tabelle zeigt ihre Bezeichnungen, die Versetzungszeichen-Endung,
+die an die Noten gefügt werden müssen und die Tonhöhenveränderung
+in einem Bruchteil eines Ganztones.
+
+@c TODO: can we include the actual accidentals in this table?
+@quotation
+@multitable {@b{büyük mücenneb (sharp)}} {@b{suffix}} {@b{pitch alteration}}
+@headitem Bezeichnung
+  @tab Endung @tab Tonhöhenveränderung
+
+@item büyük mücenneb (sharp)
+  @tab -bm @tab +8/9
+@item kücük mücenneb (sharp)
+  @tab -k @tab +5/9
+@item bakiye (sharp)
+  @tab -b @tab +4/9
+@item koma (sharp)
+  @tab -c @tab +1/9
+
+@item koma (flat)
+  @tab -fc @tab -1/9
+@item bakiye (flat)
+  @tab -fb @tab -4/9
+@item kücük mücenneb (flat)
+  @tab -fk @tab -5/9
+@item büyük mücenneb (flat)
+  @tab -fbm @tab -8/9
+@end multitable
+@end quotation
+
+Zu mehr Information über die klassische türkische Musik und
+makamlar, siehe @ref{Türkische klassische Musik}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{makam-example.ly}
+
 
 @node Arabische Musik
 @subsection Arabische Musik

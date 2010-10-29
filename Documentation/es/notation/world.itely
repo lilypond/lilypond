@@ -19,9 +19,73 @@ son de relevancia a las tradiciones musicales distintas a la
 occidental.
 
 @menu
+* Nombres de las notas y alteraciones no occidentales::
 * Música árabe::
 * Música clásica de Turquía::
 @end menu
+
+
+@node Nombres de las notas y alteraciones no occidentales
+@subsection Nombres de las notas y alteraciones no occidentales
+@translationof Non-Western notation and tuning systems
+
+Muchas músicas no occidentales (y algunas folclóricas y tradicionales
+occidentales) emplean sistemas de afinación alternativos o extendidos
+que no encajan directamente dentro de la notación clásica estándar.
+
+En algunos casos aún se usa la notación estándar estando implícitas
+las diferencias de afinación.  Por ejemplo, la notación de la música
+árabe se hace con alteraciones estándar de semitono y de cuarto de
+tono, estando las modificaciones de altura exactas determinadas por el
+contexto.  Otras necesitan notaciones ampliadas o específicas.
+
+@notation{La música clásica turca}, o música otomana, emplea formas
+melódicas conocidas como @notation{makamlar}, cuyos intervalos están
+basados en divisiones del tono en novenos.  Desde el punto de vista de
+la notación moderna, es conveniente utilizar las notas (do, re, mi,
+...) de un pentagrama occidental estándar con alteraciones
+accidentales específicas de la música turca.  Estas alteraciones están
+definidas en @file{makam.ly} (para encontrar este archivo en su
+sistema, consulte @rlearning{Otras fuentes de información}).  La tabla
+siguiente relaciona sus nombres, el sufijo de la alteración que se
+debe escribir detrás de las notas, y su alteración de altura como una
+fracción del tono.
+
+@c TODO: can we include the actual accidentals in this table?
+@quotation
+@multitable {@b{büyük mücenneb (sostenido)}} {@b{suffix}} {@b{alteración de altura}}
+@headitem Nombre de la alteración
+  @tab Sufijo @tab Alteración de altura
+
+@item büyük mücenneb (sostenido)
+  @tab -bm @tab +8/9
+@item kücük mücenneb (sostenido)
+  @tab -k @tab +5/9
+@item bakiye (sostenido)
+  @tab -b @tab +4/9
+@item koma (sostenido)
+  @tab -c @tab +1/9
+
+@item koma (bemol)
+  @tab -fc @tab -1/9
+@item bakiye (bemol)
+  @tab -fb @tab -4/9
+@item kücük mücenneb (bemol)
+  @tab -fk @tab -5/9
+@item büyük mücenneb (bemol)
+  @tab -fbm @tab -8/9
+@end multitable
+@end quotation
+
+Para ver más información sobre la música clásica turca y los makamlar,
+consulte @ref{Música clásica de Turquía}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{makam-example.ly}
+
 
 @node Música árabe
 @subsection Música árabe

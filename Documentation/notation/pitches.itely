@@ -38,7 +38,6 @@ mode.  In most cases, relative mode will be more convenient.
 * Relative octave entry::
 * Accidentals::
 * Note names in other languages::
-* Non-Western note names and accidentals::
 @end menu
 
 
@@ -439,75 +438,79 @@ any standard.
 @cindex language, pitch names in other
 
 There are predefined sets of note and accidental names for various
-other languages.  To use them, include the language-specific init
-file listed below.  For example, to use English note names, add
-@code{@w{\include "english.ly"}} to the input file.
+other languages.  Selecting the note name language is usually done
+at the beginning of the file; the following example is written
+using Italian note names:
 
-The available language files and the note names they define are:
+@lilypond[quote,verbatim]
+\language "italiano"
+
+\relative do' {
+  do re mi sib
+}
+@end lilypond
+
+The available languages and the note names they define are:
 
 @quotation
-@multitable {@file{nederlands.ly}} {do re mi fa sol la sib si}
+@multitable {@code{nederlands}} {do re mi fa sol la sib si}
 @headitem Language File
   @tab Note Names
-@item @file{nederlands.ly}
+@item @code{nederlands}
   @tab c d e f g a bes b
-@item @file{arabic.ly}
+@item @code{catalan}
   @tab do re mi fa sol la sib si
-@item @file{catalan.ly}
-  @tab do re mi fa sol la sib si
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab c d e f g a b h
-@item @file{english.ly}
+@item @code{english}
   @tab c d e f g a bf b
-@item @file{espanol.ly}
+@item @code{espanol}
   @tab do re mi fa sol la sib si
-@item @file{italiano.ly}
+@item @code{italiano}
   @tab do re mi fa sol la sib si
-@item @file{norsk.ly}
+@item @code{norsk}
   @tab c d e f g a b h
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab do re mi fa sol la sib si
-@item @file{suomi.ly}
+@item @code{suomi}
   @tab c d e f g a b h
-@item @file{svenska.ly}
+@item @code{svenska}
   @tab c d e f g a b h
-@item @file{vlaams.ly}
+@item @code{vlaams}
   @tab do re mi fa sol la sib si
 @end multitable
 @end quotation
 
-@noindent
-and the accidental suffixes they define are:
+In addition to note names, accidental suffixes may
+also vary depending on the language:
 
 @quotation
-@multitable {@file{nederlands.ly}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
 @headitem Language File
   @tab sharp @tab flat @tab double sharp @tab double flat
-@item @file{nederlands.ly}
+@item @code{nederlands}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{arabic.ly}
-  @tab -d @tab -b @tab -dd @tab -bb
-@item @file{catalan.ly}
+@item @code{catalan}
   @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{english.ly}
+@item @code{english}
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
-@item @file{espanol.ly}
+@item @code{espanol}
   @tab -s @tab -b @tab -ss/-x @tab -bb
-@item @file{italiano.ly}
+@item @code{italiano}
   @tab -d @tab -b @tab -dd @tab -bb
-@item @file{norsk.ly}
+@item @code{norsk}
   @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
     @tab -essess/-eses
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab -s @tab -b @tab -ss @tab -bb
-@item @file{suomi.ly}
+@item @code{suomi}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{svenska.ly}
+@item @code{svenska}
   @tab -iss @tab -ess @tab -ississ @tab -essess
-@item @file{vlaams.ly}
+@item @code{vlaams}
   @tab -k @tab -b @tab -kk @tab -bb
 @end multitable
 @end quotation
@@ -531,105 +534,49 @@ a2 as e es a ases e eses
 @cindex sesqui-flat
 
 Some music uses microtones whose alterations are fractions of a
-@q{normal} sharp or flat.  The note names for quarter-tones
-defined in the various language files are listed in the following
-table.  Here the prefixes @notation{semi-} and @notation{sesqui-}
-mean @q{half} and @q{one and a half}, respectively.  For the other
-languages, no special names have been defined yet.
+@q{normal} sharp or flat.  The following table lists note names
+for quarter-tone accidentals in various languages; here the prefixes
+@notation{semi-} and @notation{sesqui-} respectively
+mean @q{half} and @q{one and a half}.  Languages that do not
+appear in this table do not provide special note names yet.
 
 @quotation
-@multitable {@file{nederlands.ly}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
+@multitable {@code{nederlands}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
 @headitem Language File
   @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
 
-@item @file{nederlands.ly}
+@item @code{nederlands}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item @file{arabic.ly}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item @file{english.ly}
+@item @code{english}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @file{espanol.ly}
+@item @code{espanol}
   @tab -cs @tab -cb @tab -tcs @tab -tcb
-@item @file{italiano.ly}
+@item @code{italiano}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
 @end multitable
 @end quotation
 
+Most languages presented here are commonly associated with
+Western classical music, also referred to as
+@notation{Common Practice Period}.  However, alternate
+pitches and tuning systems are also supported: see
+@ref{Non-Western notation and tuning systems}.
+
 
 @seealso
 Music Glossary:
-@rglos{Pitch names}.
+@rglos{Pitch names},
+@rglos{Common Practice Period}.
+
+Notation Reference:
+@ref{Non-Western notation and tuning systems}.
 
 Snippets:
 @rlsr{Pitches}.
-
-
-@node Non-Western note names and accidentals
-@unnumberedsubsubsec Non-Western note names and accidentals
-
-Many non-Western musics (and some Western folk and
-traditional musics) employ alternative or extended tuning
-systems that do not fit readily into standard classical
-notation.
-
-In some cases standard notation is still used, with the
-pitch differences being implicit.  For example, Arabic
-music is notated with standard semitone and quarter-tone
-accidentals, with the precise pitch alterations being
-determined by context.  Others require extended or unique
-notations.
-
-@notation{Turkish classical music}, or Ottoman music,
-employs melodic forms known as @notation{makamlar}, whose
-intervals are based on 1/9 divisions of the whole tone.
-From a modern notational point of view, it is convenient
-to use the standard Western staff notes (c, d, e, ...)
-with special accidentals unique to Turkish music.  These
-accidentals are defined in @file{makam.ly} (to locate this
-file on your system, see
-@rlearning{Other sources of information}).  The following
-table gives their names, the accidental suffix that must
-be added to notes, and their pitch alteration as a
-fraction of one whole tone.
-
-@c TODO: can we include the actual accidentals in this table?
-@quotation
-@multitable {@b{büyük mücenneb (sharp)}} {@b{suffix}} {@b{pitch alteration}}
-@headitem Accidental name
-  @tab suffix @tab pitch alteration
-
-@item büyük mücenneb (sharp)
-  @tab -bm @tab +8/9
-@item kücük mücenneb (sharp)
-  @tab -k @tab +5/9
-@item bakiye (sharp)
-  @tab -b @tab +4/9
-@item koma (sharp)
-  @tab -c @tab +1/9
-
-@item koma (flat)
-  @tab -fc @tab -1/9
-@item bakiye (flat)
-  @tab -fb @tab -4/9
-@item kücük mücenneb (flat)
-  @tab -fk @tab -5/9
-@item büyük mücenneb (flat)
-  @tab -fbm @tab -8/9
-@end multitable
-@end quotation
-
-For further information on Turkish classical music and
-makamlar, see @ref{Turkish classical music}.
-
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{makam-example.ly}
 
 
 @node Changing multiple pitches
