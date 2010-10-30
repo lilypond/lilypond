@@ -295,9 +295,9 @@ Lily_lexer::set_identifier (SCM path, SCM val)
 
       if (scm_is_pair (path))
 	{
-	  SCM prev = scm_module_lookup (mod, sym);
-	  if (prev != SCM_UNDEFINED)
-	    val = nested_property_alist (prev, path, val);
+	  SCM prev = ly_module_lookup (mod, sym);
+	  if (prev != SCM_BOOL_F)
+	    val = nested_property_alist (scm_variable_ref (prev), path, val);
 	}
       scm_module_define (mod, sym, val);
     }
