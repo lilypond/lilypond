@@ -88,6 +88,22 @@ interpret_stencil_expression (SCM expr,
 
 	  return;
 	}
+      else if (head == ly_symbol2scm ("scale-stencil"))
+	{
+	  SCM args = scm_cadr (expr);
+	  SCM x_scale = scm_car (args);
+	  SCM y_scale = scm_cadr (args);
+	  Offset unscaled = o.scale (Offset (1 / scm_to_double (x_scale),
+					     1 / scm_to_double (y_scale)));
+
+	  (*func) (func_arg, scm_list_3 (ly_symbol2scm ("setscale"), x_scale,
+					 y_scale));
+	  interpret_stencil_expression (scm_caddr (expr), func, func_arg,
+					unscaled);
+	  (*func) (func_arg, scm_list_1 (ly_symbol2scm ("resetscale")));
+
+	  return;
+	}
       else
 	{
 	  (*func) (func_arg,

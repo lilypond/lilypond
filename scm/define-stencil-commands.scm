@@ -46,15 +46,15 @@ defined in the output modules (output-*.scm)"
     repeat-slash
     resetcolor
     resetrotation
+    resetscale
     round-filled-box
     setcolor
     setrotation
+    setscale
     text
     unknown
     url-link
     utf-8-string
-    white-dot
-    white-text
     zigzag-line
     ))
 
@@ -68,6 +68,7 @@ are used internally in lily/stencil-interpret.cc."
     combine-stencil
     delay-stencil-evaluation
     rotate-stencil
+    scale-stencil
     translate-stencil
     ))
 

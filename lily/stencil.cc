@@ -189,6 +189,17 @@ Stencil::translate_axis (Real x, Axis a)
 }
 
 void
+Stencil::scale (Real x, Real y)
+{
+  expr_ = scm_list_3 (ly_symbol2scm ("scale-stencil"),
+		      scm_list_2 (scm_from_double (x),
+				  scm_from_double (y)),
+		      expr_);
+  dim_[X_AXIS] *= x;
+  dim_[Y_AXIS] *= y;
+}
+
+void
 Stencil::add_stencil (Stencil const &s)
 {
   expr_ = scm_list_3 (ly_symbol2scm ("combine-stencil"), s.expr_, expr_);

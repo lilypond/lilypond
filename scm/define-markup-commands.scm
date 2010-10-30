@@ -3368,6 +3368,36 @@ when @var{label} is not found."
      y-ext)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; scaling
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-markup-command (scale layout props factor-pair arg)
+  (number-pair? markup?)
+  #:category graphic
+  "
+@cindex scaling markup
+@cindex mirroring markup
+
+Scale @var{arg}.  @var{factor-pair} is a pair of numbers
+representing the scaling-factor in the X and Y axes.
+Negative values may be used to produce mirror images.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\line {
+    \\scale #'(2 . 1)
+    stretched
+    \\scale #'(1 . -1)
+    mirrored
+  }
+}
+@end lilypond"
+  (let ((stil (interpret-markup layout props arg))
+	(sx (car factor-pair))
+	(sy (cdr factor-pair)))
+    (ly:stencil-scale stil sx sy)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Markup list commands
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

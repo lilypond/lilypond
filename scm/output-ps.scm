@@ -303,3 +303,10 @@
      thickness
      (convert-path-exps exps)
      (if fill? "fill" ""))))
+
+(define (setscale x y)
+  (ly:format "gsave ~4l scale\n"
+	      (list x y)))
+
+(define (resetscale)
+  "grestore\n")

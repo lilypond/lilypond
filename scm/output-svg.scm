@@ -615,6 +615,9 @@
 (define (resetrotation ang x y)
   "</g>\n")
 
+(define (resetscale)
+  "</g>\n")
+
 (define (round-filled-box breapth width depth height blot-diameter)
   (entity
     'rect ""
@@ -641,6 +644,10 @@
 (define (setrotation ang x y)
   (ly:format "<g transform=\"rotate(~4f, ~4f, ~4f)\">\n"
 	     (- ang) x (- y)))
+
+(define (setscale x y)
+  (ly:format "<g transform=\"scale(~4f, ~4f)\">\n"
+	     x y))
 
 (define (text font string)
   (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
