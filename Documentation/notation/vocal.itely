@@ -416,7 +416,7 @@ More stanzas can be added by adding more
 @code{\addlyrics} sections:
 
 
-@lilypond[ragged-right,verbatim,fragment,quote]
+@lilypond[ragged-right,verbatim,relative=1,quote]
 \time 3/4
 \relative c' { c2 e4 g2. }
 \addlyrics { play the game }
@@ -574,7 +574,7 @@ tie is implemented with the Unicode character U+203F, so be
 sure to have a font (like DejaVuLGC) installed that includes this
 glyph.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=1,verbatim]
 \time 3/4
 \relative c' { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
@@ -1057,7 +1057,7 @@ Notation Reference:
 To increase the spacing between lyrics, set the @code{minimum-distance}
 property of @code{LyricSpace}.
 
-@lilypond[relative,verbatim,fragment,quote,ragged-right]
+@lilypond[relative=1,verbatim,quote,ragged-right]
 {
   c c c c
   \override Lyrics.LyricSpace #'minimum-distance = #1.0
@@ -1589,7 +1589,7 @@ attaching lyrics to those specific contexts:
 
 Stanza numbers can be added by setting @code{stanza}, e.g.,
 
-@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+@lilypond[quote,ragged-right,verbatim,relative=2]
 \new Voice {
   \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {
@@ -1673,7 +1673,7 @@ Names of singers can also be added.  They are printed at the start of
 the line, just like instrument names.  They are created by setting
 @code{vocalName}.  A short version may be entered as @code{shortVocalName}.
 
-@lilypond[fragment,ragged-right,quote,verbatim,relative=2]
+@lilypond[ragged-right,quote,verbatim,relative=2]
 \new Voice {
   \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {

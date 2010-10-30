@@ -57,11 +57,13 @@ through@tie{}@code{g}.  The note names @code{c} to @code{b} are
 engraved in the octave below middle C.
 
 @c don't use c' here.
-@lilypond[verbatim,quote,fragment]
-\clef bass
-c d e f
-g a b c
-d e f g
+@lilypond[verbatim,quote]
+{
+  \clef bass
+  c4 d e f
+  g4 a b c
+  d4 e f g
+}
 @end lilypond
 
 @cindex octave changing mark
@@ -74,13 +76,15 @@ or comma@tie{}(@code{,}) character.  Each@tie{}@code{'} raises the
 pitch by one octave; each@tie{}@code{,} lowers the pitch by an
 octave.
 
-@lilypond[verbatim,quote,fragment]
-\clef treble
-c' c'' e' g
-d'' d' d c
-\clef bass
-c, c,, e, g
-d,, d, d c
+@lilypond[verbatim,quote]
+{
+  \clef treble
+  c'4 c'' e' g
+  d''4 d' d c
+  \clef bass
+  c,4 c,, e, g
+  d,,4 d, d c
+}
 @end lilypond
 
 

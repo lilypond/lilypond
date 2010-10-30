@@ -1073,7 +1073,7 @@ Snippets:
 Line breaks can only occur if there is a @q{proper} bar line.  A note
 which is hanging over a bar line is not proper, such as
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 c4 c2 << c2 {s4 \break } >>  % this does nothing
 c2 c4 |           % a break here would work
 c4 c2 c4 ~ \break % as does this break
@@ -1967,7 +1967,7 @@ is, if two outside-staff grobs are competing for the same space, the one
 with the lower @code{outside-staff-priority} will be placed closer to
 the staff.
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 c4_"Text"\pp
 r2.
 \once \override TextScript #'outside-staff-priority = #1
@@ -1984,7 +1984,7 @@ The vertical padding between an outside-staff object and the
 previously-positioned grobs can be controlled with
 @code{outside-staff-padding}.
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 \once \override TextScript #'outside-staff-padding = #0
 a'^"This text is placed very close to the note"
 \once \override TextScript #'outside-staff-padding = #3
@@ -2002,7 +2002,7 @@ Setting @code{outside-staff-horizontal-padding}
 causes an object to be offset vertically so that such a situation
 doesn't occur.
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 % the markup is too close to the following note
 c4^"Text"
 c4
@@ -2052,7 +2052,7 @@ For example, the following piece contains lots of half, quarter, and
 8th notes; the eighth note is followed by 1 note head width (NHW).
 The quarter note is followed by 2 NHW, the half by 3 NHW, etc.
 
-@lilypond[quote,fragment,verbatim,relative=1]
+@lilypond[quote,verbatim,relative=1]
 c2 c4. c8 c4. c8 c4. c8 c8
 c8 c4 c4 c4
 @end lilypond
@@ -2095,7 +2095,7 @@ followed by a space that is proportional to their duration relative to
 the common shortest note.  So if we were to add only a few 16th notes
 to the example above, they would be followed by half a NHW:
 
-@lilypond[quote,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 @end lilypond
 
@@ -2158,7 +2158,7 @@ sections with a different notions of long and short notes.
 In the following example, the time signature change introduces a new
 section, and hence the 16ths notes are spaced wider.
 
-@lilypond[relative,fragment,verbatim,quote]
+@lilypond[relative=1,verbatim,quote]
 \time 2/4
 c4 c8 c
 c8 c c4 c16[ c c8] c4
@@ -2258,7 +2258,7 @@ property can only be changed at the beginning of a score,
 When @code{strict-note-spacing} is set, notes are spaced without
 regard for clefs, bar lines, and grace notes,
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 \override Score.SpacingSpanner #'strict-note-spacing = ##t
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond

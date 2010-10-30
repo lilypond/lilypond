@@ -1671,7 +1671,7 @@ correct fret numbers for the fifth string:
 
 @c due to crazy intervals of banjo music, absolute pitch is recommended
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=1,verbatim]
 \new TabStaff <<
   \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
   \set TabStaff.stringTunings = #banjo-open-g-tuning
