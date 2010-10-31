@@ -4357,6 +4357,6 @@ notas un color que depende de su posición dentro del pentagrama.
 @end lilypond
 
 Se pueden encontrar ejemplos adicionales que muestran la utilización
-de estos interfaces programables, en @rextendnamed{Callback
-functions,Funciones de callback}.
+de estos interfaces programables, en
+@rextendnamed{Callback functions,Funciones de callback}.
 
