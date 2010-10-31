@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -401,6 +401,42 @@ Es wird sehr empfohlen, in allen außer den allereinfachsten
 Stücken explizite Stimmenkontexte zu erstellen, wie erklärt in@rlearning{Kontexte und Engraver} und
 @rlearning{Stimmen explizit beginnen}.
 
+@strong{@i{Stimmen-Anordnung}}
+
+Wenn mehrere Stimmen notiert werden, sollte folgende Anordnung eingehalten
+werden:
+
+@example
+Stimme 1: höchste
+Stimme 2: tiefste
+Stimme 3: zweithöchste
+Stimme 4: zweittiefste
+Stimme 5: dritthöchste
+Stimme 6: dritttiefste
+usw.
+@end example
+
+Auch wenn das erst nicht einleuchtend erscheint, erleichtert es den
+automatischen Layoutprozess doch sehr.  Die ungeraden Stimmen erhalten
+Hälse nach oben, die graden Stimmen Hälse nach unten:
+
+@lilypond[quote,verbatim]
+\new Staff <<
+  \time 2/4
+  { f''2 }  % 1: highest
+  \\
+  { c'2  }  % 2: lowest
+  \\
+  { d''2 }  % 3: second-highest
+  \\
+  { e'2  }  % 4: second-lowest
+  \\
+  { b'2  }  % 5: third-highest
+  \\
+  { g'2  }  % 6: third-lowest
+>>
+@end lilypond
+
 @strong{@i{Identische Rhythmen}}
 
 Wenn parallele Abschnitte gesetzt werden sollen,
@@ -628,14 +664,54 @@ Köpfen) so wie es soll.
 >>
 @end lilypond
 
-Die Befehle @code{\shiftOn}, @code{\shiftOnn} und @code{\shiftOnnn}
-bezeichnen den Grad, mit dem Noten der aktuellen Stimme verschoben
-werden sollen.  Die äußeren Stimmen (normalerweise Stimme eins und
-zwei) haben diese Funktion standardmäßig ausgeschaltet
-(@code{\shiftOff}), während die inneren Stimmen (drei und vier)
-ein @code{\shiftOn} eingestellt haben (Verschiebung an).  Die
-Befehle @code{\shiftOnn} und @code{\shiftOnnn} stellen weitere
-Verschiebungesebenen dar.
+Der @code{shiftOn}-Befehl ermöglicht die Noten einer Stimme zu verschieben,
+erzwingt dieses Verhalten aber nicht.  Wenn @code{shiftOn} auf eine Stimme
+angewendet wird, eine Note oder ein Akkord in der Stimme wird nur verschoben,
+wenn sein Hals mit dem Hals der Note einer anderen Stimme kollidieren würde,
+und nur, wenn der Hals der Kollisionsnote in die gleiche Richtung zeigt.
+Der @code{shiftOff}-Befehl verhindert, dass eine derartige Verschiebung
+stattfinden kann.
+
+Die äußeren Stimmen (also normalerweise Stimmen 1 und 2) haben als Standard
+@code{shiftOff} eingestellt, während die inneren Stimmen (3 und mehr)
+@code{shiftOn} definiert haben.  Wenn eine Verschiebung stattfindet, werden
+Stimmen mit den Hälsen nach oben (also ungerade Stimmen) nach rechts verschoben,
+während Stimmen mit den Hälsen nach unten (also gerade Stimmen) nach links
+verschoben werden.
+
+Hier ein Beispiel, das verstehen hilft, wie ein verkürzter polyphonischer
+Abschnitt intern ausgeweitet wird.
+
+@warning{Wenn Sie drei oder mehr Stimmen haben, sollte die vertikale Anordnung
+der Stimmen in der Eingabedatei nicht die gleiche sein wie die vertikale
+Anordnung der Stimmen im Notensystem!}
+
+@lilypond[quote,verbatim]
+\new Staff \relative c'' {
+  %% abbreviated entry
+  <<
+    { f2  }  % 1: highest
+    \\
+    { g,2 }  % 2: lowest
+    \\
+    { d'2 }  % 3: upper middle
+    \\
+    { b2  }  % 4: lower middle
+  >>
+  %% internal expansion of the above
+  <<
+    \new Voice = "1" { \voiceOne   \shiftOff f'2 }
+    \new Voice = "2" { \voiceTwo   \shiftOff g,2 }
+    \new Voice = "3" { \voiceThree \shiftOn  d'2 } % shifts right
+    \new Voice = "4" { \voiceFour  \shiftOn  b2  } % shifts left
+  >>
+}
+@end lilypond
+
+Zwei zusätzliche Befehle, @code{shiftOnn} und @code{shiftOnnn} stellen
+weitere Verschiebungsebenen zu verfügung, die vorübergehend eingesetzt
+werden können um Zusammenstöße in komplizierten Situationen aufzulösen.
+Siehe auch @rlearning{Beispiel aus dem Leben}.
 
 Noten werden nur verschmolzen, wenn ihre Hälse in entgegengesetzte
 Richtungen zeigen (also etwa wie @code{Voice} 1 und 2 in den
@@ -680,7 +756,6 @@ Referenz der Interna:
 @rinternals{RestCollision}.
 
 @knownissues
-
 @ignore
 @c TODO investigate! Sometimes it works, sometimes not. --FV
 The requirements for successfully merging different note heads that
@@ -772,7 +847,7 @@ benutzt werden, also:
 
 @noindent
 Ein @code{\relative}-Abschnitt, der sich außerhalb von@code{\partcombine} befindet, hat keinen Einfluss auf
-die Tonhöhen von @var{musikAusdr1} oder @var{musikAusdr2}.
+die Tonhöhen von @code{@var{musikAusdr1}} oder @code{@var{musikAusdr2}}.
 
 @snippets
 

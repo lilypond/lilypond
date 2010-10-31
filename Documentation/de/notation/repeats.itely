@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,7 +32,7 @@ Standardnotationspraxis für Wiederholungen mit alternativen Schlüssen.
 
 @item unfold (aufklappen)
 Die wiederholte Musik wird ausgeschrieben, so oft, wie es durch
-@var{Wiederholungszähler} definiert wird.  Das erspart Arbeit,
+@code{@var{Wiederholungszähler}} definiert wird.  Das erspart Arbeit,
 wenn repetitive Musik notiert wird.
 
 @item percent (Prozent-Wiederholung)
@@ -87,7 +87,7 @@ Die Syntax für normale Wiederholungen ist
 @end example
 
 @noindent
-wobei @var{musikAusdr} ein musikalischer Ausdruck ist.
+wobei @code{@var{musikAusdr}} ein musikalischer Ausdruck ist.
 
 Wiederholung ohne alternativen Schluß:
 
@@ -110,7 +110,7 @@ müssen sie in geschweiften Klammern zusammengefasst werden.
 @end example
 
 @noindent
-wobei @var{musikAusdr} ein musikalischer Ausdruck ist.
+wobei @code{@var{musikAusdr}} ein musikalischer Ausdruck ist.
 
 Wenn
 es mehr Wiederholungen gibt, als Alternativen angegeben sind, erhalten
@@ -460,9 +460,9 @@ um repetitive Musik zu notieren.  Die Syntax ist
 @end example
 
 @noindent
-wobei @var{musikAusdr} ein musikalischer Ausdruck ist und
-@var{Wiederholungszähler} die Anzahl bezeichnet, mit der
-@var{musikAusdr} wiederholt wird.
+wobei @code{@var{musikAusdr}} ein musikalischer Ausdruck ist und
+@code{@var{Wiederholungszähler}} die Anzahl bezeichnet, mit der
+@code{@var{musikAusdr}} wiederholt wird.
 
 @lilypond[verbatim,quote,relative=2]
 \repeat unfold 2 { c4 d e f }
@@ -570,11 +570,11 @@ Muster wird durch ein besonderes Zeichen ersetzt.
 Die Syntax lautet:
 
 @example
-@code{\repeat percent @var{Wiederholungszahl} @var{musikAusdr}}
+\repeat percent @var{Wiederholungszahl} @var{musikAusdr}
 @end example
 
 @noindent
-wobei @var{musikAusdr} ein musikalischer Ausdruck ist.
+wobei @code{@var{musikAusdr}} ein musikalischer Ausdruck ist.
 
 Muster, die kürzer als ein Takt sind, werden mit Schrägstrichen
 ersetzt:
@@ -690,7 +690,7 @@ eingeklammert:
 @funindex :
 
 Die gleiche Darstellung wird erreicht, indem nach der Note
-@qq{@code{:}[@var{Zahl}]} geschrieben wird.  Die Zahl zeigt
+@code{:@var{Zahl}} geschrieben wird.  Die Zahl zeigt
 die Dauer der Unterteilung an, und sie muss mindestens den
 Wert 8 haben.  Ein Wert von 8 ergibt einen Balken durch den
 Notenhals.  Wenn die Zahl ausgelassen wird, wird der letzte
