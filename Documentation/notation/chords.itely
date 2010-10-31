@@ -56,7 +56,7 @@ convenient for those who are familiar with using chord names to
 describe chords.  More information on different input modes can be
 found at @ref{Input modes}.
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chordmode { c1 g a g c }
 @end lilypond
 
@@ -124,20 +124,20 @@ To avoid this behavior, explicitly create the @code{Staff} context:
 Major triads are entered by including the root and an
 optional duration:
 
-@lilypond[verbatim,quote,relative=1,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 \chordmode { c2 f4 g }
 @end lilypond
 
 Minor, augmented, and diminished triads are entered by placing
 @code{:} and a quality modifier string after the duration:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chordmode { c2:m f4:aug g:dim }
 @end lilypond
 
 Seventh chords can be created:
 
-@lilypond[quote,ragged-right,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:7 c:m7 c:maj7 c:dim7 c:aug7 }
 @end lilypond
 
@@ -269,7 +269,7 @@ highest third below the extent, and then the step of the extent is
 added.  The largest possible value for the extent is 13.  Any
 larger value is interpreted as 13.
 
-@lilypond[quote,ragged-right,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1:2 c:3 c:4 c:5
   c1:6 c:7 c:8 c:9
@@ -285,7 +285,7 @@ Since an unaltered 11 does not sound good when combined with an
 unaltered 13, the 11 is removed from a @code{:13} chord (unless it
 is added explicitly).
 
-@lilypond[quote,ragged-right,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1:13 c:13.11 c:m13
 }
@@ -298,7 +298,7 @@ extent and are prefixed by a dot (@code{.}).  The basic seventh
 step added to a chord is the minor or flatted seventh, rather than
 the major seventh.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c1:5.6 c:3.7.8 c:3.6.13
 }
@@ -306,7 +306,7 @@ the major seventh.
 
 Added steps can be as high as desired.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c4:5.15 c:5.20 c:5.25 c:5.30
 }
@@ -318,7 +318,7 @@ Added chord steps can be altered by suffixing a @code{-} or @code{+}
 sign to the number.  To alter a step that is automatically included
 as part of the basic chord structure, add it as an altered step.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c1:7+ c:5+.3- c:3-.5-.7-
 }
@@ -334,7 +334,7 @@ If more than one step is to be removed, the steps to be
 removed are separated by @code{.} following the
 initial @code{^}.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7
 }
@@ -348,7 +348,7 @@ Append either @code{2} or @code{4} to add the 2nd or 4th step to the
 chord.  @code{sus} is equivalent to @code{^3}; @code{sus4} is
 equivalent to @code{.4^3}.
 
-@lilypond[quote,ragged-right,relative=1,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1:sus c:sus2 c:sus4 c:5.4^3
 }
@@ -362,7 +362,7 @@ Inversions (putting a pitch other than the root on the bottom of the
 chord) and added bass notes can be specified by appending
 @code{/}@var{pitch} to the chord.
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1 c/g c/f
 }
@@ -373,7 +373,7 @@ chord) and added bass notes can be specified by appending
 A bass note that is part of the chord can be added, instead of
 moved as part of an inversion, by using @code{/+}@var{pitch}.
 
-@lilypond[quote,ragged-right,relative=1,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1 c/g c/+g
 }
@@ -398,7 +398,7 @@ Each step can only be present in a chord once.  The following
 simply produces the augmented chord, since @code{5+} is
 interpreted last.
 
-@lilypond[quote,ragged-right,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:5.5-.5+ }
 @end lilypond
 
@@ -406,7 +406,7 @@ Only the second inversion can be created by adding a bass
 note.  The first inversion requires changing the root of
 the chord.
 
-@lilypond[quote,ragged-right,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c'1: c':/g e:6-3-^5 e:m6-^5
 }
@@ -432,7 +432,7 @@ as notes on a staff.
 
 Chord names are printed in the @code{ChordNames} context:
 
-@lilypond[verbatim,quote,relative=1,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
   \chordmode {
     c2 f4. g8
@@ -492,13 +492,13 @@ Rests passed to a @code{ChordNames} context will cause the
 @code{\chords @{ ... @}} is a shortcut notation for
 @code{\new ChordNames @{ \chordmode @{ ... @} @}}.
 
-@lilypond[verbatim,quote,ragged-right, relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chords {
   c2 f4.:m g8:maj7
 }
 @end lilypond
 
-@lilypond[verbatim,quote,ragged-right, relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
   \chordmode {
     c2 f4.:m g8:maj7
@@ -586,7 +586,7 @@ German songbooks may indicate minor chords as lowercase letters,
 without any @var{m} suffix.  This can be obtained by setting the
 @code{chordNameLowercaseMinor} property:
 
-@lilypond[verbatim,quote,ragged-right, relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chords {
   \set chordNameLowercaseMinor = ##t
   c2 d:m e:m f
@@ -756,7 +756,7 @@ Figured bass notation can be displayed.
 LilyPond has support for figured bass, also called thorough bass
 or basso continuo:
 
-@lilypond[quote,ragged-right,verbatim,]
+@lilypond[quote,ragged-right,verbatim]
 <<
   \new Voice { \clef bass dis4 c d ais g fis}
   \new FiguredBass {
@@ -811,7 +811,7 @@ found at @ref{Input modes}.
 In figure mode, a group of bass figures is delimited by
 @code{<} and @code{>}.  The duration is entered after the @code{>}.
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \new FiguredBass {
   \figuremode {
     <6 4>2
@@ -822,7 +822,7 @@ In figure mode, a group of bass figures is delimited by
 
 Accidentals (including naturals) can be added to figures:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <7! 6+ 4-> <5++> <3-->
 }
@@ -830,7 +830,7 @@ Accidentals (including naturals) can be added to figures:
 
 Augmented and diminished steps can be indicated:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <6\+ 5/> <7/>
 }
@@ -839,7 +839,7 @@ Augmented and diminished steps can be indicated:
 A backward slash through a figure (typically used for raised
 sixth steps) can be created:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <6> <6\\>
 }
@@ -847,7 +847,7 @@ sixth steps) can be created:
 
 Vertical spaces and brackets can be included in figures:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <[12 _!] 8 [6  4]>
 }
@@ -855,7 +855,7 @@ Vertical spaces and brackets can be included in figures:
 
 Any text markup can be inserted as a figure:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <\markup { \tiny \number 6 \super (1) } 5>
 }
@@ -1153,9 +1153,9 @@ the bass line.
 When using extender lines, adjacent figures with the same number in
 a different figure location can cause the figure positions to invert.
 
-@lilypond[verbatim,ragged-right,quote]
+@lilypond[verbatim,ragged-right,quote,relative=1]
 <<
- { fis4 g g, e' }
+  { fis4 g g, e' }
   \figures {
     \bassFigureExtendersOn
     <6 5>4 <5\! 4> < 5 _!> <6>
@@ -1166,9 +1166,9 @@ a different figure location can cause the figure positions to invert.
 To avoid this problem, simply turn on extenders after the figure that
 begins the extender line and turn them off at the end of the extender line.
 
-@lilypond[verbatim,ragged-right,quote]
+@lilypond[verbatim,ragged-right,quote,relative=1]
 <<
- { fis4 g g, e' }
+  { fis4 g g, e' }
   \figures {
     <6 5>4 <5 4>
     \bassFigureExtendersOn
