@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -117,8 +117,7 @@ dafür, dass Elemente wie Schlüssel und Taktart- oder Tonartbezeichnungen
 
 Ein @code{Score}-Kontext wird eingerichtet, wenn eine
 @code{\score @{@dots{}@}} oder @code{\layout @{@dots{}@}}-Umgebung
-interpretiert wird, oder explizit mit dem @code{\new Score}-Befehl.
-
+interpretiert wird.
 
 @node Oberste Kontexte -- Container für Systeme
 @unnumberedsubsubsec Oberste Kontexte -- Container für Systeme
@@ -652,26 +651,32 @@ jedes System eine unterschiedliche Taktart hat:
 @cindex Taktarten, mehrere in Partitur
 @cindex Taktarten, unterschiedliche per System
 
-@lilypond[quote,relative=1,ragged-right,verbatim,fragment]
-\new Score \with {
-  \remove "Timing_translator"
-  \remove "Default_bar_line_engraver"
-} <<
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff \with {
+      \consists "Timing_translator"
+      \consists "Default_bar_line_engraver"
+    } {
+        \time 3/4
+        c4 c c c c c
+    }
   \new Staff \with {
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
   } {
-      \time 3/4
+      \time 2/4
       c4 c c c c c
   }
-  \new Staff \with {
-    \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
-  } {
-       \time 2/4
-       c4 c c c c c
-  }
 >>
+\layout {
+  \context {
+    \Score
+    \remove "Timing_translator"
+    \remove "Default_bar_line_engraver"
+    }
+  }
+}
 @end lilypond
 
 @knownissues
@@ -737,16 +742,16 @@ Es ist nicht möglich, Kontextänderungen als Variable zu definieren und
 sie dann in der @code{\context}-Definition anzuwenden, indem man die
 Variable aufruft.
 
-Der Befehl @code{\RemoveEmptyStaffContext} überschreibt die
+Der Befehl @code{\Staff \RemoveEmptyStaves} überschreibt die
 aktuellen Einstellungen für @code{Staff}.  Wenn die Einstellungen
-für Systeme verändert werden sollen, die @code{\RemoveEmptyStaffContext}
+für Systeme verändert werden sollen, die @code{\Staff \RemoveEmptyStaves}
 benutzen, müssen die Veränderungen gemacht werden, nachdem
-@code{\RemoveEmptyStaffContext} aufgerufen wurde, etwa:
+@code{\Staff \RemoveEmptyStaves} aufgerufen wurde, etwa:
 
 @example
 \layout @{
   \context @{
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
 
     \override Stem #'thickness = #4.0
   @}
@@ -1222,7 +1227,7 @@ eigentlich handelt es sich nicht um sehr viel.  Die Initialisierungsdatei
      (script-priority . 100)
      (stencil . ,ly:text-interface::print)
      (direction . ,ly:script-interface::calc-direction)
-     (font-encoding . fetaNumber)
+     (font-encoding . fetaText)
      (font-size . -5) 		; don't overlap when next to heads.
      (meta . ((class . Item)
      (interfaces . (finger-interface
@@ -1441,7 +1446,7 @@ folgenden Beispiel
 @lilypond[quote,fragment,verbatim,relative=2]
 \override Slur #'thickness = #3.0
 c8[( c
-\override Beam #'thickness = #0.6
+\override Beam #'beam-thickness = #0.6
 c8 c])
 @end lilypond
 
@@ -2153,7 +2158,7 @@ nachfolgenden Gesangstext mit der vorhergehenden Musik verknüpft.
 
 Man erreicht ihn mit dem Befehl @code{\markup}.  Die Eingabe wird
 entsprechend der Syntax für Textbeschriftung interpretiert, siehe
-@ref{Text markup commands}.
+@ref{Textbeschriftungsbefehle}.
 
 @c silly work-around for texinfo broken-ness
 @c (@strong{Note...} causes a spurious cross-reference in Info)
@@ -2600,7 +2605,7 @@ Im Fall eines Zeilenumbruchs werden die Werte der Endpunkte
 in den Unterlisten @code{left-broken} bzw. @code{right-broken}
 von @code{bound-details} abgelegt.  Zum Beispiel:
 
-@lilypond[relative=2,ragged-right,verbatim,fragment]
+@lilypond[relative=2,ragged-right,verbatim,quote]
 \override Glissando #'breakable = ##t
 \override Glissando #'(bound-details right-broken Y) = #-3
 c1 \glissando \break
@@ -2661,7 +2666,7 @@ definiert) zentriert, ausgegeben.  Wenn entweder
 gesetzt werden, wird das Symbol am Rand vertikal entsprechend
 des Endpunktes der Linie verschoben:
 
-@lilypond[relative=1,fragment,verbatim]
+@lilypond[relative=1,quote,verbatim]
 \override TextSpanner
   #'(bound-details left stencil-align-dir-y) = #-2
 \override TextSpanner
@@ -3129,7 +3134,7 @@ im gewünschten Linienstil.
 Hier einige Beispiele, welche Linienstile möglich sind
 und wie sie verändert werden können:
 
-@lilypond[relative=2,ragged-right,verbatim,fragment]
+@lilypond[relative=2,ragged-right,verbatim,quote]
 d2 \glissando d'2
 \once \override Glissando #'style = #'dashed-line
 d,2 \glissando d'2
@@ -3145,8 +3150,8 @@ Die Position der Endpunkte des Streckers werden in
 Realzeit für jedes graphische Objekt errechnet, aber
 es ist möglich, sie manuell vorzugeben:
 
-@c FIXME Complete
-@lilypond[relative=2,ragged-right,verbatim,fragment]
+@c TODO Complete
+@lilypond[relative=2,ragged-right,verbatim,quote]
 e2 \glissando f
 \once \override Glissando #'(bound-details right Y) = #-2
 e2 \glissando f

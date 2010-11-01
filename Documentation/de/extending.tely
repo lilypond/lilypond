@@ -1,14 +1,14 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @setfilename lilypond-extending.info
-@settitle Extending LilyPond
+@settitle LilyPond erweitern
 @documentencoding UTF-8
 @documentlanguage de
 @afourpaper
@@ -48,7 +48,7 @@ Copyright @copyright{} 2003--2010 bei den Autoren.
 @menu
 * Scheme-Übung::                Programmieren innerhalb von LilyPond.
 * Schnittstellen für Programmierer::     Wie man mit Scheme kommunizieren kann.
-* LilyPond Scheme interfaces::     Information in die Noten senden und aus den Noten erhalten.
+* LilyPond Scheme-Schnittstellen::     Information in die Noten senden und aus den Noten erhalten.
 
 Anhänge
 

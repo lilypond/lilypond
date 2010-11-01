@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 05321651998ea6b04cd6649f5d4dcdd9b102d7f5
+    Translation of GIT committish: b1bddd0e522d91483a4cd70baaa2e7e229fc786d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.29"
+@c \version "2.13.36"
 
 @node Tablas del manual sobre notación
 @appendix Tablas del manual sobre notación
@@ -199,11 +199,11 @@ Menor con séptima mayor
 @tab
 Tríada menor con séptima mayor
 @tab
-@code{maj7.3-}
+@code{m7+}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:maj7.3-
+  c1:m7+
 }
 @end lilypond
 
@@ -389,6 +389,33 @@ Cuarta justa y quinta justa
 }
 @end lilypond
 
+@item
+Acorde de potencia o de quinta vacía (de dos notas)
+@tab
+Perfect fifth
+@tab
+@code{1.5}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  \powerChords
+  c1:1.5
+}
+@end lilypond
+
+@item
+Acorde de potencia o de quinta vacía (de tres notas)
+@tab
+Perfect fifth, octave
+@tab
+@code{1.5.8}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  \powerChords
+  c1:1.5.8
+}
+@end lilypond
 
 @end multitable
 

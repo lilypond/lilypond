@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish:  aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -289,12 +289,12 @@ Alle Logos und Produktabbildungen erkennen Copyright und Trademark an.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Für Intel-Prozessoren (wenn Sie Zweifel haben, benutzen Sie diese Version).
+Für MacOS X 10.4 und höher auf Intel-Prozessoren (wenn Sie Zweifel haben, benutzen Sie diese Version).
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-Für G3 und G4 Prozessoren (alte Apple-Computer).
+Für MacOS X 10.4 oder höher auf G3 und G4 Prozessoren (alte Apple-Computer).
 
 @end itemize
 

@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: cd6d449de0bfc3236b87fbec08389697be8cae81
+    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.29"
+@c \version "2.13.36"
 
 @node Trucar la salida
 @chapter Trucar la salida
@@ -3702,6 +3702,11 @@ queríamos, pero la indicación metronómica transparente de la primera
 línea fuerza una colocación muy alta de la indicación de tempo que
 sigue, mientras que la segunda (con el sello suprimido) no lo hace.
 
+@seealso
+Glosario musical:
+@rglos{system}.
+
+
 @node Uso de variables para los trucos
 @subsection Uso de variables para los trucos
 @translationof Using variables for tweaks
@@ -4352,6 +4357,6 @@ notas un color que depende de su posición dentro del pentagrama.
 @end lilypond
 
 Se pueden encontrar ejemplos adicionales que muestran la utilización
-de estos interfaces programables, en @rextendnamed{Callback
-functions,Funciones de callback}.
+de estos interfaces programables, en
+@rextendnamed{Callback functions,Funciones de callback}.
 

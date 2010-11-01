@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: cd6d449de0bfc3236b87fbec08389697be8cae81
+Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.29"
+@c \version "2.13.36"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -42,8 +42,8 @@ LISP) para aportar la infraestructura.  La sobreescritura de las
 decisiones de disposición da acceso efectivo a las interioridades del
 programa, lo que requiere código de Scheme como entrada.  Los
 elementos de Scheme se inauguran dentro de un archivo @code{.ly} con
-el símbolo de cuadradillo @code{#}.@footnote{@rextend{Tutorial de
-Scheme} contiene un breve tutorial sobre la introducción de números,
+el símbolo de cuadradillo @code{#}.@footnote{@rextend{Tutorial de Scheme}
+contiene un breve tutorial sobre la introducción de números,
 listas, cadenas y símbolos en Scheme.}
 
 @menu
@@ -363,8 +363,9 @@ importar qué nombre se le ha dado.
 
 Esta variante se usa con expresiones musicales que se pueden
 interpretar en varios niveles.  Por ejemplo, la instrucción
-@code{\applyOutput} (véase @rextend{Ejecutar una función sobre todos
-los objetos de la presentación}).  Sin una instrucción @code{\context}
+@code{\applyOutput} (véase
+@rextend{Ejecutar una función sobre todos los objetos de la presentación}).
+Sin una instrucción @code{\context}
 explícita, normalmente se aplicaría a @code{Voice}
 
 @example
@@ -720,7 +721,7 @@ variable.
 La instrucción @code{\RemoveEmptyStaves} sobreescribe nuestros ajustes
 en curso para el contexto @code{\Staff}.  Si queremos cambiar los
 valores predeterminados para un pentagrama que utilice
-@code{\RemoveEmptyStaves}, debe hacerlo después de llamar a
+@code{\RemoveEmptyStaves}, debemos hacerlo después de llamar a
 @code{\RemoveEmptyStaves}, o sea
 
 @example
@@ -1921,8 +1922,8 @@ f'
 
 El flujo musical que se genera a partir de una sección de un archivo
 de entrada (incluido cualquier elemento insertado automáticamente)
-puede examinarse, véase @rextend{Presentación de las expresiones
-musicales}.  Esto puede ser de utilidad en la determinación de lo que
+puede examinarse, véase @rextend{Presentación de las expresiones musicales}.
+Esto puede ser de utilidad en la determinación de lo que
 puede modificarse por medio de una instrucción @code{\tweak}.
 
 
@@ -3134,7 +3135,7 @@ Fragmentos de código:
 @rlsr{Tweaks and overrides}.
 
 Extender:
-@rextend{Interfaces for programmers}.
+@rextend{Interfaces para programadores}.
 
 Referencia de funcionamiento interno:
 @rinternals{All layout objects}.
@@ -3705,8 +3706,8 @@ referenciar argumentos (p.ej. @samp{$arg1}).
 
 Los argumentos @code{parser} y @code{location} son necesarios, y se
 utilizan en algunas situaciones avanzadas como se encuentra descrito
-en @rextend{Music function syntax}.  Para las funciones de
-sustitución, tan sólo hemos de asegurarnos de incluirlos.
+en @rextend{Sintaxis de las funciones musicales}.  Para las funciones
+de sustitución, tan sólo hemos de asegurarnos de incluirlos.
 
 También es necesaria la lista de predicados de tipo.  Algunos de los
 predicados de tipo más comunes que se utilizan en las funciones

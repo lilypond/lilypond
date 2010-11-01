@@ -823,7 +823,10 @@ als Partituren mit unterschiedlichen Taktarten.
 @funindex GrandStaff
 @funindex ChoirStaff
 
-Glossar: @rglos{brace}.
+Glossar:
+@rglos{brace},
+@rglos{staff},
+@rglos{system}.
 
 Musik für das Klavier wird üblicherweise auf zwei Systemen notiert,
 die durch eine @notation{geschweifte Klammer} verbunden sind

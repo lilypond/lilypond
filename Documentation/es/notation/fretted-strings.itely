@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a90b4f6c28f125d797df443241501a679c900424
+    Translation of GIT committish: 2ca56357edecc917e7d9f09941f0953497e2d52b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.29"
+@c \version "2.13.36"
 
 @node Instrumentos de cuerda con trastes
 @section Instrumentos de cuerda con trastes
@@ -1321,7 +1321,7 @@ con instrucciones predefinidas:
 
 \storePredefinedDiagram #default-fret-table <c e g c' e'>
                         #guitar-tuning
-                        #"x;3-1-(;5-2;5-3;5-4;3-1-1);"
+                        #"x;3-1-(;5-2;5-3;5-4;3-1-1-);"
 <<
   \context ChordNames {
     \chordmode {
@@ -1375,6 +1375,8 @@ FretBoard.
   }
 >>
 @end lilypond
+
+@funindex minimumFret
 
 El traste mínimo que usar en el cálculo de cuerdas y trastes para el
 contexto FretBoard se puede fijar con la propiedad @code{minimumFret}.
@@ -1459,7 +1461,7 @@ la partitura, incluso si se aplican a una nota suelta.
 <g-\rightHandFinger #3 >
 <c-\rightHandFinger #4 >
 <c,-\rightHandFinger #1 e-\rightHandFinger #2
-  g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+ g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 @end lilypond
 
 Por brevedad, se puede escribir @code{\rightHandFinger} como algo más
@@ -1505,6 +1507,7 @@ experiencia, un tipografiador como GuitarTeX.
 @menu
 * Indicar la posición y la cejilla::
 * Indicar armónicos y notas tapadas::
+* Indicación de acordes de potencia o de quinta vacía::
 @end menu
 
 
@@ -1518,13 +1521,13 @@ experiencia, un tipografiador como GuitarTeX.
 Este ejemplo muestra cómo incluir indicaciones de posición y cejilla
 de guitarra:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=0]
+@lilypond[quote,ragged-right,verbatim,relative=0]
 \clef "treble_8"
 b16 d g b e
 \textSpannerDown
 \override TextSpanner #'(bound-details left text) = #"XII "
-  g16\startTextSpan
-  b16 e g e b g\stopTextSpan
+g16\startTextSpan
+b16 e g e b g\stopTextSpan
 e16 b g d
 @end lilypond
 
@@ -1615,6 +1618,93 @@ Fragmentos de código:
 Referencia de la notación:
 @ref{Cabezas de nota especiales},
 @ref{Estilos de cabezas de nota}.
+
+
+@node Indicación de acordes de potencia o de quinta vacía
+@unnumberedsubsubsec Indicación de acordes de potencia o de quinta vacía
+@translationof Indicating power chords
+
+@funindex powerChords
+@funindex \powerChords
+
+@cindex potencia, acordes de
+@cindex acordes de potencia
+@cindex acordes de quinta vacía
+@cindex quinta vacía, acordes de
+@cindex vacía, acordes de quinta
+
+Los acordes de quinta vacía o acordes de potencia (@emph{power
+chords}) y sus símbolos se pueden tipografiar en el modo de acordes o
+como construcciones de acorde normales:
+
+@lilypond[quote,ragged-right,verbatim]
+ChordsAndSymbols = {
+  \chordmode {
+    \powerChords
+    e,,1:1.5
+    a,,1:1.5.8
+    \set minimumFret = #8
+    c,1:1.5
+    f,1:1.5.8
+  }
+  \set minimumFret = #5
+  <a, e>1
+  <g d' g'>1
+}
+\score {
+  <<
+    \new ChordNames {
+    \ChordsAndSymbols
+    }
+    \new Staff {
+      \clef "treble_8"
+      \ChordsAndSymbols
+    }
+    \new TabStaff {
+      \ChordsAndSymbols
+    }
+  >>
+}
+@end lilypond
+
+Los símbolos de acordes de quinta vacía se desactivan automáticamente
+tan pronto como se utiliza cualquiera de los otros modificadores de
+acorde:
+
+@lilypond[quote,ragged-right,verbatim]
+mixedChords = \chordmode {
+  c,1
+  \powerChords
+  b,,1:1.5
+  fis,,1:1.5.8
+  g,,1:m
+}
+\score {
+  <<
+    \new ChordNames {
+      \mixedChords
+    }
+    \new Staff {
+      \clef "treble_8"
+      \mixedChords
+    }
+    \new TabStaff {
+      \mixedChords
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Glosario musical:
+@rglos{power chord}.
+
+Referencia de la notación:
+@ref{Acordes extendidos y alterados},
+@ref{Impresión de los nombres de acorde}.
+
+Fragmentos de código:
+@rlsr{Fretted strings}.
 
 
 @node Banjo

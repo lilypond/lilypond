@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 87a9977bbd54e3822338e290716845d8e2e304e3
+    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.13.29"
+@c \version "2.13.36"
 
 @node Interfaces para programadores
 @chapter Interfaces para programadores

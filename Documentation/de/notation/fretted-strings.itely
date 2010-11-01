@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -576,7 +576,7 @@ gewünschten Bunddiagramm.  Es gibt drei unterschiedliche
 Darstellungsarten: normal, knapp und ausführlich.  Die drei
 Arten erzeugen die gleiche Ausgabe, aber mit jeweils mehr oder
 weniger Einzelheiten.  Einzelheiten zu Textbeschriftungsbefehlen
-findet sich in @ref{Text markup commands}.
+findet sich in @ref{Textbeschriftungsbefehle}.
 
 Die Standard-Bunddiagrammbeschriftung beinhaltet die Saitennummer
 und die Bundnummer für jeden Punkt, der notiert werden soll.
@@ -963,7 +963,7 @@ Schnittstelle gehören dem @code{Voice.TextScript}-Kontext an.
 
 @seealso
 Notationsreferenz:
-@ref{Text markup commands}.
+@ref{Textbeschriftungsbefehle}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -1317,7 +1317,7 @@ werden.
 
 \storePredefinedDiagram #default-fret-table <c e g c' e'>
                         #guitar-tuning
-                        #"x;3-1-(;5-2;5-3;5-4;3-1-1);"
+                        #"x;3-1-(;5-2;5-3;5-4;3-1-1-);"
 <<
   \context ChordNames {
     \chordmode {
@@ -1370,6 +1370,8 @@ Fingersatz kann zu FretBoard-Bunddiagrammen hinzugefügt werden.
   }
 >>
 @end lilypond
+
+@funindex minimumFret
 
 Der kleinste Bund, der benutzt wird, um Saiten und Bünde im
 FretBoard-Kontext zu errechnen, kann mit der
@@ -1460,7 +1462,7 @@ werden und ein Leerzeichen nach dem schließenden @code{>}.}
 <g-\rightHandFinger #3 >
 <c-\rightHandFinger #4 >
 <c,-\rightHandFinger #1 e-\rightHandFinger #2
-  g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+ g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 @end lilypond
 
 Zur Erleichterung kann der Befehl @code{\rightHandFinger} zu ein paar
@@ -1503,6 +1505,7 @@ werden.
 @menu
 * Position und Barré anzeigen::
 * Flageolett und gedämpfte Noten::
+* Powerakkorde anzeigen::
 @end menu
 
 @node Position und Barré anzeigen
@@ -1519,13 +1522,13 @@ werden.
 Das Beispiel zeigt, wie man Griff- und Barréposition
 notieren kann.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=0]
+@lilypond[quote,ragged-right,verbatim,relative=0]
 \clef "treble_8"
 b16 d g b e
 \textSpannerDown
 \override TextSpanner #'(bound-details left text) = #"XII "
-  g16\startTextSpan
-  b16 e g e b g\stopTextSpan
+g16\startTextSpan
+b16 e g e b g\stopTextSpan
 e16 b g d
 @end lilypond
 
@@ -1621,6 +1624,90 @@ Notationsreferenz:
 
 Schnipsel:
 @rlsr{Fretted strings}.
+
+
+@node Powerakkorde anzeigen
+@unnumberedsubsubsec Powerakkorde anzeigen
+@translationof Indicating power chords
+
+@funindex powerChords
+@funindex \powerChords
+
+@cindex Powerakkorde
+@cindex Powerchords
+
+Powerakkorde und ihre Symbole können im Akkordmodus oder als Akkordkonstruktionen
+gesetzt werden:
+
+@lilypond[quote,ragged-right,verbatim]
+ChordsAndSymbols = {
+  \chordmode {
+    \powerChords
+    e,,1:1.5
+    a,,1:1.5.8
+    \set minimumFret = #8
+    c,1:1.5
+    f,1:1.5.8
+  }
+  \set minimumFret = #5
+  <a, e>1
+  <g d' g'>1
+}
+\score {
+  <<
+    \new ChordNames {
+    \ChordsAndSymbols
+    }
+    \new Staff {
+      \clef "treble_8"
+      \ChordsAndSymbols
+    }
+    \new TabStaff {
+      \ChordsAndSymbols
+    }
+  >>
+}
+@end lilypond
+
+Powerakkord-Symbole werden automatisch ausgeschaltet, wenn einer der anderen
+normalen Akkord-Modifikatoren verwendet wird:
+
+@lilypond[quote,ragged-right,verbatim]
+mixedChords = \chordmode {
+  c,1
+  \powerChords
+  b,,1:1.5
+  fis,,1:1.5.8
+  g,,1:m
+}
+\score {
+  <<
+    \new ChordNames {
+      \mixedChords
+    }
+    \new Staff {
+      \clef "treble_8"
+      \mixedChords
+    }
+    \new TabStaff {
+      \mixedChords
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Glossar:
+@rglos{power chord}.
+
+Notationsreferenz:
+@ref{Erweiterte und modifizierte Akkorde},
+@ref{Akkordbezeichnungen drucken}.
+
+Schnipsel:
+@rlsr{Fretted strings}.
+
+
 
 
 @node Banjo

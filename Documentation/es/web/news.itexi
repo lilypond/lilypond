@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c22f75eaf6692b4498251f4d57fc5e7af9f79891
+    Translation of GIT committish: 7ae82be4db35cc92754263deac3907412d1612d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,64 @@ NOTE:
 
   * don't duplicate entries from news-front.itexi
 @end ignore
+
+
+
+@newsItem
+@subsubheading Segunda versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.35! @emph{29 de septiembre de 2010}
+
+Ha salido LilyPond 2.13.35; ésta es la segunda versión alfa de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún existen tres regresiones conocidas contra 2.12.3:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
+Problema número 1173 - No se pueden alinear las MetronomeMarks sobre
+una nota si existe un silencio multicompás en otra voz}, y dos fallos
+de espaciado:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1240,
+Problema 1240} y
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1252,
+Problema 1252} pero esperamos encontrar más.  Si se decide a probar
+2.13.35, no se sorprenda al encontrar problemas; tan sólo envíenos
+@ref{Informes de fallos} educados.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.34! @emph{21 de septiembre de 2010}
+
+Ha salido LilyPond 2.13.34; ésta es la primera versión alfa de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún existe una regresión conocida contra 2.12.3:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
+Problema número 1173 - No se pueden alinear las MetronomeMarks sobre una
+nota si existe un silencio multicompás en otra voz}, pero esperamos
+encontrar más.  Si se decide a probar 2.13.34, no se sorprenda al
+encontrar problemas; tan sólo envíenos @ref{Informes de fallos}
+educados.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.33!  @emph{10 de septiembre de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.33.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+
+@newsEnd
+
+
 
 
 @newsItem
@@ -100,21 +158,16 @@ todos a que hagan sus comentarios y contribuciones!
 
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.13.26!  @emph{26 de junio de 2010}
-@subsubheading LilyPond 2.13.29 released!  @emph{Aug 4, 2010}
+@subsubheading ¡Lanzado LilyPond 2.13.29!  @emph{4 de agosto de 2010}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.13.26.  Esta
+Nos complace anunciar el lanzamiento de LilyPond 2.13.29.  Esta
 versión contiene el conjunto habitual de correcciones de fallos.  Sin
 embargo, aún quedan algunos problemas críticos, por lo que esta
 versión está orientada solamente a los desarrolladores.
 
-We are happy to announce the release of LilyPond 2.13.29.  This
-release contains the usual number of bugfixes.  However, a number
-of critical issues still remain, so this release is intended for
-developers only.
-
-This release radically changes the autobeaming rules, so use extra
-caution and expect breakage.
+Esta versión cambia radicalmente las reglas del barrado automático,
+por lo que debe emplear un cuidado especial y estar preparado para
+algún resultado inesperado.
 @newsEnd
 
 

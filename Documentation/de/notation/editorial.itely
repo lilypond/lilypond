@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -155,7 +155,7 @@ Referenz der Interna:
 @funindex finger
 
 Fingersatzanweisungen können folgenderweise notiert werden:
-@var{Note}-@var{Zahl}
+@samp{Note}-@var{Zahl}
 
 @lilypond[verbatim,quote,relative=2]
 c4-1 d-2 f-4 e-3
@@ -314,8 +314,8 @@ e
 
 Die ganze Farbpalette, die für X11 definiert ist, kann mit der
 Scheme-Funktion @code{x11-color} benutzt werden.  Diese Funktion
-hat ein Argument: entweder ein Symbol in der Form @var{'FooBar}
-oder eine Zeichenkette in der Form @code{"FooBar"}.  Die erste
+hat ein Argument: entweder ein Symbol in der Form @code{'@var{FooBar}}
+oder eine Zeichenkette in der Form @code{"@var{FooBar}"}.  Die erste
 Form ist schneller zu schreiben und effizienter.  Mit der zweiten
 Form ist es allerdings möglich, auch Farbbezeichnungen einzusetzen,
 die aus mehr als einem Wort bestehen.

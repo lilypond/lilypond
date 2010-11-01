@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
+    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -200,11 +200,11 @@ Kleine MollSept
 @tab
 Molldreiklang, große Septime
 @tab
-@code{maj7.3-}
+@code{m7+}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:maj7.5-
+  c1:m7+
 }
 @end lilypond
 
@@ -387,6 +387,34 @@ perfekte Quarte, perfekte Quinte
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:sus4
+}
+@end lilypond
+
+@item
+Powerakkord (zweistimmig)
+@tab
+Perfekte Quinte
+@tab
+@code{1.5}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  \powerChords
+  c1:1.5
+}
+@end lilypond
+
+@item
+Powerakkord (dreistimmig)
+@tab
+Perfekte Quinte, Oktave
+@tab
+@code{1.5.8}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  \powerChords
+  c1:1.5.8
 }
 @end lilypond
 
@@ -1382,8 +1410,8 @@ Referenz der Interna:
 @include identifiers.tely
 
 
-@node Vordefinierte Typprädikate
-@appendixsec Vordefinierte Typprädikate
+@node Vordefinierte Typenprädikate
+@appendixsec Vordefinierte Typenprädikate
 @translationof Predefined type predicates
 
 @include type-predicates.tely

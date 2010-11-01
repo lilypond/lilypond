@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.29"
+@c \version "2.13.36"
 
 @node Duraciones
 @section Duraciones
@@ -639,7 +639,7 @@ predefinidas que se muestran aquí:
 
 @c \time 16/1 is used to avoid spurious bar lines
 @c and long tracts of empty measures
-@lilypond[fragment,quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 \new Staff {
   % These two lines are just to prettify this example
   \time 16/1
@@ -757,7 +757,7 @@ por omisión de las notas siguientes, a diferencia de@tie{}@code{s}.
 @lilypond[quote,verbatim,relative=2]
 <<
   {
-    \repeat unfold 8 {a4}
+    \repeat unfold 8 { a4 }
   }
   {
     a4 \skip 2 a |
@@ -770,14 +770,14 @@ Un silencio de separación produce implícitamente contextos
 @code{Staff} y @code{Voice} si no existe ninguno, igual que las notas
 y los silencios normales:
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim,relative=2]
 s1 s s
 @end lilypond
 
 @code{\skip} tan sólo desplaza un tiempo musical; no produce ninguna
 salida, de ninguna clase.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim,relative=2]
 % This is valid input, but does nothing
 \skip 1 \skip1 \skip 1
 @end lilypond
@@ -828,7 +828,7 @@ notación de la duración que se usa para las notas.  La duración de un
 silencio multi-compás debe ser siempre un número entero de compases,
 por lo que con frecuencia han de utilizarse puntillos o fracciones:
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,verbatim,relative=2]
 \compressFullBarRests
 \time 2/4
 R1 | R2 |
@@ -844,7 +844,7 @@ Un silencio de un compás completo se imprime como un silencio de
 redonda o de breve, centrado en el compás, según el tipo de compás
 vigente.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim,relative=2]
 \time 4/4
 R1 |
 \time 6/4
@@ -867,7 +867,7 @@ silencio.  De forma alternativa, un silencio multicompás se puede
 presentar como un solo compás que contiene un símbolo de silencio
 multicompás, con el número de compases impreso encima del compás:
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,verbatim,relative=2]
 % Default behavior
 \time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
@@ -899,7 +899,7 @@ Se pueden añadir elementos de marcado a los silencios multicompás.  Se
 proporciona la instrucción predefinida @code{\fermataMarkup} para
 añadir calderones.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim,relative=2]
 \compressFullBarRests
 \time 3/4
 R2.*10^\markup { \italic "ad lib." }
@@ -912,11 +912,11 @@ multicompás son objetos del tipo @code{MultiMeasureRestText}, no
 dirigidas hacia el objeto correcto, o se ignorarán.  Véase el ejemplo
 siguiente.}
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim,relative=2]
 % This fails, as the wrong object name is specified
 \override TextScript #'padding = #5
 R1^"wrong"
-% This is correct and works
+% This is the correct object name to be specified
 \override MultiMeasureRestText #'padding = #5
 R1^"right"
 @end lilypond
@@ -1104,7 +1104,7 @@ existentes se pueden cambiar, o pueden añadirse valores nuevos:
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
-    \repeat unfold 8 c8 |
+    \repeat unfold 8 { c8 } |
   }
 }
 @end lilypond
@@ -1146,7 +1146,7 @@ compás se pueden restaurar a los valores originales:
 @lilypond[quote,verbatim]
 \score{
   \relative c' {
-    \repeat unfold 8 c8 |
+    \repeat unfold 8 { c8 } |
     \overrideTimeSignatureSettings
       #'Score                         % context
       #'(4 . 4)                       % timeSignatureFraction
@@ -1154,10 +1154,10 @@ compás se pueden restaurar a los valores originales:
       #'(3 1)                         % beatStructure
       #'((end . (((1 . 8) . (3 1))))) % beamExceptions
     \time 4/4
-    \repeat unfold 8 c8 |
+    \repeat unfold 8 { c8 } |
     \revertTimeSignatureSettings #'Score #'(4 . 4)
     \time 4/4
-    \repeat unfold 8 c8 |
+    \repeat unfold 8 { c8 } |
   }
 }
 @end lilypond
@@ -1389,7 +1389,7 @@ activarlos de nuevo use @code{\cadenzaOff}.
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
 \cadenzaOn
-c4 c d8 d d f4 g4.
+c4 c d8[ d d] f4 g4.
 \cadenzaOff
 \bar "|"
 d4 e d c
@@ -1403,7 +1403,7 @@ la cadencia no existiera:
 \override Score.BarNumber #'break-visibility = #all-visible
 c4 d e d
 \cadenzaOn
-c4 c d8 d d f4 g4.
+c4 c d8[ d d] f4 g4.
 \cadenzaOff
 \bar "|"
 d4 e d c
@@ -1460,13 +1460,16 @@ Debemos crear un contexto de voz explícitamente al empezar una
 pieza con @code{\cadenzaOn}, pues en caso contrario pueden
 ocurrir algunos errores extraños.
 
-@lilypond[verbatim,relative=2,quote]
-\new Voice \relative c'{
-  \cadenzaOn
-  c16^"Solo Free Time" d e f g2. \bar "||"
-  \cadenzaOff
-}
-@end lilypond
+@example
+\new Voice @{
+  \relative c' @{
+    \cadenzaOn
+    c16[^"Solo Free Time" d e f] g2.
+    \bar "||"
+    \cadenzaOff
+  @}
+@}
+@end example
 
 @node Notación polimétrica
 @unnumberedsubsubsec Notación polimétrica
@@ -1513,7 +1516,7 @@ las duraciones que se muestran están multiplicadas por 3/5, pues 3/5 *
 forma manual, pues el escalado de las duraciones afecta a las reglas
 de barrado automático.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 \relative c' <<
   \new Staff {
     \time 3/4
@@ -1730,7 +1733,6 @@ rasgueado.  Esto se puede hacer con el grabador
       c1 f g c
     }
   }
-
   \new Voice \with {
     \consists Pitch_squash_engraver
   } \relative c'' {
@@ -1795,7 +1797,7 @@ automáticamente:
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4 c8 c c c
-\time 6/8 c c c c8. c16 c8
+\time 6/8 c8 c c c8. c16 c8
 @end lilypond
 
 Cuando estas decisiones automáticas no son lo bastante buenas, se
@@ -2001,11 +2003,11 @@ barrado nuevo.}
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
-c8^"beats" c16 c8 |
-\set beatStructure = #'(2 3)
-c8^"(2+3)" c16 c8
-\set beatStructure = #'(3 2)
-c8^"(3+2)" c16 c8
+c16^"default" c c c c |
+\set Timing.beatStructure = #'(2 3)
+c16^"(2+3)" c c c c |
+\set Timing.beatStructure = #'(3 2)
+c16^"(3+2)" c c c c |
 @end lilypond
 
 Los cambios en los ajustes de barrado se pueden limitar a contextos
@@ -2040,7 +2042,7 @@ pentagrama:
 @lilypond[quote,verbatim,relative=2]
 \time 7/8
 % rhythm 3-1-1-2
-% Context Voice specified --  does not work correctly
+% Change applied to Voice by default --  does not work correctly
 % Because of autogenerated voices, all beating will
 % be at baseMoment (1 . 8)
 \set beatStructure = #'(3 1 1 2)
@@ -2056,14 +2058,14 @@ comportamiento predeterminado.  Esto se consigue mediante el
 ajuste de la indicación de compás.
 
 @lilypond[quote,verbatim,relative=2]
-\time 4/4
-\repeat unfold 8 {a8}
-% eliminate beam exception that groups beats 1, 2 and 3, 4
-\set Timing.beamExceptions = #'()
-\repeat unfold 8 {a8}
+\time 6/8
+\repeat unfold 6 { a8 }
+% group (4 + 2)
+\set Timing.beatStructure = #'(4 2)
+\repeat unfold 6 { a8 }
 % go back to default behavior
-\time 4/4
-\repeat unfold 8 {a8}
+\time 6/8
+\repeat unfold 6 { a8 }
 @end lilypond
 
 
@@ -2132,7 +2134,7 @@ especifican manualmente marcando los puntos de comienzo y final con
 @code{[} y @code{]}
 
 @lilypond[quote,relative=1,verbatim]
-r4 r8[ g' a r8] r8 g[ | a] r8
+r4 r8[ g' a r] r g[ | a] r
 @end lilypond
 
 @cindex barras manuales, abreviatura de dirección
@@ -2164,7 +2166,7 @@ de las barras de notas normales.
 @lilypond[quote,verbatim,relative=2]
 c4 d8[
 \grace { e32[ d c d] }
-e8] e8[ e
+e8] e[ e
 \grace { f16 }
 e8 e]
 @end lilypond
@@ -2713,10 +2715,10 @@ de un compás.
 @lilypond[quote,verbatim]
 pipeSymbol = \bar "||"
 {
-  c'2 c'2 |
-  c'2 c'2
-  c'2 | c'2
-  c'2 c'2
+  c'2 c' |
+  c'2 c'
+  c'2 | c'
+  c'2 c'
 }
 @end lilypond
 

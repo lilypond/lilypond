@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fe2cae0fa47ec4ec0184e6b3d15572fbcba881cf
+    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.29"
+@c \version "2.13.36"
 
 
 @node Conceptos fundamentales
@@ -1530,18 +1530,13 @@ donde @var{tipo} es el nombre de un contexto (como @code{Staff} o
 interpretar la @var{expresión_musical} que está dentro de ese
 contexto.
 
-(Observe que normalmente no se necesita una instrucción @code{\new
-Score}, pues el contexto esencial del nivel superior, @code{Score}, se
-crea automáticamente cuando se interpreta la expresión musical que
-está dentro del bloque @code{\score}.  La única razón para crear un
-contexto @code{Score} explícitamente utilizando @code{\new Score} es
-introducir un bloque @code{\with} en el que se pueden especificar uno
-o más valores predeterminados de propiedades de contexto para toda la
-partitura.  Se puede encontrar más información sobre el uso de los
-bloques @code{\with} bajo el epígrafe @qq{Setting context properties
-with @code{\\with} } en @ref{Modificar las propiedades de los
-contextos}).
-
+@warning{No se debe usar @bs{}@code{new Score} porque el contexto
+@code{Score} esencial del nivel superior ya se crea automáticamente al
+interpretarse la expresión musical que está dentro del bloque
+@bs{}@code{score}.  Los valores predeterminados de propiedades de
+contexto válidos para toda la partitura se pueden cambiar dentro del
+bloque @bs{}@code{layout}.  Véase @ref{Modificar las propiedades de
+los contextos}.}
 
 En las secciones anteriores ha podido ver muchos ejemplos prácticos que
 creaban nuevos contextos de @code{Staff} y de @code{Voice}, pero para
@@ -1961,27 +1956,6 @@ de la siguiente forma:
 >>
 @end lilypond
 
-O bien, si la sobreescritura de la propiedad se va a aplicar a todos
-los pentagramas de la partitura, se puede añadir a una instrucción
-@code{\new Score} explícita, como se ve a continuación:
-
-@lilypond[quote,verbatim,ragged-right]
-\score {
-  \new Score \with { extraNatural = ##f } <<
-    \new Staff {
-      \relative c'' {
-        gis4 ges aes ais
-      }
-    }
-    \new Staff {
-      \relative c'' {
-        gis4 ges aes ais
-      }
-    }
-  >>
-}
-@end lilypond
-
 Las propiedades ajustadas de esta manera aún pueden cambiarse
 dinámicamente utilizando @code{\set} y ser devueltas al valor
 predeterminados que se estableció en el bloque @code{\with} mediante
@@ -2027,6 +2001,31 @@ continuación presentamos un ejemplo que muestra el formato:
     \context {
       \Staff
       extraNatural = ##t
+    }
+  }
+}
+@end lilypond
+
+Si se quiere aplicar la sobreescritura de propiedades a todos los
+pentagramas de la partitura:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \relative c'' {
+        gis4 ges aes ais
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        gis4 ges aes ais
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score extraNatural = ##f
     }
   }
 }
@@ -3073,6 +3072,9 @@ PedalOrganMusic = \relative c {
 }  % end Score context
 @end lilypond
 
+@seealso
+Glosario musical:
+@rglos{system}.
 
 @node Ahorrar tecleo mediante variables y funciones
 @subsection Ahorrar tecleo mediante variables y funciones
