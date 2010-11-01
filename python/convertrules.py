@@ -2950,8 +2950,8 @@ you must now specify the distances between staves rather than the offset of stav
     str = re.sub ('ly:(system-start-text::print|note-head::brew-ez-stencil|ambitus::print)',
                   '\\1', str)
     str = re.sub ('(\\bBeam\\s+#\')(?=thickness\\b)', '\\1beam-', str)
-    str = re.sub (r'(\\context\s*\{{1}[^\}]+\\name\s+"*Dynamics"*[^\}]*\}{1})',
-                  '', str)
+    str = re.sub (r'(\\context\s*\{{1}[^\}]+\\type\s+\"?Engraver_group\"?\s+\\name\s+"*Dynamics"*[^\}]*\}{1})',
+                  '% [Convert-ly] The Dynamics context is now included by default.', str)
     return str
 
 @rule ((2, 13, 10),
