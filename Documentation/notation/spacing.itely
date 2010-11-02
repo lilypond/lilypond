@@ -292,54 +292,28 @@ largest of:
 eliminate collisions.
 @end itemize
 
-
-@subsubheading Modifying spacing alists for @code{\paper} variables
-
-To set or modify a single key for a dimension variable, use a
-nested declaration:
-
-@example
-\paper @{
-  system-system-spacing #'space = #10
-@}
-@end example
-
-This will update the specified key without altering any other keys
-already set for the same variable.  To completely re-define a
-variable with one declaration, define it as an alist:
+Specific methods for modifying alists are discussed in
+@ref{Modifying alists}.  The flexible vertical @code{\paper}
+dimensions variables can only be set within a @code{\paper} block.
+The following example demonstrates the two ways these alists can
+be modified:
 
 @example
 \paper @{
-  system-system-spacing =
+  % updating one key-value individually
+  system-system-spacing #'space = #8
+
+  % completely re-defining a variable
+  score-system-spacing =
     #'((padding . 1)
        (space . 12)
-       (minimum-distance . 8)
+       (minimum-distance . 6)
        (stretchability . 12))
 @}
 @end example
 
-However, note that any keys not listed in an alist definition will
-still be overwritten; they will be reset to zero (except
-@code{stretchability}, which takes the value of @code{space}).
-Thus the following two declarations are equivalent:
-
-@example
-system-system-spacing =
-  #'((space . 10))
-
-system-system-spacing =
-  #'((padding . 0)
-     (space . 10)
-     (minimum-distance . 0)
-     (stretchability . 10))
-@end example
-
-One possibly unintended consequence of the above example is the
-removal of the default values for @code{padding} and
-@code{minimum-distance}.  Defining a variable as an alist (of any
-size) will always reset all its default key-values.  Default
-settings for the flexible vertical @code{\paper} dimensions are
-defined in @file{ly/paper-defaults-init.ly}.
+The initialized default settings for these variables are defined
+in @file{ly/paper-defaults-init.ly}.
 
 
 @subsubheading Flexible vertical dimension @code{\paper} variables
