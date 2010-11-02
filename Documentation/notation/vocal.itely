@@ -57,23 +57,37 @@ that may arise in any type of vocal music.
 @itemize
 
 @item
-Most styles of vocal music use written text as lyrics.  An introduction
-to this notation is to be found in @rlearning{Setting simple songs}.
+Most styles of vocal music use written text as lyrics.  An
+introduction to this notation is to be found in
+@rlearning{Setting simple songs}.
 
 @item
-Vocal music is likely to require the use of @code{markup} mode, either
-for lyrics of for other text elements (character's names, etc.).
-This syntax is described in @ref{Text markup introduction}.
+Vocal music is likely to require the use of @code{markup} mode,
+either for lyrics or for other text elements (characters' names,
+etc.)  This syntax is described in @ref{Text markup introduction}.
 
 @item
-@notation{Ambitus} may be added at the beginning of vocal staves, as explained
-in @ref{Ambitus}.
+@notation{Ambitus} may be added at the beginning of vocal staves,
+as explained in @ref{Ambitus}.
+
+@item
+Dynamic markings by default are placed below the staff, but in
+choral music they are usually placed above the staff in order to
+avoid the lyrics, as explained in @ref{Score layouts for choral}.
 
 @end itemize
 
 @seealso
 Music Glossary:
 @rglos{ambitus}.
+
+Learning Manual:
+@rlearning{Setting simple songs}.
+
+Notation Reference:
+@ref{Text markup introduction},
+@ref{Ambitus},
+@ref{Score layouts for choral}.
 
 Snippets:
 @rlsr{Vocal music}.
