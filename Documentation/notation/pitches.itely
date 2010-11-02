@@ -564,7 +564,7 @@ Most languages presented here are commonly associated with
 Western classical music, also referred to as
 @notation{Common Practice Period}.  However, alternate
 pitches and tuning systems are also supported: see
-@ref{Non-Western notation and tuning systems}.
+@ref{Common notation for non-Western music}.
 
 
 @seealso
@@ -573,7 +573,7 @@ Music Glossary:
 @rglos{Common Practice Period}.
 
 Notation Reference:
-@ref{Non-Western notation and tuning systems}.
+@ref{Common notation for non-Western music}.
 
 Snippets:
 @rlsr{Pitches}.
