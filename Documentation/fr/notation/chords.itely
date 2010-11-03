@@ -50,7 +50,7 @@ S'il est possible d'entrer un accord sous sa forme musicale, avec
 traite les accords comme des ensembles de hauteurs, donc les accords
 peuvent être transposés.
 
-@lilypond[quote,ragged-right,verbatim,ragged-right]
+@lilypond[quote,ragged-right,verbatim]
 twoWays = \transpose c c' {
   \chordmode {
     c1 f:sus4 bes/f
@@ -84,7 +84,7 @@ Notez bien que la valeur rythmique des accords doit être indiquée
 Dans le mode accords, introduit par la commande @code{\chordmode}, les
 accords ne sont indiqués que par leur note fondamentale.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { es4. d8 c2 }
 @end lilypond
 
@@ -94,7 +94,7 @@ accords ne sont indiqués que par leur note fondamentale.
 On peut cependant obtenir des accords différents, en utilisant le
 caractère deux points (@code{:}).
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,verbatim]
 \chordmode { e1:m e1:7 e1:m7 }
 @end lilypond
 
@@ -103,7 +103,7 @@ jazz de l'accord, qui est de ce fait construit par un empilement de
 tierces. Notez l'exception que constitue @code{c:13} dans lequel la
 onzième est délibérément omise.
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,verbatim]
 \chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 c:13 }
 @end lilypond
 
@@ -116,14 +116,14 @@ Des accords encore plus complexes peuvent être élaborés en plusieurs
 ajoutées, que l'on indique après le chiffrage principal et que l'on
 sépare par des points@tie{}:
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 \chordmode { c:5.6 c:3.7.8 c:3.6.13 }
 @end lilypond
 
 On peut augmenter ou diminuer certains intervalles au moyen des
 signes @code{-} ou @code{+}@tie{}:
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 \chordmode { c:7+ c:5+.3- c:3-.5-.7- }
 @end lilypond
 
@@ -131,7 +131,7 @@ On peut aussi enlever certaines notes de l'accord, en les spécifiant
 après un signe @code{^} -- les notes ajoutées doivent être indiquées
 @emph{avant} les notes à enlever.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 \chordmode { c^3 c:7^5 c:9^3.5 }
 @end lilypond
 
@@ -162,7 +162,7 @@ quarte.
 
 Il est bien sûr possible de mélanger ces chiffrages avec des notes
 ajoutées.
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
   \chordmode { c:sus4 c:7sus4 c:dim7 c:m6 }
 @end lilypond
 
@@ -177,7 +177,7 @@ Dans la mesure où un accord de treizième majeure ne sonne pas très bien
 avec la onzième, la onzième est enlevée automatiquement, à moins que
 vous ne le spécifiez explicitement.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { c:13 c:13.11 c:m13 }
 @end lilypond
 
@@ -185,7 +185,7 @@ vous ne le spécifiez explicitement.
 
 Les accords peuvent être renversés ou combinés avec une note étrangère à
 la basse, au moyen de @code{@var{accord}/}@var{note}
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { c1 c/g c/f }
 @end lilypond
 @funindex /+
@@ -194,7 +194,7 @@ Si la note de basse précisée appartient à l'accord, la doublure
 supérieure sera supprimée.  Pour l'éviter, utilisez la syntaxe
 @code{/+}@var{note}.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { c1 c/+g c/+f }
 @end lilypond
 
@@ -211,7 +211,7 @@ dans l'accord suivant, seule la quinte augmentée est prise en compte,
 car elle est indiquée en dernier@tie{}:
 
 @cindex agrégats
-@lilypond[quote,ragged-right,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { c:5.5-.5+ }
 @end lilypond
 
@@ -342,7 +342,7 @@ Les différents termes d'un chiffrage jazz (par exemple les notes de
 l'accord et la basse) sont habituellement séparés par une barre oblique.
 La propriété @code{chordNameSeparator} permet d'indiquer un autre
 séparateur, par exemple
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \new ChordNames \chordmode {
   c:7sus4
   \set chordNameSeparator
@@ -469,7 +469,7 @@ lui-même l'accompagnement.
 
 LilyPond gère la basse chiffrée.
 
-@lilypond[quote,ragged-right,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim]
 <<
   \new Voice { \clef bass dis4 c d ais g fis}
   \new FiguredBass \figuremode {
@@ -491,7 +491,7 @@ En mode de saisie, un chiffrage est délimité par @code{<} et
 @example
 <4 6>
 @end example
-@lilypond[quote,ragged-right,fragment]
+@lilypond[quote,ragged-right]
 \new FiguredBass
 \figuremode { <4 6> }
 @end lilypond
@@ -504,7 +504,7 @@ Les altérations s'obtiennent en ajoutant aux chiffres les caractères
 @example
 <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/>
 @end example
-@lilypond[quote,ragged-right,fragment]
+@lilypond[quote,ragged-right]
 \figures { <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/> }
 @end lilypond
 
@@ -515,7 +515,7 @@ chaînes de caractères ou des étiquettes --- cf. @ref{Text markup commands}.
 @example
 <[4 6] 8 [_! 12] > <5 \markup @{ \number 6 \super (1) @} >
 @end example
-@lilypond[quote,ragged-right,fragment]
+@lilypond[quote,ragged-right]
 \new FiguredBass
 \figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
 @end lilypond
@@ -605,7 +605,7 @@ déterminé par la propriété @code{baseline-skip}.
 On peut également ajouter une basse chiffrée directement à un contexte
 @code{Staff}.  L'alignement vertical est alors automatiquement ajusté.
 
-@lilypond[ragged-right,fragment,quote]
+@lilypond[ragged-right,quote]
 <<
   \new Staff = someUniqueName
   \relative c'' {

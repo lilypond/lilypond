@@ -290,7 +290,7 @@ En les enlevant du contexte @code{Score} pour les attribuer au contexte
 @cindex polymétrique, partition
 @cindex Chiffres de mesure multiples
 
-@lilypond[quote,relative=1,ragged-right,verbatim,fragment]
+@lilypond[quote,relative=1,ragged-right,verbatim]
 \new Score \with {
   \remove "Timing_translator"
   \remove "Default_bar_line_engraver"
@@ -712,7 +712,7 @@ ossia = { f4 f f f }
 
 Comment, par exemple, déplacer le doigté dans le fragment suivant ?
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[quote,relative=2,verbatim]
 c-2
 \stemUp
 f
@@ -947,7 +947,7 @@ en fait directement engendrée par cette définition.
 
 Nous voulions changer la position du chiffre @b{2} dans le fragment suivant :
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[quote,relative=2,verbatim]
 c-2
 \stemUp
 f
@@ -1007,7 +1007,7 @@ note.  La commande suivante insère trois unités d'espace vide entre la note et
 En ajoutant cette commande avant la création du doigté (de l'objet @q{Fingering}),
 donc avant @code{c2}, on obtient le résultat suivant :
 
-@lilypond[quote,relative=2,fragment,verbatim]
+@lilypond[quote,relative=2,verbatim]
 \once \override Voice.Fingering #'padding = #3
 c-2
 \stemUp
@@ -1080,7 +1080,7 @@ commande @code{\set}.
 @end example
 
 Ainsi :
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 R1*2
 \set Score.skipBars = ##t
 R1*2
@@ -1096,7 +1096,7 @@ Si l'argument @var{contexte} n'est pas spécifié, alors la propriété chercher
 dans le contexte le plus restreint où elle est employée : le plus souvent
  @code{ChordNames}, @code{Voice}, ou @code{Lyrics}.  Dans l'exemple suivant,
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 c8 c c c
 \set autoBeaming = ##f
 c8 c c c
@@ -1111,7 +1111,7 @@ et peut ne pas contenir la propriété qui vous intéresse : ainsi, la propriét
 @code{skipBars}, évoquée plus haut, ne relève pas du contexte @code{Voice},
 et le code suivant ne fonctionnera pas.
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 R1*2
 \set skipBars = ##t
 R1*2
@@ -1170,7 +1170,7 @@ là encore, de spécifier le @var{contexte}.  Ainsi, les deux lignes suivantes s
 Pour modifier une propriété de façon à ce qu'elle ne s'applique qu'une seule fois,
 il convient d'employer la commande @code{\once} :
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 c4
 \once \set fontSize = #4.7
 c4
@@ -1267,7 +1267,7 @@ du fichier source, on peut utiliser la commande @code{\tweak}.
 
 Dans l'accord suivant, les notes sont modifiées une par une :
 
-@lilypond[relative=2,fragment,verbatim,ragged-right]
+@lilypond[relative=2,verbatim,ragged-right]
 <
   c
   \tweak #'color #red d

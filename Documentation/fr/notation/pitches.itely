@@ -62,11 +62,13 @@ Les notes @code{c} (do) et @code{b} (si) sont écrites une octave sous le
 do central. 
 
 @c don't use c' here.
-@lilypond[verbatim,quote,fragment]
-\clef bass
-c d e f
-g a b c
-d e f g
+@lilypond[verbatim,quote]
+{
+  \clef bass
+  c4 d e f
+  g4 a b c
+  d4 e f g
+}
 @end lilypond
 
 @cindex octave, spécification
@@ -79,13 +81,15 @@ d'apostrophes@tie{}@code{'} ou d'une série de virgules@tie{}@code{,}.
 Chaque@tie{}@code{'} hausse la note d'une octave@tie{};
 chaque@tie{}@code{,} baisse la note d'une octave.
 
-@lilypond[verbatim,quote,fragment]
-\clef treble
-c' c'' e' g
-d'' d' d c
-\clef bass
-c, c,, e, g
-d,, d, d c
+@lilypond[verbatim,quote]
+{
+  \clef treble
+  c'4 c'' e' g
+  d''4 d' d c
+  \clef bass
+  c,4 c,, e, g
+  d,,4 d, d c
+}
 @end lilypond
 
 
