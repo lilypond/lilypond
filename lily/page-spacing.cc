@@ -63,7 +63,8 @@ Page_spacing::append_system (const Line_details &line)
   Real refpoint_dist = last_line_.tallness_
     + last_line_.refpoint_extent_[DOWN]
     - line.refpoint_extent_[UP];
-  spring_len_ += max (0.0, line.space_ - refpoint_dist);
+  Real space = line.title_ ? last_line_.title_space_ : last_line_.space_;
+  spring_len_ += max (0.0, space - refpoint_dist);
   inverse_spring_k_ += line.inverse_hooke_;
 
   last_line_ = line;
@@ -84,7 +85,8 @@ Page_spacing::prepend_system (const Line_details &line)
   Real refpoint_dist = line.tallness_
     + line.refpoint_extent_[DOWN]
     - first_line_.refpoint_extent_[UP];
-  spring_len_ += max (0.0, line.space_ - refpoint_dist);
+  Real space = first_line_.title_ ? line.title_space_ : line.space_;
+  spring_len_ += max (0.0, space - refpoint_dist);
   inverse_spring_k_ += line.inverse_hooke_;
 
   first_line_ = line;

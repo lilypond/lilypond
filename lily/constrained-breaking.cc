@@ -381,6 +381,7 @@ Constrained_breaking::initialize ()
   ragged_right_ = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
   ragged_last_ = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
   system_system_space_ = 0;
+  system_markup_space_ = 0;
   system_system_padding_ = 0;
   system_system_min_distance_ = 0;
   score_system_padding_ = 0;
@@ -401,6 +402,10 @@ Constrained_breaking::initialize ()
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
 					  &system_system_space_,
 					  ly_symbol2scm ("space"));
+  Page_layout_problem::read_spacing_spec (title_spec,
+					  &system_markup_space_,
+					  ly_symbol2scm ("space"));
+
   Page_layout_problem::read_spacing_spec (spacing_spec,
 					  &system_system_padding_,
 					  ly_symbol2scm ("padding"));
@@ -413,6 +418,7 @@ Constrained_breaking::initialize ()
   Page_layout_problem::read_spacing_spec (title_spec,
 					  &score_markup_padding_,
 					  ly_symbol2scm ("padding"));
+
   Page_layout_problem::read_spacing_spec (between_scores_spec,
 					  &score_system_min_distance_,
 					  ly_symbol2scm ("minimum-distance"));
@@ -510,6 +516,7 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
   out->min_distance_ = last ? score_system_min_distance_ : system_system_min_distance_;
   out->title_min_distance_ = score_markup_min_distance_;
   out->space_ = system_system_space_;
+  out->title_space_ = system_markup_space_;
   out->inverse_hooke_ = out->full_height () + system_system_space_;
 
   out->refpoint_extent_ = sys->pure_refpoint_extent (start_rank, end_rank);
@@ -534,6 +541,10 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   title_padding_ = 0;
   min_distance_ = 0;
   title_min_distance_ = 0;
+  space_ = 0;
+  title_space_ = 0;
+  Page_layout_problem::read_spacing_spec (spec, &space_, ly_symbol2scm ("space"));
+  Page_layout_problem::read_spacing_spec (title_spec, &title_space_, ly_symbol2scm ("space"));
   Page_layout_problem::read_spacing_spec (spec, &padding_, ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (title_spec, &title_padding_, ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (spec, &min_distance_, ly_symbol2scm ("minimum-distance"));
@@ -545,7 +556,6 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   shape_ = Line_shape (stencil_extent, stencil_extent); // pretend it goes all the way across
   tallness_ = 0;
   bottom_padding_ = 0;
-  space_ = 0.0;
   inverse_hooke_ = 1.0;
   break_permission_ = ly_symbol2scm ("allow");
   page_permission_ = pb->get_property ("page-break-permission");

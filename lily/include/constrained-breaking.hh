@@ -58,6 +58,7 @@ struct Line_details {
   Real title_min_distance_;
   Real bottom_padding_;
   Real space_;    /* spring length */
+  Real title_space_;
   Real inverse_hooke_;
 
   SCM break_permission_;
@@ -90,6 +91,7 @@ struct Line_details {
     min_distance_ = 0;
     title_min_distance_ = 0;
     space_ = 0;
+    title_space_ = 0;
     inverse_hooke_ = 1;
     tight_spacing_ = false;
     break_permission_ = ly_symbol2scm ("allow");
@@ -164,6 +166,7 @@ private:
   Real system_system_min_distance_;
   Real system_system_padding_;
   Real system_system_space_;
+  Real system_markup_space_;
   Real score_system_min_distance_;
   Real score_system_padding_;
   Real score_markup_min_distance_;
