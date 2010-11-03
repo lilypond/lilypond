@@ -454,7 +454,7 @@ The available languages and the note names they define are:
 
 @quotation
 @multitable {@code{nederlands}} {do re mi fa sol la sib si}
-@headitem Language File
+@headitem Language
   @tab Note Names
 @item @code{nederlands}
   @tab c d e f g a bes b
@@ -486,7 +486,7 @@ also vary depending on the language:
 
 @quotation
 @multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
-@headitem Language File
+@headitem Language
   @tab sharp @tab flat @tab double sharp @tab double flat
 @item @code{nederlands}
   @tab -is @tab -es @tab -isis @tab -eses
@@ -542,7 +542,7 @@ appear in this table do not provide special note names yet.
 
 @quotation
 @multitable {@code{nederlands}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
-@headitem Language File
+@headitem Language
   @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
 
 @item @code{nederlands}
