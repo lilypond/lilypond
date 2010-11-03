@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: 14afb1ede443ad0ed187558424be2b78eaeeda41
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,15 +19,17 @@ son de relevancia a las tradiciones musicales distintas a la
 occidental.
 
 @menu
-* Nombres de las notas y alteraciones no occidentales::
+* Sistemas de notación y afinación no occidentales::
 * Música árabe::
 * Música clásica de Turquía::
 @end menu
 
 
-@node Nombres de las notas y alteraciones no occidentales
-@subsection Nombres de las notas y alteraciones no occidentales
+@node Sistemas de notación y afinación no occidentales
+@subsection Sistemas de notación y afinación no occidentales
 @translationof Non-Western notation and tuning systems
+
+@c TODO: adapt & expand. -vv
 
 Muchas músicas no occidentales (y algunas folclóricas y tradicionales
 occidentales) emplean sistemas de afinación alternativos o extendidos
@@ -138,7 +140,7 @@ encuentran cubiertos en otras partes del manual:
 
 @itemize
 @item Los nombres de las notas y sus alteraciones (entre ellos, cuartos de
-tono) se pueden realizar como se estudia en @ref{Nombres de las notas en otros idiomas}.
+tono) se pueden realizar como se estudia en @ref{Sistemas de notación y afinación no occidentales}.
 
 @item Las armaduras adicionales también pueden realizarse como se describe
 en @ref{Armadura de la tonalidad}.
@@ -155,7 +157,7 @@ aparece en @ref{Música sin compasear}.
 
 @seealso
 Referencia de la notación:
-@ref{Nombres de las notas en otros idiomas},
+@ref{Sistemas de notación y afinación no occidentales},
 @ref{Armadura de la tonalidad},
 @ref{Barras manuales}.
 
@@ -176,7 +178,7 @@ ello no se utilizan.  Los nombres ingleses de las notas no son muy
 familiares dentro de la educación musical árabe, por lo que en su
 lugar se utilizan los nombres italo-franco-españoles o del solfeo
 (@code{do, re, mi, fa, sol, la, si}).  También se pueden utilizar los
-modificadores (alteraciones), como se estudia en @ref{Nombres de las notas en otros idiomas}.
+modificadores (alteraciones), como se estudia en @ref{Sistemas de notación y afinación no occidentales}.
 
 Por ejemplo, así es como puede ser la notación de la escala árabe
 @notation{rast}:
@@ -211,7 +213,7 @@ alterar mediante este método.
 
 @seealso
 Referencia de la notación:
-@ref{Nombres de las notas en otros idiomas}.
+@ref{Sistemas de notación y afinación no occidentales}.
 
 Fragmentos de código:
 @rlsr{World music}.
@@ -503,7 +505,7 @@ se tratan en otras partes:
 
 @itemize
 @item Los nombres de las notas y las alteraciones se dan en
-@ref{Nombres de las notas y alteraciones no occidentales}.
+@ref{Sistemas de notación y afinación no occidentales}.
 
 @end itemize
 
@@ -531,5 +533,4 @@ alteraciones especiales que elevan o bajan las notas en intervalos de
 1/9, 4/9, 5/9 y 8/9 de tono.  Esetas alteraciones están definidas en
 el archivo @file{makam.ly} (para encontrar este archivo en su sistema,
 consulte @rlearning{Otras fuentes de información}). Se da una
-descripción más detallada en @ref{Nombres de las notas y alteraciones
-no occidentales}.
+descripción más detallada en @ref{Sistemas de notación y afinación no occidentales}.
