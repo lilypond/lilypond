@@ -1061,9 +1061,6 @@ Internally used to distribute beam shortening over stems.")
      (system-Y-offset ,number? "The Y-offset (relative to the bottom of the
 top-margin of the page) of the system to which this staff belongs.")
 
-     (tie-follow ,boolean? "Indicates whether a note in tablature is tied to
-another one.")
-
      (use-breve-rest ,boolean? "Use breve rests for measures longer
 than a whole rest.")
 

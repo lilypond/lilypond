@@ -201,7 +201,7 @@ interesting enough to maintain a hara-kiri staff."
 (ly:add-interface
  'tab-note-head-interface
  "A note head in tablature."
- '(details tie-follow))
+ '(details))
 
 (ly:add-interface
  'trill-spanner-interface

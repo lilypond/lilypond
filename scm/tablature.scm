@@ -180,113 +180,78 @@
 (define-public (tie::handle-tab-note-head grob)
   (let* ((original (ly:grob-original grob))
          (tied-tab-note-head (ly:spanner-bound grob RIGHT))
-         (tie-follow (ly:grob-property tied-tab-note-head 'tie-follow #f))
          (siblings (if (ly:grob? original)
                        (ly:spanner-broken-into original) '())))
 
-    (if tie-follow
-        ;; tab note head is right bound of a tie -> parenthesize it at all events
-        (ly:grob-set-property! tied-tab-note-head 'stencil
-                                                  (lambda (grob)
-                                                    (parenthesize-tab-note-head grob)))
-        ;; otherwise, check whether tie is split:
-        (if (and (>= (length siblings) 2)
-                 (eq? (car (last-pair siblings)) grob))
-            ;; tie is split -> get TabNoteHead #'details
-            (let* ((details (ly:grob-property tied-tab-note-head 'details))
-                   (tied-properties (assoc-get 'tied-properties details '()))
-                   (tab-note-head-parenthesized (assoc-get 'parenthesize tied-properties #t))
-                   ;; we need the begin-of-line entry in the 'break-visibility vector
-                   (tab-note-head-visible
-                    (vector-ref (assoc-get 'break-visibility
-                                           tied-properties #(#f #f #t)) 2)))
+    (if (and (>= (length siblings) 2)
+             (eq? (car (last-pair siblings)) grob))
+        ;; tie is split -> get TabNoteHead #'details
+        (let* ((details (ly:grob-property tied-tab-note-head 'details))
+               (tied-properties (assoc-get 'tied-properties details '()))
+               (tab-note-head-parenthesized (assoc-get 'parenthesize tied-properties #t))
+               ;; we need the begin-of-line entry in the 'break-visibility vector
+               (tab-note-head-visible
+                (vector-ref (assoc-get 'break-visibility
+                                       tied-properties #(#f #f #t)) 2)))
 
-              (if tab-note-head-visible
-                  ;; tab note head is visible
-                  (if tab-note-head-parenthesized
-                      (ly:grob-set-property! tied-tab-note-head 'stencil
-                                                                (lambda (grob)
-                                                                  (parenthesize-tab-note-head grob))))
-                  ;; tab note head is invisible
-                 (ly:grob-set-property! tied-tab-note-head 'transparent #t)))
+	  (if tab-note-head-visible
+	      ;; tab note head is visible
+	      (if tab-note-head-parenthesized
+		  (ly:grob-set-property! tied-tab-note-head 'stencil
+					 (lambda (grob)
+					   (parenthesize-tab-note-head grob))))
+	      ;; tab note head is invisible
+	      (begin
+	        (ly:grob-set-property! tied-tab-note-head 'transparent #t)
+	        (ly:grob-set-property! tied-tab-note-head 'whiteout #f))))
 
-            ;; tie is not split
-            (ly:grob-set-property! tied-tab-note-head 'transparent #t)))))
-
-
+        ;; tie is not split -> make fret number invisible
+        (begin
+          (ly:grob-set-property! tied-tab-note-head 'transparent #t)
+          (ly:grob-set-property! tied-tab-note-head 'whiteout #f)))))
 
 ;; repeat ties occur within alternatives in a repeat construct;
 ;; TabNoteHead #'details handles the appearance in this case
 (define-public (repeat-tie::handle-tab-note-head grob)
   (let* ((tied-tab-note-head (ly:grob-object grob 'note-head))
-         (tie-follow (ly:grob-property tied-tab-note-head 'tie-follow #f)))
-    (if tie-follow
-        ;; tab note head is right bound of a tie -> parenthesize it at all events
-        (ly:grob-set-property! tied-tab-note-head 'stencil
-                                                 (lambda (grob)
-                                                   (parenthesize-tab-note-head grob)))
-        ;; otherwise check 'details
-        (let* ((details (ly:grob-property tied-tab-note-head 'details))
-               (repeat-tied-properties (assoc-get 'repeat-tied-properties details '()))
-               (tab-note-head-visible (assoc-get 'note-head-visible repeat-tied-properties #t))
-               (tab-note-head-parenthesized (assoc-get 'parenthesize repeat-tied-properties #t)))
+         (details (ly:grob-property tied-tab-note-head 'details))
+         (repeat-tied-properties (assoc-get 'repeat-tied-properties details '()))
+         (tab-note-head-visible (assoc-get 'note-head-visible repeat-tied-properties #t))
+         (tab-note-head-parenthesized (assoc-get 'parenthesize repeat-tied-properties #t)))
 
-        (if tab-note-head-visible
-            ;; tab note head is visible
-            (if tab-note-head-parenthesized
-                (ly:grob-set-property! tied-tab-note-head 'stencil
-                                                          (lambda (grob)
-                                                            (parenthesize-tab-note-head grob))))
-            ;; tab note head is invisible
-            (ly:grob-set-property! tied-tab-note-head 'transparent #t))))))
+    (if tab-note-head-visible
+        ;; tab note head is visible
+        (if tab-note-head-parenthesized
+	    (ly:grob-set-property! tied-tab-note-head 'stencil
+				   (lambda (grob)
+				     (parenthesize-tab-note-head grob))))
+	;; tab note head is invisible
+	(begin
+          (ly:grob-set-property! tied-tab-note-head 'transparent #t)
+          (ly:grob-set-property! tied-tab-note-head 'whiteout #f)))))
 
 ;; the slurs should not be too far apart from the corresponding fret number, so
-;; we move the slur towards the TabNoteHeads; moreover, if the left fret number is
-;; the right-bound of a tie, we'll set it in parentheses:
+;; we move the slur towards the TabNoteHeads:
 (define-public (slur::draw-tab-slur grob)
   ;; TODO: use a less "brute-force" method to decrease
   ;; the distance between the slur ends and the fret numbers
-  (let* ((original (ly:grob-original grob))
-         (left-bound (ly:spanner-bound original LEFT))
-         (left-tab-note-head (ly:grob-property left-bound 'cause))
-         (tie-follow (ly:grob-property left-tab-note-head 'tie-follow #f))
-         (staff-space (ly:staff-symbol-staff-space grob))
+  (let* ((staff-space (ly:staff-symbol-staff-space grob))
          (control-points (ly:grob-property grob 'control-points))
          (new-control-points (map
-                              (lambda (p)
-                                (cons (car p)
-                                      (- (cdr p)
-                                         (* staff-space
-                                            (ly:grob-property grob 'direction)
-                                            0.35))))
-                             control-points)))
+			      (lambda (p)
+				(cons (car p)
+				      (- (cdr p)
+					 (* staff-space
+					    (ly:grob-property grob 'direction)
+					    0.35))))
+			      control-points)))
 
     (ly:grob-set-property! grob 'control-points new-control-points)
-    (and tie-follow
-         (ly:grob-set-property! left-tab-note-head 'stencil
-                                                   (lambda (grob)
-                                                     (parenthesize-tab-note-head grob))))
     (ly:slur::print grob)))
-
-;; The glissando routine works similarly to the slur routine; if the
-;; fret number is "tied to", it should become parenthesized.
-(define-public (glissando::draw-tab-glissando grob)
-  (let* ((original (ly:grob-original grob))
-         (left-tab-note-head (ly:spanner-bound original LEFT))
-         (tie-follow (ly:grob-property left-tab-note-head 'tie-follow #f)))
-
-    (and tie-follow
-         (ly:grob-set-property! left-tab-note-head 'stencil
-                                                   (lambda (grob)
-                                                     (parenthesize-tab-note-head grob)))
-         ;; increase left padding to avoid collision between
-         ;; closing parenthesis and glissando line
-         (ly:grob-set-nested-property! grob '(bound-details left padding) 0.75))
-    (ly:line-spanner::print grob)))
 
 ;; for \tabFullNotation, the stem tremolo beams are too big in comparison to
 ;; normal staves; this wrapper function scales accordingly:
 (define-public (stem-tremolo::calc-tab-width grob)
   (let ((width (ly:stem-tremolo::calc-width grob))
-        (staff-space (ly:staff-symbol-staff-space grob)))
+	(staff-space (ly:staff-symbol-staff-space grob)))
     (/ width staff-space)))
