@@ -33,6 +33,59 @@ NOTE:
   * don't duplicate entries from news-front.itexi
 @end ignore
 
+@newsItem
+@subsubheading Segunda versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.35! @emph{29 de septiembre de 2010}
+
+Ha salido LilyPond 2.13.35; ésta es la segunda versión alfa de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún existen tres regresiones conocidas contra 2.12.3:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
+Problema número 1173 - No se pueden alinear las MetronomeMarks sobre
+una nota si existe un silencio multicompás en otra voz}, y dos fallos
+de espaciado:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1240,
+Problema 1240} y
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1252,
+Problema 1252} pero esperamos encontrar más.  Si se decide a probar
+2.13.35, no se sorprenda al encontrar problemas; tan sólo envíenos
+@ref{Informes de fallos} educados.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.34! @emph{21 de septiembre de 2010}
+
+Ha salido LilyPond 2.13.34; ésta es la primera versión alfa de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún existe una regresión conocida contra 2.12.3:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1173,
+Problema número 1173 - No se pueden alinear las MetronomeMarks sobre una
+nota si existe un silencio multicompás en otra voz}, pero esperamos
+encontrar más.  Si se decide a probar 2.13.34, no se sorprenda al
+encontrar problemas; tan sólo envíenos @ref{Informes de fallos}
+educados.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.33!  @emph{10 de septiembre de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.33.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+
+@newsEnd
 
 
 @newsItem
