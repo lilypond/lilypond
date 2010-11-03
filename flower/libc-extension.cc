@@ -34,7 +34,7 @@ strnlwr (char *start, int n)
   char *p = start + n;
   while (--p >= start)
     {
-      *p = tolower (*p);    /* a macro on some compilers */
+      *p = (char)tolower (*p);    /* a macro on some compilers */
     }
   return start;
 }
@@ -45,7 +45,7 @@ strnupr (char *start, int n)
   char *p = start + n;
   while (--p >= start)
     {
-      *p = toupper (*p);    /* a macro on some compilers */
+      *p = (char)toupper (*p);    /* a macro on some compilers */
     }
   return start;
 }

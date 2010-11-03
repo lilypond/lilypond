@@ -31,7 +31,7 @@ double
 Rational::to_double () const
 {
   if (sign_ == -1 || sign_ == 1 || sign_ == 0)
-    return ((double)sign_) * num_ / den_;
+    return (double)sign_ * (double)num_ / (double)den_;
   if (sign_ == -2)
     return -HUGE_VAL;
   else if (sign_ == 2)
@@ -365,7 +365,7 @@ Rational::to_string () const
 int
 Rational::to_int () const
 {
-  return (int) num () / den ();
+  return (int)(num () / den ());
 }
 
 int
