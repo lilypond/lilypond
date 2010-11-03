@@ -25,7 +25,7 @@
 #include "music-sequence.hh"
 #include "warn.hh"
 
-typedef enum Outlet_type
+enum Outlet_type
   {
     CONTEXT_ONE, CONTEXT_TWO,
     CONTEXT_SHARED, CONTEXT_SOLO,

@@ -493,7 +493,7 @@ Grob::spanned_rank_interval () const
 }
 
 bool
-Grob::pure_is_visible (int start, int end) const
+Grob::pure_is_visible (int /* start */, int /* end */) const
 {
   return true;
 }
