@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d65e909b36bb417e9f845bb308653b3a8b712428
+    Translation of GIT committish: c20e5df6da652c0ad16e1d15a86c10006482520f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -77,11 +77,25 @@ Los @notation{ambitus} o indicaciones de tesitura vocal se pueden añadir al
 principio de los pentagramas vocales, como se explica en
 @ref{Tesitura}.
 
+@item
+De forma predeterminada, las indicaciones dinámicas se sitúan debajo
+del pentagrama, pero en la música coral se suelen disponer por encima
+del pentagrama para evitar la letra, como se explica en
+@ref{Disposiciones de la partitura para música coral}.
+
 @end itemize
 
 @seealso
 Glosario musical:
 @rglos{ambitus}.
+
+Manual de aprendizaje:
+@rlearning{Elaborar canciones sencillas}.
+
+Referencia de la notación:
+@ref{Introducción al marcado de texto},
+@ref{Tesitura},
+@ref{Disposiciones de la partitura para música coral}.
 
 Fragmentos de código:
 @rlsr{Vocal music}.
@@ -443,12 +457,14 @@ He aquí un ejemplo:
 
 Se pueden añadir más versos poniendo más secciones @code{\addlyrics}:
 
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative c' { c2 e4 g2. }
-\addlyrics { play the game }
-\addlyrics { speel het spel }
-\addlyrics { joue le jeu }
+@lilypond[ragged-right,verbatim,quote]
+{
+  \time 3/4
+  \relative c' { c2 e4 g2. }
+  \addlyrics { play the game }
+  \addlyrics { speel het spel }
+  \addlyrics { joue le jeu }
+}
 @end lilypond
 
 La instrucción @code{\addlyrics} no es capaz de manejar situaciones de
@@ -605,12 +621,14 @@ texto.  La ligadura de texto está implementada con el carácter Unicode
 U+203F, por tanto debemos asegurarnos de que tenemos una fuente
 tipográfica (como DejaVuLGC) instalada, que incluya este glifo.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-\time 3/4
-\relative c' { c2 e4 g2 e4 }
-\addlyrics { gran- de_a- mi- go }
-\addlyrics { pu- "ro y ho-" nes- to }
-\addlyrics { pu- ro~y~ho- nes- to }
+@lilypond[quote,ragged-right,verbatim]
+{
+  \time 3/4
+  \relative c' { c2 e4 g2 e4 }
+  \addlyrics { gran- de_a- mi- go }
+  \addlyrics { pu- "ro y ho-" nes- to }
+  \addlyrics { pu- ro~y~ho- nes- to }
+}
 @end lilypond
 
 
@@ -1101,7 +1119,7 @@ Referencia de la notación:
 Para aumentar la separación entre las líneas de texto, establezca la
 propiedad @code{minimum-distance} de @code{LyricSpace}.
 
-@lilypond[relative,verbatim,fragment,quote,ragged-right]
+@lilypond[relative=1,verbatim,quote,ragged-right]
 {
   c c c c
   \override Lyrics.LyricSpace #'minimum-distance = #1.0
@@ -1653,7 +1671,7 @@ contextos de voz y adjuntando la letra a estos contextos específicos:
 Los números de los versos se pueden añadir estableciendo
 @code{stanza}, p.ej.,
 
-@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+@lilypond[quote,ragged-right,verbatim,relative=2]
 \new Voice {
   \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {
@@ -1741,7 +1759,7 @@ comienzo de la línea, igual que los nombres de instrumento.  Se crean
 estableciendo un valor para @code{vocalName}.  Se puede definir una
 versión abreviada como @code{shortVocalName}.
 
-@lilypond[fragment,ragged-right,quote,verbatim,relative=2]
+@lilypond[ragged-right,quote,verbatim,relative=2]
 \new Voice {
   \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {
