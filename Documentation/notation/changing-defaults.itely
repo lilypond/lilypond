@@ -300,7 +300,7 @@ A practical application of @code{\new} is a score with many
 staves.  Each part that should be on its own staff, is preceded with
 @code{\new Staff}.
 
-@lilypond[quote,verbatim,relative=2,ragged-right,fragment]
+@lilypond[quote,verbatim,relative=2,ragged-right]
 <<
   \new Staff { c4 c }
   \new Staff { d4 d }
@@ -612,7 +612,7 @@ where the @dots{} should be the name of an engraver.  Here is a simple
 example which removes @code{Time_signature_engraver} and
 @code{Clef_engraver} from a @code{Staff} context,
 
-@lilypond[quote,relative=1,verbatim,fragment]
+@lilypond[quote,relative=1,verbatim]
 <<
   \new Staff {
     f2 g
@@ -1020,7 +1020,7 @@ context from the @qq{accepts} list.
 Suppose we want to move the fingering indication in the fragment
 below:
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[quote,relative=2,verbatim]
 c-2
 \stemUp
 f
@@ -1238,7 +1238,7 @@ is directly generated from this definition.
 
 Recall that we wanted to change the position of the @b{2} in
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[quote,relative=2,verbatim]
 c-2
 \stemUp
 f
@@ -1281,7 +1281,7 @@ between the note and the fingering:
 Inserting this command before the Fingering object is created,
 i.e., before @code{c2}, yields the following result:
 
-@lilypond[quote,relative=2,fragment,verbatim]
+@lilypond[quote,relative=2,verbatim]
 \once \override Voice.Fingering #'padding = #3
 c-2
 \stemUp
@@ -1340,6 +1340,7 @@ LP-specific?
 * The override command::
 * The tweak command::
 * set versus override::
+* Modifying alists::
 @end menu
 
 
@@ -1388,7 +1389,7 @@ unit).  Since the command specifies @code{Staff} as context, it only
 applies to the current staff.  Other staves will keep their normal
 appearance.  Here we see the command in action:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 c4
 \override Staff.Stem #'thickness = #4.0
 c4
@@ -1404,7 +1405,7 @@ Analogous to @code{\set}, the @var{context} argument may be left out,
 causing the default context @code{Voice} to be used.  Adding
 @code{\once} applies the change during one timestep only.
 
-@lilypond[quote,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c4
 \once \override Stem #'thickness = #4.0
 c4
@@ -1416,7 +1417,7 @@ started.  Therefore, when altering @emph{Spanner} objects such as slurs
 or beams, the @code{\override} command must be executed at the moment
 when the object is created.  In this example,
 
-@lilypond[quote,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \override Slur #'thickness = #3.0
 c8[( c
 \override Beam #'beam-thickness = #0.6
@@ -1501,7 +1502,7 @@ this.  Context properties are modified with @code{\set}.
 For example, multimeasure rests will be combined into a single bar
 if the context property @code{skipBars} is set to @code{#t}:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 R1*2
 \set Score.skipBars = ##t
 R1*2
@@ -1511,7 +1512,7 @@ If the @var{context} argument is left out, then the property will be
 set in the current bottom context (typically @code{ChordNames},
 @code{Voice}, @code{TabVoice}, or @code{Lyrics}).
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 \set Score.autoBeaming = ##f
 <<
   {
@@ -1533,7 +1534,7 @@ that you wish to change -- for example, attempting to set the
 @code{Voice}, will have no effect, because skipBars is a property of
 the @code{Score} context.
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 R1*2
 \set skipBars = ##t
 R1*2
@@ -1558,7 +1559,7 @@ the definition only if it is set in @var{context}.
 Properties that have been set in enclosing contexts will
 not be altered by an unset in an enclosed context:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 \set Score.autoBeaming = ##t
 <<
   {
@@ -1588,7 +1589,7 @@ are equivalent if the current bottom context is @code{Voice}.
 Preceding a @code{\set} command by @code{\once} makes the
 setting apply to only a single time-step:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 c4
 \once \set fontSize = #4.7
 c4
@@ -1654,7 +1655,7 @@ For example, we can increase the thickness of a note stem by
 overriding the @code{thickness} property of the @code{Stem}
 object:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote,verbatim,relative=2]
 c4 c
 \override Voice.Stem #'thickness = #3.0
 c4 c
@@ -1663,7 +1664,7 @@ c4 c
 If no context is specified in an @code{\override}, the bottom
 context is used:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote,verbatim,relative=2]
 { \override Staff.Stem #'thickness = #3.0
   <<
     {
@@ -1683,7 +1684,7 @@ context is used:
 
 The effects of @code{\override} can be undone by @code{\revert}:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote,verbatim,relative=2]
 c4
 \override Voice.Stem #'thickness = #3.0
 c4 c
@@ -1694,7 +1695,7 @@ c4
 The effects of @code{\override} and @code{\revert} apply to all
 grobs in the affected context from the current time forward:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote,verbatim,relative=2]
 {
   <<
     {
@@ -1716,7 +1717,7 @@ grobs in the affected context from the current time forward:
 @code{\once} can be used with @code{\override}
 to affect only the current time step:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote,verbatim,relative=2]
 {
   <<
     {
@@ -1976,6 +1977,118 @@ objects.  Since this is a common change, the special
 property (modified with @code{\set}) was created.
 
 @end ignore
+
+
+@node Modifying alists
+@subsection Modifying alists
+
+Some user-configurable properties are internally represented as
+@emph{alists} (association lists), which store pairs of
+@emph{keys} and @emph{values}.  The structure of an alist is:
+
+@example
+#((@var{key1} . @var{value1})
+  (@var{key2} . @var{value2})
+  (@var{key3} . @var{value3})
+  @dots{})
+@end example
+
+If an alist is a grob property or @code{\paper} variable, its keys
+can be modified individually without affecting other keys.
+
+For example, to reduce the space between adjacent staves in a
+system, use the @code{between-staff-spacing} property of the
+@code{StaffGrouper} grob.  The property is an alist with four
+keys: @code{padding}, @code{space}, @code{minimum-distance}, and
+@code{stretchability}.  Three of the four keys have initialized
+default values, which are defined (along with all the other grob
+properties) in the file @file{scm/define-grobs.scm}:
+
+@example
+(between-staff-spacing . ((padding . 1)
+                          (space . 9)
+                          (minimum-distance . 7)))
+@end example
+
+One way to bring the staves closer together is by reducing the
+value of the @code{space} key (@code{9}) to match the value of
+@code{minimum-distance} (@code{7}).  To modify a single key
+individually, use a nested declaration:
+
+@lilypond[quote,verbatim]
+% default space between staves
+\new PianoStaff <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+
+% reduced space between staves
+\new PianoStaff \with {
+  \override StaffGrouper #'between-staff-spacing #'space = #7
+} <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+@end lilypond
+
+Using a nested declaration will update the specified key
+(@code{space} in the above example) without altering any other
+keys already set for the same property.
+
+Now suppose we want the staves to be as close as possible without
+overlapping.  The simplest way to do this is to set all four alist
+keys to zero.  In that case, it is not necessary to set each key
+individually with nested declarations.  Instead, the property can
+be completely re-defined with one declaration, as an alist:
+
+@lilypond[quote,verbatim]
+\new PianoStaff \with {
+  \override StaffGrouper #'between-staff-spacing =
+    #'((padding . 0)
+       (space . 0)
+       (minimum-distance . 0)
+       (stretchability . 0))
+} <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+@end lilypond
+
+Note that any keys not explicitly listed in the alist definition
+will be reset to their @emph{default-when-unset} values.  In the
+case of @code{between-staff-spacing}, any unset key-values would
+be reset to zero (except @code{stretchability}, which takes the
+value of @code{space} when unset).  Thus the following two
+declarations are equivalent:
+
+@example
+\override StaffGrouper #'between-staff-spacing =
+  #'((space . 7))
+
+\override StaffGrouper #'between-staff-spacing =
+  #'((padding . 0)
+     (space . 7)
+     (minimum-distance . 0)
+     (stretchability . 7))
+@end example
+
+One (possibly unintended) consequence of this is the removal of
+any @emph{initialized} default values that are set in an
+initialization file and loaded each time an input file is
+compiled.  In the above example, the initialized default values
+for @code{padding} and @code{minimum-distance} (defined in
+@file{scm/define-grobs.scm}) are reset to their default-when-unset
+values (zero for both keys).  Defining a property or variable as
+an alist (of any size) will always reset all unset key-values to
+their default-when-unset values.  Unless this is the intended
+result, it is safer to update key-values individually with a
+nested declaration.
+
+@warning{Nested declarations will not work for context property
+alists (such as @code{beamExceptions}, @code{keySignature},
+@code{timeSignatureSettings}, etc.).  These properties can only be
+modified by completely re-defining them as alists.}
+
 
 @node Useful concepts and properties
 @section Useful concepts and properties
@@ -2539,7 +2652,7 @@ recommended that @code{text} be used instead.
 This is a markup that is evaluated to yield the stencil.  It is used
 to put @i{cresc.}, @i{tr} and other text on horizontal spanners.
 
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 \override TextSpanner #'(bound-details left text)
    = \markup { \small \bold Slower }
 c2\startTextSpan b c a\stopTextSpan
@@ -2589,7 +2702,7 @@ is terminated after exactly one note, or at the following bar line
 if @code{to-barline} is true and a bar line occurs before the next
 note.
 
-@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
+@lilypond[verbatim,quote,ragged-right,relative=2]
 \endSpanners
 c2 \startTextSpan c2 c2
 \endSpanners

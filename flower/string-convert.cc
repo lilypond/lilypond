@@ -37,7 +37,7 @@ string
 String_convert::bin2hex (Byte bin_char)
 {
   string str;
-  str += to_string ((char) nibble2hex_byte (bin_char >> 4));
+  str += to_string ((char) nibble2hex_byte ((Byte)(bin_char >> 4)));
   str += to_string ((char) nibble2hex_byte (bin_char++));
   return str;
 }
@@ -49,7 +49,7 @@ String_convert::bin2hex (string bin_string)
   Byte const *byte = (Byte const*)bin_string.data ();
   for (ssize i = 0; i < bin_string.length (); i++)
     {
-      str += to_string ((char)nibble2hex_byte (*byte >> 4));
+      str += to_string ((char)nibble2hex_byte ((Byte)(*byte >> 4)));
       str += to_string ((char)nibble2hex_byte (*byte++));
     }
   return str;
@@ -206,9 +206,9 @@ Byte
 String_convert::nibble2hex_byte (Byte byte)
 {
   if ((byte & 0x0f) <= 9)
-    return (byte & 0x0f) + '0';
+    return (Byte)((byte & 0x0f) + '0');
   else
-    return (byte & 0x0f) - 10 + 'a';
+    return (Byte)((byte & 0x0f) - 10 + 'a');
 }
 /**
    Convert an integer to a string

@@ -57,23 +57,37 @@ that may arise in any type of vocal music.
 @itemize
 
 @item
-Most styles of vocal music use written text as lyrics.  An introduction
-to this notation is to be found in @rlearning{Setting simple songs}.
+Most styles of vocal music use written text as lyrics.  An
+introduction to this notation is to be found in
+@rlearning{Setting simple songs}.
 
 @item
-Vocal music is likely to require the use of @code{markup} mode, either
-for lyrics of for other text elements (character's names, etc.).
-This syntax is described in @ref{Text markup introduction}.
+Vocal music is likely to require the use of @code{markup} mode,
+either for lyrics or for other text elements (characters' names,
+etc.)  This syntax is described in @ref{Text markup introduction}.
 
 @item
-@notation{Ambitus} may be added at the beginning of vocal staves, as explained
-in @ref{Ambitus}.
+@notation{Ambitus} may be added at the beginning of vocal staves,
+as explained in @ref{Ambitus}.
+
+@item
+Dynamic markings by default are placed below the staff, but in
+choral music they are usually placed above the staff in order to
+avoid the lyrics, as explained in @ref{Score layouts for choral}.
 
 @end itemize
 
 @seealso
 Music Glossary:
 @rglos{ambitus}.
+
+Learning Manual:
+@rlearning{Setting simple songs}.
+
+Notation Reference:
+@ref{Text markup introduction},
+@ref{Ambitus},
+@ref{Score layouts for choral}.
 
 Snippets:
 @rlsr{Vocal music}.
@@ -416,12 +430,14 @@ More stanzas can be added by adding more
 @code{\addlyrics} sections:
 
 
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative c' { c2 e4 g2. }
-\addlyrics { play the game }
-\addlyrics { speel het spel }
-\addlyrics { joue le jeu }
+@lilypond[ragged-right,verbatim,quote]
+{
+  \time 3/4
+  \relative c' { c2 e4 g2. }
+  \addlyrics { play the game }
+  \addlyrics { speel het spel }
+  \addlyrics { joue le jeu }
+}
 @end lilypond
 
 The command @code{\addlyrics} cannot handle polyphonic settings.
@@ -574,12 +590,14 @@ tie is implemented with the Unicode character U+203F, so be
 sure to have a font (like DejaVuLGC) installed that includes this
 glyph.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-\time 3/4
-\relative c' { c2 e4 g2 e4 }
-\addlyrics { gran- de_a- mi- go }
-\addlyrics { pu- "ro y ho-" nes- to }
-\addlyrics { pu- ro~y~ho- nes- to }
+@lilypond[quote,ragged-right,verbatim]
+{
+  \time 3/4
+  \relative c' { c2 e4 g2 e4 }
+  \addlyrics { gran- de_a- mi- go }
+  \addlyrics { pu- "ro y ho-" nes- to }
+  \addlyrics { pu- ro~y~ho- nes- to }
+}
 @end lilypond
 
 
@@ -1057,7 +1075,7 @@ Notation Reference:
 To increase the spacing between lyrics, set the @code{minimum-distance}
 property of @code{LyricSpace}.
 
-@lilypond[relative,verbatim,fragment,quote,ragged-right]
+@lilypond[relative=1,verbatim,quote,ragged-right]
 {
   c c c c
   \override Lyrics.LyricSpace #'minimum-distance = #1.0
@@ -1589,7 +1607,7 @@ attaching lyrics to those specific contexts:
 
 Stanza numbers can be added by setting @code{stanza}, e.g.,
 
-@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+@lilypond[quote,ragged-right,verbatim,relative=2]
 \new Voice {
   \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {
@@ -1673,7 +1691,7 @@ Names of singers can also be added.  They are printed at the start of
 the line, just like instrument names.  They are created by setting
 @code{vocalName}.  A short version may be entered as @code{shortVocalName}.
 
-@lilypond[fragment,ragged-right,quote,verbatim,relative=2]
+@lilypond[ragged-right,quote,verbatim,relative=2]
 \new Voice {
   \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {
