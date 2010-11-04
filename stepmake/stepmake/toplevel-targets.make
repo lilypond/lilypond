@@ -12,7 +12,6 @@ local-distclean:
 	rm -rf $(outdir)
 
 local-maintainerclean:
-	rm -f configure
 
 GNUmakefile: GNUmakefile.in
 	$(MAKE) INFILE=$< OUTFILE=$@ -f $(stepdir)/automatically-generated.sub.make
