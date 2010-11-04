@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c5ede6842e118a322f1f19d103ef9664b2446021
+    Translation of GIT committish: 74930b635951419c12227e94b83e265aca5dd371
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -61,11 +61,13 @@ El nombre de una nota se especifica usando las letras minúsculas de la
 hasta @code{b} se imprimen en la octava inferior al Do central.
 
 @c don't use c' here.
-@lilypond[verbatim,quote,fragment]
-\clef bass
-c d e f
-g a b c
-d e f g
+@lilypond[verbatim,quote]
+{
+  \clef bass
+  c4 d e f
+  g4 a b c
+  d4 e f g
+}
 @end lilypond
 
 @cindex octava, marca de cambio de
@@ -78,13 +80,15 @@ quote@tie{}(@code{'}) o una coma@tie{}(@code{,}) .
 Cada@tie{}@code{'} eleva la altura en una octava; cada@tie{}@code{,}
 baja la altura una octava.
 
-@lilypond[verbatim,quote,fragment]
-\clef treble
-c' c'' e' g
-d'' d' d c
-\clef bass
-c, c,, e, g
-d,, d, d c
+@lilypond[verbatim,quote]
+{
+  \clef treble
+  c'4 c'' e' g
+  d''4 d' d c
+  \clef bass
+  c,4 c,, e, g
+  d,,4 d, d c
+}
 @end lilypond
 
 
@@ -383,7 +387,7 @@ Las alteraciones sobre notas unidas por ligadura sólo se imprimen al
 comienzo de un sistema:
 
 @lilypond[verbatim,quote,relative=2]
-cis1 ~ cis ~
+cis1~ cis~
 \break
 cis
 @end lilypond
@@ -571,8 +575,8 @@ nombres especiales para las notas.
 Casi todos los idiomas presentados aquí están asociados comúnmente con
 la música clásica occidental, también conocida como @notation{Período
 de la práctica común}.  Sin embargo, también están contempladas las
-alturas y los sistemas de afinación alternativos: véase @ref{Sistemas
-de notación y afinación no occidentales}.
+alturas y los sistemas de afinación alternativos: véase @ref{Notación
+común para músicas no occidentales}.
 
 
 @seealso
@@ -581,7 +585,7 @@ Glosario musical:
 @rglos{Common Practice Period}.
 
 Referencia de la notación:
-@ref{Sistemas de notación y afinación no occidentales}.
+@ref{Notación común para músicas no occidentales}.
 
 Fragmentos de código:
 @rlsr{Pitches}.
