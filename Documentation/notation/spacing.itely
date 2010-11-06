@@ -230,15 +230,15 @@ of these dimensions.
 
 Note that the @code{\paper} variables discussed in this section do
 not control the spacing of staves within individual systems.
-Inter-system spacing is controlled by grob properties, with
-settings typically entered inside a @code{\score} block, and not
-inside a @code{\paper} block.  See
-@ref{Vertical spacing between systems}.
+Within-system spacing is controlled by grob properties, with
+settings typically entered inside a @code{\score} or @code{layout}
+block, and not inside a @code{\paper} block.  See
+@ref{Flexible vertical spacing within systems}.
 
 
 @subsubheading Structure of spacing alists for @code{\paper} variables
 
-Each of these variables is an alist (associative list) containing
+Each of these variables is an alist (association list) containing
 four @emph{keys}:
 
 @itemize
@@ -253,11 +253,12 @@ staff-spaces, between the @emph{reference points} of the two
 items, when no collisions would result, and no stretching or
 compressing is in effect.  The reference point of a (title or
 top-level) markup is its highest point, and the reference point of
-a system is the middle line of the nearest staff.  Values for
-@code{space} that are less than either @code{padding} or
-@code{minimum-distance} are not meaningful, since the resulting
-distance will never be less than either @code{padding} or
-@code{minimum-distance}.
+a system is the vertical center of the nearest @code{StaffSymbol}
+-- even if a non-staff line (such as a @code{Lyrics} context) is
+in the way.  Values for @code{space} that are less than either
+@code{padding} or @code{minimum-distance} are not meaningful,
+since the resulting distance will never be less than either
+@code{padding} or @code{minimum-distance}.
 
 @item @code{minimum-distance} -- the minimum required vertical
 distance, measured in staff-spaces, between the reference points
@@ -295,15 +296,15 @@ eliminate collisions.
 Specific methods for modifying alists are discussed in
 @ref{Modifying alists}.  The flexible vertical @code{\paper}
 dimensions variables can only be set within a @code{\paper} block.
+
 The following example demonstrates the two ways these alists can
-be modified:
+be modified.  The first declaration updates one key-value
+individually, and the second complete re-defines the variable:
 
 @example
 \paper @{
-  % updating one key-value individually
   system-system-spacing #'space = #8
 
-  % completely re-defining a variable
   score-system-spacing =
     #'((padding . 1)
        (space . 12)
@@ -321,13 +322,12 @@ in @file{ly/paper-defaults-init.ly}.
 The names of these variables follow the format
 @code{@var{upper}-@var{lower}-spacing}, where @code{@var{upper}}
 and @code{@var{lower}} are the items to be spaced.  Each distance
-is measured between the reference points of the two items: the
-reference point of a (title or top-level) markup is its highest
-point, and the reference point of a system is the middle line of
-the nearest staff.  Note that in these variable names, the term
-@q{@code{markup}} refers to both @emph{title markups}
-(@code{bookTitleMarkup} or @code{scoreTitleMarkup}) and
-@emph{top-level markups} (see @ref{File structure}).
+is measured between the reference points of the two items (see the
+description of the alist structure above).  Note that in these
+variable names, the term @q{@code{markup}} refers to both
+@emph{title markups} (@code{bookTitleMarkup} or
+@code{scoreTitleMarkup}) and @emph{top-level markups} (see
+@ref{File structure}).
 
 @table @code
 @item markup-system-spacing
@@ -438,7 +438,7 @@ This second example centers page numbers at the bottom of every page.
 
 @seealso
 Notation Reference:
-@ref{Vertical spacing between systems}.
+@ref{Flexible vertical spacing within systems}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -678,20 +678,6 @@ page-breaker will put fewer systems on each page.  Default: unset.
 @funindex page-count
 
 The number of pages to be used for a score.  Default: unset.
-
-@item page-limit-inter-system-space
-@funindex page-limit-inter-system-space
-
-If set to true, limits space between systems on a page with a lot
-of space left.  Default: @code{##f}.  For details, see
-@ref{Vertical spacing between systems}.
-
-@item page-limit-inter-system-space-factor
-@funindex page-limit-inter-system-space-factor
-
-The factor used by @code{page-limit-inter-system-space}.  Default:
-@code{1.4}.  For details, see
-@ref{Vertical spacing between systems}.
 
 @item page-spacing-weight
 @funindex page-spacing-weight
@@ -1451,174 +1437,472 @@ space between systems, and the amount of space between
 staves inside a system.
 
 @menu
-* Vertical spacing inside a system::
-* Vertical spacing between systems::
+* Flexible vertical spacing within systems::
 * Explicit staff and system positioning::
 * Vertical collision avoidance::
 @end menu
 
 
-@node Vertical spacing inside a system
-@subsection Vertical spacing inside a system
+@node Flexible vertical spacing within systems
+@subsection Flexible vertical spacing within systems
 
 @cindex distance between staves
 @cindex staff distance
 @cindex space between staves
 @cindex space inside systems
 
-The height of each system is determined in two steps.  First, all of the
-staves are spaced according to the amount of space available.  Then, the
-non-staff lines (eg. lyrics or chords) are distributed between the
+Three separate mechanisms control the flexible vertical spacing
+within systems, one for each of the following categories:
+
+@itemize
+@item @emph{ungrouped staves},
+@item @emph{grouped staves} (staves within a staff-group such as
+@code{ChoirStaff}, etc.), and
+@item @emph{non-staff lines} (such as @code{Lyrics},
+@code{ChordNames}, etc.).
+@end itemize
+
+The height of each system is determined in two steps.  First, all
+of the staves are spaced according to the amount of space
+available.  Then, the non-staff lines are distributed between the
 staves.
 
-@unnumberedsubsubsec Spacing between staves
-Spacing between staves is controlled by the @var{next-staff-spacing}
-property of the @var{VerticalAxisGroup} grob.  This property is an alist
-with four elements: @var{space}, @var{minimum-distance}, @var{padding}
-and @var{stretchability}:
-@itemize
-@item
-@var{space} is the size of the stretchable space between the center line
-of one staff to the center line of the next staff.
+Note that the spacing mechanisms discussed in this section only
+control the vertical spacing of staves and non-staff lines within
+individual systems.  The vertical spacing between separate
+systems, scores, markups, and margins is controlled by
+@code{\paper} variables, which are discussed in
+@ref{Flexible vertical dimensions}.
 
-@item
-@var{minimum-distance} provides a lower bound on the final distance
-between the center line of one staff to the center line of the next
-staff.  That is, if a page has many systems and needs to be compressed,
-the distance from this staff to the next will never be compressed to
-less than @var{minimum-distance}.
+@menu
+* Within-system spacing properties::
+* Spacing of ungrouped staves::
+* Spacing of grouped staves::
+* Spacing of non-staff lines::
+@end menu
 
-@item
-@var{padding} is the amount of whitespace that must be present between
-the bottom of one staff and the top of the next.  It differs from
-@var{minimum-distance} in that the effect of @var{padding} depends on
-the height of objects in the staff.  For example, @var{padding} is more
-likely to come into effect for staves with notes that are far below the
-staff.
 
-@item
-@var{stretchability} controls the stretchable space's propensity to
-stretch when the system is stretched.  Large values will cause a
-system to stretch more, while a value of zero will prevent the
-space from stretching at all.  If unset, @var{stretchability}
-defaults to @code{space - minimum-distance}.
-@end itemize
+@node Within-system spacing properties
+@unnumberedsubsubsec Within-system spacing properties
 
-@lilypond[verbatim]
-#(set-global-staff-size 16)
-\new StaffGroup <<
-  % Since space is small and there is no minimum-distance, the distance
-  % between this staff and the next will be determined by padding.
-  \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing =
-      #'((space . 1) (padding . 1))
+The within-system vertical spacing mechanisms are controlled by
+two sets of grob properties.  The first set is associated with the
+@code{VerticalAxisGroup} grob, which is created by all staves and
+non-staff lines.  The second set is associated with the
+@code{StaffGrouper} grob, which can be created by staff-groups,
+but only if explicitly called.  These properties are described
+individually at the end of this section.
+
+Except for the @code{staff-affinity} property (of the
+@code{VerticalAxisGroup} grob), each of these grob properties is
+stored as an alist (association list), and each uses the same
+alist structure as the @code{\paper} spacing variables discussed
+in @ref{Flexible vertical dimensions}.
+
+The @emph{reference point} for a staff is the vertical center of
+its @code{StaffSymbol} (i.e. the middle line if @code{line-count}
+is odd; the middle space if @code{line-count} is even).
+
+The reference points for individual non-staff lines are given in
+the following table:
+
+@multitable {Non-staff line} {Reference point}
+@headitem Non-staff line @tab Reference point
+@item @code{ChordNames}  @tab baseline
+@item @code{NoteNames}   @tab baseline
+@item @code{Lyrics}      @tab baseline
+@item @code{Dynamics}    @tab vertical center
+@item @code{FiguredBass} @tab highest point
+@item @code{FretBoards}  @tab top line
+@end multitable
+
+In the following image, horizontal lines indicate the positions
+of these reference points:
+
+@lilypond[quote,noragged-right,line-width=110\mm]
+#(define zero-space '((padding . -inf.0) (space . 0)))
+
+alignToZero = \with {
+  \override VerticalAxisGroup #'inter-staff-spacing = #zero-space
+  \override VerticalAxisGroup #'inter-loose-line-spacing = #zero-space
+}
+lowerCaseChords = \with {
+  chordNameLowercaseMinor = ##t
+}
+staffAffinityDown = \with {
+  \override VerticalAxisGroup #'staff-affinity = #DOWN
+}
+labelContext =
+#(define-music-function
+     (parser location context)
+     (string?)
+   #{ s1*0^\markup { \typewriter $context } #})
+
+\layout {
+  \context { \Dynamics    \alignToZero }
+  \context { \FiguredBass \alignToZero }
+  \context { \Lyrics      \alignToZero }
+  \context { \NoteNames   \alignToZero }
+  \context { \ChordNames  \alignToZero \lowerCaseChords }
+  \context { \FretBoards  \alignToZero \staffAffinityDown }
+  \context { \Score
+    \override BarLine #'stencil = ##f
+    \override DynamicText #'self-alignment-X = #-1
+    \override FretBoard #'X-offset = #1.75
+    \override TextScript #'minimum-Y-extent = #'(-2 . 3)
+    \override TimeSignature #'stencil = ##f
   }
-  { \clef bass c, }
-  % Since space is small and nothing sticks out very far, the distance
-  % between this staff and the next will be determined by minimum-distance.
-  \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing =
-      #'((space . 1) (minimum-distance . 12))
-  }
-  { \clef bass c, }
-  % By setting padding to a negative value, staves can be made to collide.
-  \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing =
-      #'((space . 4) (padding . -10))
-  }
-  { \clef bass c, }
-  \new Staff { \clef bass c, }
->>
-@end lilypond
+}
 
-
-In orchestral and other large scores, it is common to place staves in
-groups.  The space between groups is typically larger than the space
-between staves of the same group.  This spacing can be tweaked with the
-@var{StaffGrouper} grob: the default value of @var{next-staff-spacing}
-for @var{VerticalAxisGroup} is a callback function which operates by
-searching for a @var{StaffGrouper} grob containing the staff.  If it
-finds a @var{StaffGrouper} grob and the staff in question is in the
-middle of a group, it reads the @var{between-staff-spacing} property of
-@var{StaffGrouper} and returns it.  If the staff in question is the last
-staff of a group, the callback reads the @var{after-last-staff-spacing}
-property of @var{StaffGrouper} and returns it.  If the callback did not
-find a @var{StaffGrouper} grob, it reads
-@var{default-next-staff-spacing} from its @var{VerticalAxisGroup} and
-returns that.
-
-@lilypond[verbatim]
-#(set-global-staff-size 16)
+%% These contexts have reference points at the baseline:
+%%   ChordNames, NoteNames, and Lyrics
 <<
-  \new PianoStaff \with {
-    \override StaffGrouper #'between-staff-spacing #'space = #1
-    \override StaffGrouper #'between-staff-spacing #'padding = #0
-    \override StaffGrouper #'after-last-staff-spacing #'space = #20
+  \new ChordNames { \chords { g1:m } }
+  \new NoteNames { s1 | g1 | }
+  \new RhythmicStaff {
+    \set RhythmicStaff.instrumentName = #"baseline "
+    \textLengthOn
+    \labelContext "ChordNames" s1 |
+    \labelContext "NoteNames"  s1 |
+    \labelContext "Lyrics"     s1 |
   }
-  <<
-    \new Staff c'1
-    \new Staff c'1
-  >>
+  \new Lyrics { \lyrics { \skip 1*2 | ghijk1 | } }
+>>
 
-  \new StaffGroup \with {
-    \override StaffGrouper #'between-staff-spacing #'space = #1
-    \override StaffGrouper #'between-staff-spacing #'padding = #0
+%% The reference point for Dynamics is its vertical center
+<<
+  \new RhythmicStaff {
+    \set RhythmicStaff.instrumentName = #"vertical center "
+    \labelContext "Dynamics" s1*3
   }
-  <<
-    \new Staff c'1
-    \new Staff c'1
-  >>
+  \new Dynamics { s2\mp s\fp }
+>>
+
+%% The reference point for FiguredBass is its highest point
+<<
+  \new RhythmicStaff {
+    \set RhythmicStaff.instrumentName = #"highest point "
+    \labelContext "FiguredBass" s1
+  }
+  \new FiguredBass { \figuremode { <6 5>1 } }
+>>
+
+%% The reference point for FretBoards is the top line
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new FretBoards { \chordmode { e1 } }
+  \new RhythmicStaff {
+    \set RhythmicStaff.instrumentName = #"top line "
+    \labelContext "FretBoards " s1
+  }
 >>
 @end lilypond
 
+Specific methods for modifying alists are discussed in
+@ref{Modifying alists}.  Grob properties should be adjusted with
+an @code{\override} inside a @code{\score} or @code{\layout}
+block, and not inside a @code{\paper} block.
 
-@unnumberedsubsubsec Spacing of non-staff lines
-
-After the positions of the staves are determined, the non-staff lines
-are distributed between the staves.  Each of these lines has a
-@var{staff-affinity} property which controls its vertical alignment.
-For example,
+The following example demonstrates the two ways these alists can
+be modified.  The first declaration updates one key-value
+individually, and the second completely re-defines the property:
 
 @example
-\new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #DOWN @}
+\new Staff \with @{
+  \override VerticalAxisGroup #'next-staff-spacing #'space = #10
+@} @{ @dots{} @}
+
+\new Staff \with @{
+  \override VerticalAxisGroup #'next-staff-spacing =
+    #'((padding . 1)
+       (space . 10)
+       (minimum-distance . 9)
+       (stretchability . 10))
+@} @{ @dots{} @}
 @end example
 
-@noindent creates a lyrics context that will be placed close to the
-staff below it.  Setting @var{staff-affinity} to something which is not
-a number (@code{#f}, for example) will cause that line to be treated
-like a staff.  Conversely, setting @var{staff-affinity} for a staff will
-cause it to be treated like a non-staff.
+To change any spacing settings globally, put them in the
+@code{\layout} block:
 
-Non-staff lines admit three properties to control their spacing.  Each
-of the these properties is an alist of the same format as
-@var{next-staff-spacing}, above.
+@example
+\layout @{
+  \context @{
+    \Staff
+    \override VerticalAxisGroup #'next-staff-spacing #'space = #10
+  @}
+@}
+@end example
+
+The global defaults for the following grob properties are defined
+in @file{scm/define-grobs.scm}:
+
 @itemize
-@item
-If the nearest line in the @var{staff-affinity} direction is a staff
-then @var{inter-staff-spacing} gives the spacing between the non-staff
-and the staff.  If @var{staff-affinity} is @code{CENTER}, then
-@var{inter-staff-spacing} is used for both directions.
-
-@item
-If the nearest line in the @var{staff-affinity} direction is a non-staff
-then @var{inter-loose-line-spacing} gives the spacing between the two
-non-staff lines.
-
-@item
-If the nearest line in the opposite direction to @var{staff-affinity} is
-a staff then @var{non-affinity-spacing} gives the spacing between the
-non-staff and the staff.  This can be used, for example, to require
-a minimum amount of padding between a Lyrics line and the staff
-to which it does not belong.
+@item @code{StaffGrouper} properties:
+@itemize
+@item @code{between-staff-spacing}
+@item @code{after-last-staff-spacing}
+@end itemize
+@item @code{VerticalAxisGroup} properties:
+@itemize
+@item @code{default-next-staff-spacing}
+@item @code{non-affinity-spacing}
+@end itemize
 @end itemize
 
-@lilypond[verbatim]
-#(set-global-staff-size 16)
+Default overrides for specific types of non-staff lines can be
+found in the relevant context definitions in
+@file{ly/engraver-init.ly}.
+
+
+@subsubheading Properties of the @code{VerticalAxisGroup} grob
+
+@code{VerticalAxisGroup} properties are typically adjusted with an
+@code{\override} at the @code{Staff} level (or equivalent).
+
+@table @code
+@item next-staff-spacing
+The distance between the current staff and the staff just below it
+in the same system, even if one or more non-staff lines (such as
+@code{Lyrics}) are placed between the two staves.  Does not apply
+to the bottom staff of a system.  For a grouped staff, if
+@code{next-staff-spacing} is set, it will be used instead of the
+relevant @code{StaffGrouper} property
+(@code{between-staff-spacing} or @code{after-last-staff-spacing}).
+If unset, the @code{default-next-staff-spacing} property is used,
+unless the staff is part of a staff-group and the appropriate
+@code{StaffGrouper} property is set.
+
+@item default-next-staff-spacing
+The value to use for @code{next-staff-spacing} when it is unset,
+for ungrouped staves and for grouped staves that do not have the
+relevant @code{StaffGrouper} property set
+(@code{between-staff-spacing} or @code{after-last-staff-spacing}).
+
+@item staff-affinity
+The direction of the staff to use for spacing the current
+non-staff line.  Choices are @code{UP}, @code{DOWN}, and
+@code{CENTER}.  If @code{CENTER}, the non-staff line will be
+placed equidistant between the two nearest staves on either side,
+unless collisions or other spacing constraints prevent this.
+Adjacent non-staff lines should have non-increasing
+@code{staff-affinity} from top to bottom, e.g. a non-staff line
+set to @code{UP} should not immediately follow one that is set to
+@code{DOWN}.  Non-staff lines at the top of a system should use
+@code{DOWN}; those at the bottom should use @code{UP}.  Setting
+@code{staff-affinity} to @code{#f} will cause a non-staff line to
+be treated as a staff.  Conversely, setting @code{staff-affinity}
+(to @code{UP}, @code{DOWN}, or @code{CENTER}) for a staff will
+cause it to be treated as a non-staff line.
+
+@c TODO: verify last clause below ("even if other...")
+
+@item inter-staff-spacing
+The distance between the current non-staff line and the nearest
+staff in the direction of @code{staff-affinity}, if there are no
+non-staff lines between the two, and @code{staff-affinity} is
+either @code{UP} or @code{DOWN}.  If @code{staff-affinity} is
+@code{CENTER}, then @code{inter-staff-spacing} is used for the
+nearest staves on @emph{both} sides, even if other non-staff lines
+appear between the current one and either of the staves.
+
+@item inter-loose-line-spacing
+The distance between the current non-staff line and the next
+non-staff line in the direction of @code{staff-affinity}, if both
+are on the same side of the reference staff, and
+@code{staff-affinity} is either @code{UP} or @code{DOWN}.
+
+@item non-affinity-spacing
+The distance between the current non-staff line and the staff in
+the opposite direction from @code{staff-affinity}, if there are no
+other non-staff lines between the two, and @code{staff-affinity}
+is either @code{UP} or @code{DOWN}.  This can be used, for
+example, to require a minimum amount of padding between a
+@code{Lyrics} line and the staff to which it does not belong.
+@end table
+
+
+@subsubheading Properties of the @code{StaffGrouper} grob
+
+@code{StaffGrouper} properties are typically adjusted with an
+@code{\override} at the @code{StaffGroup} level (or equivalent).
+
+@table @code
+@item between-staff-spacing
+The distance between consecutive staves within the current
+staff-group.  The @code{next-staff-spacing} property of an
+individual staff's @code{VerticalAxisGroup} grob will be used
+instead for any staves in the staff-group that have it set.  If
+both @code{between-staff-spacing} and @code{next-staff-spacing}
+are unset, the @code{default-next-staff-spacing} property of each
+staff's @code{VerticalAxisGroup} grob is used.
+
+@item after-last-staff-spacing
+The distance between the last staff of the current staff-group and
+the staff just below it in the same system, even if one or more
+non-staff lines (such as @code{Lyrics}) exist between the two
+staves.  Does not apply to the bottom staff of a system.  The
+@code{next-staff-spacing} property of an individual staff's
+@code{VerticalAxisGroup} grob will be used instead for any staves
+in the staff-group that have it set.  If both
+@code{after-last-staff-spacing} and @code{next-staff-spacing} are
+unset, the @code{default-next-staff-spacing} property of each
+staff's @code{VerticalAxisGroup} grob is used.
+@end table
+
+
+@node Spacing of ungrouped staves
+@unnumberedsubsubsec Spacing of ungrouped staves
+
+@emph{Staves} (such as @code{Staff}, @code{DrumStaff},
+@code{TabStaff}, etc.) are contexts that can contain one or more
+voice contexts, but cannot contain any other staves.
+
+The following properties affect the spacing of @emph{ungrouped}
+staves:
+
+@itemize
+@item @code{VerticalAxisGroup} properties:
+@itemize
+@item @code{next-staff-spacing}
+@end itemize
+@end itemize
+
+These grob properties are described individually above; see
+@ref{Within-system spacing properties}.
+
+Additional properties are involved for staves that are part of a
+staff-group; see @ref{Spacing of grouped staves}.
+
+The following example shows how the @code{next-staff-spacing}
+property can affect the spacing of ungrouped staves:
+
+@lilypond[verbatim,quote,staffsize=16]
+\layout {
+  \context {
+    \Staff
+    \override VerticalAxisGroup #'next-staff-spacing =
+      #'((padding . 1)
+         (space . 8)
+         (minimum-distance . 7))
+  }
+}
+
+\new StaffGroup <<
+  % The very low note here needs more room than 'space can
+  % provide, so the distance between this staff and the next is
+  % determined by 'padding.
+  \new Staff { b,2 r | }
+
+  % Here, 'space provides enough room, and there is no need to
+  % compress the space (towards 'minimum-distance) to make room
+  % for anything else on the page, so the distance between this
+  % staff and the next is determined by 'space.
+  \new Staff { \clef bass g2 r | }
+
+  % By setting 'padding to a negative value, staves can be made to
+  % collide.  The lowest acceptable value for 'space is 0.
+  \new Staff \with {
+    \override VerticalAxisGroup #'next-staff-spacing =
+      #'((padding . -10)
+         (space . 3.5))
+  } { \clef bass g2 r | }
+  \new Staff { \clef bass g2 r | }
+>>
+@end lilypond
+
+
+@node Spacing of grouped staves
+@unnumberedsubsubsec Spacing of grouped staves
+
+In orchestral and other large scores, it is common to place staves
+in groups.  The space between groups is typically larger than the
+space between staves of the same group.
+
+@emph{Staff-groups} (such as @code{StaffGroup}, @code{ChoirStaff},
+etc.) are contexts that can contain one or more staves
+simultaneously.
+
+The following properties affect the spacing of staves inside
+staff-groups:
+
+@itemize
+@item @code{VerticalAxisGroup} properties:
+@itemize
+@item @code{next-staff-spacing}
+@item @code{default-next-staff-spacing}
+@end itemize
+@item @code{StaffGrouper} properties:
+@itemize
+@item @code{between-staff-spacing}
+@item @code{after-last-staff-spacing}
+@end itemize
+@end itemize
+
+These grob properties are described individually above; see
+@ref{Within-system spacing properties}.
+
+The following example shows how properties of the
+@code{StaffGrouper} grob can affect the spacing of grouped staves:
+
+@lilypond[verbatim,quote,staffsize=16]
+\layout {
+  \context {
+    \Score
+    \override StaffGrouper #'between-staff-spacing #'padding = #0
+    \override StaffGrouper #'between-staff-spacing #'space = #1
+  }
+}
+
+<<
+  \new PianoStaff \with {
+    \override StaffGrouper #'after-last-staff-spacing #'space = #20
+  } <<
+    \new Staff { c'1 }
+    \new Staff { c'1 }
+  >>
+
+  \new StaffGroup <<
+    \new Staff { c'1 }
+    \new Staff { c'1 }
+  >>
+>>
+@end lilypond
+
+
+@node Spacing of non-staff lines
+@unnumberedsubsubsec Spacing of non-staff lines
+
+@emph{Non-staff lines} (such as @code{Lyrics}, @code{ChordNames},
+etc.) are contexts whose layout objects are engraved like staves
+(i.e. in horizontal lines within systems).  Specifically,
+non-staff lines are non-staff contexts that create the
+@code{VerticalAxisGroup} layout object.
+
+The following properties affect the spacing of non-staff lines:
+
+@itemize
+@item @code{VerticalAxisGroup} properties:
+@itemize
+@item @code{staff-affinity}
+@item @code{inter-staff-spacing}
+@item @code{inter-loose-line-spacing}
+@item @code{non-affinity-spacing}
+@end itemize
+@end itemize
+
+These grob properties are described individually above; see
+@ref{Within-system spacing properties}.
+
+The following example shows how the
+@code{inter-loose-line-spacing} property can affect the spacing of
+consecutive non-staff lines.  Here, by setting the
+@code{stretchability} key to a very high value, the lyrics are
+able to stretch much more than usual:
+
+@lilypond[verbatim,quote,staffsize=16]
 \layout {
   \context {
     \Lyrics
-    % By default, Lyrics are placed close together.  Here, we allow them to
-    % be stretched more widely.
     \override VerticalAxisGroup
       #'inter-loose-line-spacing #'stretchability = #1000
   }
@@ -1627,23 +1911,27 @@ to which it does not belong.
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 30)) }
-    { c'1 }
+    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 30))
+  } { c'1 }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #UP }
-    \lyricmode { up }
+    \override VerticalAxisGroup #'staff-affinity = #UP
+  } \lyricmode { up }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #CENTER }
-    \lyricmode { center }
+    \override VerticalAxisGroup #'staff-affinity = #CENTER
+  } \lyricmode { center }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #DOWN }
-    \lyricmode { down }
-  \new Staff
-    { c'1 }
+    \override VerticalAxisGroup #'staff-affinity = #DOWN
+  } \lyricmode { down }
+  \new Staff { c'1 }
 >>
 @end lilypond
 
+
 @seealso
+Installed Files:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
 Snippets:
 @rlsr{Spacing}.
 
@@ -1651,57 +1939,11 @@ Snippets:
 @c @lsr{spacing,alignment-vertical-spacing.ly}.
 
 Internals Reference:
+@rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper},
 @rinternals{VerticalAlignment},
 @rinternals{Axis_group_engraver}.
-
-@knownissues
-Adjacent non-staff lines should have non-increasing
-@var{staff-affinity} from top-to-bottom.  For example, the behavior of
-@example
-<<
-  \new Staff c
-  \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #DOWN @}
-  \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #UP @}
-  \new Staff c
->>
-@end example
-is undefined.
-
-A non-staff line at the bottom of a system should have
-@var{staff-affinity} set to @code{UP}.  Similarly, a non-staff
-line at the top of a system should have @var{staff-affinity} set
-to @code{DOWN}.
-
-@node Vertical spacing between systems
-@subsection Vertical spacing between systems
-
-The mechanisms that control spacing between systems are similar to those
-that control spacing between staves within a system (see
-@ref{Vertical spacing inside a system}).  The main difference is that
-the variables to control spacing between systems are set in the
-@code{\paper} block, rather than as grob properties.  These paper block
-variables are @var{system-system-spacing},
-@var{score-system-spacing}, @var{markup-system-spacing},
-@var{score-markup-spacing}, @var{markup-markup-spacing},
-@var{top-system-spacing}, @var{top-markup-spacing} and
-@var{last-bottom-spacing}.  Note that these variables ignore non-staff
-lines.  For example, @var{system-system-spacing} controls the spacing
-from the middle staff line of the bottom staff from one system to
-the middle staff line of the top staff of the next system, whether
-or not there are lyrics below the upper system.
-See @ref{Flexible vertical dimensions} for a description of each
-of these variables.
-
-There are two more @code{\paper} block variables that affect vertical
-spacing: if @var{ragged-bottom} is set to @code{##t} then no pages will
-be stretched (which means that neither the space between systems nor the
-space within systems will be stretched).  If @var{ragged-last-bottom}
-is set to @code{##t} then the last page will not be stretched.
-
-@seealso
-Snippets:
-@rlsr{Spacing}.
 
 
 @node Explicit staff and system positioning
