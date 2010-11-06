@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1277,10 +1277,10 @@ c^\markup {
 c
 c^\markup {
   \combine
-    \musicglyph #"accordion.accDiscant"
+    \musicglyph #"accordion.discant"
     \combine
-      \raise #0.5 \musicglyph #"accordion.accDot"
-      \raise #1.5 \musicglyph #"accordion.accDot"
+      \raise #0.5 \musicglyph #"accordion.dot"
+      \raise #1.5 \musicglyph #"accordion.dot"
 }
 @end lilypond
 

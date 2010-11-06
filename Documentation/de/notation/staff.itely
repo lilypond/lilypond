@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
+    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -679,10 +679,10 @@ Stücke setzt.
 >>
 @end lilypond
 
-Man kann auch den @code{\RemoveEmptyStaffContext}-Befehl einsetzen,
+Man kann auch den @code{\Staff \RemoveEmptyStaves}-Befehl einsetzen,
 um Ossia-Systeme zu erstellen.  Diese Methode eignet sich am
 besten, wenn nach dem Ossia sofort ein Zeilenumbruch erfolgt.
-Mehr Information zu @code{\RemoveEmptyStaffContext} findet sich in
+Mehr Information zu @code{\Staff \RemoveEmptyStaves} findet sich in
 @ref{Systeme verstecken}.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -709,7 +709,7 @@ Mehr Information zu @code{\RemoveEmptyStaffContext} findet sich in
 
 \layout {
   \context {
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
     \override VerticalAxisGroup #'remove-first = ##t
   }
 }
@@ -753,8 +753,8 @@ Referenz der Interna:
 @cindex Systeme, leere
 @cindex Verschwinden von leeren Systemen
 
-@funindex \RemoveEmptyStaffContext
-@funindex RemoveEmptyStaffContext
+@funindex \RemoveEmptyStaves
+@funindex RemoveEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
 @funindex stopStaff
@@ -772,7 +772,7 @@ eingesetzt werden.
 @end lilypond
 
 Leere Systeme können versteckt werden, wenn der
-@code{\RemoveEmptyStaffContext}-Befehl im @code{\layout}-Abschnitt
+@code{\Staff \RemoveEmptyStaves}-Befehl im @code{\layout}-Abschnitt
 benutzt wird.  In großen Orchesterpartituren wird dies oft
 verwendet, um die leeren Systeme von gerade nicht spielenden
 Instrumenten zu verstecken.  In der Standardeinstellung werden alle
@@ -785,7 +785,7 @@ der drei enthält.}
 @lilypond[verbatim,quote,ragged-right]
 \layout {
   \context {
-    \RemoveEmptyStaffContext
+    \Staff \RemoveEmptyStaves
   }
 }
 
@@ -806,32 +806,29 @@ der drei enthält.}
 @cindex ossia
 
 @noindent
-@code{\RemoveEmptyStaffContext} kann auch eingesetzt werden,
+@code{\Staff \RemoveEmptyStaves} kann auch eingesetzt werden,
 um Ossiaabschnitte zu erstellen.  Zu Einzelheiten, siehe
 @ref{Ossia-Systeme}.
 
 @cindex Verstecken von Systemen der Alten Musik
 @cindex Verstecken von Rhythmus-Systemen
 
-@funindex \RemoveEmptyStaffContext
-@funindex RemoveEmptyStaffContext
-@funindex \AncientRemoveEmptyStaffContext
-@funindex \RemoveEmptyRhythmicStaffContext
-@funindex AncientRemoveEmptyStaffContext
-@funindex RemoveEmptyRhythmicStaffContext
 
-Der @code{\AncientRemoveEmptyStaffContext}-Befehl kann
+@funindex \RemoveEmptyStaves
+@funindex RemoveEmptyStaves
+
+Der @code{\VaticanaStaff \RemoveEmptyStaves}-Befehl kann
 benutzt werden, um leere Takte in Notation der Alten Musik
 zu entfernen.  Gleichermaßen kann 
-@code{\RemoveEmptyRhythmicStaffContext} eingesetzt werden, um
+@code{\RhythmicStaff \RemoveEmptyStaves} eingesetzt werden, um
 leere Takte in einem
 @code{RhythmicStaff}-Kontext zu entfernen.
 
 
 @predefined
-@code{\RemoveEmptyStaffContext},
-@code{\AncientRemoveEmptyStaffContext},
-@code{\RemoveEmptyRhythmicStaffContext}.
+@code{\Staff \RemoveEmptyStaves},
+@code{\VaticanaStaff \RemoveEmptyStaves},
+@code{\RhythmicStaff \RemoveEmptyStaves}.
 @endpredefined
 
 
@@ -880,7 +877,7 @@ den Engraver zu entfernen:
 \override NoteHead #'no-ledgers = ##t
 @end example
 
-Zu den bekannten Fehlern und Warnungen, die mit @code{\RemoveEmptyStaffContext}
+Zu den bekannten Fehlern und Warnungen, die mit @code{\Staff \RemoveEmptyStaves}
 zusammenhängen, siehe @ref{Die Standardeinstellungen von Kontexten ändern}.
 
 

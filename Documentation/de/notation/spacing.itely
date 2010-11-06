@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -149,6 +149,9 @@ Schnipsel:
 @subsection Seitenformatierung
 @translationof Page formatting
 
+@funindex \paper
+@funindex paper
+
 Ränder, Kopf- und Fußzeilen und andere Layoutvariablen werden
 entsprechend dem Papierformat automatisch gesetzt.
 
@@ -161,151 +164,233 @@ Dieser Abschnitt zeigt einige der Papiervariablen, die geändert
 werden können.
 
 @menu
-* Vertikale Dimensionen::
+* Feste vertikale Dimensionen::
+* Flexible vertikale Dimensionen::
 * Horizontale Dimensionen::
 * Weitere Layout-Variablen::
 @end menu
 
 
-@node Vertikale Dimensionen
-@unnumberedsubsubsec Vertikale Dimensionen
-@translationof Vertical dimensions
-
-Diese Variablen werden benutzt um andere vertikale Verhältnisse
-auf einer Seite zu produzieren:
-
-@funindex \paper
-@funindex after-title-space
-@funindex before-title-space
-@funindex between-system-padding
-@funindex between-system-space
-@funindex between-title-space
-@funindex bottom-margin
-@funindex foot-separation
-@funindex head-separation
-@funindex page-top-space
-@funindex paper-height
-@funindex top-margin
+@node Feste vertikale Dimensionen
+@unnumberedsubsubsec Feste vertikale Dimensionen
+@translationof Fixed vertical dimensions
 
 @table @code
-
-@item markup-system-spacing
-
-@funindex markup-system-spacing
-
-Gibt an, wie der Abstand zwischen Titel (oder der obersten Beschriftung) und
-dem darauffolgenden Notensystem berechnet wird.  Das ist eine assoziative
-Liste mit fünf Einrägen:
-
-@itemize @bullet
-@item
-@var{Platz} -- Die Größe an dehnbarem Platz zwischen der Grundlinie eines
-Titels und dem Mittelpunkt des folgenden Notensystems.
-
-@item
-@var{Verschiebung (padding)} -- Der minimale weiße Platz, der zwischen einem
-System und der Überschrift erhalten bleiben muss.
-
-@item
-@var{Dehnbarkeit} -- Wie leicht der Platz zwischen Titel und erstem System
-geweitet wird, wenn eine Seite gedehnt wird.
-Wenn der Wert von @var{Dehnbarkeit} Null ist, dann wird der Abstand zum
-nächsten System überhaupt nicht gedehnt.  Das hat den Unterschied zu
-@var{Verschiebung}, dass die Höhe eines Systems keinen Einfluss auf die
-Anwendung von @var{minimum-distance} (minimaler Abstand) hat (während die Höhe
-eines Systems ausdrücklich für @var{Verschiebung} verlangt wird.
-
-@end itemize
-
-Der Standard beispielsweise ist:
-
-@example
-markup-system-spacing = #'((Platz . 2) Verschiebung . 0.5))
-@end example
-
-Wenn eine Seite einen keinen ausgeglichenen unteren Rand hat, wird @var{Platz}
-nicht gestreckt.  Insbesondere der Abstand auf einer derartigen Seite der
-größte Wert von
-
-@itemize @bullet
-@item @var{Platz},
-@item @var{minimum-distance} und
-@item @var{Verschiebung} plus dem Mindestabstand, damit keine Überlappung
-auftreten.
-@end itemize
-
-@item score-markup-spacing
-
-@funindex score-markup-spacing
-
-Definiert den Platz zwiscehn einem System und dem Titel (oder der obersten
-Beschriftung), der darauf folgt.  Der Abstand wird von der Mitte des letzten
-Notensystems der Systemgruppe zur Grundlinie des darauf folgenden Titels
-berechnet.  Siehe auch @var{markup-system-spacing}.
-
-@item score-system-spacing
-
-@funindex score-system-spacing
-
-Definiert den Abstand zwischen zwei Systemen, wenn sie sich in unterschiedlichen
-Partituren (Score) befinden, aber zwischen ihnen keine Überschrift kommt.  Siehe
-auch @var{markup-system-spacing}.
-
-@item system-system-spacing
-
-@funindex system-system-spacing
-
-Definiert den Abstand zwischen der Mitte des untersten Notensystems einer
-Systemgruppe und der Mitte des obersten Notensystems der folgenden Systemgruppe.
-Siehe @var{markup-system-spacing}.
-
-@item markup-markup-spacing
-
-@funindex markup-markup-spacing
-
-Definiert den Abstand zwischen zwei Überschriften (oder Beschriftungen auf oberster
-Ebene).  Die Abstände werden von der Grundlinie der ersten Überschrift zur
-Grundlinie der zweiten Überschrift errechnet.  Siehe @var{markup-system-spacing}.
-
-@item bottom-margin
-
-Der Rand zwischen der Fußzeile und dem unteren Rand der Seite.
-Standard: @code{6\mm}.
-
-@item last-bottom-spacing
-
-@funindex last-bottom-spacing
-
-Definiert den Abstand von der Mitte des letzten Systems (oder der Grundlinie der
-letzten Beschriftung) zum Ende des bedruckbaren Bereichs (normalerweise die
-Oberkante des Seitenrandes).  Siehe @var{markup-system-spacing}.
-
-@item top-markup-spacing
-
-@funindex top-markup-spacing
-
-Definiert den Abstand vom Oberrand des bedruckbaren Bereichs (also dem Unterrand
-des oberen Seitenrandes) zur Grundlinie der Ügerschrift.  Siehe @var{markup-system-spacing}.
-
-@item top-system-spacing
-
-@funindex top-system-spacing
-
-Definiert den Abstand vom Oberrand des bedruckbaren Bereiches (also dem Unterrand
-des oberen Seitenrandes) zur Mitte des ersten Notensystems.  Der Wert wird nur
-eingesetzt, wenn oben auf der Seite kein Titel gesetzt ist (in welchem Fall
-@var{top-markup-spacing} benutzt wird).  Siehe @var{markup-system-spacing}.
-
 @item paper-height
+@funindex paper-height
 
-Die Höhe der Seite.  Standard:  Die Höhe des aktuellen Papierformats.
+Die Höhe der Seite.  Standard: die Höhe der aktuellen Papiergröße.
 Zu Einzelheiten siehe @ref{Papierformat}.
 
 @item top-margin
+@funindex top-margin
 
-Der Rand zwischen der Kopfzeile und dem oberen Rand der Seite. Standard:
-@code{5\mm}.
+Der Rand zwischen dem oberen Ende der Seite und dem oberen Ende
+des bedruckbaren Bereichs.  Standard: @code{5/mm}.
 
+@item bottom-margin
+@funindex bottom-margin
+
+Der Rand zwischen dem unteren Ende der Seite und dem unteren Ende des
+bedruckbaren Bereichs.  Standard: @code{6\mm}.
+@end table
+
+
+@node Flexible vertikale Dimensionen
+@unnumberedsubsubsec Flexible vertikale Dimensionen
+@translationof Flexible vertical dimensions
+
+In den meisten Fällen bietet es sich an, dass die vertikalen
+Abstände zwischen bestimmten Objekten (wie Ränder, Titel,
+Notensystemgruppen und einzelne Partituren) flexibel gehalten
+werden, sodass sie je nach Situation gedehnt oder komprimiert
+werden können.  Es gibt eine Anzahl von Variablen für die
+@code{\paper}-Umgebung, mit denen man das Dehnungsverhalten dieser
+Dimensionen beeinflussen kann.  Sie finden sich unten aufgelistet.
+
+Dabei sollte beachtet werden, dass die Variablen, die in diesem
+Abschnitt behandelt werden, nicht die Platzierung und das
+Dehnungsverhalten von Notensystemen innerhalb der einzelnen
+Systemgruppen behandelt.  Die Dehnung zwischen Notensystemen
+wird mit Grob-Eigenschaften kontrolliert, deren Einstellungen
+normalerweise innerhalb der @code{\score}-Umgebung vorgenommen
+werden, und nicht innerhalb der @code{\paper}-Umgebung.  Siehe auch
+@ref{Vertikale Abstände zwischen Systemen}.
+
+@subsubheading Struktur der Platzierungs-Alisten für @code{\paper}-Variablen
+
+Jede dieser Variablen ist eine Aliste (eine assoziative Liste), die
+vier @emph{Schlüssel} (engl. key) enthält:
+
+@itemize
+@item
+@code{padding} (Verschiebung) -- der minimal benötigte vertikale blanke
+Freiraum zwischen zwei Objekten gemessen in Notenlinienabständen.  Man
+kann sich das als die minimale Höhe eines Rechtecks ohne jegliche Störung
+vorstellen, das vom linken bis zum rechten Ende der hiermit verknüpften
+Ojekte reicht.
+
+@item @code{space} (Platz) -- der vertikale Standardfreiraum
+gemessen in Notenlinienabständen zwischen den @emph{Referenzpunkten}
+der zwei Objekte, wenn sich daraus keine Kollisionen ergeben und
+keine Dehnung oder Komprimierung angewendet wird.  Der Referenzpunkt
+einer (Titel)Beschriftung oder einer Beschriftung auf höchster Ebene
+ist der höchste Punkt der Beschriftung, und der Referenzpunkt einer
+Systemgruppe (oder eines einzelnen Systems) ist die Mittellinie des
+nächsten Notensystems.  Werte für @code{space}, die weniger als
+@code{padding} oder @code{minimum-distance} betragen, sind nicht
+sinnvoll, weil der daraus resultierende Abstand niemals weniger
+als @code{padding} oder @code{minimum-distance} ist.
+
+@item @code{minimum-distance} (minimaler Abstand) -- der minimale
+benötigte vertikale Abstand, gemessen in Notenlinienabständen,
+zwischen den Referenzpunkten der zwei Objekte, wenn Komprimierung
+angewendet wird.  Wert für @code{minimum-distance}, die geringer als
+@code{padding} sind, sind nicht sinnvoll, weil der resultierende
+Abstand nie weniger als @code{padding} ist.
+
+@item @code{stretchability} (Dehnbarkeit) -- ein einheitsloses
+Maß der Leichtigkeit, mit der sich die Dimension dehnen lässt (ohne
+dass Zusammenstöße auftreten).  Wenn es null ist, wird der Abstand
+nicht gedehnt (außer ein Zusammenstoß würde auftreten), wenn es
+positiv ist, hängt die Wichtigkeit der Dehnbarkeit eines bestimmten
+Objekts nur noch von seiner Beziehung zu dem Wert des anderen Objekts
+ab.  Beispielsweise wennn eine Dimension die doppelte Dehnbarkeit als
+die andere hat, wird sie auch zweimal so einfach gedehnt.  Werte sollten
+nicht-negativ und reale Zahlen sein.  Der Wert @code{+inf.0}
+ruft einen @code{programming_error} hervor und wird ignoriert, aber
+@code{1.0e7} kann für einen sogut wie unendlich dehnbaren Abstand eingesetzt
+werden.  Wenn der Wert nicht gesetzt wird, ist der Standardwert
+der von @code{space}.  Die Wahrscheinlichkeit einer Dimension, sich
+zu verkleinern, kann man nicht direkt beeinflussen, sondern sie ergibt sich
+aus (@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
+@end itemize
+
+Wenn eine Seite einen nicht ausgeglichenen unteren Rand hat, ist der
+resultierende Abstand der größte von:
+
+@itemize
+@item @code{space},
+@item @code{minimum-distance} und
+@item @code{padding} plus der kleinste nötige Abstand, um Zusammenstöße
+zu vermeiden.
+@end itemize
+
+
+@subsubheading Platzierungs-Alisten für @code{\paper}-Variablen verändern
+
+Um einen einzelnen Schlüssel für eine Dimensionsvariable zu setzen oder zu verändern,
+wird der Schlüssel innerhalb der @code{\paper}-Umgebung aufgerufen:
+
+@example
+\paper @{
+  system-system-spacing #'space = #10
+@}
+@end example
+
+Hiermit wird der angegebene Schlüssel verändert, ohne dass sich die
+anderen Schlüssel der gleichen Variable verändern würde.  Um eine
+Variable vollständig mit einem Aufruf umzudefinieren, wird sie als
+Aliste notiert:
+
+@example
+\paper @{
+  system-system-spacing =
+    #'((padding . 1)
+       (space . 12)
+       (minimum-distance . 8)
+       (stretchability . 12))
+@}
+@end example
+
+Hierbei werden jedoch alle Werte, auch wenn sie nicht in der Aliste auftreten,
+verändert: sie werden alle auf 0 gesetzt (bis auf
+@code{stretchability}, welches den Wert von @code{space} bekommt).
+Darum sind folgende zwei Aufrufe identisch:
+
+@example
+system-system-spacing =
+  #'((space . 10))
+
+system-system-spacing =
+  #'((padding . 0)
+     (space . 10)
+     (minimum-distance . 0)
+     (stretchability . 10))
+@end example
+
+Eine womöglich nicht beabsichtigte Konsequenz dessen ist die
+Entfernung der Standardwerte für @code{padding} und
+@code{minimum-distance}.  Wenn also eine Variable als Aliste
+(jeglicher Länge) definiert wird, werden immer alle Standard-Schlüsselwerte
+zurückgesetzt.  Standardwerte für die flexiblen vertikalen Dimensionen
+der @code{\paper}-Umgebung finden sich in @file{ly/paper-defaults-init.ly}.
+
+
+@subsubheading Flexible vertikale Dimensionsvariablen der @code{\paper}-Umgebung
+
+Die Bezeichnungen dieser Variablen folgen dem Format
+@code{@var{oben}-@var{unten}-spacing}, wobei @code{@var{oben}}
+und @code{@var{unten}} die zu platzierenden Objekte sind.  Jede
+Entfernung wird zwischen den Referenzpunkten der zwei Objekte
+gemessen:  die Referenzpunkte einer (Titel-)Beschriftung (der obersten
+Ebene) ist sein höchster Punkt, und der Referenzpunkt einer
+Notensystemgruppe ist die Mittellinie des nächsten Notensystems.
+In diesen Bezeichnungen bezeichnet @qq{@code{markup}} (Beschriftung)
+sowohl @emph{Titelbeschriftungen} (@code{bookTitleMarkup} oder
+@code{scoreTitleMarkup}) als auch @emph{Beschriftungen auf oberster
+Dateiebene} (siehe @ref{Die Dateistruktur}).
+
+@table @code
+@item markup-system-spacing
+@funindex markup-system-spacing
+
+Der Abstand zwischen einer (Titel-) Beschriftung (der obersten Ebene)
+und der folgenden Systemgruppe.
+
+@item score-markup-spacing
+@funindex score-markup-spacing
+
+Der Abstand zwischen dem letzten System einer Partitur und der
+folgenden (Titel-)Beschriftung (der obersten Ebene).
+
+@item score-system-spacing
+@funindex score-system-spacing
+
+Der Abstand zwischen dem letzten System einer Partitur und dem ersten
+System der folgenden Partitur, wenn keine (Titel-)Beschriftung (der
+obersten Ebene) zwischen ihnen liegt.
+
+@item system-system-spacing
+@funindex system-system-spacing
+
+Der Abstand zwischen zwei Systemgruppen derselben Partitur.
+
+@item markup-markup-spacing
+@funindex markup-markup-spacing
+
+Der Abstand zwischen zwei (Titel-)Beschriftungen (der obersten Ebene).
+
+@item last-bottom-spacing
+@funindex last-bottom-spacing
+
+Der Abstand vom letzten System oder Beschriftung der obersten Ebene auf einer
+Seite bis zum unteren Ende des bedruckbaren Bereichs (also der Oberkante
+des unteren Randes).
+
+@item top-system-spacing
+@funindex top-system-spacing
+
+Der Abstand vom oberen Ende des bedruckbaren Bereichs (also der Unterkante
+des oberen Randes) bis zum ersten System auf einer Seite, wenn keine
+(Titel-)Beschriftung (der obersten Ebene) dazwischen kommt.
+
+@item top-markup-spacing
+@funindex top-markup-spacing
+
+Der Abstand vom oberen Ende des bedruckbaren Bereichs (also der Unterkante
+des oberen Randes) zur ersten (Titel-)Beschriftung (der obersten Ebene)
+auf einer Seite, wenn sich kein Notensystem dazwischen befindet.
 @end table
 
 
@@ -322,6 +407,17 @@ teilt dem Zeilenumbruchsalgorithmus mit, wieviel Platz auf einer Seite
 belegt werden kann, die zweite hingegen erstellt die konkrete Seite,
 nachdem sie die Systeme entgegengenommen hat, die auf der Seite platziert
 werden sollen.
+
+Man kann @code{\paper}-Umgebungswerte in Scheme definieren.  In diesem
+Fall sind @code{mm}, @code{in}, @code{pt} und @code{cm} Variablen, die
+in @file{paper-defaults.ly} mit Werten in Millimetern definiert sind.
+Darum muss der Wert  @w{@code{2 cm}} in dem Beispiel unten multipliziert werden:
+
+@example
+\paper @{
+ #(define bottom-margin (* 2 cm))
+@}
+@end example
 
 Beispiel:
 
@@ -351,28 +447,6 @@ Das nächste Beispiel zentriert Seitenzahlen unten auf jeder Seite:
 @}
 @end example
 
-Werte der @code{\paper}-Umgebung können in Scheme definiert werden.  In diesem
-Fall sind @code{mm}, @code{in}, @code{pt} und @code{cm} Variablen,
-die in der Datei @file{paper@/-defaults@/-init@/.ly} mit Millimeter-Werten definiert
-sind.  Darum muss der Wert 2 cm in dem Beispiel unten multipliziert werden
-muss:
-
-@example
-\paper @{
- #(define bottom-margin (* 2 cm))
-@}
-@end example
-
-Kopf- und Fußzeile werden durch die Funktionen @code{make-footer} und
-@code{make-header} erstellt, welche in @code{\paper} definiert sind.
-Die Standardwerte finden sich in @file{paper@/-defaults@/-init@/.ly} und
-@file{ly/@/titling@/-init@/.ly}.
-
-Das Seitenlayout selber wird von zwei Funktionen in @code{\paper} vorgenommen:
-@code{page-music-height} und @code{page-make-stencil}.  Die erste sagt
-dem Zeilenumbruchsalgorithmus, wieviel Platz auf einer Seite verteilt werden
-kann, die zweite erstellt die eigentliche Seite, wenn sie das System hat,
-das auf der Seite erscheinen soll.
 
 @seealso
 Notationsreferenz:
@@ -611,11 +685,15 @@ Der Wert der Seitenzahl auf der ersten Seite.  Standard: @code{#1}.
 
 @item max-systems-per-page
 
+@funindex max-systems-per-page
+
 Die maximale Anzahl an Notensystemen, die auf einer Seite gesetzt werden.  Das
 wird zur Zeit nur von dem @code{ly:optimal-breaking}-Algorithmus
 unterstützt.  Standard: nicht gesetzt.
 
 @item min-systems-per-page
+
+@funindex min-systems-per-page
 
 Die minimale Anzahl an Notensystemen, die auf einer Seite gesetzt werden. Das
 kann dazu führen, dass Seiten zu dicht gefüllt werden, wenn der Wert
@@ -1328,19 +1406,21 @@ Wenn @code{line-break-permission} die Einstellung falsch
 }
 
 \score {
-  \new Score \with {
-    \override NonMusicalPaperColumn #'line-break-permission = ##f
-    \override NonMusicalPaperColumn #'page-break-permission = ##f
-  } {
-    \new Staff {
-      \repeat unfold 2 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 8 { c'8 c'8 c'8 c'8 } \pageBreak
-      \repeat unfold 8 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
-      \repeat unfold 2 { c'8 c'8 c'8 c'8 }
+  \new Staff {
+    \repeat unfold 2 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 8 { c'8 c'8 c'8 c'8 } \pageBreak
+    \repeat unfold 8 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
+    \repeat unfold 2 { c'8 c'8 c'8 c'8 }
+    }
+  \layout {
+    \context {
+      \Score
+      \override NonMusicalPaperColumn #'line-break-permission = ##f
+      \override NonMusicalPaperColumn #'page-break-permission = ##f
     }
   }
 }
@@ -1359,7 +1439,7 @@ Zeilen- und Seitenumbruchbefehle werden normalerweise direkt
 zusammen mit den Noten eingegeben.
 
 @example
-\new Score @{
+\score @{
   \new Staff @{
     \repeat unfold 2 @{ c'4 c'4 c'4 c'4 @}
     \break
@@ -1377,20 +1457,20 @@ Diese zusätzliche Stimme enthält nur unsichtbare Noten und die
 Umbruchbefehle:
 
 @lilypond[quote,verbatim]
-\new Score {
+\score {
   \new Staff <<
-     \new Voice {
-        s1 * 2 \break
-        s1 * 3 \break
-        s1 * 6 \break
-        s1 * 5 \break
-     }
-     \new Voice {
-        \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 5 { c'4 c'4 c'4 c'4 }
-     }
+    \new Voice {
+      s1 * 2 \break
+      s1 * 3 \break
+      s1 * 6 \break
+      s1 * 5 \break
+    }
+    \new Voice {
+      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+    }
   >>
 }
 @end lilypond
@@ -1403,32 +1483,31 @@ anderer Eigenschaften von
 @ref{Vertikale Abstände}).
 
 @lilypond[quote,verbatim]
-\new Score {
+\score {
   \new Staff <<
-     \new Voice {
-
-        \overrideProperty "Score.NonMusicalPaperColumn"
+    \new Voice {
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 0))
-        s1 * 2 \break
+      s1 * 2 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 35))
-        s1 * 3 \break
+      s1 * 3 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 70))
-        s1 * 6 \break
+      s1 * 6 \break
 
-        \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty "Score.NonMusicalPaperColumn"
         #'line-break-system-details #'((Y-offset . 105))
-        s1 * 5 \break
-     }
-     \new Voice {
-        \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-        \repeat unfold 5 { c'4 c'4 c'4 c'4 }
-     }
+      s1 * 5 \break
+    }
+    \new Voice {
+      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+    }
   >>
 }
 @end lilypond
@@ -1711,7 +1790,7 @@ Nicht-Notensystem-zeilen ignorieren.  Beispielsweise kontrolliert
 @var{system-system-spacing} den Abstand der mittleren Notenlinie des
 tiefsten Systems einer Gruppe zur mittleren Notenlinie des höchsten
 Notensystems der nächsten Gruppe, egal ob dazwischen Gesangstext gesetzt
-ist oder nicht.  Siehe auch @ref{Vertikale Dimensionen} für eine
+ist oder nicht.  Siehe auch @ref{Flexible vertikale Dimensionen} für eine
 Beschreibung dieser Variablen.
 
 Es gibt zwei weiter Variablen der @code{\paper}-Umgebung, die die vertikale
@@ -2164,11 +2243,11 @@ besser sieht:
 @lilypond[quote,ragged-right]
 {
   c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4|
+  b'4 e''4 b'4 e''4 |
   \override Staff.NoteSpacing #'stem-spacing-correction = #1.5
   \override Staff.StaffSpacing #'stem-spacing-correction = #1.5
   c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4|
+  b'4 e''4 b'4 e''4 |
 }
 @end lilypond
 
@@ -2280,7 +2359,7 @@ eine größere Dauer ist als @code{1 16}.
     \context {
       \Score
       \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 16)
+        #'base-shortest-duration = #(ly:make-moment 1 16)
     }
   }
 }
@@ -2298,23 +2377,29 @@ zu erzwingen, kann die gleichmäßige Dehnung (engl.
 uniform stretching) zu Beginn einer Partitur eingeschaltet
 werden:
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-\new Score \with {
-  \override SpacingSpanner #'uniform-stretching = ##t
-} <<
-  \new Staff{
-    \times 4/5 {
-      c8 c8 c8 c8 c8
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new Staff {
+      \times 4/5 {
+        c8 c8 c8 c8 c8
+      }
+      c8 c8 c8 c8
     }
-    c8 c8 c8 c8
-  }
-  \new Staff{
-    c8 c8 c8 c8
-    \times 4/5 {
-      c8 c8 c8 c8 c8
+    \new Staff {
+      c8 c8 c8 c8
+      \times 4/5 {
+        c8 c8 c8 c8 c8
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner #'uniform-stretching = ##t
     }
   }
->>
+}
 @end lilypond
 
 Wenn @code{strict-note-spacing} eingestellt ist, werden Noten
@@ -2419,15 +2504,17 @@ Es soll mit diesem 1 Takt langen Beispiel begonnen werden, in welchem
 die klassischen Abstände und Flattersatz (ragged-right) eingesetzt werden:
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
     }
-  }
->>
+  >>
+}
 @end lilypond
 
 Die Halbe, mit der der Takt beginnt, braucht weitaus weniger
@@ -2448,17 +2535,23 @@ entspricht.  Auf folgende Art wird die proportionale Notation
 eingeschaltet:
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 20)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+ \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 20)
     }
   }
->>
+}
 @end lilypond
 
 Die Halbe zu Beginn des Taktes und die schnelleren Noten in der zweiten
@@ -2488,41 +2581,59 @@ Stückes nahekommt.  Kleine Referenzdauern lassen die Noten sehr gedehnt
 erscheinen, größere Referenzdauern zwingen sie dichter zusammen.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 8)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 8)
     }
   }
->>
+}
 
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 16)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 16)
     }
   }
->>
+}
 
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 32)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 32)
     }
   }
->>
+}
 @end lilypond
 
 Man muss beachten, dass die Referenzdauer nicht zu groß ist
@@ -2539,20 +2650,22 @@ wird das erste Beispiel herangezogen, zu welchem ein zweites
 System mit anderen rhythmischen Werten hinzugefügt wird:
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
     }
-  }
-  \new RhythmicStaff {
-    \times 8/9 {
-      c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+    \new RhythmicStaff {
+      \times 8/9 {
+        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+      }
     }
-  }
->>
+  >>
+}
 @end lilypond
 
 Die Platzaufteilung ist schlecht, weil die gleichlangen Noten des
@@ -2563,22 +2676,28 @@ ist.  @code{proportionalNotationDuration} hilft in
 dieser Situation deutlich:
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 20)
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+    \new RhythmicStaff {
+      \times 8/9 {
+        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 20)
     }
   }
-  \new RhythmicStaff {
-    \times 8/9 {
-      c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-    }
-  }
->>
+}
 @end lilypond
 
 Aber bei sehr genauer Betrachtung sind die Noten der zweiten Hälfte
@@ -2587,23 +2706,29 @@ der ersten Hälfte.  Um wirklich gleichmäßige Abstände zu erzwingen,
 sollte auch noch die gleichmäßige Dehnung angeschaltet werden:
 
 @lilypond[quote,verbatim,ragged-right]
-\new Score \with {
-  proportionalNotationDuration = #(ly:make-moment 1 20)
-  \override SpacingSpanner #'uniform-stretching = ##t
-} <<
-  \new RhythmicStaff {
-    c'2
-    c'16 c'16 c'16 c'16
-    \times 4/5 {
-      c'16 c'16 c'16 c'16 c'16
+\score {
+  <<
+    \new RhythmicStaff {
+      c'2
+      c'16 c'16 c'16 c'16
+      \times 4/5 {
+        c'16 c'16 c'16 c'16 c'16
+      }
+    }
+    \new RhythmicStaff {
+      \times 8/9 {
+        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1 20)
+      \override SpacingSpanner #'uniform-stretching = ##t
     }
   }
-  \new RhythmicStaff {
-    \times 8/9 {
-      c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-    }
-  }
->>
+}
 @end lilypond
 
 Das Beispiel mit den zwei Systemen ist nun exakt nach den
@@ -2876,12 +3001,9 @@ nur auf einer Zeile gedruckt werden.
 Ein anderes Beispiel ist es, Dynamik-Zeichen, die besonders 
 weit @qq{hervorstehen}, zu verschieben.
 
-@lilypond[verbatim,quote]
-\relative c' {
-  e4 c g\f c
-  \override DynamicText #'extra-offset = #'( -2.2 . 2.0)
-  e4 c g\f c
-}
+@lilypond[verbatim,quote,relative=1]
+e4 c g\f c
+e4 c g-\tweak #'X-offset #-2.7 -\tweak #'Y-offset #2.5 \f c
 @end lilypond
 
 @item
