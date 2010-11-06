@@ -23,8 +23,8 @@
 
 LY_DEFINE (ly_note_column_accidentals, "ly:note-column-accidentals",
 	   1, 0, 0, (SCM note_column),
-	   "Return the @code{AccidentalPlacement} grob from @var{note_column}"
-	   "if any, or @code{SCM_EOL} otherwise.")
+	   "Return the @code{AccidentalPlacement} grob from @var{note-column}"
+	   " if any, or @code{SCM_EOL} otherwise.")
 {
   Grob *grob = unsmob_grob (note_column);
   LY_ASSERT_SMOB (Grob, note_column, 1);
@@ -36,8 +36,8 @@ LY_DEFINE (ly_note_column_accidentals, "ly:note-column-accidentals",
 
 LY_DEFINE (ly_note_column_dot_column, "ly:note-column-dot-column",
 	   1, 0, 0, (SCM note_column),
-	   "Return the @code{DotColumn} grob from @var{note_column}"
-	   "if any, or @code{SCM_EOL} otherwise.")
+	   "Return the @code{DotColumn} grob from @var{note-column}"
+	   " if any, or @code{SCM_EOL} otherwise.")
 {
   Grob *grob = unsmob_grob (note_column);
   LY_ASSERT_SMOB (Grob, note_column, 1);

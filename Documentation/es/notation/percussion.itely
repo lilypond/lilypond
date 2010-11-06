@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: 345522f312430725cdae0d61acfa716ce08622ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -432,7 +432,7 @@ woodstaff = {
   % It also defines the positions of the two lines.
   \override Staff.StaffSymbol #'line-positions = #'(-2 3)
 
-  % This is neccessary; if not entered, the barline would be too short!
+  % This is necessary; if not entered, the barline would be too short!
   \override Staff.BarLine #'bar-size = #3
 }
 
@@ -611,7 +611,7 @@ en @ref{Paréntesis}.  Sin embargo, el modo por defecto
 @code{\drummode} no incluye el complemento grabador
 @code{Parenthesis_engraver} que permite esto.
 
-@lilypond[quote,ragged-right,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim]
 \new DrumStaff \with {
   \consists "Parenthesis_engraver"
 }

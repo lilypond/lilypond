@@ -79,6 +79,7 @@ public:
   void rotate_degrees_absolute (Real, Offset);
   void align_to (Axis a, Real x);
   void translate_axis (Real, Axis);
+  void scale (Real, Real);
 
   Interval extent (Axis) const;
   Box extent_box () const;

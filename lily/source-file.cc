@@ -48,7 +48,7 @@ Source_file::load_stdin ()
   characters_.clear ();
   int c;
   while ((c = fgetc (stdin)) != EOF)
-    characters_.push_back (c);
+    characters_.push_back ((char)c);
 }
 
 /*

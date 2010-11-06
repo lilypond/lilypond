@@ -57,6 +57,7 @@ Copyright @copyright{} 1999--2010 by the authors
 * Musical terms A-Z::
 * Duration names notes and rests::
 * Pitch names::
+* Non-Western terms A-Z::
 
 Appendices
 
@@ -148,6 +149,7 @@ Languages in this order.
 * cluster::
 * comma::
 * common meter::
+* Common Practice Period::
 * common time::
 * complement::
 * compound interval::
@@ -1988,6 +1990,25 @@ Another name for @ref{common time}.
 
 @seealso
 @ref{common time}, @ref{meter}.
+
+
+@node Common Practice Period
+@section Common Practice Period
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+@c TODO:
+This is a stub for Common Practice Period (CPP).
+
+@seealso
+@ruser{Note names in other languages}.
 
 
 @node common time
@@ -8739,6 +8760,134 @@ send it to me, care of the lilypond-user discussion list.
 @item @strong{b-sharp} = c @tab si sostenido @tab si diesis @tab si dièse
   @tab His @tab bis @tab his @tab hiss @tab his
 @end multitable
+
+
+@node Non-Western terms A-Z
+@chapter Non-Western terms A-Z
+
+@menu
+* bayati::
+* iraq::
+* kurd::
+* makam::
+* makamlar::
+* maqam::
+* rast::
+* semai::
+* sikah::
+* taqasim::
+@end menu
+
+
+@node bayati
+@section bayati
+
+@c TODO
+This is a stub for @code{bayati}.
+
+@seealso
+Notation Reference:
+@ruser{Arabic key signatures}.
+
+
+@node iraq
+@section iraq
+
+@c TODO
+This is a stub for @code{iraq}.
+
+@seealso
+Notation Reference:
+@ruser{Arabic key signatures}.
+
+
+@node kurd
+@section kurd
+
+@c TODO
+This is a stub for @code{kurd}.
+
+@seealso
+Notation Reference:
+@ruser{Arabic key signatures}.
+
+
+@node makam
+@section makam
+
+@c TODO
+This is a stub for @code{makam}.
+
+@seealso
+Notation Reference:
+@ruser{Turkish classical music}.
+
+
+@node makamlar
+@section makamlar
+
+@c TODO
+This is a stub for @code{makamlar}.
+
+@seealso
+Notation Reference:
+@ruser{Turkish classical music}.
+
+
+@node maqam
+@section maqam
+
+@c TODO
+This is a stub for @code{maqam}.
+
+@seealso
+Notation Reference:
+@ruser{Arabic music},
+@ruser{Arabic key signatures}.
+
+
+@node rast
+@section rast
+
+@c TODO
+This is a stub for @code{rast}.
+
+@seealso
+Notation Reference:
+@ruser{Arabic key signatures}.
+
+
+@node semai
+@section semai
+
+@c TODO
+This is a stub for @code{semai}.
+
+@seealso
+Notation Reference:
+@ruser{Arabic key signatures}.
+
+
+@node sikah
+@section sikah
+
+@c TODO
+This is a stub for @code{sikah}.
+
+@seealso
+Notation Reference:
+@ruser{Arabic key signatures}.
+
+
+@node taqasim
+@section taqasim
+
+@c TODO
+This is a stub for @code{taqasim}.
+
+@seealso
+Notation Reference:
+@ruser{Arabic key signatures}.
 
 
 @node Literature used

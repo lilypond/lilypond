@@ -20,9 +20,74 @@ Ce chapitre a pour objet la notation des
 musiques traditionnelles autres qu'occidentales.
 
 @menu
+* Noms de note et altérations non-occidentaux::
 * Musique arabe::
 * Musique classique turque::
 @end menu
+
+
+@node Noms de note et altérations non-occidentaux
+@subsection Noms de note et altérations non-occidentaux
+@translationof Common notation for non-Western music
+
+De nombreuses musiques autres qu'occidentales -- et même certaines
+formes de musique traditionnelle occidentales -- ont recours à des
+systèmes de notation alternatifs ou étendus, qui ne s'intègrent pas
+forcément dans notre système standard.
+
+Sans certains cas où la notation standard est utilisée, ces différences
+de hauteurs seront implicites.  Par exemple, la musique arabe est
+reproduite en notation standard, et utilise des quarts de ton,
+l'altération réelle dépendant du contexte.  D'autres, par contre, font
+appel à une notation étendue, voire toute particulière.
+
+La @notation{musique classique turque}, ou musique ottomane, utilise des
+formes mélodiques appelées @notation{makamlar}, dans laquelle les
+tons sont divisés en 9 intervalles.  Du point de vue actuel des
+pratiques de notation, il est possible d'utiliser les notes occidentales
+(do, ré, mi@dots{}) auxquelles on ajoutera l'atlération spécifique à la
+musique turque.  Ces différentes altérations sont définies dans le
+fichier @file{makam.ly} -- reportez vous au chapitre
+@rlearning{Autres sources de documentation} pour le localiser sur votre
+système.  Vous trouverez, dans le tableau suivant, le nom de ces
+altérations, le suffixe à utiliser, ainsi que la fraction de ton entier
+à laquelle elles conrrespondent.
+
+@c TODO: can we include the actual accidentals in this table?
+@quotation
+@multitable {@b{büyük mücenneb (dièse)}} {@b{suffixe}} {@b{altération}}
+@headitem Nom d'altération
+  @tab suffixe @tab altération
+
+@item büyük mücenneb (dièse)
+  @tab -bm @tab +8/9
+@item kücük mücenneb (dièse)
+  @tab -k @tab +5/9
+@item bakiye (dièse)
+  @tab -b @tab +4/9
+@item koma (dièse)
+  @tab -c @tab +1/9
+
+@item koma (bémol)
+  @tab -fc @tab -1/9
+@item bakiye (bémol)
+  @tab -fb @tab -4/9
+@item kücük mücenneb (bémol)
+  @tab -fk @tab -5/9
+@item büyük mücenneb (bémol)
+  @tab -fbm @tab -8/9
+@end multitable
+@end quotation
+
+Pour plus d'information sur la musique classique turque et les
+makamlar, reportez-vous au chapitre @ref{Musique classique turque}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{makam-example.ly}
+
 
 @node Musique arabe
 @subsection Musique arabe

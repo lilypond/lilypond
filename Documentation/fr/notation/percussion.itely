@@ -102,7 +102,7 @@ L'exemple ci-dessus montre une notation polyphonique détaillée.  La
 notation polyphonique abrégée peut être employée lorsque le contexte
 @rinternals{DrumVoice} est spécifié explicitement :
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \new DrumStaff <<
   \new DrumVoice = "1" { s1 *2 }
   \new DrumVoice = "2" { s1 *2 }
@@ -310,7 +310,7 @@ défaut le graveur @code{Parenthesis_engraver} qui permet d'imprimer ces
 signes.  Il faut donc l'ajouter explicitement dans la définition du
 contexte, suivant la manœuvre indiquée dans @ref{La commande de fixation (set)}.
 
-@lilypond[quote,ragged-right,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim]
 \new DrumStaff \with {
   \consists "Parenthesis_engraver"
 } <<

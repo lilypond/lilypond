@@ -79,7 +79,9 @@ LY_DEFINE (ly_find_file, "ly:find-file",
 */
 LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   1, 1, 0, (SCM name, SCM size),
-	   "Read the file @var{name}, and return its contents in a string."
+	   "Read @var{size} characters from the file @var{name},"
+           " and return its contents in a string."
+           "  If @var{size} is undefined, the entire file is read."
 	   "  The file is looked up using the search path.")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
@@ -289,7 +291,7 @@ LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode",
 
 LY_DEFINE (ly_number_2_string, "ly:number->string",
 	   1, 0, 0, (SCM s),
-	   "Convert @var{num} to a string without generating many decimals.")
+	   "Convert @var{s} to a string without generating many decimals.")
 {
   LY_ASSERT_TYPE (scm_is_number, s, 1);
 

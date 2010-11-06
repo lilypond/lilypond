@@ -1,5 +1,5 @@
 \version "2.12.0"
-\include "italiano.ly"
+\language "italiano"
 
 %%%%%%%
 %

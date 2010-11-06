@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 908605aaf5df4d07684dafd862322e6ffac3ae10
+    Translation of GIT committish: 2cc5ab63e7b66e1589cf76f89325f368764a9990
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,7 +44,6 @@ fichier source au clavier de l'ordinateur.
 * Octaves relatives::       
 * Altérations::                 
 * Nom des notes dans d'autres langues:: 
-* Noms de note et altérations non-occidentaux::
 @end menu
 
 @node Hauteurs avec octave absolue
@@ -63,11 +62,13 @@ Les notes @code{c} (do) et @code{b} (si) sont écrites une octave sous le
 do central. 
 
 @c don't use c' here.
-@lilypond[verbatim,quote,fragment]
-\clef bass
-c d e f
-g a b c
-d e f g
+@lilypond[verbatim,quote]
+{
+  \clef bass
+  c4 d e f
+  g4 a b c
+  d4 e f g
+}
 @end lilypond
 
 @cindex octave, spécification
@@ -80,13 +81,15 @@ d'apostrophes@tie{}@code{'} ou d'une série de virgules@tie{}@code{,}.
 Chaque@tie{}@code{'} hausse la note d'une octave@tie{};
 chaque@tie{}@code{,} baisse la note d'une octave.
 
-@lilypond[verbatim,quote,fragment]
-\clef treble
-c' c'' e' g
-d'' d' d c
-\clef bass
-c, c,, e, g
-d,, d, d c
+@lilypond[verbatim,quote]
+{
+  \clef treble
+  c'4 c'' e' g
+  d''4 d' d c
+  \clef bass
+  c,4 c,, e, g
+  d,,4 d, d c
+}
 @end lilypond
 
 
@@ -435,47 +438,47 @@ LilyPond n'est donc conforme à aucun standard.
 @cindex noms de note, langues
 @cindex langues, noms de note
 
-Vous disposez de jeux prédéfinis de noms de note pour plusieurs autres
-langues.  Pour les utiliser, incluez le fichier d'initialisation
-spécifique à la langue voulue.  Par exemple, pour les langues romanes,
-ajoutez @w{@code{\include "italiano.ly"}} au début du fichier source.
+Vous disposez de jeux prédéfinis de noms de note et altérations pour
+plusieurs autres langues.  Pour les utiliser, il suffit de déclarer, en
+début de fichier, la langue que vous utilisez.  Voici comment, par
+exemple, utiliser l'italien pour votre saisie@tie{}:
 
-@warning{Dans la mesure où certains fichiers d'initialisation, comme 
-@w{@code{predefined-fretboards.ly}}, utilisent les conventions bataves,
-la commande @code{@bs{}include} concernant la langue que vous désirez
-utiliser doît intervenir après toutes les autres inclusions de fichier
-d'initialisation de LilyPond.}
+@lilypond[quote,verbatim]
+\language "italiano"
 
-Les fichiers de langue disponibles ainsi que les noms de note utilisés
+\relative do' {
+  do re mi sib
+}
+@end lilypond
+
+Les langues disponibles ainsi que les noms de note utilisés
 sont les suivants@tie{}:
 
 @quotation
-@multitable {@file{nederlands.ly}} {do re mi fa sol la sib si}
-@headitem Fichier linguistique
+@multitable {@code{nederlands}} {do re mi fa sol la sib si}
+@headitem Langue
   @tab Nom des notes
-@item @file{nederlands.ly}
+@item @code{nederlands}
   @tab c d e f g a bes b
-@item @file{arabic.ly}
+@item @code{catalan}
   @tab do re mi fa sol la sib si
-@item @file{catalan.ly}
-  @tab do re mi fa sol la sib si
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab c d e f g a b h
-@item @file{english.ly}
+@item @code{english}
   @tab c d e f g a bf b
-@item @file{espanol.ly}
+@item @code{espanol}
   @tab do re mi fa sol la sib si
-@item @file{italiano.ly}
+@item @code{italiano}
   @tab do re mi fa sol la sib si
-@item @file{norsk.ly}
+@item @code{norsk}
   @tab c d e f g a b h
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab do re mi fa sol la sib si
-@item @file{suomi.ly}
+@item @code{suomi}
   @tab c d e f g a b h
-@item @file{svenska.ly}
+@item @code{svenska}
   @tab c d e f g a b h
-@item @file{vlaams.ly}
+@item @code{vlaams}
   @tab do re mi fa sol la sib si
 @end multitable
 @end quotation
@@ -484,34 +487,32 @@ sont les suivants@tie{}:
 et les suffixes d'altération correspondants@tie{}:
 
 @quotation
-@multitable {@file{nederlands.ly}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
-@headitem Fichier linguistique
+@multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@headitem Langue
   @tab dièse @tab bémol @tab double dièse @tab double bémol
-@item @file{nederlands.ly}
+@item @code{nederlands}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{arabic.ly}
-  @tab -d @tab -b @tab -dd @tab -bb
-@item @file{catalan.ly}
+@item @code{catalan}
   @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{english.ly}
+@item @code{english}
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
-@item @file{espanol.ly}
+@item @code{espanol}
   @tab -s @tab -b @tab -ss/-x @tab -bb
-@item @file{italiano.ly}
+@item @code{italiano}
   @tab -d @tab -b @tab -dd @tab -bb
-@item @file{norsk.ly}
+@item @code{norsk}
   @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
     @tab -essess/-eses
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab -s @tab -b @tab -ss @tab -bb
-@item @file{suomi.ly}
+@item @code{suomi}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{svenska.ly}
+@item @code{svenska}
   @tab -iss @tab -ess @tab -ississ @tab -essess
-@item @file{vlaams.ly}
+@item @code{vlaams}
   @tab -k @tab -b @tab -kk @tab -bb
 @end multitable
 @end quotation
@@ -544,97 +545,44 @@ et @emph{sesqui-} correspondent au @emph{demi-} et @emph{trois demis}.
 suédois, le catalan et l'espagnol.
 
 @quotation
-@multitable {@file{nederlands.ly}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
-@headitem Fichier linguistique
+@multitable {@code{nederlands}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
+@headitem Langue
   @tab semi-dièse @tab semi-bémol @tab sesqui-dièse @tab sesqui-bémol
-@item @file{nederlands.ly}
+@item @code{nederlands}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item @file{arabic.ly}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item @file{english.ly}
+@item @code{english}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @file{espanol.ly}
+@item @code{espanol}
   @tab -cs @tab -cb @tab -tcs @tab -tcb
-@item @file{italiano.ly}
+@item @code{italiano}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
 @end multitable
 @end quotation
 
+La plupart des langues dont nous venons de parler correspondent à la
+musique classique occidentale au tempérament égal -- le concept de
+@emph(Common Practice Period} en anglais.  LilyPond prend néanmoins en
+charge d'autres systèmes de notation, comme indiqué au chapitre
+@ref{Noms de note et altérations non-occidentaux}.
+
 
 @seealso
 Glossaire musicologique :
-@rglosnamed{Pitch names,Nom des notes}.
+@rglosnamed{Pitch names,Nom des notes},
+@rglos{Common Practice Period}.
+
+Manuel de notation :
+@ref{Noms de note et altérations non-occidentaux}.
+
+Manuel de notation :
+@ref{Noms de note et altérations non-occidentaux}.
 
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
-
-
-
-@node Noms de note et altérations non-occidentaux
-@unnumberedsubsubsec Noms de note et altérations non-occidentaux
-@translationof Non-Western note names and accidentals
-
-De nombreuses musiques autres qu'occidentales -- et même certaines
-formes de musique traditionnelle occidentales -- ont recours à des
-systèmes de notation alternatifs ou étendus, qui ne s'intègrent pas
-forcément dans notre système standard.
-
-Sans certains cas où la notation standard est utilisée, ces différences
-de hauteurs seront implicites.  Par exemple, la musique arabe est
-reproduite en notation standard, et utilise des quarts de ton,
-l'altération réelle dépendant du contexte.  D'autres, par contre, font
-appel à une notation étendue, voire toute particulière.
-
-La @notation{musique classique turque}, ou musique ottomane, utilise des
-formes mélodiques appelées @notation{makamlar}, dans laquelle les
-tons sont divisés en 9 intervalles.  Du point de vue actuel des
-pratiques de notation, il est possible d'utiliser les notes occidentales
-(do, ré, mi@dots{}) auxquelles on ajoutera l'atlération spécifique à la
-musique turque.  Ces différentes altérations sont définies dans le
-fichier @file{makam.ly} -- reportez vous au chapitre 
-@rlearning{Autres sources de documentation} pour le localiser sur votre
-système.  Vous trouverez, dans le tableau suivant, le nom de ces
-altérations, le suffixe à utiliser, ainsi que la fraction de ton entier
-à laquelle elles conrrespondent.
-
-@c TODO: can we include the actual accidentals in this table?
-@quotation
-@multitable {@b{büyük mücenneb (dièse)}} {@b{suffixe}} {@b{altération}}
-@headitem Nom d'altération
-  @tab suffixe @tab altération
-
-@item büyük mücenneb (dièse)
-  @tab -bm @tab +8/9
-@item kücük mücenneb (dièse)
-  @tab -k @tab +5/9
-@item bakiye (dièse)
-  @tab -b @tab +4/9
-@item koma (dièse)
-  @tab -c @tab +1/9
-
-@item koma (bémol)
-  @tab -fc @tab -1/9
-@item bakiye (bémol)
-  @tab -fb @tab -4/9
-@item kücük mücenneb (bémol)
-  @tab -fk @tab -5/9
-@item büyük mücenneb (bémol)
-  @tab -fbm @tab -8/9
-@end multitable
-@end quotation
-
-Pour plus d'information sur la musique classique turque et les
-makamlar, reportez-vous au chapitre @ref{Musique classique turque}.
-
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{makam-example.ly}
 
 
 @node Modification de plusieurs hauteurs
@@ -684,12 +632,12 @@ de @code{d''} et non de @code{d'}.
 Il existe aussi une vérification d'octave qui ne produit pas de musique
 imprimée, ayant pour syntaxe
 @code{\octaveCheck}@tie{}@var{hauteur_référence} --
-@var{hauteur_référence} étant spécifiée en mode absolu.  Cette commande
-vérifie que l'intervalle entre la note qui précède et
-@var{hauteur_référence} est inférieur à la quinte comme il se doît en
-mode relatif.  Dans le cas contraire, un message sera émis et la note
-précédente ne sera pas modifiée.  Les notes suivantes seront, par
-contre, positionnées relativement à @var{hauteur_référence}.
+code{@var{hauteur_référence}} étant spécifiée en mode absolu.  Cette
+commande vérifie que l'intervalle entre la note qui précède et
+@code{@var{hauteur_référence}} est inférieur à la quinte comme il se
+doît en mode relatif.  Dans le cas contraire, un message sera émis et la
+note précédente ne sera pas modifiée.  Les notes suivantes seront, par
+contre, positionnées relativement à @code{@var{hauteur_référence}}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -743,9 +691,9 @@ En voici la syntaxe@tie{}:
 @end example
 
 @noindent
-Cela signifie que @var{expression_musicale} est transposé de
-l'intervalle séparant @var{note_de_départ} et
-@var{note_d_arrivée}@tie{}: toute note dont la hauteur était
+Cela signifie que @code{@var{expression_musicale}} est transposé de
+l'intervalle séparant @code{@var{note_de_départ}} et
+@code{@var{note_d_arrivée}}@tie{}: toute note dont la hauteur était
 @code{note_de_départ} est changée en @code{note_d_arrivée}@tie{}; les
 autres notes seront changées selon le même intervalle.  Les deux
 hauteurs s'expriment en octave absolue.
@@ -888,7 +836,7 @@ hauteurs.
 @funindex \clef
 @funindex clef
 
-La clé indique quelles lignes de la portée correspondent à quelles
+La clef indique quelles lignes de la portée correspondent à quelles
 hauteurs.  Elle peut changer au fil du morceau, comme dans l'exemple
 suivant qui indique le do médium dans différentes clefs@tie{}:
 
@@ -963,7 +911,7 @@ c2 c
 @end lilypond
 
 Il existe d'autres clefs, destinées à un usage particulier.  Voir à ce
-sujet
+sujet @ref{Notations anciennes}
 @c r ef{Mensural clefs}, @c r ef{Gregorian clefs},
 @ref{Tablatures par défaut} et @ref{Tablatures personnalisées}.
 
@@ -976,6 +924,7 @@ sujet
 
 @seealso
 Manuel de notation :
+@ref{Notations anciennes},
 @c r ef{Mensural clefs},
 @c r ef{Gregorian clefs},
 @ref{Tablatures par défaut},
@@ -1052,11 +1001,11 @@ On définit ou modifie l'armure avec la commande @code{\key}
 @cindex dorien
 
 @noindent
-Ici, @var{mode} doit être @code{\major} ou @code{\minor} afin d'avoir
-respectivement @var{hauteur}-majeur ou @var{hauteur}-mineur.  Vous
-pouvez aussi avoir recours aux modes anciens que sont @code{\ionian},
-@code{\locrian}, @code{\aeolian}, @code{\mixolydian}, @code{\lydian},
-@code{\phrygian} et @code{\dorian}.
+Ici, @code{@var{mode}} doit être @code{\major} ou @code{\minor} afin
+d'avoir respectivement @var{hauteur}-majeur ou @var{hauteur}-mineur.
+Vous pouvez aussi avoir recours aux modes anciens que sont
+@code{\ionian}, @code{\locrian}, @code{\aeolian}, @code{\mixolydian},
+@code{\lydian}, @code{\phrygian} et @code{\dorian}.
 
 @lilypond[verbatim,quote,relative=2]
 \key g \major
@@ -1135,7 +1084,7 @@ a2 b
 
 
 @seealso
-Glossarire musicologique :
+Glossaire musicologique :
 @rglosnamed{octavation,octaviation}.
 
 Morceaux choisis :
@@ -2336,7 +2285,7 @@ musicB = {
 
 
 @seealso
-Snippets:
+Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes : 
@@ -2425,8 +2374,8 @@ est capable d'atteindre.  Souvent, cet @emph{ambitus} est imprimé au
 début des partitions vocales, afin que les exécutants puissent voir au
 premier coup d'œil s'ils sont en mesure de tenir la partie en question.
 
-Pour exprimer l'@emph{ambitus} d'une pièce, on indique avant la clé deux
-notes représentant la hauteur la plus basse et la plus haute.  Les
+Pour exprimer l'@emph{ambitus} d'une pièce, on indique avant la clef
+deux notes représentant la hauteur la plus basse et la plus haute.  Les
 éventuelles altérations accidentelles seront automatiquement ajoutées. 
 
 @lilypond[verbatim,quote]

@@ -67,6 +67,14 @@ which scares away people.
 @end ignore
 
 @item
+Note names can be selected with a new
+@code{@bs{}language "italiano"} command, which
+can be used in safe mode.  The old
+@code{@bs{}include "italiano.ly"} syntax is
+still supported for now, but will be deprecated
+in the future.
+
+@item
 auotbeaming is now disabled by @code{\cadenzaOn} and enabled by
 @code{\cadenzaOff}.  Beaming in cadenzas should be indicated manually.
 Also, if a cadenza is used in a piece with autobeaming disabled, it

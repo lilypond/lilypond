@@ -37,7 +37,7 @@ LY_DEFINE (ly_context_current_moment,
 LY_DEFINE (ly_context_id, "ly:context-id",
 	   1, 0, 0, (SCM context),
 	   "Return the ID string of @var{context},"
-	   " i.e., for @code{\\context Voice = one @dots{}}"
+	   " i.e., for @code{\\context Voice = \"one\" @dots{}}"
 	   " return the string @code{one}.")
 {
   Context *tr = unsmob_context (context);
@@ -50,7 +50,7 @@ LY_DEFINE (ly_context_id, "ly:context-id",
 LY_DEFINE (ly_context_name, "ly:context-name",
 	   1, 0, 0, (SCM context),
 	   "Return the name of @var{context},"
-	   " i.e., for @code{\\context Voice = one @dots{}}"
+	   " i.e., for @code{\\context Voice = \"one\" @dots{}}"
 	   " return the symbol @code{Voice}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);

@@ -1526,14 +1526,12 @@ This property is also used to control output to the MIDI file.  Note that
 it skips all events, including tempo and instrument changes.  You have
 been warned.
 
-@lilypond[quote,fragment,ragged-right,verbatim]
-\relative c'' {
-  c8 d
-  \set Score.skipTypesetting = ##t
-  e8 e e e e e e e
-  \set Score.skipTypesetting = ##f
-  c8 d b bes a g c2
-}
+@lilypond[quote,relative=2,ragged-right,verbatim]
+c8 d
+\set Score.skipTypesetting = ##t
+e8 e e e e e e e
+\set Score.skipTypesetting = ##f
+c8 d b bes a g c2
 @end lilypond
 
 In polyphonic music, @code{Score.skipTypesetting} will affect all

@@ -21,6 +21,9 @@
 %%%%   ukulele hall of fame museum website (http://www.ukulele.org/),
 %%%%   kiwi ukulele website (http://www.kiwiukulele.co.nz/)
 
+% chord definitions require default pitchnames
+#(define prev-pitchnames pitchnames)
+#(set! pitchnames default-language)
 
 %%% a chords
 
@@ -803,3 +806,5 @@
 \storePredefinedDiagram #default-fret-table \chordmode {aes:9}
                         #ukulele-tuning
                         #"1-1;o;2-3;1-2;"
+
+#(set! pitchnames prev-pitchnames)

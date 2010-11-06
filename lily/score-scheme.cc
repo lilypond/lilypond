@@ -29,7 +29,7 @@
 LY_DEFINE (ly_make_score, "ly:make-score",
 	   1, 0, 0,
 	   (SCM music),
-	   "Return score with @var{music} encapsulated in @var{score}.")
+	   "Return score with @var{music} encapsulated in it.")
 {
   LY_ASSERT_SMOB (Music, music, 1);
 

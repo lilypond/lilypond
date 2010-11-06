@@ -360,6 +360,22 @@ label =
 					   'page-label label))))
 
 
+language =
+#(define-music-function (parser location str) (string?)
+   (_i "Select note names language.")
+   (let ((language (assoc-get (string->symbol str)
+			      language-pitch-names
+			      '())))
+     (if (pair? language)
+	 (begin
+	   (if (ly:get-option 'verbose)
+	       (ly:message (_ "Using ~a note names...") str))
+	   (set! pitchnames language)
+	   (ly:parser-set-note-names parser language))
+	 (ly:warning (_ "Could not find language ~a. Ignoring.") str))
+     (make-music 'Music 'void #t)))
+
+
 makeClusters =
 #(define-music-function (parser location arg) (ly:music?)
    (_i "Display chords in @var{arg} as clusters.")

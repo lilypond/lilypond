@@ -36,7 +36,7 @@ LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
 */
 LY_DEFINE (ly_prob_property_p, "ly:prob-property?",
 	   2, 1, 0, (SCM obj, SCM sym),
-	   "Is boolean prop @var{sym} set?")
+	   "Is boolean prop @var{sym} of @var{sym} set?")
 {
   return scm_equal_p (SCM_BOOL_T, ly_prob_property (obj, sym, SCM_BOOL_F));
 }
@@ -103,7 +103,7 @@ LY_DEFINE (ly_prob_mutable_properties, "ly:prob-mutable-properties",
 LY_DEFINE (ly_prob_immutable_properties, "ly:prob-immutable-properties",
 	   1, 0, 0,
 	   (SCM prob),
-	   "Retrieve an alist of mutable properties.")
+	   "Retrieve an alist of immutable properties.")
 {
   LY_ASSERT_SMOB (Prob, prob, 1);
   Prob *ps = unsmob_prob (prob);

@@ -390,3 +390,20 @@ LY_DEFINE (ly_all_stencil_expressions, "ly:all-stencil-expressions",
 {
   return all_stencil_heads ();
 }
+
+LY_DEFINE (ly_stencil_scale, "ly:stencil-scale",
+	    3, 0, 0, (SCM stil, SCM x, SCM y),
+	   "Scale @var{stil} using the horizontal and vertical scaling"
+	   " factors @var{x} and @var{y}.")
+{
+  Stencil *s = unsmob_stencil (stil);
+  LY_ASSERT_SMOB (Stencil, stil, 1);
+  LY_ASSERT_TYPE (scm_is_number, x, 2);
+  LY_ASSERT_TYPE (scm_is_number, y, 3);
+
+  SCM new_s = s->smobbed_copy ();
+  Stencil *q = unsmob_stencil (new_s);
+
+  q->scale (scm_to_double (x), scm_to_double (y));
+  return new_s;
+}

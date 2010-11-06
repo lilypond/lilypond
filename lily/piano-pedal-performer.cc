@@ -26,7 +26,7 @@
 
 #include "translator.icc"
 
-typedef enum Pedal_type {SOSTENUTO, SUSTAIN, UNA_CORDA, NUM_PEDAL_TYPES};
+enum Pedal_type {SOSTENUTO, SUSTAIN, UNA_CORDA, NUM_PEDAL_TYPES};
 
 /**
    perform Piano pedals

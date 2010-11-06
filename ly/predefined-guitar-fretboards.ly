@@ -15,6 +15,9 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+% chord definitions require default pitchnames
+#(define prev-pitchnames pitchnames)
+#(set! pitchnames default-language)
 
 \include "predefined-guitar-ninth-fretboards.ly"
 
@@ -449,3 +452,4 @@
                         #guitar-tuning
                         #(offset-fret 1 (chord-shape 'bes:m7 guitar-tuning))
 
+#(set! pitchnames prev-pitchnames)

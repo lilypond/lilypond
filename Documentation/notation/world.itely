@@ -16,9 +16,86 @@ The purpose of this section is to highlight musical notation issues
 that are relevant to traditions outside the Western tradition.
 
 @menu
+* Common notation for non-Western music::
 * Arabic music::
 * Turkish classical music::
 @end menu
+
+
+@node Common notation for non-Western music
+@subsection Common notation for non-Western music
+
+This section discusses how to enter and print music scores
+that do not belong to the Western classical tradition,
+also referred to as @notation{Common Practice Period}.
+
+@menu
+* Extending notation and tuning systems::
+@end menu
+
+
+@node Extending notation and tuning systems
+@unnumberedsubsubsec Extending notation and tuning systems
+
+Standard classical notation (also known as
+@notation{Common Practice Period} notation) is commonly
+used in all sorts of music, not limited to @q{classical}
+Western music.  This notation is discussed in
+@ref{Writing pitches}, and the various note names
+that may be used are explained in
+@ref{Note names in other languages}.
+
+However, many types of non-Western music (and
+some types of Western folk and traditional music) employ
+alternative or extended tuning systems that do not fit
+readily into standard classical notation.
+
+In some cases standard notation is still used, with the
+pitch differences being implicit.  For example,
+@notation{Arabic music} is notated with standard
+semitone and quarter-tone accidentals, with the precise
+pitch alterations being determined by context.  Italian
+note names are typically used, while the init file
+@file{arabic.ly} provides a suitable set of macros
+and definitions extending the standard
+notation.  For more details, see
+@ref{Arabic music}.
+
+@cindex tuning, non-Western
+
+Other types of music require extended or unique notations.
+@notation{Turkish classical music} or Ottoman music, for
+example, employs melodic forms known as @notation{makamlar},
+whose intervals are based on 1/9 divisions of the whole tone.
+Standard Western staff notes are still used, but with special
+accidentals unique to Turkish music, that are defined in the file
+@file{makam.ly}.  For further information on Turkish classical
+music and makamlar, see
+@ref{Turkish classical music}.
+
+To locate init files such as @file{arabic.ly} or @file{makam.ly}
+on your system, see
+@rlearning{Other sources of information}.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{makam-example.ly}
+
+@seealso
+Music Glossary:
+@rglos{Common Practice Period},
+@rglos{makamlar}.
+
+Learning Manual:
+@rlearning{Other sources of information}.
+
+Notation Reference:
+@ref{Writing pitches},
+@ref{Note names in other languages},
+@ref{Arabic music},
+@ref{Turkish classical music}.
+
 
 @node Arabic music
 @subsection Arabic music
@@ -67,7 +144,7 @@ elsewhere:
 
 @itemize
 @item Note names and accidentals (including quarter tones) can be
-tailored as discussed in @ref{Note names in other languages}.
+tailored as discussed in @ref{Common notation for non-Western music}.
 
 @item Additional key signatures can also be tailored as described
 in @ref{Key signature}.
@@ -84,7 +161,7 @@ described in @ref{Unmetered music}.
 
 @seealso
 Notation Reference:
-@ref{Note names in other languages},
+@ref{Common notation for non-Western music},
 @ref{Key signature},
 @ref{Manual beams}.
 
@@ -102,8 +179,11 @@ The more traditional Arabic note names can be quite long and are
 not suitable for the purpose of music writing, so they are not
 used.  English note names are not very familiar in Arabic music
 education, so Italian or Solfege note names (@code{do, re, mi, fa,
-sol, la, si}) are used instead.  Modifiers (accidentals) can also
-be used, as discussed in @ref{Note names in other languages}.
+sol, la, si}) are used instead; modifiers (accidentals) can also
+be used.  Italian note names and accidentals are explained in
+@ref{Note names in other languages}; the use of standard
+Western notation to notate non-Western music is discussed in
+@ref{Common notation for non-Western music}.
 
 For example, this is how the Arabic @notation{rast} scale can be
 notated:
@@ -138,7 +218,8 @@ signature cannot be altered by using this method.
 
 @seealso
 Notation Reference:
-@ref{Note names in other languages}.
+@ref{Note names in other languages},
+@ref{Common notation for non-Western music}.
 
 Snippets:
 @rlsr{World music}.
@@ -249,6 +330,14 @@ key signatures:
 
 
 @seealso
+Music Glossary:
+@rglos{maqam},
+@rglos{bayati},
+@rglos{rast},
+@rglos{sikah},
+@rglos{iraq},
+@rglos{kurd}.
+
 Notation Reference:
 @ref{Key signature}.
 
@@ -275,10 +364,10 @@ Some Arabic and Turkish music classical forms such as
 may lead to an automatic grouping of notes that is quite different
 from existing typeset music, where notes may not be grouped on the
 beat, but in a manner that is difficult to match by adjusting
-automatic beaming.  You can override this by switching off
-automatic beaming and beaming the notes manually.  Where matching
-existing typeset music is not an issue, you may still want to
-adjust the beaming behaviour and/or use compound time signatures.
+automatic beaming.  The alternative is to switch off automatic
+beaming and beam the notes manually.  Even if a match to existing
+typeset music is not required, it may still be desirable to adjust
+the automatic beaming behaviour and/or use compound time signatures.
 
 @snippets
 
@@ -290,6 +379,10 @@ adjust the beaming behaviour and/or use compound time signatures.
 
 
 @seealso
+Music Glossary:
+@rglos{semai},
+@rglos{taqasim}.
+
 Notation Reference:
 @ref{Manual beams},
 @ref{Automatic beams},
@@ -309,7 +402,7 @@ Snippets:
 @cindex Arabic music template
 @cindex Template Arabic music
 
-Here is a template that also uses the start of a Turkish Semai
+Here is a template that also uses the start of a Turkish @notation{Semai}
 that is familiar in Arabic music education in order to illustrate
 some of the peculiarities of Arabic music notation, such as medium
 intervals and unusual modes that are discussed in this section.
@@ -419,8 +512,8 @@ Some issues relevant to Turkish classical music are covered
 elsewhere:
 
 @itemize
-@item Note names and accidentals are provided in
-@ref{Non-Western note names and accidentals}.
+@item Special note names and accidentals are explained in
+@ref{Common notation for non-Western music}.
 
 @end itemize
 
@@ -445,7 +538,51 @@ From a modern notational point of view it is convenient to
 use the standard Western staff notes (c, d, e, ...) with
 special accidentals that raise or lower notes by intervals
 of 1/9, 4/9, 5/9 and 8/9 of a tone.  These accidentals are
-defined in the file @file{makam.ly} (to locate this file on
-your system, see @rlearning{Other sources of information}).
-A more detailed description is provided in
-@ref{Non-Western note names and accidentals}.
+defined in the file @file{makam.ly}.
+
+The following table lists:
+@itemize
+@item
+the name of these special accidentals,
+@item
+the accidental suffix that must be added to notes,
+@item
+and their pitch alteration as a
+fraction of one whole tone.
+@end itemize
+
+@quotation
+@multitable {@b{büyük mücenneb (sharp)}} {@b{suffix}} {@b{pitch alteration}}
+@headitem Accidental name
+  @tab suffix @tab pitch alteration
+
+@item büyük mücenneb (sharp)
+  @tab -bm @tab +8/9
+@item kücük mücenneb (sharp)
+  @tab -k @tab +5/9
+@item bakiye (sharp)
+  @tab -b @tab +4/9
+@item koma (sharp)
+  @tab -c @tab +1/9
+
+@item koma (flat)
+  @tab -fc @tab -1/9
+@item bakiye (flat)
+  @tab -fb @tab -4/9
+@item kücük mücenneb (flat)
+  @tab -fk @tab -5/9
+@item büyük mücenneb (flat)
+  @tab -fbm @tab -8/9
+@end multitable
+@end quotation
+
+For a more general explanation of non-Western music notation, see
+@ref{Common notation for non-Western music}.
+
+@seealso
+Music Glossary:
+@rglos{makam},
+@rglos{makamlar}.
+
+Notation Reference:
+@ref{Common notation for non-Western music}.

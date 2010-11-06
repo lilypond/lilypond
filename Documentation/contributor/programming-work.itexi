@@ -1124,8 +1124,8 @@ for feature addition and modification.
 * Write the code::
 * Write regression tests::
 * Write convert-ly rule::
-* Automatically update auxiliary information::
-* Manually update auxiliary information::
+* Automatically update documentation::
+* Manually update documentation::
 * Edit changes.tely::
 * Verify successful build::
 * Verify regression tests::
@@ -1191,41 +1191,30 @@ It will change all files in git, so use with caution and examine
 the resulting diff.
 
 
-@node Automatically update auxiliary information
-@subsection Automatically update auxiliary information
+@node Automatically update documentation
+@subsection Automatically update documentation
 
-convert-ly should be used to update the documentation, the snippets,
-and the regression tests.  This not only makes the necessary syntax
-changes, it also tests the convert-ly rules.
+@command{convert-ly} should be used to update the documentation,
+the snippets, and the regression tests.  This not only makes the
+necessary syntax changes, it also tests the @command{convert-ly}
+rules.
 
-The automatic updating is a three step process.  First, be sure you
-are in the top-level source directory.  Then, for the
-documentation, do:
+The automatic updating is performed by moving to the top-level
+source directory, then running:
 
 @example
-find Documentation/ -name '*.itely' | xargs convert-ly -e --from @qq{@var{X.Y.Z}}
+scripts/auxiliar/update-with-convert-ly.sh
 @end example
 
-@noindent
-where @var{X.Y.Z} is the version number of the last released development
-version.
-
-Next, for the snippets, do:
+If you did an out-of-tree build, pass in the relative path:
 
 @example
-find Documentation/snippets/ -name '*.ly' | xargs convert-ly -e --from @qq{@var{X.Y.Z}}
-@end example
-
-Finally, for the regression tests, do:
-
-@example
-find input/regression/ -name '*.ly' | xargs convert-ly -e --from @qq{@var{X.Y.Z}}
-
+BUILD_DIR=../build-lilypond/ scripts/auxiliar/update-with-convert-ly.sh
 @end example
 
 
-@node Manually update auxiliary information
-@subsection Manually update auxiliary information
+@node Manually update documentation
+@subsection Manually update documentation
 
 Where the convert-ly rule is not able to automatically update the inline
 lilypond code in the documentation (i.e. if a NOT_SMART rule is used), the
