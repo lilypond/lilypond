@@ -724,7 +724,7 @@ context."
   \name "TabVoice"
   \alias "Voice"
   \consists "Tab_note_heads_engraver"
-  \consists "Tab_harmonic_engraver"
+  \consists "Tab_tie_follow_engraver"
 
   \remove "Note_heads_engraver"
   \remove "Fingering_engraver"
@@ -788,6 +788,7 @@ context."
   \override Hairpin #'transparent = ##t
   \override Script #'stencil = ##f
   \override TextScript #'stencil = ##f
+  \override Glissando #'stencil = #glissando::draw-tab-glissando
   %% the direction for glissando lines will be automatically corrected
   \override Glissando #'extra-dy = #glissando::calc-tab-extra-dy
   \override Glissando #'bound-details #'right = #`((attach-dir . ,LEFT)
@@ -827,8 +828,6 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   \override Clef #'stencil = #clef::print-modern-tab-if-set
   %% no time signature
   \override TimeSignature #'stencil = ##f
-  %% better parentheses in a TabStaff
-  \override ParenthesesItem #'stencils = #parentheses-item::calc-tabstaff-parenthesis-stencils
   %% no arpeggios
   \override Arpeggio #'stencil = ##f
   %% we ignore collision warnings that may occur due to

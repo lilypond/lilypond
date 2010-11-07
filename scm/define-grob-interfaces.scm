@@ -88,6 +88,11 @@ note)."
    thickness))
 
 (ly:add-interface
+  'glissando-interface
+  "A glissando."
+  '())
+
+(ly:add-interface
  'grace-spacing-interface
  "Keep track of durations in a run of grace notes."
  '(columns common-shortest-duration))
@@ -206,7 +211,7 @@ interesting enough to maintain a hara-kiri staff."
 (ly:add-interface
  'tab-note-head-interface
  "A note head in tablature."
- '(details))
+ '(details display-cautionary span-start))
 
 (ly:add-interface
  'trill-spanner-interface

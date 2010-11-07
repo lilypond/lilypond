@@ -302,7 +302,33 @@ grace =
 #(def-grace-function startGraceMusic stopGraceMusic
    (_i "Insert @var{music} as grace notes."))
 
+harmonicByFret = #(define-music-function (parser location fret music) (number? ly:music?)
+  (let* ((fret (number->string fret))
+         (pitch (fret->pitch fret)))
+        (make-sequential-music
+         (list
+          #{
+            \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label $fret)
+          #}
+          (make-harmonic
+            (calc-harmonic-pitch pitch music))
+          #{
+            \revert TabNoteHead #'stencil
+          #}))))
 
+harmonicByRatio = #(define-music-function (parser location ratio music) (number? ly:music?)
+  (let ((pitch (ratio->pitch ratio))
+        (fret (ratio->fret ratio)))
+       (make-sequential-music
+        (list
+         #{
+           \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label $fret)
+         #}
+         (make-harmonic
+           (calc-harmonic-pitch pitch music))
+         #{
+            \revert TabNoteHead #'stencil
+         #}))))
 
 instrumentSwitch =
 #(define-music-function
