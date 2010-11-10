@@ -8,8 +8,10 @@ don't fit anywhere else.
 @menu
 * Meta-policy for this document::
 * Meisters::
-* Unsorted policies::
 * Administrative mailing list::
+* Grand Organization Project (GOP)::
+* Grand LilyPond Input Syntax Standardization (GLISS)::
+* Unsorted policies::
 @end menu
 
 @node Meta-policy for this document
@@ -120,6 +122,367 @@ Currently: Carl
 
 @end itemize
 
+@node Administrative mailing list
+@section Administrative mailing list
+
+An mailing list for administrative issues is maintained at
+@code{lilypond-hackers@@gnu.org}.
+
+This list is intended to be used for discussions that should be kept
+private. Therefore, the archives are closed to the public.
+
+Subscription to this list is limited to certain senior developers.
+
+At the present time, the list is dormant.
+
+Details about the criteria for membership, the types of discussion
+to take place on the list, and other policies for the hackers list
+will be finalized during the
+@ref{Grand Organization Project (GOP)}.
+
+
+
+@node Grand Organization Project (GOP)
+@section Grand Organization Project (GOP)
+
+GOP has two goals:
+
+@itemize
+@item
+Clarify the various development tasks by writing down the polices
+and techniques and/or simplifying the tasks directly.
+
+@item
+Get more people involved in development: specifically, find people
+to do easy tasks to allow advanced developers to concentrate on
+difficult tasks.
+
+@end itemize
+
+@menu
+* Motivation::
+* Ongoing jobs::
+* Policy decisions::
+@end menu
+
+@node Motivation
+@subsection Motivation
+
+Most readers are probably familiar with the LilyPond Grand
+Documentation Project, which ran from Aug 2007 to Aug 2008. This
+project involved over 20 people and resulted in an almost complete
+rewrite of the documentation. Most of those contributors were
+normal users who decided to volunteer their time and effort to
+improve lilypond for everybody. By any measure, it was a great
+success.
+
+The Grand Organization Project aims to do the same thing with a
+larger scope -- instead of focusing purely on documentation, the
+project aims to improve all parts of LilyPond and its community.
+Just as with GDP, the main goal is to encourage and train users to
+become more involved.
+
+If you have never contributed to an open-source project before --
+especially if you use Windows or OSX and do not know how to
+program or compile programs -- you may be wondering if there's
+anything you can do. Rest assured that you @emph{can} help.
+
+@subheading "Trickle-up" development
+
+One of the reasons I'm organizing GOP is "trickle-up"
+development.  The idea is this: doing easy tasks frees up advanced
+developers to do harder tasks.  Don't ask "am I the @emph{best}
+person for this job"; instead, ask "am I @emph{capable} of doing
+this job, so that the current person can do stuff I @emph{can't}
+do?".
+
+For example, consider lilypond's poor handling of grace notes in
+conjunction with clef and tempo changes. Fixing this will require
+a fair amount of code rewriting, and would take an advanced
+developer a few weeks to do. It's clearly beyond the scope of a
+normal user, so we might as well sit back and do nothing, right?
+
+No; we @emph{can} help, indirectly. Suppose that our normal user
+starts answering more emails on lilypond-user. This in turn means
+that documentation writers don't need to answer those emails, so
+they can spend more time improving the docs. I've noticed that all
+doc writers tackle harder and harder subjects, and when they start
+writing docs on scheme programming and advanced tweaks, they start
+contributing bug fixes to lilypond. Having people performing these
+easy-to-moderate bug fixes frees up the advanced developers to
+work on the really hard stuff... like rewriting the grace note
+code.
+
+Having 1 more normal user answering emails on lilypond-user won't
+have a dramatic trick-up affect all by himself, of course. But if
+we had 8 users volunteering to answer emails, 6 users starting to
+write documentation, and 2 users editing LSR... well, that would
+free up a lot of current bug-fixing-capable contributors to focus
+on that, and we could start to make a real dent in the number of
+bugs in lilypond. Quite apart from the eased workload, having that
+many new helpers will provide a great moral boost!
+
+@node Ongoing jobs
+@subsection Ongoing jobs
+
+Although GOP is a short-term project, the main goal is to train
+more people to handle ongoing jobs. The more people doing these
+jobs, the ligher the work will be, and the more we can get done
+with lilypond!
+
+Also, it would be nice if we had at least one "replacement" /
+"understudy" for each role -- too many tasks are only being done
+by one person, so if that person goes on vacation or gets very
+busy with other matters, work in that area grinds to a halt.
+
+@subheading Jobs for normal users
+
+@itemize
+@item Consultant:
+LilyPond is sometimes critized for not listening to users, but
+whenever we ask for opinions about specific issues, we never get
+enough feedback. This is somewhat aggrevating.
+We need a group of users to make a dedicated effort to test and
+give feedback. If there's new documentation, read it. If there's
+an experimental binary, download it and try compiling a score with
+it. If we're trying to name a new command, think about it and give
+serious suggestions.
+
+@item lilypond-user support:
+I think it would be nice if we had an official team of users
+helping other users.
+
+@item LilyPond Report:
+Keeping a monthly newsletter running is a non-trivial task.  A lot
+of work is needed to organize it; it would be great if we could
+split up the work. One person could write the Snippet of the
+Month, another person could do Quotes of the Month, another person
+could do interviews, etc.
+
+@item Documentation:
+Although GDP (the Grand Documentation Project) did great work,
+there's still many tasks remaining.
+
+@item Translations:
+Keeping the documentation translations is a monumental task; we
+need all the help we can get!
+
+@end itemize
+
+@subheading Jobs for advanced users for developers
+
+@itemize
+@item Git help for writers:
+We often receive reports of typos and minor text updates to the
+documentation. It would be great if somebody could create
+properly-formatted patches for these corrections.
+
+Technical requirements: ability to run @ref{Lilybuntu}.
+
+@item LSR editor:
+LSR contains many useful examples of lilypond, but some snippets
+are out of date and need updating. Other snippets need to be
+advertized, and new snippets need to be sorted. We could use
+another person to handle LSR.
+
+Technical requirements: use of a web browser. LilyPond
+requirements: you should be familiar with most of Notation
+chapters 1 and 2 (or be willing to read the docs to find out).
+
+@item Join the Frogs:
+"Frogs" are a team of bug-fixers (because frogs eat bugs, and you
+often find them in Ponds of Lilies) and new feature implementors.
+
+Technical requirements: development environment (such as
+@ref{Lilybuntu}), ability to read+write scheme and/or C++ code.
+
+@end itemize
+
+
+@node Policy decisions
+@subsection Policy decisions
+
+There are a number of policy decisions -- some of them fairly
+important -- which we have been postponing for a few years.  When
+GOP begins, we will start discussing them.
+
+@warning{The fact that we are not arguing about them right now is
+not, I repeat @strong{not}, an indication that we do not feel that
+these issues are not important.  It is simply that if we began
+talking about them now, it would postpone the 2.14 release for a
+few months.}
+
+Note that the presence of an item on this list does @emph{not}
+mean that everybody thinks that something needs to be done.
+Inclusion in this simply means that one developer thinks that we
+should discuss it.  We are not going to filter this list; if any
+developer thinks we should discuss something, just add it to the
+bottom of the list.  (the list is unsorted)
+
+Once GOP starts, the list will be sorted into a rough agenda.  We
+will probably introduce one topic each week -- yes, it will
+therefore take months to get through everything, but we must
+balance productive work vs. policy administration.  If we find
+that we settle questions faster (or slower) than predicted, we
+will of course change the speed of new topic introductions.
+
+There are some item(s) not displayed here; these are questions
+that were posed to me privately, and I do not feel justified in
+discussing them publicly without the consent of the person(s) that
+brought them up. They will initially be discussed privately on the
+lilypond-hackers mailing list -- but the first question will be
+"do we absolutely need to do this privately", and if not, the
+discussion will take place on lilypond-devel like the other items.
+
+In most policy discussions in lilypond over the past few years,
+the first half (or more) is wasted arguing on the basis of
+incorrect or incomplete data; once all the relevant facts are
+brought to light, the argument is generally resolved fairly
+quickly.  In order to keep the GOP discussions focused, each topic
+will be introduced with a collection of relevant facts and/or
+proposals.  It is, of course, impossible to predict exactly which
+facts will be relevant to the discussion -- but spending an hour
+or two collecting information could still save hours of
+discussion.
+
+@warning{The estimated time required for "prep work", and the
+following discussion, has been added to each item.  At the moment,
+there is an estimated 30 hours of prep work and 125 hours of
+discussion.}
+
+@itemize
+@item @strong{Patch reviewing}:
+At the time of this writing, we have 23 (known) patches waiting
+for review.  Some from main developers; some from new developers.
+We desperately need more people helping with lilypond, but
+ignoring patches is the best way to drive potential contributors
+away.  This is not good.
+
+(prep: 2 hours.  discuss: 10 hours)
+
+@item @strong{Lessons from the 2.14 release; future release policy}:
+What went well; what went badly? (how) should we change any
+policies pertaining to releases? Should an undocumented new
+feature count as release-blocking?
+
+(prep: 1 hour.  discuss: 15 hours)
+
+@item @strong{lilypond-hackers mailing list}:
+Should we have a private mailing list for senior developers?  If
+so, who should be on it?
+
+(prep: 2 hours+3 weeks.  discuss: 10 hours)
+
+@item @strong{Hackers B}:
+
+
+@item @strong{Code style}:
+New contributors sometimes struggle to follow our indentation and
+code style -- this is especially difficult when parts of our
+existing source code doesn't have a consistent style. This is
+problematic... we want new contributors to be struggling with the
+lilypond architecture, not playing games in their text editors!
+(ok, we don't actually want them to be struggling with lilypond
+internals... but given the current state of the CG, it's
+understandable, and at any rate it's still better than struggling
+with code style)
+Speaking academically, C++ code style is a "solved problem". Let's
+pick one of the existing solutions (probably either astyle,
+uncrustify, or emacs), and let a computer deal with this.
+
+(prep: 5 hours.  discuss: 15 hours)
+
+@item @strong{Git repository(s)}:
+We currently have a web/ branch in our main repo; this seems
+misleading to new developers. More generally, should we have
+branches that aren't related to the master? i.e. should we
+restrict a git branch to code which is an actual "branch" of
+development? Also, some of our code (notably the windows and osx
+lilypad) isn't in a git repository at all.
+We can add new repositories very easily; should make repositories
+like
+@example
+git://git.sv.gnu.org/lilypond/gub.git
+git://git.sv.gnu.org/lilypond/lilypad.git
+git://git.sv.gnu.org/lilypond/misc.git
+@end example
+? More information here:
+@uref{http://code.google.com/p/lilypond/issues/detail?id=980}
+
+(prep: 2 hours.  discuss: 10 hours)
+
+@item @strong{Roadmap of future development}:
+Many projects have a roadmap of planned (or desired) future work.
+Should we use one? If so, what should go on it, bearing in mind
+our volunteer status? Is there any way of having a roadmap that
+isn't vaporware?
+
+(prep: 1 hour.  discuss: 5 hours)
+
+@item @strong{Official links to other organizations?}:
+There's something called the "software freedom conservancy", and
+in general, there's a bunch of "umbrella organizations". Joining
+some of these might give us more visibility, possibly leading to
+more users, more developers, maybe even financial grants or use in
+schools, etc.
+
+(prep: 2 hours.  discuss: 5 hours)
+
+@item @strong{Mailing lists}:
+We currently have a mix of official GNU mailing lists and lilynet
+lists. Is there a strong rationale for having separate mailing
+list servers? Why not pick one place, and put all our lists there?
+(or at least, all "permenant" lists?)
+
+(prep: 1 hour.  discuss: 5 hours)
+
+@item @strong{Issue tracking with google code}:
+We use the google issue tracker, but this means that we are
+relying on a commercial entity for a large part of our
+development. Would it be better (safer in the long run) to use the
+savannah bug tracker?
+
+(prep: 1 hour.  discuss: 5 hours)
+
+@item @strong{Patch review tool}:
+Reitveld is inconvenient in some respects: it requires a google
+account, and there's no way to see all patches relating to
+lilypond. Should we switch to something like gerritt?
+@uref{http://code.google.com/p/lilypond/issues/detail?id=1184}
+
+(prep: 5 hours.  discuss: 15 hours)
+
+@item @strong{Subdomains of *.lilypond.org}:
+Unless Jan has a really weird DNS hosting setup, there are no
+technical barriers to having names like lsr.lilypond.org,
+frog.lilypond.org, or news.lilypond.org. Is this something that we
+want to do?
+
+(prep: 1 hours+2 weeks.  discuss: 5 hours)
+
+@item @strong{Authorship in source files}:
+Our documentation currently does not attempt to track individual
+authors of each file, while our source code makes a confused and
+jumbled attempt to track this. A number of guidelines for F/OSS
+projects explicitly recommends _not_ tracking this in individual
+files, since the code repository will track that for you.
+
+(prep: 2 hours.  discuss: 15 hours)
+
+@item @strong{Clarity for sponsorships}:
+We currently do not advertize bounties and sponsorships on the
+webpage.  How much advertising do we want, and what type?
+Should we change the "structure" / "framework" for bounties?
+
+(prep: 2 hours.  discuss: 10 hours)
+
+@end itemize
+
+
+
+@node Grand LilyPond Input Syntax Standardization (GLISS)
+@section Grand LilyPond Input Syntax Standardization (GLISS)
+
 
 
 @node Unsorted policies
@@ -157,21 +520,4 @@ developers are tired of pushing patches for a contributor, we'll
 discuss giving them push access.  Unsolicited requests from
 contributors for access will almost always be turned down.
 
-@node Administrative mailing list
-@section Administrative mailing list
 
-An mailing list for administrative issues is maintained at
-@code{lilypond-hackers@@gnu.org}.
-
-This list is intended to be used for discussions that should be kept
-private. Therefore, the archives are closed to the public.
-
-Subscription to this list is limited to certain senior developers.
-
-At the present time, the list is dormant.
-
-Details about the criteria for membership, the types of discussion
-to take place on the list, and other policies for the hackers list
-will be finalized during the LilyPond Grand Organization Project,
-scheduled to begin shortly after the release of LilyPond version
-2.14.
