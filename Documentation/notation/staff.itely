@@ -1217,10 +1217,11 @@ explicitly declared, or else the entire music expression would
 belong to the @code{CueVoice} context.
 
 It is possible to adjust which aspects of the music are quoted with
-@code{\cueDuring} by setting the @code{quotedCueEventTypes} property.  Its
-default value is @code{#'(note-event rest-event tie-event beam-event
-tuplet-span-event)}, which means that only notes, rest, ties, beams and
-tuplets are quoted, but not articulations, dynamic marks, markup etc.
+@code{\cueDuring} by setting the @code{quotedCueEventTypes}
+property.  Its default value is @code{#'(note-event rest-event
+tie-event beam-event tuplet-span-event)}, which means that only
+notes, rests, ties, beams and tuplets are quoted, but not
+articulations, dynamic marks, markup etc.
 
 @lilypond[verbatim,quote]
 oboe = \relative c'' {
@@ -1238,26 +1239,27 @@ oboe = \relative c'' {
 }
 @end lilypond
 
-
-
-The name of the cued instrument can be printed by setting the
-@code{instrumentCueName} property in the @code{CueVoice} context.
+Markup can be used to show the name of the quoted instrument.  Also,
+if the cue notes require a change in clef, the original clef should
+be restored at the end of the cue notes.
 
 @lilypond[verbatim,quote]
-oboe = \relative c''' {
-  g4 r8 e16 f e4 d
+flute = \relative c'' {
+  r2. c4 d8 c d e fis2 g2 d2
 }
-\addQuote "oboe" { \oboe }
-
-\new Staff \relative c'' <<
-  \new CueVoice \with {
-    instrumentCueName = "ob."
-  }
-  \new Voice {
-    \cueDuring #"oboe" #UP { R1 }
-    g4. b8 d2
-  }
->>
+bassoon = \relative c {
+  \clef bass
+  R1
+  \clef treble
+  s1*0^\markup { \tiny "flute" }
+  \cueDuring #"flute" #UP { R1 }
+  \clef bass
+  g4. b8 d2
+}
+\addQuote "flute" { \flute }
+\new Staff {
+  \bassoon
+}
 @end lilypond
 
 @cindex removing cues
@@ -1266,66 +1268,86 @@ oboe = \relative c''' {
 
 @funindex \killCues
 @funindex killCues
-@funindex \transposedCueDuring
-@funindex transposedCueDuring
-
-In addition to printing the name of the cued instrument, when cue
-notes end, the name of the original instrument should be printed,
-and any other changes introduced by the cued part should be
-undone.  This can be accomplished by using
-@code{\addInstrumentDefinition} and @code{\instrumentSwitch}.  For
-an example and explanation, see @ref{Instrument names}.
 
 The @code{\killCues} command removes cue notes from a music
-expression.  This can be useful if cue notes need to be removed
-from a part but may be restored at a later time.
+expression, so the same music expression can be used to produce
+the instrument part with cues and the score.  The @code{\killCues}
+command removes only the notes and events that were quoted by
+@code{\cueDuring}.  Other markup associated with cues, such as clef
+changes and a label identifying the source instrument, can be
+tagged for selective inclusion in the score; see @ref{Using tags}.
 
 @lilypond[verbatim,quote]
-flute = \relative c''' {
-  r2 cis2 r2 dis2
+flute = \relative c'' {
+  r2. c4 d8 c d e fis2 g2 d2
+}
+bassoon = \relative c {
+  \clef bass
+  R1
+  \tag #'part {
+    \clef treble
+    s1*0^\markup { \tiny "flute" }
+  }
+  \cueDuring #"flute" #UP { R1 }
+  \tag #'part \clef bass
+  g4. b8 d2
 }
 \addQuote "flute" { \flute }
 
-\new Voice \relative c'' {
-  \killCues {
-    \cueDuring #"flute" #UP { R1 }
-    g4. b8 d2
-  }
+\new Staff {
+  \bassoon
 }
+\new StaffGroup <<
+  \new Staff {
+    \flute
+  }
+  \new Staff {
+    \removeWithTag #'part { \killCues { \bassoon } }
+  }
+>>
 @end lilypond
 
-The @code{\transposedCueDuring} command is useful for adding
-instrumental cues from a completely different register.  The
-syntax is similar to @code{\cueDuring}, but it requires one extra
-argument to specify the transposition of the cued instrument.  For
-more information about transposition, see
-@ref{Instrument transpositions}.
+Alternatively, Clef changes and instrument labels can be
+collected into an instrument definition for repeated use, using
+@code{\addInstrumentDefinition} described in @ref{Instrument
+names}.
+
+@funindex \transposedCueDuring
+@funindex transposedCueDuring
+
+Like @code{\quoteDuring}, @code{\cueDuring} takes instrument
+transpositions into account.  Cue notes are produced at the
+pitches that would be written for the instrument receiving the cue
+to produce the sounding pitches of the source instrument.
+
+To transpose cue notes differently, use
+@code{\transposedCueDuring}.  This command takes an extra argument
+to specify (in absolute mode) the printed pitch that you want to
+represent the sound of a concert middle C.  This is useful for
+taking cues from an instrument in a completely different register.
 
 @lilypond[verbatim,quote]
 piccolo = \relative c''' {
   \clef "treble^8"
   R1
   c8 c c e g2
-  a4 g g2
+  c4 g g2
 }
+bassClarinet = \relative c' {
+  \key d \major
+  \transposition bes,
+  d4 r a r
+  \transposedCueDuring #"piccolo" #UP d { R1 }
+  d4 r a r
+}
+
 \addQuote "piccolo" { \piccolo }
 
-cbassoon = \relative c, {
-  \clef "bass_8"
-  c4 r g r
-  \transposedCueDuring #"piccolo" #UP c,, { R1 }
-  c4 r g r
-}
-
 <<
-  \new Staff = "piccolo" \piccolo
-  \new Staff = "cbassoon" \cbassoon
+  \new Staff \piccolo
+  \new Staff \bassClarinet
 >>
 @end lilypond
-
-It is possible to tag cued parts with unique names in order to
-process them in different ways.  For details about this procedure,
-see @ref{Using tags}.
 
 @cindex notes, smaller
 @cindex smaller notes
@@ -1353,6 +1375,7 @@ d2. d2.
 Notation Reference:
 @ref{Instrument transpositions},
 @ref{Instrument names},
+@ref{Musical cues},
 @ref{Using tags}.
 
 Snippets:

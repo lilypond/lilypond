@@ -9,6 +9,7 @@ don't fit anywhere else.
 * Meta-policy for this document::
 * Meisters::
 * Unsorted policies::
+* Administrative mailing list::
 @end menu
 
 @node Meta-policy for this document
@@ -156,4 +157,21 @@ developers are tired of pushing patches for a contributor, we'll
 discuss giving them push access.  Unsolicited requests from
 contributors for access will almost always be turned down.
 
+@node Administrative mailing list
+@section Administrative mailing list
 
+An mailing list for administrative issues is maintained at
+@code{lilypond-hackers@@gnu.org}.
+
+This list is intended to be used for discussions that should be kept
+private. Therefore, the archives are closed to the public.
+
+Subscription to this list is limited to certain senior developers.
+
+At the present time, the list is dormant.
+
+Details about the criteria for membership, the types of discussion
+to take place on the list, and other policies for the hackers list
+will be finalized during the LilyPond Grand Organization Project,
+scheduled to begin shortly after the release of LilyPond version
+2.14.

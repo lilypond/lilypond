@@ -29,6 +29,24 @@ NOTE:
 
 
 @newsItem
+@subsubheading The LilyPond Report #21. @emph{Oct 3, 2010}
+
+The @emph{LilyPond Report} is back, with its two
+@qq{grumpy-and-fluffy} editors! This issue mainly deals with
+microtonal notation in LilyPond, but does also include a how-to
+about running LilyPond from an USB key, not to forget the regular
+release news, the bug report of the Report, and some news from
+the frog pond!
+
+Come
+@uref{http://news.lilynet.net/The-LilyPond-Report-21, read
+LilyPond Report 21} now; comments and contributions are
+warmly encouraged!
+
+@newsEnd
+
+
+@newsItem
 @subsubheading Alpha test two of 2.14 -- LilyPond 2.13.35 released!  @emph{Sep 29, 2010}
 
 LilyPond 2.13.35 is out; this is the second alpha test of the

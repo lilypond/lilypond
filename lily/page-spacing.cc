@@ -57,7 +57,14 @@ Page_spacing::append_system (const Line_details &line)
       first_line_ = line;
     }
 
-  spring_len_ += line.space_;
+  // line.space_ measures the spring which goes from the bottom refpoint
+  // of one system to the top refpoint of the next. spring_len_ measures
+  // how much of that is stretchable.
+  Real refpoint_dist = last_line_.tallness_
+    + last_line_.refpoint_extent_[DOWN]
+    - line.refpoint_extent_[UP];
+  Real space = line.title_ ? last_line_.title_space_ : last_line_.space_;
+  spring_len_ += max (0.0, space - refpoint_dist);
   inverse_spring_k_ += line.inverse_hooke_;
 
   last_line_ = line;
@@ -74,7 +81,12 @@ Page_spacing::prepend_system (const Line_details &line)
   rod_height_ -= first_line_.full_height ();
   rod_height_ += first_line_.tallness_;
   rod_height_ += line.full_height();
-  spring_len_ += line.space_;
+
+  Real refpoint_dist = line.tallness_
+    + line.refpoint_extent_[DOWN]
+    - first_line_.refpoint_extent_[UP];
+  Real space = first_line_.title_ ? line.title_space_ : line.space_;
+  spring_len_ += max (0.0, space - refpoint_dist);
   inverse_spring_k_ += line.inverse_hooke_;
 
   first_line_ = line;
