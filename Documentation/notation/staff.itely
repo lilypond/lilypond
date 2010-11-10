@@ -1217,10 +1217,11 @@ explicitly declared, or else the entire music expression would
 belong to the @code{CueVoice} context.
 
 It is possible to adjust which aspects of the music are quoted with
-@code{\cueDuring} by setting the @code{quotedCueEventTypes} property.  Its
-default value is @code{#'(note-event rest-event tie-event beam-event
-tuplet-span-event)}, which means that only notes, rest, ties, beams and
-tuplets are quoted, but not articulations, dynamic marks, markup etc.
+@code{\cueDuring} by setting the @code{quotedCueEventTypes}
+property.  Its default value is @code{#'(note-event rest-event
+tie-event beam-event tuplet-span-event)}, which means that only
+notes, rests, ties, beams and tuplets are quoted, but not
+articulations, dynamic marks, markup etc.
 
 @lilypond[verbatim,quote]
 oboe = \relative c'' {
@@ -1238,6 +1239,29 @@ oboe = \relative c'' {
 }
 @end lilypond
 
+Markup can be used to show the name of the quoted instrument.  Also,
+if the cue notes require a change in clef, the original clef should
+be restored at the end of the cue notes.
+
+@lilypond[verbatim,quote]
+flute = \relative c'' {
+  r2. c4 d8 c d e fis2 g2 d2
+}
+bassoon = \relative c {
+  \clef bass
+  R1
+  \clef treble
+  s1*0^\markup { \tiny "flute" }
+  \cueDuring #"flute" #UP { R1 }
+  \clef bass
+  g4. b8 d2
+}
+\addQuote "flute" { \flute }
+\new Staff {
+  \bassoon
+}
+@end lilypond
+
 @cindex removing cues
 @cindex removing cue notes
 @cindex cue notes, removing
@@ -1247,7 +1271,11 @@ oboe = \relative c'' {
 
 The @code{\killCues} command removes cue notes from a music
 expression, so the same music expression can be used to produce
-the instrument part with cues and the score.
+the instrument part with cues and the score.  The @code{\killCues}
+command removes only the notes and events that were quoted by
+@code{\cueDuring}.  Other markup associated with cues, such as clef
+changes and a label identifying the source instrument, can be
+tagged for selective inclusion in the score; see @ref{Using tags}.
 
 @lilypond[verbatim,quote]
 flute = \relative c'' {
@@ -1266,19 +1294,20 @@ bassoon = \relative c {
 }
 \addQuote "flute" { \flute }
 
-\new Staff \bassoon
-
+\new Staff {
+  \bassoon
+}
 \new StaffGroup <<
-  \new Staff \flute
-  \new Staff \removeWithTag #'part { \killCues { \bassoon } }
+  \new Staff {
+    \flute
+  }
+  \new Staff {
+    \removeWithTag #'part { \killCues { \bassoon } }
+  }
 >>
 @end lilypond
 
-The @code{\killCues} command removes only the notes and events
-that were quoted by @code{\cueDuring}.  Other markup associated
-with cues, such as clef changes and a label identifying the source
-instrument, can be tagged for selective inclusion in the score;
-see @ref{Using tags}.  Clef changes and instrument labels can be
+Alternatively, Clef changes and instrument labels can be
 collected into an instrument definition for repeated use, using
 @code{\addInstrumentDefinition} described in @ref{Instrument
 names}.
@@ -1346,6 +1375,7 @@ d2. d2.
 Notation Reference:
 @ref{Instrument transpositions},
 @ref{Instrument names},
+@ref{Musical cues},
 @ref{Using tags}.
 
 Snippets:
