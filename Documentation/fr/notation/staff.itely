@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
+    Translation of GIT committish: 6e0a8179dc7b4602321dcafb519da7eac8f5ee0f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1080,9 +1080,10 @@ Au cours d'une partie, des extraits de répliques peuvent être cités en
 utilisant la commande @code{\quoteDuring}.  Cette commande prend deux
 arguments@tie{}: le nom de la voix reproduite, tel que défini par
 @code{\addQuote}, et une expression musicale qui indique la durée de
-cette citation -- silences invisibles ou multi-mesures.  Viendra alors
+cette citation -- silences invisibles ou multimesures.  Viendra alors
 s'insérer dans l'expression musicale le fragment correspondant de la
-voix originelle.
+voix originelle, avec tous ses attributs (articulations, nuances,
+annotations, etc.).
 
 @lilypond[verbatim,quote]
 flute = \relative c'' {
@@ -1193,7 +1194,7 @@ passer à une autre voix.
 Citer des notes d'ornement ne fonctionne pas, et peut même entraîner
 un blocage de LilyPond.
 
-Citer des triolets imbriqués peut entraîner un résultat de médiocre
+Citer des triolets imbriqués peut entraîner un résultat de piètre
 qualité.
 
 Dans les versions précédentes de LilyPond (avant 2.11), @code{addQuote}
@@ -1251,8 +1252,8 @@ serait retrouvée dans le contexte @code{CueVoice}.
 
 La propriété @code{quotedCueEventTypes} permet de définir précisément
 quels éléments de la voix originelle seront reproduits.  Sa valeur par
-défaut est @code{#'(note-event rest-event tie-event beam-event
-tuplet-span-event)}.  LilyPond reproduira donc les notes, silences,
+défaut est @w{@code{#'(note-event rest-event tie-event beam-event
+tuplet-span-event)}}.  LilyPond reproduira donc les notes, silences,
 liaisons de prolongation, ligatures et nolets, mais pas les
 articulations, annotations ni nuances.
 
@@ -1272,25 +1273,28 @@ oboe = \relative c'' {
 }
 @end lilypond
 
-Le nom de l'instrument qui est répliqué sera imprimé dès lors que vous
-définirez la propriété @code{instrumentCueName} du contexte
-@code{CueVoice}.
+Le nom de l'instrument qui est répliqué sera imprimé à l'aide d'une
+annotation (un @emph{markup}).  Par ailleurs, si la citation nécessite
+l'apparition d'une clef différente, l'originale devrait être rappelée en
+fin de citation.
 
 @lilypond[verbatim,quote]
-oboe = \relative c''' {
-  g4 r8 e16 f e4 d
+flute = \relative c'' {
+  r2. c4 d8 c d e fis2 g2 d2
 }
-\addQuote "oboe" { \oboe }
-
-\new Staff \relative c'' <<
-  \new CueVoice \with {
-    instrumentCueName = "ob."
-  }
-  \new Voice {
-    \cueDuring #"oboe" #UP { R1 }
-    g4. b8 d2
-  }
->>
+bassoon = \relative c {
+  \clef bass
+  R1
+  \clef treble
+  s1*0^\markup { \tiny "flute" }
+  \cueDuring #"flute" #UP { R1 }
+  \clef bass
+  g4. b8 d2
+}
+\addQuote "flute" { \flute }
+\new Staff {
+  \bassoon
+}
 @end lilypond
 
 @cindex citation, fin
@@ -1300,40 +1304,60 @@ oboe = \relative c''' {
 
 @funindex \killCues
 @funindex killCues
-@funindex \transposedCueDuring
-@funindex transposedCueDuring
-
-Lorsque la citation comporte une étiquette indiquant l'instrument qui
-joue, il est judicieux, au moment où la partie originale reprend sa
-place, de rappeler l'instrument et d'annuler toute autre modification
-introduite par cette citation.  D'où l'utilité des commandes
-@code{\addInstrumentDefinition} et @code{\instrumentSwitch}.  Pour plus
-d'information, reportez-vous au chapitre @ref{Noms d'instrument}.
 
 La commande @code{killCues} permet de supprimer les notes d'une
 citation.  Ceci est utile lorsque cette citation n'est pas imprimée dans
-un premier temps.
+le conducteur entre autres.  @code{killCues} supprimera les notes et
+autres événements pris en charge par @code{\cueDuring}.  Pour les
+autres annotations telles que changement de clef ou instrument concerné,
+faites appel à des balises -- voir @ref{Utilisation de balises} à ce
+sujet.
 
 @lilypond[verbatim,quote]
-flute = \relative c''' {
-  r2 cis2 r2 dis2
+flute = \relative c'' {
+  r2. c4 d8 c d e fis2 g2 d2
+}
+bassoon = \relative c {
+  \clef bass
+  R1
+  \tag #'part {
+    \clef treble
+    s1*0^\markup { \tiny "flute" }
+  }
+  \cueDuring #"flute" #UP { R1 }
+  \tag #'part \clef bass
+  g4. b8 d2
 }
 \addQuote "flute" { \flute }
 
-\new Voice \relative c'' {
-  \killCues {
-    \cueDuring #"flute" #UP { R1 }
-    g4. b8 d2
-  }
+\new Staff {
+  \bassoon
 }
+\new StaffGroup <<
+  \new Staff {
+    \flute
+  }
+  \new Staff {
+    \removeWithTag #'part { \killCues { \bassoon } }
+  }
+>>
 @end lilypond
+
+Lorsque la citation comporte une étiquette indiquant l'instrument qui
+joue et un changement de clef, ces éléments peuvent se regrouper à
+l'aide de la commande @code{\addInstrumentDefinition}.  Pour plus
+d'information, reportez-vous au chapitre @ref{Noms d'instrument}.
+
+
+@funindex \transposedCueDuring
+@funindex transposedCueDuring
 
 L'instruction @code{\transposedCueDuring} est particulièrement adaptée
 pour des instrument ayant une tessiture éloignée, comme dans le cas d'un
-piccolo cité dans une partie de contrebasson.  Sa syntaxe  est identique
-à celle de @code{\cueDuring}, à ceci près qu'elle nécessite un argument
-supplémentaire afin de spécifier la transposition à effectuer.  Pour
-de plus amples informations sur la transposition, reportez-vous au
+piccolo cité dans une partie de clarinette basse.  Sa syntaxe  est
+identique à celle de @code{\cueDuring}, à ceci près qu'elle nécessite un
+argument supplémentaire afin de spécifier la transposition à effectuer.
+Pour de plus amples informations sur la transposition, reportez-vous au
 chapitre @ref{Instruments transpositeurs}.
 
 @lilypond[verbatim,quote]
@@ -1341,26 +1365,23 @@ piccolo = \relative c''' {
   \clef "treble^8"
   R1
   c8 c c e g2
-  a4 g g2
+  c4 g g2
 }
+bassClarinet = \relative c' {
+  \key d \major
+  \transposition bes,
+  d4 r a r
+  \transposedCueDuring #"piccolo" #UP d { R1 }
+  d4 r a r
+}
+
 \addQuote "piccolo" { \piccolo }
 
-cbassoon = \relative c, {
-  \clef "bass_8"
-  c4 r g r
-  \transposedCueDuring #"piccolo" #UP c,, { R1 }
-  c4 r g r
-}
-
 <<
-  \new Staff = "piccolo" \piccolo
-  \new Staff = "cbassoon" \cbassoon
+  \new Staff \piccolo
+  \new Staff \bassClarinet
 >>
 @end lilypond
-
-Les citations peuvent être @qq{balisées} par un nom particulier afin de
-les utiliser de différentes manières.  Pour de plus amples détails à ce
-propos, consultez le chapitre @ref{Utilisation de balises}.
 
 @cindex notes, petites
 @cindex petites notes
@@ -1388,6 +1409,7 @@ d2. d2.
 Manuel de notation :
 @ref{Instruments transpositeurs},
 @ref{Noms d'instrument},
+@ref{Musical cues},
 @ref{Utilisation de balises}.
 
 Morceaux choisis :
