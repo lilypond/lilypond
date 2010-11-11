@@ -565,7 +565,7 @@ suédois, le catalan et l'espagnol.
 
 La plupart des langues dont nous venons de parler correspondent à la
 musique classique occidentale au tempérament égal -- le concept de
-@emph(Common Practice Period} en anglais.  LilyPond prend néanmoins en
+@emph{Common Practice Period} en anglais.  LilyPond prend néanmoins en
 charge d'autres systèmes de notation, comme indiqué au chapitre
 @ref{Noms de note et altérations non-occidentaux}.
 
