@@ -340,6 +340,14 @@ or
 @@lilypond[verbatim,quote,relative=1]
 @end example
 
+Please avoid using extra spacing either after or within the
+@code{@@lilypond} parameters.
+
+@example
+not:          @@lilypond [verbatim, quote, relative=1]
+but instead:  @@lilypond[verbatim,quote,relative=1]
+@end example
+
 If you want to use @code{\layout@{@}} or define variables, use
 
 @example
