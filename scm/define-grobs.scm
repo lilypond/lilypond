@@ -1973,14 +1973,12 @@
 	(avoid-slur . around)
 	(cross-staff . ,ly:script-interface::calc-cross-staff)
 	(direction . ,DOWN)
-	(direction . ,ly:script-interface::calc-direction)
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-priority . 450)
 
 	;; sync with Fingering ?
 	(padding . 0.5)
 
-	(positioning-done . ,ly:script-interface::calc-positioning-done)
 	(script-priority . 200)
 	(side-axis . ,Y)
 	(slur-padding . 0.5)
