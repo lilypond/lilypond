@@ -1,8 +1,9 @@
 \version "2.13.39"
 
 \header {
-  texidoc = "Loose lines can specify their padding or min-distance to the
-staff for which they don't have affinity."
+  texidoc = "Non-staff lines (such as @code{Lyrics}) can specify
+their @code{padding} or @code{minimum-distance} to the staff for
+which they don't have affinity."
 }
 
 <<

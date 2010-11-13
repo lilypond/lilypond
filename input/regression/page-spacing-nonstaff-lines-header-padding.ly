@@ -1,8 +1,8 @@
 \version "2.13.36"
 
 \header {
-  texidoc = "Padding from the header and footer is measured to the first
-line, whether or not it is spaceable."
+  texidoc = "Padding from the header and footer is measured to the
+first non-staff line, whether or not it is spaceable."
 }
 
 #(set-default-paper-size "a6")

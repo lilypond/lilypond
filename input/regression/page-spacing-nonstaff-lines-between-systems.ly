@@ -1,9 +1,9 @@
 \version "2.13.7"
 
 \header {
-  texidoc = "The vertical spacing engine is not confused by
-a loose line below a system followed by a loose line above
-the next system."
+  texidoc = "The vertical spacing engine is not confused by a
+non-staff line below a system followed by a loose line above the
+next system."
 }
 
 \paper {

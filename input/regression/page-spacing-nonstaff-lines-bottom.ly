@@ -1,8 +1,8 @@
 \version "2.13.39"
 
 \header {
-    texidoc = "A loose line (eg. a lyric line) at the bottom of a system
-gets spaced appropriately."
+  texidoc = "A non-staff line (such as @code{Lyrics}) at the
+bottom of a system gets spaced appropriately."
 }
 
 \layout {

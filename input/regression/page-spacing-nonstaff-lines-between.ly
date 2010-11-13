@@ -1,7 +1,7 @@
 \version "2.13.36"
 
 \header {
-  texidoc = "Loose lines between two systems don't confuse the
+  texidoc = "Non-staff lines between two systems don't confuse the
 layout engine.  In particular, they don't interfere with
 @code{system-system-spacing}, which controls the flexible spacing
 between the two closest staves of consecutive systems."
