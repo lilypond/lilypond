@@ -3065,10 +3065,8 @@ def conv(str):
     str = re.sub ('after-title-spacing',           'markup-system-spacing', str)
     str = re.sub ('before-title-spacing',          'score-markup-spacing',  str)
     str = re.sub ('between-scores-system-spacing', 'score-system-spacing',  str)
-
-    # also converts page-breaking-between-system-spacing:
+    # this rule also converts page-breaking-between-system-spacing:
     str = re.sub ('between-system-spacing',        'system-system-spacing', str)
-
     str = re.sub ('between-title-spacing',         'markup-markup-spacing', str)
     str = re.sub ('bottom-system-spacing',         'last-bottom-spacing',   str)
     str = re.sub ('top-title-spacing',             'top-markup-spacing',    str)
@@ -3077,6 +3075,23 @@ def conv(str):
                   r"storePredefinedDiagram #default-fret-table",
                   str);
     return str
+
+@rule ((2, 13, 39),
+    _ ("Rename vertical spacing grob properties."))
+def conv(str):
+    # this rule also converts default-next-staff-spacing:
+    str = re.sub ('next-staff-spacing',       'staff-staff-spacing',             str)
+    # this is not a mistake:
+    #   Both 'next- and 'between- become 'staff-staff-spacing.
+    #   There is no conflict since they are in different grobs.
+    str = re.sub ('between-staff-spacing',    'staff-staff-spacing',             str)
+    str = re.sub ('after-last-staff-spacing', 'staffgroup-staff-spacing',        str)
+    str = re.sub ('inter-staff-spacing',      'nonstaff-relatedstaff-spacing',   str)
+    str = re.sub ('non-affinity-spacing',     'nonstaff-unrelatedstaff-spacing', str)
+    str = re.sub ('inter-loose-line-spacing', 'nonstaff-nonstaff-spacing',       str);
+
+    return str
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #
