@@ -199,10 +199,11 @@ an ending t-value, a @code{dash-fraction}, and a @code{dash-period}.")
 whitespace.  If negative, no line is drawn at all.")
      (default-direction ,ly:dir? "Direction determined by note head
 positions.")
-     (default-staff-staff-spacing ,list? "An alist of spacing variables
-that controls the spacing between this staff and the next.
-See @var{staff-staff-spacing} for a description of the elements of
-this alist.")
+     (default-staff-staff-spacing ,list? "The settings to use for
+@code{staff-staff-spacing} when it is unset, for ungrouped staves
+and for grouped staves that do not have the relevant
+@code{StaffGrouper} property set (@code{staff-staff-spacing} or
+@code{staffgroup-staff-spacing}).")
      (details ,list? "Alist of parameters for detailed grob behavior.
 More information on the allowed parameters for a grob can be found by
 looking at the top of the Internals Reference page for each interface
@@ -583,17 +584,31 @@ which NON-break-aligned interfaces to align this to.")
      (non-default ,boolean? "Set for manually specified clefs.")
      (non-musical ,boolean? "True if the grob belongs to a
 @code{NonMusicalPaperColumn}.")
-     (nonstaff-nonstaff-spacing ,list? "Specifies how to vertically
-position a non-spaced line relative to the other non-spaced lines
-around it.  See @var{staff-staff-spacing} for the format of this list.")
-     (nonstaff-relatedstaff-spacing ,list? "Specifies how to vertically
-position a non-spaced line relative to the staff for which it
-has affinity.  See @var{staff-staff-spacing} for the format of this list.")
-     (nonstaff-unrelatedstaff-spacing ,list? "An alist of spacing variables
-that controls the spacing from a loose line (see @var{staff-affinity})
-to the staff for which the loose line does not have affinity.
-See @var{staff-staff-spacing} for a description of the elements of
-this alist.")
+     (nonstaff-nonstaff-spacing ,list? "The spacing alist
+controlling the distance between the current non-staff line and
+the next non-staff line in the direction of @code{staff-affinity},
+if both are on the same side of the related staff, and
+@code{staff-affinity} is either @code{UP} or @code{DOWN}.  See
+@code{staff-staff-spacing} for a description of the alist
+structure.")
+     (nonstaff-relatedstaff-spacing ,list? "The spacing alist
+controlling the distance between the current non-staff line and
+the nearest staff in the direction of @code{staff-affinity}, if
+there are no non-staff lines between the two, and
+@code{staff-affinity} is either @code{UP} or @code{DOWN}.  If
+@code{staff-affinity} is @code{CENTER}, then
+@code{nonstaff-relatedstaff-spacing} is used for the nearest
+staves on @emph{both} sides, even if other non-staff lines appear
+between the current one and either of the staves.  See
+@code{staff-staff-spacing} for a description of the alist
+structure.")
+     (nonstaff-unrelatedstaff-spacing ,list? "The spacing alist
+controlling the distance between the current non-staff line and
+the nearest staff in the opposite direction from
+@code{staff-affinity}, if there are no other non-staff lines
+between the two, and @code{staff-affinity} is either @code{UP} or
+@code{DOWN}.  See @code{staff-staff-spacing} for a description of
+the alist structure.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
 
@@ -741,8 +756,14 @@ override:
      (springs-and-rods ,boolean? "Dummy variable for triggering
 spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")
-     (staff-affinity ,ly:dir? "The direction of the staff to which this
-line should stick.")
+     (staff-affinity ,ly:dir? "The direction of the staff to use
+for spacing the current non-staff line.  Choices are @code{UP},
+@code{DOWN}, and @code{CENTER}.  If @code{CENTER}, the non-staff
+line will be placed equidistant between the two nearest staves on
+either side, unless collisions or other spacing constraints
+prevent this.  Setting @code{staff-affinity} for a staff causes it
+to be treated as a non-staff line.  Setting @code{staff-affinity}
+to @code{#f} causes a non-staff line to be treated as a staff.")
      (staff-padding ,ly:dimension? "Maintain this much space between
 reference points and the staff.  Its effect is to align objects of
 differing sizes (like the dynamics @b{p} and @b{f}) on their
@@ -751,33 +772,38 @@ baselines.")
 staff spaces, counted from the middle line.")
      (staff-space ,ly:dimension? "Amount of space between staff lines,
 expressed in global @code{staff-space}.")
-     (staff-staff-spacing ,list? "An alist of spacing variables
-that controls the spacing between staves within this staff group.
-See @var{staff-staff-spacing} for a description of the elements of
-this alist.")
-     (staff-staff-spacing ,list? "An alist of properties used to position
-the next staff in the system.  The symbols that can be defined in the alist
-are
-@itemize @bullet
-@item @var{space} -- the amount of stretchable space between the center
-of this staff and the center of the next staff;
-@item @var{padding} -- the minimum amount of whitespace that must be
-present between this staff and the next staff;
-@item @var{stretchability} -- the ease with which the stretchable
-space increases when the system to which this staff belongs is stretched.
-If this is zero, the distance to the next staff will be fixed either at
-@var{space} or at @var{padding} plus the minimum distance to ensure
-there is no overlap, whichever is larger;
-@item @var{minimum-distance} -- the minimum distance to place between
-the center of this staff and the center of the next. This differs
-from @var{padding} in that the height of a staff has no effect on
-the application of @var{minimum-distance} (whereas the height of a
-staff is crucial for @var{padding}).
+     (staff-staff-spacing ,list? "When applied to a staff-group's
+@code{StaffGrouper} grob, this spacing alist controls the distance
+between consecutive staves within the staff-group.  When applied
+to a staff's @code{VerticalAxisGroup} grob, it controls the
+distance between the staff and the nearest staff below it in the
+same system, replacing any settings inherited from the
+@code{StaffGrouper} grob of the containing staff-group, if there
+is one.  This property remains in effect even when non-staff lines
+appear between staves.  The alist can contain the following keys:
+@itemize
+@item @code{padding} -- the minimum required amount of
+unobstructed vertical whitespace between the two items, measured
+in staff-spaces.
+@item @code{space} -- the vertical distance, measured in
+staff-spaces, between the reference points of the two items when
+no collisions would result, and no stretching or compressing is in
+effect.
+@item @code{minimum-distance} -- the smallest allowable vertical
+distance, measured in staff-spaces, between the reference points
+of the two items, when compressing is in effect.
+@item @code{stretchability} -- a unitless measure of the
+dimension's relative propensity to stretch.  If zero, the distance
+will not stretch (unless collisions would result).
 @end itemize")
-     (staffgroup-staff-spacing ,list? "An alist of spacing variables
-that controls the spacing after the last staff in this staff group.
-See @var{staff-staff-spacing} for a description of the elements of
-this alist.")
+     (staffgroup-staff-spacing ,list? "The spacing alist
+controlling the distance between the last staff of the current
+staff-group and the staff just below it in the same system, even
+if one or more non-staff lines exist between the two staves.  If
+the @code{staff-staff-spacing} property of the staff's
+@code{VerticalAxisGroup} grob is set, that is used instead.  See
+@code{staff-staff-spacing} for a description of the alist
+structure.")
      (stem-attachment ,number-pair? "An @code{(@var{x} . @var{y})}
 pair where the stem attaches to the notehead.")
      (stem-end-position ,number? "Where does the stem end (the end is
