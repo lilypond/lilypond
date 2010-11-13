@@ -40,7 +40,7 @@ ADD_INTERFACE (Staff_grouper_interface,
 	       "A grob that collects staves together.",
 
 	       /* properties */
-	       "between-staff-spacing "
-	       "after-last-staff-spacing "
+	       "staff-staff-spacing "
+	       "staffgroup-staff-spacing "
 	       );
 

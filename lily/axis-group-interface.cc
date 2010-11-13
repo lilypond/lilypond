@@ -726,28 +726,28 @@ Axis_group_interface::print (SCM smob)
   return ret.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_next_staff_spacing, 3)
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_staff_staff_spacing, 3)
 SCM
-Axis_group_interface::calc_pure_next_staff_spacing (SCM smob, SCM start, SCM end)
+Axis_group_interface::calc_pure_staff_staff_spacing (SCM smob, SCM start, SCM end)
 {
-  return calc_maybe_pure_next_staff_spacing (unsmob_grob (smob),
+  return calc_maybe_pure_staff_staff_spacing (unsmob_grob (smob),
 					     true,
 					     scm_to_int (start),
 					     scm_to_int (end));
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_next_staff_spacing, 1)
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_staff_staff_spacing, 1)
 SCM
-Axis_group_interface::calc_next_staff_spacing (SCM smob)
+Axis_group_interface::calc_staff_staff_spacing (SCM smob)
 {
-  return calc_maybe_pure_next_staff_spacing (unsmob_grob (smob),
+  return calc_maybe_pure_staff_staff_spacing (unsmob_grob (smob),
 					     false,
 					     0,
 					     INT_MAX);
 }
 
 SCM
-Axis_group_interface::calc_maybe_pure_next_staff_spacing (Grob *me, bool pure, int start, int end)
+Axis_group_interface::calc_maybe_pure_staff_staff_spacing (Grob *me, bool pure, int start, int end)
 {
   Grob *grouper = unsmob_grob (me->get_object ("staff-grouper"));
 
@@ -755,11 +755,11 @@ Axis_group_interface::calc_maybe_pure_next_staff_spacing (Grob *me, bool pure, i
     {
       Grob *last_in_group = Staff_grouper_interface::get_maybe_pure_last_grob (grouper, pure, start, end);
       if (me == last_in_group)
-	return grouper->get_maybe_pure_property ("after-last-staff-spacing", pure, start, end);
+	return grouper->get_maybe_pure_property ("staffgroup-staff-spacing", pure, start, end);
       else
-	return grouper->get_maybe_pure_property ("between-staff-spacing", pure, start, end);
+	return grouper->get_maybe_pure_property ("staff-staff-spacing", pure, start, end);
     }
-  return me->get_maybe_pure_property ("default-next-staff-spacing", pure, start, end);
+  return me->get_maybe_pure_property ("default-staff-staff-spacing", pure, start, end);
 }
 
 Real
@@ -785,13 +785,13 @@ ADD_INTERFACE (Axis_group_interface,
 	       "Y-common "
 	       "adjacent-pure-heights "
 	       "axes "
-	       "default-next-staff-spacing "
+	       "default-staff-staff-spacing "
 	       "elements "
-	       "inter-loose-line-spacing "
-	       "inter-staff-spacing "
+	       "nonstaff-nonstaff-spacing "
+	       "nonstaff-relatedstaff-spacing "
 	       "max-stretch "
-	       "non-affinity-spacing "
-	       "next-staff-spacing "
+	       "nonstaff-unrelatedstaff-spacing "
+	       "staff-staff-spacing "
 	       "no-alignment "
 	       "pure-Y-common "
 	       "pure-relevant-grobs "

@@ -1689,10 +1689,10 @@
 
     (StaffGrouper
      . (
-	(between-staff-spacing . ((space . 9)
+	(staff-staff-spacing . ((space . 9)
 				  (minimum-distance . 7)
 				  (padding . 1)))
-	(after-last-staff-spacing . ((space . 10.5)
+	(staffgroup-staff-spacing . ((space . 10.5)
 				     (minimum-distance . 8)
 				     (padding . 1)))
 	(meta . ((class . Spanner)
@@ -2262,11 +2262,11 @@
      . (
 	(adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
 	(axes . (,Y))
-	(default-next-staff-spacing . ((space . 9)
+	(default-staff-staff-spacing . ((space . 9)
 				       (minimum-distance . 8)
 				       (padding . 1)))
-	(next-staff-spacing . ,ly:axis-group-interface::calc-next-staff-spacing)
-	(non-affinity-spacing . ((padding . 0.5)))
+	(staff-staff-spacing . ,ly:axis-group-interface::calc-staff-staff-spacing)
+	(nonstaff-unrelatedstaff-spacing . ((padding . 0.5)))
 	(stencil . ,ly:axis-group-interface::print)
 	(vertical-skylines . ,ly:hara-kiri-group-spanner::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -2448,7 +2448,7 @@
 (define pure-conversions-alist
   `(
     (,ly:accidental-interface::height . ,ly:accidental-interface::pure-height)
-    (,ly:axis-group-interface::calc-next-staff-spacing . ,ly:axis-group-interface::calc-pure-next-staff-spacing)
+    (,ly:axis-group-interface::calc-staff-staff-spacing . ,ly:axis-group-interface::calc-pure-staff-staff-spacing)
     (,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
     (,ly:grob::stencil-height . ,pure-stencil-height)
     (,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)

@@ -227,7 +227,7 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real padd
 	    }
 
 	  Spring spring (0.5, 0.0);
-	  SCM spec = elts[last_spaceable_staff]->get_property ("next-staff-spacing");
+	  SCM spec = elts[last_spaceable_staff]->get_property ("staff-staff-spacing");
 	  alter_spring_from_spacing_spec (spec, &spring);
 
 	  springs_.push_back (spring);
@@ -690,14 +690,14 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure, int
   if (is_spaceable (before))
     {
       if (is_spaceable (after))
-	return before->get_maybe_pure_property ("next-staff-spacing", pure, start, end);
+	return before->get_maybe_pure_property ("staff-staff-spacing", pure, start, end);
       else
 	{
 	  Direction affinity = to_dir (after->get_maybe_pure_property ("staff-affinity", pure, start, end));
 	  return (affinity == DOWN)
-	    ? add_stretchability (after->get_maybe_pure_property ("non-affinity-spacing", pure, start, end),
+	    ? add_stretchability (after->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
 				  LARGE_STRETCH)
-	    : after->get_maybe_pure_property ("inter-staff-spacing", pure, start, end);
+	    : after->get_maybe_pure_property ("nonstaff-relatedstaff-spacing", pure, start, end);
 	}
     }
   else
@@ -706,9 +706,9 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure, int
 	{
 	  Direction affinity = to_dir (before->get_maybe_pure_property ("staff-affinity", pure, start, end));
 	  return (affinity == UP)
-	    ? add_stretchability (before->get_maybe_pure_property ("non-affinity-spacing", pure, start, end),
+	    ? add_stretchability (before->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
 				  LARGE_STRETCH)
-	    : before->get_maybe_pure_property ("inter-staff-spacing", pure, start, end);
+	    : before->get_maybe_pure_property ("nonstaff-relatedstaff-spacing", pure, start, end);
 	}
       else
 	{
@@ -720,10 +720,10 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure, int
 	      after_affinity = before_affinity;
 	    }
 	  if (before_affinity != UP)
-	    return before->get_maybe_pure_property ("inter-loose-line-spacing", pure, start, end);
+	    return before->get_maybe_pure_property ("nonstaff-nonstaff-spacing", pure, start, end);
 	  else if (after_affinity != DOWN)
-	    return before->get_maybe_pure_property ("inter-loose-line-spacing", pure, start, end);
-	  return add_stretchability (before->get_maybe_pure_property ("non-affinity-spacing", pure, start, end),
+	    return before->get_maybe_pure_property ("nonstaff-nonstaff-spacing", pure, start, end);
+	  return add_stretchability (before->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
 				     LARGE_STRETCH);
 	}
     }

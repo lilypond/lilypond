@@ -38,8 +38,8 @@ struct Axis_group_interface
   DECLARE_SCHEME_CALLBACK (combine_skylines, (SCM smob));
   DECLARE_SCHEME_CALLBACK (print, (SCM smob));
   DECLARE_SCHEME_CALLBACK (adjacent_pure_heights, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_next_staff_spacing, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_pure_next_staff_spacing, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (calc_staff_staff_spacing, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_pure_staff_staff_spacing, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_grobs, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_items, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_spanners, (SCM));
@@ -60,7 +60,7 @@ struct Axis_group_interface
   static Interval staff_extent (Grob *me, Grob *ref, Axis, Grob *staff, Axis);
   static SCM calc_common (Grob *, Axis);
   static Real minimum_distance (Grob*, Grob*, Axis);
-  static SCM calc_maybe_pure_next_staff_spacing (Grob*, bool, int, int);
+  static SCM calc_maybe_pure_staff_staff_spacing (Grob*, bool, int, int);
   DECLARE_GROB_INTERFACE();
 };
 

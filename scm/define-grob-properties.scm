@@ -38,9 +38,9 @@
 ;;
      (add-stem-support ,boolean? "If set, the @code{Stem} object is
 included in this script's support.")
-     (after-last-staff-spacing ,list? "An alist of spacing variables
+     (staffgroup-staff-spacing ,list? "An alist of spacing variables
 that controls the spacing after the last staff in this staff group.
-See @var{next-staff-spacing} for a description of the elements of
+See @var{staff-staff-spacing} for a description of the elements of
 this alist.")
      (after-line-breaking ,boolean? "Dummy property, used to trigger
 callback for @code{after-line-breaking}.")
@@ -110,9 +110,9 @@ beamlet, as a proportion of the distance between two adjacent stems.")
      (before-line-breaking ,boolean? "Dummy property, used to trigger
 a callback function.")
      (between-cols ,pair? "Where to attach a loose column to.")
-     (between-staff-spacing ,list? "An alist of spacing variables
+     (staff-staff-spacing ,list? "An alist of spacing variables
 that controls the spacing between staves within this staff group.
-See @var{next-staff-spacing} for a description of the elements of
+See @var{staff-staff-spacing} for a description of the elements of
 this alist.")
      (bound-details ,list? "An alist of properties for determining
 attachments of spanners to edges.")
@@ -207,9 +207,9 @@ an ending t-value, a @code{dash-fraction}, and a @code{dash-period}.")
 whitespace.  If negative, no line is drawn at all.")
      (default-direction ,ly:dir? "Direction determined by note head
 positions.")
-     (default-next-staff-spacing ,list? "An alist of spacing variables
+     (default-staff-staff-spacing ,list? "An alist of spacing variables
 that controls the spacing between this staff and the next.
-See @var{next-staff-spacing} for a description of the elements of
+See @var{staff-staff-spacing} for a description of the elements of
 this alist.")
      (details ,list? "Alist of parameters for detailed grob behavior.
 More information on the allowed parameters for a grob can be found by
@@ -475,12 +475,12 @@ resolution on this @code{NoteColumn}.")
 configuration to this index, and print the respective scores.")
      (inspect-quants ,number-pair? "If debugging is set, set beam and
 slur quants to this position, and print the respective scores.")
-     (inter-loose-line-spacing ,list? "Specifies how to vertically
+     (nonstaff-nonstaff-spacing ,list? "Specifies how to vertically
 position a non-spaced line relative to the other non-spaced lines
-around it.  See @var{next-staff-spacing} for the format of this list.")
-     (inter-staff-spacing ,list? "Specifies how to vertically
+around it.  See @var{staff-staff-spacing} for the format of this list.")
+     (nonstaff-relatedstaff-spacing ,list? "Specifies how to vertically
 position a non-spaced line relative to the staff for which it
-has affinity.  See @var{next-staff-spacing} for the format of this list.")
+has affinity.  See @var{staff-staff-spacing} for the format of this list.")
 
 
 ;;
@@ -585,7 +585,7 @@ center of the staff.")
 to flip the direction of custos stem.")
      (next ,ly:grob? "Object that is next relation (e.g., the lyric
 syllable following an extender).")
-     (next-staff-spacing ,list? "An alist of properties used to position
+     (staff-staff-spacing ,list? "An alist of properties used to position
 the next staff in the system.  The symbols that can be defined in the alist
 are
 @itemize @bullet
@@ -613,10 +613,10 @@ which NON-break-aligned interfaces to align this to.")
 object.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
 get stems extending to the middle staff line.")
-     (non-affinity-spacing ,list? "An alist of spacing variables
+     (nonstaff-unrelatedstaff-spacing ,list? "An alist of spacing variables
 that controls the spacing from a loose line (see @var{staff-affinity})
 to the staff for which the loose line does not have affinity.
-See @var{next-staff-spacing} for a description of the elements of
+See @var{staff-staff-spacing} for a description of the elements of
 this alist.")
      (non-default ,boolean? "Set for manually specified clefs.")
      (non-musical ,boolean? "True if the grob belongs to a
