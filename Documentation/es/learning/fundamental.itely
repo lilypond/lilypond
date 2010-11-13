@@ -2982,9 +2982,9 @@ forma que los valores sean idénticos.
       \new Staff = "ManualDos" \with @{
         \override VerticalAxisGroup
           #'staff-staff-spacing = #'((space . 9)
-                                    (minimum-distance . 8)
-                                    (padding . 1)
-                                    (stretchability . 5))
+                                     (minimum-distance . 8)
+                                     (padding . 1)
+                                     (stretchability . 5))
       @} <<
         \keyTime
         \clef "bass"
@@ -3050,9 +3050,9 @@ PedalOrganMusic = \relative c {
       \new Staff = "ManualTwo" \with {
         \override VerticalAxisGroup
           #'staff-staff-spacing = #'((space . 9)
-                                    (minimum-distance . 8)
-                                    (padding . 1)
-                                    (stretchability . 5))
+                                     (minimum-distance . 8)
+                                     (padding . 1)
+                                     (stretchability . 5))
       } <<
         \keyTime
         \clef "bass"

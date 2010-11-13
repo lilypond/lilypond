@@ -1894,8 +1894,8 @@ These grob properties are described individually above; see
 @ref{Within-system spacing properties}.
 
 The following example shows how the
-@code{nonstaff-nonstaff-spacing} property can affect the spacing of
-consecutive non-staff lines.  Here, by setting the
+@code{nonstaff-nonstaff-spacing} property can affect the spacing
+of consecutive non-staff lines.  Here, by setting the
 @code{stretchability} key to a very high value, the lyrics are
 able to stretch much more than usual:
 

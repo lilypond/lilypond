@@ -1672,10 +1672,10 @@ formato que @var{staff-staff-spacing}, véase más arriba.
 @itemize
 @item
 Si la línea más cercana en la dirección de @var{staff-affinity} es una
-pauta, entonces @var{nonstaff-relatedstaff-spacing} da el espacio entre la línea
-que no es una pauta y la pauta.  Si @var{staff-affinity} es
-@code{CENTER}, entonces se usa @var{nonstaff-relatedstaff-spacing} para las dos
-direcciones.
+pauta, entonces @var{nonstaff-relatedstaff-spacing} da el espacio
+entre la línea que no es una pauta y la pauta.  Si
+@var{staff-affinity} es @code{CENTER}, entonces se usa
+@var{nonstaff-relatedstaff-spacing} para las dos direcciones.
 
 @item
 Si línea más cercana en la dirección de @var{staff-affinity} no es una
@@ -1684,10 +1684,10 @@ las dos líneas que no son pautas.
 
 @item
 Si la línea más cercana en la dirección opuesta a @var{staff-affinity}
-es una pauta, entonces @var{nonstaff-unrelatedstaff-spacing} da el espacio entre
-la línea que no es una pauta y la pauta.  esto se puede usar, por
-ejemplo, para requerir una cantidad de relleno mínima entre una línea
-de letra y el pentagrama a que no pertenece.
+es una pauta, entonces @var{nonstaff-unrelatedstaff-spacing} da el
+espacio entre la línea que no es una pauta y la pauta.  esto se puede
+usar, por ejemplo, para requerir una cantidad de relleno mínima entre
+una línea de letra y el pentagrama a que no pertenece.
 @end itemize
 
 @lilypond[verbatim]

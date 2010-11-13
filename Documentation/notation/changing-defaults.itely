@@ -2006,8 +2006,8 @@ properties) in the file @file{scm/define-grobs.scm}:
 
 @example
 (staff-staff-spacing . ((padding . 1)
-                          (space . 9)
-                          (minimum-distance . 7)))
+                        (space . 9)
+                        (minimum-distance . 7)))
 @end example
 
 One way to bring the staves closer together is by reducing the
@@ -2056,10 +2056,10 @@ be completely re-defined with one declaration, as an alist:
 
 Note that any keys not explicitly listed in the alist definition
 will be reset to their @emph{default-when-unset} values.  In the
-case of @code{staff-staff-spacing}, any unset key-values would
-be reset to zero (except @code{stretchability}, which takes the
-value of @code{space} when unset).  Thus the following two
-declarations are equivalent:
+case of @code{staff-staff-spacing}, any unset key-values would be
+reset to zero (except @code{stretchability}, which takes the value
+of @code{space} when unset).  Thus the following two declarations
+are equivalent:
 
 @example
 \override StaffGrouper #'staff-staff-spacing =
