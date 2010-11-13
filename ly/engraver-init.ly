@@ -299,6 +299,7 @@ contained staves are connected vertically."
   \consists "Span_arpeggio_engraver"
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBrace
+  topLevelAlignment = ##f
 
   \defaultchild "Staff"
   \accepts "Staff"
@@ -318,8 +319,6 @@ instrument names at the start of each system."
   \consists "Vertical_align_engraver"
   \consists "Keep_alive_together_engraver"
   topLevelAlignment = ##f
-
-  \override StaffGrouper #'staff-staff-spacing #'stretchability = #5
 
   instrumentName = #'()
   shortInstrumentName = #'()
@@ -416,7 +415,7 @@ printing of a single line of lyrics."
 	(stretchability . 0)
 	(padding . 0.2)
 	(minimum-distance . 2.8))
-  \override VerticalAxisGroup #'nonstaff-unrelatedstaff-spacing #'padding = #1.0
+  \override VerticalAxisGroup #'nonstaff-unrelatedstaff-spacing #'padding = #1.5
   \override InstrumentName #'self-alignment-Y = ##f
 
   %% sync with define-grobs.scm ;

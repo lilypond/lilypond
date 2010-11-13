@@ -1690,9 +1690,11 @@
     (StaffGrouper
      . (
 	(staff-staff-spacing . ((space . 9)
+                                (stretchability . 5)
 				(minimum-distance . 7)
 				(padding . 1)))
 	(staffgroup-staff-spacing . ((space . 10.5)
+                                     (stretchability . 9)
 				     (minimum-distance . 8)
 				     (padding . 1)))
 	(meta . ((class . Spanner)
