@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.13.39"
 
 \header {
     texidoc = "A loose line (eg. a lyric line) at the bottom of a system
@@ -9,7 +9,7 @@ gets spaced appropriately."
   ragged-right = ##t
   \context {
     \Lyrics
-    \override VerticalAxisGroup #'inter-loose-line-spacing #'space = #20
+    \override VerticalAxisGroup #'nonstaff-nonstaff-spacing #'space = #20
   }
 }
 <<

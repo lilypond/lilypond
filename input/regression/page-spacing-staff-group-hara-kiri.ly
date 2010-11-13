@@ -1,4 +1,4 @@
-\version "2.13.23"
+\version "2.13.39"
 
 \header {
   texidoc = "StaffGrouper interacts correctly with \RemoveEmptyStaffContext.
@@ -18,7 +18,7 @@ In both systems, there should be a large space between the staff groups."
 \score {
   <<
     \new StaffGroup = "G1" \with {
-      \override StaffGrouper #'after-last-staff-spacing #'space = #20
+      \override StaffGrouper #'staffgroup-staff-spacing #'space = #20
     }
     <<
       \new Staff { c'1 \break c'1 \break R1 }
