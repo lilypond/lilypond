@@ -919,8 +919,8 @@ usually works well, but in this example the notes of the lowest voice
 are clearly not well placed by default.  LilyPond provides several ways
 to adjust the horizontal placing of notes.  We are not quite ready yet
 to see how to correct this, so we shall leave this problem until a
-later section --- see the @code{force-hshift} property in @ref{Fixing
-overlapping notation}.
+later section --- see the @code{force-hshift} property in
+@ref{Fixing overlapping notation}.
 
 
 @seealso
@@ -2428,8 +2428,8 @@ lower = \relative c, {
 @end lilypond
 
 None of the templates provides this layout exactly.  The nearest is
-@q{SATB vocal score and automatic piano reduction} -- see @ref{Vocal
-ensembles} -- but we need to change the layout and add a piano
+@q{SATB vocal score and automatic piano reduction} -- see
+@ref{Vocal ensembles} -- but we need to change the layout and add a piano
 accompaniment which is not derived automatically from the vocal parts.
 The variables holding the music and words for the vocal parts are
 fine, but we shall need to add variables for the piano reduction.
