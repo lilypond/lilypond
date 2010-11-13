@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1732,7 +1732,7 @@ Saite gesetzt werden:
 
 @c due to crazy intervals of banjo music, absolute pitch is recommended
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \new TabStaff <<
   \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
   \set TabStaff.stringTunings = #banjo-open-g-tuning
