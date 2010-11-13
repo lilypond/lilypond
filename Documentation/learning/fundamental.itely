@@ -2842,10 +2842,10 @@ Stretchability of staves can be controlled with the
 @q{grob}s within the lilypond documentation) -- don't worry about
 the details right now; this is fully explained later.  For the
 curious, have a look at @ruser{Overview of modifying properties}.
-Currently, it is not possible to modify the @code{stretchability}
-sub-property only, we thus have to copy the other sub-properties
-also.  Again, for the curious, you can find the default values in
-file @file{scm/@/define-grobs@/.scm} by looking up the definition
+In this case, we want to modify the @code{stretchability}
+sub-property only. Again, for the curious, you can find the
+default values for the staff-staff-spacing property
+in file @file{scm/@/define-grobs@/.scm} by looking up the definition
 of the @code{VerticalAxisGroup} grob.  The value for
 @code{stretchability} is taken from the definition of the
 @code{PianoStaff} context (in file @file{ly/@/engraver-init@/.ly})
@@ -2869,10 +2869,7 @@ so that the values are identical.
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with @{
         \override VerticalAxisGroup
-          #'staff-staff-spacing = #'((space . 9)
-                                     (minimum-distance . 8)
-                                     (padding . 1)
-                                     (stretchability . 5))
+          #'staff-staff-spacing  #'stretchability = 5
       @} <<
         \keyTime
         \clef "bass"
@@ -2936,10 +2933,7 @@ PedalOrganMusic = \relative c {
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with {
         \override VerticalAxisGroup
-          #'staff-staff-spacing = #'((space . 9)
-                                     (minimum-distance . 8)
-                                     (padding . 1)
-                                     (stretchability . 5))
+          #'staff-staff-spacing #'stretchability = 5
       } <<
         \keyTime
         \clef "bass"
