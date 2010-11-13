@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 @c Translators: Jean-Charles Malahieude, John Mandereau, Gauvain Pocentek
 @c Translation checkers: 
@@ -891,7 +891,7 @@ partIV = \relative c {
     }
     \context {
       \PianoStaff
-      \override StaffGrouper #'between-staff-spacing #'padding = #1
+      \override StaffGrouper #'staff-staff-spacing #'padding = #1
     }
   }
 }
@@ -1825,7 +1825,7 @@ partIV = \relative c {
     }
     \context {
       \PianoStaff
-      \override StaffGrouper #'between-staff-spacing #'padding = #1
+      \override StaffGrouper #'staff-staff-spacing #'padding = #1
     }
   }
 }

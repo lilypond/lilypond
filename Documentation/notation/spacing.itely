@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 @ignore
 GDP TODO list
@@ -1523,8 +1523,8 @@ of these reference points:
 #(define zero-space '((padding . -inf.0) (space . 0)))
 
 alignToZero = \with {
-  \override VerticalAxisGroup #'inter-staff-spacing = #zero-space
-  \override VerticalAxisGroup #'inter-loose-line-spacing = #zero-space
+  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #zero-space
+  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing = #zero-space
 }
 lowerCaseChords = \with {
   chordNameLowercaseMinor = ##t
@@ -1609,11 +1609,11 @@ individually, and the second completely re-defines the property:
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup #'next-staff-spacing #'space = #10
+  \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
-  \override VerticalAxisGroup #'next-staff-spacing =
+  \override VerticalAxisGroup #'staff-staff-spacing =
     #'((padding . 1)
        (space . 10)
        (minimum-distance . 9)
@@ -1628,7 +1628,7 @@ To change any spacing settings globally, put them in the
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup #'next-staff-spacing #'space = #10
+    \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
   @}
 @}
 @end example
@@ -1639,13 +1639,13 @@ in @file{scm/define-grobs.scm}:
 @itemize
 @item @code{StaffGrouper} properties:
 @itemize
-@item @code{between-staff-spacing}
-@item @code{after-last-staff-spacing}
+@item @code{staff-staff-spacing}
+@item @code{staffgroup-staff-spacing}
 @end itemize
 @item @code{VerticalAxisGroup} properties:
 @itemize
-@item @code{default-next-staff-spacing}
-@item @code{non-affinity-spacing}
+@item @code{default-staff-staff-spacing}
+@item @code{nonstaff-unrelatedstaff-spacing}
 @end itemize
 @end itemize
 
@@ -1660,23 +1660,23 @@ found in the relevant context definitions in
 @code{\override} at the @code{Staff} level (or equivalent).
 
 @table @code
-@item next-staff-spacing
+@item staff-staff-spacing
 The distance between the current staff and the staff just below it
 in the same system, even if one or more non-staff lines (such as
 @code{Lyrics}) are placed between the two staves.  Does not apply
 to the bottom staff of a system.  For a grouped staff, if
-@code{next-staff-spacing} is set, it will be used instead of the
+@code{staff-staff-spacing} is set, it will be used instead of the
 relevant @code{StaffGrouper} property
-(@code{between-staff-spacing} or @code{after-last-staff-spacing}).
-If unset, the @code{default-next-staff-spacing} property is used,
+(@code{staff-staff-spacing} or @code{staffgroup-staff-spacing}).
+If unset, the @code{default-staff-staff-spacing} property is used,
 unless the staff is part of a staff-group and the appropriate
 @code{StaffGrouper} property is set.
 
-@item default-next-staff-spacing
-The value to use for @code{next-staff-spacing} when it is unset,
+@item default-staff-staff-spacing
+The value to use for @code{staff-staff-spacing} when it is unset,
 for ungrouped staves and for grouped staves that do not have the
 relevant @code{StaffGrouper} property set
-(@code{between-staff-spacing} or @code{after-last-staff-spacing}).
+(@code{staff-staff-spacing} or @code{staffgroup-staff-spacing}).
 
 @item staff-affinity
 The direction of the staff to use for spacing the current
@@ -1696,22 +1696,22 @@ cause it to be treated as a non-staff line.
 
 @c TODO: verify last clause below ("even if other...")
 
-@item inter-staff-spacing
+@item nonstaff-relatedstaff-spacing
 The distance between the current non-staff line and the nearest
 staff in the direction of @code{staff-affinity}, if there are no
 non-staff lines between the two, and @code{staff-affinity} is
 either @code{UP} or @code{DOWN}.  If @code{staff-affinity} is
-@code{CENTER}, then @code{inter-staff-spacing} is used for the
+@code{CENTER}, then @code{nonstaff-relatedstaff-spacing} is used for the
 nearest staves on @emph{both} sides, even if other non-staff lines
 appear between the current one and either of the staves.
 
-@item inter-loose-line-spacing
+@item nonstaff-nonstaff-spacing
 The distance between the current non-staff line and the next
 non-staff line in the direction of @code{staff-affinity}, if both
 are on the same side of the reference staff, and
 @code{staff-affinity} is either @code{UP} or @code{DOWN}.
 
-@item non-affinity-spacing
+@item nonstaff-unrelatedstaff-spacing
 The distance between the current non-staff line and the staff in
 the opposite direction from @code{staff-affinity}, if there are no
 other non-staff lines between the two, and @code{staff-affinity}
@@ -1727,25 +1727,25 @@ example, to require a minimum amount of padding between a
 @code{\override} at the @code{StaffGroup} level (or equivalent).
 
 @table @code
-@item between-staff-spacing
+@item staff-staff-spacing
 The distance between consecutive staves within the current
-staff-group.  The @code{next-staff-spacing} property of an
+staff-group.  The @code{staff-staff-spacing} property of an
 individual staff's @code{VerticalAxisGroup} grob will be used
 instead for any staves in the staff-group that have it set.  If
-both @code{between-staff-spacing} and @code{next-staff-spacing}
-are unset, the @code{default-next-staff-spacing} property of each
+both @code{staff-staff-spacing} and @code{staff-staff-spacing}
+are unset, the @code{default-staff-staff-spacing} property of each
 staff's @code{VerticalAxisGroup} grob is used.
 
-@item after-last-staff-spacing
+@item staffgroup-staff-spacing
 The distance between the last staff of the current staff-group and
 the staff just below it in the same system, even if one or more
 non-staff lines (such as @code{Lyrics}) exist between the two
 staves.  Does not apply to the bottom staff of a system.  The
-@code{next-staff-spacing} property of an individual staff's
+@code{staff-staff-spacing} property of an individual staff's
 @code{VerticalAxisGroup} grob will be used instead for any staves
 in the staff-group that have it set.  If both
-@code{after-last-staff-spacing} and @code{next-staff-spacing} are
-unset, the @code{default-next-staff-spacing} property of each
+@code{staffgroup-staff-spacing} and @code{staff-staff-spacing} are
+unset, the @code{default-staff-staff-spacing} property of each
 staff's @code{VerticalAxisGroup} grob is used.
 @end table
 
@@ -1763,7 +1763,7 @@ staves:
 @itemize
 @item @code{VerticalAxisGroup} properties:
 @itemize
-@item @code{next-staff-spacing}
+@item @code{staff-staff-spacing}
 @end itemize
 @end itemize
 
@@ -1773,14 +1773,14 @@ These grob properties are described individually above; see
 Additional properties are involved for staves that are part of a
 staff-group; see @ref{Spacing of grouped staves}.
 
-The following example shows how the @code{next-staff-spacing}
+The following example shows how the @code{staff-staff-spacing}
 property can affect the spacing of ungrouped staves:
 
 @lilypond[verbatim,quote,staffsize=16]
 \layout {
   \context {
     \Staff
-    \override VerticalAxisGroup #'next-staff-spacing =
+    \override VerticalAxisGroup #'staff-staff-spacing =
       #'((padding . 1)
          (space . 8)
          (minimum-distance . 7))
@@ -1802,7 +1802,7 @@ property can affect the spacing of ungrouped staves:
   % By setting 'padding to a negative value, staves can be made to
   % collide.  The lowest acceptable value for 'space is 0.
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing =
+    \override VerticalAxisGroup #'staff-staff-spacing =
       #'((padding . -10)
          (space . 3.5))
   } { \clef bass g2 r | }
@@ -1828,13 +1828,13 @@ staff-groups:
 @itemize
 @item @code{VerticalAxisGroup} properties:
 @itemize
-@item @code{next-staff-spacing}
-@item @code{default-next-staff-spacing}
+@item @code{staff-staff-spacing}
+@item @code{default-staff-staff-spacing}
 @end itemize
 @item @code{StaffGrouper} properties:
 @itemize
-@item @code{between-staff-spacing}
-@item @code{after-last-staff-spacing}
+@item @code{staff-staff-spacing}
+@item @code{staffgroup-staff-spacing}
 @end itemize
 @end itemize
 
@@ -1848,14 +1848,14 @@ The following example shows how properties of the
 \layout {
   \context {
     \Score
-    \override StaffGrouper #'between-staff-spacing #'padding = #0
-    \override StaffGrouper #'between-staff-spacing #'space = #1
+    \override StaffGrouper #'staff-staff-spacing #'padding = #0
+    \override StaffGrouper #'staff-staff-spacing #'space = #1
   }
 }
 
 <<
   \new PianoStaff \with {
-    \override StaffGrouper #'after-last-staff-spacing #'space = #20
+    \override StaffGrouper #'staffgroup-staff-spacing #'space = #20
   } <<
     \new Staff { c'1 }
     \new Staff { c'1 }
@@ -1884,9 +1884,9 @@ The following properties affect the spacing of non-staff lines:
 @item @code{VerticalAxisGroup} properties:
 @itemize
 @item @code{staff-affinity}
-@item @code{inter-staff-spacing}
-@item @code{inter-loose-line-spacing}
-@item @code{non-affinity-spacing}
+@item @code{nonstaff-relatedstaff-spacing}
+@item @code{nonstaff-nonstaff-spacing}
+@item @code{nonstaff-unrelatedstaff-spacing}
 @end itemize
 @end itemize
 
@@ -1894,7 +1894,7 @@ These grob properties are described individually above; see
 @ref{Within-system spacing properties}.
 
 The following example shows how the
-@code{inter-loose-line-spacing} property can affect the spacing of
+@code{nonstaff-nonstaff-spacing} property can affect the spacing of
 consecutive non-staff lines.  Here, by setting the
 @code{stretchability} key to a very high value, the lyrics are
 able to stretch much more than usual:
@@ -1904,14 +1904,14 @@ able to stretch much more than usual:
   \context {
     \Lyrics
     \override VerticalAxisGroup
-      #'inter-loose-line-spacing #'stretchability = #1000
+      #'nonstaff-nonstaff-spacing #'stretchability = #1000
   }
 }
 
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 30))
+    \override VerticalAxisGroup #'staff-staff-spacing = #'((space . 30))
   } { c'1 }
   \new Lyrics \with {
     \override VerticalAxisGroup #'staff-affinity = #UP

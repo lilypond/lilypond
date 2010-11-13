@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 @node Fundamental concepts
 @chapter Fundamental concepts
@@ -2837,7 +2837,7 @@ the pedal staff should behave similarly.
 @cindex grobs
 
 Stretchability of staves can be controlled with the
-@code{next-staff-spacing} property of the @code{VerticalAxisGroup}
+@code{staff-staff-spacing} property of the @code{VerticalAxisGroup}
 @q{graphical object} (commonly called @q{grob}s within the lilypond
 documentation) -- don't worry about the details right now; this is
 fully explained later.  For the curious, have a look at
@@ -2869,7 +2869,7 @@ identical.
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with @{
         \override VerticalAxisGroup
-          #'next-staff-spacing = #'((space . 9)
+          #'staff-staff-spacing = #'((space . 9)
                                     (minimum-distance . 8)
                                     (padding . 1)
                                     (stretchability . 5))
@@ -2936,7 +2936,7 @@ PedalOrganMusic = \relative c {
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with {
         \override VerticalAxisGroup
-          #'next-staff-spacing = #'((space . 9)
+          #'staff-staff-spacing = #'((space . 9)
                                     (minimum-distance . 8)
                                     (padding . 1)
                                     (stretchability . 5))

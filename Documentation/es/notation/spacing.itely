@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 @node Problemas de espaciado
 @chapter Problemas de espaciado
@@ -1545,7 +1545,7 @@ los nombres de acorde) se distribuyen entre las pautas.
 
 @unnumberedsubsubsec Espaciado entre los pentagramas
 El espaciado entre los pentagramas se controla mediante la propiedad
-@var{next-staff-spacing} del grob @var{VerticalAxisGroup}.  Esta
+@var{staff-staff-spacing} del grob @var{VerticalAxisGroup}.  Esta
 propiedad es una lista-A de cuatro elementos: @var{space},
 @var{minimum-distance}, @var{padding} y @var{stretchability}:
 @itemize
@@ -1584,20 +1584,20 @@ minimum-distance}.
   % Since space is small and there is no minimum-distance, the distance
   % between this staff and the next will be determined by padding.
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing =
+    \override VerticalAxisGroup #'staff-staff-spacing =
       #'((space . 1) (padding . 1))
   }
   { \clef bass c, }
   % Since space is small and nothing sticks out very far, the distance
   % between this staff and the next will be determined by minimum-distance.
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing =
+    \override VerticalAxisGroup #'staff-staff-spacing =
       #'((space . 1) (minimum-distance . 12))
   }
   { \clef bass c, }
   % By setting padding to a negative value, staves can be made to collide.
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing =
+    \override VerticalAxisGroup #'staff-staff-spacing =
       #'((space . 4) (padding . -10))
   }
   { \clef bass c, }
@@ -1610,25 +1610,25 @@ En partituras grandes como las orquestales, es común colocar los
 pentagramas en grupos.  El espacio entre los grupos suele ser mayor
 que el espacio que hay entre los pentagramas dentro del mismo grupo.
 Este espacio se puede manipular con el grob @var{StaffGrouper}: el
-valor predeterminado de @var{next-staff-spacing} para
+valor predeterminado de @var{staff-staff-spacing} para
 @var{VerticalAxisGroup} es una función de @q{callback} que opera por
 el procedimiento de buscar un grob @var{StaffGrouper} que contenga al
 pentagrama.  Si encuentra un grob @var{StaffGrouper} y el pentagrama
 en cuestión está en mitad de un grupo, lee la propiedad
-@var{between-staff-spacing} de @var{StaffGrouper} y la devuelve.  Si
+@var{staff-staff-spacing} de @var{StaffGrouper} y la devuelve.  Si
 el pentagrama en cuestión es el último de un grupo, la función de
-@q{callback} lee la propiedad @var{after-last-staff-spacing} de
+@q{callback} lee la propiedad @var{staffgroup-staff-spacing} de
 @var{StaffGrouper} y la devuelve.  Si no encuentra un grob
-@var{StaffGrouper}, lee @var{default-next-staff-spacing} a partir de
+@var{StaffGrouper}, lee @var{default-staff-staff-spacing} a partir de
 su @var{VerticalAxisGroup} y lo devuelve.
 
 @lilypond[verbatim]
 #(set-global-staff-size 16)
 <<
   \new PianoStaff \with {
-    \override StaffGrouper #'between-staff-spacing #'space = #1
-    \override StaffGrouper #'between-staff-spacing #'padding = #0
-    \override StaffGrouper #'after-last-staff-spacing #'space = #20
+    \override StaffGrouper #'staff-staff-spacing #'space = #1
+    \override StaffGrouper #'staff-staff-spacing #'padding = #0
+    \override StaffGrouper #'staffgroup-staff-spacing #'space = #20
   }
   <<
     \new Staff c'1
@@ -1636,8 +1636,8 @@ su @var{VerticalAxisGroup} y lo devuelve.
   >>
 
   \new StaffGroup \with {
-    \override StaffGrouper #'between-staff-spacing #'space = #1
-    \override StaffGrouper #'between-staff-spacing #'padding = #0
+    \override StaffGrouper #'staff-staff-spacing #'space = #1
+    \override StaffGrouper #'staff-staff-spacing #'padding = #0
   }
   <<
     \new Staff c'1
@@ -1668,23 +1668,23 @@ no fuera una pauta.
 
 Las líneas que no son pautas admiten tres propiedades para controlar
 su espaciado.  Cada una de estas propiedades es una lista-A del mismo
-formato que @var{next-staff-spacing}, véase más arriba.
+formato que @var{staff-staff-spacing}, véase más arriba.
 @itemize
 @item
 Si la línea más cercana en la dirección de @var{staff-affinity} es una
-pauta, entonces @var{inter-staff-spacing} da el espacio entre la línea
+pauta, entonces @var{nonstaff-relatedstaff-spacing} da el espacio entre la línea
 que no es una pauta y la pauta.  Si @var{staff-affinity} es
-@code{CENTER}, entonces se usa @var{inter-staff-spacing} para las dos
+@code{CENTER}, entonces se usa @var{nonstaff-relatedstaff-spacing} para las dos
 direcciones.
 
 @item
 Si línea más cercana en la dirección de @var{staff-affinity} no es una
-pauta, entonces @var{inter-loose-line-spacing} da el espaciado entre
+pauta, entonces @var{nonstaff-nonstaff-spacing} da el espaciado entre
 las dos líneas que no son pautas.
 
 @item
 Si la línea más cercana en la dirección opuesta a @var{staff-affinity}
-es una pauta, entonces @var{non-affinity-spacing} da el espacio entre
+es una pauta, entonces @var{nonstaff-unrelatedstaff-spacing} da el espacio entre
 la línea que no es una pauta y la pauta.  esto se puede usar, por
 ejemplo, para requerir una cantidad de relleno mínima entre una línea
 de letra y el pentagrama a que no pertenece.
@@ -1698,14 +1698,14 @@ de letra y el pentagrama a que no pertenece.
     % By default, Lyrics are placed close together.  Here, we allow them to
     % be stretched more widely.
     \override VerticalAxisGroup
-      #'inter-loose-line-spacing #'stretchability = #1000
+      #'nonstaff-nonstaff-spacing #'stretchability = #1000
   }
 }
 
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 30)) }
+    \override VerticalAxisGroup #'staff-staff-spacing = #'((space . 30)) }
     { c'1 }
   \new Lyrics \with {
     \override VerticalAxisGroup #'staff-affinity = #UP }

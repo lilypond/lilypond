@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -1997,7 +1997,7 @@ If an alist is a grob property or @code{\paper} variable, its keys
 can be modified individually without affecting other keys.
 
 For example, to reduce the space between adjacent staves in a
-system, use the @code{between-staff-spacing} property of the
+system, use the @code{staff-staff-spacing} property of the
 @code{StaffGrouper} grob.  The property is an alist with four
 keys: @code{padding}, @code{space}, @code{minimum-distance}, and
 @code{stretchability}.  Three of the four keys have initialized
@@ -2005,7 +2005,7 @@ default values, which are defined (along with all the other grob
 properties) in the file @file{scm/define-grobs.scm}:
 
 @example
-(between-staff-spacing . ((padding . 1)
+(staff-staff-spacing . ((padding . 1)
                           (space . 9)
                           (minimum-distance . 7)))
 @end example
@@ -2024,7 +2024,7 @@ individually, use a nested declaration:
 
 % reduced space between staves
 \new PianoStaff \with {
-  \override StaffGrouper #'between-staff-spacing #'space = #7
+  \override StaffGrouper #'staff-staff-spacing #'space = #7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
@@ -2043,7 +2043,7 @@ be completely re-defined with one declaration, as an alist:
 
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
-  \override StaffGrouper #'between-staff-spacing =
+  \override StaffGrouper #'staff-staff-spacing =
     #'((padding . 0)
        (space . 0)
        (minimum-distance . 0)
@@ -2056,16 +2056,16 @@ be completely re-defined with one declaration, as an alist:
 
 Note that any keys not explicitly listed in the alist definition
 will be reset to their @emph{default-when-unset} values.  In the
-case of @code{between-staff-spacing}, any unset key-values would
+case of @code{staff-staff-spacing}, any unset key-values would
 be reset to zero (except @code{stretchability}, which takes the
 value of @code{space} when unset).  Thus the following two
 declarations are equivalent:
 
 @example
-\override StaffGrouper #'between-staff-spacing =
+\override StaffGrouper #'staff-staff-spacing =
   #'((space . 7))
 
-\override StaffGrouper #'between-staff-spacing =
+\override StaffGrouper #'staff-staff-spacing =
   #'((padding . 0)
      (space . 7)
      (minimum-distance . 0)
