@@ -38,10 +38,6 @@
 ;;
      (add-stem-support ,boolean? "If set, the @code{Stem} object is
 included in this script's support.")
-     (staffgroup-staff-spacing ,list? "An alist of spacing variables
-that controls the spacing after the last staff in this staff group.
-See @var{staff-staff-spacing} for a description of the elements of
-this alist.")
      (after-line-breaking ,boolean? "Dummy property, used to trigger
 callback for @code{after-line-breaking}.")
      (align-dir ,ly:dir? "Which side to align? @code{-1}: left side,
@@ -110,10 +106,6 @@ beamlet, as a proportion of the distance between two adjacent stems.")
      (before-line-breaking ,boolean? "Dummy property, used to trigger
 a callback function.")
      (between-cols ,pair? "Where to attach a loose column to.")
-     (staff-staff-spacing ,list? "An alist of spacing variables
-that controls the spacing between staves within this staff group.
-See @var{staff-staff-spacing} for a description of the elements of
-this alist.")
      (bound-details ,list? "An alist of properties for determining
 attachments of spanners to edges.")
      (bound-padding ,number? "The amount of padding to insert around
@@ -475,12 +467,6 @@ resolution on this @code{NoteColumn}.")
 configuration to this index, and print the respective scores.")
      (inspect-quants ,number-pair? "If debugging is set, set beam and
 slur quants to this position, and print the respective scores.")
-     (nonstaff-nonstaff-spacing ,list? "Specifies how to vertically
-position a non-spaced line relative to the other non-spaced lines
-around it.  See @var{staff-staff-spacing} for the format of this list.")
-     (nonstaff-relatedstaff-spacing ,list? "Specifies how to vertically
-position a non-spaced line relative to the staff for which it
-has affinity.  See @var{staff-staff-spacing} for the format of this list.")
 
 
 ;;
@@ -585,42 +571,29 @@ center of the staff.")
 to flip the direction of custos stem.")
      (next ,ly:grob? "Object that is next relation (e.g., the lyric
 syllable following an extender).")
-     (staff-staff-spacing ,list? "An alist of properties used to position
-the next staff in the system.  The symbols that can be defined in the alist
-are
-@itemize @bullet
-@item @var{space} -- the amount of stretchable space between the center
-of this staff and the center of the next staff;
-@item @var{padding} -- the minimum amount of whitespace that must be
-present between this staff and the next staff;
-@item @var{stretchability} -- the ease with which the stretchable
-space increases when the system to which this staff belongs is stretched.
-If this is zero, the distance to the next staff will be fixed either at
-@var{space} or at @var{padding} plus the minimum distance to ensure
-there is no overlap, whichever is larger;
-@item @var{minimum-distance} -- the minimum distance to place between
-the center of this staff and the center of the next. This differs
-from @var{padding} in that the height of a staff has no effect on
-the application of @var{minimum-distance} (whereas the height of a
-staff is crucial for @var{padding}).
-@end itemize")
      (no-alignment ,boolean? "If set, don't place this grob in a
 @code{VerticalAlignment}; rather, place it using its own
 @code{Y-offset} callback.")
-     (non-break-align-symbols ,list? "A list of symbols that determine
-which NON-break-aligned interfaces to align this to.")
      (no-ledgers ,boolean? "If set, don't draw ledger lines on this
 object.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
 get stems extending to the middle staff line.")
+     (non-break-align-symbols ,list? "A list of symbols that determine
+which NON-break-aligned interfaces to align this to.")
+     (non-default ,boolean? "Set for manually specified clefs.")
+     (non-musical ,boolean? "True if the grob belongs to a
+@code{NonMusicalPaperColumn}.")
+     (nonstaff-nonstaff-spacing ,list? "Specifies how to vertically
+position a non-spaced line relative to the other non-spaced lines
+around it.  See @var{staff-staff-spacing} for the format of this list.")
+     (nonstaff-relatedstaff-spacing ,list? "Specifies how to vertically
+position a non-spaced line relative to the staff for which it
+has affinity.  See @var{staff-staff-spacing} for the format of this list.")
      (nonstaff-unrelatedstaff-spacing ,list? "An alist of spacing variables
 that controls the spacing from a loose line (see @var{staff-affinity})
 to the staff for which the loose line does not have affinity.
 See @var{staff-staff-spacing} for a description of the elements of
 this alist.")
-     (non-default ,boolean? "Set for manually specified clefs.")
-     (non-musical ,boolean? "True if the grob belongs to a
-@code{NonMusicalPaperColumn}.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
 
@@ -778,6 +751,33 @@ baselines.")
 staff spaces, counted from the middle line.")
      (staff-space ,ly:dimension? "Amount of space between staff lines,
 expressed in global @code{staff-space}.")
+     (staff-staff-spacing ,list? "An alist of spacing variables
+that controls the spacing between staves within this staff group.
+See @var{staff-staff-spacing} for a description of the elements of
+this alist.")
+     (staff-staff-spacing ,list? "An alist of properties used to position
+the next staff in the system.  The symbols that can be defined in the alist
+are
+@itemize @bullet
+@item @var{space} -- the amount of stretchable space between the center
+of this staff and the center of the next staff;
+@item @var{padding} -- the minimum amount of whitespace that must be
+present between this staff and the next staff;
+@item @var{stretchability} -- the ease with which the stretchable
+space increases when the system to which this staff belongs is stretched.
+If this is zero, the distance to the next staff will be fixed either at
+@var{space} or at @var{padding} plus the minimum distance to ensure
+there is no overlap, whichever is larger;
+@item @var{minimum-distance} -- the minimum distance to place between
+the center of this staff and the center of the next. This differs
+from @var{padding} in that the height of a staff has no effect on
+the application of @var{minimum-distance} (whereas the height of a
+staff is crucial for @var{padding}).
+@end itemize")
+     (staffgroup-staff-spacing ,list? "An alist of spacing variables
+that controls the spacing after the last staff in this staff group.
+See @var{staff-staff-spacing} for a description of the elements of
+this alist.")
      (stem-attachment ,number-pair? "An @code{(@var{x} . @var{y})}
 pair where the stem attaches to the notehead.")
      (stem-end-position ,number? "Where does the stem end (the end is

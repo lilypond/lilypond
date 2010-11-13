@@ -364,7 +364,7 @@ Axis_group_interface::combine_skylines (SCM smob)
     }
   return ret.smobbed_copy ();
 }
-  
+
 SCM
 Axis_group_interface::generic_group_extent (Grob *me, Axis a)
 {
@@ -403,7 +403,7 @@ SCM
 Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  
+
   extract_grob_set (me, "elements", elts);
 
   vector<Grob*> relevant_grobs;
@@ -693,7 +693,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
       SCM priority = elements[i]->get_property ("outside-staff-priority");
       vector<Grob*> current_elts;
       current_elts.push_back (elements[i]);
-      while (i + 1 < elements.size () 
+      while (i + 1 < elements.size ()
 	     && scm_eq_p (elements[i+1]->get_property ("outside-staff-priority"), priority))
 	{
 	  if (!to_boolean (elements[i+1]->get_property ("cross-staff")))
@@ -731,9 +731,9 @@ SCM
 Axis_group_interface::calc_pure_staff_staff_spacing (SCM smob, SCM start, SCM end)
 {
   return calc_maybe_pure_staff_staff_spacing (unsmob_grob (smob),
-					     true,
-					     scm_to_int (start),
-					     scm_to_int (end));
+					      true,
+					      scm_to_int (start),
+					      scm_to_int (end));
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_staff_staff_spacing, 1)
@@ -741,9 +741,9 @@ SCM
 Axis_group_interface::calc_staff_staff_spacing (SCM smob)
 {
   return calc_maybe_pure_staff_staff_spacing (unsmob_grob (smob),
-					     false,
-					     0,
-					     INT_MAX);
+					      false,
+					      0,
+					      INT_MAX);
 }
 
 SCM
@@ -781,24 +781,24 @@ ADD_INTERFACE (Axis_group_interface,
 	       // VerticalAxisGroup. We should split off a
 	       // vertical-axis-group-interface.
 	       /* properties */
-	       "X-common "
-	       "Y-common "
 	       "adjacent-pure-heights "
 	       "axes "
 	       "default-staff-staff-spacing "
 	       "elements "
+	       "max-stretch "
+	       "no-alignment "
 	       "nonstaff-nonstaff-spacing "
 	       "nonstaff-relatedstaff-spacing "
-	       "max-stretch "
 	       "nonstaff-unrelatedstaff-spacing "
-	       "staff-staff-spacing "
-	       "no-alignment "
-	       "pure-Y-common "
 	       "pure-relevant-grobs "
 	       "pure-relevant-items "
 	       "pure-relevant-spanners "
+	       "pure-Y-common "
 	       "staff-affinity "
 	       "staff-grouper "
+	       "staff-staff-spacing "
 	       "system-Y-offset "
 	       "vertical-skylines "
+	       "X-common "
+	       "Y-common "
 	       );
