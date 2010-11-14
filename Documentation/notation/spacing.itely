@@ -1462,6 +1462,9 @@ within systems, one for each of the following categories:
 @code{ChordNames}, etc.).
 @end itemize
 
+@c TODO: Clarify this.  This almost implies that non-staff lines
+@c       have NO effect on the spacing between staves.  -mp
+
 The height of each system is determined in two steps.  First, all
 of the staves are spaced according to the amount of space
 available.  Then, the non-staff lines are distributed between the
@@ -1493,18 +1496,20 @@ non-staff lines.  The second set is associated with the
 but only if explicitly called.  These properties are described
 individually at the end of this section.
 
-Except for the @code{staff-affinity} property (of the
-@code{VerticalAxisGroup} grob), each of these grob properties is
-stored as an alist (association list), and each uses the same
-alist structure as the @code{\paper} spacing variables discussed
-in @ref{Flexible vertical dimensions}.
+The names of these properties (except for @code{staff-affinity})
+follow the format @code{@var{item1}-@var{item2}-spacing}, where
+@code{@var{item1}} and @code{@var{item2}} are the items to be
+spaced.  Note that @code{@var{item2}} is not necessarily below
+@code{@var{item1}}; for example,
+@code{nonstaff-relatedstaff-spacing} will measure upwards from the
+non-staff line if @code{staff-affinity} is @code{#UP}.
 
-The @emph{reference point} for a staff is the vertical center of
-its @code{StaffSymbol} (i.e. the middle line if @code{line-count}
-is odd; the middle space if @code{line-count} is even).
-
-The reference points for individual non-staff lines are given in
-the following table:
+Each distance is measured between the @emph{reference points} of
+the two items.  The reference point for a staff is the vertical
+center of its @code{StaffSymbol} (i.e. the middle line if
+@code{line-count} is odd; the middle space if @code{line-count} is
+even).  The reference points for individual non-staff lines are
+given in the following table:
 
 @multitable {Non-staff line} {Reference point}
 @headitem Non-staff line @tab Reference point
@@ -1549,6 +1554,8 @@ labelContext =
     \override BarLine #'stencil = ##f
     \override DynamicText #'self-alignment-X = #-1
     \override FretBoard #'X-offset = #1.75
+    \override InstrumentName #'minimum-Y-extent = #'(-2 . 2)
+    \override InstrumentName #'extra-offset = #'(0 . -0.5)
     \override TextScript #'minimum-Y-extent = #'(-2 . 3)
     \override TimeSignature #'stencil = ##f
   }
@@ -1598,6 +1605,10 @@ labelContext =
 >>
 @end lilypond
 
+Each of the vertical spacing grob properties (except
+@code{staff-affinity}) is stored as an alist (association list),
+and each uses the same alist structure as the @code{\paper}
+spacing variables discussed in @ref{Flexible vertical dimensions}.
 Specific methods for modifying alists are discussed in
 @ref{Modifying alists}.  Grob properties should be adjusted with
 an @code{\override} inside a @code{\score} or @code{\layout}
@@ -1633,25 +1644,11 @@ To change any spacing settings globally, put them in the
 @}
 @end example
 
-The global defaults for the following grob properties are defined
-in @file{scm/define-grobs.scm}:
-
-@itemize
-@item @code{StaffGrouper} properties:
-@itemize
-@item @code{staff-staff-spacing}
-@item @code{staffgroup-staff-spacing}
-@end itemize
-@item @code{VerticalAxisGroup} properties:
-@itemize
-@item @code{default-staff-staff-spacing}
-@item @code{nonstaff-unrelatedstaff-spacing}
-@end itemize
-@end itemize
-
-Default overrides for specific types of non-staff lines can be
-found in the relevant context definitions in
-@file{ly/engraver-init.ly}.
+Standard settings for the vertical spacing grob properties are
+listed in @rinternals{VerticalAxisGroup} and
+@rinternals{StaffGrouper}.  Default overrides for specific types
+of non-staff lines are listed in the relevant context descriptions
+in @rinternals{Contexts}.
 
 
 @subsubheading Properties of the @code{VerticalAxisGroup} grob
@@ -1664,19 +1661,16 @@ found in the relevant context definitions in
 The distance between the current staff and the staff just below it
 in the same system, even if one or more non-staff lines (such as
 @code{Lyrics}) are placed between the two staves.  Does not apply
-to the bottom staff of a system.  For a grouped staff, if
-@code{staff-staff-spacing} is set, it will be used instead of the
-relevant @code{StaffGrouper} property
-(@code{staff-staff-spacing} or @code{staffgroup-staff-spacing}).
-If unset, the @code{default-staff-staff-spacing} property is used,
-unless the staff is part of a staff-group and the appropriate
-@code{StaffGrouper} property is set.
+to the bottom staff of a system.  This replaces any settings
+inherited from the @code{StaffGrouper} grob of the containing
+staff-group, if there is one.  If this is unset, and there are no
+@code{StaffGrouper} properties to inherit, the
+@code{default-staff-staff-spacing} property is used.
 
 @item default-staff-staff-spacing
-The value to use for @code{staff-staff-spacing} when it is unset,
-for ungrouped staves and for grouped staves that do not have the
-relevant @code{StaffGrouper} property set
-(@code{staff-staff-spacing} or @code{staffgroup-staff-spacing}).
+The settings to use for @code{staff-staff-spacing} when it is
+unset.  This applies to ungrouped staves and to grouped staves
+that do not inherit settings from the @code{StaffGrouper} grob.
 
 @item staff-affinity
 The direction of the staff to use for spacing the current
@@ -1689,10 +1683,9 @@ Adjacent non-staff lines should have non-increasing
 set to @code{UP} should not immediately follow one that is set to
 @code{DOWN}.  Non-staff lines at the top of a system should use
 @code{DOWN}; those at the bottom should use @code{UP}.  Setting
-@code{staff-affinity} to @code{#f} will cause a non-staff line to
-be treated as a staff.  Conversely, setting @code{staff-affinity}
-(to @code{UP}, @code{DOWN}, or @code{CENTER}) for a staff will
-cause it to be treated as a non-staff line.
+@code{staff-affinity} for a staff causes it to be treated as a
+non-staff line.  Setting @code{staff-affinity} to @code{#f} causes
+a non-staff line to be treated as a staff.
 
 @c TODO: verify last clause below ("even if other...")
 
@@ -1701,14 +1694,15 @@ The distance between the current non-staff line and the nearest
 staff in the direction of @code{staff-affinity}, if there are no
 non-staff lines between the two, and @code{staff-affinity} is
 either @code{UP} or @code{DOWN}.  If @code{staff-affinity} is
-@code{CENTER}, then @code{nonstaff-relatedstaff-spacing} is used for the
-nearest staves on @emph{both} sides, even if other non-staff lines
-appear between the current one and either of the staves.
+@code{CENTER}, then @code{nonstaff-relatedstaff-spacing} is used
+for the nearest staves on @emph{both} sides, even if other
+non-staff lines appear between the current one and either of the
+staves.
 
 @item nonstaff-nonstaff-spacing
 The distance between the current non-staff line and the next
 non-staff line in the direction of @code{staff-affinity}, if both
-are on the same side of the reference staff, and
+are on the same side of the related staff, and
 @code{staff-affinity} is either @code{UP} or @code{DOWN}.
 
 @item nonstaff-unrelatedstaff-spacing
@@ -1731,10 +1725,8 @@ example, to require a minimum amount of padding between a
 The distance between consecutive staves within the current
 staff-group.  The @code{staff-staff-spacing} property of an
 individual staff's @code{VerticalAxisGroup} grob will be used
-instead for any staves in the staff-group that have it set.  If
-both @code{staff-staff-spacing} and @code{staff-staff-spacing}
-are unset, the @code{default-staff-staff-spacing} property of each
-staff's @code{VerticalAxisGroup} grob is used.
+instead for any staves in the staff-group that have it set.  Also
+see @code{default-staff-staff-spacing}.
 
 @item staffgroup-staff-spacing
 The distance between the last staff of the current staff-group and
@@ -1743,11 +1735,19 @@ non-staff lines (such as @code{Lyrics}) exist between the two
 staves.  Does not apply to the bottom staff of a system.  The
 @code{staff-staff-spacing} property of an individual staff's
 @code{VerticalAxisGroup} grob will be used instead for any staves
-in the staff-group that have it set.  If both
-@code{staffgroup-staff-spacing} and @code{staff-staff-spacing} are
-unset, the @code{default-staff-staff-spacing} property of each
-staff's @code{VerticalAxisGroup} grob is used.
+in the staff-group that have it set.  Also see
+@code{default-staff-staff-spacing}.
 @end table
+
+@seealso
+Installed files:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
+Internals Reference:
+@rinternals{Contexts},
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
 
 
 @node Spacing of ungrouped staves
@@ -1810,6 +1810,16 @@ property can affect the spacing of ungrouped staves:
 >>
 @end lilypond
 
+@seealso
+Installed Files:
+@file{scm/define-grobs.scm}.
+
+Snippets:
+@rlsr{Spacing}.
+
+Internals Reference:
+@rinternals{VerticalAxisGroup}.
+
 
 @node Spacing of grouped staves
 @unnumberedsubsubsec Spacing of grouped staves
@@ -1867,6 +1877,17 @@ The following example shows how properties of the
   >>
 >>
 @end lilypond
+
+@seealso
+Installed Files:
+@file{scm/define-grobs.scm}.
+
+Snippets:
+@rlsr{Spacing}.
+
+Internals Reference:
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
 
 
 @node Spacing of non-staff lines
@@ -1940,10 +1961,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Contexts},
-@rinternals{VerticalAxisGroup},
-@rinternals{StaffGrouper},
-@rinternals{VerticalAlignment},
-@rinternals{Axis_group_engraver}.
+@rinternals{VerticalAxisGroup}.
 
 
 @node Explicit staff and system positioning
