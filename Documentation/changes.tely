@@ -75,7 +75,7 @@ still supported for now, but will be deprecated
 in the future.
 
 @item
-auotbeaming is now disabled by @code{\cadenzaOn} and enabled by
+autobeaming is now disabled by @code{\cadenzaOn} and enabled by
 @code{\cadenzaOff}.  Beaming in cadenzas should be indicated manually.
 Also, if a cadenza is used in a piece with autobeaming disabled, it
 will need to be disabled again after the cadenza.
@@ -170,7 +170,7 @@ Minor shape note commands that use the relative major key for scale steps
 have been added.
 
 @item
-A variant of the segno sign is provided:
+A variant of the Segno sign is provided:
 @lilypond[quote,relative=2]
 c4 d e f \bar "S"
 g4 f e d
