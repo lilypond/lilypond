@@ -10,7 +10,7 @@
 
 @c Translators: Till Paala
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Tasteninstrumente und andere Instrumente mit mehreren Systemen
 @section Tasteninstrumente und andere Instrumente mit mehreren Systemen
@@ -121,7 +121,7 @@ können, sind demonstriert in
 
 @c @snippets
 @c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
+@c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\Staff \RemoveEmptyStaves.ly}
 @c http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
 
 
