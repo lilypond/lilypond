@@ -11,6 +11,7 @@
 @c \version "2.13.36"
 
 @c Translators: Valentin Villenave
+@c Translation checkers: Jean-Charles Malahieude
 
 @c TODO: add tablature.
 
@@ -37,7 +38,7 @@ c1 c2 c8 c16
 @item @code{c4. c4..}
 @tab notes pointées
 @tab
-@lilypond[fragment,relative=2,notime]
+@lilypond[relative=2,notime]
 \override Staff.Clef #'break-visibility = #all-invisible
 c4. c4..
 @end lilypond
@@ -59,7 +60,7 @@ fis bes
 @item @code{\clef treble \clef bass }
 @tab clés
 @tab
-@lilypond[notime]
+@lilypond[relative=1,notime]
 \clef treble
 s4_" "
 \clef bass
@@ -98,7 +99,7 @@ d ~ d
 @item @code{\key es \major }
 @tab armure
 @tab
-@lilypond[notime]
+@lilypond[notime,relative=1]
 \clef treble
 \key es \major
 s4
