@@ -1058,7 +1058,7 @@ L'objet @code{BarLine} est également lié à plusieurs interfaces, dont la
 @code{grob-interface} où figurent les propriétés @code{transparent} et
 @code{color}.  Toutes peuvent modifier l'aspect visuel des barres de
 mesure -- et de beaucoup d'autres objets, bien sûr.  Examinons chacune
-d'elles tour à tour. 
+d'elles tour à tour.
 
 @subheading stencil
 
@@ -2488,7 +2488,7 @@ proche (généralement une note ou une ligne de portée)@tie{};
 @code{staff-padding} ne s'applique qu'aux objets qui sont toujours
 placés en-dehors de la portée -- il contrôle l'espace minimum à insérer
 entre l'objet et la portée.  Attention@tie{}: par défaut,
-@code{staff-padding} concerne les objets positionnés par rapport 
+@code{staff-padding} concerne les objets positionnés par rapport
 à la portée et n'a aucun effet sur les objets qui sont positionnés par
 rapport à une note@tie{}; il est toutefois possible de le régler pour
 fonctionner avec ces derniers.

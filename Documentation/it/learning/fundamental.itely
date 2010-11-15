@@ -20,10 +20,10 @@ tecniche richiesti per produrre partiture ugualmente belle, ma
 più complesse.
 
 @menu
-* Come funzionano i file di input di LilyPond::  
-* Le voci contengono la musica::  
-* Contesti e incisori::         
-* Estendere i modelli::         
+* Come funzionano i file di input di LilyPond::
+* Le voci contengono la musica::
+* Contesti e incisori::
+* Estendere i modelli::
 @end menu
 
 
@@ -39,10 +39,10 @@ sorvolerà su alcuni dettagli in favore della semplicità.  Per una
 descrizione completa del formato di input, si veda @ruser{File structure}.
 
 @menu
-* Introduzione alla struttura di un file di LilyPond::  
-* La partitura è una (singola) espressione musicale composta::  
-* Annidare le espressioni musicali::  
-* Sul non annidamento di parentesi e legature di valore::  
+* Introduzione alla struttura di un file di LilyPond::
+* La partitura è una (singola) espressione musicale composta::
+* Annidare le espressioni musicali::
+* Sul non annidamento di parentesi e legature di valore::
 @end menu
 
 @node Introduzione alla struttura di un file di LilyPond
@@ -574,9 +574,9 @@ La musica vera e propria per tutti gli strumenti di una partitura è
 contenuta nelle Voci -- il più importante concetto di LilyPond.
 
 @menu
-* Sento le Voci::               
-* Definire esplicitamente le voci::  
-* Voci e musica vocale::        
+* Sento le Voci::
+* Definire esplicitamente le voci::
+* Voci e musica vocale::
 @end menu
 
 @node Sento le Voci
@@ -1549,11 +1549,11 @@ dell'output di LilyPond.
 
 
 @menu
-* I contesti::                  
-* Creare i contesti::           
-* Gli incisori::                
-* Modificare le proprietà di contesto::  
-* Aggiungere e togliere gli incisori::  
+* I contesti::
+* Creare i contesti::
+* Gli incisori::
+* Modificare le proprietà di contesto::
+* Aggiungere e togliere gli incisori::
 @end menu
 
 @node I contesti
@@ -2319,11 +2319,11 @@ modelli (vedi @ref{Templates}) da cui partire.
 Ma se ti serve qualcosa che non è presente lì?  Continua a leggere.
 
 @menu
-* Soprano e violoncello::       
-* Partitura vocale a quattro parti SATB::  
-* Scrivere una partitura da zero::  
-* Ridurre le dimensioni del file grazie a variabili e funzioni::  
-* Partiture e parti::           
+* Soprano e violoncello::
+* Partitura vocale a quattro parti SATB::
+* Scrivere una partitura da zero::
+* Ridurre le dimensioni del file grazie a variabili e funzioni::
+* Partiture e parti::
 @end menu
 
 @node Soprano e violoncello

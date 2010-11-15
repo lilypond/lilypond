@@ -103,7 +103,7 @@ Installierte Dateien:
 @subsection Einfache Ersetzungsfunktionen
 @translationof Simple substitution functions
 
-Einfache Ersetzungsfunktionen sind musikalische Funktionen, deren 
+Einfache Ersetzungsfunktionen sind musikalische Funktionen, deren
 musikalische Ausgabe-Funktion im LilyPond-Format geschrieben ist
 und Funktionsargumente in der Ausgabefunktion enthält.  Sie werden
 beschrieben in @ruser{Beispiele der Ersetzungsfunktionen}
@@ -770,7 +770,7 @@ Dieser neue Beschriftungslistenbefehl kann wie folgt benutzt werden:
   @}
   \override-lines #'(par-indent . 4) \paragraph @{
     Diese Platte wurde dann mit Druckerschwärze versehen, so dass sie
-    in den geschnittenen und gestempelten Vertiefungen blieb. Diese 
+    in den geschnittenen und gestempelten Vertiefungen blieb. Diese
     Vertiefungen schwärzten dann ein auf die Platte gelegtes Papier.
     Das Gravieren wurde vollständig von Hand erledigt.
   @}

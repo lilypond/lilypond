@@ -534,7 +534,7 @@ boxF = \markup { \bracket { \dynamic f } }
 @funindex make-dynamic-script
 
 Las indicaciones dinámicas sencillas y centradas se crean fácilmente
-con la función @code{make-dynamic-script}.  
+con la función @code{make-dynamic-script}.
 
 @lilypond[verbatim,quote]
 sfzp = #(make-dynamic-script "sfzp")

@@ -22,9 +22,9 @@ wird, wie Partituren mit mehr als einem System gesetzt werden und wie
 man Aufführungsanweisungen und Stichnoten zu einzelnen Systemen hinzufügt.
 
 @menu
-* Systeme anzeigen lassen:: 
-* Einzelne Systeme verändern::          
-* Orchesterstimmen erstellen::               
+* Systeme anzeigen lassen::
+* Einzelne Systeme verändern::
+* Orchesterstimmen erstellen::
 @end menu
 
 
@@ -32,7 +32,7 @@ man Aufführungsanweisungen und Stichnoten zu einzelnen Systemen hinzufügt.
 @subsection Systeme anzeigen lassen
 @translationof Displaying staves
 
-Dieser Abschnitt zeigt unterschiedliche Methoden, Notensysteme und 
+Dieser Abschnitt zeigt unterschiedliche Methoden, Notensysteme und
 Gruppen von Systemen zu erstellen.
 
 @menu
@@ -444,7 +444,7 @@ beenden sowie eine Methode, Ossia-Systeme zu erstellen.
 @cindex Beginnen eines Notensystems
 @cindex Beenden eines Notensystems
 
-Die Linien eines Notensystems gehören zu dem 
+Die Linien eines Notensystems gehören zu dem
 @code{StaffSymbol}-(NotensystemSymbol)-Grob.
 @code{StaffSymbol}-Eigenschaften können verändert werden, um die
 Erscheinung des Notensystems zu beeinflussen, aber sie müssen
@@ -497,7 +497,7 @@ Einstellung wirkt sich auch auf den Abstand der Hilfslinien aus.
 { a4 b c d }
 @end lilypond
 
-Weitere Einzelheiten zu den Eigenschaften von @code{StaffSymbol} 
+Weitere Einzelheiten zu den Eigenschaften von @code{StaffSymbol}
 findet sich in @rinternals{staff-symbol-interface}.
 
 @cindex Notenlinien, beginnen
@@ -613,7 +613,7 @@ Handbuch zum Lernen wird eine Technik vorgestellt, mit der das
 gewünschte Ergebnis erreicht werden kann, beginnend in
 @rlearning{Musikalische Ausdrücke ineinander verschachteln}.
 
-Das Beispiel unten setzt die 
+Das Beispiel unten setzt die
 @code{alignAboveContext}-(oberhalbAusrichtenKontext)-Eigenschaft
 ein, um den Ossia-Abschnitt auszurichten.  Diese Methode
 bietet sich an, wenn nur einige Ossia-Systeme benötigt werden.
@@ -761,7 +761,7 @@ Referenz der Interna:
 
 Die Notenlinien können entfernt werden, indem der
 @code{Staff_symbol_engraver} aus dem @code{Staff}-Kontext
-entfernt wird.  Alternativ kann auch @code{\stopStaff} 
+entfernt wird.  Alternativ kann auch @code{\stopStaff}
 eingesetzt werden.
 
 @lilypond[verbatim,quote]
@@ -779,7 +779,7 @@ Instrumenten zu verstecken.  In der Standardeinstellung werden alle
 leeren Notenzeilen außer die des ersten Systems entfernt.
 
 @warning{Eine Notenzeile gilt als leer, wenn sie nur Ganztaktpausen,
-Pausen, unsichtbare Noten, @code{\skip}-Befehle oder eine Kombination 
+Pausen, unsichtbare Noten, @code{\skip}-Befehle oder eine Kombination
 der drei enthält.}
 
 @lilypond[verbatim,quote,ragged-right]
@@ -819,7 +819,7 @@ um Ossiaabschnitte zu erstellen.  Zu Einzelheiten, siehe
 
 Der @code{\VaticanaStaff \RemoveEmptyStaves}-Befehl kann
 benutzt werden, um leere Takte in Notation der Alten Musik
-zu entfernen.  Gleichermaßen kann 
+zu entfernen.  Gleichermaßen kann
 @code{\RhythmicStaff \RemoveEmptyStaves} eingesetzt werden, um
 leere Takte in einem
 @code{RhythmicStaff}-Kontext zu entfernen.
@@ -1444,5 +1444,5 @@ Referenz der Interna:
 
 @knownissues
 
-Zusammenstöße können zwischen Pausen der Hauptstimme und 
+Zusammenstöße können zwischen Pausen der Hauptstimme und
 den Stichnoten des @code{CueVoice}-Kontexts auftreten.

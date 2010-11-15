@@ -957,7 +957,7 @@ Schnittstelle gehören dem @code{Voice.TextScript}-Kontext an.
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-fret-orientations.ly}
- 
+
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 

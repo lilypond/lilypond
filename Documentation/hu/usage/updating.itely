@@ -76,7 +76,7 @@ convert-ly -e @var{fájlnév}.ly
 @noindent
 parancsot abban a könyvtárban, ahol a fájl található. Ez a parancs helyben
 frissíti a @code{@var{fájlnév}.ly} fájlt, az eredetit pedig megőrzi
-@code{@var{fájlnév}.ly~} néven. 
+@code{@var{fájlnév}.ly~} néven.
 
 @warning{A @command{convert-ly} parancs alapesetben csak arra a verzióra
 frissít, amelyikben a legutóbbi szintaxisváltozás történt. Így általában
@@ -251,6 +251,6 @@ A speciális LaTeX karakterek (pl. $~$) nem alakulnak át az UTF-8
 megfelelőjükre.
 
 2.8
-A \score{} blokknak innentől kezdve egy zenei kifejezéssel kell kezdődnie. 
+A \score{} blokknak innentől kezdve egy zenei kifejezéssel kell kezdődnie.
 Minden más (pl. a \header{} blokk) a zene után jöhet csak.
 @end verbatim

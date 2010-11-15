@@ -17,7 +17,7 @@
 
 @lilypondfile[quote]{repeats-headword.ly}
 
-Wiederholung ist ein zentrales Konzept in der Musik, und es gibt eine 
+Wiederholung ist ein zentrales Konzept in der Musik, und es gibt eine
 ganze Vielzahl von Notationsmöglichkeiten für Wiederholungen.
 LilyPond unterstützt folgende Arten von Wiederholungen:
 
@@ -297,7 +297,7 @@ Veränderung von @code{measureLength} enghält, führt
 die Verwendung von @code{\unfoldRepeats} zu falsch gesetzten
 Taktstrichen und Taktüberprüfungswarnungen.
 
-Eine ineinandergeschachtelte Wiederholung wie 
+Eine ineinandergeschachtelte Wiederholung wie
 
 @example
 \repeat @dots{}
@@ -306,10 +306,10 @@ Eine ineinandergeschachtelte Wiederholung wie
 @end example
 
 @noindent
-ist mehrdeutig, weil nicht klar ist, zu welchem @code{\repeat}-Abschnitt 
-die @code{\alternative}-Endung gehört.  Diese Mehrdeutigkeit wird von 
-LilyPond aufgelöst, indem die alternative Endung immer zu der innersten 
-Wiederholung gehört.  Um Klarheit zu schaffen, bietet es sich an, in solchen 
+ist mehrdeutig, weil nicht klar ist, zu welchem @code{\repeat}-Abschnitt
+die @code{\alternative}-Endung gehört.  Diese Mehrdeutigkeit wird von
+LilyPond aufgelöst, indem die alternative Endung immer zu der innersten
+Wiederholung gehört.  Um Klarheit zu schaffen, bietet es sich an, in solchen
 Situationen Klammern zu benutzen.
 
 
@@ -339,8 +339,8 @@ verhalten.  In den meisten Fällen sollten Wiederholungen mit dem
 Befehl @code{@bs{}repeat} erstellt werden oder indem die entsprechenden
 Taktstriche eingegeben werden.  Mehr Information in @ref{Taktstriche}.}
 
-Die Eigenschaft @code{repeatCommands} kann verwendet werden, um das 
-Aussehen der Wiederholungen zu beeinflussen. Ihr Argument ist eine 
+Die Eigenschaft @code{repeatCommands} kann verwendet werden, um das
+Aussehen der Wiederholungen zu beeinflussen. Ihr Argument ist eine
 Scheme-Liste an Wiederholungsbefehlen.
 
 @table @code

@@ -14,30 +14,30 @@
 @chapter Vorschläge zum Schreiben von LilyPond-Eingabe-Dateien
 @translationof Suggestions for writing LilyPond input files
 
-Jetzt sind Sie so weit, größere Stücke mit LilyPond zu schreiben -- 
+Jetzt sind Sie so weit, größere Stücke mit LilyPond zu schreiben --
 nicht nur die kleinen Beispiele aus der Übung, sondern ganze Stücke.
 Aber wie geht man das am besten an?
 
-Solange LilyPond Ihre Dateien versteht und die Noten so setzt, 
-wie Sie das wollen, spielt es eigentlich keine Rolle, wie Ihre 
-Dateien aussehen.  Es gibt aber trotzdem ein paar Dinge, die man 
+Solange LilyPond Ihre Dateien versteht und die Noten so setzt,
+wie Sie das wollen, spielt es eigentlich keine Rolle, wie Ihre
+Dateien aussehen.  Es gibt aber trotzdem ein paar Dinge, die man
 beim Schreiben von LilyPond-Code berücksichtigen sollte.
 
 @itemize @bullet
-@item Was ist, wenn Sie einen Fehler machen?  Die Struktur einer 
-LilyPond-Datei kann es erleichtern (oder erschweren), bestimmte 
+@item Was ist, wenn Sie einen Fehler machen?  Die Struktur einer
+LilyPond-Datei kann es erleichtern (oder erschweren), bestimmte
 Fehler zu finden.
 
-@item Was ist, wenn Sie Ihre Dateien mit jemandem austauschen 
-wollen?  Oder Ihre Dateien nach einige Jahren noch einmal überarbeiten 
-wollen?  Manche LilyPond-Dateien versteht man auf den ersten Blick, 
+@item Was ist, wenn Sie Ihre Dateien mit jemandem austauschen
+wollen?  Oder Ihre Dateien nach einige Jahren noch einmal überarbeiten
+wollen?  Manche LilyPond-Dateien versteht man auf den ersten Blick,
 über anderen muss man eine Stunde grübeln, um die Struktur zu ahnen.
 
-@item Was ist, wenn sie Ihre Dateien auf eine neuere LilyPond-Version 
-aktualisieren wollen?  Die Syntax der Eingabesprache verändert sich 
-allmählich mit Verbesserungen im Programm.  Die meisten Veränderungen 
-können automatisch durch @code{convert-ly} gelöst werden, aber 
-bestimmte Änderungen brauchen Handarbeit.  LilyPond-Dateien können 
+@item Was ist, wenn sie Ihre Dateien auf eine neuere LilyPond-Version
+aktualisieren wollen?  Die Syntax der Eingabesprache verändert sich
+allmählich mit Verbesserungen im Programm.  Die meisten Veränderungen
+können automatisch durch @code{convert-ly} gelöst werden, aber
+bestimmte Änderungen brauchen Handarbeit.  LilyPond-Dateien können
 strukturiert werden, damit sie einfacher aktualisierbar sind.
 @end itemize
 
@@ -57,14 +57,14 @@ strukturiert werden, damit sie einfacher aktualisierbar sind.
 Hier einige Vorschläge, wie Sie Probleme vermeiden oder lösen können:
 
 @itemize
-@item @strong{Schreiben Sie immer mit @code{\version} die 
-Versionsnummer 
-in jede Datei}.  Beachten Sie, dass in allen Vorlagen die Versionsnummer  
-@code{\version "2.12.0"} eingetragen ist.  Es empfiehlt sich, in alle 
-Dateien, unabhängig von ihrer Größe, den @code{\version}-Befehl 
-einzufügen.  Persönliche Erfahrung hat gezeigt, dass es ziemlich 
-frustrierend sein kann zu erinnern, welche Programmversion man etwa 
-vor einem Jahr verwendet hat.  Auch @code{convert-ly} benötigt die 
+@item @strong{Schreiben Sie immer mit @code{\version} die
+Versionsnummer
+in jede Datei}.  Beachten Sie, dass in allen Vorlagen die Versionsnummer
+@code{\version "2.12.0"} eingetragen ist.  Es empfiehlt sich, in alle
+Dateien, unabhängig von ihrer Größe, den @code{\version}-Befehl
+einzufügen.  Persönliche Erfahrung hat gezeigt, dass es ziemlich
+frustrierend sein kann zu erinnern, welche Programmversion man etwa
+vor einem Jahr verwendet hat.  Auch @code{convert-ly} benötigt die
 Versionsnummer.
 
 @item @strong{Benutzen Sie Überprüfungen}: @ruser{Oktavenüberprüfung}, und
@@ -75,35 +75,35 @@ Komplexität der Musik ab.  ei einfachen Stücken reicht es vielleicht
 ein- oder zweimal, in sehr komplexer Musik sollte man sie vielleicht
 in jeden Takt einfügen.
 
-@item @strong{Ein Takt pro Textzeile}.  Wenn irgendetwas kompliziertes 
-vorkommt, entweder in der Musik selber oder in der Anpassung der 
+@item @strong{Ein Takt pro Textzeile}.  Wenn irgendetwas kompliziertes
+vorkommt, entweder in der Musik selber oder in der Anpassung der
 Ausgabe,
-empfiehlt es sich oft, nur einen Takt pro Zeile zu schreiben. 
-Bildschirmplatz zu sparen, indem Sie acht Takte in eine Zeile zwängen, 
+empfiehlt es sich oft, nur einen Takt pro Zeile zu schreiben.
+Bildschirmplatz zu sparen, indem Sie acht Takte in eine Zeile zwängen,
 hilft nicht weiter, wenn Sie ihre Datei @qq{debuggen} müssen.
 
-@item @strong{Kommentieren Sie ihre Dateien}.  Benutzen Sie entweder 
-Taktnummern (in regelmäßigen Abständen) oder Verweise auf musikalische 
-Themen (@qq{Zweites Thema in den Geigen}, @qq{vierte Variation} usw.). 
-Sie brauchen diese Kommentare vielleicht noch nicht, wenn Sie das Stück  
-notieren, aber spätestens wenn Sie nach ein paar Jahren etwas 
-verändern 
-wollen oder Sie den Quelltext an einen Freund weitergeben wollen, 
-ist es weitaus komplizierter, die Dateistruktur ohne Kommentare zu 
+@item @strong{Kommentieren Sie ihre Dateien}.  Benutzen Sie entweder
+Taktnummern (in regelmäßigen Abständen) oder Verweise auf musikalische
+Themen (@qq{Zweites Thema in den Geigen}, @qq{vierte Variation} usw.).
+Sie brauchen diese Kommentare vielleicht noch nicht, wenn Sie das Stück
+notieren, aber spätestens wenn Sie nach ein paar Jahren etwas
+verändern
+wollen oder Sie den Quelltext an einen Freund weitergeben wollen,
+ist es weitaus komplizierter, die Dateistruktur ohne Kommentare zu
 verstehen, als wenn Sie sie rechtzeitig eingefügt hätten.
 
-@item @strong{Schreiben Sie Klammern mit Einrückung}.  Viele 
-Probleme entstehen durch ungerade Anzahl von  @code{@{} und 
+@item @strong{Schreiben Sie Klammern mit Einrückung}.  Viele
+Probleme entstehen durch ungerade Anzahl von  @code{@{} und
 @code{@}}-Klammern.
 
-@item @strong{Schreiben Sie Tondauerangaben} am Anfang von 
-Abschnitten und Bezeichnern.  Wenn Sie beispielsweise 
- @code{c4 d e} am Anfang eines Abschnittes schreiben, 
-ersparen Sie sich viele Probleme, wenn Sie ihre Musik 
+@item @strong{Schreiben Sie Tondauerangaben} am Anfang von
+Abschnitten und Bezeichnern.  Wenn Sie beispielsweise
+ @code{c4 d e} am Anfang eines Abschnittes schreiben,
+ersparen Sie sich viele Probleme, wenn Sie ihre Musik
 eines Tages umarrangieren wollen.
 
-@item @strong{Trennen Sie Einstellungen} von den eigentlichen 
-Noten.  Siehe auch @rlearning{Tipparbeit durch Variablen und Funktionen ersparen} 
+@item @strong{Trennen Sie Einstellungen} von den eigentlichen
+Noten.  Siehe auch @rlearning{Tipparbeit durch Variablen und Funktionen ersparen}
 und
 @rlearning{Globale Formatierung}.
 
@@ -114,27 +114,27 @@ und
 @section Das Kopieren von bereits vorhandener Musik
 @translationof Typesetting existing music
 
-Wenn Sie Musik aus einer fertigen Partitur kopieren (z. B. die 
+Wenn Sie Musik aus einer fertigen Partitur kopieren (z. B. die
 LilyPond-Eingabe einer gedruckten Partitur):
 
 @itemize
 
 @item
-Schreiben Sie ein System ihrer Quelle nach dem anderen 
-(aber trotzdem nur einen Takt pro Textzeile) und überprüfen 
-Sie jedes System, nachdem Sie es fertig kopiert haben.  Mit dem 
-@code{showLastLength}- oder @code{showFirstLenght}-Befehl können Sie den Übersetzungsprozess 
-beschleunigen. Siehe auch 
+Schreiben Sie ein System ihrer Quelle nach dem anderen
+(aber trotzdem nur einen Takt pro Textzeile) und überprüfen
+Sie jedes System, nachdem Sie es fertig kopiert haben.  Mit dem
+@code{showLastLength}- oder @code{showFirstLenght}-Befehl können Sie den Übersetzungsprozess
+beschleunigen. Siehe auch
 @ruser{Korrigierte Musik überspringen}.
 
 @item
 Definieren Sie @code{mBreak = @{ \break @}} und schreiben Sie
- @code{\mBreak} in der Quelldatei immer dann, wenn im Manuskript 
-ein Zeilenumbruch vorkommt.  Das macht es einfacher, die gesetzte 
-Zeile mit den ursprünglichen Noten zu vergleichen.  Wenn Sie die 
-Partitur fertig gestellt haben, könne Sie  @code{mBreak = @{ @}}, 
-also leer definieren, um diese manuellen Zeilenumbrüche zu entfernen. 
-Damit kann dann LilyPond selber entscheiden, wohin es passende 
+ @code{\mBreak} in der Quelldatei immer dann, wenn im Manuskript
+ein Zeilenumbruch vorkommt.  Das macht es einfacher, die gesetzte
+Zeile mit den ursprünglichen Noten zu vergleichen.  Wenn Sie die
+Partitur fertig gestellt haben, könne Sie  @code{mBreak = @{ @}},
+also leer definieren, um diese manuellen Zeilenumbrüche zu entfernen.
+Damit kann dann LilyPond selber entscheiden, wohin es passende
 Zeilenumbrüche platziert.
 
 @item
@@ -164,15 +164,15 @@ eine B-Trompete oder @code{aes} für eine As-Klarinette usw.
 @section Große Projekte
 @translationof Large projects
 
-Besonders wenn Sie an größeren Projekten arbeiten, ist es 
+Besonders wenn Sie an größeren Projekten arbeiten, ist es
 unumgänglich, dass Sie ihre LilyPond-Dateien klar strukturieren.
 
 @itemize
 
-@item @strong{Verwenden Sie Variablen für jede Stimme}, innerhalb 
-der Definition sollte so wenig Struktur wie möglich sein.  Die 
-Struktur des @code{\score}-Abschnittes verändert sich am ehesten, 
-während die @code{violine}-Definition sich wahrscheinlich mit einer 
+@item @strong{Verwenden Sie Variablen für jede Stimme}, innerhalb
+der Definition sollte so wenig Struktur wie möglich sein.  Die
+Struktur des @code{\score}-Abschnittes verändert sich am ehesten,
+während die @code{violine}-Definition sich wahrscheinlich mit einer
 neuen Programmversion nicht verändern wird.
 
 @example
@@ -189,11 +189,11 @@ g4 c'8. e16
 @}
 @end example
 
-@item @strong{Trennen Sie Einstellungen von den Noten}.  Diese 
-Empfehlung wurde schon früher gegeben, 
-aber für große Projekte ist es unumgänglich.  Muss z. B. die 
-Definition für @code{fdannp} verändert werden, so braucht 
-man es nur einmal vorzunehmen und die Noten in der Geigenstimme, 
+@item @strong{Trennen Sie Einstellungen von den Noten}.  Diese
+Empfehlung wurde schon früher gegeben,
+aber für große Projekte ist es unumgänglich.  Muss z. B. die
+Definition für @code{fdannp} verändert werden, so braucht
+man es nur einmal vorzunehmen und die Noten in der Geigenstimme,
 @code{violin}, bleiben unberührt.
 
 @example
@@ -212,22 +212,22 @@ g4\fdannp c'8. e16
 @section Fehlersuche
 @translationof Troubleshooting
 
-Früher oder später werden Sie in die Lage kommen, 
-dass LilyPond Ihre Datei nicht kompilieren will.  Die 
-Information, die LilyPond während der Übersetzung 
-gibt, können Ihnen helfen, den Fehler zu finden, aber 
-in vielen Fällen müssen Sie nach der Fehlerquelle 
+Früher oder später werden Sie in die Lage kommen,
+dass LilyPond Ihre Datei nicht kompilieren will.  Die
+Information, die LilyPond während der Übersetzung
+gibt, können Ihnen helfen, den Fehler zu finden, aber
+in vielen Fällen müssen Sie nach der Fehlerquelle
 auf die Suche gehen.
 
-Die besten Hilfsmittel sind in diesem Fall das Zeilen- 
-und Blockkommentar (angezeigt durch @code{%} bzw. 
-@code{%@{ ... %@}}).  Wenn Sie nicht bestimmen können, 
-wo sich das Problem befindet, beginnen Sie damit, große 
-Teile des Quelltextes auszukommentieren.  Nachdem Sie 
-einen Teil auskommentiert haben, versuchen Sie, die Datei 
-erneut zu übersetzen.  Wenn es jetzt funktioniert, muss 
-sich das Problem innerhalb der Kommentare befinden. 
-Wenn es nicht funktioniert, müssen Sie weitere Teile 
+Die besten Hilfsmittel sind in diesem Fall das Zeilen-
+und Blockkommentar (angezeigt durch @code{%} bzw.
+@code{%@{ ... %@}}).  Wenn Sie nicht bestimmen können,
+wo sich das Problem befindet, beginnen Sie damit, große
+Teile des Quelltextes auszukommentieren.  Nachdem Sie
+einen Teil auskommentiert haben, versuchen Sie, die Datei
+erneut zu übersetzen.  Wenn es jetzt funktioniert, muss
+sich das Problem innerhalb der Kommentare befinden.
+Wenn es nicht funktioniert, müssen Sie weitere Teile
 auskommentieren bis sie eine Version haben, die funktioniert.
 
 In Extremfällen bleibt nur noch solch ein Beispiel übrig:
@@ -246,11 +246,11 @@ In Extremfällen bleibt nur noch solch ein Beispiel übrig:
 @noindent
 (also eine Datei ohne Noten).
 
-Geben Sie nicht auf, wenn das vorkommen sollte.  Nehmen 
-Sie das Kommentarzeichen von einem Teil wieder weg, sagen 
-wir der Bassstimme, und schauen Sie, ob es funktioniert. 
-Wenn nicht, dann kommentieren Sie die gesamte Bassstimme 
-aus, aber nicht den @code{\bass}-Befehl in dem 
+Geben Sie nicht auf, wenn das vorkommen sollte.  Nehmen
+Sie das Kommentarzeichen von einem Teil wieder weg, sagen
+wir der Bassstimme, und schauen Sie, ob es funktioniert.
+Wenn nicht, dann kommentieren Sie die gesamte Bassstimme
+aus, aber nicht den @code{\bass}-Befehl in dem
  @code{\score}-Abschnitt:
 
 @example
@@ -262,11 +262,11 @@ bass = \relative c' @{
 @}
 @end example
 
-Jetzt beginnen Sie damit, langsam Stück für Stück der 
-Bassstimme wieder hineinzunehmen, bis Sie die problematische 
+Jetzt beginnen Sie damit, langsam Stück für Stück der
+Bassstimme wieder hineinzunehmen, bis Sie die problematische
 Zeile finden.
 
-Eine andere nützliche Technik zur Problemlösung ist es, 
+Eine andere nützliche Technik zur Problemlösung ist es,
 @rweb{Minimalbeispiele} zu konstruieren.
 
 
@@ -467,7 +467,7 @@ damit die DOS-Kommandozeile das Make-Programm finden kann.  Um das
 vorzunehmen, kann mit der rechten Maustaste auf "Arbeitsplatz"
 klicken, dann @code{Eigenschaften} und @code{Erweitert} geklickt
 werden.  Hier wählt man @code{Umgebungsvariablen}.  In der
-Liste @code{Systemvariablen} wählt man @code{Path} und mit 
+Liste @code{Systemvariablen} wählt man @code{Path} und mit
 einem Klick auf @code{Bearbeiten} kann man den Pfad zu der
 @code{.exe}-Datei von GNU Make hinzufügen, der etwa wie
 folgt aussieht:

@@ -267,7 +267,7 @@ définissent au niveau du bloc @code{\score} -- voir à ce sujet
 Chacune de ces variables est constituée d'une liste associative à quatre
 @i{clés}@tie{}:
 
-@itemize 
+@itemize
 @item @code{padding} (@emph{décalage}) -- la grandeur minimale de
 @qq{blanc} qui sépare deux éléments, exprimée en hauteur de portée.  On
 peut le voir comme la hauteur minimale d'un rectangle vide qui devrait
@@ -312,7 +312,7 @@ Lorsque l'impression n'est pas en pleine page -- elle est donc
 n'est pas étiré. Les hauteurs sur une telle page correspondront donc au
 maximum de
 
-@itemize 
+@itemize
 @item @code{space}, plus
 @item @code{minimum-distance} et
 @item @code{padding}, augmenté de ce qu'il faut pour éviter les
@@ -649,7 +649,7 @@ systèmes risquent de déborder.
 @}
 @end example
 
-Ces contrôles peuvent se désactiver en définissant la propriété 
+Ces contrôles peuvent se désactiver en définissant la propriété
 @code{check-consistency} à faux@tie{}:
 
 @example
@@ -1843,8 +1843,8 @@ exemple, la propriété @code{system-system-spacing} contrôle l'espacement
 entre la ligne médiane de la dernière portée d'un système et la ligne
 médiane de la première portée du système suivant, que des paroles soient
 ou non rattachées sous le premier.  Pour une description exhaustive de
-ces variables, relisez la rubrique 
-@ref{Dimensionnement vertical fluctuant}. 
+ces variables, relisez la rubrique
+@ref{Dimensionnement vertical fluctuant}.
 
 Le bloc @code{\paper} dispose de deux variables supplémentaires en
 matière d'espacement vertical.  Lorsque le commutateur

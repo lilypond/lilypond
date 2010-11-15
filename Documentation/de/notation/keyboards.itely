@@ -27,9 +27,9 @@ Instrumenten, die auf mehreren Systemen notiert werden, als
 keine Tasten aufweisen.
 
 @menu
-* Übliche Notation für Tasteninstrumente::  
-* Klavier::                       
-* Akkordeon::                   
+* Übliche Notation für Tasteninstrumente::
+* Klavier::
+* Akkordeon::
 * Harfe::
 @end menu
 
@@ -41,11 +41,11 @@ Dieser Abschnitt zeigt allgemeine Eigenschaften des Notensatzes, die
 für die meisten Instrumente mit mehreren Systemen benötigt werden.
 
 @menu
-* Referenz für Tasteninstrumente::    
-* Notensysteme manuell verändern::     
-* Automatischer Systemwechsel::  
-* Stimmführungslinien::          
-* Hälse über beide Systeme::           
+* Referenz für Tasteninstrumente::
+* Notensysteme manuell verändern::
+* Automatischer Systemwechsel::
+* Stimmführungslinien::
+* Hälse über beide Systeme::
 @end menu
 
 
@@ -62,7 +62,7 @@ für die meisten Instrumente mit mehreren Systemen benötigt werden.
 @funindex PianoStaff
 
 Tasteninstrumente werden normalerweise auf einem Klaviersystem
-notiert.  Es besteht aus zwei Notensystemen, die durch 
+notiert.  Es besteht aus zwei Notensystemen, die durch
 eine Klammer verbunden sind.  Die gleiche Notation wird auch für
 andere Tasteninstrumente sowie Harfen verwendet.  Orgelmusik
 wird normalerweise auf zwei Systemen innerhalb eines Klaviersystems
@@ -77,7 +77,7 @@ wird an anderen Stellen besprochen:
 
 @itemize
 
-@item Noten für Tasteninstrumente haben oft mehrere Stimmen und 
+@item Noten für Tasteninstrumente haben oft mehrere Stimmen und
 die Anzahl der Stimmen kann sich häufig ändern.  Das ist
 beschrieben in
 @ref{Auflösung von Zusammenstößen}.
@@ -96,7 +96,7 @@ siehe
 @item Vertikale Rasterlinien können erstellt werden, siehe
 @ref{Gitternetzlinien}.
 
-@item Noten für Tasteninstrumente beinhalten oft 
+@item Noten für Tasteninstrumente beinhalten oft
 @notation{Laissez vibrer}-Bögen und Bindebögen mit Arpeggio
 oder Tremolo, siehe hierzu
 @ref{Bindebögen}.
@@ -158,7 +158,7 @@ Referenz der Interna:
 
 Dynamikzeichen werden nicht automatische zwischen den Systemen
 zentriert, aber es gibt hierzu Lösungen.  Eine Möglichkeit ist
-die Vorlage @qq{Klavier mit zentrierten Lautstärkebezeichnungen} 
+die Vorlage @qq{Klavier mit zentrierten Lautstärkebezeichnungen}
 im Abschnitt @rlearning{Klaviervorlagen}; eine andere Möglichkeit
 ist es, die @code{staff-padding}-Eigenschaft von
 Lautstärkebezeichnungen zu erhöhen, wie gezeigt in
@@ -254,7 +254,7 @@ Referenz der Interna:
 @funindex autochange
 @funindex PianoStaff
 
-Stimmen können angewiesen werden, automatisch zwischen dem 
+Stimmen können angewiesen werden, automatisch zwischen dem
 oberen und unteren System zu wechseln.  Die Syntax hierfür lautet:
 
 @example
@@ -262,11 +262,11 @@ oberen und unteren System zu wechseln.  Die Syntax hierfür lautet:
 @end example
 
 @noindent
-Damit werden zwei Notensysteme innerhalb des aktiven Klaviersystems 
-erstellt, die @qq{oben} (@code{up}) und @qq{unten} (@code{down}) genannt 
-werden.  Auf dem unteren System wird als Standard der Bassschlüssel 
-gesetzt.  Der Wechsel wird automatisch basierend auf der Tonhöhe der Note 
-vorgenommen (als Wechselpunkt gilt das eingestrichene C).  Dabei 
+Damit werden zwei Notensysteme innerhalb des aktiven Klaviersystems
+erstellt, die @qq{oben} (@code{up}) und @qq{unten} (@code{down}) genannt
+werden.  Auf dem unteren System wird als Standard der Bassschlüssel
+gesetzt.  Der Wechsel wird automatisch basierend auf der Tonhöhe der Note
+vorgenommen (als Wechselpunkt gilt das eingestrichene C).  Dabei
 wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
 
 @lilypond[quote,verbatim]
@@ -284,8 +284,8 @@ wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
 @funindex \relative
 @funindex relative
 
-Ein @code{\relative}-Abschnitt, der sich außerhalb des 
-@code{\autochange}-Abschnittes befindet, hat keinen Einfluss auf die 
+Ein @code{\relative}-Abschnitt, der sich außerhalb des
+@code{\autochange}-Abschnittes befindet, hat keinen Einfluss auf die
 Notenhöhen.
 
 Wenn individuelle Kontrolle über die einzelnen Systeme benötigt
@@ -361,8 +361,8 @@ System zugewiesen, auf dem sich ihre erste Note befinden würde.
 @funindex \hideStaffSwitch
 @funindex hideStaffSwitch
 
-Immer, wenn eine Stimme von einem Klaviersystem zu dem anderen 
-wechselt, kann automatisch eine Linie zur Verdeutlichung des 
+Immer, wenn eine Stimme von einem Klaviersystem zu dem anderen
+wechselt, kann automatisch eine Linie zur Verdeutlichung des
 Stimmenverlaufs ausgegeben werden:
 
 @lilypond[quote,verbatim,relative=1]
@@ -412,8 +412,8 @@ Referenz der Interna:
 @funindex flag-style
 
 Akkorde, die über zwei Systeme reichen, können erstellt werden,
-indem die Länge der Hälse im unteren System vergrößert wird, 
-bis sie zum oberen System hinauf reichen bzw. umgekehrt bei 
+indem die Länge der Hälse im unteren System vergrößert wird,
+bis sie zum oberen System hinauf reichen bzw. umgekehrt bei
 Hälsen, die nach unten zeigen.
 
 @lilypond[verbatim,quote]
@@ -464,7 +464,7 @@ Referenz der Interna:
 Dieser Abschnitt zeigt Eigenheiten der Notation von Klavermusik
 
 @menu
-* Klavierpedal::                
+* Klavierpedal::
 @end menu
 
 @node Klavierpedal
@@ -569,7 +569,7 @@ Dieser Abschnitt behandelt Notation, die nur für Akkordeonmusik
 benötigt wird.
 
 @menu
-* Diskant-Symbole::             
+* Diskant-Symbole::
 @end menu
 
 @node Diskant-Symbole

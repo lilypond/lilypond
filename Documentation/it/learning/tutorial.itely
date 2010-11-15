@@ -17,9 +17,9 @@
 Questo capitolo fornisce un'introduzione di base all'uso di LilyPond.
 
 @menu
-* Compilare un file::           
-* Come scrivere i file di input::  
-* Come leggere i manuali::      
+* Compilare un file::
+* Come scrivere i file di input::
+* Come leggere i manuali::
 @end menu
 
 @node Compilare un file
@@ -29,10 +29,10 @@ Questo capitolo fornisce un'introduzione di base all'uso di LilyPond.
 FIXME: insert text
 
 @menu
-* Inserire l'input::            
-* MacOS X::                     
-* Windows::                     
-* Linea di comando::            
+* Inserire l'input::
+* MacOS X::
+* Windows::
+* Linea di comando::
 @end menu
 
 @node Inserire l'input
@@ -229,8 +229,8 @@ Puoi vedere o stampare il risultante @file{text.pdf}.
 FIXME: insert text
 
 @menu
-* Notazione semplice::          
-* Lavorare sui file di input::  
+* Notazione semplice::
+* Lavorare sui file di input::
 @end menu
 
 @node Notazione semplice
@@ -626,10 +626,10 @@ blocco.  Il seguente frammento mostra gli usi possibili per i commenti:
 FIXME: fluff here
 
 @menu
-* Parentesi omesse::            
-* Esempi cliccabili::           
-* Navigazione con la tastiera::  
-* Panoramica dei manuali::      
+* Parentesi omesse::
+* Esempi cliccabili::
+* Navigazione con la tastiera::
+* Panoramica dei manuali::
 @end menu
 
 

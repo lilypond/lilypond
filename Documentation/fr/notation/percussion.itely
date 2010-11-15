@@ -18,7 +18,7 @@
 @translationof Percussion
 
 @menu
-* Vue d'ensemble des percussions::  
+* Vue d'ensemble des percussions::
 @end menu
 
 @node Vue d'ensemble des percussions
@@ -31,10 +31,10 @@ montrer le rythme d'une mélodie.
 
 
 @menu
-* Références en matière de notation pour percussions::   
-* Notation de base pour percussions::   
-* Portées de percussion::           
-* Notes fantômes::                 
+* Références en matière de notation pour percussions::
+* Notation de base pour percussions::
+* Portées de percussion::
+* Notes fantômes::
 @end menu
 
 @node Références en matière de notation pour percussions
@@ -65,7 +65,7 @@ fichier LilyPond, un nom complet et un nom raccourci.
 @end lilypond
 
 
-Ces noms sont inventoriés dans le fichier d'initialisation 
+Ces noms sont inventoriés dans le fichier d'initialisation
 @file{ly/@/drumpitch@/-init@/.ly}.
 @c TODO: properly document this.
 
@@ -118,7 +118,7 @@ notation polyphonique abrégée peut être employée lorsque le contexte
 @end lilypond
 
 On peut choisir d'autres mises en forme si l'on définit la propriété
-@code{drumStyleTable} dans le contexte @rinternals{DrumVoice}.  
+@code{drumStyleTable} dans le contexte @rinternals{DrumVoice}.
 Quelques variables prédéfinies sont disponibles :
 
 @table @code

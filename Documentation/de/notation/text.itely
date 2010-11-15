@@ -158,7 +158,7 @@ die Überprüfung aber mit folgendem Code einschalten:
 @cindex Strecker, Text
 
 Einige Aufführungsanweisungen, etwa @notation{rallentando} oder
-@notation{accelerando}, werden als Text geschrieben, gefolgt von 
+@notation{accelerando}, werden als Text geschrieben, gefolgt von
 einer gestrichelten Linie, die anzeigt, wie weit sich die Anweisung
 auswirkt.  Solche Objekte, @qq{Strecker} (engl. spanners) genannt,
 können von einer Note bis zu einer anderen mit folgender
@@ -267,7 +267,7 @@ c c c
 
 Diese Syntax ermöglicht es, beliebigen Text über eine Taktlinie
 zu platzieren, weitere Formatierungsmöglichkeiten sind mit dem
-@code{\markup}-Befehl gegeben, wie beschrieben in 
+@code{\markup}-Befehl gegeben, wie beschrieben in
 @ref{Text formatieren}:
 
 @lilypond[fragment,quote,relative=1]
@@ -405,7 +405,7 @@ sich in @ref{Textbeschriftung über mehrere Seiten}.
 @seealso
 Notationsreferenz:
 @ref{Text formatieren},
-@ref{Die Dateistruktur}, 
+@ref{Die Dateistruktur},
 @ref{Mehrere Partituren in einem Buch},
 @ref{Textbeschriftung über mehrere Seiten}.
 
@@ -1146,9 +1146,9 @@ innerhalb von @code{\markup} kombiniert werden.
 @funindex postscript
 
 Fortgeschrittene graphische Möglichkeiten bietet unter Anderem eine
-Funktion, mit der man externe Graphiken im 
+Funktion, mit der man externe Graphiken im
 Encapsulated PostScript (@emph{eps}) -Format einbinden kann oder
-aber Graphiken direkt in den Quelltext unter Verwendung von 
+aber Graphiken direkt in den Quelltext unter Verwendung von
 PostScript-Code notiert.  In diesem Fall kann es nötig sein, die
 Größe der Zeichnung explizit anzugeben, wie im Beispiel unten gezeigt:
 
@@ -1243,7 +1243,7 @@ d-\markup {
   \markalphabet #8
   \markletter #8
 }
-@end lilypond 
+@end lilypond
 
 Allgemeiner gesagt kann jedes verfügbare Notationssymbol unabhängig
 von der Notation als ein Textbeschriftungsobjekt eingefügt werden, wie
@@ -1469,7 +1469,7 @@ sind alle linke Klammern, rechte Klammern lassen sich durch
 eine Drehung herstellen, siehe
 @ref{Drehen von Objekten}.
 
-Drei Textschriftarten sind verfügbar (auf Englisch @code{family} genannt): 
+Drei Textschriftarten sind verfügbar (auf Englisch @code{family} genannt):
 mit @code{roman} eine Schriftart
 mit Serifen (Standard ist New Century Schoolbook), mit @code{sans}
 eine serifenlose (gerade) Schriftart und mit @code{typewriter} eine
@@ -1479,7 +1479,7 @@ Weite haben.  Die aktuelle Schriftart von @code{sans} und
 gewählt.
 
 Jede Familie kann verschiedene Schriftschnitte besitzen. Im Englischen
-wird unterschieden zwischen @code{shape} für kursive Schnitte und 
+wird unterschieden zwischen @code{shape} für kursive Schnitte und
 @code{series} für fette Schnitte.  Im folgenden Beispiel wird
 demonstriert, wie man die verschiedenen Eigenschaften auswählen kann.
 Der Wert, der @code{font-size} übergeben wird, entspricht der geforderten

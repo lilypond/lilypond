@@ -848,7 +848,7 @@ fréquente que la musique polyrythmique.
 @funindex GrandStaff
 @funindex ChoirStaff
 
-Glossaire musicologique : 
+Glossaire musicologique :
 @rglosnamed{brace,accolade},
 @rglosnamed{staff,portée},
 @rglosnamed{system,système}.
@@ -1515,7 +1515,7 @@ première lecture@tie{}; lorsque vous aurez lu l'ensemble du manuel
 d'initiation, vous pourrez en relisant certaines sections suivre ces
 références pour approfondir certains aspects.
 
-Si vous ne l'avez pas encore fait, lisez 
+Si vous ne l'avez pas encore fait, lisez
 @ref{Vue d'ensemble des manuels}.  Les sources de documentation et
 d'information sur LilyPond sont vastes, il est normal pour un débutant
 de ne pas savoir où chercher@tie{}; si vous passez quelques minutes à

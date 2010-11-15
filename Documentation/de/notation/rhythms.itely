@@ -2152,7 +2152,7 @@ Referenz der Interna:
 Wenn eine Partitur endet, während ein automatischer Balken noch
 nicht beendet wurde und weiterhin Noten erwartet, wird dieser
 letzte Balken nicht ausgegeben.  Das Gleiche gilt auch für
-polyphone Stimmen, die mit der 
+polyphone Stimmen, die mit der
 @code{<< @dots{} \\ @dots{} >>}-Konstruktion notiert wurden.  Wenn eine
 polyphone Stimme endet, während ein Balken noch weitere Noten
 erwartet, wird der Balken nicht gesetzt.  Eine Notlösung für

@@ -51,7 +51,7 @@ c d e f g a b
 @end lilypond
 
 @item @code{fis bes}
-@tab Vorzeichen 
+@tab Vorzeichen
 @tab
 @lilypond[relative=1,notime]
 fis bes
@@ -80,7 +80,7 @@ s16_" "
 
 
 @item @code{r4 r8}
-@tab Pause 
+@tab Pause
 @tab
 @lilypond[relative=2,notime]
 \override Staff.Clef #'break-visibility = #all-invisible
@@ -172,7 +172,7 @@ a8-[ b-]
    } >>
 @end lilypond
 
-  
+
 @item @code{c-> c-.}
 @tab Artikulationszeichen
 @tab
@@ -261,7 +261,7 @@ twinkle
 @end lilypond
 
 @item @code{twin -- kle}
-@tab Gesangtext-Trennstrich 
+@tab Gesangtext-Trennstrich
 @tab
 @lilypond[relative=2]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible
@@ -272,7 +272,7 @@ twinkle
 @end lilypond
 
 @item @code{\chordmode @{ c:dim f:maj7 @}}
-@tab Akkorde 
+@tab Akkorde
 @tab
 @lilypond[relative=2]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible

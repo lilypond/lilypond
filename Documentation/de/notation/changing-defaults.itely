@@ -35,7 +35,7 @@ Die definitive Beschreibung der unterschiedlichen Einstellmöglichenkeiten
 findet sich in einem eigenen Dokument: @rinternalsnamed{Top,der Referenz
 der Interna}.  Diese Referenz zeigt alle Variablen, Funktionen und Optionen,
 die in LilyPond möglich sind.  Es existiert als ein HTML-Dokumente, das
-sich 
+sich
 @c leave the @uref as one long line.
 @uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
 aber auch lokal in das LilyPond-Dokumentationspaket integriert lesen lässt.
@@ -434,7 +434,7 @@ angetroffen wird, wobei @code{<<...>>}-Konstruktionen ignoriert
 werden.
 
 Jeder Kontext kann am Leben gehalten werden, indem man sicherstellt
-dass er zu jedem musikalischen Moment etwas zu tun hat.  
+dass er zu jedem musikalischen Moment etwas zu tun hat.
 @code{Staff}-Kontexte werden am Leben gehalten, indem man sicherstellt,
 dass eine der enthaltenen Stimmen am Leben bleibt.  Eine Möglichkeit,
 das zu erreichen, ist es, unsichtbare Pause zu jeder Stimme
@@ -1325,22 +1325,22 @@ folgen bestimmten Regeln:
 
 @item
     Scheme-Funktionen: ly:plus-scheme-stil
-    
+
 @item
     Musikalische Ereignisse, Musikklassen und Musikeigenschaften: wie-scheme-funktionen
 
 @item
     Grob-Schnittstellen: scheme-stil
-    
+
 @item
     backend-Eigenschaften: scheme-stil (aber X und Y)
-    
+
 @item
     Kontexte: Großbuchstabe, oder GroßbuchstabeZwischenWörtern (CamelCase)
 
 @item
     Kontext-Eigenschaften: kleinbuchstabeMitFolgendenGroßbuchstaben
-    
+
 @item
     Engraver:  Großbuchstabe_gefolgt_von_kleinbuchstaben_mit_unterstrichen
 @end itemize
@@ -1390,7 +1390,7 @@ Die Syntax hierzu lautet:
 
 
 @var{Bezeichnung} ist die Bezeichnung eines graphischen Objekts,
-wie @code{Stem} (Hals) oder @code{NoteHead} (Notenkopf), und 
+wie @code{Stem} (Hals) oder @code{NoteHead} (Notenkopf), und
 @var{Eigenschaft} ist eine interne Variable des Formatierungssystems
 (eine @qq{Grob-Eigenschaft} oder @qq{Layout-Eigenschaft}).  Diese
 Eigenschaft ist ein Symbol, muss also mit einem Anführungsstrich
@@ -2146,7 +2146,7 @@ den @code{\fret-diagram}-Befehl einsetzt (siehe
 
 Man erreicht ihn mit dem Befehl @code{\lyricmode}.  Die Eingabe
 wird entsprechend der Syntax für Silben eines Gesangstextes
-interpretiert, wobei optional Dauern und verknüpfte 
+interpretiert, wobei optional Dauern und verknüpfte
 Gesangstextveränderer möglich  sind, siehe @ref{Notation von Gesang}.
 
 Der Gesangstextmodus wird auch durch den Befehl @code{\addlyrics}
@@ -3880,7 +3880,7 @@ Installierte Dateien:
 
 
 @node Beispiele der Ersetzungsfunktionen
-@subsection Beispiele der Ersetzungsfunktionen 
+@subsection Beispiele der Ersetzungsfunktionen
 @translationof Substitution function examples
 
 Dieser Abschnitt zeigt einige Beispiele von Ersetzungsfunktionen.

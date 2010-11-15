@@ -1489,7 +1489,7 @@ portuguese = \lyricmode {
 Um einen einzelnen Buchstaben zu notieren, für den die Unicode-Ziffernfolge
 bekannt ist, der aber nicht auf der Tastatur zu finden ist, kann
 der Befehl @code{\char ##xhhhh} oder @code{\char #dddd} innerhalb einer
-@code{\markup}-Umgebung benutzt werden.  Hierbei bedeutet @code{hhhh} die 
+@code{\markup}-Umgebung benutzt werden.  Hierbei bedeutet @code{hhhh} die
 hexadezimale Zahl und @code{ddd} die entsprechende dezimale Zahl
 für das erforderliche Zeichen.  Nullen zu Beginn können ausgelassen werden,
 aber normalerweise werden alle vier Zeichen der hexadezimalen Notation

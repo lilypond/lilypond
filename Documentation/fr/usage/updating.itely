@@ -11,7 +11,7 @@
 @c \version "2.13.36"
 
 @c Translators: Jean-Charles Malahieude
-@c Translation checkers: 
+@c Translation checkers:
 
 @node Mise à jour avec convert-ly
 @chapter Mise à jour avec @command{convert-ly}
@@ -50,7 +50,7 @@ plus faciles à lire et à écrire, ou permettent d'intégrer de nouvelles
 fonctionnalités.
 
 Par exemple, tous les noms des propriétés de @code{\paper} et
-@code{\layout} devaient étre étaient libellées sous la forme 
+@code{\layout} devaient étre étaient libellées sous la forme
 @code{@w{premier-deuxième-troisième}}.  Nous avons constaté, une fois la
 version 2.11.60 mise à disposition, que la propriété
 @code{printallheaders} ne respectait pas cette convention.  Aurions-nous
@@ -148,7 +148,7 @@ Normalement, @command{convert-ly} ajoutera une indication de
 permet de passer outre.
 
 @item -s, --show-rules
-pour afficher les conversions applicables. 
+pour afficher les conversions applicables.
 
 @item --to=@var{to-patchlevel}
 pour n'appliquer les conversions que jusqu'à une version déterminée.  Il

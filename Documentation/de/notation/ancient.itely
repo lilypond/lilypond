@@ -1198,7 +1198,7 @@ anderen Stil.
 @c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 @c {ancient-accidentals.ly}
 
-Der Stil für Versetzungs- und Vorzeichen wird von der 
+Der Stil für Versetzungs- und Vorzeichen wird von der
 @code{glyph-name-alist}-Eigenschaft der Grobs
 @code{Accidental} und @code{KeySignature}
 kontrolliert, beispielsweise:
@@ -2427,7 +2427,7 @@ Als @emph{Mensurstriche} wird ein Notenlayout bezeichnet,
 in dem die Taktlinien nicht auf den Systemen, sondern nur
 zwischen Systemen gezogen werden.  Damit soll signalisiert
 werden, dass das Original keine Takteinteilung besessen hat
-und etwa Synkopen nicht über Taktlinien hinweg aufgeteilt 
+und etwa Synkopen nicht über Taktlinien hinweg aufgeteilt
 werden müssen, während man sich dennoch an den Taktlinien
 rhythmisch orientieren kann.
 

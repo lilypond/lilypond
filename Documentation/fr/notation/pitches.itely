@@ -23,10 +23,10 @@ trois aspects@tie{}: la saisie des hauteurs, la modification des
 hauteurs et les options de gravure.
 
 @menu
-* Écriture des hauteurs de note::             
-* Modification de plusieurs hauteurs::   
-* Gravure des hauteurs::          
-* Têtes de note::                  
+* Écriture des hauteurs de note::
+* Modification de plusieurs hauteurs::
+* Gravure des hauteurs::
+* Têtes de note::
 @end menu
 
 
@@ -34,16 +34,16 @@ hauteurs et les options de gravure.
 @subsection Écriture des hauteurs de note
 @translationof Writing pitches
 
-Cette section explique la manière d'indiquer les hauteurs de note.  Deux 
+Cette section explique la manière d'indiquer les hauteurs de note.  Deux
 modes permettent d'indiquer l'octave des notes@tie{}: le mode absolu, et le
 mode relatif.  Ce dernier est le plus pratique lors de la saisie d'un
 fichier source au clavier de l'ordinateur.
 
 @menu
-* Hauteurs avec octave absolue::       
-* Octaves relatives::       
-* Altérations::                 
-* Nom des notes dans d'autres langues:: 
+* Hauteurs avec octave absolue::
+* Octaves relatives::
+* Altérations::
+* Nom des notes dans d'autres langues::
 @end menu
 
 @node Hauteurs avec octave absolue
@@ -59,7 +59,7 @@ fichier source au clavier de l'ordinateur.
 La hauteur s'écrit -- à moins de préciser une autre langue -- avec la
 notation batave, en utilisant les lettres de @code{a} à @code{g}.
 Les notes @code{c} (do) et @code{b} (si) sont écrites une octave sous le
-do central. 
+do central.
 
 @c don't use c' here.
 @lilypond[verbatim,quote]
@@ -134,7 +134,7 @@ possible de celle qui la précède.  L'octave des notes mentionnées dans
 @item
 Si aucun signe de changement d'octave n'est utilisé, l'intervalle de
 base entre la note actuelle et la précédente sera toujours au plus d'une
-quarte.  Cet intervalle est déterminé sans tenir compte des altérations. 
+quarte.  Cet intervalle est déterminé sans tenir compte des altérations.
 
 @item
 Un signe de changement d'octave@tie{}@code{'} ou@tie{}@code{,} peut être
@@ -220,7 +220,7 @@ dernière clause @code{\relative} qui est prise en compte.
 
 Pour utiliser le mode d'octave relative dans de la musique transposée,
 une clause @code{\relative} additionnelle doit être placée au sein du
-bloc @code{\transpose}. 
+bloc @code{\transpose}.
 
 @lilypond[verbatim,quote]
 \relative c' {
@@ -592,8 +592,8 @@ Morceaux choisis :
 Cette partie traite de la manière de modifier les hauteurs de note.
 
 @menu
-* Vérifications d'octave::                
-* Transposition::                   
+* Vérifications d'octave::
+* Transposition::
 @end menu
 
 @node Vérifications d'octave
@@ -700,7 +700,7 @@ hauteurs s'expriment en octave absolue.
 
 @warning{La musique contenue dans un bloc @code{@bs{}transpose} est en
 octaves absolus, sauf à inclure dans ce même bloc une clause
-@code{@bs{}relative}.} 
+@code{@bs{}relative}.}
 
 Prenons comme exemple une pièce écrite en ré majeur.  Si cette pièce est
 un peu trop basse pour l'interprète, elle peut être transposée en mi
@@ -755,7 +755,7 @@ pour un instrument transpositeur.  Normalement, les hauteurs dans
 LilyPond sont écrites en ut, c'est à dire en sons réels, mais elles
 peuvent être écrites dans un autre ton.  Prenons l'exemple d'un morceau
 pour trompette en si bémol commençant sur un ré à l'oreille@tie{}; on
-pourrait écrire 
+pourrait écrire
 
 @example
 musiqueEnSiBemol = @{ e4 @dots{} @}
@@ -773,7 +773,7 @@ musiqueEnSiBemol = @{ e4 @dots{} @}
 @end example
 
 @noindent
-Pour plus d'information à ce sujet, consultez 
+Pour plus d'information à ce sujet, consultez
 @ref{Instruments transpositeurs}.
 
 
@@ -814,15 +814,15 @@ musique apparaissant dans un @code{@bs{}transpose}.
 @translationof Displaying pitches
 
 Nous allons voir dans cette partie comment influer sur la gravure des
-hauteurs. 
+hauteurs.
 
 @menu
-* Clefs::                        
-* Armure::               
-* Marques d'octaviation::             
-* Instruments transpositeurs::   
-* Altérations accidentelles automatiques::       
-* Ambitus::                     
+* Clefs::
+* Armure::
+* Marques d'octaviation::
+* Instruments transpositeurs::
+* Altérations accidentelles automatiques::
+* Ambitus::
 @end menu
 
 @node Clefs
@@ -956,7 +956,7 @@ matériau brut@tie{}; l'armure et la clef ne feront que déterminer
 comment ce matériau sera retranscrit.  Un simple@tie{}@code{c} signifie
 tout bonnement @w{@qq{do naturel}} quelles que soient l'armure et la
 clef en question.  Pour plus d'information, reportez-vous au chapitre
-@rlearning{Altérations et armure}.} 
+@rlearning{Altérations et armure}.}
 
 L'armure indique la tonalité dans laquelle la pièce doit être jouée.
 Elle comprend un ensemble d'altérations (dièses ou bémols) à la clef,
@@ -1112,7 +1112,7 @@ transpositeurs, certaines parties peuvent être dans une autre tonalité
 que la @notation{tonalité de concert}.  Il faudra en pareil cas indiquer
 la tonalité spécifique de ces @notation{instruments transpositeurs},
 sous peine de fichier MIDI erroné et de citations incorrectes.  Pour
-plus de détails sur les citations, consultez le chapitre 
+plus de détails sur les citations, consultez le chapitre
 @ref{Citation d'autres voix}.
 
 @example
@@ -1207,7 +1207,7 @@ Morceaux choisis :
 @funindex default
 
 
-LilyPond dispose d'une fonction chargée de regrouper les règles suivant 
+LilyPond dispose d'une fonction chargée de regrouper les règles suivant
 lesquelles s'impriment les altérations.  Elle s'invoque de la manière
 suivante@tie{}:
 
@@ -1309,7 +1309,7 @@ dernières lignes de cet exemple nous intéressent.
 
 @funindex default
 
-C'est la règle d'impression par défaut, qui se rapporte à l'usage 
+C'est la règle d'impression par défaut, qui se rapporte à l'usage
 en vigueur au XVIIIe siècle@tie{}: les altérations accidentelles sont
 valables tout une mesure, et uniquement à leur propre octave.  C'est la
 raison pour laquelle il n'y a pas de bécarre avant le @notation{si} de
@@ -1385,7 +1385,7 @@ est dièse ou naturel.  La règle @code{voice} n'est donc à envisager que
 dans le cas de voix devant être lues par des musiciens différents.  S'il
 s'agit d'un @qq{conducteur}, ou d'une portée destinée à un seul
 musicien, il vaut mieux utiliser @code{modern} ou
-@code{modern-cautionary}.  
+@code{modern-cautionary}.
 
 @lilypond[quote]
 musicA = {
@@ -1446,7 +1446,7 @@ accidentelles sont imprimées comme avec le style @code{default}, mais
 lorsqu'une note non-altérée apparaît à une octave différente, ou bien
 dans la mesure suivante, des bécarres de précaution sont ajoutés.  Dans
 l'exemple suivant, notez ainsi les deux bécarres dans la deuxième mesure
-de la main droite. 
+de la main droite.
 
 @lilypond[quote]
 musicA = {
@@ -1508,7 +1508,7 @@ Cette règle est équivalente à @code{modern}, mais les bécarres de
 précaution (absents dans la règle @code{default}) sont imprimés de façon
 particulière@tie{}: soit plus petit, soit (par défaut) entre parenthèses
 -- il est possible de le définir au moyen de la propriété
-@code{cautionary-style} de l'objet @code{AccidentalSuggestion}. 
+@code{cautionary-style} de l'objet @code{AccidentalSuggestion}.
 
 @lilypond[quote]
 musicA = {
@@ -1635,7 +1635,7 @@ Cette régle est similaire à la précédente, mais les altérations de
 précaution (celles que n'aurait pas ajoutées @code{voice}), sont
 imprimées de façon particulière.  On retrouve donc toutes les
 altérations qu'imprimerait @code{default}, mais certaines sont
-considérées comme étant @qq{de précaution}. 
+considérées comme étant @qq{de précaution}.
 
 @lilypond[quote]
 musicA = {
@@ -1698,7 +1698,7 @@ elle s'en distingue en ce que les altérations tiennent compte des autre
 portées du contexte @code{GrandStaff} ou @code{PianoStaff}.
 
 Cette règle s'applique par défaut dans un @code{GrandStaff} et dans un
-@code{PianoStaff}. 
+@code{PianoStaff}.
 
 @lilypond[quote]
 musicA = {
@@ -1755,7 +1755,7 @@ musicB = {
 @funindex piano-cautionary
 
 Identique au style @code{piano}, mais les altérations de précaution sont
-imprimées différemment. 
+imprimées différemment.
 
 @lilypond[quote]
 musicA = {
@@ -1870,7 +1870,7 @@ musicB = {
 @funindex neo-modern-cautionary
 
 Identique au style @code{neo-modern}, mais les altérations de précaution
-sont imprimées différemment. 
+sont imprimées différemment.
 
 @lilypond[quote]
 musicA = {
@@ -2167,7 +2167,7 @@ musicB = {
 
 @funindex no-reset
 
-C'est la même règle que @code{default}, mais l'effet des altérations 
+C'est la même règle que @code{default}, mais l'effet des altérations
 accidentelles ne cesse jamais, même dans les mesures suivantes.
 
 @lilypond[quote]
@@ -2288,14 +2288,14 @@ musicB = {
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
 
-Référence des propriétés internes : 
-@rinternals{Accidental}, 
+Référence des propriétés internes :
+@rinternals{Accidental},
 @rinternals{Accidental_engraver},
 @rinternals{GrandStaff} et
 @rinternals{PianoStaff},
 @rinternals{Staff},
 @rinternals{AccidentalSuggestion},
-@rinternals{AccidentalPlacement}. 
+@rinternals{AccidentalPlacement}.
 @rinternals{accidental-suggestion-interface}.
 
 
@@ -2376,7 +2376,7 @@ premier coup d'œil s'ils sont en mesure de tenir la partie en question.
 
 Pour exprimer l'@emph{ambitus} d'une pièce, on indique avant la clef
 deux notes représentant la hauteur la plus basse et la plus haute.  Les
-éventuelles altérations accidentelles seront automatiquement ajoutées. 
+éventuelles altérations accidentelles seront automatiquement ajoutées.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -2412,13 +2412,13 @@ Glossaire musicologique :
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
 
-Référence des propriétés internes : 
+Référence des propriétés internes :
 @rinternals{Ambitus_engraver},
 @rinternals{Voice},
 @rinternals{Staff},
 @rinternals{Ambitus},
 @rinternals{AmbitusAccidental},
-@rinternals{AmbitusLine}, 
+@rinternals{AmbitusLine},
 @rinternals{AmbitusNoteHead},
 @rinternals{ambitus-interface}.
 
@@ -2434,13 +2434,13 @@ présents sur une même portée.
 @translationof Note heads
 
 Nous allons voir dans ce chapitre comment modifier l'aspect des têtes de
-note. 
+note.
 
 @menu
-* Têtes de note spécifiques::          
-* Têtes de note avec nom de note::    
-* Têtes de note à forme variable::            
-* Improvisation::               
+* Têtes de note spécifiques::
+* Têtes de note avec nom de note::
+* Têtes de note à forme variable::
+* Improvisation::
 @end menu
 
 @node Têtes de note spécifiques
@@ -2526,7 +2526,7 @@ Manuel de notation :
 @ref{Notes en accords},
 @ref{Indication des harmoniques et notes étouffées}.
 
-Référence des propriétés internes : 
+Référence des propriétés internes :
 @rinternals{note-event},
 @rinternals{Note_heads_engraver},
 @rinternals{Ledger_line_engraver},
@@ -2694,7 +2694,7 @@ a2 b c d \break
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
-Pour une liste exhaustive des styles de tête de note, consultez 
+Pour une liste exhaustive des styles de tête de note, consultez
 @ref{Styles de tête de note}.
 
 

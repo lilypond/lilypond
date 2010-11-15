@@ -253,12 +253,12 @@ angegeben, Tondauern nur wenn nötig.
 
 MIDI-Dateien können auch direkt von einem digitalen Keyboard
 aufgenommen und dann in eine @file{.ly}-Datei konvertiert werden.
-Allerdings sind Musikinterpretationen von Menschen (aus gutem Grund!) 
-rhythmisch nicht exakt genug um die Konvertierung von MIDI nach LY 
+Allerdings sind Musikinterpretationen von Menschen (aus gutem Grund!)
+rhythmisch nicht exakt genug um die Konvertierung von MIDI nach LY
 trivial zu gestalten. Wenn @command{midi2ly} mit Quantisierung
-(@code{-s} und @code{-d} Kommandozeilenoptionen) aufgerufen wird, 
-versucht es diese Unschärfen im Zeitablauf zu korrigieren, ist 
-allerdings nicht sonderlich gut darin. Daher können wir diese Technik 
+(@code{-s} und @code{-d} Kommandozeilenoptionen) aufgerufen wird,
+versucht es diese Unschärfen im Zeitablauf zu korrigieren, ist
+allerdings nicht sonderlich gut darin. Daher können wir diese Technik
 leider nicht für die Konvertierung von MIDI-Aufnahmen empfehlen.
 
 
@@ -268,10 +268,10 @@ midi2ly [@var{Optionen}]@dots{} @var{MIDI-Datei}
 @end example
 
 Unter @q{Kommandozeile} verstehen wir dabei die Kommandozeile des
-jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe 
+jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe
 @ref{Von anderen Formaten konvertieren}.
 
-Die folgenden Kommandozeilenoptionen werden von @command{midi2ly} 
+Die folgenden Kommandozeilenoptionen werden von @command{midi2ly}
 unterstützt:
 
 @table @code
@@ -318,9 +318,9 @@ Interpretiert alle Texte als Liedtexte.
 @knownissues
 
 Überlappende Noten in einem Arpeggio werden nicht korrekt dargestellt.
-Nur die erste Note wird eingelesen und konvertiert, die restlichen 
+Nur die erste Note wird eingelesen und konvertiert, die restlichen
 werden ignoriert. Als Abhilfe können Sie alle Noten auf dieselbe
-Tonlänge setzen und Phrasierungszeichen oder Pedalindikatoren 
+Tonlänge setzen und Phrasierungszeichen oder Pedalindikatoren
 hinzufügen.
 
 
@@ -334,7 +334,7 @@ hinzufügen.
 zur Darstellung von Musiknotation.
 
 @command{musicxml2ly} wandelt eine MusicXML-Datei nach LilyPond um,
-wobei sowohl die Noten, Artikulationszeichen, Struktur der Partitur, 
+wobei sowohl die Noten, Artikulationszeichen, Struktur der Partitur,
 Liedtexte etc. einer MusicXML-Datei (im @q{part-wise}-Format) in eine
 .ly-Datei um.
 
@@ -344,7 +344,7 @@ musicxml2ly [@var{Optionen}]@dots{} @var{XML-Datei}
 @end example
 
 Unter @q{Kommandozeile} verstehen wir dabei die Kommandozeile des
-jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe 
+jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe
 @ref{Von anderen Formaten konvertieren}.
 
 Wenn als Dateiname @file{-} angegeben wird, liest @command{musicxml2ly}
@@ -373,11 +373,11 @@ Konvertiert keine Richtungsangaben (@code{^}, @code{_} oder @code{-})
 von Artikulations- und Lautstärkebezeichnungen.
 
 @item --no-beaming
-Konvertiert keine Informationen über die Balkensetzung aus der 
+Konvertiert keine Informationen über die Balkensetzung aus der
 MusicXML-Datei. Stattdessen wird dies LilyPond überlassen.
 
 @item -o,--output=@var{Dateiname}
-Die Ausgabe wird in die Datei @var{Dateiname}@file{.ly} geschrieben. Wird 
+Die Ausgabe wird in die Datei @var{Dateiname}@file{.ly} geschrieben. Wird
 als @var{Dateiname} nur @file{-} angegeben, wird das Ergebnis der Konvertierung
 an der Kommandozeile ausgegeben. Wird diese Option nicht angegeben, so
 erfolgt die Ausgabe in die Datei @var{XML-Datei}@file{.ly}.
@@ -407,14 +407,14 @@ LilyPond-Versionen entfernt werden.}
 
 @cindex ABC
 
-ABC ist ein relativ einfaches ASCII-basierendes Musikformat und ist 
+ABC ist ein relativ einfaches ASCII-basierendes Musikformat und ist
 dokumentiert auf der ABC-Homepage:
 
 @quotation
 @uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/learn@/.html}.
 @end quotation
 
-@command{abc2ly} konvertiert ABC-Dateien nach LilyPond und wird 
+@command{abc2ly} konvertiert ABC-Dateien nach LilyPond und wird
 von der Kommandozeile folgendermaßen aufgerufen:
 
 @example
@@ -437,15 +437,15 @@ Strenge Auslegung einer erfolgreichen Konvertierung.
 Gibt die Versionsnummer aus.
 @end table
 
-Es existiert außerdem die Möglichkeit, LilyPond-Befehle für die 
+Es existiert außerdem die Möglichkeit, LilyPond-Befehle für die
 Konvertierung mit @command{abc2ly} gleich in der ABC-Datei anzugeben.
-Wenn sich etwa in der ABC-Datei das Kommentar 
+Wenn sich etwa in der ABC-Datei das Kommentar
 
 @example
 %%LY voices \set autoBeaming = ##f
 @end example
 
-@noindent 
+@noindent
 befindet, so wird der Text nach dem Schlüsselwort @q{voices} direkt
 in die aktuelle Stimme in der LilyPond-Datei eingefügt.
 
@@ -456,7 +456,7 @@ Ebenso bewirkt
 @end example
 
 @noindent
-dass alles nach dem @q{slyrics} Schlüsselwort an der aktuellen Stelle 
+dass alles nach dem @q{slyrics} Schlüsselwort an der aktuellen Stelle
 im Liedtext eingefügt wird.  Gleichermaßen wird mit
 
 @example
@@ -470,13 +470,13 @@ Gesangstextzeile eingefügt.
 
 @knownissues
 
-Der ABC-Standard ist eigentlich kein wirklich vollständiger Standard. 
+Der ABC-Standard ist eigentlich kein wirklich vollständiger Standard.
 Für komplexere Notation wie etwa Polyphonie existieren verschiedene
 Konventionen.
 
 Mehrere Lieder in einer Datei können nicht konvertiert werden.
 
-ABC synchronisiert den Liedtext am Anfang jeder Zeile mit den Noten, 
+ABC synchronisiert den Liedtext am Anfang jeder Zeile mit den Noten,
 @command{abc2ly} macht dies nicht.
 
 @command{abc2ly} ignoriert die Balkensetzung in der ABC-Datei.
@@ -494,7 +494,7 @@ LilyPond-Versionen entfernt werden.}
 @cindex Finale
 @cindex Coda Technology
 
-ETF (Enigma Transport Format) ist ein Dateiformat, das Coda 
+ETF (Enigma Transport Format) ist ein Dateiformat, das Coda
 Music Technology in älteren Versionen des Programms Finale benutzt hat.
 
 @command{etf2ly} konvertiert Teile einer ETF-Datei nach LilyPond
@@ -505,7 +505,7 @@ etf2ly [@var{Optionen}]@dots{} @var{ETF-Datei}
 @end example
 
 Unter @q{Kommandozeile} verstehen wir dabei die Kommandozeile des
-jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe 
+jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe
 @ref{Von anderen Formaten konvertieren}.
 
 Die folgenden Kommandozeilenoptionen werden von @command{etf2ly}
@@ -544,7 +544,7 @@ sich unter @rweb{Leichteres Editieren}.
 @section LilyPond-Ausgabe in anderen Programmen
 @translationof LilyPond output in other programs
 
-Dieser Abschnitt stellt Methoden vor, wie Text und Musik auf andere 
+Dieser Abschnitt stellt Methoden vor, wie Text und Musik auf andere
 Weise kombiniert werden können als dies durch @command{lilypond-book}
 automatisiert geschieht.
 
@@ -559,8 +559,8 @@ automatisiert geschieht.
 @subsection Viele Zitate aus einer langen Partitur
 @translationof Many quotes from a large score
 
-Wenn aus einer großen Partitur viele kleine Fragmente eingefügt 
-werden sollen, kann dazu das @q{clip systems} Feature benutzt werden. 
+Wenn aus einer großen Partitur viele kleine Fragmente eingefügt
+werden sollen, kann dazu das @q{clip systems} Feature benutzt werden.
 Siehe @ruser{Notationsfragmente extrahieren}.
 
 
@@ -580,14 +580,14 @@ Musik im LilyPond-Format kann in OpenOffice.org eingefügt werden mittels
 
 Um die Ausgabe von LilyPond in anderen Programmen einzufügen,
 sollte @code{lilypond} anstelle von @code{lilypond-book}
-benutzt werden. Jedes Beispiel muss 
-getrennt manuell erzeugt und ins Dokument eingefügt werden; 
-für letzteres schlagen Sie bitte im Handbuch Ihrer 
-Textverarbeitungs-Software nach. Die meisten Programme 
-unterstützen das Einfügen von Grafiken im @file{PNG}-, @file{EPS}- 
+benutzt werden. Jedes Beispiel muss
+getrennt manuell erzeugt und ins Dokument eingefügt werden;
+für letzteres schlagen Sie bitte im Handbuch Ihrer
+Textverarbeitungs-Software nach. Die meisten Programme
+unterstützen das Einfügen von Grafiken im @file{PNG}-, @file{EPS}-
 oder @file{PDF}-Format.
 
-Um den leeren Rand um die Notenzeilen zu verringern, können folgende 
+Um den leeren Rand um die Notenzeilen zu verringern, können folgende
 Einstellungen benutzt werden:
 
 @example

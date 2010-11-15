@@ -50,7 +50,7 @@ c d e f g a b
 @end lilypond
 
 @item @code{fis bes}
-@tab altérations 
+@tab altérations
 @tab
 @lilypond[relative=1,notime]
 fis bes
@@ -170,7 +170,7 @@ a8-[ b-]
    } >>
 @end lilypond
 
-  
+
 @item @code{c-> c-.}
 @tab indications d'articulation
 @tab
@@ -278,7 +278,7 @@ twinkle
 @end lilypond
 
 @item @code{\context ChordNames}
-@tab imprimer les chiffrages d'accords 
+@tab imprimer les chiffrages d'accords
 @tab
 @lilypond[relative=2]
 \chords { c:dim f:maj7 }

@@ -706,7 +706,7 @@ zu groß gewählt wird.  Die Option ist zur Zeit nur von dem
 
 Überlistet die Seitenumbruchfunktion, indem ihr ein anderer Wert
 für @code{system-system-spacing} mitgeteilt wird, als in Wirklichkeit
-eingestellt ist.  Wenn beispielsweise 
+eingestellt ist.  Wenn beispielsweise
 @code{page-breaking-system-system-spacing #'padding} auf einen
 deutlich größeren Wert als @code{system-system-spacing #'padding} gesetzt
 wird, setzt die Seitenumbruchsfunktion weniger Systeme auf eine
@@ -1271,7 +1271,7 @@ Ende jeder zweiten Seite befindet, damit der Musiker es leichter hat,
 die Seite umzublättern ohne das Spielen zu Unterbrechen.  Die
 @code{ly:page-turn-breaking}-Funktion versucht, Seitenumbrüche zu
 finden, die das Stauchen oder Strecken von Zeilen minimieren und
-gleichzeitig auch noch Seitenumbrüchen an angegebenen Stellen 
+gleichzeitig auch noch Seitenumbrüchen an angegebenen Stellen
 den Vorrang zu geben.
 
 Die Funktion wird in zwei Schritten eingesetzt.  Zunächst muss sie
@@ -1479,7 +1479,7 @@ Mit dieser Herangehensweise kann der Code insbesondere
 dann klarer notiert werden, wenn man Einstellungen der
 @code{line-break-system-details}-Eigenschaft oder
 anderer Eigenschaften von
-@code{NonMusicalPaperColumnGrob} vornimmt (hierzu auch 
+@code{NonMusicalPaperColumnGrob} vornimmt (hierzu auch
 @ref{Vertikale Abstände}).
 
 @lilypond[quote,verbatim]
@@ -1532,7 +1532,7 @@ Schnipsel:
 Vertikale Abstände werden durch drei Eigenschaften
 bestimmt:  wieviel Platz frei ist (etwa Papiergröße
 und Ränder), wieviel Platz zwischen Systemgruppen
-(engl. system) gesetzt werden soll und wieviel 
+(engl. system) gesetzt werden soll und wieviel
 Platz zwischen Notensystemen (engl. staff, Pl. staves)
 innerhalb von Gruppen gesetzt wird.
 
@@ -2960,8 +2960,8 @@ Neben Rändern gibt es einige weitere Optionen, Platz zu sparen:
 
 @itemize
 @item
-LilyPond kann die Systeme so dicht wie möglich platzieren (damit 
-so viele Systeme wie möglich auf eine Seite passen), aber sie 
+LilyPond kann die Systeme so dicht wie möglich platzieren (damit
+so viele Systeme wie möglich auf eine Seite passen), aber sie
 dann so anordnen, dass kein weißer Rand unten auf der Seite entsteht.
 
 @example
@@ -2981,8 +2981,8 @@ auf eine Seite gesetzt werden.  Das liegt daran, dass ein
 Schritt im Notensatz ausgelassen wird, der die Seitenverteilung
 nur grob einschätzt, sodass eine bessere Seitenverteilung
 entsteht.  Auch wenn man eine Verringerung der Anzahl an Systemen
-erzwingt, kann oft eine Seite eingespart werden.  Wenn LilyPond 
-die Musik etwa auf 11 Systeme verteilt, kann man die Benutzung von 
+erzwingt, kann oft eine Seite eingespart werden.  Wenn LilyPond
+die Musik etwa auf 11 Systeme verteilt, kann man die Benutzung von
 nur 10 Systemen erzwingen.
 
 @example
@@ -2992,13 +2992,13 @@ nur 10 Systemen erzwingen.
 @end example
 
 @item
-Vermeidung von Objekten, die den vertikalen Abstand von Systemen 
-vergrößern, hilft oft. Die Verwendung von Klammern bei Wiederholungen 
-etwa braucht mehr Platz. Wenn die Noten innerhalb der Klammern  auf 
-zwei Systeme verteilt sind, brauchen sie mehr Platz, als wenn sie 
+Vermeidung von Objekten, die den vertikalen Abstand von Systemen
+vergrößern, hilft oft. Die Verwendung von Klammern bei Wiederholungen
+etwa braucht mehr Platz. Wenn die Noten innerhalb der Klammern  auf
+zwei Systeme verteilt sind, brauchen sie mehr Platz, als wenn sie
 nur auf einer Zeile gedruckt werden.
 
-Ein anderes Beispiel ist es, Dynamik-Zeichen, die besonders 
+Ein anderes Beispiel ist es, Dynamik-Zeichen, die besonders
 weit @qq{hervorstehen}, zu verschieben.
 
 @lilypond[verbatim,quote,relative=1]
@@ -3007,7 +3007,7 @@ e4 c g-\tweak #'X-offset #-2.7 -\tweak #'Y-offset #2.5 \f c
 @end lilypond
 
 @item
-Die horizontalen Abstände können mit der 
+Die horizontalen Abstände können mit der
 @code{SpacingSpanner}-Eigenschaft verändert werden.  Siehe
 @ref{Horizontale Abstände verändern} für Einzelheiten.  Dieses
 Beispiel zeigt die normalen Abstände:
