@@ -77,7 +77,7 @@ als im Notationsmodus.
 
 Akkordmodus und Notenmodus können gemischt verwendet werden:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote,ragged-right,relative=1]
 <c e g>2 <g b d>
 \chordmode { c2 f }
 <c e g>2 <g' b d>
