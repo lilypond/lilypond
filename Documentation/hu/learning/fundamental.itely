@@ -10,7 +10,7 @@
 
 
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c \version "2.12.0"
+@c \version "2.13.36"
 @node Alapfogalmak
 @chapter Alapfogalmak
 @translationof Fundamental concepts
@@ -209,7 +209,7 @@ de egy @code{\score} blokkon kívüli @code{\layout} blokk a @code{\score}
 blokkot tartalmazó (akár explicit, akár implicit) @code{\book} blokkon belüli
 minden @code{\score} blokkra érvényes.
 
-A részletek a @ruser{Multiple scores in a book} c. részben olvashatók. 
+A részletek a @ruser{Multiple scores in a book} c. részben olvashatók.
 
 @cindex változók
 
@@ -311,7 +311,7 @@ feleleveníteni, az @ref{Egyszerű dalok kottázása} c. részben olvashatunk r�
 
 Most megvan a teljes struktúra. Az énekszólam egy @code{Voice} kontextust
 tartalmaz a hangoknak, és egy strófányi dalszöveget. A zongoraszólam pedig
-a jobb- és balkéz kottasorait tartalmazza. 
+a jobb- és balkéz kottasorait tartalmazza.
 
 Most elkezdhetjük kitölteni a hangokat. Elkezdhetnénk közvetlenül a Voice
 kontextus belsejébe beleírni, hogy:
@@ -478,7 +478,7 @@ lehetséges:
 a triolák és előkék határain. A következő példában az 1. sorban egy gerenda,
 a 2. sorban egy kötőív nyúl bele egy triolába, a 3. és 4. sorban pedig
 mindezek mellett még egy kötőív is található két triola között, valamint egy
-frazeálóív, amely túlnyúlik a triolán. 
+frazeálóív, amely túlnyúlik a triolán.
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {

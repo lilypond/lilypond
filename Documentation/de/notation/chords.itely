@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -64,7 +64,7 @@ orientiert.  Er bietet sich an, wenn man es gewohnt ist, Akkordsymbole
 zur Beschreibung von Akkorden zu benutzen.  Mehr Information zu
 unterschiedlichen Eingabemethoden findet sich in @ref{Eingabe-Modi}.
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chordmode { c1 g a g c }
 @end lilypond
 
@@ -139,7 +139,7 @@ explizit aufgerufen werden:
 Ein Dreiklang wird
 mit seinem Grundton mit einer möglichen Dauer dahinter notiert:
 
-@lilypond[verbatim,quote,relative=1,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 \chordmode { c2 f4 g }
 @end lilypond
 
@@ -147,13 +147,13 @@ mit seinem Grundton mit einer möglichen Dauer dahinter notiert:
 Moll- übermäßige und verminderte Dreiklänge werden notiert, indem
 @code{:} und ein Modifikator hinter der Dauer angegeben wird:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chordmode { c2:m f4:aug g:dim }
 @end lilypond
 
 Septakkorde können erstellt werden:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:7 c:m7 c:maj7 c:dim7 c:aug7 }
 @end lilypond
 
@@ -287,7 +287,7 @@ zur höchst möglichen Terz unter dem Bereich gestapelt, und der
 Endton des Bereichs wird hinzugefügt.  Der größtmögliche Wert ist
 13.  Jeder größere Werte wird als 13 interpretiert.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1:2 c:3 c:4 c:5
   c1:6 c:7 c:8 c:9
@@ -303,7 +303,7 @@ Da eine unveränderte 11 nicht gut klingt, wenn sie mit einer
 unveränderten 13 zusammenklingt, wird die 11 von einem @code{:13}-Akkord
 entfernt (es sei denn sie wird explizit verlangt).
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1:13 c:13.11 c:m13
 }
@@ -322,7 +322,7 @@ Punkten voneinander getrennt.  Die normale Septime, die zu
 einem Akkord hinzugefügt wird, ist die kleine Septime, nicht
 die große.
 
-@lilypond[quote,verbatim,fragment,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c1:5.6 c:3.7.8 c:3.6.13
 }
@@ -331,7 +331,7 @@ die große.
 @noindent
 Hinzugefügte Stufen können beliebig groß sein:
 
-@lilypond[quote,verbatim,fragment,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c4:5.15 c:5.20 c:5.25 c:5.30
 }
@@ -345,7 +345,7 @@ oder verkleinert werden.  Um eine Stufe zu verändert, die automatisch
 in den Akkord aufgenommen wurde, kann sie in veränderter Form
 nach dem Bereich hinzugefügt werden.
 
-@lilypond[quote,verbatim,fragment,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c1:7+ c:5+.3- c:3-.5-.7-
 }
@@ -362,7 +362,7 @@ nicht erscheinen soll.  Sie müssen nach den zu addierenden
 Tönen notiert werden.  Die einzelnen zu entfernenden Töne werden
 mit Punkten getrennt.
 
-@lilypond[quote,verbatim,fragment,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7
 }
@@ -376,7 +376,7 @@ entfernt.  Mit einer anschließenden @code{2} wird die zweite, mit
 einer @code{4} die vierte Stufe hinzugefügt.  @code{sus} entspricht
 @code{^3} und @code{sus4} ist gleich @code{.4^3}.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1:sus c:sus2 c:sus4 c:5.4^3
 }
@@ -391,7 +391,7 @@ Eine Umkehrung (ein Ton des Akkordes wird unter den Grundton gesetzt)
 sowie auch zusätzliche Bassnoten können mit dem Schrägstrich (@code{/}) markiert
 werden:
 
-@lilypond[quote,ragged-right,fragment,verbatim, relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1 c/g c/f
 }
@@ -403,7 +403,7 @@ Eine Bassnote, die zum Akkord hinzugehört, kann hinzugefügt werden,
 anstatt dass sie aus dem Akkord entnommen wird, indem noch ein
 Plus zwischen den Schrägstrich und die Tonhöhe gesetzt wird:
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1 c/g c/+g
 }
@@ -427,17 +427,15 @@ Im folgenden Beispiel wird ein erweiterter Akkord erstellt,
 weil @code{5+} zuletzt gelesen wird.
 
 @cindex Cluster
-@lilypond[quote,ragged-right,verbatim,fragment]
-\chordmode {
-  c:5.5-.5+
-}
+@lilypond[quote,ragged-right,verbatim]
+\chordmode { c1:5.5-.5+ }
 @end lilypond
 
 Nur die zweite Umkehrung kann erstellt werden, indem eine
 Bassnote hinzugefügt wird.  Die erste Umkehrung erfordert, dass
 der Grundton des Akkordes geändert wird.
 
-@lilypond[quote,ragged-right,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c'1: c':/g e:6-3-^5 e:m6-^5
 }
@@ -470,7 +468,7 @@ einem Notensystem auch mit einem Akkordsymbol gesetzt werden.
 Akkordsymbole anstelle der Noten werde im @code{ChordNames}-Kontext
 notiert.
 
-@lilypond[verbatim,quote,relative=1,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
   \chordmode {
     c2 f4. g8
@@ -529,13 +527,13 @@ mit der @code{noChordSymbol}-Beschriftung darstellt.
 @code{\chords @{ ... @}} ist eine Kurznotation für die Bezeichnung
 @code{\new ChordNames @{ \chordmode @{ ... @} @}}.
 
-@lilypond[verbatim,quote,ragged-right, relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chords {
   c2 f4.:m g8:maj7
 }
 @end lilypond
 
-@lilypond[verbatim,quote,ragged-right, relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
   \chordmode {
     c2 f4.:m g8:maj7
@@ -625,7 +623,7 @@ Kleinbuchstaben an, ohne die Endung @var{m}.  Dieses Verhalten kann
 erreicht werden, indem man die @code{chordNameLowercaseMinor}-Eigenschaft
 setzt:
 
-@lilypond[verbatim,quote,ragged-right, relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chords {
   \set chordNameLowercaseMinor = ##t
   c2 d:m e:m f
@@ -803,7 +801,7 @@ Generalbassnotation kann dargestellt werden.
 LilyPond stellt Unterstützung für Generalbassnotation, auch als
 Basso Continuo bezeichnet, zur Verfügung.
 
-@lilypond[quote,ragged-right,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim]
 <<
   \new Voice { \clef bass dis4 c d ais g fis}
   \new FiguredBass {
@@ -853,7 +851,7 @@ Im Zahlenmodus wird eine Gruppe von Bassziffern mit den Zeichen
 @code{<} und @code{>} begrenzt. Die Dauer wird nach dem @code{>}-Zeichen
 eingegeben.
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \new FiguredBass {
   \figuremode {
     <6 4>2
@@ -864,7 +862,7 @@ eingegeben.
 Versetzungszeichen (inklusive Auflösungszeichen) können hinzugefügt
 werden:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <7! 6+ 4-> <5++> <3-->
 }
@@ -872,7 +870,7 @@ werden:
 
 Übermäßige und verminderte Stufen können dargestellt werden:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <6\+ 5/> <7/>
 }
@@ -881,7 +879,7 @@ werden:
 Ein Schrägstrich von links nach rechts (üblicherweise für erhöhte
 Sexten benutzt) kann erstellt werden:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <6> <6\\>
 }
@@ -890,7 +888,7 @@ Sexten benutzt) kann erstellt werden:
 Vertikaler Platz und Klammern können zu den Zahlen hinzugefügt
 werden:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <[12 _!] 8 [6  4]>
 }
@@ -898,7 +896,7 @@ werden:
 
 Beliebiger Text kann als Zahl notiert werden:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <\markup { \tiny \number 6 \super (1) } 5>
 }
@@ -906,7 +904,7 @@ Beliebiger Text kann als Zahl notiert werden:
 
 Es ist auch möglich, Fortsetzungslinien für wiederholte Ziffern zu benutzen.
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 <<
   {
     \clef bass
@@ -925,7 +923,7 @@ Es ist auch möglich, Fortsetzungslinien für wiederholte Ziffern zu benutzen.
 @noindent
 In diesem Fall werden wiederholte Ziffern immer durch eine Linie ersetzt, es sei denn, die Linie wird explizit beendet.
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 <<
   \figures {
     \bassFigureExtendersOn
@@ -1039,7 +1037,7 @@ Wenn die Ziffern im @code{FiguredBass}-Kontext dargestellt werden,
 ist die vertikale Position der Ziffern unabhängig von den Noten
 des parallelen Systems.
 
-@lilypond[verbatim,ragged-right,fragment,quote]
+@lilypond[verbatim,ragged-right,quote]
 <<
   \relative c'' {
     c4 c'8 r8 c,4 c'
@@ -1061,7 +1059,7 @@ Bassziffern können auch direkt einem Notensystemkontext (@code{Staff})
 hinzugefügt werden. In diesem Fall wird ihre vertikale Position automatisch
 bestimmt.
 
-@lilypond[verbatim,ragged-right,fragment,quote]
+@lilypond[verbatim,ragged-right,quote]
 <<
   \new Staff = myStaff
   \figuremode {
@@ -1080,7 +1078,7 @@ bestimmt.
 Wenn Generalbass zu einem vorhandenen System hinzugefügt wird, ist
 es möglich, die Ziffern über oder unter dem System anzuzeigen:
 
-@lilypond[verbatim,ragged-right,fragment,quote]
+@lilypond[verbatim,ragged-right,quote]
 <<
   \new Staff = myStaff
   \figuremode {
@@ -1114,7 +1112,7 @@ Um sicherzugehen, dass die Fortsetzungslinien funktionieren, sollte
 der gleiche Rhythmus für die Bassfiguren und die eigentlichen
 Noten der Bassstimme benutzt werden.
 
-@lilypond[verbatim,ragged-right,fragment,quote]
+@lilypond[verbatim,ragged-right,quote]
 <<
   {
     \clef bass
@@ -1146,9 +1144,9 @@ folgende Bezifferungen mit der selben Zahl in einer anderen
 Position dazu führen, dass sich die Reihenfolge der Zahlen
 umkehrt.
 
-@lilypond[verbatim,ragged-right,fragment,quote,relative=1]
+@lilypond[verbatim,ragged-right,quote,relative=1]
 <<
- { fis4 g g, e' }
+  { fis4 g g, e' }
   \figures {
     \bassFigureExtendersOn
     <6 5>4 <5\! 4> < 5 _!> <6>
@@ -1160,9 +1158,9 @@ Um dieses Problem zu umgehen, kann die Fortsetzungslinie nach der
 Bezifferung, mit der die Linie beginnen soll, angeschaltet und
 am Ende der Linie wieder ausgeschaltet werden.
 
-@lilypond[verbatim,ragged-right,fragment,quote,relative=1]
+@lilypond[verbatim,ragged-right,quote,relative=1]
 <<
- { fis4 g g, e' }
+  { fis4 g g, e' }
   \figures {
     <6 5>4 <5 4>
     \bassFigureExtendersOn

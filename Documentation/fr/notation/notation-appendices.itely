@@ -34,7 +34,7 @@
 * Fonctions musicales::
 * Types de prédicats prédéfinis::
 * Fonctions Scheme::
-@end menu 
+@end menu
 
 
 @node Table des noms d'accord
@@ -411,7 +411,7 @@ La liste suivante répertorie les tablatures prédéfinies pour le ukulele.
 
 @node Instruments MIDI
 @appendixsec Instruments MIDI
-@translationof MIDI instruments 
+@translationof MIDI instruments
 
 La liste suivante répertorie les différentes dénominations que vous
 pouvez affecter à la propriété @code{midiInstrument}.  L'ordre dans
@@ -495,7 +495,7 @@ espace auquel chaque élément prend un initiale capitalisée (p.ex.
 suite de mots, auquel cas les initiales ne sont pas capitalisées
 (p.ex. @code{light@tie{}slate@tie{}blue}).
 
-Le @emph{gris} accepte aussi bien l'orthographe @qq{grey} que 
+Le @emph{gris} accepte aussi bien l'orthographe @qq{grey} que
 @qq{gray} (p.ex. @code{DarkSlateGray}).
 
 Certains noms peuvent prendre un suffixe numérique, comme
@@ -870,7 +870,7 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @node Styles de tête de note
 @appendixsec Styles de tête de note
-@translationof Note head styles 
+@translationof Note head styles
 
 Voici les différents styles de tête de note disponibles.
 

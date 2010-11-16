@@ -70,7 +70,7 @@ Henle Nr. 666, @copyright{}2000:
 Die Noten sind identisch und stammen aus der ersten Solosuite für
 Violoncello von J. S. Bach, aber ihre Erscheinung ist sehr
 unterschiedlich, insbesondere wenn man sie ausdruckt und aus einigem
-Abstand betrachtet. 
+Abstand betrachtet.
 @ifnottex
 (Die PDF-Version dieses Handbuchs hat hochauflösende Abbildungen,
 die sich zum Drucken eignen.)
@@ -148,7 +148,7 @@ Henle no. 666, @copyright{}2000:
 @cindex Gravur, Notensatz
 @cindex Plattendruck, Noten
 
-Die Kunst des Notensatzes wird auch als Notenstich bezeichnet. Dieser 
+Die Kunst des Notensatzes wird auch als Notenstich bezeichnet. Dieser
 Begriff stammt aus dem traditionellen Notendruck@footnote{Frühe
 europäische Drucker versuchten sich an verschiedenen Techniken
 wie handgeschnitzten Holzblöcken, beweglichen Lettern und
@@ -160,12 +160,12 @@ Qualitätsabstriche zu erstellen.  So wurden der Notenstich
 mit der Hand bis ins 20. Jahrhundert zum Standard für alle
 gedruckten Noten, ausgenommen einige Hymnale und Liederbücher, wo
 der Letterdruck durch seine Einfachheit und Kostenersparnis
-gerechtfertigt war.}. Noch bis vor etwa 20 
-Jahren wurden Noten erstellt, indem man sie in eine Zink- oder Zinnplatte 
+gerechtfertigt war.}. Noch bis vor etwa 20
+Jahren wurden Noten erstellt, indem man sie in eine Zink- oder Zinnplatte
 schnitt oder mit Stempeln schlug. Diese Platte wurde dann mit Druckerschwärze
-versehen, so dass sie in den geschnittenen und gestempelten Vertiefungen 
-blieb. Diese Vertiefungen schwärzten dann ein auf die Platte gelegtes 
-Papier. Das Gravieren wurde vollständig von Hand erledigt. Es war darum 
+versehen, so dass sie in den geschnittenen und gestempelten Vertiefungen
+blieb. Diese Vertiefungen schwärzten dann ein auf die Platte gelegtes
+Papier. Das Gravieren wurde vollständig von Hand erledigt. Es war darum
 sehr mühsam, Korrekturen anzubringen, weshalb man von vornherein richtig
 schneiden musste. Die Kunst des Notenstechens war eine sehr
 spezialisierte Handwerkskunst, für die ein Handwerker etwa fünf
@@ -192,11 +192,11 @@ darüber gelernt, was einen gut gesetzten Musikdruck ausmacht und
 welche Aspekte des handgestochenen Notensatzes wir in LilyPond
 imitieren wollten.
 
-@c Heutzutage wird fast alle gedruckte Musik von Computern erstellt. Das 
+@c Heutzutage wird fast alle gedruckte Musik von Computern erstellt. Das
 @c hat einige deutliche Vorteile: Drucke sind billiger als die gravierten
 @c Platten und der Computersatz kann per E-Mail verschickt werden. Leider
 @c hat der intensive Einsatz des Computers die graphische Qualität
-@c des Notensatzes vermindert. Mit dem Computer erstellte Noten sehen 
+@c des Notensatzes vermindert. Mit dem Computer erstellte Noten sehen
 @c langweilig und mechanisch aus, was es erschwert, von ihnen zu spielen.
 
 @menu
@@ -211,7 +211,7 @@ imitieren wollten.
 @unnumberedsubsec Notenschriftarten
 @translationof Music fonts
 
-Die Abbildung unten illustriert den Unterschied zwischen  
+Die Abbildung unten illustriert den Unterschied zwischen
 traditionellem Notensatz und einem typischen Computersatz.
 Das linke Bild zeigt ein eingescanntes b-Vorzeichen
 einer handgestochenen Bärenreiter-Edition, das rechte Bild
@@ -380,9 +380,9 @@ nicht nur den Abstand von aufeinander folgenden Notenköpfen, sondern
 auch den ihrer Hälse. Also müssen Noten, deren Hälse in direkter
 Folge zuerst nach oben und dann nach unten ausgerichtet sind, weiter
 auseinander gezogen werden, während die unten/oben-Folge engere
-Abstände fordert, und das alles auch noch in Abhängigkeit von der 
-vertikalen Position der Noten. Das untere Beispiel ist mit dieser 
-Korrektur gesetzt. Im oberen Beispiel hingegen bilden sich 
+Abstände fordert, und das alles auch noch in Abhängigkeit von der
+vertikalen Position der Noten. Das untere Beispiel ist mit dieser
+Korrektur gesetzt. Im oberen Beispiel hingegen bilden sich
 für das Auge bei unten/oben-Folgen Notenklumpen.  Ein Notenstechermeister
 hätte die Notenaufteilung angepasst, sodass die angenehm zu lesen ist.
 
@@ -520,7 +520,7 @@ global = {
       } \\ {
         <c g c,>2.~
         <c g c,>4.~ <c g c,>8
-      } 
+      }
         >>
         r8 r16 <f, c' aes'>16
         <f c' aes'>4.-> <c' g'>8 r r
@@ -537,9 +537,9 @@ global = {
 @unnumberedsubsec Warum der große Aufwand?
 @translationof Why work so hard?
 
-Musiker sind üblicherweise zu sehr damit beschäftigt, die Musik aufzuführen, 
-als dass sie das Aussehen der Noten studieren könnten; darum mag diese 
-Beschäftigung mit typographischen Details akademisch wirken. 
+Musiker sind üblicherweise zu sehr damit beschäftigt, die Musik aufzuführen,
+als dass sie das Aussehen der Noten studieren könnten; darum mag diese
+Beschäftigung mit typographischen Details akademisch wirken.
 Das ist sie aber nicht.  Notenmaterial ist Aufführungsmaterial:
 alles muss unternommen werden, damit der Musiker die Aufführung
 besser bewältigt, und alles, das unklar oder unangenehm ist,
@@ -548,9 +548,9 @@ ist eine Hindernis.
 Der dichtere Eindruck, den die dickeren Notenlinien und schwereren
 Notationssymbole schaffen, eignet sich besser für Noten,
 die weit vom Leser entfernt stehen, etwa auf einem Notenständer.
-Eine sorgfältige Verteilung der Zwischenräume erlaubt es, die 
-Noten sehr dicht zu setzen, ohne dass die Symbole zusammenklumpen. 
-Dadurch werden unnötige Seitenumbrüche vermieden, so dass man 
+Eine sorgfältige Verteilung der Zwischenräume erlaubt es, die
+Noten sehr dicht zu setzen, ohne dass die Symbole zusammenklumpen.
+Dadurch werden unnötige Seitenumbrüche vermieden, so dass man
 nicht so oft blättern muss.
 
 Dies sind die Anforderungen der Typographie: Das Layout sollte
@@ -558,18 +558,18 @@ schön sein -- nicht nur aus Selbstzweck, sondern vor allem um dem
 Leser zu helfen.  Für Aufführungsmaterial ist das umso wichtiger,
 denn Musiker haben eine begrenzte Aufnahmefähigkeit. Je weniger
 Mühe nötig ist, die Noten zu erfassen, desto mehr Zeit bleibt für
-die Gestaltung der eigentlichen Musik. Das heißt: Gute 
+die Gestaltung der eigentlichen Musik. Das heißt: Gute
 Typographie führt zu besseren Aufführungen!
 
-Die Beispiele haben gezeigt, dass der Notensatz eine subtile und 
-komplexe Kunst ist und gute Ergebnisse nur mit viel Erfahrung 
+Die Beispiele haben gezeigt, dass der Notensatz eine subtile und
+komplexe Kunst ist und gute Ergebnisse nur mit viel Erfahrung
 erlangt werden können, die Musiker normalerweise nicht haben.
 LilyPond stellt unser Bemühen dar, die graphische Qualität
-handgestochener Notenseiten ins Computer-Zeitalter zu transportieren 
-und sie für normale Musiker erreichbar zu machen. Wir haben 
+handgestochener Notenseiten ins Computer-Zeitalter zu transportieren
+und sie für normale Musiker erreichbar zu machen. Wir haben
 unsere Algorithmen, die Gestalt der Symbole und die Programm-Einstellungen
-darauf abgestimmt, einen Ausdruck zu erzielen, der der Qualität 
-der alten Editionen entspricht, die wir so gerne betrachten 
+darauf abgestimmt, einen Ausdruck zu erzielen, der der Qualität
+der alten Editionen entspricht, die wir so gerne betrachten
 und aus denen wir gerne spielen.
 
 
@@ -589,7 +589,7 @@ Vergleichen mit echten Notendrucken.
 @menu
 * Schönheitswettbewerb::
 * Verbessern durch Benchmarking::
-* Alles richtig machen::     
+* Alles richtig machen::
 @end menu
 
 @node Schönheitswettbewerb
@@ -691,7 +691,7 @@ Die Ausgabe von LilyPond hat sich schrittweise mit der Zeit
 verbessert, und sie verbessert sich weiter, indem sie immer wieder
 mit handgestochenen Noten verglichen wird.
 
-Hier als Beispiel eine Zeile eines Benchmark-Stückes aus einer 
+Hier als Beispiel eine Zeile eines Benchmark-Stückes aus einer
 handgestochenen Notenedition (Bärenreiter BA320):
 
 @iftex
@@ -1010,17 +1010,17 @@ getroffen haben.
 @cindex Syntax
 @cindex rekursive Strukturen
 
-Idealerweise ist das Eingabeformat für ein komplexes Satzsystem die 
-abstrakte Beschreibung des Inhaltes. In diesem Fall wäre das die 
-Musik selber. Das stellt uns aber vor ein ziemlich großes Problem, 
-denn wie können wir definieren, was Musik wirklich ist? Anstatt darauf 
+Idealerweise ist das Eingabeformat für ein komplexes Satzsystem die
+abstrakte Beschreibung des Inhaltes. In diesem Fall wäre das die
+Musik selber. Das stellt uns aber vor ein ziemlich großes Problem,
+denn wie können wir definieren, was Musik wirklich ist? Anstatt darauf
 eine Antwort zu suchen, haben wir die Frage einfach umgedreht. Wir
-schreiben ein Programm, das den Notensatz beherrscht und machen das 
-Format so einfach wie möglich. Wenn es nicht mehr vereinfacht 
-werden kann, haben wir per Definition nur noch den reinen Inhalt. Unser 
+schreiben ein Programm, das den Notensatz beherrscht und machen das
+Format so einfach wie möglich. Wenn es nicht mehr vereinfacht
+werden kann, haben wir per Definition nur noch den reinen Inhalt. Unser
 Format dient als die formale Definition eines Musiktextes.
 
-Die Syntax ist gleichzeitig die Benutzerschnittstelle bei LilyPond, 
+Die Syntax ist gleichzeitig die Benutzerschnittstelle bei LilyPond,
 darum soll sie einfach zu schreiben sein; z. B. bedeutet
 
 @example
@@ -1086,18 +1086,18 @@ daher mit einem anderen Ausdruck kombiniert werden (hier mit einer Halben), wobe
 \new Voice { << g2 \\ { f4 <<c d e>> } >> }
 @end lilypond
 
-Solche geschachtelten Strukturen können sehr gut in einer 
-kontextunabhängigen Grammatik beschrieben werden. Der Programmcode 
-für den Satz ist auch mit solch einer Grammatik erstellt. Die Syntax 
+Solche geschachtelten Strukturen können sehr gut in einer
+kontextunabhängigen Grammatik beschrieben werden. Der Programmcode
+für den Satz ist auch mit solch einer Grammatik erstellt. Die Syntax
 von LilyPond ist also klar und ohne Zweideutigkeiten definiert.
 
-Die Benutzerschnittstelle und die Syntax werden als erstes vom Benutzer 
+Die Benutzerschnittstelle und die Syntax werden als erstes vom Benutzer
 wahrgenommen. Teilweise sind sie eine Frage des Geschmackes und werden viel
-diskutiert. Auch wenn Geschmacksfragen ihre Berechtigung 
-haben, sind sie nicht sehr produktiv. Im großen Rahmen von LilyPond 
-spielt die Eingabe-Syntax nur eine geringe Rolle, denn eine logische 
-Syntax zu schreiben ist einfach, guten Formatierungscode aber sehr viel 
-schwieriger. Das kann auch die Zeilenzahl der Programmzeilen zeigen: 
+diskutiert. Auch wenn Geschmacksfragen ihre Berechtigung
+haben, sind sie nicht sehr produktiv. Im großen Rahmen von LilyPond
+spielt die Eingabe-Syntax nur eine geringe Rolle, denn eine logische
+Syntax zu schreiben ist einfach, guten Formatierungscode aber sehr viel
+schwieriger. Das kann auch die Zeilenzahl der Programmzeilen zeigen:
 Analysieren und Darstellen nimmt nur etwa 10% des Codes ein:
 
 Während wir die Strukturen von LilyPond entwickelten, machten wir einige Entscheidungen, die sich von anderen Programmen unterscheiden.
@@ -1203,7 +1203,7 @@ möglich zu gestalten.
 @cindex Plugin
 
 Während des Notensatzprozesses entscheidet sich, wo
-Symbole platziert werden.  Das kann aber nur gelingen, 
+Symbole platziert werden.  Das kann aber nur gelingen,
 wenn vorher entschieden wird, @emph{welche} Symbole
 gesetzt werden sollen, also welche Art von Notation benutzt
 werden soll.
@@ -1216,7 +1216,7 @@ die Notenköpfe, das Fünfliniensystem) nicht verändert haben,
 entwickeln sich die Details trotzdem immer noch weiter, um
 die Errungenschaften der Neuen Musik darstellen zu können.  Die
 Notation umfasst also 500 Jahre Musikgeschichte.  Ihre Anwendung
-reicht von monophonen Melodien bis zu ungeheuer komplexem Kontrapunkt 
+reicht von monophonen Melodien bis zu ungeheuer komplexem Kontrapunkt
 für großes Orchester.
 
 Wie bekommen wir dieses vielköpfige Monster zu fassen und in die
@@ -1229,7 +1229,7 @@ werden.  Derartige Plugins werden @code{engraver} genannt,
 analog zu den Notenstechern (engl. engraver), die musikalische
 Ideen in graphische Symbole übersetzen.
 
-Im nächsten Beispiel wird gezeigt, wie mit dem Plugin für die Notenköpfe, 
+Im nächsten Beispiel wird gezeigt, wie mit dem Plugin für die Notenköpfe,
 dem @code{Note_heads_engraver} (@qq{Notenkopfstecher}) der Satz begonnen wird.
 
 @lilypond[quote,ragged-right]
@@ -1262,7 +1262,7 @@ dem @code{Note_heads_engraver} (@qq{Notenkopfstecher}) der Satz begonnen wird.
 @end lilypond
 
 @noindent
-Dann fügt ein @code{Staff_symbol_engraver} (@qq{Notensystemstecher}) 
+Dann fügt ein @code{Staff_symbol_engraver} (@qq{Notensystemstecher})
 die Notenlinien hinzu.
 
 @lilypond[quote,ragged-right]
@@ -1294,7 +1294,7 @@ die Notenlinien hinzu.
 @end lilypond
 
 @noindent
-Der @code{Clef_engraver} (@qq{Notenschlüsselstecher}) definiert 
+Der @code{Clef_engraver} (@qq{Notenschlüsselstecher}) definiert
 eine Referenzstelle für das System.
 
 @lilypond[quote,ragged-right]
@@ -1353,11 +1353,11 @@ Der @code{Stem_engraver} (@qq{Halsstecher}) schließlich fügt
 @end lilypond
 
 @noindent
-Dem @code{Stem_engraver} wird jeder Notenkopf mitgeteilt, 
-der vorkommt. Jedes Mal, wenn ein Notenkopf erscheint (oder mehrere bei 
-einem Akkord), wird ein Hals-Objekt erstellt und an den 
-Kopf geheftet. Wenn wir dann noch Engraver für Balken, Bögen, 
-Akzente, Versetzungszeichen, Taktstriche, Taktangaben und Tonartbezeichnungen 
+Dem @code{Stem_engraver} wird jeder Notenkopf mitgeteilt,
+der vorkommt. Jedes Mal, wenn ein Notenkopf erscheint (oder mehrere bei
+einem Akkord), wird ein Hals-Objekt erstellt und an den
+Kopf geheftet. Wenn wir dann noch Engraver für Balken, Bögen,
+Akzente, Versetzungszeichen, Taktstriche, Taktangaben und Tonartbezeichnungen
 hinzufügen, erhalten wir eine vollständige Notation.
 
 
@@ -1371,7 +1371,7 @@ hinzufügen, erhalten wir eine vollständige Notation.
 @cindex Notensatz, Mehrstimmigkeit
 @cindex Kontexte
 
-Dieses System funktioniert gut für monophone Musik, aber wie geht 
+Dieses System funktioniert gut für monophone Musik, aber wie geht
 es mit Polyphonie? Hier müssen sich mehrere Stimmen ein System teilen.
 
 @lilypond[quote,ragged-right]
@@ -1418,37 +1418,37 @@ als unzureichend heraus:
 @itemize @bullet
 
 @item Wenn LilyPond Fehler macht, muss der Benutzer die
-Einstellungen ändern können. Er muss also Zugang zur 
-Formatierungsmaschinerie haben.  Deshalb können die Regeln und 
-Einstellungen nicht beim Kompilieren des Programms festgelegt 
+Einstellungen ändern können. Er muss also Zugang zur
+Formatierungsmaschinerie haben.  Deshalb können die Regeln und
+Einstellungen nicht beim Kompilieren des Programms festgelegt
 werden, sondern sie müssen zugänglich sein, während das Programm
 aktiv ist.
 
 @item Notensatz ist eine Frage des Augenmaßes, und damit auch vom
-Geschmack abhängig.  Benutzer können mit unseren Entscheidungen 
-unzufrieden sein.  Darum müssen also auch die Definitionen des 
+Geschmack abhängig.  Benutzer können mit unseren Entscheidungen
+unzufrieden sein.  Darum müssen also auch die Definitionen des
 typographischen Stils dem Benutzer zugänglich sein.
 
-@item Schließlich verfeinern wir unseren Formatierungsalgorithmus 
+@item Schließlich verfeinern wir unseren Formatierungsalgorithmus
 immer weiter, also müssen die Regeln auch flexibel sein. Die
-Sprache C++ zwingt zu einer bestimmten Gruppierungsmethode, 
+Sprache C++ zwingt zu einer bestimmten Gruppierungsmethode,
 die nicht den Regeln für den Notensatz entspricht.
 @end itemize
 
 @cindex Scheme-Programmiersprache
 
-Diese Probleme wurden angegangen, indem ein Übersetzer für 
+Diese Probleme wurden angegangen, indem ein Übersetzer für
 die Programmiersprache Scheme integriert wurde und Teile
-von LilyPond in Scheme neu geschrieben wurden.  Die derzeitige 
-Formatierungsarchitektur ist um die Notation von graphischen 
+von LilyPond in Scheme neu geschrieben wurden.  Die derzeitige
+Formatierungsarchitektur ist um die Notation von graphischen
 Objekten herum aufgebaut, die von Scheme-Variablen und -Funktionen
 beschrieben werden.  Diese Architektur umfasst Formatierungsregeln,
-typographische Stile und individuelle Formatierungsentscheidungen. 
+typographische Stile und individuelle Formatierungsentscheidungen.
 Der Benutzer hat direkten Zugang zu den meisten dieser Einstellungen.
 
-Scheme-Variablen steuern Layout-Entscheidungen.  Zum Beispiel haben 
-viele graphische Objekte eine Richtungsvariable, die zwischen 
-oben und unten (oder rechts und links) wählen kann.  Hier etwa 
+Scheme-Variablen steuern Layout-Entscheidungen.  Zum Beispiel haben
+viele graphische Objekte eine Richtungsvariable, die zwischen
+oben und unten (oder rechts und links) wählen kann.  Hier etwa
 sind zwei Akkorde mit Akzenten und Arpeggien.
 Beim ersten Akkord sind alle Objekte nach unten (oder links)
 ausgerichtet, beim zweiten nach oben (rechts).
@@ -1553,10 +1553,10 @@ die Notenköpfe gezeichnet werden, während des Ausschnitts verändert.
 @cindex einfaches Beispiel
 @cindex Beispiel, einfach
 
-Wir haben LilyPond als einen Versuch geschrieben, wie man die Kunst des 
-Musiksatzes in ein Computerprogramm gießen kann. Dieses 
-Programm kann nun dank vieler harter Arbeitsstunden benutzt werden, 
-um sinnvolle Aufgaben zu erledigen. Die einfachste ist dabei der 
+Wir haben LilyPond als einen Versuch geschrieben, wie man die Kunst des
+Musiksatzes in ein Computerprogramm gießen kann. Dieses
+Programm kann nun dank vieler harter Arbeitsstunden benutzt werden,
+um sinnvolle Aufgaben zu erledigen. Die einfachste ist dabei der
 Notendruck.
 
 @lilypond[quote,relative=1]
@@ -1567,7 +1567,7 @@ Notendruck.
 @end lilypond
 
 @noindent
-Indem wir Akkordsymbole und einen Text hinzufügen, erhalten wir 
+Indem wir Akkordsymbole und einen Text hinzufügen, erhalten wir
 ein Liedblatt.
 
 @lilypond[quote,ragged-right]
@@ -1582,7 +1582,7 @@ ein Liedblatt.
 >>
 @end lilypond
 
-Mehrstimmige Notation und Klaviermusik kann auch gesetzt werden. Das 
+Mehrstimmige Notation und Klaviermusik kann auch gesetzt werden. Das
 nächste Beispiel zeigt einige etwas exotischere Konstruktionen:
 
 @lilypond[quote,line-width=15.9\cm]
@@ -1656,16 +1656,16 @@ nächste Beispiel zeigt einige etwas exotischere Konstruktionen:
 }
 @end lilypond
 
-Die obenstehenden Beispiele wurde manuell erstellt, aber das ist nicht 
-die einzige Möglichkeit. Da der Satz fast vollständig automatisch abläuft, 
+Die obenstehenden Beispiele wurde manuell erstellt, aber das ist nicht
+die einzige Möglichkeit. Da der Satz fast vollständig automatisch abläuft,
 kann er auch von anderen Programmen angesteuert werden, die Musik oder Noten
-verarbeiten. So können etwa ganze Datenbanken musikalischer Fragmente automatisch 
-in Notenbilder umgewandelt werden, die dann auf Internetseiten oder 
+verarbeiten. So können etwa ganze Datenbanken musikalischer Fragmente automatisch
+in Notenbilder umgewandelt werden, die dann auf Internetseiten oder
 in Multimediapräsentation Anwendung finden.
 
-Dieser Aufsatz zeigt eine weitere Möglichkeit: Die Noten werden als 
+Dieser Aufsatz zeigt eine weitere Möglichkeit: Die Noten werden als
 reiner Text eingegeben und können darum sehr einfach integriert werden
-in andere textbasierte Formate wie etwa @LaTeX{}, HTML oder, wie in diesem 
+in andere textbasierte Formate wie etwa @LaTeX{}, HTML oder, wie in diesem
 Fall, Texinfo. Mithilfe des Programmes @command{lilypond-book},
 das in LilyPond inbegriffen ist, werden die Fragmente mit
 Notenbildern ersetzt und in die produzierte PDF- oder HTML-Datei

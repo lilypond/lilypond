@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
+    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Scheme-Übung
 @chapter Scheme-Übung
@@ -21,9 +21,9 @@
 @cindex LISP
 @cindex Auswertung von Scheme-Code
 
-LilyPond verwendet die Scheme-Programmiersprache sowohl als Teil 
-der Eingabesyntax als auch als internen Mechanismus, um Programmmodule 
-zusammenzufügen.  Dieser Abschnitt ist ein sehr kurzer Überblick über 
+LilyPond verwendet die Scheme-Programmiersprache sowohl als Teil
+der Eingabesyntax als auch als internen Mechanismus, um Programmmodule
+zusammenzufügen.  Dieser Abschnitt ist ein sehr kurzer Überblick über
 die Dateneingabe mit Scheme.  Wenn Sie mehr über Scheme wissen wollen,
 gehen Sie zu @uref{http://@/www@/.schemers@/.org}.
 
@@ -144,7 +144,7 @@ guile>
 @subsection Einfache Scheme-Datentypen
 @translationof Scheme simple data types
 
-Das Grundlegendste an einer Sprache sind Daten: Zahlen, Zeichen, 
+Das Grundlegendste an einer Sprache sind Daten: Zahlen, Zeichen,
 Zeichenketten, Listen usw.  Hier ist eine Liste der Datentypen, die für
 LilyPond-Eingabedateien relevant sind.
 
@@ -156,8 +156,8 @@ für Wahr ist @code{#t} und für Falsch @code{#f}.
 @funindex ##f
 
 @item Zahlen
-Zahlen werden wie üblich eingegeben, @code{1} ist die (ganze) 
-Zahl Eins, während @code{-1.5} eine Gleitkommazahl (also 
+Zahlen werden wie üblich eingegeben, @code{1} ist die (ganze)
+Zahl Eins, während @code{-1.5} eine Gleitkommazahl (also
 eine nicht-ganze) ist.
 
 @item Zeichenketten
@@ -186,7 +186,7 @@ Zeichen für eine neue Zeile können auch hinzugefügt werden, indem man
 "das\nist eine\nmehrzeilige Zeichenkette"
 @end example
 
-Anführungszeichen und neue Zeilen können auch mit sogenannten 
+Anführungszeichen und neue Zeilen können auch mit sogenannten
 Fluchtsequenzen eingefügt werden. Die Zeichenkette
 @code{a sagt "b"} wird wie folgt eingegeben:
 
@@ -391,8 +391,8 @@ respectively,
 @end example
 @end ignore
 
-Scheme kann verwendet werden, um Berechnungen durchzuführen. Es 
-verwendet eine @emph{Präfix}-Syntax. Um 1 und@tie{}2 zu addieren, muss 
+Scheme kann verwendet werden, um Berechnungen durchzuführen. Es
+verwendet eine @emph{Präfix}-Syntax. Um 1 und@tie{}2 zu addieren, muss
 man @code{(+ 1 2)} schreiben, und nicht @math{1+2}, wie in traditioneller
 Mathematik.
 
@@ -409,7 +409,7 @@ guile> (+ 1 (* 3 4))
 13
 @end lisp
 
-Diese Berechnungen sind Beispiele von Auswertungen. Ein Ausdruck 
+Diese Berechnungen sind Beispiele von Auswertungen. Ein Ausdruck
 wie @code{(* 3 4)} wird durch seinen Wert @code{12} ersetzt.
 
 Scheme-Berechnungen können zwischen Integren und Nich-Integren
@@ -825,17 +825,17 @@ LilyPond-Syntax hierfür ist:
 \override Stem #'thickness = #2.6
 @end example
 
-Diese Anweisung verändert die Erscheinung der Notenhälse. Der Alist-Eintrag 
+Diese Anweisung verändert die Erscheinung der Notenhälse. Der Alist-Eintrag
 @code{'(thickness . 2.6)} wird zu der Eigenschaftsliste eines
 @code{Stem}-(Hals-)Objektes hinzugefügt.
-@code{thickness} wird relativ zu den Notenlinien errechnet, in diesem 
-Fall sind die Hälse also 2,6 mal so dick wie die Notenlinien.  Dadurch 
-werden Hälse fast zweimal so dick dargestellt, wie sie normalerweise sind. 
-Um zwischen Variablen zu unterscheiden, die in den Quelldateien direkt 
-definiert werden (wie @code{Vierundzwanzig} weiter oben), und zwischen denen, 
-die für interne Objekte zuständig sind, werden hier die ersteren 
+@code{thickness} wird relativ zu den Notenlinien errechnet, in diesem
+Fall sind die Hälse also 2,6 mal so dick wie die Notenlinien.  Dadurch
+werden Hälse fast zweimal so dick dargestellt, wie sie normalerweise sind.
+Um zwischen Variablen zu unterscheiden, die in den Quelldateien direkt
+definiert werden (wie @code{Vierundzwanzig} weiter oben), und zwischen denen,
+die für interne Objekte zuständig sind, werden hier die ersteren
 @qq{Variablen} genannt, die letzteren dagegen @qq{Eigenschaften}.
-Das Hals-Objekt hat also eine @code{thickness}-Eigenschaft, während 
+Das Hals-Objekt hat also eine @code{thickness}-Eigenschaft, während
 @code{Vierundzwanzig} eine Variable ist.
 
 @cindex Eigenschaften versus Bezeichner
@@ -850,7 +850,7 @@ Das Hals-Objekt hat also eine @code{thickness}-Eigenschaft, während
 
 
 
-Zweidimensionale Abstände (X- und Y-Koordinaten) werden 
+Zweidimensionale Abstände (X- und Y-Koordinaten) werden
 als @code{pairs} (Paare) gespeichert. Der @code{car}-Wert des
 Abstands ist die X-Koordinate und der @code{cdr}-Wert die
 Y-Koordinate.
@@ -860,8 +860,8 @@ Y-Koordinate.
 @end example
 
 Hierdurch wird das Paar @code{(1 . 2)} mit der Eigenschaft @code{extra-offset}
-des TextScript-Objektes verknüpft. Diese Zahlen werden in 
-Systembreiten  gemessen, so dass der Befehl das Objekt eine Systembreite 
+des TextScript-Objektes verknüpft. Diese Zahlen werden in
+Systembreiten  gemessen, so dass der Befehl das Objekt eine Systembreite
 nach rechts verschiebt und zwei Breiten nach oben.
 
 Prozeduren, um mit Abständen zu arbeiten, finden sich in @file{scm/lily-library.scm}.

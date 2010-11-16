@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7477d35aa8f656fa4ed82e186ad97109ee4fe108
+    Translation of GIT committish: 44099a932d98a8757b27ee92f9b0533170b516e3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -268,56 +268,28 @@ resultante es la mayor de:
 @item @code{padding} más la menor distancia necesaria para eliminar las colisiones.
 @end itemize
 
-
-@subsubheading Modificación de las listas-A de espaciado para variables de @code{\paper}
-
-Para fijar o modificar una sola clave para una variable de dimensión,
-utilice una declaración anidada:
-
-@example
-\paper @{
-  system-system-spacing #'space = #10
-@}
-@end example
-
-Esto actualiza la clave especificada sin alterar ninguna de las otras
-claves ya establecidas para la misma variable.  Para redefinir
-completamente una variable con una declaración, defínala como una
-lista-A:
+Los métodos específicos para la modificación de las listas-A se
+estudian en @ref{Modificación de las listas-A}.  Las variables de
+dimensión de @code{\paper} verticales flexibles sólo se pueden fijar
+dentro de un bloque @code{\paper}.  El siguiente ejemplo muestra las
+dos formas en que pueden modificarse estas listas-A:
 
 @example
 \paper @{
-  system-system-spacing =
+  % actualización individual de un valor de clave
+  system-system-spacing #'space = #8
+
+  % redefinición completa de una variable
+  score-system-spacing =
     #'((padding . 1)
        (space . 12)
-       (minimum-distance . 8)
+       (minimum-distance . 6)
        (stretchability . 12))
 @}
 @end example
 
-Sin embargo, observe que cualquier clave que no esté relacionada en la
-definición de una lista-A aún se sobreescribirá; se restablecerán al
-valor cero (excepto @code{stretchability}, que toma el valor de
-@code{space}).  Así, las dos declaraciones siguientes son equivalentes:
-
-@example
-system-system-spacing =
-  #'((space . 10))
-
-system-system-spacing =
-  #'((padding . 0)
-     (space . 10)
-     (minimum-distance . 0)
-     (stretchability . 10))
-@end example
-
-Una consecuencia posiblemente no intencionada del ejemplo anterior es
-la eliminación de los valores predeterminados para @code{padding} y
-@code{minimum-distance}.  Definir una variable como una lista-A (de
-cualquier tamaño) siempre restablece todos sus valores de clave
-predeterminados.  Los ajustes predeterminados para las dimensiones
-flexibles verticales de @code{\paper} están definidas en
-@file{ly/paper-defaults-init.ly}.
+Los ajustes predeterminados de inicio para estas variables están
+definidos en el archivo @file{ly/paper-defaults-init.ly}.
 
 
 @subsubheading Variables de dimensión de @code{\paper} verticales flexibles
@@ -1111,7 +1083,7 @@ Sólo pueden ocurrir saltos de línea si hay una @q{buena} línea
 divisoria.  Una nota colgando de una línea divisoria no es adecuada,
 como
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 c4 c2 << c2 {s4 \break } >>  % this does nothing
 c2 c4 |           % a break here would work
 c4 c2 c4 ~ \break % as does this break
@@ -2064,7 +2036,7 @@ compiten por el mismo espacio, el que tiene la prioridad
 @code{outside-staff-priority} más baja se colocará más próximo al
 pentagrama.
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 c4_"Text"\pp
 r2.
 \once \override TextScript #'outside-staff-priority = #1
@@ -2081,7 +2053,7 @@ El relleno vertical entre un objeto fuera del pentagrama y los grobs
 posicionados previamente se puede controlar con
 @code{outside-staff-padding}.
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 \once \override TextScript #'outside-staff-padding = #0
 a'^"This text is placed very close to the note"
 \once \override TextScript #'outside-staff-padding = #3
@@ -2099,7 +2071,7 @@ establecimiento del relleno horizontal
 @code{outside-staff-horizontal-padding} ocasiona que un objeto se
 desplace verticalmente para que tal situación no ocurra.
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 % the markup is too close to the following note
 c4^"Text"
 c4
@@ -2152,7 +2124,7 @@ Por ejemplo, la pieza siguiente contiene numerosas blancas, negras y
 corcheas; la corchea va seguida de un ancho de cabeza de blanca (ACB).
 La negra va seguida de 2 ACB, la blanca por 3 ACB, etc.
 
-@lilypond[quote,fragment,verbatim,relative=1]
+@lilypond[quote,verbatim,relative=1]
 c2 c4. c8 c4. c8 c4. c8 c8
 c8 c4 c4 c4
 @end lilypond
@@ -2197,7 +2169,7 @@ seguidas por un espacio proporcional a su duración en relación con la
 nota común más breve.  Así pues, si fuésemos a añadir tan sólo algunas
 semicorcheas al ejemplo anterior, irían seguidas por medio ACB:
 
-@lilypond[quote,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 @end lilypond
 
@@ -2264,7 +2236,7 @@ secciones que tienen distinta noción de las notas largas y cortas.
 En el ejemplo siguiente, el cambio de compás introduce una sección
 nueva, y por ello las semicorcheas se separan de manera más amplia.
 
-@lilypond[relative,fragment,verbatim,quote]
+@lilypond[relative=1,verbatim,quote]
 \time 2/4
 c4 c8 c
 c8 c c4 c16[ c c8] c4
@@ -2364,7 +2336,7 @@ puede cambiarse al principio de la partitura:
 Cuando se establece @code{strict-note-spacing}, las notas se separan
 sin tener en cuenta las claves, líneas divisorias ni notas de adorno:
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 \override Score.SpacingSpanner #'strict-note-spacing = ##t
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
@@ -2665,7 +2637,7 @@ soluciona.
       proportionalNotationDuration = #(ly:make-moment 1 20)
     }
   }
- }
+}
 @end lilypond
 
 

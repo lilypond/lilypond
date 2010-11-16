@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -39,10 +39,10 @@ Modus.  In den meisten Fällen eignet sich der relative
 Modus besser.
 
 @menu
-* Absolute Oktavenbezeichnung::       
-* Relative Oktavenbezeichnung::       
-* Versetzungszeichen::                 
-* Notenbezeichnungen in anderen Sprachen:: 
+* Absolute Oktavenbezeichnung::
+* Relative Oktavenbezeichnung::
+* Versetzungszeichen::
+* Notenbezeichnungen in anderen Sprachen::
 @end menu
 
 @node Absolute Oktavenbezeichnung
@@ -59,8 +59,8 @@ Tonhöhenbezeichnungen werden durch Kleinbuchstaben
 von@tie{}@code{a} bis@tie{}@code{g} angegeben.  Dabei
 wird ein aus dem Englischen entlehntes Modell benutzt, das sich
 vom Deutschen dadurch unterscheidet, dass@tie{}@code{b}
-für die Note @qq{H} steht.  Die Benutzung deutscher 
-Notenbezeichnungen mit der Unterscheidung von b und h ist 
+für die Note @qq{H} steht.  Die Benutzung deutscher
+Notenbezeichnungen mit der Unterscheidung von b und h ist
 auch möglich, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
 Die Notenbezeichnungen @code{c} bis @code{b}
 werden in der Oktave unter dem zweigestrichenen C
@@ -170,7 +170,7 @@ So funktioniert der relative Modus:
 }
 @end lilypond
 
-Oktavversetzungen müssen für alle Intervalle angezeigt werden, 
+Oktavversetzungen müssen für alle Intervalle angezeigt werden,
 die größer als eine Quarte sind.
 
 @lilypond[verbatim,quote]
@@ -235,8 +235,8 @@ es sei denn ein @code{\relativ} wird eingefügt.
 @cindex relativer Modus und Akkorde
 @cindex Oktavenmodus (relativ) und Akkorde
 
-Wenn der vorherige Ausdruck ein Akkord ist, wird die erste Note 
-des Akkordes benutzt, um die erste Note des nächsten Akkordes zu 
+Wenn der vorherige Ausdruck ein Akkord ist, wird die erste Note
+des Akkordes benutzt, um die erste Note des nächsten Akkordes zu
 bestimmen.  Innerhalb von Akkorden ist die nächste Note immer
 relativ zur vorherigen.  Betrachten Sie das folgende Beispiel
 aufmerksam, insbesondere die @code{c}-Noten.
@@ -250,7 +250,7 @@ aufmerksam, insbesondere die @code{c}-Noten.
 }
 @end lilypond
 
-Wie oben erklärt wurde, wird die Oktave einer Tonhöhe nur 
+Wie oben erklärt wurde, wird die Oktave einer Tonhöhe nur
 nach ihrer Notenbezeichnung errechnet, unabhängig von allen
 Versetzungszeichen.  Darum wird ein Eisis auf ein H (notiert als @code{b})
 folgend höher gesetzt, während ein Feses tiefer gesetzt wird.
@@ -334,9 +334,9 @@ Mehr Information dazu in @rlearning{Versetzungszeichen und Tonartbezeichnung (Vo
 @cindex wirkliche Tonhöhe
 
 
-Ein @notation{Kreuz} wird eingegeben, indem man @code{-is} an die 
-Notenbezeichnung hängt, ein b durch @code{-es}. Doppelkreuze 
-und Doppel-Bs werden durch Hinzufügen von @code{-isis} und 
+Ein @notation{Kreuz} wird eingegeben, indem man @code{-is} an die
+Notenbezeichnung hängt, ein b durch @code{-es}. Doppelkreuze
+und Doppel-Bs werden durch Hinzufügen von @code{-isis} und
 @code{-eses} hinter die Notenbezeichnung erzeugt. Diese
 Syntax leitet sich von den holländischen Notenbezeichnungen
 ab. Um andere Bezeichnungen für Versetzungszeichen zu
@@ -347,15 +347,15 @@ ais1 aes aisis aeses
 @end lilypond
 
 Auch die deutschen Varianten @code{as} für @code{aes} und
-@code{es} für @code{ees} sind erlaubt. Im Unterschied zum 
+@code{es} für @code{ees} sind erlaubt. Im Unterschied zum
 Deutschen ist aber @code{bes} die einzige Version für den Ton
 B, während his als @code{bis} geschrieben werden muss. Das kann
 aber auch verändert werden, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
 
 Ein Auflösungszeichen macht die Wirkung eines Kreuzes oder Bs
-rückgängig. Diese Auflösungszeichen werden jedoch nicht 
+rückgängig. Diese Auflösungszeichen werden jedoch nicht
 als Suffix einer Tonhöhenbezeichnung eingegeben, sondern
-sie ergeben sich (automatisch) aus dem Kontext, wenn die 
+sie ergeben sich (automatisch) aus dem Kontext, wenn die
 nicht alterierte Notenbezeichnung eingegeben wird.
 
 @lilypond[quote,verbatim,relative=2]
@@ -370,9 +370,9 @@ a4 aes a2
 @cindex Halbkreuz
 @cindex Halb-B
 
-Versetzungszeichen für Vierteltöne werden durch Anhängen der Endungen 
-@code{-eh} (Erniedrigung) und @code{-ih} (Erhöhung) an den 
-Tonhöhenbuchstaben erstellt. Das Beispiel zeigt eine in Vierteltönen 
+Versetzungszeichen für Vierteltöne werden durch Anhängen der Endungen
+@code{-eh} (Erniedrigung) und @code{-ih} (Erhöhung) an den
+Tonhöhenbuchstaben erstellt. Das Beispiel zeigt eine in Vierteltönen
 aufsteigende Serie vom eingestrichenen C.
 
 @lilypond[verbatim,quote,relative=2]
@@ -392,11 +392,11 @@ ceseh1 ces ceh c cih cis cisih
 @funindex !
 
 Normalerweise werden Versetzungszeichen automatisch gesetzt, aber
-sie können auch manuell hinzugefügt werden. Ein erinnerndes 
+sie können auch manuell hinzugefügt werden. Ein erinnerndes
 Versetzungszeichen kann erzwungen werden, indem man ein Ausrufungszeichen
-(@code{!}) hinter die Notenbezeichnung schreibt. Ein warnendes 
-Versetzungszeichen (also ein Vorzeichen in Klammern) wird durch Anfügen 
-eines Fragezeichens (@code{?}) erstellt. Mit diesen zusätzlichen 
+(@code{!}) hinter die Notenbezeichnung schreibt. Ein warnendes
+Versetzungszeichen (also ein Vorzeichen in Klammern) wird durch Anfügen
+eines Fragezeichens (@code{?}) erstellt. Mit diesen zusätzlichen
 Zeichen kann man sich auch Auflösungszeichen ausgeben lassen.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
@@ -457,7 +457,7 @@ Referenz der Interna:
 @knownissues
 
 Es gibt keine allgemeinen Regeln für die Notation von
-Vierteltönen, die Symbole von LilyPond folgen also 
+Vierteltönen, die Symbole von LilyPond folgen also
 keinem Standard.
 
 
@@ -469,11 +469,11 @@ keinem Standard.
 @cindex Tonhöhenbezeichnungen, andere Sprachen
 @cindex Sprache, Tonhöhenbezeichnungn in anderer
 
-Es gibt vordefinierte Bezeichnungen für die Notenbezeichnungen in anderen 
-Sprachen als Englisch. Um sie zu benutzen, muss nur die 
+Es gibt vordefinierte Bezeichnungen für die Notenbezeichnungen in anderen
+Sprachen als Englisch. Um sie zu benutzen, muss nur die
 entsprechende Datei für die jeweilige Sprache eingefügt werden.
-Zum Beispiel fügt man mit @code{@w{\include "deutsch.ly"}} die 
-Notendefinitionen für die deutsche Sprache am Anfang der Datei 
+Zum Beispiel fügt man mit @code{@w{\include "deutsch.ly"}} die
+Notendefinitionen für die deutsche Sprache am Anfang der Datei
 hinzu
 
 In der Tabelle sind die existierenden Sprachdefinitionen
@@ -547,7 +547,7 @@ und die dazugehörigen Versetzungszeichen-Endungen:
 @end quotation
 
 @noindent
-Auf Holländisch, Deutsch, Norwegisch und Schwedisch (u. a.) werden die 
+Auf Holländisch, Deutsch, Norwegisch und Schwedisch (u. a.) werden die
 Erniedrigungen von @q{a} wie @code{aes} und @code{aeses} zu
 @code{as} und @code{ases} (oder auch @code{asas}) zusammengezogen.
 In manchen Sprachen sind nur diese Kurzformen definiert.
@@ -563,10 +563,10 @@ a2 as e es a ases e eses
 @cindex sesqui-Kreuz
 @cindex sesqui-B
 
-Bestimmte Musik verwendet Alterationen, die Bruchteile von den 
-@qq{normalen} Kreuzen oder Bs sind. Die Notenbezeichnungen für 
-Vierteltöne für die verschiedenen Sprachen sind in der folgenden 
-Tabelle aufgeführt. Die Präfixe @qq{Semi-} und @qq{Sesqui-} bedeuten 
+Bestimmte Musik verwendet Alterationen, die Bruchteile von den
+@qq{normalen} Kreuzen oder Bs sind. Die Notenbezeichnungen für
+Vierteltöne für die verschiedenen Sprachen sind in der folgenden
+Tabelle aufgeführt. Die Präfixe @qq{Semi-} und @qq{Sesqui-} bedeuten
 @qq{halb} bzw. @qq{eineinhalb}. Für alle anderen
 Sprachen sind noch keine eigenen Namen definiert.
 
@@ -637,7 +637,7 @@ Um die Oktave einer Note zu überprüfen, muss die absolute
 Oktave nach dem @code{=}-Symbol angegeben werden.  Im
 folgenden Beispiel wird eine Warnung (und eine Tonhöhenänderung)
 generiert, weil die zweite Note als absolute Oktave
-ein @code{d''} anstelle von @code{d'} notiert ist, 
+ein @code{d''} anstelle von @code{d'} notiert ist,
 wie es die Oktavierungskorrektur markiert.
 
 @lilypond[verbatim,quote]
@@ -712,8 +712,8 @@ transponiert werden. Die Syntax lautet:
 @end example
 
 @noindent
-Das bedeutet, dass der @var{mus. Ausdruck} um das Intervall zwischen den 
-Tonhöhen @var{vonTonhöhe} und @var{nachTonhöhe} transponiert wird: Jede Note, die die 
+Das bedeutet, dass der @var{mus. Ausdruck} um das Intervall zwischen den
+Tonhöhen @var{vonTonhöhe} und @var{nachTonhöhe} transponiert wird: Jede Note, die die
 Tonhöhe @var{vonTonhöhe} hat, wird in die Tonhöhe @var{nachTonhöhe} umgewandelt, und alle anderen
 Noten um das gleiche Intervall.  Beide Tonhöhen
 werden im absoluten Modus eingegeben.
@@ -759,9 +759,9 @@ angegeben werden muss.  Wenn hier keine Tonart angemerkt
 würde, würde die Noten zwar transponiert, aber keine
 Vorzeichen angezeigt werden.
 
-@code{\transpose} unterscheidet enharmonische Verwechslungen: sowohl 
-@w{@code{\transpose c cis}} als auch @w{@code{\transpose c des}} transponieren 
-die Musik einen Halbton nach oben.  Aber die erste Version gibt als 
+@code{\transpose} unterscheidet enharmonische Verwechslungen: sowohl
+@w{@code{\transpose c cis}} als auch @w{@code{\transpose c des}} transponieren
+die Musik einen Halbton nach oben.  Aber die erste Version gibt als
 Versetzungszeichen Kreuze aus, die zweite dagegen B-Versetzungszeichen.
 
 @lilypond[verbatim,quote]
@@ -772,14 +772,14 @@ music = \relative c' { c d e f }
 }
 @end lilypond
 
-@code{\transpose} kann auch benutzt werden, um die geschriebenen 
+@code{\transpose} kann auch benutzt werden, um die geschriebenen
 Noten eines transponierenden Instruments zu notieren. Im vorigen Beispiel wurde die Tonhöhen so eingegeben,
 wie sie erklingen (also in C), aber man kann genauso
 gut auch andersherum aus einer Stimme, die für ein
 transponierendes Instrument in einem anderen Ton als
 C geschrieben wurde, eine Partitur in C erstellen.
 Die Noten einer B-Trompete, die mit einem notierten E
-(also einem klingenden D) anfangen, könnte man also 
+(also einem klingenden D) anfangen, könnte man also
 auch so eingeben:
 
 @example
@@ -929,11 +929,11 @@ c2 c
 @cindex Chor-Tenorschlüssel
 @cindex Tenorschlüssel, Chor
 
-Indem @code{_8} oder @code{^8} an die jeweilige Schlüsselbezeichnung 
-angehängt wird, wird der Schlüssel um eine Oktave nach oben oder unten 
+Indem @code{_8} oder @code{^8} an die jeweilige Schlüsselbezeichnung
+angehängt wird, wird der Schlüssel um eine Oktave nach oben oder unten
 transponiert, mit @code{_15} oder @code{^15} um zwei Oktaven.  Auch
 andere Ganzzahlen können verwendet werden, wenn es gewünscht wird.
-Die Schlüsselbezeichnung muss in Anführungszeichen gesetzt werden, 
+Die Schlüsselbezeichnung muss in Anführungszeichen gesetzt werden,
 wenn nicht-alphabetische Zeichen enthält, siehe Beispiel:
 
 @lilypond[verbatim,quote,relative=1]
@@ -963,7 +963,7 @@ Weitere unterstützte Schlüssel sind beschrieben in @ref{Mensurale Schlüssel},
 
 @seealso
 Notationsreferenz:
-@ref{Mensurale Schlüssel}, 
+@ref{Mensurale Schlüssel},
 @ref{Gregorianische Schlüssel}
 @ref{Standardtabulaturen},
 @ref{Angepasste Tabulaturen}.
@@ -1000,7 +1000,7 @@ was für Vorzeichen/Tonart oder Schlüssel gesetzt sind.
 Mehr Information dazu in @rlearning{Versetzungszeichen und Tonartbezeichnung (Vorzeichen)}.}
 
 Die Vorzeichen zeigen die Tonart an, in welcher ein Stück notiert ist.
-Es handelt sich um eine Anzahl von Alterationszeichen (Kreuzen oder 
+Es handelt sich um eine Anzahl von Alterationszeichen (Kreuzen oder
 Bs) am Beginn jedes Notensystems.
 
 Die Tonart kann geändert werden:
@@ -1044,10 +1044,10 @@ Die Tonart kann geändert werden:
 @cindex Phrygisch
 
 @noindent
-Der Wert @var{Modus} sollte entweder @code{\major} oder @code{\minor} 
-sein, um Moll oder Dur der @var{Tonhöhe} zu erhalten. Es können auch 
-Modusbezeichnungen für Kirchentonarten verwendet werden: @code{\ionian} 
-(Ionisch), @code{\locrian} (Lokrisch), @code{\aeolian} (Aeolisch), 
+Der Wert @var{Modus} sollte entweder @code{\major} oder @code{\minor}
+sein, um Moll oder Dur der @var{Tonhöhe} zu erhalten. Es können auch
+Modusbezeichnungen für Kirchentonarten verwendet werden: @code{\ionian}
+(Ionisch), @code{\locrian} (Lokrisch), @code{\aeolian} (Aeolisch),
 @code{\mixolydian} (Mixolydisch), @code{\lydian} (Lydisch),
 @code{\phrygian} (Phrygisch) und @code{\dorian} (Dorisch).
 
@@ -1435,7 +1435,7 @@ Stimme in der anderen nicht aufgelöst werden, was oft
 ein unerwünschtes Ergebnis ist: im folgenden Beispiel
 kann man schwer sagen, ob das zweite @code{a} unalteriert
 oder erhöht gespielt werden soll.  Die @code{voice}-Option
-sollte also nur benutzt werden, wenn die Stimmen 
+sollte also nur benutzt werden, wenn die Stimmen
 separat von unterschiedlichen Musikern gelesen werden.
 Wenn das System nur von einem Musiker benutzt wird
 (etwa der Dirigent oder ein Klavierspieler), dann

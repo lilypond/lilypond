@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d7f5cebae73078d1919381df574c69323043a224
+    Translation of GIT committish: 345522f312430725cdae0d61acfa716ce08622ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,7 +20,7 @@ Los acordes se pueden escribir en el modo de acordes, que reconoce
 ciertas convenciones europeas tradicionales de nomenclatura de
 acordes.  También se pueden imprimir los nombres de los acordes.
 Además se puede imprimir notación de bajo cifrado.
- 
+
 @menu
 * Modo de acordes::
 * Imprimir los acordes::
@@ -64,7 +64,7 @@ los que están familiarizados con la utilización de nombres para
 describir los acordes.  Hay más información sobre los distintos modos
 de entrada en @ref{Modos de entrada}.
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chordmode { c1 g a g c }
 @end lilypond
 
@@ -137,20 +137,20 @@ contexto de @code{Staff}:
 Las tríadas mayores se introducen escribiendo la fundamental y una
 duración opcional:
 
-@lilypond[verbatim,quote,relative=1,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 \chordmode { c2 f4 g }
 @end lilypond
 
 Las tríadas menores, aumentadas y disminuidas se escriben poniendo
 @code{:} y una cadena modificadora de variante después de la duración:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chordmode { c2:m f4:aug g:dim }
 @end lilypond
 
 Se pueden crear acordes de séptima:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:7 c:m7 c:maj7 c:dim7 c:aug7 }
 @end lilypond
 
@@ -281,7 +281,7 @@ terceras hasta la tercera más alta inferior al ámbito, y después se
 añade la nota del ámbito.  El mayor valor posible para el ámbito es
 13.  Cualquier valor mayor se interpreta como 13.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1:2 c:3 c:4 c:5
   c1:6 c:7 c:8 c:9
@@ -298,7 +298,7 @@ Puesto que una oncena sin alteración no suena bien cuando se combina
 con una trecena sin alteración, se elimina la oncena de los acordes de
 @code{:13} (a no ser que se añada explícitamente).
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1:13 c:13.11 c:m13
 }
@@ -310,7 +310,7 @@ Se pueden añadir notas individuales a un acorde.  Las adiciones siguen
 el ámbito y van prefijadas por un punto (@code{.}).  La séptima normal
 que se añade a un acorde es la séptima menor, no mayor.
 
-@lilypond[quote,verbatim,fragment,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c1:5.6 c:3.7.8 c:3.6.13
 }
@@ -318,7 +318,7 @@ que se añade a un acorde es la séptima menor, no mayor.
 
 Las notas añadidas pueden ser tan agudas como se desee.
 
-@lilypond[quote,verbatim,fragment,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c4:5.15 c:5.20 c:5.25 c:5.30
 }
@@ -331,7 +331,7 @@ de los sufijos @code{-} o @code{+} al número.  Para alterar una nota
 que se ha incluido automáticamente como parte de la estructura básica
 del acorde, añádala como una nota alterada.
 
-@lilypond[quote,verbatim,fragment,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c1:7+ c:5+.3- c:3-.5-.7-
 }
@@ -346,7 +346,7 @@ cadena modificadora prefijándola por un acento circunflejo @code{^}.
 Sólo se permite una supresión con @code{^} dentro de una cadena
 modificadora.
 
-@lilypond[quote,verbatim,fragment,relative=1]
+@lilypond[quote,verbatim]
 \chordmode {
   c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7
 }
@@ -360,7 +360,7 @@ Escriba bien @code{2} o bien @code{4} para añadir la segunda o la cuarta
 al acorde, respectivamente.  @code{sus} equivale a @code{^3};
 @code{sus4} equivale a @code{.4^3}.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1:sus c:sus2 c:sus4 c:5.4^3
 }
@@ -375,7 +375,7 @@ Se pueden especificar las inversiones (colocar en el bajo una nota
 distinta de la fundamental del acorde) y notas de bajo añadidas
 mediante la adición de @code{/}@var{nota} al acorde.
 
-@lilypond[quote,ragged-right,fragment,verbatim, relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1 c/g c/f
 }
@@ -387,7 +387,7 @@ Se puede añadir una nota del bajo que forma parte del acorde, en lugar
 de ser movida por efecto de una inversión, mediante el uso de
 @code{/+}@var{nota}.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c1 c/g c/+g
 }
@@ -411,7 +411,7 @@ Cada nota sólo puede estar presente en el acorde una sola vez.  Lo que
 sigue produce simplemente el acorde aumentado, porque @code{5+} se
 interpreta en último lugar.
 
-@lilypond[quote,ragged-right,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:5.5-.5+ }
 @end lilypond
 
@@ -419,7 +419,7 @@ Sólo se puede crear la segunda inversión mediante la adición de un
 bajo.  La primera inversión requiere cambiar la fundamental del
 acorde.
 
-@lilypond[quote,ragged-right,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode {
   c'1: c':/g e:6-3-^5 e:m6-^5
 }
@@ -448,7 +448,7 @@ estándar como notas sobre un pentagrama.
 Los nombres de acorde se imprimen dentro del contexto
 @code{ChordNames}:
 
-@lilypond[verbatim,quote,relative=1,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
   \chordmode {
     c2 f4. g8
@@ -510,13 +510,13 @@ Sin Acorde).
 @code{\chords @{ ... @}} es una forma abreviada de escribir
 @code{\new ChordNames @{ \chordmode @{ ... @} @}}.
 
-@lilypond[verbatim,quote,ragged-right, relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chords {
   c2 f4.:m g8:maj7
 }
 @end lilypond
 
-@lilypond[verbatim,quote,ragged-right, relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
   \chordmode {
     c2 f4.:m g8:maj7
@@ -606,7 +606,7 @@ Algunos cancioneros alemanes indican los acordes menores como letras
 minúsculas, sin el sufijo @var{m}.  Esto se puede conseguir
 estableciendo la propiedad @code{chordNameLowercaseMinor}:
 
-@lilypond[verbatim,quote,ragged-right, relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \chords {
   \set chordNameLowercaseMinor = ##t
   c2 d:m e:m f
@@ -783,7 +783,7 @@ Se puede imprimir notación de bajo cifrado.
 LilyPond contempla el bajo cifrado, también conocido como basso
 continuo:
 
-@lilypond[quote,ragged-right,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim]
 <<
   \new Voice { \clef bass dis4 c d ais g fis}
   \new FiguredBass {
@@ -840,7 +840,7 @@ En el modo de cifras, un grupo de cifras del bajo está delimitado
 mediante ángulos simples, @code{<} y @code{>}.  La duración se escribe
 después del @code{>}.
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \new FiguredBass {
   \figuremode {
     <6 4>2
@@ -851,7 +851,7 @@ después del @code{>}.
 Se pueden añadir alteraciones accidentales (incluso becuadros) a las
 cifras:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <7! 6+ 4-> <5++> <3-->
 }
@@ -859,7 +859,7 @@ cifras:
 
 Se pueden indicar elementos del acorde aumentados y disminuidos:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <6\+ 5/> <7/>
 }
@@ -868,7 +868,7 @@ Se pueden indicar elementos del acorde aumentados y disminuidos:
 Se puede crear una barra invertida cruzando una cifra (usada
 normalmente para sextas elevadas):
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <6> <6\\>
 }
@@ -876,7 +876,7 @@ normalmente para sextas elevadas):
 
 Se pueden incluir espacios verticales y corchetes en las cifras:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <[12 _!] 8 [6  4]>
 }
@@ -884,7 +884,7 @@ Se pueden incluir espacios verticales y corchetes en las cifras:
 
 Se puede insertar cualquier elemento de marcado de texto como una cifra:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \figures {
   <\markup { \tiny \number 6 \super (1) } 5>
 }
@@ -897,7 +897,7 @@ Se puede insertar cualquier elemento de marcado de texto como una cifra:
 Se pueden usar líneas de continuación para indicar cifras que se
 repiten:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 <<
   {
     \clef bass
@@ -918,7 +918,7 @@ En este caso, las líneas de extensión sustituyen a las cifras
 existentes, a no ser que las líneas de continuación hayan sido
 terminadas explícitamente.
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 <<
   \figures {
     \bassFigureExtendersOn
@@ -1037,7 +1037,7 @@ Cuando se presenta dentro de un contexto de @code{FiguredBass}, la
 ubicación vertical de las cifras es independiente de las notas que
 están en el pentagrama.
 
-@lilypond[verbatim,ragged-right,fragment,quote]
+@lilypond[verbatim,ragged-right,quote]
 <<
   \relative c'' {
     c4 c'8 r8 c,4 c'
@@ -1060,7 +1060,7 @@ El bajo cifrado se puede añadir también a contextos de @code{Staff}
 directamente.  En este caso, la posición vertical de las cifras se
 ajusta automáticamente.
 
-@lilypond[verbatim,ragged-right,fragment,quote]
+@lilypond[verbatim,ragged-right,quote]
 <<
   \new Staff = myStaff
   \figuremode {
@@ -1079,7 +1079,7 @@ ajusta automáticamente.
 Cuando se escribe dentro de un contexto de pentagrama, el bajo cifrado
 se puede presentar encima o debajo del mismo.
 
-@lilypond[verbatim,ragged-right,fragment,quote]
+@lilypond[verbatim,ragged-right,quote]
 <<
   \new Staff = myStaff
   \figuremode {
@@ -1141,7 +1141,7 @@ Para asegurar que las líneas extensoras funcionan adecuadamente, lo
 más seguro es utilizar las mismas duraciones en la línea de cifras y
 en la línea del bajo.
 
-@lilypond[verbatim,ragged-right,fragment,quote]
+@lilypond[verbatim,ragged-right,quote]
 <<
   {
     \clef bass
@@ -1172,9 +1172,9 @@ Si se usan líneas extensoras, las cifras adyacentes con el mismo
 número en distinta colocación puede hacer que se inviertan las
 posiciones de las cifras.
 
-@lilypond[verbatim,ragged-right,fragment,quote,relative=1]
+@lilypond[verbatim,ragged-right,quote,relative=1]
 <<
- { fis4 g g, e' }
+  { fis4 g g, e' }
   \figures {
     \bassFigureExtendersOn
     <6 5>4 <5\! 4> < 5 _!> <6>
@@ -1185,9 +1185,9 @@ posiciones de las cifras.
 Para evitar este problema, sencillamente habilite los extensores
 después de la cifra y quítelos al final de la línea extensora.
 
-@lilypond[verbatim,ragged-right,fragment,quote,relative=1]
+@lilypond[verbatim,ragged-right,quote,relative=1]
 <<
- { fis4 g g, e' }
+  { fis4 g g, e' }
   \figures {
     <6 5>4 <5 4>
     \bassFigureExtendersOn

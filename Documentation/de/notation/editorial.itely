@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -172,8 +172,8 @@ c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @funindex \thumb
 @funindex thumb
 
-Mit dem Daumen-Befehl (@code{\thumb}) können die Noten bezeichnet 
-werden, die mit dem 
+Mit dem Daumen-Befehl (@code{\thumb}) können die Noten bezeichnet
+werden, die mit dem
 Daumen (etwa auf dem Cello) gespielt werden sollen.
 
 @lilypond[verbatim,quote,relative=2]
@@ -183,8 +183,8 @@ Daumen (etwa auf dem Cello) gespielt werden sollen.
 @cindex Fingersatz: Akkorde
 @cindex Akkorde: Fingersatz
 
-Fingersätze für Akkorde können auch zu einzelnen Noten des 
-Akkordes hinzugefügt werden, indem sie innerhalb der Akkord-Klammer 
+Fingersätze für Akkorde können auch zu einzelnen Noten des
+Akkordes hinzugefügt werden, indem sie innerhalb der Akkord-Klammer
 direkt an die Noten angefügt werden.
 
 @lilypond[verbatim,quote,relative=2]
@@ -456,9 +456,9 @@ gesetzt, anstatt den gesamten Akkord in eine große Klammer zu fassen.
 @funindex stemUp
 @funindex stemDown
 
-Immer, wenn das Programm eine Note findet, wird automatisch 
-ein Notenhals (@rinternals{Stem}) -Objekt erzeugt. Auch 
-für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar 
+Immer, wenn das Programm eine Note findet, wird automatisch
+ein Notenhals (@rinternals{Stem}) -Objekt erzeugt. Auch
+für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar
 gemacht.
 
 Hälse können manuell gesetzt werden, um nach oben oder unten zu

@@ -11,7 +11,7 @@
 @c \version "2.13.39"
 
 @c Translators: Jean-Charles Malahieude, John Mandereau, Gauvain Pocentek
-@c Translation checkers: 
+@c Translation checkers:
 
 @node La gravure musicale
 @chapter La gravure musicale
@@ -30,8 +30,8 @@ Ce chapitre traite des objectifs et de l'architecture de LilyPond.
 * La gravure en détails::       de l'homme à la machine
 * La gravure automatisée::      de la machine à l'homme
 * De la théorie à la pratique:: qui fait quoi
-* Démonstration par l'exemple:: LilyPond à l'œuvre       
-* Comparatif (BWV 861)::                    
+* Démonstration par l'exemple:: LilyPond à l'œuvre
+* Comparatif (BWV 861)::
 @end menu
 
 @node L'histoire de LilyPond
@@ -128,12 +128,12 @@ ceci n'est que pinaillerie, il n'en demeure pas moins que cette
 partition a plus de lisibilité.  Dans la partition informatisée, il n'y
 a pratiquement aucune différence d'une ligne à l'autre, et si
 l'interprète la quitte des yeux un instant, il risque de ne plus savoir
-où il en était sur la page. 
+où il en était sur la page.
 
 LilyPond a été conçu dans le but de résoudre les problèmes que nous
 avons décelés dans divers logiciels existant et aussi dans l'optique
 d'atteindre une qualité comparable aux meilleures partitions gravées à
-la main. 
+la main.
 
 @iftex
 @page
@@ -180,7 +180,7 @@ entièrement faits à la main.  Dans la mesure où les corrections étaient
 presque irréalisables, la gravure devait être correcte dès le premier
 essai.  Cela demande évidemment une très grande habileté.  La gravure
 musicale est un métier d'artisan, appris sur le tas.  Un graveur ne
-devenait un maître accompli qu'après une dizaine d'années de pratique. 
+devenait un maître accompli qu'après une dizaine d'années de pratique.
 
 @quotation
 @iftex
@@ -542,7 +542,7 @@ global = {
 
 Les musiciens sont normalement plus concentrés sur la manière dont ils
 jouent la musique que sur son apparence, aussi ces pinailleries sur des
-détails de typographie peuvent paraître académiques.  Il n'en est rien.  
+détails de typographie peuvent paraître académiques.  Il n'en est rien.
 La partition contribue, au même titre que bien d'autres éléments, à
 l'existence même d'une représentation@tie{}: tout doit être fait pour
 que l'interprète donne le meilleur de lui-même, et ce qui est peu clair
@@ -562,7 +562,7 @@ Pour du matériel d'interprétation tel que les partitions de musique,
 ceci est doublement important@tie{}: les musiciens sont limités dans
 leur attention.  Au moins leur attention se porte sur la lecture, au
 plus ils peuvent se concentrer sur l'exécution.  En d'autres termes, une
-meilleure typographie se traduit par une meilleure interprétation. 
+meilleure typographie se traduit par une meilleure interprétation.
 
 Ces considérations montrent bien que la typographie musicale est un art
 à la fois complexe et plein de subtilités, et qu'elle recquiert des
@@ -974,7 +974,7 @@ autres versions.  Vous noterez certaines variations entre les éditions
 traditionnelles, et LilyPond tient un rang acceptable.  Il reste tout de
 même quelques petits défauts à régler, comme le raccourcissement peut
 être exagéré des hampes@tie{}; il y a donc encore de quoi faire pour les
-développeurs. 
+développeurs.
 
 La typographie relevant d'un jugement humain, les personnes ne peuvent
 être remplacées.  Beaucoup de tâches rébarbatives peuvent cependant être
@@ -998,7 +998,7 @@ de LilyPond.
 @menu
 * Représentation de la musique::   le format de saisie
 * Les constituants de la gravure:: quels symboles graver
-* Flexibilité architecturale::   
+* Flexibilité architecturale::
 @end menu
 
 
@@ -1217,7 +1217,7 @@ fondements n'aient pas changé -- des têtes de note réparties sur une
 portée à cinq lignes --, certains détails sont apparus qui permettent de
 rendre compte des apports de la notation contemporaine.  La notation
 musicale couvre cinq siècles de musique, allant de la simple monodie à
-de gigantesques contrepoints orchestraux. 
+de gigantesques contrepoints orchestraux.
 
 Comment intégrer un tel monstre aux si nombreux visages ? Notre solution
 est de clairement distinguer la notation -- @emph{quels} symboles
@@ -1421,7 +1421,7 @@ raisons@tie{}:
 l'utilisateur doit pouvoir déroger aux décisions arbitraires, et donc
 se servir du moteur de formatage.  Par conséquent,  les règles et
 paramètres ne peuvent être fixés lors de la compilation, mais doivent
-être accessibles lors de l'exécution.  
+être accessibles lors de l'exécution.
 
 @item Graver est une affaire de jugement visuel, donc une affaire de goût.
 Nous savons que les utilisateurs peuvent ne pas être d'accord avec nous.
@@ -1557,7 +1557,7 @@ de dessiner son symbole est modifiée au cours de l'extrait musical :
 Nous vous avons montré ce que devrait être la gravure musicale, et
 comment nous avons construit notre logiciel pour imiter cette apparence.
 Nous nous sommes énormément investis dans cette construction. En guise
-de  récompense pour ce long travail, vous pouvez à votre tour 
+de  récompense pour ce long travail, vous pouvez à votre tour
 utiliser le programme pour imprimer votre musique.
 Commençons par quelques notes@dots{}
 

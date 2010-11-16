@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -16,9 +16,9 @@
 @appendix Vorlagen
 @translationof Templates
 
-Dieser Abschnitt des Handbuches enthält Vorlagen, in denen die 
-LilyPond-Partitur schon eingerichtet ist. Sie müssen nur noch Ihre 
-Noten einfügen, die Datei mit LilyPond übersetzen und sich an dem 
+Dieser Abschnitt des Handbuches enthält Vorlagen, in denen die
+LilyPond-Partitur schon eingerichtet ist. Sie müssen nur noch Ihre
+Noten einfügen, die Datei mit LilyPond übersetzen und sich an dem
 schönen Notenbild erfreuen!
 
 @c bad node name for ancient notation to avoid conflict

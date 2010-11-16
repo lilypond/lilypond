@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Reinhold Kainhofer, Till Paala
 @c Translation checkers: Till Paala
@@ -154,13 +154,13 @@ Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
 @table @code
 
 @item -e,--evaluate=@var{expr}
-Wertet den Scheme-Ausdruck @var{expr} aus, bevor die @file{.ly} Dateien 
+Wertet den Scheme-Ausdruck @var{expr} aus, bevor die @file{.ly} Dateien
 gelesen und interpretiert werden.
 Die @code{-e} Option kann auch mehrfach angegeben werden, die Ausdrücke
 werden nacheinander ausgewertet.
 
-Da der Ausdruck im @code{guile-user} Modul ausgewertet wird, ist bei der 
-Definitionen innerhalb von @var{expr} folgendes Vorgehen nötig. An der 
+Da der Ausdruck im @code{guile-user} Modul ausgewertet wird, ist bei der
+Definitionen innerhalb von @var{expr} folgendes Vorgehen nötig. An der
 Kommandozeile wird z.B. @code{a} im @code{guile-user} Modul definiert:
 
 @example
@@ -184,9 +184,9 @@ Beispiel: @code{lilypond -fpng @var{Dateiname}.ly}
 
 
 @item -d,--define-default=@var{Variable}=@var{Wert}
-Damit wird die interne Programmoption @var{Variable} auf den Scheme-Wert 
+Damit wird die interne Programmoption @var{Variable} auf den Scheme-Wert
 @var{Wert} gesetzt. Wird kein @var{Wert} angegeben, so wird @var{#t} benutzt.
-Um eine Option auszuschalten, kann der Präfix @code{no-} dem Namen 
+Um eine Option auszuschalten, kann der Präfix @code{no-} dem Namen
 @var{Variable} der Variable vorangestellt werden. So ist etwa
 
 @cindex Point and Click, Kommandozeile
@@ -207,7 +207,7 @@ Hier sind ein paar interessante Optionen:
 
 @table @samp
 @item help
-Die Ausführung von @code{lilypond -dhelp} zeigt alle verfügbaren @code{-d} 
+Die Ausführung von @code{lilypond -dhelp} zeigt alle verfügbaren @code{-d}
 Optionen.
 
 @cindex Papierformat, Kommandozeile
@@ -219,7 +219,7 @@ Setzt das Standard-Papierformat,
 @end example
 
 @noindent
-Die Zeichenkette, die das Format angibt, muss in Anführungszeichen mit Backslash 
+Die Zeichenkette, die das Format angibt, muss in Anführungszeichen mit Backslash
 ( @code{\"} ) stehen.
 
 @cindex sicher, Kommandozeile
@@ -230,7 +230,7 @@ Vertraut der @code{.ly} Datei nicht.
 
 Wenn LilyPond über einen Webserver verfügbar gemacht wird, @b{MUSS} unbedingt
 eine die Optionen @code{--safe} oder @code{--jail} angegeben werden.
-Die @code{--safe} Option verhindert, dass in der .ly-Datei angegebener 
+Die @code{--safe} Option verhindert, dass in der .ly-Datei angegebener
 Scheme-Code das System gefährden kann, wie etwa in folgendem Beispiel:
 
 @quotation
@@ -245,24 +245,24 @@ Scheme-Code das System gefährden kann, wie etwa in folgendem Beispiel:
 Mit der @code{-dsafe} Option werden alle Scheme-Ausdrücke einem speziellen
 sicheren Modus ausgewertet. Dieser Modus ist vom GUILE @file{safe-r5rs} Modul
 abgeleitet und fügt noch zahlreiche weitere erlaubte Funktionen der
-LilyPond Programm-Schnittstelle hinzu. Diese Funktionen sind in 
+LilyPond Programm-Schnittstelle hinzu. Diese Funktionen sind in
 @file{scm/@/safe@/-lily@/.scm} angegeben.
 
 Zusätzliche verbietet der sichere Modus auch @code{\include} Befehle.
 
-Im sicheren Modus ist es nicht möglich, LilyPond-Variablen nach Scheme 
+Im sicheren Modus ist es nicht möglich, LilyPond-Variablen nach Scheme
 zu exportieren.
 
 @code{-dsafe} erkennt jedoch @emph{KEINE} Überbeanspruchung der verfügbaren
 Ressourcen. In diesem Modus ist es also trotzdem möglich, dass LilyPond in einer
-Endlosschleife hängt, z.B. wenn zyklische Datenstrukturen an das Backend 
-übergeben werden. Wenn LilyPond also auf einem öffentlich zugänglichen 
+Endlosschleife hängt, z.B. wenn zyklische Datenstrukturen an das Backend
+übergeben werden. Wenn LilyPond also auf einem öffentlich zugänglichen
 Webserver verfügbar gemacht wird, sollte der Prozess sowohl in der CPU-
 als auch in der Speichernutzung limitiert werden.
 
-Der sichere Modus verhindert auch, dass zahlreiche nützliche 
+Der sichere Modus verhindert auch, dass zahlreiche nützliche
 Musikfragmente von LilyPond verarbeitet werden. Die @code{--jail} Option ist
-eine sicherere Alternative, benötigt allerdings auch mehr Aufwand zur 
+eine sicherere Alternative, benötigt allerdings auch mehr Aufwand zur
 Einrichtung.
 
 @cindex Ausgabeformat, Definition von
@@ -277,7 +277,7 @@ PostScript-Ausgabeformat.
 
 @cindex PostScript Ausgabeformat
 
-Postscript-Dateien enthalten auch TTF-, Type1- und OTF-Schriften. Allerdings 
+Postscript-Dateien enthalten auch TTF-, Type1- und OTF-Schriften. Allerdings
 wird die gesamte Schriftart eingefügt und nicht nur die benötigten Zeichen.
 Vor allem wenn nicht-westliche Zeichensätze benutzt werden, kann dies zu sehr
 großen Dateien führen.
@@ -311,7 +311,7 @@ Betrachtungsprogrammen kompatibel sein.
 @cindex Scheme-dump
 
 @item scm
-gibt die rohen Scheme-basierenden Zeichenbefehle aus, wie sie intern von 
+gibt die rohen Scheme-basierenden Zeichenbefehle aus, wie sie intern von
 LilyPond benutzt werden.
 
 @cindex Scheme dump
@@ -326,13 +326,13 @@ Beispiel: @code{lilypond -dbackend=svg @var{Dateiname}.ly}
 @cindex Vorschau
 
 @item preview
-Erzeugt eine Ausgabedatei, die nur die Titelzeilen und das erste System 
+Erzeugt eine Ausgabedatei, die nur die Titelzeilen und das erste System
 enthält.  Wenn @code{\bookpart}-Umgebungen benutzt werden, erscheinen die
 Titel und ersten Systeme jedes @code{\bookpart}-Abschnitts in der Datei.
 Die Backends @code{ps}, @code{eps} und @code{svg} unterstützen diese Option.
 
 @item print-pages
-Erzeugt vollständige Seiten (Standardeinstellung).  @code{-dno-print-pages} 
+Erzeugt vollständige Seiten (Standardeinstellung).  @code{-dno-print-pages}
 ist in Verbindung mit @code{-dpreview} nützlich.
 
 @end table
@@ -343,7 +343,7 @@ ist in Verbindung mit @code{-dpreview} nützlich.
 Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
 
 @item -H,--header=@var{FELD}
-Gibt den Inhalt eines Feldes aus dem @code{\header}-Block in die Datei 
+Gibt den Inhalt eines Feldes aus dem @code{\header}-Block in die Datei
 @file{Dateiname.@var{FELD}} aus.
 
 @item --include, -I=@var{Verzeichnis}
@@ -357,7 +357,7 @@ ersten definierten Verzeichnis und setzt in den weiteren Verzeichnissen
 fort, wenn die gesuchte Datei nicht in dem Verzeichnis gefunden wird.
 
 @item -i,--init=@var{Initialisierungsdatei}
-Benutzt @var{Initialisierungsdatei} zur gesamten Programminitialisierung. Der 
+Benutzt @var{Initialisierungsdatei} zur gesamten Programminitialisierung. Der
 Standardwert ist @file{init.ly}.
 
 @cindex Verzeichnis, Ausgabe speichern in
@@ -367,7 +367,7 @@ Standardwert ist @file{init.ly}.
 Schreibt das Ergebnis der Verarbeitung mit LilyPond in die Ausgabedatei
 @var{DATEI}.  Wenn ein Verzeichnis mit dem Namen existiert, werden die Ausgabedateien
 in dieses Verzeichnis gespeichert, wobei der Dateiname der Eingabedatei
-benutzt wird.  Die entsprechende Dateinamenserweiterung wird angehängt (z.B. 
+benutzt wird.  Die entsprechende Dateinamenserweiterung wird angehängt (z.B.
 @code{.pdf} für pdf).
 
 @cindex PostScript-Ausgabe
@@ -399,7 +399,7 @@ Die @code{--jail} Option ist eine flexiblere Alternative zu @code{--safe}, wenn
 LilyPond über das Internet verfügbar gemacht wird oder LilyPond-Quelldateien
 von Dritten automatisch verarbeitet werden.
 
-Sie funktioniert dergestalt, dass das Wurzelverzeichnis von 
+Sie funktioniert dergestalt, dass das Wurzelverzeichnis von
 @command{lilypond} auf @var{Jail-Verzeichnis} gesetzt wird, bevor die
 tatsächliche Kompilierung der .ly-Datei beginnt. Der Benutzer und die Gruppe
 werden auf die angegebenen Werte gesetzt und das aktuelle Arbeitsverzeichnis
@@ -409,8 +409,8 @@ möglich ist, aus dem Jail auszubrechen. Damit @code{--jail} funktioniert, muss
 @command{lilypond} allerdings als root ausgeführt werden, was normalerweise
 auf sichere Art mit dem Kommando @command{sudo} erreicht werden kann.
 
-Das Jail-Verzeichnis zu erstellen ist etwas heikel, da LilyPond alle zur 
-Ausführung nötigen Bibliotheken und Dateien @emph{innerhalb des 
+Das Jail-Verzeichnis zu erstellen ist etwas heikel, da LilyPond alle zur
+Ausführung nötigen Bibliotheken und Dateien @emph{innerhalb des
 Jail-Verzeichnisses} finden muss. Ein typisches Setup besteht aus folgenden
 Punkten:
 
@@ -419,17 +419,17 @@ Punkten:
 Ein eigenes Dateisystem muss für LilyPond erstellt werden, sodass es mit
 sicheren Einstellungen wie @code{noexec}, @code{nodev} und @code{nosuid}
 eingebunden werden kann. Damit ist es unmöglich, Programme von diesem
-Dateisystem auszuführen oder direkt auf eine Hardware-Schnittstelle 
+Dateisystem auszuführen oder direkt auf eine Hardware-Schnittstelle
 zuzugreifen. Wenn Sie keine eigene Partition erstellen möchten, können Sie
-auch eine Datei der entsprechenden Größe erstellen und sie als @q{loop}-Gerät 
-einbinden. Ein getrenntes Dateisystem garantiert auch, dass LilyPond nicht 
+auch eine Datei der entsprechenden Größe erstellen und sie als @q{loop}-Gerät
+einbinden. Ein getrenntes Dateisystem garantiert auch, dass LilyPond nicht
 mehr Festplattenspeicher benutzt als erlaubt.
 
 @item Erstellung eines eigenen Benutzerkontos
-Es sollte ein eigener Benutzer und eine eigene Gruppe (z. B. 
+Es sollte ein eigener Benutzer und eine eigene Gruppe (z. B.
 @code{lily}/@code{lily}) mit geringen Rechten für die Ausführung von LilyPond
 innerhalb des Jails benutzt werden. Nur ein einziges Verzeichnis des Jails sollte
-für den Benutzer schreibbar sein und als @var{Arbeitsverzeichnis} an 
+für den Benutzer schreibbar sein und als @var{Arbeitsverzeichnis} an
 @code{lilypond} übergeben werden.
 
 @item Einrichtung des Jails
@@ -438,16 +438,16 @@ Dateien müssen in das Jail-Verzeichnis kopiert werden (mit denselben Pfaden
 wie im tatsächlichen Wurzel-Dateisystem). Die gesamte LilyPond-Installation
 (typischerweise @file{/usr/share/lilypond}) sollte kopiert werden.
 
-Falls Probleme auftreten, ist es am einfachsten, Lilypond mittels 
+Falls Probleme auftreten, ist es am einfachsten, Lilypond mittels
 @command{strace} zu starten, wodurch Sie relativ leicht feststellen können,
 welche Dateien im Jail noch fehlen.
 
 @item Ausführung von LilyPond
 In einem mit @code{noexec} eingebundenen Jail ist es nicht möglich, externe
-Programme auszuführen. Daher muss LilyPond auf eine Art gestartet werden, 
-die keine weitere Ausführung von Programmen benötigt. Wie bereits erwähnt 
+Programme auszuführen. Daher muss LilyPond auf eine Art gestartet werden,
+die keine weitere Ausführung von Programmen benötigt. Wie bereits erwähnt
 muss LilyPond mit Administrator-Rechten gestartet werden (die es allerdings
-sofort wieder abgibt), beispielsweise mittels @command{sudo}. Außerdem 
+sofort wieder abgibt), beispielsweise mittels @command{sudo}. Außerdem
 ist es eine gute Idee, die LilyPond zur Verfügung stehende CPU-Zeit zu
 limitieren (z. B. mit @command{ulimit -t}) und -- falls das Betriebssystem
 dies unterstützt -- auch den zur Verfügung stehenden Hauptspeicher.
@@ -870,7 +870,7 @@ sind, wenn etwa nur @code{ChordName}-Kontext und @code{Lyrics}-Kontext
 in einem Liedblatt vorhanden sind.  Die Warnungen können vermieden werden,
 indem man einen der Kontexte als System erscheinen lässt, indem man ihm
 zu Beginn hinzufügt:
- 
+
 @example
 \override VerticalAxisGroup #'staff-affinity = ##f
 @end example

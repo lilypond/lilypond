@@ -1277,7 +1277,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{MetronomeMark}.
 
- 
+
 @node Levées
 @unnumberedsubsubsec Levées
 @translationof Upbeats
@@ -2894,7 +2894,7 @@ Pour connaître les différents symboles accessibles par
 
 Pour affiner le positionnement des repères, veuillez vous référer à
 @ref{Mise en forme du texte}, et tout particulièrement ce qui concerne
-la @code{break-alignable-interface} au chapitre 
+la @code{break-alignable-interface} au chapitre
 @ref{Alignement des objets}.
 
 

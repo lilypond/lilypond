@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -146,7 +146,7 @@ nicht funktioniert.
 
 @funindex \property in \lyricmode
 
-Auch ein Punkt, der auf eine Silbe folgt, wird in die Silbe inkorporiert. 
+Auch ein Punkt, der auf eine Silbe folgt, wird in die Silbe inkorporiert.
 Infolgedessen müssen auch um Eigenschaftsbezeichnungen Leerzeichen gesetzt
 werden.  Ein Befehl heißt also @emph{nicht}:
 
@@ -416,7 +416,7 @@ Melodie zugewiesen wird:
 Hiermit werden die Silben an den Noten eines @code{Voice}-Kontexts
 mit der Bezeichnung @var{Bezeichnung} ausgerichtet.  Dieser Kontext
 muss schon vorher definiert sein, damit er aufgerufen werden kann.
-Mit dem Befehl @code{\lyricsto} wird in den @code{\lyricmode} 
+Mit dem Befehl @code{\lyricsto} wird in den @code{\lyricmode}
 gewechselt, so dass der Gesangstextmodus nicht mehr extra angegeben
 werden muss.
 
@@ -1095,7 +1095,7 @@ kann mit @code{shortVocalName} definiert werden.
 Teilweise wird zu einer Silbe ein Melisma in einer Strophe
 gesungen, während in einer anderen jede Note eine Silbe erhält.
 Eine Möglichkeit ist, dass die Strophe mit mehr Text das
-Melisma ignoriert.  Das wird mit der 
+Melisma ignoriert.  Das wird mit der
 @code{ignoreMelismata}-Eigenschaft im @code{Lyrics}-Kontext
 vorgenommen.
 
@@ -1308,7 +1308,7 @@ its fleece was white as snow.
 @unnumberedsubsubsec Die Strophen am Ende in mehreren Spalten drucken
 @translationof Printing stanzas at the end in multiple columns
 
-Wenn in einem Lied sehr viele Strophen vorkommen, werden sie oft in 
+Wenn in einem Lied sehr viele Strophen vorkommen, werden sie oft in
 mehreren Spalten unter den Noten gesetzt.  Eine nach außen versetzte Zahl
 zeigt die Strophennummer an.  Dieses Beispiel zeigt eine Methode, diese
 Art von Notensatz zu produzieren.

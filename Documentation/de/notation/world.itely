@@ -10,7 +10,7 @@
 
 @c Translators: Till Paala
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Weltmusik
 @section Weltmusik
@@ -166,9 +166,9 @@ Schnipsel:
 @rlsr{World music}.
 
 
-@node Arabische Notenbezeichnungen 
+@node Arabische Notenbezeichnungen
 @unnumberedsubsubsec Arabische Notenbezeichnungen
-@translationof Arabic note names 
+@translationof Arabic note names
 
 @cindex arabische Notenbezeichnungen
 @cindex Notenbezeichnungen, arabisch

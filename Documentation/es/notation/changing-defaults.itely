@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+Translation of GIT committish: 44099a932d98a8757b27ee92f9b0533170b516e3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -97,7 +97,7 @@ Los contextos se disponen de forma jerárquica:
 
 @menu
 * Score. El contexto maestro::
-* Contextos del nivel superior.  Contenedores de pentagramas::
+* Contextos del nivel superior. Contenedores de pentagramas::
 * Contextos de nivel intermedio. Pentagramas::
 * Contextos del nivel más bajo. Voces::
 @end menu
@@ -270,7 +270,7 @@ Una aplicación práctica de @code{\new} es una partitura con muchos
 pentagramas.  Cada parte que debe ir en su propio pentagrama, va
 precedida de @code{\new Staff}.
 
-@lilypond[quote,verbatim,relative=2,ragged-right,fragment]
+@lilypond[quote,verbatim,relative=2,ragged-right]
 <<
   \new Staff { c4 c }
   \new Staff { d4 d }
@@ -596,7 +596,7 @@ ejemplo sencillo que suprime los grabadores
 @code{Time_signature_engraver} y @code{Clef_engraver} de un contexto
 @code{Staff}:
 
-@lilypond[quote,relative=1,verbatim,fragment]
+@lilypond[quote,relative=1,verbatim]
 <<
   \new Staff {
     f2 g
@@ -1018,7 +1018,7 @@ esto suprime un contexto de la lista @qq{accepts}.
 Supongamos que queremos mover la indicación de digitación del
 fragmento siguiente:
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[quote,relative=2,verbatim]
 c-2
 \stemUp
 f
@@ -1205,7 +1205,7 @@ definición.
 
 Recordemos que queríamos cambiar la posición del @b{2} en
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[quote,relative=2,verbatim]
 c-2
 \stemUp
 f
@@ -1253,7 +1253,7 @@ Al insertar esta instrucción antes de que se haya creado el objeto
 Fingering, es decir, antes del @code{c2}, llegamos al siguiente
 resultado:
 
-@lilypond[quote,relative=2,fragment,verbatim]
+@lilypond[quote,relative=2,verbatim]
 \once \override Voice.Fingering #'padding = #3
 c-2
 \stemUp
@@ -1306,6 +1306,7 @@ Preguntas aún sin respuesta
 * La instrucción override::
 * La instrucción tweak::
 * set frente a override::
+* Modificación de las listas-A::
 @end menu
 
 
@@ -1359,7 +1360,7 @@ instrucción especifica como contexto a @code{Staff}, sólo se aplica al
 pentagrama actual.  Otros pentagramas mantienen su aspecto normal.
 Aquí vemos la instrucción en pleno funcionamiento:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 c4
 \override Staff.Stem #'thickness = #4.0
 c4
@@ -1376,7 +1377,7 @@ omitir, ocasionando que se utilice el contexto predeterminado
 @code{Voice}.  Al añadir @code{\once} se aplica el cambio durante un
 solo paso de tiempo.
 
-@lilypond[quote,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c4
 \once \override Stem #'thickness = #4.0
 c4
@@ -1388,7 +1389,7 @@ Por tanto, al alterar objetos @emph{Spanner} «de extensión» como
 ligaduras o barras, la instrucción @code{\override} se debe ejecutar
 en el momento en que se crea el objeto.  En este ejemplo:
 
-@lilypond[quote,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \override Slur #'thickness = #3.0
 c8[( c
 \override Beam #'beam-thickness = #0.6
@@ -1480,7 +1481,7 @@ Por ejemplo, los silencios multicompás se combinan en un solo compás
 si el valor de la propiedad de contexto @code{skipBars} se establece a
 @code{#t} (verdadero):
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 R1*2
 \set Score.skipBars = ##t
 R1*2
@@ -1490,7 +1491,7 @@ Si se omite el argumento @var{context}, entonces se utiliza el
 contexto actual de nivel más bajo (normalmente @code{ChordNames},
 @code{Voice} o @code{Lyrics}). En este ejemplo:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 \set Score.autoBeaming = ##f
 <<
   {
@@ -1512,7 +1513,7 @@ valor de la propiedad @code{skipBars} del contexto predeterminado del
 nivel más bajo, que en este caso es @code{Voice}, no tendrá ningún
 efecto, porque skipBars es una propiedad del contexto @code{Score}.
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 R1*2
 \set skipBars = ##t
 R1*2
@@ -1536,7 +1537,7 @@ elimina la definición solamente si está establecida dentro de
 @var{contexto}.  Properties that have been set in enclosing contexts will
 not be altered by an unset in an enclosed context:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 \set Score.autoBeaming = ##t
 <<
   {
@@ -1567,7 +1568,7 @@ son equivalentes si el contexto inferior en curso es @code{Voice}.
 Los ajustes que se aplican solamente a un único paso de tiempo se
 pueden escribir con @code{\once}, por ejemplo en
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 c4
 \once \set fontSize = #4.7
 c4
@@ -1635,7 +1636,7 @@ Por ejemplo, podemos aumentar el grosor de la plica de una figura
 sobreescribiendo la propiedad @code{thickness} (grosor) del objeto
 @code{Stem} (plica):
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote,verbatim,relative=2]
 c4 c
 \override Voice.Stem #'thickness = #3.0
 c4 c
@@ -1644,7 +1645,7 @@ c4 c
 Si no se ha especificado ningún contexto en la instrucción
 @code{\override}, se utiliza el contexto del nivel inferior:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote,verbatim,relative=2]
 { \override Staff.Stem #'thickness = #3.0
   <<
     {
@@ -1665,7 +1666,7 @@ Si no se ha especificado ningún contexto en la instrucción
 El efecto de una instrucción de sobreescritura @code{\override} se
 puede deshacer con @code{\revert}:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote,verbatim,relative=2]
 c4
 \override Voice.Stem #'thickness = #3.0
 c4 c
@@ -1677,7 +1678,7 @@ Los efectos de @code{\override} y @code{\revert} se aplican a todos
 los grobs del contexto afectado partiendo del momento actual y hacia
 adelante:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote,verbatim,relative=2]
 {
   <<
     {
@@ -1699,7 +1700,7 @@ adelante:
 Se puede usar @code{\once} con @code{\override} para afectar solamente
 al instante de tiempo actual:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote,verbatim,relative=2]
 {
   <<
     {
@@ -1791,7 +1792,7 @@ los objetos gráficos.  Para objetos que resultan directamente de un
 elemento de código de la entrada, puede usar la función @code{\tweak},
 por ejemplo
 
-@lilypond[relative=2,verbatim]
+@lilypond[relative=2,verbatim,quote]
 < c
   \tweak #'color #red
   d
@@ -1967,6 +1968,129 @@ objects.  Since this is a common change, the special
 property (modified with @code{\set}) was created.
 
 @end ignore
+
+
+@node Modificación de las listas-A
+@subsection Modificación de las listas-A
+@translationof Modifying alists
+
+Ciertas propiedades configurables por parte del usuario se representan
+internamente como @emph{listas-A} (listas asociativas), que almacenan
+duplas de @emph{claves} y @emph{valores}.  La estructura de una
+lista-A es la siguiente:
+
+@example
+#((@var{clave1} . @var{valor1})
+  (@var{clave2} . @var{valor2})
+  (@var{clave3} . @var{valor3})
+  @dots{})
+@end example
+
+Si una lista-A es una propiedad de un grob o una variable de
+@code{\paper}, sus claves se pueden modificar individualmente sin que
+afecte a las otras claves.
+
+Por ejemplo, para reducir el espacio entre pentagramas adyacentes
+dentro de un sistema, use la propiedad @code{between-staff-spacing}
+del grob @code{StaffGrouper}.  La propiedad es una lista-A con cuatro
+claves: @code{padding} (relleno), @code{space} (espacio),
+@code{minimum-distance} (distancia mínima) y @code{stretchability}
+(ampliabilidad).  Tres de las cuatro claves tienen valores
+predeterminados en el inicio, que están definidos (junto con todo el
+resto de las propiedades de grobs) en el archivo
+@file{scm/define-grobs.scm}:
+
+@example
+(between-staff-spacing . ((padding . 1)
+                          (space . 9)
+                          (minimum-distance . 7)))
+@end example
+
+Una forma de acercar los pentagramas entre sí es reducir el valor de
+la clave @code{space} (@code{9}) para que se corresponda con el valor
+de @code{minimum-distance} (@code{7}).  Para modificar una única clave
+de forma individual, utilice una declaración anidada:
+
+@lilypond[quote,verbatim]
+% default space between staves
+\new PianoStaff <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+
+% reduced space between staves
+\new PianoStaff \with {
+  \override StaffGrouper #'between-staff-spacing #'space = #7
+} <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+@end lilypond
+
+La utilización de una declaración anidada actualiza la clave
+especificada (@code{space} en el ejemplo anterior) sin alterar ninguna
+de las otras claves que ya se habían establecido para la misma
+propiedad.
+
+Ahora, supongamos que deseamos que los pentagramas estén tan próximos
+como sea posible sin que se superpongan.  La manera más sencilla de
+hacerlo es establecer las cuatro claves de la lista-A a cero.  En tal
+caso, no es necesario fijar el valor de cada clave individualmente con
+declaraciones anidadas.  En lugar de eso, se puede redefinir
+completamente la propiedad con una sola declaración, como una lista-A:
+
+@lilypond[quote,verbatim]
+\new PianoStaff \with {
+  \override StaffGrouper #'between-staff-spacing =
+    #'((padding . 0)
+       (space . 0)
+       (minimum-distance . 0)
+       (stretchability . 0))
+} <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+@end lilypond
+
+Observe que cualquier clave que no haya sido relacionada
+explícitamente en la definición de la lista-A, será reiniciada a sus
+valores @emph{predeterminados si no se han fijado}.  En el caso de
+@code{between-staff-spacing}, el valor de cualquier clave no fijada se
+reiniciaría a cero (excepto @code{stretchability}, que toma el valor
+de @code{space} si no se fija).  Así, las dos declaraciones siguientes
+son equivalentes:
+
+@example
+\override StaffGrouper #'between-staff-spacing =
+  #'((space . 7))
+
+\override StaffGrouper #'between-staff-spacing =
+  #'((padding . 0)
+     (space . 7)
+     (minimum-distance . 0)
+     (stretchability . 7))
+@end example
+
+Una consecuencia de esto (posiblemente no intencionada) es la
+eliminación de cualquier valor predeterminado @emph{inicializado} que
+se establezca en un archivo de inicio y que se carga cada vez que se
+compila un archivo de entrada.  En el ejemplo anterior, los valores
+predeterminados inicializados para @code{padding} y
+@code{minimum-distance} (definidos en @file{scm/define-grobs.scm}) se
+reinician a sus valores predeterminados si no se han fijado (cero para
+las dos claves).  La definición de una propiedad o variable como una
+lista-A (de cualquier tamaño) siempre reinicia todos los valores de
+clave no establecidos a sus valores predeterminados si no se han
+fijado.  Ano ser que este sea el resultado deseado, es más seguro
+actualizar los valores de clave inddividualmente con una declaración
+anidada.
+
+@warning{Las declaraciones anidadas no funcionan para las listas-A de
+propiedades de contexto (como @code{beamExceptions},
+@code{keySignature}, @code{timeSignatureSettings}, etc.).  Estas
+propiedades sólo se pueden modificar redefiniéndolas completamente
+como listas-A.}
+
 
 @node Conceptos y propiedades útiles
 @section Conceptos y propiedades útiles
@@ -2559,7 +2683,7 @@ Es un elemento de marcado que se evalúa para dar lugar al sello.  Se
 usa para escribir @i{cresc.}, @i{tr} y otros textos sobre los objetos
 de extensión horizontales.
 
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 \override TextSpanner #'(bound-details left text)
    = \markup { \small \bold Slower }
 c2\startTextSpan b c a\stopTextSpan
@@ -2609,7 +2733,7 @@ continuación.  Se termina después de una nota exactamente, o en la
 siguiente barra de compás si @code{to-barline} es verdadero y se
 produce una divisoria antes de la siguiente nota.
 
-@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
+@lilypond[verbatim,quote,ragged-right,relative=2]
 \endSpanners
 c2 \startTextSpan c2 c2
 \endSpanners
@@ -3019,6 +3143,7 @@ Las posiciones de los puntos extremos del objeto de extensión se
 computan al vuelo para cada uno de los objetos gráficos, pero es
 posible sobreescribirlos:
 
+@c TODO Complete
 @lilypond[relative=2,ragged-right,verbatim,quote]
 e2 \glissando f
 \once \override Glissando #'(bound-details right Y) = #-2

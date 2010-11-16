@@ -20,11 +20,11 @@
 
 
 @menu
-* Agencement du code::             
-* Titres et entêtes::          
-* Travail sur des fichiers texte::    
-* Contrôle des sorties::          
-* Sortie MIDI::                 
+* Agencement du code::
+* Titres et entêtes::
+* Travail sur des fichiers texte::
+* Contrôle des sorties::
+* Sortie MIDI::
 @end menu
 
 @node Agencement du code
@@ -35,9 +35,9 @@
 
 
 @menu
-* Structure d'une partition::        
-* Plusieurs partitions dans un même ouvrage::   
-* Structure de fichier::              
+* Structure d'une partition::
+* Plusieurs partitions dans un même ouvrage::
+* Structure de fichier::
 @end menu
 
 @node Structure d'une partition
@@ -69,10 +69,10 @@
 
 
 @menu
-* Création de titres::             
-* Titres personnalisés::               
-* Référencement des numéros de page::   
-* Table des matières::           
+* Création de titres::
+* Titres personnalisés::
+* Référencement des numéros de page::
+* Table des matières::
 @end menu
 
 @node Création de titres
@@ -111,10 +111,10 @@
 
 
 @menu
-* Insertion de fichiers LilyPond::    
-* Différentes éditions à partir d'une même source::  
-* Codage du texte::               
-* Affichage de notation au format LilyPond::  
+* Insertion de fichiers LilyPond::
+* Différentes éditions à partir d'une même source::
+* Codage du texte::
+* Affichage de notation au format LilyPond::
 @end menu
 
 @node Insertion de fichiers LilyPond
@@ -132,8 +132,8 @@
 
 
 @menu
-* Utilisation de variables::             
-* Utilisation de balises::                  
+* Utilisation de variables::
+* Utilisation de balises::
 @end menu
 
 @node Utilisation de variables
@@ -148,16 +148,16 @@
 @translationof Using tags
 @funindex \tag
 @cindex tag
- 
+
 La commande @code{\tag} affecte un nom à des expressions musicales.
 Les expressions ainsi balisées pourront être filtrées par la suite.
 Ce mécanisme permet d'obtenir différentes versions à partir d'une même
-source musicale. 
+source musicale.
 
 Dans l'exemple qui suit, nous obtenons deux versions du même extrait,
 l'une pour le conducteur, l'autre pour l'instrumentiste, et qui
-comportera les ornements. 
- 
+comportera les ornements.
+
 @example
 c1
 <<
@@ -187,9 +187,9 @@ avant l'articulation, comme ici :
 c1-\tag #'part ^4
 @end example
 
-@noindent 
+@noindent
 Ceci définira une note avec une indication de doigté conditionnelle.
- 
+
 @cindex keepWithTag
 @cindex removeWithTag
 C'est grâce aux commandes @code{\keepWithTag} et @code{\removeWithTag}
@@ -212,7 +212,7 @@ Les arguments de la commande @code{\tag} doivent être un symbole (tel
 que @code{#'score} ou @code{#'part}), suivi d'une expression musicale.
 Vous pouvez utiliser de multiples balises dans un morceau en
 saisissant plusieurs @code{\tag}.
- 
+
 @example
 \tag #'original-part \tag #'transposed-part @dots{}
 @end example
@@ -252,8 +252,8 @@ si vous imprimez une partition avec les deux sections balisées.
 
 
 @menu
-* Extraction de fragments musicaux::  
-* Ignorer des passages de la partition::    
+* Extraction de fragments musicaux::
+* Ignorer des passages de la partition::
 @end menu
 
 @node Extraction de fragments musicaux
@@ -278,11 +278,11 @@ si vous imprimez une partition avec les deux sections balisées.
 
 
 @menu
-* Création de fichiers MIDI::         
-* Le bloc MIDI::                  
-* Contenu de la sortie MIDI::  
-* Répétitions et MIDI::             
-* Gestion des nuances en MIDI::   
+* Création de fichiers MIDI::
+* Le bloc MIDI::
+* Contenu de la sortie MIDI::
+* Répétitions et MIDI::
+* Gestion des nuances en MIDI::
 * MIDI et percussions::
 @end menu
 

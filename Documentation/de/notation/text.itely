@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -70,7 +70,7 @@ Notensystem platziert werden, die Syntax hierzu ist beschrieben
 in @ref{Richtung und Platzierung}.
 
 @lilypond[quote,verbatim,relative=2]
-d8^"pizz." g f e a4-"scherz." f
+a8^"pizz." g f e a4-"scherz." f
 @end lilypond
 
 Diese Syntax ist eine Kurzform, komplexere Formatierungen
@@ -158,7 +158,7 @@ die Überprüfung aber mit folgendem Code einschalten:
 @cindex Strecker, Text
 
 Einige Aufführungsanweisungen, etwa @notation{rallentando} oder
-@notation{accelerando}, werden als Text geschrieben, gefolgt von 
+@notation{accelerando}, werden als Text geschrieben, gefolgt von
 einer gestrichelten Linie, die anzeigt, wie weit sich die Anweisung
 auswirkt.  Solche Objekte, @qq{Strecker} (engl. spanners) genannt,
 können von einer Note bis zu einer anderen mit folgender
@@ -267,10 +267,10 @@ c c c
 
 Diese Syntax ermöglicht es, beliebigen Text über eine Taktlinie
 zu platzieren, weitere Formatierungsmöglichkeiten sind mit dem
-@code{\markup}-Befehl gegeben, wie beschrieben in 
+@code{\markup}-Befehl gegeben, wie beschrieben in
 @ref{Text formatieren}:
 
-@lilypond[fragment,quote,relative=1]
+@lilypond[quote,verbatim,relative=1]
 <c e>1
 \mark \markup { \italic { colla parte } }
 <d f>2 <e g>
@@ -284,7 +284,7 @@ Symbol mit dem Befehl @code{\musicglyph} angegeben wird, wie
 beschrieben in
 @ref{Musikalische Notation innerhalb einer Textbeschriftung}:
 
-@lilypond[fragment,quote,relative=2]
+@lilypond[quote,verbatim,relative=2]
 <bes f>2 <aes d>
 \mark \markup { \musicglyph #"scripts.ufermata" }
 <e g>1
@@ -297,7 +297,7 @@ Ende notiert werden, werden sie zwischen Noten oder über der
 Taktlinie gesetzt.  Wenn sie an einem Zeilenumbruch angegeben
 werden, wird das Zeichen zu Beginn der nächsten Zeile ausgegeben.
 
-@lilypond[fragment,quote,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \mark "Allegro"
 c1 c
 \mark "assai" \break
@@ -405,7 +405,7 @@ sich in @ref{Textbeschriftung über mehrere Seiten}.
 @seealso
 Notationsreferenz:
 @ref{Text formatieren},
-@ref{Die Dateistruktur}, 
+@ref{Die Dateistruktur},
 @ref{Mehrere Partituren in einem Buch},
 @ref{Textbeschriftung über mehrere Seiten}.
 
@@ -959,7 +959,7 @@ linksbündig oder im Blocksatz, wie das nächste Beispiel illustriert:
     \line \bold { Acto I }
     \wordwrap \italic {
       (La escena representa el corral de una casa de
-      gitanos en el Albaicín de Granada. Al fondo una
+      gitanos en el Albaicín de Granada.  Al fondo una
       puerta por la que se ve el negro interior de
       una Fragua, iluminado por los rojos resplandores
       del fuego.)
@@ -969,7 +969,7 @@ linksbündig oder im Blocksatz, wie das nächste Beispiel illustriert:
     \line \bold { Acto II }
     \override #'(line-width . 50)
     \justify \italic {
-      (Calle de Granada. Fachada de la casa de Carmela
+      (Calle de Granada.  Fachada de la casa de Carmela
       y su hermano Manuel con grandes ventanas abiertas
       a través de las que se ve el patio
       donde se celebra una alegre fiesta)
@@ -1146,9 +1146,9 @@ innerhalb von @code{\markup} kombiniert werden.
 @funindex postscript
 
 Fortgeschrittene graphische Möglichkeiten bietet unter Anderem eine
-Funktion, mit der man externe Graphiken im 
+Funktion, mit der man externe Graphiken im
 Encapsulated PostScript (@emph{eps}) -Format einbinden kann oder
-aber Graphiken direkt in den Quelltext unter Verwendung von 
+aber Graphiken direkt in den Quelltext unter Verwendung von
 PostScript-Code notiert.  In diesem Fall kann es nötig sein, die
 Größe der Zeichnung explizit anzugeben, wie im Beispiel unten gezeigt:
 
@@ -1243,7 +1243,7 @@ d-\markup {
   \markalphabet #8
   \markletter #8
 }
-@end lilypond 
+@end lilypond
 
 Allgemeiner gesagt kann jedes verfügbare Notationssymbol unabhängig
 von der Notation als ein Textbeschriftungsobjekt eingefügt werden, wie
@@ -1277,10 +1277,10 @@ c^\markup {
 c
 c^\markup {
   \combine
-    \musicglyph #"accordion.accDiscant"
+    \musicglyph #"accordion.discant"
     \combine
-      \raise #0.5 \musicglyph #"accordion.accDot"
-      \raise #1.5 \musicglyph #"accordion.accDot"
+      \raise #0.5 \musicglyph #"accordion.dot"
+      \raise #1.5 \musicglyph #"accordion.dot"
 }
 @end lilypond
 
@@ -1302,7 +1302,7 @@ eine @code{\layout}-Umgebung haben, wie in diesem Beispiel:
 @lilypond[quote,verbatim,relative=1]
 c4 d^\markup {
   \score {
-    \relative { c4 d e f }
+    \relative c' { c4 d e f }
     \layout { }
   }
 }
@@ -1469,7 +1469,7 @@ sind alle linke Klammern, rechte Klammern lassen sich durch
 eine Drehung herstellen, siehe
 @ref{Drehen von Objekten}.
 
-Drei Textschriftarten sind verfügbar (auf Englisch @code{family} genannt): 
+Drei Textschriftarten sind verfügbar (auf Englisch @code{family} genannt):
 mit @code{roman} eine Schriftart
 mit Serifen (Standard ist New Century Schoolbook), mit @code{sans}
 eine serifenlose (gerade) Schriftart und mit @code{typewriter} eine
@@ -1479,20 +1479,20 @@ Weite haben.  Die aktuelle Schriftart von @code{sans} und
 gewählt.
 
 Jede Familie kann verschiedene Schriftschnitte besitzen. Im Englischen
-wird unterschieden zwischen @code{shape} für kursive Schnitte und 
+wird unterschieden zwischen @code{shape} für kursive Schnitte und
 @code{series} für fette Schnitte.  Im folgenden Beispiel wird
 demonstriert, wie man die verschiedenen Eigenschaften auswählen kann.
 Der Wert, der @code{font-size} übergeben wird, entspricht der geforderten
 Änderung in Bezug auf die Standardschriftgröße.
 
 @lilypond[quote,verbatim,relative=2]
-  \override Score.RehearsalMark #'font-family = #'typewriter
-  \mark \markup "Ouverture"
-  \override  Voice.TextScript #'font-shape = #'italic
-  \override  Voice.TextScript #'font-series = #'bold
-  d'2.^\markup "Allegro"
-  \override Voice.TextScript #'font-size = #-3
-  c4^smaller
+\override Score.RehearsalMark #'font-family = #'typewriter
+\mark \markup "Ouverture"
+\override Voice.TextScript #'font-shape = #'italic
+\override Voice.TextScript #'font-series = #'bold
+d2.^\markup "Allegro"
+\override Voice.TextScript #'font-size = #-3
+c4^smaller
 @end lilypond
 
 @noindent

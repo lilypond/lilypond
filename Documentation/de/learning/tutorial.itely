@@ -10,7 +10,7 @@
 
 @include included/generating-output.itexi
 
-@c \version "2.13.4"
+@c \version "2.13.36"
 @c Translators: Till Paala, Reinhold Kainhofer
 @c Translation checkers: Hajo Bäß
 
@@ -38,10 +38,10 @@ Bearbeitungsprozess von LilyPond-Eingabedateien (die Sie geschrieben
 haben) um eine Ausgabedatei zu erstellen.
 
 @menu
-* Noten eingeben::              
-* MacOS X::                     
-* Windows::                     
-* Kommandozeile::                
+* Noten eingeben::
+* MacOS X::
+* Windows::
+* Kommandozeile::
 @end menu
 
 @node Noten eingeben
@@ -136,13 +136,13 @@ und welche Programme Sie benutzen.
 
 @end itemize
 
-Beachten Sie, dass es eine Reihe an Texteditoren mit besserer 
+Beachten Sie, dass es eine Reihe an Texteditoren mit besserer
 Unterstützung für LilyPond gibt. Mehr dazu im Abschnitt
 @rweb{Leichteres Editieren}.
 
-@warning{Das erste Mal, wenn Sie LilyPond benutzen, kann es eine 
+@warning{Das erste Mal, wenn Sie LilyPond benutzen, kann es eine
 Minute oder länger dauern, weil das Programm zuerst alle Schriftarten,
-die auf dem System zur Verfügung stehen, untersucht. Aber nach 
+die auf dem System zur Verfügung stehen, untersucht. Aber nach
 diesem ersten Mal läuft LilyPond sehr viel schneller.}
 
 
@@ -186,8 +186,8 @@ Dieser Abschnitt erklärt die grundlegende LilyPond-Syntax und hilft
 bei den ersten Anfängen, eine LilyPond-Eingabedatei zu schreiben.
 
 @menu
-* Einfache Notation::             
-* Arbeiten an Eingabe-Dateien::      
+* Einfache Notation::
+* Arbeiten an Eingabe-Dateien::
 @end menu
 
 
@@ -237,7 +237,7 @@ Die Tonhöhen werden mit Kleinbuchstaben eingegeben, die den Notennamen
 entsprechen. Es ist jedoch wichtig zu wissen, dass LilyPond in seiner
 Standardeinstellung die englischen Notennamen verwendet. Bis auf eine
 Ausnahme entsprechen sie den deutschen, deshalb wird die Voreinstellung
-von LilyPond für diese Übung beibehalten. Die @emph{Ausnahme} ist das h -- in 
+von LilyPond für diese Übung beibehalten. Die @emph{Ausnahme} ist das h -- in
 LilyPond muss man anstelle dessen b schreiben! Das deutsche b dagegen
 wird als bes notiert, ein his dagegen würde bis geschrieben. Siehe auch
 @ruser{Versetzungszeichen} und @ruser{Notenbezeichnungen in anderen Sprachen}, hier
@@ -247,9 +247,9 @@ wie sich die deutschen Notennamen benutzen lassen.
 
 Am einfachsten können Noten im @code{\relative}-Modus
 eingegeben werden. In diesem Modus wird die Oktave der Note automatisch
-gewählt, indem angenommen wird, dass die folgende Note immer so nah 
-wie möglich in Bezug auf die vorhergehende gesetzt wird, d. h. sie 
-wird höchstens drei Notenzeilen höher oder tiefer als die vorhergehende 
+gewählt, indem angenommen wird, dass die folgende Note immer so nah
+wie möglich in Bezug auf die vorhergehende gesetzt wird, d. h. sie
+wird höchstens drei Notenzeilen höher oder tiefer als die vorhergehende
 Note gesetzt. Fangen
 wir unser erstes Notationsbeispiel mit einer @notation{Tonleiter} an, wo also
 die nächste Note immer nur eine Notenlinie über der vorherigen steht.
@@ -264,7 +264,7 @@ die nächste Note immer nur eine Notenlinie über der vorherigen steht.
 @end lilypond
 
 Die erste Note ist ein @notation{eingestrichenes C}. Jede folgende Note
-befindet sich so nah wie möglich bei der vorherigen -- das erste 
+befindet sich so nah wie möglich bei der vorherigen -- das erste
 @q{C} ist also das nächste C vom
 eingestrichenen C aus gerechnet. Darauf folgt das nächstmögliche
 D in Bezug auf die vorhergehende Note. Mit diesen Regeln können
@@ -279,13 +279,13 @@ gebildet werden:
 @end lilypond
 
 @noindent
-Es ist nicht notwendig, dass die erste Note der Melodie mit der 
+Es ist nicht notwendig, dass die erste Note der Melodie mit der
 Note beginnt, die die erste Tonhöhe angibt.
-Die erste Note (das @q{D}) des vorigen Beispiels ist das nächste D 
+Die erste Note (das @q{D}) des vorigen Beispiels ist das nächste D
 vom eingestrichenen C aus gerechnet.
 
-Indem man Apostrophe @code{'} (Taste Shift+#) oder Kommata @code{,} 
-zu dem @w{@code{\relative c' @{}} hinzufügt oder entfernt, kann die 
+Indem man Apostrophe @code{'} (Taste Shift+#) oder Kommata @code{,}
+zu dem @w{@code{\relative c' @{}} hinzufügt oder entfernt, kann die
 Oktave der ersten Tonhöhe verändert werden:
 
 @c KEEP LY
@@ -296,13 +296,13 @@ Oktave der ersten Tonhöhe verändert werden:
 }
 @end lilypond
 
-Der relative Modus kann zunächst verwirrend erscheinen, aber es ist die 
-einfachste Art, die meisten Melodien zu notieren. Schauen wir uns an, 
-wie diese relative Berechnung in der Praxis funktioniert. Wenn wir mit 
-einem H beginnen (@code{b} in der LilyPond-Syntax), welches sich auf der 
-mittleren Linie im Violinschlüssel befindet, können wir C, D und E 
-aufwärts notieren, und A, G und F unter dem H. Wenn also die Note, die 
-auf das H folgt, ein C, D oder E ist, setzt LilyPond es oberhalb des 
+Der relative Modus kann zunächst verwirrend erscheinen, aber es ist die
+einfachste Art, die meisten Melodien zu notieren. Schauen wir uns an,
+wie diese relative Berechnung in der Praxis funktioniert. Wenn wir mit
+einem H beginnen (@code{b} in der LilyPond-Syntax), welches sich auf der
+mittleren Linie im Violinschlüssel befindet, können wir C, D und E
+aufwärts notieren, und A, G und F unter dem H. Wenn also die Note, die
+auf das H folgt, ein C, D oder E ist, setzt LilyPond es oberhalb des
 Hs, wenn es ein A, G oder F ist, wird es darunter gesetzt.
 
 @c KEEP LY
@@ -317,10 +317,10 @@ Hs, wenn es ein A, G oder F ist, wird es darunter gesetzt.
 }
 @end lilypond
 
-Die gleiche Berechnung findet auch statt, wenn eine der Noten erhöht 
-oder erniedrigt ist. @notation{Versetzungszeichen} werden 
-@strong{vollständig ignoriert} bei der Berechnung. Genau die 
-gleiche Berechnung wird analog von jeder folgenden Tonhöhe aus 
+Die gleiche Berechnung findet auch statt, wenn eine der Noten erhöht
+oder erniedrigt ist. @notation{Versetzungszeichen} werden
+@strong{vollständig ignoriert} bei der Berechnung. Genau die
+gleiche Berechnung wird analog von jeder folgenden Tonhöhe aus
 für die nächste Tonhöhe neu ausgeführt.
 
 Um Intervalle zu notieren, die größer als drei Notenzeilen sind, kann man die Oktave verändern. Mit einem Apostroph @code{'} (Taste Shift+#)
@@ -356,8 +356,8 @@ Glossar: @rglos{beam}, @rglos{duration},
 
 Die @notation{Dauer} einer Note wird durch eine Zahl bezeichnet,
 die direkt auf den Notennamen folgend eingegeben wird.
-@code{1} für eine @notation{ganze Note}, @code{2} für eine 
-@notation{halbe Note}, @code{4} für eine @notation{Viertelnote} 
+@code{1} für eine @notation{ganze Note}, @code{2} für eine
+@notation{halbe Note}, @code{4} für eine @notation{Viertelnote}
 und so weiter. @notation{Notenhälse} und @notation{Balken} werden
 automatisch hinzugefügt.
 
@@ -372,9 +372,9 @@ verwendet. Für die erste Note ist eine Viertel als Standard definiert.
 }
 @end lilypond
 
-Um @notation{punktierte Noten} zu erzeugen, wird einfach ein Punkt 
-@code{.} hinter die Notendauer geschrieben. Die Dauer einer 
-punktierten Note muss explizit, also inklusive der Nummer, 
+Um @notation{punktierte Noten} zu erzeugen, wird einfach ein Punkt
+@code{.} hinter die Notendauer geschrieben. Die Dauer einer
+punktierten Note muss explizit, also inklusive der Nummer,
 angegeben werden.
 
 @lilypond[verbatim,quote]
@@ -411,7 +411,7 @@ Bezeichnung ist @code{r}@tie{}:
 
 Glossar: @rglos{time signature}.
 
-Die @notation{Taktart} kann mit dem 
+Die @notation{Taktart} kann mit dem
 @code{\time}-Befehl definiert werden:
 
 @lilypond[verbatim,quote]
@@ -467,7 +467,7 @@ mit dem @code{\tempo}-Befehl gesetzt werden:
 
 Glossar: @rglos{clef}.
 
-Der @notation{Notenschlüssel} kann mit dem @code{\clef}-Befehl 
+Der @notation{Notenschlüssel} kann mit dem @code{\clef}-Befehl
 gesetzt werden:
 
 @lilypond[verbatim,quote]
@@ -529,8 +529,8 @@ Notationsreferenz: @ruser{Tonhöhen setzen},
 LilyPonds Quelldateien ähneln Dateien in den meisten
 Programmiersprachen: Sie enthalten eine Versionsbezeichnung,
 es ist auf Groß- und Kleinschreibung
-zu achten und Leerzeichen werden ignoriert. Ausdrücke werden 
-mit geschweiften Klammern @w{@code{@{ @}}} eingeklammert und Kommentare 
+zu achten und Leerzeichen werden ignoriert. Ausdrücke werden
+mit geschweiften Klammern @w{@code{@{ @}}} eingeklammert und Kommentare
 mit dem Prozentzeichen @code{%} auskommentiert
 oder mit @w{@code{%@{ @dots{} %@}}} umgeben.
 
@@ -604,21 +604,21 @@ Zweideutigkeiten auszuschließen, es sei denn, sie
 befinden sich am Anfang oder Ende einer Zeile.
 
 Ein LilyPond-Befehl gefolgt von einem einfachen Ausdruck
-in Klammern (wie etwa @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}}) 
+in Klammern (wie etwa @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}})
 wird auch als ein einzelner Musikausdruck gewertet.
 
 @cindex Kommentare
 @cindex Zeilenkommentare
 @cindex Blockkommentare
 
-@item 
+@item
 @strong{Kommentare:}
 Ein Kommentar ist eine Bemerkung für den menschlichen Leser
 einer Quelldatei, es wird bei der Dateianalyse durch das Programm
 ignoriert, so dass es also keine Auswirkung auf die Druckausgabe der
 Noten hat. Es gibt zwei verschiedene Typen von Kommentaren. Das
 Prozentzeichen @q{%} geht einem Zeilen-Kommentar voraus: Alles
-nach diesem Zeichen wird in dieser Zeile ignoriert. 
+nach diesem Zeichen wird in dieser Zeile ignoriert.
 Üblicherweise wird ein Kommentar @emph{über} dem Code gesetzt,
 auf den es sich bezieht.
 
@@ -634,7 +634,7 @@ Kommentar. Alles, was von @code{%@{}
 und @code{%@}} umgeben ist, wird ignoriert. Das heißt,
 dass sich ein Block-Kommentar nicht ein einem anderen
 Blockkommentar befinden kann. Wenn Sie das versuchen sollten,
-beendet schon das erste @code{%@}} @emph{beide} 
+beendet schon das erste @code{%@}} @emph{beide}
 Block-Kommentare. Das folgende Beispiel zeigt eine
 mögliche Anwendung von Kommentaren:
 
@@ -705,7 +705,7 @@ der Online-Version.
 
 @menu
 * Ausgelassenes Material::
-* Anklickbare Beispiele::  
+* Anklickbare Beispiele::
 * Überblick über die Handbücher::
 @end menu
 
@@ -725,12 +725,12 @@ der Online-Version.
 @cindex Konstruieren von Dateien, Hinweise
 @cindex Hinweise zur Konstruktion von Dateien
 
-LilyPond-Code muss immer von @code{@{ @}} Zeichen oder einem 
+LilyPond-Code muss immer von @code{@{ @}} Zeichen oder einem
 @w{@code{@bs{}relative c'' @{ @dots{} @}}} umgeben sein, wie
 gezeigt in @ref{Arbeiten an Eingabe-Dateien}.
 Im Rest dieses Handbuchs werden die meisten Beispiel allerdings darauf
-verzichten. Um sie zu reproduzieren, können Sie den entsprechenden 
-Quellcode kopieren und in eine Textdatei einfügen, aber Sie 
+verzichten. Um sie zu reproduzieren, können Sie den entsprechenden
+Quellcode kopieren und in eine Textdatei einfügen, aber Sie
 @strong{müssen} dabei
 @w{@code{@bs{}relative c'' @{ @dots{} @}}} einfügen, wie hier gezeigt:
 
@@ -746,11 +746,11 @@ werden, und dann ist es natürlich nicht sinnvoll, wenn auch noch
 @w{@code{@bs{}relative c'' @{ @dots{} @}}} dazukommt; ein @code{\relative} darf
 nicht innerhalb eines anderen @code{\relative} gesetzt werden,
 deshalb wird es hier weggelassen, damit die Beispiele auch innerhalb
-eines anderen Kontextes funktionieren.  Wenn bei jedem 
+eines anderen Kontextes funktionieren.  Wenn bei jedem
 Beispiel @w{@code{@bs{}relative c'' @{ @dots{} @}}} eingesetzt würde,
 könnten Sie die kleinen Beispiele der Dokumentation
-nicht einfach zu Ihrem eigenen Notentext hinzufügen. 
-Die meisten Benutzer wollen 
+nicht einfach zu Ihrem eigenen Notentext hinzufügen.
+Die meisten Benutzer wollen
 Noten zu einer schon bestehenden Datei irgendwo in der Mitte
 hinzufügen, deshalb wurde der relative Modus für die Beispiele
 im Handbuch weggelassen.
@@ -786,8 +786,8 @@ Abbildung:
 Wenn Sie einfach alles kopieren, was im
  @qq{ly snippet}-Abschnitt steht, und in eine Text-Datei
 einfügen, haben Sie schon eine fertige Vorlage für weitere
-Experimente. Damit Sie genau das gleiche Erscheinungsbild wie 
-bei dem Beispiel selber erreichen, müssen Sie alles kopieren ab der 
+Experimente. Damit Sie genau das gleiche Erscheinungsbild wie
+bei dem Beispiel selber erreichen, müssen Sie alles kopieren ab der
 Zeile @qq{Start
 cut-&-pastable section} bis ganz zum Ende der Datei.
 

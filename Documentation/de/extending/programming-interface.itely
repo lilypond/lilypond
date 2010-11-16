@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
+    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -103,7 +103,7 @@ Installierte Dateien:
 @subsection Einfache Ersetzungsfunktionen
 @translationof Simple substitution functions
 
-Einfache Ersetzungsfunktionen sind musikalische Funktionen, deren 
+Einfache Ersetzungsfunktionen sind musikalische Funktionen, deren
 musikalische Ausgabe-Funktion im LilyPond-Format geschrieben ist
 und Funktionsargumente in der Ausgabefunktion enthält.  Sie werden
 beschrieben in @ruser{Beispiele der Ersetzungsfunktionen}
@@ -770,7 +770,7 @@ Dieser neue Beschriftungslistenbefehl kann wie folgt benutzt werden:
   @}
   \override-lines #'(par-indent . 4) \paragraph @{
     Diese Platte wurde dann mit Druckerschwärze versehen, so dass sie
-    in den geschnittenen und gestempelten Vertiefungen blieb. Diese 
+    in den geschnittenen und gestempelten Vertiefungen blieb. Diese
     Vertiefungen schwärzten dann ein auf die Platte gelegtes Papier.
     Das Gravieren wurde vollständig von Hand erledigt.
   @}

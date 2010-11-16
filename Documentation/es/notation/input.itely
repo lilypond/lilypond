@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: 345522f312430725cdae0d61acfa716ce08622ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1607,14 +1607,12 @@ Esta propiedad se usa también para controlar la salida al archivo
 MIDI.  Observe que pasa por alto todos los eventos, incluidos el tempo
 y los cambios de instrumento.  Está usted advertido.
 
-@lilypond[quote,fragment,ragged-right,verbatim]
-\relative c'' {
-  c8 d
-  \set Score.skipTypesetting = ##t
-  e8 e e e e e e e
-  \set Score.skipTypesetting = ##f
-  c8 d b bes a g c2
-}
+@lilypond[quote,relative=2,ragged-right,verbatim]
+c8 d
+\set Score.skipTypesetting = ##t
+e8 e e e e e e e
+\set Score.skipTypesetting = ##f
+c8 d b bes a g c2
 @end lilypond
 
 En música polifónica, @code{Score.skipTypesetting} afecta a todas las

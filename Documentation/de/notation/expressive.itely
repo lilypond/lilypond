@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
+    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -21,9 +21,9 @@ Dieser Abschnitt zeigt verschiedene Ausdrucksbezeichnungen,
 die zur Partitur hinzugefügt werden können.
 
 @menu
-* Ausdrucksbezeichnungen an Noten angehängt::           
-* Ausdrucksbezeichnungen als Bögen::                      
-* Ausdrucksbezeichnungen als Linien::                       
+* Ausdrucksbezeichnungen an Noten angehängt::
+* Ausdrucksbezeichnungen als Bögen::
+* Ausdrucksbezeichnungen als Linien::
 @end menu
 
 
@@ -38,9 +38,9 @@ Ausdrucksbezeichnungen zu erstellen.
 
 
 @menu
-* Artikulationszeichen und Verzierungen::               
-* Dynamik::                    
-* Neue Lautstärkezeichen::           
+* Artikulationszeichen und Verzierungen::
+* Dynamik::
+* Neue Lautstärkezeichen::
 @end menu
 
 @node Artikulationszeichen und Verzierungen
@@ -116,8 +116,8 @@ Ausdrucksbezeichnungen zu erstellen.
 
 @funindex -
 
-Eine Vielfalt an Symbolen kann über und unter den Noten erscheinen, 
-um zu markieren, auf welche Art die Note ausgeführt werden soll. 
+Eine Vielfalt an Symbolen kann über und unter den Noten erscheinen,
+um zu markieren, auf welche Art die Note ausgeführt werden soll.
 Hierzu wird folgende Syntax benutzt:
 
 @example
@@ -270,7 +270,7 @@ Referenz der Interna:
 @funindex \rfz
 @funindex rfz
 
-Absolute Dynamikbezeichnung wird mit Befehlen nach den Noten 
+Absolute Dynamikbezeichnung wird mit Befehlen nach den Noten
 angezeigt, etwa @code{c4\ff}.  Die vordefinierten Befehle lauten:
 @code{\ppppp}, @code{\pppp}, @code{\ppp},
 @code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
@@ -305,7 +305,7 @@ Decrescendo-Klammer beendet.  Ein @notation{Decrescendo}
 beginnt mit @code{\>} und wird auch beendet mit @code{\!},
 einem absoluten Dynamikbefehl oder einem weiteren
 Crescendo oder Decrescendo.  @code{\cr} und @code{\decr} können
-anstelle von @code{\<} und 
+anstelle von @code{\<} und
 @code{\>} benutzt werden.  Die Befehle ergeben standardmäßig
 Crescendo-Klammern.
 
@@ -396,7 +396,7 @@ angeordnet wird, zu erstellen, siehe @ref{Neue Lautstärkezeichen}.
 @cindex Dynamik, vertikale Position
 @cindex vertikale Position von Dynamik
 
-Vertikale Position der Zeichen wird von der Funktion 
+Vertikale Position der Zeichen wird von der Funktion
 @rinternals{DynamicLineSpanner} verwaltet.
 @funindex \dynamicUp
 @funindex dynamicUp
@@ -610,8 +610,8 @@ Atemzeichen und Glissandos zu unbestimmten Tonhöhen.
 
 @cindex Legatobögen
 
-Ein Legatobogen (engl. slur) zeigt an, dass die Noten 
-@emph{legato} gespielt werden sollen. Er wird mit Klammern 
+Ein Legatobogen (engl. slur) zeigt an, dass die Noten
+@emph{legato} gespielt werden sollen. Er wird mit Klammern
 hinter den Notenwerten notiert.
 
 @warning{In polyphoner Musik muss ein Legatobogen in der gleichen
@@ -646,7 +646,7 @@ besetzt werden, siehe
 
 Gleichzeitige, überlappende Legatobögen sind nicht erlaubt, aber
 ein Phrasierungsbogen kann einen Legatobogen überlappen.  Damit
-können zwei Bögen gleichzeitig ausgegeben werden.  Siehe auch 
+können zwei Bögen gleichzeitig ausgegeben werden.  Siehe auch
 @ref{Phrasierungsbögen}.
 
 @cindex Legatobogen-Stil
@@ -772,8 +772,8 @@ Referenz der Interna:
 @funindex \(
 @funindex \)
 
-Ein Phrasierungsbogen verbindet Noten und wird verwendet, um einen 
-musikalischen Ausdruck anzuzeigen. Er wird mit den Befehlen 
+Ein Phrasierungsbogen verbindet Noten und wird verwendet, um einen
+musikalischen Ausdruck anzuzeigen. Er wird mit den Befehlen
 @code{\(} und @code{\)} eingegeben.
 
 @lilypond[verbatim,quote,relative=2]
@@ -788,8 +788,8 @@ e2) d\)
 @funindex \phrasingSlurNeutral
 @funindex phrasingSlurNeutral
 
-Im typographischen Sinne verhalten sich Phrasierungsbögen genauso wie 
-Legatobögen. Sie werden aber als eigene Objekte behandelt. Ein 
+Im typographischen Sinne verhalten sich Phrasierungsbögen genauso wie
+Legatobögen. Sie werden aber als eigene Objekte behandelt. Ein
 @code{\slurUp} hat also keine Auswirkung auf die Phrasierungsbögen.
 Phrasierungsbögen können manuell oberhalb oder unterhalb des
 Notensystems gesetzt werden, siehe
@@ -968,7 +968,7 @@ Referenz der Interna:
 @funindex bendAfter
 
 
-Gleiten nach oben und unten kann mit dem Befehl @code{\bendAfter} 
+Gleiten nach oben und unten kann mit dem Befehl @code{\bendAfter}
 notiert werden.  Die Richtung des Glissandos wird mit einem
 Plus oder Minus (nach oben bzw. nach unten) angezeigt.  Die
 Zahl zeigt die Intervallgröße an, über die sich das Glissando @emph{nach}
@@ -1010,9 +1010,9 @@ erstellt, die sich linear erstrecken: Glissando, Arpeggio und
 Triller.
 
 @menu
-* Glissando::                   
-* Arpeggio::                    
-* Triller::                      
+* Glissando::
+* Arpeggio::
+* Triller::
 @end menu
 
 @node Glissando
@@ -1023,7 +1023,7 @@ Triller.
 @funindex \glissando
 @funindex glissando
 
-Ein @notation{Glissando} wird 
+Ein @notation{Glissando} wird
 mit dem Befehl @code{\glissando} auf eine Note folgend notiert:
 
 @lilypond[verbatim,quote,relative=2]
@@ -1076,7 +1076,7 @@ supported.
 @funindex \arpeggioNormal
 @funindex arpeggioNormal
 
-Ein @notation{Arpeggio} als Zeichen, dass ein Akkord gebrochen gespielt werden soll, 
+Ein @notation{Arpeggio} als Zeichen, dass ein Akkord gebrochen gespielt werden soll,
 kann mit dem Befehl @code{\arpeggio} hinter der
 Akkord-Konstruktion erzeugt werden.
 
@@ -1183,8 +1183,8 @@ Referenz der Interna:
 @cindex Klammer-Arpeggio über Systeme
 @cindex Zwischensysteme-Klammer-Arpeggio
 
-Es ist nicht möglich, Arpeggios zwischen Systemen und solche, die sich 
-nur auf ein System erstrecken, zum gleichen Zeitpunkt in einem 
+Es ist nicht möglich, Arpeggios zwischen Systemen und solche, die sich
+nur auf ein System erstrecken, zum gleichen Zeitpunkt in einem
 Klaviersystem (@code{PianoStaff}) zu benutzen.
 
 Die Arpeggios im Klammer-Stil funktionieren nicht über
@@ -1209,7 +1209,7 @@ Kurze Triller ohne eine Dauer werden mit dem Befehl
 @ref{Artikulationszeichen und Verzierungen}.
 
 Längere Triller mit einer Dauer werden mit den Befehlen
-@code{\startTrillSpan} zu 
+@code{\startTrillSpan} zu
 Beginn und @code{\stopTrillSpan} am Ende erstellt.
 
 @lilypond[verbatim,quote,relative=2]
@@ -1259,7 +1259,7 @@ c2 r2
 @funindex pitchedTrill
 
 
-Triller, die auf einer bestimmten Note ausgeführt werden sollen, können 
+Triller, die auf einer bestimmten Note ausgeführt werden sollen, können
 mit dem Befehl @code{pitchedTrill} notiert werden.  Das erste
 Argument ist die Hauptnote, das zweite die Note, auf der getrillert
 wird.  Sie wird als Note ohne Hals in Klammern ausgegeben.

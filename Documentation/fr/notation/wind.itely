@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
+    Translation of GIT committish: 39777dee952bdb79177b5429c54db2cb8490d997
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -48,30 +48,33 @@ instruments à vent.
 @cindex vents
 
 Ce qui caractérise les partitions pour instruments à vent a trait
-principalement à la respiration et à l'attaque :
+principalement à la respiration et à l'attaque@tie{}:
 
 @itemize
 @item Les respirations s'indiquent par des silences ou des
 @ref{Signes de respiration}.
-@item Un jeu @emph{legato} s'indique par des @ref{Liaisons d'articulation}.
+@item Un jeu @emph{legato} s'indique par des
+@ref{Liaisons d'articulation}.
 @item Les différents types d'attaque -- @emph{legato}, détaché ou piqué
 -- s'indiquent en principe par des signes d'articulation, parfois
 agrémentés de liaisons.  Voir à ce sujet
-@ref{Articulations et ornements} et @ref{Liste des signes d'articulation}.
+@ref{Articulations et ornements} et
+@ref{Liste des signes d'articulation}.
 @item Un @emph{Flatterzunge} (trémolo dental ou trémolo en roulant les
 r) s'indique par une marque de trémolo et une étiquette textuelle
-attachée à la note concernée.  Voir à ce sujet @ref{Répétitions en trémolo}.
+attachée à la note concernée.  Voir à ce sujet
+@ref{Répétitions en trémolo}.
 @end itemize
 
 D'autres aspects de la notation s'appliquent aussi aux instruments à
-vent :
+vent@tie{}:
 
 @itemize
-@item De nombreux instruments à vent sont transpositeurs ; voir
+@item De nombreux instruments à vent sont transpositeurs@tie{}; voir
 @ref{Instruments transpositeurs}.
 @item Les glissandos sont l'une des caractéristiques du trombone à
 coulisse, bien que d'autres instruments puisssent y parvenir en jouant
-sur les pistons ou des clés ; consulter @ref{Glissando}.
+sur les pistons ou des clés@tie{}; consulter @ref{Glissando}.
 @item Des glissandos harmoniques sont réalisables par les cuivres.  Ils
 sont traditionnellement indiqués par des @ref{Notes d'ornement}.
 @item Les inflections en fin de note sont abordées au chapitre
@@ -85,7 +88,8 @@ registre.  On les indique avec un @code{flageolet} -- voir
 par une étiquette textuelle.  Cependant, lorsque les changements sont
 nombreux et rapides, il est d'usage de recourrir aux articulations
 @code{stopped} et @code{open}. Pour de plus amples détails, voir
-@ref{Articulations et ornements} et @ref{Liste des signes d'articulation}.
+@ref{Articulations et ornements} et
+@ref{Liste des signes d'articulation}.
 @item La sourdine du cor d'harmonie s'indique par un @code{stopped}.
 Voir le chapitre @ref{Articulations et ornements}.
 @end itemize
@@ -139,7 +143,7 @@ Manuel de notation :
 
 Snippets:
 @rlsrnamed{Winds,Vents}.
- 
+
 
 @node Cornemuse
 @subsection Cornemuse
@@ -168,7 +172,7 @@ Voici quelques informations spécifiques à la cornemuse.
 @funindex showKeySignature
 
 LilyPond inclut des définitions spécifiques destinées à la notation pour
-cornemuse écossaise ; pour les utiliser, il suffit d'ajouter
+cornemuse écossaise@tie{}; pour les utiliser, il suffit d'ajouter
 
 @example
 \include "bagpipe.ly"
@@ -184,7 +188,7 @@ exemple, @code{\taor} est un raccourci pour
 @end example
 
 @code{bagpipe.ly} prend également en charge les définitions de hauteurs
-pour la cornemuse ; vous n'avez donc pas à vous soucier d'employer
+pour la cornemuse@tie{}; vous n'avez donc pas à vous soucier d'employer
 @code{\relative} ou @code{\transpose}.
 
 @lilypond[ragged-right,verbatim,quote,notime]
@@ -201,8 +205,8 @@ tenez à afficher l'armure.
 
 Des compositions actuelles peuvent ne pas respecter cette tonalité
 traditionnelle, auquel cas les do et fa devraient être abaissés en
-utilisant @code{cflat} ou @code{fflat} ; ils seront représenté par une
-note en forme de croix.
+utilisant @code{cflat} ou @code{fflat}@tie{}; ils seront représentés par
+une note en forme de croix.
 
 Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade
 ou un défilé, peut survenir un sol aigu, au doux nom de
@@ -295,16 +299,14 @@ bois, et tout particulièrement les instruments suivants@tie{}:
 @end itemize
 
 @noindent
-L'exemple qui suit répertorie les différents diagrammes disponibles, le
-nom de chaque instrument étant indiqué en langage Scheme.
-
 Les diagrammes sont générés en tant qu'objet de type
 @emph{markup}@tie{}:
 
-@lilypond[verbatim, quote, relative=2]
-c1^ \markup \woodwind-diagram #'piccolo #'((lh . (gis))
-                                           (cc . (one three))
-                                           (rh . (ees)))
+@lilypond[verbatim,quote,relative=2]
+c1^\markup
+  \woodwind-diagram #'piccolo #'((lh . (gis))
+                                 (cc . (one three))
+                                 (rh . (ees)))
 @end lilypond
 
 Les clés ou trous peuvent être partiellement enfoncés ou bouchés@tie{}:
@@ -312,83 +314,113 @@ Les clés ou trous peuvent être partiellement enfoncés ou bouchés@tie{}:
 @c KEEP LY
 @lilypond [verbatim, quote, relative=2]
 \textLengthOn
-c1^ \markup \center-column {
-  "quart de trou"
-  \woodwind-diagram #'flute #'((cc . (one1q))
-                                  (lh . ())
-                                  (rh . ()))
+c1^\markup {
+  \center-column {
+   "quart de trou"
+   \woodwind-diagram #'flute #'((cc . (one1q))
+                                (lh . ())
+                                (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "demi-trou"
-  \woodwind-diagram #'flute #'((cc . (one1h))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+   "demi-trou"
+   \woodwind-diagram #'flute #'((cc . (one1h))
+                                (lh . ())
+                                (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "trois quarts de trou"
-  \woodwind-diagram #'flute #'((cc . (one3q))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+   "trois quarts de trou"
+   \woodwind-diagram #'flute #'((cc . (one3q))
+                                (lh . ())
+                                (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "anneau"
-  \woodwind-diagram #'flute #'((cc . (oneR))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+   "anneau"
+   \woodwind-diagram #'flute #'((cc . (oneR))
+                                (lh . ())
+                                (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "bouché"
-  \woodwind-diagram #'flute #'((cc . (oneF two))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+   "bouché"
+   \woodwind-diagram #'flute #'((cc . (oneF two))
+                                (lh . ())
+                                (rh . ()))
+  }
 }
 @end lilypond
 
 L'indication du doigté permettant de triller s'obtient en grisant une
 position@tie{}:
 
-@lilypond [verbatim, quote, relative=2]
-c1^ \markup \woodwind-diagram #'bass-clarinet
-                              #'((cc . (threeT four))
-                                 (lh . ())
-                                 (rh . (b fis)))
+@lilypond [verbatim,quote,relative=2]
+c1^\markup {
+  \woodwind-diagram #'bass-clarinet
+                    #'((cc . (threeT four))
+                       (lh . ())
+                       (rh . (b fis)))
+}
 @end lilypond
 
 Certaines combinaisons particulières en matière de trille sont
 possibles@tie{}:
 
 @c KEEP LY
-@lilypond [verbatim, quote, relative=2]
+@lilypond [verbatim,quote,relative=2]
 \textLengthOn
-c1^ \markup \center-column {
-  "quart de trou et anneau"
-  \woodwind-diagram #'flute #'((cc . (one1qTR))
-                                  (lh . ())
-                                  (rh . ()))
+c1^\markup {
+  \center-column {
+   "quart de trou et anneau"
+   \woodwind-diagram #'flute #'((cc . (one1qTR))
+                                (lh . ())
+                                (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "anneau et fermé"
-  \woodwind-diagram #'flute #'((cc . (oneTR))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+   "anneau et fermé"
+   \woodwind-diagram #'flute #'((cc . (oneTR))
+                                (lh . ())
+                                (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "anneau et ouvert"
-  \woodwind-diagram #'flute #'((cc . (oneRT))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+   "anneau et ouvert"
+   \woodwind-diagram #'flute #'((cc . (oneRT))
+                                (lh . ())
+                                (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "ouvert et fermé"
-  \woodwind-diagram #'flute #'((cc . (oneT))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+   "ouvert et fermé"
+   \woodwind-diagram #'flute #'((cc . (oneT))
+                                (lh . ())
+                                (rh . ()))
+  }
 }
-c1^ \markup \center-column {
-  "quart de trou et trois quarts"
-  \woodwind-diagram #'flute #'((cc . (one1qT3q))
-                                  (lh . ())
-                                  (rh . ()))
+
+c1^\markup {
+  \center-column {
+   "quart de trou et trois quarts"
+   \woodwind-diagram #'flute #'((cc . (one1qT3q))
+                                (lh . ())
+                                (rh . ()))
+  }
 }
 @end lilypond
 
@@ -396,7 +428,8 @@ Bien que cela ne produise pas de notation, vous pouvez obtenir à l'écran
 ou dans un fichier de journalisation la liste de toutes les possibilités
 pour un instrument donné, en utilisant dans un fichier
 
-@lilypond[verbatim, quote]
+@lilypond[verbatim,quote]
+
 #(print-keys-verbose 'flute)
 
 @end lilypond

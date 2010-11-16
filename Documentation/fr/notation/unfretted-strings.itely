@@ -25,11 +25,11 @@
 @cindex cordes, écriture pour
 
 Cette section dispense des informations supplémentaires et utiles à
-l'écriture pour les cordes non frettées, et tout spécialement pour les 
+l'écriture pour les cordes non frettées, et tout spécialement pour les
 cordes d'orchestre.
 
 @menu
-* Vue d'ensemble de la notation pour cordes non frettées::  
+* Vue d'ensemble de la notation pour cordes non frettées::
 @end menu
 
 @node Vue d'ensemble de la notation pour cordes non frettées
@@ -40,13 +40,13 @@ Il existe peu d'éléments spécifiques à l'écriture pour instruments à
 cordes non frettées.  La musique est notée sur une portée et ne
 nécessite généralement qu'une seule voix.  Le recours à deux voix
 distinctes peut cependant permettre de traiter efficacement des doubles
-notes ou des divisions.  
+notes ou des divisions.
 
 @menu
-* Références en matière de cordes non frettées::  
-* Indications d'archet::          
-* Harmoniques::                   
-* Snap (Bartók) pizzicato::     
+* Références en matière de cordes non frettées::
+* Indications d'archet::
+* Harmoniques::
+* Snap (Bartók) pizzicato::
 @end menu
 
 @node Références en matière de cordes non frettées
@@ -55,24 +55,24 @@ notes ou des divisions.
 
 La majorité des éléments de notation nécessaires en matière de
 cordes d'orchestre et autres instruments à archet est abordée dans
-d'autres chapitres de la documentation : 
+d'autres chapitres de la documentation :
 
 @itemize
 
-@item Les indications textuelles telles que @qq{pizz.} ou @qq{arco} sont 
-ajoutées comme du texte simple -- voir à ce sujet 
+@item Les indications textuelles telles que @qq{pizz.} ou @qq{arco} sont
+ajoutées comme du texte simple -- voir à ce sujet
 @ref{Commentaires textuels}.
 
 @item Les indications de doigtés, incluant les indications du pouce,
 sont décrites dans @ref{Doigtés}.
 
 @item Les doubles notes sont généralement indiquées en écrivant un
-accord, voir @ref{Notes en accords}.  Les précisions pour jouer des accords 
-peuvent être ajoutées, comme l'indique @ref{Arpèges}. 
+accord, voir @ref{Notes en accords}.  Les précisions pour jouer des accords
+peuvent être ajoutées, comme l'indique @ref{Arpèges}.
 
-@item Un modèle pour quatuor à cordes est disponible au chapitre 
+@item Un modèle pour quatuor à cordes est disponible au chapitre
 @rlearning{Quatuor à cordes}.  D'autres informations se trouvent dans les
-exemples de code. 
+exemples de code.
 
 @end itemize
 
@@ -105,10 +105,10 @@ Morceaux choisis :
 @cindex corde à vide, indication
 
 Les indications d'archet se créent comme des articulations, elles sont
-décrites dans @ref{Articulations et ornements}. 
+décrites dans @ref{Articulations et ornements}.
 
 Les indications d'archet, poussé (@code{\upbow}) et tiré
-(@code{\downbow}), peuvent se combiner à des liaisons comme ici : 
+(@code{\downbow}), peuvent se combiner à des liaisons comme ici :
 
 @lilypond[verbatim,quote,relative=2]
 c4(\downbow d) e(\upbow f)
@@ -116,7 +116,7 @@ c4(\downbow d) e(\upbow f)
 
 @noindent
 ou dans l'exemple suivant qui montre trois manières d'indiquer la corde
-de La, à vide, sur un violon : 
+de La, à vide, sur un violon :
 
 @lilypond[verbatim,quote,relative=2]
 a4 \open
@@ -155,7 +155,7 @@ Manuel de notation :
 Les harmoniques naturels sont indiqués de différentes manières : une
 tête de note en forme de losange signifie généralement que vous devez
 effleurer la corde à l'endroit où vous l'auriez pincée si la note avait
-été normale. 
+été normale.
 
 @lilypond[verbatim,quote,relative=2]
 d4 e4.
@@ -168,7 +168,7 @@ d8 e e
 
 Une autre façon de procéder consiste à faire surmonter la note normale
 d'un petit cercle.  Ceci indique que la note écrite doît être jouée en
-harmonique : 
+harmonique :
 
 @lilypond[verbatim,quote,relative=2]
 d2^\flageolet d_\flageolet
@@ -184,12 +184,12 @@ code contenus dans @ref{Références en matière de cordes non frettées}.
 
 Les harmoniques artificiels sont indiqués par une double tête de note :
 l'une, normale, indique la note à pincer, et l'autre, en forme de
-losange, indique l'endroit où la corde doit être effleurée. 
+losange, indique l'endroit où la corde doit être effleurée.
 
 
 @c TODO If the default for harmonicDots is changed, change this
 La propriété @code{harmonicDots}, lorsqu'elle est activée, permet
-d'ajouter un point aux notes pointées affublées d'un @code{\harmonic}. 
+d'ajouter un point aux notes pointées affublées d'un @code{\harmonic}.
 
 @lilypond[verbatim,quote,relative=2]
 <e a\harmonic>2.  <c g'\harmonic>4
@@ -200,7 +200,7 @@ d'ajouter un point aux notes pointées affublées d'un @code{\harmonic}.
 @warning{La commande @code{@bs{}harmonic} @strong{doit} être placée
 dans une construction de type accord même s'il n'y a qu'une seule note.
 On utiliserait plutôt la commande @code{@bs{}harmonicsOn} en pareil
-cas.} 
+cas.}
 
 @seealso
 Glossaire musicologique :

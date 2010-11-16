@@ -8,14 +8,14 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Die Ausgabe verändern
 @chapter Die Ausgabe verändern
 @translationof Tweaking output
 
 In diesem Kapitel wird erklärt, wie man die Notenausgabe verändern
-kann. In LilyPond kann man sehr viel konfigurieren, fast jedes 
+kann. In LilyPond kann man sehr viel konfigurieren, fast jedes
 Notenfragment kann geändert werden.
 
 
@@ -47,7 +47,7 @@ Notenfragment kann geändert werden.
 @qq{Optimierung} (engl. tweaking) ist ein LilyPond-Begriff für die
 verschiedenen Methoden, die Aktionen zu beeinflussen, die während
 der Kompilation einer Notationsdatei vorgenommen werden sowie auf
-das Notenbild einzuwirken. Einige dieser Optimierungen sind sehr 
+das Notenbild einzuwirken. Einige dieser Optimierungen sind sehr
 einfach, andere dagegen recht komplex. Aber insgesamt erlaubt das
 System an Optimierungen so gut wie alle möglichen Erscheinungsformen
 für die Notenausgabe.
@@ -62,7 +62,7 @@ Befehle auf dieser Grundlage zu entwickeln.
 
 Bevor Sie mit diesem Kapitel beginnen, könnte Sie ein Blick in den
 Abschnitt @ref{Kontexte und Engraver} interessieren, dann
-Kontexte und Engraver sowie die Eigenschaften, die mit ihnen 
+Kontexte und Engraver sowie die Eigenschaften, die mit ihnen
 verknüpft sind, sind die Voraussetzung, um die Funktionsweise
 von Optimierungen verstehen zu können.
 
@@ -122,7 +122,7 @@ bezeichnet.
 
 Es bleibt uns noch übrig zu erklären, was @qq{Schnittstellen}
 (engl. interface) sind. Wenn auch viele Objekte sehr unterschiedlich
-sind, haben sie doch oft gemeinsame Eigenschaften, die auf 
+sind, haben sie doch oft gemeinsame Eigenschaften, die auf
 die gleiche Weise verarbeitet werden.  Alle Grobs beispielsweise
 haben eine Farbe, eine Größe, eine Position usw. und alle
 diese Eigenschaften werden von LilyPond auf die gleiche Weise
@@ -132,7 +132,7 @@ gemeinsamen Prozesse und Eigenschaften in einem Objekt
 mit der Bezeichnung @code{grob-interface} (Schnittstelle eines
 graphischen Objektes) zusammengefasst. Es gibt viele andere
 Gruppen gemeinsamer Eigenschaften, die jede eine Bezeichnung
-besitzen, welche auf @code{-interface} endet. Insgesamt 
+besitzen, welche auf @code{-interface} endet. Insgesamt
 gibt es über 100 dieser Schnittstellen. Wir werden später sehen,
 was es damit auf sich hat.
 
@@ -153,11 +153,11 @@ kommen sollen.
 Es wurden schon früher einige Regeln zur Benennung von
 Objekten vorgestellt, siehe
 @ref{Kontexte und Engraver}. Hier eine Referenzliste der
-häufigsten Objekt- und Eigenschaftsbezeichnungen mit 
-den Regeln für ihre Bezeichnung und 
+häufigsten Objekt- und Eigenschaftsbezeichnungen mit
+den Regeln für ihre Bezeichnung und
 illustrierenden echten Bezeichnungen. Es wurde @qq{A}
 für einen beliebigen Großbuchstaben und @qq{aaa} für eine
-beliebige Anzahl an Kleinbuchstaben eingesetzt. Andere 
+beliebige Anzahl an Kleinbuchstaben eingesetzt. Andere
 Zeichen werden explizit angegeben.
 
 @multitable @columnfractions .33 .33 .33
@@ -205,14 +205,14 @@ Befehl einsetzen zu können.
 Wir haben uns schon mit den Befehlen @code{\set}
 und @code{\with} bekannt gemacht, mit welchen
 Eigenschaften von @strong{Kontexten} verändert
-und @strong{Engraver} entfernt oder hinzugefügt 
-werden können. Siehe dazu 
+und @strong{Engraver} entfernt oder hinzugefügt
+werden können. Siehe dazu
 @ref{Kontexteigenschaften verändern} und @ref{Engraver hinzufügen und entfernen}. Jetzt wollen wir uns weitere
 wichtige Befehle anschauen.
 
 Der Befehl, um die Eigenschaften von @strong{Layout-Objekten}
 zu ändern, ist @code{\override}. Weil dieser Befehl interne
-Eigenschaften tief in der Programmstruktur von LilyPond 
+Eigenschaften tief in der Programmstruktur von LilyPond
 verändern muss, ist seine Syntax nicht so einfach wie die der
 bisherigen Befehle. Man muss genau wissen, welche Eigenschaft
 welches Objektes in welchem Kontext geändert werden soll,
@@ -277,7 +277,7 @@ neuer Wert so lange bewahrt, bis er noch einmal überschrieben
 wird oder ein @code{\revert}-Befehl vorkommt. Der
 @code{\revert}-Befehl hat die folgende Syntax und setzt den
 Wert der Eigenschaft zurück auf den Standardwert, nicht
-jedoch auf den vorigen Wert, wenn mehrere 
+jedoch auf den vorigen Wert, wenn mehrere
 @code{\override}-Befehle benutzt wurden.
 
 @example
@@ -338,7 +338,7 @@ g4 a b c |
 @funindex overrideProperty
 
 Es gibt eine andere Form des @code{override}-Befehls,
-@code{\overrideProperty} (überschreibe Eigenschaft), 
+@code{\overrideProperty} (überschreibe Eigenschaft),
 welcher ab und zu benötigt wird. Es wird hier nur der
 Vollständigkeit halber erwähnt, sein Einsatz wird demonstriert
 in @rextend{Schwierige Korrekturen}.
@@ -359,9 +359,9 @@ auftreten, wie etwa die Noten eines Akkordes. Ein
 während mit @code{\tweak} nur das nächste Objekt der
 Eingabe geändert wird.
 
-Hier ein Beispiel. Angenommen, die Größe des mittleren 
-Notenkopfes (ein E) in einem C-Dur-Akkord soll geändert 
-werden. Schauen wir zuerst, was wir mit 
+Hier ein Beispiel. Angenommen, die Größe des mittleren
+Notenkopfes (ein E) in einem C-Dur-Akkord soll geändert
+werden. Schauen wir zuerst, was wir mit
 @code{\once \override} erhalten:
 
 @cindex Schriftgröße, Beispiel
@@ -375,7 +375,7 @@ werden. Schauen wir zuerst, was wir mit
 <c e g>4
 @end lilypond
 
-Wie man sehen kann, beeinflusst @code{override} @emph{alle} 
+Wie man sehen kann, beeinflusst @code{override} @emph{alle}
 Notenköpfe des Akkordes. Das liegt daran, dass alle die Noten
 eines Akkordes zum selben Musik-Moment auftreten und
 die Funktion von @code{\once} ist es, die Optimierung auf
@@ -408,8 +408,8 @@ mittlere Note eines Akkordes auf diese Weise ändern:
 
 Beachten Sie, dass die Syntax des @code{\tweak}-Befehls sich
 von der des @code{\override}-Befehls unterscheidet. Weder
-Kontext noch Layout-Objekt können angegeben werden, denn 
-das würde zu einem Fehler führen. Beide Angaben sind 
+Kontext noch Layout-Objekt können angegeben werden, denn
+das würde zu einem Fehler führen. Beide Angaben sind
 durch das folgende Element impliziert. Hier sollte auch
 kein Gleichheitszeichen vorhanden sein.  Die verallgemeinerte
 Syntax des @code{\tweak}-Befehls ist also einfach
@@ -418,7 +418,7 @@ Syntax des @code{\tweak}-Befehls ist also einfach
 \tweak #'@var{layout-eigenschaft} #@var{Wert}
 @end example
 
-Ein @code{\tweak}-Befehl kann auch benutzt werden, um nur 
+Ein @code{\tweak}-Befehl kann auch benutzt werden, um nur
 eine von mehreren Artikulationen zu ändern, wie im nächsten
 Beispiel zu sehen ist.
 
@@ -473,7 +473,7 @@ gesetzt wird.
 }
 @end lilypond
 
-Wenn geschachtelte N-tolen nicht zum gleichen Zeitpunkt 
+Wenn geschachtelte N-tolen nicht zum gleichen Zeitpunkt
 beginnen, kann ihr Aussehen auf die übliche Art mit dem
 @code{\override}-Befehl geändert werden:
 
@@ -528,7 +528,7 @@ Notationsreferenz:
 
 Angenommen, in Ihrer Partitur tritt ein Legatobogen
 auf, der Ihrer Meinung nach zu dünn ausgefallen ist.
-Sie würden ihn gerne etwas schwerer gezeichnet 
+Sie würden ihn gerne etwas schwerer gezeichnet
 sehen. Wie gehen Sie vor? Von den Anmerkungen in
 früheren Abschnitten wissen Sie schon, dass LilyPond
 sehr flexibel ist und eine derartige Modifikation
@@ -536,7 +536,7 @@ möglich sein sollte, und Sie erraten vielleicht,
 dass ein @code{\override}-Befehl angebracht ist.
 Aber gibt es eine Eigenschaft für die Dicke eines
 Legatobogens (engl. slur), und wenn es sie gibt,
-auf welche Weise lässt sie sich verändern? Hier 
+auf welche Weise lässt sie sich verändern? Hier
 kommt die Referenz der Interna zur Geltung. Dort
 finden sich alle Informationen, um den beschriebenen
 und alle anderen @code{\override}-Befehle zu
@@ -592,7 +592,7 @@ Dicke bestimmt?} Um diese Frage zu beantworten, müssen
 wir in der Referenz der Interna ( kurz IR) nachschauen.
 
 Die IR für die LilyPond-Version, die Sie benutzen, findet sich
-auf der LilyPond-Webseite unter der Adresse 
+auf der LilyPond-Webseite unter der Adresse
 @uref{http://lilypond.org}. Gehen Sie zur Dokumentationsseite
 und klicken Sie auf den Link zur Referenz der Interna.
 @c Addition for German users
@@ -614,9 +614,9 @@ der Legatobögen (engl. slur) werden aufgelistet.
 Eine alternative Methode, auf diese Seite zu gelangen, ist von
 der Notationsreferenz aus. Auf einer der Seiten zu Legatobögen
 findet sich ein Link zur Referenz der Interna. Dieser Link führt
-Sie direkt auf diese Seite. Wenn Sie aber eine Ahnung haben, 
+Sie direkt auf diese Seite. Wenn Sie aber eine Ahnung haben,
 wie die Bezeichnung des Layout-Objektes lauten könnte, das sie
-ändern wollen, ist es oft schneller, direkt zur IR zu gehen und 
+ändern wollen, ist es oft schneller, direkt zur IR zu gehen und
 dort nachzuschlagen.
 
 Aus der Slur-Seite in der IR könne wir entnehmen, dass
@@ -692,7 +692,7 @@ Legatobogen und nahe bei ihm.} Also etwa so:
 @noindent
 und wirklich wird der Legatobogen dicker.
 
-Das ist also die grundlegende Herangehensweise, 
+Das ist also die grundlegende Herangehensweise,
 @code{\override}-Befehl zu formulieren. Es gibt einige
 zusätzliche Komplikationen, denen wir uns später widmen
 werden, aber Sie haben jetzt das Handwerkszeug, um Ihre
@@ -712,9 +712,9 @@ denn sie sind immer einzelnen Melodielinien zugewiesen.
 Aber wir können uns dessen nicht sicher sein. Um unsere
 Annahme zu überprüfen, gehen wir wieder zu der Seite im
 IR, die die Legatobögen beschreibt und die Überschrift
-@emph{Slur} hat. Dort steht: @qq{Slur objects are created 
+@emph{Slur} hat. Dort steht: @qq{Slur objects are created
 by: Slur engraver}. Legatobögen werden also in dem Kontext
-erstellt, in dem sich der @code{Slur_engraver} befindet. 
+erstellt, in dem sich der @code{Slur_engraver} befindet.
 Folgen Sie dem Link zu der @code{Slur_engraver}-Seite.
 Unten auf der Seite steht, dass der @code{Slur_engraver}
 sich in fünf Stimmen-Kontexten befindet, unter anderem
@@ -809,7 +809,7 @@ Note gestellt, an welcher der Bogen beginnt:
 @end lilypond
 
 @noindent
-Wir könnten aber auch den @code{\once}-Befehl weglassen und anstelle 
+Wir könnten aber auch den @code{\once}-Befehl weglassen und anstelle
 dessen später den @code{\revert}-Befehl einsetzen, um die
 @code{thickness}-Eigenschaft wieder auf ihren Standardwert zurückzusetzen:
 
@@ -839,7 +839,7 @@ dessen später den @code{\revert}-Befehl einsetzen, um die
 
 @noindent
 Der @code{\revert}-Befehl kann benutzt werden, um eine beliebige
-Eigenschaft, die mit @code{\override} geändert worden ist, wieder in 
+Eigenschaft, die mit @code{\override} geändert worden ist, wieder in
 ihre Standardeinstellungen zurückzuversetzen. In unserem Beispiel können
 Sie die Methode benutzen, die Ihnen lieber ist, beide haben das gleiche
 Resultat.
@@ -867,7 +867,7 @@ uns zunächst das Inhaltsverzeichnis in der IR an: @qq{All layout objects},
 wie auch schon zuvor. Welches Objekt könnte die Darstellung des
 Textes (engl. lyrics) beeinflussen? Es gibt den Eintrag @code{LyricText},
 das hört sich schon sehr gut an. Ein Klick hierauf zeigt alle Eigenschaften
-an, die verändert werden können. Dazu gehört 
+an, die verändert werden können. Dazu gehört
 @code{font-series} und @code{font-size}, aber nichts, womit man kursiven
 Text erreichen könnte. Das liegt daran, dass die Schnitteigenschaft allen
 Schrift-Objekten gemeinsam ist. Sie findet sich also nicht in jedem einzelnen
@@ -897,11 +897,11 @@ Sie werden gemerkt haben, dass @code{font-series} und @code{font-size}
 hier auch aufgelistet sind. Es stellt sich die Frage, warum diese
 allgemeinen Schriftarteigenschaften @code{font-series} und
 @code{font-size} sowohl unter der Überschrift
-@code{LyricText} als unter dem @code{font-interface} aufgelistet 
-sind, aber @code{font-shape} befindet sich nur im 
-@code{font-interface}? Die Antwort ist: Die globalen Einstellungen 
+@code{LyricText} als unter dem @code{font-interface} aufgelistet
+sind, aber @code{font-shape} befindet sich nur im
+@code{font-interface}? Die Antwort ist: Die globalen Einstellungen
 von @code{font-series} und @code{font-size} werden geändert, wenn
-ein @code{LyricText}-Objekt erstellt wird, aber @code{font-shape} 
+ein @code{LyricText}-Objekt erstellt wird, aber @code{font-shape}
 wird davon nicht beeinflusst. Die zusätzlichen Einträge unter der
 Überschrift @code{LyricText} beinhalten dann die Werte der
 Standardeinstellungen dieser zwei Eigenschaften, wenn es sich
@@ -911,7 +911,7 @@ Eigenschaften anders, wenn sie erstellt werden.
 
 Versuchen wir nun einen @code{\override}-Befehl zu konstruieren,
 der den Gesangstext kursiv setzt. Das Objekt hat die Bezeichnung
-@code{LyricText}, die Eigenschaft ist @code{font-shape} 
+@code{LyricText}, die Eigenschaft ist @code{font-shape}
 und der Wert @code{italic}. Wie vorher schon lassen wir den
 Kontext aus.
 
@@ -927,7 +927,7 @@ die an Eigenschaften übergeben werden können, wie
 @code{italic}. Im Unterschied hierzu gibt es auch beliebige
 Zeichenketten, die immer mit Anführungszeichen, also
 als @code{"Zeichenkette"} auftreten. Für weitere
-Einzelheiten zu Zeichenketten und Werten, siehe 
+Einzelheiten zu Zeichenketten und Werten, siehe
 @rextend{Scheme-Übung}.
 
 Gut, der @code{\override}-Befehl, mit dem der Gesangstext
@@ -977,14 +977,14 @@ nicht mehr, wenn Sie den Kontext im oben dargestellten
 Format angeben.  Eine Silbe wird im Gesangtextmodus
 (lyricmode) entweder von einem Leerzeichen, einer
 neuen Zeile oder einer Zahl beendet.  Alle anderen
-Zeichen werden als Teil der Silbe integriert.  Aus diesem 
+Zeichen werden als Teil der Silbe integriert.  Aus diesem
 Grund muss auch vor der schließenden Klammer
 @code{@}} ein Leerzeichen gesetzt oder eine neue
 Zeile begonnen werden.  Genauso müssen Leerzeichen
 vor und nach einem Punkt benutzt werden, um die
-Kontext-Bezeichnung von der Objekt-Bezeichnung zu 
+Kontext-Bezeichnung von der Objekt-Bezeichnung zu
 trennen, denn sonst würden beide Bezeichnungen als
-ein Begriff interpretiert und von LilyPond nicht verstanden 
+ein Begriff interpretiert und von LilyPond nicht verstanden
 werden.  Der Befehl muss also lauten:
 
 @example
@@ -1059,7 +1059,7 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
   und angeführt von einem Apostroph
   @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
 @item Symbol
-  @tab Eine beliebige Anzahl von Symbolen, die für die Eigenschaft 
+  @tab Eine beliebige Anzahl von Symbolen, die für die Eigenschaft
   gültig sind, angeführt von einem Apostroph
   @tab @code{'italic}, @code{'inside}
 @item Unbekannt
@@ -1098,7 +1098,7 @@ um das Aussehen des Musiksatzes zu beeinflussen.
 
 In Unterrichtsmaterial für den Musikunterricht wird oft
 eine Partitur dargestellt, in der bestimmte Notationselemente
-fehlen, so dass der Schüler die Aufgabe bekommt, die 
+fehlen, so dass der Schüler die Aufgabe bekommt, die
 nachzutragen.  Ein einfaches Beispiel ist etwa, die
 Taktlinien zu entfernen, damit der Schüler sie selber zeichnen
 kann.  Aber die Tatklinien werden normalerweise automatisch
@@ -1111,7 +1111,7 @@ Objekteigenschaften in sogenannten @emph{Schnittstellen}
 dazu, die Eigenschaften zusammenzufassen, die üblicherweise
 zusammen benötigt werden -- wenn eine davon für ein Objekt
 gilt, dann auch die anderen.  Manche Objekte brauchen die
-Eigenschaften von der einen Schnittstelle, andere von einer 
+Eigenschaften von der einen Schnittstelle, andere von einer
 anderen.  Die Schnittstellen, die die Eigenschaften von einem
 bestimmten Grob beinhalten, sind in der IR unten auf der
 Seite aufgelistet, die dieses Grob beschreibt.  Die Eigenschaften
@@ -1124,9 +1124,9 @@ die selbe Methode um in der IR das Layout-Objekt zu finden,
 dass für die Tatklinien zuständig ist. Über die Überschriften
 @emph{Backend} und @emph{All layout objects} kommen
 wir zu einem Layout-Objekt mit der Bezeichnung
-@code{BarLine} (engl. TaktLinie).  Seine Eigenschaften 
+@code{BarLine} (engl. TaktLinie).  Seine Eigenschaften
 beinhalten zwei, die über die Sichtbarkeit entscheiden:
-@code{break-visibility} und @code{stencil}.  
+@code{break-visibility} und @code{stencil}.
 @code{BarLine} unterstützt auch einige Schnittstellen,
 unter anderem @code{grob-interface}, wo wir eine
 @code{transparent} und eine @code{color}-Eigenschaft
@@ -1162,7 +1162,7 @@ auslassen:
 @end lilypond
 
 Die Taktlinien werden aber immer noch angezeigt.  Was ist da
-falsch gelaufen?  Gehen Sie zurück zur IR und schauen Sie auf 
+falsch gelaufen?  Gehen Sie zurück zur IR und schauen Sie auf
 die Seite, die die Eigenschaften für @code{BarLine} angibt.
 Oben auf der Seite steht: @qq{Barline objects are created
 by: Bar_engraver}.  Schauen Sie sich die
@@ -1226,7 +1226,7 @@ werden.  Wenn also alle Taktlinien unsichtbar sein sollen, wie in
 unserem Beispiel, brauchen wir den Wert @code{'#(#f #f #f)}.
 Versuchen wir es also, und berücksichtigen wir auch den
 @code{Staff}-Kontext.  Beachten Sie auch, dass Sie @code{#'#}
-vor der öffnenden Klammer schreiben müssen: 
+vor der öffnenden Klammer schreiben müssen:
 @code{'#} wird benötigt als Teil des Wertes, um einen Vektor zu
 signalisieren, und das erste @code{#} wird benötigt, um
 den Wert in einem @code{\override}-Befehl anzuführen.
@@ -1315,7 +1315,7 @@ unsichtbar machen kann, es aber an seinem Platz gelassen wird.
 
 Abschließend wollen wir die Taktlinien unsichtbar machen, indem
 wir sie weiß einfärben.  (Es gibt hier eine Schwierigkeit: die weiße
-Taktlinie übermalt manchmal die Taktlinien, wo sie sie kreuzt, 
+Taktlinie übermalt manchmal die Taktlinien, wo sie sie kreuzt,
 manchmal aber auch nicht.  Sie können in den Beispielen unten
 sehen, dass das nicht vorhersagbar ist.  Die Einzelheiten dazu, warum
 das passiert und wie sie es kontrollieren können, werden dargestellt
@@ -1365,7 +1365,7 @@ Die zweite Art die Farbe zu ändern geschieht, indem die Liste
 der X11-Farbbezeichnungen einzusetzen, siehe die zweite Liste
 in @ruser{Liste der Farben}.  Diesen Farben muss jedoch eine
 andere Funktion vorangestellt werden, die die X11-Farbbezeichnungen
-in interne Werte konvertiert: 
+in interne Werte konvertiert:
 @code{x11-color}.  Das geschieht wie folgt:
 
 @cindex Taktlinie, Beispiel zur Veränderung
@@ -1393,7 +1393,7 @@ und beide zusammen in Klammern gesetzt werden.
 Es gibt noch eine dritte Funktion, die RGB-Werte in die
 internen Werte übersetzt -- die @code{rgb-color}-Funktion.  Sie
 braucht drei Argumente, um die Stärke von Rot, Grün und
-Blau darzustellen. Die Werte befinden sich zwischen 
+Blau darzustellen. Die Werte befinden sich zwischen
 0 und 1.  Um also die Farbe Rot darzustellen, muss der
 Wert der Funktion lauten: @code{(rgb-color 1 0 0)}, weiß
 würde sein: @code{(rgb-color 1 1 1)}.
@@ -1449,7 +1449,7 @@ verschiede Grauschattierungen erhalten:
 @noindent
 Beachten Sie die Kontexte, die mit jedem einzelnen Layout-Objekt
 verbunden sind.  Es ist wichtig, den richtigen Kontext einzusetzen,
-damit die Befehle funktionieren.  Denken Sie daran, dass der 
+damit die Befehle funktionieren.  Denken Sie daran, dass der
 Kontext sich daran orientiert, wo sich der entsprechende
 Engraver befindet.  Den Standardkontext für Engraver finden
 Sie, indem Sie beim Layout-Objekt beginnen, zum Engraver
@@ -1526,18 +1526,18 @@ wir setzen den Stencil von beiden auf @code{#f}:
 
 @noindent
 wobei ein zusätzliches Klammerpaar nach der @code{\with}-Konstruktion
-erforderlich ist um sicherzugehen, dass die Modifikation und 
+erforderlich ist um sicherzugehen, dass die Modifikation und
 die Noten sich auch auf das Ossia-System beziehen.
 
 Was für einen Unterschied macht es, ob man den @code{Staff}-Kontext
-mit @code{\with} verändert, oder ob man die Stencils mit 
+mit @code{\with} verändert, oder ob man die Stencils mit
 @code{\override} beeinflusst?  Der größte Unterschied liegt
 darin, dass Änderungen, die mit @code{\with} eingeführt werden,
 während der Erstellung des Kontextes miterzeugt werden und
 als @strong{Standardeinstellungen} für diesen Kontext während seiner
 gesamten Dauer gelten, während @code{\set}- oder @code{\override}-Befehle
 dynamisch in die Noten eingebettet werden -- sie führen die
-Änderungen synchron mit einem bestimmten Zeitpunkt in 
+Änderungen synchron mit einem bestimmten Zeitpunkt in
 der Musik aus.  Wenn die Änderungen mit  @code{\unset}
 oder @code{\revert} rückgängig gemacht werden, werden
 wieder die Standardwerte eingesetzt, die also die sind, die
@@ -1604,15 +1604,15 @@ Größe wird verändert, indem die
 @code{font-size}- (Schriftgröße)-Eigenschaft geändert wird, wie
 wir bald sehen werden.  Andere Layout-Objekte, wie
 Bögen -- oder allgemein Strecker-Objekte -- werden
-individuell gezeichnet, es gibt dazu also keine 
+individuell gezeichnet, es gibt dazu also keine
 @code{font-size}, die mit ihnen verknüpft wäre.
 Weitere Eigenschaften wie die Länge von Hälsen und
-Taktlinien, Dicke von Balken und anderen Linien und 
+Taktlinien, Dicke von Balken und anderen Linien und
 der Abstand der Notenlinien voneinander müssen auf
 spezielle Weise verändert werden.
 
 In unserem Ossia-Beispiel wollen wir zuerst die
-Schriftgröße verändern.  Das ist auf zwei Arten möglich. 
+Schriftgröße verändern.  Das ist auf zwei Arten möglich.
 Entweder wir ändern die Schriftgröße für jede Objektart
 mit einem eigenen Befehl, etwa:
 
@@ -1623,7 +1623,7 @@ mit einem eigenen Befehl, etwa:
 @noindent
 oder wir ändern die Größe aller Schriftobjekte, indem wir
 den Wert einer besonderen Eigenschaft, @code{fontSize},
-mit dem @code{\set}-Befehl bestimmen oder sie in 
+mit dem @code{\set}-Befehl bestimmen oder sie in
 eine @code{\with}-Konstruktion (ohne @code{\set} einschließen.
 
 @example
@@ -1685,7 +1685,7 @@ werden.  Der nächste Abschnitt behandelt diese Anpassung.
 @cindex Notenlinien, Länge verändern
 
 Abstände und Längen werden in LilyPond üblicherweise
-in Notenlinienabständen (engl. staff-spaces) gemessen. 
+in Notenlinienabständen (engl. staff-spaces) gemessen.
 Das ist der Abstand zwischen zwei Notenlinien im System.
 Die meisten Dicken (engl. thickness) dagegen werden in
 einer internen Einheit Linien-Dicke (engl. line-thickness)
@@ -1762,7 +1762,7 @@ indem die entsprechende @code{thickness}-Eigenschaft des
 Objekts mit @code{\override} verändert wird.  Ein Beispiel,
 wie man die Dicke von Bögen ändert, wurde schon gezeigt,
 siehe @ref{Eigenschaften von Layoutobjekten}.  Die Dicke aller
-gezeichneten Objekte (die also nicht aus einer Schriftart 
+gezeichneten Objekte (die also nicht aus einer Schriftart
 stammen) können auf gleiche Weise geändert werden.
 
 
@@ -1797,7 +1797,7 @@ usw.  Ihre Position ist üblicherweise durch die notierte Musik
 bestimmt -- sie werden vertikal auf bestimmten Linien notiert
 oder sind an andere Objekte gebunden, die vertikal festgelegt
 sind.  Kollisionen von Notenköpfen, Hälsen und Versetzungszeichen
-werden normalerweise automatisch vermieden.  Es gibt 
+werden normalerweise automatisch vermieden.  Es gibt
 Befehle, um dieses automatische Verhalten zu verändern, wie
 unten gezeigt werden soll.
 
@@ -1807,12 +1807,12 @@ LilyPonds Regel für ihre vertikale Positionierung lautet, sie so nah wie
 möglich am Notensystem zu setzen, aber nicht so nah, dass
 sie mit anderen Objekten kollidieren.  Dabei wird die
 @code{outside-staff-priority}-(Priorität außerhalb des Notensystems)-Eigenschaft
-eingesetzt, um die Reihenfolge zu bestimmen, in denen Objekte gesetzt werden 
+eingesetzt, um die Reihenfolge zu bestimmen, in denen Objekte gesetzt werden
 sollen.
 
 Zuerst werden alle Innersystemobjekte von LilyPond gesetzt.
 Dann werden die Objekte außerhalb des Systems nach
-ihrer 
+ihrer
 @code{outside-staff-priority} geordnet.  Die @code{outside-staff}-Objekte
 werden dann nacheinander gesetzt, mit der niedrigsten
 Priorität beginnend, und so gesetzt, dass sie nicht mit anderen
@@ -1863,7 +1863,7 @@ Im nächsten Beispiel sehen Sie, wie Noten auf zwei Systemen
 Es wurde schon gezeigt, wie die Befehle @code{\voiceXXX} die Richtung
 von Bögen, Fingersatz und allen anderen Objekten beeinflusst,
 die von der Richtung der Notenhälsen abhängen.  Diese Befehle
-sind nötig, wenn polyphone Musik geschrieben wird, damit sich 
+sind nötig, wenn polyphone Musik geschrieben wird, damit sich
 die einzelnen Melodielinien klar abzeichnen.  Es kann aber von Zeit
 zu Zeit nötig sein, dieses automatische Verhalten zu verändern.  Das
 kann entweder für ganze Abschnitte, aber genauso auch nur für eine
@@ -1876,7 +1876,7 @@ mit denen Sie gleich loslegen können.
 Manche Layout-Objekte, wie Legato- und Bindebögen, biegen sich
 oder zeigen entweder nach oben oder nach unten, andere, wie
 Hälse und Fähnchen, verändern auch die Position rechts oder links,
-je nach der Richtung, in die sie zeigen.  Das wird automatisch 
+je nach der Richtung, in die sie zeigen.  Das wird automatisch
 berücksichtigt, wenn die @code{direction}-Eigenschaft verändert
 wird.
 
@@ -2002,7 +2002,7 @@ c4-5 a-3 f-1 c'-5
 c4-5 a-3 f-1 c'-5
 @end lilypond
 
-Eine Beeinflussung der @code{direction}-Eigenschaft ist jedoch 
+Eine Beeinflussung der @code{direction}-Eigenschaft ist jedoch
 nicht die einfachste Art, Fingersatzbezeichnungen manuell über oder
 unter das System zu setzen.  Normalerweise bietet es sich an,
 @code{_} oder @code{^} anstelle von @code{-} vor der Fingersatz-Zahl
@@ -2139,7 +2139,7 @@ Zusammenstöße vermieden werden.  Die
 von allen Layout-Objekten.  Standardmäßig ist sie für alle Objekte
 auf falsch (@code{#f}) gesetzt; dieser Wert wird in einen numerischen
 Wert dem Objekt entsprechend geändert, wenn das Objekt für die
-Notenausgabe erstellt wird.  Die Tabelle unten zeigt die 
+Notenausgabe erstellt wird.  Die Tabelle unten zeigt die
 Standardwerte für die meistbenutzten @code{outside-staff}-Objekte,
 die den Voreinstellungen nach im @code{Staff}- oder
 @code{Voice}-Kontext gesetzt werden.
@@ -2162,7 +2162,7 @@ welcher womöglich mehrere verbundene Dynamikklammern und Dynamikbezeichnung
 beinhaltet.
 
 @multitable @columnfractions .3 .3 .3
-@headitem Layout-Objekt        
+@headitem Layout-Objekt
   @tab Priorität
   @tab Kontrolliert Position von:
 @item @code{MultiMeasureRestText}
@@ -2384,7 +2384,7 @@ c2^"Text3"
 c2^"Text4" |
 @end lilypond
 
-Dieses Verhalten wird mit dem @code{\textLengthOff}-Befehl 
+Dieses Verhalten wird mit dem @code{\textLengthOff}-Befehl
 rückgängig gemacht.  Erinnern Sie sich, dass @code{\once} nur mit
 @code{\override}, @code{\set}, @code{\revert} oder @code{unset}
 funktioniert, der Befehl kann also nicht zusammen mit
@@ -2433,7 +2433,7 @@ Dynamikbezeichnung wird üblicherweise unter dem System
 gesetzt, kann aber auch nach oben mit dem Befehl
 @code{dynamicUp} gezwungen werden.  Die Bezeichnung
 wird vertikal relativ zu der Note positioniert, an die sie angefügt
-wurde.  Sie wird vertikal variabel gesetzt in Bezug zu 
+wurde.  Sie wird vertikal variabel gesetzt in Bezug zu
 Innersystemobjekten wie Bögen oder Taktnummern. Damit
 können oft recht gute Resultate erreicht werden, wie im
 folgenden Beispiel:
@@ -2493,7 +2493,7 @@ gehören zu allen Grobs, die das
 Standardmäßig haben Außersystemobjekte eine Länge von Null,
 so dass sie sich in horizontaler Richtung überlappen können.  Das
 geschieht, indem dem linken Rand Unendlich zugewiesen wird
-und dem rechten Rand minus Unendlich (der Code der 
+und dem rechten Rand minus Unendlich (der Code der
 @code{extra-spacing-width}-(zusätzliche Positionierungslänge)-Eigenschaft
 lautet: @code{'(+inf.0 . -inf.0)}).
 Damit sich diese Objekte also horizontal nicht überschneiden, muss
@@ -2568,20 +2568,20 @@ die wir uns im folgenden Abschnitt genauer anschauen werden.
 @cindex Objekte, verschieben von Zusammestößen
 @cindex Vermeiden von Zusammenstößen
 
-Es wird vielleicht eine Überraschung sein, aber LilyPond ist nicht 
-perfekt. Einige Notationselemente können sich überschneiden. Das 
+Es wird vielleicht eine Überraschung sein, aber LilyPond ist nicht
+perfekt. Einige Notationselemente können sich überschneiden. Das
 ist nicht schön, aber zum Glück sehr selten.  Normalerweise müssen
 die Objekte zur Klarheit oder aus ästhetischen Gründen verschoben
 werden -- sie könnten besser aussehen, wenn sie etwas zusätzlichen
 Platz erhalten.
 
 Es gibt im Grunde drei Herangehensweisen, überlappende Notation
-zu verbessern.  Man sollte sie in der folgenden Reihenfolge 
+zu verbessern.  Man sollte sie in der folgenden Reihenfolge
 anwenden:
 
 @enumerate
 @item
-Die @strong{Richtung} eines der überlappenden Objekte kann 
+Die @strong{Richtung} eines der überlappenden Objekte kann
 geändert werden, indem die vordefinierten Befehle für
 Innersystemobjekte verwendet werden, wie beschrieben in
 @ref{within-staff (Objekte innerhalb des Notensystems)}.  Hälse, Bögen, Balken, Dynamik-Zeichen
@@ -2591,7 +2591,7 @@ zwei Möglichkeiten zur Veränderung gibt: oben oder unten.
 
 @item
 Die @strong{Objekteigenschaft}, die LilyPond benutzt um die
-Layout-Objekte zu platzieren, können mit dem 
+Layout-Objekte zu platzieren, können mit dem
 @code{\override}-Befehl positioniert werden.  Die Vorteile
 von Änderungen dieser Art sind a) dass einige Objekte
 automatisch verschoben werden, wenn es nötig ist Platz zu
@@ -2624,7 +2624,7 @@ Objekt, relativ zu welchem es positioniert wird, gelassen
 werden muss.  Dabei zählt der @code{padding}-Wert
 des Objektes, das platziert werden soll, der @code{padding}-Wert
 des Objektes, das schon gesetzt wurde, wird hingegen
-ignoriert.  Abstände mit @code{padding} können zu 
+ignoriert.  Abstände mit @code{padding} können zu
 allen Objekten hinzugefügt werden, die das
 @code{side-position-interface} unterstützen.
 
@@ -2645,12 +2645,12 @@ Positionierung der Versetzungszeichen.
 Die @code{staff-padding}-(Verschiebung zum System)-Eigenschaft
 ist sehr ähnlich wie die @code{padding}-Eigenschaft:
 @code{padding} bestimmt den Minimalabstand zwischen
-einem Objekt, das das @code{side-position-interface} 
+einem Objekt, das das @code{side-position-interface}
 unterstützt, und dem nächsten anderen Objekt (normalerweise
 die Note oder Notenlinie); @code{staff-padding} dagegen
 wirkt nur auf Objekte die immer außerhalb des Notensystems
 sind -- damit wird der minimale Abstand bestimmt, der
-zwischen dem Objekt und dem Notensystem gelassen werden 
+zwischen dem Objekt und dem Notensystem gelassen werden
 soll.  @code{staff-padding} hat also @strong{keinen Einfluss}
 auf Objekte, die relativ zu einer Note positioniert werden, sondern
 nur auf solche, die zum System relativ stehen. Wenn es mit einem
@@ -2665,7 +2665,7 @@ nicht unbedingt in dem Objekt selber befinden, schauen Sie
 also auch in Objekten nach, die offensichtlich Ähnlichkeiten
 haben.
 
-Alle @code{padding}-Werte werden in Notenlinienabständen 
+Alle @code{padding}-Werte werden in Notenlinienabständen
 gemessen.  Für die meisten Objekte ist der Wert ungefähr auf
 1.0 oder weniger gesetzt (das variiert von Objekt zu Objekt).
 Der Wert kann geändert werden, wenn ein größerer (oder
@@ -2685,14 +2685,14 @@ Objekten benutzt werden, die das @code{self-alignment-interface}
 unterstützen.  Das sind üblicherweise Objekte, die Text
 enthalten.  Die möglichen Werte der Eigenschaft sind @code{LEFT},
 @code{RIGHT} oder @code{CENTER}.  Alternativ kann ein
-numerischer Wert zwischen @code{-1} und @code{+1} 
+numerischer Wert zwischen @code{-1} und @code{+1}
 bestimmt werden: @code{-1} heißt linksbündig, @code{+1}
 rechtsbündig und Zahlen dazwischen bewegen den Text
 schrittweise von links nach rechts.  Zahlen größer als
 @code{1} können angegeben werden, um den Text
 noch weiter nach links zu bewegen, oder weniger als @code{-1},
 um ihn weiter nach rechts zu schieben.  Eine Änderung
-um @code{1} des Wertes entspricht einer Bewegung um 
+um @code{1} des Wertes entspricht einer Bewegung um
 die halbe Textbreite.
 
 @item
@@ -2707,7 +2707,7 @@ die zweite zur linken Ausdehnung hinzugerechnet.  Negative
 Zahlen verschieben die Ausdehnung nach rechts, positive nach
 links, um also ein Objekt zu verbreitern, muss die erste
 Zahl negativ und die zweite positiv sein.  Allerdings beachten
-nicht alle Objekte beide Zahlen.  Das 
+nicht alle Objekte beide Zahlen.  Das
 @code{accidental}-(Versetzungszeichen)-Objekt etwa beachtet
 nur erste Zahl für die linke Ausdehnung.
 
@@ -2764,7 +2764,7 @@ einzelne Objekt extra.  Und weil diese Verschiebungen erst vorgenommen
 werden, wenn LilyPond alle anderen Objekte gesetzt hat, ist man als
 Notensetzer selber dafür verantwortlich, ob es Zusammenstöße gibt.
 Am schwerwiegendsten ist aber die Tatsache, dass die
-Verschiebungskoordinaten wahrscheinlich neu errechnet oder 
+Verschiebungskoordinaten wahrscheinlich neu errechnet oder
 ausprobiert werden müssen, wenn sich an den Noten und deren
 Layout später irgend etwas ändert.  Die Eigenschaften, die für diese
 Arte der manuellen Verschiebung verwendet werden können, sind:
@@ -2794,7 +2794,7 @@ Endes relativ zur Mittellinie des Notensystems bestimmt.  Die
 Einheit sind Notenlinienabstände.  Bögen allerdings können nicht
 beliebig weit weg positioniert werden.  LilyPond erstellt zunächst eine
 Liste an möglichen Positionen für den Bogen und findet normalerweise
-die Version, die @qq{am besten aussieht}.  Wenn die 
+die Version, die @qq{am besten aussieht}.  Wenn die
 @code{positions}-Eigenschaft verändert worden ist, wird der
 Bogen aus der Liste gewählt, der der gewünschten Position am
 nächsten kommt.
@@ -2940,13 +2940,13 @@ durch die Veränderung von @code{right-padding} mit einem
 @cindex Objekte an der Grundlinie ausrichten
 @cindex Ausrichten von Objekten an der Grundlinie
 
-@code{staff-padding} (Verschiebung zum Notensystem) kann 
+@code{staff-padding} (Verschiebung zum Notensystem) kann
 verwendet werden um Objekte wie Dynamikzeichen an einer
-Grundlinie auf einer bestimmten Höhe über dem System 
+Grundlinie auf einer bestimmten Höhe über dem System
 auszurichten, sodass sie nicht von der Position der Note abhängen,
 an die sie angehängt sind.  Diese Verschiebung ist keine Eigenschaft
 von @code{DynamicText}, sondern von @code{DynamicLineSpanner}.
-Das liegt daran, dass die Grundlinie sich gleicherweise auf 
+Das liegt daran, dass die Grundlinie sich gleicherweise auf
 @strong{alle} Dynamikzeichen beziehen soll, also auch auf die,
 die als Strecker erstellt wurden.  Hier also die Lösung, die Dynamikzeichen
 aus dem Beispiel des vorigen Abschnitts auszurichten:
@@ -3012,7 +3012,7 @@ also die zweite Stimme in der
 @code{<<@{...@} \\ @{...@}>>}-Konstruktion) wird die
 Position auf dem System (@code{staff-position}) auf -4
 für @code{MultiMeasureRest}, in unserem Beispiel muss
-es also bspw. auf die Position @code{-8} gesetzt werden, 
+es also bspw. auf die Position @code{-8} gesetzt werden,
 d.h. vier halbe Notenlinienabstände weiter nach unten:
 
 @cindex MultiMeasureRest, Beispiel zur Veränderung
@@ -3364,7 +3364,7 @@ lhMusic = \relative c' {
 
 Alle Noten sind richtig, aber die Positionierung sehr
 verbesserungsbedürftig.  Der Bindebogen kollidiert mit
-der veränderten Taktart zusammen, einige Noten werden nicht 
+der veränderten Taktart zusammen, einige Noten werden nicht
 verschmolzen und einige Notationselemente fehlen ganz.
 Behandeln wir zunächst die einfacheren Dinge.  Der
 Balken kann durch eine manuelle Begrenzung einfach
@@ -3436,7 +3436,7 @@ muss der Zusammenstoß des Bindebogens mit der Taktartbezeichnung
 gelöst werden.  Das geht am besten, indem wir den Bogen nach
 oben verschieben.  Wie man Objekte verschiebt wurde schon
 behandelt in @ref{Verschieben von Objekten}, wo stand, dass Objekte
-die relativ zum System positioniert werden, vertikal verschoben werden 
+die relativ zum System positioniert werden, vertikal verschoben werden
 können, indem ihre @code{staff-position}-Eigenschaft
 geändert wird, die in halben Notenlinienabständen relativ
 zur Mittellinie angegeben wird.  Dieser @code{\override}-Befehl
@@ -3587,7 +3587,7 @@ lhMusic = \relative c' {
 }
 @end lilypond
 
-Mit diesen Veränderungen wurden die beiden Fis-Noten 
+Mit diesen Veränderungen wurden die beiden Fis-Noten
 verschmolzen, aber nicht die zwei Ds.  Warum nicht?  Die
 Antwort befindet sich im gleicher Abschnitt der Notationsreferenz:
 Noten, die verschmolzen werden, müssen Hälse in entgegengesetzte
@@ -3841,7 +3841,7 @@ in der MIDI-Ausgabe eine Fermate zu hören ist, ohne dass
 im Notensatz etwas von diesen Tempoänderungen zu sehen
 ist.  Die Metronombezeichnung soll auch nicht die Position
 von Text an der gleichen Stelle oder die Abstände zwischen
-zwei Systemen beeinflussen.  Darum ist es am besten, 
+zwei Systemen beeinflussen.  Darum ist es am besten,
 @code{stencil} auf @code{#f} zu setzen.  Im Beispiel wird
 der Unterschied zwischen einem unsichtbaren Objekt und
 einem entfernten Objekt gezeigt:
@@ -4298,7 +4298,7 @@ inst =
 In der Eingabedatei muss jetzt nur noch die Zeile
 @code{\include "definitions.ily"} mit
 @code{\include "web-publish.ily"} ersetzt werden.  Das könnte
-man natürlich noch besser machen.  Es könnte eine Datei 
+man natürlich noch besser machen.  Es könnte eine Datei
 @file{definitions.ily} mit allen Definitionen (also
 @code{mpdolce} und @code{inst}) geben, eine Datei
 @file{web-publish.ily}, die nur die @code{\layout}-Veränderung
@@ -4338,8 +4338,8 @@ einbindet:
 @subsection Mehr Information
 @translationof Other sources of information
 
-Die Programmreferenz enthält sehr viel Information über LilyPond, aber 
-noch mehr Information findet sich in den internen 
+Die Programmreferenz enthält sehr viel Information über LilyPond, aber
+noch mehr Information findet sich in den internen
 LilyPond-Dateien.  Um sie erforschen zu können, müssen Sie erst
 das richtige Verzeichnis auf Ihrem System finden.  Die Position
 hängt a) davon ab, ob Ihre LilyPond-Installation mit der vorkompilierten
@@ -4469,9 +4469,9 @@ interessante Dateien:
 @subsection Vermeiden von Optimierungen durch langsamere Übersetzung
 @translationof Avoiding tweaks with slower processing
 
-LilyPond kann einige zusätzliche Tests durchführen, während 
-die Noten gesetzt werden.  Dadurch braucht das Programm länger, 
-um den Notensatz zu produzieren, aber üblicherweise werden 
+LilyPond kann einige zusätzliche Tests durchführen, während
+die Noten gesetzt werden.  Dadurch braucht das Programm länger,
+um den Notensatz zu produzieren, aber üblicherweise werden
 weniger nachträgliche Anpassungen nötig sein.  Wenn eine
 Textsilbe oder eine Beschriftung aus dem Rand der Partitur
 ragt, wird durch diese Tests die Zeile gerade so weit komprimiert,
@@ -4488,7 +4488,7 @@ der Noten:
   \layout @{
     \context @{
       \Score
- %  Um sicher zu gehen, dass Texte und Liedtext 
+ %  Um sicher zu gehen, dass Texte und Liedtext
  %  innerhalb der Papierränder bleiben
  \override PaperColumn #'keep-inside-line = ##t
  \override NonMusicalPaperColumn #'keep-inside-line = ##t

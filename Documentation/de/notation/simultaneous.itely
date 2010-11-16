@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -18,13 +18,13 @@
 @lilypondfile[quote]{simultaneous-headword.ly}
 
 Polyphonie bedeutet in der musikalischen Terminologie das
-Vorhandensein von mehr als einer (eigenständigen) Stimme 
-in einem Stück. Für LilyPond bedeutet es aber das Vorhandensein 
+Vorhandensein von mehr als einer (eigenständigen) Stimme
+in einem Stück. Für LilyPond bedeutet es aber das Vorhandensein
 von mehr als einer Stimme pro System.
 
 @menu
-* Eine einzelne Stimme::                
-* Mehrere Stimmen::             
+* Eine einzelne Stimme::
+* Mehrere Stimmen::
 @end menu
 
 
@@ -38,8 +38,8 @@ derselben Stimme.
 @menu
 * Noten mit Akkorden::
 * Akkord-Wiederholungen::
-* Gleichzeitige Ausdrücke::                  
-* Cluster::                    
+* Gleichzeitige Ausdrücke::
+* Cluster::
 @end menu
 
 
@@ -54,9 +54,9 @@ derselben Stimme.
 @funindex >
 @funindex <...>
 
-Ein Akkord wird notiert, indem die zu ihm gehörenden Tonhöhen 
+Ein Akkord wird notiert, indem die zu ihm gehörenden Tonhöhen
 zwischen spitze Klammern (@code{<} und @code{>}) gesetzt werden.
-Auf einen Akkord kann eine Dauer-Angabe folgen, genauso wie bei 
+Auf einen Akkord kann eine Dauer-Angabe folgen, genauso wie bei
 einfachen Noten.
 
 @lilypond[verbatim,quote,relative=2]
@@ -440,10 +440,10 @@ Hälse nach oben, die graden Stimmen Hälse nach unten:
 @strong{@i{Identische Rhythmen}}
 
 Wenn parallele Abschnitte gesetzt werden sollen,
-die identischen Rhythmus haben, kann man die Ausdrücke in 
+die identischen Rhythmus haben, kann man die Ausdrücke in
 einen einzigen @code{Voice}-Kontext parallel kombinieren, sodass
 sich Akkorde ergeben.  Um das zu erreichen, müssen sie einfach
-von spitzen Klammern innerhalb einer expliziten Stimme 
+von spitzen Klammern innerhalb einer expliziten Stimme
 umgeben werden:
 
 @lilypond[quote,relative=2,verbatim]
@@ -834,7 +834,7 @@ Hälse nach unten.  An Solo-Stellen werden die Stimmen mit
 @qq{Solo} bzw. @qq{Solo II} bezeichnet.  Die Unisono-Stellen
 (@notation{a due}) werden mit dem Text @qq{a2} gekennzeichnet.
 
-Beide Argumente von @code{\partcombine} werden als 
+Beide Argumente von @code{\partcombine} werden als
 @code{Voice}-Kontexte interpretiert.  Wenn relative Oktaven
 benutzt werden, muss @code{\relative} für beide Stimmen
 benutzt werden, also:

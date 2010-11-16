@@ -11,7 +11,7 @@
 @c \version "2.13.36"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
-@c Translation checkers: Jean-Charles Malahieude, Jean-Jacques Gerbaud 
+@c Translation checkers: Jean-Charles Malahieude, Jean-Jacques Gerbaud
 
 @node Musique vocale
 @section Musique vocale
@@ -204,7 +204,7 @@ Il y a deux manières principales de préciser la place exacte des
 syllabes : soit en spécifiant explicitement la durée de chaque syllabe
 -- comme dans l'exemple ci-dessus -- soit en alignant automatiquement
 les paroles sur les notes d'une mélodie ou d'une voix en utilisant
-@code{\addlyrics} ou @code{\lyricsto}.  
+@code{\addlyrics} ou @code{\lyricsto}.
 @c  TODO: broken but exists Aligning lyrics
 @c For more details see @ref{Alignement des contextes}.
 
@@ -680,7 +680,7 @@ D'autre part, la commande @code{\lyricsto} arrive aussi à détecter
 automatiquement les mélismes : une seule syllabe sera placée sous un
 groupe de notes comprenant des liaisons de tenue ou de phrasé.  Au cas
 où un mélisme doit s'appliquer à des notes non liées, il suffit
-d'adjoindre @code{\melisma} après la première note du groupe, et 
+d'adjoindre @code{\melisma} après la première note du groupe, et
 @code{\melismaEnd} après la dernière :
 
 @lilypond[quote,relative=2,ragged-right,fragment,verbatim]
@@ -1335,7 +1335,7 @@ M'en al- lant pro- me- ner...
 Si les couplets sont vraiment nombreux, il est possible de les imprimer
 sur plusieurs colonnes.  L'exemple suivant vous montre comment procéder
 pour que le numéro du couplet soit en retrait à gauche, comme c'est
-traditionnellement le cas. 
+traditionnellement le cas.
 
 @c KEEPLY
 @lilypond[ragged-right,quote,verbatim]

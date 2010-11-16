@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -1198,7 +1198,7 @@ anderen Stil.
 @c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 @c {ancient-accidentals.ly}
 
-Der Stil für Versetzungs- und Vorzeichen wird von der 
+Der Stil für Versetzungs- und Vorzeichen wird von der
 @code{glyph-name-alist}-Eigenschaft der Grobs
 @code{Accidental} und @code{KeySignature}
 kontrolliert, beispielsweise:
@@ -1327,11 +1327,11 @@ Vaticana-Stils zur Verfügung gestellt.
     \override TextScript #'font-family = #'typewriter
     \override TextScript #'font-shape = #'upright
     \override Script #'padding = #-0.1
-    a\ictus_"ictus" \bar "" \break
-    a\circulus_"circulus" \bar "" \break
-    a\semicirculus_"semicirculus" \bar "" \break
-    a\accentus_"accentus" \bar "" \break
-    \[ a_"episem" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
+    a\ictus_"ictus " \bar "" \break
+    a\circulus_"circulus " \bar "" \break
+    a\semicirculus_"semicirculus " \bar "" \break
+    a\accentus_"accentus " \bar "" \break
+    \[ a_"episema" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
   }
 }
 @end lilypond
@@ -2427,7 +2427,7 @@ Als @emph{Mensurstriche} wird ein Notenlayout bezeichnet,
 in dem die Taktlinien nicht auf den Systemen, sondern nur
 zwischen Systemen gezogen werden.  Damit soll signalisiert
 werden, dass das Original keine Takteinteilung besessen hat
-und etwa Synkopen nicht über Taktlinien hinweg aufgeteilt 
+und etwa Synkopen nicht über Taktlinien hinweg aufgeteilt
 werden müssen, während man sich dennoch an den Taktlinien
 rhythmisch orientieren kann.
 

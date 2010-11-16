@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7a57acf2755504cfb0813ca02662ad43e7456506
+    Translation of GIT committish: 74930b635951419c12227e94b83e265aca5dd371
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -61,11 +61,13 @@ El nombre de una nota se especifica usando las letras minúsculas de la
 hasta @code{b} se imprimen en la octava inferior al Do central.
 
 @c don't use c' here.
-@lilypond[verbatim,quote,fragment]
-\clef bass
-c d e f
-g a b c
-d e f g
+@lilypond[verbatim,quote]
+{
+  \clef bass
+  c4 d e f
+  g4 a b c
+  d4 e f g
+}
 @end lilypond
 
 @cindex octava, marca de cambio de
@@ -78,13 +80,15 @@ quote@tie{}(@code{'}) o una coma@tie{}(@code{,}) .
 Cada@tie{}@code{'} eleva la altura en una octava; cada@tie{}@code{,}
 baja la altura una octava.
 
-@lilypond[verbatim,quote,fragment]
-\clef treble
-c' c'' e' g
-d'' d' d c
-\clef bass
-c, c,, e, g
-d,, d, d c
+@lilypond[verbatim,quote]
+{
+  \clef treble
+  c'4 c'' e' g
+  d''4 d' d c
+  \clef bass
+  c,4 c,, e, g
+  d,,4 d, d c
+}
 @end lilypond
 
 
@@ -383,7 +387,7 @@ Las alteraciones sobre notas unidas por ligadura sólo se imprimen al
 comienzo de un sistema:
 
 @lilypond[verbatim,quote,relative=2]
-cis1 ~ cis ~
+cis1~ cis~
 \break
 cis
 @end lilypond
@@ -444,77 +448,81 @@ no se ajustan a ningún estándar.
 @cindex idioma, alturas en otros
 
 Existen conjuntos predefinidos de nombres de notas y sus alteraciones
-para algunos idiomas aparte del inglés.  Para usarlos, incluya el
-archivo de inicio específico del idioma según aparece relacionado más
-abajo.  Por ejemplo, para usar los nombres de las notas en español,
-inserte @code{@w{\include "espanol.ly"}} en el archivo de entrada.
+para algunos idiomas aparte del inglés.  La selección del idioma de
+los nombres de las notas se suele hacer al principio del archivo; el
+ejemlo siguiente está escrito utilizando los nombres italianos de las
+notas:
 
-Los archivos de idioma disponibles y los nombres de las notas que
-definen son los siguientes:
+@lilypond[quote,verbatim]
+\language "italiano"
+
+\relative do' {
+  do re mi sib
+}
+@end lilypond
+
+Los idiomas disponibles y los nombres de las notas que definen son los
+siguientes:
 
 @quotation
-@multitable {@file{nederlands.ly}} {do re mi fa sol la sib si}
-@headitem Archivo de idioma
+@multitable {@code{nederlands}} {do re mi fa sol la sib si}
+@headitem Idioma
   @tab Nombre de las notas
-@item @file{nederlands.ly}
+@item @code{nederlands}
   @tab c d e f g a bes b
-@item @file{arabic.ly}
+@item @code{catalan}
   @tab do re mi fa sol la sib si
-@item @file{catalan.ly}
-  @tab do re mi fa sol la sib si
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab c d e f g a b h
-@item @file{english.ly}
+@item @code{english}
   @tab c d e f g a bf b
-@item @file{espanol.ly}
+@item @code{espanol}
   @tab do re mi fa sol la sib si
-@item @file{italiano.ly}
+@item @code{italiano}
   @tab do re mi fa sol la sib si
-@item @file{norsk.ly}
+@item @code{norsk}
   @tab c d e f g a b h
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab do re mi fa sol la sib si
-@item @file{suomi.ly}
+@item @code{suomi}
   @tab c d e f g a b h
-@item @file{svenska.ly}
+@item @code{svenska}
   @tab c d e f g a b h
-@item @file{vlaams.ly}
+@item @code{vlaams}
   @tab do re mi fa sol la sib si
 @end multitable
 @end quotation
 
-@noindent
-y los sufijos de las alteraciones correspondientes que definen son:
+Además de los nombres de las notas, los sufijos de las alteraciones
+pueden también variar dependiendo del idioma:
 
 @quotation
-@multitable {@file{nederlands.ly}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
-@headitem Archivo de idioma
+@multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@headitem Idioma
   @tab sostenido @tab bemol @tab doble sostenido @tab doble bemol
-@item @file{nederlands.ly}
+@item @code{nederlands}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{arabic.ly}
-  @tab -d @tab -b @tab -dd @tab -bb
-@item @file{catalan.ly}
+@item @code{catalan}
   @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{english.ly}
+@item @code{english}
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
-@item @file{espanol.ly}
+@item @code{espanol}
   @tab -s @tab -b @tab -ss/-x @tab -bb
-@item @file{italiano.ly}
+@item @code{italiano}
   @tab -d @tab -b @tab -dd @tab -bb
-@item @file{norsk.ly}
+@item @code{norsk}
   @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
     @tab -essess/-eses
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab -s @tab -b @tab -ss @tab -bb
-@item @file{suomi.ly}
+@item @code{suomi}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{svenska.ly}
+@item @code{svenska}
   @tab -iss @tab -ess @tab -ississ @tab -essess
-@item @file{vlaams.ly}
+@item @code{vlaams}
   @tab -k @tab -b @tab -kk @tab -bb
 @end multitable
 @end quotation
@@ -536,44 +544,48 @@ a2 as e es a ases e eses
 @cindex sesqui-sostenido
 @cindex sesqui-bemol
 
-@noindent
 Algunas músicas utilizan microtonos cuyas alteraciones son fracciones
-de un sostenido o bemol @q{normales}.  Los nombres de nota para
-cuartos de tono que se definen en los distintos archivos de idioma se
-encuentran listados en la tabla siguiente.  Aquí los prefijos
-@q{semi-} y @q{sesqui-} significan @q{medio} y @q{uno y medio}
-respectivamente.  Para los otros idiomas no se ha definido aún ningún
-nombre especial.
+de un sostenido o bemol @q{normales}.  La tabla siguiente relacione
+los nombres de las notas para las alteraciones de un cuarto de tono en
+distintos idiomas; aquí, los prefijos @notation{semi-} y
+@notation{sesqui-} respectivamente significan @q{medio} y @q{uno y
+medio}.  Los idiomas que no aparecen en esta tabla no aportan aún
+nombres especiales para las notas.
 
 @quotation
-@multitable {@file{nederlands.ly}} {@b{semi-sostenido}} {@b{semi-bemol}} {@b{sesqui-sostenido}} {@b{sesqui-bemol}}
-@headitem Archivo de idioma
+@multitable {@code{nederlands}} {@b{semi-sostenido}} {@b{semi-bemol}} {@b{sesqui-sostenido}} {@b{sesqui-bemol}}
+@headitem Idioma
   @tab semi-sostenido @tab semi-bemol @tab sesqui-sostenido @tab sesqui-bemol
 
-@item @file{nederlands.ly}
+@item @code{nederlands}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item @file{arabic.ly}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item @file{english.ly}
+@item @code{english}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @file{espanol.ly}
+@item @code{espanol}
   @tab -cs @tab -cb @tab -tcs @tab -tcb
-@item @file{italiano.ly}
+@item @code{italiano}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
 @end multitable
 @end quotation
 
+Casi todos los idiomas presentados aquí están asociados comúnmente con
+la música clásica occidental, también conocida como @notation{Período
+de la práctica común}.  Sin embargo, también están contempladas las
+alturas y los sistemas de afinación alternativos: véase @ref{Notación
+común para músicas no occidentales}.
+
 
 @seealso
 Glosario musical:
-@rglos{Pitch names}.
+@rglos{Pitch names},
+@rglos{Common Practice Period}.
 
 Referencia de la notación:
-@ref{Nombres de las notas y alteraciones no occidentales}.
+@ref{Notación común para músicas no occidentales}.
 
 Fragmentos de código:
 @rlsr{Pitches}.
@@ -2341,7 +2353,7 @@ problema se puede resolver insertando manualmente@tie{}@code{!}
 y@tie{}@code{?} para las notas problemáticas.
 
 
-La cancelación de precacución de alteraciones se hace mirando el
+La cancelación de precaución de alteraciones se hace mirando el
 compás previo.  Sin embargo, en el bloque @code{\alternative} que
 sigue a una sección de repetición de primera y segunda vez
 @code{\repeat volta N}, se esperaría que la cancelación se calculase

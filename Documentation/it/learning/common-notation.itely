@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -38,10 +38,10 @@ faccia uso della notazione musicale comunemente utilizzata, seguendo
 il materiale esposto in @ref{Tutorial}.
 
 @menu
-* Notazione su un solo pentagramma::  
-* Note simultanee::             
-* Canzoni::                     
-* Ritocchi finali::             
+* Notazione su un solo pentagramma::
+* Note simultanee::
+* Canzoni::
+* Ritocchi finali::
 @end menu
 
 
@@ -53,12 +53,12 @@ Questa sezione presenta la notazione comunemente usata per una singola voce su
 un solo pentagramma.
 
 @menu
-* Alterazioni e armature di chiave::  
-* Legature di valore e di portamento::  
-* Articolazione e dinamica::    
-* Aggiungere il testo::         
-* Code automatiche e manuali::  
-* Comandi di tempo avanzati::   
+* Alterazioni e armature di chiave::
+* Legature di valore e di portamento::
+* Articolazione e dinamica::
+* Aggiungere il testo::
+* Code automatiche e manuali::
+* Comandi di tempo avanzati::
 @end menu
 
 
@@ -541,11 +541,11 @@ in un brano.  In LilyPond per polifonia si intende la presenza di
 più di una voce sullo stesso pentagramma.
 
 @menu
-* Espressioni musicali::        
-* Pentagrammi multipli::        
-* Gruppi di pentagrammi::       
-* Combinare le note negli accordi::  
-* Polifonia su un singolo rigo::  
+* Espressioni musicali::
+* Pentagrammi multipli::
+* Gruppi di pentagrammi::
+* Combinare le note negli accordi::
+* Polifonia su un singolo rigo::
 @end menu
 
 
@@ -870,9 +870,9 @@ Guida alla Notazione: @ruser{Simultaneous notes}.
 Questa sezione presenta la musica vocale e gli spartiti di semplici canzoni.
 
 @menu
-* Impostare canzoni semplici::  
-* Allineare il testo alla melodia::  
-* Testo su più righi::          
+* Impostare canzoni semplici::
+* Allineare il testo alla melodia::
+* Testo su più righi::
 @end menu
 
 
@@ -1150,11 +1150,11 @@ ritocchi a semplici pezzi, e fornisce un'introduzione
 al resto del manuale.
 
 @menu
-* Organizzare i brani con le variabili::  
-* Numero di versione::          
-* Aggiungere i titoli::         
-* Nomi assoluti delle note::    
-* Dopo il tutorial::            
+* Organizzare i brani con le variabili::
+* Numero di versione::
+* Aggiungere i titoli::
+* Nomi assoluti delle note::
+* Dopo il tutorial::
 @end menu
 
 

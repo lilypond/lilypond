@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @c Translators: Till Paala
 
@@ -851,16 +851,15 @@ unterste Bund im Diagramm.
 @c \override is necessary to make fingering visible
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
-     \chordmode {
-       f1 g c
-     }
-  }
+    \context ChordNames {
+      \chordmode {
+        f1 g c
+      }
+    }
   \context Staff {
     \clef "treble_8"
     \override Voice.TextScript
       #'(fret-diagram-details finger-code) = #'below-string
-
     <f, c f a c' f'>1^\markup {
       \fret-diagram-verbose #'(
         (place-fret 6 1)
@@ -957,7 +956,7 @@ Schnittstelle gehören dem @code{Voice.TextScript}-Kontext an.
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-fret-orientations.ly}
- 
+
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 
@@ -1732,7 +1731,7 @@ Saite gesetzt werden:
 
 @c due to crazy intervals of banjo music, absolute pitch is recommended
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \new TabStaff <<
   \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
   \set TabStaff.stringTunings = #banjo-open-g-tuning

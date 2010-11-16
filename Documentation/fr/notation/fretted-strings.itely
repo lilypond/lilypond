@@ -1488,7 +1488,7 @@ banjo, afin d'avoir le bon nombre de cordes et le bon accordage@tie{}:
 
 @c due to crazy intervals of banjo music, absolute pitch is recommended
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \new TabStaff <<
   \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
   \set TabStaff.stringTunings = #banjo-open-g-tuning

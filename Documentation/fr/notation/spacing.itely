@@ -243,8 +243,8 @@ Elle est fixée par défaut à@tie{}@code{6\mm}.
 @end table
 
 
-@node  Dimensionnement vertical fluctuant
-@unnumberedsubsubsec  Dimensionnement vertical fluctuant
+@node Dimensionnement vertical fluctuant
+@unnumberedsubsubsec Dimensionnement vertical fluctuant
 @translationof Flexible vertical dimensions
 
 Il est souvent judicieux d'apporter un peu de flexibilité à l'espacement
@@ -267,7 +267,7 @@ définissent au niveau du bloc @code{\score} -- voir à ce sujet
 Chacune de ces variables est constituée d'une liste associative à quatre
 @i{clés}@tie{}:
 
-@itemize 
+@itemize
 @item @code{padding} (@emph{décalage}) -- la grandeur minimale de
 @qq{blanc} qui sépare deux éléments, exprimée en hauteur de portée.  On
 peut le voir comme la hauteur minimale d'un rectangle vide qui devrait
@@ -314,7 +314,7 @@ Lorsque l'impression n'est pas en pleine page -- elle est donc
 n'est pas étiré. Les hauteurs sur une telle page correspondront donc au
 maximum de
 
-@itemize 
+@itemize
 @item @code{space}, plus
 @item @code{minimum-distance} et
 @item @code{padding}, augmenté de ce qu'il faut pour éviter les
@@ -624,7 +624,7 @@ systèmes risquent de déborder.
 @}
 @end example
 
-Ces contrôles peuvent se désactiver en définissant la propriété 
+Ces contrôles peuvent se désactiver en définissant la propriété
 @code{check-consistency} à faux@tie{}:
 
 @example
@@ -1500,7 +1500,7 @@ concernant les ruptures.
 
 Cette manière de procéder est tout à fait indiquée lorsque vous ajustez
 les @code{line-break-system-details} et autres propriétés fort
-intéressantes de @code{NonMusicalPaperColumnGrob}, comme vous pouvrrez
+intéressantes de @code{NonMusicalPaperColumnGrob}, comme vous pouvez
 le voir au chapitre @ref{Espacement vertical}.
 
 @lilypond[quote,verbatim]
@@ -2032,7 +2032,7 @@ Référence des propriétés internes:
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
 
-
+@node Espacement des lignes rattachées à des portées
 @unnumberedsubsubsec Espacement des lignes rattachées à des portées
 @translationof Spacing of non-staff lines
 

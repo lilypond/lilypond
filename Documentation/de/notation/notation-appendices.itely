@@ -10,30 +10,30 @@
 
 @c Translators: Till Paala
 
-@c \version "2.12.0"
+@c \version "2.13.36"
 
 @node Notationsübersicht
 @appendix Notationsübersicht
 @translationof Notation manual tables
 
 @menu
-* Liste der Akkordbezeichnungen::   
+* Liste der Akkordbezeichnungen::
 * Übliche Akkord-Variablen::
-* Vordefinierte Bund-Diagramme::         
-* MIDI-Instrumente::         
-* Liste der Farben::              
-* Die Feta-Schriftart::               
-* Notenkopfstile::            
-* Textbeschriftungsbefehle::        
-* Textbeschriftungslistenbefehle::   
+* Vordefinierte Bund-Diagramme::
+* MIDI-Instrumente::
+* Liste der Farben::
+* Die Feta-Schriftart::
+* Notenkopfstile::
+* Textbeschriftungsbefehle::
+* Textbeschriftungslistenbefehle::
 * Liste der Artikulationszeichen::
-* Schlagzeugnoten::   
-* Technisches Glossar::   
+* Schlagzeugnoten::
+* Technisches Glossar::
 * Alle Kontexteigenschaften::
-* Eigenschaften des Layouts::           
+* Eigenschaften des Layouts::
 * Erhältliche Musikfunktionen::
-* Vordefinierte Typprädikate::                 
-* Scheme-Funktionen::            
+* Vordefinierte Typprädikate::
+* Scheme-Funktionen::
 @end menu
 
 @node Liste der Akkordbezeichnungen
@@ -439,7 +439,7 @@ Die folgende Tabelle zeigt vordefinierte Bunddiagramme für Ukulele.
 @appendixsec MIDI-Instrumente
 @translationof MIDI instruments
 
-Hier eine Liste von Musikinstrumentenbezeichnungen, die als Name für 
+Hier eine Liste von Musikinstrumentenbezeichnungen, die als Name für
 @code{midiInstrument} benutzt werden können.  Die Anordnung der
 Instrumente entspricht den 128 Prgrammnummern des MIDI-Standards.
 @c Todo: translate music instrument's names to German
@@ -516,15 +516,15 @@ darkcyan    darkmagenta    darkyellow
 
 X-Farbbezeichnungen haben verschiedene Varianten:
 
-Alle Bezeichnungen, die als einziges Wort mit Großbuchstaben 
-geschrieben werden (bspw. @q{LightSlateBlue}), können auch 
+Alle Bezeichnungen, die als einziges Wort mit Großbuchstaben
+geschrieben werden (bspw. @q{LightSlateBlue}), können auch
 von Leerzeichen getrennt geschrieben werden
 (also @q{light slate blue}).
 
-Das Wort @q{grey} kann in jedem Fall auch @q{gray} geschrieben 
+Das Wort @q{grey} kann in jedem Fall auch @q{gray} geschrieben
 werden (bspw. @q{DarkSlateGray}).
 
-Manche Bezeichnungen können auch ein numerales Suffix tragen 
+Manche Bezeichnungen können auch ein numerales Suffix tragen
 (etwa @q{LightSalmon4}).
 
 
@@ -564,7 +564,7 @@ LightGreen
 
 @subsubheading Farben mit einer numeralen Endung
 
-Für die folgenden Bezeichnungen kann das Suffix N durch eine 
+Für die folgenden Bezeichnungen kann das Suffix N durch eine
 Zahl von 1--4 ersetzt werden.
 
 @verbatim
@@ -606,9 +606,9 @@ erstellt werden, wobei N eine Zahl von 0--100 darstellt.
 @cindex Feta font
 @cindex Font, Feta
 
-Die folgenden Symbole sind als Emmentaler-Schriftart verfügbar; auf sie 
-kann direkt zugegriffen werden, indem man die übliche Textbeschriftung 
-benutzt. @code{\musicglyph} greift direkt auf die Notationsschriftart 
+Die folgenden Symbole sind als Emmentaler-Schriftart verfügbar; auf sie
+kann direkt zugegriffen werden, indem man die übliche Textbeschriftung
+benutzt. @code{\musicglyph} greift direkt auf die Notationsschriftart
 zu (bspw. @code{g^\markup @{
 \musicglyph #"scripts.segno" @}}). Siehe auch @ref{Text formatieren}.
 
@@ -1160,7 +1160,7 @@ Notationsreferenz:
 
 LilyPond-Objekte, die Elemente der Notation in der graphischen
 Ausgabe des Programmen darstellen, wie etwa Notenköpfe, Hälse,
-Bögen, Bindebögen, Fingersatz, Schlüssel usw., werden 
+Bögen, Bindebögen, Fingersatz, Schlüssel usw., werden
 @qq{Layout-Objekte} genannt, auch oft als @qq{GRaphische OBjekte}
 bezeichnet, was dann zu  @strong{grob} abgekürzt wird.
 
