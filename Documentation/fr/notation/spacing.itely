@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
@@ -1745,11 +1745,11 @@ alors que la seconde redéfinit la propriété dans son intégralité.
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup #'next-staff-spacing #'space = #10
+  \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
-  \override VerticalAxisGroup #'next-staff-spacing =
+  \override VerticalAxisGroup #'staff-staff-spacing =
     #'((padding . 1)
        (space . 10)
        (minimum-distance . 9)
@@ -1764,7 +1764,7 @@ bloc @code{\layout}@tie{}:
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup #'next-staff-spacing #'space = #10
+    \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
   @}
 @}
 @end example
