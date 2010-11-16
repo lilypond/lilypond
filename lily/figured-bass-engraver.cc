@@ -333,6 +333,7 @@ Figured_bass_engraver::process_music ()
           groups_.push_back (group);
         }
 
+      groups_[k].reset_figure ();
       groups_[k].current_event_ = new_events_[i];
       groups_[k].figure_item_ = 0;
       k++;
