@@ -12,7 +12,6 @@ set translator 0
 # location of lilypond git
 set lily_dir $env(HOME)/lilypond-git
 
-
 if {$translator == 1} {
         set windowTitle \
           "LilyPond Translator's Git Interface version $version"
@@ -30,6 +29,49 @@ if {$translator == 1} {
 }
 package require Tk
 
+##  Submits the user data collected using the git config command
+
+proc submituserdata {} {
+    exec git config --global user.name "$::username"
+    exec git config --global user.email "$::useremail"
+    destroy .b
+    return 0
+}
+
+##  Request name and email from user
+
+proc requestuserdata {} {
+    toplevel .b
+    grab .b
+    wm geometry .b -300-300
+    wm title .b "Contributor details"
+    grid [frame .b.c ] -column 0 -row 0 -sticky nwes
+    grid columnconfigure . 0 -weight 1; grid rowconfigure . 0 -weight 1
+
+    grid [entry .b.c.username -width 20 -textvariable username] -column 2 -row 2 -sticky we
+    grid [entry .b.c.useremail -width 20 -textvariable useremail] -column 2 -row 3 -sticky we
+    grid [button .b.c.submituserdata -text "Submit" -command submituserdata] -column 2 -row 4
+
+    grid [label .b.c.explbl -text "Please enter your name and email for future commits:"] -column 1 -row 1 -columnspan 3 -sticky we
+    grid [label .b.c.nmlbl -text "Name:"] -column 1 -row 2  -sticky w
+    grid [label .b.c.emlbl -text "Email:"] -column 1 -row 3 -sticky w
+
+    foreach w [winfo children .b.c] {grid configure $w -padx 5 -pady 5}
+    focus .b.c.username
+    bind .b <Return> {submituserdata}
+		  }
+
+##  Checks the user's global .gitconfig for name and email and executes requestuserdata if either is not found
+
+if {![file exists "$env(HOME)/.gitconfig"]} {set fileholder [open "$env(HOME)/.gitconfig" a+]} else {
+    set fileholder [open "$env(HOME)/.gitconfig" r]}
+
+set usercheck [split [read $fileholder] "\n"]
+close $fileholder
+if {![regexp "name" $usercheck] || ![regexp "email" $usercheck]} then {
+requestuserdata
+tkwait window .b
+    }
 
 ##  Entry limit routine from jeff at hobbs org, downloaded from
 ##  http://www.purl.org/net/hobbs/tcl/tclet/entrylimit.html
