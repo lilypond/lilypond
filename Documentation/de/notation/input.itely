@@ -1324,7 +1324,7 @@ erfordert manchmal weniger Schreibarbeit:
 music = \relative g' {
   g8. c32 d
   \tag #'trills { d8.\trill }
-  \tag #'expand { \repeat unfold 3 { e32 d } }
+  \tag #'expand {\repeat unfold 3 { e32 d } }
   c32 d
  }
 
@@ -1664,7 +1664,6 @@ c8 d
 e8 e e e e e e e
 \set Score.skipTypesetting = ##f
 c8 d b bes a g c2
-
 @end lilypond
 
 In polyphoner Notation wirkt sich @code{Score.skipTypesetting} auf

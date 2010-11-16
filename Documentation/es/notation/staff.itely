@@ -1272,20 +1272,22 @@ estableciendo la propiedad @code{instrumentCueName} en el contexto
 @code{CueVoice}.
 
 @lilypond[verbatim,quote]
-oboe = \relative c''' {
-  g4 r8 e16 f e4 d
+flute = \relative c'' {
+  r2. c4 d8 c d e fis2 g2 d2
 }
-\addQuote "oboe" { \oboe }
-
-\new Staff \relative c'' <<
-  \new CueVoice \with {
-    instrumentCueName = "ob."
-  }
-  \new Voice {
-    \cueDuring #"oboe" #UP { R1 }
-    g4. b8 d2
-  }
->>
+bassoon = \relative c {
+  \clef bass
+  R1
+  \clef treble
+  s1*0^\markup { \tiny "flute" }
+  \cueDuring #"flute" #UP { R1 }
+  \clef bass
+  g4. b8 d2
+}
+\addQuote "flute" { \flute }
+\new Staff {
+  \bassoon
+}
 @end lilypond
 
 @cindex quitar notas guía
@@ -1309,17 +1311,33 @@ musical.  Esto puede ser útil si las notas guía se tienen que eliminar
 de una particella pero posiblemente se deban reponer más tarde.
 
 @lilypond[verbatim,quote]
-flute = \relative c''' {
-  r2 cis2 r2 dis2
+flute = \relative c'' {
+  r2. c4 d8 c d e fis2 g2 d2
+}
+bassoon = \relative c {
+  \clef bass
+  R1
+  \tag #'part {
+    \clef treble
+    s1*0^\markup { \tiny "flute" }
+  }
+  \cueDuring #"flute" #UP { R1 }
+  \tag #'part \clef bass
+  g4. b8 d2
 }
 \addQuote "flute" { \flute }
 
-\new Voice \relative c'' {
-  \killCues {
-    \cueDuring #"flute" #UP { R1 }
-    g4. b8 d2
-  }
+\new Staff {
+  \bassoon
 }
+\new StaffGroup <<
+  \new Staff {
+    \flute
+  }
+  \new Staff {
+    \removeWithTag #'part { \killCues { \bassoon } }
+  }
+>>
 @end lilypond
 
 La instrucción @code{\transposedCueDuring} es útil para añadir guías
@@ -1334,20 +1352,21 @@ piccolo = \relative c''' {
   \clef "treble^8"
   R1
   c8 c c e g2
-  a4 g g2
+  c4 g g2
 }
+bassClarinet = \relative c' {
+  \key d \major
+  \transposition bes,
+  d4 r a r
+  \transposedCueDuring #"piccolo" #UP d { R1 }
+  d4 r a r
+}
+
 \addQuote "piccolo" { \piccolo }
 
-cbassoon = \relative c, {
-  \clef "bass_8"
-  c4 r g r
-  \transposedCueDuring #"piccolo" #UP c,, { R1 }
-  c4 r g r
-}
-
 <<
-  \new Staff = "piccolo" \piccolo
-  \new Staff = "cbassoon" \cbassoon
+  \new Staff \piccolo
+  \new Staff \bassClarinet
 >>
 @end lilypond
 

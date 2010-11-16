@@ -851,16 +851,15 @@ unterste Bund im Diagramm.
 @c \override is necessary to make fingering visible
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
-     \chordmode {
-       f1 g c
-     }
-  }
+    \context ChordNames {
+      \chordmode {
+        f1 g c
+      }
+    }
   \context Staff {
     \clef "treble_8"
     \override Voice.TextScript
       #'(fret-diagram-details finger-code) = #'below-string
-
     <f, c f a c' f'>1^\markup {
       \fret-diagram-verbose #'(
         (place-fret 6 1)

@@ -153,7 +153,7 @@ Moll- übermäßige und verminderte Dreiklänge werden notiert, indem
 
 Septakkorde können erstellt werden:
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:7 c:m7 c:maj7 c:dim7 c:aug7 }
 @end lilypond
 
@@ -428,9 +428,7 @@ weil @code{5+} zuletzt gelesen wird.
 
 @cindex Cluster
 @lilypond[quote,ragged-right,verbatim]
-\chordmode {
-  c:5.5-.5+
-}
+\chordmode { c1:5.5-.5+ }
 @end lilypond
 
 Nur die zweite Umkehrung kann erstellt werden, indem eine

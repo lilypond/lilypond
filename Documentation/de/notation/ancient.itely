@@ -1327,11 +1327,11 @@ Vaticana-Stils zur Verfügung gestellt.
     \override TextScript #'font-family = #'typewriter
     \override TextScript #'font-shape = #'upright
     \override Script #'padding = #-0.1
-    a\ictus_"ictus" \bar "" \break
-    a\circulus_"circulus" \bar "" \break
-    a\semicirculus_"semicirculus" \bar "" \break
-    a\accentus_"accentus" \bar "" \break
-    \[ a_"episem" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
+    a\ictus_"ictus " \bar "" \break
+    a\circulus_"circulus " \bar "" \break
+    a\semicirculus_"semicirculus " \bar "" \break
+    a\accentus_"accentus " \bar "" \break
+    \[ a_"episema" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
   }
 }
 @end lilypond

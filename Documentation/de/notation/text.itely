@@ -70,7 +70,7 @@ Notensystem platziert werden, die Syntax hierzu ist beschrieben
 in @ref{Richtung und Platzierung}.
 
 @lilypond[quote,verbatim,relative=2]
-d8^"pizz." g f e a4-"scherz." f
+a8^"pizz." g f e a4-"scherz." f
 @end lilypond
 
 Diese Syntax ist eine Kurzform, komplexere Formatierungen
@@ -270,7 +270,7 @@ zu platzieren, weitere Formatierungsmöglichkeiten sind mit dem
 @code{\markup}-Befehl gegeben, wie beschrieben in
 @ref{Text formatieren}:
 
-@lilypond[fragment,quote,relative=1]
+@lilypond[quote,verbatim,relative=1]
 <c e>1
 \mark \markup { \italic { colla parte } }
 <d f>2 <e g>
@@ -284,7 +284,7 @@ Symbol mit dem Befehl @code{\musicglyph} angegeben wird, wie
 beschrieben in
 @ref{Musikalische Notation innerhalb einer Textbeschriftung}:
 
-@lilypond[fragment,quote,relative=2]
+@lilypond[quote,verbatim,relative=2]
 <bes f>2 <aes d>
 \mark \markup { \musicglyph #"scripts.ufermata" }
 <e g>1
@@ -297,7 +297,7 @@ Ende notiert werden, werden sie zwischen Noten oder über der
 Taktlinie gesetzt.  Wenn sie an einem Zeilenumbruch angegeben
 werden, wird das Zeichen zu Beginn der nächsten Zeile ausgegeben.
 
-@lilypond[fragment,quote,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \mark "Allegro"
 c1 c
 \mark "assai" \break
@@ -959,7 +959,7 @@ linksbündig oder im Blocksatz, wie das nächste Beispiel illustriert:
     \line \bold { Acto I }
     \wordwrap \italic {
       (La escena representa el corral de una casa de
-      gitanos en el Albaicín de Granada. Al fondo una
+      gitanos en el Albaicín de Granada.  Al fondo una
       puerta por la que se ve el negro interior de
       una Fragua, iluminado por los rojos resplandores
       del fuego.)
@@ -969,7 +969,7 @@ linksbündig oder im Blocksatz, wie das nächste Beispiel illustriert:
     \line \bold { Acto II }
     \override #'(line-width . 50)
     \justify \italic {
-      (Calle de Granada. Fachada de la casa de Carmela
+      (Calle de Granada.  Fachada de la casa de Carmela
       y su hermano Manuel con grandes ventanas abiertas
       a través de las que se ve el patio
       donde se celebra una alegre fiesta)
@@ -1302,7 +1302,7 @@ eine @code{\layout}-Umgebung haben, wie in diesem Beispiel:
 @lilypond[quote,verbatim,relative=1]
 c4 d^\markup {
   \score {
-    \relative { c4 d e f }
+    \relative c' { c4 d e f }
     \layout { }
   }
 }
@@ -1486,13 +1486,13 @@ Der Wert, der @code{font-size} übergeben wird, entspricht der geforderten
 Änderung in Bezug auf die Standardschriftgröße.
 
 @lilypond[quote,verbatim,relative=2]
-  \override Score.RehearsalMark #'font-family = #'typewriter
-  \mark \markup "Ouverture"
-  \override  Voice.TextScript #'font-shape = #'italic
-  \override  Voice.TextScript #'font-series = #'bold
-  d'2.^\markup "Allegro"
-  \override Voice.TextScript #'font-size = #-3
-  c4^smaller
+\override Score.RehearsalMark #'font-family = #'typewriter
+\mark \markup "Ouverture"
+\override Voice.TextScript #'font-shape = #'italic
+\override Voice.TextScript #'font-series = #'bold
+d2.^\markup "Allegro"
+\override Voice.TextScript #'font-size = #-3
+c4^smaller
 @end lilypond
 
 @noindent
