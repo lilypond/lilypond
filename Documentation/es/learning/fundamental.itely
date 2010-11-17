@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: 92d7753b7a1e9887afcc6ad6864a78940e7878fb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2953,11 +2953,12 @@ gráfico} @code{VerticalAxisGroup} (los objetos gráficos reciben por lo
 general el nombre de @q{grob}s en la documentación de lilypond); no se
 preocupe por el momento de los detalles, pues esto se explica más
 tarde de forma exhaustiva.  Los más curiosos pueden echar un vistazo a
-@ruser{Panorámica de la modificación de las propiedades}.  En el
-momento actual, no es posible modificar solamente la sub-propiedad
-@code{stretchability}, por lo que debemos copiar también las otras
-sub-propiedades.  De nuevo, los curiosos encontrarán los valores
-predeterminados en el archivo @file{scm/@/define-grobs@/.scm}
+@ruser{Panorámica de la modificación de las propiedades}.  En este
+caso, queremos modificar solamente la sub-propiedad
+@code{stretchability}.
+De nuevo, los curiosos encontrarán los valores
+predeterminados para la propiedad staff-staff-spacing
+en el archivo @file{scm/@/define-grobs@/.scm}
 examinando la definición del grob @code{VerticalAxisGroup} grob.  El
 valor de @code{stretchability} se toma de la definición del contexto
 @code{PianoStaff} (en el archivo @file{ly/@/engraver-init@/.ly}) de
@@ -2981,10 +2982,7 @@ forma que los valores sean idénticos.
       >>  % % fin del contexto de Staff ManualUno
       \new Staff = "ManualDos" \with @{
         \override VerticalAxisGroup
-          #'staff-staff-spacing = #'((space . 9)
-                                     (minimum-distance . 8)
-                                     (padding . 1)
-                                     (stretchability . 5))
+          #'staff-staff-spacing  #'stretchability = 5
       @} <<
         \keyTime
         \clef "bass"
@@ -3049,10 +3047,7 @@ PedalOrganMusic = \relative c {
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with {
         \override VerticalAxisGroup
-          #'staff-staff-spacing = #'((space . 9)
-                                     (minimum-distance . 8)
-                                     (padding . 1)
-                                     (stretchability . 5))
+          #'staff-staff-spacing #'stretchability = 5
       } <<
         \keyTime
         \clef "bass"
