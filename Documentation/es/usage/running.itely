@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: a3f254be6161dc6ca2523a150281ef51c3b32f1a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -854,5 +854,5 @@ contextos se comporte como un pentagrama, insertando
 
 @noindent
 al comienzo.  Para ver más detalles, consulte @qq{Espaciado de las
-líneas que no son pautas} in @ruser{Espaciado vertical dentro de un
-sistema}.
+líneas que no son pautas} en @ruser{Espaciado vertical flexible dentro
+de los sistemas}.
