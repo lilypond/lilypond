@@ -39,6 +39,9 @@ pitchnames = #default-language
 
 \include "chord-repetition-init.ly"
 
+#(define default-fret-table (make-hash-table 101))
+#(define chord-shape-table (make-hash-table 29))
+
 % declarations for standard directions
 left = #-1
 right = #1
@@ -82,9 +85,6 @@ escapedParenthesisCloseSymbol = #(make-span-event 'PhrasingSlurEvent STOP)
 escapedBiggerSymbol = #(make-span-event 'DecrescendoEvent START)
 escapedSmallerSymbol = #(make-span-event 'CrescendoEvent START)
 
-
-#(define default-fret-table (make-hash-table 100))
-#(define chord-shape-table (make-hash-table 100))
 
 \include "scale-definitions-init.ly"
 

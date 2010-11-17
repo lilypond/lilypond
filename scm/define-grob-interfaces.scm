@@ -17,6 +17,11 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
+;; The interfaces defined here generally have no code (e.g.,
+;; dynamic-interface), or have callbacks defined entirely in
+;; scheme.  Others interfaces are defined in lily/*.cc with the
+;; ADD_INTERFACE function.
+
 ;; should include default value?
 
 

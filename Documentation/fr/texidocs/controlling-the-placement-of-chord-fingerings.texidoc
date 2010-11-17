@@ -2,7 +2,8 @@
 
   texidocfr = "
 Le positionnement des doigtés peut être contrôlé de manière très précise.
-
+Afin que l'orientation soit prise en compte, il est nécessaire d'utiliser
+une syntaxe d'accord @code{< >}, même s'il ne s'agit que d'une seule note.
 "
-  doctitlefr = "Conrôle du positionnement des doigtés"
+  doctitlefr = "Contrôler la position des doigtés dans un accord"
 

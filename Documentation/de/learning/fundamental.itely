@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 @c Translators: Till Paala, Reinhold Kainhofer
 
 @node Grundbegriffe
@@ -3124,10 +3124,10 @@ sind.
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with @{
         \override VerticalAxisGroup
-          #'next-staff-spacing = #'((space . 9)
-                                    (minimum-distance . 8)
-                                    (padding . 1)
-                                    (stretchability . 5))
+          #'staff-staff-spacing = #'((space . 9)
+                                     (minimum-distance . 8)
+                                     (padding . 1)
+                                     (stretchability . 5))
       @} <<
         \keyTime
         \clef "bass"
@@ -3193,10 +3193,10 @@ PedalOrganMusic = \relative c {
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with {
         \override VerticalAxisGroup
-          #'next-staff-spacing = #'((space . 9)
-                                    (minimum-distance . 8)
-                                    (padding . 1)
-                                    (stretchability . 5))
+          #'staff-staff-spacing = #'((space . 9)
+                                     (minimum-distance . 8)
+                                     (padding . 1)
+                                     (stretchability . 5))
       } <<
         \keyTime
         \clef "bass"

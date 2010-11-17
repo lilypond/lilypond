@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 @node Problemas de espaciado
 @chapter Problemas de espaciado
@@ -385,7 +385,8 @@ ella.
 Se pueden definir valores del bloque @code{\paper} en Scheme.  En tal
 caso, @code{mm}, @code{in}, @code{pt}, y @code{cm} son variables que
 están definidas en @file{paper-defaults.ly} con valores en milímetros.
-Por ello el valor @w{@code{2 cm}} se debe multiplicar en el siguiente ejemplo:
+Por ello el valor @w{@code{2 cm}} se debe multiplicar en el siguiente
+ejemplo:
 
 @example
 \paper @{
@@ -1537,25 +1538,28 @@ controla mediante variables de @code{\paper} que se estudian en
 Los mecanismos de espaciado vertical dentro del sistema están
 controlados por dos conjuntos de propiedades de grob.  El primer
 conjunto está asociado con el grob @code{VerticalAxisGroup}, que se
-crea por parte de todas las pautas y líneas que no son pautas.  EL
+crea por parte de todas las pautas y líneas que no son pautas.  El
 segundo conjunto está asociado con el grob @code{StaffGrouper}, que
 puede crearse por parte de los grupos de pentagramas, pero solamente
 si se le llama explícitamente.  Estas propiedades se describen
 individualmente al final de la presente sección.
 
-Excepto por la propiedad @code{staff-affinity} (del grob
-@code{VerticalAxisGroup}), cada una de estas propiedades de grob se
-almacena como una lista-A (lista asociativa), y cada una utiliza la
-misma estructura de lista-A que las variables de espaciado de
-@code{\paper} estudiadas en @ref{Dimensiones verticales flexibles}.
+Los nombres de estas propiedades (excepto para @code{staff-affinity})
+siguen el formato @code{@var{elemento1}-@var{elemento2}-spacing},
+donde @code{@var{elemento1}} and @code{@var{elemento2}} son los
+elementos que se van a espaciar.  Observe que @code{@var{elemento2}}
+no está necesariamente por debajo de @code{@var{elemento1}}; por
+ejemplo, @code{nonstaff-relatedstaff-spacing} mide hadcia arriba a
+partir de la línea del tipo no-pauta si @code{staff-affinity} es
+@code{#UP}.
 
-El @emph{punto de referencia} para un pentagrama y otro tipo de pauta
-es el centro vertical de su @code{StaffSymbol} (es decir, la línea
-central si @code{line-count} es un número impar; el espacio central si
-@code{line-count} es par).
-
-Los puntos de referencia para las líneas individuales que no son
-pautas aparecen en la tabla siguiente:
+Cada distancia se mide entre los @emph{puntos de referencia} de los
+dos elementos.  El @emph{punto de referencia} para un pentagrama y
+otro tipo de pauta es el centro vertical de su @code{StaffSymbol} (es
+decir, la línea central si @code{line-count} es un número impar; el
+espacio central si @code{line-count} es par).  Los puntos de
+referencia para las líneas individuales que no son pautas aparecen en
+la tabla siguiente:
 
 @multitable {Línea que no es una pauta} {Punto de referencia}
 @headitem Línea que no es una pauta @tab Punto de referencia
@@ -1574,8 +1578,8 @@ de estos puntos de referencia:
 #(define zero-space '((padding . -inf.0) (space . 0)))
 
 alignToZero = \with {
-  \override VerticalAxisGroup #'inter-staff-spacing = #zero-space
-  \override VerticalAxisGroup #'inter-loose-line-spacing = #zero-space
+  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #zero-space
+  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing = #zero-space
 }
 lowerCaseChords = \with {
   chordNameLowercaseMinor = ##t
@@ -1600,6 +1604,8 @@ labelContext =
     \override BarLine #'stencil = ##f
     \override DynamicText #'self-alignment-X = #-1
     \override FretBoard #'X-offset = #1.75
+    \override InstrumentName #'minimum-Y-extent = #'(-2 . 2)
+    \override InstrumentName #'extra-offset = #'(0 . -0.5)
     \override TextScript #'minimum-Y-extent = #'(-2 . 3)
     \override TimeSignature #'stencil = ##f
   }
@@ -1649,11 +1655,15 @@ labelContext =
 >>
 @end lilypond
 
-En @ref{Modificación de las listas-A} se estudian métodos específicos
-para la modificación de las listas-A.  Las propiedades de los grobs
-deben ajustarse con un @code{\override} dentro de un bloque
-@code{\score} o @code{\layout}, y no dentro de un bloque
-@code{\paper}.
+Cada una de las propiedades de grob del espaciado vertical (excepto
+@code{staff-affinity}) se almacena como una lista-A (lista
+asociativa), y todas usan la misma estructura de lista-A que las
+variables de espaciado del bloque @code{\paper} que se han estudiado
+en @ref{Dimensiones verticales flexibles}.  En @ref{Modificación de
+las listas-A} se estudian métodos específicos para la modificación de
+las listas-A.  Las propiedades de los grobs deben ajustarse con un
+@code{\override} dentro de un bloque @code{\score} o @code{\layout}, y
+no dentro de un bloque @code{\paper}.
 
 El ejemplo que sigue muestra las dos maneras en que pueden modificarse
 estas listas-A.  La primera declaración ctualiza un par clave-valor de
@@ -1661,11 +1671,11 @@ forma individual, y la segunda redefine la propiedad completamente:
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup #'next-staff-spacing #'space = #10
+  \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
-  \override VerticalAxisGroup #'next-staff-spacing =
+  \override VerticalAxisGroup #'staff-staff-spacing =
     #'((padding . 1)
        (space . 10)
        (minimum-distance . 9)
@@ -1680,167 +1690,129 @@ póngalos dentro del bloque @code{\layout}:
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup #'next-staff-spacing #'space = #10
+    \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
   @}
 @}
 @end example
 
-Los ajustes predeterminados globales para las siguientes propiedades
-de grob están definidas en @file{scm/define-grobs.scm}:
-
-@itemize
-@item Propiedades de @code{StaffGrouper}:
-@itemize
-@item @code{between-staff-spacing}
-@item @code{after-last-staff-spacing}
-@item
-@var{space} es el tamaño del espacio ensanchable entre la línea media
-de un pentagrama hasta la línea media del pentagrama siguiente.
-
-@item
-@var{minimum-distance} proporciona un límite inferior sobre la
-distancia final entre la línea central de un pentagrama hasta la línea
-central del pentagrama siguiente.  Esto es, si una página tiene muchos
-sistemas y necesita comprimirse, la distancia desde este pentagrama
-hasta el siguiente nunca se comprimirá a menos de
-@var{minimum-distance}.
-
-@item
-@var{padding} es la cantidad de espacio vacío que debe estar presente
-entre el final de un pentagrama y el principio del siguiente.  Se
-diferencia de @var{minimum-distance} en que el efecto de @var{padding}
-depende de la altura de los objetos que están sobre el pentagrama.
-Por ejemplo, es más probable que @var{padding} entre en efecto para
-pentagramas que tienen notas muy agudas por encima de la pauta.
-
-@item
-@var{stretchability} controla la propensión del espacio ensanchable a
-ampliarse cuando lo hace el sistema.  Los valores grandes producen que
-un sistema se amplíe más, mientras que un valor de cero evita que el
-espacio se amplíe en absoluto.  Si se deja sin establecer, el valor
-predeterminado de @var{stretchability} será @code{space -
-minimum-distance}.
-@end itemize
-@item Propiedades de @code{VerticalAxisGroup}:
-@itemize
-@item @code{default-next-staff-spacing}
-@item @code{non-affinity-spacing}
-@end itemize
-@end itemize
-
-Las sobreescrituras predeterminadas para tipos específicos de líneas
-que no son pautas están en las definiciones de contexto
-correspondientes en el archivo @file{ly/engraver-init.ly}.
+Los ajustes estándar para las propiedades de grob del espaciado
+vertical están relacionadas en @rinternals{VerticalAxisGroup} y en
+@rinternals{StaffGrouper}.  Las sobreescrituras predeterminadas para
+los tipos específicos de líneas que no son pautas están relacionadas
+en las descripciones de contexto correspondientes en
+@rinternals{Contexts}.
 
 
-@subsubheading Propiedades del grob @code{VerticalAxisGroup}
+@subsubheading Propieades del grob @code{VerticalAxisGroup}
 
-Las propiedades de @code{VerticalAxisGroup} se ajustan por lo general
-con un @code{\override} en el nivel de @code{Staff} (o equivalente).
+Las propiedades de @code{VerticalAxisGroup} se suelen ajustar con una
+instrucción @code{\override} en el nivel de @code{Staff} (o
+equivalente).
 
 @table @code
-@item next-staff-spacing
-Distancia entre el pentagrama actual y el que está justo por debajo de
-él dentro del mismo sistema, incluso si hay más líneas que nos son
-pautas (tales como @code{Lyrics}) situadas entre los dos pentagramas.
-No se aplica a la pauta inferior de un sistema.  Para un pentagrama
-agrupado, si @code{next-staff-spacing} está establecido, se usará en
-lugar de la propiedad @code{StaffGrouper} correspondiente
-(@code{between-staff-spacing} o @code{after-last-staff-spacing}).  Si
-no está establecido, se usa la propiedad
-@code{default-next-staff-spacing}, a no ser que la pauta sea parte de
-un grupo de pentagramas y esté establecida la propiedad
-@code{StaffGrouper} adecuada.
+@item staff-staff-spacing
+Distancia entre la pauta actual y la pauta que está justo por debajo
+de ella dentro del mismo sistema, incluso si hay más líneas que no son
+pautas (tales como @code{Lyrics}) entre las dos pautas.  No se aplica
+a la pauta inferior de un sistema.  Esto susituye a cualquier ajuste
+heredado del grob @code{StaffGrouper} del grupo de pautas contenedor,
+si existe.  Si no está fijado, y no hay ninguna propiedad de
+@code{StaffGrouper} que heredar, se usa la propiedad
+@code{default-staff-staff-spacing}.
 
-@item default-next-staff-spacing
-Valor que se utilizará para @code{next-staff-spacing} cuando éste se
-encuentra sin establecer, para pautas no agrupadas y para pautas
-agrupadas que no tienen la propiedad @code{StaffGrouper}
-correspondiente establecida (@code{between-staff-spacing} o
-@code{after-last-staff-spacing}).
+@item default-staff-staff-spacing
+Ajustes que utilizar para @code{staff-staff-spacing} cuando está sin
+establecer.  Se aplica a las pautas no agrupadas y a las pautas
+agrupadas que no heredan los ajustes del grob @code{StaffGrouper}.
 
 @item staff-affinity
-Dirección de la pauta que se utilizará para espaciar la línea actual
-que no es una pauta.  Se puede elegir entre @code{UP} (arriba),
+Dirección de la pauta que utilizar para el espaciado de la línea
+actual que no es pauta.  Se puede elegir entre @code{UP} (arriba),
 @code{DOWN} (abajo) y @code{CENTER} (centro).  Si es @code{CENTER}, la
-línea que no es una pauta se sitúa equidistante entre las pautas
-contiguas por los dos lados, a no ser que lo impidan colisiones u
-otras restricciones de espaciado.  Las líneas que no son pautas y sean
-contiguas deberían tener un valor no creciente de
-@code{staff-affinity} desde la parte superior hasta la inferior,
-p.ej. una línea ajustada a @code{UP} no debe seguir inmediatamente a
-otra ajustada a @code{DOWN}.  Las líneas que no son pautaas en la
-parte superior de un sistema debieran usar @code{DOWN}; las de la
-parte inferior debieran usar @code{UP}.  Ajustar @code{staff-affinity}
-a @code{#f} hará que una línea que no es una pauta se trate como si
-fuera una pauta.  De forma inversa, ajustar @code{staff-affinity} (a
-@code{UP}, @code{DOWN} o @code{CENTER}) en una pauta, hará que se le
-trate como una línea que no es una pauta.
+línea del tipo no-pauta se coloca equidistante entre las dos pautas
+contiguas a ambos lados, a no ser que lo impidan colisiones u otras
+restricciones de espaciado.  Las líneas del tipo no-pauta adyacentes
+han de llevar valores de @code{staff-affinity} no crecientes desde la
+parte superior hasta la inferior, p.ej. una línea del tipo no-pauta
+establecida a @code{UP} no debería seguir inmediatamente a otra que
+esté establecida a @code{DOWN}.  Las líneas del tipo no-pauta en la
+parte superior de un sistema deben usar @code{DOWN}; las de la parte
+inferior deben usar @code{UP}.  El ajuste de @code{staff-affinity}
+para una pauta hace que se le trate como una línea que no es una
+pauta.  El establecimiento de @code{staff-affinity} a @code{#f} para
+una línea que no es una pauta hace que se trate como una pauta.
 
 @c TODO: verify last clause below ("even if other...")
 
-@item inter-staff-spacing
-Distancia entre la línea actual que no es una pauta y la pauta más
-cercana en la dirección de @code{staff-affinity}, si no hay ninguna
-línea que no sea una pauta entre ellas, y @code{staff-affinity} es
-@code{UP} o bien @code{DOWN}.  Si @code{staff-affinity} es
-@code{CENTER}, entonces se usa @code{inter-staff-spacing} para las
-pautas contiguas en @emph{los dos} lados, incluso si aparecen otras
-líneas que no sean pautas entre la pauta actual y otra cualquiera.
+@item nonstaff-relatedstaff-spacing
+Distancia entre la línea del tipo no-pauta actual y la pauta más
+próxima en la dirección de @code{staff-affinity}, si no hay ninguna
+línea que no sea una pauta entre las dos, y @code{staff-affinity} es
+@code{UP} o @code{DOWN}.  Si @code{staff-affinity} es @code{CENTER},
+entonces se usa @code{nonstaff-relatedstaff-spacing} para las pautas
+más próximas @emph{a los dos lados}, incluso aunque aparezcan otras
+líneas del tipo no-pauta entre la pauta actual y una de las otras.
 
-@item inter-loose-line-spacing
-Distancia entre la línea actual que no es una pauta y la línea
-siguiente que no es una pauta en la dirección de
-@code{staff-affinity}, si las dos están en el mismo lado de la pauta
-de referencia, y @code{staff-affinity} es @code{UP} o @code{DOWN}.
+@item nonstaff-nonstaff-spacing
+Distancia entre la línea actual del tipo no-pauta y la siguiente línea
+del tipo no-pauta en la dirección de @code{staff-affinity}, si las dos
+están al mismo lado de la pauta relacionada, y @code{staff-affinity}
+es @code{UP} o @code{DOWN}.
 
-@item non-affinity-spacing
-Distancia entre la línea actual que no es una pauta y la pauta en la
-dirección opuesta a la indicada por @code{staff-affinity}, si no hay
-otras líneas que no son pautas entre las dos, y @code{staff-affinity}
-es @code{UP} o @code{DOWN}.  Se puede usar esto, por ejemplo, para
-requerir una cantidad de relleno mínima entre una línea de
-@code{Lyrics} y la pauta a la que no pertenece.
+@item nonstaff-unrelatedstaff-spacing
+Distancia entre la línea actual del tipo no-pauta y la pauta en la
+dirección opuesta de @code{staff-affinity}, si no hay ninguna otra
+línea del tipo no-pauta entre las dos, y @code{staff-affinity} es
+@code{UP} o @code{DOWN}.  Se puede usar, por ejemplo, para requerir
+una cantidad de relleno mínima entre una línea de @code{Lyrics} y la
+pauta a la que no pertenece.
 @end table
 
 
 @subsubheading Propiedades del grob @code{StaffGrouper}
 
-Las propiedades de @code{StaffGrouper} se suelen ajustar con un
-@code{\override} en el nivel de @code{StaffGroup} (o equivalente).
+Las propiedades de @code{StaffGrouper} se suelen ajustar con una
+instrucción @code{\override} en el nivel de @code{StaffGroup} (o
+equivalente).
 
 @table @code
-@item between-staff-spacing
+@item staff-staff-spacing
 Distancia entre pautas consecutivas dentro del grupo de pautas actual.
-La propiedad @code{next-staff-spacing} del grob
+La propiedad @code{staff-staff-spacing} del grob
 @code{VerticalAxisGroup} de una pauta individual se usará en su lugar
-para cualquier pauta dentro del grupo que lo tenga establecido.  Si
-tanto @code{between-staff-spacing} como @code{next-staff-spacing}
-están sin establecer, se usa la propiedad
-@code{default-next-staff-spacing} del grob @code{VerticalAxisGroup} de
-cada pauta.
+para cualquier pauta que esté dentro del grupo que tiene el valor
+fijado.  Véase también @code{default-staff-staff-spacing}.
 
-@item after-last-staff-spacing
-Distancia entre la última pauta del grupo de pautas actual y la pauta
-justo por debajo de ella en el mismo sistema, incluso si existen una o
-más líneas que no son pautas (como @code{Lyrics}) entre las dos
-pautas.  No se aplica a, pentagrama inferior de un sistema.  La
-propiedad @code{next-staff-spacing} del grob @code{VerticalAxisGroup}
-de una pauta individual se usará en su lugar para cualquier pauta
-dentro del grupo que la tengan establecida.  Si tanto
-@code{after-last-staff-spacing} como @code{next-staff-spacing} están
-sin establecer, se usa la propiedad @code{default-next-staff-spacing}
-del grob @code{VerticalAxisGroup} de cada pauta.
+@item staffgroup-staff-spacing
+Distancia entre la última pauta del grupo en curso y la pauta que está
+justo por debajo de ella dentro del mismo sistema, incluso si existen
+una o más líneas que no son pautas (tales como @code{Lyrics}) entre
+las dos pautas.  No se aplica al pentagrama o pauta inferior de un
+sistema.  La propiedad @code{staff-staff-spacing} del grob
+@code{VerticalAxisGroup} de una pauta individual se usará en su lugar
+para cualquier pauta dentro del grupo que tenga el valor fijado.
+Véase también @code{default-staff-staff-spacing}.
 @end table
+
+@seealso
+Archivos de inicio:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
+Referencia de funcionamiento interno:
+@rinternals{Contexts},
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
 
 
 @node Espaciado de pautas no agrupadas
 @unnumberedsubsubsec Espaciado de pautas no agrupadas
 @translationof Spacing of ungrouped staves
 
-Las @emph{pautas} (como @code{Staff}, @code{DrumStaff},
-@code{TabStaff}, etc.) son contextos que pueden contener uno o más
-contextos de voz, pero no pueden contener otras pautas.
+Las @emph{pautas}, tales como los pentagramas (@code{Staff}), pautas
+de percusión (@code{DrumStaff}) o de tablatura (@code{TabStaff}),
+etc. son contextos que pueden contener uno o más contextos de voz,
+pero no pueden contener otras pautas.
 
 Las siguientes propiedades afectan al espaciado de las pautas @emph{no
 agrupadas}:
@@ -1848,24 +1820,25 @@ agrupadas}:
 @itemize
 @item Propiedades de @code{VerticalAxisGroup}:
 @itemize
-@item @code{next-staff-spacing}
+@item @code{staff-staff-spacing}
 @end itemize
 @end itemize
 
 Estas propiedades de grob se describen individualmente más arriba;
 véase @ref{Propiedades de espaciado dentro de un sistema}.
 
-Están implicadas algunas propiedades adicionales para pautas que
-forman parte de un grupo; véase @ref{Espaciado de pautas agrupadas}.
+Están implicadas ciertas propiedades adicionales para las pautas que
+son parte de un grupo; véase @ref{Espaciado de pautas agrupadas}.
 
-El ejemplo siguiente muestra cómo puede afectar la propiedad
-@code{next-staff-spacing} al espaciado de pautas no agrupadas:
+El ejemplo siguiente muestra cómo la propiedad
+@code{staff-staff-spacing} puede afectar al espaciado de pautas no
+agrupadas:
 
 @lilypond[verbatim,quote,staffsize=16]
 \layout {
   \context {
     \Staff
-    \override VerticalAxisGroup #'next-staff-spacing =
+    \override VerticalAxisGroup #'staff-staff-spacing =
       #'((padding . 1)
          (space . 8)
          (minimum-distance . 7))
@@ -1887,13 +1860,23 @@ El ejemplo siguiente muestra cómo puede afectar la propiedad
   % By setting 'padding to a negative value, staves can be made to
   % collide.  The lowest acceptable value for 'space is 0.
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing =
+    \override VerticalAxisGroup #'staff-staff-spacing =
       #'((padding . -10)
          (space . 3.5))
   } { \clef bass g2 r | }
   \new Staff { \clef bass g2 r | }
 >>
 @end lilypond
+
+@seealso
+Archivos de inicio:
+@file{scm/define-grobs.scm}.
+
+Fragmentos de código:
+@rlsr{Spacing}.
+
+Referencia de funcionamiento interno:
+@rinternals{VerticalAxisGroup}.
 
 
 @node Espaciado de pautas agrupadas
@@ -1914,13 +1897,13 @@ de los grupos:
 @itemize
 @item Propiedades de @code{VerticalAxisGroup}:
 @itemize
-@item @code{next-staff-spacing}
-@item @code{default-next-staff-spacing}
+@item @code{staff-staff-spacing}
+@item @code{default-staff-staff-spacing}
 @end itemize
 @item Propiedades de @code{StaffGrouper}:
 @itemize
-@item @code{between-staff-spacing}
-@item @code{after-last-staff-spacing}
+@item @code{staff-staff-spacing}
+@item @code{staffgroup-staff-spacing}
 @end itemize
 @end itemize
 
@@ -1934,14 +1917,14 @@ grob @code{StaffGrouper} al espaciado de las pautas agrupadas:
 \layout {
   \context {
     \Score
-    \override StaffGrouper #'between-staff-spacing #'padding = #0
-    \override StaffGrouper #'between-staff-spacing #'space = #1
+    \override StaffGrouper #'staff-staff-spacing #'padding = #0
+    \override StaffGrouper #'staff-staff-spacing #'space = #1
   }
 }
 
 <<
   \new PianoStaff \with {
-    \override StaffGrouper #'after-last-staff-spacing #'space = #20
+    \override StaffGrouper #'staffgroup-staff-spacing #'space = #20
   } <<
     \new Staff { c'1 }
     \new Staff { c'1 }
@@ -1953,6 +1936,17 @@ grob @code{StaffGrouper} al espaciado de las pautas agrupadas:
   >>
 >>
 @end lilypond
+
+@seealso
+Installed Files:
+@file{scm/define-grobs.scm}.
+
+Snippets:
+@rlsr{Spacing}.
+
+Internals Reference:
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
 
 
 @unnumberedsubsubsec Espaciado de las líneas que no son pautas
@@ -1971,9 +1965,9 @@ son pautas:
 @item Propiedades de @code{VerticalAxisGroup}:
 @itemize
 @item @code{staff-affinity}
-@item @code{inter-staff-spacing}
-@item @code{inter-loose-line-spacing}
-@item @code{non-affinity-spacing}
+@item @code{nonstaff-relatedstaff-spacing}
+@item @code{nonstaff-nonstaff-spacing}
+@item @code{nonstaff-unrelatedstaff-spacing}
 @end itemize
 @end itemize
 
@@ -1981,7 +1975,7 @@ Estas propiedades de grob se describen individualmente más arriba;
 véase @ref{Propiedades de espaciado dentro del sistema}.
 
 El ejemplo siguiente muestra cómo la propiedad
-@code{inter-loose-line-spacing} puede afectar el espaciado de líneas
+@code{nonstaff-nonstaff-spacing} puede afectar el espaciado de líneas
 consecutivas que no son pautas.  Aquí, mediante el establecimiento de
 la clave de ampliabilidad @code{stretchability} a un valor muy grande,
 la línea de letra es capaz de ampliarse mucho más de lo que es usual:
@@ -1991,14 +1985,14 @@ la línea de letra es capaz de ampliarse mucho más de lo que es usual:
   \context {
     \Lyrics
     \override VerticalAxisGroup
-      #'inter-loose-line-spacing #'stretchability = #1000
+      #'nonstaff-nonstaff-spacing #'stretchability = #1000
   }
 }
 
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 30))
+    \override VerticalAxisGroup #'staff-staff-spacing = #'((space . 30))
   } { c'1 }
   \new Lyrics \with {
     \override VerticalAxisGroup #'staff-affinity = #UP
@@ -2027,10 +2021,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Contexts},
-@rinternals{VerticalAxisGroup},
-@rinternals{StaffGrouper},
-@rinternals{VerticalAlignment},
-@rinternals{Axis_group_engraver}.
+@rinternals{VerticalAxisGroup}.
 
 
 @node Posicionamiento explícito de los pentagramas y los sistemas
@@ -2039,9 +2030,9 @@ Referencia de funcionamiento interno:
 
 Una forma de comprender los ajustes de @code{VerticalAxisGroup} y de
 @code{\paper} que se han explicado en las dos secciones precedentes es
-una colección de distintos ajustes que conciernen principalmente a la
-cantidad de relleno vertical entre distintos pentagramas y sistemas
-que ocupan toda la página.
+como una colección de distintos ajustes que conciernen principalmente
+a la cantidad de relleno vertical entre distintos pentagramas y
+sistemas que ocupan toda la página.
 @c running down the page.
 
 Es posible enfrentarse al espaciado vertical de una forma distinta
@@ -2128,7 +2119,8 @@ sobreescritura.
 Esta partitura mantiene aislada la información de los saltos de línea
 y de página en una voz dedicada a ello.  Esta técnica de crear una voz
 de saltos ayuda a mantener separada de la escritura de notas conforme
-el ejemplo se vuelve más complicado.  Consulte @ref{Utilizar una voz adicional para los saltos de línea}.
+el ejemplo se vuelve más complicado.  Consulte
+@ref{Utilizar una voz adicional para los saltos de línea}.
 
 Los saltos explícitos dividen la música de forma regular en seis
 compases por línea.  El espaciado vertical es el resultado de los
@@ -2172,9 +2164,8 @@ fijamos un valor.  Observe también que aquí la propiedad
 en la que se trazará cada uno de los nuevos sistemas.
 
 Ahora que hemos establecido explícitamente el punto de origen vertical
-de cada sistema, podemos también establecer manualmente
-las distancias verticales entre
-los pentagramas dentro de cada sistema.  Lo hacemos
+de cada sistema, podemos también establecer manualmente las distancias
+verticales entre los pentagramas dentro de cada sistema.  Lo hacemos
 usando la subpropiedad @code{alignment-distances} de
 @code{line-break-system-details}.
 
@@ -2215,8 +2206,8 @@ Observe que aquí asignamos dos valores distintos al atributo
 @code{line-break-system-details} acepta muchos parámetros de espaciado
 adicionales (entre ellos, por ejemplo, un par @code{X-offset}
 correspondiente), sólo tenemos que establecer el desplazamiento
-@code{Y-offset} y los pares @code{alignment-distances} para controlar el
-punto de origen vertical de cada sistema y pentagrama.  Finalmente,
+@code{Y-offset} y los pares @code{alignment-distances} para controlar
+el punto de origen vertical de cada sistema y pentagrama.  Finalmente,
 observe que @code{alignment-distances} especifica el posicionamiento
 vertical de los pentagramas pero no de los grupos de pentagramas.
 
@@ -2473,7 +2464,8 @@ con los valores predeterminados y otra con correcciones exageradas:
 }
 @end lilypond
 
-Está contemplada la notación proporcional; consulte @ref{Notación proporcional}.
+Está contemplada la notación proporcional; consulte
+@ref{Notación proporcional}.
 
 
 @seealso
@@ -2974,8 +2966,8 @@ está activado para la partitura completa o desactivado para la
 partitura completa.  Sin embargo, podemos sobreescribir este
 comportamiento y activar distintas posibilidades de espaciado en
 distintos lugares de la partitura.  Lo hacemos con la instrucción
-@code{\newSpacingSection}.  Consulte @ref{Área de espaciado nueva} para más
-información.
+@code{\newSpacingSection}.  Consulte @ref{Área de espaciado nueva}
+para más información.
 
 A continuación examinamos los efectos del grabador
 @code{Separating_line_group_engraver} y veremos por qué las partituras
@@ -3233,8 +3225,8 @@ e4 c g-\tweak #'X-offset #-2.7 -\tweak #'Y-offset #2.5 \f c
 
 @item
 Alterar el espaciado horizontal por medio de @code{SpacingSpanner}.
-Para ver más detalles, consulte @ref{Cambiar el espaciado horizontal}.  El
-ejemplo siguiente ilustra el espaciado predeterminado:
+Para ver más detalles, consulte @ref{Cambiar el espaciado horizontal}.
+El ejemplo siguiente ilustra el espaciado predeterminado:
 
 @lilypond[verbatim,quote]
 \score {

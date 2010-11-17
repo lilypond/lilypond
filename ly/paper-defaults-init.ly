@@ -57,14 +57,14 @@
        (is-book-title . #t)))
 
   %% Note: these are not scaled; they are in staff-spaces.
-  system-system-spacing = #'((space . 12) (minimum-distance . 8) (padding . 1))
-  score-system-spacing = #'((space . 14) (minimum-distance . 8) (padding . 1))
-  markup-system-spacing = #'((space . 5) (padding . 0.5))
-  score-markup-spacing = #'((space . 12) (padding . 0.5))
+  system-system-spacing = #'((space . 12) (minimum-distance . 8) (padding . 1) (stretchability . 60))
+  score-system-spacing = #'((space . 14) (minimum-distance . 8) (padding . 1) (stretchability . 120))
+  markup-system-spacing = #'((space . 5) (padding . 0.5) (stretchability . 30))
+  score-markup-spacing = #'((space . 12) (padding . 0.5) (stretchability . 60))
   markup-markup-spacing = #'((space . 1) (padding . 0.5))
   top-system-spacing = #'((space . 1) (padding . 1) (minimum-distance . 0))
   top-markup-spacing = #'((space . 0) (padding . 1) (minimum-distance . 0))
-  last-bottom-spacing = #'((space . 1) (padding . 1) (minimum-distance . 0) (stretchability . 5))
+  last-bottom-spacing = #'((space . 1) (padding . 1) (minimum-distance . 0) (stretchability . 30))
 
   ragged-bottom = ##f
 

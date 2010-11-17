@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 @node Fundamental concepts
 @chapter Fundamental concepts
@@ -919,8 +919,8 @@ usually works well, but in this example the notes of the lowest voice
 are clearly not well placed by default.  LilyPond provides several ways
 to adjust the horizontal placing of notes.  We are not quite ready yet
 to see how to correct this, so we shall leave this problem until a
-later section --- see the @code{force-hshift} property in @ref{Fixing
-overlapping notation}.
+later section --- see the @code{force-hshift} property in
+@ref{Fixing overlapping notation}.
 
 
 @seealso
@@ -2428,8 +2428,8 @@ lower = \relative c, {
 @end lilypond
 
 None of the templates provides this layout exactly.  The nearest is
-@q{SATB vocal score and automatic piano reduction} -- see @ref{Vocal
-ensembles} -- but we need to change the layout and add a piano
+@q{SATB vocal score and automatic piano reduction} -- see
+@ref{Vocal ensembles} -- but we need to change the layout and add a piano
 accompaniment which is not derived automatically from the vocal parts.
 The variables holding the music and words for the vocal parts are
 fine, but we shall need to add variables for the piano reduction.
@@ -2837,19 +2837,19 @@ the pedal staff should behave similarly.
 @cindex grobs
 
 Stretchability of staves can be controlled with the
-@code{next-staff-spacing} property of the @code{VerticalAxisGroup}
-@q{graphical object} (commonly called @q{grob}s within the lilypond
-documentation) -- don't worry about the details right now; this is
-fully explained later.  For the curious, have a look at
-@ruser{Overview of modifying properties}.  Currently, it is not
-possible to modify the @code{stretchability} sub-property only, we
-thus have to copy the other sub-properties also.  Again, for the
-curious, you can find the default values in file
-@file{scm/@/define-grobs@/.scm} by looking up the definition of the
-@code{VerticalAxisGroup} grob.  The value for @code{stretchability}
-is taken from the definition of the @code{PianoStaff} context (in
-file @file{ly/@/engraver-init@/.ly}) so that the values are
-identical.
+@code{staff-staff-spacing} property of the
+@code{VerticalAxisGroup} @q{graphical object} (commonly called
+@q{grob}s within the lilypond documentation) -- don't worry about
+the details right now; this is fully explained later.  For the
+curious, have a look at @ruser{Overview of modifying properties}.
+In this case, we want to modify the @code{stretchability}
+sub-property only. Again, for the curious, you can find the
+default values for the staff-staff-spacing property
+in file @file{scm/@/define-grobs@/.scm} by looking up the definition
+of the @code{VerticalAxisGroup} grob.  The value for
+@code{stretchability} is taken from the definition of the
+@code{PianoStaff} context (in file @file{ly/@/engraver-init@/.ly})
+so that the values are identical.
 
 @example
 \score @{
@@ -2869,10 +2869,7 @@ identical.
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with @{
         \override VerticalAxisGroup
-          #'next-staff-spacing = #'((space . 9)
-                                    (minimum-distance . 8)
-                                    (padding . 1)
-                                    (stretchability . 5))
+          #'staff-staff-spacing  #'stretchability = 5
       @} <<
         \keyTime
         \clef "bass"
@@ -2936,10 +2933,7 @@ PedalOrganMusic = \relative c {
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with {
         \override VerticalAxisGroup
-          #'next-staff-spacing = #'((space . 9)
-                                    (minimum-distance . 8)
-                                    (padding . 1)
-                                    (stretchability . 5))
+          #'staff-staff-spacing #'stretchability = 5
       } <<
         \keyTime
         \clef "bass"

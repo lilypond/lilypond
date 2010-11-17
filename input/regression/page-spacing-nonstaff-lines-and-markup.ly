@@ -1,8 +1,8 @@
 \version "2.13.4"
 
 \header {
-  texidoc = "Having markup after a loose line doesn't confuse the page layout
-engine."
+  texidoc = "Having markup after a non-staff line doesn't confuse
+the page layout engine."
 }
 
 #(set-default-paper-size "a6")

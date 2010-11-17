@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.13.27"
+\version "2.13.39"
 
 \context {
   \name "Global"
@@ -299,6 +299,7 @@ contained staves are connected vertically."
   \consists "Span_arpeggio_engraver"
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBrace
+  topLevelAlignment = ##f
 
   \defaultchild "Staff"
   \accepts "Staff"
@@ -318,8 +319,6 @@ instrument names at the start of each system."
   \consists "Vertical_align_engraver"
   \consists "Keep_alive_together_engraver"
   topLevelAlignment = ##f
-
-  \override StaffGrouper #'between-staff-spacing #'stretchability = #5
 
   instrumentName = #'()
   shortInstrumentName = #'()
@@ -375,7 +374,9 @@ a collection of staves, with a bracket in front and spanning bar lines."
   pedalSustainStrings = #'("Ped." "*Ped." "*")
   pedalUnaCordaStrings = #'("una corda" "" "tre corde")
   \override VerticalAxisGroup #'staff-affinity = #CENTER
-  \override VerticalAxisGroup #'inter-staff-spacing = #'((space . 5) (padding . 0.5))
+  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing =
+    #'((space . 5)
+       (padding . 0.5))
   \override TextScript #'font-shape = #'italic
   \override DynamicLineSpanner #'Y-offset = #0
 
@@ -405,12 +406,16 @@ printing of a single line of lyrics."
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'staff-affinity = #UP
-  \override VerticalAxisGroup #'inter-staff-spacing = #'((space . 5.5) (stretchability . 1) (padding . 0.5))
-  \override VerticalAxisGroup #'inter-loose-line-spacing = #'((space . 0)
-							      (stretchability . 0)
-							      (padding . 0.2)
-							      (minimum-distance . 2.8))
-  \override VerticalAxisGroup #'non-affinity-spacing #'padding = #1.0
+  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing =
+    #'((space . 5.5)
+       (stretchability . 1)
+       (padding . 0.5))
+  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing =
+     #'((space . 0)
+	(stretchability . 0)
+	(padding . 0.2)
+	(minimum-distance . 2.8))
+  \override VerticalAxisGroup #'nonstaff-unrelatedstaff-spacing #'padding = #1.5
   \override InstrumentName #'self-alignment-Y = ##f
 
   %% sync with define-grobs.scm ;
@@ -449,8 +454,8 @@ printing of a single line of lyrics."
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'staff-affinity = #DOWN
-  \override VerticalAxisGroup #'inter-staff-spacing #'padding = #0.5
-  \override VerticalAxisGroup #'inter-loose-line-spacing #'padding = #0.5
+  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing #'padding = #0.5
+  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing #'padding = #0.5
 }
 
 
@@ -597,7 +602,7 @@ automatically when an output definition (a @code{\score} or
     (6 . ,FLAT) (2  . ,FLAT) (5 . ,FLAT ) (1  . ,FLAT) (4  . ,FLAT) (0  . ,FLAT) (3  . ,FLAT)
     (3 . ,SHARP) (0 . ,SHARP) (4 . ,SHARP) (1 . ,SHARP) (5 . ,SHARP) (2 . ,SHARP) (6 . ,SHARP)
     (6 . ,DOUBLE-FLAT) (2 . ,DOUBLE-FLAT) (5 . ,DOUBLE-FLAT ) (1 . ,DOUBLE-FLAT) (4 . ,DOUBLE-FLAT) (0 . ,DOUBLE-FLAT) (3 . ,DOUBLE-FLAT)
-    (3  . ,DOUBLE-SHARP) (0 . ,DOUBLE-SHARP) (4 . ,DOUBLE-SHARP) (2 . ,DOUBLE-SHARP) (5 . ,DOUBLE-SHARP) (2 . ,DOUBLE-SHARP) (6 . ,DOUBLE-SHARP)
+    (3  . ,DOUBLE-SHARP) (0 . ,DOUBLE-SHARP) (4 . ,DOUBLE-SHARP) (1 . ,DOUBLE-SHARP) (5 . ,DOUBLE-SHARP) (2 . ,DOUBLE-SHARP) (6 . ,DOUBLE-SHARP)
   )
 
   barCheckSynchronize = ##f
@@ -698,8 +703,8 @@ automatically when an output definition (a @code{\score} or
   \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'staff-affinity = #UP
-  \override VerticalAxisGroup #'inter-staff-spacing #'padding = #0.5
-  \override VerticalAxisGroup #'inter-loose-line-spacing #'padding = #0.5
+  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing #'padding = #0.5
+  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing #'padding = #0.5
 }
 
 \context {

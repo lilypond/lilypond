@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 @c Translators: Till Paala
 
@@ -1562,7 +1562,7 @@ den Systemen verteilt.
 @unnumberedsubsubsec Abstand zwischen Notensystemen
 
 Abstand zwischen Notensystemen wird durch die Eigenschaft
-@code{next-staff-spacing} des @code{VerticalAxisGroup}-Grobs kontrolliert.
+@code{staff-staff-spacing} des @code{VerticalAxisGroup}-Grobs kontrolliert.
 Diese Eigenschaft ist eine Aliste mit vier Elementen: @var{Abstand},
 @var{minimum-distance}, @var{Verschiebung} und @var{Dehnbarkeit}:
 
@@ -1600,20 +1600,20 @@ einen Wert von @code{Abstand - minimum-distance}.
   % Since space is small and there is no minimum-distance, the distance
   % between this staff and the next will be determined by padding.
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing =
+    \override VerticalAxisGroup #'staff-staff-spacing =
       #'((space . 1) (padding . 1))
   }
   { \clef bass c, }
   % Since space is small and nothing sticks out very far, the distance
   % between this staff and the next will be determined by minimum-distance.
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing =
+    \override VerticalAxisGroup #'staff-staff-spacing =
       #'((space . 1) (minimum-distance . 12))
   }
   { \clef bass c, }
   % By setting padding to a negative value, staves can be made to collide.
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing =
+    \override VerticalAxisGroup #'staff-staff-spacing =
       #'((space . 4) (padding . -10))
   }
   { \clef bass c, }
@@ -1625,24 +1625,24 @@ In Orchester- und großen Partituren werden Systeme normalerweise gruppiert.
 Der Abstand zwischen den Gruppen ist normalerweise größer als der Abstand
 zwischen Notensystemen der selben Gruppe.  Der Abstand kann mit dem
 @code{StaffGrouper}-Grob beeinflusst werden:  Der Standardwert von
-@code{next-staff-spacing} für @code{VerticalAxisGroup} ist eine
+@code{staff-staff-spacing} für @code{VerticalAxisGroup} ist eine
 Callback-Funktion, die nach einem @code{StaffGrouper}-Grob sucht, der ein
-Notensystem enthält.  Wenn sie einen @code{StaffGrouper}-Grob findet und
-das hierin enthaltene System ist in der Mitte einer Gruppe, wird der
-Wert von @code{between-staff-spacing} von @code{StaffGrouper} ausgelesen
-und ausgegeben.  Wenn das enthaltene Notensystem das letzte einer Gruppe
-ist, wird die @code{after-last-staff-spacing}-Eigenschaft von @code{StaffGrouper}
+Notensystem enthält.  Wenn sie einen @code{StaffGrouper}-Grob findet und das
+hierin enthaltene System ist in der Mitte einer Gruppe, wird der Wert von
+@code{staff-staff-spacing} von @code{StaffGrouper} ausgelesen und
+ausgegeben.  Wenn das enthaltene Notensystem das letzte einer Gruppe ist,
+wird die @code{staffgroup-staff-spacing}-Eigenschaft von @code{StaffGrouper}
 ausgelesen und ausgegeben.  Wenn kein @code{StaffGrouper}-Grob gefunden
-wird, wird @var{default-next-staff-spacing} aus der jeweiligen
+wird, wird @var{default-staff-staff-spacing} aus der jeweiligen
 @code{VerticalAxisGroup} ausgelesen und ausgegeben.
 
 @lilypond[verbatim]
 #(set-global-staff-size 16)
 <<
   \new PianoStaff \with {
-    \override StaffGrouper #'between-staff-spacing #'space = #1
-    \override StaffGrouper #'between-staff-spacing #'padding = #0
-    \override StaffGrouper #'after-last-staff-spacing #'space = #20
+    \override StaffGrouper #'staff-staff-spacing #'space = #1
+    \override StaffGrouper #'staff-staff-spacing #'padding = #0
+    \override StaffGrouper #'staffgroup-staff-spacing #'space = #20
   }
   <<
     \new Staff c'1
@@ -1650,8 +1650,8 @@ wird, wird @var{default-next-staff-spacing} aus der jeweiligen
   >>
 
   \new StaffGroup \with {
-    \override StaffGrouper #'between-staff-spacing #'space = #1
-    \override StaffGrouper #'between-staff-spacing #'padding = #0
+    \override StaffGrouper #'staff-staff-spacing #'space = #1
+    \override StaffGrouper #'staff-staff-spacing #'padding = #0
   }
   <<
     \new Staff c'1
@@ -1680,29 +1680,31 @@ definiert wird, wird es wie ein Nicht-Notensystem behandelt.
 
 Nicht-Notensystem-Zeilen lassen drei Eigenschaften für ihre Abstandseinstellungen
 zu.  Jede dieser Eigenschaften ist eine Aliste des gleichen Formats wie
-@code{next-staff-spacing} oben.
+@code{staff-staff-spacing} oben.
 
 @itemize
 
 @item
 Wenn die nächste Zeile in der Richtung von @code{staff-affinity} ein
-Notensystem ist, ergibt sich aus dem Wert von @code{inter-staff-spacing} der
-Abstand zwischen dem Nicht-Notensystem und dem Notensystem.  Wenn
-@code{staff-affinity} @code{CENTER} ist, dann wird @code{inter-staff-spacing}
-in beide Richtungen benutzt.
+Notensystem ist, ergibt sich aus dem Wert von
+@code{nonstaff-relatedstaff-spacing} der Abstand zwischen dem
+Nicht-Notensystem und dem Notensystem.  Wenn @code{staff-affinity}
+@code{CENTER} ist, dann wird @code{nonstaff-relatedstaff-spacing} in beide
+Richtungen benutzt.
 
 @item
 Wenn die nächste Zeile in der Richtung von @code{staff-affinity} ein
 Nicht-Notensystem ist, ergibt sich aus dem Wert von
-@code{inter-loose-line-spacing} der Abstand zwischen den beiden
+@code{nonstaff-nonstaff-spacing} der Abstand zwischen den beiden
 Nicht-Notensystemen.
 
 @item
-Wenn die nächste Zeile der der entgegengesetzten Richtung von @code{staff-affinity}
-ein Notensystem ist, dann gibt @code{non-affinity-spacing} den Abstand
-zwischen dem Nicht-Notensystem und dem Notensystem.  Das kann benutzt
-werden, um einen Minimalabstand zwischen einer Gesangstextzeiel und dem
-dazugehörigen Notensystem zu verlangen.
+Wenn die nächste Zeile der der entgegengesetzten Richtung von
+@code{staff-affinity} ein Notensystem ist, dann gibt
+@code{nonstaff-unrelatedstaff-spacing} den Abstand zwischen dem
+Nicht-Notensystem und dem Notensystem.  Das kann benutzt werden, um einen
+Minimalabstand zwischen einer Gesangstextzeiel und dem dazugehörigen
+Notensystem zu verlangen.
 
 @end itemize
 
@@ -1714,14 +1716,14 @@ dazugehörigen Notensystem zu verlangen.
     % By default, Lyrics are placed close together.  Here, we allow them to
     % be stretched more widely.
     \override VerticalAxisGroup
-      #'inter-loose-line-spacing #'stretchability = #1000
+      #'nonstaff-nonstaff-spacing #'stretchability = #1000
   }
 }
 
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 30)) }
+    \override VerticalAxisGroup #'staff-staff-spacing = #'((space . 30)) }
     { c'1 }
   \new Lyrics \with {
     \override VerticalAxisGroup #'staff-affinity = #UP }

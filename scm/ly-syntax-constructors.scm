@@ -17,7 +17,8 @@
 
 ;; TODO: use separate module for syntax
 ;; constructors. Also create wrapper around the constructor?
-(define define-ly-syntax define-public)
+(defmacro define-ly-syntax (args . body)
+  `(define-public ,args ,(cons 'begin body)))
 
 ;; A ly-syntax constructor takes two extra parameters, parser and
 ;; location. These are mainly used for reporting errors and
@@ -25,22 +26,21 @@
 ;; location arg to set the origin of the returned music object; this
 ;; behaviour is usually desired
 (defmacro define-ly-syntax-loc (args . body)
-  (primitive-eval `(define-ly-syntax ,args
-		     (let ((m ,(cons 'begin body)))
-		       (set! (ly:music-property m 'origin) ,(third args))
-		       m))))
-
+  `(define-public ,args
+     (let ((m ,(cons 'begin body)))
+       (set! (ly:music-property m 'origin) ,(third args))
+       m)))
 ;; Like define-ly-syntax-loc, but adds parser and location
 ;; parameters. Useful for simple constructors that don't need to
 ;; report errors.
 (defmacro define-ly-syntax-simple (args . body)
-  (primitive-eval `(define-ly-syntax ,(cons* (car args) 
-					     'parser
-					     'location 
-					     (cdr args))
-		     (let ((m ,(cons 'begin body)))
-		       (set! (ly:music-property m 'origin) location)
-		       m))))
+  `(define-public ,(cons* (car args)
+			  'parser
+			  'location
+			  (cdr args))
+     (let ((m ,(cons 'begin body)))
+       (set! (ly:music-property m 'origin) location)
+       m)))
 
 ;; Music function: Apply function and check return value.
 (define-ly-syntax-loc (music-function parser loc fun args)

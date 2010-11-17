@@ -364,7 +364,7 @@ Axis_group_interface::combine_skylines (SCM smob)
     }
   return ret.smobbed_copy ();
 }
-  
+
 SCM
 Axis_group_interface::generic_group_extent (Grob *me, Axis a)
 {
@@ -403,7 +403,7 @@ SCM
 Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  
+
   extract_grob_set (me, "elements", elts);
 
   vector<Grob*> relevant_grobs;
@@ -693,7 +693,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
       SCM priority = elements[i]->get_property ("outside-staff-priority");
       vector<Grob*> current_elts;
       current_elts.push_back (elements[i]);
-      while (i + 1 < elements.size () 
+      while (i + 1 < elements.size ()
 	     && scm_eq_p (elements[i+1]->get_property ("outside-staff-priority"), priority))
 	{
 	  if (!to_boolean (elements[i+1]->get_property ("cross-staff")))
@@ -726,28 +726,28 @@ Axis_group_interface::print (SCM smob)
   return ret.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_next_staff_spacing, 3)
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_staff_staff_spacing, 3)
 SCM
-Axis_group_interface::calc_pure_next_staff_spacing (SCM smob, SCM start, SCM end)
+Axis_group_interface::calc_pure_staff_staff_spacing (SCM smob, SCM start, SCM end)
 {
-  return calc_maybe_pure_next_staff_spacing (unsmob_grob (smob),
-					     true,
-					     scm_to_int (start),
-					     scm_to_int (end));
+  return calc_maybe_pure_staff_staff_spacing (unsmob_grob (smob),
+					      true,
+					      scm_to_int (start),
+					      scm_to_int (end));
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_next_staff_spacing, 1)
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_staff_staff_spacing, 1)
 SCM
-Axis_group_interface::calc_next_staff_spacing (SCM smob)
+Axis_group_interface::calc_staff_staff_spacing (SCM smob)
 {
-  return calc_maybe_pure_next_staff_spacing (unsmob_grob (smob),
-					     false,
-					     0,
-					     INT_MAX);
+  return calc_maybe_pure_staff_staff_spacing (unsmob_grob (smob),
+					      false,
+					      0,
+					      INT_MAX);
 }
 
 SCM
-Axis_group_interface::calc_maybe_pure_next_staff_spacing (Grob *me, bool pure, int start, int end)
+Axis_group_interface::calc_maybe_pure_staff_staff_spacing (Grob *me, bool pure, int start, int end)
 {
   Grob *grouper = unsmob_grob (me->get_object ("staff-grouper"));
 
@@ -755,11 +755,11 @@ Axis_group_interface::calc_maybe_pure_next_staff_spacing (Grob *me, bool pure, i
     {
       Grob *last_in_group = Staff_grouper_interface::get_maybe_pure_last_grob (grouper, pure, start, end);
       if (me == last_in_group)
-	return grouper->get_maybe_pure_property ("after-last-staff-spacing", pure, start, end);
+	return grouper->get_maybe_pure_property ("staffgroup-staff-spacing", pure, start, end);
       else
-	return grouper->get_maybe_pure_property ("between-staff-spacing", pure, start, end);
+	return grouper->get_maybe_pure_property ("staff-staff-spacing", pure, start, end);
     }
-  return me->get_maybe_pure_property ("default-next-staff-spacing", pure, start, end);
+  return me->get_maybe_pure_property ("default-staff-staff-spacing", pure, start, end);
 }
 
 Real
@@ -781,24 +781,24 @@ ADD_INTERFACE (Axis_group_interface,
 	       // VerticalAxisGroup. We should split off a
 	       // vertical-axis-group-interface.
 	       /* properties */
-	       "X-common "
-	       "Y-common "
 	       "adjacent-pure-heights "
 	       "axes "
-	       "default-next-staff-spacing "
+	       "default-staff-staff-spacing "
 	       "elements "
-	       "inter-loose-line-spacing "
-	       "inter-staff-spacing "
 	       "max-stretch "
-	       "non-affinity-spacing "
-	       "next-staff-spacing "
 	       "no-alignment "
-	       "pure-Y-common "
+	       "nonstaff-nonstaff-spacing "
+	       "nonstaff-relatedstaff-spacing "
+	       "nonstaff-unrelatedstaff-spacing "
 	       "pure-relevant-grobs "
 	       "pure-relevant-items "
 	       "pure-relevant-spanners "
+	       "pure-Y-common "
 	       "staff-affinity "
 	       "staff-grouper "
+	       "staff-staff-spacing "
 	       "system-Y-offset "
 	       "vertical-skylines "
+	       "X-common "
+	       "Y-common "
 	       );

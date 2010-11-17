@@ -81,9 +81,9 @@ Staff_symbol_referencer::get_position (Grob *me)
   if (st && c)
     {
       Real y = me->relative_coordinate (c, Y_AXIS)
-	- st->relative_coordinate (c, Y_AXIS);
-
-      p += 2.0 * y / Staff_symbol::staff_space (st);
+	       - st->relative_coordinate (c, Y_AXIS);
+      Real space = Staff_symbol::staff_space (st);
+      p = (space == 0) ? 0 : 2.0 * y / space;
       return p;
     }
   else if (!st)
@@ -153,7 +153,6 @@ Staff_symbol_referencer::set_position (Grob *me, Real p)
       oldpos = get_position (me);
     }
 
-  
   Real ss = Staff_symbol_referencer::staff_space (me);
   me->translate_axis ((p  - oldpos) * ss * 0.5, Y_AXIS);
 }

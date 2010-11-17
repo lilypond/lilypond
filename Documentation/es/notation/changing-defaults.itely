@@ -8,7 +8,7 @@ Translation of GIT committish: 44099a932d98a8757b27ee92f9b0533170b516e3
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -1991,7 +1991,7 @@ Si una lista-A es una propiedad de un grob o una variable de
 afecte a las otras claves.
 
 Por ejemplo, para reducir el espacio entre pentagramas adyacentes
-dentro de un sistema, use la propiedad @code{between-staff-spacing}
+dentro de un sistema, use la propiedad @code{staff-staff-spacing}
 del grob @code{StaffGrouper}.  La propiedad es una lista-A con cuatro
 claves: @code{padding} (relleno), @code{space} (espacio),
 @code{minimum-distance} (distancia mínima) y @code{stretchability}
@@ -2001,7 +2001,7 @@ resto de las propiedades de grobs) en el archivo
 @file{scm/define-grobs.scm}:
 
 @example
-(between-staff-spacing . ((padding . 1)
+(staff-staff-spacing . ((padding . 1)
                           (space . 9)
                           (minimum-distance . 7)))
 @end example
@@ -2020,7 +2020,7 @@ de forma individual, utilice una declaración anidada:
 
 % reduced space between staves
 \new PianoStaff \with {
-  \override StaffGrouper #'between-staff-spacing #'space = #7
+  \override StaffGrouper #'staff-staff-spacing #'space = #7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
@@ -2041,7 +2041,7 @@ completamente la propiedad con una sola declaración, como una lista-A:
 
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
-  \override StaffGrouper #'between-staff-spacing =
+  \override StaffGrouper #'staff-staff-spacing =
     #'((padding . 0)
        (space . 0)
        (minimum-distance . 0)
@@ -2055,16 +2055,16 @@ completamente la propiedad con una sola declaración, como una lista-A:
 Observe que cualquier clave que no haya sido relacionada
 explícitamente en la definición de la lista-A, será reiniciada a sus
 valores @emph{predeterminados si no se han fijado}.  En el caso de
-@code{between-staff-spacing}, el valor de cualquier clave no fijada se
+@code{staff-staff-spacing}, el valor de cualquier clave no fijada se
 reiniciaría a cero (excepto @code{stretchability}, que toma el valor
 de @code{space} si no se fija).  Así, las dos declaraciones siguientes
 son equivalentes:
 
 @example
-\override StaffGrouper #'between-staff-spacing =
+\override StaffGrouper #'staff-staff-spacing =
   #'((space . 7))
 
-\override StaffGrouper #'between-staff-spacing =
+\override StaffGrouper #'staff-staff-spacing =
   #'((padding . 0)
      (space . 7)
      (minimum-distance . 0)

@@ -831,8 +831,8 @@ engraver:
 @end example
 
 For the Known issues and warnings associated with
-@code{\Staff \RemoveEmptyStaves} see @ref{Changing context default
-settings}.
+@code{\Staff \RemoveEmptyStaves} see 
+@ref{Changing context default settings}.
 
 @node Writing parts
 @subsection Writing parts
@@ -1309,8 +1309,8 @@ bassoon = \relative c {
 
 Alternatively, Clef changes and instrument labels can be
 collected into an instrument definition for repeated use, using
-@code{\addInstrumentDefinition} described in @ref{Instrument
-names}.
+@code{\addInstrumentDefinition} described in 
+@ref{Instrument names}.
 
 @funindex \transposedCueDuring
 @funindex transposedCueDuring

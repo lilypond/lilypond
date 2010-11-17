@@ -1689,10 +1689,12 @@
 
     (StaffGrouper
      . (
-	(between-staff-spacing . ((space . 9)
-				  (minimum-distance . 7)
-				  (padding . 1)))
-	(after-last-staff-spacing . ((space . 10.5)
+	(staff-staff-spacing . ((space . 9)
+                                (stretchability . 5)
+				(minimum-distance . 7)
+				(padding . 1)))
+	(staffgroup-staff-spacing . ((space . 10.5)
+                                     (stretchability . 9)
 				     (minimum-distance . 8)
 				     (padding . 1)))
 	(meta . ((class . Spanner)
@@ -1973,14 +1975,12 @@
 	(avoid-slur . around)
 	(cross-staff . ,ly:script-interface::calc-cross-staff)
 	(direction . ,DOWN)
-	(direction . ,ly:script-interface::calc-direction)
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-priority . 450)
 
 	;; sync with Fingering ?
 	(padding . 0.5)
 
-	(positioning-done . ,ly:script-interface::calc-positioning-done)
 	(script-priority . 200)
 	(side-axis . ,Y)
 	(slur-padding . 0.5)
@@ -2264,11 +2264,11 @@
      . (
 	(adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
 	(axes . (,Y))
-	(default-next-staff-spacing . ((space . 9)
-				       (minimum-distance . 8)
-				       (padding . 1)))
-	(next-staff-spacing . ,ly:axis-group-interface::calc-next-staff-spacing)
-	(non-affinity-spacing . ((padding . 0.5)))
+	(default-staff-staff-spacing . ((space . 9)
+					(minimum-distance . 8)
+					(padding . 1)))
+	(nonstaff-unrelatedstaff-spacing . ((padding . 0.5)))
+	(staff-staff-spacing . ,ly:axis-group-interface::calc-staff-staff-spacing)
 	(stencil . ,ly:axis-group-interface::print)
 	(vertical-skylines . ,ly:hara-kiri-group-spanner::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -2450,7 +2450,7 @@
 (define pure-conversions-alist
   `(
     (,ly:accidental-interface::height . ,ly:accidental-interface::pure-height)
-    (,ly:axis-group-interface::calc-next-staff-spacing . ,ly:axis-group-interface::calc-pure-next-staff-spacing)
+    (,ly:axis-group-interface::calc-staff-staff-spacing . ,ly:axis-group-interface::calc-pure-staff-staff-spacing)
     (,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
     (,ly:grob::stencil-height . ,pure-stencil-height)
     (,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)

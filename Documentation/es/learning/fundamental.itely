@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 
 @node Conceptos fundamentales
@@ -2948,7 +2948,7 @@ una forma similar.
 @cindex grobs
 
 El grado de ampliabilidad o separabilidad de los pentagramas se puede
-controlar con la propiedad @code{next-staff-spacing} del @q{objeto
+controlar con la propiedad @code{staff-staff-spacing} del @q{objeto
 gráfico} @code{VerticalAxisGroup} (los objetos gráficos reciben por lo
 general el nombre de @q{grob}s en la documentación de lilypond); no se
 preocupe por el momento de los detalles, pues esto se explica más
@@ -2981,10 +2981,10 @@ forma que los valores sean idénticos.
       >>  % % fin del contexto de Staff ManualUno
       \new Staff = "ManualDos" \with @{
         \override VerticalAxisGroup
-          #'next-staff-spacing = #'((space . 9)
-                                    (minimum-distance . 8)
-                                    (padding . 1)
-                                    (stretchability . 5))
+          #'staff-staff-spacing = #'((space . 9)
+                                     (minimum-distance . 8)
+                                     (padding . 1)
+                                     (stretchability . 5))
       @} <<
         \keyTime
         \clef "bass"
@@ -3049,10 +3049,10 @@ PedalOrganMusic = \relative c {
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with {
         \override VerticalAxisGroup
-          #'next-staff-spacing = #'((space . 9)
-                                    (minimum-distance . 8)
-                                    (padding . 1)
-                                    (stretchability . 5))
+          #'staff-staff-spacing = #'((space . 9)
+                                     (minimum-distance . 8)
+                                     (padding . 1)
+                                     (stretchability . 5))
       } <<
         \keyTime
         \clef "bass"

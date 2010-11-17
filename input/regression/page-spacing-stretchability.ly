@@ -1,4 +1,4 @@
-\version "2.13.2"
+\version "2.13.39"
 
 #(set-default-paper-size "a6")
 
@@ -11,9 +11,11 @@ between staves."
   }
 
   <<
-    \new Staff {c'1 \pageBreak c'1}
-    \new Staff \with { \override VerticalAxisGroup #'default-next-staff-spacing #'stretchability = #50 } {c'1 c'1}
-    
-    \new Staff {c'1 c'1}
+    \new Staff { c'1 \pageBreak c'1 }
+    \new Staff \with {
+      \override VerticalAxisGroup
+        #'default-staff-staff-spacing #'stretchability = #50
+    } { c'1 c'1 }
+    \new Staff { c'1 c'1 }
   >>
 }

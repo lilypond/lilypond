@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.39"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -1987,7 +1987,7 @@ Some user-configurable properties are internally represented as
 @emph{keys} and @emph{values}.  The structure of an alist is:
 
 @example
-#((@var{key1} . @var{value1})
+'((@var{key1} . @var{value1})
   (@var{key2} . @var{value2})
   (@var{key3} . @var{value3})
   @dots{})
@@ -1997,23 +1997,21 @@ If an alist is a grob property or @code{\paper} variable, its keys
 can be modified individually without affecting other keys.
 
 For example, to reduce the space between adjacent staves in a
-system, use the @code{between-staff-spacing} property of the
+staff-group, use the @code{staff-staff-spacing} property of the
 @code{StaffGrouper} grob.  The property is an alist with four
 keys: @code{padding}, @code{space}, @code{minimum-distance}, and
 @code{stretchability}.  Three of the four keys have initialized
-default values, which are defined (along with all the other grob
-properties) in the file @file{scm/define-grobs.scm}:
+default values; these are listed in the @qq{Backend} section of
+the Internals Reference (see @rinternals{StaffGrouper}):
 
 @example
-(between-staff-spacing . ((padding . 1)
-                          (space . 9)
-                          (minimum-distance . 7)))
+'((space . 9) (minimum-distance . 7) (padding . 1))
 @end example
 
 One way to bring the staves closer together is by reducing the
 value of the @code{space} key (@code{9}) to match the value of
 @code{minimum-distance} (@code{7}).  To modify a single key
-individually, use a nested declaration:
+individually, use a @emph{nested declaration}:
 
 @lilypond[quote,verbatim]
 % default space between staves
@@ -2024,26 +2022,27 @@ individually, use a nested declaration:
 
 % reduced space between staves
 \new PianoStaff \with {
-  \override StaffGrouper #'between-staff-spacing #'space = #7
+  % this is the nested declaration
+  \override StaffGrouper #'staff-staff-spacing #'space = #7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
 >>
 @end lilypond
 
-Using a nested declaration will update the specified key
-(@code{space} in the above example) without altering any other
-keys already set for the same property.
+Using a nested declaration will update the specified key (such as
+@code{space} in the above example) without altering any other keys
+already set for the same property.
 
 Now suppose we want the staves to be as close as possible without
 overlapping.  The simplest way to do this is to set all four alist
-keys to zero.  In that case, it is not necessary to set each key
-individually with nested declarations.  Instead, the property can
-be completely re-defined with one declaration, as an alist:
+keys to zero.  However, it is not necessary to enter four nested
+declarations, one for each key.  Instead, the property can be
+completely re-defined with one declaration, as an alist:
 
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
-  \override StaffGrouper #'between-staff-spacing =
+  \override StaffGrouper #'staff-staff-spacing =
     #'((padding . 0)
        (space . 0)
        (minimum-distance . 0)
@@ -2056,16 +2055,16 @@ be completely re-defined with one declaration, as an alist:
 
 Note that any keys not explicitly listed in the alist definition
 will be reset to their @emph{default-when-unset} values.  In the
-case of @code{between-staff-spacing}, any unset key-values would
-be reset to zero (except @code{stretchability}, which takes the
-value of @code{space} when unset).  Thus the following two
-declarations are equivalent:
+case of @code{staff-staff-spacing}, any unset key-values would be
+reset to zero (except @code{stretchability}, which takes the value
+of @code{space} when unset).  Thus the following two declarations
+are equivalent:
 
 @example
-\override StaffGrouper #'between-staff-spacing =
+\override StaffGrouper #'staff-staff-spacing =
   #'((space . 7))
 
-\override StaffGrouper #'between-staff-spacing =
+\override StaffGrouper #'staff-staff-spacing =
   #'((padding . 0)
      (space . 7)
      (minimum-distance . 0)
