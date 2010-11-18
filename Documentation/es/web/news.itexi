@@ -34,6 +34,78 @@ NOTE:
 @end ignore
 
 @newsItem
+@subsubheading Cuarta versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.38! @emph{31 de octubre de 2010}
+
+Ha salido LilyPond 2.13.38; ésta es la cuarta versión alfa de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún permanecen algunos problemas calificados como Críticos
+en esta versión: el espaciado vertical sorprende en
+dos casos, y lilypond puede salir de manera abrupta frente
+a algunos códigos de entrada extraños.  Si se decide a probar
+2.13.38, no se sorprenda al descubrir problemas; tan sólo
+envíenos @ref{Informes de fallos} educados.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Tercera versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.37! @emph{25 de octubre de 2010}
+
+Ha salido LilyPond 2.13.37; ésta es la tercera versión alfa de la
+inminente versión estable 2.14.  Se invita a los usuarios a que hagan
+experimentos con esta versión.  Las funcionalidades nuevas desde
+2.12.3 están relacionadas en el manual de @qq{Cambios} dentro de la
+sección @ref{Desarrollo} de estas páginas.
+
+Aún permanecen algunos problemas calificados como Críticos
+en esta versión: el espaciado vertical sorprende en
+dos casos, y lilypond puede salir de manera abrupta frente
+a algunos códigos de entrada extraños.  Si se decide a probar
+2.13.37, no se sorprenda al descubrir problemas; tan sólo
+envíenos @ref{Informes de fallos} educados.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.36! @emph{19 de octubre de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.36.
+Esta versión contiene el conjunto habitual de correcciones de fallos.
+Sin embargo, aún permanecen un cierto número de problemas críticos,
+por lo que está orientada solamente a los desarrolladores.
+
+Tenga en cuenta que ésta @strong{no} es la tercera versión
+de pruebas alfa.  A causa de la aparición de algunos cambios en nuestro
+proceso de construcción del programa que no se han probado,
+no podemos estar completamente seguros de la calidad
+de esta versión.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading El Informe LilyPond, número 21.  @emph{3 de octubre de 2010}
+
+¡Vuelve el @emph{Informe LilyPond}, con sus dos editores: @qq{gruñón}
+y @qq{blandito}!  Esta edición se ocupa principalmente de la notación
+microtonal en LilyPond, pero también incluye un tutorial sobre la
+forma de ejecutar LilyPond a partir de una memoria USB, sin olvidar
+las acostumbradas notas de lanzamientos, el fragmento de código del
+día y las noticias que nos llegan de la charca de las ranas.
+
+Acérquese al @uref{http://news.lilynet.net/The-LilyPond-Report-21,
+Informe LilyPond 21} y léalo ahora mismo; ¡animamos calurosamente a
+todos a que hagan sus comentarios y contribuciones!
+
+@newsEnd
+
+
+@newsItem
 @subsubheading Segunda versión de pruebas Alfa de 2.14: ¡Lanzado LilyPond 2.13.35! @emph{29 de septiembre de 2010}
 
 Ha salido LilyPond 2.13.35; ésta es la segunda versión alfa de la
