@@ -38,7 +38,7 @@ public:
   static Real get_fixed_spacing (Grob *before, Grob *after, int spaceable_index, bool pure, int start, int end);
 
 protected:
-  void append_system (System*, Spring const&, Real padding);
+  void append_system (System*, Spring const&, Real indent, Real padding);
   void append_prob (Prob*, Spring const&, Real padding);
 
   void solve_rod_spring_problem (bool ragged);

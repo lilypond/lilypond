@@ -229,7 +229,7 @@ dot placement entries."
   (define (placement-list->string-frets placement-list)
     "Convert @var{placement-list} to string-fret list."
     (map (lambda (x) (cdr x))
-         (filter (lambda (l) (eq? (cdr l) 'place-fret) placement-list))))
+         (filter (lambda (l) (eq? (car l) 'place-fret)) placement-list)))
 
 
   (define (get-predefined-fretboard predefined-fret-table tuning pitches)
