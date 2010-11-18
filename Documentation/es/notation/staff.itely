@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3361a047575e4f4863aebb2e8dbdabee09be7df2
+    Translation of GIT committish: 8bc6aa337937e251aae5dc5b2a31323345abe4c6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -845,8 +845,8 @@ grabador:
 @end example
 
 Para ver los fallos y problemas conocidos, así como las advertencias
-asociadas con @code{\RemoveEmptyStaves}, consulte @ref{Cambiar los
-valores por omisión de los contextos}.
+asociadas con @code{\RemoveEmptyStaves}, consulte
+@ref{Cambiar los valores por omisión de los contextos}.
 
 @node Escritura de las particellas
 @subsection Escritura de las particellas
