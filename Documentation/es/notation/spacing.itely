@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a3f254be6161dc6ca2523a150281ef51c3b32f1a
+    Translation of GIT committish: b446ebc24f8d43acb323818988fe8b1d8072afc8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1512,6 +1512,9 @@ dentro de los sistemas, uno por cada una de las categorías siguientes:
 @code{ChordNames}, etc.).
 @end itemize
 
+@c TODO: Clarify this.  This almost implies that non-staff lines
+@c       have NO effect on the spacing between staves.  -mp
+
 La altura de cada sistema se determina en dos fases.  Primero, todos
 los pentagramas se disponen según la cantidad de espacio vacío
 disponible.  Después, las líneas que no son pautas se distribuyen
@@ -1546,7 +1549,7 @@ individualmente al final de la presente sección.
 
 Los nombres de estas propiedades (excepto para @code{staff-affinity})
 siguen el formato @code{@var{elemento1}-@var{elemento2}-spacing},
-donde @code{@var{elemento1}} and @code{@var{elemento2}} son los
+donde @code{@var{elemento1}} y @code{@var{elemento2}} son los
 elementos que se van a espaciar.  Observe que @code{@var{elemento2}}
 no está necesariamente por debajo de @code{@var{elemento1}}; por
 ejemplo, @code{nonstaff-relatedstaff-spacing} mide hadcia arriba a
