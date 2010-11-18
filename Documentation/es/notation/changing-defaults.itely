@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 44099a932d98a8757b27ee92f9b0533170b516e3
+Translation of GIT committish: 94ca9e6f8df4f718787266976ee68141d70d4c7c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1980,7 +1980,7 @@ duplas de @emph{claves} y @emph{valores}.  La estructura de una
 lista-A es la siguiente:
 
 @example
-#((@var{clave1} . @var{valor1})
+'((@var{clave1} . @var{valor1})
   (@var{clave2} . @var{valor2})
   (@var{clave3} . @var{valor3})
   @dots{})
@@ -1991,25 +1991,25 @@ Si una lista-A es una propiedad de un grob o una variable de
 afecte a las otras claves.
 
 Por ejemplo, para reducir el espacio entre pentagramas adyacentes
-dentro de un sistema, use la propiedad @code{staff-staff-spacing}
+dentro de un grupo, use la propiedad @code{staff-staff-spacing}
 del grob @code{StaffGrouper}.  La propiedad es una lista-A con cuatro
 claves: @code{padding} (relleno), @code{space} (espacio),
 @code{minimum-distance} (distancia mínima) y @code{stretchability}
 (ampliabilidad).  Tres de las cuatro claves tienen valores
-predeterminados en el inicio, que están definidos (junto con todo el
-resto de las propiedades de grobs) en el archivo
+predeterminados en el inicio; éstos se relacionan en la sección
+@qq{Backend} de la Referencia de Funcionamiento Interno
+(véase @rinternals{StaffGrouper}):
+
 @file{scm/define-grobs.scm}:
 
 @example
-(staff-staff-spacing . ((padding . 1)
-                          (space . 9)
-                          (minimum-distance . 7)))
+'((space . 9) (minimum-distance . 7) (padding . 1))
 @end example
 
 Una forma de acercar los pentagramas entre sí es reducir el valor de
 la clave @code{space} (@code{9}) para que se corresponda con el valor
 de @code{minimum-distance} (@code{7}).  Para modificar una única clave
-de forma individual, utilice una declaración anidada:
+de forma individual, utilice una @emph{declaración anidada}:
 
 @lilypond[quote,verbatim]
 % default space between staves
@@ -2020,6 +2020,7 @@ de forma individual, utilice una declaración anidada:
 
 % reduced space between staves
 \new PianoStaff \with {
+  % this is the nested declaration
   \override StaffGrouper #'staff-staff-spacing #'space = #7
 } <<
   \new Staff { \clef treble c''1 }
@@ -2028,15 +2029,15 @@ de forma individual, utilice una declaración anidada:
 @end lilypond
 
 La utilización de una declaración anidada actualiza la clave
-especificada (@code{space} en el ejemplo anterior) sin alterar ninguna
+especificada (como @code{space} en el ejemplo anterior) sin alterar ninguna
 de las otras claves que ya se habían establecido para la misma
 propiedad.
 
 Ahora, supongamos que deseamos que los pentagramas estén tan próximos
 como sea posible sin que se superpongan.  La manera más sencilla de
-hacerlo es establecer las cuatro claves de la lista-A a cero.  En tal
-caso, no es necesario fijar el valor de cada clave individualmente con
-declaraciones anidadas.  En lugar de eso, se puede redefinir
+hacerlo es establecer las cuatro claves de la lista-A a cero.  Sin
+embargo, no es necesario escribir cuatro declaraciones anidadas,
+una por cada clave.  En lugar de eso, se puede redefinir
 completamente la propiedad con una sola declaración, como una lista-A:
 
 @lilypond[quote,verbatim]
