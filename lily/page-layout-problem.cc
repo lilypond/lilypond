@@ -27,6 +27,7 @@
 #include "output-def.hh"
 #include "paper-book.hh"
 #include "paper-column.hh"
+#include "paper-score.hh"
 #include "pointer-group-interface.hh"
 #include "prob.hh"
 #include "skyline-pair.hh"
@@ -117,10 +118,11 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
 	  Spring spring (0, 0);
 	  Real padding = 0.0;
+	  Real indent = line_dimensions_int (sys->paper_score ()->layout (), sys->get_rank ())[LEFT];
 	  alter_spring_from_spacing_spec (spec, &spring);
 	  read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
 
-	  append_system (sys, spring, padding);
+	  append_system (sys, spring, indent, padding);
 	  last_system_was_title = false;
 	}
       else if (Prob *p = unsmob_prob (scm_car (s)))
@@ -180,7 +182,7 @@ Page_layout_problem::set_footer_height (Real height)
 }
 
 void
-Page_layout_problem::append_system (System *sys, Spring const& spring, Real padding)
+Page_layout_problem::append_system (System *sys, Spring const& spring, Real indent, Real padding)
 {
   Grob *align = sys->get_vertical_alignment ();
   if (!align)
@@ -195,6 +197,8 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real padd
   Skyline up_skyline (UP);
   Skyline down_skyline (DOWN);
   build_system_skyline (elts, minimum_offsets, &up_skyline, &down_skyline);
+  up_skyline.shift (indent);
+  down_skyline.shift (indent);
 
   Real minimum_distance = up_skyline.distance (bottom_skyline_) + padding;
 
