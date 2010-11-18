@@ -12,6 +12,7 @@ creating-a-delayed-turn.ly
 creating-blank-staves.ly
 default-direction-of-stems-on-the-center-line-of-the-staff.ly
 drawing-boxes-around-grobs.ly
+drawing-circles-around-note-heads.ly
 drawing-circles-around-various-objects.ly
 embedding-native-postscript-in-a--markup-block.ly
 grid-lines--changing-their-appearance.ly

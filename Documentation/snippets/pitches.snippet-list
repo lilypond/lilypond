@@ -9,12 +9,14 @@ clefs-can-be-transposed-by-arbitrary-amounts.ly
 coloring-notes-depending-on-their-pitch.ly
 creating-a-sequence-of-notes-on-various-pitches.ly
 dodecaphonic-style-accidentals-for-each-note-including-naturals.ly
+forcing-a-clef-symbol-to-be-displayed.ly
 generating-random-notes.ly
 hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly
 keep-change-clefs-full-sized.ly
 makam-example.ly
 non-traditional-key-signatures.ly
 numbers-as-easy-note-heads.ly
+orchestra,-choir-and-piano-template.ly
 ottava-text.ly
 preventing-extra-naturals-from-being-automatically-added.ly
 preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly
