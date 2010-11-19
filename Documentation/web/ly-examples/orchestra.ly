@@ -1,4 +1,4 @@
-\version "2.13.36"
+\version "2.13.39"
 
 \header {
   tagline = ##f
@@ -49,35 +49,8 @@ offCr = {
   \revert DynamicTextSpanner #'style
 }
 
-%% Layout to produce piano dynamics context
+%% Layout for piano dynamics
 \layout {
-  \context {
-    \type "Engraver_group"
-    \name Dynamics
-    \alias Voice
-    \consists "Output_property_engraver"
-    \consists "Axis_group_engraver"
-    \consists "Piano_pedal_engraver"
-    pedalSustainStrings = #'("Ped." "*Ped." "*")
-    pedalUnaCordaStrings = #'("una corda" "" "tre corde")
-    \consists "Script_engraver"
-    \consists "New_dynamic_engraver"
-    \consists "Dynamic_align_engraver"
-    \consists "Text_engraver"
-    \consists "Text_spanner_engraver"
-    \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 1)
-    \override DynamicLineSpanner #'Y-offset = #0
-    \override TextScript #'font-size = #2
-    \override TextSpanner #'bound-details #'left #'stencil-align-dir-y = #CENTER
-    \override TextScript #'font-shape = #'italic
-    \override TextSpanner #'breakable = ##t
-    \override DynamicLineSpanner #'breakable = ##t
-    \override DynamicTextSpanner #'breakable = ##t
-  }
-  \context {
-    \PianoStaff
-    \accepts "Dynamics"
-  }
   \context {
     \Voice
     \override Glissando #'breakable = ##t
@@ -134,7 +107,9 @@ offCr = {
     \consists "Text_engraver"
     \consists "Text_spanner_engraver"
     \consists "Font_size_engraver"
-    \override VerticalAxisGroup #'minimum-Y-extent = #'(-2 . 2 )
+    \override VerticalAxisGroup #'staff-affinity = #DOWN
+    \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing #'padding = #2
+    \override VerticalAxisGroup #'nonstaff-unrelatedstaff-spacing #'padding = #5
     \override TextSpanner #'breakable = ##t
   }
   \context {

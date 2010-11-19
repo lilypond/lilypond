@@ -1,4 +1,4 @@
-\version "2.12.0"
+\version "2.13.39"
 % the example header file caused the head to be chopped off
 %\include "example-header.ily"
 
@@ -39,7 +39,6 @@
 			\override TupletBracket #'direction = #down
 			\override TupletBracket #'staff-padding = #5
 			\override TupletBracket #'padding = #2.25
-			\override VerticalAxisGroup #'minimum-Y-extent = #'(10 . 10)
 		} <<
 			
 			\new Voice {
@@ -101,7 +100,6 @@
 			\override Stem #'direction = #down
 			\override TupletBracket #'staff-padding = #5
 			\override TupletBracket #'padding = #2.25
-			\override VerticalAxisGroup #'minimum-Y-extent = #'(10 . 10)
 		} <<
 			
 			\new Voice \with {

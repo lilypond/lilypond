@@ -249,7 +249,6 @@ mus = \drummode {
        \remove Time_signature_engraver
        \override Stem #'transparent = ##t
        \override Stem #'Y-extent = ##f
-       \override VerticalAxisGroup #'minimum-Y-extent = #'(-4.0 . 5.0)
      } \mus
      \new Lyrics \nam
   >>

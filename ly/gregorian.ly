@@ -3,7 +3,7 @@
   $Id$
 %}
 
-\version "2.12.0"
+\version "2.13.39"
 
 %
 % Declare memorable shortcuts for special unicode characters
@@ -293,7 +293,7 @@ neumeDemoLayout = \layout {
 	\override StaffSymbol #'transparent = ##t
 	\remove "Time_signature_engraver"
 	\remove "Bar_engraver"
-	\override VerticalAxisGroup #'minimum-Y-extent = ##f
+	\override VerticalAxisGroup #'staff-staff-spacing = #'()
     }
     \context {
 	\Voice

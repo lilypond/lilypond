@@ -934,9 +934,6 @@ layout.
 @example
 \layout @{
   indent = 2.0\cm
-  \context @{ \Staff
-    \override VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 6)
-  @}
   \context @{ \Voice
     \override TextScript #'padding = #1.0
     \override Glissando #'thickness = #3

@@ -742,27 +742,11 @@ different from the default style.  If called for, the natural sign
 will be taken from the @code{vaticana} style.
 
 @lilypond[quote,ragged-right,staffsize=26]
-\score {
-{
-  \textLengthOn
-  s^\markup {
-    \column {
-      "mensural"
-      \line { " " \musicglyph #"accidentals.mensural-1"
-        " " \musicglyph #"accidentals.mensural1" }
-    }
-  }
-}
-\layout {
-  interscoreline = 1
-  \context { \Score \remove "Bar_number_engraver" }
-  \context { \Staff
-      \remove "Clef_engraver"
-      \remove "Key_engraver"
-      \remove "Time_signature_engraver"
-      \remove "Staff_symbol_engraver"
-      \override VerticalAxisGroup #'minimum-Y-extent = ##f
-    }
+\markup {
+  \column {
+    "mensural"
+    \line { " " \musicglyph #"accidentals.mensural-1"
+      " " \musicglyph #"accidentals.mensural1" }
   }
 }
 @end lilypond
@@ -1133,35 +1117,19 @@ Notation Reference:
 Accidentals for the three different Gregorian styles are available:
 
 @lilypond[quote,ragged-right,staffsize=26]
-\score {
-{
-  \textLengthOn
-  s^\markup {
-    \column {
-      "vaticana"
-      \line { " " \musicglyph #"accidentals.vaticana-1"
-        " " \musicglyph #"accidentals.vaticana0" }
-    }
-    \column {
-      "medicaea"
-      \line { " " \musicglyph #"accidentals.medicaea-1" }
-    }
-    \column {
-      "hufnagel"
-      \line { " " \musicglyph #"accidentals.hufnagel-1" }
-    }
+\markup {
+  \column {
+    "vaticana"
+    \line { " " \musicglyph #"accidentals.vaticana-1"
+      " " \musicglyph #"accidentals.vaticana0" }
   }
-}
-\layout {
-  interscoreline = 1
-  \context { \Score \remove "Bar_number_engraver" }
-  \context { \Staff
-      \remove "Clef_engraver"
-      \remove "Key_engraver"
-      \remove "Time_signature_engraver"
-      \remove "Staff_symbol_engraver"
-      \override VerticalAxisGroup #'minimum-Y-extent = ##f
-    }
+  \column {
+    "medicaea"
+    \line { " " \musicglyph #"accidentals.medicaea-1" }
+  }
+  \column {
+    "hufnagel"
+    \line { " " \musicglyph #"accidentals.hufnagel-1" }
   }
 }
 @end lilypond
