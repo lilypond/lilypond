@@ -2707,7 +2707,7 @@ information.""") % 'lilypond')
     p.add_option ('-l', '--language',
                   metavar = _ ("LANG"),
                   action = "store",
-                  help = _ ("use a different language file 'LANG.ly' and corresponding pitch names, e.g. 'deutsch' for deutsch.ly"))
+                  help = _ ("use LANG for pitch names, e.g. 'deutsch' for note names in German"))
 
     p.add_option ('--nd', '--no-articulation-directions',
                   action = "store_false",
@@ -3000,7 +3000,7 @@ def main ():
     if options.language:
         musicexp.set_pitch_language (options.language)
         needed_additional_definitions.append (options.language)
-        additional_definitions[options.language] = "\\include \"%s.ly\"\n" % options.language
+        additional_definitions[options.language] = "\\language \"%s\"\n" % options.language
     conversion_settings.ignore_beaming = not options.convert_beaming
     conversion_settings.convert_page_layout = options.convert_page_layout
 

@@ -339,8 +339,7 @@ convert pitches in absolute mode.
 print usage and option summary.
 
 @item -l, --language=LANG
-use a different language file 'LANG.ly' and corresponding pitch names,
-e.g. 'deutsch' for deutsch.ly and German note names.
+use LANG for pitch names, e.g. 'deutsch' for note names in German.
 
 @item --lxml
 use the lxml.etree Python package for XML-parsing; uses less memory and cpu time.
