@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
+    Translation of GIT committish: ede6552ee0a9954a6ced5922cfc0cfa2c40733af
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,7 +44,7 @@ LilyPond, référez-vous à la documentation de celui-ci.
 Nous nous intéresserons ici aux spécificités de LilyPond employé en
 ligne de commande.  La ligne de commande permet de faire appel à
 certaines options particulières.  D'autre part, certains utilitaires
-associés, tels que @code{midi2ly}, ne sont disponibles qu'en ligne de
+associés, tel que @code{midi2ly}, ne sont disponibles qu'en ligne de
 commande.
 
 Par @qq{ligne de commande}, nous entendons l'interface de commande du
@@ -52,7 +52,7 @@ système.  Les utilisateurs de Windows seront certainement plus familiers
 des termes @qq{fenêtre DOS} ou @qq{invite de commande}.  Quant aux
 utilisateurs de MacOS@tie{}X, ils connaissent assurément les termes
 @qq{console} et @qq{terminal}.  Les paramétrages spécifiques au système
-MacOS sont abordés au chapitre @rweb{MacOS X}.
+MacOS font l'objet d'un @rwebnamed{MacOS X,chapitre particulier}.
 
 Notre propos n'est pas ici d'expliquer ce qu'est l'interface de
 commande pour un système informatique ni comment elle fonctionne.
@@ -305,8 +305,8 @@ des fontes.  Nous vous recommandons d'installer les fontes Century
 Schoolbook comprises dans le paquetage LilyPond afin d'obtenir le
 meilleur rendu possible.  Sous UNIX, il suffit de les recopier, à partir
 du répertoire @file{/usr/share/lilypond/VERSION/fonts/otf/}, dans
-@file{~/.fonts/}.  Les fichiers SVG alors générés devraient être lisible
-par votre éditeur SVG habituel.
+@file{~/.fonts/}.  Les fichiers SVG alors générés devraient être
+lisibles par votre éditeur SVG habituel.
 
 @item scm
 @cindex Scheme dump
@@ -325,7 +325,7 @@ Exemple : @code{lilypond -dbackend=svg @var{monfichier}.ly}
 @cindex preview, ligne de commande
 Génère un fichier comprenant le titrage et le premier système.  S'il
 existe plusieurs sections @code{\bookpart}, ce fichier contiendra les
-tritrage et premier système de chacun des @code{\bookpart}.  Cette
+titrage et premier système de chacun des @code{\bookpart}.  Cette
 option fonctionne pour les moteurs de traitement @code{ps}, @code{eps}
 et @code{svg}.
 
@@ -488,21 +488,21 @@ est livré @strong{SANS GARANTIE}@tie{}!
 suivantes@tie{}:
 @table @code
 @item LILYPOND_DATADIR
-Cette variable spécifie le répertoire où seront recherchés par défaut les
-différentes versions des messages ainsi qu'un certain nombre de fichiers
-nécessaires au traitement.  Il devrait contenir les sous-répertoires
-@file{ly/}, @file{ps/}, @file{tex/}, etc.
+Cette variable spécifie le répertoire où seront recherchés par défaut
+les différentes versions des messages ainsi qu'un certain nombre de
+fichiers nécessaires au traitement.  Il devrait contenir les
+sous-répertoires @file{ly/}, @file{ps/}, @file{tex/}, etc.
 
 @item LANG
 Cette variable détermine la langue dans laquelle seront émis les
 messages.
 
 @item LILYPOND_GC_YIELD
-Cette variable parmet d'ajuster l'empreinte mémoire et le rendement de
+Cette variable permet d'ajuster l'empreinte mémoire et le rendement de
 la machine.  Il s'agit en fait d'un pourcentage d'allocation de
 mémoire@tie{}: lorsqu'il est élevé, le programme favorisera
 l'utilisation de la mémoire@tie{}; une faible valeur consommera plus de
-temps processeur.  Par défaut, cette valeur est fixée à @code{70}.
+temps processeur.  Par défaut, cette valeur est fixée à@tie{}@code{70}.
 
 @end table
 
@@ -513,7 +513,7 @@ temps processeur.  Par défaut, cette valeur est fixée à @code{70}.
 
 Paramétrer un serveur afin qu'il puisse faire fonctionner LilyPond en
 mode protégé sur un pseudo-périphérique est une tâche sensible.  Les
-différentes étapes à suivre sont répertoriées ci-dessous.  Les exmples
+différentes étapes à suivre sont répertoriées ci-dessous.  Les exemples
 qu'elle comportent proviennent d'une distribution Linux Ubuntu et
 nécessiteront l'utilisation de @code{sudo} autant que de besoin.
 
@@ -544,7 +544,7 @@ dd if=/dev/zero of=/home/lily/loopfile bs=1k count= 200000
 Cette commande a créé un fichier de 200@tie{}MB utilisable par le
 @qq{système protégé}.
 
-@item Création d'un pseudo périphérique, génération d'un système de
+@item Création d'un pseudo-périphérique, génération d'un système de
 fichiers et chargement de celui-ci, puis création d'un répertoire
 accessible en écriture pour l'utilisateur @code{lily}@tie{}:
 
@@ -564,8 +564,8 @@ DIR.
 @item Création d'une arborescence, dans l'espace protégé, et recopie de
 tous les fichiers nécessaires -- voir le script plus loin.
 
-You can use @code{sed} to create the necessary copy commands for a given
-executable:
+Le recours à l'utilitaire @code{sed} permet de créer les commandes de
+copie de tout ce qui est nécessaire à un exécutable@tie{}:
 
 @example
 for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
@@ -660,7 +660,7 @@ menée à son terme, puis LilyPond s'arrêtera.
 @item Fatal error -- Erreur fatale
 @cindex fatal error
 LilyPond est confronté à une anomalie bloquante.  Ceci ne se produit que
-très rarement, et le plupart du temps en raison d'une installation
+très rarement, et la plupart du temps en raison d'une installation
 défectueuse des fontes.
 
 @item Scheme error -- Erreur Scheme
@@ -770,7 +770,7 @@ plus de détails.
 
 Lorsque les contextes ne sont pas créés explicitement par la commande
 @code{\new}, ils le seront si la commande à exécuter n'est pas censée
-s'appliquer au contexte en cours.  Pour des partitions simples, les fait
+s'appliquer au contexte en cours.  Pour des partitions simples, le fait
 que les contextes soient automatiquement créés rend bien des services,
 et c'est d'ailleurs le cas pour la majorité des exemples contenus dans
 les manuels de LilyPond.  Cependant, la création implicite d'un contexte
@@ -831,10 +831,11 @@ L'erreur la plus courante est la simple omission d'une accolade
 fermante (@code{@}} à la fin du bloc @code{Score}.  La solution est
 évidente en pareil cas@tie{}: il suffit de vérifier que le bloc
 @code{Score} est bien clôturé.  La structure des fichiers LilyPond est
-abordée plus en détails au chapitre @rlearning{Organisation des fichiers
-LilyPond}. C'est la raison pour laquelle nous vous invitons à utiliser
-un éditeur de texte qui prenne en charge le contrôle de parité des
-parenthèses, crochets et accolades afin de vous éviter de telles erreurs.
+abordée plus en détails au chapitre
+@rlearning{Organisation des fichiers LilyPond}. C'est la raison pour
+laquelle nous vous invitons à utiliser un éditeur de texte qui prenne en
+charge le contrôle de parité des parenthèses, crochets et accolades afin
+de vous éviter de telles erreurs.
 
 Lorsqu'il s'agit d'un guillemet fermant (@code{"}) omis, le message
 d'erreur devrait vous indiquer un numéro de ligne avoisinant.  L'erreur
@@ -848,7 +849,7 @@ indiquée.
 
 Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
 fichier journal, est associé à un message du type @qq{GUILE a signalé
-une erreur @dots{}}, survient à chaque fois qu'un commentaire
+une erreur @dots{}}. Il survient à chaque fois qu'un commentaire
 @emph{LilyPond} est indûment placé dans une routine @emph{Scheme}.
 
 Un commentaire LilyPond est introduit par le signe pourcent (@code{%})

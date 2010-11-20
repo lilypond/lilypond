@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
+    Translation of GIT committish: ede6552ee0a9954a6ced5922cfc0cfa2c40733af
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -69,6 +69,7 @@ suivant@tie{}:
 @example
 emacsclient --no-wait +@var{line}:@var{column} @var{file}
 @end example
+
 @item gvim
   sera alors lancée la commande
 @example
@@ -85,7 +86,7 @@ gvim --remote +:@var{line}:norm@var{column} @var{file}
 La variable d'environnement @code{LYEDITOR} permet d'anticiper cette
 affectation, puisqu'elle contient la commande qui permet de lancer
 l'éditeur en tenant compte des valeurs respectives de @code{%(file)s},
-@code{%(column)s} , et@code{%(line)s}. Par exemple,
+@code{%(column)s} et@code{%(line)s}. Par exemple,
 
 @example
 emacsclient --no-wait +%(line)s:%(column)s %(file)s
@@ -148,13 +149,14 @@ Certains éditeurs de texte prennent en charge LilyPond.
 * Autres éditeurs::
 @end menu
 
+
 @node Mode Emacs
 @unnumberedsubsec Mode Emacs
 @translationof Emacs mode
 
 Emacs dispose d'un @file{lilypond-mode} qui fournit l'autocomplétion des
 mots-clés, l'indentation, les appariements spécifiques à LilyPond, la
-coloration synthaxique, ainsi que des raccourcis pour compiler et
+coloration syntaxique, ainsi que des raccourcis pour compiler et
 consulter les manuels de LilyPond en mode info.  Si le
 @file{lilypond-mode} n'était pas installé sur votre système, procédez
 comme ci-dessous.
@@ -182,10 +184,10 @@ propre répertoire (par exemple @file{~/site-lisp/}) à votre
 @translationof Vim mode
 
 En ce qui concerne @uref{http://@/www@/.vim@/.org,Vim}, LilyPond fournit
-tout le nécessaire pour gérer la coloration synthaxique et
-l'indentation.  Le mode spécifique à Vim doît être indiqué dans le
-fichier @file{$HOME/.vimrc}.  Localisez ce fichier, ou créez-le, et
-ajoutez-y les trois lignes suivantes@tie{}:
+tout le nécessaire pour gérer la coloration syntaxique et l'indentation.
+Le mode spécifique à Vim doît être indiqué dans le fichier
+@file{$HOME/.vimrc}.  Localisez ce fichier, ou créez-le, et ajoutez-y
+les trois lignes suivantes@tie{}:
 
 @example
 filetype off
@@ -196,7 +198,7 @@ filetype on
 @noindent
 Si LilyPond est installé dans un autre répertoire que
 @file{/usr/local/}, modifiez ce chemin en conséquence.  Pour de plus
-amples détails, consultez
+amples détails, consultez @rlearning{Autres sources de documentation}.
 
 
 @node Autres éditeurs
@@ -224,8 +226,8 @@ de détails, rendez-vous sur le @uref{http://@/lilypond@/.org,site}.
 Il s'agit de programmes distincts de @command{lilypond} qui se lancent
 en ligne de commande.  Pour plus de précisions, reportez-vous au
 chapitre @ref{Utilisation en ligne de commande}.  Si vous utilisez MacOS
-10.3 ou 10.4 et recontrez quelque problème avec l'un de ces scripts, comme
-@code{convert-ly}, reportez-vous à la page @rweb{MacOS X}.
+10.3 ou 10.4 et recontrez quelque problème avec l'un de ces scripts,
+comme @code{convert-ly}, reportez-vous à la page @rweb{MacOS X}.
 
 
 @knownissues
@@ -284,8 +286,7 @@ midi2ly [@var{option}]@dots{} @var{fichier-midi}
 
 Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
-@c ToBeTranslated
-@ref{Converting from other formats}.
+@ref{Conversion à partir d'autres formats}.
 
 @command{midi2ly} accepte les options suivantes@tie{}:
 
@@ -304,7 +305,7 @@ Afficher un résumé des utilisations.
 
 @item -k, --key=@var{acc}[:@var{minor}]
 Déterminer la tonalité par défaut.  @math{@var{acc} > 0} fixe le
-nombre de dièses ; @math{@var{acc} < 0} le nombre de bémols.  Une
+nombre de dièses, @math{@var{acc} < 0} le nombre de bémols.  Une
 tonalité mineure est spécifiée par l'emploi de @code{:1}.
 
 @item -o, --output=@var{file}
@@ -358,8 +359,7 @@ musicxml2ly [@var{option}]@dots{} @var{fichier-xml}
 
 Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
-@c ToBeTranslated
-@ref{Converting from other formats}.
+@ref{Conversion à partir d'autres formats}.
 
 Si le nom du fichier est @file{-}, @command{musicxml2ly} lira
 directement à partir de la ligne de commande.
@@ -392,8 +392,8 @@ gérer les ligatures automatiquement.
 
 @item -o,--output=@var{file}
 Générer le résultat dans le fichier @var{fichier}.  S'il n'est pas
-déterminé, ce sera @var{fichier-xml}@file{.ly} ; @file{-} produira le
-résultat sur la sortie standard (@var{stdout}).
+déterminé, ce sera @var{fichier-xml}@file{.ly}@tie{}; @file{-} produira
+le résultat sur la sortie standard (@var{stdout}).
 
 @item -r,--relative
 Rendu en hauteurs relatives (mode par défaut).
@@ -436,12 +436,16 @@ abc2ly [@var{option}]@dots{} @var{fichier-abc}
 @table @code
 @item -b,--beams=None
 Préserver la notion de lien de croches propre à ABC.
+
 @item -h,--help
 Afficher un résumé des utilisations.
+
 @item -o,--output=@var{file}
 Générer le résultat dans le fichier @var{file}.
+
 @item -s,--strict
 Être strict sur la réussite.
+
 @item --version
 Afficher le numéro de version.
 @end table
@@ -462,7 +466,8 @@ De la même manière,
 %%LY slyrics more words
 @end example
 
-placera le texte suivant le mot-clé @qq{slyrics} dans une ligne de paroles.
+placera le texte suivant le mot-clé @qq{slyrics} dans une ligne de
+paroles.
 
 
 @knownissues
@@ -504,16 +509,17 @@ etf2ly [@var{option}]@dots{} @var{fichier-etf}
 
 Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
-@c ToBeTranslated
-@ref{Converting from other formats}.
+@ref{Conversion à partir d'autres formats}.
 
 @command{etf2ly} accepte les options suivantes@tie{}:
 
 @table @code
 @item -h,--help
 Afficher cette aide.
+
 @item -o, --output=@var{file}
 Générer le résultat dans le fichier @var{file}.
+
 @item --version
 Afficher le numéro de version.
 @end table
@@ -537,12 +543,11 @@ outils indépendants permettent de générer des fichiers LilyPond, comme
 indiqué à la page @rweb{Facilités d'édition}.
 
 
-
 @node Inclusion de partition LilyPond dans d'autres programmes
 @section Inclusion de partition LilyPond dans d'autres programmes
 @translationof LilyPond output in other programs
 
-Nous allons nous intéresser ici à différents moyens pour associer texte
+Nous allons nous intéresser ici à différents moyens d'associer texte
 et musique, en laissant de côté l'automatisation grâce à
 @command{lilypond-book}.
 
@@ -552,12 +557,13 @@ et musique, en laissant de côté l'automatisation grâce à
 * Insertion du résultat de LilyPond dans d'autres programmes::
 @end menu
 
+
 @node Extraction de plusieurs fragments d'une grande partition
 @unnumberedsubsec Extraction de plusieurs fragments d'une grande partition
 @translationof Many quotes from a large score
 
 Si d'aventure vous deviez recopier un certain nombre d'extraits d'une
-même partition, vous pouvez recourrir à @qq{l'emporte pièce} -- la
+même partition, vous pouvez recourir à @qq{l'emporte pièce} -- la
 fonction @emph{clip systems} -- comme indiqué au chapitre
 @ruser{Extraction de fragments musicaux}.
 
@@ -581,7 +587,7 @@ d'autres programmes, utilisez @code{lilypond} plutôt que
 @code{lilypond-book}.  Chaque extrait devra être généré séparément avant
 d'être inséré dans votre document.  De très nombreux programmes sont
 capables de contenir le résultat de LilyPond, que ce soit au format
-@file{PNG}, @file{EPS}, ou @file{PDF}.
+@file{PNG}, @file{EPS} ou @file{PDF}.
 
 Les options suivantes vous permettront de réduire notablement les
 contours de l'image LilyPond@tie{}:
@@ -617,7 +623,7 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png monfichier.l
 @translationof Independent includes
 
 Certains ont écrit des lignes et des lignes de code -- souvent bien
-utiles -- qui peuvent servir à différents projets.  En attandant le jour
+utiles -- qui peuvent servir à différents projets.  En attendant le jour
 où elles pourraient faire partie intégrante de LilyPond, vous pouvez
 toujours les télécharger et les utiliser avec la commande
 @code{\include}.

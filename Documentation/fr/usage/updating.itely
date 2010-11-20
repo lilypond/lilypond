@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 6ee1c53e30a461d9b36fe5045e23815a57e1e819
+    Translation of GIT committish: ede6552ee0a9954a6ced5922cfc0cfa2c40733af
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,7 +44,7 @@ versions de LilyPond sont disponibles.
 @cindex mise à jour d'anciens fichiers
 
 La syntaxe de LilyPond change de temps en temps.  Ces changements de
-syntaxe (le langage d'entrée) accompagnent les améliorations du
+syntaxe -- le langage d'entrée -- accompagnent les améliorations du
 logiciel.  Ces changements sont parfois destinés à rendre les fichiers
 plus faciles à lire et à écrire, ou permettent d'intégrer de nouvelles
 fonctionnalités.
@@ -64,11 +64,11 @@ automatisée par notre utilitaire @command{convert-ly}.
 Malheureusement, @command{convert-ly} ne peut pas réaliser toutes les
 modifications.  Par exemple, dans les versions 2.4 et antérieures de
 LilyPond, les accents et les lettres non anglaises étaient entrées en
-utilisant LaTeX -- par exemple, @code{No\"el}.  À partir de la version
-2.6, le caratère @code{ë} doit être entré directement dans le fichier
-LilyPond comme caractère UTF-8.  @code{convert-ly} ne peut pas changer
-tous les caractères LaTeX en caractères UTF-8@tie{}; vous devez mettre à
-jour vos vieux fichiers LilyPond manuellement.
+utilisant LaTeX -- par exemple, @code{No\"el}.  À partir de la
+version@tie{}2.6, le caratère @code{ë} doit être entré directement dans
+le fichier LilyPond comme caractère UTF-8.  @code{convert-ly} ne peut
+pas changer tous les caractères LaTeX en caractères UTF-8@tie{}; vous
+devez mettre à jour vos vieux fichiers LilyPond manuellement.
 
 
 @node Exécution de convert-ly
