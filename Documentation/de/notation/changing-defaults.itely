@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -285,7 +285,7 @@ Eine praktische Anwendung von @code{\new} ist eine Partitur mit vielen
 Systemen.  Jede Stimme wird auf einem eigenen System notiert, das
 mit @code{\new Staff} begonnen wird.
 
-@lilypond[quote,verbatim,relative=2,ragged-right,fragment]
+@lilypond[quote,verbatim,relative=2,ragged-right]
 <<
   \new Staff { c4 c }
   \new Staff { d4 d }
@@ -617,7 +617,7 @@ Es folgt ein einfaches Beispiel, in dem der
 @code{Clef_engraver} (Engraver für den Schlüssel) aus dem
 @code{Staff}-Kontext entfernt werden:
 
-@lilypond[quote,relative=1,verbatim,fragment]
+@lilypond[quote,relative=1,verbatim]
 <<
   \new Staff {
     f2 g
@@ -1054,7 +1054,7 @@ darum sind auch die Beispiele dieses Abschnittes nicht
 Folgende Aufgabe wird bearbeitet:  Der Fingersatz aus dem Beispiel
 unten soll verändert werden:
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[quote,relative=2,verbatim]
 c-2
 \stemUp
 f
@@ -1251,7 +1251,7 @@ Referenz der Interna ist direkt aus diesen Anweisungen generiert.
 
 Die Position der @b{2} aus dem Beispiel unten soll also geändert werden:
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[quote,relative=2,verbatim]
 c-2
 \stemUp
 f
@@ -1295,7 +1295,7 @@ fügt drei Notenlinienzwischenräume zwischen die Zahl und den Notenkopf:
 Wenn dieser Befehl in den Quelltext eingefügt wird, bevor der
 Fingersatz notiert ist, erhält man folgendes:
 
-@lilypond[quote,relative=2,fragment,verbatim]
+@lilypond[quote,relative=2,verbatim]
 \once \override Voice.Fingering #'padding = #3
 c-2
 \stemUp
@@ -1358,6 +1358,7 @@ folgen bestimmten Regeln:
 * Der override-Befehl::
 * Der tweak-Befehl::
 * set versus override::
+* Alisten verändern::
 @end menu
 
 
@@ -1412,7 +1413,7 @@ Befehl den Kontext @code{Staff} angibt, wirkt er sich nur auf
 das gerade aktuelle Notensystem aus.  Andere Systeme behalten
 ihr normales Aussehen.  Hier ein Beispiel mit diesem Befehl:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 c4
 \override Staff.Stem #'thickness = #4.0
 c4
@@ -1430,7 +1431,7 @@ Kontext ausgelassen werden, wobei dann immer implizit der
 @code{Voice}-Kontext angenommen wird.  Mit einem zusätzlichen
 @code{\once} wirkt sich die Änderung nur einmal aus:
 
-@lilypond[quote,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c4
 \once \override Stem #'thickness = #4.0
 c4
@@ -1443,7 +1444,7 @@ ein Bogen verändert werden soll, muss der @code{\override}-Befehl
 schon geschrieben werden, bevor das Objekt begonnen wird.  In dem
 folgenden Beispiel
 
-@lilypond[quote,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \override Slur #'thickness = #3.0
 c8[( c
 \override Beam #'beam-thickness = #0.6
@@ -1537,7 +1538,7 @@ Mehrtaktpausen etwa können in einen Takt zusammengefasst werden, wenn die
 Kontexteigenschaft @code{skipBars} (Takte überspringen) auf @code{#t}
 (wahr) gesetzt wird:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 R1*2
 \set Score.skipBars = ##t
 R1*2
@@ -1548,7 +1549,7 @@ der Befehl auf den gerade aktiven unterstmöglichen Kontext,
 üblicherweise @code{ChordNames}, @code{Voice} oder
 @code{Lyrics}.
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 \set Score.autoBeaming = ##f
 <<
   {
@@ -1572,7 +1573,7 @@ keine Auswirkung, weil er sich auf den @code{Voice}-Kontext
 bezieht, die Eigenschaft sich aber im @code{Score}-Kontext
 befindet:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 R1*2
 \set skipBars = ##t
 R1*2
@@ -1598,7 +1599,7 @@ entfernt werden.  Dieser Befehl macht nur Einstellungen im richtigen
 Kontext rückgängig.  Wenn also im @code{Staff}-Kontext die
 Bebalkung ausgeschaltet wird:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 \set Score.autoBeaming = ##t
 <<
   {
@@ -1629,7 +1630,7 @@ verhalten sich gleich, wenn die gegenwärtige Basis der
 Einstellungen, die nur einmal vorgenommen werden sollen, können
 mit @code{\once} notiert werden, etwa:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 c4
 \once \set fontSize = #4.7
 c4
@@ -1694,7 +1695,7 @@ Grunde, die Eigenschaften mit Callback-Fuktionen auszurechnen.
 Beispielsweise kann die Dicke eines Notenhalses verändert werden, indem
 man die @code{thickness}-Eigenschaft des @code{Stem}-Objekts verändert:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote, verbatim, relative=2]
 c4 c
 \override Voice.Stem #'thickness = #3.0
 c4 c
@@ -1703,7 +1704,7 @@ c4 c
 Wenn kein Kontext angegeben wird, wird der tiefste aktuelle Kontext
 benutzt:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote, verbatim, relative=2]
 { \override Staff.Stem #'thickness = #3.0
   <<
     {
@@ -1728,7 +1729,7 @@ benutzt:
 Die Auswirkungen von @code{\override} können mit @code{\revert} wieder
 rückgängig gemacht werden:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote, verbatim, relative=2]
 c4
 \override Voice.Stem #'thickness = #3.0
 c4 c
@@ -1739,7 +1740,7 @@ c4
 Die Auswirkungen von @code{\override} und @code{\revert} wirken sich auf alle
 Grobs im entsprechenden Kontext aber der Stelle aus, an der sie gesetzt werden:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote, verbatim, relative=2]
 {
   <<
     {
@@ -1766,7 +1767,7 @@ Grobs im entsprechenden Kontext aber der Stelle aus, an der sie gesetzt werden:
 @code{\once} kann zusammen mit @code{\override} benutzt werden,
 um nur den aktuellen Zeitwert zu verändern:
 
-@lilypond[quote, verbatim, relative=2, fragment]
+@lilypond[quote, verbatim, relative=2]
 {
   <<
     {
@@ -1801,6 +1802,7 @@ sie enthalten, ausgeschaltet werden, indem man sie als @qq{falsch}
 ignoriert.  Das ist insbesondere nützlich, wenn man Grob-Eigenschaften
 ausschalten will, die Probleme verursachen.
 @end ignore
+
 
 @seealso
 
@@ -2062,6 +2064,122 @@ Callback-Funktionen eingesetzt werden.
 Weil es sich hier um eine globale Änderung handelt, wurde
 die spezielle Form (die mit @code{\set} verändert wird) erstellt.
 @end ignore
+
+
+@node Alisten verändern
+@subsection Alisten verändern
+@translationof Modifying alists
+
+Einige vom Benutzer einstellbare Eigenschaften sind intern als
+@emph{alists} (Assoziative Listen) dargestellt, die Paare von
+Schlüsseln und Werten speichern.  Die Struktur einer Aliste ist:
+
+@example
+#((@var{Schlüssel1} . @var{Wert1})
+  (@var{Schlüssel2} . @var{Wert2})
+  (@var{Schlüssel3} . @var{Wert3})
+  @dots{})
+@end example
+
+Wenn eine Aliste eine Grob-Eigenschaft oder eine Variable der
+@code{\paper}-Umgebung ist, können ihre Schlüssel einzeln verändert
+werden, ohne andere Schlüssel zu beeinflussen.
+
+Um beispielsweise den Freiraum zwischen benachbarten Systemen
+in einer Systemgruppe zu verkleinern, kann man die
+@code{between-staff-spacing}-Eigenschaft des
++@code{StaffGrouper}-Grobs benutzen.  Die Eigenschaft ist eine
+Aliste mit vier Schlüsseln: @code{padding} (Verschiebung),
+@code{space} (Platz), @code{minimum-distance} (minimaler Abstand)
+und @code{stretchability} (Dehnbarkeit).  Drei der vier Schlüssel
+haben zu Beginn Standardwerte, die in der Datei @file{scm/define-grobs.scm}
+(neben allen anderen Grob-Eigenschaften) definiert sind.
+
+@example
+(between-staff-spacing . ((padding . 1)
+                          (space . 9)
+                          (minimum-distance . 7)))
+@end example
+
+Eine Möglichkeit, die Systemen dichter zueinander zu zwingen,
+ist es, der Wert des @code{space}-Schlüssels (@code{9}) zu
+verändern, sodass der den gleichen Wert wie
+@code{minimum-distance} (@code{7}) hat.  Um einen einzelnen
+Schlüssel zu verändern, wird ein geschachtelter Aufruf benutzt:
+
+@lilypond[quote,verbatim]
+% default space between staves
+\new PianoStaff <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+
+% reduced space between staves
+\new PianoStaff \with {
+  \override StaffGrouper #'between-staff-spacing #'space = #7
+} <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+@end lilypond
+
+Wenn man diese Art des geschachtelten Aufrufs einsetzt, wird der
+spezifische Schlüssel (@code{space} im obigen Beispiel) verändert,
+ohne dass sich andere Wert für die gleiche Eigenschaft ändern würden.
+
+Nun sollen die Systeme so dicht wie möglich gesetzt werden, ohne das
+Überlappungen vorkommen.  Die einfachste Möglichkeit, das zu tun, wäre
+es, alle vier Wert auf 0 zu setzen.  In diesem Fall muss man nicht jeden
+Wert mit einem geschachtelten Aufruf definieren, sondern die Eigenschaft
+kann mit einem Aufruf als Aliste vollständig verändert werden:
+
+@lilypond[quote,verbatim]
+\new PianoStaff \with {
+  \override StaffGrouper #'between-staff-spacing =
+    #'((padding . 0)
+       (space . 0)
+       (minimum-distance . 0)
+       (stretchability . 0))
+} <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+@end lilypond
+
+Dabei sollte beachtet werden, dass alle Schlüssel, die bei dieser
+Weise des Aufrufs nicht explizit aufgelistet sind, auf den Standardwert
+gesetzt werden, den sie hätten, wenn sie nicht definiert werden.
+Im Falle von @code{between-staff-spacing} würden alle nicht genannten
+Schlüsselwerte auf 0 gesetzt (außer @code{stretchability}, welche immer
+den Wert von @code{space} hat, wenn sie nicht definiert ist).  Somit sind
+folgende Aufrufe äquivalent:
+
+@example
+\override StaffGrouper #'between-staff-spacing =
+  #'((space . 7))
+
+\override StaffGrouper #'between-staff-spacing =
+  #'((padding . 0)
+     (space . 7)
+     (minimum-distance . 0)
+     (stretchability . 7))
+@end example
+
+Eine möglicherweise ungewollte Konsequenz hiervon ist, dass alle
+nicht initialisierten Standardwerte, die etwa in einer Initialisierungsdatei
+zu Beginn einer LilyPond-Partitur geladen werden, nach dem Aufruf
+rückgängig gemacht werden.  Im obigen Beispiel werden die
+initialisierten Standardwerte für @code{padding} und @code{minimum-distance}
+(definiert in @file{scm/define-grobs.scm}) auf den Standard zurückgesetzt, den sie uninitialisiert hätten (0 in beiden Fällen).  Wenn eine Eigenschaft oder
+Variable in Form einer Aliste (jeder Größe) definiert wird, werden
+immer alle Schlüsselwerte auf den uninitialisierten Zustand zurückgesetzt.
+Es ist also sicherer, geschachtelte Aufrufe zu benutzen, wenn man nicht
+bewusst alle Werte zurücksetzen will.
+
+@warning{Geschachtelte Aufrufe funktionieren nicht mit
+Kontexteigenschaften (wie etwa @code{beamExceptions}, @code{keySignature},
+@code{timeSignatureSettings}, usw.)  Diese Eigenschaften können
+nur verändert werden, indem man sie vollständig als Alisten umdefiniert.}
 
 
 @node Nützliche Konzepte und Eigenschaften
@@ -2650,7 +2768,7 @@ Das ist eine Textbeschriftung, die ausgewertet wird und die
 um @i{cresc.}, @i{tr} oder andere Texte an horizontale
 Strecker zu setzen.
 
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 \override TextSpanner #'(bound-details left text)
    = \markup { \small \bold Slower }
 c2\startTextSpan b c a\stopTextSpan
@@ -2705,7 +2823,7 @@ einer Note beendet, oder am nächsten Taktstrich, wenn
 @code{to-barline} auf wahr gesetzt ist und eine Taktlinie
 vor der nächsten Note erscheint.
 
-@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
+@lilypond[verbatim,quote,ragged-right,relative=2]
 \endSpanners
 c2 \startTextSpan c2 c2
 \endSpanners

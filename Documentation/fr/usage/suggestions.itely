@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
+   Translation of GIT committish: ede6552ee0a9954a6ced5922cfc0cfa2c40733af
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -18,7 +18,7 @@
 
 Maintenant vous êtes prêt à travailler sur de plus gros fichiers
 LilyPond -- des pièces entières, et plus seulement les petits
-exemples du tutoriel.  Mais comment devriez-vous vous y prendre ?
+exemples du tutoriel.  Mais comment devriez-vous vous y prendre@tie{}?
 
 Tant que LilyPond parvient à comprendre vos fichiers et produit le
 résultat que vous souhaitez, peu importe la manière dont le code est
@@ -26,17 +26,19 @@ organisé.  Néanmoins, quelques critères doivent être pris en compte
 lorsque l'on écrit un fichier LilyPond.
 
 @itemize
-@item Si vous faites une erreur, la structure même du fichier LilyPond
+@item
+Si vous faites une erreur, la structure même du fichier LilyPond
 peut permettre de la localiser plus ou moins facilement.
 
-@item Et si vous souhaitez partager vos fichiers avec quelqu'un
-d'autre, ou si vous souhaitez modifier vos propres fichiers dans
-quelques années ?  Si certains fichiers LilyPond sont compréhensibles
-au premier coup d'oeil, d'autres vous feront vous arracher les cheveux
-pendant une heure.
+@item
+Et si vous souhaitez partager vos fichiers avec quelqu'un d'autre, ou si
+vous souhaitez modifier vos propres fichiers dans quelques années@tie{}?
+Si certains fichiers LilyPond sont compréhensibles au premier coup
+d'œil, d'autres vous feront vous arracher les cheveux pendant une heure.
 
-@item Et si vous souhaitez mettre à jour votre fichier pour
-l'utiliser avec une version plus récente de LilyPond ?  La syntaxe du
+@item
+Et si vous souhaitez mettre à jour votre fichier pour l'utiliser avec
+une version plus récente de LilyPond@tie{}?  La syntaxe du 
 langage d'entrée change parfois lorsque LilyPond s'améliore.  La
 plupart des changements peuvent être appliqués automatiquement avec
 @code{convert-ly}, mais quelques-uns peuvent requérir une intervention
@@ -52,6 +54,7 @@ faciliter leur mise à jour.
 * De la commande make et des fichiers Makefile::
 @end menu
 
+
 @node Suggestions générales
 @section Suggestions générales
 @translationof General suggestions
@@ -61,46 +64,51 @@ en résoudre d'autres.
 
 @itemize
 @item @strong{Ajoutez le numéro de version dans chaque fichier}.
-Notez que chaque fichier modèle contient une ligne @w{@code{\version
-"@version{}"}}.  Nous vous conseillons fortement d'inclure cette ligne,
-même pour de petits fichiers.  Par expérience, il est très difficile
-de se rappeler quelle version de LilyPond on utilisait quelques
-années auparavant.  L'utilitaire @command{convert-ly} demande que vous
-spécifiiez la version de LilyPond vous utilisiez alors.
+Notez que chaque fichier modèle contient une ligne
+@code{\version@tie{}"@version{}"}.  Nous vous conseillons fortement
+d'inclure cette ligne, même pour de petits fichiers.  Par expérience, il
+est très difficile de se rappeler quelle version de LilyPond on
+utilisait quelques années auparavant.  L'utilitaire @command{convert-ly}
+demande que vous spécifiiez la version de LilyPond vous utilisiez alors.
 
-@item @strong{Ajoutez des contrôles}@tie{}: @ruser{Vérifications d'octave}
-et @ruser{Vérification des limites et numéros de mesure}.  Si vous avez
-ajouté des contrôles de loin en loin, et que vous faites une erreur,
-vous pourrez la retrouver plus rapidement.  @qq{De loin en loin},
-qu'est-ce à dire ?  Cela dépend de la complexité de la musique.  Pour de
-la musique très simple, peut-être une ou deux fois.  Pour de la musique
-très complexe, peut-être à chaque mesure.
+@item @strong{Ajoutez des contrôles}
+@rusernamed{Vérifications d'octave,d'octaviation} et
+@rusernamed{Vérification des limites et numéros de mesure,de limite ou
+numéro de mesure}.  Si vous avez ajouté des contrôles de loin en loin,
+et que vous faites une erreur, vous pourrez la retrouver plus
+rapidement.  @qq{De loin en loin}, qu'est-ce à dire@tie{}?  Cela dépend
+de la complexité de la musique.  Pour de la musique très simple,
+peut-être une ou deux fois.  Pour de la musique très complexe, peut-être
+à chaque mesure.
 
-@item @strong{Une mesure par ligne de texte}.  Si la musique en
-elle-même ou le résultat que vous désirez contient quelque chose de
-compliqué, il est souvent bon de n'écrire qu'une seule mesure par ligne.
-Économiser de la place en tassant huit mesures par ligne, ça ne vaut pas
-vraiment le coup si l'on doît corriger vos fichiers.
+@item @strong{Une mesure par ligne de texte}.
+Si la musique en elle-même ou le résultat que vous désirez contient
+quelque chose de compliqué, il est souvent bon de n'écrire qu'une seule
+mesure par ligne. Économiser de la place en tassant huit mesures par
+ligne, ça ne vaut pas vraiment le coup si l'on doit corriger vos
+fichiers.
 
-@item @strong{Ajoutez des commentaires}.  Utilisez soit des
-numéros de mesure (assez souvent), soit des références au contenu
-musical -- @qq{second thème des violons}, @qq{quatrième variation}, etc.
-Vous pouvez ne pas avoir besoin des commentaires lorsque vous écrivez
-une pièce pour la première fois, mais si vous souhaitez y revenir deux
-ou trois ans plus tard pour changer quelque chose, ou si vous donnez
-le fichier source à un ami, ce sera beaucoup plus difficile de
-déterminer vos intentions ou la manière dont votre fichier est
-structuré si vous n'y avez pas adjoint de commentaires.
+@item @strong{Ajoutez des commentaires}.
+Utilisez soit des numéros de mesure (assez souvent), soit des références
+au contenu musical -- @qq{second thème des violons}, @qq{quatrième
+variation}, etc. Vous pouvez ne pas avoir besoin des commentaires
+lorsque vous écrivez une pièce pour la première fois, mais si vous
+souhaitez y revenir deux ou trois ans plus tard pour changer quelque
+chose, ou si vous donnez le fichier source à un ami, ce sera beaucoup
+plus difficile de déterminer vos intentions ou la manière dont votre
+fichier est structuré si vous n'y avez pas adjoint de commentaires.
 
-@item @strong{Indentez les accolades}.  Beaucoup de problèmes
-viennent d'un défaut de parité entre @code{@{} et @code{@}}.
+@item @strong{Indentez les accolades}.
+Beaucoup de problèmes viennent d'un défaut de parité entre @code{@{} et
+@code{@}}.
 
-@item @strong{Mentionnez les durées} au début de chaque section ou
-variable.  Si vous saisissez @code{c4 d e} au début d'une phrase, vous
-vous épargnerez des problèmes si, plus tard, vous modifiez votre musique.
+@item @strong{Mentionnez les durées}
+au début de chaque section ou variable.  Si vous saisissez @code{c4 d e}
+au début d'une phrase, vous vous épargnerez des problèmes si, plus tard,
+vous modifiez votre musique.
 
-@item @strong{Séparez les affinages de mise en forme} de la musique
-elle-même.  Voyez
+@item @strong{Séparez les affinages de mise en forme}
+de la musique elle-même.  Voyez
 @rlearning{Économie de saisie grâce aux identificateurs et fonctions} et
 @rlearning{Feuilles de style}.
 
@@ -116,23 +124,25 @@ c'est-à-dire de la musique déjà écrite,
 
 @itemize
 
-@item n'entrez qu'un seul système de la partition originale
-à la fois -- mais toujours une seule mesure par ligne de texte --,
+@item 
+n'entrez qu'un seul système de la partition originale
+à la fois -- avec toujours une seule mesure par ligne de texte --,
 et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
 utiliser les commandes @code{showLastLength} et @code{showFirstLength}
 pour accélérer la compilation -- voir
 @ruser{Ignorer des passages de la partition}@tie{};
 
-@item définissez @code{mBreak = @{\break @}} et insérez
-@code{\mBreak} dans le fichier d'entrée pour obtenir des sauts de
-ligne identiques à la partition originale.  Cela facilite la
-comparaison entre la partition originale et la partition de
-LilyPond.  Lorsque vous avez fini de relire votre musique, vous pouvez
-définir @code{mBreak = @{ @}} pour enlever tous ces sauts de ligne, et
-laisser LilyPond placer les sauts de ligne selon son propre algorithme.
+@item
+définissez @code{mBreak = @{\break @}} et insérez @code{\mBreak} dans le
+fichier d'entrée pour obtenir des sauts de ligne identiques à la
+partition originale.  Cela facilite la comparaison entre la partition
+originale et la partition de LilyPond.  Lorsque vous avez fini de relire
+votre musique, vous pouvez définir @code{mBreak@tie{}=@tie{}@{@tie{}@}}
+pour enlever tous ces sauts de ligne, et  laisser LilyPond placer les
+sauts de ligne selon son propre algorithme@tie{};
 
-@item encadrez les notes d'une partie pour instrument transpositeur
-dans un
+@item
+encadrez les notes d'une partie pour instrument transpositeur dans un
 
 @example
 \transpose c @var{tonalité-naturelle} @{...@}
@@ -181,8 +191,8 @@ g4 c'8. e16
 @}
 @end example
 
-@item @strong{Séparez les retouches} des définitions de
-musique.  Nous vous avons déjà invité à adopter une telle pratique, qui
+@item @strong{Séparez les retouches} des définitions de musique.
+Nous vous avons déjà invité à adopter une telle pratique, qui
 par ailleurs devient vitale pour des projets d'importance.  Nous
 pouvons avoir besoin de changer la définition de
 @code{fpuisp}, mais dans ce cas nous n'aurons besoin de le faire
@@ -254,8 +264,8 @@ Maintenant commencez à décommenter petit à petit le partie de
 @code{basse} jusqu'à ce que vous localisiez la ligne qui pose
 problème.
 
-Une autre technique de déboguage très utile est la construction
-d'@rweb{Exemples minimaux}.
+Une autre technique de débogage très utile est la construction
+d'un @rwebnamed{Exemples minimaux,exemple minimaliste}.
 
 
 
@@ -269,7 +279,7 @@ d'@rweb{Exemples minimaux}.
 
 La plupart des plates-formes sur lesquelles tourne LilyPond disposent
 d'un logiciel appelé @code{make}.  Ce logiciel va lire un fichier
-spécial, nommé de @code{Makefile}, qui contient tout ce qu'il
+spécial, nommé @code{Makefile}, qui contient tout ce qu'il
 faut -- les dépendances entre certains fichiers, les instructions
 successives à traiter par le système -- pour aboutir au fichier que
 vous désirez obtenir.  Il pourrait par exemple contenir tout ce qu'il
@@ -458,10 +468,10 @@ d'accès au programme @emph{Make} -- dans les variables d'environnement
 du système --  afin que l'interpréteur de commandes DOS puisse le
 localiser.  Pour cela, faites un clic droite sur @qq{Poste de travail},
 choisissez @code{Propriétés} puis @code{Avancées}.  Cliquez sur
-@code{Variables d'environnement} puis, dans l'onglet @w{@code{Variables
-système}}, mettez @code{path} en surbrillance et cliquez sur
-@code{Modifier}.  Ajoutez alors le chemin d'accès complet à l'exécutable
-de GNU Make, qui devrait ressembler à@tie{}:
+@code{Variables d'environnement} puis, dans l'onglet
+@code{Variables@tie{}système}, mettez @code{path} en surbrillance et
+cliquez sur @code{Modifier}.  Ajoutez alors le chemin d'accès complet à
+l'exécutable de GNU Make, qui devrait ressembler à@tie{}:
 
 @example
 C:\Program Files\GnuWin32\bin
