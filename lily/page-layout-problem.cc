@@ -193,10 +193,11 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real inde
   extract_grob_set (align, "elements", all_elts);
   vector<Grob*> elts = filter_dead_elements (all_elts);
   vector<Real> minimum_offsets = Align_interface::get_minimum_translations_without_min_dist (align, elts, Y_AXIS);
+  vector<Real> minimum_offsets_with_min_dist = Align_interface::get_minimum_translations (align, elts, Y_AXIS);
 
   Skyline up_skyline (UP);
   Skyline down_skyline (DOWN);
-  build_system_skyline (elts, minimum_offsets, &up_skyline, &down_skyline);
+  build_system_skyline (elts, minimum_offsets_with_min_dist, &up_skyline, &down_skyline);
   up_skyline.shift (indent);
   down_skyline.shift (indent);
 
