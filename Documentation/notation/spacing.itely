@@ -528,8 +528,6 @@ the following values are affected by this scaling:
 @item @var{right-margin}
 @item @var{top-margin}
 @item @var{bottom-margin}
-@item @var{head-separation}
-@item @var{foot-separation}
 @item @var{indent}
 @item @var{short-indent}
 @end itemize

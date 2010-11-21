@@ -1,10 +1,10 @@
 \version "2.13.7"
 
 \header {
-  texidoc = "Default margin values are accessible in paper-defaults-init.ly
-and apply to the default paper size returned by (ly:get-option
-'paper-size). For other paper sizes, they are scaled linearly.
-This also affects head- and foot-separation as well as indents."
+  texidoc = "Default values for margins, indents, and offsets are
+accessible in paper-defaults-init.ly and apply to the default
+paper size returned by (ly:get-option 'paper-size).  For other
+paper sizes, they are scaled linearly."
 }
 
 someNotes = \repeat unfold 20 { c4 d e f }

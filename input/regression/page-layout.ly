@@ -2,7 +2,7 @@
 \version "2.12.0"
 
 
-    
+
 \header {
 
      texidoc = "This shows how different settings on \paper modify the
@@ -10,9 +10,9 @@ general page layout. Basically \paper will set the values for the
 whole paper while \layout for each \score block.
 
 This file is best viewed outside the collated files document.
-" 
+"
 
- 
+
     title = "Title"
     subtitle = "(and (the) subtitle)"
     subsubtitle = "Sub sub title"
@@ -29,8 +29,6 @@ This file is best viewed outside the collated files document.
     %paper-height = 2\cm
     top-margin = 2\cm
     bottom-margin = 2\cm
-    %heap-separation = 7\cm
-    %foot-separation = 7\cm
     ragged-bottom = ##t
     ragged-last-bottom = ##t
     left-margin = 3\cm
@@ -41,7 +39,7 @@ This file is best viewed outside the collated files document.
     annotate-spacing = ##t
 
 
-    
+
   }
 
 

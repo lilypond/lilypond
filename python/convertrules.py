@@ -3092,6 +3092,22 @@ def conv(str):
 
     return str
 
+@rule ((2, 13, 40),
+    _ ("Remove \\paper variables head-separation and foot-separation."))
+def conv(str):
+    if re.search(r'head-separation', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % ("head-separation.\n"))
+        stderr_write(_ ("Adjust settings for top-system-spacing instead.\n"))
+        stderr_write(UPDATE_MANUALLY)
+    if re.search(r'foot-separation', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % ("foot-separation.\n"))
+        stderr_write(_ ("Adjust settings for last-bottom-spacing instead.\n"))
+        stderr_write(UPDATE_MANUALLY);
+
+    return str
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

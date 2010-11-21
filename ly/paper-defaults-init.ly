@@ -115,9 +115,6 @@
   outer-margin-default = 20 \mm
   binding-offset-default = 0 \mm
 
-  head-separation-default = 4 \mm
-  foot-separation-default = 4 \mm
-
   indent-default = 15 \mm
   short-indent-default = 0 \mm
 

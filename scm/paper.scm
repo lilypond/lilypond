@@ -20,8 +20,6 @@
 		  '(blot-diameter
 		    bottom-margin
 		    cm
-		    foot-separation
-		    head-separation
 		    horizontal-shift
 		    in
 		    indent
@@ -251,8 +249,6 @@ size. SZ is in points"
 			   (("binding-offset" . ,w) . '())
 			   (("top-margin" . ,h) . '())
 			   (("bottom-margin" . ,h) . '())
-			   (("head-separation" . ,h) . '())
-			   (("foot-separation" . ,h) . '())
 			   (("indent" . ,w) . '())
 			   (("short-indent" . ,w) . '())))
        (scaled-values
@@ -337,7 +333,7 @@ size. SZ is in points"
      (lambda (v)
        (let* ((var (module-variable old-scope v))
 	      (val (if (variable? var) (variable-ref var) #f)))
-	 
+
 	 (if (number? val)
 	     (module-define! scope v (/ val scale))
 	     ;; Cannot warn for non-numbers, eg. for paper-width, paper-height.
