@@ -756,16 +756,33 @@ Don't capitalize the first word.
 @itemize
 @item
 @code{@@enumerate} --- Create an ordered list (with numbers).
-Always put @samp{@@item} on its own line, and separate consecutive
-items with a blank line:
+Always put @samp{@@item} on its own line.  As an exception, if all
+the items in the list are short enough to fit on single lines, placing
+them on the @samp{@@item} lines is also permissible.  @samp{@@item}
+and @samp{@@end@tie{}enumerate} should always be preceded by a blank
+line.
 
 @example
 @@enumerate
-@@item
-Foo
 
 @@item
-Bar
+A long multi-line item like this one must begin
+on a line of its own and all the other items in
+the list must do so too.
+
+@@item
+Even short ones
+
+@@end enumerate
+@end example
+
+@example
+@@enumerate
+
+@@item Short item
+
+@@item Short item
+
 @@end enumerate
 @end example
 
