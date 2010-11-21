@@ -68,19 +68,18 @@ estimated.  Finally, a page breaking and line breaking combination is chosen
 so that neither the horizontal nor the vertical spacing is too cramped
 or stretched.
 
-Settings which influence layout may be placed in two blocks.
-The @code{\paper @{...@}} block is placed outside any
-@code{\score @{...@}} blocks and contains settings that
-relate to the entire document.  The @code{\layout @{...@}}
-block is placed within a @code{\score @{...@}} block and
-contains settings for that particular score.  If you have
-only one @code{\score @{...@}} block the two have the same
-effect.  In general the commands shown in this chapter can
-be placed in either.
+Two types of blocks can contain layout settings:
+@code{\paper @{@dots{}@}} and @code{\layout @{@dots{}@}}.  The
+@code{\paper} block contains page layout settings that are
+expected to be the same for all scores in a book, such as the
+paper height, or whether to print page numbers, etc.  See
+@ref{Page layout}.  The @code{\layout} block contains score layout
+settings, such as the number of systems to use, or the space
+between staff-groups, etc.  See @ref{Score layout}.
 
 @menu
-* Paper and pages::
-* Music layout::
+* Page layout::
+* Score layout::
 * Breaks::
 * Vertical spacing::
 * Horizontal spacing::
@@ -88,23 +87,110 @@ be placed in either.
 @end menu
 
 
-@node Paper and pages
-@section Paper and pages
+@node Page layout
+@section Page layout
 
-This section deals with the boundaries that define the area
-within which music can be printed.
+This section discusses page layout options for the @code{\paper}
+block.
 
 @menu
-* Paper size::
-* Page formatting::
+* The \paper block::
+* Paper size and automatic scaling::
+* Fixed vertical spacing \paper variables::
+* Flexible vertical spacing \paper variables::
+* Horizontal spacing \paper variables::
+* Other \paper variables::
 @end menu
 
 
-@node Paper size
-@subsection Paper size
+@node The \paper block
+@subsection The @code{\paper} block
+
+The @code{\paper} block can appear within a @code{\book} block,
+but not within a @code{\score} block.  Settings in a @code{\paper}
+block apply to the entire book, which may include multiple scores.
+Settings that can appear in a @code{\paper} block include:
+
+@itemize
+
+@item
+the @code{set-paper-size} scheme function,
+
+@item
+@code{\paper} variables used for customizing page layout, and
+
+@item
+markup definitions used for customizing the layout of headers,
+footers, and titles.
+
+@end itemize
+
+The @code{set-paper-size} function is discussed in the next
+section, @ref{Paper size and automatic scaling}.  The
+@code{\paper} variables that deal with page layout are discussed
+in later sections.  The markup definitions that deal with headers,
+footers, and titles are discussed in
+@ref{Custom headers footers and titles}.
+
+Most @code{\paper} variables will only work in a @code{\paper}
+block.  The few that will also work in a @code{\layout} block are
+listed in @ref{The \layout block}.
+
+Except when specified otherwise, all @code{\paper} variables that
+correspond to distances on the page are measured in millimeters,
+unless a different unit is specified by the user.  For example,
+the following declaration sets @code{top-margin} to ten
+millimeters:
+
+@example
+\paper @{
+  top-margin = 10
+@}
+@end example
+
+To set it to @code{0.5} inches, use the @code{\in} unit suffix:
+
+@example
+\paper @{
+  top-margin = 0.5\in
+@}
+@end example
+
+The available unit suffixes are @code{\mm}, @code{\cm},
+@code{\in}, and @code{\pt}.  For the sake of clarity, when using
+millimeters, the @code{\mm} is typically included in the code,
+even though it is not technically necessary.
+
+It is also possible to define @code{\paper} values using Scheme.
+The Scheme equivalent of the above example is:
+
+@example
+\paper @{
+  #(define top-margin (* 0.5 in))
+@}
+@end example
+
+@seealso
+Notation Reference:
+@ref{Custom headers footers and titles}.
+
+
+@node Paper size and automatic scaling
+@subsection Paper size and automatic scaling
 
 @cindex paper size
 @cindex page size
+
+@funindex \paper
+
+@menu
+* Setting paper size::
+* Automatic scaling to paper size::
+@end menu
+
+
+@node Setting paper size
+@unnumberedsubsubsec Setting paper size
 
 Two functions are available for changing the paper size:
 @code{set-default-paper-size} and @code{set-paper-size}.
@@ -123,6 +209,13 @@ block:
 @end example
 
 @noindent
+In the toplevel scope, the @code{set-default-paper-size} function
+can safely be called anywhere before the first @code{\paper}
+block.  Within a @code{\paper} block, the safest place to call
+@code{set-paper-size} is at the top, above the list of variable
+declarations.  The reasons for this are discussed in
+@ref{Automatic scaling to paper size}.
+
 @code{set-default-paper-size} sets the size of all pages, whereas
 @code{set-paper-size} only sets the size of the pages that the
 @code{\paper} block applies to.  For example, if the @code{\paper}
@@ -156,70 +249,111 @@ degrees, and wider line widths will be set accordingly.
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
-Setting the paper size will adjust a number of @code{\paper}
-variables, such as margins.  To use a particular paper size with
-altered @code{\paper} variables, set the paper size before setting
-the variables.
-
-
 @seealso
 Installed Files:
 @file{scm/@/paper@/.scm}.
 
-Snippets:
-@rlsr{Spacing}.
+
+@node Automatic scaling to paper size
+@unnumberedsubsubsec Automatic scaling to paper size
+
+If the paper size is changed with one of the scheme functions
+(@code{set-default-paper-size} or @code{set-paper-size}), the
+values of several @code{\paper} variables are automatically scaled
+to the new size.  To bypass the automatic scaling for a particular
+variable, set the variable after setting the paper size.  Note
+that the automatic scaling is not triggered by setting
+@code{paper-height} or @code{paper-width}, even though
+@code{paper-width} can influence other values (this is separate
+from scaling and is discussed below).  The
+@code{set-default-paper-size} and @code{set-paper-size} functions
+are described in @ref{Setting paper size}.
+
+The vertical dimensions affected by automatic scaling are
+@code{top-margin} and @code{bottom-margin}.  The horizontal
+dimensions affected by automatic scaling are @code{left-margin},
+@code{right-margin}, @code{inner-margin}, @code{outer-margin},
+@code{binding-offset}, @code{indent}, and @code{short-indent}.
+
+The default values for these dimensions are set in
+@file{ly/paper-defaults-init.ly}, using internal variables named
+@code{top-margin-default}, @code{bottom-margin-default}, etc.
+These are the values that result at the default paper size
+@code{a4}.  For reference, with @code{a4} paper the
+@code{paper-height} is @code{297\mm} and the @code{paper-width} is
+@code{210\mm}.
+
+@seealso
+Installed Files:
+@file{ly/paper-defaults-init.ly},
+@file{scm/paper.scm}.
 
 
-@node Page formatting
-@subsection Page formatting
+@node Fixed vertical spacing \paper variables
+@subsection Fixed vertical spacing @code{\paper} variables
 
-@funindex \paper
+@warning{Some @code{@bs{}paper} dimensions are automatically
+scaled to the paper size, which may lead to unexpected behavior.
+See @ref{Automatic scaling to paper size}.}
 
-Margins, headers, and footers and other layout variables are
-automatically set according to the paper size.
-
-Default margin values are accessible in
-@file{ly/@/paper@/-defaults@/-init@/.ly}.  They apply to the default
-paper size (a4, unless specified differently) and are scaled
-accordingly for other paper sizes.
-
-This section lists and describes a number of paper variables that
-may be altered.
-
-@menu
-* Fixed vertical dimensions::
-* Flexible vertical dimensions::
-* Horizontal dimensions::
-* Other layout variables::
-@end menu
-
-
-@node Fixed vertical dimensions
-@unnumberedsubsubsec Fixed vertical dimensions
+Default values (before scaling) are defined in
+@file{ly/paper-defaults-init.ly}.
 
 @table @code
 @item paper-height
 @funindex paper-height
 
-The height of the page.  Default: the height of the current paper
-size.  For details, see @ref{Paper size}.
+The height of the page, unset by default.  Note that the automatic
+scaling of some vertical dimensions is not affected by this.
 
 @item top-margin
 @funindex top-margin
 
 The margin between the top of the page and the top of the
-printable area.  Default: @code{5\mm}.
+printable area.  If the paper size is modified, this dimension's
+default value is scaled accordingly.
 
 @item bottom-margin
 @funindex bottom-margin
 
 The margin between the bottom of the printable area and the bottom
-of the page.  Default: @code{6\mm}.
+of the page.  If the paper size is modified, this dimension's
+default value is scaled accordingly.
+
+@item ragged-bottom
+@funindex ragged-bottom
+
+If set to true, systems will not spread vertically down the page.
+This does not affect the last page.  This should be set to true
+for pieces that have only two or three systems per page, for
+example orchestral scores.
+
+@item ragged-last-bottom
+@funindex ragged-last-bottom
+
+If set to false, systems will spread vertically down the last
+page.  Pieces that amply fill two pages or more should have this
+set to true.  It also affects the last page of book parts, i.e.
+parts of a book created with @code{\bookpart} blocks.
+
 @end table
 
+@seealso
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
 
-@node Flexible vertical dimensions
-@unnumberedsubsubsec Flexible vertical dimensions
+Snippets:
+@rlsr{Spacing}.
+
+@knownissues
+
+The titles (from the @code{\header} block) are treated as a
+system, so @code{ragged-bottom} and @code{ragged-last-bottom} will
+add space between the titles and the first system of the score.
+
+
+@node Flexible vertical spacing \paper variables
+@subsection Flexible vertical spacing @code{\paper} variables
 
 In most cases, it is preferable for the vertical distances between
 certain items (such as margins, titles, systems, and separate
@@ -231,46 +365,57 @@ of these dimensions.
 Note that the @code{\paper} variables discussed in this section do
 not control the spacing of staves within individual systems.
 Within-system spacing is controlled by grob properties, with
-settings typically entered inside a @code{\score} or @code{layout}
-block, and not inside a @code{\paper} block.  See
+settings typically entered inside a @code{\score} or
+@code{\layout} block, and not inside a @code{\paper} block.  See
 @ref{Flexible vertical spacing within systems}.
 
+@menu
+* Structure of flexible vertical spacing alists::
+* List of flexible vertical spacing \paper variables::
+@end menu
 
-@subsubheading Structure of spacing alists for @code{\paper} variables
 
-Each of these variables is an alist (association list) containing
-four @emph{keys}:
+@node Structure of flexible vertical spacing alists
+@unnumberedsubsubsec Structure of flexible vertical spacing alists
+
+Each of the flexible vertical spacing @code{\paper} variables is
+an alist (association list) containing four @emph{keys}:
 
 @itemize
-@item @code{padding} -- the minimum required amount of
-unobstructed vertical whitespace between two items, measured in
-staff-spaces.  This can be thought of as the minimum height of an
-unobstructed (invisible) rectangle that extends from the leftmost
-to the rightmost point of the combined items.
 
-@item @code{space} -- the default vertical distance, measured in
-staff-spaces, between the @emph{reference points} of the two
-items, when no collisions would result, and no stretching or
-compressing is in effect.  The reference point of a (title or
-top-level) markup is its highest point, and the reference point of
-a system is the vertical center of the nearest @code{StaffSymbol}
--- even if a non-staff line (such as a @code{Lyrics} context) is
-in the way.  Values for @code{space} that are less than either
-@code{padding} or @code{minimum-distance} are not meaningful,
-since the resulting distance will never be less than either
-@code{padding} or @code{minimum-distance}.
+@item
+@code{padding} -- the minimum required amount of unobstructed
+vertical whitespace between two items, measured in staff-spaces.
+This can be thought of as the minimum height of an unobstructed
+(invisible) rectangle that extends from the leftmost to the
+rightmost point of the combined items.
 
-@item @code{minimum-distance} -- the minimum required vertical
+@item
+@code{space} -- the vertical distance, measured in staff-spaces,
+between the @emph{reference points} of the two items, when no
+collisions would result, and no stretching or compressing is in
+effect.  The reference point of a (title or top-level) markup is
+its highest point, and the reference point of a system is the
+vertical center of the nearest @code{StaffSymbol} -- even if a
+non-staff line (such as a @code{Lyrics} context) is in the way.
+Values for @code{space} that are less than either @code{padding}
+or @code{minimum-distance} are not meaningful, since the resulting
+distance will never be less than either @code{padding} or
+@code{minimum-distance}.
+
+@item
+@code{minimum-distance} -- the smallest allowable vertical
 distance, measured in staff-spaces, between the reference points
 of the two items, when compressing is in effect.  Values for
 @code{minimum-distance} that are less than @code{padding} are not
 meaningful, since the resulting distance will never be less than
 @code{padding.}
 
-@item @code{stretchability} -- a unitless measure of the
-dimension's relative propensity to stretch.  If zero, the distance
-will not stretch (unless collisions would result).  When positive,
-the significance of a particular dimension's @code{stretchability}
+@item
+@code{stretchability} -- a unitless measure of the dimension's
+relative propensity to stretch.  If zero, the distance will not
+stretch (unless collisions would result).  When positive, the
+significance of a particular dimension's @code{stretchability}
 value lies only in its relation to the @code{stretchability}
 values of the other dimensions.  For example, if one dimension has
 twice the @code{stretchability} of another, it will stretch twice
@@ -281,30 +426,35 @@ spring.  If unset, the default value is set to @code{space}.  Note
 that the dimension's propensity to @emph{compress} cannot be
 directly set by the user and is equal to
 (@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
+
 @end itemize
 
 If a page has a ragged bottom, the resulting distance is the
 largest of:
 
 @itemize
-@item @code{space},
-@item @code{minimum-distance}, and
-@item @code{padding} plus the smallest distance necessary to
-eliminate collisions.
+
+@item
+@code{space},
+
+@item
+@code{minimum-distance}, and
+
+@item
+@code{padding} plus the smallest distance necessary to eliminate
+collisions.
+
 @end itemize
 
 Specific methods for modifying alists are discussed in
-@ref{Modifying alists}.  The flexible vertical @code{\paper}
-dimensions variables can only be set within a @code{\paper} block.
-
-The following example demonstrates the two ways these alists can
-be modified.  The first declaration updates one key-value
-individually, and the second complete re-defines the variable:
+@ref{Modifying alists}.  The following example demonstrates the
+two ways these alists can be modified.  The first declaration
+updates one key-value individually, and the second completely
+redefines the variable:
 
 @example
 \paper @{
   system-system-spacing #'space = #8
-
   score-system-spacing =
     #'((padding . 1)
        (space . 12)
@@ -313,11 +463,9 @@ individually, and the second complete re-defines the variable:
 @}
 @end example
 
-The initialized default settings for these variables are defined
-in @file{ly/paper-defaults-init.ly}.
 
-
-@subsubheading Flexible vertical dimension @code{\paper} variables
+@node List of flexible vertical spacing \paper variables
+@unnumberedsubsubsec List of flexible vertical spacing @code{\paper} variables
 
 The names of these variables follow the format
 @code{@var{upper}-@var{lower}-spacing}, where @code{@var{upper}}
@@ -327,7 +475,12 @@ description of the alist structure above).  Note that in these
 variable names, the term @q{@code{markup}} refers to both
 @emph{title markups} (@code{bookTitleMarkup} or
 @code{scoreTitleMarkup}) and @emph{top-level markups} (see
-@ref{File structure}).
+@ref{File structure}).  All distances are measured in
+staff-spaces.
+
+Default settings are defined in @file{ly/paper-defaults-init.ly}.
+
+@c TODO: Where do headers/footers fit in? -mp
 
 @table @code
 @item markup-system-spacing
@@ -381,271 +534,231 @@ of the top margin) to the first (title or top-level) markup on a
 page, when there is no system between the two.
 @end table
 
-
-@snippets
-
-The header and footer are created by the functions
-@code{make-footer} and @code{make-header}, defined in
-@code{\paper}.  The default implementations are in
-@file{ly/paper-defaults.ly} and @file{ly/titling-init.ly}.
-
-The page layout itself is done by two functions in the
-@code{\paper} block, @code{page-music-height} and
-@code{page-make-stencil}.  The former tells the line-breaking
-algorithm how much space can be spent on a page, the latter
-creates the actual page given the system to put on it.
-
-You can define @code{\paper} block values in Scheme.  In that case
-@code{mm}, @code{in}, @code{pt}, and @code{cm} are variables
-defined in @file{paper-defaults.ly} with values in millimeters.
-That is why the value @w{@code{2 cm}} must be multiplied in the
-example:
-
-@example
-\paper @{
- #(define bottom-margin (* 2 cm))
-@}
-@end example
-
-
-Example:
-
-@example
-\paper @{
-  paper-width = 2\cm
-  top-margin = 3\cm
-  bottom-margin = 3\cm
-  ragged-last-bottom = ##t
-@}
-@end example
-
-This second example centers page numbers at the bottom of every page.
-
-@example
-\paper @{
-  print-page-number = ##t
-  print-first-page-number = ##t
-  oddHeaderMarkup = \markup \fill-line @{ " " @}
-  evenHeaderMarkup = \markup \fill-line @{ " " @}
-  oddFooterMarkup = \markup @{ \fill-line @{
-     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
-     \fromproperty #'page:page-number-string @} @}
-  evenFooterMarkup = \markup @{ \fill-line @{
-     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
-     \fromproperty #'page:page-number-string @} @}
-@}
-@end example
-
 @seealso
 Notation Reference:
 @ref{Flexible vertical spacing within systems}.
+
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
 
 Snippets:
 @rlsr{Spacing}.
 
 
-@node Horizontal dimensions
-@unnumberedsubsubsec Horizontal dimensions
+@node Horizontal spacing \paper variables
+@subsection Horizontal spacing @code{\paper} variables
+
+@warning{Some @code{@bs{}paper} dimensions are automatically
+scaled to the paper size, which may lead to unexpected behavior.
+See @ref{Automatic scaling to paper size}.}
+
+@menu
+* \paper variables for widths and margins::
+* \paper variables for two-sided mode::
+* \paper variables for shifts and indents::
+@end menu
 
 
-There are a few variables that determine the horizontal dimensions
-on a page:
+@node \paper variables for widths and margins
+@unnumberedsubsubsec @code{\paper} variables for widths and margins
+
+Default values (before scaling) that are not listed here are
+defined in @file{ly/paper-defaults-init.ly}.
 
 @table @code
-
-@item binding-offset
-@funindex binding-offset
-
-The amount @code{inner-margin} is increased
-to make sure nothing will be hidden by the binding.
-Works only with @code{two-sided} set to true.  Default:
-@code{0}.
-
-@item horizontal-shift
-@funindex horizontal-shift
-
-The amount that all systems (including titles and system
-separators) are shifted to the right.  Default: @code{0.0}.
-
-@item indent
-@funindex indent
-
-The level of indentation for the first system in a score.
-Default: @code{15\mm}.
-
-@item inner-margin
-@funindex inner-margin
-
-The margin all pages have at the inner side if they are part
-of a book.  Works only with @code{two-sided} set to true.
-Default: @code{10\mm}.
-
-@item left-margin
-@funindex left-margin
-
-The margin between the left edge of the page and the beginning of
-each system.  Default: @code{10\mm}.
-
-@item line-width
-@funindex line-width
-
-The width of music systems.  Default: @code{paper-width} minus
-@code{left-margin} and @code{right-margin}.
-
-@item outer-margin
-@funindex outer-margin
-
-The margin all pages have at the outer side if they are part
-of a book.  Works only with @code{two-sided} set to true.
-Default: @code{20\mm}.
 
 @item paper-width
 @funindex paper-width
 
-The width of the page.  Default: the width of the current paper
-size.  For details, see @ref{Paper size}.
+The width of the page, unset by default.  While @code{paper-width}
+has no effect on the automatic scaling of some horizontal
+dimensions, it does influence the @code{line-width} variable.  If
+both @code{paper-width} and @code{line-width} are set, then
+@code{left-margin} and @code{right-margin} will also be updated.
+Also see @code{check-consistency}.
+
+@item line-width
+@funindex line-width
+
+The horizontal extent of the staff lines in unindented, non-ragged
+systems, equal to
+@code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}
+when unset.  If @code{line-width} is set, and both
+@code{left-margin} and @code{right-margin} are unset, then the
+margins will be updated to center the systems on the page
+automatically.  Also see @code{check-consistency}.
+
+@item left-margin
+@funindex left-margin
+
+The margin between the left edge of the page and the start of the
+staff lines in unindented systems.  If the paper size is modified,
+this dimension's default value is scaled accordingly.  If
+@code{left-margin} is unset, and both @code{line-width} and
+@code{right-margin} are set, then @code{left-margin} is set to
+@code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}right-margin)}.
+If only @code{line-width} is set, then both margins are set to
+@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)},
+and the systems are consequently centered on the page.  Also see
+@code{check-consistency}.
 
 @item right-margin
 @funindex right-margin
 
-The margin between the right edge of the page and the end of
-each system.  Default: @code{10\mm}.
+The margin between the right edge of the page and the end of the
+staff lines in non-ragged systems.  If the paper size is modified,
+this dimension's default value is scaled accordingly.  If
+@code{right-margin} is unset, and both @code{line-width} and
+@code{left-margin} are set, then @code{right-margin} is set to
+@code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}left-margin)}.
+If only @code{line-width} is set, then both margins are set to
+@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)},
+and the systems are consequently centered on the page.  Also see
+@code{check-consistency}.
+
+@item check-consistency
+@funindex check-consistency
+
+If set to true, print a warning if @code{left-margin},
+@code{line-width}, and @code{right-margin} do not exactly add up
+to @code{paper-width}, and replace each of these (except
+@code{paper-width}) with its default value (scaled to the paper
+size if necessary).  If set to false, ignore any inconsistencies
+and allow systems to run off the edge of the page.
+
+@item ragged-right
+@funindex ragged-right
+
+If set to true, systems will not fill the line width.  Instead,
+systems end at their natural horizontal length.  Default:
+@code{#t} for scores with only one system, and @code{#f} for
+scores with two or more systems.  This variable can also be set in
+a @code{\layout} block.
+
+@item ragged-last
+@funindex ragged-last
+
+If set to true, the last system in the score will not fill the
+line width.  Instead the last system ends at its natural
+horizontal length.  Default: @code{#f}.  This variable can also be
+set in a @code{\layout} block.
+
+@end table
+
+@seealso
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node \paper variables for two-sided mode
+@unnumberedsubsubsec @code{\paper} variables for two-sided mode
+
+Default values (before scaling) are defined in
+@file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@item two-sided
+@funindex two-sided
+
+@cindex gutter
+@cindex binding gutter
+
+If set to true, use @code{inner-margin}, @code{outer-margin} and
+@code{binding-offset} to determine margins depending on whether
+the page number is odd or even.  This overrides @code{left-margin}
+and @code{right-margin}.
+
+@item inner-margin
+@funindex inner-margin
+
+The margin all pages have at the inner side if they are part of a
+book.  If the paper size is modified, this dimension's default
+value is scaled accordingly.  Works only with @code{two-sided} set
+to true.
+
+@item outer-margin
+@funindex outer-margin
+
+The margin all pages have at the outer side if they are part of a
+book.  If the paper size is modified, this dimension's default
+value is scaled accordingly.  Works only with @code{two-sided} set
+to true.
+
+@item binding-offset
+@funindex binding-offset
+
+The amount @code{inner-margin} is increased to make sure nothing
+will be hidden by the binding.  If the paper size is modified,
+this dimension's default value is scaled accordingly.  Works only
+with @code{two-sided} set to true.
+
+@end table
+
+@seealso
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node \paper variables for shifts and indents
+@unnumberedsubsubsec @code{\paper} variables for shifts and indents
+
+Default values (before scaling) that are not listed here are
+defined in @file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@item horizontal-shift
+@funindex horizontal-shift
+
+@c This default value is buried in the middle of page.scm.  -mp
+
+The amount that all systems (including titles and system
+separators) are shifted to the right.  Default: @code{0.0\mm}.
+
+@item indent
+@funindex indent
+
+The level of indentation for the first system in a score.  If the
+paper size is modified, this dimension's default value is scaled
+accordingly.  This variable can also be set in a @code{\layout}
+block.
 
 @item short-indent
 @funindex short-indent
 
 The level of indentation for all systems in a score besides the
-first system.  Default: @code{0}.
+first system.  If the paper size is modified, this dimension's
+default value is scaled accordingly.  This variable can also be
+set in a @code{\layout} block.
 
 @end table
 
-If some values are not set, defaults will be taken.  Their exact
-value is adjusted, depending on the paper size specified.  Currently,
-the following values are affected by this scaling:
-
-@itemize
-@item @var{left-margin}
-@item @var{right-margin}
-@item @var{top-margin}
-@item @var{bottom-margin}
-@item @var{indent}
-@item @var{short-indent}
-@end itemize
-
-The settings for @code{line-width}, @code{left-margin},
-@code{right-margin} and @code{paper-width} depend on
-each other, but they do not have to be specified
-completely.
-
-@example
-\paper @{
-  left-margin = 30\mm
-@}
-@end example
-
-In this example, only @code{left-margin} is set.  The value for
-@code{right-margin} will remain default, @code{line-width} is
-calculated automatically.
-
-@example
-\paper @{
-  line-width = 150\mm
-@}
-@end example
-
-Here @code{left-margin} and @code{right-margin} will be set
-to the same value.  Therefore, @code{line-width} is subtracted
-from @code{paper-width} and divided by two.  That means systems
-are centered on the page, if only @code{line-width} is
-specified.
-
-Some checks occur to ensure the values are set correctly.
-If the values do not match or systems would run off the page,
-a warning is printed and default values are set.
-
-@example
-\paper @{
-  paper-width = 210\mm
-  left-margin = 20\mm
-  right-margin = 30\mm
-  line-width = 100\mm
-@}
-@end example
-
-These checks can be avoided by setting @code{check-consistency}
-to false.
-
-@example
-\paper @{
-  paper-width = 210\mm
-  left-margin = 20\mm
-  line-width = 200\mm
-  check-consistency = ##f
-@}
-@end example
-
-@warning{If @code{paper-width} is manually set, @code{line-width},
-@code{left-margin}, @code{indent}, and @code{short-indent} may
-have to be adjusted as well.}
-
 @seealso
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
+
 Snippets:
 @rlsr{Spacing}.
 
 
+@node Other \paper variables
+@subsection Other @code{\paper} variables
 
-@node Other layout variables
-@unnumberedsubsubsec Other layout variables
+@menu
+* \paper variables for line breaking::
+* \paper variables for page breaking::
+* \paper variables for page numbering::
+* Miscellaneous \paper variables::
+@end menu
 
-These variables can be used to adjust page layout in general.
+
+@node \paper variables for line breaking
+@unnumberedsubsubsec @code{\paper} variables for line breaking
+
+@c TODO: Mention that ly:optimal-breaking is on by default? -mp
 
 @table @code
-
-@item auto-first-page-number
-@funindex auto-first-page-number
-
-The page breaking algorithm is affected by the first page number
-being odd or even.  If set to true, the page breaking algorithm
-will decide whether to start with an odd or even number.  This
-will result in the first page number remaining as is or being
-increased by one.  Default: @code{##f}.
-
-@ignore
-
-TODO: this variable is used, but I don't know what it does. -pm
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
-
-Default: @code{2}.
-
-@end ignore
-
-@item blank-last-page-force
-@funindex blank-last-page-force
-
-The penalty for ending the score on an odd-numbered page.
-Default: @code{0}.
-
-@item blank-page-force
-@funindex blank-page-force
-
-The penalty for having a blank page in the middle of a
-score.  This is not used by @code{ly:optimal-breaking} since it will
-never consider blank pages in the middle of a score.  Default:
-@code{5}.
-
-@item check-consistency
-@funindex check-consistency
-
-If set to true, check whether @code{left-margin}, @code{right-margin} and
-@code{line-width} fit each other.  Also make sure that their combination
-does not exceed the available @code{paper-width}.  Default: @code{##t}.
-
-@item first-page-number
-@funindex first-page-number
-
-The value of the page number on the first page.  Default:
-@code{#1}.
 
 @item max-systems-per-page
 @funindex max-systems-per-page
@@ -662,6 +775,61 @@ may cause pages to be overfilled if it is made too large.  This is
 currently supported only by the @code{ly:optimal-breaking} algorithm.
 Default: unset.
 
+@item systems-per-page
+@funindex systems-per-page
+
+The number of systems that should be placed on each page.
+This is currently supported only by the @code{ly:optimal-breaking} algorithm.
+Default: unset.
+
+@item system-count
+@funindex system-count
+
+The number of systems to be used for a score.  Default: unset.
+This variable can also be set in a @code{\layout} block.
+
+@end table
+
+@seealso
+Notation Reference:
+@ref{Line breaking}.
+
+
+@node \paper variables for page breaking
+@unnumberedsubsubsec @code{\paper} variables for page breaking
+
+Default values not listed here are defined in
+@file{ly/paper-defaults-init.ly}
+
+@table @code
+
+@item blank-after-score-page-force
+@funindex blank-after-score-page-force
+
+The penalty for having a blank page after the end of one score and
+before the next.  By default, this is smaller than
+@code{blank-page-force}, so that we prefer blank pages after
+scores to blank pages within a score.
+
+@item blank-last-page-force
+@funindex blank-last-page-force
+
+The penalty for ending the score on an odd-numbered page.
+
+@item blank-page-force
+@funindex blank-page-force
+
+The penalty for having a blank page in the middle of a
+score.  This is not used by @code{ly:optimal-breaking} since it will
+never consider blank pages in the middle of a score.
+
+@item page-breaking
+@funindex page-breaking
+
+The page-breaking algorithm to use.  Choices are
+@code{ly:minimal-breaking}, @code{ly:page-turn-breaking}, and
+@code{ly:optimal-breaking}.
+
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
 
@@ -675,7 +843,64 @@ page-breaker will put fewer systems on each page.  Default: unset.
 @item page-count
 @funindex page-count
 
-The number of pages to be used for a score.  Default: unset.
+The number of pages to be used for a score, unset by default.
+
+@end table
+
+@seealso
+Notation Reference:
+@ref{Page breaking},
+@ref{Optimal page breaking},
+@ref{Optimal page turning},
+@ref{Minimal page breaking}.
+
+Installed files:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node \paper variables for page numbering
+@unnumberedsubsubsec @code{\paper} variables for page numbering
+
+Default values not listed here are defined in
+@file{ly/paper-defaults-init.ly}
+
+@table @code
+
+@item auto-first-page-number
+@funindex auto-first-page-number
+
+The page breaking algorithm is affected by the first page number
+being odd or even.  If set to true, the page breaking algorithm
+will decide whether to start with an odd or even number.  This
+will result in the first page number remaining as is or being
+increased by one.  Default: @code{#f}.
+
+@item first-page-number
+@funindex first-page-number
+
+The value of the page number on the first page.
+
+@item print-first-page-number
+@funindex print-first-page-number
+
+If set to true, a page number is printed on the first page.
+
+@item print-page-number
+@funindex print-page-number
+
+If set to false, page numbers are not printed.
+
+@end table
+
+@seealso
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Miscellaneous \paper variables
+@unnumberedsubsubsec Miscellaneous @code{\paper} variables
+
+@table @code
 
 @item page-spacing-weight
 @funindex page-spacing-weight
@@ -687,108 +912,41 @@ important.  Default: @code{#10}.
 @item print-all-headers
 @funindex print-all-headers
 
-If set to true, this will print all headers for each \score in the
-output.  Normally only the piece and opus header variables are
-printed.  Default: @code{##f}.
-
-@item print-first-page-number
-@funindex print-first-page-number
-
-If set to true, a page number is printed on the first page.
-Default: @code{##f}.
-
-@item print-page-number
-@funindex print-page-number
-
-If set to false, page numbers are not printed.  Default:
-@code{##t}.
-
-@item ragged-bottom
-@funindex ragged-bottom
-
-If set to true, systems will not spread vertically across the
-page.  This does not affect the last page.  Default: @code{##f}.
-
-This should be set to true for pieces that have only two or three
-systems per page, for example orchestral scores.
-
-@item ragged-last
-@funindex ragged-last
-
-If set to true, the last system in the score will not fill the
-line width.  Instead the last system ends at its natural
-horizontal length.  Default: @code{##f}.
-
-@item ragged-last-bottom
-@funindex ragged-last-bottom
-
-If set to false, systems will spread vertically across the last
-page.  Default: @code{##t}.
-
-Pieces that amply fill two pages or more should have this set to
-true.
-
-It also affects the last page of book parts, ie parts of a book created
-with @code{\bookpart} blocks.
-
-@item ragged-right
-@funindex ragged-right
-
-If set to true, systems will not fill the line width.  Instead,
-systems end at their natural horizontal length.  Default:
-@code{##f}.
-
-If the score has only one system, the default value is @code{##t}.
+If set to true, this will print all headers for each @code{\score}
+in the output.  Normally only the @code{piece} and @code{opus}
+header variables are printed.  Default: @code{#f}.
 
 @item system-separator-markup
 @funindex system-separator-markup
 
-A markup object that is inserted between systems.  This is often
-used for orchestral scores.  Default: unset.
+A markup object that is inserted between systems, often used for
+orchestral scores.  Default: unset.  The @code{\slashSeparator}
+markup, defined in @file{ly/titling-init.ly}, is provided as a
+sensible default, for example:
 
-The markup command @code{\slashSeparator} is provided as a sensible
-default,  for example
+@lilypond[quote,verbatim,noragged-right,line-width=30\mm]
+#(set-default-paper-size "a8")
 
-@lilypond[quote,ragged-right]
-#(set-default-paper-size "a6" 'landscape)
 \book {
-  \score {
-    \relative c' { c1 \break c1 }
-  }
   \paper {
     system-separator-markup = \slashSeparator
   }
+  \header {
+    tagline = ##f
+  }
+  \score {
+    \relative c'' { c1 \break c1 \break c1 }
+  }
 }
 @end lilypond
-
-@item system-count
-@funindex system-count
-
-The number of systems to be used for a score.
-Default: unset.
-
-@item systems-per-page
-@funindex systems-per-page
-
-The number of systems that should be placed on each page.
-This is currently supported only by the @code{ly:optimal-breaking} algorithm.
-Default: unset.
-
-@item two-sided
-@funindex two-sided
-
-@cindex gutter
-@cindex binding gutter
-
-If set to true, use @code{inner-margin}, @code{outer-margin} and
-@code{binding-offset} to determine margins depending on whether
-the page number is odd or even.  This overrides @code{left-margin}
-and @code{right-margin}.  Default: @code{##f}.
 
 @end table
 
 
 @seealso
+Installed files:
+@file{ly/titling-init.ly}.
+
 Snippets:
 @rlsr{Spacing}.
 
@@ -798,18 +956,78 @@ Snippets:
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
 
-The titles (from the @code{\header@{@}} section) are treated as a
-system, so @code{ragged-bottom} and @code{ragged-last-bottom} will
-add space between the titles and the first system of the score.
 
+@node Score layout
+@section Score layout
 
-@node Music layout
-@section Music layout
+This section discusses score layout options for the @code{\layout}
+block.
 
 @menu
+* The \layout block::
 * Setting the staff size::
-* Score layout::
 @end menu
+
+
+@node The \layout block
+@subsection The @code{\layout} block
+
+@funindex \layout
+
+While the @code{\paper} block contains settings that relate to the
+page formatting of the whole document, the @code{\layout} block
+contains settings for score-specific layout.  To set score layout
+options globally, enter them in a toplevel @code{\layout} block.
+To set layout options for an individual score, enter them in a
+@code{\layout} block inside the @code{\score} block, after the
+music.  Settings that can appear in a @code{\layout} block
+include:
+
+@itemize
+@item the @code{layout-set-staff-size} scheme function,
+@item context modifications in @code{\context} blocks, and
+@item @code{\paper} variables that affect score layout.
+@end itemize
+
+The @code{layout-set-staff-size} function is discussed in the next
+section, @ref{Setting the staff size}.  Context modifications are
+discussed in a separate chapter; see
+@ref{Modifying context plug-ins} and
+@ref{Changing context default settings}.  The @code{\paper}
+variables that can appear in a @code{\layout} block are:
+
+@itemize
+@item @code{ragged-right}
+@item @code{ragged-last}
+@item @code{indent}
+@item @code{short-indent}
+@item @code{system-count}
+@end itemize
+
+Here is an example @code{\layout} block:
+
+@example
+\layout @{
+  indent = 2.0\cm
+  \context @{
+    \StaffGroup
+    \override StaffGrouper #'staff-staff-spacing #space = #8
+  @}
+  \context @{
+    \Voice
+    \override TextScript #'padding = #1.0
+    \override Glissando #'thickness = #3
+  @}
+@}
+@end example
+
+
+@seealso
+Notation Reference:
+@ref{Changing context default settings}.
+
+Snippets:
+@rlsr{Spacing}.
 
 
 @node Setting the staff size
@@ -920,34 +1138,6 @@ Snippets:
 staff lines.
 
 
-@node Score layout
-@subsection Score layout
-
-@funindex \layout
-
-While @code{\paper} contains settings that relate to the page formatting
-of the whole document, @code{\layout} contains settings for score-specific
-layout.
-
-@example
-\layout @{
-  indent = 2.0\cm
-  \context @{ \Voice
-    \override TextScript #'padding = #1.0
-    \override Glissando #'thickness = #3
-  @}
-@}
-@end example
-
-
-@seealso
-Notation Reference:
-@ref{Changing context default settings}.
-
-Snippets:
-@rlsr{Spacing}.
-
-
 @node Breaks
 @section Breaks
 
@@ -1042,11 +1232,11 @@ complicated.  More details are available in
 
 
 @seealso
-Internals Reference:
-@rinternals{LineBreakEvent}.
-
 Snippets:
 @rlsr{Spacing}.
+
+Internals Reference:
+@rinternals{LineBreakEvent}.
 
 
 @knownissues
@@ -1450,11 +1640,18 @@ Three separate mechanisms control the flexible vertical spacing
 within systems, one for each of the following categories:
 
 @itemize
-@item @emph{ungrouped staves},
-@item @emph{grouped staves} (staves within a staff-group such as
+
+@item
+@emph{ungrouped staves},
+
+@item
+@emph{grouped staves} (staves within a staff-group such as
 @code{ChoirStaff}, etc.), and
-@item @emph{non-staff lines} (such as @code{Lyrics},
-@code{ChordNames}, etc.).
+
+@item
+@emph{non-staff lines} (such as @code{Lyrics}, @code{ChordNames},
+etc.).
+
 @end itemize
 
 @c TODO: Clarify this.  This almost implies that non-staff lines
@@ -1470,7 +1667,7 @@ control the vertical spacing of staves and non-staff lines within
 individual systems.  The vertical spacing between separate
 systems, scores, markups, and margins is controlled by
 @code{\paper} variables, which are discussed in
-@ref{Flexible vertical dimensions}.
+@ref{Flexible vertical spacing \paper variables}.
 
 @menu
 * Within-system spacing properties::
@@ -1603,11 +1800,12 @@ labelContext =
 Each of the vertical spacing grob properties (except
 @code{staff-affinity}) is stored as an alist (association list),
 and each uses the same alist structure as the @code{\paper}
-spacing variables discussed in @ref{Flexible vertical dimensions}.
-Specific methods for modifying alists are discussed in
-@ref{Modifying alists}.  Grob properties should be adjusted with
-an @code{\override} inside a @code{\score} or @code{\layout}
-block, and not inside a @code{\paper} block.
+spacing variables discussed in
+@ref{Flexible vertical spacing \paper variables}.  Specific methods
+for modifying alists are discussed in @ref{Modifying alists}.
+Grob properties should be adjusted with an @code{\override} inside
+a @code{\score} or @code{\layout} block, and not inside a
+@code{\paper} block.
 
 The following example demonstrates the two ways these alists can
 be modified.  The first declaration updates one key-value
@@ -3048,7 +3246,7 @@ Snippets:
 
 The output of @code{annotate-spacing} reveals vertical dimensions
 in great detail.  For details about modifying margins and other
-layout variables, see @ref{Page formatting}.
+layout variables, see @ref{Page layout}.
 
 Other than margins, there are a few other options to save space:
 
@@ -3147,7 +3345,7 @@ block so that it applies to the whole score.
 
 @seealso
 Notation Reference:
-@ref{Page formatting},
+@ref{Page layout},
 @ref{Changing horizontal spacing}.
 
 Snippets:

@@ -2187,7 +2187,7 @@ the two systems.  See @ref{Separating systems}.
 
 @item
 For details of other page formatting properties, see
-@ref{Page formatting}.
+@ref{Page layout}.
 
 @end itemize
 
@@ -2233,7 +2233,7 @@ Notation Reference:
 @ref{Changing spacing},
 @ref{Displaying spacing},
 @ref{Fitting music onto fewer pages},
-@ref{Page formatting},
+@ref{Page layout},
 @ref{Score layout},
 @ref{Separating systems},
 @ref{Setting the staff size},
@@ -2336,7 +2336,7 @@ See @ref{Separating systems}.
 
 @item
 For details of other page formatting properties, see
-@ref{Page formatting}.
+@ref{Page layout}.
 
 @item
 Dialogue cues and stage directions can be inserted with markup.
@@ -2357,7 +2357,7 @@ Notation Reference:
 @ref{Hiding staves},
 @ref{Instrument transpositions},
 @ref{Nested staff groups},
-@ref{Page formatting},
+@ref{Page layout},
 @ref{Separating systems},
 @ref{Transpose},
 @ref{Writing parts},

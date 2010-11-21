@@ -377,7 +377,7 @@ turned on with a @code{\paper} option.
 
 @seealso
 Notation Reference:
-@ref{Page formatting}.
+@ref{Page layout}.
 
 Snippets:
 @rlsr{Staff notation}.
@@ -831,7 +831,7 @@ engraver:
 @end example
 
 For the Known issues and warnings associated with
-@code{\Staff \RemoveEmptyStaves} see 
+@code{\Staff \RemoveEmptyStaves} see
 @ref{Changing context default settings}.
 
 @node Writing parts
@@ -905,7 +905,7 @@ default.  To center multi-line instrument names,
 However, if the instrument names are longer, the instrument names
 in a staff group may not be centered unless the @code{indent} and
 @code{short-indent} settings are increased.  For details about
-these settings, see @ref{Horizontal dimensions}.
+these settings, see @ref{\paper variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -1000,7 +1000,7 @@ expression to declare the instrument switch:
 
 @seealso
 Notation Reference:
-@ref{Horizontal dimensions},
+@ref{\paper variables for shifts and indents},
 @ref{Modifying context plug-ins}.
 
 Snippets:
@@ -1309,7 +1309,7 @@ bassoon = \relative c {
 
 Alternatively, Clef changes and instrument labels can be
 collected into an instrument definition for repeated use, using
-@code{\addInstrumentDefinition} described in 
+@code{\addInstrumentDefinition} described in
 @ref{Instrument names}.
 
 @funindex \transposedCueDuring

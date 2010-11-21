@@ -2345,11 +2345,11 @@ Absolute distances are used for specifying margins, indents, and
 other page layout details, and are by default specified in
 millimeters.  Distances may be specified in other units by
 following the quantity by @code{\mm}, @code{\cm},
-@code{\in}@tie{}(inches), or @code{\pt}@tie{}(points, 1/72.27
-of an inch).  Page layout distances can also be specified in
-scalable units (see the following paragraph) by appending
-@code{\staff-space} to the quantity.
-Page layout is described in detail in @ref{Page formatting}.
+@code{\in}@tie{}(inches), or @code{\pt}@tie{}(points, 1/72.27 of
+an inch).  Page layout distances can also be specified in scalable
+units (see the following paragraph) by appending
+@code{\staff-space} to the quantity.  Page layout is described in
+detail in @ref{Page layout}.
 
 Scaled distances are always specified in units of the staff-space
 or, rarely, the half staff-space.  The staff-space is the distance
@@ -2382,7 +2382,7 @@ Learning Manual:
 @rlearning{Length and thickness of objects}.
 
 Notation Reference:
-@ref{Page formatting},
+@ref{Page layout},
 @ref{Setting the staff size}.
 
 

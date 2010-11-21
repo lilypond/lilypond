@@ -514,7 +514,7 @@ some pieces include a lot more information.
 
 @menu
 * Creating titles::
-* Custom titles::
+* Custom headers footers and titles::
 * Reference to page numbers::
 * Table of contents::
 @end menu
@@ -706,8 +706,8 @@ Headers may be completely removed by setting them to false.
 @end example
 
 
-@node Custom titles
-@subsection Custom titles
+@node Custom headers footers and titles
+@subsection Custom headers, footers, and titles
 
 A more advanced option is to change the definitions of the following
 variables in the @code{\paper} block.  The init file
@@ -759,16 +759,47 @@ the name of the movement (@code{piece} field).
 The following definition will put the title flush left, and the
 composer flush right on a single line.
 
-@verbatim
-\paper {
-  bookTitleMarkup = \markup {
-   \fill-line {
+@example
+\paper @{
+  bookTitleMarkup = \markup @{
+   \fill-line @{
      \fromproperty #'header:title
      \fromproperty #'header:composer
-   }
-  }
-}
-@end verbatim
+   @}
+  @}
+@}
+@end example
+
+The header and footer are created by the functions
+@code{make-header} and @code{make-footer}, defined in
+@code{\paper}.  The default implementations are in
+@file{ly/paper-defaults-init.ly} and @file{ly/titling-init.ly}.
+
+This example centers page numbers at the bottom of every page.
+
+@example
+\paper @{
+  print-page-number = ##t
+  print-first-page-number = ##t
+  oddHeaderMarkup = \markup \fill-line @{ " " @}
+  evenHeaderMarkup = \markup \fill-line @{ " " @}
+  oddFooterMarkup = \markup @{
+    \fill-line @{
+      \bold \fontsize #3
+      \on-the-fly #print-page-number-check-first
+      \fromproperty #'page:page-number-string
+    @}
+  @}
+  evenFooterMarkup = \markup @{
+    \fill-line @{
+      \bold \fontsize #3
+      \on-the-fly #print-page-number-check-first
+      \fromproperty #'page:page-number-string
+    @}
+  @}
+@}
+@end example
+
 
 @node Reference to page numbers
 @subsection Reference to page numbers
