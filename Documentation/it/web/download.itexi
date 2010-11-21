@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: afdfd9e608370743933d8dfdaa03a682053c33c9
+    Translation of GIT committish: ee3a89f9f7289bcd90c5f27fd8f86400159088b2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -21,7 +21,7 @@ nostro @ref{Input testuale}.}
 
 @divClass{heading-center}
 @ifclear web_version
-  @c yes, we want verisonDevel here, since the online links
+  @c yes, we want versionDevel here, since the online links
   @c for @version won't be up yet!
   @heading Download per LilyPond @versionDevel
 
@@ -36,13 +36,15 @@ nostro @ref{Input testuale}.}
 
 @divEnd
 
+@divClass{link-headings}
+
 @divClass{column-left-top}
 @subheading Per gli utenti
 
 @itemize
 
 @item
-@c TODO: duplicate to avoid underlined refs in HTML?  icky.
+@c ref is duplicated to avoid underlining ref as image.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
 @ref{Unix, Unix (Linux e FreeBSD)}
@@ -78,6 +80,7 @@ ultima versione non stabile
 @end itemize
 @divEnd
 
+@divEnd
 
 @divClass{column-center-bottom}
 
@@ -92,7 +95,7 @@ LilyPond è distribuito secondo la
 
 @subheading Sponsor
 
-Un ringraziamento a @uref{http://www.vt.edu/, Virgina Tech} e
+Un ringraziamento a @uref{http://www.vt.edu/, Virginia Tech} e
 @uref{http://www.linuxaudio.org/, linuxaudio.org} per la sponsorizzazione della
  banda.
 
@@ -285,12 +288,13 @@ Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodot
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Per processori Intel (se hai dei dubbi, usa questo).
+Per MacOS X 10.4 o superiori, con processore Intel (se hai dei dubbi,
+usa questo).
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-Per le CPU G3 e G4 (vecchi computer Apple).
+Per MacOS X 10.4 o superiori, con processori G3 e G4 (vecchi computer Apple).
 
 @end itemize
 
@@ -337,11 +341,11 @@ cd ~/bin
 @item
 Crea un file chiamato @command{lilypond} che contiene
 
-@help obvious css issue to be dealt with.  :(
-@c we need a small font here to fit.  -gp
-@smallexample
+@divClass{h-scroll-auto}
+@example
 exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
-@end smallexample
+@end example
+@divEnd
 
 @warning{@var{DIR} si trova generalmente in @code{/Applications/}}
 
@@ -383,9 +387,11 @@ nel file @code{.app} per MacOS@tie{}X.
 Gli script possono essere eseguiti dalla linea di comando anche lanciandoli
 direttamente:
 
+@divClass{h-scroll-auto}
 @example
 @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
 @end example
+@divEnd
 
 Lo stesso vale per tutti gli altri script in quella directory, come
 @command{lilypond-book} e @command{convert-ly}.
@@ -423,7 +429,7 @@ Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodot
 @item
 @sourceimage{logo-windows,,,}
 @downloadStableWindows
-Per Windows ME, NT, 2000, XP, Vista, e Windows 7.
+Per Windows 2000, XP, Vista, e Windows 7.
 
 @end itemize
 

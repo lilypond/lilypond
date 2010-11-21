@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: afdfd9e608370743933d8dfdaa03a682053c33c9
+    Translation of GIT committish: ee3a89f9f7289bcd90c5f27fd8f86400159088b2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -28,27 +28,31 @@
 
 @divEnd
 
-@c TODO: do we want these links to be in larger text / bold ?   CSS.
+@divClass{link-headings}
 
 @divClass{column-center-top}
 @subheading Introduzione
 
 @itemize
 
-@item @ref{Input testuale}:
+@item
+@ref{Input testuale}:
 LilyPond è un compositore tipografico musicale @strong{basato su testo}.  Leggi
 prima questo!
 
-@item @ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
+@item
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
 un'introduzione a LilyPond leggera e @qq{imprescindibile}.
 @details{Learning}
 
-@item @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
+@item
+@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
 @emph{(lettura opzionale)}
 termini musicali e traduzioni.
 @details{Glossary}
 
-@item @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
+@item
+@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
 @emph{(lettura opzionale)}
 informazioni sull'incisione realizzata dal computer.
 @details{Essay}
@@ -128,6 +132,8 @@ questi manuali sono pubblicati e distribuiti secondo la GNU Free Documentation
 License.
 
 @end itemize
+
+@divEnd
 
 @divEnd
 
