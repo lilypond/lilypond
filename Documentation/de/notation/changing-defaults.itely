@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.40"
 
 @c Translators: Till Paala
 
@@ -2087,7 +2087,7 @@ werden, ohne andere Schlüssel zu beeinflussen.
 
 Um beispielsweise den Freiraum zwischen benachbarten Systemen
 in einer Systemgruppe zu verkleinern, kann man die
-@code{between-staff-spacing}-Eigenschaft des
+@code{staff-staff-spacing}-Eigenschaft des
 +@code{StaffGrouper}-Grobs benutzen.  Die Eigenschaft ist eine
 Aliste mit vier Schlüsseln: @code{padding} (Verschiebung),
 @code{space} (Platz), @code{minimum-distance} (minimaler Abstand)
@@ -2096,7 +2096,7 @@ haben zu Beginn Standardwerte, die in der Datei @file{scm/define-grobs.scm}
 (neben allen anderen Grob-Eigenschaften) definiert sind.
 
 @example
-(between-staff-spacing . ((padding . 1)
+(staff-staff-spacing . ((padding . 1)
                           (space . 9)
                           (minimum-distance . 7)))
 @end example
@@ -2116,7 +2116,7 @@ Schlüssel zu verändern, wird ein geschachtelter Aufruf benutzt:
 
 % reduced space between staves
 \new PianoStaff \with {
-  \override StaffGrouper #'between-staff-spacing #'space = #7
+  \override StaffGrouper #'staff-staff-spacing #'space = #7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
@@ -2135,7 +2135,7 @@ kann mit einem Aufruf als Aliste vollständig verändert werden:
 
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
-  \override StaffGrouper #'between-staff-spacing =
+  \override StaffGrouper #'staff-staff-spacing =
     #'((padding . 0)
        (space . 0)
        (minimum-distance . 0)
@@ -2149,16 +2149,16 @@ kann mit einem Aufruf als Aliste vollständig verändert werden:
 Dabei sollte beachtet werden, dass alle Schlüssel, die bei dieser
 Weise des Aufrufs nicht explizit aufgelistet sind, auf den Standardwert
 gesetzt werden, den sie hätten, wenn sie nicht definiert werden.
-Im Falle von @code{between-staff-spacing} würden alle nicht genannten
+Im Falle von @code{staff-staff-spacing} würden alle nicht genannten
 Schlüsselwerte auf 0 gesetzt (außer @code{stretchability}, welche immer
 den Wert von @code{space} hat, wenn sie nicht definiert ist).  Somit sind
 folgende Aufrufe äquivalent:
 
 @example
-\override StaffGrouper #'between-staff-spacing =
+\override StaffGrouper #'staff-staff-spacing =
   #'((space . 7))
 
-\override StaffGrouper #'between-staff-spacing =
+\override StaffGrouper #'staff-staff-spacing =
   #'((padding . 0)
      (space . 7)
      (minimum-distance . 0)
