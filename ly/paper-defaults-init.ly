@@ -20,6 +20,8 @@
 \version "2.12.0"
 
 \paper {
+  #(set-paper-dimension-variables (current-module))
+
   %%% WARNING
   %%%
   %%% If you add any new dimensions, don't forget to update
@@ -31,31 +33,33 @@
   pt = #(/ in 72.27)
   cm = #(* 10 mm)
 
-  print-page-number = ##t
-
-  %%
-  %% 20pt staff, 5 pt = 1.75 mm
-  %%
-
+  % 20pt staff, 5 pt = 1.75 mm
   output-scale = #1.7573
 
-  #(define-public book-title (marked-up-title 'bookTitleMarkup))
-  #(define-public score-title (marked-up-title 'scoreTitleMarkup))
-
-  %%
   %% ugh. hard coded?
-  %%
-
   #(layout-set-absolute-staff-size (* 20.0 pt))
 
 
-  #(define-public score-title-properties
-     '((is-title . #t)
-       (is-book-title . #f)))
-  #(define-public book-title-properties
-     '((is-title . #t)
-       (is-book-title . #t)))
+  %% Automatic scaling to paper size:
+  %%
+  %% Margins, indents, and offsets marked "scaled to paper size"
+  %% below apply to the default paper format given by
+  %% (ly:get-option 'paper-size) and are scaled accordingly for
+  %% other formats.
 
+
+  %%
+  %% Fixed vertical spacing
+  %%
+  top-margin-default = 5\mm     % scaled to paper-size
+  bottom-margin-default = 6\mm  % scaled to paper-size
+  ragged-bottom = ##f
+  ragged-last-bottom = ##t  % best for shorter scores
+
+
+  %%
+  %% Flexible vertical spacing
+  %%
   %% Note: these are not scaled; they are in staff-spaces.
   system-system-spacing = #'((space . 12) (minimum-distance . 8) (padding . 1) (stretchability . 60))
   score-system-spacing = #'((space . 14) (minimum-distance . 8) (padding . 1) (stretchability . 120))
@@ -66,58 +70,76 @@
   top-markup-spacing = #'((space . 0) (padding . 1) (minimum-distance . 0))
   last-bottom-spacing = #'((space . 1) (padding . 1) (minimum-distance . 0) (stretchability . 30))
 
-  ragged-bottom = ##f
 
   %%
-  %% looks best for shorter scores.
+  %% Widths and (horizontal) margins
   %%
-  ragged-last-bottom = ##t
+  left-margin-default = 10\mm   % scaled to paper-size
+  right-margin-default = 10\mm  % scaled to paper-size
+  check-consistency = ##t
+
 
   %%
-  %% settings for the page breaker
+  %% Two-sided mode
   %%
-  blank-last-page-force = 0
+  two-sided = ##f
+  inner-margin-default = 10\mm   % scaled to paper-size
+  outer-margin-default = 20\mm   % scaled to paper-size
+  binding-offset-default = 0\mm  % scaled to paper-size
+
+
+  %%
+  %% Indents
+  %%
+  indent-default = 15\mm       % scaled to paper-size
+  short-indent-default = 0\mm  % scaled to paper-size
+
+
+  %%
+  %% Page breaking
+  %%
   blank-after-score-page-force = 2
+  blank-last-page-force = 0
   blank-page-force = 5
+  page-breaking = #ly:optimal-breaking
 
+
+  %%
+  %% Page numbering
+  %%
+  first-page-number = #1
+  print-first-page-number = ##f
+  print-page-number = ##t
+
+
+  %%
+  %% Headers, footers, and titles
+  %%
+  #(define make-header (marked-up-headfoot 'oddHeaderMarkup 'evenHeaderMarkup))
+  #(define make-footer (marked-up-headfoot 'oddFooterMarkup 'evenFooterMarkup))
+
+  #(define-public book-title (marked-up-title 'bookTitleMarkup))
+  #(define-public score-title (marked-up-title 'scoreTitleMarkup))
+  #(define-public score-title-properties
+     '((is-title . #t)
+       (is-book-title . #f)))
+  #(define-public book-title-properties
+     '((is-title . #t)
+       (is-book-title . #t)))
+
+  \include "titling-init.ly"
+
+
+  %%
+  %% Fonts
+  %%
   #(define font-defaults
     '((font-family . feta) (font-encoding . fetaMusic)))
 
-  %%
-  %% the font encoding `latin1' is a dummy value for Pango fonts
-  %%
+  % `latin1' is a dummy value for Pango fonts
   #(define text-font-defaults
      `((font-encoding . latin1)
        (baseline-skip . 3)
        (word-space . 0.6)))
 
-  #(define page-breaking ly:optimal-breaking)
-
-  #(define make-header (marked-up-headfoot 'oddHeaderMarkup 'evenHeaderMarkup))
-  #(define make-footer (marked-up-headfoot 'oddFooterMarkup 'evenFooterMarkup))
-  #(set-paper-dimension-variables (current-module))
-
-  \include "titling-init.ly"
-
-  check-consistency = ##t
-  two-sided = ##f
-
-  % These margins apply to the default paper format given by (ly:get-option 'paper-size)
-  % and are scaled accordingly for other formats
-
-  top-margin-default = 5 \mm
-  bottom-margin-default = 6 \mm
-
-  left-margin-default = 10 \mm
-  right-margin-default = 10 \mm
-
-  inner-margin-default = 10 \mm
-  outer-margin-default = 20 \mm
-  binding-offset-default = 0 \mm
-
-  indent-default = 15 \mm
-  short-indent-default = 0 \mm
-
-  first-page-number = #1
-  print-first-page-number = ##f
 }
