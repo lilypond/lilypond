@@ -232,7 +232,8 @@ dot placement entries."
                          (cdr x)
                          (list (cadr x) 0)))
          (filter (lambda (l) (or (eq? (car l) 'place-fret)
-                                 (eq? (car l) 'open))) placement-list)))
+                                 (eq? (car l) 'open)))
+                 placement-list)))
 
 
   (define (get-predefined-fretboard predefined-fret-table tuning pitches)
