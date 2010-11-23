@@ -255,3 +255,16 @@
   (let ((width (ly:stem-tremolo::calc-width grob))
 	(staff-space (ly:staff-symbol-staff-space grob)))
     (/ width staff-space)))
+
+;; define custom fret label as markup
+(define-markup-command (customFretLabel
+                                layout props fret-label) (string?)
+  #:category music
+  "Draw a custom tab fret label."
+
+  (interpret-markup layout props
+                    (markup #:vcenter fret-label)))
+
+;; use it for custom fret labels
+(define-public ((tab-note-head::print-custom-fret-label fret) grob)
+  (grob-interpret-markup grob (make-customFretLabel-markup fret)))
