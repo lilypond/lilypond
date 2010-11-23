@@ -859,18 +859,10 @@ between the two text elements."
 (define-public (system-start-text::calc-y-offset grob)
 
   (define (live-elements-list me)
-    (let* ((elements (ly:grob-object me 'elements))
-	   (elts-length (ly:grob-array-length elements))
-	   (live-elements '()))
+    (let ((elements (ly:grob-object me 'elements)))
 
-      (let get-live ((len elts-length))
-	(if (> len 0)
-	    (let ((elt (ly:grob-array-ref elements (1- len))))
-
-	      (if (grob::is-live? elt)
-		  (set! live-elements (cons elt live-elements)))
-	      (get-live (1- len)))))
-      live-elements))
+      (filter! grob::is-live?
+               (ly:grob-array->list elements))))
 
   (let* ((left-bound (ly:spanner-bound grob LEFT))
 	 (live-elts (live-elements-list grob))
