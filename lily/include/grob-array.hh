@@ -53,6 +53,7 @@ DECLARE_UNSMOB (Grob_array, grob_array);
 
 vector<Grob*> const &ly_scm2link_array (SCM x);
 SCM grob_list_to_grob_array (SCM lst);
+SCM grob_array_to_list (Grob_array *array);
 
 #endif /* GROB_ARRAY_HH */
 

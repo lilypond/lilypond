@@ -129,3 +129,16 @@ grob_list_to_grob_array (SCM lst)
   return arr_scm;
 }
 
+SCM
+grob_array_to_list (Grob_array *array)
+{
+  SCM list = SCM_EOL;
+  SCM *tail = &list;
+
+  for (vsize i = 0; i < array->size (); i++)
+    {
+      *tail = scm_cons (array->grob (i)->self_scm (), SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
+    }
+  return list;
+}
