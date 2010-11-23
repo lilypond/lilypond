@@ -1,11 +1,9 @@
-
 \version "2.13.40"
-\header{
 
+\header {
   texidoc="
 Setting staff-space to 0 does not cause a segmentation fault.
 "
-
 }
 
 \new Staff \with {
