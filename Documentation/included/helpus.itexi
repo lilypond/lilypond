@@ -115,10 +115,7 @@ it, then the word is: @emph{Join the Frogs!}
 @subsubheading Grand LilyPond Input Syntax Standardization
 
 Website:
-
-@example
-@uref{http://lilypond.org/~graham/gliss}
-@end example
+@rcontrib{Grand LilyPond Input Syntax Standardization (GLISS)}.
 
 GLISS will stabilize the (non-tweak) input syntax for the upcoming
 LilyPond 3.0.  After updating to 3.0, the input syntax for
@@ -131,11 +128,7 @@ input specification.
 
 @subsubheading Grand Organizing Project
 
-Website:
-
-@example
-@uref{http://lilypond.org/~graham/gop}
-@end example
+Website: @rcontrib{Grand Organization Project (GOP)}.
 
 GOP will be our big recruiting drive for new contributors.  We
 desperately need to spread the development duties (including
@@ -148,8 +141,7 @@ features or completely redesigning things.  Rather, it is aimed at
 giving us a much more stable foundation so that we can move ahead
 with larger tasks in the future.
 
-@warning{GOP will start shortly before or after the 2.14
-release.}
+@warning{GOP will start shortly after the 2.14 release.}
 
 @end macro
 
