@@ -361,6 +361,8 @@ Changing this creates a new text spanner.")
 translator during music interpretation.")
 
 
+     (partCombineTextsOnNote ,boolean? "Print part-combine texts only on
+the next note rather than immediately on rests or skips.")
      (pedalSostenutoStrings ,list? "See @code{pedalSustainStrings}.")
      (pedalSostenutoStyle ,symbol? "See @code{pedalSustainStyle}.")
      (pedalSustainStrings ,list? "A list of strings to print for
