@@ -35,6 +35,8 @@ def musicxml_duration_to_log (dur):
              'longa': -2,
              'long': -2}.get (dur, 0)
 
+
+
 def interpret_alter_element (alter_elm):
     alter = 0
     if alter_elm:
@@ -253,9 +255,8 @@ class Pitch (Music_xml_node):
 	return step
     def get_octave (self):
 	ch = self.get_unique_typed_child (get_class (u'octave'))
-
-	step = ch.get_text ().strip ()
-	return int (step)
+	octave = ch.get_text ().strip ()
+	return int (octave)
 
     def get_alteration (self):
 	ch = self.get_maybe_exist_typed_child (get_class (u'alter'))
@@ -417,7 +418,7 @@ class Attributes (Measure_element):
             current_step = 0
             for i in key.get_all_children ():
                 if isinstance (i, KeyStep):
-                    current_step = int (i.get_text ())
+                    current_step = i.get_text ().strip ()
                 elif isinstance (i, KeyAlter):
                     alterations.append ([current_step, interpret_alter_element (i)])
                 elif isinstance (i, KeyOctave):
@@ -1039,15 +1040,14 @@ class Rest (Music_xml_node):
     def get_step (self):
         ch = self.get_maybe_exist_typed_child (get_class (u'display-step'))
         if ch:
-            step = ch.get_text ().strip ()
-            return step
+            return ch.get_text ().strip ()
         else:
             return None
     def get_octave (self):
         ch = self.get_maybe_exist_typed_child (get_class (u'display-octave'))
         if ch:
-            step = ch.get_text ().strip ()
-            return int (step)
+            oct = ch.get_text ().strip ()
+            return int (oct)
         else:
             return None
 

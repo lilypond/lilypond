@@ -734,11 +734,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="19">
-      <direction>
-        <direction-type>
-          <grouping type="start"/>
-        </direction-type>
-      </direction>
+      <grouping type="start"/>
       <note>
         <pitch>
           <step>B</step>
@@ -766,11 +762,7 @@
         <voice>1</voice>
         <type>quarter</type>
       </note>
-      <direction>
-        <direction-type>
-          <grouping type="stop"/>
-        </direction-type>
-      </direction>
+      <grouping type="stop"/>
     </measure>
     <!--=======================================================-->
     <measure number="20">
@@ -795,7 +787,7 @@
         <voice>1</voice>
         <type>quarter</type>
         <notations>
-          <ornaments><tremolo type="stop"/></ornaments>
+          <ornaments><tremolo type="stop">2</tremolo></ornaments>
         </notations>
       </note>
       <note>

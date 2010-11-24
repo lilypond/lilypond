@@ -41,7 +41,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <notehead parentheses="yes"/>
+        <notehead parentheses="yes">normal</notehead>
       </note>
       <note>
         <pitch>
@@ -71,7 +71,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <notehead parentheses="yes"/>
+        <notehead parentheses="yes">normal</notehead>
       </note>
       <note>
         <chord/>
@@ -91,7 +91,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <notehead parentheses="yes"/>
+        <notehead parentheses="yes">normal</notehead>
       </note>
       <note>
         <chord/>
@@ -102,7 +102,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <notehead parentheses="yes"/>
+        <notehead parentheses="yes">normal</notehead>
       </note>
       <note>
         <chord/>
@@ -113,14 +113,14 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <notehead parentheses="yes"/>
+        <notehead parentheses="yes">normal</notehead>
       </note>
       <note>
         <rest/>
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <notehead parentheses="yes"/>
+        <notehead parentheses="yes">normal</notehead>
       </note>
       <note>
         <rest>
@@ -130,7 +130,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <notehead parentheses="yes"/>
+        <notehead parentheses="yes">normal</notehead>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>

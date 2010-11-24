@@ -342,6 +342,13 @@ class PartGroupInfo:
         error_message (_ ("Unprocessed PartGroupInfo %s encountered") % self)
         return ''
 
+def musicxml_step_to_lily (step):
+    if step:
+        return (ord (step) - ord ('A') + 7 - 2) % 7
+    else:
+        return None
+
+
 def staff_attributes_to_string_tunings (mxl_attr):
     details = mxl_attr.get_maybe_exist_named_child ('staff-details')
     if not details:
@@ -896,7 +903,12 @@ def musicxml_key_to_lily (attributes):
 
     else:
         # Non-standard key signature of the form [[step,alter<,octave>],...]
-        change.non_standard_alterations = key_sig
+        # MusicXML contains C,D,E,F,G,A,B as steps, lily uses 0-7, so convert
+        alterations = []
+        for k in key_sig:
+            k[0] = musicxml_step_to_lily (k[0])
+            alterations.append (k)
+        change.non_standard_alterations = alterations
     return change
 
 def musicxml_transpose_to_lily (attributes):
@@ -2115,12 +2127,6 @@ class VoiceData:
         self.chordnames = None
         self.lyrics_dict = {}
         self.lyrics_order = []
-
-def musicxml_step_to_lily (step):
-    if step:
-	return (ord (step) - ord ('A') + 7 - 2) % 7
-    else:
-	return None
 
 def measure_length_from_attributes (attr, current_measure_length):
     len = attr.get_measure_length ()

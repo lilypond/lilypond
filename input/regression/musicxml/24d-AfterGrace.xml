@@ -5,7 +5,7 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Some grace notes and after-graces
-            (indicated by steal-time-previous and steal-time-next).</miscellaneous-field>
+            (indicated by steal-time-previous and steal-time-following).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -52,7 +52,7 @@
         <staff>1</staff>
       </note>
       <note>
-        <grace steal-time-next="20"/>
+        <grace steal-time-following="20"/>
         <pitch>
           <step>A</step>
           <octave>5</octave>
