@@ -569,7 +569,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><syllabic>continue</syllabic><text>change</text></lyric>
+        <lyric number="1"><syllabic>middle</syllabic><text>change</text></lyric>
       </note>
       <note>
         <pitch><step>C</step><octave>4</octave></pitch>
@@ -674,9 +674,9 @@
       <direction>
         <direction-type>
           <scordatura>
-              <accord string="0"><tuning-step>C</tuning-step><tuning-octave>3</tuning-octave></accord>
-              <accord string="1"><tuning-step>G</tuning-step><tuning-octave>5</tuning-octave></accord>
-              <accord string="2"><tuning-step>E</tuning-step><tuning-octave>5</tuning-octave></accord>
+              <accord string="3"><tuning-step>C</tuning-step><tuning-octave>3</tuning-octave></accord>
+              <accord string="2"><tuning-step>G</tuning-step><tuning-octave>5</tuning-octave></accord>
+              <accord string="1"><tuning-step>E</tuning-step><tuning-octave>5</tuning-octave></accord>
           </scordatura>
         </direction-type>
       </direction>
