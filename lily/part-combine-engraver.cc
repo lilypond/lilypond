@@ -38,46 +38,74 @@ protected:
   DECLARE_ACKNOWLEDGER (stem);
 
   DECLARE_TRANSLATOR_LISTENER (part_combine);
+  DECLARE_TRANSLATOR_LISTENER (note);
   void process_music ();
   void stop_translation_timestep ();
+  void create_item (Stream_event *ev);
+
 private:
   Item *text_;
-  Stream_event *event_;
+  Stream_event *new_event_; // Event happened at this moment
+  bool note_found_;
+  // Event possibly from an earlier moment waiting to create a text:
+  Stream_event *waiting_event_;
 };
 
 IMPLEMENT_TRANSLATOR_LISTENER (Part_combine_engraver, part_combine);
 void
 Part_combine_engraver::listen_part_combine (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (event_, ev);
+  ASSIGN_EVENT_ONCE (new_event_, ev);
+  // If two events occur at the same moment, discard the second as the
+  // warning indicates:
+  waiting_event_ = new_event_;
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Part_combine_engraver, note);
+void
+Part_combine_engraver::listen_note (Stream_event *)
+{
+  note_found_ = true;
 }
 
 Part_combine_engraver::Part_combine_engraver ()
 {
   text_ = 0;
-  event_ = 0;
+  new_event_ = 0;
+  waiting_event_ = 0;
+  note_found_ = false;
+}
+
+void
+Part_combine_engraver::create_item (Stream_event *ev)
+{
+  SCM what = ev->get_property ("class");
+  SCM text = SCM_EOL;
+  if (what == ly_symbol2scm ("solo-one-event"))
+    text = get_property ("soloText");
+  else if (what == ly_symbol2scm ("solo-two-event"))
+    text = get_property ("soloIIText");
+  else if (what == ly_symbol2scm ("unisono-event"))
+    text = get_property ("aDueText");
+
+  if (Text_interface::is_markup (text))
+    {
+      text_ = make_item ("CombineTextScript", ev->self_scm ());
+      text_->set_property ("text", text);
+    }
 }
 
 void
 Part_combine_engraver::process_music ()
 {
-  if (event_
+  if (waiting_event_
       && to_boolean (get_property ("printPartCombineTexts")))
     {
-      SCM what = event_->get_property ("class");
-      SCM text = SCM_EOL;
-      if (what == ly_symbol2scm ("solo-one-event"))
-	text = get_property ("soloText");
-      else if (what == ly_symbol2scm ("solo-two-event"))
-	text = get_property ("soloIIText");
-      else if (what == ly_symbol2scm ("unisono-event"))
-	text = get_property ("aDueText");
-
-      if (Text_interface::is_markup (text))
-	{
-	  text_ = make_item ("CombineTextScript", event_->self_scm ());
-	  text_->set_property ("text", text);
-	}
+      if (note_found_ || !to_boolean (get_property ("partCombineTextsOnNote")))
+        {
+          create_item (waiting_event_);
+          waiting_event_ = 0;
+        }
     }
 }
 
@@ -105,7 +133,8 @@ void
 Part_combine_engraver::stop_translation_timestep ()
 {
   text_ = 0;
-  event_ = 0;
+  new_event_ = 0;
+  note_found_ = false;
 }
 
 ADD_ACKNOWLEDGER (Part_combine_engraver, note_head);
@@ -120,6 +149,7 @@ ADD_TRANSLATOR (Part_combine_engraver,
 
 		/* read */
 		"printPartCombineTexts "
+		"partCombineTextsOnNote "
 		"soloText "
 		"soloIIText "
 		"aDueText ",
