@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ede6552ee0a9954a6ced5922cfc0cfa2c40733af
+    Translation of GIT committish: 1b832d794f1444033f10465971e97d33f76fe310
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -57,8 +57,8 @@ répertoire personnel @file{@/.xpdfrc}.
 urlCommand     "lilypond-invoke-editor %s"
 @end example
 
-@file{lilypond@/-invoke@/-editor} est un petit programme assistant.  Il se
-charge d'appeler un éditeur pour les identifants de ressource
+@file{lilypond@/-invoke@/-editor} est un petit programme assistant.  Il
+se charge d'appeler un éditeur pour les identifants de ressource
 (@emph{URI}) de type @code{textedit}, et un navigateur pour les autres.
 Il teste en outre la variable d'environnement @code{EDITOR} pour les cas
 suivant@tie{}:
@@ -154,9 +154,9 @@ Certains éditeurs de texte prennent en charge LilyPond.
 @unnumberedsubsec Mode Emacs
 @translationof Emacs mode
 
-Emacs dispose d'un @file{lilypond@/-mode} qui fournit l'autocomplétion des
-mots-clés, l'indentation, les appariements spécifiques à LilyPond, la
-coloration syntaxique, ainsi que des raccourcis pour compiler et
+Emacs dispose d'un @file{lilypond@/-mode} qui fournit l'autocomplétion
+des mots-clés, l'indentation, les appariements spécifiques à LilyPond,
+la coloration syntaxique, ainsi que des raccourcis pour compiler et
 consulter les manuels de LilyPond en mode info.  Si le
 @file{lilypond@/-mode} n'était pas installé sur votre système, procédez
 comme ci-dessous.
@@ -186,8 +186,8 @@ propre répertoire (par exemple @file{@/~/@/site@/-lisp/@/}) à votre
 En ce qui concerne @uref{http://@/www@/.vim@/.org,Vim}, LilyPond fournit
 tout le nécessaire pour gérer la coloration syntaxique et l'indentation.
 Le mode spécifique à Vim doît être indiqué dans le fichier
-@file{@/$HOME/@/@/.vimrc}.  Localisez ce fichier, ou créez-le, et ajoutez-y
-les trois lignes suivantes@tie{}:
+@file{@/$HOME/@/@/.vimrc}.  Localisez ce fichier, ou créez-le, et
+ajoutez-y les trois lignes suivantes@tie{}:
 
 @example
 filetype off
@@ -374,9 +374,8 @@ Rendu en hauteurs absolues.
 Afficher un résumé des utilisations.
 
 @item -l, --language=LANG
-Utiliser un autre fichier de définition liguistique @file{LANG@/.ly}
-et les noms de notes correspondants, comme par exemple
-@var{deutsch} pour @file{deutsch@/.ly} et noms de notes en allemand.
+Utiliser une autre définition liguistique (LANG), comme par exemple
+@var{deutsch} pour des noms de notes en allemand.
 
 @item --lxml
 Utiliser le paquetage Python @code{lxml.etree}, moins gourmand en
@@ -392,8 +391,8 @@ gérer les ligatures automatiquement.
 
 @item -o,--output=@var{file}
 Générer le résultat dans le fichier @var{fichier}.  S'il n'est pas
-déterminé, ce sera @var{fichier-xml}@file{@/.ly}@tie{}; @file{-} produira
-le résultat sur la sortie standard (@var{stdout}).
+déterminé, ce sera @var{fichier-xml}@file{@/.ly}@tie{}; @file{-}
+produira le résultat sur la sortie standard (@var{stdout}).
 
 @item -r,--relative
 Rendu en hauteurs relatives (mode par défaut).
