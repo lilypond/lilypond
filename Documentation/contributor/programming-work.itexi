@@ -48,7 +48,7 @@ music event is assigned a moment, or a time in the music when the event
 begins.
 
 Each type of music event has an associated iterator.  Iterators are defined in
-*-iterator.cc.  During iteration, an
+@file{@/*@/-iterator@/.cc}.  During iteration, an
 event's iterator is called to deliver that music event to the appropriate
 context(s).
 
@@ -58,7 +58,8 @@ translation step is accomplished by the polymorphic base class Translator
 through its two derived classes: Engraver (for graphical output) and
 Performer (for midi output).
 
-Translators are defined in C++ files named *-engraver.cc and *-performer.cc.
+Translators are defined in C++ files named @file{@/*@/-engraver@/.cc}
+and @file{@/*@/-performer@/.cc}.
 Much of the work of translating is handled by Scheme functions,
 which is one of the keys to LilyPond's exceptional flexibility.
 
@@ -145,8 +146,8 @@ python.org}.
 @node Programming without compiling
 @section Programming without compiling
 
-Much of the development work in LilyPond takes place by changing *.ly or
-*.scm files.  These changes can be made without compiling LilyPond.  Such
+Much of the development work in LilyPond takes place by changing @file{@/*@/.ly} or
+@file{@/*@/.scm} files.  These changes can be made without compiling LilyPond.  Such
 changes are described in this section.
 
 
@@ -155,8 +156,8 @@ changes are described in this section.
 Much of LilyPond is written in Scheme or LilyPond input files.  These
 files are interpreted when the program is run, rather than being compiled
 when the program is built, and are present in all LilyPond distributions.
-You will find .ly files in the ly/ directory and the Scheme files in the
-scm/ directory.  Both Scheme files and .ly files can be modified and
+You will find @file{@/.ly} files in the @file{ly/@/} directory and the Scheme files in the
+@file{scm/@/} directory.  Both Scheme files and @file{@/.ly} files can be modified and
 saved with any text editor.  It's probably wise to make a backup copy of
 your files before you modify them, although you can reinstall if the
 files become corrupted.
@@ -221,8 +222,8 @@ functionName.  The @code{-i} option makes @command{grep} ignore
 case -- this can be very useful if you are not yet familiar with
 our capitalization conventions.
 
-The most likely directories to grep for function names are scm/ for
-scheme files, ly/ for lilypond input (*.ly) files, and lily/ for C++
+The most likely directories to grep for function names are @file{scm/@/} for
+scheme files, ly/ for lilypond input (@file{@/*@/.ly}) files, and @file{lily/@/} for C++
 files.
 
 
@@ -351,7 +352,7 @@ on a c++ file:
 scripts/auxiliar/fixcc.py lily/my-test-file.cc
 @end example
 
-Be sure you replace @code{my-test-file.cc} with the name of the file
+Be sure you replace @file{my@/-test@/-file@/.cc} with the name of the file
 that you edited.
 
 If you are editing a file that contains an ADD_TRANSLATOR or ADD_INTERFACE
@@ -613,7 +614,7 @@ foo (int i)
 @}
 @end example
 
-See also `flower/getopt-long.cc' and `lily/main.cc'.
+See also @file{flower/@/getopt@/-long@/.cc} and @file{lily/@/main@/.cc}.
 
 @item
 Do not use leading or trailing whitespace in messages.  If you need
@@ -799,7 +800,7 @@ gdb out/bin/lilypond
 @end example
 @noindent
 This loads the LilyPond symbol tables into gdb.  Then, to run
-LilyPond on @code{test.ly} under the debugger, enter the following:
+LilyPond on @file{test@/.ly} under the debugger, enter the following:
 
 @example
 run test.ly
@@ -865,21 +866,21 @@ environment, it is necessary to have a Guile interpreter that
 has all the LilyPond modules loaded.  This requires the following
 steps.
 
-First, define a Scheme symbol for the active module in the .ly file:
+First, define a Scheme symbol for the active module in the @file{@/.ly} file:
 
 @example
 #(module-define! (resolve-module '(guile-user))
                  'lilypond-module (current-module))
 @end example
 
-Now place a Scheme function in the .ly file that gives an
+Now place a Scheme function in the @file{@/.ly} file that gives an
 interactive Guile prompt:
 
 @example
 #(top-repl)
 @end example
 
-When the .ly file is compiled, this causes the compilation to be
+When the @file{@/.ly} file is compiled, this causes the compilation to be
 interrupted and an interactive guile prompt to appear.  Once the
 guile prompt appears, the LilyPond active module must be set as the
 current guile module:
@@ -915,7 +916,7 @@ interpreter can be exited:
 guile> (quit)
 @end example
 
-The compilation of the .ly file will then continue.
+The compilation of the @file{@/.ly} file will then continue.
 
 @subheading Using the Guile debugger
 
@@ -968,7 +969,7 @@ breakpoint will be set straight after you enter the @code{(quit)}
 command at the guile prompt.
 
 Embedding breakpoint commands like this is particularly useful if
-you want to look at how the Scheme procedures in the @var{.scm}
+you want to look at how the Scheme procedures in the @file{@/.scm}
 files supplied with LilyPond work.  To do this, edit the file in
 the relevant directory to add this line near the top:
 
@@ -978,7 +979,7 @@ the relevant directory to add this line near the top:
 
 Now you can set a breakpoint after the procedure you are interested
 in has been declared.  For example, if you are working on routines
-called by @var{print-book-with} in @var{lily-library.scm}:
+called by @var{print-book-with} in @file{lily@/-library@/.scm}:
 
 @example
 (define (print-book-with parser book process-procedure)
@@ -1066,12 +1067,12 @@ The executable code of LilyPond must be rebuilt from scratch:
 make -C lily clean && make -C lily
 @end example
 
-@item Create a graphviz-compatible @file{.ly} file
+@item Create a graphviz-compatible @file{@/.ly} file
 
-In order to use the graphviz utility, the @file{.ly} file must include
+In order to use the graphviz utility, the @file{@/.ly} file must include
 @file{ly/@/graphviz@/-init@/.ly}, and should then specify the
 grobs and symbols that should be tracked.  An example of this
-is found in @file{input/regression/graphviz.ly}.
+is found in @file{input/@/regression/@/graphviz@/.ly}.
 
 @item Run lilypond with output sent to a log file
 
@@ -1150,7 +1151,7 @@ earlier in this chapter.
 
 In order to demonstrate that the code works properly, you will
 need to write one or more regression tests.  These tests are
-typically .ly files that are found in input/regression.
+typically @file{@/.ly} files that are found in @file{input/@/regression}.
 
 Regression tests should be as brief as possible to demonstrate the
 functionality of the code.
@@ -1347,18 +1348,18 @@ make test-clean
 @end itemize
 
 If you modify any source files that have to be compiled (such as
-@file{.cc} or @file{.hh} files in @file{flower/} or @file{lily/}),
+@file{@/.cc} or @file{@/.hh} files in @file{flower/@/} or @file{lily/@/}),
 then you must run @command{make} before @command{make test-redo},
 so @command{make} can compile the modified files and relink all
 the object files.  If you only modify files which are interpreted,
-like those in the @file{scm/} and @file{ly/} directories, then
+like those in the @file{scm/@/} and @file{ly/@/} directories, then
 @command{make} is not needed before @command{make test-redo}.
 
 TODO:  Fix the following paragraph.  You can do @command{rm mf/out/*}
 instead of make clean, and you can probably do
 @command{make -C  mf/ clean} as well, but I haven't checked it -- cds
 
-Also, if you modify any font definitions in the @file{mf/}
+Also, if you modify any font definitions in the @file{mf/@/}
 directory then you must run @command{make clean} and
 @command{make} before running @command{make test-redo}.  This will
 recompile everything, whether modified or not, and takes a lot
@@ -1627,14 +1628,14 @@ foo = 1
 @end example
 
 @noindent with @code{\paper}, @code{\midi} and @code{\header} being
-nested scope inside the @file{.ly} file-level scope.  @w{@code{foo = 1}}
+nested scope inside the @file{@/.ly} file-level scope.  @w{@code{foo = 1}}
 is translated in to a scheme variable definition.
 
 This implemented using modules, with each scope being an anonymous
 module that imports its enclosing scope's module.
 
-Lilypond's core, loaded from @file{.scm} files, is usually placed in the
-@code{lily} module, outside the @file{.ly} level.  In the case of
+Lilypond's core, loaded from @file{@/.scm} files, is usually placed in the
+@code{lily} module, outside the @file{@/.ly} level.  In the case of
 
 @example
 lilypond a.ly b.ly
@@ -1642,7 +1643,7 @@ lilypond a.ly b.ly
 
 @noindent
 we want to reuse the built-in definitions, without changes effected in
-user-level @file{a.ly} leaking into the processing of @file{b.ly}.
+user-level @file{a@/.ly} leaking into the processing of @file{b@/.ly}.
 
 The user-accessible definition commands have to take care to avoid
 memory leaks that could occur when running multiple files.  All
@@ -1839,17 +1840,17 @@ The main steps of the backend itself are in
 @itemize
 
 @item
-paper-score.cc , Paper_score::process_
+@file{paper@/-score@/.cc} , Paper_score::process_
 
 @item
-system.cc , System::get_lines()
+@file{system@/.cc} , System::get_lines()
 
 @item
 The step, where things go from grobs to output, is in
 System::get_line(): each grob delivers a Stencil (a Device
 independent output description), which is interpreted by our
-outputting backends (scm/output-tex.scm and scm/output-ps.scm)
-to produce TeX and PS.
+outputting backends (@file{scm/@/output@/-tex@/.scm} and
+@file{scm/@/output@/-ps@/.scm}) to produce TeX and PS.
 
 @end itemize
 
@@ -1868,15 +1869,15 @@ to disk.
 
 @subheading Where is the functionality associated with KEYWORDs?
 
-See my-lily-lexer.cc (keywords, there aren't that many) and ly/*.ly
-(most of the other backslashed \words are identifiers)
+See @file{my@/-lily@/-lexer@/.cc} (keywords, there aren't that many)
+and @file{ly/@/@/*@/.ly} (most of the other backslashed @code{@/\words} are identifiers)
 
 @subheading What Contexts/Properties/Music/etc. are available when they are processed?
 
 What do you mean exactly with this question?
 
-See ly/engraver-init.ly for contexts, see scm/define-*.scm for other
-objects.
+See @file{ly/@/engraver@/-init@/.ly} for contexts,
+see @file{scm/@/define@/-@/*@/.scm} for other objects.
 
 @subheading How do you decide if something is a Music, Context, or Grob property?
 Why is part-combine-status a Music property when it seems (IMO)
@@ -1904,15 +1905,16 @@ a Music property?
 
 \autochange is one of these extra strange beasts: it requires
 look-ahead to decide when to change staves.  This is achieved by
-running the interpreting step twice (see scm/part-combiner.scm , at
-the bottom), and storing the result of the first step (where to switch
+running the interpreting step twice (see
+@file{scm/@/part@/-combiner@/.scm} , at the bottom), and
+storing the result of the first step (where to switch
 staves) in a Music property.  Since you want to influence that
 where-to-switch list, your must affect the code in
-make-autochange-music (scm/part-combiner.scm).  That code is called
-directly from the parser and there are no official "parsing
-properties" yet, so there is no generic way to tune \autochange.  We
-would have to invent something new for this, or add a separate
-argument,
+make-autochange-music (@file{scm/@/part@/-combiner@/.scm}).
+That code is called directly from the parser and there are no
+official "parsing properties" yet, so there is no generic way
+to tune \autochange.  We would have to invent something new
+for this, or add a separate argument,
 
 @example
     \autochange #around-central-C ..music..
@@ -1982,7 +1984,7 @@ untransposable.
 
 -> the second c' remains untransposed.
 
-Take a look at lily/music.cc to see where the transposition takes place.
+Take a look at @file{lily/@/music@/.cc} to see where the transposition takes place.
 
 
 @subheading How do I tell about the execution environment?
@@ -2051,9 +2053,9 @@ You can see the definition by doing
 @end example
 
 noindent
-inside the .ly file.
+inside the @file{@/.ly} file.
 
 The breakpoint failing may have to do with the call sequence.  See
-parser.yy, run_music_function().  The function is called directly from
+@file{parser@/.yy}, run_music_function().  The function is called directly from
 C++, without going through the GUILE evaluator, so I think that is why
 there is no debugger trap.

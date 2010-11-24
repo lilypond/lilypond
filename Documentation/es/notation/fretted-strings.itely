@@ -482,7 +482,7 @@ estándar Mi-La-Re-Sol-Si-Mi).  Otras afinaciones predefinidas son
 @code{guitar-open-g-tuning} (Sol Mayor al aire, Re-Sol-Re-Sol-Si-Re),
 @code{mandolin-tuning} (mandolina) y @code{banjo-open-g-tuning} (banjo
 con Sol Mayor al aire).  Las afinaciones predefinidas están en
-@code{scm/tablature.scm}.
+@file{scm/@/tablature@/.scm}.
 
 Una afinación de las cuerdas es una lista de Scheme de alturas, una
 por cada cuerda, ordenadas de 1 a N, donde la cuerda 1 está arriba en
@@ -1003,17 +1003,17 @@ en una tabla de búsqueda:
 @end lilypond
 
 Los diagramas de traste predefinidos están en el archivo
-@code{predefined-guitar-fretboards.ly}.  Los diagramas de trastes se
+@file{predefined@/-guitar@/-fretboards@/.ly}.  Los diagramas de trastes se
 almacenan tomando como base las notas de un acorde y el valor de
 @code{stringTunings} que se está utilizando en cada momento.
-@code{predefined-guitar-fretboards.ly} contiene diagramas de traste
+@file{predefined@/-guitar@/-fretboards@/.ly} contiene diagramas de traste
 predefinidos sólo para @code{guitar-tuning}.  Los diagramas de traste
 predefinidos se pueden añadir para otros instrumentos u otras
 afinaciones siguiendo los ejemplos que aparecen en
-@code{predefined-guitar-fretboards.ly}.
+@file{predefined@/-guitar@/-fretboards@/.ly}.
 
 Los diagramas de posiciones para el ukelele están en el archivo
-@code{predefined-ukulele-fretboards.ly}.
+@file{predefined@/-ukulele@/-fretboards@/.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-ukulele-fretboards.ly"

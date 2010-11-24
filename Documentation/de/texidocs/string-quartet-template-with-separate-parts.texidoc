@@ -7,11 +7,11 @@ voneinander notieren können. Im nächsten Beispiel wird nun
 gezeigt, wie Sie mit diesen Variablen einzelne Stimmen erstellen.
 
 Sie müssen das Beispiel in einzelne Dateien aufteilen; die Dateinamen
-sind in den Kommentaren am Anfang jeder Datei enthalten.  @code{piece.ly}
-enthält die Noten. Die anderen Dateien -- @code{score.ly},
-@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly} und
-@code{vlc.ly} -- erstellen daraus die entsprechenden Stimmen bzw. die
-Partitur (@code{score.ly}). Mit @code{\tag} wird den Stimmen ein Name
+sind in den Kommentaren am Anfang jeder Datei enthalten.  @file{piece@/.ly}
+enthält die Noten. Die anderen Dateien -- @file{score@/.ly},
+@file{vn1@/.ly}, @file{vn2@/.ly}, @file{vla@/.ly} und
+@file{vlc@/.ly} -- erstellen daraus die entsprechenden Stimmen bzw. die
+Partitur (@file{score@/.ly}). Mit @code{\tag} wird den Stimmen ein Name
 zugewiesen, auf den zurückgegriffen werden kann.
 "
 

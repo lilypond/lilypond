@@ -120,7 +120,7 @@ Datei im selben Verzeichnis wie diese Datei ersetzt werden.)
 
 @subheading Verarbeitung
 
-Speichern Sie den obigen @LaTeX{}-Quellcode in eine Datei @file{lilybook.lytex}
+Speichern Sie den obigen @LaTeX{}-Quellcode in eine Datei @file{lilybook@/.lytex}
 und führen Sie dann in der Kommandozeile folgende Befehle aus:
 
 @c keep space after @version{} so TeX doesn't choke
@@ -425,7 +425,7 @@ Zusätzlich kann mit @code{@@lilypondversion} die aktuelle Versionsnummer
 von LilyPond angezeigt werden.
 
 Wenn @command{lilypond-book} eine derartige Datei verarbeitet,
-wird eine Texinfo-Datei mit der Erweiterung @file{.texi} erzeugt,
+wird eine Texinfo-Datei mit der Erweiterung @file{@/.texi} erzeugt,
 die @code{@@image} Befehle für die Ausgabe nach HTML, Info und PDF
 enthält. @command{lilypond-book} erzeugt die entsprechenden Grafiken
 der Musikbeispiele im EPS- und PDF-Format für die Ausgabe nach PDF
@@ -519,13 +519,13 @@ einfügen. Die Optionen zur Formatierung mit LilyPond werden dabei
 in der @code{role} Eigenschaft des innersten Elements angegeben,
 wie im nächsten Abschnitt gezeigt wird. Die DocBook Datei, die
 dann von @command{lilypond-book} verarbeitet wird, sollte der Klarheit
-halber die  Dateierweiterung @file{.lyxml} (jedenfalls nicht
-@file{.xml}) besitzen.
+halber die  Dateierweiterung @file{@/.lyxml} (jedenfalls nicht
+@file{@/.xml}) besitzen.
 
 @subheading Eine LilyPond-Datei einfügen
 
 Dies ist der einfachste Fall: Die LilyPond-Datei besitzt die Erweiterung
-@file{.ly} und wird einfach als @code{imageobject} eingebettet:
+@file{@/.ly} und wird einfach als @code{imageobject} eingebettet:
 
 @example
 <mediaobject>
@@ -563,8 +563,8 @@ Das äußerste Element ist also @code{mediaobject} oder
 
 @subheading Ein DocBook-Dokument übersetzen
 
-Der Aufruf von @command{lilypond-book} mit der @file{.lyxml}-Datei
-erzeugt ein gültiges DocBook-Dokument mit der Erweiterung @file{.xml},
+Der Aufruf von @command{lilypond-book} mit der @file{@/.lyxml}-Datei
+erzeugt ein gültiges DocBook-Dokument mit der Erweiterung @file{@/.xml},
 welches normal weiterverarbeitet werden kann. Bei Benutzung von
 @uref{http://@/dblatex@/.sourceforge@/.net@/,dblatex} wird daraus
 automatisch eine PDF-Datei erzeugt. Für die Erzeugung von HTML (HTML
@@ -722,7 +722,7 @@ erzeugt ein Zitat der Form
 Wenn Kommentare und Variablen im Zitat, aber nicht im Quelltext
 übersetzt werden sollen, kann die Umgebungsvariable @code{LYDOC_LOCALEDIR}
 auf einen Verzeichnispfad gesetzt werden.  Das Verzeichnis sollte
-einen Baum an @file{.mo}-Nachrichtenkatalogen beinhalten mit
+einen Baum an @file{@/.mo}-Nachrichtenkatalogen beinhalten mit
 @code{lilypond-doc} als Domain.
 
 @item addversion
@@ -736,7 +736,7 @@ Kommandozeilenoption @option{--header=@/texidoc} für eine Datei
 @file{foo@/.ly} und enthält die Datei ein @code{texidoc}-Feld im
 @code{\header}-Block, so wird dessen Inhalt in die Datei
 @file{foo@/.texidoc} ausgegeben. Die @code{texidoc} Option veranlasst
-@code{lilypond-book}, den Inhalt dieser @file{.texidoc} Dateien innerhalb
+@code{lilypond-book}, den Inhalt dieser @file{@/.texidoc} Dateien innerhalb
 eines Dokumentationsblocks direkt vor dem Musikfragment in das aktuelle
 Dokument einzufügen.
 
@@ -750,7 +750,7 @@ Enthält also die Datei @file{foo@/.ly} etwa den LilyPond-Code
 @end example
 
 @noindent
-und das Texinfo-Dokument @file{text.texinfo}
+und das Texinfo-Dokument @file{text@/.texinfo}
 
 @example
 @@lilypondfile[texidoc]@{foo.ly@}
@@ -765,19 +765,23 @@ lilypond-book --pdf --process="lilypond \
   -dbackend=eps --header=texidoc" test.texinfo
 @end example
 
-Die meisten Test-Dateien (im @file{input/} Verzeichnis von LilyPond)
-sind kleine @file{.ly} Dateien von genau dieser Form.
+Die meisten Test-Dateien (im @file{input/@/} Verzeichnis von LilyPond)
+sind kleine @file{@/.ly} Dateien von genau dieser Form.
 
 Auch die Übersetzung dieser zusätzlichen Kommentare ist möglich:
 Dazu muss das Texinfo-Dokument den Befehl @code{@@documentlanguage @var{LANG}}
 und der @code{\header} Block in der Datei @file{foo@/.ly}
 die Übersetzung im Feld @code{texidoc@var{LANG}} enthalten. Wird nun
 @command{lilypond} mit der Option @option{--header=@/texidoc@var{LANG}}
-aufgerufen, so wird der Inhalt der Datei @file{foo@/.texidoc@var{LANG}} anstelle von @file{foo@/.texidoc} eingefügt.
+aufgerufen, so wird der Inhalt der Datei @file{foo@/.texidoc@var{LANG}}
+anstelle von @file{foo@/.texidoc} eingefügt.
 
 @item lilyquote
-(Nur innerhalb von Texinfo-Dateien.) Diese Option wirkt wie die @code{quote} Option, außer dass nur das Musikfragment (und natürlich optional der
-gesamte LilyPond-Code bei Benutzung von @code{verbatim}) in den Zitatblock eingefügt wird. Dies ist nützlich, wenn Sie ein Musikfragment zitieren möchten, nicht aber dessen @code{texidoc} Dokumentationsblock.
+(Nur innerhalb von Texinfo-Dateien.) Diese Option wirkt wie die
+@code{quote} Option, außer dass nur das Musikfragment (und natürlich optional der
+gesamte LilyPond-Code bei Benutzung von @code{verbatim}) in den Zitatblock
+eingefügt wird. Dies ist nützlich, wenn Sie ein Musikfragment zitieren möchten,
+nicht aber dessen @code{texidoc} Dokumentationsblock.
 
 @item doctitle
 (Nur innerhalb von Texinfo-Dateien.) Diese Option wirkt ähnlich wie die
@@ -810,9 +814,9 @@ ausgegeben, der Pfad wird also nicht mit angezeigt.
 @translationof Invoking lilypond-book
 
 @command{lilypond-book} erzeugt abhängig vom Ausgabeformat eine Datei mit
-einer der folgenden Dateierweiterungen: @file{.tex}, @file{.texi},
-@file{.html} oder @file{.xml}. Alle @file{.tex}, @file{.texi} und
-@file{.xml} Dateien müssen noch mit den entsprechenden Programmen (@LaTeX{},
+einer der folgenden Dateierweiterungen: @file{@/.tex}, @file{@/.texi},
+@file{@/.html} oder @file{@/.xml}. Alle @file{@/.tex}, @file{@/.texi} und
+@file{@/.xml} Dateien müssen noch mit den entsprechenden Programmen (@LaTeX{},
 DocBook, etc.) weiter verarbeitet werden, um druckfähige Dateien zu erhalten.
 
 
@@ -856,10 +860,10 @@ ps2pdf Ihre_Datei.ps
 @end example
 
 @noindent
-Die @file{.dvi}-Datei, die beim Aufruf von @command{latex} erzeugt wird,
+Die @file{@/.dvi}-Datei, die beim Aufruf von @command{latex} erzeugt wird,
 scheint keine Notenköpfe zu enthalten, was in Ordnung ist. Wenn Sie die
 Datei wie beschrieben weiter verarbeiten, erscheinen die Notenköpfe korrekt
-in den @file{.ps} und @file{.pdf} Dateien.
+in den @file{@/.ps} und @file{@/.pdf} Dateien.
 
 Der Aufruf von @command{dvips} kann einige Warnungen über fehlende
 Schriftarten ausgeben. Auch dies ist in Ordnung und kann ignoriert werden.
@@ -955,7 +959,7 @@ PNG-Grafiken gefunden werden. Dies wird benutzt für Dokumentation ohne
 Grafiken.
 
 @itemx --lily-output-dir=@var{Verzeichnis}
-Schreibt @file{lily-XXX} Dateien nach @var{Verzeichnis} und erzeugt
+Schreibt @file{lily@/-XXX} Dateien nach @var{Verzeichnis} und erzeugt
 im mit @code{--output} angegebenen Verzeichnis Verknüpfungen darauf.
 Diese Option ist nützlich, um Zeit zu sparen, wenn Dokumente in
 verschiedenen Verzeichnissen viele identische Musikfragmente

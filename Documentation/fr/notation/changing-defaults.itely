@@ -44,7 +44,7 @@ En sous-main, LilyPond se sert du langage Scheme (un dérivé du LISP)
 comme infrastructure.  Modifier les choix de mise en page revient à
 pénétrer dans les entrailles du programme, et de ce fait requiert
 l'emploi du Scheme.  Les fragments de Scheme, dans un fichier
-@code{.ly}, sont introduits par le caractère @emph{hash}, (@code{#},
+@file{@/.ly}, sont introduits par le caractère @emph{hash}, (@code{#},
 improprement surnommé @qq{dièse}).
 @footnote{Le @rextend{Tutoriel Scheme} fournit quelques notions de
 base pour saisir des nombres, des listes, des chaînes de caractères ou

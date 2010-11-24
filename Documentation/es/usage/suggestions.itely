@@ -274,7 +274,7 @@ programa lee un archivo especial llamado @code{Makefile} que define
 las relaciones de dependencia entre los archivos y qué instrucciones
 necesitamos dar al sistema operativo para producir un archivo a partir
 de otro.  Por ejemplo, el archivo de make detallaría cómo obtener
-@code{balada.pdf} y @code{balada.midi} a partir de @code{balada.ly}
+@file{balada@/.pdf} y @file{balada@/.midi} a partir de @file{balada@/.ly}
 mediante la ejecución de Lilypond.
 
 Existen ocasiones en las que es buena idea crear un @code{Makefile}
@@ -335,8 +335,8 @@ Sinfonia/
 `-- sinfoniaDefs.ily
 @end example
 
-Los archivos @code{.ly} de los directorios @code{Partituras} y
-@code{Particellas} obtienen las notas de archivos @code{.ily} que están en
+Los archivos @file{@/.ly} de los directorios @code{Partituras} y
+@code{Particellas} obtienen las notas de archivos @file{@/.ily} que están en
 el directorio @code{Notas}:
 
 @example

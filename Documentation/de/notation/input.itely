@@ -33,7 +33,7 @@ Notation mit LilyPond und weniger direkte Fragen der Notation.
 @translationof Input structure
 
 Das hauptsächliche Eingabeformat von LilyPond sind Textdateien.
-Üblicherweise werden diese Dateien mit der Endung @code{.ly}
+Üblicherweise werden diese Dateien mit der Endung @file{@/.ly}
 versehen.
 
 @menu
@@ -113,8 +113,8 @@ Denken Sie daran, dass auch eine Datei, die nur eine @code{\score}-Umgebung
 enhält, implizit in eine @code{\book}-Umgebung eingeschlossen wird.  Eine
 @code{\book}-Umgebung in einer Eingabdatei produziert wenigstens eine
 Ausgabedatei, und standardmäßig wird der Name der Ausagabedatei aus dem
-Namen der Eingabedatei abgeleitet.  @file{fandangoforelephants.ly} produziert
-also @file{fandangoforelephants.pdf}.
+Namen der Eingabedatei abgeleitet.  @file{fandangoforelephants@/.ly} produziert
+also @file{fandangoforelephants@/.pdf}.
 
 Zu weiteren Einzelheiten zu @code{\book}-Umgebungen siehe
 @ref{Mehrere Partituren in einem Buch},
@@ -163,7 +163,7 @@ und Texte werden mit einer @code{\markup}-Umgebung geschrieben:
 
 @funindex \book
 
-Alle Sätze und Texte, die in derselben @code{.ly}-Datei vorkommen,
+Alle Sätze und Texte, die in derselben @file{@/.ly}-Datei vorkommen,
 werden normalerweise in eine einzige Ausgabedatei gesetzt.
 
 @example
@@ -241,7 +241,7 @@ einem Titel innerhalb einer @code{\header}-Umgebung beginnen.
 @subsection Mehrere Ausgabedateien aus einer Eingabedatei
 @translationof Multiple output files from one input file
 
-Wenn Sie mehrere Ausgabedateien aus derselben @code{.ly}-Datei haben
+Wenn Sie mehrere Ausgabedateien aus derselben @file{@/.ly}-Datei haben
 wollen, können Sie mehrere @code{\book}-Umgebungen hinzufügen, wobei
 jede Umgebung eine neue Ausgabedatei produziert.  Wenn Sie keine
 @code{\book}-Umgebung in der Eingabedatei angeben, wird die Datei von
@@ -280,11 +280,11 @@ produziert also
 
 @itemize
 @item
-@file{eightminiatures.pdf},
+@file{eightminiatures@/.pdf},
 @item
-@file{eightminiatures-1.pdf} and
+@file{eightminiatures@/-1@/.pdf} and
 @item
-@file{eightminiatures-2.pdf}.
+@file{eightminiatures@/-2@/.pdf}.
 @end itemize
 
 
@@ -303,8 +303,8 @@ Im vorhergehenden Abschnitt wurde gezeigt, wir LilyPond gleichnamige
 Ausgabedateien verhindert, wenn mehrere Ausgabedateien aus derselben
 Eingabedatei erstellt werden.  Es gibt auch die Möglichkeit, eigene
 Suffixe für jeden @code{\book}-Abschnitt zu definieren, sodass man etwa
-Dateinamen wie @file{eightminiatures-Romanze.pdf}, @file{eightminiatures-Menuetto.pdf}
-und @file{eightminiatures-Nocturne.pdf} produzieren kann, indem man
+Dateinamen wie @file{eightminiatures@/-Romanze@/.pdf}, @file{eightminiatures@/-Menuetto@/.pdf}
+und @file{eightminiatures@/-Nocturne.pdf} produzieren kann, indem man
 eine @code{\bookOutputSuffix}-Angabe in jede @code{\book}-Umgebung
 einfügt.
 
@@ -352,11 +352,11 @@ Die obige Datei produziert folgene Ausgabedateien:
 
 @itemize
 @item
-@file{Romanze.pdf},
+@file{Romanze@/.pdf},
 @item
-@file{Menuetto.pdf} and
+@file{Menuetto@/.pdf} and
 @item
-@file{Nocturne.pdf}.
+@file{Nocturne@/.pdf}.
 @end itemize
 @node Die Dateistruktur
 @subsection Die Dateistruktur
@@ -375,7 +375,7 @@ Die obige Datei produziert folgene Ausgabedateien:
 @cindex Eingabedatei, Struktur
 @cindex Quelldatei, Struktur
 
-Eine @code{.ly}-Datei kann eine beliebige Anzahl an Ausdrücken
+Eine @file{@/.ly}-Datei kann eine beliebige Anzahl an Ausdrücken
 auf der obersten Ebene beinhalten, wobei ein Ausdruck der obersten
 Ebene einer der folgenden sein kann:
 
@@ -403,7 +403,7 @@ zusammen mit anderen vorkommenden @code{\score}-Umgebungen gesammelt
 und in ein @code{\book} zusammengefasst.  Dieses Verhalten kann
 verändert werden, indem die Variable @code{toplevel-score-handler}
 auf höchster Ebene gesetzt wird.  Die Definition des Standards findet sich
-in der Datei @file{../@/scm/@/lily@/.scm}.
+in der Datei @file{@/.@/./@/scm/@/lily@/.scm}.
 
 @item
 Eine @code{\book}-Umgebung fasst mehrere Sätze (d. h. mehrere
@@ -419,7 +419,7 @@ muss, wenn mehr als eine @code{\score}- oder @code{\markup}-Umgebung
 im gleichen Beispiel angezeigt werden soll.  Dieses Verhalten
 kann verändert werden, indem die Variable @code{toplevel-book-handler}
 auf höchster Ebene gesetzt wird.  Die Definition des Standards
-findet sich in der Datei @file{../@/scm/@/lily@/.scm}.
+findet sich in der Datei @file{@/.@/./@/scm/@/lily@/.scm}.
 
 @item
 Eine @code{\bookpart}-Umgebung.  Ein Buch (@code{\book}) kann in
@@ -458,7 +458,7 @@ beinhaltet, wird übersetzt zu
 Dieses Verhalten kann verändert werden, indem die Variable
 @code{toplevel-music-handler} auf der obersten Ebene gesetzt
 wird.  Die Definition des Standards findet sich in der Datei
-@file{../@/scm/@/lily@/.scm}.
+@file{@/.@/./@/scm/@/lily@/.scm}.
 
 @item
 Eine Textbeschriftung, eine Strophe etwa:
@@ -769,7 +769,7 @@ falsch gesetzt wird:
 
 Kompliziertere Anpassungen können vorgenommen werden, indem die
 folgenden Variablen innerhalb der @code{\paper}-Umgebung geändert
-werden.  Die Init-Datei @file{../@/ly/@/titling@/-init@/.ly} enthält das
+werden.  Die Init-Datei @file{@/.@/./@/ly/@/titling@/-init@/.ly} enthält das
 Standardverhalten.
 
 @table @code
@@ -1016,7 +1016,8 @@ tocAct =
 
 
 @seealso
-Installierte Dateien: @file{../@/ly/@/toc@/-init@/.ly}.
+Installierte Dateien:
+@file{@/.@/./@/ly/@/toc@/-init@/.ly}.
 
 @funindex \table-of-contents
 @funindex \tocItem
@@ -1058,7 +1059,7 @@ Um eine andere Datei einzubinden, kann der Befehl
 benutzt werden.
 
 Die Zeile @code{\include "andereDatei.ly"} benimmt sich genauso,
-also ob der Inhalt der Datei @code{andereDatei.ly} komplett in die
+also ob der Inhalt der Datei @file{andereDatei@/.ly} komplett in die
 Hauptdatei eingefügt werden würde.  So kann man für ein größeres
 Projekt die einzelnen Stimmen der Instrumente getrennt notieren
 und sie dann in einer Partitur-Datei benutzen.  Meistens werden
@@ -1074,7 +1075,7 @@ Stellen können eingebunden werden, indem entweder ein vollständiger
 Pfad oder ein relativer Pfad zu der Datei angegeben wird.  Hierbei
 sollten die für UNIX typischen Schrägstriche (/) und nicht die
 rückwärtsgeneigten von Windows (\) verwendet werden, um die Verzeichnisse
-zu trennen.  Wenn etwa die Datei @file{kram.ly} ein Verzeichnis
+zu trennen.  Wenn etwa die Datei @file{kram@/.ly} ein Verzeichnis
 höher liegt als das aktuelle Verzeichnis, sollte der Befehl so
 aussehen:
 
@@ -1110,9 +1111,9 @@ Dateien können auch aus einem Verzeichnis eingebunden werden,
 dass im Suchpfad von LilyPond liegt.  Hierzu muss auf der
 Kommandozeile das entsprechende Verzeichnis angegeben werden
 und die Dateien, die eingebunden werden, müssen nur mit ihrem Namen
-notiert sein.  Wenn etwa die Datei @file{Haupt.ly} kompiliert
+notiert sein.  Wenn etwa die Datei @file{Haupt@/.ly} kompiliert
 werden soll, die Dateien aus dem Unterverzeichnis @file{stimmen}
-einbindet, müssen sie sich im Verzeichnis von @file{Haupt.ly}
+einbindet, müssen sie sich im Verzeichnis von @file{Haupt@/.ly}
 befinden und dann LilyPond folgendermaßen aufrufen:
 
 @example
@@ -1120,7 +1121,7 @@ lilypond --include=stimmen Haupt.ly
 @end example
 
 @noindent
-In @file{Haupt.ly} steht:
+In @file{Haupt@/.ly} steht:
 
 @example
 \include "VI.ly"
@@ -1129,11 +1130,11 @@ In @file{Haupt.ly} steht:
 @end example
 
 Dateien, die in vielen Partituren verwendet werden sollen, können
-im LilyPond-Verzeichnis @file{../ly} gespeichert werden.  (Die
+im LilyPond-Verzeichnis @file{@/.@/./@/ly} gespeichert werden.  (Die
 Stelle, an der dieses Verzeichnis sich befindet, hängt vom Betriebssystem
 ab, siehe hierzu @rlearning{Mehr Information}).  Dateien
 in diesem Verzeichnis können einfach mit ihrem Namen eingefügt werden.
-So werden auch die Sprachdateien wie etwa @file{deutsch.ly} eingefügt.
+So werden auch die Sprachdateien wie etwa @file{deutsch@/.ly} eingefügt.
 
 LilyPond lädt eine Anzahl an Dateien, wenn das Programm aufgerufen wird.
 Diese Dateien sind für den Benutzer nicht ersichtlich, aber die Dateien
@@ -1919,7 +1920,7 @@ Kontextdefinitionen des @code{\midi}-Kontextes entsprechen
 der Syntax, wie sie in der @code{\layout}-Umgebung benutzt
 wird.  Klangübersetzungsmodule werden @code{performer}
 genannt.  Die Kontexte für die MIDI-Ausgabe sind in der
-Datei @file{../@/ly/@/performer@/-init@/.ly} definiert, siehe
+Datei @file{@/.@/./@/ly/@/performer@/-init@/.ly} definiert, siehe
 @rlearning{Mehr Information}.  Um beispielsweise
 die Auswirkung von Dynamikzeichen aus der MIDI-Ausgabe zu
 entfernen, müssen folgende Zeilen eingefügt werden:
@@ -2061,7 +2062,7 @@ Dynamikanweisungen werden als ein bestimmter Bruch der insgesamt
 zur Verfügung stehenden MIDI-Lautstärke notiert.  Die Standardbrüche
 reichen von 0,25 für @notation{ppppp} bis hin zu 0,95 für
 @notation{fffff}.  Diese Anweisung befinden sich in der Datei
-@file{../@/scm/@/midi.scm}, siehe auch @rlearning{Mehr Information}.
+@file{@/.@/./@/scm/@/midi@/.scm}, siehe auch @rlearning{Mehr Information}.
 Diese Brüche können nach Belieben geändert oder erweitert werden, indem
 eine Funktion erstellt wird, die ein Dynamikzeichen als Argument
 nimmt und den erforderlichen Bruch ausgibt; schließlich muss noch
@@ -2099,7 +2100,7 @@ Standardanweisungen auf:
 Alternativ, insbesondere wenn die gesamte Tabelle der MIDI-Lautstärken
 umdefiniert werden soll, ist es besser, die
 @notation{default-dynamic-absolute-volume}-Prozedur in der Datei
-@file{../@/scm/@/midi.scm} und die hiermit verknüpfte Tabelle als Modell
+@file{@/.@/./@/scm/@/midi@/.scm} und die hiermit verknüpfte Tabelle als Modell
 zu benutzen.  Das letzte Beispiel dieses Abschnittes zeigt, wie das
 gemacht werden kann.
 
@@ -2217,7 +2218,7 @@ nicht vorgegeben werden, nimmt LilyPond standardmäßig einige
 Anpassungen für die Lautstärken bestimmter Instrumente vor.
 Diese Instrumente und ihre entsprechende Veränderung lassen
 sich aus der Tabelle @notation{instrument-equalizer-alist}
-in der Datei @file{../@/scm/@/midi.scm} entnehmen.
+in der Datei @file{@/.@/./@/scm/@/midi@/.scm} entnehmen.
 
 Dieser grundlegende Equalizer kann ersetzt werden, indem die
 Funktion @code{instrumentEqualizer} im @code{Score}-Kontext auf
@@ -2229,7 +2230,7 @@ auf gleiche Weise vorgenommen, wie es schon für die
 @code{dynamicAbsoluteVolumeFunction} zu Beginn dieses Abschnittes
 gezeigt wurde.  Der Standard-Equalizer,
 @notation{default-instrument-equalizer} in der Datei
-@file{../@/scm/@/midi.scm} zeigt, wie solche eine Funktion erstellt werden
+@file{@/.@/./@/scm/@/midi@/.scm} zeigt, wie solche eine Funktion erstellt werden
 kann.
 
 Das folgende Beispiel definiert für die Flöte und Klarinette relative

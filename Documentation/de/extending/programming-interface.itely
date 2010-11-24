@@ -94,9 +94,9 @@ Notationsreferenz:
 @ruser{Vordefinierte Typenprädikate}.
 
 Installierte Dateien:
-@file{lily/music-scheme.cc},
-@file{scm/c++.scm},
-@file{scm/lily.scm}.
+@file{lily/@/music@/-scheme@/.cc},
+@file{scm/@/c++@/.scm},
+@file{scm/@/lily@/.scm}.
 
 
 @node Einfache Ersetzungsfunktionen

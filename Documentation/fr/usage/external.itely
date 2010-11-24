@@ -46,18 +46,18 @@ pointe.
 
 Afin que cette chaîne de traitement soit pleinement opérationnelle, il
 faut configurer votre visionneur de PDF de façon à ce qu'il suive les
-liens grâce au script @file{lilypond-invoke-editor} fourni avec
+liens grâce au script @file{lilypond@/-invoke@/-editor} fourni avec
 LilyPond.
 
 Pour Xpdf, sous UNIX, vous devrez insérer la ligne suivante dans
-le fichier @file{xpdfrc} -- soit @file{/etc/xpdfrc}, soit dans votre
-répertoire personnel @file{.xpdfrc}.
+le fichier @file{xpdfrc} -- soit @file{/@/etc/@/xpdfrc}, soit dans votre
+répertoire personnel @file{@/.xpdfrc}.
 
 @example
 urlCommand     "lilypond-invoke-editor %s"
 @end example
 
-@file{lilypond-invoke-editor} est un petit programme assistant.  Il se
+@file{lilypond@/-invoke@/-editor} est un petit programme assistant.  Il se
 charge d'appeler un éditeur pour les identifants de ressource
 (@emph{URI}) de type @code{textedit}, et un navigateur pour les autres.
 Il teste en outre la variable d'environnement @code{EDITOR} pour les cas
@@ -110,7 +110,7 @@ toujours possible de désactiver le pointer-cliquer en ajoutant
 @end example
 
 @noindent
-dans le fichier @file{.ly}.  Il peut alors être activé de manière
+dans le fichier @file{@/.ly}.  Il peut alors être activé de manière
 explicite grâce à
 
 @example
@@ -127,7 +127,7 @@ lilypond -dno-point-and-click file.ly
 @warning{Lorsqu'un fichier LilyPond est destiné à être redistribué,
 pensez à désactiver le pointer-cliquer, de telle sorte que les chemins
 d'accès et autres informations propres à votre système ne se retrouvent
-pas inclus dans le fichier @file{.pdf}.}
+pas inclus dans le fichier @file{@/.pdf}.}
 
 
 @node LilyPond et les éditeurs de texte
@@ -154,24 +154,24 @@ Certains éditeurs de texte prennent en charge LilyPond.
 @unnumberedsubsec Mode Emacs
 @translationof Emacs mode
 
-Emacs dispose d'un @file{lilypond-mode} qui fournit l'autocomplétion des
+Emacs dispose d'un @file{lilypond@/-mode} qui fournit l'autocomplétion des
 mots-clés, l'indentation, les appariements spécifiques à LilyPond, la
 coloration syntaxique, ainsi que des raccourcis pour compiler et
 consulter les manuels de LilyPond en mode info.  Si le
-@file{lilypond-mode} n'était pas installé sur votre système, procédez
+@file{lilypond@/-mode} n'était pas installé sur votre système, procédez
 comme ci-dessous.
 
 Le répertoire @file{elisp} inclus dans les sources contient aussi un
 mode pour saisir la musique et lancer LilyPond.  Faites @command{make
 install} pour l'installer dans votre @var{elispdir}.  Le fichier
-@file{lilypond-init.el} devrait trouver sa place dans
-@var{load-path}@file{/site-start.d/} ou bien ajouté à votre
-@file{~/.emacs} ou @file{~/.emacs.el}.
+@file{lilypond@/-init@/.el} devrait trouver sa place dans
+@var{load-path}@file{/@/site@/-start@/.d/@/} ou bien ajouté à votre
+@file{@/~/@/@/.emacs} ou @file{@/~/@/@/.emacs@/.el}.
 
 En tant que simple utilisateur, vous pouvez toujours ajouter votre
-propre répertoire (par exemple @file{~/site-lisp/}) à votre
+propre répertoire (par exemple @file{@/~/@/site@/-lisp/@/}) à votre
 @var{load-path} en ajoutant la ligne suivante -- modifiée en conséquence
--- à votre @file{~/.emacs}@tie{}:
+-- à votre @file{@/~/@/@/.emacs}@tie{}:
 
 @c any reason we do not advise:  (push "~/site-lisp" load-path)
 @example
@@ -186,7 +186,7 @@ propre répertoire (par exemple @file{~/site-lisp/}) à votre
 En ce qui concerne @uref{http://@/www@/.vim@/.org,Vim}, LilyPond fournit
 tout le nécessaire pour gérer la coloration syntaxique et l'indentation.
 Le mode spécifique à Vim doît être indiqué dans le fichier
-@file{$HOME/.vimrc}.  Localisez ce fichier, ou créez-le, et ajoutez-y
+@file{@/$HOME/@/@/.vimrc}.  Localisez ce fichier, ou créez-le, et ajoutez-y
 les trois lignes suivantes@tie{}:
 
 @example
@@ -197,7 +197,7 @@ filetype on
 
 @noindent
 Si LilyPond est installé dans un autre répertoire que
-@file{/usr/local/}, modifiez ce chemin en conséquence.  Pour de plus
+@file{/@/usr/@/local/}, modifiez ce chemin en conséquence.  Pour de plus
 amples détails, consultez @rlearning{Autres sources de documentation}.
 
 
@@ -269,7 +269,7 @@ convertisseur capable d'importer directement un fichier.
 les durées spécifiées lorsque nécessaire.
 
 Vous pouvez enregistrer un fichier MIDI grâce à un clavier
-électronique et ensuite le convertir en fichier @file{.ly}.  Néanmoins
+électronique et ensuite le convertir en fichier @file{@/.ly}.  Néanmoins
 le rythme humain n'a pas une précision suffisante pour qu'une
 conversion MIDI à ly ne se fasse sans surprise.  En le couplant à une
 quantisation (options @code{-s} et @code{-d}), @command{midi2ly} tente
@@ -349,7 +349,7 @@ dialecte XML pour représenter la notation musicale.
 
 @command{musicxml2ly} extrait, à partir d'un fichier MusicXML, les
 notes, articulations, structure de la partition, paroles, etc.
-et les écrit dans un fichier @var{.ly}.  Il se lance en ligne de
+et les écrit dans un fichier @file{@/.ly}.  Il se lance en ligne de
 commande.
 
 Pour le lancer en ligne de commande, procédez ainsi :
@@ -374,9 +374,9 @@ Rendu en hauteurs absolues.
 Afficher un résumé des utilisations.
 
 @item -l, --language=LANG
-Utiliser un autre fichier de définition liguistique @file{LANG.ly}
+Utiliser un autre fichier de définition liguistique @file{LANG@/.ly}
 et les noms de notes correspondants, comme par exemple
-@var{deutsch} pour @file{deutsch.ly} et noms de notes en allemand.
+@var{deutsch} pour @file{deutsch@/.ly} et noms de notes en allemand.
 
 @item --lxml
 Utiliser le paquetage Python @code{lxml.etree}, moins gourmand en
@@ -392,7 +392,7 @@ gérer les ligatures automatiquement.
 
 @item -o,--output=@var{file}
 Générer le résultat dans le fichier @var{fichier}.  S'il n'est pas
-déterminé, ce sera @var{fichier-xml}@file{.ly}@tie{}; @file{-} produira
+déterminé, ce sera @var{fichier-xml}@file{@/.ly}@tie{}; @file{-} produira
 le résultat sur la sortie standard (@var{stdout}).
 
 @item -r,--relative

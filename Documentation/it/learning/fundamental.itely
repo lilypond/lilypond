@@ -194,7 +194,7 @@ Puoi scrivere molteplici blocchi @code{\score}.  Ciascuno verrà
 trattato come una partitura separata, ma saranno tutti combinati in
 un unico file di output.  Non è necessario il comando @code{\book}
 -- ne verrà creato uno automaticamente.  Tuttavia, se si desiderano
-file di output separati da un file @code{.ly}, allora si deve usare
+file di output separati da un file @file{@/.ly}, allora si deve usare
 il comando @code{\book} per separare le diverse sezioni: ogni blocco
 @code{\book} produrrà un file di output separato.
 
@@ -3067,7 +3067,7 @@ la sintassi di input di LilyPond cambia (vedi
 una definizione singola (come @code{\dolce}) per tutti i tuoi file
 di input (vedi @ref{Style sheets}), poi se la sintassi cambia devi
 soltanto aggiornare la tua singola definizione @code{\dolce},
-invece di dover modificare tutti i file @code{.ly}.
+invece di dover modificare tutti i file @file{@/.ly}.
 
 
 @node Partiture e parti
@@ -3082,7 +3082,7 @@ variabile.  I contenuti di quella variabile vengono poi usati per generare
 sia la parte che l'intera partitura.
 
 Conviene definire le note in un file speciale.  Ad esempio,
-supponiamo che il file @file{horn-music.ly} contenga la seguente parte
+supponiamo che il file @file{horn@/-music@/.ly} contenga la seguente parte
 di un duetto per corno e fagotto
 
 @example
@@ -3113,7 +3113,7 @@ La linea
 @end example
 
 @noindent
-sostituisce i contenuti di @file{horn-music.ly} in quella posizione del
+sostituisce i contenuti di @file{horn@/-music@/.ly} in quella posizione del
 file, quindi @code{hornNotes} è definito dopo.  Il comando
 @code{\transpose f@tie{}c'} indica che l'argomento, ovvero
 @code{\hornNotes}, deve essere trasposto di una quinta ascendente.  La tonalità
@@ -3164,7 +3164,7 @@ opzione alla musica precedente, si arriva al seguente risultato
 
 Lo spartito si forma combinando tutta la musica insieme.  Assumendo che
 l'altra voce si trovi in @code{bassoonNotes} nel file
-@file{bassoon-music.ly}, lo spartito sarà
+@file{bassoon@/-music@/.ly}, lo spartito sarà
 
 @example
 \include "bassoon-music.ly"

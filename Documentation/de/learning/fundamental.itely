@@ -243,7 +243,7 @@ Jeder davon wird als eigenständige Partitur interpretiert, die
 allerdings alle in dieselbe Ausgabedatei plaziert werden.
 Ein @code{\book}-Befehl ist nicht explizit notwendig -- er wird
 implizit erzeugt.  Wenn jedoch für jeden @code{\score}-Block in einer
-einzigen @code{.ly}-Datei eine eigene Ausgabe-Datei erzeugt werden soll,
+einzigen @file{@/.ly}-Datei eine eigene Ausgabe-Datei erzeugt werden soll,
 dann muss jeder dieser Blöcke in einen eigenen @code{\book}-Block
 gesetzt werden: Jeder @code{\book}-Block erzeugt dann eine
 eigene Ausgabedatei.
@@ -3100,10 +3100,10 @@ Abschnitt @ruser{Overview of modifying properties} anschauen.  Im Moment
 kann man nicht nur die @code{strechability}-Untereigenschaft verändern,
 darum müssen hier auch die anderen Untereigenschaften kopiert werden.  Die
 Standardeinstellungen dieser Untereigenschaften finden sich in der Datei
-@file{scm/@/define-grobs@/.scm} in den Definitionen für den
+@file{scm/@/define@/-grobs@/.scm} in den Definitionen für den
 @code{VerticalAxisGroup}-Grob.  Der Wert für @code{strechability} wird aus
 der Definition für das Klaviersystem (@code{PianoStaff}) entnommen
-(in der Datei @file{ly/@/engraver-init@/.ly}) sodass die Werte identisch
+(in der Datei @file{ly/@/engraver@/-init@/.ly}) sodass die Werte identisch
 sind.
 
 @example
@@ -3342,7 +3342,7 @@ with convert-ly}).
 Wenn man eine einzige Definition hat (wie etwa @code{\dolce}),
 die für alle Vorkommen in der Notation eingesetzt wird, muss
 man auch nur einmal diese Definition aktualisieren, anstatt
-dass man sie in jeder @code{.ly}-Datei einzeln ändern müsste.
+dass man sie in jeder @file{@/.ly}-Datei einzeln ändern müsste.
 
 
 @node Partitur und Stimmen
@@ -3357,7 +3357,7 @@ in einer Variable abgelegt.  Der Inhalt der Variable wird dann
 benutzt um sowohl die Stimme als auch die Partitur zu erstellen.
 
 Es bietet sich an, die Noten in einer extra Datei abzulegen.
-Nehmen wir an, dass die Datei @file{horn-music.ly} folgende
+Nehmen wir an, dass die Datei @file{horn@/-music@/.ly} folgende
 Noten eines Horn/@/Fagott-Duos enthält:
 
 @example
@@ -3390,7 +3390,7 @@ Die Zeile
 @end example
 
 @noindent
-ersetzt den Inhalt von @file{horn-music.ly} an dieser Position
+ersetzt den Inhalt von @file{horn@/-music@/.ly} an dieser Position
 in der Datei, sodass @code{hornNotes} im Folgenden definiert
 ist.  Der Befehl @code{\transpose f@tie{}c'} zeigt an, dass
 das Argument (@code{\hornNotes}) eine Quinte nach oben transponiert
@@ -3439,7 +3439,7 @@ Beispiel:
 
 Die Partitur wird erstellt, indem man alle Noten kombiniert.
 Angenommen, die andere Stimme ist in @code{bassoonNotes}
-in der Datei @file{bassoon-music.ly} definiert, würde eine
+in der Datei @file{bassoon@/-music@/.ly} definiert, würde eine
 Partitur erstellt mit:
 
 @example

@@ -324,7 +324,7 @@ Entfernung der Standardwerte für @code{padding} und
 @code{minimum-distance}.  Wenn also eine Variable als Aliste
 (jeglicher Länge) definiert wird, werden immer alle Standard-Schlüsselwerte
 zurückgesetzt.  Standardwerte für die flexiblen vertikalen Dimensionen
-der @code{\paper}-Umgebung finden sich in @file{ly/paper-defaults-init.ly}.
+der @code{\paper}-Umgebung finden sich in @file{ly/@/paper@/-defaults@/-init@/.ly}.
 
 
 @subsubheading Flexible vertikale Dimensionsvariablen der @code{\paper}-Umgebung
@@ -399,7 +399,7 @@ auf einer Seite, wenn sich kein Notensystem dazwischen befindet.
 Kopf- und Fußzeile werden von den Funktionen @code{make-footer} und
 @code{make-header} erstellt, welche in der @code{\paper}-Umgebung definiert
 werden.  Die Standardeinstellungen sind in den Dateien
-@file{ly/paper-defaults.ly} und @code{ly/titling-init.ly} dargestellt.
+@file{ly/@/paper@/-defaults@/.ly} und @code{ly/@/titling@/-init@/.ly} dargestellt.
 
 Das Seitenlayout wird durch zwei Funktionen der @code{\paper}-Umgebung
 bestimmt: @code{page-music-height} und @code{page-make-stencil}.  Die erste
@@ -410,7 +410,7 @@ werden sollen.
 
 Man kann @code{\paper}-Umgebungswerte in Scheme definieren.  In diesem
 Fall sind @code{mm}, @code{in}, @code{pt} und @code{cm} Variablen, die
-in @file{paper-defaults.ly} mit Werten in Millimetern definiert sind.
+in @file{paper@/-defaults@/.ly} mit Werten in Millimetern definiert sind.
 Darum muss der Wert  @w{@code{2 cm}} in dem Beispiel unten multipliziert werden:
 
 @example
@@ -1098,7 +1098,7 @@ werden.  Das folgende Beispiel etwa setzt die nächsten
 >>
 @end example
 
-Eine Zeilenumbruchkonfiguration kann auch als eine @code{.ly}-Datei
+Eine Zeilenumbruchkonfiguration kann auch als eine @file{@/.ly}-Datei
 automatisch gespeichert werden.  Damit kann die vertikale Ausrichtung
 während eines zweiten Programmdurchlaufs angepasst werden um die
 Seiten besser zu füllen.  Diese Eigenschaft ist recht neu und

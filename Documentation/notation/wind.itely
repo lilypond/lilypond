@@ -167,7 +167,7 @@ write @code{\taor} instead of
 \grace @{ \small G32[ d G e] @}
 @end example
 
-@code{bagpipe.ly} also contains pitch definitions for the bagpipe
+@file{bagpipe@/.ly} also contains pitch definitions for the bagpipe
 notes in the appropriate octaves, so you do not need to worry about
 @code{\relative} or @code{\transpose}.
 
@@ -403,8 +403,8 @@ will not show up in the music output:
 @end lilypond
 
 New diagrams can be created by following the patterns in
-@file{scm/define-woodwind-diagrams.scm} and
-@file{scm/display-woodwind-diagrams.scm}.  However, this will
+@file{scm/@/define@/-woodwind@/-diagrams@/.scm} and
+@file{scm/@/display@/-woodwind@/-diagrams@/.scm}.  However, this will
 require Scheme ability and may not be accessible to all users.
 
 @predefined
@@ -426,8 +426,8 @@ require Scheme ability and may not be accessible to all users.
 @seealso
 
 Installed Files:
-@file{scm/define-woodwind-diagrams.scm},
-@file{scm/display-woodwind-diagrams.scm}.
+@file{scm/@/define@/-woodwind@/-diagrams@/.scm},
+@file{scm/@/display@/-woodwind@/-diagrams@/.scm}.
 
 Snippets: @rlsr{Winds}.
 

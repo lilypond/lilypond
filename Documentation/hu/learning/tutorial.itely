@@ -111,7 +111,7 @@ gyorsabban fog futni!}
 @translationof MacOS X
 
 Ha elindítjuk a @command{LilyPond.app} alkalmazást, egy példaállományt látunk
-megnyitva. Mentsük el (pl. @file{test.ly} néven az Asztalra), majd a
+megnyitva. Mentsük el (pl. @file{test@/.ly} néven az Asztalra), majd a
 @w{@qq{Compile > Typeset File}} (@q{Fordítás > Kotta szedése}) menüpont segítségével fordítsuk le.
 Ezután az eredményül kapott PDF fájl a képernyőn látható.
 
@@ -126,20 +126,20 @@ naplóablakban láthatjuk a hibák leírását.
 
 Windows alatt az Asztalon levő LilyPond ikonra duplán kattintva indíthatjuk el
 a LilyPondot, mely először egy példafájlt nyit meg egy egyszerű
-szövegszerkesztőben. Mentsük el (pl. @file{test.ly} néven az Asztalra),
+szövegszerkesztőben. Mentsük el (pl. @file{test@/.ly} néven az Asztalra),
 majd kattintsunk rá duplán a lefordításához (az ikonja egy hangjegyre
-hasonlít). Pár másodperc múlva létrejön egy @file{test.pdf} nevű fájl az
+hasonlít). Pár másodperc múlva létrejön egy @file{test@/.pdf} nevű fájl az
 Asztalon. Ha erre duplán kattintunk, megtekinthetjük a nyomtatható kottát.
-A @file{test.ly} fordításának másik módja, hogy egérrel ráhúzzuk a LilyPond
+A @file{test@/.ly} fordításának másik módja, hogy egérrel ráhúzzuk a LilyPond
 parancsikonjára.
 
-Egy létező @code{.ly} fájl szerkesztéséhez kattintsunk rá jobb gombbal, és
+Egy létező @file{@/.ly} fájl szerkesztéséhez kattintsunk rá jobb gombbal, és
 válasszuk az @qq{Edit source} (@q{Forrás szerkesztése}) menüpontot. Új kotta
 írásához vagy a szerkesztőt futtassuk a fent leírt módon, majd válasszuk ki a
 @qq{File > New} (@q{Fájl > Új}) parancsot, vagy jobb gombbal
 kattintsunk az Asztalra, válasszuk az @q{Új > Szöveges dokumentum}
 menüpontot, nevezzük át a fájlt a kívánt névre, és változtassuk meg a
-kiterjesztését @code{.ly}-re. Ezután ugyanúgy szerkeszthetjük és
+kiterjesztését @file{@/.ly}-re. Ezután ugyanúgy szerkeszthetjük és
 feldolgozhatjuk, ahogy eddig is tettük.
 
 Ha duplán kattintunk egy @code{.ly} fájlra, nem csak egy PDF-et kapunk, hanem
@@ -150,7 +150,7 @@ tartalmaz információkat. Hiba esetén ajánlatos megvizsgálni.
 @subsection Parancssor
 @translationof Command-line
 
-Hozzunk létre egy fájlt @file{test.ly} néven, és írjuk bele a következőket:
+Hozzunk létre egy fájlt @file{test@/.ly} néven, és írjuk bele a következőket:
 
 @example
 @{
@@ -158,7 +158,7 @@ Hozzunk létre egy fájlt @file{test.ly} néven, és írjuk bele a következőke
 @}
 @end example
 
-A @file{test.ly} fájl feldolgozásához adjuk ki az alábbi parancsot:
+A @file{test@/.ly} fájl feldolgozásához adjuk ki az alábbi parancsot:
 
 @example
 lilypond test.ly

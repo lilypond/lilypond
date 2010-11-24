@@ -877,7 +877,7 @@ espacios de pentagrama, y así esta instrucción mueve el objeto un
 espacio de pentagrama a la derecha, y dos espacios hacia arriba.
 
 Los procedimientos para trabajar con desplazamientos están en
-@file{scm/lily-library.scm}.
+@file{scm/@/lily@/-library@/.scm}.
 
 @subheading Dimensiones
 
@@ -891,7 +891,7 @@ dimensiones en Y, el @code{car} es la coordenada inferior, y el
 @code{cdr} es la coordenada superior.
 
 Los procedimientos para trabajar con intervalos están en
-@file{scm/lily-library.scm}.  Se deben usar estos procedimientos
+@file{scm/@/lily@/-library@/.scm}.  Se deben usar estos procedimientos
 siempre que sea posible, para asegurar la consistencia del código.
 
 @subheading Listas-A de propiedades

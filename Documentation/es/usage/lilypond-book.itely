@@ -117,7 +117,7 @@ situado en el mismo directorio que este archivo.)
 @subheading Procesado
 
 Guarde el código anterior como un archivo llamado
-@file{lilybook.lytex}, y luego ejecute en un terminal:
+@file{lilybook@/.lytex}, y luego ejecute en un terminal:
 
 @c keep space after @version{} so TeX doesn't choke
 @example
@@ -427,7 +427,7 @@ De forma adicional, @code{@@lilypondversion} imprime la versión actual
 de lilypond.
 
 Cuando se ejecuta @command{lilypond-book} sobre el archivo, se obtiene
-como resultado un archivo Texinfo (con la extensión @file{.texi}) que
+como resultado un archivo Texinfo (con la extensión @file{@/.texi}) que
 contiene etiquetas @code{@@image} para el HTML, Info y la salida
 impresa.  @command{lilypond-book} genera imágenes de la música en
 formatos EPS y PDF para usarlos en la salida impresa, y en formato PNG
@@ -524,11 +524,11 @@ propiedad @code{role} del elemento más interno (véanse las secciones
 siguientes).  Las etiquetas se eligen de forma que permitan a los
 editores de DocBook formatear el contenido satisfactoriamente.  Los
 archivos de DocBook que se van a procesar con @command{lilypond-book}
-deben tener la extensión @file{.lyxml}.
+deben tener la extensión @file{@/.lyxml}.
 
 @subheading Incluir un archivo de LilyPond
 
-Este es el caso más sencillo.  Debemos usar la extensión @file{.ly}
+Este es el caso más sencillo.  Debemos usar la extensión @file{@/.ly}
 para el archivo incluido, e insertarlo como un @code{imageobject}
 estándar, con la estructura siguiente:
 
@@ -568,9 +568,9 @@ lleva el @code{programlisting} en su interior.
 
 @subheading Procesar el documento de DocBook
 
-Al ejecutar @command{lilypond-book} sobre el archivo @file{.lyxml} se
+Al ejecutar @command{lilypond-book} sobre el archivo @file{@/.lyxml} se
 creará un documento de DocBook válido que se puede procesar
-posteriormente con la extensión @file{.xml}.  Si usa
+posteriormente con la extensión @file{@/.xml}.  Si usa
 @uref{http://@/dblatex@/.sourceforge@/.net@/,dblatex}, creará un
 archivo PDF a partir de este documento automáticamente.  Para la
 generación de HTML (HTML Help, JavaHelp, etc.) puede usar las hojas de
@@ -727,7 +727,7 @@ Si queremos traducir los comentarios y los nombres de variable en la
 salida literal pero no en el código fuente, podemos establecer el
 valor de la variable de entorno @code{LYDOC_LOCALEDIR} a la ruta de un
 directorio; este directorio debe contener un árbol de catálogos de
-mensajes @file{.mo} con @code{lilypond-doc} como dominio.
+mensajes @file{@/.mo} con @code{lilypond-doc} como dominio.
 
 @item addversion
 (Sólo para la salida de Texinfo.)  Anteponer la línea @code{\version
@@ -754,7 +754,7 @@ Suponiendo que el archivo @file{fulanito@/.ly} contiene
 
 @noindent
 y que tenemos lo siguiente en nuestro documento de Texinfo
-@file{prueba.texinfo}
+@file{prueba@/.texinfo}
 
 @example
 @@lilypondfile[texidoc]@{fulanito.ly@}
@@ -769,7 +769,7 @@ lilypond-book --pdf --process="lilypond \
 @end example
 
 La mayoría de los documentos de prueba de LilyPond (en el directorio
-@file{input} de la distribución) son pequeños archivos @file{.ly} que
+@file{input} de la distribución) son pequeños archivos @file{@/.ly} que
 tienen exactamente este aspecto.
 
 Por motivos de localización de idioma, si el documento de Texinfo
@@ -821,9 +821,9 @@ parte del directorio de la ruta del archivo.
 @translationof Invoking lilypond-book
 
 @command{lilypond-book} produce un archivo con una de las siguientes
-extensiones: @file{.tex}, @file{.texi}, @file{.html} o @file{.xml},
-dependiendo del formato de salida.  Todos los archivos @file{.tex},
-@file{.texi} y @file{.xml} necesitan un procesado posterior.
+extensiones: @file{@/.tex}, @file{@/.texi}, @file{@/.html} o @file{@/.xml},
+dependiendo del formato de salida.  Todos los archivos @file{@/.tex},
+@file{@/.texi} y @file{@/.xml} necesitan un procesado posterior.
 
 @subheading Instrucciones específicas de formato
 
@@ -863,9 +863,9 @@ ps2pdf miarchivo.ps
 @end example
 
 @noindent
-El archivo @file{.dvi} creado por este proceso no contiene las cabezas
+El archivo @file{@/.dvi} creado por este proceso no contiene las cabezas
 de las notas.  Esto es normal; si sigue las instrucciones, las cabezas
-aparecerán en los archivos @file{.ps} y @file{.pdf}.
+aparecerán en los archivos @file{@/.ps} y @file{@/.pdf}.
 
 La ejecución de @command{dvips} puede dar como resultado algunas
 advertencias sobre las fuentes tipográficas; son inocuas y se pueden

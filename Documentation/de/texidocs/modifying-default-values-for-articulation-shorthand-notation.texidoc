@@ -1,6 +1,6 @@
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
  texidocde = "
-Die Abkürzungen sind in der Datei @samp{ly/script-init.ly} definiert, wo
+Die Abkürzungen sind in der Datei @file{ly/@/script@/-init@/.ly} definiert, wo
 den Variablen @code{dashHat}, @code{dashPlus}, @code{dashDash},
 @code{dashBar}, @code{dashLarger}, @code{dashDot} und
 @code{dashUnderscore} Standardwerte zugewiesen werden.  Diese Standardwerte

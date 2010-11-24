@@ -85,8 +85,8 @@ convert-ly -e monfichier.ly
 @end example
 
 @noindent
-dans le dossier où il se trouve.  @code{monfichier.ly} sera mis à jour,
-et vous aurez une copie de l'original@tie{}: @code{monfichier.ly~}.
+dans le dossier où il se trouve.  @file{monfichier@/.ly} sera mis à jour,
+et vous aurez une copie de l'original@tie{}: @file{monfichier@/.ly~}.
 
 @warning{@command{convert-ly} effectuera les conversions jusqu'aux
 modifications de syntaxe les plus récentes qu'il contient.  C'est la
@@ -190,7 +190,7 @@ convert-ly """D:/Mes Partitions/Ode.ly""" > "D:/Mes Partitions/nouveau Ode.ly"
 Lorsque la commande @command{convert-ly -e *.ly} échoue parce que
 son expansion dépasse la taille maximale d'une ligne, vous pouvez lancer
 @command{convert-ly} dans une boucle.  L'exemple suivant permet, sous
-Unix, de convertir tous les fichiers @code{.ly} d'un même
+Unix, de convertir tous les fichiers @file{@/.ly} d'un même
 répertoire@tie{}:
 
 @example

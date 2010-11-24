@@ -95,9 +95,9 @@ Referencia de la notación:
 @ruser{Predicados de tipo predefinidos}.
 
 Archivos de inicio:
-@file{lily/music-scheme.cc},
-@file{scm/c++.scm},
-@file{scm/lily.scm}.
+@file{lily/@/music@/-scheme@/.cc},
+@file{scm/@/c++@/.scm},
+@file{scm/@/lily@/.scm}.
 
 
 @node Funciones de sustitución sencillas

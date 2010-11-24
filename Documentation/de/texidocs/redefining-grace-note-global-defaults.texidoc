@@ -4,7 +4,7 @@ Die globalen Standardeinstellungen für Verzierungsnoten werden in
 den Variablen@code{startGraceMusic}, @code{stopGraceMusic},
 @code{startAcciaccaturaMusic}, @code{stopAcciaccaturaMusic},
 @code{startAppoggiaturaMusic} und @code{stopAppoggiaturaMusic}
-gespeichert, die in der Datei @code{ly/grace-init.ly} definiert
+gespeichert, die in der Datei @file{ly/@/grace@/-init@/.ly} definiert
 sind.  Wenn man sie umdefiniert, können andere Effekte erreicht
 werden.
 

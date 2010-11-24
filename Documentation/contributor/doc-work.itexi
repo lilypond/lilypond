@@ -197,8 +197,8 @@ source files are @file{learning@/.tely} (LM, Learning Manual),
 @file{notation@/.tely} (NR, Notation Reference),
 @file{music@/-glossary@/.tely} (MG, Music Glossary), and
 @file{lilypond@/-program} (AU).  Each chapter is written in a separate
-file, ending in @file{.itely} for files containing lilypond code, and
-@file{.itexi} for files without lilypond code, located in a subdirectory
+file, ending in @file{@/.itely} for files containing lilypond code, and
+@file{@/.itexi} for files without lilypond code, located in a subdirectory
 associated to the manual (@file{learning/} for @file{learning@/.tely}, and
 so on); list the subdirectory of each manual to determine the filename
 of the specific chapter you wish to modify.
@@ -988,7 +988,7 @@ write: DYNAMICS may be manually placed above or below the staff,
 see @@ref@{Controlling direction and placement@}.
 
 Most tweaks should be added to LSR and not placed directly in the
-.itely file.  In some cases, tweaks may be placed in the main
+@file{@/.itely} file.  In some cases, tweaks may be placed in the main
 text, but ask about this first.
 
 Finally, you should assume that users know what the notation
@@ -1288,7 +1288,7 @@ concern.  Check for potential additions.
 
 @item
 move LSR-worthy material into LSR.  Add the snippet, delete the
-material from the .itely file, and add a @@lilypondfile command.
+material from the @file{@/.itely} file, and add a @@lilypondfile command.
 
 @item
 check the examples and descriptions.  Do they still work?
@@ -1317,7 +1317,7 @@ harder than it looks.
 
 In general, any \set or \override commands should go in the
 @qq{select snippets} section, which means that they should go in
-LSR and not the .itely file.  For some cases, the command
+LSR and not the @file{@/.itely} file.  For some cases, the command
 obviously belongs in the @qq{main text} (i.e. not inside
 @@predefined or @@seealso or whatever) -- instrument names are a
 good example of this.
@@ -1693,7 +1693,7 @@ menus.  This process should be made easier in the future, when the helper
 script @command{texi-langutils.py} and the makefile target are updated.
 
 Some pieces of text manipulated by build scripts that appear in the
-output are translated in a @file{.po} file -- just like LilyPond output
+output are translated in a @file{@/.po} file -- just like LilyPond output
 messages -- in @file{Documentation/@/po}.  The Gettext domain is named
 @code{lilypond-doc}, and unlike @code{lilypond} domain it is not managed
 through the Free Translation Project.
@@ -1908,7 +1908,7 @@ the full file in English will be opened instead.
 
 @seeCommittishesUpdate
 
-Texinfo skeleton files, i.e. @file{.itely} files not yet translated,
+Texinfo skeleton files, i.e. @file{@/.itely} files not yet translated,
 containing only the first node of the original file in English can be
 updated automatically: whenever @command{make check-translation} shows
 that such files should be updated, run from @file{Documentation/}
@@ -1917,7 +1917,7 @@ that such files should be updated, run from @file{Documentation/}
 make ISOLANG=@var{MY_LANGUAGE} skeleton-update
 @end example
 
-@file{.po} message catalogs in @file{Documentation/@/po/} may be updated
+@file{@/.po} message catalogs in @file{Documentation/@/po/} may be updated
 by issuing from @file{Documentation/} or @file{Documentation/@/po/}
 
 @example
@@ -1942,7 +1942,7 @@ This script overwrites music snippets in
 @file{@var{MY_LANGUAGE/@/foo/@/every@/.itely}} with music snippets from
 @file{@var{foo/@/every@/.itely}}.  It ignores skeleton files, and keeps
 intact music snippets preceded with a line starting with @code{@@c
-KEEP LY}; it reports an error for each @file{.itely} that has not the
+KEEP LY}; it reports an error for each @file{@/.itely} that has not the
 same music snippet count in both languages.  Always use this script
 with a lot of care, i.e. run it on a clean Git working tree, and check
 the changes it made with @command{git diff} before committing; if you
@@ -2045,17 +2045,17 @@ The following tasks are listed in decreasing priority order.
 @item Update macros.itexi.
 For each obsolete macro definition, if it is possible to update macro
 usage in documentation with an automatic text or regexp substitution,
-do it and delete the macro definition from macros.itexi; otherwise,
+do it and delete the macro definition from @file{macros@/.itexi}; otherwise,
 mark this macro definition as obsolete with a comment, and keep it in
-macros.itexi until the documentation translation has been updated and
+@file{macros@/.itexi} until the documentation translation has been updated and
 no longer uses this macro.
 
-@item Update @file{*.tely} files completely with
+@item Update @file{@/*@/.tely} files completely with
 @command{make check-translation} -- you may want to redirect output
 to a file because of overwhelming output, or call check-translation.py
 on individual files, see @ref{Check state of translation}.
 
-@item In @file{.itelys}, match sections and .itely file names with those from
+@item In @file{@/.itelys}, match sections and .itely file names with those from
 English docs, which possibly involves moving nodes contents in block
 between files, without updating contents itself.  In other words, the
 game is catching where has gone each section.  In Learning manual, and
@@ -2214,15 +2214,15 @@ translation process.  All scripts used to maintain the translations
 are located in @file{scripts/@/auxiliar/}.
 
 @itemize
-@item @file{check_translation.py}  -- show diff to update a translation,
-@item @file{texi-langutils.py}  -- quickly and dirtily parse Texinfo files to
+@item @file{check@/_translation@/.py}  -- show diff to update a translation,
+@item @file{texi@/-langutils@/.py}  -- quickly and dirtily parse Texinfo files to
 make message catalogs and Texinfo skeleton files,
-@item @file{texi-skeleton-update.py} -- update Texinfo skeleton files,
-@item @file{update-snippets.py} -- synchronize ly snippets with those
+@item @file{texi@/-skeleton@/-update@/.py} -- update Texinfo skeleton files,
+@item @file{update@/-snippets@/.py} -- synchronize ly snippets with those
 from English docs,
-@item @file{translations-status.py} -- update translations status pages and word
+@item @file{translations@/-status@/.py} -- update translations status pages and word
 counts in the file you are reading,
-@item @file{tely-gettext.py} -- gettext node names, section titles and references
+@item @file{tely@/-gettext@/.py} -- gettext node names, section titles and references
 in the sources; WARNING only use this script once for each file, when support for
 "makeinfo --html" has been dropped.
 @end itemize
@@ -2230,22 +2230,22 @@ in the sources; WARNING only use this script once for each file, when support fo
 Other scripts are used in the build process, in @file{scripts/@/build/}:
 
 @itemize
-@item @file{mass-link.py} -- link or symlink files between English documentation
+@item @file{mass@/-link@/.py} -- link or symlink files between English documentation
 and documentation in other languages.
 @end itemize
 
 Python modules used by scripts in @file{scripts/@/auxiliar/} or @file{scripts/@/build/} (but
 not by installed Python scripts) are located in @file{python/@/auxiliar/}:
 @itemize
-@item @file{manuals_definitions.py} -- define manual names and name of
+@item @file{manuals@/_definitions@/.py} -- define manual names and name of
 cross-reference Texinfo macros,
-@item @file{buildlib.py} -- common functions (read piped output
+@item @file{buildlib@/.py} -- common functions (read piped output
 of a shell command, use Git),
-@item @file{postprocess_html.py} (module imported by @file{www_post@/.py}) -- add footer and
+@item @file{postprocess@/_html@/.py} (module imported by @file{www_post@/.py}) -- add footer and
 tweak links in HTML pages.
 @end itemize
 
 And finally
 @itemize
-@item @file{python/langdefs.py}  -- language definitions module
+@item @file{python/@/langdefs@/.py}  -- language definitions module
 @end itemize

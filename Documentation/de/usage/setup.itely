@@ -145,24 +145,24 @@ Verschiedene Texteditoren haben Unterstützung für LilyPond.
 @subsection Emacs-Modus
 @translationof Emacs mode
 
-Emacs hat einen LilyPond-Modus (@file{lilypond-mode}), eine Datei, die
+Emacs hat einen LilyPond-Modus (@file{lilypond@/-mode}), eine Datei, die
 die Vervollständigung von Befehlen, Einrückungen, für LilyPond spezifische
 Klammerschließungen und die Markierung der Syntax beherrscht.
 Zusätzlich stehen noch praktische Tastaturkombinationen zum
 Programmaufruf und zum Nachschlagen in den Handbüchern zur
-Verfügung. Siehe unten, wenn die Datei @file{lilypond-mode}
+Verfügung. Siehe unten, wenn die Datei @file{lilypond@/-mode}
 sich nicht auf Ihrem Computer befindet.
 
 Der Emacs-Modus zur Noteneingabe und zum Programmaufruf ist
 in den Emacs-Quellen im @file{elisp}-Verzeichnis enthalten. Mit
 dem Befehl @command{make install} können Sie es nach @var{elispdir}
-installieren. Die Datei @file{lilypond-init.el} sollte in
- @var{load-path}@file{/site-start.d/} liegen oder Ihrem
- @file{~/.emacs} or @file{~/.emacs.el} hinzugefügt werden.
+installieren. Die Datei @file{lilypond@/-init@/.el} sollte in
+ @var{load-path}@file{/@/site@/-start@/.d/@/} liegen oder Ihrem
+ @file{@/~/@/@/.emacs} or @file{@/~/@/@/.emacs@/.el} hinzugefügt werden.
 
-Als Benutzer können Sie Ihren Quellenpfad (etwa @file{~/site-lisp/})
+Als Benutzer können Sie Ihren Quellenpfad (etwa @file{@/~/@/site@/-lisp/@/})
 ihrem @var{load-path} hinzufügen, indem Sie folgende Zeile zu Ihrer
-@file{~/.emacs}-Datei hinzufügen:
+@file{@/~/@/@/.emacs}-Datei hinzufügen:
 
 @c any reason we do not advise:  (push "~/site-lisp" load-path)
 @example
@@ -180,7 +180,7 @@ Noteneingabe und zum Programmaufruf befindet sich im Quellarchiv im
 @code{$VIM}-Verzeichnis.
 
 LilyPond-Dateien werden automatisch erkannt, wenn sich in der Datei
-@file{~/.vim/filetype.vim} folgender Inhalt befindet:
+@file{@/~/@/@/.vim/@/filetype@/.vim} folgender Inhalt befindet:
 
 @example
 if exists("did_load_filetypes")
@@ -192,7 +192,7 @@ augroup END
 @end example
 
 Fügen Sie den LilyPond-Pfad in ihre
-@file{~/.vimrc}-Datei ein, indem Sie ihre folgende Zeile hinzufügen:
+@file{@/~/@/@/.vimrc}-Datei ein, indem Sie ihre folgende Zeile hinzufügen:
 
 @example
 set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
@@ -200,7 +200,7 @@ set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
 
 @noindent
 Dabei wird $@{LILYPOND_VERSION@}durch Ihre LilyPond-Version ersetzt. Sollten
-Sie LilyPond nicht nach @file{/usr/local/} installiert haben, müssen Sie den
+Sie LilyPond nicht nach @file{/@/usr/@/local/@/} installiert haben, müssen Sie den
 Pfad entsprechend anpassen.
 
 
@@ -277,17 +277,17 @@ Diese werden dann bei einem Klick zum Browser geschickt, der wiederum
 einen Texteditor mit dem Cursor an der richtigen Stelle öffnet.
 
 Damit diese Kettenreaktion funktioniert, müssen Sie ihrem PDF-Programm
-mit dem Skript @file{lilypond-invoke-editor} beibringen, Hyperlinks zu folgen.
+mit dem Skript @file{lilypond@/-invoke@/-editor} beibringen, Hyperlinks zu folgen.
 
 Im Falle von Xpdf auf einer UNIX-Maschine sollte folgende Zeile in der Datei
 @file{xpdfrc}@footnote{Unter UNIX befindet sich diese Datei entweder in
-@file{/etc/xpdfrc} oder als @file{.xpdfrc} in Ihrem Heim-Verzeichnis.} stehen.
+@file{/@/etc/@/xpdfrc} oder als @file{@/.xpdfrc} in Ihrem Heim-Verzeichnis.} stehen.
 
 @example
 urlCommand     "lilypond-invoke-editor %s"
 @end example
 
-Das Programm @file{lilypond-invoke-editor} ist ein kleines Hilfsprogramm.
+Das Programm @file{lilypond@/-invoke@/-editor} ist ein kleines Hilfsprogramm.
 Es ruft einen Editor auf für bestimmte @code{textedit}-URIs und startet
 einen Browser für die anderen. Die Umgebungsvariable @code{EDITOR}
 wird für folgende Zeichenketten:
@@ -337,7 +337,7 @@ ausgeschaltet werden, indem die Zeile
 @end example
 
 @noindent
-in der @file{.ly}-Datei gesetzt wird. Point and Click kann auch explizit
+in der @file{@/.ly}-Datei gesetzt wird. Point and Click kann auch explizit
 eingeschaltet werden durch die Zeile:
 
 @example
