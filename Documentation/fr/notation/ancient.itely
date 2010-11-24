@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3f4496001441e0b1b27d7bc5395c4520f4f2088c
+    Translation of GIT committish: 1b832d794f1444033f10465971e97d33f76fe310
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2125,14 +2125,14 @@ chant comme ci-après@tie{}:
 @untranslated
 
 @menu
-* Différentes éditions à partir d'une même source::
+* Éditions ancienne et moderne à partir d'une même source::
 * Des incipits::
 * Mise en forme de la musique mensurale::
 * Transcription de chant grégorien::
 @end menu
 
-@node Différentes éditions à partir d'une même source
-@unnumberedsubsubsec Différentes éditions à partir d'une même source
+@node Éditions ancienne et moderne à partir d'une même source
+@unnumberedsubsubsec Éditions ancienne et moderne à partir d'une même source
 @translationof Ancient and modern from one source
 
 @untranslated
