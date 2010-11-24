@@ -1096,7 +1096,7 @@ Zusätzlich zu der gedruckten Taktart werden mit der Definition des
 Befehls @code{\time} auch die Standardwerte fürt die Eigenschaften
 @code{baseMoment}, @code{beatStructure} und @code{beamExtensions}
 gesetzt.  Die vordefinierten Standardwerte für diese Eigenschaften
-finden sich in @file{scm/time-signature-settings.scm}.  Die existierenden
+finden sich in @file{scm/@/time@/-signature@/-settings@/.scm}.  Die existierenden
 Standardwerte können verändert oder neue Standardwerte hinzugefügt
 werden.
 
@@ -2105,7 +2105,7 @@ In den oben genannten Regeln ist der Balkentyp die Dauer der
 kürzesten Note der bebalkten Gruppe.
 
 Zur Erinnerung: die Standardbebalkungsregeln finden sich in der Datei
-@file{scm/time-signature-settings.scm}.
+@file{scm/@/time@/-signature@/-settings@/.scm}.
 
 
 @snippets
@@ -2136,7 +2136,7 @@ Zur Erinnerung: die Standardbebalkungsregeln finden sich in der Datei
 
 @seealso
 Installierte Dateien:
-@file{scm/beam-settings.scm}.
+@file{scm/@/beam@/-settings@/.scm}.
 
 Schnipsel:
 @rlsr{Rhythms}.

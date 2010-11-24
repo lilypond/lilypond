@@ -5,7 +5,7 @@ Este ejemplo demuestra cómo se puede definir el grabador de ámbito en
 el espacio del usuario, con un grabador de Scheme.
 
 Esto es básicamente una reescritura en Scheme del código de
-@file{lily/ambitus-engraver.cc}.
+@file{lily/@/ambitus@/-engraver@/.cc}.
 
 "
 

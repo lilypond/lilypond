@@ -1089,7 +1089,7 @@ instrucción @code{\time} establece también los valores predeterminados
 basados en el tipo de compás para las propiedades @code{baseMoment},
 @code{beatStructure} y @code{beamExceptions}.  Los valores
 predefinidos de estas propiedades están en
-@file{scm/time-signature-settings.scm}.  Los valores predefinidos
+@file{scm/@/time@/-signature@/-settings@/.scm}.  Los valores predefinidos
 existentes se pueden cambiar, o pueden añadirse valores nuevos:
 
 @lilypond[quote,verbatim]
@@ -2112,7 +2112,7 @@ En las reglas anteriores, el tipo de barra beam-type es la duración de
 la nota más breve dentro del grupo unido por una barra.
 
 Como referencia, pueden encontrarse las reglas de barrado predefinidas
-en el archivo @file{scm/time-signature-settings.scm}.
+en el archivo @file{scm/@/time@/-signature@/-settings@/.scm}.
 
 @snippets
 
@@ -2138,7 +2138,7 @@ en el archivo @file{scm/time-signature-settings.scm}.
 
 @seealso
 Archivos de inicio:
-@file{scm/beam-settings.scm}.
+@file{scm/@/beam@/-settings@/.scm}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.

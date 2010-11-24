@@ -1,7 +1,7 @@
 %% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
   texidoces = "
 Las abreviaturas se encuentran definidas dentro del archivo
-@code{ly/script-init.ly}, donde las variables @code{dashHat},
+@file{ly/@/script@/-init@/.ly}, donde las variables @code{dashHat},
 @code{dashPlus}, @code{dashDash}, @code{dashBar},
 @code{dashLarger}, @code{dashDot} y @code{dashUnderscore} reciben
 valores predeterminados.  Se pueden modificar estos valores

@@ -3,7 +3,7 @@
 La agrupación de pulsos dentro de un compás está controlada por la
 propiedad de contexto @code{beatStructure}.  Hay establecidos valores
 de @code{beatStructure} para muchos tipos de compases en
-@file{scm/time-signature-settings.scm}.  Los valores de
+@file{scm/@/time@/-signature@/-settings@/.scm}.  Los valores de
 @code{beatStructure} se pueden cambiar o establecer con @code{\\set}.
 Como alternativa, se puede usar la función de Scheme
 @code{set-time-signature} para establecer tanto el compás como la
@@ -21,7 +21,7 @@ de pulsos.  Estos símbolos facilitan la lectura de música moderna
 rítmicamente compleja.  En este ejemplo, el compás de 9/8 se agrupa
 según dos patrones distintos utilizando los dos métodos, mientras que
 el compás de 5/8 se agrupa de acuerdo con el ajuste predeterminado que
-está en @file{scm/time-signature-settings.scm}:
+está en @file{scm/@/time@/-signature@/-settings@/.scm}:
 
 "
 doctitlees = "Símbolos de dirección y símbolos de agrupación de compás"

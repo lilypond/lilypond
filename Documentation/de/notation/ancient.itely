@@ -1410,7 +1410,7 @@ Ligaturen, korrekte Silbenpositionierung und richtiger Umgang mit
 Versetzungszeichen fehlen noch.
 
 Die Unterstützung für gregorianische Neumen wird aktiviert, indem
-man mit @code{\include} die Datei @code{gregorian.ly} am Anfang
+man mit @code{\include} die Datei @file{gregorian@/.ly} am Anfang
 der Quelldatei aktiviert.  Damit werden zusätzliche Befehl
 zur Verfügung gestellt, mit denen man die Neumensymbole des
 Chorals produzieren kann.
@@ -1558,7 +1558,7 @@ mittlere Note einer aufsteigenden Ligatur und fällt
 möglich, wenn auch nicht @emph{richtig}, eine Quilisma
 bestehend aus einer Note zu notieren.
 
-Neben den Notenformen definiert die Datei @code{gregorian.ly}
+Neben den Notenformen definiert die Datei @file{gregorian@/.ly}
 auch die Befehle @code{\versus}, @code{\responsum}, @code{\ij},
 @code{\iij}, @code{\IJ} und @code{\IIJ}, mit denen die
 entsprechenden Zeichen, etwa für den Text oder als

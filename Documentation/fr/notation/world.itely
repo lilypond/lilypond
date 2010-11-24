@@ -47,7 +47,7 @@ tons sont divisés en 9 intervalles.  Du point de vue actuel des
 pratiques de notation, il est possible d'utiliser les notes occidentales
 (do, ré, mi@dots{}) auxquelles on ajoutera l'atlération spécifique à la
 musique turque.  Ces différentes altérations sont définies dans le
-fichier @file{makam.ly} -- reportez vous au chapitre
+fichier @file{makam@/.ly} -- reportez vous au chapitre
 @rlearning{Autres sources de documentation} pour le localiser sur votre
 système.  Vous trouverez, dans le tableau suivant, le nom de ces
 altérations, le suffixe à utiliser, ainsi que la fraction de ton entier
@@ -196,7 +196,7 @@ Le symbole indiquant un demi-bémol ne correspond pas au symbole
 utilisé dans la notation arabe.  Si le symbole particulier du
 demi-bémol arabe doit absolument être utilisé, il est possible
 de s'en approcher en faisant précéder la note par la commande
-@code{\dwn} définie dans le fichier @code{arabic.ly}.
+@code{\dwn} définie dans le fichier @file{arabic@/.ly}.
 Cette méthode ne peut toutefois pas être utilisée pour modifier
 l'aspect du demi-bémol dans l'armure.
 
@@ -226,7 +226,7 @@ Morceaux choisis :
 @c elles ne doivent donc pas être traduites. -vv
 
 Outre les armures mineures et majeures, les armures suivantes
-sont définies dans la fichier @code{arabic.ly}@tie{}: @notation{bayati},
+sont définies dans la fichier @file{arabic@/.ly}@tie{}: @notation{bayati},
 @notation{rast}, @notation{sikah}, @notation{iraq} et @notation{kurd}.
 Ces armatures définissent un petit nombre de groupes de maqams plutôt
 que le grand nombre de maqams habituellement utilisés.
@@ -529,7 +529,7 @@ D'un point de vue de notation moderne, il est pratique d'utiliser
 positions occidentales des notes sur la portée (do, ré, mi@dots{}) avec
 des altérations spéciales qui haussent ou baissent les notes par
 intervalles de 1/9, 4/9, 5/9 et 8/9 de ton.  Ces altérations sont
-définies dans le dossier @file{makam.ly} (pour trouver l'emplacement de
+définies dans le dossier @file{makam@/.ly} (pour trouver l'emplacement de
 ce dossier dans votre système, voir
 @rlearning{Autres sources de documentation}).  Une description plus
 détaillée se trouve dans

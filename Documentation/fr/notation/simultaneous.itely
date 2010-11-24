@@ -162,7 +162,7 @@ Manuel de notation :
 @ref{Articulations et ornements}.
 
 Fichiers d'initialisation :
-@file{ly/@/chord-repetition-init@/.ly}.
+@file{ly/@/chord@/-repetition@/-init@/.ly}.
 
 
 @node Expressions simultanées

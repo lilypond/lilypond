@@ -213,7 +213,7 @@ Manuel de notation :
 @ref{Trilles}.
 
 Fichiers installés :
-@code{scm/script.scm}.
+@code{scm/@/script@/.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.

@@ -7,9 +7,9 @@ illustre l'utilisation de la fonction @code{\\tag} dans le but
 d'extraire des parties séparées.
 
 Il vous faudra découper ce canevas en plusieurs fichiers séparés ; leur
-nom respectif est indiqué en commentaire : @code{piece.ly} comporte tout
-ce qui a trait à la musique, les autres fichiers -- @code{score.ly},
-@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly}, et @code{vlc.ly} -- vous
+nom respectif est indiqué en commentaire : @file{piece@/.ly} comporte tout
+ce qui a trait à la musique, les autres fichiers -- @file{score@/.ly},
+@file{vn1@/.ly}, @file{vn2@/.ly}, @file{vla@/.ly}, et @file{vlc@/.ly} -- vous
 permettront d'obtenir les parties selon le pupitre.
 
 

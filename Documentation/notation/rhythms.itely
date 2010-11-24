@@ -1051,7 +1051,7 @@ In addition to setting the printed time signature, the @code{\time}
 command also sets time-signature-based default values for the properties
 @code{baseMoment}, @code{beatStructure}, and @code{beamExceptions}.  The
 predefined default values for these properties can be found in
-@file{scm/time-signature-settings.scm}.  The existing default values can
+@file{scm/@/time@/-signature@/-settings@/.scm}.  The existing default values can
 be changed, or new default values can be added:
 
 @lilypond[quote,verbatim]
@@ -2046,7 +2046,7 @@ In the rules above, the beam-type is the duration of the
 shortest note in the beamed group.
 
 For reference, the default beaming rules are found in
-@file{scm/time-signature-settings.scm}.
+@file{scm/@/time@/-signature@/-settings@/.scm}.
 
 @snippets
 
@@ -2072,7 +2072,7 @@ For reference, the default beaming rules are found in
 
 @seealso
 Installed files:
-@file{scm/beam-settings.scm}.
+@file{scm/@/beam@/-settings@/.scm}.
 
 Snippets:
 @rlsr{Rhythms}.

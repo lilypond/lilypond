@@ -253,12 +253,12 @@ here:
 @uref{http://download.linuxaudio.org/lilypond/source/}
 @end example
 
-Download the tarball to your @file{~/src/} directory, or some
+Download the tarball to your @file{@/~/@/src/} directory, or some
 other appropriate place.
 
 @warning{Be careful where you unpack the tarball!  Any
 subdirectories of the current folder named @file{lilypond/} or
-@file{lilypond-@var{x.y.z}/} (where @var{x.y.z} is the release
+@file{lilypond@/-@var{x.y.z}/} (where @var{x.y.z} is the release
 number) will be overwritten if there is a name clash with the
 tarball.}
 
@@ -269,7 +269,7 @@ tar -xzf lilypond-@var{x.y.z}.tar.gz
 @end example
 
 This creates a subdirectory within the current directory called
-@file{lilypond-@var{x.y.z}/}.  Once unpacked, the source files
+@file{lilypond@/-@var{x.y.z}/}.  Once unpacked, the source files
 occupy about 40 MB of disk space.
 
 Windows users wanting to look at the source code may have to
@@ -306,7 +306,7 @@ This will:
 
 @enumerate
 @item generate a number of files and directories to aid
-configuration, such as @file{configure}, @file{README.txt}, etc.
+configuration, such as @file{configure}, @file{README@/.txt}, etc.
 
 @item automatically run the @command{./configure} command.
 @end enumerate
@@ -375,12 +375,12 @@ directory.  Here are the relevant lines taken from the output of
 
 @quotation
 By default, `@command{make@tie{}install}' will install all the
-files in @file{/usr/local/bin}, @file{/usr/local/lib} etc.  You
-can specify an installation prefix other than @file{/usr/local}
+files in @file{/@/usr/@/local/@/bin}, @file{/@/usr/@/local/@/lib} etc.  You
+can specify an installation prefix other than @file{/@/usr/@/local}
 using `@code{--prefix}', for instance `@code{--prefix=$HOME}'.
 @end quotation
 
-A typical installation prefix is @file{$HOME/usr}:
+A typical installation prefix is @file{$HOME/@/usr}:
 
 @example
 ./configure --prefix=$HOME/usr
@@ -394,8 +394,8 @@ write permission (such as your home directory).  The installation
 directory will be automatically created if necessary.
 
 The location of the @command{lilypond} command installed by this
-process will be @file{@var{prefix}/bin/lilypond}; you may want to
-add @file{@var{prefix}/bin/} to your @code{$PATH} if it is not
+process will be @file{@var{prefix}/@/bin/@/lilypond}; you may want to
+add @file{@var{prefix}/@/bin/} to your @code{$PATH} if it is not
 already included.
 
 It is also possible to specify separate installation directories
@@ -480,7 +480,7 @@ If you want to build multiple versions of LilyPond with different
 configuration settings, you can use the
 @code{--enable-config=@var{CONF}} option of @command{configure}.
 You should use @code{make@tie{}conf=@var{CONF}} to generate the
-output in @file{out-@var{CONF}}.  For example, suppose you want to
+output in @file{out@/-@var{CONF}}.  For example, suppose you want to
 build with and without profiling, then use the following for the
 normal build
 
@@ -515,7 +515,7 @@ make conf=prof install
 
 If a less verbose build output if desired, the variable
 @code{QUIET_BUILD} may be set to @code{1} on @command{make}
-command line, or in @file{local.make} at top of the build tree.
+command line, or in @file{local@/.make} at top of the build tree.
 
 
 @node Post-compilation options
@@ -543,7 +543,7 @@ make install
 @end example
 
 If instead, your installation directory is not one that you can
-normally write to (such as the default @file{/usr/local/}, which
+normally write to (such as the default @file{/@/usr/@/local/}, which
 typically is only writeable by the superuser), you will need to
 temporarily become the superuser when running
 @command{make@tie{}install}:
@@ -628,13 +628,13 @@ so it may only take a minute or two to test changes if the
 documentation is already built.
 
 If @command{make@tie{}doc} succeeds, the HTML documentation tree
-is available in @file{out-www/offline-root/}, and can be browsed
+is available in @file{out@/-www/@/offline@/-root/}, and can be browsed
 locally.  Various portions of the documentation can be found by
-looking in @file{out/} and @file{out-www} subdirectories in other
+looking in @file{out/} and @file{out@/-www} subdirectories in other
 places in the source tree, but these are only @emph{portions} of
 the docs.  Please do not complain about anything which is broken
 in those places; the only complete set of documentation is in
-@file{out-www/offline-root/} from the top of the source tree.
+@file{out@/-www/@/offline@/-root/} from the top of the source tree.
 
 Compilation of documentation in Info format with images can be
 done separately by issuing:
@@ -695,7 +695,7 @@ running LilyPond to build images of music, and there cannot be
 several simultaneously running @command{lilypond-book} instances,
 so the @option{-j} @command{make} option does not significantly
 speed up the build process.  To help speed it up, the makefile
-variable @option{CPU_COUNT} may be set in @file{local.make} or on
+variable @option{CPU_COUNT} may be set in @file{local@/.make} or on
 the command line to the number of @code{.ly} files that LilyPond
 should process simultaneously, e.g. on a bi-processor or dual core
 machine:
@@ -758,12 +758,12 @@ make install-info
 @noindent
 Note that to get the images in Info documentation, @code{install-doc}
 target creates symbolic links to HTML and PDF installed documentation
-tree in @file{@var{prefix}/share/info}, in order to save disk space,
+tree in @file{@var{prefix}/@/share/@/info}, in order to save disk space,
 whereas @code{install-info} copies images in
-@file{@var{prefix}/share/info} subdirectories.
+@file{@var{prefix}/@/share/@/info} subdirectories.
 
 It is possible to build a documentation tree in
-@file{out-www/online-root/}, with special processing, so it can be
+@file{out@/-www/@/online@/-root/}, with special processing, so it can be
 used on a website with content negotiation for automatic language
 selection; this can be achieved by issuing
 
@@ -817,10 +817,10 @@ Please note that this may break sometimes -- for example, if a new
 feature is added with a test file in input/regression, even the latest
 development release of LilyPond will fail to build the docs.
 
-You may build the manual without building all the @file{input/*} stuff
+You may build the manual without building all the @file{input/@/@/*} stuff
 (i.e. mostly regression tests): change directory, for example to
 @file{Documentation/}, issue @code{make doc}, which will build
-documentation in a subdirectory @file{out-www} from the source files in
+documentation in a subdirectory @file{out@/-www} from the source files in
 current directory.  In this case, if you also want to browse the
 documentation in its post-processed form, change back to top directory
 and issue
@@ -915,7 +915,7 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 @end example
 
-Now you must edit the generated @code{config.make} file.  Change
+Now you must edit the generated @file{config@/.make} file.  Change
 
 @example
 FLEXLEXER_FILE = /usr/include/FlexLexer.h
@@ -953,8 +953,8 @@ automatic font detection, add
 
 Solaris7, ./configure
 
-@file{./configure} needs a POSIX compliant shell.  On Solaris7,
-@file{/bin/sh} is not yet POSIX compliant, but @file{/bin/ksh} or bash
+@file{@/./@/configure} needs a POSIX compliant shell.  On Solaris7,
+@file{/@/bin/@/sh} is not yet POSIX compliant, but @file{/@/bin/@/ksh} or bash
 is.  Run configure like
 
 @example
@@ -971,9 +971,9 @@ CONFIG_SHELL=/bin/bash bash -c ./configure
 @unnumberedsubsubsec FreeBSD
 
 To use system fonts, dejaview must be installed.  With the default
-port, the fonts are installed in @file{usr/X11R6/lib/X11/fonts/dejavu}.
+port, the fonts are installed in @file{usr/@/X11R6/@/lib/@/X11/@/fonts/@/dejavu}.
 
-Open the file @file{$LILYPONDBASE/usr/etc/fonts/local.conf} and add the
+Open the file @file{$LILYPONDBASE/@/usr/@/etc/@/fonts/@/local@/.conf} and add the
 following line just after the @code{<fontconfig>} line.  (Adjust as necessary
 for your hierarchy.)
 
@@ -1013,8 +1013,8 @@ Debian GNU/Linux
 
 If you want to use lilypond's python libraries (either running
 certain build scripts manually, or using them in other programs),
-set @code{PYTHONPATH} to @file{python/out} in your build
-directory, or @file{.../usr/lib/lilypond/current/python} in the
+set @code{PYTHONPATH} to @file{python/@/out} in your build
+directory, or @file{@/.@/.@/./@/usr/@/lib/@/lilypond/@/current/@/python} in the
 installation directory structure.
 
 
@@ -1093,7 +1093,7 @@ made with @command{scripts/build/create-version-itexi.py} and@*
 
 @item
 used extensively in the @code{WEBSITE_ONLY_BUILD} version of the
-website (made with website.make, used on lilypond.org)
+website (made with @file{website@/.make}, used on lilypond.org)
 
 @item
 not (?) used in the main docs?

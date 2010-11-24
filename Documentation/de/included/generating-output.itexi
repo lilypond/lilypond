@@ -33,7 +33,7 @@ Wählen Sie aus den Menüs oben links auf Ihrem Bildschirm
 
 @sourceimage{Learning_Macos_Save_menu,,,}
 
-Wählen Sie einen Namen für die Datei, etwa @file{test.ly}.
+Wählen Sie einen Namen für die Datei, etwa @file{test@/.ly}.
 
 @sourceimage{Learning_Macos_Save_file_with_name,,,}
 
@@ -109,7 +109,7 @@ Namen gespeichert haben.
 
 @sourceimage{Learning_Win7_Save_Menu,,,}
 
-Wählen Sie einen Namen für Ihre Datei, etwa @file{test.ly}.
+Wählen Sie einen Namen für Ihre Datei, etwa @file{test@/.ly}.
 
 @sourceimage{Learning_Win7_Save_File_With_Name,,,}
 
@@ -131,18 +131,18 @@ Sie aus dem Menü @w{@code{Open with > LilyPond}}.
 
 @subsubheading Schritt 2b: Kompilieren (mit Doppelklick)
 
-Sie können auch einfach die Datei @file{test.ly} doppelt anklicken.
+Sie können auch einfach die Datei @file{test@/.ly} doppelt anklicken.
 
 
 @subsubheading 3. Schritt: Ausgabe anschauen
 
-Während der Kompilation von @file{test.ly} öffnet sich ein
+Während der Kompilation von @file{test@/.ly} öffnet sich ein
 Kommandofenster sehr schnell und schließt sich wieder.  Drei
 zusätzliche Dateien werden in diesem Schritt erstellt.
 
 @sourceimage{Learning_Win7_All_Files_Created,,,}
 
-Das PDF enthält den Notensatz aus der Datei @file{test.ly}.
+Das PDF enthält den Notensatz aus der Datei @file{test@/.ly}.
 
 @sourceimage{Learning_Win7_Pdf_Output,,,}
 
@@ -194,7 +194,7 @@ eine Datei zu kompilieren.}
 @subsubheading Schritt 1: Erstellen Sie eine @file{.ly}-Datei
 
 
-Erstellen Sie eine Text-Datei mit dem Namen @file{test.ly} und 
+Erstellen Sie eine Text-Datei mit dem Namen @file{test@/.ly} und
 geben Sie folgenden Text ein:
 
 @example
@@ -232,7 +232,7 @@ Konvertierung nach »test.pdf«...
 
 @subsubheading 3. Schritt: Ausgabe anschauen
 
-Als Ergebnis erhalten Sie ein @file{test.pdf}, das Sie mit den
+Als Ergebnis erhalten Sie ein @file{test@/.pdf}, das Sie mit den
 Standardprogrammen Ihres Betriebssystemes anschauen können.
 
 

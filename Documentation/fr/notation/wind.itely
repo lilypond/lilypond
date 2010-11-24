@@ -187,7 +187,7 @@ exemple, @code{\taor} est un raccourci pour
 \grace @{ \small G32[ d G e] @}
 @end example
 
-@code{bagpipe.ly} prend également en charge les définitions de hauteurs
+@file{bagpipe@/.ly} prend également en charge les définitions de hauteurs
 pour la cornemuse@tie{}; vous n'avez donc pas à vous soucier d'employer
 @code{\relative} ou @code{\transpose}.
 
@@ -435,8 +435,8 @@ pour un instrument donné, en utilisant dans un fichier
 @end lilypond
 
 De nouveaux diagrammes sont réalisables, en suivant les directives
-contenues dans les fichiers @file{scm/define-woodwind-diagrams.scm} et
-@file{scm/display-woodwind-diagrams.scm}.  Ceci requiert toutefois la
+contenues dans les fichiers @file{scm/@/define@/-woodwind@/-diagrams@/.scm} et
+@file{scm/@/display@/-woodwind@/-diagrams@/.scm}.  Ceci requiert toutefois la
 maîtrise du langage Scheme.
 
 
@@ -456,8 +456,8 @@ maîtrise du langage Scheme.
 @seealso
 
 Fichiers d'initialisation :
-@file{scm/define-woodwind-diagrams.scm},
-@file{scm/display-woodwind-diagrams.scm}.
+@file{scm/@/define@/-woodwind@/-diagrams@/.scm},
+@file{scm/@/display@/-woodwind@/-diagrams@/.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Winds,Vents}.

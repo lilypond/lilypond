@@ -38,18 +38,18 @@ file.  These hyperlinks are sent to the web-browser, which opens a
 text-editor with the cursor in the right place.
 
 To make this chain work, you should configure your PDF viewer to
-follow hyperlinks using the @file{lilypond-invoke-editor} script
+follow hyperlinks using the @file{lilypond@/-invoke@/-editor} script
 supplied with LilyPond.
 
 For Xpdf on UNIX, the following should be present in
 @file{xpdfrc}@footnote{On UNIX, this file is found either in
-@file{/etc/xpdfrc} or as @file{.xpdfrc} in your home directory.}
+@file{/@/etc/@/xpdfrc} or as @file{@/.xpdfrc} in your home directory.}
 
 @example
 urlCommand     "lilypond-invoke-editor %s"
 @end example
 
-The program @file{lilypond-invoke-editor} is a small helper
+The program @file{lilypond@/-invoke@/-editor} is a small helper
 program.  It will invoke an editor for the special @code{textedit}
 URIs, and run a web browser for others.  It tests the environment
 variable @code{EDITOR} for the following patterns,
@@ -98,7 +98,7 @@ off by issuing
 @end example
 
 @noindent
-in a @file{.ly} file.  Point and click may be explicitly enabled with
+in a @file{@/.ly} file.  Point and click may be explicitly enabled with
 
 @example
 \pointAndClickOn
@@ -135,21 +135,21 @@ There is support for different text editors for LilyPond.
 @node Emacs mode
 @unnumberedsubsec Emacs mode
 
-Emacs has a @file{lilypond-mode}, which provides keyword
+Emacs has a @file{lilypond@/-mode}, which provides keyword
 autocompletion, indentation, LilyPond specific parenthesis matching
 and syntax coloring, handy compile short-cuts and reading LilyPond
-manuals using Info.  If @file{lilypond-mode} is not installed on your
+manuals using Info.  If @file{lilypond@/-mode} is not installed on your
 platform, see below.
 
 An Emacs mode for entering music and running LilyPond is contained in
 the source archive in the @file{elisp} directory.  Do @command{make
-install} to install it to @var{elispdir}.  The file @file{lilypond-init.el}
-should be placed to @var{load-path}@file{/site-start.d/} or appended
-to your @file{~/.emacs} or @file{~/.emacs.el}.
+install} to install it to @var{elispdir}.  The file @file{lilypond@/-init@/.el}
+should be placed to @var{load-path}@file{/@/site@/-start@/.d/@/} or appended
+to your @file{@/~/@/@/.emacs} or @file{@/~/@/@/.emacs@/.el}.
 
-As a user, you may want add your source path (e.g. @file{~/site-lisp/}) to
+As a user, you may want add your source path (e.g. @file{@/~/@/site@/-lisp/@/}) to
 your @var{load-path} by appending the following line (as modified) to your
-@file{~/.emacs}
+@file{@/~/@/@/.emacs}
 
 @c any reason we do not advise:  (push "~/site-lisp" load-path)
 @example
@@ -163,7 +163,7 @@ your @var{load-path} by appending the following line (as modified) to your
 For @uref{http://@/www@/.vim@/.org,Vim}, a filetype plugin, indent
 mode, and syntax-highlighting mode are available to use with
 LilyPond.  To enable all of these features, create (or modify)
-your @file{$HOME/.vimrc} to contain these three lines, in order:
+your @file{@/$HOME/@/@/.vimrc} to contain these three lines, in order:
 
 @example
 filetype off
@@ -172,7 +172,7 @@ filetype on
 @end example
 
 @noindent
-If LilyPond is not installed in the @file{/usr/local/} directory,
+If LilyPond is not installed in the @file{/@/usr/@/local/@/} directory,
 change the path appropriately.  This topic is discussed in
 @rlearning{Other sources of information}.
 
@@ -237,7 +237,7 @@ channels into @rinternals{Voice} contexts.  Relative mode is used
 for pitches, durations are only written when necessary.
 
 It is possible to record a MIDI file using a digital keyboard, and
-then convert it to @file{.ly}.  However, human players are not
+then convert it to @file{@/.ly}.  However, human players are not
 rhythmically exact enough to make a MIDI to LY conversion trivial.
 When invoked with quantizing (@code{-s} and @code{-d} options)
 @command{midi2ly} tries to compensate for these timing errors, but is not
@@ -313,7 +313,7 @@ to a single duration and add phrase markings or pedal indicators.
 for representing music notation.
 
 @command{musicxml2ly} extracts the notes, articulations, score structure,
-lyrics, etc. from part-wise MusicXML files, and writes them to a .ly
+lyrics, etc. from part-wise MusicXML files, and writes them to a @file{@/.ly}
 file.  It is invoked from the command-line.
 
 
@@ -353,8 +353,8 @@ do not convert beaming information, use LilyPond's automatic
 beaming instead.
 
 @item -o,--output=@var{file}
-set output filename to @var{file}.  If @var{file} is @file{-}, the output
-will be printed on stdout.  If not given, @var{xml-file}@file{.ly} will
+set output filename to @var{file}.  If @var{file} is @file{@/-}, the output
+will be printed on stdout.  If not given, @var{xml-file}@file{@/.ly} will
 be used.
 
 @item -r,--relative

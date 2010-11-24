@@ -79,18 +79,18 @@ lilypond [@var{option}]@dots{} @var{fichier}@dots{}
 @end example
 
 Lorsque le fichier est fourni sans extension, LilyPond présume qu'il
-s'agit de @file{.ly}.  Pour interpréter directement l'entrée standard
+s'agit de @file{@/.ly}.  Pour interpréter directement l'entrée standard
 (@emph{stdin}), fournissez un tiret (@code{-}) en lieu et place de
 @var{fichier}.
 
-Le traitement de @file{monfichier.ly} produira @file{monfichier.ps} et
-@file{monfichier.pdf}.  Vous pouvez spécifier plusieurs fichiers à la
+Le traitement de @file{monfichier@/.ly} produira @file{monfichier@/.ps} et
+@file{monfichier@/.pdf}.  Vous pouvez spécifier plusieurs fichiers à la
 fois@tie{}; ils seront traités indépendamment les uns des
 autres.@footnote{Le statut de GUILE n'étant pas réinitialisé après
-traitement d'un fichier @code{.ly}, veillez à ne pas modifier les
+traitement d'un fichier @file{@/.ly}, veillez à ne pas modifier les
 réglages par défaut du système à partir d'assertions en Scheme.}
 
-Lorsque @file{monfichier.ly} contient plus d'une section @code{\book},
+Lorsque @file{monfichier@/.ly} contient plus d'une section @code{\book},
 les fichiers produits -- à partir du deuxième -- seront numérotés.  Par
 ailleurs, la valeur affectée à @code{output-suffix} sera insérée entre la
 racine et le numéro.  Par exemple, un fichier @var{racine} qui
@@ -104,8 +104,8 @@ contiendrait
 @end example
 
 @noindent
-fournira grâce à LilyPond @file{@var{racine}-violon.pdf} et
-@file{@var{racine}-cello-1.pdf}.
+fournira grâce à LilyPond @file{@var{racine}@/-violon@/.pdf} et
+@file{@var{racine}@/-cello@/-1@/.pdf}.
 
 
 @unnumberedsubsubsec Commandes standard de l'interpréteur
@@ -151,7 +151,7 @@ Voici les différentes options disponibles à la ligne de commande@tie{}:
 
 @item -e,--evaluate=@var{expr}
 Évalue l'expression Scheme @var{expr} avant d'analyser tout fichier
-@file{.ly}.  Lorsque vous spécifiez l'option @code{-e} à plusieurs
+@file{@/.ly}.  Lorsque vous spécifiez l'option @code{-e} à plusieurs
 reprises, l'évaluation sera faite en séquence.
 
 Dans la mesure où l'expression est évaluée par le module
@@ -170,7 +170,7 @@ en ligne de commande, et ajouter la ligne
 @end example
 
 @noindent
-en tête de votre fichier @code{.ly}.
+en tête de votre fichier @file{@/.ly}.
 
 
 @item -f,--format=@var{format}
@@ -226,7 +226,7 @@ Veillez à ne pas oublier d'encadrer la valeur par des guillemets
 @cindex safe, ligne de commande
 
 @item safe
-Ne pas avoir une confiance aveugle dans le code @code{.ly}.
+Ne pas avoir une confiance aveugle dans le code @file{@/.ly}.
 
 Lorsque LilyPond est accessible au travers d'un serveur web, il est
 @strong{impératif} d'utiliser les options @code{--safe} ou
@@ -245,7 +245,7 @@ chose du style
 
 L'option @code{-dsafe} forcera l'évaluation, au fil de l'eau et par un
 module sécurisé, des expressions Scheme contenues dans le fichier
-source.  Ce module sécuritaire, dérivé du module GUILE @file{safe-r5rs},
+source.  Ce module sécuritaire, dérivé du module GUILE @file{safe@/-r5rs},
 ajoute un certain nombre de fonctions -- listées dans
 @file{scm/@/safe@/-lily@/.scm} -- à l'API de LilyPond.
 
@@ -360,7 +360,7 @@ examinés l'un après l'autre.
 
 
 @item -i,--init=@var{fichier}
-Définit @var{fichier} (par défaut @file{init.ly}) en tant que fichier
+Définit @var{fichier} (par défaut @file{init@/.ly}) en tant que fichier
 d'initialisation.
 
 
@@ -371,7 +371,7 @@ d'initialisation.
 Détermine le nom par défaut du fichier résultant à @var{FICHIER}@tie{};
 lorsque l'argument @var{RÉP} correspond à un répertoire déjà existant,
 c'est là que les fichiers résultants seront déposés.  Le suffixe adéquat
-sera ajouté (p.ex. @code{.pdf} pour du pdf) dans tous les cas.
+sera ajouté (p.ex. @file{@/.pdf} pour du pdf) dans tous les cas.
 
 
 @cindex PostScript output
@@ -823,7 +823,7 @@ La manière adéquate de procéder consiste à inverser les commandes
 @translationof Apparent error in ../ly/init.ly
 
 Certains messages d'erreur relatifs à une erreur de syntaxe dans le
-fichier @code{../ly/init.ly} peuvent survenir lorsque le fichier est mal
+fichier @file{@/.@/./@/ly/@/init@/.ly} peuvent survenir lorsque le fichier est mal
 formaté.  Cela se produit notamment lors d'un défaut de parité de
 bornages ou de guillemets.
 

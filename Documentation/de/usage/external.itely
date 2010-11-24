@@ -42,19 +42,19 @@ der einen Texteditor mit dem Cursor an der richtigen Stelle öffnet.
 
 Damit diese Kettenreaktion funktionieren kann, müssen Sie das
 PDF-Programm dazu anweisen, Hyperlinks zu folgen, indem das Skript
-@file{lilypond-invoke-editor}, welches mit LilyPond kommt, verwendet
+@file{lilypond@/-invoke@/-editor}, welches mit LilyPond kommt, verwendet
 wird.
 
 Für Xpdf unter UNIX sollte folgende Zeile in der Datei
 @file{xpdfrc}@footnote{Unter UNIX findet man diese Datei
-entweder in @file{/etc/xpdfrc} oder als @file{.xpdfrc} im
+entweder in @file{/@/etc/@/xpdfrc} oder als @file{@/.xpdfrc} im
 home-Verzeichnis.} stehen:
 
 @example
 urlCommand     "lilypond-invoke-editor %s"
 @end example
 
-Das Programm @file{lilypond-invoke-editor} ist ein kleines
+Das Programm @file{lilypond@/-invoke@/-editor} ist ein kleines
 Hilfsprogramm.  Es ruft einen Editor für besondere @code{textedit}-URIs#
 auf und einen Webbrowser für andere.  Es testes die Umgebungsvariable
 @code{EDITOR} nach folgenden Mustern:
@@ -144,21 +144,21 @@ Verschiedene Editoren unterstützen LilyPond
 @unnumberedsubsec Emacs-Modus
 @translationof Emacs mode
 
-Emacs hat einen @file{lilypond-mode}-Modus, der Ergänzung von Befehlen,
+Emacs hat einen @file{lilypond@/-mode}-Modus, der Ergänzung von Befehlen,
 Einrückung, Syntaxhervorhebung, die Paarung von LilyPond-Klammern,
 einfache Tastaturkürzel zur Übersetzung und das Lesen von LilyPond-Dokumentation
-mit Info unterstützt.  Wenn @file{lilypond-mode} nicht auf Ihrem Computer
+mit Info unterstützt.  Wenn @file{lilypond@/-mode} nicht auf Ihrem Computer
 installiert ist, siehe unten.
 
 Ein Emacs-Modus zur Noteneingabe und zum Kompilieren mit LilyPond bfindet sich
 in dem Quellarchiv im @file{elisp}-Verzeichnis.  Führen Sie @command{make
 install} aus, damit es nach @var{elispdir} installiert wird.  Die Datei
-@file{lilypond-init.el} sollte in @var{Ladepfad}@file{/site-start.d/} gespeichert
-werden oder Ihrer @file{~/.emacs} bzw. @file{~/.emacs.el} hinzugefügt werden.
+@file{lilypond@/-init@/.el} sollte in @var{Ladepfad}@file{/@/site@/-start@/.d/@/} gespeichert
+werden oder Ihrer @file{@/~/@/@/.emacs} bzw. @file{@/~/@/@/.emacs@/.el} hinzugefügt werden.
 
-Als ein Benutzer können Sie Ihren Quellpfad (z. B. @file{~/site-lisp/})
+Als ein Benutzer können Sie Ihren Quellpfad (z. B. @file{@/~/@/site@/-lisp/@/})
 zum @var{Ladepfad} hinzufügen, indem Sie die (veränderte) folgende
-Zeile in Ihr @file{~/.emacs} kopieren:
+Zeile in Ihr @file{@/~/@/@/.emacs} kopieren:
 
 @c any reason we do not advise:  (push "~/site-lisp" load-path)
 @example
@@ -173,7 +173,7 @@ Zeile in Ihr @file{~/.emacs} kopieren:
 Für @uref{http://@/www@/.vim@/.org,Vim} gibt es ein Dateiartplugin, einen
 Einzugsmodus und einen Syntaxhervorhebungsmodus für LilyPond.  Um alle diese
 Eigenschaften zu aktivieren, erstellen (oder verändern) Sie die Datei
-@file{$HOME/.vimrc}, sodass sie folgende Zeilen enthält:
+@file{@/$HOME/@/@/.vimrc}, sodass sie folgende Zeilen enthält:
 
 @example
 filetype off
@@ -182,7 +182,7 @@ filetype on
 @end example
 
 @noindent
-Wenn LilyPond nicht in @file{/usr/local/} installiert ist, müssen Sie
+Wenn LilyPond nicht in @file{/@/usr/@/local/@/} installiert ist, müssen Sie
 den Pfad anpassen.  Das wird besprochen in
 @rlearning{Mehr Information}.
 
@@ -252,7 +252,7 @@ MIDI-Kanäle in @rinternals{Voice} Kontexte. Tonhöhen werden relativ
 angegeben, Tondauern nur wenn nötig.
 
 MIDI-Dateien können auch direkt von einem digitalen Keyboard
-aufgenommen und dann in eine @file{.ly}-Datei konvertiert werden.
+aufgenommen und dann in eine @file{@/.ly}-Datei konvertiert werden.
 Allerdings sind Musikinterpretationen von Menschen (aus gutem Grund!)
 rhythmisch nicht exakt genug um die Konvertierung von MIDI nach LY
 trivial zu gestalten. Wenn @command{midi2ly} mit Quantisierung
@@ -293,7 +293,7 @@ Kreuze an, @math{@var{acc} < 0} gibt die Anzahl der Bs der Tonart an.
 Eine Moll-Tonart wird durch @code{:1} angegeben.
 
 @item -o, --output=@var{Datei}
-Die Ausgabe wird in die Datei @var{Datei}@file{.ly} geschrieben.
+Die Ausgabe wird in die Datei @var{Datei}@file{@/.ly} geschrieben.
 
 @item -s, --start-quant=@var{LÄNGE}
 Quantisiert den Beginn der Noten zu Vielfachen von @var{LÄNGE}.
@@ -336,7 +336,7 @@ zur Darstellung von Musiknotation.
 @command{musicxml2ly} wandelt eine MusicXML-Datei nach LilyPond um,
 wobei sowohl die Noten, Artikulationszeichen, Struktur der Partitur,
 Liedtexte etc. einer MusicXML-Datei (im @q{part-wise}-Format) in eine
-.ly-Datei um.
+@file{@/.ly}-Datei um.
 
 @command{musicxml2ly} wird von der Kommandozeile folgendermaßen aufgerufen:
 @example
@@ -361,8 +361,8 @@ Konvertiert in absolute Tonhöhen.
 Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
 
 @item -l, --language=LANG
-Inkludiert die Sprachdatei @var{LANG}@file{.ly} in der Ausgabe. Wird z.B.
-'deutsch' angegeben, wird @file{deutsch.ly} in die .ly-Datei eingebunden
+Inkludiert die Sprachdatei @var{LANG}@file{@/.ly} in der Ausgabe. Wird z.B.
+'deutsch' angegeben, wird @file{deutsch@/.ly} in die @file{@/.ly}-Datei eingebunden
 und deutsche Notenbezeichnungen benutzt.
 
 @item --lxml
@@ -377,10 +377,10 @@ Konvertiert keine Informationen über die Balkensetzung aus der
 MusicXML-Datei. Stattdessen wird dies LilyPond überlassen.
 
 @item -o,--output=@var{Dateiname}
-Die Ausgabe wird in die Datei @var{Dateiname}@file{.ly} geschrieben. Wird
+Die Ausgabe wird in die Datei @var{Dateiname}@file{@/.ly} geschrieben. Wird
 als @var{Dateiname} nur @file{-} angegeben, wird das Ergebnis der Konvertierung
 an der Kommandozeile ausgegeben. Wird diese Option nicht angegeben, so
-erfolgt die Ausgabe in die Datei @var{XML-Datei}@file{.ly}.
+erfolgt die Ausgabe in die Datei @var{XML-Datei}@file{@/.ly}.
 
 @item -r,--relative
 Konvertiert in relative Tonhöhen. (Standardeinstellung)
@@ -394,7 +394,7 @@ Gibt die Versionsnummer aus.
 @item  -z,--compressed
 Die Eingabedatei wird als komprimierte MusicXML-Datei eingelesen.
 Dies ist die Standardeinstellung für Dateien mit der Erweiterung
-@file{.mxl}.
+@file{@/.xml}.
 @end table
 
 
@@ -430,7 +430,7 @@ Die Balkensetzung aus der ABC-Datei erhalten.
 @item -h,--help
 Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
 @item -o,--output=@var{Dateiname}
-Die Ausgabe wird in die Datei @var{Dateiname}@file{.ly} geschrieben.
+Die Ausgabe wird in die Datei @var{Dateiname}@file{@/.ly} geschrieben.
 @item -s,--strict
 Strenge Auslegung einer erfolgreichen Konvertierung.
 @item -v,--version
@@ -515,7 +515,7 @@ unterstützt:
 @item -h,--help
 Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
 @item -o,--output=@var{Dateiname}
-Die Ausgabe wird in die Datei @var{Dateiname}@file{.ly} geschrieben.
+Die Ausgabe wird in die Datei @var{Dateiname}@file{@/.ly} geschrieben.
 @item --version
 Gibt die Versionsnummer aus.
 @end table

@@ -285,7 +285,7 @@ liest eine besondere Datei mit der Bezeichnung @code{Makefile},
 die definiert, welche Dateien von welchen anderen Dateien abhängen und
 welche Befehle für das Betriebssystem nötig sind, um eine Datei aus
 einer anderen zu erstellen. Ein Makefile könnte etwa erklären, wie
-@code{ballad.pdf} und @code{ballad.midi} aus @code{ballad.ly}
+@file{ballad@/.pdf} und @file{ballad@/.midi} aus @file{ballad@/.ly}
 erstellt werden können, indem LilyPond aufgerufen wird.
 
 Es gibt Fällen, wenn es sich sehr stark empfiehlt, ein @code{Makefile}
@@ -346,8 +346,8 @@ Symphony/
 `-- symphonyDefs.ily
 @end example
 
-Die @code{.ly}-Dateien un den Verzeichnissen @code{Scores} und
-@code{Parts} erhalten ihrere Noten aus @code{.ily}-Dateien, die
+Die @file{@/.ly}-Dateien un den Verzeichnissen @code{Scores} und
+@code{Parts} erhalten ihrere Noten aus @file{@/.ily}-Dateien, die
 sich im @code{Notes}-Verzeichnis befinden:
 
 @example

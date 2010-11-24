@@ -294,7 +294,7 @@ included, then delete those snippets from
 @end enumerate
 
 
-Here is a shell script to run all @code{.ly} files in a directory
+Here is a shell script to run all @file{@/.ly} files in a directory
 and redirect terminal output to text files, which are then
 searched for the word "failed" to see which snippets do not compile.
 

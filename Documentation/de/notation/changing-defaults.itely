@@ -2092,7 +2092,7 @@ in einer Systemgruppe zu verkleinern, kann man die
 Aliste mit vier Schlüsseln: @code{padding} (Verschiebung),
 @code{space} (Platz), @code{minimum-distance} (minimaler Abstand)
 und @code{stretchability} (Dehnbarkeit).  Drei der vier Schlüssel
-haben zu Beginn Standardwerte, die in der Datei @file{scm/define-grobs.scm}
+haben zu Beginn Standardwerte, die in der Datei @file{scm/@/define@/-grobs@/.scm}
 (neben allen anderen Grob-Eigenschaften) definiert sind.
 
 @example
@@ -2170,7 +2170,8 @@ nicht initialisierten Standardwerte, die etwa in einer Initialisierungsdatei
 zu Beginn einer LilyPond-Partitur geladen werden, nach dem Aufruf
 rückgängig gemacht werden.  Im obigen Beispiel werden die
 initialisierten Standardwerte für @code{padding} und @code{minimum-distance}
-(definiert in @file{scm/define-grobs.scm}) auf den Standard zurückgesetzt, den sie uninitialisiert hätten (0 in beiden Fällen).  Wenn eine Eigenschaft oder
+(definiert in @file{scm/@/define@/-grobs@/.scm}) auf den Standard zurückgesetzt,
+den sie uninitialisiert hätten (0 in beiden Fällen).  Wenn eine Eigenschaft oder
 Variable in Form einer Aliste (jeder Größe) definiert wird, werden
 immer alle Schlüsselwerte auf den uninitialisierten Zustand zurückgesetzt.
 Es ist also sicherer, geschachtelte Aufrufe zu benutzen, wenn man nicht
@@ -3992,9 +3993,9 @@ Erweitern:
 @rextend{Musikalische Funktionen}.
 
 Installierte Dateien:
-@file{lily/music-scheme.cc},
-@file{scm/c++.scm},
-@file{scm/lily.scm}.
+@file{lily/@/music@/-scheme@/.cc},
+@file{scm/@/c++@/.scm},
+@file{scm/@/lily@/.scm}.
 
 
 @node Beispiele der Ersetzungsfunktionen

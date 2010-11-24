@@ -261,7 +261,7 @@ facility called @code{make}.  This software reads a special file called a
 @code{Makefile} that defines what files depend on what others and what
 commands you need to give the operating system to produce one file from
 another.  For example the makefile would spell out how to produce
-@code{ballad.pdf} and @code{ballad.midi} from @code{ballad.ly} by
+@file{ballad@/.pdf} and @file{ballad@/.midi} from @file{ballad@/.ly} by
 running Lilypond.
 
 There are times when it is a good idea to create a @code{Makefile}
@@ -320,9 +320,9 @@ Symphony/
 `-- symphonyDefs.ily
 @end example
 
-The @code{.ly} files in the @code{Scores} and
-@code{Parts} directories get their notes from @code{.ily}
-files in the @code{Notes} directory:
+The @file{@/.ly} files in the @file{Scores} and
+@file{Parts} directories get their notes from @file{@/.ily}
+files in the @file{Notes} directory:
 
 @example
 %%% top of file "symphony-cello.ly"

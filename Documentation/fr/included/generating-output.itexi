@@ -32,7 +32,7 @@ Dans le menu, en haut et à gauche de la fenêtre, sélectionnez
 
 @sourceimage{Learning_Macos_Save_menu,,,}
 
-Attribuez un nom à votre fichier, par exemple @file{test.ly}.
+Attribuez un nom à votre fichier, par exemple @file{test@/.ly}.
 
 @sourceimage{Learning_Macos_Save_file_with_name,,,}
 
@@ -105,7 +105,7 @@ exemple@tie{}: LilyPond attend un nom de fichier valide.
 
 @sourceimage{Learning_Win7_Save_Menu,,,}
 
-Affectez un nom à votre fichier, comme par exemple @file{test.ly}.
+Affectez un nom à votre fichier, comme par exemple @file{test@/.ly}.
 
 @sourceimage{Learning_Win7_Save_File_With_Name,,,}
 
@@ -125,18 +125,18 @@ l'option @w{@code{Ouvrir avec > LilyPond}}.
 
 @subsubheading Étape 2b. Compilation par double-clic
 
-Vous pouvez aussi faire un double-clic sur le fichier @file{test.ly}.
+Vous pouvez aussi faire un double-clic sur le fichier @file{test@/.ly}.
 
 
 @subsubheading Étape 3. Visualisation du résultat
 
-Au cours de la compilation du fichier @file{test.ly}, une fenêtre
+Au cours de la compilation du fichier @file{test@/.ly}, une fenêtre
 d'interpréteur de commande s'ouvre et se referme.  Trois fichiers
 complémentaires seront générés pendant ce temps là.
 
 @sourceimage{Learning_Win7_All_Files_Created,,,}
 
-Le fichier PDF contient la gravure de votre fichier @file{test.ly}.
+Le fichier PDF contient la gravure de votre fichier @file{test@/.ly}.
 
 @sourceimage{Learning_Win7_Pdf_Output,,,}
 
@@ -185,7 +185,7 @@ en cas de compilation infructueuse.}
 
 @subsubheading Étape 1. Création d'un fichier @file{.ly}
 
-Créez un fichier texte du nom de @file{test.ly} et saisissez@tie{}:
+Créez un fichier texte du nom de @file{test@/.ly} et saisissez@tie{}:
 
 @c double \\ required because this is inside a macro!
 @example
@@ -198,7 +198,7 @@ Créez un fichier texte du nom de @file{test.ly} et saisissez@tie{}:
 
 @subsubheading Étape 2. Compilation en ligne de commande
 
-Pour traiter le fichier @file{test.ly}, tapez ce qui suit à l'invite de
+Pour traiter le fichier @file{test@/.ly}, tapez ce qui suit à l'invite de
 commande@tie{}:
 
 @example
@@ -229,7 +229,7 @@ non.
 
 @subsubheading Étape 3. Visualisation du résultat
 
-Vous pouvez à présent visualiser ou imprimer @file{test.pdf}.
+Vous pouvez à présent visualiser ou imprimer @file{test@/.pdf}.
 
 @end macro
 

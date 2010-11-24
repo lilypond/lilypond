@@ -24,7 +24,7 @@ From the menus along the top left of your screen, select
 
 @sourceimage{Learning_Macos_Save_menu,,,}
 
-Choose a name for your file, for example @file{test.ly}.
+Choose a name for your file, for example @file{test@/.ly}.
 
 @sourceimage{Learning_Macos_Save_file_with_name,,,}
 
@@ -97,7 +97,7 @@ valid LilyPond file name.
 
 @sourceimage{Learning_Win7_Save_Menu,,,}
 
-Choose a name for your file, for example @file{test.ly}.
+Choose a name for your file, for example @file{test@/.ly}.
 
 @sourceimage{Learning_Win7_Save_File_With_Name,,,}
 
@@ -118,18 +118,18 @@ Right-click on the file and from the pop-up context menu choose
 
 @subsubheading Step 2b. Compile (with double-clicking)
 
-Or simply double-click the @file{test.ly}.
+Or simply double-click the @file{test@/.ly}.
 
 
 @subsubheading Step 3. View output
 
-During the compilation of the @file{test.ly} file, a command window
+During the compilation of the @file{test@/.ly} file, a command window
 will, very briefly open and then close.  Three additional files will
 have been created during this process.
 
 @sourceimage{Learning_Win7_All_Files_Created,,,}
 
-The PDF file contains the engraved @file{test.ly} file.
+The PDF file contains the engraved @file{test@/.ly} file.
 
 @sourceimage{Learning_Win7_Pdf_Output,,,}
 
@@ -178,7 +178,7 @@ compiling a file.}
 
 @subsubheading Step 1. Create your @file{.ly} file
 
-Create a text file called @file{test.ly} and enter:
+Create a text file called @file{test@/.ly} and enter:
 
 @c double \\ required because this is inside a macro!
 @example
@@ -191,7 +191,7 @@ Create a text file called @file{test.ly} and enter:
 
 @subsubheading Step 2. Compile (with command-line)
 
-To process @file{test.ly}, type the following at the command prompt:
+To process @file{test@/.ly}, type the following at the command prompt:
 
 @example
 lilypond test.ly
@@ -214,7 +214,7 @@ Converting to `./test.pdf'...
 
 @subsubheading Step 3. View output
 
-You may view or print the resulting @file{test.pdf}.
+You may view or print the resulting @file{test@/.pdf}.
 
 @end macro
 

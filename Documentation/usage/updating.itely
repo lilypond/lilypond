@@ -78,8 +78,8 @@ convert-ly -e myfile.ly
 
 @noindent
 in the directory containing the file.  This will upgrade
-@code{myfile.ly} in-place and preserve the original file in
-@code{myfile.ly~}.
+@file{myfile@/.ly} in-place and preserve the original file in
+@file{myfile@/.ly@/~}.
 
 @warning{@command{convert-ly} always converts up to the last
 syntax change handled by it.  This means that the @code{\version}
@@ -177,7 +177,7 @@ convert-ly """D:/My Scores/Ode.ly""" > "D:/My Scores/new Ode.ly"
 If the simple @command{convert-ly -e *.ly} command fails because the
 expanded command line becomes too long, the @command{convert-ly}
 command may be placed in a loop instead.  This example for UNIX
-will upgrade all @code{.ly} files in the current directory
+will upgrade all @file{@/.ly} files in the current directory
 
 @example
 for f in *.ly; do convert-ly -e $f; done;

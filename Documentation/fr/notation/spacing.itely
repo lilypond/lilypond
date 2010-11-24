@@ -343,7 +343,7 @@ deuxième redéfinit complètement la variable.
 @end example
 
 Les valeurs par défaut de ces variables sont répertoriés dans le
-fichier @file{ly/paper-defaults-init.ly}.
+fichier @file{ly/@/paper@/-defaults@/-init@/.ly}.
 
 
 @subsubheading Variables de dimensionnement fluctuant du bloc @code{\paper}
@@ -436,7 +436,7 @@ seconde génère la page selon le nombre de système qu'elle contiendra.
 Vous pouvez définir toutes ces valeurs -- en @code{mm}, @code{in},
 @code{pt} ou @code{cm} -- en langage Scheme au sein du bloc
 @code{\paper}.  Celles contenues dans le fichier
-@file{paper-defaults.ly} sont en millimètres, c'est la raison pour
+@file{paper@/-defaults@/.ly} sont en millimètres, c'est la raison pour
 laquelle la valeur de @code{2@tie{}cm} de ce qui suit doit être
 précédée du signe multiplier.
 
@@ -1877,8 +1877,8 @@ cette dernière aura préséance.  Voir aussi la propriété
 
 @seealso
 Fichiers d'initialisation :
-@file{ly/engraver-init.ly},
-@file{scm/define-grobs.scm}.
+@file{ly/@/engraver@/-init@/.ly},
+@file{scm/@/define@/-grobs@/.scm}.
 
 Référence des propriétés internes :
 @rinternals{Contexts},
@@ -1951,7 +1951,7 @@ isolées à l'aide de la propriété @code{staff-staff-spacing}@tie{}:
 
 @seealso
 Fichiers d'initialisation :
-@file{scm/define-grobs.scm}.
+@file{scm/@/define@/-grobs@/.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
@@ -2023,7 +2023,7 @@ regroupes, à l'aide des propriétés de l'objet graphique
 
 @seealso
 Fichiers d'initialisation :
-@file{scm/define-grobs.scm}.
+@file{scm/@/define@/-grobs@/.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
@@ -2093,8 +2093,8 @@ Vous noterez que la valeur élevée attribuée à la clé
 
 @seealso
 Fichiers d'initialisation :
-@file{ly/engraver-init.ly},
-@file{scm/define-grobs.scm}.
+@file{ly/@/engraver@/-init@/.ly},
+@file{scm/@/define@/-grobs@/.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.

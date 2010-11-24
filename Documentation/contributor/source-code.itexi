@@ -226,7 +226,7 @@ Windows@}).
 
 Once Git is installed, you'll need to create a new directory where
 your initial repository will be stored (the example below uses
-@file{~/lilypond@/-git/}, where @code{~} represents your home
+@file{@/~/lilypond@/-git/}, where @code{~} represents your home
 directory).  Run @command{git@tie{}init} from within the new
 directory to initialize an empty repository:
 
@@ -237,8 +237,8 @@ git init
 
 @subsubheading Technical details
 
-This creates (within the @file{~/lilypond@/-git/} directory) a
-subdirectory called @file{.git/}, which Git uses to keep track of
+This creates (within the @file{@/~/lilypond@/-git/} directory) a
+subdirectory called @file{@/.git/}, which Git uses to keep track of
 changes to the repository, among other things.  Normally you don't
 need to access it, but it's good to know it's there.
 
@@ -248,7 +248,7 @@ need to access it, but it's good to know it's there.
 
 @warning{Throughout the rest of this manual, all command-line
 input should be entered from the top directory of the Git
-repository being discussed (eg. @file{~/lilypond@/-git/}).  This is
+repository being discussed (eg. @file{@/~/lilypond@/-git/}).  This is
 referred to as a @emph{top source directory}.}
 
 Before downloading a copy of the main LilyPond repository, you
@@ -292,9 +292,9 @@ is a little different, I think. -mp
 
 Git stores the information entered with
 @command{git@tie{}config@tie{}--global} in the file
-@file{.gitconfig}, located in your home directory.  This file can
+@file{@/.gitconfig}, located in your home directory.  This file can
 also be modified directly, without using
-@command{git@tie{}config}.  The @file{.gitconfig} file generated
+@command{git@tie{}config}.  The @file{@/.gitconfig} file generated
 by the above commands would look like this:
 
 @example
@@ -309,7 +309,7 @@ by the above commands would look like this:
 
 Using the @command{git@tie{}config} command @emph{without} the
 @command{--global} option configures repository-specific settings,
-which are stored in the file @file{.git/@/config}.  This file is
+which are stored in the file @file{@/.git/@/config}.  This file is
 created when a repository is initialized (using
 @command{git@tie{}init}), and by default contains these lines:
 
@@ -469,7 +469,7 @@ and prevent problems later---read @ref{Basic Git procedures}.
 @subsubheading Technical Details
 
 The @command{git@tie{}remote@tie{}add} command should add some
-lines to your local repository's @file{.git/@/config} file:
+lines to your local repository's @file{@/.git/@/config} file:
 
 @example
 [remote "origin"]
@@ -650,7 +650,7 @@ committishes.
 
 The @command{git@tie{}config} command mentioned above adds the
 line @code{rebase = true} to the master branch in your local
-repository's @file{.git/@/config} file:
+repository's @file{@/.git/@/config} file:
 
 @example
 [branch "master"]
@@ -986,9 +986,9 @@ account on Google.
 git clone git://neugierig.org/git-cl.git
 @end example
 
-Then, add the @file{git-cl} directory to your PATH, or create a
+Then, add the @file{git@/-cl} directory to your PATH, or create a
 symbolic link to the @command{git-cl} and @command{upload.py} in
-one of your PATH directories (like @file{usr/bin}).  Then
+one of your PATH directories (like @file{usr/@/bin}).  Then
 configure the program by running:
 
 @example
@@ -1306,7 +1306,7 @@ repository.
 The commands above don't only bring you the latest version of the
 sources, but also the full history of revisions (revisions, also
 called commits, are changes made to the sources), stored in the
-@file{.git} directory.  You can browse this history with
+@file{@/.git} directory.  You can browse this history with
 
 @example
 git log     # only shows the logs (author, committish and commit message)
@@ -1586,7 +1586,7 @@ Authority.
 
 @item
 The @command{git@tie{}config} commands above should modify your
-local repository's @file{.git/@/config} file.  These lines:
+local repository's @file{@/.git/@/config} file.  These lines:
 
 @example
 [remote "origin"]
@@ -1607,7 +1607,7 @@ where @var{user} is your login name on Savannah.
 @item
 Similarly, the
 @command{git@tie{}config@tie{}push.default@tie{}matching} command
-should add these lines to @file{.git/@/config}:
+should add these lines to @file{@/.git/@/config}:
 
 @example
 [push]

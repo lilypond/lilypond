@@ -90,9 +90,9 @@ Notation Reference:
 @ruser{Predefined type predicates}.
 
 Installed Files:
-@file{lily/music-scheme.cc},
-@file{scm/c++.scm},
-@file{scm/lily.scm}.
+@file{lily/@/music@/-scheme@/.cc},
+@file{scm/@/c++@/.scm},
+@file{scm/@/lily@/.scm}.
 
 
 @node Simple substitution functions

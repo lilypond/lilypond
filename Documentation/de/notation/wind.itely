@@ -190,7 +190,7 @@ Befehl @code{\taor}, anstatt
 
 @noindent zu schreiben.
 
-@code{bagpipe.ly} enthält außerdem Definitionen für Tonhöhen von
+@file{bagpipe@/.ly} enthält außerdem Definitionen für Tonhöhen von
 Dudelsacknoten in bestimmten Oktaven, so dass man sich nicht mehr um
 @code{\relative} oder @code{\transpose} kümmern muss.
 
@@ -404,8 +404,8 @@ lassen kann:
 @end lilypond
 
 Neue Diagramme können erstellt werden, indem man die Muster in den Datei
-@file{scm/define-woodwind-diagrams.scm} und
-@file{scm/display-woodwind-diagrams.scm} befolgt.  Das benötigt jedoch
+@file{scm/@/define@/-woodwind@/-diagrams@/.scm} und
+@file{scm/@/display@/-woodwind@/-diagrams@/.scm} befolgt.  Das benötigt jedoch
 Scheme-Fähigkeit und ist nicht für alle Benutzer verständlich.
 
 
@@ -425,8 +425,8 @@ Scheme-Fähigkeit und ist nicht für alle Benutzer verständlich.
 @seealso
 
 Installierte Dateien:
-@file{scm/define-woodwind-diagrams.scm},
-@file{scm/display-woodwind-diagrams.scm}.
+@file{scm/@/define@/-woodwind@/-diagrams@/.scm},
+@file{scm/@/display@/-woodwind@/-diagrams@/.scm}.
 
 Schnipsel:
 @rlsr{Winds}.

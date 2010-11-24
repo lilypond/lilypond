@@ -31,7 +31,7 @@ generales de LilyPond, más que con la notación específica.
 @translationof Input structure
 
 El formato principal de entrada para LilyPond son archivos de texto.
-Por convenio, el nombre de estos archivos termina en @code{.ly}.
+Por convenio, el nombre de estos archivos termina en @file{@/.ly}.
 
 @menu
 * Estructura de una partitura::
@@ -111,8 +111,8 @@ de un bloque @code{\book}.  Un bloque @code{\book} dentro de un
 archivo fuente produce al menos un archivo de salida, y de forma
 predeterminada el nombre del archivo de salida que se produce está
 derivado del nombre del archivo de entrada, de forma que
-@file{fandangoforelephants.ly} da como resultado
-@file{fandangoforelephants.pdf}.
+@file{fandangoforelephants@/.ly} da como resultado
+@file{fandangoforelephants@/.pdf}.
 
 (Para ver más detalles acerca de los bloques @code{\book}, consulte
 @ref{Varias partituras en un libro}, @ref{Varios archivos de salida a
@@ -154,7 +154,7 @@ y los textos se introducen con un bloque @code{\markup}:
 @funindex \book
 
 Todos los movimientos y textos que aparecen en el mismo archivo
-@code{.ly} se tipografían normalmente en la forma de un solo archivo
+@file{@/.ly} se tipografían normalmente en la forma de un solo archivo
 de salida.
 
 @example
@@ -234,7 +234,7 @@ como el libro propiamente dicho, mediante la especificación del bloque
 @translationof Multiple output files from one input file
 
 Si queremos varios archivos de salida a partir del mismo archivo
-@code{.ly}, podemos escribir varios bloques @code{\book}, donde cada
+@file{@/.ly}, podemos escribir varios bloques @code{\book}, donde cada
 uno de estos bloques @code{\book} dará como resultado un archivo de
 salida distinto.  Si no especificamos ningún bloque @code{\book} en el
 archivo, LilyPond trata implícitamente todo el archivo como un solo
@@ -267,15 +267,15 @@ versión para cada nombre que pueda coincidir; así:
 @}
 @end example
 
-en el archivo fuente @file{eightminiatures.ly}, produce
+en el archivo fuente @file{eightminiatures@/.ly}, produce
 
 @itemize
 @item
-@file{eightminiatures.pdf},
+@file{eightminiatures@/.pdf},
 @item
-@file{eightminiatures-1.pdf} y
+@file{eightminiatures@/-1@/.pdf} y
 @item
-@file{eightminiatures-2.pdf}.
+@file{eightminiatures@/-2@/.pdf}.
 @end itemize
 
 @node Nombres de los archivos de salida
@@ -293,9 +293,9 @@ En la sección anterior vimos cómo Lilypond evita las coincidencias de
 nombres al producir varias salidas a partir de un único archivo fuente
 de entrada.  También podemos especificar nuestros propios sufijos para
 cada bloque @code{\book}, de manera que podemos producir, por ejemplo,
-archivos con los nombres @file{eightminiatures-Romanze.pdf},
-@file{eightminiatures-Menuetto.pdf} y
-@file{eightminiatures-Nocturne.pdf} añadiendo una declaración
+archivos con los nombres @file{eightminiatures@/-Romanze@/.pdf},
+@file{eightminiatures@/-Menuetto@/.pdf} y
+@file{eightminiatures@/-Nocturne@/.pdf} añadiendo una declaración
 @code{\bookOutputSuffix} dentro de cada bloque @code{\book}.
 
 @example
@@ -342,11 +342,11 @@ El código anterior produce los siguientes archivos de salida:
 
 @itemize
 @item
-@file{Romanze.pdf},
+@file{Romanze@/.pdf},
 @item
-@file{Menuetto.pdf} y
+@file{Menuetto@/.pdf} y
 @item
-@file{Nocturne.pdf}.
+@file{Nocturne@/.pdf}.
 @end itemize
 
 @node Estructura del archivo
@@ -361,7 +361,7 @@ El código anterior produce los siguientes archivos de salida:
 @funindex \book
 @funindex \bookpart
 
-Un archivo @code{.ly} puede contener cualquier número de expresiones
+Un archivo @file{@/.ly} puede contener cualquier número de expresiones
 del nivel superior, donde una expresión del nivel superior es una de
 las siguientes posibilidades:
 
@@ -389,7 +389,7 @@ del nivel superior, y se combina con ellas formando un @code{\book}
 (libro) único.  Este comportamiento se puede cambiar estableciendo el
 valor de la variable @code{toplevel-score-handler} en el nivel
 superior.  El @emph{handler} predeterminado se define en el archivo de
-inicio @file{../@/scm/@/lily@/.scm}.
+inicio @file{@/.@/./@/scm/@/lily@/.scm}.
 
 @item
 Un bloque @code{\book} combina lógicamente varios movimientos (es
@@ -398,7 +398,7 @@ varias partituras @code{\score}, se crea un solo archivo de salida
 para cada bloque @code{\book}, en el que se concatenan todos los
 movimientos correspondientes.  La única razón para especificar
 explícitamente bloques @code{\book} en un archivo de entrada
-@code{.ly} es si queremos crear varios archivos de salida a partir de
+@file{@/.ly} es si queremos crear varios archivos de salida a partir de
 un único archivo de entrada.  Una excepción se da dentro de los
 documentos de lilypond-book, en los que tenemos que escribir
 explícitamente un bloque @code{\book} si queremos tener más de una
@@ -406,7 +406,7 @@ explícitamente un bloque @code{\book} si queremos tener más de una
 ejemplo.  Se puede cambiar este comportamiento estableciendo el valor
 de la variable @code{toplevel-book-handler} en el nivel superior.  El
 @emph{handler} predeterminado se define en el archivo de inicio
-@file{../@/scm/@/lily@/.scm}.
+@file{@/.@/./@/scm/@/lily@/.scm}.
 
 @item
 Un bloque @code{\bookpart}.  Un libro puede dividirse en varias
@@ -442,7 +442,7 @@ contiene sólo la expresión musical anterior se traduce a
 Se puede cambiar este comportamiento estableciendo el valor de la
 variable @code{toplevel-music-handler} en el nivel más alto.  El
 @emph{handler} predeterminado se define en el archivo de inicio
-@file{../@/scm/@/lily@/.scm}.
+@file{@/.@/./@/scm/@/lily@/.scm}.
 
 @item
 Un texto de marcado, por ejemplo una estrofa
@@ -745,7 +745,7 @@ falso.
 
 Una opción más avanzada es cambiar las definiciones de las variables
 siguientes dentro del bloque @code{\paper}.  El archivo de inicio
-@file{../@/ly/@/titling@/-init@/.ly} ofrece un listado de la
+@file{@/.@/./@/ly/@/titling@/-init@/.ly} ofrece un listado de la
 disposición predeterminada.
 
 @table @code
@@ -973,7 +973,7 @@ tocAct =
 
 @seealso
 Archivos de inicio:
-@file{../@/ly/@/toc@/-init@/.ly}.
+@file{@/.@/./@/ly/@/toc@/-init@/.ly}.
 
 
 @predefined
@@ -1011,7 +1011,7 @@ referirse a otro archivo, utilice
 @end example
 
 La línea @code{\include "otroarchivo.ly"} equivale a pegar todo el
-contenido de @file{otroarchivo.ly} en el archivo actual en el lugar en
+contenido de @file{otroarchivo@/.ly} en el archivo actual en el lugar en
 que aparece el @code{\include}.  Por ejemplo, en un proyecto grande
 podríamos querer archivos distintos para cada parte instrumental y
 crear un archivo de @qq{partitura completa} que reúne los archivos
@@ -1028,7 +1028,7 @@ instrucción @code{\include}.  Los archivos en otros lugares se pueden
 incluir proporcionando una referencia de ruta completa o una ruta
 relativa (pero utilice la barra inclinada normal del UNIX, /, no la
 barra invertida de DOS/Windows, \, como separador de directorio).  Por
-ejemplo, si @file{material.ly} está situado un directorio por encima
+ejemplo, si @file{material@/.ly} está situado un directorio por encima
 del directorio de trabajo actual, utilice
 
 @example
@@ -1065,15 +1065,15 @@ También se pueden incluir archivos de un directorio que está en una
 ruta de búsqueda especificada como opción al invocar a LilyPond desde
 la línea de órdenes.  Los archivos incluidos se especifican usando
 solamente su nombre de archivo.  Por ejemplo, para compilar mediante
-este método un archivo @file{principal.ly} que incluye archivos
+este método un archivo @file{principal@/.ly} que incluye archivos
 situados en un subdirectorio llamado @file{partes}, cambie al
-directorio que contiene @file{principal.ly} e introduzca
+directorio que contiene @file{principal@/.ly} e introduzca
 
 @example
 lilypond --include=partes principal.ly
 @end example
 
-y en @file{principal.ly} escriba
+y en @file{principal@/.ly} escriba
 
 @example
 \include "VI.ly"
@@ -1082,12 +1082,12 @@ y en @file{principal.ly} escriba
 @end example
 
 Los archivos que se incluyen en muchas partituras se pueden poner en
-el directorio de LilyPond @file{../ly} (la localización de este
+el directorio de LilyPond @file{@/.@/./@/ly} (la localización de este
 directorio depende de la instalación: véase
 @rlearning{Otras fuentes de información}).  Estos archivos se pueden
 incluir sencillamente por su nombre en un enunciado @code{\include}.
 De esta forma se incluyen los archivos dependientes del idioma como
-@file{espanol.ly}.
+@file{espanol@/.ly}.
 
 LilyPond incluye de forma predeterminada ciertos archivos cuando se
 inicia el programa.  Estas inclusiones no son visibles para el
@@ -1887,7 +1887,7 @@ tempoWholesPerMinute = #(ly:make-moment 270 8)
 Las definiciones de contexto siguen con precisión la misma sintaxis
 que la de un bloque @code{\layout}.  Los módulos de traducción para el
 sonido reciben el nombre de ejecutantes.  Los contextos para la salida
-MIDI se definen en @file{../@/ly/@/performer@/-init@/.ly}, véase
+MIDI se definen en @file{@/.@/./@/ly/@/performer@/-init@/.ly}, véase
 @rlearning{Otras fuentes de información}.  Por ejemplo, para eliminar
 el efecto de los matices de la salida MIDI, inserte las líneas
 siguientes en el bloque @code{\midi@{ @}}.
@@ -2024,7 +2024,7 @@ Los matices o indicaciones de dinámica se traducen a una fracción fija
 del rango de volumen MIDI disponible.  Las fracciones predeterminadas
 se extienden desde 0.25 para @notation{ppppp} hasta 0.95 para
 @notation{fffff}.  El conjunto de indicaciones dinámicas y las
-fracciones asociadas pueden verse en @file{../@/scm/@/midi.scm}, véase
+fracciones asociadas pueden verse en @file{@/.@/./@/scm/@/midi@/.scm}, véase
 @rlearning{Otras fuentes de información}.  Este conjunto de fracciones
 se puede cambiar o extender proporcionando una función que toma como
 argumento una indicación dinámica y devuelve la fracción requerida, y
@@ -2066,7 +2066,7 @@ predeterminada.
 Como alternativa, si se necesitara redefinir la tabla completa de
 fracciones, sería mejor usar el procedimiento
 @notation{default-dynamic-absolute-volume} que aparece en
-@file{../@/scm/@/midi.scm} y la tabla asociada como modelo.  El último
+@file{@/.@/./@/scm/@/midi@/.scm} y la tabla asociada como modelo.  El último
 ejemplo de esta sección muestra cómo se puede hacer esto.
 
 @unnumberedsubsubsec Volumen maestro MIDI
@@ -2177,7 +2177,7 @@ Si las propiedades de volumen MIDI máximo y mínimo no están
 establecidas, de forma predeterminada LilyPond aplica un pequeño grado
 de ecualización a algunos instrumentos.  Los instrumentos y la
 ecualización que se aplica se muestra en la tabla
-@notation{instrument-equalizer-alist} en @file{../@/scm/@/midi.scm}.
+@notation{instrument-equalizer-alist} en @file{@/.@/./@/scm/@/midi@/.scm}.
 
 El ecualizador básico predeterminado se puede sustituir estableciendo
 @code{instrumentEqualizer} en el contexto @code{Score} a un
@@ -2188,7 +2188,7 @@ sustitución se hace de la misma forma que mostramos para restablecer
 la fracción de volumen absoluto @code{dynamicAbsoluteVolumeFunction}
 al comienzo de esta sección.  El ecualizador predeterminado,
 @notation{default-instrument-equalizer}, en
-@file{../@/scm/@/midi.scm}, muestra cómo se puede escribir tal
+@file{@/.@/./@/scm/@/midi@/.scm}, muestra cómo se puede escribir tal
 procedimiento.
 
 El ejemplo siguiente establece los volúmenes relativos de la flauta y

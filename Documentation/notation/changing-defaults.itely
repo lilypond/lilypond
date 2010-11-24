@@ -36,7 +36,7 @@ and is also included with the LilyPond documentation package.
 Internally, LilyPond uses Scheme (a LISP dialect) to provide
 infrastructure.  Overriding layout decisions in effect accesses the
 program internals, which requires Scheme input.  Scheme elements are
-introduced in a @code{.ly} file with the hash mark
+introduced in a @file{@/.ly} file with the hash mark
 @code{#}.@footnote{@rextend{Scheme tutorial}, contains a short tutorial
 on entering numbers, lists, strings, and symbols in Scheme.}
 
@@ -2076,7 +2076,7 @@ any @emph{initialized} default values that are set in an
 initialization file and loaded each time an input file is
 compiled.  In the above example, the initialized default values
 for @code{padding} and @code{minimum-distance} (defined in
-@file{scm/define-grobs.scm}) are reset to their default-when-unset
+@file{scm/@/define@/-grobs@/.scm}) are reset to their default-when-unset
 values (zero for both keys).  Defining a property or variable as
 an alist (of any size) will always reset all unset key-values to
 their default-when-unset values.  Unless this is the intended
@@ -3783,9 +3783,9 @@ Extending:
 @rextend{Music functions}.
 
 Installed Files:
-@file{lily/music-scheme.cc},
-@file{scm/c++.scm},
-@file{scm/lily.scm}.
+@file{lily/@/music@/-scheme@/.cc},
+@file{scm/@/c++@/.scm},
+@file{scm/@/lily@/.scm}.
 
 
 @node Substitution function examples

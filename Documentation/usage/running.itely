@@ -69,19 +69,19 @@ lilypond [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
 
-When invoked with a filename that has no extension, the @file{.ly}
+When invoked with a filename that has no extension, the @file{@/.ly}
 extension is tried first.  To read input from stdin, use a
 dash (@code{-}) for @var{file}.
 
-When @file{filename.ly} is processed it will produce @file{filename.ps}
-and @file{filename.pdf} as output.  Several files can be specified;
+When @file{filename@/.ly} is processed it will produce @file{filename@/.ps}
+and @file{filename@/.pdf} as output.  Several files can be specified;
 they will each be processed independently.  @footnote{The status of
 GUILE is not reset after processing a @code{.ly} file, so be careful
 not to change any system defaults from within Scheme.}
 
-If @file{filename.ly} contains more than one @code{\book}
+If @file{filename@/.ly} contains more than one @code{\book}
 block, then the rest of the scores will be output in numbered files,
-starting with @file{filename-1.pdf}.  In addition, the value of
+starting with @file{filename@/-1@/.pdf}.  In addition, the value of
 @code{output-suffix} will be inserted between the basename and the
 number.  An input file containing
 
@@ -93,8 +93,8 @@ number.  An input file containing
 @end example
 
 @noindent
-will output @var{base}@file{-violin.pdf} and
-@var{base}@file{-cello-1.pdf}.
+will output @var{base}@file{@/-violin@/.pdf} and
+@var{base}@file{@/-cello@/-1@/.pdf}.
 
 
 @unnumberedsubsubsec Standard shell commands
@@ -134,7 +134,7 @@ The following options are supported:
 @table @code
 
 @item -e,--evaluate=@var{expr}
-Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
+Evaluate the Scheme @var{expr} before parsing any @file{@/.ly} files.
 Multiple @code{-e} options may be given, they will be evaluated
 sequentially.
 
@@ -222,7 +222,7 @@ havoc, for example
 
 The @code{-dsafe} option works by evaluating in-line Scheme
 expressions in a special safe module.  This safe module is derived from
-GUILE @file{safe-r5rs} module, but adds a number of functions of the
+GUILE @file{safe@/-r5rs} module, but adds a number of functions of the
 LilyPond API.  These functions are listed in @file{scm/@/safe@/-lily@/.scm}.
 
 In addition, safe mode disallows @code{\include} directives and
@@ -275,8 +275,8 @@ This mode is used by default by @command{lilypond-book}.
  Schoolbook fonts, included with your LilyPond installation, for
  optimal rendering.  Under UNIX, simply copy these fonts from the
  LilyPond directory (typically
- @file{/usr/share/lilypond/VERSION/fonts/otf/}) to
- @file{~/.fonts/}.  The SVG output should be compatible with any
+ @file{/@/usr/@/share/@/lilypond/@/VERSION/@/fonts/@/otf/@/}) to
+ @file{@/~/@/@/.fonts/@/}.  The SVG output should be compatible with any
  SVG editor or user agent.
 
 @item scm
@@ -323,7 +323,7 @@ first defined directory, and if the file to be included is not
 found the search will continue in subsequent directories.
 
 @item -i,--init=@var{file}
-Set init file to @var{file} (default: @file{init.ly}).
+Set init file to @var{file} (default: @file{init@/.ly}).
 
 @cindex folder, directing output to
 @cindex output filename, setting
@@ -396,7 +396,7 @@ be a single directory writable by this user, which should be passed in
 LilyPond needs to read a number of files while running.  All these files
 are to be copied into the jail, under the same path they appear in the
 real root filesystem.  The entire content of the LilyPond installation
-(e.g., @file{/usr/share/lilypond})
+(e.g., @file{/@/usr/@/share/@/lilypond})
 should be copied.
 
 If problems arise, the simplest way to trace them down is to run
@@ -440,7 +440,7 @@ Show the warranty with which GNU LilyPond comes.  (It comes with
 @item LILYPOND_DATADIR
 This specifies a directory where locale messages and
 data files will be looked up by default.  The directory should contain
-subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
+subdirectories called @file{ly/@/}, @file{ps/@/}, @file{tex/@/}, etc.
 
 @item LANG
 This selects the language for the warning messages.
@@ -752,7 +752,7 @@ problem:
 @unnumberedsubsec Apparent error in @code{../ly/init.ly}
 
 Various obscure error messages may appear about syntax errors in
-@code{../ly/init.ly} if the input file is not correctly formed,
+@file{@/.@/./@/ly/@/init@/.ly} if the input file is not correctly formed,
 for example, if it does not contain correctly
 matched braces or quote signs.
 

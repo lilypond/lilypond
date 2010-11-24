@@ -60,7 +60,7 @@ las diferencias de altura.  Por ejemplo, la notación de la
 semitono y de cuarto de tonoc, estando determinadas por el contexto
 las exactas alteraciones de altura.  Se usan por lo general los
 nombres de nota italianos, mientras que el archivo de inicio
-@file{arabic.ly} proporciona un conjunto adecuado de macros y
+@file{arabic@/.ly} proporciona un conjunto adecuado de macros y
 definiciones que extienden la notación estándar.  Para ver más
 detalles, consulte @ref{Música árabe}.
 
@@ -72,12 +72,12 @@ emplea formas melódicas conocidas como @notation{makamlar}, cuyos
 intervalos están basados en divisiones de 1/9 de tono.  Se siguen
 usando las notas del pentagrama occidental, pero con alteraciones
 accidentales exclusivas de la música turca, que están definidas en el
-archivo @file{makam.ly}.  Para ver más información sobre la música
+archivo @file{makam@/.ly}.  Para ver más información sobre la música
 clásica turca y los makamlar, consulte @ref{Música clásica de
 Turquía}.
 
-PAra localizar los archivos de inicio como @file{arabic.ly} o
-@file{makam.ly} en su sistema, consulte @rlearning{Otras fuentes de
+PAra localizar los archivos de inicio como @file{arabic@/.ly} o
+@file{makam@/.ly} en su sistema, consulte @rlearning{Otras fuentes de
 información}.
 
 @snippets
@@ -212,7 +212,7 @@ Por ejemplo, así es como puede ser la notación de la escala árabe
 
 El símbolo del semi-bemol no coincide con el símbolo que se utiliza en
 la notación árabe.  Se puede usar el símbolo @code{\dwn} definido en
-@code{arabic.ly} precediendo a un bemol como vía alternativa si es
+@file{arabic@/.ly} precediendo a un bemol como vía alternativa si es
 importante usar el símbolo árabe específico del semi-bemol.  El
 aspecto del símbolo del semi-bemol dentro de la armadura no se puede
 alterar mediante este método.
@@ -243,7 +243,7 @@ Fragmentos de código:
 @cindex Arabic key signatures
 
 Además de las armaduras de tonalidad mayores y menores, están
-definidas en @code{arabic.ly} las siguientes tonalidades:
+definidas en @file{arabic@/.ly} las siguientes tonalidades:
 @notation{bayati}, @notation{rast}, @notation{sikah}, @notation{iraq}
 y @notation{kurd}.  Estas armaduras de tonalidad definen una pequeña
 cantidad de grupos de maqam, en contraste con los numerosos maqams que
@@ -561,7 +561,7 @@ Desde el punto de vista de la notación moderna, es conveniente
 utilizar las notas occidentales (do, re, mi, ... ó c, d, e, ...) con
 alteraciones especiales que elevan o bajan las notas en intervalos de
 1/9, 4/9, 5/9 y 8/9 de tono.  Esetas alteraciones están definidas en
-el archivo @file{makam.ly}.
+el archivo @file{makam@/.ly}.
 
 
 La tabla siguiente relaciona:

@@ -1094,7 +1094,7 @@ En plus de déterminer la métrique qui sera imprimée, la commande
 @code{\time} règlera aussi les valeurs par défaut des propriétés
 @code{baseMoment}, @code{beatStructure} et @code{beamExceptions}.
 Les valeurs prédéterminées par défaut de ces différentes propriétés sont
-inscrites dans le fichier @file{scm/time-signature-settings.scm}.  Vous
+inscrites dans le fichier @file{scm/@/time@/-signature@/-settings@/.scm}.  Vous
 pouvez les modifier de la manière suivante@tie{}:
 
 @lilypond[quote,verbatim]
@@ -2138,7 +2138,7 @@ dans le fichier @file{scm/@/time@/-signature@/-settings@/.scm}.
 
 @seealso
 Fichiers d'initialisation :
-@file{scm/beam-settings.scm}.
+@file{scm/@/beam-@/settings@/.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.

@@ -1326,7 +1326,7 @@ still lacking, such as (among others) horizontal alignment of multiple
 ligatures, lyrics alignment, and proper handling of accidentals.
 
 The support for Gregorian neumes is enabled by @code{\include}ing
-"gregorian.ly" at the beginning of the file.  This makes available
+@file{gregorian@/.ly} at the beginning of the file.  This makes available
 a number of extra commands to produce the neume symbols used in
 plainchant notation.
 
@@ -1456,7 +1456,7 @@ ligature, and usually falls on a half-tone step, but it is
 perfectly possible, although incorrect, to make a single-note
 quilisma.
 
-In addition to the note signs, gregorian.ly also defines the
+In addition to the note signs, @file{gregorian@/.ly} also defines the
 commands @code{\versus}, @code{\responsum}, @code{\ij},
 @code{\iij}, @code{\IJ}, and @code{\IIJ}, that will produce the
 corresponding characters, e.g., for use in lyrics, as section

@@ -49,7 +49,7 @@ deren Intervalle auf 1/9-Bruchteilen des Ganztones beruhen.  Die
 moderne nationale Lösung ist es, die normale europäische Notation
 auf dem System mit normalen Noten zu benutzen und ihnen spezielle
 türkische Versetzungszeichen hinzuzufügen.  Diese Versetzungszeichen
-sind in der Datei @file{makam.ly} definiert.  (Wie Sie diese Datei
+sind in der Datei @file{makam@/.ly} definiert.  (Wie Sie diese Datei
 finden können, wird erklärt in @rlearning{Mehr Information}.  Die
 folgende Tabelle zeigt ihre Bezeichnungen, die Versetzungszeichen-Endung,
 die an die Noten gefügt werden müssen und die Tonhöhenveränderung
@@ -195,7 +195,7 @@ Hier ein Beispiel der arabischen @notation{rast}-Tonleiter:
 
 Das Symbol für das Halb-B sieht anders aus als das Symbol, was
 üblicherweise in arabischer Notation benutzt wird.  Das
-@code{\dwn}-Symbol, das in der Datei @code{arabic.ly} definiert
+@code{\dwn}-Symbol, das in der Datei @file{arabic@/.ly} definiert
 ist, kann als ein Workaround eingesetzt werden, wenn es notwendig
 ist, das arabische Symbol zu benutzen.  Das Aussehen des
 Halb-Bs in den Vorzeichen kann mit dieser Methode nicht verändert
@@ -226,7 +226,7 @@ Schnipsel:
 @cindex arabische Vorzeichen
 
 Neben den westlichen Dur- und Moll-Tonarten sind folgende
-Tonarten in @code{arabic.ly} definiert: @notation{bayati},
+Tonarten in @file{arabic@/.ly} definiert: @notation{bayati},
 @notation{rast}, @notation{sikah}, @notation{iraq} und
 @notation{kurd}.  Diese Tonarten definieren eine kleine
 Gruppe von Maqams, die weitverbreitet sind.
@@ -529,6 +529,6 @@ Es bietet sich an, die normalen westlichen Noten auf dem Notensystem zu
 benutzen (also c, d, e @dots) angrereichert mit besonderen Versetzungszeichen,
 die die Noten um 1/9, 4/9, 5/9 und 8/9 eines Ganztons erhöhen oder
 erniedrigen.  Diese Versetzungszeichen sind definiert in der Datei
-@file{makam.ly}.  (Um die Datei auf Ihrem System zu finden, lesen Sie bitte
+@file{makam@/.ly}.  (Um die Datei auf Ihrem System zu finden, lesen Sie bitte
 @rlearning{Mehr Information}.)  Eine ausführlichere Erklärung findet sich in
 @ref{Nichteuropäische Notenbezeichnungen und Versetzungszeichen}.
