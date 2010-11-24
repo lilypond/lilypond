@@ -459,8 +459,12 @@ Figured_bass_engraver::create_grobs ()
         {
           /*
             UGH should connect to the bass staff, and get the note heads.
+            For now, simply set the hidden figure to a default value to
+            ensure the extenders of different figures always end at the same
+            position, e.g. in <12 5> <12 5>
           */
           group.figure_item_->set_property ("transparent", SCM_BOOL_T);
+          group.figure_item_->set_property ("text", ly_string2scm ("0"));
           group.continuation_line_->set_bound (RIGHT, group.figure_item_);
         }
 
