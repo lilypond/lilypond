@@ -40,6 +40,7 @@ class Fretboard_engraver : public Engraver
 
   vector<Stream_event *> note_events_;
   vector<Stream_event *> tabstring_events_;
+  vector<Stream_event *> fingering_events_;
 public:
   TRANSLATOR_DECLARATIONS (Fretboard_engraver);
 
@@ -49,6 +50,7 @@ protected:
   virtual void derived_mark () const;
   DECLARE_TRANSLATOR_LISTENER (note);
   DECLARE_TRANSLATOR_LISTENER (string_number);
+  DECLARE_TRANSLATOR_LISTENER (fingering);
 
 private:
   SCM last_fret_notes_;
@@ -80,6 +82,13 @@ Fretboard_engraver::listen_string_number (Stream_event *ev)
   tabstring_events_.push_back (ev);
 }
 
+IMPLEMENT_TRANSLATOR_LISTENER (Fretboard_engraver, fingering);
+void
+Fretboard_engraver::listen_fingering (Stream_event *ev)
+{
+  fingering_events_.push_back (ev);
+}
+
 void
 Fretboard_engraver::process_music ()
 {
@@ -89,6 +98,9 @@ Fretboard_engraver::process_music ()
   SCM tab_strings = articulation_list (note_events_,
 				       tabstring_events_,
 				       "string-number-event");
+  SCM fingers = articulation_list (note_events_,
+				   fingering_events_,
+				   "fingering-event");
   fret_board_ = make_item ("FretBoard", note_events_[0]->self_scm ());
   SCM fret_notes = ly_cxx_vector_to_list (note_events_);
   SCM proc = get_property ("noteToFretFunction");
@@ -96,7 +108,7 @@ Fretboard_engraver::process_music ()
     scm_call_4 (proc,
 		context ()->self_scm (),
 		fret_notes,
-		tab_strings,
+		scm_list_2 (tab_strings, fingers),
 		fret_board_->self_scm ());
   SCM changes = get_property ("chordChanges");
   if (to_boolean (changes) && scm_is_pair (last_fret_notes_)
@@ -112,6 +124,7 @@ Fretboard_engraver::stop_translation_timestep ()
   fret_board_ = 0;
   note_events_.clear ();
   tabstring_events_.clear ();
+  fingering_events_.clear ();
 }
 
 ADD_TRANSLATOR (Fretboard_engraver,
@@ -124,6 +137,7 @@ ADD_TRANSLATOR (Fretboard_engraver,
 
 		/* read */
 		"chordChanges "
+		"defaultStrings "
 		"highStringOne "
 		"maximumFretStretch "
 		"minimumFret "
@@ -134,5 +148,5 @@ ADD_TRANSLATOR (Fretboard_engraver,
 
 		/* write */
 		""
-		);
+                );
 

@@ -43,6 +43,7 @@ class Tab_note_heads_engraver : public Engraver
 {
   vector<Stream_event *> note_events_;
   vector<Stream_event *> tabstring_events_;
+  vector<Stream_event *> fingering_events_;
 
 public:
   TRANSLATOR_DECLARATIONS (Tab_note_heads_engraver);
@@ -50,6 +51,7 @@ public:
 protected:
   DECLARE_TRANSLATOR_LISTENER (note);
   DECLARE_TRANSLATOR_LISTENER (string_number);
+  DECLARE_TRANSLATOR_LISTENER (fingering);
   void process_music ();
 
   void stop_translation_timestep ();
@@ -73,12 +75,22 @@ Tab_note_heads_engraver::listen_string_number (Stream_event *ev)
   tabstring_events_.push_back (ev);
 }
 
+IMPLEMENT_TRANSLATOR_LISTENER (Tab_note_heads_engraver, fingering);
+void
+Tab_note_heads_engraver::listen_fingering (Stream_event *ev)
+{
+  fingering_events_.push_back (ev);
+}
+
 void
 Tab_note_heads_engraver::process_music ()
 {
   SCM tab_strings = articulation_list (note_events_,
 				       tabstring_events_,
 				       "string-number-event");
+  SCM defined_fingers = articulation_list (note_events_,
+					   fingering_events_,
+					   "fingering-event");
   SCM tab_notes = ly_cxx_vector_to_list (note_events_);
   SCM proc = get_property ("noteToFretFunction");
   SCM string_fret_finger = SCM_EOL;
@@ -86,7 +98,8 @@ Tab_note_heads_engraver::process_music ()
     string_fret_finger = scm_call_3 (proc,
 				     context ()->self_scm (),
 				     tab_notes,
-				     tab_strings);
+				     scm_list_2 (tab_strings,
+						 defined_fingers));
   SCM note_entry = SCM_EOL;
   SCM string_number = SCM_EOL;
   SCM fret = SCM_EOL;
@@ -123,6 +136,7 @@ Tab_note_heads_engraver::stop_translation_timestep ()
 {
   note_events_.clear ();
   tabstring_events_.clear ();
+  fingering_events_.clear ();
 }
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,
@@ -134,6 +148,7 @@ ADD_TRANSLATOR (Tab_note_heads_engraver,
 		"TabNoteHead ",
 
 		/* read */
+		"defaultStrings "
 		"fretLabels "
 		"highStringOne "
 		"middleCPosition "
@@ -144,6 +159,7 @@ ADD_TRANSLATOR (Tab_note_heads_engraver,
 		"tablatureFormat "
 		"tabStaffLineLayoutFunction ",
 
-		/* write */ ""
+		/* write */
+		""
                 );
 
