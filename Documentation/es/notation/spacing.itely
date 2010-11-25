@@ -783,7 +783,7 @@ establecido.
 @cindex margen de encuadernación
 
 Si es verdadero, usar @code{inner-margin}, @code{outer-margin} y
-@code{binding-offset} para determinad los márgenes dependiendo de si
+@code{binding-offset} para determinar los márgenes dependiendo de si
 el número de página es par o impar.  Esto sobreescribe a
 @code{left-margin} y a @code{right-margin}.  Valor predeterminado:
 @code{##f}.

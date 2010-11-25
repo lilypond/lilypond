@@ -2,14 +2,14 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.36
-\version "2.13.39"
+\version "2.13.40"
 
 \header {
 %% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
   texidoces = "
 
 Las cabezas de nota de notación fácil utilizan la propiedad
-@code{note-names} del objeto @code{NoteHead} para determinad lo que
+@code{note-names} del objeto @code{NoteHead} para determinar lo que
 aparece dentro de la cabeza.  Mediante la sobreescritura de esta
 propiedad, es posible imprimir números que representen el grado de la
 escala.

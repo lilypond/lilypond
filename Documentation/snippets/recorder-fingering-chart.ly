@@ -4,7 +4,18 @@
 \version "2.13.39"
 
 \header {
+%% Translation of GIT committish: 42cf5468694e6757494d4505ab9b6ea7bc591e59
+
+  texidoces = "
+El ejemplo siguiente muestra cómo se pueden realizar diagramas de
+digitación para instrumentos de viento.
+
+"
+
+  doctitlees = "Diagramas de digitación para la flauta dulce"
+
   lsrtags = "winds"
+
 
 %% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
   texidocfr = "

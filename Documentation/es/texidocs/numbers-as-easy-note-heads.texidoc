@@ -2,7 +2,7 @@
   texidoces = "
 
 Las cabezas de nota de notación fácil utilizan la propiedad
-@code{note-names} del objeto @code{NoteHead} para determinad lo que
+@code{note-names} del objeto @code{NoteHead} para determinar lo que
 aparece dentro de la cabeza.  Mediante la sobreescritura de esta
 propiedad, es posible imprimir números que representen el grado de la
 escala.

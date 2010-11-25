@@ -15,7 +15,7 @@ acortartlos estableciendo un valor cierto para
 sólo dura un compás, que corresponde a una duración de 3/4.
 
 "
-  doctitlees = "Shortening volta brackets"
+  doctitlees = "Acortar los corchetes de primera y segunda vez"
 
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40

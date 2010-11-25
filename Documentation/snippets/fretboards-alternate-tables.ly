@@ -2,9 +2,28 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.36
-\version "2.13.39"
+\version "2.13.40"
 
 \header {
+%% Translation of GIT committish: 42cf5468694e6757494d4505ab9b6ea7bc591e59
+
+  texidoces = "
+Se pueden crear tablas alternativas de diagramas de posiciones.  Se
+utilizarían para tener diagramas altenativos para un acorde dado.
+
+Para usar una tabla alternativa de diagramas de posiciones, se debe
+crear la tabla primero.  Después se añaden los diagramas a la tabla.
+
+La tabla de diagramas de posiciones que se crea puede estar vacía o se
+puede copiar a partir de una tabla existente.
+
+La tabla a usar en la impresión de de los diagramas predefinidos se
+selecciona por medio de la propiedad @code{\\predefinedDiagramTable}.
+
+"
+
+  doctitlees = "Tablas alternativas de diagramas de posiciones"
+
   lsrtags = "fretted-strings"
 
   texidoc = "
