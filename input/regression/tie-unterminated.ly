@@ -1,0 +1,14 @@
+\version "2.13.41"
+#(ly:set-option 'warning-as-error #f)
+
+\header {
+  texidoc = "When a tie is followed only by unmatching notes and the tie cannot
+  be created, lilypond prints out a warning unless @code{tieWaitForNote} is set."
+}
+
+\relative c' {
+  c1~ c |
+  c1~ <e c> |
+  c1~ d |
+  <c e>1~ c |
+}

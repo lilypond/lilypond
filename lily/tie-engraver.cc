@@ -49,6 +49,10 @@ struct Head_event_tuple
   SCM tie_definition_;
   Stream_event *tie_stream_event_;
   Stream_event *tie_event_;
+  // Indicate whether a tie from the same moment has been processed successfully
+  // This is needed for tied chords, e.g. <c e g>~ g, because otherwise the c
+  // and e will trigger a warning for an unterminated tie!
+  bool tie_from_chord_created;
   
   Head_event_tuple ()
   {
@@ -56,6 +60,7 @@ struct Head_event_tuple
     tie_definition_ = SCM_EOL;
     tie_event_ = 0;
     tie_stream_event_ = 0;
+    tie_from_chord_created = false;
   }
 };
 
@@ -76,6 +81,7 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (tie);
   void process_music ();
   void typeset_tie (Grob *);
+  void report_unterminated_tie (Head_event_tuple const &);
 public:
   TRANSLATOR_DECLARATIONS (Tie_engraver);
 };
@@ -99,6 +105,15 @@ void
 Tie_engraver::listen_tie (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (event_, ev);
+}
+
+void Tie_engraver::report_unterminated_tie (Head_event_tuple const &tie_start)
+{
+  // If tie_from_chord_created is set, we have another note at the same
+  // moment that created a tie, so this is not necessarily an unterminated
+  // tie. Happens e.g. for <c e g>~ g
+  if (!tie_start.tie_from_chord_created)
+    tie_start.head_->warning (_("unterminated tie"));
 }
 
 void
@@ -135,6 +150,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 		       left_ev->get_property ("pitch")))
 	{
 	  Grob *p = new Spanner (heads_to_tie_[i].tie_definition_);
+	  Moment end = heads_to_tie_[i].end_moment_;
 
 	  SCM cause = heads_to_tie_[i].tie_event_
 	    ? heads_to_tie_[i].tie_event_->self_scm ()
@@ -153,6 +169,16 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 	  
 	  ties_.push_back (p);
 	  heads_to_tie_.erase (heads_to_tie_.begin () + i);
+
+	  // Prevent all other tied notes ending at the same moment (assume
+	  // implicitly the notes have also started at the same moment!)
+	  // from triggering an "unterminated tie" warning. Neede e.g. for
+	  // <c e g>~ g
+	  for (vsize j = heads_to_tie_.size (); j--;)
+	    {
+	      if (heads_to_tie_[j].end_moment_ == end)
+	        heads_to_tie_[i].tie_from_chord_created = true;
+	    }
 	}
     }
 
@@ -176,7 +202,10 @@ Tie_engraver::start_translation_timestep ()
       for (vsize i = heads_to_tie_.size ();  i--; )
 	{
 	  if (now > heads_to_tie_[i].end_moment_)
-	    heads_to_tie_.erase (heads_to_tie_.begin () + i);
+	    {
+	      report_unterminated_tie (heads_to_tie_[i]);
+	      heads_to_tie_.erase (heads_to_tie_.begin () + i);
+	    }
 	}
     }
 }
@@ -188,7 +217,12 @@ Tie_engraver::stop_translation_timestep ()
   if (ties_.size ())
     {
       if (!wait)
-	heads_to_tie_.clear ();
+        {
+	  vector<Head_event_tuple>::iterator it = heads_to_tie_.begin ();
+	  for (; it < heads_to_tie_.end (); it++)
+	    report_unterminated_tie (*it);
+	  heads_to_tie_.clear ();
+        }
 
       for (vsize i = 0; i < ties_.size (); i++)
 	  typeset_tie (ties_[i]);
@@ -256,7 +290,12 @@ Tie_engraver::stop_translation_timestep ()
     }
 
   if (!wait && new_heads_to_tie.size ())
-    heads_to_tie_.clear ();
+    {
+      vector<Head_event_tuple>::iterator it=heads_to_tie_.begin ();
+      for (; it < heads_to_tie_.end (); it++)
+        report_unterminated_tie (*it);
+      heads_to_tie_.clear ();
+    }
 
   // hmmm, how to do with copy () ?
   for (vsize i = 0; i < new_heads_to_tie.size (); i++)
