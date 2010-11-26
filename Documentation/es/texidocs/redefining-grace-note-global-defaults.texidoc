@@ -6,7 +6,7 @@ almacenados en los identificadores @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAcciaccaturaMusic},
 @code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic} y
 @code{stopAppoggiaturaMusic}, que están definidos en el archivo
-@file{ly/@/grace@/-init@/.ly}.  Redefiniéndolos se pueden obtener otros
+@file{ly/grace-init.ly}.  Redefiniéndolos se pueden obtener otros
 efectos.
 
 "

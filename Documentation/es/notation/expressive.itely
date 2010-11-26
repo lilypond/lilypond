@@ -161,7 +161,7 @@ c4-> c-. c2-_
 @end lilypond
 
 Las reglas para la colocación predeterminada de las articulaciones se
-encuentran definidas en el archivo @file{scm/@/script@/.scm}.  Las
+encuentran definidas en el archivo @file{scm/script.scm}.  Las
 articulaciones y ornamentos se pueden colocar manualmente por encima o
 por debajo del pentagrama; véase @ref{Dirección y posición}.
 
@@ -217,7 +217,7 @@ Referencia de la notación:
 @ref{Trinos}.
 
 Archivos instalados:
-@file{scm/@/script@/.scm}.
+@file{scm/script.scm}.
 
 Fragmentos de código:
 @rlsr{Expressive marks}.

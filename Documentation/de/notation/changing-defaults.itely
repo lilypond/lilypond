@@ -81,8 +81,8 @@ Handbuch zum Lernen:
 @rlearning{Kontexte und Engraver}.
 
 Installierte Dateien:
-@file{ly/@/engraver@/-init@/.ly},
-@file{ly/@/performer@/-init@/.ly}.
+@file{ly/engraver-init.ly},
+@file{ly/performer-init.ly}.
 
 Schnipsel:
 @rlsr{Contexts and engravers}.
@@ -1212,7 +1212,7 @@ Eigenschaften}), andere aber können verändert werden.
 
 Es wurde immer von einem @code{Fingering}-Objekt gesprochen, aber
 eigentlich handelt es sich nicht um sehr viel.  Die Initialisierungsdatei
-@file{scm/@/define@/-grobs@/.scm} zeigt den Inhalt dieses @qq{Objekts}
+@file{scm/define-grobs.scm} zeigt den Inhalt dieses @qq{Objekts}
 (zu Information, wo diese Dateien sich finden siehe
 @rlearning{Mehr Information}):
 
@@ -1668,7 +1668,7 @@ Internals Reference:
 Es gibt eine besondere Art von Kontexteigenschaft: die Grob-Beschreibung.
 Grob-Beschreibungen werden mit @code{GroßGroßbuchstabe} benannt.  Sie
 enthalten @qq{Standardeinstellungen} für ein bestimmtes Grob als eine
-assoziative Liste.  Siehe @file{scm/@/define@/-grobs@/.scm} für die
+assoziative Liste.  Siehe @file{scm/define-grobs.scm} für die
 Einstellungen aller Grob-Beschreibungen.  Grob-Beschreibungen werden
 mit @code{\override} verändert.
 
@@ -2033,7 +2033,7 @@ Elementbeschreibung.  Diese Eigenschaften werden mit
 @code{GroßGroß} benannt (beginnen also auch mit einem
 Großbuchstaben).  Sie beinhalten die Standardeinstellungen
 für die besagten graphischen Objekte in Form einer
-Assosiationsliste.  Siehe auch die Datei @file{scm/@/define@/-grobs@/.scm}
+Assosiationsliste.  Siehe auch die Datei @file{scm/define-grobs.scm}
 für ein Beispiel zu diesen Einstellungen.  Elementbeschreibungen
 können mit dem Befehl @code{\override} verändert werden.
 
@@ -2092,7 +2092,7 @@ in einer Systemgruppe zu verkleinern, kann man die
 Aliste mit vier Schlüsseln: @code{padding} (Verschiebung),
 @code{space} (Platz), @code{minimum-distance} (minimaler Abstand)
 und @code{stretchability} (Dehnbarkeit).  Drei der vier Schlüssel
-haben zu Beginn Standardwerte, die in der Datei @file{scm/@/define@/-grobs@/.scm}
+haben zu Beginn Standardwerte, die in der Datei @file{scm/define-grobs.scm}
 (neben allen anderen Grob-Eigenschaften) definiert sind.
 
 @example
@@ -2170,7 +2170,7 @@ nicht initialisierten Standardwerte, die etwa in einer Initialisierungsdatei
 zu Beginn einer LilyPond-Partitur geladen werden, nach dem Aufruf
 rückgängig gemacht werden.  Im obigen Beispiel werden die
 initialisierten Standardwerte für @code{padding} und @code{minimum-distance}
-(definiert in @file{scm/@/define@/-grobs@/.scm}) auf den Standard zurückgesetzt,
+(definiert in @file{scm/define-grobs.scm}) auf den Standard zurückgesetzt,
 den sie uninitialisiert hätten (0 in beiden Fällen).  Wenn eine Eigenschaft oder
 Variable in Form einer Aliste (jeder Größe) definiert wird, werden
 immer alle Schlüsselwerte auf den uninitialisierten Zustand zurückgesetzt.
@@ -3017,7 +3017,7 @@ wird.  Oder, genauer gesagt, vor einem Zeilenumbruch, an Stellen,
 wo kein Zeilenumbruch auftritt oder nach einem Zeilenumbruch.
 
 Die acht möglichen Kombinationen können auch durch vordefinierte
-Funktionen bestimmt werden, welche in der Datei @file{scm/@/output@/-lib@/.scm}
+Funktionen bestimmt werden, welche in der Datei @file{scm/output-lib.scm}
 definiert sind.  Die letzten drei Spalten der folgenden Tabelle
 zeigen an, ob das Layout-Objekt an einer bestimmten Position
 sichtbar sein wird oder nicht:
@@ -3387,7 +3387,7 @@ Notationsreferenz:
 @ref{Schnittstellen für Programmierer}.
 
 Installierte Dateien:
-@file{scm/@/define@/-grobs@/.scm}.
+@file{scm/define-grobs.scm}.
 
 Schnipsel:
 @rlsr{Tweaks and overrides}.
@@ -3993,9 +3993,9 @@ Erweitern:
 @rextend{Musikalische Funktionen}.
 
 Installierte Dateien:
-@file{lily/@/music@/-scheme@/.cc},
-@file{scm/@/c++@/.scm},
-@file{scm/@/lily@/.scm}.
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
 
 
 @node Beispiele der Ersetzungsfunktionen

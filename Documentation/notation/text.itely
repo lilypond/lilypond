@@ -494,7 +494,7 @@ Snippets:
 @rlsr{Text}.
 
 Installed files:
-@file{scm/@/markup@/.scm}.
+@file{scm/markup.scm}.
 
 
 @knownissues
@@ -690,7 +690,7 @@ Internals Reference:
 @rinternals{TextScript}.
 
 Installed files:
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @node Text alignment
@@ -946,7 +946,7 @@ Internals Reference:
 @rinternals{TextScript}.
 
 Installed files:
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @node Graphic notation inside markup
@@ -1127,8 +1127,8 @@ Internals Reference:
 @rinternals{TextScript}.
 
 Installed files:
-@file{scm/@/define@/-markup@/-commands@/.scm},
-@file{scm/@/stencil@/.scm}.
+@file{scm/define-markup-commands.scm},
+@file{scm/stencil.scm}.
 
 
 @node Music notation inside markup
@@ -1259,9 +1259,9 @@ Internals Reference:
 @rinternals{TextScript}.
 
 Installed files:
-@file{scm/@/define@/-markup@/-commands@/.scm},
-@file{scm/@/fret@/-diagrams@/.scm},
-@file{scm/@/harp@/-pedals@/.scm}.
+@file{scm/define-markup-commands.scm},
+@file{scm/fret-diagrams.scm},
+@file{scm/harp-pedals.scm}.
 
 
 @node Multi-page markup
@@ -1325,7 +1325,7 @@ Internals Reference:
 @rinternals{TextScript}.
 
 Installed files:
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @funindex \markuplines
@@ -1496,7 +1496,7 @@ Snippets:
 
 @c A source file gets never installed...
 @c Installed files:
-@c @file{lily/@/font@/-config@/-scheme@/.cc}.
+@c @file{lily/font-config-scheme.cc}.
 
 
 @node Entire document fonts

@@ -95,9 +95,9 @@ Referencia de la notación:
 @ruser{Predicados de tipo predefinidos}.
 
 Archivos de inicio:
-@file{lily/@/music@/-scheme@/.cc},
-@file{scm/@/c++@/.scm},
-@file{scm/@/lily@/.scm}.
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
 
 
 @node Funciones de sustitución sencillas
@@ -384,7 +384,7 @@ Primero la función @code{raise-markup} crea el sello para la cadena
 @code{ejemplo de texto}, y después eleva el sello Stencil en 0.5
 espacios de pentagrama.  Este es un ejemplo bastante simple; en el
 resto de la sección podrán verse ejemplos más complejos, así como en
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @node Definición de una instrucción de marcado nueva
@@ -615,7 +615,7 @@ Una buena manera de comenzar a escribir una instrucción de marcado
 nueva, es seguir el ejemplo de otra instrucción ya incorporada.  Casi
 todas las instrucciones de marcado que están incorporadas en LilyPond
 se pueden encontrar en el archivo
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 Por ejemplo, querríamos adaptar la instrucción @code{\draw-line}, para
 que trace una línea doble.  La instrucción @code{\draw-line} está

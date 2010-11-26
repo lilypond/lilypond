@@ -90,9 +90,9 @@ Notation Reference:
 @ruser{Predefined type predicates}.
 
 Installed Files:
-@file{lily/@/music@/-scheme@/.cc},
-@file{scm/@/c++@/.scm},
-@file{scm/@/lily@/.scm}.
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
 
 
 @node Simple substitution functions
@@ -370,7 +370,7 @@ The @code{raise-markup} function first creates the stencil for the
 @code{text example} string, and then it raises that Stencil by 0.5
 staff space.  This is a rather simple example; more complex examples
 are in the rest
-of this section, and in @file{scm/@/define@/-markup@/-commands@/.scm}.
+of this section, and in @file{scm/define-markup-commands.scm}.
 
 
 @node New markup command definition
@@ -579,7 +579,7 @@ customized:
 
 A good way to start writing a new markup command, is to take example on
 a builtin one.  Most of the markup commands provided with LilyPond can be
-found in file @file{scm/@/define@/-markup@/-commands@/.scm}.
+found in file @file{scm/define-markup-commands.scm}.
 
 For instance, we would like to adapt the @code{\draw-line} command, to
 draw a double line instead.  The @code{\draw-line} command is defined as

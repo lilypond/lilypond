@@ -155,7 +155,7 @@ Notation Reference:
 @ref{Articulaciones y ornamentos}.
 
 Archivos de inicio:
-@file{ly/@/chord@/-repetition@/-init@/.ly}.
+@file{ly/chord-repetition-init.ly}.
 
 
 @node Expresiones simultáneas

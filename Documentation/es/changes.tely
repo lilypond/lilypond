@@ -283,7 +283,7 @@ pares se pueden fijar utilizando @code{inner-margin} y
 
 @item
 Los márgenes predeterminados del papel, tal y como se especifican en
-el archivo @file{ly/@/paper@/-defaults@/-init@/.ly}, se aplican al
+el archivo @file{ly/paper@/-defaults-init.ly}, se aplican al
 tamaño de papel predeterminado (A4) y se redimensionan automáticamente
 al tamaño del papel seleccionado.
 

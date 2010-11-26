@@ -212,7 +212,7 @@ wordt behandeld als een afzonderlijke partituur en ze worden
 allemaal samengevoegd in een enkel uitvoerbestand.  Een
 @code{\book}-commando is niet nodig -- die wordt impliciet
 aangemaakt.  Echter, als je afzonderlijke uitvoerbestanden
-vanuit een @file{@/.ly}-bestand wil maken, dan moet het
+vanuit een @file{.ly}-bestand wil maken, dan moet het
 @code{\book}-commando worden gebruikt om de verschillende
 secties aan te geven: elk @code{\book}-blok produceert
 een apart uitvoerbestand.
@@ -3028,7 +3028,7 @@ LilyPond input syntax changes (see
 you have a single definition (such as @code{\dolce}) for all your
 input files (see @ref{Style sheets}), then if the syntax changes, you
 only need to update your single @code{\dolce} definition,
-instead of making changes throughout every @file{@/.ly} file.
+instead of making changes throughout every @file{.ly} file.
 
 
 @node Scores and parts
@@ -3041,7 +3041,7 @@ a variable.  The contents of that variable is then used to generate
 both the part and the full score.
 
 It is convenient to define the notes in a special file.  For example,
-suppose that the file @file{horn@/-music@/.ly} contains the following part
+suppose that the file @file{horn-music.ly} contains the following part
 of a horn/@/bassoon duo
 
 @example
@@ -3073,7 +3073,7 @@ The line
 @end example
 
 @noindent
-substitutes the contents of @file{horn@/-music@/.ly} at this position in
+substitutes the contents of @file{horn-music.ly} at this position in
 the file, so @code{hornNotes} is defined afterwards.  The command
 @code{\transpose f@tie{}c'} indicates that the argument, being
 @code{\hornNotes}, should be transposed by a fifth upwards.  Sounding
@@ -3124,7 +3124,7 @@ this option to the music above, leads to the following result
 
 The score is made by combining all of the music together.  Assuming
 that the other voice is in @code{bassoonNotes} in the file
-@file{bassoon@/-music@/.ly}, a score is made with
+@file{bassoon-music.ly}, a score is made with
 
 @example
 \include "bassoon-music.ly"

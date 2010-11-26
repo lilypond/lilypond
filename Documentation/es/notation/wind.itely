@@ -164,7 +164,7 @@ que son usuales en la música de gaita, mediante instrucciones breves.  Por ejem
 \grace @{ \small G32[ d G e] @}
 @end example
 
-@file{bagpipe@/.ly} también contiene definiciones de alturas para las notas de la
+@file{bagpipe.ly} también contiene definiciones de alturas para las notas de la
 gaita en las octavas adecuadas, de forma que no se tenga que preocupar por
 @code{\relative} o por @code{\transpose}.
 
@@ -408,8 +408,8 @@ salida de música impresa:
 @end lilypond
 
 Se pueden crear diagramas nuevos siguiendo los patrones que están en
-@file{scm/@/define@/-woodwind@/-diagrams@/.scm} y en
-@file{scm/@/display@/-woodwind@/-diagrams@/.scm}.  Sin embargo, esto requiere
+@file{scm/define-woodwind-diagrams.scm} y en
+@file{scm/display-woodwind-diagrams.scm}.  Sin embargo, esto requiere
 conocimientos de Scheme y quizá no esté al alcance de todos los
 usuarios.
 
@@ -432,8 +432,8 @@ usuarios.
 @seealso
 
 Archivos de inicio:
-@file{scm/@/define@/-woodwind@/-diagrams@/.scm},
-@file{scm/@/display@/-woodwind@/-diagrams@/.scm}.
+@file{scm/define-woodwind-diagrams.scm},
+@file{scm/display-woodwind-diagrams.scm}.
 
 Fragmentos de código:
 @rlsr{Winds}.

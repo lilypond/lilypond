@@ -1070,7 +1070,7 @@ Handbüchern, auf den Mailinglisten oder im Quellcode vor.
 
 Eine assoziative Liste oder @strong{alist} in kurz ist ein
 Scheme-Paar, das einen Wert mit einem Schlüssel assoziiert:
-@w{@code{(Schlüssel . Wert)}}.  In der Datei @file{scm/@/lily@/.scm}
+@w{@code{(Schlüssel . Wert)}}.  In der Datei @file{scm/lily.scm}
 beispielsweise assoziiert die alist @w{@qq{type-p-name-alist}}
 bestimmte Prädikate (etwa@tie{}@code{ly:music?}) mit
 Bezeichnungen (wie@tie{}@qq{music}) sodass Fehler der
@@ -1232,7 +1232,7 @@ Referenz der Interna:
 Ein @strong{lexer} ist ein Programm, das eine Charaktersequenz
 in eines Sequenz von Tokens übersetzt.  Dieser Prozess wird als
 lexikalische Analyse bezeichnet.  Der LilyPond-Lexer konvertiert
-eine Eingabedatei (@file{@/.ly} in eine Datei mit Tokens, die sich
+eine Eingabedatei (@file{.ly} in eine Datei mit Tokens, die sich
 besser für den nächsten Schritt der Verarbeitung, nämlich das
 Parsen, eignet.  Siehe @ref{parser}.
 
@@ -1288,7 +1288,7 @@ Endprodukt ein Token-Baum, dessen Wurzel das Startsymbol der Grammatik ist.
 Wenn dies nicht erreicht werden kann, ist die Datei nicht korrekt und
 ensprechende Fehlermeldungen werden ausgegeben.  Die syntaktischen Gruppierungen
 und die Regeln, nach welchen die Gruppen aus ihren Einzelteilen nach der
-LilyPond-Syntax erstellt werden, finden sich in der Datei @file{lily/@/parser@/.yy}
+LilyPond-Syntax erstellt werden, finden sich in der Datei @file{lily/parser.yy}
 und werden in der Backus Normal Form (BNF) in @ref{LilyPond-Grammatik}
 gezeigt.  Diese Datei wird benutzt, um den Parser während der Programmkompilation
 zu erstellen.  Hierzu wird der Parser-Ersteller Bison verwendet.  Er ist
@@ -1304,7 +1304,7 @@ Diese Variablen werden direkt in Scheme definiert.  Von ihrer direkten
 Benutzung durch den Benutzer wird streng abgeraten, weil ihre
 Semantikzuordnung sehr verwirrend sein kann.
 
-Wenn der Wert einer derartigen Variable in einer @file{@/.ly}-Datei
+Wenn der Wert einer derartigen Variable in einer @file{.ly}-Datei
 verändert wird, ist diese Änderung global, und wenn sie nicht
 explizit rückgängig gemacht wird, wird der neue Wert bis zum Ende
 der Datei gelten und dabei sowohl aufeinander folgende
@@ -1364,7 +1364,7 @@ Smobs von C++-Objekten mithilfe von Makros erstellt.  Es gibt zwei
 Arten von Smob-Objekten: einfache Smobs, die da sind für einfach
 immutable Objekte wie Nummern, und komplexe Smobs, benutzt für Objekte
 mit einer Identität.  Wenn Sie auf die LilyPond-Quellen zurückgreifen
-können, findet sich mehr Information hierzu in @file{lily/@/includes/@/smob@/.hh}.
+können, findet sich mehr Information hierzu in @file{lily/includes/smob.hh}.
 
 @node stencil
 @unnumberedsubsec stencil

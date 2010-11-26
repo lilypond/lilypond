@@ -67,20 +67,20 @@ A @command{lilypond} program a következő módon futtatható parancssorból:
 lilypond [@var{opció}]@dots{} @var{fájlnév}@dots{}
 @end example
 
-Ha nem adunk meg kiterjesztést, az alapértelmezett @file{@/.ly} kiterjesztéssel
+Ha nem adunk meg kiterjesztést, az alapértelmezett @file{.ly} kiterjesztéssel
 próbálkozik a LilyPond. A szabványos bemenetről való beolvasáshoz a @code{-}
 karakter használandó @var{fájlnév} gyanánt.
 
-Amikor a @file{fájlnév@/.ly} fájl feldolgozásra kerül, egy @file{fájlnév@/.ps}
-és egy @file{fájlnév@/.pdf} fájlt kapunk kimenetként. Több fájlt is
+Amikor a @file{fájlnév.ly} fájl feldolgozásra kerül, egy @file{fájlnév.ps}
+és egy @file{fájlnév.pdf} fájlt kapunk kimenetként. Több fájlt is
 feldolgoztathatunk egyszerre; ezek egymástól függetlenül kerülnek
 feldolgozásra. @footnote{A GUILE megelőző állapota nem áll vissza feldolgozás
 után, így elővigyázatosnak kell lenni, hogy ne változtassuk meg a rendszer
 alapbeállításait Scheme kódból.}
 
-Ha a @file{fájlnév@/.ly} több @code{\book} blokkot tartalmaz, minden blokkból
-egy-egy, számozott kimeneti fájl keletkezik, @file{fájlnév@/.pdf},
-@file{fájlnév@/-1@/.pdf}, @file{fájlnév@/-2@/.pdf} stb. formában. Az
+Ha a @file{fájlnév.ly} több @code{\book} blokkot tartalmaz, minden blokkból
+egy-egy, számozott kimeneti fájl keletkezik, @file{fájlnév.pdf},
+@file{fájlnév-1.pdf}, @file{fájlnév-2.pdf} stb. formában. Az
 @code{output-suffix} változó értéke fog szerepelni a fájlnév és a számozás
 között. Például a következő bemeneti fájlból:
 
@@ -92,7 +92,7 @@ között. Például a következő bemeneti fájlból:
 @end example
 
 @noindent
-egy @file{@var{fájlnév}@/-violino@/.pdf} és egy @file{@var{fájlnév}@/-cello@/-1@/.pdf}
+egy @file{@var{fájlnév}-violino.pdf} és egy @file{@var{fájlnév}-cello-1.pdf}
 nevű fájl keletkezik.
 
 @node A lilypond parancssori paraméterei
@@ -106,7 +106,7 @@ A következő parancssori opciók támogatottak:
 @table @code
 
 @item -e,--evaluate=@var{kifejezés}
-A Scheme @var{kifejezés} kiértékelése az @file{@/.ly} fájlok beolvasása előtt.
+A Scheme @var{kifejezés} kiértékelése az @file{.ly} fájlok beolvasása előtt.
 Több @code{-e} opció is megadható, ezek a megadott sorrendben lesznek
 végrehajtva.
 
@@ -189,9 +189,9 @@ kárt okozzon. Például:
 @end quotation
 
 @code{-dsafe} módban a Scheme kifejezések kiértékelése egy speciális
-biztonsági modulban történik. Ez a modul a GUILE @file{safe@/-r5rs} modulján
+biztonsági modulban történik. Ez a modul a GUILE @file{safe-r5rs} modulján
 alapul, de a LilyPond API néhány függvényének meghívását lehetővé teszi.
-Ezek a függvények a @file{scm/@/safe@/-lily@/.scm} fájlban találhatóak.
+Ezek a függvények a @file{scm/safe-lily.scm} fájlban találhatóak.
 
 Ezenkívül biztonsági módban tilos az @code{\include} parancsok alkalmazása
 és a \ karakter használata @TeX{} karakterláncokban.
@@ -285,7 +285,7 @@ A @var{könyvtár} hozzáadása a bemeneti fájlok keresési útvonalához.
 
 @item -i,--init=@var{fájl}
 Az inicializáló fájl beállítása a megadott @var{fájl}ra. (Alapértelmezett:
-@file{init@/.ly}.)
+@file{init.ly}.)
 
 @item -o,--output=@var{fájl}
 Kimeneti fájl megadása. A megfelelő kiterjesztés automatikusan hozzáfűzésre
@@ -569,7 +569,7 @@ következő módon:
 @translationof Apparent error in ../ly/init.ly
 
 Különféle rejtélyes hibaüzenetek jelenhetnek meg, melyek a
-@file{@/.@/./@/ly/@/init@/.ly} fájlban található szintaktikai hibára utalnak, ha a
+@file{../ly/init.ly} fájlban található szintaktikai hibára utalnak, ha a
 forrásfájl nem jól formált, például nem egyezik a nyitó és csukó kapcsos
 zárójelek vagy idézőjelek száma.
 

@@ -83,24 +83,24 @@ lilypond [@var{Option}]@dots{} @var{Dateiname}@dots{}
 @end example
 
 
-Wird ein @file{Dateiname} ohne Erweiterung angegeben, so wird @file{@/.ly} als
+Wird ein @file{Dateiname} ohne Erweiterung angegeben, so wird @file{.ly} als
 Standarderweiterung für LilyPond-Dateien benutzt.  Um Daten von
 @code{stdin} einzulesen, benutzen Sie einfach einen Bindestrich (@code{-})
 als @var{Dateiname}.
 
-Wenn Lilypond die Datei @file{Dateiname@/.ly} verarbeitet, werden daraus
-die Dateien @file{Dateiname@/.ps} und @file{Dateiname@/.pdf} erzeugt.
-Es können an @code{lilypond} auch mehrere @file{@/.ly} Dateien übergeben
+Wenn Lilypond die Datei @file{Dateiname.ly} verarbeitet, werden daraus
+die Dateien @file{Dateiname.ps} und @file{Dateiname.pdf} erzeugt.
+Es können an @code{lilypond} auch mehrere @file{.ly} Dateien übergeben
 werden, die dann einzeln und voneinander unabhängig abgearbeitet
 werden.@footnote{Der Zustand von GUILE wird allerdings nicht nach
 jeder Datei zurückgesetzt, sodass Achtung geboten ist, wenn in einer
 Datei globale Änderungen von Scheme aus durchgeführt werden.}
 
-Falls @file{Dateiname@/.ly} mehr als eine @code{\book}-Umgebung enthält,
+Falls @file{Dateiname.ly} mehr als eine @code{\book}-Umgebung enthält,
 werden die weiteren Stücke in durchnummerierte Dateien der Form
-@file{Dateiname@/-1@/.pdf} ausgegeben.  Zusätzlich wird der Wert der
+@file{Dateiname-1.pdf} ausgegeben.  Zusätzlich wird der Wert der
 Variable @code{output-suffix} zwischen den ursprünglichen Dateinamen
-und der Zahl eingefügt.  Eine Lilypond-Datei @file{Dateiname@/.ly} mit dem Inhalt
+und der Zahl eingefügt.  Eine Lilypond-Datei @file{Dateiname.ly} mit dem Inhalt
 
 @example
 #(define output-suffix "Geige")
@@ -110,8 +110,8 @@ und der Zahl eingefügt.  Eine Lilypond-Datei @file{Dateiname@/.ly} mit dem Inha
 @end example
 
 @noindent
-erzeugt daher die Dateien @var{Dateiname}@file{@/-Geige@/.pdf} und
-@var{Dateiname}@file{@/-Cello@/-1@/.pdf}.
+erzeugt daher die Dateien @var{Dateiname}@file{-Geige.pdf} und
+@var{Dateiname}@file{-Cello-1.pdf}.
 
 
 
@@ -154,7 +154,7 @@ Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
 @table @code
 
 @item -e,--evaluate=@var{expr}
-Wertet den Scheme-Ausdruck @var{expr} aus, bevor die @file{@/.ly} Dateien
+Wertet den Scheme-Ausdruck @var{expr} aus, bevor die @file{.ly} Dateien
 gelesen und interpretiert werden.
 Die @code{-e} Option kann auch mehrfach angegeben werden, die Ausdrücke
 werden nacheinander ausgewertet.
@@ -168,7 +168,7 @@ lilypond -e '(define-public a 42)'
 @end example
 
 @noindent
-Am Beginn der @file{@/.ly}-Datei muss dann das @code{guile-user} Modul noch geladen werden, bevor die Definition von @var{a} verfügbar ist:
+Am Beginn der @file{.ly}-Datei muss dann das @code{guile-user} Modul noch geladen werden, bevor die Definition von @var{a} verfügbar ist:
 
 @example
 #(use-modules (guile-user))
@@ -226,11 +226,11 @@ Die Zeichenkette, die das Format angibt, muss in Anführungszeichen mit Backslas
 @cindex safe, Kommandozeile
 
 @item safe
-Vertraut der @file{@/.ly} Datei nicht.
+Vertraut der @file{.ly} Datei nicht.
 
 Wenn LilyPond über einen Webserver verfügbar gemacht wird, @b{MUSS} unbedingt
 eine die Optionen @code{--safe} oder @code{--jail} angegeben werden.
-Die @code{--safe} Option verhindert, dass in der @file{@/.ly}-Datei angegebener
+Die @code{--safe} Option verhindert, dass in der @file{.ly}-Datei angegebener
 Scheme-Code das System gefährden kann, wie etwa in folgendem Beispiel:
 
 @quotation
@@ -243,10 +243,10 @@ Scheme-Code das System gefährden kann, wie etwa in folgendem Beispiel:
 @end quotation
 
 Mit der @code{-dsafe} Option werden alle Scheme-Ausdrücke einem speziellen
-sicheren Modus ausgewertet. Dieser Modus ist vom GUILE @file{safe@/-r5rs} Modul
+sicheren Modus ausgewertet. Dieser Modus ist vom GUILE @file{safe-r5rs} Modul
 abgeleitet und fügt noch zahlreiche weitere erlaubte Funktionen der
 LilyPond Programm-Schnittstelle hinzu. Diese Funktionen sind in
-@file{scm/@/safe@/-lily@/.scm} angegeben.
+@file{scm/safe-lily.scm} angegeben.
 
 Zusätzliche verbietet der sichere Modus auch @code{\include} Befehle.
 
@@ -358,7 +358,7 @@ fort, wenn die gesuchte Datei nicht in dem Verzeichnis gefunden wird.
 
 @item -i,--init=@var{Initialisierungsdatei}
 Benutzt @var{Initialisierungsdatei} zur gesamten Programminitialisierung. Der
-Standardwert ist @file{init@/.ly}.
+Standardwert ist @file{init.ly}.
 
 @cindex Verzeichnis, Ausgabe speichern in
 @cindex Ausgabedateiname
@@ -401,7 +401,7 @@ von Dritten automatisch verarbeitet werden.
 
 Sie funktioniert dergestalt, dass das Wurzelverzeichnis von
 @command{lilypond} auf @var{Jail-Verzeichnis} gesetzt wird, bevor die
-tatsächliche Kompilierung der @file{@/.ly}-Datei beginnt. Der Benutzer und die Gruppe
+tatsächliche Kompilierung der @file{.ly}-Datei beginnt. Der Benutzer und die Gruppe
 werden auf die angegebenen Werte gesetzt und das aktuelle Arbeitsverzeichnis
 wird ebenfalls auf den angegebenen Wert @var{Arbeitsverzeichnis} gesetzt.
 Diese Einstellungen garantieren (zumindest in der Theorie), dass es nicht
@@ -813,7 +813,7 @@ umgangen werden.
 @translationof Apparent error in @code{../ly/init.ly}
 
 Verschiedene seltsame Fehlermeldungen können über Syntax-Fehler in
-@file{@/.@/./@/ly/@/init@/.ly} auftauchen, wenn die Eingabedatei nicht richtig
+@file{../ly/init.ly} auftauchen, wenn die Eingabedatei nicht richtig
 formuliert ist, wenn sie etwa nicht richtig passende Klammerpaare
 oder Anführungszeichen enthält.
 

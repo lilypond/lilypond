@@ -3724,10 +3724,10 @@ inst =
 @end example
 
 We will refer to this file using the @code{\include} command near
-the top of the music file.  (The extension @file{@/.ily} is used to
+the top of the music file.  (The extension @file{.ily} is used to
 distinguish this included file, which is not meant to be compiled
 on its own, from the main file.)
-Now let's modify our music (let's save this file as @file{music@/.ly}).
+Now let's modify our music (let's save this file as @file{music.ly}).
 
 @c  We have to do this awkward example/lilypond-non-verbatim
 @c  because we can't do the \include stuff in the manual.
@@ -3778,7 +3778,7 @@ put the metronome marking above the clef, instead of over the first
 note.  And finally, my composition professor hates @q{C} time signatures,
 so we'd better make that @q{4/4} instead.
 
-Don't change @file{music@/.ly}, though.  Replace our @file{definitions@/.ily}
+Don't change @file{music.ly}, though.  Replace our @file{definitions.ily}
 with this:
 
 @example
@@ -3864,7 +3864,7 @@ inst =
 That looks nicer!  But now suppose that I want to publish this
 piece.  My composition professor doesn't like @q{C} time
 signatures, but I'm somewhat fond of them.  Let's copy the
-current @file{definitions@/.ily} to @file{web@/-publish@/.ily} and
+current @file{definitions.ily} to @file{web-publish.ily} and
 modify that.  Since this music is aimed at producing a pdf which
 will be displayed on the screen, we'll also increase the
 overall size of the output.
@@ -3949,12 +3949,12 @@ inst =
 Now in our music, I simply replace
 @code{\include "definitions.ily"} with
 @code{\include "web-publish.ily"}.  Of course, we could make this
-even more convenient.  We could make a @file{definitions@/.ily} file which
+even more convenient.  We could make a @file{definitions.ily} file which
 contains only the definitions of @code{mpdolce} and @code{inst}, a
-@file{web@/-publish@/.ily} file which contains only the @code{\layout}
-section listed above, and a @file{university@/.ily} file which
+@file{web-publish.ily} file which contains only the @code{\layout}
+section listed above, and a @file{university.ily} file which
 contains only the tweaks to produce the output that my professor
-prefers.  The top of @file{music@/.ly} would then look like this:
+prefers.  The top of @file{music.ly} would then look like this:
 
 @example
 \include "definitions.ily"
@@ -4031,12 +4031,12 @@ script, and @var{X.Y.Z} is the LilyPond version number.
 Within this directory the two interesting subdirectories are
 
 @itemize
-@item @file{ly/@/} - contains files in LilyPond format
-@item @file{scm/@/} - contains files in Scheme format
+@item @file{ly/} - contains files in LilyPond format
+@item @file{scm/} - contains files in Scheme format
 @end itemize
 
-Let's begin by looking at some files in @file{ly/@/}.
-Open @file{ly/@/property@/-init@/.ly} in a text editor.  The one
+Let's begin by looking at some files in @file{ly/}.
+Open @file{ly/property-init.ly} in a text editor.  The one
 you normally use for @code{.ly} files will be fine.  This file
 contains the definitions of all the standard LilyPond predefined
 commands, such as @code{\stemUp} and @code{\slurDotted}.  You will
@@ -4056,25 +4056,25 @@ be redefined easily, just like any other variable, at the
 head of your input file.
 
 The following are the most useful files to be found in
-@file{ly/@/}:
+@file{ly/}:
 
 @multitable @columnfractions .4 .6
 @headitem Filename
   @tab Contents
-@item @file{ly/@/engraver@/-init@/.ly}
+@item @file{ly/engraver-init.ly}
   @tab Definitions of engraver Contexts
-@item @file{ly/@/paper@/-defaults@/-init@/.ly}
+@item @file{ly/paper-defaults-init.ly}
   @tab Specifications of paper-related defaults
-@item @file{ly/@/performer@/-init@/.ly}
+@item @file{ly/performer-init.ly}
   @tab Definitions of performer Contexts
-@item @file{ly/@/property@/-init@/.ly}
+@item @file{ly/property-init.ly}
   @tab Definitions of all common predefined commands
-@item @file{ly/@/spanner@/-init@/.ly}
+@item @file{ly/spanner-init.ly}
   @tab Definitions of spanner-related predefined commands
 @end multitable
 
 Other settings (such as the definitions of markup commands) are
-stored as @file{@/.scm} (Scheme) files.  The Scheme programming
+stored as @file{.scm} (Scheme) files.  The Scheme programming
 language is used to provide a programmable interface into
 LilyPond internal operation.  Further explanation of these files
 is currently outside the scope of this manual, as a knowledge of
@@ -4088,20 +4088,20 @@ interest are:
 @multitable @columnfractions .4 .6
 @headitem Filename
   @tab Contents
-@item @file{scm/@/auto@/-beam@/.scm}
+@item @file{scm/auto-beam.scm}
   @tab Sub-beaming defaults
-@item @file{scm/@/define@/-grobs@/.scm}
+@item @file{scm/define-grobs.scm}
   @tab Default settings for grob properties
-@item @file{scm/@/define@/-markup@/-commands@/.scm}
+@item @file{scm/define-markup-commands.scm}
   @tab Specify all markup commands
-@item @file{scm/@/midi@/.scm}
+@item @file{scm/midi.scm}
   @tab Default settings for MIDI output
-@item @file{scm/@/output@/-lib@/.scm}
+@item @file{scm/output-lib.scm}
   @tab Settings that affect appearance of frets, colors,
        accidentals, bar lines, etc
-@item @file{scm/@/parser@/-clef@/.scm}
+@item @file{scm/parser-clef.scm}
   @tab Definitions of supported clefs
-@item @file{scm/@/script@/.scm}
+@item @file{scm/script.scm}
   @tab Default settings for articulations
 @end multitable
 

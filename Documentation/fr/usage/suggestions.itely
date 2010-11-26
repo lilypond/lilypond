@@ -283,8 +283,8 @@ spécial, nommé @code{Makefile}, qui contient tout ce qu'il
 faut -- les dépendances entre certains fichiers, les instructions
 successives à traiter par le système -- pour aboutir au fichier que
 vous désirez obtenir.  Il pourrait par exemple contenir tout ce qu'il
-faut pour produire @file{ballade@/.pdf} et @file{ballade@/.midi} à partir de
-@file{ballade@/.ly} en lançant LilyPond.
+faut pour produire @file{ballade.pdf} et @file{ballade.midi} à partir de
+@file{ballade.ly} en lançant LilyPond.
 
 La création d'un @code{Makefile} peut se révéler pertinente pour
 certains projets, que ce soit par simple goût personnel ou bien par
@@ -346,8 +346,8 @@ Symphonie/
 `-- symphonieDefs.ily
 @end example
 
-Les fichiers @file{@/.ly} des répertoires @code{Partitions} et
-@code{Pupitres} récupèreront la notation des fichiers @file{@/.ily}
+Les fichiers @file{.ly} des répertoires @code{Partitions} et
+@code{Pupitres} récupèreront la notation des fichiers @file{.ily}
 contenus dans le répertoire @code{Notes}@tie{}:
 
 @example

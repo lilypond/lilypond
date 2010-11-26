@@ -1051,7 +1051,7 @@ In addition to setting the printed time signature, the @code{\time}
 command also sets time-signature-based default values for the properties
 @code{baseMoment}, @code{beatStructure}, and @code{beamExceptions}.  The
 predefined default values for these properties can be found in
-@file{scm/@/time@/-signature@/-settings@/.scm}.  The existing default values can
+@file{scm/time-signature-settings.scm}.  The existing default values can
 be changed, or new default values can be added:
 
 @lilypond[quote,verbatim]
@@ -1823,7 +1823,7 @@ Notation Reference:
 @ref{Setting automatic beam behavior}.
 
 Installed Files:
-@file{scm/@/auto@/-beam@/.scm}.
+@file{scm/auto-beam.scm}.
 
 Snippets:
 @rlsr{Rhythms}.
@@ -1942,7 +1942,7 @@ see @ref{Time administration}.
 
 By default @code{baseMoment} is set to one over the denominator of
 the time signature. Any exceptions to this default can be found in
-@file{scm/@/time@/-signature@/-settings@/.scm}.
+@file{scm/time-signature-settings.scm}.
 
 Special autobeaming rules (other than ending a beam on a beat)
 are defined in the @code{beamExceptions} property.
@@ -2007,7 +2007,7 @@ context to the default behavior.
 @end lilypond
 
 These default automatic beaming settings for a time signature
-are determined in @file{scm/@/time@/-signature@/-settings@/.scm}.
+are determined in @file{scm/time-signature-settings.scm}.
 The automatic beaming settings for a time signature can be changed
 as described in @ref{Time signature}.
 
@@ -2046,7 +2046,7 @@ In the rules above, the beam-type is the duration of the
 shortest note in the beamed group.
 
 For reference, the default beaming rules are found in
-@file{scm/@/time@/-signature@/-settings@/.scm}.
+@file{scm/time-signature-settings.scm}.
 
 @snippets
 
@@ -2072,7 +2072,7 @@ For reference, the default beaming rules are found in
 
 @seealso
 Installed files:
-@file{scm/@/beam@/-settings@/.scm}.
+@file{scm/beam-settings.scm}.
 
 Snippets:
 @rlsr{Rhythms}.
@@ -2779,7 +2779,7 @@ c1 \mark \default
 c1
 @end lilypond
 
-The file @file{scm/@/translation@/-functions@/.scm} contains the
+The file @file{scm/translation-functions.scm} contains the
 definitions of @code{format-mark-numbers} (the default format),
 @code{format-mark-box-numbers}, @code{format-mark-letters} and
 @code{format-mark-box-letters}.  These can be used as inspiration
@@ -2841,7 +2841,7 @@ Notation Reference:
 @ref{Aligning objects}.
 
 Installed Files:
-@file{scm/@/translation@/-functions@/.scm} contains
+@file{scm/translation-functions.scm} contains
 the definitions of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for
 other formatting functions.
@@ -3010,7 +3010,7 @@ Notation Reference:
 @ref{Manual beams}.
 
 Installed Files:
-@file{ly/@/grace@/-init@/.ly}.
+@file{ly/grace-init.ly}.
 
 Snippets:
 @rlsr{Rhythms}.

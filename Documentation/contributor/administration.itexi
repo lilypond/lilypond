@@ -801,12 +801,12 @@ the source tree:
 make grand-replace
 @end example
 
-Internally, this invokes the script @file{scripts/@/build/@/grand@/-replace@/.py},
+Internally, this invokes the script @file{scripts/build/grand-replace.py},
 which performs a regular expression substitution for old-year -> new-year
 wherever it finds a valid copyright notice.
 
-Note that snapshots of third party files such as @file{texinfo@/.tex} should
-not be included in the automatic update; @file{grand@/-replace@/.py} ignores these
+Note that snapshots of third party files such as @file{texinfo.tex} should
+not be included in the automatic update; @file{grand-replace.py} ignores these
 files if they are listed in the variable @code{copied_files}.
 
 

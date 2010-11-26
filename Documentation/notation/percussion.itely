@@ -119,7 +119,7 @@ Notation Reference:
 @ref{Percussion notes}.
 
 File:
-@file{ly/@/drumpitch@/-init@/.ly}
+@file{ly/drumpitch-init.ly}
 
 Snippets:
 @rlsr{Percussion}.

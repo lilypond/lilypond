@@ -317,7 +317,7 @@ puis on la transforme en liste d'exceptions au moyen du code
 (sequential-music-to-chord-exceptions chExceptionMusic #t)
 @end example
 Pour qu'elles soient effectives, on ajoute ces exceptions aux exceptions
-par défaut définies dans @file{ly/@/chord@/-modifier@/-init@/.ly}@tie{}:
+par défaut définies dans @file{ly/chord-modifier-init.ly}@tie{}:
 @example
 (append
  (sequential-music-to-chord-exceptions chExceptionMusic #t)
@@ -413,8 +413,8 @@ Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
 Fichiers internes :
-@file{scm/@/chords@/-ignatzek@/.scm},
-@file{scm/@/chord@/-entry@/.scm}.
+@file{scm/chords-ignatzek.scm},
+@file{scm/chord-entry.scm}.
 
 
 @knownissues

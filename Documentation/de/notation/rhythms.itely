@@ -1096,7 +1096,7 @@ Zusätzlich zu der gedruckten Taktart werden mit der Definition des
 Befehls @code{\time} auch die Standardwerte fürt die Eigenschaften
 @code{baseMoment}, @code{beatStructure} und @code{beamExtensions}
 gesetzt.  Die vordefinierten Standardwerte für diese Eigenschaften
-finden sich in @file{scm/@/time@/-signature@/-settings@/.scm}.  Die existierenden
+finden sich in @file{scm/time-signature-settings.scm}.  Die existierenden
 Standardwerte können verändert oder neue Standardwerte hinzugefügt
 werden.
 
@@ -1875,7 +1875,7 @@ Notationsreferenz:
 @ref{Einstellung von automatischen Balken}.
 
 Installierte Dateien:
-@file{scm/@/auto@/-beam@/.scm}.
+@file{scm/auto-beam.scm}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -1999,7 +1999,7 @@ siehe @ref{Verwaltung der Zeiteinheiten}.
 
 Der Standardwert von @code{baseMoment} ist Eins durch den Denominator
 der Taktangabe.  Alle Ausnahmen dieses Standards finden sich in der Datei
-@file{scm/@/time@/-signature@/-settings@/.scm}.
+@file{scm/time-signature-settings.scm}.
 
 Besondere automatische Bebalkungsregeln (außer dass ein Balken auf einem
 Taktschlag aufhört) sind in der @code{beamExceptions}-Eigenschaft
@@ -2066,7 +2066,7 @@ definiert wird, werden die automatischen Bebalkungsregeln für den
 @end lilypond
 
 Diese automatischen Standardeinstellungen für die Bebalkung einer
-Taktart werden in der Datei @file{scm/@/time@/-signature@/-settings@/.scm}
+Taktart werden in der Datei @file{scm/time-signature-settings.scm}
 bestimmt.  Die automatischen Bebalkungsregeln für eine Taktart
 können nach der Beschreibung in @ref{Taktangabe} geändert werden.
 
@@ -2105,7 +2105,7 @@ In den oben genannten Regeln ist der Balkentyp die Dauer der
 kürzesten Note der bebalkten Gruppe.
 
 Zur Erinnerung: die Standardbebalkungsregeln finden sich in der Datei
-@file{scm/@/time@/-signature@/-settings@/.scm}.
+@file{scm/time-signature-settings.scm}.
 
 
 @snippets
@@ -2136,7 +2136,7 @@ Zur Erinnerung: die Standardbebalkungsregeln finden sich in der Datei
 
 @seealso
 Installierte Dateien:
-@file{scm/@/beam@/-settings@/.scm}.
+@file{scm/beam-settings.scm}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -2869,7 +2869,7 @@ c1 \mark \default
 c1
 @end lilypond
 
-Die Datei @file{scm/@/translation@/-functions@/.scm} beinhaltet
+Die Datei @file{scm/translation-functions.scm} beinhaltet
 die Definitionen für @code{format-mark-numbers} (erstelle-Zeichen-Nummern),
 @code{format-mark-box-numbers} (erstelle-Zeichen-Kasten-Nummern),
 @code{format-mark-letters} (erstelle-Zeichen-Buchstaben) und
@@ -2936,7 +2936,7 @@ Notationsreferenz:
 @ref{Objekte ausrichten}.
 
 Installierte Dateien:
-@file{scm/@/translation@/-functions@/.scm} beinhaltet die Definition
+@file{scm/translation-functions.scm} beinhaltet die Definition
 von @code{format-mark-numbers} und
 @code{format-mark-letters}.  Sie können als Anleitung für eigene
 Funktionen benutzt werden.
@@ -3110,7 +3110,7 @@ Notationsreferenz:
 @ref{Manuelle Balken}.
 
 Installierte Dateien:
-@file{ly/@/grace@/-init@/.ly}.
+@file{ly/grace-init.ly}.
 
 Schnipsel:
 @rlsr{Rhythms}.

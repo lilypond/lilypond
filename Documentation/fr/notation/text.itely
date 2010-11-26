@@ -523,7 +523,7 @@ Morceaux choisis :
 @rlsrnamed{Text,Texte}.
 
 Fichiers d'initialisation :
-@file{scm/@/markup@/.scm}.
+@file{scm/markup.scm}.
 
 
 @knownissues
@@ -727,7 +727,7 @@ Référence des propriétés internes :
 @rinternals{TextScript}.
 
 Fichiers d'initialisation :
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @node Alignement du texte
@@ -992,7 +992,7 @@ Référence des propriétés internes :
 @rinternals{TextScript}.
 
 Fichiers d'initialisation :
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @node Éléments graphiques dans du texte formaté
@@ -1177,8 +1177,8 @@ Référence des propriétés internes :
 @rinternals{TextScript}.
 
 Fichiers d'initialisation :
-@file{scm/@/define@/-markup@/-commands@/.scm},
-@file{scm/@/stencil@/.scm}.
+@file{scm/define-markup-commands.scm},
+@file{scm/stencil.scm}.
 
 
 @node Notation musicale dans du texte formaté
@@ -1313,9 +1313,9 @@ Référence des propriétés internes :
 @rinternals{TextScript}.
 
 Fichiers d'initialisation :
-@file{scm/@/define@/-markup@/-commands@/.scm},
-@file{scm/@/fret@/-diagrams@/.scm},
-@file{scm/@/harp@/-pedals@/.scm}.
+@file{scm/define-markup-commands.scm},
+@file{scm/fret-diagrams.scm},
+@file{scm/harp-pedals.scm}.
 
 
 @node Texte avec sauts de page
@@ -1384,7 +1384,7 @@ Référence des propriétés internes :
 @rinternals{TextScript}.
 
 Fichiers d'initialisation :
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @funindex \markuplines
@@ -1571,7 +1571,7 @@ Morceaux choisis :
 
 @c A source file gets never installed...
 @c Fichiers d'initialisation :
-@c @file{lily/@/font@/-config@/-scheme@/.cc}.
+@c @file{lily/font-config-scheme.cc}.
 
 
 @node Choix des fontes par défaut

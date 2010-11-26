@@ -836,7 +836,7 @@ property of the
 TextScript object.  These numbers are measured in staff-spaces, so
 this command moves the object 1 staff space to the right, and 2 spaces up.
 
-Procedures for working with offsets are found in @file{scm/@/lily@/-library@/.scm}.
+Procedures for working with offsets are found in @file{scm/lily-library.scm}.
 
 @subheading Extents
 
@@ -848,7 +848,7 @@ For X extents, the @code{car} is the left hand X coordinate, and the
 is the bottom coordinate, and the @code{cdr} is the top coordinate.
 
 Procedures for working with intervals are found in
-@file{scm/@/lily@/-library@/.scm}.  These procedures should be used when possible
+@file{scm/lily-library.scm}.  These procedures should be used when possible
 to ensure consistency of code.
 
 @subheading Property alists

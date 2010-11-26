@@ -108,7 +108,7 @@ or something like:
 make LILYPOND_BRANCH=stable/2.12 lilypond
 @end example
 
-@item Check the regtest comparison in @file{uploads/@/webtest/} for
+@item Check the regtest comparison in @file{uploads/webtest/} for
 any unintentional breakage.  More info in
 @ref{Precompiled regression tests}.
 
@@ -318,7 +318,7 @@ translation@@iro.umontreal.ca, mentioning lilypond-VERSION.pot
 
 @item
 update links to distros providing lilypond packages?  link in:
-@file{Documentation@/web@/download@/.itexi}
+@file{Documentation/web/download.itexi}
 
 This has nothing to do with the release, but it's a "periodic
 maintenance" task that might make sense to include with releases.

@@ -157,7 +157,7 @@ c4-> c-. c2-_
 @end lilypond
 
 Die Regeln für die standardmäßige Platzierung von
-Artikulationszeichen werden in der Datei @file{scm/@/script@/.scm}
+Artikulationszeichen werden in der Datei @file{scm/script.scm}
 definiert.  Artikulationszeichen und Ornamente können manuell
 über oder unter dem System gesetzt werden, siehe
 @ref{Richtung und Platzierung}.
@@ -213,7 +213,7 @@ Notationsreferenz:
 @ref{Triller}.
 
 Installierte Dateien:
-@file{scm/@/script@/.scm}.
+@file{scm/script.scm}.
 
 Schnipsel:
 @rlsr{Expressive marks}.

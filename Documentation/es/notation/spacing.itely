@@ -101,14 +101,14 @@ Se encuentran disponibles los tamaños de papel más comunes, entre
 ellos @code{a4}, @code{letter}, @code{legal} y @code{11x17} (conocido
 también como tabloide). Están contemplados muchos más tamaños de papel
 de forma predeterminada.  Para ver más detalles, consulte
-@file{scm/@/paper@/.scm} y busque la definición de @code{paper-alist}.
+@file{scm/paper.scm} y busque la definición de @code{paper-alist}.
 
 @c TODO add a new appendix for paper sizes (auto-generated) -pm
 
 @warning{El tamaño predeterminado del papel es @code{a4}.}
 
 Se pueden añadir tamaños adicionales editando la definición de
-@code{paper-alist} en el archivo de inicio @file{scm/@/paper@/.scm},
+@code{paper-alist} en el archivo de inicio @file{scm/paper.scm},
 aunque se sobreescribirán en la siguiente reinstalación del programa.
 
 @cindex orientación
@@ -132,7 +132,7 @@ variables.
 
 @seealso
 Archivos instalados:
-@file{scm/@/paper@/.scm}.
+@file{scm/paper.scm}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -149,7 +149,7 @@ diseño de página se establecen automáticamente de acuerdo con el
 tamaño del papel.
 
 El valor predeterminado de los márgenes está accesible en el archivo
-@file{ly/@/paper@/-defaults@/-init@/.ly}.  Estos valores se aplican al
+@file{ly/paper-defaults-init.ly}.  Estos valores se aplican al
 tamaño predeterminado del papel (A4, a no ser que se especifique de
 otra forma) y se escalan adecuadamente para otros tamaños del papel.
 
@@ -295,7 +295,7 @@ y la segunda redefine la variable completamente:
 @end example
 
 Los ajustes predeterminados de inicio para estas variables están
-definidos en el archivo @file{ly/@/paper@/-defaults@/-init@/.ly}.
+definidos en el archivo @file{ly/paper-defaults-init.ly}.
 
 
 @subsubheading Variables de dimensión de @code{\paper} verticales flexibles
@@ -373,7 +373,7 @@ hay ningún sistema entre los dos.
 El encabezamiento y el pie se crean por parte de las funciones
 @code{make-footer} y @code{make-header}, definidas dentro de
 @code{\paper}.  Las implementaciones predeterminadas están en
-@file{ly/@/paper@/-defaults@/.ly} y en @file{ly/@/titling@/-init@/.ly}.
+@file{ly/paper-defaults.ly} y en @file{ly/titling-init.ly}.
 
 El diseño de la página en sí está realizado por dos funciones dentro
 del bloque @code{\paper}, @code{page-music-height} y
@@ -384,7 +384,7 @@ ella.
 
 Se pueden definir valores del bloque @code{\paper} en Scheme.  En tal
 caso, @code{mm}, @code{in}, @code{pt}, y @code{cm} son variables que
-están definidas en @file{paper@/-defaults@/.ly} con valores en milímetros.
+están definidas en @file{paper-defaults.ly} con valores en milímetros.
 Por ello el valor @w{@code{2 cm}} se debe multiplicar en el siguiente
 ejemplo:
 
@@ -1047,7 +1047,7 @@ compases, y sólo en dichos lugares:
 
 @c TODO Check this
 Una configuración de división de líneas se puede guardar como archivo
-@code{@/.ly} automáticamente.  Ello permite que alineaciones verticales
+@file{.ly} automáticamente.  Ello permite que alineaciones verticales
 se estiren para que encajen en las páginas durante una segunda
 ejecución del proceso de formateo.  Esta posibilidad es bastante
 novedosa y difícil.  Hay más detalles disponibles en @rlsr{Spacing}.
@@ -1799,8 +1799,8 @@ Véase también @code{default-staff-staff-spacing}.
 
 @seealso
 Archivos de inicio:
-@file{ly/@/engraver@/-init@/.ly},
-@file{scm/@/define@/-grobs@/.scm}.
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
 
 Referencia de funcionamiento interno:
 @rinternals{Contexts},
@@ -1873,7 +1873,7 @@ agrupadas:
 
 @seealso
 Archivos de inicio:
-@file{scm/@/define@/-grobs@/.scm}.
+@file{scm/define-grobs.scm}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -1942,7 +1942,7 @@ grob @code{StaffGrouper} al espaciado de las pautas agrupadas:
 
 @seealso
 Installed Files:
-@file{scm/@/define@/-grobs@/.scm}.
+@file{scm/define-grobs.scm}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -2013,8 +2013,8 @@ la línea de letra es capaz de ampliarse mucho más de lo que es usual:
 
 @seealso
 Archivos de inicio:
-@file{ly/@/engraver@/-init@/.ly},
-@file{scm/@/define@/-grobs@/.scm}.
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
 
 Fragmentos de código:
 @rlsr{Spacing}.

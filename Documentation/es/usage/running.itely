@@ -76,19 +76,19 @@ lilypond [@var{opción}]@dots{} @var{archivo}@dots{}
 @end example
 
 Cuando se invoca con un nombre de archivo sin extensión, se prueba en
-primer lugar con la extensión @file{@/.ly}.  Para leer la entrada desde
+primer lugar con la extensión @file{.ly}.  Para leer la entrada desde
 stdin, utilice un guión (@code{-}) en sustitución de @var{archivo}.
 
-Cuando se procesa @file{archivo@/.ly}, la salida resultante son los
-archivos @file{archivo@/.ps} y @file{archivo@/.pdf}.  Se pueden
+Cuando se procesa @file{archivo.ly}, la salida resultante son los
+archivos @file{archivo.ps} y @file{archivo.pdf}.  Se pueden
 especificar varios archivos; cada uno de ellos se procesará de forma
 independiente@footnote{El estado de GUILE no se restablece después de
 procesar un archivo @code{.ly}, por lo que debe tener cuidado de no
 modificar ningún valor predeterminado desde dentro de Scheme.}.
 
-Si @file{archivo@/.ly} contiene más de un bloque @code{\score}, el resto
+Si @file{archivo.ly} contiene más de un bloque @code{\score}, el resto
 de las partituras se obtendrán como salida en archivos numerados,
-empezando por @file{archivo@/-1@/.pdf}.  además, el valor de
+empezando por @file{archivo-1.pdf}.  además, el valor de
 @code{output-suffix} (sufijo de salida) se insertará entre el nombre
 base y el número.  Un archivo de entrada que contenga
 
@@ -100,8 +100,8 @@ base y el número.  Un archivo de entrada que contenga
 @end example
 
 @noindent
-producirá como salida @var{base}@file{@/-violin@/.pdf} y
-@var{base}@file{@/-cello@/-1@/.pdf}.
+producirá como salida @var{base}@file{-violin.pdf} y
+@var{base}@file{-cello-1.pdf}.
 
 
 @unnumberedsubsubsec Instrucciones estándar de la línea de órdenes
@@ -142,7 +142,7 @@ Están contempladas las siguientes opciones:
 
 @item -e,--evaluate=@var{expresión}
 Evaluar la @var{expresión} de Scheme antes de analizar los archivos
-@file{@/.ly}.  Se pueden pasar varias opciones @code{-e}, que se
+@file{.ly}.  Se pueden pasar varias opciones @code{-e}, que se
 evaluarán en secuencia.
 
 La expresión se evaluará en el módulo @code{guile-user}, de manera que
@@ -160,7 +160,7 @@ en la línea de órdenes, e incluir
 @end example
 
 @noindent
-al principio del archivo @file{@/.ly}.
+al principio del archivo @file{.ly}.
 
 @item -f,--format=@var{formato}
 Formato de la salida.  Como @code{formato} se puede elegir entre
@@ -212,7 +212,7 @@ Observe que la cadena se debe incluir dentro de comillas escapadas
 @cindex safe, línea de órdenes
 
 @item safe
-No confiar en la entrada @file{@/.ly}.
+No confiar en la entrada @file{.ly}.
 
 Cuando el proceso de tipografía de LilyPond se encuentra disponible a
 través de un servidor web, @b{SE DEBEN} pasar las opciones
@@ -231,9 +231,9 @@ por ejemplo
 
 La opción @code{-dsafe} funciona evaluando las expresiones en línea de
 Scheme dentro de un módulo especial seguro.  Este módulo seguro deriva
-del módulo GUILE @file{safe@/-r5rs}, pero añade ciertas funciones del
+del módulo GUILE @file{safe-r5rs}, pero añade ciertas funciones del
 API de LilyPond.  Estas funciones se relacionan en
-@file{scm/@/safe@/-lily@/.scm}.
+@file{scm/safe-lily.scm}.
 
 Además, el modo seguro prohíbe las directivas @code{\include} e
 inhabilita el uso de barras invertidas en las cadenas de @TeX{}.
@@ -338,7 +338,7 @@ encuentra, la búsqueda continúa en los directorios siguientes.
 
 @item -i,--init=@var{archivo}
 Establecer el archivo de inicio a @var{archivo} (predeterminado:
-@file{init@/.ly}).
+@file{init.ly}).
 
 @cindex carpeta, dirigir la salida hacia
 @cindex salida, establecer el nombre del archivo de
@@ -786,7 +786,7 @@ explícitamente:
 @translationof Apparent error in ../ly/init.ly
 
 Pueden aparecer varios mensajes de error extraños acerca de errores de
-sintaxis en @file{@/.@/./@/ly/@/init@/.ly} si el archivo de entrada no está
+sintaxis en @file{../ly/init.ly} si el archivo de entrada no está
 correctamente formado, por ejemplo si no contiene llaves o comillas
 correctamente emparejados.
 

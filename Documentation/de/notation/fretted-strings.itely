@@ -479,7 +479,7 @@ Die Standardstimmung ist die Gitarrenstimmung (@code{guitar-tuning})
 in der EADGHE-Stimmung.  Andere vordefinierte Stimmung sind:
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} und
 @code{banjo-open-g-tuning}.  Die vordefinierten Stimmungen finden
-sich in @file{scm/@/tablature@/.scm}.
+sich in @file{scm/tablature.scm}.
 
 Die Stimmung ist eine Scheme-Liste von Tonhöhen der Saiten,
 eine für jede Saite, geordnet von Saitennummer 1 bis n, wobei 1
@@ -542,7 +542,7 @@ Der moderne Tabulatur-Schlüssel unterstützt Tabulaturen von 4 bis 7 Saiten.
 
 @seealso
 Installierte Dateien:
-@file{scm/@/tablature@/.scm}.
+@file{scm/tablature.scm}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -998,16 +998,16 @@ Bunddiagramme an, die in einer Tabelle definiert sind:
 @end lilypond
 
 Die vordefinierten Diagramme sind in der Datei
-@file{predefined@/-guitar@/-fretboards@/.ly} enthalten.  Sie werden
+@file{predefined-guitar-fretboards.ly} enthalten.  Sie werden
 basierend auf der Tonhöhe eines Akkordes und dem Wert von
 @code{stringTunings} (Saitenstimmung), der gerade benutzt wird,
-gespeichert.  @file{predefined@/-guitar@/-fretboards@/.ly} beinhaltet
+gespeichert.  @file{predefined-guitar-fretboards.ly} beinhaltet
 vordefinierte Diagramme für die Gitarrenstimmung (@code{guitar-tuning}).
 Anhand der Beispiele in dieser Datei können auch für andere
 Instrumente oder Stimmungen Diagramme definiert werden.
 
 Bunddiagramme für die Ukulele finden sich in der Datei
-@file{predefined@/-ukulele@/-fretboards@/.ly}.
+@file{predefined-ukulele-fretboards.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-ukulele-fretboards.ly"
@@ -1257,8 +1257,8 @@ Notationsreferenz:
 @ref{Vordefinierte Bund-Diagramme}.
 
 Installierte Dateien:
-@file{ly/@/predefined@/-guitar@/-fretboards@/.ly},
-@file{ly/@/predefined@/-guitar@/-ninth@/-fretboards@/.ly}.
+@file{ly/predefined-guitar-fretboards.ly},
+@file{ly/predefined-guitar-ninth-fretboards.ly}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -1772,4 +1772,4 @@ Schnipsel:
 @rlsr{Fretted strings}.
 
 Installierte Dateien:
-@file{scm/@/tablature@/.scm} enthält vordefinierte Banjo-Stimmungen.
+@file{scm/tablature.scm} enthält vordefinierte Banjo-Stimmungen.

@@ -227,7 +227,7 @@ The syntax still uses the deprecated infix style @code{\[ music expr
 postfix style @code{note\[ ... note\]}.
 
 @c Alternatively, the file
-@c @file{gregorian@/-init@/.ly} can be included; it provides a scheme
+@c @file{gregorian-init.ly} can be included; it provides a scheme
 @c function
 @c @example
 @c \ligature @var{music expr}
@@ -1178,12 +1178,12 @@ the breathmarks from @ref{Breath marks}.  The @emph{finalis} sign not
 only marks the end of a chant, but is also frequently used within a
 single antiphonal/responsorial chant to mark the end of each section.
 
-To use divisiones, include the file @file{gregorian@/.ly}.  It
+To use divisiones, include the file @file{gregorian.ly}.  It
 contains definitions that you can apply by just inserting
 @code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima},
 and @code{\finalis} at proper places in the input.  Some editions use
 @emph{virgula} or @emph{caesura} instead of divisio minima.
-Therefore, @file{gregorian@/.ly} also defines @code{\virgula} and
+Therefore, @file{gregorian.ly} also defines @code{\virgula} and
 @code{\caesura}
 
 @lilypond[quote,ragged-right]
@@ -1326,7 +1326,7 @@ still lacking, such as (among others) horizontal alignment of multiple
 ligatures, lyrics alignment, and proper handling of accidentals.
 
 The support for Gregorian neumes is enabled by @code{\include}ing
-@file{gregorian@/.ly} at the beginning of the file.  This makes available
+@file{gregorian.ly} at the beginning of the file.  This makes available
 a number of extra commands to produce the neume symbols used in
 plainchant notation.
 
@@ -1456,7 +1456,7 @@ ligature, and usually falls on a half-tone step, but it is
 perfectly possible, although incorrect, to make a single-note
 quilisma.
 
-In addition to the note signs, @file{gregorian@/.ly} also defines the
+In addition to the note signs, @file{gregorian.ly} also defines the
 commands @code{\versus}, @code{\responsum}, @code{\ij},
 @code{\iij}, @code{\IJ}, and @code{\IIJ}, that will produce the
 corresponding characters, e.g., for use in lyrics, as section

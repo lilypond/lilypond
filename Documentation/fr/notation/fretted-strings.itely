@@ -442,7 +442,7 @@ l'accordage standard d'une guitare@tie{}: mi la ré sol si mi (EADGBE).
 D'autres accordages prédéfinis sont disponibles@tie{}:
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} et
 @code{banjo-open-g-tuning}.  Les accordages prédéfinis sont répertoriés
-dans le fichier @file{scm/@/output@/-lib@/.scm}.
+dans le fichier @file{scm/output-lib.scm}.
 
 L'accordage est constitué par une liste Scheme des hauteurs de notes
 correspondant aux cordes à vide, une note pour chaque corde, classée par
@@ -488,7 +488,7 @@ mynotes = {
 
 @seealso
 Fichiers d'initialisation :
-@file{scm/@/output@/-lib@/.scm}.
+@file{scm/output-lib.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings,Cordes frettées}.
@@ -912,17 +912,17 @@ des diagrammes d'accords stockés dans une table de correspondance@tie{}:
 @end lilypond
 
 Les diagrammes d'accord définis par défaut sont dans le fichier
-@file{predefined@/-guitar@/-fretboards@/.ly}.  Les diagrammes d'accord sont
+@file{predefined-guitar-fretboards.ly}.  Les diagrammes d'accord sont
 stockés en fonction des notes de l'accord ainsi que de l'accordage
 (@code{stringTunings}) utilisé.
-@file{predefined@/-guitar@/-fretboards@/.ly} contient les diagrammes d'accord
+@file{predefined-guitar-fretboards.ly} contient les diagrammes d'accord
 prédéfinis uniquement pour l'accordage standard (@code{guitar-tuning}).
 Des diagrammes d'accords peuvent être définis pour d'autres instruments
 ou d'autres accordages en suivant les exemples du fichier
-@file{predefined@/-guitar@/-fretboards@/.ly}.
+@file{predefined-guitar-fretboards.ly}.
 
 Les diagrammes de fret propres au ukulele se trouvent dans le fichier
-@file{predefined@/-ukulele@/-fretboards@/.ly}.
+@file{predefined-ukulele-fretboards.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-ukulele-fretboards.ly"
@@ -1161,8 +1161,8 @@ Manuel de notation :
 @ref{Tablatures prédéfinies}.
 
 Fichiers d'initialisation :
-@file{ly/@/predefined@/-guitar@/-fretboards@/.ly},
-@file{ly/@/predefined@/-guitar@/-ninth@/-fretboards@/.ly}.
+@file{ly/predefined-guitar-fretboards.ly},
+@file{ly/predefined-guitar-ninth-fretboards.ly}.
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings,Cordes frettées}.
@@ -1529,4 +1529,4 @@ Morceaux choisis :
 @rlsrnamed{Fretted strings,Cordes frettées}.
 
 Les accordages prédéfinis du banjo sont contenus dans le fichier
-@file{scm/@/output@/-lib@/.scm}.
+@file{scm/output-lib.scm}.

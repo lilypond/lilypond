@@ -44,17 +44,17 @@ correcto.
 
 Para conseguir que esta cadena funcione, tendrá que configurar el
 visor de PDF de forma que siga los hiper-enlaces usando el guión
-@file{lilypond@/-invoke@/-editor} proporcionado con LilyPond.
+@file{lilypond-invoke-editor} proporcionado con LilyPond.
 
 Para Xpdf sobre Unix, lo siguiente debe estar presente en
 @file{xpdfrc}@footnote{En Unix, este archivo se encuentra o bien en
-@file{/@/etc/@/xpdfrc} o como @file{@/.xpdfrc} en su directorio personal.}
+@file{/etc/xpdfrc} o como @file{.xpdfrc} en su directorio personal.}
 
 @example
 urlCommand     "lilypond-invoke-editor %s"
 @end example
 
-El programa @file{lilypond@/-invoke@/-editor} es un pequeño programa de
+El programa @file{lilypond-invoke-editor} es un pequeño programa de
 apoyo. Invoca un editor para las URIs especiales de @code{textedit}, y
 lanza un navegador de web para el resto.  Comprueba la variable de
 entorno @code{EDITOR} en busca de los siguientes patrones,
@@ -105,7 +105,7 @@ escribiendo
 @end example
 
 @noindent
-dentro de un archivo @file{@/.ly}.  Se puede activar explícitamente la
+dentro de un archivo @file{.ly}.  Se puede activar explícitamente la
 posibilidad de apuntar y pulsar con
 
 @example
@@ -150,22 +150,22 @@ Existe apoyo por parte de varios editores de texto para LilyPond.
 @unnumberedsubsec Modo de Emacs
 @translationof Emacs mode
 
-Emacs tiene un @file{lilypond@/-mode}, que proporciona autocompleción de
+Emacs tiene un @file{lilypond-mode}, que proporciona autocompleción de
 teclado, sangrado, compensación de paréntesis específica de LilyPond y
 resaltado de sintaxis con colores, útiles combinaciones de teclas para
 compilar y leer los manuales de LilyPond utilizando Info.  Si el
-@file{lilypond@/-mode} no está instalado en su sistema, siga leyendo.
+@file{lilypond-mode} no está instalado en su sistema, siga leyendo.
 
 Está incluido un modo de Emacs para escribir música y ejecutar
 LilyPond, en el archivo del código fuente dentro del directorio
 @file{elisp}.  Haga @command{make install} para instalarlo dentro de
-@var{elispdir}.  El archivo @file{lilypond@/-init@/.el} se debe situar en
-@var{load-path}@file{/@/site@/-start@/.d/@/} o añadirse a su @file{@/~/@/@/.emacs} o
-@file{@/~/@/@/.emacs@/.el}.
+@var{elispdir}.  El archivo @file{lilypond-init.el} se debe situar en
+@var{load-path}@file{/site-start.d/} o añadirse a su @file{~/.emacs} o
+@file{~/.emacs.el}.
 
 Como usuario, puede querer añadir su ruta a las fuentes
-(p.ej. @file{@/~/@/site@/-lisp/@/}) a su @var{load-path} añadiendo la
-siguiente línea (modificada) a su @file{@/~/@/@/.emacs}
+(p.ej. @file{~/site-lisp/}) a su @var{load-path} añadiendo la
+siguiente línea (modificada) a su @file{~/.emacs}
 
 @c any reason we do not advise:  (push "~/site-lisp" load-path)
 @example
@@ -181,7 +181,7 @@ Para @uref{http://@/www@/.vim@/.org,Vim}, se proporcionan para
 su uso con LilyPond un plug-in o complemento para el tipo de archivo,
 un modo de sangrado y un modo de resaltado de sintaxis.
 Para habilitar todas estas posibilidades, cree (o modifique)
-su archivo @file{@/$HOME/@/@/.vimrc} de manera que contenga estas tres líneas
+su archivo @file{$HOME/.vimrc} de manera que contenga estas tres líneas
 en el mismo orden:
 
 @example
@@ -191,7 +191,7 @@ filetype on
 @end example
 
 Si LilyPond no está instalado en el directorio
-@file{/@/usr/@/local/}, cambie esta ruta de una forma adecuada.
+@file{/usr/local/}, cambie esta ruta de una forma adecuada.
 Este asunto se trata en
 @rlearning{Otras fuentes de información}.
 
@@ -267,7 +267,7 @@ que tiene un convertidor para un formato directo.
 las duraciones se escriben solamente cuando es necesario.
 
 Es posible grabar un archivo MIDI usando un teclado digital y
-convertirlo después a @file{@/.ly}.  Sin embargo, los intérpretes
+convertirlo después a @file{.ly}.  Sin embargo, los intérpretes
 humanos no son lo suficientemente exactos desde el punto de vista
 rítmico como para hacer que sea trivial la conversión de MIDI a LY.
 Si se invoca con las opciones de cuantización (@code{-s} y @code{-d}),
@@ -348,7 +348,7 @@ dialecto del XML para representar notación musical.
 
 @command{musicxml2ly} extrae las notas, articulaciones, estructura de
 la partitura, letra, etc., de archivos de MusicXML parte a parte, y
-los escribe en un archivo @file{@/.ly}.  Se invoca a través de la línea de
+los escribe en un archivo @file{.ly}.  Se invoca a través de la línea de
 órdenes.
 
 La invocación desde la línea de órdenes se hace como sigue:
@@ -374,8 +374,8 @@ convertir las alturas en modo absoluto.
 mostrar un resumen de la utilización y las opciones.
 
 @item -l, --language=IDIOMA
-utilizar un archivo de idioma distinto @file{IDIOMA@/.ly} y los
-correspondientes nombres de nota, p.ej. 'deutsch' para @file{deutsch@/.ly} y
+utilizar un archivo de idioma distinto @file{IDIOMA.ly} y los
+correspondientes nombres de nota, p.ej. 'deutsch' para @file{deutsch.ly} y
 los nombres de nota en alemán.
 
 @item --lxml
@@ -393,7 +393,7 @@ barrado automático de LilyPond.
 @item -o,--output=@var{archivo}
 fijar el nombre del archivo de salida como @var{archivo}. Si
 @var{archivo} es @file{-}, la salida se imprime sobre stdout, la
-salida estándar.  Si no se da, se usa @var{archivo_xml}@file{@/.ly}.
+salida estándar.  Si no se da, se usa @var{archivo_xml}@file{.ly}.
 
 @item -r,--relative
 convertir las alturas en modo relativo (predeterminado).

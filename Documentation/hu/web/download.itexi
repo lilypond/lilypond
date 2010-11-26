@@ -272,7 +272,7 @@ Töröld a LilyPond.app alkalmazást.
 @warning{Ha a grafikus felület megfelel, ezeket az utasításokat nyugodtan
 figyelmen kívül hagyhatod.}
 
-Írd be a könyvtáradban található @file{@/.profile} fájlba a következő sort:
+Írd be a könyvtáradban található @file{.profile} fájlba a következő sort:
 
 @example
 export PATH=/Applications/LilyPond.app/Contents/Resources/bin:$PATH

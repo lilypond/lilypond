@@ -85,8 +85,8 @@ convert-ly -e meineDatei.ly
 
 @noindent
 im Verzeichnis, in welchem die Datei liegt, aufzurufen.  Hierdurch wird
-@file{meineDatei@/.ly} direkt aktualisiert und das Original nach
-@file{meineDatei@/.ly~} gesichert.
+@file{meineDatei.ly} direkt aktualisiert und das Original nach
+@file{meineDatei.ly~} gesichert.
 
 @warning{@command{convert-ly} konvertiert immer bis zur letzten Syntax-Änderung,
 die das Programm beherrscht.  Das heißt, dass die @code{\version}-Nummer,
@@ -188,7 +188,7 @@ convert-ly """D:/My Scores/Ode.ly""" > "D:/My Scores/new Ode.ly"
 Wenn der einfache @command{convert-ly -e *.ly}-Befehl nicht funktioniert,
 weil die ausgeschriebene Kommandozeile zu lang wird, kann man
 @command{convert-ly} auch als Loop wiederholt laufen lassen.  Dieses
-Beispiel für UNIX konvertiert alle @file{@/-ly}-Dateien im aktuellen
+Beispiel für UNIX konvertiert alle @file{-ly}-Dateien im aktuellen
 Verzeichnis:
 
 @example

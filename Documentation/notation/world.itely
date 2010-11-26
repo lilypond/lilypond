@@ -56,7 +56,7 @@ pitch differences being implicit.  For example,
 semitone and quarter-tone accidentals, with the precise
 pitch alterations being determined by context.  Italian
 note names are typically used, while the init file
-@file{arabic@/.ly} provides a suitable set of macros
+@file{arabic.ly} provides a suitable set of macros
 and definitions extending the standard
 notation.  For more details, see
 @ref{Arabic music}.
@@ -69,12 +69,12 @@ example, employs melodic forms known as @notation{makamlar},
 whose intervals are based on 1/9 divisions of the whole tone.
 Standard Western staff notes are still used, but with special
 accidentals unique to Turkish music, that are defined in the file
-@file{makam@/.ly}.  For further information on Turkish classical
+@file{makam.ly}.  For further information on Turkish classical
 music and makamlar, see
 @ref{Turkish classical music}.
 
-To locate init files such as @file{arabic@/.ly} or
-@file{makam@/.ly} on your system, see
+To locate init files such as @file{arabic.ly} or
+@file{makam.ly} on your system, see
 @rlearning{Other sources of information}.
 
 @snippets
@@ -201,7 +201,7 @@ notated:
 
 The symbol for semi-flat does not match the symbol which is used
 in Arabic notation.  The @code{\dwn} symbol defined in
-@file{arabic@/.ly} may be used preceding a flat symbol as a work
+@file{arabic.ly} may be used preceding a flat symbol as a work
 around if it is important to use the specific Arabic semi-flat
 symbol.  The appearance of the semi-flat symbol in the key
 signature cannot be altered by using this method.
@@ -231,7 +231,7 @@ Snippets:
 @cindex Arabic key signatures
 
 In addition to the minor and major key signatures, the following
-key signatures are defined in @file{arabic.@/ly}: @notation{bayati},
+key signatures are defined in @file{arabic.ly}: @notation{bayati},
 @notation{rast}, @notation{sikah}, @notation{iraq}, and
 @notation{kurd}.  These key signatures define a small number of
 maqam groups rather than the large number of maqams that are in
@@ -538,7 +538,7 @@ From a modern notational point of view it is convenient to
 use the standard Western staff notes (c, d, e, ...) with
 special accidentals that raise or lower notes by intervals
 of 1/9, 4/9, 5/9 and 8/9 of a tone.  These accidentals are
-defined in the file @file{makam@/.ly}.
+defined in the file @file{makam.ly}.
 
 The following table lists:
 @itemize

@@ -261,7 +261,7 @@ With two-sided mode, margins for odd and even pages can be set using
 @end example
 
 @item
-Paper margin defaults, as specified in @file{ly/@/paper@/-defaults@/-init@/.ly}, apply
+Paper margin defaults, as specified in @file{ly/paper@/-defaults-init.ly}, apply
 to the default paper size (a4) and are automatically scaled according to the
 paper size chosen.
 

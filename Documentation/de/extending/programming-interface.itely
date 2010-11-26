@@ -94,9 +94,9 @@ Notationsreferenz:
 @ruser{Vordefinierte Typenprädikate}.
 
 Installierte Dateien:
-@file{lily/@/music@/-scheme@/.cc},
-@file{scm/@/c++@/.scm},
-@file{scm/@/lily@/.scm}.
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
 
 
 @node Einfache Ersetzungsfunktionen
@@ -403,7 +403,7 @@ Die @code{raise-markup}-Funktion erstellt zunächst den Stencil für die
 um 0.5 Notenlinienzwischenräume nach oben.  Das ist ein einfaches
 Beispiel.  Weitere, kompliziertere Beispiele finden sich nachfolgend
 in diesem Abschnitt und in der Datei
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @node Neue Definitionen von Beschriftungsbefehlen
@@ -635,7 +635,7 @@ der Kästen kann angepasst werden:
 Ein guter Weg, einen neuen Beschriftungsbefehl zu schreiben, ist es, als Vorbild
 einen existierenden zu nehmen.  Die meisten Beschriftungsbefehle, die
 LilyPond mitbringt, finden sich in der Datei
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 Man könnte beispielsweise den Befehl @code{\draw-line}, der eine Linie
 zeichnet, anpassen, sodass er eine Doppellinie zeichnet.  Der

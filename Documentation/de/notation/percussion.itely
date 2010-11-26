@@ -124,7 +124,7 @@ Notationsreferenz:
 @ref{Schlagzeugnoten}.
 
 Installierte Dateien:
-@file{ly/@/drumpitch@/-init@/.ly}.
+@file{ly/drumpitch-init.ly}.
 
 Schnipsel:
 @rlsr{Percussion}.

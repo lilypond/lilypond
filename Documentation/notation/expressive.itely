@@ -153,7 +153,7 @@ c4-> c-. c2-_
 @end lilypond
 
 The rules for the default placement of articulations are defined
-in @file{scm/@/script@/.scm}.  Articulations and ornamentations
+in @file{scm/script.scm}.  Articulations and ornamentations
 may be manually placed above or below the staff; see
 @ref{Direction and placement}.
 
@@ -207,7 +207,7 @@ Notation Reference:
 @ref{Trills}.
 
 Installed Files:
-@file{scm/@/script@/.scm}.
+@file{scm/script.scm}.
 
 Snippets:
 @rlsr{Expressive marks}.

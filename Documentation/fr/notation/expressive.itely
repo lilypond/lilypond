@@ -154,7 +154,7 @@ c4->  c-.  c2-_
 @end lilypond
 
 Même si LilyPond place automatiquement ces symboles, selon les règles
-contenues dans le fichier @code{scm/@/script@/.scm}, il est possible de
+contenues dans le fichier @file{scm/script.scm}, il est possible de
 l'obliger à les positionner au-dessus ou en-dessous de la note, comme
 indiqué au chapitre @ref{Direction et positionnement}.
 
@@ -213,7 +213,7 @@ Manuel de notation :
 @ref{Trilles}.
 
 Fichiers installés :
-@code{scm/@/script@/.scm}.
+@file{scm/script.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.

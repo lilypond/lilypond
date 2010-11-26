@@ -739,9 +739,9 @@ Notationsreferenz:
 @ref{Übliche Akkord-Variablen}.
 
 Installierte Dateien:
-@file{scm/@/chords@/-ignatzek@/.scm},
-@file{scm/@/chord@/-entry@/.scm},
-@file{ly/@/chord@/-modifier@/-init@/.ly}.
+@file{scm/chords-ignatzek.scm},
+@file{scm/chord-entry.scm},
+@file{ly/chord-modifier-init.ly}.
 
 Schnipsel:
 @rlsr{Chords}.

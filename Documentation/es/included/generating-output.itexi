@@ -33,7 +33,7 @@ Del menú de la parte superior izquierda de la pantalla, elija
 
 @sourceimage{Learning_Macos_Save_menu,,,}
 
-ELija un nombre para su archivo, por ejemplo @file{prueba@/.ly}.
+ELija un nombre para su archivo, por ejemplo @file{prueba.ly}.
 
 @sourceimage{Learning_Macos_Save_file_with_name,,,}
 
@@ -109,7 +109,7 @@ un nombre de LilyPond válido.
 
 @sourceimage{Learning_Win7_Save_Menu,,,}
 
-Escoja un nombre para el archivo, por ejemplo @file{prueba@/.ly}.
+Escoja un nombre para el archivo, por ejemplo @file{prueba.ly}.
 
 @sourceimage{Learning_Win7_Save_File_With_Name,,,}
 
@@ -132,18 +132,18 @@ Pulse con el botón derecho sobre el archivo y elija @w{@code{Abrir con
 
 @subsubheading Paso 2-B. Compílelo (con doble clic)
 
-O simplemente haga doble clic sobre el archivo @file{prueba@/.ly}.
+O simplemente haga doble clic sobre el archivo @file{prueba.ly}.
 
 
 @subsubheading Paso 3. Examinar el resultado
 
-Durante la compilación del archivo @file{prueba@/.ly}, se abrirá muy
+Durante la compilación del archivo @file{prueba.ly}, se abrirá muy
 brevemente una ventana de la consola y luego se cerrará.  Durante este
 proceso se habrán creado tres archivos adicionales:
 
 @sourceimage{Learning_Win7_All_Files_Created,,,}
 
-El archivo PDF contiene el documento @file{prueba@/.ly} convertido en
+El archivo PDF contiene el documento @file{prueba.ly} convertido en
 una partitura musical.
 
 @sourceimage{Learning_Win7_Pdf_Output,,,}
@@ -197,7 +197,7 @@ programas cuando tenga algún problema al compilar un documento.}
 @subsubheading Paso 1.  Creamos el archivo @file{.ly}
 
 Haga un archivo de texto con el nombre
-@file{prueba@/.ly} y escriba en él lo siguiente:
+@file{prueba.ly} y escriba en él lo siguiente:
 
 @c double \\ required because this is inside a macro!
 @example
@@ -210,7 +210,7 @@ Haga un archivo de texto con el nombre
 
 @subsubheading Paso 2. Compilación (con la línea de órdenes)
 
-Para procesar el archivo @file{prueba@/.ly} escriba lo siguiente en la
+Para procesar el archivo @file{prueba.ly} escriba lo siguiente en la
 línea de órdenes:
 
 @example
@@ -235,7 +235,7 @@ Convirtiendo a `prueba.pdf'...
 
 @subsubheading Paso 3: Examinar el resultado
 
-Podemos ver o imprimir el archivo @file{prueba@/.pdf} resultante.
+Podemos ver o imprimir el archivo @file{prueba.pdf} resultante.
 
 @end macro
 

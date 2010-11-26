@@ -149,7 +149,7 @@ Notationsreferenz:
 @ref{Artikulationszeichen und Verzierungen}.
 
 Installierte Dateien:
-@file{ly/@/chord@/-repetition@/-init@/.ly}.
+@file{ly/chord-repetition-init.ly}.
 
 
 @node Gleichzeitige Ausdrücke

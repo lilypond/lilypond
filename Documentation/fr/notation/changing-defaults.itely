@@ -44,7 +44,7 @@ En sous-main, LilyPond se sert du langage Scheme (un dérivé du LISP)
 comme infrastructure.  Modifier les choix de mise en page revient à
 pénétrer dans les entrailles du programme, et de ce fait requiert
 l'emploi du Scheme.  Les fragments de Scheme, dans un fichier
-@file{@/.ly}, sont introduits par le caractère @emph{hash}, (@code{#},
+@file{.ly}, sont introduits par le caractère @emph{hash}, (@code{#},
 improprement surnommé @qq{dièse}).
 @footnote{Le @rextend{Tutoriel Scheme} fournit quelques notions de
 base pour saisir des nombres, des listes, des chaînes de caractères ou
@@ -107,8 +107,8 @@ Manuel d'initiation :
 @rlearning{Contextes et graveurs}.
 
 Fichiers d'initialisation :
-@file{ly/@/engraver@/-init@/.ly},
-@file{ly/@/performer@/-init@/.ly}.
+@file{ly/engraver-init.ly},
+@file{ly/performer-init.ly}.
 
 Morceaux choisis :
 @rlsr{Contexts and engravers}.
@@ -958,7 +958,7 @@ Pour aller encore plus loin, plutôt que de simplement parler de l'objet
 @code{Fingering}, ce qui ne nous avance pas à grand chose, on peut aller
 explorer son âme même, dans les fichiers source de LilyPond (voir
 @rlearning{Autres sources de documentation}), en l'occurence le fichier
-@file{scm/@/define@/-grobs@/.scm}@tie{}:
+@file{scm/define-grobs.scm}@tie{}:
 
 @example
 (Fingering
@@ -1395,7 +1395,7 @@ d'éléments.  Ces propriétés, dont les noms commencent par une majuscule,
 puis comprennent une ou plusieurs majuscules (de style @code{TotoTata}),
 contiennent les réglages @qq{par défaut} pour les objets graphiques.
 Ces réglages sont sous forme de liste Scheme@tie{}; on peut les
-consulter dans le fichier @file{scm/@/define@/-grobs@/.scm}.
+consulter dans le fichier @file{scm/define-grobs.scm}.
 
 Les descriptions d'éléments doivent être modifiées avec la commande
 @code{\override}.

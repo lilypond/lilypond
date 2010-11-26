@@ -852,11 +852,11 @@ n'est pas uniquement une marque de fin de chant@tie{}; il sert aussi à
 indiquer la fin de chaque partie dans une structure verset/répons.
 
 Les divisions sont disponibles après inclusion du fichier
-@file{gregorian@/-init@/.ly}.  Ce fichier définit les commandes
+@file{gregorian-init.ly}.  Ce fichier définit les commandes
 @code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima} et
 @code{\finalis}.  Certaines éditions utilisent @emph{virgula} ou
 @emph{caesura} en lieu et place de @emph{divisio minima}@tie{}; c'est
-pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
+pourquoi @file{gregorian-init.ly} définit aussi @code{\virgula} et
 @code{\caesura}.
 
 @lilypond[quote,ragged-right]
@@ -970,7 +970,7 @@ La syntaxe utilisée correspond à l'ancienne convention de préfixage
 opterons probablement pour le style en suffixe (postfix)
 @code{note\[@tie{}@dots{}@tie{}note\]}.
 En attendant, vous pouvez inclure le fichier
-@file{gregorian@/-init@/.ly}, qui fournit une fonction Scheme
+@file{gregorian-init.ly}, qui fournit une fonction Scheme
 @example
 \ligature @var{expr_musicale}
 @end example

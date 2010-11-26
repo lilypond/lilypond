@@ -864,7 +864,7 @@ des TextScript-Objektes verknüpft. Diese Zahlen werden in
 Systembreiten  gemessen, so dass der Befehl das Objekt eine Systembreite
 nach rechts verschiebt und zwei Breiten nach oben.
 
-Prozeduren, um mit Abständen zu arbeiten, finden sich in @file{scm/@/lily@/-library@/.scm}.
+Prozeduren, um mit Abständen zu arbeiten, finden sich in @file{scm/lily-library.scm}.
 
 @subheading Bereiche (extend)
 
@@ -876,7 +876,7 @@ X-Koordinate und @code{cdr} die rechte X-Koordinate.  Für Y-Ausdehnungen
 ist @code{car} die untere Koordinate und @code{cdr} die obere Koordinate.
 
 Prozeduren, um mit Intervallen zu arbeiten, finden sich in
-@file{scm/@/lily@/-library@/.scm}.  Diese Prozeduren sollten benutzt, wenn es möglich
+@file{scm/lily-library.scm}.  Diese Prozeduren sollten benutzt, wenn es möglich
 ist, um den Code konsistent zu halten.
 
 @subheading Eigenschafts-Alisten (property alist)

@@ -41,7 +41,7 @@ Internamente, LilyPond utiliza el lenguaje Scheme (un dialecto de
 LISP) para aportar la infraestructura.  La sobreescritura de las
 decisiones de disposición da acceso efectivo a las interioridades del
 programa, lo que requiere código de Scheme como entrada.  Los
-elementos de Scheme se inauguran dentro de un archivo @file{@/.ly} con
+elementos de Scheme se inauguran dentro de un archivo @file{.ly} con
 el símbolo de cuadradillo @code{#}.@footnote{@rextend{Tutorial de Scheme}
 contiene un breve tutorial sobre la introducción de números,
 listas, cadenas y símbolos en Scheme.}
@@ -78,8 +78,8 @@ Manual de aprendizaje:
 @rlearning{Contextos y grabadores}.
 
 Archivos de inicio:
-@file{ly/@/engraver@/-init@/.ly},
-@file{ly/@/performer@/-init@/.ly}.
+@file{ly/engraver-init.ly},
+@file{ly/performer-init.ly}.
 
 Fragmentos de código:
 @rlsr{Contexts and engravers}.
@@ -1167,7 +1167,7 @@ pueden modificar.
 Hemos estado hablando de @emph{el} objeto @code{Fingering}, pero
 realmente esto no significa mucho.  El archivo de inicialización
 (véase @rlearning{Otras fuentes de información})
-@file{scm/@/define@/-grobs@/.scm} muestra el alma del @q{objeto},
+@file{scm/define-grobs.scm} muestra el alma del @q{objeto},
 
 @example
 (Fingering
@@ -1604,7 +1604,7 @@ Existe un tipo especial de propiedad de contexto: la descripción de
 los grobs.  Las decscripciones de los grobs reciben un nombre en
 @code{MayúsculasDeCamello} (empezando en mayúscula).  Contienen los
 @q{ajustes predeterminados} para un tipo particular de grob, en forma
-de lista asociativa.  Consulte @file{scm/@/define@/-grobs@/.scm} para
+de lista asociativa.  Consulte @file{scm/define-grobs.scm} para
 ver los ajustes de cada descripción de grob.  Las descripciones de
 grob se modifican con @code{\override}.
 
@@ -2000,7 +2000,7 @@ predeterminados en el inicio; éstos se relacionan en la sección
 @qq{Backend} de la Referencia de Funcionamiento Interno
 (véase @rinternals{StaffGrouper}):
 
-@file{scm/@/define@/-grobs@/.scm}:
+@file{scm/define-grobs.scm}:
 
 @example
 '((space . 9) (minimum-distance . 7) (padding . 1))
@@ -2077,7 +2077,7 @@ eliminación de cualquier valor predeterminado @emph{inicializado} que
 se establezca en un archivo de inicio y que se carga cada vez que se
 compila un archivo de entrada.  En el ejemplo anterior, los valores
 predeterminados inicializados para @code{padding} y
-@code{minimum-distance} (definidos en @file{scm/@/define@/-grobs@/.scm}) se
+@code{minimum-distance} (definidos en @file{scm/define-grobs.scm}) se
 reinician a sus valores predeterminados si no se han fijado (cero para
 las dos claves).  La definición de una propiedad o variable como una
 lista-A (de cualquier tamaño) siempre reinicia todos los valores de
@@ -2908,7 +2908,7 @@ después del salto.
 
 Como alternativa se puede especificar cualquiera de las ocho
 combinaciones mediante funciones predefinidas cuya definición está en
-@file{scm/@/output@/-lib@/.scm}, donde las tres últimas columnas indican si
+@file{scm/output-lib.scm}, donde las tres últimas columnas indican si
 los objetos de presentación serán visibles en las posiciones que se
 muestran en el encabezamiento de cada columna:
 
@@ -3255,7 +3255,7 @@ Referencia de la notación:
 
 
 Archivos de inicio:
-@file{scm/@/define@/-grobs@/.scm}.
+@file{scm/define-grobs.scm}.
 
 Fragmentos de código:
 @rlsr{Tweaks and overrides}.
@@ -3865,9 +3865,9 @@ Expansión de LilyPond:
 @rextend{Sintaxis de las funciones musicales}.
 
 Archivos instalados:
-@file{lily/@/music@/-scheme@/.cc},
-@file{scm/@/c++@/.scm},
-@file{scm/@/lily@/.scm}.
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
 
 
 @node Ejemplos de funciones de sustitución

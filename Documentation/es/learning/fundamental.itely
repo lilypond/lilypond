@@ -207,7 +207,7 @@ recibirá el mismo tratamiento que una partitura independiente, pero se
 combinarán todos juntos en un archivo de salida único.  No se necesita
 ninguna instrucción @code{\book}, se creará una implícitamente.  Sin
 embargo, si quiere archivos de salida separados a partir de un único
-archivo @file{@/.ly}, entonces es necesario utilizar la instrucción
+archivo @file{.ly}, entonces es necesario utilizar la instrucción
 @code{\book} para separar las distintas secciones: cada bloque
 @code{\book} produce un archivo de salida distinto.
 
@@ -2958,10 +2958,10 @@ caso, queremos modificar solamente la sub-propiedad
 @code{stretchability}.
 De nuevo, los curiosos encontrarán los valores
 predeterminados para la propiedad staff-staff-spacing
-en el archivo @file{scm/@/define@/-grobs@/.scm}
+en el archivo @file{scm/define-grobs.scm}
 examinando la definición del grob @code{VerticalAxisGroup} grob.  El
 valor de @code{stretchability} se toma de la definición del contexto
-@code{PianoStaff} (en el archivo @file{ly/@/engraver@/-init@/.ly}) de
+@code{PianoStaff} (en el archivo @file{ly/engraver-init.ly}) de
 forma que los valores sean idénticos.
 
 @example
@@ -3194,7 +3194,7 @@ reducir el trabajo si la sintaxis de entrada de LilyPond cambia (véase
 definición (como p.ej. @code{\dolce}) para todos sus archivos (ver
 @ref{Hojas de estilo}), y después la sintaxis se modifica, sólo tendrá
 que actualizar su definición @code{\dolce} única, en lugar de tener
-que hacer cambios en cada uno de los archivos @file{@/.ly}.
+que hacer cambios en cada uno de los archivos @file{.ly}.
 
 
 
@@ -3210,7 +3210,7 @@ en una variable.  El contenido de dicha variable se usa después para
 generar tanto la particella como la partitura del director.
 
 Es muy conveniente definir las notas en un archivo especial.  Por
-ejemplo, supongamos que el archivo @file{trompa@/.ly} contiene la
+ejemplo, supongamos que el archivo @file{trompa.ly} contiene la
 siguiente parte de un dúo para trompa y fagot:
 
 @example
@@ -3242,7 +3242,7 @@ La línea
 @end example
 
 @noindent
-sustituye el contenido de @file{trompa@/.ly} en esta posición dentro del
+sustituye el contenido de @file{trompa.ly} en esta posición dentro del
 archivo, así que @code{notasTrompa} se define con posterioridad.  La
 instrucción @code{\transpose f@tie{}c'} indica que el argumento
 constituido por @code{\notasTrompa} se debe transponer una quinta
@@ -3295,7 +3295,7 @@ resultado
 
 Esta partitura se hace combinando toda la música junta.  Suponiendo
 que la otra voz se encuentra dentro de @code{notasFagot} en el archivo
-@file{fagot@/.ly}, la partitura se hace con
+@file{fagot.ly}, la partitura se hace con
 
 @example
 \include "fagot.ly"

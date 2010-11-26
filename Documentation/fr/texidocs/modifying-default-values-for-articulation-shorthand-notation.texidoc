@@ -1,7 +1,7 @@
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Les raccourcis sont répertoriés dans le fichier
-@file{ly/@/script@/-init@/.ly}, dans lequel on retrouve les variables
+@file{ly/script-init.ly}, dans lequel on retrouve les variables
 @code{dashHat}, @code{dashPlus}, @code{dashDash}, @code{dashBar},
 @code{dashLarger}, @code{dashDot}, et @code{dashUnderscore} ainsi que
 leur valeur par défaut.  Ces valeurs peuvent être modifiées selon vos

@@ -36,7 +36,7 @@ and is also included with the LilyPond documentation package.
 Internally, LilyPond uses Scheme (a LISP dialect) to provide
 infrastructure.  Overriding layout decisions in effect accesses the
 program internals, which requires Scheme input.  Scheme elements are
-introduced in a @file{@/.ly} file with the hash mark
+introduced in a @file{.ly} file with the hash mark
 @code{#}.@footnote{@rextend{Scheme tutorial}, contains a short tutorial
 on entering numbers, lists, strings, and symbols in Scheme.}
 
@@ -72,8 +72,8 @@ Learning Manual:
 @rlearning{Contexts and engravers}.
 
 Installed files:
-@file{ly/@/engraver@/-init@/.ly},
-@file{ly/@/performer@/-init@/.ly}.
+@file{ly/engraver-init.ly},
+@file{ly/performer-init.ly}.
 
 Snippets:
 @rlsr{Contexts and engravers}.
@@ -1199,7 +1199,7 @@ can be modified.
 We have been talking of @emph{the} @code{Fingering} object, but actually it
 does not amount to much.  The initialization file (see
 @rlearning{Other sources of information})
-@file{scm/@/define@/-grobs@/.scm} shows the soul of the @q{object},
+@file{scm/define-grobs.scm} shows the soul of the @q{object},
 
 @example
 (Fingering
@@ -1624,7 +1624,7 @@ There is a special type of context property: the grob
 description.  Grob descriptions are named in @code{StudlyCaps}
 (starting with capital letters).  They contain the
 @q{default settings} for a particular kind of grob as an
-association list.  See @file{scm/@/define@/-grobs@/.scm}
+association list.  See @file{scm/define-grobs.scm}
 to see the settings for each grob description.  Grob descriptions
 are modified with @code{\override}.
 
@@ -2076,7 +2076,7 @@ any @emph{initialized} default values that are set in an
 initialization file and loaded each time an input file is
 compiled.  In the above example, the initialized default values
 for @code{padding} and @code{minimum-distance} (defined in
-@file{scm/@/define@/-grobs@/.scm}) are reset to their default-when-unset
+@file{scm/define-grobs.scm}) are reset to their default-when-unset
 values (zero for both keys).  Defining a property or variable as
 an alist (of any size) will always reset all unset key-values to
 their default-when-unset values.  Unless this is the intended
@@ -2865,7 +2865,7 @@ beginning of a line.  Or to be more precise, before a line break,
 where there is no line break, or after a line break.
 
 Alternatively, these eight combinations may be specified
-by pre-defined functions, defined in @file{scm/@/output@/-lib@/.scm},
+by pre-defined functions, defined in @file{scm/output-lib.scm},
 where the last three columns indicate whether the layout objects
 will be visible in the positions shown at the head of the columns:
 
@@ -3198,7 +3198,7 @@ Notation Reference:
 @ref{Modifying properties}.
 
 Installed Files:
-@file{scm/@/define@/-grobs@/.scm}.
+@file{scm/define-grobs.scm}.
 
 Snippets:
 @rlsr{Tweaks and overrides}.
@@ -3783,9 +3783,9 @@ Extending:
 @rextend{Music functions}.
 
 Installed Files:
-@file{lily/@/music@/-scheme@/.cc},
-@file{scm/@/c++@/.scm},
-@file{scm/@/lily@/.scm}.
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
 
 
 @node Substitution function examples

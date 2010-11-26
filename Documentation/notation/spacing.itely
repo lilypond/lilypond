@@ -226,7 +226,7 @@ to all pages.  If the @code{\paper} block is inside a
 Common paper sizes are available, including @code{a4},
 @code{letter}, @code{legal}, and @code{11x17} (also known as
 tabloid).  Many more paper sizes are supported by default.  For
-details, see @file{scm/@/paper@/.scm}, and search for the
+details, see @file{scm/paper.scm}, and search for the
 definition of @code{paper-alist}.
 
 @c TODO add a new appendix for paper sizes (auto-generated) -pm
@@ -235,7 +235,7 @@ definition of @code{paper-alist}.
 
 Extra sizes may be added by editing the definition of
 @code{paper-alist} in the initialization file
-@file{scm/@/paper@/.scm}, however they will be overridden on a
+@file{scm/paper.scm}, however they will be overridden on a
 subsequent install.
 
 @cindex orientation
@@ -251,7 +251,7 @@ degrees, and wider line widths will be set accordingly.
 
 @seealso
 Installed Files:
-@file{scm/@/paper@/.scm}.
+@file{scm/paper.scm}.
 
 
 @node Automatic scaling to paper size
@@ -276,7 +276,7 @@ dimensions affected by automatic scaling are @code{left-margin},
 @code{binding-offset}, @code{indent}, and @code{short-indent}.
 
 The default values for these dimensions are set in
-@file{ly/@/paper@/-defaults@/-init@/.ly}, using internal variables named
+@file{ly/paper-defaults-init.ly}, using internal variables named
 @code{top-margin-default}, @code{bottom-margin-default}, etc.
 These are the values that result at the default paper size
 @code{a4}.  For reference, with @code{a4} paper the
@@ -285,8 +285,8 @@ These are the values that result at the default paper size
 
 @seealso
 Installed Files:
-@file{ly/@/paper@/-defaults@/-init@/.ly},
-@file{scm/@/paper@/.scm}.
+@file{ly/paper-defaults-init.ly},
+@file{scm/paper.scm}.
 
 
 @node Fixed vertical spacing \paper variables
@@ -297,7 +297,7 @@ scaled to the paper size, which may lead to unexpected behavior.
 See @ref{Automatic scaling to paper size}.}
 
 Default values (before scaling) are defined in
-@file{ly/@/paper@/-defaults@/-init@/.ly}.
+@file{ly/paper-defaults-init.ly}.
 
 @table @code
 @item paper-height
@@ -340,7 +340,7 @@ parts of a book created with @code{\bookpart} blocks.
 
 @seealso
 Installed Files:
-@file{ly/@/paper@/-defaults@/-init@/.ly}.
+@file{ly/paper-defaults-init.ly}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -478,7 +478,7 @@ variable names, the term @q{@code{markup}} refers to both
 @ref{File structure}).  All distances are measured in
 staff-spaces.
 
-Default settings are defined in @file{ly/@/paper@/-defaults@/-init@/.ly}.
+Default settings are defined in @file{ly/paper-defaults-init.ly}.
 
 @c TODO: Where do headers/footers fit in? -mp
 
@@ -539,7 +539,7 @@ Notation Reference:
 @ref{Flexible vertical spacing within systems}.
 
 Installed Files:
-@file{ly/@/paper@/-defaults@/-init@/.ly}.
+@file{ly/paper-defaults-init.ly}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -563,7 +563,7 @@ See @ref{Automatic scaling to paper size}.}
 @unnumberedsubsubsec @code{\paper} variables for widths and margins
 
 Default values (before scaling) that are not listed here are
-defined in @file{ly/@/paper@/-defaults@/-init@/.ly}.
+defined in @file{ly/paper-defaults-init.ly}.
 
 @table @code
 
@@ -647,14 +647,14 @@ set in a @code{\layout} block.
 
 @seealso
 Installed Files:
-@file{ly/@/paper@/-defaults@/-init@/.ly}.
+@file{ly/paper-defaults-init.ly}.
 
 
 @node \paper variables for two-sided mode
 @unnumberedsubsubsec @code{\paper} variables for two-sided mode
 
 Default values (before scaling) are defined in
-@file{ly/@/paper@/-defaults@/-init@/.ly}.
+@file{ly/paper-defaults-init.ly}.
 
 @table @code
 
@@ -697,14 +697,14 @@ with @code{two-sided} set to true.
 
 @seealso
 Installed Files:
-@file{ly/@/paper@/-defaults@/-init@/.ly}.
+@file{ly/paper-defaults-init.ly}.
 
 
 @node \paper variables for shifts and indents
 @unnumberedsubsubsec @code{\paper} variables for shifts and indents
 
 Default values (before scaling) that are not listed here are
-defined in @file{ly/@/paper@/-defaults@/-init@/.ly}.
+defined in @file{ly/paper-defaults-init.ly}.
 
 @table @code
 
@@ -736,7 +736,7 @@ set in a @code{\layout} block.
 
 @seealso
 Installed Files:
-@file{ly/@/paper@/-defaults@/-init@/.ly}.
+@file{ly/paper-defaults-init.ly}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -799,7 +799,7 @@ Notation Reference:
 @unnumberedsubsubsec @code{\paper} variables for page breaking
 
 Default values not listed here are defined in
-@file{ly/@/paper@/-defaults@/-init@/.ly}
+@file{ly/paper-defaults-init.ly}
 
 @table @code
 
@@ -855,14 +855,14 @@ Notation Reference:
 @ref{Minimal page breaking}.
 
 Installed files:
-@file{ly/@/paper@/-defaults@/-init@/.ly}.
+@file{ly/paper-defaults-init.ly}.
 
 
 @node \paper variables for page numbering
 @unnumberedsubsubsec @code{\paper} variables for page numbering
 
 Default values not listed here are defined in
-@file{ly/@/paper@/-defaults@/-init@/.ly}
+@file{ly/paper-defaults-init.ly}
 
 @table @code
 
@@ -894,7 +894,7 @@ If set to false, page numbers are not printed.
 
 @seealso
 Installed Files:
-@file{ly/@/paper@/-defaults@/-init@/.ly}.
+@file{ly/paper-defaults-init.ly}.
 
 
 @node Miscellaneous \paper variables
@@ -921,7 +921,7 @@ header variables are printed.  Default: @code{#f}.
 
 A markup object that is inserted between systems, often used for
 orchestral scores.  Default: unset.  The @code{\slashSeparator}
-markup, defined in @file{ly/@/titling@/-init@/.ly}, is provided as a
+markup, defined in @file{ly/titling-init.ly}, is provided as a
 sensible default, for example:
 
 @lilypond[quote,verbatim,noragged-right,line-width=30\mm]
@@ -945,7 +945,7 @@ sensible default, for example:
 
 @seealso
 Installed files:
-@file{ly/@/titling@/-init@/.ly}.
+@file{ly/titling-init.ly}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -1216,7 +1216,7 @@ every 4 measures, and only there:
 @end example
 
 @c TODO Check this
-A linebreaking configuration can be saved as a @file{@/.ly} file
+A linebreaking configuration can be saved as a @file{.ly} file
 automatically.  This allows vertical alignments to be stretched to
 fit pages in a second formatting run.  This is fairly new and
 complicated.  More details are available in
@@ -1934,8 +1934,8 @@ in the staff-group that have it set.  Also see
 
 @seealso
 Installed files:
-@file{ly/@/engraver@/-init@/.ly},
-@file{scm/@/define@/-grobs@/.scm}.
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
 
 Internals Reference:
 @rinternals{Contexts},
@@ -2005,7 +2005,7 @@ property can affect the spacing of ungrouped staves:
 
 @seealso
 Installed Files:
-@file{scm/@/define@/-grobs@/.scm}.
+@file{scm/define-grobs.scm}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -2073,7 +2073,7 @@ The following example shows how properties of the
 
 @seealso
 Installed Files:
-@file{scm/@/define@/-grobs@/.scm}.
+@file{scm/define-grobs.scm}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -2143,8 +2143,8 @@ able to stretch much more than usual:
 
 @seealso
 Installed Files:
-@file{ly/@/engraver@/-init@/.ly},
-@file{scm/@/define@/-grobs@/.scm}.
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
 
 Snippets:
 @rlsr{Spacing}.

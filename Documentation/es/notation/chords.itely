@@ -723,9 +723,9 @@ Referencia de la notación:
 @ref{Modificadores de acorde más usuales}.
 
 Archivos instalados:
-@file{scm/@/chords@/-ignatzek@/.scm},
-@file{scm/@/chord@/-entry@/.scm},
-@file{ly/@/chord@/-modifier@/-init@/.ly}.
+@file{scm/chords-ignatzek.scm},
+@file{scm/chord-entry.scm},
+@file{ly/chord-modifier-init.ly}.
 
 Fragmentos de código:
 @rlsr{Chords}.

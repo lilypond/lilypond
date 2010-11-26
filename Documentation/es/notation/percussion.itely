@@ -128,7 +128,7 @@ Referencia de la notación:
 @ref{Notas de percusión}.
 
 Archivos de inicio:
-@file{ly/@/drumpitch@/-init@/.ly}.
+@file{ly/drumpitch-init.ly}.
 
 Fragmentos de código:
 @rlsr{Percussion}.

@@ -466,7 +466,7 @@ The default string tuning is @code{guitar-tuning}, which
 is the standard EADGBE tuning.  Some other predefined tunings are
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} and
 @code{banjo-open-g-tuning}.  The predefined string tunings
-are found in @file{scm/@/tablature@/.scm}.
+are found in @file{scm/tablature.scm}.
 
 A string tuning is a Scheme list of string pitches,
 one for each string, ordered by string number from 1 to N,
@@ -528,7 +528,7 @@ The modern tab clef supports tablatures from 4 to 7 strings.
 
 @seealso
 Installed Files:
-@file{scm/@/tablature@/.scm}.
+@file{scm/tablature.scm}.
 
 Snippets:
 @rlsr{Fretted strings}.
@@ -971,17 +971,17 @@ are stored in a lookup table:
 @end lilypond
 
 The default predefined fret diagrams are contained in the file
-@file{predefined@/-guitar@/-fretboards@/.ly}.  Fret diagrams are
+@file{predefined-guitar-fretboards.ly}.  Fret diagrams are
 stored based on the pitches of a chord and the value of
 @code{stringTunings} that is currently in use.
-@file{predefined@/-guitar@/-fretboards@/.ly} contains predefined
+@file{predefined-guitar-fretboards.ly} contains predefined
 fret diagrams only for @code{guitar-tuning}.  Predefined fret
 diagrams can be added for other instruments or other tunings
 by following the examples found in
-@file{predefined@/-guitar@/-fretboards@/.ly}.
+@file{predefined-guitar-fretboards.ly}.
 
 Fret diagrams for the ukulele are contained in the file
-@file{predefined@/-ukulele@/-fretboards@/.ly}.
+@file{predefined-ukulele-fretboards.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-ukulele-fretboards.ly"
@@ -1233,9 +1233,9 @@ Notation Reference:
 @ref{Predefined fretboard diagrams}.
 
 Installed Files:
-@file{ly/@/predefined@/-guitar@/-fretboards@/.ly},
-@file{ly/@/predefined@/-guitar@/-ninth@/-fretboards@/.ly},
-@file{ly/@/predefined@/-ukulele@/-fretboards@/.ly}.
+@file{ly/predefined-guitar-fretboards.ly},
+@file{ly/predefined-guitar-ninth-fretboards.ly},
+@file{ly/predefined-ukulele-fretboards.ly}.
 
 Snippets:
 @rlsr{Fretted strings}.
@@ -1722,4 +1722,4 @@ Snippets:
 @rlsr{Fretted strings}.
 
 Installed Files:
-@file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
+@file{scm/output-lib.scm} contains predefined banjo tunings.

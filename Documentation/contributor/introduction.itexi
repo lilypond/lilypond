@@ -128,14 +128,14 @@ In virtualization terminology, your main operating system is the
 @qq{host}.
 
 @item
-Download the @file{lilybuntu@/.iso} disk image.
+Download the @file{lilybuntu.iso} disk image.
 
 @example
 @uref{http://@/files.lilynet.net/@/lilybuntu.iso}
 @end example
 
 @item
-Install @file{lilybuntu@/.iso} as the @qq{client} operating system
+Install @file{lilybuntu.iso} as the @qq{client} operating system
 on your virtualized system.
 
 The latest version of lilybuntu is based on Ubuntu 9.04; if you

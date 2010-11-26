@@ -114,8 +114,8 @@ indépendant, alors inclus avec \verb+\lilypondfile+.
 
 \lilypondfile[quote,noindent]{screech-boink.ly}
 
-(Si besoin, remplacez @file{screech@/-boink@/.ly} par
-n'importe quel fichier @file{@/.ly} qui se trouve dans
+(Si besoin, remplacez @file{screech-boink.ly} par
+n'importe quel fichier @file{.ly} qui se trouve dans
 le même répertoire que le présent fichier.)
 
 \end{document}
@@ -125,7 +125,7 @@ le même répertoire que le présent fichier.)
 
 @subheading Traitement
 
-Enregistrez ces lignes dans un fichier nommé @file{lilybook@/.lytex} puis,
+Enregistrez ces lignes dans un fichier nommé @file{lilybook.lytex} puis,
 dans un terminal, lancez
 
 @c keep space after @version{} so TeX doesn't choke
@@ -439,7 +439,7 @@ Par ailleurs, l'utilisation d'un @code{@@lilypondversion} permet
 d'afficher la version de LilyPond utilisée.
 
 Le traitement du fichier source par @command{lilypond-book} génère un
-fichier Texinfo (extension @file{@/.itexi}) qui contiendra les balises
+fichier Texinfo (extension @file{.itexi}) qui contiendra les balises
 @code{@@image} pour les formats HTML, Info ou imprimable.  Les images
 générées par @command{lilypond-book} sont au format EPS et PDF en vue
 d'une impression, et au format PNG pour leur utilisation en HTML ou
@@ -541,13 +541,13 @@ fournies par la propriété @code{role} de l'élément central -- voir les
 paragraphes suivants.  Les balises sont déterminées de manière à ce que
 les éditeurs DocBook prennent en charge du mieux possible leur contenu.
 Les fichiers DocBook destinés à un traitement par
-@command{lilypond-book} doivent avoir une extension @file{@/.lyxml}.
+@command{lilypond-book} doivent avoir une extension @file{.lyxml}.
 
 
 @subheading Inclusion d'un fichier LilyPond
 
 Il s'agit en fait du cas le plus simple.  Le fichier à inclure doit
-avoir une extension @file{@/.ly} et sera inséré comme n'importe quel
+avoir une extension @file{.ly} et sera inséré comme n'importe quel
 @code{imageobject}, en respectant la structure suivante@tie{}:
 
 @example
@@ -588,8 +588,8 @@ Comme vous le remarquez, la balise externe -- qu'il s'agisse d'un
 
 @subheading Génération du document DocBook
 
-@command{lilypond-book} génère, à partir d'un fichier @file{@/.lyxml}, un
-document DocBook tout à fait valide -- extension @file{@/.xml} -- que vous
+@command{lilypond-book} génère, à partir d'un fichier @file{.lyxml}, un
+document DocBook tout à fait valide -- extension @file{.xml} -- que vous
 pourrez ensuite traiter avec votre application habituelle.  Dans le cas
 de @uref{http://@/dblatex@/.sourceforge@/.net@/,dblatex}, vous
 obtiendrez alors automatiquement un fichier PDF.  Les feuilles de style
@@ -749,14 +749,14 @@ ligne @code{\version @@w@{"@@version@{@}"@}} au @code{verbatim}.
 
 @item texidoc
 Option disponible uniquement pour Texinfo.@*
-Dès lors qu'un fichier @code{toto@/.ly} contient dans sa section
+Dès lors qu'un fichier @file{toto.ly} contient dans sa section
 @code{\header} la variable @code{texidoc}, l'appel de @command{lilypond}
 avec l'option @option{--header=@/texidoc} créera le fichier
-@code{toto@/.texidoc}.  Par ailleurs, c'est le contenu de ce
-@code{toto@/.texidoc} qui sera ensuite recopié par
+@file{toto.texidoc}.  Par ailleurs, c'est le contenu de ce
+@file{toto.texidoc} qui sera ensuite recopié par
 @command{lilypond-book} en préambule de l'extrait de partition.
 
-Prenons par exemple le fichier @file{toto@/.ly} dont le contenu est
+Prenons par exemple le fichier @file{toto.ly} dont le contenu est
 
 @example
 \header @{
@@ -766,7 +766,7 @@ Prenons par exemple le fichier @file{toto@/.ly} dont le contenu est
 @end example
 
 @noindent
-et quelque part dans notre document Texinfo @file{test@/.texinfo}
+et quelque part dans notre document Texinfo @file{test.texinfo}
 
 @example
 @@lilypondfile[texidoc]@{toto.ly@}
@@ -787,10 +787,10 @@ Cette option est fort utile dans le cadre de l'adaptation en langue
 étrangère.  En effet, s'il est spécifié dans le document Texinfo une
 clause @code{@@documentlanguage@tie{}@var{LANGUE}}, la présence d'une
 variable @code{texidoc@var{LANGUE}} dans l'entête du fichier
-@file{foo@/.ly} entraînera la reproduction -- par l'appel
+@file{foo.ly} entraînera la reproduction -- par l'appel
 @code{lilypond}@tie{}@option{--header=@/texidoc@var{LANGUE}} -- du
-contenu de @file{toto@/.texidoc@var{LANGUE}} en lieu et place de celui de
-@file{toto@/.texidoc}.
+contenu de @file{toto.texidoc@var{LANGUE}} en lieu et place de celui de
+@file{toto.texidoc}.
 
 @item lilyquote
 Option disponible uniquement pour Texinfo.@*
@@ -804,11 +804,11 @@ fichier source.
 @item doctitle
 Option disponible uniquement pour Texinfo.@*
 Cette option fonctionne selon le même principe que l'option
-@code{texidoc}@tie{}: lorsqu'un fichier @file{toto@/.ly} contient dans
+@code{texidoc}@tie{}: lorsqu'un fichier @file{toto.ly} contient dans
 son @code{\header} une variable @code{doctitle} et que @code{lilypond}
 est appelé avec l'option @code{doctitle}, le contenu de cette variable
 -- une simple ligne de @var{texte} -- sera recopié dans un fichier
-@file{toto@/.doctitle} puis inséré dans le document Texinfo sous la
+@file{toto.doctitle} puis inséré dans le document Texinfo sous la
 forme @code{@@lydoctitle@tie{}@var{texte}}.  @code{@@lydoctitle} doit
 faire l'objet d'une macro, définie dans le document Texinfo.
 
@@ -835,8 +835,8 @@ chemin d'accès au fichier est tronqué.
 @translationof Invoking lilypond-book
 
 @command{lilypond-book} produit un fichier qui aura, selon le format de
-sortie spécifié, l'extension @file{@/.tex}, @file{@/.texi}, @file{@/.html} ou
-@file{@/.xml}.  Les fichiers @file{@/.tex}, @file{@/.texi} et @file{@/.xml}
+sortie spécifié, l'extension @file{.tex}, @file{.texi}, @file{.html} ou
+@file{.xml}.  Les fichiers @file{.tex}, @file{.texi} et @file{.xml}
 nécessitent un traitement complémentaire.
 
 
@@ -879,9 +879,9 @@ ps2pdf monfichier.ps
 @end example
 
 @noindent
-Le fichier @file{@/.dvi} généré lors de ce traitement ne contient aucune
+Le fichier @file{.dvi} généré lors de ce traitement ne contient aucune
 tête de note, ce qui est tout à fait normal@tie{}; elles seront incluses
-lors de la génération du @file{@/.ps} puis dans le @file{@/.pdf}.
+lors de la génération du @file{.ps} puis dans le @file{.pdf}.
 
 La commande @command{dvips} peut déclencher certains messages concernant
 des fontes, que vous pouvez ignorer sans scrupule.@*

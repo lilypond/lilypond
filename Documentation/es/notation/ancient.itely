@@ -1249,12 +1249,12 @@ marca el final de un canto, sino que se usa también con frecuencia
 dentro de un único canto antifonal o responsorial para marcar el final
 de cada una de las secciones.
 
-Para usar divisiones, incluya el archivo @file{gregorian@/.ly}.
+Para usar divisiones, incluya el archivo @file{gregorian.ly}.
 Contiene definiciones que podrá aplicar con tan sólo escribir
 @code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima} y
 @code{\finalis} en los lugares adecuados de la entrada.  Algunas
 ediciones usan @emph{virgula} o @emph{caesura} en vez de divisio
-minima.  Por ello, @file{gregorian@/.ly} define también las
+minima.  Por ello, @file{gregorian.ly} define también las
 instrucciones @code{\virgula} y @code{\caesura}.
 
 @lilypond[quote,ragged-right]
@@ -1407,7 +1407,7 @@ alineación de la letra y un correcto manejo de las alteraciones
 accidentales.
 
 Se habilita el soporte de los neumas gregorianos por medio de la
-inclusión con @code{\include} del archivo @file{gregorian@/.ly} al principio
+inclusión con @code{\include} del archivo @file{gregorian.ly} al principio
 del archivo.  Esto hace que estén disponibles una cierta cantidad de
 instrucciones adicionales para producir los símbolos de los neumas que
 se usan en la notación de canto llano.
@@ -1535,7 +1535,7 @@ es la nota intermedia de una ligadura ascendente, y suele caer sobre
 un intervalo de semitono, pero es perfectamente posible, si bien
 incorrecto, hacer un quilisma de una nota.
 
-Además de los símbolos de nota, el archivo @file{gregorian@/.ly} define también
+Además de los símbolos de nota, el archivo @file{gregorian.ly} define también
 las instrucciones @code{\versus}, @code{\responsum}, @code{\ij},
 @code{\iij}, @code{\IJ} y @code{\IIJ}, que producen los caracteres
 correspondientes, p.ej. para utilizarlos en la letra, como marcas de

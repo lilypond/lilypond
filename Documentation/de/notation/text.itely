@@ -541,7 +541,7 @@ Schnipsel:
 @rlsr{Text}.
 
 Installierte Dateien:
-@file{scm/@/markup@/.scm}.
+@file{scm/markup.scm}.
 
 @knownissues
 
@@ -743,7 +743,7 @@ Referenz der Interna:
 @rinternals{TextScript}.
 
 Installierte Dateien:
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @node Textausrichtung
@@ -1001,7 +1001,7 @@ Referenz der Interna:
 @rinternals{TextScript}.
 
 Installierte Dateien:
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 
@@ -1187,8 +1187,8 @@ Referenz der Interna:
 @rinternals{TextScript}.
 
 Installierte Dateien:
-@file{scm/@/define@/-markup@/-commands@/.scm},
-@file{scm/@/stencil@/.scm}.
+@file{scm/define-markup-commands.scm},
+@file{scm/stencil.scm}.
 
 
 
@@ -1325,9 +1325,9 @@ Referenz der Interna:
 @rinternals{TextScript}.
 
 Installierte Dateien:
-@file{scm/@/define@/-markup@/-commands@/.scm},
-@file{scm/@/fret@/-diagrams@/.scm},
-@file{scm/@/harp@/-pedals@/.scm}.
+@file{scm/define-markup-commands.scm},
+@file{scm/fret-diagrams.scm},
+@file{scm/harp-pedals.scm}.
 
 
 
@@ -1393,7 +1393,7 @@ Referenz der Interna:
 @rinternals{TextScript}.
 
 Installierte Dateien:
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 @funindex \markuplines
 @funindex markuplines

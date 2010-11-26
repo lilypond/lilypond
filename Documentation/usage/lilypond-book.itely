@@ -100,7 +100,7 @@ Larger examples can be put into a separate file, and introduced with
 
 \lilypondfile[quote,noindent]{screech-boink.ly}
 
-(If needed, replace @file{screech@/-boink@/.ly} by any @file{@/.ly} file
+(If needed, replace @file{screech-boink.ly} by any @file{.ly} file
 you put in the same directory as this file.)
 
 \end{document}
@@ -109,7 +109,7 @@ you put in the same directory as this file.)
 
 @subheading Processing
 
-Save the code above to a file called @file{lilybook@/.lytex}, then in a
+Save the code above to a file called @file{lilybook.lytex}, then in a
 terminal run
 
 @c keep space after @version{} so TeX doesn't choke
@@ -409,7 +409,7 @@ Additionally, @code{@@lilypondversion} displays the current version
 of lilypond.
 
 When @command{lilypond-book} is run on it, this results in a Texinfo
-file (with extension @file{@/.texi}) containing @code{@@image} tags for
+file (with extension @file{.texi}) containing @code{@@image} tags for
 HTML, Info and printed output.  @command{lilypond-book} generates images
 of the music in EPS and PDF formats for use in the printed output, and
 in PNG format for use in HTML and Info output.
@@ -503,11 +503,11 @@ inline or not inline.  The snippet formatting options are always
 provided in the @code{role} property of the innermost element (see in
 next sections).  Tags are chosen to allow DocBook editors format the
 content gracefully.  The DocBook files to be processed with
-@command{lilypond-book} should have the extension @file{@/.lyxml}.
+@command{lilypond-book} should have the extension @file{.lyxml}.
 
 @subheading Including a LilyPond file
 
-This is the most simple case.  We must use the @file{@/.ly} extension for
+This is the most simple case.  We must use the @file{.ly} extension for
 the included file, and insert it as a standard @code{imageobject}, with
 the following structure:
 
@@ -547,8 +547,8 @@ the @code{programlisting} inside.
 
 @subheading Processing the DocBook document
 
-Running @command{lilypond-book} on our @file{@/.lyxml} file will create a
-valid DocBook document to be further processed with @file{@/.xml}
+Running @command{lilypond-book} on our @file{.lyxml} file will create a
+valid DocBook document to be further processed with @file{.xml}
 extension.  If you use
 @uref{http://@/dblatex@/.sourceforge@/.net@/,dblatex}, it will create a
 PDF file from this document automatically.  For HTML (HTML Help,
@@ -691,7 +691,7 @@ will be printed with a verbatim block like
 If you would like to translate comments and variable names in verbatim
 output but not in the sources, you may set the environment variable
 @code{LYDOC_LOCALEDIR} to a directory path; the directory should
-contain a tree of @file{@/.mo} message catalogs with @code{lilypond-doc}
+contain a tree of @file{.mo} message catalogs with @code{lilypond-doc}
 as a domain.
 
 @item addversion
@@ -701,12 +701,12 @@ as a domain.
 @item texidoc
 (Only for Texinfo output.)  If @command{lilypond} is called with the
 @option{--header=@/texidoc} option, and the file to be processed is
-called @file{foo@/.ly}, it creates a file @file{foo@/.texidoc} if there
+called @file{foo.ly}, it creates a file @file{foo.texidoc} if there
 is a @code{texidoc} field in the @code{\header}.  The @code{texidoc}
 option makes @command{lilypond-book} include such files, adding its
 contents as a documentation block right before the music snippet.
 
-Assuming the file @file{foo@/.ly} contains
+Assuming the file @file{foo.ly} contains
 
 @example
 \header @{
@@ -716,7 +716,7 @@ Assuming the file @file{foo@/.ly} contains
 @end example
 
 @noindent
-and we have this in our Texinfo document @file{test@/.texinfo}
+and we have this in our Texinfo document @file{test.texinfo}
 
 @example
 @@lilypondfile[texidoc]@{foo.ly@}
@@ -731,14 +731,14 @@ lilypond-book --pdf --process="lilypond \
 @end example
 
 Most LilyPond test documents (in the @file{input} directory of the
-distribution) are small @file{@/.ly} files which look exactly like this.
+distribution) are small @file{.ly} files which look exactly like this.
 
 For localization purpose, if the Texinfo document contains
-@code{@@documentlanguage @var{LANG}} and @file{foo@/.ly} header
+@code{@@documentlanguage @var{LANG}} and @file{foo.ly} header
 contains a @code{texidoc@var{LANG}} field, and if @command{lilypond}
 is called with @option{--header=@/texidoc@var{LANG}}, then
-@file{foo@/.texidoc@var{LANG}} will be included instead of
-@file{foo@/.texidoc}.
+@file{foo.texidoc@var{LANG}} will be included instead of
+@file{foo.texidoc}.
 
 @item lilyquote
 (Only for Texinfo output.)  This option is similar to quote, but only
@@ -751,9 +751,9 @@ useful if you want to @code{quote} the music snippet but not the
 (Only for Texinfo output.) This option works similarly to
 @code{texidoc} option: if @command{lilypond} is called with the
 @option{--header=@/doctitle} option, and the file to be processed is
-called @file{foo@/.ly} and contains a @code{doctitle} field in the
-@code{\header}, it creates a file @file{foo@/.doctitle}.  When
-@code{doctitle} option is used, the contents of @file{foo@/.doctitle},
+called @file{foo.ly} and contains a @code{doctitle} field in the
+@code{\header}, it creates a file @file{foo.doctitle}.  When
+@code{doctitle} option is used, the contents of @file{foo.doctitle},
 which should be a single line of @var{text}, is inserted in the
 Texinfo document as @code{@@lydoctitle @var{text}}.
 @code{@@lydoctitle} should be a macro defined in the Texinfo document.
@@ -777,9 +777,9 @@ directory part of the file path is stripped.
 @section Invoking @command{lilypond-book}
 
 @command{lilypond-book} produces a file with one of the following
-extensions: @file{@/.tex}, @file{@/.texi}, @file{@/.html} or @file{@/.xml},
-depending on the output format.  All of @file{@/.tex}, @file{@/.texi} and
-@file{@/.xml} files need further processing.
+extensions: @file{.tex}, @file{.texi}, @file{.html} or @file{.xml},
+depending on the output format.  All of @file{.tex}, @file{.texi} and
+@file{.xml} files need further processing.
 
 @subheading Format-specific instructions
 
@@ -817,9 +817,9 @@ ps2pdf yourfile.ps
 @end example
 
 @noindent
-The @file{@/.dvi} file created by this process will not contain
+The @file{.dvi} file created by this process will not contain
  note heads.  This is normal; if you follow the instructions, they
-will be included in the @file{@/.ps} and @file{@/.pdf} files.
+will be included in the @file{.ps} and @file{.pdf} files.
 
 Running @command{dvips} may produce some warnings about fonts; these
 are harmless and may be ignored.  If you are running @command{latex} in

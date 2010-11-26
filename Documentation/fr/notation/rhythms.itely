@@ -1094,7 +1094,7 @@ En plus de déterminer la métrique qui sera imprimée, la commande
 @code{\time} règlera aussi les valeurs par défaut des propriétés
 @code{baseMoment}, @code{beatStructure} et @code{beamExceptions}.
 Les valeurs prédéterminées par défaut de ces différentes propriétés sont
-inscrites dans le fichier @file{scm/@/time@/-signature@/-settings@/.scm}.  Vous
+inscrites dans le fichier @file{scm/time-signature-settings.scm}.  Vous
 pouvez les modifier de la manière suivante@tie{}:
 
 @lilypond[quote,verbatim]
@@ -1876,7 +1876,7 @@ Manuel de notation :
 @ref{Définition des règles de ligature automatique}.
 
 Fichiers d'initialisation :
-@file{scm/@/auto@/-beam@/.scm}.
+@file{scm/auto-beam.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
@@ -2001,14 +2001,14 @@ La pulsation -- @emph{baseMoment} en anglais -- découle directement de
 la métrique telle que définie par la commande @code{\time}.  Elle est
 par défaut égale à un sur le dénominateur de la métrique.  Les
 exceptions à cette règle par défaut sont répertoriées dans le fichier
-@file{scm/@/time@/-signature@/-settings@/.scm}.  Pour savoir comment
+@file{scm/time-signature-settings.scm}.  Pour savoir comment
 jouer avec la valeur de @code{baseMoment} selon la métrique, reportez
 vous au chapitre @ref{Métrique}.
 
 Les règles de ligature et de subdivision spécifiques sont enregistrées
 dans la propriété @code{beamExceptions}.  Ses valeurs par défaut,
 rangées par métrique et type de règle,  sont répertoriées dans le
-fichier @file{scm/@/time@/-signature@/-settings@/.scm}.
+fichier @file{scm/time-signature-settings.scm}.
 
 Les règles spécifiques autres que celles concernant la terminaison des
 ligatures sont gérées par la propriété  @code{beamExceptions}.
@@ -2074,7 +2074,7 @@ métrique.
 
 Les règles de ligature automatique par défaut sont répertoriées, par
 métrique, dans le fichier
-@file{scm/@/time@/-signature@/-settings@/.scm}.  Les manières de déroger
+@file{scm/time-signature-settings.scm}.  Les manières de déroger
 à ce comportement sosnt abordées au chapitre @ref{Métrique}.
 
 @i{@strong{Principes de la ligature automatique}}
@@ -2110,7 +2110,7 @@ pour regrouper les notes par des ligatures.
 Le type de ligature correspond à la durée la plus courte dans le groupe.
 
 Pour information, les règles de ligature par défaut sont répertoriées
-dans le fichier @file{scm/@/time@/-signature@/-settings@/.scm}.
+dans le fichier @file{scm/time-signature-settings.scm}.
 
 
 @snippets
@@ -2138,7 +2138,7 @@ dans le fichier @file{scm/@/time@/-signature@/-settings@/.scm}.
 
 @seealso
 Fichiers d'initialisation :
-@file{scm/@/beam-@/settings@/.scm}.
+@file{scm/beam-settings.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
@@ -2845,7 +2845,7 @@ c1 \mark \default
 c1
 @end lilypond
 
-Le fichier @file{scm/@/translation@/-functions@/.scm} comporte les
+Le fichier @file{scm/translation-functions.scm} comporte les
 définitions de @code{format-mark-numbers} (comportement par défaut),
 @code{format-mark-box-numbers}, @code{format-mark-letters} et
 @code{format-mark-box-letters}.  Vous pouvez vous en inspirer pour
@@ -2905,7 +2905,7 @@ Manuel de notation :
 @ref{Alignement des objets}.
 
 Fichiers d'initialisation :
-@file{scm/@/translation@/-functions@/.scm} contient les définitions de
+@file{scm/translation-functions.scm} contient les définitions de
 @code{format-mark-numbers} et @code{format-mark-letters}.  Elles seront
 source d'inspiration pour d'autres fonctions de formatage.
 
@@ -3072,7 +3072,7 @@ Glossaire musicologique :
 @rglosnamed{appoggiatura,appogiature}.
 
 Fichiers d'initialisation :
-@file{ly/@/grace@/-init@/.ly}.
+@file{ly/grace-init.ly}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.

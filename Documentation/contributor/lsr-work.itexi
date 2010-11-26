@@ -49,11 +49,11 @@ reference to the snippet should be added to the documentation.
 
 If the new snippet uses new features that are not available in the
 current LSR version, the snippet should be added to
-@file{Documentation/@/snippets/@/new} and a reference should be added to the
+@file{Documentation/snippets/new} and a reference should be added to the
 manual.
 
-Snippets created or updated in @file{Documentation/@/snippets/@/new} should
-be copied to @file{Documentation/@/snippets} by invoking at top of the
+Snippets created or updated in @file{Documentation/snippets/new} should
+be copied to @file{Documentation/snippets} by invoking at top of the
 source tree
 
 @example
@@ -62,7 +62,7 @@ scripts/auxiliar/makelsr.py
 
 @noindent
 This also copies translated texidoc fields and snippet titles into
-snippets in @file{Documentation/@/snippets}.  Note: this, in turn, could
+snippets in @file{Documentation/snippets}.  Note: this, in turn, could
 make the translated texidoc fields to appear as out of sync when you
 run @code{make check-translation}, if the originals changed from the
 last translation update, even if the translations are also updated;
@@ -74,7 +74,7 @@ updated.
 Be sure that @command{make doc} runs successfully before submitting a
 patch, to prevent breaking compilation.
 
-@subheading Formatting snippets in @file{Documentation/@/snippets/@/new}
+@subheading Formatting snippets in @file{Documentation/snippets/new}
 
 When adding a file to this directory, please start the file with
 
@@ -95,7 +95,7 @@ This code demonstrates ...
 @end example
 
 \noindent
-and name the file @file{snippet@/-title@/.ly}.
+and name the file @file{snippet-title.ly}.
 
 
 @node Approving snippets
@@ -171,23 +171,23 @@ Do a git add / commit / push.
 @end enumerate
 
 Note that whenever there is one snippet from
-@file{Documentation/@/snippets/@/new} and the other from LSR with the same
-file name, the one from @file{Documentation/@/snippets/@/new} will be copied
+@file{Documentation/snippets/new} and the other from LSR with the same
+file name, the one from @file{Documentation/snippets/new} will be copied
 by @command{makelsr.py}.
 
 
 @node Fixing snippets in LilyPond sources
 @section Fixing snippets in LilyPond sources
 
-In case some snippet from @file{Documentation/@/snippets} causes the
+In case some snippet from @file{Documentation/snippets} causes the
 documentation compilation to fail, the following steps should be
 followed to fix it reliably.
 
 @enumerate
 
 @item
-Look up the snippet filename @file{@var{foo}@/.ly} in the error output
-or log, then fix the file @file{Documentation/@/snippets/@/@var{foo}@/.ly} to make the
+Look up the snippet filename @file{@var{foo}.ly} in the error output
+or log, then fix the file @file{Documentation/snippets/@var{foo}.ly} to make the
 documentation build successfully.
 
 @item
@@ -208,15 +208,15 @@ run @command{makelsr.py} again, see @ref{LSR to Git}.  In some cases,
 when some features has been introduced or vastly changed so it requires
 (or takes significant advantage of) important changes in the snippet, it
 is simpler and recommended to write a new version of the snippet in
-@file{Documentation/@/snippets/@/new}, then run @command{makelsr.py}.
+@file{Documentation/snippets/new}, then run @command{makelsr.py}.
 
 @item
 @strong{In case the snippet comes from}
-@file{Documentation/@/snippets/@/new}, apply in
-@file{Documentation/@/snippets/@/new/@/@var{foo}@/.ly} the same fix you did in
-@file{Documentation/@/snippets/@/@var{foo}@/.ly}.  In case the build failure
+@file{Documentation/snippets/new}, apply in
+@file{Documentation/snippets/new/@var{foo}.ly} the same fix you did in
+@file{Documentation/snippets/@var{foo}.ly}.  In case the build failure
 was caused by a translation string, you may have to fix
-@file{input/@/texidocs/@/@var{foo}@/.texidoc} instead.
+@file{input/texidocs/@var{foo}.texidoc} instead.
 
 @item
 In any case, commit all changes to Git.
@@ -266,7 +266,7 @@ correct stable version.
 @item
 Copy relevant snippets (i.e., snippets whose version is equal to or less
 than the new version of LilyPond) from
-@file{Documentation/@/snippets/@/new/} into the tarball.
+@file{Documentation/snippets/new/} into the tarball.
 
 You must not rename any files during this, or the next, stage.
 
@@ -287,14 +287,14 @@ Create a tarball and send it back to Sebastiano.
 
 @item
 When LSR has been updated, download another snippet tarball, verify that
-the relevant snippets from @file{Documentation/@/snippets/@/new/} were
+the relevant snippets from @file{Documentation/snippets/new/} were
 included, then delete those snippets from
-@file{Documentation/@/snippets/@/new/}.
+@file{Documentation/snippets/new/}.
 
 @end enumerate
 
 
-Here is a shell script to run all @file{@/.ly} files in a directory
+Here is a shell script to run all @file{.ly} files in a directory
 and redirect terminal output to text files, which are then
 searched for the word "failed" to see which snippets do not compile.
 

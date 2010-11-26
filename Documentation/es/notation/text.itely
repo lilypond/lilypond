@@ -515,7 +515,7 @@ Fragmentos de código:
 @rlsr{Text}.
 
 Archivos de inicio:
-@file{scm/@/markup@/.scm}.
+@file{scm/markup.scm}.
 
 
 @knownissues
@@ -720,7 +720,7 @@ Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
 Archivos de inicio:
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @node Alineación de texto
@@ -983,7 +983,7 @@ Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
 Archivos de inicio:
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @node Notación gráfica dentro de elementos de marcado
@@ -1167,8 +1167,8 @@ Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
 Archivos de inicio:
-@file{scm/@/define@/-markup@/-commands@/.scm},
-@file{scm/@/stencil@/.scm}.
+@file{scm/define-markup-commands.scm},
+@file{scm/stencil.scm}.
 
 
 @node Notación musical dentro de elementos de marcado
@@ -1303,9 +1303,9 @@ Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
 Archivos de inicio:
-@file{scm/@/define@/-markup@/-commands@/.scm},
-@file{scm/@/fret@/-diagrams@/.scm},
-@file{scm/@/harp@/-pedals@/.scm}.
+@file{scm/define-markup-commands.scm},
+@file{scm/fret-diagrams.scm},
+@file{scm/harp-pedals.scm}.
 
 
 @node Elementos de marcado de varias páginas
@@ -1371,7 +1371,7 @@ Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
 Archivos de inicio:
-@file{scm/@/define@/-markup@/-commands@/.scm}.
+@file{scm/define-markup-commands.scm}.
 
 
 @funindex \markuplines
@@ -1553,7 +1553,7 @@ Fragmentos de código:
 
 @c A source file gets never installed...
 @c Installed files:
-@c @file{lily/@/font@/-config@/-scheme@/.cc}.
+@c @file{lily/font-config-scheme.cc}.
 
 
 @node Fuentes tipográficas del documento completo

@@ -66,7 +66,7 @@ fichier LilyPond, un nom complet et un nom raccourci.
 
 
 Ces noms sont inventoriés dans le fichier d'initialisation
-@file{ly/@/drumpitch@/-init@/.ly}.
+@file{ly/drumpitch-init.ly}.
 @c TODO: properly document this.
 
 
@@ -285,7 +285,7 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 
 @seealso
-Fichier d'initialisation : @file{ly/@/drumpitch@/-init@/.ly}.
+Fichier d'initialisation : @file{ly/drumpitch-init.ly}.
 
 Référence du programme : @rinternals{DrumStaff}, @rinternals{DrumVoice}.
 

@@ -210,12 +210,12 @@ regroupées dans un seul fichier résultant.  La commande @code{\book}
 (@emph{recueil} ou @emph{ouvrage}) n'est pas obligatoire -- elle sera
 créée implicitement.  Néanmoins, le recours à la commande @code{\book}
 vous permettra d'obtenir des fichiers résultants distincts à partir
-d'un même fichier source @file{@/.ly} -- par exemple un fichier par pupitre.
+d'un même fichier source @file{.ly} -- par exemple un fichier par pupitre.
 
 En résumé :
 
 Dès que LilyPond rencontre un bloc @code{\book}, il crée un
-fichier distinct (@file{@/.pdf} par exemple).  Dans le cas où il n'est pas
+fichier distinct (@file{.pdf} par exemple).  Dans le cas où il n'est pas
 mentionné explicitement, LilyPond regroupera l'intégralité du code dans
 un bloc @code{\book}.
 
@@ -2931,11 +2931,11 @@ jetez un œil au chapitre
 Revenons à notre propos@tie{}: nous voulons modifier uniquement la
 sous-propriété @code{stretchability}.  Les impatients trouveront les
 valeurs par défaut de la propriété @code{staff-staff-spacing} dans le
-fichier @file{scm/@/define@/-grobs@/.scm}, en examinant la définition du
+fichier @file{scm/define-grobs.scm}, en examinant la définition du
 @emph{grob} @code{VerticalAxisGroup}.  La valeur que nous affecterons à
 @code{stretchability} est celle que contient la définition du contexte 
 @code{PianoStaff} telle qu'elle apparaît dans le fichier
-@file{ly/@/engraver@/-init@/.ly}).
+@file{ly/engraver-init.ly}).
 
 @example
 \score @{
@@ -3164,7 +3164,7 @@ du travail si la syntaxe de LilyPond change un jour -- voir
 définition, par exemple @code{\dolce}, pour tous vos fichiers (voir
 @ref{Feuilles de style}) et que la syntaxe change, alors vous n'aurez
 qu'à mettre à jour votre seule définition @code{\dolce}, au lieu de
-devoir modifier chaque fichier @file{@/.ly}.
+devoir modifier chaque fichier @file{.ly}.
 
 
 @node Conducteurs et parties
@@ -3179,7 +3179,7 @@ stockée dans une variable, dont le contenu servira à imprimer à la fois
 la partie séparée et la partition d'orchestre.
 
 Il est judicieux de définir les notes dans un fichier séparé. Par
-exemple, supposons que le fichier @file{musique@/-Cor@/.ly} contienne la
+exemple, supposons que le fichier @file{musique-Cor.ly} contienne la
 partie suivante pour un duo cor/@/basson.
 
 @example
@@ -3212,7 +3212,7 @@ fichier@tie{}:
 @end example
 
 @noindent
-sera substitué le contenu du fichier @file{musique@/-Cor@/.ly}, et de ce
+sera substitué le contenu du fichier @file{musique-Cor.ly}, et de ce
 fait la variable @code{notesCor} se trouvera définie.  La commande
 @code{\transpose@tie{}f@tie{}c'} indique que son argument
 @code{\notesCor} sera transposé à la quinte supérieure@tie{}: le son
@@ -3262,7 +3262,7 @@ silence multimesure et cette option, on obtient le résultat suivant@tie{}:
 @end lilypond
 
 Le conducteur rassemble toute la musique. Si l'on suppose que l'autre
-voix de notre duo se trouve dans le fichier @file{musique@/-Basson@/.ly} en
+voix de notre duo se trouve dans le fichier @file{musique-Basson.ly} en
 tant que variable @code{notesBasson}, on établira un conducteur avec
 
 @example

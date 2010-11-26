@@ -8,9 +8,9 @@ pieza en particellas indicviduales.
 
 Tenemos que dividir esta plantilla en archivos independientes; los
 nombres de archivo están dentro de los comentarios al principio de
-cada archivo. @file{piece@/.ly} contiene todas las definiciones de
-música. Los otros archivos (@file{score@/.ly}, @file{vn1@/.ly},
-@file{vn2@/.ly}, @file{vla@/.ly} y @file{vlc@/.ly}) producen la particella
+cada archivo. @file{piece.ly} contiene todas las definiciones de
+música. Los otros archivos (@file{score.ly}, @file{vn1.ly},
+@file{vn2.ly}, @file{vla.ly} y @file{vlc.ly}) producen la particella
 correspondiente.
 
 ¡No olvide quitar los comentarios que hemos especificado cuando use

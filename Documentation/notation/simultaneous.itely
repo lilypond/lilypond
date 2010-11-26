@@ -149,7 +149,7 @@ Notation Reference:
 @ref{Articulations and ornamentations}.
 
 Installed Files:
-@file{ly/@/chord@/-repetition@/-init@/.ly}.
+@file{ly/chord-repetition-init.ly}.
 
 
 @node Simultaneous expressions

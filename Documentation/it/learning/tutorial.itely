@@ -136,7 +136,7 @@ LilyPad incluso nel pacchetto.  Se stai usando uno dei programmi descritti in
 programmi nel caso tu abbia qualche problema a compilare un file.}
 
 Cliccando due volte su @command{LilyPond.app}, il programma si aprirà con
-un file di esempio.  Salvalo, ad esempio, come @file{test@/.ly} sulla tua
+un file di esempio.  Salvalo, ad esempio, come @file{test.ly} sulla tua
 Scrivania, e poi elaboralo col comando di menu
 @w{@code{Compila > Crea File}}.  Il file PDF risultante comparirà sullo schermo.
 
@@ -156,23 +156,23 @@ programmi nel caso tu abbia qualche problema a compilare un file.}
 
 In Windows, se fai un doppio clic sull'icona di LilyPond presente sulla
 Scrivania, si aprirà un editor di testo con un semplice file di esempio.
-Salvalo, ad esempio, come @file{test@/.ly} sulla tua Scrivania e poi clicca
+Salvalo, ad esempio, come @file{test.ly} sulla tua Scrivania e poi clicca
 due volte sul file per elaborarlo (l'icona del file ha l'aspetto di una
-nota).  Dopo alcuni secondi, comparirà un file @file{test@/.pdf} sulla
+nota).  Dopo alcuni secondi, comparirà un file @file{test.pdf} sulla
 tua scrivania.  Clicca due volte su questo file PDF per vedere lo
-spartito prodotto.  Un metodo alternativo per elaborare il file @file{test@/.ly}
+spartito prodotto.  Un metodo alternativo per elaborare il file @file{test.ly}
 è trascinarlo sull'icona di LilyPond col cursore del mouse.
 
-Per modificare un file @file{@/.ly} esistente, clicca col tasto destro del
+Per modificare un file @file{.ly} esistente, clicca col tasto destro del
 mouse su di esso e seleziona @qq{Modifica il sorgente}.  Per avere un file
 nuovo da cui iniziare, lancia l'editor come descritto sopra e clicca su
 @qq{Nuovo} nel menu @qq{File}, oppure clicca col tasto destro del mouse sulla
 scrivania e seleziona @qq{Nuovo..Documento di testo}, cambia il nome in un nome
-di tua scelta e modifica l'estensione del file in @file{@/.ly}.  Clicca due volte
+di tua scelta e modifica l'estensione del file in @file{.ly}.  Clicca due volte
 sull'icona per inserirci il tuo codice LilyPond, come in precedenza.
 
 Il doppio clic del file non produce soltanto un file PDF, ma anche
-un file @file{@/.log} che contiene alcune informazioni sulle operazioni che
+un file @file{.log} che contiene alcune informazioni sulle operazioni che
 LilyPond ha svolto sul file.  Se ci dovesse essere un errore, controlla
 questo file.
 
@@ -188,7 +188,7 @@ descritti in @rprogram{Alternate input}, consulta la documentazione per
 questi programmi in caso tu abbia problemi a compilare un file.}
 
 
-Crea un file di testo chiamato @file{test@/.ly} e scrivi:
+Crea un file di testo chiamato @file{test.ly} e scrivi:
 
 @example
 @{
@@ -196,7 +196,7 @@ Crea un file di testo chiamato @file{test@/.ly} e scrivi:
 @}
 @end example
 
-Per elaborare @file{test@/.ly}, eseguire questo comando:
+Per elaborare @file{test.ly}, eseguire questo comando:
 
 @example
 lilypond test.ly
@@ -219,7 +219,7 @@ Layout output to `test.ps'...
 Converting to `test.pdf'...
 @end example
 
-Puoi vedere o stampare il risultante @file{text@/.pdf}.
+Puoi vedere o stampare il risultante @file{text.pdf}.
 
 
 @node Come scrivere i file di input

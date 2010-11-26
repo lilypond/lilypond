@@ -210,7 +210,7 @@ export (ly:gulp-file "/etc/passwd") はパスワード ファイルをエクス�
 特別なセーフ モジュールの中で評価します。@c
 このセーフ モジュールは GUILE @file{safe-r5rs} モジュールから派生したものですが、@c
 LilyPond API 関数をいくつか追加しています。@c
-これらの関数は @file{scm/@/safe@/-lily@/.scm} でリスト アップされています。
+これらの関数は @file{scm/safe-lily.scm} でリスト アップされています。
 
 さらに、セーフ モードは @code{\include} 指示を却下し、@c
 @TeX{} 文字列の中にあるバックスラッシュを無効にします。

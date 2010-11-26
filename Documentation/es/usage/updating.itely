@@ -87,8 +87,8 @@ convert-ly -e miarchivo.ly
 
 @noindent
 dentro del directorio que contiene el archivo.  Con esto se actualiza
-@file{miarchivo@/.ly} @emph{in situ} y se preserva el archivo original
-@file{miarchivo@/.ly~}.
+@file{miarchivo.ly} @emph{in situ} y se preserva el archivo original
+@file{miarchivo.ly~}.
 
 @warning{@command{convert-ly} siempre convierte hasta el último cambio
 de sintaxis que es capaz de manejar.  Esto significa que el número de
@@ -193,7 +193,7 @@ convert-ly """D:/Mis partituras/Oda.ly""" > "D:/Mis partituras/nueva Oda.ly"
 Si la orden simple @command{convert-ly -e *.ly} no funciona porque la
 instrucción expandida se hace muy larga, en vez de ello la orden
 @command{convert-ly} se puede poner dentro de un bucle.  Este ejemplo
-para UNIX actualiza todos los documentos @file{@/.ly} del directorio
+para UNIX actualiza todos los documentos @file{.ly} del directorio
 actual
 
 @example

@@ -3857,7 +3857,7 @@ début de notre fichier de musique.  Lui attribuer l'extension
 voué à être inclus dans un fichier maître@tie{}; il n'est pas destiné à
 être compilé isolément.@*
 Maintenant, modifions notre musique (enregistrez ce fichier
-sous @file{musique@/.ly}).
+sous @file{musique.ly}).
 
 @c  We have to do this awkward example/lilypond-non-verbatim
 @c  because we can't do the \include stuff in the manual.
@@ -3910,8 +3910,8 @@ note.  Et pour finir, mon professeur de composition déteste les
 chiffrages de mesure en @qq{C}, nous allons donc le transformer en
 @qq{4/4}.
 
-Cependant, ne changez pas le fichier @file{musique@/.ly}.  Remplacez le
-fichier @file{definitions@/.ily} par ceci@tie{}:
+Cependant, ne changez pas le fichier @file{musique.ly}.  Remplacez le
+fichier @file{definitions.ily} par ceci@tie{}:
 
 @example
 %%%  definitions.ily
@@ -3996,8 +3996,8 @@ inst =
 C'est encore mieux@tie{}!  Mais supposons maintenant que je veuille
 publier cette pièce.  Mon professeur de composition n'aime pas les
 chiffrages de mesure en @qq{C}, mais moi je les aime bien.  Copions
-l'actuel @file{definitions@/.ily} dans le fichier
-@file{publication@/-web@/.ily}, et modifions ce dernier.  Puisque la musique
+l'actuel @file{definitions.ily} dans le fichier
+@file{publication-web.ily}, et modifions ce dernier.  Puisque la musique
 est destinée à produire un fichier PDF affiché sur écran, nous allons
 aussi augmenter la taille globale de police.
 
@@ -4084,12 +4084,12 @@ Il ne nous reste plus qu'à remplacer
 musique.
 
 Il est possible, bien sûr, de rendre cela encore plus pratique.  Nous
-pourrions créer un fichier @file{definitions@/.ily} qui ne contiendrait
+pourrions créer un fichier @file{definitions.ily} qui ne contiendrait
 que les définitions de @code{mpdolce} et de @code{inst}, un
-fichier @file{publication@/-web@/.ily} qui ne contiendrait que la section
-@code{layout} décrite ci-dessus et un fichier @file{universite@/.ily} qui
+fichier @file{publication-web.ily} qui ne contiendrait que la section
+@code{layout} décrite ci-dessus et un fichier @file{universite.ily} qui
 ne contiendrait que les retouches pour produire le résultat que mon
-professeur préfère.  Le début du fichier @file{musique@/.ly} ressemblerait
+professeur préfère.  Le début du fichier @file{musique.ly} ressemblerait
 alors à
 
 @example
@@ -4174,9 +4174,9 @@ intéressants@tie{}:
 @item @code{scm/} -- contient les fichiers en format Scheme
 @end itemize
 
-Commençons par examiner quelques fichiers contenus dans @file{ly/@/}.
-Nous ouvrons @file{ly/@/property@/-init@/.ly} dans un éditeur de texte --
-celui que vous avez l'habitude d'utiliser pour les fichiers @file{@/.ly}
+Commençons par examiner quelques fichiers contenus dans @file{ly/}.
+Nous ouvrons @file{ly/property-init.ly} dans un éditeur de texte --
+celui que vous avez l'habitude d'utiliser pour les fichiers @file{.ly}
 fera très bien l'affaire.  Ce fichier contient les définitions de toutes
 les commandes standard prédéfinies de LilyPond, comme @code{\stemUp} et
 @code{\slurDotted}.  Vous pouvez constater que ce n'est rien d'autre
@@ -4195,25 +4195,25 @@ Si vous n'aimez pas les valeurs par défaut, les commandes prédéfinies
 peuvent être facilement redéfinies, comme n'importe quelle autre
 variable, en tête de votre fichier d'entrée.
 
-Voici les fichiers les plus utiles dans le répertoire @file{ly/@/}@tie{}:
+Voici les fichiers les plus utiles dans le répertoire @file{ly/}@tie{}:
 
 @multitable @columnfractions .4 .6
 @headitem Nom de fichier
   @tab Contenu
-@item @file{ly/@/engraver@/-init@/.ly}
+@item @file{ly/engraver-init.ly}
   @tab Définitions des Contextes de graveurs
-@item @file{ly/@/paper@/-defaults@/-init@/.ly}
+@item @file{ly/paper-defaults-init.ly}
   @tab Réglages papier par défaut
-@item @file{ly/@/performer@/-init@/.ly}
+@item @file{ly/performer-init.ly}
   @tab Définitions des Contextes d'interprétation
-@item @file{ly/@/property@/-init@/.ly}
+@item @file{ly/property-init.ly}
   @tab Définitions de toutes les commandes prédéfinies courantes
-@item @file{ly/@/spanner@/-init@/.ly}
+@item @file{ly/spanner-init.ly}
   @tab Définitions des commandes prédéfinies pour les bandeaux
 @end multitable
 
 Les autres réglages (comme les définitions de commandes @emph{markup})
-sont conservés comme fichiers @file{@/.scm} (Scheme).  Le langage de
+sont conservés comme fichiers @file{.scm} (Scheme).  Le langage de
 programmation Scheme offre une interface programmable dans le
 processus interne de LilyPond.  De plus amples explications sur ces
 fichiers dépasseraient le cadre de ce manuel dans la mesure où elles
@@ -4229,20 +4229,20 @@ sont@tie{}:
 @multitable @columnfractions .4 .6
 @headitem Nom de fichier
   @tab Contenu
-@item @file{scm/@/auto@/-beam@/.scm}
+@item @file{scm/auto-beam.scm}
   @tab Régles par défaut des ligatures subalternes
-@item @file{scm/@/define@/-grobs@/.scm}
+@item @file{scm/define-grobs.scm}
   @tab Réglages par défaut des propriétés de @emph{grobs}
-@item @file{scm/@/define@/-markup@/-commands@/.scm}
+@item @file{scm/define-markup-commands.scm}
   @tab Spécification de toutes les commandes de @emph{markup}
-@item @file{scm/@/midi@/.scm}
+@item @file{scm/midi.scm}
   @tab Réglages par défaut pour les sorties MIDI
-@item @file{scm/@/output@/-lib@/.scm}
+@item @file{scm/output-lib.scm}
   @tab Réglages affectant l'apparence des frets, couleurs, altérations,
        barres de mesure, etc.
-@item @file{scm/@/parser@/-clef@/.scm}
+@item @file{scm/parser-clef.scm}
 	@tab Définition des clefs prises en charge
-@item @file{scm/@/script@/.scm}
+@item @file{scm/script.scm}
 	@tab Réglages par défaut des articulations
 @end multitable
 

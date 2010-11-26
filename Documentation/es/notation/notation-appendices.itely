@@ -1098,7 +1098,7 @@ fuente.
 
 Una lista asociativa o abreviadamente una @strong{lista-A} (alist en
 inglés) es una pareja de Scheme que asocia un valor con una clave:
-@w{@code{(clave . valor)}}.  Por ejemplo, en @file{scm/@/lily@/.scm}, la
+@w{@code{(clave . valor)}}.  Por ejemplo, en @file{scm/lily.scm}, la
 lista-A @w{@qq{type-p-name-alist}} asocia ciertos predicadps de tipo
 (p.ej.@tie{}@code{ly:music?})  con nombres (p.ej.@tie{}@qq{music}) de
 forma que se pueda informar de los fallos de comprobación de tipo con
@@ -1252,11 +1252,11 @@ Un @strong{lexer} o analizador léxico es un programa que convierte una
 secuencia de caracteres en una secuencia de elementos o tokens, en un
 proceso que se llama análisis léxico.  El analizador léxico de
 LilyPond convierte el flujo obtenido a partir de un archivo de entrada
-@file{@/.ly} en un flujo descompuesto en tokens más apto para la
+@file{.ly} en un flujo descompuesto en tokens más apto para la
 siguiente fase del procesado: el análisis sintáctico, véase
 @ref{parser (analizador sintáctico)}.  El analizador léxico de
 LilyPond lexer está construido con la herramienta Flex a partir del
-archivo de lexer @file{lily/@/lexer@/.ll} que contiene las reglas léxicas.
+archivo de lexer @file{lily/lexer.ll} que contiene las reglas léxicas.
 Este archivo es parte del código fuente y no se incluye dentro de la
 instalación binaria de LilyPond.
 
@@ -1312,7 +1312,7 @@ no se puede conseguir esto, el archivo es inválido y se produce un
 mensaje de error adecuado.  Las agrupaciones sintácticas y las reglas
 para construir estas agrupaciones a partir de sus elementos
 constituyentes para la sintaxis de LilyPond están definidas en
-@file{lily/@/parser@/.yy} y se muestran en la forma normal de Backus (BNF)
+@file{lily/parser.yy} y se muestran en la forma normal de Backus (BNF)
 dentro de @ref{Gramática de LilyPond}.  Este archivo se usa para
 construir el analizador sintáctico durante la compilación del programa
 por parte del generador de analizadores sintácticos, Bison.  Es parte
@@ -1345,7 +1345,7 @@ por parte de los usuarios está fuertemente desaconsejado, porque su
 semántica de ámbito puede ser confusa.
 
 Cuando el valor de una de estas variables se modifica dentro de un
-archivo @file{@/.ly}, el cambio es global, y a no ser que se revierta
+archivo @file{.ly}, el cambio es global, y a no ser que se revierta
 explícitamente, el nuevo valor persistirá hasta el final del archivo,
 afectando a todos los bloques @code{\score} así como a los archivos
 externos añadidos con la instrucción @code{\include}.  Esto puede
@@ -1408,7 +1408,7 @@ medio de macros.  Hay dos tipos de objetos smob: los smobs simples,
 orientados a objetos inmutables simples como números, y los smobs
 complejos, usados para objetos con identidades.  Si tiene acceso a las
 fuentes de LilyPond sources, encontrará más información en
-@file{lily/@/includes/@/smob@/.hh}.
+@file{lily/includes/smob.hh}.
 
 @node stencil (sello)
 @unnumberedsubsec stencil (sello)

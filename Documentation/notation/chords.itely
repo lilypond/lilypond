@@ -697,9 +697,9 @@ Notation Reference:
 @ref{Common chord modifiers}.
 
 Installed Files:
-@file{scm/@/chords@/-ignatzek@/.scm},
-@file{scm/@/chord@/-entry@/.scm},
-@file{ly/@/chord@/-modifier@/-init@/.ly}.
+@file{scm/chords-ignatzek.scm},
+@file{scm/chord-entry.scm},
+@file{ly/chord-modifier-init.ly}.
 
 Snippets:
 @rlsr{Chords}.

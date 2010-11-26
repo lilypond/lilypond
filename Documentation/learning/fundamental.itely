@@ -191,7 +191,7 @@ You may code multiple @code{\score} blocks.  Each will be
 treated as a separate score, but they will be all combined into
 a single output file.  A @code{\book} command is not necessary
 -- one will be implicitly created.  However, if you would like
-separate output files from one @file{@/.ly} file then the
+separate output files from one @file{.ly} file then the
 @code{\book} command should be used to separate the different
 sections: each @code{\book} block will produce a
 separate output file.
@@ -2845,10 +2845,10 @@ curious, have a look at @ruser{Overview of modifying properties}.
 In this case, we want to modify the @code{stretchability}
 sub-property only. Again, for the curious, you can find the
 default values for the staff-staff-spacing property
-in file @file{scm/@/define@/-grobs@/.scm} by looking up the definition
+in file @file{scm/define-grobs.scm} by looking up the definition
 of the @code{VerticalAxisGroup} grob.  The value for
 @code{stretchability} is taken from the definition of the
-@code{PianoStaff} context (in file @file{ly/@/engraver@/-init@/.ly})
+@code{PianoStaff} context (in file @file{ly/engraver-init.ly})
 so that the values are identical.
 
 @example
@@ -3078,7 +3078,7 @@ LilyPond input syntax changes (see
 you have a single definition (such as @code{\dolce}) for all your
 input files (see @ref{Style sheets}), then if the syntax changes, you
 only need to update your single @code{\dolce} definition,
-instead of making changes throughout every @file{@/.ly} file.
+instead of making changes throughout every @file{.ly} file.
 
 
 @node Scores and parts
@@ -3091,7 +3091,7 @@ a variable.  The contents of that variable is then used to generate
 both the part and the full score.
 
 It is convenient to define the notes in a special file.  For example,
-suppose that the file @file{horn@/-music@/.ly} contains the following part
+suppose that the file @file{horn-music.ly} contains the following part
 of a horn/@/bassoon duo
 
 @example
@@ -3123,7 +3123,7 @@ The line
 @end example
 
 @noindent
-substitutes the contents of @file{horn@/-music@/.ly} at this position in
+substitutes the contents of @file{horn-music.ly} at this position in
 the file, so @code{hornNotes} is defined afterwards.  The command
 @code{\transpose f@tie{}c'} indicates that the argument, being
 @code{\hornNotes}, should be transposed by a fifth upwards.  Sounding
@@ -3174,7 +3174,7 @@ this option to the music above, leads to the following result
 
 The score is made by combining all of the music together.  Assuming
 that the other voice is in @code{bassoonNotes} in the file
-@file{bassoon@/-music@/.ly}, a score is made with
+@file{bassoon-music.ly}, a score is made with
 
 @example
 \include "bassoon-music.ly"
