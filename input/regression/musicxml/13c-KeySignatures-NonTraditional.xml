@@ -22,11 +22,11 @@
       <attributes>
         <divisions>1</divisions>
         <key>
-          <key-step>3</key-step>
+          <key-step>F</key-step>
           <key-alter>1</key-alter>
-          <key-step>5</key-step>
+          <key-step>A</key-step>
           <key-alter>-1</key-alter>
-          <key-step>6</key-step>
+          <key-step>B</key-step>
           <key-alter>-1</key-alter>
         </key>
         <time>
@@ -51,15 +51,15 @@
     <measure number="2">
       <attributes>
         <key>
-          <key-step>0</key-step>
+          <key-step>C</key-step>
           <key-alter>-2</key-alter>
-          <key-step>4</key-step>
+          <key-step>G</key-step>
           <key-alter>2</key-alter>
-          <key-step>1</key-step>
+          <key-step>D</key-step>
           <key-alter>-1</key-alter>
-          <key-step>6</key-step>
+          <key-step>B</key-step>
           <key-alter>1</key-alter>
-          <key-step>5</key-step>
+          <key-step>F</key-step>
           <key-alter>0</key-alter>
           <key-octave number="1">2</key-octave>
           <key-octave number="2">3</key-octave>

@@ -471,7 +471,7 @@
             <wavy-line placement="below" type="start"/>
           </ornaments>
         </notations>
-        <lyric number="1"><syllabic>continue</syllabic><text>wavy</text></lyric>
+        <lyric number="1"><syllabic>middle</syllabic><text>wavy</text></lyric>
       </note>
       <note>
         <pitch>
@@ -533,7 +533,7 @@
         <voice>1</voice>
         <type>quarter</type>
         <notations>
-          <ornaments><tremolo/></ornaments>
+          <ornaments><tremolo>3</tremolo></ornaments>
         </notations>
         <lyric number="1"><text>trem.</text></lyric>
       </note>

@@ -39,7 +39,7 @@
         </pitch>
         <duration>1024</duration>
         <voice>1</voice>
-        <type>longa</type>
+        <type>long</type>
       </note>
     </measure>
     <!--=======================================================-->
@@ -150,7 +150,7 @@
         </pitch>
         <duration>1536</duration>
         <voice>1</voice>
-        <type>longa</type>
+        <type>long</type>
         <dot/>
       </note>
     </measure>
@@ -272,7 +272,7 @@
         </pitch>
         <duration>1792</duration>
         <voice>1</voice>
-        <type>longa</type>
+        <type>long</type>
         <dot/>
         <dot/>
       </note>

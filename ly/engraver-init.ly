@@ -531,6 +531,7 @@ automatically when an output definition (a @code{\score} or
   soloIIText = #"Solo II"
   aDueText = #"a2"
   printPartCombineTexts = ##t
+  partCombineTextsOnNote = ##t
   systemStartDelimiter =#'SystemStartBar
 
   drumStyleTable = #drums-style

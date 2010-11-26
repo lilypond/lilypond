@@ -185,61 +185,6 @@ Part_combine_iterator::ok () const
 }
 
 void
-Part_combine_iterator::chords_together ()
-{
-  if (state_ == TOGETHER)
-    return;
-  else
-    {
-      playing_state_ = TOGETHER;
-      state_ = TOGETHER;
-
-      substitute_both (CONTEXT_SHARED, CONTEXT_SHARED);
-    }
-}
-
-void
-Part_combine_iterator::kill_mmrest (int in)
-{
-
-  if (!mmrest_event_)
-    {
-      mmrest_event_ = new Stream_event (ly_symbol2scm ("multi-measure-rest-event"));
-      mmrest_event_->set_property ("duration", SCM_EOL);
-      mmrest_event_->unprotect ();
-    }
-
-  handles_[in].get_outlet ()->event_source ()->broadcast (mmrest_event_);
-}
-
-void
-Part_combine_iterator::solo1 ()
-{
-  if (state_ == SOLO1)
-    return;
-  else
-    {
-      state_ = SOLO1;
-      substitute_both (CONTEXT_SOLO, CONTEXT_NULL);
-
-      kill_mmrest (CONTEXT_TWO);
-      kill_mmrest (CONTEXT_SHARED);
-
-      if (playing_state_ != SOLO1)
-	{
-	  if (!solo_one_event_)
-	    {
-	      solo_one_event_ = new Stream_event (ly_symbol2scm ("solo-one-event"));
-	      solo_one_event_->unprotect ();
-	    }
-
-	  first_iter_->get_outlet ()->event_source ()->broadcast (solo_one_event_);
-	}
-      playing_state_ = SOLO1;
-    }
-}
-
-void
 Part_combine_iterator::substitute_both (Outlet_type to1,
 					Outlet_type to2)
 {
@@ -259,6 +204,20 @@ Part_combine_iterator::substitute_both (Outlet_type to1,
       if (j != to1 && j != to2)
 	kill_mmrest (j);
     }
+}
+
+void
+Part_combine_iterator::kill_mmrest (int in)
+{
+
+  if (!mmrest_event_)
+    {
+      mmrest_event_ = new Stream_event (ly_symbol2scm ("multi-measure-rest-event"));
+      mmrest_event_->set_property ("duration", SCM_EOL);
+      mmrest_event_->unprotect ();
+    }
+
+  handles_[in].get_outlet ()->event_source ()->broadcast (mmrest_event_);
 }
 
 void
@@ -302,6 +261,33 @@ Part_combine_iterator::unisono (bool silent)
 }
 
 void
+Part_combine_iterator::solo1 ()
+{
+  if (state_ == SOLO1)
+    return;
+  else
+    {
+      state_ = SOLO1;
+      substitute_both (CONTEXT_SOLO, CONTEXT_NULL);
+
+      kill_mmrest (CONTEXT_TWO);
+      kill_mmrest (CONTEXT_SHARED);
+
+      if (playing_state_ != SOLO1)
+	{
+	  if (!solo_one_event_)
+	    {
+	      solo_one_event_ = new Stream_event (ly_symbol2scm ("solo-one-event"));
+	      solo_one_event_->unprotect ();
+	    }
+
+	  first_iter_->get_outlet ()->event_source ()->broadcast (solo_one_event_);
+	}
+      playing_state_ = SOLO1;
+    }
+}
+
+void
 Part_combine_iterator::solo2 ()
 {
   if (state_ == SOLO2)
@@ -323,6 +309,20 @@ Part_combine_iterator::solo2 ()
 	  second_iter_->get_outlet ()->event_source ()->broadcast (solo_two_event_);
 	  playing_state_ = SOLO2;
 	}
+    }
+}
+
+void
+Part_combine_iterator::chords_together ()
+{
+  if (state_ == TOGETHER)
+    return;
+  else
+    {
+      playing_state_ = TOGETHER;
+      state_ = TOGETHER;
+
+      substitute_both (CONTEXT_SHARED, CONTEXT_SHARED);
     }
 }
 

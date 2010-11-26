@@ -198,13 +198,14 @@ bookOutputSuffix =
    (set! book-output-suffix newsuffix)
    (make-music 'SequentialMusic 'void #t))
 
-%% why a function?
+%% \breathe is defined as a music function rather than an event identifier to
+%% ensure it gets useful input location information: as an event identifier,
+%% it would have to be wrapped in an EventChord to prevent it from being
+%% treated as a post_event by the parser
 breathe =
 #(define-music-function (parser location) ()
    (_i "Insert a breath mark.")
-   (make-music 'EventChord
-	       'origin location
-	       'elements (list (make-music 'BreathingEvent))))
+   (make-music 'BreathingEvent))
 
 
 

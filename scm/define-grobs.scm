@@ -2426,6 +2426,7 @@
   `(
     (,ly:arpeggio::print . ,ly:arpeggio::pure-height)
     (,ly:arpeggio::brew-chord-bracket . ,ly:arpeggio::pure-height)
+    (,ly:arpeggio::brew-chord-slur . ,ly:arpeggio::pure-height)
     (,ly:hairpin::print . ,ly:hairpin::pure-height)
     (,ly:volta-bracket-interface::print . ,volta-bracket-interface::pure-height)))
 

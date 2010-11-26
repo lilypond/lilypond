@@ -255,3 +255,8 @@
   (let ((width (ly:stem-tremolo::calc-width grob))
 	(staff-space (ly:staff-symbol-staff-space grob)))
     (/ width staff-space)))
+
+
+;; a callback for custom fret labels
+(define-public ((tab-note-head::print-custom-fret-label fret) grob)
+  (grob-interpret-markup grob (markup #:vcenter fret)))

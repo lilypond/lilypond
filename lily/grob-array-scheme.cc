@@ -49,3 +49,13 @@ LY_DEFINE (ly_grob_array_ref, "ly:grob-array-ref",
   return me->grob (i)->self_scm ();
 }
 
+LY_DEFINE (ly_grob_array_2_list, "ly:grob-array->list",
+	   1, 0, 0,
+	   (SCM grob_arr),
+	   "Return the elements of @var{grob-arr} as a Scheme list.")
+{
+  Grob_array *me = unsmob_grob_array (grob_arr);
+  LY_ASSERT_SMOB (Grob_array, grob_arr, 1);
+
+  return grob_array_to_list (me);
+}
