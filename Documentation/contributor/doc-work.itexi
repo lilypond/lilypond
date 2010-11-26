@@ -1735,12 +1735,12 @@ When you encounter
 in the source, open @file{Documentation/snippets/@var{filename}.ly},
 translate the @code{texidoc} header field it contains, enclose it with
 @code{texidoc@var{MY-LANGUAGE} = "} and @code{"}, and write it into
-@file{Documentation/@var{MY-LANGUAGE}/texidocs/@var{filename}.texidoc}.
+@file{Documentation/@var{MY-LANGUAGE}/texidocs/@/@var{filename}.texidoc}.
 Additionally, you may translate the snippet's title in @code{doctitle}
 header field, in case @code{doctitle} is a fragment option used in
 @code{@@lilypondfile}; you can do this exactly the same way as
 @code{texidoc}.  For instance,
-@file{Documentation/@var{MY-LANGUAGE}/texidocs/@var{filename}.texidoc}
+@file{Documentation/@var{MY-LANGUAGE}/texidocs/@/@var{filename}.texidoc}
 may contain
 
 @example

@@ -4355,12 +4355,12 @@ benutzen:
 @item Linux
 
 Wechseln Sie in das Verzeichnis
-@file{@var{INSTALL_VERZ}/lilypond/usr/share/lilypond/current/}
+@file{@var{INSTALL_VERZ}/lilypond/usr/@/share/lilypond/current/}
 
 @item MacOS X
 
 Wechseln Sie in das Verzeichnis
-@file{@var{INSTALL_VERZ}/LilyPond.app/Contents/Resources/share/lilypond/current/}
+@file{@var{INSTALL_VERZ}/LilyPond.app/Contents/@/Resources/share/lilypond/current/}
 indem Sie entweder mit dem Befehl @code{cd} vom Terminal aus
 in das Verzeichnis wechseln, oder mit Control-Klick auf das
 LilyPond-Programmsymbol gehen und @qq{Show Package Contents}
@@ -4369,7 +4369,7 @@ auswählen.
 @item Windows
 
 Wechseln Sie mit dem Windows Explorer ins Verzeichnis
-@file{@var{INSTALL_VERZ}/LilyPond/usr/share/lilypond/current/}
+@file{@var{INSTALL_VERZ}/LilyPond/usr/@/share/lilypond/current/}
 
 @end itemize
 

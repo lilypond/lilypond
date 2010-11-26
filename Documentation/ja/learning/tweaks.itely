@@ -4005,11 +4005,11 @@ LilyPond の内部ファイルを調べることによってさらに多くの�
 @itemize @bullet
 @item Linux
 
-@file{@var{INSTALLDIR}/lilypond/usr/share/lilypond/current/} に進んでください
+@file{@var{INSTALLDIR}/lilypond/usr/@/share/lilypond/current/} に進んでください
 
 @item MacOS X
 
-@file{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current/}
+@file{@var{INSTALLDIR}/LilyPond.app/Contents/@/Resources/share/lilypond/current/}
 に進んでください。@c
 ターミナルからこのディレクトリへ @code{cd} で移動するか、@c
 LilyPond アプリケーション上でコントロール クリックして 
@@ -4017,7 +4017,7 @@ LilyPond アプリケーション上でコントロール クリックして
 
 @item Windows
 
-@file{@var{INSTALLDIR}/LilyPond/usr/share/lilypond/current/} に@c
+@file{@var{INSTALLDIR}/LilyPond/usr/@/share/lilypond/current/} に@c
 進んでください。Windows Explorer を使います。
 
 

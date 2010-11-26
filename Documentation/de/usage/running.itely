@@ -304,7 +304,7 @@ für jede Seite der Partitur erstellt.  Es wird empfohlen, Century
 Schoolbook-Schriftarten zu installieren, die auch in der LilyPond-Installation
 enthalten sind, um optimales Rendern zu erhalten.  Unter UNIX können
 diese Schriftarten einfach aus dem LilyPond-Verzeichnis (normalerweise
-@file{/usr/share/lilypond/VERSION/fonts/otf/}) nach @file{~/.fonts}
+@file{/usr/share/lilypond/@/VERSION/fonts/otf/}) nach @file{~/.fonts}
 kopiert werden.  Die SVG-Ausgabe sollte mit allen SVG-Editoren oder
 Betrachtungsprogrammen kompatibel sein.
 

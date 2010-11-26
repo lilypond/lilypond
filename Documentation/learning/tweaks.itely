@@ -4002,12 +4002,12 @@ being used:
 @item Linux
 
 Navigate to
-@file{@var{INSTALLDIR}/lilypond/usr/share/lilypond/current/}
+@file{@var{INSTALLDIR}/lilypond/usr/@/share/lilypond/current/}
 
 @item MacOS X
 
 Navigate to
-@file{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current/}
+@file{@var{INSTALLDIR}/LilyPond.app/Contents/@/Resources/share/lilypond/current/}
 by either @code{cd}-ing into this directory from the
 Terminal, or control-clicking on the LilyPond application and
 selecting @q{Show Package Contents}.
@@ -4015,7 +4015,7 @@ selecting @q{Show Package Contents}.
 @item Windows
 
 Using Windows Explorer, navigate to
-@file{@var{INSTALLDIR}/LilyPond/usr/share/lilypond/current/}
+@file{@var{INSTALLDIR}/LilyPond/usr/@/share/lilypond/current/}
 
 @end itemize
 

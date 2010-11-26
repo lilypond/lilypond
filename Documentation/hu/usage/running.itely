@@ -244,7 +244,7 @@ Oldalanként egy SVG fájl keletkezik, beágyazott betűtípusok nélkül.
 Így megtekintésükhöz érdemes feltelepíteni a Century Schoolbook betűtípusokat.
 Ezeket tartalmazza a LilyPond. Például UNIX alatt egyszerűen csak be kell
 másolni ezeket a program könyvtárából (tipikusan
-@file{/usr/share/lilypond/VERZIÓ/fonts/otf/}) a @file{~/.fonts/} könyvtárba.
+@file{/usr/share/lilypond/@/VERZIÓ/fonts/otf/}) a @file{~/.fonts/} könyvtárba.
 Az SVG kimenet szabványos, így bármilyen, ezt a formátumot olvasni képes
 programmal megnyitható.
 

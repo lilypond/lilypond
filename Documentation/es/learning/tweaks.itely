@@ -4161,12 +4161,12 @@ qué sistema operativo está utilizando:
 @item Linux
 
 Diríjase a
-@file{@var{CARPETA_DE_INSTALACIÓN}/lilypond/usr/share/lilypond/current/}
+@file{@var{CARPETA_DE_INSTALACIÓN}/lilypond/usr/@/share/lilypond/current/}
 
 @item MacOS X
 
 Diríjase a
-@file{@var{CARPETA_DE_INSTALACIÓN}/LilyPond.app/Contents/Resources/share/lilypond/current/}
+@file{@var{CARPETA_DE_INSTALACIÓN}/LilyPond.app/Contents/@/Resources/share/lilypond/current/}
 bien haciendo @code{cd} hacia este directorio desde el Terminal, o
 bien manteniendo pulsada la tecla de Control y haciendo click sobre la
 aplicación de LilyPond, y allí eligiendo @q{Mostrar el contenido del
@@ -4175,7 +4175,7 @@ paquete}.
 @item Windows
 
 Mediante el Explorador de Windows, diríjase a
-@file{@var{CARPETA_DE_INSTALACIÓN}/LilyPond/usr/share/lilypond/current/}
+@file{@var{CARPETA_DE_INSTALACIÓN}/LilyPond/usr/@/share/lilypond/current/}
 
 @end itemize
 

@@ -4139,7 +4139,7 @@ encore vous l'avez compilé directement à partir des sources@tie{}; et
 @itemize @bullet
 @item Linux
 
-@file{@var{INSTALLDIR}/lilypond/usr/share/lilypond/current/}
+@file{@var{INSTALLDIR}/lilypond/usr/@/share/lilypond/current/}
 
 @item MacOS X
 
