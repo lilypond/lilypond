@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: e9135d834819eba63b64ec711542480250b42b78
+    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -53,6 +53,7 @@ Questa sezione presenta la notazione comunemente usata per una singola voce su
 un solo pentagramma.
 
 @menu
+* Controlli di battuta::
 * Alterazioni e armature di chiave::
 * Legature di valore e di portamento::
 * Articolazione e dinamica::
@@ -61,16 +62,35 @@ un solo pentagramma.
 * Comandi di tempo avanzati::
 @end menu
 
+@node Controlli di battuta
+@subsection Controlli di battuta
+@translationof Bar checks
+
+I @emph{controlli di battuta}, pur se non strettamente necessari, dovrebbero
+essere usati nel codice di input per mostrare dove si vuole che cadano le
+stanghette.  Vengono inseriti col simbolo della barra verticale, @code{|}.
+Grazie ai controlli di battuta, il programma può verificare che tu abbia inserito
+delle durate che facciano sì che ogni misura raggiunga la giusta
+durata.  I controlli di battuta rendono anche il codice di input più
+facile da leggere, perché aiutano a tenere tutto in ordine.
+
+@lilypond[verbatim,quote,relative=2]
+g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
+@end lilypond
+
+@seealso
+Guida alla notazione:
+@ruser{Bar and bar number checks}.
 
 @node Alterazioni e armature di chiave
 @subsection Alterazioni e armature di chiave
 @translationof Accidentals and key signatures
 
-@warning{I nuovi utenti sono spesso confusi riguardo a queste -- leggi il
-messaggio di avviso in fondo a questa pagina, soprattutto se non hai
+@warning{I nuovi utenti sono spesso confusi riguardo a questi concetti -- leggi
+il messaggio di avviso in fondo a questa pagina, soprattutto se non hai
 una buona conoscenza della teoria musicale!}
 
-@subheading Accidentals
+@subheading Alterazioni
 
 @cindex alterazioni, accidenti
 @cindex alterazioni e armature di chiave
@@ -86,7 +106,7 @@ una buona conoscenza della teoria musicale!}
 @funindex eses
 @funindex isis
 
-Glossario Musicale: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
+Glossario musicale: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
 
 Un @notation{diesis} si ottiene aggiungendo il suffisso @code{is} al nome della nota,
@@ -98,11 +118,11 @@ nordiche e germaniche, come il tedesco e l'olandese.  Per usare altri
 nomi per le @notation{alterazioni}, si veda @ruser{Nomi delle note in altre lingue}.
 
 @lilypond[verbatim,quote,relative=2]
-cis1 ees fisis, aeses
+cis4 ees fisis, aeses
 @end lilypond
 
 @cindex chiave, armatura di, impostare
-@subheading Key signatures
+@subheading Armature di chiave
 
 @cindex armatura di chiave
 @cindex maggiore
@@ -126,14 +146,14 @@ seguito da un'altezza e da @code{\major} o @code{\minor}.
 
 @lilypond[verbatim,quote,relative=2]
 \key d \major
-a1
+a1 |
 \key c \minor
-a
+a1 |
 @end lilypond
 
 @smallspace
 
-@subheading Warning: key signatures and pitches
+@subheading Attenzione: armature di chiave e altezze
 
 Glossario musicale: @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
@@ -160,7 +180,7 @@ In questo esempio:
 
 @lilypond[verbatim,quote,relative=2]
 \key d \major
-d cis fis
+cis4 d e fis
 @end lilypond
 
 @noindent
@@ -174,7 +194,7 @@ nota con altezza Si-bequadro.}  Nella tonalità di La bemolle maggiore,
 
 @lilypond[verbatim,quote,relative=2]
 \key aes \major
-b
+aes4 c b c
 @end lilypond
 
 Se l'esempio precedente sembra poco chiaro, considera questo: se tu stessi
@@ -191,11 +211,12 @@ sia possibile produrre delle alterazioni in base a regole diverse, si veda
 
 
 @seealso
-Guida alla Notazione: @ruser{Note names in other languages},
-@ruser{Accidentals}, @ruser{Automatic accidentals},
+Guida alla notazione:
+@ruser{Note names in other languages},
+@ruser{Accidentals},
+@ruser{Automatic accidentals},
 @ruser{Key signature}.
 
-Glossario musicale: @rglos{Pitch names}.
 
 
 @node Legature di valore e di portamento
@@ -211,7 +232,7 @@ Glossario musicale: @rglos{Pitch names}.
 @funindex ( ... )
 @funindex \( ... \)
 
-@subheading Ties
+@subheading Legature di valore
 
 
 Glossario musicale: @rglos{tie}.
@@ -220,11 +241,10 @@ Una @notation{legatura di valore} si ottiene apponendo una tilde @code{~} alla
 prima nota della legatura.
 
 @lilypond[verbatim,quote,relative=2]
-g4~ g c2~
-c4 ~ c8 a8 ~ a2
+g4~ g c2~ | c4~ c8 a~ a2 |
 @end lilypond
 
-@subheading Slurs
+@subheading Legature di portamento
 
 
 Glossario musicale: @rglos{slur}.
@@ -237,7 +257,7 @@ nota iniziale e quella finale sono indicate rispettivamente con
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
-@subheading Phrasing slurs
+@subheading Legature di fraseggio
 
 Glossario musicale: @rglos{slur}, @rglos{phrasing}.
 
@@ -254,7 +274,7 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 @smallspace
 
 @cindex legature di portamento vs. legature di valore
-@subheading Warnings: slurs vs. ties
+@subheading Attenzione: legature di portamento vs. legature di valore
 
 Glossario musicale: @rglos{articulation}, @rglos{slur}, @rglos{tie}.
 
@@ -267,12 +287,14 @@ con ampi gruppi di note.  Legature di valore e legature di portamento
 possono essere annidate le une dentro le altre.
 
 @lilypond[verbatim,quote,relative=2]
-c2~( c8 fis fis4 ~ fis2 g2)
+c4~( c8 d~ d4 e)
 @end lilypond
 
 
 @seealso
-Guida alla Notazione: @ruser{Ties}, @ruser{Slurs},
+Guida alla notazione:
+@ruser{Ties},
+@ruser{Slurs},
 @ruser{Phrasing slurs}.
 
 
@@ -280,7 +302,7 @@ Guida alla Notazione: @ruser{Ties}, @ruser{Slurs},
 @subsection Articolazione e dinamica
 @translationof Articulation and dynamics
 
-@subheading Articulations
+@subheading Articolazioni
 
 @cindex articolazione
 @cindex accento
@@ -292,10 +314,11 @@ Le @notation{articolazioni} di uso comune possono essere aggiunte a una nota
 con una lineetta @code{-} e un singolo carattere:
 
 @lilypond[verbatim,quote,relative=2]
-c-. c-- c-> c-^ c-+ c-_
+c4-^ c-+ c-- c-|
+c4-> c-. c2-_
 @end lilypond
 
-@subheading Fingerings
+@subheading Diteggiature
 
 @cindex diteggiatura
 
@@ -309,7 +332,7 @@ aggiunte a una nota con una lineetta (@code{-}) e il numero che si
 vuole visualizzare:
 
 @lilypond[verbatim,quote,relative=2]
-c-3 e-5 b-2 a-1
+c4-3 e-5 b-2 a-1
 @end lilypond
 
 Articolazioni e diteggiature solitamente sono posizionate verticalmente in automatico, ma
@@ -319,10 +342,10 @@ multiple sulla stessa nota.  Tuttavia, nella maggior parte dei casi è
 meglio lasciare che sia LilyPond a determinare le direzioni delle articolazioni.
 
 @lilypond[verbatim,quote,relative=2]
-c_-^1 d^. f^4_2-> e^-_+
+c4_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
-@subheading Dynamics
+@subheading Dinamica
 
 @cindex dinamica
 @cindex decrescendo
@@ -348,7 +371,7 @@ I segni di @notation{dinamica} si ottengono aggiungendo alla nota
 i simboli (preceduti da un segno di barra invertita, o backslash):
 
 @lilypond[verbatim,quote,relative=2]
-c\ff c\mf c\p c\pp
+c4\ff c\mf c\p c\pp
 @end lilypond
 
 
@@ -358,13 +381,15 @@ esempio @code{\ff}, terminerà il (de)crescendo, oppure può essere usato
 il comando @code{\!}:
 
 @lilypond[verbatim,quote,relative=2]
-c2\< c2\ff\> c2 c2\!
+c4\< c\ff\> c c\!
 @end lilypond
 
 
 @seealso
-Guida alla Notazione: @ruser{Articulations and ornamentations},
-@ruser{Fingering instructions}, @ruser{Dynamics}.
+Guida alla notazione:
+@ruser{Articulations and ornamentations},
+@ruser{Fingering instructions},
+@ruser{Dynamics}.
 
 
 @node Aggiungere il testo
@@ -381,21 +406,22 @@ Guida alla Notazione: @ruser{Articulations and ornamentations},
 Puoi aggiungere del testo nei tuoi spartiti:
 
 @lilypond[verbatim,quote,relative=2]
-c1^"espr" a_"legato"
+c2^"espr" a_"legato"
 @end lilypond
 
 Per aggiungere delle formattazioni puoi usare il comando @code{\markup}:
 
 @lilypond[verbatim,quote,relative=2]
-c1^\markup{ \bold espr}
-a1_\markup{
+c2^\markup{ \bold espr}
+a2_\markup{
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 @end lilypond
 
 
 @seealso
-Guida alla Notazione: @ruser{Scrivere testo}.
+Guida alla notazione:
+@ruser{Writing text}.
 
 
 @node Code automatiche e manuali
@@ -430,7 +456,7 @@ possibile sovrascriverle manualmente.  Per correggere soltanto una singola trava
 la prima nota da raggruppare con @code{[} e l'ultima con @code{]}.
 
 @lilypond[verbatim,quote,relative=2]
-a8[ ais] d[ ees r d] a b
+a8[ ais] d[ ees r d] c16 b a8
 @end lilypond
 
 Se desideri disattivare il raggruppamento automatico, interamente o
@@ -440,21 +466,23 @@ riattivarlo.
 
 @lilypond[verbatim,quote,relative=2]
 \autoBeamOff
-a8 c b4 d8. c16 b4
+a8 c b4 d8. c16 b4 |
 \autoBeamOn
-a8 c b4 d8. c16 b4
+a8 c b4 d8. c16 b4 |
 @end lilypond
 
 
 @seealso
-Guida alla Notazione: @ruser{Automatic beams}, @ruser{Manual beams}.
+Guida alla notazione:
+@ruser{Automatic beams},
+@ruser{Manual beams}.
 
 
 @node Comandi di tempo avanzati
 @subsection Comandi di tempo avanzati
 @translationof Advanced rhythmic commands
 
-@subheading Partial measure
+@subheading Battuta parziale
 
 @cindex anacrusi
 @cindex battuta parziale
@@ -464,16 +492,16 @@ Guida alla Notazione: @ruser{Automatic beams}, @ruser{Manual beams}.
 
 Glossario musicale: @rglos{anacrusis}.
 
-Un'(or @notation{anacrusi}) può essere inserita con la parola chiave
+Un' @notation{anacrusi}) può essere inserita con la parola chiave
 @code{\partial}.  Questa è seguita da una durata: @code{\partial 4}
 è un'anacrusi di semiminima e @code{\partial 8} di croma.
 
 @lilypond[verbatim,quote,relative=2]
-\partial 8
-f8 c2 d
+\partial 8 f8 |
+c2 d |
 @end lilypond
 
-@subheading Tuplets
+@subheading Gruppi irregolari
 
 @cindex gruppi irregolari
 @cindex terzine
@@ -491,12 +519,12 @@ una @notation{terzina} ha 2/3 come frazione:
 
 @lilypond[verbatim,quote,relative=2]
 \times 2/3 { f8 g a }
-\times 2/3 { c r c }
+\times 2/3 { c8 r c }
 \times 2/3 { f,8 g16[ a g a] }
 \times 2/3 { d4 a8 }
 @end lilypond
 
-@subheading Grace notes
+@subheading Abbellimenti
 
 @cindex abbellimenti
 @cindex acciaccatura
@@ -517,14 +545,16 @@ ma possono essere creati anche ponendo davanti a un'espressione
 musicale le parole chiave @code{\appoggiatura} o @code{\acciaccatura}:
 
 @lilypond[verbatim,quote,relative=2]
-c2 \grace { a32[ b] } c2
-c2 \appoggiatura b16 c2
-c2 \acciaccatura b16 c2
+c2 \grace { a32[ b] } c2 |
+c2 \appoggiatura b16 c2 |
+c2 \acciaccatura b16 c2 |
 @end lilypond
 
 
 @seealso
-Guida alla Notazione: @ruser{Grace notes}, @ruser{Tuplets},
+Guida alla notazione:
+@ruser{Grace notes},
+@ruser{Tuplets},
 @ruser{Upbeats}.
 
 
@@ -579,10 +609,10 @@ significa che sono in sequenza (ovvero, ciascuna espressione segue la
 precedente). Il risultato è un'altra espressione musicale:
 
 @lilypond[verbatim,quote,relative=2]
-{ { a4 g } f g }
+{ { a4 g } f4 g }
 @end lilypond
 
-@subheading Analogy: mathematical expressions
+@subheading Analogia: le espressioni matematiche
 
 Questo meccanismo è analogo a quello delle formule matematiche: una grande formula
 può essere creata creando piccole formule.  Tali formule sono chiamate
@@ -608,14 +638,14 @@ annidate a qualsivoglia grado di profondità, e questo è indispensabile per
 musica complessa come le partiture polifoniche.
 
 
-@subheading Simultaneous music expressions: multiple staves
+@subheading Espressioni musicali simultanee: righi multipli
 
-@cindex molteplici pentagrammi
-@cindex pentagrammi, molteplici
+@cindex righi multipli
+@cindex multipli, righi
 @cindex polifonia
 @cindex combinare le espressioni in parallelo
 @cindex espressioni parallele
-@cindex espressioni, parallele
+@cindex parallele, espressioni
 @cindex note relative e musica simultanea
 @cindex note relative e espressioni parallele
 @cindex musica simultanea e note relative
@@ -639,9 +669,9 @@ separate) vengono combinate in simultanea:
 @lilypond[verbatim,quote]
 \relative c'' {
   <<
-    { a4 g }
-    { f e }
-    { d b }
+    { a2 g }
+    { f2 e }
+    { d2 b }
   >>
 }
 @end lilypond
@@ -656,7 +686,7 @@ nell'input, e non è relativa al @code{c''} nel comando
 @code{@bs{}relative} iniziale.}
 
 
-@subheading Simultaneous music expressions: single staff
+@subheading Espressioni musicali simultanee: rigo singolo
 
 Per determinare il numero di pentagrammi in un brano, LilyPond guarda
 l'inizio della prima espressione.  Se c'è una nota singola, ci sarà
@@ -667,20 +697,20 @@ su un singolo rigo.
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  c2 <<c e>>
-  << { e f } { c <<b d>> } >>
+  c2 <<c e>> |
+  << { e2 f } { c2 <<b d>> } >>
 }
 @end lilypond
 
-@node Pentagrammi multipli
-@subsection Pentagrammi multipli
+@node Righi multipli
+@subsection Righi multipli
 @translationof Multiple staves
 
-@cindex molteplici righi musicali
-@cindex righi musicali, molteplici
+@cindex righi multipli
+@cindex multipli, righi
 @cindex contesto
 @cindex contesto, notazione
-@cindex notazione contesto
+@cindex contesto della notazione
 
 @funindex \new Staff
 @funindex new Staff
@@ -692,7 +722,7 @@ su un singolo rigo.
 @funindex Lyrics
 @funindex ChordNames
 
-Come abbiamo visto in @ref{Music expressions explained}, i file di input
+Come abbiamo visto in @ref{Espressioni musicali}, i file di input
 di LilyPond si costruiscono in base alle espressioni musicali.  Se la partitura
 inizia con espressioni musicali simultanee, LilyPond crea più di un
 rigo musicale.  Tuttavia, è più facile vedere quel che accade se creiamo
@@ -706,8 +736,8 @@ e @code{>>}:
 @lilypond[verbatim,quote]
 \relative c'' {
   <<
-    \new Staff { \clef treble c }
-    \new Staff { \clef bass c,, }
+    \new Staff { \clef "treble" c4 }
+    \new Staff { \clef "bass" c,,4 }
   >>
 }
 @end lilypond
@@ -736,8 +766,8 @@ frequenti delle partiture poliritmiche.
 @lilypond[verbatim,quote]
 \relative c'' {
   <<
-    \new Staff { \clef treble \key d \major \time 3/4 c }
-    \new Staff { \clef bass c,, }
+    \new Staff { \clef "treble" \key d \major \time 3/4 c4 }
+    \new Staff { \clef "bass" c,,4 }
   >>
 }
 @end lilypond
@@ -760,7 +790,10 @@ frequenti delle partiture poliritmiche.
 @funindex GrandStaff
 @funindex ChoirStaff
 
-Glossario musicale: @rglos{brace}.
+Glossario musicale:
+@rglos{brace},
+@rglos{staff},
+@rglos{system}.
 
 La musica per pianoforte viene stampata su due righi musicali collegati
 con una @notation{graffa}.
@@ -780,8 +813,8 @@ Ecco un piccolo esempio:
 @lilypond[verbatim,quote]
 \relative c'' {
   \new PianoStaff <<
-    \new Staff { \time 2/4 c4 e g g, }
-    \new Staff { \clef bass c,, c' e c }
+    \new Staff { \time 2/4 c4 e | g g, | }
+    \new Staff { \clef "bass" c,,4 c' | e c | }
   >>
 }
 @end lilypond
@@ -795,8 +828,8 @@ delle linee della battuta.
 
 
 @seealso
-Guida alla Notazione: @ruser{Keyboard and other multi-staff
-instruments},
+Guida alla notazione:
+@ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
 
 
@@ -804,14 +837,14 @@ instruments},
 @subsection Combinare le note negli accordi
 @translationof Combining notes into chords
 
+Glossario musicale: @rglos{chord}.
+
 @cindex accordi
 @cindex durate delle note negli accordi
 
 @funindex <
 @funindex >
 @funindex < ... >
-
-Glossario musicale: @rglos{chord}.
 
 Abbiamo visto in precedenza come le note possano essere combinate in
 @notation{accordi} racchiudendole tra parentesi a doppi angoli per indicare
@@ -821,7 +854,7 @@ che tutte le note in un accordo devono avere la stessa durata, e che la
 durata è posta dopo la parentesi chiusa.
 
 @lilypond[verbatim,quote,relative=2]
-r4 <c e g>4 <c f a>2
+r4 <c e g> <c f a>2
 @end lilypond
 
 Pensa agli accordi come a qualcosa di equivalente alle note singole:
@@ -832,10 +865,14 @@ le travature e le legature di valore.  Questi devono essere posti fuori dalle
 parentesi angolari.
 
 @lilypond[verbatim,quote,relative=2]
-r4 <c e g>8[ <c f a>]~ <c f a>2
-r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
+r4 <c e g>~ <c f a>2 |
+<c e g>8[ <c f a> <c e g> <c f a>] <c e g>\>[ <c f a> <c f a> <c e g>]\! |
+r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
 
+@seealso
+Guida alla notazione:
+@ruser{Chorded notes}.
 
 @node Polifonia su un singolo rigo
 @subsection Polifonia su un singolo rigo
@@ -843,10 +880,10 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 
 @cindex polifonia
 @cindex voci multiple
-@cindex voci, più di un rigo
+@cindex voci, più su un rigo
 @cindex polifonia su un singolo rigo
 @cindex pausa spaziatrice
-@cindex pausa, spaziatrice
+@cindex spaziatrice, pausa
 
 @funindex << ... \\ ... >>
 @funindex <<
@@ -859,9 +896,11 @@ subito. Saranno le sezioni successive a introdurre questi concetti e
 a spiegarli via via.
 
 @seealso
-Manuale di Apprendimento: @ref{Voices contain music}.
+Manuale di Apprendimento:
+@ref{Le voci contengono la musica}.
 
-Guida alla Notazione: @ruser{Simultaneous notes}.
+Guida alla notazione:
+@ruser{Simultaneous notes}.
 
 @node Canzoni
 @section Canzoni
@@ -895,7 +934,7 @@ filastrocca, @notation{Girls and boys come out to play}:
 \relative c'' {
   \key g \major
   \time 6/8
-  d4 b8 c4 a8 d4 b8 g4
+  d4 b8 c4 a8 | d4 b8 g4
 }
 @end lilypond
 
@@ -908,23 +947,22 @@ separando ogni sillaba con uno spazio.
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
+    d4 b8 c4 a8 | d4 b8 g4
   }
   \addlyrics {
-    Girls and boys come out to play,
+    Girls and boys come | out to play,
   }
 >>
 @end lilypond
 
-Si notino le parentesi graffe che delimitano sia la musica che il testo.
-È fondamentale che l'ultima sillaba sia dalla parentesi graffa che
+@warning{È fondamentale che l'ultima sillaba sia dalla parentesi graffa che
 chiude con uno spazio o una nuova linea, altrimenti si presumerà
 che sia parte della sillaba, e questo causerà un errore poco
-chiaro, vedi @rprogram{Apparent error in ../ly/init.ly}.
+chiaro, vedi @rprogram{Apparent error in ../ly/init.ly}.}
 
-Si notino anche le doppie parentesi ad angolo @w{@code{<< ... >>}} che
-circondano l'intero brano per indicare che la musica e il testo devono
-trovarsi in simultanea.
+Si notino le doppie parentesi ad angolo @w{@code{<< ... >>}} che circondano
+l'intero brano per indicare che la musica e il testo devono trovarsi
+in simultanea.
 
 @node Allineare il testo alla melodia
 @subsection Allineare il testo alla melodia
@@ -949,55 +987,68 @@ shine as bright as day}.  Aggiungiamola:
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c b a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c b a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
   }
 >>
 @end lilypond
 
-Come si può vedere, il testo aggiunto non risulta ben allineato alle note.  La
-parola @notation{shine} dovrebbe essere cantata su due note, non una.  Questo
-si chiama @notation{melisma}, una singola sillaba che viene cantata per
-più di una nota.  Ci sono molti modi per estendere una sillaba su
-molteplici note, e il più semplice è aggiungere una legatura di
-portamento che le colleghi, per i dettagli si veda @ref{Ties and slurs}:
+Se compili il codice dell'esempio precedente, dovresti vedere alcuni
+avvisi nell'output del terminale:
+
+@example
+song.ly:12:29: warning: barcheck failed at: 5/8
+    The | moon doth shine as
+                             | bright as day; |
+song.ly:12:46: warning: barcheck failed at: 3/8
+    The | moon doth shine as | bright as day;
+                                              |
+@end example
+
+Questo è un ottimo esempio dell'utilità dei controlli di battuta.  Tornando
+alla musica, si può vedere che il testo aggiunto non risulta ben allineato
+alle note.  La parola @notation{shine} dovrebbe essere cantata su due note, non
+una.  Questo si chiama @notation{melisma}, una singola sillaba che viene
+cantata per più di una nota.  Ci sono molti modi per estendere una sillaba
+su molteplici note, e il più semplice è aggiungere una legatura di portamento
+che le colleghi, per i dettagli si veda @ref{Legature di valore e di portamento}:
 
 @lilypond[verbatim,quote]
 <<
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c( b) a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c( b) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
   }
 >>
 @end lilypond
 
 Adesso le parole sono allineate correttamente con le note, ma il raggruppamento
-automatico per le note che si trovano sopra @notation{shine as} non ha un aspetto corretto.
-Possiamo correggerlo inserendo i comandi per il raggruppamento manuale così da scavalcare,
-in questo caso, il raggruppamento automatico; per i dettagli si veda @ref{Automatic and
-manual beams}.
+automatico per le note che si trovano sopra @notation{shine as} non ha un
+aspetto corretto.  Possiamo correggerlo inserendo i comandi per il raggruppamento
+manuale così da scavalcare, in questo caso, il raggruppamento automatico; per i
+dettagli si veda @ref{Code automatiche e manuali}.
 
 @lilypond[verbatim,quote]
 <<
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c([ b]) a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c([ b]) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
   }
 >>
 @end lilypond
@@ -1011,12 +1062,12 @@ che si voglia includere nel melisma:
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c[ b] a d4 b8 g4.
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c[ b] a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine _ as bright as day;
+    Girls and boys come | out to play,
+    The | moon doth shine _ as | bright as day; |
   }
 >>
 @end lilypond
@@ -1033,12 +1084,12 @@ sillaba.  Si scrive con due trattini bassi @code{__}.  Il seguente esempio
   \relative c'' {
     \key g \minor
     \time 3/2
-    g2 a bes bes( a)
-    b c4.( bes8 a4. g8 fis4.) g8 fis1
+    g2 a bes | bes2( a) b2 |
+    c4.( bes8 a4. g8 fis4.) g8 | fis1
   }
   \addlyrics {
-    When I am laid,
-    am laid __ in earth,
+    When I am | laid,
+    am | laid __ in | earth,
   }
 >>
 @end lilypond
@@ -1058,12 +1109,12 @@ finora sull'allineamento del testo con le note.
     \key g \major
     \time 3/4
     \partial 4
-    d4 g4 g a8( b) g4 g4
-    b8( c) d4 d e4 c2
+    d4 | g4 g a8( b) | g4 g b8( c) |
+    d4 d e | c2
   }
   \addlyrics {
-    A -- way in a __ man -- ger,
-    no __ crib for a bed, __
+    A -- | way in a __ | man -- ger,
+    no __ | crib for a | bed, __
   }
 >>
 @end lilypond
@@ -1081,28 +1132,29 @@ Ecco un esempio tratto dal @notation{Figaro} di Rossini, dove
 @lilypond[verbatim,quote,noragged-right]
 <<
   \relative c' {
-    \clef bass
+    \clef "bass"
     \key c \major
     \time 6/8
-    c4.~ c8 d b c([ d]) b c d b c
+    c4.~ c8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
-    Lar -- go_al fac -- to -- tum del -- la cit -- tà
+    Lar -- go_al fac -- | to -- tum del -- la cit -- | tà
   }
 >>
 @end lilypond
 
 
 @seealso
-Guida alla Notazione: @ruser{Vocal music}.
+Guida alla notazione:
+@ruser{Vocal music}.
 
 
 @node Testo su più righi
 @subsection Testo su più righi
 @translationof Lyrics to multiple staves
 
-@cindex lyrics and multiple staves
-@cindex multiple staves and lyrics
+@cindex testo e righi multipli
+@cindex righi multipli e testo
 
 Per porre lo stesso testo sotto più righi musicali, si può usare un approccio
 più semplice, ovvero @code{\addlyrics}.  Ecco un esempio tratto dal
@@ -1114,19 +1166,19 @@ più semplice, ovvero @code{\addlyrics}.  Ecco un esempio tratto dal
     \key f \major
     \time 6/8
     \partial 8
-    c8 c([ bes]) a a([ g]) f f'4. b, c4.~ c4
+    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ c4
   }
   \addlyrics {
-    Let flee -- cy flocks the hills a -- dorn, __
+    Let | flee -- cy flocks the | hills a -- | dorn, __
   }
   \relative c' {
     \key f \major
     \time 6/8
     \partial 8
-    r8 r4. r4 c8 a'([ g]) f f([ e]) d e([ d]) c bes'4
+    r8 | r4. r4 c8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
   }
   \addlyrics {
-    Let flee -- cy flocks the hills a -- dorn,
+    Let | flee -- cy flocks the | hills a -- dorn,
   }
 >>
 @end lilypond
@@ -1134,11 +1186,12 @@ più semplice, ovvero @code{\addlyrics}.  Ecco un esempio tratto dal
 Per scrivere partiture un po' più complesse di questi semplici esempi,
 è meglio separare la struttura dello spartito dalle note e dai testi
 mediante l'uso di variabili. Di queste si parla più approfonditamente
-in @ref{Organizing pieces with variables}.
+in @ref{Organizzare i brani con le variabili}.
 
 
 @seealso
-Guida alla Notazione: @ruser{Vocal music}.
+Guida alla notazione:
+@ruser{Vocal music}.
 
 
 @node Ritocchi finali
@@ -1151,7 +1204,6 @@ al resto del manuale.
 
 @menu
 * Organizzare i brani con le variabili::
-* Numero di versione::
 * Aggiungere i titoli::
 * Nomi assoluti delle note::
 * Dopo il tutorial::
@@ -1173,10 +1225,10 @@ al resto del manuale.
 @cindex caratteri permessi nelle variabili
 
 Quando tutti gli elementi discussi precedentemente vengono combinati insieme
-per produrre file di maggiori dimensioni, anche le espressioni musicali diventano molto più
-grandi.  Nella musica polifonica con molti righi musicali, i file di input
-possono diventare molto confusi.  Possiamo ridurre tale confusione attraverso
-l'uso delle @emph{variabili}.
+per produrre file di maggiori dimensioni, anche le espressioni musicali
+diventano molto più grandi.  Nella musica polifonica con molti righi musicali,
+i file di input possono diventare molto confusi.  Possiamo ridurre tale
+confusione attraverso l'uso delle @emph{variabili}.
 
 Con le variabili (conosciute anche come identificatori o macro), possiamo
 scomporre le espressioni musicali complesse.  Una variabile viene assegnata
@@ -1198,7 +1250,7 @@ violin = \new Staff {
 }
 cello = \new Staff {
   \relative c {
-    \clef bass
+    \clef "bass"
     e2 d
   }
 }
@@ -1214,18 +1266,18 @@ cello = \new Staff {
 Il nome di una variabile deve contenere soltanto caratteri alfabetici, non
 può avere numeri, trattini bassi (underscore) o trattini di altro tipo.
 
-Le variabili devono essere definite @emph{prima} della principale
-espressione musicale, ma possono poi essere usate quante volte si vuole
-e ovunque, una volta definite.  Possono essere usate anche
-all'interno della definizione di un'altra variabile successiva, dando la possibilità di
-accorciare l'input se una sezione della musica viene ripetuta molte volte.
+Le variabili devono essere definite @emph{prima} della principale espressione
+musicale, ma possono poi essere usate quante volte si vuole e ovunque, una
+volta definite.  Possono essere usate anche all'interno della definizione di
+un'altra variabile successiva, dando la possibilità di accorciare l'input se
+una sezione della musica viene ripetuta molte volte.
 
 @lilypond[verbatim,quote]
 tripletA = \times 2/3 { c,8 e g }
 barA = { \tripletA \tripletA \tripletA \tripletA }
 
 \relative c'' {
- \barA \barA
+  \barA \barA
 }
 @end lilypond
 
@@ -1250,39 +1302,6 @@ differenti.  L'esempio seguente usa le variabili mostrate sopra:
   c4^\name
 @}
 @end example
-
-
-@node Numero di versione
-@subsection Numero di versione
-@translationof Version number
-
-@cindex versioning
-@cindex versione
-@cindex numero di versione
-@cindex aggiornamenti
-@cindex aggiornamenti futuri
-@cindex aggiornare i file
-@cindex file, aggiornare
-
-@funindex \version
-@funindex version
-@funindex convert-ly
-
-La dichiarazione @code{\version} definisce la versione di LilyPond che
-è stata usata per scrivere il file:
-
-@example
-\version @w{"@version{}"}
-@end example
-
-@noindent
-Per convenzione, è posta in cima al file LilyPond.
-
-Queste annotazioni fanno sì che i futuri aggiornamenti di LilyPond procedano
-senza intoppi.  I cambiamenti nella sintassi sono gestiti da un programma
-speciale, @command{convert-ly}, che si basa su @code{\version} per
-determinare quali regole applicare.  Per maggiori dettagli, si veda
-@rprogram{Updating files with convert-ly}.
 
 
 @node Aggiungere i titoli
@@ -1342,9 +1361,9 @@ della chiave di basso.
 
 @lilypond[verbatim,quote]
 {
-  \clef bass
-  c' b g, g,
-  g, f, f c'
+  \clef "bass"
+  c'4 b g, g, |
+  g,4 f, f c' |
 }
 @end lilypond
 
@@ -1352,28 +1371,28 @@ Ecco una scala con quattro ottave:
 
 @lilypond[verbatim,quote]
 {
-  \clef bass
-  c, d, e, f,
-  g, a, b, c
-  d e f g
-  a b c' d'
-  \clef treble
-  e' f' g' a'
-  b' c'' d'' e''
-  f'' g'' a'' b''
-  c'''1
+  \clef "bass"
+  c,4 d, e, f, |
+  g,4 a, b, c |
+  d4 e f g |
+  a4 b c' d' |
+  \clef "treble"
+  e'4 f' g' a' |
+  b'4 c'' d'' e'' |
+  f''4 g'' a'' b'' |
+  c'''1 |
 }
 @end lilypond
 
-Come si può vedere, scrivere una melodia in chiave di violino richiede un
-ampio uso di virgolette @code{'}.  Si consideri questo frammento tratto da Mozart:
+Come si può vedere, scrivere una melodia in chiave di violino richiede un ampio
+uso di virgolette @code{'}.  Si consideri questo frammento tratto da Mozart:
 
 @lilypond[verbatim,quote]
 {
   \key a \major
   \time 6/8
-  cis''8. d''16 cis''8 e''4 e''8
-  b'8. cis''16 b'8 d''4 d''8
+  cis''8. d''16 cis''8 e''4 e''8 |
+  b'8. cis''16 b'8 d''4 d''8 |
 }
 @end lilypond
 
@@ -1409,7 +1428,7 @@ computer.
 Dopo aver finito di leggere la guida, probabilmente dovresti cercare
 di scrivere uno o due brani.  Puoi iniziare aggiungendo delle note a uno
 dei @ref{Templates}.  Se necessiti di una qualche notazione che non è
-stata coperta nel tutorial, dai un'occhiata alla Guida alla Notazione,
+stata coperta nel tutorial, dai un'occhiata alla Guida alla notazione,
 a cominciare da @ruser{Musical notation}.  Se vuoi scrivere per un gruppo
 di strumenti che non è incluso nei template, dai un'occhiata a
 @ref{Extending the templates}.
@@ -1422,15 +1441,14 @@ con l'input di LilyPond.  Puoi saltare questi capitoli adesso, e tornare
 a leggerli quando ti sarai fatto un po' di esperienza.
 
 In questo tutorial e nel resto del Manuale di Apprendimento, alla fine di
-ogni sezione c'è un paragrafo @strong{See also}, che contiene
+ogni sezione c'è un paragrafo @strong{Vedi anche}, che contiene
 riferimenti incrociati ad altre sezioni: non dovresti seguire questi
 riferimenti quando leggi il manuale per la prima volta; quando avrai completato
 la lettura di tutto il Manuale di Apprendimento, potrai rileggere alcune
 sezioni e seguire i riferimenti incrociati per letture di approfondimento.
 
 Se non lo hai già fatto, @emph{ti consigliamo} di leggere
-FIXME FIXME FIXME
-@c @ref{About the documentation}.  Contiene molte informazioni su LilyPond,
+@ref{Panoramica dei manuali}.  Contiene molte informazioni su LilyPond,
 ed è quindi utile per i nuovi utenti, che spesso non sanno dove cercare
 aiuto.  Se dedichi cinque  minuti all'attenta lettura di quella sezione,
 potresti risparmiarti ore di frustrazione sprecate a guardare in posti sbagliati!
