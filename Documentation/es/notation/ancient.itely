@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: 1b832d794f1444033f10465971e97d33f76fe310
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -766,27 +766,11 @@ distintos de los del estilo predeterminado.  Si se solicita, el
 símbolo de becuadro se extrae del estilo @code{vaticana}.
 
 @lilypond[quote,ragged-right,staffsize=26]
-\score {
-{
-  \textLengthOn
-  s^\markup {
-    \column {
-      "mensural"
-      \line { " " \musicglyph #"accidentals.mensural-1"
-        " " \musicglyph #"accidentals.mensural1" }
-    }
-  }
-}
-\layout {
-  interscoreline = 1
-  \context { \Score \remove "Bar_number_engraver" }
-  \context { \Staff
-      \remove "Clef_engraver"
-      \remove "Key_engraver"
-      \remove "Time_signature_engraver"
-      \remove "Staff_symbol_engraver"
-      \override VerticalAxisGroup #'minimum-Y-extent = ##f
-    }
+\markup {
+  \column {
+    "mensural"
+    \line { " " \musicglyph #"accidentals.mensural-1"
+      " " \musicglyph #"accidentals.mensural1" }
   }
 }
 @end lilypond
@@ -1167,35 +1151,19 @@ Referencia de la notación:
 Están disponibles las alteraciones de los tres estilos gregorianos:
 
 @lilypond[quote,ragged-right,staffsize=26]
-\score {
-{
-  \textLengthOn
-  s^\markup {
-    \column {
-      "vaticana"
-      \line { " " \musicglyph #"accidentals.vaticana-1"
-        " " \musicglyph #"accidentals.vaticana0" }
-    }
-    \column {
-      "medicaea"
-      \line { " " \musicglyph #"accidentals.medicaea-1" }
-    }
-    \column {
-      "hufnagel"
-      \line { " " \musicglyph #"accidentals.hufnagel-1" }
-    }
+\markup {
+  \column {
+    "vaticana"
+    \line { " " \musicglyph #"accidentals.vaticana-1"
+      " " \musicglyph #"accidentals.vaticana0" }
   }
-}
-\layout {
-  interscoreline = 1
-  \context { \Score \remove "Bar_number_engraver" }
-  \context { \Staff
-      \remove "Clef_engraver"
-      \remove "Key_engraver"
-      \remove "Time_signature_engraver"
-      \remove "Staff_symbol_engraver"
-      \override VerticalAxisGroup #'minimum-Y-extent = ##f
-    }
+  \column {
+    "medicaea"
+    \line { " " \musicglyph #"accidentals.medicaea-1" }
+  }
+  \column {
+    "hufnagel"
+    \line { " " \musicglyph #"accidentals.hufnagel-1" }
   }
 }
 @end lilypond
