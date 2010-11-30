@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4039f52de2f225ee2bd94840324d0192fbac37b3
+    Translation of GIT committish: 61fed596442d47e96c10ac3c9c0c696e5dfd22cf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,6 +16,22 @@
 @c keep two blank lines between news entries
 
 @c used for news about the upcoming release; see CG 10.2
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.40!  @emph{21 de noviembre de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.40.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+
+Tenga en cuenta que ésta @strong{no} es la segunda versión de pruebas
+beta.  A causa de la aparición de algunos cambios en nuestro proceso
+de construcción del programa que no se han probado, no podemos estar
+completamente seguros de la calidad de esta versión.
+
+@newsEnd
 
 
 @newsItem
