@@ -461,7 +461,7 @@ staff position of a tablature note head.  Called with two arguments:
 the context and the string.")
      (tempoHideNote ,boolean? "Hide the note=count in tempo marks.")
      (tempoText ,markup? "Text for tempo marks.")
-     (tempoUnitCount ,number? "Count for specifying tempo.")
+     (tempoUnitCount ,number-or-pair? "Count for specifying tempo.")
      (tempoUnitDuration ,ly:duration? "Unit for specifying tempo.")
      (tempoWholesPerMinute ,ly:moment? "The tempo in whole notes per
 minute.")

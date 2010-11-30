@@ -151,7 +151,11 @@
                      (duration->number (ly:music-property tempo-spec 'tempo-unit))))
                  ((music-name? tempo-spec 'SequentialMusic)
                   (* (property-value
-                      (find-child tempo-spec (lambda (elt) (music-property? elt 'tempoUnitCount))))
+                      (find-child tempo-spec (lambda (elt)
+					       (let ((tempo (music-property? elt 'tempoUnitCount)))
+						 (if (pair? tempo)
+						     (round (/ (+ (car tempo) (cdr tempo)) 2))
+						     tempo)))))
                      (duration->number
                       (property-value
                        (find-child tempo-spec (lambda (elt) (music-property? elt 'tempoUnitDuration)))))))
