@@ -437,6 +437,7 @@ If we give names, Bison complains.
 %type <scm> step_number
 %type <scm> step_numbers
 %type <scm> string
+%type <scm> tempo_range
 
 %type <score> score_block
 %type <score> score_body
@@ -906,14 +907,14 @@ output_def_body:
 	;
 
 tempo_event:
-	TEMPO steno_duration '=' bare_unsigned	{
-		$$ = MAKE_SYNTAX ("tempo", @$, SCM_BOOL_F, $2, scm_from_int ($4));
+	TEMPO steno_duration '=' tempo_range	{
+		$$ = MAKE_SYNTAX ("tempo", @$, SCM_BOOL_F, $2, $4);
 	}
-	| TEMPO string steno_duration '=' bare_unsigned	{
-		$$ = MAKE_SYNTAX ("tempo", @$, make_simple_markup($2), $3, scm_from_int ($5));
+	| TEMPO string steno_duration '=' tempo_range	{
+		$$ = MAKE_SYNTAX ("tempo", @$, make_simple_markup($2), $3, $5);
 	}
-	| TEMPO full_markup steno_duration '=' bare_unsigned	{
-		$$ = MAKE_SYNTAX ("tempo", @$, $2, $3, scm_from_int ($5));
+	| TEMPO full_markup steno_duration '=' tempo_range	{
+		$$ = MAKE_SYNTAX ("tempo", @$, $2, $3, $5);
 	}
 	| TEMPO string {
 		$$ = MAKE_SYNTAX ("tempoText", @$, make_simple_markup($2) );
@@ -2289,6 +2290,15 @@ step_number:
 	}
 	;
 
+tempo_range:
+	bare_unsigned {
+		$$ = scm_from_int ($1);
+	}
+	| bare_unsigned '~' bare_unsigned {
+		$$ = scm_cons (scm_from_int ($1), scm_from_int ($3));
+	}
+	;
+
 /*
 	UTILITIES
 
@@ -2359,7 +2369,6 @@ unsigned_number:
 		$$ = $1;
 	}
 	;
-
 
 exclamations:
 		{ $$ = 0; }

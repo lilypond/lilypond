@@ -164,6 +164,9 @@ stderr of this run."
 \test "" ##[ \mark \default #]			% MarkEvent
 \test "" ##[ \mark "Allegro" #]
 \test "" ##[ \tempo 4 = 120 #]			% MetronomeChangeEvent
+\test "" ##[ \tempo 4 = 108 ~ 116 #]
+\test "" ##[ \tempo "Allegro" 4 = 132 #]
+\test "" ##[ \tempo "Andante" #]
 
 %% key, time, clef, bar
 \test "" ##[ \key \default #]			% KeyChangeEvent

@@ -502,6 +502,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     (,markup-list? . "markup list")
     (,moment-pair? . "pair of moment objects")
     (,number-or-grob? . "number or grob")
+    (,number-or-pair? . "number or pair")
     (,number-or-string? . "number or string")
     (,number-pair? . "pair of numbers")
     (,rhythmic-location? . "rhythmic location")
