@@ -42,7 +42,7 @@ instrucciones que se muestran en este capítulo se pueden poner en
 cualquiera de los dos.
 
 @menu
-* El papel y las páginas::
+* Disposición de la página::
 * Disposición de la música::
 * Saltos::
 * Espaciado vertical::
@@ -51,9 +51,9 @@ cualquiera de los dos.
 @end menu
 
 
-@node El papel y las páginas
-@section El papel y las páginas
-@translationof Paper and pages
+@node Disposición de la página
+@section Disposición de la página
+@translationof Page layout
 
 Esta sección se ocupa de los límites que definen la zona del papel en
 que se puede imprimir la música.
@@ -448,6 +448,13 @@ horizontales de una página:
 Se aumenta la cantidad @code{inner-margin} para asegurar que el
 encuadernado no va a tapar nada.  Sólo funciona con @code{two-sided}
 establecido al valor verdadero.  Valor predeterminado: @code{0}.
+
+@node Variables de \paper para desplazamientos y sangrados
+@unnumberedsubsubsec Variables de @code{\paper} para desplazamientos y sangrados
+@translationof \paper variables for shifts and indents
+
+Default values (before scaling) that are not listed here are
+defined in @file{ly/paper-defaults-init.ly}.
 
 @item horizontal-shift
 @funindex horizontal-shift

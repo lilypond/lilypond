@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -374,9 +374,8 @@ convertir las alturas en modo absoluto.
 mostrar un resumen de la utilización y las opciones.
 
 @item -l, --language=IDIOMA
-utilizar un archivo de idioma distinto @file{IDIOMA.ly} y los
-correspondientes nombres de nota, p.ej. 'deutsch' para @file{deutsch.ly} y
-los nombres de nota en alemán.
+utilizar IDIOMA para los nombres de las notas, p.ej.
+'espanol' para los nombres de las notas en español.
 
 @item --lxml
 usar el paquete de Python lxml.etree para el análisis de XML; usa

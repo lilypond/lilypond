@@ -1,7 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+u@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 345522f312430725cdae0d61acfa716ce08622ca
+    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -537,7 +537,7 @@ compositor; ciertas piezas tienen mucha más información.
 
 @menu
 * Crear títulos::
-* Títulos personalizados::
+* Encabezamientos pies y títulos personalizados::
 * Referencias a números de página::
 * Índice general::
 @end menu
@@ -739,9 +739,9 @@ falso.
 @end example
 
 
-@node Títulos personalizados
-@subsection Títulos personalizados
-@translationof Custom titles
+@node Encabezamientos pies y títulos personalizados
+@subsection Encabezamientos, pies y títulos personalizados
+@translationof Custom headers footers and titles
 
 Una opción más avanzada es cambiar las definiciones de las variables
 siguientes dentro del bloque @code{\paper}.  El archivo de inicio
@@ -798,16 +798,48 @@ copyright en la primera página, y el cartel @code{tagline} en la
 La definición siguiente pone el título en el extremo izquierdo, y el
 compositor en el extremo derecho sobre una única línea.
 
-@verbatim
-\paper {
-  bookTitleMarkup = \markup {
-   \fill-line {
+@example
+\paper @{
+  bookTitleMarkup = \markup @{
+   \fill-line @{
      \fromproperty #'header:title
      \fromproperty #'header:composer
-   }
-  }
-}
-@end verbatim
+   @}
+  @}
+@}
+@end example
+
+El encabezamiento y el pie se crean por parte de las funciones
+@code{make-header} y @code{make-footer}, definidas dentro de
+@code{\paper}.  Las implementaciones predeterminadas están en
+@file{ly/paper-defaults-init.ly} y @file{ly/titling-init.ly}.
+
+Este ejemplo centra los números de página en la parte de abajo de cada
+una.
+
+@example
+\paper @{
+  print-page-number = ##t
+  print-first-page-number = ##t
+  oddHeaderMarkup = \markup \fill-line @{ " " @}
+  evenHeaderMarkup = \markup \fill-line @{ " " @}
+  oddFooterMarkup = \markup @{
+    \fill-line @{
+      \bold \fontsize #3
+      \on-the-fly #print-page-number-check-first
+      \fromproperty #'page:page-number-string
+    @}
+  @}
+  evenFooterMarkup = \markup @{
+    \fill-line @{
+      \bold \fontsize #3
+      \on-the-fly #print-page-number-check-first
+      \fromproperty #'page:page-number-string
+    @}
+  @}
+@}
+@end example
+
 
 @node Referencias a números de página
 @subsection Referencias a números de página

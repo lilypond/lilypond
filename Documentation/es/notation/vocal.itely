@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c20e5df6da652c0ad16e1d15a86c10006482520f
+    Translation of GIT committish: 7044a6e78c052315e4fbc05cb9a05fbfb16de9f5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2279,7 +2279,7 @@ sistemas.  Véase @ref{Separación de sistemas}.
 
 @item
 Para ver más detalles sobre otras propiedades de formateo de las
-páginas, consulte @ref{Formateo de las páginas}.
+páginas, consulte @ref{Disposición de la página}.
 
 @end itemize
 
@@ -2326,7 +2326,7 @@ Referencia de la notación:
 @ref{Cambiar el espaciado},
 @ref{Mostrar el espaciado},
 @ref{Encajar la música en menos páginas},
-@ref{Formateo de las páginas},
+@ref{Disposición de la página},
 @ref{Disposición de la partitura},
 @ref{Separación de sistemas},
 @ref{Establecer el tamaño del pentagrama},
@@ -2435,7 +2435,7 @@ See @ref{Separación de sistemas}.
 
 @item
 Para ver detalles acerca de otras propiedades de formateo de las
-páginas, consulte @ref{Formateo de las páginas}.
+páginas, consulte @ref{Disposición de la página}.
 
 @item
 Las notas guía de los diálogos y las instrucciones de escena se pueden
@@ -2457,7 +2457,7 @@ Referencia de la notación:
 @ref{Ocultar pentagramas},
 @ref{Transposición de los instrumentos},
 @ref{Grupos de pentagramas anidados},
-@ref{Formateo de las páginas},
+@ref{Disposición de la página},
 @ref{Separación de sistemas},
 @ref{Transposición},
 @ref{Escritura de las particellas},

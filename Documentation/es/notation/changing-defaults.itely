@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 94ca9e6f8df4f718787266976ee68141d70d4c7c
+Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2368,8 +2368,8 @@ cantidad, @code{\mm}, @code{\cm}, @code{\in}@tie{}(pulgadas), o
 @code{\pt}@tie{}(puntos, 1/72.27 pulgadas).  Las distancias de diseño
 de página se pueden especificar también en unidades escalables (véase
 el párrafo siguiente) adjuntando @code{\staff-space} a la cantidad.
-La disposición de página se describe en detalle en @ref{Formateo de
-las páginas}.
+La disposición de página se describe en detalle en
+@ref{Disposición de la página}.
 
 Las distancias escaladas siempre se especifican en unidades de un
 espacio del pentagrama o, más raramente, medio espacio del pentagrama.
@@ -2405,7 +2405,7 @@ Manual de aprendizaje:
 @rlearning{Longitud y grosor de los objetos}.
 
 Referencia de la notación:
-@ref{Formateo de las páginas},
+@ref{Disposición de la página},
 @ref{Establecer el tamaño del pentagrama}.
 
 
