@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.36
-\version "2.13.39"
+\version "2.13.40"
 
 \header {
 %% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
@@ -40,7 +40,7 @@ con los abanicos y los rasgueados, las notas se imprimen con cabeza
 sólo en el primer acorde.
 
 Este fragmento de código contiene código de tipo cabecera que se puede
-copiar como @samp{flamenco.ly} e incluirse en los documentos fuente.
+copiar como @file{flamenco.ly} e incluirse en los documentos fuente.
 
 "
   doctitlees = "Notación del flamenco"

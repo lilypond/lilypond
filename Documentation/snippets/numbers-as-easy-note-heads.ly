@@ -5,7 +5,7 @@
 \version "2.13.40"
 
 \header {
-%% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
+%% Translation of GIT committish: 67e7cb93611fa389c7e86c6e47e894ff30a8395c
   texidoces = "
 
 Las cabezas de nota de notación fácil utilizan la propiedad

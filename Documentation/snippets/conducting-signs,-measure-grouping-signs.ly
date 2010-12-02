@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.36
-\version "2.13.39"
+\version "2.13.40"
 
 \header {
 %% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
@@ -56,7 +56,7 @@ der @code{set-time-signature}-Funktion als das dritte Argument mitgegeben:
   texidocfr = "
 Les règles de ligature par mesure sont gérées par la propriété
 @code{beatStructure}.  Ses valeurs par défaut sont répertoriées, par
-métrique, dans le fichier @code{scm/time-signature-settings.scm}.  Elles
+métrique, dans le fichier @code{scm/@/time-@/signature@/-settings@/.scm}.  Elles
 sont modifiables grâce à la commande @code{\\set}.
 La fonction Scheme @code{set-time-signature} permet quant à elle de
 définir à la fois la métrique et la pulsation.  Celle-ci prend trois
@@ -72,7 +72,7 @@ Si l'on fait appel au @code{Measure_grouping_engraver}, la fonction
 @code{MeasureGrouping}.  Ces symboles aident à la lecture des œuvres
 modernes à la rythmique complexe.  Dans l'exemple qui suit, la mesure à
 9/8 est divisée en 2, 2, 2 et 3, alors que la mesure à 5/8 répond aux
-règles par défaut contenues dans le fichier @w{@code{scm/beam-settings.scm}}.
+règles par défaut contenues dans le fichier @w{@code{scm/@/beam@/-settings@/.scm}}.
 
 "
   doctitlefr = "Signes de direction signes de sous-groupe"

@@ -2,14 +2,14 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.36
-\version "2.13.39"
+\version "2.13.40"
 
 \header {
 %% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
   texidoces = "
 El «Makam» es un tipo de melodía de Turquía que
 utiliza alteraciones microtonales de 1/9 de tono.  Consulte el
-archivo de inicio @code{makam.ly} (véase el 'Manual de
+archivo de inicio @file{makam.ly} (véase el 'Manual de
 aprendizaje @version{}, 4.6.3 Otras fuentes de información' para
 averiguar la situación de este archivo) para ver detalles de los
 nombres de las notas y las alteraciones.
@@ -23,7 +23,7 @@ nombres de las notas y las alteraciones.
   texidocde = "
 Makam ist eine türkische Melodie, in der 1/9-Tonabstände
 eingesetzt werden.  Sehen Sie sich die Initialisierungsdatei
-@code{makam.ly} für weiter Information zu Tonhöhenbezeichnungen
+@file{makam.ly} für weiter Information zu Tonhöhenbezeichnungen
 und Alterationen an (siehe
 Handbuch zum Lernen @version{}, 4.6.3 Weitere Information zu
 Hinweisen, wo diese Datei gespeichert ist)."
@@ -34,7 +34,7 @@ Hinweisen, wo diese Datei gespeichert ist)."
   texidocfr = "
 Le « makam » est une forme de mélodie turque qui utilise des altérations
 d'un neuvième de ton.  Consultez le fichier d'initialisation
-@code{makam.ly} pour plus de détails sur les hauteurs et altérations
+@file{makam.ly} pour plus de détails sur les hauteurs et altérations
 utilisées (voir le chapitre 4.6.3 - Autres sources d'information du
 manuel d'initiation pour le localiser).
 

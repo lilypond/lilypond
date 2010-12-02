@@ -16,9 +16,9 @@ pieza en particellas indicviduales.
 
 Tenemos que dividir esta plantilla en archivos independientes; los
 nombres de archivo están dentro de los comentarios al principio de
-cada archivo. @code{piece.ly} contiene todas las definiciones de
-música. Los otros archivos (@code{score.ly}, @code{vn1.ly},
-@code{vn2.ly}, @code{vla.ly} y @code{vlc.ly}) producen la particella
+cada archivo. @file{piece.ly} contiene todas las definiciones de
+música. Los otros archivos (@file{score.ly}, @file{vn1.ly},
+@file{vn2.ly}, @file{vla.ly} y @file{vlc.ly}) producen la particella
 correspondiente.
 
 ¡No olvide quitar los comentarios que hemos especificado cuando use
@@ -52,11 +52,11 @@ voneinander notieren können. Im nächsten Beispiel wird nun
 gezeigt, wie Sie mit diesen Variablen einzelne Stimmen erstellen.
 
 Sie müssen das Beispiel in einzelne Dateien aufteilen; die Dateinamen
-sind in den Kommentaren am Anfang jeder Datei enthalten.  @code{piece.ly}
-enthält die Noten. Die anderen Dateien -- @code{score.ly},
-@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly} und
-@code{vlc.ly} -- erstellen daraus die entsprechenden Stimmen bzw. die
-Partitur (@code{score.ly}). Mit @code{\\tag} wird den Stimmen ein Name
+sind in den Kommentaren am Anfang jeder Datei enthalten.  @file{piece.ly}
+enthält die Noten. Die anderen Dateien -- @file{score.ly},
+@file{vn1.ly}, @file{vn2.ly}, @file{vla.ly} und
+@file{vlc.ly} -- erstellen daraus die entsprechenden Stimmen bzw. die
+Partitur (@file{score.ly}). Mit @code{\\tag} wird den Stimmen ein Name
 zugewiesen, auf den zurückgegriffen werden kann.
 "
 
@@ -72,9 +72,9 @@ illustre l'utilisation de la fonction @code{\\tag} dans le but
 d'extraire des parties séparées.
 
 Il vous faudra découper ce canevas en plusieurs fichiers séparés ; leur
-nom respectif est indiqué en commentaire : @code{piece.ly} comporte tout
-ce qui a trait à la musique, les autres fichiers -- @code{score.ly},
-@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly}, et @code{vlc.ly} -- vous
+nom respectif est indiqué en commentaire : @file{piece.ly} comporte tout
+ce qui a trait à la musique, les autres fichiers -- @file{score.ly},
+@file{vn1.ly}, @file{vn2.ly}, @file{vla.ly}, et @file{vlc.ly} -- vous
 permettront d'obtenir les parties selon le pupitre.
 
 

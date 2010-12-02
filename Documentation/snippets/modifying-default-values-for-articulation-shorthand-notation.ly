@@ -9,7 +9,7 @@
 %% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
   texidoces = "
 Las abreviaturas se encuentran definidas dentro del archivo
-@code{ly/script-init.ly}, donde las variables @code{dashHat},
+@file{ly/script-init.ly}, donde las variables @code{dashHat},
 @code{dashPlus}, @code{dashDash}, @code{dashBar},
 @code{dashLarger}, @code{dashDot} y @code{dashUnderscore} reciben
 valores predeterminados.  Se pueden modificar estos valores
@@ -24,7 +24,7 @@ semitrino en lugar del símbolo predeterminado +, asigne el valor
 
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
  texidocde = "
-Die Abkürzungen sind in der Datei @samp{ly/script-init.ly} definiert, wo
+Die Abkürzungen sind in der Datei @file{ly/script-init.ly} definiert, wo
 den Variablen @code{dashHat}, @code{dashPlus}, @code{dashDash},
 @code{dashBar}, @code{dashLarger}, @code{dashDot} und
 @code{dashUnderscore} Standardwerte zugewiesen werden.  Diese Standardwerte
@@ -39,7 +39,7 @@ assoziieren, muss der Wert @code{trill} der Variable
 %% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
   texidocfr = "
 Les raccourcis sont répertoriés dans le fichier
-@code{ly/script-init.ly}, dans lequel on retrouve les variables
+@file{ly/script-init.ly}, dans lequel on retrouve les variables
 @code{dashHat}, @code{dashPlus}, @code{dashDash}, @code{dashBar},
 @code{dashLarger}, @code{dashDot}, et @code{dashUnderscore} ainsi que
 leur valeur par défaut.  Ces valeurs peuvent être modifiées selon vos

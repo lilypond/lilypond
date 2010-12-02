@@ -4,7 +4,7 @@
 \version "2.13.39"
 
 \header {
-%% Translation of GIT committish: 42cf5468694e6757494d4505ab9b6ea7bc591e59
+%% Translation of GIT committish: 67e7cb93611fa389c7e86c6e47e894ff30a8395c
 
   texidoces = "
 El comportamiento predeterminado de la visibilidad de los corchetes de
@@ -20,6 +20,7 @@ corchete solamente si no hay barra).
   doctitlees = "Controlar la visibilidad de los corchetes de grupo especial"
 
   lsrtags = "rhythms, tweaks-and-overrides"
+
 
 
 %% Translation of GIT committish: 190a067275167c6dc9dd0afef683d14d392b7033

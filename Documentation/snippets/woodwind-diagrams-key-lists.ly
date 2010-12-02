@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.36
-\version "2.13.39"
+\version "2.13.40"
 
 \header {
 %%%    Translation of GIT committish: 298a2c322d7e4f437f3dd1a24db2839e3f35acce
@@ -35,7 +35,7 @@ der Kommandozeile und in der Log-Datei angezeigt, nicht in den Noten.
   texidocfr = "
 Le code suivant vous permettra d'obtenir une liste de toutes les
 possibilités en matière de doigtés pour bois, tels qu'ils sont définis
-dans le fichier @code{scm/define-woodwind-diagrams.scm}.  Cette liste
+dans le fichier @file{scm/define-woodwind-diagrams.scm}.  Cette liste
 sera produite en console et dans le fichier de journalisation, mais pas
 sous forme de musique.
 "

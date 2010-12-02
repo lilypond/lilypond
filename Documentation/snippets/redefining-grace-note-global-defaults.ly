@@ -14,7 +14,7 @@ almacenados en los identificadores @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAcciaccaturaMusic},
 @code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic} y
 @code{stopAppoggiaturaMusic}, que están definidos en el archivo
-@code{ly/grace-init.ly}.  Redefiniéndolos se pueden obtener otros
+@file{ly/grace-init.ly}.  Redefiniéndolos se pueden obtener otros
 efectos.
 
 "
@@ -29,7 +29,7 @@ Die globalen Standardeinstellungen für Verzierungsnoten werden in
 den Variablen@code{startGraceMusic}, @code{stopGraceMusic},
 @code{startAcciaccaturaMusic}, @code{stopAcciaccaturaMusic},
 @code{startAppoggiaturaMusic} und @code{stopAppoggiaturaMusic}
-gespeichert, die in der Datei @code{ly/grace-init.ly} definiert
+gespeichert, die in der Datei @file{ly/grace-init.ly} definiert
 sind.  Wenn man sie umdefiniert, können andere Effekte erreicht
 werden.
 
@@ -44,7 +44,7 @@ Vous pouvez modifier les valeurs des variables @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAcciaccaturaMusic},
 @code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic}, et
 @code{stopAppoggiaturaMusic} afin d'en personnaliser les effets.  Pour
-plus de détails, voir le fichier @code{ly/grace-init.ly}.
+plus de détails, voir le fichier @file{ly/grace-init.ly}.
 
 "
   doctitlefr = "Redéfinition des réglages de mise en forme par défaut des notes d'ornement"
