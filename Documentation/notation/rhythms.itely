@@ -2071,7 +2071,7 @@ For reference, the default beaming rules are found in
 
 
 @seealso
-Installed files:
+Installed Files:
 @file{scm/beam-settings.scm}.
 
 Snippets:

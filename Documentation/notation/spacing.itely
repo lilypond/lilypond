@@ -854,7 +854,7 @@ Notation Reference:
 @ref{Optimal page turning},
 @ref{Minimal page breaking}.
 
-Installed files:
+Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
 
@@ -944,7 +944,7 @@ sensible default, for example:
 
 
 @seealso
-Installed files:
+Installed Files:
 @file{ly/titling-init.ly}.
 
 Snippets:
@@ -1933,7 +1933,7 @@ in the staff-group that have it set.  Also see
 @end table
 
 @seealso
-Installed files:
+Installed Files:
 @file{ly/engraver-init.ly},
 @file{scm/define-grobs.scm}.
 
