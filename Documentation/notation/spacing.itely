@@ -586,7 +586,8 @@ systems, equal to
 when unset.  If @code{line-width} is set, and both
 @code{left-margin} and @code{right-margin} are unset, then the
 margins will be updated to center the systems on the page
-automatically.  Also see @code{check-consistency}.
+automatically.  Also see @code{check-consistency}.  This variable
+can also be set in a @code{\layout} block.
 
 @item left-margin
 @funindex left-margin
@@ -997,6 +998,7 @@ discussed in a separate chapter; see
 variables that can appear in a @code{\layout} block are:
 
 @itemize
+@item @code{line-width}
 @item @code{ragged-right}
 @item @code{ragged-last}
 @item @code{indent}
