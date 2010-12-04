@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b446ebc24f8d43acb323818988fe8b1d8072afc8
+    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1022,8 +1022,8 @@ aparecer en un bloque @code{\layout} se encuentran los siguientes:
 La función @code{layout-set-staff-size} se estudia en la sección
 siguiente, @ref{Establecer el tamaño del pentagrama}. Las
 modificaciones de contexto se estudian en un capítulo distinto; véase
-@ref{Modificar los complementos (plug-ins) de contexto} y @ref{Cambiar
-los ajustes predeterminados de contexto}.  Las variables de
+@ref{Modificar los complementos (plug-ins) de contexto} y
+@ref{Cambiar los valores por omisión de los contextos}.  Las variables de
 @code{\paper} que pueden aparecer dentro de un bloque @code{\layout}
 son:
 
@@ -1055,7 +1055,7 @@ He aquí un ejemplo de un bloque @code{\layout}:
 
 @seealso
 Referencia de la notación:
-@ref{Cambiar los ajustes predeterminados de contexto}.
+@ref{Cambiar los valores por omisión de los contextos}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -2047,7 +2047,7 @@ agrupadas}:
 @end itemize
 
 Estas propiedades de grob se describen individualmente más arriba;
-véase @ref{Propiedades de espaciado dentro de un sistema}.
+véase @ref{Propiedades de espaciado dentro de los sistemas}.
 
 Están implicadas ciertas propiedades adicionales para las pautas que
 son parte de un grupo; véase @ref{Espaciado de pautas agrupadas}.
@@ -2130,7 +2130,7 @@ de los grupos:
 @end itemize
 
 Estas propiedades de grob se describen individualmente más arriba;
-véase @ref{Propiedades de espaciado dentro de un sistema}.
+véase @ref{Propiedades de espaciado dentro de los sistemas}.
 
 El ejemplo siguiente muestra cómo pueden afectar las propiedades del
 grob @code{StaffGrouper} al espaciado de las pautas agrupadas:
@@ -2194,7 +2194,7 @@ son pautas:
 @end itemize
 
 Estas propiedades de grob se describen individualmente más arriba;
-véase @ref{Propiedades de espaciado dentro del sistema}.
+véase @ref{Propiedades de espaciado dentro de los sistemas}.
 
 El ejemplo siguiente muestra cómo la propiedad
 @code{nonstaff-nonstaff-spacing} puede afectar el espaciado de líneas

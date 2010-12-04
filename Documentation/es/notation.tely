@@ -15,7 +15,7 @@
 
 @macro manualIntro
 Este manual ofrece una referencia para toda la notación musical que se
-puede prducir con LilyPond versión @version{}.  Da por sentado que el
+puede producir con LilyPond versión @version{}.  Da por sentado que el
 lector está familiarizado con el material que hay en
 @rlearningnamed{Top, Manual de aprendizaje}.
 @end macro
