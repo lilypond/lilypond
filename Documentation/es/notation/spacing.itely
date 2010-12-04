@@ -39,15 +39,15 @@ altura de la hoja o si se imprimen los números de página, etc.  Véase
 @ref{Disposición de la página}.  El bloque @code{\layout} contiene
 ajustes de disposición de la partitura, como el número de sistemas que
 utilizar, o la separación entre grupos de pentagramas, etc.  Véase
-@ref{Diposición de la partitura}.
+@ref{Disposición de la partitura}.
 
 @menu
-* Disposición de la página::    
-* Disposición de la partitura::  
-* Saltos::                      
-* Espaciado vertical::          
-* Espaciado horizontal::        
-* Encajar la música en menos páginas::  
+* Disposición de la página::
+* Disposición de la partitura::
+* Saltos::
+* Espaciado vertical::
+* Espaciado horizontal::
+* Encajar la música en menos páginas::
 @end menu
 
 
@@ -59,12 +59,12 @@ Esta sección estudia las opciones de disposición de la página para el
 bloque @code{\paper}.
 
 @menu
-* El bloque \paper::            
-* Tamaño del papel y escalado automático::  
-* Variables de espaciado de \paper verticales fijas::  
-* Variables de espaciado de \paper verticales flexibles::  
-* Variables de espaciado de \paper horizontales::  
-* Otras variables de \paper::   
+* El bloque \paper::
+* Tamaño del papel y escalado automático::
+* Variables de espaciado de \paper verticales fijas::
+* Variables de espaciado de \paper verticales flexibles::
+* Variables de espaciado de \paper horizontales::
+* Otras variables de \paper::
 @end menu
 
 
@@ -154,8 +154,8 @@ Referencia de la notación:
 @funindex \paper
 
 @menu
-* Fijar el tamaño del papel::   
-* Escalado automático al tamaño del papel::  
+* Fijar el tamaño del papel::
+* Escalado automático al tamaño del papel::
 @end menu
 
 
@@ -355,8 +355,8 @@ dentro del bloque @code{\paper}.
 Véase @ref{Espaciado vertical flexible dentro de los sistemas}.
 
 @menu
-* Estructura de las listas-A de espaciado vertical flexible::  
-* Lista de veriables de espaciado de \paper verticales flexibles::  
+* Estructura de las listas-A de espaciado vertical flexible::
+* Lista de veriables de espaciado de \paper verticales flexibles::
 @end menu
 
 
@@ -550,9 +550,9 @@ comportamiento distinto al esperado.  Véase
 @ref{Escalado automático al tamaño del papel}.}
 
 @menu
-* Variables de \paper para la anchura y los márgenes::  
-* Variables de \paper para el modo de doble cara::  
-* Variables de \paper para desplazamientos y sangrados::  
+* Variables de \paper para la anchura y los márgenes::
+* Variables de \paper para el modo de doble cara::
+* Variables de \paper para desplazamientos y sangrados::
 @end menu
 
 
@@ -760,10 +760,10 @@ Fragmentos de código:
 @translationof Other \paper variables
 
 @menu
-* Variables de \paper para los saltos de línea::  
-* Variables de \paper para los saltos de página::  
-* Variables de \paper para la numeración de las páginas::  
-* Variables de \paper diversas::  
+* Variables de \paper para los saltos de línea::
+* Variables de \paper para los saltos de página::
+* Variables de \paper para la numeración de las páginas::
+* Variables de \paper diversas::
 @end menu
 
 
@@ -992,8 +992,8 @@ Esta sección trata de las opciones de disposición de la partitura para
 el bloque @code{\layout}.
 
 @menu
-* El bloque \layout::           
-* Establecer el tamaño de los pentagramas::  
+* El bloque \layout::
+* Establecer el tamaño del pentagrama::
 @end menu
 
 
@@ -1020,11 +1020,12 @@ aparecer en un bloque @code{\layout} se encuentran los siguientes:
 @end itemize
 
 La función @code{layout-set-staff-size} se estudia en la sección
-siguiente, @ref{Ajustar el tamaño del pentagrama}. Las modificaciones
-de contexto se estudian en un capítulo distinto; véase @ref{Modificar
-los complementos de contexto} y @ref{Cambiar los ajustes
-predeterminados de contexto}.  Las variables de @code{\paper} que
-pueden aparecer dentro de un bloque @code{\layout} son:
+siguiente, @ref{Establecer el tamaño del pentagrama}. Las
+modificaciones de contexto se estudian en un capítulo distinto; véase
+@ref{Modificar los complementos (plug-ins) de contexto} y @ref{Cambiar
+los ajustes predeterminados de contexto}.  Las variables de
+@code{\paper} que pueden aparecer dentro de un bloque @code{\layout}
+son:
 
 @itemize
 @item @code{ragged-right}
@@ -1060,8 +1061,8 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Establecer el tamaño de los pentagramas
-@subsection Establecer el tamaño de los pentagramas
+@node Establecer el tamaño del pentagrama
+@subsection Establecer el tamaño del pentagrama
 @translationof Setting the staff size
 
 @cindex tipografía, fijar el tamaño de
@@ -1179,13 +1180,13 @@ del pentagrama.
 @translationof Breaks
 
 @menu
-* Saltos de línea::             
-* Saltos de página::            
-* Saltos de página óptimos::    
-* Paso de página óptimo::       
-* Saltos de página mínimos::    
-* Saltos de línea explícitos::  
-* Utilizar una voz adicional para los saltos de línea::  
+* Saltos de línea::
+* Saltos de página::
+* Saltos de página óptimos::
+* Paso de página óptimo::
+* Saltos de página mínimos::
+* Saltos de línea explícitos::
+* Utilizar una voz adicional para los saltos de línea::
 @end menu
 
 
@@ -1696,9 +1697,9 @@ la separación entre los sistemas, y la separación entre los
 pentagramas dentro de un sistema.
 
 @menu
-* Espaciado vertical flexible dentro de los sistemas::  
-* Posicionamiento explícito de los pentagramas y los sistemas::  
-* Evitar las colisiones verticales::  
+* Espaciado vertical flexible dentro de los sistemas::
+* Posicionamiento explícito de los pentagramas y los sistemas::
+* Evitar las colisiones verticales::
 @end menu
 
 
@@ -1745,9 +1746,9 @@ controla mediante variables de @code{\paper} que se estudian en
 @ref{Flexible vertical spacing \paper variables}.
 
 @menu
-* Propiedades de espaciado dentro de los sistemas::  
-* Espaciado de pautas no agrupadas::  
-* Espaciado de pautas agrupadas::  
+* Propiedades de espaciado dentro de los sistemas::
+* Espaciado de pautas no agrupadas::
+* Espaciado de pautas agrupadas::
 @end menu
 
 
@@ -2586,11 +2587,11 @@ Fragmentos de código:
 @cindex espaciado horizontal
 
 @menu
-* Panorámica del espaciado horizontal::  
-* Área de espaciado nueva::     
-* Cambiar el espaciado horizontal::  
-* Longitud de la línea::        
-* Notación proporcional::       
+* Panorámica del espaciado horizontal::
+* Área de espaciado nueva::
+* Cambiar el espaciado horizontal::
+* Longitud de la línea::
+* Notación proporcional::
 @end menu
 
 
@@ -3322,8 +3323,8 @@ valores de un cierto número de variables de espaciado; para ver más
 detalles consulte la sección siguiente, @ref{Mostrar el espaciado}.
 
 @menu
-* Mostrar el espaciado::        
-* Cambiar el espaciado::        
+* Mostrar el espaciado::
+* Cambiar el espaciado::
 @end menu
 
 
