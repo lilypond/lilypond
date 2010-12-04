@@ -310,13 +310,15 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged)
 
   if (!spacer.fits ())
     {
-      Real overflow = spacer.configuration_length (spacer.force ()) - page_height_;
-      vsize space_count = solution_.size ();
-      for (vsize i = 0; i < space_count; i++)
-	solution_[i] -= (i + 1) * overflow / space_count;
+      Real overflow = spacer.configuration_length (spacer.force ())
+		      - page_height_;
       warning (_f ("couldn't fit music on page: overflow is %f",
 		    overflow));
       warning (_ ("compressing music to fit"));
+      vsize space_count = solution_.size ();
+      Real spacing_increment = overflow / (space_count - 2);
+      for (vsize i = 2; i < space_count; i++)
+ 	solution_[i] -= (i-1) * spacing_increment;
     }
 }
 
