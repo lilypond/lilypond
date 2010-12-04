@@ -632,7 +632,7 @@ de @code{d''} et non de @code{d'}.
 Il existe aussi une vérification d'octave qui ne produit pas de musique
 imprimée, ayant pour syntaxe
 @code{\octaveCheck}@tie{}@var{hauteur_référence} --
-code{@var{hauteur_référence}} étant spécifiée en mode absolu.  Cette
+@code{@var{hauteur_référence}} étant spécifiée en mode absolu.  Cette
 commande vérifie que l'intervalle entre la note qui précède et
 @code{@var{hauteur_référence}} est inférieur à la quinte comme il se
 doît en mode relatif.  Dans le cas contraire, un message sera émis et la
