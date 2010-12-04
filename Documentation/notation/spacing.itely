@@ -174,7 +174,9 @@ The Scheme equivalent of the above example is:
 
 @seealso
 Notation Reference:
-@ref{Custom headers footers and titles}.
+@ref{Paper size and automatic scaling},
+@ref{Custom headers footers and titles},
+@ref{The \layout block}.
 
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
@@ -255,6 +257,9 @@ degrees, and wider line widths will be set accordingly.
 @end example
 
 @seealso
+Notation Reference:
+@ref{Automatic scaling to paper size}.
+
 Installed Files:
 @file{scm/paper.scm}.
 
@@ -350,6 +355,9 @@ parts of a book created with @code{\bookpart} blocks.
 @end table
 
 @seealso
+Notation Reference:
+@ref{Automatic scaling to paper size}.
+
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
@@ -658,6 +666,9 @@ set in a @code{\layout} block.
 @end table
 
 @seealso
+Notation Reference:
+@ref{Automatic scaling to paper size}.
+
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
@@ -708,6 +719,9 @@ with @code{two-sided} set to true.
 @end table
 
 @seealso
+Notation Reference:
+@ref{Automatic scaling to paper size}.
+
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
@@ -747,6 +761,9 @@ set in a @code{\layout} block.
 @end table
 
 @seealso
+Notation Reference:
+@ref{Automatic scaling to paper size}.
+
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
@@ -1254,6 +1271,9 @@ complicated.  More details are available in
 
 
 @seealso
+Notation Reference:
+@ref{\paper variables for line breaking}.
+
 Snippets:
 @rlsr{Spacing}.
 
@@ -1366,6 +1386,9 @@ book parts.
 
 
 @seealso
+Notation Reference:
+@ref{\paper variables for page breaking}.
+
 Snippets:
 @rlsr{Spacing}.
 
