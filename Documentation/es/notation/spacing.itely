@@ -251,7 +251,7 @@ horizontales afectadas por el escalado automático son
 @code{outer-margin}, @code{binding-offset}, @code{indent} y
 @code{short-indent}.
 
-Los valores predeterminados para estas dimentiones están fijados en el
+Los valores predeterminados para estas dimensiones están fijados en el
 archivo @file{ly/paper-defaults-init.ly}, usando variables internas
 llamadas @code{top-margin-default}, @code{bottom-margin-default}, etc.
 Estos son los valores que resultan del tamaño predeterminado del papel
@@ -356,7 +356,7 @@ Véase @ref{Espaciado vertical flexible dentro de los sistemas}.
 
 @menu
 * Estructura de las listas-A de espaciado vertical flexible::
-* Lista de veriables de espaciado de \paper verticales flexibles::
+* Lista de variables de espaciado de \paper verticales flexibles::
 @end menu
 
 
@@ -453,8 +453,8 @@ segunda redefine la variable completamente:
 @end example
 
 
-@node Lista de veriables de espaciado de \paper verticales flexibles
-@unnumberedsubsubsec Lista de veriables de espaciado de @code{\paper} verticales flexibles
+@node Lista de variables de espaciado de \paper verticales flexibles
+@unnumberedsubsubsec Lista de variables de espaciado de @code{\paper} verticales flexibles
 @translationof List of flexible vertical spacing \paper variables
 
 Los nombres de estas variables siguen el formato
@@ -571,7 +571,7 @@ relacionados aquí se encuentran definidos en el archivo
 
 Anchura de la página, sin fijar de forma predeterminada.  Aunque
 @code{paper-width} no tiene ningún efecto sobre el escalado automático
-de algunas dimensiones horizonrales, sí influye sobre la variable
+de algunas dimensiones horizontales, sí influye sobre la variable
 @code{line-width}.  Si están establecidas las dos variables
 @code{paper-width} y @code{line-width}, entonces también se actualizan
 @code{left-margin} y @code{right-margin}.  Véase también
@@ -593,7 +593,7 @@ sobre la página.  Véase también @code{check-consistency}.
 
 Margen entre el extremos izquierdo de la página y el comienzo de las
 líneas del pentagrama en los sistemas sin sangrado.  Si el tamaño del
-papel se midifica, el valor predeterminado de esta dimensión se escala
+papel se modifica, el valor predeterminado de esta dimensión se escala
 de acuerdo con ello.  Si no se fija el valor de @code{left-margin}, y
 tanto @code{line-width} como @code{right-margin} están fijados,
 entonces se establece el valor de @code{left-margin} a
@@ -609,7 +609,7 @@ también @code{check-consistency}.
 
 Margen entre el extremo derecho de la página y el final de las líneas
 del pentagrama en sistemas justificados.  Si el tamaño de la página se
-midifica, el valor predeterminado de esta dimentión se escala de
+modifica, el valor predeterminado de esta dimensión se escala de
 acuerdo con ello.  Si @code{right-margin} está sin fijar, y tanto
 @code{line-width} como @code{left-margin} están fijados, el valor de
 @code{right-margin} se establece a
@@ -629,7 +629,7 @@ de que la suma de @code{left-margin}, @code{line-width} y
 @code{paper-width}, y se sustituye cada uno de estos valores (excepto
 @code{paper-width}) con su valor predeterminado (escalado al tamaño
 del papel si es necesario).  Si está fijado al valor falso, se ignora
-cualquier inconsistencia y se permite que los sitemas se salgan del
+cualquier inconsistencia y se permite que los sistemas se salgan del
 borde del papel.
 
 @item ragged-right
@@ -732,10 +732,10 @@ Predeterminado: @code{0.0}.
 @item indent
 @funindex indent
 
-The level of indentation for the first system in a score.  If the
-paper size is modified, this dimension's default value is scaled
-accordingly.  This variable can also be set in a @code{\layout}
-block.
+Nivel de sangrado para el primer sistema de una partitura.  Si se
+modifica el tamaño del papel, el valor predeterminado de esta
+dimensión se escala de acuerdo con ello.  Esta variable también se
+puede ajustar dentro de un bloque @code{\layout}.
 
 @item short-indent
 @funindex short-indent
@@ -1008,8 +1008,8 @@ formateo de la página para todo el documento, el bloque @code{\layout}
 contiene ajustes para la disposición específica de las partituras.
 Para fijar las opciones de disposición de partituras de forma global,
 escríbalas en un bloque @code{\layout} del nivel jerárquico superior.
-PAra fijar opciones de disposición para una partitura individual
-ecríbalas dentro de un bloque @code{\layout} dentro del bloque
+Para fijar opciones de disposición para una partitura individual
+escríbalas dentro de un bloque @code{\layout} dentro del bloque
 @code{\score}, después de la música.  Entre los ajustes que pueden
 aparecer en un bloque @code{\layout} se encuentran los siguientes:
 
@@ -1252,7 +1252,7 @@ compases, y sólo en dichos lugares:
 << \repeat unfold 7 @{
          s1 \noBreak s1 \noBreak
          s1 \noBreak s1 \break @}
-   @emph{the real music}
+   @emph{la música real}
 >>
 @end example
 
@@ -1468,12 +1468,12 @@ valor muy grande.
 \new Staff \with @{ \consists "Page_turn_engraver" @}
 @{
   a4 b c d |
-  R1 | % a page turn will be allowed here
+  R1 | % aquí se permite un salto de página
   a4 b c d |
   \set Staff.minimumPageTurnLength = #(ly:make-moment 5 2)
-  R1 | % a page turn will not be allowed here
+  R1 | % aquí no se permite un salto de página
   a4 b r2 |
-  R1*2 | % a page turn will be allowed here
+  R1*2 | % aquí se permite un salto de página
   a1
 @}
 @end example
@@ -1739,7 +1739,7 @@ disponible.  Después, las líneas que no son pautas se distribuyen
 entre las pautas.
 
 Observe que los mecanismos de espaciado estudiados en esta sección
-solamente controlan el espaciado vertical de pas pautas y líneas que
+solamente controlan el espaciado vertical de las pautas y líneas que
 no son pautas dentro de los sistemas individuales.  El espaciado
 vertical entre distintos sistemas, partituras, marcados y márgenes se
 controla mediante variables de @code{\paper} que se estudian en
@@ -1770,7 +1770,7 @@ siguen el formato @code{@var{elemento1}-@var{elemento2}-spacing},
 donde @code{@var{elemento1}} y @code{@var{elemento2}} son los
 elementos que se van a espaciar.  Observe que @code{@var{elemento2}}
 no está necesariamente por debajo de @code{@var{elemento1}}; por
-ejemplo, @code{nonstaff-relatedstaff-spacing} mide hadcia arriba a
+ejemplo, @code{nonstaff-relatedstaff-spacing} mide hacia arriba a
 partir de la línea del tipo no-pauta si @code{staff-affinity} es
 @code{#UP}.
 
@@ -1888,7 +1888,7 @@ las listas-A.  Las propiedades de los grobs deben ajustarse con un
 no dentro de un bloque @code{\paper}.
 
 El ejemplo que sigue muestra las dos maneras en que pueden modificarse
-estas listas-A.  La primera declaración ctualiza un par clave-valor de
+estas listas-A.  La primera declaración actualiza un par clave-valor de
 forma individual, y la segunda redefine la propiedad completamente:
 
 @example
@@ -1925,7 +1925,7 @@ en las descripciones de contexto correspondientes en
 @rinternals{Contexts}.
 
 
-@subsubheading Propieades del grob @code{VerticalAxisGroup}
+@subsubheading Propiedades del grob @code{VerticalAxisGroup}
 
 Las propiedades de @code{VerticalAxisGroup} se suelen ajustar con una
 instrucción @code{\override} en el nivel de @code{Staff} (o
@@ -1936,7 +1936,7 @@ equivalente).
 Distancia entre la pauta actual y la pauta que está justo por debajo
 de ella dentro del mismo sistema, incluso si hay más líneas que no son
 pautas (tales como @code{Lyrics}) entre las dos pautas.  No se aplica
-a la pauta inferior de un sistema.  Esto susituye a cualquier ajuste
+a la pauta inferior de un sistema.  Esto sustituye a cualquier ajuste
 heredado del grob @code{StaffGrouper} del grupo de pautas contenedor,
 si existe.  Si no está fijado, y no hay ninguna propiedad de
 @code{StaffGrouper} que heredar, se usa la propiedad
@@ -2160,13 +2160,13 @@ grob @code{StaffGrouper} al espaciado de las pautas agrupadas:
 @end lilypond
 
 @seealso
-Installed Files:
+Archivos de inicio:
 @file{scm/define-grobs.scm}.
 
-Snippets:
+Fragmentos de código:
 @rlsr{Spacing}.
 
-Internals Reference:
+Referencia de funcionamiento interno:
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
 
