@@ -1197,18 +1197,58 @@ staff lines.
 
 Line breaks are normally determined automatically.  They are chosen
 so that lines look neither cramped nor loose, and consecutive
-lines have similar density.  Occasionally you might want to
-override the automatic breaks; you can do this by specifying
-@code{\break}.  This will force a line break at this point.  However,
-line breaks can only occur at the end of @q{complete} bars, i.e.,
-where there are no notes or tuplets left @q{hanging} over the bar
-line.  If you want to have a line break where there is no bar line,
-you can force an invisible bar line by entering @code{\bar ""},
-although again there must be no notes left hanging over in any of
-the staves at this point, or it will be ignored.
+lines have similar density.
 
-The opposite command, @code{\noBreak}, forbids a line break at the
-bar line where it is inserted.
+To manually force a line break at a bar line, use the
+@code{\break} command:
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+c4 c c c | \break
+c4 c c c |
+@end lilypond
+
+By default, a @code{\break} in the middle of a measure is ignored,
+and a warning is printed.  To force a line break in the middle of
+a measure, add an invisible bar line with @w{@samp{\bar ""}}:
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+c4 c c
+\bar "" \break
+c |
+c4 c c c |
+@end lilypond
+
+A @code{\break} occuring at a bar line is also ignored if the
+previous measure ends in the middle of a note, such as when a
+tuplet begins and ends in different measures.  To allow
+@code{\break} commands to work in these situations, remove the
+@code{Forbid_line_break_engraver} from the @code{Voice} context.
+Note that manually forced line breaks have to be added in parallel
+with the music:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \with {
+  \remove Forbid_line_break_engraver
+} \relative c'' {
+  <<
+    { c2. \times 2/3 { c4 c c } c2. | }
+    { s1 | \break s1 | }
+  >>
+}
+@end lilypond
+
+Similarly, line breaks are normally forbidden when beams cross bar
+lines.  This behavior can be changed by setting
+@code{\override Beam #'breakable = ##t}:
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+\override Beam #'breakable = ##t
+c2. c8[ c | \break
+c8 c] c2. |
+@end lilypond
+
+The @code{\noBreak} command forbids a line break at the bar line
+where it is inserted.
 
 The most basic settings influencing line spacing are @code{indent}
 and @code{line-width}.  They are set in the @code{\layout} block.
@@ -1279,36 +1319,6 @@ Snippets:
 
 Internals Reference:
 @rinternals{LineBreakEvent}.
-
-
-@knownissues
-
-Line breaks can only occur if there is a @q{proper} bar line.  A note
-which is hanging over a bar line is not proper, such as
-
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c2 << c2 {s4 \break } >>  % this does nothing
-c2 c4 |           % a break here would work
-c4 c2 c4 ~ \break % as does this break
-c4 c2 c4
-@end lilypond
-
-This can be avoided by removing the @code{Forbid_line_break_engraver}.
-Note that manually forced line breaks have to be added in parallel
-with the music.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Voice \with {
-  \remove Forbid_line_break_engraver
-} {
-  c4 c2 << c2 {s4 \break } >>  % now the break is allowed
-  c2 c4
-}
-@end lilypond
-
-Similarly, line breaks are normally forbidden when beams cross bar
-lines.  This behavior can be changed by setting
-@code{\override Beam #'breakable = ##t}.
 
 
 @node Page breaking
