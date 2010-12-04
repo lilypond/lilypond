@@ -275,10 +275,12 @@ from scaling and is discussed below).  The
 are described in @ref{Setting paper size}.
 
 The vertical dimensions affected by automatic scaling are
-@code{top-margin} and @code{bottom-margin}.  The horizontal
+@code{top-margin} and @code{bottom-margin} (see
+@ref{Fixed vertical spacing \paper variables}.  The horizontal
 dimensions affected by automatic scaling are @code{left-margin},
 @code{right-margin}, @code{inner-margin}, @code{outer-margin},
-@code{binding-offset}, @code{indent}, and @code{short-indent}.
+@code{binding-offset}, @code{indent}, and @code{short-indent} (see
+@ref{Horizontal spacing \paper variables}.
 
 The default values for these dimensions are set in
 @file{ly/paper-defaults-init.ly}, using internal variables named
@@ -289,6 +291,10 @@ These are the values that result at the default paper size
 @code{210\mm}.
 
 @seealso
+Notation Reference:
+@ref{Fixed vertical spacing \paper variables},
+@ref{Horizontal spacing \paper variables}.
+
 Installed Files:
 @file{ly/paper-defaults-init.ly},
 @file{scm/paper.scm}.
@@ -1003,12 +1009,19 @@ discussed in a separate chapter; see
 variables that can appear in a @code{\layout} block are:
 
 @itemize
-@item @code{line-width}
-@item @code{ragged-right}
-@item @code{ragged-last}
-@item @code{indent}
-@item @code{short-indent}
-@item @code{system-count}
+
+@item
+@code{line-width}, @code{ragged-right} and @code{ragged-last}
+(see @ref{\paper variables for widths and margins})
+
+@item
+@code{indent} and @code{short-indent}
+(see @ref{\paper variables for shifts and indents})
+
+@item
+@code{system-count}
+(see @ref{\paper variables for line breaking})
+
 @end itemize
 
 Here is an example @code{\layout} block:
@@ -1295,9 +1308,8 @@ There are also analogous settings to @code{ragged-right} and
 @code{ragged-last} which have the same effect on vertical spacing:
 @code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
 @code{##t} the systems on all pages or just the last page
-respectively will not be justified vertically.
-
-For more details see @ref{Vertical spacing}.
+respectively will not be justified vertically.  See
+@ref{Fixed vertical spacing \paper variables}.
 
 Page breaks are computed by the @code{page-breaking} function.  LilyPond
 provides three algorithms for computing page breaks,
