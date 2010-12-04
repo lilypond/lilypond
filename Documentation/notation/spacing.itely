@@ -157,9 +157,11 @@ To set it to @code{0.5} inches, use the @code{\in} unit suffix:
 @end example
 
 The available unit suffixes are @code{\mm}, @code{\cm},
-@code{\in}, and @code{\pt}.  For the sake of clarity, when using
-millimeters, the @code{\mm} is typically included in the code,
-even though it is not technically necessary.
+@code{\in}, and @code{\pt}.  These units are simple values for
+converting from millimeters; they are defined in
+@file{ly/paper-defaults-init.ly}.  For the sake of clarity, when
+using millimeters, the @code{\mm} is typically included in the
+code, even though it is not technically necessary.
 
 It is also possible to define @code{\paper} values using Scheme.
 The Scheme equivalent of the above example is:
@@ -173,6 +175,9 @@ The Scheme equivalent of the above example is:
 @seealso
 Notation Reference:
 @ref{Custom headers footers and titles}.
+
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
 
 
 @node Paper size and automatic scaling
@@ -262,8 +267,8 @@ If the paper size is changed with one of the scheme functions
 values of several @code{\paper} variables are automatically scaled
 to the new size.  To bypass the automatic scaling for a particular
 variable, set the variable after setting the paper size.  Note
-that the automatic scaling is not triggered by setting
-@code{paper-height} or @code{paper-width}, even though
+that the automatic scaling is not triggered by setting the
+@code{paper-height} or @code{paper-width} variables, even though
 @code{paper-width} can influence other values (this is separate
 from scaling and is discussed below).  The
 @code{set-default-paper-size} and @code{set-paper-size} functions
@@ -2162,19 +2167,18 @@ Internals Reference:
 @node Explicit staff and system positioning
 @subsection Explicit staff and system positioning
 
-One way to understand the @code{VerticalAxisGroup} and @code{\paper}
-settings explained in the previous two sections is as a collection of
-different settings that primarily concern the amount of vertical padding
-different staves and systems running down the page.
+One way to understand the flexible vertical spacing mechanisms
+explained above is as a collection of settings that control the
+amount of vertical padding between staves and systems.
 
-It is possible to approach vertical spacing in a different way using
-@code{NonMusicalPaperColumn #'line-break-system-details}.  Where
-@code{VerticalAxisGroup} and @code{\paper} settings specify vertical padding,
-@code{NonMusicalPaperColumn #'line-break-system-details} specifies exact
-vertical positions on the page.
+It is possible to approach vertical spacing in a different way
+using @code{NonMusicalPaperColumn #'line-break-system-details}.
+While the flexible vertical spacing mechanisms specify vertical
+padding, @code{NonMusicalPaperColumn #'line-break-system-details}
+can specify exact vertical positions on the page.
 
-@code{NonMusicalPaperColumn #'line-break-system-details} accepts an associative
-list of three different settings:
+@code{NonMusicalPaperColumn #'line-break-system-details} accepts
+an associative list of three different settings:
 
 @itemize
 @item @code{X-offset}
