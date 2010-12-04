@@ -31,19 +31,19 @@ selecciona una combinación de saltos de página y de línea de tal forma
 que ni el espaciado horizontal ni el vertical estén demasiado
 estrechos ni estirados.
 
-Los ajustes que influyen en la disposición se pueden agrupar en dos
-bloques.  El bloque @code{\paper @{...@}} se sitúa fuera de los
-bloques @code{\score @{...@}} y contiene ajustes relacionados con el
-documento como un todo.  El bloque @code{\layout @{...@}} se sitúa
-dentro de un bloque @code{\score @{...@}} y contiene ajustes para
-dicha partitura en concreto.  Si sólo tiene un bloque @code{\score
-@{...@}}, los dos tienen el mismo efecto.  En general las
-instrucciones que se muestran en este capítulo se pueden poner en
-cualquiera de los dos.
+Hay dos tipos de bloques que pueden contener ajustes de disposición:
+@code{\paper @{@dots{}@}} y @code{\layout @{@dots{}@}}.  El bloque
+@code{\paper} contiene ajustes de disposición de la página que se
+espera sean los mismos para todas las partituras de un libro, como la
+altura de la hoja o si se imprimen los números de página, etc.  Véase
+@ref{Disposición de la página}.  El bloque @code{\layout} contiene
+ajustes de disposición de la partitura, como el número de sistemas que
+utilizar, o la separación entre grupos de pentagramas, etc.  Véase
+@ref{Diposición de la partitura}.
 
 @menu
 * Disposición de la página::
-* Disposición de la música::
+* Disposición de la partitura::
 * Saltos::
 * Espaciado vertical::
 * Espaciado horizontal::
@@ -55,21 +55,113 @@ cualquiera de los dos.
 @section Disposición de la página
 @translationof Page layout
 
-Esta sección se ocupa de los límites que definen la zona del papel en
-que se puede imprimir la música.
+Esta sección estudia las opciones de disposición de la página para el
+bloque @code{\paper}.
 
 @menu
-* Tamaño del papel::
-* Formateo de las páginas::
+* El bloque \paper::
+* Tamaño del papel y escalado automático::
+* Variables de espaciado de \paper verticales fijas::
+* Variables de espaciado de \paper verticales flexibles::
+* Variables de espaciado de \paper horizontales::
+* Other \paper variables::
 @end menu
 
 
-@node Tamaño del papel
-@subsection Tamaño del papel
-@translationof Paper size
+@node El bloque \paper
+@subsection El bloque @code{\paper}
+@translationof The \paper block
 
-@cindex papel, tamaño del
-@cindex página, tamaño de la
+El bloque @code{\paper} puede aparecer dentro de un bloque
+@code{\book}, pero no dentro de un bloque @code{\score}.  Los ajustes
+de un bloque @code{\paper} se aplican a todo el libro, que puede
+comprender varias partituras.  Entre los ajustes que pueden aparecer
+dentro de un bloque @code{\paper} están los siguientes:
+
+@itemize
+
+@item
+la función de Scheme @code{set-paper-size},
+
+@item
+variables de @code{\paper} utilizadas para personalizar la disposición
+de la página, y
+
+@item
+definiciones de marcado utilizadas para personalizar la disposición de
+los encabezamientos, pies y títulos.
+
+@end itemize
+
+La función @code{set-paper-size} se estudia en la sección siguiente,
+@ref{Tamaño del papel y escalado automático}.  Las variables de
+@code{\paper} variables que se ocupan de la disposición de la página
+se estudian en secciones posteriores.  Las definiciones de elementos
+de marcado que se encargan de los encabezamientos, pies y títulos se
+estudian en @ref{Encabezamientos pies y títulos personalizados}.
+
+Casi todas las variables de @code{\paper} funcionan solamente dentro
+de un bloque @code{\paper}.  Las pocas que funcionan también en un
+bloque @code{\layout} están relacionadas en @ref{El bloque \layout}.
+
+Excepto cuando se especifica lo contrario, todas las variables de
+@code{\paper} que corresponden a distancias sobre la página se miden
+en milímetros, a no ser que se especifiquen unas unidades diferentes
+por parte del usuario.  Por ejemplo, la declaración siguiente
+establece el margen superior @code{top-margin} a diez milímetros:
+
+@example
+\paper @{
+  top-margin = 10
+@}
+@end example
+
+Para fijarlo en @code{0.5} pulgadas, utilice el sufijo de unidades
+@code{\in}:
+
+@example
+\paper @{
+  top-margin = 0.5\in
+@}
+@end example
+
+Los sufijos de unidades que esan disponibles son @code{\mm},
+@code{\cm}, @code{\in} y @code{\pt}.  Por claridad, al usar
+milímetros, se suele escribir el sufijo @code{\mm} aunque no es
+necesario técnicamente.
+
+También es posible definir valores de @code{\paper} utilizando Scheme.
+El equivalente de Scheme del ejemplo anterior es:
+
+@example
+\paper @{
+  #(define top-margin (* 0.5 in))
+@}
+@end example
+
+@seealso
+Referencia de la notación:
+@ref{Encabezamientos pies y títulos personalizados}.
+
+
+@node Tamaño del papel y escalado automático
+@subsection Tamaño del papel y escalado automático
+@translationof Paper size and automatic scaling
+
+@cindex tamaño del papel
+@cindex tamaño de la página
+
+@funindex \paper
+
+@menu
+* Fijar el tamaño del papel::
+* Escalado automático al tamaño del papel::
+@end menu
+
+
+@node Fijar el tamaño del papel
+@unnumberedsubsubsec Fijar el tamaño del papel
+@translationof Setting paper size
 
 Existen dos funciones para cambiar el tamaño del papel:
 @code{set-default-paper-size} (establecer tamaño de página
@@ -89,6 +181,14 @@ superior, y @code{set-paper-size} se debe poner en un bloque
 @end example
 
 @noindent
+Dentro del ámbito del nivel jerárquico superior, se puede llamar sin
+riesgo a la función @code{set-default-paper-size} desde cualquier
+lugar antes del primer bloque @code{\paper} block.  Dentro de un
+bloque @code{\paper}, el lugar más seguro para llamar a
+@code{set-paper-size} es al principio, por encima de la lista de
+declaraciones de variables.  Se explican las razones de esto en
+@ref{Escalado automático al tamaño del papel}.
+
 @code{set-default-paper-size} establece el tamaño de todas las
 páginas, mientras que @code{set-paper-size} establece sólo el tamaño
 de las páginas a las que se aplica el bloque @code{\paper}.  Por
@@ -123,75 +223,119 @@ establece en consonancia una mayor longitud de las líneas.
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
-Al establecer el tamaño del papel se ajustan un cierto número de
-variables del @code{\paper}, tales como los márgenes.  Para utilizar
-un tamaño de página determinado con variables de @code{\paper}
-alteradas, establezca el tamaño de página antes de dar valores a las
-variables.
-
-
 @seealso
 Archivos instalados:
 @file{scm/paper.scm}.
 
+
+@node Escalado automático al tamaño del papel
+@unnumberedsubsubsec Escalado automático al tamaño del papel
+@translationof Automatic scaling to paper size
+
+Si se cambia el tamaño del papel con una de las funciones de Scheme
+(@code{set-default-paper-size} o @code{set-paper-size}), los valores
+de algunas variables de @code{\paper} se escalan automáticamente al
+nuevo tamaño.  Para sortear el escalado automático para una variable
+determinada, fije el valor de la variable después de establecer el
+tamaño del papel.  Observe que el escalado automático no se activa
+mediante el ajuste de @code{paper-height} o de @code{paper-width},
+incluso aunque @code{paper-width} puede influir sobre otros valores
+(esto es distinto al escalado y se estudia más abajo).  Las funciones
+@code{set-default-paper-size} y @code{set-paper-size} se describen en
+@ref{Fijar el tamaño del papel}.
+
+Las dimensiones verticales afectadas por el escalado automático son
+@code{top-margin} y @code{bottom-margin}.  Las dimensiones
+horizontales afectadas por el escalado automático son
+@code{left-margin}, @code{right-margin}, @code{inner-margin},
+@code{outer-margin}, @code{binding-offset}, @code{indent} y
+@code{short-indent}.
+
+Los valores predeterminados para estas dimentiones están fijados en el
+archivo @file{ly/paper-defaults-init.ly}, usando variables internas
+llamadas @code{top-margin-default}, @code{bottom-margin-default}, etc.
+Estos son los valores que resultan del tamaño predeterminado del papel
+@code{a4}.  Como referencia, con el papel @code{a4} la altura
+@code{paper-height} es @code{297\mm} y la anchura @code{paper-width}
+es @code{210\mm}.
+
+@seealso
+Archivos de inicio:
+@file{ly/paper-defaults-init.ly},
+@file{scm/paper.scm}.
+
+
+@node Variables de espaciado de \paper verticales fijas
+@subsection Variables de espaciado de @code{\paper} verticales fijas
+@translationof Fixed vertical spacing \paper variables
+
+@warning{Algunas dimensiones de @code{@bs{}paper} se escalan
+automáticamente al tamaño del papel, lo que puede llevar a un
+comportamiento no esperado.  Véase @ref{Escalado automático al tamaño
+del papel}.}
+
+Los valores predeterminados (previos al escalado) están definidos en
+el archivo @file{ly/paper-defaults-init.ly}.
+
+@table @code
+@item paper-height (altura del papel)
+@funindex paper-height
+
+Altura de la página, no fijada de forma predeterminada.  Observe que
+el escalado automático de algunas dimensiones verticales no resulta
+afectado por esto.
+
+@item top-margin (margen superior)
+@funindex top-margin
+
+Margen entre el extremo superior de la página y la parte superior de
+la zona imprimible.  Si se modifica el tamaño del papel, el valor
+predeterminado de esta dimensión se escala de acuerdo con ello.
+
+@item bottom-margin (margen inferior)
+@funindex bottom-margin
+
+Margen entre la parte inferior de la zona imprimible y el extremo
+inferior de la página.  Si se modifica el tamaño del papel, se escala
+de acuerdo con ello el valor predeterminado de esta dimensión.
+
+@item ragged-bottom (sin justificar por abajo)
+@funindex ragged-bottom
+
+Si se fija al valor verdadero, los sistemas no se reparten
+verticalmente hasta abajo de la página.  Esto no afecta a la última
+página.  Se debe fijar a verdadero para piezas que sólo tienen dos o
+tres sistemas por página, como por ejemplo las partituras orquestales.
+
+@item ragged-last-bottom (sin justificar la última por abajo)
+@funindex ragged-last-bottom
+
+Si se establece al valor falso, los sistemas se reparten verticalmente
+hasta abajo de la última página.  Las piezas que llenan sobradamente
+dos o más páginas deben tener este valor fijado a verdadero.  También
+afecta a la última página de las partes de libro, es decir, partes de
+un libro creadas con bloques @code{\bookpart}.
+
+@end table
+
+@seealso
+Archivos de inicio:
+@file{ly/paper-defaults-init.ly}.
+
 Fragmentos de código:
 @rlsr{Spacing}.
 
+@knownissues
 
-@node Formateo de las páginas
-@subsection Formateo de las páginas
-@translationof Page formatting
-
-@funindex \paper
-
-Los márgenes, encabezamientos y pies de página y otras variables de
-diseño de página se establecen automáticamente de acuerdo con el
-tamaño del papel.
-
-El valor predeterminado de los márgenes está accesible en el archivo
-@file{ly/paper-defaults-init.ly}.  Estos valores se aplican al
-tamaño predeterminado del papel (A4, a no ser que se especifique de
-otra forma) y se escalan adecuadamente para otros tamaños del papel.
-
-Esta sección relaciona y describe cierto número de variables del papel
-que se pueden alterar.
-
-@menu
-* Dimensiones verticales fijas::
-* Dimensiones verticales flexibles::
-* Dimensiones horizontales::
-* Otras variables de diseño de página::
-@end menu
+Los títulos (extraídos del bloque @code{\header}) se tratan como
+sistemas, así pues @code{ragged-bottom} y @code{ragged-last-bottom}
+aumentan la separación entre los títulos y el primer sistema de la
+partitura.
 
 
-@node Dimensiones verticales fijas
-@unnumberedsubsubsec Dimensiones verticales fijas
-@translationof Fixed vertical dimensions
-
-@table @code
-@item paper-height
-@funindex paper-height
-
-Altura de la página.  Valor predeterminado: altura del tamaño actual
-del papel.  Para ver más detalles, consulte @ref{Tamaño del papel}.
-
-@item top-margin
-@funindex top-margin
-
-Margen entre el extremo superior de la página y la parte superior del
-área imprimible.  Valor predeterminado: @code{5\mm}.
-
-@item bottom-margin
-@funindex bottom-margin
-
-Margen entre el extremo inferior del área imprimible y la parte
-inferior de la página.  Valor predeterminado: @code{6\mm}.
-@end table
-
-
-@node Dimensiones verticales flexibles
-@unnumberedsubsubsec Dimensiones verticales flexibles
-@translationof Flexible vertical dimensions
+@node Variables de espaciado de \paper verticales flexibles
+@subsection Variables de espaciado de @code{\paper} verticales flexibles
+@translationof Flexible vertical spacing \paper variables
 
 En casi todos los casos es preferible que las distancias verticales
 entre ciertos elementos (como márgenes, títulos, sistemas y las
@@ -206,47 +350,57 @@ Observe que las variables de @code{\paper} que se estudian en esta
 sección no controlan el espaciado de los pentagramas que están dentro
 de los sistemas individuales.  El espaciado dentro de los sistemas se
 controla por medio de propiedades de grob, con ajustes que se escriben
-normalmente dentro de un bloque @code{\score} o @code{layout},
-y no dentro del bloque @code{\paper}
+normalmente dentro de un bloque @code{\score} o @code{\layout}, y no
+dentro del bloque @code{\paper}.
 Véase @ref{Espaciado vertical flexible dentro de los sistemas}.
 
+@menu
+* Estructura de las listas-A de espaciado vertical flexible::
+* Lista de veriables de espaciado de \paper verticales flexibles::
+@end menu
 
-@subsubheading Esctructura de las listas-A de espaciado para las variables de @code{\paper}
 
-Cada una de estas variables es una lista-A (lista asociativa) que
-contiene cuatro @emph{claves}:
+@node Estructura de las listas-A de espaciado vertical flexible
+@unnumberedsubsubsec Estructura de las listas-A de espaciado vertical flexible
+@translationof Structure of flexible vertical spacing alists
+
+Cada una de las variables de espaciado de @code{\paper} flexibles es
+una lista-A (lista asociativa) que contiene cuatro @emph{claves}:
 
 @itemize
-@item @code{padding} (relleno):
+
+@item
+@code{padding} (relleno):
 mínimo espacio vertical vacío necesario entre dos elementos, medido en
 espacios de pentagrama.  Se puede pensar como la altura mínima de un
 rectángulo invisible que abarca desde el punto más a la izquierda
 hasta el situado más a la derecha de los elementos combinados.
 
-@item @code{space} (espacio):
-distancia vertical predeterminada, medida en espacios de pentagrama,
-entre los @emph{puntos de referencia} de los dos elementos, cuando no
-resulte ninguna colisión, y no se produzca ninguna ampliación o
-compresión.  El punto de referencia de un elemento de marcado (de
-título o del nivel jerárquico superior) es su punto más alto, y el
-punto de referencia de un sistema es el centro vertical del
-@code{StaffSymbol} más cercano
-(incluso si se trata de una línea que no es un pentagrama, como
-un contexto @code{Lyrics}).
-Los valores de @code{space} menores de @code{padding} o
-de @code{minimum-distance} no son significativos, porque la distancia
-resultante nunca será menor de @code{padding} o de
+@item
+@code{space} (espacio):
+distancia vertical, medida en espacios de pentagrama, entre los
+@emph{puntos de referencia} de los dos elementos, cuando no resulte
+ninguna colisión, y no se produzca ninguna ampliación o compresión.
+El punto de referencia de un elemento de marcado (de título o del
+nivel jerárquico superior) es su punto más alto, y el punto de
+referencia de un sistema es el centro vertical del @code{StaffSymbol}
+más cercano (incluso si se trata de una línea que no es un pentagrama,
+como un contexto @code{Lyrics}).  Los valores de @code{space} menores
+de @code{padding} o de @code{minimum-distance} no son significativos,
+porque la distancia resultante nunca será menor de @code{padding} o de
 @code{minimum-distance}.
 
-@item @code{minimum-distance} (distancia mínima):
-la distancia vertical mínima requerida, medida en espacios de
+@item
+@code{minimum-distance} (distancia mínima):
+la distancia vertical mínima permitida, medida en espacios de
 pentagrama, entre los puntos de referencia de los dos elementos,
 cuando se produce una compresión.  Los valores de
 @code{minimum-distance} menores de @code{padding} no son
 significativos, porque la distancia resultante nunca será menor de
 @code{padding}.
 
-@item @code{stretchability} (ampliabilidad):
+@item
+@code{stretchability} (ampliabilidad):
 medida sin unidades de la propensión relativa de esta dimensión a
 ampliarse.  Si es cero, la distancia no se ampliará (a no ser que
 resultasen colisiones).  Si es positiva, la significación del valor de
@@ -261,31 +415,35 @@ fija un valor, el valor predeterminado se establece a @code{space}.
 Observe que la propensión de la dimensión a @emph{comprimirse} no se
 puede establecer directamente por el usuario y es igual a
 (@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
+
 @end itemize
 
 Si una página tiene un margen inferior no justificado, la distancia
 resultante es la mayor de:
 
 @itemize
-@item @code{space},
-@item @code{minimum-distance}, y
-@item @code{padding} más la menor distancia necesaria para eliminar las colisiones.
+
+@item
+@code{space},
+
+@item
+@code{minimum-distance}, y
+
+@item
+@code{padding} más la menor distancia necesaria
+para eliminar las colisiones.
+
 @end itemize
 
 Los métodos específicos para la modificación de las listas-A se
-estudian en @ref{Modificación de las listas-A}.  Las variables de
-dimensión de @code{\paper} verticales flexibles sólo se pueden fijar
-dentro de un bloque @code{\paper}.
-
-El siguiente ejemplo muestra las
-dos formas en que pueden modificarse estas listas-A.  La primera
-declaración actualiza un par clave-valor individualmente,
-y la segunda redefine la variable completamente:
+estudian en @ref{Modificación de las listas-A}.  El siguiente ejemplo
+muestra las dos formas en que pueden modificarse estas listas-A.  La
+primera declaración actualiza un par clave-valor individualmente, y la
+segunda redefine la variable completamente:
 
 @example
 \paper @{
   system-system-spacing #'space = #8
-
   score-system-spacing =
     #'((padding . 1)
        (space . 12)
@@ -294,23 +452,27 @@ y la segunda redefine la variable completamente:
 @}
 @end example
 
-Los ajustes predeterminados de inicio para estas variables están
-definidos en el archivo @file{ly/paper-defaults-init.ly}.
 
-
-@subsubheading Variables de dimensión de @code{\paper} verticales flexibles
+@node Lista de veriables de espaciado de \paper verticales flexibles
+@unnumberedsubsubsec Lista de veriables de espaciado de @code{\paper} verticales flexibles
+@translationof List of flexible vertical spacing \paper variables
 
 Los nombres de estas variables siguen el formato
 @code{@var{superior}-@var{inferior}-spacing}, donde
 @code{@var{superior}} e @code{@var{inferior}} son los elementos que
 van a ser espaciados.  Cada distancia se mide entre los puntos de
-referencia de los dos elementos
-(véase más arriba la descripción de la estructura de la lista-A).
-Observe que en estos nombres de variable, el término
-@q{@code{markup}} se refiere tanto a @emph{elementos de marcado de
-título} (@code{bookTitleMarkup} o @code{scoreTitleMarkup}) como a
-@emph{elementos de marcado del nivel superior} (véase @ref{Estructura
-del archivo}).
+referencia de los dos elementos (véase más arriba la descripción de la
+estructura de la lista-A).  Observe que en estos nombres de variable,
+el término @q{@code{markup}} se refiere tanto a @emph{elementos de
+marcado de título} (@code{bookTitleMarkup} o @code{scoreTitleMarkup})
+como a @emph{elementos de marcado del nivel superior} (véase
+@ref{Estructura del archivo}).  Todas las distancias se miden en
+espacios de pentagrama.
+
+Los ajustes predeterminados están definidos en el archivo
+@file{ly/paper-defaults-init.ly}.
+
+@c TODO: Where do headers/footers fit in? -mp
 
 @table @code
 @item markup-system-spacing
@@ -367,87 +529,176 @@ marcado (de título o del nivel superior) sobre una página, cuando no
 hay ningún sistema entre los dos.
 @end table
 
-
-@snippets
-
-El encabezamiento y el pie se crean por parte de las funciones
-@code{make-footer} y @code{make-header}, definidas dentro de
-@code{\paper}.  Las implementaciones predeterminadas están en
-@file{ly/paper-defaults.ly} y en @file{ly/titling-init.ly}.
-
-El diseño de la página en sí está realizado por dos funciones dentro
-del bloque @code{\paper}, @code{page-music-height} y
-@code{page-make-stencil}.  El primero informa al algoritmo de saltos
-de línea de la cantidad de espacio que está disponible en una página,
-y el último crea la propia página dado el sistema que poner sobre
-ella.
-
-Se pueden definir valores del bloque @code{\paper} en Scheme.  En tal
-caso, @code{mm}, @code{in}, @code{pt}, y @code{cm} son variables que
-están definidas en @file{paper-defaults.ly} con valores en milímetros.
-Por ello el valor @w{@code{2 cm}} se debe multiplicar en el siguiente
-ejemplo:
-
-@example
-\paper @{
- #(define bottom-margin (* 2 cm))
-@}
-@end example
-
-
-Ejemplo:
-
-@example
-\paper @{
-  paper-width = 2\cm
-  top-margin = 3\cm
-  bottom-margin = 3\cm
-  ragged-last-bottom = ##t
-@}
-@end example
-
-Este segundo ejemplo centra los números de página en la parte baja del
-papel.
-
-@example
-\paper @{
-  print-page-number = ##t
-  print-first-page-number = ##t
-  oddHeaderMarkup = \markup \fill-line @{ " " @}
-  evenHeaderMarkup = \markup \fill-line @{ " " @}
-  oddFooterMarkup = \markup @{ \fill-line @{
-     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
-     \fromproperty #'page:page-number-string @} @}
-  evenFooterMarkup = \markup @{ \fill-line @{
-     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
-     \fromproperty #'page:page-number-string @} @}
-@}
-@end example
-
 @seealso
 Referencia de la notación:
 @ref{Espaciado vertical flexible dentro de los sistemas}.
+
+Archivos de inicio:
+@file{ly/paper-defaults-init.ly}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Dimensiones horizontales
-@unnumberedsubsubsec Dimensiones horizontales
-@translationof Horizontal dimensions
+@node Variables de espaciado de \paper horizontales
+@subsection Variables de espaciado de \paper horizontales
+@translationof Horizontal spacing \paper variables
+
+@warning{Algunas dimensiones de @code{@bs{}paper} se escalan
+automáticamente al tamaño del papel, lo que puede dar lugar a un
+comportamiento distinto al esperado.  Véase
+@ref{Escalado automático al tamaño del papel}.}
+
+@menu
+* \paper variables for widths and margins::
+* \paper variables for two-sided mode::
+* Variables de \paper para desplazamientos y sangrados::
+@end menu
 
 
-Existe un cierto número de variables que determinan las dimensiones
-horizontales de una página:
+@node Variables de \paper para la anchura y los márgenes
+@unnumberedsubsubsec Variables de @code{\paper} para la anchura y los márgenes
+@translationof \paper variables for widths and margins
+
+Los valores predeterminados (antes del escalado) que no están
+relacionados aquí se encuentran definidos en el archivo
+@file{ly/paper-defaults-init.ly}.
 
 @table @code
+
+@item paper-width
+@funindex paper-width
+
+Anchura de la página, sin fijar de forma predeterminada.  Aunque
+@code{paper-width} no tiene ningún efecto sobre el escalado automático
+de algunas dimensiones horizonrales, sí influye sobre la variable
+@code{line-width}.  Si están establecidas las dos variables
+@code{paper-width} y @code{line-width}, entonces también se actualizan
+@code{left-margin} y @code{right-margin}.  Véase también
+@code{check-consistency}.
+
+@item line-width
+@funindex line-width
+
+The horizontal extent of the staff lines in unindented, non-ragged
+systems, equal to
+@code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}
+when unset.  If @code{line-width} is set, and both @code{left-margin}
+and @code{right-margin} are unset, then the margins will be updated to
+center the systems on the page automatically.  Also see
+@code{check-consistency}.
+
+@item left-margin
+@funindex left-margin
+
+The margin between the left edge of the page and the start of the
+staff lines in unindented systems.  If the paper size is modified,
+this dimension's default value is scaled accordingly.  If
+@code{left-margin} is unset, and both @code{line-width} and
+@code{right-margin} are set, then @code{left-margin} is set to
+@code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}right-margin)}.
+If only @code{line-width} is set, then both margins are set to
+@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)},
+and the systems are consequently centered on the page.  Also see
+@code{check-consistency}.
+
+@item right-margin
+@funindex right-margin
+
+The margin between the right edge of the page and the end of the
+staff lines in non-ragged systems.  If the paper size is modified,
+this dimension's default value is scaled accordingly.  If
+@code{right-margin} is unset, and both @code{line-width} and
+@code{left-margin} are set, then @code{right-margin} is set to
+@code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}left-margin)}.
+If only @code{line-width} is set, then both margins are set to
+@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)},
+and the systems are consequently centered on the page.  Also see
+@code{check-consistency}.
+
+@item check-consistency
+@funindex check-consistency
+
+If set to true, print a warning if @code{left-margin},
+@code{line-width}, and @code{right-margin} do not exactly add up
+to @code{paper-width}, and replace each of these (except
+@code{paper-width}) with its default value (scaled to the paper
+size if necessary).  If set to false, ignore any inconsistencies
+and allow systems to run off the edge of the page.
+
+@item ragged-right
+@funindex ragged-right
+
+If set to true, systems will not fill the line width.  Instead,
+systems end at their natural horizontal length.  Default:
+@code{#t} for scores with only one system, and @code{#f} for
+scores with two or more systems.  This variable can also be set in
+a @code{\layout} block.
+
+@item ragged-last
+@funindex ragged-last
+
+If set to true, the last system in the score will not fill the
+line width.  Instead the last system ends at its natural
+horizontal length.  Default: @code{#f}.  This variable can also be
+set in a @code{\layout} block.
+
+@end table
+
+@seealso
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node \paper variables for two-sided mode
+@unnumberedsubsubsec @code{\paper} variables for two-sided mode
+
+Default values (before scaling) are defined in
+@file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@item two-sided
+@funindex two-sided
+
+@cindex gutter
+@cindex binding gutter
+
+If set to true, use @code{inner-margin}, @code{outer-margin} and
+@code{binding-offset} to determine margins depending on whether
+the page number is odd or even.  This overrides @code{left-margin}
+and @code{right-margin}.
+
+@item inner-margin
+@funindex inner-margin
+
+The margin all pages have at the inner side if they are part of a
+book.  If the paper size is modified, this dimension's default
+value is scaled accordingly.  Works only with @code{two-sided} set
+to true.
+
+@item outer-margin
+@funindex outer-margin
+
+The margin all pages have at the outer side if they are part of a
+book.  If the paper size is modified, this dimension's default
+value is scaled accordingly.  Works only with @code{two-sided} set
+to true.
 
 @item binding-offset
 @funindex binding-offset
 
-Se aumenta la cantidad @code{inner-margin} para asegurar que el
-encuadernado no va a tapar nada.  Sólo funciona con @code{two-sided}
-establecido al valor verdadero.  Valor predeterminado: @code{0}.
+The amount @code{inner-margin} is increased to make sure nothing
+will be hidden by the binding.  If the paper size is modified,
+this dimension's default value is scaled accordingly.  Works only
+with @code{two-sided} set to true.
+
+@end table
+
+@seealso
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
+
 
 @node Variables de \paper para desplazamientos y sangrados
 @unnumberedsubsubsec Variables de @code{\paper} para desplazamientos y sangrados
@@ -456,8 +707,12 @@ establecido al valor verdadero.  Valor predeterminado: @code{0}.
 Default values (before scaling) that are not listed here are
 defined in @file{ly/paper-defaults-init.ly}.
 
+@table @code
+
 @item horizontal-shift
 @funindex horizontal-shift
+
+@c This default value is buried in the middle of page.scm.  -mp
 
 Medida en que todos los sistemas (incluidos los títulos de cabecera y
 los separadores de sistemas) se desplazan a la derecha.
@@ -466,137 +721,150 @@ Predeterminado: @code{0.0}.
 @item indent
 @funindex indent
 
-Nivel de sangrado para el primer sistema de una partitura.  Valor
-predeterminado: @code{15\mm}.
-
-@item inner-margin
-@funindex inner-margin
-
-Margen que tienen todas las páginas en el lado interior si son parte
-de un libro.  Sólo funciona con @code{two-sided} establecido al valor
-verdadero.  Valor predeterminado: @code{10\mm}.
-
-@item left-margin
-@funindex left-margin
-
-El margen entre el límite izquierdo del papel y el comienzo de los
-sistemas.  Predeterminado: @code{10\mm}.
-
-@item line-width
-@funindex line-width
-
-Ancho de los sistemas.  Predeterminado: @code{paper-width} menos
-@code{left-margin} y @code{right-margin}.
-
-@item outer-margin
-@funindex outer-margin
-
-Margen que todas las páginas tienen en la parte exterior si son parte
-de un libro.  Sólo funciona con @code{two-sided} establecido al valor
-verdadero.  Valor predeterminado: @code{20\mm}.
-
-@item paper-width
-@funindex paper-width
-
-Ancho de la página.  Predeterminado: la anchura del tamaño actual del
-papel.  Para ver más detalles, consulte @ref{Tamaño del papel}.
-
-@item right-margin
-@funindex right-margin
-
-Margen entre el borde derecho de la página y el final de cada sistema.
-Valor predeterminado: @code{10\mm}.
+The level of indentation for the first system in a score.  If the
+paper size is modified, this dimension's default value is scaled
+accordingly.  This variable can also be set in a @code{\layout}
+block.
 
 @item short-indent
 @funindex short-indent
 
-Nivel de sangrado para todos los sistemas de una partitura excepto el
-primero.  Predeterminado: @code{0}.
+The level of indentation for all systems in a score besides the
+first system.  If the paper size is modified, this dimension's
+default value is scaled accordingly.  This variable can also be
+set in a @code{\layout} block.
 
 @end table
 
-Si hay valores sin ajustar, se toman los predeterminados.  Se ajusta
-su valor exacto, dependiendo del tamaño de papel especificado.  Por el
-momento, los siguientes valores se ven afectados por este escalado:
-
-@itemize
-@item @var{left-margin}
-@item @var{right-margin}
-@item @var{top-margin}
-@item @var{bottom-margin}
-@item @var{head-separation}
-@item @var{foot-separation}
-@item @var{indent}
-@item @var{short-indent}
-@end itemize
-
-Los ajustes para @code{line-width}, @code{left-margin},
-@code{right-margin} y @code{paper-width} dependen entre sí, pero no
-tienen que especificarse completamente.
-
-@example
-\paper @{
-  left-margin = 30\mm
-@}
-@end example
-
-En este ejemplo, sólo se establece un valor para @code{left-margin}.
-El valor de @code{right-margin} sigue siendo el predeterminado,
-@code{line-width} se calcula automáticamente.
-
-@example
-\paper @{
-  line-width = 150\mm
-@}
-@end example
-
-Aquí @code{left-margin} y @code{right-margin} se ajustan al mismo
-valor.  Por tanto, @code{line-width} se sustrae de @code{paper-width}
-y se divide entre dos.  Esto significa que los sistemas se imprimen
-centrados en la página, si sólo se especifica @code{line-width}.
-
-Tienen lugar algunas comprobaciones para asegurar que los valores se
-establecen correctamente.  Si los valores no encajasen o los sistemas
-se fueran a salir de la página, se imprime una advertencia y se
-establecen los valores predeterminados.
-
-@example
-\paper @{
-  paper-width = 210\mm
-  left-margin = 20\mm
-  right-margin = 30\mm
-  line-width = 100\mm
-@}
-@end example
-
-Estas comprobaciones se pueden evitar estableciendo
-@code{check-consistency} al valor falso.
-
-@example
-\paper @{
-  paper-width = 210\mm
-  left-margin = 20\mm
-  line-width = 200\mm
-  check-consistency = ##f
-@}
-@end example
-
-@warning{Si @code{paper-width} se ajusta manualmente,
-@code{line-width}, @code{left-margin}, @code{indent} y
-@code{short-indent} podrían tener que ajustarse también.}
-
 @seealso
-Fragmentos de código:
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
+
+Snippets:
 @rlsr{Spacing}.
 
 
+@node Other \paper variables
+@subsection Other @code{\paper} variables
 
-@node Otras variables de diseño de página
-@unnumberedsubsubsec Otras variables de diseño de página
-@translationof Other layout variables
+@menu
+* \paper variables for line breaking::
+* \paper variables for page breaking::
+* \paper variables for page numbering::
+* Miscellaneous \paper variables::
+@end menu
 
-Estas variables se pueden usar para ajustar el diseño de la página en
-general.
+
+@node \paper variables for line breaking
+@unnumberedsubsubsec @code{\paper} variables for line breaking
+
+@c TODO: Mention that ly:optimal-breaking is on by default? -mp
+
+@table @code
+
+@item max-systems-per-page
+@funindex max-systems-per-page
+
+The maximum number of systems that will be placed on a page.  This
+is currently supported only by the @code{ly:optimal-breaking} algorithm.
+Default: unset.
+
+@item min-systems-per-page
+@funindex min-systems-per-page
+
+The minimum number of systems that will be placed on a page.  This
+may cause pages to be overfilled if it is made too large.  This is
+currently supported only by the @code{ly:optimal-breaking} algorithm.
+Default: unset.
+
+@item systems-per-page
+@funindex systems-per-page
+
+The number of systems that should be placed on each page.
+This is currently supported only by the @code{ly:optimal-breaking} algorithm.
+Default: unset.
+
+@item system-count
+@funindex system-count
+
+The number of systems to be used for a score.  Default: unset.
+This variable can also be set in a @code{\layout} block.
+
+@end table
+
+@seealso
+Notation Reference:
+@ref{Line breaking}.
+
+
+@node \paper variables for page breaking
+@unnumberedsubsubsec @code{\paper} variables for page breaking
+
+Default values not listed here are defined in
+@file{ly/paper-defaults-init.ly}
+
+@table @code
+
+@item blank-after-score-page-force
+@funindex blank-after-score-page-force
+
+The penalty for having a blank page after the end of one score and
+before the next.  By default, this is smaller than
+@code{blank-page-force}, so that we prefer blank pages after
+scores to blank pages within a score.
+
+@item blank-last-page-force
+@funindex blank-last-page-force
+
+The penalty for ending the score on an odd-numbered page.
+
+@item blank-page-force
+@funindex blank-page-force
+
+The penalty for having a blank page in the middle of a
+score.  This is not used by @code{ly:optimal-breaking} since it will
+never consider blank pages in the middle of a score.
+
+@item page-breaking
+@funindex page-breaking
+
+The page-breaking algorithm to use.  Choices are
+@code{ly:minimal-breaking}, @code{ly:page-turn-breaking}, and
+@code{ly:optimal-breaking}.
+
+@item page-breaking-system-system-spacing
+@funindex page-breaking-system-system-spacing
+
+Tricks the page breaker into thinking that
+@code{system-system-spacing} is set to something different than
+it really is.  For example, if
+@code{page-breaking-system-system-spacing #'padding} is set to something
+substantially larger than @code{system-system-spacing #'padding}, then the
+page-breaker will put fewer systems on each page.  Default: unset.
+
+@item page-count
+@funindex page-count
+
+The number of pages to be used for a score, unset by default.
+
+@end table
+
+@seealso
+Notation Reference:
+@ref{Page breaking},
+@ref{Optimal page breaking},
+@ref{Optimal page turning},
+@ref{Minimal page breaking}.
+
+Installed files:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node \paper variables for page numbering
+@unnumberedsubsubsec @code{\paper} variables for page numbering
+
+Default values not listed here are defined in
+@file{ly/paper-defaults-init.ly}
 
 @table @code
 
@@ -608,76 +876,34 @@ el número de la primera página sea par o impar.  Si está establecido
 al valor verdadero, el algoritmo de división de páginas decide si
 comenzar con un número par o impar.  Esto hace que el número de la
 primera página se quede como está, o que se aumente en una unidad.
-Predeterminado: @code{##f}.
-
-@ignore
-
-FIXME: this variable is used, but I don't know what it does. -pm
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
-
-Default: @code{2}.
-
-@end ignore
-
-@item blank-last-page-force
-@funindex blank-last-page-force
-
-Penalización por terminar la partitura en una página de numeración
-impar.  Predeterminado: @code{0}.
-
-@item blank-page-force
-@funindex blank-page-force
-
-Penalización por tener una página en blanco en medio de una partitura.
-Esto no se usa por parte de @code{ly:optimal-breaking} porque éste
-nunca considera la posibilidad de tener páginas en blanco en mitad de
-una partitura.  Predeterminado: @code{5}.
-
-@item check-consistency
-@funindex check-consistency
-
-Si es verdadero, comprobar si @code{left-margin}, @code{right-margin}
-y @code{line-width} encajan entre sí.  También asegurar que su
-combinación no excede del @code{paper-width} disponible.  Valor
-predeterminado: @code{##t}.
+Predeterminado: @code{#f}.
 
 @item first-page-number
 @funindex first-page-number
 
-Valor del número de la primera página.  Predeterminado: @code{#1}.
+The value of the page number on the first page.
 
-@item max-systems-per-page
-@funindex max-systems-per-page
+@item print-first-page-number
+@funindex print-first-page-number
 
-Máximo número de sistemas que tendrán cabida en una página.  Está
-contemplado por el momento solamente por parte del algoritmo
-@code{ly:optimal-breaking}.  Predeterminado: no establecido.
+If set to true, a page number is printed on the first page.
 
-@item min-systems-per-page
-@funindex min-systems-per-page
+@item print-page-number
+@funindex print-page-number
 
-Mínimo número de sistemas que habrá en una página.  Puede hacer que
-las páginas se llenen en exceso si se establece a un valor grande.
-Por el momento solamente está contemplado por parte del algoritmo
-@code{ly:optimal-breaking}.  Predeterminado: no establecido.
+If set to false, page numbers are not printed.
 
-@item page-breaking-system-system-spacing
-@funindex page-breaking-system-system-spacing
+@end table
 
-Engaña al divisor de páginas para que crea que
-@code{system-system-spacing} está establecido a algo distinto de lo
-que está realmente.  Por ejemplo, si
-@code{page-breaking-system-system-spacing #'padding} se establece a algo
-mucho mayor que @code{system-system-spacing #'padding}, entonces
-el divisor de páginas colocará menos sistemas en cada página.
-Predeterminado: no establecido.
+@seealso
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
 
-@item page-count
-@funindex page-count
 
-Número de páginas que usar para una partitura. Predeterminado: sin
-fijar.
+@node Miscellaneous \paper variables
+@unnumberedsubsubsec Miscellaneous @code{\paper} variables
+
+@table @code
 
 @item page-spacing-weight
 @funindex page-spacing-weight
@@ -690,116 +916,43 @@ espaciado de la página tenga más importancia.  Predeterminado:
 @item print-all-headers
 @funindex print-all-headers
 
-Si está establecido a un valor verdadero, imprime todas las cabeceras
-para cada una de las @code{\score} en la salida impresa.  Normalmente
-sólo se imprimen las variables de encabezamiento de pieza y opus.
-Predeterminado: @code{##f}.
-
-@item print-first-page-number
-@funindex print-first-page-number
-
-Si está establecido a un valor verdadero, se imprime un número de
-página en la primera página.  Predeterminado: @code{##f}.
-
-@item print-page-number
-@funindex print-page-number
-
-Si está establecido a un valor falso, no se imprimen los números de
-página.  Predeterminado: @code{##t}.
-
-@item ragged-bottom
-@funindex ragged-bottom
-
-Si está establecido a un valor verdadero, los sistemas no ocuparán
-verticalmente toda la altura de la página.  Esto no afecta a la última
-página.  Predeterminado: @code{##f}.
-
-Esto se debería establecer al valor verdadero para piezas que tienen
-sólo dos o tres sistemas por página, por ejemplo partituras
-orquestales.
-
-@item ragged-last
-@funindex ragged-last
-
-Si está establecido a un valor verdadero, el último sistema de la
-partitura no llenará la anchura de la línea.  En su lugar, el último
-sistema termina en su longitud horizontal natural.  Predeterminado:
-@code{##f}.
-
-@item ragged-last-bottom
-@funindex ragged-last-bottom
-
-Si está establecido a un valor falso, los sistemas se repartirán
-verticalmente por toda la última página.  Predeterminado: @code{##t}.
-
-Las piezas que llenan generosamente dos o más páginas deberían tener
-esto establecido al valor verdadero.
-
-También afecta a la última página de las partes de libro, es decir,
-partes de un libro que se han creado con bloques @code{\bookpart}.
-
-@item ragged-right
-@funindex ragged-right
-
-Si está establecido a un valor verdadero, los sistemas no llenarán el
-ancho de línea disponible.  En su lugar, los sistemas terminan en su
-longitud horizontal natural.  Predeterminado: @code{##f}.
-
-Si la partitura sólo tiene un sistema, el valor predeterminado es
-@code{##t}.
+If set to true, this will print all headers for each @code{\score}
+in the output.  Normally only the @code{piece} and @code{opus}
+header variables are printed.  Default: @code{#f}.
 
 @item system-separator-markup
 @funindex system-separator-markup
 
 Objeto de marcado que se inserta entre los sistemas.  Se suele usar
 para partituras orquestales.  Predeterminado: sin establecer.
+  The @code{\slashSeparator}
+markup, defined in @file{ly/titling-init.ly}, is provided as a
+sensible default, for example:
 
-Se ofrece la instrucción de marcado @code{\slashSeparator} como un
-valor predeterminado apropiado, por ejemplo
+@lilypond[quote,verbatim,noragged-right,line-width=30\mm]
+#(set-default-paper-size "a8")
 
-@lilypond[quote,ragged-right]
-#(set-default-paper-size "a6" 'landscape)
 \book {
-  \score {
-    \relative c' { c1 \break c1 }
-  }
   \paper {
     system-separator-markup = \slashSeparator
   }
+  \header {
+    tagline = ##f
+  }
+  \score {
+    \relative c'' { c1 \break c1 \break c1 }
+  }
 }
 @end lilypond
-
-@item system-count
-@funindex system-count
-
-Cantidad de sistemas que usar por parte de la partitura.
-Predeterminado: sin establecer.
-
-@item systems-per-page
-@funindex systems-per-page
-
-Número de sistemas que se deben colocar en cada página.  Está
-contemplado solamente por parte del algoritmo
-@code{ly:optimal-breaking} por el momento.  Predeterminado: no
-establecido.
-
-@item two-sided
-@funindex two-sided
-
-@cindex encuadernación
-@cindex margen de encuadernación
-
-Si es verdadero, usar @code{inner-margin}, @code{outer-margin} y
-@code{binding-offset} para determinar los márgenes dependiendo de si
-el número de página es par o impar.  Esto sobreescribe a
-@code{left-margin} y a @code{right-margin}.  Valor predeterminado:
-@code{##f}.
 
 @end table
 
 
 @seealso
-Fragmentos de código:
+Installed files:
+@file{ly/titling-init.ly}.
+
+Snippets:
 @rlsr{Spacing}.
 
 
@@ -809,28 +962,87 @@ El encabezamiento de página predeterminado pone el número de página y
 el campo @code{instrument} del bloque @code{\header} sobre la misma
 línea.
 
-Los títulos de cabecera (tomados de la sección @code{\header@{@}}) se
-tratan como un sistema, por lo que @code{ragged-bottom} y
-@code{ragged-last-bottom} añaden espacio entre los títulos y el primer
-sistema de la partitura.
 
+@node Disposición de la partitura
+@section Disposición de la partitura
+@translationof Score layout
 
-@node Disposición de la música
-@section Disposición de la música
-@translationof Music layout
+This section discusses score layout options for the @code{\layout}
+block.
 
 @menu
-* Establecer el tamaño del pentagrama::
-* Disposición de la partitura::
+* El bloque \layout::
+* Setting the staff size::
 @end menu
 
 
-@node Establecer el tamaño del pentagrama
-@subsection Establecer el tamaño del pentagrama
-@translationof Setting the staff size
+@node El bloque \layout
+@subsection El bloque @code{\layout}
+@translationof  The \layout block
 
-@cindex tipografía, establecer tamaño de
-@cindex pentagrama, establecer tamaño de
+@funindex \layout
+
+While the @code{\paper} block contains settings that relate to the
+page formatting of the whole document, the @code{\layout} block
+contains settings for score-specific layout.  To set score layout
+options globally, enter them in a toplevel @code{\layout} block.
+To set layout options for an individual score, enter them in a
+@code{\layout} block inside the @code{\score} block, after the
+music.  Settings that can appear in a @code{\layout} block
+include:
+
+@itemize
+@item the @code{layout-set-staff-size} scheme function,
+@item context modifications in @code{\context} blocks, and
+@item @code{\paper} variables that affect score layout.
+@end itemize
+
+The @code{layout-set-staff-size} function is discussed in the next
+section, @ref{Setting the staff size}.  Context modifications are
+discussed in a separate chapter; see
+@ref{Modifying context plug-ins} and
+@ref{Changing context default settings}.  The @code{\paper}
+variables that can appear in a @code{\layout} block are:
+
+@itemize
+@item @code{ragged-right}
+@item @code{ragged-last}
+@item @code{indent}
+@item @code{short-indent}
+@item @code{system-count}
+@end itemize
+
+Here is an example @code{\layout} block:
+
+@example
+\layout @{
+  indent = 2.0\cm
+  \context @{
+    \StaffGroup
+    \override StaffGrouper #'staff-staff-spacing #space = #8
+  @}
+  \context @{
+    \Voice
+    \override TextScript #'padding = #1.0
+    \override Glissando #'thickness = #3
+  @}
+@}
+@end example
+
+
+@seealso
+Notation Reference:
+@ref{Changing context default settings}.
+
+Snippets:
+@rlsr{Spacing}.
+
+
+@node Setting the staff size
+@subsection Setting the staff size
+
+@cindex font size, setting
+@cindex staff size, setting
 @funindex layout file
 
 El @strong{tamaño de pentagrama} predeterminado se establece en 20
@@ -939,38 +1151,6 @@ Fragmentos de código:
 del pentagrama.
 
 
-@node Disposición de la partitura
-@subsection Disposición de la partitura
-@translationof Score layout
-
-@funindex \layout
-
-Mientras que @code{\paper} contiene ajustes relativos al formato de
-página del documento completo, @code{\layout} contiene ajustes para la
-disposición específica de cada partitura.
-
-@example
-\layout @{
-  indent = 2.0\cm
-  \context @{ \Staff
-    \override VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 6)
-  @}
-  \context @{ \Voice
-    \override TextScript #'padding = #1.0
-    \override Glissando #'thickness = #3
-  @}
-@}
-@end example
-
-
-@seealso
-Referencia de la notación:
-@ref{Cambiar los valores por omisión de los contextos}.
-
-Fragmentos de código:
-@rlsr{Spacing}.
-
-
 @node Saltos
 @section Saltos
 @translationof Breaks
@@ -1069,11 +1249,11 @@ novedosa y difícil.  Hay más detalles disponibles en @rlsr{Spacing}.
 
 
 @seealso
-Referencia de funcionamiento interno:
-@rinternals{LineBreakEvent}.
-
 Fragmentos de código:
 @rlsr{Spacing}.
+
+Referencia de funcionamiento interno:
+@rinternals{LineBreakEvent}.
 
 
 @knownissues
@@ -1512,11 +1692,18 @@ Tres mecanismos distintos controlan el espaciado vertical flexible
 dentro de los sistemas, uno por cada una de las categorías siguientes:
 
 @itemize
-@item @emph{pautas sin agrupar},
-@item @emph{pautas agrupadas} (pautas dentro de un grupo de pentagramas como
+
+@item
+@emph{pautas sin agrupar},
+
+@item
+@emph{pautas agrupadas} (pautas dentro de un grupo de pentagramas como
 @code{ChoirStaff}, etc.), y
-@item @emph{líneas que no son pautas} (como @code{Lyrics},
+
+@item
+@emph{líneas que no son pautas} (como @code{Lyrics},
 @code{ChordNames}, etc.).
+
 @end itemize
 
 @c TODO: Clarify this.  This almost implies that non-staff lines
@@ -1532,7 +1719,7 @@ solamente controlan el espaciado vertical de pas pautas y líneas que
 no son pautas dentro de los sistemas individuales.  El espaciado
 vertical entre distintos sistemas, partituras, marcados y márgenes se
 controla mediante variables de @code{\paper} que se estudian en
-@ref{Dimensiones verticales flexibles}.
+@ref{Flexible vertical spacing \paper variables}.
 
 @menu
 * Propiedades de espaciado dentro de los sistemas::
@@ -1669,8 +1856,9 @@ Cada una de las propiedades de grob del espaciado vertical (excepto
 @code{staff-affinity}) se almacena como una lista-A (lista
 asociativa), y todas usan la misma estructura de lista-A que las
 variables de espaciado del bloque @code{\paper} que se han estudiado
-en @ref{Dimensiones verticales flexibles}.  En @ref{Modificación de
-las listas-A} se estudian métodos específicos para la modificación de
+en @ref{Flexible vertical spacing \paper variables}.
+En @ref{Modificación de las listas-A}
+se estudian métodos específicos para la modificación de
 las listas-A.  Las propiedades de los grobs deben ajustarse con un
 @code{\override} dentro de un bloque @code{\score} o @code{\layout}, y
 no dentro de un bloque @code{\paper}.
@@ -3181,7 +3369,7 @@ Fragmentos de código:
 La salida de @code{annotate-spacing} revela las dimensiones verticales
 con gran detalle.  Para ver más detalles acerca de la modificación de
 los márgenes y otras variables de diseño de la página, consulte
-@ref{Formateo de las páginas}.
+@ref{Disposición de la página}.
 
 Aparte de los márgenes, hay algunas otras opciones para ahorrar espacio:
 
@@ -3286,7 +3474,7 @@ completa.
 
 @seealso
 Referencia de la notación:
-@ref{Formateo de las páginas},
+@ref{Disposición de la página},
 @ref{Cambiar el espaciado horizontal}.
 
 Fragmentos de código:
