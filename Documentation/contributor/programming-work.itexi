@@ -1089,6 +1089,9 @@ The logfile has standard lilypond output, as well as the Graphviz
 output data.  Delete everything from the beginning of the file
 up to but not including the first occurrence of @code{digraph}.
 
+Also, delete the final liypond message about successs from the end
+of the file.
+
 @item Process the logfile with @code{dot}
 
 The directed graph is created from the log file with the program

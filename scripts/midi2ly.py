@@ -826,7 +826,7 @@ def convert_midi (in_file, out_file):
 
     
     s = ''
-    s = tag + '\n\\version "2.7.18"\n\n'
+    s = tag + '\n\\version "2.7.38"\n\n'
     for i in range (len (tracks)):
         s = s + dump_track (tracks[i], i)
 

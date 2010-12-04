@@ -47,6 +47,9 @@
 (define-public (string-or-pair? x)
   (or (string? x) (pair? x)))
 
+(define-public (number-or-pair? x)
+  (or (number? x) (pair? x)))
+
 (define-public (cheap-list? x)
   (or (pair? x) (null? x)))
 

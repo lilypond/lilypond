@@ -934,7 +934,11 @@ Otherwise, return #f."
 		(format #f "\\tempo ~a ~a = ~a"
 			(scheme-expr->lily-string ?unit-text)
 			(duration->lily-string ?unit-duration #:force-duration #t)
-			?unit-count))
+			(if (number-pair? ?unit-count)
+			    (format #f "~a ~~ ~a"
+				    (car ?unit-count)
+				    (cdr ?unit-count))
+			    ?unit-count)))
 	(with-music-match (expr (music 'ContextSpeccedMusic
 		    element (music 'SequentialMusic
 			      elements ((music 'PropertyUnset
@@ -949,7 +953,11 @@ Otherwise, return #f."
 					  symbol 'tempoUnitCount)))))
 			(format #f "\\tempo ~a = ~a"
 				(duration->lily-string ?unit-duration #:force-duration #t)
-				?unit-count))
+				(if (number-pair? ?unit-count)
+				    (format #f "~a ~~ ~a"
+					    (car ?unit-count)
+					    (cdr ?unit-count))
+				    ?unit-count)))
 	(with-music-match (expr (music 'ContextSpeccedMusic
 			    element (music 'SequentialMusic
 				      elements ((music 'PropertySet

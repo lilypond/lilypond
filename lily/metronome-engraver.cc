@@ -160,7 +160,7 @@ Metronome_mark_engraver::process_music ()
   SCM duration = get_property ("tempoUnitDuration");
   SCM text = get_property ("tempoText");
 
-  if ( ( (unsmob_duration (duration) && scm_is_number (count))
+  if ( ( (unsmob_duration (duration) && scm_is_true (count))
         || Text_interface::is_markup (text) )
       && !(ly_is_equal (count, last_count_)
 	   && ly_is_equal (duration, last_duration_)
