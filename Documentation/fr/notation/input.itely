@@ -16,7 +16,9 @@
 @chapter Généralités en matière d'entrée et sortie
 @translationof General input and output
 
-@untranslated
+Nous n'allons pas, dans ce chapitre, parler directement de notation,
+mais plutôt du contenu des fichiers source et du résultat produit par
+LilyPond.
 
 
 @menu
@@ -37,6 +39,8 @@
 @menu
 * Structure d'une partition::
 * Plusieurs partitions dans un même ouvrage::
+* Plusieurs éditions pour une même source::
+* Nom des fichiers de sortie::
 * Structure de fichier::
 @end menu
 
@@ -50,6 +54,20 @@
 @node Plusieurs partitions dans un même ouvrage
 @subsection Plusieurs partitions dans un même ouvrage
 @translationof Multiple scores in a book
+
+@untranslated
+
+
+@node Plusieurs éditions pour une même source
+@subsection Plusieurs éditions pour une même source
+@translationof Multiple output files from one input file
+
+@untranslated
+
+
+@node Nom des fichiers de sortie
+@subsection Nom des fichiers de sortie
+@translationof Output file names
 
 @untranslated
 
@@ -70,7 +88,7 @@
 
 @menu
 * Création de titres::
-* Titres personnalisés::
+* Titrages personnalisés::
 * Référencement des numéros de page::
 * Table des matières::
 @end menu
@@ -82,9 +100,9 @@
 @untranslated
 
 
-@node Titres personnalisés
-@subsection Titres personnalisés
-@translationof Custom titles
+@node Titrages personnalisés
+@subsection Titrages personnalisés
+@translationof Custom headers, footers, and titles
 
 @untranslated
 
@@ -254,6 +272,8 @@ si vous imprimez une partition avec les deux sections balisées.
 @menu
 * Extraction de fragments musicaux::
 * Ignorer des passages de la partition::
+* Formats de sortie alternatifs::
+* Changement des fontes musicales::
 @end menu
 
 @node Extraction de fragments musicaux
@@ -266,6 +286,26 @@ si vous imprimez une partition avec les deux sections balisées.
 @node Ignorer des passages de la partition
 @subsection Ignorer des passages de la partition
 @translationof Skipping corrected music
+
+@untranslated
+
+
+@node Formats de sortie alternatifs
+@subsection Formats de sortie alternatifs
+@translationof Alternative output formats
+
+@untranslated
+
+
+@node Changement des fontes musicales
+@subsection Changement des fontes musicales
+@translationof Replacing the notation font
+
+@untranslated
+
+
+@subsubheading Instructions d'installation pour MacOS
+@translationof Installation Instructions for MacOS
 
 @untranslated
 
@@ -295,6 +335,8 @@ si vous imprimez une partition avec les deux sections balisées.
 
 @unnumberedsubsubsec Noms d'instrument
 @translationof Instrument names
+
+
 @node Le bloc MIDI
 @subsection Le bloc MIDI
 @translationof MIDI block
@@ -368,9 +410,13 @@ pourcentage.  Par exemple
 
 
 @unnumberedsubsubsec Indications de nuance
+@translationof Dynamic marks
 @unnumberedsubsubsec Amplitude du volume en MIDI
+@translationof Overall MIDI volume
 @unnumberedsubsubsec Égalisation de plusieurs instruments (i)
+@translationof Equalizing different instruments (i)
 @unnumberedsubsubsec Égalisation de plusieurs instruments (ii)
+@translationof Equalizing different instruments (ii)
 
 
 @node MIDI et percussions

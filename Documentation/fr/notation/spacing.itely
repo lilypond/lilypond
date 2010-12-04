@@ -61,32 +61,30 @@ L'agencement général d'une partition dépend de trois facteurs
 interdépendants@tie{}: la mise en page, les sauts de ligne et
 l'espacement.  Les choix faits en matière d'espacement détermineront la
 densité de chacun des systèmes, ce qui influera sur le positionnement
-des sauts de lignes et, par voie de conséquence, sur le nombre de page
+des sauts de lignes et, par voie de conséquence, sur le nombre de pages
 de la partition.
 
 En pratique, cette procédure comporte quatre étapes.  Dans un premier
-temps, des distances élastiques (@emph{springs}) sont déterminées sur la
+temps, des distances élastiques @emph{(springs)} sont déterminées sur la
 base des durées.  Sont alors calculées différentes possibilités de saut
 de ligne, chacune se voyant attribuer un @qq{coefficient de laideur},
 puis est estimée la hauteur de chaque système.  LilyPond opte enfin pour
 la combinaison entre sauts de page et de ligne qui offre la meilleure
 occupation de l'espace, tant horizontalement que verticalement.
 
-Les réglages qui influencent la mise en forme peuvent se placer dans
-deux blocs différents.  Le bloc @w{@code{\paper @{@dots{}@}}} intervient
-en dehors de tout bloc @w{@code{\score @{@dots{}@}}}@tie{}; il contient
-les réglages applicables à l'intégralité du document.  Quant au bloc
-@w{@code{\layout @{@dots{}@}}}, il se place à l'intérieur d'un bloc
-@w{@code{\score @{@dots{}@}}} pour déterminer ce qui le concerne tout
-particulièrement.  Dans le cas où il n'y a qu'un seul bloc
-@w{@code{\score @{@dots{}@}}}, les deux emplacements donneront le même
-effet.  Les commandes indiquées dans ce chapitre sont valables dans tous
-les cas.
-
+Les réglages qui influencent la mise en forme se placent dans deux blocs
+différents.  Le bloc @w{@code{\paper @{@dots{}@}}} étudié à la rubrique
+@ref{Mise en forme de la page} contient les réglages applicables à
+l'intégralité du document -- à toutes les partitions d'un ouvrage --
+tels que format du papier, impression ou non des numéros de page, etc.
+Quant au bloc @w{@code{\layout @{@dots{}@}}}, qui fait l'objet de la
+rubrique @ref{Mise en forme de la musique}, il détermine la mise en
+forme d'une partition@tie{}: le nombre de systèmes utilisés,
+l'espacement des regroupements de portées, etc.
 
 @menu
-* Du papier et des pages::
-* Mise en forme de la musique::
+* Mise en forme de la page::
+* Mise en forme de la partition::
 * Sauts::
 * Espacement vertical::
 * Espacement horizontal::
@@ -106,24 +104,119 @@ typographique, un maître français voit un alignement à gauche -- il dira
 @emph{ragged-right} -- donc du vide à droite.}
 
 
-@node Du papier et des pages
-@section Du papier et des pages
-@translationof Paper and pages
+@node Mise en forme de la page
+@section Mise en forme de la page
+@translationof Page layout
 
-Nous allons examiner ici le bornage -- ce qui détermine l'espace que
-pourra occuper la musique sur une feuille.
+Nous allons examiner ici les options qui contrôlent la mise en forme des
+pages attachées au bloc @code{\paper}.
 
 @menu
-* Format du papier::
-* Mise en forme de la page::
+* Le bloc \paper::
+* Format du papier et adaptation automatique::
+* Variables d'espacement vertical fixe::
+* Variables d'espacement vertical fluctuant::
+* Variables d'espacement horizontal::
+* Autres variables du bloc \paper::
 @end menu
 
-@node Format du papier
-@subsection Format du papier
-@translationof Paper size
+
+@node Le bloc \paper
+@subsection Le bloc @code{\paper}
+@translationof The @code{\paper} block
+
+Un bloc @code{\paper} peut apparaître au sein d'un bloc
+@code{\book}.  Les réglages effectués à l'aide du bloc @code{\paper}
+s'appliqueront à l'intégralité d'un ouvrage, qui peut comporter
+plusieurs partitions (des blocs @emph{score})@tie{}; il ne doit donc en
+aucun cas se trouver dans un bloc @code{\score}.  Peuvent apparaître
+dans un bloc @code{\paper}@tie{}:
+
+@itemize
+
+@item
+la fonction scheme @code{set-paper-size},
+
+@item
+des variables propres au bloc @code{\paper} qui viendront adapter la
+mise en page, et
+
+@item
+la définition des différents @emph{markups} qui personnaliseront la mise
+en forme des entêtes, pied de page et titrages.
+
+@end itemize
+
+La fonction @code{set-paper-size} fait l'objet de la rubrique qui suit
+-- @ref{Format du papier et adaptation automatique}.  Les variables du
+bloc @code{\paper} traitant de la mise en page sont abordées plus loin
+dans ce chapitre.  Quant aux définitions relatives aux @emph{markups}
+des entêtes, pied de page et titrages, elles sont étudiées à la rubrique
+@ref{Titrages personnalisés}.
+
+La plupart des variables gérant le papier ne sont fonctionnelles que
+lorsque mentionnées dans un bloc @code{\paper}.  Certaines, qui peuvent
+toutefois apparaître dans un bloc @code{\layout}, sont référencées à la
+rubrique @ref{Le bloc \layout}.
+
+Sauf mention contraire, toutes les variables du bloc @code{\paper} qui
+correspondent à des dimensions sont exprimées en millimètre -- vous
+pouvez bien entendu spécifier un autre système de mesure.  Voici
+comment, par exemple, définir la marge haute (@code{top-margin}) à dix
+millimètres@tie{}:
+
+@example
+\paper @{
+  top-margin = 10
+@}
+@end example
+
+Si vous préférez lui affecter une valeur de 0,5@tie{}pouce, vous devrez
+mentionner le suffixe d'unité @code{\in}@tie{}:
+
+@example
+\paper @{
+  top-margin = 0.5\in
+@}
+@end example
+
+LilyPond accepte les suffixes d'unité @code{\mm}, @code{\cm},
+@code{\in} et @code{\pt}.  Pour plus de lisibilité, et bien que ce ne
+soit pas techniquement requis, nous vous conseillons d'ajouter
+@code{\mm} à votre code lorsque vous travaillez en millimètres.
+
+Vous pouvez aussi définir les valeurs du bloc @code{\paper} à l'aide de
+fonctions Scheme.  Voici l'équivalent de l'exemple précédent@tie{}:
+
+@example
+\paper @{
+  #(define top-margin (* 0.5 in))
+@}
+@end example
+
+@seealso
+Manuel de notation :
+@ref{Titrages personnalisés}.
+
+
+@node Format du papier et adaptation automatique
+@subsection Format du papier et adaptation automatique
+@translationof Paper size and automatic scaling
 
 @cindex papier, taille
 @cindex page, format
+
+@funindex \paper
+
+@menu
+* Format du papier::
+* Adaptation automatique au format::
+@end menu
+
+
+@node Format du papier
+@unnumberedsubsubsec Format du papier
+@translationof Setting paper size
 
 Le format du papier est déterminé par deux fonctions différentes@tie{}:
 @code{set-default-paper-size} et @code{set-paper-size}.
@@ -142,6 +235,13 @@ Le format du papier est déterminé par deux fonctions différentes@tie{}:
 @end example
 
 @noindent
+La seule restriction à l'utilisation isolée de la fonction
+@code{set-default-paper-size} est qu'elle doit intervenir avant le
+premier bloc @code{\paper}.  À l'intérieur d'un bloc @code{\paper}, il
+vaut mieux utiliser la fonction @code{set-paper-size}, avant toute autre
+variables.  Les raisons à ceci sont abordées dans la rubrique
+@ref{Adaptation automatique au format}.
+
 @code{set-default-paper-size} fixe le format pour toutes les pages,
 alors que @code{set-paper-size} détermine le format des feuilles
 rattachées à un bloc @code{\paper} particulier.  Ainsi, lorsque le bloc
@@ -151,7 +251,7 @@ bloc @code{\book}, la taille ne s'appliquera qu'au @emph{book} en
 question.
 
 Les formats @code{a4}, @code{letter}, @code{legal} et @code{11x17} (ou
-tabloïde) sont couramment utilisés pour les éditions musicales.  Bien
+tabloïd) sont couramment utilisés pour les éditions musicales.  Bien
 d'autres formats sont disponibles et sont répertoriés à la rubrique
 @code{paper-alist} du fichier d'initialisation @file{scm/paper.scm}.
 
@@ -159,7 +259,7 @@ d'autres formats sont disponibles et sont répertoriés à la rubrique
 
 @warning{Par défaut, le papier est au format A4 (codé @code{a4}).}
 
-Rien ne vous empèche d'ajouter un format de papier inhabituel à la
+Rien ne vous empêche d'ajouter un format de papier inhabituel à la
 rubrique @code{paper-alist} du fichier @file{scm/paper.scm}.  Sachez
 cependant que celui-ci est écrasé à chaque mise à jour de LilyPond.
 
@@ -177,23 +277,47 @@ longues.
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
-La définition du format de papier influe sur un certain nombre de
-variables comme entre autres les marges.  Nous vous invitons à toujours
-spécifier, dans le bloc @code{\paper}, le format de page avant toute
-autre variable.
-
 
 @seealso
 Fichiers d'initialisation :
 @file{scm/paper.scm}.
 
-Morceaux choisis :
-@rlsrnamed{Spacing,Espacements}.
 
+@node Adaptation automatique au format
+@unnumberedsubsubsec Adaptation automatique au format
+@translationof Automatic scaling to paper size
 
-@node Mise en forme de la page
-@subsection Mise en forme de la page
-@translationof Page formatting
+If the paper size is changed with one of the scheme functions
+(@code{set-default-paper-size} or @code{set-paper-size}), the
+values of several @code{\paper} variables are automatically scaled
+to the new size.  To bypass the automatic scaling for a particular
+variable, set the variable after setting the paper size.  Note
+that the automatic scaling is not triggered by setting
+@code{paper-height} or @code{paper-width}, even though
+@code{paper-width} can influence other values (this is separate
+from scaling and is discussed below).  The
+@code{set-default-paper-size} and @code{set-paper-size} functions
+are described in @ref{Setting paper size}.
+
+The vertical dimensions affected by automatic scaling are
+@code{top-margin} and @code{bottom-margin}.  The horizontal
+dimensions affected by automatic scaling are @code{left-margin},
+@code{right-margin}, @code{inner-margin}, @code{outer-margin},
+@code{binding-offset}, @code{indent}, and @code{short-indent}.
+
+The default values for these dimensions are set in
+@file{ly/paper-defaults-init.ly}, using internal variables named
+@code{top-margin-default}, @code{bottom-margin-default}, etc.
+These are the values that result at the default paper size
+@code{a4}.  For reference, with @code{a4} paper the
+@code{paper-height} is @code{297\mm} and the @code{paper-width} is
+@code{210\mm}.
+
+@seealso
+Installed Files:
+@file{ly/paper-defaults-init.ly},
+@file{scm/paper.scm}.
+
 
 @funindex \paper
 
@@ -209,17 +333,10 @@ pour les autres formats.
 Nous allons examiner, dans les paragraphes qui suivent, les différentes
 variables sur lesquelles vous pouvez intervenir.
 
-@menu
-* Dimensionnement vertical fixe::
-* Dimensionnement vertical fluctuant::
-* Dimensionnement horizontal::
-* Autres variables de mise en page::
-@end menu
 
-
-@node Dimensionnement vertical fixe
-@unnumberedsubsubsec Dimensionnement vertical fixe
-@translationof Fixed vertical dimensions
+@node Variables d'espacement vertical fixe
+@subsection Variables d'espacement vertical fixe
+@translationof Fixed vertical spacing @code{\paper} variables
 
 @table @code
 @item paper-height
@@ -240,12 +357,51 @@ Elle est fixée par défaut à@tie{}@code{5\mm}.
 La marge entre la surface imprimable et le bord inférieur de la feuille.
 Elle est fixée par défaut à@tie{}@code{6\mm}.
 
+@item ragged-bottom
+@funindex ragged-bottom
+
+L'activation de cette variable permet de ne pas répartir verticalement
+les systèmes sur les pages hormis la dernière.  La valeur par défaut
+est@tie{}@code{##f}.
+
+Lorsque la partition ne comporte que deux ou trois systèmes par page,
+comme pour un conducteur d'orchestre, nous vous conseillons d'activer
+cette variable.
+
+@item ragged-last-bottom
+@funindex ragged-last-bottom
+
+La désactivation de cette variable permet de répartir verticalement les
+systèmes de la dernière page d'une partition.  La valeur par défaut
+est@tie{}@code{##t}.
+
+Nous vous conseillons, lorsque des pièces couvrent deux pages ou plus,
+d'activer cette variable.
+
+Notez bien que la variable @code{ragged-last-bottom} affecte aussi la
+dernière page de chacune des parties -- créées à l'aide d'un bloc
+@code{\bookpart} -- d'un même ouvrage.
+
 @end table
 
 
-@node Dimensionnement vertical fluctuant
-@unnumberedsubsubsec Dimensionnement vertical fluctuant
-@translationof Flexible vertical dimensions
+@seealso
+Fichiers d'initialisation :
+@file{ly/paper-defaults-init.ly}.
+
+Morceaux choisis :
+@rlsrnamed{Spacing, Espacements}.
+
+@knownissues
+
+The titles (from the @code{\header} block) are treated as a
+system, so @code{ragged-bottom} and @code{ragged-last-bottom} will
+add space between the titles and the first system of the score.
+
+
+@node Variables d'espacement vertical fluctuant
+@subsection Variables d'espacement vertical fluctuant
+@translationof Flexible vertical spacing @code{\paper} variables
 
 Il est souvent judicieux d'apporter un peu de flexibilité à l'espacement
 entre différents éléments (marges, titres, systèmes ou mouvements), en
@@ -261,19 +417,27 @@ définissent au niveau du bloc @code{\score} -- voir à ce sujet
 @ref{Espacement vertical au sein d'un système}.
 
 
-@subsubheading Structure des variables d'espacement du bloc @code{\paper}
-@translationof Structure of spacing alists for @code{\paper} variables
+@menu
+* Structure des variables d'espacement vertical fluctuant::
+* Liste des variables d'espacement vertical fluctuant::
+@end menu
+
+@node Structure des variables d'espacement vertical fluctuant
+@unnumberedsubsubsec Structure des variables d'espacement vertical fluctuant
+@translationof Structure of flexible vertical spacing alists
 
 Chacune de ces variables est constituée d'une liste associative à quatre
 @i{clés}@tie{}:
 
 @itemize
-@item @code{padding} (@emph{décalage}) -- la grandeur minimale de
+@item
+@code{padding} (@emph{décalage}) -- la grandeur minimale de
 @qq{blanc} qui sépare deux éléments, exprimée en hauteur de portée.  On
 peut le voir comme la hauteur minimale d'un rectangle vide qui devrait
-s'étendre sur toute la largueur des deux éléments.
+s'étendre sur toute la largeur des deux éléments.
 
-@item @code{space} (@emph{espace}) -- la grandeur d'espace par défaut,
+@item
+@code{space} (@emph{espace}) -- la grandeur d'espace par défaut,
 exprimée en hauteur de portée, séparant les @i{points de référence} de
 deux éléments, qui évite tout risque de collision en l'absence de
 dilatation ou compression.  Le point de référence d'un titre ou d'un
@@ -284,14 +448,16 @@ dilatation ou compression.  Le point de référence d'un titre ou d'un
 mesure où l'espacement résultant ne saurait être inférieur à
 @code{padding} ou @code{minimum-distance}.
 
-@item @code{minimum-distance} (@emph{distance-minimale}) -- l'espacement
+@item
+@code{minimum-distance} (@emph{distance-minimale}) -- l'espacement
 minimal, exprimé en hauteur de portée, entre les points de référence des
 deux éléments alors qu'il y a déjà un effet de compression.  Une
 @code{minimum-distance} inférieure à la valeur du @code{padding} sera
 sans effet, dans la mesure où l'espacement résultant ne saurait être
 inférieur au @code{padding}.
 
-@item @code{stretchability} (@emph{dilatation}) -- le coefficient
+@item
+@code{stretchability} (@emph{dilatation}) -- le coefficient
 d'étirement de cet espace.  Un coefficient nul permet de figer
 l'espacement, à moins qu'il n'en résulte des collisions.  Un coefficient
 positif déterminera la propension d'un espacement à s'étirer, tout
@@ -346,8 +512,9 @@ Les valeurs par défaut de ces variables sont répertoriés dans le
 fichier @file{ly/paper-defaults-init.ly}.
 
 
-@subsubheading Variables de dimensionnement fluctuant du bloc @code{\paper}
-@translationof Flexible vertical dimension @code{\paper} variables
+@node Liste des variables d'espacement vertical fluctuant
+@unnumberedsubsubsec Liste des variables d'espacement fluctuant
+@translationof List of flexible vertical spacing @code{\paper} variables
 
 Le nom des dimensionnements à hauteur variable sont de la forme
 @code{@var{upper}-@var{lower}-spacing}, où @code{@var{upper}} et
@@ -358,7 +525,11 @@ médiane de la portée la plus proche pour un système.  Notez bien que,
 dans les règles de nommage des variables qui suivent, le terme
 @code{markup} fait référence aussi bien à un @i{markup de titrage}
 (@code{bookTitleMarkup} ou @code{scoreTitleMarkup}) qu'à un
-@i{markup de haut niveau} (voir @ref{Structure de fichier}).
+@i{markup de haut niveau} (voir @ref{Structure de fichier}).  Toutes les
+distances sont exprimées en espace de portée. Leurs valeurs par défaut
+sont inscrites dans le fichier @file{ly/paper-defaults-init.ly}.
+
+@c TODO: Where do headers/footers fit in? -mp
 
 Voici à présent les différentes variables disponibles@tie{}:
 
@@ -419,80 +590,139 @@ page.
 @end table
 
 
-@snippets
-
-L'entête et le pied de page sont créés respectivement par les fonctions
-@code{make-header} et @code{make-footer}, toutes deux définies dans le
-bloc @code{\paper}.  Leur implémentation par défaut se trouve dans les
-fichiers d'initialisation @file{ly/paper-defaults-init.ly} et
-@file{ly/titling-init.ly}.
-
-La mise en forme de la page est réalisée par les fonctions
-@code{page-music-height} et @code{page-make-stencil}, toutes deux
-membres du bloc @code{\paper}.  La première informe l'algoritme des
-sauts de ligne de combien d'espace il dispose sur la page@tie{}; la
-seconde génère la page selon le nombre de système qu'elle contiendra.
-
-Vous pouvez définir toutes ces valeurs -- en @code{mm}, @code{in},
-@code{pt} ou @code{cm} -- en langage Scheme au sein du bloc
-@code{\paper}.  Celles contenues dans le fichier
-@file{paper-defaults.ly} sont en millimètres, c'est la raison pour
-laquelle la valeur de @code{2@tie{}cm} de ce qui suit doit être
-précédée du signe multiplier.
-
-@example
-\paper @{
- #(define bottom-margin (* 2 cm))
-@}
-@end example
-
-
-Exemple :
-
-@example
-\paper @{
-  paper-width = 2\cm
-  top-margin = 3\cm
-  bottom-margin = 3\cm
-  ragged-last-bottom = ##t
-@}
-@end example
-
-Voici par exemple comment centrer le numéro des pages au bas de chacune
-d'elles@tie{}:
-
-@example
-\paper @{
-  print-page-number = ##t
-  print-first-page-number = ##t
-  oddHeaderMarkup = \markup \fill-line @{ " " @}
-  evenHeaderMarkup = \markup \fill-line @{ " " @}
-  oddFooterMarkup = \markup @{ \fill-line @{
-     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
-     \fromproperty #'page:page-number-string @} @}
-  evenFooterMarkup = \markup @{ \fill-line @{
-     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
-     \fromproperty #'page:page-number-string @} @}
-@}
-@end example
-
-
 @seealso
 Manuel de notation :
-@ref{Espacement vertical entre les systèmes}.
+@ref{Espacement vertical au sein d'un système}.
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
-@node Dimensionnement horizontal
-@unnumberedsubsubsec Dimensionnement horizontal
-@translationof Horizontal dimensions
+@node Variables d'espacement horizontal
+@subsection Variables d'espacement horizontal
+@translationof Horizontal spacing \paper variables
+
+@warning{Some @code{@bs{}paper} dimensions are automatically
+scaled to the paper size, which may lead to unexpected behavior.
+See @ref{Automatic scaling to paper size}.}
+
+@menu
+* Variables de marge et de largeur::
+* Variables spécifiques pour l'impression recto-verso::
+* Variables d'indentation et de décalage::
+@end menu
 
 Certaines variables permettent de gérer les dimensionnements
 horizontaux de la page@tie{}:
 
+
+@node Variables de marge et de largeur
+@unnumberedsubsubsec Variables de marge et de largeur
+@translationof @code{\paper} variables for widths and margins
+
+Default values (before scaling) that are not listed here are
+defined in @file{ly/paper-defaults-init.ly}.
+
 @table @code
+
+@item paper-width
+@funindex paper-width
+
+La largeur de la page.  Elle correspond par défaut à la largeur du
+format de papier utilisé -- voir à ce sujet la rubrique
+@ref{Format du papier}.
+
+@item line-width
+@funindex line-width
+
+la longueur d'un système musical.  La valeur par défaut est égale à
+@code{paper-width}, auquel sont retranchés @code{left-margin} et
+@code{right-margin}.
+
+@item left-margin
+@funindex left-margin
+
+la marge entre le bord gauche de la feuille et le début de chaque
+système.  La valeur par défaut est de@tie{}@code{10\mm}.
+
+@item right-margin
+@funindex right-margin
+
+La marge entre le bord droit de la page et la fin des systèmes.  La
+valeur par défaut est de@tie{}@code{10\mm}.
+
+@item check-consistency
+@funindex check-consistency
+
+Lorsqu'elle est activée, cette variable vérifie que  @code{left-margin},
+@code{right-margin} et @code{line-width} sont en cohérence, et que
+l'addition de ces trois éléments ne dépassera pas la largeur du papier
+(@code{paper-width}).  La valeur par défaut est@tie{}@code{##t}.
+
+@item ragged-right
+@funindex ragged-right
+
+Lorsque cette variable est activée, les systèmes ne s'étendront pas sur
+la longueur de la ligne, mais s'arrêteront à leur longueur normale.
+La valeur par défaut est @code{##f}.
+
+Si la partition ne comporte qu'un seul système, la valeur par défaut
+devient @code{##t}.
+
+@item ragged-last
+@funindex ragged-last
+
+Lorsqu'elle est activée, cette variable permet de ne pas étendre le
+dernier système de façon à occuper toute la longueur de la ligne.  La
+valeur par défaut est@tie{}@code{##f}.
+
+@end table
+
+@seealso
+Fichiers d'initialisation :
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Variables spécifiques pour l'impression recto-verso
+@unnumberedsubsubsec Variables spécifiques pour l'impression recto-verso
+@translationof@code{\paper} variables for two-sided mode
+
+Default values (before scaling) are defined in
+@file{ly/paper-defaults-init.ly}.
+
+
+@table @code
+
+@item two-sided
+@funindex two-sided
+
+@cindex gouttière
+@cindex reliure
+
+Cette variable permet de gérer efficacement les impressions recto-verso.
+Lorsqu'elle est activée, les réglages affectés à @code{inner-margin},
+@code{outer-margin} ainsi que @code{binding-offset} détermineront les
+différentes marges selon qu'il s'agit d'une page paire ou impaire.
+Cette variable s'applique en lieu et place de @code{left-margin} et
+@code{right-margin}.  La valeur par défaut est@tie{}@code{##f}.
+
+@item inner-margin
+@funindex inner-margin
+
+La marge que toutes les pages d'une partie ou de tout un ouvrage devront
+avoir du côté intérieur.  Bien entendu, cette variable n'est
+effective que lorsque vous comptez générer un fichier imprimable en
+recto-verso -- propriété @code{two-sided} définie à vrai.  La valeur par
+défaut est de@tie{}@code{10\mm}.
+
+@item outer-margin
+@funindex outer-margin
+
+la marge que toutes les pages d'une partie ou de tout un ouvrage devront
+avoir du côté extérieur -- opposé à la reliure.  Bien entendu, cette
+variable n'est effective que lorsque vous comptez générer un fichier
+imprimable en recto-verso -- propriété @code{two-sided} définie à vrai.
+La valeur par défaut est de@tie{}@code{20\mm}.
 
 @item binding-offset
 @funindex binding-offset
@@ -504,8 +734,26 @@ effective que lorsque vous comptez générer un fichier imprimable en
 recto-verso -- propriété @code{two-sided} définie à vrai.  La valeur par
 défaut est de@tie{}@code{0}.
 
+@end table
+
+@seealso
+Fichiers d'initialisation :
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Variables d'indentation et de décalage
+@unnumberedsubsubsec Variables d'indentation et de décalage
+@translationof @code{\paper} variables for shifts and indents
+
+Default values (before scaling) that are not listed here are
+defined in @file{ly/paper-defaults-init.ly}.
+
+@table @code
+
 @item horizontal-shift
 @funindex horizontal-shift
+
+@c This default value is buried in the middle of page.scm.  -mp
 
 Tous les systèmes, ainsi que les titres et séparateurs de systèmes,
 seront poussés d'autant vers la droite.  la valeur par défaut est
@@ -517,50 +765,6 @@ de@tie{}@code{0.0}.
 Le niveau d'indentation du premier système d'une partition.  La valeur
 par défaut est de@tie{}@code{15\mm}.
 
-@item inner-margin
-@funindex inner-margin
-
-La marge que toutes les pages d'une partie ou de tout un ouvrage devront
-avoir du côté intérieur.  Bien entendu, cette variable n'est
-effective que lorsque vous comptez générer un fichier imprimable en
-recto-verso -- propriété @code{two-sided} définie à vrai.  La valeur par
-défaut est de@tie{}@code{10\mm}.
-
-@item left-margin
-@funindex left-margin
-
-la marge entre le bord gauche de la feuille et le début de chaque
-système.  La valeur par défaut est de@tie{}@code{10\mm}.
-
-@item line-width
-@funindex line-width
-
-la longueur d'un système musical.  La valeur par défaut est égale à
-@code{paper-width}, auquel sont retranchés @code{left-margin} et
-@code{right-margin}.
-
-@item outer-margin
-@funindex outer-margin
-
-la marge que toutes les pages d'une partie ou de tout un ouvrage devront
-avoir du côté extérieur -- opposé à la reliure.  Bien entendu, cette
-variable n'est effective que lorsque vous comptez générer un fichier
-imprimable en recto-verso -- propriété @code{two-sided} définie à vrai.
-La valeur par défaut est de@tie{}@code{20\mm}.
-
-@item paper-width
-@funindex paper-width
-
-La largeur de la page.  Elle correspond par défaut à la largeur du
-format de papier utilisé -- voir à ce sujet la rubrique
-@ref{Format du papier}.
-
-@item right-margin
-@funindex right-margin
-
-La marge entre le bord droit de la page et la fin des systèmes.  La
-valeur par défaut est de@tie{}@code{10\mm}.
-
 @item short-indent
 @funindex short-indent
 
@@ -569,140 +773,25 @@ valeur par défaut est de@tie{}@code{0}.
 
 @end table
 
-LilyPond appliquera les valeurs par défaut pour les variables non
-définies, en les ajustant toutefois selon la taille de papier que vous
-aurez spécifiée.  Cet adaptation automatique concerne@tie{}:
+@node Autres variables du bloc \paper
+@subsection Autres variables du bloc @code{\paper}
+@translationof Other @code{\paper} variables
 
-@itemize
-@item @var{left-margin}
-@item @var{right-margin}
-@item @var{top-margin}
-@item @var{bottom-margin}
-@item @var{head-separation}
-@item @var{foot-separation}
-@item @var{indent}
-@item @var{short-indent}
-@end itemize
-
-Les réglages de @code{line-width}, @code{left-margin},
-@code{right-margin} et @code{paper-width} dépendent les uns des autres,
-mais ne sont pas tous obligatoires@tie{}:
-
-@example
-\paper @{
-  left-margin = 30\mm
-@}
-@end example
-
-Ceci ne définit que la marge gauche (@code{lef-margin}).  Cependant, et
-dans la mesure ou @code{right-margin} -- la marge de droite -- garde sa
-valeur par défaut, la longueur de ligne -- @code{line-width} -- sera
-automatiquement calculée.
-
-@example
-\paper @{
-  line-width = 150\mm
-@}
-@end example
-
-Ici, @code{left-margin} et @code{right-margin} prendront la même valeur.
-Par conséquent, @code{line-width} est retranché de @code{paper-width} et
-divisé par deux.  Autrement dit, le fait de ne spécifier que la valeur
-de @code{line-width} permet d'obtenir des systèmes centrés sur la
-largeur de la page.
-
-LilyPond effectue toutefois des contrôles de cohérence au niveau de ces
-valeurs et émet un avertissement si l'addition n'est pas bonne ou si les
-systèmes risquent de déborder.
-
-@example
-\paper @{
-  paper-width = 210\mm
-  left-margin = 20\mm
-  right-margin = 30\mm
-  line-width = 100\mm
-@}
-@end example
-
-Ces contrôles peuvent se désactiver en définissant la propriété
-@code{check-consistency} à faux@tie{}:
-
-@example
-\paper @{
-  paper-width = 210\mm
-  left-margin = 20\mm
-  line-width = 200\mm
-  check-consistency = ##f
-@}
-@end example
-
-@warning{Lorsque vous définissez manuellement la largeur de page
-(@code{paper-width}), ajustez si besoin les valeurs de
-@code{line-width}, @code{left-margin}, @code{indent} et
-@code{short-indent}.}
+@menu
+* Variables de gestion des sauts de ligne::
+* Variables de gestion des sauts de page::
+* Variables de gestion des numéros de page::
+* Autres variables::
+@end menu
 
 
-@seealso
-Morceaux choisis :
-@rlsrnamed{Spacing,Espacements}.
+@node Variables de gestion des sauts de ligne
+@unnumberedsubsubsec Variables de gestion des sauts de ligne
+@translationof @code{\paper} variables for line breaking
 
-
-@node Autres variables de mise en page
-@unnumberedsubsubsec Autres variables de mise en page
-@translationof Other layout variables
-
-Les variables regroupées ici par ordre alphabétique vous permettront
-d'agencer la page en général.
+@c TODO: Mention that ly:optimal-breaking is on by default? -mp
 
 @table @code
-
-@item auto-first-page-number
-@funindex auto-first-page-number
-
-L'algorithme qui gère les sauts de page prend en compte le fait que le
-premier numéro de page soit pair ou impair.  Lorsque cette
-fonctionnalité est activée, l'algorithme des sauts de page décidera de
-lui-même si le premier numéro sera pair ou impair, ce qui se traduira
-par un éventuel incrément de un.  La valeur par défaut
-est@tie{}@code{##f}.
-
-@ignore
-
-TODO: this variable is used, but I don't know what it does. -pm
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
-
-Default: @code{2}.
-
-@end ignore
-
-@item blank-last-page-force
-@funindex blank-last-page-force
-
-Pénalité pour fin de partition intervenant sur une page impaire.  La
-valeur par défaut est de@tie{}@code{0}.
-
-@item blank-page-force
-@funindex blank-page-force
-
-Pénalité pour apparition d'une page blanche en cours de partition.
-L'option @code{ly:optimal-breaking} n'en tiendra pas compte puisqu'elle
-ne conçoit pas la présence d'une page blanche au milieu d'une partition.
-La valeur par défaut est de@tie{}@code{5}.
-
-@item check-consistency
-@funindex check-consistency
-
-Lorsqu'elle est activée, cette variable vérifie que  @code{left-margin},
-@code{right-margin} et @code{line-width} sont en cohérence, et que
-l'addition de ces trois éléments ne dépassera pas la largeur du papier
-(@code{paper-width}).  La valeur par défaut est@tie{}@code{##t}.
-
-@item first-page-number
-@funindex first-page-number
-
-Le numéro de la première page.  La valeur par défaut est
-de@tie{}@code{#1}.
 
 @item max-systems-per-page
 @funindex max-systems-per-page
@@ -718,6 +807,65 @@ Le nombre minimal de systèmes qu'une page pourra comporter.  Attention
 cependant aux risques de débordement s'il est trop important.  Cette
 variable n'est prise en compte, à ce jour, que par l'option
 @code{ly:optimal-breaking}, et n'est pas définie.
+
+@item systems-per-page
+@funindex systems-per-page
+
+Le nombre de systèmes que devrait comporter chaque page.  Cette variable
+n'est à ce jour prise en charge que par l'algorithme
+@code{ly:optimal-breaking} et n'est pas définie par défaut.
+
+@item system-count
+@funindex system-count
+
+Le nombre de systèmes requis par la partition.  Cette variable n'est pas
+définie par défaut.
+
+@end table
+
+@seealso
+Manuel de notation :
+@ref{Sauts de ligne}.
+
+
+@node Variables de gestion des sauts de page
+@unnumberedsubsubsec Variables de gestion des sauts de page
+@translationof @code{\paper} variables for page breaking
+
+Default values not listed here are defined in
+@file{ly/paper-defaults-init.ly}
+
+@table @code
+
+@item blank-after-score-page-force
+@funindex blank-after-score-page-force
+
+The penalty for having a blank page after the end of one score and
+before the next.  By default, this is smaller than
+@code{blank-page-force}, so that we prefer blank pages after
+scores to blank pages within a score.
+
+Default: @code{2}.
+
+@item blank-last-page-force
+@funindex blank-last-page-force
+
+Pénalité pour fin de partition intervenant sur une page impaire.  La
+valeur par défaut est de@tie{}@code{0}.
+
+@item blank-page-force
+@funindex blank-page-force
+
+Pénalité pour apparition d'une page blanche en cours de partition.
+L'option @code{ly:optimal-breaking} n'en tiendra pas compte puisqu'elle
+ne conçoit pas la présence d'une page blanche au milieu d'une partition.
+La valeur par défaut est de@tie{}@code{5}.
+
+@funindex page-breaking
+
+The page-breaking algorithm to use.  Choices are
+@code{ly:minimal-breaking}, @code{ly:page-turn-breaking}, and
+@code{ly:optimal-breaking}.
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
@@ -735,6 +883,69 @@ une même page.  Cette variable est par défaut non définie.
 Le nombre de pages que devra comporter la partition.  Cette variable est
 par défaut non définie.
 
+@end table
+
+@seealso
+Manuel de notation :
+@ref{Sauts de page},
+@ref{Optimisation des sauts de page},
+@ref{Optimisation des tournes},
+@ref{Minimisation des sauts de page}.
+
+Installed files:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Variables de gestion des numéros de page
+@unnumberedsubsubsec Variables de gestion des numéros de page
+@translationof @code{\paper} variables for page numbering
+
+Default values not listed here are defined in
+@file{ly/paper-defaults-init.ly}
+
+@table @code
+
+@item auto-first-page-number
+@funindex auto-first-page-number
+
+L'algorithme qui gère les sauts de page prend en compte le fait que le
+premier numéro de page soit pair ou impair.  Lorsque cette
+fonctionnalité est activée, l'algorithme des sauts de page décidera de
+lui-même si le premier numéro sera pair ou impair, ce qui se traduira
+par un éventuel incrément de un.  La valeur par défaut
+est@tie{}@code{##f}.
+
+@item first-page-number
+@funindex first-page-number
+
+Le numéro de la première page.  La valeur par défaut est
+de@tie{}@code{#1}.
+
+@item print-first-page-number
+@funindex print-first-page-number
+
+Cette variable permet d'imprimer le numéro de page y compris sur la
+première.  La valeur par défaut est@tie{}@code{##f}.
+
+@item print-page-number
+@funindex print-page-number
+
+La désactivation de cette variable permet d'obtenir des pages non
+numérotées.  La valeur par défaut est@tie{}@code{##t}.
+
+@end table
+
+@seealso
+Fichiers d'initialisation :
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Autres variables
+@unnumberedsubsubsec Autres variables
+@translationof Miscellaneous @code{\paper} variables
+
+@table @code
+
 @item page-spacing-weight
 @funindex page-spacing-weight
 
@@ -751,64 +962,10 @@ sera imprimée pour chaque bloc @code{\score}, plutôt que les seuls
 champs @code{piece} et @code{opus}.  La valeur par défaut
 est@tie{}@code{##f}.
 
-@item print-first-page-number
-@funindex print-first-page-number
-
-Cette variable permet d'imprimer le numéro de page y compris sur la
-première.  La valeur par défaut est@tie{}@code{##f}.
-
-@item print-page-number
-@funindex print-page-number
-
-La désactivation de cette variable permet d'obtenir des pages non
-numérotées.  La valeur par défaut est@tie{}@code{##t}.
-
-@item ragged-bottom
-@funindex ragged-bottom
-
-L'activation de cette variable permet de ne pas répartir verticalement
-les systèmes sur les pages hormis la dernière.  La valeur par défaut
-est@tie{}@code{##f}.
-
-Lorsque la partition ne comporte que deux ou trois systèmes par page,
-comme pour un conducteur d'orchestre, nous vous conseillons d'activer
-cette variable.
-
-@item ragged-last
-@funindex ragged-last
-
-Lorsqu'elle est activée, cette variable permet de ne pas étendre le
-dernier système de façon à occuper toute la longueur de la ligne.  La
-valeur par défaut est@tie{}@code{##f}.
-
-@item ragged-last-bottom
-@funindex ragged-last-bottom
-
-La désactivation de cette variable permet de répartir verticalement les
-systèmes de la dernière pages d'une partition.  La valeur par défaut
-est@tie{}@code{##t}.
-
-Nous vous conseillons, lorsque des pièces couvrent deux pages ou plus,
-d'activer cette variable.
-
-Notez bien que la variable @code{ragged-last-bottom} affecte aussi la
-dernière page de chacune des parties -- créées à l'aide d'un bloc
-@code{\bookpart} -- d'un même ouvrage.
-
-@item ragged-right
-@funindex ragged-right
-
-Lorsque cette variable est activée, les systèmes ne s'étendront pas sur
-la longueur de la ligne, mais sarrêteront à leur longueur normale.
-La valeur par défaut est @code{##f}.
-
-Si la partition ne comporte qu'un seul système, la valeur par défaut
-devient @code{##t}.
-
 @item system-separator-markup
 @funindex system-separator-markup
 
-Il s'agit en l'occurence d'insérer un objet de type @emph{markup} entre
+Il s'agit en l'occurrence d'insérer un objet de type @emph{markup} entre
 chaque système, comme on le voit dans nombre de partitions orchestrales.
 Cette variable n'est pas définie par défaut.
 
@@ -827,36 +984,13 @@ courant@tie{}:
 }
 @end lilypond
 
-@item system-count
-@funindex system-count
-
-Le nombre de systèmes requis par la partition.  Cette variable n'est pas
-définie par défaut.
-
-@item systems-per-page
-@funindex systems-per-page
-
-Le nombre de systèmes que devrait comporter chaque page.  Cette variable
-n'est à ce jour prise en charge que par l'algorithme
-@code{ly:optimal-breaking} et n'est pas définie par défaut.
-
-@item two-sided
-@funindex two-sided
-
-@cindex gouttière
-@cindex reliure
-
-Cette variable permet de gérer efficacement les impressions recto-verso.
-Lorsqu'elle est activée, les réglages affectés à @code{inner-margin},
-@code{outer-margin} ainsi que @code{binding-offset} détermineront les
-différentes marges selon qu'il s'agit d'une page paire ou impaire.
-Cette variable s'applique en lieu et place de @code{left-margin} et
-@code{right-margin}.  La valeur par défaut est@tie{}@code{##f}.
-
 @end table
 
 
 @seealso
+Fichiers d'initialisation :
+@file{ly/titling-init.ly}.
+
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
@@ -866,20 +1000,51 @@ Morceaux choisis :
 L'entête par défaut, formé d'une seule ligne, est constitué du numéro de
 page et du champ @code{instrument} contenu dans le bloc @code{\header}.
 
-Les titrages (contenus dans le bloc @code{\header@{@}}) sont considérés
-comme des systèmes à part entière@tie{}; ils seront donc affectés par
-@code{ragged-bottom} et @code{ragged-last-bottom}, qui éventuellement
-ajouteront de l'espace avant le premier système de la partition.
 
+@node Mise en forme de la partition
+@section Mise en forme de la partition
+@translationof Score layout
 
-@node Mise en forme de la musique
-@section Mise en forme de la musique
-@translationof Music layout
+Nous allons voir ici les options du bloc @code{\layout}.  Elles sont
+plus particulièrement destinées à gérer la mise en forme de la
+partition.
 
 @menu
+* Le bloc \layout::
 * Définition de la taille de portée::
-* Mise en forme de la partition::
 @end menu
+
+
+@node Le bloc \layout
+@subsection Le bloc @code{\layout}
+@translationof The @code{\layout} block
+
+@funindex \layout
+
+Alors que le bloc @code{\paper} définit le formatage des pages pour
+l'intégralité du document, le bloc @code{\layout} s'occupe de la mise en
+forme spécifique à la partition.  
+
+@example
+\layout @{
+  indent = 2.0\cm
+  \context @{ \Staff
+    \override VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 6)
+  @}
+  \context @{ \Voice
+    \override TextScript #'padding = #1.0
+    \override Glissando #'thickness = #3
+  @}
+@}
+@end example
+
+
+@seealso
+Manuel de notation :
+@ref{Modification des réglages par défaut d'un contexte}.
+
+Morceaux choisis :
+@rlsrnamed{Spacing,Espacements}.
 
 
 @node Définition de la taille de portée
@@ -998,38 +1163,6 @@ Morceaux choisis :
 lignes d'une portée.
 
 
-@node Mise en forme de la partition
-@subsection Mise en forme de la partition
-@translationof Score layout
-
-@funindex \layout
-
-Alors que @code{\paper} définit le formatage des pages pour
-l'intégralité du document, @code{\layout} s'occupe de la mise en forme
-spécifique à la partition.
-
-@example
-\layout @{
-  indent = 2.0\cm
-  \context @{ \Staff
-    \override VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 6)
-  @}
-  \context @{ \Voice
-    \override TextScript #'padding = #1.0
-    \override Glissando #'thickness = #3
-  @}
-@}
-@end example
-
-
-@seealso
-Manuel de notation :
-@ref{Modification des réglages par défaut d'un contexte}.
-
-Morceaux choisis :
-@rlsrnamed{Spacing,Espacements}.
-
-
 @node Sauts
 @section Sauts
 @translationof Breaks
@@ -1095,7 +1228,7 @@ ragged-last = ##t
 
 
 
-@cindex sauts de ligne régliers
+@cindex sauts de ligne réguliers
 @cindex portée à quatre mesures
 
 L'utilisation conjointe de @code{\break} et de blancs dans une section
@@ -1200,7 +1333,7 @@ Les sauts de page sont générés par la fonction @code{page-breaking}.
 LilyPond dispose de trois différents algorithmes en la matière@tie{}:
 @code{ly:optimal-breaking}, @code{ly:page-turn-breaking} et
 @code{ly:minimal-breaking}.  C'est @code{ly:optimal-breaking} qui est
-activé par défaut, mais rien ne vous empèche d'en changer, par
+activé par défaut, mais rien ne vous empêche d'en changer, par
 l'intermédiaire du bloc @code{\paper}@tie{}:
 
 @example
@@ -1211,7 +1344,7 @@ l'intermédiaire du bloc @code{\paper}@tie{}:
 
 @funindex \bookpart
 
-Losqu'un ouvrage contient plusieurs partitions et un certain nombre de
+Lorsqu'un ouvrage contient plusieurs partitions et un certain nombre de
 pages, la gestion des sauts de page finit par devenir très gourmande,
 tant au niveau du processeur que de la mémoire.  Vous pouvez cependant
 alléger la charge en recourant à des blocs @code{\bookpart} afin de
@@ -1234,7 +1367,7 @@ sections.
   @dots{}
 @}
 \bookpart @{
-  %% Cette partie étant purment musicale,
+  %% Cette partie étant purement musicale,
   %% retour au style par défaut (optimal-breaking).
   \header @{
     subtitle = "Premier mouvement"
@@ -1306,7 +1439,7 @@ tournes recherchera dans le contexte en question les passages sans note.
 Notez bien qu'il ne recherche pas des silences, mais l'absence de
 notes@tie{}; autrement dit, il ne restera pas inactif dans la cadre
 d'une portée polyphonique dont l'une des parties contiendrait des
-silences.  Lorsqu'il rencontre un fragement suffisament long ne
+silences.  Lorsqu'il rencontre un fragment suffisamment long ne
 contenant aucune note, il insère un @code{\allowPageTurn} à la barre
 terminant ce fragment, à moins qu'il ne rencontre en chemin une
 @qq{barre spéciale} -- telle une double barre -- auquel cas il y
@@ -1316,7 +1449,7 @@ déposera le @code{\allowPageTurn}.
 
 Le @code{Page_turn_engraver} examine la propriété de contexte
 @code{minimumPageTurnLength} pour déterminer quelle doit être la
-longueur d'un fragement sans note avant une tourne.  La valeur par
+longueur d'un fragment sans note avant une tourne.  La valeur par
 défaut de @code{minimumPageTurnLength} est
 @code{#(ly:make-moment@tie{}1@tie{}1)}, soit une ronde, et s'ajuste de
 la manière suivante@tie{}:
@@ -1404,7 +1537,7 @@ Morceaux choisis :
 
 Il arrive parfois que LilyPond rejette des @code{\break} ou des
 @code{\pageBreak} explicites.  Vous pouvez alors prendre le contrôle
-avex ces deux instructions dérogatoires@tie{}:
+avec ces deux instructions dérogatoires@tie{}:
 
 @example
 \override NonMusicalPaperColumn #'line-break-permission = ##f
@@ -1474,7 +1607,7 @@ Bien que cela constitue un moyen aisé de saisir les commandes
 mélangées à des informations qui concernent plutôt l'agencement de la
 musique sur le papier.  Vous pouvez tout à fait séparer ce qui est
 purement musical et les informations concernant les sauts de ligne ou de
-page en créant une voix supplémentaire dédiée.  Cette voix supécifique
+page en créant une voix supplémentaire dédiée.  Cette voix spécifique
 ne contiendra que des blancs -- des silences invisibles @code{\skip} --,
 des @code{\break}, des @code{\pageBreak} et autres informations
 concernant les ruptures.
@@ -1573,11 +1706,16 @@ LilyPond dispose de trois différents mécanismes permettant de contrôler
 l'espacement au sein d'un système selon trois catégories@tie{}:
 
 @itemize
-@item @emph{portées isolées},
-@item @emph{portées regroupées} (portées d'un même groupe, telles celles
+@item
+@emph{portées isolées},
+
+@item
+@emph{portées regroupées} (portées d'un même groupe, telles celles
 d'un @code{ChoirStaff}, etc.), et
-@item @emph{lignes de non-portée} (@code{Lyrics}, @code{ChordNames},
-etc.).
+
+@item
+@emph{lignes de non-portée} (@code{Lyrics}, @code{ChordNames}, etc.).
+
 @end itemize
 
 @c TODO: Clarify this.  This almost implies that non-staff lines
@@ -1633,7 +1771,7 @@ tableau suivant présente le @i{point de référence} pour chacun d'entre
 eux@tie{}:
 
 @multitable {Non-staff line} {Reference point}
-@headitem Non-portée line @tab Point de référence
+@headitem Ligne de non-portée @tab Point de référence
 @item @code{ChordNames}  @tab ligne de base
 @item @code{NoteNames}   @tab ligne de base
 @item @code{Lyrics}      @tab ligne de base
@@ -2281,7 +2419,7 @@ jouer sur la distance séparant les portées de chacun des systèmes, grâce
 Nous avons maintenant assigné deux valeurs différentes à l'attribut
 @code{line-break-system-details} de l'objet
 @code{NonMusicalPaperColumn}.  @code{line-break-system-details} pourrait
-prende bien d'autres paramètres d'espacement, y compris un doublet
+prendre bien d'autres paramètres d'espacement, y compris un doublet
 @code{X-offset}, mais nous n'avons utilisé que @code{Y-offset} et
 @code{alignment-distances} pour contrôler le positionnement de chaque
 système et de chaque portée.  Vous noterez enfin que
@@ -2323,20 +2461,24 @@ d'un regroupement de portées.
 Quelques points à prendre en considération@tie{}:
 
 @itemize
-@item Lorsque vous utilisez @code{alignment-distances}, les paroles et
+@item
+Lorsque vous utilisez @code{alignment-distances}, les paroles et
 autres lignes de non-portée ne comptent pas pour une portée.
 
-@item Les nombres fournis à @code{X-offset}, @code{Y-offset} et
+@item
+Les nombres fournis à @code{X-offset}, @code{Y-offset} et
 @code{alignment-distances} sont considérés comme des multiples de la
 distance entre des portées adjacentes.  Des valeurs positives remontent
 les portées et paroles, des valeurs négatives les descendent.
 
-@item Dans la mesure où @code{NonMusicalPaperColumn
+@item
+Dans la mesure où @code{NonMusicalPaperColumn
 #'line-break-system-details} permet de positionner systèmes et portées
 n'importe où sur une page, vous pourriez être en contradiction avec les
 dimensionnements de la feuille ou bien aboutir à des surimpressions.
 Soyez donc raisonnables quant aux différentes valeurs que vous affectez
 à ces réglages.
+
 @end itemize
 
 
@@ -2373,7 +2515,7 @@ Tout d'abord, LilyPond dispose tous les objets qui ne sont pas externes.
 Les objets extérieurs à la portée sont alors triés selon l'ordre
 croissant de leur @code{outside-staff-priority}.  Enfin, LilyPond prend
 chacun des ces objets et les positionne de telle sorte qu'il n'entrent
-pas en collision avec ceux qui on déjà été placés.  Autremnt dit,
+pas en collision avec ceux qui on déjà été placés.  Autrement dit,
 lorsque deux objets devraient se placer au même endroit, celui dont la
 @code{outside-staff-priority} est la plus faible sera disposé au plus
 près de la portée.
@@ -2440,7 +2582,7 @@ Morceaux choisis :
 
 @menu
 * Généralités sur l'espacement horizontal::
-* Changement d'espacement au cours de la partition::
+* Changement d'espacement en cours de partition::
 * Modification de l'espacement horizontal::
 * Longueur de ligne::
 * Notation proportionnelle::
@@ -2450,78 +2592,80 @@ Morceaux choisis :
 @subsection Généralités sur l'espacement horizontal
 @translationof Horizontal spacing overview
 
-Le moteur d'espacement traduit les différences de durée en 
-The spacing engine translates differences in durations into stretchable
-distances (@q{springs}) of differing lengths.  Longer durations get
-more space, shorter durations get less.  The shortest durations get a
-fixed amount of space (which is controlled by
-@code{shortest-duration-space} in the @rinternals{SpacingSpanner}
-object).  The longer the duration, the more space it gets: doubling a
-duration adds a fixed amount (this amount is controlled by
-@code{spacing-increment}) of space to the note.
+Le moteur d'espacement traduit les différences de durée en distances
+étirables (@emph{springs} pour ressorts) de différente longueur.  Des
+durées importantes prennent ainsi plus de place que des durées moins
+longues.  Les durées les plus courtes se verront attribuer un espace
+fixe, contrôlé par la propriété @code{shortest-duration-space} de
+l'objet @rinternals{SpacingSpanner}.  Au plus la durée s'allonge, au
+plus elle prendra d'espace@tie{}: le doublement d'une durée attribuera à
+la note un espace fixé d'après la propriété @code{spacing-increment}.
 
-For example, the following piece contains lots of half, quarter, and
-8th notes; the eighth note is followed by 1 note head width (NHW).
-The quarter note is followed by 2 NHW, the half by 3 NHW, etc.
+L'exemple suivant comporte des blanches, des noires et un certain nombre
+de croches.  La croche est suivie d'un espace de la largeur d'une tête
+de note@tie{}; pour la noire , cette espace est de deux têtes@tie{}; il
+est de trois pour la blanche.
 
 @lilypond[quote,verbatim,relative=1]
 c2 c4. c8 c4. c8 c4. c8 c8
 c8 c4 c4 c4
 @end lilypond
 
-Normally, @code{spacing-increment} is set to 1.2 staff space, which is
-approximately the width of a note head, and
-@code{shortest-duration-space} is set to 2.0, meaning that the
-shortest note gets 2.4 staff space (2.0 times the
-@code{spacing-increment}) of horizontal space.  This space is counted
-from the left edge of the symbol, so the shortest notes are generally
-followed by one NHW of space.
+@code{spacing-increment} est normalement défini à 1,2@tie{}espace de
+portée -- ce qui correspond à peu près à la largeur d'une tête de note
+-- et @code{shortest-duration-space} à 2,0.  La note la plus courte
+s'étendra donc sur l'équivalent de 2,4@tie{}espaces de portée (2 fois le
+@code{spacing-increment}).  Le point de départ de cet espace se situe à
+l'extrémité gauche du symbole@tie{}; la note la plus courte est donc
+suivie en général d'un espace égal à la largeur d'une tête de note.
 
-If one would follow the above procedure exactly, then adding a single
-32nd note to a score that uses 8th and 16th notes, would widen up the
-entire score a lot.  The shortest note is no longer a 16th, but a 32nd,
-thus adding 1 NHW to every note.  To prevent this, the shortest
-duration for spacing is not the shortest note in the score, but rather
-the one which occurs most frequently.
+Si l'on suit à la lettre ce qui précède, ajouter une simple triple
+croche à une partition qui comporte déjà des croches et des doubles
+augmentera considérablement son volume@tie{}: la durée la plus
+courte n'est plus la double mais la triple croche, ce qui aura
+pour conséquence d'ajouter une largeur de tête à chacune des notes.
+Pour s'affranchir de cet effet quelque peu pervers, la durée la plus
+courte prise en considération au niveau de l'espacement n'est pas la
+note la plus brève de la partition, mais celle qui apparaît le plus
+souvent.
 
+La courte durée la plus fréquente est déterminée à partir de la note la
+plus courte de chaque mesure.  C'est elle qui servira de base pour
+l'espacement, à cette nuance près que la plus courte durée ne saurait
+être strictement supérieure à la croche.  Cette @qq{durée de référence}
+est d'ailleurs affichée lorsque vous lancez @code{lilypond} avec l'option
+@code{--verbose}.
 
-The most common shortest duration is determined as follows: in every
-measure, the shortest duration is determined.  The most common shortest
-duration is taken as the basis for the spacing, with the stipulation
-that this shortest duration should always be equal to or shorter than
-an 8th note.  The shortest duration is printed when you run
-@code{lilypond} with the @code{--verbose} option.
-
-These durations may also be customized.  If you set the
-@code{common-shortest-duration} in @rinternals{SpacingSpanner}, then
-this sets the base duration for spacing.  The maximum duration for this
-base (normally an 8th), is set through @code{base-shortest-duration}.
+Ces durées peuvent être adaptées.  Vous pouvez définir la durée de base
+pour les espacements grâce à la propriété
+@code{common-shortest-duration} de l'objet @rinternals{SpacingSpanner}.
+La durée maximale de cet étalon, normalement la croche, est gérée par la
+propriété @code{base-shortest-duration}.
 
 @funindex common-shortest-duration
 @funindex base-shortest-duration
 @funindex stem-spacing-correction
 @funindex spacing
 
-Notes that are even shorter than the common shortest note are
-followed by a space that is proportional to their duration relative to
-the common shortest note.  So if we were to add only a few 16th notes
-to the example above, they would be followed by half a NHW:
+Les notes plus courtes que la note témoin sont suivies d'un espace
+proportionnel à la durée témoin.  Si donc nous ajoutions quelques
+doubles croches à l'exemple précédent, elles seraient suivies d'une
+demie largeur de tête@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
 c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 @end lilypond
 
 
-In the @emph{Essay on automated music engraving}, it was explained
-that stem directions influence spacing (see @ressay{Optical
-spacing}).  This is controlled with the
-@code{stem-spacing-correction} property in the
-@rinternals{NoteSpacing}, object.  These are generated for every
-@rinternals{Voice} context.  The @code{StaffSpacing} object
-(generated in @rinternals{Staff} context) contains the same
-property for controlling the stem/bar line spacing.  The following
-example shows these corrections, once with default settings, and
-once with exaggerated corrections:
+Dans notre @emph{Essai sur la gravure musicale automatisée}, nous avons
+vu comment la direction des hampes peut influencer l'espacement -- voir 
+@ressay{Espacement}.  Ceci est contrôlé par la propriété
+@code{stem-spacing-correction} de l'objet @rinternals{NoteSpacing}, créé
+pour chaque contexte @rinternals{Voice}.  L'objet
+@rinternals{StaffSpacing}, généré au niveau d'un contexte @code{Staff},
+possède une même propriété qui contrôlera l'espacement hampe-barre de
+mesure.  L'exemple suivant montre ces adaptations, tout d'abord selon
+les réglages par défaut, puis avec des corrections forcées.
 
 @lilypond[quote,ragged-right]
 {
@@ -2534,7 +2678,8 @@ once with exaggerated corrections:
 }
 @end lilypond
 
-Proportional notation is supported; see @ref{Proportional notation}.
+L'espacement spécifique à la notation proportionnelle fait l'objet d'une 
+@rusernamed{Notation proportionnelle,rubrique dédiée}.
 
 
 @seealso
@@ -2550,26 +2695,30 @@ Référence des propriétés internes :
 
 @knownissues
 
-There is no convenient mechanism to manually override spacing.  The
-following work-around may be used to insert extra space into a score,
-adjusting the padding value as necessary.
+Il n'existe pas de mécanisme simple simple et efficace qui permette de
+forcer manuellement l'espacement.  La solution ci-dessous permet
+cependant @qq{d'aérer} artificiellement une partition@tie{}; il vous
+suffit d'ajuster la valeur du décalage @emph{(padding)} autant que de
+besoin.
 @example
  \override Score.NonMusicalPaperColumn #'padding = #10
 @end example
 
-No work-around exists for decreasing the amount of space.
+Il n'y a aucun moyen de diminuer l'espacement.
 
 
-@node Changement d'espacement au cours de la partition
-@subsection Changement d'espacement au cours de la partition
+@node Changement d'espacement en cours de partition
+@subsection Changement d'espacement en cours de partition
 @translationof New spacing area
 
-New sections with different spacing parameters can be started with
-@code{newSpacingSection}.  This is useful when there are
-sections with a different notions of long and short notes.
+Il arrive, au cours d'un même mouvement, qu'une nouvelle partie modifie
+substantiellement la notion de valeur brève et valeur longue. La
+commande @code{newSpacingSection} permet alors de réinitialiser les
+paramètres d'espacement.
 
-In the following example, the time signature change introduces a new
-section, and hence the 16ths notes are spaced wider.
+Dans l'exemple qui suit, le changement de métrique marque le début
+d'une nouvelle partie@tie{}; remarquez comme les doubles-croches sont
+alors plus espacées@tie{}:
 
 @lilypond[relative,verbatim,quote]
 \time 2/4
@@ -2580,9 +2729,9 @@ c8 c c4 c16[ c c8] c4
 c16[ c c8]
 @end lilypond
 
-The @code{\newSpacingSection} command creates a new
-@code{SpacingSpanner} object, and hence new @code{\override}s
-may be used in that location.
+La commande @code{\newSpacingSection} crée un nouvel objet
+@code{SpacingSpanner}, ce qui permet d'appliquer de nouveaux
+@code{\override}s à partir de ce point.
 
 
 @seealso
@@ -2597,14 +2746,14 @@ Référence des propriétés internes :
 @subsection Modification de l'espacement horizontal
 @translationof Changing horizontal spacing
 
-Horizontal spacing may be altered with the
-@code{base-shortest-duration} property.  Here
-we compare the same music; once without altering
-the property, and then altered.  Larger values
-of @code{ly:make-moment} will produce smaller
-music.  Note that @code{ly:make-moment} constructs
-a duration, so @code{1 4} is a longer duration
-than @code{1 16}.
+Vous pouvez influencer l'espacement horizontal à l'aide de la propriété
+@code{base-shortest-duration}.  Comparons les deux partitions qui
+suivent, toutes deux montrant la même musique.  La première partition
+applique les réglages par défaut, alors que la seconde bénéficie
+d'ajustement de la propriété @code{base-shortest-duration}.  Au plus la
+valeur de @code{ly:make-moment} est grande, au plus la musique sera
+resserrée.  En effet, @code{ly:make-moment} construit une durée@tie{}:
+@w{@code{1 4}} est plus long que @w{@code{1 16}}.
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
@@ -2638,11 +2787,13 @@ than @code{1 16}.
 
 @snippets
 
-By default, spacing in tuplets depends on various non-duration
-factors (such as accidentals, clef changes, etc).  To disregard
-such symbols and force uniform equal-duration spacing, use
-@code{Score.SpacingSpanner #'uniform-stretching}.  This
-property can only be changed at the beginning of a score,
+L'espacement au sein d'un nolet dépend par défaut d'un certain nombre de
+facteurs qui ne sont pas liés à la durée (altération, changement de
+clef, etc.).  @w{@code{Score.SpacingSpanner #'uniform-stretching}}
+permet d'ignorer ces symboles et, par voie de conséquence, forcer
+l'espacement sur la simple durée.  Notez bien que cette propriété
+s'appliquera à toute la partition, puisque mentionnée au sein d'un bloc
+@code{\layout}.
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
@@ -2669,10 +2820,11 @@ property can only be changed at the beginning of a score,
 }
 @end lilypond
 
-When @code{strict-note-spacing} is set, notes are spaced without
-regard for clefs, bar lines, and grace notes,
+L'activation du commutateur @code{strict-note-spacing} permet d'espacer
+les notes sans tenir compte des clefs, barres de mesure ou notes
+d'ornement qui pourraient apparaître@tie{}:
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 \override Score.SpacingSpanner #'strict-note-spacing = ##t
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
@@ -2687,8 +2839,8 @@ Morceaux choisis :
 @subsection Longueur de ligne
 @translationof Line length
 
-@cindex page breaks
-@cindex breaking pages
+@cindex saut de page
+@cindex pages, saut
 
 @funindex indent
 @funindex line-width
@@ -2700,25 +2852,28 @@ Morceaux choisis :
 @c Setting indent in \paper block makes not much sense, but it works.
 
 @c Bit verbose and vague, use examples?
-The most basic settings influencing the spacing are @code{indent} and
-@code{line-width}.  They are set in the @code{\layout} block.  They
-control the indentation of the first line of music, and the lengths of
-the lines.
+Deux réglages de bases ont une influence considérable sur
+l'espacement@tie{}: @code{line-width} et @code{indent}.  Tous deux se
+placent dans le bloc @code{\layout}.  Ils contrôleront la longueur des
+lignes et l'indentation de la première.
 
-If @code{ragged-right} is set to true in the @code{\layout} block, then
-systems ends at their natural horizontal length, instead of being spread
-horizontally to fill the whole line.  This is useful for
-short fragments, and for checking how tight the natural spacing is.
-The normal default setting is false, but if the score has only one
-system the default value is true.
+L'activation du commutateur @code{ragged-right} au sein du bloc
+@code{\layout} permet de terminer les systèmes naturellement plutôt que
+de les voir s'étirer sur toute la largeur de la page.  Cette option est
+particulièrement utile lorsque vous traitez de courts fragment, ou bien
+pour vérifier ce que donnerait l'espacement naturel.  Bien qu'il soit
+désactivé par défaut, il sera activé si la partition ne comporte qu'un
+seul système.
 
 @cindex page layout
 @cindex vertical spacing
 
-The option @code{ragged-last} is similar to @code{ragged-right}, but
-only affects the last line of the piece.  No restrictions are put on
-that line.  The result is similar to formatting text paragraphs.  In a
-paragraph, the last line simply takes its natural horizontal length.
+Le fonctionnement de l'option @code{ragged-last} est en tout point
+identique à celui de @code{ragged-right}, à ceci près qu'il ne concerne
+que la dernière ligne de la partition.  Il n'y a pas de restriction
+quant à cette ligne.  Il en va de même que pour le formatage d'un
+paragraphe de texte, la dernière ligne s'arrête au dernier caractère.
+
 @c Note that for text there are several options for the last line.
 @c While Knuth TeX uses natural length, lead typesetters use the same
 @c stretch as the previous line.  eTeX uses \lastlinefit to
@@ -2742,30 +2897,37 @@ Morceaux choisis :
 @subsection Notation proportionnelle
 @translationof Proportional notation
 
-LilyPond supports proportional notation, a type of horizontal spacing
-in which each note consumes an amount of horizontal space exactly
-equivalent to its rhythmic duration.  This type of proportional spacing
-is comparable to horizontal spacing on top of graph paper.  Some late
-20th- and early 21st-century scores use proportional notation to
-clarify complex rhythmic relationships or to facilitate the placement
-of timelines or other graphics directly in the score.
+LilyPond prend en charge la notation proportionnelle.  Il s'agit dans
+ce cas de représenter la notation selon un espacement strictement
+relatif aux durées.  Ce type d'espacement pourrait se comparer à
+l'utilisation de papier millimétré pour positionner les notes au fil de
+la portée.  Certaines œuvres de la fin du XXe siècle et à l'aube du XXIe
+utilisent cette proportionnalité dans le but de clarifier des structures
+rythmiques complexes, d'aider au positionnement d'indications
+temporelles ou autres éléments graphiques directement dans la partition.
 
-LilyPond supports five different settings for proportional notation,
-which may be used together or alone:
+LilyPond met à  votre disposition cinq réglages différents, qui peuvent
+s'utiliser conjointement ou individuellement, aux fins de mettre au
+point cette notation proportionnelle.
 
 @itemize
 @item @code{proportionalNotationDuration}
+
 @item @code{uniform-stretching}
+
 @item @code{strict-note-spacing}
+
 @item @code{\remove Separating_line_group_engraver}
+
 @item @code{\override PaperColumn #'used = ##t}
+
 @end itemize
 
-In the examples that follow, we explore these five different
-proportional notation settings and examine how these settings interact.
+Nous allons examiner, dans les différents exemples qui suivent, les
+effets de ces réglages et comment ils interagissent.
 
-We start with the following one-measure example, which uses classical
-spacing with ragged-right turned on.
+Commençons par cette mesure toute simple qui utilise l'espacement
+classique et justifiée à gauche.
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -2781,20 +2943,20 @@ spacing with ragged-right turned on.
 }
 @end lilypond
 
-Notice that the half note which begins the measure takes up far less
-than half of the horizontal space of the measure.  Likewise, the
-sixteenth notes and sixteenth-note quintuplets (or twentieth notes)
-which end the measure together take up far more than half the
-horizontal space of the measure.
+Vous constatez que la blanche qui entame la mesure prend moins de la
+moitié de l'espace.  De même, les doubles croches et le quintolet de
+doubles (donc des vingtièmes de ronde) qui terminent cette mesure
+n'en occupent pas la moitié de l'espace horizontal.
 
-In classical engraving, this spacing may be exactly what we want
-because we can borrow horizontal space from the half note and conserve
-horizontal space across the measure as a whole.
+En matière de gravure traditionnelle, cet espacement correspond tout à
+fait à nos attentes, puisque nous pouvons rogner l'espace sur la
+blanche et ainsi en gagner en largeur sur toute la mesure qui fait une
+ronde.
 
-On the other hand, if we want to insert a measured timeline or other
-graphic above or below our score, we need proportional notation.  We
-turn proportional notation on with the proportionalNotationDuration
-setting.
+Par contre, si nous avons besoin d'insérer une indication temporelle ou
+un autre graphisme en surplomb ou en dessous de notre partition, nous
+aurons besoin de la notation proportionnelle.  Celle-ci s'active an
+définissant la propriété @code{proportionalNotationDuration}.
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -2816,33 +2978,37 @@ setting.
 }
 @end lilypond
 
-The half note at the beginning of the measure and the faster notes in
-the second half of the measure now occupy equal amounts of horizontal
-space.  We could place a measured timeline or graphic above or below
-this example.
+La blanche du début et les notes plus rapides de la deuxième moitié de
+la mesure occupent maintenant exactement le même espace horizontal.
+Nous pourrions donc y insérer, au-dessus ou au-dessous, une indication
+temporelle ou autre graphisme.
 
-The @code{proportionalNotationDuration} setting is a context setting
-that lives in @code{Score}.  Remember that context settings can appear
-in one of three locations within our input file -- in a @code{\with}
-block, in a @code{\context} block, or directly in music entry preceded
-by the @code{\set} command.  As with all context settings, users can
-pick which of the three different locations they would like to
-set @code{proportionalNotationDuration} in to.
 
-The @code{proportionalNotationDuration} setting takes a single argument,
-which is the reference duration against that all music will be spaced.
-The LilyPond Scheme function @code{make-moment} takes two arguments
--- a numerator and denominator which together express some fraction of
-a whole note.  The call @code{#(ly:make-moment 1 20)} therefore produces
-a reference duration of a twentieth note.  Values such as
-@code{#(ly:make-moment 1 16)}, @code{#(ly:make-moment 1 8)}, and
-@code{#(ly:make-moment 3 97)} are all possible as well.
+@code{proportionalNotationDuration} est une propriété attachée au
+contexte @code{Score}.  Rappelez-vous que vous pouvez régler les
+propriétés d'un contexte à trois différents endroits de votre
+fichier@tie{}: dans un bloc @code{\with}, dans un bloc @code{\context}
+ou au beau milieu de la musique à l'aide de la commande @code{\set}.
+Vous pouvez donc définir @code{proportionalNotationDuration} selon l'une
+de ces trois façons, à l'instar de n'importe quel définition de
+contexte.
 
-How do we select the right reference duration to pass to
-@code{proportionalNotationDuration}?  Usually by a process of trial
-and error, beginning with a duration close to the fastest (or smallest)
-duration in the piece.  Smaller reference durations space music loosely;
-larger reference durations space music tightly.
+La propriété @code{proportionalNotationDuration} prend en unique
+argument la durée de référence qui servira de base pour espacer toute la
+musique.  La fonction scheme @code{make-moment} intégrée à LilyPond
+prend deux arguments@tie{}: un numérateur et un dénominateur qui
+représentent une fraction de ronde.  L'appel de
+@w{@code{#(ly:make-moment 1 20)}} produit donc une durée de référence
+égale à un vingtième de ronde.  Vous pourriez tout aussi bien  utiliser
+@code{#(ly:make-moment 1 16)}, @code{#(ly:make-moment 1 8)} ou
+@code{#(ly:make-moment 3 97)}.
+
+Se pose alors le problème de fournir la juste durée de référence à
+@code{proportionalNotationDuration}.  Il faut en l'occurrence procéder par
+tâtonnement, en commençant par une valeur proche de la note la plus
+rapide (la durée la plus courte) du morceau.  Au plus la durée de
+référence est petite, au plus la musique sera étalée@tie{}; à l'inverse,
+une durée de référence élevée produira une musique resserrée.
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -2900,17 +3066,19 @@ larger reference durations space music tightly.
 }
 @end lilypond
 
-Note that too large a reference duration -- such as the eighth note,
-above -- spaces music too tightly and can cause note head collisions.
-Also that proportional notation in general takes up more horizontal
-space than classical spacing.  Proportional spacing provides rhythmic
-clarity at the expense of horizontal space.
+Vous ne manquerez pas de noter qu'une durée de référence trop grande,
+comme la croche pour la première ligne, a pour conséquence de resserrer
+la musique, ce qui peut aboutir à des chevauchements de têtes.  Vous
+remarquez aussi que , par principe, la notation proportionnelle occupe
+beaucoup plus d'espace horizontal que l'espacement traditionnel.  La
+notation proportionnelle met en évidence le rythme au détriment de
+l'espacement horizontal.
 
-Next we examine how to optimally space overlapping tuplets.
+Examinons à présent le moyen d'optimiser l'espacement de nolets en
+tuilage.
 
-We start by examining what happens to our original example, with
-classical spacing, when we add a second staff with a different type of
-tuplet.
+Reprenons notre exemple de départ, avec son espacement traditionnel, et
+ajoutons lui une portée incluant un autre type de nolet.
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -2931,10 +3099,12 @@ tuplet.
 }
 @end lilypond
 
-The spacing is bad because the evenly spaced notes of the bottom staff
-do not stretch uniformly.  Classical engravings include very few complex
-triplets and so classical engraving rules can generate this type of
-result.  Setting @code{proportionalNotationDuration} fixes this.
+L'espacement est loin d'être idéal, pour la simple raison que
+l'espacement régulier des notes de la portée inférieure ne s'étire pas
+uniformément.  Il est vrai que de telles constructions complexes en
+nolets sont assez rares en gravure traditionnelle, ce qui explique que
+les règles qu'elle applique peuvent amener à ce résultat.  Le recours à
+@code{proportionalNotationDuration} permet d'arranger les choses.
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -2961,10 +3131,10 @@ result.  Setting @code{proportionalNotationDuration} fixes this.
 }
 @end lilypond
 
-But if we look very carefully we can see that notes of the second half
-of the 9-tuplet space ever so slightly more widely than the notes
-of the first half of the 9-tuplet.  To ensure uniform stretching, we
-turn on @code{uniform-stretching}, which is a property of
+Cependant, si l'on observe de près, il est évident que les notes de la
+deuxième moitié du ennaolet ont tendance à s'espacer légèrement plus que
+celles de la première moitié.  Afin d'uniformiser cet étalement, nous
+allons activer le @code{uniform-stretching}, propriété attachée au
 @code{SpacingSpanner}.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -2993,35 +3163,39 @@ turn on @code{uniform-stretching}, which is a property of
 }
 @end lilypond
 
-Our two-staff example now spaces exactly, our rhythmic
-relationships are visually clear, and we can include a measured
-timeline or graphic if we want.
+L'espacement sur les deux portées est maintenant correct, les relations
+rythmiques sont clairement perceptibles, et nous pourrions y insérer
+une indication temporelle ou autre graphisme selon notre envie.
 
-Note that the LilyPond's proportional notation package expects
-that all proportional scores set the SpacingSpanner's
-'uniform-stretching attribute to ##t.  Setting
-proportionalNotationDuration without also setting the
-SpacingSpanner's 'uniform-stretching attribute to ##t will, for
-example, cause Skips to consume an incorrect amount of horizontal
-space.
+Notez bien que la prise en charge de la notation proportionnelle par
+LilyPond demande que, dans chaque partition, soit activée la propriété
+@code{uniform-stretching} du @code{SpacingSpanner}.  Dans le cas
+contraire, utiliser @code{proportionalNotationDuration} aura pour
+conséquence, entre autres, un espacement erroné lorsque vous y aurez
+inséré des silences invisibles @emph{skip}.
 
-The SpacingSpanner is an abstract grob that lives in the Score
-context.  As with our settings of proportionalNotationDuration,
-overrides to the SpacingSpanner can occur in any of three
-different places in our input file – in the Score \with block, in
-a Score \context block, or in note entry directly.
+Le @code{SpacingSpanner} est en fait un objet graphique abstrait attaché
+au contexte @code{Score}.  Tout comme pour la propriété
+@code{proportionalNotationDuration}, les réglages du
+@code{SpacingSpanner} peuvent se faire à trois différents endroits de
+votre fichier@tie{}: dans un bloc @code{\with}, dans un bloc
+@code{\context} ou au beau milieu de la musique à l'aide de la
+commande @code{\set}.
 
-There is by default only one @code{SpacingSpanner} per @code{Score}.  This
-means that, by default, @code{uniform-stretching} is either turned on for the
-entire score or turned off for the entire score.  We can, however,
-override this behavior and turn on different spacing features at
-different places in the score.  We do this with the command
-@code{\newSpacingSection}.  See @ref{New spacing area}, for more info.
+Gardez bien à l'esprit qu'il n'y a qu'un seul @code{SpacingSpanner} par
+@code{Score}.  Il s'ensuit que @code{uniform-stretching} est soit
+activé, soit désactivé, et dans tous les cas pour l'intégralité de la
+partition.  Vous pourriez toutefois avoir besoin de modifier ce
+comportement en cours de partition, et recourir alors à l'instruction
+@code{\newSpacingSection} -- pour de plus amples détails, voir la
+rubrique @ref{Changement d'espacement en cours de partition}.
 
-Next we examine the effects of the @code{Separating_line_group_engraver} and
-see why proportional scores frequently remove this engraver.  The following
-example shows that there is a small amount of @qq{preferatory} space
-just before the first note in each system.
+
+Intéressons-nous maintenant au @code{Separating_line_group_engraver},
+qui est désactivé pour la plupart des partitions en notation
+proportionnelle.  Voici ce qui apparaît dans une partition
+traditionnelle@tie{}: il y a toujours un @qq{espace préservé} juste
+avant la première note de chaque portée.
 
 @lilypond[quote,verbatim,ragged-right]
 \paper {
@@ -3035,11 +3209,10 @@ just before the first note in each system.
 }
 @end lilypond
 
-
-The amount of this preferatory space is the same whether after a time
-signature, a key signature or a clef.  @code{Separating_line_group_engraver}
-is responsible for this space.  Removing @code{Separating_line_group_engraver}
-reduces this space to zero.
+Cet espace, géré par le @code{Separating_line_group_engraver}, est aussi
+présent lorsqu'intervient un changement de métrique, d'armure ou de
+clef.  Désactiver le @code{Separating_line_group_engraver} revient à
+réduire cet espace à zéro.
 
 @lilypond[quote,verbatim,ragged-right]
 \paper {
@@ -3055,23 +3228,26 @@ reduces this space to zero.
 }
 @end lilypond
 
-Nonmusical elements like time signatures, key signatures, clefs and
-accidentals are problematic in proportional notation.  None of these
-elements has rhythmic duration.  But all of these elements consume
-horizontal space.  Different proportional scores approach these
-problems differently.
+Les éléments non musicaux tels que métrique, armure et clef, posent
+problème lorsqu'on travaille en notation proportionnelle.  Bien
+qu'aucune notion de durée ne leur soit attachée, ces éléments
+@qq{consomment} de l'espace.  Différentes approches permettent
+cependant de gérer ce problème.
 
-It may be possible to avoid spacing problems with key signatures
-simply by not having any.  This is a valid option since most
-proportional scores are contemporary music.  The same may be true
-of time signatures, especially for those scores
-that include a measured timeline or other graphic.  But these scores
-are exceptional and most proportional scores include at least some
-time signatures.  Clefs and accidentals are even more essential.
+Éviter les problèmes d'espacement avec l'armure est chose aisée@tie{}:
+il suffit qu'il n'y en ait pas@tie{}! C'est bien souvent le cas en
+musique contemporaine, où l'on trouve le plus d'ouvrages en notation
+proportionnelle.  Il en va de même pour la métrique, et tout
+particulièrement lorsque la partition comporte un quadrillage temporel
+ou autres graphismes.  L'absence de métrique reste cependant
+exceptionnelle et la plupart des partitions en notation proportionnelle
+laissent apparaître quelques métriques.  Il est par contre pratiquement
+impossible de se passer de clef et d'altération.
 
-So what strategies exist for spacing nonmusical elements in a
-proportional context?  One good option is the @code{strict-note-spacing}
-property of @code{SpacingSpanner}.  Compare the two scores below:
+L'une des options permettant de s'affranchir de l'espacement dû aux
+éléments non musicaux consiste en l'activation de la propriété
+@code{strict-note-spacing} attachée au @code{SpacingSpanner}.  Observons
+les deux portées suivantes@tie{}:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
@@ -3096,15 +3272,17 @@ property of @code{SpacingSpanner}.  Compare the two scores below:
 }
 @end lilypond
 
-Both scores are proportional, but the spacing in the first score
-is too loose because of the clef change.  The spacing of the second
-score remains strict, however, because strict-note-spacing is
-turned on.  Turning on strict-note-spacing causes the width of
-time signatures, key signatures, clefs and accidentals to play no
-part in the spacing algorithm.
+Toutes deux affichent un espacement proportionnel.  Cependant, la
+première ligne laisse apparaître un espacement plus lâche en raison de
+la présence d'un changement de clef.  En ce qui concerne la deuxième
+ligne, l'espacement est strictement observé dès lors que la propriété
+@code{strict-note-spacing} a préalablement été activée.  Comme vous
+pouvez le constater, l'activation de @code{strict-note-spacing} a pour
+conséquence que l'algorithme d'espacement ignore tout bonnement la
+largeur des métriques, armures, clefs et altérations.
 
-In addition to the settings given here, there are other settings
-that frequently appear in proportional scores.  These include:
+En plus ceux que nous venons de voir, vous trouverez d'autres réglages
+en usage dans la notation proportionnelle comme, entre autres,
 
 @itemize
 @item @code{\override SpacingSpanner #'strict-grace-spacing = ##t}
@@ -3112,18 +3290,19 @@ that frequently appear in proportional scores.  These include:
 @item @code{\override Beam #'breakable = ##t}
 @item @code{\override Glissando #'breakable = ##t}
 @item @code{\override TextSpanner #'breakable = ##t}
-@item @code{\remove Forbid_line_break_engraver in the Voice context}
+@item @code{\remove Forbid_line_break_engraver (dans un contexte de voix}
 @end itemize
 
-These settings space grace notes strictly, extend tuplet brackets to
-mark both rhythmic start- and stop-points, and allow spanning elements
-to break across systems and pages.  See the respective parts of the manual
-for these related settings.
+Ces différents réglages permettent un espacement strict des notes
+d'ornement, d'étendre les indications de nolet afin d'indiquer de façon
+évidente leurs bornes et d'autoriser le tronçonnement des extenseurs à
+l'occasion d'un saut de ligne ou de page.  Nous vous renvoyons aux
+différentes rubriques associées du manuel pour chacun de ces réglages.
 
 
 @seealso
 Manuel de notation :
-@ref{Changement d'espacement au cours de la partition}.
+@ref{Changement d'espacement en cours de partition}.
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
@@ -3133,15 +3312,16 @@ Morceaux choisis :
 @section Réduction du nombre de pages de la partition
 @translationof Fitting music onto fewer pages
 
-Sometimes you can end up with one or two staves on a second
-(or third, or fourth...) page.  This is annoying, especially
-if you look at previous pages and it looks like there is plenty
-of room left on those.
+Vous pourriez un jour être confronté au problème suiven@tie{}: l'une
+des pages de votre partition ne comporte que deux portées alors que --
+ce qui est d'autant plus frustrant -- l'espace libre sur les autres
+pages aurait permis une distribution différente.
 
-When investigating layout issues, @code{annotate-spacing} is an
-invaluable tool.  This command prints the values of various layout
-spacing variables; for more details see the following section,
-@ref{Displaying spacing}.
+L'instruction @code{annotate-spacing} se révèle être un outil
+indispensable pour pour l'analyse des problèmes de mise en forme.  Cette
+commande met en surimpression la valeur des différentes variables
+d'espacement et de mise en forme, comme nous allons le voir dans la
+rubrique @ref{Mise en évidence de l'espacement}.
 
 @menu
 * Mise en évidence de l'espacement::
@@ -3153,11 +3333,12 @@ spacing variables; for more details see the following section,
 @translationof Displaying spacing
 
 @funindex annotate-spacing
-@cindex spacing, display of layout
+@cindex espacement, affichage des valeurs
 
-To graphically display the dimensions of vertical layout variables
-that may be altered for page formatting, set
-@code{annotate-spacing} in the @code{\paper} block:
+Le meilleur moyen d'appréhender les différentes variables de
+dimensionnement vertical sur lesquelles vous pouvez jouer au niveau de
+la mise en page, consiste à activer, au sein du bloc @code{\paper}, la
+fonction @code{annotate-spacing}@tie{}:
 
 @c need to have \book{} otherwise we get the separate systems. -hwn
 @lilypond[verbatim,quote]
@@ -3168,33 +3349,33 @@ that may be altered for page formatting, set
 }
 @end lilypond
 
-
 @noindent
-All layout dimensions are displayed in staff-spaces, regardless
-of the units specified in the @code{\paper} or @code{\layout} block.
-In the above example, @code{paper-height} has a value of 59.75
-@code{staff-spaces}, and the @code{staff-size} is 20 points (the
-default value).  Note that:
+Toutes les dimensions sont exprimées en espace de portée
+@emph{(staff-space)} quelle que soit l'unité mentionnée dans les blocs
+@code{\paper} ou @code{\layout}.  Dans cet exemple, la hauteur de la
+feuille (@code{paper-height}) est de 59,75@tie{}espaces de portée
+(@code{staff-spaces}) et la taille de portée (@code{staff-size}) de
+20@tie{}points -- sa valeur par défaut.  Notez que@tie{}:
 
-@multitable {1 staff-space} {staff-size)/4 * (25.4/72.27) mm}
+@multitable {1 staff-space} {staff-size)/4 * (25,4/72,27) mm}
 
 @item 1 point
-@tab = (25.4/72.27) mm
+@tab = (25,4/72,27) mm
 
 @item 1 staff-space
 @tab = (@code{staff-size})/4 pts
 @item
-@tab = (@code{staff-size})/4 * (25.4/72.27) mm
+@tab = (@code{staff-size})/4 * (25,4/72,27) mm
 
 @end multitable
 
 @noindent
-In this case, one @code{staff-space} is approximately equal to
-1.757mm.  Thus the @code{paper-height} measurement of 59.75
-@code{staff-spaces} is equivalent to 105 millimeters, the height
-of @code{a6} paper in landscape orientation.  The pairs
-(@var{a},@var{b}) are intervals, where @var{a} is the lower
-edge and @var{b} the upper edge of the interval.
+Dans le cas qui nous occupe, un @code{staff-space} égale environ
+1,757@tie{}millimètres.  Les 59,75@tie{}@code{staff-spaces} de
+@code{paper-height} correspondent donc à 105@tie{}millimètres, soit la
+hauteur d'une feuille au format A6 à l'italienne.  Les paires
+@code{(@var{a},@var{b})} sont des intervalles, @var{a} en étant
+l'extrémité inférieure et @var{b} l'extrémité supérieure.
 
 
 @seealso
@@ -3209,17 +3390,19 @@ Morceaux choisis :
 @subsection Modification de l'espacement
 @translationof Changing spacing
 
-The output of @code{annotate-spacing} reveals vertical dimensions
-in great detail.  For details about modifying margins and other
-layout variables, see @ref{Page formatting}.
+Les informations fournies par @code{annotate-spacing} en matière de
+dimensionnement vertical sont incomparables.  Pour plus de détails sur
+les manières de modifier marges et autres variables connexes, consultez
+la rubrique @ref{Mise en forme de la page}.
 
-Other than margins, there are a few other options to save space:
+En dehors des marges, vous disposez de quelques moyens supplémentaires
+pour gagner de l'espace@tie{}:
 
 @itemize
 @item
-Force systems to move as close together as possible (to fit as
-many systems as possible onto a page) while being spaced so that
-there is no blank space at the bottom of the page.
+Rapprocher les systèmes le plus possible les uns des autres, de telle
+sorte qu'il en tienne un maximum sur une même page, tout en les espaçant
+suffisamment pour éviter le blanc en bas de page.
 
 @example
 \paper @{
@@ -3230,14 +3413,14 @@ there is no blank space at the bottom of the page.
 @end example
 
 @item
-Force the number of systems.  This can help in two ways.  Just
-setting a value, even the same value as the number of systems
-being typeset by default, will sometimes cause more systems to
-be fitted onto each page, as an estimation step is then bypassed,
-giving a more accurate fit to each page.  Also, forcing an actual
-reduction in the number of systems may save a further page.  For
-example, if the default layout has 11 systems, the following
-assignment will force a layout with 10 systems.
+Forcer le nombre de systèmes par page.  Ceci peut se révéler judicieux à
+deux titres.  D'une part, le fait de définir un nombre de systèmes --
+même s'il est égal à la valeur par défaut -- peut aboutir à plus de
+systèmes par page dans la mesure où l'une des étapes d'estimation des
+hauteurs est tout simplement sautée.  D'autre part, réduire le nombre de
+systèmes par page permet d'en disposer plus sur les suivantes.  Par
+exemple, avec un nombre par défaut de 11@tie{}systèmes par pages,
+l'instruction suivante le force à 10.
 
 @example
 \paper @{
@@ -3246,12 +3429,12 @@ assignment will force a layout with 10 systems.
 @end example
 
 @item
-Avoid (or reduce) objects that increase the vertical size of a
-system.  For example, volta repeats (or alternate repeats) require
-extra space.  If these repeats are spread over two systems, they
-will take up more space than one system with the volta repeats and
-another system without.  For example, dynamics that @q{stick out} of
-a system can be moved closer to the staff:
+Éviter ou réduire les objets qui augmentent la hauteur des systèmes.
+Par exemple, un crochet de reprise ou d'alternative consomme de
+l'espace.  Le fait de les reporter sur plusieurs systèmes regroupés
+diminue d'autant l'espace disponible que si seul le premier ne
+comportait l'indication.  Autre exemple, les indications de nuance qui
+se @qq{détachent} d'un système peuvent être rapprochés de la portée@tie{}:
 
 @lilypond[verbatim,quote,relative=1]
 e4 c g\f c
@@ -3259,9 +3442,10 @@ e4 c g-\tweak #'X-offset #-2.7 -\tweak #'Y-offset #2.5 \f c
 @end lilypond
 
 @item
-Alter the horizontal spacing via @code{SpacingSpanner}.  For more
-details, see @ref{Changing horizontal spacing}.  The following
-example illustrates the default spacing:
+Modifier l'espacement horizontal à l'aide du @code{SpacingSpanner},
+comme indiqué à la rubrique
+@ref{Modification de l'espacement horizontal}.  Voici ce que donne
+l'espacement par défaut@tie{}:
 
 @lilypond[verbatim,quote]
 \score {
@@ -3276,10 +3460,10 @@ example illustrates the default spacing:
 @end lilypond
 
 @noindent
-The next example modifies @code{common-shortest-duration} from a
-value of @code{1/4} to @code{1/2}.  The quarter note is the most
-common and shortest duration in this example, so by making this
-duration longer, a @q{squeezing} effect occurs:
+Par contre, le fait de modifier la valeur de la propriété
+@code{common-shortest-duration} en passant de @code{1/4} à @code{1/2}
+-- bien que la noire soit la durée la plus courante, nous prenons une
+valeur plus longue -- donnera un effet @qq{resserré} à la musique@tie{}:
 
 @lilypond[verbatim,quote]
 \score {
@@ -3301,17 +3485,17 @@ duration longer, a @q{squeezing} effect occurs:
 @end lilypond
 
 @noindent
-The @code{common-shortest-duration} property cannot be modified
-dynamically, so it must always be placed in a @code{\context}
-block so that it applies to the whole score.
+La propriété @code{common-shortest-duration} ne peut être modifiée
+dynamiquement.  Elle se place toujours dans un bloc @code{\context} et
+s'applique à l'intégralité de la partition.
 
 @end itemize
 
 
 @seealso
 Manuel de notation :
-@ref{Page formatting},
-@ref{Changing horizontal spacing}.
+@ref{Mise en forme de la page},
+@ref{Modification de l'espacement horizontal}.
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
