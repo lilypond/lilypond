@@ -28,10 +28,10 @@
   %%% the dimension-variables variable.  See paper.scm.
 
   unit = #(ly:unit)
-  mm = 1.0
-  in = 25.4
-  pt = #(/ in 72.27)
+  mm = #1
   cm = #(* 10 mm)
+  in = #(* 254/10 mm)
+  pt = #(* 100/7227 in)
 
   % 20pt staff, 5 pt = 1.75 mm
   output-scale = #1.7573
@@ -98,9 +98,9 @@
   %%
   %% Page breaking
   %%
-  blank-after-score-page-force = 2
-  blank-last-page-force = 0
-  blank-page-force = 5
+  blank-after-score-page-force = #2
+  blank-last-page-force = #0
+  blank-page-force = #5
   page-breaking = #ly:optimal-breaking
 
 
@@ -115,8 +115,8 @@
   %%
   %% Headers, footers, and titles
   %%
-  #(define make-header (marked-up-headfoot 'oddHeaderMarkup 'evenHeaderMarkup))
-  #(define make-footer (marked-up-headfoot 'oddFooterMarkup 'evenFooterMarkup))
+  make-header = #(marked-up-headfoot 'oddHeaderMarkup 'evenHeaderMarkup)
+  make-footer = #(marked-up-headfoot 'oddFooterMarkup 'evenFooterMarkup)
 
   #(define-public book-title (marked-up-title 'bookTitleMarkup))
   #(define-public score-title (marked-up-title 'scoreTitleMarkup))
@@ -133,13 +133,12 @@
   %%
   %% Fonts
   %%
-  #(define font-defaults
-    '((font-family . feta) (font-encoding . fetaMusic)))
+  font-defaults = #'((font-family . feta)
+                     (font-encoding . fetaMusic))
 
   % `latin1' is a dummy value for Pango fonts
-  #(define text-font-defaults
-     `((font-encoding . latin1)
-       (baseline-skip . 3)
-       (word-space . 0.6)))
+  text-font-defaults = #'((font-encoding . latin1)
+                          (baseline-skip . 3)
+                          (word-space . 0.6))
 
 }

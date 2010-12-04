@@ -99,27 +99,27 @@ repeatTie = #(make-music 'RepeatTieEvent)
 \include "paper-defaults-init.ly"
 
 \layout {
-    mm = #(ly:output-def-lookup $defaultpaper 'mm)
-    unit = #(ly:output-def-lookup $defaultpaper 'unit)
+  unit = #(ly:output-def-lookup $defaultpaper 'unit)
+  mm = #(ly:output-def-lookup $defaultpaper 'mm)
 
-    in = #(* 25.4 mm)
-    pt = #(/  in 72.27)
-    cm = #(* 10 mm)
+  cm = #(* 10 mm)
+  in = #(* 254/10 mm)
+  pt = #(* 100/7227 in)
 
-    \include "engraver-init.ly"
+  \include "engraver-init.ly"
 
-    #(set-paper-dimension-variables (current-module))
+  #(set-paper-dimension-variables (current-module))
 }
 
 #(set-default-paper-size (ly:get-option 'paper-size))
 
 partCombineListener = \layout {
-    \context {
-	\Score
-	skipTypesetting = ##t
-	ignoreBarChecks = ##t
-	\alias "Timing"
-    }
+  \context {
+    \Score
+    skipTypesetting = ##t
+    ignoreBarChecks = ##t
+    \alias "Timing"
+  }
 }
 
 \include "dynamic-scripts-init.ly"
