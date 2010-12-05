@@ -308,7 +308,7 @@ grâce à la commande @code{\parenthesize} décrite dans
 @ref{Parenthèses}. Cependant, le mode @code{\drummode} n'inclut pas par
 défaut le graveur @code{Parenthesis_engraver} qui permet d'imprimer ces
 signes.  Il faut donc l'ajouter explicitement dans la définition du
-contexte, suivant la manœuvre indiquée dans @ref{La commande de fixation (set)}.
+contexte, suivant la manœuvre indiquée dans @ref{La commande set}.
 
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff \with {

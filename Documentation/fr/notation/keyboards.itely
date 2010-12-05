@@ -151,7 +151,7 @@ Exemples de code :
 
 Les nuances ne sont pas automatiquement centrées verticalement, mais il
 existe des astuces.  Voir à ce sujet le modèle @qq{alignement des
-nuances au piano} au chapitre @rlearning{Modèles pour claviers}@tie{}; une autre
+nuances au piano} au chapitre @rlearning{Modèles pour piano}@tie{}; une autre
 solution consiste à augmenter le décalage des nuances par rapport à la
 portée (@code{staff-pagging}) comme l'indique
 @rlearning{Déplacement d'objets}.

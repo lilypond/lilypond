@@ -934,7 +934,7 @@ Lorsque le nom d'un instrument est relativement long, il est judicieux
 d'augmenter les retraits -- @emph{indent} -- au sein du bloc
 @code{\layout} à l'aide des commandes @code{indent} et
 @code{short-indent}.  Pour plus de plus amples détails sur ces réglages,
-reportez-vous au chapitre @ref{Dimensionnement horizontal}.
+reportez-vous au chapitre @ref{Variables d'indentation et de décalage}.
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -1030,7 +1030,7 @@ subtitution@tie{}:
 
 @seealso
 Manuel de notation :
-@ref{Dimensionnement horizontal},
+@ref{Variables d'indentation et de décalage},
 @ref{Modification des greffons de contexte}.
 
 Morceaux choisis :
