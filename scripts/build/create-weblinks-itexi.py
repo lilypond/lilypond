@@ -343,6 +343,12 @@ def translateNameToUrl(manual, version):
         else:
             return ''
 
+def addLang(url, lang):
+    if lang:
+        base, ext = os.path.splitext(url)
+        return base + '.' + lang + ext
+    else:
+        return url
 
 def make_manual_links(name, version, lang):
     """Here is where all the macros manualStableLearningSplit,
@@ -382,32 +388,33 @@ def make_manual_links(name, version, lang):
         # until 2.14 is out.  -gp
         if (url.endswith('.html')):
             make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
-                      url,
+                      addLang(url, lang),
                       getTrans(manual.capitalize(),lang) + '.pdf')
             make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
-                      url,
+                      addLang(url, lang),
                       getTrans(manual.capitalize(),lang) +
                       getTrans(' (split HTML)',lang))
             make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
-                      url,
+                      addLang(url, lang),
                       getTrans(manual.capitalize(),lang) +
                       getTrans(' (big HTML)',lang))
             newurl = url
         else:
             make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
-                      url + '.pdf',
+                      # TODO: this is an even stupider way of doing it
+                      addLang(url+'.pdf', lang),
                       getTrans(manual.capitalize(),lang) + '.pdf')
             make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
-                      url + '/index.html',
+                      addLang(url + '/index.html', lang),
                       getTrans(manual.capitalize(),lang) +
                       getTrans(' (split HTML)',lang))
             make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
-                      url + '-big-page.html',
+                      addLang(url + '-big-page.html', lang),
                       getTrans(manual.capitalize(),lang) +
                       getTrans(' (big HTML)',lang))
             newurl = url + '/index.html'
         make_ver_link(macroLang("manual"+name+mshort+'SplitNoName',lang),
-                  newurl,
+                  addLang(newurl, lang),
                   getTrans(manual.capitalize(),lang))
 
 def make_regtest_links(name, version, lang):

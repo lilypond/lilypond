@@ -170,13 +170,14 @@ for file in html_files:
         ### alter links as appropriate
         link = getLocalHref(line)
         if (link != ""):
-            # quesitonable
-            if (link.endswith(".html")):
-	        langlink = addLangExt(link[:-5], lang, "html")
-                line = line.replace(link, langlink)
-            if (link.endswith(".pdf")):
-	        langlink = addLangExt(link[:-4], lang, "pdf")
-                line = line.replace(link, langlink)
+            # questionable
+            if (not link.startswith("../doc/")):
+                if (link.endswith(".html")):
+	            langlink = addLangExt(link[:-5], lang, "html")
+                    line = line.replace(link, langlink)
+                if (link.endswith(".pdf")):
+	            langlink = addLangExt(link[:-4], lang, "pdf")
+                    line = line.replace(link, langlink)
         ### add google tracker header
         if (line.find("</head>") >= 0):
             outfile.write("""<!-- Google tracking !-->
