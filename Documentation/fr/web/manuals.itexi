@@ -17,7 +17,8 @@
 
 @macro details{reference}
 @spanClass{detail}
-(@ref{\reference\, détails de \reference\}) @spanEnd
+(@ref{\reference\, détails de \reference\})
+@spanEnd
 @end macro
 
 
@@ -85,7 +86,7 @@ particularités de certains systèmes d'exploitation.
 @details{Utilisation}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName-fr,@rlsrnamed{Top,Morceaux choisis}}
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Morceaux choisis}}
 courts extraits, trucs, modèles et autres exemples.
 @details{Morceaux choisis}
 
@@ -449,7 +450,7 @@ nouvelles fonctionnalités de LilyPond depuis la dernière version stable.
 @divClass{column-right-bottom}
 
 @docLinks{Nouveautés, changes,
-  @rglosnamed{Top,Nouveautés},
+  @rchcangesnamed{Top,Nouveautés},
   @manualStableChangesSplit,
   @manualStableChangesBig, 6 KB,
   @manualStableChangesPdf, 200 KB}
