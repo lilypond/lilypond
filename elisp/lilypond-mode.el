@@ -1155,11 +1155,12 @@ LilyPond-command-alist\t\talist from name to command"
 
   ;; Use Command on Region even for inactive mark (region).
   (if (string-match "XEmacs\\|Lucid" emacs-version)
-      (setq zmacs-regions nil)
+      (progn
+	(setq zmacs-regions nil)
+	(make-local-hook 'post-command-hook)) ; XEmacs requires
     (setq mark-even-if-inactive t))
 
   ;; Context dependent syntax tables in LilyPond-mode
-  (make-local-hook 'post-command-hook) ; XEmacs requires
   (add-hook 'post-command-hook 'LilyPond-mode-context-set-syntax-table nil t)
 
   ;; Turn on paren-mode buffer-locally, i.e., in LilyPond-mode

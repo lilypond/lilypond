@@ -19,6 +19,22 @@
 
 
 @newsItem
+@subsubheading ¡Lanzado LilyPond 2.13.40!  @emph{21 de noviembre de 2010}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.13.40.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.  Sin
+embargo, aún quedan algunos problemas críticos, por lo que esta
+versión está orientada solamente a los desarrolladores.
+
+Tenga en cuenta que ésta @strong{no} es la segunda versión de pruebas
+beta.  A causa de la aparición de algunos cambios en nuestro proceso
+de construcción del programa que no se han probado, no podemos estar
+completamente seguros de la calidad de esta versión.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading Primera versión de pruebas Beta de 2.14: ¡Lanzado LilyPond 2.13.39! @emph{15 de noviembre de 2010}
 
 Ha salido LilyPond 2.13.39; ésta es la primera versión beta de la

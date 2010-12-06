@@ -71,7 +71,7 @@ This section describes what contexts are, and how to modify them.
 Learning Manual:
 @rlearning{Contexts and engravers}.
 
-Installed files:
+Installed Files:
 @file{ly/engraver-init.ly},
 @file{ly/performer-init.ly}.
 

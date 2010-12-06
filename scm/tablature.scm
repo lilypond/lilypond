@@ -66,7 +66,7 @@
     (if (and (symbol? style)
              (eq? style 'cross))
         (stencil-whiteout (ly:note-head::print grob))
-        (ly:text-interface::print grob))))
+        (tab-note-head::print grob))))
 
 ;; definitions for the "moderntab" clef:
 ;; the "moderntab" clef will be added to the list of known clefs,
@@ -134,129 +134,274 @@
         -0.75
         0.75)))
 
-;; for ties in tablature, fret numbers that are tied to should be invisible,
-;; except for 'tied to' numbers after a line break;; these will be
-;; parenthesized (thanks to Neil for his solution):
-(define-public (parenthesize-tab-note-head grob)
-  ;; Helper function to parenthesize tab noteheads,
-  ;; since we can't use ParenthesesItem at this stage
-  ;; This is basically the same as the C++ function
-  ;; in accidental.cc, converted to Scheme
-  (let* ((font (ly:grob-default-font grob))
-         (open (stencil-whiteout
-                (ly:font-get-glyph font "accidentals.leftparen")))
-         (close (stencil-whiteout
-                 (ly:font-get-glyph font "accidentals.rightparen")))
-         (me (ly:text-interface::print grob)))
-
-    (ly:stencil-combine-at-edge
-     (ly:stencil-combine-at-edge me X LEFT open) X RIGHT close)))
-
-;; ParenthesesItem doesn't work very well for TabNoteHead, since
-;; the parentheses are too small and clash with the staff-lines
-;; Define a callback for the 'stencils property which will tweak
-;; the parentheses' appearance for TabNoteHead
-(define-public (parentheses-item::calc-tabstaff-parenthesis-stencils grob)
-  ;; the grob we want to parenthesize
-  (let ((victim (ly:grob-array-ref (ly:grob-object grob 'elements) 0)))
-
-    ;; check whether it's a note head
-    (if (grob::has-interface victim 'note-head-interface)
-        (begin
-          ;; tweak appearance before retrieving
-          ;; list of stencils '(left-paren right-paren)
-          ;; get the font-size from victim (=TabNoteHead) to handle
-          ;; grace notes properly
-          (ly:grob-set-property! grob 'font-size
-                                 (ly:grob-property victim 'font-size))
-          (ly:grob-set-property! grob 'padding 0)
-          ;; apply whiteout to each element of the list
-          (map stencil-whiteout
-               (parentheses-item::calc-parenthesis-stencils grob)))
-        (parentheses-item::calc-parenthesis-stencils grob))))
-
 ;; the handler for ties in tablature; according to TabNoteHead #'details,
 ;; the 'tied to' note is handled differently after a line break
 (define-public (tie::handle-tab-note-head grob)
   (let* ((original (ly:grob-original grob))
          (tied-tab-note-head (ly:spanner-bound grob RIGHT))
+         (spanner-start (ly:grob-property tied-tab-note-head 'span-start #f))
          (siblings (if (ly:grob? original)
                        (ly:spanner-broken-into original) '())))
 
-    (if (and (>= (length siblings) 2)
-             (eq? (car (last-pair siblings)) grob))
-        ;; tie is split -> get TabNoteHead #'details
-        (let* ((details (ly:grob-property tied-tab-note-head 'details))
-               (tied-properties (assoc-get 'tied-properties details '()))
-               (tab-note-head-parenthesized (assoc-get 'parenthesize tied-properties #t))
-               ;; we need the begin-of-line entry in the 'break-visibility vector
-               (tab-note-head-visible
-                (vector-ref (assoc-get 'break-visibility
-                                       tied-properties #(#f #f #t)) 2)))
-
-	  (if tab-note-head-visible
-	      ;; tab note head is visible
-	      (if tab-note-head-parenthesized
-		  (ly:grob-set-property! tied-tab-note-head 'stencil
-					 (lambda (grob)
-					   (parenthesize-tab-note-head grob))))
-	      ;; tab note head is invisible
-	      (begin
-	        (ly:grob-set-property! tied-tab-note-head 'transparent #t)
-	        (ly:grob-set-property! tied-tab-note-head 'whiteout #f))))
-
-        ;; tie is not split -> make fret number invisible
+    (if spanner-start
+        ;; tab note head is right bound of a tie and left of spanner,
+        ;; -> parenthesize it at all events
         (begin
-          (ly:grob-set-property! tied-tab-note-head 'transparent #t)
-          (ly:grob-set-property! tied-tab-note-head 'whiteout #f)))))
+          (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
+          (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print))
+        ;; otherwise, check whether tie is split:
+        (if (and (>= (length siblings) 2)
+                 (eq? (car (last-pair siblings)) grob))
+            ;; tie is split -> get TabNoteHead #'details
+            (let* ((details (ly:grob-property tied-tab-note-head 'details))
+                   (tied-properties (assoc-get 'tied-properties details '()))
+                   (tab-note-head-parenthesized (assoc-get 'parenthesize tied-properties #t))
+                   ;; we need the begin-of-line entry in the 'break-visibility vector
+                   (tab-note-head-visible
+                    (vector-ref (assoc-get 'break-visibility
+                                           tied-properties #(#f #f #t)) 2)))
+
+              (if tab-note-head-visible
+                  ;; tab note head is visible
+                  (if tab-note-head-parenthesized
+                      (begin
+			(ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
+                        (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print)))
+                  ;; tab note head is invisible
+                 (ly:grob-set-property! tied-tab-note-head 'transparent #t)))
+
+            ;; tie is not split
+            (ly:grob-set-property! tied-tab-note-head 'transparent #t)))))
+
+
 
 ;; repeat ties occur within alternatives in a repeat construct;
 ;; TabNoteHead #'details handles the appearance in this case
 (define-public (repeat-tie::handle-tab-note-head grob)
   (let* ((tied-tab-note-head (ly:grob-object grob 'note-head))
-         (details (ly:grob-property tied-tab-note-head 'details))
-         (repeat-tied-properties (assoc-get 'repeat-tied-properties details '()))
-         (tab-note-head-visible (assoc-get 'note-head-visible repeat-tied-properties #t))
-         (tab-note-head-parenthesized (assoc-get 'parenthesize repeat-tied-properties #t)))
+         (spanner-start (ly:grob-property tied-tab-note-head 'span-start #f)))
+    (if spanner-start
+        ;; tab note head is between a tie and a slur/glissando
+        ;; -> parenthesize it at all events
+        (begin
+          (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
+          (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print))
+        ;; otherwise check 'details
+        (let* ((details (ly:grob-property tied-tab-note-head 'details))
+               (repeat-tied-properties (assoc-get 'repeat-tied-properties details '()))
+               (tab-note-head-visible (assoc-get 'note-head-visible repeat-tied-properties #t))
+               (tab-note-head-parenthesized (assoc-get 'parenthesize repeat-tied-properties #t)))
 
-    (if tab-note-head-visible
-        ;; tab note head is visible
-        (if tab-note-head-parenthesized
-	    (ly:grob-set-property! tied-tab-note-head 'stencil
-				   (lambda (grob)
-				     (parenthesize-tab-note-head grob))))
-	;; tab note head is invisible
-	(begin
-          (ly:grob-set-property! tied-tab-note-head 'transparent #t)
-          (ly:grob-set-property! tied-tab-note-head 'whiteout #f)))))
+        (if tab-note-head-visible
+            ;; tab note head is visible
+            (if tab-note-head-parenthesized
+                (begin
+                  (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
+                  (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print)))
+            ;; tab note head is invisible
+            (ly:grob-set-property! tied-tab-note-head 'transparent #t))))))
 
 ;; the slurs should not be too far apart from the corresponding fret number, so
-;; we move the slur towards the TabNoteHeads:
+;; we move the slur towards the TabNoteHeads; moreover, if the left fret number is
+;; the right-bound of a tie, we'll set it in parentheses:
 (define-public (slur::draw-tab-slur grob)
   ;; TODO: use a less "brute-force" method to decrease
   ;; the distance between the slur ends and the fret numbers
-  (let* ((staff-space (ly:staff-symbol-staff-space grob))
+  (let* ((original (ly:grob-original grob))
+         (left-bound (ly:spanner-bound original LEFT))
+         (left-tab-note-head (ly:grob-property left-bound 'cause))
+         (staff-space (ly:staff-symbol-staff-space grob))
          (control-points (ly:grob-property grob 'control-points))
          (new-control-points (map
-			      (lambda (p)
-				(cons (car p)
-				      (- (cdr p)
-					 (* staff-space
-					    (ly:grob-property grob 'direction)
-					    0.35))))
-			      control-points)))
+                              (lambda (p)
+                                (cons (car p)
+                                      (- (cdr p)
+                                         (* staff-space
+                                            (ly:grob-property grob 'direction)
+                                            0.35))))
+                             control-points)))
 
     (ly:grob-set-property! grob 'control-points new-control-points)
     (ly:slur::print grob)))
+
+;; The glissando routine works similarly to the slur routine; if the
+;; fret number is "tied to", it should become parenthesized.
+(define-public (glissando::draw-tab-glissando grob)
+  (let* ((original (ly:grob-original grob))
+         (left-tab-note-head (ly:spanner-bound original LEFT))
+         (cautionary (ly:grob-property left-tab-note-head 'display-cautionary #f)))
+
+    (and cautionary
+         ;; increase left padding to avoid collision between
+         ;; closing parenthesis and glissando line
+         (ly:grob-set-nested-property! grob '(bound-details left padding) 0.5))
+    (ly:line-spanner::print grob)))
 
 ;; for \tabFullNotation, the stem tremolo beams are too big in comparison to
 ;; normal staves; this wrapper function scales accordingly:
 (define-public (stem-tremolo::calc-tab-width grob)
   (let ((width (ly:stem-tremolo::calc-width grob))
-	(staff-space (ly:staff-symbol-staff-space grob)))
+        (staff-space (ly:staff-symbol-staff-space grob)))
     (/ width staff-space)))
 
 
 ;; a callback for custom fret labels
 (define-public ((tab-note-head::print-custom-fret-label fret) grob)
-  (grob-interpret-markup grob (markup #:vcenter fret)))
+  (ly:grob-set-property! grob 'text fret)
+  (tab-note-head::print grob))
+
+(define-public (tab-note-head::print grob)
+  (define (is-harmonic? grob)
+    (let ((arts (ly:event-property (event-cause grob) 'articulations)))
+      (not (null? (filter (lambda (a)
+			    (ly:in-event-class? a 'harmonic-event))
+			  arts)))))
+
+  (let* ((cautionary (ly:grob-property grob 'display-cautionary #f))
+	 (details (ly:grob-property grob 'details '()))
+	 (harmonic-props (assoc-get 'harmonic-properties details '()))
+	 (harmonic-angularity (assoc-get 'angularity harmonic-props 2))
+	 (harmonic-half-thick (assoc-get 'half-thickness harmonic-props 0.075))
+	 (harmonic-padding (assoc-get 'padding harmonic-props 0))
+	 (harmonic-proc (assoc-get 'procedure harmonic-props parenthesize-stencil))
+	 (harmonic-width (assoc-get 'width harmonic-props 0.25))
+	 (cautionary-props (assoc-get 'cautionary-properties details '()))
+	 (cautionary-angularity (assoc-get 'angularity cautionary-props 2))
+	 (cautionary-half-thick (assoc-get 'half-thickness cautionary-props 0.075))
+	 (cautionary-padding (assoc-get 'padding cautionary-props 0))
+	 (cautionary-proc (assoc-get 'procedure cautionary-props parenthesize-stencil))
+	 (cautionary-width (assoc-get 'width cautionary-props 0.25))
+         (output-grob (ly:text-interface::print grob))
+	 (ref-grob (grob-interpret-markup grob "8"))
+	 (column-offset (interval-length
+			    (ly:stencil-extent
+			      (grob-interpret-markup grob "8")
+			      X))))
+
+    (if (is-harmonic? grob)
+        (set! output-grob (harmonic-proc output-grob
+				         harmonic-half-thick
+				         harmonic-width
+				         harmonic-angularity
+				         harmonic-padding)))
+    (if cautionary
+        (set! output-grob (cautionary-proc output-grob
+					   cautionary-half-thick
+					   cautionary-width
+					   cautionary-angularity
+					   cautionary-padding)))
+    (ly:stencil-translate-axis (centered-stencil output-grob)
+			       column-offset
+			       X)))
+
+;; Harmonic definitions
+
+(define node-positions
+  ;; for the node on m/n-th of the string length, we get the corresponding
+  ;; (exact) fret position by calculating p=(-12/log 2)*log(1-(m/n));
+  ;; since guitarists normally use the forth fret and not the 3.8th, here
+  ;; are rounded values, ordered by
+  ;; 1/2
+  ;; 1/3 2/3
+  ;; 1/4 2/4 3/4 etc.
+  ;; The value for 2/4 is irrelevant in practical, bacause the string sounds
+  ;; only one octave higher, not two, but since scheme normalizes the fractions
+  ;; anyway, these values are simply placeholders for easier indexing.
+  ;; According to the arithmetic sum, the position of m/n is at 1/2*(n-2)(n-1)+(m-1)
+  ;; if we start counting from zero
+  (vector 12
+           7   19
+           5   12    24
+           4    9    16   28
+           3    7    12   19    31
+           2.7  5.8  9.7  14.7  21.7  33.7
+           2.3  5    8    12    17    24    36
+           2    4.4  7    10    14    19    26  38 ))
+
+(define partial-pitch
+  (vector '(0 0 0)
+          '(1 0 0)
+          '(1 4 0)
+          '(2 0 0)
+          '(2 2 0)
+          '(2 4 0)
+          '(2 6 -1/2)
+          '(3 0 0)
+          '(3 1 0)))
+
+(define fret-partials
+  '(("0" . 0)
+    ("12" . 1)
+    ("7" . 2)
+    ("19" . 2)
+    ("5" . 3)
+    ("24" . 3)
+    ("4" . 4)
+    ("9" . 4)
+    ("16" . 4)
+    ("3" . 5)
+    ("2.7" . 6)
+    ("2.3" . 7)
+    ("2" . 8)))
+
+(define-public (ratio->fret ratio)
+  "Calculate a fret number given @var{ratio} for the harmonic."
+  (let* ((nom (numerator ratio))
+         (den (denominator ratio))
+         (index (+ (* (- den 2)
+                      (- den 1)
+                      1/2)
+                   nom -1)))
+     (number->string (vector-ref node-positions index))))
+
+(define-public (ratio->pitch ratio)
+  "Calculate a pitch given @var{ratio} for the harmonic."
+  (let* ((partial (1- (denominator ratio)))
+         (pitch (vector-ref partial-pitch partial)))
+
+  (ly:make-pitch (first pitch)
+                 (second pitch)
+                 (third pitch))))
+
+(define-public (fret->pitch fret)
+  "Calculate a pitch given @var{fret} for the harmonic."
+  (let* ((partial (assoc-get fret fret-partials 0))
+         (pitch (vector-ref partial-pitch partial)))
+
+  (ly:make-pitch (first pitch)
+                 (second pitch)
+                 (third pitch))))
+
+(define-public (calc-harmonic-pitch pitch music)
+  "Calculate the harmonic pitches in @var{music} given
+@var{pitch} as the non-harmonic pitch."
+  (let ((es (ly:music-property music 'elements))
+        (e (ly:music-property music 'element))
+        (p (ly:music-property music 'pitch)))
+    (cond
+      ((pair? es)
+       (ly:music-set-property! music 'elements
+                               (map (lambda (x) (calc-harmonic-pitch pitch x)) es)))
+      ((ly:music? e)
+       (ly:music-set-property! music 'element (calc-harmonic-pitch pitch e)))
+      ((ly:pitch? p)
+       (begin
+         (set! p (ly:pitch-transpose p pitch))
+         (ly:music-set-property! music 'pitch p))))
+    music))
+
+(define-public (make-harmonic mus)
+  "Convert music variable @var{mus} to harmonics."
+  (let ((elts (ly:music-property mus 'elements))
+        (elt (ly:music-property mus 'element)))
+       (cond
+        ((pair? elts)
+         (map make-harmonic elts))
+        ((ly:music? elt)
+         (make-harmonic elt))
+        ((music-is-of-type? mus 'note-event)
+         (set! (ly:music-property mus 'articulations)
+               (append
+                 (ly:music-property mus 'articulations)
+                 (list (make-music 'HarmonicEvent))))))
+       mus))

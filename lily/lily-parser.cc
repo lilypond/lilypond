@@ -270,7 +270,7 @@ push_paper (Lily_parser *parser, Output_def *paper)
 void
 pop_paper (Lily_parser *parser)
 {
-  if (! scm_is_null (parser->lexer_->lookup_identifier ("$papers")))
+  if (scm_is_pair (parser->lexer_->lookup_identifier ("$papers")))
     parser->lexer_->set_identifier (ly_symbol2scm ("$papers"),
                                     scm_cdr (parser->lexer_->lookup_identifier ("$papers")));
 }

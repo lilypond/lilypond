@@ -425,6 +425,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 
     "flag-styles.scm"
     "fret-diagrams.scm"
+    "tablature.scm"
     "harp-pedals.scm"
     "define-woodwind-diagrams.scm"
     "display-woodwind-diagrams.scm"
@@ -439,7 +440,6 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     "paper.scm"
     "backend-library.scm"
     "x11-color.scm"
-    "tablature.scm"
 
     ;; must be after everything has been defined
     "safe-lily.scm"))

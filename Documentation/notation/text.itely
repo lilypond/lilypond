@@ -493,7 +493,7 @@ Notation Reference:
 Snippets:
 @rlsr{Text}.
 
-Installed files:
+Installed Files:
 @file{scm/markup.scm}.
 
 
@@ -689,7 +689,7 @@ Snippets:
 Internals Reference:
 @rinternals{TextScript}.
 
-Installed files:
+Installed Files:
 @file{scm/define-markup-commands.scm}.
 
 
@@ -945,7 +945,7 @@ Snippets:
 Internals Reference:
 @rinternals{TextScript}.
 
-Installed files:
+Installed Files:
 @file{scm/define-markup-commands.scm}.
 
 
@@ -1126,7 +1126,7 @@ Snippets:
 Internals Reference:
 @rinternals{TextScript}.
 
-Installed files:
+Installed Files:
 @file{scm/define-markup-commands.scm},
 @file{scm/stencil.scm}.
 
@@ -1258,7 +1258,7 @@ Snippets:
 Internals Reference:
 @rinternals{TextScript}.
 
-Installed files:
+Installed Files:
 @file{scm/define-markup-commands.scm},
 @file{scm/fret-diagrams.scm},
 @file{scm/harp-pedals.scm}.
@@ -1324,7 +1324,7 @@ Extending:
 Internals Reference:
 @rinternals{TextScript}.
 
-Installed files:
+Installed Files:
 @file{scm/define-markup-commands.scm}.
 
 
@@ -1495,7 +1495,7 @@ Snippets:
 @rlsr{Text}.
 
 @c A source file gets never installed...
-@c Installed files:
+@c Installed Files:
 @c @file{lily/font-config-scheme.cc}.
 
 

@@ -34,7 +34,7 @@
 #include "translator.icc"
 
 /**
-   Manufacture ties.  Acknowledge noteheads, and put them into a
+   Manufacture ties.  Acknowledge note heads, and put them into a
    priority queue. If we have a TieEvent, connect the notes that finish
    just at this time, and note that start at this time.
 
@@ -172,12 +172,12 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 
 	  // Prevent all other tied notes ending at the same moment (assume
 	  // implicitly the notes have also started at the same moment!)
-	  // from triggering an "unterminated tie" warning. Neede e.g. for
+	  // from triggering an "unterminated tie" warning. Needed e.g. for
 	  // <c e g>~ g
 	  for (vsize j = heads_to_tie_.size (); j--;)
 	    {
 	      if (heads_to_tie_[j].end_moment_ == end)
-	        heads_to_tie_[i].tie_from_chord_created = true;
+	        heads_to_tie_[j].tie_from_chord_created = true;
 	    }
 	}
     }
@@ -241,7 +241,7 @@ Tie_engraver::stop_translation_timestep ()
 
       if (!left_ev)
 	{
-	  // may happen for ambituses
+	  // may happen for ambitus
 	  continue;
 	}
 	    

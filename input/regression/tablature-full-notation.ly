@@ -23,7 +23,7 @@ tabstuff = {
   c4. d-_( |
   e\varcoda-> )
   \override TextSpanner #'(bound-details left text) = "rit." f\startTextSpan |
-  g ~ a\prall |
+  g ~ g\prall |
   g\thumb e-.\stopTextSpan
   \bar "|."
 }

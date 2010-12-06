@@ -962,6 +962,7 @@ bounds are spaced.")
 
      (direction-source ,ly:grob? "In case @code{side-relative-direction} is
 set, which grob to get the direction from.")
+     (display-cautionary ,boolean? "Should the grob be displayed as a cautionary grob?")
      (dot ,ly:grob? "A reference to a @code{Dots} object.")
      (dots ,ly:grob-array? "Multiple @code{Dots} objects.")
 
@@ -1013,6 +1014,7 @@ grobs.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
+     (span-start ,boolean? "Is the note head at the start of a spanner?")
      (staff-grouper ,ly:grob? "The staff grouper we belong to.")
      (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
      (stem ,ly:grob? "A pointer to a @code{Stem} object.")

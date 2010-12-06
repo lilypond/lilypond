@@ -157,9 +157,11 @@ To set it to @code{0.5} inches, use the @code{\in} unit suffix:
 @end example
 
 The available unit suffixes are @code{\mm}, @code{\cm},
-@code{\in}, and @code{\pt}.  For the sake of clarity, when using
-millimeters, the @code{\mm} is typically included in the code,
-even though it is not technically necessary.
+@code{\in}, and @code{\pt}.  These units are simple values for
+converting from millimeters; they are defined in
+@file{ly/paper-defaults-init.ly}.  For the sake of clarity, when
+using millimeters, the @code{\mm} is typically included in the
+code, even though it is not technically necessary.
 
 It is also possible to define @code{\paper} values using Scheme.
 The Scheme equivalent of the above example is:
@@ -172,7 +174,12 @@ The Scheme equivalent of the above example is:
 
 @seealso
 Notation Reference:
-@ref{Custom headers footers and titles}.
+@ref{Paper size and automatic scaling},
+@ref{Custom headers footers and titles},
+@ref{The \layout block}.
+
+Installed Files:
+@file{ly/paper-defaults-init.ly}.
 
 
 @node Paper size and automatic scaling
@@ -250,6 +257,9 @@ degrees, and wider line widths will be set accordingly.
 @end example
 
 @seealso
+Notation Reference:
+@ref{Automatic scaling to paper size}.
+
 Installed Files:
 @file{scm/paper.scm}.
 
@@ -262,18 +272,20 @@ If the paper size is changed with one of the scheme functions
 values of several @code{\paper} variables are automatically scaled
 to the new size.  To bypass the automatic scaling for a particular
 variable, set the variable after setting the paper size.  Note
-that the automatic scaling is not triggered by setting
-@code{paper-height} or @code{paper-width}, even though
+that the automatic scaling is not triggered by setting the
+@code{paper-height} or @code{paper-width} variables, even though
 @code{paper-width} can influence other values (this is separate
 from scaling and is discussed below).  The
 @code{set-default-paper-size} and @code{set-paper-size} functions
 are described in @ref{Setting paper size}.
 
 The vertical dimensions affected by automatic scaling are
-@code{top-margin} and @code{bottom-margin}.  The horizontal
+@code{top-margin} and @code{bottom-margin} (see
+@ref{Fixed vertical spacing \paper variables}.  The horizontal
 dimensions affected by automatic scaling are @code{left-margin},
 @code{right-margin}, @code{inner-margin}, @code{outer-margin},
-@code{binding-offset}, @code{indent}, and @code{short-indent}.
+@code{binding-offset}, @code{indent}, and @code{short-indent} (see
+@ref{Horizontal spacing \paper variables}.
 
 The default values for these dimensions are set in
 @file{ly/paper-defaults-init.ly}, using internal variables named
@@ -284,6 +296,10 @@ These are the values that result at the default paper size
 @code{210\mm}.
 
 @seealso
+Notation Reference:
+@ref{Fixed vertical spacing \paper variables},
+@ref{Horizontal spacing \paper variables}.
+
 Installed Files:
 @file{ly/paper-defaults-init.ly},
 @file{scm/paper.scm}.
@@ -339,6 +355,9 @@ parts of a book created with @code{\bookpart} blocks.
 @end table
 
 @seealso
+Notation Reference:
+@ref{Automatic scaling to paper size}.
+
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
@@ -586,7 +605,8 @@ systems, equal to
 when unset.  If @code{line-width} is set, and both
 @code{left-margin} and @code{right-margin} are unset, then the
 margins will be updated to center the systems on the page
-automatically.  Also see @code{check-consistency}.
+automatically.  Also see @code{check-consistency}.  This variable
+can also be set in a @code{\layout} block.
 
 @item left-margin
 @funindex left-margin
@@ -646,6 +666,9 @@ set in a @code{\layout} block.
 @end table
 
 @seealso
+Notation Reference:
+@ref{Automatic scaling to paper size}.
+
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
@@ -696,6 +719,9 @@ with @code{two-sided} set to true.
 @end table
 
 @seealso
+Notation Reference:
+@ref{Automatic scaling to paper size}.
+
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
@@ -735,6 +761,9 @@ set in a @code{\layout} block.
 @end table
 
 @seealso
+Notation Reference:
+@ref{Automatic scaling to paper size}.
+
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
@@ -854,7 +883,7 @@ Notation Reference:
 @ref{Optimal page turning},
 @ref{Minimal page breaking}.
 
-Installed files:
+Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
 
@@ -944,7 +973,7 @@ sensible default, for example:
 
 
 @seealso
-Installed files:
+Installed Files:
 @file{ly/titling-init.ly}.
 
 Snippets:
@@ -997,25 +1026,33 @@ discussed in a separate chapter; see
 variables that can appear in a @code{\layout} block are:
 
 @itemize
-@item @code{ragged-right}
-@item @code{ragged-last}
-@item @code{indent}
-@item @code{short-indent}
-@item @code{system-count}
+
+@item
+@code{line-width}, @code{ragged-right} and @code{ragged-last}
+(see @ref{\paper variables for widths and margins})
+
+@item
+@code{indent} and @code{short-indent}
+(see @ref{\paper variables for shifts and indents})
+
+@item
+@code{system-count}
+(see @ref{\paper variables for line breaking})
+
 @end itemize
 
 Here is an example @code{\layout} block:
 
 @example
 \layout @{
-  indent = 2.0\cm
+  indent = 2\cm
   \context @{
     \StaffGroup
     \override StaffGrouper #'staff-staff-spacing #space = #8
   @}
   \context @{
     \Voice
-    \override TextScript #'padding = #1.0
+    \override TextScript #'padding = #1
     \override Glissando #'thickness = #3
   @}
 @}
@@ -1054,9 +1091,9 @@ fonts accordingly.
 To set the staff size individually for each score, use
 @example
 \score@{
-  ...
-  \layout@{
-  #(layout-set-staff-size 15)
+  @dots{}
+  \layout @{
+    #(layout-set-staff-size 15)
   @}
 @}
 @end example
@@ -1160,18 +1197,58 @@ staff lines.
 
 Line breaks are normally determined automatically.  They are chosen
 so that lines look neither cramped nor loose, and consecutive
-lines have similar density.  Occasionally you might want to
-override the automatic breaks; you can do this by specifying
-@code{\break}.  This will force a line break at this point.  However,
-line breaks can only occur at the end of @q{complete} bars, i.e.,
-where there are no notes or tuplets left @q{hanging} over the bar
-line.  If you want to have a line break where there is no bar line,
-you can force an invisible bar line by entering @code{\bar ""},
-although again there must be no notes left hanging over in any of
-the staves at this point, or it will be ignored.
+lines have similar density.
 
-The opposite command, @code{\noBreak}, forbids a line break at the
-bar line where it is inserted.
+To manually force a line break at a bar line, use the
+@code{\break} command:
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+c4 c c c | \break
+c4 c c c |
+@end lilypond
+
+By default, a @code{\break} in the middle of a measure is ignored,
+and a warning is printed.  To force a line break in the middle of
+a measure, add an invisible bar line with @w{@samp{\bar ""}}:
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+c4 c c
+\bar "" \break
+c |
+c4 c c c |
+@end lilypond
+
+A @code{\break} occuring at a bar line is also ignored if the
+previous measure ends in the middle of a note, such as when a
+tuplet begins and ends in different measures.  To allow
+@code{\break} commands to work in these situations, remove the
+@code{Forbid_line_break_engraver} from the @code{Voice} context.
+Note that manually forced line breaks have to be added in parallel
+with the music:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \with {
+  \remove Forbid_line_break_engraver
+} \relative c'' {
+  <<
+    { c2. \times 2/3 { c4 c c } c2. | }
+    { s1 | \break s1 | }
+  >>
+}
+@end lilypond
+
+Similarly, line breaks are normally forbidden when beams cross bar
+lines.  This behavior can be changed by setting
+@code{\override Beam #'breakable = ##t}:
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+\override Beam #'breakable = ##t
+c2. c8[ c | \break
+c8 c] c2. |
+@end lilypond
+
+The @code{\noBreak} command forbids a line break at the bar line
+where it is inserted.
 
 The most basic settings influencing line spacing are @code{indent}
 and @code{line-width}.  They are set in the @code{\layout} block.
@@ -1191,9 +1268,9 @@ but affects only the last line of the piece.
 
 @example
 \layout @{
-indent = #0
-line-width = #150
-ragged-last = ##t
+  indent = 0\mm
+  line-width = 150\mm
+  ragged-last = ##t
 @}
 @end example
 
@@ -1208,10 +1285,12 @@ cause the following 28 measures (assuming 4/4 time) to be broken
 every 4 measures, and only there:
 
 @example
-<< \repeat unfold 7 @{
-         s1 \noBreak s1 \noBreak
-         s1 \noBreak s1 \break @}
-   @emph{the real music}
+<<
+  \repeat unfold 7 @{
+    s1 \noBreak s1 \noBreak
+    s1 \noBreak s1 \break
+  @}
+  @{ @var{the actual music@dots{}} @}
 >>
 @end example
 
@@ -1232,41 +1311,14 @@ complicated.  More details are available in
 
 
 @seealso
+Notation Reference:
+@ref{\paper variables for line breaking}.
+
 Snippets:
 @rlsr{Spacing}.
 
 Internals Reference:
 @rinternals{LineBreakEvent}.
-
-
-@knownissues
-
-Line breaks can only occur if there is a @q{proper} bar line.  A note
-which is hanging over a bar line is not proper, such as
-
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c2 << c2 {s4 \break } >>  % this does nothing
-c2 c4 |           % a break here would work
-c4 c2 c4 ~ \break % as does this break
-c4 c2 c4
-@end lilypond
-
-This can be avoided by removing the @code{Forbid_line_break_engraver}.
-Note that manually forced line breaks have to be added in parallel
-with the music.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Voice \with {
-  \remove Forbid_line_break_engraver
-} {
-  c4 c2 << c2 {s4 \break } >>  % now the break is allowed
-  c2 c4
-}
-@end lilypond
-
-Similarly, line breaks are normally forbidden when beams cross bar
-lines.  This behavior can be changed by setting
-@code{\override Beam #'breakable = ##t}.
 
 
 @node Page breaking
@@ -1286,9 +1338,8 @@ There are also analogous settings to @code{ragged-right} and
 @code{ragged-last} which have the same effect on vertical spacing:
 @code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
 @code{##t} the systems on all pages or just the last page
-respectively will not be justified vertically.
-
-For more details see @ref{Vertical spacing}.
+respectively will not be justified vertically.  See
+@ref{Fixed vertical spacing \paper variables}.
 
 Page breaks are computed by the @code{page-breaking} function.  LilyPond
 provides three algorithms for computing page breaks,
@@ -1297,8 +1348,8 @@ provides three algorithms for computing page breaks,
 but the value can be changed in the @code{\paper} block:
 
 @example
-\paper@{
-  #(define page-breaking ly:page-turn-breaking)
+\paper @{
+  page-breaking = #ly:page-turn-breaking
 @}
 @end example
 
@@ -1319,7 +1370,7 @@ book parts.
   \paper @{
      %% In a part consisting mostly of text,
      %% ly:minimal-breaking may be preferred
-     #(define page-breaking ly:minimal-breaking)
+     page-breaking = #ly:minimal-breaking
   @}
   \markup @{ @dots{} @}
   @dots{}
@@ -1345,6 +1396,9 @@ book parts.
 
 
 @seealso
+Notation Reference:
+@ref{\paper variables for page breaking}.
+
 Snippets:
 @rlsr{Spacing}.
 
@@ -1465,7 +1519,7 @@ too slow or memory demanding, or a lot of texts.  It is enabled using:
 
 @example
 \paper @{
-  #(define page-breaking ly:minimal-breaking)
+  page-breaking = #ly:minimal-breaking
 @}
 @end example
 
@@ -1498,17 +1552,19 @@ page breaks at explicit @code{\pageBreak} commands and nowhere else.
   ragged-bottom = ##t
 }
 
+music = \relative c'' { c8 c c c }
+
 \score {
   \new Staff {
-    \repeat unfold 2 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 8 { c'8 c'8 c'8 c'8 } \pageBreak
-    \repeat unfold 8 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 2 { c'8 c'8 c'8 c'8 }
-    }
+    \repeat unfold 2 { \music } \break
+    \repeat unfold 4 { \music } \break
+    \repeat unfold 6 { \music } \break
+    \repeat unfold 8 { \music } \pageBreak
+    \repeat unfold 8 { \music } \break
+    \repeat unfold 6 { \music } \break
+    \repeat unfold 4 { \music } \break
+    \repeat unfold 2 { \music }
+  }
   \layout {
     \context {
       \Score
@@ -1531,11 +1587,12 @@ Snippets:
 Line- and page-breaking information usually appears within note entry directly.
 
 @example
+music = \relative c'' @{ c4 c c c @}
+
 \score @{
   \new Staff @{
-    \repeat unfold 2 @{ c'4 c'4 c'4 c'4 @}
-    \break
-    \repeat unfold 3 @{ c'4 c'4 c'4 c'4 @}
+    \repeat unfold 2 @{ \music @} \break
+    \repeat unfold 3 @{ \music @}
   @}
 @}
 @end example
@@ -1549,6 +1606,8 @@ contains only skips together with @code{\break}, @code{pageBreak} and other
 breaking layout information.
 
 @lilypond[quote,verbatim]
+music = \relative c'' { c4 c c c }
+
 \score {
   \new Staff <<
     \new Voice {
@@ -1558,10 +1617,10 @@ breaking layout information.
       s1 * 5 \break
     }
     \new Voice {
-      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 2 { \music }
+      \repeat unfold 3 { \music }
+      \repeat unfold 6 { \music }
+      \repeat unfold 5 { \music }
     }
   >>
 }
@@ -1572,6 +1631,8 @@ This pattern becomes especially helpful when overriding
 @code{NonMusicalPaperColumnGrob}, as explained in @ref{Vertical spacing}.
 
 @lilypond[quote,verbatim]
+music = \relative c'' { c4 c c c }
+
 \score {
   \new Staff <<
     \new Voice {
@@ -1592,10 +1653,10 @@ This pattern becomes especially helpful when overriding
       s1 * 5 \break
     }
     \new Voice {
-      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 2 { \music }
+      \repeat unfold 3 { \music }
+      \repeat unfold 6 { \music }
+      \repeat unfold 5 { \music }
     }
   >>
 }
@@ -1933,7 +1994,7 @@ in the staff-group that have it set.  Also see
 @end table
 
 @seealso
-Installed files:
+Installed Files:
 @file{ly/engraver-init.ly},
 @file{scm/define-grobs.scm}.
 
@@ -2160,19 +2221,18 @@ Internals Reference:
 @node Explicit staff and system positioning
 @subsection Explicit staff and system positioning
 
-One way to understand the @code{VerticalAxisGroup} and @code{\paper}
-settings explained in the previous two sections is as a collection of
-different settings that primarily concern the amount of vertical padding
-different staves and systems running down the page.
+One way to understand the flexible vertical spacing mechanisms
+explained above is as a collection of settings that control the
+amount of vertical padding between staves and systems.
 
-It is possible to approach vertical spacing in a different way using
-@code{NonMusicalPaperColumn #'line-break-system-details}.  Where
-@code{VerticalAxisGroup} and @code{\paper} settings specify vertical padding,
-@code{NonMusicalPaperColumn #'line-break-system-details} specifies exact
-vertical positions on the page.
+It is possible to approach vertical spacing in a different way
+using @code{NonMusicalPaperColumn #'line-break-system-details}.
+While the flexible vertical spacing mechanisms specify vertical
+padding, @code{NonMusicalPaperColumn #'line-break-system-details}
+can specify exact vertical positions on the page.
 
-@code{NonMusicalPaperColumn #'line-break-system-details} accepts an associative
-list of three different settings:
+@code{NonMusicalPaperColumn #'line-break-system-details} accepts
+an associative list of three different settings:
 
 @itemize
 @item @code{X-offset}
@@ -2205,13 +2265,15 @@ example @code{NonMusicalPaperColumn} overrides with the special
   #'line-break-system-details #'((Y-offset . 40))
 
 \overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20) (Y-offset . 40))
+  #'line-break-system-details #'((X-offset . 20)
+                                 (Y-offset . 40))
 
 \overrideProperty NonMusicalPaperColumn
   #'line-break-system-details #'((alignment-distances . (15)))
 
 \overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20) (Y-offset . 40)
+  #'line-break-system-details #'((X-offset . 20)
+                                 (Y-offset . 40)
                                  (alignment-distances . (15)))
 @end example
 
@@ -2221,7 +2283,7 @@ by looking at an example that includes no overrides at all.
 @c \book { } is required in these examples to ensure the spacing
 @c overrides can be seen between systems. -np
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -2254,7 +2316,7 @@ the vertical startpoint of each system explicitly, we can set
 the @code{Y-offset} pair in the @code{line-break-system-details}
 attribute of the @code{NonMusicalPaperColumn} grob:
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -2292,7 +2354,7 @@ explicitly, we can also set the vertical distances between staves
 within each system manually.  We do this using the @code{alignment-distances}
 subproperty of @code{line-break-system-details}.
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -2333,7 +2395,7 @@ additional spacing parameters (including, for example, a corresponding
 every system and every staff.  Finally, note that @code{alignment-distances}
 specifies the vertical positioning of staves but not of staff groups.
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {

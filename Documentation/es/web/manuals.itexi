@@ -45,7 +45,7 @@ una introducción a LilyPond amable e @qq{imprescindible}.
 @details{Aprendizaje}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName-es,@rglosnamed{Top,Glosario}}
+@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glosario}}
 @emph{(lectura opcional)} términos musicales y traducciones.
 @details{Glosario}
 
@@ -75,7 +75,7 @@ cómo ejecutar los programas.
 @details{Utilización}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName-es,@rlsrnamed{Top,Fragmentos}}
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Fragmentos}}
 trucos y consejos cortos.
 @details{Fragmentos}
 
@@ -109,7 +109,7 @@ trucos interesantes.
 @details{Extender}
 
 @item
-@ifWebLinks{@manualStableInternalsSplitNoName-es,@rinternalsnamed{Top,Funcionamiento interno}}
+@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Funcionamiento interno}}
 referencia sobre el trucaje.
 @details{Funcionamiento interno}
 

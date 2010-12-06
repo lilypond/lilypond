@@ -818,7 +818,8 @@
 	(Y-extent . #f)
 	(zigzag-width . 0.75)
 	(meta . ((class . Spanner)
-		 (interfaces . (line-interface
+		 (interfaces . (glissando-interface
+				line-interface
 				line-spanner-interface
 				unbreakable-spanner-interface))))))
 
@@ -876,15 +877,6 @@
 				line-interface
 				self-alignment-interface
 				spanner-interface))))))
-
-    (HarmonicParenthesesItem
-     . (
-	(padding . 0)
-	(stencil . ,parentheses-item::print)
-	(stencils . ,parentheses-item::calc-angled-bracket-stencils)
-	(meta . ((class . Item)
-		 (interfaces . (font-interface
-				parentheses-interface))))))
 
     (HorizontalBracket
      . (
@@ -1951,13 +1943,24 @@
 	(details . ((tied-properties . ((break-visibility . ,begin-of-line-visible)
 					(parenthesize . #t)))
 		    (repeat-tied-properties . ((note-head-visible . #t)
-					       (parenthesize . #t)))))
+					       (parenthesize . #t)))
+		    (harmonic-properties . ((angularity . 2)
+					    (half-thickness . 0.075)
+					    (padding . 0)
+					    (procedure . ,parenthesize-stencil)
+					    (width . 0.25)))
+		    (cautionary-properties . ((angularity . 0.4)
+					      (half-thickness . 0.075)
+					      (padding . 0)
+					      (procedure . ,parenthesize-stencil)
+					      (width . 0.25)))))
+
 	(direction . ,CENTER)
 	(duration-log . ,note-head::calc-duration-log)
 	(font-series . bold)
 	(font-size . -2)
 	(stem-attachment . (0.0 . 1.35))
-	(stencil . ,ly:text-interface::print)
+	(stencil . ,tab-note-head::print)
 	(whiteout . #t)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)

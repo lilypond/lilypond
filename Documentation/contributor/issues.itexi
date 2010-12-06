@@ -150,7 +150,7 @@ the currently-active Bug Squad member(s) can handle the message.
 The Bug Meister is omitted from the daily schedule.
 
 @example
-Sunday: Valentin
+Sunday: Colin
 Monday: Dmytro
 Tuesday: James Bailey
 Wednesday: Ralph
@@ -625,12 +625,24 @@ lilypond --png bug.ly
 @end example
 
 @item
-If the issue requires multi-page output, then generate a
-@file{bug.pdf} file with the normal:
+If the issue requires one or two pages of output, then generate a
+@file{bug.png} file with the normal:
 
 @example
 lilypond --png bug.ly
 @end example
+
+@item
+If the issue cannot be shown with less than three pages, then
+generate a @file{bug.pdf} file with:
+
+@example
+lilypond --pdf bug.ly
+@end example
+
+Note that this is likely to be extremely rare; most bugs should fit
+into the first two categories above.
+
 
 @end itemize
 

@@ -2011,6 +2011,36 @@ are determined in @file{scm/time-signature-settings.scm}.
 The automatic beaming settings for a time signature can be changed
 as described in @ref{Time signature}.
 
+Most automatic beaming settings for a time signature contain an
+entry for @code{beamExceptions}.  For example, 4/4 time tries to
+beam the measure in two if there are only eighth notes.  The
+@code{beamExceptions} rule can override the @code{beatStructure} setting
+if @code{beamExceptions} is not reset.
+
+@lilypond[quote,verbatim,relative=2]
+\time 4/4
+\set Timing.baseMoment = #(ly:make-moment 1 8)
+\set Timing.beatStructure = #'(3 3 2)
+% This won't beam (3 3 2) because of beamExceptions
+\repeat unfold 8 {c8} |
+% This will beam (3 3 2) because we clear beamExceptions
+\set Timing.beamExceptions = #'()
+\repeat unfold 8 {c8}
+@end lilypond
+
+In a similar fashion, eighth notes in 3/4 time are beamed as a full
+measure by default.  To beam eighth notes in 3/4 time on the beat,
+reset @code{beamExceptions}.
+
+@lilypond[quote,verbatim,relative=2]
+\time 3/4
+% by default we beam in (3) due to beamExceptions
+\repeat unfold 6 {a8} |
+% This will beam (1 1 1) due to beatLength
+\set Timing.beamExceptions = #'()
+\repeat unfold 6 {a8}
+@end lilypond
+
 @i{@strong{How automatic beaming works}}
 
 When automatic beaming is enabled, the placement of automatic beams
@@ -2071,7 +2101,7 @@ For reference, the default beaming rules are found in
 
 
 @seealso
-Installed files:
+Installed Files:
 @file{scm/beam-settings.scm}.
 
 Snippets:
