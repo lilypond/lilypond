@@ -62,6 +62,23 @@ notation,
 @item @ref{Ligatures}.
 @end itemize
 
+@seealso
+Music Glossary:
+@rglos{custos},
+@rglos{ligature},
+@rglos{mensural notation}.
+
+Notation Reference:
+@ref{Mensural note heads},
+@ref{Mensural accidentals and key signatures},
+@ref{Mensural rests},
+@ref{Gregorian clefs},
+@ref{Mensural flags},
+@ref{Mensural time signatures},
+@ref{Custodes},
+@ref{Divisiones},
+@ref{Ligatures}.
+
 
 @node Overview of the supported styles
 @subsection Overview of the supported styles
@@ -140,6 +157,11 @@ others, so that one can use mensural flags, petrucci noteheads,
 classical rests and vaticana clefs in the same piece, if one
 wishes.
 
+@seealso
+Music Glossary:
+@rglos{mensural notation},
+@rglos{flag}.
+
 
 @node Ancient notation---common features
 @subsection Ancient notation---common features
@@ -168,6 +190,14 @@ and @code{MensuralStaff}.  See further
 @item @ref{Gregorian chant contexts},
 @item @ref{Mensural contexts}.
 @end itemize
+
+@seealso
+Music Glossary:
+@rglos{mensural notation}.
+
+Notation Reference:
+@ref{Gregorian chant contexts},
+@ref{Mensural contexts}.
 
 
 @node Ligatures
@@ -207,13 +237,15 @@ specialized ligature engravers in the @code{Voice} context,
 as explained in @ref{White mensural ligatures} and @ref{Gregorian
 square neume ligatures}.
 
+@seealso
+Music Glossary:
+@rglos{ligature}.
 
-@c @seealso
-@c TODO: nothing here yet ...
-
+Notation Reference:
+@ref{White mensural ligatures},
+@ref{Gregorian square neume ligatures}.
 
 @knownissues
-
 Ligatures need special spacing that has not yet been implemented.  As
 a result, there is too much space between ligatures most of the time,
 and line breaking often is unsatisfactory.  Also, lyrics do not
@@ -303,8 +335,10 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 }
 @end lilypond
 
-
 @seealso
+Music Glossary:
+@rglos{custos}.
+
 Internals Reference:
 @rinternals{Custos}.
 
@@ -317,6 +351,13 @@ Snippets:
 
 There is limited support for figured bass notation from the
 Baroque period; see @ref{Figured bass}.
+
+@seealso
+Music Glossary:
+@rglos{figured bass}.
+
+Notation Reference:
+@ref{Figured bass}.
 
 
 @node Typesetting mensural music
@@ -368,8 +409,9 @@ entering the chant, as the following excerpt demonstrates:
 @end lilypond
 
 
-@c @seealso
-@c TODO: nothing here yet ...
+@seealso
+Music Glossary:
+@rglos{mensural notation}.
 
 
 @node Mensural clefs
@@ -479,14 +521,16 @@ petrucci style G clef
 @end lilypond
 @end multitable
 
-
 @seealso
+Music Glossary:
+@rglos{mensural notation},
+@rglos{clef}.
+
 Notation Reference:
 @ref{Clef}.
 
 
 @knownissues
-
 The mensural g clef is mapped to the Petrucci g clef.
 
 
@@ -577,15 +621,17 @@ differences in style:
 }
 @end lilypond
 
-
-@seealso
-Notation Reference:
 @ref{Time signature}, gives a general introduction to
 the use of time signatures.
 
+@seealso
+Music Glossary:
+@rglos{mensural notation}.
+
+Notation Reference:
+@ref{Time signature}.
 
 @knownissues
-
 Ratios of note durations do not change with the time signature.  For
 example, the ratio of 1@tie{}breve = 3@tie{}semibreves (@emph{tempus
 perfectum}) must be made by hand, by setting
@@ -644,9 +690,15 @@ a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
 @end lilypond
 
 
-@seealso
-Notation Reference:
 @ref{Note head styles}, gives an overview of all available note head styles.
+
+@seealso
+Music Glossary:
+@rglos{mensural notation},
+@rglos{note head}.
+
+Notation Reference:
+@ref{Note head styles}.
 
 
 @node Mensural flags
@@ -677,12 +729,13 @@ There is no particular flag style for neo-mensural or Petrucci notation.
 There are no flags in Gregorian chant notation.
 
 
-@c @seealso
-@c TODO: nothing here yet ...
+@seealso
+Music Glossary:
+@rglos{mensural notation},
+@rglos{flag}.
 
 
 @knownissues
-
 The attachment of ancient flags to stems is slightly off.
 @c due to a change in early 2.3.x.
 
@@ -723,12 +776,15 @@ There are no 32th and 64th rests specifically for the mensural or
 neo-mensural style.  Instead, the rests from the default style will be
 taken.
 
-See @rlsr{Ancient notation} for a chart of all rests.
-
 @seealso
+Music Glossary:
+@rglos{mensural notation}.
+
 Notation Reference:
-@ref{Rests}, gives a general introduction into the use of
-rests.
+@ref{Rests}.
+
+Snippets:
+@rlsr{Ancient notation}.
 
 
 @node Mensural accidentals and key signatures
@@ -758,12 +814,18 @@ The style for accidentals and key signatures is controlled by the
 @code{\override Staff.Accidental #'glyph-name-alist =
 #alteration-mensural-glyph-name-alist}
 
-
 @seealso
+Music Glossary:
+@rglos{mensural notation},
+@rglos{Pitch names},
+@rglos{accidental},
+@rglos{key signature}.
+
 Notation Reference:
-@ref{Pitches}, @ref{Accidentals}, and @ref{Automatic accidentals}, give a
-general introduction of the use of accidentals.  @ref{Key signature}, gives
-a general introduction of the use of key signatures.
+@ref{Pitches},
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{Key signature}.
 
 Internals Reference:
 @rinternals{KeySignature}.
