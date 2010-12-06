@@ -117,8 +117,7 @@ system.
 @item
 Install some virtualization software.
 
-Any virtualization tool can be used, but we recommend VirtualBox
-Open Source Edition (lower half of the linked page):
+Any virtualization tool can be used, but we recommend VirtualBox:
 
 @example
 @uref{http://@/www.virtualbox.org/@/wiki/@/Downloads}
