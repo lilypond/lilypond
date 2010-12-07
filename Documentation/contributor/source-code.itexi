@@ -189,8 +189,9 @@ Send patch files to the appropriate place:
 If you have a mentor, send it to them via email.
 
 @item
-New contributors should send the patch attached to an email (must
-be less than 64KB) to @email{frogs@@lilynet.net}.
+New contributors should send the patch attached to an email to
+@email{frogs@@lilynet.net}.  Please add @qq{[PATCH]} to the
+subject line.
 
 @item
 Translators should send patches to
