@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
+    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -67,11 +67,13 @@ werden in der Oktave unter dem zweigestrichenen C
 gesetzt.
 
 @c don't use c' here.
-@lilypond[verbatim,quote,fragment]
-\clef bass
-c d e f
-g a b c
-d e f g
+@lilypond[verbatim,quote]
+{
+  \clef bass
+  c4 d e f
+  g4 a b c
+  d4 e f g
+}
 @end lilypond
 
 @cindex Oktavwechsel: Tonhöhe
@@ -87,13 +89,15 @@ benutzt.  Jedes@tie{}@code{'} erhöht die Tonhöhe um
 eine Oktave, jedes@tie{}@code{,} erniedrigt sie um eine
 Oktave.
 
-@lilypond[verbatim,quote,fragment]
-\clef treble
-c' c'' e' g
-d'' d' d c
-\clef bass
-c, c,, e, g
-d,, d, d c
+@lilypond[verbatim,quote]
+{
+  \clef treble
+  c'4 c'' e' g
+  d''4 d' d c
+  \clef bass
+  c,4 c,, e, g
+  d,,4 d, d c
+}
 @end lilypond
 
 @seealso
@@ -470,42 +474,46 @@ keinem Standard.
 @cindex Sprache, Tonhöhenbezeichnungn in anderer
 
 Es gibt vordefinierte Bezeichnungen für die Notenbezeichnungen in anderen
-Sprachen als Englisch. Um sie zu benutzen, muss nur die
-entsprechende Datei für die jeweilige Sprache eingefügt werden.
-Zum Beispiel fügt man mit @code{@w{\include "deutsch.ly"}} die
-Notendefinitionen für die deutsche Sprache am Anfang der Datei
-hinzu
+Sprachen als Englisch. Die Sprache für die Notenbezeichnungen wird normalerweise
+zu Beginn einer Datei ausgewählt: das folgende Beispiel zeigt die Verwendung
+von italienischen Notenbezeichnungen:
+
+@lilypond[quote,verbatim]
+\language "italiano"
+
+\relative do' {
+  do re mi sib
+}
+@end lilypond
 
 In der Tabelle sind die existierenden Sprachdefinitionen
 mit den dazugehörigen Notenbezeichnungen dargestellt.
 
 @quotation
-@multitable {@file{nederlands.ly}} {do re mi fa sol la sib si}
-@headitem Sprachdatei
-  @tab Notenbezeichnung
-@item @file{nederlands.ly}
+@multitable {@code{nederlands}} {do re mi fa sol la sib si}
+@headitem Sprache
+  @tab Notenbezeichnungen
+@item @code{nederlands}
   @tab c d e f g a bes b
-@item @file{arabic.ly}
+@item @code{catalan}
   @tab do re mi fa sol la sib si
-@item @file{catalan.ly}
-  @tab do re mi fa sol la sib si
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab c d e f g a b h
-@item @file{english.ly}
+@item @code{english}
   @tab c d e f g a bf b
-@item @file{espanol.ly}
+@item @code{espanol}
   @tab do re mi fa sol la sib si
-@item @file{italiano.ly}
+@item @code{italiano}
   @tab do re mi fa sol la sib si
-@item @file{norsk.ly}
+@item @code{norsk}
   @tab c d e f g a b h
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab do re mi fa sol la sib si
-@item @file{suomi.ly}
+@item @code{suomi}
   @tab c d e f g a b h
-@item @file{svenska.ly}
+@item @code{svenska}
   @tab c d e f g a b h
-@item @file{vlaams.ly}
+@item @code{vlaams}
   @tab do re mi fa sol la sib si
 @end multitable
 @end quotation
@@ -514,42 +522,42 @@ mit den dazugehörigen Notenbezeichnungen dargestellt.
 und die dazugehörigen Versetzungszeichen-Endungen:
 
 @quotation
-@multitable {@file{nederlands.ly}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
-@headitem Language File
-  @tab sharp @tab flat @tab double sharp @tab double flat
-@item @file{nederlands.ly}
+@multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@headitem Sprache
+  @tab Kreuz @tab B @tab Doppelkreuz @tab Doppel-B
+@item @code{nederlands}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{arabic.ly}
-  @tab -d @tab -b @tab -dd @tab -bb
-@item @file{catalan.ly}
+@item @code{catalan}
   @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{english.ly}
+@item @code{english}
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
-@item @file{espanol.ly}
+@item @code{espanol}
   @tab -s @tab -b @tab -ss/-x @tab -bb
-@item @file{italiano.ly}
+@item @code{italiano}
   @tab -d @tab -b @tab -dd @tab -bb
-@item @file{norsk.ly}
+@item @code{norsk}
   @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
     @tab -essess/-eses
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab -s @tab -b @tab -ss @tab -bb
-@item @file{suomi.ly}
+@item @code{suomi}
   @tab -is @tab -es @tab -isis @tab -eses
-@item @file{svenska.ly}
+@item @code{svenska}
   @tab -iss @tab -ess @tab -ississ @tab -essess
-@item @file{vlaams.ly}
+@item @code{vlaams}
   @tab -k @tab -b @tab -kk @tab -bb
 @end multitable
 @end quotation
 
-@noindent
-Auf Holländisch, Deutsch, Norwegisch und Schwedisch (u. a.) werden die
-Erniedrigungen von @q{a} wie @code{aes} und @code{aeses} zu
-@code{as} und @code{ases} (oder auch @code{asas}) zusammengezogen.
+Auf Holländisch, Deutsch, Norwegisch und Schwedisch (u. a.) wird die
+Erniedrigungen von @q{a} -- @code{aes} -- zu @code{as} zusammengezogen.
+Beide Formen werden jedoch akzeptiert.  Genauso gelten auch
+@code{es} und @code{ees}.  Das gilt auch für
+@code{aeses}@tie{}/@tie{}@code{ases} und
+@code{eeses}@tie{}/@tie{}@code{eses}.
 In manchen Sprachen sind nur diese Kurzformen definiert.
 
 @lilypond[verbatim,quote,relative=2]
@@ -566,34 +574,40 @@ a2 as e es a ases e eses
 Bestimmte Musik verwendet Alterationen, die Bruchteile von den
 @qq{normalen} Kreuzen oder Bs sind. Die Notenbezeichnungen für
 Vierteltöne für die verschiedenen Sprachen sind in der folgenden
-Tabelle aufgeführt. Die Präfixe @qq{Semi-} und @qq{Sesqui-} bedeuten
-@qq{halb} bzw. @qq{eineinhalb}. Für alle anderen
-Sprachen sind noch keine eigenen Namen definiert.
+Tabelle aufgeführt. Die Präfixe @notation{semi-} und @notation{sesqui-} bedeuten
+@qq{halb} bzw. @qq{eineinhalb}. Für Sprachen, die nicht in der Tabelle
+auftauchen, sind noch keine eigenen Namen definiert.
 
 @quotation
-@multitable {@file{nederlands.ly}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
-@headitem Sprachdatei
-  @tab Vierteltonkreuz @tab Viertelton-B @tab 3/4-tonkreuz @tab 3/4-ton-B
+@multitable {@code{nederlands}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
+@headitem Sprache
+  @tab Vierteltonkreuz @tab Viertelton-B @tab 3/4-Tonkreuz @tab 3/4-Ton-B
 
-@item @file{nederlands.ly}
+@item @code{nederlands}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item @file{arabic.ly}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @file{deutsch.ly}
+@item @code{deutsch}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item @file{english.ly}
+@item @code{english}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @file{italiano.ly}
+@item @code{espanol}
+  @tab -cs @tab -cb @tab -tcs @tab -tcb
+@item @code{italiano}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @file{portugues.ly}
+@item @code{portugues}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
 @end multitable
 @end quotation
 
+Die meisten Sprachen, die hier vorkommen, werden normalerweise mit der
+klassischen westlichen Musik assoziiert.  Alternative Tonhöhen und
+Stimmungen sind aber auch unterstützt: siehe
+@ref{Nichteuropäische Notenbezeichnungen und Versetzungszeichen}
+
 
 @seealso
 Glossar:
-@rglos{Pitch names}.
+@rglos{Pitch names},
+@rglos{Common Practice Period}.
 
 Notationsreferenz:
 @ref{Nichteuropäische Notenbezeichnungen und Versetzungszeiche}.
