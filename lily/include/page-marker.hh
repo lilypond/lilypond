@@ -21,6 +21,7 @@
 #define PAGE_MARKER_HH
 
 #include "smobs.hh"
+#include "virtual-methods.hh"
 
 class Page_marker
 {
@@ -32,7 +33,9 @@ class Page_marker
 
 public:
   Page_marker ();
-  
+  Page_marker (Page_marker const &);
+  VIRTUAL_COPY_CONSTRUCTOR (Page_marker, Page_marker);
+
   void set_permission (SCM symbol, SCM permission);
   void set_label (SCM label);
 

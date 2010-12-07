@@ -28,6 +28,14 @@ Page_marker::Page_marker ()
   smobify_self ();
 }
 
+Page_marker::Page_marker (Page_marker const &src)
+{
+  symbol_ = src.symbol_;
+  permission_ = src.permission_;
+  label_ = src.label_;
+  smobify_self ();
+}
+
 Page_marker::~Page_marker ()
 {
 }
@@ -47,10 +55,10 @@ Page_marker::mark_smob (SCM smob)
 }
 
 int
-Page_marker::print_smob (SCM smob, SCM port, scm_print_state*)
+Page_marker::print_smob (SCM smob, SCM port, scm_print_state *)
 {
   Page_marker *pm = (Page_marker *) SCM_CELL_WORD_1 (smob);
-  (void)pm;
+  (void) pm;
   scm_puts ("#<Page_marker>", port);
   return 1;
 }
@@ -85,5 +93,3 @@ Page_marker::set_label (SCM label)
 {
   label_ = label;
 }
-
-

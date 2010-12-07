@@ -67,15 +67,21 @@ Book::Book (Book const &s)
   header_ = ly_make_module (false);
   if (ly_is_module (s.header_))
     ly_module_copy (header_, s.header_);
-
   SCM *t = &scores_;
   for (SCM p = s.scores_; scm_is_pair (p); p = scm_cdr (p))
     {
-      Score *newscore = unsmob_score (scm_car (p))->clone ();
+      SCM entry = scm_car (p);
 
-      *t = scm_cons (newscore->self_scm (), SCM_EOL);
+      if (Score *newscore = unsmob_score (entry))
+	*t = scm_cons (newscore->clone ()->unprotect (), SCM_EOL);
+      else if (Page_marker *marker = unsmob_page_marker (entry))
+	*t = scm_cons (marker->clone ()->unprotect (), SCM_EOL);
+      else
+	{
+	  /* This entry is a markup list */
+	  *t = scm_cons (entry, SCM_EOL);
+	}
       t = SCM_CDRLOC (*t);
-      newscore->unprotect ();
     }
 
   t = &bookparts_;
