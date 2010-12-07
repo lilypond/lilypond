@@ -1,4 +1,4 @@
-\version "2.13.36"
+\version "2.13.42"
 
 \header {
   texidoc = "Padding from the header and footer is measured to the
@@ -9,8 +9,8 @@ first non-staff line, whether or not it is spaceable."
 
 \book {
   \paper {
-    top-system-spacing = #'((space . 1) (padding . 10))
-    last-bottom-spacing = #'((space . 1) (padding . 10))
+    top-system-spacing = #'((basic-distance . 1) (padding . 10))
+    last-bottom-spacing = #'((basic-distance . 1) (padding . 10))
     annotate-spacing = ##t
     ragged-last-bottom = ##f
   }

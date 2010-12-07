@@ -652,7 +652,7 @@ Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after, int spaceable
   Real stretchability = 0;
   if (Page_layout_problem::read_spacing_spec (spec, &stretchability, ly_symbol2scm ("stretchability"))
       && stretchability == 0)
-    Page_layout_problem::read_spacing_spec (spec, &ret, ly_symbol2scm ("space"));
+    Page_layout_problem::read_spacing_spec (spec, &ret, ly_symbol2scm ("basic-distance"));
 
   // If we're pure, then paper-columns have not had their systems set,
   // and so elts[i]->get_system () is unreliable.
@@ -752,7 +752,7 @@ Page_layout_problem::alter_spring_from_spacing_spec (SCM spec, Spring* spring)
   Real space;
   Real stretch;
   Real min_dist;
-  if (read_spacing_spec (spec, &space, ly_symbol2scm ("space")))
+  if (read_spacing_spec (spec, &space, ly_symbol2scm ("basic-distance")))
     spring->set_distance (space);
   if (read_spacing_spec (spec, &min_dist, ly_symbol2scm ("minimum-distance")))
     spring->set_min_distance (min_dist);

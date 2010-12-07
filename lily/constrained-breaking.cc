@@ -398,13 +398,13 @@ Constrained_breaking::initialize ()
 
   Page_layout_problem::read_spacing_spec (spacing_spec,
 					  &system_system_space_,
-					  ly_symbol2scm ("space"));
+					  ly_symbol2scm ("basic-distance"));
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
 					  &system_system_space_,
-					  ly_symbol2scm ("space"));
+					  ly_symbol2scm ("basic-distance"));
   Page_layout_problem::read_spacing_spec (title_spec,
 					  &system_markup_space_,
-					  ly_symbol2scm ("space"));
+					  ly_symbol2scm ("basic-distance"));
 
   Page_layout_problem::read_spacing_spec (spacing_spec,
 					  &system_system_padding_,
@@ -543,8 +543,8 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   title_min_distance_ = 0;
   space_ = 0;
   title_space_ = 0;
-  Page_layout_problem::read_spacing_spec (spec, &space_, ly_symbol2scm ("space"));
-  Page_layout_problem::read_spacing_spec (title_spec, &title_space_, ly_symbol2scm ("space"));
+  Page_layout_problem::read_spacing_spec (spec, &space_, ly_symbol2scm ("basic-distance"));
+  Page_layout_problem::read_spacing_spec (title_spec, &title_space_, ly_symbol2scm ("basic-distance"));
   Page_layout_problem::read_spacing_spec (spec, &padding_, ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (title_spec, &title_padding_, ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (spec, &min_distance_, ly_symbol2scm ("minimum-distance"));

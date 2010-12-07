@@ -3108,6 +3108,13 @@ def conv(str):
 
     return str
 
+@rule ((2, 13, 42),
+    _ ("Rename space to basic-distance in various spacing alists."))
+def conv(str):
+    str = re.sub (r'\(space\s+\.\s+([0-9]*\.?[0-9]*)\)', r'(basic-distance . \1)', str)
+    str = re.sub (r"#'space\s+=\s+#?([0-9]*\.?[0-9]*)", r"#'basic-distance = #\1", str)
+    return str
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

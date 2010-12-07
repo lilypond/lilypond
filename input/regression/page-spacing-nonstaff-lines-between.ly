@@ -1,4 +1,4 @@
-\version "2.13.36"
+\version "2.13.42"
 
 \header {
   texidoc = "Non-staff lines between two systems don't confuse the
@@ -9,7 +9,7 @@ between the two closest staves of consecutive systems."
 
 \paper {
   ragged-right = ##t
-  system-system-spacing = #'((space . 20) (minimum-distance . 30))
+  system-system-spacing = #'((basic-distance . 20) (minimum-distance . 30))
   annotate-spacing = ##t
 }
 

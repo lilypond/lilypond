@@ -785,7 +785,7 @@ appear between staves.  The alist can contain the following keys:
 @item @code{padding} -- the minimum required amount of
 unobstructed vertical whitespace between the two items, measured
 in staff-spaces.
-@item @code{space} -- the vertical distance, measured in
+@item @code{basic-distance} -- the vertical distance, measured in
 staff-spaces, between the reference points of the two items when
 no collisions would result, and no stretching or compressing is in
 effect.

@@ -1,4 +1,4 @@
-\version "2.13.39"
+\version "2.13.42"
 
 \header {
   texidoc = "minimum-distance within a system is correctly accounted for in page breaking."
@@ -8,7 +8,7 @@
   \context {
     \Score
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((space . 20)
+      #'((basic-distance . 20)
          (stretchability . 0))
   }
 }

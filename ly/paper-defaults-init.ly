@@ -17,7 +17,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.12.0"
+\version "2.13.42"
 
 \paper {
   #(set-paper-dimension-variables (current-module))
@@ -61,14 +61,14 @@
   %% Flexible vertical spacing
   %%
   %% Note: these are not scaled; they are in staff-spaces.
-  system-system-spacing = #'((space . 12) (minimum-distance . 8) (padding . 1) (stretchability . 60))
-  score-system-spacing = #'((space . 14) (minimum-distance . 8) (padding . 1) (stretchability . 120))
-  markup-system-spacing = #'((space . 5) (padding . 0.5) (stretchability . 30))
-  score-markup-spacing = #'((space . 12) (padding . 0.5) (stretchability . 60))
-  markup-markup-spacing = #'((space . 1) (padding . 0.5))
-  top-system-spacing = #'((space . 1) (padding . 1) (minimum-distance . 0))
-  top-markup-spacing = #'((space . 0) (padding . 1) (minimum-distance . 0))
-  last-bottom-spacing = #'((space . 1) (padding . 1) (minimum-distance . 0) (stretchability . 30))
+  system-system-spacing = #'((basic-distance . 12) (minimum-distance . 8) (padding . 1) (stretchability . 60))
+  score-system-spacing = #'((basic-distance . 14) (minimum-distance . 8) (padding . 1) (stretchability . 120))
+  markup-system-spacing = #'((basic-distance . 5) (padding . 0.5) (stretchability . 30))
+  score-markup-spacing = #'((basic-distance . 12) (padding . 0.5) (stretchability . 60))
+  markup-markup-spacing = #'((basic-distance . 1) (padding . 0.5))
+  top-system-spacing = #'((basic-distance . 1) (padding . 1) (minimum-distance . 0))
+  top-markup-spacing = #'((basic-distance . 0) (padding . 1) (minimum-distance . 0))
+  last-bottom-spacing = #'((basic-distance . 1) (padding . 1) (minimum-distance . 0) (stretchability . 30))
 
 
   %%
