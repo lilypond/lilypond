@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: ee3a89f9f7289bcd90c5f27fd8f86400159088b2
+    Translation of GIT committish: cd0fa693cd2297298aabfdc2d2d9d8b0d7746a5c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -566,7 +566,7 @@ nostro @ref{Input testuale}.
 @c http://lilypond.org/web/switch/testimonials
 
 @node Recensioni
-@unnumberedsec Reviews
+@unnumberedsec Recensioni
 @translationof Reviews
 
 @divClass{column-left-top}
@@ -901,7 +901,7 @@ di tutto questo a un ritmo molto più graduale.}
 Le note vengoo codificate con lettere e numeri.  I comandi speciali sono
 inseriti con barre inverse (backslash).
 
-@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-annotate-it,png,center}
 @imageFloat{text-input-1-output,png,center}
 
 Le alterazioni si ottengono con nomi diversi: si aggiunge @code{-is} per
@@ -909,7 +909,7 @@ il diesis, e @code{-es} per il bemolle (questi sono i nomi delle note in
 olandese, ma sono disponibili altre lingue).  LilyPond calcola dove mettere
 le alterazioni.
 
-@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-annotate-it,png,center}
 @imageFloat{text-input-2-output,png,center}
 
 
@@ -917,7 +917,7 @@ le alterazioni.
 
 Testo e accordi possono essere combinati per ottenere uno spartito semplificato:
 
-@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-annotate-it,png,center}
 @imageFloat{text-input-pop-output,png,center}
 
 
@@ -930,20 +930,20 @@ modifica di una nota interesserà sempre la partitura e le parti.  Per
 poter includere la stessa musica in più punti, occorre assegnare alla
 musica una @qq{variabile} (un nome).
 
-@imageFloat{text-input-parts-both-annotate,png,center}
+@imageFloat{text-input-parts-both-annotate-it,png,center}
 
 
 Questa variabile viene poi usata in una parte singola (qui trasposta, con
 pause abbreviate che si estendono per diverse misure):
 
-@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-annotate-it,png,center}
 @imageFloat{text-input-parts-single-output,png,center}
 
 
 La stessa variabile viene utilizzata nella partitura completa (qui in
 altezza reale):
 
-@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-annotate-it,png,center}
 @imageFloat{text-input-score-output,png,center}
 
 

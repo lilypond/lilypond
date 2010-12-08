@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: ee3a89f9f7289bcd90c5f27fd8f86400159088b2
+    Translation of GIT committish: 4d852ef65fc654e4ed02413926fc0cb78a1da1be
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -35,7 +35,7 @@
 @end ignore
 
 @c Translators: Federico Bruni
-@c Translators checkers: Luca Rossetto Casel
+@c Translation checkers: Luca Rossetto Casel
 
 @copying
 Copyright @copyright{} 2009--2010 degli autori.
@@ -295,9 +295,9 @@ sei pregato di farcelo sapere seguendo le istruzioni indicate in
 @ifnothtml
 @macro contactUsAbout{topic}
 @cartouche
-If you are aware of any other \topic\ which could be listed here,
-please let us know by following the instructions on
-@ref{Bug reports}.
+Se sei a conoscenza di un qualsiasi altro \topic\ che possa essere elencato qui,
+sei pregato di farcelo sapere seguendo le istruzioni indicate in
+@ref{Segnalazione bug}.
 
 @end cartouche
 
