@@ -1999,19 +1999,20 @@ can be modified individually without affecting other keys.
 For example, to reduce the space between adjacent staves in a
 staff-group, use the @code{staff-staff-spacing} property of the
 @code{StaffGrouper} grob.  The property is an alist with four
-keys: @code{padding}, @code{space}, @code{minimum-distance}, and
-@code{stretchability}.  Three of the four keys have initialized
-default values; these are listed in the @qq{Backend} section of
-the Internals Reference (see @rinternals{StaffGrouper}):
+keys: @code{padding}, @code{basic-distance},
+@code{minimum-distance}, and @code{stretchability}.  Three of the
+four keys have initialized default values; these are listed in the
+@qq{Backend} section of the Internals Reference (see
+@rinternals{StaffGrouper}):
 
 @example
 '((basic-distance . 9) (minimum-distance . 7) (padding . 1))
 @end example
 
 One way to bring the staves closer together is by reducing the
-value of the @code{space} key (@code{9}) to match the value of
-@code{minimum-distance} (@code{7}).  To modify a single key
-individually, use a @emph{nested declaration}:
+value of the @code{basic-distance} key (@code{9}) to match the
+value of @code{minimum-distance} (@code{7}).  To modify a single
+key individually, use a @emph{nested declaration}:
 
 @lilypond[quote,verbatim]
 % default space between staves
@@ -2031,8 +2032,8 @@ individually, use a @emph{nested declaration}:
 @end lilypond
 
 Using a nested declaration will update the specified key (such as
-@code{space} in the above example) without altering any other keys
-already set for the same property.
+@code{basic-distance} in the above example) without altering any
+other keys already set for the same property.
 
 Now suppose we want the staves to be as close as possible without
 overlapping.  The simplest way to do this is to set all four alist
@@ -2057,8 +2058,8 @@ Note that any keys not explicitly listed in the alist definition
 will be reset to their @emph{default-when-unset} values.  In the
 case of @code{staff-staff-spacing}, any unset key-values would be
 reset to zero (except @code{stretchability}, which takes the value
-of @code{space} when unset).  Thus the following two declarations
-are equivalent:
+of @code{basic-distance} when unset).  Thus the following two
+declarations are equivalent:
 
 @example
 \override StaffGrouper #'staff-staff-spacing =
