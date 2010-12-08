@@ -8,7 +8,7 @@ Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.39"
+@c \version "2.13.42"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -2003,7 +2003,7 @@ predeterminados en el inicio; éstos se relacionan en la sección
 @file{scm/define-grobs.scm}:
 
 @example
-'((space . 9) (minimum-distance . 7) (padding . 1))
+'((basic-distance . 9) (minimum-distance . 7) (padding . 1))
 @end example
 
 Una forma de acercar los pentagramas entre sí es reducir el valor de
@@ -2021,7 +2021,7 @@ de forma individual, utilice una @emph{declaración anidada}:
 % reduced space between staves
 \new PianoStaff \with {
   % this is the nested declaration
-  \override StaffGrouper #'staff-staff-spacing #'space = #7
+  \override StaffGrouper #'staff-staff-spacing #'basic-distance = #7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
@@ -2044,7 +2044,7 @@ completamente la propiedad con una sola declaración, como una lista-A:
 \new PianoStaff \with {
   \override StaffGrouper #'staff-staff-spacing =
     #'((padding . 0)
-       (space . 0)
+       (basic-distance . 0)
        (minimum-distance . 0)
        (stretchability . 0))
 } <<
@@ -2063,11 +2063,11 @@ son equivalentes:
 
 @example
 \override StaffGrouper #'staff-staff-spacing =
-  #'((space . 7))
+  #'((basic-distance . 7))
 
 \override StaffGrouper #'staff-staff-spacing =
   #'((padding . 0)
-     (space . 7)
+     (basic-distance . 7)
      (minimum-distance . 0)
      (stretchability . 7))
 @end example

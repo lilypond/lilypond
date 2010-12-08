@@ -1,4 +1,4 @@
-\version "2.13.39"
+\version "2.13.42"
 
 \header {
   lsrtags = "text, vocal-music, spacing"
@@ -27,7 +27,7 @@ This snippet shows how to bring the lyrics line closer to the staff.
     }
   }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #'((space . 1))
+    \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #'((basic-distance . 1))
   }
   \lyricsto melody { aa aa aa aa aa aa aa aa aa }
 >>

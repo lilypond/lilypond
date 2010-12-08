@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.13.39"
+@c \version "2.13.42"
 
 @c Translators: Till Paala
 
@@ -284,7 +284,7 @@ wird der Schlüssel innerhalb der @code{\paper}-Umgebung aufgerufen:
 
 @example
 \paper @{
-  system-system-spacing #'space = #10
+  system-system-spacing #'basic-distance = #10
 @}
 @end example
 
@@ -297,7 +297,7 @@ Aliste notiert:
 \paper @{
   system-system-spacing =
     #'((padding . 1)
-       (space . 12)
+       (basic-distance . 12)
        (minimum-distance . 8)
        (stretchability . 12))
 @}
@@ -310,11 +310,11 @@ Darum sind folgende zwei Aufrufe identisch:
 
 @example
 system-system-spacing =
-  #'((space . 10))
+  #'((basic-distance . 10))
 
 system-system-spacing =
   #'((padding . 0)
-     (space . 10)
+     (basic-distance . 10)
      (minimum-distance . 0)
      (stretchability . 10))
 @end example
@@ -1601,20 +1601,20 @@ einen Wert von @code{Abstand - minimum-distance}.
   % between this staff and the next will be determined by padding.
   \new Staff \with {
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((space . 1) (padding . 1))
+      #'((basic-distance . 1) (padding . 1))
   }
   { \clef bass c, }
   % Since space is small and nothing sticks out very far, the distance
   % between this staff and the next will be determined by minimum-distance.
   \new Staff \with {
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((space . 1) (minimum-distance . 12))
+      #'((basic-distance . 1) (minimum-distance . 12))
   }
   { \clef bass c, }
   % By setting padding to a negative value, staves can be made to collide.
   \new Staff \with {
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((space . 4) (padding . -10))
+      #'((basic-distance . 4) (padding . -10))
   }
   { \clef bass c, }
   \new Staff { \clef bass c, }
@@ -1640,9 +1640,9 @@ wird, wird @var{default-staff-staff-spacing} aus der jeweiligen
 #(set-global-staff-size 16)
 <<
   \new PianoStaff \with {
-    \override StaffGrouper #'staff-staff-spacing #'space = #1
+    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #1
     \override StaffGrouper #'staff-staff-spacing #'padding = #0
-    \override StaffGrouper #'staffgroup-staff-spacing #'space = #20
+    \override StaffGrouper #'staffgroup-staff-spacing #'basic-distance = #20
   }
   <<
     \new Staff c'1
@@ -1650,7 +1650,7 @@ wird, wird @var{default-staff-staff-spacing} aus der jeweiligen
   >>
 
   \new StaffGroup \with {
-    \override StaffGrouper #'staff-staff-spacing #'space = #1
+    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #1
     \override StaffGrouper #'staff-staff-spacing #'padding = #0
   }
   <<
@@ -1723,7 +1723,7 @@ Notensystem zu verlangen.
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing = #'((space . 30)) }
+    \override VerticalAxisGroup #'staff-staff-spacing = #'((basic-distance . 30)) }
     { c'1 }
   \new Lyrics \with {
     \override VerticalAxisGroup #'staff-affinity = #UP }
@@ -2968,7 +2968,7 @@ dann so anordnen, dass kein weißer Rand unten auf der Seite entsteht.
 
 @example
 \paper @{
-  system-system-spacing = #'((padding . 0) (space . 0.1))
+  system-system-spacing = #'((padding . 0) (basic-distance . 0.1))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}

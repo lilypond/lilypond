@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.40"
+@c \version "2.13.42"
 
 @c Translators: Till Paala
 
@@ -2097,7 +2097,7 @@ haben zu Beginn Standardwerte, die in der Datei @file{scm/define-grobs.scm}
 
 @example
 (staff-staff-spacing . ((padding . 1)
-                          (space . 9)
+                          (basic-distance . 9)
                           (minimum-distance . 7)))
 @end example
 
@@ -2116,7 +2116,7 @@ Schlüssel zu verändern, wird ein geschachtelter Aufruf benutzt:
 
 % reduced space between staves
 \new PianoStaff \with {
-  \override StaffGrouper #'staff-staff-spacing #'space = #7
+  \override StaffGrouper #'staff-staff-spacing #'basic-distance = #7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
@@ -2137,7 +2137,7 @@ kann mit einem Aufruf als Aliste vollständig verändert werden:
 \new PianoStaff \with {
   \override StaffGrouper #'staff-staff-spacing =
     #'((padding . 0)
-       (space . 0)
+       (basic-distance . 0)
        (minimum-distance . 0)
        (stretchability . 0))
 } <<
@@ -2156,11 +2156,11 @@ folgende Aufrufe äquivalent:
 
 @example
 \override StaffGrouper #'staff-staff-spacing =
-  #'((space . 7))
+  #'((basic-distance . 7))
 
 \override StaffGrouper #'staff-staff-spacing =
   #'((padding . 0)
-     (space . 7)
+     (basic-distance . 7)
      (minimum-distance . 0)
      (stretchability . 7))
 @end example

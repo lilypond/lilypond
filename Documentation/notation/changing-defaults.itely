@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.39"
+@c \version "2.13.42"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -2005,7 +2005,7 @@ default values; these are listed in the @qq{Backend} section of
 the Internals Reference (see @rinternals{StaffGrouper}):
 
 @example
-'((space . 9) (minimum-distance . 7) (padding . 1))
+'((basic-distance . 9) (minimum-distance . 7) (padding . 1))
 @end example
 
 One way to bring the staves closer together is by reducing the
@@ -2023,7 +2023,7 @@ individually, use a @emph{nested declaration}:
 % reduced space between staves
 \new PianoStaff \with {
   % this is the nested declaration
-  \override StaffGrouper #'staff-staff-spacing #'space = #7
+  \override StaffGrouper #'staff-staff-spacing #'basic-distance = #7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
@@ -2044,7 +2044,7 @@ completely re-defined with one declaration, as an alist:
 \new PianoStaff \with {
   \override StaffGrouper #'staff-staff-spacing =
     #'((padding . 0)
-       (space . 0)
+       (basic-distance . 0)
        (minimum-distance . 0)
        (stretchability . 0))
 } <<
@@ -2062,11 +2062,11 @@ are equivalent:
 
 @example
 \override StaffGrouper #'staff-staff-spacing =
-  #'((space . 7))
+  #'((basic-distance . 7))
 
 \override StaffGrouper #'staff-staff-spacing =
   #'((padding . 0)
-     (space . 7)
+     (basic-distance . 7)
      (minimum-distance . 0)
      (stretchability . 7))
 @end example
