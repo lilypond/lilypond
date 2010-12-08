@@ -2000,13 +2000,15 @@ For example, to reduce the space between adjacent staves in a
 staff-group, use the @code{staff-staff-spacing} property of the
 @code{StaffGrouper} grob.  The property is an alist with four
 keys: @code{basic-distance}, @code{minimum-distance},
-@code{padding}, and @code{stretchability}.  Three of the four keys
-have initialized default values; these are listed in the
-@qq{Backend} section of the Internals Reference (see
-@rinternals{StaffGrouper}):
+@code{padding}, and @code{stretchability}.  The standard settings
+for this property are listed in the @qq{Backend} section of the
+Internals Reference (see @rinternals{StaffGrouper}):
 
 @example
-'((basic-distance . 9) (minimum-distance . 7) (padding . 1))
+'((basic-distance . 9)
+  (minimum-distance . 7)
+  (padding . 1)
+  (stretchability . 5))
 @end example
 
 One way to bring the staves closer together is by reducing the
@@ -2073,16 +2075,15 @@ declarations are equivalent:
 @end example
 
 One (possibly unintended) consequence of this is the removal of
-any @emph{initialized} default values that are set in an
-initialization file and loaded each time an input file is
-compiled.  In the above example, the initialized default values
-for @code{padding} and @code{minimum-distance} (defined in
-@file{scm/define-grobs.scm}) are reset to their default-when-unset
-values (zero for both keys).  Defining a property or variable as
-an alist (of any size) will always reset all unset key-values to
-their default-when-unset values.  Unless this is the intended
-result, it is safer to update key-values individually with a
-nested declaration.
+any standard settings that are set in an initialization file and
+loaded each time an input file is compiled.  In the above example,
+the standard settings for @code{padding} and
+@code{minimum-distance} (defined in @file{scm/define-grobs.scm})
+are reset to their default-when-unset values (zero for both keys).
+Defining a property or variable as an alist (of any size) will
+always reset all unset key-values to their default-when-unset
+values.  Unless this is the intended result, it is safer to update
+key-values individually with a nested declaration.
 
 @warning{Nested declarations will not work for context property
 alists (such as @code{beamExceptions}, @code{keySignature},
