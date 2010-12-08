@@ -403,13 +403,6 @@ an alist (association list) containing four @emph{keys}:
 @itemize
 
 @item
-@code{padding} -- the minimum required amount of unobstructed
-vertical whitespace between two items, measured in staff-spaces.
-This can be thought of as the minimum height of an unobstructed
-(invisible) rectangle that extends from the leftmost to the
-rightmost point of the combined items.
-
-@item
 @code{basic-distance} -- the vertical distance, measured in
 staff-spaces, between the @emph{reference points} of the two
 items, when no collisions would result, and no stretching or
@@ -429,6 +422,13 @@ of the two items, when compressing is in effect.  Values for
 @code{minimum-distance} that are less than @code{padding} are not
 meaningful, since the resulting distance will never be less than
 @code{padding.}
+
+@item
+@code{padding} -- the minimum required amount of unobstructed
+vertical whitespace between two items, measured in staff-spaces.
+This can be thought of as the minimum height of an unobstructed
+(invisible) rectangle that extends from the leftmost to the
+rightmost point of the combined items.
 
 @item
 @code{stretchability} -- a unitless measure of the dimension's
@@ -475,9 +475,9 @@ redefines the variable:
 \paper @{
   system-system-spacing #'basic-distance = #8
   score-system-spacing =
-    #'((padding . 1)
-       (basic-distance . 12)
+    #'((basic-distance . 12)
        (minimum-distance . 6)
+       (padding . 1)
        (stretchability . 12))
 @}
 @end example
@@ -1879,9 +1879,9 @@ individually, and the second completely re-defines the property:
 
 \new Staff \with @{
   \override VerticalAxisGroup #'staff-staff-spacing =
-    #'((padding . 1)
-       (basic-distance . 10)
+    #'((basic-distance . 10)
        (minimum-distance . 9)
+       (padding . 1)
        (stretchability . 10))
 @} @{ @dots{} @}
 @end example
@@ -2035,9 +2035,9 @@ property can affect the spacing of ungrouped staves:
   \context {
     \Staff
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((padding . 1)
-         (basic-distance . 8)
-         (minimum-distance . 7))
+      #'((basic-distance . 8)
+         (minimum-distance . 7)
+         (padding . 1))
   }
 }
 
@@ -2057,8 +2057,8 @@ property can affect the spacing of ungrouped staves:
   % collide.  The lowest acceptable value for 'basic-distance is 0.
   \new Staff \with {
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((padding . -10)
-         (basic-distance . 3.5))
+      #'((basic-distance . 3.5)
+         (padding . -10))
   } { \clef bass g2 r | }
   \new Staff { \clef bass g2 r | }
 >>
@@ -3320,7 +3320,7 @@ there is no blank space at the bottom of the page.
 
 @example
 \paper @{
-  system-system-spacing = #'((padding . 0) (basic-distance . 0.1))
+  system-system-spacing = #'((basic-distance . 0.1) (padding . 0))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}

@@ -1999,9 +1999,9 @@ can be modified individually without affecting other keys.
 For example, to reduce the space between adjacent staves in a
 staff-group, use the @code{staff-staff-spacing} property of the
 @code{StaffGrouper} grob.  The property is an alist with four
-keys: @code{padding}, @code{basic-distance},
-@code{minimum-distance}, and @code{stretchability}.  Three of the
-four keys have initialized default values; these are listed in the
+keys: @code{basic-distance}, @code{minimum-distance},
+@code{padding}, and @code{stretchability}.  Three of the four keys
+have initialized default values; these are listed in the
 @qq{Backend} section of the Internals Reference (see
 @rinternals{StaffGrouper}):
 
@@ -2044,9 +2044,9 @@ completely re-defined with one declaration, as an alist:
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
   \override StaffGrouper #'staff-staff-spacing =
-    #'((padding . 0)
-       (basic-distance . 0)
+    #'((basic-distance . 0)
        (minimum-distance . 0)
+       (padding . 0)
        (stretchability . 0))
 } <<
   \new Staff { \clef treble c''1 }
@@ -2066,9 +2066,9 @@ declarations are equivalent:
   #'((basic-distance . 7))
 
 \override StaffGrouper #'staff-staff-spacing =
-  #'((padding . 0)
-     (basic-distance . 7)
+  #'((basic-distance . 7)
      (minimum-distance . 0)
+     (padding . 0)
      (stretchability . 7))
 @end example
 
