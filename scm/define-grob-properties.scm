@@ -781,20 +781,30 @@ same system, replacing any settings inherited from the
 @code{StaffGrouper} grob of the containing staff-group, if there
 is one.  This property remains in effect even when non-staff lines
 appear between staves.  The alist can contain the following keys:
+
 @itemize
-@item @code{padding} -- the minimum required amount of
-unobstructed vertical whitespace between the two items, measured
-in staff-spaces.
-@item @code{basic-distance} -- the vertical distance, measured in
+
+@item
+@code{basic-distance} -- the vertical distance, measured in
 staff-spaces, between the reference points of the two items when
 no collisions would result, and no stretching or compressing is in
 effect.
-@item @code{minimum-distance} -- the smallest allowable vertical
+
+@item
+@code{minimum-distance} -- the smallest allowable vertical
 distance, measured in staff-spaces, between the reference points
 of the two items, when compressing is in effect.
-@item @code{stretchability} -- a unitless measure of the
-dimension's relative propensity to stretch.  If zero, the distance
-will not stretch (unless collisions would result).
+
+@item
+@code{padding} -- the minimum required amount of unobstructed
+vertical whitespace between the two items, measured in
+staff-spaces.
+
+@item
+@code{stretchability} -- a unitless measure of the dimension's
+relative propensity to stretch.  If zero, the distance will not
+stretch (unless collisions would result).
+
 @end itemize")
      (staffgroup-staff-spacing ,list? "The spacing alist
 controlling the distance between the last staff of the current

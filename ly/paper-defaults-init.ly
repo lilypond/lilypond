@@ -66,9 +66,9 @@
   markup-system-spacing = #'((basic-distance . 5) (padding . 0.5) (stretchability . 30))
   score-markup-spacing = #'((basic-distance . 12) (padding . 0.5) (stretchability . 60))
   markup-markup-spacing = #'((basic-distance . 1) (padding . 0.5))
-  top-system-spacing = #'((basic-distance . 1) (padding . 1) (minimum-distance . 0))
-  top-markup-spacing = #'((basic-distance . 0) (padding . 1) (minimum-distance . 0))
-  last-bottom-spacing = #'((basic-distance . 1) (padding . 1) (minimum-distance . 0) (stretchability . 30))
+  top-system-spacing = #'((basic-distance . 1) (minimum-distance . 0) (padding . 1))
+  top-markup-spacing = #'((basic-distance . 0) (minimum-distance . 0) (padding . 1))
+  last-bottom-spacing = #'((basic-distance . 1) (minimum-distance . 0) (padding . 1) (stretchability . 30))
 
 
   %%
