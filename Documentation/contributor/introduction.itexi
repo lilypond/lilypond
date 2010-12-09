@@ -137,15 +137,31 @@ Download the @file{lilybuntu.iso} disk image.
 Install @file{lilybuntu.iso} as the @qq{client} operating system
 on your virtualized system.
 
+@itemize
+
+@item
 The latest version of lilybuntu is based on Ubuntu 9.04; if you
 encounter any difficulties installing it, search for one of the
 many tutorials for installing Ubuntu 9.04 as a client operating
 system.
 
+@item
+When @file{lilybuntu.iso} boots, it automatically selects @qq{Try
+Ubuntu without any change to your computer}; instead of this, you
+must select @qq{Install Ubuntu}.
+
+@item
 If possible, use at least 700 MB of RAM (1GB would be better) for
 the virtual machine, and use a dynamically expanding virtual hard
 drive.  A complete compile of everything (code, docs, regression
 tests) can reach 10 GB.
+
+@item
+At the partitioning stage, do not be afraid to select @qq{use
+entire disk}, since this refers to your @emph{virtual disk}, not
+your machine's actual hard drive.
+
+@end itemize
 
 @item
 Do any extra configuration for your virtualization software.
@@ -153,8 +169,31 @@ Do any extra configuration for your virtualization software.
 VirtualBox has extra @qq{guest additions} which can make the
 virtualization easier to use (full-screen, easy file sharing
 between host and client operating systems, shared clipboards,
-etc).  Follow the normal procedures for your virtualization
-software with Ubuntu 9.04 as the client.
+etc).
+
+@enumerate
+
+@item
+From the @code{Devices} menu of VirtualBox, select @code{Install
+Guest Additions...}.
+
+@item
+From the @code{Places} menu of Ubuntu, select
+@code{VBOXADDITIONS_}.  A file-system window will open.
+
+@item
+Double-click on the @file{autorun.sh} file, then select @qq{Run in
+Terminal}.
+
+@item
+Once the script is finished, reboot your Virtual Machine to
+complete the installation.
+
+@end enumerate
+
+If you use other virutalization software, then follow the normal
+procedures for your virtualization software with Ubuntu 9.04 as
+the client.
 
 @end enumerate
 
