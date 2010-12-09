@@ -371,12 +371,6 @@ chords.  Returns a placement-list."
           num
           #f)))
 
-  (define (finger-number event)
-    (let ((num (ly:event-property event 'digit)))
-      (if (number? num)
-          num
-          #f)))
-
   (define (delete-free-string string)
     (if (number? string)
 	(set! free-strings
@@ -423,11 +417,9 @@ chords.  Returns a placement-list."
 
   (define (pad-list target template)
     (while (< (length target) (length template))
-           (begin
            (set! target (if (null? target)
                             '(())
-                            (append target '(())))))
-    ))
+                            (append target '(()))))))
 
   ;;; body of determine-frets-and-strings
   (set! free-strings (map 1+ (iota (length tuning))))
