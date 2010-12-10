@@ -797,8 +797,8 @@ of the two items, when compressing is in effect.
 
 @item
 @code{padding} -- the minimum required amount of unobstructed
-vertical whitespace between the two items, measured in
-staff-spaces.
+vertical whitespace between the bounding boxes (or skylines) of
+the two items, measured in staff-spaces.
 
 @item
 @code{stretchability} -- a unitless measure of the dimension's

@@ -423,12 +423,12 @@ of the two items, when compressing is in effect.  Values for
 meaningful, since the resulting distance will never be less than
 @code{padding.}
 
+@c TODO: explain skylines somewhere and xref to it from here.
+
 @item
 @code{padding} -- the minimum required amount of unobstructed
-vertical whitespace between two items, measured in staff-spaces.
-This can be thought of as the minimum height of an unobstructed
-(invisible) rectangle that extends from the leftmost to the
-rightmost point of the combined items.
+vertical whitespace between the bounding boxes (or skylines) of
+the two items, measured in staff-spaces.
 
 @item
 @code{stretchability} -- a unitless measure of the dimension's
