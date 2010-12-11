@@ -1116,15 +1116,15 @@ can be used.
 @end itemize
 
 After prompting for your Google email address and password, the
-patch set will be posted to Rietveld.
+patch set will be posted to Rietveld, and you will be given a URL
+for your patch.
 
 @subsubheading Announcing your patch set
 
-You should then announce the patch by sending an email to
-@code{lilypond-devel}, with a subject line starting with PATCH:,
-asking for comments on the patch.  Alternately, you may Publish +
-Mail a (bogus) comment, in order to send an email to
-lilypond-devel.
+You should then announce the patch by logging into the code review
+issue webpage and using @qq{Publish + Mail Comments} to add a
+(mostly bogus) comment to your issue.  The text of your comment
+will be sent to our developer mailing list.
 
 @subsubheading Revisions
 
