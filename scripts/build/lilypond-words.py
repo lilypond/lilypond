@@ -47,21 +47,8 @@ for name in ['ly/chord-modifiers-init.ly',
     keywords += [w for w in re.findall (r"(?m)^\s*\"?([a-zA-Z]+)\"?\s*=", s)]
 
 # note names
-for name in ['ly/catalan.ly',
-             'ly/deutsch.ly',
-             'ly/drumpitch-init.ly',
-             'ly/english.ly',
-             'ly/espanol.ly',
-             'ly/italiano.ly',
-             'ly/makam.ly',
-             'ly/nederlands.ly',
-             'ly/norsk.ly',
-             'ly/portugues.ly',
-             'ly/suomi.ly',
-             'ly/svenska.ly',
-             'ly/vlaams.ly']:
-    s = open (name, 'r').read ()
-    note_names += [n for n in re.findall (r"(?m)^\s*\(([a-z]+)[^l]+ly:make-pitch", s)]
+s = open ('scm/define-note-names.scm', 'r').read ()
+note_names += [n for n in re.findall (r"(?m)^\s*\(([a-z]+)\s+\.\s+,\(ly:make-pitch", s)]
 
 # reserved words
 for name in ['ly/engraver-init.ly',
