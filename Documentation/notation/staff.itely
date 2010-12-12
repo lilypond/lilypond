@@ -274,6 +274,9 @@ Internals Reference:
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
 
+@knownissues
+@code{PianoStaff} does not, by default, accept @code{ChordNames}.
+
 
 @node Nested staff groups
 @unnumberedsubsubsec Nested staff groups

@@ -692,6 +692,12 @@ Internals Reference:
 Installed Files:
 @file{scm/define-markup-commands.scm}.
 
+@knownissues
+Using the font sizing commands @code{\teeny}, @code{\tiny},
+@code{\small}, @code{\normalsize}, @code{\large}, and
+@code{\huge} will lead to inconsistent line spacing compared to
+using @code{\fontsize}.
+
 
 @node Text alignment
 @unnumberedsubsubsec Text alignment
