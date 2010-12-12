@@ -200,6 +200,15 @@ the client.
 Follow instructions for Linux when reading instructions about
 @ref{Working with source code}, or @ref{Compiling}.
 
+@quotation
+Advanced note: not all hardware is supported in all virtualization
+tools.  In particular, contributors have reported problems with
+USB devices.  If you would like to investigate further, then look
+for help for your virtualization tool using your normal OS as the
+@qq{host} and Ubuntu as the @qq{client}.
+
+@end quotation
+
 
 @node Mentors
 @section Mentors
