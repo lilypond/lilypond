@@ -388,19 +388,27 @@ label =
 
 
 language =
-#(define-music-function (parser location str) (string?)
-   (_i "Select note names language.")
-   (let ((language (assoc-get (string->symbol str)
-			      language-pitch-names
-			      '())))
-     (if (pair? language)
-	 (begin
-	   (if (ly:get-option 'verbose)
-	       (ly:message (_ "Using ~a note names...") str))
-	   (set! pitchnames language)
-	   (ly:parser-set-note-names parser language))
-	 (ly:warning (_ "Could not find language ~a. Ignoring.") str))
-     (make-music 'Music 'void #t)))
+#(define-music-function (parser location language) (string?)
+   (_i "Set note names for language @var{language}.")
+   (note-names-language parser language)
+   (make-music 'Music 'void #t))
+
+languageSaveAndChange =
+#(define-music-function (parser location language) (string?)
+  (_i "Store the previous pitchnames alist, and set a new one.")
+  (set! previous-pitchnames pitchnames)
+  (note-names-language parser language)
+  (make-music 'Music 'void #t))
+
+languageRestore =
+#(define-music-function (parser location) ()
+   (_i "Restore a previously-saved pitchnames alist.")
+   (if previous-pitchnames
+       (begin
+        (set! pitchnames previous-pitchnames)
+        (ly:parser-set-note-names parser pitchnames))
+      (ly:warning (_ "No other language was defined previously. Ignoring.")))
+   (make-music 'Music 'void #t))
 
 
 makeClusters =

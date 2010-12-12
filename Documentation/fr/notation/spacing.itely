@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.39"
+@c \version "2.13.42"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
@@ -514,11 +514,11 @@ deuxième redéfinit complètement la variable.
 
 @example
 \paper @{
-  system-system-spacing #'space = #8
+  system-system-spacing #'basic-distance = #8
 
   score-system-spacing =
     #'((padding . 1)
-       (space . 12)
+       (basic-distance . 12)
        (minimum-distance . 6)
        (stretchability . 12))
 @}
@@ -1925,7 +1925,7 @@ En voici une représentation graphique@tie{}:
 
 @c KEEP LY
 @lilypond[quote,noragged-right,line-width=110\mm]
-#(define zero-space '((padding . -inf.0) (space . 0)))
+#(define zero-space '((padding . -inf.0) (basic-distance . 0)))
 
 alignToZero = \with {
   \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #zero-space
@@ -2023,13 +2023,13 @@ alors que la seconde redéfinit la propriété dans son intégralité.
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
+  \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
   \override VerticalAxisGroup #'staff-staff-spacing =
     #'((padding . 1)
-       (space . 10)
+       (basic-distance . 10)
        (minimum-distance . 9)
        (stretchability . 10))
 @} @{ @dots{} @}
@@ -2042,7 +2042,7 @@ bloc @code{\layout}@tie{}:
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
+    \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
   @}
 @}
 @end example
@@ -2198,7 +2198,7 @@ isolées à l'aide de la propriété @code{staff-staff-spacing}@tie{}:
     \Staff
     \override VerticalAxisGroup #'staff-staff-spacing =
       #'((padding . 1)
-         (space . 8)
+         (basic-distance . 8)
          (minimum-distance . 7))
   }
 }
@@ -2220,7 +2220,7 @@ isolées à l'aide de la propriété @code{staff-staff-spacing}@tie{}:
   \new Staff \with {
     \override VerticalAxisGroup #'staff-staff-spacing =
       #'((padding . -10)
-         (space . 3.5))
+         (basic-distance . 3.5))
   } { \clef bass g2 r | }
   \new Staff { \clef bass g2 r | }
 >>
@@ -2279,13 +2279,13 @@ regroupes, à l'aide des propriétés de l'objet graphique
   \context {
     \Score
     \override StaffGrouper #'staff-staff-spacing #'padding = #0
-    \override StaffGrouper #'staff-staff-spacing #'space = #1
+    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #1
   }
 }
 
 <<
   \new PianoStaff \with {
-    \override StaffGrouper #'staffgroup-staff-spacing #'space = #20
+    \override StaffGrouper #'staffgroup-staff-spacing #'basic-distance = #20
   } <<
     \new Staff { c'1 }
     \new Staff { c'1 }
@@ -2354,7 +2354,7 @@ Vous noterez que la valeur élevée attribuée à la clé
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing = #'((space . 30))
+    \override VerticalAxisGroup #'staff-staff-spacing = #'((basic-distance . 30))
   } { c'1 }
   \new Lyrics \with {
     \override VerticalAxisGroup #'staff-affinity = #UP
@@ -3549,7 +3549,7 @@ suffisamment pour éviter le blanc en bas de page.
 
 @example
 \paper @{
-  system-system-spacing = #'((padding . 0) (space . 0.1))
+  system-system-spacing = #'((padding . 0) (basic-distance . 0.1))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}

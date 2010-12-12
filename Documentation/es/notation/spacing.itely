@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.39"
+@c \version "2.13.42"
 
 @node Problemas de espaciado
 @chapter Problemas de espaciado
@@ -443,10 +443,10 @@ segunda redefine la variable completamente:
 
 @example
 \paper @{
-  system-system-spacing #'space = #8
+  system-system-spacing #'basic-distance = #8
   score-system-spacing =
     #'((padding . 1)
-       (space . 12)
+       (basic-distance . 12)
        (minimum-distance . 6)
        (stretchability . 12))
 @}
@@ -1796,7 +1796,7 @@ En la siguiente imagen, las líneas horizontales indican las posiciones
 de estos puntos de referencia:
 
 @lilypond[quote,noragged-right,line-width=110\mm]
-#(define zero-space '((padding . -inf.0) (space . 0)))
+#(define zero-space '((padding . -inf.0) (basic-distance . 0)))
 
 alignToZero = \with {
   \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #zero-space
@@ -1893,13 +1893,13 @@ forma individual, y la segunda redefine la propiedad completamente:
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
+  \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
   \override VerticalAxisGroup #'staff-staff-spacing =
     #'((padding . 1)
-       (space . 10)
+       (basic-distance . 10)
        (minimum-distance . 9)
        (stretchability . 10))
 @} @{ @dots{} @}
@@ -1912,7 +1912,7 @@ póngalos dentro del bloque @code{\layout}:
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
+    \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
   @}
 @}
 @end example
@@ -2062,7 +2062,7 @@ agrupadas:
     \Staff
     \override VerticalAxisGroup #'staff-staff-spacing =
       #'((padding . 1)
-         (space . 8)
+         (basic-distance . 8)
          (minimum-distance . 7))
   }
 }
@@ -2084,7 +2084,7 @@ agrupadas:
   \new Staff \with {
     \override VerticalAxisGroup #'staff-staff-spacing =
       #'((padding . -10)
-         (space . 3.5))
+         (basic-distance . 3.5))
   } { \clef bass g2 r | }
   \new Staff { \clef bass g2 r | }
 >>
@@ -2140,13 +2140,13 @@ grob @code{StaffGrouper} al espaciado de las pautas agrupadas:
   \context {
     \Score
     \override StaffGrouper #'staff-staff-spacing #'padding = #0
-    \override StaffGrouper #'staff-staff-spacing #'space = #1
+    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #1
   }
 }
 
 <<
   \new PianoStaff \with {
-    \override StaffGrouper #'staffgroup-staff-spacing #'space = #20
+    \override StaffGrouper #'staffgroup-staff-spacing #'basic-distance = #20
   } <<
     \new Staff { c'1 }
     \new Staff { c'1 }
@@ -2214,7 +2214,7 @@ la línea de letra es capaz de ampliarse mucho más de lo que es usual:
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing = #'((space . 30))
+    \override VerticalAxisGroup #'staff-staff-spacing = #'((basic-distance . 30))
   } { c'1 }
   \new Lyrics \with {
     \override VerticalAxisGroup #'staff-affinity = #UP
@@ -3406,7 +3406,7 @@ parte baja del papel.
 
 @example
 \paper @{
-  system-system-spacing = #'((padding . 0) (space . 0.1))
+  system-system-spacing = #'((padding . 0) (basic-distance . 0.1))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}

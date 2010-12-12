@@ -16,9 +16,8 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-%%%% Legacy file. (see language-init.ly)
+%%%% Legacy file. (see scm/define-note-names.scm)
 
 \version "2.13.37"
 
 \language "english"
-

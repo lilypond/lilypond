@@ -1681,14 +1681,14 @@
 
     (StaffGrouper
      . (
-	(staff-staff-spacing . ((space . 9)
-                                (stretchability . 5)
+	(staff-staff-spacing . ((basic-distance . 9)
 				(minimum-distance . 7)
-				(padding . 1)))
-	(staffgroup-staff-spacing . ((space . 10.5)
-                                     (stretchability . 9)
+				(padding . 1)
+                                (stretchability . 5)))
+	(staffgroup-staff-spacing . ((basic-distance . 10.5)
 				     (minimum-distance . 8)
-				     (padding . 1)))
+				     (padding . 1)
+                                     (stretchability . 9)))
 	(meta . ((class . Spanner)
 		 (interfaces . (staff-grouper-interface))))))
 
@@ -1940,20 +1940,21 @@
 
     (TabNoteHead
      . (
-	(details . ((tied-properties . ((break-visibility . ,begin-of-line-visible)
-					(parenthesize . #t)))
-		    (repeat-tied-properties . ((note-head-visible . #t)
-					       (parenthesize . #t)))
+	(details . ((cautionary-properties . ((angularity . 0.4)
+					      (half-thickness . 0.075)
+					      (padding . 0)
+					      (procedure . ,parenthesize-stencil)
+					      (width . 0.25)))
+		    (head-offset . 3/5)
 		    (harmonic-properties . ((angularity . 2)
 					    (half-thickness . 0.075)
 					    (padding . 0)
 					    (procedure . ,parenthesize-stencil)
 					    (width . 0.25)))
-		    (cautionary-properties . ((angularity . 0.4)
-					      (half-thickness . 0.075)
-					      (padding . 0)
-					      (procedure . ,parenthesize-stencil)
-					      (width . 0.25)))))
+		    (repeat-tied-properties . ((note-head-visible . #t)
+					       (parenthesize . #t)))
+		    (tied-properties . ((break-visibility . ,begin-of-line-visible)
+					(parenthesize . #t)))))
 
 	(direction . ,CENTER)
 	(duration-log . ,note-head::calc-duration-log)
@@ -2267,7 +2268,7 @@
      . (
 	(adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
 	(axes . (,Y))
-	(default-staff-staff-spacing . ((space . 9)
+	(default-staff-staff-spacing . ((basic-distance . 9)
 					(minimum-distance . 8)
 					(padding . 1)))
 	(nonstaff-unrelatedstaff-spacing . ((padding . 0.5)))

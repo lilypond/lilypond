@@ -1,4 +1,4 @@
-\version "2.13.39"
+\version "2.13.42"
 
 \header {
   texidoc = "A non-staff line (such as @code{Lyrics}) at the
@@ -9,7 +9,7 @@ bottom of a system gets spaced appropriately."
   ragged-right = ##t
   \context {
     \Lyrics
-    \override VerticalAxisGroup #'nonstaff-nonstaff-spacing #'space = #20
+    \override VerticalAxisGroup #'nonstaff-nonstaff-spacing #'basic-distance = #20
   }
 }
 <<

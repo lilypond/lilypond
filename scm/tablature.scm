@@ -273,10 +273,12 @@
 	 (cautionary-width (assoc-get 'width cautionary-props 0.25))
          (output-grob (ly:text-interface::print grob))
 	 (ref-grob (grob-interpret-markup grob "8"))
-	 (column-offset (interval-length
-			    (ly:stencil-extent
-			      (grob-interpret-markup grob "8")
-			      X))))
+	 (offset-factor (assoc-get 'head-offset details 3/5))
+	 (column-offset (* offset-factor
+			   (interval-length
+			     (ly:stencil-extent
+			       (grob-interpret-markup grob "8")
+			       X)))))
 
     (if (is-harmonic? grob)
         (set! output-grob (harmonic-proc output-grob

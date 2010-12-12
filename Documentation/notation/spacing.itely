@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.39"
+@c \version "2.13.42"
 
 @ignore
 GDP TODO list
@@ -403,24 +403,17 @@ an alist (association list) containing four @emph{keys}:
 @itemize
 
 @item
-@code{padding} -- the minimum required amount of unobstructed
-vertical whitespace between two items, measured in staff-spaces.
-This can be thought of as the minimum height of an unobstructed
-(invisible) rectangle that extends from the leftmost to the
-rightmost point of the combined items.
-
-@item
-@code{space} -- the vertical distance, measured in staff-spaces,
-between the @emph{reference points} of the two items, when no
-collisions would result, and no stretching or compressing is in
-effect.  The reference point of a (title or top-level) markup is
-its highest point, and the reference point of a system is the
-vertical center of the nearest @code{StaffSymbol} -- even if a
-non-staff line (such as a @code{Lyrics} context) is in the way.
-Values for @code{space} that are less than either @code{padding}
-or @code{minimum-distance} are not meaningful, since the resulting
-distance will never be less than either @code{padding} or
-@code{minimum-distance}.
+@code{basic-distance} -- the vertical distance, measured in
+staff-spaces, between the @emph{reference points} of the two
+items, when no collisions would result, and no stretching or
+compressing is in effect.  The reference point of a (title or
+top-level) markup is its highest point, and the reference point of
+a system is the vertical center of the nearest @code{StaffSymbol}
+-- even if a non-staff line (such as a @code{Lyrics} context) is
+in the way.  Values for @code{basic-distance} that are less than
+either @code{padding} or @code{minimum-distance} are not
+meaningful, since the resulting distance will never be less than
+either @code{padding} or @code{minimum-distance}.
 
 @item
 @code{minimum-distance} -- the smallest allowable vertical
@@ -429,6 +422,13 @@ of the two items, when compressing is in effect.  Values for
 @code{minimum-distance} that are less than @code{padding} are not
 meaningful, since the resulting distance will never be less than
 @code{padding.}
+
+@c TODO: explain skylines somewhere and xref to it from here.
+
+@item
+@code{padding} -- the minimum required amount of unobstructed
+vertical whitespace between the bounding boxes (or skylines) of
+the two items, measured in staff-spaces.
 
 @item
 @code{stretchability} -- a unitless measure of the dimension's
@@ -441,10 +441,10 @@ twice the @code{stretchability} of another, it will stretch twice
 as easily.  Values should be non-negative and finite.  The value
 @code{+inf.0} triggers a @code{programming_error} and is ignored,
 but @code{1.0e7} can be used for an almost infinitely stretchable
-spring.  If unset, the default value is set to @code{space}.  Note
-that the dimension's propensity to @emph{compress} cannot be
-directly set by the user and is equal to
-(@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
+spring.  If unset, the default value is set to
+@code{basic-distance}.  Note that the dimension's propensity to
+@emph{compress} cannot be directly set by the user and is equal to
+(@code{basic-distance}@tie{}@minus{}@tie{}@code{minimum-distance}).
 
 @end itemize
 
@@ -454,7 +454,7 @@ largest of:
 @itemize
 
 @item
-@code{space},
+@code{basic-distance},
 
 @item
 @code{minimum-distance}, and
@@ -473,11 +473,11 @@ redefines the variable:
 
 @example
 \paper @{
-  system-system-spacing #'space = #8
+  system-system-spacing #'basic-distance = #8
   score-system-spacing =
-    #'((padding . 1)
-       (space . 12)
+    #'((basic-distance . 12)
        (minimum-distance . 6)
+       (padding . 1)
        (stretchability . 12))
 @}
 @end example
@@ -1048,7 +1048,7 @@ Here is an example @code{\layout} block:
   indent = 2\cm
   \context @{
     \StaffGroup
-    \override StaffGrouper #'staff-staff-spacing #space = #8
+    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #8
   @}
   \context @{
     \Voice
@@ -1778,7 +1778,7 @@ In the following image, horizontal lines indicate the positions
 of these reference points:
 
 @lilypond[quote,noragged-right,line-width=110\mm]
-#(define zero-space '((padding . -inf.0) (space . 0)))
+#(define zero-space '((padding . -inf.0) (basic-distance . 0)))
 
 alignToZero = \with {
   \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #zero-space
@@ -1874,14 +1874,14 @@ individually, and the second completely re-defines the property:
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
+  \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
   \override VerticalAxisGroup #'staff-staff-spacing =
-    #'((padding . 1)
-       (space . 10)
+    #'((basic-distance . 10)
        (minimum-distance . 9)
+       (padding . 1)
        (stretchability . 10))
 @} @{ @dots{} @}
 @end example
@@ -1893,7 +1893,7 @@ To change any spacing settings globally, put them in the
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup #'staff-staff-spacing #'space = #10
+    \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
   @}
 @}
 @end example
@@ -2035,30 +2035,30 @@ property can affect the spacing of ungrouped staves:
   \context {
     \Staff
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((padding . 1)
-         (space . 8)
-         (minimum-distance . 7))
+      #'((basic-distance . 8)
+         (minimum-distance . 7)
+         (padding . 1))
   }
 }
 
 \new StaffGroup <<
-  % The very low note here needs more room than 'space can
-  % provide, so the distance between this staff and the next is
-  % determined by 'padding.
+  % The very low note here needs more room than 'basic-distance
+  % can provide, so the distance between this staff and the next
+  % is determined by 'padding.
   \new Staff { b,2 r | }
 
-  % Here, 'space provides enough room, and there is no need to
-  % compress the space (towards 'minimum-distance) to make room
-  % for anything else on the page, so the distance between this
-  % staff and the next is determined by 'space.
+  % Here, 'basic-distance provides enough room, and there is no
+  % need to compress the space (towards 'minimum-distance) to make
+  % room for anything else on the page, so the distance between
+  % this staff and the next is determined by 'basic-distance.
   \new Staff { \clef bass g2 r | }
 
   % By setting 'padding to a negative value, staves can be made to
-  % collide.  The lowest acceptable value for 'space is 0.
+  % collide.  The lowest acceptable value for 'basic-distance is 0.
   \new Staff \with {
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((padding . -10)
-         (space . 3.5))
+      #'((basic-distance . 3.5)
+         (padding . -10))
   } { \clef bass g2 r | }
   \new Staff { \clef bass g2 r | }
 >>
@@ -2113,13 +2113,13 @@ The following example shows how properties of the
   \context {
     \Score
     \override StaffGrouper #'staff-staff-spacing #'padding = #0
-    \override StaffGrouper #'staff-staff-spacing #'space = #1
+    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #1
   }
 }
 
 <<
   \new PianoStaff \with {
-    \override StaffGrouper #'staffgroup-staff-spacing #'space = #20
+    \override StaffGrouper #'staffgroup-staff-spacing #'basic-distance = #20
   } <<
     \new Staff { c'1 }
     \new Staff { c'1 }
@@ -2186,7 +2186,7 @@ able to stretch much more than usual:
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing = #'((space . 30))
+    \override VerticalAxisGroup #'staff-staff-spacing = #'((basic-distance . 30))
   } { c'1 }
   \new Lyrics \with {
     \override VerticalAxisGroup #'staff-affinity = #UP
@@ -3320,7 +3320,7 @@ there is no blank space at the bottom of the page.
 
 @example
 \paper @{
-  system-system-spacing = #'((padding . 0) (space . 0.1))
+  system-system-spacing = #'((basic-distance . 0.1) (padding . 0))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}

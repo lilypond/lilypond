@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.39"
+@c \version "2.13.42"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -1999,19 +1999,22 @@ can be modified individually without affecting other keys.
 For example, to reduce the space between adjacent staves in a
 staff-group, use the @code{staff-staff-spacing} property of the
 @code{StaffGrouper} grob.  The property is an alist with four
-keys: @code{padding}, @code{space}, @code{minimum-distance}, and
-@code{stretchability}.  Three of the four keys have initialized
-default values; these are listed in the @qq{Backend} section of
-the Internals Reference (see @rinternals{StaffGrouper}):
+keys: @code{basic-distance}, @code{minimum-distance},
+@code{padding}, and @code{stretchability}.  The standard settings
+for this property are listed in the @qq{Backend} section of the
+Internals Reference (see @rinternals{StaffGrouper}):
 
 @example
-'((space . 9) (minimum-distance . 7) (padding . 1))
+'((basic-distance . 9)
+  (minimum-distance . 7)
+  (padding . 1)
+  (stretchability . 5))
 @end example
 
 One way to bring the staves closer together is by reducing the
-value of the @code{space} key (@code{9}) to match the value of
-@code{minimum-distance} (@code{7}).  To modify a single key
-individually, use a @emph{nested declaration}:
+value of the @code{basic-distance} key (@code{9}) to match the
+value of @code{minimum-distance} (@code{7}).  To modify a single
+key individually, use a @emph{nested declaration}:
 
 @lilypond[quote,verbatim]
 % default space between staves
@@ -2023,7 +2026,7 @@ individually, use a @emph{nested declaration}:
 % reduced space between staves
 \new PianoStaff \with {
   % this is the nested declaration
-  \override StaffGrouper #'staff-staff-spacing #'space = #7
+  \override StaffGrouper #'staff-staff-spacing #'basic-distance = #7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
@@ -2031,8 +2034,8 @@ individually, use a @emph{nested declaration}:
 @end lilypond
 
 Using a nested declaration will update the specified key (such as
-@code{space} in the above example) without altering any other keys
-already set for the same property.
+@code{basic-distance} in the above example) without altering any
+other keys already set for the same property.
 
 Now suppose we want the staves to be as close as possible without
 overlapping.  The simplest way to do this is to set all four alist
@@ -2043,9 +2046,9 @@ completely re-defined with one declaration, as an alist:
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
   \override StaffGrouper #'staff-staff-spacing =
-    #'((padding . 0)
-       (space . 0)
+    #'((basic-distance . 0)
        (minimum-distance . 0)
+       (padding . 0)
        (stretchability . 0))
 } <<
   \new Staff { \clef treble c''1 }
@@ -2057,31 +2060,30 @@ Note that any keys not explicitly listed in the alist definition
 will be reset to their @emph{default-when-unset} values.  In the
 case of @code{staff-staff-spacing}, any unset key-values would be
 reset to zero (except @code{stretchability}, which takes the value
-of @code{space} when unset).  Thus the following two declarations
-are equivalent:
+of @code{basic-distance} when unset).  Thus the following two
+declarations are equivalent:
 
 @example
 \override StaffGrouper #'staff-staff-spacing =
-  #'((space . 7))
+  #'((basic-distance . 7))
 
 \override StaffGrouper #'staff-staff-spacing =
-  #'((padding . 0)
-     (space . 7)
+  #'((basic-distance . 7)
      (minimum-distance . 0)
+     (padding . 0)
      (stretchability . 7))
 @end example
 
 One (possibly unintended) consequence of this is the removal of
-any @emph{initialized} default values that are set in an
-initialization file and loaded each time an input file is
-compiled.  In the above example, the initialized default values
-for @code{padding} and @code{minimum-distance} (defined in
-@file{scm/define-grobs.scm}) are reset to their default-when-unset
-values (zero for both keys).  Defining a property or variable as
-an alist (of any size) will always reset all unset key-values to
-their default-when-unset values.  Unless this is the intended
-result, it is safer to update key-values individually with a
-nested declaration.
+any standard settings that are set in an initialization file and
+loaded each time an input file is compiled.  In the above example,
+the standard settings for @code{padding} and
+@code{minimum-distance} (defined in @file{scm/define-grobs.scm})
+are reset to their default-when-unset values (zero for both keys).
+Defining a property or variable as an alist (of any size) will
+always reset all unset key-values to their default-when-unset
+values.  Unless this is the intended result, it is safer to update
+key-values individually with a nested declaration.
 
 @warning{Nested declarations will not work for context property
 alists (such as @code{beamExceptions}, @code{keySignature},

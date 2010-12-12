@@ -22,8 +22,7 @@
 %%%%   kiwi ukulele website (http://www.kiwiukulele.co.nz/)
 
 % chord definitions require default pitchnames
-#(define prev-pitchnames pitchnames)
-#(set! pitchnames default-language)
+\languageSaveAndChange #default-language
 
 %%% a chords
 
@@ -807,4 +806,4 @@
                         #ukulele-tuning
                         #"1-1;o;2-3;1-2;"
 
-#(set! pitchnames prev-pitchnames)
+\languageRestore

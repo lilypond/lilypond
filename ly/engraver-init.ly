@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.13.39"
+\version "2.13.42"
 
 \context {
   \name "Global"
@@ -375,7 +375,7 @@ a collection of staves, with a bracket in front and spanning bar lines."
   pedalUnaCordaStrings = #'("una corda" "" "tre corde")
   \override VerticalAxisGroup #'staff-affinity = #CENTER
   \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing =
-    #'((space . 5)
+    #'((basic-distance . 5)
        (padding . 0.5))
   \override TextScript #'font-shape = #'italic
   \override DynamicLineSpanner #'Y-offset = #0
@@ -407,14 +407,14 @@ printing of a single line of lyrics."
   \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'staff-affinity = #UP
   \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing =
-    #'((space . 5.5)
-       (stretchability . 1)
-       (padding . 0.5))
+    #'((basic-distance . 5.5)
+       (padding . 0.5)
+       (stretchability . 1))
   \override VerticalAxisGroup #'nonstaff-nonstaff-spacing =
-     #'((space . 0)
-	(stretchability . 0)
+     #'((basic-distance . 0)
+	(minimum-distance . 2.8)
 	(padding . 0.2)
-	(minimum-distance . 2.8))
+	(stretchability . 0))
   \override VerticalAxisGroup #'nonstaff-unrelatedstaff-spacing #'padding = #1.5
   \override InstrumentName #'self-alignment-Y = ##f
 

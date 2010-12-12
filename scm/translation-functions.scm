@@ -207,9 +207,15 @@
     (set! (ly:grob-property grob 'dot-placement-list) placement-list)))
 
 (define-public
-  (determine-frets context notes defined-strings . rest)
+  (determine-frets context notes specified-info . rest)
   "Determine string numbers and frets for playing @var{notes}
-as a chord, given specified string numbers @var{defined-strings}.
+as a chord, given specified information  @var{specified-info}.
+@var{specified-info} is a list with two list elements,
+specified strings @var{defined-strings} and
+specified fingerings @var{defined-fingers}.  Only a fingering of
+0 will affect the fret selection, as it specifies an open string.
+If @var{defined-strings} is @code{'()}, the context property
+@code{defaultStrings} will be used as a list of defined strings.
 Will look for predefined fretboards if @code{predefinedFretboardTable}
 is not @code {#f}.  If @var{rest} is present, it contains the
 FretBoard grob, and a fretboard will be
@@ -248,6 +254,9 @@ dot placement entries."
                                  (eq? (car l) 'open)))
                  placement-list)))
 
+  (define (entry-count art-list)
+    (length (filter (lambda (x) (not (null? x)))
+                    art-list)))
 
   (define (get-predefined-fretboard predefined-fret-table tuning pitches)
     "Search through @var{predefined-fret-table} looking for a predefined
@@ -282,6 +291,21 @@ chords.  Returns a placement-list."
          (string-count (length tunings))
          (grob (if (null? rest) '() (car rest)))
 	 (pitches (map (lambda (x) (ly:event-property x 'pitch)) notes))
+         (defined-strings (map (lambda (x)
+                                 (if (null? x)
+                                     x
+                                     (ly:event-property x 'string-number)))
+                               (car specified-info)))
+         (defined-fingers (map (lambda (x)
+                                 (if (null? x)
+                                     x
+                                     (ly:event-property x 'digit)))
+                               (cadr specified-info)))
+         (default-strings (ly:context-property context 'defaultStrings '()))
+         (strings-used (if (and (zero? (entry-count defined-strings))
+                                (not (zero? (entry-count default-strings))))
+                           default-strings
+                           defined-strings))
          (predefined-fretboard
           (if predefined-fret-table
               (get-predefined-fretboard
@@ -289,12 +313,12 @@ chords.  Returns a placement-list."
                tunings
                pitches)
               '())))
-
      (if (null? predefined-fretboard)
          (let ((string-frets
                 (determine-frets-and-strings
                  notes
-                 defined-strings
+                 strings-used
+                 defined-fingers
                  (ly:context-property context 'minimumFret 0)
                  (ly:context-property context 'maximumFretStretch 4)
                  tunings)))
@@ -309,7 +333,12 @@ chords.  Returns a placement-list."
 
 
 (define (determine-frets-and-strings
-          notes defined-strings minimum-fret maximum-stretch tuning)
+          notes
+          defined-strings
+          defined-fingers
+          minimum-fret
+          maximum-stretch
+          tuning)
 
   (define (calc-fret pitch string tuning)
     (- (ly:pitch-semitones pitch) (list-ref tuning (1- string))))
@@ -329,7 +358,8 @@ chords.  Returns a placement-list."
 	     (let* ((num (ly:event-property art 'digit)))
 
 	       (if (and (eq? 'fingering-event (ly:event-property art 'class))
-			(number? num))
+			(number? num)
+                        (> num 0))
 		   (set! finger-found num))))
 	   articulations)
 
@@ -340,7 +370,6 @@ chords.  Returns a placement-list."
       (if (number? num)
           num
           #f)))
-
 
   (define (delete-free-string string)
     (if (number? string)
@@ -359,13 +388,18 @@ chords.  Returns a placement-list."
             (and x y))
           #t
           (map (lambda (specced-fret)
-                 (> maximum-stretch (abs (- fret specced-fret))))
+                 (or (eq? 0 specced-fret)
+                     (>= maximum-stretch (abs (- fret specced-fret)))))
                specified-frets))))
 
   (define (string-qualifies string pitch)
     (let* ((fret (calc-fret pitch string tuning)))
       (and (>= fret minimum-fret)
 	   (close-enough fret))))
+
+  (define (open-string string pitch)
+    (let* ((fret (calc-fret pitch string tuning)))
+      (eq? fret 0)))
 
   (define string-fret-fingering-tuples '())
 
@@ -381,35 +415,60 @@ chords.  Returns a placement-list."
        (delete-free-string string)
        (set! specified-frets (cons this-fret specified-frets))))
 
+  (define (pad-list target template)
+    (while (< (length target) (length template))
+           (set! target (if (null? target)
+                            '(())
+                            (append target '(()))))))
+
   ;;; body of determine-frets-and-strings
   (set! free-strings (map 1+ (iota (length tuning))))
 
   ;; get defined-strings same length as notes
-  (while (< (length defined-strings) (length notes))
-         (set! defined-strings (append defined-strings '(()))))
+  (pad-list defined-strings notes)
 
-  ;; handle notes with strings assigned
+  ;; get defined-fingers same length as notes
+  (pad-list defined-fingers notes)
+
+  ;; handle notes with strings assigned and fingering of 0
   (for-each
-    (lambda (note string)
-      (if (null? string)
-          (set! unassigned-notes (cons note unassigned-notes))
-          (let ((this-string (string-number string)))
-            (delete-free-string this-string)
-            (set-fret note this-string))))
-    notes defined-strings)
+    (lambda (note string finger)
+      (let ((digit (if (null? finger)
+                       #f
+                       finger)))
+        (if (and (null? string)
+                 (not (eq? digit 0)))
+            (set! unassigned-notes (cons note unassigned-notes))
+            (if (eq? digit 0)
+                (let ((fit-string
+                      (find (lambda (string)
+                              (open-string string (note-pitch note)))
+                            free-strings)))
+                  (if fit-string
+                      (begin
+                        (delete-free-string fit-string)
+                        (set-fret note fit-string))
+                      (begin
+                        (ly:warning (_ "No open string for pitch ~a")
+                                       (note-pitch note))
+                        (set! unassigned-notes (cons note unassigned-notes)))))
+                (begin
+                  (delete-free-string string)
+                  (set-fret note string))))))
+    notes defined-strings defined-fingers)
 
   ;; handle notes without strings assigned
   (for-each
    (lambda (note)
-     (let* ((fit-string
-              (find (lambda (string)
-                      (string-qualifies string (note-pitch note)))
-                    free-strings)))
+     (let ((fit-string
+            (find (lambda (string)
+                    (string-qualifies string (note-pitch note)))
+                  free-strings)))
         (if fit-string
             (set-fret note fit-string)
-            (ly:warning "No string for pitch ~a (given frets ~a)"
-                        (note-pitch note)
-                        specified-frets))))
+            (ly:warning (_ "No string for pitch ~a (given frets ~a)")
+                           (note-pitch note)
+                           specified-frets))))
    (sort unassigned-notes note-pitch>?))
 
    string-fret-fingering-tuples)
@@ -431,10 +490,10 @@ chords.  Returns a placement-list."
     ((and (<= 0 fret-number) (< fret-number (length labels)))
      (list-ref labels fret-number))
     (else
-     (ly:warning "No label for fret ~a (on string ~a);
-only ~a fret labels provided"
-                 fret-number string-number (length labels))
-       ".")))))
+     (ly:warning (_ "No label for fret ~a (on string ~a);
+only ~a fret labels provided")
+                fret-number string-number (length labels))
+     ".")))))
 
 ;; Display the fret number as a number
 (define-public (fret-number-tablature-format

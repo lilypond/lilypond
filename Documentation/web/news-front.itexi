@@ -10,6 +10,21 @@
 
 
 @newsItem
+@subsubheading LilyPond 2.13.42 released!  @emph{Dec 8, 2010}
+
+We are happy to announce the release of LilyPond 2.13.42.  This
+release contains the usual number of bugfixes.  However, a number
+of critical issues still remain, so this release is intended for
+developers only.
+
+Please note that this is @strong{not} the second beta test.  Due
+to a number of untested changes to our build process, we cannot be
+at all confident about the quality of this release.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond 2.13.41 released!  @emph{Dec 4, 2010}
 
 We are happy to announce the release of LilyPond 2.13.41.  This

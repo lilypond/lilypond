@@ -201,16 +201,17 @@ setup_paths (char const *argv0_ptr)
 	      File_path path;
 	      path.parse_path (getenv ("PATH"));
 
-	      if (be_verbose_global)
-		warning (_f ("Relocation: from PATH=%s\nargv0=%s",
-			     path.to_string ().c_str (), argv0_ptr));
-
 #ifndef __MINGW32__
 	      argv0_abs = path.find (argv0_filename.to_string ());
 #else /* __MINGW32__ */
+	      path.prepend (get_working_directory ());
 	      char const *ext[] = {"exe", "", 0 };
 	      argv0_abs = path.find (argv0_filename.to_string (), ext);
 #endif /* __MINGW32__ */
+
+	      if (be_verbose_global)
+		warning (_f ("Relocation: from PATH=%s\nargv0=%s",
+			     path.to_string ().c_str (), argv0_ptr));
 
 	      if (argv0_abs.empty ())
 		programming_error ("cannot find absolute argv0");

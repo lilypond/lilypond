@@ -556,8 +556,9 @@ note.  The markup contains information about the desired fret
 diagram.  There are three different fret-diagram markup
 interfaces: standard, terse, and verbose.  The three interfaces
 produce equivalent markups, but have varying amounts of
-information in the markup string.  Details about the markup
-interfaces are found at @ref{Text markup commands}.
+information in the markup string.  Details about the
+syntax of the different markup strings used to define
+fret diagrams are found at @ref{Instrument Specific Markup}.
 
 The standard fret diagram markup string indicates the string
 number and the fret number for each dot to be placed on the string.
@@ -937,7 +938,7 @@ markup, the interface properties belong to @code{Voice.TextScript}.
 
 @seealso
 Notation Reference:
-@ref{Text markup commands}.
+@ref{Instrument Specific Markup}.
 
 Snippets:
 @rlsr{Fretted strings}.

@@ -21,10 +21,21 @@ useful, particularly if they are working on major new features.
 @end menu
 
 
+@c if you change this node name, you'll need to change the @ref in
+@c web/ and/or included/, along with all the translations.
 @node Using lily-git
 @section Using lily-git
 
-@subsubheading Install and Configuration
+@command{lily-git.tcl} is a graphical tool to help you access and
+share changes to the lilypond source code.
+
+@menu
+* Install and configuration of lily-git.tcl::
+* Daily use of lily-git.tcl::
+@end menu
+
+@node Install and configuration of lily-git.tcl
+@unnumberedsubsec Install and configuration of @command{lily-git.tcl}
 
 @enumerate
 @item
@@ -54,7 +65,7 @@ section of:
 
 
 @item
-Download the lily-git script from:
+Download the @command{lily-git.tcl} script from:
 
 @c don't change the cgit link below to gitweb; gitweb uses
 @c long filenames like "scripts_auxiliar_lily-git.tcl"
@@ -65,36 +76,54 @@ Download the lily-git script from:
 
 @item
 To run the program from the command line, navigate to the
-directory containing @file{lily-git.tcl} and enter:
+directory containing @command{lily-git.tcl} and enter:
 
 @example
 wish lily-git.tcl
 @end example
 
-@end enumerate
+@item
+Click on the @qq{Get source} button.
 
-
-@subsubheading 1. Get source / Update source
-
-When you click the @qq{Get source} button, @command{lily-git} will
-create a directory called @file{lilypond-git/} within your home
-directory, and will download the source code into that
+This will create a directory called @file{lilypond-git/} within
+your home directory, and will download the source code into that
 directory (around 55Mb).  When the process is finished, the
 @qq{Command output} window will display @qq{Done}, and the button
 label will change to say @qq{Update source}.
 
+@item
 Navigate to the @file{lilypond-git/} directory to view the source
 files.  You should now be able to modify the source files using
 your normal text editor.
+
+@end enumerate
 
 @quotation
 Advanced note: The @qq{Get source} button does not fetch the
 entire history of the git repository, so utilities like
 @command{gitk} will only be able to display the most recent
-additions.  As you continue to work with @command{lily-git}, the
+additions.  As you continue to work with @command{lily-git.tcl}, the
 @qq{Update source} button will take any new additions and add it
 to whatever is currently in your repository's history.
 @end quotation
+
+
+@node Daily use of lily-git.tcl
+@unnumberedsubsec Daily use of @command{lily-git.tcl}
+
+@warning{Only work on one set of changes at once.  Do not start
+work on any new changes until your first set has been accepted.}
+
+@subsubheading 1. Update source
+
+At the beginning of each session of lilypond work, you should
+click the @qq{Update source} button to get the latest changes to
+the source code.
+
+@warning{In some rare and unfortunate circumstances, this will
+result in a @emph{merge conflict}.  If this occurs, follow the
+instructions for @qq{Abort changes}, below.  Your work will not be
+lost.}
 
 
 @subsubheading 2a. New local commit
@@ -103,14 +132,18 @@ A single commit typically represents one logical set of related
 changes (such as a bug-fix), and may incorporate changes to
 multiple files at the same time.
 
-When you're finished making the changes for your first commit,
-click the @qq{New local commit} button.  This will open the
-@qq{Git Commit Message} window.  The message header is required,
-and the message body is optional.  See @ref{Commits and patches}
-for more information regarding commits and commit messages.
+When you're finished making the changes for a commit, click the
+@qq{New local commit} button.  This will open the @qq{Git Commit
+Message} window.  The message header is required, and the message
+body is optional.
 
 After entering a commit message, click @qq{OK} to finalize the
 commit.
+
+@quotation
+Advanced note: For more information regarding commits and commit
+messages, see @ref{Commits and patches}.
+@end quotation
 
 
 @subsubheading 2b. Amend previous commit
@@ -125,11 +158,11 @@ needed and then click the @qq{Amend previous commit} button.  The
 earlier version of the commit is not saved, but is replaced by the
 new one.
 
-Note that this does not update the patch @strong{files}; if you
+@warning{This does not update the patch @strong{files}; if you
 have a patch file from an earlier version of the commit, you will
 need to make another patch set when using this feature.  The old
 patch file will not be saved, but will be replaced by the new one
-after you click on @qq{Make patch set}.
+after you click on @qq{Make patch set}.}
 
 
 @subsubheading 3. Make patch set
@@ -138,21 +171,38 @@ Before making a patch set from any commits, you should click the
 @qq{Update source} button to make sure the commits are based on
 the most recent remote snapshot.
 
-When you click the @qq{Make patch set} button, @command{lily-git}
-will produce patch files for any new commits, saving them to the
-current directory.  The command output will display the name of
-the new patch files near the end of the output:
+When you click the @qq{Make patch set} button,
+@command{lily-git.tcl} will produce patch files for any new
+commits, saving them to the current directory.  The command output
+will display the name of the new patch files near the end of the
+output:
 
 @example
 0001-CG-add-lily-git-instructions.patch
 Done.
 @end example
 
-Send patch files to your mentor if you have one.  Otherwise, write
-an email (must be less than 64 KB) to
-@email{lilypond-devel@@gnu.org} briefly explaining your work, with
-the patch files attached.  Translators should send patches to
+Send patch files to the appropriate place:
+
+@itemize
+@item
+If you have a mentor, send it to them via email.
+
+@item
+New contributors should send the patch attached to an email to
+@email{frogs@@lilynet.net}.  Please add @qq{[PATCH]} to the
+subject line.
+
+@item
+Translators should send patches to
 @email{translations@@lilynet.net}.
+
+@item
+More experienced contributors should upload the patch for
+web-based review.  This requires additional software and use of
+the command-line; see @ref{Uploading a patch for review}.
+
+@end itemize
 
 
 @subsubheading The @qq{Abort changes -- Reset to origin} button
@@ -171,7 +221,7 @@ current state of the remote repository (at @code{git.sv.gnu.org}).
 
 
 Using the Git program directly (as opposed to using the
-@command{lily-git} GUI) allows you to have much greater control
+@command{lily-git.tcl} GUI) allows you to have much greater control
 over the contributing process.  You should consider using Git if
 you want to work on complex projects, or if you want to work on
 multiple projects concurrently.
@@ -977,36 +1027,67 @@ code review website:
 
 @subsubheading Initial setup
 
-This requires the use of an external package, git-cl, and an email
-account on Google.
+@enumerate
 
-@command{git-cl} is installed by:
+@item
+You must have a gmail account.
+
+@item
+Install @command{git-cl} by entering:
 
 @example
 git clone git://neugierig.org/git-cl.git
 @end example
 
-Then, add the @file{git-cl} directory to your PATH, or create a
-symbolic link to the @command{git-cl} and @command{upload.py} in
-one of your PATH directories (like @file{usr/bin}).  Then
-configure the program by running:
+@item
+Add the @file{git-cl/} directory to your PATH, or create a
+symbolic link to the @command{git-cl} and @command{upload.py}
+scripts in one of your PATH directories (such as
+@file{$HOME/bin}).
+
+
+@item
+Move into the top source directory and then configure
+@command{git cl}.  If you do not understand any question, just
+answer with a newline (CR).
 
 @example
+cd $HOME/lilypond-git/
 git cl config
 @end example
 
-@noindent
-in the LilyPond git directory and answering the questions that
-are asked.  If you do not understand the question answer with just
-a newline (CR).
+The @qq{CC list} question should be answered with:
+
+@example
+lilypond-devel@@gnu.org
+@end example
+
+@end enumerate
 
 @subsubheading Uploading patch set
+
+@warning{Unless you are familiar with branches, only work on one
+set of changes at once.}
 
 There are two methods, depending on your git setup.
 
 @itemize
 @item
-@strong{Separate branch}:
+@strong{Master branch}: (easy option, and used in @command{lily-git.tcl})
+
+If you added your patch to @code{master}, then:
+
+@example
+git pull -r
+git cl upload origin/master
+@end example
+
+If you have git push ability, make sure that you @emph{remove}
+your patch (with @command{git rebase} or @command{git reset})
+before pushing other stuff.
+
+@item
+@strong{Separate branch}: (complicated option)
 
 Ensure your changes are committed in a separate branch, which
 should differ from the reference branch to be used by just the
@@ -1032,32 +1113,18 @@ git cl upload origin/master
 @noindent
 can be used.
 
-@item
-@strong{Master branch}:
-
-If you added your patch to @code{master}, then make sure that you
-are up-to-date (by running @code{git pull -r}), and then run:
-
-@example
-git cl upload origin/master
-@end example
-
-If you have git push ability, make sure that you @emph{remove}
-your patch (with @command{git rebase} or @command{git reset})
-before pushing other stuff.
-
 @end itemize
 
 After prompting for your Google email address and password, the
-patch set will be posted to Rietveld.
+patch set will be posted to Rietveld, and you will be given a URL
+for your patch.
 
 @subsubheading Announcing your patch set
 
-You should then announce the patch by sending an email to
-@code{lilypond-devel}, with a subject line starting with PATCH:,
-asking for comments on the patch.  Alternately, you may Publish +
-Mail a (bogus) comment, in order to send an email to
-lilypond-devel.
+You should then announce the patch by logging into the code review
+issue webpage and using @qq{Publish + Mail Comments} to add a
+(mostly bogus) comment to your issue.  The text of your comment
+will be sent to our developer mailing list.
 
 @subsubheading Revisions
 

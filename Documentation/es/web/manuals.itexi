@@ -220,9 +220,9 @@ recomienda fervientemente que consulte el glosario.
 
 @docLinks{Glosario musical, music-glossary,
   @rglosnamed{Top,Glosario musical},
-  @manualStableGlossarySplit-es,
-  @manualStableGlossaryBig-es, 1 MB,
-  @manualStableGlossaryPdf-es, 1.5 MB}
+  @manualStableGlossarySplit,
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
 
 @divEnd
 
@@ -336,9 +336,9 @@ también}.
 
 @docLinks{Fragmentos, snippets,
   @rlsrnamed{Top,Fragmentos},
-  @manualStableSnippetsSplit-es,
-  @manualStableSnippetsBig-es, 2.5 MB,
-  @manualStableSnippetsPdf-es, 8 MB}
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 2.5 MB,
+  @manualStableSnippetsPdf, 8 MB}
 
 @divEnd
 
@@ -491,9 +491,9 @@ se refiere a la documentación generada.
 
 @docLinks{Funcionamiento interno, internals,
   @rinternalsnamed{Top,Funcionamiento interno},
-  @manualStableInternalsSplit-es,
-  @manualStableInternalsBig-es, 2.5 MB,
-  @manualStableInternalsPdf-es, 2.8 MB}
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
 
 @divEnd
 

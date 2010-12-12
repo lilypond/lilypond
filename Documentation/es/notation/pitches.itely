@@ -587,6 +587,9 @@ Glosario musical:
 Referencia de la notación:
 @ref{Notación común para músicas no occidentales}.
 
+Archivos instalados:
+@file{scm/define-note-names.scm}.
+
 Fragmentos de código:
 @rlsr{Pitches}.
 

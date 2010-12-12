@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.39
-\version "2.13.40"
+\version "2.13.42"
 
 \header {
 %% Translation of GIT committish: 0b3f8eb5000541aacdb027a93db57c199fd8ba04
@@ -50,7 +50,7 @@ This snippet shows how to bring the lyrics line closer to the staff.
     }
   }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #'((space . 1))
+    \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #'((basic-distance . 1))
   }
   \lyricsto melody { aa aa aa aa aa aa aa aa aa }
 >>

@@ -578,8 +578,8 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Noms de note et altérations non-occidentaux}.
 
-Manuel de notation :
-@ref{Noms de note et altérations non-occidentaux}.
+Fichiers d'initialisation :
+@file{scm/define-note-names.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.

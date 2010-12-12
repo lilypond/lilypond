@@ -29,9 +29,9 @@ maxima = #(ly:make-duration -3 0)
 \include "music-functions-init.ly"
 \include "toc-init.ly"
 
-\include "language-init.ly"
-pitchnames = #default-language
-#(ly:parser-set-note-names parser pitchnames)
+%% default note names are dutch
+#(set! default-language "nederlands")
+#(note-names-language parser default-language)
 
 \include "drumpitch-init.ly"
 \include "chord-modifiers-init.ly"

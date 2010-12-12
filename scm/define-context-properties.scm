@@ -188,6 +188,9 @@ non-hairpin decrescendo, i.e., @samp{dim.}.")
 
 This variable is read by @rinternals{Timing_translator} at
 @rinternals{Score} level.")
+     (defaultStrings ,list? "A list of strings to use in calculating
+frets for tablatures and fretboards if no strings are provided in
+the notes for the current moment.")
      (doubleRepeatType ,string? "Set the default bar line for double
 repeats.")
      (doubleSlurs ,boolean? "If set, two slurs are created for every

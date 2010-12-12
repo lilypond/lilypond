@@ -1,13 +1,9 @@
 
 \header {
-texidoc = "Tied accidentaled notes (which cause reminder accidentals) do not 
-wreak havoc in the spacing when unbroken."
+texidoc = "Tied notes with accidentals do not cause problems with spacing."
 }
 
 \version "2.12.0"
-\layout {
-  ragged-right = ##t
-}
 
 \relative c' {
   \clef treble
