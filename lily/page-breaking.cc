@@ -343,9 +343,8 @@ Page_breaking::systems ()
 	    ->get_broken_system_grobs ();
 	  ret = scm_cons (lines, ret);
 	}
-      else
+      else if (Prob *pb = system_specs_[sys].prob_)
 	{
-	  Prob *pb = system_specs_[sys].prob_;
 	  ret = scm_cons (scm_list_1 (pb->self_scm ()), ret);
 	  pb->unprotect ();
 	}
@@ -465,6 +464,9 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
 SCM
 Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
 {
+  if (scm_is_null (systems))
+    return SCM_EOL;
+
   int first_page_number
     = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   SCM ret = SCM_EOL;
@@ -554,6 +556,8 @@ Page_breaking::create_system_list ()
           system_specs_.push_back (System_spec (pb));
         }
     }
+  if (!system_specs_.size ())
+    system_specs_.push_back (System_spec ());
 }
 
 void
@@ -630,7 +634,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_pred
 	    }
 	  line_breaking_.push_back (Constrained_breaking (system_specs_[i].pscore_, line_breaker_columns));
 	}
-      else
+      else if (system_specs_[i].prob_)
 	{
 	  bool break_point = prob_is_break && prob_is_break (system_specs_[i].prob_);
 	  if (break_point || i == system_specs_.size () - 1)
@@ -832,7 +836,9 @@ Page_breaking::cache_line_details (vsize configuration_index)
 	  else
 	    {
 	      assert (div[i] == 1);
-	      uncompressed_line_details_.push_back (Line_details (system_specs_[sys].prob_, book_->paper_));
+	      uncompressed_line_details_.push_back (system_specs_[sys].prob_
+						    ? Line_details (system_specs_[sys].prob_, book_->paper_)
+						    : Line_details ());
 	    }
 	}
       cached_line_details_ = compress_lines (uncompressed_line_details_);
