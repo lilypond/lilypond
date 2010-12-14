@@ -56,6 +56,7 @@ protected:
   Paper_column *musical_column_;
   vector<Item*> items_;
   bool first_;
+  bool made_columns_;
   Moment last_moment_;
 
 public:

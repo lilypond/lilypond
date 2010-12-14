@@ -42,6 +42,7 @@ Paper_column_engraver::Paper_column_engraver ()
   breaks_ = 0;
   system_ = 0;
   first_ = true;
+  made_columns_ = false;
 }
 
 void
@@ -49,6 +50,14 @@ Paper_column_engraver::finalize ()
 {
   if (! (breaks_ % 8))
     progress_indication ("[" + to_string (breaks_) + "]");
+
+  if (!made_columns_)
+    {
+      make_columns ();
+      SCM m = now_mom ().smobbed_copy ();
+      command_column_->set_property ("when", m);
+      musical_column_->set_property ("when", m);
+    }
 
   if (command_column_)
     {
@@ -199,6 +208,9 @@ Paper_column_engraver::process_music ()
 void
 Paper_column_engraver::stop_translation_timestep ()
 {
+  if (to_boolean (get_property ("skipTypesetting")))
+    return;
+
   SCM m = now_mom ().smobbed_copy ();
   command_column_->set_property ("when", m);
   musical_column_->set_property ("when", m);
@@ -264,11 +276,11 @@ Paper_column_engraver::stop_translation_timestep ()
 void
 Paper_column_engraver::start_translation_timestep ()
 {
-  /*
-    TODO: don't make columns when skipTypesetting is true.
-  */
-  if (!first_)
-    make_columns ();
+  if (!first_ && !to_boolean (get_property ("skipTypesetting")))
+    {
+      make_columns ();
+      made_columns_ = true;
+    }
 }
 
 ADD_ACKNOWLEDGER (Paper_column_engraver, item);
