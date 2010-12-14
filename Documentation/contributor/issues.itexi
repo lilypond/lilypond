@@ -67,11 +67,21 @@ Configure your google code account:
 @enumerate
 
 @item
+Wait until your gmail account is listed in:
+
+@example
+@uref{http://code.google.com/p/lilypond/people/list}
+@end example
+
+@item
 Sign in to google code by clicking in the top-right corner of:
 
 @example
 @uref{http://code.google.com/p/lilypond/issues/list}
 @end example
+
+You cannot log if you have Google Sharing
+@uref{http://www.googlesharing.net/} enabled.
 
 @item
 Go to your @qq{Profile}, and select @qq{Settings}.
