@@ -155,8 +155,8 @@ e,\stopTextSpan
 @noindent
 The string to be printed is set through object properties.  By default
 it is printed in italic characters, but different formatting can be
-obtained using @code{\markup} blocks, as described in @ref{Formatting
-text}.
+obtained using @code{\markup} blocks, as described in
+@ref{Formatting text}.
 
 @lilypond[quote,relative=2,verbatim]
 \override TextSpanner #'(bound-details left text) =
@@ -615,8 +615,8 @@ example, there is no difference between the first and the second word.
 
 @noindent
 Some of these font families, used for specific items such as numbers
-or dynamics, do not provide all characters, as mentioned in @ref{New
-dynamic marks} and @ref{Manual repeat marks}.
+or dynamics, do not provide all characters, as mentioned in
+@ref{New dynamic marks} and @ref{Manual repeat marks}.
 
 @c \concat is actually documented in Align (it is not
 @c a font-switching command).  But we need it here. -vv
@@ -1184,8 +1184,8 @@ d-\markup {
 
 More generally, any available musical symbol may be included
 separately in a markup object, as demonstrated below; an exhaustive
-list of these symbols and their names can be found in @ref{The Feta
-font}.
+list of these symbols and their names can be found in
+@ref{The Feta font}.
 
 @lilypond[quote,verbatim,relative=2]
 c2
@@ -1196,8 +1196,9 @@ c16
 c2^\markup { \musicglyph #"timesig.neomensural94" }
 @end lilypond
 
-Another way of printing non-text glyphs is described in @ref{Fonts
-explained}.  This is useful for printing braces of various sizes.
+Another way of printing non-text glyphs is described in
+@ref{Fonts explained}.  This is useful for printing braces of various
+sizes.
 
 The markup mode also supports diagrams for specific
 instruments:
@@ -1416,8 +1417,8 @@ c4^smaller
 
 @noindent
 A similar syntax may be used in markup mode; however in this case it
-is preferable to use the simpler syntax explained in @ref{Selecting
-font and font size}:
+is preferable to use the simpler syntax explained in
+@ref{Selecting font and font size}:
 
 @lilypond[quote,verbatim]
 \markup {
