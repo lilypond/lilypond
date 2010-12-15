@@ -127,41 +127,54 @@ In virtualization terminology, your main operating system is the
 @qq{host}.
 
 @item
-Download the @file{lilybuntu.iso} disk image.
+Download the @file{lilybuntu2.iso} disk image:
 
 @example
 @uref{http://files.lilynet.net/lilybuntu2.iso}
 @end example
 
+@advanced{There is a md5sum available:
+@uref{http://files.lilynet.net/lilybuntu2.iso.md5}}
+
 @item
-Install @file{lilybuntu.iso} as the @qq{client} operating system
+Install @file{lilybuntu2.iso} as the @qq{guest} operating system
 on your virtualized system.
 
 @itemize
 
 @item
-The latest version of lilybuntu is based on Ubuntu 9.04; if you
-encounter any difficulties installing it, search for one of the
-many tutorials for installing Ubuntu 9.04 as a client operating
-system.
-
-@item
-When @file{lilybuntu.iso} boots, it automatically selects @qq{Try
-Ubuntu without any change to your computer}; instead of this, you
-must select @qq{Install Ubuntu}.
-
-@item
 If possible, use at least 700 MB of RAM (1GB would be better) for
-the virtual machine, and use a dynamically expanding virtual hard
-drive.  A complete compile of everything (code, docs, regression
-tests) can reach 10 GB.
+the virtual machine, and use @qq{dynamically expanding storage}
+for the virtual hard drive.  A complete compile of everything
+(code, docs, regression tests) can reach 10 GB.
 
 @item
-At the partitioning stage, do not be afraid to select @qq{use
-entire disk}, since this refers to your @emph{virtual disk}, not
-your machine's actual hard drive.
+When @file{lilybuntu2.iso} boots, it shows an ISOLINUX
+@code{boot:} prompt.  Type:
+
+@example
+install
+@end example
+
+@item
+At the @qq{Prepare disk space} stage, do not be afraid to select
+@qq{Erase and use the entire disk}, since this refers to your
+@emph{virtual disk}, not your machine's actual hard drive.
+
+@item
+After restarting your system, if you see the ISOLINUX @code{boot:}
+prompt again, go to
+@w{Devices@arrow{}CD/DVD Devices@arrow{}} and @emph{de-select}
+the @q{lilybuntu2.iso} option, then reboot.
 
 @end itemize
+
+@advanced{
+The latest version of lilybuntu is based on Ubuntu 10.04.1; if you
+encounter any difficulties installing it, search for one of the
+many tutorials for installing that particular version of Ubuntu as
+a client operating system.
+}
 
 @item
 Do any extra configuration for your virtualization software.
@@ -183,31 +196,40 @@ From the @code{Places} menu of Ubuntu, select
 
 @item
 Double-click on the @file{autorun.sh} file, then select @qq{Run in
-Terminal}.
+Terminal}, and enter your password when prompted.
 
 @item
 Once the script is finished, reboot your Virtual Machine to
 complete the installation.
 
+@advanced{If you do any kernel upgrades, you may need to re-run
+these VBOXADDITIONS instructions.}
+
 @end enumerate
 
 If you use other virutalization software, then follow the normal
-procedures for your virtualization software with Ubuntu 9.04 as
-the client.
+procedures for your virtualization software with Ubuntu as the
+client.
 
 @end enumerate
 
 Follow instructions for Linux when reading instructions about
 @ref{Working with source code}, or @ref{Compiling}.
 
-@quotation
-Advanced note: not all hardware is supported in all virtualization
-tools.  In particular, contributors have reported problems with
-USB devices.  If you would like to investigate further, then look
-for help for your virtualization tool using your normal OS as the
-@qq{host} and Ubuntu as the @qq{client}.
+If you are not familiar with Linux, it may be benefitial to read a
+couple of @qq{introduction to Ubuntu} webpages.  One particular
+change from Windows and MacOS X is that most software should be
+installed with your @qq{package manager}; this vastly simplifies
+the process of installing and configuring software.  Go to
+@w{System@arrow{}Administration@arrow{}Synaptic Package Manager}.
 
-@end quotation
+
+@advanced{not all hardware is supported in all virtualization
+tools.  In particular, some contributors have reported problems
+with USB devices.  If you would like to investigate further, then
+look for help for your virtualization tool using your normal OS as
+the @qq{host} and Ubuntu as the @qq{client}.
+}
 
 
 @node Mentors
