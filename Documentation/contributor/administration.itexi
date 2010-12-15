@@ -347,7 +347,7 @@ discussion.
 
 @warning{The estimated time required for "prep work", and the
 following discussion, has been added to each item.  At the moment,
-there is an estimated 30 hours of prep work and 125 hours of
+there is an estimated 30 hours of prep work and 135 hours of
 discussion.}
 
 @itemize
@@ -473,6 +473,15 @@ files, since the code repository will track that for you.
 We currently do not advertize bounties and sponsorships on the
 webpage.  How much advertising do we want, and what type?
 Should we change the "structure" / "framework" for bounties?
+
+(prep: 2 hours.  discuss: 10 hours)
+
+@item @strong{Separate branches for active development}:
+it might be good to have @emph{everybody} working on separate
+branches.  This complicates the git setup, but with sufficient
+logic in lily-git.tcl, we can probably make it transparent to
+newbies.  However, we'd need a reliable person to handle all the
+required merging and stuff.
 
 (prep: 2 hours.  discuss: 10 hours)
 
