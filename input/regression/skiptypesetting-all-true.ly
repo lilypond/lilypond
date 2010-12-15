@@ -1,7 +1,7 @@
 \version "2.13.43"
 
 \header{
-  \texinfo = "
+  texidoc = "
 A score with @code{skipTypesetting} set for the whole score
 will not segfault.
 "
