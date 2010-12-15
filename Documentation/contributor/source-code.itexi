@@ -37,6 +37,39 @@ share changes to the lilypond source code.
 @node Install and configuration of lily-git.tcl
 @unnumberedsubsec Install and configuration of @command{lily-git.tcl}
 
+@subsubheading Lilybuntu
+
+@enumerate
+@item
+@code{lily-git.tcl} has already been install for you.  Simply type
+(or copy&paste):
+
+@example
+cd
+wish lily-git.tcl
+@end example
+
+@item
+Click on the @qq{Get source} button.
+
+This will create a directory called @file{lilypond-git/} within
+your home directory, and will download the source code into that
+directory (around 55Mb).  When the process is finished, the
+@qq{Command output} window will display @qq{Done}, and the button
+label will change to say @qq{Update source}.
+
+@item
+Navigate to the @file{lilypond-git/} directory to view the source
+files.  You should now be able to modify the source files using
+your normal text editor.
+
+@end enumerate
+
+You should now progress to @ref{Compiling}.
+
+
+@subsubheading Other operating music systems
+
 @enumerate
 @item
 If you haven't already, download and install Git.
@@ -83,29 +116,17 @@ wish lily-git.tcl
 @end example
 
 @item
-Click on the @qq{Get source} button.
-
-This will create a directory called @file{lilypond-git/} within
-your home directory, and will download the source code into that
-directory (around 55Mb).  When the process is finished, the
-@qq{Command output} window will display @qq{Done}, and the button
-label will change to say @qq{Update source}.
-
-@item
-Navigate to the @file{lilypond-git/} directory to view the source
-files.  You should now be able to modify the source files using
-your normal text editor.
+Go read the lilybuntu instructions, starting from the @qq{get
+source} step.
 
 @end enumerate
 
-@quotation
-Advanced note: The @qq{Get source} button does not fetch the
-entire history of the git repository, so utilities like
-@command{gitk} will only be able to display the most recent
-additions.  As you continue to work with @command{lily-git.tcl}, the
-@qq{Update source} button will take any new additions and add it
-to whatever is currently in your repository's history.
-@end quotation
+@advanced{the @qq{Get source} button does not fetch the entire
+history of the git repository, so utilities like @command{gitk}
+will only be able to display the most recent additions.  As you
+continue to work with @command{lily-git.tcl}, the @qq{Update
+source} button will take any new additions and add it to whatever
+is currently in your repository's history.}
 
 
 @node Daily use of lily-git.tcl
@@ -140,10 +161,8 @@ body is optional.
 After entering a commit message, click @qq{OK} to finalize the
 commit.
 
-@quotation
-Advanced note: For more information regarding commits and commit
-messages, see @ref{Commits and patches}.
-@end quotation
+@advanced{for more information regarding commits and commit
+messages, see @ref{Commits and patches}.}
 
 
 @subsubheading 2b. Amend previous commit

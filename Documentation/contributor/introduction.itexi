@@ -211,25 +211,33 @@ If you use other virutalization software, then follow the normal
 procedures for your virtualization software with Ubuntu as the
 client.
 
-@end enumerate
-
-Follow instructions for Linux when reading instructions about
-@ref{Working with source code}, or @ref{Compiling}.
-
-If you are not familiar with Linux, it may be benefitial to read a
-couple of @qq{introduction to Ubuntu} webpages.  One particular
-change from Windows and MacOS X is that most software should be
-installed with your @qq{package manager}; this vastly simplifies
-the process of installing and configuring software.  Go to
-@w{System@arrow{}Administration@arrow{}Synaptic Package Manager}.
-
-
 @advanced{not all hardware is supported in all virtualization
 tools.  In particular, some contributors have reported problems
 with USB devices.  If you would like to investigate further, then
 look for help for your virtualization tool using your normal OS as
-the @qq{host} and Ubuntu as the @qq{client}.
-}
+the @qq{host} and Ubuntu as the @qq{client}.}
+
+@end enumerate
+
+If you are not familiar with Linux, it may be beneficial to read a
+couple of @qq{introduction to Ubuntu} webpages.
+
+@itemize
+@item
+One particular change from Windows and MacOS X is that most
+software should be installed with your @qq{package manager}; this
+vastly simplifies the process of installing and configuring
+software.  Go to
+@w{System@arrow{}Administration@arrow{}Synaptic Package Manager}.
+
+@item
+The rest of this manual assumes that you are using the
+command-line; go to
+@w{Applications@arrow{}Accessories@arrow{}Terminal}.
+
+@end itemize
+
+You should now progress to @ref{Using lily-git}.
 
 
 @node Mentors
