@@ -503,36 +503,37 @@ Currently, only Critical items will block a stable release.
 @itemize
 
 @item
-Priority-Critical: lilypond segfaults, or a regression occurred
-within the last two stable versions.  (i.e. when developing 2.13,
-any regression against 2.12 or 2.10 counts)
+Priority-Critical: LilyPond segfaults, a regression against a
+previous stable version or a regression against a fix developed
+for this version. This does not apply where the @qq{regression}
+occurred because a feature was removed deliberately - this is not
+a bug.
 
 @item
-Priority-High: highly embarrassing items, and any regression
-against a version earlier than two stable versions (i.e. when
-developing 2.13, any regression against 2.8 or earlier).  This
-level is also used for issues which produce no output and fail to
-give the user a clue about what's wrong.
+Priority-High: An issue which produces output which does not
+accurately reflect the input (e.g where the user would expect
+an accidental, but none is shown) or which produces aesthetically
+poor output in a situation which could be expected to crop up
+frequently in real-world music.  It should not be used where the
+problem can be avoided with a simple workaround.  It can also
+be used to flag where new code in a development version is not
+functioning as it should. This level is also used for issues
+which produce no output and fail to give the user a clue about
+what's wrong.
 
 @item
-Priority-Medium: normal priority.
+Priority-Medium: Normal priority - use this as the default.
 
 @item
-Priority-Low: less important than normal.
+Priority-Low: A minor problem which produces slightly undesirable
+output, or which will only occur in contrived examples, or which
+is very easily worked around.
 
 @item
 Priority-Postponed: no fix planned.  Generally used for things
-like Ancient notation, which nobody wants to touch.
+which nobody wants to touch.
 
 @end itemize
-
-The difference between Priority-Medium and Priority-Low is not
-well-defined, both in this policy and in practice.  The only
-answer we can give at the moment is @qq{look at existing items in
-of the same type, and try to guess whether the priority is closer
-to the Medium items or Low items}.  We're aware of the ambiguity,
-and won't complain if somebody picks a @q{wrong} value for
-Medium/Low.
 
 
 @subheading Opsys (optional)
