@@ -9,7 +9,7 @@ nor the harmonic brackets for the second note appear in the tablature.
 
 music =  \relative c' {
   s2.  <d\4\harmonic>4 ~ |
-  <d\4\harmonic>1 ~ |  % by default, tied harmonic is parenthesized
+  <d\4\harmonic>1  |
 }
 
 \new StaffGroup <<
