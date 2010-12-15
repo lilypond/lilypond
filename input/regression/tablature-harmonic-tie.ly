@@ -1,7 +1,7 @@
 \version "2.13.42"
 
 \header {
-  \texidoc = "
+  texidoc = "
 When a harmonic note is tied in tablature, neither the fret number
 nor the harmonic brackets for the second note appear in the tablature.
 "
