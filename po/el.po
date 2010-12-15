@@ -1,0 +1,3413 @@
+# Greek translation for lilypond.
+# Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2009, 2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as the lilypond package.
+# Michael Kotsarinis <mk73628@gmail.com>, 2010
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lilypond-2.13.42\n"
+"Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
+"POT-Creation-Date: 2010-12-06 22:30+0100\n"
+"PO-Revision-Date: 2010-12-13 22:22+0200\n"
+"Last-Translator: Michael Kotsarinis <mk73628@gmail.com>\n"
+"Language-Team: Greek <team@lists.gnome.gr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Plural-Forms: plurals=2; plural=(n!=1)\n"
+"X-Poedit-Language: Greek\n"
+"X-Poedit-Country: GREECE\n"
+
+#: book_base.py:24
+#, python-format
+msgid "file not found: %s"
+msgstr "δεν βρέθηκε το αρχείο: %s"
+
+#: book_base.py:161
+msgid "Output function not implemented"
+msgstr "Δεν έχει υλοποιηθεί η λειτουργία εξόδου"
+
+#: book_latex.py:156
+msgid "cannot find \\begin{document} in LaTeX document"
+msgstr "αδυναμία εύρεσης \\begin{document} σε έγγραφο LaTeX"
+
+#: book_snippets.py:517
+#, python-format
+msgid "deprecated ly-option used: %s=%s"
+msgstr "χρησιμοποιήθηκε παρωχημένη ly-option: %s=%s"
+
+#: book_snippets.py:519
+#, python-format
+msgid "compatibility mode translation: %s=%s"
+msgstr "μετάφραση σε κατάσταση συμβατότητας: %s=%s"
+
+#: book_snippets.py:522
+#, python-format
+msgid "deprecated ly-option used: %s"
+msgstr "χρησιμοποιήθηκε παρωχημένη ly-option: %s"
+
+#: book_snippets.py:524
+#, python-format
+msgid "compatibility mode translation: %s"
+msgstr "μετάφραση σε κατάσταση συμβατότητας: %s"
+
+#: book_snippets.py:542
+#, python-format
+msgid "ignoring unknown ly option: %s"
+msgstr "αγνόηση άγνωστης επιλογής ly: %s"
+
+#: book_snippets.py:728
+#, python-format
+msgid "Opening filter `%s'\n"
+msgstr "Άνοιγμα φίλτρου `%s'\n"
+
+#: book_snippets.py:748
+#, python-format
+msgid "`%s' failed (%d)"
+msgstr "`%s' απέτυχε (%d)"
+
+#: book_snippets.py:749
+msgid "The error log is as follows:"
+msgstr "Η καταγραφή σφάλματος έχει ως ακολούθως:"
+
+#: convertrules.py:12
+#, python-format
+msgid "Not smart enough to convert %s"
+msgstr "Όχι αρκετά έξυπνο για μετατροπή %s"
+
+#: convertrules.py:13
+msgid "Please refer to the manual for details, and update manually."
+msgstr "Παρακαλώ, δείτε το εγχειρίδιο για λεπτομέρειες και ενημερώστε χειροκίνητα."
+
+#: convertrules.py:14
+#, python-format
+msgid "%s has been replaced by %s"
+msgstr "%s αντικαταστάθηκε από %s"
+
+#: convertrules.py:24 lilylib.py:78 musicexp.py:17 convert-ly.py:64 warn.cc:66
+#: input.cc:109
+#, c-format, python-format
+msgid "warning: %s"
+msgstr "προειδοποίηση: %s"
+
+#: convertrules.py:49 convertrules.py:99
+msgid "\\header { key = concat + with + operator }"
+msgstr "\\header { key = concat + with + operator }"
+
+#: convertrules.py:58
+#, python-format
+msgid "deprecated %s"
+msgstr "παρωχημένο %s"
+
+#: convertrules.py:70
+msgid "deprecated \\textstyle, new \\key syntax"
+msgstr "παρωχημένο \\textstyle, νέο \\key syntax"
+
+#: convertrules.py:86 convertrules.py:1905 convertrules.py:2084
+#: convertrules.py:2236 convertrules.py:2566 convertrules.py:2862
+msgid "bump version for release"
+msgstr "επόμενος αριθμός έκδοσης για κυκλοφορία"
+
+#: convertrules.py:103
+msgid "new \\header format"
+msgstr "νέα μορφή \\header"
+
+#: convertrules.py:132
+msgid "\\translator syntax"
+msgstr "συντακτικό \\translator"
+
+#: convertrules.py:184
+msgid "\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative"
+msgstr "\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative"
+
+#: convertrules.py:216 convertrules.py:699 convertrules.py:1383
+#: convertrules.py:2378
+#, python-format
+msgid "deprecate %s"
+msgstr "%s να γίνει παρωχημένο"
+
+#: convertrules.py:290
+#, python-format
+msgid "deprecate %s "
+msgstr "%s να γίνει παρωχημένο"
+
+#: convertrules.py:319
+msgid "new \\notenames format"
+msgstr "νέο μορφή  \\notenames"
+
+#: convertrules.py:337
+msgid "new tremolo format"
+msgstr "νέα μορφή τρέμολο"
+
+#: convertrules.py:342
+msgid "Staff_margin_engraver deprecated, use Instrument_name_engraver"
+msgstr "Staff_margin_engraver παρωχημένος, χρησιμοποιήστε το Instrument_name_engraver"
+
+#: convertrules.py:395
+msgid "change property definiton case (eg. onevoice -> oneVoice)"
+msgstr "αλλαγή σε κεφαλαίο του ορισμού ιδιότητας (πχ onevoice -> oneVoice)"
+
+#: convertrules.py:457
+msgid "new \\textscript markup text"
+msgstr "νέο κείμενο επισήμανσης \\textscript"
+
+#: convertrules.py:530
+#, python-format
+msgid "identifier names: %s"
+msgstr "ονόματα ταυτοποιητή: %s"
+
+#: convertrules.py:569
+msgid "point-and-click argument changed to procedure."
+msgstr "το όρισμα κατάδειξη και κλικ άλλαξε σε διαδικασία."
+
+#: convertrules.py:611
+msgid "semicolons removed"
+msgstr "αφαιρέθηκαν τα ερωτηματικά (;)"
+
+#. 40 ?
+#: convertrules.py:654
+#, python-format
+msgid "%s property names"
+msgstr "ονόματα ιδιότητας %s"
+
+#: convertrules.py:724
+msgid "automaticMelismata turned on by default"
+msgstr "automaticMelismata ενεργοποιημένο ως προεπιλογή"
+
+#: convertrules.py:963 convertrules.py:1682 convertrules.py:1942
+#: convertrules.py:2189
+#, python-format
+msgid "remove %s"
+msgstr "αφαίρεση %s"
+
+#: convertrules.py:1001 convertrules.py:1005
+msgid "cluster syntax"
+msgstr "συντακτικό συστοιχίας"
+
+#: convertrules.py:1014
+msgid "new Pedal style syntax"
+msgstr "νέο συντακτικό για στυλ Πεντάλ"
+
+#: convertrules.py:1273
+msgid ""
+"New relative mode,\n"
+"Postfix articulations, new text markup syntax, new chord syntax."
+msgstr ""
+"Νέα σχετική κατάσταση,\n"
+"αρθρώσεις Postfix, νέο συντακτικό για επισήμανση κειμένου, νέο συντακτικό συγχορδίας."
+
+#: convertrules.py:1286
+msgid "Remove - before articulation"
+msgstr "Αφαίρεση - πριν την άρθρωση"
+
+#: convertrules.py:1324
+#, python-format
+msgid "%s misspelling"
+msgstr "%s λάθος γραφής"
+
+#: convertrules.py:1346
+msgid "Swap < > and << >>"
+msgstr "Αντικατάσταση < > και << >>"
+
+#: convertrules.py:1349
+msgid "attempting automatic \\figures conversion.  Check results!"
+msgstr "προσπάθεια αυτόματης μετατροπής \\figures. Ελέγξτε το αποτέλεσμα!"
+
+#: convertrules.py:1400
+msgid "Use Scheme code to construct arbitrary note events."
+msgstr "Χρησιμοποιήστε τον κώδικα Σχήματος για να δομήσετε αυθαίρετα γεγονότα με νότες."
+
+#: convertrules.py:1407
+msgid ""
+"use symbolic constants for alterations,\n"
+"remove \\outputproperty, move ly:verbose into ly:get-option"
+msgstr ""
+"χρησιμοποιήστε συμβολικές σταθερές για παραλλαγές,\n"
+"αφαιρέστε το \\outputproperty, μετακινήστε το ly:verbose στο ly:get-option"
+
+#: convertrules.py:1432
+#, python-format
+msgid ""
+"\\outputproperty found,\n"
+"Please hand-edit, using\n"
+"\n"
+"  \\applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)\n"
+"\n"
+"as a substitution text."
+msgstr ""
+"βρέθηκε \\outputproperty,\n"
+"Παρακαλώ διορθώστε με το χέρι, με χρήση\n"
+"\n"
+"  \\applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)\n"
+"\n"
+"ως κειμένου υποκατάστασης."
+
+#: convertrules.py:1446
+msgid ""
+"The alteration field of Scheme pitches was multiplied by 2\n"
+"to support quarter tone accidentals.  You must update the following constructs manually:\n"
+"\n"
+"* calls of ly:make-pitch and ly:pitch-alteration\n"
+"* keySignature settings made with \\property\n"
+msgstr ""
+"Το πεδίο αλλοίωσης των οξυτήτων Scheme πολλαπλασιάστηκε επί 2\n"
+"για να υποστηρίξει αλλοιώσεις τετάρτων του τόνου. Πρέπει να ενημερώσετε τις ακόλουθες δομές με το χέρι:\n"
+"\n"
+"* κλήσεις των ly:make-pitch και ly:pitch-alteration\n"
+"* ρυθμίσεις keySignature που έγιναν με \\property\n"
+
+#: convertrules.py:1493
+msgid "removal of automaticMelismata; use melismaBusyProperties instead."
+msgstr "αφαίρεση του automaticMelismata, χρησιμοποιήστε το melismaBusyProperties στη θέση του."
+
+#: convertrules.py:1600
+msgid "\\partcombine syntax change to \\newpartcombine"
+msgstr "το συντακτικό \\partcombine αλλάζει σε \\newpartcombine"
+
+#: convertrules.py:1628
+msgid ""
+"Drum notation changes, Removing \\chordmodifiers, \\notenames.\n"
+"Harmonic notes. Thread context removed. Lyrics context removed."
+msgstr ""
+"Αλλαγές σημειογραφίας τυμπάνου, Αφαίρεση  \\chordmodifiers, \\notenames.\n"
+"Αρμονικές νότες. Αφαιρέθηκε το περιεχόμενο νήματος. Αφαιρέθηκε το περιεχόμενο στίχων."
+
+#: convertrules.py:1632
+msgid "Drums found. Enclose drum notes in \\drummode"
+msgstr "Βρέθηκαν τύμπανα. Περικλείστε τις νότες των τυμπάνων σε \\drummode"
+
+#: convertrules.py:1643 convertrules.py:1650 convertrules.py:1661
+#, python-format
+msgid ""
+"\n"
+"%s found. Check file manually!\n"
+msgstr ""
+"\n"
+" βρέθηκε %s. Ελέγξτε το αρχείο με το χέρι!\n"
+
+#: convertrules.py:1643
+msgid "Drum notation"
+msgstr "Σημειογραφία τυμπάνου"
+
+#: convertrules.py:1702
+msgid "new syntax for property settings:"
+msgstr "νέο συντακτικό για ρυθμίσεις ιδιοτήτων:"
+
+#: convertrules.py:1728
+msgid "Property setting syntax in \\translator{ }"
+msgstr "Ιδιότητα που ορίζει το συντακτικό στο \\translator{ }"
+
+#: convertrules.py:1767
+msgid "Scheme grob function renaming"
+msgstr "Μετονομασία λειτουργίας grob του Scheme"
+
+#: convertrules.py:1780
+#, python-format
+msgid "use %s"
+msgstr "χρησιμοποιήστε %s"
+
+#: convertrules.py:1797
+msgid "More Scheme function renaming"
+msgstr "Περισσότερες μετονομασίες των λειτουργιών του Scheme"
+
+#: convertrules.py:1924
+msgid ""
+"Page layout has been changed, using paper size and margins.\n"
+"textheight is no longer used.\n"
+msgstr ""
+"Η διάταξη σελίδας άλλαξε, χρήση μεγέθους χαρτιού και περιθωρίων.\n"
+"Το textheight δεν χρησιμοποιείται πλέον.\n"
+
+#: convertrules.py:2010
+msgid ""
+"\\foo -> \\foomode (for chords, notes, etc.)\n"
+"fold \\new FooContext \\foomode into \\foo."
+msgstr ""
+"\\foo -> \\foomode (για συγχορδίες, νότες κλπ.)\n"
+"αναδίπλωση \\new FooContext \\foomode σε \\foo."
+
+#: convertrules.py:2048
+msgid ""
+"staff size should be changed at top-level\n"
+"with\n"
+"\n"
+"  #(set-global-staff-size <STAFF-HEIGHT-IN-POINT>)\n"
+"\n"
+msgstr ""
+"το μέγεθος του πενταγράμμου θα πρέπει να αλλαχθεί στο κορυφαίο επίπεδο\n"
+"με\n"
+"\n"
+" #(set-global-staff-size <STAFF-HEIGHT-IN-POINT>)\n"
+"\n"
+
+#: convertrules.py:2068
+msgid "regularize other identifiers"
+msgstr "κανονικοποίηση άλλων ταυτοποιητών"
+
+#: convertrules.py:2136
+msgid "\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click"
+msgstr "\\encoding: έξυπνη επανακωδικοποίηση latin1..utf-8. Αφαίρεση ly:point-and-click"
+
+#: convertrules.py:2149
+msgid "LilyPond source must be UTF-8"
+msgstr "Το πηγαίο του Lilypond πρέπει να είναι σε UTF-8"
+
+#: convertrules.py:2152
+msgid "Try the texstrings backend"
+msgstr "Χρησιμοποιήστε το backend texstrings"
+
+#: convertrules.py:2155
+#, python-format
+msgid "Do something like: %s"
+msgstr "Κάντε κάτι όπως: %s"
+
+#: convertrules.py:2158
+msgid "Or save as UTF-8 in your editor"
+msgstr "Ή αποθηκεύστε ως UTF-8 στον επεξεργαστή σας"
+
+#: convertrules.py:2212
+msgid "warn about auto beam settings"
+msgstr "προειδοποίηση για ρυθμίσεις αυτόματης γραμμής ογδόου και μικρότερων αξιών"
+
+#: convertrules.py:2217
+msgid "auto beam settings"
+msgstr "ρυθμίσεις αυτόματης γραμμής ογδόου"
+
+#: convertrules.py:2219
+msgid ""
+"\n"
+"Auto beam settings must now specify each interesting moment in a measure\n"
+"explicitly; 1/4 is no longer multiplied to cover moments 1/2 and 3/4 too.\n"
+msgstr ""
+"\n"
+"Οι ρυθμίσεις για αυτόματη γραμμή ογδόου (και μικρότερων) πρέπει τώρα να καθορίζουν κάθε ενδιαφέρουσα στιγμή σε ένα μέτρο\n"
+"επακριβώς. Tο 1/4 δεν πολλαπλασιάζεται πλέον για να καλύψει τις στιγμές 1/2 (στιγμή διαρκείας) και 3/4 (διπλή στιγμή διαρκείας) επίσης.\n"
+
+#: convertrules.py:2333
+msgid "verticalAlignmentChildCallback has been deprecated"
+msgstr "το verticalAlignmentChildCallback είναι πλέον παρωχημένο"
+
+#: convertrules.py:2337
+msgid "Remove callbacks property, deprecate XY-extent-callback."
+msgstr "Αφαίρεση της ιδιότητας callback, το XY-extent-callback είναι παρωχημένο."
+
+#: convertrules.py:2358
+msgid "Use grob closures iso. XY-offset-callbacks."
+msgstr "Χρησιμοποιήστε grob closures iso.  XY-offset-callbacks."
+
+#: convertrules.py:2420
+msgid "foobar -> foo-bar for \\paper, \\layout"
+msgstr "foobar -> foo-bar για \\paper, \\layout"
+
+#: convertrules.py:2530
+msgid "deprecate \\tempo in \\midi"
+msgstr "παρωχημένο \\tempo σε \\midi"
+
+#: convertrules.py:2583
+msgid "deprecate cautionary-style. Use AccidentalCautionary properties"
+msgstr "παρωχημένο cautionary-style. Χρησιμοποιήστε ιδιότητες AccidentalCautionary"
+
+#: convertrules.py:2596
+msgid "Rename accidental glyphs, use glyph-name-alist."
+msgstr "Μετονομασία των συμβόλων για αλλοιώσεις, χρησιμοποιήστε το glyph-name-alist."
+
+#: convertrules.py:2651
+msgid "edge-text settings for TextSpanner."
+msgstr "ρυθμίσεις edge-text για TextSpanner."
+
+#: convertrules.py:2652
+#, python-format
+msgid ""
+"Use\n"
+"\n"
+"%s"
+msgstr ""
+"Χρησιμοποιήστε\n"
+"\n"
+"%s"
+
+#: convertrules.py:2685
+msgid "Use the `alignment-offsets' sub-property of\n"
+msgstr "Χρησιμοποιήστε την υπο-ιδιότητα `alignment-offsets' του\n"
+
+#: convertrules.py:2686
+msgid "NonMusicalPaperColumn #'line-break-system-details\n"
+msgstr "NonMusicalPaperColumn #'line-break-system-details\n"
+
+#: convertrules.py:2687
+msgid "to set fixed distances between staves.\n"
+msgstr "για να ορίσετε σταθερές αποστάσεις μεταξύ των πενταγράμμων.\n"
+
+#: convertrules.py:2699
+msgid "Use #'style not #'dash-fraction to select solid/dashed lines."
+msgstr "Χρησιμοποιήστε το #'style όχι το #'dash-fraction για να επιλέξετε συνεχείς ή διακεκομμένες γραμμές."
+
+#: convertrules.py:2705
+msgid "all settings related to dashed lines.\n"
+msgstr "όλες οι ρυθμίσεις που σχετίζονται με διακεκομμένες γραμμές.\n"
+
+#: convertrules.py:2706
+msgid "Use \\override ... #'style = #'line for solid lines and\n"
+msgstr "Χρησιμοποιήστε το \\override ... #'style = #'line για συνεχείς γραμμές και\n"
+
+#: convertrules.py:2707
+msgid "\t\\override ... #'style = #'dashed-line for dashed lines."
+msgstr "\t\\override ... #'style = #'dashed-line για διακεκομμένες γραμμές."
+
+#: convertrules.py:2743
+msgid ""
+"metronomeMarkFormatter uses text markup as second argument,\n"
+"fret diagram properties moved to fret-diagram-details."
+msgstr ""
+"το metronomeMarkFormatter χρησιμοποιεί επισήμανση κειμένου ως δεύτερο όρισμα,\n"
+"οι ιδιότητες της ταμπλατούρας μετακινήθηκαν στο fret-diagram-details."
+
+#: convertrules.py:2748
+msgid "metronomeMarkFormatter got an additional text argument.\n"
+msgstr "Το metronomeMarkFormatter έλαβε ένα επιπλέον όρισμα κειμένου.\n"
+
+#: convertrules.py:2749
+#, python-format
+msgid ""
+"The function assigned to Score.metronomeMarkFunction now uses the signature\n"
+"%s"
+msgstr ""
+"Η λειτουργία που ανατέθηκε στο  Score.metronomeMarkFunction τώρα χρησιμοποιεί την υπογραφή\n"
+"%s"
+
+#: convertrules.py:2812
+msgid "\\put-adjacent argument order.\n"
+msgstr "σειρά ορισμάτων \\put-adjacent.\n"
+
+#: convertrules.py:2813
+msgid "Axis and direction now come before markups:\n"
+msgstr "Ο άξονας και η κατεύθυνση τώρα μπαίνουν πριν τις επισημάνσεις:\n"
+
+#: convertrules.py:2814
+msgid "\\put-adjacent axis dir markup markup."
+msgstr "\\put-adjacent axis dir markup markup."
+
+#: convertrules.py:2845
+msgid "re-definition of InnerStaffGroup.\n"
+msgstr "επανακαθορισμός του InnerStaffGroup.\n"
+
+#: convertrules.py:2851
+msgid "re-definition of InnerChoirStaff.\n"
+msgstr "επανακαθορισμός του InnerChoirStaff.\n"
+
+#: convertrules.py:2861
+msgid "Syntax changes for \\addChordShape and \\chord-shape"
+msgstr "Αλλαγές σύνταξης για τα \\addChordShape και \\chord-shape"
+
+#: convertrules.py:2866
+msgid "stringTuning must be added to addChordShape call.\n"
+msgstr "Πρέπει να προστίθεται το stringTuning στην κλήση addChordShape.\n"
+
+#: convertrules.py:2872
+msgid "stringTuning must be added to chord-shape call.\n"
+msgstr "Πρέπει να προστίθεται το stringTuning στην κλήση chord-shape.\n"
+
+#: convertrules.py:2879
+msgid "Remove oldaddlyrics"
+msgstr "Αφαίρεση oldaddlyrics"
+
+#: convertrules.py:2883
+msgid ""
+"oldaddlyrics is no longer supported. \n"
+"         Use addlyrics or lyrsicsto instead.\n"
+msgstr ""
+"Το oldaddlyrics δεν υποστηρίζεται πλέον. \n"
+"         Χρησιμοποιήστε το addlyrics ή το lyrsicsto στη θέση του. \n"
+
+#: convertrules.py:2889
+msgid ""
+"keySignature property not reversed any more\n"
+"MIDI 47: orchestral strings -> orchestral harp"
+msgstr ""
+"Η ιδιότητα keySignature δεν αντιστρέφεται πλέον\n"
+"MIDI 47: έγχορδα ορχήστρας -> άρπα ορχήστρας"
+
+#: convertrules.py:2894
+msgid "The alist for Staff.keySignature is no longer in reversed order.\n"
+msgstr "Η alist για το Staff.keySignature δεν είναι πλέον σε αντεστραμμένη σειρά.\n"
+
+#: convertrules.py:2900
+msgid ""
+"\\bar \".\" now produces a thick barline\n"
+"ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time\n"
+"Dash parameters for slurs and ties are now in dash-definition"
+msgstr ""
+"Το \\bar \".\" τώρα παράγει χοντρή γραμμή μέτρου\n"
+"ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time\n"
+"Οι παράμετροι παύλας για ενωτικά και δεσμούς βρίσκονται τώρα στο dash-definition"
+
+#: convertrules.py:2906
+msgid "\\bar \".\" now produces a thick barline.\n"
+msgstr "Το \\bar \".\" τώρα παράγει χοντρή γραμμή μέτρου.\n"
+
+#: convertrules.py:2912
+msgid "Dash parameters for slurs and ties are now in 'dash-details.\n"
+msgstr "Οι παράμετροι παύλας για ενωτικά και δεσμούς βρίσκονται τώρα στο 'dash-details.\n"
+
+#: convertrules.py:2917
+msgid ""
+"Autobeaming rules have changed.  override-auto-beam-setting and\n"
+"revert-auto-beam-setting have been eliminated.\n"
+"\\overrideBeamSettings has been added.\n"
+"beatGrouping has been eliminated.\n"
+"Different settings for vertical layout.\n"
+"ly:system-start-text::print -> system-start-text::print\n"
+"Beam #'thickness -> Beam #'beam-thickness\n"
+"ly:note-head::brew-ez-stencil -> note-head::brew-ez-stencil\n"
+"ly:ambitus::print -> ambitus::print\n"
+"Explicit dynamics context definition from `Piano centered dynamics'\n"
+"template replaced by new `Dynamics' context."
+msgstr ""
+"Οι κανόνες για αυτόματες οριζόντιες γραμμές έχουν αλλάξει. Τα override-auto-beam-setting και\n"
+"revert-auto-beam-setting έχουν εξαλειφθεί.\n"
+"Προστέθηκε το \\overrideBeamSettings.\n"
+"Το beatGrouping έχει εξαλειφθεί.\n"
+"Διαφορετικές ρυθμίσεις για την κάθετη διάταξη.\n"
+"ly:system-start-text::print -> system-start-text::print\n"
+"Beam #'thickness -> Beam #'beam-thickness\n"
+"ly:note-head::brew-ez-stencil -> note-head::brew-ez-stencil\n"
+"ly:ambitus::print -> ambitus::print\n"
+"Ο αυστηρός ορισμός δυναμικού περιεχομένου από το πρότυπο\n"
+"`Piano centered dynamics' αντικαταστάθηκε από νέο περιεχόμενο `Dynamics'."
+
+#: convertrules.py:2931
+msgid ""
+"override-auto-beam-setting.\n"
+"   Autobeam settings are now overriden with \\overrideBeamSettings.\n"
+msgstr ""
+"override-auto-beam-setting.\n"
+"   Οι ρυθμίσεις για αυτόματες οριζόντιες γραμμές τώρα παρακάμπτονται με το \\overrideBeamSettings.\n"
+
+#: convertrules.py:2936
+msgid ""
+"override-auto-beam-setting.\n"
+"   Autobeam settings are now reverted with \\revertBeamSettings.\n"
+msgstr ""
+"override-auto-beam-setting.\n"
+"   Οι ρυθμίσεις για αυτόματες οριζόντιες γραμμές τώρα επανέρχονται με το \\revertBeamSettings.\n"
+
+#: convertrules.py:2941
+msgid ""
+"beatGrouping. \n"
+"   beatGrouping with a specified context must now be accomplished with\n"
+"   \\overrideBeamSettings.\n"
+msgstr ""
+"beatGrouping. \n"
+"   beatGrouping με καθορισμένο περιεχόμενο πρέπει τώρα να επιτευχθεί με το\n"
+"   \\overrideBeamSettings.\n"
+
+#: convertrules.py:2947
+msgid "alignment-offsets has been changed to alignment-distances: you must now specify the distances between staves rather than the offset of staves.\n"
+msgstr "Το alignment-offsets έχει αλλάξει σε alignment-distances: πρέπει τώρα να καθορίζετε τις αποστάσεις μεταξύ των πενταγράμμων αντί για τη μετατόπισή τους.\n"
+
+#: convertrules.py:2958
+msgid ""
+"Remove obsolete engravers/translators: Note_swallow_translator,\n"
+"Rest_swallow_translator, Skip_event_swallow_translator, Swallow_engraver,\n"
+"Swallow_performer and String_number_engraver.\n"
+"New vertical spacing variables."
+msgstr ""
+"Αφαίρεση παρωχημένων χαρακτών/μεταφραστών: Note_swallow_translator,\n"
+"Rest_swallow_translator, Skip_event_swallow_translator, Swallow_engraver,\n"
+"Swallow_performer και String_number_engraver.\n"
+"Νέες μεταβλητές κάθετης απόστασης."
+
+#: convertrules.py:2982
+msgid "vertical spacing has been changed; minimum-Y-extent is obsolete.\n"
+msgstr "η κάθετη απόσταση έχει αλλάξει. Το minimum-Y-extent είναι παρωχημένο.\n"
+
+#: convertrules.py:2988
+msgid "Unify fetaNumber and fetaDynamic encodings"
+msgstr "Ενοποίηση των κωδικοποιήσεων fetaNumber και fetaDynamic"
+
+#: convertrules.py:2993
+msgid "\\RemoveEmpty*StaffContext -> \\*Staff \\RemoveEmptyStaves"
+msgstr "\\RemoveEmpty*StaffContext -> \\*Staff \\RemoveEmptyStaves"
+
+#: convertrules.py:3004
+msgid "\\cresc etc. are now postfix operators"
+msgstr "Το \\cresc κλπ είναι τώρα τελεστές εκ των υστέρων"
+
+#: convertrules.py:3010
+msgid ""
+"Eliminate beamSettings, beatLength, \\setBeatGrouping, \\overrideBeamSettings and \\revertBeamSettings.\n"
+"\"accordion.accEtcbase\" -> \"accordion.etcbass\""
+msgstr ""
+"Εξάλειψη των  beamSettings, beatLength, \\setBeatGrouping, \\overrideBeamSettings και \\revertBeamSettings.\n"
+"\"accordion.accEtcbase\" -> \"accordion.etcbass\""
+
+#: convertrules.py:3028
+msgid "\\overrideBeamSettings.  Use \\set beamExceptions or \\overrideTimeSignatureSettings.\n"
+msgstr "\\overrideBeamSettings.  Χρησιμοποιήστε το \\set beamExceptions ή το \\overrideTimeSignatureSettings.\n"
+
+#: convertrules.py:3032
+msgid "\\revertBeamSettings. Use \\set beamExceptions or \\revertTimeSignatureSettings.\n"
+msgstr "\\revertBeamSettings. Χρησιμοποιήστε το \\set beamExceptions ή το \\revertTimeSignatureSettings.\n"
+
+#: convertrules.py:3036
+msgid "beamSettings. Use baseMoment, beatStructure, and beamExceptions.\n"
+msgstr "beamSettings. Χρησιμοποιήστε τα baseMoment, beatStructure και beamExceptions.\n"
+
+#: convertrules.py:3040
+msgid "beatLength. Use baseMoment and beatStructure.\n"
+msgstr "beatLength. Χρησιμοποιήστε τα baseMoment και beatStructure.\n"
+
+#: convertrules.py:3044
+msgid "setbeatGrouping. Use baseMoment and beatStructure.\n"
+msgstr "setbeatGrouping. Χρησιμοποιήστε τα baseMoment και beatStructure.\n"
+
+#: convertrules.py:3049
+msgid ""
+"Woodwind diagrams: Move size, thickness, and graphic from argument list to properties.\n"
+"Deprecate negative dash-period for hidden lines: use #'style = #'none instead."
+msgstr ""
+"Διαγράμματα ξύλινων πνευστών: Μετακίνηση μεγέθους, πάχους και γραφικών από τη λίστα ορισμάτων στις ιδιότητες.\n"
+"Το negative dash-period είναι παρωχημένο για κρυφές γραμμές: χρησιμοποιήστε το #'style = #'none στη θέση του."
+
+#: convertrules.py:3054
+msgid "woodwind-diagrams.  Move size, thickness, and graphic to properties.  Argument should be just the key list.\n"
+msgstr ""
+"woodwind-diagrams. Μετακίνηση μεγέθους, πάχους και γραφικών στις ιδιότητες.\n"
+"Το όρισμα θα πρέπει να είναι απλώς η λίστα κλειδιών.\n"
+
+#: convertrules.py:3062
+msgid ""
+"Rename vertical spacing variables.\n"
+"Add fretboard-table argument to savePredefinedFretboard."
+msgstr ""
+"Μετονομασία των μεταβλητών κάθετης διάταξης.\n"
+"Προσθήκη ορίσματος fretboard-table στο savePredefinedFretboard."
+
+#: convertrules.py:3080
+msgid "Rename vertical spacing grob properties."
+msgstr "Μετονομασία ιδιοτήτων κάθετης διάταξης του grob."
+
+#: convertrules.py:3096
+msgid "Remove \\paper variables head-separation and foot-separation."
+msgstr "Αφαίρεση των μεταβλητών head-separation και foot-separation του \\paper."
+
+#: convertrules.py:3101
+msgid "Adjust settings for top-system-spacing instead.\n"
+msgstr "Προσαρμογή ρυθμίσεων για top-system-spacing στη θέση του.\n"
+
+#: convertrules.py:3106
+msgid "Adjust settings for last-bottom-spacing instead.\n"
+msgstr "Προσαρμογή ρυθμίσεων για last-bottom-spacing στη θέση του.\n"
+
+#: fontextract.py:25
+#, python-format
+msgid "Scanning %s"
+msgstr "Σάρωση του %s"
+
+#: fontextract.py:70
+#, python-format
+msgid "Extracted %s"
+msgstr "Εξάχθηκε το %s"
+
+#: fontextract.py:85
+#, python-format
+msgid "Writing fonts to %s"
+msgstr "Εγγραφή γραμματοσειρών σε %s"
+
+#: lilylib.py:81 musicxml.py:13 convert-ly.py:67 warn.cc:72 input.cc:115
+#: input.cc:123
+#, c-format, python-format
+msgid "error: %s"
+msgstr "σφάλμα: %s"
+
+#: lilylib.py:124 lilylib.py:175
+#, python-format
+msgid "Invoking `%s'"
+msgstr "Κλήση `%s'"
+
+#: lilylib.py:126 lilylib.py:177
+#, python-format
+msgid "Running %s..."
+msgstr "Εκτέλεση %s…"
+
+#: lilylib.py:253
+#, python-format
+msgid "Usage: %s"
+msgstr "Χρήση: %s"
+
+#: musicexp.py:216 musicexp.py:221
+msgid "Language does not support microtones contained in the piece"
+msgstr "Η γλώσσα δεν υποστηρίζει τους μικροτόνους που περιέχονται στο κομμάτι"
+
+#: musicexp.py:483
+msgid "Tuplet brackets of curved shape are not correctly implemented"
+msgstr "Οι καμπύλες γραμμές για τρίηχα, πεντάηχα κλπ δεν είναι σωστά υλοποιημένες."
+
+#: musicexp.py:669
+#, python-format
+msgid "unable to set the music %(music)s for the repeat %(repeat)s"
+msgstr "αδυναμία ορισμού της μουσικής %(music)s για την επανάληψη %(repeat)s"
+
+#: musicexp.py:678
+msgid "encountered repeat without body"
+msgstr "βρέθηκε επανάληψη χωρίς σώμα"
+
+#. no self.elements!
+#: musicexp.py:848
+#, python-format
+msgid "Grace note with no following music: %s"
+msgstr "Νότα στολίδι (πχ αποτζιατούρα) χωρίς ακόλουθη μουσική: %s"
+
+#: musicexp.py:1010
+#, python-format
+msgid "Invalid octave shift size found: %s. Using no shift."
+msgstr "Βρέθηκε μη έγκυρη μετατόπιση μεγέθους οκτάβας: %s. Χρήση χωρίς μετατόπιση."
+
+#: musicexp.py:1468
+#, python-format
+msgid "Unable to convert alteration %s to a lilypond expression"
+msgstr "Αδυναμία μετατροπής αλλοίωσης %s σε έκφραση του lilypond"
+
+#. TODO: Handle pieces without a time signature!
+#: musicxml.py:358
+msgid "Senza-misura time signatures are not yet supported!"
+msgstr "Δεν υποστηρίζονται ακόμη ελεύθερα μέτρα (senza-misura)!"
+
+#: musicxml.py:376
+msgid "Unable to interpret time signature! Falling back to 4/4."
+msgstr "Αδυναμία ερμηνείας μέτρου! Επιστροφή σε 4/4."
+
+#: musicxml.py:432
+#, python-format
+msgid "Key alteration octave given for a non-existing alteration nr. %s, available numbers: %s!"
+msgstr "Δόθηκε οκτάβα αλλοίωσης κλειδιού για μια μη υπάρχουσα αλλοίωση αρ. %s, διαθέσιμοι αριθμοί: %s!"
+
+#: musicxml.py:520
+#, python-format
+msgid "Unable to find instrument for ID=%s\n"
+msgstr "Αδυναμία εύρεσης οργάνου για ID=%s\n"
+
+#: abc2ly.py:1373 convert-ly.py:87 lilypond-book.py:122 midi2ly.py:860
+#, python-format
+msgid "%s [OPTION]... FILE"
+msgstr "%s [OPTION]... FILE"
+
+#: abc2ly.py:1374
+#, python-format
+msgid ""
+"abc2ly converts ABC music files (see\n"
+"%s) to LilyPond input.\n"
+msgstr ""
+"Το abc2ly μετατρέπει μουσικά αρχεία ABC (δες\n"
+"%s) σε είσοδο του LilyPond.\n"
+
+#: abc2ly.py:1382 convert-ly.py:94 etf2ly.py:1206 lilypond-book.py:212
+#: midi2ly.py:896 musicxml2ly.py:2683 main.cc:168
+msgid "show version number and exit"
+msgstr "εμφάνιση αριθμού έκδοσης και έξοδος"
+
+#: abc2ly.py:1386 convert-ly.py:98 etf2ly.py:1202 lilypond-book.py:140
+#: midi2ly.py:875 musicxml2ly.py:2665 main.cc:157
+msgid "show this help and exit"
+msgstr "εμφάνιση αυτής της βοήθειας και έξοδος"
+
+#: abc2ly.py:1388 etf2ly.py:1207 midi2ly.py:879
+msgid "write output to FILE"
+msgstr "εγγραφή αποτελέσματος σε FILE"
+
+#: abc2ly.py:1390
+msgid "be strict about success"
+msgstr "αυστηρότητα για επιτυχία"
+
+#: abc2ly.py:1392
+msgid "preserve ABC's notion of beams"
+msgstr "διατήρηση του τρόπου τρίηχων κλπ του ABC"
+
+#. Translators, please translate this string as
+#. "Report bugs in English via %s",
+#. or if there is a LilyPond users list or forum in your language
+#. "Report bugs in English via %s or in YOUR_LANG via URI"
+#: abc2ly.py:1395 convert-ly.py:144 etf2ly.py:1216 lilypond-book.py:234
+#: midi2ly.py:909 musicxml2ly.py:2751 main.cc:281
+#, c-format, python-format
+msgid "Report bugs via %s"
+msgstr "Αναφορά σφαλμάτων (στα Αγγλικά) μέσω %s"
+
+#: convert-ly.py:44
+msgid ""
+"Update LilyPond input to newer version.  By default, update from the\n"
+"version taken from the \\version command, to the current LilyPond version."
+msgstr ""
+"Ενημέρωση της εισαγωγής στο LilyPond σε νεότερη έκδοση. Ως προεπιλογή, ενημέρωση από την\n"
+"έκδοση που προκύπτει από την εντολή \\version, στην τρέχουσα έκδοση του LilyPond."
+
+#: convert-ly.py:46 lilypond-book.py:82
+msgid "Examples:"
+msgstr "Παραδείγματα:"
+
+#: convert-ly.py:81 etf2ly.py:1189 lilypond-book.py:116 midi2ly.py:90
+#, python-format
+msgid "Copyright (c) %s by"
+msgstr "Copyright (c) %s από"
+
+#: convert-ly.py:83 etf2ly.py:1191 lilypond-book.py:118 midi2ly.py:92
+msgid "Distributed under terms of the GNU General Public License."
+msgstr "Διανέμεται υπό τους όρους της GNU Γενικής Δημόσιας Άδειας."
+
+#: convert-ly.py:84 etf2ly.py:1192 lilypond-book.py:119 midi2ly.py:93
+msgid "It comes with NO WARRANTY."
+msgstr "Παρέχεται χωρίς ΚΑΜΜΙΑ ΕΓΓΥΗΣΗ."
+
+#: convert-ly.py:102 convert-ly.py:135
+msgid "VERSION"
+msgstr "VERSION"
+
+#: convert-ly.py:104
+msgid "start from VERSION [default: \\version found in file]"
+msgstr "έναρξη από VERSION [προεπιλογή: \\version του αρχείου]"
+
+#: convert-ly.py:107
+msgid "edit in place"
+msgstr "επιτόπου επεξεργασία"
+
+#: convert-ly.py:111
+msgid "do not add \\version command if missing"
+msgstr "μην προσθέσετε την εντολή \\version αν λείπει"
+
+#: convert-ly.py:117
+#, python-format
+msgid "force updating \\version number to %s"
+msgstr "επιβολή ενημέρωσης του αριθμού \\version σε %s"
+
+#: convert-ly.py:123
+msgid "only update \\version number if file is modified"
+msgstr "ενημέρωση του αριθμού έκδοσης \\version μόνο αν το αρχείο τροποποιηθεί"
+
+#: convert-ly.py:129
+#, python-format
+msgid "show rules [default: -f 0, -t %s]"
+msgstr "εμφάνιση κανόνων [προεπιλογή: -f 0, -t %s]"
+
+#: convert-ly.py:134
+#, python-format
+msgid "convert to VERSION [default: %s]"
+msgstr "μετατροπή σε VERSION [προεπιλογή: %s]"
+
+#: convert-ly.py:139 etf2ly.py:1210 lilypond-book.py:215 midi2ly.py:897
+#: main.cc:170
+msgid "show warranty and copyright"
+msgstr "εμφάνιση εγγύησης και πνευματικών δικαιωμάτων"
+
+#: convert-ly.py:184
+msgid "Applying conversion: "
+msgstr "Εφαρμογή μετατροπής:"
+
+#: convert-ly.py:197
+msgid "Error while converting"
+msgstr "Σφάλμα κατά τη μετατροπή"
+
+#: convert-ly.py:199
+msgid "Stopping at last successful rule"
+msgstr "Τερματισμός στον τελευταίο επιτυχή κανόνα"
+
+#: convert-ly.py:224
+#, python-format
+msgid "Processing `%s'... "
+msgstr "Επεξεργασία `%s'…"
+
+#: convert-ly.py:332
+#, python-format
+msgid "%s: Unable to open file"
+msgstr "%s: Αδυναμία ανοίγματος αρχείου"
+
+#: convert-ly.py:339
+#, python-format
+msgid "%s: Unable to determine version.  Skipping"
+msgstr "%s:  Αδυναμία προσδιορισμού έκδοσης. Παράβλεψη"
+
+#: convert-ly.py:344
+#, python-format
+msgid ""
+"%s: Invalid version string `%s' \n"
+"Valid version strings consist of three numbers, separated by dots, e.g. `2.8.12'"
+msgstr ""
+"%s: Μη έγκυρη ακολουθία έκδοσης `%s' \n"
+"Οι έγκυρες ακολουθίες έκδοσης αποτελούνται από τρεις αριθμούς, διαχωρισμένους με τελείες, π.χ. `2.8.12'"
+
+#: etf2ly.py:1195
+#, python-format
+msgid "%s [OPTION]... ETF-FILE"
+msgstr "%s [OPTION]... ETF-FILE"
+
+#: etf2ly.py:1196
+msgid ""
+"Enigma Transport Format is a format used by Coda Music Technology's\n"
+"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file.\n"
+msgstr ""
+"Η Enigma Transport Format είναι μια μορφή που χρησιμοποιείται από το πρόγραμμα\n"
+"Finale της Coda Music Technology. Το etf2ly μετατρέπει ένα υποσύνολο του ETF σε έτοιμο αρχείο LilyPond.\n"
+
+#: etf2ly.py:1208 midi2ly.py:880 musicxml2ly.py:2743 main.cc:161 main.cc:166
+msgid "FILE"
+msgstr "FILE"
+
+#: lilypond-book.py:80
+msgid "Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
+msgstr "Επεξεργασία κομματιών κώδικα του LilyPond σε υβριδικό έγγραφο HTML, LaTeX, texinfo ή DocBook."
+
+#: lilypond-book.py:87
+msgid "BOOK"
+msgstr "BOOK"
+
+#: lilypond-book.py:95
+#, python-format
+msgid "Exiting (%d)..."
+msgstr "Έξοδος (%d)…"
+
+#: lilypond-book.py:127
+msgid "FILTER"
+msgstr "FILTER"
+
+#: lilypond-book.py:130
+msgid "pipe snippets through FILTER [default: `convert-ly -n -']"
+msgstr "διοχέτευση κομματιών κώδικα μέσω του FILTER [προεπιλογή: `convert-ly -n -']"
+
+#: lilypond-book.py:134
+msgid "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
+msgstr "χρήση μορφής εξόδου FORMAT (texi [προεπιλογή], texi-html, latex, html, docbook)"
+
+#: lilypond-book.py:135
+msgid "FORMAT"
+msgstr "FORMAT"
+
+#: lilypond-book.py:142
+msgid "add DIR to include path"
+msgstr "προσθέστε DIR για να συμπεριλάβετε διαδρομή"
+
+#: lilypond-book.py:143 lilypond-book.py:150 lilypond-book.py:163
+#: lilypond-book.py:173 lilypond-book.py:189 lilypond-book.py:195 main.cc:160
+msgid "DIR"
+msgstr "DIR"
+
+#: lilypond-book.py:148
+msgid "format Texinfo output so that Info will look for images of music in DIR"
+msgstr "μορφοποίηση εξόδου Texinfo έτσι ώστε το Info θα κοιτάξει για εικόνες της μουσικής στο DIR"
+
+#: lilypond-book.py:155
+msgid "PAD"
+msgstr "PAD"
+
+#: lilypond-book.py:157
+msgid "pad left side of music to align music inspite of uneven bar numbers (in mm)"
+msgstr "γέμισμα της αριστερής πλευράς της μουσικής για ευθυγράμμιση παρά τους άνισους αριθμούς μέτρων (σε mm)"
+
+#: lilypond-book.py:162
+msgid "write lily-XXX files to DIR, link into --output dir"
+msgstr "εγγραφή αρχείων lily-XXX στο DIR, σύνδεση στον --output κατάλογο"
+
+#: lilypond-book.py:167
+msgid "Load the additional python PACKAGE (containing e.g. a custom output format)"
+msgstr "Φόρτωση του πρόσθετου πακέτου python PACKAGE (που περιέχει, π.χ. μια προσαρμοσμένη μοερφή εξόδου)"
+
+#: lilypond-book.py:168
+msgid "PACKAGE"
+msgstr "PACKAGE"
+
+#: lilypond-book.py:172
+msgid "write output to DIR"
+msgstr "εγγραφή εξόδου σε DIR"
+
+#: lilypond-book.py:177
+msgid "COMMAND"
+msgstr "COMMAND"
+
+#: lilypond-book.py:178
+msgid "process ly_files using COMMAND FILE..."
+msgstr "επεξεργασία των ly_files με χρήση COMMAND FILE..."
+
+#: lilypond-book.py:182
+msgid "Compile snippets in safe mode"
+msgstr "Μεταγλώττιση των κομματιών κώδικα σε ασφαλή κατάσταση"
+
+#: lilypond-book.py:188
+msgid "do not fail if no lilypond output is found"
+msgstr "να μην αποτύχει αν δεν βρεθεί έξοδος του lilypond"
+
+#: lilypond-book.py:194
+msgid "do not fail if no PNG images are found for EPS files"
+msgstr "να μην αποτύχει αν δεν βρεθούν εικόνες PNG για τα αρχεία EPS"
+
+#: lilypond-book.py:200
+msgid "write snippet output files with the same base name as their source file"
+msgstr "εγγραφή των αρχείων εξόδου αποσπασμάτων κώδικα με το ίδιο βασικό όνομα με το αρχείο προέλευσής τους"
+
+#: lilypond-book.py:204 midi2ly.py:890 musicxml2ly.py:2688 main.cc:169
+msgid "be verbose"
+msgstr "αναλυτικά"
+
+#: lilypond-book.py:220
+msgid ""
+"run executable PROG instead of latex, or in\n"
+"case --pdf option is set instead of pdflatex"
+msgstr ""
+"να εκτελεστεί το εκτελέσιμο PROG αντί για latex ή στην\n"
+"περίπτωση που έχει δοθεί η επιλογή --pdf αντί για pdflatex"
+
+#: lilypond-book.py:222
+msgid "PROG"
+msgstr "PROG"
+
+#: lilypond-book.py:228
+msgid "create PDF files for use with PDFTeX"
+msgstr "δημιουργία αρχείων PDF για χρήση με το PDFTeX"
+
+#: lilypond-book.py:419
+msgid "Writing snippets..."
+msgstr "Εγγραφή κομματιών κώδικα…"
+
+#: lilypond-book.py:425
+msgid "Processing..."
+msgstr "Επεξεργασία…"
+
+#: lilypond-book.py:431
+msgid "All snippets are up to date..."
+msgstr "Όλα τα κομμάτια είναι ενήμερα…"
+
+#: lilypond-book.py:452
+#, python-format
+msgid "cannot determine format for: %s"
+msgstr "αδυναμία προσδιορισμού μορφής για: %s"
+
+#: lilypond-book.py:461
+#, python-format
+msgid "%s is up to date."
+msgstr "%s είναι ενήμερο."
+
+#: lilypond-book.py:475
+#, python-format
+msgid "Writing `%s'..."
+msgstr "Εγγραφή `%s'…"
+
+#: lilypond-book.py:537
+msgid "Output would overwrite input file; use --output."
+msgstr "Η έξοδος θα διέγραφε το αρχείο εισόδου, χρησιμοποιήστε --output."
+
+#: lilypond-book.py:541
+#, python-format
+msgid "Reading %s..."
+msgstr "Ανάγνωση %s..."
+
+#: lilypond-book.py:549
+msgid "Dissecting..."
+msgstr "Ανάλυση…"
+
+#: lilypond-book.py:561
+#, python-format
+msgid "Compiling %s..."
+msgstr "Μεταγλώττιση %s…"
+
+#: lilypond-book.py:570
+#, python-format
+msgid "Processing include: %s"
+msgstr "Η επεξεργασία περιλαμβάνει: %s"
+
+#: lilypond-book.py:582
+#, python-format
+msgid "Removing `%s'"
+msgstr "Αφαίρεση `%s'"
+
+#: midi2ly.py:99
+msgid "warning: "
+msgstr "προειδοποίηση:"
+
+#: midi2ly.py:102 midi2ly.py:922
+msgid "error: "
+msgstr "σφάλμα:"
+
+#: midi2ly.py:103
+msgid "Exiting... "
+msgstr "Έξοδος…"
+
+#: midi2ly.py:848
+#, python-format
+msgid "%s output to `%s'..."
+msgstr "%s έξοδος σε `%s'…"
+
+#: midi2ly.py:861
+#, python-format
+msgid "Convert %s to LilyPond input.\n"
+msgstr "Μετατροπή %s σε είσοδο του  LilyPond.\n"
+
+#: midi2ly.py:866
+msgid "print absolute pitches"
+msgstr "εμφάνιση απόλυτων τονικών υψών"
+
+#: midi2ly.py:868 midi2ly.py:883
+msgid "DUR"
+msgstr "DUR"
+
+#: midi2ly.py:869
+msgid "quantise note durations on DUR"
+msgstr "ποσοτικοποίηση των διαρκειών των νοτών στο DUR"
+
+#: midi2ly.py:872
+msgid "print explicit durations"
+msgstr "εμφάνιση ακριβών διαρκειών"
+
+#: midi2ly.py:876
+msgid "set key: ALT=+sharps|-flats; MINOR=1"
+msgstr "ορισμός κλειδιού: ALT=+διέσεις|-υφέσεις; MINOR=1"
+
+#: midi2ly.py:877
+msgid "ALT[:MINOR]"
+msgstr "ALT[:MINOR]"
+
+#: midi2ly.py:882
+msgid "quantise note starts on DUR"
+msgstr "ποσοτικοποίηση των ενάρξεων των νοτών στο DUR"
+
+#: midi2ly.py:885
+msgid "DUR*NUM/DEN"
+msgstr "DUR*NUM/DEN"
+
+#: midi2ly.py:888
+msgid "allow tuplet durations DUR*NUM/DEN"
+msgstr "να επιτρέπονται διάρκειες τρίηχων κλπ DUR*NUM/DEN"
+
+#: midi2ly.py:900
+msgid "treat every text as a lyric"
+msgstr "κάθε κείμενο να αντιμετωπίζεται ως στίχοι"
+
+#: midi2ly.py:903
+msgid "Examples"
+msgstr "Παραδείγματα"
+
+#: midi2ly.py:923
+msgid "no files specified on command line."
+msgstr "δεν ορίσθηκαν αρχεία στη γραμμή εντολών."
+
+#: musicxml2ly.py:324
+#, python-format
+msgid "Encountered file created by %s, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"
+msgstr "Βρέθηκε αρχείο που δημιουργήθηκε από %s, που περιέχει λάθος πληροφορίες για τις οριζόντιες γραμμές. Όλες οι πληροφορίες για αυτές στο αρχείο MusicXML θα αγνοηθούν "
+
+#: musicxml2ly.py:340 musicxml2ly.py:342
+#, python-format
+msgid "Unprocessed PartGroupInfo %s encountered"
+msgstr "Προέκυψε ανεπεξέργαστο PartGroupInfo %s"
+
+#: musicxml2ly.py:595
+#, python-format
+msgid "Encountered note at %s without type and duration (=%s)"
+msgstr "Βρέθηκε νότα στο %s χωρίς τύπο και διάρκεια (=%s)"
+
+#: musicxml2ly.py:615
+#, python-format
+msgid "Encountered rational duration with denominator %s, unable to convert to lilypond duration"
+msgstr "Προέκυψε κλασματική διάρκεια με παρονομαστή %s, αδύνατη η μετατροπή σε διάρκεια του lilypond"
+
+#: musicxml2ly.py:864
+msgid "Unable to extract key signature!"
+msgstr "Μη αναμενόμενη υπογραφή κλειδιού!"
+
+#: musicxml2ly.py:891
+#, python-format
+msgid "unknown mode %s, expecting 'major' or 'minor' or a church mode!"
+msgstr "άγνωστος τρόπος %s, αναμένεται 'μείζονα' ή 'ελάσσονα' ή κάποιος εκκλησιαστικός τρόπος!"
+
+#: musicxml2ly.py:1029
+#, python-format
+msgid "Encountered unprocessed marker %s\n"
+msgstr "Προέκυψε ανεπεξέργαστος δείκτης %s\n"
+
+#: musicxml2ly.py:1123
+#, python-format
+msgid "unknown span event %s"
+msgstr "γεγονός άγνωστης έκτασης %s"
+
+#: musicxml2ly.py:1133
+#, python-format
+msgid "unknown span type %s for %s"
+msgstr "άγνωστος τύπος έκτασης %s για %s"
+
+#: musicxml2ly.py:1553
+msgid "Unknown metronome mark, ignoring"
+msgstr "Άγνωστο σημάδι μετρονόμου, αγνόηση"
+
+#. TODO: Implement the other (more complex) way for tempo marks!
+#: musicxml2ly.py:1558
+msgid "Metronome marks with complex relations (<metronome-note> in MusicXML) are not yet implemented."
+msgstr "Σημεία μετρονόμου με πολύπλοκες σχέσεις (<metronome-note> σε MusicXML) δεν έχουν υλοποιηθεί ακόμη."
+
+#: musicxml2ly.py:1760
+#, python-format
+msgid "Unable to convert chord type %s to lilypond."
+msgstr "Αδυναμία μετατροπής τύπου συγχορδίας %s σε lilypond."
+
+#: musicxml2ly.py:1909
+#, python-format
+msgid "drum %s type unknown, please add to instrument_drumtype_dict"
+msgstr "άγνωστος τύπος τυμπάνου %s, παρακαλώ προσθέστε στο instrument_drumtype_dict"
+
+#: musicxml2ly.py:1913
+msgid "cannot find suitable event"
+msgstr "αδυναμία εύρεσης κατάλληλου γεγονότος"
+
+#: musicxml2ly.py:2061
+#, python-format
+msgid "Negative skip %s (from position %s to %s)"
+msgstr "Αρνητική παράβλεψη %s (από τη θέση %s στην %s)"
+
+#: musicxml2ly.py:2202
+#, python-format
+msgid "Negative skip found: from %s to %s, difference is %s"
+msgstr "Βρέθηκε αρνητική παράβλεψη: από %s έως %s, η διαφορά είναι %s"
+
+#: musicxml2ly.py:2283
+#, python-format
+msgid "unexpected %s; expected %s or %s or %s"
+msgstr "μη αναμενόμενo %s. Αναμενόταν %s ή %s ή %s"
+
+#: musicxml2ly.py:2389
+msgid "Encountered closing slur, but no slur is open"
+msgstr "Βρέθηκε κλείσιμο σύνδεσης προσωδίας αλλά δεν υπάρχει άνοιγμα"
+
+#: musicxml2ly.py:2392
+msgid "Cannot have two simultaneous (closing) slurs"
+msgstr "Δεν μπορεί να υπάρχουν δύο τατυτόχρονες (που να κλείνουν) συνδέσεις προσωδιών"
+
+#: musicxml2ly.py:2401
+msgid "Cannot have a slur inside another slur"
+msgstr "Δεν μπορεί να υπάρχει σύνδεση προσωδίας μέσα σε άλλη σύνδεση"
+
+#: musicxml2ly.py:2404
+msgid "Cannot have two simultaneous slurs"
+msgstr "Δεν μπορεί να υπάρχουν δύο ταυτόχρονες συνδέσεις προσωδίας"
+
+#: musicxml2ly.py:2538
+#, python-format
+msgid "cannot simultaneously have more than one mode: %s"
+msgstr "δεν μπορεί να υπάρχουν πάνω από ένας τρόποι ταυτόχρονα: %s"
+
+#: musicxml2ly.py:2646
+msgid "Converting to LilyPond expressions..."
+msgstr "Μετατροπή σε εκφράσεις του LilyPond…"
+
+#: musicxml2ly.py:2657
+msgid "musicxml2ly [OPTION]... FILE.xml"
+msgstr "musicxml2ly [OPTION]... FILE.xml"
+
+#: musicxml2ly.py:2659
+msgid ""
+"Convert MusicXML from FILE.xml to LilyPond input.\n"
+"If the given filename is -, musicxml2ly reads from the command line.\n"
+msgstr ""
+"Μετατροπή MusicXML από FILE.xml σε είσοδο του LilyPond.\n"
+"Αν το δοθέν όνομα αρχείου είναι -, το musicxml2ly διαβάζει από τη γραμμή εντολών.\n"
+
+#: musicxml2ly.py:2669
+msgid ""
+"Copyright (c) 2005--2010 by\n"
+"    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
+"    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
+"    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
+msgstr ""
+"Copyright (c) 2005--2010 από\n"
+"    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
+"    Jan Nieuwenhuizen <janneke@gnu.org> και\n"
+"    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
+
+#: musicxml2ly.py:2694
+msgid "use lxml.etree; uses less memory and cpu time"
+msgstr "χρησιμοποιήστε το lxml.etree. Χρησιμοποιεί λιγότερη μνήμη και χρόνο επεξεργαστή"
+
+#: musicxml2ly.py:2700
+msgid "input file is a zip-compressed MusicXML file"
+msgstr "το αρχείο εισαγωγής είναι ένα συμπιεσμένο με zip αρχείο MusicXML"
+
+#: musicxml2ly.py:2706
+msgid "convert pitches in relative mode (default)"
+msgstr "μετατροπή τονικών υψών σε σχετικό τρόπο (προεπιλογή)"
+
+#: musicxml2ly.py:2711
+msgid "convert pitches in absolute mode"
+msgstr "μετατροπή τονικών υψών σε απόλυτο τρόπο"
+
+#: musicxml2ly.py:2714
+msgid "LANG"
+msgstr "LANG"
+
+#: musicxml2ly.py:2716
+msgid "use LANG for pitch names, e.g. 'deutsch' for note names in German"
+msgstr "χρήση του LANG για τα ονόματα των νοτών, π.χ. 'deutsch' για ονόματα στα Γερμανικά"
+
+#: musicxml2ly.py:2722
+msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
+msgstr "να μη μετατρέπονται οι οδηγίες (^, _ ή -) για άρθρωση, δυναμική κλπ."
+
+#: musicxml2ly.py:2728
+msgid "do not convert exact vertical positions of rests"
+msgstr "να μη γίνει μετατροπή των απόλυτων κάθετων θέσεων των παύσεων"
+
+#: musicxml2ly.py:2734
+msgid "do not convert the exact page layout and breaks"
+msgstr "να μη γίνει μετατροπή της ακριβούς διάταξης σελίδας και αλλαγών γραμμής"
+
+#: musicxml2ly.py:2740
+msgid "do not convert beaming information, use lilypond's automatic beaming instead"
+msgstr "να μη μετατραπούν οι πληροφορίες για οριζόντιες γραμμές, χρήση της αυτόματης διαδικασίας του lilypond"
+
+#: musicxml2ly.py:2748
+msgid "set output filename to FILE, stdout if -"
+msgstr "ορισμός αρχείου εξόδου σε FILE, stdout if -"
+
+#: musicxml2ly.py:2831
+#, python-format
+msgid "unknown part in part-list: %s"
+msgstr "άγνωστο μέρος στην part-list: %s"
+
+#: musicxml2ly.py:2893
+msgid "Input is compressed, extracting raw MusicXML data from stdin"
+msgstr "Το αρχείο εισαγωγής είναι συμπιεσμένο, εξαγωγή ακατέργαστων δεδομένων MusicXML από το stdin"
+
+#: musicxml2ly.py:2896
+#, python-format
+msgid "Input file %s is compressed, extracting raw MusicXML data"
+msgstr "Το αρχείο εισαγωγής %s είναι συμπιεσμένο, εξαγωγή ακατέργαστων δεδομένων MusicXML"
+
+#: musicxml2ly.py:2926
+msgid "Reading MusicXML from Standard input ..."
+msgstr "Ανάγνωση MusicXML από την Προκαθορισμένη είσοδο …"
+
+#: musicxml2ly.py:2928
+#, python-format
+msgid "Reading MusicXML from %s ..."
+msgstr "Ανάγνωση MusicXML από %s …"
+
+#: musicxml2ly.py:2961
+#, python-format
+msgid "Output to `%s'"
+msgstr "Έξοδος σε `%s'"
+
+#: musicxml2ly.py:3028
+#, python-format
+msgid "Unable to find input file %s"
+msgstr "Αδυναμία εύρεσης αρχείου εισόδου %s"
+
+#: website_post.py:115
+msgid "English"
+msgstr "Αγγλικά"
+
+#: website_post.py:118
+msgid "Other languages"
+msgstr "Άλλες γλώσσες"
+
+#: getopt-long.cc:153
+#, c-format
+msgid "option `%s' requires an argument"
+msgstr "η επιλογή `%s' απαιτεί ένα όρισμα"
+
+#: getopt-long.cc:157
+#, c-format
+msgid "option `%s' does not allow an argument"
+msgstr "η επιλογή `%s' δεν επιτρέπει όρισμα"
+
+#: getopt-long.cc:161
+#, c-format
+msgid "unrecognized option: `%s'"
+msgstr "μη αναγνωρίσιμη επιλογή: `%s'"
+
+#: getopt-long.cc:167
+#, c-format
+msgid "invalid argument `%s' to option `%s'"
+msgstr "μη έγκυρο όρισμα `%s' στην επιλογή `%s'"
+
+#: warn.cc:59
+#, c-format
+msgid "success: %s"
+msgstr "επιτυχία: %s"
+
+#: warn.cc:86 grob.cc:617 input.cc:97
+#, c-format
+msgid "programming error: %s"
+msgstr "σφάλμα προγράμματος: %s"
+
+#: warn.cc:87 input.cc:98
+msgid "continuing, cross fingers"
+msgstr "συνέχεια, σταυρώστε τα δάχτυλά σας"
+
+#: accidental-engraver.cc:180
+#, c-format
+msgid "accidental typesetting list must begin with context-name: %s"
+msgstr "η λίστα καθορισμού τύπου των σημείων αλλοιώσεως πρέπει να ξεκινά με context-name: %s"
+
+#: accidental-engraver.cc:210
+#, c-format
+msgid "procedure or context-name expected for accidental rule, found %s"
+msgstr "αναμενόταν διαδικασία ή context-name για τον κανόνα σημείου αλλοιώσεως, βρέθηκε %s"
+
+#: accidental.cc:200
+#, c-format
+msgid "Could not find glyph-name for alteration %s"
+msgstr "Αδυναμία εύρεσης ονόματος συμβόλου για αλλοίωση %s"
+
+#: accidental.cc:215
+msgid "natural alteration glyph not found"
+msgstr "δεν βρέθηκε σύμβολο φυσικής αλλοίωσης"
+
+#: all-font-metrics.cc:156
+#, c-format
+msgid "cannot find font: `%s'"
+msgstr "αδυναμία εύρεσης γραμματοσειράς: `%s'"
+
+#: apply-context-iterator.cc:42
+msgid "\\applycontext argument is not a procedure"
+msgstr "το όρισμα \\applycontext δεν είναι διεργασία"
+
+#: auto-change-iterator.cc:74 change-iterator.cc:72
+#, c-format
+msgid "cannot change, already in translator: %s"
+msgstr "αδυναμία αλλαγής, ήδη στο μεταφραστή: %s"
+
+#: axis-group-engraver.cc:94
+msgid "Axis_group_engraver: vertical group already has a parent"
+msgstr "Axis_group_engraver: η κάθετη ομάδα έχει ήδη γονικό"
+
+#: axis-group-engraver.cc:95
+msgid "are there two Axis_group_engravers?"
+msgstr "υπάρχουν δύο Axis_group_engravers;"
+
+#: axis-group-engraver.cc:96
+msgid "removing this vertical group"
+msgstr "αφαίρεση αυτής της κάθετης ομάδας"
+
+#: axis-group-interface.cc:611
+msgid "an outside-staff object should have a direction, defaulting to up"
+msgstr "ένα εκτός πενταγράμμου αντικείμενο θα πρέπει να έχει μια κατεύθυνση, προεπιλογή επάνω"
+
+#: bar-check-iterator.cc:84
+#, c-format
+msgid "barcheck failed at: %s"
+msgstr "έλεγχος διαστολών απέτυχε σε: %s"
+
+#: beam-engraver.cc:147
+msgid "already have a beam"
+msgstr "ήδη έχει οριζόντια γραμμή"
+
+#: beam-engraver.cc:230
+msgid "unterminated beam"
+msgstr "μη τερματισμένη γραμμή"
+
+#: beam-engraver.cc:266 chord-tremolo-engraver.cc:150
+msgid "stem must have Rhythmic structure"
+msgstr "το στέλεχος πρέπει να έχει δομή Rhythmic"
+
+#: beam-engraver.cc:274
+msgid "stem does not fit in beam"
+msgstr "το στέλεχος δεν χωράει στην οριζόντια γραμμή"
+
+#: beam-engraver.cc:275
+msgid "beam was started here"
+msgstr "η οριζόντια γραμμή ξεκίνησε εδώ"
+
+#: beam-quanting.cc:314
+msgid "no feasible beam position"
+msgstr "ανέφικτη θέση οριζόντιας γραμμής"
+
+#: beam.cc:171
+msgid "removing beam with no stems"
+msgstr "αφαίρεση οριζόντιας γραμμής χωρίς στελέχη"
+
+#: beam.cc:1116
+msgid "no viable initial configuration found: may not find good beam slope"
+msgstr "βρέθηκε ανέφικτη αρχική διαμόρφωση: μπορεί να μη βρεθεί καλή κλίση για την οριζόντια γραμμή"
+
+#: break-alignment-interface.cc:206
+#, c-format
+msgid "No spacing entry from %s to `%s'"
+msgstr "Δεν υπάρχει καταχώρηση απόστασης από %s σε `%s'"
+
+#: change-iterator.cc:34
+#, c-format
+msgid "cannot change `%s' to `%s'"
+msgstr "αδυναμία αλλαγής `%s' σε `%s'"
+
+#. FIXME: constant error message.
+#: change-iterator.cc:93
+msgid "cannot find context to switch to"
+msgstr "αδυναμία εύρεσης περιεχομένου για εναλλαγή"
+
+#. We could change the current translator's id, but that would make
+#. errors hard to catch.
+#.
+#. last->translator_id_string () = get_change
+#. ()->change_to_id_string ();
+#: change-iterator.cc:102
+#, c-format
+msgid "not changing to same context type: %s"
+msgstr "δεν αλλάζει στον ίδιο τύπο περιεχομένου: %s"
+
+#. FIXME: uncomprehensable message
+#: change-iterator.cc:106
+msgid "none of these in my family"
+msgstr "κανένα από αυτά στην οικογένειά μου"
+
+#: chord-tremolo-engraver.cc:88
+msgid "No tremolo to end"
+msgstr "Δεν υπάρχει τρέμολο για να τερματιστεί"
+
+#: chord-tremolo-engraver.cc:109
+msgid "unterminated chord tremolo"
+msgstr "μη τερματισμένο τρέμολο συγχορδίας"
+
+#: clef.cc:65
+#, c-format
+msgid "clef `%s' not found"
+msgstr "το κλειδί `%s' δεν βρέθηκε"
+
+#: cluster.cc:120
+#, c-format
+msgid "unknown cluster style `%s'"
+msgstr "άγνωστο στυλ συγχορδίας `%s'"
+
+#: cluster.cc:157
+msgid "junking empty cluster"
+msgstr "απόρριψη άδειας συγχορδίας"
+
+#: coherent-ligature-engraver.cc:111
+#, c-format
+msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
+msgstr "Coherent_ligature_engraver: καθορισμός `spacing-increment=0.01': ptr=%ul"
+
+#. if we get to here, just put everything on one line
+#: constrained-breaking.cc:189 constrained-breaking.cc:207
+msgid "cannot find line breaking that satisfies constraints"
+msgstr "αδυναμία εύρεσης αλλαγής γραμμής που να ικανοποιεί τους περιορισμούς"
+
+#: context-property.cc:42
+msgid "need symbol arguments for \\override and \\revert"
+msgstr "χρειάζονται ορίσματα συμβόλων για \\override και \\revert"
+
+#: context.cc:149
+#, c-format
+msgid "cannot find or create new `%s'"
+msgstr "αδυναμία εύρεσης ή δημιουργίας νέου `%s'"
+
+#: context.cc:207
+#, c-format
+msgid "cannot find or create `%s' called `%s'"
+msgstr "αδυναμία εύρεσης ή δημιουργίας `%s' με όνομα `%s'"
+
+#: context.cc:269
+#, c-format
+msgid "Invalid CreateContext event: Cannot create %s context"
+msgstr "Άκυρο γεγονός CreateContext: Αδυναμία δημιουργίας περιεχομένου %s"
+
+#: context.cc:400
+#, c-format
+msgid "cannot find or create: `%s'"
+msgstr "αδυναμία εύρεσης ή δημιουργίας `%s'"
+
+#: custos.cc:88
+#, c-format
+msgid "custos `%s' not found"
+msgstr "δεν βρέθηκε το custos `%s'"
+
+#: dispatcher.cc:82
+msgid "Event class should be a symbol"
+msgstr "Η κλάση του γεγονότος θα έπρεπε να είναι σύμβολο"
+
+#: dispatcher.cc:89
+#, c-format
+msgid "Unknown event class %s"
+msgstr "Άγνωστη κλάση γεγονότος %s"
+
+#: dots.cc:48
+#, c-format
+msgid "dot `%s' not found"
+msgstr "τελεία `%s' δεν βρέθηκε"
+
+#: dynamic-engraver.cc:197
+msgid "cannot find start of (de)crescendo"
+msgstr "αδυναμία εύρεσης αρχής του (ντε)κρεσέντο"
+
+#: dynamic-engraver.cc:206
+msgid "already have a decrescendo"
+msgstr "υπάρχει ήδη ντεκρεσέντο"
+
+#: dynamic-engraver.cc:208
+msgid "already have a crescendo"
+msgstr "υπάρχει ήδη κρεσέντο"
+
+#: dynamic-engraver.cc:211
+msgid "cresc starts here"
+msgstr "το κρεσέντο αρχίζει εδώ"
+
+#: dynamic-engraver.cc:339
+msgid "unterminated (de)crescendo"
+msgstr "μη τερματισμένο (ντε)κρεσέντο"
+
+#: episema-engraver.cc:75
+msgid "already have an episema"
+msgstr "ήδη έχει επίσημα"
+
+#: episema-engraver.cc:88
+msgid "cannot find start of episema"
+msgstr "αδυναμία εύρεσης αρχής επισήματος"
+
+#: episema-engraver.cc:137
+msgid "unterminated episema"
+msgstr "μη τερματισμένη επίσημα"
+
+#: extender-engraver.cc:170 extender-engraver.cc:179
+msgid "unterminated extender"
+msgstr "μη τερματισμένη επέκταση"
+
+#: font-config-scheme.cc:152 font-config.cc:55
+#, c-format
+msgid "failed adding font directory: %s"
+msgstr "αποτυχία προσθήκης καταλόγου γραμματοσειράς: %s"
+
+#: font-config-scheme.cc:154 font-config.cc:57
+#, c-format
+msgid "adding font directory: %s"
+msgstr "προσθήκη καταλόγου γραμματοσειράς: %s"
+
+#: font-config-scheme.cc:168
+#, c-format
+msgid "failed adding font file: %s"
+msgstr "αποτυχία προσθήκης αρχείου γραμματοσειράς: %s"
+
+#: font-config-scheme.cc:170
+#, c-format
+msgid "adding font file: %s"
+msgstr "προσθήκη αρχείου γραμματοσειράς: %s"
+
+#: font-config.cc:40
+msgid "Initializing FontConfig..."
+msgstr "Αρχικοποίηση FontConfig…"
+
+#: font-config.cc:61
+msgid "Building font database..."
+msgstr "Κατασκευή βάσης δεδομένων γραμματοσειρών…"
+
+#: general-scheme.cc:305
+msgid "infinity or NaN encountered while converting Real number"
+msgstr "βρέθηκε άπειρο ή αοριστία κατά τη μετατροπή πραγματικού αριθμού"
+
+#: general-scheme.cc:306
+msgid "setting to zero"
+msgstr "ορισμός σε μηδέν"
+
+#: general-scheme.cc:542 output-ps.scm:48
+msgid "Found infinity or nan in output. Substituting 0.0"
+msgstr "Βρέθηκε άπειρο ή αοριστία στο αποτέλεσμα. Αντικατάσταση από 0.0"
+
+#: glissando-engraver.cc:105
+msgid "unterminated glissando"
+msgstr "μη τερματισμένο γκλισάντο"
+
+#: global-context-scheme.cc:96 global-context-scheme.cc:114
+msgid "no music found in score"
+msgstr "δεν βρέθηκε μουσική στην παρτιτούρα"
+
+#: global-context-scheme.cc:104
+msgid "Interpreting music... "
+msgstr "Ερμηνεία μουσικής…"
+
+#: global-context-scheme.cc:127
+#, c-format
+msgid "elapsed time: %.2f seconds"
+msgstr "χρόνος που πέρασε: %.2f δευτερόλεπτα"
+
+#: gregorian-ligature-engraver.cc:70
+#, c-format
+msgid "\\%s ignored"
+msgstr "\\%s αγνοήθηκε"
+
+#: gregorian-ligature-engraver.cc:75
+#, c-format
+msgid "implied \\%s added"
+msgstr "υπονοούμενο \\%s προστέθηκε"
+
+#. ligature may not start with 2nd head of pes or flexa
+#: gregorian-ligature-engraver.cc:224
+msgid "cannot apply `\\~' on first head of ligature"
+msgstr "αδυναμία εφαρμογής `\\~' στην πρώτη κεφαλή της λιγκατούρας"
+
+#. (pitch == prev_pitch)
+#: gregorian-ligature-engraver.cc:236
+msgid "cannot apply `\\~' on heads with identical pitch"
+msgstr "αδυναμία εφαρμογής `\\~' σε κεφαλές με ταυτόσημο τονικό ύψος"
+
+#: grob-interface.cc:68
+#, c-format
+msgid "Unknown interface `%s'"
+msgstr "Άγνωστη διεπαφή `%s'"
+
+#: grob-interface.cc:79
+#, c-format
+msgid "Grob `%s' has no interface for property `%s'"
+msgstr "Το Grob `%s' δεν έχει διεπαφή για την ιδιότητα `%s'"
+
+#: grob-property.cc:34
+#, c-format
+msgid "%d: %s"
+msgstr "%d: %s"
+
+#: grob-property.cc:173
+#, c-format
+msgid "cyclic dependency: calculation-in-progress encountered for #'%s (%s)"
+msgstr "κυκλική εξάρτηση: υπολογισμός σε εξέλιξη βρέθηκε για #'%s (%s)"
+
+#: grob.cc:286
+msgid "Infinity or NaN encountered"
+msgstr "Βρέθηκε άπειρο ή αοριστία"
+
+#: hairpin.cc:186
+msgid "decrescendo too small"
+msgstr "πολύ μικρό ντεκρεσέντο"
+
+#: horizontal-bracket-engraver.cc:78
+msgid "do not have that many brackets"
+msgstr "μην βάζετε τόσες πολλές αγκύλες"
+
+#: horizontal-bracket-engraver.cc:87
+msgid "conflicting note group events"
+msgstr "συγκρουόμενα γεγονότα ομάδων νοτών"
+
+#: hyphen-engraver.cc:104
+msgid "removing unterminated hyphen"
+msgstr "αφαίρεση μη τερματισμένης ένωσης"
+
+#: hyphen-engraver.cc:118
+msgid "unterminated hyphen; removing"
+msgstr "μη τερματισμένη ένωση, αφαίρεση"
+
+#: includable-lexer.cc:71 lily-guile.cc:87 lily-parser-scheme.cc:109
+#, c-format
+msgid "cannot find file: `%s'"
+msgstr "αδυναμία εύρεσης αρχείου: `%s'"
+
+#: includable-lexer.cc:73 lily-parser-scheme.cc:100
+#, c-format
+msgid "(search path: `%s')"
+msgstr "(διαδρομή αναζήτησης: `%s')"
+
+#: input.cc:131 source-file.cc:179 source-file.cc:194
+msgid "position unknown"
+msgstr "άγνωστη θέση"
+
+#: key-signature-interface.cc:78
+#, c-format
+msgid "No glyph found for alteration: %s"
+msgstr "Δεν βρέθηκε σύμβολο για την αλλοίωση: %s"
+
+#: key-signature-interface.cc:88
+msgid "alteration not found"
+msgstr "δεν βρέθηκε αλλοίωση"
+
+#: ligature-bracket-engraver.cc:73 ligature-engraver.cc:104
+msgid "cannot find start of ligature"
+msgstr "αδυναμία εύρεσης αρχής λιγκατούρας"
+
+#: ligature-bracket-engraver.cc:86 ligature-engraver.cc:131
+msgid "already have a ligature"
+msgstr "υπάρχει ήδη λιγκατούρα"
+
+#: ligature-engraver.cc:109
+msgid "no right bound"
+msgstr "δεν υπάρχει δεξί όριο"
+
+#: ligature-engraver.cc:140
+msgid "no left bound"
+msgstr "δεν υπάρχει αριστερό όριο"
+
+#: ligature-engraver.cc:185
+msgid "unterminated ligature"
+msgstr "μη τερματισμένη λιγκατούρα"
+
+#: ligature-engraver.cc:214
+msgid "ignoring rest: ligature may not contain rest"
+msgstr "αγνόηση παύσης: η λιγκατούρα δεν μπορεί να περιέχει παύση"
+
+#: ligature-engraver.cc:215
+msgid "ligature was started here"
+msgstr "η λιγκατούρα ξεκίνησε εδώ"
+
+#: lily-guile.cc:89
+#, c-format
+msgid "(load path: `%s')"
+msgstr "(διαδρομή φόρτωσης: `%s')"
+
+#: lily-guile.cc:439
+#, c-format
+msgid "cannot find property type-check for `%s' (%s)."
+msgstr "αδυναμία εύρεσης τύπου ιδιότητας - έλεγχος για `%s' (%s)."
+
+#: lily-guile.cc:442
+msgid "perhaps a typing error?"
+msgstr "ίσως τυπογραφικό σφάλμα;"
+
+#: lily-guile.cc:449
+msgid "doing assignment anyway"
+msgstr "εκτέλεση εργασίας έτσι κι αλλιώς"
+
+#: lily-guile.cc:461
+#, c-format
+msgid "type check for `%s' failed; value `%s' must be of type `%s'"
+msgstr "έλεγχος τύπου για `%s' απέτυχε. Η τιμή `%s' πρέπει να είναι τύπου `%s' "
+
+#: lily-lexer.cc:264
+msgid "include files are not allowed in safe mode"
+msgstr "δεν επιτρέπεται να συμπεριλαμβάνονται αρχεία σε κατάσταση ασφαλούς λειτουργίας"
+
+#: lily-lexer.cc:291
+#, c-format
+msgid "identifier name is a keyword: `%s'"
+msgstr "το όνομα ταυτοποιητή είναι μια λέξη κλειδί: `%s'"
+
+#: lily-lexer.cc:312
+#, c-format
+msgid "error at EOF: %s"
+msgstr "σφάλμα στο EOF: %s"
+
+#: lily-parser-scheme.cc:82
+#, c-format
+msgid "Changing working directory to: `%s'"
+msgstr "Αλλαγή καταλόγου εργασίας σε: `%s'"
+
+#: lily-parser-scheme.cc:99
+#, c-format
+msgid "cannot find init file: `%s'"
+msgstr "αδυναμία εύρεσης αρχείου init: `%s'"
+
+#: lily-parser-scheme.cc:118
+#, c-format
+msgid "Processing `%s'"
+msgstr "Επεξεργασία `%s'"
+
+#: lily-parser-scheme.cc:204
+msgid "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-include-string instead."
+msgstr "το ly:parser-parse-string είναι έγκυρο μόνο με νέο αναλυτή. Χρησιμοποιήστε το ly:parser-include-string στη θέση του."
+
+#: lily-parser.cc:106
+msgid "Parsing..."
+msgstr "Ανάλυση…"
+
+#: lily-parser.cc:134
+msgid "braces do not match"
+msgstr "οι αγκύλες δεν ταιριάζουν"
+
+#: lyric-combine-music-iterator.cc:337
+#, c-format
+msgid "cannot find Voice `%s'"
+msgstr "αδυναμία εύρεσης Φωνής `%s'"
+
+#: lyric-engraver.cc:175
+msgid "Lyric syllable does not have note. Use \\lyricsto or associatedVoice."
+msgstr "Η συλλαβή στίχου δεν έχει νότα. Χρησιμοποιήστε το \\lyricsto ή το associatedVoice."
+
+#: main.cc:109
+#, c-format
+msgid ""
+"This program is free software.  It is covered by the GNU General Public\n"
+"License and you are welcome to change it and/or distribute copies of it\n"
+"under certain conditions.  Invoke as `%s --warranty' for more\n"
+"information.\n"
+msgstr ""
+"Αυτό το πρόγραμμα είναι ελεύθερο λογισμικό. Καλύπτεται από την GNU General Public\n"
+"License και είστε ευπρόσδεκτος να το αλλάξετε και/ή να διανείμετε αντίγραφά του\n"
+"υπό ορισμένες προϋποθέσεις. Καλέστε ως `%s --warranty' για\n"
+" περισσότερες πληροφορίες.\n"
+
+#: main.cc:115
+msgid ""
+"    This program is free software; you can redistribute it and/or\n"
+"modify it under the terms of the GNU General Public License version 2\n"
+"as published by the Free Software Foundation.\n"
+"\n"
+"    This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License for more details.\n"
+"\n"
+"    You should have received a copy of the\n"
+"GNU General Public License along with this program; if not, write to\n"
+"the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
+"Boston, MA 02111-1307, USA.\n"
+msgstr ""
+"    Αυτό το πρόγραμμα είναι ελεύθερο λογισμικό. Μπορείτε να το αναδιανείμετε και/ή\n"
+"να το τροποποιήσετε υπό τους όρους της GNU General Public License έκδοση 2\n"
+"όπως δημοσιεύεται από το Free Software Foundation.\n"
+"\n"
+"    Αυτό το πρόγραμμα διανέμεται με την ελπίδα ότι θα είναι χρήσιμο,\n"
+"αλλά ΧΩΡΙΣ ΚΑΜΜΙΑ ΕΓΓΥΗΣΗ, χωρίς ούτε καν υπονοούμενη εγγύηση\n"
+"ΕΜΠΟΡΕΥΣΙΜΟΤΗΤΑΣ ή ΚΑΤΑΛΛΗΛΟΤΗΤΑΣ ΓΙΑ ΣΥΓΚΕΚΡΙΜΕΝΟ ΣΚΟΠΟ. Δείτε την GNU\n"
+"General Public License for more details.\n"
+"\n"
+"    Θα πρέπει να έχετε λάβει ένα αντίγραφο της\n"
+"GNU General Public License μαζί με αυτό το πρόγραμμα. Αν όχι γράψτε στο Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
+"Boston, MA 02111-1307, USA.\n"
+
+#: main.cc:146
+msgid "SYM[=VAL]"
+msgstr "SYM[=VAL]"
+
+#: main.cc:147
+msgid ""
+"set Scheme option SYM to VAL (default: #t).\n"
+"Use -dhelp for help."
+msgstr ""
+"ορισμός της επιλογής Σχήματος SYM σε VAL (default: #t).\n"
+"Χρησιμοποιήστε το -dhelp για βοήθεια."
+
+#: main.cc:150
+msgid "EXPR"
+msgstr "EXPR"
+
+#: main.cc:150
+msgid "evaluate scheme code"
+msgstr "αξιολόγηση κώδικα σχήματος"
+
+#. Bug in option parser: --output =foe is taken as an abbreviation
+#. for --output-format.
+#: main.cc:153
+msgid "FORMATs"
+msgstr "FORMATs"
+
+#: main.cc:153
+msgid "dump FORMAT,...  Also as separate options:"
+msgstr "απόρριψη FORMAT,... Επίσης ως ξεχωριστές επιλογές:"
+
+#: main.cc:154
+msgid "generate PDF (default)"
+msgstr "δημιουργία PDF (προεπιλογή)"
+
+#: main.cc:155
+msgid "generate PNG"
+msgstr "δημιουργία PNG"
+
+#: main.cc:156
+msgid "generate PostScript"
+msgstr "δημιουργία PostScript"
+
+#: main.cc:158
+msgid "FIELD"
+msgstr "FIELD"
+
+#: main.cc:158
+msgid ""
+"dump header field FIELD to file\n"
+"named BASENAME.FIELD"
+msgstr ""
+"απόθεση του πεδίου κεφαλίδας FIELD στο αρχείο\n"
+"με όνομα BASENAME.FIELD"
+
+#: main.cc:160
+msgid "add DIR to search path"
+msgstr "προσθήκη DIR στη διαδρομή αναζήτησης"
+
+#: main.cc:161
+msgid "use FILE as init file"
+msgstr "χρήση FILE ως αρχείου αρχικοποίησης"
+
+#: main.cc:163
+msgid "USER, GROUP, JAIL, DIR"
+msgstr "USER, GROUP, JAIL, DIR"
+
+#: main.cc:163
+msgid ""
+"chroot to JAIL, become USER:GROUP\n"
+"and cd into DIR"
+msgstr ""
+"chroot σε JAIL, γίνετε USER:GROUP\n"
+"και cd στο DIR"
+
+#: main.cc:166
+msgid "write output to FILE (suffix will be added)"
+msgstr "εγγραφή εξόδου στο FILE (η επέκταση θα προστεθεί)"
+
+#: main.cc:167
+msgid "relocate using directory of lilypond program"
+msgstr "επανατοποθέτηση με χρήση του καταλόγου του προγράμματος lilypond"
+
+#. Do not update the copyright years here, run `make grand-replace'
+#: main.cc:238
+#, c-format
+msgid ""
+"Copyright (c) %s by\n"
+"%s  and others."
+msgstr ""
+"Copyright (c) %s από\n"
+"%s  και άλλους."
+
+#. No version number or newline here.  It confuses help2man.
+#: main.cc:265
+#, c-format
+msgid "Usage: %s [OPTION]... FILE..."
+msgstr "Χρήση: %s [OPTION]... FILE..."
+
+#: main.cc:267
+msgid "Typeset music and/or produce MIDI from FILE."
+msgstr "Στοιχειοθέτηση μουσικής και/ή παραγωγή MIDI από FILE."
+
+#: main.cc:269
+msgid "LilyPond produces beautiful music notation."
+msgstr "Το LilyPond παράγει όμορφη μουσική σημειογραφία."
+
+#: main.cc:271
+#, c-format
+msgid "For more information, see %s"
+msgstr "Για περισσότερες πληροφορίες, δείτε %s"
+
+#: main.cc:273
+msgid "Options:"
+msgstr "Επιλογές:"
+
+#: main.cc:327
+#, c-format
+msgid "expected %d arguments with jail, found: %u"
+msgstr "αναμένονταν %d ορίσματα με το jail, βρέθηκαν: %u"
+
+#: main.cc:341
+#, c-format
+msgid "no such user: %s"
+msgstr "δεν υπάρχει τέτοιος χρήστης: %s"
+
+#: main.cc:343
+#, c-format
+msgid "cannot get user id from user name: %s: %s"
+msgstr "αδυναμία λήψης id χρήστη από το όνομα χρήστη: %s: %s"
+
+#: main.cc:358
+#, c-format
+msgid "no such group: %s"
+msgstr "δεν υπάρχει τέτοια ομάδα: %s"
+
+#: main.cc:360
+#, c-format
+msgid "cannot get group id from group name: %s: %s"
+msgstr "αδυναμία λήψης id ομάδας από το όνομα ομάδας: %s: %s"
+
+#: main.cc:368
+#, c-format
+msgid "cannot chroot to: %s: %s"
+msgstr "αδυναμία chroot σε: %s: %s"
+
+#: main.cc:375
+#, c-format
+msgid "cannot change group id to: %d: %s"
+msgstr "αδυναμία αλλαγής id ομάδας σε: %d: %s"
+
+#: main.cc:381
+#, c-format
+msgid "cannot change user id to: %d: %s"
+msgstr "αδυναμία αλλαγής id χρήστη σε: %d: %s"
+
+#: main.cc:387
+#, c-format
+msgid "cannot change working directory to: %s: %s"
+msgstr "αδυναμία αλλαγής καταλόγου εργασίας σε: %s: %s"
+
+#: main.cc:628
+#, c-format
+msgid "exception caught: %s"
+msgstr "βρέθηκε εξαίρεση: %s"
+
+#. FIXME: constant error message.
+#: mark-engraver.cc:157
+msgid "rehearsalMark must have integer value"
+msgstr "το rehearsalMark πρέπει να έχει ακέραια τιμή"
+
+#: mark-engraver.cc:163
+msgid "mark label must be a markup object"
+msgstr "η ετικέτα σήμανσης πρέπει να είναι αντικείμενο επισήμανσης"
+
+#: mensural-ligature-engraver.cc:96
+msgid "ligature with less than 2 heads -> skipping"
+msgstr "λιγκατούρα με λιγότερες από 2 κεφαλές -> παράβλεψη"
+
+#: mensural-ligature-engraver.cc:123
+msgid "cannot determine pitch of ligature primitive -> skipping"
+msgstr "αδυναμία καθορισμού νότας έναρξης λιγκατούρας -> παράβλεψη"
+
+#: mensural-ligature-engraver.cc:137
+msgid "single note ligature - skipping"
+msgstr "λιγκατούρα μονής νότας -> παράβλεψη"
+
+#: mensural-ligature-engraver.cc:149
+msgid "prime interval within ligature -> skipping"
+msgstr "περιττό διάστημα εντός λιγκατούρας -> παράβλεψη"
+
+#: mensural-ligature-engraver.cc:161
+msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
+msgstr "μετρική λιγκατούρα: διάρκεια καμία από Mx, L, B, S -> παράβλεψη"
+
+#: mensural-ligature-engraver.cc:209
+msgid "semibrevis must be followed by another one -> skipping"
+msgstr "το ολόκληρο (semibrevis - μετρικής σημειογραφίας) πρέπει να ακολουθείται από άλλο ένα -> παράβλεψη"
+
+#: mensural-ligature-engraver.cc:220
+msgid ""
+"semibreves can only appear at the beginning of a ligature,\n"
+"and there may be only zero or two of them"
+msgstr ""
+"τα ολόκληρα (semibreves - μετρικής σημειογραφίας) εμφανίζονται στην αρχή μιας λιγκατούρας,\n"
+"και μπορεί να υπάρχει μόνο κανένα ή δύο από αυτά"
+
+#: mensural-ligature-engraver.cc:247
+msgid ""
+"invalid ligatura ending:\n"
+"when the last note is a descending brevis,\n"
+"the penultimate note must be another one,\n"
+"or the ligatura must be LB or SSB"
+msgstr ""
+"μη έγκυρος τερματισμός λιγκατούρας:\n"
+"όταν η τελευταία νότα είναι ένα χαμηλότερο brevis (διπλό ολόκληρο μετρικής σημειογραφίας),\n"
+"η προτελευταία νότα πρέπει να είναι άλλο ένα,\n"
+"ή η λιγκατούρα πρέπει να είναι LB ή SSB"
+
+#: mensural-ligature-engraver.cc:367
+msgid "unexpected case fall-through"
+msgstr "μη αναμενόμενη περίπτωση κατάρρευσης"
+
+#: mensural-ligature.cc:152
+msgid "Mensural_ligature: unexpected case fall-through"
+msgstr "Mensural_ligature: μη αναμενόμενη περίπτωση"
+
+#: mensural-ligature.cc:203
+msgid "Mensural_ligature: (join_right == 0)"
+msgstr "Mensural_ligature: (join_right == 0)"
+
+#: midi-item.cc:92
+#, c-format
+msgid "no such MIDI instrument: `%s'"
+msgstr "δεν υπάρχει τέτοιο όργανο MIDI: `%s'"
+
+#: midi-stream.cc:39
+#, c-format
+msgid "cannot open for write: %s: %s"
+msgstr "αδυναμία ανοίγματος για εγγραφή: %s: %s"
+
+#: midi-stream.cc:55
+#, c-format
+msgid "cannot write to file: `%s'"
+msgstr "αδυναμία εγγραφής σε αρχείο: `%s'"
+
+#: minimal-page-breaking.cc:40 paper-score.cc:122
+msgid "Calculating line breaks..."
+msgstr "Υπολογισμός αλλαγών γραμμής…"
+
+#: minimal-page-breaking.cc:44
+msgid "Calculating page breaks..."
+msgstr "Υπολογισμός αλλαγών σελίδας…"
+
+#: music-iterator.cc:182
+msgid "Sending non-event to context"
+msgstr "Αποστολή μη-γεγονότος στο περιεχόμενο"
+
+#: music.cc:151
+#, c-format
+msgid "octave check failed; expected \"%s\", found: \"%s\""
+msgstr "έλεγχος οκτάβας απέτυχε, αναμενόταν «%s», βρέθηκε: «%s»"
+
+#: music.cc:219
+msgid "(normalized pitch)"
+msgstr "(κανονικοποιημένο τονικό ύψος)"
+
+#: music.cc:223
+#, c-format
+msgid "Transposing %s by %s makes alteration larger than double"
+msgstr "Μετάθεση του %s κατά %s κάνει την αλλοίωση μεγαλύτερη από διπλή"
+
+#: new-dynamic-engraver.cc:142
+#, c-format
+msgid ""
+"unknown crescendo style: %s\n"
+"defaulting to hairpin."
+msgstr ""
+"άγνωστο στυλ κρεσέντο: %s\n"
+"χρήση προεπιλεγμένης φουρκέτας."
+
+#: new-dynamic-engraver.cc:200
+#, c-format
+msgid "unterminated %s"
+msgstr "μη τερματισμένο/η %s"
+
+#: new-fingering-engraver.cc:106
+msgid "cannot add text scripts to individual note heads"
+msgstr "αδυναμία προσθήκης κειμένων σε μεμονωμένες κεφαλές νοτών"
+
+#: new-fingering-engraver.cc:250
+msgid "no placement found for fingerings"
+msgstr "δεν βρέθηκε τοποθέτηση για δακτυλισμούς"
+
+#: new-fingering-engraver.cc:251
+msgid "placing below"
+msgstr "τοποθέτηση κάτω"
+
+#: note-collision.cc:497
+msgid "ignoring too many clashing note columns"
+msgstr "αγνόηση υπερβολικά πολλών συγκρουόμενων στηλών με νότες"
+
+#: note-column.cc:135
+msgid "cannot have note heads and rests together on a stem"
+msgstr "δεν γίνεται να υπάρχουν κεφαλές νοτών και παύσεων μαζί σε ένα στέλεχος"
+
+#: note-head.cc:76
+#, c-format
+msgid "none of note heads `%s' or `%s' found"
+msgstr "δεν βρέθηκε καμμία από τις κεφαλές νοτών `%s' ή `%s'"
+
+#: note-heads-engraver.cc:76
+msgid "NoteEvent without pitch"
+msgstr "NoteEvent χωρίς τονικό ύψος"
+
+#: open-type-font.cc:44
+#, c-format
+msgid "cannot allocate %lu bytes"
+msgstr "αδυναμία εκχώρησης %lu bytes"
+
+#: open-type-font.cc:48
+#, c-format
+msgid "cannot load font table: %s"
+msgstr "αδυναμία φόρτωσης πίνακα γραμματοσειρών: %s"
+
+#: open-type-font.cc:53
+#, c-format
+msgid "Free type error: %s"
+msgstr "Σφάλμα ελεύθερης πληκτρολόγησης: %s"
+
+#: open-type-font.cc:111
+#, c-format
+msgid "unsupported font format: %s"
+msgstr "μη υποστηριζόμενη μορφή γραμματοσειράς: %s"
+
+#: open-type-font.cc:113
+#, c-format
+msgid "error reading font file %s: %s"
+msgstr "σφάλμα ανάγνωσης αρχείου γραμματοσειράς %s: %s"
+
+#: open-type-font.cc:188
+#, c-format
+msgid "FT_Get_Glyph_Name () Freetype error: %s"
+msgstr "FT_Get_Glyph_Name () Σφάλμα Freetype: %s"
+
+#: open-type-font.cc:250
+msgid "Invalid index for character"
+msgstr "Μη έγκυρος δείκτης για χαρακτήρας"
+
+#: open-type-font.cc:319 pango-font.cc:187
+#, c-format
+msgid "FT_Get_Glyph_Name () error: %s"
+msgstr "FT_Get_Glyph_Name () σφάλμα: %s"
+
+#. find out the ideal number of pages
+#: optimal-page-breaking.cc:60
+msgid "Finding the ideal number of pages..."
+msgstr "Εύρεση του ιδανικού αριθμού σελίδων…"
+
+#: optimal-page-breaking.cc:87
+msgid "Fitting music on 1 page..."
+msgstr "Ταίριασμα μουσικής σε 1 σελίδα…"
+
+#: optimal-page-breaking.cc:89
+#, c-format
+msgid "Fitting music on %d pages..."
+msgstr "Ταίριασμα μουσικής σε %d σελίδες…"
+
+#: optimal-page-breaking.cc:91
+#, c-format
+msgid "Fitting music on %d or %d pages..."
+msgstr "Ταίριασμα μουσικής σε %d ή %d σελίδες…"
+
+#: optimal-page-breaking.cc:101 optimal-page-breaking.cc:155
+#, c-format
+msgid "trying %d systems"
+msgstr "δοκιμή %d συστημάτων"
+
+#: optimal-page-breaking.cc:120 optimal-page-breaking.cc:183
+#, c-format
+msgid "best score for this sys-count: %f"
+msgstr "καλύτερη παρτιτούρα για αυτό το sys-count: %f"
+
+#: optimal-page-breaking.cc:190 page-turn-page-breaking.cc:248
+#: paper-score.cc:163
+msgid "Drawing systems..."
+msgstr "Σχεδιασμός συστημάτων…"
+
+#: output-def.cc:235
+msgid "margins do not fit with line-width, setting default values"
+msgstr "τα περιθώρια δεν ταιριάζουν με το line-width, χρήση των προεπιλεγμένων τιμών"
+
+#: output-def.cc:242
+msgid "systems run off the page due to improper paper settings, setting default values"
+msgstr "τα συστήματα βγαίνουν εκτός σελίδας λόγω ακατάλληλων ρυθμίσεων χαρτιού, χρήση των προεπιλεγμένων τιμών"
+
+#: page-breaking.cc:194
+msgid "ignoring min-systems-per-page and max-systems-per-page because systems-per-page was set"
+msgstr "αγνοούνται τα min-systems-per-page και max-systems-per-page επειδή έχει ορισθεί το systems-per-page"
+
+#: page-breaking.cc:199
+msgid "min-systems-per-page is larger than max-systems-per-page, ignoring both values"
+msgstr "το min-systems-per-page είναι μεγαλύτερο από το max-systems-per-page, θα αγνοηθούν και οι δύο τιμές"
+
+#: page-layout-problem.cc:315
+#, c-format
+msgid "couldn't fit music on page: overflow is %f"
+msgstr "αδυναμία να χωρέσει η μουσική στη σελίδα: το επιπλέον είναι %f"
+
+#: page-layout-problem.cc:317
+msgid "compressing music to fit"
+msgstr "συμπίεση της μουσικής για να χωρέσει"
+
+#: page-layout-problem.cc:733
+msgid "staff-affinities should only decrease"
+msgstr "το staff-affinities θα πρέπει μόνο να μειώνεται"
+
+#: page-turn-page-breaking.cc:168
+#, c-format
+msgid "page-turn-page-breaking: breaking from %d to %d"
+msgstr "page-turn-page-breaking: αλλαγή από %d σε %d"
+
+#: page-turn-page-breaking.cc:217
+msgid "cannot fit the first page turn onto a single page.  Consider setting first-page-number to an even number."
+msgstr "αδυναμία να χωρέσει η πρώτη αλλαγή σελίδας σε μία σελίδα. Σκεφθείτε να ορίσετε το first-page-number σε ζυγό αριθμό."
+
+#: page-turn-page-breaking.cc:230
+#, c-format
+msgid "Calculating page and line breaks (%d possible page breaks)..."
+msgstr "Υπολογισμός αλλαγών σελίδας και γραμμής (%d δυνατές αλλαγές σελίδας)…"
+
+#: page-turn-page-breaking.cc:297
+#, c-format
+msgid "break starting at page %d"
+msgstr "αλλαγή που αρχίζει στη σελίδα %d"
+
+#: page-turn-page-breaking.cc:298
+#, c-format
+msgid "\tdemerits: %f"
+msgstr "\tdemerits: %f"
+
+#: page-turn-page-breaking.cc:299
+#, c-format
+msgid "\tsystem count: %d"
+msgstr "\tsystem καταμέτρηση: %d"
+
+#: page-turn-page-breaking.cc:300
+#, c-format
+msgid "\tpage count: %d"
+msgstr "\tpage καταμέτρηση: %d"
+
+#: page-turn-page-breaking.cc:301
+#, c-format
+msgid "\tprevious break: %d"
+msgstr "\tprevious αλλαγή: %d"
+
+#: pango-font.cc:204
+#, c-format
+msgid ""
+"Glyph has no name, but font supports glyph naming.\n"
+"Skipping glyph U+%0X, file %s"
+msgstr ""
+"Το σύμβολο δεν έχει όνομα αλλά η γραμματοσειρά υποστηρίζει ονόματα συμβόλων.\n"
+"Παράβλεψη συμβόλου U+%0X, αρχείο %s"
+
+#: pango-font.cc:241
+#, c-format
+msgid "no PostScript font name for font `%s'"
+msgstr "δεν υπάρχει PostScript όνομα γραμματοσειράς για τη γραμματοσειρά `%s'"
+
+#: pango-font.cc:290
+msgid "FreeType face has no PostScript font name"
+msgstr "Το FreeType face δεν έχει όνομα γραμματοσειράς PostScript"
+
+#: paper-book.cc:214
+#, c-format
+msgid "program option -dprint-pages not supported by backend `%s'"
+msgstr "η επιλογή προγράμματος -dprint-pages δεν υποστηρίζεται από το σύστημα υποστήριξης `%s'"
+
+#: paper-book.cc:233
+#, c-format
+msgid "program option -dpreview not supported by backend `%s'"
+msgstr "η επιλογή προγράμματος -dpreview δεν υποστηρίζεται από το σύστημα υποστήριξης `%s'"
+
+#: paper-column-engraver.cc:233
+msgid "forced break was overridden by some other event, should you be using bar checks?"
+msgstr "η εξαναγκασμένη αλλαγή παρακάμφθηκε από κάποιο άλλο γεγονός, μήπως θα έπρεπε να χρησιμοποιείτε ελέγχους μέτρων;"
+
+#: paper-outputter-scheme.cc:41
+#, c-format
+msgid "Layout output to `%s'..."
+msgstr "Εξαγωγή διάταξης σε `%s'…"
+
+#: paper-score.cc:135
+#, c-format
+msgid "Element count %d (spanners %d) "
+msgstr "Καταμέτρηση στοιχείων %d (αλλαγές ρυθμικής αγωγής %d) "
+
+#: paper-score.cc:139
+msgid "Preprocessing graphical objects..."
+msgstr "Προεπεξεργασία γραφικών αντικειμένων…"
+
+#: parse-scm.cc:101
+msgid "GUILE signaled an error for the expression beginning here"
+msgstr "Το GUILE επεσήμανε ένα λάθος για την έκφραση που αρχίζει εδώ"
+
+#: partial-iterator.cc:45
+msgid "trying to use \\partial after the start of a piece"
+msgstr "προσπάθεια χρήσης του \\partial μετά την αρχή ενός κομματιού"
+
+#: percent-repeat-engraver.cc:213
+msgid "unterminated percent repeat"
+msgstr "μη τερματισμένη ποσοστιαία επανάληψη"
+
+#: performance.cc:54
+msgid "Track..."
+msgstr "Κομμάτι…"
+
+#: performance.cc:83
+msgid "MIDI channel wrapped around"
+msgstr "Κανάλι MIDI περιτυλιγμένο"
+
+#: performance.cc:84
+msgid "remapping modulo 16"
+msgstr "αναχαρτογράφηση modulo 16"
+
+#: performance.cc:111
+#, c-format
+msgid "MIDI output to `%s'..."
+msgstr "Έξοδος MIDI σε `%s'…"
+
+#: phrasing-slur-engraver.cc:157
+msgid "unterminated phrasing slur"
+msgstr "μη τερματισμένο λεγκάτο φράσης"
+
+#: piano-pedal-engraver.cc:298
+#, c-format
+msgid "expect 3 strings for piano pedals, found: %ld"
+msgstr "αναμένονται 3 χορδές για πεντάλ πιάνου, βρέθηκαν: %ld"
+
+#: piano-pedal-engraver.cc:313 piano-pedal-engraver.cc:324
+#: piano-pedal-performer.cc:104
+#, c-format
+msgid "cannot find start of piano pedal: `%s'"
+msgstr "αδυναμία εύρεσης αρχής πεντάλ πιάνου: `%s'"
+
+#: piano-pedal-engraver.cc:359
+#, c-format
+msgid "cannot find start of piano pedal bracket: `%s'"
+msgstr "αδυναμία εύρεσης αγκύλης για αρχή πεντάλ πιάνου: `%s'"
+
+#: program-option-scheme.cc:237
+#, c-format
+msgid "no such internal option: %s"
+msgstr "δεν υπάρχει τέτοια εσωτερική επιλογή: %s"
+
+#: property-iterator.cc:85
+#, c-format
+msgid "not a grob name, `%s'"
+msgstr "δεν είναι όνομα grob, `%s'"
+
+#: relative-octave-check.cc:49
+msgid "Failed octave check, got: "
+msgstr "Αποτυχία ελέγχου οκτάβας, προέκυψε:"
+
+#: relocate.cc:54
+#, c-format
+msgid "Setting %s to %s"
+msgstr "Ορισμός %s σε %s"
+
+#: relocate.cc:74
+#, c-format
+msgid "no such file: %s for %s"
+msgstr "δεν υπάρχει τέτοιο αρχείο: %s για %s"
+
+#: relocate.cc:84 relocate.cc:102
+#, c-format
+msgid "no such directory: %s for %s"
+msgstr "δεν υπάρχει τέτοιος κατάλογος: %s για %s"
+
+#: relocate.cc:94
+#, c-format
+msgid "%s=%s (prepend)\n"
+msgstr "%s=%s (προηγείται)\n"
+
+#: relocate.cc:124
+#, c-format
+msgid "not relocating, no %s/ or current/ found under %s"
+msgstr "μη επανατοποθέτηση, δεν βρέθηκε  %s/ ή current/ κάτω από το %s"
+
+#: relocate.cc:135
+#, c-format
+msgid "Relocation: compile datadir=%s, new datadir=%s"
+msgstr "Επανατοποθέτηση: compile datadir=%s, νέο datadir=%s"
+
+#: relocate.cc:148
+#, c-format
+msgid "Relocation: framework_prefix=%s"
+msgstr "Επανατοποθέτηση: framework_prefix=%s"
+
+#: relocate.cc:189
+#, c-format
+msgid "Relocation: is absolute: argv0=%s"
+msgstr "Επανατοποθέτηση: είναι απόλυτο: argv0=%s"
+
+#: relocate.cc:196
+#, c-format
+msgid "Relocation: from cwd: argv0=%s"
+msgstr "Επανατοποθέτηση: από cwd: argv0=%s"
+
+#: relocate.cc:205
+#, c-format
+msgid ""
+"Relocation: from PATH=%s\n"
+"argv0=%s"
+msgstr ""
+"Επανατοποθέτηση: από PATH=%s\n"
+"argv0=%s"
+
+#: relocate.cc:239
+msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
+msgstr "Το LILYPONDPREFIX είναι παρωχημένο, χρησιμοποιήστε το LILYPOND_DATADIR"
+
+#: relocate.cc:366
+#, c-format
+msgid "Relocation file: %s"
+msgstr "Αρχείο επανατοποθέτησης: %s"
+
+#: relocate.cc:372 source-file.cc:65
+#, c-format
+msgid "cannot open file: `%s'"
+msgstr "αδυναμία ανοίγματος αρχείου: `%s'"
+
+#: relocate.cc:402
+#, c-format
+msgid "Unknown relocation command %s"
+msgstr "Άγνωστη εντολή επανατοποθέτησης %s"
+
+#: rest-collision-engraver.cc:70
+msgid "rhythmic head is not part of a rhythmic column"
+msgstr "η κεφαλή του ρυθμού δεν είναι μέρος ρυθμικής στήλης"
+
+#: rest-collision.cc:146
+msgid "cannot resolve rest collision: rest direction not set"
+msgstr "αδυναμία επίλυσης σύγκρουσης παύσεων: δεν ορίσθηκε η διεύθυνση των παύσεων"
+
+#: rest-collision.cc:160 rest-collision.cc:205
+msgid "too many colliding rests"
+msgstr "πάρα πολλές συγκρουόμενες παύσεις"
+
+#: rest.cc:159
+#, c-format
+msgid "rest `%s' not found"
+msgstr "η παύση `%s' δεν βρέθηκε"
+
+#: score-engraver.cc:78
+#, c-format
+msgid "cannot find `%s'"
+msgstr "αδυναμία εύρεσης `%s'"
+
+#: score-engraver.cc:80
+msgid "Music font has not been installed properly."
+msgstr "Η γραμματοσειρά μουσικής δεν έχει εγκατασταθεί σωστά."
+
+#: score-engraver.cc:82
+#, c-format
+msgid "Search path `%s'"
+msgstr "Αναζήτηση διαδρομής `%s'"
+
+#: score-engraver.cc:84
+msgid "Aborting"
+msgstr "Ακύρωση"
+
+#: score.cc:178
+msgid "already have music in score"
+msgstr "υπάρχει ήδη μουσική στην παρτιτούρα"
+
+#: score.cc:179
+msgid "this is the previous music"
+msgstr "αυτή είναι η προηγούμενη μουσική"
+
+#: score.cc:184
+msgid "errors found, ignoring music expression"
+msgstr "βρέθηκαν σφάλματα, θα αγνοηθεί η μουσική έκφραση"
+
+#. FIXME:
+#: script-engraver.cc:113
+msgid "do not know how to interpret articulation:"
+msgstr "δεν γνωρίζω πως να ερμηνεύσω την άρθρωση:"
+
+#: script-engraver.cc:114
+msgid " scheme encoding: "
+msgstr "κωδικοποίηση σχήματος:"
+
+#: slur-engraver.cc:93
+#, c-format
+msgid "direction of %s invalid: %d"
+msgstr "μη έγκυρη διεύθυνση του %s: %d"
+
+#: slur-engraver.cc:162
+msgid "unterminated slur"
+msgstr "μη τερματισμένο λεγκάτο"
+
+#: slur-engraver.cc:174
+msgid "cannot end slur"
+msgstr "αδυναμία τελειώματος λεγκάτο"
+
+#: slur.cc:369
+#, c-format
+msgid "Ignoring grob for slur: %s. avoid-slur not set?"
+msgstr "Αγνόηση του grob για το λεγκάτο: %s. το avoid-slur δεν ορίσθηκε;"
+
+#: source-file.cc:85
+#, c-format
+msgid "expected to read %d characters, got %d"
+msgstr "αναμένονταν ανάγνωση %d χαρακτήρων, λήφθηκαν %d"
+
+#: spaceable-grob.cc:94
+#, c-format
+msgid "No spring between column %d and next one"
+msgstr "Δεν υπάρχει μετάβαση μεταξύ της στήλης %d και της επόμενης"
+
+#: stem-engraver.cc:103
+msgid "tremolo duration is too long"
+msgstr "η διάρκεια του τρέμολο είναι πολύ μεγάλη"
+
+#. FIXME:
+#: stem-engraver.cc:140
+#, c-format
+msgid "adding note head to incompatible stem (type = %d)"
+msgstr "προσθήκη κεφαλής νότας σε μη συμβατό στέλεχος (τύπος=%d)"
+
+#: stem-engraver.cc:142
+msgid "maybe input should specify polyphonic voices"
+msgstr "ίσως η εισαγωγή θα έπρεπε να ορίζει πολυφωνικές φωνές"
+
+#: stem.cc:116
+msgid "weird stem size, check for narrow beams"
+msgstr "περίεργο μέγεθος στελέχους, έλεγχος για στενές γραμμές"
+
+#: stem.cc:642
+#, c-format
+msgid "flag `%s' not found"
+msgstr "η σημαία `%s' δεν βρέθηκε"
+
+#: stem.cc:658
+#, c-format
+msgid "flag stroke `%s' not found"
+msgstr "η σημαία του χτύπου `%s' δεν βρέθηκε"
+
+#: system.cc:197
+#, c-format
+msgid "Element count %d"
+msgstr "Καταμέτρηση στοιχείων %d"
+
+#: system.cc:289
+#, c-format
+msgid "Grob count %d"
+msgstr "Καταμέτρηση grob %d"
+
+#: text-spanner-engraver.cc:73
+msgid "cannot find start of text spanner"
+msgstr "αδυναμία εύρεσης αρχής ενδεικτικού διάρκειας"
+
+#: text-spanner-engraver.cc:86
+msgid "already have a text spanner"
+msgstr "υπάρχει ήδη ενδεικτικό διάρκειας κειμένου"
+
+#: text-spanner-engraver.cc:132
+msgid "unterminated text spanner"
+msgstr "μη τερματισμένο ενδεικτικό διάρκειας κειμένου"
+
+#: tie-engraver.cc:116
+msgid "unterminated tie"
+msgstr "μη τερματισμένη σύνδεση"
+
+#: tie-engraver.cc:312
+msgid "lonely tie"
+msgstr "μοναχική σύνδεση διαρκείας"
+
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#: time-signature-engraver.cc:75
+#, c-format
+msgid "strange time signature found: %d/%d"
+msgstr "βρέθηκε περίεργο μέτρο: %d/%d"
+
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#: time-signature.cc:94
+#, c-format
+msgid "time signature symbol `%s' not found; reverting to numbered style"
+msgstr "το σύμβολο `%s' για το ρυθμό δεν βρέθηκε, αλλαγή σε αριθμημένο στυλ"
+
+#: translator-ctors.cc:65
+#, c-format
+msgid "unknown translator: `%s'"
+msgstr "άγνωστος μεταφραστής: `%s'"
+
+#: translator-group-ctors.cc:40
+#, c-format
+msgid "fatal error. Couldn't find type: %s"
+msgstr "κρίσιμο σφάλμα. Αδυναμία εύρεσης τύπου: %s"
+
+#: translator-group.cc:188
+#, c-format
+msgid "cannot find: `%s'"
+msgstr "αδυναμία εύρεσης: `%s'"
+
+#: translator.cc:359
+#, c-format
+msgid "Two simultaneous %s events, junking this one"
+msgstr "Δύο ταυτόχρονα γεγονότα %s, απόρριψη αυτού εδώ"
+
+#: translator.cc:360
+#, c-format
+msgid "Previous %s event here"
+msgstr "Προηγούμενο γεγονός %s εδώ"
+
+#: ttf.cc:481 ttf.cc:530
+#, c-format
+msgid "font index %d too large for font `%s', using index 0"
+msgstr "ο δείκτης γραμματοσειράς %d είναι πολύ μεγάλος για τη γραμματοσειρά `%s', γίνεται χρήση του δείκτη 0"
+
+#: ttf.cc:513 ttf.cc:565
+msgid "font index must be non-negative, using index 0"
+msgstr "ο δείκτης γραμματοσειράς πρέπει να είναι μη-αρνητικός, γίνεται χρήστη του δείκτη 0"
+
+#: tuplet-engraver.cc:107
+msgid "No tuplet to end"
+msgstr "Δεν υπάρχει τρίηχο κλπ για τερματισμό"
+
+#: vaticana-ligature-engraver.cc:400
+#, c-format
+msgid "ignored prefix(es) `%s' of this head according to restrictions of the selected ligature style"
+msgstr "αγνοήθηκε το πρόσημο/α `%s' αυτής της κεφαλής σύμφωνα με περιορισμούς του επιλεγμένου στυλ λιγκατούρας"
+
+#: vaticana-ligature-engraver.cc:736
+#, c-format
+msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
+msgstr "Vaticana_ligature_engraver: ορισμός `spacing-increment = %f': ptr =%ul"
+
+#: vaticana-ligature.cc:95
+msgid "flexa-height undefined; assuming 0"
+msgstr "flexa-height μη καθορισμένο, υποθέτουμε 0"
+
+#: vaticana-ligature.cc:100
+msgid "ascending vaticana style flexa"
+msgstr "ανοδική flexa σε στυλ vaticana"
+
+#: vaticana-ligature.cc:188
+msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
+msgstr "Vaticana_ligature: μηδενική ένωση (delta_pitch == 0)"
+
+#. fixme: be more verbose.
+#: volta-engraver.cc:111
+msgid "cannot end volta spanner"
+msgstr "αδυναμία τερματισμού ενδεικτικού φοράς"
+
+#: volta-engraver.cc:121
+msgid "already have a volta spanner, ending that one prematurely"
+msgstr "υπάρχει ήδη ενδεικτικό φοράς, πρόωρος τερματισμός αυτού"
+
+#: volta-engraver.cc:125
+msgid "also already have an ended spanner"
+msgstr "επίσης υπάρχει ήδη ένα τερματισμένο ενδεικτικό διάρκειας"
+
+#: volta-engraver.cc:126
+msgid "giving up"
+msgstr "παραίτηση"
+
+#: parser.yy:816
+msgid "\\paper cannot be used in \\score, use \\layout instead"
+msgstr "το \\paper δεν μπορεί να χρησιμοποιηθεί στο \\score, χρήση του \\layout αντ' αυτού"
+
+#: parser.yy:840
+msgid "need \\paper for paper block"
+msgstr "χρειάζεται το \\paper για μπλοκ χαρτιού"
+
+#: parser.yy:1365
+msgid "only \\consists takes non-string argument."
+msgstr "μόνο το \\consists δέχεται όρισμα που δεν είναι ακολουθία."
+
+#: parser.yy:1378
+msgid "Grob name should be alphanumeric"
+msgstr "Το όνομα του Grob πρέπει να είναι αλφαριθμητικό"
+
+#: parser.yy:1687
+msgid "second argument must be pitch list"
+msgstr "το δεύτερο όρισμα πρέπει να είναι λίστα τονικών υψών"
+
+#: parser.yy:1714 parser.yy:1719 parser.yy:2192
+msgid "have to be in Lyric mode for lyrics"
+msgstr "πρέπει να είναι σε κατάσταση Στίχων για στίχους"
+
+#: parser.yy:1816
+msgid "expecting string as script definition"
+msgstr "αναμένεται αλφαριθμητικό ως ορισμός script"
+
+#: parser.yy:1971 parser.yy:2022
+#, c-format
+msgid "not a duration: %d"
+msgstr "δεν είναι διάρκεια: %d"
+
+#: parser.yy:2146
+msgid "have to be in Note mode for notes"
+msgstr "πρέπει να είναι σε κατάσταση Νοτών για νότες"
+
+#: parser.yy:2207
+msgid "have to be in Chord mode for chords"
+msgstr "πρέπει να είναι σε κατάσταση Συγχορδίας για συγχορδίες"
+
+#: lexer.ll:190
+msgid "stray UTF-8 BOM encountered"
+msgstr "βρέθηκε άσχετο UTF-8 BOM"
+
+#: lexer.ll:194
+msgid "Skipping UTF-8 BOM"
+msgstr "Παράβλεψη του UTF-8 BOM"
+
+#: lexer.ll:249
+#, c-format
+msgid "Renaming input to: `%s'"
+msgstr "Μετονομασία εισαγωγής σε: `%s'"
+
+#: lexer.ll:266
+msgid "quoted string expected after \\version"
+msgstr "αναμένεται αλφαριθμητικό σε εισαγωγικά μετά το \\version"
+
+#: lexer.ll:270
+msgid "quoted string expected after \\sourcefilename"
+msgstr "αλφαριθμητικό σε εισαγωγικά αναμενόταν μετά το \\sourcefilename"
+
+#: lexer.ll:274
+msgid "integer expected after \\sourcefileline"
+msgstr "αναμενόταν ακέραιος μετά το \\sourcefileline"
+
+#: lexer.ll:287
+msgid "EOF found inside a comment"
+msgstr "βρέθηκε EOF μέσα σε σχόλιο"
+
+#: lexer.ll:302
+msgid "\\maininput not allowed outside init files"
+msgstr "το \\maininput δεν επιτρέπεται έξω από αρχεία αρχικοποίησης"
+
+#: lexer.ll:326
+#, c-format
+msgid "wrong or undefined identifier: `%s'"
+msgstr "εσφαλμένος ή μη καθορισμένος ταυτοποιητής: `%s'"
+
+#. backup rule
+#: lexer.ll:335
+msgid "end quote missing"
+msgstr "λείπει το εισαγωγικό κλεισίματος"
+
+#: lexer.ll:485
+msgid "Brace found at end of lyric.  Did you forget a space?"
+msgstr "Βρέθηκε αγκύλη στο τέλος του στίχου. Ξεχάσατε ένα κενό διάστημα;"
+
+#: lexer.ll:595
+msgid "Brace found at end of markup.  Did you forget a space?"
+msgstr "Βρέθηκε αγκύλη στο τέλος της επισήμανσης. Ξεχάσατε ένα κενό διάστημα;"
+
+#: lexer.ll:699
+#, c-format
+msgid "invalid character: `%c'"
+msgstr "μη έγκυρος χαρακτήρας: `%c'"
+
+#: lexer.ll:814 lexer.ll:815
+#, c-format
+msgid "unknown escaped string: `\\%s'"
+msgstr "άγνωστο αλφαριθμητικό με χαρακτήρες διαφυγής: `\\%s'"
+
+#: lexer.ll:924 lexer.ll:925
+#, c-format
+msgid "file too old: %s (oldest supported: %s)"
+msgstr "πολύ παλιό αρχείο: %s (το παλιότερο υποστηριζόμενο είναι: %s)"
+
+#: lexer.ll:925 lexer.ll:926
+msgid "consider updating the input with the convert-ly script"
+msgstr "σκεφτείτε να ενημερώσετε την εισαγωγή με το script convert-ly"
+
+#: lexer.ll:931 lexer.ll:932
+#, c-format
+msgid "program too old: %s (file requires: %s)"
+msgstr "το πρόγραμμα είναι πολύ παλιό: %s (το αρχείο απαιτεί: %s)"
+
+#: backend-library.scm:35 ps-to-png.scm:66
+#, scheme-format
+msgid "Invoking `~a'..."
+msgstr "Κλήση `~a'…"
+
+#: backend-library.scm:45
+#, scheme-format
+msgid "`~a' failed (~a)"
+msgstr "`~a' απέτυχε (~a)"
+
+#: backend-library.scm:130
+#, scheme-format
+msgid "Converting to `~a'..."
+msgstr "Μετατροπή σε `~a'…"
+
+#. Do not try to guess the name of the png file,
+#. GS produces PNG files like BASE-page%d.png.
+#: backend-library.scm:140
+#, scheme-format
+msgid "Converting to ~a..."
+msgstr "Μετατροπή σε ~a…"
+
+#: backend-library.scm:178
+#, scheme-format
+msgid "Writing header field `~a' to `~a'..."
+msgstr "Εγγραφή του πεδίου κεφαλίδας `~a' σε `~a'…"
+
+#: backend-library.scm:228
+#, scheme-format
+msgid "missing stencil expression `~S'"
+msgstr "λείπει η έκφραση stencil `~S'"
+
+#: chord-entry.scm:50
+#, scheme-format
+msgid "Spurious garbage following chord: ~A"
+msgstr "Άχρηστα σκουπίδια ακολουθούν τη συγχορδία: ~A"
+
+#: define-context-properties.scm:31 define-grob-properties.scm:21
+#: define-music-properties.scm:21
+#, scheme-format
+msgid "symbol ~S redefined"
+msgstr "το σύμβολο ~S επανακαθορίσθηκε"
+
+#: define-event-classes.scm:78
+msgid "All classes must be the last in their matrilineal line."
+msgstr "Όλες οι κλάσεις πρέπει να είναι οι τελευταίες στη μητρική τους γραμμή."
+
+#: define-event-classes.scm:82
+msgid "All classes must have a well-defined pedigree in the existing class hierarchy."
+msgstr "Όλες οι κλάσεις πρέπει να έχουν καλά καθορισμένη γενεαλογία στην υπάρχουσα ιεραρχία κλάσεων."
+
+#: define-event-classes.scm:148
+#, scheme-format
+msgid "event class ~A seems to be unused"
+msgstr "η κλάση γεγονότων ~A φαίνεται να μη χρησιμοποιείται"
+
+#. should be programming-error
+#: define-event-classes.scm:154
+#, scheme-format
+msgid "translator listens to nonexisting event class ~A"
+msgstr "ο μεταφραστής ακούει στη μη υπάρχουσα κλάση γεγονότων ~A"
+
+#: define-markup-commands.scm:803
+msgid "no systems found in \\score markup, does it have a \\layout block?"
+msgstr "δεν βρέθηκαν πεντάγραμμα στην επισήμανση \\score, έχει μπλοκ \\layout;"
+
+#: define-markup-commands.scm:2571
+#, scheme-format
+msgid "Cannot find glyph ~a"
+msgstr "Αδυναμία εύρεσης συμβόλου ~a"
+
+#: define-markup-commands.scm:2831
+#, scheme-format
+msgid "no brace found for point size ~S "
+msgstr "δεν βρέθηκε αγκύλη για μέγεθος σημείου ~S"
+
+#: define-markup-commands.scm:2832
+#, scheme-format
+msgid "defaulting to ~S pt"
+msgstr "εφαρμογή προεπιλογής σε ~S pt"
+
+#: define-markup-commands.scm:2985
+#, scheme-format
+msgid "not a valid duration string: ~a"
+msgstr "μη έγκυρο αλφαριθμητικό διάρκειας: ~a"
+
+#: define-music-types.scm:725
+#, scheme-format
+msgid "symbol expected: ~S"
+msgstr "αναμενόταν σύμβολο: ~S"
+
+#: define-music-types.scm:728
+#, scheme-format
+msgid "cannot find music object: ~S"
+msgstr "αδυναμία εύρεσης μουσικού αντικειμένου: ~S"
+
+#: define-music-types.scm:747
+#, scheme-format
+msgid "unknown repeat type `~S'"
+msgstr "άγνωστος τύπος επανάληψης `~S'"
+
+#: define-music-types.scm:748
+msgid "See define-music-types.scm for supported repeats"
+msgstr "Βλέπε define-music-types.scm για υποστηριζόμενες επαναλήψεις"
+
+#: document-backend.scm:132
+#, scheme-format
+msgid "pair expected in doc ~s"
+msgstr "αναμενόταν ζευγάρι στο έγγραφο ~s"
+
+#: document-backend.scm:189
+#, scheme-format
+msgid "cannot find interface for property: ~S"
+msgstr "αδυναμία εύρεσης διεπαφής για την ιδιότητα: ~S"
+
+#: document-backend.scm:199
+#, scheme-format
+msgid "unknown Grob interface: ~S"
+msgstr "άγνωστη διεπαφή Grob: ~S"
+
+#: documentation-lib.scm:59
+#, scheme-format
+msgid "Processing ~S..."
+msgstr "Επεξεργασία ~S…"
+
+#: documentation-lib.scm:176
+#, scheme-format
+msgid "Writing ~S..."
+msgstr "Εγγραφή ~S…"
+
+#: documentation-lib.scm:198
+#, scheme-format
+msgid "cannot find description for property ~S (~S)"
+msgstr "αδυναμία εύρεσης περιγραφής για την ιδιότητα ~S (~S)"
+
+#: flag-styles.scm:142
+#, scheme-format
+msgid "flag stroke `~a' or `~a' not found"
+msgstr "η σημαία χτύπου `~a' ή `~a' δεν βρέθηκε"
+
+#: framework-eps.scm:108
+#, scheme-format
+msgid "Writing ~a..."
+msgstr "Εγγραφή ~a…"
+
+#: framework-ps.scm:250
+#, scheme-format
+msgid "cannot embed ~S=~S"
+msgstr "αδυναμία ενσωμάτωσης ~S=~S"
+
+#: framework-ps.scm:291
+#, scheme-format
+msgid "cannot extract file matching ~a from ~a"
+msgstr "αδυναμία εξαγωγής αρχείου που να ταιριάζει ~a από ~a"
+
+#: framework-ps.scm:309
+#, scheme-format
+msgid "do not know how to embed ~S=~S"
+msgstr "δεν γνωρίζω πως να ενσωματώσω ~S=~S"
+
+#: framework-ps.scm:334
+#, scheme-format
+msgid "do not know how to embed font ~s ~s ~s"
+msgstr "δεν γνωρίζω πως να ενσωματώσω τη γραμματοσειρά ~s ~s ~s"
+
+#: framework-ps.scm:639
+msgid ""
+"\n"
+"The PostScript backend does not support the\n"
+"system-by-system output.  For that, use the EPS backend instead,\n"
+"\n"
+"  lilypond -dbackend=eps FILE\n"
+"\n"
+"If have cut & pasted a lilypond fragment from a webpage, be sure\n"
+"to only remove anything before\n"
+"\n"
+"  %% ****************************************************************\n"
+"  %% Start cut-&-pastable-section\n"
+"  %% ****************************************************************\n"
+msgstr ""
+"\n"
+"Το PostScript backend δεν υποστηρίζει κατά σύστημα\n"
+"έξοδο. Για αυτό, χρησιμοποιήστε το EPS backend,\n"
+"\n"
+"  lilypond -dbackend=eps FILE\n"
+"\n"
+"Αν έχετε αποκόψει και επικολλήσει ένα τμήμα lilypond από μια ιστοσελίδα, βεβαιωθείτε\n"
+"ότι αφαιρέσατε μόνο οτιδήποτε πριν\n"
+"\n"
+"  %% ****************************************************************\n"
+"  %% Start cut-&-pastable-section\n"
+"  %% ****************************************************************\n"
+
+#: framework-svg.scm:84
+#, scheme-format
+msgid "Updating font into: ~a"
+msgstr "Ενημέρωση γραμματοσειράς σε: ~a"
+
+#: graphviz.scm:64
+#, scheme-format
+msgid "Writing graph `~a'..."
+msgstr "Εγγραφή διαγράμματος `~a'…"
+
+#: layout-beam.scm:38
+#, scheme-format
+msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
+msgstr "Σφάλμα στην ποσοτικοποίηση στελεχών. Αναμένονταν (~S,~S) βρέθηκαν ~S."
+
+#: layout-beam.scm:52
+#, scheme-format
+msgid "Error in beam quanting.  Expected ~S 0, found ~S."
+msgstr "Σφάλμα στην ποσοτικοποίηση στελεχών. Αναμένονταν ~S 0, βρέθηκαν ~S."
+
+#: lily-library.scm:747
+msgid ""
+"Find the index between @var{start} and @var{end} (an integer)\n"
+"which will produce the closest match to @var{target-val} when\n"
+"applied to function @var{getter}."
+msgstr ""
+"Εύρεση του δείκτη  μεταξύ @var{start} και @var{end} (ακέραιος)\n"
+"που θα παράγει το εγγύτερο αποτέλεσμα στο @var{target-val} όταν\n"
+"εφαρμοσθεί στη συνάρτηση @var{getter}."
+
+#: lily-library.scm:821
+#, scheme-format
+msgid "unknown unit: ~S"
+msgstr "άγνωστη μονάδα: ~S"
+
+#: lily-library.scm:847 lily-library.scm:856
+msgid "warning:"
+msgstr "προειδοποίηση:"
+
+#: lily-library.scm:849
+#, scheme-format
+msgid "no \\version statement found, please add~afor future compatibility"
+msgstr "δεν βρέθηκε δήλωση \\version, παρακαλώ προσθέστε ~a για μελλοντική συμβατότητα"
+
+#: lily-library.scm:857
+msgid "old relative compatibility not used"
+msgstr "παλιά σχετική συμβατότητα δεν χρησιμοποιήθηκε"
+
+#: lily.scm:282
+#, scheme-format
+msgid "cannot find: ~A"
+msgstr "αδυναμία εύρεσης: ~A"
+
+#: lily.scm:342
+#, scheme-format
+msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
+msgstr "εσφαλμένος τύπος για το όρισμα ~a. Αναμενόταν ~a, βρέθηκε ~s"
+
+#: lily.scm:704
+msgid "Compilation successfully completed"
+msgstr "Η μεταγλώττιση ολοκληρώθηκε επιτυχώς"
+
+#: lily.scm:705
+msgid "Compilation completed with warnings or errors"
+msgstr "Μεταγλώττιση ολοκληρώθηκε με προειδοποιήσεις ή σφάλματα"
+
+#: lily.scm:767
+#, scheme-format
+msgid "job ~a terminated with signal: ~a"
+msgstr "η εργασία ~a τερματίστηκε με σήμα: ~a"
+
+#: lily.scm:770
+#, scheme-format
+msgid ""
+"logfile ~a (exit ~a):\n"
+"~a"
+msgstr ""
+"logfile ~a (έξοδος ~a):\n"
+"~a"
+
+#: lily.scm:792 lily.scm:870
+#, scheme-format
+msgid "failed files: ~S"
+msgstr "αρχεία που απέτυχαν: ~S"
+
+#: lily.scm:861
+#, scheme-format
+msgid "Redirecting output to ~a..."
+msgstr "Επανακατεύθυνση εξόδου σε ~a…"
+
+#: lily.scm:880
+#, scheme-format
+msgid "Invoking `~a'...\n"
+msgstr "Κλήση `~a'…\n"
+
+#: ly-syntax-constructors.scm:51
+msgid "Music head function must return Music object"
+msgstr "Η λειτουργία Music head πρέπει να επιστρέφει Music object"
+
+#: ly-syntax-constructors.scm:176
+#, scheme-format
+msgid "Invalid property operation ~a"
+msgstr "Μη έγκυρη ενέργεια ιδιότητας ~a"
+
+#: markup.scm:223
+#, scheme-format
+msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
+msgstr "Λάθος αριθμός ορισμάτων. Αναμενόταν: ~A, βρέθηκαν ~A: ~S"
+
+#: markup.scm:229
+#, scheme-format
+msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
+msgstr "Μη έγκυρο όρισμα στη θέση ~A. Αναμενόταν: ~A, βρέθηκε: ~S"
+
+#: markup.scm:292
+#, scheme-format
+msgid "Not a markup command: ~A"
+msgstr "Δεν είναι εντολή επισήμανσης: ~A"
+
+#: music-functions.scm:265
+msgid "More alternatives than repeats.  Junking excess alternatives"
+msgstr "Περισσότερες εναλλαγές από επαναλήψεις. Απόρριψη επιπλέον εναλλαγών"
+
+#: music-functions.scm:294
+#, scheme-format
+msgid "invalid tremolo repeat count: ~a"
+msgstr "μη έγκυρη καταμέτρηση επαναλήψεων τρέμολο: ~a"
+
+#: music-functions.scm:601
+#, scheme-format
+msgid "music expected: ~S"
+msgstr "αναμενόταν μουσική: ~S"
+
+#. FIXME: uncomprehensable message
+#: music-functions.scm:649
+#, scheme-format
+msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
+msgstr "Αποτυχία ελέγχου μέτρων. Αναμενόταν να είναι σε ~a, αντίθετα ήταν σε ~a"
+
+#: music-functions.scm:828
+#, scheme-format
+msgid "cannot find quoted music: `~S'"
+msgstr "αδυναμία εύρεσης παρατιθέμενης μουσικής: `~S'"
+
+#: music-functions.scm:964
+msgid "Add @var{octave-shift} to the octave of @var{pitch}."
+msgstr "Προσθήκη του @var{octave-shift} στην οκτάβα του @var{pitch}."
+
+#: music-functions.scm:1019
+#, scheme-format
+msgid "Unknown octaveness type: ~S "
+msgstr "Άγνωστος τύπος οκτάβας: ~S"
+
+#: music-functions.scm:1020
+msgid "Defaulting to 'any-octave."
+msgstr "Εφαρμογή προεπιλογής 'any-octave."
+
+#: music-functions.scm:1355
+#, scheme-format
+msgid "unknown accidental style: ~S"
+msgstr "άγνωστο στυλ σημείου αλλοίωσης: ~S"
+
+#: output-ps.scm:289 output-svg.scm:550
+#, scheme-format
+msgid "unknown line-cap-style: ~S"
+msgstr "άγνωστο στυλ line-cap-style: ~S"
+
+#: output-ps.scm:294 output-svg.scm:556
+#, scheme-format
+msgid "unknown line-join-style: ~S"
+msgstr "άγνωστο στυλ line-join-style: ~S"
+
+#: output-svg.scm:47
+#, scheme-format
+msgid "undefined: ~S"
+msgstr "μη καθορισμένο: ~S"
+
+#: output-svg.scm:151
+#, scheme-format
+msgid "cannot decypher Pango description: ~a"
+msgstr "αδυναμία αποκρυπτογράφησης περιγραφής Pango: ~a"
+
+#: output-svg.scm:231
+msgid "Glyph must have a unicode value"
+msgstr "Το σύμβολο πρέπει να έχει μια τιμή unicode"
+
+#: output-svg.scm:283 output-svg.scm:293
+#, scheme-format
+msgid "cannot find SVG font ~S"
+msgstr "αδυναμία εύρεσης γραμματοσειράς SVG ~S"
+
+#: paper.scm:115
+msgid "set-global-staff-size: not in toplevel scope"
+msgstr "set-global-staff-size: όχι στο εύρος του κορυφαίου επιπέδου"
+
+#: paper.scm:296
+#, scheme-format
+msgid "This is not a \\layout {} object, ~S"
+msgstr "Αυτό δεν είναι αντικείμενο \\layout {}, ~S"
+
+#: paper.scm:308
+#, scheme-format
+msgid "Unknown paper size: ~a"
+msgstr "Άγνωστο μέγεθος χαρτιού: ~a"
+
+#. TODO: should raise (generic) exception with throw, and catch
+#. that in parse-scm.cc
+#: paper.scm:323
+msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
+msgstr "Πρέπει να χρησιμοποιηθεί το #(set-paper-size .. ) εντός του \\paper { ... }"
+
+#: parser-clef.scm:140
+#, scheme-format
+msgid "unknown clef type `~a'"
+msgstr "άγνωστος τύπος κλειδιού `~a'"
+
+#: parser-clef.scm:141
+#, scheme-format
+msgid "supported clefs: ~a"
+msgstr "υποστηριζόμενα κλειδιά: ~a"
+
+#: ps-to-png.scm:72
+#, scheme-format
+msgid "~a exited with status: ~S"
+msgstr "~a τερμάτισε με κατάσταση: ~S"
+
+#: to-xml.scm:191
+#, scheme-format
+msgid "assertion failed: ~S"
+msgstr "αποτυχία ισχυρισμού: ~S"
+
+#~ msgid "Tuplet brackets displaying both note durations are not implemented, using default"
+#~ msgstr "Γραμμές των τρίηχων κλπ που εμφανίζουν και τις διάρκεια των νοτών δεν είναι υλοποιημένες, χρήση προεπιλεγών"
+
+#~ msgid "run executable PROG instead of latex"
+#~ msgstr "εκτέλεση εκτελέσιμου PROG αντί για το latex"
+
+#~ msgid "Encountered file created by Noteworthy Composer's nwc2xml, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"
+#~ msgstr "Βρέθηκε αρχείο που δημιουργήθηκε από το nwc2xml του Noteworthy Composer, που περιέχει λάθος πληροφορίες για τις οριζόντιες γραμμές. Όλες οι πληροφορίες για αυτές θα αγνοηθούν στο αρχείο MusicXML"
+
+#~ msgid "use a different language file 'LANG.ly' and corresponding pitch names, e.g. 'deutsch' for deutsch.ly"
+#~ msgstr "χρήση αρχείου 'LANG.ly' για διαφορετική γλώσσα και αντίστοιχα ονόματα τονικών υψών, π.χ. 'deutsch' για deutsch.ly"
+
+#~ msgid "tried to get a translation for something that is no child of mine"
+#~ msgstr "προσπάθεια λήψης μετάφρασης για κάτι που δεν είναι θυγατρικό μου"
+
+#~ msgid "expect 2 elements for chord tremolo, found %d"
+#~ msgstr "αναμένονται 2 στοιχεία για τρέμολο συγχορδίας, βρέθηκε %d"
+
+#~ msgid "program has no such type: `%s'"
+#~ msgstr "το πρόγραμμα δεν έχει τέτοιο τύπο: `%s'"
+
+#~ msgid "Rebuilding FontConfig cache %s, this may take a while..."
+#~ msgstr "Επανακατασκευή της προσωρινής μνήμης FontConfig %s, αυτό μπορεί να διαρκέσει αρκετά…"
+
+#~ msgid "deprecated function called: %s"
+#~ msgstr "κλήση παρωχημένης συνάρτησης: %s"
+
+#~ msgid "staff-span event has no direction"
+#~ msgstr "το γεγονός staff-span δεν έχει διεύθυνση"
+
+#~ msgid "cannot find start of trill spanner"
+#~ msgstr "αδυναμία εύρεσης έναρξης ενωτικού τρίλλιας"
+
+#~ msgid "already have a trill spanner"
+#~ msgstr "ήδη υπάρχει ενδεικτικό διάρκειας τρίλλιας"
+
+#~ msgid "cannot convert <stdout> to ~S"
+#~ msgstr "αδυναμία μετατροπής <stdout> σε ~S"
+
+#~ msgid "Can't fit systems on page -- ignoring between-system-padding"
+#~ msgstr "Αδυναμία ταιριάσματος πενταγράμμων στη σελίδα -- θα αγνοηθεί το between-system-padding"
+
+#~ msgid "expecting 2 elements for chord tremolo, found ~a"
+#~ msgstr "αναμένονταν 2 στοιχεία για τρέμολο συγχορδίας, βρέθηκαν ~a"
+
+#~ msgid "utf-8-string encountered in PS backend"
+#~ msgstr "βρέθηκε utf-8-string στο PS backend"
