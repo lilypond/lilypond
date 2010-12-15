@@ -828,3 +828,61 @@ discuss giving them push access.  Unsolicited requests from
 contributors for access will almost always be turned down.
 
 
+@subsubheading Creating the @strong{Lilybuntu} respin
+
+@enumerate
+
+@item Install ubuntu, reboot
+
+@item Run all updates, reboot if asked
+
+@item Enable src repos, refresh package lists
+
+@item install LP build deps:
+
+@example
+sudo apt-get build-dep lilypond
+@end example
+
+@ install git and other stray build dependencies:
+
+@example
+sudo apt-get install git-core gitk autoconf dblatex
+@end example
+
+@item TEST TO SEE WHETHER EVERYTHING WORKS NOW:
+
+@itemize
+
+@item use @code{lily-git.tcl} to grab source files
+@item go to source directory and do @code{./autogen.sh ;
+make all ; make doc}
+
+@item if all compiles, move on to iso creation...
+
+@end itemize
+
+@item Download & install "remastersys" package:
+
+@example
+@uref{http://sourceforge.net/projects/remastersys/}
+@end example
+
+@item copy @code{lily-git.tcl} script file into @code{/etc/skel/}
+
+@item modify @code{/etc/remastersys.conf} as desired
+(change .iso name, default live session username, etc)
+
+@item Remove non-essential desktop software as desired
+@item create iso:
+
+@example
+sudo remastersys dist
+@end example
+
+@item new iso is in @code{/home/remastersys/remastersys/}
+
+@item test iso by installing in VM and repeating steps above for
+getting source files and building lp and docs
+
+@end enumerate
