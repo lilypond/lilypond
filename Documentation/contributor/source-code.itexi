@@ -65,7 +65,11 @@ your normal text editor.
 
 @end enumerate
 
-You should now progress to @ref{Compiling}.
+You should now progress to @ref{Compiling with lilybuntu}.
+
+@warning{Throughout the rest of this manual, most command-line
+input should be entered from @file{~/lilypond-git/}.  This is
+referred to as the @emph{top source directory}.}
 
 
 @subsubheading Other operating music systems
@@ -318,7 +322,7 @@ need to access it, but it's good to know it's there.
 @warning{Throughout the rest of this manual, all command-line
 input should be entered from the top directory of the Git
 repository being discussed (eg. @file{~/lilypond-git/}).  This is
-referred to as a @emph{top source directory}.}
+referred to as the @emph{top source directory}.}
 
 Before downloading a copy of the main LilyPond repository, you
 should configure some basic settings with the
