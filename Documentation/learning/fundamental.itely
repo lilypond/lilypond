@@ -2105,10 +2105,15 @@ for all contexts of a particular type by including the
 @code{\set} command in a @code{\context} block in the
 same way.
 
-
 @seealso
 Notation Reference: @ruser{Modifying context plug-ins},
 @ruser{Changing context default settings}.
+
+@knownissues
+The @code{Stem_engraver} and @code{Beam_engraver} attach their
+objects to note heads.  If the @code{Note_heads_engraver} is removed
+no note heads are produced and therefore no stem or beams are created
+either.
 
 
 @node Extending the templates
