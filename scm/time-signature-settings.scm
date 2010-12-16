@@ -281,7 +281,7 @@ a fresh copy of the list-head is made."
           property
           (revert-member current-value setting)))))
 
-(define-public (override-time-signature-setting time-signature setting . rest)
+(define-public (override-time-signature-setting time-signature setting)
   "Override the time signature settings for the context in @var{rest},
 with the new setting alist @var{setting}. "
     (context-spec-music
@@ -291,17 +291,9 @@ with the new setting alist @var{setting}. "
                       'timeSignatureSettings
                       time-signature
                       setting)))
-      (if (and (pair? rest) (symbol? (car rest)))
-          (car rest)
-          'Voice)))
+      'Timing))
 
-(define-public (score-override-time-signature-setting
-                 time-signature setting)
-  (override-time-signature-setting
-    time-signature setting 'Score))
-
-(define-public (revert-time-signature-setting
-                  time-signature . rest)
+(define-public (revert-time-signature-setting time-signature)
   (context-spec-music
     (make-apply-context
       (lambda (c)
@@ -309,6 +301,4 @@ with the new setting alist @var{setting}. "
           c
           'timeSignatureSettings
           time-signature)))
-    (if (and (pair? rest) (symbol? (car rest)))
-        (car rest)
-        'Voice)))
+    'Timing))

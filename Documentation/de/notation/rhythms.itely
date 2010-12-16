@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.44"
 
 @c Translators: Till Paala
 
@@ -1104,7 +1104,6 @@ werden.
 \score {
   \relative c' {
     \overrideTimeSignatureSettings
-      #'Score
       #'(4 . 4)  % time signature fraction
       #'(1 . 4)  % base moment fraction
       #'(3 1)    % beatStructure
@@ -1141,14 +1140,13 @@ Standard zurückgesetzt werden:
   \relative c' {
     \repeat unfold 8 { c8 } |
     \overrideTimeSignatureSettings
-      #'Score                         % context
       #'(4 . 4)                       % timeSignatureFraction
       #'(1 . 4)                       % baseMomentFraction
       #'(3 1)                         % beatStructure
       #'((end . (((1 . 8) . (3 1))))) % beamExceptions
     \time 4/4
     \repeat unfold 8 { c8 } |
-    \revertTimeSignatureSettings #'Score #'(4 . 4)
+    \revertTimeSignatureSettings #'(4 . 4)
     \time 4/4
     \repeat unfold 8 { c8 } |
   }

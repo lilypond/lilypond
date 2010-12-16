@@ -3122,6 +3122,12 @@ def conv(str):
 	stderr_write (UPDATE_MANUALLY);
     return str
 
+@rule ((2, 13, 44),
+    _ ("Remove context from overrideTimeSignatureSettings and revertTimeSignatureSettings."))
+def conv(str):
+    str = re.sub (r"\\(override|revert)TimeSignatureSettings(\s+[^#]*)(#[^#]*)#", r"\\\1TimeSignatureSettings\2#", str)
+    return str
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

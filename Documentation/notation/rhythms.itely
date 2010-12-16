@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.44"
 
 @node Rhythms
 @section Rhythms
@@ -1056,25 +1056,23 @@ be changed, or new default values can be added:
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c' {
-    \overrideTimeSignatureSettings
-      #'Score    % context
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
-      #'(3 1)    % beatStructure
-      #'()       % beamExceptions
-    \time 4/4
-    \repeat unfold 8 { c8 } |
+  \new Staff {
+    \relative c' {
+      \overrideTimeSignatureSettings
+        #'(4 . 4)  % timeSignatureFraction
+        #'(1 . 4)  % baseMomentFraction
+        #'(3 1)    % beatStructure
+        #'()       % beamExceptions
+      \time 4/4
+      \repeat unfold 8 { c8 } |
+    }
   }
 }
 @end lilypond
 
-@code{\overrideTimeSignatureSettings} takes five arguments:
+@code{\overrideTimeSignatureSettings} takes four arguments:
 
 @enumerate
-@item
-@code{@var{context}}, a Scheme symbol that describes the context
-to which the default setting will apply.
 
 @item
 @code{@var{timeSignatureFraction}}, a Scheme pair describing the
@@ -1094,6 +1092,38 @@ for the time signature that go beyond ending at every beat, as
 described in @ref{Setting automatic beam behavior}.
 @end enumerate
 
+The context containing @code{\overrideTimeSignatureSettings} must
+be instantiated before the @code{\overrideTimeSignatureSettings}
+call is executed.  That means it must either be explicitly
+instantiated or there must be music in the context before the
+@code{\overrideTimeSignatureSettings} call:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c' {
+    % This call will fail because the context isn't yet instantiated
+    \overrideTimeSignatureSettings
+      #'(4 . 4)  % timeSignatureFraction
+      #'(1 . 4)  % baseMomentFraction
+      #'(3 1)    % beatStructure
+      #'()       % beamExceptions
+    \time 4/4
+    c8^\markup {"Beamed (2 2)"}
+    \repeat unfold 7 { c8 } |
+    % This call will succeed
+    \overrideTimeSignatureSettings
+      #'(4 . 4)  % timeSignatureFraction
+      #'(1 . 4)  % baseMomentFraction
+      #'(3 1)    % beatStructure
+      #'()       % beamExceptions
+    \time 4/4
+    c8^\markup {"Beamed (3 1)"}
+    \repeat unfold 7 { c8 } |
+  }
+}
+@end lilypond
+
+
 @cindex time signature properties, restoring default values
 @cindex restoring default properties for time signatures
 @funindex \revertTimeSignatureSettings
@@ -1106,16 +1136,57 @@ to the original values:
   \relative c' {
     \repeat unfold 8 { c8 } |
     \overrideTimeSignatureSettings
-      #'Score                         % context
-      #'(4 . 4)                       % timeSignatureFraction
-      #'(1 . 4)                       % baseMomentFraction
-      #'(3 1)                         % beatStructure
-      #'((end . (((1 . 8) . (3 1))))) % beamExceptions
+      #'(4 . 4)  % timeSignatureFraction
+      #'(1 . 4)  % baseMomentFraction
+      #'(3 1)    % beatStructure
+      #'()       % beamExceptions
     \time 4/4
     \repeat unfold 8 { c8 } |
-    \revertTimeSignatureSettings #'Score #'(4 . 4)
+    \revertTimeSignatureSettings #'(4 . 4)
     \time 4/4
     \repeat unfold 8 { c8 } |
+  }
+}
+@end lilypond
+
+Different values of default time signature properties can be established
+for different staves by moving the @code{Timing_translator} and the
+@code{Default_bar_line_engraver} from the @code{Score} context to the
+@code{Staff} context.
+
+@lilypond[quote, verbatim]
+\score {
+  \new StaffGroup <<
+     \new Staff {
+        \overrideTimeSignatureSettings
+          #'(4 . 4)  % timeSignatureFraction
+          #'(1 . 4)  % baseMomentFraction
+          #'(3 1)    % beatStructure
+          #'()       % beamExceptions
+        \time 4/4
+        \repeat unfold 8 {c''8}
+     }
+     \new Staff {
+        \overrideTimeSignatureSettings
+          #'(4 . 4)  % timeSignatureFraction
+          #'(1 . 4)  % baseMomentFraction
+          #'(1 3)    % beatStructure
+          #'()       % beamExceptions
+        \time 4/4
+        \repeat unfold 8 {c''8}
+     }
+  >>
+  \layout {
+    \context {
+      \Score
+      \remove "Timing_translator"
+      \remove "Default_bar_line_engraver"
+    }
+    \context {
+      \Staff
+      \consists "Timing_translator"
+      \consists "Default_bar_line_engraver"
+    }
   }
 }
 @end lilypond

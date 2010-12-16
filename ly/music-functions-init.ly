@@ -462,17 +462,17 @@ ottava =
 
 overrideTimeSignatureSettings =
 #(define-music-function
-   (parser location context time-signature base-moment beat-structure beam-exceptions)
-   (symbol? pair? pair? cheap-list? cheap-list?)
+   (parser location time-signature base-moment beat-structure beam-exceptions)
+   (pair? pair? cheap-list? cheap-list?)
 
-   (_i "Override @code{timeSignatureSettings} in @var{context}
+   (_i "Override @code{timeSignatureSettings}
 for time signatures of @var{time-signature} to have settings
 of @var{base-moment}, @var{beat-structure}, and @var{beam-exceptions}.")
 
    ;; TODO -- add warning if largest value of grouping is
    ;;	    greater than time-signature.
   (let ((setting (make-setting base-moment beat-structure beam-exceptions)))
-    (override-time-signature-setting time-signature setting context)))
+    (override-time-signature-setting time-signature setting)))
 
 overrideProperty =
 #(define-music-function (parser location name property value)
@@ -739,12 +739,12 @@ resetRelativeOctave =
 
 revertTimeSignatureSettings =
 #(define-music-function
-   (parser location context time-signature)
-   (symbol? pair?)
+   (parser location time-signature)
+   (pair?)
 
-   (_i "Revert @code{timeSignatureSettings} in @var{context}
+   (_i "Revert @code{timeSignatureSettings}
 for time signatures of @var{time-signature}.")
-     (revert-time-signature-setting time-signature context))
+   (revert-time-signature-setting time-signature))
 
 rightHandFinger =
 #(define-music-function (parser location finger) (number-or-string?)

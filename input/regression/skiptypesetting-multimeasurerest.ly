@@ -7,7 +7,6 @@ When @code{skipTypesetting} is set during a @code{skipBars}-induced
 "
 }
 
-\version "2.13.36"
 <<
   {
     \time 3/4
