@@ -3095,12 +3095,12 @@ def conv(str):
 @rule ((2, 13, 40),
     _ ("Remove \\paper variables head-separation and foot-separation."))
 def conv(str):
-    if re.search(r'head-separation', str):
+    if re.search (r'head-separation', str):
         stderr_write("\n")
         stderr_write(NOT_SMART % ("head-separation.\n"))
         stderr_write(_ ("Adjust settings for top-system-spacing instead.\n"))
-        stderr_write(UPDATE_MANUALLY)
-    if re.search(r'foot-separation', str):
+        stderr_write (UPDATE_MANUALLY)
+    if re.search (r'foot-separation', str):
         stderr_write("\n")
         stderr_write(NOT_SMART % ("foot-separation.\n"))
         stderr_write(_ ("Adjust settings for last-bottom-spacing instead.\n"))
@@ -3109,10 +3109,17 @@ def conv(str):
     return str
 
 @rule ((2, 13, 42),
-    _ ("Rename space to basic-distance in various spacing alists."))
+    _ ("Rename space to basic-distance in various spacing alists.\n\
+Remove HarmonicParenthesesItem grob."))
 def conv(str):
     str = re.sub (r'\(space\s+\.\s+([0-9]*\.?[0-9]*)\)', r'(basic-distance . \1)', str)
     str = re.sub (r"#'space\s+=\s+#?([0-9]*\.?[0-9]*)", r"#'basic-distance = #\1", str)
+    if re.search (r'HarmonicParenthesesItem', str):
+	stderr_write ("\n")
+	stderr_write (NOT_SMART % ("HarmonicParenthesesItem.\n"))
+	stderr_write (_ ("HarmonicParenthesesItem has been eliminated.\n"))
+	stderr_write (_ ("Harmonic parentheses are part of the TabNoteHead grob.\n"))
+	stderr_write (UPDATE_MANUALLY);
     return str
 
 
