@@ -67,7 +67,7 @@ out/bin/lilypond my-file.ly
 @subsubheading Building the documentation
 
 Compiling the documentation is a much more involved process, and
-will likely take 45 minutes to 4 hours.
+will likely take 2 to 10 hours.
 
 @example
 cd ~/lilypond-git/build/
