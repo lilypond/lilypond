@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: cdcb5b726073cb2d8d794146f0d128891ac81e7e
+    Translation of GIT committish: efd763abb78bf960a175b9a6aab571a3e02221b6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -963,7 +963,6 @@ Manuel de notation :
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
-
 @node Variables de gestion des numéros de page
 @unnumberedsubsubsec Variables de gestion des numéros de page
 @translationof @code{\paper} variables for page numbering
@@ -1006,6 +1005,11 @@ numérotées.  La valeur par défaut est@tie{}@code{##t}.
 @seealso
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
+
+@knownissues
+Les pages au numéro impair sont toujours à droite.  Pour que la musique
+commence en page 1, le dos de la page de garde doit être vide de telle
+sorte que la page une se retrouve à droite.
 
 
 @node Variables supplémentaires

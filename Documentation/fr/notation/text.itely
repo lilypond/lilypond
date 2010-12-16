@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 710927432c40035bb3dfc7be74e6aa3b1dd254bf
+    Translation of GIT committish: efd763abb78bf960a175b9a6aab571a3e02221b6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -730,6 +730,12 @@ Référence des propriétés internes :
 
 Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm}.
+
+@knownissues
+Le recours aux commandes @code{\teeny}, @code{\tiny},@code{\small},
+@code{\normalsize}, @code{\large} et @code{\huge} produiront des
+espacements nettement moins réguliers que si vous utilisez
+@code{\fontsize}.
 
 
 @node Alignement du texte
