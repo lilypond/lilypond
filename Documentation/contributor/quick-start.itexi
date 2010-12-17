@@ -21,6 +21,8 @@ helpful users who may have never created a patch before.}
 @menu
 * Lilybuntu::
 * Using lily-git::
+* Compiling with lilybuntu::
+* Now start work!::
 @end menu
 
 @node Lilybuntu
@@ -103,7 +105,7 @@ a guest operating system.
 @item
 Do any extra configuration for your virtualization software.
 
-We have additional instructions in
+There are additional instructions for VirtualBox in
 @ref{Configuring lilybuntu in virtualbox}.
 
 If you use other virtualization software, then follow the normal
@@ -144,15 +146,29 @@ Terminal}, and enter your password when prompted.
 Once the script is finished, restart Ubuntu to complete the
 installation.
 
-@item
-Set up any additional features, such as @q{Shared Folders} between
-your main operating system and ubuntu.  Consult external
-documentation for this step.
-
 @advanced{If you do any kernel upgrades, you may need to re-run
 these VBOXADDITIONS instructions.}
-
 @end enumerate
+
+Some other steps may be helpful:
+
+@itemize
+@item
+In the settings for the virtual machine, set the network to
+Bridged mode to allow you to access shared folders on your Windows
+host.
+
+@item
+Set up any additional features, such as @q{Shared Folders} between
+your main operating system and ubuntu.  This is distinct from the
+networked share folders in Windows.  Consult external
+documentation for this step.
+
+TODO: maybe we should just nuke this point?  is it easier to do
+networked file sharing in osx, linux, etc, thus making the
+virtualbox "shared folders" not useful?
+
+@end itemize
 
 
 @node Using lilybuntu
@@ -166,13 +182,23 @@ couple of @qq{introduction to Ubuntu} webpages.
 One particular change from Windows and MacOS X is that most
 software should be installed with your @qq{package manager}; this
 vastly simplifies the process of installing and configuring
-software.  Go to @clicksequence{System @click{} Administration
-@click{} Synaptic Package Manager}.
+software.  Go to @clicksequence{Applications @click{} Ubuntu
+Software Center}.
 
 @item
 The rest of this manual assumes that you are using the
 command-line; go to @clicksequence{Applications @click{}
 Accessories @click{} Terminal}.
+
+@item
+Pasting into a terminal is done with @code{Ctrl+Shift+v}.
+
+@item
+Some contributors have recommended: (pdf available for free)
+
+@example
+@uref{http://www.ubuntupocketguide.com/}
+@end example
 
 @end itemize
 
@@ -218,8 +244,7 @@ label will change to say @qq{Update source}.
 
 @item
 Navigate to the @file{lilypond-git/} directory to view the source
-files.  You should now be able to modify the source files using
-your normal text editor.
+files.
 
 @end enumerate
 
@@ -230,7 +255,7 @@ input should be entered from @file{~/lilypond-git/}.  This is
 referred to as the @emph{top source directory}.}
 
 
-@subsubheading Other operating music systems
+@subsubheading Other operating systems
 
 @enumerate
 @item
@@ -396,6 +421,89 @@ all changed files to a subdirectory of @file{lilypond-git/} named
 @file{aborted_edits/}, and will reset the repository to the
 current state of the remote repository (at @code{git.sv.gnu.org}).
 
+
+
+@node Compiling with lilybuntu
+@section Compiling with lilybuntu
+
+Lilybuntu is our @q{remix} of Ubuntu which contains all the
+necessary dependencies to do lilypond development; for more
+information, see @rcontrib{Lilybuntu}.
+
+@subsubheading Preparing the build
+
+To prepare the build directory, enter (or copy&paste) the below
+text.  This should take less than a minute.
+
+@example
+cd ~/lilypond-git/
+sh autogen.sh --noconfigure
+mkdir -p build/
+cd build/
+../configure
+@end example
+
+@advanced{this is called an @qq{out-of-tree} build; we heavily
+recommend this build method.}
+
+@subsubheading Building @code{lilypond}
+
+Compiling lilypond will likely take between 5 and 30 minutes,
+depending on your computer's speed and available RAM.  We
+recommend that you minimize the terminal window while it is
+building; this can have a non-negligible effect on compilation
+speed.
+
+@example
+cd ~/lilypond-git/build/
+make
+@end example
+
+You may run the compiled @code{lilypond} with:
+
+@example
+cd ~/lilypond-git/build/
+out/bin/lilypond my-file.ly
+@end example
+
+@subsubheading Building the documentation
+
+Compiling the documentation is a much more involved process, and
+will likely take 2 to 10 hours.
+
+@example
+cd ~/lilypond-git/build/
+make doc
+@end example
+
+The documentation is put in @file{out-www/offline-root/}.  You may
+view the html files by entering the below text; we recommend that
+you bookmark the resulting page:
+
+@example
+firefox ~/lilypond-git/build/out-www/offline-root/index.html
+@end example
+
+@subsubheading Other options
+
+To select different build options, or isolate certain parts of the
+build, or to use multiple CPUs while building, read the rest of
+this chapter.
+
+
+@node Now start work!
+@section Now start work!
+
+Lilybuntu users may now skip to the chapter which is aimed at
+their intended contributions:
+
+@itemize
+@item @rcontrib{Documentation work}
+@item @rcontrib{Translate the documentation}
+@item @rcontrib{Website work}
+@item @rcontrib{Regression tests}
+@item @rcontrib{Programming work}
+@end itemize
 
 
 

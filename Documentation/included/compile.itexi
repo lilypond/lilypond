@@ -8,7 +8,6 @@
 @c   @s ection Compiling from source
 
 @menu
-* Compiling with lilybuntu::
 * Overview of compiling::
 * Requirements::
 * Getting the source code::
@@ -19,85 +18,6 @@
 * Concurrent stable and development versions::
 * Build system::
 @end menu
-
-
-@node Compiling with lilybuntu
-@section Compiling with lilybuntu
-
-Lilybuntu is our @q{remix} of Ubuntu which contains all the
-necessary dependencies to do lilypond development; for more
-information, see @rcontrib{Lilybuntu}.
-
-@subsubheading Preparing the build
-
-To prepare the build directory, enter (or copy&paste) the below
-text.  This should take less than a minute.
-
-@example
-cd ~/lilypond-git/
-sh autogen.sh --noconfigure
-mkdir -p build/
-cd build/
-../configure
-@end example
-
-@advanced{this is called an @qq{out-of-tree} build; we heavily
-recommend this build method.}
-
-@subsubheading Building @code{lilypond}
-
-Compiling lilypond will likely take between 5 and 30 minutes,
-depending on your computer's speed and available RAM.  We
-recommend that you minimize the terminal window while it is
-building; this can have a non-negligible effect on compilation
-speed.
-
-@example
-cd ~/lilypond-git/build/
-make
-@end example
-
-You may run the compiled @code{lilypond} with:
-
-@example
-cd ~/lilypond-git/build/
-out/bin/lilypond my-file.ly
-@end example
-
-@subsubheading Building the documentation
-
-Compiling the documentation is a much more involved process, and
-will likely take 2 to 10 hours.
-
-@example
-cd ~/lilypond-git/build/
-make doc
-@end example
-
-The documentation is put in @file{out-www/offline-root/}.  You may
-view the html files by entering the below text; we recommend that
-you bookmark the resulting page:
-
-@example
-firefox ~/lilypond-git/build/out-www/offline-root/index.html
-@end example
-
-@subsubheading Other options
-
-To select different build options, or isolate certain parts of the
-build, or to use multiple CPUs while building, read the rest of
-this chapter.
-
-Lilybuntu users may now skip to the chapter which is aimed at
-their intended contributions:
-
-@itemize
-@item @rcontrib{Documentation work}
-@item @rcontrib{Translate the documentation}
-@item @rcontrib{Website work}
-@item @rcontrib{Regression tests}
-@item @rcontrib{Programming work}
-@end itemize
 
 
 @node Overview of compiling
