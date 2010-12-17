@@ -225,7 +225,7 @@ Accessories @click{} Terminal}.}
 
 @enumerate
 @item
-@code{lily-git.tcl} has already been install for you.  Simply type
+@code{lily-git.tcl} has already been installed for you.  Simply type
 (or copy&paste):
 
 @example
