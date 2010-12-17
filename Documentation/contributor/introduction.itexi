@@ -162,10 +162,9 @@ At the @qq{Prepare disk space} stage, do not be afraid to select
 @emph{virtual disk}, not your machine's actual hard drive.
 
 @item
-After restarting your system, if you see the ISOLINUX @code{boot:}
-prompt again, go to
-@w{Devices@arrow{}CD/DVD Devices@arrow{}} and @emph{de-select}
-the @q{lilybuntu2.iso} option, then reboot.
+When prompted to remove the installation CD, go to
+@clicksequence{Devices @click{} CD/DVD Devices} and de-select
+@file{lilybuntu2.iso}.
 
 @end itemize
 
@@ -173,7 +172,7 @@ the @q{lilybuntu2.iso} option, then reboot.
 The latest version of lilybuntu is based on Ubuntu 10.04.1; if you
 encounter any difficulties installing it, search for one of the
 many tutorials for installing that particular version of Ubuntu as
-a client operating system.
+a guest operating system.
 }
 
 @item
@@ -181,33 +180,37 @@ Do any extra configuration for your virtualization software.
 
 VirtualBox has extra @qq{guest additions} which can make the
 virtualization easier to use (full-screen, easy file sharing
-between host and client operating systems, shared clipboards,
-etc).
+between host and guest operating systems, shared clipboards, etc).
 
 @enumerate
 
 @item
-From the @code{Devices} menu of VirtualBox, select @code{Install
-Guest Additions...}.
+In @emph{VirtualBox}, select @clicksequence{Devices @click{}
+Install Guest Additions...}.
 
 @item
-From the @code{Places} menu of Ubuntu, select
-@code{VBOXADDITIONS_}.  A file-system window will open.
+In @emph{Ubuntu}, select @clicksequence{Places @click{}
+VBOXADDITIONS_}.  A file-system window will open.
 
 @item
 Double-click on the @file{autorun.sh} file, then select @qq{Run in
 Terminal}, and enter your password when prompted.
 
 @item
-Once the script is finished, reboot your Virtual Machine to
-complete the installation.
+Once the script is finished, restart Ubuntu to complete the
+installation.
+
+@item
+Set up any additional features, such as @q{Shared Folders} between
+your main operating system and ubuntu.  Consult external
+documentation for this step.
 
 @advanced{If you do any kernel upgrades, you may need to re-run
 these VBOXADDITIONS instructions.}
 
 @end enumerate
 
-If you use other virutalization software, then follow the normal
+If you use other virtualization software, then follow the normal
 procedures for your virtualization software with Ubuntu as the
 client.
 
@@ -227,13 +230,13 @@ couple of @qq{introduction to Ubuntu} webpages.
 One particular change from Windows and MacOS X is that most
 software should be installed with your @qq{package manager}; this
 vastly simplifies the process of installing and configuring
-software.  Go to
-@w{System@arrow{}Administration@arrow{}Synaptic Package Manager}.
+software.  Go to @clicksequence{System @click{} Administration
+@click{} Synaptic Package Manager}.
 
 @item
 The rest of this manual assumes that you are using the
-command-line; go to
-@w{Applications@arrow{}Accessories@arrow{}Terminal}.
+command-line; go to @clicksequence{Applications @click{}
+Accessories @click{} Terminal}.
 
 @end itemize
 

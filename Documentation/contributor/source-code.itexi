@@ -39,6 +39,10 @@ share changes to the lilypond source code.
 
 @subsubheading Lilybuntu
 
+@warning{The rest of this manual assumes that you are using the
+command-line; go to @clicksequence{Applications @click{}
+Accessories @click{} Terminal}.}
+
 @enumerate
 @item
 @code{lily-git.tcl} has already been install for you.  Simply type
