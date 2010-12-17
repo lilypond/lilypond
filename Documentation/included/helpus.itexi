@@ -52,7 +52,7 @@ compile LilyPond.
 
 @warning{We suggest that contributors using Windows or MacOS X do
 @strong{not} attempt to set up their own development environment;
-instead, use @rcontrib{Lilybuntu}.}
+instead, use lilybuntu as discussed in @rcontrib{Quick start}.}
 
 Contributors using Linux or FreeBSD may also use Lilybuntu, but if
 they prefer their own development environment, they should read

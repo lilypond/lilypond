@@ -11,7 +11,6 @@ help LilyPond.
 @menu
 * Help us::
 * Overview of work flow::
-* Lilybuntu::
 * Mentors::
 @end menu
 
@@ -75,9 +74,9 @@ interface is at
 
 Git is a complex and powerful tool, but tends to be confusing at
 first, particularly for users not familiar with the command line
-and/or version control systems.  Contributors who don't want to
-deal with Git directly are encouraged to use the
-@command{lily-git} graphical user interface instead.
+and/or version control systems.  We have created the
+@command{lily-git} graphical user interface to ease this
+difficulty.
 
 @emph{Compiling} (@q{building}) LilyPond allows developers to see
 how changes to the source code affect the program itself.
@@ -98,149 +97,8 @@ the developers' mailing list here:
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel}.
 
 @warning{Contributors on Windows or MacOS X wishing to compile
-code or documentation are strongly advised to use @ref{Lilybuntu}
-instead of trying to install all software dependencies
-themselves.}
-
-
-@node Lilybuntu
-@section Lilybuntu
-
-It is not possible to compile LilyPond on Windows, and extremely
-difficulty to compile it on MacOS X.  We have therefore made a
-@q{remix} of Ubuntu which includes all necessary dependencies to
-compile both LilyPond and the documentation.  This can be run
-inside a virtual machine without disturbing your main operating
-system.
-
-@enumerate
-@item
-Install some virtualization software.
-
-Any virtualization tool can be used, but we recommend VirtualBox:
-
-@example
-@uref{http://@/www.virtualbox.org/@/wiki/@/Downloads}
-@end example
-
-In virtualization terminology, your main operating system is the
-@qq{host}.
-
-@item
-Download the @file{lilybuntu2.iso} disk image:
-
-@example
-@uref{http://files.lilynet.net/lilybuntu2.iso}
-@end example
-
-@advanced{There is a md5sum available:
-@uref{http://files.lilynet.net/lilybuntu2.iso.md5}}
-
-@item
-Install @file{lilybuntu2.iso} as the @qq{guest} operating system
-on your virtualized system.
-
-@itemize
-
-@item
-If possible, use at least 700 MB of RAM (1GB would be better) for
-the virtual machine, and use @qq{dynamically expanding storage}
-for the virtual hard drive.  A complete compile of everything
-(code, docs, regression tests) can reach 10 GB.
-
-@item
-When @file{lilybuntu2.iso} boots, it shows an ISOLINUX
-@code{boot:} prompt.  Type:
-
-@example
-install
-@end example
-
-@item
-At the @qq{Prepare disk space} stage, do not be afraid to select
-@qq{Erase and use the entire disk}, since this refers to your
-@emph{virtual disk}, not your machine's actual hard drive.
-
-@item
-When prompted to remove the installation CD, go to
-@clicksequence{Devices @click{} CD/DVD Devices} and de-select
-@file{lilybuntu2.iso}.
-
-@end itemize
-
-@advanced{
-The latest version of lilybuntu is based on Ubuntu 10.04.1; if you
-encounter any difficulties installing it, search for one of the
-many tutorials for installing that particular version of Ubuntu as
-a guest operating system.
-}
-
-@item
-Do any extra configuration for your virtualization software.
-
-VirtualBox has extra @qq{guest additions} which can make the
-virtualization easier to use (full-screen, easy file sharing
-between host and guest operating systems, shared clipboards, etc).
-
-@enumerate
-
-@item
-In @emph{VirtualBox}, select @clicksequence{Devices @click{}
-Install Guest Additions...}.
-
-@item
-In @emph{Ubuntu}, select @clicksequence{Places @click{}
-VBOXADDITIONS_}.  A file-system window will open.
-
-@item
-Double-click on the @file{autorun.sh} file, then select @qq{Run in
-Terminal}, and enter your password when prompted.
-
-@item
-Once the script is finished, restart Ubuntu to complete the
-installation.
-
-@item
-Set up any additional features, such as @q{Shared Folders} between
-your main operating system and ubuntu.  Consult external
-documentation for this step.
-
-@advanced{If you do any kernel upgrades, you may need to re-run
-these VBOXADDITIONS instructions.}
-
-@end enumerate
-
-If you use other virtualization software, then follow the normal
-procedures for your virtualization software with Ubuntu as the
-client.
-
-@advanced{not all hardware is supported in all virtualization
-tools.  In particular, some contributors have reported problems
-with USB devices.  If you would like to investigate further, then
-look for help for your virtualization tool using your normal OS as
-the @qq{host} and Ubuntu as the @qq{client}.}
-
-@end enumerate
-
-If you are not familiar with Linux, it may be beneficial to read a
-couple of @qq{introduction to Ubuntu} webpages.
-
-@itemize
-@item
-One particular change from Windows and MacOS X is that most
-software should be installed with your @qq{package manager}; this
-vastly simplifies the process of installing and configuring
-software.  Go to @clicksequence{System @click{} Administration
-@click{} Synaptic Package Manager}.
-
-@item
-The rest of this manual assumes that you are using the
-command-line; go to @clicksequence{Applications @click{}
-Accessories @click{} Terminal}.
-
-@end itemize
-
-You should now progress to @ref{Using lily-git}.
+code or documentation are strongly advised to use lilybuntu, as
+discussed in @ref{Quick start}.}
 
 
 @node Mentors
