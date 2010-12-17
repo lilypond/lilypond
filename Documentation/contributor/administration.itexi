@@ -788,6 +788,9 @@ about \new vs. \context.
 Let users add their own items to the parser?  comment 11 on:
 http://code.google.com/p/lilypond/issues/detail?id=1322
 
+@item
+should engravers be pluralized (note_heads_engraver) or not
+(note_head_engraver) ?
 
 @end itemize
 
