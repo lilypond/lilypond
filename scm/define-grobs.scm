@@ -1937,6 +1937,7 @@
      . (
 	(adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
 	(axes . (,X ,Y))
+	(skyline-horizontal-padding . 0.5)
 	(vertical-skylines . ,ly:axis-group-interface::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:system::height)
