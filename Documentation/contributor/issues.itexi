@@ -485,6 +485,7 @@ includes the makefiles, stepmake, python scripts, and GUB.
 @item
 Type-Scripts: problem or desired feature in the non-build-system
 scripts.  Mostly used for convert-ly, lilypond-book, etc.
+
 @item
 Type-Enhancement: a feature request for the core program.  The
 distinction between enhancement and defect isn't extremely clear;
@@ -505,19 +506,19 @@ Currently, only Critical items will block a stable release.
 @item
 Priority-Critical: LilyPond segfaults, a regression against a
 previous stable version or a regression against a fix developed
-for this version. This does not apply where the @qq{regression}
+for this version.  This does not apply where the @qq{regression}
 occurred because a feature was removed deliberately - this is not
 a bug.
 
 @item
 Priority-High: An issue which produces output which does not
-accurately reflect the input (e.g where the user would expect
+accurately reflect the input (e.g. where the user would expect
 an accidental, but none is shown) or which produces aesthetically
 poor output in a situation which could be expected to crop up
 frequently in real-world music.  It should not be used where the
 problem can be avoided with a simple workaround.  It can also
 be used to flag where new code in a development version is not
-functioning as it should. This level is also used for issues
+functioning as it should.  This level is also used for issues
 which produce no output and fail to give the user a clue about
 what's wrong.
 
@@ -585,7 +586,7 @@ Performance: might potentially be used.
 
 @end itemize
 
-If you particularly want to add an label not in the list, go
+If you particularly want to add a label not in the list, go
 ahead, but this is not recommended.
 
 
