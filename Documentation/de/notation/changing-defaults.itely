@@ -569,7 +569,7 @@ Notationskontexte (wie @code{Score} oder @code{Staff}) speichern
 nicht nur Eigenschaften, sie enthalten auch Plugins (@qq{engraver}
 genannt), die die einzelnen Notationselemente erstellen.  Ein
 @code{Voice}-Kontext enthält beispielsweise einen
-@code{Note_head_engraver}, der die Notenköpfe erstellt, und ein
+@code{Note_heads_engraver}, der die Notenköpfe erstellt, und ein
 @code{Staff}-Kontext einen @code{Key_signature_engraver}, der die
 Vorzeichen erstellt.
 

@@ -1296,7 +1296,7 @@ les lignes de portée@tie{}:
 @end lilypond
 
 @noindent
-le module @code{Clef_engraver} fournit au @code{Note_head_engraver}
+le module @code{Clef_engraver} fournit au @code{Note_heads_engraver}
 la hauteur à laquelle doit être placée chaque tête de note@tie{}:
 
 @lilypond[quote,ragged-right]

@@ -549,7 +549,7 @@ Los contextos de notación (como @code{Score} y @code{Staff}) no sólo
 almacenan propiedades, también contienen «plug-ins» o complementos
 llamados @q{grabadores} que crean elementos de notación.  Por ejemplo,
 el contexto @code{Voice} contiene un grabador
-@code{Note_head_engraver} que crea las cabezas de nota y el contexto
+@code{Note_heads_engraver} que crea las cabezas de nota y el contexto
 @code{Staff} contiene un grabador @code{Key_signature_engraver} que
 crea la indicación de compás.
 
