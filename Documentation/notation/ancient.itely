@@ -962,13 +962,15 @@ to the following
 }
 @end lilypond
 
+@seealso
+Music Glossary:
+@rglos{ligature}.
 
-@c @seealso
-@c TODO: nothing here yet ...
-
+Notation Reference:
+@ref{Gregorian square neume ligatures},
+@ref{Ligatures}.
 
 @knownissues
-
 Horizontal spacing of ligatures is poor.
 
 
@@ -991,9 +993,15 @@ proper note heads, so there is no need to explicitly set the note
 head style.  Still, the note head style can be set, e.g., to
 @code{vaticana_punctum} to produce punctum neumes.  Similarly, the
 @code{Mensural_ligature_engraver} automatically assembles
-mensural ligatures.  See @ref{Ligatures}, for how ligature
-engravers work.
+mensural ligatures.
 
+@seealso
+Music Glossary:
+@rglos{ligature}.
+
+Notation Reference:
+@ref{White mensural ligatures},
+@ref{Ligatures}.
 
 @node Gregorian chant contexts
 @unnumberedsubsubsec Gregorian chant contexts
@@ -1166,6 +1174,9 @@ hufnagel style combined do/fa clef
 
 
 @seealso
+Music Glossary:
+@rglos{clef}.
+
 Notation Reference:
 @ref{Clef}.
 
@@ -1212,10 +1223,15 @@ The style for accidentals and key signatures is controlled by the
 
 
 @seealso
+Music Glossary:
+@rglos{accidental},
+@rglos{key signature}.
+
 Notation Reference:
-@ref{Pitches}, @ref{Accidentals}, and @ref{Automatic accidentals}, give a
-general introduction of the use of accidentals.  @ref{Key signature}, gives
-a general introduction of the use of key signatures.
+@ref{Pitches},
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{Key signature}.
 
 Internals Reference:
 @rinternals{KeySignature}.
@@ -1295,6 +1311,17 @@ Therefore, @file{gregorian.ly} also defines @code{\virgula} and
 @code{\finalis}.
 @endpredefined
 
+@seealso
+Music Glossary:
+@rglos{caesura},
+@rglos{divisio}.
+
+Notation Reference:
+@ref{Breath marks}.
+
+Installed Files:
+@file{gregorian.ly}.
+
 
 @node Gregorian articulation signs
 @unnumberedsubsubsec Gregorian articulation signs
@@ -1323,6 +1350,10 @@ Vaticana} style are provided.
 @end lilypond
 
 
+@seealso
+Notation Reference:
+@ref{Articulations and ornamentations}.
+
 Snippets:
 @rlsr{Ancient notation}.
 
@@ -1336,7 +1367,6 @@ Internals Reference:
 
 
 @knownissues
-
 Some articulations are vertically placed too closely to the
 corresponding note heads.
 
@@ -2307,20 +2337,26 @@ to a head, but not both to the same head.
 
 @funindex \pes
 @funindex \flexa
+
 Two adjacent heads can be tied together with the @code{\pes} and
 @code{\flexa} infix commands for a rising and falling line of melody,
 respectively.
 
 @funindex \augmentum
+
 Use the unary music function @code{\augmentum} to add augmentum dots.
 
+@seealso
+Music Glossary:
+@rglos{ligature}.
 
-@c @seealso
-@c TODO: nothing here yet ...
+Notation Reference:
+@ref{Gregorian square neume ligatures},
+@ref{White mensural ligatures},
+@ref{Ligatures}.
 
 
 @knownissues
-
 When an @code{\augmentum} dot appears at the end of the last staff
 within a ligature, it is sometimes vertically placed wrong.  As a
 workaround, add an additional skip note (e.g., @code{s8}) as last note
