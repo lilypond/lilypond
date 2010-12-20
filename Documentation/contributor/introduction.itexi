@@ -97,8 +97,8 @@ the developers' mailing list here:
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel}.
 
 @warning{Contributors on Windows or MacOS X wishing to compile
-code or documentation are strongly advised to use lilybuntu, as
-discussed in @ref{Quick start}.}
+code or documentation are strongly advised to use our Ubuntu
+LilyPond Developer Remix, as discussed in @ref{Quick start}.}
 
 
 @node Mentors

@@ -11,6 +11,7 @@ Advanced contributors will find this material quite useful,
 particularly if they are working on major new features.
 
 @menu
+* Manually installing lily-git.tcl::
 * Starting with Git::
 * Basic Git procedures::
 * Advanced Git procedures::
@@ -18,6 +19,91 @@ particularly if they are working on major new features.
 * Repository directory structure::
 * Other Git documentation::
 @end menu
+
+
+@node Manually installing lily-git.tcl
+@section Manually installing lily-git.tcl
+
+We have created an easy-to-use GUI to simplify git for new
+contributors.  If you are comfortable with the command-line, then
+skip ahead to @ref{Starting with Git}.
+
+@warning{These instructions are only for people who are @emph{not}
+using @ref{Lilydev}.}
+
+@c there's some duplication in this section with stuff covered in
+@c Quick Start, but moving it into a macro inside included/ would
+@c be getting a bit icky.  -gp
+
+@enumerate
+@item
+If you haven't already, download and install Git.
+
+@itemize
+
+@item Windows users: download the @code{.exe} file labeled
+@qq{Full installer for official Git} from:
+
+@example
+@uref{http://code.google.com/p/msysgit/downloads/list}
+@end example
+
+@item Other operating systems: either install @command{git} with
+your package manager, or download it from the @qq{Binaries}
+section of:
+
+@example
+@uref{http://git-scm.com/download}
+@end example
+
+@end itemize
+
+
+@item
+Download the @command{lily-git.tcl} script from:
+
+@c don't change the cgit link below to gitweb; gitweb uses
+@c long filenames like "scripts_auxiliar_lily-git.tcl"
+
+@example
+@uref{http://git.sv.gnu.org/cgit/lilypond.git/plain/scripts/auxiliar/lily-git.tcl}
+@end example
+
+@item
+To run the program from the command line, navigate to the
+directory containing @command{lily-git.tcl} and enter:
+
+@example
+wish lily-git.tcl
+@end example
+
+@item
+Click on the @qq{Get source} button.
+
+This will create a directory called @file{lilypond-git/} within
+your home directory, and will download the source code into that
+directory (around 55Mb).  When the process is finished, the
+@qq{Command output} window will display @qq{Done}, and the button
+label will change to say @qq{Update source}.
+
+@item
+Navigate to the @file{lilypond-git/} directory to view the source
+files.
+
+@end enumerate
+
+@warning{Throughout the rest of this manual, most command-line
+input should be entered from @file{~/lilypond-git/}.  This is
+referred to as the @emph{top source directory}.}
+
+Further instructions are in @ref{Daily use of lily-git.tcl}.
+
+@advanced{the @qq{Get source} button does not fetch the entire
+history of the git repository, so utilities like @command{gitk}
+will only be able to display the most recent additions.  As you
+continue to work with @command{lily-git.tcl}, the @qq{Update
+source} button will take any new additions and add it to whatever
+is currently in your repository's history.}
 
 
 @node Starting with Git

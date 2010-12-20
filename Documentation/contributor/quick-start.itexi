@@ -11,7 +11,8 @@ difficulty to compile it on MacOS X.  We have therefore made a
 @q{remix} of Ubuntu which includes all necessary dependencies to
 compile both LilyPond and the documentation.  This can be run
 inside a virtual machine without disturbing your main operating
-system.
+system.  The full name is @qq{Ubuntu LilyPond Developer Remix},
+but we refer to it as @qq{lilydev} for short.
 
 @advanced{experienced developers may prefer to use their own
 development environment.  It may be instructive to skim over these
@@ -19,25 +20,25 @@ instructions, but be aware that this chapter is intended for
 helpful users who may have never created a patch before.}
 
 @menu
-* Lilybuntu::
+* Lilydev::
 * Using lily-git::
-* Compiling with lilybuntu::
+* Compiling with lilydev::
 * Now start work!::
 @end menu
 
-@node Lilybuntu
-@section Lilybuntu
+@node Lilydev
+@section Lilydev
 
 text.
 
 @menu
-* Installing lilybuntu::
-* Configuring lilybuntu in virtualbox::
-* Using lilybuntu::
+* Installing lilydev::
+* Configuring lilydev in virtualbox::
+* Using lilydev::
 @end menu
 
-@node Installing lilybuntu
-@subsection Installing lilybuntu
+@node Installing lilydev
+@subsection Installing lilydev
 
 @enumerate
 @item
@@ -50,33 +51,39 @@ Any virtualization tool can be used, but we recommend VirtualBox:
 @end example
 
 In virtualization terminology, your main operating system is the
-@qq{host}, while lilybuntu is the @qq{guest}.
+@qq{host}, while lilydev is the @qq{guest}.
 
 @item
-Download the @file{lilybuntu2.iso} disk image: (approximately 1
-GB)
+Download the Ubuntu LilyPond Developer Remix disk image:
+(approximately 1 GB)
 
 @example
-@uref{http://files.lilynet.net/lilybuntu2.iso}
+@uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.0.iso}
 @end example
 
-@advanced{There is a md5sum available:
-@uref{http://files.lilynet.net/lilybuntu2.iso.md5}}
+@advanced{Some users might want these files, but if you don't
+recognize what they are, then you don't want them:
+@uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.0.iso.md5}
+@uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.0.iso.torrent}
+}
 
 @item
-Install @file{lilybuntu2.iso} as the @qq{guest} operating system
-on your virtualized system.
+Create a new @qq{virtual machine} inside your virtualization
+software.
 
-@itemize
-
-@item
 If possible, use at least 700 MB of RAM (1GB would be better) for
 the virtual machine, and use @qq{dynamically expanding storage}
 for the virtual hard drive.  A complete compile of everything
 (code, docs, regression tests) can reach 10 GB.
 
 @item
-When @file{lilybuntu2.iso} boots, it shows an ISOLINUX
+Install @file{lilydev2.iso} as the @qq{guest} operating system
+on your virtualized system.
+
+@enumerate
+
+@item
+When @file{lilydev2.iso} boots, it shows an ISOLINUX
 @code{boot:} prompt.  Type:
 
 @example
@@ -91,12 +98,12 @@ At the @qq{Prepare disk space} stage, do not be afraid to select
 @item
 When prompted to remove the installation CD, go to
 @clicksequence{Devices @click{} CD/DVD Devices} and de-select
-@file{lilybuntu2.iso}.
+@file{lilydev2.iso}.
 
-@end itemize
+@end enumerate
 
 @advanced{
-The latest version of lilybuntu is based on Ubuntu 10.04.1; if you
+The latest version of lilydev is based on Ubuntu 10.04.1; if you
 encounter any difficulties installing it, search for one of the
 many tutorials for installing that particular version of Ubuntu as
 a guest operating system.
@@ -106,23 +113,25 @@ a guest operating system.
 Do any extra configuration for your virtualization software.
 
 There are additional instructions for VirtualBox in
-@ref{Configuring lilybuntu in virtualbox}.
+@ref{Configuring lilydev in virtualbox}.
 
 If you use other virtualization software, then follow the normal
 procedures for your virtualization software with Ubuntu as the
 client.
 
-@advanced{not all hardware is supported in all virtualization
-tools.  In particular, some contributors have reported problems
-with USB devices.  If you would like to investigate further, then
-look for help for your virtualization tool using your normal OS as
-the @qq{host} and Ubuntu as the @qq{client}.}
-
 @end enumerate
 
+@knownissues
 
-@node Configuring lilybuntu in virtualbox
-@subsection Configuring lilybuntu in virtualbox
+Not all hardware is supported in all virtualization tools.  In
+particular, some contributors have reported problems with USB
+devices.  If you would like to investigate further, then look for
+help for your virtualization tool using your normal OS as the
+@qq{host} and Ubuntu as the @qq{client}.
+
+
+@node Configuring lilydev in virtualbox
+@subsection Configuring lilydev in virtualbox
 
 VirtualBox has extra @qq{guest additions} which can make the
 virtualization easier to use (full-screen, easy file sharing
@@ -143,8 +152,12 @@ Double-click on the @file{autorun.sh} file, then select @qq{Run in
 Terminal}, and enter your password when prompted.
 
 @item
-Once the script is finished, restart Ubuntu to complete the
-installation.
+Once the script is finished, @qq{eject} the virtual CD, and then
+go to @clicksequence{Devices @click{} CD/DVD Devices} and
+de-select @file{VBoxGuestAdditions.iso}.
+
+@item
+Restart Ubuntu to complete the installation.
 
 @advanced{If you do any kernel upgrades, you may need to re-run
 these VBOXADDITIONS instructions.}
@@ -164,15 +177,15 @@ your main operating system and ubuntu.  This is distinct from the
 networked share folders in Windows.  Consult external
 documentation for this step.
 
-TODO: maybe we should just nuke this point?  is it easier to do
-networked file sharing in osx, linux, etc, thus making the
-virtualbox "shared folders" not useful?
+Some longtime contributors have reported that @q{shared folders}
+are rarely useful and not worth the fuss, particularly since files
+can be shared over a network instead.
 
 @end itemize
 
 
-@node Using lilybuntu
-@subsection Using lilybuntu
+@node Using lilydev
+@subsection Using lilydev
 
 If you are not familiar with Linux, it may be beneficial to read a
 couple of @qq{introduction to Ubuntu} webpages.
@@ -187,11 +200,19 @@ Software Center}.
 
 @item
 The rest of this manual assumes that you are using the
-command-line; go to @clicksequence{Applications @click{}
-Accessories @click{} Terminal}.
+command-line; double-click on the @q{Terminal} icon on the
+desktop.
 
 @item
 Pasting into a terminal is done with @code{Ctrl+Shift+v}.
+
+@item
+The @qq{Places} top-menu has shortcuts to a graphical
+@qq{navigator} like Windows Explorer or the MacOS X Finder.
+
+@item
+Right-click allows you to edit a file with gedit.  We recommend
+using gedit.
 
 @item
 Some contributors have recommended: (pdf available for free)
@@ -203,8 +224,6 @@ Some contributors have recommended: (pdf available for free)
 @end itemize
 
 
-@c if you change this node name, you'll need to change the @ref in
-@c web/ and/or included/, along with all the translations.
 @node Using lily-git
 @section Using lily-git
 
@@ -220,17 +239,15 @@ share changes to the lilypond source code.
 @unnumberedsubsec Install and configuration of @command{lily-git.tcl}
 
 @warning{The rest of this manual assumes that you are using the
-command-line; go to @clicksequence{Applications @click{}
-Accessories @click{} Terminal}.}
+command-line; double-click on the @q{Terminal} icon on the
+desktop.}
 
 @enumerate
 @item
-@code{lily-git.tcl} has already been installed for you.  Simply type
-(or copy&paste):
+Type (or copy&paste) into the Terminal:
 
 @example
-cd
-wish lily-git.tcl
+lily-git.tcl
 @end example
 
 @item
@@ -248,65 +265,11 @@ files.
 
 @end enumerate
 
-You should now progress to @ref{Compiling with lilybuntu}.
+You should now progress to @ref{Compiling with lilydev}.
 
 @warning{Throughout the rest of this manual, most command-line
 input should be entered from @file{~/lilypond-git/}.  This is
 referred to as the @emph{top source directory}.}
-
-
-@subsubheading Other operating systems
-
-@enumerate
-@item
-If you haven't already, download and install Git.
-
-@itemize
-
-@item
-Lilybuntu users: git has already been installed for you.
-
-@item Windows users: download the @code{.exe} file labeled
-@qq{Full installer for official Git} from:
-
-@example
-@uref{http://code.google.com/p/msysgit/downloads/list}
-@end example
-
-@item Other operating systems: either install @command{git} with
-your package manager, or download it from the @qq{Binaries}
-section of:
-
-@example
-@uref{http://git-scm.com/download}
-@end example
-
-@end itemize
-
-
-@item
-Download the @command{lily-git.tcl} script from:
-
-@c don't change the cgit link below to gitweb; gitweb uses
-@c long filenames like "scripts_auxiliar_lily-git.tcl"
-
-@example
-@uref{http://git.sv.gnu.org/cgit/lilypond.git/plain/scripts/auxiliar/lily-git.tcl}
-@end example
-
-@item
-To run the program from the command line, navigate to the
-directory containing @command{lily-git.tcl} and enter:
-
-@example
-wish lily-git.tcl
-@end example
-
-@item
-Go read the lilybuntu instructions, starting from the @qq{get
-source} step.
-
-@end enumerate
 
 @advanced{the @qq{Get source} button does not fetch the entire
 history of the git repository, so utilities like @command{gitk}
@@ -423,17 +386,19 @@ current state of the remote repository (at @code{git.sv.gnu.org}).
 
 
 
-@node Compiling with lilybuntu
-@section Compiling with lilybuntu
+@node Compiling with lilydev
+@section Compiling with lilydev
 
-Lilybuntu is our @q{remix} of Ubuntu which contains all the
+Lilydev is our @q{remix} of Ubuntu which contains all the
 necessary dependencies to do lilypond development; for more
-information, see @rcontrib{Lilybuntu}.
+information, see @rcontrib{Lilydev}.
 
 @subsubheading Preparing the build
 
 To prepare the build directory, enter (or copy&paste) the below
 text.  This should take less than a minute.
+
+@c we heavily recommend the out-of-tree build; do not change this!
 
 @example
 cd ~/lilypond-git/
@@ -442,9 +407,6 @@ mkdir -p build/
 cd build/
 ../configure
 @end example
-
-@advanced{this is called an @qq{out-of-tree} build; we heavily
-recommend this build method.}
 
 @subsubheading Building @code{lilypond}
 
@@ -494,7 +456,7 @@ this chapter.
 @node Now start work!
 @section Now start work!
 
-Lilybuntu users may now skip to the chapter which is aimed at
+Lilydev users may now skip to the chapter which is aimed at
 their intended contributions:
 
 @itemize

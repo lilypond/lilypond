@@ -277,7 +277,7 @@ We often receive reports of typos and minor text updates to the
 documentation. It would be great if somebody could create
 properly-formatted patches for these corrections.
 
-Technical requirements: ability to run @ref{Lilybuntu}.
+Technical requirements: ability to run @ref{Lilydev}.
 
 @item LSR editor:
 LSR contains many useful examples of lilypond, but some snippets
@@ -294,7 +294,7 @@ chapters 1 and 2 (or be willing to read the docs to find out).
 often find them in Ponds of Lilies) and new feature implementors.
 
 Technical requirements: development environment (such as
-@ref{Lilybuntu}), ability to read+write scheme and/or C++ code.
+@ref{Lilydev}), ability to read+write scheme and/or C++ code.
 
 @end itemize
 
@@ -831,7 +831,7 @@ discuss giving them push access.  Unsolicited requests from
 contributors for access will almost always be turned down.
 
 
-@subsubheading Creating the @strong{Lilybuntu} respin
+@subsubheading Creating the @strong{Lilydev} respin
 
 @enumerate
 
