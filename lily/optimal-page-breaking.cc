@@ -59,10 +59,7 @@ Optimal_page_breaking::solve ()
       /* find out the ideal number of pages */
       message (_ ("Finding the ideal number of pages..."));
   
-      if (systems_per_page () > 0)
-	best = space_systems_with_fixed_number_per_page (0, first_page_num);
-      else
-	best = space_systems_on_best_pages (0, first_page_num);
+      best = space_systems_on_best_pages (0, first_page_num);
 
       page_count = best.systems_per_page_.size ();
       ideal_sys_count = best.system_count ();

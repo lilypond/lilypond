@@ -1137,6 +1137,9 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
 Page_spacing_result
 Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_page_num)
 {
+  if (systems_per_page_ > 0)
+    return space_systems_with_fixed_number_per_page (configuration, first_page_num);
+
   cache_line_details (configuration);
   Page_spacer ps (cached_line_details_, first_page_num, this);
 
