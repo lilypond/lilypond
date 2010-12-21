@@ -207,7 +207,7 @@ sous-programmes (@emph{plug-ins} pour employer le terme consacré) nommés
 @qq{graveurs} (@emph{engravers} pour reprendre le terme anglais).
 Ces sous-programmes sont chargés de créer les différents éléments de
 notation@tie{}: on trouve ainsi dans le contexte @code{Voice} un graveur
-@code{Note_head_engraver}, chargé des têtes de notes et, dans le
+@code{Note_heads_engraver}, chargé des têtes de notes et, dans le
 contexte @code{Staff}, un graveur @code{Key_signature_engraver}, chargé
 de l'armure.
 

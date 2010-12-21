@@ -77,3 +77,4 @@ RELEASE-COMMIT
 Documentation/lilypond
 semantic.cache
 .lock-wscript
+build/

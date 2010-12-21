@@ -50,6 +50,7 @@ Copyright @copyright{} 2007--2010 by the authors.
 
 @menu
 * Introduction to contributing::
+* Quick start::
 * Working with source code::
 * Compiling::
 * Documentation work::
@@ -74,6 +75,7 @@ Appendices
 @allowcodebreaks false
 
 @include contributor/introduction.itexi
+@include contributor/quick-start.itexi
 @include contributor/source-code.itexi
 @include contributor/compiling.itexi
 @include contributor/doc-work.itexi

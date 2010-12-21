@@ -21,7 +21,7 @@ cd $TOP_SRC_DIR
 
 ### update manuals
 find Documentation/ -path 'Documentation/snippets' -prune \
-  , -name '*.itely' | xargs $BUILD_DIR/out/bin/convert-ly -e -d
+  -o -name '*.itely' | xargs $BUILD_DIR/out/bin/convert-ly -e -d
 
 ### update .ly files
 find . -name '*.ly' | xargs $BUILD_DIR/out/bin/convert-ly -e -d

@@ -347,7 +347,7 @@ discussion.
 
 @warning{The estimated time required for "prep work", and the
 following discussion, has been added to each item.  At the moment,
-there is an estimated 30 hours of prep work and 125 hours of
+there is an estimated 30 hours of prep work and 135 hours of
 discussion.}
 
 @itemize
@@ -473,6 +473,15 @@ files, since the code repository will track that for you.
 We currently do not advertize bounties and sponsorships on the
 webpage.  How much advertising do we want, and what type?
 Should we change the "structure" / "framework" for bounties?
+
+(prep: 2 hours.  discuss: 10 hours)
+
+@item @strong{Separate branches for active development}:
+it might be good to have @emph{everybody} working on separate
+branches.  This complicates the git setup, but with sufficient
+logic in lily-git.tcl, we can probably make it transparent to
+newbies.  However, we'd need a reliable person to handle all the
+required merging and stuff.
 
 (prep: 2 hours.  discuss: 10 hours)
 
@@ -779,6 +788,9 @@ about \new vs. \context.
 Let users add their own items to the parser?  comment 11 on:
 http://code.google.com/p/lilypond/issues/detail?id=1322
 
+@item
+should engravers be pluralized (note_heads_engraver) or not
+(note_head_engraver) ?
 
 @end itemize
 
@@ -819,3 +831,61 @@ discuss giving them push access.  Unsolicited requests from
 contributors for access will almost always be turned down.
 
 
+@subsubheading Creating the @strong{Lilybuntu} respin
+
+@enumerate
+
+@item Install ubuntu, reboot
+
+@item Run all updates, reboot if asked
+
+@item Enable src repos, refresh package lists
+
+@item install LP build deps:
+
+@example
+sudo apt-get build-dep lilypond
+@end example
+
+@ install git and other stray build dependencies:
+
+@example
+sudo apt-get install git-core gitk autoconf dblatex
+@end example
+
+@item TEST TO SEE WHETHER EVERYTHING WORKS NOW:
+
+@itemize
+
+@item use @code{lily-git.tcl} to grab source files
+@item go to source directory and do @code{./autogen.sh ;
+make all ; make doc}
+
+@item if all compiles, move on to iso creation...
+
+@end itemize
+
+@item Download & install "remastersys" package:
+
+@example
+@uref{http://sourceforge.net/projects/remastersys/}
+@end example
+
+@item copy @code{lily-git.tcl} script file into @code{/etc/skel/}
+
+@item modify @code{/etc/remastersys.conf} as desired
+(change .iso name, default live session username, etc)
+
+@item Remove non-essential desktop software as desired
+@item create iso:
+
+@example
+sudo remastersys dist
+@end example
+
+@item new iso is in @code{/home/remastersys/remastersys/}
+
+@item test iso by installing in VM and repeating steps above for
+getting source files and building lp and docs
+
+@end enumerate

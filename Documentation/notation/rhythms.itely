@@ -1175,6 +1175,15 @@ c2 d
 e4. d8 c2
 @end lilypond
 
+Metronome marks may also be printed as a range of two numbers:
+
+@lilypond[verbatim,quote,relative=1]
+\tempo 4 = 40 ~ 46
+c4. ees8
+fis g aes c,
+b1
+@end lilypond
+
 Tempo indications with text can be used instead:
 
 @lilypond[verbatim,quote,relative=2]

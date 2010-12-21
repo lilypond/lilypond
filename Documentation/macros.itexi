@@ -67,6 +67,32 @@ translations should be in macros.itexi.
 
 @end ifnothtml
 
+@ifhtml
+
+@macro advanced{TEXT}
+@html
+<div class="advanced">
+@end html
+@strong{Advanced note:} \TEXT\
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
+@end macro
+
+@end ifhtml
+
+@ifnothtml
+
+@macro advanced{TEXT}
+@quotation
+@b{Advanced note:} \TEXT\
+@end quotation
+@end macro
+
+@end ifnothtml
+
 
 @macro docMain
 @cartouche

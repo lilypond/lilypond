@@ -67,6 +67,7 @@ $LILYPONDBOOK \
         -I $FROMDIR/input/manual \
         -I $FROMDIR/Documentation \
         -I $FROMDIR/Documentation/included  \
+        -I $FROMDIR/Documentation/pictures \
         -o $TODIR/out \
         $FROMDIR/Documentation/$DIRECTORY/$NAME.itely
 BOOKRC=$?

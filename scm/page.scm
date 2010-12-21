@@ -246,7 +246,7 @@
        (add-system
 	(lambda (system)
 	  (let* ((stencil (paper-system-stencil system))
-		 (y (ly:prob-property system 'Y-offset))
+		 (y (ly:prob-property system 'Y-offset 0))
 		 (is-title (paper-system-title?
 			    system)))
 	    (add-to-page stencil

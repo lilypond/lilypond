@@ -7,10 +7,10 @@
 
 The LilyPond development team is quite small; we really want to
 get more people involved.  Please consider helping your fellow
-LilyPond users by contributing to development!
+LilyPond users by contributing!
 
-Even working on small tasks can have a big impact: taking care
-of them let experienced developers work on advanced tasks, instead
+Even working on small tasks can have a big impact: taking care of
+them allows experienced developers work on advanced tasks, instead
 of spending time on those simple tasks.
 
 @end macro
@@ -18,6 +18,8 @@ of spending time on those simple tasks.
 
 @macro helpusTasks
 @subheading Simple tasks
+
+No source code or compiling required!
 
 @itemize
 @item
@@ -43,18 +45,23 @@ testing new features.  Please contribute to these discussions!
 
 @end itemize
 
-@subheading Moderate tasks
+@subheading Advanced tasks
 
-@warning{These jobs generally require that you have the program
-and documentation source files, but do not require a full
-development environment.  See
-@rcontrib{Working with source code}.}
+These jobs generally require that you have the source code and can
+compile LilyPond.
+
+@warning{We suggest that contributors using Windows or MacOS X do
+@strong{not} attempt to set up their own development environment;
+instead, use lilybuntu as discussed in @rcontrib{Quick start}.}
+
+Contributors using Linux or FreeBSD may also use Lilybuntu, but if
+they prefer their own development environment, they should read
+@rcontrib{Working with source code}, and @rcontrib{Compiling}.
 
 @itemize
 @item
-Documentation: see
-@rcontrib{Documentation work}, and
-@rcontrib{Building documentation without compiling}.
+Documentation: for large changes, see
+@rcontrib{Documentation work}.
 
 @item
 Website: the website is built from the normal documentation
@@ -65,25 +72,8 @@ source.  See the info about documentation, and also
 Translations: see @rcontrib{Translating the documentation}, and
 @rcontrib{Translating the website}.
 
-@end itemize
-
-
-@subheading Complex tasks
-
-@warning{These jobs generally require that you have the source
-code and can compile LilyPond.  See
-@rcontrib{Working with source code},
-and @rcontrib{Compiling}.
-@*@*
-We suggest that new contributors using Windows or MacOS X do
-@strong{not} attempt to set up their own development environment;
-instead, see
-@rcontrib{Lilybuntu}.
-}
-
-@itemize
 @item
-Bugfixes, new features: the best way to begin is to join the
+Bugfixes or new features: the best way to begin is to join the
 Frogs, and read @rcontrib{Programming work}.
 
 @end itemize

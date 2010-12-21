@@ -269,6 +269,9 @@ Page_turn_page_breaking::make_lines (vector<Break_node> *psoln)
 SCM
 Page_turn_page_breaking::make_pages (vector<Break_node> const &soln, SCM systems)
 {
+  if (scm_is_null (systems))
+    return SCM_EOL;
+
   vector<vsize> lines_per_page;
   for (vsize i = 0; i < soln.size (); i++)
     {

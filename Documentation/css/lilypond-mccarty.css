@@ -455,4 +455,16 @@ div#search p, div#search form {
   margin: 1em;
 }
 
+.advanced {
+  background: #eeffcc;
+  text-align: left;
+  padding: 0;
+  border: 1px solid green;
+  /* Experimental rounded corners */
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  margin: 0.5em 0.5em 2em 3em;
+}
+
+
 
