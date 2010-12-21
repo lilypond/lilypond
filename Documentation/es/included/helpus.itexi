@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 0278e9c34ceeb935bd5c691cc8f084e29bed1e1e
+    Translation of GIT committish: 512542520ca60b7018df2de43e2c5f51bf05432c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,8 +15,8 @@
 
 El equipo de desarrollo de LilyPond es muy pequeño; verdaderamente nos
 gustaría tener a más gente implicada.  ¡Considere la posibilidad de
-ayudar a sus colegas usuarios de LilyPond contribuyendo a su
-desarrollo!
+ayudar a sus colegas usuarios de LilyPond mediante contribuciones
+al programa!
 
 Incluso el trabajo sobre pequeñas tareas puede tener un gran impacto:
 ocuparse de ellas permite a los desarrolladores con experiencia
@@ -28,6 +28,8 @@ esos trabajos sencillos.
 
 @macro helpusTasks
 @subheading Tareas sencillas
+
+¡No son necesarios el código fuente ni la compilación!
 
 @itemize
 @item
@@ -56,18 +58,26 @@ prueba de nuevas funcionalidades.  ¡Contribuya a estas discusiones!
 
 @end itemize
 
-@subheading Tareas de dificultad moderada
+@subheading Tareas de nivel avanzado
 
-@warning{En general, estos trabajos requieren que usted tenga los
-archivos de código fuente del programa y la documentación, pero no
-requieren un entorno de desarrollo completo.  Consulte
-@rcontribnamed{Working with source code,Trabajar con el código fuente}.}
+En general, estos trabajos requieren que usted tenga el
+código fuente y sea capaz de compilar LilyPond.
+
+@warning{Sugerimos a los colaboradores nuevos que sean usuarios de Windows
+o de MacOS X que @strong{no} traten de montar un entorno de desarrollo
+por ellos mismos; en su lugar, utilice lilybuntu como se explica en
+@rcontribnamed{Quick start,Inicio rápido}.}
+
+Los colaboradores que utilicen Linux o FreeBSD también pueden usar
+Lilybuntu, pero si prefieren tener su propio entorno de desarrollo,
+deberían leer
+@rcontribnamed{Working with source code,Trabajar con el código fuente}
+y @rcontribnamed{Compiling,Compilación}.
 
 @itemize
 @item
-Documentación: consulte @rcontribnamed{Documentation work,Trabajar en
-la documentación} y @rcontribnamed{Building documentation without
-compiling,Construir la documentación sin compilar LilyPond}.
+Documentación: para cambios grandes, consulte
+@rcontribnamed{Documentation work,Trabajar en la documentación}.
 
 @item
 Página web: nuestra página se construye a partir del código fuente
@@ -80,24 +90,8 @@ Traducciones: consulte @rcontribnamed{Translating the
 documentation,Traducir la documentación} y @rcontribnamed{Translating
 the website,Traducir la página web}.
 
-@end itemize
-
-
-@subheading Tareas complejas
-
-@warning{En general, estos trabajos requieren que usted tenga el
-código fuente y sea capaz de compilar LilyPond.  Consulte
-@rcontribnamed{Working with source code,Trabajar con el código fuente} y
-@rcontribnamed{Compiling,Compilación de LilyPond}.}
-
-Sugerimos a los colaboradores nuevos que sean usuarios de Windows
-o de MacOS X que @strong{no} traten de montar un entorno de desarrollo
-por ellos mismos; en su lugar, consulte
-@rcontrib{Lilybuntu}.
-
-@itemize
 @item
-Corrección de fallos, funcionalidades nuevas: la mejor forma de
+Corrección de fallos o funcionalidades nuevas: la mejor forma de
 comenzar es unirse a los cazadores de bugs, los Frogs, y leer
 @rcontribnamed{Programming work,Trabajos de programación}.
 
