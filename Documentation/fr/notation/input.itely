@@ -33,7 +33,8 @@ LilyPond.
 @section Agencement du code
 @translationof Input structure
 
-@untranslated
+LilyPond traite des fichiers textuels.  Ces fichiers portent par
+convention une extension @code{.ly}.
 
 
 @menu
@@ -48,35 +49,496 @@ LilyPond.
 @subsection Structure d'une partition
 @translationof Structure of a score
 
-@untranslated
+@funindex \score
+
+Un bloc @code{\score} contient obligatoirement une seule expression
+musicale délimitée par des accolades@tie{}:
+
+@example
+\score @{
+...
+@}
+@end example
+
+@warning{Il ne doit y avoir qu'@strong{une seule} expression musicale
+globale dans un bloc @code{@bs{}score}, et elle @strong{doit} être
+bornée par une paire d'accolades.}
+
+Cette unique expression musicale peut être de n'importe quelle taille et
+contenir d'autres expressions musicales aussi complexes soient elles.
+Voici quelques exemples d'expression musicale@tie{}:
+
+@example
+@{ c'4 c' c' c' @}
+@end example
+
+@lilypond[verbatim,quote]
+{
+  { c'4 c' c' c' }
+  { d'4 d' d' d' }
+}
+@end lilypond
+
+@lilypond[verbatim,quote]
+<<
+  \new Staff { c'4 c' c' c' }
+  \new Staff { d'4 d' d' d' }
+>>
+@end lilypond
+
+@example
+@{
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff @{ \flute @}
+      \new Staff @{ \hautbois @}
+    >>
+    \new StaffGroup <<
+      \new Staff @{ \violonI @}
+      \new Staff @{ \violonII @}
+    >>
+  >>
+@}
+@end example
+
+Les commentaires constituent l'une des rares exceptions à cette règle
+immuable -- voir @ref{Structure de fichier} pour les autres.  Qu'il
+s'agisse d'une seule ligne ou de tout un bloc -- délimité par @code{%@{
+.. %@}} -- un commentaire peut se placer n'importe où dans le fichier
+source, aussi bien à l'intérieur qu'à l'extérieur du bloc @code{\score},
+ou encore à l'intérieur ou à l'extérieur de l'expression musicale
+contenue dans un bloc @code{\score}.
+
+Lorsqu'un fichier ne comprend qu'un bloc @code{\score}, celui-ci est
+implicitement inclus dans un bloc @code{\book}.  Le bloc @code{\book}
+d'un fichier source permet la production d'au moins un fichier dont le
+nom sera, par défaut, déduit du fichier source@tie{}: le traitement de
+@file{fandangopourelephants.ly} produira donc
+@file{fandangopourelephants.pdf}.  Pour de plus amples informations à
+propos du bloc @code{\book}, lisez
+@ref{Plusieurs partitions dans un même ouvrage},
+@ref{Plusieurs éditions pour une même source} et
+@ref{Structure de fichier}.
+
+@seealso
+Manuel d'initiation :
+@rlearning{Travail sur les fichiers d'entrée},
+@rlearning{Les expressions musicales en clair},
+@rlearning{La partition est une (unique) expression musicale composée}.
 
 
 @node Plusieurs partitions dans un même ouvrage
 @subsection Plusieurs partitions dans un même ouvrage
 @translationof Multiple scores in a book
 
-@untranslated
+@cindex mouvements, plusieurs
+@cindex plusieurs mouvements
+
+@funindex \book
+
+Un ouvrage peut se composer de plusieurs morceaux et de texte.  C'est le
+cas des cahiers d'exercices ou d'une partie d'orchestre avec ses
+différents mouvements.  Chaque mouvement fait l'objet d'un bloc
+@code{\score},
+
+@example
+\score @{
+  @var{..musique..}
+@}
+@end example
+
+et le texte est contenu dans un bloc @code{\markup},
+
+@example
+\markup @{
+  @var{..texte..}
+@}
+@end example
+
+@funindex \book
+
+Les différents mouvements et textes qui apparaissent dans un même
+fichier @file{.ly} ne composeront en principe qu'un seul fichier
+résultant.
+
+@example
+\score @{
+  @var{..}
+@}
+\markup @{
+  @var{..}
+@}
+\score @{
+  @var{..}
+@}
+@end example
+
+Attention cependant si vous travaillez avec lilypond-book@tie{}: il vous
+faudra explicitement mentionner le bloc @code{\book}, en l'absence de
+quoi seul le premier @code{\score} ou @code{\markup} apparaîtra après
+traitement.
+
+L'entête de chaque pièce peut se placer au sein du bloc
+@code{\score}@tie{}; le contenu du champ @code{piece} viendra s'imprimer
+avant chaque mouvement.  De même, le titre de l'ouvrage peut se placer
+au sein du bloc @code{\book}.  Dans le cas contraire, le contenu du bloc
+@code{\header} placé en début de fichier sera utilisé.
+
+@example
+\header @{
+  title = "Huit miniatures"
+  composer = "Igor Stravinsky"
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Romance" @}
+@}
+\markup @{
+   ..texte du second couplet..
+@}
+\markup @{
+   ..texte du troisième couplet..
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Menuet" @}
+@}
+@end example
+
+@funindex \bookpart
+
+Plusieurs pièces seront regroupées dans un même @qq{chapitre} à l'aide
+d'un bloc @code{\bookpart}.  Les différentes parties sont séparées par
+un saut de page et peuvent comporter un titre à l'instar de l'ouvrage
+dès lors que vous y insérez un bloc @code{\header}.
+
+@example
+\bookpart @{
+  \header @{
+    title = "Titre de l'ouvrage"
+    subtitle = "Première partie"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  \header @{
+    subtitle = "Deuxième partie"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
 
 
 @node Plusieurs éditions pour une même source
 @subsection Plusieurs éditions pour une même source
 @translationof Multiple output files from one input file
 
-@untranslated
+Dès lors que vous inscrivez plusieurs blocs @code{\book} dans un même
+fichier @file{.ly}, chacun d'eux donnera lieu à un résultat indépendant.
+Lorsqu'aucun bloc @code{\book} n'est spécifié dans le fichier source,
+LilyPond considère que l'intégralité du fichier constitue un bloc
+@code{\book} unique, comme indiqué à la rubrique
+@ref{Structure de fichier}.
+
+LilyPond fait en sorte, lorsque plusieurs fichiers sont produits à
+partir d'une même source, qu'aucun résultat d'un bloc @code{\book}
+n'écrase celui qui a été généré pour un bloc @code{\book} précédent.
+
+Dans les faits, et si le nom du fichier produit est repris de sa source
+-- comportement par défaut --, un suffixe lui sera ajouté pour chaque
+@code{\book}.  Il s'agit en principe d'un pseudo numéro de version.
+Ainsi, le fichier @file{huitminiatures.ly} qui contiendrait
+
+@example
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+génèrera
+
+@itemize
+@item
+@file{huitminiatures.pdf},
+@item
+@file{huitminiatures-1.pdf} et
+@item
+@file{huitminiatures-2.pdf}.
+@end itemize
 
 
 @node Nom des fichiers de sortie
 @subsection Nom des fichiers de sortie
 @translationof Output file names
 
-@untranslated
+LilyPond vous permet de prendre le contrôle dans la dénomination des
+fichiers que vous voulez générer, quel que soit le moteur de rendu
+utilisé.
+
+Nous avons vu dans la rubrique précédente que LilyPond évite les
+conflits de nom des fichiers qu'il génère à partir d'une même source.
+Vous pouvez même définir vous-même le suffixe qui sera appliqué à chacun
+des blocs @code{\book}.  Ainsi, en reprenant l'exemple ci-avant, vous
+obtiendrez les fichiers @file{huitminiatures-Romance.pdf},
+@file{huitminiatures-Menuet.pdf} et @file{huitminiatures-Nocturne.pdf}
+en ajoutant simplement une déclaration @code{\bookOutputSuffix} au sein
+de chaque bloc @code{\book}.
+
+@example
+\book @{
+  \bookOutputSuffix "Romance"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Menuet"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Nocturne"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+La déclaration @code{\bookOutputName} vous permet de définir vous-même
+le nom du fichier généré pour un bloc @code{\book}@tie{}:
+
+@example
+\book @{
+  \bookOutputName "Romance"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Menuet"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Nocturne"
+  \score @{ @dots{} @}
+  \layout @{ @dots{} @}
+@}
+@end example
+
+Le traitement de ce fichier produira@tie{}:
+
+@itemize
+@item
+@file{Romance.pdf},
+@item
+@file{Menuet.pdf} et
+@item
+@file{Nocturne.pdf}.
+@end itemize
 
 
 @node Structure de fichier
 @subsection Structure de fichier
 @translationof File structure
 
-@untranslated
+@funindex \paper
+@funindex \midi
+@funindex \layout
+@funindex \header
+@funindex \score
+@funindex \book
+@funindex \bookpart
+
+Un fichier @code{.ly} peut contenir un certain nombre d'expression de
+haut niveau.  Les expressions de haut niveau sont les suivantes@tie{}:
+
+@itemize
+@item
+Une définition de sortie, comme @code{\paper}, @code{\midi} et
+@code{\layout}.  Ces définitions, lorsqu'elles se trouvent à un niveau
+supérieur, s'appliqueront à l'intégralité de l'ouvrage.  Si l'une de ces
+expression apparaît à plusieurs reprises, la dernière aura préséance.
+
+@item
+Une expression scheme pure, telle que
+@w{@code{#(set-default-paper-size@tie{}"a7"@tie{}'landscape)}} ou
+@w{@code{#(ly:set-option@tie{}'point-and-click@tie{}#f)}}.
+
+@item
+Un bloc @code{\header}, dont le contenu sera de portée globale -- ce qui
+est le cas en général pour le titre ou l'auteur entre autres.
+
+@item
+Un bloc @code{\score} pour la partition.  Cette partition sera assemblée
+avec les autres partitions se trouvant au même niveau pour composer le
+@code{\book}.  Vous pouvez modifier ce comportement à l'aide de la
+variable @code{toplevel-score-handler} placée en tête.
+@ignore
+@c FIXME - I cannot read "toplevel-score-handler" in scm/lily.scm -jcm
+The default handler is defined in the init file @file{../scm/lily.scm}.
+@end ignore
+
+@item
+Un bloc @code{\book} permet de regrouper naturellement plusieurs
+mouvements -- autrement dit plusieurs blocs @code{\score} -- dans un
+même document.  Lorsqu'il y a plusieurs @code{\score}s, LilyPond génère
+un seul fichier dans lequel les mouvements sont mis les uns à la suite
+des autres, ce pour chacun des blocs @code{\book} rencontrés.  La seule
+raison qui peut vous demander d'expliciter plusieurs blocs @code{\book}
+dans un fichier @file{.ly} est lorsque vous avez besoin de générer
+différents documents à partir d'une même source.  La présence explicite
+d'un bloc @code{\book} est aussi nécessaire lorsque vous travaillez sur
+un document lilypond-book qui reprendrait plusieurs @code{\score}s ou
+@code{\markup}s dans un même extrait.  Vous pouvez modifier ce
+comportement à l'aide de la variable @code{toplevel-score-handler}
+placée en tête.
+@ignore
+@c FIXME - I cannot read "toplevel-book-handler" in scm/lily.scm -jcm
+The default handler is defined in the init file @file{../scm/lily.scm}.
+@end ignore
+
+@item
+Un bloc @code{\bookpart}.  Un ouvrage peut se découper en plusieurs
+parties à l'aide de blocs @code{\bookpart}, aussi bien pour alléger le
+travail de l'algorithme de calcul des sauts de page, que si les réglages
+du bloc @code{\paper} diffèrent d'une partie à l'autre.
+
+@item
+Une expression musicale telle que
+@example
+@{ c'4 d' e'2 @}
+@end example
+
+Ce bout de code sera placé dans un @code{\score} et intégré à l'ouvrage
+en même temps que tous les autres @code{\score}s ou expressions
+musicales.  En d'autres termes, un fichier qui ne contiendrait que cette
+simple expression musicale sera traduit en
+
+@example
+\book @{
+  \score @{
+    \new Staff @{
+      \new Voice @{
+        @{ c'4 d' e'2 @}
+      @}
+    @}
+  @}
+	\layout @{ @}
+	\header @{ @}
+@}
+@end example
+
+Vous pouvez modifier ce comportement à l'aide de la variable
+@code{toplevel-music-handler} placée en tête.
+@ignore
+@c FIXME - I cannot read "toplevel-music-handler" in scm/lily.scm -jcm
+The default handler is defined in the init file @file{../scm/lily.scm}.
+@end ignore
+
+@item
+Du texte sous forme de @emph{markup} comme les paroles d'un couplet
+@example
+\markup @{
+   2.  Le première ligne du deuxième couplet.
+@}
+@end example
+
+De tels @emph{markups} seront imprimés là où ils apparaissent,
+avant, après ou entre les expressions musicales.
+
+@cindex variables
+@cindex identificateurs
+
+@item
+Une variable, ou identificateur, telle que
+@example
+toto = @{ c4 d e d @}
+@end example
+
+Vous pourrez la réutiliser plus loin dans votre fichier en saisissant
+simplement @code{\toto}.  Le nom des indentificateurs ne doit être
+formés que de caractères alphabétiques -- sans chiffre ni caractère
+souligné ou tiret.
+
+@end itemize
+
+Voici trois éléments que vous pouvez placer à un niveau supérieur@tie{}:
+
+@example
+\layout @{
+  % pas en pleine largeur
+  ragged-right = ##t
+@}
+
+\header @{
+   title = "Do-re-mi"
+@}
+
+@{ c'4 d' e2 @}
+@end example
+
+Vous pouvez placer, n'importe où dans votre fichier, les instruction
+suivantes@tie{}:
+
+@itemize
+@item @code{\version}
+@item @code{\include}
+@item @code{\sourcefilename}
+@item @code{\sourcefileline}
+@item
+Une ligne de commentaire, introduite par le signe @code{%}.
+
+@item
+Un bloc de commentaire, délimité par @code{%@{ .. %@}}.
+
+@end itemize
+
+@cindex espace
+@cindex blanc
+
+Vous pouvez insérer des espaces dans votre fichier source afin de lui
+apporter une meilleure lisibilité.  Les espaces superflus sont
+normalement ignorés.  Notez cependant qu'il est des cas où l'espace est
+requis pour éviter tout risque d'erreur@tie{}:
+
+@itemize
+@item
+Autour d'une accolade, qu'elle soit ouvrant ou fermante ;
+
+@item
+Après chaque commande ou variable, autrement dit tout élément qui
+commence par un @code{\}@tie{};
+
+@item
+Après tout élément qui sera interprété comme une expression Scheme,
+autrement dit tout élément qui commence par un @code{#}@tie{};
+
+@item
+Pour séparer les éléments d'une expression Scheme ;
+
+@item
+En mode parole -- @code{lyricmode} -- pour séparer les termes des
+commandes @code{\override} et @code{\set}.  Précisons à ce sujet qu'en
+plus d'ajouter une espace avant et après l'intégralité de la commande,
+vous devrez encadrer d'espace le point et le signe égal qu'elle peut
+contenir, comme dans
+@w{@code{\override Score . LyricText #'font-size = #5}}.
+
+@end itemize
+
+
+@seealso
+Manuel d'initiation :
+@rlearning{Organisation des fichiers LilyPond}.
 
 
 @node Titres et entêtes
@@ -88,7 +550,7 @@ LilyPond.
 
 @menu
 * Création de titres::
-* Titrages personnalisés::
+* Titres personnalisés::
 * Référencement des numéros de page::
 * Table des matières::
 @end menu
@@ -100,9 +562,9 @@ LilyPond.
 @untranslated
 
 
-@node Titrages personnalisés
-@subsection Titrages personnalisés
-@translationof Custom headers, footers, and titles
+@node Titres personnalisés
+@subsection Titres personnalisés
+@translationof Custom titles
 
 @untranslated
 
