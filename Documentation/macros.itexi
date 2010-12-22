@@ -67,6 +67,9 @@ translations should be in macros.itexi.
 
 @end ifnothtml
 
+@c do not translate the following macro -- it is used in
+@c an untranslated manual.
+
 @ifhtml
 
 @macro advanced{TEXT}
