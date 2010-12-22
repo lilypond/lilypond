@@ -1706,8 +1706,12 @@ post_event:
 	direction_less_event {
 		$$ = $1;
 	}
-	| '-' music_function_event {
+	| script_dir music_function_event {
 		$$ = run_music_function (PARSER, $2);
+		if ($1)
+		{
+			unsmob_music ($$)->set_property ("direction", scm_from_int ($1));
+		}
 	}
 	| HYPHEN {
 		if (!PARSER->lexer_->is_lyric_state ())
