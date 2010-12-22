@@ -407,6 +407,9 @@ chords.  Returns a placement-list."
     (let ((this-fret (calc-fret (ly:event-property note 'pitch)
                                 string
                                 tuning)))
+       (if (< this-fret 0)
+           (ly:warning (_ "Negative fret for pitch ~a on string ~a")
+                                       (note-pitch note) string))
        (set! string-fret-fingering-tuples
              (cons (list string
                          this-fret
