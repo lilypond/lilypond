@@ -2,11 +2,9 @@
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
-  texidoc = "The \cresc, \dim and \decresc spanners can now be redefined as
-postfix operators and produce one text spanner.  Defining custom spanners is
-also easy.  Hairpin and text crescendi can be easily mixed. \< and \> produce
-hairpins by default, \cresc etc. produce text spanners by default.
-"
+  texidoc = "Custom text spanners can be defined and used with hairpin
+  and text crescendos.  @code{\<} and @code{\>} produce hairpins by
+  default, @code{\cresc} etc. produce text spanners by default."
   doctitle = "Dynamics text spanner postfix"
 }
 
@@ -16,22 +14,6 @@ crpoco =
              'span-direction START
              'span-type 'text
              'span-text "cresc. poco a poco")
-% Redefine the existing \cresc, \dim and \decresc commands to use postfix syntax
-cresc =
-#(make-music 'CrescendoEvent
-             'span-direction START
-             'span-type 'text
-             'span-text "cresc.")
-dim =
-#(make-music 'DecrescendoEvent
-             'span-direction START
-             'span-type 'text
-             'span-text "dim.")
-decresc =
-#(make-music 'DecrescendoEvent
-             'span-direction START
-             'span-type 'text
-             'span-text "decresc.")
 
 \relative c' {
   c4\cresc d4 e4 f4 |

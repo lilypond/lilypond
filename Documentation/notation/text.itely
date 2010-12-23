@@ -167,9 +167,6 @@ e,\stopTextSpan
 
 The line style, as well as the text string, can be defined as an
 object property.  This syntax is described in @ref{Line styles}.
-Text spanners are part of the @code{Dynamics} context; see
-@rinternals{Dynamics}.
-
 
 @funindex \textSpannerUp
 @funindex textSpannerUp
@@ -206,8 +203,7 @@ Snippets:
 @rlsr{Expressive marks}.
 
 Internals Reference:
-@rinternals{TextSpanner},
-@rinternals{Dynamics}.
+@rinternals{TextSpanner}.
 
 
 @node Text marks

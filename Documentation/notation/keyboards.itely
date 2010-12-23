@@ -51,6 +51,10 @@ keyboard instruments.
 @cindex staves, keyed instruments
 @cindex keyboard instrument staves
 @cindex keyed instrument staves
+@cindex keyboard music, centering dynamics
+@cindex dynamics, centered in keyboard music
+@cindex piano music, centering dynamics
+@cindex centered dynamics in piano music
 
 @funindex PianoStaff
 
@@ -75,6 +79,11 @@ number of voices may change regularly; this is described in
 
 @item Keyboard music can be written in parallel, as described in
 @ref{Writing music in parallel}.
+
+@item Dynamics may be placed in a @code{Dynamics} context,
+between the two @code{Staff} contexts
+to align the dynamic marks on a horizontal line
+centered between the staves; see @ref{Dynamics}.
 
 @item Fingerings are indicated with @ref{Fingering instructions}.
 
@@ -127,21 +136,6 @@ Internals Reference:
 
 Snippets:
 @rlsr{Keyboards}.
-
-
-@knownissues
-
-@cindex keyboard music, centering dynamics
-@cindex dynamics, centered in keyboard music
-@cindex piano music, centering dynamics
-@cindex centered dynamics in piano music
-@funindex staff-padding
-
-Dynamics are not automatically centered, but workarounds do exist.  One
-option is the @q{piano centered dynamics} template under
-@rlearning{Piano templates}; another option is to increase the
-@code{staff-padding} of dynamics as discussed in @rlearning{Moving
-objects}.
 
 @node Changing staff manually
 @unnumberedsubsubsec Changing staff manually
@@ -514,6 +508,8 @@ The placement of the pedal commands matches the physical movement of the
 sustain pedal during piano performance.  Pedalling to the final bar line
 is indicated by omitting the final pedal off command.
 
+Pedal indications may be placed in a @code{Dynamics} context,
+which aligns them on a horizontal line.
 
 @seealso
 Notation Reference:
