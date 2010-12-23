@@ -312,13 +312,18 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged)
     {
       Real overflow = spacer.configuration_length (spacer.force ())
 		      - page_height_;
-      warning (_f ("couldn't fit music on page: overflow is %f",
-		    overflow));
-      warning (_ ("compressing music to fit"));
-      vsize space_count = solution_.size ();
-      Real spacing_increment = overflow / (space_count - 2);
-      for (vsize i = 2; i < space_count; i++)
- 	solution_[i] -= (i-1) * spacing_increment;
+      if (ragged && overflow < 1e-6)
+	warning (_ ("couldn't fit music on page: ragged-spacing was requested, but page was compressed"));
+      else
+	{
+	  warning (_f ("couldn't fit music on page: overflow is %f",
+		       overflow));
+	  warning (_ ("compressing music to fit"));
+	  vsize space_count = solution_.size ();
+	  Real spacing_increment = overflow / (space_count - 2);
+	  for (vsize i = 2; i < space_count; i++)
+	    solution_[i] -= (i-1) * spacing_increment;
+	}
     }
 }
 
