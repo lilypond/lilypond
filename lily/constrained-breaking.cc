@@ -589,6 +589,18 @@ Line_details::tallness () const
   return tallness_;
 }
 
+Real
+Line_details::spring_length (Line_details const &next_line) const
+{
+  // space_ measures the spring which goes from the bottom refpoint
+  // of this to the top refpoint of next_line. We want to return
+  // the stretchable space between the bottom of this's extent to
+  // the top of next_line's extent.
+  Real refpoint_dist = tallness_ + refpoint_extent_[DOWN] - next_line.refpoint_extent_[UP];
+  Real space = next_line.title_ ? title_space_ : space_;
+  return max (0.0, space - refpoint_dist);
+}
+
 Line_shape::Line_shape (Interval begin, Interval rest)
 {
   begin_ = begin;

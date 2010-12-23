@@ -112,6 +112,7 @@ struct Line_details {
   Line_details (Prob *pb, Output_def *paper);
   Real full_height () const;
   Real tallness () const;
+  Real spring_length (Line_details const &next_line) const;
 };
 
 /*

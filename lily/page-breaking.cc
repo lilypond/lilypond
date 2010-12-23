@@ -229,12 +229,16 @@ Page_breaking::systems_per_page () const
 int
 Page_breaking::max_systems_per_page () const
 {
+  if (systems_per_page_)
+    return systems_per_page_;
   return max_systems_per_page_;
 }
 
 int
 Page_breaking::min_systems_per_page () const
 {
+  if (systems_per_page_)
+    return systems_per_page_;
   return min_systems_per_page_;
 }
 
@@ -957,30 +961,32 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 
   for (vsize i = 0; i < cached_line_details_.size (); i++)
     {
+      Line_details const &cur = cached_line_details_[i];
+      Line_details const *const prev = (i > 0) ? &cached_line_details_[i-1] : 0;
       Real ext_len;
       if (cur_rod_height > 0)
-	ext_len = cached_line_details_[i].tallness_;
+	ext_len = cur.tallness_;
       else
-	ext_len = cached_line_details_[i].full_height();
+	ext_len = cur.full_height();
 
+      Real spring_len = (i > 0) ? prev->spring_length (cur) : 0;
       Real next_rod_height = cur_rod_height + ext_len;
-      Real next_spring_height = cur_spring_height + cached_line_details_[i].space_;
+      Real next_spring_height = cur_spring_height + spring_len;
       Real next_height = next_rod_height + (ragged () ? next_spring_height : 0)
-	+ min_whitespace_at_bottom_of_page (cached_line_details_[i]);
-      int next_line_count = line_count + cached_line_details_[i].compressed_nontitle_lines_count_;
+	+ min_whitespace_at_bottom_of_page (cur);
+      int next_line_count = line_count + cur.compressed_nontitle_lines_count_;
 
       if ((!too_few_lines (line_count) && (next_height > cur_page_height && cur_rod_height > 0))
 	  || too_many_lines (next_line_count)
-	  || (i > 0
-	      && cached_line_details_[i-1].page_permission_ == ly_symbol2scm ("force")))
+	  || (prev && prev->page_permission_ == ly_symbol2scm ("force")))
 	{
-	  line_count = cached_line_details_[i].compressed_nontitle_lines_count_;
-	  cur_rod_height = cached_line_details_[i].full_height();
-	  cur_spring_height = cached_line_details_[i].space_;
+	  line_count = cur.compressed_nontitle_lines_count_;
+	  cur_rod_height = cur.full_height();
+	  cur_spring_height = 0;
 	  page_starter = i;
 
 	  cur_page_height = page_height (first_page_num + ret, false);
-	  cur_page_height -= min_whitespace_at_top_of_page (cached_line_details_[i]);
+	  cur_page_height -= min_whitespace_at_top_of_page (cur);
 
 	  ret++;
 	}
@@ -1182,7 +1188,7 @@ Page_breaking::space_systems_with_fixed_number_per_page (vsize configuration,
       res.penalty_ += cached_line_details_[line-1].page_penalty_;
       if (system_count_on_this_page != systems_per_page_)
 	{
-	  res.penalty_ += TERRIBLE_SPACING_PENALTY;
+	  res.penalty_ += abs (system_count_on_this_page - systems_per_page_) * TERRIBLE_SPACING_PENALTY;
 	  res.system_count_status_ |= ((system_count_on_this_page < systems_per_page_))
 	    ? SYSTEM_COUNT_TOO_FEW : SYSTEM_COUNT_TOO_MANY;
 	}
