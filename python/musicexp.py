@@ -1885,9 +1885,9 @@ class TabStaff (Staff):
         if self.string_tunings or self.tablature_format:
             printer.dump ("\\with {")
             if self.string_tunings:
-                printer.dump ("stringTunings = #'(")
+                printer.dump ("stringTunings = #`(")
                 for i in self.string_tunings:
-                    printer.dump ("%s" % i.semitones ())
+                    printer.dump (",%s" % i.lisp_expression ())
                 printer.dump (")")
             if self.tablature_format:
                 printer.dump ("tablatureFormat = #%s" % self.tablature_format)

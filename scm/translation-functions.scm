@@ -341,7 +341,7 @@ chords.  Returns a placement-list."
           tuning)
 
   (define (calc-fret pitch string tuning)
-    (- (ly:pitch-semitones pitch) (list-ref tuning (1- string))))
+    (- (ly:pitch-semitones pitch) (ly:pitch-semitones (list-ref tuning (1- string)))))
 
   (define (note-pitch a)
     (ly:event-property a 'pitch))

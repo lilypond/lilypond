@@ -3123,11 +3123,45 @@ def conv(str):
     return str
 
 @rule ((2, 13, 44),
-    _ ("Remove context from overrideTimeSignatureSettings and revertTimeSignatureSettings."))
+    _ ("Remove context from overrideTimeSignatureSettings and revertTimeSignatureSettings.\n"))
+
 def conv(str):
     str = re.sub (r"\\(override|revert)TimeSignatureSettings(\s+[^#]*)(#[^#]*)#", r"\\\1TimeSignatureSettings\2#", str)
     return str
 
+@rule ((2, 13, 46),
+    _ ("Change stringTunings from a list of semitones to a list of pitches.\n"\
+	"Change tenor and baritone ukulele names in string tunings."))
+
+def conv(str):
+    def semitones2pitch(semitones):
+	steps = [0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6]
+	alterations = ["NATURAL", "SHARP", "NATURAL", "SHARP", "NATURAL", "NATURAL", "SHARP", "NATURAL", "SHARP", "NATURAL", "SHARP", "NATURAL"]
+	octave = 0
+	while semitones > 11:
+	    octave += 1
+	    semitones -=12
+	while semitones < 0:
+	    octave -= 1
+	    semitones += 12
+	pitchArgs = "%d %d %s" % (octave, steps[semitones], alterations[semitones])
+	return pitchArgs
+
+    def convert_tones (semitone_list):
+	tones = semitone_list.split ()
+	res = ""
+	for tone in tones:
+	    args = semitones2pitch(int(tone))
+	    res += ",(ly:make-pitch " + args + ") "
+	return res
+
+    def new_tunings (matchobj):
+	return "stringTunings = #`(" + convert_tones(matchobj.group(1)) + ")"
+    str = re.sub (r"stringTunings\s*=\s*#'\(([\d\s-]*)\)", \
+          new_tunings , str)
+
+    str = re.sub (r"ukulele-(tenor|baritone)-tuning", r"\1-ukulele-tuning", str)
+    return str
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

@@ -4,7 +4,7 @@
 \version "2.13.39"
 
 \header {
-%% Translation of GIT committish: 67e7cb93611fa389c7e86c6e47e894ff30a8395c
+%% Translation of GIT committish: a874fda3641c9e02f61be5c41b215b8304b8ed00
 
   texidoces = "
 El ejemplo siguiente muestra cómo se pueden realizar diagramas de
@@ -15,6 +15,10 @@ digitación para instrumentos de viento.
   doctitlees = "Diagramas de digitación para la flauta dulce"
 
   lsrtags = "winds"
+
+
+
+
 
 
 

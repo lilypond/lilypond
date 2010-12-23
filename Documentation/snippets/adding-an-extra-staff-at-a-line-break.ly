@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, contexts-and-engravers, breaks"
 
-%% Translation of GIT committish: 5160eccb26cee0bfd802d844233e4a8d795a1e94
+%% Translation of GIT committish: a874fda3641c9e02f61be5c41b215b8304b8ed00
   texidoces = "
 Al añadir un pentagrama nuevo en un salto de línea, por desgracia
 se añade un espacio adicional al final de la línea antes del salto

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.13.36"
+@c \version "2.13.46"
 
 @node Fretted string instruments
 @section Fretted string instruments
@@ -430,6 +430,11 @@ Guitar special effects are limited to harmonics and slides.
 @cindex tablature, predefined string tunings
 @cindex fretted instruments, predefined string tunings
 @cindex predefined string tunings for fretted instruments
+@cindex tablature, violin
+@cindex tablature, viola
+@cindex tablature, cello
+@cindex tablature, bass
+@cindex tablature, double bass
 
 @funindex StringTunings
 
@@ -440,7 +445,8 @@ specified.  The tuning of the strings is given in the
 @code{stringTunings} property.
 
 LilyPond comes with predefined string tunings for banjo, mandolin,
-guitar, bass guitar and ukulele.  LilyPond automatically sets
+guitar, bass guitar, ukulele, violin, viola, cello, and double bass.
+LilyPond automatically sets
 the correct transposition for predefined tunings.  The following
 example is for bass guitar, which sounds an octave lower than
 written.
@@ -466,28 +472,96 @@ The default string tuning is @code{guitar-tuning}, which
 is the standard EADGBE tuning.  Some other predefined tunings are
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} and
 @code{banjo-open-g-tuning}.  The predefined string tunings
-are found in @file{scm/tablature.scm}.
+are found in @file{ly/string-tuning-init.ly}.
 
-A string tuning is a Scheme list of string pitches,
+@funindex contextStringTunings
+@funindex \contextStringTunings
+@cindex tablature, custom string tunings
+@cindex custom string tunings
+
+Any desired string tuning can be created.  The
+@code{\contextStringTuning} function can be
+used to define a string tuning and set it as the
+@code{stringTunings} for the current context.
+@code{\contextStringTuning} takes two arguments: the
+symbol in which the string tuning, and a chord construct
+that defines the pitches of each string in the tuning.
+The chord construct must be in absolute octave mode,
+see @ref{Absolute octave entry}.  The string
+with the highest number (generally the lowest string) must
+come first in the chord.  For example, we can
+define a string tuning for a four-string instrument with pitches
+of @code{a''},  @code{d''},  @code{g'}, and @code{c'}:
+
+@lilypond[quote,verbatim]
+
+mynotes = {
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
+}
+
+<<
+  \new Staff {
+    \clef treble
+    \mynotes
+  }
+  \new TabStaff {
+    \contextStringTuning #'custom-tuning <c' g' d'' a''>
+    \mynotes
+  }
+>>
+@end lilypond
+
+The @code{stringTunings} property is also used by
+@code{FretBoards} to calculate automatic fret diagrams.
+
+@funindex makeStringTuning
+@funindex \makeStringTuning
+
+String tunings are used as part of the hash key
+for predefined fret diagrams
+(see @ref{Predefined fret diagrams}).  The @code{\makeStringTuning}
+function is used to create a string tuning without setting the
+@code{stringTunings} property in the current context.  The
+arguments to @code{\makeStringTuning} are the symbol to be
+used for the new string tuning and a chord construct used
+to define the tuning.
+The previous example could also be written as follows:
+
+@lilypond[quote,verbatim]
+\makeStringTuning #'custom-tuning <c' g' d'' a''>
+
+mynotes = {
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
+}
+
+<<
+  \new Staff {
+    \clef treble
+    \mynotes
+  }
+  \new TabStaff {
+    \set TabStaff.stringTunings = #custom-tuning
+    \mynotes
+  }
+>>
+@end lilypond
+
+Internally, a string tuning is a Scheme list of string pitches,
 one for each string, ordered by string number from 1 to N,
 where string 1 is at the top of the tablature staff and
 string N is at the bottom.  This ordinarily results in ordering
 from highest pitch to lowest pitch, but some instruments
 (e.g. ukulele) do not have strings ordered by pitch.
 
-A string pitch in a string tuning list is the pitch difference
-of the open string from middle C measured in semitones.  The
-string pitch must be an integer.  LilyPond calculates the actual
-pitch of the string by adding the string tuning pitch to the
-actual pitch for middle C.
+A string pitch in a string tuning list is a LilyPond pitch
+object.  Pitch objects are created with the Scheme function
+@code{ly:make-pitch} (see @ref{Scheme functions}).
 
-LilyPond automatically calculates the number of strings in the
-@code{TabStaff} as the number of elements in @code{stringTunings}.
-
-Any desired string tuning can be created.  For example, we can
-define a string tuning for a four-string instrument with pitches
-of @code{a''},  @code{d''},  @code{g'}, and @code{c'}:
-
+If desired, a string tuning can be created as a Scheme
+literal.  The example below recreates the examples above,
+but the string tuning is not saved as a separate object:
 
 @lilypond[quote,verbatim]
 mynotes = {
@@ -501,11 +575,19 @@ mynotes = {
     \mynotes
   }
   \new TabStaff {
-    \set TabStaff.stringTunings = #'(21 14 7 0)
+    \set TabStaff.stringTunings = #`(,(ly:make-pitch 1 5 0)
+				     ,(ly:make-pitch 1 1 0)
+				     ,(ly:make-pitch 0 4 0)
+				     ,(ly:make-pitch 0 0 0))
     \mynotes
   }
 >>
 @end lilypond
+
+LilyPond automatically calculates the number of strings in the
+@code{TabStaff} and the number of strings in an automatically
+calculated @code{FretBoard} as the number of elements
+in @code{stringTunings}.
 
 @cindex moderntab clef
 @cindex clef, moderntab
@@ -527,7 +609,13 @@ A modern tab clef can also be used.
 The modern tab clef supports tablatures from 4 to 7 strings.
 
 @seealso
+Notation Reference:
+@ref{Absolute octave entry},
+@ref{Predefined fret diagrams},
+@ref{Scheme functions}.
+
 Installed Files:
+@file{ly/string-tuning-init.ly}
 @file{scm/tablature.scm}.
 
 Snippets:

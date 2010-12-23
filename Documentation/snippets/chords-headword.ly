@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.36
-\version "2.13.40"
+\version "2.13.46"
 #(set-global-staff-size 15)
 \paper {
   ragged-right = ##f

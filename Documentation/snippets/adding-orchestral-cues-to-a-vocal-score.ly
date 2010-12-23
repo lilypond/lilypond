@@ -6,7 +6,7 @@
 \header {
   lsrtags = "staff-notation, vocal-music"
 
-%% Translation of GIT committish: 4c1aa3b16f7b94ca32b0c022f60ed66826d031b0
+%% Translation of GIT committish: a874fda3641c9e02f61be5c41b215b8304b8ed00
 
   texidoces = "
    Este ejemplo muestra una forma de simplificar la adición de muchas
