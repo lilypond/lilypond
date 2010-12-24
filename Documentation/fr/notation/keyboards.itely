@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 908605aaf5df4d07684dafd862322e6ffac3ae10
+    Translation of GIT committish: 52f98b4061e0eb74b7c1dbcc29e74538b374752f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -62,6 +62,10 @@ de notation pour la plupart des instrument à cordes multiples.
 @cindex portées pour instrument à clés
 @cindex clavier, portées pour instrument à
 @cindex clés, portées pour instrument à
+@cindex claviers, centrage des nuances
+@cindex nuances entre les portées d'un système pianistique
+@cindex piano, nuances entre les portées
+@cindex centrage des nuances entre deux portées de piano
 
 @funindex PianoStaff
 
@@ -82,34 +86,49 @@ d'autres chapitres@tie{}:
 
 @itemize
 
-@item Les claviers ont régulièrement recours à plusieurs voix dont le
-nombre peut varier. voir à ce sujet @ref{Résolution des collisions}.
+@item
+Les claviers ont régulièrement recours à plusieurs voix dont le
+nombre peut varier. Voir à ce sujet @ref{Résolution des collisions}.
 
-@item On peut écrire la musique pour claviers de façon parallèle, comme
+@item
+On peut écrire la musique pour claviers de façon parallèle, comme
 l'explique @ref{Saisie de musique en parallèle}.
+ 
+@item
+Les nuances peuvent se gérer dans un contexte @code{Dynamics} qu'il
+suffira d'insérer entre les deux contextes @code{Staff} pour qu'elles
+apparaissent sur leur propre ligne centrée entre les deux portées.  Voir
+à ce sujet @ref{Nuances}.
 
-@item Les indications de doigté sont abrodées dans
-@ref{Doigtés}.
+@item
+Les indications de doigté sont abrodées dans @ref{Doigtés}.
 
-@item Les indications en matière de pédalier d'orgue sont traitées comme
-des articulations. Voir à ce sujet @ref{List of articulations}.
+@item
+Les indications en matière de pédalier d'orgue sont traitées comme
+des articulations. Voir à ce sujet @ref{Liste des signes d'articulation}.
 
-@item Pour générer des repères verticaux, voir @ref{Quadrillage temporel}.
+@item
+Pour générer des repères verticaux, voir @ref{Quadrillage temporel}.
 
-@item En plus des @notation{Laissez vibrer}, les liaisons en matière de
+@item
+En plus des @notation{Laissez vibrer}, les liaisons en matière de
 clavier peuvent intervenir sur des accords arpégés ou des trémolos.
 Reportez-vous au chapitre @ref{Liaisons de prolongation}.
 
-@item Le traitement des arpèges couvrant plusieurs voix ou portées est
+@item
+Le traitement des arpèges couvrant plusieurs voix ou portées est
 abordé au chapitre @ref{Arpèges}.
 
-@item Une description des indications de tremolo est disponible au
+@item
+Une description des indications de tremolo est disponible au
 chapitre @ref{Répétitions en trémolo}.
 
-@item Certaines retouches particulières au monde des claviers sont
+@item
+Certaines retouches particulières au monde des claviers sont
 abordées au chapitre @rlearning{Exemple concret}.
 
-@item Des notes fantômes permettent d'introduire des liaisons de tenue
+@item
+Des notes fantômes permettent d'introduire des liaisons de tenue
 qui passent d'une voix à l'autre, comme le montre
 @rlearning{Autres utilisations des retouches}.
 
@@ -136,25 +155,8 @@ Manuel de notation :
 Référence des propriétés internes :
 @rinternals{PianoStaff}.
 
-Exemples de code :
-@rlsr{Keyboards}.
-
-
-
-@knownissues
-
-@cindex claviers, centrage des nuances
-@cindex nuances entre les portées d'un système pianistique
-@cindex piano, nuances entre les portées
-@cindex centrage des nuances entre deux portées de piano
-@funindex staff-padding
-
-Les nuances ne sont pas automatiquement centrées verticalement, mais il
-existe des astuces.  Voir à ce sujet le modèle @qq{alignement des
-nuances au piano} au chapitre @rlearning{Modèles pour piano}@tie{}; une autre
-solution consiste à augmenter le décalage des nuances par rapport à la
-portée (@code{staff-pagging}) comme l'indique
-@rlearning{Déplacement d'objets}.
+Morceaux choisis :
+@rlsrnamed{Keyboards, Claviers}.
 
 
 @node Changement de portée manuel
@@ -228,7 +230,7 @@ Manuel de notation :
 @ref{Barres de ligature automatiques},
 @ref{Conservation d'un contexte}.
 
-Exemples de code :
+Morceaux choisis :
 @rlsr{Keyboards}.
 
 Référence des propriétés internes :
@@ -313,11 +315,11 @@ inférieure@tie{}:
 
 
 @seealso
-Dans ce même manuel :
+Manuel de notation :
 @ref{Changement de portée manuel}.
 
-Exemples de code :
-@rlsr{Keyboards}.
+Morceaux choisis :
+@rlsrnamed{Keyboards, Claviers}.
 
 Référence des propriétés internes :
 @rinternals{AutoChangeMusic}.
@@ -380,8 +382,8 @@ commande @code{\showStaffSwitch}@tie{}:
 
 
 @seealso
-Extraits de code :
-@rlsr{Keyboards}.
+Morceaux choisis :
+@rlsrnamed{Keyboards, Claviers}.
 
 Référence des propriétés internes :
 @rinternals{Note_head_line_engraver},
@@ -439,8 +441,8 @@ l'autre portée.
 
 
 @seealso
-Extraits de code :
-@rlsr{Keyboards}.
+Morceaux choisis :
+@rlsrnamed{Keyboards, Claviers}.
 
 Référence des propriétés internes :
 @rinternals{Stem}.
@@ -535,13 +537,16 @@ pédale de tenue pendant le jeu.  Garder une pédale enclanchée jusqu'à la
 barre finale s'obtient tout simplement en omettant la commande de
 relacher.
 
+Les indication de pédale peuvent s'inscrire dans un contexte
+@code{Dynamics}, ce qui aura pour effet de leur attribuer une ligne en
+propre.
 
 @seealso
 Manuel de notation :
 @ref{Liaisons de prolongation}.
 
-Extraits de code :
-@rlsr{Keyboards}.
+Morceaux choisis :
+@rlsrnamed{Keyboards, Claviers}.
 
 Référence des propriétés internes :
 @rinternals{SustainPedal},
@@ -605,6 +610,7 @@ This section discusses notation issues that are unique to the harp.
 * Pédales de harpe::
 @end menu
 
+
 @node Généralités sur la harpe
 @unnumberedsubsubsec Généralités sur la harpe
 @translationof References for harps
@@ -634,6 +640,7 @@ Manuel de notation :
 @ref{Glissando},
 @ref{Arpèges},
 @ref{Harmoniques}.
+
 
 @node Pédales de harpe
 @unnumberedsubsubsec Pédales de harpe

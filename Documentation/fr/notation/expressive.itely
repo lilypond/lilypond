@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 908605aaf5df4d07684dafd862322e6ffac3ae10
+    Translation of GIT committish: 52f98b4061e0eb74b7c1dbcc29e74538b374752f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -358,6 +358,24 @@ c2 b4 a
 g1\espressivo
 @end lilypond
 
+@funindex \cresc
+@funindex cresc
+@funindex \decresc
+@funindex decresc
+@funindex \dim
+@funindex dim
+
+La commande @code{\cresc} permet d'indiquer textuellement le début d'un
+crescendo.  @code{\decresc} ou @code{\dim} marquent le début d'un
+decrescendo.  Les lignes d'extension sont gérées automatiquement.
+
+@lilypond[verbatim,quote,relative=2]
+g8\cresc a b c b c d e\mf |
+f8\decresc e d c e\> d c b |
+a1\dim ~ |
+a2. r4\! |
+@end lilypond
+ 
 @funindex \crescTextCresc
 @funindex crescTextCresc
 @funindex \dimTextDecresc
@@ -371,24 +389,21 @@ g1\espressivo
 @funindex \dimHairpin
 @funindex dimHairpin
 
-
-Au lieu d'une notation graphique des (de)crescendos, on peut utiliser
-une notation textuelle.  Une ligne pointillée marque alors son étendue.
-Les commandes prédéfinies @code{\crescTextCresc},
-@code{\dimTextDecresc}, @code{\dimTextDecr}, et @code{\dimTextDim}
-remplaceront les commandes @code{\<} et @code{\>} par le texte
-correspondant.  @code{\crescHairpin} et @code{\dimHairpin} permettent de
-revenir à des nuances en soufflet.
+Une indication textuelle peut indiquer, au lieu d'un soufflet, un
+changement de nuance@tie{}:
 
 @lilypond[verbatim,quote,relative=2]
 \crescTextCresc
-c2\< d | e f\!
+c4\< d e f\! |
 \dimTextDecresc
-e2\> d | c b\!
+g4\> e d c\! |
+\dimTextDecr
+e4\> d c b\! |
+\dimTextDim
+d4\> c b a\! |
 \crescHairpin
-c2\< d | e f\!
 \dimHairpin
-e2\> d\!
+c4\< d\! e\> d\! |
 @end lilypond
 
 Pour créer des indications de nuance qui restent alignées
@@ -410,7 +425,30 @@ Le positionnement vertical des nuances est géré par le
 @funindex \dynamicNeutral
 @funindex dynamicNeutral
 
+L'utilisation du context @code{Dynamics} permet de graver les nuances
+sur leur propre ligne -- Il suffit de placer des silences invisibles
+pour gérer le temps.  Bien que le contexte @code{Dynamics} accepte des
+notes pour indiquer les durées, celles-ci ne seront pas imprimées.  Le
+contexte @code{Dynamics} peut aussi contenir des indications textuelles
+avec ou sans extenseur, ainsi que les indications de pédale.
 
+@lilypond[verbatim,quote]
+<<
+  \new Staff \relative c' {
+    c2 d4 e |
+    c4 e e,2 |
+    g'4 a g a |
+    c1 |
+  }
+  \new Dynamics {
+    s1\< |
+    s1\f |
+    s2\dim s2-"rit." |
+    s1\p |
+  }
+>>
+@end lilypond
+ 
 @predefined
 @code{\dynamicUp},
 @code{\dynamicDown},
@@ -470,7 +508,8 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{DynamicText},
 @rinternals{Hairpin},
-@rinternals{DynamicLineSpanner}.
+@rinternals{DynamicLineSpanner},
+@rinternals{Dynamics}.
 
 
 @node Personnalisation des indications de nuance

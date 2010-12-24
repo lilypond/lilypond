@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: efd763abb78bf960a175b9a6aab571a3e02221b6
+    Translation of GIT committish: 52f98b4061e0eb74b7c1dbcc29e74538b374752f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -182,9 +182,7 @@ e,\stopTextSpan
 
 Le style de ligne se définit lui aussi comme une propriété de l'objet.
 Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
-@ref{Styles de ligne}.  Les extenseurs sont rattachés au contexte
-@code{Dynamics} -- cf. @rinternals{Dynamics}.
-
+@ref{Styles de ligne}.
 
 @funindex \textSpannerUp
 @funindex textSpannerUp
@@ -221,8 +219,7 @@ Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
 
 Référence des propriétés internes :
-@rinternals{TextSpanner},
-@rinternals{Dynamics}.
+@rinternals{TextSpanner}.
 
 
 @node Indications textuelles
