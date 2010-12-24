@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 092f85605dcea69efff5ef31de4ff100346d6ef8
+    Translation of GIT committish: 1edbbc7f5a6ad81f24421470f81786fc614d1c96
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -79,6 +79,36 @@ translations should be in macros.itexi.
 @b{Note :} \TEXT\
 @end cartouche
 @end quotation
+@end quotation
+@end macro
+
+@end ifnothtml
+
+
+@c do not translate the following macro -- it is used in
+@c an untranslated manual.
+
+@ifhtml
+
+@macro advanced{TEXT}
+@html
+<div class="advanced">
+@end html
+@strong{Advanced note:} \TEXT\
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
+@end macro
+
+@end ifhtml
+
+@ifnothtml
+
+@macro advanced{TEXT}
+@quotation
+@b{Advanced note:} \TEXT\
 @end quotation
 @end macro
 
