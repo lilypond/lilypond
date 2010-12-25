@@ -1250,7 +1250,7 @@ Metronome marks may also be printed as a range of two numbers:
 
 @lilypond[verbatim,quote,relative=1]
 \tempo 4 = 40 ~ 46
-c4. e a4 g
+c4. e8 a4 g
 b,2 d4 r
 @end lilypond
 
