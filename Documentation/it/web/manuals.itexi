@@ -491,7 +491,7 @@ che si riferisce alla documentazione generata.
 @divClass{column-center-bottom}
 @subheading Stato delle traduzioni
 
-In costruzione.
+@include translations.itexi
 
 @divEnd
 
@@ -529,12 +529,32 @@ I pacchetti scaricabili sono disponibili presso @uref{http://lilypond.org}
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
 Documentazione di LilyPond 2.12}
 
+@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
+Documentazione di LilyPond 2.11}
+
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
 Documentazione di LilyPond 2.10}
 
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
 Documentazione di LilyPond 2.8}
 
+@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+Documentazione di LilyPond 2.6}
+
+@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+Documentazione di LilyPond 2.4}
+
+@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+Documentazione di LilyPond 2.2}
+
+@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+Documentazione di LilyPond 2.0}
+
+@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+Documentazione di LilyPond 1.8}
+
+@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+Documentazione di LilyPond 1.6}
 
 @end itemize
 
@@ -561,8 +581,4 @@ per cui l'abbiamo scelta, è disponibile in @ref{Libertà}.
 @include fdl.itexi
 
 @divEnd
-<<<<<<< HEAD
-=======
 
-
->>>>>>> Web-it: add italian translation

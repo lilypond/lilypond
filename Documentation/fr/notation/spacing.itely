@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 7a7f2723f444e7c074a6c5f9a8ab62f512a4cc98
+    Translation of GIT committish: efd763abb78bf960a175b9a6aab571a3e02221b6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -444,23 +444,19 @@ d'une liste associative @emph{(alist)} à quatre @i{clés}@tie{}:
 
 @itemize
 
-@item
-@code{padding} @emph{(décalage)} -- la grandeur minimale de @qq{blanc}
-qui sépare deux éléments, exprimée en hauteur de portée.  On peut le
-voir comme la hauteur minimale d'un rectangle vide qui devrait s'étendre
-sur toute la largeur des deux éléments.
 
 @item
-@code{space} @emph{(espace)} -- la grandeur d'espace par défaut,
-exprimée en hauteur de portée, séparant les @i{points de référence} de
-deux éléments, qui évite tout risque de collision en l'absence de
-dilatation ou compression.  Le point de référence d'un titre ou d'un
-@emph{markup} est son sommet, celui d'un système est le centre vertical
-du @code{StaffSymbol} le plus proche -- même lorsqu'une ligne de
-@qq{non-portée} viendrait à s'intercaler.  Un @code{space} inférieur à
-@code{padding} ou @code{minimum-distance} sera sans effet, dans la
-mesure où l'espacement résultant ne saurait être inférieur à
-@code{padding} ou @code{minimum-distance}.
+@code{basic-distance} @emph{(distance de base)} -- la grandeur d'espace
+par défaut, exprimée en hauteur de portée, séparant les @i{points de
+référence} de deux éléments, qui évite tout risque de collision en
+l'absence de dilatation ou compression.  Le point de référence d'un
+titre ou d'un @emph{markup} est son sommet, celui d'un système est le
+centre vertical du @code{StaffSymbol} le plus proche -- même lorsqu'une
+ligne de @qq{non-portée} viendrait à s'intercaler.  Une
+@code{basic-distance} inférieure à @code{padding} ou
+@code{minimum-distance} sera sans effet, dans la mesure où l'espacement
+résultant ne saurait être inférieur à @code{padding} ou
+@code{minimum-distance}.
 
 @item
 @code{minimum-distance} @emph{(distance-minimale)} -- l'espacement
@@ -469,6 +465,14 @@ deux éléments alors qu'il y a déjà un effet de compression.  Une
 @code{minimum-distance} inférieure à la valeur du @code{padding} sera
 sans effet, dans la mesure où l'espacement résultant ne saurait être
 inférieur au @code{padding}.
+
+@c TODO: explain skylines somewhere and xref to it from here.
+
+@item
+@code{padding} @emph{(décalage)} -- la grandeur minimale de @qq{blanc}
+qui sépare deux éléments, exprimée en hauteur de portée.  On peut le
+voir comme la hauteur minimale d'un rectangle vide qui devrait s'étendre
+sur toute la largeur des deux éléments.
 
 @item
 @code{stretchability} @emph{(dilatation)} -- le coefficient
@@ -485,7 +489,7 @@ une valeur proche de l'infini.  Lorsque cette @i{clé} n'est pas définie,
 sa valeur est par défaut égale à @code{space}.  Notez bien que
 l'utilisateur ne peut définir une propension à la compression@tie{};
 elle est en fait égale à
-(@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
+(@code{basic-distance}@tie{}@minus{}@tie{}@code{minimum-distance}).
 
 @end itemize
 
@@ -497,7 +501,7 @@ maximum de
 @itemize
 
 @item
-@code{space}, plus
+@code{basic-distance}, plus
 @item
 @code{minimum-distance} et
 @item
@@ -959,7 +963,6 @@ Manuel de notation :
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
-
 @node Variables de gestion des numéros de page
 @unnumberedsubsubsec Variables de gestion des numéros de page
 @translationof @code{\paper} variables for page numbering
@@ -1002,6 +1005,11 @@ numérotées.  La valeur par défaut est@tie{}@code{##t}.
 @seealso
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
+
+@knownissues
+Les pages au numéro impair sont toujours à droite.  Pour que la musique
+commence en page 1, le dos de la page de garde doit être vide de telle
+sorte que la page une se retrouve à droite.
 
 
 @node Variables supplémentaires
@@ -2028,9 +2036,9 @@ alors que la seconde redéfinit la propriété dans son intégralité.
 
 \new Staff \with @{
   \override VerticalAxisGroup #'staff-staff-spacing =
-    #'((padding . 1)
-       (basic-distance . 10)
+    #'(('basic-distance  . 10)
        (minimum-distance . 9)
+       (padding . 1)
        (stretchability . 10))
 @} @{ @dots{} @}
 @end example
@@ -2197,9 +2205,9 @@ isolées à l'aide de la propriété @code{staff-staff-spacing}@tie{}:
   \context {
     \Staff
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((padding . 1)
-         (basic-distance . 8)
-         (minimum-distance . 7))
+      #'((basic-distance . 8)
+         (minimum-distance . 7)
+         (padding . 1))
   }
 }
 
@@ -2219,8 +2227,8 @@ isolées à l'aide de la propriété @code{staff-staff-spacing}@tie{}:
   % collide.  The lowest acceptable value for 'space is 0.
   \new Staff \with {
     \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((padding . -10)
-         (basic-distance . 3.5))
+      #'((basic-distance . 3.5)
+         (padding . -10))
   } { \clef bass g2 r | }
   \new Staff { \clef bass g2 r | }
 >>
@@ -3549,7 +3557,7 @@ suffisamment pour éviter le blanc en bas de page.
 
 @example
 \paper @{
-  system-system-spacing = #'((padding . 0) (basic-distance . 0.1))
+  system-system-spacing = #'((basic-distance . 0.1) (padding . 0))
   ragged-last-bottom = ##f
   ragged-bottom = ##f
 @}

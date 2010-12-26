@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 0945e7219a3995158d76267d26f77f57659c8578
+    Translation of GIT committish: 2b1527a2afb87ea838b3f3861de92302277986ed
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,7 +23,6 @@ should be translated (namely text visible in the output).
 Macro definitions which contain text that should be translated in
 translations should be in macros.itexi.
 @end ignore
-
 
 @c   ***** Displaying text *****
 
@@ -67,6 +66,36 @@ translations should be in macros.itexi.
 @end macro
 
 @end ifnothtml
+
+@c do not translate the following macro -- it is used in
+@c an untranslated manual.
+
+@ifhtml
+
+@macro advanced{TEXT}
+@html
+<div class="advanced">
+@end html
+@strong{Advanced note:} \TEXT\
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
+@end macro
+
+@end ifhtml
+
+@ifnothtml
+
+@macro advanced{TEXT}
+@quotation
+@b{Advanced note:} \TEXT\
+@end quotation
+@end macro
+
+@end ifnothtml
+
 
 @macro docMain
 @cartouche

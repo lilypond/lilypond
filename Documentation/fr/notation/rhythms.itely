@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 98c09018bda39821c6f632b67a5e9906c64cfc5b
+    Translation of GIT committish: 0b355f8aead9c773ea9e8fb4069ab53e90f02bca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1205,6 +1205,15 @@ Une indication métronomique s'insère tout simplement comme ceci@tie{}:
 \tempo 4 = 120
 c2 d
 e4. d8 c2
+@end lilypond
+
+Lorsque le réglage précis du métronome est laissé à l'appréciation de
+l'exécutant, vous pouvez cependant lui fournir un éventail@tie{}:
+
+@lilypond[verbatim,quote,relative=1]
+\tempo 4 = 40 ~ 46
+c4. e8 a4 g
+b,2 d4 r
 @end lilypond
 
 Vous pouvez préférer une indication textuelle@tie{}:

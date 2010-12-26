@@ -1,0 +1,70 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@ignore
+    Translation of GIT committish: 61fed596442d47e96c10ac3c9c0c696e5dfd22cf
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c This file is part of lilypond-web.texi and community.itexi
+
+@c when you add a new item, consider moving the lowest item(s)
+@c into news-old.itexi.
+
+@c keep two blank lines between news entries
+
+@c used for news about the upcoming release; see CG 10.2
+
+
+@newsItem
+@subsubheading Rilasciato LilyPond 2.13.40!  @emph{21 Novembre 2010}
+
+Siamo felici di annunciare il rilascio di LilyPond 2.13.40.  Questo
+rilascio contiene come sempre un certo numero di correzioni.  Tuttavia rimangono
+ancora alcuni problemi critici: questo rilascio è dunque destinato solo
+agli sviluppatori.
+
+Si noti che questa @strong{non} è la seconda versione beta test.  A causa di
+varie modifiche non verificate al processo di compilazione, non possiamo essere
+del tutto sicuri della qualità di questo rilascio.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Prima versione beta test della 2.14 -- Rilasciato LilyPond 2.13.39! @emph{15 Novembre 2010}
+
+LilyPond 2.13.39 è disponibile; questa è la prima beta test della prossima
+versione stabile, la 2.14.  Si invitano gli utenti a provare questa
+versione.  Le nuove funzionalità introdotte rispetto alla versione 2.12.3 sono
+elencate nel manuale @qq{Changes} della sezione del sito sullo
+@ref{Sviluppo}.
+
+Ci sono ancora alcuni problemi critici in questo rilascio: la
+spaziatura verticale è sospetta in due casi, e lilypond può
+bloccarsi se l'input è strano.  Se decidi di provare la 2.13.39, non
+stupirti se incontrerai dei problemi, ma inviaci una cortese
+@ref{Segnalazione bug}.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond Report #22. @emph{3 Novembre 2010}
+
+Il @emph{LilyPond Report} è tornato, con alcune sorprese ed esaltanti
+notizie per tutta la comunità di LilyPond!  In questo numero troverete
+una lista completa e aggiornata di tutte le mailing list e i forum su
+LilyPond in tutto il mondo.  Inoltre, per la prima volta il nostro ospite
+speciale è il co-fondatore e sviluppatore principale di LilyPond,
+@strong{Jan Nieuwenhuizen}, che è stato impegnato negli ultimi tre mesi --
+continua a leggere per scoprire in cosa!
+
+@uref{http://news.lilynet.net/The-LilyPond-Report-22, Leggi il
+LilyPond Report 22} ora; commenti e contributi sono ben accetti!
+
+@newsEnd
+
+
+
