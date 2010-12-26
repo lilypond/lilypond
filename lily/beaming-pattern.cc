@@ -189,7 +189,7 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
 	      // in an 8th-note triplet with a quarter-note beat, 1/3 of a beat should be
 	      // more important than 1/2.
 	      if (infos_[i].rhythmic_importance_ >= 0)
-		infos_[i].rhythmic_importance_ = (dt / options.base_moment_).den ();
+		infos_[i].rhythmic_importance_ = (int) (dt / options.base_moment_).den ();
 
 	      i++;
 	    }

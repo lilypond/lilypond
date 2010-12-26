@@ -182,7 +182,7 @@ Figured_bass_engraver::stop_translation_timestep ()
 
 IMPLEMENT_TRANSLATOR_LISTENER (Figured_bass_engraver, rest);
 void
-Figured_bass_engraver::listen_rest (Stream_event *ev)
+Figured_bass_engraver::listen_rest (Stream_event *)
 {
   have_rest_ = true;
 }

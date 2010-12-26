@@ -295,8 +295,8 @@ struct Substitution_entry
       }
     else
       {
-	left_ = sr[LEFT];
-	right_ = sr[RIGHT];
+	left_ = (short) sr[LEFT];
+	right_ = (short) sr[RIGHT];
       }
   }
   Substitution_entry ()

@@ -79,7 +79,7 @@ Font_metric::count () const
 }
 
 Box
-Font_metric::get_indexed_char_dimensions (size_t k) const
+Font_metric::get_indexed_char_dimensions (size_t) const
 {
   return Box (Interval (0, 0), Interval (0, 0));
 }

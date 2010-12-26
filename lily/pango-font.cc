@@ -300,7 +300,7 @@ Pango_font::physical_font_tab () const
 extern bool music_strings_to_paths;
 
 Stencil
-Pango_font::text_stencil (Output_def *state,
+Pango_font::text_stencil (Output_def * /* state */,
 			  string str, bool music_string) const
 {
   /*

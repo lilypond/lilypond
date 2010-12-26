@@ -661,7 +661,7 @@ SCM
 parse_symbol_list (char const *symbols)
 {
   while (isspace (*symbols))
-    *symbols++;
+    symbols++;
   string s = symbols;
   replace_all (&s, '\n', ' ');
   replace_all (&s, '\t', ' ');
