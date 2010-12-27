@@ -379,6 +379,7 @@
 	   (pfas (map font-loader font-names)))
       pfas))
 
+
   (display "%%BeginProlog\n" port)
   (format
    port
@@ -398,6 +399,30 @@
   (display "%%EndProlog\n" port)
   (display "%%BeginSetup\ninit-lilypond-parameters\n%%EndSetup\n\n" port))
 
+;;; Create DOCINFO pdfmark containing metadata
+;;; header fields with pdf prefix override those without the prefix
+(define (handle-metadata header port)
+  (define (metadata-lookup-output overridevar fallbackvar field)
+    (let* ((overrideval (ly:modules-lookup (list header) overridevar))
+	   (fallbackval (ly:modules-lookup (list header) fallbackvar))
+	   (val (if overrideval overrideval fallbackval)))
+      (if val
+	  (format port "/~a (~a)\n" field (markup->string val)))))
+  (display "[ " port)
+  (metadata-lookup-output 'pdfcomposer 'composer "Author")
+  (format port "/Creator (LilyPond ~a)\n" (lilypond-version))
+  (metadata-lookup-output 'pdftitle 'title "Title")
+  (metadata-lookup-output 'pdfsubject 'subject "Subject")
+  (metadata-lookup-output 'pdfkeywords 'keywords "Keywords")
+  (metadata-lookup-output 'pdfmodDate 'modDate "ModDate")
+  (metadata-lookup-output 'pdfsubtitle 'subtitle "Subtitle")
+  (metadata-lookup-output 'pdfcomposer 'composer "Composer")
+  (metadata-lookup-output 'pdfarranger 'arranger "Arranger")
+  (metadata-lookup-output 'pdfpoet 'poet "Poet")
+  (metadata-lookup-output 'pdfcopyright 'copyright "Copyright")
+  (display "/DOCINFO pdfmark\n\n" port))
+
+
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
 	 (outputter (ly:make-paper-outputter
@@ -407,6 +432,7 @@
 		     (open-file filename "wb")
 		     'ps))
 	 (paper (ly:paper-book-paper book))
+	 (header (ly:paper-book-header book))
 	 (systems (ly:paper-book-systems book))
 	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
@@ -422,6 +448,7 @@
     ;; don't do BeginDefaults PageMedia: A4
     ;; not necessary and wrong
     (write-preamble paper #t port)
+    (handle-metadata header port)
     (for-each
      (lambda (page)
        (set! page-number (1+ page-number))

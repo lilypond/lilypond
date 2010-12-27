@@ -72,3 +72,13 @@ LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
   Paper_book *pbook = unsmob_paper_book (pb);
   return pbook->paper_->self_scm ();
 }
+
+LY_DEFINE (ly_paper_book_header, "ly:paper-book-header",
+	   1, 0, 0, (SCM pb),
+	   "Return the header definition (@code{\\header})"
+	   " in @code{Paper_book} object @var{pb}.")
+{
+  LY_ASSERT_SMOB (Paper_book, pb, 1);
+  Paper_book *pbook = unsmob_paper_book (pb);
+  return pbook->header_;
+}
