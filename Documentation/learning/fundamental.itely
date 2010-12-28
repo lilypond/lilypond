@@ -2112,7 +2112,7 @@ Notation Reference: @ruser{Modifying context plug-ins},
 @knownissues
 The @code{Stem_engraver} and @code{Beam_engraver} attach their
 objects to note heads.  If the @code{Note_heads_engraver} is removed
-no note heads are produced and therefore no stem or beams are created
+no note heads are produced and therefore no stems or beams are created
 either.
 
 
