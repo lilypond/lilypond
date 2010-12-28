@@ -113,10 +113,10 @@ repeats are given the first alternative.
 A single repeat with one alternate ending:
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 2 { c4 d e f }
+\repeat volta 2 { c4 d e f | }
 \alternative {
-  { c2 e }
-  { f2 g }
+  { c2 e | }
+  { f2 g | }
 }
 c1
 @end lilypond
@@ -124,10 +124,10 @@ c1
 A single repeat with more than one alternate ending:
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 4 { c4 d e f }
+\repeat volta 4 { c4 d e f | }
 \alternative {
-  { c2 e }
-  { f2 g }
+  { c2 e | }
+  { f2 g | }
 }
 c1
 @end lilypond
@@ -135,14 +135,19 @@ c1
 Multiple repeats with more than one alternate ending:
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 3 { c4 d e f }
+\repeat volta 3 { c4 d e f | }
 \alternative {
-  { c2 e }
-  { f2 g }
-  { a2 g }
+  { c2 e | }
+  { f2 g | }
+  { a2 g | }
 }
 c1
 @end lilypond
+
+@warning{If there are two or more alternatives, nothing should appear
+between the closing brace of one and the opening brace of the next
+in an @code{@bs{}alternative} block, otherwise you will not get the
+expected number of endings.}
 
 @warning{If you include @code{@bs{}relative} inside a
 @code{@bs{}repeat} without explicitly instantiating the
@@ -156,7 +161,6 @@ c1
 @cindex repeat with pickup
 @cindex pickup in a repeat
 @funindex \partial
-
 
 If a repeat starts in the middle of a measure and has no alternate
 endings, normally the end of the repeat will also fall in the

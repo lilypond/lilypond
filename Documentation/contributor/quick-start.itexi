@@ -410,7 +410,7 @@ cd build/
 
 @subsubheading Building @code{lilypond}
 
-Compiling lilypond will likely take between 5 and 30 minutes,
+Compiling lilypond will likely take between 5 and 60 minutes,
 depending on your computer's speed and available RAM.  We
 recommend that you minimize the terminal window while it is
 building; this can have a non-negligible effect on compilation
@@ -452,6 +452,13 @@ To select different build options, or isolate certain parts of the
 build, or to use multiple CPUs while building, read the rest of
 this chapter.
 
+@subsubheading Installing LilyPond with lilydev
+
+Don't.  There is no reason to install lilypond within lilydev.
+All development work can (and should) stay within the
+@file{$HOME/lilypond-git/} directory, and any personal composition
+or typesetting work should be done with an official GUB release.
+
 
 @node Now start work!
 @section Now start work!
@@ -461,7 +468,7 @@ their intended contributions:
 
 @itemize
 @item @rcontrib{Documentation work}
-@item @rcontrib{Translate the documentation}
+@item @rcontrib{Translating the documentation}
 @item @rcontrib{Website work}
 @item @rcontrib{Regression tests}
 @item @rcontrib{Programming work}
