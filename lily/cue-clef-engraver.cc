@@ -122,12 +122,6 @@ Cue_clef_engraver::create_octavate_eight (SCM oct)
       g->set_parent (clef_, Y_AXIS);
       g->set_parent (clef_, X_AXIS);
       g->set_property ("direction", scm_from_int (dir));
-
-      // Inherit the break-visibility from the clef!
-      SCM vis = clef_->get_property ("break-visibility");
-      if (vis && g)
-	g->set_property ("break-visibility", vis);
-
       octavate_ = g;
     }
 }
@@ -207,11 +201,7 @@ Cue_clef_engraver::stop_translation_timestep ()
 	vis = get_property ("explicitCueClefVisibility");
 
       if (vis)
-	{
-	  clef_->set_property ("break-visibility", vis);
-	  if (octavate_)
-	    octavate_->set_property ("break-visibility", vis);
-	}
+	clef_->set_property ("break-visibility", vis);
 
       clef_ = 0;
       octavate_ = 0;
