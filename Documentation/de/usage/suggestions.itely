@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -346,9 +346,9 @@ Symphony/
 `-- symphonyDefs.ily
 @end example
 
-Die @file{.ly}-Dateien un den Verzeichnissen @code{Scores} und
-@code{Parts} erhalten ihrere Noten aus @file{.ily}-Dateien, die
-sich im @code{Notes}-Verzeichnis befinden:
+Die @file{.ly}-Dateien un den Verzeichnissen @file{Scores} und
+@file{Parts} erhalten ihrere Noten aus @file{.ily}-Dateien, die
+sich im @file{Notes}-Verzeichnis befinden:
 
 @example
 %%% Kopfzeile der Datei "symphony-cello.ly"

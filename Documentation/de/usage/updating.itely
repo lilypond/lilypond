@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -62,7 +62,7 @@ In diesem Fall haben wir uns entschieden, den Namen in
 mit dem @command{convert-ly}-Programm automatisch vorgenommen werden.
 
 
-Leidern kann @code{convert-ly} nicht mit allen Syntax-Änderungen umgehen.
+Leider kann @code{convert-ly} nicht mit allen Syntax-Änderungen umgehen.
 Beispielsweise wurden in LilyPond 2.4 und früher Akzente für verschiedene
 Sprachen mit LaTeX-Befehlen eingegeben -- beispielsweise Änderung wurde
 geschrieben @code{\"Anderung}.  Ab Version 2.6 jedoch muss man Akzente

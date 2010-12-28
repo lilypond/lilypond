@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -111,8 +111,8 @@ und dann mit \verb+\lilypondfile+ eingebunden werden.
 
 \lilypondfile[quote,noindent]{screech-boink.ly}
 
-(Falls nötig kann screech-boink.ly durch eine beliebige andere .ly
-Datei im selben Verzeichnis wie diese Datei ersetzt werden.)
+(Falls nötig kann @file{screech-boink.ly} durch eine beliebige andere
+@file{.ly}-Datei im selben Verzeichnis wie diese Datei ersetzt werden.)
 
 \end{document}
 @end verbatim
@@ -493,6 +493,9 @@ Um Dateien mit Musik einzubinden, kann folgendermaßen vorgegangen werden:
 @example
 <lilypondfile @var{Option1} @var{Option2} ...>@var{Dateiname}</lilypondfile>
 @end example
+
+Eine Liste der Optionen, die man mit @code{lilypond} oder @code{lilypondfile}
+benutzen kann, siehe @ref{Die Musikfragment-Optionen}
 
 Zusätzlich gibt @code{<lilypondversion/>} die aktuelle Versionsnummer
 von LilyPond aus.

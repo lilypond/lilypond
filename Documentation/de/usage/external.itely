@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -360,10 +360,9 @@ Konvertiert in absolute Tonhöhen.
 @item -h,--help
 Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
 
-@item -l, --language=LANG
-Inkludiert die Sprachdatei @var{LANG}@file{.ly} in der Ausgabe. Wird z.B.
-'deutsch' angegeben, wird @file{deutsch.ly} in die @file{.ly}-Datei eingebunden
-und deutsche Notenbezeichnungen benutzt.
+@item -l, --language=SPRACHE
+Benutzt SPRACHE für die Notenbezeichnungen, etwa "deutsch" für deutsche
+Notenbezeichnungen.
 
 @item --lxml
 Benutzt das lxml.etree Python-Paket für die Verarbeitung von XML (benötigt weniger Speicher und Rechenleistung)
