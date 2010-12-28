@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7ba0a22641cb0c7f5949d66a06d1e2e1fd0b3033
+    Translation of GIT committish: e72d11948551faad1f6bdc9eef217d1bd63725c7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -576,8 +576,9 @@ el diagrama de trastes deseado.  Existen tres interfaces distintos de
 marcado de diagramas de trastes: standard (estándar), terse (escueto)
 y verbose (prolijo).  Los tres interfaces producen marcados
 equivalentes, pero tienen cantidades variables de información en la
-cadena de marcado.  Hay más detalles sobre los interfaces de marcado
-en @ref{Text markup commands}.
+cadena de marcado.  Hay más detalles sobre la sintaxis de las distintos
+cadenas de marcado que se usan para definir diagramas de posiciones en
+@ref{Instrument Specific Markup}.
 
 La cadena de marcado de los diagramas estándar de trastes indica el
 número de la cuerda y el número de traste en que se coloca cada uno de
@@ -968,7 +969,7 @@ trastes, las propiedades del interface pertenecen a
 
 @seealso
 Referencia de la notación:
-@ref{Text markup commands}.
+@ref{Instrument Specific Markup}.
 
 Fragmentos de código:
 @rlsr{Fretted strings}.
