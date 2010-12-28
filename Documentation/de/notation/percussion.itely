@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
+    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -257,7 +257,6 @@ mus = \drummode {
        \remove Time_signature_engraver
        \override Stem #'transparent = ##t
        \override Stem #'Y-extent = ##f
-       \override VerticalAxisGroup #'minimum-Y-extent = #'(-4.0 . 5.0)
      } \mus
      \new Lyrics \nam
   >>

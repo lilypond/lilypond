@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: d3f53c1fb63de959056d00fdd58514b45eb433db
+    Translation of GIT committish: 0764a50d470cab82ca29da30298dacd333d3da12
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -372,13 +372,13 @@ werden, und nicht innerhalb der @code{\paper}-Umgebung.  Siehe auch
 @ref{Flexible vertical spacing within systems}.
 
 @menu
-* Struktur der Alisten für flexible vertiakale Abstände::
+* Struktur der Alisten für flexible vertikale Abstände::
 * Liste der flexiblen vertikalen Abstandsvariblen in \paper::
 @end menu
 
 
-@node Struktur der Alisten für flexible vertiakale Abstände
-@unnumberedsubsubsec Struktur der Alisten für flexible vertiakale Abstände
+@node Struktur der Alisten für flexible vertikale Abstände
+@unnumberedsubsubsec Struktur der Alisten für flexible vertikale Abstände
 @translationof Structure of flexible vertical spacing alists
 
 Jede der flexiblen vertikalen Abstandsvariablen ist eine Aliste (eine assoziative Liste), die
@@ -934,6 +934,12 @@ Wenn falsch, werden Seitenzahlen nicht ausgegeben.
 @seealso
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
+
+@knownissues
+Ungrade Seitenzahlen befinden sich immer auf der rechten Seite.
+Wenn Sie die Noten auf Seite 1 beginnen lassen wollen, müssen Sie
+eine leere Seite nach dem Deckblatt einfügen, damit die Noten
+auf der rechten Seite mit Seite 1 beginnen.
 
 
 @node Verschiedene \paper-Variablen
