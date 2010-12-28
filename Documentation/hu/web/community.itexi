@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 8ae92df5b752659c05ddb78806b7abb0ac60ee4d
+    Translation of GIT committish: 8d20e61da8c6746283773eb891720927c68d1aa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -475,8 +475,8 @@ Honosítás: ld. @rcontrib{Translating the documentation} és
 és le tudd fordítani a LilyPondot. Ld. a @rcontrib{Starting with Git} és
 @rcontrib{Compiling LilyPond} c. fejezeteket.}
 
-Windowst használó felhasználóknak javasoljuk a @emph{lilybuntu} virtuális gép
-használatát. Ld. a @rcontrib{Lilybuntu}
+Windowst használó felhasználóknak javasoljuk a @emph{lilydev} virtuális gép
+használatát. Ld. a @rcontrib{Lilydev}
 c. fejezetet.
 
 @itemize

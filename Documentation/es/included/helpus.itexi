@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 512542520ca60b7018df2de43e2c5f51bf05432c
+    Translation of GIT committish: 8d20e61da8c6746283773eb891720927c68d1aa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -69,7 +69,7 @@ por ellos mismos; en su lugar, utilice lilybuntu como se explica en
 @rcontribnamed{Quick start,Inicio rápido}.}
 
 Los colaboradores que utilicen Linux o FreeBSD también pueden usar
-Lilybuntu, pero si prefieren tener su propio entorno de desarrollo,
+Lilydev, pero si prefieren tener su propio entorno de desarrollo,
 deberían leer
 @rcontribnamed{Working with source code,Trabajar con el código fuente}
 y @rcontribnamed{Compiling,Compilación}.

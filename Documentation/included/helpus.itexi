@@ -54,7 +54,7 @@ compile LilyPond.
 @strong{not} attempt to set up their own development environment;
 instead, use lilybuntu as discussed in @rcontrib{Quick start}.}
 
-Contributors using Linux or FreeBSD may also use Lilybuntu, but if
+Contributors using Linux or FreeBSD may also use Lilydev, but if
 they prefer their own development environment, they should read
 @rcontrib{Working with source code}, and @rcontrib{Compiling}.
 

@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish:  144cd434d02e6d90b2fb738eeee99119a7c5e1d2
+    Translation of GIT committish:  8d20e61da8c6746283773eb891720927c68d1aa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -96,7 +96,7 @@ und @rcontribnamed{Compiling,Kompilieren}.}
 Wir empfehlen, dass neue Mithelfer, die Windows oder MacOS X benutzen,
 @strong{keine} eigene Kompilierungsumgebung einrichtigen; anstelle
 dessen siehe
-@rcontrib{Lilybuntu}.
+@rcontrib{Lilydev}.
 
 @itemize
 @item
