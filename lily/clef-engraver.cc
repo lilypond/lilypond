@@ -36,8 +36,6 @@ class Clef_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Clef_engraver);
 
-  Direction octave_dir_;
-
 protected:
   void stop_translation_timestep ();
   void process_music ();
@@ -67,7 +65,6 @@ Clef_engraver::derived_mark () const
 Clef_engraver::Clef_engraver ()
 {
   clef_ = 0;
-  octave_dir_ = CENTER;
   octavate_ = 0;
 
   /*
@@ -93,7 +90,7 @@ Clef_engraver::set_glyph ()
 void
 Clef_engraver::acknowledge_bar_line (Grob_info info)
 {
-  Item *item = dynamic_cast<Item *> (info.grob ());
+  Item *item = info.item ();
   if (item && scm_is_string (get_property ("clefGlyph")))
     create_clef ();
 }
