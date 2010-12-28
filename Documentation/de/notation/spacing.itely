@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: d3f53c1fb63de959056d00fdd58514b45eb433db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -34,18 +34,17 @@ Seiten- und Zeilenumbruch ausgewählt, sodass weder die horizontale
 noch die vertikale Platzverteilung zu eng oder zu weit gesetzt wird.
 
 Einstellungen, die das Layout beeinflussen, können in zwei Umgebungen
-gesetzt werden: Die @code{\paper @{...@}}-Umgebung wird außerhalb einer
-@code{\score @{...@}}-Umgebung geschrieben und enthält Einstellungen,
-die für das gesamte Dokument gelten.  Die @code{\layout @{...@}}-Umgebung
-wird innerhalb von einer @code{\score @{...@}}-Umgebung notiert und
-enthält die Einstellungen für eine bestimmte Partitur.  Wenn Sie
-nur eine @code{\score @{...@}}-Umgebung in der Datei haben, haben
-beide Umgebungen den gleichen Effekt.  Die Befehle, die in diesem Abschnitt
-erklärt werden, können in beiden Umgebungen nach Bedarf gesetzt werden.
+gesetzt werden: in der @code{\paper @{...@}}- und der @code{\layout @{...@}}-Umgebung.
+Die @code{\paper}-Umgebung enthält Einstellungen des Seitenlayouts, die für
+alle Partituren innerhalb eines @code{\book} die gleichen sein sollen, wie
+etwa Papierhöhe oder ob Seitenzahlen ausgegeben werden sollen.  Siehe
+@ref{Seitenlayout}.  Die @code{\layout}-Umbegung enthält Layouteinstellungen
+der Partitur selber, wie etwa die Zahl der Systeme oder den Platz zwischen
+Systemgruppen usw.  Siehe @ref{Partiturlayout}.
 
 @menu
-* Papier und Seiten::
-* Notenlayout::
+* Seitenlayout::
+* Partiturlayout::
 * Umbrüche::
 * Vertikale Abstände::
 * Horizontale Abstände::
@@ -53,27 +52,123 @@ erklärt werden, können in beiden Umgebungen nach Bedarf gesetzt werden.
 @end menu
 
 
-@node Papier und Seiten
-@section Papier und Seiten
-@translationof Paper and pages
+@node Seitenlayout
+@section Seitenlayout
+@translationof Page layout
 
-Dieser Abschnitt behandelt die Grenzen, die Notationsgebiete
-definieren.
+Dieser Abschnitt behandelt Seitenlayout-Optionen innerhalb der @code{\paper}-Umgebung.
 
 @menu
-* Papierformat::
-* Seitenformatierung::
+* Die \paper-Umgebung::
+* Papierformat und automatische Skalierung::
+* Vertikale \paper-Variablen mit festen Abständen::
+* Vertikale \paper-Variablen mit flexiblen Abständen::
+* \paper-Variablen für horizontale Abstände::
+* Andere \paper-Variablen::
 @end menu
 
 
-@node Papierformat
-@subsection Papierformat
-@translationof Paper size
+@node Die \paper-Umgebung
+@subsection Die @code{\paper}-Umgebung
+@translationof The \paper block
 
 @cindex Papiergröße
 @cindex Größe, Papier
 @cindex Seitegröße
 @cindex Größe, Seite
+
+Die @code{\paper}-Umgebung kann innerhalb einer @code{\book}-, nicht aber
+innerhalb einer @code{\score}-Umgebung vorkommen.  Einstellungen in
+@code{\paper} wirken sich auf das gesamte Buch aus, welches viele einzelne
+Partituren beinhalten kann.  Einstellungen, die in der @code{\paper}-Umgebung
+vorkommen können, beinhalten:
+
+@itemize
+
+@item
+die @code{set-paper-size}-Scheme-Funktion,
+
+@item
+@code{\paper}-Variablen, die zum Verändern des Seitenlayouts eingesetzt werden und
+
+@item
+Beschriftungsdefinitionen, mit denen das Layout von Kopf- und Fußleisten sowie
+Titeln beeinflusst wird.
+
+@end itemize
+
+Die @code{set-paper-size}-Funktion wird im nächsten Abschnitt behandelt:
+@ref{Papierformat und automatische Skalierung}.  Die @code{\paper}-Variablen,
+die das Seitenlayout beeinflussen, werden in späteren Abschnitten behandelt.
+Die Beschriftungsdefinitionen für Kopf- und Fußzeilen sowie Titeln werden behandelt
+in @ref{Custom headers footers and titles}.
+
+Die meisten @code{\paper}-Variablen funktionieren nur innerhalb der
+@code{\paper}-Umgebung.  Die wenigen, die auch in der @code{\layout}-Umgebung
+funktionieren, finden sich in @ref{The \layout block}.
+
+Außer wenn anders angegeben, werden alle @code{\paper}-Variablen, die
+Abständen auf der Seite antsprechen, in Millimetern gemessen, es sei denn,
+eine andere Maßeinheit ist definiert.  Beispielsweise wird mit folgender
+Definition der obere Rand (top-margin) 10 mm breit definiert:
+
+@example
+\paper @{
+  top-margin = 10
+@}
+@end example
+
+Damit etwa @code{0.5} Zoll benutzt werden, muss @code{\in} dem Maß nachgestellt werden:
+
+@example
+\paper @{
+  top-margin = 0.5\in
+@}
+@end example
+
+Mögliche Maßeinheiten sind @code{\mm}, @code{\cm}, @code{\in} und
+@code{\pt}.  Diese Maßeinheiten sind einfach Werte, um von Millimetern
+zu Konvertieren, sie sind in @file{ly/paper-defaults-init.ly} definiert.
+Um Missverständnisse zu vermeiden, wird normalerweise @code{\mm} geschrieben,
+auch wenn es eigentlich nicht notwendig wäre.
+
+Man kann die @code{\paper}-Werte auch mit Scheme definieren.  Die Scheme-Entsprechung
+der obigen Definition ist:
+
+@example
+\paper @{
+  #(define top-margin (* 0.5 in))
+@}
+@end example
+
+@seealso
+Notationsreferenz
+@ref{Papierformat und automatische Skalierung},
+@ref{Custom headers footers and titles},
+@ref{The \layout block}.
+
+Installierte Dateien:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Papierformat und automatische Skalierung
+@subsection Papierformat und automatische Skalierung
+@translationof Paper size and automatic scaling
+
+@cindex Papierformat
+@cindex Seitenformat
+
+@funindex \paper
+
+@menu
+* Das Papierformat einstellen::
+* Automatische Skalierung auf ein Papierformat::
+@end menu
+
+
+@node Das Papierformat einstellen
+@unnumberedsubsubsec Das Papierformat einstellen
+@translationof Setting paper size
 
 Zwei Funktionen ermöglichen es, die Papiergröße zu ändern:
 @code{set-default-paper-size} und @code{set-paper-size}.
@@ -92,10 +187,16 @@ muss sich in einer @code{\paper}-Umgebung befinden:
 @end example
 
 @noindent
+Auf oberster Ebene kann @code{set-default-paper-size} überall vor der ersten
+@code{\paper}-Umgebung aufgerufen werden.  Innerhalb einer @code{\paper}-Umgebung
+ist der beste Platz für @code{set-paper-size} gleich am Anfang, über der Liste
+der Variablen-Definitionen.  Der Grund dafür wird behandelt in
+@ref{Automatische Skalierung auf ein Papierformat}
+
 @code{set-default-paper-size} bestimmt die Größe aller Seiten, während
 @code{set-paper-size} nur die Seitengröße für die Seiten definiert,
 auf die sich die aktuelle @code{\paper}-Umgebung bezieht.  Wenn die
-@code{\paper}-Umgebung auf der höchsten Ebene steht, bezieht sich die
+@code{\paper}-Umgebung gleich am Anfang der Datei steht, bezieht sich die
 Papiergröße auf alle Seiten, wenn sie aber innerhalb einer
 @code{\book}-Umgebung definiert wird, nur auf die Seiten innerhalb
 dieses Buches.
@@ -130,75 +231,128 @@ Wenn das Symbol @code{'landscape} als Argument an die Funktion
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
-Wenn man die Seitengröße setzt, werden einige Variablen der
-@code{\paper}-Umgebung verändert, wie etwa Seitenränder.  Um
-eine bestimmte Papiergröße mit veränderten @code{\paper}-Variablen
-zu benutzen, muss die Papiergröße definiert werden, bevor diese
-Variablen neu gesetzt werden.
-
-
 @seealso
+Notationsreferenz:
+@ref{Automatische Skalierung auf ein Papierformat}.
+
 Installierte Dateien:
 @file{scm/paper.scm}.
 
-Schnipsel:
-@rlsr{Spacing}.
 
 
-@node Seitenformatierung
-@subsection Seitenformatierung
-@translationof Page formatting
+@node Automatische Skalierung auf ein Papierformat
+@unnumberedsubsubsec Automatische Skalierung auf ein Papierformat
+@translationof Automatic scaling to paper size
 
-@funindex \paper
-@funindex paper
+Wenn das Papierformat mit einer der Scheme-Funktionen
+(@code{set-default-paper-size} oder @code{set-paper-size}) geändert wird,
+werden die Werte einiger @code{\paper}-Variablen automatisch an die
+neue Größe angepasst.  Um die automatische Skalierung für eine bestimmte
+Variable zu umgehen, kann die Variable definiert werden, nachdem man
+das Papierformat angegeben hat.  Es sollte beachtet werden, dass die
+automatische Anpassung nicht ausgelöst wird, wenn man nur die
+@code{paper-height} oder @code{paper-width}-Variablen verändert, obwohl
+@code{paper-width} andere Werte beeinflussen kann (das muss von der automatischen
+Skalierung unterschieden werden und wird unten behandelt).  Die Funktionen
+@code{set-default-paper-size} und @code{set-paper-size} werden behandelt
+in @ref{Das Papierformat einstellen}.
 
-Ränder, Kopf- und Fußzeilen und andere Layoutvariablen werden
-entsprechend dem Papierformat automatisch gesetzt.
+Die vertikalen Dimensionen, die durch die automatische Skalierung verändert
+werden sind: @code{top-margin} und @code{bottom-margin} (siehe
+@ref{Vertikale \paper-Variablen mit festen Abständen}.  Die horizontalen
+Dimensionen, die durch die automatische Skalierung verändert werden, sind
+@code{left-margin}, @code{right-margin}, @code{inner-margin}, @code{outer-margin},
+@code{binding-offset}, @code{indent} und @code{short-indent} (siehe
+@ref{\paper-Variablen für horizontale Abstände}.
 
-Standardwerte für Ränder finden sich in der Datei
-@file{ly/paper-defaults-init.ly}.  Sie gelten
-für die normale Papiergröße (A4, wenn nicht anders angegeben)
-und sind entsprechend skaliert für andere Papiergrößen.
+Die Standardwerte für diese Dimensionen sind in
+@file{ly/paper-defaults-init.ly} definiert, wobei interne Variablen mit den
+Bezeichnungen @code{top-margin-default}, @code{bottom-margin-default}, usw.
+benutzt werden.  Das sind die Werte für die Standardpapiergröße
+@code{a4}.  Zum Vergleich: @code{a4} hat Werte von @code{297\mm} für
+@code{paper-height} und @code{210\mm} für @code{paper-width}.
 
-Dieser Abschnitt zeigt einige der Papiervariablen, die geändert
-werden können.
+@seealso
+Notationsreferenz:
+@ref{Vertikale \paper-Variablen mit festen Abständen},
+@ref{\paper-Variablen für horizontale Abstände}.
 
-@menu
-* Feste vertikale Dimensionen::
-* Flexible vertikale Dimensionen::
-* Horizontale Dimensionen::
-* Weitere Layout-Variablen::
-@end menu
+Installierte Dateien:
+@file{ly/paper-defaults-init.ly},
+@file{scm/paper.scm}.
 
 
-@node Feste vertikale Dimensionen
-@unnumberedsubsubsec Feste vertikale Dimensionen
-@translationof Fixed vertical dimensions
+
+@node Vertikale \paper-Variablen mit festen Abständen
+@unnumberedsubsubsec Vertikale @code{\paper}-Variablen mit festen Abständen
+@translationof Fixed vertical spacing \paper variables
+
+@warning{Einige @code{@bs{}paper}-Dimensionen werden automatisch nach
+Papierformat skaliert, was zu ungewolltem Verhalten führen kann.  Siehe
+@ref{Automatische Skalierung auf ein Papierformat}.}
+
+Standardwerte (vor der Skalierung) sind definiert in
+@file{ly/paper-defaults-init.ly}.
 
 @table @code
 @item paper-height
 @funindex paper-height
 
-Die Höhe der Seite.  Standard: die Höhe der aktuellen Papiergröße.
-Zu Einzelheiten siehe @ref{Papierformat}.
+Die Höhe der Seite, standardmäßig nicht definiert.  Die automatische
+Skalierung einiger vertikalen Dimensionen wird hiervon nicht betroffen.
 
 @item top-margin
 @funindex top-margin
 
 Der Rand zwischen dem oberen Ende der Seite und dem oberen Ende
-des bedruckbaren Bereichs.  Standard: @code{5/mm}.
+des bedruckbaren Bereichs.  Wenn das Papierformat verändert wurde, wird
+der Standardwert dieser Dimension entsprechend skaliert.
 
 @item bottom-margin
 @funindex bottom-margin
 
 Der Rand zwischen dem unteren Ende der Seite und dem unteren Ende des
-bedruckbaren Bereichs.  Standard: @code{6\mm}.
+bedruckbaren Bereichs.  Wenn das Papierformat verändert wurde, wird
+der Standardwert dieser Dimension entsprechend skaliert.
+
+@item ragged-bottom
+@funindex ragged-bottom
+
+Wenn auf wahr gesetzt, werden die Systeme nicht vertikal bis zum unteren
+Seitenrand verteilt.  Sollte auf wahr gesetzt sein für Stücke, die nur
+ein bis zwei Notensystemgruppen pro Seite haben, etwa Orchesterpartituren.
+
+@item ragged-last-bottom
+@funindex ragged-last-bottom
+
+Wenn auf falsch gesetzt, werden die Systeme vertikal auf der letzten Seite
+verteilt.  Bei Stücken, die grob zwei oder mehr Seiten füllen, sollten es auf
+wahr gesetzt werden.  Hiermit wird auch die letzte Seite von Teilen eines
+@code{\book}, die mit @code{\bookpart} erstellt sind, beeinflusst.
+
 @end table
 
+@seealso
+Notationsreferenz:
+@ref{Automatische Skalierung auf ein Papierformat}.
 
-@node Flexible vertikale Dimensionen
-@unnumberedsubsubsec Flexible vertikale Dimensionen
-@translationof Flexible vertical dimensions
+Installierte Dateien:
+@file{ly/paper-defaults-init.ly}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
+@knownissues
+
+Die Titel (aus der @code{\header}-Umgebung) werden als Systemgruppe
+behandelt, sodass @code{ragged-bottom} und @code{ragged-last-bottom} auch
+zusätzlichen Abstand zwischen den Titel und dem ersten System einer
+Paritur einfügt.
+
+
+@node Vertikale \paper-Variablen mit flexiblen Abständen
+@unnumberedsubsubsec Vertikale @code{\paper}-Variablen mit flexiblen Abständen
+@translationof Flexible vertical spacing \paper variables
 
 In den meisten Fällen bietet es sich an, dass die vertikalen
 Abstände zwischen bestimmten Objekten (wie Ränder, Titel,
@@ -215,39 +369,49 @@ Systemgruppen behandelt.  Die Dehnung zwischen Notensystemen
 wird mit Grob-Eigenschaften kontrolliert, deren Einstellungen
 normalerweise innerhalb der @code{\score}-Umgebung vorgenommen
 werden, und nicht innerhalb der @code{\paper}-Umgebung.  Siehe auch
-@ref{Vertikale Abstände zwischen Systemen}.
+@ref{Flexible vertical spacing within systems}.
 
-@subsubheading Struktur der Platzierungs-Alisten für @code{\paper}-Variablen
+@menu
+* Struktur der Alisten für flexible vertiakale Abstände::
+* Liste der flexiblen vertikalen Abstandsvariblen in \paper::
+@end menu
 
-Jede dieser Variablen ist eine Aliste (eine assoziative Liste), die
+
+@node Struktur der Alisten für flexible vertiakale Abstände
+@unnumberedsubsubsec Struktur der Alisten für flexible vertiakale Abstände
+@translationof Structure of flexible vertical spacing alists
+
+Jede der flexiblen vertikalen Abstandsvariablen ist eine Aliste (eine assoziative Liste), die
 vier @emph{Schlüssel} (engl. key) enthält:
 
 @itemize
+
+@item
+@code{basic-distance} (Grund-Abstand) -- der vertikale Abstand, gemessen in
+Systemzwischenräumen, zwischen den @emph{Referenzpunkten}
+zweier Elemente, wenn keine Zusammenstöße vorkommen würden und
+keine Dehnung oder Kompression stattfindet.  Der Referenzpunkt
+einer (Titel-)Beschriftung (auf höchster Ebene) ist sein
+höchster Punkt und der Referenzpunkt einer Systemgruppe ist
+der vertikale Mittelpunkt des nächsten @code{StaffSymbol}
+-- sogar wenn eine Nicht-Notensystemzeile (wie etwa ein
+@code{Lyrics}-Kontext) dazwischen kommt.  Werte für @code{basic-distance},
+die weniger als entweder @code{padding} oder @code{minimum-distance}
+sind, haben keine Bedeutung, weil der sich daraus ergebende
+Abstand niemals weniger als entweder @code{padding} oder
+@code{minimum-distance} ergibt.
+
+@item
+@code{minimum-distance} (minimaler Abstand) -- der kleinste
+erlaubte vertikale Abstand, gemessen in Systemzwischenräumen,
+zwischen den Referenzpunkten der zwei Elemente, wenn Kompression
+stattfindet.  Werte für @code{minimum-distance}, die geringer als
+@code{padding} sind, haben keine Bedeutung, weil der sich daraus
+ergebende Abstand niemals weniger als @code{padding} ergibt.
+
 @item
 @code{padding} (Verschiebung) -- der minimal benötigte vertikale blanke
-Freiraum zwischen zwei Objekten gemessen in Notenlinienabständen.  Man
-kann sich das als die minimale Höhe eines Rechtecks ohne jegliche Störung
-vorstellen, das vom linken bis zum rechten Ende der hiermit verknüpften
-Ojekte reicht.
-
-@item @code{space} (Platz) -- der vertikale Standardfreiraum
-gemessen in Notenlinienabständen zwischen den @emph{Referenzpunkten}
-der zwei Objekte, wenn sich daraus keine Kollisionen ergeben und
-keine Dehnung oder Komprimierung angewendet wird.  Der Referenzpunkt
-einer (Titel)Beschriftung oder einer Beschriftung auf höchster Ebene
-ist der höchste Punkt der Beschriftung, und der Referenzpunkt einer
-Systemgruppe (oder eines einzelnen Systems) ist die Mittellinie des
-nächsten Notensystems.  Werte für @code{space}, die weniger als
-@code{padding} oder @code{minimum-distance} betragen, sind nicht
-sinnvoll, weil der daraus resultierende Abstand niemals weniger
-als @code{padding} oder @code{minimum-distance} ist.
-
-@item @code{minimum-distance} (minimaler Abstand) -- der minimale
-benötigte vertikale Abstand, gemessen in Notenlinienabständen,
-zwischen den Referenzpunkten der zwei Objekte, wenn Komprimierung
-angewendet wird.  Wert für @code{minimum-distance}, die geringer als
-@code{padding} sind, sind nicht sinnvoll, weil der resultierende
-Abstand nie weniger als @code{padding} ist.
+Freiraum zwischen den Bounding-Boxen (oder Skyline) der zwei Objekten, gemessen in Notenlinienabständen.
 
 @item @code{stretchability} (Dehnbarkeit) -- ein einheitsloses
 Maß der Leichtigkeit, mit der sich die Dimension dehnen lässt (ohne
@@ -259,566 +423,262 @@ ab.  Beispielsweise wennn eine Dimension die doppelte Dehnbarkeit als
 die andere hat, wird sie auch zweimal so einfach gedehnt.  Werte sollten
 nicht-negativ und reale Zahlen sein.  Der Wert @code{+inf.0}
 ruft einen @code{programming_error} hervor und wird ignoriert, aber
-@code{1.0e7} kann für einen sogut wie unendlich dehnbaren Abstand eingesetzt
+@code{1.0e7} kann für einen so gut wie unendlich dehnbaren Abstand eingesetzt
 werden.  Wenn der Wert nicht gesetzt wird, ist der Standardwert
-der von @code{space}.  Die Wahrscheinlichkeit einer Dimension, sich
+der von @code{basic-distance}.  Die Wahrscheinlichkeit einer Dimension, sich
 zu verkleinern, kann man nicht direkt beeinflussen, sondern sie ergibt sich
 aus (@code{space}@tie{}@minus{}@tie{}@code{minimum-distance}).
+
 @end itemize
 
 Wenn eine Seite einen nicht ausgeglichenen unteren Rand hat, ist der
 resultierende Abstand der größte von:
 
 @itemize
-@item @code{space},
-@item @code{minimum-distance} und
-@item @code{padding} plus der kleinste nötige Abstand, um Zusammenstöße
+
+@item
+@code{basic-distance},
+
+@item
+@code{minimum-distance} und
+
+@item
+@code{padding} plus der kleinste nötige Abstand, um Zusammenstöße
 zu vermeiden.
+
 @end itemize
 
-
-@subsubheading Platzierungs-Alisten für @code{\paper}-Variablen verändern
-
-Um einen einzelnen Schlüssel für eine Dimensionsvariable zu setzen oder zu verändern,
-wird der Schlüssel innerhalb der @code{\paper}-Umgebung aufgerufen:
-
-@example
-\paper @{
-  system-system-spacing #'basic-distance = #10
-@}
-@end example
-
-Hiermit wird der angegebene Schlüssel verändert, ohne dass sich die
-anderen Schlüssel der gleichen Variable verändern würde.  Um eine
-Variable vollständig mit einem Aufruf umzudefinieren, wird sie als
-Aliste notiert:
+Spezifische Methoden, um Alisten zu verändern, werden behandelt in
+@ref{Alisten verändern}.  Das folgende Beispiel demonstriert beide Arten,
+wie diese Alisten verändert werden können.  Der erste Aufruf verändert
+nur einen Schlüsselwert einzeln, während der zweite die Variable
+vollständig neu definiert:
 
 @example
 \paper @{
-  system-system-spacing =
-    #'((padding . 1)
-       (basic-distance . 12)
-       (minimum-distance . 8)
+  system-system-spacing #'basic-distance = #8
+  score-system-spacing =
+    #'((basic-distance . 12)
+       (minimum-distance . 6)
+       (padding . 1)
        (stretchability . 12))
 @}
 @end example
 
-Hierbei werden jedoch alle Werte, auch wenn sie nicht in der Aliste auftreten,
-verändert: sie werden alle auf 0 gesetzt (bis auf
-@code{stretchability}, welches den Wert von @code{space} bekommt).
-Darum sind folgende zwei Aufrufe identisch:
 
-@example
-system-system-spacing =
-  #'((basic-distance . 10))
+@node Liste der flexiblen vertikalen Abstandsvariblen in \paper
+@unnumberedsubsubsec Liste der flexiblen vertikalen Abstandsvariblen in @code{\paper}
+@translationof List of flexible vertical spacing \paper variables
 
-system-system-spacing =
-  #'((padding . 0)
-     (basic-distance . 10)
-     (minimum-distance . 0)
-     (stretchability . 10))
-@end example
+Die Bezeichnungen dieser Variablen entsprechen dem Format
+@code{@var{obere}-@var{untere}-platzierung}, wobei @code{@var{obere}}
+und @code{@var{untere}} die zu platzierenden Elemente darstellen.  Jeder
+Abstand wird zwischen den Referenzpunkten der beiden Elemente gemessen
+(siehe Beschreibung der Alistenstruktur oben).  In diesen Variablenbezeichnungen
+bedeutet @q{@code{markup}} (Beschriftung) sowohl
+@emph{Titelbeschriftungen} (@code{bookTitleMarkup} oder
+@code{scoreTitleMarkup}) als auch @emph{Beschriftungen auf höchster Ebene}
+(siehe @ref{Die Dateistruktur}).  Alle Entfernungen werden in Systemzwischenräumen
+gemessen.
 
-Eine womöglich nicht beabsichtigte Konsequenz dessen ist die
-Entfernung der Standardwerte für @code{padding} und
-@code{minimum-distance}.  Wenn also eine Variable als Aliste
-(jeglicher Länge) definiert wird, werden immer alle Standard-Schlüsselwerte
-zurückgesetzt.  Standardwerte für die flexiblen vertikalen Dimensionen
-der @code{\paper}-Umgebung finden sich in @file{ly/paper-defaults-init.ly}.
+Standardwerte sind in @file{ly/paper-defaults-init.ly} definiert.
 
-
-@subsubheading Flexible vertikale Dimensionsvariablen der @code{\paper}-Umgebung
-
-Die Bezeichnungen dieser Variablen folgen dem Format
-@code{@var{oben}-@var{unten}-spacing}, wobei @code{@var{oben}}
-und @code{@var{unten}} die zu platzierenden Objekte sind.  Jede
-Entfernung wird zwischen den Referenzpunkten der zwei Objekte
-gemessen:  die Referenzpunkte einer (Titel-)Beschriftung (der obersten
-Ebene) ist sein höchster Punkt, und der Referenzpunkt einer
-Notensystemgruppe ist die Mittellinie des nächsten Notensystems.
-In diesen Bezeichnungen bezeichnet @qq{@code{markup}} (Beschriftung)
-sowohl @emph{Titelbeschriftungen} (@code{bookTitleMarkup} oder
-@code{scoreTitleMarkup}) als auch @emph{Beschriftungen auf oberster
-Dateiebene} (siehe @ref{Die Dateistruktur}).
+@c TODO: Where do headers/footers fit in? -mp
 
 @table @code
 @item markup-system-spacing
 @funindex markup-system-spacing
 
-Der Abstand zwischen einer (Titel-) Beschriftung (der obersten Ebene)
-und der folgenden Systemgruppe.
+der Abstand zwischen einer (Titel-)Beschriftung (auf höchster Ebene) und der
+darauf folgenden Systemgruppe.
 
 @item score-markup-spacing
 @funindex score-markup-spacing
 
-Der Abstand zwischen dem letzten System einer Partitur und der
-folgenden (Titel-)Beschriftung (der obersten Ebene).
+der Abstand zwischen dem letzten System einer Partitur und der darauf folgenden
+(Titel-)Beschriftung (auf höchster Ebene).
 
 @item score-system-spacing
 @funindex score-system-spacing
 
-Der Abstand zwischen dem letzten System einer Partitur und dem ersten
-System der folgenden Partitur, wenn keine (Titel-)Beschriftung (der
-obersten Ebene) zwischen ihnen liegt.
+der Abstand zwischen dem letzten System einer Partitur und dem ersten
+System der folgenden Partitur, wenn keine (Titel-)Beschriftung (auf höchster
+Ebene) dazwischen vorkommt.
 
 @item system-system-spacing
 @funindex system-system-spacing
 
-Der Abstand zwischen zwei Systemgruppen derselben Partitur.
+der Abstand zwischen zwei Systemgruppen der selben Partitur.
 
 @item markup-markup-spacing
 @funindex markup-markup-spacing
 
-Der Abstand zwischen zwei (Titel-)Beschriftungen (der obersten Ebene).
+der Abstand zwischen zwei (Titel-)Beschriftungen (auf höchster Ebene).
 
 @item last-bottom-spacing
 @funindex last-bottom-spacing
 
-Der Abstand vom letzten System oder Beschriftung der obersten Ebene auf einer
-Seite bis zum unteren Ende des bedruckbaren Bereichs (also der Oberkante
+der Abstand vom letzten System oder Beschriftung auf höchster Ebene auf
+einer Seite zum unteren Rand des bedruckbaren Bereichs (also bis zum Anfang
 des unteren Randes).
 
 @item top-system-spacing
 @funindex top-system-spacing
 
-Der Abstand vom oberen Ende des bedruckbaren Bereichs (also der Unterkante
-des oberen Randes) bis zum ersten System auf einer Seite, wenn keine
-(Titel-)Beschriftung (der obersten Ebene) dazwischen kommt.
+der Abstand zwischen dem oberen Rand des bedruckbaren Bereichs (also dem Ende
+des oberen Rands) und dem ersten System auf der Seite, wenn keine
+(Titel-)Beschriftung (auf höchster Ebene) dazwischen kommt.
 
 @item top-markup-spacing
 @funindex top-markup-spacing
 
-Der Abstand vom oberen Ende des bedruckbaren Bereichs (also der Unterkante
-des oberen Randes) zur ersten (Titel-)Beschriftung (der obersten Ebene)
-auf einer Seite, wenn sich kein Notensystem dazwischen befindet.
+der Abstand vom oberen Rand des bedruckbaren Bereichs (also dem Ende des
+oberen Randes) zur ersten (Titel-)Beschriftung (auf höchster Ebene) auf
+einer Seite, wenn keine Systemgruppe dazwischen kommt.
 @end table
-
-
-@snippets
-
-Kopf- und Fußzeile werden von den Funktionen @code{make-footer} und
-@code{make-header} erstellt, welche in der @code{\paper}-Umgebung definiert
-werden.  Die Standardeinstellungen sind in den Dateien
-@file{ly/paper-defaults.ly} und @code{ly/titling-init.ly} dargestellt.
-
-Das Seitenlayout wird durch zwei Funktionen der @code{\paper}-Umgebung
-bestimmt: @code{page-music-height} und @code{page-make-stencil}.  Die erste
-teilt dem Zeilenumbruchsalgorithmus mit, wieviel Platz auf einer Seite
-belegt werden kann, die zweite hingegen erstellt die konkrete Seite,
-nachdem sie die Systeme entgegengenommen hat, die auf der Seite platziert
-werden sollen.
-
-Man kann @code{\paper}-Umgebungswerte in Scheme definieren.  In diesem
-Fall sind @code{mm}, @code{in}, @code{pt} und @code{cm} Variablen, die
-in @file{paper-defaults.ly} mit Werten in Millimetern definiert sind.
-Darum muss der Wert  @w{@code{2 cm}} in dem Beispiel unten multipliziert werden:
-
-@example
-\paper @{
- #(define bottom-margin (* 2 cm))
-@}
-@end example
-
-Beispiel:
-
-@example
-\paper @{
-  paper-width = 2\cm
-  top-margin = 3\cm
-  bottom-margin = 3\cm
-  ragged-last-bottom = ##t
-@}
-@end example
-
-Das nächste Beispiel zentriert Seitenzahlen unten auf jeder Seite:
-
-@example
-\paper @{
-  print-page-number = ##t
-  print-first-page-number = ##t
-  oddHeaderMarkup = \markup \fill-line @{ " " @}
-  evenHeaderMarkup = \markup \fill-line @{ " " @}
-  oddFooterMarkup = \markup @{ \fill-line @{
-     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
-     \fromproperty #'page:page-number-string @} @}
-  evenFooterMarkup = \markup @{ \fill-line @{
-     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
-     \fromproperty #'page:page-number-string @} @}
-@}
-@end example
-
 
 @seealso
 Notationsreferenz:
-@ref{Vertikale Abstände zwischen Systemen}.
+@ref{Flexible vertical spacing within systems}.
+
+Installierte Dateien:
+@file{ly/paper-defaults-init.ly}.
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Horizontale Dimensionen
-@unnumberedsubsubsec Horizontale Dimensionen
-@translationof Horizontal dimensions
 
-Es gibt einige Variablen, die die horizontalen Dimensionen der Seite
-beeinflussen:
+
+
+
+@node \paper-Variablen für horizontale Abstände
+@unnumberedsubsubsec \paper-Variablen für horizontale Abstände
+@translationof Horizontal spacing \paper variables
+
+@warning{Einige @code{@bs{}paper}-Dimensionen werden automatische
+entsprechend dem Papierformat skaliert und können deshalb ungewollte
+Resultate haben.  Siehe @ref{Automatische Skalierung auf ein Papierformat}.}
+
+@menu
+* \paper-Variablen für Breite und Ränder::
+* \paper-Variablen für zweiseitigen Satz::
+* \paper-Variablen für Verschiebungen und Einrückungen::
+@end menu
+
+
+@node \paper-Variablen für Breite und Ränder
+@unnumberedsubsubsec \paper-Variablen für Breite und Ränder
+@translationof \paper variables for widths and margins
+
+Standardwerte (vor der Skalierung), die hier nicht aufgelistet
+sind, finden sich in @file{ly/paper-defaults-init.ly}.
+
 
 @table @code
 
-@item binding-offset
-
-@funindex binding-offset
-
-Der Wert, um welchen @code{inner-margin} erhöht wird, um sicherzugehen, dass
-nichts in der Bindung verschwindet.  Funktioniert nur, wenn @code{two-sided}
-wahr ist.  Standard: @code{0}.
-
-@item horizontal-shift
-
-@funindex horizontal-shift
-
-Der Wert, um den alle Systeme (und auch Überschriften und Systemtrenner)
-nach rechts verschoben werden.  Standard: @code{0.0}.
-
-@item indent
-
-@funindex indent
-
-Der Einzug für das erste System einer Partitur.  Standard: @code{15\mm}.
-
-@item inner-margin
-
-@funindex inner-margin
-
-Der Rand, den alle Seiten auf der Innenseite haben, wenn sie Teil eines
-Buches (@code{\book}) sind.  Funktioniert nur, wenn @code{two-sided}
-wahr ist.  Standard: @code{10\mm}.
-
-@item left-margin
-
-@funindex left-margin
-
-Der Rand zwischen dem linken Rand der Seite und dem Anfang der Notensysteme.
-Standard: @code{10\mm}.
-
-@item line-width
-
-@funindex line-width
-
-Die Breite der Notensystems. Standard: @code{paper-width} minus
-@code{left-margin} und @code{right-margin}.
-
-@item outer-margin
-
-@funindex outer-margin
-
-Der Rand, den alle Seiten auf der Außenseite haben, wenn sie Teil eines Buches
-sind.  Funktioniert nur, wenn @code{two-sided} wahr ist.  Standard: @code{20\mm}.
-
 @item paper-width
-
 @funindex paper-width
 
-Die Breite der Seite.  Standard: Die Breite des aktuellen
-Papierformats.  Zu Einzelheiten siehe @ref{Papierformat}.
+Die Breide der Seite, standardmäßig nicht definiert.  Während
+@code{paper-width} keine Auswirkungen auf die automatische
+Skalierung einiger horizontaler Dimensionen hat, beeinflusst es
+dennoch die @code{line-width}-Variable.  Wenn sowohl @code{paper-width}
+als auch @code{line-width} definiert sind, dann werden auch
+@code{left-margin} und @code{right-margin} aktualisiert.  Siehe auch
+@code{check-consistency}.
+
+@item line-width
+@funindex line-width
+
+Die horizontale Ausdehnung der Notenlinien in nicht-eingerückten,
+Systemen mit Ausgleich zum rechten Rand, entspricht
+@code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}
+wenn nicht definiert.  Wenn @code{line-width} definiert ist und sowohl
+@code{left-margin} als auch @code{right-margin} nicht definiert sind, dann
+werden die Ränder aktualisiert, sodass die Systeme mittig auf der Seite
+zentriert werden.  Siehe auch @code{check-consistency}.  Diese Variable
+kann auch in der @code{\layout}-Umgebung definiert werden.
+
+@item left-margin
+@funindex left-margin
+
+Der Rand zwischen der linken Papierkante und dem Beginn der Systeme
+ohne Einrückungen.  Wenn das Papierformat verändert wird, wird auch
+der Standardwert dieser Dimension entsprechend skaliert.  Wenn
+@code{left-margin} nicht definiert ist und sowohl @code{line-width}
+als auch @code{right-margin} definiert sind, dann wird @code{left-margin}
+auf den Wert
+@code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}right-margin)}
+gesetzt.  Wenn nur @code{line-width} definiert ist, dann werden beide
+Ränder auf den Wert
+@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)}
+gesetzt und die Systeme demzufolge auf der Seite zentriert.  Siehe auch
+@code{check-consistency}.
 
 @item right-margin
-
 @funindex right-margin
 
-Der Rand zwischen dem Papierrand und dem Ende jedes Systems.  Standard:
-@code{10\mm}.
+Der Rand zwischen der rechten Papierkante und dem Ende der Systeme mit
+Randausgleich (@qq{Blocksatz}).  Wenn das Papierformat geändert wird,
+wird auch der Standardwert dieser Dimension entsprechend skaliert.  Wenn
+@code{right-margin} nicht definiert ist und sowohl @code{line-width} als
+auch @code{left-margin} definiert sind, dann wird @code{right-margin} auf den
+Wert @code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}left-margin)}
+gesetzt.  Wenn nur @code{line-width} definiert ist, dann werden beide Ränder
+auf den Wert
+@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)}
+gesetzt und die Systeme demzufolge auf der Seite zentriert.  Siehe auch
+@code{check-consistency}.
 
-@item short-indent
+@item check-consistency
+@funindex check-consistency
 
-@funindex short-indent
+Wenn wahr, wird eine Warnung ausgegeben, sollten @code{left-margin},
+@code{line-width} und @code{right-margin} zusammen nicht exakt den
+Wert von @code{paper-width} ergeben, und die Werte (außer
+@code{paper-width}) mit ihren Standardwerten belegt (wenn nötig auf
+das entsprechende Papierformat skaliert).  Wenn falsch werden derartige
+Inkonsistenzen ignoriert und die Systeme dürfen auch über den Seitenrand
+hinausragen.
 
-Der Einzug für alle Systeme einer Partitur ausschließlich das
-erste System.  Standard: @code{0}.
+@item ragged-right
+@funindex ragged-right
+
+Wenn wahr, werden Notensysteme nicht über die gesamte Zeilenbreite
+gestreckt, sondern sie enden horizontal entsprechend den enthaltenen
+Noten.  Standard: @code{#t} (wahr) für Partituren mit einem System
+und @code{#f} (falsch) für Partituren mit zwei oder mehr Systemen.
+Diese Variable kann auch in der @code{\layout}-Umgebung definiert werden.
+
+@item ragged-last
+@funindex ragged-last
+
+Wenn wahr, wird das letzte Notensystem einer Partitur nicht über die
+gesamte Zeilenbreite gestreckt, sondern es endet horizontal entsprechend
+den enthaltenen Noten.  Standard: @code{#f} (falsch).  Diese  Variable
+kann auch in der @code{\layout}-Umgebung definiert werden.
 
 @end table
 
-Wenn einige der Werte nicht definiert sind, werden die Standardwerte eingesetzt.
-Ihre exakten Werte werden entsprechend der angegebenen Papiergröße angepasst.
-Im Moment werden folgende Werte von dieser Skalierung berücksichtigt:
-
-@itemize
-@item @var{left-margin}
-@item @var{right-margin}
-@item @var{top-margin}
-@item @var{bottom-margin}
-@item @var{head-separation}
-@item @var{foot-separation}
-@item @var{indent}
-@item @var{short-indent}
-@end itemize
-
-Die Einstellungen für @code{line-width}, @code{left-margin},
-@code{right-margin} und @code{paper-width} hängen voneinander ab,
-aber sie müssen nicht vollständig definiert werden.
-
-@example
-\paper @{
-  left-margin = 30\mm
-@}
-@end example
-
-In diesem Beispiel wird nur @code{left-margin} definiert.  Der Wert
-für @code{right-margin} bleibt bei dem Standardwert, @code{line-width}
-wird automatisch errechnet.
-
-@example
-\paper @{
-  line-width = 150\mm
-@}
-@end example
-
-Hier erhalten @code{left-margin} und @code{right-margin} den gleichen Wert.
-Deshalb wird @code{line-width} von @code{paper-width} abgezogen und durch
-zwei geteilt.  Das bedeutet, dass Systeme auf der Seite zentriert werden, wenn
-nur @code{line-width} definiert wird.
-
-Einige Überprüfungen werden angestellt, um die Richtigkeit der Wert zu gewährleisten.
-Wenn die Werte nicht passen oder Systeme aus der Seite hinausragen würden, wird
-eine Warnung ausgegeben und die Standardwerte eingesetzt.
-
-@example
-\paper @{
-  paper-width = 210\mm
-  left-margin = 20\mm
-  right-margin = 30\mm
-  line-width = 100\mm
-@}
-@end example
-
-Diese Überprüfungen können vermieden werden, indem man @code{check-consistency}
-als unwahr definiert.
-
-@example
-\paper @{
-  paper-width = 210\mm
-  left-margin = 20\mm
-  line-width = 200\mm
-  check-consistency = ##f
-@}
-@end example
-
-@warning{Wenn @code{paper-width} manuell definiert wird, müssen eventuell auch
-@code{line-width}, @code{left-margin}, @code{indent} und @code{short-indent}
-angepasst werden.}
-
 @seealso
-Schnipsel:
-@rlsr{Spacing}.
+Notationsreferenz:
+@ref{Automatische Skalierung auf ein Papierformat}.
+
+Installierte Dateien:
+@file{ly/paper-defaults-init.ly}.
 
 
-@node Weitere Layout-Variablen
-@unnumberedsubsubsec Weitere Layout-Variablen
-@translationof Other layout variables
+@node \paper-Variablen für zweiseitigen Satz
+@unnumberedsubsubsec @code{\paper}-Variablen für zweiseitigen Satz
+@translationof \paper variables for two-sided mode
 
-Diese Variablen können verwendet werden, um das allgemeine Layout der Seite
-anzupassen.
-
-@funindex auto-first-page-number
-@funindex blank-last-page-force
-@funindex blank-page-force
-@funindex first-page-number
-@funindex page-breaking-between-system-padding
-@funindex page-count
-@funindex page-limit-inter-system-space
-@funindex page-limit-inter-system-space-factor
-@funindex page-spacing-weight
-@funindex print-all-headers
-@funindex print-first-page-number
-@funindex print-page-number
-@funindex ragged-bottom
-@funindex ragged-last
-@funindex ragged-last-bottom
-@funindex ragged-right
-@funindex system-separator-markup
-@funindex system-count
+Standardwerte (vor der Skalierung) sind definiert in
+@file{ly/paper-defaults-init.ly}.
 
 @table @code
 
-@item auto-first-page-number
-
-Der Seitenumbruchsalgorithmus wird davon beeinflusst, ob die erste
-Seitenzahl gerade oder ungerade ist.  Wenn die Variable auf wahr
-gesetzt wird, entscheidet der Seitenumbruchsalgorithmus selber,
-ob die Noten auf einer geraden oder ungeraden Seite beginnen sollen.
-Das hat dann zur Folge, dass die erste Seite entweder bleibt wie
-sie ist oder um eins erhöht wird.  Standard: @code{##f}.
-
-@ignore
-
-TODO: this variable is used, but I don't know what it does. -pm
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
-
-Default: @code{2}.
-
-@end ignore
-
-@item blank-last-page-force
-
-Die Strafpunkte, wenn eine Partitur auf einer ungeraden Seite
-beendet wird. Standard: @code{0}.
-
-@item blank-page-force
-
-Die Strafpunkte, wenn eine leere Seite mitten in einer Partitur
-auftritt.  Das wird nicht benutzt von @code{ly:optimal-breaking},
-weil hiermit niemals leere Seiten mitten in einer Partitur zugelassen
-werden.  Standard: @code{5}.
-
-@item check-consistency
-
-@funindex check-consistency
-
-Wenn wahr, wird überprüft, ob @code{left-margin}, @code{right-margin} und
-@code{line-width} zueinander passen.  Ihr Gesamtwert darf auch nicht die
-Seitenbreite (@code{paper-width} übertreffen.  Standard: @code{##t}.
-
-@item first-page-number
-
-Der Wert der Seitenzahl auf der ersten Seite.  Standard: @code{#1}.
-
-@item max-systems-per-page
-
-@funindex max-systems-per-page
-
-Die maximale Anzahl an Notensystemen, die auf einer Seite gesetzt werden.  Das
-wird zur Zeit nur von dem @code{ly:optimal-breaking}-Algorithmus
-unterstützt.  Standard: nicht gesetzt.
-
-@item min-systems-per-page
-
-@funindex min-systems-per-page
-
-Die minimale Anzahl an Notensystemen, die auf einer Seite gesetzt werden. Das
-kann dazu führen, dass Seiten zu dicht gefüllt werden, wenn der Wert
-zu groß gewählt wird.  Die Option ist zur Zeit nur von dem
-@code{ly:optimal-breaking}-Algorithmus unterstützt.  Standard: nicht gesetzt.
-
-@item page-breaking-system-system-spacing
-
-@funindex page-breaking-system-system-spacing
-
-Überlistet die Seitenumbruchfunktion, indem ihr ein anderer Wert
-für @code{system-system-spacing} mitgeteilt wird, als in Wirklichkeit
-eingestellt ist.  Wenn beispielsweise
-@code{page-breaking-system-system-spacing #'padding} auf einen
-deutlich größeren Wert als @code{system-system-spacing #'padding} gesetzt
-wird, setzt die Seitenumbruchsfunktion weniger Systeme auf eine
-Seite.  Standard: nicht gesetzt.
-
-@item page-count
-
-Die Zahl der Seiten, die für eine Partitur benutzt werden sollen.
-Standard: nicht gesetzt.
-
-@item page-limit-inter-system-space
-
-Wenn wahr, wird Platz zwischen Systemen eingeschränkt, wenn viel
-Platz auf der Seite ist.  Standard: @code{##f}.  Einzelheiten siehe
-@ref{Vertikale Abstände zwischen Systemen}.
-
-@item page-limit-inter-system-space-factor
-
-Der Faktor, der von @code{page-limit-inter-system-space} verwendet
-wird.  Standard: @code{1.4}.  Einzelheiten siehe
-@ref{Vertikale Abstände zwischen Systemen}.
-
-@item page-spacing-weight
-
-Die relative Gewichtung von (vertikalem) Abstand auf der Seite und
-(horizontalem) Abstand innerhalb der Zeilen.  Hohe Werte gewichten
-die vertikalen Abstände mehr.  Standard: @code{#10}.
-
-@item print-all-headers
-
-Wenn wahr, werden alle Einträge des Titelfeldes (@code{\header}-Umgebung)
-für jede Partitur ausgegeben.  Normalerweise wird nur die
-Satzbezeichnung und die Opuszahl (@code{piece} und @code{opus})
-ausgegeben.  Standard: @code{##f}.
-
-@item print-first-page-number
-
-Wenn wahr, wird auch auf der ersten Seite die Seitenzahl ausgegeben.
-Standard: @code{##f}.
-
-@item print-page-number
-
-Wenn falsch, werden Seitenzahlen nicht ausgegeben.  Standard:
-@code{##t}.
-
-@item ragged-bottom
-
-Wenn wahr, werden die Systeme nicht gleichmäßig über die Seite
-verteilt sondern am oberen Seitenrand beginnend eng angeordnet.
-Das wirkt sich nicht auf die letzte Seite aus.  Standard: @code{##f}.
-
-Die Variable sollte auf wahr gesetzt werden für Stücke, die nur
-zwei oder drei Systeme pro Seite haben, wie etwa Orchesterpartituren.
-
-@item ragged-last
-
-Wenn wahr, wird die letzte Notenzeile einer Partitur nicht bis
-zum Zeilenende durchgezogen, sondern entsprechend mit Noten
-gefüllt und dann abgebrochen.  Standard: @code{##f}.
-
-@item ragged-last-bottom
-
-Wenn falsch, werden Systeme gleichmäßig über die letzte Seite
-verteilt.  Standard: @code{##t}.
-
-Stücke, die zwei oder mehr Seiten gut füllen, sollten die Option auf wahr
-gesetzt haben.
-
-Sie wirkt sich auch auf die letzte Seite von Buchteilen aus, d.h.
-Teilen eines Buches, die mit der @code{\bookpart}-Umgebung erstellt werden.
-
-@item ragged-right
-
-Wenn wahr, werden Systeme nicht im Blocksatz gesetzt, sondern erhalten
-nur ihre normale Breite.  Standard: @code{##f}.
-
-Wenn eine Partitur nur ein System hat, ist der Standardwert @code{##t}.
-
-@item system-separator-markup
-
-Ein Beschriftungsobjekt, das zwischen zwei Systeme gesetzt wird.  Das
-wird oft in Orchesterpartituren eingesetzt.  Standard: nicht gesetzt.
-
-Der Beschriftungsbefehl @code{\slashSeparator} kann für einen Trenner
-benutzt werden, etwa so:
-
-@lilypond[quote,ragged-right]
-#(set-default-paper-size "a6" 'landscape)
-\book {
-  \score {
-    \relative c' { c1 \break c1 }
-  }
-  \paper {
-    system-separator-markup = \slashSeparator
-  }
-}
-@end lilypond
-
-@item system-count
-
-Die Anzahl der Systeme, auf denen eine Partitur gesetzt werden soll.
-Standard: nicht gesetzt.
-
-@item systems-per-page
-@funindex systems-per-page
-
-Die Anzahl an Systemen, die auf jede Seite gesetzt werden sollen.
-Diese Option wird zur Zeit nur von dem @code{ly:optimal-breaking}-Algorithmus
-unterstützt.  Standard: nicht gesetzt.
-
 @item two-sided
-
 @funindex two-sided
 
 @cindex Bundsteg
@@ -830,10 +690,304 @@ von einer geraden oder ungeraden Seitennummer zu errechnen.  Damit werden die
 Werte von @code{left-margin} und @code{right-margin} überschrieben.  Standard:
 @code{##f}.
 
+@item inner-margin
+@funindex inner-margin
+
+Der Rand, den alle Seiten auf der Innenseite haben, wenn sie Teil eines
+Buches (@code{\book}) sind.  Wenn das Papierformat verändert wird,
+wird der Standardwert dieser Dimension entsprechend skaliert.  Funktioniert
+nur, wenn @code{two-sided} wahr ist.
+
+@item outer-margin
+@funindex outer-margin
+
+Der Rand, den alle Seiten auf der Außenseite haben, wenn sie Teil eines Buches
+sind.  Wenn das Papierformat verändert wird,
+wird der Standardwert dieser Dimension entsprechend skaliert.  Funktioniert nur,
+wenn @code{two-sided} wahr ist.
+
+@item binding-offset
+@funindex binding-offset
+
+Der Wert, um welchen @code{inner-margin} erhöht wird, um sicherzugehen, dass
+nichts in der Bindung verschwindet.  Wenn das Papierformat verändert wird,
+wird der Standardwert dieser Dimension entsprechend skaliert.  Funktioniert nur,
+wenn @code{two-sided} wahr ist.
+
+@end table
+
+@seealso
+Notationsreferenz:
+@ref{Automatische Skalierung auf ein Papierformat}.
+
+Installierte Dateien:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node \paper-Variablen für Verschiebungen und Einrückungen
+@unnumberedsubsubsec @code{\paper}-Variablen für Verschiebungen und Einrückungen 
+@translationof \paper variables for shifts and indents
+
+
+Standardwerte (vor der Skalierung), die hier nicht aufgeführt sind,
+sind definiert in @file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@item horizontal-shift
+@funindex horizontal-shift
+
+@c This default value is buried in the middle of page.scm.  -mp
+
+Der Wert, um den alle Systeme (und auch Überschriften und Systemtrenner)
+nach rechts verschoben werden.  Standard: @code{0.0\mm}.
+
+@item indent
+@funindex indent
+
+Der Einzug für das erste System einer Partitur.  Wenn das Papierformat
+verändert wird, wird der Standardwert dieser Dimension entsprechend skaliert.
+Diese Variable kann auch in der @code{\layout}-Umgebung definiert werden.
+
+@item short-indent
+@funindex short-indent
+
+Der Einzug für alle Systeme einer Partitur ausschließlich das
+erste System.  Wenn das Papierformat
+verändert wird, wird der Standardwert dieser Dimension entsprechend skaliert.
+Diese Variable kann auch in der @code{\layout}-Umgebung definiert werden.
+
+@end table
+
+@seealso
+Notationsreferenz:
+@ref{Automatische Skalierung auf ein Papierformat}.
+
+Installierte Dateien:
+@file{ly/paper-defaults-init.ly}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Andere \paper-Variablen
+@subsection Andere @code{\paper}-Variablen
+@translationof Other \paper variables
+
+@menu
+* \paper-Variablen für den Zeilenumbruch::
+* \paper-Variablen für den Seitenumbruch::
+* \paper-Variablen für Seitenzahlen::
+* Verschiedene \paper-Variablen::
+@end menu
+
+
+@node \paper-Variablen für den Zeilenumbruch
+@unnumberedsubsubsec @code{\paper}-Variablen für den Zeilenumbruch
+@translationof \paper variables for line breaking
+@c TODO: Mention that ly:optimal-breaking is on by default? -mp
+
+@table @code
+
+@item max-systems-per-page
+@funindex max-systems-per-page
+
+Die maximale Anzahl an Notensystemgruppen, die auf einer Seite gesetzt werden.  Das
+wird zur Zeit nur von dem @code{ly:optimal-breaking}-Algorithmus
+unterstützt.  Standard: nicht gesetzt.
+
+@item min-systems-per-page
+@funindex min-systems-per-page
+
+Die minimale Anzahl an Notensystemgruppen, die auf einer Seite gesetzt werden. Das
+kann dazu führen, dass Seiten zu dicht gefüllt werden, wenn der Wert
+zu groß gewählt wird.  Die Option ist zur Zeit nur von dem
+@code{ly:optimal-breaking}-Algorithmus unterstützt.  Standard: nicht gesetzt.
+
+@item systems-per-page
+@funindex systems-per-page
+
+Die Anzahl an Systemen, die auf jede Seite gesetzt werden sollen.
+Diese Option wird zur Zeit nur von dem @code{ly:optimal-breaking}-Algorithmus
+unterstützt.  Standard: nicht gesetzt.
+
+@item system-count
+@funindex system-count
+
+Die Anzahl der Systeme, auf denen eine Partitur gesetzt werden soll.
+Standard: nicht gesetzt.  Diese Variablen kann auch in der
+@code{\layout}-Umgebung definiert werden.
+
+@end table
+
+@seealso
+Notationsreferenz:
+@ref{Zeilenumbrüche}.
+
+
+@node \paper-Variablen für den Seitenumbruch
+@unnumberedsubsubsec @code{\paper}-Variablen für den Seitenumbruch
+@translationof \paper variables for page breaking
+
+Standardwerte, die hier nicht aufgelistet sind, finden sich in
+@file{ly/paper-defaults-init.ly}
+
+@table @code
+
+@item blank-after-score-page-force
+@funindex blank-after-score-page-force
+
+Die Strafpunke, die erteilt werden, wenn eine leere Seite nach einer
+Partitur und vor der nächsten vorkommt.  Der Standardwert hiervon ist
+kleiner als @code{blank-page-force}, sodass leere Seiten nach einer Partitur
+leeren Seiten innerhalb einer Partitur vorgezogen werden.
+
+@item blank-last-page-force
+@funindex blank-last-page-force
+
+Die Strafpunkte, wenn eine Partitur auf einer ungeraden Seite
+beendet wird. Standard: @code{0}.
+
+@item blank-page-force
+@funindex blank-page-force
+
+Die Strafpunkte, wenn eine leere Seite mitten in einer Partitur
+auftritt.  Das wird nicht benutzt von @code{ly:optimal-breaking},
+weil hiermit niemals leere Seiten mitten in einer Partitur zugelassen
+werden.
+
+@item page-breaking
+@funindex page-breaking
+
+Der Algorithmus, der für Seitenumbrüche eingesetzt wird.  Mögliche
+Algorithmen sind: @code{ly:minimal-breaking} (minimale Umbrüche),
+@code{ly:page-turn-breaking} (Umbrüche an guten Stellen zum Umblättern)
+und @code{ly:optimal-breaking}.
+
+@item page-breaking-system-system-spacing
+@funindex page-breaking-system-system-spacing
+
+Überlistet die Seitenumbruchfunktion, indem ihr ein anderer Wert
+für @code{system-system-spacing} mitgeteilt wird, als in Wirklichkeit
+eingestellt ist.  Wenn beispielsweise
+@code{page-breaking-system-system-spacing #'padding} auf einen
+deutlich größeren Wert als @code{system-system-spacing #'padding} gesetzt
+wird, setzt die Seitenumbruchsfunktion weniger Systeme auf eine
+Seite.  Standard: nicht gesetzt.
+
+@item page-count
+@funindex page-count
+
+Die Zahl der Seiten, die für eine Partitur benutzt werden sollen.
+Standard: nicht gesetzt.
+
+@end table
+
+@seealso
+Notationsreferenz:
+@ref{Seitenumbrüche},
+@ref{Optimale Seitenumbrüche},
+@ref{Optimale Umbrüche zum Blättern},
+@ref{Minimale Seitenumbrüche}.
+
+Installierte Dateien:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node \paper-Variablen für Seitenzahlen
+@unnumberedsubsubsec @code{\paper}-Variablen für Seitenzahlen
+@translationof \paper variables for page numbering
+
+Standardwerte, die hier nicht aufgelistet sind, finden sich in
+@file{ly/paper-defaults-init.ly}
+
+@table @code
+
+@item auto-first-page-number
+@funindex auto-first-page-number
+
+Der Seitenumbruchsalgorithmus wird davon beeinflusst, ob die erste
+Seitenzahl gerade oder ungerade ist.  Wenn die Variable auf wahr
+gesetzt wird, entscheidet der Seitenumbruchsalgorithmus selber,
+ob die Noten auf einer geraden oder ungeraden Seite beginnen sollen.
+Das hat dann zur Folge, dass die erste Seite entweder bleibt wie
+sie ist oder um eins erhöht wird.  Standard: @code{#f}.
+
+@item first-page-number
+@funindex first-page-number
+
+Der Wert der Seitenzahl auf der ersten Seite.
+
+@item print-first-page-number
+@funindex print-first-page-number
+
+Wenn wahr, wird auch auf der ersten Seite die Seitenzahl ausgegeben.
+Standard: @code{#f}.
+
+@item print-page-number
+@funindex print-page-number
+
+Wenn falsch, werden Seitenzahlen nicht ausgegeben.
+
+@end table
+
+@seealso
+Installierte Dateien:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Verschiedene \paper-Variablen
+@unnumberedsubsubsec Verschiedene @code{\paper}-Variablen
+@translationof Miscellaneous \paper variables
+@table @code
+
+@item page-spacing-weight
+@funindex page-spacing-weight
+
+Die relative Gewichtung von (vertikalem) Abstand auf der Seite und
+(horizontalem) Abstand innerhalb der Zeilen.  Hohe Werte gewichten
+die vertikalen Abstände mehr.  Standard: @code{#10}.
+
+@item print-all-headers
+@funindex print-all-headers
+
+Wenn wahr, werden alle Einträge des Titelfeldes (@code{\header}-Umgebung)
+für jede Partitur (@code{\score}) ausgegeben.  Normalerweise wird nur die
+Satzbezeichnung und die Opuszahl (@code{piece} und @code{opus})
+ausgegeben.  Standard: @code{##f}.
+
+@item system-separator-markup
+@funindex system-separator-markup
+
+Ein Beschriftungsobjekt, das zwischen zwei Systeme gesetzt wird.  Das
+wird oft in Orchesterpartituren eingesetzt.  Standard: nicht gesetzt.
+Der Beschriftungsbefehl @code{\slashSeparator}, definiert in
+@file{ly/titling-init.ly}, kann für einen Trenner
+benutzt werden, etwa so:
+
+@lilypond[quote,verbatim,noragged-right,line-width=30\mm]
+#(set-default-paper-size "a8")
+
+\book {
+  \paper {
+    system-separator-markup = \slashSeparator
+  }
+  \header {
+    tagline = ##f
+  }
+  \score {
+    \relative c'' { c1 \break c1 \break c1 }
+  }
+}
+@end lilypond
+
 @end table
 
 
 @seealso
+Installierte Dateien:
+@file{ly/titling-init.ly}.
+
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -844,20 +998,92 @@ Die Standard-Kopfzeilendefinition setzt die Seitenzahl und das
 @code{instrument}-Feld aus der @code{\header}-Umgebung in eine
 Zeile.
 
-Die Überschriften (aus der @code{\header}-Umgebung) werden als
-ein System interpretiert, sodass @code{ragged-bottom} und
-@code{ragged-last-bottom} Platz zwischen die Überschrift und
-das erste System der Partitur setzen.
 
 
-@node Notenlayout
-@section Notenlayout
-@translationof Music layout
+@node Partiturlayout
+@section Partiturlayout
+@translationof Score layout
 
 @menu
+* Die \layout-Umgebung
 * Die Notensystemgröße einstellen::
-* Partiturlayout::
 @end menu
+
+
+@node Die \layout-Umgebung
+@subsection Die @code{ayout}-Umgebung
+@translationof The \layout block
+
+@cindex Partitur, Layout
+@cindex Layout, Partitur
+@funindex \layout
+
+Während die @code{\paper}-Umgebung Einstellungen für die Formatierung
+der Seiten eines gesamten Dokuments enthalten, enthält die
+@code{\layout}-Umgebung Einstellungen für einzelne Partituren.  Um
+Layoutoptionen für Partituren global einzustellen, müssen sie in einer
+@code{\layout}-Umgebung gesetzt werden, die sich auf höchster Ebene in
+der Datei befindet.  Um sie für einzelne Partituren festzulegen, muss die
+@code{\layout}-Umgebung innerhalb der @code{\score}-Umgebung nach den Noten
+eingetraten werden.  Einstellungen, die in einer @code{\layout}-Umgebung
+vorkommen können, beinhalten:
+
+@itemize
+@item die @code{layout-set-staff-size}-Scheme-Funktion,
+@item Kontextveränderungen in @code{\context}-Umgebungen und
+@item @code{\paper}-Variablen, die das Aussehen einer Partitur beeinflussen.
+@end itemize
+
+Die @code{layout-set-staff-size}-Funktion wird im nächsten Abschnitt behandelt,
+@ref{Die Notensystemgröße einstellen}.  Kontextveränderungen werden in einem
+eigenen Kapitel behandelt, siehe @ref{Umgebungs-Plugins verändern} and
+@ref{Die Standardeinstellungen von Kontexten ändern}.  Die @code{\paper}-Variablen,
+die innerhalb der @code{\layout}-Umgebungen erlaubt sind, sind:
+
+@itemize
+
+@item
+@code{line-width}, @code{ragged-right} und @code{ragged-last}
+(siehe @ref{\paper-Variablen für Breite und Ränder})
+
+@item
+@code{indent} und @code{short-indent}
+(siehe @ref{\paper-Variablen für Verschiebungen und Einrückungen})
+
+@item
+@code{system-count}
+(siehe @ref{\paper-Variablen für den Zeilenumbruch})
+
+@end itemize
+
+Hier ist ein Beispiel für eine @code{\layout}-Umgebung:
+
+@example
+\layout @{
+  indent = 2\cm
+  \context @{
+    \StaffGroup
+    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #8
+  @}
+  \context @{
+    \Voice
+    \override TextScript #'padding = #1
+    \override Glissando #'thickness = #3
+  @}
+@}
+@end example
+
+
+
+@seealso
+Notationsreferenz:
+@ref{Die Standardeinstellungen von Kontexten ändern},
+@ref{Die Notensystemgröße einstellen},
+@ref{Umgebungs-Plugins verändern}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
 
 
 @node Die Notensystemgröße einstellen
@@ -875,7 +1101,7 @@ Das kann auf zwei Arten geändert werden:
 
 Um die Systemgröße global für alle Partituren einer
 Datei (bzw. einer @code{\book}-Umgebung) zu verändern,
-geht man wie folgt vor:
+wird @code{set-global-staff-size} benutzt:
 
 @example
 #(set-global-staff-size 14)
@@ -890,9 +1116,9 @@ muss
 
 @example
 \score@{
-  ...
-  \layout@{
-  #(layout-set-staff-size 15)
+  @dots{}
+  \layout @{
+    #(layout-set-staff-size 15)
   @}
 @}
 @end example
@@ -981,40 +1207,6 @@ Schnipsel:
 Notenlinien.
 
 
-@node Partiturlayout
-@subsection Partiturlayout
-@translationof Score layout
-
-@cindex Partitur, Layout
-@cindex Layout, Partitur
-
-@funindex \layout
-
-Während die @code{\paper}-Umgebung Einstellungen für die Formatierung
-der Seiten eines gesamten Dokuments enthalten, enthält die
-@code{\layout}-Umgebung Einstellungen für einzelne Partituren.
-
-@example
-\layout @{
-  indent = 2.0\cm
-  \context @{ \Staff
-    \override VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 6)
-  @}
-  \context @{ \Voice
-    \override TextScript #'padding = #1.0
-    \override Glissando #'thickness = #3
-  @}
-@}
-@end example
-
-@seealso
-Notationsreferenz:
-@ref{Die Standardeinstellungen von Kontexten ändern}.
-
-Schnipsel:
-@rlsr{Spacing}.
-
-
 @node Umbrüche
 @section Umbrüche
 @translationof Breaks
@@ -1040,18 +1232,57 @@ Schnipsel:
 Zeilenumbrüche werden normalerweise automatisch erstellt.  Sie
 werden so ausgewählt, dass die Zeilen weder gedrängt noch zu
 weit gespreizt wirken und aufeinander folgende Seiten einen
-ähnlichen Grauwert haben.  In seltenen Fällen kann es jedoch
-nötig sein, manuell Zeilenumbrüche einzufügen.  Das geschieht
-mit dem Befehl @code{\break}.  Hiermit wird direkt nach dem Befehl
-ein Zeilenumbruch erzwungen.  Zeilenumbrüche können jedoch nur
-am Ende von @qq{vollständigen} Takten stattfinden.  Damit sind
-Takte gemeint, in welchen alle Noten mit der letzten Taktzeit
-komplett abgeschlossen sind und nicht über das Taktende hinausragen.
-Wenn Sie einen Zeilenumbruch an einer Stelle benötigen, an der
-keine Taktlinie vorliegt, können Sie mit @code{\bar ""} eine
+ähnlichen Grauwert haben.
+
+Einen manuellen Zeilenumbruch fügt man mit dem Befehl @code{\break}
+ein:
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+c4 c c c | \break
+c4 c c c |
+@end lilypond
+
+Normalerweise wird ein @code{\break} in der Mitte eines Takes ignoriert
+und eine Warnung ausgegeben.  Um einen Zeilenumbruch in der Mitte eines
+Taktes zu erzwingen, können Sie mit @code{\bar ""} eine
 unsichtbare Taktlinie hinzufügen, die dann den Zeilenumbruch
-erlaubt.  Wiederum gilt, dass keine Noten überstehen dürfen,
-sonst wird diese unsichtbare Taktlinie ignoriert.
+erlaubt.
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+c4 c c
+\bar "" \break
+c |
+c4 c c c |
+@end lilypond
+
+Ein @code{\break} an einem Taktstrich wird auch ignoriert, wenn der letzte
+Takt mitten in einer Note endet, wenn etwa eine N-tole in unterschiedlichen
+Takten beginnt und endet.  Damit @code{\break} auch in derartigen Situationen
+funktioniert, muss @code{Forbid_line_break_engraver} aus der
+@code{Voice}-Umgebung entfernt werden.  Dabei sollte beachtet werden, dass
+manuell hervorgerufene Umbrüche parallel mit den Noten hinzugefügt werden
+müssen.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \with {
+  \remove Forbid_line_break_engraver
+} \relative c'' {
+  <<
+    { c2. \times 2/3 { c4 c c } c2. | }
+    { s1 | \break s1 | }
+  >>
+}
+@end lilypond
+
+Genauso werden normalerweise Zeilenumbrüche auch verhindert, wenn Balken
+über die Taktenden hinausragen.  Dieses Verhalten kann verändert werden,
+indem man @code{\override Beam #'breakable = ##t} einstellt:
+
+@lilypond[quote,ragged-right,relative=2,verbatim]
+\override Beam #'breakable = ##t
+c2. c8[ c | \break
+c8 c] c2. |
+@end lilypond
 
 Mit dem Befehl @code{\noBreak} wird ein Zeilenumbruch an dem
 entsprechenden Taktstrich verboten.
@@ -1062,7 +1293,7 @@ haben, sind @code{indent} (Einzug) und @code{line-width}
 eingestellt.  Der erste Befehl bestimmt den Einzug der ersten
 Zeile, der zweite die Zeilenlänge der weiteren Notenzeilen.
 
-Wenn @code{ragged-right} eingestellt ist (als in der
+Wenn @code{ragged-right} eingestellt ist (also in der
 @code{\layout}-Umgebung auf den Wert @code{#t} gesetzt wurde),
 werden die Systeme linksbündig gesetzt und nicht bis zum
 rechten Rand hin durchgezogen, sondern den Noten entsprechend
@@ -1076,7 +1307,7 @@ aber wirkt sich nur auf die letzte Zeile eines Stückes aus.
 @example
 \layout @{
 indent = #0
-line-width = #150
+line-width = #150\mm
 ragged-last = ##t
 @}
 @end example
@@ -1086,15 +1317,18 @@ ragged-last = ##t
 
 Um Zeilenumbrüche zu erzwingen, die in festgelegten Intervallen
 stattfinden, kann der Befehl @code{\break} in Kombination
-mit unsichtbaren Noten und einer Wiederholung eingesetzt
+mit unsichtbaren Noten und einer Wiederholung (@code{\repeat}) eingesetzt
 werden.  Das folgende Beispiel etwa setzt die nächsten
-28 Takte (im 4/4-Takt) in Zeilen zu jeweils 4 Takten:
+28 Takte (im 4/4-Takt) in Zeilen zu jeweils 4 Takten (die auch nur hier
+umgebrochen werden):
 
 @example
-<< \repeat unfold 7 @{
-         s1 \noBreak s1 \noBreak
-         s1 \noBreak s1 \break @}
-   @notation{Hier die Noten}
+<<
+  \repeat unfold 7 @{
+    s1 \noBreak s1 \noBreak
+    s1 \noBreak s1 \break
+  @}
+  @{ @var{Hier die Noten@dots{}} @}
 >>
 @end example
 
@@ -1105,54 +1339,22 @@ Seiten besser zu füllen.  Diese Eigenschaft ist recht neu und
 kompliziert.  Mehr Einzelheiten finden sich in
 @rlsr{Spacing}.
 
-@funindex \break
-@funindex \noBreak
-
 @predefined
+@funindex \break
 @code{\break},
+@funindex \noBreak
 @code{\noBreak}.
 @endpredefined
 
 @seealso
-Referenz der Interna:
-@rinternals{LineBreakEvent}.
+Notationsreferenz:
+@ref{\paper-Variablen für den Zeilenumbruch}.
 
 Schnipsel:
 @rlsr{Spacing}.
 
-@knownissues
-
-Zeilenumbrüche können nur gesetzt werden, wenn eine
-@qq{richtige} Taktlinie vorliegt.  Wenn eine Note
-über die Taktlinie übersteht, wie etwa in folgendem
-Beispiel:
-
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-c4 c2 << c2 {s4 \break } >>  % this does nothing
-c2 c4 |           % a break here would work
-c4 c2 c4 ~ \break % as does this break
-c4 c2 c4
-@end lilypond
-
-@noindent
-kann ein Umbruchbefehl nicht ausgeführt werden.  Dieses
-Verhalten kann jedoch vermieden werden, indem der
-@code{Forbid_line_break_engraver} aus dem Stimmen-Kontext
-entfernt wird.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Voice \with {
-  \remove Forbid_line_break_engraver
-} {
-  c4 c2 << c2 {s4 \break } >>  % now the break is allowed
-  c2 c4
-}
-@end lilypond
-
-@noindent
-Entsprechend werden Umbrüche auch verhindert, wenn Balken über
-Taktlinien reichen.  Das kann mit folgendem Befehl verhindert
-werden: @code{\override Beam #'breakable = ##t}.
+Referenz der Interna:
+@rinternals{LineBreakEvent}.
 
 
 @node Seitenumbrüche
@@ -1177,12 +1379,11 @@ zwischen Partituren und Textbeschriftungen.
 Es gibt auch vertikale Gegenstücke zu den Variablen
 @code{ragged-right} und @code{ragged-last}:
 @code{ragged-bottom} und @code{ragged-last-bottom}.  Wenn diese
-Variablen auf @code{##t} gesetzt werden, werden im ersten
+Variablen auf @code{##t} (wahr) gesetzt werden, werden im ersten
 Fall die Notensysteme auf allen Seiten eng nach oben orientiert
 gesetzt werden.  Im zweiten Fall bezieht sich dies nur auf die
 letzte Seite.
-
-Zu Einzelheiten siehe @ref{Vertikale Abstände}.
+Zu Einzelheiten siehe @ref{Vertikale \paper-Variablen mit festen Abständen}.
 
 Seitenumbrüche werden von der @code{page-breaking}-Funktion errechnet.
 LilyPond kennt drei Algorithmen um Seitenumbrüche zu errechnen:
@@ -1198,12 +1399,13 @@ aber der Wert kann in der @code{\paper}-Umgebung geändert werden:
 
 @funindex \bookpart
 
-When a book has many scores and pages, the page breaking problem may be
-difficult to solve, requiring large processing time and memory.  To ease
-the page breaking process, @code{\bookpart} blocks are used to divide
-the book into several parts: the page breaking occurs separately on each
-part.  Different page breaking functions may also be used in different
-book parts.
+Wenn ein Buch (@code{\book}) viele Parituren und Seiten hat, kann die
+Seitenaufteilung schwer zu ermitteln sein und viel Zeit und Prozessorlast
+in Anspruch nehmen.  Um den Seitenumbruchsprozess zu vereinfachen,
+werden @code{\bookpart}-Umgebungen benutzt, um das Buch in mehrere Teil
+zu trennen: Die Seitenumbrüche werden seperat für jeden Teil berechnet.
+Unterschiedliche Seitenumbruchsfunktionen können in unterschiedlichen
+Buchteilen benutzt werden.
 
 @example
 \bookpart @{
@@ -1229,15 +1431,20 @@ book parts.
 @}
 @end example
 
-@funindex \pageBreak
-@funindex \noPageBreak
+
+
 
 @predefined
+@funindex \pageBreak
 @code{\pageBreak},
+@funindex \noPageBreak
 @code{\noPageBreak}.
 @endpredefined
 
 @seealso
+Notationsreferenz:
+@ref{\paper-Variablen für den Seitenumbruch}.
+
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -1332,13 +1539,13 @@ Die Seitenumblätter-Befehle @code{\pageTurn}, @code{\noPageTurn} und
 @code{\allowPageTurn} können auch auf oberster Dateiebene benutzt
 werden, etwa zwischen Partituren und Textabschnitten.
 
-@funindex \pageTurn
-@funindex \noPageTurn
-@funindex \allowPageTurn
 
 @predefined
+@funindex \pageTurn
 @code{\pageTurn},
+@funindex \noPageTurn
 @code{\noPageTurn},
+@funindex \allowPageTurn
 @code{\allowPageTurn}.
 @endpredefined
 
@@ -1368,7 +1575,7 @@ ist die Funktion geeignet.  Sie wird folgendermaßen aktiviert:
 
 @example
 \paper @{
-  #(define page-breaking ly:minimal-breaking)
+  page-breaking = #ly:minimal-breaking
 @}
 @end example
 
@@ -1405,17 +1612,19 @@ Wenn @code{line-break-permission} die Einstellung falsch
   ragged-bottom = ##t
 }
 
+music = \relative c'' { c8 c c c }
+
 \score {
   \new Staff {
-    \repeat unfold 2 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 8 { c'8 c'8 c'8 c'8 } \pageBreak
-    \repeat unfold 8 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
-    \repeat unfold 2 { c'8 c'8 c'8 c'8 }
-    }
+    \repeat unfold 2 { \music } \break
+    \repeat unfold 4 { \music } \break
+    \repeat unfold 6 { \music } \break
+    \repeat unfold 8 { \music } \pageBreak
+    \repeat unfold 8 { \music } \break
+    \repeat unfold 6 { \music } \break
+    \repeat unfold 4 { \music } \break
+    \repeat unfold 2 { \music }
+  }
   \layout {
     \context {
       \Score
@@ -1425,6 +1634,7 @@ Wenn @code{line-break-permission} die Einstellung falsch
   }
 }
 @end lilypond
+
 
 @seealso
 Schnipsel:
@@ -1439,11 +1649,12 @@ Zeilen- und Seitenumbruchbefehle werden normalerweise direkt
 zusammen mit den Noten eingegeben.
 
 @example
+music = \relative c'' @{ c4 c c c @}
+
 \score @{
   \new Staff @{
-    \repeat unfold 2 @{ c'4 c'4 c'4 c'4 @}
-    \break
-    \repeat unfold 3 @{ c'4 c'4 c'4 c'4 @}
+    \repeat unfold 2 @{ \music @} \break
+    \repeat unfold 3 @{ \music @}
   @}
 @}
 @end example
@@ -1457,6 +1668,8 @@ Diese zusätzliche Stimme enthält nur unsichtbare Noten und die
 Umbruchbefehle:
 
 @lilypond[quote,verbatim]
+music = \relative c'' { c4 c c c }
+
 \score {
   \new Staff <<
     \new Voice {
@@ -1466,10 +1679,10 @@ Umbruchbefehle:
       s1 * 5 \break
     }
     \new Voice {
-      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 2 { \music }
+      \repeat unfold 3 { \music }
+      \repeat unfold 6 { \music }
+      \repeat unfold 5 { \music }
     }
   >>
 }
@@ -1483,6 +1696,8 @@ anderer Eigenschaften von
 @ref{Vertikale Abstände}).
 
 @lilypond[quote,verbatim]
+music = \relative c'' { c4 c c c }
+
 \score {
   \new Staff <<
     \new Voice {
@@ -1503,10 +1718,10 @@ anderer Eigenschaften von
       s1 * 5 \break
     }
     \new Voice {
-      \repeat unfold 2 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 3 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 6 { c'4 c'4 c'4 c'4 }
-      \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+      \repeat unfold 2 { \music }
+      \repeat unfold 3 { \music }
+      \repeat unfold 6 { \music }
+      \repeat unfold 5 { \music }
     }
   >>
 }
@@ -1537,16 +1752,15 @@ Platz zwischen Notensystemen (engl. staff, Pl. staves)
 innerhalb von Gruppen gesetzt wird.
 
 @menu
-* Vertikale Abstände innerhalb eines Systems::
-* Vertikale Abstände zwischen Systemen::
-* Explizite Positionierung von Systemen::
+* Flexible vertikale Abstände in Systemgruppen::
+* Explizite Positionierung von Systemen und Systemgruppen::
 * Vermeidung von vertikalen Zusammenstößen::
 @end menu
 
 
-@node Vertikale Abstände innerhalb eines Systems
-@subsection Vertikale Abstände innerhalb eines Systems
-@translationof Vertical spacing inside a system
+@node Flexible vertikale Abstände in Systemgruppen
+@subsection Flexible vertikale Abstände in Systemgruppen
+@translationof Flexible vertical spacing within systems
 
 @cindex Abstand zwischen Notensystemen
 @cindex Notensystemabstand
@@ -1554,167 +1768,509 @@ innerhalb von Gruppen gesetzt wird.
 @cindex Platz innerhalb von Systemgruppen
 @cindex Systemgruppen, Abstände innerhalb
 
+Drei unterschiedliche Mechanismen kontrollieren das flexible Abstandaufteilung
+in Systemgruppen, einer für jede der folgenden Kathegorien:
+
+@itemize
+
+@item
+@emph{ungruppierte Systeme},
+
+@item
+@emph{Systemgruppen} (Systeme innerhalb einer @code{staff-group} wie etwa
+@code{ChoirStaff} usw.) und
+
+@item
+@emph{Nicht-Notensystemzeilen} (wie etwa @code{Lyrics} (Gesangstext),
+@code{ChordNames} (Akkordbezeichnungen) usw.).
+
+@end itemize
+
 Die Höhe jeder Systemgruppe wird in zwei Schritten bestimmt.  Zunächst
 werden alle Systeme anhand des vorhandenen Platzes aufgeteilt.  Dann
 werden die nicht-Notensysteme (also Akkorde oder Gesangstext) zwischen
 den Systemen verteilt.
 
-@unnumberedsubsubsec Abstand zwischen Notensystemen
+Es ist zu beachten, dass der Platzverteilungsmechanismus, der in diesem
+Abschnitt behandelt wird, nur die vertikale Platzierung von Systemen und
+nicht-Systemzeilen in einzelnen Systemgruppen behandelt.  Die vertikale
+Platzierung zwischen einzelnen Systemgruppen, Partituren, Beschriftungen
+usw. und den Rändern wird durch @code{\paper}-Variablen kontrolliert, die
+@ref{Vertikale \paper-Variablen mit flexiblen Abständen}.
 
-Abstand zwischen Notensystemen wird durch die Eigenschaft
-@code{staff-staff-spacing} des @code{VerticalAxisGroup}-Grobs kontrolliert.
-Diese Eigenschaft ist eine Aliste mit vier Elementen: @var{Abstand},
-@var{minimum-distance}, @var{Verschiebung} und @var{Dehnbarkeit}:
+@menu
+* Eigenschaften für Abstände innerhalb von Systemgruppen::
+* Abstände von nicht gruppierten Notensystemen::
+* Abstände von gruppierten Notensystemen::
+* Abstände von nicht-Notensystemzeilen::
+@end menu
 
-@itemize
-@item
-@var{Abstand} ist die Größe des dehnbaren Platzes zwischen der Mittellinie
-eines Notensystems und der Mittellinie des nächsten.
 
-@item
-@var{minimum-distance} (Minimal-Abstand) setzt einen Minimalwert für den
-Abstand zwischen der Mittellinie eines Notensystems und der Mittellinie des
-nächsten fest.  Das heißt, dass auf einer Seite mit vielen Systemen, die gestaucht
-werden soll, der Abstand zwischen den Systemen nie geringer sein wird als
-der Wert von @var{minimum-distance}.
+@node Eigenschaften für Abstände innerhalb von Systemgruppen
+@unnumberedsubsubsec Eigenschaften für Abstände innerhalb von Systemgruppen
+@translationof Within-system spacing properties
 
-@item
-@var{Verschiebung} ist der freie Platz, der zwischen dem unteren Rand eines
-Systems und dem oberen des nächsten frei bleiben muss.  Das unterscheidet sich
-von @code{minimum-distance} dadurch, dass die Auswirkung von @var{Verschiebung}
-von der Höhe der Objekte im System abhängt.  @var{Verschiebung} wird also
-wahrscheinlich eingesetzt, wenn ein Notensystem viele Noten tief unter den
-Notenlinien aufweist.
+Der vertikalen Platzierungsmechanismen für Abstände innerhalb von Systemgruppen
+werden durch zwei Gruppen von Grob-Eigenschaften kontrolliert.  Die erste
+Gruppe ist mit dem @code{VerticalAxisGroup}-Grob verknüpft, der von allen
+Notensystemen und Nicht-Notensystemzeilen erstellt wird.  Die zweite Gruppe
+ist mit dem @code{StaffGrouper}-Grob verknüpft, der von Systemgruppen erstellt
+werden kann, aber nur, wenn das explizit verlangt wird.  Die einzelnen Eigenschaften
+werden am Ende dieses Abschnitts beschrieben.
 
-@item
-@var{Dehnbarkeit} kontrolliert die Leichtigkeit, mit der dehnbarer Abstand
-gedehnt wird, wenn die Systeme gedehnt werden.  Große Werte führen dazu, dass
-ein System mehr gedehnt wird, während ein Wert von @code{0} die Abstände vollständig
-daran hindert, gedehnt zu werden.  Wenn nicht definiert, hat @var{Dehnbarkeit}
-einen Wert von @code{Abstand - minimum-distance}.
-@end itemize
+Die Bezeichnungen dieser Eigenschaften (mit Außnahmen von @code{staff-affinity})
+haben das Format @code{@var{Element1}-@var{Element2}-spacing}, wobei
+@code{@var{Element1}} und @code{@var{Element2}} die Elemente sind, deren
+Abstände eingestellt werden sollen.  Dabei ist allerdings zu beachten, dass
+@code{@var{Element2}} sich nicht notwendigerweise unterhalb von
+@code{@var{Element1}} befindet; beispielsweise
+@code{nonstaff-relatedstaff-spacing} (Nicht-Notensystem-verwandtesNotensystem)
+misst von dem Nicht-Notensystem nach oben, wenn @code{staff-affinity}
+(Richtung, an der sich ein System ausrichtet) auf @code{#UP} (nach oben)
+eingestellt ist.
 
-@lilypond[verbatim]
-#(set-global-staff-size 16)
-\new StaffGroup <<
-  % Since space is small and there is no minimum-distance, the distance
-  % between this staff and the next will be determined by padding.
-  \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((basic-distance . 1) (padding . 1))
+Jeder Abstand wird zwischen den @emph{Referenzpunkten} der zwei Objekten
+gemessen.  Der Referenzpunkt eines Notensystems ist die vertikale Mitte
+seines @code{StaffSymbol}-Objekts (also die Mittellinie, wenn
+@code{line-count} (Notenlinienzähler) ungrade ist, oder der mittlere
+Zwischenraum, wenn @code{line-count} grade ist).  Die Referenzpunkte für
+einzelne Nicht-Notensystemzeilen ergibt sich aus der folgenden Tabelle:
+
+@multitable {Nicht-Notensystemzeile} {Referenzpunkt}
+@headitem Nicht-Notensystemzeile @tab Referenzpunkt
+@item @code{ChordNames}  @tab Grundlinie
+@item @code{NoteNames}   @tab Grundlinie
+@item @code{Lyrics}      @tab Grundlinie
+@item @code{Dynamics}    @tab vertikale Mitte
+@item @code{FiguredBass} @tab höchster Punkt
+@item @code{FretBoards}  @tab Oberlinie
+@end multitable
+
+Im nächsten Bild zeigen horizontale Striche die Positionen dieser
+Referenzpunkte an:
+
+@lilypond[quote,noragged-right,line-width=110\mm]
+#(define zero-space '((padding . -inf.0) (basic-distance . 0)))
+
+alignToZero = \with {
+  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #zero-space
+  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing = #zero-space
+}
+lowerCaseChords = \with {
+  chordNameLowercaseMinor = ##t
+}
+staffAffinityDown = \with {
+  \override VerticalAxisGroup #'staff-affinity = #DOWN
+}
+labelContext =
+#(define-music-function
+     (parser location context)
+     (string?)
+   #{ s1*0^\markup { \typewriter $context } #})
+
+\layout {
+  \context { \Dynamics    \alignToZero }
+  \context { \FiguredBass \alignToZero }
+  \context { \Lyrics      \alignToZero }
+  \context { \NoteNames   \alignToZero }
+  \context { \ChordNames  \alignToZero \lowerCaseChords }
+  \context { \FretBoards  \alignToZero \staffAffinityDown }
+  \context { \Score
+    \override BarLine #'stencil = ##f
+    \override DynamicText #'self-alignment-X = #-1
+    \override FretBoard #'X-offset = #1.75
+    \override InstrumentName #'minimum-Y-extent = #'(-2 . 2)
+    \override InstrumentName #'extra-offset = #'(0 . -0.5)
+    \override TextScript #'minimum-Y-extent = #'(-2 . 3)
+    \override TimeSignature #'stencil = ##f
   }
-  { \clef bass c, }
-  % Since space is small and nothing sticks out very far, the distance
-  % between this staff and the next will be determined by minimum-distance.
-  \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((basic-distance . 1) (minimum-distance . 12))
-  }
-  { \clef bass c, }
-  % By setting padding to a negative value, staves can be made to collide.
-  \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing =
-      #'((basic-distance . 4) (padding . -10))
-  }
-  { \clef bass c, }
-  \new Staff { \clef bass c, }
->>
-@end lilypond
+}
 
-In Orchester- und großen Partituren werden Systeme normalerweise gruppiert.
-Der Abstand zwischen den Gruppen ist normalerweise größer als der Abstand
-zwischen Notensystemen der selben Gruppe.  Der Abstand kann mit dem
-@code{StaffGrouper}-Grob beeinflusst werden:  Der Standardwert von
-@code{staff-staff-spacing} für @code{VerticalAxisGroup} ist eine
-Callback-Funktion, die nach einem @code{StaffGrouper}-Grob sucht, der ein
-Notensystem enthält.  Wenn sie einen @code{StaffGrouper}-Grob findet und das
-hierin enthaltene System ist in der Mitte einer Gruppe, wird der Wert von
-@code{staff-staff-spacing} von @code{StaffGrouper} ausgelesen und
-ausgegeben.  Wenn das enthaltene Notensystem das letzte einer Gruppe ist,
-wird die @code{staffgroup-staff-spacing}-Eigenschaft von @code{StaffGrouper}
-ausgelesen und ausgegeben.  Wenn kein @code{StaffGrouper}-Grob gefunden
-wird, wird @var{default-staff-staff-spacing} aus der jeweiligen
-@code{VerticalAxisGroup} ausgelesen und ausgegeben.
-
-@lilypond[verbatim]
-#(set-global-staff-size 16)
+%% These contexts have reference points at the baseline:
+%%   ChordNames, NoteNames, and Lyrics
 <<
-  \new PianoStaff \with {
-    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #1
-    \override StaffGrouper #'staff-staff-spacing #'padding = #0
-    \override StaffGrouper #'staffgroup-staff-spacing #'basic-distance = #20
+  \new ChordNames { \chords { g1:m } }
+  \new NoteNames { s1 | g1 | }
+  \new RhythmicStaff {
+    \set RhythmicStaff.instrumentName = #"baseline "
+    \textLengthOn
+    \labelContext "ChordNames" s1 |
+    \labelContext "NoteNames"  s1 |
+    \labelContext "Lyrics"     s1 |
   }
-  <<
-    \new Staff c'1
-    \new Staff c'1
-  >>
+  \new Lyrics { \lyrics { \skip 1*2 | ghijk1 | } }
+>>
 
-  \new StaffGroup \with {
-    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #1
-    \override StaffGrouper #'staff-staff-spacing #'padding = #0
+%% The reference point for Dynamics is its vertical center
+<<
+  \new RhythmicStaff {
+    \set RhythmicStaff.instrumentName = #"vertical center "
+    \labelContext "Dynamics" s1*3
   }
-  <<
-    \new Staff c'1
-    \new Staff c'1
-  >>
+  \new Dynamics { s2\mp s\fp }
+>>
+
+%% The reference point for FiguredBass is its highest point
+<<
+  \new RhythmicStaff {
+    \set RhythmicStaff.instrumentName = #"highest point "
+    \labelContext "FiguredBass" s1
+  }
+  \new FiguredBass { \figuremode { <6 5>1 } }
+>>
+
+%% The reference point for FretBoards is the top line
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new FretBoards { \chordmode { e1 } }
+  \new RhythmicStaff {
+    \set RhythmicStaff.instrumentName = #"top line "
+    \labelContext "FretBoards " s1
+  }
 >>
 @end lilypond
 
-@unnumberedsubsubsec Abstand von Nicht-Notensystem-Zeilen
+Jeder der vertikalen Platzierungs-Grobeigenschaften (außer
+@code{staff-affinity}) wird in einer Aliste (assoziativen Liste)
+gespeichert und jeder benutzt die gleiche Alistenstruktur
+wie die @code{\paper}-Variablen, behandelt in
+@ref{Vertikale \paper-Variablen mit flexiblen Abständen}.  Besondere
+Methoden um Alisten zu verändern finden sich in
+@ref{Alisten verändern}.  Grob-Eigenschaften sollten mit
+dem @code{\override}-Befehle innerhalb einer @code{\score}-
+oder @code{\layout}-Umgebung angepasst werden, nicht innerhalb einer
+@code{\paper}-Umgebung.
 
-Nachdem die Position der Notensysteme bestimmt ist, werden die
-Nicht-Notensystem-Zeilen zwischen den Notensystemen ausgerichtet.  Jede
-dieser Zeile hat eine @code{staff-affinity}-Eigenschaft, mit der ihre
-vertikale Ausrichtung bestimmt wird.  Zum Beispiel erstellt
+Das folgende Beispiel zeigt die beiden Arten, Alisten zu modifizieren.
+Der erste Aufruf verändert nur einen Schlüsselwert einzlen, während
+der zweite die Eigenschaft komplett neu definiert:
 
 @example
-\new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #DOWN @}
+\new Staff \with @{
+  \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
+@} @{ @dots{} @}
+
+\new Staff \with @{
+  \override VerticalAxisGroup #'staff-staff-spacing =
+    #'((basic-distance . 10)
+       (minimum-distance . 9)
+       (padding . 1)
+       (stretchability . 10))
+@} @{ @dots{} @}
 @end example
 
-@noindent
-einen Gesangstext-Kontext, der sehr nah an dem sich darunter befindlichen
-System liegt.  Wenn @code{staff-affinity} auf einen Wert gesetzt wird, der
-keine Zahl ist (wie etwa @code{#f}), wird die Zeile wie ein Notensystem
-behandelt.  Wenn andererseits @code{staff-affinity} für ein Notensystem
-definiert wird, wird es wie ein Nicht-Notensystem behandelt.
+Um Platzierungseinstellungen global vorzunehmen, müssen sie in der
+@code{\layout}-Umgebung vorgenommen werden:
 
-Nicht-Notensystem-Zeilen lassen drei Eigenschaften für ihre Abstandseinstellungen
-zu.  Jede dieser Eigenschaften ist eine Aliste des gleichen Formats wie
-@code{staff-staff-spacing} oben.
+@example
+\layout @{
+  \context @{
+    \Staff
+    \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
+  @}
+@}
+@end example
+
+Standardeinstellungen für die vertikalen Platzierungs-Grobeigenscahften
+finden sich in @rinternals{VerticalAxisGroup} und
+@rinternals{StaffGrouper} aufgelistet.  Standardveränderungen für bestimmte
+Typen von Nicht-Notensystemzeilen finden sich im relevanten Abschnitt in
+in @rinternals{Contexts} aufgelistet.
+
+
+@subsubheading Eigenschaften des @code{VerticalAxisGroup}-Grobs
+
+@code{VerticalAxisGroup}-Eigenschaften werden normalerweise mit einem
+@code{\override}-Befehl auf @code{Staff}-(Notensystem-)Ebene (oder
+entsprechend) vorgenommen.
+
+@table @code
+@item staff-staff-spacing
+System-System-Platzierung
+Der Abstand zwischen dem aktuellen Notensystem und dem Notensystem direkt darunter
+innerhalb derselben Systemgruppe, auch wenn eine oder mehrere
+Nicht-Notensystemzeilen (wie etwa @code{Lyrics}) dazwischen stehen.
+Bezieht sich nicht auf das unterste System einer Systemgruppe.  Das
+ersetzt alle Einstellungen, die vom @code{StaffGrouper}-Grob der aktuellen
+Systemgruppe geerbt wurden, wenn solche vorliegen sollten.  Wenn nicht
+gesetzt und keine anderen @code{StaffGrouper}-Eigenschaften geerbt
+werden können, wird die @code{default-staff-staff-spacing}-Eigenschaft benutzt.
+
+@item default-staff-staff-spacing
+Normale-System-System-Platzierung
+Die Einstlelungen, die für @code{staff-staff-spacing} benutzt werden,
+wenn die Eigenschaft nicht gesetzt ist.  Das gilt für einzelne Systeme
+und Systemgruppen, die keine Einstellungen vom @code{StaffGrouper}-Grob
+geerbt haben.
+
+@item staff-affinity
+System-Anziehung
+Die Richtung des Systems, die benutzt wird, um die aktuelle
+Nicht-Notensystemzeile zu platzieren.  Mögliche Werte sind
+@code{UP} (nach oben), @code{DOWN} (nach unten) und
+@code{CENTER} (mittig).  Wenn @code{CENTER} wird die Nicht-Notensystemzeile
+vertikal mittig zwischen den beiden nächsten Systemen oben und unten
+platziert, außer Zusammenstöße und andere Platzierungsprobleme verhindern
+das.  Aufeinanderfolgende Nicht-Notensystemzeilen sollten nicht-aufsteigende
+@code{staff-affinity} von oben nach unten haben; also ein Nicht-Notensystemzeile
+mit @code{UP} sollte nicht direkt auf eine mit @code{DOWN} folgen.
+Nicht-Notensystemzeilen über einem Notensystem sollten @code{DOWN}
+benutzen, unter einem Notensystem dagegen @code{UP}.  Wenn
+@code{staff-affinity} für eine Notensystem eingestellt wird, wird es wie
+eine Nicht-Notensystemzeile behandelt.  Wenn @code{staff-affinity}
+auf @code{#f} gesetzt wird, wird eine Nicht-Notensystemzeile wie ein
+Notensystem behandelt.
+
+@c TODO: verify last clause below ("even if other...")
+
+@item nonstaff-relatedstaff-spacing
+Nicht-Notensystem-verwandtesSystem-Platzierung
+Der Abstand zwischen der aktuellen Nicht-Notensystemzeile und
+dem nächsten Notensystem in der Richtung von @code{staff-affinity},
+wenn keine Nicht-Notensystemzeilen dazwischen auftreten und @code{staff-affinity}
+entweder @code{UP} oder @code{DOWN} ist.  Wenn @code{staff-affinity}
+@code{CENTER} ist, dann wird @code{nonstaff-relatedstaff-spacing} für die
+nächsten Notensysteme auf @emph{beiden} Seiten benutzt, auch wenn andere
+Nicht-Notensystemzeilen zwischen der aktuellen und einem der Notensystem
+auftreten.
+
+@item nonstaff-nonstaff-spacing
+Nicht-Notensystemzeile-Nicht-Notensystemzeile-Platzierung
+Der Abstand zwischen der aktuellen Nicht-Notensystemzeile und der
+Nicht-Notensystemzeile in der Richtung von @code{staff-affinity},
+wenn beide sich auf der gleichen Seite des verwandten Notensystems
+befinden und @code{staff-affinity} entweder @code{UP} oder @code{DOWN} ist.
+
+@item nonstaff-unrelatedstaff-spacing
+Nicht-Notensystemzeile-Nicht-verwandtesSystem-Platzierung
+Der Abstand zwischen der aktuellen Nicht-Notensystemzeile und
+dem Notensystem in der gegenüberliegenden Richtung von @code{staff-affinity},
+wenn keine anderen Nicht-Notensystemzeilen dazwischen auftreten und
+@code{staff-affinity} entweder @code{UP} oder @code{DOWN} ist.  Das kann
+benutzt werden, um einen Minimalfüllabstand (padding) zwischen einer
+@code{Lyrics}-Gesangstextzeile und dem zugehörigen Notensystem zu verlangen.
+@end table
+
+
+@subsubheading Eigenschaften des @code{StaffGrouper}-Grobs
+
+@code{StaffGrouper}-Eigenschaften werden normalerweise mit einem
+@code{\override}-Befehl auf @code{StaffGroup}-Ebene (oder
+entsprechend) eingestellt.
+
+@table @code
+@item staff-staff-spacing
+Notensystem-Notensystem-Abstand
+Der Abstand zwischen zwei aufeinanderfolgenden Notensystemen in
+der aktuellen @code{StaffGroup}.  Die @code{staff-staff-spacing}-Eigenschaft
+eines des @code{VerticalAxisGroup}-Grob eines einzelnen Notensytems
+wird benutzt für alle Systeme in der Systemgruppe, die diese Eigenschaft
+gesetzt haben.  Siehe auch @code{default-staff-staff-spacing}.
+
+@item staffgroup-staff-spacing
+Systemgruppe-System-Abstand
+Der Abstand zwischen dem letzten Notensystem der aktuellen @code{StaffGroup}
+und dem Notensystem dirket darunter in der selben Notensystemgruppe,
+auch wenn eine oder mehrere Nicht-Notensystemzeilen (wie etwa
+Gesangstext) zwischen den zwei Notensystemen vorkommen.  Gilt nicht
+für das letzte Notensystem einer Systemgruppe.  Die
+@code{staff-staff-spacing}-Eigenschaft des @code{VerticalAxisGroup}-Grobs
+individueller Notensysteme wird anstelle dessen für alle Notensysteme
+in der @code{StaffGroup} benutzt, die sie gesetzt haben.  Siehe auch
+@code{default-staff-staff-spacing}.
+@end table
+
+@seealso
+Installierte Dateien:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
+Referenz der Interna:
+@rinternals{Contexts},
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
+
+
+@node Abstände von nicht gruppierten Notensystemen
+@unnumberedsubsubsec Abstände von nicht gruppierten Notensystemen
+@translationof Spacing of ungrouped staves
+
+@emph{Notensysteme} (wie etwa @code{Staff}, @code{DrumStaff},
+@code{TabStaff} usw.) sind Kontexte, die eine oder mehrere Stimmen-Kontexte
+enthalten, aber keine anderen Notensysteme enthalten können.
+
+Folgende Eigenschaften beeinflussen die Abstände von @emph{nicht gruppierten}
+Notensystemen:
 
 @itemize
-
-@item
-Wenn die nächste Zeile in der Richtung von @code{staff-affinity} ein
-Notensystem ist, ergibt sich aus dem Wert von
-@code{nonstaff-relatedstaff-spacing} der Abstand zwischen dem
-Nicht-Notensystem und dem Notensystem.  Wenn @code{staff-affinity}
-@code{CENTER} ist, dann wird @code{nonstaff-relatedstaff-spacing} in beide
-Richtungen benutzt.
-
-@item
-Wenn die nächste Zeile in der Richtung von @code{staff-affinity} ein
-Nicht-Notensystem ist, ergibt sich aus dem Wert von
-@code{nonstaff-nonstaff-spacing} der Abstand zwischen den beiden
-Nicht-Notensystemen.
-
-@item
-Wenn die nächste Zeile der der entgegengesetzten Richtung von
-@code{staff-affinity} ein Notensystem ist, dann gibt
-@code{nonstaff-unrelatedstaff-spacing} den Abstand zwischen dem
-Nicht-Notensystem und dem Notensystem.  Das kann benutzt werden, um einen
-Minimalabstand zwischen einer Gesangstextzeiel und dem dazugehörigen
-Notensystem zu verlangen.
-
+@item @code{VerticalAxisGroup}-Eigenschaften:
+@itemize
+@item @code{staff-staff-spacing}
+@end itemize
 @end itemize
 
-@lilypond[verbatim]
-#(set-global-staff-size 16)
+Diese Eigenschaften sind einzlen oben behandelt worden, siehe
+@ref{Eigenschaften für Abstände innerhalb von Systemgruppen}.
+
+Zusätzliche Eigenschaften kommen hinzu für Notensysteme, die Teil
+einer Gruppieren (@code{StaffGroup}) werden, siehe
+@ref{Abstände von gruppierten Notensystemen}.
+
+Folgendes Beispiel zeigt, wie die @code{staff-staff-spacing}-Eigenschaft
+sich auf die Platzierung von nicht-gruppierten Notensystemen auswirken kann:
+
+@lilypond[verbatim,quote,staffsize=16]
+\layout {
+  \context {
+    \Staff
+    \override VerticalAxisGroup #'staff-staff-spacing =
+      #'((basic-distance . 8)
+         (minimum-distance . 7)
+         (padding . 1))
+  }
+}
+
+\new StaffGroup <<
+  % The very low note here needs more room than 'basic-distance
+  % can provide, so the distance between this staff and the next
+  % is determined by 'padding.
+  \new Staff { b,2 r | }
+
+  % Here, 'basic-distance provides enough room, and there is no
+  % need to compress the space (towards 'minimum-distance) to make
+  % room for anything else on the page, so the distance between
+  % this staff and the next is determined by 'basic-distance.
+  \new Staff { \clef bass g2 r | }
+
+  % By setting 'padding to a negative value, staves can be made to
+  % collide.  The lowest acceptable value for 'basic-distance is 0.
+  \new Staff \with {
+    \override VerticalAxisGroup #'staff-staff-spacing =
+      #'((basic-distance . 3.5)
+         (padding . -10))
+  } { \clef bass g2 r | }
+  \new Staff { \clef bass g2 r | }
+>>
+@end lilypond
+
+@seealso
+Installierte Dateien:
+@file{scm/define-grobs.scm}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
+Referenz der Interna:
+@rinternals{VerticalAxisGroup}.
+
+
+@node Abstände von gruppierten Notensystemen
+@unnumberedsubsubsec Abstände von gruppierten Notensystemen
+@translationof Spacing of grouped staves
+
+In Orchesterpartituren und anderen großen Partituren werden Notensysteme
+normalerweise in Gruppen zusammengefasst.  Der Platz zwischen Gruppen
+ist normalerweise größer als der Zwischenraum zwischen einzlenen
+Notensystemen der gleichen Gruppe.
+
+@emph{Gruppierte Notensysteme} (wie @code{StaffGroup}, @code{ChoirStaff},
+@code{GrandStaff} usw.) sind Kontexte, die mehr als ein Notensystem
+gleichzeitig enthalten können.
+
+Folgende Eigenschaften beeinflussen die Platzierung von Notensystemen
+innerhalb von Gruppen:
+
+@itemize
+@item @code{VerticalAxisGroup}-Eigenschaften:
+@itemize
+@item @code{staff-staff-spacing}
+@item @code{default-staff-staff-spacing}
+@end itemize
+@item @code{StaffGrouper}-Eigenschaften:
+@itemize
+@item @code{staff-staff-spacing}
+@item @code{staffgroup-staff-spacing}
+@end itemize
+@end itemize
+
+Diese Grob-Eigenschaften sind weiter oben einzeln beschrieben, siehe
+@ref{Eigenschaften für Abstände innerhalb von Systemgruppen}.
+
+Das folgende Beispiel zeigt, wie Eigenscchaften des
+@code{StaffGrouper}-Grobs die Platzierung von gruppierten Notensystemen
+beeinflussen kann:
+
+@lilypond[verbatim,quote,staffsize=16]
+\layout {
+  \context {
+    \Score
+    \override StaffGrouper #'staff-staff-spacing #'padding = #0
+    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #1
+  }
+}
+
+<<
+  \new PianoStaff \with {
+    \override StaffGrouper #'staffgroup-staff-spacing #'basic-distance = #20
+  } <<
+    \new Staff { c'1 }
+    \new Staff { c'1 }
+  >>
+
+  \new StaffGroup <<
+    \new Staff { c'1 }
+    \new Staff { c'1 }
+  >>
+>>
+@end lilypond
+
+@seealso
+Installierte Dateien:
+@file{scm/define-grobs.scm}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
+Referenz der Interna:
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
+
+
+@node Abstände von nicht-Notensystemzeilen
+@unnumberedsubsubsec Abstände von nicht-Notensystemzeilen
+@translationof Spacing of non-staff lines
+
+@emph{Nicht-Notensystemzeilen} (wie @code{Lyrics}, @code{ChordNames}
+usw.) sind Kontexte, deren Layoutobjekte wie Notensysteme gesetzt
+werden (also als horizontale Zeilen zwischen Notensystemen).  Genau
+gesagt sind Nicht-Notensystemzeilen Nicht-Notensystemkontexte, die
+ein @code{VerticalAxisGroup}-Layoutobjekt erstellen.
+
+Folgende Eigenschaften beeinflussen die Abstände von Nicht-Notensystemzeilen:
+
+@itemize
+@item @code{VerticalAxisGroup}-Eigenschaften:
+@itemize
+@item @code{staff-affinity}
+@item @code{nonstaff-relatedstaff-spacing}
+@item @code{nonstaff-nonstaff-spacing}
+@item @code{nonstaff-unrelatedstaff-spacing}
+@end itemize
+@end itemize
+
+Diese Grob-Eigenschaften sind weiter oben einzlen beschrieben; siehe
+@ref{Eigenschaften für Abstände innerhalb von Systemgruppen}.
+
+Das folgende Beispiel zeigt, wie die @code{nonstaff-nonstaff-spacing}-Eigenschaft
+die Platzierung von aufeinanderfolgenden Nicht-Notensystemzeilen beeinflussen
+kann.  Indem hier der Wert von @code{stretchability} auf einen sehr hohen Wert
+gesetzt wird, kann der Gesangstext sehr viel weiter als normal gespreizt
+werden:
+
+@lilypond[verbatim,quote,staffsize=16]
 \layout {
   \context {
     \Lyrics
-    % By default, Lyrics are placed close together.  Here, we allow them to
-    % be stretched more widely.
     \override VerticalAxisGroup
       #'nonstaff-nonstaff-spacing #'stretchability = #1000
   }
@@ -1723,96 +2279,51 @@ Notensystem zu verlangen.
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing = #'((basic-distance . 30)) }
-    { c'1 }
+    \override VerticalAxisGroup #'staff-staff-spacing = #'((basic-distance . 30))
+  } { c'1 }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #UP }
-    \lyricmode { up }
+    \override VerticalAxisGroup #'staff-affinity = #UP
+  } \lyricmode { up }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #CENTER }
-    \lyricmode { center }
+    \override VerticalAxisGroup #'staff-affinity = #CENTER
+  } \lyricmode { center }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #DOWN }
-    \lyricmode { down }
-  \new Staff
-    { c'1 }
+    \override VerticalAxisGroup #'staff-affinity = #DOWN
+  } \lyricmode { down }
+  \new Staff { c'1 }
 >>
 @end lilypond
 
 
 @seealso
-Schnipsel:
+Installierte Dateien:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
+Schnispel:
 @rlsr{Spacing}.
 
 @c @lsr{spacing,page-spacing.ly},
 @c @lsr{spacing,alignment-vertical-spacing.ly}.
 
 Referenz der Interna:
-@rinternals{VerticalAxisGroup},
-@rinternals{VerticalAlignment},
-@rinternals{Axis_group_engraver}.
-
-@knownissues
-Aufeinanderfolgende Nicht-Notensystem-Zeilen sollten nicht-ansteigende
-@var{staff-affinity}-Werte von oben nach unten.  Das Verhalten von
-beispielsweise
-
-@example
-<<
-  \new Staff c
-  \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #DOWN @}
-  \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #UP @}
-  \new Staff c
->>
-@end example
-
-ist nicht definiert.
-
-Eine Nicht-Notensystem-Zeile unter einem Notensystem sollte
-@var{staff-affinity} als @code{UP} definiert haben.  Gleichfalls
-sollte eine Nicht-Notensystem-Zeile über einem System
-@var{staff-affinity} als @code{DOWN} definiert haben.
+@rinternals{Contexts},
+@rinternals{VerticalAxisGroup}.
 
 
-@node Vertikale Abstände zwischen Systemen
-@subsection Vertikale Abstände zwischen Systemen
-@translationof Vertical spacing between systems
 
-Der Mechanismus, der Abstände zwischen zwei Systemgruppen kontrolliert, ist dem
-sehr ähnlich, der Abstände innerhalb einer Systemgruppe kontrolliert
-(siehe @ref{Abstände innerhalb eines Systems}).  Der Hauptunterschied ist,
-dass die Variablen, die Abstände zwischen Systemgruppen definieren, in der
-@code{\paper}-Umgebung und nicht als Grob-Eigenschaften definiert werden.
-Diese Variablen der @code{\paper}-Umbgebung sind @var{system-system-spacing},
-@var{score-system-spacing}, @var{markup-system-spacing},
-@var{score-markup-spacing}, @var{markup-markup-spacing},
-@var{top-system-spacing}, @var{top-markup-spacing} und
-@var{last-bottom-spacing}.  Beachten Sie, dass diese Variablen
-Nicht-Notensystem-zeilen ignorieren.  Beispielsweise kontrolliert
-@var{system-system-spacing} den Abstand der mittleren Notenlinie des
-tiefsten Systems einer Gruppe zur mittleren Notenlinie des höchsten
-Notensystems der nächsten Gruppe, egal ob dazwischen Gesangstext gesetzt
-ist oder nicht.  Siehe auch @ref{Flexible vertikale Dimensionen} für eine
-Beschreibung dieser Variablen.
 
-Es gibt zwei weiter Variablen der @code{\paper}-Umgebung, die die vertikale
-Aufteilung beeinflussen: wenn @code{ragged-bottom} wahr (@code{##t}) ist,
-dann wird keine Seite gedehnt (was bedeutet, dass weder der Platz zwischen
-Systemgruppen noch der Platz innerhalb von Systemgruppen gedehnt wird).  Wenn
-@code{ragged-last-bottom} wahr (@code{##t}) ist, dann wird die letzte Seite
-nicht gedehnt.
 
-@seealso
-Schnipsel:
-@rlsr{Spacing}.
+
+
 
 
 @node Explizite Positionierung von Systemen
 @subsection Explizite Positionierung von Systemen
 @translationof Explicit staff and system positioning
 
-Man kann die Einstellungen des @code{VerticalAxisGroup}-Objekts
-und der @code{\paper}-Umgebung, wie sie im vorigen Abschnitt
+Man kann die flexiblen Einstellungen der vertikalen Abstände, wie sie im
+vorigen Abschnitt
 erklärt wurden, als eine Sammlung verschiedenerer Einstellmöglichkeiten
 verstehen, die vor allem die Größe des vertikalen Platzes zwischen
 Notensystemen und Gruppen auf der Seite kontrollieren.
@@ -1820,8 +2331,8 @@ Notensystemen und Gruppen auf der Seite kontrollieren.
 Die vertikale Platzverteilung kann aber auch auf andere Weise
 eingestellt werden: mit den Optionen von
 @code{NonMusicalPaperColumn #'line-break-system-details}.  Während
-Einstellungen in @code{VerticalAxisGroup} und @code{\paper} Füllplatz
-definieren, werden mit
+der flexible vertikale Abstandsmechanismus vertikalen Füllplatz
+definiert, werden mit
 @code{NonMusicalPaperColumn #'line-break-system-details} absolute vertikale
 Positionen auf der Seite festgelegt.
 
@@ -1860,24 +2371,26 @@ Veränderungen von @code{NonMusicalPaperColumn} mit dem
   #'line-break-system-details #'((Y-offset . 40))
 
 \overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20) (Y-offset . 40))
+  #'line-break-system-details #'((X-offset . 20)
+                                 (Y-offset . 40))
 
 \overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((alignment-distances . (0 -15)))
+  #'line-break-system-details #'((alignment-distances . (15)))
 
 \overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20) (Y-offset . 40)
-                                 (alignment-distances . (0 -15)))
+  #'line-break-system-details #'((X-offset . 20)
+                                 (Y-offset . 40)
+                                 (alignment-distances . (15)))
 @end example
 
 Um zu verstehen, wie jede dieser unterschiedlichen Einstellungen
 funktioniert, wollen wir uns ein Beispiel vornehmen, dass überhaupt
-keine Einstellungen (d.h. @code{override}-Befehle) enthält:
+keine Einstellungen (d.h. @code{\override}-Befehle) enthält:
 
 @c \book { } is required in these examples to ensure the spacing
 @c overrides can be seen between systems. -np
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -1913,7 +2426,7 @@ genau anzugeben, kann @code{Y-offset} in der
 @code{NonMusicalPaperColumn}-Grobs wie in dem Beispiel
 ersichtlich benutzt werden:
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -1947,12 +2460,12 @@ Einstellung angegeben.  Die @code{Y-offset}-Eigenschaft bestimmt
 hier die exakte vertikale Position auf der Seite, an welcher jede
 neue Systemgruppe begonnen wird.
 
-Da jetzt der exakte Beginn eines jeden Systems explizit festgelegt wurde,
+Da jetzt der exakte Beginn einer jeden Systemgruppe explizit festgelegt wurde,
 können wir auch den exakten Beginn eines jeden Notensystems in der
 Gruppe festlegen.  Dies geschieht mit der @code{alignment-distances}-Eigenschaft
 von @code{line-break-system-details}.
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -1984,16 +2497,17 @@ von @code{line-break-system-details}.
 @end lilypond
 
 Dem @code{line-break-system-details}-Attribut des
-@code{NonMusicalPaperColumn}-Grobs werden zwei Eigenschaften
-zugewiesen.  Auch wenn die Liste (alist) von
+@code{NonMusicalPaperColumn}-Grobs werden zwei unterschiedliche Eigenschaften
+zugewiesen.  Auch wenn die Aliste der Attribute von
 @code{line-break-system-details} sehr viel mehr Platzierungsparameter
-akzeptiert, müssen hier nu die Parameter @code{Y-offset} und
+akzeptiert (wie etwa ein korrespondierendes @code{X-offset}-Paar), müssen
+hier nur die Parameter @code{Y-offset} und
 @code{alignment-distances} gesetzt werden, um den vertikalen Beginn
 jedes Systems und jeder Systemgruppe zu kontrollieren.  @code{Y-offset}
 bestimmt also die vertikale Position von Systemgruppen und @code{alignment-distances}
 die vertikale Position von einzelnen Notensystemen.
 
-@lilypond[quote]
+@lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -2089,7 +2603,7 @@ des Systems um den gleichen Platz streiten, wird das mit dem
 geringeren Wert von @code{outside-staff-priority} näher an das
 entsprechende Notensystem gesetzt.
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 c4_"Text"\pp
 r2.
 \once \override TextScript #'outside-staff-priority = #1
@@ -2107,7 +2621,7 @@ dem vorhergehenden Objekt eingefügt werden kann (auch als
 padding bezeichnet), kann durch @code{outside-staff-padding}
 kontrolliert werden.
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 \once \override TextScript #'outside-staff-padding = #0
 a'^"This text is placed very close to the note"
 \once \override TextScript #'outside-staff-padding = #3
@@ -2126,7 +2640,7 @@ ineinander greifen. Mit der Eigenschaft
 verschoben werden und derartige Situationen kommen nicht
 vor.
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim]
 % the markup is too close to the following note
 c4^"Text"
 c4
@@ -2376,7 +2890,8 @@ Dauer abgeleiteten Faktoren (wie Versetzungszeichen,
 Schlüsselwechseln usw.) berechnet.  Um diese Symbole zu
 ignorieren und eine gleichmäßige Verteilung der Noten
 zu erzwingen, kann die gleichmäßige Dehnung (engl.
-uniform stretching) zu Beginn einer Partitur eingeschaltet
+uniform stretching) zu Beginn einer Partitur
+mit @code{Score.SpacingSpanner #'uniform-stretching} eingeschaltet
 werden:
 
 @lilypond[quote,ragged-right,verbatim]
@@ -2451,7 +2966,7 @@ rechten Rand hin durchgezogen, sondern den Noten entsprechend
 gesetzt.  Das ist oftmals nützlich für kleine Notenfragmente
 und um zu überprüfen, wie eng die Noten natürlicherweise
 gesetzt werden würden.   Die normale Einstellung ist unwahr
-(@code{#f}, aber wenn eine Partitur nur aus einer Zeile besteht,
+(@code{#f}), aber wenn eine Partitur nur aus einer Zeile besteht,
 ist der Standardwert wahr.
 
 Die Option @code{ragged-last} verhält sich ähnlich zu @code{ragged-right},
@@ -2459,6 +2974,10 @@ aber wirkt sich nur auf die letzte Zeile eines Stückes aus.
 Für diese letzte Zeile gibt es keine Einschränkungen.  Das
 Resultat erinnert an Textabsätze im Blocksatz, wo die letzte
 Zeile des Absatzes mit ihrer natürlichen Länge gesetzt wird.
+@c Note that for text there are several options for the last line.
+@c While Knuth TeX uses natural length, lead typesetters use the same
+@c stretch as the previous line.  eTeX uses \lastlinefit to
+@c interpolate between both these solutions.
 
 @example
 \layout @{
@@ -2705,7 +3224,7 @@ dieser Situation deutlich:
 Aber bei sehr genauer Betrachtung sind die Noten der zweiten Hälfte
 der Nonole doch immer noch eine Spur weiter gesetzt als die Noten
 der ersten Hälfte.  Um wirklich gleichmäßige Abstände zu erzwingen,
-sollte auch noch die gleichmäßige Dehnung angeschaltet werden:
+sollte auch noch die gleichmäßige Dehnung (@code{uniform-stretching}) angeschaltet werden, die eine Eigenschaft von @code{SpacingSpanner} ist:
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -2739,7 +3258,7 @@ oder ähnliches eingefügt werden könnte.
 
 Alle Einstellungen zur proportionalen Notation erwarten,
 dass die @code{uniform-stretching}-Eigenschaft des
-@code{SpacingSpanner}-Objekts auf wahr gesetzt wird.  Andernfalls
+@code{SpacingSpanner}-Objekts auf wahr (@code{#t}) gesetzt wird.  Andernfalls
 kann es vorkommen, dass bestimmte Abstände (etwa von
 unsichtbaren Noten) nicht richtig gesetzt werden.
 
@@ -2975,7 +3494,7 @@ dann so anordnen, dass kein weißer Rand unten auf der Seite entsteht.
 @end example
 
 @item
-Die Anzahl der Systeme kann reduziert werden.  Das kann auf
+Die Anzahl der Systeme kann erzwungen werden.  Das kann auf
 zwei Arten helfen: wenn einfach nur ein Wert gesetzt wird, auch
 wenn es die gleiche Anzahl ist, die auch schon vorher von LilyPond
 erstellt wurde, kann manchmal dazu führen, dass mehr Systeme
@@ -2994,8 +3513,9 @@ nur 10 Systemen erzwingen.
 @end example
 
 @item
-Vermeidung von Objekten, die den vertikalen Abstand von Systemen
+Vermeidung (oder Verminderung) von Objekten, die den vertikalen Abstand von Systemen
 vergrößern, hilft oft. Die Verwendung von Klammern bei Wiederholungen
+(oder alternativen Wiederholungen)
 etwa braucht mehr Platz. Wenn die Noten innerhalb der Klammern  auf
 zwei Systeme verteilt sind, brauchen sie mehr Platz, als wenn sie
 nur auf einer Zeile gedruckt werden.
