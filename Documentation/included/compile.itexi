@@ -43,7 +43,7 @@ without compiling}.
 
 Attempts to compile LilyPond natively on Windows have been
 unsuccessful, though a workaround is available (see
-@rcontrib{Lilybuntu}).
+@rcontrib{Lilydev}).
 
 
 @node Requirements
