@@ -1324,7 +1324,7 @@
 
     (OctavateEight
      . (
-	(break-visibility . ,begin-of-line-visible)
+	(break-visibility . ,inherit-x-parent-visibility)
 	(font-shape . italic)
 	(font-size . -4)
 	(self-alignment-X . ,CENTER)

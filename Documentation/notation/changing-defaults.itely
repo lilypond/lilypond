@@ -3047,11 +3047,10 @@ occur only at explicit @code{\bar} commands.
 @cindex clefs, visibility of octavation
 
 The small octavation symbol on octavated clefs is produced by the
-@code{OctavateEight} layout object.  Its visibility is controlled
-independently from that of the @code{Clef} object, so it is
-necessary to apply any required @code{break-visibility} overrides
-to both the @code{Clef} and the @code{OctavateEight} layout objects
-to fully suppress such clef symbols at the start of each line.
+@code{OctavateEight} layout object.  Its visibility is automatically
+inherited from the @code{Clef} object, so it is not necessary to apply
+any required @code{break-visibility} overrides to the @code{OctavateEight} 
+layout objects to suppress octavation symbols for invisible clefs.
 
 For explicit clef changes, the @code{explicitClefVisibility}
 property controls both the clef symbol and any octavation symbol

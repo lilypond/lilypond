@@ -186,11 +186,7 @@ Clef_engraver::stop_translation_timestep ()
 	vis = get_property ("explicitClefVisibility");
 
       if (vis)
-	{
-	  clef_->set_property ("break-visibility", vis);
-	  if (octavate_)
-	    octavate_->set_property ("break-visibility", vis);
-	}
+	clef_->set_property ("break-visibility", vis);
 
       clef_ = 0;
 
