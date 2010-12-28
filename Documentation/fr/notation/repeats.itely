@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: ee20a00bbe6704553bb1f761899a727fc150ab46
+    Translation of GIT committish: 3a1849b786007ee152446dbd14ed5874f096943c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -123,10 +123,10 @@ fois.
 Voici une simple reprise avec une fin alternative :
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 2 { c4 d e f }
+\repeat volta 2 { c4 d e f | }
 \alternative {
-  { c2 e }
-  { f2 g }
+  { c2 e | }
+  { f2 g | }
 }
 c1
 @end lilypond
@@ -134,14 +134,19 @@ c1
 Et une répétition avec plusieurs alternatives :
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 3 { c4 d e f }
+\repeat volta 3 { c4 d e f | }
 \alternative {
-  { c2 e }
-  { f2 g }
-  { a2 g }
+  { c2 e | }
+  { f2 g | }
+  { a2 g | }
 }
 c1
 @end lilypond
+
+@warning{Lorsqu'il y a plus d'une alternative, prenez garde à ce
+qu'aucun caractère n'apparaisse entre l'accolade fermant une alternative
+et l'accolade ouvrant la suivante, au risque de ne pas obtenir le nombre
+voulu d'alternatives.}
 
 @warning{Une clause @code{@bs{}relative} ne doît jamais se trouver à
 l'intérieur d'une section @code{@bs{}repeat}@tie{}: vous aurez

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 29471848676f1736b10245f8a00c14115feb1007
+    Translation of GIT committish: 3a1849b786007ee152446dbd14ed5874f096943c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2189,6 +2189,11 @@ bloc @code{\context}.
 Manuel de notation :
 @ruser{Modification des greffons de contexte},
 @ruser{Modification des réglages par défaut d'un contexte}.
+
+@knownissues
+Dans la mesure où les @code{Stem_engraver} et @code{Beam_engraver}
+rattachent à des têtes de note les objets qu'ils créent, désactiver le
+@code{Note_heads_engraver} entraîne l'absence de hampe et de ligature.
 
 
 @node Extension des modèles
