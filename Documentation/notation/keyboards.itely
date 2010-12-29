@@ -195,6 +195,39 @@ center of the staff that is closest to the beam.  For a simple
 example of beam tweaking, see @rlearning{Fixing overlapping
 notation}.
 
+@cindex cross-staff collisions
+@cindex collisions, cross-staff voices
+
+Overlapping notation can result when voices cross staves:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "up" {
+    \voiceOne
+    % Make space for fingering in the cross-staff voice
+    \once\override DynamicLineSpanner #'staff-padding = #3.4
+    e''2\p\< d''\> s1*0\!
+  }
+  \new Staff = "down" <<
+    {
+      \clef bass
+      s4. e,8\rest g,2\rest
+    } \\ {
+      c8\( g c'
+      \change Staff = "up"
+      e' g' b'-3 a' g'\)
+    }
+  >>
+>>
+@end lilypond
+
+The stem and slur overlap the intervening line of dynamics
+because automatic collision resolution is suspended for beams, slurs
+and other spanners that connect notes on different staves,
+as well as for stems and articulations if their placement is
+affected by a cross-staff spanner.
+The resulting collisions must be resolved manually, where necessary,
+using the methods in @rlearning{Fixing overlapping notation}.
 
 @seealso
 Learning Manual:
