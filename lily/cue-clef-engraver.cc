@@ -171,8 +171,7 @@ Cue_clef_engraver::inspect_clef_properties ()
 
   if (scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
       || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
-      || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F
-      || to_boolean (force_clef))
+      || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F)
     {
       set_glyph ();
       if (scm_is_string (glyph))
