@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: a463d80d4be008ce05b12de86fc21f2b7c1c120f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -4073,7 +4073,7 @@ inst =
 @end example
 
 Diese Datei wir mit dem @code{\include}-Befehl ziemlich weit oben
-in der Datei eingefügt.  (Die Erweiterung @code{.ily} wird benutzt,
+in der Datei eingefügt.  (Die Erweiterung @file{.ily} wird benutzt,
 um diese Datei als eine eingefügte, inkludierte zu kennzeichnen, die
 man nicht alleinstehend kompilieren kann.)  Jetzt ändern wir die
 Noten (in der Datei @file{music.ly}).
@@ -4393,7 +4393,7 @@ In diesem Ordner sind die zwei interessanten Unterordner:
 
 Schauen wir uns zuerst einige Dateien in @file{ly/} an.
 Öffnen Sie @file{ly/property-init.ly} in einem Texteditor.
-Der, den Sie normalerweise für @code{.ly}-Dateien benutzen,
+Der, den Sie normalerweise für @file{.ly}-Dateien benutzen,
 genügt.  Diese Datei enthält die Definitionen aller vordefinierten
 Befehle für LilyPond, wie etwa @code{\stemUp} und
 @code{\slurDotted}.  Sie können sehen, dass es sich um

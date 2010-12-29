@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish:  8d20e61da8c6746283773eb891720927c68d1aa8
+    Translation of GIT committish:  a463d80d4be008ce05b12de86fc21f2b7c1c120f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,7 +18,7 @@
 Das Entwicklerteam von LilyPond ist ziemlich klein -- es wäre
 wirklich notwendig, dass mehr Leute sich einbringen.  Bitte
 erwägen Sie, Ihren LilyPond-Benutzerkollegen zu helfen indem
-Sie zur Entwicklung beitragen.
+Sie einen Beitrag leisten.
 
 Auch kleine Aufgaben können große Auswirkungen haben: wenn man sich
 ihnen annimmt, können sich die erfahrenen Entwickler den schwierigen
@@ -29,6 +29,8 @@ Aufgaben widmen anstatt diese einfachen Probleme zu lösen.
 
 @macro helpusTasks
 @subheading Einfache Aufgaben
+
+Keine Kompilation des Quellcodes nötig!
 
 @itemize
 @item
@@ -60,18 +62,26 @@ diesen Diskussionen teil!
 @end itemize
 
 
-@subheading Mittlere Aufgaben
+@subheading Fortgeschrittene Aufgaben
 
-@warning{Diese Aufgaben setzen voraus, dass Sie die Quellen
-von Programm und Dokumentation haben; Sie brauchen aber keine volle
-Entwicklungsumgebung.  Siehe
-@rcontribnamed{Working with source code,Mit Quellcode arbeiten}.}
+Diese Aufgaben setzen voraus, dass Sie die Quellen
+von Programm und Dokumentation haben und die Quellen auch
+kompilieren können.
+
+@warning{Wir empfehlen, dass Beitragende, die Windows oder
+MacOS X benutzen, @strong{nicht} ihre eigene Entwicklungsumgebung
+einrichten, sondern anstattdessen lilybuntu benutzen, welches
+besprochen ist in @rcontribnamed{Quick start,Schnellstart}.
+
+Beitragende, die Linux oder FreBSD benutzen, können auch lilybuntu
+einsetzen, aber wenn Sie Ihre eigene Entwicklungsumgebung einrichten
+wollen, lesen Sie bitte @rcontribnamed{Working with source code,Mit dem Sourcecode arbeiten}
+und @rcontribnamed{Compiling,Kompilieren}.
 
 @itemize
 @item
-Dokumentation: siehe
-@rcontribnamed{Documentation work,Arbeit an der Dokumentation} und
-@rcontribnamed{Building documentation without compiling,Kompilieren der Dokumentation ohne LilyPond zu kompilieren}.
+Dokumentation: für große Änderungen siehe
+@rcontribnamed{Documentation work,Arbeit an der Dokumentation}.
 
 @item
 Website: die Website wird aus der Quelle der Dokumentation
@@ -83,24 +93,9 @@ zusätzlich @rcontribnamed{Website work,Arbeit an der Webseite}.
 @rcontribnamed{Translating the documentation,Die Dokumentation übersetzen} und
 @rcontribnamed{Translating the website,Die Webseite übersetzen}.
 
-@end itemize
 
-
-@subheading Komplexe Aufgaben
-
-@warning{Diese Aufgaben erfordern, dass Sie die Quellen haben
-und LilyPond kompilieren können.  Siehe
-@rcontribnamed{Working with source code,Mit Quellcode arbeiten}
-und @rcontribnamed{Compiling,Kompilieren}.}
-@*@*
-Wir empfehlen, dass neue Mithelfer, die Windows oder MacOS X benutzen,
-@strong{keine} eigene Kompilierungsumgebung einrichtigen; anstelle
-dessen siehe
-@rcontrib{Lilydev}.
-
-@itemize
 @item
-Fehlerberichte, neue Eigenschaften: die beste Art, hiermit zu
+Fehlerberichte oder neue Eigenschaften: die beste Art, hiermit zu
 beginnen ist es, sich den @emph{Frogs}, den Fehlervertilgern,
 anzuschließen. Siehe auch
 @rcontribnamed{Programming work,Programmierungsarbeiten}.
@@ -136,9 +131,7 @@ Wenn Sie hieran interessiert sind, dann heißt es:
 
 Webseite:
 
-@example
-@uref{http://lilypond.org/~graham/gliss}
-@end example
+@rcontrib{Grand LilyPond Input Syntax Standardization (GLISS)}.
 
 GLISS soll die Syntax des Eingabecodes (ohne eigene Anpassungen)
 für die kommende LilyPond-Version 3.0 standardisieren.  Nachdem
@@ -154,10 +147,7 @@ die endgültigen Eingabespezifikationen festgelegt werden können.
 @subsubheading GOP (Grand Organizing Project)
 
 Webseite:
-
-@example
-@uref{http://lilypond.org/~graham/gop}
-@end example
+@rcontrib{Grand Organization Project (GOP)}.
 
 GOP wird unsere große Aktion, mit welcher wir neue Interessenten
 zu eigenen Beiträgen zum Programm werben.  Die Entwicklungsarbeit

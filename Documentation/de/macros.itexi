@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  4f7427e7a314a71bde16559247885544256b8213
+    Translation of GIT committish:  a463d80d4be008ce05b12de86fc21f2b7c1c120f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -55,6 +55,36 @@
 @end macro
 
 @end ifnothtml
+
+@c do not translate the following macro -- it is used in
+@c an untranslated manual.
+
+@ifhtml
+
+@macro advanced{TEXT}
+@html
+<div class="advanced">
+@end html
+@strong{Advanced note:} \TEXT\
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
+@end macro
+
+@end ifhtml
+
+@ifnothtml
+
+@macro advanced{TEXT}
+@quotation
+@b{Advanced note:} \TEXT\
+@end quotation
+@end macro
+
+@end ifnothtml
+
 
 
 @macro docMain
