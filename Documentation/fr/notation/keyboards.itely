@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 52f98b4061e0eb74b7c1dbcc29e74538b374752f
+    Translation of GIT committish: fb6adcf6ff6a2243e714c057224df32fd6cffc29
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,8 +23,8 @@ Ce chapitre traite des différents aspects de la notation que l'on
 rencontre particulièrement avec les instruments qui ont recours à
 plusieurs portées, tels que ceux disposant de claviers, la harpe ou
 le vibraphone.  Pour les besoins du discours, et pour simplifier, nous
-parlerons ici de @qq{clavier} bien que le recours à des portées multiples
-concerne aussi des instruments qui en sont dépourvus.
+parlerons ici de @qq{clavier} bien que le recours à des portées
+multiples concerne aussi des instruments qui en sont dépourvus.
 
 @menu
 * Vue d'ensemble des claviers::
@@ -105,7 +105,8 @@ Les indications de doigté sont abrodées dans @ref{Doigtés}.
 
 @item
 Les indications en matière de pédalier d'orgue sont traitées comme
-des articulations. Voir à ce sujet @ref{Liste des signes d'articulation}.
+des articulations. Voir à ce sujet
+@ref{Liste des signes d'articulation}.
 
 @item
 Pour générer des repères verticaux, voir @ref{Quadrillage temporel}.
@@ -182,10 +183,10 @@ moyen de la commande
 
 @noindent
 La valeur @var{nomDeLaPortee} est le nom de la portée sur laquelle va se
-déplacer la voix courante.  Pour des raisons pratiques, on nomme la portée
-supérieure @code{"haut"} et la portée inférieure @code{"bas"}, donc
-@var{nomDeLaPortee} désigne habituellement @code{"haut"}, @code{"bas"},
-@code{"MD"} ou @code{"MG"}.
+déplacer la voix courante.  Pour des raisons pratiques, on nomme la
+portée supérieure @code{"haut"} et la portée inférieure @code{"bas"},
+donc @var{nomDeLaPortee} désigne habituellement @code{"haut"},
+@code{"bas"}, @code{"MD"} ou @code{"MG"}.
 
 Dans tous les cas, le contexte de portée ainsi utilisé doit exister au
 préalable.  Le cas échéant, vous devrez @qq{garder actives} certaines
@@ -217,8 +218,42 @@ ainsi@tie{}:
 Si les ligatures demandaient à être retouchées, commencez par
 modifier la direction des hampes.  L'emplacement des ligatures sera
 alors calculé à partir du centre de la portée la plus proche -- voir
-@rlearning{Correction des collisions d'objets} pour un exemple de retouche sur
-des ligatures.
+@rlearning{Correction des collisions d'objets} pour un exemple de
+retouche sur des ligatures.
+
+@cindex changement de portée et collision
+@cindex collision et changement de portée
+
+Une voix qui change de portée peut entraîner des collisions@tie{}:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "up" {
+    \voiceOne
+    % Make space for fingering in the cross-staff voice
+    \once\override DynamicLineSpanner #'staff-padding = #3.4
+    e''2\p\< d''\> s1*0\!
+  }
+  \new Staff = "down" <<
+    {
+      \clef bass
+      s4. e,8\rest g,2\rest
+    } \\ {
+      c8\( g c'
+      \change Staff = "up"
+      e' g' b'-3 a' g'\)
+    }
+  >>
+>>
+@end lilypond
+
+Hampes et liaisons viennent en surimpression sur la ligne des nuances
+parce que la résolution automatique des collisions est inactivée pour
+ce qui relie les notes de différentes portées ainsi que pour les hampes
+ou extenseurs affectés à des notes incluses dans un changement de
+portée.  Lorsque des collisions surviennent en pareil cas, il vous
+faudra les résoudre, en suivant les directives du chapitre
+@rlearning{Correction des collisions d'objets}.
 
 
 @seealso
@@ -287,10 +322,10 @@ Une section en mode @code{\relative} se situant en dehors de la commande
 Lorsque des contrôles particuliers doivent s'appliquer aux portées,
 mieux vaut les nommer explicitement -- attention@tie{}: sous peine
 d'effet indésirable quant au résultat, la portée supérieure doit
-s'appeler @code{"up"} et l'inférieure @code{"down"}@tie{}; @emph{ceci est à
-notre connaissance le seul cas où ces noms de variable sont figés}.
-Cette procédure sert, entre autres, à indiquer l'armure sur la portée
-inférieure@tie{}:
+s'appeler @code{"up"} et l'inférieure @code{"down"}@tie{}; @emph{ceci
+est à notre connaissance le seul cas où ces noms de variable sont
+figés}.  Cette procédure sert, entre autres, à indiquer l'armure sur la
+portée inférieure@tie{}:
 
 @c Keep Ly needed, otherwise 'up' and 'down' get
 @c incorrectly translated in verbatim output
@@ -403,8 +438,8 @@ Référence des propriétés internes :
 @funindex flag-style
 
 Pour écrire des accords qui enjambent deux portées, on allonge la hampe
-de l'accord de l'une des deux portées de façon à ce qu'elle rejoigne celle de
-l'autre portée.
+de l'accord de l'une des deux portées de façon à ce qu'elle rejoigne
+celle de l'autre portée.
 
 @lilypond[verbatim,quote]
 \new PianoStaff <<
@@ -488,11 +523,11 @@ Ce chapitre traîte des aspects de la notation directement liés au piano.
 
 
 Le piano possède deux pédales, parfois trois, permettant de modifier
-l'émission du son@tie{}: une pédale de @notation{tenue} (@emph{sustain}),
-une pédale de @notation{sourdine} (@emph{una corda} ou @emph{U.C.}) et
-une pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}).  La
-pédale @emph{sustain} se rencontre aussi sur les vibraphones et
-celestas.
+l'émission du son@tie{}: une pédale de @notation{tenue}
+(@emph{sustain}), une pédale de @notation{sourdine} (@emph{una corda} ou
+@emph{U.C.}) et une pédale @notation{tonale} (@emph{sostenuto} ou
+@emph{sos.}).  La pédale @emph{sustain} se rencontre aussi sur les
+vibraphones et celestas.
 
 @lilypond[quote,verbatim,relative=2]
 c4\sustainOn d e g
@@ -516,10 +551,10 @@ c4\unaCorda d e g
 @funindex text
 
 Trois styles sont à votre disposition pour imprimer les indications de
-pédale@tie{}: sous forme de texte, de crochet, ou une combinaison des deux.
-@code{text} est le style de notation par défaut pour les pédales de
-tenue ou de sourdine --- le traditionnel @q{*Ped.}.  La pédale tonale,
-en revanche, utilise @code{mixed} par défaut.
+pédale@tie{}: sous forme de texte, de crochet, ou une combinaison des
+deux.  @code{text} est le style de notation par défaut pour les pédales
+de tenue ou de sourdine --- le traditionnel @q{*Ped.}.  La pédale
+tonale, en revanche, utilise @code{mixed} par défaut.
 
 @lilypond[quote,verbatim,relative=2]
 c4\sustainOn g c2\sustainOff
@@ -656,8 +691,8 @@ naturel, dièse ou bémol.  Si chacune des cordes de la harpe celtique
 (@emph{lever harp}) est accordée individuellement, celles d'une harpe à
 pédalier ayant la même note de base sont contrôlées par une seule
 pédale.  De gauche à droite, elles correspondent aux notes ré, do, si,
-et mi, fa, sol, la pour la grande harpe. Les trois premières pédales sont
-réservées au pied gauche, les quatre dernières au pied droit.  Leur
+et mi, fa, sol, la pour la grande harpe. Les trois premières pédales
+sont réservées au pied gauche, les quatre dernières au pied droit.  Leur
 position peut être indiquée par une marque textuelle@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
@@ -668,7 +703,7 @@ c!1_\markup \concat \vcenter {
   [ C \natural ]}
 @end lilypond
 
-ou bien sous forme de diagrammes :
+ou bien sous forme de diagrammes@tie{}:
 
 @lilypond[quote,verbatim,relative=2]
 \textLengthOn
@@ -677,12 +712,12 @@ c!1_\markup { \harp-pedal #"^o--|vv-^" }
 @end lilypond
 bémol si la pédale est relâchée (ou en haut), bécarre si elle est
 bloquée sur le cran du milieu, et dièse si elle est tout à fait
-enfoncée.  La commande @code{\harp-pedal} prend en argument une chaîne de
-caractères, où @code{^} indique que la pédale est relâchée ou en haut (bémol),
-@code{-} qu'elle est bloquée sur le cran du milieu (bécarre), @code{v}
-qu'elle est tout à fait enfoncée (dièse) et @code{|} représente le
-séparateur (entre gauche et droite de l'instrumentiste). Faire précéder
-un symbole par un @code{o} permet de l'inscrire dans un cercle.
+enfoncée.  La commande @code{\harp-pedal} prend en argument une chaîne
+de caractères, où @code{^} indique que la pédale est relâchée ou en haut
+(bémol), @code{-} qu'elle est bloquée sur le cran du milieu (bécarre),
+@code{v} qu'elle est tout à fait enfoncée (dièse) et @code{|} représente
+le séparateur (entre gauche et droite de l'instrumentiste). Faire
+précéder un symbole par un @code{o} permet de l'inscrire dans un cercle.
 
 @seealso
 Manuel de notation :
