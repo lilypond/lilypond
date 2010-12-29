@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c4c8fab2bd89b6542954184b7871fdd846de6ecb
+    Translation of GIT committish: 398e5e95c6cd11f2ef03a5ceed087d87ad28f1e1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2213,6 +2213,13 @@ particular incluyendo la instrucción @code{\set} dentro de un bloque
 Referencia de la notación:
 @ruser{Modificar los complementos (plug-ins) de contexto},
 @ruser{Cambiar los valores por omisión de los contextos}.
+
+@knownissues
+Los grabadores @code{Stem_engraver} y @code{Beam_engraver}
+(de plica y de barra) adjuntan a la cabeza de las notas
+los objetos que crean.  Si se suprime el grabador de cabezas de nota
+@code{Note_heads_engraver}, no se produce ninguna cabeza y por tanto
+no se crean tampoco plicas ni barras.
 
 
 @node Extender las plantillas

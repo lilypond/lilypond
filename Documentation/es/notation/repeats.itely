@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: 066c166dd12014c596ebf557d23bbb728a318934
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -122,22 +122,23 @@ a las repeticiones más antiguas.
 Repetición única con primera y segunda vez:
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 2 { c4 d e f }
+\repeat volta 2 { c4 d e f | }
 \alternative {
-  { c2 e }
-  { f2 g }
+  { c2 e | }
+  { f2 g | }
 }
 c1
 @end lilypond
+
 
 Repetición única con primera y segunda vez,
 con más de un final alternativo:
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 4 { c4 d e f }
+\repeat volta 4 { c4 d e f | }
 \alternative {
-  { c2 e }
-  { f2 g }
+  { c2 e | }
+  { f2 g | }
 }
 c1
 @end lilypond
@@ -145,14 +146,19 @@ c1
 Más de una repetición con más de un final alternativo:
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 3 { c4 d e f }
+\repeat volta 3 { c4 d e f | }
 \alternative {
-  { c2 e }
-  { f2 g }
-  { a2 g }
+  { c2 e | }
+  { f2 g | }
+  { a2 g | }
 }
 c1
 @end lilypond
+
+@warning{Si hay dos o más alternativas, no debe aparecer
+nada entre la llave de cierre de una y la de apertura de la otra
+dentro de un bloque @code{@bs{}alternative}, pues en caso
+contrario no obtendremos el número de finales esperado.}
 
 @warning{Si incluimos @code{@bs{}relative} dentro de un
 @code{@bs{}repeat} sin instanciar el contexto
@@ -163,7 +169,6 @@ Véase @rprogram{Aparece un pentagrama de más}.}
 @cindex repetición con anacrusa
 @cindex anacrusa en repeticiones
 @funindex \partial
-
 
 Si una repetición comienza en medio de un compás y no tiene finales
 alternativos (primera y segunda vez), normalmente el final de la
