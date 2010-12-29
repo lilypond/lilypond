@@ -91,7 +91,6 @@ applyContext =
 #(define-music-function (parser location proc) (procedure?)
    (_i "Modify context properties with Scheme procedure @var{proc}.")
    (make-music 'ApplyContext
-	       'origin location
 	       'procedure proc))
 
 applyMusic =
@@ -103,7 +102,6 @@ applyOutput =
 #(define-music-function (parser location ctx proc) (symbol? procedure?)
    (_i "Apply function @code{proc} to every layout object in context @code{ctx}")
    (make-music 'ApplyOutputEvent
-	       'origin location
 	       'procedure proc
 	       'context-type ctx))
 
@@ -170,7 +168,6 @@ barNumberCheck =
 #(define-music-function (parser location n) (integer?)
    (_i "Print a warning if the current bar number is not @var{n}.")
    (make-music 'ApplyContext
-	       'origin location
 	       'procedure
 	       (lambda (c)
 		 (let ((cbn (ly:context-property c 'currentBarNumber)))
@@ -500,7 +497,6 @@ octaveCheck =
 #(define-music-function (parser location pitch-note) (ly:music?)
    (_i "Octave check.")
    (make-music 'RelativeOctaveCheck
-	       'origin location
 	       'pitch (pitch-of-note pitch-note)))
 
 ottava =
@@ -542,7 +538,6 @@ or @code{\"GrobName\"}.")
 	   (set! context-name (string->symbol (list-ref name-components 0)))))
 
      (make-music 'ApplyOutputEvent
-		 'origin location
 		 'context-type context-name
 		 'procedure
 		 (lambda (grob orig-context context)
@@ -759,8 +754,7 @@ of the quoted voice, as specified in an @code{\\addQuote} command.
 usually contains spacers or multi-measure rests.")
    (make-music 'QuoteMusic
                'element main-music
-               'quoted-music-name what
-               'origin location))
+               'quoted-music-name what))
 
 removeWithTag =
 #(define-music-function (parser location tag music) (symbol? ly:music?)
@@ -879,8 +873,7 @@ as a first or second voice.")
 	       'quoted-context-id "cue"
 	       'quoted-music-name what
 	       'quoted-voice-direction dir
-	       'quoted-transposition (pitch-of-note pitch-note)
-	       'origin location))
+	       'quoted-transposition (pitch-of-note pitch-note)))
 
 transposition =
 #(define-music-function (parser location pitch-note) (ly:music?)
