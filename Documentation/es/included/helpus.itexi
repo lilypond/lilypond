@@ -65,7 +65,7 @@ código fuente y sea capaz de compilar LilyPond.
 
 @warning{Sugerimos a los colaboradores nuevos que sean usuarios de Windows
 o de MacOS X que @strong{no} traten de montar un entorno de desarrollo
-por ellos mismos; en su lugar, utilice lilybuntu como se explica en
+por ellos mismos; en su lugar, utilice Lilydev como se explica en
 @rcontribnamed{Quick start,Inicio rápido}.}
 
 Los colaboradores que utilicen Linux o FreeBSD también pueden usar

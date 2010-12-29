@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 10bd5cc93870ac4b884b8cb938cfc6a19c768097
+    Translation of GIT committish: 33903a90b916b4c42d767aa0feb800de1c3d8dbe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -56,6 +56,10 @@ todos los instrumentos de teclado.
 @cindex pentagramas de instrumentos de teclado
 @cindex teclado, pentagramas para instrumentos de
 @cindex tecla, pentagramas para instrumentos de
+@cindex teclados, matices centrados
+@cindex dinámicas, indicaciones centradas en música de tecla
+@cindex piano, música de, matices centrados
+@cindex centrados, matices, en música de piano
 
 @funindex PianoStaff
 
@@ -81,6 +85,11 @@ teclado:
 
 @item La música para teclado se puede escribir en paralelo, como se describe
 en @ref{Escribir música en paralelo}.
+
+@item Los matices dinámicos se pueden colocar en un contexto
+@code{Dynamics}, entre los dos contextos @code{Staff}
+para alinear las indicaciones de matiz sobre una línea horizontal
+equidistante de los dos pentagramas; véase @ref{Matices dinámicos}.
 
 @item Las digitaciones se indican como puede verse en @ref{Indicaciones de digitación}.
 
@@ -133,23 +142,6 @@ Referencia de funcionamiento interno:
 
 Fragmentos de código:
 @rlsr{Keyboards}.
-
-
-@knownissues
-
-@cindex teclado, matices centrados para música de
-@cindex dinámica, indicaciones de, centradas para música de teclado
-@cindex piano, dinámica centrada para música de
-@cindex centrar indicaciones dinámicas en música para piano
-
-@funindex staff-padding
-
-Los matices no se colocan centrados, pero se pueden utilizar ciertas
-alternativas.  Una opción es la plantilla @q{piano con matices
-centrados} que está en @rlearning{Plantillas de piano}; otra opción es
-aumentar el relleno (@code{staff-padding}) de los matices como se
-estudia en @rlearning{Mover objetos}.
-
 
 @node Cambiar de pentagrama manualmente
 @unnumberedsubsubsec Cambiar de pentagrama manualmente
@@ -543,6 +535,8 @@ movimiento físico del pedal derecho en el transcurso de la ejecución.
 La pedalización hasta la barra final de compás se indica mediante la
 omisión de la instrucción final de levantar el pedal.
 
+Las indicaciones de pedal se pueden poner dentro de un contexto
+@code{Dynamics}, que los alinea sobre una línea horizontal.
 
 @seealso
 Referencia de la notación:
