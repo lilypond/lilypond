@@ -1565,9 +1565,6 @@ lilypond fichier.ly >display.txt
 @section Contrôle des sorties
 @translationof Controlling output
 
-@untranslated
-
-
 @menu
 * Extraction de fragments musicaux::
 * Ignorer des passages de la partition::
@@ -1579,34 +1576,150 @@ lilypond fichier.ly >display.txt
 @subsection Extraction de fragments musicaux
 @translationof Extracting fragments of music
 
-@untranslated
+LilyPond vous permet d'extraire des fragments d'une partition à l'instar
+du choriste amateur qui alimente son album avec des coupures de
+journaux.
+
+Vous devrez pour cela définir les mesures à découper.  La définition
+suivante, incluse dans votre fichier source,
+
+@verbatim
+\layout {
+  clip-regions
+  = #(list
+      (cons
+       (make-rhythmic-location 5 1 2)
+       (make-rhythmic-location 7 3 4)))
+}
+@end verbatim
+
+@noindent
+vous permettra d'extraire un fragment compris entre le milieu de la
+cinquième mesure et quelque part dans la septième.  Le triplet
+@code{5@tie{}1@tie{}2} signifie@tie{}: après la durée d'une blanche dans
+la mesure 5@tie{}; le @code{7@tie{}3@tie{}4} signifie quant à lui que
+l'on s'arrête à la mesure 7, après la durée de trois noires.
+
+Rien ne vous empêche d'extraire plusieurs fragments, dès lors que vous
+définissez dans la liste d'autres paires d'emplacements ryhtmiques.
+
+Cette fonctionnalité n'est toutefois effective que lorsque vous lancez
+LilyPond avec l'option @code{-dclip-systems}.  Les @qq{coupures} seront
+générées sous la forme de fichiers EPS, convertis en PDF ou PNG selon le
+format que vous aurez stipulé.
+
+Pour de plus amples informations quant au format des résultats,
+consultez le chapitre @rprogram{Lancement de lilypond}.
 
 
 @node Ignorer des passages de la partition
 @subsection Ignorer des passages de la partition
 @translationof Skipping corrected music
 
-@untranslated
+@funindex skipTypesetting
+@funindex showFirstLength
+@funindex showLastLength
+
+Dans un travail de transcription ou de recopie de la musique, ce qui
+vous intéresse plus particulièrement se situe à la fin, là même où vous
+en êtes dans la notation.  Dans le but de gagner du temps dans le
+processus de correction, vous pouvez @qq{escamoter} le reste et ne
+générer que les dernières mesures en insérant
+
+@verbatim
+showLastLength = R1*5
+\score { ... }
+@end verbatim
+
+@noindent
+dans votre fichier source.  Ceci aura pour effet de ne générer que les
+cinq dernières mesures -- si tant est que le morceau soit à 4/4 -- de
+tous les @code{\score} de votre fichier.  Dans le cas d'un œuvre
+conséquente, cette pratique s'avère fort utile puisqu'elle évite de tout
+générer.  Vous pourriez aussi être amené à retravailler le début d'une
+œuvre, pour y ajouter une partie par exemple, auquel cas c'est la
+propriété @code{showFirstLength} que vous utiliserez.
+
+Vous pouvez contrôler très finement les parties à escamoter, grâce u
+commutateur @code{Score.skipTypesetting}@tie{}: lorsqu'il est activé,
+aucune gravure n'est réalisée.
+
+Ce commutateur agit aussi sur la sortie MIDI.  Notez bien que tous les
+événements seront escamotés, y compris les changements de tempo ou
+d'instrument -- vous voilà prévenu@tie{}!
+
+@lilypond[quote,relative=2,ragged-right,verbatim]
+c8 d
+\set Score.skipTypesetting = ##t
+e8 e e e e e e e
+\set Score.skipTypesetting = ##f
+c8 d b bes a g c2
+@end lilypond
+
+Dans le cadre de musique polyphonique, @code{Score.skipTypesetting}
+s'applique à toutes les voix et portées.  Vous gagnerez donc encore plus
+de temps.
 
 
 @node Formats de sortie alternatifs
 @subsection Formats de sortie alternatifs
 @translationof Alternative output formats
 
-@untranslated
+@cindex scalable vector graphics
+@cindex SVG, format de sortie
+@cindex encapsulated postscript
+@cindex EPS, format de sortie
+
+En matière de partition imprimable, LilyPond génère par défaut des
+documents au format PstScript (PS) et Portable Document Format (PDF).
+Vous pouvez aussi obtenir des documents au format Scalable Vector
+Graphics (SVG), Encapsulated PostScript (EPS) ou Portable Network
+Graphics (PNG) dès lors que vous aurez lancé LilyPond en ligne de
+commande avec l'option @i{ad hoc} -- voir 
+@rprogram{Options en ligne de commande pour lilypond} à ce sujet.
 
 
 @node Changement des fontes musicales
 @subsection Changement des fontes musicales
 @translationof Replacing the notation font
 
-@untranslated
+Gonville est ube alternative à la fonte Feta que LilyPond utilise par
+défaut.  Vous pouvez la télécharger à partir de
+@example
+@uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
+@end example
+
+Voici quelques mesures utilisant la police Gonville@tie{}:
+
+@c NOTE: these images are a bit big, but that's important
+@c       for the font comparison.  -gp
+@sourceimage{Gonville_after,,,}
+
+Et ces même mesures avec la police de LilyPond, Feta@tie{}:
+
+@sourceimage{Gonville_before,,,}
 
 
 @subsubheading Instructions d'installation pour MacOS
 @translationof Installation Instructions for MacOS
 
-@untranslated
+Téléchargez puis décompressez l'archive zip.  Recopiez le répertoire
+@code{lilyfonts} dans  @file{@var{SHARE_DIR}/lilypond/current} -- voir
+@rlearning{Autres sources d'information} à ce sujet.  Renommez le
+répertoire @code{fonts} qui s'y trouve en @code{fonts_orig}, puis les
+répertoire @code{lilyfonts} en @code{fonts}.  Il vous suffira, pour
+retrouver la fonte Feta, de renommer @code{fonts_orig} en @code{fonts}.
+
+
+@seealso
+Manuel d'initiation :
+@rlearning{Autres sources d'information}.
+
+@knownissues
+
+Gonville ne permet pas de générer de la notation ancienne.  Consultez le
+site de l'auteur pour de plus amples informations ainsi qu'à propos des
+conditions d'utilisation.
 
 
 @node Sortie MIDI
