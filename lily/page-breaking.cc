@@ -671,6 +671,7 @@ Page_breaking::chunk_list (vsize start_index, vsize end_index)
   return ret;
 }
 
+// Returns the minimum number of _non-title_ lines.
 vsize
 Page_breaking::min_system_count (vsize start, vsize end)
 {
@@ -683,6 +684,7 @@ Page_breaking::min_system_count (vsize start, vsize end)
   return ret;
 }
 
+// Returns the maximum number of _non-title_ lines.
 vsize
 Page_breaking::max_system_count (vsize start, vsize end)
 {
@@ -695,6 +697,9 @@ Page_breaking::max_system_count (vsize start, vsize end)
   return ret;
 }
 
+// The numbers returned by this function represent either
+// the maximum or minimum number of _non-title_ lines
+// per chunk.
 Page_breaking::Line_division
 Page_breaking::system_count_bounds (vector<Break_position> const &chunks,
 				    bool min)
@@ -702,7 +707,7 @@ Page_breaking::system_count_bounds (vector<Break_position> const &chunks,
   assert (chunks.size () >= 2);
 
   Line_division ret;
-  ret.resize (chunks.size () - 1, 1);
+  ret.resize (chunks.size () - 1, 0);
 
   for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
@@ -802,7 +807,7 @@ Page_breaking::set_to_ideal_line_configuration (vsize start, vsize end)
 	  div.push_back (line_breaking_[sys].best_solution (start, end).size ());
 	}
       else
-	div.push_back (1);
+	div.push_back (0);
 
       system_count_ += div.back ();
     }
@@ -839,7 +844,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
 	    }
 	  else
 	    {
-	      assert (div[i] == 1);
+	      assert (div[i] == 0);
 	      uncompressed_line_details_.push_back (system_specs_[sys].prob_
 						    ? Line_details (system_specs_[sys].prob_, book_->paper_)
 						    : Line_details ());
@@ -877,7 +882,7 @@ Page_breaking::line_divisions_rec (vsize system_count,
   int real_min = max ((int) min_sys[my_index], (int) system_count - others_max);
   int real_max = min ((int) max_sys[my_index], (int) system_count - others_min);
 
-  if (real_min > real_max || real_min <= 0)
+  if (real_min > real_max || real_min < 0)
     {
       /* this should never happen within a recursive call. If it happens
 	 at all, it means that we were called with an unsolvable problem
