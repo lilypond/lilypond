@@ -88,11 +88,11 @@
     ;;   use defaults, but combine all beats into a unit if possible
     ;;
     ;;   set all beams to end on beats, but 1 8 to beam entire measure
-    ;;   in order to avoid beaming every beat for entier measure, we set
+    ;;   in order to avoid beaming every beam type for the entire measure, we set
     ;;   triplets back to every beat.
     ((3 . 4) .
-             ((beamExceptions . ((end . (((1 . 8) . (6))
-                                         ((1 . 12) . (3 3 3))))))))
+             ((beamExceptions . ((end . (((1 . 8) . (6))            ;1/8 note whole measure
+                                         ((1 . 12) . (3 3 3)))))))) ;Anything shorter by beat
 
     ;; in 3 8  time:
     ;;   beam entire measure together
@@ -112,8 +112,8 @@
     ;;         ly/engraver-init.ly where the default time signature is set
     ;;         are set
     ((4 . 4) .
-             ((beamExceptions . ((end . (((1 . 8) . (4 4))
-                                         ((1 . 12) . (3 3 3 3))))))))
+             ((beamExceptions . ((end . (((1 . 8) . (4 4))  ; 1/8 notes half measure
+                                         ((1 . 12) . (3 3 3 3)))))))) ;Anything shorter by beat
 
     ;; in 4/8 time:
     ;;   combine beats 1 and 2, so beam in 2
