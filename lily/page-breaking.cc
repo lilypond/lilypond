@@ -529,6 +529,11 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       ret = scm_cons (page, ret);
       --page_num;
     }
+
+  // By reversing the table, we ensure that duplicated labels (eg. those
+  // straddling a page turn) will appear in the table with their last
+  // occurence first.
+  label_page_table = scm_reverse_x (label_page_table, SCM_EOL);
   book_->top_paper ()->set_variable (ly_symbol2scm ("label-page-table"), label_page_table);
   return ret;
 }
