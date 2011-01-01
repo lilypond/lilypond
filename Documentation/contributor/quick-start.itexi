@@ -29,7 +29,8 @@ helpful users who may have never created a patch before.}
 @node Lilydev
 @section Lilydev
 
-text.
+This section discusses how to install and use the Ubuntu LilyPond
+Development Remix.
 
 @menu
 * Installing lilydev::
@@ -63,7 +64,9 @@ Download the Ubuntu LilyPond Developer Remix disk image:
 
 @advanced{Some users might want these files, but if you don't
 recognize what they are, then you don't want them:
+@*
 @uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.0.iso.md5}
+@*
 @uref{http://files.lilynet.net/ubuntu-lilydev-remix-1.0.iso.torrent}
 }
 
@@ -467,11 +470,22 @@ Lilydev users may now skip to the chapter which is aimed at
 their intended contributions:
 
 @itemize
-@item @rcontrib{Documentation work}
-@item @rcontrib{Translating the documentation}
-@item @rcontrib{Website work}
-@item @rcontrib{Regression tests}
-@item @rcontrib{Programming work}
+@item @ref{Documentation work}
+@item @ref{Translating the documentation}
+@item @ref{Website work}
+@item @ref{Regression tests}
+@item @ref{Programming work}
+@end itemize
+
+These chapters are mainly intended for people not using LilyDev,
+but they contain extra information about the
+@qq{behind-the-scenes} activities.  We recommend that you read
+these at your leisure, a few weeks after beginning work with
+LilyDev.
+
+@itemize
+@item @ref{Working with source code}
+@item @ref{Compiling}
 @end itemize
 
 
