@@ -214,6 +214,15 @@ clef =
    (_i "Set the current clef to @var{type}.")
    (make-clef-set type))
 
+cueClef =
+#(define-music-function (parser location type) (string?)
+  (_i "Set the current cue clef to @var{type}.")
+  (make-cue-clef-set type))
+cueClefUnset =
+#(define-music-function (parser location) ()
+  (_i "Unset the current cue clef.")
+  (make-cue-clef-unset))
+
 cueDuring =
 #(define-music-function
    (parser location what dir main-music) (string? ly:dir? ly:music?)
@@ -224,8 +233,20 @@ in a CueVoice oriented by @var{dir}.")
 	       'quoted-context-type 'Voice
 	       'quoted-context-id "cue"
 	       'quoted-music-name what
-	       'quoted-voice-direction dir
-	       'origin location))
+	       'quoted-voice-direction dir))
+
+cueDuringWithClef =
+#(define-music-function
+   (parser location what dir clef main-music) (string? ly:dir? string? ly:music?)
+   (_i "Insert contents of quote @var{what} corresponding to @var{main-music},
+in a CueVoice oriented by @var{dir}.")
+   (make-music 'QuoteMusic
+	       'element main-music
+	       'quoted-context-type 'Voice
+	       'quoted-context-id "cue"
+	       'quoted-music-name what
+	       'quoted-music-clef clef
+	       'quoted-voice-direction dir))
 
 
 

@@ -914,12 +914,11 @@ code review website:
 @uref{http://codereview.appspot.com/}
 @end example
 
-@subsubheading Initial setup
+@subsubheading @command{git-cl} install
+
+LilyDev users should skip over these @q{install} instructions.
 
 @enumerate
-
-@item
-You must have a gmail account.
 
 @item
 Install @command{git-cl} by entering:
@@ -934,11 +933,21 @@ symbolic link to the @command{git-cl} and @command{upload.py}
 scripts in one of your PATH directories (such as
 @file{$HOME/bin}).
 
+@end enumerate
+
+@subsubheading @command{git-cl} configuration
+
+LilyDev users should perform these @q{configuration} instructions.
+
+@enumerate
+@item
+You must have a gmail account; please create one if you do not
+have one already.
 
 @item
-Move into the top source directory and then configure
-@command{git cl}.  If you do not understand any question, just
-answer with a newline (CR).
+Move into the top source directory and then configure @command{git
+cl} with the following commands.  If you do not understand any
+question, just answer with a newline (CR).
 
 @example
 cd $HOME/lilypond-git/

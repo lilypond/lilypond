@@ -52,15 +52,16 @@ struct System_spec
 struct Break_position
 {
   /*
-    index in system_spec_index_, if VPOS start of book. 
+    index into system_specs_, if this is VPOS, the Break_position represents the
+    start of the book. 
    */
   vsize system_spec_index_;
 
-  /* if system_spec_index_ is a score, then we start at the score_brk_'th possible
-     page-break in the score */
+  /* if system_spec_index_ indexes a score, then we start at the score_brk_'th
+     possible page-break in the score */
   vsize score_break_; 
 
-  /* if system_spec_index_ is a score, this points to the broken column */
+  /* if system_spec_index_ indexes a score, this points to the broken column */
   Grob *col_;  
   bool score_ender_;
 

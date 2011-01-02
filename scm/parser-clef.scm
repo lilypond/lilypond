@@ -143,6 +143,65 @@
 		       (sort (map car supported-clefs) string<?)))
 	  (make-music 'Music)))))
 
+(define-public (make-cue-clef-set clef-name)
+  "Generate the clef setting commands for a cue clef with name CLEF-NAME."
+  (define (make-prop-set props)
+    (let ((m (make-music 'PropertySet)))
+      (map (lambda (x) (set! (ly:music-property m (car x)) (cdr x))) props)
+      m))
+  (let ((e '())
+	(c0 0)
+	(oct 0)
+	(match (string-match "^(.*)([_^])([1-9][0-9]*)$" clef-name)))
+    (if match
+	(begin
+	  (set! clef-name (match:substring match 1))
+	  (set! oct
+		(* (if (equal? (match:substring match 2) "^") -1 1)
+		   (- (string->number (match:substring match 3)) 1)))))
+    (set! e (assoc-get clef-name supported-clefs))
+    (if e
+	(let* ((musics (map make-prop-set
+			    `(((symbol . cueClefGlyph) (value . ,(car e)))
+			      ((symbol . middleCCuePosition)
+			       (value . ,(+ oct
+					    (cadr e)
+					    (assoc-get (car e) c0-pitch-alist))))
+			      ((symbol . cueClefPosition) (value . ,(cadr e)))
+			      ((symbol . cueClefOctavation) (value . ,(- oct))))))
+	       (recalc-mid-C (make-music 'ApplyContext))
+	       (seq (make-music 'SequentialMusic
+				'elements (append musics (list recalc-mid-C))))
+	       (csp (make-music 'ContextSpeccedMusic)))
+	  (set! (ly:music-property recalc-mid-C 'procedure) ly:set-middle-C!)
+	  (context-spec-music seq 'Staff))
+	(begin
+	  (ly:warning (_ "unknown clef type `~a'") clef-name)
+	  (ly:warning (_ "supported clefs: ~a")
+		      (string-join
+		       (sort (map car supported-clefs) string<?)))
+	  (make-music 'Music)))))
+
+
+(define-public (make-cue-clef-unset)
+  "Reset the clef settings for a cue clef."
+  (define (make-prop-unset props)
+    (let ((m (make-music 'PropertyUnset)))
+      (set! (ly:music-property m (car props)) (cdr props))
+      m))
+  (let* ((musics (map make-prop-unset
+			`((symbol . cueClefGlyph)
+			  (symbol . middleCCuePosition)
+			  (symbol . cueClefPosition)
+			  (symbol . cueClefOctavation))))
+	 (recalc-mid-C (make-music 'ApplyContext))
+	 (seq (make-music 'SequentialMusic
+			  'elements (append musics (list recalc-mid-C))))
+	 (csp (make-music 'ContextSpeccedMusic)))
+    (set! (ly:music-property recalc-mid-C 'procedure) ly:set-middle-C!)
+    (context-spec-music seq 'Staff)))
+
+
 ;; a function to add new clefs at runtime
 (define-public (add-new-clef clef-name clef-glyph clef-position octavation c0-position)
   "Append the entries for a clef symbol to supported clefs and c0-pitch-alist"

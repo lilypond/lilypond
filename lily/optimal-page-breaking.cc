@@ -72,12 +72,32 @@ Optimal_page_breaking::solve ()
     }
   else
     {
+      /* If systems-per-page and page-count are both specified, we know exactly
+	 how many systems should be present. */
+      if (systems_per_page () > 0)
+	{
+	  ideal_sys_count = systems_per_page () * page_count;
+
+	  if (ideal_sys_count > max_system_count (0, end)
+	      || ideal_sys_count < min_system_count (0, end))
+	    {
+	      warning (_ ("could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"));
+	      ideal_sys_count = best.system_count ();
+	      min_sys_count = page_count;
+	    }
+	  else
+	    {
+	      set_current_breakpoints (0, end, ideal_sys_count);
+	      min_sys_count = max_sys_count = ideal_sys_count;
+	      ideal_line_division = best_division = current_configuration (0);
+	    }
+	}
+      else
+	min_sys_count = page_count;
+
       /* TODO: the following line will spit out programming errors if the
 	 ideal line spacing doesn't fit on PAGE_COUNT pages */
-      /* TODO: the interaction between systems_per_page and page_count needs to
-	 be considered. */
       best = space_systems_on_n_pages (0, page_count, first_page_num);
-      min_sys_count = page_count;
     }
 
   if (page_count == 1)
@@ -89,7 +109,7 @@ Optimal_page_breaking::solve ()
 
   /* try a smaller number of systems than the ideal number for line breaking */
   Line_division bound = ideal_line_division;
-  for (vsize sys_count = ideal_sys_count; --sys_count >= min_sys_count;)
+  for (vsize sys_count = ideal_sys_count + 1; --sys_count >= min_sys_count;)
     {
       Page_spacing_result best_for_this_sys_count;
       set_current_breakpoints (0, end, sys_count, Line_division (), bound);

@@ -607,8 +607,8 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Quadrillage temporel
 @translationof Grid lines
 
-@cindex cadrillage temporel
-@cindex temporel, cadrillage
+@cindex quadrillage temporel
+@cindex temporel, quadrillage
 
 @funindex Grid_point_engraver
 @funindex Grid_line_span_engraver

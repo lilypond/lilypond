@@ -102,7 +102,9 @@
 	(break-visibility . ,begin-of-line-visible)
 	(non-musical . #t)
 	(space-alist . (
+			(cue-end-clef . (extra-space . 0.5))
 			(clef . (extra-space . 0.5))
+			(cue-clef . (extra-space . 0.5))
 			(key-signature . (extra-space . 0.0))
 			(staff-bar . (extra-space . 0.0))
 			(time-signature . (extra-space . 0.0))
@@ -415,9 +417,11 @@
 	(break-align-orders . ;; end of line
 			    #((
 			       left-edge
+			       cue-end-clef
 			       ambitus
 			       breathing-sign
 			       clef
+			       cue-clef
 			       staff-bar
 			       key-cancellation
 			       key-signature
@@ -427,9 +431,11 @@
 			      ;; unbroken
 			      (
 			       left-edge
+			       cue-end-clef
 			       ambitus
 			       breathing-sign
 			       clef
+			       cue-clef
 			       staff-bar
 			       key-cancellation
 			       key-signature
@@ -446,6 +452,7 @@
 			       key-signature
 			       staff-bar
 			       time-signature
+			       cue-clef
 			       custos)))
 	(non-musical . #t)
 	(positioning-done . ,ly:break-alignment-interface::calc-positioning-done)
@@ -467,6 +474,8 @@
 			(time-signature . (minimum-space . 1.5))
 			(staff-bar . (minimum-space . 1.5))
 			(clef . (minimum-space . 2.0))
+			(cue-clef . (minimum-space . 2.0))
+			(cue-end-clef . (minimum-space . 2.0))
 			(first-note . (fixed-space . 1.0)) ;huh?
 			(right-edge . (extra-space . 0.1))))
 	(stencil . ,ly:text-interface::print)
@@ -499,7 +508,7 @@
 	(break-visibility . ,begin-of-line-visible)
 	(glyph-name . ,ly:clef::calc-glyph-name)
 	(non-musical . #t)
-	(space-alist . ((ambitus . (extra-space . 2.0))
+	(space-alist . ((cue-clef . (extra-space . 2.0))
 			(staff-bar . (extra-space . 0.7))
 			(key-cancellation . (minimum-space . 3.5))
 			(key-signature . (minimum-space . 3.5))
@@ -555,6 +564,61 @@
 				side-position-interface
 				text-interface
 				text-script-interface))))))
+
+    (CueClef
+     . (
+	(avoid-slur . inside)
+	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+	(break-align-symbol . cue-clef)
+	(break-visibility . ,begin-of-line-visible)
+	(font-size . -3)
+	(glyph-name . ,ly:clef::calc-glyph-name)
+	(non-musical . #t)
+	(full-size-change . #t)
+	(space-alist . ((staff-bar . (minimum-space . 2.7))
+			(key-cancellation . (minimum-space . 3.5))
+			(key-signature . (minimum-space . 3.5))
+			(time-signature . (minimum-space . 4.2))
+			(custos . (minimum-space . 0.0))
+			(first-note . (minimum-fixed-space . 3.0))
+			(next-note . (extra-space . 0.5))
+			(right-edge . (extra-space . 0.5))))
+	(stencil . ,ly:clef::print)
+	(extra-spacing-height . (-0.5 . 0.5))
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
+	(meta . ((class . Item)
+		 (interfaces . (break-aligned-interface
+				clef-interface
+				font-interface
+				staff-symbol-referencer-interface))))))
+
+    (CueEndClef
+     . (
+	(avoid-slur . inside)
+	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+	(break-align-symbol . cue-end-clef)
+	(break-visibility . ,begin-of-line-invisible)
+	(font-size . -3)
+	(glyph-name . ,ly:clef::calc-glyph-name)
+	(non-musical . #t)
+	(full-size-change . #t)
+	(space-alist . ((clef . (extra-space . 0.7))
+			(cue-clef . (extra-space . 0.7))
+			(staff-bar . (extra-space . 0.7))
+			(key-cancellation . (minimum-space . 3.5))
+			(key-signature . (minimum-space . 3.5))
+			(time-signature . (minimum-space . 4.2))
+			(first-note . (minimum-fixed-space . 5.0))
+			(next-note . (extra-space . 0.5))
+			(right-edge . (extra-space . 0.5))))
+	(stencil . ,ly:clef::print)
+	(extra-spacing-height . (-0.5 . 0.5))
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
+	(meta . ((class . Item)
+		 (interfaces . (break-aligned-interface
+				clef-interface
+				font-interface
+				staff-symbol-referencer-interface))))))
 
     (Custos
      . (
@@ -940,6 +1004,7 @@
 			(time-signature . (extra-space . 1.25))
 			(staff-bar . (extra-space . 0.6))
 			(key-signature . (extra-space . 0.5))
+			(cue-clef . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
@@ -962,6 +1027,7 @@
 	(space-alist . (
 			(time-signature . (extra-space . 1.15))
 			(staff-bar . (extra-space . 1.1))
+			(cue-clef . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
@@ -1014,16 +1080,18 @@
 	(break-visibility . ,center-invisible)
 	(non-musical . #t)
 	(space-alist . (
-			(custos . (extra-space . 0.0))
 			(ambitus . (extra-space . 2.0))
-			(time-signature . (extra-space . 1.0))
-			(staff-bar . (extra-space . 0.0))
 			(breathing-sign . (minimum-space . 0.0))
+			(cue-end-clef . (extra-space . 0.8))
 			(clef . (extra-space . 0.8))
+			(cue-clef . (extra-space . 0.8))
+			(staff-bar . (extra-space . 0.0))
+			(key-cancellation . (extra-space . 0.0))
+			(key-signature . (extra-space . 0.8))
+			(time-signature . (extra-space . 1.0))
+			(custos . (extra-space . 0.0))
 			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.0))
-			(key-signature . (extra-space . 0.8))
-			(key-cancellation . (extra-space . 0.0))
 			))
 	(X-extent . (0 . 0))
 	(meta . ((class . Item)
@@ -1324,7 +1392,7 @@
 
     (OctavateEight
      . (
-	(break-visibility . ,begin-of-line-visible)
+	(break-visibility . ,inherit-x-parent-visibility)
 	(font-shape . italic)
 	(font-size . -4)
 	(self-alignment-X . ,CENTER)
@@ -2087,6 +2155,7 @@
 	(extra-spacing-height . (-1.0 . 1.0))
 	(non-musical . #t)
 	(space-alist . (
+			(cue-clef . (extra-space . 1.5))
 			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.5))
 			(staff-bar . (minimum-space . 2.0))))
