@@ -182,34 +182,54 @@ not caused problems with previously working code.  The comparison
 is made automatically upon compiling the regression test suite
 twice.
 
-Before making changes, a baseline should be established by running:
+@enumerate
+
+@item
+Before making changes, a baseline should be established by
+running:
 
 @example
 make test-baseline
 @end example
 
-After making the changes, the code should be checked by running:
+@item
+Make your changes, or apply the patch(es) to consider.
+
+@item
+Check for unintentional changes to the regtests:
 
 @example
 make check
 @end example
 
-After @samp{make@tie{}check} is complete, a regression test comparison
-will be available at @file{out/test-results/index.html}.
+After this has finished, a regression test comparison will be
+available at:
+
+@example
+out/test-results/index.html
+@end example
+
 For each regression test that differs between the baseline and the
-changed code, a regression test entry will displayed.  Ideally, the
-only changes would be the changes that you were working on.  If
-regressions are introduced, they must be fixed before committing the
-code.
+changed code, a regression test entry will displayed.  Ideally,
+the only changes would be the changes that you were working on.
+If regressions are introduced, they must be fixed before
+committing the code.
 
 @warning{
 The special regression test @file{test-output-distance.ly} will always
 show up as a regression.  This test changes each time it is run, and
 serves to verify that the regression tests have, in fact, run.}
 
-Once @samp{make@tie{}test-baseline} and @samp{make@tie{}check} have been
-run, the files that differ between @samp{test-baseline} and @samp{check}
-can be repeatedly examined by doing:
+@item
+If you are happy with the results, then stop now.
+
+If you want to continue programming, then make any additional code
+changes, and continue.
+
+@item
+To re-check files that differed between the initial
+@samp{make@tie{}test-baseline} and your post-changes
+@samp{make@tie{}check}, run:
 
 @example
 make test-redo
@@ -218,8 +238,10 @@ make test-redo
 This updates the regression list at @file{out/test-results/index.html}.
 It does @emph{not} redo @file{test-output-distance.ly}.
 
+@item
 When all regressions have been resolved, the output list will be empty.
 
+@item
 Once all regressions have been resolved, a final check should be completed
 by running:
 
@@ -230,6 +252,8 @@ make check
 
 This cleans the results of the previous @samp{make@tie{}check}, then does the
 automatic regression comparison again.  
+
+@end enumerate
 
 
 @node Memory and coverage tests
