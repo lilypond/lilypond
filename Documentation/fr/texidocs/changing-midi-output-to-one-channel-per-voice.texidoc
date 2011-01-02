@@ -7,8 +7,8 @@ n'y en a que seize de disponibles.
 
 Le fait de déplacer le @code{Staff_performer} dans le contexte
 @code{Voice} permet d'affecter à chaque voix d'une même portée un canal
-MIDI spécifique.  L'exemple suivant, la même portée donnera lieu à deux
-canaux danaux MIDI différents, chacun étant affectée de son propre
+MIDI spécifique.  Dans l'exemple suivant, la même portée donnera lieu à
+deux canaux MIDI différents, chacun étant affecté de son propre
 @code{midiInstrument}.
 
 "
