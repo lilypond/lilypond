@@ -95,7 +95,10 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
 	   && safe_is_member (g->get_property ("break-align-symbol"),
 			      text_->get_property ("break-align-symbols"))
 	   && Item::break_visible (g))
-    support_ = g;
+    {
+      support_ = g;
+      text_->set_parent (g, X_AXIS);
+    }
 }
 
 void
