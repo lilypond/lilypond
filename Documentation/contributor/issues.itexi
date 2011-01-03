@@ -733,8 +733,9 @@ Git has special functionality to help tracking down the exact
 commit which causes a problem.  See the git manual page for
 @code{git bisect}.  This is a job that non-programmers can do,
 although it requires familiarity with git, ability to compile
-LilyPond, and generally a fair amount of technical knowledge.  An
-in-depth explanation of this process will not be given here.
+LilyPond, and generally a fair amount of technical knowledge.  A
+brief summary is given below, but you may need to consult other
+documentation for in-depth explanations.
 
 Even if you are not familiar with git or are not able to compile
 LilyPond you can still help to narrow down the cause of a
@@ -742,11 +743,127 @@ regression simply by downloading the binary releases of different
 LilyPond versions and testing them for the regression.  Knowing
 which version of LilyPond first exhibited the regression is
 helpful to a developer as it shortens the @code{git bisect}
-procedure described above.
+procedure.
 
 Once a problematic commit is identified, the programmers' job is
 much easier.  In fact, for most regression bugs, the majority of
 the time is spent simply finding the problematic commit.
 
 More information is in @ref{Regression tests}.
+
+@subheading git bisect setup
+
+We need to set up the bisect for each problem we want to
+investigate.
+
+Suppose we have an input file which compiled in version 2.13.32,
+but fails in version 2.13.38 and above.
+
+@enumerate
+@item
+Begin the process:
+
+@example
+git bisect start
+@end example
+
+@item
+Give it the earliest known bad tag:
+
+@example
+git bisect bad release/2.13.38-1
+@end example
+
+(you can see tags with: @code{git tag} )
+
+@item
+Give it the latest known good tag:
+
+@example
+git bisect good release/2.13.32-1
+@end example
+
+You should now see something like:
+@example
+Bisecting: 195 revisions left to test after this (roughly 8 steps)
+[b17e2f3d7a5853a30f7d5a3cdc6b5079e77a3d2a] Web: Announcement
+update for the new "LilyPond Report"
+@end example
+
+@end enumerate
+
+@subheading git bisect actual
+
+@enumerate
+
+@item
+Compile the source:
+
+@example
+make
+@end example
+
+@item
+Test your input file:
+
+@example
+out/bin/lilypond test.ly
+@end example
+
+@item
+Test results?
+
+@itemize
+@item
+Does it crash, or is the output bad?  If so:
+
+@example
+git bisect bad
+@end example
+
+@item
+Does your input file produce good output?  If so:
+
+@example
+git bisect good
+@end example
+
+@end itemize
+
+@item
+Once the exact problem commit has been identified, git will inform
+you with a message like:
+
+@example
+6d28aebbaaab1be9961a00bf15a1ef93acb91e30 is the first bad commit
+%%% ... blah blah blah ...
+@end example
+
+If there is still a range of commits, then git will automatically
+select a new version for you to test.  Go to step #1.
+
+@end enumerate
+
+@subheading Recommendation: use two terminal windows
+
+@itemize
+@item
+One window is open to the @code{build/} directory, and alternates
+between these commands:
+
+@example
+make
+out/bin/lilypond test.ly
+@end example
+
+@item
+One window is open to the top source directory, and alternates
+between these commands:
+
+@example
+git bisect good
+git bisect bad
+@end example
+
+@end itemize
 

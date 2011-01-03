@@ -196,6 +196,9 @@ make test-baseline
 Make your changes, or apply the patch(es) to consider.
 
 @item
+Compile the source with @samp{make} as usual.
+
+@item
 Check for unintentional changes to the regtests:
 
 @example
@@ -225,6 +228,9 @@ If you are happy with the results, then stop now.
 
 If you want to continue programming, then make any additional code
 changes, and continue.
+
+@item
+Compile the source with @samp{make} as usual.
 
 @item
 To re-check files that differed between the initial
