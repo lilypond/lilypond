@@ -485,6 +485,16 @@ required merging and stuff.
 
 (prep: 2 hours.  discuss: 10 hours)
 
+@item @strong{Precise definition of Critical issues}:
+at the moment, a stable release is entirely dependent on the
+number of Critical issues, but there's some questions about
+precisely what a "Critical issue" should be.  We should clarify
+this, in conjunction with a general discussion about how often we
+want to have stable releases, how permissive we want to be about
+patches, etc etc.
+
+(prep: 1 hour.  discuss: 5 hours)
+
 @end itemize
 
 
