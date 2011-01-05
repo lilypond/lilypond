@@ -449,18 +449,23 @@ you bookmark the resulting page:
 firefox ~/lilypond-git/build/out-www/offline-root/index.html
 @end example
 
-@subsubheading Other options
-
-To select different build options, or isolate certain parts of the
-build, or to use multiple CPUs while building, read the rest of
-this chapter.
-
-@subsubheading Installing LilyPond with lilydev
+@subsubheading Installing
 
 Don't.  There is no reason to install lilypond within lilydev.
 All development work can (and should) stay within the
 @file{$HOME/lilypond-git/} directory, and any personal composition
 or typesetting work should be done with an official GUB release.
+
+
+@subsubheading Problems and other options
+
+To select different build options, or isolate certain parts of the
+build, or to use multiple CPUs while building, read
+@ref{Compiling}.
+
+In particular, contributors working on the documentation should be
+aware of some bugs in the build system, and should read the
+workarounds in @ref{Generating documentation}.
 
 
 @node Now start work!

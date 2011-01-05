@@ -609,9 +609,14 @@ make [-j@var{X} CPU_COUNT=@var{X}] doc  @emph{## usually faster than initial bui
 @item
 Reset:
 
-@example
-make doc-clean              @emph{## use only as a last resort.}
-@end example
+In some cases, it is possible to clean the compiled documentation
+with @samp{make@tie{}doc-clean}, but this method is not guaranteed
+to fix everything.  Instead, we recommend that you delete your
+@file{build/} directory, and begin compiling from scratch.  Since
+the documentation compile takes much longer than the
+non-documentation compile, this does not increase the overall time
+by a great deal.
+
 @end itemize
 
 @node Building documentation
