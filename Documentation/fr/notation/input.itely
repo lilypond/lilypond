@@ -1705,7 +1705,7 @@ Et ces même mesures avec la police de LilyPond, Feta@tie{}:
 
 Téléchargez puis décompressez l'archive zip.  Recopiez le répertoire
 @code{lilyfonts} dans  @file{@var{SHARE_DIR}/lilypond/current} -- voir
-@rlearning{Autres sources d'information} à ce sujet.  Renommez le
+@rlearning{Autres sources de documentation} à ce sujet.  Renommez le
 répertoire @code{fonts} qui s'y trouve en @code{fonts_orig}, puis les
 répertoire @code{lilyfonts} en @code{fonts}.  Il vous suffira, pour
 retrouver la fonte Feta, de renommer @code{fonts_orig} en @code{fonts}.
@@ -1713,7 +1713,7 @@ retrouver la fonte Feta, de renommer @code{fonts_orig} en @code{fonts}.
 
 @seealso
 Manuel d'initiation :
-@rlearning{Autres sources d'information}.
+@rlearning{Autres sources de documentation}.
 
 @knownissues
 
@@ -1927,7 +1927,7 @@ tout point identique à celle que vous utilisez dans le bloc
 @qq{interprète}.  Les différents contextes disponibles en matière de
 MIDI sont répertoriés dans le fichier d'initialisation
 @file{../ly/performer-init.ly} -- pour plus de détail, voir
-@rlearning{Autres sources d'information}.
+@rlearning{Autres sources de documentation}.
 Si vous voulez vous passer des nuances dans votre fichier MIDI, il vous
 suffit d'insérer les lignes suivantes dans votre bloc
 @code{\midi@{ @}}.
@@ -2112,11 +2112,11 @@ Les indications de nuances sont transcrites en fraction du volume MIDI.
 Nous allons, par défaut, de 0,25 pour un @notation{ppppp} à 0,95 pour un
 @notation{fffff}.  Les correspondances entre nuance et fraction de
 volume sont répertoriées dans le fichier @file{../scm/midi.scm} --
-consultez la rubrique @rlearning{Autres sources d'information} si vous
-ne savez comment le localiser.  Vous pouvez modifier ou étendre ce jeu
-grâce à une fonction qui prendra en argument une indication de nuance et
-renverra la fraction désirée, puis en affectant cette fonction à
-@code{Score.dynamicAbsoluteVolumeFunction}.
+consultez la rubrique @rlearning{Autres sources de documentation} si
+vous ne savez comment le localiser.  Vous pouvez modifier ou étendre ce
+jeu grâce à une fonction qui prendra en argument une indication de
+nuance et renverra la fraction désirée, puis en affectant cette fonction
+à @code{Score.dynamicAbsoluteVolumeFunction}.
 
 Prenons un exemple.  Votre partition comporte un  @notation{rinforzando}
 que vous avez indiqué par @code{\rfz}.  Cette indication de nuance

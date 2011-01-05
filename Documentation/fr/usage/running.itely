@@ -62,7 +62,7 @@ nombreuses documentations que vous pourrez trouver sur ce sujet.
 
 @menu
 * Lancement de lilypond::
-* Options en ligne de commande::
+* Options en ligne de commande pour lilypond::
 * Variables d'environnement::
 * Exécution de LilyPond en mode protégé::
 @end menu
