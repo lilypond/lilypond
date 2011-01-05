@@ -1058,9 +1058,6 @@ Moving the cursor in the LilyPond text moves the cursor in the graphical
 view, and any syntax errors in your LilyPond tweaks are highlighted in
 the text view when printed from there.
 
-@warning{Denemo officially supports an outdated Lilypond version 2.8.7,
-which lacks many of the features added since then.  The Denemo developers
-are actively working to bring it up to our present stable version, 2.12.}
 @divEnd
 
 @divClass{column-center-top}
