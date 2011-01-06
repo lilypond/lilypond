@@ -286,7 +286,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @divClass{heading-center}
 @divClass{contactBox}
-Wenn Sie irgendein \topic\ hier vermissen, teilen Sie das uns
+Wenn Sie die Erwähnung von \topic\ hier vermissen, teilen Sie das uns
 bitte mit und beachten Sie die Anleitung dazu unter
 @ref{Fehlerberichte}.
 
