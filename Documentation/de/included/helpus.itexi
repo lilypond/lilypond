@@ -71,7 +71,7 @@ kompilieren können.
 @warning{Wir empfehlen, dass Beitragende, die Windows oder
 MacOS X benutzen, @strong{nicht} ihre eigene Entwicklungsumgebung
 einrichten, sondern anstattdessen lilybuntu benutzen, welches
-besprochen ist in @rcontribnamed{Quick start,Schnellstart}.
+besprochen ist in @rcontribnamed{Quick start,Schnellstart}.}
 
 Beitragende, die Linux oder FreBSD benutzen, können auch lilybuntu
 einsetzen, aber wenn Sie Ihre eigene Entwicklungsumgebung einrichten
