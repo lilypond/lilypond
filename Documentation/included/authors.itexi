@@ -35,11 +35,6 @@
 
 @itemize
 
-@item Mats Bengtsson:
-@email{mats.bengtsson@@ee.kth.se},
-@uref{http://www.s3.kth.se/~mabe/},
-Support guru
-
 @item Trevor Daniels:
 @email{t.daniels@@treda.co.uk},
 Assistant documentation editor
@@ -91,9 +86,6 @@ Assistant documentation editor, Code cleanup
 @item Neil Puttock:
 Core developer
 
-@item Nicolas Sceaux:
-Core developer, Schemer extraordinaire
-
 @item Carl Sorensen:
 @email{c_sorensen@@byu.edu},
 Core developer, Frog meister
@@ -115,6 +107,11 @@ LSR editor and Bug squad member
 
 @c use colons not commas for @item entries.
 
+@item Mats Bengtsson:
+@email{mats.bengtsson@@ee.kth.se},
+@uref{http://www.s3.kth.se/~mabe/},
+Support guru
+
 @item Pedro Kroeger:
 Build meister
 
@@ -133,6 +130,9 @@ Ancient notation
 
 @item Erik Sandberg:
 Bug meister
+
+@item Nicolas Sceaux:
+Core developer, Schemer extraordinaire
 
 @end itemize
 @end macro
