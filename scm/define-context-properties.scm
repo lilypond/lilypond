@@ -452,7 +452,7 @@ value is only used once, and then it is erased.")
      (stringOneTopmost ,boolean? "Whether the first string is
 printed on the top line of the tablature.")
      (stringTunings ,list? "The tablature strings tuning.  It is a list
-of the pitch (in semitones) of each string (starting with the lower
+of the pitches of each string (starting with the lowest numbered
 one).")
      (strokeFingerOrientations ,list? "See
 @code{fingeringOrientations}.")
