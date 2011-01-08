@@ -1,3 +1,6 @@
+
+.SUFFIXES: .html .info .texi .texinfo
+
 $(outdir)/%.texi: $(src-dir)/%.texi
 	cp -p $< $@
 
