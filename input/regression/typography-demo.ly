@@ -19,8 +19,7 @@ ignoreMelismaOff = \unset ignoreMelismata
 				%#(set-global-staff-size (* 5.8 mm))
   indent = #(* mm 4)
   line-width = #(* mm 140)
-  interscoreline = 2.\mm
-  between-system-space = 15\mm
+  system-system-spacing #'basic-distance = #10.3
   ragged-bottom = ##t 
 }
 
@@ -146,7 +145,6 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
       \layout {
 	\context {
 	  \Lyrics
-	  \override VerticalAxisGroup #'minimum-Y-extent = #'(-0.85 . 2.2)
 	  \override LyricText #'font-size = #-1
 	}
 	\context {
