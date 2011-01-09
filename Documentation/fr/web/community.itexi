@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 87a9977bbd54e3822338e290716845d8e2e304e3
+    Translation of GIT committish: 17f11c2f5ab963bfb07b7652b4860dc4dda5540a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -438,8 +438,19 @@ ligne
 sans oublier le @code{>} au tout début de votre message@tie{}; c'est
 @strong{impératif}.
 
+Si vous ne voulez ou ne pouvez pas envoyer un rapport de bogue selon les
+instructions et en anglais, envoyez votre rapport ou posez votre
+question sur la @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+liste francophone}@tie{}; nous nous chargerons de transmettre un rapport
+à la liste anglophone et assurerons le suivi.
+
 @end itemize
+
 @divEnd
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Étape 4: Notification de prise en compte
 
 Une fois le message reçu, nos @qq{exterminateurs de bogues} analyseront
 votre rapport et vous demanderont peut-être des informations
@@ -450,12 +461,15 @@ une fois qu'il aura été ajouté à la base.
 
 Vous serez automatiquement notifié du traitement apporté à ce bogue, dès
 lors que vous avez une compte chez google.
+@divEnd
 
-Si vous ne voulez ou ne pouvez pas envoyer un rapport de bogue selon les
-instructions et en anglais, envoyez votre rapport ou posez votre
-question sur la @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-liste francophone}@tie{}; nous transmettrons un rapport à
-la liste anglophone et assurerons le suivi.
+@divClass{column-center-bottom}
+@subheading Information complémentaire : indication du comportement escompté
+
+Une fois votre requête enregistrée, n'hésitez pas à nous indiquer le
+résultat que vous escomptiez.  Qu'il s'agisse d'un bout de code ou d'une
+image -- réalisée à partir de n'importe quel outil --, tant qu'il nous
+aide à voir ce que vous désirez obtenir.
 @divEnd
 
 
