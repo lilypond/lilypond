@@ -418,6 +418,10 @@ report.
 
 @end itemize
 @divEnd
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Step 4: Wait for a response
 
 Once your bug has been sent to the list, our Bug Squad will
 examine the report.  Please allow up to 24 hours, as we have a
@@ -429,6 +433,17 @@ You may mark the bug so that you automatically receive emails when
 any activity on the bug occurs.  This requires you have a google
 account.
 @divEnd
+
+@divClass{column-center-bottom}
+@subheading Optional help: show the desired behavior
+
+Once an issue has been added to the tracker, it can be very
+helpful if we can see the desired output.  Feel free to add input
+code and/or images (possibly created with other tools) which
+demonstrate what you think it should look like!
+
+@divEnd
+
 
 
 @node Help us
