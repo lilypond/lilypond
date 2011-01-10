@@ -1747,28 +1747,34 @@ are to be ignored.
 
 @subsubheading Adding syllables to grace notes
 
+@cindex grace notes and lyrics
+@cindex lyrics on grace notes
+
 By default, grace notes (e.g. via @code{\grace}) do not get assigned
 syllables when using @code{\lyricsto}, but this behavior can be
 changed:
 
 @lilypond[verbatim,ragged-right,quote]
-\relative c' {
-  f4 \appoggiatura a32 b4
-  \grace { f16[ a16] } b2
-  \afterGrace b2 { f16[ a16] }
-  \appoggiatura a32 b4
-  \acciaccatura a8 b4
-}
-\addlyrics {
-  normal
-  \set includeGraceNotes = ##t
-  case,
-  gra -- ce case,
-  after -- grace case,
-  \set ignoreMelismata = ##t
-  app. case,
-  acc. case.
-}
+<<
+  \new Voice = melody \relative c' {
+    f4 \appoggiatura a32 b4
+    \grace { f16[ a16] } b2
+    \afterGrace b2 { f16[ a16] }
+    \appoggiatura a32 b4
+    \acciaccatura a8 b4
+  }
+  \new Lyrics
+  \lyricsto melody {
+    normal
+    \set includeGraceNotes = ##t
+    case,
+    gra -- ce case,
+    after -- grace case,
+    \set ignoreMelismata = ##t
+    app. case,
+    acc. case.
+  }
+>>
 @end lilypond
 
 @knownissues
