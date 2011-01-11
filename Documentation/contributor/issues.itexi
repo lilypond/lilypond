@@ -507,7 +507,7 @@ Currently, only Critical items will block a stable release.
 Priority-Critical: LilyPond segfaults, a regression (see below)
 against a previous stable version or a regression against a fix
 developed for this version. This does not apply where the
-"regression" occurred because a feature was removed
+@qq{regression} occurred because a feature was removed
 deliberately - this is not a bug.
 
 @item
@@ -814,7 +814,7 @@ You should now see something like:
 @example
 Bisecting: 195 revisions left to test after this (roughly 8 steps)
 [b17e2f3d7a5853a30f7d5a3cdc6b5079e77a3d2a] Web: Announcement
-update for the new "LilyPond Report"
+update for the new @qq{LilyPond Report}.
 @end example
 
 @end enumerate
