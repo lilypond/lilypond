@@ -358,7 +358,7 @@ def staff_attributes_to_string_tunings (mxl_attr):
     if staff_lines:
         lines = string.atoi (staff_lines.get_text ())
 
-    tunings = [0]*lines
+    tunings = [musicexp.Pitch()]*lines
     staff_tunings = details.get_named_children ('staff-tuning')
     for i in staff_tunings:
         p = musicexp.Pitch()
