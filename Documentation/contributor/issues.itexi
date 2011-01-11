@@ -504,11 +504,11 @@ Currently, only Critical items will block a stable release.
 @itemize
 
 @item
-Priority-Critical: LilyPond segfaults, a regression against a
-previous stable version or a regression against a fix developed
-for this version.  This does not apply where the @qq{regression}
-occurred because a feature was removed deliberately - this is not
-a bug.
+Priority-Critical: LilyPond segfaults, a regression (see below)
+against a previous stable version or a regression against a fix
+developed for this version. This does not apply where the
+"regression" occurred because a feature was removed
+deliberately - this is not a bug.
 
 @item
 Priority-High: An issue which produces output which does not
@@ -536,6 +536,11 @@ which nobody wants to touch.
 
 @end itemize
 
+Note that these are initial classifications and can be subject
+to change by others in the development team.  For example, a
+regression against an old stable version which hasn't been
+noticed for a long time and which is unlikely to get fixed could
+be downgraded from Priority-Critical by one of the programmers.
 
 @subheading Opsys (optional)
 
@@ -549,10 +554,32 @@ Other labels:
 @itemize
 
 @item
-Regression: it used to @strong{deliberately} work in an earlier
+Regression: it used to work intentionally in an earlier
 stable release.  If the earlier output was accidental (i.e. we
 didn't try to stop a collision, but it just so happened that two
 grobs didn't collide), then breaking it does not count as a
+regression.
+
+To help decide whether the change is a regression, and therefore
+should be Priority-Critical, please adopt the following process:
+
+@enumerate
+
+@item
+Are you certain the change is OK?  If so, do nothing.
+
+@item
+Are you certain that the change is bad?  Add it to the tracker
+as a Critical issue, regression.
+
+@item
+If you're not certain either way, add it to the tracker as a
+Critical issue, regression but be aware that it may be
+recategorised or marked invalid.
+
+@end enumerate
+
+In particular, anything that breaks a regression test is a
 regression.
 
 @item
@@ -866,4 +893,3 @@ git bisect bad
 @end example
 
 @end itemize
-
