@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: aa632c095138aaaa0f50f73c90e72efb4b61d745
+    Translation of GIT committish: a463d80d4be008ce05b12de86fc21f2b7c1c120f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -177,7 +177,7 @@ Eine Partitur (@code{\score}) muss immer mit einem musikalischen Ausdruck
 beginnen.  Das ist letztendlich alle Musik, angefangen bei einer
 einzelnen
 Note bis hin zu einer riesigen Partitur mit vielen Notensystemen
-(bezeichnet durch @code{GrandStaff}):
+(bezeichnet hier durch @code{GrandStaff}):
 
 @example
 @{
@@ -611,8 +611,8 @@ Balken beginn, jedoch schon vor dem Ende des Balkens enden.
 Dies mag zwar musikalisch wenig Sinn ergeben, ist aber in LilyPond
 auch möglich:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
- { g8\( a b[ c b\) a] g4 }
+@lilypond[quote,verbatim,ragged-right,relative=2]
+{ g8\( a b[ c b\) a] g4 }
 @end lilypond
 
 Im Allgemeinen können die verschiedenen Klammerarten,
@@ -624,12 +624,12 @@ reicht (Zeile 2), einen Balken und einen Bindeboden in eine Triole,
 ein Haltebogen, der über zwei Triolen läuft, sowie einen
 Phrasierungsbogen, der in einer Triole beginnt (Zeilen 3 und 4).
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 {
-  r16[ g \times 2/3 { r16 e'8] }
-  g16( a \times 2/3 { b16 d) e' }
-  g8[( a \times 2/3 { b8 d') e'~] } |
-  \times 4/5 { e'32\( a b d' e' } a'4.\)
+r16[ g \times 2/3 { r16 e'8] }
+g16( a \times 2/3 { b16 d) e' }
+g8[( a \times 2/3 { b8 d') e'~] } |
+\times 4/5 { e'32\( a b d' e' } a'4.\)
 }
 @end lilypond
 
@@ -686,7 +686,7 @@ Eine einzelne Stimme kann natürlich auch vielen Noten in einem Akkord
 enthalten -- wann also braucht man dann mehrere Stimmen? Schauen wir
 uns zuerst dieses Beispiel mit vier Akkorden an:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+@lilypond[quote,verbatim,ragged-right,relative=1]
 \key g \major
 <d g>4 <d fis> <d a'> <d g>
 @end lilypond
@@ -722,7 +722,7 @@ polyphone Stellen vorkommen.
 So sieht es aus, wenn die Akkorde in zwei Stimmen aufgeteilt werden
 und zur Durchgangsnote noch ein Bogen hinzugefügt wird:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[quote,verbatim,ragged-right,relative=2]
 \key g \major
 %    Voice "1"               Voice "2"
 << { g4 fis8( g) a4 g } \\ { d4 d d d }  >>
@@ -732,7 +732,7 @@ Beachte, dass die Hälse der zweiten Stimme nun nach unten zeigen.
 
 Hier ein anderes Beispiel:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[quote,verbatim,ragged-right,relative=2]
 \key d \minor
 %    Voice "1"             Voice "2"
 << { r4 g g4. a8 }    \\ { d,2 d4 g }       >>
@@ -746,7 +746,7 @@ Noten pro Takt kann es die Quelldatei besser lesbar machen, aber
 wenn in einem Takt viele Noten vorkommen, kann man die gesamten Stimmen
 separat schreiben, wie hier:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[quote,verbatim,ragged-right,relative=2]
 \key d \minor
 << {
   % Voice "1"
@@ -769,7 +769,7 @@ Die Stimmenkontexte tragen die Namen @code{"1"}, @code{"2"} usw. In jedem
 dieser Kontexte wird die vertikale Ausrichtung von Hälsen, Bögen, Dynamik-Zeichen
 usw. entsprechend ausgerichtet.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 \new Staff \relative c' {
   % Main voice
   c16 d e f
@@ -961,7 +961,7 @@ werden, beinhaltet das einige Schwierigkeiten.  Fangen wir an, wie
 wir es gelernt haben, indem wir mit der @code{<< \\  >>}-Konstruktion
 die drei Stimmen des ersten Taktes notieren:
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
   <<
@@ -988,7 +988,7 @@ Noten in die vierte Stimme verschieben.  Das wird einfach vorgenommen,
 indem noch ein Paar @code{\\}-Stimmen hinzugefügt wird.
 
 @c KEEP LY
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
   <<  % erste Stimme
@@ -1015,7 +1015,8 @@ gewöhnlich recht gut, aber in diesem Beispiel sind die Noten der untersten
 Stimme eindeutig standardmäßig schlecht positioniert.  LilyPond bietet
 verschiedene Möglichkeiten, die horizontale Position von Noten
 anzupassen.  Wir sind aber noch nicht so weit, dass wir diese Funktionen
-anwenden könnten.  Darum heben wir uns das Problem für einen späteren Abschnitt auf; siehe @code{force-hshift}-Eigenschaft in @ref{Überlappende Notation in Ordnung bringen}.
+anwenden könnten.  Darum heben wir uns das Problem für einen späteren Abschnitt auf; siehe @code{force-hshift}-Eigenschaft in
+@ref{Überlappende Notation in Ordnung bringen}.
 
 
 @seealso
@@ -1307,7 +1308,7 @@ komplexer wird, muss der Gesangstext mit einem neuen
 mit einer bestimmten Stimme verknüpft werden, indem die
 Bezeichnung der Stimme benutzt wird.
 
-@lilypond[quote,verbatim,fragment]
+@lilypond[quote,verbatim]
 <<
   \new Voice = "one" {
     \relative c'' {
@@ -1491,7 +1492,7 @@ hinzugefügt werden,
 die im Quellcode gar nicht explizit vorkommen.  Vergleichen Sie
 etwa den Quellcode und die Notenausgabe des folgenden Beispiels:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,verbatim,relative=2]
 cis4 cis2. | a4 a2. |
 @end lilypond
 
@@ -1987,7 +1988,7 @@ wir als Beispiel, die Schriftgröße mehrmals zu ändern, was sich unter anderem
 auf die Notenköpfe auswirkt.  Die Änderung bezieht sich immer auf den Standard,
 nicht vom letzten gesetzten Wert.
 
-@lilypond[quote,verbatim,ragged-right,relative=1,fragment]
+@lilypond[quote,verbatim,ragged-right,relative=1]
 c4 d
 % make note heads smaller
 \set fontSize = #-4
@@ -2314,6 +2315,12 @@ einer @code{\context}-Umgebung angewendet wird.
 @seealso
 Notationsreferenz: @ruser{Umgebungs-Plugins verändern},
 @ruser{Die Standardeinstellungen von Kontexten ändern}.
+
+@knownissues
+Die @code{Stem_engraver} und @code{Beam_engraver} fügen ihre
+Objekte an Notenköpfe an.  Wenn der @code{Note_heads_engraver}
+entfernt wird, werden keine Notenköpfe erstellt und demzufolge auch keine
+Hälse oder Bögen dargestellt.
 
 
 @node Erweiterung der Beispiele
@@ -3091,19 +3098,19 @@ wird), und das Pedalsystem sollte sich genauso verhalten.
 @cindex Grobs
 @cindex Objekte, graphische
 
-Die Spreizbarkeit von Systemen kann mit der @code{nex-staff-spacing}-Eigenschaft
+Die Spreizbarkeit von Systemen kann mit der @code{staff-staff-spacing}-Eigenschaft
 des @code{VerticalAxisGroup}-@qq{graphischen Objekts} (üblicherweise als
 @qq{Grob} innerhalb der LilyPond-Dokumentation bezeichnet) kontrolliert
 werden.  An dieser Stelle brauchen Sie sich um die Details nicht zu
-sorgen, sie werden später erklärt.  Sehr neugierigen können sich den
-Abschnitt @ruser{Overview of modifying properties} anschauen.  Im Moment
-kann man nicht nur die @code{strechability}-Untereigenschaft verändern,
+sorgen, sie werden später erklärt.  Sehr Neugierige können sich den
+Abschnitt @ruser{Grundlagen zum Verändern von Eigenschaften} anschauen.  Im Moment
+kann man nicht nur die @code{strechability} (Spreizbarkeit)-Untereigenschaft verändern,
 darum müssen hier auch die anderen Untereigenschaften kopiert werden.  Die
 Standardeinstellungen dieser Untereigenschaften finden sich in der Datei
 @file{scm/define-grobs.scm} in den Definitionen für den
 @code{VerticalAxisGroup}-Grob.  Der Wert für @code{strechability} wird aus
 der Definition für das Klaviersystem (@code{PianoStaff}) entnommen
-(in der Datei @file{ly/engraver-init.ly}) sodass die Werte identisch
+(in der Datei @file{ly/engraver-init.ly}), damit die Werte identisch
 sind.
 
 @example
@@ -3124,10 +3131,7 @@ sind.
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with @{
         \override VerticalAxisGroup
-          #'staff-staff-spacing = #'((basic-distance . 9)
-                                     (minimum-distance . 8)
-                                     (padding . 1)
-                                     (stretchability . 5))
+          #'staff-staff-spacing = #'stretchability . 5
       @} <<
         \keyTime
         \clef "bass"
@@ -3193,10 +3197,7 @@ PedalOrganMusic = \relative c {
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with {
         \override VerticalAxisGroup
-          #'staff-staff-spacing = #'((basic-distance . 9)
-                                     (minimum-distance . 8)
-                                     (padding . 1)
-                                     (stretchability . 5))
+          #'staff-staff-spacing = #'stretchability . 5
       } <<
         \keyTime
         \clef "bass"
