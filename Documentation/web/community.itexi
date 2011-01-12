@@ -372,14 +372,14 @@ every bug can be demonstrated in four notes or less!}
 Here is an example of a good bug report:
 
 @example
-%% the octavation command doesn't
-%% change the output at all!
+% Accidentals should be printed for only
+% the first note in a tie, but this version
+% prints flats on both notes.
+\version "2.10.1"
 
-\version "2.10.0"
-\relative c''' @{
-  c1
-  #(set-octavation 1)
-  c1
+\relative c'' @{
+ bes1 ~
+ bes1
 @}
 @end example
 
