@@ -1072,8 +1072,8 @@ Notation Reference:
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
 
-To increase the spacing between lyrics, set the @code{minimum-distance}
-property of @code{LyricSpace}.
+To increase the spacing between lyrics, set the
+@code{minimum-distance} property of @code{LyricSpace}.
 
 @lilypond[relative=1,verbatim,quote,ragged-right]
 {
@@ -1689,7 +1689,8 @@ text = {
 
 Names of singers can also be added.  They are printed at the start of
 the line, just like instrument names.  They are created by setting
-@code{vocalName}.  A short version may be entered as @code{shortVocalName}.
+@code{vocalName}.  A short version may be entered as
+@code{shortVocalName}.
 
 @lilypond[ragged-right,quote,verbatim,relative=2]
 \new Voice {
@@ -1843,10 +1844,11 @@ within the lyrics by setting the @code{associatedVoice} property:
 @end lilypond
 
 @noindent
-The text for the first stanza is set to the melody called @q{lahlah}
-in the usual way, but the second stanza is set initally to the
-@code{lahlah} context and is then switched to the @code{alternative}
-melody for the syllables @q{ran} to @q{sau} by the lines:
+The text for the first stanza is set to the melody called
+@q{lahlah} in the usual way, but the second stanza is set initally
+to the @code{lahlah} context and is then switched to the
+@code{alternative} melody for the syllables @q{ran} to @q{sau} by
+the lines:
 
 @example
 \set associatedVoice = "alternative" % applies to "ran"
@@ -2063,8 +2065,8 @@ Snippets:
 @node Lead sheets
 @unnumberedsubsubsec Lead sheets
 
-Lead sheets may be printed by combining vocal parts and @q{chord mode};
-this syntax is explained in @ref{Chord notation}.
+Lead sheets may be printed by combining vocal parts and
+@q{chord mode}; this syntax is explained in @ref{Chord notation}.
 
 @snippets
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
@@ -2126,7 +2128,7 @@ For information about @code{ChoirStaff} and @code{PianoStaff} see
 @ref{Grouping staves}.
 
 @item
-Shape noteheads, as used in Sacred Harp and similar notation, are
+Shape note heads, as used in Sacred Harp and similar notation, are
 described in @ref{Shape note heads}.
 
 @item
@@ -2806,7 +2808,7 @@ Bar lines can also be removed on a staff-by-staff basis:
 
 To remove bar lines from just a section of music treat it as a
 cadenza.  If the section is long you may need to insert dummy
-barlines with @code{\bar ""} to show where the line should break.
+bar lines with @code{\bar ""} to show where the line should break.
 
 @lilypond[verbatim,quote,relative=2]
 a4 b c2 |
@@ -3193,7 +3195,8 @@ commands at the end of each line.
 @node Ancient vocal music
 @subsection Ancient vocal music
 
-Ancient vocal music is supported, as explained in @ref{Ancient notation}.
+Ancient vocal music is supported, as explained in
+@ref{Ancient notation}.
 
 @c TODO
 

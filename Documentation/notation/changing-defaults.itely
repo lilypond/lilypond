@@ -2916,7 +2916,7 @@ default setting of this property:
 @end multitable
 
 The example below shows the use of the vector form to control the
-visibility of barlines:
+visibility of bar lines:
 
 @lilypond[quote,verbatim,relative=1,ragged-right]
 f4 g a b

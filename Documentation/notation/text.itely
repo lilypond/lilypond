@@ -140,8 +140,9 @@ default; to enable it, use
 
 Some performance indications, e.g., @notation{rallentando} or
 @notation{accelerando}, are written as text and are extended over
-multiple notes with dotted lines.  Such objects, called @qq{spanners},
-may be created from one note to another using the following syntax:
+multiple notes with dotted lines.  Such objects, called
+@qq{spanners}, may be created from one note to another using the
+following syntax:
 
 @lilypond[verbatim,quote,relative=2]
 \override TextSpanner #'(bound-details left text) = "rit."
@@ -411,8 +412,8 @@ syntax called @qq{markup mode}.
 @cindex syntax, markup
 
 The markup syntax is similar to LilyPond's usual syntax: a
-@code{\markup} expression is enclosed in curly braces @code{@{
-@dots{} @}}.  A single word is regarded as a minimal expression,
+@code{\markup} expression is enclosed in curly braces
+@code{@{@dots{} @}}.  A single word is regarded as a minimal expression,
 and therefore does not need to be enclosed with braces.
 
 Unlike simple @qq{quoted text} indications, @code{\markup} blocks may
@@ -754,7 +755,8 @@ a,-\markup { \halign #2 poco }
 @noindent
 Some objects may have alignment procedures of their own, and therefore
 are not affected by these commands.  It is possible to move such
-markup objects as a whole, as shown for instance in @ref{Text marks}.
+markup objects as a whole, as shown for instance in
+@ref{Text marks}.
 
 @cindex text, vertical alignment
 @cindex vertical text alignment
@@ -1398,9 +1400,9 @@ left braces; right braces may be obtained by rotation, see
 @ref{Rotating objects}.
 
 Three families of text fonts are made available: the @emph{roman}
-(serif) font, that defaults to New Century Schoolbook, the @emph{sans}
-font and the monospaced @emph{typewriter} font -- these last two
-families are determined by the Pango installation.
+(serif) font, that defaults to New Century Schoolbook, the
+@emph{sans} font and the monospaced @emph{typewriter} font -- these
+last two families are determined by the Pango installation.
 
 Each family may include different shapes and series.  The following
 example demonstrates the ability to select alternate families, shapes,
