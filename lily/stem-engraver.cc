@@ -134,11 +134,13 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
   if (!stem_)
     make_stem (gi);
 
-  if (Stem::duration_log (stem_) != d->duration_log ())
+  int ds = Stem::duration_log (stem_);
+
+  if (ds != d->duration_log ())
     {
-      // FIXME: 
-      gi.event_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d)",
-						 1 << Stem::duration_log (stem_)));
+      gi.event_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d/%d)",
+						 ds < 0 ? 1 << -ds : 1,
+						 ds > 0 ? 1 << ds : 1));
       gi.event_cause ()->origin ()->warning (_ ("maybe input should specify polyphonic voices"));
     }
 
