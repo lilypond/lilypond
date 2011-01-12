@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
+    Translation of GIT committish: a463d80d4be008ce05b12de86fc21f2b7c1c120f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -575,8 +575,9 @@ hinzugefügt werden.  Die Beschriftung enthält Information zu dem
 gewünschten Bunddiagramm.  Es gibt drei unterschiedliche
 Darstellungsarten: normal, knapp und ausführlich.  Die drei
 Arten erzeugen die gleiche Ausgabe, aber mit jeweils mehr oder
-weniger Einzelheiten.  Einzelheiten zu Textbeschriftungsbefehlen
-findet sich in @ref{Textbeschriftungsbefehle}.
+weniger Einzelheiten.  Einzelheiten zur Syntax der unterschiedlichen
+Beschriftungsbefehle, mit denen die Bunddiagramme definiert werden,
+findet sich in @ref{Beschriftung für einzelne Instrumente}.
 
 Die Standard-Bunddiagrammbeschriftung beinhaltet die Saitennummer
 und die Bundnummer für jeden Punkt, der notiert werden soll.
@@ -962,7 +963,7 @@ Schnittstelle gehören dem @code{Voice.TextScript}-Kontext an.
 
 @seealso
 Notationsreferenz:
-@ref{Textbeschriftungsbefehle}.
+@ref{Beschriftung für einzelne Instrumente}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -1127,14 +1128,16 @@ mychords = \chordmode{
 
 Bunddiagramme können zu der Tabelle hinzugefügt werden.  Um ein
 Diagramm hinzuzufügen, muss der Akkord des Diagramms, die Stimmung
-und die Diagramm-Definition angegeben werden.  Die Diagramm-Definition
+und die Diagramm-Definition angegeben werden.  Dies geschieht normalerweise
+in der Tabelle @var{default-fret-table}.  Die Diagramm-Definition
 kann entweder eine @code{fret-diagram-terse}-Definition oder eine
 @code{fret-diagram-verbose}-Liste sein.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram #default-fret-table \chordmode { c:maj9 }
+\storePredefinedDiagram #default-fret-table 
+                        \chordmode { c:maj9 }
                         #guitar-tuning
                         #"x;3-2;o;o;o;o;"
 
@@ -1161,7 +1164,8 @@ die für transponierende Bunddiagramme eingesetzt wird.
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram #default-fret-table \chordmode { c'' }
+\storePredefinedDiagram #default-fret-table
+                        \chordmode { c'' }
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'bes guitar-tuning))
 
@@ -1209,10 +1213,12 @@ oder als @code{fret-diagram-verbose}-Liste erstellt werden.
 
 % add some new chords based on the power chord shape
 
-\storePredefinedDiagram #default-fret-table \chordmode { f'' }
+\storePredefinedDiagram #default-fret-table 
+                        \chordmode { f'' }
                         #guitar-tuning
                         #(chord-shape 'powerf guitar-tuning)
-\storePredefinedDiagram #default-fret-table \chordmode { g'' }
+\storePredefinedDiagram #default-fret-table 
+                        \chordmode { g'' }
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
@@ -1248,6 +1254,9 @@ gehören dem @code{FretBoards.FretBoard}-Kontext an.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chordchanges-for-fretboards.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{fretboards-alternate-tables.ly}
+
 
 @seealso
 Notationsreferenz:
@@ -1258,7 +1267,8 @@ Notationsreferenz:
 
 Installierte Dateien:
 @file{ly/predefined-guitar-fretboards.ly},
-@file{ly/predefined-guitar-ninth-fretboards.ly}.
+@file{ly/predefined-guitar-ninth-fretboards.ly},
+@file{ly/predefined-ukulele-fretboards.ly}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -1314,7 +1324,8 @@ werden.
 
 @lilypond[quote,ragged-right,verbatim]
 
-\storePredefinedDiagram #default-fret-table <c e g c' e'>
+\storePredefinedDiagram #default-fret-table
+                        <c e g c' e'>
                         #guitar-tuning
                         #"x;3-1-(;5-2;5-3;5-4;3-1-1-);"
 <<

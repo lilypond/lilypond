@@ -1,0 +1,19 @@
+%% Translation of GIT committish:  a463d80d4be008ce05b12de86fc21f2b7c1c120f
+
+  texidocde = "
+Alternative Bunddiagrammtabellen können erstellt werden.  Sie können benutzt
+werden, um alternative Bunddiagramme für einen bestimmten Akkord zu haben.
+
+Damit eine alternative Bunddiagrammentabelle benutzt werden kann, muss die
+Tabelle zuerst erstellt werden.  Dann werden die Bunddiagramme zur Tabelle
+hinzugefügt.
+
+Die erstellte Bunddiagrammtabelle kann auch leer sein, oder sie kann aus
+einer existierenden Tabelle kopiert werden.
+
+Die Tabelle, die eingesetzt wird, um vordefinierte Bunddiagramme anzuzeigen,
+wird mit der Eigenschaft @code{\\predefinedDiagramTable} ausgewählt.
+"
+
+  doctitlede = "Alternative Bunddiagrammtabellen"
+

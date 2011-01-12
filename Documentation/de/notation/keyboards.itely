@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 70aaf0159410169678942abd39eb13c876521437
+    Translation of GIT committish: a463d80d4be008ce05b12de86fc21f2b7c1c120f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -58,6 +58,10 @@ für die meisten Instrumente mit mehreren Systemen benötigt werden.
 @cindex Notensystem, Klavier
 @cindex Notensystem, Tasteninstrumente
 @cindex Tasteninstrumente, Notensystem
+@cindex Klaviermusik, zentrierte Dynamik
+@cindex zentrierte Dynamik für Klaviermusik
+@cindex Tasteninstrumente, zentrierte Dynamik
+@cindex Dynamik, zentriert für Tasteninstrumente
 
 @funindex PianoStaff
 
@@ -85,6 +89,10 @@ beschrieben in
 @item Noten für Tasteninstrumente kann auch parallel, Takt für
 Takt notiert werden, wie gezeigt in
 @ref{Musik parallel notieren}.
+
+@item Dynamikbezeichnung kann in einem @code{Dynamics}-Kontext notiert
+werden, der zwischen zwei @code{Staff}-Kontexten steht und dann
+horizontal zwischen diesen beiden zentriert wird; siehe @ref{Dynamik}.
 
 @item Fingersatz wird erklärt in
 @ref{Fingersatzanweisungen}.
@@ -147,22 +155,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{PianoStaff}.
-
-@knownissues
-
-@cindex Tasteninstrumente, zentrierte Dynamik
-@cindex Dynamik, zentriert für Tasteninstrumente
-@cindex Klaviermusik, Dynamik zentrierten
-@cindex zentrierte Musik für Tasteninstrumente
-@funindex staff-padding
-
-Dynamikzeichen werden nicht automatische zwischen den Systemen
-zentriert, aber es gibt hierzu Lösungen.  Eine Möglichkeit ist
-die Vorlage @qq{Klavier mit zentrierten Lautstärkebezeichnungen}
-im Abschnitt @rlearning{Klaviervorlagen}; eine andere Möglichkeit
-ist es, die @code{staff-padding}-Eigenschaft von
-Lautstärkebezeichnungen zu erhöhen, wie gezeigt in
-@rlearning{Verschieben von Objekten}.
 
 
 @node Notensysteme manuell verändern
@@ -537,6 +529,9 @@ d\sustainOff\sustainOn g, c2
 Die Platzierung der Befehle entspricht der Bewegung der Pedale
 während des Spielens.  Um das Pedal bis zur letzten Taktlinie zu
 halten, muss der letzte Pedal-hoch-Befehl weggelassen werden.
+
+Pedalbezeichnungen können innerhalb eines @code{Dynamics}-Kontextes
+notiert werden, sodass sie an einer horizontalen Linie ausgerichtet werden.
 
 @seealso
 Notationsreferenz:
