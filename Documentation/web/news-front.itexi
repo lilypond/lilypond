@@ -8,6 +8,22 @@
 
 @c used for news about the upcoming release; see CG 10.2
 
+@newsItem
+@subsubheading Release candiate 1 of 2.14 - LilyPond 2.13.46 released!  @emph{Jan 12, 2010}
+
+LilyPond 2.13.46 is out; this is the first release candidate of
+the upcoming 2.14 stable release.  All users are invited to
+experiment with this version.  New features since 2.12.3 are
+listed in the @qq{Changes} manual on the website section about
+@ref{Development}.
+
+There are no known Critical issues with this release.  If no
+Critical bugs are found, then the official 2.14.0 release will be
+on 26 Jan 2011.  If you discover any problems, please send us
+@ref{Bug reports}.
+
+@newsEnd
+
 
 @newsItem
 @subsubheading LilyPond 2.13.45 released!  @emph{Jan 3, 2010}
@@ -16,55 +32,6 @@ We are happy to announce the release of LilyPond 2.13.45.  This
 release contains the usual number of bugfixes.  However, a number
 of critical issues still remain, so this release is intended for
 developers only.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading Beta test three of 2.14 -- LilyPond 2.13.44 released! @emph{Dec 25, 2010}
-
-LilyPond 2.13.44 is out; this is the third beta test of the
-upcoming 2.14 stable release.  Users are invited to experiment
-with this version.  New features since 2.12.3 are listed in the
-@qq{Changes} manual on the website section about
-@ref{Development}.
-
-There is still one Critical problem with this release: in one
-case, the vertical spacing is much too compressed.  If you decide
-to test this version, do not be surprised to discover problems;
-just send us polite @ref{Bug reports}.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading Beta test two of 2.14 -- LilyPond 2.13.43 released! @emph{Dec 14, 2010}
-
-LilyPond 2.13.43 is out; this is the second beta test of the
-upcoming 2.14 stable release.  Users are invited to experiment
-with this version.  New features since 2.12.3 are listed in the
-@qq{Changes} manual on the website section about
-@ref{Development}.
-
-There is still one Critical problem with this release: in one
-case, the vertical spacing is much too compressed.  If you decide
-to test this version, do not be surprised to discover problems;
-just send us polite @ref{Bug reports}.
-
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond 2.13.42 released!  @emph{Dec 8, 2010}
-
-We are happy to announce the release of LilyPond 2.13.42.  This
-release contains the usual number of bugfixes.  However, a number
-of critical issues still remain, so this release is intended for
-developers only.
-
-Please note that this is @strong{not} the second beta test.  Due
-to a number of untested changes to our build process, we cannot be
-at all confident about the quality of this release.
 
 @newsEnd
 
