@@ -26,6 +26,8 @@ deux canaux MIDI différents, chacun étant affecté de son propre
 
 
 
+
+
 %% Translation of GIT committish: a874fda3641c9e02f61be5c41b215b8304b8ed00
   texidoces = "
 Al producir una salida MIDI, el comportamiento predeterminado es
