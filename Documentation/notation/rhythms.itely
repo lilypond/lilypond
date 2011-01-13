@@ -570,7 +570,7 @@ Internals Reference:
 Switching staves when a tie is active will not produce a slanted
 tie.
 
-Changing clefs or octavations during a tie is not really
+Changing clefs or ottavations during a tie is not really
 well-defined.  In these cases, a slur may be preferable.
 
 
@@ -2321,9 +2321,9 @@ feathered beam must be indicated manually using @code{[} and
 direction to the @code{Beam} property @code{grow-direction}.
 
 If the placement of the notes and the sound in the MIDI output is to
-reflect the ritardando or accelerando indicated by the feathered beam
-the notes must be grouped as a music expression delimited by braces
-and preceded by a @code{featherDurations} command which specifies
+reflect the @emph{ritardando} or @emph{accelerando} indicated by the
+feathered beam the notes must be grouped as a music expression delimited
+by braces and preceded by a @code{featherDurations} command which specifies
 the ratio between the durations of the first and last notes in the
 group.
 

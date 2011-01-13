@@ -1058,6 +1058,9 @@ Notation Reference:
 Application Usage:
 @@rprogram@{blah@}.
 
+Essay on automated music engraving:
+@@ressay@{yadda@}.
+
 Extending LilyPond:
 @@rextend@{frob@}.
 

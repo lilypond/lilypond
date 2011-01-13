@@ -642,7 +642,7 @@ voice, a note or chord in that voice is shifted only if its stem
 would otherwise collide with a stem from another voice, and only
 if the colliding stems point in the same direction.  The
 @code{\shiftOff} command prevents this type of shifting from
-occuring.
+occurring.
 
 By default, the outer voices (normally voices one and two) have
 @code{\shiftOff} specified, while the inner voices (three and

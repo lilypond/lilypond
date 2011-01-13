@@ -153,7 +153,7 @@ Internals Reference:
 Music for plucked string instruments is frequently notated using a
 finger/touch notation or tablature.  In contrast to traditional
 notation pitches are not denoted with note heads, but by numbers (or
-letterlike symbols in historical intavolatura).  The numbers
+letter-like symbols in historical intavolatura).  The numbers
 indicate on which string and fret a note must be played.  The numbers
 are printed on top of each other if they are to be played
 simultaneously.
@@ -440,7 +440,7 @@ Guitar special effects are limited to harmonics and slides.
 
 @funindex StringTunings
 
-LilyPond tabulature automatically calculates the fret for
+LilyPond tablature automatically calculates the fret for
 a note based on the string to which the note is assigned.
 In order to do this, the tuning of the strings must be
 specified.  The tuning of the strings is given in the

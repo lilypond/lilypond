@@ -2651,7 +2651,7 @@ to manually insert @code{\break}s and adjust the placing of the
 dialogue to avoid running into the right margin.  The final word of
 the last measure on a line should also be separated out, as above.
 
-Here is an example illustating how this might be done.
+Here is an example illustrating how this might be done.
 
 @c This should be a snippet, but it can't be as it needs to be
 @c manually adjusted to suit the imposed line length.  -td
