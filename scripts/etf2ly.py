@@ -1131,8 +1131,7 @@ class Etf_file:
 
         
         while c and c.number <> endno:
-            thread.append (c)
-            c = c.next
+            thread.append (c) c = c.next
 
         if c: 
             thread.append (c)
@@ -1186,7 +1185,7 @@ def warranty ():
 
 %s
 %s
-''' % ( _ ('Copyright (c) %s by') % '2001--2010',
+''' % ( _ ('Copyright (c) %s by') % '2001--2011',
         '\n  '.join (authors),
         _ ('Distributed under terms of the GNU General Public License.'),
         _ ('It comes with NO WARRANTY.')))
