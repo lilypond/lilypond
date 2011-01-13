@@ -9,7 +9,7 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading Release candiate 1 of 2.14 - LilyPond 2.13.46 released!  @emph{Jan 12, 2010}
+@subsubheading Release candiate 1 of 2.14 - LilyPond 2.13.46 released!  @emph{Jan 12, 2011}
 
 LilyPond 2.13.46 is out; this is the first release candidate of
 the upcoming 2.14 stable release.  All users are invited to
@@ -26,7 +26,7 @@ on 26 Jan 2011.  If you discover any problems, please send us
 
 
 @newsItem
-@subsubheading LilyPond 2.13.45 released!  @emph{Jan 3, 2010}
+@subsubheading LilyPond 2.13.45 released!  @emph{Jan 3, 2011}
 
 We are happy to announce the release of LilyPond 2.13.45.  This
 release contains the usual number of bugfixes.  However, a number
