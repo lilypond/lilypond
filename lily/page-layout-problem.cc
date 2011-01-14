@@ -658,6 +658,19 @@ Page_layout_problem::read_spacing_spec (SCM spec, Real* dest, SCM sym)
 Real
 Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after, int spaceable_index, bool pure, int start, int end)
 {
+  Spanner *after_sp = dynamic_cast<Spanner*> (after);
+  SCM cache_symbol = (is_spaceable (before) && is_spaceable (after))
+    ? ly_symbol2scm ("spaceable-fixed-spacing")
+    : ly_symbol2scm ("loose-fixed-spacing");
+  if (pure)
+    {
+      // The result of this function doesn't depend on "end," so we can reduce the
+      // size of the cache by ignoring it.
+      SCM cached = after_sp->get_cached_pure_property (cache_symbol, start, 0);
+      if (scm_is_number (cached))
+	return robust_scm2double (cached, 0.0);
+    }
+
   SCM spec = Page_layout_problem::get_spacing_spec (before, after, pure, start, end);
   Real ret = -infinity_f;
   Real stretchability = 0;
@@ -681,6 +694,11 @@ Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after, int spaceable
 	    ret = max (ret, scm_to_double (forced));
 	}
     }
+
+  // Cache the result.  As above, we ignore "end."
+  if (pure)
+    after_sp->cache_pure_property (cache_symbol, start, 0, scm_from_double (ret));
+    
   return ret;
 }
 
