@@ -214,6 +214,34 @@ clef =
    (_i "Set the current clef to @var{type}.")
    (make-clef-set type))
 
+
+compoundMeter =
+#(define-music-function (parser location args) (pair?)
+  (_i "Create compound time signatures. The argument is a Scheme list of 
+lists. Each list describes one fraction, with the last entry being the 
+denominator, while the first entries describe the summands in the 
+enumerator. If the time signature consists of just one fraction, 
+the list can be given directly, i.e. not as a list containing a single list.
+For example, a time signature of (3+1)/8 + 2/4 would be created as 
+@code{\\compoundMeter #'((3 1 8) (2 4))}, and a time signature of (3+2)/8 
+as @code{\\compoundMeter #'((3 2 8))} or shorter 
+@code{\\compoundMeter #'(3 2 8)}.")
+  (let* ((mlen (calculate-compound-measure-length args))
+         (beat (calculate-compound-base-beat args))
+         (beatGrouping (calculate-compound-beat-grouping args))
+         (timesig (cons (ly:moment-main-numerator mlen)
+                        (ly:moment-main-denominator mlen))))
+  #{
+    \once \override Staff.TimeSignature #'stencil = #(lambda (grob)
+		(grob-interpret-markup grob (format-compound-time $args)))
+    \set Timing.timeSignatureFraction = $timesig
+    \set Timing.baseMoment = $beat
+    \set Timing.beatStructure = $beatGrouping
+    \set Timing.beamExceptions = #'()
+    \set Timing.measureLength = $mlen
+  #} ))
+
+
 cueClef =
 #(define-music-function (parser location type) (string?)
   (_i "Set the current cue clef to @var{type}.")
