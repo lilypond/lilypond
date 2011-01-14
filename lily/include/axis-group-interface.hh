@@ -48,9 +48,10 @@ struct Axis_group_interface
 					 Grob *common, Axis);
   static Interval relative_pure_height (Grob *me, int start, int end);
   static Interval combine_pure_heights (Grob *me, SCM, int, int);
-  static Interval cached_pure_height (Grob *me, int, int);
+  static Interval sum_partial_pure_heights (Grob *me, int, int);
   static Interval begin_of_line_pure_height (Grob *me, int);
   static Interval rest_of_line_pure_height (Grob *me, int, int);
+  static Interval part_of_line_pure_height (Grob *me, bool begin, int, int);
 
   static Skyline_pair skyline_spacing (Grob *me, vector<Grob*> elements);
   static void add_element (Grob *me, Grob *);
